@@ -1,0 +1,596 @@
+{
+  "account": "买股票的老木匠",
+  "task_date": "20260410",
+  "start_time": "2026-04-10 16:13:29",
+  "end_time": "2026-04-10 17:43:13",
+  "scan_interval_minutes": 60,
+  "chrome_profile": "./scripts/.xueqiu-chrome-profile",
+  "scan_round": 3,
+  "success_count": 36,
+  "failure_count": 0,
+  "log_file": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/task.log",
+  "result_dir": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠",
+  "state_file": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/state.json",
+  "processed_items": {
+    "383357056": {
+      "source_id": "383357056",
+      "title": "创业板 创了新高，看来我预计的风格转换依然没有发生，反思中。",
+      "published_at": "2026-04-10 14:04:00",
+      "url": "https://xueqiu.com/3058599833/383357056",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/140400_创业板_创了新高_看来我预计的风格转换依然没有发生_反思中_38335705.txt",
+      "saved_at": "2026-04-10 16:14:04"
+    },
+    "383348796": {
+      "source_id": "383348796",
+      "title": "回复@小齐爱小叶: 我不太明白，从3月23日开始， 比亚迪 跑赢了吗，或者没什么差别吗？ 为什么会结论不同？//@小齐爱...",
+      "published_at": "2026-04-10 13:30:00",
+      "url": "https://xueqiu.com/3058599833/383348796",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/133000_回复_小齐爱小叶_我不太明白_从3月23日开始_比亚迪_跑赢了吗_或者没什么差别吗_为什么会结论_38334879.txt",
+      "saved_at": "2026-04-10 16:14:15"
+    },
+    "383337460": {
+      "source_id": "383337460",
+      "title": "去年我曾经发过一个帖子，是比较 比亚迪 和 福田汽车 的。大意是说比亚迪比福田汽车优秀得多，但我仍然会买福田汽车的股票。...",
+      "published_at": "2026-04-10 12:19:00",
+      "url": "https://xueqiu.com/3058599833/383337460",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/121900_去年我曾经发过一个帖子_是比较_比亚迪_和_福田汽车_的_大意是说比亚迪比福田汽车优秀得多_但我_38333746.txt",
+      "saved_at": "2026-04-10 16:14:28"
+    },
+    "383386798": {
+      "source_id": "383386798",
+      "title": "回复@小吴豆豆: 能做到的就不普通，你可以问问有多少人能做到？//@小吴豆豆:回复@买股票的老木匠:普通散户没有挣钱模式太绝对，放低目标拉长时间拿个宽基稳稳的幸",
+      "published_at": "2026-04-10 16:27:59",
+      "url": "https://xueqiu.com/3058599833/383386798",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/162759_回复_小吴豆豆_能做到的就不普通_你可以问问有多少人能做到_小吴豆豆_回复_买股票的老木匠_普通_38338679.txt",
+      "saved_at": "2026-04-10 16:47:08"
+    },
+    "383386703": {
+      "source_id": "383386703",
+      "title": "回复@迷失小股民: 那你为什么没买呢？像你说的都能赚钱，你难道不想赚钱吗？//@迷失小股民:回复@买股票的老木匠:没买过",
+      "published_at": "2026-04-10 16:27:14",
+      "url": "https://xueqiu.com/3058599833/383386703",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/162714_回复_迷失小股民_那你为什么没买呢_像你说的都能赚钱_你难道不想赚钱吗_迷失小股民_回复_买股票_38338670.txt",
+      "saved_at": "2026-04-10 16:47:08"
+    },
+    "383386478": {
+      "source_id": "383386478",
+      "title": "回复@芒格转世: 我不讲基础知识，你只是需要补课而已。//@芒格转世:回复@买股票的老木匠:a股全体上市公司的总利润这么多年增加了多少？这怎么能说没有内生增长？",
+      "published_at": "2026-04-10 16:25:43",
+      "url": "https://xueqiu.com/3058599833/383386478",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/162543_回复_芒格转世_我不讲基础知识_你只是需要补课而已_芒格转世_回复_买股票的老木匠_a股全体上市_38338647.txt",
+      "saved_at": "2026-04-10 16:47:08"
+    },
+    "383386364": {
+      "source_id": "383386364",
+      "title": "回复@迷失小股民: 我只问一个问题，那你在茅台上赚钱了吗？//@迷失小股民:回复@买股票的老木匠:老哥价值投资也是零和博弈？茅台涨到现在大部分都赚钱了吧",
+      "published_at": "2026-04-10 16:25:01",
+      "url": "https://xueqiu.com/3058599833/383386364",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/162501_回复_迷失小股民_我只问一个问题_那你在茅台上赚钱了吗_迷失小股民_回复_买股票的老木匠_老哥价_38338636.txt",
+      "saved_at": "2026-04-10 16:47:08"
+    },
+    "383386002": {
+      "source_id": "383386002",
+      "title": "以前有人跟我抬杠，说直接给所有的股东发钱，所有的散户就都能获利。我当时是怎么说来着？",
+      "published_at": "2026-04-10 16:22:28",
+      "url": "https://xueqiu.com/3058599833/383386002",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/162228_以前有人跟我抬杠_说直接给所有的股东发钱_所有的散户就都能获利_我当时是怎么说来着_38338600.txt",
+      "saved_at": "2026-04-10 16:47:08"
+    },
+    "383384682": {
+      "source_id": "383384682",
+      "title": "经常有人问我，普通散户如何在市场里面赚钱。我的回答很扎心，但是它就是事实。这个市场里面没有普通散户赚钱的模式，因为普通散户永远都是赔钱的。我以前劝大家不要去看刘",
+      "published_at": "2026-04-10 16:13:49",
+      "url": "https://xueqiu.com/3058599833/383384682",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/161349_经常有人问我_普通散户如何在市场里面赚钱_我的回答很扎心_但是它就是事实_这个市场里面没有普通散_38338468.txt",
+      "saved_at": "2026-04-10 16:47:08"
+    },
+    "383383247": {
+      "source_id": "383383247",
+      "title": "回复@有故事的牛魔王: 你如果甘愿当一个普通小散，我给你个建议，立即离开股市，注销所有的股票账户。//@有故事的牛魔王:[该内容已被作者删除]",
+      "published_at": "2026-04-10 16:04:51",
+      "url": "https://xueqiu.com/3058599833/383383247",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/160451_回复_有故事的牛魔王_你如果甘愿当一个普通小散_我给你个建议_立即离开股市_注销所有的股票账户__38338324.txt",
+      "saved_at": "2026-04-10 16:47:08"
+    },
+    "383356542": {
+      "source_id": "383356542",
+      "title": "回复@简单的喜欢投资: 什么是光模块？我真不知道。//@简单的喜欢投资:回复@买股票的老木匠:木匠老师，对于市场的热点，比如光模块之类的，你会不会动心？",
+      "published_at": "2026-04-10 14:02:25",
+      "url": "https://xueqiu.com/3058599833/383356542",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/140225_回复_简单的喜欢投资_什么是光模块_我真不知道_简单的喜欢投资_回复_买股票的老木匠_木匠老师__38335654.txt",
+      "saved_at": "2026-04-10 16:47:09"
+    },
+    "383353223": {
+      "source_id": "383353223",
+      "title": "回复@要有仁义礼智信: 科学技术至上。参考芒格的钉子理论。//@要有仁义礼智信:回复@买股票的老木匠:老师我想问一下，理工科的思维弱点在哪啊",
+      "published_at": "2026-04-10 13:48:47",
+      "url": "https://xueqiu.com/3058599833/383353223",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/134847_回复_要有仁义礼智信_科学技术至上_参考芒格的钉子理论_要有仁义礼智信_回复_买股票的老木匠_老_38335322.txt",
+      "saved_at": "2026-04-10 16:47:09"
+    },
+    "383352977": {
+      "source_id": "383352977",
+      "title": "回复@Madrawft: 你谈恋爱是为了学习不同的专业理论？那效果怎么样？你得找不同学院的女孩吧？//@Madrawft:回复@买股票的老木匠:我本科理科，研究",
+      "published_at": "2026-04-10 13:47:47",
+      "url": "https://xueqiu.com/3058599833/383352977",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/134747_回复_Madrawft_你谈恋爱是为了学习不同的专业理论_那效果怎么样_你得找不同学院的女孩吧__38335297.txt",
+      "saved_at": "2026-04-10 16:47:09"
+    },
+    "383351624": {
+      "source_id": "383351624",
+      "title": "回复@王户林: 你的思维依然没有脱离理工科学生的思维模式，我原来也是理科学生，深深知道这种改变有多难。//@王户林:回复@爱好的致富火焰:因为科学技术是国有科研",
+      "published_at": "2026-04-10 13:41:56",
+      "url": "https://xueqiu.com/3058599833/383351624",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/134156_回复_王户林_你的思维依然没有脱离理工科学生的思维模式_我原来也是理科学生_深深知道这种改变有多_38335162.txt",
+      "saved_at": "2026-04-10 16:47:09"
+    },
+    "383349781": {
+      "source_id": "383349781",
+      "title": "回复@小齐爱小叶: 啊明白了，这么比的。那一定能找到一些时间段。你说得对。//@小齐爱小叶:回复@买股票的老木匠:去年4月30日到今天，福田大幅跑赢比亚迪。但是",
+      "published_at": "2026-04-10 13:34:08",
+      "url": "https://xueqiu.com/3058599833/383349781",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/133408_回复_小齐爱小叶_啊明白了_这么比的_那一定能找到一些时间段_你说得对_小齐爱小叶_回复_买股票_38334978.txt",
+      "saved_at": "2026-04-10 16:47:09"
+    },
+    "383347139": {
+      "source_id": "383347139",
+      "title": "回复@JOKER26: 买入困境反转企业，真不是投机。//@JOKER26:回复@买股票的老木匠:我认真看了你的帖子。但也从去年一直满仓比亚迪拿到现在，因为我还",
+      "published_at": "2026-04-10 13:22:00",
+      "url": "https://xueqiu.com/3058599833/383347139",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/132200_回复_JOKER26_买入困境反转企业_真不是投机_JOKER26_回复_买股票的老木匠_我认真_38334713.txt",
+      "saved_at": "2026-04-10 16:47:09"
+    },
+    "383346060": {
+      "source_id": "383346060",
+      "title": "回复@你说的都对呗: 比亚迪的技术储备一定很好，我相信它会成为一个伟大的公司。当然，和别人比怎么样，这个东西就没有什么科学标准了。//@你说的都对呗:回复@买股",
+      "published_at": "2026-04-10 13:17:05",
+      "url": "https://xueqiu.com/3058599833/383346060",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/131705_回复_你说的都对呗_比亚迪的技术储备一定很好_我相信它会成为一个伟大的公司_当然_和别人比怎么样_38334606.txt",
+      "saved_at": "2026-04-10 16:47:09"
+    },
+    "383345445": {
+      "source_id": "383345445",
+      "title": "回复@王户林: 大部分去年年初坚定看好比亚迪的人都是名校的工科生，换句话说，都是内行。他们把别人所有的不同意见都总结为不懂，起码没有他们懂。所以你并不奇怪，但你",
+      "published_at": "2026-04-10 13:14:15",
+      "url": "https://xueqiu.com/3058599833/383345445",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/131415_回复_王户林_大部分去年年初坚定看好比亚迪的人都是名校的工科生_换句话说_都是内行_他们把别人所_38334544.txt",
+      "saved_at": "2026-04-10 16:47:09"
+    },
+    "383344616": {
+      "source_id": "383344616",
+      "title": "回复@博览的盈利风云侠: 我认为任何一个伟大的公司，在它的股价大幅上涨之前，普通的个人投资者都是不知道的。//@博览的盈利风云侠:回复@买股票的老木匠:已知的伟",
+      "published_at": "2026-04-10 13:10:24",
+      "url": "https://xueqiu.com/3058599833/383344616",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/131024_回复_博览的盈利风云侠_我认为任何一个伟大的公司_在它的股价大幅上涨之前_普通的个人投资者都是不_38334461.txt",
+      "saved_at": "2026-04-10 16:47:09"
+    },
+    "383342979": {
+      "source_id": "383342979",
+      "title": "就是这个。去年 4 月 30 日，福田汽车的股价是 2.62 元，比亚迪的股价，是 116 元。",
+      "published_at": "2026-04-10 13:01:37",
+      "url": "https://xueqiu.com/3058599833/383342979",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/130137_就是这个_去年_4_月_30_日_福田汽车的股价是_2_62_元_比亚迪的股价_是_116_元_38334297.txt",
+      "saved_at": "2026-04-10 16:47:09"
+    },
+    "383389992": {
+      "source_id": "383389992",
+      "title": "证监会：增设创业板第四套上市标准\n这并不是一个新消息，但是你知道这是要干什么吗？我记得还写过帖子，专门谈过这些东西。",
+      "published_at": "2026-04-10 16:47:39",
+      "url": "https://xueqiu.com/3058599833/383389992",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/164739_证监会_增设创业板第四套上市标准_这并不是一个新消息_但是你知道这是要干什么吗_我记得还写过帖子_38338999.txt",
+      "saved_at": "2026-04-10 17:43:12"
+    },
+    "383326230": {
+      "source_id": "383326230",
+      "title": "回复@湖北人堆雪人: 这可不赖我。//@湖北人堆雪人:回复@买股票的老木匠:真有意思，某锂矿和卡车又双双炸板",
+      "published_at": "2026-04-10 11:16:42",
+      "url": "https://xueqiu.com/3058599833/383326230",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/111642_回复_湖北人堆雪人_这可不赖我_湖北人堆雪人_回复_买股票的老木匠_真有意思_某锂矿和卡车又双双_38332623.txt",
+      "saved_at": "2026-04-10 17:43:13"
+    },
+    "383324687": {
+      "source_id": "383324687",
+      "title": "回复@畅虎加油121: 我是老头座。//@畅虎加油121:回复@买股票的老木匠:大哥是处女座的吧 瞎猜无他意",
+      "published_at": "2026-04-10 11:11:03",
+      "url": "https://xueqiu.com/3058599833/383324687",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/111103_回复_畅虎加油121_我是老头座_畅虎加油121_回复_买股票的老木匠_大哥是处女座的吧_瞎猜无_38332468.txt",
+      "saved_at": "2026-04-10 17:43:13"
+    },
+    "383315869": {
+      "source_id": "383315869",
+      "title": "回复@扬帆起航2026: 对，解放前说的。//@扬帆起航2026:回复@买股票的老木匠:貌似说了挺久了",
+      "published_at": "2026-04-10 10:41:23",
+      "url": "https://xueqiu.com/3058599833/383315869",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/104123_回复_扬帆起航2026_对_解放前说的_扬帆起航2026_回复_买股票的老木匠_貌似说了挺久了_38331586.txt",
+      "saved_at": "2026-04-10 17:43:13"
+    },
+    "383315253": {
+      "source_id": "383315253",
+      "title": "回复@鲨鱼辣椒爱上我: 我就一直看你很聪明。//@鲨鱼辣椒爱上我:回复@买股票的老木匠:一直看涨总有涨的时候，一直看跌总有跌的时候",
+      "published_at": "2026-04-10 10:39:39",
+      "url": "https://xueqiu.com/3058599833/383315253",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/103939_回复_鲨鱼辣椒爱上我_我就一直看你很聪明_鲨鱼辣椒爱上我_回复_买股票的老木匠_一直看涨总有涨的_38331525.txt",
+      "saved_at": "2026-04-10 17:43:13"
+    },
+    "383314103": {
+      "source_id": "383314103",
+      "title": "回复@我太郁闷: 北京的环境卫生状况不好？车上都是💩？//@我太郁闷:回复@买股票的老木匠:$北京汽车(01958)$ 北京汽车都是屎，还爆炒福田",
+      "published_at": "2026-04-10 10:35:58",
+      "url": "https://xueqiu.com/3058599833/383314103",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/103558_回复_我太郁闷_北京的环境卫生状况不好_车上都是_我太郁闷_回复_买股票的老木匠_北京汽车_01_38331410.txt",
+      "saved_at": "2026-04-10 17:43:13"
+    },
+    "383311683": {
+      "source_id": "383311683",
+      "title": "回复@价差挖掘者: 因为我不投资任何增长逻辑。//@价差挖掘者:回复@买股票的老木匠:商用车可能复制乘用车电动化趋势为啥叔不继续增长逻辑呢？",
+      "published_at": "2026-04-10 10:28:41",
+      "url": "https://xueqiu.com/3058599833/383311683",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/102841_回复_价差挖掘者_因为我不投资任何增长逻辑_价差挖掘者_回复_买股票的老木匠_商用车可能复制乘用_38331168.txt",
+      "saved_at": "2026-04-10 17:43:13"
+    },
+    "383311332": {
+      "source_id": "383311332",
+      "title": "这个帖子算是给大家一个交代。因为以前可以说个股时，我是明确表示过看好这只股票的，这个就到今天为止了。",
+      "published_at": "2026-04-10 10:27:34",
+      "url": "https://xueqiu.com/3058599833/383311332",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/102734_这个帖子算是给大家一个交代_因为以前可以说个股时_我是明确表示过看好这只股票的_这个就到今天为止_38331133.txt",
+      "saved_at": "2026-04-10 17:43:13"
+    },
+    "383308712": {
+      "source_id": "383308712",
+      "title": "回复@库拉纳哒: 这两个方向当时都挨骂，不过也没啥。//@库拉纳哒:回复@买股票的老木匠:现在看，当时看空比亚迪，看多福田，真的很有实力",
+      "published_at": "2026-04-10 10:19:58",
+      "url": "https://xueqiu.com/3058599833/383308712",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/101958_回复_库拉纳哒_这两个方向当时都挨骂_不过也没啥_库拉纳哒_回复_买股票的老木匠_现在看_当时看_38330871.txt",
+      "saved_at": "2026-04-10 17:43:13"
+    },
+    "383307879": {
+      "source_id": "383307879",
+      "title": "我记得我给大家讲过我买入福田汽车的理由。我估计我要是不讲福田汽车的话，你们可能都没有关注过这个股票。我当时买入它的理由是因为困境反转，并且当时我一共买了三只困境反转的股票，一个是上海电气，一个是振华重工，还有一个就是这个福田汽车。那两个相继",
+      "published_at": "2026-04-10 10:17:36",
+      "url": "https://xueqiu.com/3058599833/383307879",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/101736_我记得我给大家讲过我买入福田汽车的理由_我估计我要是不讲福田汽车的话_你们可能都没有关注过这个股_38330787.txt",
+      "saved_at": "2026-04-10 17:43:13"
+    },
+    "383303178": {
+      "source_id": "383303178",
+      "title": "好了，忙完了。",
+      "published_at": "2026-04-10 10:04:35",
+      "url": "https://xueqiu.com/3058599833/383303178",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/100435_好了_忙完了_38330317.txt",
+      "saved_at": "2026-04-10 17:43:13"
+    },
+    "383299899": {
+      "source_id": "383299899",
+      "title": "又是吃点凉菜就跑了，流下了没有格局的泪水。",
+      "published_at": "2026-04-10 09:55:47",
+      "url": "https://xueqiu.com/3058599833/383299899",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/095547_又是吃点凉菜就跑了_流下了没有格局的泪水_38329989.txt",
+      "saved_at": "2026-04-10 17:43:13"
+    },
+    "383297025": {
+      "source_id": "383297025",
+      "title": "回复@牛奶坦克: 我不拉屎，他们吃啥？//@牛奶坦克:回复@买股票的老木匠:快删除，喷子已经在路上了，别给他们找到借口",
+      "published_at": "2026-04-10 09:48:01",
+      "url": "https://xueqiu.com/3058599833/383297025",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/094801_回复_牛奶坦克_我不拉屎_他们吃啥_牛奶坦克_回复_买股票的老木匠_快删除_喷子已经在路上了_别_38329702.txt",
+      "saved_at": "2026-04-10 17:43:13"
+    },
+    "383296815": {
+      "source_id": "383296815",
+      "title": "回复@是衣依呀: 你没了，你减轻我的痛苦吗？//@是衣依呀:回复@买股票的老木匠:我也没了，木匠叔，你这种吃波段很正常。放平心态",
+      "published_at": "2026-04-10 09:47:25",
+      "url": "https://xueqiu.com/3058599833/383296815",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/094725_回复_是衣依呀_你没了_你减轻我的痛苦吗_是衣依呀_回复_买股票的老木匠_我也没了_木匠叔_你这_38329681.txt",
+      "saved_at": "2026-04-10 17:43:13"
+    },
+    "383295159": {
+      "source_id": "383295159",
+      "title": "$福田汽车(SH600166)$ 就为了把我洗出去？你大爷的。",
+      "published_at": "2026-04-10 09:43:22",
+      "url": "https://xueqiu.com/3058599833/383295159",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/094322_福田汽车_SH600166_就为了把我洗出去_你大爷的_38329515.txt",
+      "saved_at": "2026-04-10 17:43:13"
+    },
+    "383276154": {
+      "source_id": "383276154",
+      "title": "$中国中车(SH601766)$ 大家都知道美国著名的投资人，李录买比亚迪大幅获利的故事。其实伯克希尔哈撒韦公司最终买入比亚迪，最原始的原因，就是因为李路为芒格的私人投资买入了比亚迪。那么大家是否知道李录也买入了中国中车？我猜很多人都不知道",
+      "published_at": "2026-04-10 07:20:06",
+      "url": "https://xueqiu.com/3058599833/383276154",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/072006_中国中车_SH601766_大家都知道美国著名的投资人_李录买比亚迪大幅获利的故事_其实伯克希尔_38327615.txt",
+      "saved_at": "2026-04-10 17:43:13"
+    }
+  },
+  "events": [
+    {
+      "type": "task_started",
+      "time": "2026-04-10 16:13:29",
+      "message": "任务启动"
+    },
+    {
+      "type": "scan_started",
+      "time": "2026-04-10 16:13:29",
+      "round": 1,
+      "message": "开始扫描"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:14:04",
+      "round": 1,
+      "item_key": "383357056",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/140400_创业板_创了新高_看来我预计的风格转换依然没有发生_反思中_38335705.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:14:15",
+      "round": 1,
+      "item_key": "383348796",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/133000_回复_小齐爱小叶_我不太明白_从3月23日开始_比亚迪_跑赢了吗_或者没什么差别吗_为什么会结论_38334879.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:14:28",
+      "round": 1,
+      "item_key": "383337460",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/121900_去年我曾经发过一个帖子_是比较_比亚迪_和_福田汽车_的_大意是说比亚迪比福田汽车优秀得多_但我_38333746.txt"
+    },
+    {
+      "type": "task_finished",
+      "time": "2026-04-10 16:14:37",
+      "message": "任务结束"
+    },
+    {
+      "type": "scan_started",
+      "time": "2026-04-10 16:47:08",
+      "round": 2,
+      "message": "开始扫描"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:08",
+      "round": 2,
+      "item_key": "383386798",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/162759_回复_小吴豆豆_能做到的就不普通_你可以问问有多少人能做到_小吴豆豆_回复_买股票的老木匠_普通_38338679.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:08",
+      "round": 2,
+      "item_key": "383386703",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/162714_回复_迷失小股民_那你为什么没买呢_像你说的都能赚钱_你难道不想赚钱吗_迷失小股民_回复_买股票_38338670.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:08",
+      "round": 2,
+      "item_key": "383386478",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/162543_回复_芒格转世_我不讲基础知识_你只是需要补课而已_芒格转世_回复_买股票的老木匠_a股全体上市_38338647.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:08",
+      "round": 2,
+      "item_key": "383386364",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/162501_回复_迷失小股民_我只问一个问题_那你在茅台上赚钱了吗_迷失小股民_回复_买股票的老木匠_老哥价_38338636.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:08",
+      "round": 2,
+      "item_key": "383386002",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/162228_以前有人跟我抬杠_说直接给所有的股东发钱_所有的散户就都能获利_我当时是怎么说来着_38338600.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:08",
+      "round": 2,
+      "item_key": "383384682",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/161349_经常有人问我_普通散户如何在市场里面赚钱_我的回答很扎心_但是它就是事实_这个市场里面没有普通散_38338468.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:08",
+      "round": 2,
+      "item_key": "383383247",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/160451_回复_有故事的牛魔王_你如果甘愿当一个普通小散_我给你个建议_立即离开股市_注销所有的股票账户__38338324.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:09",
+      "round": 2,
+      "item_key": "383356542",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/140225_回复_简单的喜欢投资_什么是光模块_我真不知道_简单的喜欢投资_回复_买股票的老木匠_木匠老师__38335654.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:09",
+      "round": 2,
+      "item_key": "383353223",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/134847_回复_要有仁义礼智信_科学技术至上_参考芒格的钉子理论_要有仁义礼智信_回复_买股票的老木匠_老_38335322.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:09",
+      "round": 2,
+      "item_key": "383352977",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/134747_回复_Madrawft_你谈恋爱是为了学习不同的专业理论_那效果怎么样_你得找不同学院的女孩吧__38335297.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:09",
+      "round": 2,
+      "item_key": "383351624",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/134156_回复_王户林_你的思维依然没有脱离理工科学生的思维模式_我原来也是理科学生_深深知道这种改变有多_38335162.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:09",
+      "round": 2,
+      "item_key": "383349781",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/133408_回复_小齐爱小叶_啊明白了_这么比的_那一定能找到一些时间段_你说得对_小齐爱小叶_回复_买股票_38334978.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:09",
+      "round": 2,
+      "item_key": "383347139",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/132200_回复_JOKER26_买入困境反转企业_真不是投机_JOKER26_回复_买股票的老木匠_我认真_38334713.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:09",
+      "round": 2,
+      "item_key": "383346060",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/131705_回复_你说的都对呗_比亚迪的技术储备一定很好_我相信它会成为一个伟大的公司_当然_和别人比怎么样_38334606.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:09",
+      "round": 2,
+      "item_key": "383345445",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/131415_回复_王户林_大部分去年年初坚定看好比亚迪的人都是名校的工科生_换句话说_都是内行_他们把别人所_38334544.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:09",
+      "round": 2,
+      "item_key": "383344616",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/131024_回复_博览的盈利风云侠_我认为任何一个伟大的公司_在它的股价大幅上涨之前_普通的个人投资者都是不_38334461.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:09",
+      "round": 2,
+      "item_key": "383342979",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/130137_就是这个_去年_4_月_30_日_福田汽车的股价是_2_62_元_比亚迪的股价_是_116_元_38334297.txt"
+    },
+    {
+      "type": "task_finished",
+      "time": "2026-04-10 16:47:09",
+      "message": "任务结束"
+    },
+    {
+      "type": "scan_started",
+      "time": "2026-04-10 17:43:12",
+      "round": 3,
+      "message": "登录后补抓"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 17:43:12",
+      "round": 3,
+      "item_key": "383389992",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/164739_证监会_增设创业板第四套上市标准_这并不是一个新消息_但是你知道这是要干什么吗_我记得还写过帖子_38338999.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 17:43:13",
+      "round": 3,
+      "item_key": "383326230",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/111642_回复_湖北人堆雪人_这可不赖我_湖北人堆雪人_回复_买股票的老木匠_真有意思_某锂矿和卡车又双双_38332623.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 17:43:13",
+      "round": 3,
+      "item_key": "383324687",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/111103_回复_畅虎加油121_我是老头座_畅虎加油121_回复_买股票的老木匠_大哥是处女座的吧_瞎猜无_38332468.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 17:43:13",
+      "round": 3,
+      "item_key": "383315869",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/104123_回复_扬帆起航2026_对_解放前说的_扬帆起航2026_回复_买股票的老木匠_貌似说了挺久了_38331586.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 17:43:13",
+      "round": 3,
+      "item_key": "383315253",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/103939_回复_鲨鱼辣椒爱上我_我就一直看你很聪明_鲨鱼辣椒爱上我_回复_买股票的老木匠_一直看涨总有涨的_38331525.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 17:43:13",
+      "round": 3,
+      "item_key": "383314103",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/103558_回复_我太郁闷_北京的环境卫生状况不好_车上都是_我太郁闷_回复_买股票的老木匠_北京汽车_01_38331410.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 17:43:13",
+      "round": 3,
+      "item_key": "383311683",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/102841_回复_价差挖掘者_因为我不投资任何增长逻辑_价差挖掘者_回复_买股票的老木匠_商用车可能复制乘用_38331168.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 17:43:13",
+      "round": 3,
+      "item_key": "383311332",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/102734_这个帖子算是给大家一个交代_因为以前可以说个股时_我是明确表示过看好这只股票的_这个就到今天为止_38331133.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 17:43:13",
+      "round": 3,
+      "item_key": "383308712",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/101958_回复_库拉纳哒_这两个方向当时都挨骂_不过也没啥_库拉纳哒_回复_买股票的老木匠_现在看_当时看_38330871.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 17:43:13",
+      "round": 3,
+      "item_key": "383307879",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/101736_我记得我给大家讲过我买入福田汽车的理由_我估计我要是不讲福田汽车的话_你们可能都没有关注过这个股_38330787.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 17:43:13",
+      "round": 3,
+      "item_key": "383303178",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/100435_好了_忙完了_38330317.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 17:43:13",
+      "round": 3,
+      "item_key": "383299899",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/095547_又是吃点凉菜就跑了_流下了没有格局的泪水_38329989.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 17:43:13",
+      "round": 3,
+      "item_key": "383297025",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/094801_回复_牛奶坦克_我不拉屎_他们吃啥_牛奶坦克_回复_买股票的老木匠_快删除_喷子已经在路上了_别_38329702.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 17:43:13",
+      "round": 3,
+      "item_key": "383296815",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/094725_回复_是衣依呀_你没了_你减轻我的痛苦吗_是衣依呀_回复_买股票的老木匠_我也没了_木匠叔_你这_38329681.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 17:43:13",
+      "round": 3,
+      "item_key": "383295159",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/094322_福田汽车_SH600166_就为了把我洗出去_你大爷的_38329515.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 17:43:13",
+      "round": 3,
+      "item_key": "383276154",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/买股票的老木匠/072006_中国中车_SH601766_大家都知道美国著名的投资人_李录买比亚迪大幅获利的故事_其实伯克希尔_38327615.txt"
+    },
+    {
+      "type": "task_finished",
+      "time": "2026-04-10 17:43:13",
+      "message": "任务结束"
+    }
+  ]
+}

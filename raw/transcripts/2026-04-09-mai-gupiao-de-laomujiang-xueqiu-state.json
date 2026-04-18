@@ -1,0 +1,151 @@
+{
+  "account": "买股票的老木匠",
+  "task_date": "20260409",
+  "start_time": "2026-04-09 16:40:00",
+  "end_time": "2026-04-09 17:39:12",
+  "scan_interval_minutes": 60,
+  "chrome_profile": "./scripts/.xueqiu-chrome-profile",
+  "scan_round": 2,
+  "success_count": 16,
+  "failure_count": 0,
+  "log_file": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260409/买股票的老木匠/task.log",
+  "result_dir": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260409/买股票的老木匠",
+  "state_file": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260409/买股票的老木匠/state.json",
+  "processed_items": {
+    "383105353": {
+      "source_id": "383105353",
+      "title": "最近一段时间，我在盘中和大家聊得比较多。我一般是用对话式的，甚至是抬杠式和怼人式的方式，用尽量简短的语言，反复地阐述我自...",
+      "published_at": "2026-04-09 08:34:00",
+      "url": "https://xueqiu.com/3058599833/383105353",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260409/买股票的老木匠/083400_最近一段时间_我在盘中和大家聊得比较多_我一般是用对话式的_甚至是抬杠式和怼人式的方式_用尽量简_38310535.txt",
+      "saved_at": "2026-04-09 17:39:12"
+    },
+    "383199046": {
+      "source_id": "383199046",
+      "title": "我今天跟人争论了一天的长短期操作，下面这些股票今年都没有明显的趋势，那下面这些盈利算不算赚钱？",
+      "published_at": "2026-04-09 16:12:00",
+      "url": "https://xueqiu.com/3058599833/383199046",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260409/买股票的老木匠/161200_我今天跟人争论了一天的长短期操作_下面这些股票今年都没有明显的趋势_那下面这些盈利算不算赚钱_38319904.txt",
+      "saved_at": "2026-04-09 17:39:12"
+    },
+    "383199533": {
+      "source_id": "383199533",
+      "title": "回复@老登老登捷足先登: 这里的东西很多都清空了，都不是我的持仓。//@老登老登捷足先登:回复@买股票的老木匠:叔，赶紧...",
+      "published_at": "2026-04-09 16:15:00",
+      "url": "https://xueqiu.com/3058599833/383199533",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260409/买股票的老木匠/161500_回复_老登老登捷足先登_这里的东西很多都清空了_都不是我的持仓_老登老登捷足先登_回复_买股票的_38319953.txt",
+      "saved_at": "2026-04-09 17:39:12"
+    },
+    "383199693": {
+      "source_id": "383199693",
+      "title": "回复@金桂飘香227: 两天。//@金桂飘香227:回复@买股票的老木匠:最下面那个持有10天都没有吧？",
+      "published_at": "2026-04-09 16:16:00",
+      "url": "https://xueqiu.com/3058599833/383199693",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260409/买股票的老木匠/161600_回复_金桂飘香227_两天_金桂飘香227_回复_买股票的老木匠_最下面那个持有10天都没有吧_38319969.txt",
+      "saved_at": "2026-04-09 17:39:12"
+    },
+    "383199894": {
+      "source_id": "383199894",
+      "title": "回复@幸福如驴肉薄饼: 我说的是实话，但是明天他又可能变成我的持仓了。所以看这些东西来猜我的持仓是没有意义的。//@幸福...",
+      "published_at": "2026-04-09 16:18:00",
+      "url": "https://xueqiu.com/3058599833/383199894",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260409/买股票的老木匠/161800_回复_幸福如驴肉薄饼_我说的是实话_但是明天他又可能变成我的持仓了_所以看这些东西来猜我的持仓是_38319989.txt",
+      "saved_at": "2026-04-09 17:39:12"
+    },
+    "383200266": {
+      "source_id": "383200266",
+      "title": "回复@无招胜有招18: 亏损的还没卖，所以还不能算亏损。我知道，我这么说，就会有人嘲笑我，并且把胡锡进的话再说一遍。我当...",
+      "published_at": "2026-04-09 16:20:00",
+      "url": "https://xueqiu.com/3058599833/383200266",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260409/买股票的老木匠/162000_回复_无招胜有招18_亏损的还没卖_所以还不能算亏损_我知道_我这么说_就会有人嘲笑我_并且把胡_38320026.txt",
+      "saved_at": "2026-04-09 17:39:12"
+    },
+    "383201136": {
+      "source_id": "383201136",
+      "title": "回复@老登老登捷足先登: 你不会认为我只有这几只股票盈利吧？你不会认为我今年盈利排第一的居然是中国核电吧？//@老登老登...",
+      "published_at": "2026-04-09 16:27:00",
+      "url": "https://xueqiu.com/3058599833/383201136",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260409/买股票的老木匠/162700_回复_老登老登捷足先登_你不会认为我只有这几只股票盈利吧_你不会认为我今年盈利排第一的居然是中国_38320113.txt",
+      "saved_at": "2026-04-09 17:39:12"
+    },
+    "383202246": {
+      "source_id": "383202246",
+      "title": "今天有个人暗搓搓的，好像说我晒交割单是为了割韭菜。我今天就是要告诉大家，我买的股票，即便我告诉你，你也不一定能盈利。因为...",
+      "published_at": "2026-04-09 16:34:00",
+      "url": "https://xueqiu.com/3058599833/383202246",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260409/买股票的老木匠/163400_今天有个人暗搓搓的_好像说我晒交割单是为了割韭菜_我今天就是要告诉大家_我买的股票_即便我告诉你_38320224.txt",
+      "saved_at": "2026-04-09 17:39:12"
+    },
+    "383202389": {
+      "source_id": "383202389",
+      "title": "回复@星星之火8336: 低买高卖。//@星星之火8336:回复@买股票的老木匠:牛逼啊，中国核电都没有涨，木匠叔您怎么...",
+      "published_at": "2026-04-09 16:35:00",
+      "url": "https://xueqiu.com/3058599833/383202389",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260409/买股票的老木匠/163500_回复_星星之火8336_低买高卖_星星之火8336_回复_买股票的老木匠_牛逼啊_中国核电都没有_38320238.txt",
+      "saved_at": "2026-04-09 17:39:12"
+    },
+    "383206590": {
+      "source_id": "383206590",
+      "title": "回复@言炎炎: 所以你并不适合关注我",
+      "published_at": "2026-04-09 17:00:00",
+      "url": "https://xueqiu.com/3058599833/383206590",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260409/买股票的老木匠/170000_回复_言炎炎_所以你并不适合关注我_38320659.txt",
+      "saved_at": "2026-04-09 17:39:12"
+    },
+    "383206830": {
+      "source_id": "383206830",
+      "title": "回复@财富自由的诱惑: 投资并不需要资格",
+      "published_at": "2026-04-09 17:02:00",
+      "url": "https://xueqiu.com/3058599833/383206830",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260409/买股票的老木匠/170200_回复_财富自由的诱惑_投资并不需要资格_38320683.txt",
+      "saved_at": "2026-04-09 17:39:12"
+    },
+    "383207402": {
+      "source_id": "383207402",
+      "title": "回复@坚持乐观长经验: 你评价一个人胖瘦",
+      "published_at": "2026-04-09 17:06:00",
+      "url": "https://xueqiu.com/3058599833/383207402",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260409/买股票的老木匠/170600_回复_坚持乐观长经验_你评价一个人胖瘦_38320740.txt",
+      "saved_at": "2026-04-09 17:39:12"
+    },
+    "383207759": {
+      "source_id": "383207759",
+      "title": "回复@亭亭玉立18: 现在市场上低估的多了去了",
+      "published_at": "2026-04-09 17:08:00",
+      "url": "https://xueqiu.com/3058599833/383207759",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260409/买股票的老木匠/170800_回复_亭亭玉立18_现在市场上低估的多了去了_38320775.txt",
+      "saved_at": "2026-04-09 17:39:12"
+    },
+    "383208463": {
+      "source_id": "383208463",
+      "title": "回复@大美damei: 那要不要给你拉黑？//@大美damei:回复@买股票的老木匠:别伤害我",
+      "published_at": "2026-04-09 17:11:00",
+      "url": "https://xueqiu.com/3058599833/383208463",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260409/买股票的老木匠/171100_回复_大美damei_那要不要给你拉黑_大美damei_回复_买股票的老木匠_别伤害我_38320846.txt",
+      "saved_at": "2026-04-09 17:39:12"
+    },
+    "383210068": {
+      "source_id": "383210068",
+      "title": "在我的交易模式下",
+      "published_at": "2026-04-09 17:22:00",
+      "url": "https://xueqiu.com/3058599833/383210068",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260409/买股票的老木匠/172200_在我的交易模式下_38321006.txt",
+      "saved_at": "2026-04-09 17:39:12"
+    },
+    "383210329": {
+      "source_id": "383210329",
+      "title": "回复@-宁然-: 你是说差一点就是 250？//@-宁然-:回复@买股票的老木匠:249",
+      "published_at": "2026-04-09 17:24:00",
+      "url": "https://xueqiu.com/3058599833/383210329",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260409/买股票的老木匠/172400_回复_-宁然-_你是说差一点就是_250_-宁然-_回复_买股票的老木匠_249_38321032.txt",
+      "saved_at": "2026-04-09 17:39:12"
+    }
+  },
+  "events": [
+    {
+      "type": "task_rebuilt",
+      "time": "2026-04-09 17:39:12",
+      "message": "state rebuilt from saved raw txt files"
+    }
+  ]
+}

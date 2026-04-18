@@ -1,0 +1,143 @@
+{
+  "account": "冰冰小美",
+  "task_date": "20260414",
+  "start_time": "2026-04-14 16:05:21",
+  "end_time": "2026-04-14 16:43:44",
+  "scan_interval_minutes": 60,
+  "chrome_profile": "/Users/cjw/.codex/skills/cjw-xueqiu-daily-monitor/scripts/.xueqiu-chrome-profile",
+  "scan_round": 1,
+  "success_count": 13,
+  "failure_count": 0,
+  "log_file": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260414/冰冰小美/task.log",
+  "result_dir": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260414/冰冰小美",
+  "state_file": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260414/冰冰小美/state.json",
+  "processed_items": {
+    "383733726": {
+      "source_id": "383733726",
+      "title": "美国战略与中国竞争",
+      "published_at": "2026-04-14 08:55:00",
+      "url": "https://xueqiu.com/7143769715/383733726",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260414/冰冰小美/085500_美国战略与中国竞争_38373372.txt",
+      "saved_at": "reconstructed"
+    },
+    "383750553": {
+      "source_id": "383750553",
+      "title": "基本与昨日国际市场涨跌一致。以动荡的外部环境，加强场内的一致性。 - 雪球",
+      "published_at": "2026-04-14 10:02:00",
+      "url": "https://xueqiu.com/7143769715/383750553",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260414/冰冰小美/100200_基本与昨日国际市场涨跌一致_以动荡的外部环境_加强场内的一致性_-_雪球_38375055.txt",
+      "saved_at": "reconstructed"
+    },
+    "383758862": {
+      "source_id": "383758862",
+      "title": "存储:海力士，闪迪pcb:名幸电子磷化铟:JX金属光纤:古河，藤仓电子布:日本纺织你看到持续性上涨的大多数在国外可以看待... - 雪球",
+      "published_at": "2026-04-14 10:27:00",
+      "url": "https://xueqiu.com/7143769715/383758862",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260414/冰冰小美/102700_存储_海力士_闪迪pcb_名幸电子磷化铟_JX金属光纤_古河_藤仓电子布_日本纺织你看到持续性上_38375886.txt",
+      "saved_at": "reconstructed"
+    },
+    "383764053": {
+      "source_id": "383764053",
+      "title": "这一轮， 中际旭创 推也得推到万亿市场的既视感。如何在人潮汹涌的AI浪潮做交易，则是短线行为。这也许就是牛市吧，牛市总是... - 雪球",
+      "published_at": "2026-04-14 10:43:00",
+      "url": "https://xueqiu.com/7143769715/383764053",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260414/冰冰小美/104300_这一轮_中际旭创_推也得推到万亿市场的既视感_如何在人潮汹涌的AI浪潮做交易_则是短线行为_这也_38376405.txt",
+      "saved_at": "reconstructed"
+    },
+    "383765459": {
+      "source_id": "383765459",
+      "title": "最近日本稀土进程，有意图绕开中重稀土进行提炼，新材料的研发，短期成本略高于我国，但是这种价格差距再缩小。这种研发突破，可... - 雪球",
+      "published_at": "2026-04-14 10:48:00",
+      "url": "https://xueqiu.com/7143769715/383765459",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260414/冰冰小美/104800_最近日本稀土进程_有意图绕开中重稀土进行提炼_新材料的研发_短期成本略高于我国_但是这种价格差距_38376545.txt",
+      "saved_at": "reconstructed"
+    },
+    "383766964": {
+      "source_id": "383766964",
+      "title": "如果风险在前手握现金，现在风险减弱的节点，机会层出不穷。市场就是如此残酷，剧烈的波动。 - 雪球",
+      "published_at": "2026-04-14 10:53:00",
+      "url": "https://xueqiu.com/7143769715/383766964",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260414/冰冰小美/105300_如果风险在前手握现金_现在风险减弱的节点_机会层出不穷_市场就是如此残酷_剧烈的波动_-_雪球_38376696.txt",
+      "saved_at": "reconstructed"
+    },
+    "383768632": {
+      "source_id": "383768632",
+      "title": "有核心技术的与产品的企业，备受关注。抛光垫，靶材，电子吸盘，电子布，光模组，全是细分领域龙头股价新高与接近新高。以产能规... - 雪球",
+      "published_at": "2026-04-14 10:58:00",
+      "url": "https://xueqiu.com/7143769715/383768632",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260414/冰冰小美/105800_有核心技术的与产品的企业_备受关注_抛光垫_靶材_电子吸盘_电子布_光模组_全是细分领域龙头股价_38376863.txt",
+      "saved_at": "reconstructed"
+    },
+    "383770054": {
+      "source_id": "383770054",
+      "title": "有啥办法改变这种结构性行情？我肯定无能为力。我只是结合国际市场与国内市场的趋同性，看着这种市场行为。正所谓，风口来了猪都... - 雪球",
+      "published_at": "2026-04-14 11:03:00",
+      "url": "https://xueqiu.com/7143769715/383770054",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260414/冰冰小美/110300_有啥办法改变这种结构性行情_我肯定无能为力_我只是结合国际市场与国内市场的趋同性_看着这种市场行_38377005.txt",
+      "saved_at": "reconstructed"
+    },
+    "383781062": {
+      "source_id": "383781062",
+      "title": "A股大多数时候都是博弈为主。能够与国际化趋同走势，有利有弊。不过有机会总比没机会的好。博弈过于激烈，相当于内卷，基本大家... - 雪球",
+      "published_at": "2026-04-14 11:49:00",
+      "url": "https://xueqiu.com/7143769715/383781062",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260414/冰冰小美/114900_A股大多数时候都是博弈为主_能够与国际化趋同走势_有利有弊_不过有机会总比没机会的好_博弈过于激_38378106.txt",
+      "saved_at": "reconstructed"
+    },
+    "383798446": {
+      "source_id": "383798446",
+      "title": "不能说一模一样，只能说一模一样。量化，协同斗技 - 雪球",
+      "published_at": "2026-04-14 13:40:00",
+      "url": "https://xueqiu.com/7143769715/383798446",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260414/冰冰小美/134000_不能说一模一样_只能说一模一样_量化_协同斗技_-_雪球_38379844.txt",
+      "saved_at": "reconstructed"
+    },
+    "383813587": {
+      "source_id": "383813587",
+      "title": "盘面依旧是很清晰的成长思维驱动。主要三条线，一，锂电相关，锂电从库存周期到供需周期的变化。业绩报体现。这一条线，与石油危... - 雪球",
+      "published_at": "2026-04-14 14:49:00",
+      "url": "https://xueqiu.com/7143769715/383813587",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260414/冰冰小美/144900_盘面依旧是很清晰的成长思维驱动_主要三条线_一_锂电相关_锂电从库存周期到供需周期的变化_业绩报_38381358.txt",
+      "saved_at": "reconstructed"
+    },
+    "383816913": {
+      "source_id": "383816913",
+      "title": "3月4日帖子，风险关心的点，加剧，4月8日帖子，风险关心的点，减弱。从4/8日后，持续性发帖，理清楚市场行为变化，国际化... - 雪球",
+      "published_at": "2026-04-14 15:04:00",
+      "url": "https://xueqiu.com/7143769715/383816913",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260414/冰冰小美/150400_3月4日帖子_风险关心的点_加剧_4月8日帖子_风险关心的点_减弱_从4_8日后_持续性发帖_理_38381691.txt",
+      "saved_at": "reconstructed"
+    },
+    "383822966": {
+      "source_id": "383822966",
+      "title": "如果你有疑问，这个帖子留言。我不一定回复。但是可以统计下大家关心的问题，后续可能发帖一并回答。明天开始停更。各位好运。 - 雪球",
+      "published_at": "2026-04-14 15:29:00",
+      "url": "https://xueqiu.com/7143769715/383822966",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260414/冰冰小美/152900_如果你有疑问_这个帖子留言_我不一定回复_但是可以统计下大家关心的问题_后续可能发帖一并回答_明_38382296.txt",
+      "saved_at": "reconstructed"
+    }
+  },
+  "events": [
+    {
+      "type": "task_started",
+      "time": "2026-04-14 16:05:27",
+      "message": "任务启动"
+    },
+    {
+      "type": "scan_started",
+      "time": "2026-04-14 16:39:13",
+      "round": 1,
+      "message": "继续同日重跑"
+    },
+    {
+      "type": "task_finished",
+      "time": "2026-04-14 16:43:14",
+      "message": "任务结束"
+    },
+    {
+      "type": "task_finished",
+      "time": "2026-04-14 16:43:44",
+      "message": "任务结束"
+    }
+  ]
+}

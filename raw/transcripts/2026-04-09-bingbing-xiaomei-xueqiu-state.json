@@ -1,0 +1,79 @@
+{
+  "account": "冰冰小美",
+  "task_date": "20260409",
+  "start_time": "2026-04-09 16:40:00",
+  "end_time": "2026-04-09 17:39:12",
+  "scan_interval_minutes": 60,
+  "chrome_profile": "./scripts/.xueqiu-chrome-profile",
+  "scan_round": 1,
+  "success_count": 7,
+  "failure_count": 0,
+  "log_file": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260409/冰冰小美/task.log",
+  "result_dir": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260409/冰冰小美",
+  "state_file": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260409/冰冰小美/state.json",
+  "processed_items": {
+    "383176705": {
+      "source_id": "383176705",
+      "title": "衡量交易能力的时候",
+      "published_at": "2026-04-09 14:18:00",
+      "url": "https://xueqiu.com/7143769715/383176705",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260409/冰冰小美/141800_衡量交易能力的时候_38317670.txt",
+      "saved_at": "2026-04-09 17:39:12"
+    },
+    "383179816": {
+      "source_id": "383179816",
+      "title": "一声叹息",
+      "published_at": "2026-04-09 14:32:00",
+      "url": "https://xueqiu.com/7143769715/383179816",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260409/冰冰小美/143200_一声叹息_38317981.txt",
+      "saved_at": "2026-04-09 17:39:12"
+    },
+    "383187605": {
+      "source_id": "383187605",
+      "title": "我能看中江波龙",
+      "published_at": "2026-04-09 15:07:00",
+      "url": "https://xueqiu.com/7143769715/383187605",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260409/冰冰小美/150700_我能看中江波龙_38318760.txt",
+      "saved_at": "2026-04-09 17:39:12"
+    },
+    "383192455": {
+      "source_id": "383192455",
+      "title": "交易的认知",
+      "published_at": "2026-04-09 15:31:00",
+      "url": "https://xueqiu.com/7143769715/383192455",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260409/冰冰小美/153100_交易的认知_38319245.txt",
+      "saved_at": "2026-04-09 17:39:12"
+    },
+    "383196934": {
+      "source_id": "383196934",
+      "title": "我有常年交易美股的经历",
+      "published_at": "2026-04-09 15:58:00",
+      "url": "https://xueqiu.com/7143769715/383196934",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260409/冰冰小美/155800_我有常年交易美股的经历_38319693.txt",
+      "saved_at": "2026-04-09 17:39:12"
+    },
+    "383200253": {
+      "source_id": "383200253",
+      "title": "今天胡言乱语了一天",
+      "published_at": "2026-04-09 16:20:00",
+      "url": "https://xueqiu.com/7143769715/383200253",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260409/冰冰小美/162000_今天胡言乱语了一天_38320025.txt",
+      "saved_at": "2026-04-09 17:39:12"
+    },
+    "383201345": {
+      "source_id": "383201345",
+      "title": "《新金融怪杰》（The New Market Wizards）",
+      "published_at": "2026-04-09 16:28:00",
+      "url": "https://xueqiu.com/7143769715/383201345",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260409/冰冰小美/162800_新金融怪杰_The_New_Market_Wizards_38320134.txt",
+      "saved_at": "2026-04-09 17:39:12"
+    }
+  },
+  "events": [
+    {
+      "type": "task_rebuilt",
+      "time": "2026-04-09 17:39:12",
+      "message": "state rebuilt from saved raw txt files"
+    }
+  ]
+}

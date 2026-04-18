@@ -1,0 +1,22 @@
+{
+  "account": "闵行一霸",
+  "task_date": "20260402",
+  "start_time": "2026-04-02 00:00:00",
+  "end_time": null,
+  "scan_interval_minutes": 60,
+  "chrome_profile": "/Users/cjw/dev/projects/skills/cjw-xueqiu-daily-monitor/scripts/.xueqiu-chrome-profile",
+  "scan_round": 0,
+  "success_count": 0,
+  "failure_count": 0,
+  "log_file": "/Users/cjw/dev/projects/skills_output/20260402/闵行一霸/task.log",
+  "result_dir": "/Users/cjw/dev/projects/skills_output/20260402/闵行一霸",
+  "state_file": "/Users/cjw/dev/projects/skills_output/20260402/闵行一霸/state.json",
+  "processed_items": {},
+  "events": [
+    {
+      "type": "task_started",
+      "time": "2026-04-03 14:31:21",
+      "message": "任务启动"
+    }
+  ]
+}

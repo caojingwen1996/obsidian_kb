@@ -1,0 +1,27 @@
+{
+  "account": "老木匠",
+  "task_date": "20260417",
+  "start_time": "2026-04-17 10:17:00",
+  "end_time": "2026-04-17 10:24:17",
+  "scan_interval_minutes": 60,
+  "chrome_profile": "/Users/cjw/.codex/skills/cjw-xueqiu-daily-monitor/scripts/.xueqiu-chrome-profile",
+  "scan_round": 0,
+  "success_count": 0,
+  "failure_count": 0,
+  "log_file": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260417/老木匠/task.log",
+  "result_dir": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260417/老木匠",
+  "state_file": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260417/老木匠/state.json",
+  "processed_items": {},
+  "events": [
+    {
+      "type": "task_started",
+      "time": "2026-04-17 10:23:01",
+      "message": "任务启动"
+    },
+    {
+      "type": "task_finished",
+      "time": "2026-04-17 10:24:17",
+      "message": "任务结束"
+    }
+  ]
+}

@@ -1,0 +1,450 @@
+{
+  "account": "冰冰小美",
+  "task_date": "20260410",
+  "start_time": "2026-04-10 16:47:10",
+  "end_time": "2026-04-10 17:44:25",
+  "scan_interval_minutes": 60,
+  "chrome_profile": "./scripts/.xueqiu-chrome-profile",
+  "scan_round": 2,
+  "success_count": 27,
+  "failure_count": 0,
+  "log_file": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/task.log",
+  "result_dir": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美",
+  "state_file": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/state.json",
+  "processed_items": {
+    "383386954": {
+      "source_id": "383386954",
+      "title": "从1987年。格林斯潘成功救市后，并且以后多次救市，印钞机是最佳方式。2006年辞职后，2008年金融危机，后面美总结教训的结论就是，米联储印钞印慢了。因此。从",
+      "published_at": "2026-04-10 16:28:27",
+      "url": "https://xueqiu.com/7143769715/383386954",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/162827_从1987年_格林斯潘成功救市后_并且以后多次救市_印钞机是最佳方式_2006年辞职后_2008_38338695.txt",
+      "saved_at": "2026-04-10 16:47:10"
+    },
+    "383385447": {
+      "source_id": "383385447",
+      "title": "我如何配置的。\n风险大的节点，做了一部分对冲与短线。这明显属于个人能力范畴。\n这个可以观察通xx石油，xx化工，xx能源的对冲路径。目标20%都得以实现。\n也可",
+      "published_at": "2026-04-10 16:19:17",
+      "url": "https://xueqiu.com/7143769715/383385447",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/161917_我如何配置的_风险大的节点_做了一部分对冲与短线_这明显属于个人能力范畴_这个可以观察通xx石油_38338544.txt",
+      "saved_at": "2026-04-10 16:47:10"
+    },
+    "383378907": {
+      "source_id": "383378907",
+      "title": "股市挣钱挺难的。\n突发事件影响，市场行政力量干预，多方博弈，神仙打架，散户要盈利，非常困难。\n因此，\n要么，更早的识别危机，控制仓位躲过去。\n要么，利润持仓，合",
+      "published_at": "2026-04-10 15:41:54",
+      "url": "https://xueqiu.com/7143769715/383378907",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/154154_股市挣钱挺难的_突发事件影响_市场行政力量干预_多方博弈_神仙打架_散户要盈利_非常困难_因此__38337890.txt",
+      "saved_at": "2026-04-10 16:47:10"
+    },
+    "383377886": {
+      "source_id": "383377886",
+      "title": "美国M2增长是怎么回事。\n米联储嘴上没干预，但是作为华尔街的投资银行干预了。比如摩根大通对川普担保，为美股注入流动性。\n最近甲骨文也有一次130亿美元的融资支持",
+      "published_at": "2026-04-10 15:37:22",
+      "url": "https://xueqiu.com/7143769715/383377886",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/153722_美国M2增长是怎么回事_米联储嘴上没干预_但是作为华尔街的投资银行干预了_比如摩根大通对川普担保_38337788.txt",
+      "saved_at": "2026-04-10 16:47:10"
+    },
+    "383377251": {
+      "source_id": "383377251",
+      "title": "为什么汇率与利率不能骗人。也不容易骗人。\n因为债市，有近30万亿美元资产处于交易状态。\n而汇率，影响百亿美元的贸易。\n也就是这种影响已经超过股市对经济的影响。",
+      "published_at": "2026-04-10 15:32:36",
+      "url": "https://xueqiu.com/7143769715/383377251",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/153236_为什么汇率与利率不能骗人_也不容易骗人_因为债市_有近30万亿美元资产处于交易状态_而汇率_影响_38337725.txt",
+      "saved_at": "2026-04-10 16:47:10"
+    },
+    "383376171": {
+      "source_id": "383376171",
+      "title": "我的观念里，好股票可坚守，可没说差股票。\n但是好股票，我真心不希望买的太贵，\n因为好股票也会因突发事件下跌。\n比如关税，\n也会因业绩不及预期，估值过高下跌。\n比",
+      "published_at": "2026-04-10 15:26:29",
+      "url": "https://xueqiu.com/7143769715/383376171",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/152629_我的观念里_好股票可坚守_可没说差股票_但是好股票_我真心不希望买的太贵_因为好股票也会因突发事_38337617.txt",
+      "saved_at": "2026-04-10 16:47:10"
+    },
+    "383372756": {
+      "source_id": "383372756",
+      "title": "这个过程，人民币汇率与美国10年期国债利率没有骗人。其他都是不可信。",
+      "published_at": "2026-04-10 15:11:42",
+      "url": "https://xueqiu.com/7143769715/383372756",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/151142_这个过程_人民币汇率与美国10年期国债利率没有骗人_其他都是不可信_38337275.txt",
+      "saved_at": "2026-04-10 16:47:11"
+    },
+    "383370032": {
+      "source_id": "383370032",
+      "title": "石油危机→通胀担忧→利率担忧→降息破灭→流动性风险→风险资产承压→股市下跌。\n这个过程，\n米联储→不降息不加息→通胀不作为主要指标→密切跟踪石油危机影响→称如有",
+      "published_at": "2026-04-10 15:01:40",
+      "url": "https://xueqiu.com/7143769715/383370032",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/150140_石油危机_通胀担忧_利率担忧_降息破灭_流动性风险_风险资产承压_股市下跌_这个过程_米联储_不_38337003.txt",
+      "saved_at": "2026-04-10 16:47:11"
+    },
+    "383367148": {
+      "source_id": "383367148",
+      "title": "每次市场大跌都拉的宁德时代提振信心。\n4/7那天也是。为啥。\n创业板一哥。\n这其实就是风险过大，\n最后的多头坚守最后一个个股。\n比如，2018年，茅台跌停，股市",
+      "published_at": "2026-04-10 14:48:49",
+      "url": "https://xueqiu.com/7143769715/383367148",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/144849_每次市场大跌都拉的宁德时代提振信心_4_7那天也是_为啥_创业板一哥_这其实就是风险过大_最后的_38336714.txt",
+      "saved_at": "2026-04-10 16:47:11"
+    },
+    "383365115": {
+      "source_id": "383365115",
+      "title": "指数涨是这样的，个股仅仅少数权重有利可图。\n大多数横盘，指数跌大跌，指数涨，微涨。\n同股不同命。美股纳指也一样，少数涨，很多大跌爬不起来，甚至指数涨，还跌。\n期",
+      "published_at": "2026-04-10 14:42:16",
+      "url": "https://xueqiu.com/7143769715/383365115",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/144216_指数涨是这样的_个股仅仅少数权重有利可图_大多数横盘_指数跌大跌_指数涨_微涨_同股不同命_美股_38336511.txt",
+      "saved_at": "2026-04-10 16:47:11"
+    },
+    "383355201": {
+      "source_id": "383355201",
+      "title": "A股股王，历史都是三万亿市值魔咒。\n只有5家达到，\n腾讯，阿里，农行，中石油，茅台。",
+      "published_at": "2026-04-10 13:56:53",
+      "url": "https://xueqiu.com/7143769715/383355201",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/135653_A股股王_历史都是三万亿市值魔咒_只有5家达到_腾讯_阿里_农行_中石油_茅台_38335520.txt",
+      "saved_at": "2026-04-10 16:47:11"
+    },
+    "383354359": {
+      "source_id": "383354359",
+      "title": "宁德时代2万亿，这其实对资本市场来说，是很有正向意义的。把高端制造业的天花板打开了。如果突破3万亿，甚至4万亿，超越曾经茅台曾经巅峰的市值。的确是一个时代，碳中",
+      "published_at": "2026-04-10 13:53:24",
+      "url": "https://xueqiu.com/7143769715/383354359",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/135324_宁德时代2万亿_这其实对资本市场来说_是很有正向意义的_把高端制造业的天花板打开了_如果突破3万_38335435.txt",
+      "saved_at": "2026-04-10 16:47:11"
+    },
+    "383353142": {
+      "source_id": "383353142",
+      "title": "在创业板权重推动下，创业板指数新高。\n请发表获奖感言。\n其实这等于事实上放水了。\n上证指数4000点扭扭捏捏，哪里出问题了？\n就是割韭菜太狠了，都很怕。\n怕的啥",
+      "published_at": "2026-04-10 13:48:26",
+      "url": "https://xueqiu.com/7143769715/383353142",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/134826_在创业板权重推动下_创业板指数新高_请发表获奖感言_其实这等于事实上放水了_上证指数4000点扭_38335314.txt",
+      "saved_at": "2026-04-10 16:47:11"
+    },
+    "383334933": {
+      "source_id": "383334933",
+      "title": "很多观点，可能是你第一次听，但是并不是我第一个讲。这其实就意味着，信息差。这种信息差不是用来做交易的。而是完善你对一件事的客观认知。\n以前不知道，说明考虑的不够",
+      "published_at": "2026-04-10 11:56:44",
+      "url": "https://xueqiu.com/7143769715/383334933",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/115644_很多观点_可能是你第一次听_但是并不是我第一个讲_这其实就意味着_信息差_这种信息差不是用来做交_38333493.txt",
+      "saved_at": "2026-04-10 16:47:11"
+    },
+    "383329924": {
+      "source_id": "383329924",
+      "title": "昨天有一个球友给我发了长文。\n结论就一个，只管发贴，\n不需要在意听者的态度，\n就好比大学课堂，\n有逃课的，有玩手机的，有聊天，有睡觉的，\n有听课，每个人各有各的",
+      "published_at": "2026-04-10 11:31:44",
+      "url": "https://xueqiu.com/7143769715/383329924",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/113144_昨天有一个球友给我发了长文_结论就一个_只管发贴_不需要在意听者的态度_就好比大学课堂_有逃课的_38332992.txt",
+      "saved_at": "2026-04-10 16:47:11"
+    },
+    "383327817": {
+      "source_id": "383327817",
+      "title": "关税能否影响创新药出海？\n去年传闻，然后创新药因此集体下跌，\n上周关税落地，对药品征收，但是不对美本土生产的创新药品征收。这种利空消息，影响股价一周。\n我国创新",
+      "published_at": "2026-04-10 11:23:04",
+      "url": "https://xueqiu.com/7143769715/383327817",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/112304_关税能否影响创新药出海_去年传闻_然后创新药因此集体下跌_上周关税落地_对药品征收_但是不对美本_38332781.txt",
+      "saved_at": "2026-04-10 16:47:11"
+    },
+    "383323387": {
+      "source_id": "383323387",
+      "title": "只涨指数不涨个股的时代。\n这其实就是美股翻版。\n美股也是这样涨的。\n大多数个股跌，\n仅仅少数企业推动指数上涨。\n少数企业形成的股权垄断，\n使得非热门赛道流动性不",
+      "published_at": "2026-04-10 11:07:40",
+      "url": "https://xueqiu.com/7143769715/383323387",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/110740_只涨指数不涨个股的时代_这其实就是美股翻版_美股也是这样涨的_大多数个股跌_仅仅少数企业推动指数_38332338.txt",
+      "saved_at": "2026-04-10 16:47:11"
+    },
+    "383322399": {
+      "source_id": "383322399",
+      "title": "比亚迪宣布进军二轮车，\n张雪机车得到包括，浙江，重庆，深圳国资的支持。已经喊出来口号，世界前八。\n电池的上涨于此不无关系。\n如果未来摩托驾照分级，放开电摩限制，",
+      "published_at": "2026-04-10 11:03:09",
+      "url": "https://xueqiu.com/7143769715/383322399",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/110309_比亚迪宣布进军二轮车_张雪机车得到包括_浙江_重庆_深圳国资的支持_已经喊出来口号_世界前八_电_38332239.txt",
+      "saved_at": "2026-04-10 16:47:11"
+    },
+    "383319478": {
+      "source_id": "383319478",
+      "title": "发帖都是观点，不做任何交易推荐。",
+      "published_at": "2026-04-10 10:52:47",
+      "url": "https://xueqiu.com/7143769715/383319478",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/105247_发帖都是观点_不做任何交易推荐_38331947.txt",
+      "saved_at": "2026-04-10 16:47:11"
+    },
+    "383394292": {
+      "source_id": "383394292",
+      "title": "又胡言乱语的一天。",
+      "published_at": "2026-04-10 17:14:46",
+      "url": "https://xueqiu.com/7143769715/383394292",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/171446_又胡言乱语的一天_38339429.txt",
+      "saved_at": "2026-04-10 17:44:23"
+    },
+    "383392709": {
+      "source_id": "383392709",
+      "title": "我相信是兔子干预了调解，提高了影响力。\n也相信人民币汇率升值。\n因为升值突破了上次高点。\n则意味着，\n升值趋势不变。\n同时央行持续性购买黄金，\n那么中央加杠杆就有金融的支点。\n因为货币宽松需要信用的锚，\n黄金是不错的选择。\n观察米国债利率的",
+      "published_at": "2026-04-10 17:04:44",
+      "url": "https://xueqiu.com/7143769715/383392709",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/170444_我相信是兔子干预了调解_提高了影响力_也相信人民币汇率升值_因为升值突破了上次高点_则意味着_升_38339270.txt",
+      "saved_at": "2026-04-10 17:44:23"
+    },
+    "383390276": {
+      "source_id": "383390276",
+      "title": "印钞会不会带来贫富差距。\n那肯定的。\n印钞会稀释购买力。\n但是印钞也会刺激投资，创新，\n最终引发经济增长，做大蛋糕。\n因此，也提高了人均收入。\n收入增长可以抹平购买力稀释，\n就可以一直循环下去。\n当一个人，如果没能力扩大收入，\n那么，就很容",
+      "published_at": "2026-04-10 16:49:55",
+      "url": "https://xueqiu.com/7143769715/383390276",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/164955_印钞会不会带来贫富差距_那肯定的_印钞会稀释购买力_但是印钞也会刺激投资_创新_最终引发经济增长_38339027.txt",
+      "saved_at": "2026-04-10 17:44:23"
+    },
+    "383318389": {
+      "source_id": "383318389",
+      "title": "9点30分，竞价低开，对子顶恐慌砸盘。\n10点03分，跌停。翘板，日内情绪冰点。\n10点10分，创业板指数回调。\n指数大涨时对妖股与报团，流动性不利。\n10点30分，期货开盘，中韩半导体vs原油，\n情绪提振。\n10点33分，拉升。",
+      "published_at": "2026-04-10 10:49:05",
+      "url": "https://xueqiu.com/7143769715/383318389",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/104905_9点30分_竞价低开_对子顶恐慌砸盘_10点03分_跌停_翘板_日内情绪冰点_10点10分_创业_38331838.txt",
+      "saved_at": "2026-04-10 17:44:24"
+    },
+    "383267431": {
+      "source_id": "383267431",
+      "title": "纳指上涨，七姐妹依旧是严重分化，并且占据美股权重慢慢减小。拖累的依旧是硬件涨价，芯片迭代过快折旧财务亏损，电力成本飙升的数据中心巨头，甲骨文。而甲骨文投资open ai金主。由于open ai没有优秀的大模型推出。马斯克来源x-Ai。\n中国",
+      "published_at": "2026-04-10 01:05:59",
+      "url": "https://xueqiu.com/7143769715/383267431",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/010559_纳指上涨_七姐妹依旧是严重分化_并且占据美股权重慢慢减小_拖累的依旧是硬件涨价_芯片迭代过快折旧_38326743.txt",
+      "saved_at": "2026-04-10 17:44:24"
+    },
+    "383267004": {
+      "source_id": "383267004",
+      "title": "我只是不推荐AI买卖。\n但是不代表没买过。\n很多交割单发出来，\n你都会发现买在启动点。\n回头看，全部与国外趋势同步。\n随便几个案例。\n23年就提过，\n左手新质生产力，右手油矿。\n难以理解Ai估值，成长，\n但是基于物理原理，对照国外动向，\n不",
+      "published_at": "2026-04-10 00:51:06",
+      "url": "https://xueqiu.com/7143769715/383267004",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/005106_我只是不推荐AI买卖_但是不代表没买过_很多交割单发出来_你都会发现买在启动点_回头看_全部与国_38326700.txt",
+      "saved_at": "2026-04-10 17:44:24"
+    },
+    "383266065": {
+      "source_id": "383266065",
+      "title": "你会发现，硬件才能继续讲故事。\n软件，数据，大模型，\n实际上已经很久拿不出像样的成果。\n硬件崩，英伟达崩，那么Ai就崩了。\n很好奇的认为，为何下游都默认了，\n这数倍的涨价。\n其实是，一荣俱荣，一损俱损。",
+      "published_at": "2026-04-10 00:29:07",
+      "url": "https://xueqiu.com/7143769715/383266065",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/002907_你会发现_硬件才能继续讲故事_软件_数据_大模型_实际上已经很久拿不出像样的成果_硬件崩_英伟达_38326606.txt",
+      "saved_at": "2026-04-10 17:44:24"
+    },
+    "383265565": {
+      "source_id": "383265565",
+      "title": "目前市场观察，的确需要全球视野看炒作什么，\n储存，\nKIOXIA（铠侠），即东芝存储器集团。熟悉吧，东芝半导体，广场协议的头号制裁对象。成为了日本股王。计划在2026年量产332层堆叠的BiCS10 3D NAND闪存，并为AI数据中心生产",
+      "published_at": "2026-04-10 00:19:39",
+      "url": "https://xueqiu.com/7143769715/383265565",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/001939_目前市场观察_的确需要全球视野看炒作什么_储存_KIOXIA_铠侠_即东芝存储器集团_熟悉吧_东_38326556.txt",
+      "saved_at": "2026-04-10 17:44:24"
+    }
+  },
+  "events": [
+    {
+      "type": "task_started",
+      "time": "2026-04-10 16:47:10",
+      "message": "任务启动"
+    },
+    {
+      "type": "scan_started",
+      "time": "2026-04-10 16:47:10",
+      "round": 1,
+      "message": "开始扫描"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:10",
+      "round": 1,
+      "item_key": "383386954",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/162827_从1987年_格林斯潘成功救市后_并且以后多次救市_印钞机是最佳方式_2006年辞职后_2008_38338695.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:10",
+      "round": 1,
+      "item_key": "383385447",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/161917_我如何配置的_风险大的节点_做了一部分对冲与短线_这明显属于个人能力范畴_这个可以观察通xx石油_38338544.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:10",
+      "round": 1,
+      "item_key": "383378907",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/154154_股市挣钱挺难的_突发事件影响_市场行政力量干预_多方博弈_神仙打架_散户要盈利_非常困难_因此__38337890.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:10",
+      "round": 1,
+      "item_key": "383377886",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/153722_美国M2增长是怎么回事_米联储嘴上没干预_但是作为华尔街的投资银行干预了_比如摩根大通对川普担保_38337788.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:10",
+      "round": 1,
+      "item_key": "383377251",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/153236_为什么汇率与利率不能骗人_也不容易骗人_因为债市_有近30万亿美元资产处于交易状态_而汇率_影响_38337725.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:10",
+      "round": 1,
+      "item_key": "383376171",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/152629_我的观念里_好股票可坚守_可没说差股票_但是好股票_我真心不希望买的太贵_因为好股票也会因突发事_38337617.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:11",
+      "round": 1,
+      "item_key": "383372756",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/151142_这个过程_人民币汇率与美国10年期国债利率没有骗人_其他都是不可信_38337275.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:11",
+      "round": 1,
+      "item_key": "383370032",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/150140_石油危机_通胀担忧_利率担忧_降息破灭_流动性风险_风险资产承压_股市下跌_这个过程_米联储_不_38337003.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:11",
+      "round": 1,
+      "item_key": "383367148",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/144849_每次市场大跌都拉的宁德时代提振信心_4_7那天也是_为啥_创业板一哥_这其实就是风险过大_最后的_38336714.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:11",
+      "round": 1,
+      "item_key": "383365115",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/144216_指数涨是这样的_个股仅仅少数权重有利可图_大多数横盘_指数跌大跌_指数涨_微涨_同股不同命_美股_38336511.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:11",
+      "round": 1,
+      "item_key": "383355201",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/135653_A股股王_历史都是三万亿市值魔咒_只有5家达到_腾讯_阿里_农行_中石油_茅台_38335520.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:11",
+      "round": 1,
+      "item_key": "383354359",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/135324_宁德时代2万亿_这其实对资本市场来说_是很有正向意义的_把高端制造业的天花板打开了_如果突破3万_38335435.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:11",
+      "round": 1,
+      "item_key": "383353142",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/134826_在创业板权重推动下_创业板指数新高_请发表获奖感言_其实这等于事实上放水了_上证指数4000点扭_38335314.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:11",
+      "round": 1,
+      "item_key": "383334933",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/115644_很多观点_可能是你第一次听_但是并不是我第一个讲_这其实就意味着_信息差_这种信息差不是用来做交_38333493.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:11",
+      "round": 1,
+      "item_key": "383329924",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/113144_昨天有一个球友给我发了长文_结论就一个_只管发贴_不需要在意听者的态度_就好比大学课堂_有逃课的_38332992.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:11",
+      "round": 1,
+      "item_key": "383327817",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/112304_关税能否影响创新药出海_去年传闻_然后创新药因此集体下跌_上周关税落地_对药品征收_但是不对美本_38332781.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:11",
+      "round": 1,
+      "item_key": "383323387",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/110740_只涨指数不涨个股的时代_这其实就是美股翻版_美股也是这样涨的_大多数个股跌_仅仅少数企业推动指数_38332338.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:11",
+      "round": 1,
+      "item_key": "383322399",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/110309_比亚迪宣布进军二轮车_张雪机车得到包括_浙江_重庆_深圳国资的支持_已经喊出来口号_世界前八_电_38332239.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 16:47:11",
+      "round": 1,
+      "item_key": "383319478",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/105247_发帖都是观点_不做任何交易推荐_38331947.txt"
+    },
+    {
+      "type": "task_finished",
+      "time": "2026-04-10 16:47:11",
+      "message": "任务结束"
+    },
+    {
+      "type": "scan_started",
+      "time": "2026-04-10 17:44:23",
+      "round": 2,
+      "message": "登录后补抓"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 17:44:23",
+      "round": 2,
+      "item_key": "383394292",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/171446_又胡言乱语的一天_38339429.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 17:44:23",
+      "round": 2,
+      "item_key": "383392709",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/170444_我相信是兔子干预了调解_提高了影响力_也相信人民币汇率升值_因为升值突破了上次高点_则意味着_升_38339270.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 17:44:23",
+      "round": 2,
+      "item_key": "383390276",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/164955_印钞会不会带来贫富差距_那肯定的_印钞会稀释购买力_但是印钞也会刺激投资_创新_最终引发经济增长_38339027.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 17:44:24",
+      "round": 2,
+      "item_key": "383318389",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/104905_9点30分_竞价低开_对子顶恐慌砸盘_10点03分_跌停_翘板_日内情绪冰点_10点10分_创业_38331838.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 17:44:24",
+      "round": 2,
+      "item_key": "383267431",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/010559_纳指上涨_七姐妹依旧是严重分化_并且占据美股权重慢慢减小_拖累的依旧是硬件涨价_芯片迭代过快折旧_38326743.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 17:44:24",
+      "round": 2,
+      "item_key": "383267004",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/005106_我只是不推荐AI买卖_但是不代表没买过_很多交割单发出来_你都会发现买在启动点_回头看_全部与国_38326700.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 17:44:24",
+      "round": 2,
+      "item_key": "383266065",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/002907_你会发现_硬件才能继续讲故事_软件_数据_大模型_实际上已经很久拿不出像样的成果_硬件崩_英伟达_38326606.txt"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-04-10 17:44:24",
+      "round": 2,
+      "item_key": "383265565",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260410/冰冰小美/001939_目前市场观察_的确需要全球视野看炒作什么_储存_KIOXIA_铠侠_即东芝存储器集团_熟悉吧_东_38326556.txt"
+    },
+    {
+      "type": "task_finished",
+      "time": "2026-04-10 17:44:25",
+      "message": "任务结束"
+    }
+  ]
+}
