@@ -10,6 +10,7 @@ tags:
   - "strategy/discipline"
   - "function/framework"
 sources:
+  - "[[raw/articles/2022-03-20-jiyi-chengzai-mid-2247504623-idx-1]]"
   - "[[raw/articles/2022-05-07-jiyi-chengzai-mid-2247505360-idx-1]]"
   - "[[raw/articles/2022-05-15-jiyi-chengzai-mid-2247505506-idx-1]]"
   - "[[raw/articles/2022-07-01-jiyi-chengzai-mid-2247506879-idx-1]]"
@@ -76,6 +77,7 @@ sources:
 related:
   - "[[people/bi-shu-xi-feng]]"
   - "[[concepts/expected-value-stop-loss-and-backstop]]"
+  - "[[views/bi-shu-xi-feng-cheap-long-debt-only-helps-if-you-have-better-uses-for-capital-2022-03-20]]"
   - "[[views/bi-shu-xi-feng-a-strategy-only-works-for-the-people-built-for-it-2022-05-07]]"
   - "[[views/bi-shu-xi-feng-locking-profit-beats-bearing-time-risk-2022-05-15]]"
   - "[[views/bi-shu-xi-feng-quant-thinking-looks-at-distributions-not-single-points-2022-07-01]]"
@@ -329,6 +331,7 @@ related_concepts:
 - 仓位不能脱离风险管理单独存在
 - 最大回撤必须先按当前主要收入来源、现金流和心理承受力封顶，而不是等亏完了再问自己能不能扛
 - 不能因为主观把握高，就默认重仓或上杠杆
+- 低利率、长久期负债也不能脱离资金用途单独讨论；只有当截留下来的资金确实能稳定跑赢负债成本时，长负债才是工具，否则只是额外成本
 - 同一套理论机会，对大资金可能只是试验仓位，对小资金却可能已是改变命运的一局；仓位必须跟着体量、容错和退出空间一起重算
 - 即使长期方向判断正确，也不能拿“看对了”当成满仓和继续加杠杆的理由
 - 当主要收入、经验和风控能力还没在当前规模上练熟时，不要因为短期好运就跳层加杠杆、加负债或放大仓位
@@ -343,6 +346,7 @@ related_concepts:
 相关观点：
 - [[views/bi-shu-xi-feng-long-term-systems-should-not-switch-rules-midgame-2024-05-14]]：支撑“高估时优先停杠杆、增现金，不临时切换系统”
 - [[views/bi-shu-xi-feng-theory-cannot-replace-balance-sheet-and-experience-2022-09-14]]：支撑“同一机会对不同体量的人，仓位含义完全不同”
+- [[views/bi-shu-xi-feng-cheap-long-debt-only-helps-if-you-have-better-uses-for-capital-2022-03-20]]：支撑“长负债只有在存在更好资金去处时才成立”
 - [[views/bi-shu-xi-feng-position-sizing-must-match-bearing-capacity-2025-05-27]]：支撑“最大回撤先匹配承受力”
 - [[views/bi-shu-xi-feng-exit-matters-more-than-high-conviction-2025-07-04]]：支撑“高确信也不能替代仓位上限”
 - [[views/bi-shu-xi-feng-bidirectional-mispricing-and-commitment-environment-2026-01-26]]：支撑“底仓 + 现金”的半仓结构

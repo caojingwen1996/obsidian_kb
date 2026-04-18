@@ -254,3 +254,11 @@
 - 在 `topics/probabilistic-decision-and-risk-control.md` 中继续把新判断并回正式章节：同一建议只对具备对应条件的人成立、能锁利润时不该额外承担时间风险。
 - 同步更新 `people/bi-shu-xi-feng.md`、`index.md` 与 `log.md`。
 - `2022-06-01`、`2022-05-05`、`2022-06-21` 这几篇本轮未并入本 topic：前者本次抓到的正文不足以支撑稳定提炼，后两者分别更偏股民生态/流量观察与消费观念变化，不如本轮纳入的两篇紧贴当前投资系统主线。
+
+## [2026-04-18] ingest | probabilistic decision topic backfill from links 1311-1370
+
+- 从 `wechat_history_links.txt` 的 `1311-1370` 条中，纳入与 `probabilistic-decision-and-risk-control` 明确相关的 1 篇文章：`2022-03-20`。
+- 新增 1 篇原始资料归档，并新建 1 条观点页。
+- 在 `topics/probabilistic-decision-and-risk-control.md` 中继续把新判断并回正式章节：低利率长久期负债只有在确实存在更高收益资金去处时才成立。
+- 同步更新 `people/bi-shu-xi-feng.md`、`index.md` 与 `log.md`。
+- `2022-03-22`、`2022-02-16`、`2022-02-11` 这几篇本轮未并入本 topic：前者更偏住房身份与意义投射，后两者本次抓到的正文还不足以支撑稳定提炼，不如本轮纳入的这一篇紧贴当前投资系统主线。
