@@ -1,5 +1,6 @@
 ---
-title: "碧树西风：系统赚钱不只靠规则正确，还要避开同质化竞争与人性偏好"
+
+## title: "碧树西风：系统赚钱不只靠规则正确，还要避开同质化竞争与人性偏好"
 aliases: []
 created: 2026-04-18
 updated: 2026-04-18
@@ -22,7 +23,6 @@ topic_refs:
 stance: "能长期赚钱的系统，往往位于竞争较少的交叉地带，同时因为反人性而天然难以被多数人坚持执行"
 time_scope: "long-term"
 confidence: "medium"
----
 
 # 碧树西风：系统赚钱不只靠规则正确，还要避开同质化竞争与人性偏好
 
@@ -58,3 +58,4 @@ confidence: "medium"
 - 人物页：[[people/bi-shu-xi-feng]]
 - 主题页：[[topics/probabilistic-decision-and-risk-control]]
 - 相关观点：[[views/bi-shu-xi-feng-bidirectional-mispricing-and-commitment-environment-2026-01-26]]
+

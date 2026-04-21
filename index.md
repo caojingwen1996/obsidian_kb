@@ -1,21 +1,26 @@
 # 知识库索引
 
 > 当前知识库总导航。所有正式知识页都必须登记在此。
-> 最后更新：2026-04-18 | 页面总数：72
+> 最后更新：2026-04-19 | 页面总数：83
 
 ## 人物
 
 - [[people/bi-shu-xi-feng]] - 将交易、概率与风险控制框架迁移到更广泛决策场景的长期跟踪对象
+- [[people/bingbing-xiaomei]] - 沿宏观环境、市场结构与全球产业竞争主线观察市场的长期跟踪对象
 
 ## 概念
 
 - [[concepts/expected-value-stop-loss-and-backstop]] - 用盈亏比、止损与兜底组织风险控制的一组稳定概念
 - [[concepts/information-asymmetry-and-information-high-ground]] - 用信息高地、相对优势与资源分配视角解释信息不对称
+- [[concepts/exchange-rate-long-bond-yields-and-liquidity]] - 用汇率、长期利率与流动性这一组价格信号判断宏观环境是否真正切换
+- [[concepts/debt-distribution-and-growth-constraints]] - 用债务累积、分配结构与旧路径上限理解增长为何会受约束
+- [[concepts/policy-offset-and-domestic-pricing-power]] - 用政策对冲和内部定价权理解市场如何从外部冲击主导回到内部主线主导
 
 ## 主题
 
 - [[topics/probabilistic-decision-and-risk-control]] - 在不可测环境中依靠概率、反馈更新与纪律组织决策的长期主题
 - [[topics/information-high-ground-and-nonstandard-path]] - 围绕信息高地、上位者博弈与非标路径形成的长期主题
+- [[topics/macroeconomy]] - 围绕增长、通胀、利率、流动性、债务与分配如何塑造市场环境形成的长期主题
 
 ## 观点
 
@@ -86,6 +91,12 @@
 - [[views/bi-shu-xi-feng-target-segmentation-and-bayesian-adaptation-2026-01-14]] - 将贝叶斯更新进一步展开为目标分层、反馈判断与策略适配
 - [[views/bi-shu-xi-feng-unmeasurable-world-and-complete-strategy-2026-02-11]] - 将成熟策略解释为承认不可测、预设止损并准备极端情形撤退结构
 - [[views/bi-shu-xi-feng-trading-system-and-non-interference-2026-01-31]] - 将交易系统解释为预先写死规则，并在执行阶段拒绝人为干预
+- [[views/bingbing-xiaomei-exchange-rate-and-long-bond-yields-are-hard-to-fake-2026-04-10]] - 将汇率、长期利率与流动性视为比口号更可靠的宏观环境信号
+- [[views/bingbing-xiaomei-market-needs-macro-and-structure-not-static-fundamentals-2026-04-09]] - 将当前市场的理解重心从静态基本面推进到宏观、结构与行为动因
+- [[views/bingbing-xiaomei-institutionalization-reprices-market-resilience-and-risk-2026-04-12]] - 将机构化加深后的市场韧性、汇率稳定与海外风险放进同一套环境判断
+- [[views/bingbing-xiaomei-policy-offsets-external-shocks-and-keeps-a-shares-domestic-led-2026-04-13]] - 将政策对冲外部冲击与 A 股以我为主的结构性重定价连接起来
+- [[views/bingbing-xiaomei-state-strategy-makes-macro-more-actionable-2026-04-14]] - 将国家战略、产业安全与政策支持视为当前宏观分析解释力上升的重要背景
+- [[views/bingbing-xiaomei-deflation-and-debt-need-policy-not-zero-sum-thinking-2026-04-19]] - 将通缩与债务问题从零和接盘叙事中拉回需求、预期、物价与资本市场改革路径
 
 ## 时间线
 

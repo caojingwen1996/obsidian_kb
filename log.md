@@ -3,6 +3,40 @@
 > 按时间顺序记录知识库操作。仅追加，不覆盖。
 > 格式：`## [YYYY-MM-DD] action | subject`
 
+## [2026-04-19] topic-refactor | macroeconomy concepts split
+
+- 从 `topics/macroeconomy.md` 中先拆出 3 个最稳定的概念页：`汇率、长期利率与流动性`、`债务、分配与增长约束`、`政策对冲与内部定价权`。
+- 复用现有 `bi-shu-xi-feng` 与 `bingbing-xiaomei` 的观点证据，不新增新的 `view`，只把重复出现的宏观框架沉淀为 `concept`。
+- 更新 `topics/macroeconomy.md` 的 `related_concepts` 与正文入口，让主题页更多承担导航与组合关系，而不是把所有概念解释堆在同一页。
+- 同步更新 `index.md` 与 `log.md`。
+
+## [2026-04-19] ingest | bingbing xiaomei macroeconomy 2026-04-13
+
+- 继续审计 `冰冰小美` 剩余日期后，将 `2026-04-13` 这组与 `topics/macroeconomy` 明确相关的内容纳入正式知识层。
+- 新增 1 份 `raw/transcripts/` 汇总归档，并新建 1 条观点页，聚焦“政策对冲外部冲击、A 股以我为主的结构性重定价”。
+- 更新 `people/bingbing-xiaomei.md` 与 `topics/macroeconomy.md`，把这条新证据并回人物学习线和宏观主题页。
+- 同步更新 `index.md` 与 `log.md`。
+
+## [2026-04-19] ingest | bingbing xiaomei macroeconomy continuation
+
+- 继续整理 `冰冰小美` 与 `topics/macroeconomy` 相关的已归档材料，补入 `2026-04-09` 与 `2026-04-12` 两组证据。
+- 新增 1 份 `raw/transcripts/` 汇总归档，并新建 2 条宏观相关观点页，分别覆盖“宏观视角 + 市场结构”与“机构化加深后的风险定价”。
+- 更新 `people/bingbing-xiaomei.md` 与 `topics/macroeconomy.md`，把这两条新证据并回人物学习线和宏观主题页。
+- 同步更新 `index.md` 与 `log.md`。
+
+## [2026-04-19] ingest | bingbing xiaomei macroeconomy
+
+- 将 `cjw-xueqiu-daily-monitor` 中与 `topics/macroeconomy` 明确相关的 `2026-04-10`、`2026-04-14`、`2026-04-19` 内容整理进正式知识层。
+- 新增 2 份 `raw/transcripts/` 汇总归档，并基于已存在的 `2026-04-10` 汇总新建 `people/bingbing-xiaomei.md` 与 3 条宏观观点页。
+- 更新 `topics/macroeconomy.md`，补入“国家竞争与政策回应”这一组新证据，并将第二条人物学习线接入宏观主题。
+- 同步更新 `index.md` 与 `log.md`。
+
+## [2026-04-19] topic-create | macroeconomy
+
+- 新建 `topics/macroeconomy.md`，作为知识库中的“宏观经济”正式 topic 页。
+- 先挂接已有的宏观相关原始资料与观点页，形成“增长/债务/分配、通胀/利率、流动性、区间判断”四条观察轴。
+- 同步更新 `index.md` 与 `log.md`，将该页纳入正式知识层索引。
+
 ## [2026-04-18] schema-update | summary conventions
 
 - 在目录约定和索引中加入 `summaries/` 分区。
