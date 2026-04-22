@@ -2,7 +2,7 @@
 title: "概率化决策与风险控制"
 aliases: []
 created: 2026-04-18
-updated: 2026-04-18
+updated: 2026-04-21
 type: "topic"
 status: active
 tags:
@@ -71,6 +71,7 @@ sources:
   - "[[raw/articles/2026-01-14-jiyi-chengzai-mid-2247519588-idx-1]]"
   - "[[raw/articles/2026-02-11-jiyi-chengzai-mid-2247519800-idx-1]]"
   - "[[raw/articles/2026-01-31-jiyi-chengzai-mid-2247519725-idx-1]]"
+  - "[[raw/articles/2026-04-05-jiyi-chengzai-mid-2247532824-idx-1]]"
   - "[[raw/articles/2025-11-29-jiyi-chengzai-mid-2247519225-idx-1]]"
   - "[[raw/articles/2025-12-09-jiyi-chengzai-mid-2247519306-idx-1]]"
   - "[[raw/articles/2025-12-17-jiyi-chengzai-mid-2247519349-idx-1]]"
@@ -143,6 +144,7 @@ related:
   - "[[views/bi-shu-xi-feng-target-segmentation-and-bayesian-adaptation-2026-01-14]]"
   - "[[views/bi-shu-xi-feng-unmeasurable-world-and-complete-strategy-2026-02-11]]"
   - "[[views/bi-shu-xi-feng-trading-system-and-non-interference-2026-01-31]]"
+  - "[[views/bi-shu-xi-feng-quantification-is-not-high-frequency-2026-04-05]]"
 summary: "围绕投资系统、纪律执行与底层决策逻辑展开的长期主题，关注如何在不可测环境中把概率、仓位、止损与复盘写成可执行系统。"
 topic_scope:
   - "投资系统"
@@ -176,6 +178,7 @@ related_concepts:
 
 - 世界不可测：不能把策略建立在“我相信会发生”上
 - 系统要按样本总集与时间曲线看问题，而不是被单个样本、单个时点和单次结果绑架
+- 量化不等于高频：关键不在交易次数，而在是否把变化中的结构与情绪压成可观察、可计算的变量
 - 纪律优先于预测：看对方向并不等于能长期赚钱
 - 系统必须完整：仓位、止损、退出和极端情形预案不能缺位
 - 长期生存优先：先活下来，再谈复利
@@ -187,6 +190,7 @@ related_concepts:
 - [[views/bi-shu-xi-feng-target-segmentation-and-bayesian-adaptation-2026-01-14]]：支撑“反馈更新与策略适配”
 - [[views/bi-shu-xi-feng-unmeasurable-world-and-complete-strategy-2026-02-11]]：支撑“世界不可测、完整策略、止损可执行性”
 - [[views/bi-shu-xi-feng-trading-system-and-non-interference-2026-01-31]]：支撑“规则先写死、执行少干预”
+- [[views/bi-shu-xi-feng-quantification-is-not-high-frequency-2026-04-05]]：支撑“量化是把变化翻译成数字，并在交易中优先读价格与反馈，而不是先找理由”
 - [[views/bi-shu-xi-feng-edge-means-certainty-inside-uncertainty-2022-10-16]]：支撑“真正的优势来自自己更确定的那一段，而不是单纯更敢冒险”
 
 ## 适用市场
@@ -194,7 +198,7 @@ related_concepts:
 按当前资料，适合被写成系统的，不是“任何我看好的机会”，而是：
 
 - 能被规则化表达的市场
-- 能预先写清入场、出场、仓位和风控条件的机会
+%% - 能预先写清入场、出场、仓位和风控条件的机会 %%
 - 
 ### 市场体量
 

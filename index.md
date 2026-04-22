@@ -1,7 +1,7 @@
 # 知识库索引
 
 > 当前知识库总导航。所有正式知识页都必须登记在此。
-> 最后更新：2026-04-19 | 页面总数：83
+> 最后更新：2026-04-21 | 页面总数：84
 
 ## 人物
 
@@ -91,6 +91,7 @@
 - [[views/bi-shu-xi-feng-target-segmentation-and-bayesian-adaptation-2026-01-14]] - 将贝叶斯更新进一步展开为目标分层、反馈判断与策略适配
 - [[views/bi-shu-xi-feng-unmeasurable-world-and-complete-strategy-2026-02-11]] - 将成熟策略解释为承认不可测、预设止损并准备极端情形撤退结构
 - [[views/bi-shu-xi-feng-trading-system-and-non-interference-2026-01-31]] - 将交易系统解释为预先写死规则，并在执行阶段拒绝人为干预
+- [[views/bi-shu-xi-feng-quantification-is-not-high-frequency-2026-04-05]] - 将量化从高频误解中剥离，强调关键是把变化中的结构与情绪翻译成可计算对象
 - [[views/bingbing-xiaomei-exchange-rate-and-long-bond-yields-are-hard-to-fake-2026-04-10]] - 将汇率、长期利率与流动性视为比口号更可靠的宏观环境信号
 - [[views/bingbing-xiaomei-market-needs-macro-and-structure-not-static-fundamentals-2026-04-09]] - 将当前市场的理解重心从静态基本面推进到宏观、结构与行为动因
 - [[views/bingbing-xiaomei-institutionalization-reprices-market-resilience-and-risk-2026-04-12]] - 将机构化加深后的市场韧性、汇率稳定与海外风险放进同一套环境判断

@@ -3,6 +3,12 @@
 > 按时间顺序记录知识库操作。仅追加，不覆盖。
 > 格式：`## [YYYY-MM-DD] action | subject`
 
+## [2026-04-21] ingest | bi-shu-xi-feng quantification
+
+- 将 `2026-04-05-jiyi-chengzai-mid-2247532824-idx-1` 纳入正式知识层。
+- 新增 1 篇 `raw/articles/` 原始归档，并新建 1 条观点页：量化不等于高频，关键是把变化中的结构与情绪翻译成数字。
+- 将这条新证据并入 `people/bi-shu-xi-feng.md` 与 `topics/probabilistic-decision-and-risk-control.md`，同步更新 `index.md` 与 `log.md`。
+
 ## [2026-04-19] topic-refactor | macroeconomy concepts split
 
 - 从 `topics/macroeconomy.md` 中先拆出 3 个最稳定的概念页：`汇率、长期利率与流动性`、`债务、分配与增长约束`、`政策对冲与内部定价权`。
