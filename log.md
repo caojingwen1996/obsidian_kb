@@ -9,6 +9,13 @@
 - 新增 1 篇 `raw/articles/` 原始归档，并新建 1 条观点页：量化不等于高频，关键是把变化中的结构与情绪翻译成数字。
 - 将这条新证据并入 `people/bi-shu-xi-feng.md` 与 `topics/probabilistic-decision-and-risk-control.md`，同步更新 `index.md` 与 `log.md`。
 
+## [2026-04-21] ingest | bingbing xiaomei macroeconomy 2026-04-21
+
+- 将 `2026-04-21` 的 `冰冰小美` 雪球汇总纳入正式知识层，判定仍明确服务于 `topics/macroeconomy` 与人物学习线。
+- 新增 1 份 `raw/transcripts/` 汇总归档与 1 份对应 `state.json`，并新建 1 条观点页，聚焦“新旧产业分化由全球定价与产业共识驱动”。
+- 更新 `people/bingbing-xiaomei.md` 与 `topics/macroeconomy.md`，把这条新证据并回人物方法与宏观主题框架。
+- 同步更新 `index.md` 与 `log.md`。
+
 ## [2026-04-19] topic-refactor | macroeconomy concepts split
 
 - 从 `topics/macroeconomy.md` 中先拆出 3 个最稳定的概念页：`汇率、长期利率与流动性`、`债务、分配与增长约束`、`政策对冲与内部定价权`。

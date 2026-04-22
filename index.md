@@ -98,6 +98,7 @@
 - [[views/bingbing-xiaomei-policy-offsets-external-shocks-and-keeps-a-shares-domestic-led-2026-04-13]] - 将政策对冲外部冲击与 A 股以我为主的结构性重定价连接起来
 - [[views/bingbing-xiaomei-state-strategy-makes-macro-more-actionable-2026-04-14]] - 将国家战略、产业安全与政策支持视为当前宏观分析解释力上升的重要背景
 - [[views/bingbing-xiaomei-deflation-and-debt-need-policy-not-zero-sum-thinking-2026-04-19]] - 将通缩与债务问题从零和接盘叙事中拉回需求、预期、物价与资本市场改革路径
+- [[views/bingbing-xiaomei-global-pricing-and-industrial-consensus-drive-new-old-market-split-2026-04-21]] - 将新旧产业分化推进到全球协同定价、产业共识和信息差门槛这一层
 
 ## 时间线
 

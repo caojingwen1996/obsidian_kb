@@ -3,7 +3,7 @@ title: "宏观经济"
 aliases:
   - "宏观经济基本面"
 created: 2026-04-19
-updated: 2026-04-19
+updated: 2026-04-21
 type: "topic"
 status: active
 tags:
@@ -25,6 +25,7 @@ sources:
   - "[[raw/transcripts/2026-04-13-bingbing-xiaomei-xueqiu-summary]]"
   - "[[raw/transcripts/2026-04-14-bingbing-xiaomei-xueqiu-summary]]"
   - "[[raw/transcripts/2026-04-19-bingbing-xiaomei-xueqiu-summary]]"
+  - "[[raw/transcripts/2026-04-21-bingbing-xiaomei-xueqiu-summary]]"
 related:
   - "[[people/bi-shu-xi-feng]]"
   - "[[people/bingbing-xiaomei]]"
@@ -42,6 +43,7 @@ related:
   - "[[views/bingbing-xiaomei-policy-offsets-external-shocks-and-keeps-a-shares-domestic-led-2026-04-13]]"
   - "[[views/bingbing-xiaomei-state-strategy-makes-macro-more-actionable-2026-04-14]]"
   - "[[views/bingbing-xiaomei-deflation-and-debt-need-policy-not-zero-sum-thinking-2026-04-19]]"
+  - "[[views/bingbing-xiaomei-global-pricing-and-industrial-consensus-drive-new-old-market-split-2026-04-21]]"
 summary: "围绕增长、通胀、利率、流动性、债务与分配如何塑造市场环境形成的长期主题，关注宏观变量如何帮助理解区间、筛选资产与判断时代背景，而不是直接替代执行系统。"
 topic_scope:
   - "增长、债务与分配"
@@ -145,6 +147,12 @@ related_concepts:
 
 这说明“宏观经济”在知识库里不只是变量分析，也包含“这些变量通过什么市场结构被传导出来”。
 
+[[views/bingbing-xiaomei-global-pricing-and-industrial-consensus-drive-new-old-market-split-2026-04-21]] 又把这条线往前推进了一步：
+
+- 市场分化不只是机构和散户的差异，也越来越表现为新旧产业处在两套定价体系中
+- 海外流动性、国际产业映射和全球协同定价，会直接改变 A 股、H 股与双创的相对强弱
+- 普通投资者面对的难点，也从“看不懂基本面”进一步变成“跟不上信息差和产业路径更新”
+
 相关概念见：
 - [[concepts/policy-offset-and-domestic-pricing-power]]
 
@@ -179,6 +187,7 @@ related_concepts:
 - [[views/bingbing-xiaomei-policy-offsets-external-shocks-and-keeps-a-shares-domestic-led-2026-04-13]]
 - [[views/bingbing-xiaomei-state-strategy-makes-macro-more-actionable-2026-04-14]]
 - [[views/bingbing-xiaomei-deflation-and-debt-need-policy-not-zero-sum-thinking-2026-04-19]]
+- [[views/bingbing-xiaomei-global-pricing-and-industrial-consensus-drive-new-old-market-split-2026-04-21]]
 
 ## 相关概念
 
