@@ -14,8 +14,8 @@ sources:
 related:
   - "[[people/bi-shu-xi-feng]]"
   - "[[topics/probabilistic-decision-and-risk-control]]"
-  - "[[views/bi-shu-xi-feng-bidirectional-mispricing-and-commitment-environment-2026-01-26]]"
-  - "[[views/bi-shu-xi-feng-trading-system-and-non-interference-2026-01-31]]"
+  - "[[views/bi-shu-xi-feng-2026-01-26-bidirectional-mispricing-and-commitment-environment]]"
+  - "[[views/bi-shu-xi-feng-2026-01-31-trading-system-and-non-interference]]"
 summary: "作者把投资收益拆成“钱本身的时间价值”和“人的系统与才华溢价”两部分，认为真正的超额收益主要来自后者；长期持仓多是浮盈，而稳定高收益本质上更像在卖一套交易系统。"
 person: "[[people/bi-shu-xi-feng]]"
 topic_refs:
@@ -56,11 +56,11 @@ confidence: "medium"
 
 ## 与现有主题的关系
 
-- [[views/bi-shu-xi-feng-bidirectional-mispricing-and-commitment-environment-2026-01-26]] 和 [[views/bi-shu-xi-feng-trading-system-and-non-interference-2026-01-31]] 讲的是系统如何执行与如何不被自己破坏
+- [[views/bi-shu-xi-feng-2026-01-26-bidirectional-mispricing-and-commitment-environment]] 和 [[views/bi-shu-xi-feng-2026-01-31-trading-system-and-non-interference]] 讲的是系统如何执行与如何不被自己破坏
 - 本页则把问题再往前推一步：为什么超额收益本身就不该被视为“钱自动长出来的结果”，而应被视为系统能力的产物
 
 ## 相关页面
 
 - 人物页：[[people/bi-shu-xi-feng]]
 - 主题页：[[topics/probabilistic-decision-and-risk-control]]
-- 相关观点：[[views/bi-shu-xi-feng-bidirectional-mispricing-and-commitment-environment-2026-01-26]]、[[views/bi-shu-xi-feng-trading-system-and-non-interference-2026-01-31]]
+- 相关观点：[[views/bi-shu-xi-feng-2026-01-26-bidirectional-mispricing-and-commitment-environment]]、[[views/bi-shu-xi-feng-2026-01-31-trading-system-and-non-interference]]

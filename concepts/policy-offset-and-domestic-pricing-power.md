@@ -18,10 +18,10 @@ sources:
   - "[[raw/transcripts/2026-04-19-bingbing-xiaomei-xueqiu-summary]]"
 related:
   - "[[topics/macroeconomy]]"
-  - "[[views/bingbing-xiaomei-institutionalization-reprices-market-resilience-and-risk-2026-04-12]]"
-  - "[[views/bingbing-xiaomei-policy-offsets-external-shocks-and-keeps-a-shares-domestic-led-2026-04-13]]"
-  - "[[views/bingbing-xiaomei-state-strategy-makes-macro-more-actionable-2026-04-14]]"
-  - "[[views/bingbing-xiaomei-deflation-and-debt-need-policy-not-zero-sum-thinking-2026-04-19]]"
+  - "[[views/bingbing-xiaomei-2026-04-12-institutionalization-reprices-market-resilience-and-risk]]"
+  - "[[views/bingbing-xiaomei-2026-04-13-policy-offsets-external-shocks-and-keeps-a-shares-domestic-led]]"
+  - "[[views/bingbing-xiaomei-2026-04-14-state-strategy-makes-macro-more-actionable]]"
+  - "[[views/bingbing-xiaomei-2026-04-19-deflation-and-debt-need-policy-not-zero-sum-thinking]]"
 summary: "在当前知识库里，政策对冲不是简单救市口号，而是通过制度准备、改革推进和政策工具，把市场从外部事件主导重新拉回内部逻辑主导的一种定价框架。"
 definition: "所谓政策对冲与内部定价权，是指在外部冲击频繁出现的环境里，政策、制度和改革节奏本身会成为市场重新定价的重要力量，从而改变风险偏好、资金选择和市场主导权。"
 key_variables:
@@ -58,13 +58,13 @@ common_misunderstandings:
 
 ## 在当前材料中的用法
 
-[[views/bingbing-xiaomei-policy-offsets-external-shocks-and-keeps-a-shares-domestic-led-2026-04-13]] 提供了最直接的表达：
+[[views/bingbing-xiaomei-2026-04-13-policy-offsets-external-shocks-and-keeps-a-shares-domestic-led]] 提供了最直接的表达：
 
 - 外部事件和内部政策处于对冲关系
 - 结构性行情本身，就是资金仍在选择内部主线的证据
 - 后续关键不只是消息真假，而是改革和信心能否继续推进
 
-[[views/bingbing-xiaomei-institutionalization-reprices-market-resilience-and-risk-2026-04-12]] 则补了一层制度基础：
+[[views/bingbing-xiaomei-2026-04-12-institutionalization-reprices-market-resilience-and-risk]] 则补了一层制度基础：
 
 - 机构化加深后，市场韧性与风险传导要按新结构重估
 - 制度准备和汇率稳定，也会影响内部定价权能否站稳
@@ -83,7 +83,7 @@ common_misunderstandings:
 
 ## 相关观点
 
-- [[views/bingbing-xiaomei-institutionalization-reprices-market-resilience-and-risk-2026-04-12]]
-- [[views/bingbing-xiaomei-policy-offsets-external-shocks-and-keeps-a-shares-domestic-led-2026-04-13]]
-- [[views/bingbing-xiaomei-state-strategy-makes-macro-more-actionable-2026-04-14]]
-- [[views/bingbing-xiaomei-deflation-and-debt-need-policy-not-zero-sum-thinking-2026-04-19]]
+- [[views/bingbing-xiaomei-2026-04-12-institutionalization-reprices-market-resilience-and-risk]]
+- [[views/bingbing-xiaomei-2026-04-13-policy-offsets-external-shocks-and-keeps-a-shares-domestic-led]]
+- [[views/bingbing-xiaomei-2026-04-14-state-strategy-makes-macro-more-actionable]]
+- [[views/bingbing-xiaomei-2026-04-19-deflation-and-debt-need-policy-not-zero-sum-thinking]]

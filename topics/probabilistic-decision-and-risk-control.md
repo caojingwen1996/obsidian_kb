@@ -2,7 +2,7 @@
 title: "概率化决策与风险控制"
 aliases: []
 created: 2026-04-18
-updated: 2026-04-21
+updated: 2026-04-22
 type: "topic"
 status: active
 tags:
@@ -75,76 +75,87 @@ sources:
   - "[[raw/articles/2025-11-29-jiyi-chengzai-mid-2247519225-idx-1]]"
   - "[[raw/articles/2025-12-09-jiyi-chengzai-mid-2247519306-idx-1]]"
   - "[[raw/articles/2025-12-17-jiyi-chengzai-mid-2247519349-idx-1]]"
+  - "[[raw/transcripts/2026-04-06-mai-gupiao-de-laomujiang-xueqiu-summary]]"
+  - "[[raw/transcripts/2026-04-09-mai-gupiao-de-laomujiang-xueqiu-summary]]"
+  - "[[raw/transcripts/2026-04-10-mai-gupiao-de-laomujiang-xueqiu-summary]]"
+  - "[[raw/transcripts/2026-04-17-mai-gupiao-de-laomujiang-xueqiu-summary]]"
+  - "[[raw/transcripts/2026-04-22-mai-gupiao-de-laomujiang-xueqiu-summary]]"
 related:
   - "[[people/bi-shu-xi-feng]]"
+  - "[[people/mai-gupiao-de-laomujiang]]"
   - "[[concepts/expected-value-stop-loss-and-backstop]]"
-  - "[[views/bi-shu-xi-feng-cheap-long-debt-only-helps-if-you-have-better-uses-for-capital-2022-03-20]]"
-  - "[[views/bi-shu-xi-feng-a-strategy-only-works-for-the-people-built-for-it-2022-05-07]]"
-  - "[[views/bi-shu-xi-feng-locking-profit-beats-bearing-time-risk-2022-05-15]]"
-  - "[[views/bi-shu-xi-feng-quant-thinking-looks-at-distributions-not-single-points-2022-07-01]]"
-  - "[[views/bi-shu-xi-feng-small-bank-risk-depends-on-balance-sheet-concentration-2022-07-13]]"
-  - "[[views/bi-shu-xi-feng-theory-cannot-replace-balance-sheet-and-experience-2022-09-14]]"
-  - "[[views/bi-shu-xi-feng-edge-means-certainty-inside-uncertainty-2022-10-16]]"
-  - "[[views/bi-shu-xi-feng-market-structure-matters-more-than-drama-2022-10-31]]"
-  - "[[views/bi-shu-xi-feng-only-bet-direction-when-not-betting-means-certain-loss-2022-12-11]]"
-  - "[[views/bi-shu-xi-feng-advice-is-useless-without-a-real-buyer-and-path-2023-01-15]]"
-  - "[[views/bi-shu-xi-feng-housing-value-follows-center-neighbor-and-sellability-2023-02-14]]"
-  - "[[views/bi-shu-xi-feng-market-size-and-buyer-capacity-come-first-2023-02-23]]"
-  - "[[views/bi-shu-xi-feng-full-time-investing-needs-family-risk-isolation-2023-03-17]]"
-  - "[[views/bi-shu-xi-feng-modern-homebuying-must-plan-the-exit-before-entry-2023-05-02]]"
-  - "[[views/bi-shu-xi-feng-housing-prices-follow-consensus-and-demand-2023-05-17]]"
-  - "[[views/bi-shu-xi-feng-lower-cost-basis-creates-a-safety-cushion-2023-05-28]]"
-  - "[[views/bi-shu-xi-feng-dont-jump-to-a-scale-you-cant-control-2023-05-31]]"
-  - "[[views/bi-shu-xi-feng-expected-value-should-govern-everyday-decisions-2023-06-10]]"
-  - "[[views/bi-shu-xi-feng-long-term-systems-beat-one-shot-wins-2023-07-13]]"
-  - "[[views/bi-shu-xi-feng-withdrawability-matters-more-than-screen-profit-2023-08-07]]"
-  - "[[views/bi-shu-xi-feng-dont-copy-buffett-without-his-hidden-edge-2023-10-01]]"
-  - "[[views/bi-shu-xi-feng-gold-pricing-follows-futures-and-spread-2023-10-04]]"
-  - "[[views/bi-shu-xi-feng-strategy-capacity-falls-as-capital-scales-2023-10-17]]"
-  - "[[views/bi-shu-xi-feng-keeping-wealth-depends-on-decision-system-2023-11-29]]"
-  - "[[views/bi-shu-xi-feng-exit-before-rule-breaking-risks-hit-2023-12-01]]"
-  - "[[views/bi-shu-xi-feng-hedging-tools-are-not-primary-profit-engines-2024-02-01]]"
-  - "[[views/bi-shu-xi-feng-bloody-chips-go-to-those-who-are-ready-2024-02-19]]"
-  - "[[views/bi-shu-xi-feng-investing-requires-self-directed-learning-and-direction-2024-03-12]]"
-  - "[[views/bi-shu-xi-feng-investing-is-about-margin-of-safety-not-betting-2024-03-23]]"
-  - "[[views/bi-shu-xi-feng-hedgers-lock-profit-instead-of-betting-direction-2024-04-23]]"
-  - "[[views/bi-shu-xi-feng-long-term-systems-should-not-switch-rules-midgame-2024-05-14]]"
-  - "[[views/bi-shu-xi-feng-asset-value-depends-on-resource-anchor-2024-07-04]]"
-  - "[[views/bi-shu-xi-feng-commercial-role-matters-more-than-surface-yield-2024-07-13]]"
-  - "[[views/bi-shu-xi-feng-top-bottom-guessing-is-not-a-system-2024-10-19]]"
-  - "[[views/bi-shu-xi-feng-stop-loss-cannot-be-flexible-at-the-line-2024-10-20]]"
-  - "[[views/bi-shu-xi-feng-averaging-down-destroys-capital-efficiency-2024-10-24]]"
-  - "[[views/bi-shu-xi-feng-study-yourself-before-studying-gold-2024-11-15]]"
-  - "[[views/bi-shu-xi-feng-environment-decides-which-money-you-can-earn-2024-12-26]]"
-  - "[[views/bi-shu-xi-feng-financing-market-needs-a-lower-bar-system-2025-01-05]]"
-  - "[[views/bi-shu-xi-feng-speed-cannot-replace-a-profitable-algorithm-2025-02-26]]"
-  - "[[views/bi-shu-xi-feng-left-side-investing-buys-the-best-students-2025-03-16]]"
-  - "[[views/bi-shu-xi-feng-ordinary-investors-need-regime-judgment-not-precision-2025-03-18]]"
-  - "[[views/bi-shu-xi-feng-copying-big-players-without-context-does-not-work-2025-03-25]]"
-  - "[[views/bi-shu-xi-feng-missing-the-move-is-better-than-breaking-discipline-2025-04-01]]"
-  - "[[views/bi-shu-xi-feng-preservation-benchmark-is-not-cpi-2025-04-11]]"
-  - "[[views/bi-shu-xi-feng-position-sizing-must-match-bearing-capacity-2025-05-27]]"
-  - "[[views/bi-shu-xi-feng-risk-audit-starts-with-assets-and-counterparties-2025-06-17]]"
-  - "[[views/bi-shu-xi-feng-exit-matters-more-than-high-conviction-2025-07-04]]"
-  - "[[views/bi-shu-xi-feng-cycle-templates-expire-across-regimes-2025-08-16]]"
-  - "[[views/bi-shu-xi-feng-fixed-rules-and-moving-stop-capture-the-trend-2025-09-09]]"
-  - "[[views/bi-shu-xi-feng-you-only-earn-money-that-matches-your-endowment-2025-09-10]]"
-  - "[[views/bi-shu-xi-feng-investing-is-a-business-and-edge-lives-in-the-gaps-2025-09-11]]"
-  - "[[views/bi-shu-xi-feng-cycle-is-for-understanding-not-direct-profit-2025-09-12]]"
-  - "[[views/bi-shu-xi-feng-different-strategies-fail-on-different-emotions-2025-09-13]]"
-  - "[[views/bi-shu-xi-feng-certainty-matters-more-than-raw-return-2025-10-19]]"
-  - "[[views/bi-shu-xi-feng-strategy-must-match-actual-patience-2025-10-25]]"
-  - "[[views/bi-shu-xi-feng-return-must-be-measured-against-risk-and-cost-2025-11-22]]"
-  - "[[views/bi-shu-xi-feng-technical-analysis-as-derived-tool-2025-11-29]]"
-  - "[[views/bi-shu-xi-feng-risk-depends-on-underlying-assets-2025-12-09]]"
-  - "[[views/bi-shu-xi-feng-excess-return-comes-from-talent-and-system-2025-12-17]]"
-  - "[[views/bi-shu-xi-feng-probabilistic-decision-and-risk-control-2026-01-13]]"
-  - "[[views/bi-shu-xi-feng-bidirectional-mispricing-and-commitment-environment-2026-01-26]]"
-  - "[[views/bi-shu-xi-feng-blue-ocean-system-and-anti-human-execution-2026-02-03]]"
-  - "[[views/bi-shu-xi-feng-target-segmentation-and-bayesian-adaptation-2026-01-14]]"
-  - "[[views/bi-shu-xi-feng-unmeasurable-world-and-complete-strategy-2026-02-11]]"
-  - "[[views/bi-shu-xi-feng-trading-system-and-non-interference-2026-01-31]]"
-  - "[[views/bi-shu-xi-feng-quantification-is-not-high-frequency-2026-04-05]]"
+  - "[[views/bi-shu-xi-feng-2022-03-20-cheap-long-debt-only-helps-if-you-have-better-uses-for-capital]]"
+  - "[[views/bi-shu-xi-feng-2022-05-07-a-strategy-only-works-for-the-people-built-for-it]]"
+  - "[[views/bi-shu-xi-feng-2022-05-15-locking-profit-beats-bearing-time-risk]]"
+  - "[[views/bi-shu-xi-feng-2022-07-01-quant-thinking-looks-at-distributions-not-single-points]]"
+  - "[[views/bi-shu-xi-feng-2022-07-13-small-bank-risk-depends-on-balance-sheet-concentration]]"
+  - "[[views/bi-shu-xi-feng-2022-09-14-theory-cannot-replace-balance-sheet-and-experience]]"
+  - "[[views/bi-shu-xi-feng-2022-10-16-edge-means-certainty-inside-uncertainty]]"
+  - "[[views/bi-shu-xi-feng-2022-10-31-market-structure-matters-more-than-drama]]"
+  - "[[views/bi-shu-xi-feng-2022-12-11-only-bet-direction-when-not-betting-means-certain-loss]]"
+  - "[[views/bi-shu-xi-feng-2023-01-15-advice-is-useless-without-a-real-buyer-and-path]]"
+  - "[[views/bi-shu-xi-feng-2023-02-14-housing-value-follows-center-neighbor-and-sellability]]"
+  - "[[views/bi-shu-xi-feng-2023-02-23-market-size-and-buyer-capacity-come-first]]"
+  - "[[views/bi-shu-xi-feng-2023-03-17-full-time-investing-needs-family-risk-isolation]]"
+  - "[[views/bi-shu-xi-feng-2023-05-02-modern-homebuying-must-plan-the-exit-before-entry]]"
+  - "[[views/bi-shu-xi-feng-2023-05-17-housing-prices-follow-consensus-and-demand]]"
+  - "[[views/bi-shu-xi-feng-2023-05-28-lower-cost-basis-creates-a-safety-cushion]]"
+  - "[[views/bi-shu-xi-feng-2023-05-31-dont-jump-to-a-scale-you-cant-control]]"
+  - "[[views/bi-shu-xi-feng-2023-06-10-expected-value-should-govern-everyday-decisions]]"
+  - "[[views/bi-shu-xi-feng-2023-07-13-long-term-systems-beat-one-shot-wins]]"
+  - "[[views/bi-shu-xi-feng-2023-08-07-withdrawability-matters-more-than-screen-profit]]"
+  - "[[views/bi-shu-xi-feng-2023-10-01-dont-copy-buffett-without-his-hidden-edge]]"
+  - "[[views/bi-shu-xi-feng-2023-10-04-gold-pricing-follows-futures-and-spread]]"
+  - "[[views/bi-shu-xi-feng-2023-10-17-strategy-capacity-falls-as-capital-scales]]"
+  - "[[views/bi-shu-xi-feng-2023-11-29-keeping-wealth-depends-on-decision-system]]"
+  - "[[views/bi-shu-xi-feng-2023-12-01-exit-before-rule-breaking-risks-hit]]"
+  - "[[views/bi-shu-xi-feng-2024-02-01-hedging-tools-are-not-primary-profit-engines]]"
+  - "[[views/bi-shu-xi-feng-2024-02-19-bloody-chips-go-to-those-who-are-ready]]"
+  - "[[views/bi-shu-xi-feng-2024-03-12-investing-requires-self-directed-learning-and-direction]]"
+  - "[[views/bi-shu-xi-feng-2024-03-23-investing-is-about-margin-of-safety-not-betting]]"
+  - "[[views/bi-shu-xi-feng-2024-04-23-hedgers-lock-profit-instead-of-betting-direction]]"
+  - "[[views/bi-shu-xi-feng-2024-05-14-long-term-systems-should-not-switch-rules-midgame]]"
+  - "[[views/bi-shu-xi-feng-2024-07-04-asset-value-depends-on-resource-anchor]]"
+  - "[[views/bi-shu-xi-feng-2024-07-13-commercial-role-matters-more-than-surface-yield]]"
+  - "[[views/bi-shu-xi-feng-2024-10-19-top-bottom-guessing-is-not-a-system]]"
+  - "[[views/bi-shu-xi-feng-2024-10-20-stop-loss-cannot-be-flexible-at-the-line]]"
+  - "[[views/bi-shu-xi-feng-2024-10-24-averaging-down-destroys-capital-efficiency]]"
+  - "[[views/bi-shu-xi-feng-2024-11-15-study-yourself-before-studying-gold]]"
+  - "[[views/bi-shu-xi-feng-2024-12-26-environment-decides-which-money-you-can-earn]]"
+  - "[[views/bi-shu-xi-feng-2025-01-05-financing-market-needs-a-lower-bar-system]]"
+  - "[[views/bi-shu-xi-feng-2025-02-26-speed-cannot-replace-a-profitable-algorithm]]"
+  - "[[views/bi-shu-xi-feng-2025-03-16-left-side-investing-buys-the-best-students]]"
+  - "[[views/bi-shu-xi-feng-2025-03-18-ordinary-investors-need-regime-judgment-not-precision]]"
+  - "[[views/bi-shu-xi-feng-2025-03-25-copying-big-players-without-context-does-not-work]]"
+  - "[[views/bi-shu-xi-feng-2025-04-01-missing-the-move-is-better-than-breaking-discipline]]"
+  - "[[views/bi-shu-xi-feng-2025-04-11-preservation-benchmark-is-not-cpi]]"
+  - "[[views/bi-shu-xi-feng-2025-05-27-position-sizing-must-match-bearing-capacity]]"
+  - "[[views/bi-shu-xi-feng-2025-06-17-risk-audit-starts-with-assets-and-counterparties]]"
+  - "[[views/bi-shu-xi-feng-2025-07-04-exit-matters-more-than-high-conviction]]"
+  - "[[views/bi-shu-xi-feng-2025-08-16-cycle-templates-expire-across-regimes]]"
+  - "[[views/bi-shu-xi-feng-2025-09-09-fixed-rules-and-moving-stop-capture-the-trend]]"
+  - "[[views/bi-shu-xi-feng-2025-09-10-you-only-earn-money-that-matches-your-endowment]]"
+  - "[[views/bi-shu-xi-feng-2025-09-11-investing-is-a-business-and-edge-lives-in-the-gaps]]"
+  - "[[views/bi-shu-xi-feng-2025-09-12-cycle-is-for-understanding-not-direct-profit]]"
+  - "[[views/bi-shu-xi-feng-2025-09-13-different-strategies-fail-on-different-emotions]]"
+  - "[[views/bi-shu-xi-feng-2025-10-19-certainty-matters-more-than-raw-return]]"
+  - "[[views/bi-shu-xi-feng-2025-10-25-strategy-must-match-actual-patience]]"
+  - "[[views/bi-shu-xi-feng-2025-11-22-return-must-be-measured-against-risk-and-cost]]"
+  - "[[views/bi-shu-xi-feng-2025-11-29-technical-analysis-as-derived-tool]]"
+  - "[[views/bi-shu-xi-feng-2025-12-09-risk-depends-on-underlying-assets]]"
+  - "[[views/bi-shu-xi-feng-2025-12-17-excess-return-comes-from-talent-and-system]]"
+  - "[[views/bi-shu-xi-feng-2026-01-13-probabilistic-decision-and-risk-control]]"
+  - "[[views/bi-shu-xi-feng-2026-01-26-bidirectional-mispricing-and-commitment-environment]]"
+  - "[[views/bi-shu-xi-feng-2026-02-03-blue-ocean-system-and-anti-human-execution]]"
+  - "[[views/bi-shu-xi-feng-2026-01-14-target-segmentation-and-bayesian-adaptation]]"
+  - "[[views/bi-shu-xi-feng-2026-02-11-unmeasurable-world-and-complete-strategy]]"
+  - "[[views/bi-shu-xi-feng-2026-01-31-trading-system-and-non-interference]]"
+  - "[[views/bi-shu-xi-feng-2026-04-05-quantification-is-not-high-frequency]]"
+  - "[[views/mai-gupiao-de-laomujiang-2026-04-06-risk-control-means-reducing-exposure-not-predicting-war]]"
+  - "[[views/mai-gupiao-de-laomujiang-2026-04-09-safe-stocks-enable-buy-low-sell-high]]"
+  - "[[views/mai-gupiao-de-laomujiang-2026-04-10-price-and-odds-matter-more-than-company-glory]]"
+  - "[[views/mai-gupiao-de-laomujiang-2026-04-17-concept-speculation-needs-honesty-about-mispricing]]"
+  - "[[views/mai-gupiao-de-laomujiang-2026-04-22-short-term-a-shares-move-on-themes-not-fundamentals]]"
 summary: "围绕投资系统、纪律执行与底层决策逻辑展开的长期主题，关注如何在不可测环境中把概率、仓位、止损与复盘写成可执行系统。"
 topic_scope:
   - "投资系统"
@@ -177,6 +188,7 @@ related_concepts:
 当前可归纳出的底层前提有六条：
 
 - 世界不可测：不能把策略建立在“我相信会发生”上
+- 高不确定环境里，第一动作通常不是提高预测确信，而是先缩风险暴露、留现金与回旋空间
 - 系统要按样本总集与时间曲线看问题，而不是被单个样本、单个时点和单次结果绑架
 - 量化不等于高频：关键不在交易次数，而在是否把变化中的结构与情绪压成可观察、可计算的变量
 - 纪律优先于预测：看对方向并不等于能长期赚钱
@@ -185,13 +197,14 @@ related_concepts:
 - 优势来自不确定性中的确定性：不是更敢冒险，而是别人眼里的九死一生，到自己这里只剩下一死九生
 
 相关观点：
-- [[views/bi-shu-xi-feng-probabilistic-decision-and-risk-control-2026-01-13]]：支撑“大数定律、盈亏比、兜底”这一层总框架
-- [[views/bi-shu-xi-feng-quant-thinking-looks-at-distributions-not-single-points-2022-07-01]]：支撑“系统先看样本总集与时间曲线，而不是单点”
-- [[views/bi-shu-xi-feng-target-segmentation-and-bayesian-adaptation-2026-01-14]]：支撑“反馈更新与策略适配”
-- [[views/bi-shu-xi-feng-unmeasurable-world-and-complete-strategy-2026-02-11]]：支撑“世界不可测、完整策略、止损可执行性”
-- [[views/bi-shu-xi-feng-trading-system-and-non-interference-2026-01-31]]：支撑“规则先写死、执行少干预”
-- [[views/bi-shu-xi-feng-quantification-is-not-high-frequency-2026-04-05]]：支撑“量化是把变化翻译成数字，并在交易中优先读价格与反馈，而不是先找理由”
-- [[views/bi-shu-xi-feng-edge-means-certainty-inside-uncertainty-2022-10-16]]：支撑“真正的优势来自自己更确定的那一段，而不是单纯更敢冒险”
+- [[views/bi-shu-xi-feng-2026-01-13-probabilistic-decision-and-risk-control]]：支撑“大数定律、盈亏比、兜底”这一层总框架
+- [[views/bi-shu-xi-feng-2022-07-01-quant-thinking-looks-at-distributions-not-single-points]]：支撑“系统先看样本总集与时间曲线，而不是单点”
+- [[views/bi-shu-xi-feng-2026-01-14-target-segmentation-and-bayesian-adaptation]]：支撑“反馈更新与策略适配”
+- [[views/bi-shu-xi-feng-2026-02-11-unmeasurable-world-and-complete-strategy]]：支撑“世界不可测、完整策略、止损可执行性”
+- [[views/bi-shu-xi-feng-2026-01-31-trading-system-and-non-interference]]：支撑“规则先写死、执行少干预”
+- [[views/bi-shu-xi-feng-2026-04-05-quantification-is-not-high-frequency]]：支撑“量化是把变化翻译成数字，并在交易中优先读价格与反馈，而不是先找理由”
+- [[views/bi-shu-xi-feng-2022-10-16-edge-means-certainty-inside-uncertainty]]：支撑“真正的优势来自自己更确定的那一段，而不是单纯更敢冒险”
+- [[views/mai-gupiao-de-laomujiang-2026-04-06-risk-control-means-reducing-exposure-not-predicting-war]]：支撑“高不确定环境下先降风险，而不是先赌预测”
 
 ## 适用市场
 
@@ -212,6 +225,7 @@ related_concepts:
 - 还要和执行者的禀赋、性格、资源与信息处理能力相匹配的市场
 - 不是每个人都适合独立做投资；若还停留在等待投喂、等待答疑、等待别人分拆任务的状态，就更适合被分工的岗位，而不适合直接面对市场
 - 适合散户的时机和适合职业投资人的时机并不相同；若某位置要靠复杂对冲、反复调仓和更高的信息密度才能成立，那就不是“麻瓜点位”
+- 同样重要的是，别把“更优秀的公司”误当成“更好的买点”；对结果更关键的，往往是赔率、位置和你有没有能力执行逆向动作
 
 ### 市场状态
 
@@ -231,23 +245,24 @@ related_concepts:
 - 可以是套利或对冲策略
 - 也可以是更高频的规则执行系统
 
-从 [[views/bi-shu-xi-feng-bidirectional-mispricing-and-commitment-environment-2026-01-26]] 看，像“半仓底仓 + 半仓现金 + 正反向乌龙指”这种结构，也属于适合系统化表达的市场机会。
-从 [[views/bi-shu-xi-feng-blue-ocean-system-and-anti-human-execution-2026-02-03]] 看，适合进入系统的，不只要规则成立，还要尽量避开参与者过多的同质化竞争，进入竞争较少的交叉蓝海。
-从 [[views/bi-shu-xi-feng-speed-cannot-replace-a-profitable-algorithm-2025-02-26]] 看，高频或自动化系统真正适合进入系统的前提，不是“更快”，而是你确实拥有能覆盖费用的算法优势；若没有速度优势，就不该参加纯速度型竞争。
-从 [[views/bi-shu-xi-feng-environment-decides-which-money-you-can-earn-2024-12-26]] 看，系统能否启动，往往还取决于你本来就身处什么环境、熟悉什么市场、手里有什么桥梁。
+从 [[views/bi-shu-xi-feng-2026-01-26-bidirectional-mispricing-and-commitment-environment]] 看，像“半仓底仓 + 半仓现金 + 正反向乌龙指”这种结构，也属于适合系统化表达的市场机会。
+从 [[views/bi-shu-xi-feng-2026-02-03-blue-ocean-system-and-anti-human-execution]] 看，适合进入系统的，不只要规则成立，还要尽量避开参与者过多的同质化竞争，进入竞争较少的交叉蓝海。
+从 [[views/bi-shu-xi-feng-2025-02-26-speed-cannot-replace-a-profitable-algorithm]] 看，高频或自动化系统真正适合进入系统的前提，不是“更快”，而是你确实拥有能覆盖费用的算法优势；若没有速度优势，就不该参加纯速度型竞争。
+从 [[views/bi-shu-xi-feng-2024-12-26-environment-decides-which-money-you-can-earn]] 看，系统能否启动，往往还取决于你本来就身处什么环境、熟悉什么市场、手里有什么桥梁。
 
 但共同前提都是：规则先于主观判断。
 
 相关观点：
-- [[views/bi-shu-xi-feng-investing-requires-self-directed-learning-and-direction-2024-03-12]]：支撑“投资要求自驱找方向，而不是等人拆题”
-- [[views/bi-shu-xi-feng-investing-is-about-margin-of-safety-not-betting-2024-03-23]]：支撑“适合散户和适合职业投资人的时机并不相同”
-- [[views/bi-shu-xi-feng-a-strategy-only-works-for-the-people-built-for-it-2022-05-07]]：支撑“同一建议只对具备对应能力边界的人成立”
-- [[views/bi-shu-xi-feng-theory-cannot-replace-balance-sheet-and-experience-2022-09-14]]：支撑“同一理论机会，对不同体量的人未必是同一套系统”
-- [[views/bi-shu-xi-feng-you-only-earn-money-that-matches-your-endowment-2025-09-10]]：支撑“市场要匹配执行者禀赋与资源”
-- [[views/bi-shu-xi-feng-bidirectional-mispricing-and-commitment-environment-2026-01-26]]：支撑“错价套利也可以被系统化表达”
-- [[views/bi-shu-xi-feng-blue-ocean-system-and-anti-human-execution-2026-02-03]]：支撑“不拥挤的交叉蓝海更适合进入系统”
-- [[views/bi-shu-xi-feng-speed-cannot-replace-a-profitable-algorithm-2025-02-26]]：支撑“不具备速度优势时，不应强行参加纯速度竞争”
-- [[views/bi-shu-xi-feng-environment-decides-which-money-you-can-earn-2024-12-26]]：支撑“环境桥梁与熟悉度也是市场准入条件”
+- [[views/bi-shu-xi-feng-2024-03-12-investing-requires-self-directed-learning-and-direction]]：支撑“投资要求自驱找方向，而不是等人拆题”
+- [[views/bi-shu-xi-feng-2024-03-23-investing-is-about-margin-of-safety-not-betting]]：支撑“适合散户和适合职业投资人的时机并不相同”
+- [[views/bi-shu-xi-feng-2022-05-07-a-strategy-only-works-for-the-people-built-for-it]]：支撑“同一建议只对具备对应能力边界的人成立”
+- [[views/bi-shu-xi-feng-2022-09-14-theory-cannot-replace-balance-sheet-and-experience]]：支撑“同一理论机会，对不同体量的人未必是同一套系统”
+- [[views/bi-shu-xi-feng-2025-09-10-you-only-earn-money-that-matches-your-endowment]]：支撑“市场要匹配执行者禀赋与资源”
+- [[views/bi-shu-xi-feng-2026-01-26-bidirectional-mispricing-and-commitment-environment]]：支撑“错价套利也可以被系统化表达”
+- [[views/bi-shu-xi-feng-2026-02-03-blue-ocean-system-and-anti-human-execution]]：支撑“不拥挤的交叉蓝海更适合进入系统”
+- [[views/bi-shu-xi-feng-2025-02-26-speed-cannot-replace-a-profitable-algorithm]]：支撑“不具备速度优势时，不应强行参加纯速度竞争”
+- [[views/bi-shu-xi-feng-2024-12-26-environment-decides-which-money-you-can-earn]]：支撑“环境桥梁与熟悉度也是市场准入条件”
+- [[views/mai-gupiao-de-laomujiang-2026-04-10-price-and-odds-matter-more-than-company-glory]]：支撑“好公司不等于好买点，赔率和位置才更接近结果”
 
 ## 目标收益与回撤约束
 
@@ -278,16 +293,16 @@ related_concepts:
 这意味着，目标收益从一开始就不能脱离回撤约束单独讨论。
 
 相关观点：
-- [[views/bi-shu-xi-feng-preservation-benchmark-is-not-cpi-2025-04-11]]：支撑“保值基准不能简单等同于 `CPI`”
-- [[views/bi-shu-xi-feng-averaging-down-destroys-capital-efficiency-2024-10-24]]：支撑“资金使用率与最大回撤必须放在同一口径里看”
-- [[views/bi-shu-xi-feng-study-yourself-before-studying-gold-2024-11-15]]：支撑“财富阶段不同，目标收益与参与方式也不同”
-- [[views/bi-shu-xi-feng-certainty-matters-more-than-raw-return-2025-10-19]]：支撑“高质量收益优先于账面高收益”
-- [[views/bi-shu-xi-feng-return-must-be-measured-against-risk-and-cost-2025-11-22]]：支撑“单位风险与单位成本的双重核算”
-- [[views/bi-shu-xi-feng-excess-return-comes-from-talent-and-system-2025-12-17]]：支撑“超额收益来自人的系统能力，而不只是钱的时间价值”
-- [[views/bi-shu-xi-feng-strategy-capacity-falls-as-capital-scales-2023-10-17]]：支撑“资金规模变大后，回报目标必须重算策略容量”
-- [[views/bi-shu-xi-feng-keeping-wealth-depends-on-decision-system-2023-11-29]]：支撑“不要把赚到的钱大幅输回去，留得住比偶尔暴赚更重要”
-- [[views/bi-shu-xi-feng-dont-jump-to-a-scale-you-cant-control-2023-05-31]]：支撑“不要跳到自己还不会操盘的规模”
-- [[views/bi-shu-xi-feng-lower-cost-basis-creates-a-safety-cushion-2023-05-28]]：支撑“降低持仓成本，本身就是扩大安全气囊”
+- [[views/bi-shu-xi-feng-2025-04-11-preservation-benchmark-is-not-cpi]]：支撑“保值基准不能简单等同于 `CPI`”
+- [[views/bi-shu-xi-feng-2024-10-24-averaging-down-destroys-capital-efficiency]]：支撑“资金使用率与最大回撤必须放在同一口径里看”
+- [[views/bi-shu-xi-feng-2024-11-15-study-yourself-before-studying-gold]]：支撑“财富阶段不同，目标收益与参与方式也不同”
+- [[views/bi-shu-xi-feng-2025-10-19-certainty-matters-more-than-raw-return]]：支撑“高质量收益优先于账面高收益”
+- [[views/bi-shu-xi-feng-2025-11-22-return-must-be-measured-against-risk-and-cost]]：支撑“单位风险与单位成本的双重核算”
+- [[views/bi-shu-xi-feng-2025-12-17-excess-return-comes-from-talent-and-system]]：支撑“超额收益来自人的系统能力，而不只是钱的时间价值”
+- [[views/bi-shu-xi-feng-2023-10-17-strategy-capacity-falls-as-capital-scales]]：支撑“资金规模变大后，回报目标必须重算策略容量”
+- [[views/bi-shu-xi-feng-2023-11-29-keeping-wealth-depends-on-decision-system]]：支撑“不要把赚到的钱大幅输回去，留得住比偶尔暴赚更重要”
+- [[views/bi-shu-xi-feng-2023-05-31-dont-jump-to-a-scale-you-cant-control]]：支撑“不要跳到自己还不会操盘的规模”
+- [[views/bi-shu-xi-feng-2023-05-28-lower-cost-basis-creates-a-safety-cushion]]：支撑“降低持仓成本，本身就是扩大安全气囊”
 
 ## 选股或选资产原则
 
@@ -330,27 +345,27 @@ related_concepts:
 换句话说，
 
 相关观点：
-- [[views/bi-shu-xi-feng-investing-is-about-margin-of-safety-not-betting-2024-03-23]]：支撑“先看安全垫和趋势性支撑，再谈是否参与”
-- [[views/bi-shu-xi-feng-theory-cannot-replace-balance-sheet-and-experience-2022-09-14]]：支撑“理论不能替代细部资产判断与经验门槛”
-- [[views/bi-shu-xi-feng-hedgers-lock-profit-instead-of-betting-direction-2024-04-23]]：支撑“同名资产在不同交易结构下，风险完全不同”
-- [[views/bi-shu-xi-feng-asset-value-depends-on-resource-anchor-2024-07-04]]：支撑“资产标签不能替代资源依托判断”
-- [[views/bi-shu-xi-feng-commercial-role-matters-more-than-surface-yield-2024-07-13]]：支撑“先看自己在商业模式里扮演谁”
-- [[views/bi-shu-xi-feng-copying-big-players-without-context-does-not-work-2025-03-25]]：支撑“看不懂约束就不能机械抄作业”
-- [[views/bi-shu-xi-feng-top-bottom-guessing-is-not-a-system-2024-10-19]]：支撑“顶底和放量只是局部描述语言，不是系统本身”
-- [[views/bi-shu-xi-feng-study-yourself-before-studying-gold-2024-11-15]]：支撑“先分清资产配置与交易，再决定如何参与同一资产”
-- [[views/bi-shu-xi-feng-financing-market-needs-a-lower-bar-system-2025-01-05]]：支撑“小本金别照搬高门槛研究型系统”
-- [[views/bi-shu-xi-feng-left-side-investing-buys-the-best-students-2025-03-16]]：支撑“左侧交易只投好学生，并先看资金回流路径”
-- [[views/bi-shu-xi-feng-modern-homebuying-must-plan-the-exit-before-entry-2023-05-02]]：支撑“依赖接盘预期的资产，退出逻辑必须在买入前就想清楚”
-- [[views/bi-shu-xi-feng-housing-prices-follow-consensus-and-demand-2023-05-17]]：支撑“预期型资产先看共识、供需与未来接盘意愿”
-- [[views/bi-shu-xi-feng-housing-value-follows-center-neighbor-and-sellability-2023-02-14]]：支撑“中心、邻居与可卖性共同决定房产价值稳固度”
-- [[views/bi-shu-xi-feng-market-size-and-buyer-capacity-come-first-2023-02-23]]：支撑“先看市场规模与买方承接力，再看单一资产故事”
-- [[views/bi-shu-xi-feng-advice-is-useless-without-a-real-buyer-and-path-2023-01-15]]：支撑“脱离真实买方与路径的建议，不该直接纳入系统”
-- [[views/bi-shu-xi-feng-ordinary-investors-need-regime-judgment-not-precision-2025-03-18]]：支撑“普通投资者用大区间判断和手动优胜劣汰”
-- [[views/bi-shu-xi-feng-investing-is-a-business-and-edge-lives-in-the-gaps-2025-09-11]]：支撑“个人投资更像做生意，要先想清自己赚哪部分钱”
-- [[views/bi-shu-xi-feng-technical-analysis-as-derived-tool-2025-11-29]]：支撑“技术分析只是描述工具，不替代对市场约束的理解”
-- [[views/bi-shu-xi-feng-cycle-templates-expire-across-regimes-2025-08-16]]：支撑“旧模板要先做适用性检查”
-- [[views/bi-shu-xi-feng-dont-copy-buffett-without-his-hidden-edge-2023-10-01]]：支撑“学大玩家前先识别对方真正的生态位与隐藏优势”
-- [[views/bi-shu-xi-feng-gold-pricing-follows-futures-and-spread-2023-10-04]]：支撑“商品要先看真正的定价层，并分清自己赚的是方向还是价差”
+- [[views/bi-shu-xi-feng-2024-03-23-investing-is-about-margin-of-safety-not-betting]]：支撑“先看安全垫和趋势性支撑，再谈是否参与”
+- [[views/bi-shu-xi-feng-2022-09-14-theory-cannot-replace-balance-sheet-and-experience]]：支撑“理论不能替代细部资产判断与经验门槛”
+- [[views/bi-shu-xi-feng-2024-04-23-hedgers-lock-profit-instead-of-betting-direction]]：支撑“同名资产在不同交易结构下，风险完全不同”
+- [[views/bi-shu-xi-feng-2024-07-04-asset-value-depends-on-resource-anchor]]：支撑“资产标签不能替代资源依托判断”
+- [[views/bi-shu-xi-feng-2024-07-13-commercial-role-matters-more-than-surface-yield]]：支撑“先看自己在商业模式里扮演谁”
+- [[views/bi-shu-xi-feng-2025-03-25-copying-big-players-without-context-does-not-work]]：支撑“看不懂约束就不能机械抄作业”
+- [[views/bi-shu-xi-feng-2024-10-19-top-bottom-guessing-is-not-a-system]]：支撑“顶底和放量只是局部描述语言，不是系统本身”
+- [[views/bi-shu-xi-feng-2024-11-15-study-yourself-before-studying-gold]]：支撑“先分清资产配置与交易，再决定如何参与同一资产”
+- [[views/bi-shu-xi-feng-2025-01-05-financing-market-needs-a-lower-bar-system]]：支撑“小本金别照搬高门槛研究型系统”
+- [[views/bi-shu-xi-feng-2025-03-16-left-side-investing-buys-the-best-students]]：支撑“左侧交易只投好学生，并先看资金回流路径”
+- [[views/bi-shu-xi-feng-2023-05-02-modern-homebuying-must-plan-the-exit-before-entry]]：支撑“依赖接盘预期的资产，退出逻辑必须在买入前就想清楚”
+- [[views/bi-shu-xi-feng-2023-05-17-housing-prices-follow-consensus-and-demand]]：支撑“预期型资产先看共识、供需与未来接盘意愿”
+- [[views/bi-shu-xi-feng-2023-02-14-housing-value-follows-center-neighbor-and-sellability]]：支撑“中心、邻居与可卖性共同决定房产价值稳固度”
+- [[views/bi-shu-xi-feng-2023-02-23-market-size-and-buyer-capacity-come-first]]：支撑“先看市场规模与买方承接力，再看单一资产故事”
+- [[views/bi-shu-xi-feng-2023-01-15-advice-is-useless-without-a-real-buyer-and-path]]：支撑“脱离真实买方与路径的建议，不该直接纳入系统”
+- [[views/bi-shu-xi-feng-2025-03-18-ordinary-investors-need-regime-judgment-not-precision]]：支撑“普通投资者用大区间判断和手动优胜劣汰”
+- [[views/bi-shu-xi-feng-2025-09-11-investing-is-a-business-and-edge-lives-in-the-gaps]]：支撑“个人投资更像做生意，要先想清自己赚哪部分钱”
+- [[views/bi-shu-xi-feng-2025-11-29-technical-analysis-as-derived-tool]]：支撑“技术分析只是描述工具，不替代对市场约束的理解”
+- [[views/bi-shu-xi-feng-2025-08-16-cycle-templates-expire-across-regimes]]：支撑“旧模板要先做适用性检查”
+- [[views/bi-shu-xi-feng-2023-10-01-dont-copy-buffett-without-his-hidden-edge]]：支撑“学大玩家前先识别对方真正的生态位与隐藏优势”
+- [[views/bi-shu-xi-feng-2023-10-04-gold-pricing-follows-futures-and-spread]]：支撑“商品要先看真正的定价层，并分清自己赚的是方向还是价差”
 
 ## 仓位规则
 
@@ -372,13 +387,13 @@ related_concepts:
 仓位在这里不是表达信念强弱，而是服务于长期生存。
 
 相关观点：
-- [[views/bi-shu-xi-feng-long-term-systems-should-not-switch-rules-midgame-2024-05-14]]：支撑“高估时优先停杠杆、增现金，不临时切换系统”
-- [[views/bi-shu-xi-feng-theory-cannot-replace-balance-sheet-and-experience-2022-09-14]]：支撑“同一机会对不同体量的人，仓位含义完全不同”
-- [[views/bi-shu-xi-feng-cheap-long-debt-only-helps-if-you-have-better-uses-for-capital-2022-03-20]]：支撑“长负债只有在存在更好资金去处时才成立”
-- [[views/bi-shu-xi-feng-position-sizing-must-match-bearing-capacity-2025-05-27]]：支撑“最大回撤先匹配承受力”
-- [[views/bi-shu-xi-feng-exit-matters-more-than-high-conviction-2025-07-04]]：支撑“高确信也不能替代仓位上限”
-- [[views/bi-shu-xi-feng-bidirectional-mispricing-and-commitment-environment-2026-01-26]]：支撑“底仓 + 现金”的半仓结构
-- [[views/bi-shu-xi-feng-dont-jump-to-a-scale-you-cant-control-2023-05-31]]：支撑“规模升级也要服从承载能力与熟练度”
+- [[views/bi-shu-xi-feng-2024-05-14-long-term-systems-should-not-switch-rules-midgame]]：支撑“高估时优先停杠杆、增现金，不临时切换系统”
+- [[views/bi-shu-xi-feng-2022-09-14-theory-cannot-replace-balance-sheet-and-experience]]：支撑“同一机会对不同体量的人，仓位含义完全不同”
+- [[views/bi-shu-xi-feng-2022-03-20-cheap-long-debt-only-helps-if-you-have-better-uses-for-capital]]：支撑“长负债只有在存在更好资金去处时才成立”
+- [[views/bi-shu-xi-feng-2025-05-27-position-sizing-must-match-bearing-capacity]]：支撑“最大回撤先匹配承受力”
+- [[views/bi-shu-xi-feng-2025-07-04-exit-matters-more-than-high-conviction]]：支撑“高确信也不能替代仓位上限”
+- [[views/bi-shu-xi-feng-2026-01-26-bidirectional-mispricing-and-commitment-environment]]：支撑“底仓 + 现金”的半仓结构
+- [[views/bi-shu-xi-feng-2023-05-31-dont-jump-to-a-scale-you-cant-control]]：支撑“规模升级也要服从承载能力与熟练度”
 
 ## 执行规则
 
@@ -423,21 +438,40 @@ related_concepts:
 - 系统的目标函数要从一开始就写对：不是追求某一次赢得很漂亮，而是追求长期每一次都处在更占优的结构里
 - 纯速度不是系统优势，算法没优势时，速度越快只会亏得越快
 - 系统是否赚钱，既取决于数学结构，也取决于它是否天然筛掉大多数人
+- 在 A 股这类高博弈环境里，基本面研究更像是在确认安全边际与下跌边界，而不是直接预测哪一天会被资金点火
+- 低买高卖并不是口号，它只在“先选对安全标的、再靠纪律执行”时才成立
+- 概念炒作本身可以存在，但系统不能靠自我欺骗维持；看到明显错价时，要先承认错价，而不是为它硬编基本面故事
+
+
+[[views/mai-gupiao-de-laomujiang-2026-04-22-short-term-a-shares-move-on-themes-not-fundamentals]] 又补了一层很实用的分工：
+
+- 短期上涨更多由消息、题材和资金驱动，不能把“研究基本面”和“预测短线点火”混成一件事
+- 但基本面研究并非无用，它更重要的作用是帮助判断自己是不是站在不容易被击败的位置
+- 也就是说，系统里的基本面工作更接近安全边际审计，而不是行情触发器
+
+[[views/mai-gupiao-de-laomujiang-2026-04-09-safe-stocks-enable-buy-low-sell-high]] 与 [[views/mai-gupiao-de-laomujiang-2026-04-17-concept-speculation-needs-honesty-about-mispricing]] 则把这条线补得更完整：
+
+- 若没有“安全标的”这个前提，低买高卖很容易退化成越跌越接飞刀
+- 若明知是资金与概念推动，却还硬套基本面语言自我辩护，系统就会先在认知层面失真
+- 所以执行系统除了规则，还要保留对错价、题材和价格驱动方式的诚实描述能力
 
 
 相关观点：
-- [[views/bi-shu-xi-feng-bloody-chips-go-to-those-who-are-ready-2024-02-19]]：支撑“手里没牌时先补牌，别指望市场为你出题”
-- [[views/bi-shu-xi-feng-market-structure-matters-more-than-drama-2022-10-31]]：支撑“戏剧化庄家叙事不能当执行模板”
-- [[views/bi-shu-xi-feng-long-term-systems-should-not-switch-rules-midgame-2024-05-14]]：支撑“长线、波段、套利的守则不能混用”
-- [[views/bi-shu-xi-feng-trading-system-and-non-interference-2026-01-31]]：支撑“规则写死、执行少干预”
-- [[views/bi-shu-xi-feng-stop-loss-cannot-be-flexible-at-the-line-2024-10-20]]：支撑“止损位只能在入场前改，不能临场毁约”
-- [[views/bi-shu-xi-feng-fixed-rules-and-moving-stop-capture-the-trend-2025-09-09]]：支撑“没有固定模式就只是赌客”
-- [[views/bi-shu-xi-feng-missing-the-move-is-better-than-breaking-discipline-2025-04-01]]：支撑“踏空时默认等待、不为情绪追价买单”
-- [[views/bi-shu-xi-feng-speed-cannot-replace-a-profitable-algorithm-2025-02-26]]：支撑“算法没优势时，速度越快只会亏得越快”
-- [[views/bi-shu-xi-feng-different-strategies-fail-on-different-emotions-2025-09-13]]：支撑“不同系统要预设不同情绪难点”
-- [[views/bi-shu-xi-feng-bidirectional-mispricing-and-commitment-environment-2026-01-26]]：支撑“环境设计也是执行系统的一部分”
-- [[views/bi-shu-xi-feng-blue-ocean-system-and-anti-human-execution-2026-02-03]]：支撑“反人性程度影响系统的拥挤度与竞争强度”
-- [[views/bi-shu-xi-feng-long-term-systems-beat-one-shot-wins-2023-07-13]]：支撑“系统要追求每一次，而不是某一次”
+- [[views/bi-shu-xi-feng-2024-02-19-bloody-chips-go-to-those-who-are-ready]]：支撑“手里没牌时先补牌，别指望市场为你出题”
+- [[views/bi-shu-xi-feng-2022-10-31-market-structure-matters-more-than-drama]]：支撑“戏剧化庄家叙事不能当执行模板”
+- [[views/bi-shu-xi-feng-2024-05-14-long-term-systems-should-not-switch-rules-midgame]]：支撑“长线、波段、套利的守则不能混用”
+- [[views/bi-shu-xi-feng-2026-01-31-trading-system-and-non-interference]]：支撑“规则写死、执行少干预”
+- [[views/bi-shu-xi-feng-2024-10-20-stop-loss-cannot-be-flexible-at-the-line]]：支撑“止损位只能在入场前改，不能临场毁约”
+- [[views/bi-shu-xi-feng-2025-09-09-fixed-rules-and-moving-stop-capture-the-trend]]：支撑“没有固定模式就只是赌客”
+- [[views/bi-shu-xi-feng-2025-04-01-missing-the-move-is-better-than-breaking-discipline]]：支撑“踏空时默认等待、不为情绪追价买单”
+- [[views/bi-shu-xi-feng-2025-02-26-speed-cannot-replace-a-profitable-algorithm]]：支撑“算法没优势时，速度越快只会亏得越快”
+- [[views/bi-shu-xi-feng-2025-09-13-different-strategies-fail-on-different-emotions]]：支撑“不同系统要预设不同情绪难点”
+- [[views/bi-shu-xi-feng-2026-01-26-bidirectional-mispricing-and-commitment-environment]]：支撑“环境设计也是执行系统的一部分”
+- [[views/bi-shu-xi-feng-2026-02-03-blue-ocean-system-and-anti-human-execution]]：支撑“反人性程度影响系统的拥挤度与竞争强度”
+- [[views/bi-shu-xi-feng-2023-07-13-long-term-systems-beat-one-shot-wins]]：支撑“系统要追求每一次，而不是某一次”
+- [[views/mai-gupiao-de-laomujiang-2026-04-09-safe-stocks-enable-buy-low-sell-high]]：支撑“低买高卖只在安全标的和纪律执行前提下成立”
+- [[views/mai-gupiao-de-laomujiang-2026-04-17-concept-speculation-needs-honesty-about-mispricing]]：支撑“系统需要对错价与概念炒作保持认知诚实”
+- [[views/mai-gupiao-de-laomujiang-2026-04-22-short-term-a-shares-move-on-themes-not-fundamentals]]：支撑“基本面更适合用来界定安全边际，而不是直接预测短期上涨”
 
 ## 风控规则
 
@@ -474,22 +508,22 @@ related_concepts:
 - [[concepts/expected-value-stop-loss-and-backstop]]
 
 相关观点：
-- [[views/bi-shu-xi-feng-hedging-tools-are-not-primary-profit-engines-2024-02-01]]：支撑“对冲工具不能脱离原用途当主盈利模式”
-- [[views/bi-shu-xi-feng-small-bank-risk-depends-on-balance-sheet-concentration-2022-07-13]]：支撑“金融机构风险也要穿透看盘子、分散度和放贷集中度”
-- [[views/bi-shu-xi-feng-market-structure-matters-more-than-drama-2022-10-31]]：支撑“市场结构本身也属于风控边界”
-- [[views/bi-shu-xi-feng-investing-is-about-margin-of-safety-not-betting-2024-03-23]]：支撑“投资先算败、先找安全垫”
-- [[views/bi-shu-xi-feng-hedgers-lock-profit-instead-of-betting-direction-2024-04-23]]：支撑“商品型结构也要拆解其真实风险来源”
-- [[views/bi-shu-xi-feng-risk-audit-starts-with-assets-and-counterparties-2025-06-17]]：支撑“先审计底层资产、偿付来源和对手盘”
-- [[views/bi-shu-xi-feng-risk-depends-on-underlying-assets-2025-12-09]]：支撑“收益率标签不能替代风险识别”
-- [[views/bi-shu-xi-feng-exit-matters-more-than-high-conviction-2025-07-04]]：支撑“退出、仓位和对冲比高确信更底层”
-- [[views/bi-shu-xi-feng-unmeasurable-world-and-complete-strategy-2026-02-11]]：支撑“止损可执行性与极端情形预案”
-- [[views/bi-shu-xi-feng-speed-cannot-replace-a-profitable-algorithm-2025-02-26]]：支撑“算法正期望、制度变化与定期出金也属于风控”
-- [[views/bi-shu-xi-feng-exit-before-rule-breaking-risks-hit-2023-12-01]]：支撑“要把平账、赖账和规则外干预纳入退出预案”
-- [[views/bi-shu-xi-feng-withdrawability-matters-more-than-screen-profit-2023-08-07]]：支撑“先确认钱能不能按规则提出来”
-- [[views/bi-shu-xi-feng-expected-value-should-govern-everyday-decisions-2023-06-10]]：支撑“每次重复选择都应优先看数学期望”
-- [[views/bi-shu-xi-feng-full-time-investing-needs-family-risk-isolation-2023-03-17]]：支撑“完整系统还要预设家庭财务边界与最坏情形”
-- [[views/bi-shu-xi-feng-only-bet-direction-when-not-betting-means-certain-loss-2022-12-11]]：支撑“能锁利润时先锁利润，只有非赌不可才押方向”
-- [[views/bi-shu-xi-feng-locking-profit-beats-bearing-time-risk-2022-05-15]]：支撑“能锁利润时，别额外承担时间风险”
+- [[views/bi-shu-xi-feng-2024-02-01-hedging-tools-are-not-primary-profit-engines]]：支撑“对冲工具不能脱离原用途当主盈利模式”
+- [[views/bi-shu-xi-feng-2022-07-13-small-bank-risk-depends-on-balance-sheet-concentration]]：支撑“金融机构风险也要穿透看盘子、分散度和放贷集中度”
+- [[views/bi-shu-xi-feng-2022-10-31-market-structure-matters-more-than-drama]]：支撑“市场结构本身也属于风控边界”
+- [[views/bi-shu-xi-feng-2024-03-23-investing-is-about-margin-of-safety-not-betting]]：支撑“投资先算败、先找安全垫”
+- [[views/bi-shu-xi-feng-2024-04-23-hedgers-lock-profit-instead-of-betting-direction]]：支撑“商品型结构也要拆解其真实风险来源”
+- [[views/bi-shu-xi-feng-2025-06-17-risk-audit-starts-with-assets-and-counterparties]]：支撑“先审计底层资产、偿付来源和对手盘”
+- [[views/bi-shu-xi-feng-2025-12-09-risk-depends-on-underlying-assets]]：支撑“收益率标签不能替代风险识别”
+- [[views/bi-shu-xi-feng-2025-07-04-exit-matters-more-than-high-conviction]]：支撑“退出、仓位和对冲比高确信更底层”
+- [[views/bi-shu-xi-feng-2026-02-11-unmeasurable-world-and-complete-strategy]]：支撑“止损可执行性与极端情形预案”
+- [[views/bi-shu-xi-feng-2025-02-26-speed-cannot-replace-a-profitable-algorithm]]：支撑“算法正期望、制度变化与定期出金也属于风控”
+- [[views/bi-shu-xi-feng-2023-12-01-exit-before-rule-breaking-risks-hit]]：支撑“要把平账、赖账和规则外干预纳入退出预案”
+- [[views/bi-shu-xi-feng-2023-08-07-withdrawability-matters-more-than-screen-profit]]：支撑“先确认钱能不能按规则提出来”
+- [[views/bi-shu-xi-feng-2023-06-10-expected-value-should-govern-everyday-decisions]]：支撑“每次重复选择都应优先看数学期望”
+- [[views/bi-shu-xi-feng-2023-03-17-full-time-investing-needs-family-risk-isolation]]：支撑“完整系统还要预设家庭财务边界与最坏情形”
+- [[views/bi-shu-xi-feng-2022-12-11-only-bet-direction-when-not-betting-means-certain-loss]]：支撑“能锁利润时先锁利润，只有非赌不可才押方向”
+- [[views/bi-shu-xi-feng-2022-05-15-locking-profit-beats-bearing-time-risk]]：支撑“能锁利润时，别额外承担时间风险”
 
 ## 复盘机制
 
@@ -513,11 +547,11 @@ related_concepts:
 - 是否把一段顺周期运气，误当成了稳定的超额收益能力
 
 相关观点：
-- [[views/bi-shu-xi-feng-cycle-is-for-understanding-not-direct-profit-2025-09-12]]：支撑“等待过久、拥挤共振和突发事件会让原有效率失效”
-- [[views/bi-shu-xi-feng-speed-cannot-replace-a-profitable-algorithm-2025-02-26]]：支撑“复盘时要检查微观结构、费用和制度前提是否还成立”
-- [[views/bi-shu-xi-feng-ordinary-investors-need-regime-judgment-not-precision-2025-03-18]]：支撑“普通投资者复盘重点是区间判断是否仍成立”
-- [[views/bi-shu-xi-feng-missing-the-move-is-better-than-breaking-discipline-2025-04-01]]：支撑“复盘时要分清踏空与破坏纪律”
-- [[views/bi-shu-xi-feng-excess-return-comes-from-talent-and-system-2025-12-17]]：支撑“要区分时间价值与系统能力溢价”
+- [[views/bi-shu-xi-feng-2025-09-12-cycle-is-for-understanding-not-direct-profit]]：支撑“等待过久、拥挤共振和突发事件会让原有效率失效”
+- [[views/bi-shu-xi-feng-2025-02-26-speed-cannot-replace-a-profitable-algorithm]]：支撑“复盘时要检查微观结构、费用和制度前提是否还成立”
+- [[views/bi-shu-xi-feng-2025-03-18-ordinary-investors-need-regime-judgment-not-precision]]：支撑“普通投资者复盘重点是区间判断是否仍成立”
+- [[views/bi-shu-xi-feng-2025-04-01-missing-the-move-is-better-than-breaking-discipline]]：支撑“复盘时要分清踏空与破坏纪律”
+- [[views/bi-shu-xi-feng-2025-12-17-excess-return-comes-from-talent-and-system]]：支撑“要区分时间价值与系统能力溢价”
 
 ## 相关概念
 

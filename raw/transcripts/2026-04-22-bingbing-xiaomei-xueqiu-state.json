@@ -1,0 +1,33 @@
+{
+  "account": "冰冰小美",
+  "task_date": "20260422",
+  "start_time": "2026-04-22 00:00:00",
+  "end_time": "2026-04-22 18:01:33",
+  "scan_interval_minutes": 60,
+  "chrome_profile": "./scripts/.xueqiu-chrome-profile",
+  "scan_round": 1,
+  "success_count": 0,
+  "failure_count": 0,
+  "log_file": "/Users/cjw/dev/Obsidian/{skill_name}/20260422/冰冰小美/task.log",
+  "result_dir": "/Users/cjw/dev/Obsidian/{skill_name}/20260422/冰冰小美",
+  "state_file": "/Users/cjw/dev/Obsidian/{skill_name}/20260422/冰冰小美/state.json",
+  "processed_items": {},
+  "events": [
+    {
+      "type": "task_started",
+      "time": "2026-04-22 17:39:17",
+      "message": "任务启动"
+    },
+    {
+      "type": "scan_started",
+      "time": "2026-04-22 17:39:26",
+      "round": 1,
+      "message": "开始扫描 2026-04-22"
+    },
+    {
+      "type": "task_finished",
+      "time": "2026-04-22 18:01:33",
+      "message": "任务结束"
+    }
+  ]
+}

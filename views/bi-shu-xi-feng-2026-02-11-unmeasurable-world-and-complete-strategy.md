@@ -54,8 +54,8 @@ confidence: "medium"
 
 ## 与前两条观点的关系
 
-- [[views/bi-shu-xi-feng-probabilistic-decision-and-risk-control-2026-01-13]] 提出五条概率与风控原则
-- [[views/bi-shu-xi-feng-target-segmentation-and-bayesian-adaptation-2026-01-14]] 把贝叶斯更新展开为目标分层与策略适配
+- [[views/bi-shu-xi-feng-2026-01-13-probabilistic-decision-and-risk-control]] 提出五条概率与风控原则
+- [[views/bi-shu-xi-feng-2026-01-14-target-segmentation-and-bayesian-adaptation]] 把贝叶斯更新展开为目标分层与策略适配
 - 本页则把整条主线推进到“不可测世界”这一底层前提，强调完整策略、止损可执行性与极端情形预案
 
 ## 相关页面

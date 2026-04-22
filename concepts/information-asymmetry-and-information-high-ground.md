@@ -17,7 +17,7 @@ sources:
   - "[[raw/articles/2026-02-21-jiyi-chengzai-mid-2247519882-idx-1]]"
 related:
   - "[[topics/information-high-ground-and-nonstandard-path]]"
-  - "[[views/bi-shu-xi-feng-open-game-control-and-information-high-ground-2026-02-21]]"
+  - "[[views/bi-shu-xi-feng-2026-02-21-open-game-control-and-information-high-ground]]"
 summary: "信息不对称不是单纯知道更多消息，而是在特定牌局里更早看清关键变量、更少暴露自己、并更接近资源分配者视角的一种位置优势。"
 definition: "所谓信息高地，是博弈中的相对优势位置。它来自对牌局、对手、资源分配方式和关键变量的更清晰理解，而不只是拥有更多公开知识。"
 key_variables:
@@ -55,7 +55,7 @@ common_misunderstandings:
 
 ## 与开放式游戏的关系
 
-[[views/bi-shu-xi-feng-open-game-control-and-information-high-ground-2026-02-21]] 补充了一个重要背景：
+[[views/bi-shu-xi-feng-2026-02-21-open-game-control-and-information-high-ground]] 补充了一个重要背景：
 
 - 世界本来是多维、开放、没有统一终点的
 - 但很多控制结构会故意把它设计成单一排名的封闭游戏
@@ -77,4 +77,4 @@ common_misunderstandings:
 
 ## 相关观点
 
-- [[views/bi-shu-xi-feng-open-game-control-and-information-high-ground-2026-02-21]]
+- [[views/bi-shu-xi-feng-2026-02-21-open-game-control-and-information-high-ground]]

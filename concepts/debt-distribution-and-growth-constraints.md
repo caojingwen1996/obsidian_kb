@@ -16,10 +16,10 @@ sources:
   - "[[raw/transcripts/2026-04-19-bingbing-xiaomei-xueqiu-summary]]"
 related:
   - "[[topics/macroeconomy]]"
-  - "[[views/bi-shu-xi-feng-cycle-templates-expire-across-regimes-2025-08-16]]"
-  - "[[views/bi-shu-xi-feng-cycle-is-for-understanding-not-direct-profit-2025-09-12]]"
-  - "[[views/bingbing-xiaomei-state-strategy-makes-macro-more-actionable-2026-04-14]]"
-  - "[[views/bingbing-xiaomei-deflation-and-debt-need-policy-not-zero-sum-thinking-2026-04-19]]"
+  - "[[views/bi-shu-xi-feng-2025-08-16-cycle-templates-expire-across-regimes]]"
+  - "[[views/bi-shu-xi-feng-2025-09-12-cycle-is-for-understanding-not-direct-profit]]"
+  - "[[views/bingbing-xiaomei-2026-04-14-state-strategy-makes-macro-more-actionable]]"
+  - "[[views/bingbing-xiaomei-2026-04-19-deflation-and-debt-need-policy-not-zero-sum-thinking]]"
 summary: "增长不是孤立发生的，债务如何积累、分配如何失衡、旧发展路径还能否持续，会一起决定宏观环境的约束边界，也决定旧周期模板是否还适用。"
 definition: "这是一组描述宏观约束的底层概念：增长并不只取决于需求是否存在，还取决于债务是否还能被吸收、分配是否还能维持购买力，以及旧发展路径是否已经碰到结构性上限。"
 key_variables:
@@ -57,13 +57,13 @@ common_misunderstandings:
 
 ## 在当前材料中的用法
 
-[[views/bi-shu-xi-feng-cycle-templates-expire-across-regimes-2025-08-16]] 把这组约束写得最清楚：
+[[views/bi-shu-xi-feng-2025-08-16-cycle-templates-expire-across-regimes]] 把这组约束写得最清楚：
 
 - 旧周期模型有严格的时代前提
 - 债务如何消化、财富如何重定义、生产力如何变化，都会改变周期节奏
 - 如果前提变了，还拿旧模板直接做判断，就会把解释工具误当成执行系统
 
-[[views/bingbing-xiaomei-deflation-and-debt-need-policy-not-zero-sum-thinking-2026-04-19]] 则补了另一种误区：
+[[views/bingbing-xiaomei-2026-04-19-deflation-and-debt-need-policy-not-zero-sum-thinking]] 则补了另一种误区：
 
 - 把债务和通缩压成“谁来接盘”的零和叙事太粗糙
 - 更重要的是看需求、预期、价格和制度安排如何一起作用
@@ -83,7 +83,7 @@ common_misunderstandings:
 
 ## 相关观点
 
-- [[views/bi-shu-xi-feng-cycle-templates-expire-across-regimes-2025-08-16]]
-- [[views/bi-shu-xi-feng-cycle-is-for-understanding-not-direct-profit-2025-09-12]]
-- [[views/bingbing-xiaomei-state-strategy-makes-macro-more-actionable-2026-04-14]]
-- [[views/bingbing-xiaomei-deflation-and-debt-need-policy-not-zero-sum-thinking-2026-04-19]]
+- [[views/bi-shu-xi-feng-2025-08-16-cycle-templates-expire-across-regimes]]
+- [[views/bi-shu-xi-feng-2025-09-12-cycle-is-for-understanding-not-direct-profit]]
+- [[views/bingbing-xiaomei-2026-04-14-state-strategy-makes-macro-more-actionable]]
+- [[views/bingbing-xiaomei-2026-04-19-deflation-and-debt-need-policy-not-zero-sum-thinking]]

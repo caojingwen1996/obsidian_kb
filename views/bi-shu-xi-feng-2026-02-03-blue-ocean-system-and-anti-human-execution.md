@@ -15,7 +15,7 @@ sources:
 related:
   - "[[people/bi-shu-xi-feng]]"
   - "[[topics/probabilistic-decision-and-risk-control]]"
-  - "[[views/bi-shu-xi-feng-bidirectional-mispricing-and-commitment-environment-2026-01-26]]"
+  - "[[views/bi-shu-xi-feng-2026-01-26-bidirectional-mispricing-and-commitment-environment]]"
 summary: "作者认为系统能否赚钱，不只看规则本身是否成立，还看它是否避开同质化竞争、进入参与者极少却可重复执行的蓝海，以及执行上是否足够反人性。"
 person: "[[people/bi-shu-xi-feng]]"
 topic_refs:
@@ -50,12 +50,12 @@ confidence: "medium"
 
 ## 与现有观点的关系
 
-- [[views/bi-shu-xi-feng-bidirectional-mispricing-and-commitment-environment-2026-01-26]] 讲的是半仓结构、双向错价与环境约束
+- [[views/bi-shu-xi-feng-2026-01-26-bidirectional-mispricing-and-commitment-environment]] 讲的是半仓结构、双向错价与环境约束
 - 本页则补充：为什么这种系统在竞争上成立，以及为什么它会因为反人性而天然稀缺
 
 ## 相关页面
 
 - 人物页：[[people/bi-shu-xi-feng]]
 - 主题页：[[topics/probabilistic-decision-and-risk-control]]
-- 相关观点：[[views/bi-shu-xi-feng-bidirectional-mispricing-and-commitment-environment-2026-01-26]]
+- 相关观点：[[views/bi-shu-xi-feng-2026-01-26-bidirectional-mispricing-and-commitment-environment]]
 

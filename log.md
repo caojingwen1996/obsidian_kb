@@ -309,3 +309,18 @@
 - 在 `topics/probabilistic-decision-and-risk-control.md` 中继续把新判断并回正式章节：低利率长久期负债只有在确实存在更高收益资金去处时才成立。
 - 同步更新 `people/bi-shu-xi-feng.md`、`index.md` 与 `log.md`。
 - `2022-03-22`、`2022-02-16`、`2022-02-11` 这几篇本轮未并入本 topic：前者更偏住房身份与意义投射，后两者本次抓到的正文还不足以支撑稳定提炼，不如本轮纳入的这一篇紧贴当前投资系统主线。
+
+## [2026-04-22] ingest | xueqiu daily summaries for bingbing xiaomei and mai gupiao de laomujiang
+
+- 归档了 `2026-04-22` 的两份雪球日汇总到 `raw/transcripts/`：`冰冰小美` 与 `买股票的老木匠`，并同步保存对应 `state.json`。
+- 为 `冰冰小美` 新增 1 条观点页：`views/bingbing-xiaomei-2026-04-22-ai-repricing-follows-global-industry-context-and-crowded-liquidity.md`，将其当天关于 AI 行情、关键材料路径与抱团流动性的判断并回 `people/bingbing-xiaomei.md` 与 `topics/macroeconomy.md`。
+- 为 `买股票的老木匠` 正式建立人物页 `people/mai-gupiao-de-laomujiang.md`，并新增 1 条观点页：`views/mai-gupiao-de-laomujiang-2026-04-22-short-term-a-shares-move-on-themes-not-fundamentals.md`，挂接到 `topics/probabilistic-decision-and-risk-control.md`。
+- 同步更新 `index.md` 与 `log.md`，让这次 ingest 进入正式知识层并可从索引直接访问。
+
+## [2026-04-22] ingest | backfill mai gupiao de laomujiang person line from existing transcripts
+
+- 从已归档的 `2026-04-06`、`2026-04-09`、`2026-04-10`、`2026-04-17` 四份 `raw/transcripts/` 中，补齐 `买股票的老木匠` 的正式人物学习线。
+- 新增 4 条观点页，分别沉淀“高不确定环境下先降风险不先赌预测”“低买高卖的前提是安全标的”“投资结果更取决于赔率与位置”“炒概念可以但别拿基本面为错价硬找借口”。
+- 在 `people/mai-gupiao-de-laomujiang.md` 中把人物画像从单点判断补成连续主线：风险暴露管理、安全边际、赔率位置、低买高卖和认知诚实。
+- 在 `topics/probabilistic-decision-and-risk-control.md` 中将这组新判断并回“底层决策逻辑”“适用市场”“收益来源与系统本质”等区块。
+- 同步更新 `index.md` 与 `log.md`，让老木匠这条线从单篇观点扩展成可持续追踪的人物学习线。

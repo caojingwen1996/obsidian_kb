@@ -14,7 +14,7 @@ sources:
 related:
   - "[[people/bi-shu-xi-feng]]"
   - "[[topics/probabilistic-decision-and-risk-control]]"
-  - "[[views/bi-shu-xi-feng-probabilistic-decision-and-risk-control-2026-01-13]]"
+  - "[[views/bi-shu-xi-feng-2026-01-13-probabilistic-decision-and-risk-control]]"
 summary: "作者进一步收窄前一日观点，认为面对高价值目标时，不能只靠独立事件与大数定律，而必须根据反馈做贝叶斯式适配与目标分层。"
 person: "[[people/bi-shu-xi-feng]]"
 topic_refs:
@@ -53,11 +53,11 @@ confidence: "medium"
 
 ## 与前一条观点的关系
 
-- [[views/bi-shu-xi-feng-probabilistic-decision-and-risk-control-2026-01-13]] 更像总纲，提出五条原则
+- [[views/bi-shu-xi-feng-2026-01-13-probabilistic-decision-and-risk-control]] 更像总纲，提出五条原则
 - 本页则把其中的“贝叶斯更新”单独拉开，说明它不仅是“根据反馈调整筹码”，还包括目标分层、策略适配和叙事包装
 
 ## 相关页面
 
 - 人物页：[[people/bi-shu-xi-feng]]
 - 主题页：[[topics/probabilistic-decision-and-risk-control]]
-- 上一条相关观点：[[views/bi-shu-xi-feng-probabilistic-decision-and-risk-control-2026-01-13]]
+- 上一条相关观点：[[views/bi-shu-xi-feng-2026-01-13-probabilistic-decision-and-risk-control]]

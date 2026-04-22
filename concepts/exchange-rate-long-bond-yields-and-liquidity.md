@@ -17,10 +17,10 @@ sources:
   - "[[raw/transcripts/2026-04-12-bingbing-xiaomei-xueqiu-summary]]"
 related:
   - "[[topics/macroeconomy]]"
-  - "[[views/bi-shu-xi-feng-investing-is-about-margin-of-safety-not-betting-2024-03-23]]"
-  - "[[views/bi-shu-xi-feng-preservation-benchmark-is-not-cpi-2025-04-11]]"
-  - "[[views/bingbing-xiaomei-exchange-rate-and-long-bond-yields-are-hard-to-fake-2026-04-10]]"
-  - "[[views/bingbing-xiaomei-institutionalization-reprices-market-resilience-and-risk-2026-04-12]]"
+  - "[[views/bi-shu-xi-feng-2024-03-23-investing-is-about-margin-of-safety-not-betting]]"
+  - "[[views/bi-shu-xi-feng-2025-04-11-preservation-benchmark-is-not-cpi]]"
+  - "[[views/bingbing-xiaomei-2026-04-10-exchange-rate-and-long-bond-yields-are-hard-to-fake]]"
+  - "[[views/bingbing-xiaomei-2026-04-12-institutionalization-reprices-market-resilience-and-risk]]"
 summary: "在当前知识库里，汇率、长期利率与流动性是一组比口号和短期情绪更可靠的宏观价格信号，用来观察资本方向、政策预期和风险资产承压程度。"
 definition: "这是一组用于判断宏观环境的价格型变量：汇率反映相对强弱与跨境资本压力，长期利率反映市场对增长、通胀和政策路径的再定价，流动性决定风险资产能否获得持续承接。"
 key_variables:
@@ -58,13 +58,13 @@ common_misunderstandings:
 
 ## 在当前材料中的用法
 
-[[views/bingbing-xiaomei-exchange-rate-and-long-bond-yields-are-hard-to-fake-2026-04-10]] 把这组概念说得最直接：
+[[views/bingbing-xiaomei-2026-04-10-exchange-rate-and-long-bond-yields-are-hard-to-fake]] 把这组概念说得最直接：
 
 - 汇率与长期利率比口号更难骗人
 - 石油、通胀、降息预期、M2 与流动性风险应被放进同一条传导链里理解
 - 结构性行情里，指数表现必须和这组价格信号一起看
 
-[[views/bi-shu-xi-feng-preservation-benchmark-is-not-cpi-2025-04-11]] 则补了另一层：
+[[views/bi-shu-xi-feng-2025-04-11-preservation-benchmark-is-not-cpi]] 则补了另一层：
 
 - 很多人表面上在问通胀
 - 真正影响资产世界的，往往是利率，也就是钱的价格
@@ -84,7 +84,7 @@ common_misunderstandings:
 
 ## 相关观点
 
-- [[views/bi-shu-xi-feng-investing-is-about-margin-of-safety-not-betting-2024-03-23]]
-- [[views/bi-shu-xi-feng-preservation-benchmark-is-not-cpi-2025-04-11]]
-- [[views/bingbing-xiaomei-exchange-rate-and-long-bond-yields-are-hard-to-fake-2026-04-10]]
-- [[views/bingbing-xiaomei-institutionalization-reprices-market-resilience-and-risk-2026-04-12]]
+- [[views/bi-shu-xi-feng-2024-03-23-investing-is-about-margin-of-safety-not-betting]]
+- [[views/bi-shu-xi-feng-2025-04-11-preservation-benchmark-is-not-cpi]]
+- [[views/bingbing-xiaomei-2026-04-10-exchange-rate-and-long-bond-yields-are-hard-to-fake]]
+- [[views/bingbing-xiaomei-2026-04-12-institutionalization-reprices-market-resilience-and-risk]]

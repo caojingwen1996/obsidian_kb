@@ -23,17 +23,17 @@ sources:
   - "[[raw/articles/2025-12-09-jiyi-chengzai-mid-2247519306-idx-1]]"
 related:
   - "[[topics/probabilistic-decision-and-risk-control]]"
-  - "[[views/bi-shu-xi-feng-position-sizing-must-match-bearing-capacity-2025-05-27]]"
-  - "[[views/bi-shu-xi-feng-risk-audit-starts-with-assets-and-counterparties-2025-06-17]]"
-  - "[[views/bi-shu-xi-feng-exit-matters-more-than-high-conviction-2025-07-04]]"
-  - "[[views/bi-shu-xi-feng-fixed-rules-and-moving-stop-capture-the-trend-2025-09-09]]"
-  - "[[views/bi-shu-xi-feng-different-strategies-fail-on-different-emotions-2025-09-13]]"
-  - "[[views/bi-shu-xi-feng-return-must-be-measured-against-risk-and-cost-2025-11-22]]"
-  - "[[views/bi-shu-xi-feng-probabilistic-decision-and-risk-control-2026-01-13]]"
-  - "[[views/bi-shu-xi-feng-risk-depends-on-underlying-assets-2025-12-09]]"
-  - "[[views/bi-shu-xi-feng-bidirectional-mispricing-and-commitment-environment-2026-01-26]]"
-  - "[[views/bi-shu-xi-feng-unmeasurable-world-and-complete-strategy-2026-02-11]]"
-  - "[[views/bi-shu-xi-feng-trading-system-and-non-interference-2026-01-31]]"
+  - "[[views/bi-shu-xi-feng-2025-05-27-position-sizing-must-match-bearing-capacity]]"
+  - "[[views/bi-shu-xi-feng-2025-06-17-risk-audit-starts-with-assets-and-counterparties]]"
+  - "[[views/bi-shu-xi-feng-2025-07-04-exit-matters-more-than-high-conviction]]"
+  - "[[views/bi-shu-xi-feng-2025-09-09-fixed-rules-and-moving-stop-capture-the-trend]]"
+  - "[[views/bi-shu-xi-feng-2025-09-13-different-strategies-fail-on-different-emotions]]"
+  - "[[views/bi-shu-xi-feng-2025-11-22-return-must-be-measured-against-risk-and-cost]]"
+  - "[[views/bi-shu-xi-feng-2026-01-13-probabilistic-decision-and-risk-control]]"
+  - "[[views/bi-shu-xi-feng-2025-12-09-risk-depends-on-underlying-assets]]"
+  - "[[views/bi-shu-xi-feng-2026-01-26-bidirectional-mispricing-and-commitment-environment]]"
+  - "[[views/bi-shu-xi-feng-2026-02-11-unmeasurable-world-and-complete-strategy]]"
+  - "[[views/bi-shu-xi-feng-2026-01-31-trading-system-and-non-interference]]"
 summary: "用盈亏比判断是否值得出手，用止损承认错误，用兜底机制防止一次错误破坏长期生存，是同一套风险控制思路的三个层次。"
 definition: "这是一组围绕长期生存与复利展开的风险控制概念：先判断错了赔多少、对了赚多少，再预设何时认错退出，并额外确保极端情形下仍保留生存资本。"
 key_variables:
@@ -73,19 +73,19 @@ common_misunderstandings:
 
 ## 执行层面的提醒
 
-[[views/bi-shu-xi-feng-unmeasurable-world-and-complete-strategy-2026-02-11]] 对这个概念补充了一点很关键的现实约束：
+[[views/bi-shu-xi-feng-2026-02-11-unmeasurable-world-and-complete-strategy]] 对这个概念补充了一点很关键的现实约束：
 
 - 止损位只是规则，不等于一定能按该价格成交
 - 当体量变大或流动性恶化时，纸面上的风险控制可能失真
 - 因此完整的风控不只包括“设止损”，还包括对冲、撤退路径和极端情形下的额外预案
 - 在某些系统里，还包括用持续套利利润去覆盖底仓回撤、逐步压低持仓成本
-- [[views/bi-shu-xi-feng-risk-depends-on-underlying-assets-2025-12-09]] 还补充了一点：低收益不等于低风险，收益率标签不能替代对底层资产的识别
-- [[views/bi-shu-xi-feng-return-must-be-measured-against-risk-and-cost-2025-11-22]] 进一步补充：回撤恢复是非对称的，所以收益报告必须同时携带风险和成本口径
-- [[views/bi-shu-xi-feng-position-sizing-must-match-bearing-capacity-2025-05-27]] 补充：仓位管理的意义，不只在于控制亏损，也在于避免执行者因回撤超出承受力而扭曲整套系统
-- [[views/bi-shu-xi-feng-risk-audit-starts-with-assets-and-counterparties-2025-06-17]] 补充：进入任何“保本高收益”结构前，先审计底层资产、偿付来源和对手盘机制
-- [[views/bi-shu-xi-feng-exit-matters-more-than-high-conviction-2025-07-04]] 进一步补充：退出、仓位上限和对冲不是“看错了才需要”，而是即使看对了也必须提前存在
-- [[views/bi-shu-xi-feng-fixed-rules-and-moving-stop-capture-the-trend-2025-09-09]] 进一步补充：提前写死的移动止损和移动止盈，可以把“拿不住”的问题尽量从情绪层拿回到规则层
-- [[views/bi-shu-xi-feng-different-strategies-fail-on-different-emotions-2025-09-13]] 提醒：同样的风控结构，对不同类型策略的执行难点并不相同
+- [[views/bi-shu-xi-feng-2025-12-09-risk-depends-on-underlying-assets]] 还补充了一点：低收益不等于低风险，收益率标签不能替代对底层资产的识别
+- [[views/bi-shu-xi-feng-2025-11-22-return-must-be-measured-against-risk-and-cost]] 进一步补充：回撤恢复是非对称的，所以收益报告必须同时携带风险和成本口径
+- [[views/bi-shu-xi-feng-2025-05-27-position-sizing-must-match-bearing-capacity]] 补充：仓位管理的意义，不只在于控制亏损，也在于避免执行者因回撤超出承受力而扭曲整套系统
+- [[views/bi-shu-xi-feng-2025-06-17-risk-audit-starts-with-assets-and-counterparties]] 补充：进入任何“保本高收益”结构前，先审计底层资产、偿付来源和对手盘机制
+- [[views/bi-shu-xi-feng-2025-07-04-exit-matters-more-than-high-conviction]] 进一步补充：退出、仓位上限和对冲不是“看错了才需要”，而是即使看对了也必须提前存在
+- [[views/bi-shu-xi-feng-2025-09-09-fixed-rules-and-moving-stop-capture-the-trend]] 进一步补充：提前写死的移动止损和移动止盈，可以把“拿不住”的问题尽量从情绪层拿回到规则层
+- [[views/bi-shu-xi-feng-2025-09-13-different-strategies-fail-on-different-emotions]] 提醒：同样的风控结构，对不同类型策略的执行难点并不相同
 
 ## 常见误区
 
@@ -106,14 +106,14 @@ common_misunderstandings:
 
 ## 相关观点
 
-- [[views/bi-shu-xi-feng-probabilistic-decision-and-risk-control-2026-01-13]]
-- [[views/bi-shu-xi-feng-position-sizing-must-match-bearing-capacity-2025-05-27]]
-- [[views/bi-shu-xi-feng-risk-audit-starts-with-assets-and-counterparties-2025-06-17]]
-- [[views/bi-shu-xi-feng-exit-matters-more-than-high-conviction-2025-07-04]]
-- [[views/bi-shu-xi-feng-fixed-rules-and-moving-stop-capture-the-trend-2025-09-09]]
-- [[views/bi-shu-xi-feng-different-strategies-fail-on-different-emotions-2025-09-13]]
-- [[views/bi-shu-xi-feng-return-must-be-measured-against-risk-and-cost-2025-11-22]]
-- [[views/bi-shu-xi-feng-risk-depends-on-underlying-assets-2025-12-09]]
-- [[views/bi-shu-xi-feng-bidirectional-mispricing-and-commitment-environment-2026-01-26]]
-- [[views/bi-shu-xi-feng-unmeasurable-world-and-complete-strategy-2026-02-11]]
-- [[views/bi-shu-xi-feng-trading-system-and-non-interference-2026-01-31]]
+- [[views/bi-shu-xi-feng-2026-01-13-probabilistic-decision-and-risk-control]]
+- [[views/bi-shu-xi-feng-2025-05-27-position-sizing-must-match-bearing-capacity]]
+- [[views/bi-shu-xi-feng-2025-06-17-risk-audit-starts-with-assets-and-counterparties]]
+- [[views/bi-shu-xi-feng-2025-07-04-exit-matters-more-than-high-conviction]]
+- [[views/bi-shu-xi-feng-2025-09-09-fixed-rules-and-moving-stop-capture-the-trend]]
+- [[views/bi-shu-xi-feng-2025-09-13-different-strategies-fail-on-different-emotions]]
+- [[views/bi-shu-xi-feng-2025-11-22-return-must-be-measured-against-risk-and-cost]]
+- [[views/bi-shu-xi-feng-2025-12-09-risk-depends-on-underlying-assets]]
+- [[views/bi-shu-xi-feng-2026-01-26-bidirectional-mispricing-and-commitment-environment]]
+- [[views/bi-shu-xi-feng-2026-02-11-unmeasurable-world-and-complete-strategy]]
+- [[views/bi-shu-xi-feng-2026-01-31-trading-system-and-non-interference]]

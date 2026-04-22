@@ -248,7 +248,7 @@ summary: ""
 - 使用稳定标题
 - 文件名建议使用 kebab-case
 - 避免随意重命名已被广泛链接的页面
-- view 文件名优先采用“人物 + 核心主题 + 日期”的格式，避免塞入过长判断句
+- view 文件名优先采用“人物 + 日期 + 核心主题”的格式，避免塞入过长判断句
 - 详细结论写入页面标题、summary 和正文，不在文件名中承载全部语义
 
 示例：
@@ -256,5 +256,5 @@ summary: ""
 - people/ray-dalio.md
 - topics/us-rate-cycle.md
 - concepts/liquidity-trap.md
-- views/ray-dalio-us-debt-cycle-2026-04-13.md
+- views/ray-dalio-2026-04-13-us-debt-cycle.md
 - summaries/gold-pricing-q2-2026-summary.md
