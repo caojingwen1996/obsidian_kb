@@ -3,7 +3,7 @@ title: "宏观经济"
 aliases:
   - "宏观经济基本面"
 created: 2026-04-19
-updated: 2026-04-22
+updated: 2026-04-23
 type: "topic"
 status: active
 tags:
@@ -14,6 +14,8 @@ tags:
   - "macro/cycle"
   - "function/framework"
 sources:
+  - "[[raw/articles/2026-03-25-bafeite-xueqiu-380960384]]"
+  - "[[raw/articles/2026-03-25-bafeite-xueqiu-380960384-linked-posts-captured]]"
   - "[[raw/articles/2024-03-23-jiyi-chengzai-mid-2247514237-idx-1]]"
   - "[[raw/articles/2025-03-16-jiyi-chengzai-mid-2247517296-idx-1]]"
   - "[[raw/articles/2025-03-18-jiyi-chengzai-mid-2247517310-idx-1]]"
@@ -27,9 +29,12 @@ sources:
   - "[[raw/transcripts/2026-04-19-bingbing-xiaomei-xueqiu-summary]]"
   - "[[raw/transcripts/2026-04-21-bingbing-xiaomei-xueqiu-summary]]"
   - "[[raw/transcripts/2026-04-22-bingbing-xiaomei-xueqiu-summary]]"
+  - "[[raw/transcripts/2026-04-23-bingbing-xiaomei-xueqiu-summary]]"
 related:
   - "[[people/bi-shu-xi-feng]]"
   - "[[people/bingbing-xiaomei]]"
+  - "[[topics/geopolitical-repricing-and-resource-monetary-order]]"
+  - "[[summaries/bingbing-xiaomei-2026-q1-macro-recap]]"
   - "[[concepts/exchange-rate-long-bond-yields-and-liquidity]]"
   - "[[concepts/debt-distribution-and-growth-constraints]]"
   - "[[concepts/policy-offset-and-domestic-pricing-power]]"
@@ -38,6 +43,9 @@ related:
   - "[[views/bi-shu-xi-feng-2025-08-16-cycle-templates-expire-across-regimes]]"
   - "[[views/bi-shu-xi-feng-2025-09-12-cycle-is-for-understanding-not-direct-profit]]"
   - "[[views/bi-shu-xi-feng-2024-03-23-investing-is-about-margin-of-safety-not-betting]]"
+  - "[[views/bingbing-xiaomei-2026-01-17-bubbles-evolve-with-governance-red-lines-and-crisis-scripts]]"
+  - "[[views/bingbing-xiaomei-2026-01-21-gold-vs-us-debt-signals-monetary-order-transition]]"
+  - "[[views/bingbing-xiaomei-2026-02-03-index-panic-can-diverge-from-fx-and-export-strength]]"
   - "[[views/bingbing-xiaomei-2026-04-09-market-needs-macro-and-structure-not-static-fundamentals]]"
   - "[[views/bingbing-xiaomei-2026-04-10-exchange-rate-and-long-bond-yields-are-hard-to-fake]]"
   - "[[views/bingbing-xiaomei-2026-04-12-institutionalization-reprices-market-resilience-and-risk]]"
@@ -46,6 +54,7 @@ related:
   - "[[views/bingbing-xiaomei-2026-04-19-deflation-and-debt-need-policy-not-zero-sum-thinking]]"
   - "[[views/bingbing-xiaomei-2026-04-21-global-pricing-and-industrial-consensus-drive-new-old-market-split]]"
   - "[[views/bingbing-xiaomei-2026-04-22-ai-repricing-follows-global-industry-context-and-crowded-liquidity]]"
+  - "[[views/bingbing-xiaomei-2026-04-23-ai-global-synchrony-reprices-supply-chain-position]]"
 summary: "围绕增长、通胀、利率、流动性、债务与分配如何塑造市场环境形成的长期主题，关注宏观变量如何帮助理解区间、筛选资产与判断时代背景，而不是直接替代执行系统。"
 topic_scope:
   - "增长、债务与分配"
@@ -86,6 +95,7 @@ related_concepts:
 - 对普通投资者而言，宏观研究的主要价值是避开明显错误的大环境，而不是追求职业级择时精度
 - 旧的周期模板只在特定历史阶段成立，生产力、债务处理方式和财富定义变化后，模板也会失效
 - 当国家竞争、产业安全和政策支持重新主导市场时，宏观与政治经济分析的解释力会阶段性上升
+- 宏观判断如果不能最终落实到仓位切换、兑现节奏与风险暴露管理，就还不算完成
 
 ## 关键观察轴
 
@@ -161,8 +171,34 @@ related_concepts:
 - 理解行情不能只看国内静态基本面，还要看海外融资、产业链扩张和国际技术路径如何共同改写定价
 - 即便长期成长故事成立，执行上也仍要区分“看长做短”和“无条件长期持有”
 
+[[views/bingbing-xiaomei-2026-04-23-ai-global-synchrony-reprices-supply-chain-position]] 又把这条线继续往前推了一步：
+
+- 这轮 AI 上涨不只是抱团流动性的结果，也越来越由全球协同、政策推进和外资参与共同强化
+- 市场对相关公司的估值锚，正从短期利润进一步转向产业链卡位、技术壁垒和现实约束是否被打通
+- 即便主线很强，万亿成交后的抛压、风格轮动和羊群效应依然说明，强趋势不等于低波动
+
 相关概念见：
 - [[concepts/policy-offset-and-domestic-pricing-power]]
+
+### 7. 阶段复盘与仓位切换
+
+[[summaries/bingbing-xiaomei-2026-q1-macro-recap]] 又补了一层此前还不够清楚的证据：
+
+- 宏观研究不只是解释环境，也可以被组织成阶段地图
+- 每个阶段都要同时回答“事件如何改变资产主线”“市场结构在发生什么”“仓位该如何收缩或保留机动性”
+- 这使得宏观主题不再只是背景板，而变成筛选暴露、控制兑现节奏和等待极端机会的一套辅助框架
+
+这也解释了为什么 [[people/bingbing-xiaomei]] 的材料虽然常从地缘、汇率和产业竞争出发，最后却总会落回仓位、抱团风险和结构分化。
+
+### 8. 地缘重估与资源-货币秩序
+
+这批补抓材料还说明，当前的宏观研究不能只停在“增长、利率、流动性”这一层，还要继续往上追到资源与货币秩序：
+
+- [[views/bingbing-xiaomei-2026-01-17-bubbles-evolve-with-governance-red-lines-and-crisis-scripts]] 提醒，危机脚本会被治理红线和新一轮资产集中方式改写，旧模板不能直接照抄
+- [[views/bingbing-xiaomei-2026-01-21-gold-vs-us-debt-signals-monetary-order-transition]] 把黄金与美债的相对规模推进成货币形态竞争与贸易中心迁移的结构信号
+- [[views/bingbing-xiaomei-2026-02-03-index-panic-can-diverge-from-fx-and-export-strength]] 则说明在地缘与货币扰动升温时，仍要把指数恐慌和真实产业主线拆开看
+
+这组证据已经足够稳定，因此知识库把它们继续下沉为独立 topic：[[topics/geopolitical-repricing-and-resource-monetary-order]]。它与本页的关系是“子主题式补厚”，而不是平行替代。
 
 ### 6. 国家竞争与政策回应
 
@@ -177,6 +213,7 @@ related_concepts:
 本页目前仍是一个早期容器页，有三个边界需要保留：
 
 - 当前页面更偏“宏观如何服务于理解市场环境”，还没有系统展开汇率、就业、财政政策与货币政策的细分主题
+- 与地缘、避险资产和货币秩序更直接相关的材料，已开始下沉到 [[topics/geopolitical-repricing-and-resource-monetary-order]]
 - 虽然已经拆出 3 个概念页，但 `通胀` 与 `市场结构/机构化` 仍暂时留在 topic 内部，后续若证据继续变厚再单拆
 - 其中不少材料落点仍会回到资产配置与投资执行，因此它与 [[topics/probabilistic-decision-and-risk-control]] 会保持相互连接，而不是彼此替代
 
@@ -189,6 +226,9 @@ related_concepts:
 - [[views/bi-shu-xi-feng-2025-04-11-preservation-benchmark-is-not-cpi]]
 - [[views/bi-shu-xi-feng-2025-08-16-cycle-templates-expire-across-regimes]]
 - [[views/bi-shu-xi-feng-2025-09-12-cycle-is-for-understanding-not-direct-profit]]
+- [[views/bingbing-xiaomei-2026-01-17-bubbles-evolve-with-governance-red-lines-and-crisis-scripts]]
+- [[views/bingbing-xiaomei-2026-01-21-gold-vs-us-debt-signals-monetary-order-transition]]
+- [[views/bingbing-xiaomei-2026-02-03-index-panic-can-diverge-from-fx-and-export-strength]]
 - [[views/bingbing-xiaomei-2026-04-09-market-needs-macro-and-structure-not-static-fundamentals]]
 - [[views/bingbing-xiaomei-2026-04-10-exchange-rate-and-long-bond-yields-are-hard-to-fake]]
 - [[views/bingbing-xiaomei-2026-04-12-institutionalization-reprices-market-resilience-and-risk]]
@@ -197,6 +237,8 @@ related_concepts:
 - [[views/bingbing-xiaomei-2026-04-19-deflation-and-debt-need-policy-not-zero-sum-thinking]]
 - [[views/bingbing-xiaomei-2026-04-21-global-pricing-and-industrial-consensus-drive-new-old-market-split]]
 - [[views/bingbing-xiaomei-2026-04-22-ai-repricing-follows-global-industry-context-and-crowded-liquidity]]
+- [[views/bingbing-xiaomei-2026-04-23-ai-global-synchrony-reprices-supply-chain-position]]
+- [[summaries/bingbing-xiaomei-2026-q1-macro-recap]]
 
 ## 相关概念
 

@@ -80,6 +80,7 @@ sources:
   - "[[raw/transcripts/2026-04-10-mai-gupiao-de-laomujiang-xueqiu-summary]]"
   - "[[raw/transcripts/2026-04-17-mai-gupiao-de-laomujiang-xueqiu-summary]]"
   - "[[raw/transcripts/2026-04-22-mai-gupiao-de-laomujiang-xueqiu-summary]]"
+  - "[[raw/transcripts/2026-04-23-mai-gupiao-de-laomujiang-xueqiu-summary]]"
 related:
   - "[[people/bi-shu-xi-feng]]"
   - "[[people/mai-gupiao-de-laomujiang]]"
@@ -156,6 +157,7 @@ related:
   - "[[views/mai-gupiao-de-laomujiang-2026-04-10-price-and-odds-matter-more-than-company-glory]]"
   - "[[views/mai-gupiao-de-laomujiang-2026-04-17-concept-speculation-needs-honesty-about-mispricing]]"
   - "[[views/mai-gupiao-de-laomujiang-2026-04-22-short-term-a-shares-move-on-themes-not-fundamentals]]"
+  - "[[views/mai-gupiao-de-laomujiang-2026-04-23-dont-force-style-drift-in-a-technology-led-bull]]"
 summary: "围绕投资系统、纪律执行与底层决策逻辑展开的长期主题，关注如何在不可测环境中把概率、仓位、止损与复盘写成可执行系统。"
 topic_scope:
   - "投资系统"
@@ -455,6 +457,12 @@ related_concepts:
 - 若明知是资金与概念推动，却还硬套基本面语言自我辩护，系统就会先在认知层面失真
 - 所以执行系统除了规则，还要保留对错价、题材和价格驱动方式的诚实描述能力
 
+[[views/mai-gupiao-de-laomujiang-2026-04-23-dont-force-style-drift-in-a-technology-led-bull]] 则补了一条很容易被忽视的执行约束：
+
+- 技术浪潮中的结构性分化，可以被承认为市场常态，但不等于每个人都必须追逐最热风格
+- 若某类热门资产超出自己的理解与确定性边界，就不该因为阶段性跑输而强行切换系统
+- 评估抱团策略时也应看最终整体业绩，而不是只看有没有出现在重仓名单里
+
 
 相关观点：
 - [[views/bi-shu-xi-feng-2024-02-19-bloody-chips-go-to-those-who-are-ready]]：支撑“手里没牌时先补牌，别指望市场为你出题”
@@ -472,6 +480,7 @@ related_concepts:
 - [[views/mai-gupiao-de-laomujiang-2026-04-09-safe-stocks-enable-buy-low-sell-high]]：支撑“低买高卖只在安全标的和纪律执行前提下成立”
 - [[views/mai-gupiao-de-laomujiang-2026-04-17-concept-speculation-needs-honesty-about-mispricing]]：支撑“系统需要对错价与概念炒作保持认知诚实”
 - [[views/mai-gupiao-de-laomujiang-2026-04-22-short-term-a-shares-move-on-themes-not-fundamentals]]：支撑“基本面更适合用来界定安全边际，而不是直接预测短期上涨”
+- [[views/mai-gupiao-de-laomujiang-2026-04-23-dont-force-style-drift-in-a-technology-led-bull]]：支撑“结构牛市里也不能被迫风格漂移，系统必须匹配自己的理解边界”
 
 ## 风控规则
 

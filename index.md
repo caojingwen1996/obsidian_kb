@@ -1,7 +1,7 @@
 # 知识库索引
 
 > 当前知识库总导航。所有正式知识页都必须登记在此。
-> 最后更新：2026-04-22 | 页面总数：92
+> 最后更新：2026-04-23 | 页面总数：100
 
 ## 人物
 
@@ -22,6 +22,7 @@
 - [[topics/probabilistic-decision-and-risk-control]] - 在不可测环境中依靠概率、反馈更新与纪律组织决策的长期主题
 - [[topics/information-high-ground-and-nonstandard-path]] - 围绕信息高地、上位者博弈与非标路径形成的长期主题
 - [[topics/macroeconomy]] - 围绕增长、通胀、利率、流动性、债务与分配如何塑造市场环境形成的长期主题
+- [[topics/geopolitical-repricing-and-resource-monetary-order]] - 围绕全球割裂、资源争夺、避险资产重估与货币形态竞争形成的长期主题
 
 ## 观点
 
@@ -94,6 +95,9 @@
 - [[views/bi-shu-xi-feng-2026-01-31-trading-system-and-non-interference]] - 将交易系统解释为预先写死规则，并在执行阶段拒绝人为干预
 - [[views/bi-shu-xi-feng-2026-04-05-quantification-is-not-high-frequency]] - 将量化从高频误解中剥离，强调关键是把变化中的结构与情绪翻译成可计算对象
 - [[views/bingbing-xiaomei-2026-04-10-exchange-rate-and-long-bond-yields-are-hard-to-fake]] - 将汇率、长期利率与流动性视为比口号更可靠的宏观环境信号
+- [[views/bingbing-xiaomei-2026-01-17-bubbles-evolve-with-governance-red-lines-and-crisis-scripts]] - 将泡沫研究压回治理红线与危机脚本演化，强调历史不能被机械照抄
+- [[views/bingbing-xiaomei-2026-01-21-gold-vs-us-debt-signals-monetary-order-transition]] - 将黄金与美债逼近平价解释成货币形态竞争升级，并连到贸易中心与秩序迁移
+- [[views/bingbing-xiaomei-2026-02-03-index-panic-can-diverge-from-fx-and-export-strength]] - 将指数恐慌与真实产业强弱拆开，强调仍要回到人民币和出海订单这些更硬的信号
 - [[views/bingbing-xiaomei-2026-04-09-market-needs-macro-and-structure-not-static-fundamentals]] - 将当前市场的理解重心从静态基本面推进到宏观、结构与行为动因
 - [[views/bingbing-xiaomei-2026-04-12-institutionalization-reprices-market-resilience-and-risk]] - 将机构化加深后的市场韧性、汇率稳定与海外风险放进同一套环境判断
 - [[views/bingbing-xiaomei-2026-04-13-policy-offsets-external-shocks-and-keeps-a-shares-domestic-led]] - 将政策对冲外部冲击与 A 股以我为主的结构性重定价连接起来
@@ -101,19 +105,25 @@
 - [[views/bingbing-xiaomei-2026-04-19-deflation-and-debt-need-policy-not-zero-sum-thinking]] - 将通缩与债务问题从零和接盘叙事中拉回需求、预期、物价与资本市场改革路径
 - [[views/bingbing-xiaomei-2026-04-21-global-pricing-and-industrial-consensus-drive-new-old-market-split]] - 将新旧产业分化推进到全球协同定价、产业共识和信息差门槛这一层
 - [[views/bingbing-xiaomei-2026-04-22-ai-repricing-follows-global-industry-context-and-crowded-liquidity]] - 将 AI 行情进一步拆成全球产业线索、关键材料路径和抱团流动性的共同作用，并强调执行上仍应看长做短
+- [[views/bingbing-xiaomei-2026-04-23-ai-global-synchrony-reprices-supply-chain-position]] - 将 AI 估值锚进一步推向全球协同、政策支撑、外资参与和产业链关键位置，并保留强趋势里的波动边界
 - [[views/mai-gupiao-de-laomujiang-2026-04-06-risk-control-means-reducing-exposure-not-predicting-war]] - 将高不确定环境下的第一动作收束为降风险、留现金，而不是先赌预测
 - [[views/mai-gupiao-de-laomujiang-2026-04-09-safe-stocks-enable-buy-low-sell-high]] - 将低买高卖压回“先选安全标的”这个前提，并强调这是一套靠纪律执行的波段系统
 - [[views/mai-gupiao-de-laomujiang-2026-04-10-price-and-odds-matter-more-than-company-glory]] - 将投资结果从公司光环中剥离出来，强调真正重要的是赔率、位置和逆向执行能力
 - [[views/mai-gupiao-de-laomujiang-2026-04-17-concept-speculation-needs-honesty-about-mispricing]] - 承认 A 股可以炒概念，但要求先诚实面对错价本身，不拿伪基本面硬找理由
 - [[views/mai-gupiao-de-laomujiang-2026-04-22-short-term-a-shares-move-on-themes-not-fundamentals]] - 将 A 股短期上涨与基本面研究的分工拆开，强调基本面更重要的作用是界定下跌空间和安全边际
+- [[views/mai-gupiao-de-laomujiang-2026-04-23-dont-force-style-drift-in-a-technology-led-bull]] - 承认技术牛市里的结构分化是常态，但强调不能因为跑输就强行风格漂移
 
 ## 时间线
 
 ## 归纳
 
+- [[summaries/bingbing-xiaomei-2026-q1-macro-recap]] - 把冰冰小美 2026 年一季度的地缘、汇率、流动性与仓位判断压成五阶段复盘，补出了她把宏观事件翻译成仓位动作的连续主线
+
 ## 对比
 
 ## 问答
+
+- [[queries/why-bingbing-xiaomei-is-hard-to-read-and-what-to-learn-first]] - 合并解释冰冰小美为什么难读、需要先补什么知识，以及从入门到进阶应该怎么读
 
 ## 输出成品
 
