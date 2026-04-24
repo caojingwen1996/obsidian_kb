@@ -2,7 +2,7 @@
 title: "碧树西风：量化思维先看分布与曲线，不看单点"
 aliases: []
 created: 2026-04-18
-updated: 2026-04-18
+updated: 2026-04-24
 type: "view"
 status: active
 tags:
@@ -13,11 +13,12 @@ sources:
   - "[[raw/articles/2022-07-01-jiyi-chengzai-mid-2247506879-idx-1]]"
 related:
   - "[[people/bi-shu-xi-feng]]"
+  - "[[topics/quantitative-trading]]"
   - "[[topics/probabilistic-decision-and-risk-control]]"
 summary: "作者借量化对冲套利交易解释一种更底层的思维习惯：成熟系统先看样本总集和时间曲线，而不是抓住单个样本、单个时点和单次结果做判断。"
 person: "[[people/bi-shu-xi-feng]]"
 topic_refs:
-  - "[[topics/probabilistic-decision-and-risk-control]]"
+  - "[[topics/quantitative-trading]]"
 stance: "概率化决策的关键，不是背会量化定义，而是养成按样本总集、分布和时间曲线看问题的习惯；只盯单次样本和单个时间点，很难形成成熟系统。"
 time_scope: "long-term"
 confidence: "high"
@@ -45,10 +46,12 @@ confidence: "high"
 
 ## 与现有主题的关系
 
-- [[topics/probabilistic-decision-and-risk-control]] 已经强调“大数定律、盈亏比、反馈更新”
-- 本页进一步把这条主线压回一种更基础的观察框架：按分布看、按曲线看，而不是按单点看
+- [[topics/quantitative-trading]] 现在承接这条方法论主线
+- 本页提供该 topic 的证据节点，说明成熟系统为什么更先看分布、样本总集与时间曲线
+- 若要看仓位、止损、执行与风控结构，再回到 [[topics/probabilistic-decision-and-risk-control]]
 
 ## 相关页面
 
 - 人物页：[[people/bi-shu-xi-feng]]
-- 主题页：[[topics/probabilistic-decision-and-risk-control]]
+- 主题页：[[topics/quantitative-trading]]
+- 执行与风控页：[[topics/probabilistic-decision-and-risk-control]]

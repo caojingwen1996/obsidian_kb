@@ -3,6 +3,14 @@
 > 按时间顺序记录知识库操作。仅追加，不覆盖。
 > 格式：`## [YYYY-MM-DD] action | subject`
 
+## [2026-04-24] topic-split | quantitative trading
+
+- 从 `topics/probabilistic-decision-and-risk-control.md` 中抽离“量化思维、分布视角、可计算化表达、价格与反馈优先”这条方法论主线。
+- 新建 `topics/quantitative-trading.md`，作为知识库里的“量化交易”正式 topic 页，并明确它在本库中主要指量化方法论，而不是高频或自动化系统。
+- 将 `views/bi-shu-xi-feng-quant-thinking-looks-at-distributions-not-single-points-2022-07-01.md` 与 `views/bi-shu-xi-feng-quantification-is-not-high-frequency-2026-04-05.md` 回挂到新 topic。
+- 收窄 `topics/probabilistic-decision-and-risk-control.md` 的页面职责，保留仓位、止损、退出、风控、复盘与执行主线。
+- 同步更新 `index.md` 与 `log.md`。
+
 ## [2026-04-21] ingest | bi-shu-xi-feng quantification
 
 - 将 `2026-04-05-jiyi-chengzai-mid-2247532824-idx-1` 纳入正式知识层。
