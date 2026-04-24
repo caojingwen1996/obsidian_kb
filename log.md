@@ -3,6 +3,12 @@
 > 按时间顺序记录知识库操作。仅追加，不覆盖。
 > 格式：`## [YYYY-MM-DD] action | subject`
 
+## [2026-04-24] ingest | bi-shu-xi-feng way out system
+
+- 将用户提供的《这辈子还能有出路么？》整理进正式知识层，并清洗出 1 篇 `raw/articles/` 归档，剔除文末付费文章目录与留言区。
+- 新建 1 条 `view`，聚焦“出路来自按需求组织能力、把路走宽并守住现金流”这一条稳定主线。
+- 更新 `people/bi-shu-xi-feng.md`、`topics/probabilistic-decision-and-risk-control.md`、`topics/information-high-ground-and-nonstandard-path.md`、`index.md` 与 `log.md`，把这条新证据接回人物学习线与两个既有主题页。
+
 ## [2026-04-24] topic-split | quantitative trading
 
 - 从 `topics/probabilistic-decision-and-risk-control.md` 中抽离“量化思维、分布视角、可计算化表达、价格与反馈优先”这条方法论主线。

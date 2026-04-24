@@ -2,7 +2,7 @@
 title: "信息高地、上位者博弈与非标路径"
 aliases: []
 created: 2026-04-18
-updated: 2026-04-18
+updated: 2026-04-24
 type: "topic"
 status: active
 tags:
@@ -15,10 +15,12 @@ sources:
   - "[[raw/articles/2026-02-19-jiyi-chengzai-mid-2247519870-idx-1]]"
   - "[[raw/articles/2026-02-20-jiyi-chengzai-mid-2247519875-idx-2]]"
   - "[[raw/articles/2026-02-21-jiyi-chengzai-mid-2247519882-idx-1]]"
+  - "[[raw/articles/2026-04-23-ren-jian-luo-pan-can-this-life-still-have-a-way-out]]"
 related:
   - "[[people/bi-shu-xi-feng]]"
   - "[[concepts/information-asymmetry-and-information-high-ground]]"
   - "[[views/bi-shu-xi-feng-open-game-control-and-information-high-ground-2026-02-21]]"
+  - "[[views/bi-shu-xi-feng-a-way-out-comes-from-demand-optionality-and-cashflow-2026-04-23]]"
 summary: "围绕信息不对称、信息高地、上位者视角与非标路径展开的长期主题，关注人在多牌桌世界里如何识别真正的规则、避开伪竞争，并寻找更有利的位置。"
 topic_scope:
   - "信息高地"
@@ -89,6 +91,8 @@ related_concepts:
 
 所以关键不是“非标一定更高级”，而是“你所在的位置，究竟更适合哪种路径”。
 
+[[views/bi-shu-xi-feng-a-way-out-comes-from-demand-optionality-and-cashflow-2026-04-23]] 则把这条判断进一步落到了更具体的人生系统里：如果一个人仍然按学校式标准、按自己的沉没成本给自己定价，就会越来越依赖单一路径；只有改从需求、路径宽度和现金流后院去组织决策，非标路径和信息高地才不会停留在抽象口号层面。
+
 ## 上位者如何看人
 
 这条主线下，上位者视角和学生视角有明显差异：
@@ -115,6 +119,7 @@ related_concepts:
 ## 相关观点
 
 - [[views/bi-shu-xi-feng-open-game-control-and-information-high-ground-2026-02-21]]
+- [[views/bi-shu-xi-feng-a-way-out-comes-from-demand-optionality-and-cashflow-2026-04-23]]
 
 ## 当前边界
 

@@ -1,7 +1,7 @@
 # 知识库索引
 
 > 当前知识库总导航。所有正式知识页都必须登记在此。
-> 最后更新：2026-04-21 | 页面总数：84
+> 最后更新：2026-04-24 | 页面总数：86
 
 ## 人物
 
@@ -25,6 +25,7 @@
 
 ## 观点
 
+- [[views/bi-shu-xi-feng-a-way-out-comes-from-demand-optionality-and-cashflow-2026-04-23]] - 将人生出路改写成需求、路径宽度与现金流后院的系统问题，而不是继续为沉没成本定价
 - [[views/bi-shu-xi-feng-cheap-long-debt-only-helps-if-you-have-better-uses-for-capital-2022-03-20]] - 将“多贷长贷就是赚”拆成资金用途问题，强调只有存在更高收益去处时，长负债才成立
 - [[views/bi-shu-xi-feng-a-strategy-only-works-for-the-people-built-for-it-2022-05-07]] - 将“该不该买房”的争议压回适用对象，强调同一建议只对具备对应能力边界的人成立
 - [[views/bi-shu-xi-feng-locking-profit-beats-bearing-time-risk-2022-05-15]] - 将同一机会拆成方向交易与无方向套利，强调能锁利润时不该额外承担时间风险

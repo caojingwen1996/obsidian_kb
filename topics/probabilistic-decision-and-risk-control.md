@@ -73,6 +73,7 @@ sources:
   - "[[raw/articles/2025-11-29-jiyi-chengzai-mid-2247519225-idx-1]]"
   - "[[raw/articles/2025-12-09-jiyi-chengzai-mid-2247519306-idx-1]]"
   - "[[raw/articles/2025-12-17-jiyi-chengzai-mid-2247519349-idx-1]]"
+  - "[[raw/articles/2026-04-23-ren-jian-luo-pan-can-this-life-still-have-a-way-out]]"
 related:
   - "[[people/bi-shu-xi-feng]]"
   - "[[concepts/expected-value-stop-loss-and-backstop]]"
@@ -142,6 +143,7 @@ related:
   - "[[views/bi-shu-xi-feng-target-segmentation-and-bayesian-adaptation-2026-01-14]]"
   - "[[views/bi-shu-xi-feng-unmeasurable-world-and-complete-strategy-2026-02-11]]"
   - "[[views/bi-shu-xi-feng-trading-system-and-non-interference-2026-01-31]]"
+  - "[[views/bi-shu-xi-feng-a-way-out-comes-from-demand-optionality-and-cashflow-2026-04-23]]"
 summary: "围绕投资系统、纪律执行与底层决策逻辑展开的长期主题，关注如何在不可测环境中把概率、仓位、止损与复盘写成可执行系统。"
 topic_scope:
   - "投资系统"
@@ -186,6 +188,7 @@ related_concepts:
 - 系统必须完整：仓位、止损、退出和极端情形预案不能缺位
 - 长期生存优先：先活下来，再谈复利
 - 优势来自不确定性中的确定性：不是更敢冒险，而是别人眼里的九死一生，到自己这里只剩下一死九生
+- 系统不是为了提高押宝胜率：更重要的是避免把自己和全部筹码押进单一路径
 
 相关观点：
 - [[views/bi-shu-xi-feng-probabilistic-decision-and-risk-control-2026-01-13]]：支撑“大数定律、盈亏比、兜底”这一层总框架
@@ -193,6 +196,7 @@ related_concepts:
 - [[views/bi-shu-xi-feng-unmeasurable-world-and-complete-strategy-2026-02-11]]：支撑“世界不可测、完整策略、止损可执行性”
 - [[views/bi-shu-xi-feng-trading-system-and-non-interference-2026-01-31]]：支撑“规则先写死、执行少干预”
 - [[views/bi-shu-xi-feng-edge-means-certainty-inside-uncertainty-2022-10-16]]：支撑“真正的优势来自自己更确定的那一段，而不是单纯更敢冒险”
+- [[views/bi-shu-xi-feng-a-way-out-comes-from-demand-optionality-and-cashflow-2026-04-23]]：支撑“同一套系统语言也适用于人生选择，关键是别把自己继续押成单一路径”
 
 ## 适用市场
 
