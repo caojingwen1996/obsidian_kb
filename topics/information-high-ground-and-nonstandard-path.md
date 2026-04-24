@@ -19,12 +19,10 @@ sources:
 related:
   - "[[people/bi-shu-xi-feng]]"
   - "[[concepts/information-asymmetry-and-information-high-ground]]"
-<<<<<<< HEAD
   - "[[views/bi-shu-xi-feng-open-game-control-and-information-high-ground-2026-02-21]]"
   - "[[views/bi-shu-xi-feng-a-way-out-comes-from-demand-optionality-and-cashflow-2026-04-23]]"
-=======
   - "[[views/bi-shu-xi-feng-2026-02-21-open-game-control-and-information-high-ground]]"
->>>>>>> 14086638567dd8bed8745339dada56131068b049
+
 summary: "围绕信息不对称、信息高地、上位者视角与非标路径展开的长期主题，关注人在多牌桌世界里如何识别真正的规则、避开伪竞争，并寻找更有利的位置。"
 topic_scope:
   - "信息高地"

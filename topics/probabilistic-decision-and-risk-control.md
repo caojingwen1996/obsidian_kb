@@ -2,11 +2,7 @@
 title: "概率化决策与风险控制"
 aliases: []
 created: 2026-04-18
-<<<<<<< HEAD
 updated: 2026-04-24
-=======
-updated: 2026-04-22
->>>>>>> 14086638567dd8bed8745339dada56131068b049
 type: "topic"
 status: active
 tags:
@@ -77,21 +73,17 @@ sources:
   - "[[raw/articles/2025-11-29-jiyi-chengzai-mid-2247519225-idx-1]]"
   - "[[raw/articles/2025-12-09-jiyi-chengzai-mid-2247519306-idx-1]]"
   - "[[raw/articles/2025-12-17-jiyi-chengzai-mid-2247519349-idx-1]]"
-<<<<<<< HEAD
   - "[[raw/articles/2026-04-23-ren-jian-luo-pan-can-this-life-still-have-a-way-out]]"
-=======
   - "[[raw/transcripts/2026-04-06-mai-gupiao-de-laomujiang-xueqiu-summary]]"
   - "[[raw/transcripts/2026-04-09-mai-gupiao-de-laomujiang-xueqiu-summary]]"
   - "[[raw/transcripts/2026-04-10-mai-gupiao-de-laomujiang-xueqiu-summary]]"
   - "[[raw/transcripts/2026-04-17-mai-gupiao-de-laomujiang-xueqiu-summary]]"
   - "[[raw/transcripts/2026-04-22-mai-gupiao-de-laomujiang-xueqiu-summary]]"
   - "[[raw/transcripts/2026-04-23-mai-gupiao-de-laomujiang-xueqiu-summary]]"
->>>>>>> 14086638567dd8bed8745339dada56131068b049
 related:
   - "[[people/bi-shu-xi-feng]]"
   - "[[people/mai-gupiao-de-laomujiang]]"
   - "[[concepts/expected-value-stop-loss-and-backstop]]"
-<<<<<<< HEAD
   - "[[topics/quantitative-trading]]"
   - "[[views/bi-shu-xi-feng-cheap-long-debt-only-helps-if-you-have-better-uses-for-capital-2022-03-20]]"
   - "[[views/bi-shu-xi-feng-a-strategy-only-works-for-the-people-built-for-it-2022-05-07]]"
@@ -159,7 +151,6 @@ related:
   - "[[views/bi-shu-xi-feng-unmeasurable-world-and-complete-strategy-2026-02-11]]"
   - "[[views/bi-shu-xi-feng-trading-system-and-non-interference-2026-01-31]]"
   - "[[views/bi-shu-xi-feng-a-way-out-comes-from-demand-optionality-and-cashflow-2026-04-23]]"
-=======
   - "[[views/bi-shu-xi-feng-2022-03-20-cheap-long-debt-only-helps-if-you-have-better-uses-for-capital]]"
   - "[[views/bi-shu-xi-feng-2022-05-07-a-strategy-only-works-for-the-people-built-for-it]]"
   - "[[views/bi-shu-xi-feng-2022-05-15-locking-profit-beats-bearing-time-risk]]"
@@ -233,7 +224,7 @@ related:
   - "[[views/mai-gupiao-de-laomujiang-2026-04-17-concept-speculation-needs-honesty-about-mispricing]]"
   - "[[views/mai-gupiao-de-laomujiang-2026-04-22-short-term-a-shares-move-on-themes-not-fundamentals]]"
   - "[[views/mai-gupiao-de-laomujiang-2026-04-23-dont-force-style-drift-in-a-technology-led-bull]]"
->>>>>>> 14086638567dd8bed8745339dada56131068b049
+
 summary: "围绕投资系统、纪律执行与底层决策逻辑展开的长期主题，关注如何在不可测环境中把概率、仓位、止损与复盘写成可执行系统。"
 topic_scope:
   - "投资系统"
