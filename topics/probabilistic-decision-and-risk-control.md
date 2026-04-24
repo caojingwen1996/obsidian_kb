@@ -2,7 +2,7 @@
 title: "概率化决策与风险控制"
 aliases: []
 created: 2026-04-18
-updated: 2026-04-21
+updated: 2026-04-24
 type: "topic"
 status: active
 tags:
@@ -13,7 +13,6 @@ sources:
   - "[[raw/articles/2022-03-20-jiyi-chengzai-mid-2247504623-idx-1]]"
   - "[[raw/articles/2022-05-07-jiyi-chengzai-mid-2247505360-idx-1]]"
   - "[[raw/articles/2022-05-15-jiyi-chengzai-mid-2247505506-idx-1]]"
-  - "[[raw/articles/2022-07-01-jiyi-chengzai-mid-2247506879-idx-1]]"
   - "[[raw/articles/2022-07-13-jiyi-chengzai-mid-2247507101-idx-1]]"
   - "[[raw/articles/2022-09-14-jiyi-chengzai-mid-2247507537-idx-2]]"
   - "[[raw/articles/2022-10-16-jiyi-chengzai-mid-2247508211-idx-2]]"
@@ -71,17 +70,16 @@ sources:
   - "[[raw/articles/2026-01-14-jiyi-chengzai-mid-2247519588-idx-1]]"
   - "[[raw/articles/2026-02-11-jiyi-chengzai-mid-2247519800-idx-1]]"
   - "[[raw/articles/2026-01-31-jiyi-chengzai-mid-2247519725-idx-1]]"
-  - "[[raw/articles/2026-04-05-jiyi-chengzai-mid-2247532824-idx-1]]"
   - "[[raw/articles/2025-11-29-jiyi-chengzai-mid-2247519225-idx-1]]"
   - "[[raw/articles/2025-12-09-jiyi-chengzai-mid-2247519306-idx-1]]"
   - "[[raw/articles/2025-12-17-jiyi-chengzai-mid-2247519349-idx-1]]"
 related:
   - "[[people/bi-shu-xi-feng]]"
   - "[[concepts/expected-value-stop-loss-and-backstop]]"
+  - "[[topics/quantitative-trading]]"
   - "[[views/bi-shu-xi-feng-cheap-long-debt-only-helps-if-you-have-better-uses-for-capital-2022-03-20]]"
   - "[[views/bi-shu-xi-feng-a-strategy-only-works-for-the-people-built-for-it-2022-05-07]]"
   - "[[views/bi-shu-xi-feng-locking-profit-beats-bearing-time-risk-2022-05-15]]"
-  - "[[views/bi-shu-xi-feng-quant-thinking-looks-at-distributions-not-single-points-2022-07-01]]"
   - "[[views/bi-shu-xi-feng-small-bank-risk-depends-on-balance-sheet-concentration-2022-07-13]]"
   - "[[views/bi-shu-xi-feng-theory-cannot-replace-balance-sheet-and-experience-2022-09-14]]"
   - "[[views/bi-shu-xi-feng-edge-means-certainty-inside-uncertainty-2022-10-16]]"
@@ -144,7 +142,6 @@ related:
   - "[[views/bi-shu-xi-feng-target-segmentation-and-bayesian-adaptation-2026-01-14]]"
   - "[[views/bi-shu-xi-feng-unmeasurable-world-and-complete-strategy-2026-02-11]]"
   - "[[views/bi-shu-xi-feng-trading-system-and-non-interference-2026-01-31]]"
-  - "[[views/bi-shu-xi-feng-quantification-is-not-high-frequency-2026-04-05]]"
 summary: "围绕投资系统、纪律执行与底层决策逻辑展开的长期主题，关注如何在不可测环境中把概率、仓位、止损与复盘写成可执行系统。"
 topic_scope:
   - "投资系统"
@@ -172,13 +169,19 @@ related_concepts:
 
 在当前资料里，这个系统主要沿着碧树西风的文章线索被不断补厚。
 
+## 与量化方法的分工
+
+本页现在主要处理投资系统如何活下来并执行下去，包括仓位、止损、退出、风控、复盘与纪律。
+
+与“分布视角、可计算化表达、价格与反馈优先”更直接相关的内容，已独立整理到 [[topics/quantitative-trading]]。
+
+若问题是在问“这里所说的量化到底是什么”，优先看 [[topics/quantitative-trading]]；若问题是在问“系统如何写成能长期执行并承受风险的结构”，继续看本页。
+
 ## 底层决策逻辑
 
 当前可归纳出的底层前提有六条：
 
 - 世界不可测：不能把策略建立在“我相信会发生”上
-- 系统要按样本总集与时间曲线看问题，而不是被单个样本、单个时点和单次结果绑架
-- 量化不等于高频：关键不在交易次数，而在是否把变化中的结构与情绪压成可观察、可计算的变量
 - 纪律优先于预测：看对方向并不等于能长期赚钱
 - 系统必须完整：仓位、止损、退出和极端情形预案不能缺位
 - 长期生存优先：先活下来，再谈复利
@@ -186,11 +189,9 @@ related_concepts:
 
 相关观点：
 - [[views/bi-shu-xi-feng-probabilistic-decision-and-risk-control-2026-01-13]]：支撑“大数定律、盈亏比、兜底”这一层总框架
-- [[views/bi-shu-xi-feng-quant-thinking-looks-at-distributions-not-single-points-2022-07-01]]：支撑“系统先看样本总集与时间曲线，而不是单点”
 - [[views/bi-shu-xi-feng-target-segmentation-and-bayesian-adaptation-2026-01-14]]：支撑“反馈更新与策略适配”
 - [[views/bi-shu-xi-feng-unmeasurable-world-and-complete-strategy-2026-02-11]]：支撑“世界不可测、完整策略、止损可执行性”
 - [[views/bi-shu-xi-feng-trading-system-and-non-interference-2026-01-31]]：支撑“规则先写死、执行少干预”
-- [[views/bi-shu-xi-feng-quantification-is-not-high-frequency-2026-04-05]]：支撑“量化是把变化翻译成数字，并在交易中优先读价格与反馈，而不是先找理由”
 - [[views/bi-shu-xi-feng-edge-means-certainty-inside-uncertainty-2022-10-16]]：支撑“真正的优势来自自己更确定的那一段，而不是单纯更敢冒险”
 
 ## 适用市场

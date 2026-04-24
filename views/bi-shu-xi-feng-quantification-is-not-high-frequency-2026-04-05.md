@@ -2,7 +2,7 @@
 title: "碧树西风：量化不等于高频，关键是把变化翻译成数字"
 aliases: []
 created: 2026-04-21
-updated: 2026-04-21
+updated: 2026-04-24
 type: "view"
 status: active
 tags:
@@ -13,11 +13,12 @@ sources:
   - "[[raw/articles/2026-04-05-jiyi-chengzai-mid-2247532824-idx-1]]"
 related:
   - "[[people/bi-shu-xi-feng]]"
+  - "[[topics/quantitative-trading]]"
   - "[[topics/probabilistic-decision-and-risk-control]]"
 summary: "作者认为量化不等于高频；它更接近一种把变化中的结构与情绪压成可计算对象的方法，在交易里则体现为先读价格与反馈，而不是先找理由。"
 person: "[[people/bi-shu-xi-feng]]"
 topic_refs:
-  - "[[topics/probabilistic-decision-and-risk-control]]"
+  - "[[topics/quantitative-trading]]"
 stance: "量化不是把交易做得更快，而是把原本凭感觉理解的变化翻译成可观察、可计算、可执行的数字结构。"
 time_scope: "long-term"
 confidence: "medium"
@@ -49,11 +50,12 @@ confidence: "medium"
 
 ## 与现有主题的关系
 
-- [[topics/probabilistic-decision-and-risk-control]] 已经强调纪律、反馈更新和止损结构
-- 本页把其中一层再说清：量化不是频率标签，而是把变化中的结构与情绪压成可计算对象
-- 它也补充了交易系统里的一个关键视角：先读价格和反馈，再决定是否相信那套解释
+- [[topics/quantitative-trading]] 现在承接这条方法论主线
+- 本页提供该 topic 的证据节点，说明量化不是频率标签，而是把变化中的结构与情绪压成可计算对象
+- 若要看仓位、止损、执行与风控结构，再回到 [[topics/probabilistic-decision-and-risk-control]]
 
 ## 相关页面
 
 - 人物页：[[people/bi-shu-xi-feng]]
-- 主题页：[[topics/probabilistic-decision-and-risk-control]]
+- 主题页：[[topics/quantitative-trading]]
+- 执行与风控页：[[topics/probabilistic-decision-and-risk-control]]

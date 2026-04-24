@@ -19,6 +19,7 @@
 ## 主题
 
 - [[topics/probabilistic-decision-and-risk-control]] - 在不可测环境中依靠概率、反馈更新与纪律组织决策的长期主题
+- [[topics/quantitative-trading]] - 围绕量化思维、分布视角与可计算化表达形成的方法论主题，关注如何把变化压成可观察、可比较的变量
 - [[topics/information-high-ground-and-nonstandard-path]] - 围绕信息高地、上位者博弈与非标路径形成的长期主题
 - [[topics/macroeconomy]] - 围绕增长、通胀、利率、流动性、债务与分配如何塑造市场环境形成的长期主题
 
