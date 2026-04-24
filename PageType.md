@@ -2,7 +2,7 @@
 
 ## Purpose
 
-本文件只定义各类 page type 的详细使用边界，不定义执行流程，不重复目录、frontmatter、标签、命名、建页阈值等通用规则。
+本文件只定义各类 page type 的详细使用边界，不定义执行流程，不重复目录、frontmatter、标签、建页阈值等通用规则；仅在某些 page type 存在专属命名约束时单独说明。
 
 它回答的是：
 
@@ -13,7 +13,7 @@
 - 页面之间最低应形成哪些连接
 
 执行流程，例如 ingest、query、lint、初始化行为，统一放在 `SKILL.md`。  
-页面类型枚举、目录结构、frontmatter、标签体系、建页阈值、命名规则、冲突处理，统一以 `SCHEMA.md` 为准。
+页面类型枚举、目录结构、frontmatter、标签体系、建页阈值、冲突处理，统一以 `SCHEMA.md` 为准；page type 专属命名约束在本文件对应章节定义。
 
 ## Scope
 
@@ -204,6 +204,18 @@
 - `view` 是证据节点
 - `person` 是长期归纳
 - `topic` 是问题容器
+
+#### Naming Constraint
+
+- `view` 文件名必须采用 `人物-YYYY-MM-DD-核心主题.md`
+- 文件名必须使用 `kebab-case`
+- 日期必须位于人物之后、核心主题之前，不得后置
+- 文件名只承载人物、日期和核心主题，不得直接写入完整判断句或过长结论
+- 不符合上述规则的 `view` 视为命名校验失败；在继续引用、扩展或提交前必须先完成重命名并同步更新链接
+
+示例：
+
+- `views/ray-dalio-2026-04-13-us-debt-cycle.md`
 
 #### Minimum Links
 
