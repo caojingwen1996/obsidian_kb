@@ -14,7 +14,7 @@ sources:
 related:
   - "[[people/bi-shu-xi-feng]]"
   - "[[topics/probabilistic-decision-and-risk-control]]"
-  - "[[views/bi-shu-xi-feng-trading-system-and-non-interference-2026-01-31]]"
+  - "[[views/bi-shu-xi-feng-2026-01-31-trading-system-and-non-interference]]"
 summary: "作者认为技术分析并非无用，但它本质上只是对既有实战经验和市场参与者行为的压缩描述；真正决定收益的不是指标本身，而是能否透过盘面看到各方目的。"
 person: "[[people/bi-shu-xi-feng]]"
 topic_refs:
@@ -62,4 +62,4 @@ confidence: "medium"
 
 - 人物页：[[people/bi-shu-xi-feng]]
 - 主题页：[[topics/probabilistic-decision-and-risk-control]]
-- 相关观点：[[views/bi-shu-xi-feng-trading-system-and-non-interference-2026-01-31]]
+- 相关观点：[[views/bi-shu-xi-feng-2026-01-31-trading-system-and-non-interference]]

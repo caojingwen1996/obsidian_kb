@@ -1,0 +1,79 @@
+{
+  "account": "老木匠",
+  "task_date": "20260423",
+  "start_time": "2026-04-23 10:08:00",
+  "end_time": "2026-04-23 10:16:39",
+  "scan_interval_minutes": 60,
+  "chrome_profile": "/Users/cjw/.codex/skills/cjw-xueqiu-daily-monitor/scripts/.xueqiu-chrome-profile",
+  "scan_round": 1,
+  "success_count": 5,
+  "failure_count": 0,
+  "log_file": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260423/老木匠/task.log",
+  "result_dir": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260423/老木匠",
+  "state_file": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260423/老木匠/state.json",
+  "processed_items": {
+    "385273582": {
+      "source_id": "385273582",
+      "title": "昨天我又看到董宝珍在抱怨现在的市场。他的核心思想就一个，现在的上涨是高估值的继续在涨，而低估值的依然在下跌，所以这种牛市... - 雪球",
+      "published_at": "2026-04-23 07:24:00",
+      "url": "https://xueqiu.com/3058599833/385273582",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260423/老木匠/072400_昨天我又看到董宝珍在抱怨现在的市场_他的核心思想就一个_现在的上涨是高估值的继续在涨_而低估值的_38527358.txt",
+      "saved_at": "2026-04-23 10:16:17"
+    },
+    "385286718": {
+      "source_id": "385286718",
+      "title": "2026年一季度公募基金十大重仓股出炉。（转发）4月22日，公募基金2026年一季报披露完毕。公募基金最新前十大重仓股出... - 雪球",
+      "published_at": "2026-04-23 09:14:00",
+      "url": "https://xueqiu.com/3058599833/385286718",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260423/老木匠/091400_2026年一季度公募基金十大重仓股出炉_转发_4月22日_公募基金2026年一季报披露完毕_公募_38528671.txt",
+      "saved_at": "2026-04-23 10:16:17"
+    },
+    "385287308": {
+      "source_id": "385287308",
+      "title": "然后，我只有一个问题，公募基金的总体业绩如何？ - 雪球",
+      "published_at": "2026-04-23 09:17:00",
+      "url": "https://xueqiu.com/3058599833/385287308",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260423/老木匠/091700_然后_我只有一个问题_公募基金的总体业绩如何_-_雪球_38528730.txt",
+      "saved_at": "2026-04-23 10:16:17"
+    },
+    "385298273": {
+      "source_id": "385298273",
+      "title": "回复@我想喝汽水: 我已经不玩儿卡车了。//@我想喝汽水:回复@买股票的老木匠:木匠师傅，那个卖商用车的又又又… - 雪球",
+      "published_at": "2026-04-23 09:45:00",
+      "url": "https://xueqiu.com/3058599833/385298273",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260423/老木匠/094500_回复_我想喝汽水_我已经不玩儿卡车了_我想喝汽水_回复_买股票的老木匠_木匠师傅_那个卖商用车的_38529827.txt",
+      "saved_at": "2026-04-23 10:16:17"
+    },
+    "385299288": {
+      "source_id": "385299288",
+      "title": "回复@成都银行养老计划: 存在即合理，这句话的意思你真的知道吗？//@成都银行养老计划:回复@买股票的老木匠:存在即是合... - 雪球",
+      "published_at": "2026-04-23 09:47:00",
+      "url": "https://xueqiu.com/3058599833/385299288",
+      "file_path": "/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260423/老木匠/094700_回复_成都银行养老计划_存在即合理_这句话的意思你真的知道吗_成都银行养老计划_回复_买股票的老_38529928.txt",
+      "saved_at": "2026-04-23 10:16:17"
+    }
+  },
+  "events": [
+    {
+      "type": "task_started",
+      "time": "2026-04-23 10:09:11",
+      "message": "任务启动"
+    },
+    {
+      "type": "scan_started",
+      "time": "2026-04-23 10:09:22",
+      "round": 1,
+      "message": "开始扫描 2026-04-23 首轮抓取"
+    },
+    {
+      "type": "state_synced_from_raw_files",
+      "time": "2026-04-23 10:16:17",
+      "message": "根据已保存原始文件回填状态，共 5 条"
+    },
+    {
+      "type": "task_finished",
+      "time": "2026-04-23 10:16:39",
+      "message": "任务结束"
+    }
+  ]
+}

@@ -60,7 +60,7 @@ confidence: "medium"
 
 ## 与现有主题的关系
 
-- [[views/bi-shu-xi-feng-trading-system-and-non-interference-2026-01-31]] 强调规则写死后不要人为干预
+- [[views/bi-shu-xi-feng-2026-01-31-trading-system-and-non-interference]] 强调规则写死后不要人为干预
 - 本页则补上更前面的结构问题：系统如何通过半仓配置和双向错价操作获得更稳定的成本优势，以及如何通过环境约束提升执行概率
 
 ## 相关页面

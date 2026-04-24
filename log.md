@@ -23,6 +23,13 @@
 - 新增 1 篇 `raw/articles/` 原始归档，并新建 1 条观点页：量化不等于高频，关键是把变化中的结构与情绪翻译成数字。
 - 将这条新证据并入 `people/bi-shu-xi-feng.md` 与 `topics/probabilistic-decision-and-risk-control.md`，同步更新 `index.md` 与 `log.md`。
 
+## [2026-04-21] ingest | bingbing xiaomei macroeconomy 2026-04-21
+
+- 将 `2026-04-21` 的 `冰冰小美` 雪球汇总纳入正式知识层，判定仍明确服务于 `topics/macroeconomy` 与人物学习线。
+- 新增 1 份 `raw/transcripts/` 汇总归档与 1 份对应 `state.json`，并新建 1 条观点页，聚焦“新旧产业分化由全球定价与产业共识驱动”。
+- 更新 `people/bingbing-xiaomei.md` 与 `topics/macroeconomy.md`，把这条新证据并回人物方法与宏观主题框架。
+- 同步更新 `index.md` 与 `log.md`。
+
 ## [2026-04-19] topic-refactor | macroeconomy concepts split
 
 - 从 `topics/macroeconomy.md` 中先拆出 3 个最稳定的概念页：`汇率、长期利率与流动性`、`债务、分配与增长约束`、`政策对冲与内部定价权`。
@@ -316,3 +323,70 @@
 - 在 `topics/probabilistic-decision-and-risk-control.md` 中继续把新判断并回正式章节：低利率长久期负债只有在确实存在更高收益资金去处时才成立。
 - 同步更新 `people/bi-shu-xi-feng.md`、`index.md` 与 `log.md`。
 - `2022-03-22`、`2022-02-16`、`2022-02-11` 这几篇本轮未并入本 topic：前者更偏住房身份与意义投射，后两者本次抓到的正文还不足以支撑稳定提炼，不如本轮纳入的这一篇紧贴当前投资系统主线。
+
+## [2026-04-22] ingest | xueqiu daily summaries for bingbing xiaomei and mai gupiao de laomujiang
+
+- 归档了 `2026-04-22` 的两份雪球日汇总到 `raw/transcripts/`：`冰冰小美` 与 `买股票的老木匠`，并同步保存对应 `state.json`。
+- 为 `冰冰小美` 新增 1 条观点页：`views/bingbing-xiaomei-2026-04-22-ai-repricing-follows-global-industry-context-and-crowded-liquidity.md`，将其当天关于 AI 行情、关键材料路径与抱团流动性的判断并回 `people/bingbing-xiaomei.md` 与 `topics/macroeconomy.md`。
+- 为 `买股票的老木匠` 正式建立人物页 `people/mai-gupiao-de-laomujiang.md`，并新增 1 条观点页：`views/mai-gupiao-de-laomujiang-2026-04-22-short-term-a-shares-move-on-themes-not-fundamentals.md`，挂接到 `topics/probabilistic-decision-and-risk-control.md`。
+- 同步更新 `index.md` 与 `log.md`，让这次 ingest 进入正式知识层并可从索引直接访问。
+
+## [2026-04-22] ingest | backfill mai gupiao de laomujiang person line from existing transcripts
+
+- 从已归档的 `2026-04-06`、`2026-04-09`、`2026-04-10`、`2026-04-17` 四份 `raw/transcripts/` 中，补齐 `买股票的老木匠` 的正式人物学习线。
+- 新增 4 条观点页，分别沉淀“高不确定环境下先降风险不先赌预测”“低买高卖的前提是安全标的”“投资结果更取决于赔率与位置”“炒概念可以但别拿基本面为错价硬找借口”。
+- 在 `people/mai-gupiao-de-laomujiang.md` 中把人物画像从单点判断补成连续主线：风险暴露管理、安全边际、赔率位置、低买高卖和认知诚实。
+- 在 `topics/probabilistic-decision-and-risk-control.md` 中将这组新判断并回“底层决策逻辑”“适用市场”“收益来源与系统本质”等区块。
+- 同步更新 `index.md` 与 `log.md`，让老木匠这条线从单篇观点扩展成可持续追踪的人物学习线。
+
+## [2026-04-22] query | why bingbing xiaomei is hard to read and what to learn first
+
+- 基于 `people/bingbing-xiaomei.md`、`topics/macroeconomy.md` 与两个相关概念页，回答了“为什么看不懂冰冰小美的文章，以及需要先补什么知识”。
+- 新增 `queries/why-bingbing-xiaomei-is-hard-to-read-and-what-to-learn-first.md`，将答案整理为可复用问答。
+- 在答案中把阅读障碍拆成四层：宏观价格信号、市场结构、政策框架、全球产业映射，并给出最短阅读顺序。
+- 同步更新 `index.md` 与 `log.md`，让这条问答可以从知识库索引直接访问。
+
+## [2026-04-22] query | bingbing xiaomei reading map from entry to advanced
+
+- 基于上一条“为什么难懂”的问答，继续整理出一条可执行的 `冰冰小美` 阅读地图。
+- 新增 `queries/bingbing-xiaomei-reading-map-from-entry-to-advanced.md`，把阅读顺序拆成“入门 / 进阶 / 跳读顺序”三层。
+- 在这条问答里明确了每一层先读哪些页面、每一步的目标是什么，以及以后读她的新文章时应该先抓哪几个问题。
+- 同步更新 `index.md` 与 `log.md`，让这条阅读地图可以直接从知识库索引进入。
+
+## [2026-04-22] lint | merge bingbing xiaomei queries into one canonical entry
+
+- 将两条围绕 `冰冰小美` 的问答合并为一条规范入口，避免 `queries/` 中出现平行重复页面。
+- 把“为什么难懂”“需要先补什么知识”“从入门到进阶怎么读”统一并回 `queries/why-bingbing-xiaomei-is-hard-to-read-and-what-to-learn-first.md`。
+- 删除 `queries/bingbing-xiaomei-reading-map-from-entry-to-advanced.md`，并在 `index.md` 中只保留一个问答入口。
+- 同步将页面总数从 `94` 调整回 `93`。
+
+## [2026-04-22] ingest | xueqiu compilation 380960384 and linked bingbing xiaomei posts
+
+- 归档了 `岜菲特` 于 `2026-03-25` 发布的雪球合集页到 `raw/articles/2026-03-25-bafeite-xueqiu-380960384.md`，保留了 41 条子帖链接清单。
+- 顺着母页链接成功抓取并整理了 `冰冰小美` 在 `2026-01-04` 到 `2026-01-15` 的 18 篇原文到 `raw/articles/2026-03-25-bafeite-xueqiu-380960384-linked-posts-captured.md`。
+- 另外记录了 23 篇未补齐链接到 `raw/articles/2026-03-25-bafeite-xueqiu-380960384-linked-posts-blocked.md`；这些链接不是失效，而是在本轮批量访问中触发了雪球滑块验证。
+- 新增 `summaries/bingbing-xiaomei-2026-q1-macro-recap.md`，把这批材料压成五阶段复盘，补出了她把“地缘重估、汇率与流动性切换、资源与货币秩序重排”翻译成仓位动作的连续主线。
+- 同步更新 `people/bingbing-xiaomei.md`、`topics/macroeconomy.md` 与 `index.md`，把这次 ingest 接入现有的人物学习线和宏观主题页。
+
+## [2026-04-23] ingest | backfill remaining 23 linked xueqiu posts after slider verification
+
+- 在用户完成雪球滑块验证后，补抓了合集页 `380960384` 中剩余的 23 篇 `冰冰小美` 子帖，现已把整批原文扩展到 `41/41` 完整状态。
+- 将 `raw/articles/2026-03-25-bafeite-xueqiu-380960384-linked-posts-captured.md` 从首轮的 18 篇更新为完整 41 篇版本，并同步把母页清单改为全部已抓取。
+- 将 `raw/articles/2026-03-25-bafeite-xueqiu-380960384-linked-posts-blocked.md` 改写为一次风控与补抓过程记录，不再保留未完成项。
+- 更新 `summaries/bingbing-xiaomei-2026-q1-macro-recap.md`，把阶段三到阶段五从“主要依赖母页摘要”补成“已结合补抓原文核对”的版本。
+- 同步把 `index.md` 的最近更新时间推进到 `2026-04-23`。
+
+## [2026-04-23] ingest | bingbing xiaomei q1 views and geopolitical topic
+
+- 基于已补齐的 `冰冰小美 2026Q1` 雪球 `41` 篇子帖，继续把阶段归纳下沉到正式知识层。
+- 新建 3 条观点页，分别沉淀“治理红线改写危机脚本”“黄金与美债平价对应货币秩序竞争”“指数恐慌与真实产业强弱需拆开判断”。
+- 新建 `topics/geopolitical-repricing-and-resource-monetary-order.md`，把地缘重估、资源争夺、避险资产和货币形态竞争收束为独立长期主题。
+- 更新 `people/bingbing-xiaomei.md` 与 `topics/macroeconomy.md`，补入这批新观点与新 topic 的回链。
+- 同步更新 `index.md` 与 `log.md`。
+
+## [2026-04-23] ingest | xueqiu daily summaries for bingbing xiaomei and mai gupiao de laomujiang
+
+- 归档了 `2026-04-23` 的两份雪球日汇总到 `raw/transcripts/`：`冰冰小美` 与 `买股票的老木匠`，并同步保存对应 `state.json`。
+- 为 `冰冰小美` 新增 1 条观点页：`views/bingbing-xiaomei-2026-04-23-ai-global-synchrony-reprices-supply-chain-position.md`，将她当天关于 AI 全球协同、政策支撑、外资参与和产业链卡位的判断并回 `people/bingbing-xiaomei.md` 与 `topics/macroeconomy.md`。
+- 为 `买股票的老木匠` 新增 1 条观点页：`views/mai-gupiao-de-laomujiang-2026-04-23-dont-force-style-drift-in-a-technology-led-bull.md`，把“技术浪潮里的结构牛市不等于你必须风格漂移”并回 `people/mai-gupiao-de-laomujiang.md` 与 `topics/probabilistic-decision-and-risk-control.md`。
+- 同步更新 `index.md` 与 `log.md`，让这次 ingest 进入正式知识层并可从索引直接访问。

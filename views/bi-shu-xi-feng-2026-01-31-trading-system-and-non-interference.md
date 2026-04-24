@@ -50,9 +50,9 @@ confidence: "medium"
 
 ## 与现有主题的关系
 
-- [[views/bi-shu-xi-feng-probabilistic-decision-and-risk-control-2026-01-13]] 提供总纲
-- [[views/bi-shu-xi-feng-target-segmentation-and-bayesian-adaptation-2026-01-14]] 细化反馈更新与目标分层
-- [[views/bi-shu-xi-feng-unmeasurable-world-and-complete-strategy-2026-02-11]] 补上“不可测世界”与完整风控结构
+- [[views/bi-shu-xi-feng-2026-01-13-probabilistic-decision-and-risk-control]] 提供总纲
+- [[views/bi-shu-xi-feng-2026-01-14-target-segmentation-and-bayesian-adaptation]] 细化反馈更新与目标分层
+- [[views/bi-shu-xi-feng-2026-02-11-unmeasurable-world-and-complete-strategy]] 补上“不可测世界”与完整风控结构
 - 本页则把它们落实成“交易系统如何写、如何执行、如何不被自己破坏”
 
 ## 相关页面
