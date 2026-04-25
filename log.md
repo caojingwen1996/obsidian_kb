@@ -390,3 +390,27 @@
 - 为 `冰冰小美` 新增 1 条观点页：`views/bingbing-xiaomei-2026-04-23-ai-global-synchrony-reprices-supply-chain-position.md`，将她当天关于 AI 全球协同、政策支撑、外资参与和产业链卡位的判断并回 `people/bingbing-xiaomei.md` 与 `topics/macroeconomy.md`。
 - 为 `买股票的老木匠` 新增 1 条观点页：`views/mai-gupiao-de-laomujiang-2026-04-23-dont-force-style-drift-in-a-technology-led-bull.md`，把“技术浪潮里的结构牛市不等于你必须风格漂移”并回 `people/mai-gupiao-de-laomujiang.md` 与 `topics/probabilistic-decision-and-risk-control.md`。
 - 同步更新 `index.md` 与 `log.md`，让这次 ingest 进入正式知识层并可从索引直接访问。
+
+## [2026-04-25] ingest | discarded user note about private enterprises and fiscal purchase of services
+
+- 收到一段关于“民企、财政购买服务与对体制保持恭敬”的用户笔记，并按 `obsidian-kb` 启动流程读取了 `SCHEMA.md`、`index.md` 与最近日志后进行准入判断。
+- 该材料主要讨论组织关系、体制激励与言论边界，不属于当前知识库定义的“宏观经济 / 投资策略”领域，也不明确服务于现有知识理解线或人物学习线。
+- 结论：`discarded / out of domain`。
+- 未写入 `raw/`，未创建或更新 `people/`、`concepts/`、`topics/`、`views/`、`summaries/`、`comparisons/`、`queries/`、`outputs/`。
+
+## [2026-04-25] ingest | bingbing xiaomei on long china via etf before alpha
+
+- 归档了 `冰冰小美` 于 `2026-04-24 20:05` 发布的雪球原帖到 `raw/articles/2026-04-24-bingbing-xiaomei-xueqiu-385698828.md`，保留了标题、来源、时间、内容 ID 与去噪后的正文。
+- 新增观点页 `views/bingbing-xiaomei-2026-04-24-long-china-needs-etf-base-before-alpha.md`，把这条材料压成“做多中国先用 ETF 承接主线，再在陌生走势里学习超额收益”的可复用判断。
+- 更新 `people/bingbing-xiaomei.md`，补入这篇原始资料、对应 view，以及她在陌生市场里先承认理解边界、优先选择低摩擦表达的执行特征。
+- 更新 `topics/macroeconomy.md`，把这条材料并入“宏观判断最终如何落实到仓位表达与超额收益边界”的框架。
+- 同步更新 `index.md` 与 `log.md`，让这次 ingest 可从索引直接访问。
+
+## [2026-04-25] ingest | default daily directory update for mai gupiao de laomujiang
+
+- 按 `AGENTS.md` 的默认更新规则，读取了 `/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260425/` 作为当天目录来源。
+- 归档了 `买股票的老木匠` 于 `2026-04-25 09:16` 发布的雪球原帖到 `raw/articles/2026-04-25-mai-gupiao-de-laomujiang-xueqiu-385762845.md`。
+- 新增观点页 `views/mai-gupiao-de-laomujiang-2026-04-25-task-driven-exit-creates-hidden-sell-pressure.md`，把“2015 救市资管计划进入退出尾声，会形成任务型卖压”沉淀到正式知识层。
+- 更新 `people/mai-gupiao-de-laomujiang.md` 与 `topics/probabilistic-decision-and-risk-control.md`，补入这条关于非基本面供给与风险识别的回链。
+- 同步更新 `index.md` 与 `log.md`。
+- `冰冰小美` 当天目录里只有 `processing/extracted_posts.json`，且内容发布时间为 `2026-04-19`，不符合本次“当天默认更新”的稳定入库条件，因此本轮未写入。

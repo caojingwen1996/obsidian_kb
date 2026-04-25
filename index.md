@@ -1,11 +1,7 @@
 # 知识库索引
 
 > 当前知识库总导航。所有正式知识页都必须登记在此。
-<<<<<<< HEAD
-> 最后更新：2026-04-24 | 页面总数：86
-=======
-> 最后更新：2026-04-23 | 页面总数：100
->>>>>>> 14086638567dd8bed8745339dada56131068b049
+> 最后更新：2026-04-25 | 页面总数：88
 
 ## 人物
 
@@ -188,12 +184,14 @@
 - [[views/bingbing-xiaomei-2026-04-21-global-pricing-and-industrial-consensus-drive-new-old-market-split]] - 将新旧产业分化推进到全球协同定价、产业共识和信息差门槛这一层
 - [[views/bingbing-xiaomei-2026-04-22-ai-repricing-follows-global-industry-context-and-crowded-liquidity]] - 将 AI 行情进一步拆成全球产业线索、关键材料路径和抱团流动性的共同作用，并强调执行上仍应看长做短
 - [[views/bingbing-xiaomei-2026-04-23-ai-global-synchrony-reprices-supply-chain-position]] - 将 AI 估值锚进一步推向全球协同、政策支撑、外资参与和产业链关键位置，并保留强趋势里的波动边界
+- [[views/bingbing-xiaomei-2026-04-24-long-china-needs-etf-base-before-alpha]] - 将做多中国的方向判断进一步落到 ETF 这一低摩擦载体上，并把超额收益留给后续学习与适应
 - [[views/mai-gupiao-de-laomujiang-2026-04-06-risk-control-means-reducing-exposure-not-predicting-war]] - 将高不确定环境下的第一动作收束为降风险、留现金，而不是先赌预测
 - [[views/mai-gupiao-de-laomujiang-2026-04-09-safe-stocks-enable-buy-low-sell-high]] - 将低买高卖压回“先选安全标的”这个前提，并强调这是一套靠纪律执行的波段系统
 - [[views/mai-gupiao-de-laomujiang-2026-04-10-price-and-odds-matter-more-than-company-glory]] - 将投资结果从公司光环中剥离出来，强调真正重要的是赔率、位置和逆向执行能力
 - [[views/mai-gupiao-de-laomujiang-2026-04-17-concept-speculation-needs-honesty-about-mispricing]] - 承认 A 股可以炒概念，但要求先诚实面对错价本身，不拿伪基本面硬找理由
 - [[views/mai-gupiao-de-laomujiang-2026-04-22-short-term-a-shares-move-on-themes-not-fundamentals]] - 将 A 股短期上涨与基本面研究的分工拆开，强调基本面更重要的作用是界定下跌空间和安全边际
 - [[views/mai-gupiao-de-laomujiang-2026-04-23-dont-force-style-drift-in-a-technology-led-bull]] - 承认技术牛市里的结构分化是常态，但强调不能因为跑输就强行风格漂移
+- [[views/mai-gupiao-de-laomujiang-2026-04-25-task-driven-exit-creates-hidden-sell-pressure]] - 将部分大盘蓝筹里的持续卖压解释成 2015 救市资管计划的任务型退出，提醒先分清卖压来源再做判断
 >>>>>>> 14086638567dd8bed8745339dada56131068b049
 
 ## 时间线

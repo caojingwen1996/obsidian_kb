@@ -2,7 +2,7 @@
 title: "概率化决策与风险控制"
 aliases: []
 created: 2026-04-18
-updated: 2026-04-24
+updated: 2026-04-25
 type: "topic"
 status: active
 tags:
@@ -80,6 +80,7 @@ sources:
   - "[[raw/transcripts/2026-04-17-mai-gupiao-de-laomujiang-xueqiu-summary]]"
   - "[[raw/transcripts/2026-04-22-mai-gupiao-de-laomujiang-xueqiu-summary]]"
   - "[[raw/transcripts/2026-04-23-mai-gupiao-de-laomujiang-xueqiu-summary]]"
+  - "[[raw/articles/2026-04-25-mai-gupiao-de-laomujiang-xueqiu-385762845]]"
 related:
   - "[[people/bi-shu-xi-feng]]"
   - "[[people/mai-gupiao-de-laomujiang]]"
@@ -224,6 +225,7 @@ related:
   - "[[views/mai-gupiao-de-laomujiang-2026-04-17-concept-speculation-needs-honesty-about-mispricing]]"
   - "[[views/mai-gupiao-de-laomujiang-2026-04-22-short-term-a-shares-move-on-themes-not-fundamentals]]"
   - "[[views/mai-gupiao-de-laomujiang-2026-04-23-dont-force-style-drift-in-a-technology-led-bull]]"
+  - "[[views/mai-gupiao-de-laomujiang-2026-04-25-task-driven-exit-creates-hidden-sell-pressure]]"
 
 summary: "围绕投资系统、纪律执行与底层决策逻辑展开的长期主题，关注如何在不可测环境中把概率、仓位、止损与复盘写成可执行系统。"
 topic_scope:
@@ -395,6 +397,8 @@ related_concepts:
 - [[views/bi-shu-xi-feng-2023-05-28-lower-cost-basis-creates-a-safety-cushion]]：支撑“降低持仓成本，本身就是扩大安全气囊”
 
 ## 选股或选资产原则
+
+[[views/mai-gupiao-de-laomujiang-2026-04-25-task-driven-exit-creates-hidden-sell-pressure]] 又补了一类系统里容易误判的供给：非基本面、任务型卖压。当卖压来自历史政策仓位退出时，交易上更该区分“公司变差了”与“有人必须卖”，因为这会直接改变对价格压力持续性、节奏和等待窗口的判断。
 
 就当前资料能支撑的范围，选资产原则主要有几条：
 
