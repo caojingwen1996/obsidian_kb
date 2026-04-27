@@ -31,6 +31,7 @@ sources:
   - "[[raw/transcripts/2026-04-22-bingbing-xiaomei-xueqiu-summary]]"
   - "[[raw/transcripts/2026-04-23-bingbing-xiaomei-xueqiu-summary]]"
   - "[[raw/articles/2026-04-24-bingbing-xiaomei-xueqiu-385698828]]"
+  - "[[raw/transcripts/2026-04-24-bingbing-xiaomei-xueqiu-summary]]"
 related:
   - "[[people/bi-shu-xi-feng]]"
   - "[[people/bingbing-xiaomei]]"
@@ -57,6 +58,7 @@ related:
   - "[[views/bingbing-xiaomei-2026-04-22-ai-repricing-follows-global-industry-context-and-crowded-liquidity]]"
   - "[[views/bingbing-xiaomei-2026-04-23-ai-global-synchrony-reprices-supply-chain-position]]"
   - "[[views/bingbing-xiaomei-2026-04-24-long-china-needs-etf-base-before-alpha]]"
+  - "[[views/bingbing-xiaomei-2026-04-24-ai-repricing-expands-from-gpu-to-system-level-competition]]"
 summary: "围绕增长、通胀、利率、流动性、债务与分配如何塑造市场环境形成的长期主题，关注宏观变量如何帮助理解区间、筛选资产与判断时代背景，而不是直接替代执行系统。"
 topic_scope:
   - "增长、债务与分配"
@@ -186,6 +188,12 @@ related_concepts:
 - 它提醒宏观研究的价值不只是判断主线，还包括承认理解边界，先选对暴露方式，再谈如何稳定争取超额收益
 - 这也让“宏观环境判断 -> 仓位表达 -> 超额收益尝试”的顺序变得更清楚
 
+[[views/bingbing-xiaomei-2026-04-24-ai-repricing-expands-from-gpu-to-system-level-competition]] 又把 AI 这条主线往前推进了一层：
+
+- 行情的定价单位，正从单点 GPU 炒作扩展到 CPU、ASIC、封装、整机系统等更完整的系统能力
+- 北美旧半导体巨头的重估，背后是技术路线验证、产业协同和国家级竞争共同作用，而不只是短线情绪
+- 国内相关方向更多仍在跟随海外 AI 美元定价，因此理解结构差异、技术壁垒和持续投入能力，比只看短期业绩更重要
+
 相关概念见：
 - [[concepts/policy-offset-and-domestic-pricing-power]]
 
@@ -248,6 +256,7 @@ related_concepts:
 - [[views/bingbing-xiaomei-2026-04-22-ai-repricing-follows-global-industry-context-and-crowded-liquidity]]
 - [[views/bingbing-xiaomei-2026-04-23-ai-global-synchrony-reprices-supply-chain-position]]
 - [[views/bingbing-xiaomei-2026-04-24-long-china-needs-etf-base-before-alpha]]
+- [[views/bingbing-xiaomei-2026-04-24-ai-repricing-expands-from-gpu-to-system-level-competition]]
 - [[summaries/bingbing-xiaomei-2026-q1-macro-recap]]
 
 ## 相关概念

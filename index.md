@@ -1,7 +1,7 @@
 # 知识库索引
 
 > 当前知识库总导航。所有正式知识页都必须登记在此。
-> 最后更新：2026-04-25 | 页面总数：88
+> 最后更新：2026-04-25 | 页面总数：89
 
 ## 人物
 
@@ -185,6 +185,7 @@
 - [[views/bingbing-xiaomei-2026-04-22-ai-repricing-follows-global-industry-context-and-crowded-liquidity]] - 将 AI 行情进一步拆成全球产业线索、关键材料路径和抱团流动性的共同作用，并强调执行上仍应看长做短
 - [[views/bingbing-xiaomei-2026-04-23-ai-global-synchrony-reprices-supply-chain-position]] - 将 AI 估值锚进一步推向全球协同、政策支撑、外资参与和产业链关键位置，并保留强趋势里的波动边界
 - [[views/bingbing-xiaomei-2026-04-24-long-china-needs-etf-base-before-alpha]] - 将做多中国的方向判断进一步落到 ETF 这一低摩擦载体上，并把超额收益留给后续学习与适应
+- [[views/bingbing-xiaomei-2026-04-24-ai-repricing-expands-from-gpu-to-system-level-competition]] - 将 AI 重估从单点 GPU 扩展到系统级与国家级竞争，并点出国内更多仍在跟随海外美元定价
 - [[views/mai-gupiao-de-laomujiang-2026-04-06-risk-control-means-reducing-exposure-not-predicting-war]] - 将高不确定环境下的第一动作收束为降风险、留现金，而不是先赌预测
 - [[views/mai-gupiao-de-laomujiang-2026-04-09-safe-stocks-enable-buy-low-sell-high]] - 将低买高卖压回“先选安全标的”这个前提，并强调这是一套靠纪律执行的波段系统
 - [[views/mai-gupiao-de-laomujiang-2026-04-10-price-and-odds-matter-more-than-company-glory]] - 将投资结果从公司光环中剥离出来，强调真正重要的是赔率、位置和逆向执行能力

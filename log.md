@@ -414,3 +414,12 @@
 - 更新 `people/mai-gupiao-de-laomujiang.md` 与 `topics/probabilistic-decision-and-risk-control.md`，补入这条关于非基本面供给与风险识别的回链。
 - 同步更新 `index.md` 与 `log.md`。
 - `冰冰小美` 当天目录里只有 `processing/extracted_posts.json`，且内容发布时间为 `2026-04-19`，不符合本次“当天默认更新”的稳定入库条件，因此本轮未写入。
+
+## [2026-04-25] ingest | default daily directory update for bingbing xiaomei on 20260424
+
+- 按 `AGENTS.md` 的相对日期规则，将“昨天”解析为 `/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260424/`。
+- 归档了 `冰冰小美` 的日汇总到 `raw/transcripts/2026-04-24-bingbing-xiaomei-xueqiu-summary.md`。
+- 新增观点页 `views/bingbing-xiaomei-2026-04-24-ai-repricing-expands-from-gpu-to-system-level-competition.md`，把 2026-04-24 的 AI 判断压成“从 GPU 扩展到系统级与国家级竞争”的可复用结论。
+- 更新 `people/bingbing-xiaomei.md` 与 `topics/macroeconomy.md`，补入这条关于系统级 AI 重估、旧半导体重估和美元定价跟随的回链。
+- `2026-04-24 20:05` 的单帖 `385698828` 已在之前入库，因此本轮未重复创建。
+- 同步更新 `index.md` 与 `log.md`。
