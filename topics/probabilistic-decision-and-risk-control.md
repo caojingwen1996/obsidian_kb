@@ -2,7 +2,7 @@
 title: "概率化决策与风险控制"
 aliases: []
 created: 2026-04-18
-updated: 2026-04-25
+updated: 2026-04-27
 type: "topic"
 status: active
 tags:
@@ -81,6 +81,7 @@ sources:
   - "[[raw/transcripts/2026-04-22-mai-gupiao-de-laomujiang-xueqiu-summary]]"
   - "[[raw/transcripts/2026-04-23-mai-gupiao-de-laomujiang-xueqiu-summary]]"
   - "[[raw/articles/2026-04-25-mai-gupiao-de-laomujiang-xueqiu-385762845]]"
+  - "[[raw/transcripts/2026-04-27-mai-gupiao-de-laomujiang-xueqiu-summary]]"
 related:
   - "[[people/bi-shu-xi-feng]]"
   - "[[people/mai-gupiao-de-laomujiang]]"
@@ -226,6 +227,7 @@ related:
   - "[[views/mai-gupiao-de-laomujiang-2026-04-22-short-term-a-shares-move-on-themes-not-fundamentals]]"
   - "[[views/mai-gupiao-de-laomujiang-2026-04-23-dont-force-style-drift-in-a-technology-led-bull]]"
   - "[[views/mai-gupiao-de-laomujiang-2026-04-25-task-driven-exit-creates-hidden-sell-pressure]]"
+  - "[[views/mai-gupiao-de-laomujiang-2026-04-27-rescue-fund-exit-restores-market-mechanism]]"
 
 summary: "围绕投资系统、纪律执行与底层决策逻辑展开的长期主题，关注如何在不可测环境中把概率、仓位、止损与复盘写成可执行系统。"
 topic_scope:
@@ -267,12 +269,9 @@ related_concepts:
 当前可归纳出的底层前提有六条：
 
 - 世界不可测：不能把策略建立在“我相信会发生”上
-<<<<<<< HEAD
-=======
 - 高不确定环境里，第一动作通常不是提高预测确信，而是先缩风险暴露、留现金与回旋空间
 - 系统要按样本总集与时间曲线看问题，而不是被单个样本、单个时点和单次结果绑架
 - 量化不等于高频：关键不在交易次数，而在是否把变化中的结构与情绪压成可观察、可计算的变量
->>>>>>> 14086638567dd8bed8745339dada56131068b049
 - 纪律优先于预测：看对方向并不等于能长期赚钱
 - 系统必须完整：仓位、止损、退出和极端情形预案不能缺位
 - 长期生存优先：先活下来，再谈复利
@@ -280,14 +279,6 @@ related_concepts:
 - 系统不是为了提高押宝胜率：更重要的是避免把自己和全部筹码押进单一路径
 
 相关观点：
-<<<<<<< HEAD
-- [[views/bi-shu-xi-feng-probabilistic-decision-and-risk-control-2026-01-13]]：支撑“大数定律、盈亏比、兜底”这一层总框架
-- [[views/bi-shu-xi-feng-target-segmentation-and-bayesian-adaptation-2026-01-14]]：支撑“反馈更新与策略适配”
-- [[views/bi-shu-xi-feng-unmeasurable-world-and-complete-strategy-2026-02-11]]：支撑“世界不可测、完整策略、止损可执行性”
-- [[views/bi-shu-xi-feng-trading-system-and-non-interference-2026-01-31]]：支撑“规则先写死、执行少干预”
-- [[views/bi-shu-xi-feng-edge-means-certainty-inside-uncertainty-2022-10-16]]：支撑“真正的优势来自自己更确定的那一段，而不是单纯更敢冒险”
-- [[views/bi-shu-xi-feng-a-way-out-comes-from-demand-optionality-and-cashflow-2026-04-23]]：支撑“同一套系统语言也适用于人生选择，关键是别把自己继续押成单一路径”
-=======
 - [[views/bi-shu-xi-feng-2026-01-13-probabilistic-decision-and-risk-control]]：支撑“大数定律、盈亏比、兜底”这一层总框架
 - [[views/bi-shu-xi-feng-2022-07-01-quant-thinking-looks-at-distributions-not-single-points]]：支撑“系统先看样本总集与时间曲线，而不是单点”
 - [[views/bi-shu-xi-feng-2026-01-14-target-segmentation-and-bayesian-adaptation]]：支撑“反馈更新与策略适配”
@@ -296,7 +287,7 @@ related_concepts:
 - [[views/bi-shu-xi-feng-2026-04-05-quantification-is-not-high-frequency]]：支撑“量化是把变化翻译成数字，并在交易中优先读价格与反馈，而不是先找理由”
 - [[views/bi-shu-xi-feng-2022-10-16-edge-means-certainty-inside-uncertainty]]：支撑“真正的优势来自自己更确定的那一段，而不是单纯更敢冒险”
 - [[views/mai-gupiao-de-laomujiang-2026-04-06-risk-control-means-reducing-exposure-not-predicting-war]]：支撑“高不确定环境下先降风险，而不是先赌预测”
->>>>>>> 14086638567dd8bed8745339dada56131068b049
+- [[views/bi-shu-xi-feng-a-way-out-comes-from-demand-optionality-and-cashflow-2026-04-23]]：支撑“同一套系统语言也适用于人生选择，关键是别把自己继续押成单一路径”
 
 ## 适用市场
 
@@ -399,6 +390,8 @@ related_concepts:
 ## 选股或选资产原则
 
 [[views/mai-gupiao-de-laomujiang-2026-04-25-task-driven-exit-creates-hidden-sell-pressure]] 又补了一类系统里容易误判的供给：非基本面、任务型卖压。当卖压来自历史政策仓位退出时，交易上更该区分“公司变差了”与“有人必须卖”，因为这会直接改变对价格压力持续性、节奏和等待窗口的判断。
+
+[[views/mai-gupiao-de-laomujiang-2026-04-27-rescue-fund-exit-restores-market-mechanism]] 进一步把卖压来源拆成三类：救市资金的退出是在恢复市场机制，普通机构通常缺乏长期不计成本卖出的筹码能力，而产业资本因为持股规模和减持动机不同，才更可能形成持续供给压力。这个判断让“谁在卖、为什么卖”成为入场前的风险识别问题。
 
 就当前资料能支撑的范围，选资产原则主要有几条：
 
@@ -573,6 +566,7 @@ related_concepts:
 - [[views/mai-gupiao-de-laomujiang-2026-04-17-concept-speculation-needs-honesty-about-mispricing]]：支撑“系统需要对错价与概念炒作保持认知诚实”
 - [[views/mai-gupiao-de-laomujiang-2026-04-22-short-term-a-shares-move-on-themes-not-fundamentals]]：支撑“基本面更适合用来界定安全边际，而不是直接预测短期上涨”
 - [[views/mai-gupiao-de-laomujiang-2026-04-23-dont-force-style-drift-in-a-technology-led-bull]]：支撑“结构牛市里也不能被迫风格漂移，系统必须匹配自己的理解边界”
+- [[views/mai-gupiao-de-laomujiang-2026-04-27-rescue-fund-exit-restores-market-mechanism]]：支撑“卖压识别要区分政策性退出、普通机构和产业资本，而不是只看价格下跌本身”
 
 ## 风控规则
 

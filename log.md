@@ -3,6 +3,14 @@
 > 按时间顺序记录知识库操作。仅追加，不覆盖。
 > 格式：`## [YYYY-MM-DD] action | subject`
 
+## [2026-04-27] ingest | xueqiu daily summaries for bingbing xiaomei and mai gupiao de laomujiang
+
+- 读取了 `/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260427/` 下当天两位作者的雪球抓取结果与 `summary.md`。
+- 归档了两份日汇总到 `raw/transcripts/`：`2026-04-27-bingbing-xiaomei-xueqiu-summary.md` 与 `2026-04-27-mai-gupiao-de-laomujiang-xueqiu-summary.md`。
+- 为 `冰冰小美` 新增观点页 `views/bingbing-xiaomei-2026-04-27-ai-chain-repricing-needs-industry-route-and-timing.md`，把她当天关于 AI 产业链、国产替代、智能汽车和交易节点的判断并回 `people/bingbing-xiaomei.md` 与 `topics/macroeconomy.md`。
+- 为 `买股票的老木匠` 新增观点页 `views/mai-gupiao-de-laomujiang-2026-04-27-rescue-fund-exit-restores-market-mechanism.md`，把他关于救市资金退出、市场机制恢复和卖压来源区分的判断并回 `people/mai-gupiao-de-laomujiang.md` 与 `topics/probabilistic-decision-and-risk-control.md`。
+- 清理了 `index.md` 中既有的观点区 Git 冲突标记，保留更完整的索引分支，并同步登记本次新增的两条观点页。
+
 ## [2026-04-24] ingest | bi-shu-xi-feng way out system
 
 - 将用户提供的《这辈子还能有出路么？》整理进正式知识层，并清洗出 1 篇 `raw/articles/` 归档，剔除文末付费文章目录与留言区。
