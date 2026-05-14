@@ -25,6 +25,11 @@
 - 收窄 `topics/probabilistic-decision-and-risk-control.md` 的页面职责，保留仓位、止损、退出、风控、复盘与执行主线。
 - 同步更新 `index.md` 与 `log.md`。
 
+## [2026-05-14] query | account segmentation for non-professional investors
+
+- 基于 `topics/probabilistic-decision-and-risk-control.md`、`views/bi-shu-xi-feng-2025-03-18-ordinary-investors-need-regime-judgment-not-precision.md`、`views/bi-shu-xi-feng-2025-01-05-financing-market-needs-a-lower-bar-system.md`、`views/mai-gupiao-de-laomujiang-2026-04-10-price-and-odds-matter-more-than-company-glory.md` 等页面，回答“股票账户、趋势 ETF 账户、长持账户”这种分仓方式是否适合工作党非专业投资者。
+- 结论：账户隔离本身可行，且符合“系统要匹配执行者、低成本可执行、纪律优先于预测、环境设计也是系统一部分”的知识库原则；但必须补齐资金来源、仓位上限、再平衡周期、止损/证伪和破例规则。
+
 ## [2026-04-21] ingest | bi-shu-xi-feng quantification
 
 - 将 `2026-04-05-jiyi-chengzai-mid-2247532824-idx-1` 纳入正式知识层。
