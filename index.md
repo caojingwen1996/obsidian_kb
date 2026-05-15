@@ -1,7 +1,7 @@
 # 知识库索引
 
 > 当前知识库总导航。所有正式知识页都必须登记在此。
-> 最后更新：2026-04-27 | 页面总数：107
+> 最后更新：2026-05-14 | 页面总数：109
 
 ## 人物
 
@@ -24,6 +24,7 @@
 - [[topics/information-high-ground-and-nonstandard-path]] - 围绕信息高地、上位者博弈与非标路径形成的长期主题
 - [[topics/macroeconomy]] - 围绕增长、通胀、利率、流动性、债务与分配如何塑造市场环境形成的长期主题
 - [[topics/geopolitical-repricing-and-resource-monetary-order]] - 围绕全球割裂、资源争夺、避险资产重估与货币形态竞争形成的长期主题
+- [[topics/life-and-wealth-worldview]] - 围绕人生目标、财富定义、风险承受力与投资系统之间的相互约束形成的长期主题
 
 ## 观点
 
@@ -110,6 +111,7 @@
 - [[views/bingbing-xiaomei-2026-04-24-long-china-needs-etf-base-before-alpha]] - 将做多中国的方向判断进一步落到 ETF 这一低摩擦载体上，并把超额收益留给后续学习与适应
 - [[views/bingbing-xiaomei-2026-04-24-ai-repricing-expands-from-gpu-to-system-level-competition]] - 将 AI 重估从单点 GPU 扩展到系统级与国家级竞争，并点出国内更多仍在跟随海外美元定价
 - [[views/bingbing-xiaomei-2026-04-27-ai-chain-repricing-needs-industry-route-and-timing]] - 将 AI 产业链重估进一步落到技术路线、产业位置、智能汽车终端化与交易节点的同步判断
+- [[views/bingbing-xiaomei-2026-05-14-inflation-turning-point-anchors-risk-rhythm]] - 将 5/14 前后的短期技术扰动压回美国通胀、油价与货币政策传导，强调风险减弱要看通胀何时拐头向下
 - [[views/mai-gupiao-de-laomujiang-2026-04-06-risk-control-means-reducing-exposure-not-predicting-war]] - 将高不确定环境下的第一动作收束为降风险、留现金，而不是先赌预测
 - [[views/mai-gupiao-de-laomujiang-2026-04-09-safe-stocks-enable-buy-low-sell-high]] - 将低买高卖压回“先选安全标的”这个前提，并强调这是一套靠纪律执行的波段系统
 - [[views/mai-gupiao-de-laomujiang-2026-04-10-price-and-odds-matter-more-than-company-glory]] - 将投资结果从公司光环中剥离出来，强调真正重要的是赔率、位置和逆向执行能力

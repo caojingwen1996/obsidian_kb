@@ -3,6 +3,22 @@
 > 按时间顺序记录知识库操作。仅追加，不覆盖。
 > 格式：`## [YYYY-MM-DD] action | subject`
 
+## [2026-05-14] ingest | create topic for life and wealth worldview
+
+- 新建 topic `topics/life-and-wealth-worldview.md`，用于承接“人生观与财富观”这条长期主线。
+- 本页被判定为服务当前知识库的投资策略线与人物学习线：它把财富目标、收益质量、财富留存、真实承受力与投资系统目标函数连接起来，而不是作为泛泛的人生随笔入库。
+- 初始回链到 `topics/probabilistic-decision-and-risk-control.md`、`topics/macroeconomy.md`、`topics/information-high-ground-and-nonstandard-path.md`、`concepts/expected-value-stop-loss-and-backstop.md`、`concepts/information-asymmetry-and-information-high-ground.md`，并引用已有相关 view 作为证据节点。
+- 同步更新 `index.md`：将页面总数更新为 `108`，并在“主题”分区登记 `[[topics/life-and-wealth-worldview]]`。
+- 继续补入用户提出的核心隐喻：财富观像一口缸，至少要满足“有进有出、量入为出、够用不焦虑”，才能逐步找到适合自己的容量，避免财富被收走、反噬或变成生活压力源。
+
+## [2026-05-14] ingest | bingbing xiaomei on 5/14 technical disturbance and inflation risk node
+
+- 归档用户提供的 `冰冰小美` 5/14 观点原文到 `raw/manual/2026-05-14-bingbing-xiaomei-macro-risk-node.md`。
+- 新增观点页 `views/bingbing-xiaomei-2026-05-14-inflation-turning-point-anchors-risk-rhythm.md`，将“5/14 魔咒”拆成联储换届、股指期货交割等短期技术扰动，以及美国通胀拐头这一更关键的风险节奏锚。
+- 更新 `people/bingbing-xiaomei.md`，补入她面对市场时间节点时先拆技术扰动、再回到通胀、油价、货币政策与风险偏好传导链的思维特征。
+- 更新 `topics/macroeconomy.md`，把该材料接入通胀、利率预期、流动性与资产风险偏好的传导框架。
+- 同步更新 `index.md`，让新增 view 进入正式知识索引。
+
 ## [2026-04-27] ingest | xueqiu daily summaries for bingbing xiaomei and mai gupiao de laomujiang
 
 - 读取了 `/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260427/` 下当天两位作者的雪球抓取结果与 `summary.md`。

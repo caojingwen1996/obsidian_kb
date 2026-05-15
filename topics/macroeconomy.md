@@ -3,7 +3,7 @@ title: "宏观经济"
 aliases:
   - "宏观经济基本面"
 created: 2026-04-19
-updated: 2026-04-27
+updated: 2026-05-14
 type: "topic"
 status: active
 tags:
@@ -33,6 +33,7 @@ sources:
   - "[[raw/articles/2026-04-24-bingbing-xiaomei-xueqiu-385698828]]"
   - "[[raw/transcripts/2026-04-24-bingbing-xiaomei-xueqiu-summary]]"
   - "[[raw/transcripts/2026-04-27-bingbing-xiaomei-xueqiu-summary]]"
+  - "[[raw/manual/2026-05-14-bingbing-xiaomei-macro-risk-node]]"
 related:
   - "[[people/bi-shu-xi-feng]]"
   - "[[people/bingbing-xiaomei]]"
@@ -61,6 +62,7 @@ related:
   - "[[views/bingbing-xiaomei-2026-04-24-long-china-needs-etf-base-before-alpha]]"
   - "[[views/bingbing-xiaomei-2026-04-24-ai-repricing-expands-from-gpu-to-system-level-competition]]"
   - "[[views/bingbing-xiaomei-2026-04-27-ai-chain-repricing-needs-industry-route-and-timing]]"
+  - "[[views/bingbing-xiaomei-2026-05-14-inflation-turning-point-anchors-risk-rhythm]]"
 summary: "围绕增长、通胀、利率、流动性、债务与分配如何塑造市场环境形成的长期主题，关注宏观变量如何帮助理解区间、筛选资产与判断时代背景，而不是直接替代执行系统。"
 topic_scope:
   - "增长、债务与分配"
@@ -103,6 +105,7 @@ related_concepts:
 - 当国家竞争、产业安全和政策支持重新主导市场时，宏观与政治经济分析的解释力会阶段性上升
 - 宏观判断如果不能最终落实到仓位切换、兑现节奏与风险暴露管理，就还不算完成
 - 当市场进入陌生走势时，先用宽基或 ETF 承接最清晰的方向性判断，往往比仓促追逐个股超额收益更符合宏观研究的边界
+- 对短期交易节奏来说，日期、交割和指数突破只能解释部分技术扰动；真正决定风险偏好是否减弱的，仍是通胀、油价、利率预期和流动性压力是否出现拐点
 
 ## 关键观察轴
 
@@ -202,8 +205,15 @@ related_concepts:
 - 作者更明确地把国际视野、技术路线、产业思维、资金流动和时间节点作为观察市场行为的五个维度
 - 交易表达上，她强调股价新高不是绝对阻碍，真正的阻碍是确定性不足；这让宏观和产业判断最终回到“何时有利、何时降低成本”的执行问题
 
+[[views/bingbing-xiaomei-2026-05-14-inflation-turning-point-anchors-risk-rhythm]] 又把宏观变量拉回短期风险节奏：
+
+- 联储主席换届、股指期货交割和创业板突破历史新高都可能放大波动，但更偏短期技术影响
+- 如果要用短期影响指导交易节奏，核心不是“5/14”这个日期本身，而是美国通胀在石油危机滞后影响下何时被压制
+- 通胀拐头向下才是下一次风险减弱的关键节点；若这一节点提前到来，可能对应美伊快速和解推动油价压力缓和
+
 相关概念见：
 - [[concepts/policy-offset-and-domestic-pricing-power]]
+- [[concepts/exchange-rate-long-bond-yields-and-liquidity]]
 
 ### 7. 阶段复盘与仓位切换
 
@@ -266,6 +276,7 @@ related_concepts:
 - [[views/bingbing-xiaomei-2026-04-24-long-china-needs-etf-base-before-alpha]]
 - [[views/bingbing-xiaomei-2026-04-24-ai-repricing-expands-from-gpu-to-system-level-competition]]
 - [[views/bingbing-xiaomei-2026-04-27-ai-chain-repricing-needs-industry-route-and-timing]]
+- [[views/bingbing-xiaomei-2026-05-14-inflation-turning-point-anchors-risk-rhythm]]
 - [[summaries/bingbing-xiaomei-2026-q1-macro-recap]]
 
 ## 相关概念
