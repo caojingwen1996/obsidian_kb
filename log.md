@@ -3,6 +3,38 @@
 > 按时间顺序记录知识库操作。仅追加，不覆盖。
 > 格式：`## [YYYY-MM-DD] action | subject`
 
+## [2026-05-18] ingest | bingbing xiaomei on competitive advantage in market structure
+
+- 归档了用户提供的 `冰冰小美` 雪球原帖 `291511412` 到 `raw/articles/2026-05-18-bingbing-xiaomei-xueqiu-291511412.md`；原帖发布时间暂未从页面中确认，因此以归档日标识并在正文保留“待补”。
+- 新增观点页 `views/bingbing-xiaomei-2026-05-18-competitive-advantage-security-development.md`，把“竞争格局的比较优势”整理为“安全与发展、效率与公平、全球产业竞争和金融制度重估共同决定相对位置”的判断。
+- 更新 `people/bingbing-xiaomei.md`，补全“体系 / 交易体系三要素”中的“竞争格局的比较优势”，至此三要素均已挂接正式观点页。
+- 更新 `topics/macroeconomy.md`、`topics/geopolitical-repricing-and-resource-monetary-order.md` 与 `topics/probabilistic-decision-and-risk-control.md`，分别接入经济结构转型、供应链与地缘竞争、选股交易系统三条证据链。
+- 同步更新 `index.md`。
+
+## [2026-05-18] ingest | bingbing xiaomei on emotion position shifts
+
+- 归档了用户提供的 `冰冰小美` 雪球原帖 `291538494` 到 `raw/articles/2026-05-18-bingbing-xiaomei-xueqiu-291538494.md`；原帖发布时间暂未从页面中确认，因此以归档日标识并在正文保留“待补”。
+- 新增观点页 `views/bingbing-xiaomei-2026-05-18-emotion-position-shifts.md`，把“情绪位置的变化”整理为“情绪合力取决于市场所处位置、亏钱效应、制度变化和参与者结构”的判断。
+- 更新 `people/bingbing-xiaomei.md`，补全“体系 / 交易体系三要素”中的“情绪位置的变化”，并回写她对传统短线情绪模型失效的观察。
+- 更新 `topics/probabilistic-decision-and-risk-control.md`，把该材料并入交易系统需要随市场状态、制度和参与者结构变化而校准的证据链。
+- 同步更新 `index.md`。
+
+## [2026-05-18] ingest | bingbing xiaomei on dialectical liquidity analysis
+
+- 归档了用户提供的 `冰冰小美` 雪球原帖 `291532021` 到 `raw/articles/2026-05-18-bingbing-xiaomei-xueqiu-291532021.md`；原帖发布时间暂未从页面中确认，因此以归档日标识并在正文保留“待补”。
+- 新增观点页 `views/bingbing-xiaomei-2026-05-18-liquidity-dialectical-analysis.md`，把“流动性辩证分析”整理为“成交量不是唯一指标，要同时看股票供给侧改革、ETF 权重支撑、政策约束和资金迁移方向”的判断。
+- 更新 `people/bingbing-xiaomei.md`，补入她把成交量、ETF/国家队支撑、指数权重、政策约束和核心资产迁移放在同一张图里的思维特征。
+- 更新 `topics/macroeconomy.md` 与 `topics/probabilistic-decision-and-risk-control.md`，分别接入 A 股内部流动性结构解释，以及交易系统需要随市场生态更新前提的约束。
+- 同步更新 `index.md`。
+
+## [2026-05-18] ingest | bingbing xiaomei on expectation gap as greed bait
+
+- 归档了用户提供的 `冰冰小美` 雪球原帖 `244824585` 到 `raw/articles/2026-05-18-bingbing-xiaomei-xueqiu-244824585.md`；原帖发布时间暂未从页面中确认，因此以归档日标识并在正文保留“待补”。
+- 新增观点页 `views/bingbing-xiaomei-2026-05-18-expectation-gap-is-greed-bait.md`，把“预期差”压成“容易诱发贪婪的画饼式市场叙事”这一可复用判断。
+- 更新 `people/bingbing-xiaomei.md`，补入她对交易话术、贪婪诱发和纪律约束的思维特征。
+- 更新 `topics/probabilistic-decision-and-risk-control.md`，把该材料并入“执行偏差与常见误区”，并明确暂不新建“亏钱认知” topic，先作为该主题下的子线索沉淀。
+- 同步更新 `index.md` 与 `log.md`。
+
 ## [2026-05-14] ingest | create topic for life and wealth worldview
 
 - 新建 topic `topics/life-and-wealth-worldview.md`，用于承接“人生观与财富观”这条长期主线。

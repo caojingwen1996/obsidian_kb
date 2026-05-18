@@ -3,7 +3,7 @@ title: "宏观经济"
 aliases:
   - "宏观经济基本面"
 created: 2026-04-19
-updated: 2026-05-14
+updated: 2026-05-18
 type: "topic"
 status: active
 tags:
@@ -34,6 +34,8 @@ sources:
   - "[[raw/transcripts/2026-04-24-bingbing-xiaomei-xueqiu-summary]]"
   - "[[raw/transcripts/2026-04-27-bingbing-xiaomei-xueqiu-summary]]"
   - "[[raw/manual/2026-05-14-bingbing-xiaomei-macro-risk-node]]"
+  - "[[raw/articles/2026-05-18-bingbing-xiaomei-xueqiu-291511412]]"
+  - "[[raw/articles/2026-05-18-bingbing-xiaomei-xueqiu-291532021]]"
 related:
   - "[[people/bi-shu-xi-feng]]"
   - "[[people/bingbing-xiaomei]]"
@@ -63,6 +65,8 @@ related:
   - "[[views/bingbing-xiaomei-2026-04-24-ai-repricing-expands-from-gpu-to-system-level-competition]]"
   - "[[views/bingbing-xiaomei-2026-04-27-ai-chain-repricing-needs-industry-route-and-timing]]"
   - "[[views/bingbing-xiaomei-2026-05-14-inflation-turning-point-anchors-risk-rhythm]]"
+  - "[[views/bingbing-xiaomei-2026-05-18-competitive-advantage-security-development]]"
+  - "[[views/bingbing-xiaomei-2026-05-18-liquidity-dialectical-analysis]]"
 summary: "围绕增长、通胀、利率、流动性、债务与分配如何塑造市场环境形成的长期主题，关注宏观变量如何帮助理解区间、筛选资产与判断时代背景，而不是直接替代执行系统。"
 topic_scope:
   - "增长、债务与分配"
@@ -106,6 +110,8 @@ related_concepts:
 - 宏观判断如果不能最终落实到仓位切换、兑现节奏与风险暴露管理，就还不算完成
 - 当市场进入陌生走势时，先用宽基或 ETF 承接最清晰的方向性判断，往往比仓促追逐个股超额收益更符合宏观研究的边界
 - 对短期交易节奏来说，日期、交割和指数突破只能解释部分技术扰动；真正决定风险偏好是否减弱的，仍是通胀、油价、利率预期和流动性压力是否出现拐点
+- 竞争格局的比较优势需要放在经济结构转型中看：房地产驱动阶段结束后，高端制造、央国企使命、金融改革和财富分配公平，会共同改变产业与资产的相对位置
+- 冰冰小美的“流动性辩证分析”提醒，成交量不是判断流动性有利与否的唯一指标；当股票供给收缩、ETF 权重支撑和政策约束改变资金流向时，指数可以在存量流动性下维持上涨
 
 ## 关键观察轴
 
@@ -277,6 +283,8 @@ related_concepts:
 - [[views/bingbing-xiaomei-2026-04-24-ai-repricing-expands-from-gpu-to-system-level-competition]]
 - [[views/bingbing-xiaomei-2026-04-27-ai-chain-repricing-needs-industry-route-and-timing]]
 - [[views/bingbing-xiaomei-2026-05-14-inflation-turning-point-anchors-risk-rhythm]]
+- [[views/bingbing-xiaomei-2026-05-18-competitive-advantage-security-development]]
+- [[views/bingbing-xiaomei-2026-05-18-liquidity-dialectical-analysis]]
 - [[summaries/bingbing-xiaomei-2026-q1-macro-recap]]
 
 ## 相关概念

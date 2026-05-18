@@ -2,7 +2,7 @@
 title: "概率化决策与风险控制"
 aliases: []
 created: 2026-04-18
-updated: 2026-04-27
+updated: 2026-05-18
 type: "topic"
 status: active
 tags:
@@ -82,6 +82,10 @@ sources:
   - "[[raw/transcripts/2026-04-23-mai-gupiao-de-laomujiang-xueqiu-summary]]"
   - "[[raw/articles/2026-04-25-mai-gupiao-de-laomujiang-xueqiu-385762845]]"
   - "[[raw/transcripts/2026-04-27-mai-gupiao-de-laomujiang-xueqiu-summary]]"
+  - "[[raw/articles/2026-05-18-bingbing-xiaomei-xueqiu-244824585]]"
+  - "[[raw/articles/2026-05-18-bingbing-xiaomei-xueqiu-291511412]]"
+  - "[[raw/articles/2026-05-18-bingbing-xiaomei-xueqiu-291532021]]"
+  - "[[raw/articles/2026-05-18-bingbing-xiaomei-xueqiu-291538494]]"
 related:
   - "[[people/bi-shu-xi-feng]]"
   - "[[people/mai-gupiao-de-laomujiang]]"
@@ -228,6 +232,10 @@ related:
   - "[[views/mai-gupiao-de-laomujiang-2026-04-23-dont-force-style-drift-in-a-technology-led-bull]]"
   - "[[views/mai-gupiao-de-laomujiang-2026-04-25-task-driven-exit-creates-hidden-sell-pressure]]"
   - "[[views/mai-gupiao-de-laomujiang-2026-04-27-rescue-fund-exit-restores-market-mechanism]]"
+  - "[[views/bingbing-xiaomei-2026-05-18-expectation-gap-is-greed-bait]]"
+  - "[[views/bingbing-xiaomei-2026-05-18-competitive-advantage-security-development]]"
+  - "[[views/bingbing-xiaomei-2026-05-18-liquidity-dialectical-analysis]]"
+  - "[[views/bingbing-xiaomei-2026-05-18-emotion-position-shifts]]"
 
 summary: "围绕投资系统、纪律执行与底层决策逻辑展开的长期主题，关注如何在不可测环境中把概率、仓位、止损与复盘写成可执行系统。"
 topic_scope:
@@ -398,6 +406,9 @@ related_concepts:
 ### 结构机会
 - 优先考虑那些对机构来说不划算、受约束或不便参与的夹缝型机会，而不是正面和机构拼常识
 - 选中的不是“最性感的资产”，而是“最能写成完整系统的机会”。
+- 从竞争格局的比较优势看，交易系统首先要问哪些方向承担新阶段的发展使命：安全与发展、效率与公平、供应链重构、高端制造和金融改革，会决定哪些资产更值得纳入观察范围
+- 从冰冰小美的流动性辩证分析看，交易系统还要识别市场生态变化：当政策约束、退市风险和 ETF 支撑推动流动性从小市值/ST/微盘转向行业龙头和指数权重时，旧的成交量阈值和“去年 3100 点”的比较会失真
+- 从“情绪位置的变化”看，情绪指标也不能脱离市场位置使用；当亏钱效应、制度约束和散户合力改变时，传统连板高度、龙虎榜和游资卡位对投机强弱的解释力会下降
 
 - 不靠叙事确信或“我觉得会涨”来做选择
 - 反身性、均值回归等理论只能帮助缩小搜索范围，不能替代对资产细部、交易结构、现金流与经验门槛的判断
@@ -500,6 +511,7 @@ related_concepts:
 - 不依赖临场经验做额外发挥
 - 不能把别的系统的守则临时嫁接到自己的系统上；长线、波段、套利各有内在逻辑，混用只会把系统打成四不像
 - 市场不会为你的牌面量身打造机会；若手里牌面与机会错位，先补牌，不靠临时抱佛脚去抢带血筹码
+- 警惕“预期差”这类容易诱发贪婪的市场话术；当它被用来暗示空间大、想象力大、会涨很多倍时，本质上更接近画饼，而不是可执行的投资系统
 
 ### 心理约束与行为训练
 
@@ -567,6 +579,10 @@ related_concepts:
 - [[views/mai-gupiao-de-laomujiang-2026-04-22-short-term-a-shares-move-on-themes-not-fundamentals]]：支撑“基本面更适合用来界定安全边际，而不是直接预测短期上涨”
 - [[views/mai-gupiao-de-laomujiang-2026-04-23-dont-force-style-drift-in-a-technology-led-bull]]：支撑“结构牛市里也不能被迫风格漂移，系统必须匹配自己的理解边界”
 - [[views/mai-gupiao-de-laomujiang-2026-04-27-rescue-fund-exit-restores-market-mechanism]]：支撑“卖压识别要区分政策性退出、普通机构和产业资本，而不是只看价格下跌本身”
+- [[views/bingbing-xiaomei-2026-05-18-expectation-gap-is-greed-bait]]：支撑“预期差叙事容易诱发贪婪，不能把空间想象当成系统信号”
+- [[views/bingbing-xiaomei-2026-05-18-competitive-advantage-security-development]]：支撑“选股交易先看竞争格局比较优势，判断哪些方向承担新阶段的发展使命”
+- [[views/bingbing-xiaomei-2026-05-18-liquidity-dialectical-analysis]]：支撑“交易系统要随市场生态变化更新前提，不能机械套用旧成交量和旧指数点位含义”
+- [[views/bingbing-xiaomei-2026-05-18-emotion-position-shifts]]：支撑“情绪合力取决于所处位置，传统短线情绪模型要随制度和参与者结构变化重新校准”
 
 ## 风控规则
 
@@ -654,4 +670,4 @@ related_concepts:
 
 ## 当前边界
 
-当前页面先收束在碧树西风这一条人物学习线下。后续如果知识库引入其他作者、更多市场案例或更明确的资产选择体系，再继续把各小节拆得更细。
+当前页面以碧树西风的系统化材料为主轴，同时已经开始吸收买股票的老木匠、冰冰小美等作者在交易纪律、认知诚实和风险暴露管理上的补充观点。后续如果“亏钱认知”“认知诚实”“反贪婪叙事”等线索继续积累到足够厚，再考虑拆出更细的 concept 或独立 topic。

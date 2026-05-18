@@ -1,7 +1,7 @@
 # 知识库索引
 
 > 当前知识库总导航。所有正式知识页都必须登记在此。
-> 最后更新：2026-05-14 | 页面总数：109
+> 最后更新：2026-05-18 | 页面总数：113
 
 ## 人物
 
@@ -112,6 +112,10 @@
 - [[views/bingbing-xiaomei-2026-04-24-ai-repricing-expands-from-gpu-to-system-level-competition]] - 将 AI 重估从单点 GPU 扩展到系统级与国家级竞争，并点出国内更多仍在跟随海外美元定价
 - [[views/bingbing-xiaomei-2026-04-27-ai-chain-repricing-needs-industry-route-and-timing]] - 将 AI 产业链重估进一步落到技术路线、产业位置、智能汽车终端化与交易节点的同步判断
 - [[views/bingbing-xiaomei-2026-05-14-inflation-turning-point-anchors-risk-rhythm]] - 将 5/14 前后的短期技术扰动压回美国通胀、油价与货币政策传导，强调风险减弱要看通胀何时拐头向下
+- [[views/bingbing-xiaomei-2026-05-18-expectation-gap-is-greed-bait]] - 将“预期差”批评为诱发贪婪的画饼式叙事，强调对抗市场时应回到“无欲速，无见小利”的纪律
+- [[views/bingbing-xiaomei-2026-05-18-competitive-advantage-security-development]] - 将“竞争格局的比较优势”压成安全与发展、效率与公平、全球产业竞争和金融制度重估共同决定相对位置的框架
+- [[views/bingbing-xiaomei-2026-05-18-liquidity-dialectical-analysis]] - 将“流动性辩证分析”压成股票供给侧改革、ETF 权重支撑与资金从小市值/ST 迁移到龙头核心资产的框架
+- [[views/bingbing-xiaomei-2026-05-18-emotion-position-shifts]] - 将“情绪位置的变化”压成情绪合力取决于市场位置、亏钱效应、制度变化和参与者结构的判断
 - [[views/mai-gupiao-de-laomujiang-2026-04-06-risk-control-means-reducing-exposure-not-predicting-war]] - 将高不确定环境下的第一动作收束为降风险、留现金，而不是先赌预测
 - [[views/mai-gupiao-de-laomujiang-2026-04-09-safe-stocks-enable-buy-low-sell-high]] - 将低买高卖压回“先选安全标的”这个前提，并强调这是一套靠纪律执行的波段系统
 - [[views/mai-gupiao-de-laomujiang-2026-04-10-price-and-odds-matter-more-than-company-glory]] - 将投资结果从公司光环中剥离出来，强调真正重要的是赔率、位置和逆向执行能力

@@ -3,7 +3,7 @@ title: "地缘重估与资源-货币秩序"
 aliases:
   - "资源-货币秩序"
 created: 2026-04-23
-updated: 2026-04-23
+updated: 2026-05-18
 type: "topic"
 status: active
 tags:
@@ -17,12 +17,14 @@ sources:
   - "[[raw/articles/2026-03-25-bafeite-xueqiu-380960384]]"
   - "[[raw/articles/2026-03-25-bafeite-xueqiu-380960384-linked-posts-captured]]"
   - "[[summaries/bingbing-xiaomei-2026-q1-macro-recap]]"
+  - "[[raw/articles/2026-05-18-bingbing-xiaomei-xueqiu-291511412]]"
 related:
   - "[[people/bingbing-xiaomei]]"
   - "[[topics/macroeconomy]]"
   - "[[views/bingbing-xiaomei-2026-01-17-bubbles-evolve-with-governance-red-lines-and-crisis-scripts]]"
   - "[[views/bingbing-xiaomei-2026-01-21-gold-vs-us-debt-signals-monetary-order-transition]]"
   - "[[views/bingbing-xiaomei-2026-02-03-index-panic-can-diverge-from-fx-and-export-strength]]"
+  - "[[views/bingbing-xiaomei-2026-05-18-competitive-advantage-security-development]]"
 summary: "围绕全球割裂、资源争夺、避险资产重估与货币形态竞争形成的长期主题，关注地缘变化如何通过黄金、白银、大宗、汇率与贸易网络重新传导到资产定价。"
 topic_scope:
   - "地缘割裂与避险资产"
@@ -60,6 +62,7 @@ related_concepts:
 - 黄金与美债的相对规模，是观察信用货币与非信用资产竞争的一组结构信号
 - 热钱迁移、稳定币扩张与资源约束，会把波动放大到白银、大宗和相关股票
 - 指数层面的恐慌，不必然等于真实产业逻辑同步走弱，仍要回到汇率、订单和出海能力看确定性
+- 在竞争格局的比较优势里，地缘变化还会通过旧供应链破坏、新供应链建立、高端制造竞争和央国企安全使命，改变产业与资产的长期相对位置
 
 ## 关键观察轴
 
@@ -110,6 +113,7 @@ related_concepts:
 - [[views/bingbing-xiaomei-2026-01-17-bubbles-evolve-with-governance-red-lines-and-crisis-scripts]]
 - [[views/bingbing-xiaomei-2026-01-21-gold-vs-us-debt-signals-monetary-order-transition]]
 - [[views/bingbing-xiaomei-2026-02-03-index-panic-can-diverge-from-fx-and-export-strength]]
+- [[views/bingbing-xiaomei-2026-05-18-competitive-advantage-security-development]]
 
 ## 相关概念
 
