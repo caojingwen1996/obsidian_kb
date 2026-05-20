@@ -3,7 +3,7 @@ title: "盈亏比、止损与兜底"
 aliases:
   - "期望值与风控底线"
 created: 2026-04-18
-updated: 2026-04-18
+updated: 2026-05-20
 type: "concept"
 status: active
 tags:
@@ -18,6 +18,7 @@ sources:
   - "[[raw/articles/2025-09-13-jiyi-chengzai-mid-2247518670-idx-1]]"
   - "[[raw/articles/2025-11-22-jiyi-chengzai-mid-2247519181-idx-1]]"
   - "[[raw/articles/2026-01-13-jiyi-chengzai-mid-2247519583-idx-2]]"
+  - "[[raw/articles/2026-01-26-jiyi-chengzai-mid-2247519692-idx-2]]"
   - "[[raw/articles/2026-02-11-jiyi-chengzai-mid-2247519800-idx-1]]"
   - "[[raw/articles/2026-01-31-jiyi-chengzai-mid-2247519725-idx-1]]"
   - "[[raw/articles/2025-12-09-jiyi-chengzai-mid-2247519306-idx-1]]"
@@ -52,60 +53,69 @@ common_misunderstandings:
 
 ## 定义
 
-这个概念描述的是一套完整的风险控制链条：
+盈亏比、止损与兜底是一组围绕长期生存与复利展开的风险控制概念：先判断错了赔多少、对了赚多少，再预设何时认错退出，并额外确保极端情形下仍保留生存资本。
 
-1. 先看盈亏比，确认结构上“错了赔小、对了赚大”
-2. 再设止损，承认判断可能出错
-3. 最后做兜底，防止极端情况让单次错误穿透全部资本
+它们共同回答的不是“这次会不会对”，而是“即使这次错了，系统还能不能继续运行”。
 
-## 机制
+## 背景
 
-- 盈亏比解决的是“值不值得做”
-- 止损解决的是“错了怎么办”
-- 兜底解决的是“即使止损失效，如何仍能活下来”
-- 还要把收益放回计量口径里看：至少看单位风险下的收益，对个人投资者还要看单位成本下的收益
-- 在趋势型系统里，止损还可能随着结构抬升而演化成移动止盈，让规则自己管理持仓
-- 即使大概率方向判断正确，也不能因此取消仓位上限，否则小概率情形会直接把资金池抽干
-- 仓位上限还要和执行者当前的收入结构与回撤承受力匹配，否则还没等到数学期望兑现，人性就会先失真
-- 在这三者之前，还要先识别底层资产与最终偿付来源，否则连风险究竟来自哪里都未必弄清
+这个概念来自 [[people/bi-shu-xi-feng]] 关于概率化决策、仓位管理、退出纪律、底层资产审计和完整策略的多次观点。
 
-这三者缺一不可。只有盈亏比没有止损，容易把小错拖成大错；只有止损没有兜底，极端流动性事件下仍可能穿仓；只有兜底没有盈亏比，则长期很难积累正期望。
+它服务于 [[topics/probabilistic-decision-and-risk-control]] 这条长期主题：在不可测环境中，投资系统不能依赖单次判断正确，而要靠可重复的正期望结构、事前规则和极端情形预案来维持长期生存。
 
-## 执行层面的提醒
+## 核心观点
 
-[[views/bi-shu-xi-feng-2026-02-11-unmeasurable-world-and-complete-strategy]] 对这个概念补充了一点很关键的现实约束：
+- 盈亏比解决“值不值得做”：潜在收益必须覆盖潜在亏损、时间成本和执行成本。
+- 止损解决“错了怎么办”：承认判断会错，并在入场前写好退出条件。
+- 兜底解决“止损失效怎么办”：防止流动性、对手盘和极端事件穿透整个资金池。
+- 仓位必须匹配执行者的真实承受力，否则数学期望还没兑现，人性先失真。
+- 收益必须放回风险和成本口径里看，不能只看账面高回报。
+- 风控要先识别底层资产和偿付来源，否则连风险来自哪里都未必弄清。
 
-- 止损位只是规则，不等于一定能按该价格成交
-- 当体量变大或流动性恶化时，纸面上的风险控制可能失真
-- 因此完整的风控不只包括“设止损”，还包括对冲、撤退路径和极端情形下的额外预案
-- 在某些系统里，还包括用持续套利利润去覆盖底仓回撤、逐步压低持仓成本
-- [[views/bi-shu-xi-feng-2025-12-09-risk-depends-on-underlying-assets]] 还补充了一点：低收益不等于低风险，收益率标签不能替代对底层资产的识别
-- [[views/bi-shu-xi-feng-2025-11-22-return-must-be-measured-against-risk-and-cost]] 进一步补充：回撤恢复是非对称的，所以收益报告必须同时携带风险和成本口径
-- [[views/bi-shu-xi-feng-2025-05-27-position-sizing-must-match-bearing-capacity]] 补充：仓位管理的意义，不只在于控制亏损，也在于避免执行者因回撤超出承受力而扭曲整套系统
-- [[views/bi-shu-xi-feng-2025-06-17-risk-audit-starts-with-assets-and-counterparties]] 补充：进入任何“保本高收益”结构前，先审计底层资产、偿付来源和对手盘机制
-- [[views/bi-shu-xi-feng-2025-07-04-exit-matters-more-than-high-conviction]] 进一步补充：退出、仓位上限和对冲不是“看错了才需要”，而是即使看对了也必须提前存在
-- [[views/bi-shu-xi-feng-2025-09-09-fixed-rules-and-moving-stop-capture-the-trend]] 进一步补充：提前写死的移动止损和移动止盈，可以把“拿不住”的问题尽量从情绪层拿回到规则层
-- [[views/bi-shu-xi-feng-2025-09-13-different-strategies-fail-on-different-emotions]] 提醒：同样的风控结构，对不同类型策略的执行难点并不相同
+## 关键组成
+
+1. 潜在收益：方向判断正确时可能获得的收益空间。
+2. 潜在亏损：方向判断错误、流动性恶化或规则失效时可能承受的损失。
+3. 止损阈值：入场前写好的退出条件，不能在压力下临时“灵活”。
+4. 仓位规模：单次下注占总资金池的比例，必须匹配真实承受力。
+5. 退出路径：包括止损、对冲、减仓、撤退和成交可行性。
+6. 极端兜底：即使止损无法按预期成交，也不能让单次错误毁掉长期系统。
+7. 底层资产与对手盘：先确认偿付来源、产品结构和对手盘机制，再谈风险大小。
+
+## 使用场景
+
+- 判断一次交易或配置是否值得进入；
+- 设计仓位上限、止损线、移动止盈和退出规则；
+- 审计“保本高收益”“低风险收益”等产品表述；
+- 区分高确信方向判断和完整投资系统；
+- 帮助工作党、非专业投资者把账户风险限制在可承受范围内；
+- 为 [[topics/probabilistic-decision-and-risk-control]] 中的纪律执行提供底层风控语言。
+
+## 与其他概念的关系
+
+- 与 [[topics/probabilistic-decision-and-risk-control]] 的关系：本页是该主题中最稳定的风控概念页。
+- 与 [[concepts/information-asymmetry-and-information-high-ground]] 的关系：信息高地帮助判断自己是否有资格玩这局，盈亏比、止损与兜底约束具体下注方式。
+- 与 [[views/bi-shu-xi-feng-2026-02-11-unmeasurable-world-and-complete-strategy]] 的关系：该观点页强调止损位不等于一定能成交，完整策略还要包含撤退路径和极端预案。
+- 与 [[views/bi-shu-xi-feng-2025-12-09-risk-depends-on-underlying-assets]] 的关系：该观点页提醒低收益不等于低风险，风险必须回到底层资产和偿付来源。
+- 与 [[views/bi-shu-xi-feng-2025-11-22-return-must-be-measured-against-risk-and-cost]] 的关系：该观点页把收益比较改写为单位风险和单位成本核算。
+- 与 [[views/bi-shu-xi-feng-2025-09-09-fixed-rules-and-moving-stop-capture-the-trend]] 的关系：该观点页说明移动止损和移动止盈如何把执行从情绪拉回规则。
 
 ## 常见误区
 
-- 把“我很有把握”当成可以不设止损的理由
-- 把止损理解成临场情绪动作，而不是入场前就写好的规则
-- 只看单次收益空间，不看长期能否重复执行
-- 只看赚了多少钱，不看承担了多少风险、付出了多少时间和精力成本
-- 以为策略数学上成立，就自动等于自己能坚持执行
-- 以为自己“这次看得很准”，就可以取消退出、仓位和对冲约束
-- 把“写下止损位”误当成已经解决了流动性与执行问题
-- 把“收益率很低”误当成风险天然很低，忽略了真正的偿付来源
-- 把“保本”“实物”“随时成交”这些词直接当成安全背书，而不去审计产品结构和对手盘机制
+- 把“我很有把握”当成可以不设止损的理由。
+- 把止损理解成临场情绪动作，而不是入场前就写好的规则。
+- 只看单次收益空间，不看长期能否重复执行。
+- 只看赚了多少钱，不看承担了多少风险、时间成本和精力成本。
+- 以为策略数学上成立，就自动等于自己能坚持执行。
+- 以为自己“这次看得很准”，就可以取消退出、仓位和对冲约束。
+- 把“写下止损位”误当成已经解决了流动性与成交问题。
+- 把“收益率很低”误当成风险天然很低，忽略真正的偿付来源。
+- 把“保本”“实物”“随时成交”这些词直接当成安全背书，而不审计产品结构和对手盘机制。
 
-## 与主题的关系
+## 相关页面
 
-- [[topics/probabilistic-decision-and-risk-control]] 关注整套概率化决策框架
-- 本页聚焦其中最稳定、最可迁移的一组风控概念
-
-## 相关观点
-
+- [[topics/probabilistic-decision-and-risk-control]]
+- [[concepts/information-asymmetry-and-information-high-ground]]
 - [[views/bi-shu-xi-feng-2026-01-13-probabilistic-decision-and-risk-control]]
 - [[views/bi-shu-xi-feng-2025-05-27-position-sizing-must-match-bearing-capacity]]
 - [[views/bi-shu-xi-feng-2025-06-17-risk-audit-starts-with-assets-and-counterparties]]
@@ -117,3 +127,17 @@ common_misunderstandings:
 - [[views/bi-shu-xi-feng-2026-01-26-bidirectional-mispricing-and-commitment-environment]]
 - [[views/bi-shu-xi-feng-2026-02-11-unmeasurable-world-and-complete-strategy]]
 - [[views/bi-shu-xi-feng-2026-01-31-trading-system-and-non-interference]]
+
+## 来源
+
+- [[raw/articles/2025-05-27-jiyi-chengzai-mid-2247517878-idx-1]]
+- [[raw/articles/2025-06-17-jiyi-chengzai-mid-2247518077-idx-1]]
+- [[raw/articles/2025-07-04-jiyi-chengzai-mid-2247518179-idx-1]]
+- [[raw/articles/2025-09-09-jiyi-chengzai-mid-2247518650-idx-1]]
+- [[raw/articles/2025-09-13-jiyi-chengzai-mid-2247518670-idx-1]]
+- [[raw/articles/2025-11-22-jiyi-chengzai-mid-2247519181-idx-1]]
+- [[raw/articles/2025-12-09-jiyi-chengzai-mid-2247519306-idx-1]]
+- [[raw/articles/2026-01-13-jiyi-chengzai-mid-2247519583-idx-2]]
+- [[raw/articles/2026-01-26-jiyi-chengzai-mid-2247519692-idx-2]]
+- [[raw/articles/2026-01-31-jiyi-chengzai-mid-2247519725-idx-1]]
+- [[raw/articles/2026-02-11-jiyi-chengzai-mid-2247519800-idx-1]]

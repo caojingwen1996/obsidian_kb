@@ -3,6 +3,20 @@
 > 按时间顺序记录知识库操作。仅追加，不覆盖。
 > 格式：`## [YYYY-MM-DD] action | subject`
 
+## [2026-05-20] refactor | concept pages aligned to page-types
+
+- 按 `page-types.md` 中 Concept Page 的定义，重构了 `wiki/concepts/` 下 5 个概念页的正文结构。
+- 统一补齐 `定义`、`背景`、`核心观点`、`关键组成`、`使用场景`、`与其他概念的关系`、`常见误区`、`相关页面` 与 `来源` 小节。
+- 保留既有 frontmatter、来源与核心判断，仅重排结构并补充必要的双链说明。
+- 修改文件：`wiki/concepts/expected-value-stop-loss-and-backstop.md`、`wiki/concepts/information-asymmetry-and-information-high-ground.md`、`wiki/concepts/exchange-rate-long-bond-yields-and-liquidity.md`、`wiki/concepts/debt-distribution-and-growth-constraints.md`、`wiki/concepts/policy-offset-and-domestic-pricing-power.md`。
+- 未新增页面；`index.md` 已覆盖这些概念页，本轮未改索引。
+
+## [2026-05-20] refactor | add mermaid reasoning diagrams
+
+- 为 `wiki/reasoning/bingbing-xiaomei-5-14-risk-node-reasoning.md` 补充 `## Mermaid 推导图` 小节，把 AI/半导体拥挤、资本开支兑现、美联储验证、中美科技外交和情绪流动性负反馈串成图示。
+- 为 `wiki/reasoning/you-se-jin-shu-guai-dian-tui-dao.md` 补充 `## Mermaid 推导图` 小节，把石油危机、通胀预期、降息预期、缩表、美元信用、黄金与有色见底逻辑串成图示。
+- 未新增正式知识页，因此未更新 `index.md`。
+
 ## [2026-05-20] ingest | bingbing xiaomei nonferrous turning point flowchart
 
 - 归档用户提供的“有色拐点逻辑推导流程图”到 `sources/screenshots/2026-05-20-you-se-guai-dian-luo-ji-tui-dao-liu-cheng-tu.png`，并新增转写页 `sources/screenshots/2026-05-20-you-se-guai-dian-luo-ji-tui-dao-liu-cheng-tu.md`。
