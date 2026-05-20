@@ -1,7 +1,25 @@
-# 知识库日志
+﻿# 知识库日志
 
 > 按时间顺序记录知识库操作。仅追加，不覆盖。
 > 格式：`## [YYYY-MM-DD] action | subject`
+
+## [2026-05-20] ingest | bingbing xiaomei nonferrous turning point flowchart
+
+- 归档用户提供的“有色拐点逻辑推导流程图”到 `sources/screenshots/2026-05-20-you-se-guai-dian-luo-ji-tui-dao-liu-cheng-tu.png`，并新增转写页 `sources/screenshots/2026-05-20-you-se-guai-dian-luo-ji-tui-dao-liu-cheng-tu.md`。
+- 新增观点页 `wiki/views/bingbing-xiaomei-2026-05-20-nonferrous-turning-point-depends-on-inflation-expectation.md`，将有色拐点整理为“通胀预期下降后，降息预期升温才更可能形成见底逻辑”。
+- 新增推导链页 `wiki/reasoning/you-se-jin-shu-guai-dian-tui-dao.md`，拆解石油危机与通胀约束、美联储缩表动机、黄金与有色传导、真正拐点触发条件。
+- 更新 `wiki/people/bingbing-xiaomei.md`、`wiki/topics/macroeconomy.md` 与 `wiki/topics/geopolitical-repricing-and-resource-monetary-order.md`，把这条推导接回人物学习线、宏观经济和资源-货币秩序主题。
+- 同步更新 `index.md`。
+- 说明：原图缺少原帖链接与发布时间，`6/16`、沃什理念、美联储政策路径和资产表现均保留“待验证 / 不确定性”标注。
+
+## [2026-05-20] ingest | bingbing xiaomei 5/14 risk node reasoning flowchart
+
+- 归档用户提供的 `冰冰小美推导英特尔5.14风险节点.png` 到 `sources/screenshots/2026-05-20-bingbing-xiaomei-5-14-risk-node-reasoning.png`，并新增转写页 `sources/screenshots/2026-05-20-bingbing-xiaomei-5-14-risk-node-reasoning.md`。
+- 新增推导链页 `wiki/reasoning/bingbing-xiaomei-5-14-risk-node-reasoning.md`，把 `5/14` 拆成 AI/半导体拥挤交易、资本开支融资现实、美联储通胀利率验证、中美科技外交结果和流动性情绪共振。
+- 更新既有观点页 `wiki/views/bingbing-xiaomei-2026-05-14-inflation-turning-point-anchors-risk-rhythm.md`，补入“5/14 是密集验证窗口而非精准崩盘日”的图示推导。
+- 更新 `wiki/people/bingbing-xiaomei.md`、`wiki/topics/macroeconomy.md` 与 `wiki/topics/probabilistic-decision-and-risk-control.md`，将新推导接入人物学习线、宏观主题和风险控制主题。
+- 同步更新 `index.md`。
+- 说明：原图缺少原帖链接与发布时间，`CPI/PPI`、联储表态、H200 对华销售 / 交付预期和中美会晤预期等事件细节均需后续验证。
 
 ## [2026-05-18] ingest | bingbing xiaomei on competitive advantage in market structure
 
@@ -484,3 +502,10 @@
 - 更新 `people/bingbing-xiaomei.md` 与 `topics/macroeconomy.md`，补入这条关于系统级 AI 重估、旧半导体重估和美元定价跟随的回链。
 - `2026-04-24 20:05` 的单帖 `385698828` 已在之前入库，因此本轮未重复创建。
 - 同步更新 `index.md` 与 `log.md`。
+
+## [2026-05-20] migrate | align legacy query and summary pages to new page types
+
+- 按新的 `page-types.md` 将旧 `query` 页面迁移为 `topic` 页面：`queries/why-bingbing-xiaomei-is-hard-to-read-and-what-to-learn-first.md` -> `topics/bingbing-xiaomei-reading-map.md`。
+- 按新的 `page-types.md` 将旧 `summary` 页面迁移为 `timeline` 页面：`summaries/bingbing-xiaomei-2026-q1-macro-recap.md` -> `timelines/bingbing-xiaomei-2026-q1-macro-recap.md`。
+- 更新迁移后页面的 frontmatter、所有正式知识页反向引用，以及 `index.md` 中对应的主题与时间线入口。
+- 从 `index.md` 移除空的旧类型分区：`归纳`、`对比`、`问答`、`输出成品`。

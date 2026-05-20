@@ -2,7 +2,7 @@
 title: "概率化决策与风险控制"
 aliases: []
 created: 2026-04-18
-updated: 2026-05-18
+updated: 2026-05-20
 type: "topic"
 status: active
 tags:
@@ -86,6 +86,7 @@ sources:
   - "[[raw/articles/2026-05-18-bingbing-xiaomei-xueqiu-291511412]]"
   - "[[raw/articles/2026-05-18-bingbing-xiaomei-xueqiu-291532021]]"
   - "[[raw/articles/2026-05-18-bingbing-xiaomei-xueqiu-291538494]]"
+  - "[[sources/screenshots/2026-05-20-bingbing-xiaomei-5-14-risk-node-reasoning]]"
 related:
   - "[[people/bi-shu-xi-feng]]"
   - "[[people/mai-gupiao-de-laomujiang]]"
@@ -236,6 +237,7 @@ related:
   - "[[views/bingbing-xiaomei-2026-05-18-competitive-advantage-security-development]]"
   - "[[views/bingbing-xiaomei-2026-05-18-liquidity-dialectical-analysis]]"
   - "[[views/bingbing-xiaomei-2026-05-18-emotion-position-shifts]]"
+  - "[[reasoning/bingbing-xiaomei-5-14-risk-node-reasoning]]"
 
 summary: "围绕投资系统、纪律执行与底层决策逻辑展开的长期主题，关注如何在不可测环境中把概率、仓位、止损与复盘写成可执行系统。"
 topic_scope:
@@ -409,6 +411,7 @@ related_concepts:
 - 从竞争格局的比较优势看，交易系统首先要问哪些方向承担新阶段的发展使命：安全与发展、效率与公平、供应链重构、高端制造和金融改革，会决定哪些资产更值得纳入观察范围
 - 从冰冰小美的流动性辩证分析看，交易系统还要识别市场生态变化：当政策约束、退市风险和 ETF 支撑推动流动性从小市值/ST/微盘转向行业龙头和指数权重时，旧的成交量阈值和“去年 3100 点”的比较会失真
 - 从“情绪位置的变化”看，情绪指标也不能脱离市场位置使用；当亏钱效应、制度约束和散户合力改变时，传统连板高度、龙虎榜和游资卡位对投机强弱的解释力会下降
+- 从 [[reasoning/bingbing-xiaomei-5-14-risk-node-reasoning]] 看，风险节点也不是单日预测，而是高位拥挤交易、融资现实、流动性数据和政策结果在同一窗口验证时，系统需要提前降低脆弱性
 
 - 不靠叙事确信或“我觉得会涨”来做选择
 - 反身性、均值回归等理论只能帮助缩小搜索范围，不能替代对资产细部、交易结构、现金流与经验门槛的判断
@@ -583,6 +586,7 @@ related_concepts:
 - [[views/bingbing-xiaomei-2026-05-18-competitive-advantage-security-development]]：支撑“选股交易先看竞争格局比较优势，判断哪些方向承担新阶段的发展使命”
 - [[views/bingbing-xiaomei-2026-05-18-liquidity-dialectical-analysis]]：支撑“交易系统要随市场生态变化更新前提，不能机械套用旧成交量和旧指数点位含义”
 - [[views/bingbing-xiaomei-2026-05-18-emotion-position-shifts]]：支撑“情绪合力取决于所处位置，传统短线情绪模型要随制度和参与者结构变化重新校准”
+- [[reasoning/bingbing-xiaomei-5-14-risk-node-reasoning]]：支撑“主线未必坏时也要在密集验证窗口适度降风险，提前准备波动、挤压和踩踏”
 
 ## 风控规则
 

@@ -1,9 +1,10 @@
 ---
-title: "冰冰小美 2026Q1 宏观复盘"
-aliases: []
+title: "冰冰小美 2026Q1 宏观阶段时间线"
+aliases:
+  - "冰冰小美 2026Q1 宏观复盘"
 created: 2026-04-22
-updated: 2026-04-23
-type: "summary"
+updated: 2026-05-20
+type: "timeline"
 status: active
 tags:
   - "macro/liquidity"
@@ -19,6 +20,8 @@ related:
   - "[[people/bingbing-xiaomei]]"
   - "[[topics/macroeconomy]]"
 summary: "这份阶段性归纳把冰冰小美 2026 年一季度的宏观表达压成一条五阶段主线：地缘重估、汇率与流动性切换、资源与货币秩序重排，以及相应的仓位收缩。"
+subject: "[[people/bingbing-xiaomei]]"
+timeline_type: "person-topic-stage"
 subject_refs:
   - "[[people/bingbing-xiaomei]]"
   - "[[topics/macroeconomy]]"
@@ -30,7 +33,7 @@ source_batch:
   - "[[raw/articles/2026-03-25-bafeite-xueqiu-380960384-linked-posts-blocked]]"
 ---
 
-# 冰冰小美 2026Q1 宏观复盘
+# 冰冰小美 2026Q1 宏观阶段时间线
 
 ## 总观点
 
@@ -45,7 +48,7 @@ source_batch:
 
 放进同一张图里理解，并据此把仓位从进攻逐步切到防守、兑现与等待极端波动。
 
-## 分阶段
+## 时间线
 
 ### 1. 2026-01-04 到 2026-01-08：门罗主义 2.0 起势，风险先在资源与芯片链重定价
 

@@ -1,13 +1,14 @@
 ---
-title: "为什么我看不懂冰冰小美的文章，以及从入门到进阶应该怎么读"
+title: "冰冰小美阅读地图"
 aliases:
+  - "为什么我看不懂冰冰小美的文章，以及从入门到进阶应该怎么读"
   - "冰冰小美阅读地图"
 created: 2026-04-22
-updated: 2026-04-22
-type: "query"
+updated: 2026-05-20
+type: "topic"
 status: active
 tags:
-  - "function/query"
+  - "function/framework"
   - "learning/reasoning"
   - "function/checklist"
 sources:
@@ -20,10 +21,25 @@ related:
   - "[[topics/macroeconomy]]"
   - "[[concepts/exchange-rate-long-bond-yields-and-liquidity]]"
   - "[[concepts/policy-offset-and-domestic-pricing-power]]"
-summary: "冰冰小美不好读，主要不是因为句子复杂，而是她默认读者已经具备宏观价格信号、市场结构、政策框架与全球产业映射这几层背景知识；这条问答同时给出从入门到进阶的阅读地图。"
+summary: "冰冰小美不好读，主要不是因为句子复杂，而是她默认读者已经具备宏观价格信号、市场结构、政策框架与全球产业映射这几层背景知识；这个主题页给出从入门到进阶的阅读地图。"
+topic_scope:
+  - "冰冰小美文章阅读入口"
+  - "宏观价格信号、市场结构、政策框架与全球产业映射"
+  - "从入门到进阶的阅读顺序"
+key_questions:
+  - "为什么冰冰小美的文章容易显得跳跃？"
+  - "读她之前需要先补哪些概念和主题？"
+  - "从入门到进阶应按什么顺序阅读相关页面？"
+related_concepts:
+  - "[[concepts/exchange-rate-long-bond-yields-and-liquidity]]"
+  - "[[concepts/policy-offset-and-domestic-pricing-power]]"
 ---
 
-# 为什么我看不懂冰冰小美的文章，以及从入门到进阶应该怎么读
+# 冰冰小美阅读地图
+
+## 主题说明
+
+本页作为 [[people/bingbing-xiaomei]] 的阅读入口，组织读她之前需要补的前置概念、入门顺序和进阶观点页。
 
 ## 短答案
 

@@ -527,7 +527,7 @@ wiki/timelines/
 
 ## 7. Reasoning Page：推导链页
 
-Reasoning Page 用于记录因果链、逻辑推导、观点拆解和风险演绎。
+Reasoning Page 用于记录因果链、逻辑推导、观点拆解和风险演绎。 必须包含 `## Mermaid 推导图` 小节；
 
 这类页面不是普通摘要，必须体现：
 
@@ -589,13 +589,15 @@ wiki/reasoning/
 
 ## 推导链
 
-按照因果顺序写清楚：
+## Mermaid 推导图
 
-1. A 变化；
-2. A 影响 B；
-3. B 传导到 C；
-4. C 导致 D；
-5. 因此形成结论 E。
+```mermaid
+flowchart TD
+  A[前提] --> B[关键变量]
+  B --> C[传导机制]
+  C --> D[核心结论]
+  D --> E[风险触发条件]
+  C --> F[不确定性 / 待验证]
 
 ## 传导机制
 

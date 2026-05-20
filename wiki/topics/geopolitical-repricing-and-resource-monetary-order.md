@@ -1,9 +1,9 @@
----
+﻿---
 title: "地缘重估与资源-货币秩序"
 aliases:
   - "资源-货币秩序"
 created: 2026-04-23
-updated: 2026-05-18
+updated: 2026-05-20
 type: "topic"
 status: active
 tags:
@@ -16,8 +16,9 @@ tags:
 sources:
   - "[[raw/articles/2026-03-25-bafeite-xueqiu-380960384]]"
   - "[[raw/articles/2026-03-25-bafeite-xueqiu-380960384-linked-posts-captured]]"
-  - "[[summaries/bingbing-xiaomei-2026-q1-macro-recap]]"
+  - "[[timelines/bingbing-xiaomei-2026-q1-macro-recap]]"
   - "[[raw/articles/2026-05-18-bingbing-xiaomei-xueqiu-291511412]]"
+  - "[[sources/screenshots/2026-05-20-you-se-guai-dian-luo-ji-tui-dao-liu-cheng-tu]]"
 related:
   - "[[people/bingbing-xiaomei]]"
   - "[[topics/macroeconomy]]"
@@ -25,6 +26,8 @@ related:
   - "[[views/bingbing-xiaomei-2026-01-21-gold-vs-us-debt-signals-monetary-order-transition]]"
   - "[[views/bingbing-xiaomei-2026-02-03-index-panic-can-diverge-from-fx-and-export-strength]]"
   - "[[views/bingbing-xiaomei-2026-05-18-competitive-advantage-security-development]]"
+  - "[[views/bingbing-xiaomei-2026-05-20-nonferrous-turning-point-depends-on-inflation-expectation]]"
+  - "[[reasoning/you-se-jin-shu-guai-dian-tui-dao]]"
 summary: "围绕全球割裂、资源争夺、避险资产重估与货币形态竞争形成的长期主题，关注地缘变化如何通过黄金、白银、大宗、汇率与贸易网络重新传导到资产定价。"
 topic_scope:
   - "地缘割裂与避险资产"
@@ -63,6 +66,7 @@ related_concepts:
 - 热钱迁移、稳定币扩张与资源约束，会把波动放大到白银、大宗和相关股票
 - 指数层面的恐慌，不必然等于真实产业逻辑同步走弱，仍要回到汇率、订单和出海能力看确定性
 - 在竞争格局的比较优势里，地缘变化还会通过旧供应链破坏、新供应链建立、高端制造竞争和央国企安全使命，改变产业与资产的长期相对位置
+- 有色、黄金和美债之间的传导还可以从美元信用角度观察：缩表若阶段性强化美元信用，黄金承压可能进一步压制有色；反过来，通胀预期下降和降息预期升温才可能构成资源资产拐点
 
 ## 关键观察轴
 
@@ -84,9 +88,11 @@ related_concepts:
 
 这也是为什么 [[topics/macroeconomy]] 里的汇率、利率与流动性判断，在这里会被推进到更上层的货币秩序问题。
 
+[[views/bingbing-xiaomei-2026-05-20-nonferrous-turning-point-depends-on-inflation-expectation]] 提供了更贴近交易节奏的一条补充：当缩表减缓基础货币供应并修复美元信用时，黄金与有色可能先承压；只有通胀预期下降、降息预期升温后，有色才更可能进入见底逻辑。对应推导见 [[reasoning/you-se-jin-shu-guai-dian-tui-dao]]。
+
 ### 3. 热钱迁移会把资源与货币问题放大成波动问题
 
-[[summaries/bingbing-xiaomei-2026-q1-macro-recap]] 已经把这一阶段压得比较清楚：
+[[timelines/bingbing-xiaomei-2026-q1-macro-recap]] 已经把这一阶段压得比较清楚：
 
 - 比特币、白银、黄金、大宗与石油并不是彼此孤立地上涨或下跌
 - 当热钱迁移、稳定币扩张和资源约束叠加时，价格会更快进入剧烈波动区
@@ -114,8 +120,13 @@ related_concepts:
 - [[views/bingbing-xiaomei-2026-01-21-gold-vs-us-debt-signals-monetary-order-transition]]
 - [[views/bingbing-xiaomei-2026-02-03-index-panic-can-diverge-from-fx-and-export-strength]]
 - [[views/bingbing-xiaomei-2026-05-18-competitive-advantage-security-development]]
+- [[views/bingbing-xiaomei-2026-05-20-nonferrous-turning-point-depends-on-inflation-expectation]]
 
 ## 相关概念
 
 - [[concepts/exchange-rate-long-bond-yields-and-liquidity]]
 - [[concepts/policy-offset-and-domestic-pricing-power]]
+
+## 相关推导
+
+- [[reasoning/you-se-jin-shu-guai-dian-tui-dao]]

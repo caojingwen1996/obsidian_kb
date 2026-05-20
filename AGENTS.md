@@ -331,7 +331,7 @@ Karpathy对LLM Wiki的观点.md
 
 ---
 
-## 8. ingest 工作流
+## 8. ingest workflow
 
 当用户要求整理一篇新资料时，必须按以下流程执行。
 

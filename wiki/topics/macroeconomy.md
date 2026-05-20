@@ -1,9 +1,9 @@
----
+﻿---
 title: "宏观经济"
 aliases:
   - "宏观经济基本面"
 created: 2026-04-19
-updated: 2026-05-18
+updated: 2026-05-20
 type: "topic"
 status: active
 tags:
@@ -34,13 +34,15 @@ sources:
   - "[[raw/transcripts/2026-04-24-bingbing-xiaomei-xueqiu-summary]]"
   - "[[raw/transcripts/2026-04-27-bingbing-xiaomei-xueqiu-summary]]"
   - "[[raw/manual/2026-05-14-bingbing-xiaomei-macro-risk-node]]"
+  - "[[sources/screenshots/2026-05-20-bingbing-xiaomei-5-14-risk-node-reasoning]]"
+  - "[[sources/screenshots/2026-05-20-you-se-guai-dian-luo-ji-tui-dao-liu-cheng-tu]]"
   - "[[raw/articles/2026-05-18-bingbing-xiaomei-xueqiu-291511412]]"
   - "[[raw/articles/2026-05-18-bingbing-xiaomei-xueqiu-291532021]]"
 related:
   - "[[people/bi-shu-xi-feng]]"
   - "[[people/bingbing-xiaomei]]"
   - "[[topics/geopolitical-repricing-and-resource-monetary-order]]"
-  - "[[summaries/bingbing-xiaomei-2026-q1-macro-recap]]"
+  - "[[timelines/bingbing-xiaomei-2026-q1-macro-recap]]"
   - "[[concepts/exchange-rate-long-bond-yields-and-liquidity]]"
   - "[[concepts/debt-distribution-and-growth-constraints]]"
   - "[[concepts/policy-offset-and-domestic-pricing-power]]"
@@ -65,6 +67,9 @@ related:
   - "[[views/bingbing-xiaomei-2026-04-24-ai-repricing-expands-from-gpu-to-system-level-competition]]"
   - "[[views/bingbing-xiaomei-2026-04-27-ai-chain-repricing-needs-industry-route-and-timing]]"
   - "[[views/bingbing-xiaomei-2026-05-14-inflation-turning-point-anchors-risk-rhythm]]"
+  - "[[reasoning/bingbing-xiaomei-5-14-risk-node-reasoning]]"
+  - "[[views/bingbing-xiaomei-2026-05-20-nonferrous-turning-point-depends-on-inflation-expectation]]"
+  - "[[reasoning/you-se-jin-shu-guai-dian-tui-dao]]"
   - "[[views/bingbing-xiaomei-2026-05-18-competitive-advantage-security-development]]"
   - "[[views/bingbing-xiaomei-2026-05-18-liquidity-dialectical-analysis]]"
 summary: "围绕增长、通胀、利率、流动性、债务与分配如何塑造市场环境形成的长期主题，关注宏观变量如何帮助理解区间、筛选资产与判断时代背景，而不是直接替代执行系统。"
@@ -110,6 +115,8 @@ related_concepts:
 - 宏观判断如果不能最终落实到仓位切换、兑现节奏与风险暴露管理，就还不算完成
 - 当市场进入陌生走势时，先用宽基或 ETF 承接最清晰的方向性判断，往往比仓促追逐个股超额收益更符合宏观研究的边界
 - 对短期交易节奏来说，日期、交割和指数突破只能解释部分技术扰动；真正决定风险偏好是否减弱的，仍是通胀、油价、利率预期和流动性压力是否出现拐点
+- `5/14` 这类风险窗口还可以被拆成更细的密集验证点：高位 AI/半导体拥挤交易、资本开支从叙事转向融资现实、美联储通胀利率数据、中美科技外交结果和情绪负反馈会在同一时间段交汇
+- 有色金属拐点也被纳入同一条宏观传导链：若通胀预期不下降，降息预期难以稳定升温；缩表和美元信用修复会先压制黄金与有色
 - 竞争格局的比较优势需要放在经济结构转型中看：房地产驱动阶段结束后，高端制造、央国企使命、金融改革和财富分配公平，会共同改变产业与资产的相对位置
 - 冰冰小美的“流动性辩证分析”提醒，成交量不是判断流动性有利与否的唯一指标；当股票供给收缩、ETF 权重支撑和政策约束改变资金流向时，指数可以在存量流动性下维持上涨
 
@@ -217,13 +224,26 @@ related_concepts:
 - 如果要用短期影响指导交易节奏，核心不是“5/14”这个日期本身，而是美国通胀在石油危机滞后影响下何时被压制
 - 通胀拐头向下才是下一次风险减弱的关键节点；若这一节点提前到来，可能对应美伊快速和解推动油价压力缓和
 
+[[reasoning/bingbing-xiaomei-5-14-risk-node-reasoning]] 则补上这一天为什么会被看作风险观察窗口：
+
+- 半导体和 AI 硬件链处于拥挤交易，高位回调会放大整体风险偏好波动
+- 资本开支扩张使市场从“投资叙事”进入“融资叙事”，开始审视发债、增发、现金流和回报率
+- `CPI`、`PPI`、联储表态、中美科技外交事件集中验证，容易让乐观预期切换成现实结果
+- 因此，风险节点不是日期崇拜，而是宏观流动性、产业融资现实和市场情绪在同一窗口共振
+
+[[views/bingbing-xiaomei-2026-05-20-nonferrous-turning-point-depends-on-inflation-expectation]] 则把这条链条进一步压到有色金属：
+
+- 有色真正拐点取决于通胀预期何时下降，而不是单纯等待市场讨论降息
+- 缩表若减缓基础货币供应、强化美元信用，会先通过黄金承压传导到有色
+- [[reasoning/you-se-jin-shu-guai-dian-tui-dao]] 将这条路径拆成石油危机与通胀约束、美联储缩表动机、黄金与有色传导、真正拐点触发条件四段
+
 相关概念见：
 - [[concepts/policy-offset-and-domestic-pricing-power]]
 - [[concepts/exchange-rate-long-bond-yields-and-liquidity]]
 
 ### 7. 阶段复盘与仓位切换
 
-[[summaries/bingbing-xiaomei-2026-q1-macro-recap]] 又补了一层此前还不够清楚的证据：
+[[timelines/bingbing-xiaomei-2026-q1-macro-recap]] 又补了一层此前还不够清楚的证据：
 
 - 宏观研究不只是解释环境，也可以被组织成阶段地图
 - 每个阶段都要同时回答“事件如何改变资产主线”“市场结构在发生什么”“仓位该如何收缩或保留机动性”
@@ -283,15 +303,21 @@ related_concepts:
 - [[views/bingbing-xiaomei-2026-04-24-ai-repricing-expands-from-gpu-to-system-level-competition]]
 - [[views/bingbing-xiaomei-2026-04-27-ai-chain-repricing-needs-industry-route-and-timing]]
 - [[views/bingbing-xiaomei-2026-05-14-inflation-turning-point-anchors-risk-rhythm]]
+- [[views/bingbing-xiaomei-2026-05-20-nonferrous-turning-point-depends-on-inflation-expectation]]
 - [[views/bingbing-xiaomei-2026-05-18-competitive-advantage-security-development]]
 - [[views/bingbing-xiaomei-2026-05-18-liquidity-dialectical-analysis]]
-- [[summaries/bingbing-xiaomei-2026-q1-macro-recap]]
+- [[timelines/bingbing-xiaomei-2026-q1-macro-recap]]
 
 ## 相关概念
 
 - [[concepts/exchange-rate-long-bond-yields-and-liquidity]]
 - [[concepts/debt-distribution-and-growth-constraints]]
 - [[concepts/policy-offset-and-domestic-pricing-power]]
+
+## 相关推导
+
+- [[reasoning/bingbing-xiaomei-5-14-risk-node-reasoning]]
+- [[reasoning/you-se-jin-shu-guai-dian-tui-dao]]
 
 ## 当前用途
 

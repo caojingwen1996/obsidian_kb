@@ -1,7 +1,7 @@
-# 知识库索引
+﻿# 知识库索引
 
 > 当前知识库总导航。所有正式知识页都必须登记在此。
-> 最后更新：2026-05-18 | 页面总数：113
+> 最后更新：2026-05-20 | 页面总数：116
 
 ## 人物
 
@@ -25,6 +25,7 @@
 - [[topics/macroeconomy]] - 围绕增长、通胀、利率、流动性、债务与分配如何塑造市场环境形成的长期主题
 - [[topics/geopolitical-repricing-and-resource-monetary-order]] - 围绕全球割裂、资源争夺、避险资产重估与货币形态竞争形成的长期主题
 - [[topics/life-and-wealth-worldview]] - 围绕人生目标、财富定义、风险承受力与投资系统之间的相互约束形成的长期主题
+- [[topics/bingbing-xiaomei-reading-map]] - 组织冰冰小美的入门阅读顺序、前置概念和进阶观点页
 
 ## 观点
 
@@ -111,7 +112,8 @@
 - [[views/bingbing-xiaomei-2026-04-24-long-china-needs-etf-base-before-alpha]] - 将做多中国的方向判断进一步落到 ETF 这一低摩擦载体上，并把超额收益留给后续学习与适应
 - [[views/bingbing-xiaomei-2026-04-24-ai-repricing-expands-from-gpu-to-system-level-competition]] - 将 AI 重估从单点 GPU 扩展到系统级与国家级竞争，并点出国内更多仍在跟随海外美元定价
 - [[views/bingbing-xiaomei-2026-04-27-ai-chain-repricing-needs-industry-route-and-timing]] - 将 AI 产业链重估进一步落到技术路线、产业位置、智能汽车终端化与交易节点的同步判断
-- [[views/bingbing-xiaomei-2026-05-14-inflation-turning-point-anchors-risk-rhythm]] - 将 5/14 前后的短期技术扰动压回美国通胀、油价与货币政策传导，强调风险减弱要看通胀何时拐头向下
+- [[views/bingbing-xiaomei-2026-05-14-inflation-turning-point-anchors-risk-rhythm]] - 将 5/14 前后的短期技术扰动压回美国通胀、油价与货币政策传导，并补入密集验证窗口的风险推导
+- [[views/bingbing-xiaomei-2026-05-20-nonferrous-turning-point-depends-on-inflation-expectation]] - 将有色拐点锚定到通胀预期下降后的降息预期升温，并连接缩表、美元信用、黄金与有色传导
 - [[views/bingbing-xiaomei-2026-05-18-expectation-gap-is-greed-bait]] - 将“预期差”批评为诱发贪婪的画饼式叙事，强调对抗市场时应回到“无欲速，无见小利”的纪律
 - [[views/bingbing-xiaomei-2026-05-18-competitive-advantage-security-development]] - 将“竞争格局的比较优势”压成安全与发展、效率与公平、全球产业竞争和金融制度重估共同决定相对位置的框架
 - [[views/bingbing-xiaomei-2026-05-18-liquidity-dialectical-analysis]] - 将“流动性辩证分析”压成股票供给侧改革、ETF 权重支撑与资金从小市值/ST 迁移到龙头核心资产的框架
@@ -127,17 +129,12 @@
 
 ## 时间线
 
-## 归纳
+- [[timelines/bingbing-xiaomei-2026-q1-macro-recap]] - 把冰冰小美 2026 年一季度的地缘、汇率、流动性与仓位判断压成五阶段复盘，补出了她把宏观事件翻译成仓位动作的连续主线
 
-- [[summaries/bingbing-xiaomei-2026-q1-macro-recap]] - 把冰冰小美 2026 年一季度的地缘、汇率、流动性与仓位判断压成五阶段复盘，补出了她把宏观事件翻译成仓位动作的连续主线
+## 推导链
 
-## 对比
-
-## 问答
-
-- [[queries/why-bingbing-xiaomei-is-hard-to-read-and-what-to-learn-first]] - 合并解释冰冰小美为什么难读、需要先补什么知识，以及从入门到进阶应该怎么读
-
-## 输出成品
+- [[reasoning/bingbing-xiaomei-5-14-risk-node-reasoning]] - 将 5/14 风险节点拆成 AI/半导体拥挤交易、资本开支融资现实、美联储数据、中美科技外交结果和情绪流动性共振
+- [[reasoning/you-se-jin-shu-guai-dian-tui-dao]] - 将有色金属拐点拆成通胀预期、降息预期、缩表、美元信用、黄金和资源资产之间的传导链
 
 ## 原始资料
 
@@ -145,6 +142,7 @@
 - `raw/papers/`：论文、报告、长文 PDF
 - `raw/transcripts/`：播客整理稿、会议纪要、访谈逐字稿
 - `raw/assets/`：图片、图表、截图、附件
+- `sources/screenshots/`：用户提供截图、流程图和图表转写
 
 ## 使用规则
 
