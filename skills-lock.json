@@ -1,0 +1,215 @@
+{
+  "version": 1,
+  "skills": {
+    "claude-history-ingest": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/claude-history-ingest/SKILL.md",
+      "computedHash": "9bd66b67507031806a269a3f6192510694a991992cab72a49c57fa096cbeb84a"
+    },
+    "codex-history-ingest": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/codex-history-ingest/SKILL.md",
+      "computedHash": "b4db2a238f9507dfdbb4ebc2ec1a57657ba90eff66173c89931f41845387e5a3"
+    },
+    "copilot-history-ingest": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/copilot-history-ingest/SKILL.md",
+      "computedHash": "d0349a082864e020ddda3724382245d045d03aae450bcc05e2518dc32778720b"
+    },
+    "cross-linker": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/cross-linker/SKILL.md",
+      "computedHash": "7e96c12374eb646c5b37c495e6513c3db3e490b90fa1c045a60069f33b10c160"
+    },
+    "daily-update": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/daily-update/SKILL.md",
+      "computedHash": "d361787d75ac2738ff164815aefe1d4b331b7ef3953107fc4bee20f701bf5feb"
+    },
+    "data-ingest": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/data-ingest/SKILL.md",
+      "computedHash": "79a00c2d80fe3669f6b2e71e1533bd7d430148a07010f51aeb103d9ad801f792"
+    },
+    "graph-colorize": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/graph-colorize/SKILL.md",
+      "computedHash": "32ba9bbc78558dd17ed566455750798bca4768c19de08fc9da428ca431efa780"
+    },
+    "hermes-history-ingest": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/hermes-history-ingest/SKILL.md",
+      "computedHash": "fb729c2aa067a027fc4221033ac9685a6b43d50211ad4509ed32ac20dd5c3ce3"
+    },
+    "impl-validator": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/impl-validator/SKILL.md",
+      "computedHash": "2a798b233434963433cd28368dfad25e1107bbf90f1f2bca8413bd00c4f85bfd"
+    },
+    "ingest-url": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/ingest-url/SKILL.md",
+      "computedHash": "ca558f5d759aa216b6fffc27ea2d9bd3a0b295dad2436da95a41f8e17b9b2791"
+    },
+    "llm-wiki": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/llm-wiki/SKILL.md",
+      "computedHash": "721448178bd3d591bc9caa2eedc4ac0889c3b40878a3a0f69714e376856fb102"
+    },
+    "memory-bridge": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/memory-bridge/SKILL.md",
+      "computedHash": "5e0ee6d669708ff01e460ebad87d6ac4f86e3617006f59b1dda6a3a2df482aea"
+    },
+    "obsidian-wiki-ingest": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/obsidian-wiki-ingest/SKILL.md",
+      "computedHash": "0cedbcc48d4d07ba1f10d43165ef8196552fc265b3a5dac5cb28dcf6dcb2cca4"
+    },
+    "openclaw-history-ingest": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/openclaw-history-ingest/SKILL.md",
+      "computedHash": "151e49613f132a0c76141e93d91a28d39198d34dc7e8181e6f45f9347fc24cdf"
+    },
+    "skill-creator": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/skill-creator/SKILL.md",
+      "computedHash": "57f470f512f45bdac598e302bc72fd62bf2b649fc7fad032efe97720149cde4d"
+    },
+    "tag-taxonomy": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/tag-taxonomy/SKILL.md",
+      "computedHash": "66dae67b40951aa24a5ab9b224fd9c6e0dcf2d3969107e0e2d082b3f0d7b8cbe"
+    },
+    "wiki-agent": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/wiki-agent/SKILL.md",
+      "computedHash": "1e3f4a7d8e9875d8dc271c7b8a94d6011deb506eae91e59c026b57d8dd67d12d"
+    },
+    "wiki-capture": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/wiki-capture/SKILL.md",
+      "computedHash": "68596893f145cccf998fd941dcb3ebc51d74a0a3a5507878e019acf9f06432c0"
+    },
+    "wiki-context-pack": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/wiki-context-pack/SKILL.md",
+      "computedHash": "fb6539506d0704b6473fd260033b20a35a06d304f2d69a6276ca3b8bf4584e70"
+    },
+    "wiki-dashboard": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/wiki-dashboard/SKILL.md",
+      "computedHash": "9fef8a5342fe30ff127a3652b4318a8121f6afa77fc8ef3e0c52290d67777b56"
+    },
+    "wiki-dedup": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/wiki-dedup/SKILL.md",
+      "computedHash": "c81f69a7139b8a2d909f65cf2fb83a72677024b8ecf6f428e759be15b671b159"
+    },
+    "wiki-digest": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/wiki-digest/SKILL.md",
+      "computedHash": "cde32b54f850828b952a2d3b426b9a2c785da2d7f2cec25d699101a316c90d85"
+    },
+    "wiki-export": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/wiki-export/SKILL.md",
+      "computedHash": "4e7e5b351e4623cb1a2c69a526d94141768d57360a7ec6dcdfe1df089638fb26"
+    },
+    "wiki-history-ingest": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/wiki-history-ingest/SKILL.md",
+      "computedHash": "3a152f7c0c55ecfd85e7f7408f37c06797fda2e10dd0031d8071f513e3a8d976"
+    },
+    "wiki-ingest": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/wiki-ingest/SKILL.md",
+      "computedHash": "c3c31f2705b92f1f52763ff179978983a73ca777321257dd6d101b513e4e5cef"
+    },
+    "wiki-lint": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/wiki-lint/SKILL.md",
+      "computedHash": "57ef674335eb774a511d53e280e6daa4ae592479a82269c31554dfb60050f394"
+    },
+    "wiki-query": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/wiki-query/SKILL.md",
+      "computedHash": "c77c717e7db3d6a3b6d3462899d5b394a754ff32a27c1589514aeaaf8102f3b1"
+    },
+    "wiki-rebuild": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/wiki-rebuild/SKILL.md",
+      "computedHash": "55387f2241f19ee7d132454ff060072a2dace5ee711870447060a3434c222236"
+    },
+    "wiki-research": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/wiki-research/SKILL.md",
+      "computedHash": "aac58805ea160a7470987e4a9ba606b8d885adc73a30137655901011f6bf029b"
+    },
+    "wiki-setup": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/wiki-setup/SKILL.md",
+      "computedHash": "bbf56d4b4690b78fac4930231581391707c2f39336e5172a39711b08bae72f28"
+    },
+    "wiki-stage-commit": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/wiki-stage-commit/SKILL.md",
+      "computedHash": "277d466f8d7674bb618cc686d61d13f200ebe3da4bd06330be979dc4b2e66a9f"
+    },
+    "wiki-status": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/wiki-status/SKILL.md",
+      "computedHash": "d2590e9e8bee247c7686cce78ae48ffea4884b5c722099fc1a083c69aca340f8"
+    },
+    "wiki-switch": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/wiki-switch/SKILL.md",
+      "computedHash": "28fdc2acf33d26ea926b75dfa9b64d33e230f01a64099d2eed77d90521a23f68"
+    },
+    "wiki-synthesize": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/wiki-synthesize/SKILL.md",
+      "computedHash": "410b45fb45c2b2e753d72b4aadb8b24e70dc03efe95c324258b1026da5ebf0ef"
+    },
+    "wiki-update": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "skillPath": ".skills/wiki-update/SKILL.md",
+      "computedHash": "09cc00d86644db8c856d6c36361029ec4a08616dd9333295df3256d95acbd784"
+    }
+  }
+}
