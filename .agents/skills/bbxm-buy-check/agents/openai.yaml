@@ -1,0 +1,4 @@
+interface:
+  display_name: "冰冰小美买入判断"
+  short_description: "Use three-factor timing checks for buy and position decisions."
+  default_prompt: "Use $bbxm-buy-check to judge whether a target, ETF, index, or industry currently fits the Bingbing Xiaomei three-factor buy checklist."

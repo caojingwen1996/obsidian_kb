@@ -604,3 +604,15 @@
 - 按新的 `page-types.md` 将旧 `summary` 页面迁移为 `timeline` 页面：`summaries/冰冰小美2026一季度宏观阶段时间线.md` -> `timelines/冰冰小美2026一季度宏观阶段时间线.md`。
 - 更新迁移后页面的 frontmatter、所有正式知识页反向引用，以及 `index.md` 中对应的主题与时间线入口。
 - 从 `index.md` 移除空的旧类型分区：`归纳`、`对比`、`问答`、`输出成品`。
+
+## [2026-05-21] skill | add bingbing xiaomei buy check skill
+
+- 新增 `.agents/skills/bingbing-xiaomei-buy-check/SKILL.md`，将“冰冰小美三要素买入判断”整理为可触发 skill。
+- 新增 `.agents/skills/bingbing-xiaomei-buy-check/agents/openai.yaml`，补充 UI 展示名称、短描述和默认调用提示。
+- Skill 明确了基本面 / 产业链、流动性 / 情绪、交易窗口 / 风险节点三要素检查，以及否决项、仓位建议和最终结论输出格式。
+- 已通过 `quick_validate.py` 校验。
+
+## [2026-05-21] skill | rename bingbing xiaomei buy check skill
+
+- 将 skill 目录从 `.agents/skills/bingbing-xiaomei-buy-check/` 重命名为 `.agents/skills/bbxm-buy-check/`。
+- 将 `SKILL.md` frontmatter 的 `name` 更新为 `bbxm-buy-check`，并同步更新 `agents/openai.yaml` 的默认调用提示。
