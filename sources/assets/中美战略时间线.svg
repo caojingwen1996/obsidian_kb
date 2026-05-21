@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1050" viewBox="0 0 1600 1050">
+  <defs>
+    <style>
+      .bg{fill:#fbfaf7}.title{font:700 34px 'Noto Sans CJK SC','Microsoft YaHei',Arial,sans-serif;fill:#1f2937}.subtitle{font:400 18px 'Noto Sans CJK SC','Microsoft YaHei',Arial,sans-serif;fill:#6b7280}.year{font:700 20px 'Noto Sans CJK SC','Microsoft YaHei',Arial,sans-serif;fill:#111827}.label{font:500 15px 'Noto Sans CJK SC','Microsoft YaHei',Arial,sans-serif;fill:#374151}.small{font:400 13px 'Noto Sans CJK SC','Microsoft YaHei',Arial,sans-serif;fill:#6b7280}.note{font:500 14px 'Noto Sans CJK SC','Microsoft YaHei',Arial,sans-serif;fill:#4b5563}.axis{stroke:#9ca3af;stroke-width:3}.tick{stroke:#6b7280;stroke-width:2}.card{fill:#ffffff;stroke:#e5e7eb;stroke-width:1.5;rx:14}.cardBlue{fill:#eff6ff;stroke:#bfdbfe;stroke-width:1.5;rx:14}.cardGreen{fill:#ecfdf5;stroke:#a7f3d0;stroke-width:1.5;rx:14}.cardAmber{fill:#fffbeb;stroke:#fde68a;stroke-width:1.5;rx:14}.cardRose{fill:#fff1f2;stroke:#fecdd3;stroke-width:1.5;rx:14}.dot{fill:#2563eb;stroke:#ffffff;stroke-width:4}.dot2{fill:#059669;stroke:#ffffff;stroke-width:4}.dot3{fill:#d97706;stroke:#ffffff;stroke-width:4}.dot4{fill:#e11d48;stroke:#ffffff;stroke-width:4}.arrow{stroke:#6b7280;stroke-width:2;fill:none;marker-end:url(#arrow)}.phaseText{font:700 19px 'Noto Sans CJK SC','Microsoft YaHei',Arial,sans-serif;fill:#111827}.phaseSub{font:400 14px 'Noto Sans CJK SC','Microsoft YaHei',Arial,sans-serif;fill:#4b5563}.tag{font:700 13px 'Noto Sans CJK SC','Microsoft YaHei',Arial,sans-serif;fill:#fff}.legend{font:500 14px 'Noto Sans CJK SC','Microsoft YaHei',Arial,sans-serif;fill:#374151}
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#6b7280"/></marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%"><feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.10"/></filter>
+  </defs>
+
+  <rect class="bg" width="1600" height="1050"/>
+
+  <text x="80" y="70" class="title">中美建设性战略稳定关系：9年周期与未来产业主线</text>
+  <text x="80" y="104" class="subtitle">根据冰冰小美原文整理：从“和平与发展”到“安全与发展”，再到“竞争与合作发展”</text>
+
+  <!-- Main thesis -->
+  <rect x="80" y="130" width="1440" height="92" class="card" filter="url(#shadow)"/>
+  <text x="110" y="166" class="phaseText">核心判断</text>
+  <text x="110" y="195" class="label">2026年中美关系被重新定义为“建设性战略稳定关系”：合作优先、承认竞争、防止竞争滑向对抗与冲突。</text>
+  <text x="905" y="195" class="label">由此推导：war 风险边际削弱，但科技、产业、人才与综合国力竞争会长期强化。</text>
+
+  <!-- 9-year macro periods -->
+  <text x="80" y="276" class="phaseText">一、9年宏观周期框架</text>
+  <line x1="150" y1="330" x2="1450" y2="330" class="axis"/>
+  <circle cx="150" cy="330" r="10" class="dot2"/><circle cx="680" cy="330" r="10" class="dot3"/><circle cx="1210" cy="330" r="10" class="dot"/><circle cx="1450" cy="330" r="10" class="dot4"/>
+  <text x="120" y="305" class="year">2008</text><text x="650" y="305" class="year">2017</text><text x="1180" y="305" class="year">2026</text><text x="1420" y="305" class="year">2035</text>
+
+  <rect x="150" y="355" width="500" height="100" class="cardGreen" filter="url(#shadow)"/>
+  <text x="178" y="385" class="phaseText">2008—2017：蜜月期</text>
+  <text x="178" y="414" class="label">对应：房地产黄金时代</text>
+  <text x="178" y="438" class="small">宏观底色：和平与发展仍是主要叙事；外部环境相对友好。</text>
+
+  <rect x="680" y="355" width="500" height="100" class="cardAmber" filter="url(#shadow)"/>
+  <text x="708" y="385" class="phaseText">2017—2026：对抗期</text>
+  <text x="708" y="414" class="label">对应：国产替代黄金时代</text>
+  <text x="708" y="438" class="small">宏观底色：安全权重上升，供应链、技术、金融开始重构。</text>
+
+  <rect x="1210" y="355" width="240" height="100" class="cardBlue" filter="url(#shadow)"/>
+  <text x="1238" y="385" class="phaseText">2026—2035：竞争期</text>
+  <text x="1238" y="414" class="label">新质生产力产业黄金时代</text>
+  <text x="1238" y="438" class="small">竞争与局部合作并存。</text>
+
+  <!-- Policy timeline -->
+  <text x="80" y="515" class="phaseText">二、国内战略主线：安全与发展逐步上升为顶层原则</text>
+  <line x1="140" y1="600" x2="1460" y2="600" class="axis"/>
+  
+  <g transform="translate(140,600)">
+    <line y1="-12" y2="12" class="tick"/><circle r="8" class="dot3"/>
+    <text x="-22" y="-28" class="year">2017</text>
+    <rect x="-55" y="28" width="160" height="70" class="cardAmber"/>
+    <text x="-38" y="55" class="label">首次正式确立</text><text x="-38" y="78" class="label">安全与发展原则</text>
+  </g>
+  <g transform="translate(310,600)">
+    <line y1="-12" y2="12" class="tick"/><circle r="8" class="dot3"/>
+    <text x="-20" y="-28" class="year">2018</text>
+    <rect x="-68" y="28" width="190" height="70" class="cardAmber"/>
+    <text x="-48" y="55" class="label">经济高质量发展</text><text x="-48" y="78" class="label">转型被确认</text>
+  </g>
+  <g transform="translate(480,600)">
+    <line y1="-12" y2="12" class="tick"/><circle r="8" class="dot3"/>
+    <text x="-20" y="-28" class="year">2020</text>
+    <rect x="-65" y="28" width="180" height="70" class="cardAmber"/>
+    <text x="-45" y="55" class="label">安全与发展</text><text x="-45" y="78" class="label">成为指导思想</text>
+  </g>
+  <g transform="translate(650,600)">
+    <line y1="-12" y2="12" class="tick"/><circle r="8" class="dot3"/>
+    <text x="-20" y="-28" class="year">2022</text>
+    <rect x="-62" y="28" width="180" height="70" class="cardAmber"/>
+    <text x="-42" y="55" class="label">安全与发展</text><text x="-42" y="78" class="label">写入党章</text>
+  </g>
+  <g transform="translate(820,600)">
+    <line y1="-12" y2="12" class="tick"/><circle r="8" class="dot2"/>
+    <text x="-20" y="-28" class="year">2023</text>
+    <rect x="-72" y="28" width="205" height="86" class="cardGreen"/>
+    <text x="-50" y="55" class="label">新质生产力提出</text><text x="-50" y="78" class="label">金融强国 / 科技强国</text><text x="-50" y="101" class="small">金融局、科技局成立</text>
+  </g>
+  <g transform="translate(1010,600)">
+    <line y1="-12" y2="12" class="tick"/><circle r="8" class="dot2"/>
+    <text x="-20" y="-28" class="year">2024</text>
+    <rect x="-70" y="28" width="190" height="70" class="cardGreen"/>
+    <text x="-50" y="55" class="label">新国九条</text><text x="-50" y="78" class="label">924金融组合拳</text>
+  </g>
+  <g transform="translate(1180,600)">
+    <line y1="-12" y2="12" class="tick"/><circle r="8" class="dot2"/>
+    <text x="-20" y="-28" class="year">2025</text>
+    <rect x="-70" y="28" width="205" height="70" class="cardGreen"/>
+    <text x="-50" y="55" class="label">安全与发展写入</text><text x="-50" y="78" class="label">十五五基本原则</text>
+  </g>
+  <g transform="translate(1390,600)">
+    <line y1="-12" y2="12" class="tick"/><circle r="8" class="dot"/>
+    <text x="-20" y="-28" class="year">2026</text>
+    <rect x="-120" y="28" width="220" height="70" class="cardBlue"/>
+    <text x="-98" y="55" class="label">中美建设性战略</text><text x="-98" y="78" class="label">稳定关系</text>
+  </g>
+
+  <!-- External strategy -->
+  <text x="80" y="775" class="phaseText">三、外部关系变化与市场含义</text>
+  <rect x="80" y="805" width="310" height="145" class="cardRose" filter="url(#shadow)"/>
+  <text x="110" y="835" class="year">2025.12</text>
+  <text x="110" y="864" class="label">美国《国家安全战略》</text>
+  <text x="110" y="891" class="small">门罗主义 / 承认中国是大国 / 从意识形态对抗转向竞争关系</text>
+  <text x="110" y="918" class="small">经贸再平衡：供应链重组、技术封锁、投资审查、制造业回流</text>
+
+  <path d="M390 878 C440 878 455 878 505 878" class="arrow"/>
+  <rect x="510" y="805" width="300" height="145" class="cardBlue" filter="url(#shadow)"/>
+  <text x="540" y="835" class="year">2026</text>
+  <text x="540" y="864" class="label">中国修正对美关系表述</text>
+  <text x="540" y="891" class="small">提出“建设性战略稳定关系”</text>
+  <text x="540" y="918" class="small">合作优先，但承认竞争长期存在，防止对抗升级</text>
+
+  <path d="M810 878 C860 878 875 878 925 878" class="arrow"/>
+  <rect x="930" y="805" width="300" height="145" class="cardGreen" filter="url(#shadow)"/>
+  <text x="960" y="835" class="year">2026—2035</text>
+  <text x="960" y="864" class="label">竞争与合作发展</text>
+  <text x="960" y="891" class="small">基础教育、创新人才、技术创造、产业升级、优势力量</text>
+  <text x="960" y="918" class="small">全面竞争看综合国力；局部竞争与合作看长远布局</text>
+
+  <path d="M1230 878 C1270 878 1288 878 1328 878" class="arrow"/>
+  <rect x="1330" y="805" width="190" height="145" class="cardAmber" filter="url(#shadow)"/>
+  <text x="1360" y="835" class="year">2030</text>
+  <text x="1360" y="864" class="label">关键节点</text>
+  <text x="1360" y="891" class="small">碳达峰：大国担当</text>
+  <text x="1360" y="918" class="small">载人登月：国际竞争与合作</text>
+
+  <!-- Market inference strip -->
+  <rect x="80" y="975" width="1440" height="45" class="card"/>
+  <text x="110" y="1004" class="note">市场推演：房地产路径依赖减弱 → 科技产业竞争与合作持续 → 经贸恢复改善基本面 → 行情更可能与 GDP 增速及新质生产力产业周期同步。</text>
+
+  <!-- Legend -->
+  <rect x="1210" y="78" width="310" height="36" rx="18" fill="#ffffff" stroke="#e5e7eb"/>
+  <circle cx="1235" cy="96" r="7" fill="#059669"/><text x="1250" y="101" class="legend">产业/发展</text>
+  <circle cx="1335" cy="96" r="7" fill="#d97706"/><text x="1350" y="101" class="legend">安全/对抗</text>
+  <circle cx="1438" cy="96" r="7" fill="#2563eb"/><text x="1453" y="101" class="legend">关系重塑</text>
+</svg>

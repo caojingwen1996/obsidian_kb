@@ -229,16 +229,19 @@ Agent 应使用 Obsidian 双链建立知识关系。
 7. 不要制造大量空页面；
 8. 新概念、新人物、新事件、新观点稳定且会复用时，才创建新页面；
 9. 每个 wiki 页面底部必须包含“相关页面”部分。
+10. 当链接目标使用文件路径时，正文和相关列表应使用 `[[页面路径|显示名称]]` 格式，避免直接把路径暴露给读者。
+11. 相关列表推荐使用 `- [[页面路径|显示名称]]：说明这个页面为什么相关。`，让链接文本显示页面标题或语义名称，路径只保留在链接内部。
 
 示例：
 
 ```markdown
-[[LLM Wiki]] 与 [[Obsidian-Wiki]] 的区别在于：
+[[concepts/llm-wiki|LLM Wiki]] 与 [[concepts/obsidian-wiki|Obsidian-Wiki]] 的区别在于：
 LLM Wiki 更像一种模式，而 Obsidian-Wiki 更像面向 Agent 的工作流框架。
 
-[[Michael Burry]] 的做空行为被作者用作市场风险判断的一个信号，但该信号仍需结合 [[流动性]] 和 [[市场情绪]] 判断。
+[[people/michael-burry|Michael Burry]] 的做空行为被作者用作市场风险判断的一个信号，但该信号仍需结合 [[concepts/liquidity|流动性]] 和 [[concepts/market-sentiment|市场情绪]] 判断。
 
-[[蓝庭集对有色金属的看法]] 是一个 View Page；[[有色金属拐点推导]] 是对应的 Reasoning Page。
+- [[views/lantingji-nonferrous-view|蓝庭集对有色金属的看法]]：这是一个 View Page，记录“谁怎么看”。
+- [[reasoning/nonferrous-turning-point|有色金属拐点推导]]：这是对应的 Reasoning Page，拆解“为什么这样推”。
 ```
 
 ---
