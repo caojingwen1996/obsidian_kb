@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1280" height="1550" viewBox="0 0 1280 1550" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title { font: 700 30px "Noto Sans CJK SC","Microsoft YaHei",Arial,sans-serif; fill:#111827; }
+      .subtitle { font: 16px "Noto Sans CJK SC","Microsoft YaHei",Arial,sans-serif; fill:#4b5563; }
+      .box-title { font: 700 18px "Noto Sans CJK SC","Microsoft YaHei",Arial,sans-serif; fill:#111827; }
+      .box-text { font: 15px "Noto Sans CJK SC","Microsoft YaHei",Arial,sans-serif; fill:#1f2937; }
+      .small { font: 13px "Noto Sans CJK SC","Microsoft YaHei",Arial,sans-serif; fill:#4b5563; }
+      .tag { font: 700 14px "Noto Sans CJK SC","Microsoft YaHei",Arial,sans-serif; fill:#ffffff; }
+      .arrow-label { font: 14px "Noto Sans CJK SC","Microsoft YaHei",Arial,sans-serif; fill:#374151; }
+      .section { font: 700 16px "Noto Sans CJK SC","Microsoft YaHei",Arial,sans-serif; fill:#ffffff; }
+      .node { stroke:#d1d5db; stroke-width:1.6; rx:16; ry:16; }
+      .blue { fill:#eff6ff; stroke:#93c5fd; }
+      .yellow { fill:#fffbeb; stroke:#fbbf24; }
+      .red { fill:#fef2f2; stroke:#fca5a5; }
+      .green { fill:#ecfdf5; stroke:#6ee7b7; }
+      .purple { fill:#f5f3ff; stroke:#c4b5fd; }
+      .gray { fill:#f9fafb; stroke:#d1d5db; }
+      .dark { fill:#111827; }
+      .line { stroke:#6b7280; stroke-width:2.2; fill:none; marker-end:url(#arrow); }
+      .line-soft { stroke:#9ca3af; stroke-width:2; fill:none; marker-end:url(#arrowSoft); stroke-dasharray:6 6; }
+      .line-green { stroke:#059669; stroke-width:2.4; fill:none; marker-end:url(#arrowGreen); }
+      .line-red { stroke:#dc2626; stroke-width:2.4; fill:none; marker-end:url(#arrowRed); }
+    </style>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arrowSoft" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#9ca3af"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#059669"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1280" height="1550" fill="#ffffff"/>
+  <text x="640" y="52" text-anchor="middle" class="title">有色拐点逻辑推导流程图</text>
+  <text x="640" y="82" text-anchor="middle" class="subtitle">核心结论：有色真正的拐点，在美联储降息预期到来；降息预期取决于通胀预期何时下降。</text>
+
+  <!-- Section 1 -->
+  <rect x="70" y="120" width="1140" height="34" rx="17" fill="#1f2937"/>
+  <text x="640" y="143" text-anchor="middle" class="section">一、当前宏观约束：通胀抬头 → 降息被制约 → 货币偏紧</text>
+
+  <rect x="90" y="185" width="310" height="118" class="node yellow"/>
+  <text x="245" y="215" text-anchor="middle" class="box-title">石油危机冲击</text>
+  <text x="115" y="247" class="box-text">• 通胀抬头是“明牌”</text>
+  <text x="115" y="275" class="box-text">• 油价与通胀预期强相关</text>
+
+  <rect x="485" y="185" width="310" height="118" class="node red"/>
+  <text x="640" y="215" text-anchor="middle" class="box-title">降息风险上升</text>
+  <text x="510" y="247" class="box-text">• 若过早降息，可能快速推高通胀</text>
+  <text x="510" y="275" class="box-text">• 因此当前不会轻易降息</text>
+
+  <rect x="880" y="185" width="310" height="118" class="node red"/>
+  <text x="1035" y="215" text-anchor="middle" class="box-title">政策倾向</text>
+  <text x="905" y="247" class="box-text">• 降息延后</text>
+  <text x="905" y="275" class="box-text">• 甚至存在加息概率</text>
+
+  <path d="M400 244 L485 244" class="line-red"/>
+  <path d="M795 244 L880 244" class="line-red"/>
+
+  <!-- Section 2 -->
+  <rect x="70" y="350" width="1140" height="34" rx="17" fill="#1f2937"/>
+  <text x="640" y="373" text-anchor="middle" class="section">二、美联储先缩表的内在动机：减缓美债压力，而不是直接降息</text>
+
+  <rect x="90" y="420" width="330" height="148" class="node purple"/>
+  <text x="255" y="450" text-anchor="middle" class="box-title">财政部资金紧张</text>
+  <text x="115" y="482" class="box-text">• 美债利息支出约 1.2 万亿美元</text>
+  <text x="115" y="510" class="box-text">• 财政可支出空间被压缩</text>
+  <text x="115" y="538" class="box-text">• 对应砍医保、精兵简政等压力</text>
+
+  <rect x="475" y="420" width="330" height="148" class="node blue"/>
+  <text x="640" y="450" text-anchor="middle" class="box-title">美联储回归货币</text>
+  <text x="500" y="482" class="box-text">• 不直接替财政扩张兜底</text>
+  <text x="500" y="510" class="box-text">• 通过货币端削弱基础货币供应速度</text>
+  <text x="500" y="538" class="box-text">• 减缓利息支出继续膨胀</text>
+
+  <rect x="860" y="420" width="330" height="148" class="node green"/>
+  <text x="1025" y="450" text-anchor="middle" class="box-title">目标：软着陆</text>
+  <text x="885" y="482" class="box-text">• 美债规模增长变慢</text>
+  <text x="885" y="510" class="box-text">• 财政盈余后可偿还利息</text>
+  <text x="885" y="538" class="box-text">• 美债不违约 → 软着陆</text>
+
+  <path d="M420 494 L475 494" class="line"/>
+  <path d="M805 494 L860 494" class="line-green"/>
+
+  <rect x="210" y="615" width="860" height="92" class="node gray"/>
+  <text x="640" y="646" text-anchor="middle" class="box-title">关键观察点：6/16</text>
+  <text x="245" y="677" class="box-text">需要等待缩表的路径、时间表、规模答案；因为缩表太快会引发市场振动，节奏非常重要。</text>
+
+  <path d="M640 568 L640 615" class="line-soft"/>
+
+  <!-- Section 3 -->
+  <rect x="70" y="755" width="1140" height="34" rx="17" fill="#1f2937"/>
+  <text x="640" y="778" text-anchor="middle" class="section">三、缩表如何传导到黄金与有色：美元信用增强 → 黄金承压 → 有色被带崩</text>
+
+  <rect x="90" y="825" width="300" height="140" class="node blue"/>
+  <text x="240" y="855" text-anchor="middle" class="box-title">缩表规模与进程</text>
+  <text x="115" y="887" class="box-text">• 接下来货币因子的核心变量</text>
+  <text x="115" y="915" class="box-text">• 拉低基础货币供应用量</text>
+  <text x="115" y="943" class="box-text">• 影响资产定价</text>
+
+  <rect x="490" y="825" width="300" height="140" class="node green"/>
+  <text x="640" y="855" text-anchor="middle" class="box-title">美债危机表现下降</text>
+  <text x="515" y="887" class="box-text">• 美债规模增速放缓</text>
+  <text x="515" y="915" class="box-text">• 美元信用加强</text>
+  <text x="515" y="943" class="box-text">• 美元指数抬头 / 强美元诉求</text>
+
+  <rect x="890" y="825" width="300" height="140" class="node red"/>
+  <text x="1040" y="855" text-anchor="middle" class="box-title">黄金与有色承压</text>
+  <text x="915" y="887" class="box-text">• 黄金资产/美债资产 比值 &lt; 1</text>
+  <text x="915" y="915" class="box-text">• 黄金承压下跌</text>
+  <text x="915" y="943" class="box-text">• 紫金矿业承压 → 带崩有色</text>
+
+  <path d="M390 895 L490 895" class="line-green"/>
+  <path d="M790 895 L890 895" class="line-red"/>
+
+  <rect x="360" y="1005" width="560" height="86" class="node gray"/>
+  <text x="640" y="1035" text-anchor="middle" class="box-title">市场当前定价</text>
+  <text x="395" y="1066" class="box-text">市场已按“降息推迟、货币紧张”的逻辑推动有色下跌，股价已部分体现紧缩预期。</text>
+
+  <path d="M1040 965 C1040 1010 920 1030 920 1048" class="line-soft"/>
+
+  <!-- Section 4 -->
+  <rect x="70" y="1135" width="1140" height="34" rx="17" fill="#1f2937"/>
+  <text x="640" y="1158" text-anchor="middle" class="section">四、真正拐点：通胀预期下降 → 降息预期升温 → 有色见底</text>
+
+  <rect x="90" y="1205" width="330" height="165" class="node yellow"/>
+  <text x="255" y="1235" text-anchor="middle" class="box-title">路径 A：石油危机转折</text>
+  <text x="115" y="1268" class="box-text">• 米伊局势出现结果</text>
+  <text x="115" y="1296" class="box-text">• 霍尔木兹海峡真正开通</text>
+  <text x="115" y="1324" class="box-text">• 油价/通胀预期下降</text>
+
+  <rect x="475" y="1205" width="330" height="165" class="node yellow"/>
+  <text x="640" y="1235" text-anchor="middle" class="box-title">路径 B：中美贸易回暖</text>
+  <text x="500" y="1268" class="box-text">• 中国大量出口美国</text>
+  <text x="500" y="1296" class="box-text">• 消费品价格指数被打下来</text>
+  <text x="500" y="1324" class="box-text">• 通胀预期下降</text>
+
+  <rect x="860" y="1205" width="330" height="165" class="node purple"/>
+  <text x="1025" y="1235" text-anchor="middle" class="box-title">关键变量：沃什理念</text>
+  <text x="885" y="1268" class="box-text">• 是否效仿格林斯潘</text>
+  <text x="885" y="1296" class="box-text">• 通过微观统计真实通胀</text>
+  <text x="885" y="1324" class="box-text">• 对通胀的容忍度很重要</text>
+
+  <rect x="320" y="1410" width="640" height="86" class="node green"/>
+  <text x="640" y="1440" text-anchor="middle" class="box-title">最终推导：降息预期升温 → 有色见底</text>
+  <text x="350" y="1471" class="box-text">若触发点来自中美贸易回暖，则中国经济基本面更强，股市走强概率增大；有色兼具指数力量，同步上涨。</text>
+
+  <path d="M255 1370 C255 1405 410 1418 450 1418" class="line-green"/>
+  <path d="M640 1370 L640 1410" class="line-green"/>
+  <path d="M1025 1370 C1025 1405 870 1418 830 1418" class="line-soft"/>
+
+  <!-- Bottom note -->
+  <rect x="90" y="1515" width="1100" height="1" fill="#e5e7eb"/>
+</svg>
