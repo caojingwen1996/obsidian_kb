@@ -690,3 +690,16 @@
 - 新增 Mermaid `timeline` 竖向时间线，用同一组日期和阶段表达五个宏观阶段。
 - 去掉正文小标题中的重复日期描述，让时间信息集中放在 Markdown 表格中表达。
 - 保留原时间线页的五段详细解释不动，本次只替换“时间线”部分的展示格式。
+
+- [2026-05-25 15:52:37] QUERY query="现在有产业思维的concept页面吗" result_pages=0 mode=normal escalated=false
+
+## [2026-05-25] ingest | create empty industry thinking concept page
+
+- 新增空白 Concept Page `wiki/concepts/产业思维.md`，仅包含 frontmatter、标题和待补充章节。
+- 更新 `index.md` 的概念入口，并将页面总数从 `128` 调整为 `129`。
+
+## [2026-05-25] ingest | fill industry thinking concept page
+
+- 根据用户提供的“产业趋势投资方法论”七步框架，更新 `wiki/concepts/产业思维.md`。
+- 补充定义、背景、核心观点、关键组成、使用场景、常见误区、相关页面和来源。
+- 更新 `index.md` 中 `产业思维` 的一句话摘要。
