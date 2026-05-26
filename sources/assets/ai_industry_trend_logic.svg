@@ -1,0 +1,186 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="3100" viewBox="0 0 1600 3100">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#94a3b8" flood-opacity="0.22"/>
+    </filter>
+    <marker id="arrow" markerWidth="14" markerHeight="14" refX="10" refY="7" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L14,7 L0,14 z" fill="#64748b"/>
+    </marker>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f8fbff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="1600" height="3100" fill="url(#bg)"/>
+  <text x="800" y="64" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="36" font-weight="800" fill="#0f172a" text-anchor="middle">AI产业趋势推导总图</text>
+  <text x="800" y="98" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" font-weight="500" fill="#475569" text-anchor="middle">基于《AI与国家》《2026年五月月报（一）（二）》及延伸讨论整理</text>
+
+  <g filter="url(#shadow)"><rect x="170" y="130" width="1260" height="120" rx="18" ry="18" fill="#eff6ff" stroke="#93c5fd" stroke-width="2"/></g>
+  <text x="800" y="162" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="28" font-weight="700" fill="#0f172a" text-anchor="middle">总主题</text>
+  <text x="800" y="192" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="20" font-weight="500" fill="#334155" text-anchor="middle">AI不是单一行情，而是“国家门票 + 新钱承接器 + 城市与财政转型抓手”</text>
+  <text x="800" y="220" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="20" fill="#334155" text-anchor="middle">其核心逻辑是：中美重新定位 → G2长期产业竞争 → AI基建扩张 → 新钱流向新产业 → 资本与估值体系被重塑</text>
+
+  <g filter="url(#shadow)"><rect x="560" y="305" width="480" height="58" rx="18" ry="18" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/></g>
+  <text x="800" y="338" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="24" font-weight="700" fill="#0f172a" text-anchor="middle">一、宏观起点：G2重新定位</text>
+  <line x1="800" y1="250" x2="800" y2="303" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
+
+  <g filter="url(#shadow)"><rect x="120" y="390" width="420" height="158" rx="18" ry="18" fill="#eff6ff" stroke="#93c5fd" stroke-width="2"/></g>
+  <text x="140" y="422" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="24" font-weight="700" fill="#0f172a">1) 中美重新定位</text>
+  <text x="140" y="452" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">从“完全不信任的零和博弈”</text>
+  <text x="140" y="480" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">转向“利益相关的竞争与合作”</text>
+  <text x="140" y="508" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">亚太地缘风险下降，产业竞争上升</text>
+
+  <g filter="url(#shadow)"><rect x="590" y="390" width="420" height="158" rx="18" ry="18" fill="#fefce8" stroke="#facc15" stroke-width="2"/></g>
+  <text x="610" y="422" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="24" font-weight="700" fill="#0f172a">2) 双方都在补短板</text>
+  <text x="610" y="452" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">中国：更强调安全、金融与实体结合</text>
+  <text x="610" y="480" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">美国：更强调产业回流、国家扶持</text>
+  <text x="610" y="508" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">本质：双方都在学习对方的竞争优势</text>
+
+  <g filter="url(#shadow)"><rect x="1060" y="390" width="420" height="158" rx="18" ry="18" fill="#ecfdf5" stroke="#86efac" stroke-width="2"/></g>
+  <text x="1080" y="422" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="24" font-weight="700" fill="#0f172a">3) 结果：长期产业竞争</text>
+  <text x="1080" y="452" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">地缘不能G2，但科技革命事实上G2</text>
+  <text x="1080" y="480" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">中美都没有主动刺破AI的动机</text>
+  <text x="1080" y="508" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">长期主线从“冲突”切向“产业升级”</text>
+
+  <line x1="800" y1="548" x2="800" y2="610" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <g filter="url(#shadow)"><rect x="520" y="620" width="560" height="58" rx="18" ry="18" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/></g>
+  <text x="800" y="653" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="24" font-weight="700" fill="#0f172a" text-anchor="middle">二、AI的本质：第四次工业革命门票</text>
+
+  <g filter="url(#shadow)"><rect x="120" y="705" width="420" height="146" rx="18" ry="18" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="2"/></g>
+  <text x="140" y="737" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="24" font-weight="700" fill="#0f172a">1) AI是国家级门票</text>
+  <text x="140" y="767" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">第三次工业革命多国参与</text>
+  <text x="140" y="795" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">第四次工业革命门槛极高</text>
+  <text x="140" y="823" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">作者判断：真正主导者只剩中美</text>
+
+  <g filter="url(#shadow)"><rect x="590" y="705" width="420" height="146" rx="18" ry="18" fill="#fff7ed" stroke="#fdba74" stroke-width="2"/></g>
+  <text x="610" y="737" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="24" font-weight="700" fill="#0f172a">2) 多数国家只能做配套</text>
+  <text x="610" y="767" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">资源/能源/制造/材料/储存/封测</text>
+  <text x="610" y="795" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">要想搭上门票，必须靠近中美体系</text>
+  <text x="610" y="823" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">技术革命本身已呈事实G2结构</text>
+
+  <g filter="url(#shadow)"><rect x="1060" y="705" width="420" height="146" rx="18" ry="18" fill="#fdf2f8" stroke="#f9a8d4" stroke-width="2"/></g>
+  <text x="1080" y="737" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="24" font-weight="700" fill="#0f172a">3) AI泡沫不会被主动刺破</text>
+  <text x="1080" y="767" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">AI投资泡沫确实存在</text>
+  <text x="1080" y="795" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">但刺破泡沫 ≈ 刺破国家战略</text>
+  <text x="1080" y="823" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">因此中美都会继续推进AI</text>
+
+  <line x1="800" y1="851" x2="800" y2="930" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <g filter="url(#shadow)"><rect x="430" y="940" width="740" height="58" rx="18" ry="18" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/></g>
+  <text x="800" y="973" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="24" font-weight="700" fill="#0f172a" text-anchor="middle">三、产业技术路线：从堆GPU到系统效率革命</text>
+
+  <g filter="url(#shadow)"><rect x="120" y="1025" width="520" height="160" rx="18" ry="18" fill="#eff6ff" stroke="#93c5fd" stroke-width="2"/></g>
+  <text x="140" y="1057" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="24" font-weight="700" fill="#0f172a">1) 技术路线变化</text>
+  <text x="140" y="1087" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">不再是“单一GPU纯堆算力”</text>
+  <text x="140" y="1115" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">而是“新架构 + 系统思维 + 物理极限突破”</text>
+  <text x="140" y="1143" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">核心关键词：效率、低损耗、低延迟、高带宽</text>
+
+  <g filter="url(#shadow)"><rect x="680" y="1025" width="800" height="160" rx="18" ry="18" fill="#ecfdf5" stroke="#86efac" stroke-width="2"/></g>
+  <text x="700" y="1057" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="24" font-weight="700" fill="#0f172a">2) 五层架构</text>
+  <text x="700" y="1087" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">能源层 → 芯片层 → 算力层 → 大模型层 → 应用层</text>
+  <text x="700" y="1115" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">其中：前四层爆炸扩张，应用层相对更慢</text>
+  <text x="700" y="1143" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">AI基建本质上是一场重资产的新型基础设施建设</text>
+
+  <g filter="url(#shadow)"><rect x="120" y="1220" width="1360" height="145" rx="18" ry="18" fill="#fff7ed" stroke="#fdba74" stroke-width="2"/></g>
+  <text x="800" y="1252" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="24" font-weight="700" fill="#0f172a" text-anchor="middle">3) 核心受益方向</text>
+  <text x="800" y="1282" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="20" fill="#334155" text-anchor="middle">高端PCB / CCL｜光模块 / 光通信｜高端封装｜存储芯片与材料｜CPU+GPU系统整合｜电源、电力电子、液冷与散热</text>
+  <line x1="800" y1="1185" x2="800" y2="1218" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
+
+  <line x1="800" y1="1365" x2="800" y2="1440" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <g filter="url(#shadow)"><rect x="490" y="1450" width="620" height="58" rx="18" ry="18" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/></g>
+  <text x="800" y="1483" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="24" font-weight="700" fill="#0f172a" text-anchor="middle">四、能源层拆解：不是堆电，而是比系统能效</text>
+
+  <g filter="url(#shadow)"><rect x="120" y="1535" width="420" height="164" rx="18" ry="18" fill="#fefce8" stroke="#facc15" stroke-width="2"/></g>
+  <text x="140" y="1567" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="24" font-weight="700" fill="#0f172a">1) 能源层包括什么</text>
+  <text x="140" y="1597" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">发电 / 绿电 / 电网接入 / 配电 / UPS</text>
+  <text x="140" y="1625" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">储能调峰 / 液冷散热 / 功耗设计 / 算电协同</text>
+  <text x="140" y="1653" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">目标：用更低能耗产出更多有效算力</text>
+
+  <g filter="url(#shadow)"><rect x="590" y="1535" width="420" height="164" rx="18" ry="18" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="2"/></g>
+  <text x="610" y="1567" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="24" font-weight="700" fill="#0f172a">2) 卡脖子环节</text>
+  <text x="610" y="1597" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">高密度供电｜功率半导体｜服务器电源</text>
+  <text x="610" y="1625" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">液冷系统｜储能调峰｜变电站与电网接入</text>
+  <text x="610" y="1653" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">关键材料与工业部件的长期可靠性</text>
+
+  <g filter="url(#shadow)"><rect x="1060" y="1535" width="420" height="164" rx="18" ry="18" fill="#ecfdf5" stroke="#86efac" stroke-width="2"/></g>
+  <text x="1080" y="1567" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="24" font-weight="700" fill="#0f172a">3) 结论</text>
+  <text x="1080" y="1597" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">AI竞争不是简单“谁电多”</text>
+  <text x="1080" y="1625" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">而是“谁的供电、散热、互联、架构更省电”</text>
+  <text x="1080" y="1653" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">能效最终决定单位token成本</text>
+
+  <line x1="800" y1="1699" x2="800" y2="1770" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <g filter="url(#shadow)"><rect x="560" y="1780" width="480" height="58" rx="18" ry="18" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/></g>
+  <text x="800" y="1813" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="24" font-weight="700" fill="#0f172a" text-anchor="middle">五、资金与政策：新钱替代旧钱</text>
+
+  <g filter="url(#shadow)"><rect x="120" y="1870" width="420" height="172" rx="18" ry="18" fill="#fdf2f8" stroke="#f9a8d4" stroke-width="2"/></g>
+  <text x="140" y="1902" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="24" font-weight="700" fill="#0f172a">1) 旧模式退潮</text>
+  <text x="140" y="1932" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">社融双降：居民与企业传统加杠杆降温</text>
+  <text x="140" y="1960" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">房地产 / 白酒 / 旧信用扩张继续下行</text>
+  <text x="140" y="1988" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">旧产业越来越难承接新一轮增长</text>
+
+  <g filter="url(#shadow)"><rect x="590" y="1870" width="420" height="172" rx="18" ry="18" fill="#eff6ff" stroke="#93c5fd" stroke-width="2"/></g>
+  <text x="610" y="1902" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="24" font-weight="700" fill="#0f172a">2) 政策框架切换</text>
+  <text x="610" y="1932" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">财政主导，货币辅助</text>
+  <text x="610" y="1960" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">新债替换旧债，新钱代替旧钱</text>
+  <text x="610" y="1988" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">新钱被引导至AI、芯片、先进制造</text>
+
+  <g filter="url(#shadow)"><rect x="1060" y="1870" width="420" height="172" rx="18" ry="18" fill="#ecfdf5" stroke="#86efac" stroke-width="2"/></g>
+  <text x="1080" y="1902" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="24" font-weight="700" fill="#0f172a">3) AI基建接棒</text>
+  <text x="1080" y="1932" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">token工厂、算电协同、地方产业规划启动</text>
+  <text x="1080" y="1960" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">AI基建开始替代房地产基建的部分功能</text>
+  <text x="1080" y="1988" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">城市竞争转向：人才 / 产业 / 规划 / 配套集群</text>
+
+  <line x1="800" y1="2042" x2="800" y2="2085" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <g filter="url(#shadow)"><rect x="310" y="2095" width="980" height="110" rx="18" ry="18" fill="#fff7ed" stroke="#fdba74" stroke-width="2"/></g>
+  <text x="800" y="2127" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="24" font-weight="700" fill="#0f172a" text-anchor="middle">4) 资本市场的角色改变</text>
+  <text x="800" y="2157" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="19" fill="#334155" text-anchor="middle">从“投机史”逐步切向“国运红利分配史” —— 资本市场要为新产业扩张、财政税收转型和国家竞争服务</text>
+
+  <line x1="800" y1="2205" x2="800" y2="2265" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <g filter="url(#shadow)"><rect x="470" y="2275" width="660" height="58" rx="18" ry="18" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/></g>
+  <text x="800" y="2308" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="24" font-weight="700" fill="#0f172a" text-anchor="middle">六、全球链条：美国AI基建如何影响中国产业链</text>
+
+  <g filter="url(#shadow)"><rect x="120" y="2360" width="420" height="174" rx="18" ry="18" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="2"/></g>
+  <text x="140" y="2392" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="24" font-weight="700" fill="#0f172a">1) 北美AI基建扩张</text>
+  <text x="140" y="2422" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">不再局限于AI数据中心</text>
+  <text x="140" y="2450" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">扩展到芯片厂、光纤、机器人产线、电力系统</text>
+  <text x="140" y="2478" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">美国借AI基建重建先进制造体系</text>
+
+  <g filter="url(#shadow)"><rect x="590" y="2360" width="420" height="174" rx="18" ry="18" fill="#ecfdf5" stroke="#86efac" stroke-width="2"/></g>
+  <text x="610" y="2392" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="24" font-weight="700" fill="#0f172a">2) 中国受益环节</text>
+  <text x="610" y="2422" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">光模块 / 高端PCB / CCL / 存储封测</text>
+  <text x="610" y="2450" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">液冷 / 电源 / 功率器件 / 连接器 / 铜铝材料</text>
+  <text x="610" y="2478" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">以及通过海外产能进入美国供应链的公司</text>
+
+  <g filter="url(#shadow)"><rect x="1060" y="2360" width="420" height="174" rx="18" ry="18" fill="#fef2f2" stroke="#fca5a5" stroke-width="2"/></g>
+  <text x="1080" y="2392" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="24" font-weight="700" fill="#0f172a">3) 受限环节</text>
+  <text x="1080" y="2422" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">核心AI芯片 / 整机服务器 / 核心网络设备</text>
+  <text x="1080" y="2450" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">敏感控制系统与安全相关软件硬件</text>
+  <text x="1080" y="2478" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">关税、审查、原产地与技术管制会抑制直接受益</text>
+
+  <line x1="800" y1="2534" x2="800" y2="2600" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <g filter="url(#shadow)"><rect x="520" y="2610" width="560" height="58" rx="18" ry="18" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/></g>
+  <text x="800" y="2643" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="24" font-weight="700" fill="#0f172a" text-anchor="middle">七、估值与市场：AI重构企业分层</text>
+
+  <g filter="url(#shadow)"><rect x="120" y="2700" width="420" height="160" rx="18" ry="18" fill="#eff6ff" stroke="#93c5fd" stroke-width="2"/></g>
+  <text x="140" y="2732" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="24" font-weight="700" fill="#0f172a">1) 估值重构</text>
+  <text x="140" y="2762" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">AI含量高：享受更高增长预期与估值</text>
+  <text x="140" y="2790" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">AI含量低的“伪科技”：被重新边缘化</text>
+  <text x="140" y="2818" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">科技股内部将出现更强的马太效应</text>
+
+  <g filter="url(#shadow)"><rect x="590" y="2700" width="420" height="160" rx="18" ry="18" fill="#fff7ed" stroke="#fdba74" stroke-width="2"/></g>
+  <text x="610" y="2732" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="24" font-weight="700" fill="#0f172a">2) 外溢效应</text>
+  <text x="610" y="2762" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">AI进一步影响机器人、无人驾驶、脑机接口</text>
+  <text x="610" y="2790" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">太空探索、生物蛋白等前沿科技都会被AI重塑</text>
+  <text x="610" y="2818" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">生产效率提升将反哺更长期的GDP动力</text>
+
+  <g filter="url(#shadow)"><rect x="1060" y="2700" width="420" height="160" rx="18" ry="18" fill="#fefce8" stroke="#facc15" stroke-width="2"/></g>
+  <text x="1080" y="2732" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="24" font-weight="700" fill="#0f172a">3) 后续关键跟踪变量</text>
+  <text x="1080" y="2762" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">通胀 / 油价 / 电力接口 / token收费商业化</text>
+  <text x="1080" y="2790" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">美联储路径 / 地方规划推进 / 国产化突破</text>
+  <text x="1080" y="2818" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="18" fill="#334155">这些变量决定产业节奏与市场波动</text>
+
+  <line x1="800" y1="2860" x2="800" y2="2935" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <g filter="url(#shadow)"><rect x="170" y="2945" width="1260" height="100" rx="18" ry="18" fill="#eff6ff" stroke="#60a5fa" stroke-width="2"/></g>
+  <text x="800" y="2977" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="26" font-weight="700" fill="#0f172a" text-anchor="middle">最终结论</text>
+  <text x="800" y="3007" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="20" fill="#334155" text-anchor="middle">AI产业趋势不可逆：主战场在“能源—芯片—算力—模型”四层基建；政策、资本、城市发展与全球分工都会围绕AI重构。</text>
+  <text x="800" y="3035" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif" font-size="20" fill="#334155" text-anchor="middle">中国最核心的机会，在制造配套、国产安全底座和卖铲子环节。</text>
+</svg>
