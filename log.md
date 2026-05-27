@@ -766,3 +766,34 @@
 - 将变量表达收敛为路线切换、物理约束、效率目标、创造性破坏四项，直接贴合原文，不再保留重复章节。
 - 本次为页面结构微调，未新增正式知识页，`index.md` 页面总数保持不变。
 >>>>>>> 4f71a208aa648b9f86f12c6a1ef3c9f9f08ea426
+
+## [2026-05-27] refactor | align bingbing xiaomei view pages with view template
+
+- 按 `templates/view-page-template.md` 重构 `wiki/views/` 下 27 个冰冰小美观点页。
+- 将旧结构中的“核心观点 / 核心判断”“观点内容 / 观点展开”“适用条件”“不确定性”“相关页面”“来源”等内容迁移到统一的 View Page 章节：当前核心观点、观点形成背景、观点时间线、判断依据摘要、关键前提、反向证据与风险、当前状态、不确定性、相关页面和来源。
+- 本次不新增正式知识页，不调整 `index.md` 页面总数；`index.md` 与 `log.md` 中已有合并冲突标记未在本次任务中处理。
+
+## [2026-05-27] refactor | retitle bingbing xiaomei view pages
+
+- 按用户给定的“观点主体：判断对象的核心判断 / 判断框架 / 阶段判断”格式，更新 `wiki/views/` 下 27 个冰冰小美观点页的 frontmatter `title` 与一级标题。
+- 标题统一改为 `冰冰小美：...核心判断 / 判断框架 / 阶段判断`，去掉“对……的看法”等口语化表达，并避免只写主题或堆砌变量。
+- 本次未重命名文件，避免破坏现有 Obsidian 双链；未新增正式知识页，`index.md` 页面总数保持不变。
+
+## [2026-05-27] refactor | rename bingbing xiaomei view files
+
+- 将 `wiki/views/` 下 27 个冰冰小美观点页文件名同步为页面正式标题，例如 `冰冰小美：有色拐点取决于通胀预期回落的阶段判断.md`。
+- 批量更新全库 Markdown 中指向旧 `views/冰冰小美对...的看法` 路径的 Obsidian 双链，共替换 291 处链接。
+- 本次未新增正式知识页，`index.md` 页面总数保持不变；历史日志中的旧路径记录保留不回写。
+
+## [2026-05-27] cleanup | delete view pages without valid sources
+
+- 删除 `wiki/views/` 下 18 个 source 无有效原文支撑的观点页，其中 11 个为冰冰小美观点页，7 个为买股票的老木匠观点页。
+- 判断依据：相关 `sources/transcripts/2026-04-02-*-雪球-汇总.md` 仅记录“未抓到目标日期帖子 / 未发现有效帖子正文”等抓取失败说明，不能支撑正式 View Page。
+- 清理正式 wiki 页面和 `index.md` 中指向这些已删除 View Page 的 Obsidian 双链，避免保留空链接。
+- 未删除 `sources/` 原始资料；抓取失败记录继续保留在 `sources/transcripts/` 中。
+
+## [2026-05-27] cleanup | delete invalid empty source records
+
+- 按用户要求删除 `sources/transcripts/` 下 3 个 2026-04-02 抓取失败记录：冰冰小美、买股票的老木匠、闵行一霸。
+- 清理正式 wiki 页面中指向这些 source 记录的双链。
+- 删除唯一来源也来自无效抓取记录的概念页 `wiki/concepts/冰冰小美-政策对冲与内部定价权.md`，避免保留 source 为空的正式页面。
