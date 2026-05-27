@@ -3,6 +3,14 @@
 > 按时间顺序记录知识库操作。仅追加，不覆盖。
 > 格式：`## [YYYY-MM-DD] action | subject`
 
+## [2026-05-27] docs | split page templates into templates directory
+
+- 新增 `templates/` 目录，并拆出 7 类正式知识页模板：Concept、People、Event、View、Timeline、Reasoning、Topic。
+- 新增 `templates/README.md`，作为模板索引和使用规则入口。
+- 更新 `page-types.md`，将内嵌页面结构替换为对应模板文件引用，让页面类型规范只保留类型语义、适用场景和选择规则。
+- 更新 `schema.md` 与 `AGENTS.md`，把 `templates/` 纳入目录契约和新建页面 workflow。
+- 未新增正式 `wiki/` 页面，`index.md` 无需更新。
+
 ## [2026-05-23] ingest | add bingbing xiaomei engineering machinery oil crisis reasoning
 
 - 新增 `sources/manual/2026-05-23-冰冰小美-工程机械受石油危机与地产拖累的补充判断.md`，保存用户补充的短摘录，并用 `2026-05-23` 作为时间标记。

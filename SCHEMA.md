@@ -36,6 +36,7 @@ llmwiki/
   index.md
   log.md
   rules/
+  templates/
   sources/
     articles/
     assets/
@@ -60,6 +61,7 @@ llmwiki/
 - `index.md`：正式知识页总索引。
 - `log.md`：知识库维护日志。
 - `rules/`：补充写作规则，例如 reasoning page 生成规则。
+- `templates/`：正式知识页模板，每类页面一个可复制模板。
 - `sources/`：原始资料层，只保存来源和原始输入。
 - `wiki/`：正式知识层，只保存结构化知识页。
 
@@ -108,6 +110,8 @@ llmwiki/
 
 不得把 `query`、`summary`、`comparison`、`output` 作为新的正式页面类型。  
 若未来确需新增页面类型，必须先同步修改 `page-types.md`、`schema.md` 和 `AGENTS.md`，再迁移索引与日志规则。
+
+页面模板统一放在 `templates/` 目录下。创建新正式知识页时，应先根据本节确定页面类型，再复制对应模板，并按实际内容补齐 frontmatter、来源、相关页面和不确定性。
 
 ---
 
