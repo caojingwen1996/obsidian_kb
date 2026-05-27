@@ -3,6 +3,23 @@
 > 按时间顺序记录知识库操作。仅追加，不覆盖。
 > 格式：`## [YYYY-MM-DD] action | subject`
 
+## [2026-05-23] ingest | add bingbing xiaomei engineering machinery oil crisis reasoning
+
+- 新增 `sources/manual/2026-05-23-冰冰小美-工程机械受石油危机与地产拖累的补充判断.md`，保存用户补充的短摘录，并用 `2026-05-23` 作为时间标记。
+- 新增推导链页 `wiki/reasoning/冰冰小美-工程机械拐点取决于石油危机何时解除.md`，把“石油危机 -> 海外通胀 -> 海外基建下降 -> 燃油设备出海阻力 + 国内地产低迷拖累 -> 核心看石油危机解除”拆成正式 `reasoning` 页面。
+- 更新 `wiki/views/冰冰小美对工程机械更适合低吸慢配，并等待财报与出口转型兑现的看法.md`，补入 `2026-05-23` 时间标记、新来源、新推导链接，以及石油危机与内外需拖累的补充说明。
+- 更新 `wiki/people/冰冰小美.md`，把新推导页回链进人物页。
+- 更新 `index.md`，登记新的推导链入口，并将页面总数从 `131` 调整为 `132`。
+- 说明：这条石油危机判断目前来自用户摘录，原帖发布时间与原始链接待补充。
+
+## [2026-05-23] ingest | add bingbing xiaomei engineering machinery view
+
+- 基于 `sources/articles/2026-03-25-冰冰小美-2026一季度宏观子帖抓取（已完成41篇）.md` 中 `2026-01-08`、`2026-01-19`、`2026-01-30` 三处工程机械相关原文，新增观点页 `wiki/views/冰冰小美对工程机械更适合低吸慢配，并等待财报与出口转型兑现的看法.md`。
+- 新页面将工程机械整理为 `View Page`，重点沉淀“更适合低吸慢配”“短期受大宗成本压制”“真正要等财报、战略布局、转型与出口兑现”的可复用判断。
+- 更新 `wiki/people/冰冰小美.md`，把这条行业观点补回人物页的 `related`、`代表性观点` 和 `相关页面`。
+- 更新 `index.md`，登记新观点入口，并将页面总数从 `130` 调整为 `131`。
+- 本次未新增 `sources/` 文件，因为相关原文已在 `2026Q1` 归档中。
+
 ## [2026-05-22] ingest | bingbing xiaomei on securities no longer being automatic bull-market flagbearers
 
 - 归档用户提供的冰冰小美雪球原帖到 `sources/articles/2026-05-22-冰冰小美：牛市证券为何和以往不一样.md`，保留原文、链接和来源说明。
@@ -683,6 +700,7 @@
 - 新增章节内容留空，保留现有 `定位`、`思维方式`、`体系`、`相关主题`、`代表性观点`、`相关页面` 与 `来源` 内容不动。
 - 本次为结构对齐整理，未新增正式知识页，未更新 `index.md` 页面总数。
 
+<<<<<<< HEAD
 ## [2026-05-25] refactor | convert bingbing xiaomei Q1 macro timeline to markdown table
 
 - 回退误建的 `AI产业发展时间线` 正式页、对应手动来源归档和 `index.md` 索引入口，页面总数恢复为 `128`。
@@ -703,3 +721,40 @@
 - 根据用户提供的“产业趋势投资方法论”七步框架，更新 `wiki/concepts/产业思维.md`。
 - 补充定义、背景、核心观点、关键组成、使用场景、常见误区、相关页面和来源。
 - 更新 `index.md` 中 `产业思维` 的一句话摘要。
+=======
+## [2026-05-23] ingest | add bingbing xiaomei ai industry trend topic and reasoning
+
+- 基于 `sources/assets/ai_industry_trend_logic.svg`，新增推导页 `wiki/reasoning/冰冰小美-AI产业趋势推导链.md`，把 SVG 中的七段逻辑整理为正式 `reasoning` 页面。
+- 新增主题页 `wiki/topics/冰冰小美-AI产业趋势.md`，将冰冰小美关于 AI 的国家门票、技术路线、新钱承接、全球链条和估值分层判断组织为作者专属 AI 入口页。
+- 更新 `wiki/people/冰冰小美.md`，补入新 AI 主题页和新推导页的回链。
+- 更新 `index.md`，登记新的 topic 与 reasoning 入口，并将页面总数从 `128` 调整为 `130`。
+- 当前仓库已找到《AI与国家》原文与相关日汇总，但 `ai_industry_trend_logic.svg` 标注的《2026年五月月报（一）（二）》原文暂未找到，已在新页面中标注为待补充来源。
+
+- [2026-05-23 17:17 CST] QUERY query="查找冰冰小美有关有色的推导" result_pages=3 mode=normal escalated=false
+
+## [2026-05-23] ingest | update bingbing xiaomei nonferrous reasoning with robot and copper trigger
+
+- 新增 `sources/manual/2026-05-23-冰冰小美-有色重启上涨触发条件.md`，保存用户补充的短观点原文。
+- 更新 `wiki/views/冰冰小美对有色拐点取决于通胀预期何时下降的看法.md`，补入“8 月特斯拉量产 + 美国通胀回落 + 降息预期升温”的新触发路径。
+- 更新 `wiki/reasoning/冰冰小美-有色金属拐点推导.md`，将机器人带动铜需求、货币逻辑从收缩切向降息预期的共振关系并入推导链。
+- 本次未新增正式知识页，`index.md` 页面总数保持不变。
+- 已在相关页面标注：特斯拉量产、美国通胀回落和“收缩货币危机解除”均属于前瞻判断，待后续验证。
+
+## [2026-05-23] link | embed nonferrous svg into reasoning page
+
+- 更新 `wiki/reasoning/冰冰小美-有色金属拐点推导.md`，补入 `sources/assets/有色拐点逻辑推导流程图.svg` 的来源链接和页面内预览。
+- 本次为已有推导页补原始图示，不新增正式知识页，`index.md` 页面总数保持不变。
+
+## [2026-05-23] ingest | clarify ai endogenous variables in bingbing xiaomei reasoning
+
+- 新增 `sources/manual/2026-05-23-冰冰小美-AI产业自身变量补充.md`，保存用户提供的雪球原文摘录、原始链接与风险提示。
+- 更新 `wiki/reasoning/冰冰小美-AI产业趋势推导链.md`，把“AI 自身变量”明确拆成路线切换、物理约束、效率目标与受益环节迁移四层。
+- 同步补入该摘录作为一手来源之一，并把高端 PCB、光通信、高端封装、电源散热等环节从举例提升为变量传导的一部分。
+- 本次未新增正式知识页，`index.md` 页面总数保持不变。
+
+## [2026-05-23] refactor | fold ai endogenous variables back into key variables
+
+- 更新 `wiki/reasoning/冰冰小美-AI产业趋势推导链.md`，将单独的“AI 自身变量拆解”章节并回 `关键变量` 表。
+- 将变量表达收敛为路线切换、物理约束、效率目标、创造性破坏四项，直接贴合原文，不再保留重复章节。
+- 本次为页面结构微调，未新增正式知识页，`index.md` 页面总数保持不变。
+>>>>>>> 4f71a208aa648b9f86f12c6a1ef3c9f9f08ea426
