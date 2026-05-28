@@ -1024,3 +1024,132 @@
 - 新增主题页 `wiki/topics/冰冰小美-常见亏钱认知系列.md`，逐期登记 19 篇来源、核心命题和风险类型。
 - 新增推导链页 `wiki/reasoning/冰冰小美-亏钱认知如何转化为亏钱效应.md`，拆解亏钱认知从话术、消息、图形、心理暗示、买卖失真到流动性分散和亏钱效应的传导。
 - 更新 `wiki/people/冰冰小美.md` 和 `index.md` 的回链；页面总数从 `158` 调整为 `160`。
+
+## [2026-05-28] ingest | add view for common loss cognition 01 expected difference
+
+- 新增观点页 `wiki/views/冰冰小美对预期差诱发贪婪的看法.md`，对应 `sources/articles/2023-03-18-冰冰小美：常见亏钱认知第一期预期差.md`。
+- 将“预期差”整理为作者所说的画饼式交易话术：它通过空间大、想象力大等表述刺激贪婪，容易让交易者见小利、急于验证想象空间并偏离体系。
+- 更新 `wiki/topics/冰冰小美-常见亏钱认知系列.md` 的逐篇观点页列表和 `index.md`；页面总数从 `160` 调整为 `161`。
+
+## [2026-05-28] ingest | add view for common loss cognition 02 stop loss
+
+- 新增观点页 `wiki/views/冰冰小美对止损恐惧与买入质量的看法.md`，对应 `sources/articles/2023-03-19-冰冰小美：常见亏钱认知第二期止损.md`。
+- 将“止损”整理为作者对恐惧式风控的批评：真正应复盘的是买入是否平庸、是否顺应情绪上升，以及卖出时是否理解自己持有的先手和流动性条件。
+- 更新 `wiki/topics/冰冰小美-常见亏钱认知系列.md` 的逐篇观点页列表和 `index.md`；页面总数从 `161` 调整为 `162`。
+
+## [2026-05-28] ingest | add view for common loss cognition 03 understood-by-those-who-understand
+
+- 新增观点页 `wiki/views/冰冰小美对懂的都懂掩盖认知不确定的看法.md`，对应 `sources/articles/2023-03-19-冰冰小美：常见亏钱认知第三期懂的都懂.md`。
+- 将“懂的都懂”整理为作者对模糊话术的批评：它容易掩盖内心焦躁和认知不确定，真正的认知必须转化为单向、具体、适合自身体系和性格的交易判断。
+- 更新 `wiki/topics/冰冰小美-常见亏钱认知系列.md` 的逐篇观点页列表和 `index.md`；页面总数从 `162` 调整为 `163`。
+
+## [2026-05-28] ingest | add view for common loss cognition 04 concept logic
+
+- 新增观点页 `wiki/views/冰冰小美对概念逻辑制造假象的看法.md`，对应 `sources/articles/2023-03-20-冰冰小美：常见亏钱认知第四期概念逻辑.md`。
+- 将“概念逻辑”整理为作者对个股花边、概念科普和故事化叙事的批评：它们可能制造上涨假象，但若不讨论时机、情绪位置和退出，就容易诱发贪婪。
+- 更新 `wiki/topics/冰冰小美-常见亏钱认知系列.md` 的逐篇观点页列表和 `index.md`；页面总数从 `163` 调整为 `164`。
+
+## [2026-05-28] ingest | add view for common loss cognition 05 market index
+
+- 新增观点页 `wiki/views/冰冰小美对大盘涨跌放大情绪的看法.md`，对应 `sources/articles/2023-03-20-冰冰小美：常见亏钱认知第五期大盘.md`。
+- 将“大盘”整理为作者对指数情绪的观点：大盘涨跌会放大贪婪和恐惧，但不应被机械当作价值分析或买卖依据，真正要观察的是情绪、指数和流动性是否共振。
+- 更新 `wiki/topics/冰冰小美-常见亏钱认知系列.md` 的逐篇观点页列表和 `index.md`；页面总数从 `164` 调整为 `165`。
+
+## [2026-05-28] ingest | add view for common loss cognition 06 profit cushion
+
+- 新增观点页 `wiki/views/冰冰小美对利润垫心理的看法.md`，对应 `sources/articles/2023-06-12-冰冰小美：常见亏钱认知第六期利润垫.md`。
+- 将“利润垫”整理为作者对主观安全感的批评：买后期待立刻上涨是贪婪，有浮盈才敢拿是恐惧，二者都会妨碍客观观察市场行为。
+- 更新 `wiki/topics/冰冰小美-常见亏钱认知系列.md` 的逐篇观点页列表和 `index.md`；页面总数从 `165` 调整为 `166`。
+
+## [2026-05-28] ingest | add view for common loss cognition 07 message mining
+
+- 新增观点页 `wiki/views/冰冰小美对消息挖掘诱发羊群效应的看法.md`，对应 `sources/articles/2023-06-13-冰冰小美：常见亏钱认知第七期挖掘机消息.md`。
+- 将“挖掘机消息”整理为作者对消息依赖的批评：消息正确不必然带来决策正确，消息新鲜感和自媒体证据链常会放大贪婪、屁股决定脑袋和羊群效应。
+- 更新 `wiki/topics/冰冰小美-常见亏钱认知系列.md` 的逐篇观点页列表和 `index.md`；页面总数从 `166` 调整为 `167`。
+
+## [2026-05-28] ingest | add view for common loss cognition 08 limit-up board
+
+- 新增观点页 `wiki/views/冰冰小美对涨停板作为观察锚的看法.md`，对应 `sources/articles/2023-06-19-冰冰小美：常见亏钱认知第八期涨停板.md`。
+- 将“涨停板”整理为作者对形态崇拜的批评：涨停只是交易中断和观察锚，不能直接等同于强弱标准或隔日溢价承诺，关键仍是时机、情绪标和持续流动性溢价。
+- 更新 `wiki/topics/冰冰小美-常见亏钱认知系列.md` 的逐篇观点页列表和 `index.md`；页面总数从 `167` 调整为 `168`。
+
+## [2026-05-28] ingest | add view for common loss cognition 09 do-not-chase-rising
+
+- 新增观点页 `wiki/views/冰冰小美对切勿追涨恐惧上涨的看法.md`，对应 `sources/articles/2023-06-20-冰冰小美：常见亏钱认知第九期切勿追涨.md`。
+- 将“切勿追涨”整理为作者对恐惧上涨的批评：上涨本身不是风险，关键在于区分情绪主流中的新高与非情绪标蹭套利、受高度压制的跟风买入。
+- 更新 `wiki/topics/冰冰小美-常见亏钱认知系列.md` 的逐篇观点页列表和 `index.md`；页面总数从 `168` 调整为 `169`。
+
+## [2026-05-28] ingest | add view for common loss cognition 10 selling skill
+
+- 新增观点页 `wiki/views/冰冰小美对卖点焦虑源于买入质量的看法.md`，对应 `sources/articles/2023-06-20-冰冰小美：常见亏钱认知第十期会卖的是师傅，会买的是徒弟.md`。
+- 将“会卖的是师傅，会买的是徒弟”整理为作者对卖点焦虑的反转：好卖点通常依赖买入时情绪有利和隔日流动性有利，买入不败比事后纠结卖点更前置。
+- 更新 `wiki/topics/冰冰小美-常见亏钱认知系列.md` 的逐篇观点页列表和 `index.md`；页面总数从 `169` 调整为 `170`。
+
+## [2026-05-28] ingest | add view for common loss cognition 11 intraday chart
+
+- 新增观点页 `wiki/views/冰冰小美对分时图技术分析制造恐惧的看法.md`，对应 `sources/articles/2023-06-27-冰冰小美：常见亏钱认知第十一期分时图技术分析.md`。
+- 将“分时图技术分析”整理为作者对图形恐惧暗示的批评：冲高回落、跳水等术语容易让人脱离情绪、流动性和买入体系，误把分时波动当成独立交易条件。
+- 更新 `wiki/topics/冰冰小美-常见亏钱认知系列.md` 的逐篇观点页列表和 `index.md`；页面总数从 `170` 调整为 `171`。
+
+## [2026-05-28] ingest | add view for common loss cognition 12 position-snatching crossing
+
+- 新增观点页 `wiki/views/冰冰小美对卡位穿越制造龙头假象的看法.md`，对应 `sources/articles/2023-07-05-冰冰小美：常见亏钱认知第十二期卡位穿越.md`。
+- 将“卡位穿越”整理为作者对形式高度竞争的批评：没有真正引发情绪和信心共振的卡位，只是流动性变化和资金博弈，可能制造龙头假象和高位亏钱效应。
+- 更新 `wiki/topics/冰冰小美-常见亏钱认知系列.md` 的逐篇观点页列表和 `index.md`；页面总数从 `171` 调整为 `172`。
+
+## [2026-05-28] ingest | add view for common loss cognition 13 ebb one-word board
+
+- 新增观点页 `wiki/views/冰冰小美对情绪退潮中杂毛顶一字的看法.md`，对应 `sources/articles/2023-08-14-冰冰小美：常见亏钱认知第十三期情绪退潮杂毛顶一字.md`。
+- 将“情绪退潮，杂毛顶一字”整理为作者对退潮期边缘一字板的批评：一字板若不引发情绪波动，就不是情绪标，反而可能分化主线流动性并造成隔日负反馈。
+- 更新 `wiki/topics/冰冰小美-常见亏钱认知系列.md` 的逐篇观点页列表和 `index.md`；页面总数从 `172` 调整为 `173`。
+
+## [2026-05-28] ingest | add view for common loss cognition 14 illusion and anti-humanity
+
+- 新增观点页 `wiki/views/冰冰小美对假象与反人性套利的看法.md`，对应 `sources/articles/2023-08-15-冰冰小美：常见亏钱认知第十四期假象与反人性的折磨.md`。
+- 将“假象与反人性的折磨”整理为作者对局部炒作和接盘假象的批评：利空或行业压力中的小盘炒作，可能只是内部流动性衰竭和掩护出货的一部分。
+- 更新 `wiki/topics/冰冰小美-常见亏钱认知系列.md` 的逐篇观点页列表和 `index.md`；页面总数从 `173` 调整为 `174`。
+
+## [2026-05-28] ingest | add view for common loss cognition 15 arbitrage harm
+
+- 新增观点页 `wiki/views/冰冰小美对套利分散流动性合力的看法.md`，对应 `sources/articles/2023-08-21-冰冰小美：常见亏钱认知第十五期套利的危害.md`。
+- 将“套利的危害”整理为作者对后排套利和轮动套利的批评：套利会分散流动性、消耗做多合力，并通过冲高回落、热点溃散和情绪负反馈放大亏钱效应。
+- 更新 `wiki/topics/冰冰小美-常见亏钱认知系列.md` 的逐篇观点页列表和 `index.md`；页面总数从 `174` 调整为 `175`。
+
+## [2026-05-28] ingest | add view for common loss cognition 16 institution role
+
+- 新增观点页 `wiki/views/冰冰小美对机构买卖不是万能信号的看法.md`，对应 `sources/articles/2023-09-05-冰冰小美：常见亏钱认知第十六期机构的作用.md`。
+- 将“机构的作用”整理为作者对机构迷信的批评：机构买卖只是市场众多交易行为之一，不能替代对资金来源、被动调仓和场外承接意愿的流动性分析。
+- 更新 `wiki/topics/冰冰小美-常见亏钱认知系列.md` 的逐篇观点页列表和 `index.md`；页面总数从 `175` 调整为 `176`。
+
+## [2026-05-28] ingest | add view for common loss cognition 17 rotation
+
+- 新增观点页 `wiki/views/冰冰小美对频繁轮动制造亏钱效应的看法.md`，对应 `sources/articles/2023-09-17-冰冰小美：常见亏钱认知第十七期轮动.md`。
+- 将“轮动”整理为作者对频繁方向切换的批评：频繁轮动意味着流动性无法聚焦强势股或主线方向，容易造成交易意愿衰竭、热点回落和亏钱效应升温。
+- 更新 `wiki/topics/冰冰小美-常见亏钱认知系列.md` 的逐篇观点页列表和 `index.md`；页面总数从 `176` 调整为 `177`。
+
+## [2026-05-28] ingest | add view for common loss cognition 18 height-board pressure
+
+- 新增观点页 `wiki/views/冰冰小美对高度板压制旧模式的看法.md`，对应 `sources/articles/2023-10-12-冰冰小美：常见亏钱认知第十八期高度板压制作用.md`。
+- 将“高度板压制作用”整理为作者对旧连板模式失效的批评：当高度板形成无形天花板、流动性转向阻力更小方向时，继续套用旧模式容易进入交易阻力区。
+- 更新 `wiki/topics/冰冰小美-常见亏钱认知系列.md` 的逐篇观点页列表和 `index.md`；页面总数从 `177` 调整为 `178`。
+
+## [2026-05-28] ingest | add view for common loss cognition 19 ftse-a50
+
+- 新增观点页 `wiki/views/冰冰小美对富时A50作为恐慌指数的看法.md`，对应 `sources/articles/2023-10-13-冰冰小美：常见亏钱认知第十九期新加坡富时A50指数.md`。
+- 将“新加坡富时 A50 指数”整理为作者对外部指数情绪扰动的批评：A50 在其体系中只是情绪或恐慌观察项，不能替代真实亏钱效应、情绪标和体系三要素。
+- 更新 `wiki/topics/冰冰小美-常见亏钱认知系列.md` 的逐篇观点页列表和 `index.md`；页面总数从 `178` 调整为 `179`。
+
+- [2026-05-28T14:47:59+08:00] QUERY query="跟性格相关的有哪些" result_pages=16 mode=normal escalated=false
+- [2026-05-28T14:51:56+08:00] QUERY query="根据知识库回答什么是平庸的交易" result_pages=7 mode=normal escalated=false
+- [2026-05-28T14:59:07+08:00] QUERY query="如何形成我的体系" result_pages=12 mode=normal escalated=false
+- [2026-05-28T15:08:04+08:00] QUERY query="如何理解冰冰小美的“相信”" result_pages=6 mode=normal escalated=false
+- [2026-05-28T15:09:42+08:00] QUERY query="什么是真正做多？与单纯上涨的区别" result_pages=4 mode=normal escalated=false
+- [2026-05-28T15:11:03+08:00] QUERY query="根据冰冰小美的体系解释，现在已经是泡沫初期了，为什么今天还要买创业板" result_pages=9 mode=normal escalated=true
+- [2026-05-28T15:15:57+08:00] QUERY query="也就是说体系三要素没有被证伪，就可以买入吗？" result_pages=5 mode=normal escalated=false
+- [2026-05-28T15:18:48+08:00] QUERY query="做多的信号是什么？" result_pages=6 mode=normal escalated=false
+
+## [2026-05-28] refactor | move emotion system core purpose to view page
+
+- 将 `wiki/concepts/冰冰小美-情绪体系核心目的.md` 迁移为观点页 `wiki/views/冰冰小美对情绪体系核心目的的看法.md`。
+- 按 View Page 结构重写页面，明确它回答的是“冰冰小美怎么看情绪体系的核心目的”，而不是定义独立 what 类概念。
+- 更新相关页面、来源备注和 `index.md` 的双链；页面总数不变。
