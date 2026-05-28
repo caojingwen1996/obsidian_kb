@@ -708,7 +708,6 @@
 - 新增章节内容留空，保留现有 `定位`、`思维方式`、`体系`、`相关主题`、`代表性观点`、`相关页面` 与 `来源` 内容不动。
 - 本次为结构对齐整理，未新增正式知识页，未更新 `index.md` 页面总数。
 
-<<<<<<< HEAD
 ## [2026-05-25] refactor | convert bingbing xiaomei Q1 macro timeline to markdown table
 
 - 回退误建的 `AI产业发展时间线` 正式页、对应手动来源归档和 `index.md` 索引入口，页面总数恢复为 `128`。
@@ -729,7 +728,6 @@
 - 根据用户提供的“产业趋势投资方法论”七步框架，更新 `wiki/concepts/产业思维.md`。
 - 补充定义、背景、核心观点、关键组成、使用场景、常见误区、相关页面和来源。
 - 更新 `index.md` 中 `产业思维` 的一句话摘要。
-=======
 ## [2026-05-23] ingest | add bingbing xiaomei ai industry trend topic and reasoning
 
 - 基于 `sources/assets/ai_industry_trend_logic.svg`，新增推导页 `wiki/reasoning/冰冰小美-AI产业趋势推导链.md`，把 SVG 中的七段逻辑整理为正式 `reasoning` 页面。
@@ -765,8 +763,6 @@
 - 更新 `wiki/reasoning/冰冰小美-AI产业趋势推导链.md`，将单独的“AI 自身变量拆解”章节并回 `关键变量` 表。
 - 将变量表达收敛为路线切换、物理约束、效率目标、创造性破坏四项，直接贴合原文，不再保留重复章节。
 - 本次为页面结构微调，未新增正式知识页，`index.md` 页面总数保持不变。
->>>>>>> 4f71a208aa648b9f86f12c6a1ef3c9f9f08ea426
-
 ## [2026-05-27] refactor | align bingbing xiaomei view pages with view template
 
 - 按 `templates/view-page-template.md` 重构 `wiki/views/` 下 27 个冰冰小美观点页。
@@ -797,3 +793,234 @@
 - 按用户要求删除 `sources/transcripts/` 下 3 个 2026-04-02 抓取失败记录：冰冰小美、买股票的老木匠、闵行一霸。
 - 清理正式 wiki 页面中指向这些 source 记录的双链。
 - 删除唯一来源也来自无效抓取记录的概念页 `wiki/concepts/冰冰小美-政策对冲与内部定价权.md`，避免保留 source 为空的正式页面。
+
+## [2026-05-27] ingest | add bingbing xiaomei three allocation trading style
+
+- 新增原始资料 `sources/articles/2026-05-27-冰冰小美：本轮行情的一些遗憾.md`，保存雪球帖 `391269787` 的正文、来源、作者和发布时间。
+- 新增概念页 `wiki/concepts/冰冰小美-三大配置交易风格.md`，将“三大配置 / 四大方向”整理为冰冰小美的交易风格，而不是单次个股清单。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/views/冰冰小美：宏观服务风险识别与仓位调整的判断框架.md`、`wiki/views/冰冰小美：真正中长期需要底线思维的核心判断.md`、`wiki/timelines/冰冰小美-2026一季度宏观阶段时间线.md` 和 `wiki/topics/宏观经济.md`，补入三大配置交易风格的回链与方法论说明。
+- 更新 `index.md`，登记新概念入口，并将页面总数从 `129` 调整为 `130`。
+
+## [2026-05-27] rename | rename bingbing xiaomei three allocation concept
+
+- 将概念页 `wiki/concepts/冰冰小美-三大配置交易风格.md` 重命名为 `wiki/concepts/冰冰小美-三大配置.md`。
+- 更新 `index.md` 与相关 wiki 页面中的双链显示名，将正式入口收敛为“三大配置”；“三大配置交易风格”保留为页面 alias。
+
+## [2026-05-27] seed | add bingbing xiaomei three systems concept placeholder
+
+- 新增空概念页 `wiki/concepts/冰冰小美-三大体系.md`，按 `templates/concept-page-template.md` 的输出结构创建 seed 骨架。
+- 更新 `index.md`，登记 seed 概念入口，并将页面总数从 `130` 调整为 `131`。
+
+## [2026-05-27] rename | rename bingbing xiaomei three systems placeholder
+
+- 将 seed 概念页 `wiki/concepts/冰冰小美-三大体系.md` 重命名为 `wiki/concepts/冰冰小美-体系三要素.md`。
+- 更新 `index.md` 中对应概念入口，页面总数保持 `131` 不变。
+
+## [2026-05-27] seed | add bingbing xiaomei changdian technology tracking timeline
+
+- 新增空时间线 `wiki/timelines/冰冰小美-长电科技持续跟踪时间线.md`，按 `templates/timeline-page-template.md` 的输出结构创建 seed 骨架。
+- 更新 `index.md`，登记 seed 时间线入口，并将页面总数从 `131` 调整为 `132`。
+
+## [2026-05-27] seed | add bingbing xiaomei emotion system concept placeholder
+
+- 新增空概念页 `wiki/concepts/冰冰小美-情绪体系.md`，按 `templates/concept-page-template.md` 的输出结构创建 seed 骨架。
+- 更新 `index.md`，登记 seed 概念入口，并将页面总数从 `132` 调整为 `133`。
+
+## [2026-05-27] seed | add bingbing xiaomei loss cognition concept placeholder
+
+- 新增空概念页 `wiki/concepts/冰冰小美-亏钱认知.md`，按 `templates/concept-page-template.md` 的输出结构创建 seed 骨架。
+- 更新 `index.md`，登记 seed 概念入口，并将页面总数从 `133` 调整为 `134`。
+
+## [2026-05-27] ingest | archive and expand bingbing xiaomei three elements concept
+
+- 新增原始资料 `sources/articles/2023-07-21-冰冰小美：体系三要素.md`，保存雪球帖 `256249725` 的正文、来源、作者和发布时间。
+- 更新 `wiki/concepts/冰冰小美-体系三要素.md`，将 seed 概念页补全为 active 概念页，整理竞争格局的比较优势、流动性辩证分析和情绪位置的变化三项。
+- 轻量更新 `wiki/people/冰冰小美.md` 与 `index.md`，补入体系三要素回链和概念摘要；页面总数保持 `134`。
+
+## [2026-05-27] ingest | enrich bingbing xiaomei competitive advantage source
+
+- 根据用户提供的 `E:/caojingwen/obsidian/source/体系贴/311912942/40_竞争格局的比较优势_291511412.md`，补正 `sources/articles/2026-05-18-冰冰小美：竞争格局的比较优势.md` 的原帖发布时间为 `2024-05-27 10:47`。
+- 更新 `wiki/views/冰冰小美：比较优势来自安全与发展再平衡的判断框架.md` 的时间范围、观点时间线和不确定性说明。
+- 更新 `wiki/concepts/冰冰小美-体系三要素.md` 中“竞争格局的比较优势”来源时间描述；本次不新增正式知识页，`index.md` 页面总数保持 `134`。
+
+## [2026-05-27] link | require page references to use wikilinks
+
+- 更新 `wiki/concepts/冰冰小美-体系三要素.md`，将正文中指向已有来源页和观点页的日期、标题与术语引用改为 Obsidian 双链。
+- 更新 `AGENTS.md` 的双链规则，明确正文引用已有页面时必须使用 `[[页面路径|显示名称]]`，日期若指向来源页也必须链接到对应页面。
+
+## [2026-05-27] fix | improve three elements concept comparison formatting
+
+- 将 `wiki/concepts/冰冰小美-体系三要素.md` 的“与相近概念的区别”从 Markdown 表格改为列表，避免长 Obsidian 双链在表格中被拆行后渲染异常。
+
+## [2026-05-27] ingest | enrich bingbing xiaomei liquidity dialectic source
+
+- 根据用户提供的 `E:/caojingwen/obsidian/source/体系贴/311912942/41_流动性辩证分析_291532021.md`，补正 `sources/articles/2026-05-18-冰冰小美：流动性辩证分析.md` 的原帖发布时间为 `2024-05-27 12:55`。
+- 更新 `wiki/views/冰冰小美：流动性有利不等于成交放大的判断框架.md` 的时间范围、观点时间线和不确定性说明。
+- 更新 `wiki/concepts/冰冰小美-体系三要素.md` 中“流动性辩证分析”来源时间描述；本次不新增正式知识页，`index.md` 页面总数保持 `134`。
+
+## [2026-05-27] ingest | expand bingbing xiaomei emotion system concept
+
+- 根据用户提供的 `E:/caojingwen/obsidian/source/体系贴/311912942/21_情绪体系认知篇_289333959.md`，补正 `sources/articles/2026-05-21-冰冰小美：风险转弱的节点.md` 的原帖标题与发布时间为 `2024-05-09 13:24`。
+- 更新 `wiki/concepts/冰冰小美-情绪体系.md`，将 seed 概念页补全为 active 概念页，整理情绪面风险、情绪转弱、情绪与流动性互相强化、交易窗口信号和概念边界。
+- 轻量更新 `wiki/people/冰冰小美.md` 与 `index.md`，补入情绪体系回链和概念摘要；本次不新增正式知识页，`index.md` 页面总数保持 `134`。
+
+## [2026-05-27] ingest | add bingbing xiaomei liquidity dialectic concept
+
+- 新增原始资料 `sources/articles/2023-04-13-冰冰小美：流动性的简单概述.md`，保存雪球帖 `247332137` 的正文、作者、链接和发布时间。
+- 新增原始资料 `sources/articles/2023-06-15-冰冰小美：流动性辩证分析.md`，保存雪球帖 `253297011` 的正文、作者、链接和发布时间。
+- 新增概念页 `wiki/concepts/冰冰小美-流动性辩证分析.md`，把该概念整理为宏观、中观、微观和情绪标承载四层，而不是单纯成交量判断。
+- 更新 `wiki/concepts/冰冰小美-体系三要素.md`、`wiki/views/冰冰小美：流动性有利不等于成交放大的判断框架.md`、`wiki/people/冰冰小美.md`、`wiki/topics/宏观经济.md` 和 `index.md` 的回链；页面总数从 `134` 调整为 `135`。
+
+## [2026-05-27] ingest | add bingbing xiaomei emotion trading concepts
+
+- 新增原始资料 `sources/articles/2023-08-14-冰冰小美：情绪体系交易篇第一期分仓.md`，保存雪球帖 `258258564` 的正文、作者、链接和发布时间。
+- 新增原始资料 `sources/articles/2023-08-15-冰冰小美：情绪体系交易篇第二期借势.md`，保存雪球帖 `258296606` 的正文、作者、链接和发布时间。
+- 新增概念页 `wiki/concepts/冰冰小美-分仓.md`，将“行情好多做，行情不好少做”整理为情绪体系中的仓位管理方法。
+- 新增概念页 `wiki/concepts/冰冰小美-借势.md`，将“势成、等待时机、马太效应、流动性报团溢价”整理为情绪体系中的时机选择方法。
+- 更新 `wiki/concepts/冰冰小美-情绪体系.md`、`wiki/people/冰冰小美.md` 和 `index.md` 的回链；页面总数从 `135` 调整为 `137`。
+
+## [2026-05-27] ingest | add bingbing xiaomei waiting concept
+
+- 新增原始资料 `sources/articles/2023-08-18-冰冰小美：情绪体系交易篇第三期等.md`，保存雪球帖 `258680817` 的正文、作者、链接和发布时间。
+- 新增概念页 `wiki/concepts/冰冰小美-等.md`，将“善猎者，必善等待”“先印证，后交易”“等待时机成熟”整理为情绪体系中的时机过滤纪律。
+- 更新 `wiki/concepts/冰冰小美-情绪体系.md`、`wiki/people/冰冰小美.md` 和 `index.md` 的回链；页面总数从 `137` 调整为 `138`。
+
+## [2026-05-27] ingest | add bingbing xiaomei emotion system practice note
+
+- 新增原始资料 `sources/articles/2023-05-22-冰冰小美：这次看不懂，就可以告别情绪体系.md`，保存雪球帖 `251002176` 的正文、作者、链接和发布时间。
+- 更新 `wiki/concepts/冰冰小美-情绪体系.md`，补入“实战观察重于复述结论”的使用边界：理解情绪体系要观察为什么买卖、当时市场环境和博弈结果后的情绪氛围。
+- 本次不新增正式知识页，`index.md` 页面总数保持 `138`。
+
+## [2026-05-28] ingest | add bingbing xiaomei yuzhi concept
+
+- 使用已有原始资料 `sources/articles/2023-09-03-冰冰小美：情绪体系交易篇（第四期）.md`，对应雪球帖 `260153153` 和用户提供的第 26 篇《情绪体系交易篇 今日更新第四期 迂直》。
+- 新增概念页 `wiki/concepts/冰冰小美-迂直.md`，将“以迂为直、以患为利、诱之以利、以分合为变”整理为情绪体系中的变化应对方法。
+- 更新 `wiki/concepts/冰冰小美-情绪体系.md`、`wiki/people/冰冰小美.md` 和 `index.md` 的回链；页面总数从 `138` 调整为 `139`。
+
+## [2026-05-28] ingest | add bingbing xiaomei willingness concept
+
+- 新增原始资料 `sources/articles/2023-09-04-冰冰小美：情绪体系交易篇第五期意愿.md`，保存雪球帖 `260260172` 的正文、作者、链接和发布时间。
+- 新增概念页 `wiki/concepts/冰冰小美-意愿.md`，将“交易意愿”“买入意愿”和“不同理由形成同一方向”整理为情绪体系中的交易形成变量。
+- 更新 `wiki/concepts/冰冰小美-情绪体系.md`、`wiki/people/冰冰小美.md` 和 `index.md` 的回链；页面总数从 `139` 调整为 `140`。
+
+## [2026-05-28] ingest | add bingbing xiaomei character fit concept
+
+- 新增原始资料 `sources/articles/2023-09-09-冰冰小美：情绪体系交易篇第六期性格匹配.md`，保存雪球帖 `260729520` 的正文、作者、链接和发布时间。
+- 新增概念页 `wiki/concepts/冰冰小美-性格匹配.md`，将“自我认知与实践的斗争”“体系约束胡思乱想”和“分仓调整性格状态”整理为情绪体系中的执行者适配变量。
+- 更新 `wiki/concepts/冰冰小美-情绪体系.md`、`wiki/people/冰冰小美.md` 和 `index.md` 的回链；页面总数从 `140` 调整为 `141`。
+
+## [2026-05-28] ingest | add bingbing xiaomei belief concept
+
+- 新增原始资料 `sources/articles/2023-09-22-冰冰小美：情绪体系交易篇第七期相信.md`，保存雪球帖 `261823122` 的正文、作者、链接和发布时间。
+- 新增概念页 `wiki/concepts/冰冰小美-相信.md`，将“真正的做多”“相信常识”“做多中国”和“不随恐慌贪婪摇摆”整理为情绪体系中的做多信念变量。
+- 更新 `wiki/concepts/冰冰小美-情绪体系.md`、`wiki/people/冰冰小美.md` 和 `index.md` 的回链；页面总数从 `141` 调整为 `142`。
+
+## [2026-05-28] ingest | add bingbing xiaomei math model concept
+
+- 新增原始资料 `sources/articles/2023-10-06-冰冰小美：情绪体系交易篇第八篇数学模型不败.md`，保存雪球帖 `262531108` 的正文、作者、链接和发布时间。
+- 新增概念页 `wiki/concepts/冰冰小美-数学模型不败.md`，将“减少出手”“减少失败”“以小博大”和“小资金长期训练”整理为情绪体系中的胜率与训练资金变量。
+- 更新 `wiki/concepts/冰冰小美-情绪体系.md`、`wiki/people/冰冰小美.md`、`wiki/topics/概率化决策与风险控制.md` 和 `index.md` 的回链；页面总数从 `142` 调整为 `143`。
+
+## [2026-05-28] ingest | add bingbing xiaomei buy sell concept
+
+- 新增原始资料 `sources/articles/2023-10-09-冰冰小美：情绪体系交易篇第九期买卖.md`，保存雪球帖 `262678860` 的正文、作者、链接和发布时间。
+- 新增概念页 `wiki/concepts/冰冰小美-买卖.md`，将“分时图诱惑”“买激发信心的意愿”“买相信的力量”“买国运”和“什么时候不卖”整理为情绪体系中的交易动作变量。
+- 更新 `wiki/concepts/冰冰小美-情绪体系.md`、`wiki/people/冰冰小美.md` 和 `index.md` 的回链；页面总数从 `143` 调整为 `144`。
+
+## [2026-05-28] ingest | add bingbing xiaomei trade record cognition concept
+
+- 新增原始资料 `sources/articles/2023-10-17-冰冰小美：情绪体系交易篇交割单的认知.md`，保存雪球帖 `263421435`《情绪体系交易篇第八期 交割单的认知》。
+- 新增概念页 `wiki/concepts/冰冰小美-交割单认知.md`，将“研究亏损交割单”“体系性格不匹配”“情绪向下高频交易”“买是当日氛围，卖是明日行为”等整理为情绪体系中的复盘与失败模式识别变量。
+- 更新 `wiki/concepts/冰冰小美-情绪体系.md`、`wiki/people/冰冰小美.md` 和 `index.md` 的回链；页面总数从 `144` 调整为 `145`。
+
+## [2026-05-28] ingest | add bingbing xiaomei empty position concept
+
+- 新增原始资料 `sources/articles/2023-11-11-冰冰小美：情绪体系交易篇第十期空仓.md`，保存雪球帖 `266484468`《情绪体系交易篇 今日更新第十期 空仓》。
+- 新增概念页 `wiki/concepts/冰冰小美-空仓.md`，将“空仓不是仓位的空仓”“市场行为不切合自身模式”“机构风格切换、游资情绪、套利收割、减量博弈和增量亢奋下的空仓”等整理为情绪体系中的风险规避变量。
+- 更新 `wiki/concepts/冰冰小美-情绪体系.md`、`wiki/people/冰冰小美.md` 和 `index.md` 的回链；页面总数从 `145` 调整为 `146`。
+
+## [2026-05-28] ingest | add bingbing xiaomei tolerance concept
+
+- 新增原始资料 `sources/articles/2024-04-02-冰冰小美：情绪体系交易篇容忍度.md`，保存雪球帖 `284473286`《情绪体系交易篇，容忍度》。
+- 新增概念页 `wiki/concepts/冰冰小美-容忍度.md`，将“得失成败的动静”“买包括买入和不卖”“自信来自买入内核”“时间评价、比较心态、控仓和做 T 风险”等整理为情绪体系中的交易心理与仓位纪律变量。
+- 更新 `wiki/concepts/冰冰小美-情绪体系.md`、`wiki/people/冰冰小美.md` 和 `index.md` 的回链；页面总数从 `146` 调整为 `147`。
+
+## [2026-05-28] ingest | add bingbing xiaomei emotion cycle concept
+
+- 新增原始资料 `sources/articles/2023-05-31-冰冰小美：情绪周期是什么.md`，保存雪球帖 `251907063`《情绪周期是什么》。
+- 新增概念页 `wiki/concepts/冰冰小美-情绪周期.md`，将“情绪周期不能脱离流动性辩证分析与竞争格局”“情绪标是火种”“整体情绪下降但局部正确方向仍可上升”“情绪螺旋上涨不是一直上涨”等整理为情绪体系中的动态位置识别变量。
+- 更新 `wiki/concepts/冰冰小美-情绪体系.md`、`wiki/people/冰冰小美.md` 和 `index.md` 的回链；页面总数从 `147` 调整为 `148`。
+- 清理 `log.md` 中遗留的合并冲突标记，保留两侧历史维护记录。
+
+## [2026-05-28] ingest | add bingbing xiaomei emotion ice point judgment concept
+
+- 新增原始资料 `sources/articles/2023-06-28-冰冰小美：怎么判断情绪冰点，我们需要观察亏钱效应.md`，保存雪球帖 `254221078`《怎么判断情绪冰点，我们需要观察亏钱效应》。
+- 新增概念页 `wiki/concepts/冰冰小美-情绪冰点判断.md`，将“观察亏钱效应”“情绪标未止跌则恐慌持续”“叠加指数和涨跌数量判断日内情绪底”整理为情绪周期下的冰点识别工具。
+- 更新 `wiki/concepts/冰冰小美-情绪周期.md`、`wiki/concepts/冰冰小美-情绪体系.md`、`wiki/concepts/冰冰小美-等.md`、`wiki/people/冰冰小美.md` 和 `index.md` 的回链；页面总数从 `148` 调整为 `149`。
+
+## [2026-05-28] ingest | add bingbing xiaomei market unique solution concept
+
+- 新增原始资料 `sources/articles/2023-07-03-冰冰小美：情绪体系是交易的体系，不是认知的体系.md`，保存雪球帖 `254706445`《情绪体系是交易的体系，不是认知的体系》。
+- 新增概念页 `wiki/concepts/冰冰小美-市场唯一解.md`，将“情绪体系是交易的体系”“三要素确定就是寻求市场唯一解”“苛刻交易条件用于防范大回撤”和“买入不败不是无风险承诺”整理为三要素的交易筛选目标。
+- 更新 `wiki/concepts/冰冰小美-体系三要素.md`、`wiki/concepts/冰冰小美-情绪体系.md`、`wiki/concepts/冰冰小美-分仓.md`、`wiki/concepts/冰冰小美-等.md`、`wiki/people/冰冰小美.md` 和 `index.md` 的回链；页面总数从 `149` 调整为 `150`。
+
+## [2026-05-28] ingest | add bingbing xiaomei illusion duration concept
+
+- 新增原始资料 `sources/articles/2023-05-20-冰冰小美：情绪体系的最后总结篇.md`，保存雪球帖 `250899655`《情绪体系的最后总结篇》。
+- 新增概念页 `wiki/concepts/冰冰小美-假象时间.md`，将“贪婪延长假象、恐惧压缩假象、把握假象时间形成情绪周期和盈亏比”整理为情绪体系中的时间变量。
+- 更新 `wiki/concepts/冰冰小美-体系三要素.md`、`wiki/concepts/冰冰小美-情绪体系.md`、`wiki/concepts/冰冰小美-情绪周期.md`、`wiki/people/冰冰小美.md` 和 `index.md` 的回链；页面总数从 `150` 调整为 `151`。
+
+## [2026-05-28] ingest | add bingbing xiaomei emotion system core purpose concept
+
+- 新增原始资料 `sources/articles/2023-06-20-冰冰小美：情绪体系的核心目的.md`，保存雪球帖 `253689232`《情绪体系的核心目的》。
+- 新增概念页 `wiki/concepts/冰冰小美-情绪体系核心目的.md`，将“买入不败”“不亏钱才能持续复利”“挣钱效应和亏钱效应是信心体现”“二级市场交易形态”和“三要素相辅相成则阻力最小”整理为情绪体系的目标层概念。
+- 更新 `wiki/concepts/冰冰小美-情绪体系.md`、`wiki/concepts/冰冰小美-体系三要素.md`、`wiki/concepts/冰冰小美-市场唯一解.md`、`wiki/concepts/冰冰小美-流动性辩证分析.md`、`wiki/concepts/冰冰小美-买卖.md`、`wiki/people/冰冰小美.md` 和 `index.md` 的回链；页面总数从 `151` 调整为 `152`。
+
+## [2026-05-28] ingest | add bingbing xiaomei short-term emotion major cycle concept
+
+- 新增原始资料 `sources/articles/2023-04-28-冰冰小美：窝总结的短线情绪大周期.md`，保存雪球帖 `248993367`《窝总结的短线情绪大周期》。
+- 新增概念页 `wiki/concepts/冰冰小美-短线情绪大周期.md`，将“失落恐慌→半信半疑→理性分析与大胆实践→接着奏乐接着舞”和指数、估值、流动性三类风险的开启/结束机制整理为情绪周期下的群体信心恢复框架。
+- 更新 `wiki/concepts/冰冰小美-情绪周期.md`、`wiki/concepts/冰冰小美-情绪体系.md`、`wiki/people/冰冰小美.md` 和 `index.md` 的回链；页面总数从 `152` 调整为 `153`。
+
+## [2026-05-28] ingest | add bingbing xiaomei trading equanimity concept
+
+- 新增原始资料 `sources/articles/2023-05-06-冰冰小美：情绪对自身的影响与人生豁达.md`，保存雪球帖 `249592214`《情绪对自身的影响与人生豁达》。
+- 新增概念页 `wiki/concepts/冰冰小美-交易豁达.md`，将卖飞、买跌、看好后放弃又大涨、复盘亏钱效应、体系三要素约束和对贪婪的拒绝整理为情绪体系中的心理纪律概念。
+- 更新 `wiki/concepts/冰冰小美-容忍度.md`、`wiki/concepts/冰冰小美-性格匹配.md`、`wiki/concepts/冰冰小美-情绪体系.md`、`wiki/people/冰冰小美.md` 和 `index.md` 的回链；页面总数从 `153` 调整为 `154`。
+
+## [2026-05-28] ingest | add bingbing xiaomei emotion consensus risk concept
+
+- 新增原始资料 `sources/articles/2023-05-09-冰冰小美：什么情况容易情绪一致.md`，保存雪球帖 `249891836`《什么情况容易情绪一致》。
+- 新增概念页 `wiki/concepts/冰冰小美-情绪一致性风险.md`，将边缘标的先涨停、情绪标未涨停、卡位成功想象、明日溢价贪婪和亏钱效应起点整理为情绪一致性风险。
+- 更新 `wiki/concepts/冰冰小美-分仓.md`、`wiki/concepts/冰冰小美-买卖.md`、`wiki/concepts/冰冰小美-意愿.md`、`wiki/concepts/冰冰小美-情绪体系.md`、`wiki/people/冰冰小美.md` 和 `index.md` 的回链；页面总数从 `154` 调整为 `155`。
+
+## [2026-05-28] ingest | add bingbing xiaomei ice point trend reversal concept
+
+- 新增原始资料 `sources/articles/2024-04-11-冰冰小美：情绪体系交易篇第十二期冰点转势.md`，保存雪球帖 `285552628`《情绪体系交易篇 第十二期 冰点的冰点发展美，转势》。
+- 新增概念页 `wiki/concepts/冰冰小美-冰点转势.md`，将“冰点转折不一定是转势板”“亏钱效应来源”“指数共振”“虚空炒作向实体支撑切换”和“三要素有利”整理为情绪体系中的冰点后转势判断概念。
+- 更新 `wiki/concepts/冰冰小美-情绪冰点判断.md`、`wiki/concepts/冰冰小美-情绪周期.md`、`wiki/concepts/冰冰小美-情绪体系.md`、`wiki/people/冰冰小美.md` 和 `index.md` 的回链；页面总数从 `155` 调整为 `156`。
+
+## [2026-05-28] ingest | add bingbing xiaomei weiwei jiuzhao loss effect concept
+
+- 新增原始资料 `sources/articles/2024-04-23-冰冰小美：情绪体系交易篇围魏救赵亏钱效应.md`，保存雪球帖 `287248057`《情绪体系交易篇，都忘记多少期》。
+- 新增概念页 `wiki/concepts/冰冰小美-围魏救赵亏钱效应.md`，将“反人性与反情绪套利”“低位小盘热点制造假象”“小成交上涨掩护大成交卖出”和“情绪流动性皆不利时的一致性恐慌卖点”整理为亏钱效应识别概念。
+- 更新 `wiki/concepts/冰冰小美-情绪体系.md`、`wiki/concepts/冰冰小美-流动性辩证分析.md`、`wiki/people/冰冰小美.md` 和 `index.md` 的回链；页面总数从 `156` 调整为 `157`。
+
+## [2026-05-28] ingest | add bingbing xiaomei blocking-knife loss effect concept
+
+- 新增原始资料 `sources/articles/2024-10-28-冰冰小美：情绪体系交易篇挡刀亏钱效应.md`，保存雪球帖 `309811574`《情绪体系交易篇》。
+- 新增概念页 `wiki/concepts/冰冰小美-挡刀亏钱效应.md`，将“高切低预期差亏钱效应”“低位同概念补涨”“流动性余温大于情绪风险的瞬间换手封板”和“助力龙头加速见顶”整理为题材套利风险概念。
+- 更新 `wiki/concepts/冰冰小美-情绪体系.md`、`wiki/concepts/冰冰小美-情绪周期.md`、`wiki/concepts/冰冰小美-流动性辩证分析.md`、`wiki/people/冰冰小美.md` 和 `index.md` 的回链；页面总数从 `157` 调整为 `158`。
+
+## [2026-05-28] fix | normalize ice point trend reversal frontmatter for Obsidian
+
+- 更新 `wiki/concepts/冰冰小美-冰点转势.md` 的 frontmatter，将 `related` 从嵌套分类对象改为 Obsidian Properties 更易显示的扁平双链列表。
+- 将来源字段从 `source` 对齐为 schema 契约中的 `sources`；本次未新增正式知识页，`index.md` 页面总数保持 `158`。
+
+## [2026-05-28] ingest | add bingbing xiaomei common loss cognition series
+
+- 归档 19 篇原始资料到 `sources/articles/2023-03-18-冰冰小美：常见亏钱认知第一期预期差.md` 至 `sources/articles/2023-10-13-冰冰小美：常见亏钱认知第十九期新加坡富时A50指数.md`，并用 SHA256 校验源文件与归档文件一致。
+- 补全概念页 `wiki/concepts/冰冰小美-亏钱认知.md`，将预期差、止损、懂的都懂、概念逻辑、大盘、利润垫、消息、涨停板、追涨、卖点、分时图、卡位、一字板、假象、套利、机构、轮动、高度板和 A50 等整理为反向排雷框架。
+- 新增主题页 `wiki/topics/冰冰小美-常见亏钱认知系列.md`，逐期登记 19 篇来源、核心命题和风险类型。
+- 新增推导链页 `wiki/reasoning/冰冰小美-亏钱认知如何转化为亏钱效应.md`，拆解亏钱认知从话术、消息、图形、心理暗示、买卖失真到流动性分散和亏钱效应的传导。
+- 更新 `wiki/people/冰冰小美.md` 和 `index.md` 的回链；页面总数从 `158` 调整为 `160`。
