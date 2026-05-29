@@ -42,9 +42,9 @@ lifecycle: draft
 lifecycle_changed: "2026-05-29"
 tier: supporting
 provenance:
-  extracted: 0.72
-  inferred: 0.23
-  ambiguous: 0.05
+  - "extracted: 0.72"
+  - "inferred: 0.23"
+  - "ambiguous: 0.05"
 ---
 
 # 冰冰小美-AI竞赛如何由石油美元压力传导为亚太G2产业格局

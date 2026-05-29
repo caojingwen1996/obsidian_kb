@@ -1,4 +1,4 @@
----
+﻿---
 title: "冰冰小美：AI泡沫需要用制约因素与周期视角观察的判断框架"
 aliases:
   - "陷阱与风波"
@@ -39,9 +39,9 @@ lifecycle: draft
 lifecycle_changed: "2026-05-29"
 tier: supporting
 provenance:
-  extracted: 0.72
-  inferred: 0.24
-  ambiguous: 0.04
+  - "extracted: 0.72"
+  - "inferred: 0.24"
+  - "ambiguous: 0.04"
 ---
 
 # 冰冰小美：AI泡沫需要用制约因素与周期视角观察的判断框架

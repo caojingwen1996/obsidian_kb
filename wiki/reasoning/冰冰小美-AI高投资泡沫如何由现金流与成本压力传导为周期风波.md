@@ -1,4 +1,4 @@
----
+﻿---
 title: "冰冰小美-AI高投资泡沫如何由现金流与成本压力传导为周期风波"
 aliases:
   - "AI高投资泡沫传导链"
@@ -44,9 +44,9 @@ lifecycle: draft
 lifecycle_changed: "2026-05-29"
 tier: supporting
 provenance:
-  extracted: 0.68
-  inferred: 0.28
-  ambiguous: 0.04
+  - "extracted: 0.68"
+  - "inferred: 0.28"
+  - "ambiguous: 0.04"
 ---
 
 # 冰冰小美-AI高投资泡沫如何由现金流与成本压力传导为周期风波

@@ -3,6 +3,17 @@
 > 按时间顺序记录知识库操作。仅追加，不覆盖。
 > 格式：`## [YYYY-MM-DD] action | subject`
 
+## [2026-05-29] cleanup | normalize nested frontmatter properties across wiki
+
+- 全量扫描 `wiki/` 下正式知识页 frontmatter，修复会导致 Obsidian 属性面板显示整段 JSON 的嵌套对象属性。
+- 将剩余分组对象形式的 `related` 扁平化为双链列表；将对象形式的 `provenance` 改为普通字符串列表；将对象形式的 `lifecycle` 改为状态值，并保留 `review_after` 为独立字段。
+- 本次机械修复覆盖 69 个页面；正文内容、来源正文和索引入口不变。
+
+## [2026-05-29] cleanup | fix trade-record cognition related property
+
+- 修复 `wiki/concepts/冰冰小美-交割单认知.md` 的 `related` frontmatter 分组对象写法，避免 Obsidian 属性面板把相关页面显示成整段 JSON。
+- 将 concepts、people 和 topics 下的链接合并为扁平双链列表；正文不变。
+
 ## [2026-05-29] cleanup | fix illusion time related property
 
 - 修复 `wiki/concepts/冰冰小美-假象时间.md` 的 `related` frontmatter 分组对象写法，避免 Obsidian 属性面板把相关页面显示成整段 JSON。

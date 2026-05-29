@@ -1,4 +1,4 @@
----
+﻿---
 title: "冰冰小美：历史危机经验提示AI高位风险边界的判断框架"
 aliases:
   - "历史危机的经验与警示"
@@ -40,9 +40,9 @@ lifecycle: draft
 lifecycle_changed: "2026-05-29"
 tier: supporting
 provenance:
-  extracted: 0.74
-  inferred: 0.22
-  ambiguous: 0.04
+  - "extracted: 0.74"
+  - "inferred: 0.22"
+  - "ambiguous: 0.04"
 ---
 
 # 冰冰小美：历史危机经验提示AI高位风险边界的判断框架

@@ -36,9 +36,9 @@ lifecycle: draft
 lifecycle_changed: "2026-05-29"
 tier: supporting
 provenance:
-  extracted: 0.75
-  inferred: 0.2
-  ambiguous: 0.05
+  - "extracted: 0.75"
+  - "inferred: 0.2"
+  - "ambiguous: 0.05"
 ---
 
 # 冰冰小美：AI竞赛推动世界贸易中心转向太平洋与G2全产业链竞争的判断框架

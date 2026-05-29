@@ -1,4 +1,4 @@
----
+﻿---
 title: "冰冰小美-A股投机产业链如何由做多制度与低违规成本形成"
 aliases:
   - "A股投机产业链推导"
@@ -41,9 +41,9 @@ key_variables:
   - "纠偏带来的流动性冲击"
 confidence: "medium-low"
 provenance:
-  extracted: 0.72
-  inferred: 0.2
-  ambiguous: 0.08
+  - "extracted: 0.72"
+  - "inferred: 0.2"
+  - "ambiguous: 0.08"
 base_confidence: 0.35
 lifecycle: draft
 lifecycle_changed: 2026-05-29

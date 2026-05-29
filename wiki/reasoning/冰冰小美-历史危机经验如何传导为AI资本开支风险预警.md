@@ -1,4 +1,4 @@
----
+﻿---
 title: "冰冰小美-历史危机经验如何传导为AI资本开支风险预警"
 aliases:
   - "历史危机经验到AI资本开支风险预警"
@@ -48,9 +48,9 @@ lifecycle: draft
 lifecycle_changed: "2026-05-29"
 tier: supporting
 provenance:
-  extracted: 0.72
-  inferred: 0.24
-  ambiguous: 0.04
+  - "extracted: 0.72"
+  - "inferred: 0.24"
+  - "ambiguous: 0.04"
 ---
 
 # 冰冰小美-历史危机经验如何传导为AI资本开支风险预警
