@@ -3,6 +3,49 @@
 > 按时间顺序记录知识库操作。仅追加，不覆盖。
 > 格式：`## [YYYY-MM-DD] action | subject`
 
+## [2026-05-29] cleanup | fix illusion time related property
+
+- 修复 `wiki/concepts/冰冰小美-假象时间.md` 的 `related` frontmatter 分组对象写法，避免 Obsidian 属性面板把相关页面显示成整段 JSON。
+- 将 concepts 和 people 下的链接合并为扁平双链列表；正文不变。
+
+## [2026-05-29] cleanup | fix individual and overall sentiment related property
+
+- 修复 `wiki/concepts/冰冰小美-个股情绪与整体情绪.md` 的 `related` frontmatter 分组对象写法，避免 Obsidian 属性面板把相关页面显示成整段 JSON。
+- 将 topics、concepts、reasoning 和 people 下的非空链接合并为扁平双链列表；正文不变。
+
+## [2026-05-29] cleanup | fix short-term sentiment cycle related property
+
+- 修复 `wiki/concepts/冰冰小美-短线情绪大周期.md` 的 `related` frontmatter 分组对象写法，避免 Obsidian 属性面板把相关页面显示成整段 JSON。
+- 将 concepts 和 people 下的链接合并为扁平双链列表；正文不变。
+
+## [2026-05-29] cleanup | fix short-term sentiment marker related property
+
+- 修复 `wiki/concepts/冰冰小美-短线情绪标.md` 的 `related` frontmatter 分组对象写法，避免 Obsidian 属性面板把相关页面显示成整段 JSON。
+- 将 topics、concepts、reasoning 和 people 下的非空链接合并为扁平双链列表；正文不变。
+
+## [2026-05-29] cleanup | fix daodao related property display
+
+- 修复 `wiki/concepts/冰冰小美-挡刀亏钱效应.md` 的 `related` frontmatter 分组对象写法，避免 Obsidian 属性面板把相关页面显示成整段 JSON。
+- 将 `related` 改为扁平双链列表；概念和人物关系仍保留在同一属性中，正文不变。
+
+## [2026-05-29] cleanup | fix concept provenance property display
+
+- 修复 `wiki/concepts/冰冰小美-波动风险.md` 的 `provenance` frontmatter 对象写法，避免 Obsidian 属性面板把来源信息显示成整段 JSON。
+- 将 `provenance` 改为普通列表，保留 source、source_type 和 author 信息；正文与知识链接不变。
+
+## [2026-05-29] link | create bingbing xiaomei monthly report map topic
+
+- 新增 `wiki/topics/冰冰小美-月报地图.md`，作为冰冰小美 2026 年 1-5 月月报、半月报和月度总括篇的 Topic Page。
+- 页面按时间列出每篇月报来源、当前整理状态、已拆出的 View / Reasoning 页面和所属主线，并单独标注 2026 年一月月报仍需继续拆分。
+- 更新 `index.md`、`.manifest.json`、`wiki/topics/冰冰小美-知识地图.md`、`wiki/people/冰冰小美.md` 与 `hot.md` 的入口和回链；本次不新增来源，页面总数从 `339` 调整为 `340`。
+
+## [2026-05-29] refactor | rebuild bingbing xiaomei people page
+
+- 重读 `page-types.md` 与 `templates/people-page-template.md` 中 People Page 定义，按“人物画像入口，不承载全部文章、全部观点、全部推导”的边界重构 `wiki/people/冰冰小美.md`。
+- 将原页面中的大规模来源清单、普通相关链接和增量补充记录压缩为核心画像、核心价值观、判断理念、认知模式、方法论体系、代表观点、代表推导、适用场景与使用边界。
+- 保留少量代表来源，并将完整来源索引指向 `wiki/topics/冰冰小美-知识地图.md`；未新增正式知识页，因此不调整 `index.md`。
+- 说明：人物性格中证据仍不足的部分继续标注“暂定”，避免把少数文章观察写成稳定人格定性。
+
 ## [2026-05-29] ingest | add bingbing xiaomei may monthly new-money old-money view
 
 - 复用已有来源页 `sources/articles/2026-05-23-冰冰小美：2026年五月月报（二）.md`，补充作者评论摘录和已提炼正式知识页的备注。
@@ -2274,6 +2317,66 @@ cleanup
 
 - 无。
 
+- [2026-05-29T17:45:18+08:00] QUERY query="冰冰小美如何看待泡沫" result_pages=5 mode=normal escalated=false
+
+## 2026-05-29
+
+### 操作类型
+
+ingest / query
+
+### 修改文件
+
+- `wiki/queries/冰冰小美如何看待泡沫.md`
+- `index.md`
+- `log.md`
+
+### 操作说明
+
+将“冰冰小美如何看待泡沫”整理为 Query Page，综合既有 AI 泡沫、治理红线、美股泡沫风险、等待纪律和相关推导链，保留原问题、核心答案、推导逻辑、相关页面和不确定性，并登记到 `index.md` 的问题区。
+
+### 后续待办
+
+- 若后续整理到“成长与泡沫”专门来源，可进一步拆出独立 View Page 或更新本 Query Page。
+
+- [2026-05-29T17:19:29+08:00] QUERY query="情绪体系三要素 是什么？" result_pages=3 mode=normal escalated=false
+
+## 2026-05-29
+
+### 操作类型
+
+link
+
+### 修改文件
+
+- `wiki/people/冰冰小美.md`
+
+### 操作说明
+
+按用户建议，在冰冰小美 People Page 的“核心画像”表格中，将 `[[concepts/冰冰小美-三大配置|三大配置]]` 补入“执行观”一行，用来说明长期方向如何拆成可等待、可低吸、可调仓的配置线，再由仓位随风险、流动性、情绪和阶段验证调整。
+
+### 后续待办
+
+- 无。
+
+## 2026-05-29
+
+### 操作类型
+
+cleanup
+
+### 修改文件
+
+- `wiki/concepts/冰冰小美-情绪体系.md`
+
+### 操作说明
+
+修复 `related` frontmatter 使用分组对象导致 Obsidian 属性面板显示为整段 JSON 的问题；将属性区改为扁平链接列表，完整分类关系继续保留在正文“相关页面”中。
+
+### 后续待办
+
+- 可按同一规则逐步检查其他页面中使用分组对象的 `related` 属性。
+
 ## 2026-05-29
 
 ### 操作类型
@@ -2314,6 +2417,42 @@ refactor
 ### 后续待办
 
 - 若后续继续拆信用周期、通缩周期和财政周期的独立 Concept / Reasoning 页面，再补入宏观分区的专门小链条。
+
+## 2026-05-29
+
+### 操作类型
+
+cleanup
+
+### 修改文件
+
+- `wiki/concepts/冰冰小美-三大配置.md`
+
+### 操作说明
+
+修复 `related` frontmatter 使用分组对象导致 Obsidian 属性面板显示为整段 JSON 的问题；将属性区改为扁平链接列表，分类关系继续由正文“在当前知识库中的作用”承接。
+
+### 后续待办
+
+- 可按同一规则逐步检查其他页面中使用分组对象的 `related` 属性。
+
+## 2026-05-29
+
+### 操作类型
+
+cleanup
+
+### 修改文件
+
+- `wiki/reasoning/冰冰小美-风险思考如何支撑交易安全与机遇转化.md`
+
+### 操作说明
+
+修复 `provenance` 和 `lifecycle` frontmatter 使用对象导致 Obsidian 属性面板显示为整段 JSON 的问题；将 `provenance` 改为列表，将 `lifecycle` 改为状态值，并把复查日期单独放入 `review_after`。
+
+### 后续待办
+
+- 可按同一规则逐步检查其他页面中使用对象形式的 `provenance` / `lifecycle` 属性。
 
 ## 2026-05-29
 
