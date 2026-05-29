@@ -1,10 +1,175 @@
-{
+﻿{
   "version": 1,
   "stats": {
-    "total_sources_ingested": 115,
-    "total_pages": 329
+    "total_sources_ingested": 120,
+    "total_pages": 339
   },
   "sources": {
+    "E:/caojingwen/obsidian/source/冰冰小美专栏/20260523/082800_2026年五月月报_二_39053500.txt": {
+      "ingested_at": "2026-05-29T00:00:00+08:00",
+      "size_bytes": 16131,
+      "modified_at": "2026-05-25T16:49:19+08:00",
+      "content_hash": "sha256:f9194c8e2acc37f4db6049af6952f7169a11144cda95203c24bacb818d4d22de",
+      "source_type": "document",
+      "project": null,
+      "source_metadata": {
+        "title": "2026年五月月报（二）",
+        "author": "冰冰小美",
+        "content_id": "390535009",
+        "published_at": "2026-05-23T08:28:00+08:00",
+        "original_url": "https://xueqiu.com/7143769715/390535009"
+      },
+      "pages_created": [
+        "wiki/views/冰冰小美：新钱替代旧钱驱动G2产业竞争与新产业转型的判断框架.md",
+        "wiki/reasoning/冰冰小美-新钱替代旧钱如何传导为AI基建繁荣与旧产业沉没.md"
+      ],
+      "pages_updated": [
+        "sources/articles/2026-05-23-冰冰小美：2026年五月月报（二）.md",
+        "wiki/reasoning/冰冰小美-AI产业趋势推导链.md",
+        "wiki/people/冰冰小美.md",
+        "wiki/topics/冰冰小美-AI产业趋势.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
+        "wiki/topics/冰冰小美-中美产业竞争.md",
+        "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
+        "wiki/topics/概率化决策与风险控制.md",
+        "wiki/topics/冰冰小美-知识地图.md",
+        "index.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "E:/caojingwen/obsidian/source/冰冰小美专栏/20260522/224600_2026年五月月报_一_39050877.txt": {
+      "ingested_at": "2026-05-29T00:00:00+08:00",
+      "size_bytes": 16827,
+      "modified_at": "2026-05-25T16:49:19+08:00",
+      "content_hash": "sha256:edab7fa2aaa87d0afa7425efa467eb1f270fec25106dfff1447837b5d151e418",
+      "source_type": "document",
+      "project": null,
+      "source_metadata": {
+        "title": "2026年五月月报（一）",
+        "author": "冰冰小美",
+        "content_id": "390508771",
+        "published_at": "2026-05-22T22:46:00+08:00",
+        "original_url": "https://xueqiu.com/7143769715/390508771"
+      },
+      "pages_created": [
+        "wiki/views/冰冰小美：AI进入新阶段并成为新型基建与城市竞争抓手的判断框架.md",
+        "wiki/reasoning/冰冰小美-AI五层架构如何传导为城市竞争与资本市场角色重估.md"
+      ],
+      "pages_updated": [
+        "sources/articles/2026-05-22-冰冰小美：2026年五月月报（一）.md",
+        "wiki/reasoning/冰冰小美-AI产业趋势推导链.md",
+        "wiki/people/冰冰小美.md",
+        "wiki/topics/冰冰小美-AI产业趋势.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
+        "wiki/topics/冰冰小美-中美产业竞争.md",
+        "wiki/topics/概率化决策与风险控制.md",
+        "wiki/topics/冰冰小美-知识地图.md",
+        "index.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "E:/caojingwen/obsidian/source/冰冰小美专栏/20260430/165100_2026年4月月报_二_38685747.txt": {
+      "ingested_at": "2026-05-29T00:00:00+08:00",
+      "size_bytes": 7936,
+      "modified_at": "2026-05-25T16:49:19+08:00",
+      "content_hash": "sha256:7b8e7112c29da86a11c911d3b7820985b2c9bee702a8486e5fe205af49ab48d7",
+      "source_type": "document",
+      "project": null,
+      "source_metadata": {
+        "title": "2026年4月月报（二）",
+        "author": "冰冰小美",
+        "content_id": "386857477",
+        "published_at": "2026-04-30T16:51:00+08:00",
+        "original_url": "https://xueqiu.com/7143769715/386857477"
+      },
+      "pages_created": [
+        "wiki/views/冰冰小美：硅基生命需求扩张与碳基生命需求衰退的判断框架.md",
+        "wiki/reasoning/冰冰小美-硅基生命造神如何传导为财富转移与市场两极分化.md"
+      ],
+      "pages_updated": [
+        "sources/articles/2026-04-30-冰冰小美：2026年4月月报（二）.md",
+        "wiki/people/冰冰小美.md",
+        "wiki/topics/冰冰小美-AI产业趋势.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
+        "wiki/topics/概率化决策与风险控制.md",
+        "wiki/topics/冰冰小美-知识地图.md",
+        "index.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "E:/caojingwen/obsidian/source/冰冰小美专栏/20260428/161200_2026年4月月报_一_38627976.txt": {
+      "ingested_at": "2026-05-29T00:00:00+08:00",
+      "size_bytes": 10060,
+      "modified_at": "2026-05-25T16:49:19+08:00",
+      "content_hash": "sha256:1812809d59c5930f39d639e76c28594f51910c08f64ac98705921075c8d6b36d",
+      "source_type": "document",
+      "project": null,
+      "source_metadata": {
+        "title": "2026年4月月报（一）",
+        "author": "冰冰小美",
+        "content_id": "386279769",
+        "published_at": "2026-04-28T16:12:00+08:00",
+        "original_url": "https://xueqiu.com/7143769715/386279769"
+      },
+      "pages_created": [
+        "wiki/views/冰冰小美：AI资本开支公共化推动系统集成与美股化结构行情的判断框架.md",
+        "wiki/reasoning/冰冰小美-AI资本开支公共化如何传导为系统集成叙事与结构性行情.md"
+      ],
+      "pages_updated": [
+        "sources/articles/2026-04-28-冰冰小美：2026年4月月报（一）.md",
+        "wiki/people/冰冰小美.md",
+        "wiki/topics/冰冰小美-AI产业趋势.md",
+        "wiki/topics/冰冰小美-中美产业竞争.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
+        "wiki/topics/概率化决策与风险控制.md",
+        "wiki/topics/冰冰小美-知识地图.md",
+        "index.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "E:/caojingwen/obsidian/source/冰冰小美专栏/20260319/164900_2026年3月_半月报_38018199.txt": {
+      "ingested_at": "2026-05-29T00:00:00+08:00",
+      "size_bytes": 18901,
+      "modified_at": "2026-05-25T17:34:27+08:00",
+      "content_hash": "sha256:3a805752f53da398d0ec211355163b614be27836ab6760e49515a7478418ee49",
+      "source_type": "document",
+      "project": null,
+      "source_metadata": {
+        "title": "2026年3月（半月报）",
+        "author": "冰冰小美",
+        "content_id": "380181997",
+        "published_at": "2026-03-19T16:49:00+08:00",
+        "original_url": "https://xueqiu.com/7143769715/380181997"
+      },
+      "pages_created": [
+        "wiki/views/冰冰小美：中东石油危机打开宏观风险敞口的判断框架.md",
+        "wiki/reasoning/冰冰小美-中东石油危机如何传导为石油美元压力与股市风险敞口.md"
+      ],
+      "pages_updated": [
+        "sources/articles/2026-03-19-冰冰小美：2026年3月（半月报）.md",
+        "wiki/people/冰冰小美.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
+        "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
+        "wiki/topics/概率化决策与风险控制.md",
+        "wiki/topics/冰冰小美-AI产业趋势.md",
+        "wiki/topics/冰冰小美-化工投资跟踪.md",
+        "wiki/concepts/冰冰小美-宏观风险信号表.md",
+        "wiki/timelines/冰冰小美-2026一季度宏观阶段时间线.md",
+        "wiki/topics/冰冰小美-知识地图.md",
+        "index.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
     "E:/caojingwen/obsidian/source/冰冰小美专栏/20260517/153100_Ai与国家_38931712.txt": {
       "ingested_at": "2026-05-29T00:00:00+08:00",
       "size_bytes": 21147,
@@ -37,8 +202,8 @@
         "sources/articles/2026-05-09-冰冰小美：Ai与金融.md",
         "wiki/people/冰冰小美.md",
         "wiki/topics/冰冰小美-AI产业趋势.md",
-        "wiki/topics/中美产业竞争.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-中美产业竞争.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "index.md",
         "log.md",
         "hot.md",
@@ -60,8 +225,8 @@
         "sources/articles/2026-05-05-冰冰小美：AI竞赛的世界格局演绎.md",
         "wiki/people/冰冰小美.md",
         "wiki/topics/冰冰小美-AI产业趋势.md",
-        "wiki/topics/中美产业竞争.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-中美产业竞争.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
         "index.md",
         "log.md",
@@ -86,7 +251,7 @@
         "wiki/reasoning/冰冰小美-多重宏观风险信号如何打开风险敞口.md",
         "wiki/topics/概率化决策与风险控制.md",
         "wiki/topics/冰冰小美-AI产业趋势.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/people/冰冰小美.md",
         "index.md",
         "hot.md",
@@ -109,8 +274,8 @@
         "sources/articles/2026-04-18-冰冰小美：Ai-美元战略.md",
         "wiki/people/冰冰小美.md",
         "wiki/topics/冰冰小美-AI产业趋势.md",
-        "wiki/topics/宏观经济.md",
-        "wiki/topics/中美产业竞争.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
+        "wiki/topics/冰冰小美-中美产业竞争.md",
         "index.md",
         "log.md",
         "hot.md",
@@ -133,7 +298,7 @@
         "wiki/concepts/冰冰小美-波动风险.md",
         "wiki/reasoning/冰冰小美-波动风险如何由事件集合与杠杆退散传导为流动性不利.md",
         "wiki/topics/概率化决策与风险控制.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/people/冰冰小美.md",
         "index.md",
         "log.md",
@@ -195,7 +360,7 @@
         "sources/articles/2025-12-18-冰冰小美：2025年总结.md",
         "wiki/views/冰冰小美：2025年宏观交易主线从衰退复苏繁荣切向萧条的阶段判断.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/timelines/冰冰小美-2026一季度宏观阶段时间线.md",
         "index.md",
         "log.md",
@@ -216,7 +381,7 @@
       "pages_updated": [
         "sources/articles/2025-12-18-冰冰小美：2026年一季度展望.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/topics/冰冰小美-AI产业趋势.md",
         "wiki/timelines/冰冰小美-2026一季度宏观阶段时间线.md",
         "index.md",
@@ -239,7 +404,7 @@
       "pages_updated": [
         "sources/articles/2025-11-27-冰冰小美：论锚定美股炒作A股的内核研究.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/中美产业竞争.md",
+        "wiki/topics/冰冰小美-中美产业竞争.md",
         "wiki/topics/冰冰小美-AI产业趋势.md",
         "index.md",
         "log.md",
@@ -321,8 +486,8 @@
       "pages_updated": [
         "sources/articles/2025-09-09-冰冰小美：今年一季度，交易的是衰退，因此失去的三十年主基调，小日子的新消费，比如宠物经济今年二季度，交易的是复苏，因此资产定价重构.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
-        "wiki/topics/中美产业竞争.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
+        "wiki/topics/冰冰小美-中美产业竞争.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
         "index.md",
         "log.md",
@@ -344,7 +509,7 @@
         "sources/articles/2025-09-20-冰冰小美：风险变化如何观察.md",
         "wiki/concepts/冰冰小美-风险转弱节点框架.md",
         "wiki/topics/概率化决策与风险控制.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/people/冰冰小美.md",
         "index.md",
         "log.md",
@@ -366,8 +531,8 @@
       "pages_updated": [
         "sources/articles/2025-10-01-冰冰小美：行路难！行路难！多歧路（国庆静养闲谈）.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
-        "wiki/topics/中美产业竞争.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
+        "wiki/topics/冰冰小美-中美产业竞争.md",
         "wiki/topics/冰冰小美-AI产业趋势.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
         "wiki/concepts/冰冰小美-ETF行情.md",
@@ -430,7 +595,7 @@
       "pages_updated": [
         "wiki/people/冰冰小美.md",
         "wiki/topics/概率化决策与风险控制.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/concepts/冰冰小美-风险转弱节点框架.md",
         "wiki/views/冰冰小美：宏观服务风险识别与仓位调整的判断框架.md",
         "index.md",
@@ -451,7 +616,7 @@
       ],
       "pages_updated": [
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/concepts/产业思维.md",
         "wiki/views/冰冰小美：交易风控先看风险与国运的判断框架.md",
         "index.md",
@@ -513,8 +678,8 @@
       "pages_updated": [
         "sources/articles/2025-03-02-冰冰小美：视角与战略.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
-        "wiki/topics/中美产业竞争.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
+        "wiki/topics/冰冰小美-中美产业竞争.md",
         "wiki/topics/冰冰小美-AI产业趋势.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
         "wiki/views/冰冰小美：川普再次当选后的美国霸权重塑判断框架.md",
@@ -537,7 +702,7 @@
       "pages_updated": [
         "sources/articles/2025-03-05-冰冰小美：米股的影响.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "index.md",
         "log.md",
         "hot.md"
@@ -556,7 +721,7 @@
       "pages_updated": [
         "sources/articles/2025-03-05-冰冰小美：流动性的问题.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/concepts/冰冰小美-流动性辩证分析.md",
         "wiki/reasoning/冰冰小美-经济正向循环如何从风险化解传导为资产定价权增强.md",
         "index.md",
@@ -591,7 +756,7 @@
       "pages_updated": [
         "sources/articles/2025-03-11-冰冰小美：如何理解经济的正向循环.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/topics/冰冰小美-AI产业趋势.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
         "index.md",
@@ -612,7 +777,7 @@
       "pages_updated": [
         "sources/articles/2025-04-04-冰冰小美：困境与抉择.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
         "wiki/concepts/冰冰小美-债务、分配与增长约束.md",
         "wiki/concepts/冰冰小美-中央加杠杆.md",
@@ -635,8 +800,8 @@
       "pages_updated": [
         "sources/articles/2025-04-04-冰冰小美：未来美元的流动.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
-        "wiki/topics/中美产业竞争.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
+        "wiki/topics/冰冰小美-中美产业竞争.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
         "wiki/views/冰冰小美：关税重塑美元流动与制造业回流的判断框架.md",
         "index.md",
@@ -657,7 +822,7 @@
       "pages_updated": [
         "sources/articles/2025-04-04-冰冰小美：关税对于大宗商品的影响.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
         "wiki/views/冰冰小美：有色拐点取决于通胀预期回落的阶段判断.md",
         "wiki/reasoning/冰冰小美-有色金属拐点推导.md",
@@ -681,8 +846,8 @@
         "wiki/people/冰冰小美.md",
         "wiki/concepts/冰冰小美-三大配置.md",
         "wiki/concepts/冰冰小美-相信.md",
-        "wiki/topics/宏观经济.md",
-        "wiki/topics/中美产业竞争.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
+        "wiki/topics/冰冰小美-中美产业竞争.md",
         "wiki/topics/冰冰小美-AI产业趋势.md",
         "index.md",
         "log.md",
@@ -704,7 +869,7 @@
       "pages_updated": [
         "sources/articles/2025-04-19-冰冰小美：猪周期分析框架.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/topics/概率化决策与风险控制.md",
         "wiki/concepts/产业思维.md",
         "index.md",
@@ -726,8 +891,8 @@
       "pages_updated": [
         "sources/articles/2025-04-14-冰冰小美：90天的可能性路径演绎.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
-        "wiki/topics/中美产业竞争.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
+        "wiki/topics/冰冰小美-中美产业竞争.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
         "index.md",
         "log.md",
@@ -919,7 +1084,7 @@
       "pages_updated": [
         "sources/articles/2026-01-23-冰冰小美：何为国运红利的分配.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/concepts/产业思维.md",
         "index.md",
         "log.md",
@@ -940,7 +1105,7 @@
       "pages_updated": [
         "sources/articles/2025-05-17-冰冰小美：股市投资者的困境.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/topics/概率化决策与风险控制.md",
         "wiki/concepts/冰冰小美-流动性辩证分析.md",
         "index.md",
@@ -961,7 +1126,7 @@
       "pages_updated": [
         "sources/articles/2025-06-15-冰冰小美：当风险突然降临的时候.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/topics/概率化决策与风险控制.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
         "wiki/concepts/冰冰小美-风险转弱节点框架.md",
@@ -984,7 +1149,7 @@
       "pages_updated": [
         "sources/articles/2025-06-15-冰冰小美：目前有什么有利.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/topics/概率化决策与风险控制.md",
         "wiki/concepts/冰冰小美-中央加杠杆.md",
         "wiki/concepts/冰冰小美-流动性辩证分析.md",
@@ -1029,7 +1194,7 @@
       "pages_updated": [
         "sources/articles/2025-07-20-冰冰小美：历史的真实写照.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/concepts/冰冰小美-中央加杠杆.md",
         "wiki/views/冰冰小美：经济正向循环由风险化解与资产定价权重塑驱动的判断框架.md",
         "index.md",
@@ -1069,8 +1234,8 @@
       "pages_updated": [
         "sources/articles/2025-04-27-冰冰小美：竞争格局的演绎.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
-        "wiki/topics/中美产业竞争.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
+        "wiki/topics/冰冰小美-中美产业竞争.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
         "index.md",
         "log.md",
@@ -1313,7 +1478,7 @@
         "wiki/concepts/冰冰小美-流动性辩证分析.md",
         "wiki/reasoning/冰冰小美-2024大事件如何传导为产业ETF行情.md",
         "wiki/topics/概率化决策与风险控制.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "index.md",
         "hot.md",
         "log.md"
@@ -1332,7 +1497,7 @@
       "pages_updated": [
         "sources/articles/2024-11-12-冰冰小美：风险与机遇的时代风云.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/中美产业竞争.md",
+        "wiki/topics/冰冰小美-中美产业竞争.md",
         "wiki/views/冰冰小美：川普再次当选后的美国霸权重塑判断框架.md",
         "wiki/reasoning/冰冰小美-川普再次当选后的美国霸权重塑推导链.md",
         "index.md",
@@ -1354,8 +1519,8 @@
       "pages_updated": [
         "sources/articles/2024-11-16-冰冰小美：站在历史转折的节点看金融.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
-        "wiki/topics/中美产业竞争.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
+        "wiki/topics/冰冰小美-中美产业竞争.md",
         "wiki/timelines/冰冰小美-2024年11月竞争白热化时间线.md",
         "index.md",
         "hot.md",
@@ -1376,8 +1541,8 @@
       "pages_updated": [
         "sources/articles/2024-11-16-冰冰小美：历史与政治与经济学.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
-        "wiki/topics/中美产业竞争.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
+        "wiki/topics/冰冰小美-中美产业竞争.md",
         "wiki/timelines/冰冰小美-2024年11月竞争白热化时间线.md",
         "index.md",
         "hot.md",
@@ -1398,7 +1563,7 @@
       ],
       "pages_updated": [
         "wiki/people/冰冰小美.md",
-        "wiki/topics/中美产业竞争.md",
+        "wiki/topics/冰冰小美-中美产业竞争.md",
         "wiki/topics/冰冰小美-AI产业趋势.md",
         "index.md",
         "hot.md",
@@ -1419,7 +1584,7 @@
       "pages_updated": [
         "sources/articles/2025-07-22-冰冰小美：如果这是牛市.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/concepts/冰冰小美-中央加杠杆.md",
         "wiki/views/冰冰小美：经济正向循环由风险化解与资产定价权重塑驱动的判断框架.md",
         "wiki/views/冰冰小美-雅江工程与顺周期财政观.md",
@@ -1442,7 +1607,7 @@
       "pages_updated": [
         "sources/articles/2025-07-24-冰冰小美：顺周期与国情.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/concepts/冰冰小美-中央加杠杆.md",
         "wiki/views/冰冰小美：经济正向循环由风险化解与资产定价权重塑驱动的判断框架.md",
         "wiki/views/冰冰小美-雅江工程与顺周期财政观.md",
@@ -1550,8 +1715,8 @@
       "pages_updated": [
         "sources/articles/2025-08-17-冰冰小美：定位与立场--美帝的花招与部分兔的不自信.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
-        "wiki/topics/中美产业竞争.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
+        "wiki/topics/冰冰小美-中美产业竞争.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
         "wiki/concepts/冰冰小美-三大配置.md",
         "wiki/views/冰冰小美：中美产业竞争白热化推动两强格局的判断框架.md",
@@ -1576,7 +1741,7 @@
       "pages_updated": [
         "sources/articles/2025-10-02-冰冰小美：长期主义与变通.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/topics/冰冰小美-AI产业趋势.md",
         "wiki/concepts/产业思维.md",
         "wiki/concepts/冰冰小美-三大配置.md",
@@ -1601,8 +1766,8 @@
       "pages_updated": [
         "sources/articles/2025-10-05-冰冰小美：国家资本与金融中心重塑.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
-        "wiki/topics/中美产业竞争.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
+        "wiki/topics/冰冰小美-中美产业竞争.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
         "wiki/concepts/冰冰小美-ETF行情.md",
         "wiki/concepts/冰冰小美-中央加杠杆.md",
@@ -1626,7 +1791,7 @@
       "pages_updated": [
         "sources/articles/2025-10-06-冰冰小美：陷阱与风波.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/topics/冰冰小美-AI产业趋势.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
         "index.md",
@@ -1649,7 +1814,7 @@
       "pages_updated": [
         "sources/articles/2025-10-11-冰冰小美：错综复杂的局面.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/topics/概率化决策与风险控制.md",
         "wiki/topics/冰冰小美-AI产业趋势.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
@@ -1673,7 +1838,7 @@
       "pages_updated": [
         "sources/articles/2025-10-19-冰冰小美：波动风险.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/topics/概率化决策与风险控制.md",
         "wiki/topics/冰冰小美-AI产业趋势.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
@@ -1699,8 +1864,8 @@
         "sources/articles/2025-11-29-冰冰小美：重大事件重要节点.md",
         "sources/articles/2025-11-29-冰冰小美：比特币暴跌与白银逼空的内核研究.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
-        "wiki/topics/中美产业竞争.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
+        "wiki/topics/冰冰小美-中美产业竞争.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
         "index.md",
         "log.md",
@@ -1723,8 +1888,8 @@
         "sources/articles/2025-11-29-冰冰小美：重大事件重要节点.md",
         "sources/articles/2025-11-29-冰冰小美：比特币暴跌与白银逼空的内核研究.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
-        "wiki/topics/中美产业竞争.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
+        "wiki/topics/冰冰小美-中美产业竞争.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
         "index.md",
         "log.md",
@@ -1746,7 +1911,7 @@
       "pages_updated": [
         "sources/articles/2025-12-05-冰冰小美：自动化与设备周期.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/topics/冰冰小美-AI产业趋势.md",
         "wiki/concepts/产业思维.md",
         "wiki/views/冰冰小美：工程机械低吸慢配并等待兑现的阶段判断.md",
@@ -1770,7 +1935,7 @@
       "pages_updated": [
         "sources/articles/2025-12-07-冰冰小美：2025美国安全战略.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/中美产业竞争.md",
+        "wiki/topics/冰冰小美-中美产业竞争.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
         "index.md",
         "log.md",
@@ -1794,7 +1959,7 @@
         "wiki/concepts/冰冰小美-铜铝差异框架.md",
         "wiki/people/冰冰小美.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/concepts/产业思维.md",
         "wiki/concepts/冰冰小美-三大配置.md",
         "index.md",
@@ -1815,7 +1980,7 @@
       ],
       "pages_updated": [
         "sources/articles/2025-12-27-冰冰小美：循环.md",
-        "wiki/topics/中美产业竞争.md",
+        "wiki/topics/冰冰小美-中美产业竞争.md",
         "wiki/topics/冰冰小美-AI产业趋势.md",
         "wiki/people/冰冰小美.md",
         "index.md",
@@ -1839,7 +2004,7 @@
         "sources/articles/2025-12-27-冰冰小美：铜与铝的不同.md",
         "wiki/people/冰冰小美.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/concepts/产业思维.md",
         "wiki/concepts/冰冰小美-三大配置.md",
         "index.md",
@@ -1863,7 +2028,7 @@
         "sources/articles/2026-01-14-冰冰小美：从碳中和到商业航天.md",
         "wiki/concepts/产业思维.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/中美产业竞争.md",
+        "wiki/topics/冰冰小美-中美产业竞争.md",
         "index.md",
         "log.md",
         "hot.md",
@@ -1884,7 +2049,7 @@
       "pages_updated": [
         "sources/articles/2025-12-17-冰冰小美：宏观.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/topics/概率化决策与风险控制.md",
         "wiki/concepts/冰冰小美-ETF行情.md",
         "index.md",
@@ -1947,7 +2112,7 @@
       "pages_updated": [
         "wiki/concepts/产业思维.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/中美产业竞争.md",
+        "wiki/topics/冰冰小美-中美产业竞争.md",
         "wiki/topics/冰冰小美-比亚迪投资跟踪.md",
         "index.md",
         "log.md",
@@ -2009,7 +2174,7 @@
       "pages_updated": [
         "sources/articles/2026-01-04-冰冰小美：新门罗主义与G2.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/中美产业竞争.md",
+        "wiki/topics/冰冰小美-中美产业竞争.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
         "index.md",
         "log.md",
@@ -2031,7 +2196,7 @@
       "pages_updated": [
         "sources/articles/2026-01-11-冰冰小美：中国政府投资理念与美国政府的模仿与实践.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/中美产业竞争.md",
+        "wiki/topics/冰冰小美-中美产业竞争.md",
         "wiki/concepts/冰冰小美-中央加杠杆.md",
         "index.md",
         "log.md",
@@ -2112,7 +2277,7 @@
       "pages_updated": [
         "sources/articles/2026-03-20-冰冰小美：如何理解时间窗口.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/topics/概率化决策与风险控制.md",
         "index.md",
         "log.md",
@@ -2134,7 +2299,7 @@
       "pages_updated": [
         "sources/articles/2026-03-20-冰冰小美：宏观分析的框架.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/topics/概率化决策与风险控制.md",
         "index.md",
         "log.md",
@@ -2249,7 +2414,7 @@
       "pages_updated": [
         "sources/articles/2026-05-10-冰冰小美：历史危机的经验与警示.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/topics/冰冰小美-AI产业趋势.md",
         "wiki/topics/冰冰小美-知识地图.md",
         "index.md",
@@ -2296,7 +2461,7 @@
       "pages_updated": [
         "sources/articles/2026-02-24-冰冰小美：2026年二月月报.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/topics/冰冰小美-AI产业趋势.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
         "wiki/timelines/冰冰小美-2026一季度宏观阶段时间线.md",
@@ -2321,10 +2486,10 @@
       ],
       "pages_updated": [
         "sources/articles/2026-02-24-冰冰小美：2026年二月月报（二）.md",
-        "wiki/topics/中美产业竞争.md",
+        "wiki/topics/冰冰小美-中美产业竞争.md",
         "wiki/concepts/产业思维.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/topics/冰冰小美-AI产业趋势.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
         "wiki/timelines/冰冰小美-2026一季度宏观阶段时间线.md",
@@ -2356,7 +2521,7 @@
       ],
       "pages_updated": [
         "sources/articles/2026-04-14-冰冰小美：美国战略与中国竞争.md",
-        "wiki/topics/中美产业竞争.md",
+        "wiki/topics/冰冰小美-中美产业竞争.md",
         "wiki/topics/冰冰小美-AI产业趋势.md",
         "wiki/topics/冰冰小美-知识地图.md",
         "wiki/people/冰冰小美.md",
@@ -2387,8 +2552,8 @@
       "pages_updated": [
         "sources/articles/2026-05-16-冰冰小美：历史节点总是阴云密布.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
-        "wiki/topics/中美产业竞争.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
+        "wiki/topics/冰冰小美-中美产业竞争.md",
         "wiki/topics/概率化决策与风险控制.md",
         "wiki/topics/冰冰小美-知识地图.md",
         "index.md",
@@ -2418,8 +2583,8 @@
       ],
       "pages_updated": [
         "sources/articles/2026-05-14-冰冰小美：中美建设性战略稳定关系.md",
-        "wiki/topics/中美产业竞争.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-中美产业竞争.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/topics/冰冰小美-知识地图.md",
         "wiki/people/冰冰小美.md",
         "index.md",
@@ -2449,7 +2614,7 @@
       "pages_updated": [
         "sources/articles/2026-02-26-冰冰小美：2026年二月月报（三）.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/topics/冰冰小美-化工投资跟踪.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
         "wiki/topics/冰冰小美-AI产业趋势.md",
@@ -2515,7 +2680,7 @@
       "pages_updated": [
         "sources/articles/2026-02-28-冰冰小美：留一半清醒.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/宏观经济.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
         "wiki/topics/冰冰小美-AI产业趋势.md",
         "wiki/topics/概率化决策与风险控制.md",
