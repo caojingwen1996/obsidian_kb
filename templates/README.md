@@ -18,4 +18,5 @@
 - `view-page-template.md`：View Page / 观点页
 - `timeline-page-template.md`：Timeline Page / 时间线页
 - `reasoning-page-template.md`：Reasoning Page / 推导链页
+- `query-page-templates.md`：Query Page / 问题页
 - `topic-page-template.md`：Topic Page / 主题聚合页

@@ -1,7 +1,104 @@
-﻿# 知识库日志
+# 知识库日志
 
 > 按时间顺序记录知识库操作。仅追加，不覆盖。
 > 格式：`## [YYYY-MM-DD] action | subject`
+
+## [2026-05-29] ingest | register bingbing xiaomei history-politics-economics raw source
+
+- 复核原始 txt `E:/caojingwen/obsidian/source/冰冰小美专栏/20241116/181800_历史与政治与经济学_31305048.txt`，确认其已归档为 `sources/articles/2024-11-16-冰冰小美：历史与政治与经济学.md`。
+- 既有观点页 `wiki/views/冰冰小美：美国纠错能力支撑中美竞争合作的判断框架.md`、推导页 `wiki/reasoning/冰冰小美-美国纠错能力如何传导为中美竞争合作.md`、主题页 `wiki/topics/中美产业竞争.md` 与时间线 `wiki/timelines/冰冰小美-2024年11月竞争白热化时间线.md` 已承接该资料；本次不新增正式知识页。
+- 更新 `hot.md` 与 `.manifest.json`，把该 raw 来源补入 manifest；`index.md` 页面总数保持 `245`。
+- 说明：原文关于休克疗法、美国历史纠错能力、川普供给修复、中美竞争合作和有色金属供需共振等表述，均按作者阶段性观点或待验证变量处理，不写成已被外部验证的事实结论。
+
+## [2026-05-29] ingest | add bingbing xiaomei trump-musk high-end manufacturing view
+
+- 新增原始资料归档 `sources/articles/2024-12-21-冰冰小美：米.md`，保留雪球主帖正文、作者补充、发布时间、链接和内容 ID，并剔除平台导航、普通评论区、热榜等噪音。
+- 新增观点页 `wiki/views/冰冰小美：川马新政推动高端制造与AI前沿竞争的判断框架.md`，将“川马新政不是简单中低端制造业回流，而是围绕高端制造、AI、机器人、通信、军民融合和金融资产吸附展开的竞争前沿”整理为 View Page。
+- 新增推导页 `wiki/reasoning/冰冰小美-川马新政如何从高端制造传导为A股产业映射.md`，拆解关税、供应链分散、智能工厂、机器人、AI 创新、特斯拉/马斯克叙事和 A 股产业映射之间的传导链。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/topics/中美产业竞争.md`、`wiki/topics/冰冰小美-AI产业趋势.md`、`index.md`、`hot.md` 与 `.manifest.json` 的回链和登记信息。
+- 说明：文中关于川马新政、特斯拉、马斯克、AI、比特币、美股、美元和 A 股映射的表述，均按作者阶段性观点或待验证变量处理，未写成已确认事实结论。
+
+## [2026-05-29] ingest | register bingbing xiaomei financial-turning-point raw source
+
+- 复核原始 txt `E:/caojingwen/obsidian/source/冰冰小美专栏/20241116/113600_站在历史转折的节点看金融_31302893.txt`，确认其已归档为 `sources/articles/2024-11-16-冰冰小美：站在历史转折的节点看金融.md`。
+- 既有观点页 `wiki/views/冰冰小美：金融市场转型服务产业创新的判断框架.md`、推导页 `wiki/reasoning/冰冰小美-金融市场转型如何传导为产业创新行情.md`、主题页 `wiki/topics/中美产业竞争.md` 与时间线 `wiki/timelines/冰冰小美-2024年11月竞争白热化时间线.md` 已承接该资料；本次不新增正式知识页。
+- 更新 `hot.md` 与 `.manifest.json`，把该 raw 来源补入 manifest；`index.md` 页面总数保持 `245`。
+- 说明：原文关于美国纠错能力、金融机构道德风险、产业个股上涨、基金法律和证券法改革等表述，均按作者阶段性观点或待验证变量处理，不写成已被外部验证的事实结论。
+
+## [2026-05-29] ingest | add bingbing xiaomei strong dollar manufacturing reshoring view
+
+- 复用既有原始资料 `sources/articles/2024-11-12-冰冰小美：风险与机遇的时代风云.md`，并补充该原文已提炼为正式观点页的备注；未重复创建 source。
+- 新增观点页 `wiki/views/冰冰小美：强美元与制造业回流约束美元外溢的判断框架.md`，沉淀“强美元、加息缩表、关税保护和制造业回流可能让降息后的美元继续留在美国，而非自然外溢全球”的阶段判断。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/topics/中美产业竞争.md`、`wiki/views/冰冰小美：川普再次当选后的美国霸权重塑判断框架.md`、`wiki/reasoning/冰冰小美-川普再次当选后的美国霸权重塑推导链.md`、`index.md`、`hot.md` 与 `.manifest.json` 的回链和登记信息。
+- 说明：文中美元指数、道琼斯指数、纽约联储缩表预测、人民币汇率和美股 / 比特币泡沫重置等表述，均按作者阶段性观察或待验证变量处理，未写成已确认事实结论。
+
+## [2026-05-29] ingest | add bingbing xiaomei etf market structure concept
+
+- 复用既有原始资料 `sources/articles/2024-11-12-冰冰小美：ETF基金与行情特征.md`，并补充该原文已提炼为正式概念页的备注；未重复创建 source。
+- 新增概念页 `wiki/concepts/冰冰小美-ETF行情.md`，沉淀“ETF 作为流动性、指数行业权重、资金蓄水池和普通投资者低摩擦表达工具，如何形成慢牛、价值投机或 ETF 趋势行情”的市场结构概念。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/concepts/冰冰小美-流动性辩证分析.md`、`wiki/reasoning/冰冰小美-2024大事件如何传导为产业ETF行情.md`、`wiki/topics/概率化决策与风险控制.md`、`wiki/topics/宏观经济.md`、`index.md`、`hot.md` 与 `.manifest.json` 的回链和登记信息。
+- 说明：文中关于 ETF 持仓比例、国家队买入、公募基金信任危机、20 万亿流动性等表述，均按作者观点或待验证变量处理，未写成已确认事实结论。
+
+## [2026-05-29] ingest | register bingbing xiaomei competition-intensifies raw source
+
+- 复核原始 txt `E:/caojingwen/obsidian/source/冰冰小美专栏/20241110/200300_竞争白热化_31203449.txt`，确认其已归档为 `sources/articles/2024-11-10-冰冰小美：竞争白热化.md`。
+- 既有观点页 `wiki/views/冰冰小美：中美产业竞争白热化推动两强格局的判断框架.md`、推导页 `wiki/reasoning/冰冰小美-中美产业竞争如何传导为两强格局.md`、主题页 `wiki/topics/中美产业竞争.md` 与时间线 `wiki/timelines/冰冰小美-2024年11月竞争白热化时间线.md` 已承接该资料；本次不新增正式知识页。
+- 更新来源页备注、`hot.md` 与 `.manifest.json`，把该 raw 来源补入 manifest；`index.md` 页面总数保持 `243`。
+- 说明：原文关于“两强格局大势所趋”“全面军事冲突概率较小”等表述按作者阶段性判断处理，不写成已被外部验证的事实结论。
+
+## [2026-05-29] ingest | register bingbing xiaomei 2024 event landing raw source
+
+- 复核原始 txt `E:/caojingwen/obsidian/source/冰冰小美专栏/20241109/105400_2024大事件落地_未来行情演绎_31193621.txt`，确认其已归档为 `sources/articles/2024-11-09-冰冰小美：2024大事件落地.md`。
+- 既有观点页 `wiki/views/冰冰小美：2024大事件落地后未来行情演绎的阶段判断.md`、推导页 `wiki/reasoning/冰冰小美-2024大事件如何传导为产业ETF行情.md` 与时间线 `wiki/timelines/冰冰小美-2024年11月竞争白热化时间线.md` 已承接该资料；本次不新增正式知识页。
+- 更新来源页备注、`hot.md` 与 `.manifest.json`，把该 raw 来源补入 manifest；`index.md` 页面总数保持 `243`。
+- 说明：原文关于“竞争主导、产业推动、ETF行情、价值投机”的表述按作者阶段性判断处理，不写成已被外部验证的事实结论。
+
+## [2026-05-29] ingest | register bingbing xiaomei trading system framework pointer
+
+- 复核既有原始资料 `sources/articles/2024-11-09-冰冰小美：冰冰小美交易体系大概框架.md`，补充作者评论区边界提示：体系更新大多数是实战交易的实时过程，很多案例有特定背景。
+- 更新 `wiki/concepts/冰冰小美-体系三要素.md`，将该来源作为交易体系总框架线索接入，并在概念边界中注明不能把案例脱离背景复刻为固定公式。
+- 更新 `hot.md` 与 `.manifest.json`，登记该 raw 来源；未新建正式观点页或推导页，因为原文未保存被转发网页的完整框架内容。
+- 说明：本文正文只有“网页链接谢谢整理”，知识库只沉淀来源线索和使用边界，不从缺失正文中推导新结论。
+
+## [2026-05-29] ingest | add bingbing xiaomei yarlung hydropower fiscal demand view
+
+- 复用既有原始资料 `sources/articles/2025-07-20-冰冰小美：历史的真实写照.md`，并补充该原文已提炼为正式观点页的备注；未重复创建 source。
+- 新增观点页 `wiki/views/冰冰小美：雅鲁藏布江水电工程承接中央加杠杆与反通缩的判断框架.md`，沉淀“历史级基建可作为中央加杠杆主导需求、供给侧反内卷配合需求侧托底、进而推动反通缩和顺周期修复”的阶段判断。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/topics/宏观经济.md`、`wiki/concepts/冰冰小美-中央加杠杆.md`、`wiki/views/冰冰小美：经济正向循环由风险化解与资产定价权重塑驱动的判断框架.md`、`index.md`、`hot.md` 与 `.manifest.json` 的回链和登记信息。
+- 说明：文中关于雅鲁藏布江工程规模、建设周期、参与企业数量、地缘影响和顺周期行情的表述，均按作者观点、历史类比或待验证变量处理，未写成已确认事实结论。
+
+## [2026-05-29] ingest | add bingbing xiaomei concession concept
+
+- 复用既有原始资料 `sources/articles/2025-06-30-冰冰小美：情绪体系短线交易篇.md`，并补充该原文已提炼为正式概念页的备注；未重复创建 source。
+- 新增概念页 `wiki/concepts/冰冰小美-让利.md`，沉淀“核心情绪标不吃尽日内溢价，而是通过示弱、轮动、充分接力和维护市场情绪延长行情周期”的短线情绪结构。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/concepts/冰冰小美-情绪体系.md`、`wiki/concepts/冰冰小美-体系三要素.md`、`wiki/concepts/冰冰小美-流动性辩证分析.md`、`wiki/topics/概率化决策与风险控制.md`、`index.md`、`hot.md` 与 `.manifest.json` 的回链和登记信息。
+- 同步在 `.manifest.json` 补登记此前遗漏的 2025-06-15《目前有什么有利》raw 来源，避免后续重复 ingest。
+- 说明：文中个股、量化轮动、游资行为和短线案例未在本次整理中独立核验，均保留为作者观点、市场观察或待验证变量。
+
+## [2026-05-29] ingest | add bingbing xiaomei favorable conditions view
+
+- 复用既有原始资料 `sources/articles/2025-06-15-冰冰小美：目前有什么有利.md`，并补充该原文已提炼为正式观点页的备注；未重复创建 source。
+- 新增观点页 `wiki/views/冰冰小美：中央加杠杆与H股小牛支撑做多判断的框架.md`，沉淀“风险判断之后，中央加杠杆、利差吸引力、外资重估和 H 股小牛趋势共同构成做多支撑条件”的阶段判断。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/topics/宏观经济.md`、`wiki/concepts/冰冰小美-中央加杠杆.md`、`wiki/concepts/冰冰小美-流动性辩证分析.md`、`index.md`、`hot.md` 与 `.manifest.json` 的回链和登记信息。
+- 同步在 `.manifest.json` 补登记同日《当风险突然降临的时候》和《目前有什么有利》两篇 raw 来源，避免后续重复 ingest。
+- 说明：文中银行利率、股息率、外资介入、H 股趋势、新能源海外销售、房地产债务置换等高变动或待核验内容，均按作者观点或待验证变量处理，未写成当前事实结论。
+
+## [2026-05-29] ingest | add bingbing xiaomei sudden risk reassessment view
+
+- 复用既有原始资料 `sources/articles/2025-06-15-冰冰小美：当风险突然降临的时候.md`，并补充该原文已提炼为正式观点页的备注；未重复创建 source。
+- 新增观点页 `wiki/views/冰冰小美：突发风险降临时先重估风险层级与交易窗口的判断框架.md`，沉淀“突发风险出现后先区分企业信用、短期地缘和持续性宏观传导，再重估仓位和交易窗口”的判断框架。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/topics/宏观经济.md`、`wiki/topics/概率化决策与风险控制.md`、`wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md`、`wiki/concepts/冰冰小美-风险转弱节点框架.md` 与 `wiki/views/冰冰小美：交易风控先看风险与国运的判断框架.md`，把该观点接回人物线、风控线、宏观线和地缘风险线。
+- 同步更新 `index.md`、`hot.md` 与 `.manifest.json`。
+- 说明：文中个股、ETF、指数点位、以伊冲突、美债重置和稳定币议程细节未在本次整理中独立核验，均保留为作者观点或待验证变量。
+
+## [2026-05-28] ingest | add bingbing xiaomei stock investor dilemma view and reasoning
+
+- 复用既有原始资料 `sources/articles/2025-05-17-冰冰小美：股市投资者的困境.md`，并补充该原文已提炼到观点页和推导页的备注；未重复创建 source。
+- 新增观点页 `wiki/views/冰冰小美：极致报团与投机分化构成股市投资者困境的判断框架.md`，沉淀“股市投资者困境来自流动性主体分化、基金信任危机、量化游资共振和投机生态加重”的阶段判断。
+- 新增推导链页 `wiki/reasoning/冰冰小美-股市投资者困境如何由流动性主体分化与量化报团形成.md`，拆解宏观不确定性、基金卖压、ETF 替代、量化程序化一致性、游资诱导和做多结构如何共同形成投资者困境。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/topics/宏观经济.md`、`wiki/topics/概率化决策与风险控制.md` 与 `wiki/concepts/冰冰小美-流动性辩证分析.md`，把该观点接回人物线、宏观资金结构、交易前风险检查和流动性主体分化概念。
+- 同步更新 `index.md`、`hot.md` 与 `.manifest.json`。
+- 说明：文中关于基金供给过剩、量化影响、险资迁移、HETF 风格和个股案例的事实细节未在本次整理中独立核验，均保留为作者观点或待验证变量。
 
 ## [2026-05-27] docs | split page templates into templates directory
 
@@ -586,7 +683,7 @@
 
 ## [2026-04-22] ingest | xueqiu compilation 380960384 and linked bingbing xiaomei posts
 
-- 归档了 `岜菲特` 于 `2026-03-25` 发布的雪球合集页到 `raw/articles/2026-03-25-2026年1月宏观复盘：风险判断与仓位控制.md`，保留了 41 条子帖链接清单。
+- 归档了 `岜菲特` 于 `2026-03-25` 发布的雪球合集页到 `raw/articles/2026-03-25-岜菲特：2026年1月宏观复盘：风险判断与仓位控制.md`，保留了 41 条子帖链接清单。
 - 顺着母页链接成功抓取并整理了 `冰冰小美` 在 `2026-01-04` 到 `2026-01-15` 的 18 篇原文到 `raw/articles/2026-03-25-冰冰小美-2026一季度宏观子帖抓取（已完成41篇）.md`。
 - 另外记录了 23 篇未补齐链接到 `raw/articles/2026-03-25-冰冰小美-2026一季度宏观子帖补抓记录.md`；这些链接不是失效，而是在本轮批量访问中触发了雪球滑块验证。
 - 新增 `summaries/冰冰小美2026一季度宏观阶段时间线.md`，把这批材料压成五阶段复盘，补出了她把“地缘重估、汇率与流动性切换、资源与货币秩序重排”翻译成仓位动作的连续主线。
@@ -633,7 +730,7 @@
 ## [2026-04-25] ingest | default daily directory update for mai gupiao de laomujiang
 
 - 按 `AGENTS.md` 的默认更新规则，读取了 `/Users/cjw/dev/Obsidian/cjw-xueqiu-daily-monitor/20260425/` 作为当天目录来源。
-- 归档了 `买股票的老木匠` 于 `2026-04-25 09:16` 发布的雪球原帖到 `raw/articles/2026-04-25-2015年为了救市，成立了证金公司。该公司是由各个券商筹集资本金发起，并且向央行和商业银行贷款，所获资金用于购买当年下跌的股票.md`。
+- 归档了 `买股票的老木匠` 于 `2026-04-25 09:16` 发布的雪球原帖到 `raw/articles/2026-04-25-买股票的老木匠：2015年为了救市，成立了证金公司。该公司是由各个券商筹集资本金发起，并且向央行和商业银行贷款，所获资金用于购买当年下跌的股票.md`。
 - 新增观点页 `views/买股票的老木匠-2015救市资管计划退场会形成任务型卖压.md`，把“2015 救市资管计划进入退出尾声，会形成任务型卖压”沉淀到正式知识层。
 - 更新 `people/买股票的老木匠.md` 与 `topics/概率化决策与风险控制.md`，补入这条关于非基本面供给与风险识别的回链。
 - 同步更新 `index.md` 与 `log.md`。
@@ -1073,6 +1170,13 @@
 - 将“涨停板”整理为作者对形态崇拜的批评：涨停只是交易中断和观察锚，不能直接等同于强弱标准或隔日溢价承诺，关键仍是时机、情绪标和持续流动性溢价。
 - 更新 `wiki/topics/冰冰小美-常见亏钱认知系列.md` 的逐篇观点页列表和 `index.md`；页面总数从 `167` 调整为 `168`。
 
+## [2026-05-28] ingest | add bingbing xiaomei international economic struggle view
+
+- 复用已有原始资料归档 `sources/articles/2025-04-27-冰冰小美：竞争格局的演绎.md`，未改写原文内容，仅补充正式知识页回链。
+- 新增观点页 `wiki/views/冰冰小美：国际经贸斗争下以我为主推进高质量发展的判断框架.md`，将国际经贸斗争整理为短期关税与地缘不确定性、中期以我为主推进高质量发展、长期区域贸易和国际治理格局重构的三层判断。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/topics/宏观经济.md`、`wiki/topics/中美产业竞争.md`、`wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md`、`index.md`、`hot.md` 与 `.manifest.json` 的回链和登记信息；页面总数从 `232` 调整为 `233`。
+- 说明：原文涉及关税、地缘冲突、政治会议部署、美元政策、全球化退潮和区域贸易等高变动内容，均按作者观点或待验证判断处理，未写成当前事实结论或投资建议。
+
 ## [2026-05-28] ingest | add view for common loss cognition 09 do-not-chase-rising
 
 - 新增观点页 `wiki/views/冰冰小美对切勿追涨恐惧上涨的看法.md`，对应 `sources/articles/2023-06-20-冰冰小美：常见亏钱认知第九期切勿追涨.md`。
@@ -1153,3 +1257,366 @@
 - 将 `wiki/concepts/冰冰小美-情绪体系核心目的.md` 迁移为观点页 `wiki/views/冰冰小美对情绪体系核心目的的看法.md`。
 - 按 View Page 结构重写页面，明确它回答的是“冰冰小美怎么看情绪体系的核心目的”，而不是定义独立 what 类概念。
 - 更新相关页面、来源备注和 `index.md` 的双链；页面总数不变。
+
+## [2026-05-28] refactor | structure emotion system execution layer
+
+- 重构 `wiki/concepts/冰冰小美-情绪体系.md` 的 4.5 小节，将交易执行层从长段落改为仓位与参与频率、时机与势能、变化识别与交易动作、执行者状态与心理纪律、复盘与亏钱效应识别五组。
+- 保留原有链接和含义，只改善阅读结构；页面总数不变。
+
+## [2026-05-28] ingest | add bingbing xiaomei arbitrage and power-tactics backlash view
+
+- 复用既有原始资料 `sources/articles/2023-12-17-冰冰小美：董宇辉事件，看透人性。我曾经大篇幅更新套利，但是不建议套利，因为不够光明磊落。如同，我想提示你关注权谋，但是不建议大家使.md`。
+- 新增观点页 `wiki/views/冰冰小美对套利与权谋反噬的看法.md`，将“可以看懂套利与权谋，但不建议使用，因为不够光明磊落且会反噬”整理为 View Page。
+- 更新 `wiki/people/冰冰小美.md`，在“人物性格”章节补入“重视手段正当性与反噬意识（暂定）”，并标注该观察仍需更多页面印证。
+- 更新 `index.md`，登记新观点入口，页面总数从 `179` 调整为 `180`。
+
+- [2026-05-28T15:45:07+08:00] QUERY query="根据冰冰小美的体系分析 AI竞赛后半程 交割单调仓" result_pages=7 mode=normal escalated=true
+- [2026-05-28T15:56:48+08:00] QUERY query="什么是主线流动性承接？" result_pages=4 mode=normal escalated=false
+
+## [2026-05-28] docs | add query page as formal page type
+
+- 将 Query Page / 问题页加入正式页面类型契约，推荐目录为 `wiki/queries/`，用于沉淀可复用问题、当前答案、推导逻辑和归档状态。
+- 更新 `AGENTS.md`、`schema.md`、`page-types.md` 与 `templates/README.md`，让页面类型总览、目录契约、选择规则和模板索引保持一致。
+- 对齐 `templates/query-page-templates.md` 的 frontmatter 与正式 wiki 页面基础字段，补充相关页面、来源和不确定性章节。
+- 未新增正式知识页，`index.md` 页面总数不变。
+
+## [2026-05-28] capture | add query page for AI delivery-order analysis
+
+- 新增问题页 `wiki/queries/冰冰小美体系下如何理解AI竞赛后半程交割单调仓.md`，保存用户围绕雪球组合“AI竞赛后半程”交割单提出的体系化分析问题。
+- 将核心答案整理为：这笔调仓更像从分散 AI / 半导体个股暴露切到 ETF 和核心 AI 硬件链条承接，而不是退出 AI 主线。
+- 链接 `冰冰小美-体系三要素`、`冰冰小美-流动性辩证分析`、`冰冰小美-交割单认知`、`冰冰小美-AI产业趋势` 等相关页面，并保留不确定性说明。
+- 更新 `index.md`，新增“问题”分区并登记该 Query Page，页面总数从 `180` 调整为 `181`。
+- [2026-05-28T16:18:44+08:00] CAPTURE type=query page="wiki/queries/冰冰小美体系下如何理解AI竞赛后半程交割单调仓.md" title="冰冰小美体系下如何理解AI竞赛后半程交割单调仓"
+- [2026-05-28T16:19:17+08:00] QUERY query="这是冰冰小美今日整体的仓位占比，分析她的持仓" result_pages=5 mode=normal escalated=true
+
+## [2026-05-28] ingest | add bingbing xiaomei trump-era us hegemony view and reasoning
+
+- 新增原始资料归档 `sources/articles/2024-11-07-冰冰小美：危机、霸权与再次伟大的美国.md`，保留雪球文章来源信息和正文，剔除页面导航、评论区与热榜噪音。
+- 新增观点页 `wiki/views/冰冰小美：川普再次当选后的美国霸权重塑判断框架.md`，将作者“川普再次当选可能对应美国通过关税、货币信用、再工业化和军备重塑霸权”的判断整理为 View Page。
+- 新增推导页 `wiki/reasoning/冰冰小美-川普再次当选后的美国霸权重塑推导链.md`，拆解历史类比、政策组合、财政债务修复和中美中高端产业竞争之间的传导链。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/topics/宏观经济.md`、`wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md` 与 `index.md`；页面总数从 `181` 调整为 `183`。
+- [2026-05-28T17:11:17+08:00] QUERY query="为什么作者反复提到2028年？是如何计算出这个时间节点的？" result_pages=7 mode=normal escalated=true
+- [2026-05-28T17:14:12+08:00] CAPTURE type=query page="wiki/queries/冰冰小美为什么反复提到2028年.md" title="冰冰小美为什么反复提到2028年"
+
+## [2026-05-28] ingest | add bingbing xiaomei central leverage framework
+
+- 新增原始资料归档 `sources/articles/2024-11-08-冰冰小美：中央加杠杆.md`，保留正文和作者评论中关于“金融 war”、信息来源、美国历史类比和 A 股第一轮行情的有效补充。
+- 新增概念页 `wiki/concepts/冰冰小美-中央加杠杆.md`，将“中央加杠杆”整理为中央信用承接地方债务压力、释放财政空间和资产重估锚的宏观概念。
+- 新增观点页 `wiki/views/冰冰小美：中央加杠杆确认化债与资产重估的判断框架.md`，记录作者对 2024-2029 化债窗口、12 万亿级规模、赤字率空间、央行工具和汇率/通胀约束的阶段判断。
+- 新增推导页 `wiki/reasoning/冰冰小美-中央加杠杆如何传导为财政刺激与资产重估.md`，拆解地方债务置换、中央信用承接、财政空间释放、机构流动性修复和资产定价锚形成的传导链。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/concepts/冰冰小美-债务、分配与增长约束.md`、`wiki/topics/宏观经济.md` 与 `index.md`；页面总数从 `184` 调整为 `187`。
+
+## [2026-05-28] ingest | add bingbing xiaomei 2024 event landing market path
+
+- 复用既有原始资料归档 `sources/articles/2024-11-09-冰冰小美：2024大事件落地.md`，对应雪球文章《2024大事件落地，未来行情演绎》。
+- 新增观点页 `wiki/views/冰冰小美：2024大事件落地后未来行情演绎的阶段判断.md`，将川普胜选、美联储降息缩表、中国化债与中央加杠杆等事件整理为竞争白热化后的行情演绎判断。
+- 新增推导页 `wiki/reasoning/冰冰小美-2024大事件如何传导为产业ETF行情.md`，拆解外部竞争、中观流动性、微观资金结构、ETF 承接和产业资本共振之间的传导链，并补充 Mermaid 流程图。
+- 更新 `wiki/people/冰冰小美.md` 与 `index.md` 的回链；页面总数从 `187` 调整为 `189`。
+
+## [2026-05-28] ingest | add bingbing xiaomei competition intensifies view and reasoning
+
+- 复用既有原始资料归档 `sources/articles/2024-11-10-冰冰小美：竞争白热化.md`，对应雪球文章《竞争白热化》。
+- 新增观点页 `wiki/views/冰冰小美：中美产业竞争白热化推动两强格局的判断框架.md`，将台积电、芯片控制权、美国再工业化、中国优势短板和两强格局整理为 View Page。
+- 新增推导页 `wiki/reasoning/冰冰小美-中美产业竞争如何传导为两强格局.md`，拆解芯片控制权、技术迁移、金融科技军事联动、中国优势短板和军事冲突约束如何传导为长期产业竞争。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/topics/宏观经济.md`、`wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md`、`wiki/topics/冰冰小美-AI产业趋势.md` 与 `index.md` 的回链；页面总数从 `189` 调整为 `191`。
+- 说明：原文涉及台湾、台积电、三星股权、美国保护主义和战争概率等高变动或待核验内容，均按作者观点或推测处理，未写成已验证事实。
+
+## [2026-05-28] ingest | add 2024 November competition intensifies timeline
+
+- 重新依据 `page-types.md` 中 Timeline Page 的定义，新增时间线页 `wiki/timelines/冰冰小美-2024年11月竞争白热化时间线.md`。
+- 该时间线只记录 `2024-11-07` 到 `2024-11-10` 四个关键节点的先后顺序、阶段位置和验证窗口：川普再次当选后的美国霸权重塑、中央加杠杆、2024 大事件落地、竞争白热化。
+- 页面将复杂因果链继续链接到对应 Reasoning Page，将作者观点链接到对应 View Page，避免把 Timeline Page 写成普通摘要或推导页。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/topics/宏观经济.md`、`wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md`、`wiki/topics/冰冰小美-AI产业趋势.md` 与 `index.md` 的回链；页面总数从 `191` 调整为 `192`。
+
+## [2026-05-28] update | enrich 2028 query with user article
+
+- 新增原始资料 `sources/manual/2026-05-28-冰冰小美-2028时间节点补充分析.md`，保存用户提供的 2028 时间节点分析。
+- 更新 `wiki/queries/冰冰小美为什么反复提到2028年.md`，补入 2028 美国奥运、十五五中段、两年兑现期、长电科技估值锚和交易层透支判断。
+- 更新 `index.md` 中该 Query Page 的一句话摘要；本次未新增正式知识页，页面总数保持 `189`。
+
+## [2026-05-28] ingest | add bingbing xiaomei finance transformation view and reasoning
+
+- 复用既有原始资料归档 `sources/articles/2024-11-16-冰冰小美：站在历史转折的节点看金融.md`，对应雪球文章《站在历史转折的节点看金融》。
+- 新增观点页 `wiki/views/冰冰小美：金融市场转型服务产业创新的判断框架.md`，将地产旧路径、白马基金泡沫、基金信任危机和产业资本共振整理为“金融市场必须服务创新产业”的阶段判断。
+- 新增推导页 `wiki/reasoning/冰冰小美-金融市场转型如何传导为产业创新行情.md`，拆解外部竞争、地产旧路径见顶、旧机构利益错位、中央加杠杆与金融改革如何传导为产业个股承接。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/topics/宏观经济.md`、`sources/articles/2024-11-16-冰冰小美：站在历史转折的节点看金融.md` 与 `index.md` 的回链；页面总数从 `192` 调整为 `194`。
+- 说明：原文涉及美国政治、金融改革、基金法律、个股和未来行情等高变动内容，均按作者观点或待验证推测处理，未写成已确认事实。
+
+## [2026-05-28] ingest | add bingbing xiaomei US correction view and reasoning
+
+- 复用既有原始资料归档 `sources/articles/2024-11-16-冰冰小美：历史与政治与经济学.md`，对应雪球文章《历史与政治与经济学》。
+- 新增观点页 `wiki/views/冰冰小美：美国纠错能力支撑中美竞争合作的判断框架.md`，将美国历史纠错能力、川普供给侧路线和中美竞争合作整理为阶段判断。
+- 新增推导页 `wiki/reasoning/冰冰小美-美国纠错能力如何传导为中美竞争合作.md`，拆解金融化问题、美国历史纠错、川普供给修复、中国市场需求和对抗成本之间的传导链。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/topics/宏观经济.md`、`wiki/timelines/冰冰小美-2024年11月竞争白热化时间线.md`、原始资料备注与 `index.md` 的回链；页面总数从 `195` 调整为 `197`。
+- 说明：原文涉及美国政治、经济史、川普政策、中美关系和有色金属需求等高变动或待核验内容，均按作者观点或推测处理，未写成已确认事实。
+
+- [2026-05-28T17:58:56+08:00] QUERY query="知识库中有关于中美竞争的timeline 或者 view 页面吗" result_pages=6 mode=normal escalated=false
+
+## [2026-05-28] ingest | add bingbing xiaomei trading risk-control view
+
+- 新增原始资料归档 `sources/articles/2025-01-03-冰冰小美：交易的风控.md`，保留雪球主帖正文、作者、发布时间、链接和内容 ID，并剔除页面导航、评论区、热榜等噪音。
+- 新增观点页 `wiki/views/冰冰小美：交易风控先看风险与国运的判断框架.md`，将“节点变化 = 风险与机遇的变化”“风险在前，机遇在后”“观察市场内外风险，最终看国情与国运”整理为 View Page。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/topics/概率化决策与风险控制.md`、`wiki/topics/宏观经济.md`、`wiki/concepts/冰冰小美-风险转弱节点框架.md` 和 `wiki/views/冰冰小美：宏观服务风险识别与仓位调整的判断框架.md` 的回链。
+- 更新 `index.md`，登记新观点入口，页面总数从 `194` 调整为 `195`。
+- 说明：原文是作者方法论观点，不包含具体量化指标或买卖规则；“国情与国运”相关判断均按作者观点处理，后续使用时仍需结合具体来源验证。
+
+## [2026-05-28] ingest | add bingbing xiaomei opportunity-source view
+
+- 新增原始资料归档 `sources/articles/2025-01-04-冰冰小美：机遇再后，来源认知.md`，保留雪球主帖正文、作者、发布时间、链接、内容 ID，以及作者评论中关于小地方创业、资源整合、市场信心和利益分配的有效补充。
+- 新增观点页 `wiki/views/冰冰小美：机遇来自产业效率、产品服务与组织能力的判断框架.md`，将作者关于“机会来自产品质量服务、产业协同、组织能力、流通效率和市场企业人才过滤器”的判断整理为 View Page。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/topics/宏观经济.md`、`wiki/concepts/产业思维.md` 和 `wiki/views/冰冰小美：交易风控先看风险与国运的判断框架.md` 的回链。
+- 更新 `index.md`，登记新观点入口，页面总数从 `197` 调整为 `198`。
+- 说明：原文涉及企业组织模式、品牌出海、创业资源约束、市场信心和具体公司示例，均按作者观点或观察处理，未写成已验证事实。
+
+## [2026-05-28] create | add China-US industrial competition topic
+
+- 新增主题页 `wiki/topics/中美产业竞争.md`，作为 Topic Page 聚合中美产业竞争相关的 View、Reasoning、Timeline、Topic 和来源材料。
+- 页面组织美国再工业化、AI 与芯片国家竞争、中国金融市场转型、两强格局和竞争合作边界，并标注相关判断仍需后续事件验证。
+- 更新 `index.md`，在“主题”分区登记新页面，页面总数从 `197` 调整为 `198`。
+
+## [2026-05-28] ingest | add bingbing xiaomei market-not-risk view
+
+- 复用并补充原始资料归档 `sources/articles/2025-01-25-冰冰小美：行情不等于风险.md`，补入作者评论中关于本金、天时、曹操宛城与官渡、2018 贸易战和上涨初期怀疑的有效摘录。
+- 新增观点页 `wiki/views/冰冰小美：行情不等于风险的判断框架.md`，将“行情好不等于风险小，风险减弱才带来容错率”的判断整理为 View Page。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/topics/概率化决策与风险控制.md`、`wiki/concepts/冰冰小美-风险转弱节点框架.md`、`wiki/views/冰冰小美：交易风控先看风险与国运的判断框架.md` 和 `wiki/reasoning/冰冰小美-风险转弱节点如何形成买入窗口.md` 的回链。
+- 更新 `index.md`，登记新观点入口，页面总数从 `198` 调整为 `199`。
+- 说明：原文中的新能源跌幅、兆易创新、2018 贸易战与国产替代等案例未独立核验，均按作者观点或评论区观察处理。
+
+## [2026-05-28] ingest | add bingbing xiaomei update-history timeline
+
+- 复用既有原始资料归档 `sources/articles/2025-01-27-冰冰小美：近年来更新的总结.md`，对应雪球文章《近年来更新的总结》。
+- 新增时间线页 `wiki/timelines/冰冰小美-近年来更新脉络时间线.md`，按作者自述的相对阶段整理其更新内容如何从体系三要素、性格匹配、亏钱认知，扩展到宏观风险、冰点交易、超长线投资和 `2024-2025` 的未知环境。
+- 更新 `wiki/people/冰冰小美.md`、原始资料备注与 `index.md` 的回链；页面总数从 `198` 调整为 `199`。
+- 说明：原文没有给出“第一年、第二年、第三年”的具体日历年份，因此本次按相对阶段建 timeline，并将具体年份和旧帖序列标为待验证。
+
+- [2026-05-28T18:25:01+08:00] QUERY query="冰冰小美对纳斯达克怎么看？" result_pages=8 mode=normal escalated=true
+
+## [2026-05-28] create | add bingbing xiaomei Nasdaq query page
+
+- 新增问题页 `wiki/queries/冰冰小美对纳斯达克怎么看.md`，将一次关于冰冰小美如何看待纳斯达克/纳指式美股科技行情的综合查询整理为 Query Page。
+- 页面把纳指理解为 AI 产业定价、美元流动性、权重化行情、泡沫延续和风险验证的参照物，并保留后续可拆分为 View Page 的不确定性。
+- 更新 `index.md`，在“问题”分区登记新页面，页面总数从 `199` 调整为 `200`。
+
+## [2026-05-28] ingest | register bingbing xiaomei strategy perspective pages
+
+- 复用既有原始资料归档 `sources/articles/2025-03-02-冰冰小美：视角与战略.md`，对应雪球文章《视角与战略》。
+- 新增并登记观点页 `wiki/views/冰冰小美：川马新政围绕筹钱与美元回流展开的判断框架.md` 与推导页 `wiki/reasoning/冰冰小美-川马新政如何传导为美元回流与科技话语权争夺.md`，避免后续重复创建同义页面。
+- 更新 `index.md`、`hot.md` 与 `.manifest.json`，同时补记 `2025-01-27`《近年来更新的总结》的 manifest 状态；页面总数从 `200` 调整为 `202`。
+- 说明：该资料涉及美国财政、关税、欧洲安全风险、美债、AI 竞争和中国央行财政动作等高变动内容，相关页面均按作者观点或推导处理，未写成已确认事实。
+
+## [2026-05-28] link | connect strategy perspective to related hubs
+
+- 补充 `sources/articles/2025-03-02-冰冰小美：视角与战略.md` 的正式页面回链，指向对应 View Page 和 Reasoning Page。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/topics/宏观经济.md`、`wiki/topics/中美产业竞争.md`、`wiki/topics/冰冰小美-AI产业趋势.md` 与 `wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md`，把《视角与战略》接入人物学习线、宏观、产业竞争、AI 与地缘货币秩序主题。
+- 更新 `wiki/views/冰冰小美：川普再次当选后的美国霸权重塑判断框架.md` 与 `wiki/reasoning/冰冰小美-川普再次当选后的美国霸权重塑推导链.md`，把 2025-03-02 的筹钱与美元回流判断作为 2024-11-07 美国霸权重塑框架的后续推进。
+
+## [2026-05-28] ingest | add bingbing xiaomei US stock liquidity risk view
+
+- 复用既有原始资料归档 `sources/articles/2025-03-05-冰冰小美：米股的影响.md`，未改写原文内容。
+- 新增观点页 `wiki/views/冰冰小美：美股恐慌折射美元流动性与泡沫风险的判断框架.md`，将美股、BTC、关税通胀、联储加息预期、美元信用和全球衰退预期整理为作者的宏观风险观察框架。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/topics/宏观经济.md`、`index.md`、`hot.md` 与 `.manifest.json` 的回链和登记信息；页面总数从 `202` 调整为 `203`。
+- 说明：原文涉及美股市值蒸发、BTC 跌幅、恐慌指数、联储政策、关税和欧洲地缘风险等高变动内容，均按作者观点或待验证数据处理，未写成当前事实结论。
+
+## [2026-05-28] ingest | add bingbing xiaomei positive economic cycle view and reasoning
+
+- 复用并补充原始资料归档 `sources/articles/2025-03-11-冰冰小美：如何理解经济的正向循环.md`，补入作者评论中关于温和通胀、资产定价权、央行打法变化、AI 应用落地和日期修正的有效摘录。
+- 新增观点页 `wiki/views/冰冰小美：经济正向循环由风险化解与资产定价权重塑驱动的判断框架.md`，将风险逐项化解、通缩破局、`M2 -> M1` 信贷传导、创新科技投资和人民币资产定价权增强整理为 View Page。
+- 新增推导页 `wiki/reasoning/冰冰小美-经济正向循环如何从风险化解传导为资产定价权增强.md`，拆解 H 股风险修复、美国科技与美元蓄水池压力、通缩螺旋破局、科技投资承接和人民币资产估值锚之间的传导链。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/topics/宏观经济.md`、`wiki/topics/冰冰小美-AI产业趋势.md`、`wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md`、`index.md`、`hot.md` 与 `.manifest.json` 的回链和登记信息；页面总数从 `203` 调整为 `205`。
+- 说明：原文涉及美元指数、美债抛售、外资介入、BTC 跌幅、A/H 独立行情、刺激政策和未来中美谈判等高变动内容，均按作者观点或待验证推测处理，未写成当前事实结论。
+
+## [2026-05-28] ingest | add bingbing xiaomei meso liquidity confidence view
+
+- 复用既有原始资料归档 `sources/articles/2025-03-05-冰冰小美：流动性的问题.md`，未改写原文内容。
+- 新增观点页 `wiki/views/冰冰小美：中观流动性主导经济信心恢复的判断框架.md`，将“成交量不是原因而是结果”、中观流动性来源、国债发行、财政赤字率与 `M2 -> M1` 传导整理为作者的阶段性判断。
+- 更新 `wiki/concepts/冰冰小美-流动性辩证分析.md` 与 `wiki/reasoning/冰冰小美-经济正向循环如何从风险化解传导为资产定价权增强.md`，把该文作为流动性概念和经济正向循环推导的前置证据。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/topics/宏观经济.md`、`index.md`、`hot.md` 与 `.manifest.json` 的回链和登记信息；页面总数从 `205` 调整为 `206`。
+- 说明：原文涉及财政赤字率、M1/M2、长期国债、央行工具、H 股和外资接盘等高变动内容，均按作者观点或待验证数据处理，未写成当前事实结论。
+
+## [2026-05-28] ingest | review bingbing xiaomei copper link-only source
+
+- 复用既有原始资料归档 `sources/articles/2025-03-05-冰冰小美：铜.md`，补充说明该帖正文仅包含“网页链接”，信息量不足以单独提炼正式知识页。
+- 保留原始抓取评论区中的作者补充“很多贴以前发的，回头看，一步一步接近”，作为旧铜相关判断的回看线索。
+- 本次不新增 `wiki/` 正式页面，不调整 `index.md` 页面总数；仅更新来源备注、`.manifest.json` 与日志。
+
+## [2026-05-28] ingest | add bingbing xiaomei monetary-anchor central leverage view
+
+- 复用既有原始资料归档 `sources/articles/2025-04-04-冰冰小美：困境与抉择.md`，未改写原文内容。
+- 新增观点页 `wiki/views/冰冰小美：规模驱动困境需要货币锚与中央加杠杆破局的判断框架.md`，将旧规模驱动停滞、通缩和债务压力、M2/M1 剪刀差、铸币权/货币锚、人民币信用与中央加杠杆整理为作者的阶段性判断。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/topics/宏观经济.md`、`wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md`、`wiki/concepts/冰冰小美-债务、分配与增长约束.md`、`wiki/concepts/冰冰小美-中央加杠杆.md`、`index.md`、`hot.md` 与 `.manifest.json` 的回链和登记信息；页面总数从 `206` 调整为 `207`。
+- 说明：原文涉及美国债务、利息、贸易逆差、评级、人民币国际化、货币锚和全球治理能力等高变动或强判断内容，均按作者观点或待验证数据处理，未写成当前事实结论。
+
+## [2026-05-28] ingest | add bingbing xiaomei tariff dollar-flow view
+
+- 复用既有原始资料归档 `sources/articles/2025-04-04-冰冰小美：未来美元的流动.md`，未改写原文内容。
+- 新增观点页 `wiki/views/冰冰小美：关税重塑美元流动与制造业回流的判断框架.md`，将关税短期通胀冲击、美元定价资产压力、美国制造业回流、长期投资美国吸引力，以及中国企业价格、品牌、税收和居民收入约束整理为作者的阶段性判断。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/topics/宏观经济.md`、`wiki/topics/中美产业竞争.md`、`wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md`、`index.md`、`hot.md` 与 `.manifest.json` 的回链和登记信息；页面总数从 `207` 调整为 `208`。
+- 说明：原文涉及美国关税、通胀、降息/加息、制造业回流、中美企业准入和全球投资流向等高变动内容，均按作者观点或待验证推测处理，未写成当前事实结论。
+
+## [2026-05-28] ingest | add bingbing xiaomei tariff commodity-cycle view
+
+- 复用既有原始资料归档 `sources/articles/2025-04-04-冰冰小美：关税对于大宗商品的影响.md`，未改写原文内容。
+- 新增观点页 `wiki/views/冰冰小美：关税推动大宗商品从金融定价切向供需周期的判断框架.md`，将关税短期通胀冲击、债市避险、美元债务上限和美元信用、黄金与大宗承压，以及制造业回流后大宗可能转向供需周期整理为作者的阶段性判断。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/topics/宏观经济.md`、`wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md`、`wiki/views/冰冰小美：有色拐点取决于通胀预期回落的阶段判断.md`、`wiki/reasoning/冰冰小美-有色金属拐点推导.md`、`index.md`、`hot.md` 与 `.manifest.json` 的回链和登记信息；页面总数从 `208` 调整为 `209`。
+- 说明：原文涉及关税、通胀、降息/加息、债市、美元信用、黄金、大宗商品和美国制造业回流等高变动金融与宏观判断，均按作者观点或待验证推测处理，未写成当前事实结论。
+- [2026-05-28T19:15:10+08:00] QUERY query="什么叫中观流动性" result_pages=3 mode=normal escalated=false
+- [2026-05-28T19:17:01+08:00] QUERY query="根据她对纳斯达克的看法，现在应该怎么配置纳斯达克100的仓位" result_pages=4 mode=normal escalated=true
+
+## [2026-05-28] ingest | add reasoning for bingbing xiaomei future dollar flow
+
+- 新增推导页 `wiki/reasoning/冰冰小美-关税如何传导为美元流动重排与制造业回流.md`，将《未来美元的流动》中的关税结构、短期通胀与衰退交易、长期美国本土供给修复、投资美国吸引力、中国价格优势削弱与居民收入约束拆成传导链。
+- 更新 `sources/articles/2025-04-04-冰冰小美：未来美元的流动.md`、`wiki/views/冰冰小美：关税重塑美元流动与制造业回流的判断框架.md`、`wiki/people/冰冰小美.md`、`wiki/topics/宏观经济.md`、`wiki/topics/中美产业竞争.md`、`wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md`、`index.md`、`hot.md` 与 `.manifest.json` 的回链和登记信息；页面总数从 `209` 调整为 `210`。
+- 说明：该推导涉及美国关税、制造业回流、美联储政策、中美合作准入、税收和居民收入等高变动内容，均按作者观点或待验证推测处理，未写成当前事实结论。
+
+## [2026-05-28] ingest | add bingbing xiaomei national-fortune A-share view
+
+- 复用并补充原始资料归档 `sources/articles/2025-04-05-冰冰小美：国运.md`，补入作者评论中关于“相信央妈”、A 股估值分位、收入改善与内需订单的有效摘录。
+- 新增观点页 `wiki/views/冰冰小美：国运支撑A股与制造业突围的判断框架.md`，将做多 A 股整理为股债汇楼风险削弱、DeepSeek 与十五五科技创新、制造业品牌出海、专利厚度、完整工业体系和地缘安全共同支撑的阶段性判断。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/concepts/冰冰小美-三大配置.md`、`wiki/concepts/冰冰小美-相信.md`、`wiki/topics/宏观经济.md`、`wiki/topics/中美产业竞争.md`、`wiki/topics/冰冰小美-AI产业趋势.md`、`index.md`、`hot.md` 与 `.manifest.json` 的回链和登记信息；页面总数从 `210` 调整为 `211`。
+- 说明：原文涉及股债汇楼风险、比亚迪、专利数量、十五五、制造业出海、通胀冲击、军工与地缘安全等高变动或强判断内容，均按作者观点或待验证推测处理，未写成当前事实结论。
+
+## [2026-05-28] ingest | add bingbing xiaomei national-fortune dividend distribution view and reasoning
+
+- 复用既有原始资料归档 `sources/articles/2026-01-23-冰冰小美：何为国运红利的分配.md`，未改写原文内容。
+- 新增观点页 `wiki/views/冰冰小美：国运红利通过伟大企业重新分配的判断框架.md`，将股市不直接创造价值、企业通过融资推动社会贡献、伟大企业与时代契合、财富向支柱产业集中整理为 View Page。
+- 新增推导页 `wiki/reasoning/冰冰小美-国运红利如何通过企业发展完成财富再分配.md`，拆解股市融资、企业发展、社会贡献、周期穿越、支柱产业和财富再分配之间的传导链。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/topics/宏观经济.md`、`wiki/concepts/产业思维.md`、`sources/articles/2026-01-23-冰冰小美：何为国运红利的分配.md`、`index.md`、`hot.md` 与 `.manifest.json` 的回链和登记信息；页面总数从 `227` 调整为 `229`。
+- 说明：原文属于作者的投资世界观与价值判断，“伟大企业”“国运红利”“正义的出发点”等均按作者观点处理，未写成可直接执行的投资建议。
+
+## [2026-05-28] ingest | add bingbing xiaomei information-finance series
+
+- 复用既有原始资料归档 `sources/articles/2025-06-06-冰冰小美：信息的金融意义（一）.md`、`sources/articles/2025-06-08-冰冰小美：信息的金融意义（二）.md`、`sources/articles/2025-06-09-冰冰小美：信息的金融意义（三）.md`、`sources/articles/2025-06-09-冰冰小美：信息的金融意义（四）.md`、`sources/articles/2025-06-23-冰冰小美：信息的金融意义（五）.md`、`sources/articles/2025-06-23-冰冰小美：信息的金融意义（六）.md`、`sources/articles/2025-06-23-冰冰小美：信息的金融意义（七）.md`、`sources/articles/2025-06-24-冰冰小美：信息的金融意义（八）.md` 与 `sources/articles/2025-06-29-冰冰小美：信息的金融意义（九）.md`，未改写原文内容。
+- 新增主题页 `wiki/topics/冰冰小美-信息的金融意义系列.md`，作为该系列前九篇的导航入口。
+- 新增 9 个观点页：`wiki/views/冰冰小美：金融信息首要贴近钱与央行的判断框架.md`、`wiki/views/冰冰小美：金融信息归纳服务风险识别的判断框架.md`、`wiki/views/冰冰小美：非金融信息要贴近国情国策产业的判断框架.md`、`wiki/views/冰冰小美：隐学信息需要警惕功利性的判断框架.md`、`wiki/views/冰冰小美：显学以事件落地和历史影响为基础的判断框架.md`、`wiki/views/冰冰小美：国情国运决定金融参与底色的判断框架.md`、`wiki/views/冰冰小美：国策高于政策用于理解长期方向的判断框架.md`、`wiki/views/冰冰小美：中观产业信息要服从宏观的判断框架.md` 与 `wiki/views/冰冰小美：媒体信息更多影响情绪而非真相的判断框架.md`。
+- 更新 `wiki/people/冰冰小美.md`、`index.md`、`hot.md` 与 `.manifest.json` 的回链和登记信息；`index.md` 当前页面总数为 `227`。
+- 说明：该系列包含金融、政策、产业、媒体、历史类比和市场风险判断等高变动或强观点内容，均按作者观点、信息筛选框架或待验证判断处理，未写成当前事实结论。
+
+## [2026-05-28] cleanup | normalize article source filenames
+
+- 将 `sources/articles/` 下 123 个原始资料文件改名为 `日期-作者名：主题.md` 格式，移除旧文件名中的微信编号、序号等抓取元信息。
+- 同步更新仓库内指向旧 `sources/articles/` 文件名的双链和清单引用，避免改名后出现断链。
+- 说明：两个微信公众号样本未暴露具体作者署名，文件名按 `未显示（同公众号页面）` 归档；一组同日同作者同标题的岜菲特归档以 `（重复归档2）` 区分，未删除任何原始资料。
+
+## [2026-05-28] ingest | add bingbing xiaomei pig-cycle framework
+
+- 复用既有原始资料归档 `sources/articles/2025-04-19-冰冰小美：猪周期分析框架.md`，未改写原文内容，仅补充正式知识页回链。
+- 新增概念页 `wiki/concepts/冰冰小美-猪周期分析框架.md`，将猪周期拆成库存供需、政策 CPI、饲料成本、进口替代、疾病风险和消费替代等变量。
+- 新增观点页 `wiki/views/冰冰小美：猪周期去库存阶段提供左侧建仓窗口的判断框架.md`，记录作者认为周期投资节点往往出现在去库存阶段，而不是单纯价格下跌时。
+- 新增推导页 `wiki/reasoning/冰冰小美-猪周期如何从去库存传导为建仓窗口.md`，拆解进口冲击、成本曲线、母猪存栏、政策价格信号和高成本产能出清如何共同形成左侧建仓窗口。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/topics/宏观经济.md`、`wiki/topics/概率化决策与风险控制.md`、`wiki/concepts/产业思维.md`、`index.md`、`hot.md` 与 `.manifest.json` 的回链和登记信息；页面总数从 `211` 调整为 `214`。
+- 说明：原文涉及母猪存栏、猪粮比、CPI 权重、进口价格、企业成本、国储和疾病风险等高变动或待核验内容，均按作者观点或待验证数据处理，未写成已确认事实。
+
+## [2026-05-28] ingest | register bingbing xiaomei 90-day competition-cooperation path
+
+- 复用并更新原始资料归档 `sources/articles/2025-04-14-冰冰小美：90天的可能性路径演绎.md`，补充正式观点页与时间线回链。
+- 登记既有观点页 `wiki/views/冰冰小美：90天路径演绎围绕区域合作与反全球化保护主义的判断框架.md`，将 90 天主矛盾压成区域经济合作与反全球化保护主义，并拆出制裁/豁免反复、区域贸易出海修复和消息轮动三条路径。
+- 登记既有时间线 `wiki/timelines/冰冰小美-90天竞争合作路径时间线.md`，用于承接 2025-04-14 后约 90 天内的阶段验证。
+- 更新 `index.md`、`hot.md` 与 `.manifest.json` 的回链和登记信息；`index.md` 当前页面总数为 `229`。
+- 说明：原文涉及外交访问、区域贸易、美债募资、关税制裁、美元指数和人民币汇率等高变动内容，均按作者观点或待验证信息处理，未写成当前事实结论。
+
+## [2026-05-28] ingest | register bingbing xiaomei yuzhi raw source
+
+- 复核原始 txt `E:/caojingwen/obsidian/source/冰冰小美专栏/20230903/152400_情绪体系交易篇_今日更新第四期_迂直以迂为直_以患为利_诱之以利_以利动_分合为变者也_本系列列_26015315.txt`，确认其已归档为 `sources/articles/2023-09-03-冰冰小美：情绪体系交易篇（第四期）.md`。
+- 既有概念页 `wiki/concepts/冰冰小美-迂直.md` 已承接该资料，将“以迂为直、以患为利、诱之以利、以分合为变”整理为情绪体系中的变化应对方法；本次不新增正式知识页。
+- 更新来源页备注、`hot.md` 与 `.manifest.json`，把该 raw 来源补入 manifest；`index.md` 当前页面总数保持 `231`。
+- 说明：本文包含大量短线个股案例和作者交易语境，知识库仅保留为方法概念来源，不把案例收益写成可重复结论。
+
+## [2026-05-28] ingest | add bingbing xiaomei information-finance part ten
+
+- 复用既有原始资料归档 `sources/articles/2025-07-17-冰冰小美：信息的金融意义（十）.md`，未改写原文内容，仅追加正式知识页回链。
+- 新增观点页 `wiki/views/冰冰小美：五略归纳信息服务大局风控的判断框架.md`，将战略、方略、策略、计略、谋略整理为复杂信息归纳方法，并把交易灵活性接到分仓、现金流、预备力量和整体风控。
+- 更新 `wiki/topics/冰冰小美-信息的金融意义系列.md`、`wiki/people/冰冰小美.md`、`index.md`、`hot.md` 与 `.manifest.json` 的回链和登记信息；`index.md` 当前页面总数为 `233`。
+- 说明：文中的淮海战役、锦州攻城战等军事案例按作者类比处理，未做独立军事史考证；“满仓 all in 大概率失败”按作者风控观点处理，不写成所有市场条件下的绝对结论。
+
+## [2026-05-28] ingest | register bingbing xiaomei dong yuhui raw source
+
+- 复核原始 txt `E:/caojingwen/obsidian/source/冰冰小美专栏/20231217/103200_董宇辉事件_看透人性_我曾经大篇幅更新套利_但是不建议套利_因为不够光明磊落_如同_我想提示你关_27118262.txt`，确认其已归档为 `sources/articles/2023-12-17-冰冰小美：董宇辉事件，看透人性。我曾经大篇幅更新套利，但是不建议套利，因为不够光明磊落。如同，我想提示你关注权谋，但是不建议大家使.md`。
+- 既有观点页 `wiki/views/冰冰小美对套利与权谋反噬的看法.md` 已承接该资料，将“看懂套利与权谋，但保留行为边界”整理为 View Page；本次不新增正式知识页。
+- 更新来源页备注、`hot.md` 与 `.manifest.json`，把该 raw 来源补入 manifest；`index.md` 当前页面总数保持 `233`。
+- 说明：本文借董宇辉事件和古文材料表达作者价值判断，知识库按作者观点处理，不把“光明磊落”“反噬”等表达写成可验证事实。
+
+## [2026-05-29] ingest | add bingbing xiaomei information-finance parts eleven to fifteen
+
+- 复用既有原始资料归档 `sources/articles/2025-08-16-冰冰小美：信息的金融意义（十一）.md`、`sources/articles/2025-12-29-冰冰小美：信息的金融意义（十二）.md`、`sources/articles/2026-01-05-冰冰小美：信息的金融意义（十三）.md`、`sources/articles/2026-01-06-冰冰小美：信息的金融意义（十四）.md` 与 `sources/articles/2026-01-12-冰冰小美：信息的金融意义（十五）.md`，未改写原文内容，仅追加正式知识页回链。
+- 新增 5 个观点页：`wiki/views/冰冰小美：信息来源以官方原文和央行为最高可信度的判断框架.md`、`wiki/views/冰冰小美：信息传播对象决定信息动机与接收状态的判断框架.md`、`wiki/views/冰冰小美：信息评级区分投资投机与来源信用的判断框架.md`、`wiki/views/冰冰小美：信息时效性连接历史路径与交易窗口的判断框架.md` 与 `wiki/views/冰冰小美：信息无用性揭示微观价值等待使用的判断框架.md`。
+- 更新 `wiki/topics/冰冰小美-信息的金融意义系列.md`、`wiki/people/冰冰小美.md`、`index.md`、`hot.md` 与 `.manifest.json` 的回链和登记信息；`index.md` 当前页面总数为 `240`。
+- 说明：五篇内容涉及央行政策、市场传播、投资/投机划分、信息时效、宏观周期和具体产业案例，均按作者观点、信息筛选框架或待验证判断处理，未写成当前事实结论。
+
+## [2026-05-29] ingest | add bingbing xiaomei original-intention belief view
+
+- 复用并更新已有来源页 `sources/articles/2024-05-29-冰冰小美：卒然临之而不惊，无故加之而不怒。不忘初心，方得始终。人虽如蜉蝣，志不穷碧落。上周的恐慌与本周的贪婪。一进一出，情绪的波动.md`，补充正式观点页回链，未改写原文内容。
+- 新增观点页 `wiki/views/冰冰小美：恐慌贪婪波动中回到初心和相信的判断框架.md`，将“上周恐慌、本周贪婪”的情绪切换整理为对初心、原始理由和做多信念边界的检验。
+- 更新 `wiki/concepts/冰冰小美-相信.md`、`wiki/people/冰冰小美.md`、`index.md`、`hot.md` 与 `.manifest.json` 的回链和登记信息；页面总数从 `239` 调整为 `240`。
+- 说明：原文较短且多个“网页链接”未保留具体 URL，本次只沉淀其“回看初心与相信”的观点，不补造旧文内容，也不把“央妈所指，永远赢”写成市场事实或投资建议。
+
+## [2026-05-29] ingest | register bingbing xiaomei crisis hegemony raw source
+
+- 复核原始 txt `E:/caojingwen/obsidian/source/冰冰小美专栏/20241107/090200_危机_霸权_与再次伟大的美国川普是第二个两次当选并且不连任的美国总统_上一次追溯到1883年-1_31151675.txt`，确认其已归档为 `sources/articles/2024-11-07-冰冰小美：危机、霸权与再次伟大的美国.md`。
+- 既有观点页 `wiki/views/冰冰小美：川普再次当选后的美国霸权重塑判断框架.md` 与推导页 `wiki/reasoning/冰冰小美-川普再次当选后的美国霸权重塑推导链.md` 已承接该资料；本次不新增正式知识页。
+- 更新正式来源页、早期长标题来源页、`hot.md` 与 `.manifest.json`，把该 raw 来源补入 manifest；`index.md` 页面总数保持 `240`。
+- 说明：同一原文存在一个早期长标题来源页，本次保留其来源证据，但明确正式引用入口为短名来源页，避免后续重复入库。
+
+## [2026-05-29] ingest | add bingbing xiaomei posting-boundary risk-education view
+
+- 复用已有来源页 `sources/articles/2024-11-07-冰冰小美：关注我的朋友.md`，补充正式观点页回链，未改写原文内容。
+- 新增观点页 `wiki/views/冰冰小美：发帖边界服务交易风险教育的判断框架.md`，将持续发帖、游资视角、情绪体系、交割单展示、评论拉黑规则和不讨论个股代码整理为“公开内容服务交易风险教育”的边界框架。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/topics/冰冰小美-阅读地图.md`、`index.md`、`hot.md` 与 `.manifest.json` 的回链和登记信息；页面总数从 `241` 调整为 `242`。
+- 说明：原文包含作者关于“相信央妈”“相信国运，做多中国”和评论区治理的价值判断，本次均按作者观点与内容使用边界处理，未写成可直接执行的投资建议。
+
+## [2026-05-29] ingest | register bingbing xiaomei central-leverage raw source
+
+- 复核原始 txt `E:/caojingwen/obsidian/source/冰冰小美专栏/20241108/183300_中央加杠杆_31187567.txt`，确认其已归档为 `sources/articles/2024-11-08-冰冰小美：中央加杠杆.md`。
+- 既有概念页 `wiki/concepts/冰冰小美-中央加杠杆.md`、观点页 `wiki/views/冰冰小美：中央加杠杆确认化债与资产重估的判断框架.md` 与推导页 `wiki/reasoning/冰冰小美-中央加杠杆如何传导为财政刺激与资产重估.md` 已承接该资料；本次不新增正式知识页。
+- 更新来源页、`hot.md` 与 `.manifest.json`，把该 raw 来源补入 manifest；`index.md` 页面总数保持 `242`。
+- 说明：原文涉及化债规模、赤字率、汇率、通胀、央行工具和外资战略投资等高变动内容，既有页面均按作者观点、历史类比或待验证变量处理，未写成当前事实结论。
+
+## [2026-05-29] ingest | register xiaomeijiang system-portal raw source
+
+- 复核原始 txt `E:/caojingwen/obsidian/source/冰冰小美专栏/20241109/010800_小美酱体系帖子传送门_31191294.txt`，确认其已归档为 `sources/articles/2024-11-09-12580Z：小美酱体系帖子传送门.md`。
+- 该资料是目录型来源，列出“常见亏钱认知”、情绪体系交易篇、体系三要素及游资江湖等入口；本次不新增正式知识页。
+- 更新来源页、`wiki/topics/冰冰小美-常见亏钱认知系列.md`、`hot.md` 与 `.manifest.json`，把该 raw 来源补入 manifest；`index.md` 页面总数保持 `242`。
+- 说明：传送门中大量“网页链接”未保留真实 URL，本次仅把它作为系列结构证据和回查入口，不补造链接目标，也不把目录文本写成观点结论。
+
+## [2026-05-29] refactor | rename bingbing xiaomei concession concept
+
+- 将概念页 `wiki/concepts/冰冰小美-让利.md` 重命名为 `wiki/concepts/冰冰小美-行情持续性来自让利.md`，让页面标题更直接对应原始资料《行情的持续性来自让利》和页面核心命题。
+- 更新 `index.md`、来源页备注、人物页、相关概念页、主题页与 `.manifest.json` 中的链接和登记路径。
+- 保留旧名“冰冰小美-让利”为 aliases，正文中自然语义位置继续使用“让利”作为概念简称。
+
+## [2026-05-29] refactor | rename yajiang view and add procyclical reasoning
+
+- 将观点页 `wiki/views/冰冰小美：雅鲁藏布江水电工程承接中央加杠杆与反通缩的判断框架.md` 重命名为 `wiki/views/冰冰小美-雅江工程与顺周期财政观.md`，保留旧标题为 aliases。
+- 新增推导页 `wiki/reasoning/冰冰小美-雅江工程到顺周期涨价推导链.md`，将“重大工程-财政政策-顺周期资产”拆成财政需求、产业链订单、供给侧价格纪律、库存补库和资产重估六层检查框架。
+- 更新 `sources/articles/2025-07-20-冰冰小美：历史的真实写照.md`、`wiki/people/冰冰小美.md`、`wiki/topics/宏观经济.md`、`wiki/concepts/冰冰小美-中央加杠杆.md`、`wiki/views/冰冰小美：经济正向循环由风险化解与资产定价权重塑驱动的判断框架.md`、`index.md`、`hot.md` 与 `.manifest.json` 的回链和登记信息。
+- 说明：雅江工程、胡佛水坝类比、涨价去库存和顺周期资产重估均按作者观点、推导框架或待验证变量处理，未写成投资建议或已确认事实。
+
+## [2026-05-29] ingest | add bingbing xiaomei correct-values bull market view
+
+- 复用已有来源页 `sources/articles/2025-07-22-冰冰小美：如果这是牛市.md`，未改写原文内容，仅补充正式知识页回链。
+- 新增观点页 `wiki/views/冰冰小美-价值观正确的牛市观.md`，将国九条、金融局定位、中特估、中央加杠杆、投融平衡、反通缩和价值推动长牛整理为“价值观正确的牛市”判断。
+- 新增推导页 `wiki/reasoning/冰冰小美-价值观正确的牛市如何由制度修复传导为结构性行情.md`，拆解制度修复、估值体系重构、中央加杠杆、投融平衡、企业利润修复和反通缩如何传导为结构性行情。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/topics/宏观经济.md`、`wiki/concepts/冰冰小美-中央加杠杆.md`、`wiki/views/冰冰小美：经济正向循环由风险化解与资产定价权重塑驱动的判断框架.md`、`wiki/views/冰冰小美-雅江工程与顺周期财政观.md`、`index.md`、`hot.md` 与 `.manifest.json` 的回链和登记信息；`index.md` 当前页面总数为 `250`。
+- 说明：原文涉及政策、市场、通缩、企业利润和牛市判断等高变动内容，均按作者观点或待验证推测处理，未写成当前事实结论或投资建议。
+
+## [2026-05-29] ingest | add bingbing xiaomei procyclical national-conditions view
+
+- 复用已有来源页 `sources/articles/2025-07-24-冰冰小美：顺周期与国情.md`，未改写原文内容，仅补充正式知识页回链。
+- 新增观点页 `wiki/views/冰冰小美-顺周期与国情观.md`，将 2025 顺周期放回通缩、反内卷、价格修复、库存重估和需求侧财政刺激共同作用的国情中理解。
+- 新增推导页 `wiki/reasoning/冰冰小美-反内卷如何从价格修复传导为顺周期资产重估.md`，拆解反内卷如何先提振价格和库存价值，再等待需求侧财政刺激、企业利润和货币政策反应验证。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/topics/宏观经济.md`、`wiki/concepts/冰冰小美-中央加杠杆.md`、`wiki/views/冰冰小美：经济正向循环由风险化解与资产定价权重塑驱动的判断框架.md`、`wiki/views/冰冰小美-雅江工程与顺周期财政观.md`、`wiki/reasoning/冰冰小美-雅江工程到顺周期涨价推导链.md`、`wiki/views/冰冰小美-价值观正确的牛市观.md`、`wiki/reasoning/冰冰小美-价值观正确的牛市如何由制度修复传导为结构性行情.md`、`index.md`、`hot.md` 与 `.manifest.json` 的回链和登记信息；`index.md` 当前页面总数为 `252`。
+- 说明：原文涉及 `PPI`、`CPI`、反内卷、企业盈利、顺周期行情和货币政策反应等高变动内容，均按作者观点或待验证推测处理，未写成当前事实结论或投资建议。
+
+## [2026-05-29] ingest | add bingbing xiaomei trading-philosophy-dispute view
+
+- 复用已有来源页 `sources/articles/2025-07-25-冰冰小美：交易理念之争.md`，未改写原文内容，仅补充正式知识页回链。
+- 新增观点页 `wiki/views/冰冰小美-交易理念之争观.md`，将交易理念之争整理为风险累积、安全思维、踏空焦虑、本金保护、目标约束和长期机会捕捉之间的关系。
+- 新增推导页 `wiki/reasoning/冰冰小美-风险思考如何支撑交易安全与机遇转化.md`，拆解风险思考如何通过保护本金、预备队和心理余地，把风险释放后的机会重新转化为可参与的窗口。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/topics/概率化决策与风险控制.md`、`index.md`、`hot.md` 与 `.manifest.json` 的回链和登记信息；`index.md` 当前页面总数为 `255`。
+- 说明：原文涉及 A 股历史新高个股数量、5 年翻倍难度、4/7 风险复盘和未来风险累积等内容，均按作者观点、个人复盘或待验证推测处理，未写成当前事实结论或投资建议。
+
+## [2026-05-29] ingest | add bingbing xiaomei trading psychology self-constraint view
+
+- 复用已有原始资料归档 `sources/articles/2025-07-26-冰冰小美：交易心理分析的重要性.md`，并补充该原文已提炼为正式观点页的备注。
+- 新增观点页 `wiki/views/冰冰小美：交易心理分析服务自我约束的判断框架.md`，沉淀“交易心理分析应先解决自己的暴富冲动、回本执念、仓位失衡和能力错配，而不是识别大众情绪后争小利”的判断框架。
+- 更新 `wiki/people/冰冰小美.md`、`wiki/topics/概率化决策与风险控制.md`、`index.md`、`hot.md` 与 `.manifest.json`，把该观点接回人物学习线、仓位纪律、底线思维和风险控制主题；`index.md` 当前页面总数为 `253`。
+- 说明：原文中的投资者资产规模、散户亏损比例、后台留言人数和账户收益案例未在本次整理中独立核验，均按作者观点背景或待验证信息处理，未写成统计事实或投资建议。

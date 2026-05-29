@@ -52,6 +52,7 @@ llmwiki/
     views/
     timelines/
     reasoning/
+    queries/
     topics/
 ```
 
@@ -66,6 +67,7 @@ llmwiki/
 | `wiki/views/` | 保存某个主体对某个问题的观点、判断、看法 |
 | `wiki/timelines/` | 保存多个事件的时间顺序 |
 | `wiki/reasoning/` | 保存因果推导、逻辑链、观点拆解 |
+| `wiki/queries/` | 保存问题驱动的综合回答、检索结果和待归档问题 |
 | `wiki/topics/` | 保存主题聚合页、导航页 |
 | `schema.md` | 定义知识库总体规则、写作质量和维护约束 |
 | `page-types.md` | 定义页面类型、页面结构和页面选择规则 |
@@ -198,6 +200,7 @@ Agent 在创建、整理或重构 `wiki/` 页面前，必须读取 `page-types.m
 | View Page | 观点页：解释“谁怎么看” | `wiki/views/` |
 | Timeline Page | 时间线页：解释“先后顺序是什么” | `wiki/timelines/` |
 | Reasoning Page | 推导链页：解释“为什么会这样推导” | `wiki/reasoning/` |
+| Query Page | 问题页：解释“这个问题当前如何回答” | `wiki/queries/` |
 | Topic Page | 主题聚合页：组织一组相关页面 | `wiki/topics/` |
 
 核心理解：
@@ -209,10 +212,12 @@ Event Page     = 事实节点
 View Page      = 主体观点
 Timeline Page  = 事件序列
 Reasoning Page = 因果推导
+Query Page     = 问题驱动的回答沉淀
 Topic Page     = 主题聚合页 / Hub 页
 ```
 
 不要把所有内容都写成 Topic Page。  
+不要把所有问答都写成 Query Page；只有需要保留原始问题、回答语境和后续归档状态的问题，才使用 Query Page。
 不要把所有观点都直接写成 Reasoning Page。  
 View Page 记录“谁怎么看”，Reasoning Page 拆解“为什么这样推”。
 
@@ -235,7 +240,7 @@ Agent 应使用 Obsidian 双链建立知识关系。
 9. 每个 wiki 页面底部必须包含“相关页面”部分。
 10. 当链接目标使用文件路径时，正文和相关列表应使用 `[[页面路径|显示名称]]` 格式，避免直接把路径暴露给读者。
 11. 相关列表推荐使用 `- [[页面路径|显示名称]]：说明这个页面为什么相关。`，让链接文本显示页面标题或语义名称，路径只保留在链接内部。
-12. 正文中只要引用已经存在的其他页面，包括来源页、概念页、人物页、事件页、观点页、时间线页、推导链页和主题页，都必须使用 Obsidian 双链；不要只写日期、标题或页面名纯文本。若日期实际指向某篇来源或页面，应写成 `[[sources/path|2023-07-21《标题》]]` 这类带显示名的链接。
+12. 正文中只要引用已经存在的其他页面，包括来源页、概念页、人物页、事件页、观点页、时间线页、推导链页、问题页和主题页，都必须使用 Obsidian 双链；不要只写日期、标题或页面名纯文本。若日期实际指向某篇来源或页面，应写成 `[[sources/path|2023-07-21《标题》]]` 这类带显示名的链接。
 
 示例：
 
@@ -378,6 +383,7 @@ event
 view
 timeline
 reasoning
+query
 topic
 ```
 

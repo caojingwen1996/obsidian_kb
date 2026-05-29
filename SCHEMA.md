@@ -50,6 +50,7 @@ llmwiki/
     views/
     timelines/
     reasoning/
+    queries/
     topics/
 ```
 
@@ -65,7 +66,9 @@ llmwiki/
 - `sources/`：原始资料层，只保存来源和原始输入。
 - `wiki/`：正式知识层，只保存结构化知识页。
 
-`wiki/queries/` 与 `wiki/summaries/` 若在本地仍存在，视为历史迁移遗留目录；新内容不得继续写入这两类目录。旧 query 应迁移为 Topic Page 或其他合适页面；旧 summary 应迁移为 Timeline Page、Topic Page 或 Reasoning Page。
+`wiki/queries/` 保存问题驱动的综合回答、检索结果和待归档问题。Query Page 只沉淀可复用问题，不替代 Topic Page、View Page 或 Reasoning Page。
+
+`wiki/summaries/` 若在本地仍存在，视为历史迁移遗留目录；新内容不得继续写入该目录。旧 summary 应迁移为 Timeline Page、Topic Page 或 Reasoning Page。
 
 `sources/posts/`、`sources/papers/`、`sources/webpages/` 可在资料类型需要时按 `AGENTS.md` 创建，但当前已使用的来源目录以 `articles/`、`manual/`、`screenshots/`、`transcripts/` 和 `assets/` 为主。
 
@@ -96,7 +99,7 @@ llmwiki/
 
 ## 4. wiki 正式页面类型
 
-当前正式知识层只使用以下七类页面，与 `page-types.md` 保持一致：
+当前正式知识层只使用以下八类页面，与 `page-types.md` 保持一致：
 
 | type | 页面类型 | 推荐目录 | 核心问题 |
 |---|---|---|---|
@@ -106,9 +109,10 @@ llmwiki/
 | `view` | View Page / 观点页 | `wiki/views/` | 谁怎么看 |
 | `timeline` | Timeline Page / 时间线页 | `wiki/timelines/` | 先后顺序是什么 |
 | `reasoning` | Reasoning Page / 推导链页 | `wiki/reasoning/` | 为什么这样推导 |
+| `query` | Query Page / 问题页 | `wiki/queries/` | 这个问题当前如何回答 |
 | `topic` | Topic Page / 主题聚合页 | `wiki/topics/` | 相关页面如何组织 |
 
-不得把 `query`、`summary`、`comparison`、`output` 作为新的正式页面类型。  
+不得把 `summary`、`comparison`、`output` 作为新的正式页面类型。
 若未来确需新增页面类型，必须先同步修改 `page-types.md`、`schema.md` 和 `AGENTS.md`，再迁移索引与日志规则。
 
 页面模板统一放在 `templates/` 目录下。创建新正式知识页时，应先根据本节确定页面类型，再复制对应模板，并按实际内容补齐 frontmatter、来源、相关页面和不确定性。
@@ -123,7 +127,8 @@ llmwiki/
 - `view`：某个主体对某个问题的具体看法、判断、立场或阶段性观点。
 - `timeline`：多个事件的时间顺序，只表达先后关系，不承担完整因果推导。
 - `reasoning`：前提、变量、传导机制、结论、风险点和不确定性组成的推导链。
-- `topic`：主题聚合页或 Hub 页，用于组织概念、人物、事件、观点、时间线和推导链。
+- `query`：围绕一个真实问题保存当前回答、推导逻辑、相关页面和归档状态，适合承接问答式学习记录。
+- `topic`：主题聚合页或 Hub 页，用于组织概念、人物、事件、观点、时间线、推导链和问题页。
 
 View Page 与 Reasoning Page 必须区分：
 
@@ -163,7 +168,7 @@ summary: ""
 - `aliases`：别名列表，用于记录常见简称、旧称或同义表达。
 - `created`：页面创建日期。
 - `updated`：最近结构性更新日期。
-- `type`：只能使用七类正式页面类型之一。
+- `type`：只能使用八类正式页面类型之一。
 - `status`：默认 `active`；如需废弃页面，应使用明确说明和迁移链接，不直接删除。
 - `tags`：使用本文件定义的标签体系。
 - `sources`：指向原始资料或可靠来源，推荐使用 `[[sources/path|显示名称]]`。
@@ -178,6 +183,7 @@ summary: ""
 - `view`：`person`、`topic_refs`、`stance`、`time_scope`、`confidence`
 - `timeline`：`subject`、`timeline_type`、`period_start`、`period_end`
 - `reasoning`：`conclusion`、`premises`、`key_variables`、`confidence`
+- `query`：`original_question`、`query_context`、`answer_status`
 - `topic`：`topic_scope`、`key_questions`、`related_concepts`
 
 扩展字段不是强制字段，但一旦使用，必须与正文内容一致。
@@ -255,6 +261,7 @@ summary: ""
 5. 某个推导链包含明确前提、变量、传导机制、结论和不确定性。
 6. 某个主题需要聚合多个概念、人物、事件、观点或推导链。
 7. 某条时间线能显著提升对多个事件先后关系的理解。
+8. 某个问题具有复用价值，需要保留原始问题、当前答案、推导逻辑和归档状态。
 
 以下情况不要新建正式页面：
 
@@ -312,7 +319,8 @@ wiki/topics/宏观经济.md
 - `person` 页面应链接代表性 view、相关 topic、相关 reasoning 或 concept。
 - `concept` 页面应链接相关 topic，必要时链接提出者、相关 view 或 reasoning。
 - `timeline` 页面应链接相关 event、view、reasoning 或 topic。
-- `topic` 页面应组织相关 concept、person、event、view、timeline、reasoning。
+- `query` 页面应链接回答所依据的 concept、view、reasoning、topic 或 source，并标注是否已补入正式页面。
+- `topic` 页面应组织相关 concept、person、event、view、timeline、reasoning、query。
 
 ---
 
@@ -382,7 +390,7 @@ Agent 不得：
 3. 把原文摘要直接放入 `wiki/` 当作知识沉淀。
 4. 把 Topic Page 当成所有内容的默认归宿。
 5. 混用 View Page、Reasoning Page 和 Timeline Page。
-6. 使用旧页面类型新建 `query`、`summary`、`comparison` 或 `output` 页面。
+6. 使用旧页面类型新建 `summary`、`comparison` 或 `output` 页面。
 7. 省略来源、相关页面、不确定性和必要双链。
 8. 修改与当前任务无关的大量文件。
 9. 在没有计划和确认的情况下做大规模重构。
@@ -402,6 +410,6 @@ Agent 不得：
 
 - 原始资料归 `sources/`；
 - 正式知识归 `wiki/`；
-- 页面类型只使用当前七类；
+- 页面类型只使用当前八类；
 - 来源、双链、索引和日志必须可追踪；
 - 事实、观点、推测和不确定性必须分清。
