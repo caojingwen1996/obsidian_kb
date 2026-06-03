@@ -1,8 +1,8 @@
 ﻿{
   "version": 1,
   "stats": {
-    "total_sources_ingested": 125,
-    "total_pages": 350
+    "total_sources_ingested": 126,
+    "total_pages": 351
   },
   "sources": {
     "E:/caojingwen/obsidian/source/wechat_exports/20260602/记忆承载/多数逆袭的人，并不是解决了社会问题而是利用了问题_slHx5XZS833Oezxr-KF84A.md": {
@@ -2803,7 +2803,34 @@
         "log.md",
         ".manifest.json"
       ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/sources/articles/2024-10-16-碧树西风：行动怕亏本，不动怕踏空，接下来该怎么办.md": {
+      "ingested_at": "2026-06-03T17:50:00+08:00",
+      "size_bytes": 90114,
+      "modified_at": "2026-06-03T17:50:00+08:00",
+      "content_hash": "sha256:524b175049fdf864f2b0c09a01c65e3a8f330643748aa06f3a04efe482d25be3",
+      "source_type": "document",
+      "project": null,
+      "source_metadata": {
+        "title": "行动怕亏本，不动怕踏空，接下来该怎么办？",
+        "author": "碧树西风",
+        "account": "人间罗盘",
+        "content_id": "kn5kARPIP0zqNw0xkFddtw",
+        "published_at": "2024-10-16T21:26:00+08:00",
+        "original_url": "https://mp.weixin.qq.com/s/kn5kARPIP0zqNw0xkFddtw",
+        "source_status": "paid_full_text_provided_by_user"
+      },
+      "pages_created": [
+        "wiki/views/碧树西风对投资与交易区别及交易系统适配的看法.md"
+      ],
+      "pages_updated": [
+        "sources/articles/2024-10-16-碧树西风：行动怕亏本，不动怕踏空，接下来该怎么办.md",
+        "wiki/views/碧树西风对投资与交易区别及交易系统适配的看法.md",
+        "index.md",
+        "log.md",
+        ".manifest.json"
+      ]
     }
   },
-  "updated_at": "2026-06-02T15:45:00+08:00"
+  "updated_at": "2026-06-03T17:50:00+08:00"
 }
