@@ -3,6 +3,18 @@
 > 按时间顺序记录知识库操作。仅追加，不覆盖。
 > 格式：`## [YYYY-MM-DD] action | subject`
 
+## [2026-06-02] ingest / synthesize | create bishi xifeng time-frequency concept
+
+- 新建 `wiki/concepts/碧树西风-时域频域.md`，将 2026-05-30《我们天生就是瞎子，而AI不是》中直接出现的“时域频域”整理为 Concept Page。
+- 更新 `index.md`，把该概念登记到“概念”入口，并将页面总数从 346 调整为 347。
+- 本页用 2022-07-01 量化交易文章中的样本总集、概率分布与时间曲线作为辅助语境，区分原文概念和整理者归纳。
+- 后续若继续整理碧树西风关于工程、AI、量化和观察媒介限制的材料，可回到本页补充更多证据或拆分 Reasoning Page。
+
+## [2026-06-02] link | supplement investment mapping for time-frequency concept
+
+- 按用户选中文本补充 `wiki/concepts/碧树西风-时域频域.md`，新增“投资领域映射”小节。
+- 将“时域看事情沿时间展开、频域看重复样本里的结构和分布”整理为概念页中的应用说明，并回链到量化思维观点页。
+
 ## [2026-05-29] cleanup | normalize nested frontmatter properties across wiki
 
 - 全量扫描 `wiki/` 下正式知识页 frontmatter，修复会导致 Obsidian 属性面板显示整段 JSON 的嵌套对象属性。
@@ -2328,6 +2340,68 @@ cleanup
 
 - 无。
 
+## 2026-06-01
+
+### 操作类型
+
+rename / refactor / cleanup
+
+### 修改文件
+
+- `wiki/topics/概率化决策与风险控制.md` -> `wiki/topics/碧树西风-概率化决策.md`
+- `index.md`
+- `wiki/people/碧树西风.md`
+- 相关碧树西风 View / Concept / Topic 页面
+- 相关非碧树西风页面中的旧公共 topic 回链
+- `.manifest.json`
+
+### 操作说明
+
+按用户要求将原公共 Topic Page `概率化决策与风险控制` 改为 `碧树西风-概率化决策`，重写为只承接碧树西风的概率化决策、仓位纪律、收益回撤和复盘体系；从该主题页中剔除其他人物体系的来源、相关人物、观点、推导和概念入口，并同步清理旧 topic 双链，避免其他人物页面继续指向新的碧树西风专属主题。
+
+### 后续待办
+
+- 如后续仍需维护其他人物的风险控制体系，应分别建立对应人物专属 Topic Page 或回收到各自知识地图中。
+
+## 2026-06-01
+
+### 操作类型
+
+refactor
+
+### 修改文件
+
+- `wiki/views/碧树西风*.md`
+- `log.md`
+
+### 操作说明
+
+按最新 `templates/view-page-template.md` 和 `page-types.md` 中的 View Page 定义，批量重构 69 篇碧树西风观点页：补齐 `person`、`topic_refs`、`stance`、`time_scope`、`confidence` 等 frontmatter 字段，并将正文统一整理为“当前核心观点、观点形成背景、观点时间线、判断依据摘要、关键前提、反向证据与风险、当前状态、不确定性、相关页面、来源”的结构。原有核心判断、观点展开、来源与相关页面被保留并重新安放到新结构中。
+
+### 后续待办
+
+- 可继续为高复用观点补充对应 Reasoning Page，以承接完整因果链。
+
+## 2026-06-01
+
+### 操作类型
+
+refactor
+
+### 修改文件
+
+- `wiki/people/碧树西风.md`
+- `log.md`
+
+### 操作说明
+
+按 People Page 定义重构 `碧树西风` 人物页：移除人物页中大规模来源堆叠和文章级观点演化清单，改为人物定位、核心画像、价值观、判断理念、认知模式、方法论入口、代表观点、代表推导入口、适用场景和使用边界；同时清理页面中遗留的冲突标记。
+
+### 后续待办
+
+- 如需继续细化碧树西风体系，可优先为投资系统适用条件、收益质量、仓位执行分别拆出 Reasoning Page。
+- 可考虑建立 `碧树西风-知识地图` Topic Page，用于集中承接完整来源索引，避免 People Page 再次膨胀。
+
 - [2026-05-29T17:45:18+08:00] QUERY query="冰冰小美如何看待泡沫" result_pages=5 mode=normal escalated=false
 
 ## 2026-05-29
@@ -2526,3 +2600,499 @@ cleanup
 ### 后续待办
 
 - 无。
+
+- [2026-06-02T10:33:45+08:00] QUERY query="冰冰小美如何看待量化？" result_pages=6 mode=normal escalated=false
+- [2026-06-02T10:40:00+08:00] QUERY query="总结碧树西风的捡乌龙指策略" result_pages=8 mode=normal escalated=false
+- [2026-06-02T11:11:10+08:00] QUERY query="如何理解碧树西风反复提到的“谁负债，赚谁的钱”" result_pages=5 mode=normal escalated=false
+- [2026-06-02T11:14:32+08:00] QUERY query="如何理解碧树西风反复提到的“谁负债，赚谁的钱”" result_pages=5 mode=normal escalated=false
+
+## 2026-06-02
+
+### 操作类型
+
+link / refactor
+
+### 修改文件
+
+- `wiki/people/碧树西风.md`
+
+### 操作说明
+
+按用户要求，将碧树西风反复提到的“谁负债，赚谁的钱”整理进人物页“核心价值观”章节，作为“先问谁负债、赚谁的钱”小节，并回链到便宜长负债、商业模式角色、底层资产与对手盘审计三篇 View Page。
+
+### 后续待办
+
+- 如后续需要更细拆，可将“谁负债，赚谁的钱”整理为独立 Concept Page 或 Reasoning Page。
+
+## 2026-06-02
+
+### 操作类型
+
+ingest
+
+### 修改文件
+
+- `sources/articles/2026-06-02-碧树西风：多数逆袭的人，并不是解决了社会问题而是利用了问题.md`
+- `wiki/views/碧树西风对多数逆袭来自利用问题而不是解决问题的看法.md`
+- `wiki/people/碧树西风.md`
+- `wiki/topics/碧树西风-人生观与财富观.md`
+- `index.md`
+- `.manifest.json`
+- `log.md`
+
+### 操作说明
+
+归档 2026-06-02 记忆承载文章《多数逆袭的人，并不是解决了社会问题而是利用了问题》，并整理为 View Page。该页将作者关于 AI 应用、负债方、真实买单者、早期客户积累和“先赚着，先玩着”的判断沉淀为结构化观点，同时回链到碧树西风人物页与人生观 / 财富观主题页。
+
+### 后续待办
+
+- 后续若继续出现“谁负债，赚谁的钱”相关材料，可考虑拆出独立 Concept Page 或 Reasoning Page。
+- `wiki/topics/碧树西风-信息高地、上位者博弈与非标路径.md` 中存在历史冲突标记，待单独清理后再补充本观点入口。
+
+## 2026-06-02
+
+### 操作类型
+
+refactor / link
+
+### 修改文件
+
+- `wiki/concepts/谁负债赚谁的钱.md`
+- `wiki/views/碧树西风对多数逆袭来自利用问题而不是解决问题的看法.md`
+- `wiki/people/碧树西风.md`
+- `wiki/topics/碧树西风-人生观与财富观.md`
+- `index.md`
+- `.manifest.json`
+- `log.md`
+
+### 操作说明
+
+按用户要求新建 Concept Page `谁负债赚谁的钱`，将 2026-06-02 记忆承载文章作为该概念的补充材料，并把该概念回链到碧树西风人物页、相关 View Page、人生观与财富观主题页和知识库索引。
+
+### 后续待办
+
+- 后续若继续积累材料，可把“债务如何传导为需求”“AI 基建谁买单”“经商为什么先留在牌桌上”拆成对应 Reasoning Page。
+
+## 2026-06-02
+
+### 操作类型
+
+link / synthesize
+
+### 修改文件
+
+- `wiki/topics/AI门票.md`
+- `wiki/topics/冰冰小美-AI产业趋势.md`
+- `index.md`
+- `.manifest.json`
+- `log.md`
+
+### 操作说明
+
+按用户要求新建 Topic Page `AI门票`，跨作者整合冰冰小美与碧树西风对 AI 门票的理解：冰冰小美侧重 AI 作为第四次工业革命和 G2 国家竞争门槛，碧树西风侧重 AI 门票背后的负债方、买单者和终端消费闭环审计。同步在 `冰冰小美-AI产业趋势` 中加入分工说明，并补充索引入口。
+
+### 后续待办
+
+- 可进一步拆出 `AI门票如何从国家竞争传导为资本市场行情` Reasoning Page。
+- 后续继续观察 AI 应用层是否形成稳定企业客户或终端消费者付费闭环。
+
+- [2026-06-02T14:21:52+08:00] QUERY query="那么，对于普通人买入ai相关股票的指示" result_pages=4 mode=normal escalated=false
+
+## 2026-06-02
+
+### 操作类型
+
+ingest
+
+### 修改文件
+
+- `sources/articles/2026-05-29-碧树西风：有些事儿今天你不做，就跟2000年不买房一样后悔.md`
+- `wiki/views/碧树西风对AI时代人的价格取决于经验结果判断的看法.md`
+- `wiki/concepts/经验数据分析与经验结果判断.md`
+- `wiki/people/碧树西风.md`
+- `wiki/topics/碧树西风-量化交易.md`
+- `wiki/topics/碧树西风-人生观与财富观.md`
+- `index.md`
+- `.manifest.json`
+- `log.md`
+
+### 操作说明
+
+归档 2026-05-29 记忆承载文章《有些事儿今天你不做，就跟2000年不买房一样后悔》，并整理为一篇 View Page 与一篇 Concept Page。观点页沉淀碧树西风关于 AI 时代人的价格取决于经验结果判断、低成本模拟训练和组织数字员工能力的判断；概念页将“经验数据分析 / 经验结果判断”整理为可复用能力区分，并回链到碧树西风人物页、量化交易主题页和人生观与财富观主题页。
+
+### 后续待办
+
+- 后续若继续出现“模拟训练”“数字员工”“人的价格”相关材料，可考虑拆出对应 Reasoning Page。
+- 可继续观察该观点与 [[topics/AI门票|AI门票]]、[[concepts/谁负债赚谁的钱|谁负债赚谁的钱]] 是否需要建立跨页综合。
+
+## 2026-06-02
+
+### 操作类型
+
+refactor
+
+### 修改文件
+
+- `wiki/views/碧树西风对AI时代人的价格取决于经验结果判断的看法.md`
+- `templates/view-page-template.md`
+- `log.md`
+
+### 操作说明
+
+按用户反馈修正 View Page 中“观点时间线”的语义：该章节用于观察同一作者在不同时间对同一主体 / 主题的判断是否发生变化，不应写成单篇文章内部论证过程。本次将该观点页的时间线改为“当前仅有单篇来源，暂无可比前期材料”的观察表，并同步修正 View Page 模板，避免后续生成时重复误用。
+
+### 后续待办
+
+- 后续整理 View Page 时，若只有单篇来源，应在时间线中明确标注“暂无可比前期材料”。
+- 若同一作者后续对同一主体出现判断强化、修正或转向，再回到对应 View Page 补充观点演化。
+
+## 2026-06-02
+
+### 操作类型
+
+ingest
+
+### 修改文件
+
+- `sources/articles/2026-05-30-碧树西风：我们天生就是瞎子，而AI不是.md`
+- `wiki/views/碧树西风对AI不受人类观察媒介限制的看法.md`
+- `wiki/concepts/人类观察媒介限制与AI机器同构.md`
+- `wiki/concepts/碧树西风-时域频域.md`
+- `wiki/views/碧树西风对AI时代人的价格取决于经验结果判断的看法.md`
+- `wiki/people/碧树西风.md`
+- `wiki/topics/碧树西风-量化交易.md`
+- `index.md`
+- `.manifest.json`
+- `log.md`
+
+### 操作说明
+
+抓取并归档微信文章《我们天生就是瞎子，而AI不是》，整理为一篇 View Page 与一篇 Concept Page。观点页记录碧树西风关于 AI 强势不只是效率，而是人类观察世界需要采样、工具和翻译媒介，AI 面对机器世界时更少受这类限制的判断；概念页将“人类观察媒介限制与 AI 机器同构”抽象为可复用概念，并与已有 `碧树西风-时域频域` 概念互链。同步更新前一篇“AI 时代人的价格取决于经验结果判断”观点页的时间线，记录该主题从人的价格判断向 AI 结构优势解释的强化。
+
+### 后续待办
+
+- 若后续继续出现 AI 与机器世界、采样周期、时域频域相关材料，可考虑拆出 Reasoning Page。
+- 后续使用该概念时需标注为作者观点，不应直接当作 AI 技术定论。
+## 2026-06-02
+
+### 操作类型
+
+ingest
+
+### 修改文件
+
+- `sources/articles/2026-05-28-碧树西风：戳心么？赢了的沦落到茶馆唱戏，输了的开着劳斯莱斯？.md`
+- `wiki/views/碧树西风对真实世界是概率游戏而不是标准答案的看法.md`
+- `wiki/concepts/思想钢印与尝试能力.md`
+- `wiki/people/碧树西风.md`
+- `wiki/topics/碧树西风-概率化决策.md`
+- `wiki/topics/碧树西风-人生观与财富观.md`
+- `index.md`
+- `.manifest.json`
+- `log.md`
+
+### 操作说明
+
+抓取并归档微信公众号文章《戳心么？赢了的沦落到茶馆唱戏，输了的开着劳斯莱斯？》，整理为一篇 View Page 与一篇 Concept Page。观点页记录碧树西风关于真实世界不是标准答案系统、而是概率游戏的判断；概念页将“思想钢印”与“尝试能力”抽象为可复用概念，用于连接概率化决策、人生财富观和 AI 时代个人能力价值判断。
+
+### 后续待办
+
+- 后续若继续出现“标准答案 / 尝试能力 / 迭代能力”材料，可考虑拆出 Reasoning Page，专门说明思想钢印如何传导为 AI 时代的个人价值下降。
+## 2026-06-02
+
+### 操作类型
+
+refactor
+
+### 修改文件
+
+- `wiki/topics/碧树西风-概率化决策.md`
+- `index.md`
+- `log.md`
+
+### 操作说明
+
+按用户反馈修正 `碧树西风-概率化决策` Topic Page 的主题范围：将其从偏狭义投资体系入口，调整为“不可测世界中的概率化决策方法论”总入口。投资系统、仓位纪律和风控仍是其重要应用场景，但职业路径、非标机会、人生选择、尝试能力和 AI 时代个人价值判断也可进入该主题。
+
+### 后续待办
+
+- 后续整理碧树西风材料时，若核心问题是“如何提高单次成功概率、增加有效尝试、通过反馈迭代修正判断”，应优先考虑回链到本 Topic，而不必限于投资材料。
+
+## 2026-06-02
+
+### 操作类型
+
+ingest
+
+### 修改文件
+
+- `sources/articles/2026-05-14-碧树西风：码农土木化之后，量化是不是学霸们唯一的出路？.md`
+- `wiki/views/碧树西风对量化是码农式选择与测试的看法.md`
+- `wiki/topics/碧树西风-量化交易.md`
+- `wiki/topics/碧树西风-概率化决策.md`
+- `wiki/people/碧树西风.md`
+- `index.md`
+- `.manifest.json`
+
+### 操作说明
+
+整理微信公众号文章《码农土木化之后，量化是不是学霸们唯一的出路？》。保存原文来源，并新增观点页，将文章中的量化判断沉淀为“码农式选择与测试”：复杂环境无法先分析完再选择，应先构造可测试假设，再通过模拟、回测、反馈和小规模实盘调试系统。同步回链到量化交易、概率化决策和碧树西风人物页。
+
+### 后续待办
+
+- 继续观察“码农式选择与测试”是否在后续材料中反复出现；若证据增厚，再考虑拆成独立 Concept Page。
+- [2026-06-02T00:00:00+08:00] QUERY query="有没有量化的concept页面" result_pages=4 mode=normal escalated=false
+
+## 2026-06-02
+
+### 操作类型
+
+refactor
+
+### 修改文件
+
+- `wiki/concepts/量化思维.md`
+- `wiki/concepts/量化交易.md`
+- `wiki/topics/碧树西风-量化交易.md`
+- `wiki/topics/碧树西风-概率化决策.md`
+- `wiki/people/碧树西风.md`
+- `index.md`
+
+### 操作说明
+
+根据用户要求，将原先由“碧树西风-量化交易”主题页承载的定义拆成两个 Concept Page：量化思维作为上位方法，负责样本总集、时间曲线、变量化表达、反馈和测试；量化交易作为金融交易应用，负责信号、算法、回测、执行、成本、容量和失效风险。主题页保留为材料聚合入口。
+
+### 后续待办
+
+- 后续新增量化相关材料时，先判断是补充“量化思维”还是“量化交易”，再回链到主题页。
+
+## 2026-06-02
+
+### 操作类型
+
+link
+
+### 修改文件
+
+- `wiki/topics/碧树西风-概率化决策.md`
+- `wiki/concepts/量化思维.md`
+- `wiki/concepts/量化交易.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求，将“量化思维：认知工具层；碧树西风-概率化决策：决策系统层；量化交易：金融交易应用层”的三层定位补入相关页面。概率化决策主题页新增“三层定位”，量化思维概念页补充其与概率化决策的边界，量化交易概念页补充其作为金融交易应用层的位置。
+
+### 后续待办
+
+- 后续整理新材料时，若内容是变量化、样本、分布、反馈和测试，优先补入量化思维；若内容是进入条件、承受力、退出和复盘，优先补入概率化决策；若内容是市场信号、算法、回测、执行和容量，优先补入量化交易。
+
+## 2026-06-02
+
+### 操作类型
+
+ingest
+
+### 修改文件
+
+- `wiki/queries/中证红利什么时候买入收益率最高.md`
+- `index.md`
+- `log.md`
+
+### 操作说明
+
+按用户提供的答案和回测表，新建 Query Page“中证红利什么时候买入收益率最高”。页面记录当前答案：当中证红利股息率达到近10年80%分位，且股息率与10年国债收益率利差达到2.5%以上时，进入重点买入区间；同时整理峰值窗口、股息率最高、股息率最低、每月15号四类策略的样本数、平均年化和中位数表现，并标注数据来源和样本定义仍待补充。
+
+### 后续待办
+
+- 补充完整回测来源、区间、持有周期、交易成本、分红再投资方式和样本定义；后续若形成稳定投资规则，可再拆成 Concept Page 或 Reasoning Page。
+
+## 2026-06-02
+
+### 操作类型
+
+link
+
+### 修改文件
+
+- `wiki/queries/中证红利什么时候买入收益率最高.md`
+- `log.md`
+
+### 操作说明
+
+按用户补充材料，更新 Query Page“中证红利什么时候买入收益率最高”，新增“三种触发规则”：历史分位点触发、绝对股息率阈值触发、股息率相对10年国债收益率触发。同步补充每种规则的操作表、适用含义和边界说明，并在不确定性中标注绝对股息率阈值和历史分位点需要结合利率环境与样本窗口使用。
+
+### 后续待办
+
+- 若后续取得理杏仁原始数据或完整回测文件，应补充到 sources/manual 或 sources/assets，并把本 Query Page 的数据来源从 conversation 扩展为可追踪数据文件。
+## 2026-06-03
+
+### 操作类型
+
+tooling
+
+### 修改文件
+
+- `.agents/skills/zzhl-dividend-signal/SKILL.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求，从 `zzhl-dividend-signal` 的 `SKILL.md` 中移除 Token 配置章节。理杏仁 token 继续保留在本地忽略文件中，未写入 skill 文档、脚本或知识库页面。
+
+### 后续待办
+
+- 无。
+
+## 2026-06-03
+
+### 操作类型
+
+tooling
+
+### 修改文件
+
+- `.agents/skills/zzhl-dividend-signal/scripts/check_signal.py`
+- `.agents/skills/zzhl-dividend-signal/local.env`
+- `sources/manual/中证红利信号/中证红利每日信号.csv`
+- `sources/manual/中证红利信号/最新信号.md`
+- `log.md`
+
+### 操作说明
+
+将用户提供的理杏仁 Open API token 写入本地忽略文件 `.agents/skills/zzhl-dividend-signal/local.env`，未写入仓库或知识库正文。同步修正脚本读取本地配置时兼容 UTF-8 BOM 的问题。重新运行脚本后，token 配置已进入读取路径，但理杏仁 Open API 与公开页面均返回 `HTTP 429: Too Many Requests`，因此本次仍将历史分位点标记为待验证。
+
+### 后续待办
+
+- 等理杏仁限流恢复后重新运行 `zzhl-dividend-signal`，验证 Open API 返回的股息率指标字段和近10年80%分位点。
+
+## 2026-06-03
+
+### 操作类型
+
+tooling
+
+### 修改文件
+
+- `.agents/skills/zzhl-dividend-signal/SKILL.md`
+- `.agents/skills/zzhl-dividend-signal/scripts/check_signal.py`
+- `.agents/skills/zzhl-dividend-signal/local.env.example`
+- `.gitignore`
+- `sources/manual/中证红利信号/中证红利每日信号.csv`
+- `sources/manual/中证红利信号/最新信号.md`
+- `wiki/queries/中证红利什么时候买入收益率最高.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求，在中证红利股息率信号脚本中增加“理杏仁查询近10年80%分位”步骤。脚本现在优先通过理杏仁 Open API token 请求 `a/indice/fundamental` 获取中证红利近10年股息率分位与80%分位点；AKShare `股息率2` 继续用于绝对股息率和股债利差判断。新增本地 token 配置样例 `local.env.example`，并将实际 `local.env` 加入 `.gitignore`，避免 token 进入仓库。
+
+### 后续待办
+
+- 用户配置 `LIXINGER_TOKEN` 后，重新运行脚本验证 Open API 返回的具体股息率指标字段；如理杏仁指标名变化，可通过 `LIXINGER_DYR_METRIC` 在本地配置中调整。
+
+## 2026-06-03
+
+### 操作类型
+
+tooling
+
+### 修改文件
+
+- `.agents/skills/zzhl-dividend-signal/SKILL.md`
+- `.agents/skills/zzhl-dividend-signal/scripts/check_signal.py`
+- `sources/manual/中证红利信号/中证红利每日信号.csv`
+- `sources/manual/中证红利信号/最新信号.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求，将中证红利股息率信号的默认数据口径明确改为 AKShare 指数估值接口中的 `股息率2`，并在 `SKILL.md` 中补充口径说明：不再默认使用 `股息率1`。同步修改脚本实际取数字段，重新运行后最新记录显示 2026-06-02 中证红利 `股息率2` 为 4.83%，相对中国10年国债收益率利差为 3.13%。同时为避免误导，将 AKShare 当前短窗口数据不足以计算真正“近10年分位”的情况标记为“历史分位点待验证”。
+
+### 后续待办
+
+- 若需要恢复严格的历史分位点触发规则，应接入完整的近10年 `股息率2` 历史数据源后再计算。
+
+## 2026-06-03
+
+### 操作类型
+
+tooling
+
+### 修改文件
+
+- `.agents/skills/zzhl-dividend-signal/SKILL.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求，在 `zzhl-dividend-signal` skill 的 `SKILL.md` 中补充数据源说明：记录 AKShare 指数估值接口 `stock_zh_index_value_csindex`、债券接口 `bond_zh_us_rate`、对应官方文档地址，以及人工核对中证指数官网的入口。
+
+### 后续待办
+
+- 若 AKShare 或中证指数官网接口变化，应同步更新 skill 数据源说明和脚本取数字段。
+
+## 2026-06-03
+
+### 操作类型
+
+tooling
+
+### 修改文件
+
+- `.agents/skills/zzhl-dividend-signal/SKILL.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求，将项目内 skill `zzhl-dividend-signal` 的 `SKILL.md` 描述性文本改为中文，包括 frontmatter 描述、执行方式、判断规则、综合结论和注意事项；脚本逻辑未修改。
+
+### 后续待办
+
+- 刷新 Codex 技能列表后，确认该 skill 的描述显示为中文。
+
+## 2026-06-03
+
+### 操作类型
+
+tooling
+
+### 修改文件
+
+- `.agents/skills/zzhl-dividend-signal/SKILL.md`
+- `.agents/skills/zzhl-dividend-signal/agents/openai.yaml`
+- `.agents/skills/zzhl-dividend-signal/scripts/check_signal.py`
+- `wiki/queries/中证红利什么时候买入收益率最高.md`
+- `log.md`
+
+### 操作说明
+
+修正中证红利股息率信号 skill 的项目安装位置：将其从 Codex 未在本项目技能列表中识别的 `.codex/skills/zzhl-dividend-signal/` 迁移到当前 llmwiki 项目实际使用的 `.agents/skills/zzhl-dividend-signal/`，并同步修正 Query Page 和日志中的路径引用。
+
+### 后续待办
+
+- 在 Codex 技能列表刷新后确认“中证红利股息率信号”出现在 `llmwiki` 技能列表中。
+
+## 2026-06-03
+
+### 操作类型
+
+tooling
+
+### 修改文件
+
+- `.agents/skills/zzhl-dividend-signal/SKILL.md`
+- `.agents/skills/zzhl-dividend-signal/scripts/check_signal.py`
+- `sources/manual/中证红利信号/中证红利每日信号.csv`
+- `sources/manual/中证红利信号/最新信号.md`
+- `wiki/queries/中证红利什么时候买入收益率最高.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求，将“中证红利股息率买入信号”实现为项目内 Codex skill，并把确定性取数与判断逻辑放入脚本。脚本使用 AKShare 免费数据源获取中证红利 `000922` 指数估值数据与中国10年国债收益率，按 Query Page“中证红利什么时候买入收益率最高”中的三种触发规则生成每日判断，并将结果写入 `sources/manual/中证红利信号/`。同时在 Query Page 中补充每日自动记录入口，方便从规则页回到最新信号和历史记录。
+
+### 后续待办
+
+- 每隔一段时间核对 AKShare 字段口径是否变化，尤其是中证指数估值接口的股息率字段和债券收益率字段。
+- 如后续改用 Wind、理杏仁或中证官网数据，应保留同一输出结构，只替换数据源层。

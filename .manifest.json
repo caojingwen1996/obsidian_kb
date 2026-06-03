@@ -1,10 +1,38 @@
 ﻿{
   "version": 1,
   "stats": {
-    "total_sources_ingested": 120,
-    "total_pages": 340
+    "total_sources_ingested": 125,
+    "total_pages": 350
   },
   "sources": {
+    "E:/caojingwen/obsidian/source/wechat_exports/20260602/记忆承载/多数逆袭的人，并不是解决了社会问题而是利用了问题_slHx5XZS833Oezxr-KF84A.md": {
+      "ingested_at": "2026-06-02T11:29:32+08:00",
+      "size_bytes": 8460,
+      "modified_at": "2026-06-02T11:25:28+08:00",
+      "content_hash": "sha256:3ee3fa79be96866d760b253c1a2aec277a58f57004c9a3955ed518fb3f649416",
+      "source_type": "document",
+      "project": null,
+      "source_metadata": {
+        "title": "多数逆袭的人，并不是解决了社会问题而是利用了问题",
+        "author": "记忆承载",
+        "content_id": "slHx5XZS833Oezxr-KF84A",
+        "published_at": "2026-06-02T07:46:53+08:00",
+        "original_url": "https://mp.weixin.qq.com/s/slHx5XZS833Oezxr-KF84A"
+      },
+      "pages_created": [
+        "wiki/views/碧树西风对多数逆袭来自利用问题而不是解决问题的看法.md",
+        "wiki/concepts/谁负债赚谁的钱.md"
+      ],
+      "pages_updated": [
+        "sources/articles/2026-06-02-碧树西风：多数逆袭的人，并不是解决了社会问题而是利用了问题.md",
+        "wiki/views/碧树西风对多数逆袭来自利用问题而不是解决问题的看法.md",
+        "wiki/people/碧树西风.md",
+        "wiki/topics/碧树西风-人生观与财富观.md",
+        "index.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
     "E:/caojingwen/obsidian/source/冰冰小美专栏/20260523/082800_2026年五月月报_二_39053500.txt": {
       "ingested_at": "2026-05-29T00:00:00+08:00",
       "size_bytes": 16131,
@@ -31,7 +59,6 @@
         "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/topics/冰冰小美-中美产业竞争.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "wiki/topics/冰冰小美-知识地图.md",
         "index.md",
         "hot.md",
@@ -64,7 +91,6 @@
         "wiki/topics/冰冰小美-AI产业趋势.md",
         "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/topics/冰冰小美-中美产业竞争.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "wiki/topics/冰冰小美-知识地图.md",
         "index.md",
         "hot.md",
@@ -95,7 +121,6 @@
         "wiki/people/冰冰小美.md",
         "wiki/topics/冰冰小美-AI产业趋势.md",
         "wiki/topics/冰冰小美-宏观经济.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "wiki/topics/冰冰小美-知识地图.md",
         "index.md",
         "hot.md",
@@ -127,7 +152,6 @@
         "wiki/topics/冰冰小美-AI产业趋势.md",
         "wiki/topics/冰冰小美-中美产业竞争.md",
         "wiki/topics/冰冰小美-宏观经济.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "wiki/topics/冰冰小美-知识地图.md",
         "index.md",
         "hot.md",
@@ -158,7 +182,6 @@
         "wiki/people/冰冰小美.md",
         "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "wiki/topics/冰冰小美-AI产业趋势.md",
         "wiki/topics/冰冰小美-化工投资跟踪.md",
         "wiki/concepts/冰冰小美-宏观风险信号表.md",
@@ -249,7 +272,6 @@
         "sources/articles/2026-03-31-冰冰小美：金融诱骗.md",
         "wiki/concepts/冰冰小美-宏观风险信号表.md",
         "wiki/reasoning/冰冰小美-多重宏观风险信号如何打开风险敞口.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "wiki/topics/冰冰小美-AI产业趋势.md",
         "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/people/冰冰小美.md",
@@ -297,7 +319,6 @@
         "sources/articles/2026-03-23-冰冰小美：风险对冲.md",
         "wiki/concepts/冰冰小美-波动风险.md",
         "wiki/reasoning/冰冰小美-波动风险如何由事件集合与杠杆退散传导为流动性不利.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/people/冰冰小美.md",
         "index.md",
@@ -320,7 +341,6 @@
         "wiki/reasoning/冰冰小美-A股投机产业链如何由做多制度与低违规成本形成.md",
         "wiki/views/冰冰小美对涨停板作为观察锚的看法.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "index.md",
         "log.md",
         "hot.md",
@@ -341,7 +361,6 @@
       "pages_updated": [
         "sources/articles/2026-01-20-冰冰小美：哀其不幸.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "index.md",
         "log.md",
         "hot.md",
@@ -466,7 +485,6 @@
         "sources/articles/2025-09-05-冰冰小美：心智夺取与交易决策.md",
         "wiki/views/冰冰小美：交易心理分析服务自我约束的判断框架.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "index.md",
         "log.md",
         "hot.md",
@@ -508,7 +526,6 @@
       "pages_updated": [
         "sources/articles/2025-09-20-冰冰小美：风险变化如何观察.md",
         "wiki/concepts/冰冰小美-风险转弱节点框架.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/people/冰冰小美.md",
         "index.md",
@@ -594,7 +611,6 @@
       ],
       "pages_updated": [
         "wiki/people/冰冰小美.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/concepts/冰冰小美-风险转弱节点框架.md",
         "wiki/views/冰冰小美：宏观服务风险识别与仓位调整的判断框架.md",
@@ -637,7 +653,6 @@
       "pages_updated": [
         "sources/articles/2025-01-25-冰冰小美：行情不等于风险.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "wiki/concepts/冰冰小美-风险转弱节点框架.md",
         "wiki/views/冰冰小美：交易风控先看风险与国运的判断框架.md",
         "wiki/reasoning/冰冰小美-风险转弱节点如何形成买入窗口.md",
@@ -870,7 +885,6 @@
         "sources/articles/2025-04-19-冰冰小美：猪周期分析框架.md",
         "wiki/people/冰冰小美.md",
         "wiki/topics/冰冰小美-宏观经济.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "wiki/concepts/产业思维.md",
         "index.md",
         "log.md",
@@ -1106,7 +1120,6 @@
         "sources/articles/2025-05-17-冰冰小美：股市投资者的困境.md",
         "wiki/people/冰冰小美.md",
         "wiki/topics/冰冰小美-宏观经济.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "wiki/concepts/冰冰小美-流动性辩证分析.md",
         "index.md",
         "log.md",
@@ -1127,7 +1140,6 @@
         "sources/articles/2025-06-15-冰冰小美：当风险突然降临的时候.md",
         "wiki/people/冰冰小美.md",
         "wiki/topics/冰冰小美-宏观经济.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
         "wiki/concepts/冰冰小美-风险转弱节点框架.md",
         "wiki/views/冰冰小美：交易风控先看风险与国运的判断框架.md",
@@ -1150,7 +1162,6 @@
         "sources/articles/2025-06-15-冰冰小美：目前有什么有利.md",
         "wiki/people/冰冰小美.md",
         "wiki/topics/冰冰小美-宏观经济.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "wiki/concepts/冰冰小美-中央加杠杆.md",
         "wiki/concepts/冰冰小美-流动性辩证分析.md",
         "index.md",
@@ -1174,7 +1185,6 @@
         "wiki/concepts/冰冰小美-情绪体系.md",
         "wiki/concepts/冰冰小美-体系三要素.md",
         "wiki/concepts/冰冰小美-流动性辩证分析.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "index.md",
         "log.md",
         "hot.md"
@@ -1477,7 +1487,6 @@
         "wiki/people/冰冰小美.md",
         "wiki/concepts/冰冰小美-流动性辩证分析.md",
         "wiki/reasoning/冰冰小美-2024大事件如何传导为产业ETF行情.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "wiki/topics/冰冰小美-宏观经济.md",
         "index.md",
         "hot.md",
@@ -1632,7 +1641,6 @@
       "pages_updated": [
         "sources/articles/2025-07-26-冰冰小美：交易心理分析的重要性.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "index.md",
         "log.md",
         "hot.md"
@@ -1652,7 +1660,6 @@
       "pages_updated": [
         "sources/articles/2025-07-25-冰冰小美：交易理念之争.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "index.md",
         "log.md",
         "hot.md"
@@ -1673,7 +1680,6 @@
         "wiki/concepts/冰冰小美-情绪体系.md",
         "wiki/concepts/冰冰小美-情绪周期.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "index.md",
         "log.md",
         "hot.md"
@@ -1695,7 +1701,6 @@
         "wiki/concepts/冰冰小美-情绪体系.md",
         "wiki/concepts/冰冰小美-情绪周期.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "index.md",
         "log.md",
         "hot.md"
@@ -1815,7 +1820,6 @@
         "sources/articles/2025-10-11-冰冰小美：错综复杂的局面.md",
         "wiki/people/冰冰小美.md",
         "wiki/topics/冰冰小美-宏观经济.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "wiki/topics/冰冰小美-AI产业趋势.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
         "index.md",
@@ -1839,7 +1843,6 @@
         "sources/articles/2025-10-19-冰冰小美：波动风险.md",
         "wiki/people/冰冰小美.md",
         "wiki/topics/冰冰小美-宏观经济.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "wiki/topics/冰冰小美-AI产业趋势.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
         "wiki/concepts/冰冰小美-风险转弱节点框架.md",
@@ -2050,7 +2053,6 @@
         "sources/articles/2025-12-17-冰冰小美：宏观.md",
         "wiki/people/冰冰小美.md",
         "wiki/topics/冰冰小美-宏观经济.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "wiki/concepts/冰冰小美-ETF行情.md",
         "index.md",
         "log.md",
@@ -2071,7 +2073,6 @@
       "pages_updated": [
         "sources/articles/2025-12-17-冰冰小美：收益率与平常心.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "wiki/concepts/冰冰小美-容忍度.md",
         "wiki/concepts/产业思维.md",
         "index.md",
@@ -2133,7 +2134,6 @@
       "pages_updated": [
         "sources/articles/2026-01-16-冰冰小美：长期主义的浪漫.md",
         "wiki/people/冰冰小美.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "index.md",
         "log.md",
         "hot.md",
@@ -2278,7 +2278,6 @@
         "sources/articles/2026-03-20-冰冰小美：如何理解时间窗口.md",
         "wiki/people/冰冰小美.md",
         "wiki/topics/冰冰小美-宏观经济.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "index.md",
         "log.md",
         "hot.md",
@@ -2300,7 +2299,6 @@
         "sources/articles/2026-03-20-冰冰小美：宏观分析的框架.md",
         "wiki/people/冰冰小美.md",
         "wiki/topics/冰冰小美-宏观经济.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "index.md",
         "log.md",
         "hot.md",
@@ -2554,7 +2552,6 @@
         "wiki/people/冰冰小美.md",
         "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/topics/冰冰小美-中美产业竞争.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "wiki/topics/冰冰小美-知识地图.md",
         "index.md",
         "hot.md",
@@ -2649,7 +2646,6 @@
       ],
       "pages_updated": [
         "sources/articles/2026-05-15-冰冰小美：十字路口.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "wiki/topics/冰冰小美-信息的金融意义系列.md",
         "wiki/topics/冰冰小美-知识地图.md",
         "wiki/people/冰冰小美.md",
@@ -2683,7 +2679,6 @@
         "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
         "wiki/topics/冰冰小美-AI产业趋势.md",
-        "wiki/topics/概率化决策与风险控制.md",
         "wiki/timelines/冰冰小美-2026一季度宏观阶段时间线.md",
         "wiki/topics/冰冰小美-知识地图.md",
         "index.md",
@@ -2692,7 +2687,123 @@
         ".manifest.json"
       ],
       "notes": "Ingested into view and reasoning pages about a clear-sober bull market stance, macro event visibility, dollar narrative pressure, hot-money migration, reflation, and cost safety."
+    },
+    "E:/caojingwen/obsidian/source/wechat_exports/20260529/记忆承载/有些事儿今天你不做，就跟2000年不买房一样后悔_42Br_bM-DQLoD_MlSJ8M2w.md": {
+      "ingested_at": "2026-06-02T14:39:11+08:00",
+      "size_bytes": 10943,
+      "modified_at": "2026-06-02T14:31:08+08:00",
+      "content_hash": "sha256:01b1bf4f3f9f443ace25769d794136982b9905974db6ed33b1c3c270526d4979",
+      "source_type": "document",
+      "project": null,
+      "source_metadata": {
+        "title": "有些事儿今天你不做，就跟2000年不买房一样后悔",
+        "author": "记忆承载",
+        "content_id": "42Br_bM-DQLoD_MlSJ8M2w",
+        "published_at": "2026-05-29T08:20:05+08:00",
+        "original_url": "https://mp.weixin.qq.com/s/42Br_bM-DQLoD_MlSJ8M2w"
+      },
+      "pages_created": [
+        "wiki/views/碧树西风对AI时代人的价格取决于经验结果判断的看法.md",
+        "wiki/concepts/经验数据分析与经验结果判断.md"
+      ],
+      "pages_updated": [
+        "sources/articles/2026-05-29-碧树西风：有些事儿今天你不做，就跟2000年不买房一样后悔.md",
+        "wiki/people/碧树西风.md",
+        "wiki/topics/碧树西风-量化交易.md",
+        "wiki/topics/碧树西风-人生观与财富观.md",
+        "index.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "https://mp.weixin.qq.com/s/TZVKmI-fwuXYAnoJU8c0qg": {
+      "ingested_at": "2026-06-02T15:05:00+08:00",
+      "size_bytes": 8561,
+      "modified_at": "2026-06-02T07:16:53.034Z",
+      "content_hash": "sha256:65574c098ef00194c74aa7d42bc192ba3769f8378941c00e657d017707b38352",
+      "source_type": "webpage",
+      "project": null,
+      "source_metadata": {
+        "title": "我们天生就是瞎子，而AI不是",
+        "author": "记忆承载",
+        "content_id": "TZVKmI-fwuXYAnoJU8c0qg",
+        "published_at": "2026-05-30T07:48:31+08:00",
+        "original_url": "https://mp.weixin.qq.com/s/TZVKmI-fwuXYAnoJU8c0qg"
+      },
+      "pages_created": [
+        "wiki/views/碧树西风对AI不受人类观察媒介限制的看法.md",
+        "wiki/concepts/人类观察媒介限制与AI机器同构.md"
+      ],
+      "pages_updated": [
+        "sources/articles/2026-05-30-碧树西风：我们天生就是瞎子，而AI不是.md",
+        "wiki/concepts/碧树西风-时域频域.md",
+        "wiki/views/碧树西风对AI时代人的价格取决于经验结果判断的看法.md",
+        "wiki/people/碧树西风.md",
+        "wiki/topics/碧树西风-量化交易.md",
+        "index.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "https://mp.weixin.qq.com/s/PHC0Kk6hsAFbLoRO-rxS4Q": {
+      "ingested_at": "2026-06-02T15:45:00+08:00",
+      "size_bytes": 5010,
+      "modified_at": "2026-06-02T07:38:12.063Z",
+      "content_hash": "sha256:89f75686fcd552ccdcb98115ed80ffd8abb947d42d3c9f3d33d81c6cc394851c",
+      "source_type": "webpage",
+      "project": null,
+      "source_metadata": {
+        "title": "戳心么？赢了的沦落到茶馆唱戏，输了的开着劳斯莱斯？",
+        "author": "碧树西风",
+        "account": "记忆承载",
+        "content_id": "PHC0Kk6hsAFbLoRO-rxS4Q",
+        "published_at": "2026-05-28T08:09:15+08:00",
+        "original_url": "https://mp.weixin.qq.com/s/PHC0Kk6hsAFbLoRO-rxS4Q",
+        "extraction_note": "Wechat HTML had encoding noise; source archive was minimally cleaned by meaning."
+      },
+      "pages_created": [
+        "wiki/views/碧树西风对真实世界是概率游戏而不是标准答案的看法.md",
+        "wiki/concepts/思想钢印与尝试能力.md"
+      ],
+      "pages_updated": [
+        "sources/articles/2026-05-28-碧树西风：戳心么？赢了的沦落到茶馆唱戏，输了的开着劳斯莱斯？.md",
+        "wiki/people/碧树西风.md",
+        "wiki/topics/碧树西风-概率化决策.md",
+        "wiki/topics/碧树西风-人生观与财富观.md",
+        "index.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "https://mp.weixin.qq.com/s/9iRLh7XPxJI0X86J8WCqfw": {
+      "ingested_at": "2026-06-02T00:00:00+08:00",
+      "size_bytes": 10591,
+      "modified_at": "2026-06-02T00:00:00+08:00",
+      "content_hash": "sha256:1938002f3cbc9a79b96cf04fd5b92d4f33e3591185e0f1e2d2fdce102a7eacb7",
+      "source_type": "wechat_article",
+      "project": null,
+      "source_metadata": {
+        "title": "码农土木化之后，量化是不是学霸们唯一的出路？",
+        "author": "碧树西风",
+        "account": "记忆承载",
+        "content_id": "9iRLh7XPxJI0X86J8WCqfw",
+        "published_at": "2026-05-14T07:52:18+08:00",
+        "original_url": "https://mp.weixin.qq.com/s/9iRLh7XPxJI0X86J8WCqfw"
+      },
+      "pages_created": [
+        "wiki/views/碧树西风对量化是码农式选择与测试的看法.md"
+      ],
+      "pages_updated": [
+        "sources/articles/2026-05-14-碧树西风：码农土木化之后，量化是不是学霸们唯一的出路？.md",
+        "wiki/views/碧树西风对量化是码农式选择与测试的看法.md",
+        "wiki/topics/碧树西风-量化交易.md",
+        "wiki/topics/碧树西风-概率化决策.md",
+        "wiki/people/碧树西风.md",
+        "index.md",
+        "log.md",
+        ".manifest.json"
+      ]
     }
   },
-  "updated_at": "2026-05-29T00:00:00+08:00"
+  "updated_at": "2026-06-02T15:45:00+08:00"
 }
