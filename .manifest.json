@@ -1,10 +1,87 @@
-﻿{
+{
   "version": 1,
   "stats": {
-    "total_sources_ingested": 126,
-    "total_pages": 351
+    "total_sources_ingested": 130,
+    "total_pages": 381
   },
   "sources": {
+    "E:/caojingwen/obsidian/llmwiki/sources/articles/2025-11-01-碧树西风-阿川开启下半场？个人如何打赢这场命运之战.md": {
+      "ingested_at": "2026-06-04T00:00:00+08:00",
+      "size_bytes": 110011,
+      "modified_at": "2026-06-04T17:52:37+08:00",
+      "content_hash": "sha256:c081667cb35882841572a0767299b7435a58440577f2bec3180a22da818c7ff7",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "阿川开启下半场？个人如何打赢这场命运之战？",
+        "author": "碧树西风",
+        "content_id": null,
+        "published_at": "2025-11-01",
+        "original_url": null
+      },
+      "pages_created": [
+        "wiki/concepts/碧树西风-framework-调查矛盾实践.md",
+        "wiki/reasoning/碧树西风-调查矛盾实践如何推导为赚取确定性与押极值策略.md"
+      ],
+      "pages_updated": [
+        "sources/articles/2025-11-01-碧树西风-阿川开启下半场？个人如何打赢这场命运之战.md",
+        "wiki/topics/碧树西风的策略.md",
+        "wiki/concepts/碧树西风-framework-调查矛盾实践.md",
+        "wiki/topics/碧树西风-人生观与财富观.md",
+        "index.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/sources/manual/2026-06-04-碧树西风-押注极值与守株待兔策略片段.md": {
+      "ingested_at": "2026-06-04T00:00:00+08:00",
+      "size_bytes": 1939,
+      "modified_at": "2026-06-04T17:16:31+08:00",
+      "content_hash": "sha256:3ae73f48759c96d0fc81cd515a0aa8db7be6c1f689abefe38357c5af53006e3e",
+      "source_type": "manual_excerpt",
+      "project": null,
+      "source_metadata": {
+        "title": "碧树西风：押注极值与守株待兔策略片段",
+        "author": "碧树西风",
+        "content_id": null,
+        "published_at": null,
+        "original_url": null
+      },
+      "pages_created": [
+        "wiki/topics/碧树西风的策略.md"
+      ],
+      "pages_updated": [
+        "index.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/sources/manual/2026-06-03-寿老-实事求是.md": {
+      "ingested_at": "2026-06-04T00:00:00+08:00",
+      "size_bytes": 71571,
+      "modified_at": "2026-06-04T11:19:16+08:00",
+      "content_hash": "sha256:3dcf662ad666cf18ca4dbe26da25c7fc4afe9e8883ff2e052ab0a5700e0181ed",
+      "source_type": "document",
+      "project": null,
+      "source_metadata": {
+        "title": "实事求是！尊重客观规律，选择好方向努力才有意义",
+        "author": "寿老",
+        "content_id": "mGBKB1_PbnK7lzKF3xf5Jw",
+        "published_at": "2026-06-03",
+        "original_url": "https://mp.weixin.qq.com/s/mGBKB1_PbnK7lzKF3xf5Jw"
+      },
+      "pages_created": [
+        "wiki/people/寿老.md",
+        "wiki/views/寿老对实事求是与版本理论的看法.md",
+        "wiki/concepts/寿老-concept-版本理论.md",
+        "wiki/concepts/寿老-rule-长期主义.md"
+      ],
+      "pages_updated": [
+        "index.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
     "E:/caojingwen/obsidian/source/wechat_exports/20260602/记忆承载/多数逆袭的人，并不是解决了社会问题而是利用了问题_slHx5XZS833Oezxr-KF84A.md": {
       "ingested_at": "2026-06-02T11:29:32+08:00",
       "size_bytes": 8460,
@@ -2826,6 +2903,31 @@
       "pages_updated": [
         "sources/articles/2024-10-16-碧树西风：行动怕亏本，不动怕踏空，接下来该怎么办.md",
         "wiki/views/碧树西风对投资与交易区别及交易系统适配的看法.md",
+        "index.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/sources/manual/2026-06-04-买股票的老木匠-日元汇率对市场的影响.md": {
+      "ingested_at": "2026-06-04T00:00:00+08:00",
+      "size_bytes": 8495,
+      "modified_at": "2026-06-04T14:47:44+08:00",
+      "content_hash": "sha256:d2c0111986e1098f7b76654634c4109cfc462adf50e60a9bb747cbf5ad32f77f",
+      "source_type": "document",
+      "project": null,
+      "source_metadata": {
+        "title": "日元汇率对市场的影响",
+        "author": "买股票的老木匠",
+        "platform": "雪球",
+        "provided_path": "E:/download/日元汇率对市场的影响.md"
+      },
+      "pages_created": [
+        "wiki/reasoning/买股票的老木匠-日元汇率如何传导为全球流动性风险.md"
+      ],
+      "pages_updated": [
+        "sources/manual/2026-06-04-买股票的老木匠-日元汇率对市场的影响.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
+        "wiki/people/买股票的老木匠.md",
         "index.md",
         "log.md",
         ".manifest.json"
