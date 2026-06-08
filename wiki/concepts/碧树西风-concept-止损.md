@@ -1,4 +1,4 @@
----
+﻿---
 title: "止损"
 aliases:
   - "碧树西风-concept-止损"
@@ -17,7 +17,7 @@ sources:
   - "[[sources/articles/2026-01-31-碧树西风：一辈子为钱奋斗，那你当然不可能幸福|2026-01-31《一辈子为钱奋斗，那你当然不可能幸福》]]"
 related:
   - "[[people/碧树西风|碧树西风]]"
-  - "[[concepts/碧树西风-framework-风控三层结构|风控三层结构]]"
+  - "[[concepts/碧树西风-concept-盈亏比|盈亏比]]、[[concepts/碧树西风-concept-止损|止损]]、[[concepts/碧树西风-concept-兜底|兜底]]"
   - "[[concepts/碧树西风-concept-盈亏比|盈亏比]]"
   - "[[concepts/碧树西风-concept-兜底|兜底]]"
   - "[[concepts/碧树西风-rule-策略启动前执行|策略启动前执行规则]]"
@@ -87,7 +87,7 @@ common_misunderstandings:
 ## 相关页面
 
 - [[people/碧树西风|碧树西风]]：本概念的主要来源人物。
-- [[concepts/碧树西风-framework-风控三层结构|风控三层结构]]：说明止损如何处在盈亏比和兜底之间。
+- [[concepts/碧树西风-concept-盈亏比|盈亏比]]、[[concepts/碧树西风-concept-止损|止损]]、[[concepts/碧树西风-concept-兜底|兜底]]：说明止损如何处在盈亏比和兜底之间。
 - [[concepts/碧树西风-concept-盈亏比|盈亏比]]：止损定义了风险单位 `R`。
 - [[concepts/碧树西风-concept-兜底|兜底]]：处理止损失效后的生存问题。
 - [[concepts/碧树西风-rule-策略启动前执行|策略启动前执行规则]]：把止损写入入场前规则。

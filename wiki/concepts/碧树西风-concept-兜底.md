@@ -1,4 +1,4 @@
----
+﻿---
 title: "兜底"
 aliases:
   - "碧树西风-concept-兜底"
@@ -19,7 +19,7 @@ sources:
   - "[[sources/articles/2026-01-13-碧树西风：宋江懂的不是人性，他懂的，是数学！|2026-01-13《宋江懂的不是人性，他懂的，是数学！》]]"
 related:
   - "[[people/碧树西风|碧树西风]]"
-  - "[[concepts/碧树西风-framework-风控三层结构|风控三层结构]]"
+  - "[[concepts/碧树西风-concept-盈亏比|盈亏比]]、[[concepts/碧树西风-concept-止损|止损]]、[[concepts/碧树西风-concept-兜底|兜底]]"
   - "[[concepts/碧树西风-concept-盈亏比|盈亏比]]"
   - "[[concepts/碧树西风-concept-止损|止损]]"
   - "[[concepts/碧树西风-rule-风控穿透|风控穿透规则]]"
@@ -92,7 +92,7 @@ common_misunderstandings:
 ## 相关页面
 
 - [[people/碧树西风|碧树西风]]：本概念的主要来源人物。
-- [[concepts/碧树西风-framework-风控三层结构|风控三层结构]]：说明兜底如何作为第三层保护长期系统。
+- [[concepts/碧树西风-concept-盈亏比|盈亏比]]、[[concepts/碧树西风-concept-止损|止损]]、[[concepts/碧树西风-concept-兜底|兜底]]：说明兜底如何作为第三层保护长期系统。
 - [[concepts/碧树西风-concept-盈亏比|盈亏比]]：判断收益是否值得承担风险。
 - [[concepts/碧树西风-concept-止损|止损]]：处理判断错误后的规则退出。
 - [[concepts/碧树西风-rule-风控穿透|风控穿透规则]]：把兜底落实到底层资产、对手盘和出金机制。

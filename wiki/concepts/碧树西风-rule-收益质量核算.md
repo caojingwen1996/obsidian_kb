@@ -1,4 +1,4 @@
----
+﻿---
 title: "碧树西风-rule-收益质量核算"
 aliases:
   - "收益质量核算规则"
@@ -21,7 +21,7 @@ sources:
 related:
   - "[[people/碧树西风|碧树西风]]"
   - "[[concepts/碧树西风-rule-回撤与资金使用率|回撤与资金使用率规则]]"
-  - "[[concepts/碧树西风-framework-风控三层结构|盈亏比、止损与兜底]]"
+  - "[[concepts/碧树西风-concept-盈亏比|盈亏比]]、[[concepts/碧树西风-concept-止损|止损]]、[[concepts/碧树西风-concept-兜底|兜底]]"
 summary: "收益质量核算规则要求目标收益必须和风险、成本、回撤、资金规模同口径成立，避免把账面高收益误认为成熟策略。"
 definition: "收益质量核算规则指：评估策略时先判断收益目标是否能在风险、成本、回撤和资金规模约束下同时成立，而不是只比较账面收益率高低。"
 key_variables:
@@ -103,7 +103,7 @@ common_misunderstandings:
 
 - 作为原“收益回撤与选资产规则”拆分后的第一层拆分页。
 - 支撑 [[topics/碧树西风-投资系统建模|投资系统建模]] 中“收益质量校验”的具体执行。
-- 与 [[concepts/碧树西风-framework-风控三层结构|盈亏比、止损与兜底]] 共同约束策略收益和风险口径。
+- 与 [[concepts/碧树西风-concept-盈亏比|盈亏比]]、[[concepts/碧树西风-concept-止损|止损]]、[[concepts/碧树西风-concept-兜底|兜底]] 共同约束策略收益和风险口径。
 
 ## 不确定性
 
@@ -114,7 +114,7 @@ common_misunderstandings:
 
 - [[people/碧树西风|碧树西风]]：规则来源人物。
 - [[concepts/碧树西风-rule-回撤与资金使用率|回撤与资金使用率规则]]：进一步检查回撤是否吞噬真实收益。
-- [[concepts/碧树西风-framework-风控三层结构|盈亏比、止损与兜底]]：本页使用的底层风控语言。
+- [[concepts/碧树西风-concept-盈亏比|盈亏比]]、[[concepts/碧树西风-concept-止损|止损]]、[[concepts/碧树西风-concept-兜底|兜底]]：本页使用的底层风控语言。
 - [[topics/碧树西风-投资系统建模|投资系统建模]]：本页在市场端体量、策略容量和收益目标校验中的上层入口。
 
 ## 来源

@@ -1,4 +1,4 @@
----
+﻿---
 title: "盈亏比"
 aliases:
   - "碧树西风-concept-盈亏比"
@@ -18,7 +18,7 @@ sources:
   - "[[sources/articles/2026-02-11-碧树西风：获取财富的关键取决于你能否接受，并利用这个世界的不可测|2026-02-11《获取财富的关键取决于你能否接受，并利用这个世界的不可测》]]"
 related:
   - "[[people/碧树西风|碧树西风]]"
-  - "[[concepts/碧树西风-framework-风控三层结构|风控三层结构]]"
+  - "[[concepts/碧树西风-concept-盈亏比|盈亏比]]、[[concepts/碧树西风-concept-止损|止损]]、[[concepts/碧树西风-concept-兜底|兜底]]"
   - "[[concepts/碧树西风-concept-止损|止损]]"
   - "[[concepts/碧树西风-concept-兜底|兜底]]"
   - "[[concepts/碧树西风-rule-收益质量核算|收益质量核算规则]]"
@@ -88,7 +88,7 @@ common_misunderstandings:
 ## 相关页面
 
 - [[people/碧树西风|碧树西风]]：本概念的主要来源人物。
-- [[concepts/碧树西风-framework-风控三层结构|风控三层结构]]：说明盈亏比如何与止损、兜底组成完整风控结构。
+- [[concepts/碧树西风-concept-盈亏比|盈亏比]]、[[concepts/碧树西风-concept-止损|止损]]、[[concepts/碧树西风-concept-兜底|兜底]]：说明盈亏比如何与止损、兜底组成完整风控结构。
 - [[concepts/碧树西风-concept-止损|止损]]：承接“判断错误后如何退出”的问题。
 - [[concepts/碧树西风-concept-兜底|兜底]]：承接“止损失效后如何不被击穿”的问题。
 - [[concepts/碧树西风-rule-收益质量核算|收益质量核算规则]]：把收益放回风险、成本、回撤和资金占用中评价。
