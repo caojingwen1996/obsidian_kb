@@ -1,10 +1,40 @@
 {
   "version": 1,
   "stats": {
-    "total_sources_ingested": 130,
-    "total_pages": 381
+    "total_sources_ingested": 131,
+    "total_pages": 392
   },
   "sources": {
+    "E:/caojingwen/obsidian/llmwiki/sources/articles/2026-06-08-冰冰小美：AI改造投资与风险控仓组帖.md": {
+      "ingested_at": "2026-06-09T10:47:06+08:00",
+      "size_bytes": 9343,
+      "modified_at": "2026-06-09T11:16:51+08:00",
+      "content_hash": "sha256:13974863b00b603f9dbff33c59e29bb5a6ed600090120cf604a350411dafa110",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美：AI改造投资与风险控仓组帖",
+        "author": "冰冰小美",
+        "content_id": "393476861;393499435;393507462;393510937;393576260;393579750;393582669;393583824;393584941;393586379;393587244",
+        "published_at": "2026-06-08",
+        "original_url": "https://xueqiu.com/7143769715/393476861"
+      },
+      "pages_created": [
+        "wiki/views/冰冰小美：AI改造投资与风险控仓并存的判断框架.md",
+        "wiki/reasoning/冰冰小美-AI改造投资如何传导为新钱涌入与风险控仓并存.md"
+      ],
+      "pages_updated": [
+        "sources/articles/2026-06-08-冰冰小美：AI改造投资与风险控仓组帖.md",
+        "sources/articles/2026-06-08-冰冰小美-AI改造投资与风险控仓组帖/",
+        "wiki/views/冰冰小美：AI改造投资与风险控仓并存的判断框架.md",
+        "wiki/reasoning/冰冰小美-AI改造投资如何传导为新钱涌入与风险控仓并存.md",
+        "wiki/topics/冰冰小美-AI产业趋势.md",
+        "wiki/topics/冰冰小美-风险提示系列.md",
+        "index.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
     "E:/caojingwen/obsidian/llmwiki/sources/articles/2025-11-01-碧树西风-阿川开启下半场？个人如何打赢这场命运之战.md": {
       "ingested_at": "2026-06-04T00:00:00+08:00",
       "size_bytes": 110011,
@@ -260,7 +290,7 @@
         "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
         "wiki/topics/冰冰小美-AI产业趋势.md",
-        "wiki/topics/冰冰小美-化工投资跟踪.md",
+        "wiki/timelines/冰冰小美-化工投资跟踪.md",
         "wiki/concepts/冰冰小美-宏观风险信号表.md",
         "wiki/timelines/冰冰小美-2026一季度宏观阶段时间线.md",
         "wiki/topics/冰冰小美-知识地图.md",
@@ -2289,7 +2319,7 @@
       "source_type": "document",
       "project": null,
       "pages_created": [
-        "wiki/topics/冰冰小美-化工投资跟踪.md"
+        "wiki/timelines/冰冰小美-化工投资跟踪.md"
       ],
       "pages_updated": [
         "sources/articles/2026-03-02-岜菲特：冰冰小美谈化工：国家强盛的根基.md",
@@ -2689,7 +2719,7 @@
         "sources/articles/2026-02-26-冰冰小美：2026年二月月报（三）.md",
         "wiki/people/冰冰小美.md",
         "wiki/topics/冰冰小美-宏观经济.md",
-        "wiki/topics/冰冰小美-化工投资跟踪.md",
+        "wiki/timelines/冰冰小美-化工投资跟踪.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
         "wiki/topics/冰冰小美-AI产业趋势.md",
         "wiki/concepts/产业思维.md",

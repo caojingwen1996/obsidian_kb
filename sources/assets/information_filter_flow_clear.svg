@@ -1,0 +1,254 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="2050" viewBox="0 0 1600 2050">
+<defs>
+  <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+    <path d="M2,2 L10,6 L2,10 Z" fill="#4B5563"/>
+  </marker>
+  <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+    <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#000000" flood-opacity="0.12"/>
+  </filter>
+</defs>
+<rect width="1600" height="2050" fill="#F8FAFC"/>
+
+<text x="800.0" y="58" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="34" font-weight="800" fill="#0F172A">
+<tspan x="800.0" dy="0">信息过滤流程图｜清晰版</tspan>
+</text>
+<text x="800.0" y="95" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="20" font-weight="500" fill="#475569">
+<tspan x="800.0" dy="0">主线：分类 → 风险 → 来源 → 动机 → 评级 → 价格/时效/使用价值 → 最终处理</tspan>
+</text>
+<g id="A">
+<rect x="650" y="130" width="300" height="70" rx="18" ry="18" fill="#E0F2FE" stroke="#0284C7" stroke-width="2.5"/>
+<text x="800.0" y="173.0" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="25" font-weight="700" fill="#111827">
+<tspan x="800.0" dy="0">信息出现</tspan>
+</text>
+</g>
+<g id="B">
+<polygon points="800,200.0 925.0,260 800,320.0 675.0,260" fill="#FFFBEB" stroke="#D97706" stroke-width="2.5"/>
+<text x="800" y="268" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="23" font-weight="700" fill="#111827">
+<tspan x="800" dy="0">先分类</tspan>
+</text>
+</g>
+<g id="C">
+<rect x="115" y="350" width="610" height="160" rx="18" ry="18" fill="#ECFDF5" stroke="#059669" stroke-width="2.5"/>
+<text x="420.0" y="388" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="25" font-weight="700" fill="#111827">
+<tspan x="420.0" dy="0">金融信息：贴近钱</tspan>
+</text>
+<text x="420.0" y="426" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="19" font-weight="500" fill="#374151">
+<tspan x="420.0" dy="0">央行 / 利率 / 汇率 / 信用 / 流动性</tspan>
+<tspan x="420.0" dy="25">判断钱的数量 / 价格 / 流向</tspan>
+<tspan x="420.0" dy="25">资金环境 → 风险偏好</tspan>
+</text>
+</g>
+<g id="D">
+<rect x="875" y="350" width="610" height="190" rx="18" ry="18" fill="#EEF2FF" stroke="#4F46E5" stroke-width="2.5"/>
+<text x="1180.0" y="388" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="25" font-weight="700" fill="#111827">
+<tspan x="1180.0" dy="0">非金融信息：贴近有形之手</tspan>
+</text>
+<text x="1180.0" y="426" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="19" font-weight="500" fill="#374151">
+<tspan x="1180.0" dy="0">国情国运 / 国策政策</tspan>
+<tspan x="1180.0" dy="25">产业行业企业：先做宏观服从检查</tspan>
+<tspan x="1180.0" dy="25">评论分析新闻吃瓜：识别情绪传播</tspan>
+<tspan x="1180.0" dy="25">五略：服务大局与风控</tspan>
+</text>
+</g>
+<path d="M 675 260 L 420 260 L 420 350" fill="none" stroke="#059669" stroke-width="2.4" marker-end="url(#arrow)"/>
+<rect x="489.5" y="231.0" width="116" height="28" rx="14" fill="#FFFFFF" opacity="0.95"/>
+<text x="547.5" y="252.0" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="16" font-weight="600" fill="#059669">
+<tspan x="547.5" dy="0">金融</tspan>
+</text>
+<path d="M 925 260 L 1180 260 L 1180 350" fill="none" stroke="#4F46E5" stroke-width="2.4" marker-end="url(#arrow)"/>
+<rect x="994.5" y="231.0" width="116" height="28" rx="14" fill="#FFFFFF" opacity="0.95"/>
+<text x="1052.5" y="252.0" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="16" font-weight="600" fill="#4F46E5">
+<tspan x="1052.5" dy="0">非金融</tspan>
+</text>
+<g id="M">
+<rect x="1240" y="595" width="245" height="120" rx="18" ry="18" fill="#FEF2F2" stroke="#DC2626" stroke-width="2.5"/>
+<text x="1362.5" y="633" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="25" font-weight="700" fill="#991B1B">
+<tspan x="1362.5" dy="0">噪音 / 误导</tspan>
+</text>
+<text x="1362.5" y="671" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="19" font-weight="500" fill="#7F1D1D">
+<tspan x="1362.5" dy="0">概念污染</tspan>
+<tspan x="1362.5" dy="25">情绪放大</tspan>
+<tspan x="1362.5" dy="25">跨界蹭热点</tspan>
+</text>
+</g>
+<path d="M 1180 540 L 1180 655 L 1240 655" fill="none" stroke="#DC2626" stroke-width="2.4" marker-end="url(#arrow)" stroke-dasharray="8 7"/>
+<rect x="1122.0" y="568.5" width="116" height="28" rx="14" fill="#FFFFFF" opacity="0.95"/>
+<text x="1180.0" y="589.5" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="16" font-weight="600" fill="#DC2626">
+<tspan x="1180.0" dy="0">假象</tspan>
+</text>
+<g id="E">
+<rect x="600" y="595" width="400" height="90" rx="18" ry="18" fill="#FFF7ED" stroke="#EA580C" stroke-width="2.5"/>
+<text x="800.0" y="633" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="25" font-weight="700" fill="#111827">
+<tspan x="800.0" dy="0">风险识别</tspan>
+</text>
+<text x="800.0" y="671" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="19" font-weight="500" fill="#374151">
+<tspan x="800.0" dy="0">风险增强 / 风险释放 / 风险减弱</tspan>
+</text>
+</g>
+<path d="M 420 510 L 420 640 L 600 640" fill="none" stroke="#059669" stroke-width="2.4" marker-end="url(#arrow)"/>
+<path d="M 1180 540 L 1180 640 L 1000 640" fill="none" stroke="#4F46E5" stroke-width="2.4" marker-end="url(#arrow)"/>
+<g id="F">
+<rect x="560" y="735" width="480" height="105" rx="18" ry="18" fill="#FFFFFF" stroke="#0EA5E9" stroke-width="2.5"/>
+<text x="800.0" y="773" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="25" font-weight="700" fill="#111827">
+<tspan x="800.0" dy="0">信息来源可信度</tspan>
+</text>
+<text x="800.0" y="811" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="19" font-weight="500" fill="#374151">
+<tspan x="800.0" dy="0">官方原文 / 央行 / 会议 / 数据 优先</tspan>
+<tspan x="800.0" dy="25">媒体 / 自媒体 / 投顾 / 小道消息 降权</tspan>
+</text>
+</g>
+<path d="M 800 685 L 800 735" fill="none" stroke="#4B5563" stroke-width="2.4" marker-end="url(#arrow)"/>
+<g id="I">
+<rect x="560" y="890" width="480" height="100" rx="18" ry="18" fill="#FFFFFF" stroke="#0EA5E9" stroke-width="2.5"/>
+<text x="800.0" y="928" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="25" font-weight="700" fill="#111827">
+<tspan x="800.0" dy="0">传播对象是谁</tspan>
+</text>
+<text x="800.0" y="966" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="19" font-weight="500" fill="#374151">
+<tspan x="800.0" dy="0">普遍对象 / 特定对象 / 情绪对象 / 后手对象</tspan>
+<tspan x="800.0" dy="25">判断发布者动机与我所在位置</tspan>
+</text>
+</g>
+<path d="M 800 840 L 800 890" fill="none" stroke="#4B5563" stroke-width="2.4" marker-end="url(#arrow)"/>
+<g id="Z">
+<rect x="560" y="1040" width="480" height="100" rx="18" ry="18" fill="#FFFFFF" stroke="#0EA5E9" stroke-width="2.5"/>
+<text x="800.0" y="1078" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="25" font-weight="700" fill="#111827">
+<tspan x="800.0" dy="0">真相 / 假象识别</tspan>
+</text>
+<text x="800.0" y="1116" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="19" font-weight="500" fill="#374151">
+<tspan x="800.0" dy="0">真实事件 / 真实经营 / 真实资金流</tspan>
+<tspan x="800.0" dy="25">概念包装 / 话语权争夺 / 情绪污染</tspan>
+</text>
+</g>
+<path d="M 800 990 L 800 1040" fill="none" stroke="#4B5563" stroke-width="2.4" marker-end="url(#arrow)"/>
+<path d="M 1040 1090 L 1180 1090 L 1180 715" fill="none" stroke="#DC2626" stroke-width="2.4" marker-end="url(#arrow)" stroke-dasharray="8 7"/>
+<rect x="1052.0" y="1061.0" width="116" height="28" rx="14" fill="#FFFFFF" opacity="0.95"/>
+<text x="1110.0" y="1082.0" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="16" font-weight="600" fill="#DC2626">
+<tspan x="1110.0" dy="0">假象</tspan>
+</text>
+<g id="J">
+<rect x="560" y="1190" width="480" height="105" rx="18" ry="18" fill="#FFFFFF" stroke="#0EA5E9" stroke-width="2.5"/>
+<text x="800.0" y="1228" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="25" font-weight="700" fill="#111827">
+<tspan x="800.0" dy="0">信息评级</tspan>
+</text>
+<text x="800.0" y="1266" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="19" font-weight="500" fill="#374151">
+<tspan x="800.0" dy="0">投资信息 / 投机信息 / 噪音 / 误导</tspan>
+<tspan x="800.0" dy="25">区分配置价值、交易价值、过滤对象</tspan>
+</text>
+</g>
+<path d="M 800 1140 L 800 1190" fill="none" stroke="#4B5563" stroke-width="2.4" marker-end="url(#arrow)"/>
+<path d="M 1040 1242 L 1180 1242 L 1180 715" fill="none" stroke="#DC2626" stroke-width="2.4" marker-end="url(#arrow)" stroke-dasharray="8 7"/>
+<rect x="1052.0" y="1213.0" width="116" height="28" rx="14" fill="#FFFFFF" opacity="0.95"/>
+<text x="1110.0" y="1234.0" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="16" font-weight="600" fill="#DC2626">
+<tspan x="1110.0" dy="0">噪音</tspan>
+</text>
+<g id="PR">
+<rect x="560" y="1345" width="480" height="115" rx="18" ry="18" fill="#FFFFFF" stroke="#0EA5E9" stroke-width="2.5"/>
+<text x="800.0" y="1383" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="25" font-weight="700" fill="#111827">
+<tspan x="800.0" dy="0">价格是否已经反应</tspan>
+</text>
+<text x="800.0" y="1421" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="19" font-weight="500" fill="#374151">
+<tspan x="800.0" dy="0">未反应：跟踪｜初步反应：观察</tspan>
+<tspan x="800.0" dy="25">充分反应：防后手｜过度反应：风控</tspan>
+</text>
+</g>
+<path d="M 800 1295 L 800 1345" fill="none" stroke="#4B5563" stroke-width="2.4" marker-end="url(#arrow)"/>
+<g id="N">
+<rect x="560" y="1510" width="480" height="115" rx="18" ry="18" fill="#FFFFFF" stroke="#0EA5E9" stroke-width="2.5"/>
+<text x="800.0" y="1548" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="25" font-weight="700" fill="#111827">
+<tspan x="800.0" dy="0">时效性判断</tspan>
+</text>
+<text x="800.0" y="1586" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="19" font-weight="500" fill="#374151">
+<tspan x="800.0" dy="0">预热 / 启动 / 扩散 / 高潮 / 兑现 / 失效</tspan>
+<tspan x="800.0" dy="25">识别交易窗口与事件落地节点</tspan>
+</text>
+</g>
+<path d="M 800 1460 L 800 1510" fill="none" stroke="#4B5563" stroke-width="2.4" marker-end="url(#arrow)"/>
+<g id="U">
+<rect x="560" y="1675" width="480" height="115" rx="18" ry="18" fill="#FFFFFF" stroke="#0EA5E9" stroke-width="2.5"/>
+<text x="800.0" y="1713" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="25" font-weight="700" fill="#111827">
+<tspan x="800.0" dy="0">信息是否仍有使用价值</tspan>
+</text>
+<text x="800.0" y="1751" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="19" font-weight="500" fill="#374151">
+<tspan x="800.0" dy="0">尚未使用 / 正在使用 / 过度使用 / 暂时无人使用</tspan>
+<tspan x="800.0" dy="25">判断利好是否失效或仍需等待催化</tspan>
+</text>
+</g>
+<path d="M 800 1625 L 800 1675" fill="none" stroke="#4B5563" stroke-width="2.4" marker-end="url(#arrow)"/>
+<path d="M 1040 1732 L 1180 1732 L 1180 715" fill="none" stroke="#DC2626" stroke-width="2.4" marker-end="url(#arrow)" stroke-dasharray="8 7"/>
+<rect x="1052.0" y="1703.0" width="116" height="28" rx="14" fill="#FFFFFF" opacity="0.95"/>
+<text x="1110.0" y="1724.0" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="16" font-weight="600" fill="#DC2626">
+<tspan x="1110.0" dy="0">过度使用</tspan>
+</text>
+<g id="S">
+<rect x="560" y="1840" width="480" height="95" rx="18" ry="18" fill="#F0FDF4" stroke="#16A34A" stroke-width="2.5"/>
+<text x="800.0" y="1878" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="25" font-weight="700" fill="#111827">
+<tspan x="800.0" dy="0">等待风险减弱</tspan>
+</text>
+<text x="800.0" y="1916" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="19" font-weight="500" fill="#374151">
+<tspan x="800.0" dy="0">风险等级至少进入 W1 / W2 / W3 后再评估</tspan>
+</text>
+</g>
+<path d="M 800 1790 L 800 1840" fill="none" stroke="#4B5563" stroke-width="2.4" marker-end="url(#arrow)"/>
+<g id="T1">
+<rect x="70" y="1968" width="240" height="70" rx="18" ry="18" fill="#F0FDF4" stroke="#16A34A" stroke-width="2.5"/>
+<text x="190.0" y="2006" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="25" font-weight="700" fill="#111827">
+<tspan x="190.0" dy="0">配置</tspan>
+</text>
+<text x="190.0" y="2044" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="19" font-weight="500" fill="#374151">
+<tspan x="190.0" dy="0">长期方向确认</tspan>
+</text>
+</g>
+<g id="T2">
+<rect x="365" y="1968" width="240" height="70" rx="18" ry="18" fill="#E0F2FE" stroke="#0284C7" stroke-width="2.5"/>
+<text x="485.0" y="2006" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="25" font-weight="700" fill="#111827">
+<tspan x="485.0" dy="0">交易</tspan>
+</text>
+<text x="485.0" y="2044" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="19" font-weight="500" fill="#374151">
+<tspan x="485.0" dy="0">风险减弱 + 窗口打开</tspan>
+</text>
+</g>
+<g id="T3">
+<rect x="660" y="1968" width="240" height="70" rx="18" ry="18" fill="#FEFCE8" stroke="#CA8A04" stroke-width="2.5"/>
+<text x="780.0" y="2006" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="25" font-weight="700" fill="#111827">
+<tspan x="780.0" dy="0">跟踪</tspan>
+</text>
+<text x="780.0" y="2044" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="19" font-weight="500" fill="#374151">
+<tspan x="780.0" dy="0">逻辑成立，时机未到</tspan>
+</text>
+</g>
+<g id="T4">
+<rect x="955" y="1968" width="240" height="70" rx="18" ry="18" fill="#F3F4F6" stroke="#6B7280" stroke-width="2.5"/>
+<text x="1075.0" y="2006" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="25" font-weight="700" fill="#111827">
+<tspan x="1075.0" dy="0">归档</tspan>
+</text>
+<text x="1075.0" y="2044" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="19" font-weight="500" fill="#374151">
+<tspan x="1075.0" dy="0">有价值，暂无场景</tspan>
+</text>
+</g>
+<g id="T5">
+<rect x="1250" y="1968" width="240" height="70" rx="18" ry="18" fill="#FEF2F2" stroke="#DC2626" stroke-width="2.5"/>
+<text x="1370.0" y="2006" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="25" font-weight="700" fill="#111827">
+<tspan x="1370.0" dy="0">回避</tspan>
+</text>
+<text x="1370.0" y="2044" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="19" font-weight="500" fill="#374151">
+<tspan x="1370.0" dy="0">风险增强 / 价格过热</tspan>
+</text>
+</g>
+<path d="M 800 1935 L 800 1952 L 190 1952 L 190 1968" fill="none" stroke="#16A34A" stroke-width="2.4" marker-end="url(#arrow)"/>
+<path d="M 800 1935 L 800 1952 L 485 1952 L 485 1968" fill="none" stroke="#0284C7" stroke-width="2.4" marker-end="url(#arrow)"/>
+<path d="M 800 1935 L 800 1968" fill="none" stroke="#CA8A04" stroke-width="2.4" marker-end="url(#arrow)"/>
+<path d="M 800 1935 L 800 1952 L 1075 1952 L 1075 1968" fill="none" stroke="#6B7280" stroke-width="2.4" marker-end="url(#arrow)"/>
+<path d="M 800 1935 L 800 1952 L 1370 1952 L 1370 1968" fill="none" stroke="#DC2626" stroke-width="2.4" marker-end="url(#arrow)"/>
+<g id="legend">
+<rect x="60" y="585" width="360" height="150" rx="18" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="240" y="622" text-anchor="middle" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="22" font-weight="800" fill="#0F172A">
+<tspan x="240" dy="0">关键约束</tspan>
+</text>
+<text x="85" y="662" text-anchor="start" font-family="'AR PL UMing CN', 'AR PL UMing TW MBE', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif" font-size="18" font-weight="500" fill="#334155">
+<tspan x="85" dy="0">① 信息正确 ≠ 可以交易</tspan>
+<tspan x="85" dy="26">② 中观信息必须服从宏观</tspan>
+<tspan x="85" dy="26">③ 价格与时效决定窗口</tspan>
+<tspan x="85" dy="26">④ 交易只是最终处理之一</tspan>
+</text>
+</g>
+</svg>

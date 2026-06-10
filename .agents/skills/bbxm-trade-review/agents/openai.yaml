@@ -1,0 +1,4 @@
+interface:
+  display_name: "冰冰小美交割单复盘"
+  short_description: "按照冰冰小美交易体系复盘交割单和组合调仓记录流程化"
+  default_prompt: "按冰冰小美体系复盘这张交割单，帮我判断信息依据、三要素、流动性承接、仓位性格和下一次过滤规则。"
