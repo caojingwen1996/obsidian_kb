@@ -16,10 +16,10 @@ tags:
   sources:
 * "[[sources/articles/2025-06-08-冰冰小美：信息的金融意义（二）]]"
 * "[[sources/articles/2025-01-25-冰冰小美：行情不等于风险]]"
-* "[[concepts/冰冰小美-风险转弱节点框架]]"
+* "[[reasoning/冰冰小美如何判断风险转弱的节点]]"
   related:
 * "[[people/冰冰小美]]"
-* "[[concepts/冰冰小美-风险转弱节点框架]]"
+* "[[reasoning/冰冰小美如何判断风险转弱的节点]]"
 * "[[reasoning/冰冰小美-风险转弱节点如何形成买入窗口]]"
 
 ---
