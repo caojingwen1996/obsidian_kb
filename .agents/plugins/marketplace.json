@@ -8,7 +8,7 @@
       "name": "bbxm-expert",
       "source": {
         "source": "local",
-        "path": "./plugins/bbxm-expert"
+        "path": "./myplugins/bbxm-expert"
       },
       "policy": {
         "installation": "AVAILABLE",
