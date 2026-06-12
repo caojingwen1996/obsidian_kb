@@ -1,0 +1,22 @@
+{
+  "name": "bbxm-expert",
+  "version": "0.1.0",
+  "description": "冰冰小美专家：面向 llmwiki 的冰冰小美体系检索、买点检查、交易复盘和知识沉淀入口。",
+  "author": {
+    "name": "caojingwen"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "冰冰小美专家",
+    "shortDescription": "用冰冰小美体系做买点检查、交易复盘和 wiki 沉淀。",
+    "longDescription": "面向当前 llmwiki 项目的本地专家插件。它会优先检索冰冰小美相关人物页、主题页、概念页、观点页和推导页，再按体系三要素、风险转弱、情绪位置、流动性、仓位承受力和退出条件组织回答或沉淀 wiki 页面。",
+    "developerName": "caojingwen",
+    "category": "Productivity",
+    "capabilities": [
+      "Knowledge Retrieval",
+      "Investment Review",
+      "Wiki Maintenance"
+    ],
+    "defaultPrompt": "请以冰冰小美专家模式，先检索当前 llmwiki 的冰冰小美相关页面，再回答我的问题。"
+  }
+}

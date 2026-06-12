@@ -1,0 +1,4 @@
+interface:
+  display_name: "交割单复盘"
+  short_description: "用交易事实反推信息、风险、情绪、流动性、仓位和可修正规则。"
+  default_prompt: "帮我复盘这张交割单，找出主要错误、交易质量和下次规则。"
