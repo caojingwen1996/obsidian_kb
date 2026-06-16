@@ -7677,3 +7677,23 @@ link / cleanup
 ### 后续待办
 
 - 若其他表格中也出现类似“链接被拆成两列”的情况，按同一规则转义表格内 wikilink 的别名分隔符。
+
+## 2026-06-16
+
+### 操作类型
+
+automation / data-refresh / log
+
+### 修改文件
+
+- `sources/manual/中证红利信号/最新信号.md`
+- `sources/manual/中证红利信号/中证红利每日信号.csv`
+- `log.md`
+
+### 操作说明
+
+按 `zzhl-dividend-signal` skill 运行 `python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py`，使用免费数据源刷新中证红利当前股息率信号。AKShare 最新可用指数估值日期与中国 10 年国债收益率日期均推进到 `2026-06-15`；`股息率2 = 4.94%`，中国 10 年国债收益率 `1.7446%`，利差 `3.1954%`。按 Query Page `中证红利什么时候买入收益率最高` 的三种规则判断：历史分位规则仍待验证，绝对股息率规则为“小额定投”，股债利差规则为“历史上偏强买点”。由于未配置 `LIXINGER_TOKEN` 且理杏仁公开页面返回 `HTTP 429 Too Many Requests`，本次未编造历史分位数值，综合结论维持“历史分位点待验证，暂不判定重点买入区间”。
+
+### 后续待办
+
+- 如后续补齐 `LIXINGER_TOKEN` 或理杏仁公开页恢复可访问，可重新验证近 10 年股息率分位与 80% 分位点，再判断是否进入重点买入区间。
