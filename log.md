@@ -1,4 +1,4 @@
-﻿# 知识库日志
+# 知识库日志
 - [2026-06-04T00:00:00+08:00] QUERY query="关于长期持有，碧树西风的看法是什么？" result_pages=4 mode=normal escalated=false
 - [2026-06-04T00:00:00+08:00] QUERY query="碧树西风如何看待赚取确定性" result_pages=5 mode=normal escalated=false
 - [2026-06-04T00:00:00+08:00] QUERY query="碧树西风赚取确定性有没有具体案例" result_pages=6 mode=normal escalated=false
@@ -8181,3 +8181,711 @@ refactor / rename / link
 ### 后续待办
 
 - 若后续用该框架复盘具体政策或产业线索，可为该案例单独拆出 Timeline Page 或 Reasoning Page，避免把具体行情复盘继续堆入本框架页。
+
+## 2026-06-17
+
+### 操作类型
+
+manual / source-save
+
+### 修改文件
+
+- `sources/manual/新国标作业/2026-06-17.md`
+- `log.md`
+
+### 操作说明
+
+按“锂电池新国标每日信息收集”自动化要求，新增 2026-06-17 日报并保存为 `sources/manual/新国标作业/2026-06-17.md`。本次执行时间截至 2026-06-17 09:49 +08:00，因此明确将股价与期货部分标记为盘中可验证信息，不把早盘数据误写成收盘结论。当天新增最关键的事实是：6 月 17 日未见新的高置信度新国标落地样板公告，国家统计局此前披露的锂电高增数据继续发酵，但碳酸锂主连早盘明显回落、电池 ETF 先走分歧，说明主线已从“先抢预期”进入“价格与承接验证”阶段。本次只新增 `sources/manual` 手工材料，未新增正式 `wiki` 页面，因此未更新 `index.md`。
+
+### 后续待办
+
+- 下一次运行优先补齐 6 月 17 日收盘后的碳酸锂、仓单和 A 股收盘表现，并继续单独检索企业“新国标认证 / 送检 / 客户验证 / 量产切换”正式公告。
+
+- [2026-06-17T00:00:00+08:00] QUERY query="冰冰小美的底线思维是什么？" result_pages=4 mode=normal escalated=false
+
+## 2026-06-17
+
+### 操作类型
+
+refactor / cleanup
+
+### 修改文件
+
+- `wiki/concepts/冰冰小美-framework-底线思维.md`
+- `wiki/views/冰冰小美：真正中长期需要底线思维的核心判断.md`
+- `index.md`
+- `.manifest.json`
+- `log.md`
+- 相关反链页面若干
+
+### 操作说明
+
+按用户要求，将旧 View Page“真正中长期需要底线思维”的独有内容整合进 `wiki/concepts/冰冰小美-framework-底线思维.md`，包括三年起步、均值回归、价值投机、生存结构、三大配置兑现错位、长期路径跟踪和短期变通。随后删除旧 View Page，并将相关页面、索引和 manifest 中的旧链接改指向底线思维 Concept Page。`index.md` 页面总数从 412 调整为 411。
+
+### 后续待办
+
+- 后续新增“真正中长期 / 底线思维”材料时，优先更新 `wiki/concepts/冰冰小美-framework-底线思维.md`，除非出现明确的新阶段观点才单独拆 View Page。
+
+- [2026-06-17T11:29:37+08:00] QUERY query="冰冰小美对补仓的看法" result_pages=7 mode=normal escalated=false
+
+## 2026-06-17
+
+### 操作类型
+
+ingest / link
+
+### 修改文件
+
+- `wiki/views/冰冰小美对补仓的看法.md`
+- `index.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求，将“冰冰小美对补仓的看法”新建为 View Page。页面基于既有加仓规则、减仓规则、仓位承受力、初始位置、概念逻辑制造假象和风险转弱买入窗口等页面归纳，明确区分错误补仓与风险转弱后的加仓推进，并补充来源、相关页面和不确定性。`index.md` 页面总数从 411 调整为 412。
+
+### 后续待办
+
+- 如果后续出现冰冰小美直接讨论“补仓”的原文，应优先补充到本 View Page，并检查是否需要拆出更细的 Reasoning Page。
+
+## 2026-06-17
+
+### 操作类型
+
+ingest / update
+
+### 修改文件
+
+- `sources/articles/2026-06-17-冰冰小美：如果被套的怎么办.md`
+- `wiki/views/冰冰小美对补仓的看法.md`
+- `log.md`
+
+### 操作说明
+
+按用户提供的雪球原文，将 2026-06-17《如果被套的怎么办》保存到 `sources/articles/`，并更新 `wiki/views/冰冰小美对补仓的看法.md`。本次补入了作者对补仓的直接表述：被套后先检查睡眠，睡眠下降说明仓位与心态不匹配；补仓本质仍是买，必须符合体系三要素都有利；作者基本不补仓，而是按规划建仓时间表，并在三要素有利节点通过做 T 降低成本；随意补仓可能形成重仓、诱发杠杆回本和爆仓恶性循环。本次未新增正式 wiki 页面，因此未更新 `index.md` 页面总数。
+
+### 后续待办
+
+- 后续可视材料积累情况，将“被套后减仓到睡得着”“均衡配置防攀比”“补仓-重仓-杠杆恶性循环”分别回流到仓位承受力、分仓和亏钱认知相关页面。
+
+## 2026-06-17
+
+### 操作类型
+
+refactor / skill-localization
+
+### 修改文件
+
+- `.agents/skills/llm-wiki/SKILL.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求，将项目本地 `llm-wiki` 技能说明整体改写为中文，保留技能名、环境变量、目录名、frontmatter 字段、关系类型和命令示例等机器可识别内容。本次只修改技能说明文件，不新增正式 wiki 页面，因此未更新 `index.md`。
+
+### 后续待办
+
+- 如后续其他 `.agents/skills/` 技能仍为英文，可按同样方式逐个本地化，并保留必要的英文标识符。
+
+## 2026-06-17
+
+### 操作类型
+
+config / skill-setup
+
+### 修改文件
+
+- `.env`
+- `log.md`
+
+### 操作说明
+
+根据项目本地 `llm-wiki` 技能定义完善 `.env`：补充 `OBSIDIAN_SOURCES_DIR`、`OBSIDIAN_CATEGORIES`、`OBSIDIAN_LINK_FORMAT`、`WIKI_TOKEN_WARN_THRESHOLD`、`WIKI_STAGED_WRITES`，并加入本机已存在的 Claude 与 Codex 历史路径。未新增正式 wiki 页面，因此未更新 `index.md`。
+
+### 后续待办
+
+- 若后续需要启用 Hermes、OpenClaw、Copilot 历史 ingest，先确认对应本机目录存在，再补充相应环境变量。
+
+## 2026-06-17
+
+### 操作类型
+
+refactor / skill-localization
+
+### 修改文件
+
+- `.agents/skills/wiki-ingest/SKILL.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求，将项目本地 `wiki-ingest` 技能说明整体改写为中文，保留技能名、环境变量、QMD 命令、frontmatter 字段、manifest JSON 字段和路径规则等机器可识别内容。本次只修改技能说明文件，不新增正式 wiki 页面，因此未更新 `index.md`。
+
+### 后续待办
+
+- 如后续继续本地化其他 ingest / query / lint 类技能，保留命令、字段名、环境变量和机器可解析示例不翻译。
+
+## 2026-06-17
+
+### 操作类型
+
+automation / update
+
+### 修改文件
+
+- `sources/manual/中证红利信号/最新信号.md`
+- `sources/manual/中证红利信号/中证红利每日信号.csv`
+- `log.md`
+
+### 操作说明
+
+按项目本地 `.agents/skills/zzhl-dividend-signal/SKILL.md` 运行 `python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py`，用免费数据源刷新中证红利当日信号。最新可用 AKShare 指数估值日期与中国10年国债收益率日期均推进到 `2026-06-16`；`股息率2` 为 `5.03%`，中国10年国债收益率为 `1.7324%`，利差为 `3.2976%`。按 `[[queries/中证红利什么时候买入收益率最高|中证红利什么时候买入收益率最高]]` 的三种规则判断：历史分位点 `待验证`、绝对股息率 `加大买入`、股债利差 `历史上偏强买点`，综合结论维持“历史分位点待验证，暂不判定重点买入区间”。由于未配置 `LIXINGER_TOKEN`，且理杏仁公开页面返回 `HTTP Error 429: Too Many Requests`，本次未编造历史分位与 80% 分位点数值。未新增正式 wiki 页面，因此未更新 `index.md`。
+
+### 后续待办
+
+- 如需恢复“重点买入区间”的完整自动判断，补充可用的 `LIXINGER_TOKEN` 或替换为可稳定提供近10年分位数据的免费来源。
+
+## 2026-06-17
+
+### 操作类型
+
+refactor / skill-localization
+
+### 修改文件
+
+- `.agents/skills/wiki-ingest/references/ingest-prompts.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求，将 `wiki-ingest` 的抽取阶段 prompt 模板改写为中文，保留 Is-a、Uses、Contrasts-with、Part-of、Created-by、Applied-in 等关系模式标签和英文示例，方便后续继续作为抽取规则引用。本次只修改技能参考文件，不新增正式 wiki 页面，因此未更新 `index.md`。
+
+### 后续待办
+
+- 如需进一步优化文档抽取质量，可继续在该文件中补充“投资观点抽取”“推导链抽取”“人物画像证据抽取”等专项框架。
+
+## 2026-06-17
+
+### 操作类型
+
+refactor / schema-alignment
+
+### 修改文件
+
+- `AGENTS.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求，重写 `AGENTS.md` 第 5 节“页面类型”，不再在 `AGENTS.md` 中重复完整页面类型定义，而是明确页面类型规则的维护分工：`schema.md` 负责页面类型总契约，`page-types.md` 负责类型语义和选择规则，`templates/` 负责页面结构，`rules/` 负责补充写作规则和后续页面生成提示词。未新增正式 wiki 页面，因此未更新 `index.md`。
+
+### 后续待办
+
+- 后续如新增 `rules/page-prompts/`，需同步在 `wiki-ingest` 技能中要求生成页面前读取对应提示词和模板。
+
+## 2026-06-17
+
+### 操作类型
+
+refactor / schema-alignment
+
+### 修改文件
+
+- `schema.md`
+- `page-types.md`
+- `AGENTS.md`
+- `log.md`
+
+### 操作说明
+
+按“schema 只保留结构总契约”的分工，精简 `schema.md`：移除页面类型详细语义、页面创建阈值、冲突处理流程、日志执行流程和维护目标式内容；将页面创建阈值迁入 `page-types.md` 的页面创建原则下；将冲突处理迁入 `AGENTS.md` 的事实、观点、推测区分章节下。未新增正式 wiki 页面，因此未更新 `index.md`。
+
+### 后续待办
+
+- 后续创建 `rules/page-prompts/` 时，可继续把页面生成提示词从 `page-types.md` 中拆出，保持 `page-types.md` 只负责类型语义和选择规则。
+
+## 2026-06-17
+
+### 操作类型
+
+refactor / schema-alignment
+
+### 修改文件
+
+- `AGENTS.md`
+- `page-types.md`
+- `log.md`
+
+### 操作说明
+
+按“页面类型与命名规则归 `page-types.md` 管理”的分工，将 `AGENTS.md` 第 7 节中的具体文件命名规则迁移到 `page-types.md`，并在 `AGENTS.md` 中仅保留创建、整理、迁移或重命名页面前必须按 `page-types.md` 检查命名、同义页和命名冲突的执行要求。本次未新增正式 wiki 页面，因此未更新 `index.md`。
+
+### 后续待办
+
+- 后续若新增 Timeline / Reasoning / Topic / Query 等更细命名格式，应继续补充到 `page-types.md` 的“文件命名规则”章节，而不是写回 `AGENTS.md`。
+
+## 2026-06-17
+
+### 操作类型
+
+ingest / tracking
+
+### 修改文件
+
+- `sources/manual/新国标作业/2026-06-17.md`
+- `log.md`
+
+### 操作说明
+
+将 `sources/manual/新国标作业/2026-06-17.md` 从早盘快照重建为收盘后版本，按“政策、企业财报 / 公告、期货价格、供需理解、股价波动、花边情绪”六分类补齐 6 月 17 日收盘信息，并把碳酸锂主力收盘、仓单变化、锂电池概念指数 / 电池ETF收盘、板块领涨结构与企业公告缺口写回同一日报。保留 bbxm 分类与评级逻辑，不把泛锂电板块活跃误写成企业端已完成新国标认证落地。
+
+后续又按用户要求补入“宏观补充”章节，新增中国 / 美国国债收益率、A股主要指数、纳斯达克和标普500的当日风险偏好信息，并将其解释为“国内成长风格顺风、海外风险偏好一般”的背景变量，专门服务锂电池新国标主线判断。
+
+### 后续待办
+
+- 6 月 18 日下一轮优先补查晚间公告和早间转载，重点找“认证、送检、客户验证、量产切换”类正式披露。
+- 若广期所当日仓单官方接口可稳定抓取，后续补充更直接的仓单来源页链接。
+
+## 2026-06-17
+
+### 操作类型
+
+refactor / page-rule
+
+### 修改文件
+
+- `rules/concept-page-rules.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求，参照 `rules/reasoning-page-rules.md` 的页面生成规则格式，重构 `rules/concept-page-rules.md`：剔除输入占位符、目标路径、frontmatter 示例、通用双链规范、页面更新流程和完成后输出格式，保留并强化 Concept Page 专属的概念定位、定义、本质压缩、关键要素、使用检查表、体系位置、概念关系、边界、使用场景、观察信号、来源依据和原子化笔记规则。本次只修改规则文件，未新增正式 wiki 页面，因此未更新 `index.md`。
+
+### 后续待办
+
+- 后续可按同样分工，把其他页面类型的生成规则统一整理为 `rules/*-page-rules.md`，另将带 `{源文件}`、`{页面标题}` 的一次性任务指令放入 `rules/page-prompts/`。
+
+## 2026-06-17
+
+### 操作类型
+
+refactor / template
+
+### 修改文件
+
+- `templates/concept-page-template.md`
+- `log.md`
+
+### 操作说明
+
+按“template 只保留骨架和占位符”的分工，精简 `templates/concept-page-template.md`：移除“重点关注”“说明”“示例格式”等写作规则文本，将模板收敛为 frontmatter、章节标题、少量占位项和检查表骨架；具体提炼方法由 `rules/concept-page-rules.md` 承担。同时将 frontmatter 字段对齐当前 `schema.md` 的基础字段，使用 `type: concept`、`sources`、`related`、`summary` 等字段。本次只修改模板文件，未新增正式 wiki 页面，因此未更新 `index.md`。
+
+### 后续待办
+
+- 后续可按同样原则检查其他页面模板：模板只放骨架，页面生成规则放入 `rules/*-page-rules.md`。
+
+## 2026-06-17
+
+### 操作类型
+
+refactor / page-rule
+
+### 修改文件
+
+- `page-types.md`
+- `log.md`
+
+### 操作说明
+
+将 `rules/concept-page-rules.md` 正式引入 `page-types.md` 的 Concept Page 小节，使 Concept Page 与 Reasoning Page 一样，在页面类型定义中明确指向对应的生成规则文件。本次只修改规则索引关系，未新增正式 wiki 页面，因此未更新 `index.md`。
+
+### 后续待办
+
+- 后续新增其他页面类型规则文件时，也应在 `page-types.md` 对应页面类型小节中加入“生成规则引用”。
+
+## 2026-06-17
+
+### 操作类型
+
+refactor / concept-page
+
+### 修改文件
+
+- `wiki/concepts/冰冰小美-framework-底线思维.md`
+- `log.md`
+
+### 操作说明
+
+按当前 Concept Page 模板和 `rules/concept-page-rules.md` 重构“冰冰小美-framework-底线思维”：保留原有来源和页面类型，将正文收敛为一句话定义、概念本质、核心要素、使用检查表、体系位置、概念关系、使用场景、观察信号、反面误用、原子化笔记、来源依据和不确定性。该页面已登记在 `index.md`，本次未新增正式 wiki 页面，因此未更新 `index.md` 页面总数。
+
+### 后续待办
+
+- 后续整理新的底线思维相关材料时，优先补充来源依据、观察信号或相关 Reasoning / View Page，不再重复新建同义概念页。
+
+- [2026-06-17T00:00:00+08:00] QUERY query="冰冰小美反复提到的时间窗口是什么" result_pages=3 mode=normal escalated=false
+
+## 2026-06-17
+
+### 操作类型
+
+repair / encoding
+
+### 修改文件
+
+- `wiki/topics/冰冰小美-亏钱认知系列.md`
+- `log.md`
+
+### 操作说明
+
+修复 `wiki/topics/冰冰小美-亏钱认知系列.md` 的中文乱码问题。当前工作区版本的标题、frontmatter、来源链接、正文和相关页面均出现 `鍐板啺灏忕編`、`浜忛挶璁ょ煡` 等 mojibake；本次未凭猜测替换，而是从历史干净版本 `0557bae` 恢复该 Topic Page 的正常中文内容，保持页面类型、来源列表、逐期整理、逐篇观点页、主题使用方式、重要资料、待补充问题和相关页面结构不变。未新增正式 wiki 页面，因此未更新 `index.md`。
+
+### 后续待办
+
+- 若相关 source / view / concept / reasoning 页面仍残留同类乱码，应继续优先查找 git 历史干净版本或库内 source 副本恢复。
+
+## 2026-06-17
+
+### 操作类型
+
+rename / refactor / concept-page
+
+### 修改文件
+
+- `wiki/concepts/冰冰小美-时间窗口.md`
+- `wiki/concepts/冰冰小美-concept-时间窗口.md`
+- `index.md`
+- `.manifest.json`
+- `hot.md`
+- `sources/articles/2026-03-20-冰冰小美：如何理解时间窗口.md`
+- 相关反链页面
+
+### 操作说明
+
+按用户要求，将 Concept Page `wiki/concepts/冰冰小美-时间窗口.md` 重命名为 `wiki/concepts/冰冰小美-concept-时间窗口.md`，并按 `rules/concept-page-rules.md` 重构页面。页面保留 Concept Page 定位，补齐概念本质、来源分层、核心要素、使用检查表、体系位置、概念关系、使用场景、观察信号、反面误用、原子化笔记和不确定性，并将旧路径反链改到新路径。未新增正式 wiki 页面，因此未更新 `index.md` 页面总数。
+
+### 后续待办
+
+- 后续遇到具体政策、产业或交易日期窗口时，优先拆到 View / Reasoning / Timeline Page，不把具体窗口堆回本概念页。
+
+## 2026-06-17
+
+### 操作类型
+
+repair / link
+
+### 修改文件
+
+- `wiki/topics/冰冰小美-亏钱认知系列.md`
+- `log.md`
+
+### 操作说明
+
+修复 `wiki/topics/冰冰小美-亏钱认知系列.md` 逐期表格“来源”列的链接渲染问题。原表格单元内使用 `[[路径|显示名]]`，其中 `|` 在 Markdown 表格中会被当成列分隔符，导致浏览器预览中来源链接被拆成不可点击文本。本次仅将表格内 19 个来源链接改为 `[[路径\|显示名]]`，保持 Obsidian 双链语义，同时避免破坏表格列结构。未新增正式 wiki 页面，因此未更新 `index.md`。
+
+### 后续待办
+
+- 后续在 Markdown 表格中使用带显示名的 Obsidian 链接时，统一转义链接内部的 `|`。
+
+- [2026-06-17T15:10:12+08:00] QUERY query="冰冰小美对投机的看法" result_pages=4 mode=normal escalated=true
+
+### 操作类型
+
+create / view
+
+### 修改文件
+
+- `wiki/views/冰冰小美对投机的看法.md`
+- `index.md`
+- `log.md`
+
+### 操作说明
+
+根据用户要求，新建 View Page `wiki/views/冰冰小美对投机的看法.md`。本页综合已有“投资与投机分界”“短线体系”“A 股投机产业链”“交易理念之争”和“心智夺取”相关页面，将冰冰小美对投机的看法整理为有体系的短线投机、有锚价值投机和无锚情绪投机三层，并补充来源、相关页面、不确定性和索引入口。
+
+### 后续待办
+
+- 后续若继续整理“价值投机”“无锚投机”或“投机产业链”专题，可考虑拆出 Concept Page 或 Topic Page，避免把全部投机相关内容堆入本 View Page。
+
+## 2026-06-17
+
+### 操作类型
+
+ingest / view / link
+
+### 修改文件
+
+- `sources/manual/372290338/四、投资认知与感悟类/2、散户避坑指南/293_亏钱的几个逻辑.md`
+- `wiki/views/冰冰小美对散户亏钱逻辑的看法.md`
+- `wiki/concepts/冰冰小美-亏钱认知.md`
+- `index.md`
+- `hot.md`
+- `.manifest.json`
+- `log.md`
+
+### 操作说明
+
+按用户要求，将 `sources/manual/372290338/四、投资认知与感悟类/2、散户避坑指南/293_亏钱的几个逻辑.md` 整理进正式知识库。该来源是冰冰小美 2021-01-24 的“散户避坑指南”短文，重点是作者对散户亏钱原因的阶段性看法，因此新建 View Page `wiki/views/冰冰小美对散户亏钱逻辑的看法.md`，并把自选过多、持股太短、仓位越亏越小、单一行业或反复均衡配置误用、缺少盈利预期和能力圈等要点补入既有 Concept Page `wiki/concepts/冰冰小美-亏钱认知.md`。本次新增 1 个正式 wiki 页面，`index.md` 页面总数由 413 更新为 414。
+
+### 后续待办
+
+- 后续继续整理“散户避坑指南”同组 source 时，优先判断是否补入 `冰冰小美-亏钱认知`，或另建更具体的 View / Reasoning Page，避免把整个散户避坑目录堆成一个 Topic Page。
+
+## 2026-06-17
+
+### 操作类型
+
+ingest / concept / link
+
+### 修改文件
+
+- `sources/manual/372290338/四、投资认知与感悟类/2、散户避坑指南/296_投机三层核心逻辑.md`
+- `wiki/concepts/冰冰小美-framework-投机三层核心逻辑.md`
+- `wiki/views/冰冰小美对投机的看法.md`
+- `index.md`
+- `hot.md`
+- `.manifest.json`
+- `log.md`
+
+### 操作说明
+
+按用户要求，将来源 `sources/manual/372290338/四、投资认知与感悟类/2、散户避坑指南/296_投机三层核心逻辑.md` 整理到知识库。该来源已在当前库 `sources/` 内，本次未改写原始资料；新增 Concept Page `wiki/concepts/冰冰小美-framework-投机三层核心逻辑.md`，将原文中的三组投机对象整理为“挣钱效应 / 反亏钱效应”“假象 / 假象预期”“流动性溢价 / 流动性报团溢价”，并分别对应耐心、快人一步和格局；同时回写 `wiki/views/冰冰小美对投机的看法.md`，把该来源作为更早的直接依据接入观点时间线和相关页面。`index.md` 页面总数从 414 调整为 415，并更新 `hot.md` recent activity。
+
+### 后续待办
+
+- 后续可继续补充“流动性溢价”和“流动性报团溢价”的区分来源，必要时回写到 `wiki/concepts/冰冰小美-concept-流动性辩证分析.md`。
+
+## 2026-06-17
+
+### 操作类型
+
+create / concept / link
+
+### 修改文件
+
+- `wiki/concepts/冰冰小美-concept-金融信息.md`
+- `wiki/topics/冰冰小美-信息的金融意义系列.md`
+- `index.md`
+- `hot.md`
+- `.manifest.json`
+- `log.md`
+
+### 操作说明
+
+按用户要求，新建 Concept Page `wiki/concepts/冰冰小美-concept-金融信息.md`。本页将冰冰小美“信息的金融意义”体系中的金融信息识别标准整理为“是否影响钱”的入口概念，并拆成钱的数量、价格、流向、风险偏好和资源配置五个维度；同时将该概念接入 `wiki/topics/冰冰小美-信息的金融意义系列.md`、`index.md` 和 `hot.md`。本次新增 1 个正式 wiki 页面，`index.md` 页面总数从 415 调整为 416。
+
+### 后续待办
+
+- 后续可继续拆出“金融信息层级判断”“增量资金来源”“资金主体行为”等更细概念页，但需先确认是否已有同义页面，避免制造空链接或重复页面。
+
+## 2026-06-17
+
+### 操作类型
+
+ingest / query / link
+
+### 修改文件
+
+- `wiki/queries/冰冰小美为什么反复提到2028年.md`
+- `.manifest.json`
+- `hot.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求，将 `sources/articles/2024-11-08-冰冰小美：中央加杠杆.md` 进一步整理进既有 Query Page `wiki/queries/冰冰小美为什么反复提到2028年.md`。该 query 页已存在且已经登记本 source，本次不新建重复页面，而是补充《中央加杠杆》中“2028 年之前都是化债”和 `2024-2029` 化债窗口对 2028 时间节点的解释：`2028` 不只是十五五中段、AI/半导体兑现窗口和估值透支锚，也是在作者框架中观察旧债风险处理、财政空间和中央信用承接是否足以转向发展验证的政策节奏锚。
+
+### 后续待办
+
+- 若后续出现官方化债执行、赤字率、棚改债务偿还或十五五产业项目落地的新材料，可继续回写该 query 页，并视材料厚度拆出“中央加杠杆与化债时间线”。
+
+## 2026-06-17
+
+### 操作类型
+
+refactor / reasoning / link
+
+### 修改文件
+
+- `wiki/reasoning/冰冰小美-中央加杠杆如何传导为财政刺激与资产重估.md`
+- `index.md`
+- `.manifest.json`
+- `hot.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求，根据 `wiki/concepts/冰冰小美-中央加杠杆.md` 和 `sources/articles/2024-11-08-冰冰小美：中央加杠杆.md` 重构既有 Reasoning Page `wiki/reasoning/冰冰小美-中央加杠杆如何传导为财政刺激与资产重估.md`。该页面已存在，本次不新建重复文件，而是按当前 `rules/reasoning-page-rules.md` 补齐核心命题、背景事实、关键变量、强制推导链表、Mermaid 推导图、时间节点、验证信号、失效条件和相关页面，并更新 `index.md` 摘要。未新增正式 wiki 页面，因此未修改页面总数。
+
+### 后续待办
+
+- 若后续有官方化债执行、赤字率、央行互换便利、外资战略投资开放或内需刺激规模的新材料，可继续回写本推导页；若围绕 `2024-2029` 化债窗口材料变厚，可拆出“中央加杠杆与化债时间线”。
+
+## 2026-06-17
+
+### 操作类型
+
+refactor / page-rule
+
+### 修改文件
+
+- `rules/policy-view-page-rules.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求，将 `rules/policy-view-page-rules.md` 重构为与现有 `rules/concept-page-rules.md`、`rules/reasoning-page-rules.md` 一致的规则文件格式：移除完整 frontmatter 示例、标准页面模板和一次性输出占位，保留政策解读型 View Page 专属的页面定位、政策对象、作者核心判断、事实/观点/推断区分、政策问题、解读框架、简版传导路径、关键变量、约束条件、市场含义、拆分关系和质量检查。该变更只修改规则文件，未新增正式 wiki 页面，因此未更新 `index.md`。
+
+### 后续待办
+
+- 后续若需要固定正文骨架，应修改 `templates/view-page-template.md` 或新增专门模板；`rules/policy-view-page-rules.md` 继续只维护专项生成规则。
+
+## 2026-06-17
+
+### 操作类型
+
+refactor / view / link
+
+### 修改文件
+
+- `wiki/views/冰冰小美-政策解读-中央加杠杆.md`
+- `wiki/concepts/冰冰小美-中央加杠杆.md`
+- `wiki/views/冰冰小美：中央加杠杆确认化债与资产重估的判断框架.md`
+- `index.md`
+- `hot.md`
+- `.manifest.json`
+- `sources/articles/2024-11-08-冰冰小美：中央加杠杆.md`
+- 相关 `wiki/` 页面中的旧双链
+
+### 操作说明
+
+按用户要求，依据新 `pagetype` 定义，将旧 Concept Page `wiki/concepts/冰冰小美-中央加杠杆.md` 重构为政策解读型 View Page `wiki/views/冰冰小美-政策解读-中央加杠杆.md`。本次合并旧同题 View Page `wiki/views/冰冰小美：中央加杠杆确认化债与资产重估的判断框架.md`，保留“谁怎么看”的观点定位、政策对象、作者判断、简版传导、关键变量、约束条件和不确定性；完整因果链继续由 `wiki/reasoning/冰冰小美-中央加杠杆如何传导为财政刺激与资产重估.md` 承接。旧概念页和旧重复观点页已移除，相关双链统一指向新 View Page。由于两个旧正式页面合并为一个新正式页面，`index.md` 页面总数从 `416` 调整为 `415`。
+
+### 后续待办
+
+- 后续若官方化债执行、赤字率、央行工具、内需刺激或地方隐债数据有新材料，应优先更新本 View Page 的观点时间线，并同步检查对应 Reasoning Page 的验证信号。
+
+- [2026-06-17T18:10:00+08:00] QUERY query="冰冰小美对中国股市的看法" result_pages=13 mode=normal escalated=true
+
+## 2026-06-17
+
+### 操作类型
+
+ingest / topic / link
+
+### 修改文件
+
+- `wiki/topics/冰冰小美-中国股市看法.md`
+- `index.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求，将“冰冰小美对中国股市的看法”新增为 Topic Page。该页不新建新的单篇观点结论，而是把已有 View / Reasoning / Concept / Timeline 组织成主题入口：长期底层为国情国运与产业转型，政策中层为中央加杠杆、化债和价值观正确的牛市，市场结构层为 ETF 承接、指数慢牛与个股分化并存，风险层为 A 股投机产业链和仓位风控。新增正式页面后，`index.md` 页面总数从 `415` 调整为 `416`。
+
+### 后续待办
+
+- 后续若新增关于 H 股、人民币资产重估、A 股指数慢牛或监管制度变化的材料，应回链到本 Topic Page，并视材料厚度拆出更窄的 View / Reasoning / Timeline 页面。
+
+## 2026-06-17
+
+### 操作类型
+
+ingest / source-save / topic
+
+### 修改文件
+
+- `sources/manual/2026-06-17-冰冰小美-错过时代比选择正确更可怕.md`
+- `wiki/topics/冰冰小美-中国股市看法.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求，将提供的“错过时代比选择正确更可怕”片段整理到既有 Topic Page `wiki/topics/冰冰小美-中国股市看法.md`。本次先将用户提供原文保存为库内 source 副本，再把该片段压缩为“时代机会与相信”的补充判断：作者将 A 股长期机会表达为错过时代比单次选择更可怕，并把有限选择压到代表国家实力的企业和闲钱押注。页面中明确标注 `2600 -> 3年4200点`、`A股重复1939-1959美国20年牛市` 等属于作者回顾与类比判断，原始链接和完整上下文仍待验证。
+
+### 后续待办
+
+- 若后续补到原始链接和完整上下文，可视材料厚度将该片段拆成独立 View Page，并回链到本 Topic Page。
+
+## 2026-06-17
+
+### 操作类型
+
+ingest / source-save / view / link
+
+### 修改文件
+
+- `sources/manual/2026-06-17-冰冰小美-A股类比1939-1959美国牛市.md`
+- `wiki/views/冰冰小美-观点-A股类比1939-1959美国牛市.md`
+- `wiki/topics/冰冰小美-中国股市看法.md`
+- `index.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求，将提供的“冰冰小美-观点-A股类比1939-1959美国牛市”整理到知识库。本次先将用户提供草稿保存为库内 source 副本，再新增正式 View Page，记录冰冰小美将 A 股类比 1939-1959 年美国长牛的观点：该类比强调危机后旧增长模式出清、国家战略换挡、金融体系支持和新产业接力可能共同推动资产重估。页面明确区分作者原始观点、用户整理解释和待验证历史背景，并回链到 `wiki/topics/冰冰小美-中国股市看法.md`。新增正式页面后，`index.md` 页面总数从 `416` 调整为 `417`。
+
+### 后续待办
+
+- 补充原始链接、发布时间和完整上下文后，核验 1939、1942、布雷顿森林体系、美国战后产业扩张等历史背景，并判断是否需要拆出专门 Reasoning Page 比较美国 1939-1959 长牛与当前 A 股资产重估的可比项和不可比项。
+
+## 2026-06-17
+
+### 操作类型
+
+repair / link / markdown-table
+
+### 修改文件
+
+- `wiki/topics/冰冰小美-中国股市看法.md`
+- `wiki/views/冰冰小美-观点-A股类比1939-1959美国牛市.md`
+- `log.md`
+
+### 操作说明
+
+修复 Obsidian 表格中的双链显示问题：`核心判断地图` 和 `观点时间线` 表格里的 `[[页面路径|显示名]]` 因未转义竖线，被 Markdown 表格解析为分列符，导致链接在阅读视图中显示为普通文本。本次仅将表格单元格内的别名分隔符改为 `\|`，保留原有显示名和链接目标，不改变页面语义，也不新增正式页面，因此未更新 `index.md` 页面总数。
+
+### 后续待办
+
+- 后续在 Markdown 表格中使用 Obsidian 别名双链时，统一写成 `[[页面路径\|显示名]]`，避免表格误切列。
+
+## 2026-06-17
+
+### 操作类型
+
+repair / link / markdown-table
+
+### 修改文件
+
+- `wiki/views/冰冰小美-政策解读-中央加杠杆.md`
+- `log.md`
+
+### 操作说明
+
+修复 `wiki/views/冰冰小美-政策解读-中央加杠杆.md` 中 `观点时间线` 表格的 source 双链显示问题：表格单元格内的 `[[页面路径|显示名]]` 未转义竖线，导致 Obsidian 阅读视图将链接拆成普通文本。本次仅将表格内来源链接改为 `[[页面路径\|显示名]]`，保留原链接目标、显示名和页面语义，不新增正式页面，因此未更新 `index.md` 页面总数。
+
+### 后续待办
+
+- 继续沿用表格内双链别名竖线转义规则；若截图中还有其他页面同类问题，可按页面逐个修复。
+
+## 2026-06-17
+
+### 操作类型
+
+rename / view / link
+
+### 修改文件
+
+- `wiki/views/冰冰小美-宏观判断-A股类比1939-1959美国牛市.md`
+- `wiki/topics/冰冰小美-中国股市看法.md`
+- `index.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求，将正式 View Page `wiki/views/冰冰小美-观点-A股类比1939-1959美国牛市.md` 重命名为 `wiki/views/冰冰小美-宏观判断-A股类比1939-1959美国牛市.md`。同步更新页面 frontmatter 标题、正文 H1、`index.md` 入口和 `wiki/topics/冰冰小美-中国股市看法.md` 中指向旧文件名的双链；旧标题保留为 aliases，便于旧称检索。本次只是页面重命名，未新增或删除正式页面，因此 `index.md` 页面总数保持 `417`。
+
+### 后续待办
+
+- 若后续同类宏观类比页面较多，可统一检查命名是否使用“宏观判断”而不是“观点”作为更清晰的页面前缀。
+
+- [2026-06-17T20:03:54+08:00] QUERY query="冰冰小美的宏观 中观 微观 分别对应什么？" result_pages=5 mode=normal escalated=true

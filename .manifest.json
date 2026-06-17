@@ -1,10 +1,35 @@
 ﻿{
   "version": 1,
   "stats": {
-    "total_sources_ingested": 131,
-    "total_pages": 392
+    "total_sources_ingested": 134,
+    "total_pages": 394
   },
   "sources": {
+    "E:/caojingwen/obsidian/llmwiki/sources/articles/2024-11-08-冰冰小美：中央加杠杆.md": {
+      "ingested_at": "2026-06-17T17:45:00+08:00",
+      "size_bytes": 6082,
+      "modified_at": "2026-06-17T17:06:26+08:00",
+      "content_hash": "sha256:df196a05f7b38cf62fffb5db4fff83ffd7b20b0518c3dc548180bdec78f6b6ec",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "中央加杠杆",
+        "author": "冰冰小美",
+        "content_id": "311875673",
+        "published_at": "2024-11-08",
+        "original_url": "https://xueqiu.com/7143769715/311875673"
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/views/冰冰小美-政策解读-中央加杠杆.md",
+        "wiki/reasoning/冰冰小美-中央加杠杆如何传导为财政刺激与资产重估.md",
+        "index.md",
+        "wiki/queries/冰冰小美为什么反复提到2028年.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
     "E:/caojingwen/obsidian/llmwiki/sources/articles/2026-06-08-冰冰小美：AI改造投资与风险控仓组帖.md": {
       "ingested_at": "2026-06-09T10:47:06+08:00",
       "size_bytes": 9343,
@@ -902,7 +927,7 @@
         "wiki/topics/冰冰小美-宏观经济.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
         "wiki/concepts/冰冰小美-债务、分配与增长约束.md",
-        "wiki/concepts/冰冰小美-中央加杠杆.md",
+        "wiki/views/冰冰小美-政策解读-中央加杠杆.md",
         "index.md",
         "log.md",
         "hot.md"
@@ -1269,7 +1294,7 @@
         "sources/articles/2025-06-15-冰冰小美：目前有什么有利.md",
         "wiki/people/冰冰小美.md",
         "wiki/topics/冰冰小美-宏观经济.md",
-        "wiki/concepts/冰冰小美-中央加杠杆.md",
+        "wiki/views/冰冰小美-政策解读-中央加杠杆.md",
         "wiki/concepts/冰冰小美-流动性辩证分析.md",
         "index.md",
         "log.md",
@@ -1312,7 +1337,7 @@
         "sources/articles/2025-07-20-冰冰小美：历史的真实写照.md",
         "wiki/people/冰冰小美.md",
         "wiki/topics/冰冰小美-宏观经济.md",
-        "wiki/concepts/冰冰小美-中央加杠杆.md",
+        "wiki/views/冰冰小美-政策解读-中央加杠杆.md",
         "wiki/views/冰冰小美：经济正向循环由风险化解与资产定价权重塑驱动的判断框架.md",
         "index.md",
         "log.md",
@@ -1701,7 +1726,7 @@
         "sources/articles/2025-07-22-冰冰小美：如果这是牛市.md",
         "wiki/people/冰冰小美.md",
         "wiki/topics/冰冰小美-宏观经济.md",
-        "wiki/concepts/冰冰小美-中央加杠杆.md",
+        "wiki/views/冰冰小美-政策解读-中央加杠杆.md",
         "wiki/views/冰冰小美：经济正向循环由风险化解与资产定价权重塑驱动的判断框架.md",
         "wiki/views/冰冰小美-雅江工程与顺周期财政观.md",
         "index.md",
@@ -1724,7 +1749,7 @@
         "sources/articles/2025-07-24-冰冰小美：顺周期与国情.md",
         "wiki/people/冰冰小美.md",
         "wiki/topics/冰冰小美-宏观经济.md",
-        "wiki/concepts/冰冰小美-中央加杠杆.md",
+        "wiki/views/冰冰小美-政策解读-中央加杠杆.md",
         "wiki/views/冰冰小美：经济正向循环由风险化解与资产定价权重塑驱动的判断框架.md",
         "wiki/views/冰冰小美-雅江工程与顺周期财政观.md",
         "wiki/reasoning/冰冰小美-雅江工程到顺周期涨价推导链.md",
@@ -1857,7 +1882,7 @@
         "wiki/topics/冰冰小美-AI产业趋势.md",
         "wiki/concepts/产业思维.md",
         "wiki/reasoning/冰冰小美如何基于国运选出三大支柱产业？.md",
-        "wiki/views/冰冰小美：真正中长期需要底线思维的核心判断.md",
+        "wiki/concepts/冰冰小美-framework-底线思维.md",
         "index.md",
         "log.md",
         "hot.md",
@@ -1882,7 +1907,7 @@
         "wiki/topics/冰冰小美-中美产业竞争.md",
         "wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md",
         "wiki/concepts/冰冰小美-ETF行情.md",
-        "wiki/concepts/冰冰小美-中央加杠杆.md",
+        "wiki/views/冰冰小美-政策解读-中央加杠杆.md",
         "index.md",
         "log.md",
         "hot.md",
@@ -2304,7 +2329,7 @@
         "sources/articles/2026-01-11-冰冰小美：中国政府投资理念与美国政府的模仿与实践.md",
         "wiki/people/冰冰小美.md",
         "wiki/topics/冰冰小美-中美产业竞争.md",
-        "wiki/concepts/冰冰小美-中央加杠杆.md",
+        "wiki/views/冰冰小美-政策解读-中央加杠杆.md",
         "index.md",
         "log.md",
         "hot.md",
@@ -2379,7 +2404,7 @@
       "source_type": "document",
       "project": null,
       "pages_created": [
-        "wiki/concepts/冰冰小美-时间窗口.md"
+        "wiki/concepts/冰冰小美-concept-时间窗口.md"
       ],
       "pages_updated": [
         "sources/articles/2026-03-20-冰冰小美：如何理解时间窗口.md",
@@ -2962,8 +2987,64 @@
         "log.md",
         ".manifest.json"
       ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/sources/manual/372290338/四、投资认知与感悟类/2、散户避坑指南/293_亏钱的几个逻辑.md": {
+      "ingested_at": "2026-06-17T00:00:00+08:00",
+      "size_bytes": 1963,
+      "modified_at": "2026-06-11T12:26:43+08:00",
+      "content_hash": "sha256:fee38f03f39536dec473cdc848dec940dd94ba8d7ebcee63985c8f32d9afb39c",
+      "source_type": "manual_excerpt",
+      "project": null,
+      "source_metadata": {
+        "title": "亏钱的几个逻辑",
+        "author": "冰冰小美",
+        "content_id": "169719557",
+        "published_at": "2021-01-24",
+        "original_url": "https://xueqiu.com/7143769715/169719557",
+        "source_page": "https://xueqiu.com/7052186871/372893503"
+      },
+      "pages_created": [
+        "wiki/views/冰冰小美对散户亏钱逻辑的看法.md"
+      ],
+      "pages_updated": [
+        "sources/manual/372290338/四、投资认知与感悟类/2、散户避坑指南/293_亏钱的几个逻辑.md",
+        "wiki/views/冰冰小美对散户亏钱逻辑的看法.md",
+        "wiki/concepts/冰冰小美-亏钱认知.md",
+        "index.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/sources/manual/372290338/四、投资认知与感悟类/2、散户避坑指南/296_投机三层核心逻辑.md": {
+      "ingested_at": "2026-06-17T15:19:25+08:00",
+      "size_bytes": 3686,
+      "modified_at": "2026-06-11T20:26:49+08:00",
+      "content_hash": "sha256:ddc354f7559a662c8f80290a1801a9b914b64e1b396089441322f1b2eb2f4c4c",
+      "source_type": "manual_excerpt",
+      "project": null,
+      "source_metadata": {
+        "title": "投机三层核心逻辑",
+        "author": "冰冰小美",
+        "platform": "雪球",
+        "content_id": "226621782",
+        "published_at": "2022-07-29T08:19:00+08:00",
+        "original_url": "https://xueqiu.com/7143769715/226621782",
+        "source_page": "https://xueqiu.com/7052186871/372893503",
+        "chapter": "四、投资认知与感悟类",
+        "section": "2、散户避坑指南"
+      },
+      "pages_created": [
+        "wiki/concepts/冰冰小美-framework-投机三层核心逻辑.md"
+      ],
+      "pages_updated": [
+        "wiki/views/冰冰小美对投机的看法.md",
+        "index.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
     }
   },
-  "updated_at": "2026-06-03T17:50:00+08:00"
+  "updated_at": "2026-06-17T17:45:00+08:00"
 }
-
