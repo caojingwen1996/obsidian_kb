@@ -1,10 +1,106 @@
 ﻿{
   "version": 1,
   "stats": {
-    "total_sources_ingested": 134,
-    "total_pages": 394
+    "total_sources_ingested": 139,
+    "total_pages": 420
   },
   "sources": {
+    "E:/caojingwen/obsidian/llmwiki/sources/manual/372290338/四、投资认知与感悟类/2、散户避坑指南/307_交易性格之培养.md": {
+      "ingested_at": "2026-06-18T15:32:53+08:00",
+      "size_bytes": 2161,
+      "modified_at": "2026-06-18T15:22:47+08:00",
+      "content_hash": "sha256:7df19a7a311059b67d066bbeecb148a40a80bb8365d25a8b7891650c80aa5213",
+      "source_type": "document",
+      "project": null,
+      "source_metadata": {
+        "title": "交易性格之培养",
+        "author": "冰冰小美",
+        "content_id": "372290338",
+        "published_at": "2023-01-02",
+        "original_url": null
+      },
+      "pages_created": [
+        "wiki/concepts/冰冰小美-concept-好的交易性格.md"
+      ],
+      "pages_updated": [
+        "index.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/sources/manual/372290338/四、投资认知与感悟类/2、散户避坑指南/308_交易性格之踏空感.md": {
+      "ingested_at": "2026-06-18T15:32:53+08:00",
+      "size_bytes": 2317,
+      "modified_at": "2026-06-18T15:24:13+08:00",
+      "content_hash": "sha256:adc122cab827478db417e37a20a1407ad6980a6590d8a93d40fd849972d8d751",
+      "source_type": "document",
+      "project": null,
+      "source_metadata": {
+        "title": "交易性格之踏空感",
+        "author": "冰冰小美",
+        "content_id": "372290338",
+        "published_at": "2023-01-16",
+        "original_url": null
+      },
+      "pages_created": [
+        "wiki/concepts/冰冰小美-concept-好的交易性格.md"
+      ],
+      "pages_updated": [
+        "index.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/sources/manual/372290338/四、投资认知与感悟类/2、散户避坑指南/309_交易性格之情绪影响.md": {
+      "ingested_at": "2026-06-18T15:32:53+08:00",
+      "size_bytes": 2468,
+      "modified_at": "2026-06-18T15:27:00+08:00",
+      "content_hash": "sha256:067219b17bfb6d6a1f12525f6d9f98fb912e8927e3184fcfed0ccae76429c6bb",
+      "source_type": "document",
+      "project": null,
+      "source_metadata": {
+        "title": "交易性格之情绪影响",
+        "author": "冰冰小美",
+        "content_id": "372290338",
+        "published_at": "2023-05-06",
+        "original_url": null
+      },
+      "pages_created": [
+        "wiki/concepts/冰冰小美-concept-好的交易性格.md"
+      ],
+      "pages_updated": [
+        "index.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/sources/manual/372290338/四、投资认知与感悟类/2、散户避坑指南/310_交易性格之性格切合.md": {
+      "ingested_at": "2026-06-18T15:32:53+08:00",
+      "size_bytes": 3758,
+      "modified_at": "2026-06-18T15:27:28+08:00",
+      "content_hash": "sha256:55af0aaabd051827c752de2149d3ffe8cdb4fb2a813c3b6ade19f48cba4274f3",
+      "source_type": "document",
+      "project": null,
+      "source_metadata": {
+        "title": "交易性格之性格切合",
+        "author": "冰冰小美",
+        "content_id": "372290338",
+        "published_at": "2023-05-10",
+        "original_url": null
+      },
+      "pages_created": [
+        "wiki/concepts/冰冰小美-concept-好的交易性格.md"
+      ],
+      "pages_updated": [
+        "index.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
     "E:/caojingwen/obsidian/llmwiki/sources/articles/2024-11-08-冰冰小美：中央加杠杆.md": {
       "ingested_at": "2026-06-17T17:45:00+08:00",
       "size_bytes": 6082,
@@ -3044,7 +3140,32 @@
         "log.md",
         ".manifest.json"
       ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/sources/manual/2026-06-18-冰冰小美-政策解读-2026.6.18议息会议.md": {
+      "ingested_at": "2026-06-18T10:35:00+08:00",
+      "size_bytes": 4843,
+      "modified_at": "2026-06-18T10:31:01+08:00",
+      "content_hash": "sha256:10221fe362d18f600ca31c10bb7e8e8bb5df17739e1b0fd99524dc218fe0292d",
+      "source_type": "manual_excerpt",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美-政策解读-2026.6.18议息会议",
+        "author": "冰冰小美",
+        "published_at": "2026-06-18",
+        "original_url": null
+      },
+      "pages_created": [
+        "wiki/views/冰冰小美-政策解读-2026.6.18议息会议.md"
+      ],
+      "pages_updated": [
+        "sources/manual/2026-06-18-冰冰小美-政策解读-2026.6.18议息会议.md",
+        "wiki/topics/冰冰小美-宏观经济.md",
+        "index.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
     }
   },
-  "updated_at": "2026-06-17T17:45:00+08:00"
+  "updated_at": "2026-06-18T10:35:00+08:00"
 }
