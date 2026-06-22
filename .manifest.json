@@ -1,10 +1,32 @@
-﻿{
+{
   "version": 1,
   "stats": {
-    "total_sources_ingested": 139,
-    "total_pages": 420
+    "total_sources_ingested": 142,
+    "total_pages": 424
   },
   "sources": {
+    "E:/caojingwen/obsidian/llmwiki/sources/manual/2026-06-22-冰冰小美-医疗器械三年之约.md": {
+      "ingested_at": "2026-06-22T11:50:41+08:00",
+      "size_bytes": 2196,
+      "modified_at": "2026-06-22T11:50:41+08:00",
+      "content_hash": "sha256:5aabb28e5a672733670f90d41176f40937f807a3fe33977495ee650d4bfd68ec",
+      "source_type": "document",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美：医疗器械三年之约",
+        "author": "冰冰小美",
+        "content_id": null,
+        "published_at": null,
+        "original_url": null
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/timelines/冰冰小美-医疗器械投资跟踪.md",
+        "index.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
     "E:/caojingwen/obsidian/llmwiki/sources/manual/372290338/四、投资认知与感悟类/2、散户避坑指南/307_交易性格之培养.md": {
       "ingested_at": "2026-06-18T15:32:53+08:00",
       "size_bytes": 2161,
@@ -3165,7 +3187,59 @@
         "log.md",
         ".manifest.json"
       ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/sources/articles/2026-06-20-冰冰小美：中美战略实施加速的转折点.md": {
+      "ingested_at": "2026-06-22T10:30:00+08:00",
+      "size_bytes": 7449,
+      "modified_at": "2026-06-22T10:30:00+08:00",
+      "content_hash": "sha256:7e443f2f50c652523ca5fde5ba7456af20b3b42133eb684b14eab51b1d36c442",
+      "source_type": "document",
+      "project": null,
+      "source_metadata": {
+        "title": "中美战略实施加速的转折点",
+        "author": "冰冰小美",
+        "content_id": "395704581",
+        "published_at": "2026-06-20 10:23",
+        "original_url": "https://xueqiu.com/7143769715/395704581"
+      },
+      "pages_created": [
+        "sources/articles/2026-06-20-冰冰小美：中美战略实施加速的转折点.md",
+        "wiki/views/冰冰小美：中美战略实施加速的转折点判断框架.md"
+      ],
+      "pages_updated": [
+        "index.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/sources/manual/2026-06-22-冰冰小美：2023判断终点与2026-2028配置切换.md": {
+      "ingested_at": "2026-06-22T11:20:00+08:00",
+      "size_bytes": 4335,
+      "modified_at": "2026-06-22T11:20:00+08:00",
+      "content_hash": "sha256:71a3935ccd5a9a4447fb6045ddb7ac811a83a260b6dd0c0c5ebd3b3ad08a746f",
+      "source_type": "manual_excerpt",
+      "project": null,
+      "source_metadata": {
+        "title": "2023判断终点与2026-2028配置切换",
+        "author": "冰冰小美",
+        "published_at": null,
+        "original_url": null,
+        "source_status": "user_provided_excerpt"
+      },
+      "pages_created": [
+        "sources/manual/2026-06-22-冰冰小美：2023判断终点与2026-2028配置切换.md",
+        "wiki/views/冰冰小美：2023判断终点与2026-2028配置切换的判断框架.md"
+      ],
+      "pages_updated": [
+        "wiki/views/冰冰小美：汽车红海竞争下择时重于好生意叙事的判断框架.md",
+        "wiki/reasoning/冰冰小美-汽车股机会风险如何由补贴退坡与同质化竞争共同形成.md",
+        "index.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
     }
   },
-  "updated_at": "2026-06-18T10:35:00+08:00"
+  "updated_at": "2026-06-22T11:20:00+08:00"
 }
