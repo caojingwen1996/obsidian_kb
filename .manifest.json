@@ -1,8 +1,8 @@
 {
   "version": 1,
   "stats": {
-    "total_sources_ingested": 142,
-    "total_pages": 424
+    "total_sources_ingested": 144,
+    "total_pages": 440
   },
   "sources": {
     "E:/caojingwen/obsidian/llmwiki/sources/manual/2026-06-22-冰冰小美-医疗器械三年之约.md": {
@@ -3239,7 +3239,31 @@
         "log.md",
         ".manifest.json"
       ]
+    },
+    "sources/articles/2026-06-30-雪球-冰冰小美-氟化工与多氟多.md": {
+      "ingested_at": "2026-06-30T00:00:00+08:00",
+      "size_bytes": 5376,
+      "modified_at": "2026-06-30T09:27:23.183Z",
+      "content_hash": "sha256:6e398c3398d3825773e7bc5a53ef94895b4b111a601538e67c94e642d26c0655",
+      "source_type": "webpage",
+      "project": null,
+      "source_metadata": {
+        "title": "氟化工（与闺蜜一起整理）",
+        "author": "冰冰小美",
+        "content_id": "397493368",
+        "published_at": "2026-06-30T08:57:00+08:00",
+        "original_url": "https://xueqiu.com/7143769715/397493368"
+      },
+      "pages_created": [
+        "wiki/reasoning/冰冰小美-多氟多氟化工需求周期推导.md"
+      ],
+      "pages_updated": [
+        "wiki/timelines/冰冰小美-标的-周期产业-多氟多.md",
+        "index.md",
+        "log.md",
+        ".manifest.json"
+      ]
     }
   },
-  "updated_at": "2026-06-22T11:20:00+08:00"
+  "updated_at": "2026-06-30T00:00:00+08:00"
 }
