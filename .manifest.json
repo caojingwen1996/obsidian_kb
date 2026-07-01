@@ -1,8 +1,8 @@
 {
   "version": 1,
   "stats": {
-    "total_sources_ingested": 144,
-    "total_pages": 440
+    "total_sources_ingested": 146,
+    "total_pages": 444
   },
   "sources": {
     "E:/caojingwen/obsidian/llmwiki/sources/manual/2026-06-22-冰冰小美-医疗器械三年之约.md": {
@@ -3263,7 +3263,53 @@
         "log.md",
         ".manifest.json"
       ]
+    },
+    "sources/articles/2026-06-27-冰冰小美：2026年6月月报（一）问天.md": {
+      "ingested_at": "2026-07-01T20:10:00+08:00",
+      "size_bytes": 7683,
+      "modified_at": "2026-07-01T12:10:59.821Z",
+      "content_hash": "sha256:517dc76ec4e9e2492d3a2bcf56b792ddd15f1f21acee781d0a71132511f72666",
+      "source_type": "webpage",
+      "project": null,
+      "source_metadata": {
+        "title": "2026年6月月报（一）问天",
+        "author": "冰冰小美",
+        "content_id": "397124668",
+        "published_at": "2026-06-27T13:23:00+08:00",
+        "original_url": "https://xueqiu.com/7143769715/397124668"
+      },
+      "pages_created": [
+        "wiki/views/冰冰小美：美元体系重构推动全球缴费状态的判断框架.md"
+      ],
+      "pages_updated": [
+        "wiki/timelines/冰冰小美-中美战略判断演化时间线.md",
+        "index.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "sources/manual/2026-07-01-用户输入-大盘层次的做空指数.md": {
+      "ingested_at": "2026-07-01T20:55:00+08:00",
+      "size_bytes": 578,
+      "modified_at": "2026-07-01T20:55:00+08:00",
+      "content_hash": "sha256:ef03a09c192a0c1d5193feb76bc72543ab05da478b8099fe0523dd559eaeabba",
+      "source_type": "manual",
+      "project": null,
+      "source_metadata": {
+        "title": "用户输入：大盘层次的做空指数",
+        "author": "用户",
+        "content_id": null,
+        "published_at": "2026-07-01",
+        "original_url": null
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/concepts/冰冰小美-指标-交易.md",
+        "index.md",
+        "log.md",
+        ".manifest.json"
+      ]
     }
   },
-  "updated_at": "2026-06-30T00:00:00+08:00"
+  "updated_at": "2026-07-01T20:55:00+08:00"
 }

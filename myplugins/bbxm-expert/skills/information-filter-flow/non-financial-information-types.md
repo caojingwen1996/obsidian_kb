@@ -1,26 +1,26 @@
 ---
-title: "冰冰小美-非金融信息类型字典"
+title: 冰冰小美-非金融信息类型字典
 aliases:
-  - "非金融信息类型字典"
-  - "非金融信息类型"
-  - "非金融信息分层"
+  - 非金融信息类型字典
+  - 非金融信息类型
+  - 非金融信息分层
 created: 2026-06-11
 updated: 2026-06-11
 type: concept
 status: draft
 tags:
-  - "skill/reference"
-  - "information-filter"
-  - "non-financial-information"
-  - "policy/visible-hand"
-  - "strategy/reasoning"
+  - skill/reference
+  - information-filter
+  - non-financial-information
+  - policy/visible-hand
+  - strategy/reasoning
 source_framework:
-  - "冰冰小美《信息的金融意义（三）》"
+  - 冰冰小美《信息的金融意义（三）》
 related:
   - "[[冰冰小美-信息的金融意义系列]]"
-  - "[[冰冰小美：非金融信息看有形之手目标传导的判断框架]]"
+  - "[[冰冰小美：非金融信息的五层分类]]"
 usage:
-  - "供 information-filter-flow/SKILL.md 在 Step 1 与非金融信息判断步骤中引用"
+  - 供 information-filter-flow/SKILL.md 在 Step 1 与非金融信息判断步骤中引用
 ---
 
 # 冰冰小美-非金融信息类型字典
