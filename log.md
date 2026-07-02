@@ -4,6 +4,26 @@
 
 ### 操作类型
 
+repair / wikilink / topic
+
+### 修改文件
+
+- `wiki/topics/冰冰小美-风险提示系列.md`
+- `.manifest.json`
+- `log.md`
+
+### 操作说明
+
+修复 `冰冰小美-风险提示系列` Topic Page 中表格内 Obsidian 双链不可点击的问题。原因是 Markdown 表格会把 wikilink 的别名分隔符 `|` 误判为表格列分隔符；本次将表格内 `[[页面|显示名]]` 统一改为 `[[页面\|显示名]]`，并重建已被拆列的“已整理核心文章”表格，保持来源、正式承接页和状态不变。
+
+### 后续待办
+
+- 后续在 Markdown 表格内使用 Obsidian alias link 时，应统一转义为 `[[path\|alias]]`。
+
+## 2026-07-02
+
+### 操作类型
+
 topic / link / audit
 
 ### 修改文件
