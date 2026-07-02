@@ -1,8 +1,9 @@
 {
   "version": 1,
   "stats": {
-    "total_sources_ingested": 146,
-    "total_pages": 444
+    "total_sources_ingested": 163,
+    "total_pages": 451,
+    "source_count": 206
   },
   "sources": {
     "E:/caojingwen/obsidian/llmwiki/sources/manual/2026-06-22-冰冰小美-医疗器械三年之约.md": {
@@ -574,7 +575,9 @@
         "index.md",
         "log.md",
         "hot.md",
-        ".manifest.json"
+        ".manifest.json",
+        "wiki/concepts/冰冰小美-concept-风险类型整理.md",
+        "wiki/views/冰冰小美：风险对冲只是权宜之计的判断框架.md"
       ]
     },
     "E:/caojingwen/obsidian/source/冰冰小美专栏/20260121/082300_哀其不幸_怒其不争_二_37207050.txt": {
@@ -3309,7 +3312,1429 @@
         "log.md",
         ".manifest.json"
       ]
+    },
+    "sources/articles/2026-07-02-冰冰小美：这是什么风险.md": {
+      "ingested_at": "2026-07-02T09:30:00+08:00",
+      "size_bytes": 2407,
+      "modified_at": "2026-07-02T10:05:00+08:00",
+      "content_hash": "c63f949bbdb27f6c8fc3a60627fe7f2979d48aa7f5cd1f45e019267241476765",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美：这是什么风险",
+        "author": "冰冰小美",
+        "content_id": "398077394",
+        "published_at": null,
+        "original_url": "https://xueqiu.com/7143769715/398077394"
+      },
+      "pages_created": [
+        "wiki/concepts/冰冰小美-杠杆拥挤交易风险.md"
+      ],
+      "pages_updated": [
+        "index.md",
+        "log.md",
+        ".manifest.json",
+        "wiki/timelines/冰冰小美-风险节点记录.md"
+      ]
+    },
+    "sources/articles/2025-10-19-冰冰小美：波动风险.md": {
+      "ingested_at": "2026-07-02T10:50:00+08:00",
+      "size_bytes": 11185,
+      "modified_at": "2026-07-02T10:50:00+08:00",
+      "content_hash": "539663a428e4228d1ec0bbf26d23da376133666fda3355b8dc6dcdb62ef86fe0",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美：波动风险",
+        "author": "冰冰小美",
+        "content_id": "357271352",
+        "published_at": "2025-10-19 08:43:00",
+        "original_url": "https://xueqiu.com/7143769715/357271352"
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/concepts/冰冰小美-concept-风险类型整理.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "sources/manual/2026-07-02-用户输入-冰冰小美-风险定义-风险.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 3280,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:1d7fb1adf44c1891a173c7f5bb4de00333081c3efb0ada65b7f4b816940a48dc",
+      "source_type": "manual_excerpt",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美-风险定义-风险",
+        "author": "用户整理，归入冰冰小美体系",
+        "content_id": null,
+        "published_at": null,
+        "original_url": null
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/concepts/冰冰小美-concept-风险的定义.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "sources/articles/2026-03-23-投资相声口儿：冰冰小美宏观风险关键词文章.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 12147,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:c9932f89f93c8d9786a8aa81ff9e87fadb3711249ea59ec8bccfc80eda0ac26a",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "投资相声口儿：冰冰小美宏观风险关键词文章",
+        "author": "投资相声口儿",
+        "content_id": "380738163",
+        "published_at": "2026-03-23 18:36",
+        "original_url": "https://xueqiu.com/1145381235/380738163"
+      },
+      "pages_created": [
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md"
+      ],
+      "pages_updated": [
+        "wiki/topics/冰冰小美-风险提示系列.md",
+        "wiki/concepts/冰冰小美-宏观风险信号表.md",
+        "wiki/timelines/冰冰小美-风险节点记录.md",
+        "log.md",
+        ".manifest.json",
+        "sources/articles/2026-03-23-投资相声口儿：冰冰小美宏观风险关键词文章.md",
+        "index.md",
+        "wiki/concepts/冰冰小美-通胀对股市的非线性影响.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md"
+      ]
+    },
+    "sources/articles/2024-10-02-冰冰小美：鹰酱历史卷入war.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 5104,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:cc4732f82b121c249becf71344fabf35387929df1357ac4947936242d31705a4",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美：鹰酱历史卷入war",
+        "author": "冰冰小美",
+        "content_id": "306522856",
+        "published_at": "2024-10-02 10:15",
+        "original_url": "https://xueqiu.com/7143769715/306522856"
+      },
+      "pages_created": [
+        "wiki/reasoning/冰冰小美-美国财政约束如何传导为战争经济与全球风险波动.md"
+      ],
+      "pages_updated": [
+        "sources/articles/2024-10-02-冰冰小美：鹰酱历史卷入war.md",
+        "sources/articles/2026-03-23-投资相声口儿：冰冰小美宏观风险关键词文章.md",
+        "log.md",
+        ".manifest.json",
+        "wiki/reasoning/冰冰小美-美国财政约束如何传导为战争经济与全球风险波动.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md"
+      ]
+    },
+    "sources/articles/2025-09-18-冰冰小美：滞胀期确认并持续十年.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 1241,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:d6bfb7b3d734406e3b2f605a49bb8b662df0ab8e0ddfee0a2874a2b7795ab054",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美：滞胀期确认并持续十年",
+        "author": "冰冰小美",
+        "content_id": "353174359",
+        "published_at": "2025-09-18 06:36",
+        "original_url": "https://xueqiu.com/7143769715/353174359"
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "sources/articles/2025-09-18-冰冰小美：滞胀期确认并持续十年.md",
+        "sources/articles/2026-03-23-投资相声口儿：冰冰小美宏观风险关键词文章.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "sources/articles/2026-02-02-冰冰小美：上一篇写交易过程的心理建设与风险控制问题.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 4051,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:6e127061cef29e78741abaaeda3ec47f5547bd3560bf2e5d7be8e408c2d2e67d",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美：上一篇写交易过程的心理建设与风险控制问题",
+        "author": "冰冰小美",
+        "content_id": "374452730",
+        "published_at": "2026-02-02 17:19",
+        "original_url": "https://xueqiu.com/7143769715/374452730"
+      },
+      "pages_created": [
+        "wiki/reasoning/冰冰小美-历史节点如何由中美关系与美联储换帅传导为仓位风险控制.md"
+      ],
+      "pages_updated": [
+        "sources/articles/2026-02-02-冰冰小美：上一篇写交易过程的心理建设与风险控制问题.md",
+        "sources/articles/2026-03-23-投资相声口儿：冰冰小美宏观风险关键词文章.md",
+        "log.md",
+        ".manifest.json",
+        "wiki/reasoning/冰冰小美-历史节点如何由中美关系与美联储换帅传导为仓位风险控制.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md"
+      ]
+    },
+    "sources/articles/2026-03-03-冰冰小美：何为石油美元霸权.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 3895,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:242a3046a929ef81b8a28abc350a47fc002f68d95372f872df3c5c8fc2f309dc",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美：何为石油美元霸权",
+        "author": "冰冰小美",
+        "content_id": "377815061",
+        "published_at": "2026-03-03 17:51",
+        "original_url": "https://xueqiu.com/7143769715/377815061"
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "sources/articles/2026-03-03-冰冰小美：何为石油美元霸权.md",
+        "sources/articles/2026-03-23-投资相声口儿：冰冰小美宏观风险关键词文章.md",
+        "log.md",
+        ".manifest.json",
+        "wiki/reasoning/冰冰小美-中东石油危机如何传导为石油美元压力与股市风险敞口.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md"
+      ]
+    },
+    "sources/articles/2026-03-20-冰冰小美：回顾风险之前.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 3057,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:f290dc4ac3c5acde752fa832a722016420acc2a2e867b870a91877499f7b469e",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美：回顾风险之前",
+        "author": "冰冰小美",
+        "content_id": "380297945",
+        "published_at": "2026-03-20 10:29",
+        "original_url": "https://xueqiu.com/7143769715/380297945"
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "sources/articles/2026-03-20-冰冰小美：回顾风险之前.md",
+        "sources/articles/2026-03-23-投资相声口儿：冰冰小美宏观风险关键词文章.md",
+        "log.md",
+        ".manifest.json",
+        "wiki/reasoning/冰冰小美-中东石油危机如何传导为石油美元压力与股市风险敞口.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md"
+      ]
+    },
+    "sources/articles/2026-03-20-冰冰小美：目前的市场.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 2949,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:5a47d3c19489c4928b487bd6ba0f16edc61d5289da817682fba06b1c7c7554bd",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美：目前的市场",
+        "author": "冰冰小美",
+        "content_id": "380314789",
+        "published_at": "2026-03-20 11:17",
+        "original_url": "https://xueqiu.com/7143769715/380314789"
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "sources/articles/2026-03-20-冰冰小美：目前的市场.md",
+        "sources/articles/2026-03-23-投资相声口儿：冰冰小美宏观风险关键词文章.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "sources/articles/2026-03-20-冰冰小美：再比如.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 3271,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:02fe2ab4773ca7aeff91ea119ff677fa4b1176ad8dcdf6d6639592c0ea18f1e8",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美：再比如",
+        "author": "冰冰小美",
+        "content_id": "380331380",
+        "published_at": "2026-03-20 12:38",
+        "original_url": "https://xueqiu.com/7143769715/380331380"
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "sources/articles/2026-03-20-冰冰小美：再比如.md",
+        "sources/articles/2026-03-23-投资相声口儿：冰冰小美宏观风险关键词文章.md",
+        "log.md",
+        ".manifest.json",
+        "wiki/reasoning/冰冰小美-中东石油危机如何传导为石油美元压力与股市风险敞口.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md"
+      ]
+    },
+    "sources/articles/2026-03-21-冰冰小美：有一篇审核没发出来.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 4805,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:27faed25d92c1390c98af3943d84a1a6754ededfa6d751aaf22c70c3a657bf33",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美：有一篇审核没发出来",
+        "author": "冰冰小美",
+        "content_id": "380498035",
+        "published_at": "2026-03-21 18:06",
+        "original_url": "https://xueqiu.com/7143769715/380498035"
+      },
+      "pages_created": [
+        "wiki/reasoning/冰冰小美-有色金属二十年供需周期如何传导为全球通胀与产业转型.md"
+      ],
+      "pages_updated": [
+        "sources/articles/2026-03-21-冰冰小美：有一篇审核没发出来.md",
+        "sources/articles/2026-03-23-投资相声口儿：冰冰小美宏观风险关键词文章.md",
+        "log.md",
+        ".manifest.json",
+        "wiki/reasoning/冰冰小美-有色金属二十年供需周期如何传导为全球通胀与产业转型.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md"
+      ]
+    },
+    "sources/articles/2025-03-14-冰冰小美：输入性通胀.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 5034,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:0b286f26f199fc85d6433479576171d52b5829a2d80a716bb37b4a2c4097fc55",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美：输入性通胀",
+        "author": "冰冰小美",
+        "content_id": "327269883",
+        "published_at": "2025-03-14 00:09",
+        "original_url": "https://xueqiu.com/7143769715/327269883"
+      },
+      "pages_created": [
+        "wiki/concepts/冰冰小美-通胀对股市的非线性影响.md"
+      ],
+      "pages_updated": [
+        "sources/articles/2025-03-14-冰冰小美：输入性通胀.md",
+        "sources/articles/2026-03-23-投资相声口儿：冰冰小美宏观风险关键词文章.md",
+        "log.md",
+        ".manifest.json",
+        "wiki/concepts/冰冰小美-宏观风险信号表.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "index.md"
+      ]
+    },
+    "sources/articles/2025-11-21-冰冰小美：信息归纳.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 4556,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:d15d4201d8cb4eb2333201a5636e0c6bfe4d74078e0368c673b5f3de648418c5",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美：信息归纳",
+        "author": "冰冰小美",
+        "content_id": "362568138",
+        "published_at": "2025-11-21 08:47",
+        "original_url": "https://xueqiu.com/7143769715/362568138"
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "sources/articles/2025-11-21-冰冰小美：信息归纳.md",
+        "sources/articles/2026-03-23-投资相声口儿：冰冰小美宏观风险关键词文章.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "sources/articles/2026-01-08-冰冰小美：2026特朗普把军费提高70%.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 1809,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:f39da9dab60ed23bbf3d23c8efdaf025a5ec452b300573c7f38eef8783548932",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美：2026特朗普把军费提高70%",
+        "author": "冰冰小美",
+        "content_id": "369754810",
+        "published_at": "2026-01-08 18:48",
+        "original_url": "https://xueqiu.com/7143769715/369754810"
+      },
+      "pages_created": [
+        "wiki/reasoning/冰冰小美-美国财政约束如何传导为战争经济与全球风险波动.md"
+      ],
+      "pages_updated": [
+        "sources/articles/2026-01-08-冰冰小美：2026特朗普把军费提高70%.md",
+        "sources/articles/2026-03-23-投资相声口儿：冰冰小美宏观风险关键词文章.md",
+        "log.md",
+        ".manifest.json",
+        "wiki/reasoning/冰冰小美-美国财政约束如何传导为战争经济与全球风险波动.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md"
+      ]
+    },
+    "sources/articles/2026-02-28-冰冰小美：带着问题去阅读.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 5426,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:d2a86f4f09038558ec474afacbd63c4c9caf7d8ad1169d4269c825083107ba6b",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美：带着问题去阅读",
+        "author": "冰冰小美",
+        "content_id": "377370786",
+        "published_at": "2026-02-28 13:58",
+        "original_url": "https://xueqiu.com/7143769715/377370786"
+      },
+      "pages_created": [
+        "wiki/concepts/冰冰小美-通胀对股市的非线性影响.md"
+      ],
+      "pages_updated": [
+        "sources/articles/2026-02-28-冰冰小美：带着问题去阅读.md",
+        "sources/articles/2026-03-23-投资相声口儿：冰冰小美宏观风险关键词文章.md",
+        "log.md",
+        ".manifest.json",
+        "wiki/concepts/冰冰小美-宏观风险信号表.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "index.md"
+      ]
+    },
+    "sources/articles/2026-03-03-冰冰小美：今天引发的下跌风险.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 1995,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:2b05e34960884c7c2ef4d275362bb3b51e21b58e1cfaf2ceee0a9329353586e4",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美：今天引发的下跌风险",
+        "author": "冰冰小美",
+        "content_id": "377772970",
+        "published_at": "2026-03-03 14:27",
+        "original_url": "https://xueqiu.com/7143769715/377772970"
+      },
+      "pages_created": [
+        "wiki/reasoning/冰冰小美-AI高投资泡沫如何由现金流与成本压力传导为周期风波.md"
+      ],
+      "pages_updated": [
+        "sources/articles/2026-03-03-冰冰小美：今天引发的下跌风险.md",
+        "sources/articles/2026-03-23-投资相声口儿：冰冰小美宏观风险关键词文章.md",
+        "log.md",
+        ".manifest.json",
+        "wiki/reasoning/冰冰小美-AI高投资泡沫如何由现金流与成本压力传导为周期风波.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md"
+      ]
+    },
+    "sources/articles/2026-03-04-冰冰小美：如果你看不懂我的盘面观察直播贴.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 1409,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:3f2c7c4c79cfc09bee035e496ce1f8a0c31ade7401484a89d24f1e63bc947890",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美：如果你看不懂我的盘面观察直播贴",
+        "author": "冰冰小美",
+        "content_id": "377935291",
+        "published_at": "2026-03-04 11:14",
+        "original_url": "https://xueqiu.com/7143769715/377935291"
+      },
+      "pages_created": [
+        "wiki/reasoning/冰冰小美-体系三要素如何传导为看盘判断.md"
+      ],
+      "pages_updated": [
+        "sources/articles/2026-03-04-冰冰小美：如果你看不懂我的盘面观察直播贴.md",
+        "sources/articles/2026-03-23-投资相声口儿：冰冰小美宏观风险关键词文章.md",
+        "log.md",
+        ".manifest.json",
+        "wiki/reasoning/冰冰小美-体系三要素如何传导为看盘判断.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md"
+      ]
+    },
+    "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 19146,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:355ee37d9dd47d817f4cfbbfd99c4921c14dd5f86df992d5c584270a6c8cdab4",
+      "source_type": "topic_page",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美-宏观风险关键词文章整理清单",
+        "author": null,
+        "content_id": null,
+        "published_at": null,
+        "original_url": null
+      },
+      "pages_created": [
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md"
+      ],
+      "pages_updated": [
+        "wiki/reasoning/冰冰小美-美国历史路径如何传导为滞胀与新兴产业突围.md",
+        "wiki/reasoning/冰冰小美-欧洲历史金融与地缘变化如何传导为风险视角.md",
+        "wiki/concepts/冰冰小美-宏观风险信号表.md",
+        "wiki/views/冰冰小美：治理红线改写泡沫危机脚本的判断框架.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "index.md",
+        "log.md"
+      ]
+    },
+    "wiki/reasoning/冰冰小美-中东石油危机如何传导为石油美元压力与股市风险敞口.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 14891,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:9684b430e0c631939443db21f29f0b129365156204375d49b38cd4db69c175ab",
+      "source_type": "reasoning_page",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美-中东石油危机如何传导为石油美元压力与股市风险敞口",
+        "author": null,
+        "content_id": null,
+        "published_at": null,
+        "original_url": null
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/reasoning/冰冰小美-中东石油危机如何传导为石油美元压力与股市风险敞口.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "wiki/concepts/冰冰小美-通胀对股市的非线性影响.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 11621,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:55bc533422e4a6d166d271e181761ff2c998dd59f6954a144812f42e83cc9421",
+      "source_type": "concept_page",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美-通胀对股市的非线性影响",
+        "author": null,
+        "content_id": null,
+        "published_at": null,
+        "original_url": null
+      },
+      "pages_created": [
+        "wiki/concepts/冰冰小美-通胀对股市的非线性影响.md"
+      ],
+      "pages_updated": [
+        "wiki/concepts/冰冰小美-宏观风险信号表.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "index.md",
+        "log.md",
+        ".manifest.json",
+        "wiki/concepts/冰冰小美-通胀对股市的非线性影响.md"
+      ]
+    },
+    "wiki/concepts/冰冰小美-宏观风险信号表.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 17964,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:306d37338e9a4101f29a0959ac5456f0041d3eca336368060a3b6e1574ff7d01",
+      "source_type": "concept_page",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美-宏观风险信号表",
+        "author": null,
+        "content_id": null,
+        "published_at": null,
+        "original_url": null
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/reasoning/冰冰小美-美国历史路径如何传导为滞胀与新兴产业突围.md",
+        "wiki/reasoning/冰冰小美-欧洲历史金融与地缘变化如何传导为风险视角.md",
+        "wiki/concepts/冰冰小美-宏观风险信号表.md",
+        "wiki/views/冰冰小美：治理红线改写泡沫危机脚本的判断框架.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "index.md",
+        "log.md"
+      ]
+    },
+    "index.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 97375,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:59adeb36dec80f5cdef3b1d59d98412b3c36e99e372bd63b8cc3008ea22328fb",
+      "source_type": "index",
+      "project": null,
+      "source_metadata": {
+        "title": "知识库索引",
+        "author": null,
+        "content_id": null,
+        "published_at": null,
+        "original_url": null
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/reasoning/冰冰小美-美国历史路径如何传导为滞胀与新兴产业突围.md",
+        "wiki/reasoning/冰冰小美-欧洲历史金融与地缘变化如何传导为风险视角.md",
+        "wiki/concepts/冰冰小美-宏观风险信号表.md",
+        "wiki/views/冰冰小美：治理红线改写泡沫危机脚本的判断框架.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "index.md",
+        "log.md"
+      ]
+    },
+    "log.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 620193,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:27a7932aa81901343b6814f4a666645f036414513514343d904cf0e75278c74e",
+      "source_type": "log",
+      "project": null,
+      "source_metadata": {
+        "title": "知识库日志",
+        "author": null,
+        "content_id": null,
+        "published_at": null,
+        "original_url": null
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/topics/冰冰小美-风险提示系列.md",
+        "log.md"
+      ]
+    },
+    "wiki/reasoning/冰冰小美-美国财政约束如何传导为战争经济与全球风险波动.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 17512,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:14b5e83ea14d3c3055d75466dae3626a335f3f7694cfaa823b43ab06521affe4",
+      "source_type": "reasoning_page",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美-美国财政约束如何传导为战争经济与全球风险波动",
+        "author": null,
+        "content_id": null,
+        "published_at": null,
+        "original_url": null
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/reasoning/冰冰小美-美国财政约束如何传导为战争经济与全球风险波动.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "sources/articles/2025-12-07-冰冰小美：2025美国安全战略.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 8565,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:865a41358dd3aacba64cf6693dbe3c4aab559a10b6320832e1dc8988efb559da",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "2025美国安全战略",
+        "author": "冰冰小美",
+        "content_id": "364866321",
+        "published_at": "2025-12-07 14:59:00",
+        "original_url": "https://xueqiu.com/7143769715/364866321"
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/views/冰冰小美：2025美国安全战略指向利益优先与战略收缩的判断框架.md",
+        "wiki/reasoning/冰冰小美-美国战略收缩如何传导为区域化贸易与资源竞争.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "wiki/reasoning/冰冰小美-AI高投资泡沫如何由现金流与成本压力传导为周期风波.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 19063,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:88d8ce364c97fc7cd285affde4880430650750a23d29c1658d2fe6f51b6b37f5",
+      "source_type": "reasoning",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美-AI高投资泡沫如何由现金流与成本压力传导为周期风波",
+        "author": null,
+        "content_id": null,
+        "published_at": null,
+        "original_url": null
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/reasoning/冰冰小美-AI高投资泡沫如何由现金流与成本压力传导为周期风波.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "log.md",
+        ".manifest.json",
+        "wiki/concepts/冰冰小美-宏观风险信号表.md",
+        "wiki/concepts/冰冰小美-concept-风险类型整理.md",
+        "wiki/timelines/冰冰小美-风险节点记录.md",
+        "wiki/reasoning/冰冰小美-A股指数稳定与个股分化如何由ETF承接和量化投机共同形成.md",
+        "wiki/timelines/冰冰小美-商业航天投资跟踪.md",
+        "wiki/views/冰冰小美：SpaceX上市开启太空经济十年追踪的判断框架.md",
+        "wiki/reasoning/冰冰小美-SpaceX上市如何传导为太空经济十年周期起点.md"
+      ]
+    },
+    "wiki/reasoning/冰冰小美-体系三要素如何传导为看盘判断.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 12272,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:c41bde3750a246fb278edc96d80a3a4072accf4e86d81b5ce75abca77b66536c",
+      "source_type": "reasoning_page",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美-体系三要素如何传导为看盘判断",
+        "author": null,
+        "content_id": null,
+        "published_at": null,
+        "original_url": null
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/reasoning/冰冰小美-体系三要素如何传导为看盘判断.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "sources/manual/372290338/二、市场研判/1、宏观经济与政策解读/165_双路径推演 AI 泡沫破灭带动有色下跌.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 11089,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:ba3c0cd9348d34ce6d6ac1c689b8c4d52ce4390f3d8a3b3a2d1ed4630d377d7f",
+      "source_type": "manual_source",
+      "project": null,
+      "source_metadata": {
+        "title": "双路径推演 AI 泡沫破灭带动有色下跌",
+        "author": "冰冰小美",
+        "content_id": "368004748",
+        "published_at": "2025-12-28 13:35",
+        "original_url": "https://xueqiu.com/7143769715/368004748"
+      },
+      "pages_created": [
+        "wiki/reasoning/冰冰小美-AI高投资泡沫如何由现金流与成本压力传导为周期风波.md"
+      ],
+      "pages_updated": [
+        "wiki/reasoning/冰冰小美-AI高投资泡沫如何由现金流与成本压力传导为周期风波.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "sources/manual/372290338/二、市场研判/4、事件点评/217_美科技股领跌叠加多重宏观风险.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 7488,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:7f57d091854d268ecf679ccd89e900bedabc87332c44e82b30af8a29eb7474a0",
+      "source_type": "manual_source",
+      "project": null,
+      "source_metadata": {
+        "title": "美科技股领跌叠加多重宏观风险",
+        "author": "冰冰小美",
+        "content_id": "370978395",
+        "published_at": "2026-01-15 00:03",
+        "original_url": "https://xueqiu.com/7143769715/370978395"
+      },
+      "pages_created": [
+        "wiki/reasoning/冰冰小美-AI高投资泡沫如何由现金流与成本压力传导为周期风波.md"
+      ],
+      "pages_updated": [
+        "wiki/reasoning/冰冰小美-AI高投资泡沫如何由现金流与成本压力传导为周期风波.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "wiki/reasoning/冰冰小美-历史节点如何由中美关系与美联储换帅传导为仓位风险控制.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 12164,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:7d51b9fba69accba13c8a8c0e82b09d7aecd654545f9a456090f09fd80b78e95",
+      "source_type": "reasoning_page",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美-历史节点如何由中美关系与美联储换帅传导为仓位风险控制",
+        "author": null,
+        "content_id": null,
+        "published_at": null,
+        "original_url": null
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/reasoning/冰冰小美-历史节点如何由中美关系与美联储换帅传导为仓位风险控制.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "wiki/reasoning/冰冰小美-有色金属二十年供需周期如何传导为全球通胀与产业转型.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 14325,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:caebcc55df2f961dea978fc5397bf419e6f63b54932db27e8a13becee7ac1924",
+      "source_type": "reasoning_page",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美-有色金属二十年供需周期如何传导为全球通胀与产业转型",
+        "author": null,
+        "content_id": null,
+        "published_at": null,
+        "original_url": null
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/reasoning/冰冰小美-有色金属二十年供需周期如何传导为全球通胀与产业转型.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "wiki/concepts/冰冰小美-concept-时间窗口.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 18862,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:50f5fd635c3be2f69b76823f92d461b1bd59a13aeb19e05f1c50201e639a65da",
+      "source_type": "concept_page",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美-concept-时间窗口",
+        "author": null,
+        "content_id": null,
+        "published_at": null,
+        "original_url": null
+      },
+      "pages_created": [],
+      "pages_updated": []
+    },
+    "wiki/reasoning/冰冰小美-明牌宏观如何传导为热钱迁移再通胀与成本安全.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 12394,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:1a915f84882976f228d22bf2e4542d2e3eec1fa496156591ec1ccf8c632d5df7",
+      "source_type": "reasoning_page",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美-明牌宏观如何传导为热钱迁移再通胀与成本安全",
+        "author": null,
+        "content_id": null,
+        "published_at": null,
+        "original_url": null
+      },
+      "pages_created": [],
+      "pages_updated": []
+    },
+    "wiki/views/冰冰小美：明牌牛市中风险与机遇交织的判断框架.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 9637,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:ecf32a77685aaa1f8d393b8772e64588c7e022498cc2191ace616c634a7e02b4",
+      "source_type": "view_page",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美：明牌牛市中风险与机遇交织的判断框架",
+        "author": null,
+        "content_id": null,
+        "published_at": null,
+        "original_url": null
+      },
+      "pages_created": [],
+      "pages_updated": []
+    },
+    "wiki/timelines/冰冰小美-2026一季度宏观阶段时间线.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 21742,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:e528b4264810fe4033ad632e805050d97a73ce7836d9c646604e76ebc155238f",
+      "source_type": "timeline_page",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美-2026一季度宏观阶段时间线",
+        "author": null,
+        "content_id": null,
+        "published_at": null,
+        "original_url": null
+      },
+      "pages_created": [],
+      "pages_updated": []
+    },
+    "sources/articles/2026-03-20-冰冰小美：如何理解时间窗口.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 5438,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:449bb58faadb0b816bca1ad164390d606b9ef1845a9fc5f7a093652c10ff28a0",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "如何理解时间窗口",
+        "author": "冰冰小美",
+        "content_id": "380265169",
+        "published_at": "2026-03-20 08:56:00",
+        "original_url": "https://xueqiu.com/7143769715/380265169"
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/concepts/冰冰小美-concept-时间窗口.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "sources/articles/2026-02-28-冰冰小美：留一半清醒.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 11410,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:8aa1c044318f2755743d9b69e48a2888f134b8ad712bf426d6429a62aedb2416",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "留一半清醒",
+        "author": "冰冰小美",
+        "content_id": "377359822",
+        "published_at": "2026-02-28 11:23:00",
+        "original_url": "https://xueqiu.com/7143769715/377359822"
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/views/冰冰小美：明牌牛市中风险与机遇交织的判断框架.md",
+        "wiki/reasoning/冰冰小美-明牌宏观如何传导为热钱迁移再通胀与成本安全.md",
+        "wiki/timelines/冰冰小美-2026一季度宏观阶段时间线.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "sources/articles/2026-01-15-冰冰小美：美军军演叠加美内部博弈.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 8629,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:f9f8131601832bf98c0648f95563f8bc55cdf221baaf6e7cbbd9fc8bae1c6868",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美：美军军演叠加美内部博弈",
+        "author": "冰冰小美",
+        "content_id": "370990492",
+        "published_at": "2026-01-15 06:34",
+        "original_url": "https://xueqiu.com/7143769715/370990492"
+      },
+      "pages_created": [
+        "sources/articles/2026-01-15-冰冰小美：美军军演叠加美内部博弈.md"
+      ],
+      "pages_updated": [
+        "sources/articles/2026-03-23-投资相声口儿：冰冰小美宏观风险关键词文章.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "sources/articles/2022-05-17-冰冰小美：基于美国经济发展路径设想我国路径.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 4861,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:022eddba734317b926790fc60e54ae5c5188338da0da6c4685bdd11e430a4bcd",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美：基于美国经济发展路径设想我国路径",
+        "author": "冰冰小美",
+        "content_id": "220176903",
+        "published_at": "2022-05-17 16:21",
+        "original_url": "https://xueqiu.com/7143769715/220176903"
+      },
+      "pages_created": [
+        "sources/articles/2022-05-17-冰冰小美：基于美国经济发展路径设想我国路径.md"
+      ],
+      "pages_updated": [
+        "sources/articles/2026-03-23-投资相声口儿：冰冰小美宏观风险关键词文章.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "sources/articles/2022-05-23-冰冰小美：说说不为人知的英国股市.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 6488,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:1abed885c7d2e81c484950871cf883371af2a03ee18d9ed90b0f88ad39c954e5",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美：说说不为人知的英国股市",
+        "author": "冰冰小美",
+        "content_id": "220644759",
+        "published_at": "2022-05-23 09:08",
+        "original_url": "https://xueqiu.com/7143769715/220644759"
+      },
+      "pages_created": [
+        "sources/articles/2022-05-23-冰冰小美：说说不为人知的英国股市.md"
+      ],
+      "pages_updated": [
+        "sources/articles/2026-03-23-投资相声口儿：冰冰小美宏观风险关键词文章.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "sources/articles/2022-10-03-冰冰小美：推荐书目1.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 2115,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:d3cbd6295c50862a358147635d317f6b9a460f9a15031cd2439d3e0dc3068f3b",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美：推荐书目1",
+        "author": "冰冰小美",
+        "content_id": "232059951",
+        "published_at": "2022-10-03 02:49:50 UTC",
+        "original_url": "https://xueqiu.com/7143769715/232059951"
+      },
+      "pages_created": [
+        "sources/articles/2022-10-03-冰冰小美：推荐书目1.md"
+      ],
+      "pages_updated": [
+        "sources/articles/2026-03-23-投资相声口儿：冰冰小美宏观风险关键词文章.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "sources/articles/2024-03-09-冰冰小美：瑞典脱离中立加入北约.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 18220,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:b1c7c5a319e9529c10b5ffe58554d1f5715cc2777aad0b70b999389905ef860b",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美：瑞典脱离中立加入北约",
+        "author": "冰冰小美",
+        "content_id": "281386947",
+        "published_at": "2024-03-09 11:14",
+        "original_url": "https://xueqiu.com/7143769715/281386947"
+      },
+      "pages_created": [
+        "sources/articles/2024-03-09-冰冰小美：瑞典脱离中立加入北约.md"
+      ],
+      "pages_updated": [
+        "sources/articles/2026-03-23-投资相声口儿：冰冰小美宏观风险关键词文章.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "sources/articles/2026-01-08-冰冰小美：中美太空竞赛复刻美苏历史.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 10572,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:26678f2a51a90e61ee88d1d99b5faaf85bb9c3ffb15593de92412a029f3e1824",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美：中美太空竞赛复刻美苏历史",
+        "author": "冰冰小美",
+        "content_id": "369793181",
+        "published_at": "2026-01-08 23:06",
+        "original_url": "https://xueqiu.com/7143769715/369793181"
+      },
+      "pages_created": [
+        "sources/articles/2026-01-08-冰冰小美：中美太空竞赛复刻美苏历史.md"
+      ],
+      "pages_updated": [
+        "sources/articles/2026-03-23-投资相声口儿：冰冰小美宏观风险关键词文章.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "sources/articles/2024-06-08-冰冰小美：美储联政策博弈与 A 股应对逻辑.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 9095,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:01389a7658c74b9ecca1951e7246b8411933751a7ede57b83e33009b004d1447",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美：美储联政策博弈与 A 股应对逻辑",
+        "author": "冰冰小美",
+        "content_id": "293126798",
+        "published_at": "2024-06-08 10:00",
+        "original_url": "https://xueqiu.com/7143769715/293126798"
+      },
+      "pages_created": [
+        "sources/articles/2024-06-08-冰冰小美：美储联政策博弈与 A 股应对逻辑.md"
+      ],
+      "pages_updated": [
+        "sources/articles/2026-03-23-投资相声口儿：冰冰小美宏观风险关键词文章.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "sources/articles/2024-06-13-冰冰小美：从体系三要素看纳指上涨.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 11477,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:ef1d752dd5cadb1cd521c66b1eff934e1b2f76b6d6054a8194408bdad14f1392",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美：从体系三要素看纳指上涨",
+        "author": "冰冰小美",
+        "content_id": "293563320",
+        "published_at": "2024-06-13 09:14",
+        "original_url": "https://xueqiu.com/7143769715/293563320"
+      },
+      "pages_created": [
+        "sources/articles/2024-06-13-冰冰小美：从体系三要素看纳指上涨.md"
+      ],
+      "pages_updated": [
+        "sources/articles/2026-03-23-投资相声口儿：冰冰小美宏观风险关键词文章.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "sources/articles/2025-11-21-冰冰小美：本周总结.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 1075,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:4535d9d70d32474e951b0ddf339b37f2e567005cc95718a58c70bf8915ab8c31",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美：本周总结，",
+        "author": "冰冰小美",
+        "content_id": "362684238",
+        "published_at": "2025-11-21 15:06",
+        "original_url": "https://xueqiu.com/7143769715/362684238"
+      },
+      "pages_created": [
+        "sources/articles/2025-11-21-冰冰小美：本周总结.md"
+      ],
+      "pages_updated": [
+        "sources/articles/2026-03-23-投资相声口儿：冰冰小美宏观风险关键词文章.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "sources/articles/2025-12-28-冰冰小美：双路径推演 AI 泡沫破灭带动有色下跌.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 11452,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:61e875d9f59c5c704eb445bdd61174b312b86d19e518e28ec8e553c6aed7a00d",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美：双路径推演 AI 泡沫破灭带动有色下跌",
+        "author": "冰冰小美",
+        "content_id": "368004748",
+        "published_at": "2025-12-28 13:35",
+        "original_url": "https://xueqiu.com/7143769715/368004748"
+      },
+      "pages_created": [
+        "sources/articles/2025-12-28-冰冰小美：双路径推演 AI 泡沫破灭带动有色下跌.md"
+      ],
+      "pages_updated": [
+        "sources/articles/2026-03-23-投资相声口儿：冰冰小美宏观风险关键词文章.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "sources/articles/2026-01-15-冰冰小美：美科技股领跌叠加多重宏观风险.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 7844,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:65e1a5a5ddfe1ac0b2d6ef381c1ae805c9b3eac23d45e7a6d88bd39784ef55e5",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美：美科技股领跌叠加多重宏观风险",
+        "author": "冰冰小美",
+        "content_id": "370978395",
+        "published_at": "2026-01-15 00:03",
+        "original_url": "https://xueqiu.com/7143769715/370978395"
+      },
+      "pages_created": [
+        "sources/articles/2026-01-15-冰冰小美：美科技股领跌叠加多重宏观风险.md"
+      ],
+      "pages_updated": [
+        "sources/articles/2026-03-23-投资相声口儿：冰冰小美宏观风险关键词文章.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "wiki/concepts/冰冰小美-concept-风险类型整理.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 17299,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:65a903432a4fd8765125f2fc3f61bda80de17851c83c08dd02c46e4b8a6ba82f",
+      "source_type": "concept",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美-concept-风险类型整理"
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/concepts/冰冰小美-宏观风险信号表.md",
+        "wiki/reasoning/冰冰小美-AI高投资泡沫如何由现金流与成本压力传导为周期风波.md",
+        "wiki/concepts/冰冰小美-concept-风险类型整理.md",
+        "wiki/timelines/冰冰小美-风险节点记录.md",
+        "wiki/reasoning/冰冰小美-A股指数稳定与个股分化如何由ETF承接和量化投机共同形成.md",
+        "wiki/timelines/冰冰小美-商业航天投资跟踪.md",
+        "wiki/views/冰冰小美：SpaceX上市开启太空经济十年追踪的判断框架.md",
+        "wiki/reasoning/冰冰小美-SpaceX上市如何传导为太空经济十年周期起点.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "wiki/timelines/冰冰小美-风险节点记录.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 31264,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:c70141c8d52660e9213a1e887e9673eef8ad86165f9b5bb209b7d57441abb126",
+      "source_type": "timeline",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美-2026年风险节点时间线"
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/concepts/冰冰小美-宏观风险信号表.md",
+        "wiki/reasoning/冰冰小美-AI高投资泡沫如何由现金流与成本压力传导为周期风波.md",
+        "wiki/concepts/冰冰小美-concept-风险类型整理.md",
+        "wiki/timelines/冰冰小美-风险节点记录.md",
+        "wiki/reasoning/冰冰小美-A股指数稳定与个股分化如何由ETF承接和量化投机共同形成.md",
+        "wiki/timelines/冰冰小美-商业航天投资跟踪.md",
+        "wiki/views/冰冰小美：SpaceX上市开启太空经济十年追踪的判断框架.md",
+        "wiki/reasoning/冰冰小美-SpaceX上市如何传导为太空经济十年周期起点.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "wiki/reasoning/冰冰小美-A股指数稳定与个股分化如何由ETF承接和量化投机共同形成.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 11528,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:4c49f847052a84a58ba7499c70cfb41953aff9a4f3b4ca3e3a5f65f884e67bb4",
+      "source_type": "reasoning",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美-A股指数稳定与个股分化如何由ETF承接和量化投机共同形成"
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/concepts/冰冰小美-宏观风险信号表.md",
+        "wiki/reasoning/冰冰小美-AI高投资泡沫如何由现金流与成本压力传导为周期风波.md",
+        "wiki/concepts/冰冰小美-concept-风险类型整理.md",
+        "wiki/timelines/冰冰小美-风险节点记录.md",
+        "wiki/reasoning/冰冰小美-A股指数稳定与个股分化如何由ETF承接和量化投机共同形成.md",
+        "wiki/timelines/冰冰小美-商业航天投资跟踪.md",
+        "wiki/views/冰冰小美：SpaceX上市开启太空经济十年追踪的判断框架.md",
+        "wiki/reasoning/冰冰小美-SpaceX上市如何传导为太空经济十年周期起点.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "wiki/timelines/冰冰小美-商业航天投资跟踪.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 19318,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:d616c05da39d2c952688d2d8906f4471185aa2f468c5176879d9323c567eaec9",
+      "source_type": "timeline",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美-商业航天投资跟踪"
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/concepts/冰冰小美-宏观风险信号表.md",
+        "wiki/reasoning/冰冰小美-AI高投资泡沫如何由现金流与成本压力传导为周期风波.md",
+        "wiki/concepts/冰冰小美-concept-风险类型整理.md",
+        "wiki/timelines/冰冰小美-风险节点记录.md",
+        "wiki/reasoning/冰冰小美-A股指数稳定与个股分化如何由ETF承接和量化投机共同形成.md",
+        "wiki/timelines/冰冰小美-商业航天投资跟踪.md",
+        "wiki/views/冰冰小美：SpaceX上市开启太空经济十年追踪的判断框架.md",
+        "wiki/reasoning/冰冰小美-SpaceX上市如何传导为太空经济十年周期起点.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "wiki/views/冰冰小美：SpaceX上市开启太空经济十年追踪的判断框架.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 9861,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:f00ff4c18de971ea24a428c9a85d3abd9dfbd8dab32699b070735f526e50888c",
+      "source_type": "view",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美：SpaceX上市开启太空经济十年追踪的判断框架"
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/concepts/冰冰小美-宏观风险信号表.md",
+        "wiki/reasoning/冰冰小美-AI高投资泡沫如何由现金流与成本压力传导为周期风波.md",
+        "wiki/concepts/冰冰小美-concept-风险类型整理.md",
+        "wiki/timelines/冰冰小美-风险节点记录.md",
+        "wiki/reasoning/冰冰小美-A股指数稳定与个股分化如何由ETF承接和量化投机共同形成.md",
+        "wiki/timelines/冰冰小美-商业航天投资跟踪.md",
+        "wiki/views/冰冰小美：SpaceX上市开启太空经济十年追踪的判断框架.md",
+        "wiki/reasoning/冰冰小美-SpaceX上市如何传导为太空经济十年周期起点.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "wiki/reasoning/冰冰小美-SpaceX上市如何传导为太空经济十年周期起点.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 11211,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:dae96800ad7b50b62246d5b0dd3ebdeae2f7e2111cae6be6189228aa492bb785",
+      "source_type": "reasoning",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美-SpaceX上市如何传导为太空经济十年周期起点"
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/concepts/冰冰小美-宏观风险信号表.md",
+        "wiki/reasoning/冰冰小美-AI高投资泡沫如何由现金流与成本压力传导为周期风波.md",
+        "wiki/concepts/冰冰小美-concept-风险类型整理.md",
+        "wiki/timelines/冰冰小美-风险节点记录.md",
+        "wiki/reasoning/冰冰小美-A股指数稳定与个股分化如何由ETF承接和量化投机共同形成.md",
+        "wiki/timelines/冰冰小美-商业航天投资跟踪.md",
+        "wiki/views/冰冰小美：SpaceX上市开启太空经济十年追踪的判断框架.md",
+        "wiki/reasoning/冰冰小美-SpaceX上市如何传导为太空经济十年周期起点.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "wiki/reasoning/冰冰小美-美国历史路径如何传导为滞胀与新兴产业突围.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 11205,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:a4d4889b88d2ac0592c473c0072b7aab3eee0510b3920fc5c9b2806f7d7a5f7e",
+      "source_type": "reasoning_page",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美-美国历史路径如何传导为滞胀与新兴产业突围",
+        "author": null,
+        "content_id": null,
+        "published_at": null,
+        "original_url": null
+      },
+      "pages_created": [
+        "wiki/reasoning/冰冰小美-美国历史路径如何传导为滞胀与新兴产业突围.md"
+      ],
+      "pages_updated": [
+        "wiki/reasoning/冰冰小美-美国历史路径如何传导为滞胀与新兴产业突围.md",
+        "wiki/reasoning/冰冰小美-欧洲历史金融与地缘变化如何传导为风险视角.md",
+        "wiki/concepts/冰冰小美-宏观风险信号表.md",
+        "wiki/views/冰冰小美：治理红线改写泡沫危机脚本的判断框架.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "index.md",
+        "log.md"
+      ]
+    },
+    "wiki/reasoning/冰冰小美-欧洲历史金融与地缘变化如何传导为风险视角.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 11099,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:9052ba590378d0ad3f6d172c695b12a9589187b20888f00e8b05c4a5c3bf9d12",
+      "source_type": "reasoning_page",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美-欧洲历史金融与地缘变化如何传导为风险视角",
+        "author": null,
+        "content_id": null,
+        "published_at": null,
+        "original_url": null
+      },
+      "pages_created": [
+        "wiki/reasoning/冰冰小美-欧洲历史金融与地缘变化如何传导为风险视角.md"
+      ],
+      "pages_updated": [
+        "wiki/reasoning/冰冰小美-美国历史路径如何传导为滞胀与新兴产业突围.md",
+        "wiki/reasoning/冰冰小美-欧洲历史金融与地缘变化如何传导为风险视角.md",
+        "wiki/concepts/冰冰小美-宏观风险信号表.md",
+        "wiki/views/冰冰小美：治理红线改写泡沫危机脚本的判断框架.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "index.md",
+        "log.md"
+      ]
+    },
+    "wiki/views/冰冰小美：治理红线改写泡沫危机脚本的判断框架.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 7464,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:9f1ea8069ebca3fc771801d61eaf46060cd8d68174603331609e5362267b8e25",
+      "source_type": "view_page",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美：治理红线改写泡沫危机脚本的判断框架",
+        "author": null,
+        "content_id": null,
+        "published_at": null,
+        "original_url": null
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/reasoning/冰冰小美-美国历史路径如何传导为滞胀与新兴产业突围.md",
+        "wiki/reasoning/冰冰小美-欧洲历史金融与地缘变化如何传导为风险视角.md",
+        "wiki/concepts/冰冰小美-宏观风险信号表.md",
+        "wiki/views/冰冰小美：治理红线改写泡沫危机脚本的判断框架.md",
+        "wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md",
+        "index.md",
+        "log.md"
+      ]
+    },
+    ".manifest.json": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 211111,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:ed75b284c5f90662f9a8820d42e41d75109f81a81b96568684caa0eed1a92283",
+      "source_type": "manifest",
+      "project": null,
+      "source_metadata": {
+        "title": ".manifest.json",
+        "author": null,
+        "content_id": null,
+        "published_at": null,
+        "original_url": null
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/topics/冰冰小美-风险提示系列.md",
+        "log.md"
+      ]
+    },
+    "wiki/topics/冰冰小美-风险提示系列.md": {
+      "ingested_at": "2026-07-02T00:00:00+08:00",
+      "size_bytes": 31223,
+      "modified_at": "2026-07-02T00:00:00+08:00",
+      "content_hash": "sha256:edf6f81313c8d8991860501adc2cf4d4df67682cf641ed4e7718622774d52ab0",
+      "source_type": "topic_page",
+      "project": null,
+      "source_metadata": {
+        "title": "冰冰小美-风险提示系列",
+        "author": null,
+        "content_id": null,
+        "published_at": null,
+        "original_url": null
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/topics/冰冰小美-风险提示系列.md",
+        "log.md"
+      ]
     }
   },
-  "updated_at": "2026-07-01T20:55:00+08:00"
+  "updated_at": "2026-07-02T00:00:00+08:00"
 }
