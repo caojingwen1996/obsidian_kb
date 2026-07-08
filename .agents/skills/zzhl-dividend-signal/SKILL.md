@@ -22,8 +22,8 @@ python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py
 3. 通过 AKShare `bond_zh_us_rate` 获取中国10年国债收益率。
 4. 优先解析理杏仁公开页面获取中证红利近10年股息率分位和80%分位点；若公开页面失败，由 Codex/大模型通过网页查询核对数值后，用脚本参数传入。
 5. 按 `wiki/queries/中证红利什么时候买入收益率最高.md` 中的三种触发规则判断当前信号。
-6. 将每日结果写入 `sources/manual/中证红利信号/中证红利每日信号.xlsx`。
-7. 将最近一次结果写入 `sources/manual/中证红利信号/最新信号.md`。
+6. 将每日结果写入 `sources/automations/中证红利信号/中证红利每日信号.xlsx`。
+7. 将最近一次结果写入 `sources/automations/中证红利信号/最新信号.md`。
 
 ## 数据源
 

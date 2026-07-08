@@ -1,11 +1,33 @@
 {
   "version": 1,
   "stats": {
-    "total_sources_ingested": 173,
+    "total_sources_ingested": 174,
     "total_pages": 452,
-    "source_count": 215
+    "source_count": 216
   },
   "sources": {
+    "E:/caojingwen/obsidian/llmwiki/sources/manual/2026-07-08-cjw-亏钱效应复盘片段.md": {
+      "ingested_at": "2026-07-08T14:35:00+08:00",
+      "size_bytes": 667,
+      "modified_at": "2026-07-08T14:30:32+08:00",
+      "content_hash": "sha256:5e385d1c2eb8d7732ed14581bd9756694e5d51000be4346f040e9902463814ee",
+      "source_type": "document",
+      "project": null,
+      "source_metadata": {
+        "title": "cjw-亏钱效应复盘片段",
+        "author": "cjw",
+        "content_id": null,
+        "published_at": "2026-07-08",
+        "original_url": null
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/timelines/cjw-复盘日记.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
     "E:/caojingwen/obsidian/llmwiki/sources/manual/体系及案例分析/一、核心体系/4、情绪位置变化/088_如何理解情绪标和套利标.md": {
       "ingested_at": "2026-07-07T16:35:00+08:00",
       "size_bytes": 8135,
@@ -4966,5 +4988,5 @@
       ]
     }
   },
-  "updated_at": "2026-07-07T11:57:17+08:00"
+  "updated_at": "2026-07-08T14:35:00+08:00"
 }
