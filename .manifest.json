@@ -1,11 +1,26 @@
 {
   "version": 1,
   "stats": {
-    "total_sources_ingested": 179,
+    "total_sources_ingested": 180,
     "total_pages": 454,
     "source_count": 217
   },
   "sources": {
+    "E:/caojingwen/obsidian/llmwiki/sources/articles/2023-06-19-冰冰小美：常见亏钱认知第八期涨停板.md": {
+      "ingested_at": "2026-07-10T17:56:14+08:00",
+      "size_bytes": 9166,
+      "modified_at": "2026-07-10T17:51:23+08:00",
+      "content_hash": "sha256:2c2e878450a14787d0c66d3b90c89bac56ee6219b47dbf0380d2e5167529039f",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/concepts/冰冰小美-concept-情绪标.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
     "E:/caojingwen/obsidian/llmwiki/sources/automations/BBXM每日汇总/2026-07-10/冰冰小美/132300_航天人_挣钱了要记得给广西同胞捐点_-_雪球_39947115.md": {
       "ingested_at": "2026-07-10T14:12:00+08:00",
       "size_bytes": 6224,
