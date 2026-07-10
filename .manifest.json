@@ -1,11 +1,110 @@
 {
   "version": 1,
   "stats": {
-    "total_sources_ingested": 174,
-    "total_pages": 452,
-    "source_count": 216
+    "total_sources_ingested": 179,
+    "total_pages": 454,
+    "source_count": 217
   },
   "sources": {
+    "E:/caojingwen/obsidian/llmwiki/sources/automations/BBXM每日汇总/2026-07-10/冰冰小美/132300_航天人_挣钱了要记得给广西同胞捐点_-_雪球_39947115.md": {
+      "ingested_at": "2026-07-10T14:12:00+08:00",
+      "size_bytes": 6224,
+      "modified_at": "2026-07-10T13:57:14+08:00",
+      "content_hash": "sha256:bfc4ddf8397264415db394924261f9a40863861e9c2de7502a049eb848cdbb21",
+      "source_type": "post",
+      "project": null,
+      "source_metadata": {
+        "title": "航天人挣钱后记得给广西同胞捐点",
+        "author": "冰冰小美",
+        "content_id": "399471155",
+        "published_at": "2026-07-10 13:23",
+        "original_url": "https://xueqiu.com/7143769715/399471155"
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "index.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/sources/automations/BBXM每日汇总/2026-07-10/冰冰小美/133100_这应该是商业航天的Deep_seek时刻_-_雪球_39947387.md": {
+      "ingested_at": "2026-07-10T14:12:00+08:00",
+      "size_bytes": 6582,
+      "modified_at": "2026-07-10T13:57:14+08:00",
+      "content_hash": "sha256:4065b5a73ffb1883708bd3bb0be3666b261e7b8de2699066a76c51f5e20c0f8e",
+      "source_type": "post",
+      "project": null,
+      "source_metadata": {
+        "title": "这应该是商业航天的DeepSeek时刻",
+        "author": "冰冰小美",
+        "content_id": "399473877",
+        "published_at": "2026-07-10 13:31",
+        "original_url": "https://xueqiu.com/7143769715/399473877"
+      },
+      "pages_created": [
+        "wiki/views/冰冰小美：商业航天DeepSeek时刻转入产业验证的判断框架.md"
+      ],
+      "pages_updated": [
+        "wiki/views/冰冰小美：商业航天DeepSeek时刻转入产业验证的判断框架.md",
+        "wiki/timelines/冰冰小美-商业航天投资跟踪.md",
+        "wiki/reasoning/冰冰小美-商业航天如何复制碳中和产业投资路径.md",
+        "index.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/sources/automations/BBXM每日汇总/2026-07-10/冰冰小美/133800_这种上涨只能说明_目前买卖的人群_还是倾向于宏大叙事与未来产业_简单一句_就是中米G2全面竞争的_39947594.md": {
+      "ingested_at": "2026-07-10T14:12:00+08:00",
+      "size_bytes": 5015,
+      "modified_at": "2026-07-10T13:57:14+08:00",
+      "content_hash": "sha256:72bf13be41cb1816f9dc3e28483a4285b679e9e9854d1c8b98abed8d3e754e38",
+      "source_type": "post",
+      "project": null,
+      "source_metadata": {
+        "title": "买卖人群倾向宏大叙事与未来产业",
+        "author": "冰冰小美",
+        "content_id": "399475944",
+        "published_at": "2026-07-10 13:38",
+        "original_url": "https://xueqiu.com/7143769715/399475944"
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/views/冰冰小美：商业航天DeepSeek时刻转入产业验证的判断框架.md",
+        "wiki/timelines/冰冰小美-商业航天投资跟踪.md",
+        "wiki/reasoning/冰冰小美-商业航天如何复制碳中和产业投资路径.md",
+        "index.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/sources/automations/BBXM每日汇总/2026-07-10/冰冰小美/134700_关注商业航天的_下一步要跟踪产业进度_比如中国星网组网速度_比如产业规划与投资增速_比如细分领域_39947874.md": {
+      "ingested_at": "2026-07-10T14:12:00+08:00",
+      "size_bytes": 7295,
+      "modified_at": "2026-07-10T13:57:14+08:00",
+      "content_hash": "sha256:3b1315b653e72cd331013020d8218cbe0ab93f19d0a0fbcfddf8411590393803",
+      "source_type": "post",
+      "project": null,
+      "source_metadata": {
+        "title": "商业航天下一步跟踪产业进度",
+        "author": "冰冰小美",
+        "content_id": "399478749",
+        "published_at": "2026-07-10 13:47",
+        "original_url": "https://xueqiu.com/7143769715/399478749"
+      },
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/views/冰冰小美：商业航天DeepSeek时刻转入产业验证的判断框架.md",
+        "wiki/timelines/冰冰小美-商业航天投资跟踪.md",
+        "wiki/reasoning/冰冰小美-商业航天如何复制碳中和产业投资路径.md",
+        "index.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
     "E:/caojingwen/obsidian/llmwiki/sources/manual/2026-07-08-cjw-亏钱效应复盘片段.md": {
       "ingested_at": "2026-07-08T14:35:00+08:00",
       "size_bytes": 667,
@@ -4986,7 +5085,32 @@
         "log.md",
         ".manifest.json"
       ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/sources/articles/2026-06-27-冰冰小美：2026年6月月报（二）.md": {
+      "ingested_at": "2026-07-09T00:00:00+08:00",
+      "size_bytes": 5701,
+      "modified_at": "2026-07-09T14:51:07+08:00",
+      "content_hash": "sha256:7dd36237530c2892d1343c844931a1a8dc410554fa0a0de213be659b1b741b9f",
+      "source_type": "article",
+      "project": null,
+      "source_metadata": {
+        "title": "2026年6月月报（二）",
+        "author": "冰冰小美",
+        "content_id": "397149143",
+        "published_at": "2026-06-27 19:15",
+        "original_url": "https://xueqiu.com/7143769715/397149143"
+      },
+      "pages_created": [
+        "wiki/reasoning/冰冰小美-6月末风险如何传导为7月交易困难.md"
+      ],
+      "pages_updated": [
+        "wiki/topics/冰冰小美-风险提示系列.md",
+        "index.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
     }
   },
-  "updated_at": "2026-07-08T14:35:00+08:00"
+  "updated_at": "2026-07-10T14:12:00+08:00"
 }
