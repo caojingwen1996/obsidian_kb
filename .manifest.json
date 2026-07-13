@@ -1,9 +1,9 @@
 {
   "version": 1,
   "stats": {
-    "total_sources_ingested": 190,
+    "total_sources_ingested": 213,
     "total_pages": 455,
-    "source_count": 226
+    "source_count": 249
   },
   "sources": {
     "E:/caojingwen/obsidian/llmwiki/sources/articles/2023-06-20-冰冰小美：常见亏钱认知第十期会卖的是师傅，会买的是徒弟.md": {
@@ -5151,7 +5151,7 @@
         "source_type":  "document",
         "project":  null,
         "pages_created":  [
-    
+
                           ],
         "pages_updated":  [
                               "wiki/topics/冰冰小美-情绪体系操作篇.md",
@@ -5172,7 +5172,7 @@
         "source_type":  "document",
         "project":  null,
         "pages_created":  [
-    
+
                           ],
         "pages_updated":  [
                               "wiki/topics/冰冰小美-情绪体系操作篇.md",
@@ -5193,7 +5193,7 @@
         "source_type":  "document",
         "project":  null,
         "pages_created":  [
-    
+
                           ],
         "pages_updated":  [
                               "wiki/topics/冰冰小美-情绪体系操作篇.md",
@@ -5214,7 +5214,7 @@
         "source_type":  "document",
         "project":  null,
         "pages_created":  [
-    
+
                           ],
         "pages_updated":  [
                               "wiki/topics/冰冰小美-情绪体系操作篇.md",
@@ -5235,7 +5235,7 @@
         "source_type":  "document",
         "project":  null,
         "pages_created":  [
-    
+
                           ],
         "pages_updated":  [
                               "wiki/topics/冰冰小美-情绪体系操作篇.md",
@@ -5256,7 +5256,7 @@
         "source_type":  "document",
         "project":  null,
         "pages_created":  [
-    
+
                           ],
         "pages_updated":  [
                               "wiki/topics/冰冰小美-情绪体系操作篇.md",
@@ -5277,7 +5277,7 @@
         "source_type":  "document",
         "project":  null,
         "pages_created":  [
-    
+
                           ],
         "pages_updated":  [
                               "wiki/topics/冰冰小美-情绪体系操作篇.md",
@@ -5298,7 +5298,7 @@
         "source_type":  "document",
         "project":  null,
         "pages_created":  [
-    
+
                           ],
         "pages_updated":  [
                               "wiki/topics/冰冰小美-情绪体系操作篇.md",
@@ -5319,7 +5319,7 @@
         "source_type":  "document",
         "project":  null,
         "pages_created":  [
-    
+
                           ],
         "pages_updated":  [
                               "wiki/topics/冰冰小美-情绪体系操作篇.md",
@@ -5331,6 +5331,420 @@
                               "log.md",
                               ".manifest.json"
                           ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/.worktrees/bbxm-practical-ingest/sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/228_退潮期题材套利的风险规避.md": {
+        "ingested_at":  "2026-07-13T12:15:00+08:00",
+        "size_bytes":  4676,
+        "modified_at":  "2026-07-13T11:48:09+08:00",
+        "content_hash":  "sha256:356ccf39b9bbc0d20fb613a777caeb38c26655eeb417881543d165ef60dff3db",
+        "source_type":  "document",
+        "project":  null,
+        "pages_created":  [
+
+                          ],
+        "pages_updated":  [
+                              "wiki/topics/冰冰小美-情绪体系操作篇.md",
+                              "wiki/queries/冰冰小美-实战操作219至250整理覆盖.md",
+                              "hot.md",
+                              "log.md",
+                              ".manifest.json"
+                          ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/.worktrees/bbxm-practical-ingest/sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/229_“围魏救赵” 式出货的情绪识别.md": {
+        "ingested_at":  "2026-07-13T12:15:00+08:00",
+        "size_bytes":  5381,
+        "modified_at":  "2026-07-13T11:48:09+08:00",
+        "content_hash":  "sha256:20c21ff4852a1cbba3c891e3a0cec87a849d5bd6ffbff62b04e394d09686256a",
+        "source_type":  "document",
+        "project":  null,
+        "pages_created":  [
+
+                          ],
+        "pages_updated":  [
+                              "wiki/topics/冰冰小美-情绪体系操作篇.md",
+                              "wiki/queries/冰冰小美-实战操作219至250整理覆盖.md",
+                              "hot.md",
+                              "log.md",
+                              ".manifest.json"
+                          ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/.worktrees/bbxm-practical-ingest/sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/230_砸盘的本质.md": {
+        "ingested_at":  "2026-07-13T12:15:00+08:00",
+        "size_bytes":  5761,
+        "modified_at":  "2026-07-13T11:48:09+08:00",
+        "content_hash":  "sha256:03dac06644696f9281cd7bc3ccb0bfc2f97dbc433313a94849bcd1ab4448514f",
+        "source_type":  "document",
+        "project":  null,
+        "pages_created":  [
+
+                          ],
+        "pages_updated":  [
+                              "wiki/topics/冰冰小美-情绪体系操作篇.md",
+                              "wiki/queries/冰冰小美-实战操作219至250整理覆盖.md",
+                              "hot.md",
+                              "log.md",
+                              ".manifest.json"
+                          ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/.worktrees/bbxm-practical-ingest/sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/231_套利存在的意义.md": {
+        "ingested_at":  "2026-07-13T12:15:00+08:00",
+        "size_bytes":  4800,
+        "modified_at":  "2026-07-13T11:48:09+08:00",
+        "content_hash":  "sha256:854b3a3b6edb934a8abd2b40b72f3e5d2656c43834328f9a8c5a1ef9f50fbb16",
+        "source_type":  "document",
+        "project":  null,
+        "pages_created":  [
+
+                          ],
+        "pages_updated":  [
+                              "wiki/topics/冰冰小美-情绪体系操作篇.md",
+                              "wiki/queries/冰冰小美-实战操作219至250整理覆盖.md",
+                              "hot.md",
+                              "log.md",
+                              ".manifest.json"
+                          ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/.worktrees/bbxm-practical-ingest/sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/232_套利与上塘路.md": {
+        "ingested_at":  "2026-07-13T12:15:00+08:00",
+        "size_bytes":  4212,
+        "modified_at":  "2026-07-13T11:48:09+08:00",
+        "content_hash":  "sha256:788c53ea491477f47c8271bf8c627471e2b08ce851dbec76c5022fd521ee5e9a",
+        "source_type":  "document",
+        "project":  null,
+        "pages_created":  [
+
+                          ],
+        "pages_updated":  [
+                              "wiki/topics/冰冰小美-情绪体系操作篇.md",
+                              "wiki/queries/冰冰小美-实战操作219至250整理覆盖.md",
+                              "hot.md",
+                              "log.md",
+                              ".manifest.json"
+                          ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/.worktrees/bbxm-practical-ingest/sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/233_套利的选择时机以及切换_.md": {
+        "ingested_at":  "2026-07-13T12:15:00+08:00",
+        "size_bytes":  5412,
+        "modified_at":  "2026-07-13T11:48:09+08:00",
+        "content_hash":  "sha256:b159fee193e9be223cc09d662c3d11f26da390ba5f8c572cbaeee066761f15bb",
+        "source_type":  "document",
+        "project":  null,
+        "pages_created":  [
+
+                          ],
+        "pages_updated":  [
+                              "wiki/topics/冰冰小美-情绪体系操作篇.md",
+                              "wiki/queries/冰冰小美-实战操作219至250整理覆盖.md",
+                              "hot.md",
+                              "log.md",
+                              ".manifest.json"
+                          ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/.worktrees/bbxm-practical-ingest/sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/234_容易情绪一致的情况.md": {
+        "ingested_at":  "2026-07-13T12:15:00+08:00",
+        "size_bytes":  5806,
+        "modified_at":  "2026-07-13T11:48:09+08:00",
+        "content_hash":  "sha256:ffb57eaabd83c88c4f613a5139e502e9d5624f1763cd17a2a61f8566aaac8c51",
+        "source_type":  "document",
+        "project":  null,
+        "pages_created":  [
+
+                          ],
+        "pages_updated":  [
+                              "wiki/topics/冰冰小美-情绪体系操作篇.md",
+                              "wiki/queries/冰冰小美-实战操作219至250整理覆盖.md",
+                              "hot.md",
+                              "log.md",
+                              ".manifest.json"
+                          ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/.worktrees/bbxm-practical-ingest/sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/235_频繁轮动的亏钱效应本质.md": {
+        "ingested_at":  "2026-07-13T12:15:00+08:00",
+        "size_bytes":  4798,
+        "modified_at":  "2026-07-13T11:48:09+08:00",
+        "content_hash":  "sha256:8a0de5093bf02d6ade38db9229d43b94a37b5063dc4f85a2ded321a9d0ce8d85",
+        "source_type":  "document",
+        "project":  null,
+        "pages_created":  [
+
+                          ],
+        "pages_updated":  [
+                              "wiki/topics/冰冰小美-情绪体系操作篇.md",
+                              "wiki/queries/冰冰小美-实战操作219至250整理覆盖.md",
+                              "hot.md",
+                              "log.md",
+                              ".manifest.json"
+                          ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/.worktrees/bbxm-practical-ingest/sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/236_亏钱效应进阶复盘之低吸潜伏的高风险标的研判逻辑.md": {
+        "ingested_at":  "2026-07-13T12:15:00+08:00",
+        "size_bytes":  5737,
+        "modified_at":  "2026-07-13T11:48:09+08:00",
+        "content_hash":  "sha256:296ac7fb8f657fb76f571d70fcda63d300dc1a39a23e29ca414ee16a8f0fdb21",
+        "source_type":  "document",
+        "project":  null,
+        "pages_created":  [
+
+                          ],
+        "pages_updated":  [
+                              "wiki/topics/冰冰小美-情绪体系操作篇.md",
+                              "wiki/queries/冰冰小美-实战操作219至250整理覆盖.md",
+                              "hot.md",
+                              "log.md",
+                              ".manifest.json"
+                          ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/.worktrees/bbxm-practical-ingest/sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/237_胜兵先胜的套利逻辑.md": {
+        "ingested_at":  "2026-07-13T12:15:00+08:00",
+        "size_bytes":  4335,
+        "modified_at":  "2026-07-13T11:48:09+08:00",
+        "content_hash":  "sha256:1e2efe42fae17491a6858a6a6f23520f8f81ffd6d9c32e8f9128ee1d3ae16118",
+        "source_type":  "document",
+        "project":  null,
+        "pages_created":  [
+
+                          ],
+        "pages_updated":  [
+                              "wiki/topics/冰冰小美-情绪体系操作篇.md",
+                              "wiki/queries/冰冰小美-实战操作219至250整理覆盖.md",
+                              "hot.md",
+                              "log.md",
+                              ".manifest.json"
+                          ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/.worktrees/bbxm-practical-ingest/sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/238_套利的本质与龙头战法回归.md": {
+        "ingested_at":  "2026-07-13T12:15:00+08:00",
+        "size_bytes":  5204,
+        "modified_at":  "2026-07-13T11:48:09+08:00",
+        "content_hash":  "sha256:3100af8a765bd4696475f8753983a3dcdb09237177b6d98f9eb0386e591ad10c",
+        "source_type":  "document",
+        "project":  null,
+        "pages_created":  [
+
+                          ],
+        "pages_updated":  [
+                              "wiki/topics/冰冰小美-情绪体系操作篇.md",
+                              "wiki/queries/冰冰小美-实战操作219至250整理覆盖.md",
+                              "hot.md",
+                              "log.md",
+                              ".manifest.json"
+                          ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/.worktrees/bbxm-practical-ingest/sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/239_溢价持续性决定赚钱效应.md": {
+        "ingested_at":  "2026-07-13T12:15:00+08:00",
+        "size_bytes":  4266,
+        "modified_at":  "2026-07-13T11:48:09+08:00",
+        "content_hash":  "sha256:f41893d8ba5840a382123b97b5b12f4a985b07b7632cafaed0aa1e5418d854a7",
+        "source_type":  "document",
+        "project":  null,
+        "pages_created":  [
+
+                          ],
+        "pages_updated":  [
+                              "wiki/topics/冰冰小美-情绪体系操作篇.md",
+                              "wiki/queries/冰冰小美-实战操作219至250整理覆盖.md",
+                              "hot.md",
+                              "log.md",
+                              ".manifest.json"
+                          ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/.worktrees/bbxm-practical-ingest/sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/240_熊市避套利抄底误区.md": {
+        "ingested_at":  "2026-07-13T12:15:00+08:00",
+        "size_bytes":  7289,
+        "modified_at":  "2026-07-13T11:48:09+08:00",
+        "content_hash":  "sha256:af6c5b95abc9c686f383a3bc5df6f794a15b799c1abc35d8ed792403f7a7e5fe",
+        "source_type":  "document",
+        "project":  null,
+        "pages_created":  [
+
+                          ],
+        "pages_updated":  [
+                              "wiki/topics/冰冰小美-情绪体系操作篇.md",
+                              "wiki/queries/冰冰小美-实战操作219至250整理覆盖.md",
+                              "hot.md",
+                              "log.md",
+                              ".manifest.json"
+                          ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/.worktrees/bbxm-practical-ingest/sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/241_情绪体系破局1：永达股份亚世光电.md": {
+        "ingested_at":  "2026-07-13T12:15:00+08:00",
+        "size_bytes":  19864,
+        "modified_at":  "2026-07-13T11:48:09+08:00",
+        "content_hash":  "sha256:140c8e655af8252c269ce3680a9e2296b13d07ca008fdec4797b3966bf1afd8e",
+        "source_type":  "document",
+        "project":  null,
+        "pages_created":  [
+
+                          ],
+        "pages_updated":  [
+                              "wiki/topics/冰冰小美-情绪体系操作篇.md",
+                              "wiki/queries/冰冰小美-实战操作219至250整理覆盖.md",
+                              "hot.md",
+                              "log.md",
+                              ".manifest.json"
+                          ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/.worktrees/bbxm-practical-ingest/sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/242_情绪体系破局2：破局双主线共振.md": {
+        "ingested_at":  "2026-07-13T12:15:00+08:00",
+        "size_bytes":  9718,
+        "modified_at":  "2026-07-13T11:48:09+08:00",
+        "content_hash":  "sha256:198d0c777a68ed2d0fc06f5e0e9bc71c1a248f000ccaddba0b18e800639a0c9f",
+        "source_type":  "document",
+        "project":  null,
+        "pages_created":  [
+
+                          ],
+        "pages_updated":  [
+                              "wiki/topics/冰冰小美-情绪体系操作篇.md",
+                              "wiki/queries/冰冰小美-实战操作219至250整理覆盖.md",
+                              "hot.md",
+                              "log.md",
+                              ".manifest.json"
+                          ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/.worktrees/bbxm-practical-ingest/sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/243_套利是情绪博弈的股价波动陷阱.md": {
+        "ingested_at":  "2026-07-13T12:15:00+08:00",
+        "size_bytes":  6306,
+        "modified_at":  "2026-07-13T11:48:09+08:00",
+        "content_hash":  "sha256:060908b5b2a8c2ca353f57f38bb97e570c1c19d0ec5edf44d9336d776c085e0e",
+        "source_type":  "document",
+        "project":  null,
+        "pages_created":  [
+
+                          ],
+        "pages_updated":  [
+                              "wiki/topics/冰冰小美-情绪体系操作篇.md",
+                              "wiki/queries/冰冰小美-实战操作219至250整理覆盖.md",
+                              "hot.md",
+                              "log.md",
+                              ".manifest.json"
+                          ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/.worktrees/bbxm-practical-ingest/sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/244_情绪高潮节点的投机博弈.md": {
+        "ingested_at":  "2026-07-13T12:15:00+08:00",
+        "size_bytes":  8821,
+        "modified_at":  "2026-07-13T11:48:09+08:00",
+        "content_hash":  "sha256:2ec849d984c621b6d84e5e1a9b3db0735c6155af9ec038a0e2647a5524cfff3d",
+        "source_type":  "document",
+        "project":  null,
+        "pages_created":  [
+
+                          ],
+        "pages_updated":  [
+                              "wiki/topics/冰冰小美-情绪体系操作篇.md",
+                              "wiki/queries/冰冰小美-实战操作219至250整理覆盖.md",
+                              "hot.md",
+                              "log.md",
+                              ".manifest.json"
+                          ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/.worktrees/bbxm-practical-ingest/sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/245_龙虎榜为锚人性为核.md": {
+        "ingested_at":  "2026-07-13T12:15:00+08:00",
+        "size_bytes":  11463,
+        "modified_at":  "2026-07-13T11:48:09+08:00",
+        "content_hash":  "sha256:0de321ce6f245ad756bd39f1f4e527be614d6b1a836f1a7252fc2664a1bea8f9",
+        "source_type":  "document",
+        "project":  null,
+        "pages_created":  [
+
+                          ],
+        "pages_updated":  [
+                              "wiki/topics/冰冰小美-情绪体系操作篇.md",
+                              "wiki/queries/冰冰小美-实战操作219至250整理覆盖.md",
+                              "hot.md",
+                              "log.md",
+                              ".manifest.json"
+                          ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/.worktrees/bbxm-practical-ingest/sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/246_套利行情认知.md": {
+        "ingested_at":  "2026-07-13T12:15:00+08:00",
+        "size_bytes":  7613,
+        "modified_at":  "2026-07-13T11:48:09+08:00",
+        "content_hash":  "sha256:7147cd114d05b32163462f64adcf3c7148415db6b9d85f37aa2928dbbf80ae22",
+        "source_type":  "document",
+        "project":  null,
+        "pages_created":  [
+
+                          ],
+        "pages_updated":  [
+                              "wiki/topics/冰冰小美-情绪体系操作篇.md",
+                              "wiki/queries/冰冰小美-实战操作219至250整理覆盖.md",
+                              "hot.md",
+                              "log.md",
+                              ".manifest.json"
+                          ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/.worktrees/bbxm-practical-ingest/sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/247_对交易短线的一段劝告.md": {
+        "ingested_at":  "2026-07-13T12:15:00+08:00",
+        "size_bytes":  4712,
+        "modified_at":  "2026-07-13T11:48:09+08:00",
+        "content_hash":  "sha256:63c26ff1ccaad4906f1a7a026fdb080d90117aa045c9e43e3a94df0027921e2b",
+        "source_type":  "document",
+        "project":  null,
+        "pages_created":  [
+
+                          ],
+        "pages_updated":  [
+                              "wiki/topics/冰冰小美-情绪体系操作篇.md",
+                              "wiki/queries/冰冰小美-实战操作219至250整理覆盖.md",
+                              "hot.md",
+                              "log.md",
+                              ".manifest.json"
+                          ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/.worktrees/bbxm-practical-ingest/sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/248_2025 交易风控核心.md": {
+        "ingested_at":  "2026-07-13T12:15:00+08:00",
+        "size_bytes":  11484,
+        "modified_at":  "2026-07-13T11:48:09+08:00",
+        "content_hash":  "sha256:abb67c86cb0dc11b678b4ca12165eb4f35520f51a9d11f31734e206c1ecf3533",
+        "source_type":  "document",
+        "project":  null,
+        "pages_created":  [
+
+                          ],
+        "pages_updated":  [
+                              "wiki/topics/冰冰小美-情绪体系操作篇.md",
+                              "wiki/queries/冰冰小美-实战操作219至250整理覆盖.md",
+                              "hot.md",
+                              "log.md",
+                              ".manifest.json"
+                          ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/.worktrees/bbxm-practical-ingest/sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/249_科普交易工具风控.md": {
+        "ingested_at":  "2026-07-13T12:15:00+08:00",
+        "size_bytes":  6370,
+        "modified_at":  "2026-07-13T11:48:09+08:00",
+        "content_hash":  "sha256:966c7f4cf056af4f27eabc2586dde4e9d80545a400e93484dbe8bd9e6ef22fb4",
+        "source_type":  "document",
+        "project":  null,
+        "pages_created":  [
+
+                          ],
+        "pages_updated":  [
+                              "wiki/topics/冰冰小美-情绪体系操作篇.md",
+                              "wiki/queries/冰冰小美-实战操作219至250整理覆盖.md",
+                              "hot.md",
+                              "log.md",
+                              ".manifest.json"
+                          ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/.worktrees/bbxm-practical-ingest/sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/250_四类短线投机股的亏钱逻辑与应对策略.md": {
+        "ingested_at":  "2026-07-13T12:15:00+08:00",
+        "size_bytes":  6796,
+        "modified_at":  "2026-07-13T11:48:09+08:00",
+        "content_hash":  "sha256:5ddf40a0dc79467570102fb1dd96c1da7c65f8fb24dc7d2348e5d47fb53eccdf",
+        "source_type":  "document",
+        "project":  null,
+        "pages_created":  [
+
+                          ],
+        "pages_updated":  [
+                              "wiki/topics/冰冰小美-情绪体系操作篇.md",
+                              "wiki/queries/冰冰小美-实战操作219至250整理覆盖.md",
+                              "hot.md",
+                              "log.md",
+                              ".manifest.json"
+                          ]
     }  },
-  "updated_at": "2026-07-10T14:12:00+08:00"
+  "updated_at": "2026-07-13T12:15:00+08:00"
 }
