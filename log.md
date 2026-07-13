@@ -12507,3 +12507,4 @@ ingest / concept update
 
 - 后续执行卖出时，优先区分“流动性尚好时主动兑现”和“流动性退散后被动止错”，不以事后最高价评价卖出质量。
 - QMD refresh 失败：配置的 CLI 在初始化 `C:\Users\lenovo\.qmd` 时再次遇到 `FileExistsError`；Markdown 页面、索引摘要、来源追踪和 Obsidian 双链均已正常更新，本次未擅自修改用户目录下的 QMD 状态。
+- [2026-07-13T12:00:00+08:00] INGEST source="sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/219-227" pages_updated=5 pages_created=1 mode=append

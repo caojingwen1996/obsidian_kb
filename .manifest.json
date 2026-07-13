@@ -1,9 +1,9 @@
 {
   "version": 1,
   "stats": {
-    "total_sources_ingested": 181,
-    "total_pages": 454,
-    "source_count": 217
+    "total_sources_ingested": 190,
+    "total_pages": 455,
+    "source_count": 226
   },
   "sources": {
     "E:/caojingwen/obsidian/llmwiki/sources/articles/2023-06-20-冰冰小美：常见亏钱认知第十期会卖的是师傅，会买的是徒弟.md": {
@@ -5142,6 +5142,195 @@
         ".manifest.json"
       ]
     }
-  },
+,
+    "E:/caojingwen/obsidian/llmwiki/.worktrees/bbxm-practical-ingest/sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/219_短线的一种长青模式.md": {
+        "ingested_at":  "2026-07-13T12:00:00+08:00",
+        "size_bytes":  4438,
+        "modified_at":  "2026-07-13T11:48:09+08:00",
+        "content_hash":  "sha256:a8d06499f319c1bf7bc5c974255fc9d86b71503cb03f85f2f6940a919ffc0fff",
+        "source_type":  "document",
+        "project":  null,
+        "pages_created":  [
+    
+                          ],
+        "pages_updated":  [
+                              "wiki/topics/冰冰小美-情绪体系操作篇.md",
+                              "wiki/concepts/冰冰小美-framework-复盘.md",
+                              "wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md",
+                              "wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化.md",
+                              "wiki/queries/冰冰小美-实战操作219至250整理覆盖.md",
+                              "hot.md",
+                              "log.md",
+                              ".manifest.json"
+                          ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/.worktrees/bbxm-practical-ingest/sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/220_短线情绪复盘核心.md": {
+        "ingested_at":  "2026-07-13T12:00:00+08:00",
+        "size_bytes":  4587,
+        "modified_at":  "2026-07-13T11:48:09+08:00",
+        "content_hash":  "sha256:58e9b229bc0afc68c4c71351f44272074aff42acaec055a78a9bc5fa7e055e86",
+        "source_type":  "document",
+        "project":  null,
+        "pages_created":  [
+    
+                          ],
+        "pages_updated":  [
+                              "wiki/topics/冰冰小美-情绪体系操作篇.md",
+                              "wiki/concepts/冰冰小美-framework-复盘.md",
+                              "wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md",
+                              "wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化.md",
+                              "wiki/queries/冰冰小美-实战操作219至250整理覆盖.md",
+                              "hot.md",
+                              "log.md",
+                              ".manifest.json"
+                          ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/.worktrees/bbxm-practical-ingest/sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/221_杂毛的套利的最佳窗口.md": {
+        "ingested_at":  "2026-07-13T12:00:00+08:00",
+        "size_bytes":  5369,
+        "modified_at":  "2026-07-13T11:48:09+08:00",
+        "content_hash":  "sha256:dff601b089d9670dc5971392a7ecfef2730f595d3cdcf2250850367d1f36319c",
+        "source_type":  "document",
+        "project":  null,
+        "pages_created":  [
+    
+                          ],
+        "pages_updated":  [
+                              "wiki/topics/冰冰小美-情绪体系操作篇.md",
+                              "wiki/concepts/冰冰小美-framework-复盘.md",
+                              "wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md",
+                              "wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化.md",
+                              "wiki/queries/冰冰小美-实战操作219至250整理覆盖.md",
+                              "hot.md",
+                              "log.md",
+                              ".manifest.json"
+                          ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/.worktrees/bbxm-practical-ingest/sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/222_短线的进阶理论_转势板与情绪共振.md": {
+        "ingested_at":  "2026-07-13T12:00:00+08:00",
+        "size_bytes":  5757,
+        "modified_at":  "2026-07-13T11:48:09+08:00",
+        "content_hash":  "sha256:679a78af3c2a82f00002a8627c4e71cd553b3c801a120366b97ecba019ef0566",
+        "source_type":  "document",
+        "project":  null,
+        "pages_created":  [
+    
+                          ],
+        "pages_updated":  [
+                              "wiki/topics/冰冰小美-情绪体系操作篇.md",
+                              "wiki/concepts/冰冰小美-framework-复盘.md",
+                              "wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md",
+                              "wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化.md",
+                              "wiki/queries/冰冰小美-实战操作219至250整理覆盖.md",
+                              "hot.md",
+                              "log.md",
+                              ".manifest.json"
+                          ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/.worktrees/bbxm-practical-ingest/sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/223_复盘的核心逻辑.md": {
+        "ingested_at":  "2026-07-13T12:00:00+08:00",
+        "size_bytes":  5223,
+        "modified_at":  "2026-07-13T11:48:09+08:00",
+        "content_hash":  "sha256:48d50aa024e91690deaa9df21b4e06599f870abb59f51caccf5e86af9af00416",
+        "source_type":  "document",
+        "project":  null,
+        "pages_created":  [
+    
+                          ],
+        "pages_updated":  [
+                              "wiki/topics/冰冰小美-情绪体系操作篇.md",
+                              "wiki/concepts/冰冰小美-framework-复盘.md",
+                              "wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md",
+                              "wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化.md",
+                              "wiki/queries/冰冰小美-实战操作219至250整理覆盖.md",
+                              "hot.md",
+                              "log.md",
+                              ".manifest.json"
+                          ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/.worktrees/bbxm-practical-ingest/sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/224_基础复盘的无效性.md": {
+        "ingested_at":  "2026-07-13T12:00:00+08:00",
+        "size_bytes":  4082,
+        "modified_at":  "2026-07-13T11:48:09+08:00",
+        "content_hash":  "sha256:d28b9ba069072fb150493268e6d7d620b91470e605adca82d64cb39a5f26ef75",
+        "source_type":  "document",
+        "project":  null,
+        "pages_created":  [
+    
+                          ],
+        "pages_updated":  [
+                              "wiki/topics/冰冰小美-情绪体系操作篇.md",
+                              "wiki/concepts/冰冰小美-framework-复盘.md",
+                              "wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md",
+                              "wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化.md",
+                              "wiki/queries/冰冰小美-实战操作219至250整理覆盖.md",
+                              "hot.md",
+                              "log.md",
+                              ".manifest.json"
+                          ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/.worktrees/bbxm-practical-ingest/sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/225_全面大涨行情的复盘框架.md": {
+        "ingested_at":  "2026-07-13T12:00:00+08:00",
+        "size_bytes":  6801,
+        "modified_at":  "2026-07-13T11:48:09+08:00",
+        "content_hash":  "sha256:acddc79de6f20eb8d54f706ee458a48a15d71893e09b1942dc3f4b657589e1d4",
+        "source_type":  "document",
+        "project":  null,
+        "pages_created":  [
+    
+                          ],
+        "pages_updated":  [
+                              "wiki/topics/冰冰小美-情绪体系操作篇.md",
+                              "wiki/concepts/冰冰小美-framework-复盘.md",
+                              "wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md",
+                              "wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化.md",
+                              "wiki/queries/冰冰小美-实战操作219至250整理覆盖.md",
+                              "hot.md",
+                              "log.md",
+                              ".manifest.json"
+                          ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/.worktrees/bbxm-practical-ingest/sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/226_龙虎榜复盘核心.md": {
+        "ingested_at":  "2026-07-13T12:00:00+08:00",
+        "size_bytes":  3477,
+        "modified_at":  "2026-07-13T11:48:09+08:00",
+        "content_hash":  "sha256:0f750e5880ea581ff488f9782c1faa0e6fa4f2b592a498badd444096461ed6ca",
+        "source_type":  "document",
+        "project":  null,
+        "pages_created":  [
+    
+                          ],
+        "pages_updated":  [
+                              "wiki/topics/冰冰小美-情绪体系操作篇.md",
+                              "wiki/concepts/冰冰小美-framework-复盘.md",
+                              "wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md",
+                              "wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化.md",
+                              "wiki/queries/冰冰小美-实战操作219至250整理覆盖.md",
+                              "hot.md",
+                              "log.md",
+                              ".manifest.json"
+                          ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/.worktrees/bbxm-practical-ingest/sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/227_情绪传导与预判核心.md": {
+        "ingested_at":  "2026-07-13T12:00:00+08:00",
+        "size_bytes":  6477,
+        "modified_at":  "2026-07-13T11:48:09+08:00",
+        "content_hash":  "sha256:60e56983092c99b7c5bceecc75bcaac7c1c36b95ee3bb965dc9f43567aa341b1",
+        "source_type":  "document",
+        "project":  null,
+        "pages_created":  [
+    
+                          ],
+        "pages_updated":  [
+                              "wiki/topics/冰冰小美-情绪体系操作篇.md",
+                              "wiki/concepts/冰冰小美-framework-复盘.md",
+                              "wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md",
+                              "wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化.md",
+                              "wiki/queries/冰冰小美-实战操作219至250整理覆盖.md",
+                              "hot.md",
+                              "log.md",
+                              ".manifest.json"
+                          ]
+    }  },
   "updated_at": "2026-07-10T14:12:00+08:00"
 }
