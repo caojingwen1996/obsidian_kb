@@ -12510,3 +12510,25 @@ ingest / concept update
 - [2026-07-13T12:00:00+08:00] INGEST source="sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/219-227" pages_updated=5 pages_created=1 mode=append
 - [2026-07-13T12:15:00+08:00] INGEST source="sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/228-250" pages_updated=2 pages_created=0 mode=append
 - [2026-07-13T12:16:00+08:00] VERIFY scope="实战操作219-250" coverage=32/32 manifest=valid mojibake=new_changes_none
+
+## 2026-07-14
+
+### 操作类型
+
+tool / dashboard
+
+### 修改文件
+
+- `tools/bbxm-risk-dashboard/`
+- `docs/superpowers/specs/2026-07-14-bbxm-risk-dashboard-design.md`
+- `docs/superpowers/plans/2026-07-14-bbxm-risk-dashboard.md`
+- `log.md`
+
+### 操作说明
+
+新增冰冰小美风险提示本地网页工具：固定读取 `data/冰冰小美风险提示.xlsx` 的日期、当日累计风险提示次数和风险原因，自动通过 AKShare 获取上证指数实际收盘点位，联网失败时回退到明确标注更新时间的本地缓存。页面采用参考图的黑底、白框、灰色指数曲线和红色风险节点，风险点大小映射当日次数，悬浮时显示原始风险日期、次数、原因、对齐交易日和收盘点位；右侧区域按用户要求保留为空。工具包含 Excel 校验、重复日期合并、非交易日向前对齐、中文错误响应、响应式布局、自动测试、使用说明和验收截图，不生成新的投资判断或买卖建议。
+
+### 后续待办
+
+- 将模板中的示例行替换为真实风险记录。
+- 如后续需要扩展右侧信息栏，先确认指标定义和数据来源，再新增展示内容。
