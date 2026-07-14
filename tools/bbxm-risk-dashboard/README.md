@@ -6,7 +6,9 @@
 
 ## 启动
 
-在 PowerShell 中运行：
+Windows 用户直接双击工具目录中的 `启动工具.bat`。首次运行会自动创建运行环境并安装依赖，稍后浏览器会自动打开；以后双击会直接复用现有环境。
+
+需要手动排错时，可在 PowerShell 中运行：
 
 ```powershell
 cd E:\caojingwen\obsidian\llmwiki\tools\bbxm-risk-dashboard
