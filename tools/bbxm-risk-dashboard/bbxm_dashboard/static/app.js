@@ -1,5 +1,5 @@
 const chart = echarts.init(document.getElementById('index-chart'), null, {
-  renderer: 'canvas',
+  renderer: 'svg',
 });
 const statusNode = document.getElementById('status');
 const errorPanel = document.getElementById('error-panel');
@@ -23,7 +23,7 @@ function riskSize(value) {
 function chartOption(payload) {
   const visibleRange = {
     startValue: payload.range.start,
-    endValue: payload.range.end,
+    endValue: payload.status.as_of,
   };
   return {
     backgroundColor: 'transparent',
@@ -67,11 +67,12 @@ function chartOption(payload) {
       splitLine: { lineStyle: { color: '#343a40', type: 'dashed' } },
     },
     dataZoom: [
-      { type: 'inside', filterMode: 'none', ...visibleRange },
+      { type: 'inside', filterMode: 'filter', ...visibleRange },
       {
         type: 'slider',
         bottom: 20,
         height: 18,
+        filterMode: 'filter',
         borderColor: '#87909c',
         textStyle: { color: '#c6cbd2' },
         ...visibleRange,

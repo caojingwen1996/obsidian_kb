@@ -53,3 +53,13 @@ def test_root_contains_chart_empty_sidebar_and_local_assets(tmp_path):
     assert 'aria-label="预留区域"' in html
     assert "/static/vendor/echarts.min.js" in html
     assert 'src="https://' not in html
+
+
+def test_chart_zoom_scales_y_axis_to_visible_period(tmp_path):
+    app = create_app({"TESTING": True, "DATA_DIR": tmp_path})
+    javascript = app.test_client().get("/static/app.js").get_data(as_text=True)
+
+    assert "filterMode: 'filter'" in javascript
+    assert "filterMode: 'none'" not in javascript
+    assert "endValue: payload.status.as_of" in javascript
+    assert "renderer: 'svg'" in javascript
