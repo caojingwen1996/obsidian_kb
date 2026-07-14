@@ -12532,3 +12532,28 @@ tool / dashboard
 
 - 将模板中的示例行替换为真实风险记录。
 - 如后续需要扩展右侧信息栏，先确认指标定义和数据来源，再新增展示内容。
+
+## 2026-07-14
+
+### 操作类型
+
+automation / tool
+
+### 修改文件
+
+- `.agents/automations/bbxm_daliy_brief.md`
+- `tools/bbxm-risk-dashboard/scripts/upsert_automated_risk.py`
+- `tools/bbxm-risk-dashboard/tests/test_automated_risk_updater.py`
+- `tools/bbxm-risk-dashboard/tests/test_automation_prompt.py`
+- `tools/bbxm-risk-dashboard/README.md`
+- `docs/superpowers/specs/2026-07-14-bbxm-daily-risk-writeback-design.md`
+- `docs/superpowers/plans/2026-07-14-bbxm-daily-risk-writeback.md`
+- `log.md`
+
+### 操作说明
+
+扩展冰冰小美每日抓取任务：抓取完成后按当天全部已保存帖子逐帖识别 R1/R2/R3 风险节点，生成 `processing/risk-analysis.json`，再由独立更新器幂等写入风险提示 Excel 的固定自动行。更新器保留同日人工记录，完整无风险时只删除旧自动行；抓取或分析不完整时写 `blocked`，Excel 被占用时保留原文件并写 `pending`，等待同日重跑，不把失败边界伪装成零风险。
+
+### 后续待办
+
+- 首次实际自动化运行后，核对 `risk-analysis.json` 的逐帖证据质量及 Excel 自动行展示效果。
