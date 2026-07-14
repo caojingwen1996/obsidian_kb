@@ -35,6 +35,26 @@
         <span><i class="legend-line"></i>上证指数</span>
         <span><i class="legend-dot"></i>风险提示</span>
       </footer>
+      <section class="risk-detail-panel" aria-labelledby="risk-detail-title">
+        <h2 id="risk-detail-title">风险提示明细</h2>
+        <div
+          class="risk-table-scroll"
+          tabindex="0"
+          aria-label="风险提示明细表滚动区域"
+        >
+          <table class="risk-table">
+            <caption>风险提示明细</caption>
+            <thead>
+              <tr>
+                <th scope="col">日期</th>
+                <th scope="col">当日累计风险提示次数</th>
+                <th scope="col">风险原因</th>
+              </tr>
+            </thead>
+            <tbody id="risk-table-body"></tbody>
+          </table>
+        </div>
+      </section>
     </section>
     <aside
       id="reserved-sidebar"

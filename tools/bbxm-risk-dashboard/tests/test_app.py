@@ -63,3 +63,41 @@ def test_chart_zoom_scales_y_axis_to_visible_period(tmp_path):
     assert "filterMode: 'none'" not in javascript
     assert "endValue: payload.status.as_of" in javascript
     assert "renderer: 'svg'" in javascript
+
+
+def test_root_contains_risk_detail_table(tmp_path):
+    app = create_app({"TESTING": True, "DATA_DIR": tmp_path})
+    html = app.test_client().get("/").get_data(as_text=True)
+
+    assert 'class="risk-detail-panel"' in html
+    assert '<caption>风险提示明细</caption>' in html
+    assert 'id="risk-table-body"' in html
+    assert '<th scope="col">日期</th>' in html
+    assert '<th scope="col">当日累计风险提示次数</th>' in html
+    assert '<th scope="col">风险原因</th>' in html
+
+
+def test_risk_table_script_sorts_renders_and_clears_rows(tmp_path):
+    app = create_app({"TESTING": True, "DATA_DIR": tmp_path})
+    javascript = app.test_client().get("/static/app.js").get_data(as_text=True)
+
+    assert "function renderRiskTable(points)" in javascript
+    assert "[...points].sort" in javascript
+    assert "right.risk_date.localeCompare(left.risk_date)" in javascript
+    assert "riskTableBody.replaceChildren()" in javascript
+    assert "cell.textContent" in javascript
+    assert "point.reason || '未填写原因'" in javascript
+    assert "renderRiskTable(payload.risk_points)" in javascript
+    assert "renderRiskTable([])" in javascript
+
+
+def test_risk_table_styles_preserve_dark_responsive_layout(tmp_path):
+    app = create_app({"TESTING": True, "DATA_DIR": tmp_path})
+    css = app.test_client().get("/static/styles.css").get_data(as_text=True)
+
+    assert ".risk-detail-panel" in css
+    assert ".risk-table-scroll" in css
+    assert "overflow-x: auto" in css
+    assert ".risk-count" in css
+    assert "font-variant-numeric: tabular-nums" in css
+    assert "white-space: pre-wrap" in css

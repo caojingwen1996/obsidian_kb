@@ -6,6 +6,7 @@ const errorPanel = document.getElementById('error-panel');
 const errorMessage = document.getElementById('error-message');
 const retryButton = document.getElementById('retry-button');
 const accessibleList = document.getElementById('risk-point-list');
+const riskTableBody = document.getElementById('risk-table-body');
 
 function escapeHtml(value) {
   return String(value)
@@ -126,6 +127,36 @@ function buildAccessibleRiskList(points) {
   });
 }
 
+function renderRiskTable(points) {
+  riskTableBody.replaceChildren();
+  if (!points.length) {
+    const row = document.createElement('tr');
+    const cell = document.createElement('td');
+    cell.colSpan = 3;
+    cell.className = 'risk-table-empty';
+    cell.textContent = '暂无风险提示记录';
+    row.appendChild(cell);
+    riskTableBody.appendChild(row);
+    return;
+  }
+
+  const sortedPoints = [...points].sort((left, right) =>
+    right.risk_date.localeCompare(left.risk_date),
+  );
+  sortedPoints.forEach((point) => {
+    const row = document.createElement('tr');
+    [point.risk_date, point.count, point.reason || '未填写原因'].forEach(
+      (value, index) => {
+        const cell = document.createElement('td');
+        cell.textContent = String(value);
+        if (index === 1) cell.className = 'risk-count';
+        row.appendChild(cell);
+      },
+    );
+    riskTableBody.appendChild(row);
+  });
+}
+
 function showError(error) {
   const details = Array.isArray(error.details)
     ? error.details.map((item) => {
@@ -143,6 +174,7 @@ function showError(error) {
   );
   errorPanel.hidden = false;
   chart.clear();
+  renderRiskTable([]);
   statusNode.textContent = '';
 }
 
@@ -162,6 +194,7 @@ async function loadDashboard() {
     }
     chart.setOption(chartOption(payload), true);
     buildAccessibleRiskList(payload.risk_points);
+    renderRiskTable(payload.risk_points);
     const sourceLabel =
       payload.status.market_source === 'live' ? '实时数据' : '缓存数据';
     const warningText = payload.status.warnings.length

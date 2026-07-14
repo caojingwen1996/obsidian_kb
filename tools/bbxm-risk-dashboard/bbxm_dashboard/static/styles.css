@@ -129,6 +129,92 @@ body {
   background: var(--risk);
 }
 
+.risk-detail-panel {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.risk-detail-panel h2 {
+  margin: 0 0 12px;
+  font-size: 16px;
+  letter-spacing: 0.02em;
+}
+
+.risk-table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.risk-table-scroll:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.risk-table {
+  width: 100%;
+  min-width: 620px;
+  border-collapse: collapse;
+  background: var(--panel);
+  font-size: 13px;
+}
+
+.risk-table caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.risk-table th,
+.risk-table td {
+  padding: 10px 12px;
+  border: 1px solid var(--grid);
+  text-align: left;
+  vertical-align: top;
+}
+
+.risk-table th {
+  background: #15181c;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.risk-table th:first-child,
+.risk-table td:first-child {
+  width: 132px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.risk-table th:nth-child(2),
+.risk-count {
+  width: 190px;
+  font-variant-numeric: tabular-nums;
+}
+
+.risk-count {
+  color: var(--risk);
+  font-weight: 700;
+}
+
+.risk-table td:last-child {
+  line-height: 1.6;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.risk-table tbody tr:hover {
+  background: #111418;
+}
+
+.risk-table-empty {
+  color: var(--muted);
+  text-align: center !important;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;
