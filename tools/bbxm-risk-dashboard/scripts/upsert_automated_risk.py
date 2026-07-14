@@ -32,18 +32,24 @@ def _parse_iso_date(value: object, name: str) -> str:
     if not isinstance(value, str):
         raise AnalysisError(f"{name} 必须是 YYYY-MM-DD 文本")
     try:
-        return date.fromisoformat(value).isoformat()
+        parsed = date.fromisoformat(value)
     except ValueError as exc:
         raise AnalysisError(f"{name} 必须是有效的 YYYY-MM-DD 日期") from exc
+    if parsed.isoformat() != value:
+        raise AnalysisError(f"{name} 必须使用 YYYY-MM-DD 格式")
+    return value
 
 
 def _parse_iso_datetime(value: object, name: str) -> str:
     if not isinstance(value, str) or not value.strip():
         raise AnalysisError(f"{name} 必须是非空 ISO 时间")
     try:
-        return datetime.fromisoformat(value).isoformat()
+        parsed = datetime.fromisoformat(value)
     except ValueError as exc:
         raise AnalysisError(f"{name} 必须是有效的 ISO 时间") from exc
+    if "T" not in value or parsed.utcoffset() is None:
+        raise AnalysisError(f"{name} 必须包含时间和 UTC 偏移")
+    return parsed.isoformat()
 
 
 def _non_negative_int(value: object, name: str) -> int:

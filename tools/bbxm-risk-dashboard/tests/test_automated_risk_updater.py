@@ -199,6 +199,11 @@ def test_duplicate_equal_post_keys_count_once(tmp_path):
         lambda data: data["qualified"][0].update(level="N"),
         lambda data: data["qualified"][0].update(source_file="", url=""),
         lambda data: data["qualified"][0].update(transmission=""),
+        lambda data: data.update(target_date="20260714"),
+        lambda data: data.update(generated_at="2026-07-14T18:30:00"),
+        lambda data: data["qualified"][0].update(
+            published_at="2026-07-14T18:00:00"
+        ),
     ],
 )
 def test_invalid_or_incomplete_analysis_is_blocked_without_excel_change(
