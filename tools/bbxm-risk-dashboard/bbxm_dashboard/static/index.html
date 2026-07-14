@@ -2,9 +2,47 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>冰冰小美风险提示记录</title>
+  <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-  <h1>冰冰小美风险提示记录</h1>
+  <main class="dashboard-shell">
+    <section class="chart-panel" aria-labelledby="page-title">
+      <header class="chart-heading">
+        <h1 id="page-title">【冰冰小美】风险提示记录</h1>
+        <p>风险记录：固定 Excel · 基准曲线：上证指数实际收盘点位</p>
+      </header>
+      <div id="status" class="status" role="status" aria-live="polite">
+        正在读取数据…
+      </div>
+      <div id="error-panel" class="error-panel" role="alert" hidden>
+        <p id="error-message"></p>
+        <button id="retry-button" type="button">重新加载</button>
+      </div>
+      <div
+        id="index-chart"
+        class="chart"
+        role="img"
+        aria-label="上证指数收盘曲线及冰冰小美风险提示节点"
+      ></div>
+      <div
+        id="risk-point-list"
+        class="visually-hidden"
+        aria-label="风险提示节点键盘导航"
+      ></div>
+      <footer class="legend" aria-hidden="true">
+        <span><i class="legend-line"></i>上证指数</span>
+        <span><i class="legend-dot"></i>风险提示</span>
+      </footer>
+    </section>
+    <aside
+      id="reserved-sidebar"
+      class="reserved-sidebar"
+      aria-label="预留区域"
+    ></aside>
+  </main>
+  <script src="/static/vendor/echarts.min.js"></script>
+  <script src="/static/app.js"></script>
 </body>
 </html>

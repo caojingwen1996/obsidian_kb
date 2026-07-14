@@ -42,3 +42,14 @@ def test_api_returns_structured_error_when_excel_is_missing(tmp_path):
 
     assert response.status_code == 422
     assert response.get_json()["error"]["code"] == "excel_missing"
+
+
+def test_root_contains_chart_empty_sidebar_and_local_assets(tmp_path):
+    app = create_app({"TESTING": True, "DATA_DIR": tmp_path})
+    html = app.test_client().get("/").get_data(as_text=True)
+
+    assert 'id="index-chart"' in html
+    assert 'id="reserved-sidebar"' in html
+    assert 'aria-label="预留区域"' in html
+    assert "/static/vendor/echarts.min.js" in html
+    assert 'src="https://' not in html
