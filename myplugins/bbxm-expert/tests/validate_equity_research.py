@@ -1,4 +1,5 @@
 from pathlib import Path
+import json
 import sys
 
 
@@ -7,6 +8,10 @@ ROUTER_PATH = PLUGIN_ROOT / "skills" / "bbxm-expert" / "SKILL.md"
 SKILL_PATH = PLUGIN_ROOT / "skills" / "equity-research" / "SKILL.md"
 TEMPLATE_PATH = PLUGIN_ROOT / "skills" / "equity-research" / "template.md"
 OPENAI_PATH = PLUGIN_ROOT / "skills" / "equity-research" / "agents" / "openai.yaml"
+MANIFEST_PATHS = (
+    PLUGIN_ROOT / "plugin.json",
+    PLUGIN_ROOT / ".codex-plugin" / "plugin.json",
+)
 
 
 def require(condition: bool, message: str) -> None:
@@ -64,6 +69,13 @@ def main() -> None:
 
     require_contains(openai, 'display_name: "机构级个股研究"', "agents/openai.yaml")
     require_contains(openai, "Use $equity-research", "agents/openai.yaml")
+
+    manifests = [json.loads(path.read_text(encoding="utf-8-sig")) for path in MANIFEST_PATHS]
+    require(manifests[0] == manifests[1], "plugin manifests must stay identical")
+    require(manifests[0]["version"].startswith("0.1.1+codex.20260715"),
+            "plugin version must be bumped for equity-research discovery")
+    require("Equity Research" in manifests[0]["interface"]["capabilities"],
+            "plugin capabilities must include Equity Research")
 
     all_text = router + skill + template + openai
     require(not any(marker in all_text for marker in ("�", "鍐", "鐭", "鎯", "灏")),
