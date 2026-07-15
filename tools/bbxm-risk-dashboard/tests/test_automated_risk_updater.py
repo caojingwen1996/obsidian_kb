@@ -117,6 +117,26 @@ def test_upsert_writes_one_automatic_row_and_preserves_manual_row(tmp_path):
     assert "【R1】标题-post-2：承接风险上升" in rows[1][2]
 
 
+def test_upsert_writes_risk_weakening_levels(tmp_path):
+    data = valid_analysis(
+        [
+            risk("post-w1", "W1", "风险边际减弱"),
+            risk("post-w2", "W2", "风险明显减弱"),
+            risk("post-w3", "W3", "风险转机会"),
+        ]
+    )
+
+    result, _, workbook_path = run_update(tmp_path, data, [])
+
+    rows = read_rows(workbook_path)
+    assert result["status"] == "written"
+    assert result["count"] == 3
+    assert rows[0][0:2] == ["2026-07-14", 3]
+    assert "【W1】标题-post-w1：风险边际减弱" in rows[0][2]
+    assert "【W2】标题-post-w2：风险明显减弱" in rows[0][2]
+    assert "【W3】标题-post-w3：风险转机会" in rows[0][2]
+
+
 def test_same_day_rerun_replaces_automatic_row_instead_of_appending(tmp_path):
     old_reason = f"{updater.AUTOMATED_PREFIX}\n旧风险"
     data = valid_analysis([risk("post-new", "R3", "风险共振")])
@@ -166,7 +186,7 @@ def test_empty_qualified_removes_only_existing_automatic_row(tmp_path):
 
 def test_empty_qualified_without_existing_row_returns_no_risk(tmp_path):
     data = valid_analysis(
-        not_written=[{"post_key": "post-1", "level": "W1", "reason": "风险转弱"}]
+        not_written=[{"post_key": "post-1", "level": "N", "reason": "方向不明确"}]
     )
 
     result, status, workbook_path = run_update(
@@ -177,6 +197,22 @@ def test_empty_qualified_without_existing_row_returns_no_risk(tmp_path):
 
     assert result["status"] == "no_risk"
     assert status["count"] == 0
+    assert read_rows(workbook_path) == [["2026-07-14", 1, "人工记录"]]
+
+
+def test_risk_weakening_levels_in_not_written_are_blocked(tmp_path):
+    data = valid_analysis(
+        not_written=[{"post_key": "post-1", "level": "W1", "reason": "风险转弱"}]
+    )
+
+    result, _, workbook_path = run_update(
+        tmp_path,
+        data,
+        [["2026-07-14", 1, "人工记录"]],
+    )
+
+    assert result["status"] == "blocked"
+    assert "not_written 等级无效：W1" in result["message"]
     assert read_rows(workbook_path) == [["2026-07-14", 1, "人工记录"]]
 
 

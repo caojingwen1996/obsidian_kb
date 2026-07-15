@@ -1,0 +1,317 @@
+﻿{
+    "account":  "冰冰小美",
+    "account_url":  "https://xueqiu.com/u/7143769715",
+    "task_date":  "20260714",
+    "start_time":  "2026-07-14 15:48:36",
+    "end_time":  null,
+    "scan_round":  1,
+    "success_count":  20,
+    "failure_count":  0,
+    "log_file":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\task.log",
+    "result_dir":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美",
+    "state_file":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\state.json",
+    "processed_items":  {
+                            "400059582":  {
+                                              "source_id":  "400059582",
+                                              "title":  "我不知道我科普有没有意义。但是我心中一阵悲凉。人为刀俎我为鱼肉既视感。 - 雪球",
+                                              "published_at":  "2026-07-14 14:16:00",
+                                              "url":  "https://xueqiu.com/7143769715/400059582",
+                                              "platform":  "xueqiu",
+                                              "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\141600_我不知道我科普有没有意义_但是我心中一阵悲凉_人为刀俎我为鱼肉既视感_-_雪球_40005958.md",
+                                              "saved_at":  "2026-07-14 15:48:36"
+                                          },
+                            "400057984":  {
+                                              "source_id":  "400057984",
+                                              "title":  "网页链接问题，是不是，市场资产定价功能回归？ - 雪球",
+                                              "published_at":  "2026-07-14 14:10:00",
+                                              "url":  "https://xueqiu.com/7143769715/400057984",
+                                              "platform":  "xueqiu",
+                                              "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\141000_网页链接问题_是不是_市场资产定价功能回归_-_雪球_40005798.md",
+                                              "saved_at":  "2026-07-14 15:48:36"
+                                          },
+                            "400051992":  {
+                                              "source_id":  "400051992",
+                                              "title":  "今天美国发布Cpi数据。有色今天全天强势。主要是热钱投机出清，业绩大增估值修正。如果降息预期抬头，有色企稳概率较大。至于... - 雪球",
+                                              "published_at":  "2026-07-14 13:49:00",
+                                              "url":  "https://xueqiu.com/7143769715/400051992",
+                                              "platform":  "xueqiu",
+                                              "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\134900_今天美国发布Cpi数据_有色今天全天强势_主要是热钱投机出清_业绩大增估值修正_如果降息预期抬头_40005199.md",
+                                              "saved_at":  "2026-07-14 15:48:36"
+                                          },
+                            "400047102":  {
+                                              "source_id":  "400047102",
+                                              "title":  "这行情已经不是我能驾驭的。7月上半月防守美元潮汐收割，下半月因为重大事件更加密集，很多都是国内重大事件，希望走出阴霾。 - 雪球",
+                                              "published_at":  "2026-07-14 13:33:00",
+                                              "url":  "https://xueqiu.com/7143769715/400047102",
+                                              "platform":  "xueqiu",
+                                              "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\133300_这行情已经不是我能驾驭的_7月上半月防守美元潮汐收割_下半月因为重大事件更加密集_很多都是国内重_40004710.md",
+                                              "saved_at":  "2026-07-14 15:48:36"
+                                          },
+                            "400041509":  {
+                                              "source_id":  "400041509",
+                                              "title":  "万方同感伤，蝼蚁尚何求。 - 雪球",
+                                              "published_at":  "2026-07-14 13:14:00",
+                                              "url":  "https://xueqiu.com/7143769715/400041509",
+                                              "platform":  "xueqiu",
+                                              "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\131400_万方同感伤_蝼蚁尚何求_-_雪球_40004150.md",
+                                              "saved_at":  "2026-07-14 15:48:36"
+                                          },
+                            "400038304":  {
+                                              "source_id":  "400038304",
+                                              "title":  "第一次见，指数都能一根穿云箭。你问我，我也不知道是啥情况。这需要几百亿上千亿同时成交。 - 雪球",
+                                              "published_at":  "2026-07-14 13:04:00",
+                                              "url":  "https://xueqiu.com/7143769715/400038304",
+                                              "platform":  "xueqiu",
+                                              "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\130400_第一次见_指数都能一根穿云箭_你问我_我也不知道是啥情况_这需要几百亿上千亿同时成交_-_雪球_40003830.md",
+                                              "saved_at":  "2026-07-14 15:48:36"
+                                          },
+                            "400023065":  {
+                                              "source_id":  "400023065",
+                                              "title":  "收盘总结，从交易层面看，有一股力量引导做空恐慌。 - 雪球",
+                                              "published_at":  "2026-07-14 11:36:00",
+                                              "url":  "https://xueqiu.com/7143769715/400023065",
+                                              "platform":  "xueqiu",
+                                              "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\113600_收盘总结_从交易层面看_有一股力量引导做空恐慌_-_雪球_40002306.md",
+                                              "saved_at":  "2026-07-14 15:48:36"
+                                          },
+                            "400022325":  {
+                                              "source_id":  "400022325",
+                                              "title":  "坏不坏。时间卡的真好。9:15，拉红4%，引发了一部分科技高开。10:00，直接砸崩。然后，我国科技也崩了。量化策略锚定... - 雪球",
+                                              "published_at":  "2026-07-14 11:33:00",
+                                              "url":  "https://xueqiu.com/7143769715/400022325",
+                                              "platform":  "xueqiu",
+                                              "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\113300_坏不坏_时间卡的真好_9_15_拉红4_引发了一部分科技高开_10_00_直接砸崩_然后_我国科_40002232.md",
+                                              "saved_at":  "2026-07-14 15:48:36"
+                                          },
+                            "400015915":  {
+                                              "source_id":  "400015915",
+                                              "title":  "华正新材 与 生益科技 砸盘，10:44 通源石油 直接爆拉，10:44这精准的无话可说。也只能怪我筹码太少，石油砸不死... - 雪球",
+                                              "published_at":  "2026-07-14 11:16:00",
+                                              "url":  "https://xueqiu.com/7143769715/400015915",
+                                              "platform":  "xueqiu",
+                                              "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\111600_华正新材_与_生益科技_砸盘_10_44_通源石油_直接爆拉_10_44这精准的无话可说_也只能_40001591.md",
+                                              "saved_at":  "2026-07-14 15:48:36"
+                                          },
+                            "400012596":  {
+                                              "source_id":  "400012596",
+                                              "title":  "宏观让你控制仓位，微观让你谨慎交易。宏观贴提过多次，希望反复看。你不看，起码看一眼10年期美国国债。目前4.62，依旧是... - 雪球",
+                                              "published_at":  "2026-07-14 11:08:00",
+                                              "url":  "https://xueqiu.com/7143769715/400012596",
+                                              "platform":  "xueqiu",
+                                              "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\110800_宏观让你控制仓位_微观让你谨慎交易_宏观贴提过多次_希望反复看_你不看_起码看一眼10年期美国国_40001259.md",
+                                              "saved_at":  "2026-07-14 15:48:36"
+                                          },
+                            "400007871":  {
+                                              "source_id":  "400007871",
+                                              "title":  "关于交易体系认知，亏钱认知等帖子。请查阅专栏贴网页链接主要是宏观的因子都发过贴。盘面跟踪发帖是微观的。微观的看懂说的啥，... - 雪球",
+                                              "published_at":  "2026-07-14 11:01:00",
+                                              "url":  "https://xueqiu.com/7143769715/400007871",
+                                              "platform":  "xueqiu",
+                                              "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\110100_关于交易体系认知_亏钱认知等帖子_请查阅专栏贴网页链接主要是宏观的因子都发过贴_盘面跟踪发帖是微_40000787.md",
+                                              "saved_at":  "2026-07-14 15:48:36"
+                                          },
+                            "400007082":  {
+                                              "source_id":  "400007082",
+                                              "title":  "一点风吹草动就砸跌停，由此可见，市场羸弱，不堪一击。指数上涨背后，不认可光，pcb带动， 华正新材 ， 生益科技 封板被... - 雪球",
+                                              "published_at":  "2026-07-14 10:54:00",
+                                              "url":  "https://xueqiu.com/7143769715/400007082",
+                                              "platform":  "xueqiu",
+                                              "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\105400_一点风吹草动就砸跌停_由此可见_市场羸弱_不堪一击_指数上涨背后_不认可光_pcb带动_华正新材_40000708.md",
+                                              "saved_at":  "2026-07-14 15:48:36"
+                                          },
+                            "400001099":  {
+                                              "source_id":  "400001099",
+                                              "title":  "真相与假相背后，充满血腥。不看盘了，今天注定是来回割韭菜的行情。市场没有锚点。 - 雪球",
+                                              "published_at":  "2026-07-14 10:39:00",
+                                              "url":  "https://xueqiu.com/7143769715/400001099",
+                                              "platform":  "xueqiu",
+                                              "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\103900_真相与假相背后_充满血腥_不看盘了_今天注定是来回割韭菜的行情_市场没有锚点_-_雪球_40000109.md",
+                                              "saved_at":  "2026-07-14 15:48:36"
+                                          },
+                            "399998659":  {
+                                              "source_id":  "399998659",
+                                              "title":  "同样的伎俩与对冲，3月石油冲击与7月石油期货波动，市场变化有啥区别。这一次，矿股没跌。那么，这里的核心问题，期货与股市的... - 雪球",
+                                              "published_at":  "2026-07-14 10:32:00",
+                                              "url":  "https://xueqiu.com/7143769715/399998659",
+                                              "platform":  "xueqiu",
+                                              "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\103200_同样的伎俩与对冲_3月石油冲击与7月石油期货波动_市场变化有啥区别_这一次_矿股没跌_那么_这里_39999865.md",
+                                              "saved_at":  "2026-07-14 15:48:36"
+                                          },
+                            "399994056":  {
+                                              "source_id":  "399994056",
+                                              "title":  "紫金矿业 27横盘很久很久了。由白银推动的上涨回到推动前的价格，因此27以上都是热钱驱动的投机涨幅。目前白银价格57也即... - 雪球",
+                                              "published_at":  "2026-07-14 10:20:00",
+                                              "url":  "https://xueqiu.com/7143769715/399994056",
+                                              "platform":  "xueqiu",
+                                              "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\102000_紫金矿业_27横盘很久很久了_由白银推动的上涨回到推动前的价格_因此27以上都是热钱驱动的投机涨_39999405.md",
+                                              "saved_at":  "2026-07-14 15:48:36"
+                                          },
+                            "399991390":  {
+                                              "source_id":  "399991390",
+                                              "title":  "砸情绪标就是引发同质化策略。市场轮动飞快，亏钱效应明显，昨天跌10%今天反弹2%，扶老奶奶下楼梯。 - 雪球",
+                                              "published_at":  "2026-07-14 10:14:00",
+                                              "url":  "https://xueqiu.com/7143769715/399991390",
+                                              "platform":  "xueqiu",
+                                              "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\101400_砸情绪标就是引发同质化策略_市场轮动飞快_亏钱效应明显_昨天跌10_今天反弹2_扶老奶奶下楼梯__39999139.md",
+                                              "saved_at":  "2026-07-14 15:48:36"
+                                          },
+                            "399989467":  {
+                                              "source_id":  "399989467",
+                                              "title":  "Pcb，铜矿，业绩都是增长，所以上下游协同。铜矿利润增长更快，因为铜价高位，下游有需求。Pcb利润增长比铜矿慢，因为原材... - 雪球",
+                                              "published_at":  "2026-07-14 10:09:00",
+                                              "url":  "https://xueqiu.com/7143769715/399989467",
+                                              "platform":  "xueqiu",
+                                              "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\100900_Pcb_铜矿_业绩都是增长_所以上下游协同_铜矿利润增长更快_因为铜价高位_下游有需求_Pcb利_39998946.md",
+                                              "saved_at":  "2026-07-14 15:48:36"
+                                          },
+                            "399984015":  {
+                                              "source_id":  "399984015",
+                                              "title":  "国产线砸崩，然后国外线拉升。pcb发布业绩报，带头反弹。情绪与方向引导如何丝滑。 - 雪球",
+                                              "published_at":  "2026-07-14 09:55:00",
+                                              "url":  "https://xueqiu.com/7143769715/399984015",
+                                              "platform":  "xueqiu",
+                                              "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\095500_国产线砸崩_然后国外线拉升_pcb发布业绩报_带头反弹_情绪与方向引导如何丝滑_-_雪球_39998401.md",
+                                              "saved_at":  "2026-07-14 15:48:36"
+                                          },
+                            "399978181":  {
+                                              "source_id":  "399978181",
+                                              "title":  "又引导情绪恐慌。 星网锐捷 高开秒板，石油拉升，砸盘只记得翻绿。把科技的多头扼杀，带崩科技反弹情绪。科技分化，指数下探。... - 雪球",
+                                              "published_at":  "2026-07-14 09:43:00",
+                                              "url":  "https://xueqiu.com/7143769715/399978181",
+                                              "platform":  "xueqiu",
+                                              "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\094300_又引导情绪恐慌_星网锐捷_高开秒板_石油拉升_砸盘只记得翻绿_把科技的多头扼杀_带崩科技反弹情绪_39997818.md",
+                                              "saved_at":  "2026-07-14 15:48:36"
+                                          },
+                            "399970017":  {
+                                              "source_id":  "399970017",
+                                              "title":  "从明天开始，我国相关的新闻就会逐步增加。从央行到产业大会，从Zzj到下半年经济指引。因此，需要时刻关注盘面以我为主的变化... - 雪球",
+                                              "published_at":  "2026-07-14 09:28:00",
+                                              "url":  "https://xueqiu.com/7143769715/399970017",
+                                              "platform":  "xueqiu",
+                                              "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\092800_从明天开始_我国相关的新闻就会逐步增加_从央行到产业大会_从Zzj到下半年经济指引_因此_需要时_39997001.md",
+                                              "saved_at":  "2026-07-14 15:48:36"
+                                          }
+                        },
+    "events":  [
+                   {
+                       "type":  "item_saved",
+                       "time":  "2026-07-14 15:48:36",
+                       "item_key":  "400059582",
+                       "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\141600_我不知道我科普有没有意义_但是我心中一阵悲凉_人为刀俎我为鱼肉既视感_-_雪球_40005958.md"
+                   },
+                   {
+                       "type":  "item_saved",
+                       "time":  "2026-07-14 15:48:36",
+                       "item_key":  "400057984",
+                       "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\141000_网页链接问题_是不是_市场资产定价功能回归_-_雪球_40005798.md"
+                   },
+                   {
+                       "type":  "item_saved",
+                       "time":  "2026-07-14 15:48:36",
+                       "item_key":  "400051992",
+                       "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\134900_今天美国发布Cpi数据_有色今天全天强势_主要是热钱投机出清_业绩大增估值修正_如果降息预期抬头_40005199.md"
+                   },
+                   {
+                       "type":  "item_saved",
+                       "time":  "2026-07-14 15:48:36",
+                       "item_key":  "400047102",
+                       "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\133300_这行情已经不是我能驾驭的_7月上半月防守美元潮汐收割_下半月因为重大事件更加密集_很多都是国内重_40004710.md"
+                   },
+                   {
+                       "type":  "item_saved",
+                       "time":  "2026-07-14 15:48:36",
+                       "item_key":  "400041509",
+                       "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\131400_万方同感伤_蝼蚁尚何求_-_雪球_40004150.md"
+                   },
+                   {
+                       "type":  "item_saved",
+                       "time":  "2026-07-14 15:48:36",
+                       "item_key":  "400038304",
+                       "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\130400_第一次见_指数都能一根穿云箭_你问我_我也不知道是啥情况_这需要几百亿上千亿同时成交_-_雪球_40003830.md"
+                   },
+                   {
+                       "type":  "item_saved",
+                       "time":  "2026-07-14 15:48:36",
+                       "item_key":  "400023065",
+                       "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\113600_收盘总结_从交易层面看_有一股力量引导做空恐慌_-_雪球_40002306.md"
+                   },
+                   {
+                       "type":  "item_saved",
+                       "time":  "2026-07-14 15:48:36",
+                       "item_key":  "400022325",
+                       "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\113300_坏不坏_时间卡的真好_9_15_拉红4_引发了一部分科技高开_10_00_直接砸崩_然后_我国科_40002232.md"
+                   },
+                   {
+                       "type":  "item_saved",
+                       "time":  "2026-07-14 15:48:36",
+                       "item_key":  "400015915",
+                       "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\111600_华正新材_与_生益科技_砸盘_10_44_通源石油_直接爆拉_10_44这精准的无话可说_也只能_40001591.md"
+                   },
+                   {
+                       "type":  "item_saved",
+                       "time":  "2026-07-14 15:48:36",
+                       "item_key":  "400012596",
+                       "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\110800_宏观让你控制仓位_微观让你谨慎交易_宏观贴提过多次_希望反复看_你不看_起码看一眼10年期美国国_40001259.md"
+                   },
+                   {
+                       "type":  "item_saved",
+                       "time":  "2026-07-14 15:48:36",
+                       "item_key":  "400007871",
+                       "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\110100_关于交易体系认知_亏钱认知等帖子_请查阅专栏贴网页链接主要是宏观的因子都发过贴_盘面跟踪发帖是微_40000787.md"
+                   },
+                   {
+                       "type":  "item_saved",
+                       "time":  "2026-07-14 15:48:36",
+                       "item_key":  "400007082",
+                       "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\105400_一点风吹草动就砸跌停_由此可见_市场羸弱_不堪一击_指数上涨背后_不认可光_pcb带动_华正新材_40000708.md"
+                   },
+                   {
+                       "type":  "item_saved",
+                       "time":  "2026-07-14 15:48:36",
+                       "item_key":  "400001099",
+                       "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\103900_真相与假相背后_充满血腥_不看盘了_今天注定是来回割韭菜的行情_市场没有锚点_-_雪球_40000109.md"
+                   },
+                   {
+                       "type":  "item_saved",
+                       "time":  "2026-07-14 15:48:36",
+                       "item_key":  "399998659",
+                       "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\103200_同样的伎俩与对冲_3月石油冲击与7月石油期货波动_市场变化有啥区别_这一次_矿股没跌_那么_这里_39999865.md"
+                   },
+                   {
+                       "type":  "item_saved",
+                       "time":  "2026-07-14 15:48:36",
+                       "item_key":  "399994056",
+                       "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\102000_紫金矿业_27横盘很久很久了_由白银推动的上涨回到推动前的价格_因此27以上都是热钱驱动的投机涨_39999405.md"
+                   },
+                   {
+                       "type":  "item_saved",
+                       "time":  "2026-07-14 15:48:36",
+                       "item_key":  "399991390",
+                       "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\101400_砸情绪标就是引发同质化策略_市场轮动飞快_亏钱效应明显_昨天跌10_今天反弹2_扶老奶奶下楼梯__39999139.md"
+                   },
+                   {
+                       "type":  "item_saved",
+                       "time":  "2026-07-14 15:48:36",
+                       "item_key":  "399989467",
+                       "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\100900_Pcb_铜矿_业绩都是增长_所以上下游协同_铜矿利润增长更快_因为铜价高位_下游有需求_Pcb利_39998946.md"
+                   },
+                   {
+                       "type":  "item_saved",
+                       "time":  "2026-07-14 15:48:36",
+                       "item_key":  "399984015",
+                       "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\095500_国产线砸崩_然后国外线拉升_pcb发布业绩报_带头反弹_情绪与方向引导如何丝滑_-_雪球_39998401.md"
+                   },
+                   {
+                       "type":  "item_saved",
+                       "time":  "2026-07-14 15:48:36",
+                       "item_key":  "399978181",
+                       "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\094300_又引导情绪恐慌_星网锐捷_高开秒板_石油拉升_砸盘只记得翻绿_把科技的多头扼杀_带崩科技反弹情绪_39997818.md"
+                   },
+                   {
+                       "type":  "item_saved",
+                       "time":  "2026-07-14 15:48:36",
+                       "item_key":  "399970017",
+                       "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-14\\冰冰小美\\092800_从明天开始_我国相关的新闻就会逐步增加_从央行到产业大会_从Zzj到下半年经济指引_因此_需要时_39997001.md"
+                   }
+               ]
+}

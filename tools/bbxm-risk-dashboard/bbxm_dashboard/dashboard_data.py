@@ -3,6 +3,14 @@ from bisect import bisect_right
 from .errors import DashboardDataError
 
 
+def _risk_type(reason: str) -> str:
+    has_weakening = "【W1】" in reason or "【W2】" in reason or "【W3】" in reason
+    has_enhancement = "【R1】" in reason or "【R2】" in reason or "【R3】" in reason
+    if has_weakening and not has_enhancement:
+        return "weakening"
+    return "enhancement"
+
+
 def build_dashboard_payload(
     risk_records: list[dict],
     excel_warnings: list[str],
@@ -27,6 +35,7 @@ def build_dashboard_payload(
                 "close": close_by_date[market_date],
                 "count": record["count"],
                 "reason": record["reason"],
+                "risk_type": _risk_type(record["reason"]),
             }
         )
 

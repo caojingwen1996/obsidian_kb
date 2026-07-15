@@ -297,6 +297,59 @@ console.log(JSON.stringify({{
         self.assertTrue(payload["autoThenManual"])
         self.assertFalse(payload["autoOnly"])
 
+    def test_wait_for_document_ready_retries_transient_navigation_context_loss(self) -> None:
+        script_path = (PROJECT_ROOT / "scripts" / "extract_xueqiu_posts.mjs").as_uri()
+        payload = self.run_node_module_json(
+            f"""
+import {{ waitForDocumentReady }} from {json.dumps(script_path)};
+let calls = 0;
+const cdp = {{
+  async send(method, payload, options) {{
+    calls += 1;
+    if (calls === 1) {{
+      return {{
+        exceptionDetails: {{
+          text: "Execution context was destroyed."
+        }}
+      }};
+    }}
+    return {{ result: {{ value: "complete" }} }};
+  }}
+}};
+await waitForDocumentReady(cdp, "session-1", 1000);
+console.log(JSON.stringify({{ calls }}));
+"""
+        )
+
+        self.assertEqual(payload["calls"], 2)
+
+    def test_evaluate_json_retries_transient_navigation_context_loss(self) -> None:
+        script_path = (PROJECT_ROOT / "scripts" / "extract_xueqiu_posts.mjs").as_uri()
+        payload = self.run_node_module_json(
+            f"""
+import {{ evaluateJson }} from {json.dumps(script_path)};
+let calls = 0;
+const cdp = {{
+  async send(method, payload, options) {{
+    calls += 1;
+    if (calls === 1) {{
+      return {{
+        exceptionDetails: {{
+          text: "Execution context was destroyed."
+        }}
+      }};
+    }}
+    return {{ result: {{ value: "ok" }} }};
+  }}
+}};
+const value = await evaluateJson(cdp, "session-1", "window.__value", false);
+console.log(JSON.stringify({{ calls, value }}));
+"""
+        )
+
+        self.assertEqual(payload["calls"], 2)
+        self.assertEqual(payload["value"], "ok")
+
     def test_build_human_like_drag_path_properties(self) -> None:
         script_path = (PROJECT_ROOT / "scripts" / "extract_xueqiu_posts.mjs").as_uri()
         payload = self.run_node_module_json(

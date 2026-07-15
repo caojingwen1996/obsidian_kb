@@ -1,0 +1,8 @@
+2026-07-15 14:09:18,505 [WARNING] 没有新的目标日期帖子需要保存。
+
+2026-07-15 14:12:00 [INFO] BBXM automation target_date=2026-07-15 author=冰冰小美.
+2026-07-15 14:12:00 [INFO] daily extraction returned 0 posts and wrote processing/extracted-posts.json.
+2026-07-15 14:12:00 [INFO] all-visible verification wrote processing/extracted-posts-allvisible.json with 40 parseable records; date distribution contained no 2026-07-15 records and latest visible record was 2026-07-14 23:09.
+2026-07-15 14:12:00 [WARNING] all-visible extraction command timed out after writing output and CDP 9333 was unavailable afterwards; no target-date candidate was observed, but later same-day posts require rerun.
+2026-07-15 14:12:00 [INFO] risk-analysis.json saved with saved_post_count=0 analyzed_post_count=0 unresolved_post_count=0 qualified_count=0.
+2026-07-15 14:12:00 [INFO] risk-write-status.json status=no_risk count=0; workbook was not modified.

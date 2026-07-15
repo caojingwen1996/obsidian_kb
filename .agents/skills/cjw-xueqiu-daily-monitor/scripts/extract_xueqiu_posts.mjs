@@ -360,28 +360,50 @@ export function shouldFallbackToManualWait(mode, autoVerificationSucceeded) {
   return false;
 }
 
-async function evaluateJson(cdp, sessionId, expression, awaitPromise = true) {
-  const result = await cdp.send(
-    "Runtime.evaluate",
-    {
-      expression,
-      awaitPromise,
-      returnByValue: true,
-    },
-    { sessionId }
-  );
+export async function evaluateJson(cdp, sessionId, expression, awaitPromise = true) {
+  const maxAttempts = 3;
+  for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+    try {
+      const result = await cdp.send(
+        "Runtime.evaluate",
+        {
+          expression,
+          awaitPromise,
+          returnByValue: true,
+        },
+        { sessionId }
+      );
 
-  if (result.exceptionDetails) {
-    throw new Error(result.exceptionDetails.text || "Runtime.evaluate failed");
+      if (result.exceptionDetails) {
+        throw new Error(result.exceptionDetails.text || "Runtime.evaluate failed");
+      }
+      return result.result?.value;
+    } catch (error) {
+      if (!isTransientNavigationError(error) || attempt === maxAttempts) throw error;
+      await sleep(200);
+    }
   }
-  return result.result?.value;
+  return undefined;
 }
 
-async function waitForDocumentReady(cdp, sessionId, timeoutMs = 20_000) {
+function isTransientNavigationError(error) {
+  const message = error instanceof Error ? error.message : String(error);
+  return (
+    message.includes("Execution context was destroyed") ||
+    message.includes("Cannot find context") ||
+    message.includes("Inspected target navigated")
+  );
+}
+
+export async function waitForDocumentReady(cdp, sessionId, timeoutMs = 20_000) {
   const startedAt = Date.now();
   while (Date.now() - startedAt < timeoutMs) {
-    const state = await evaluateJson(cdp, sessionId, "document.readyState");
-    if (state === "interactive" || state === "complete") return;
+    try {
+      const state = await evaluateJson(cdp, sessionId, "document.readyState");
+      if (state === "interactive" || state === "complete") return;
+    } catch (error) {
+      if (!isTransientNavigationError(error)) throw error;
+    }
     await sleep(200);
   }
   throw new Error("Timed out waiting for document.readyState");

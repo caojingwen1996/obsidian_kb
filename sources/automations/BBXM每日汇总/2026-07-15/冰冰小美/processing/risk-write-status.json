@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "target_date": "2026-07-15",
+  "status": "no_risk",
+  "count": 0,
+  "workbook": "tools\\bbxm-risk-dashboard\\data\\冰冰小美风险提示.xlsx",
+  "analysis_file": "sources\\automations\\BBXM每日汇总\\2026-07-15\\冰冰小美\\processing\\risk-analysis.json",
+  "message": "完整分析后没有 R1/R2/R3，未修改 Excel"
+}

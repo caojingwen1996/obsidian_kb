@@ -5746,5 +5746,24 @@
                               ".manifest.json"
                           ]
     }  },
-  "updated_at": "2026-07-13T12:15:00+08:00"
+  "research": [
+    {
+      "type": "research",
+      "topic": "国内AI网络安全与AI Agent安全公司",
+      "researched_at": "2026-07-15T16:00:00+08:00",
+      "rounds_completed": 3,
+      "sources_fetched": 17,
+      "pages_created": [
+        "sources/webpages/2026-07-15-国内AI网络安全与AI-Agent安全公司官网调研.md",
+        "wiki/queries/国内AI网络安全与AI-Agent安全公司版图.md"
+      ],
+      "pages_updated": [
+        "index.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    }
+  ],
+  "updated_at": "2026-07-15T16:00:00+08:00"
 }

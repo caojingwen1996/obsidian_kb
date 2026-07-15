@@ -12,6 +12,7 @@ def test_daily_prompt_contains_risk_writeback_contract():
         "risk-write-status.json",
         "R1 / R2 / R3",
         "W1 / W2 / W3",
+        "风险减弱或转向机会节点，写入风险工具",
         "当天全部已保存帖子",
         "analysis_complete",
         "upsert_automated_risk.py",

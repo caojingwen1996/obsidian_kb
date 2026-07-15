@@ -13,8 +13,8 @@ from openpyxl import load_workbook
 
 AUTOMATED_PREFIX = "[自动分析｜冰冰小美每日任务]"
 REQUIRED_COLUMNS = ("日期", "当日累计风险提示次数", "风险原因")
-ALLOWED_LEVELS = {"R1", "R2", "R3"}
-NOT_WRITTEN_LEVELS = {"N", "W1", "W2", "W3", "待验证"}
+ALLOWED_LEVELS = {"R1", "R2", "R3", "W1", "W2", "W3"}
+NOT_WRITTEN_LEVELS = {"N", "待验证"}
 
 
 class AnalysisError(ValueError):
@@ -327,7 +327,7 @@ def update_workbook(
             target_date,
             "no_risk",
             0,
-            "完整分析后没有 R1/R2/R3，未修改 Excel",
+            "完整分析后没有可写入节点，未修改 Excel",
         )
         _write_status(status_path, payload)
         return payload
@@ -363,7 +363,7 @@ def update_workbook(
         message = "已更新自动分析风险提示行"
     else:
         status = "removed"
-        message = "完整分析后没有 R1/R2/R3，已删除旧自动分析行"
+        message = "完整分析后没有可写入节点，已删除旧自动分析行"
     payload = _status_payload(
         analysis_path,
         workbook_path,

@@ -65,6 +65,16 @@ def test_chart_zoom_scales_y_axis_to_visible_period(tmp_path):
     assert "renderer: 'svg'" in javascript
 
 
+def test_chart_colors_weakening_points_green(tmp_path):
+    app = create_app({"TESTING": True, "DATA_DIR": tmp_path})
+    javascript = app.test_client().get("/static/app.js").get_data(as_text=True)
+
+    assert "function riskPointColor(value)" in javascript
+    assert "value[5] === 'weakening'" in javascript
+    assert "#00d86a" in javascript
+    assert "point.risk_type" in javascript
+
+
 def test_root_contains_risk_detail_table(tmp_path):
     app = create_app({"TESTING": True, "DATA_DIR": tmp_path})
     html = app.test_client().get("/").get_data(as_text=True)

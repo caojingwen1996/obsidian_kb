@@ -41,9 +41,9 @@
 
 ### 3.2 风险等级与计数
 
-- `R1 / R2 / R3`：写入风险工具；每条合格帖子计 1 次。
+- `R1 / R2 / R3`：风险增强节点，写入风险工具；每条合格帖子计 1 次。
+- `W1 / W2 / W3`：风险减弱或转向机会节点，写入风险工具；每条合格帖子计 1 次。
 - `N`：方向不明确，不写入。
-- `W1 / W2 / W3`：风险减弱或转向机会，不写入。
 - `待验证`：证据、抓取或传导链不完整，不写入。
 
 合格风险必须同时具备明确的风险对象、触发信息、传导链和帖子证据。不得仅因帖子出现“上涨、下跌、利好、利空”等孤立词语而触发。一条帖子包含多个相关风险点时仍只计 1 次，并在同一条原因中概括。
@@ -76,9 +76,9 @@ sources/automations/BBXM每日汇总/{DATE}/冰冰小美/processing/risk-analysi
 }
 ```
 
-`qualified` 每项必须包含：`post_key`、`source_file`、`url`、`title`、`published_at`、`level`、`risk_object`、`trigger`、`transmission`、`evidence`、`reason`。`post_key` 优先使用帖子 URL；没有 URL 时使用来源文件名和发布时间生成稳定键。`level` 只能是 `R1`、`R2`、`R3`。
+`qualified` 每项必须包含：`post_key`、`source_file`、`url`、`title`、`published_at`、`level`、`risk_object`、`trigger`、`transmission`、`evidence`、`reason`。`post_key` 优先使用帖子 URL；没有 URL 时使用来源文件名和发布时间生成稳定键。`level` 只能是 `R1`、`R2`、`R3`、`W1`、`W2`、`W3`。
 
-`not_written` 每项必须包含：`post_key`、`level`、`reason`，其中 `level` 只能是 `N`、`W1`、`W2`、`W3`、`待验证`。
+`not_written` 每项必须包含：`post_key`、`level`、`reason`，其中 `level` 只能是 `N`、`待验证`。
 
 写入前必须自检：
 
@@ -95,7 +95,7 @@ sources/automations/BBXM每日汇总/{DATE}/冰冰小美/processing/risk-analysi
 python tools/bbxm-risk-dashboard/scripts/upsert_automated_risk.py --analysis-file "sources/automations/BBXM每日汇总/{DATE}/冰冰小美/processing/risk-analysis.json" --workbook "tools/bbxm-risk-dashboard/data/冰冰小美风险提示.xlsx" --status-file "sources/automations/BBXM每日汇总/{DATE}/冰冰小美/processing/risk-write-status.json"
 ```
 
-更新器只允许修改目标日期、风险原因以 `[自动分析｜冰冰小美每日任务]` 开头的自动行；不得修改同日人工行或其他日期记录。完整分析后没有 R1/R2/R3 时，由更新器删除旧自动行，不新增零次数行。
+更新器只允许修改目标日期、风险原因以 `[自动分析｜冰冰小美每日任务]` 开头的自动行；不得修改同日人工行或其他日期记录。完整分析后没有 R1/R2/R3/W1/W2/W3 可写入节点时，由更新器删除旧自动行，不新增零次数行。
 
 执行后必须读取 `risk-write-status.json`：
 
@@ -157,7 +157,7 @@ python tools/bbxm-risk-dashboard/scripts/upsert_automated_risk.py --analysis-fil
 - 分析覆盖：已分析 X / 已保存 Y，未解决 Z
 - 是否写入风险工具：是 / 否 / 待补写 / 已阻断
 - 当日累计风险提示次数：N
-- 风险等级分布：R1 × A，R2 × B，R3 × C
+- 风险等级分布：R1 × A，R2 × B，R3 × C，W1 × D，W2 × E，W3 × F
 - 写入文件：`tools/bbxm-risk-dashboard/data/冰冰小美风险提示.xlsx`
 - 待验证边界：无 / 具体说明
 ```
@@ -235,6 +235,6 @@ python tools/bbxm-risk-dashboard/scripts/upsert_automated_risk.py --analysis-fil
 4. summary.md 路径；
 5. 风险分析覆盖：已保存、已分析、未解决数量；
 6. Excel 写入状态：`written / no_risk / removed / pending / blocked`；
-7. 当日自动风险提示次数和 R1/R2/R3 分布；
+7. 当日自动风险提示次数和 R1/R2/R3/W1/W2/W3 分布；
 8. 抓取、分析或写入失败边界；
 9. 人工跟进项。

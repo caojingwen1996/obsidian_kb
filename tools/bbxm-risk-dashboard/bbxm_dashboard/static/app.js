@@ -21,6 +21,14 @@ function riskSize(value) {
   return Math.max(10, Math.min(28, 8 + Math.sqrt(value[2]) * 5));
 }
 
+function riskPointColor(value) {
+  return value[5] === 'weakening' ? '#00d86a' : '#ff2028';
+}
+
+function riskPointBorderColor(value) {
+  return value[5] === 'weakening' ? '#c9ffdd' : '#ffd4d6';
+}
+
 function chartOption(payload) {
   const visibleRange = {
     startValue: payload.range.start,
@@ -99,11 +107,16 @@ function chartOption(payload) {
           point.count,
           point.risk_date,
           point.reason,
+          point.risk_type,
         ]),
         symbolSize: riskSize,
         itemStyle: {
-          color: '#ff2028',
-          borderColor: '#ffd4d6',
+          color(params) {
+            return riskPointColor(params.value);
+          },
+          borderColor(params) {
+            return riskPointBorderColor(params.value);
+          },
           borderWidth: 1,
         },
       },

@@ -1,5 +1,25 @@
 # 知识库日志
 
+## 2026-07-13
+
+### 操作类型
+
+source / automation
+
+### 修改文件
+
+- `sources/automations/中证红利信号/最新信号.md`
+- `sources/automations/中证红利信号/中证红利每日信号.xlsx`
+- `log.md`
+
+### 操作说明
+
+运行 `zzhl-dividend-signal` 自动化脚本，按 Query Page“中证红利什么时候买入收益率最高”的历史分位点、绝对股息率和股债利差三类规则刷新每日记录。AKShare 指数估值和中国10年国债收益率的最新数据日期均为 2026-07-10：中证红利股息率2 为 4.69%，中国10年国债收益率为 1.7398%，利差为 2.9502%。理杏仁公开页面本次成功解析，估值日期为 2026-07-10，市值加权股息率为 4.53%，近10年股息率分位为 25.76%，近10年80%分位点为 6.12%。雪球实时行情接口返回空响应，因此当天涨跌幅保持待验证，未据此修正股息率。三类信号分别为 D / C / B，综合结论为“未进入加大买入区间”，未进入重点买入区间。
+
+### 后续待办
+
+- 继续观察后续交易日 AKShare 估值日期是否推进；若雪球实时行情恢复，再补齐当天涨跌幅记录。
+
 ## 2026-07-10
 
 ### 操作类型
@@ -12510,6 +12530,275 @@ ingest / concept update
 - [2026-07-13T12:00:00+08:00] INGEST source="sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/219-227" pages_updated=5 pages_created=1 mode=append
 - [2026-07-13T12:15:00+08:00] INGEST source="sources/manual/体系及案例分析/三、实战操作/1、套利机会与风险提示/228-250" pages_updated=2 pages_created=0 mode=append
 - [2026-07-13T12:16:00+08:00] VERIFY scope="实战操作219-250" coverage=32/32 manifest=valid mojibake=new_changes_none
+## 2026-07-13
+
+### 操作类型
+
+automation / daily-brief
+
+### 修改文件
+
+- `sources/automations/商业航天每日跟踪/2026-07-12.md`
+- `sources/automations/商业航天每日跟踪/产业进度看板.md`
+- `log.md`
+
+### 操作说明
+
+按 `.agents/automations/commercial_space_daily_brief.md` 生成 2026-07-12 商业航天产业进度日报，检索窗口为 2026-07-12 00:00 至 2026-07-13 09:30（北京时间）。四维均已独立检索；目标窗口内未确认新的中国星网或千帆组网数量，净新增主要来自长征十号乙首飞入轨并完成一子级海上网系回收的官方确认，以及北京披露围绕可重复使用火箭的基金、平台、实验室和“南箭北星”集群支撑。竞争格局总评级为增强（技术验证增强，组网与订单收入利润未同步增强）。
+
+### 后续待办
+
+- 人工核验国家航天局原文页面可访问性、长征十号乙回收箭体检修状态和年底前同一一子级复飞计划。
+- 继续跟踪中国星网 / 千帆有效在轨数、用户、服务收入，以及北京商业航天和低空经济产业基金规模、实缴和已投项目。
+
+## 2026-07-13
+
+### 操作类型
+
+automation / daily-brief-incremental
+
+### 修改文件
+
+- `sources/automations/商业航天每日跟踪/2026-07-12.md`
+- `sources/automations/商业航天每日跟踪/产业进度看板.md`
+- `log.md`
+
+### 操作说明
+
+按 `.agents/automations/commercial_space_daily_brief.md` 对 2026-07-12 商业航天产业进度日报做同日增量补抓，检索窗口仍为 2026-07-12 00:00 至 2026-07-13 09:30（北京时间）。四维均已独立复核；目标窗口内仍未确认新的中国星网或千帆组网事件、新投资完成额、同一箭体复飞或统一全球份额更新。净新增为来源修正：补抓到中国科学院微小卫星创新研究院 2026-07-05 资料，披露千帆极轨 15 组平板卫星堆叠规模首次提升至 1 箭 20 星；该信息用于补齐既有基线，不自行推算主管部门新累计值。竞争格局总评级维持增强（技术验证增强，组网与订单收入利润未同步增强）。
+
+### 后续待办
+
+- 人工核验千帆 2026-07-05 批次是否被主管部门纳入新的累计发射和有效在轨口径。
+- 继续跟踪长征十号乙回收箭体检修状态、年底前同一一子级复飞计划，以及北京商业航天和低空经济产业基金规模、实缴和已投项目。
+
+## 2026-07-13
+
+### 操作类型
+
+automation / source capture / summary
+
+### 修改文件
+
+- `sources/automations/BBXM每日汇总/2026-07-13/冰冰小美/processing/extracted-posts.json`
+- `sources/automations/BBXM每日汇总/2026-07-13/冰冰小美/task.log`
+- `sources/automations/BBXM每日汇总/2026-07-13/冰冰小美/summary.md`
+- `log.md`
+
+### 操作说明
+
+执行 BBXM 每日汇总自动化，目标日期为 2026-07-13（北京时间），目标作者为冰冰小美。先读取 `.agents/automations/bbxm_daliy_brief.md`，再按 `cjw-xueqiu-daily-monitor` 的配置和脚本执行单轮抓取。CDP 9333 初始不可用，启动 Chrome SxS 后恢复；第一轮因雪球滑动验证与异常窗口高度超时未生成 JSON，修正自动化窗口尺寸后第二轮提取成功。提取到 19 条候选帖，但发布时间均为 2026-07-11 或 2026-07-10；`content_task.py` 按目标日期过滤后确认 2026-07-13 目标日期帖子数为 0、跳过数为 19、成功抓取数为 0、失败数为 0。已在 summary 中明确边界：本轮未抓到目标日期帖子，不等同于确认作者全天无发帖，也不翻译为买卖动作。
+
+### 后续待办
+
+- 若 2026-07-13 稍后出现新帖，按同一目录进行同日增量重跑。
+- 修复历史遗留的 `wiki/people/冰冰小美.md` mojibake。
+- 恢复或修正 `wiki/concepts/冰冰小美-rule-体系三要素的运用.md` 路径；本次使用三要素主题页和三个拆分页作为替代。
+
+## 2026-07-13
+
+### 操作类型
+
+source / interpret
+
+### 修改文件
+
+- `sources/articles/2023-06-27-冰冰小美：常见亏钱认知第十一期分时图技术分析.md`
+- `log.md`
+
+### 操作说明
+
+继续整理“常见亏钱认知”系列，将第十一期《分时图技术分析》的自动结构速览替换为逐层解读。重点说明“冲高回落”等术语如何把中性市场现象包装成次日亏损预言，拆解持仓盈亏如何让同一图形产生相反解释，并区分情绪上升与情绪整体下降环境中的冲高回落；进一步把冲高和回落拆成情绪跟随、套利点火、单一资金、流动性阻力、获利兑现与整体恐慌等不同来源，将 T+1 下的分时问题还原到买入是否符合体系三要素，最终落到过滤 / 观察 / 等待 / 小仓试错 / 持有验证 / 减仓卖出 / 止错 / 复盘动作。
+
+按用户补充要求，在结构速览开头增加一句话核心观点：分时图只能作为市场行为观察材料，不能脱离情绪方向、流动性来源和体系三要素成为独立买卖条件或次日涨跌预言。
+
+### 后续待办
+
+- 下一篇可继续按同一结构解读第十二期《卡位穿越》。
+
+## 2026-07-13
+
+### 操作类型
+
+source / interpret
+
+### 修改文件
+
+- `sources/articles/2023-07-05-冰冰小美：常见亏钱认知第十二期卡位穿越.md`
+- `log.md`
+
+### 操作说明
+
+继续整理“常见亏钱认知”系列，将第十二期《卡位穿越》的自动结构速览替换为一句话核心观点与逐层解读。重点把卡位从板数和最高板排名还原为流动性重新分配，区分形式同高度与真正情绪标带动能力，说明情绪标更替必须由恐惧中率先走强、挣钱效应扩散和市场信心 / 流动性共振确认；进一步拆解整体恐慌、模式一致和高位竞争如何制造龙头假象与后手亏钱，并将孤立小盘股逆势新高但板块多数标的持续下跌的结构解释为可能的“围魏救赵”出货掩护，最终落到过滤 / 观察 / 等待回避 / 小仓试错 / 比较持有 / 降低旧核心仓位 / 减仓卖出 / 止错 / 复盘动作。
+
+### 后续待办
+
+- 下一篇可继续按同一结构解读第十三期《情绪退潮，杂毛顶一字》。
+
+## 2026-07-13
+
+### 操作类型
+
+source / interpret
+
+### 修改文件
+
+- `sources/articles/2023-08-14-冰冰小美：常见亏钱认知第十三期情绪退潮杂毛顶一字.md`
+- `log.md`
+
+### 操作说明
+
+继续整理“常见亏钱认知”系列，将第十三期《情绪退潮，杂毛顶一字》的自动结构速览替换为一句话核心观点与逐层解读。重点区分一字板强势形态与真正情绪标功能，说明“杂毛”是不能带动主线、打开空间或改善挣钱效应的当期市场功能判断，而非个股永久标签；进一步拆解退潮、高度板断板、减量环境、卡位与套利如何分散流动性，并把一字板超预期反转为隔日不及预期和集中卖出的负反馈链条，最终落到过滤 / 观察 / 等待回避 / 减少模式暴露 / 减仓卖出 / 止错 / 小仓试错 / 复盘动作。
+
+### 后续待办
+
+- 下一篇可继续按同一结构解读第十四期《假象与反人性的折磨》。
+
+- [2026-07-13T11:31:58+08:00] QUERY query="共同解读 sources/manual/体系及案例分析/三、实战操作 目录文章，并从第219篇开始" result_pages=3 mode=normal escalated=false
+- [2026-07-13T12:00:00+08:00] QUERY query="冰冰小美对情绪标的定义是什么" result_pages=1 mode=normal escalated=false
+- [2026-07-13T14:29:30+08:00] QUERY query="根据实战操作内容回答什么叫情绪一致性" result_pages=3 mode=normal escalated=true
+
+## 2026-07-13
+
+### 操作类型
+
+automation / daily-brief-incremental
+
+### 修改文件
+
+- `sources/automations/BBXM每日汇总/2026-07-13/冰冰小美/processing/extracted-posts-rerun-20260713-163400.json`
+- `sources/automations/BBXM每日汇总/2026-07-13/冰冰小美/processing/homepage-candidates-alltargets-rerun-20260713-164526.json`
+- `sources/automations/BBXM每日汇总/2026-07-13/冰冰小美/processing/open-detail-pages-rerun-20260713-164822.json`
+- `sources/automations/BBXM每日汇总/2026-07-13/冰冰小美/task.log`
+- `sources/automations/BBXM每日汇总/2026-07-13/冰冰小美/summary.md`
+- `log.md`
+
+### 操作说明
+
+按 `.agents/automations/bbxm_daliy_brief.md` 对 2026-07-13 BBXM 每日汇总做同日增量重跑。CDP 9333 初始不可用，使用 Chrome SxS 和 skill 固定 profile 启动自动化浏览器后恢复；`extract_xueqiu_posts.mjs` 写出 26 条详情提取结果，但 `content_task.py` 按目标日期过滤后保存 0 条目标日期原始帖。进一步通过 CDP 检查主页候选，确认雪球主页可见 2026-07-13 相对时间候选帖；但当前打开的详情页目标均被滑动验证或检查失败阻断，因此本轮 summary 改写为“不完整抓取边界”版本，只把主页片段用于低置信复盘，不翻译成确定买卖动作。
+
+### 后续待办
+
+- 人工在自动化 Chrome profile 中完成雪球滑动验证后，按同一目录增量重跑，补抓 2026-07-13 详情正文。
+- 继续修复历史遗留的 `wiki/people/冰冰小美.md` mojibake。
+- 若需要保持 prompt 最低必读路径一致，补齐或重命名 `wiki/concepts/冰冰小美-rule-减仓.md`；本次使用 `wiki/concepts/冰冰小美-rule-卖.md` 作为减仓规则替代页。
+
+## 2026-07-14
+
+### 操作类型
+
+automation / commercial-space-daily-brief
+
+### 修改文件
+
+- `sources/automations/商业航天每日跟踪/2026-07-13.md`
+- `sources/automations/商业航天每日跟踪/产业进度看板.md`
+- `log.md`
+
+### 操作说明
+
+按 `.agents/automations/commercial_space_daily_brief.md` 生成 2026-07-13 商业航天产业日报，检索窗口为 2026-07-13 00:00 至 2026-07-14 09:30（北京时间）。本次不是同日增量补抓；读取既有看板和最近日报后，只写净新增。四维均独立检索：中国星网与卫星组网未确认新增国内批次或主管部门累计口径；产业规划与投资增速未确认新增实际投资完成额，但记录中信重工、贵绳股份、星网宇达等公告/风险提示所揭示的概念纯度和收入利润距离；细分核心技术未确认长征十号乙检修、复飞或其他技术阶段新增；全球竞争份额维度新增 Jonathan's Space Report 的 Starlink 有效在轨统计口径，并记录 Starlink 15-14 在窗口尾端进入发射流程。
+
+竞争格局评级为未变：国内产业进度没有新的可核验跃迁，海外头部星座规模和高频复用继续形成追赶压力，A 股概念传播快于订单、收入和利润验证。
+
+### 后续待办
+
+- 人工核验 SpaceX Starlink 15-14 官方任务结果、最终 payload 数量和 B1093 回收状态。
+- 补齐中信重工、贵绳股份、星网宇达的交易所原始公告链接。
+- 继续跟踪中国星网有效在轨、终端、用户和服务收入，以及长征十号乙同一一子级复飞进展。
+
+## 2026-07-14
+
+### 操作类型
+
+automation / source-refresh
+
+### 修改文件
+
+- `sources/automations/中证红利信号/最新信号.md`
+- `sources/automations/中证红利信号/中证红利每日信号.xlsx`
+- `log.md`
+
+### 操作说明
+
+按 `zzhl-dividend-signal` skill 运行 `python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py --output-dir "sources/automations/中证红利信号" --run-date 2026-07-14`，刷新中证红利股息率信号每日记录。首次运行超时后分段核查数据源：AKShare 估值接口一度只返回到 `2026-06-16`，理杏仁公开页返回 `HTTP Error 429: Too Many Requests`，雪球实时行情接口返回空响应；随后重跑完整脚本成功。本轮最终写入的 AKShare 指数估值日期为 `2026-07-13`，中证红利 `股息率2` 为 `4.68%`；中国 10 年国债收益率日期为 `2026-07-13`，收益率为 `1.7442%`，股债利差为 `2.9358` 个百分点。理杏仁公开页面本轮最终可解析，估值日期为 `2026-07-13`，市值加权股息率为 `4.45%`，近 10 年股息率分位为 `18.78%`，近 10 年 `80%` 分位点为 `6.12%`。三类信号分别为：历史分位点 `D`，绝对股息率 `C`，股债利差 `B`；综合结论为“未进入加大买入区间”，未进入重点买入区间。雪球实时行情接口仍返回空响应，因此当天涨跌幅保留为待验证，未据此修正股息率。
+
+### 后续待办
+
+- 若雪球实时行情接口恢复，可补查 `2026-07-14` 当天涨跌幅；当前信号判断不依赖该字段。
+
+## 2026-07-14
+
+### 操作类型
+
+automation / robot-industry-daily-brief
+
+### 修改文件
+
+- `sources/manual/机器人作业/2026-07-14.md`
+- `log.md`
+
+### 操作说明
+
+按 `.agents/automations/root_daliy_brief.md` 生成 2026-07-14 机器人行业信息分类日报，检索窗口按提示词应覆盖 2026-07-14 00:00 至 2026-07-15 09:30；本轮实际运行于 2026-07-14 收盘附近，截至 15:33:16 +08:00，尚未覆盖晚间公告、次日盘前转载和完整龙虎榜。日报同时检索新闻源与公告源，纳入江苏具身智能产业链闭环报道、北斗星通和好上好半年度业绩预告中的机器人相关收入线索、北京人形 TG-VLA 技术框架、159530 ETF 净申购与当日收盘弱修复数据，并按 bbxm 离钱远近评级。
+
+### 后续待办
+
+- 补查 2026-07-14 晚间公告至 2026-07-15 09:30 前转载。
+- 补查 2026-07-14 收盘后机器人板块龙虎榜 / 机构席位完整数据。
+- 人工复核上交所公告关键词接口过滤异常，以及江苏产业链报道中订单主体与 A 股供应链映射。
+
+## 2026-07-14
+
+### 操作类型
+
+automation / bbxm-daily-brief
+
+### 修改文件
+
+- `.agents/skills/cjw-xueqiu-daily-monitor/scripts/extract_xueqiu_posts.mjs`
+- `.agents/skills/cjw-xueqiu-daily-monitor/scripts/tests/test_extract_xueqiu_posts.py`
+- `sources/automations/BBXM每日汇总/2026-07-14/冰冰小美/processing/extracted-posts.json`
+- `sources/automations/BBXM每日汇总/2026-07-14/冰冰小美/processing/column-posts.json`
+- `sources/automations/BBXM每日汇总/2026-07-14/冰冰小美/processing/summary-input.json`
+- `sources/automations/BBXM每日汇总/2026-07-14/冰冰小美/state.json`
+- `sources/automations/BBXM每日汇总/2026-07-14/冰冰小美/task.log`
+- `sources/automations/BBXM每日汇总/2026-07-14/冰冰小美/summary.md`
+- `sources/automations/BBXM每日汇总/2026-07-14/冰冰小美/*.md`（20 条目标日期原始帖）
+- `log.md`
+
+### 操作说明
+
+按 `.agents/automations/bbxm_daliy_brief.md` 执行 2026-07-14 BBXM 每日汇总，目标作者为冰冰小美。初始 CDP 抓取遇到雪球详情页瞬时导航导致的 `Execution context was destroyed`，已为 `extract_xueqiu_posts.mjs` 增加瞬时导航上下文丢失重试，并补充对应测试；随后旧 Chromium 窗口尺寸异常导致滑块验证不可定位，改用 Chrome SxS 通过 9333 端口继续抓取。最终提取 22 条候选，`content_task.py` 按目标日期保存 20 条 2026-07-14 原始帖，过滤 2 条非目标日期内容；保存状态为 `success_count=20`、`failure_count=0`。`summary.md` 按自动化主提示词生成，行为翻译落到等、观察、复盘、减，不把当天局部强势直接翻译为买入信号。
+
+### 后续待办
+
+- 若 2026-07-14 晚间仍有新帖，按同一目录做同日增量重跑。
+- 继续修复历史遗留的 `wiki/people/冰冰小美.md` mojibake。
+- 补齐或重命名 `wiki/concepts/冰冰小美-rule-减仓.md`；本次仍使用 `wiki/concepts/冰冰小美-rule-卖.md` 作为减仓规则替代页。
+
+## 2026-07-14
+
+### 操作类型
+
+automation / bbxm-daily-brief-rerun
+
+### 修改文件
+
+- `sources/automations/BBXM每日汇总/2026-07-14/冰冰小美/processing/extracted-posts-rerun-20260714-160439.json`
+- `sources/automations/BBXM每日汇总/2026-07-14/冰冰小美/processing/rerun-dedupe-20260714-160439.json`
+- `sources/automations/BBXM每日汇总/2026-07-14/冰冰小美/task.log`
+- `log.md`
+
+### 操作说明
+
+按 `.agents/automations/bbxm_daliy_brief.md` 对 2026-07-14 BBXM 每日汇总执行同日增量重跑，目标作者仍为冰冰小美。复用既有作者目录、`state.json`、20 条原始帖和现有 `summary.md`，通过 CDP 9333 抓取一轮雪球主页详情，生成 `processing/extracted-posts-rerun-20260714-160439.json`。本轮提取 22 条详情，其中 20 条属于目标日期，2 条为非目标日期；与既有 `state.json` 对比后净新增目标日期帖子为 0，因此未新增或覆盖原始帖，也未重写 `summary.md` 正文。
+
+### 后续待办
+
+- 若 2026-07-14 晚间仍有新帖，继续按同一目录做增量重跑。
+- 修复历史遗留的 `wiki/people/冰冰小美.md` mojibake，避免后续行为翻译前置阅读受影响。
+- 补齐或重命名提示词要求但当前缺失的 `wiki/concepts/冰冰小美-rule-体系三要素的运用.md` 和 `wiki/concepts/冰冰小美-rule-减仓.md`；本轮使用三要素拆分页和 `wiki/concepts/冰冰小美-rule-卖.md` 作为替代阅读页。
 
 ## 2026-07-14
 
@@ -12537,6 +12826,53 @@ tool / dashboard
 
 ### 操作类型
 
+tool / launcher
+
+### 修改文件
+
+- `tools/bbxm-risk-dashboard/启动工具.bat`
+- `tools/bbxm-risk-dashboard/tests/test_launcher.py`
+- `tools/bbxm-risk-dashboard/README.md`
+- `docs/superpowers/specs/2026-07-14-bbxm-risk-dashboard-launcher-design.md`
+- `docs/superpowers/plans/2026-07-14-bbxm-risk-dashboard-launcher.md`
+- `log.md`
+
+### 操作说明
+
+新增 Windows 双击启动脚本。首次运行时自动创建 `.venv` 并安装依赖，后续复用现有环境；脚本从自身目录定位文件，延迟打开本机页面，并让 Flask 服务在当前窗口前台运行。补充了脚本行为和 Windows CRLF 换行回归测试，并完成首次初始化、重复启动、HTTP 200、环境复用和停止后端口释放验证。
+
+### 后续待办
+
+- 无。
+
+## 2026-07-14
+
+### 操作类型
+
+tool / dashboard
+
+### 修改文件
+
+- `tools/bbxm-risk-dashboard/bbxm_dashboard/static/index.html`
+- `tools/bbxm-risk-dashboard/bbxm_dashboard/static/styles.css`
+- `tools/bbxm-risk-dashboard/bbxm_dashboard/static/app.js`
+- `tools/bbxm-risk-dashboard/tests/test_app.py`
+- `docs/superpowers/specs/2026-07-14-bbxm-risk-detail-table-design.md`
+- `docs/superpowers/plans/2026-07-14-bbxm-risk-detail-table.md`
+- `log.md`
+
+### 操作说明
+
+在上证指数风险曲线下方增加“风险提示明细”表格，复用同一次接口响应，按风险日期倒序展示日期、当日累计风险提示次数和完整风险原因。表格沿用黑底白框风格，次数用红色文字强调；无数据或加载失败时显示空状态并清除旧行。桌面端表格与左侧图表等宽且右侧继续留空，窄屏时仅表格容器横向滚动。新增结构、渲染、错误清理和响应式样式测试，并完成桌面、720px、375px 与浏览器控制台验收。
+
+### 后续待办
+
+- 无。
+
+## 2026-07-14
+
+### 操作类型
+
 automation / tool
 
 ### 修改文件
@@ -12557,3 +12893,190 @@ automation / tool
 ### 后续待办
 
 - 首次实际自动化运行后，核对 `risk-analysis.json` 的逐帖证据质量及 Excel 自动行展示效果。
+
+## 2026-07-14
+
+### 操作类型
+
+automation / risk analysis
+
+### 修改文件
+
+- `sources/automations/BBXM每日汇总/2026-07-08/冰冰小美/processing/risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/processing/risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026-07-10/冰冰小美/processing/risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026-07-13/冰冰小美/processing/risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026-07-14/冰冰小美/processing/risk-analysis.json`
+- `log.md`
+
+### 操作说明
+
+依据已保存原帖和冰冰小美体系，对 2026-07-08、2026-07-09、2026-07-10、2026-07-13、2026-07-14 五个日期执行逐帖结构化风险分析。四个抓取完整日期共覆盖 78 条帖子，分别识别 5、6、5、10 个满足触发、传导和证据要求的 R1/R2/R3 风险节点；其余帖子按 N、W1/W2 或待验证保留在 `not_written`。2026-07-13 因 14 个候选详情页均受滑动验证或检查失败影响，明确写为 `analysis_complete=false`，不据主页片段推断零风险。本次只生成分析文件，未更新风险提示 Excel。
+
+### 后续待办
+
+- 对 2026-07-13 执行人工验证或重新抓取，取得完整正文后再补做风险分析。
+- 人工复核风险节点后，可运行独立更新器将已完成日期幂等写入风险提示 Excel。
+
+## 2026-07-15
+
+### 操作类型
+
+research / query
+
+### 修改文件
+
+- `sources/webpages/2026-07-15-国内AI网络安全与AI-Agent安全公司官网调研.md`
+- `wiki/queries/国内AI网络安全与AI-Agent安全公司版图.md`
+- `index.md`
+- `hot.md`
+- `.manifest.json`
+- `log.md`
+
+### 操作说明
+
+通过多轮官网检索整理国内 AI 网络安全、大模型安全与 AI Agent 安全公司版图，区分 AI 赋能网络安全、模型/应用安全和 Agent 身份权限、工具调用、MCP/Skill、沙箱与审计三层能力，并形成甲方 PoC 检查表。核心名单仅收录具有可核验官方产品或文档的厂商；官网自报能力未视为独立验证。
+
+### 后续待办
+
+- 如进入采购阶段，按具体技术栈和行业要求缩小到 3 至 5 家，并进行同一攻击集 PoC。
+- 后续补充第三方测评、标杆客户和生产性能数据。
+
+## 2026-07-15
+
+### 操作类型
+
+automation / risk dashboard writeback
+
+### 修改文件
+
+- `tools/bbxm-risk-dashboard/data/冰冰小美风险提示.xlsx`
+- `sources/automations/BBXM每日汇总/2026-07-08/冰冰小美/processing/risk-write-status.json`
+- `sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/processing/risk-write-status.json`
+- `sources/automations/BBXM每日汇总/2026-07-10/冰冰小美/processing/risk-write-status.json`
+- `sources/automations/BBXM每日汇总/2026-07-13/冰冰小美/processing/risk-write-status.json`
+- `sources/automations/BBXM每日汇总/2026-07-14/冰冰小美/processing/risk-write-status.json`
+- `log.md`
+
+### 操作说明
+
+将近几日已完成的冰冰小美结构化风险分析写入风险提示工具 Excel。2026-07-08、2026-07-09、2026-07-10、2026-07-14 分别写入 5、6、5、10 个 R1/R2/R3 自动风险提示节点；自动行使用 `[自动分析｜冰冰小美每日任务]` 标记，保留同日人工记录并支持同日重跑替换。2026-07-13 因 `analysis_complete=false` 被写为 `blocked` 状态，未写入 Excel。
+
+### 后续待办
+
+- 对 2026-07-13 重新抓取或人工补验完整正文后，再补做风险分析并写入。
+
+## 2026-07-15
+
+### 操作类型
+
+automation / commercial-space-daily-brief
+
+### 修改文件
+
+- `sources/automations/商业航天每日跟踪/2026-07-14.md`
+- `sources/automations/商业航天每日跟踪/产业进度看板.md`
+- `log.md`
+
+### 操作说明
+
+按 `.agents/automations/commercial_space_daily_brief.md` 生成 2026-07-14 商业航天产业日报，检索窗口为 2026-07-14 00:00 至 2026-07-15 09:30（北京时间）。本次不是同日增量补抓，目标日报原先不存在。四个维度均独立检索：中国星网与卫星组网、产业规划与投资增速、国内核心关键技术均未确认新增；全球竞争份额变化出现净新增，Jonathan's Space Report 将 Starlink 统计更新至总发射 12,552 颗、总在轨 10,855 颗、总工作 10,839 颗，Starlink 15-14 从上一窗口的发射流程中补确认为成功，并记录 Starlink 10-45 聚合统计已反映但任务级状态待复核。竞争格局总评级为未变（全球追赶压力增强，国内产业变量未新增）。
+
+### 后续待办
+
+- 核验 Starlink 10-45 官方任务结果、B1080 回收状态和卫星目录。
+- 核验 SpaceX 官方 launches 页面可访问性，以及 Starship V3 实际发射和载荷结果。
+- 继续跟踪中国星网有效在轨、终端、用户和服务收入。
+- 继续跟踪北京商业航天基金实缴、项目清单，以及长征十号乙回收箭体检修与复飞计划。
+
+## 2026-07-15
+
+### 操作类型
+
+automation / dividend signal
+
+### 修改文件
+
+- `sources/automations/中证红利信号/最新信号.md`
+- `sources/automations/中证红利信号/中证红利每日信号.xlsx`
+- `log.md`
+
+### 操作说明
+
+按 `zzhl-dividend-signal` skill 运行 `python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py --output-dir "sources/automations/中证红利信号" --run-date 2026-07-15`，刷新中证红利股息率信号每日记录。本轮写入记录日为 `2026-07-15`；AKShare 指数估值日期为 `2026-07-14`，中证红利 `股息率2` 为 `4.58%`；中国 10 年国债收益率日期为 `2026-07-14`，收益率为 `1.7402%`，股债利差为 `2.8398` 个百分点。理杏仁公开页面本轮可解析，估值日期为 `2026-07-14`，市值加权股息率为 `4.42%`，近 10 年股息率分位为 `15.75%`，近 10 年 `80%` 分位点为 `6.12%`。三类信号分别为：历史分位点 `D`，绝对股息率 `C`，股债利差 `B`；综合结论为“未进入加大买入区间”，未进入重点买入区间。雪球实时行情接口仍返回空响应，因此当天涨跌幅保留为待验证，未据此修正股息率。
+
+### 后续待办
+
+- 继续观察雪球实时行情接口是否恢复；若恢复，后续运行可补齐当天涨跌幅字段，但不用于修正股息率。
+
+## 2026-07-15
+
+### 操作类型
+
+automation / risk dashboard display
+
+### 修改文件
+
+- `tools/bbxm-risk-dashboard/bbxm_dashboard/dashboard_data.py`
+- `tools/bbxm-risk-dashboard/bbxm_dashboard/static/app.js`
+- `tools/bbxm-risk-dashboard/tests/test_dashboard_data.py`
+- `tools/bbxm-risk-dashboard/tests/test_app.py`
+- `log.md`
+
+### 操作说明
+
+调整冰冰小美风险提示工具的图表绘制规则：后端根据风险原因中的等级前缀为散点增加 `risk_type`，仅包含 `W1/W2/W3` 的风险减弱或转向机会节点绘制为绿色点；包含 `R1/R2/R3` 的风险增强节点继续绘制为红色点。同一天若同时包含 R 与 W 节点，仍按风险增强显示为红点，避免把仍有增强风险的日期误读为风险解除。
+
+### 后续待办
+
+- 若未来需要同一天同时显示红点和绿点，可进一步把同日 R/W 节点按等级拆成两个图表点。
+
+## 2026-07-15
+
+### 操作类型
+
+automation / risk dashboard flow
+
+### 修改文件
+
+- `.agents/automations/bbxm_daliy_brief.md`
+- `tools/bbxm-risk-dashboard/scripts/upsert_automated_risk.py`
+- `tools/bbxm-risk-dashboard/tests/test_automated_risk_updater.py`
+- `tools/bbxm-risk-dashboard/tests/test_automation_prompt.py`
+- `tools/bbxm-risk-dashboard/README.md`
+- `log.md`
+
+### 操作说明
+
+调整冰冰小美每日风险分析写入规则：风险减弱或转向机会节点 `W1/W2/W3` 也纳入风险提示工具自动写入，和 `R1/R2/R3` 一样每条合格帖子计 1 次；`N` 与 `待验证` 仍不写入。更新器白名单、自动化提示词、README 与测试已同步。新版更新器会阻断仍把 `W1/W2/W3` 放在 `not_written` 的旧格式分析文件，避免风险减弱节点被静默漏写。
+
+### 后续待办
+
+- 若需要把历史日期中的风险减弱节点补写入 Excel，应按新版规则重新生成或迁移对应日期的 `risk-analysis.json`，让 `W1/W2/W3` 进入 `qualified` 并带齐证据字段后再运行更新器。
+
+## 2026-07-15
+
+### 操作类型
+
+automation / bbxm-daily-brief
+
+### 修改文件
+
+- `sources/automations/BBXM每日汇总/2026-07-15/冰冰小美/processing/extracted-posts.json`
+- `sources/automations/BBXM每日汇总/2026-07-15/冰冰小美/processing/extracted-posts-allvisible.json`
+- `sources/automations/BBXM每日汇总/2026-07-15/冰冰小美/processing/risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026-07-15/冰冰小美/processing/risk-write-status.json`
+- `sources/automations/BBXM每日汇总/2026-07-15/冰冰小美/task.log`
+- `sources/automations/BBXM每日汇总/2026-07-15/冰冰小美/summary.md`
+- `log.md`
+
+### 操作说明
+
+按 `.agents/automations/bbxm_daliy_brief.md` 执行 2026-07-15 冰冰小美每日汇总。本轮 `daily` 抓取返回 0 条目标日期帖子；补充 `all-visible` 取样写出 40 条可解析记录，日期分布未包含 2026-07-15，最新可见帖子为 2026-07-14 23:09“最近发帖有点多。休息一下，停更几天。”因此当天未保存原始帖子，未生成 `state.json`。已生成 `summary.md`，明确不把空抓取结果翻译为买、卖、减动作。已生成 `risk-analysis.json`，覆盖为已保存 0、已分析 0、未解决 0，R1/R2/R3 为 0；Excel 更新器返回 `no_risk`，未修改风险提示工作簿。
+
+### 后续待办
+
+- 若 2026-07-15 稍后出现新帖，按同日重跑补抓并重算完整集合。
+- `all-visible` 取样命令在写出结果后超时且 CDP 9333 随后不可用；后续如需要继续抓取，应先恢复自动化 Chrome/CDP。
+- 对齐提示词中缺失的 `wiki/concepts/冰冰小美-rule-体系三要素的运用.md` 与现有三要素主题页。
+- 对齐提示词中缺失的 `wiki/concepts/冰冰小美-rule-减仓.md` 与现有 `wiki/concepts/冰冰小美-rule-卖.md`。
