@@ -74,9 +74,11 @@ The workflow is manual-start only.
 Current rule set:
 
 1. the operator decides when to start the day's capture
-2. one manual start performs one capture pass per enabled account
-3. a later start on the same day is treated as a same-day rerun
-4. same-day reruns must reuse existing state and only add newly discovered items
+2. when the operator says `抓取默认配置`, one manual start performs one capture pass for every `enabled` item in each configured platform section
+3. when the operator provides one or more links, those links are the complete input set for that run; do not append configured accounts or links
+4. when links and `抓取默认配置` appear together, prefer the provided links unless the operator explicitly requests both input sets
+5. a later start on the same day is treated as a same-day rerun
+6. same-day reruns must reuse existing state and only add newly discovered items
 
 ## Target Date Rule
 
@@ -134,7 +136,13 @@ Full summary rules: [references/summary-format.md](references/summary-format.md)
 
 ## Pre-Start Confirmation
 
-Before any capture task starts, the operator must display and confirm:
+Choose the input mode before displaying configured accounts:
+
+- `抓取默认配置`: load and process all `enabled` items across the configured platform sections. This phrase is itself confirmation of the default input set.
+- explicit links: process only the links supplied in the current request. Do not display, request confirmation for, or append unrelated configured accounts.
+- neither: use the standard confirmation flow below.
+
+When neither input mode is explicit, before capture starts the operator must display and confirm:
 
 - enabled accounts
 - disabled accounts

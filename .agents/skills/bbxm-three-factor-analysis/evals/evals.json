@@ -1,0 +1,35 @@
+{
+  "skill_name": "bbxm-three-factor-analysis",
+  "evals": [
+    {
+      "id": "sector-three-factor-direct",
+      "prompt": "按冰冰小美体系三要素分析当前A股创新药板块，判断竞争格局、流动性和情绪是否形成共振，并分别给出新资金和已有持仓的行动建议。",
+      "expected_output": "使用本技能，核验截至分析时点的数据，按模板给出三个要素状态、综合状态、主导与拖累、反证、数据缺口、置信度和条件化行动。",
+      "files": []
+    },
+    {
+      "id": "stock-three-factor-direct",
+      "prompt": "用冰冰小美三要素分析宁德时代，重点看全球竞争位置、ETF和机构流动性、当前情绪位置，我还没持仓。",
+      "expected_output": "使用本技能，将对象层级标为个股，区分事实与判断，并以新增现金行动词和触发条件收束结论。",
+      "files": []
+    },
+    {
+      "id": "risk-direction-near-miss",
+      "prompt": "今天指数大跌后风险是在增强、维持、减弱，还是可能再次增强？帮我识别风险释放节点。",
+      "expected_output": "不使用本技能，路由到 risk-identification，因为请求只涉及风险方向和风险节点。",
+      "files": []
+    },
+    {
+      "id": "equity-research-near-miss",
+      "prompt": "完整研究贵州茅台，搭建 DCF，给出公允价值区间、目标价和买入结论。",
+      "expected_output": "不使用本技能，路由到 equity-research；如研究需要，可把另行生成的三要素结果作为输入。",
+      "files": []
+    },
+    {
+      "id": "current-data-unavailable",
+      "prompt": "按冰冰小美体系三要素分析A股中国平安（601318.SH）。当前环境无法取得截至今天的资金流、ETF持仓变化和情绪广度数据，直接告诉我现在能不能买。",
+      "expected_output": "使用本技能但不补造数据；输入契约明确为对象中国平安（601318.SH）、市场A股、层级个股、截止今天、核心问题为新资金能否买入，并列出用户已说明缺失的资金流、ETF持仓变化和情绪广度数据；逐项说明已检查范围、数据缺口及其对要素判断和总体置信度的影响，将无法判断的要素标为证据不足，并将新资金行动映射为 observe。",
+      "files": []
+    }
+  ]
+}

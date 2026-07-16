@@ -2,11 +2,34 @@
 
 This document is the authoritative operating procedure for the Xueqiu daily monitor skill.
 
+## Step 0: Route the current input
+
+Choose exactly one input mode before loading or displaying default accounts:
+
+1. `explicit-input mode`: if the user provides one or more article, post, homepage, or history-page links, use only those links for the current run. Do not load, display, confirm, append, or capture unrelated `enabled` items from `EXTEND.md`.
+2. `default-config mode`: only if the user explicitly says `抓取默认配置` or an equivalent phrase, load every `enabled` item from the Xueqiu, Weibo, WeChat, and other configured platform sections in `EXTEND.md`. The phrase itself confirms this input set, so do not ask for a second account-level confirmation.
+3. `undetermined mode`: if neither links nor a default-config request are present, use the standard confirmation flow in Step 1.1.
+
+If a request contains both explicit links and a default-config phrase, choose `explicit-input mode` unless the user explicitly asks to process both sets. Only an explicit request for both authorizes merging them.
+
 ## Step 1: Pre-check
 
 ### 1.1 Load `EXTEND.md` ⛔ BLOCKING
 
-Before any capture preparation:
+For `explicit-input mode`:
+
+1. validate only the links supplied in the current request
+2. read only non-input operating preferences needed for the run, such as output root, date rules, and browser environment
+3. do not list or ask the user to confirm configured accounts
+
+For `default-config mode`:
+
+1. load all platform sections from `EXTEND.md`
+2. resolve every valid `enabled` item as the current input set
+3. summarize the resolved platforms, accounts or links, target-date rule, and output preferences
+4. continue without repeating the standard account confirmation because `抓取默认配置` already supplied it
+
+Only for `undetermined mode`, use the standard confirmation flow:
 
 1. read `EXTEND.md`
 2. summarize the current configuration for the user
@@ -37,8 +60,8 @@ Do not continue until the user confirms one of the allowed pre-check outcomes.
 
 确认以下条件全部成立：
 
-- 至少存在一个 `enabled` 账号
-- 每个启用账号都配置了有效的雪球主页 URL
+- `default-config mode` 至少解析出一个有效的 `enabled` 项，且每个 URL 与所属平台类型匹配
+- `explicit-input mode` 至少包含一个有效链接；此模式不要求 `EXTEND.md` 中存在任何启用账号
 - 目标日期已经明确，或者选项 `3` 已经被解析为绝对日期
 - 本 skill 的浏览器访问前置条件已经满足：本地 Chrome 可用，固定自动化 Chrome 实例能够通过 CDP 连接，如有需要操作者可以手动完成雪球登录
 - 如出现登录失效或访问验证，脚本应先按配置自动尝试滑块验证；自动失败时由操作者在自动化 Chrome 窗口内继续人工处理，并等待当前轮次继续
@@ -130,7 +153,20 @@ Related files:
 
 Each manual start performs one pass only.
 
-For each enabled account:
+Input scope is fixed by Step 0:
+
+- in `default-config mode`, process every resolved `enabled` item once using its platform-specific extractor
+- in `explicit-input mode`, process only the links supplied in the current request
+- do not merge configured inputs into an explicit-link run unless the user explicitly requested both sets
+
+Dispatch each resolved item by its URL and platform section:
+
+- Xueqiu homepage: use `scripts/extract_xueqiu_posts.mjs`
+- Weibo homepage: use `scripts/extract_weibo_posts.mjs`
+- WeChat article or history page: use `scripts/extract_wechat_articles.mjs`
+- another configured platform: use its explicitly documented extractor; if none exists, record the item as unsupported instead of silently substituting another platform's workflow
+
+For each resolved Xueqiu account:
 
 1. ensure `scripts/start_automation_chrome.sh` has prepared the dedicated browser instance
 2. reuse the `自动化专用 Chrome 实例` prepared in Step 1.3

@@ -1,4 +1,0 @@
-interface:
-  display_name: "信息过滤流程"
-  short_description: "按冰冰小美框架判断信息的金融意义、风险状态、价格反应与处理方式。"
-  default_prompt: "用信息过滤流程分析这条信息的金融意义、风险状态、价格反应和最终处理方式。"

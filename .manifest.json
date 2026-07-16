@@ -1,9 +1,9 @@
 {
   "version": 1,
   "stats": {
-    "total_sources_ingested": 213,
-    "total_pages": 455,
-    "source_count": 249
+    "total_sources_ingested": 216,
+    "total_pages": 456,
+    "source_count": 258
   },
   "sources": {
     "E:/caojingwen/obsidian/llmwiki/sources/articles/2023-06-20-冰冰小美：常见亏钱认知第十期会卖的是师傅，会买的是徒弟.md": {
@@ -5758,6 +5758,45 @@
         "wiki/queries/国内AI网络安全与AI-Agent安全公司版图.md"
       ],
       "pages_updated": [
+        "index.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    {
+      "type": "research",
+      "topic": "航天电子（600879.SH）机构级决策研报",
+      "researched_at": "2026-07-15T14:33:00+08:00",
+      "rounds_completed": 3,
+      "sources_fetched": 14,
+      "pages_created": [
+        "sources/webpages/2026-07-15-东方财富-航天电子行情快照.md",
+        "sources/webpages/2026-07-15-Morningstar-航天电子覆盖核验.md",
+        "sources/webpages/2026-07-15-航天电子卖方评级与近期催化剂检索记录.md",
+        "wiki/queries/2026-07-15-1433-航天电子机构级决策研报.md"
+      ],
+      "pages_updated": [
+        "index.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    {
+      "type": "research",
+      "topic": "华明装备（002270.SZ）机构级决策研报",
+      "researched_at": "2026-07-15T15:14:41+08:00",
+      "rounds_completed": 3,
+      "sources_fetched": 14,
+      "pages_created": [
+        "sources/webpages/2026-07-15-东方财富-华明装备行情快照.md",
+        "sources/webpages/2026-07-15-Morningstar-华明装备覆盖核验.md",
+        "sources/webpages/2026-07-15-华明装备卖方评级与近期催化剂检索记录.md",
+        "wiki/queries/2026-07-15-1514-华明装备机构级决策研报.md"
+      ],
+      "pages_updated": [
+        "wiki/timelines/cjw-电网设备-变压器.md",
         "index.md",
         "hot.md",
         "log.md",
