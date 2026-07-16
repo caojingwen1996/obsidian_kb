@@ -1,0 +1,4 @@
+interface:
+  display_name: "产业思维分析模型"
+  short_description: "按冰冰小美框架分析产业链、完整周期与验证信号"
+  default_prompt: "Use $industry-thinking-analysis to 按冰冰小美产业思维分析一个产业，并覆盖霍华德·马克斯的完整周期矩阵。"

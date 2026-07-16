@@ -13649,3 +13649,25 @@ skill / refactor / routing
 ### 后续待办
 
 - 在后续真实市场、板块和个股任务中继续积累三要素场景样本，并按需要扩充 `evals/evals.json`。
+
+## 2026-07-16
+
+### 操作类型
+
+skill / route / test
+
+### 修改文件
+
+- `.agents/skills/industry-thinking-analysis/SKILL.md`
+- `.agents/skills/industry-thinking-analysis/agents/openai.yaml`
+- `.agents/skills/bbxm-expert/SKILL.md`
+- `tests/validate_bbxm_project_skills.py`
+- `log.md`
+
+### 操作说明
+
+新增冰冰小美“产业思维分析模型”项目技能，以 `wiki/concepts/冰冰小美-framework-产业思维.md` 为唯一框架来源；加入霍华德·马克斯十类完整周期矩阵、六字段周期判断、多周期传导、产业行动结论与默认不自动写入 Wiki 的边界，并接入 `bbxm-expert` 分流。新增静态契约验证技能发现、总入口路由、十类周期、证据缺口和保存边界。
+
+### 后续待办
+
+- 在航空航天、商业航天及传统产业升级等真实请求中复核周期矩阵的证据密度与可读性。

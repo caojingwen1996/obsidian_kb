@@ -28,6 +28,10 @@ EXPECTED_FILES = {
         "non-financial-information-types.md",
         "agents/openai.yaml",
     ),
+    "industry-thinking-analysis": (
+        "SKILL.md",
+        "agents/openai.yaml",
+    ),
     "risk-identification": ("SKILL.md",),
     "trade-ticket-review": (
         "SKILL.md",
@@ -56,10 +60,39 @@ def main() -> None:
         "bbxm-three-factor-analysis",
         "equity-research",
         "information-filter-flow",
+        "industry-thinking-analysis",
         "risk-identification",
         "trade-ticket-review",
     ):
         require(child_skill in router, f"bbxm-expert router is missing {child_skill}")
+
+    industry_skill = (
+        SKILLS_ROOT / "industry-thinking-analysis" / "SKILL.md"
+    ).read_text(encoding="utf-8-sig")
+    for marker in (
+        "wiki/concepts/冰冰小美-framework-产业思维.md",
+        "经济周期",
+        "政府干预经济周期",
+        "企业盈利周期",
+        "投资人心理与情绪钟摆",
+        "风险态度周期",
+        "信贷周期",
+        "不良债权周期",
+        "房地产周期",
+        "市场周期",
+        "成功周期",
+        "当前阶段",
+        "产业证据",
+        "传导关系",
+        "验证信号",
+        "证据不足",
+        "配置 / 跟踪 / 等待 / 回避",
+        "明确要求保存",
+    ):
+        require(
+            marker in industry_skill,
+            f"industry-thinking-analysis is missing contract marker: {marker}",
+        )
     require("直接分析体系三要素" in router, "router must recognize direct three-factor analysis")
     require("两个技能平行、互不调用" in router, "router must keep risk and three-factor skills independent")
     direct_route = (
