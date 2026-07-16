@@ -13689,3 +13689,25 @@ skill / rename / route / test
 ### 操作说明
 
 将产业思维分析技能从 `industry-thinking-analysis` 统一重命名为 `bbxm-industry-analysis`，同步更新技能目录、frontmatter 名称、界面默认提示、`bbxm-expert` 路由和项目静态契约；测试同时要求旧技能目录不存在，避免两个名称并存或触发漂移。
+
+## 2026-07-16
+
+### 操作类型
+
+skill / refactor / test
+
+### 修改文件
+
+- `.agents/skills/trade-ticket-review/SKILL.md`
+- `.agents/skills/trade-ticket-review/agents/openai.yaml`
+- 删除 `.agents/skills/bbxm-trade-review/`
+- `tests/validate_trade_ticket_review_merge.py`
+- `log.md`
+
+### 操作说明
+
+将 `bbxm-trade-review` 合并进正式交易复盘入口 `trade-ticket-review`，保留冰冰小美体系下的原始交易意图恢复、明日承接、仓位与性格匹配、盈亏归因和 Wiki 沉淀能力。三要素与风险方向分别消费 `bbxm-three-factor-analysis` 和 `risk-identification` 的独立结果，不在交易复盘技能内复制检查表或维护第二套风险量表。删除重复技能目录并新增合并契约测试。未新增或调整正式 Wiki 页面，因此 `index.md` 无需修改。
+
+### 后续待办
+
+- 使用真实单笔交割单和阶段交易记录继续验证统一入口的输出完整性。

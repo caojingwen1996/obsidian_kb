@@ -9,9 +9,11 @@ description: Use when the user asks to review, analyze, summarize, score, file, 
 
 Use this skill to review trade tickets by reversing from visible trades back to decision quality. Focus on information basis, risk state, emotion, liquidity, position sizing, buy motivation, sell pressure, system fit, profit/loss source, and the next corrective rule.
 
-Treat the trade ticket as evidence, not as investment advice or a copied order list. Review losses first because losses expose system, personality, and execution defects more clearly than lucky profits.
+Treat the trade ticket as evidence, not as investment advice or a copied order list. Review losses first because losses expose system, personality, and execution defects more clearly than lucky profits. 先恢复原始交易意图，再评价交易结果，避免以后视价格替代当时决策质量。
 
 如果用户要求判断这笔交易是否符合冰冰小美体系三要素，交易复盘仍由本技能主导，但必须读取并执行 `bbxm-three-factor-analysis/SKILL.md`，把其三要素状态、证据、反证和失效条件作为复盘证据。本技能不复制其检查清单，也不以情绪或流动性单项检查冒充完整三要素结论。
+
+如果复盘需要正式判断风险方向，必须读取并执行 `risk-identification/SKILL.md`，消费其“风险增强 / 风险持平 / 风险减弱 / 风险重新增强 / 证据不足”结果及证据。本技能不维护第二套风险状态量表，也不把风险减弱直接等同买点。
 
 ## First Decision
 
@@ -68,9 +70,11 @@ Write the trade facts before interpreting them:
 | 计划执行 | 是/否/未知 |
 | 最大浮盈/浮亏 | 如可见 |
 
-### 2. Restore The Information Basis
+### 2. 恢复原始交易意图与信息依据
 
 Ask: “我当时到底相信了什么信息？”
+
+先还原当时的买卖理由、计划、可见信息和预期承接，再使用事后结果检验；不得因为后来上涨就把弱理由改写成体系内交易，也不得因为后来下跌就抹去当时合理但失败的计划。
 
 Classify the trusted input:
 
@@ -86,23 +90,20 @@ Classify the trusted input:
 
 Judge whether the information was close to money: did it affect quantity, price, flow, behavior, or only narrative?
 
-### 3. Judge Risk Before Opportunity
+### 3. Consume The Risk Direction Before Reviewing Opportunity
 
-Use a simple risk state:
+需要正式风险结论时，引用 `risk-identification` 的独立结果：
 
-| State | Meaning | Trade implication |
-|---|---|---|
-| R3 强风险增强 | 多风险共振上升 | 禁止新增重仓 |
-| R2 中风险增强 | 风险明显抬升 | 降低频率 |
-| R1 弱风险观察 | 风险苗头出现 | 轻仓观察 |
-| N 中性震荡 | 方向不清 | 等确认 |
-| W1 风险边际减弱 | 冲击放缓 | 观察候选 |
-| W2 风险明显减弱 | 多信号修复 | 可进入评估 |
-| W3 风险转机会 | 风险释放充分、资金回流 | 可按体系执行 |
+| 字段 | 复盘要求 |
+|---|---|
+| 风险方向 | 风险增强 / 风险持平 / 风险减弱 / 风险重新增强 / 证据不足 |
+| 证据与反证 | 说明当时可见信号，而不是用事后行情倒推。 |
+| 交易影响 | 检查仓位、频率和退出计划是否与风险方向匹配。 |
+| 证据缺口 | 缺少关键数据时保留“证据不足”，不得自行补全。 |
 
-Buying during R2/R3 must be treated as suspicious unless the user provides strong original evidence.
+风险增强或重新增强阶段的重仓买入应重点审计；风险减弱只表示风险方向变化，不自动构成买入依据。
 
-### 4. Check Emotion And Liquidity
+### 4. Check Emotion, Liquidity And “明日谁来接”
 
 Emotion:
 
@@ -122,9 +123,9 @@ Liquidity:
 | L- 衰竭 | 缩量、无人接、冲高回落 | 谨慎买入 |
 | Lx 虚假流动性 | 分时拉升、概念热度、短期诱多 | 防追高 |
 
-Always ask: “今天买入后，明天有没有人愿意接？” Buying pressure and selling pressure are decided together.
+Always ask: “今天买入后，明日谁来接？” Buying pressure and selling pressure are decided together. 区分核心承载标的与边缘套利标的，并检查次日承接失败时是否仍能从容退出。
 
-### 5. Audit Position And Personality Fit
+### 5. 审计仓位与性格匹配
 
 Check whether position size preserved room to correct mistakes:
 
@@ -310,7 +311,7 @@ Grade: A 85-100, B 70-84, C 55-69, D 40-54, F 0-39. If key fields are missing, g
 Default to “禁止买入” when any condition appears:
 
 - 情绪转折向下时被分时直线拉升诱惑。
-- 风险等级处于 R2/R3 仍想重仓。
+- 风险增强或重新增强时仍想重仓。
 - 只知道买入理由，没有卖出计划。
 - 无法回答“明日谁来接”。
 - 个股流动性不足但仓位过重。
@@ -320,7 +321,7 @@ Default to “禁止买入” when any condition appears:
 - 仓位大到影响睡眠和判断。
 - 同类错误已重复出现 3 次以上。
 
-Allow trade evaluation only when risk is W2/W3 or strong neutral, emotion is not E-, liquidity is L+ or L0, tomorrow's carry is explainable, position has room to correct, and sell conditions are written before entry.
+Allow trade evaluation only when the independent risk result does not show strengthening risk, emotion is not E-, liquidity is L+ or L0, tomorrow's carry is explainable, position has room to correct, and sell conditions are written before entry. A weakening risk result permits further evaluation but is not itself a buy signal.
 
 ## Common Mistakes
 
