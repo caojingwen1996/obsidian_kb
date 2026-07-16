@@ -16,13 +16,13 @@
     {
       "id": "risk-direction-near-miss",
       "prompt": "今天指数大跌后风险是在增强、维持、减弱，还是可能再次增强？帮我识别风险释放节点。",
-      "expected_output": "不使用本技能，路由到 risk-identification，因为请求只涉及风险方向和风险节点。",
+      "expected_output": "不使用本技能，路由到 bbxm-risk-identification，因为请求只涉及风险方向和风险节点。",
       "files": []
     },
     {
-      "id": "equity-research-near-miss",
+      "id": "bbxm-equity-research-near-miss",
       "prompt": "完整研究贵州茅台，搭建 DCF，给出公允价值区间、目标价和买入结论。",
-      "expected_output": "不使用本技能，路由到 equity-research；如研究需要，可把另行生成的三要素结果作为输入。",
+      "expected_output": "不使用本技能，路由到 bbxm-equity-research；如研究需要，可把另行生成的三要素结果作为输入。",
       "files": []
     },
     {

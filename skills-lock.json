@@ -1,24 +1,6 @@
 {
   "version": 1,
   "skills": {
-    "claude-history-ingest": {
-      "source": "Ar9av/obsidian-wiki",
-      "sourceType": "github",
-      "skillPath": ".skills/claude-history-ingest/SKILL.md",
-      "computedHash": "9bd66b67507031806a269a3f6192510694a991992cab72a49c57fa096cbeb84a"
-    },
-    "codex-history-ingest": {
-      "source": "Ar9av/obsidian-wiki",
-      "sourceType": "github",
-      "skillPath": ".skills/codex-history-ingest/SKILL.md",
-      "computedHash": "b4db2a238f9507dfdbb4ebc2ec1a57657ba90eff66173c89931f41845387e5a3"
-    },
-    "copilot-history-ingest": {
-      "source": "Ar9av/obsidian-wiki",
-      "sourceType": "github",
-      "skillPath": ".skills/copilot-history-ingest/SKILL.md",
-      "computedHash": "d0349a082864e020ddda3724382245d045d03aae450bcc05e2518dc32778720b"
-    },
     "cross-linker": {
       "source": "Ar9av/obsidian-wiki",
       "sourceType": "github",
@@ -42,12 +24,6 @@
       "sourceType": "github",
       "skillPath": ".skills/graph-colorize/SKILL.md",
       "computedHash": "32ba9bbc78558dd17ed566455750798bca4768c19de08fc9da428ca431efa780"
-    },
-    "hermes-history-ingest": {
-      "source": "Ar9av/obsidian-wiki",
-      "sourceType": "github",
-      "skillPath": ".skills/hermes-history-ingest/SKILL.md",
-      "computedHash": "fb729c2aa067a027fc4221033ac9685a6b43d50211ad4509ed32ac20dd5c3ce3"
     },
     "impl-validator": {
       "source": "Ar9av/obsidian-wiki",
@@ -78,12 +54,6 @@
       "sourceType": "github",
       "skillPath": ".skills/obsidian-wiki-ingest/SKILL.md",
       "computedHash": "0cedbcc48d4d07ba1f10d43165ef8196552fc265b3a5dac5cb28dcf6dcb2cca4"
-    },
-    "openclaw-history-ingest": {
-      "source": "Ar9av/obsidian-wiki",
-      "sourceType": "github",
-      "skillPath": ".skills/openclaw-history-ingest/SKILL.md",
-      "computedHash": "151e49613f132a0c76141e93d91a28d39198d34dc7e8181e6f45f9347fc24cdf"
     },
     "skill-creator": {
       "source": "Ar9av/obsidian-wiki",

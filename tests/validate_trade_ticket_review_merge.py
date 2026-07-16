@@ -4,7 +4,7 @@ import sys
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SKILLS_ROOT = REPO_ROOT / ".agents" / "skills"
-CANONICAL = SKILLS_ROOT / "trade-ticket-review"
+CANONICAL = SKILLS_ROOT / "bbxm-trade-ticket-review"
 RETIRED = SKILLS_ROOT / "bbxm-trade-review"
 
 
@@ -14,7 +14,7 @@ def require(condition: bool, message: str) -> None:
 
 
 def main() -> None:
-    require(CANONICAL.is_dir(), "canonical trade-ticket-review skill is missing")
+    require(CANONICAL.is_dir(), "canonical bbxm-trade-ticket-review skill is missing")
     require(not RETIRED.exists(), "retired bbxm-trade-review directory still exists")
 
     skill = (CANONICAL / "SKILL.md").read_text(encoding="utf-8-sig")
@@ -30,14 +30,14 @@ def main() -> None:
         "明日谁来接",
         "仓位与性格匹配",
         "bbxm-three-factor-analysis",
-        "risk-identification",
+        "bbxm-risk-identification",
         "visible-data only",
     ):
         require(marker in skill, f"canonical skill is missing merged marker: {marker}")
 
-    require("name: trade-ticket-review" in skill, "canonical skill name changed")
+    require("name: bbxm-trade-ticket-review" in skill, "canonical skill name changed")
     require("冰冰小美" in metadata, "agent metadata does not expose BBXM review")
-    require("`trade-ticket-review`" in router, "router lost canonical trade-review route")
+    require("`bbxm-trade-ticket-review`" in router, "router lost canonical trade-review route")
 
     active_skill_text = "".join(
         path.read_text(encoding="utf-8-sig")
@@ -48,7 +48,7 @@ def main() -> None:
     retired_name = "bbxm" + "-trade-review"
     require(retired_name not in active_skill_text, "active skills still reference retired name")
 
-    print("PASS: BBXM trade-review skills merged into trade-ticket-review")
+    print("PASS: BBXM trade-review skills merged into bbxm-trade-ticket-review")
 
 
 if __name__ == "__main__":

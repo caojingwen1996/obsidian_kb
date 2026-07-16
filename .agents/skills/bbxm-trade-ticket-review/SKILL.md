@@ -1,5 +1,5 @@
 ---
-name: trade-ticket-review
+name: bbxm-trade-ticket-review
 description: Use when the user asks to review, analyze, summarize, score, file, or turn into rules a 交割单, trade log, buy/sell record, portfolio adjustment, losing trade, profitable trade, continuous drawdown, or “用冰冰小美体系复盘交易” request. Trigger for phrases like 交割单复盘、复盘这笔交易、这笔为什么亏、盈利能否复制、整理交易错误、明日谁来接、仓位/性格匹配、情绪交易、流动性误判.
 ---
 
@@ -13,7 +13,7 @@ Treat the trade ticket as evidence, not as investment advice or a copied order l
 
 如果用户要求判断这笔交易是否符合冰冰小美体系三要素，交易复盘仍由本技能主导，但必须读取并执行 `bbxm-three-factor-analysis/SKILL.md`，把其三要素状态、证据、反证和失效条件作为复盘证据。本技能不复制其检查清单，也不以情绪或流动性单项检查冒充完整三要素结论。
 
-如果复盘需要正式判断风险方向，必须读取并执行 `risk-identification/SKILL.md`，消费其“风险增强 / 风险持平 / 风险减弱 / 风险重新增强 / 证据不足”结果及证据。本技能不维护第二套风险状态量表，也不把风险减弱直接等同买点。
+如果复盘需要正式判断风险方向，必须读取并执行 `bbxm-risk-identification/SKILL.md`，消费其“风险增强 / 风险持平 / 风险减弱 / 风险重新增强 / 证据不足”结果及证据。本技能不维护第二套风险状态量表，也不把风险减弱直接等同买点。
 
 ## First Decision
 
@@ -92,7 +92,7 @@ Judge whether the information was close to money: did it affect quantity, price,
 
 ### 3. Consume The Risk Direction Before Reviewing Opportunity
 
-需要正式风险结论时，引用 `risk-identification` 的独立结果：
+需要正式风险结论时，引用 `bbxm-risk-identification` 的独立结果：
 
 | 字段 | 复盘要求 |
 |---|---|

@@ -4,6 +4,34 @@
 
 ### 操作类型
 
+refactor / skill / rename
+
+### 修改文件
+
+- `.agents/skills/bbxm-expert/`
+- `.agents/skills/bbxm-equity-research/`
+- `.agents/skills/bbxm-information-filter-flow/`
+- `.agents/skills/bbxm-risk-identification/`
+- `.agents/skills/bbxm-trade-ticket-review/`
+- `.agents/skills/bbxm-industry-analysis/SKILL.md`
+- `.agents/skills/bbxm-three-factor-analysis/`
+- `tests/validate_bbxm_project_skills.py`
+- `tests/validate_bbxm_three_factor_analysis.py`
+- `tests/validate_trade_ticket_review_merge.py`
+- `log.md`
+
+### 操作说明
+
+将冰冰小美专家项目技能集合中的四个无前缀入口统一重命名为 `bbxm-equity-research`、`bbxm-information-filter-flow`、`bbxm-risk-identification` 和 `bbxm-trade-ticket-review`。同步更新技能目录、frontmatter 名称、总入口路由、相邻技能引用、UI 默认提示、评估用例和静态契约测试；旧无前缀技能目录不再保留。未新增或调整正式 Wiki 页面，因此 `index.md` 无需修改。
+
+### 后续待办
+
+- 重新打开项目任务后，确认技能发现列表仅显示统一后的 `bbxm-*` 名称。
+
+## 2026-07-16
+
+### 操作类型
+
 research / update / query / valuation / risk
 
 ### 修改文件
@@ -13711,3 +13739,40 @@ skill / refactor / test
 ### 后续待办
 
 - 使用真实单笔交割单和阶段交易记录继续验证统一入口的输出完整性。
+
+## 2026-07-16
+
+### 操作类型
+
+skill / uninstall / cleanup
+
+### 修改文件
+
+- 删除 `.agents/skills/claude-history-ingest/`
+- 删除 `.agents/skills/codex-history-ingest/`
+- 删除 `.agents/skills/copilot-history-ingest/`
+- 删除 `.agents/skills/hermes-history-ingest/`
+- 删除 `.agents/skills/openclaw-history-ingest/`
+- `skills-lock.json`
+- `log.md`
+
+### 操作说明
+
+卸载当前项目未使用的 Claude、Codex、GitHub Copilot、Hermes 和 OpenClaw 会话历史导入技能，并同步移除技能锁文件中的安装登记。保留统一历史导入入口 `wiki-history-ingest`、定向入口 `wiki-agent` 和只读浏览入口 `memory-bridge`。未修改正式 Wiki 页面，因此 `index.md` 无需更新。
+
+## 2026-07-16
+
+### 操作类型
+
+skill / refactor / test
+
+### 修改文件
+
+- `.agents/skills/bbxm-industry-analysis/SKILL.md`
+- `.agents/skills/bbxm-industry-analysis/agents/openai.yaml`
+- `tests/validate_bbxm_project_skills.py`
+- `log.md`
+
+### 操作说明
+
+将 `wiki/concepts/冰冰小美-framework-产业思维.md` 确立为产业分析框架的运行时唯一知识源。删除技能中重复维护的九步流程、完整周期矩阵、周期叠加分类和固定十四段输出模板；技能仅保留触发、上下文检索、时效数据核验、执行边界、技能路由与交付约束。新增静态契约，禁止技能正文和入口提示再次复制框架内容。未修改正式 Wiki 页面，因此 `index.md` 无需更新。

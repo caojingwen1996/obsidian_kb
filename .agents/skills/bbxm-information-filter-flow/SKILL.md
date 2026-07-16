@@ -1,5 +1,5 @@
 ---
-name: information-filter-flow
+name: bbxm-information-filter-flow
 description: Use when 用户要求过滤、归纳、评级或处理金融市场中的新闻、政策、公告、研报、文章观点、产业、指数或个股信息，判断信息是否具备金融意义、能否交易、是否已经被市场反应，或应当配置、跟踪、归档、回避。
 ---
 

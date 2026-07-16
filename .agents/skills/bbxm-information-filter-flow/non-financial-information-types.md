@@ -20,7 +20,7 @@ related:
   - "[[冰冰小美-信息的金融意义系列]]"
   - "[[冰冰小美：非金融信息的五层分类]]"
 usage:
-  - 供 information-filter-flow/SKILL.md 在 Step 1 与非金融信息判断步骤中引用
+  - 供 bbxm-information-filter-flow/SKILL.md 在 Step 1 与非金融信息判断步骤中引用
 ---
 
 # 冰冰小美-非金融信息类型字典

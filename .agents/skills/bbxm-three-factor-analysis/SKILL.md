@@ -9,15 +9,15 @@ description: Use when the user explicitly requests 冰冰小美体系三要素 a
 
 这是三要素分析的唯一项目级入口。独立分析竞争格局、流动性辩证分析和情绪位置变化，再映射为综合状态与行动语言。
 
-本技能不负责风险增强或减弱判断；`risk-identification` 独立处理风险方向。两者平行工作，互不调用。
+本技能不负责风险增强或减弱判断；`bbxm-risk-identification` 独立处理风险方向。两者平行工作，互不调用。
 
 ## 路由边界
 
 - 用户直接要求三要素分析、三要素共振或三要素行动映射：使用本技能。
-- 用户要求风险增强、风险持平、风险减弱或风险重新增强：使用 `risk-identification`。
-- 用户要求过滤单条信息并判断其金融意义：使用 `information-filter-flow`。
-- 用户提供交割单或交易记录：使用 `trade-ticket-review`；它可以消费本技能的分析结果。
-- 用户要求完整公司研究、估值或 DCF：使用 `equity-research`；它可以消费本技能的分析结果。
+- 用户要求风险增强、风险持平、风险减弱或风险重新增强：使用 `bbxm-risk-identification`。
+- 用户要求过滤单条信息并判断其金融意义：使用 `bbxm-information-filter-flow`。
+- 用户提供交割单或交易记录：使用 `bbxm-trade-ticket-review`；它可以消费本技能的分析结果。
+- 用户要求完整公司研究、估值或 DCF：使用 `bbxm-equity-research`；它可以消费本技能的分析结果。
 
 ## 输入
 

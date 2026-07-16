@@ -36,7 +36,7 @@ def main() -> None:
     evals = json.loads(read("evals/evals.json"))
 
     risk_skill = (
-        REPO_ROOT / ".agents" / "skills" / "risk-identification" / "SKILL.md"
+        REPO_ROOT / ".agents" / "skills" / "bbxm-risk-identification" / "SKILL.md"
     ).read_text(encoding="utf-8-sig")
 
     for forbidden in ("检查体系三要素", "买入窗口", "交易动作", "buy / sell / reduce"):
@@ -138,13 +138,13 @@ def main() -> None:
     )
 
     equity_skill = (
-        REPO_ROOT / ".agents" / "skills" / "equity-research" / "SKILL.md"
+        REPO_ROOT / ".agents" / "skills" / "bbxm-equity-research" / "SKILL.md"
     ).read_text(encoding="utf-8-sig")
     equity_template = (
-        REPO_ROOT / ".agents" / "skills" / "equity-research" / "template.md"
+        REPO_ROOT / ".agents" / "skills" / "bbxm-equity-research" / "template.md"
     ).read_text(encoding="utf-8-sig")
     trade_skill = (
-        REPO_ROOT / ".agents" / "skills" / "trade-ticket-review" / "SKILL.md"
+        REPO_ROOT / ".agents" / "skills" / "bbxm-trade-ticket-review" / "SKILL.md"
     ).read_text(encoding="utf-8-sig")
 
     require(

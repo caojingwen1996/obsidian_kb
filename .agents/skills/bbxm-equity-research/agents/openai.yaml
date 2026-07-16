@@ -1,6 +1,6 @@
 interface:
   display_name: "机构级个股研究"
   short_description: "生成带估值、证据审计和交易结论的机构级个股研报"
-  default_prompt: "Use $equity-research to research this listed company and produce a decision-ready Markdown report."
+  default_prompt: "Use $bbxm-equity-research to research this listed company and produce a decision-ready Markdown report."
 policy:
   allow_implicit_invocation: true

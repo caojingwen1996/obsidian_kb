@@ -1,5 +1,5 @@
 ---
-name: risk-identification
+name: bbxm-risk-identification
 description: Use when 用户要求识别市场、板块、个股或事件的风险来源与风险传导，或判断风险正在增强、持平、减弱、重新增强，还是证据不足。
 ---
 
