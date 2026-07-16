@@ -1,5 +1,5 @@
 ---
-name: industry-thinking-analysis
+name: bbxm-industry-analysis
 description: Use when 用户要求按冰冰小美产业思维、产业模型或中观框架分析某个产业、行业、赛道、产业链、传统产业升级或新兴产业路径，包括航空航天、商业航天、AI、机器人、新能源、半导体、化工、有色、汽车和养殖等方向。
 ---
 

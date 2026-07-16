@@ -13671,3 +13671,21 @@ skill / route / test
 ### 后续待办
 
 - 在航空航天、商业航天及传统产业升级等真实请求中复核周期矩阵的证据密度与可读性。
+
+## 2026-07-16
+
+### 操作类型
+
+skill / rename / route / test
+
+### 修改文件
+
+- `.agents/skills/bbxm-industry-analysis/SKILL.md`
+- `.agents/skills/bbxm-industry-analysis/agents/openai.yaml`
+- `.agents/skills/bbxm-expert/SKILL.md`
+- `tests/validate_bbxm_project_skills.py`
+- `log.md`
+
+### 操作说明
+
+将产业思维分析技能从 `industry-thinking-analysis` 统一重命名为 `bbxm-industry-analysis`，同步更新技能目录、frontmatter 名称、界面默认提示、`bbxm-expert` 路由和项目静态契约；测试同时要求旧技能目录不存在，避免两个名称并存或触发漂移。
