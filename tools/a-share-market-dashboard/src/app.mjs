@@ -8,6 +8,7 @@ import {
   conclusionForScore,
   percentileRank,
 } from './core.mjs';
+import { isLocalProxyLocation } from './adapters.mjs';
 import {
   EXAMPLE_SNAPSHOT,
   createMemoryStorage,
@@ -296,7 +297,11 @@ function startApp() {
     notice.textContent = `正在独立刷新行情、估值、国债、成交额与融资数据；失败项不会阻塞其他指标。${launcherHint}`;
     try {
       const definitions = createDefaultDomainDefinitions().filter(definition => !domainIds || domainIds.includes(definition.id));
-      const refreshed = await refreshDomains(definitions, { storage, now: Date.now });
+      const refreshed = await refreshDomains(definitions, {
+        storage,
+        now: Date.now,
+        concurrency: isLocalProxyLocation() ? 1 : definitions.length,
+      });
       const domains = state.snapshot.mode === 'live' && domainIds
         ? { ...state.snapshot.domains, ...refreshed }
         : refreshed;

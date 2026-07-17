@@ -5,6 +5,8 @@ import {
   buildEastmoneyKlineUrl,
   buildLocalProxyUrl,
   isLocalProxyLocation,
+  loadInOrder,
+  requestTimeout,
   parseEastmoneyKlines,
   parseCsindexPerformance,
   parseTreasuryYield,
@@ -26,7 +28,28 @@ test('localhost dashboard uses same-origin proxy URLs', () => {
 });
 
 test('file dashboard retains public transports', () => {
-  assert.equal(isLocalProxyLocation({ protocol: 'file:', hostname: '', origin: 'null' }), false);
+  const location = { protocol: 'file:', hostname: '', origin: 'null' };
+  assert.equal(isLocalProxyLocation(location), false);
+  assert.equal(requestTimeout(location), 12_000);
+});
+
+test('local proxy allows enough time to aggregate the full market', () => {
+  const location = { protocol: 'http:', hostname: '127.0.0.1', origin: 'http://127.0.0.1:18765' };
+  assert.equal(requestTimeout(location), 60_000);
+});
+
+test('paired financing reports are loaded sequentially', async () => {
+  let active = 0;
+  let maximumActive = 0;
+  const result = await loadInOrder([1, 2], async value => {
+    active += 1;
+    maximumActive = Math.max(maximumActive, active);
+    await Promise.resolve();
+    active -= 1;
+    return value * 10;
+  });
+  assert.deepEqual(result, [10, 20]);
+  assert.equal(maximumActive, 1);
 });
 
 test('Eastmoney kline URL encodes the selected index and requested history', () => {

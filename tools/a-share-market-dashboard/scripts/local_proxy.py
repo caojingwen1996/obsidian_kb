@@ -1,6 +1,7 @@
 """Local same-origin data proxy for the A-share market dashboard."""
 
-from datetime import datetime
+from concurrent.futures import ThreadPoolExecutor
+from datetime import datetime, timedelta
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 from pathlib import Path
@@ -14,6 +15,11 @@ import webbrowser
 
 ALLOWED_SECIDS = {"1.000001", "1.000300", "1.000985"}
 ALLOWED_INDEX_CODES = {"000300", "000985"}
+TENCENT_SYMBOLS = {
+    "1.000001": "sh000001",
+    "1.000300": "sh000300",
+    "1.000985": "sh000985",
+}
 MAX_RESPONSE_BYTES = 25 * 1024 * 1024
 SOURCE_NAMES = {
     "/api/eastmoney-kline": "eastmoney-kline",
@@ -71,6 +77,23 @@ def _build_url(base, params):
     return f"{base}?{urlencode(params)}"
 
 
+def _build_market_url(page):
+    return _build_url(
+        "https://push2.eastmoney.com/api/qt/clist/get",
+        {
+            "pn": str(page),
+            "pz": "100",
+            "po": "1",
+            "np": "1",
+            "fltt": "2",
+            "invt": "2",
+            "fid": "f3",
+            "fs": "m:0+t:6,m:0+t:80,m:1+t:2,m:1+t:23",
+            "fields": "f3,f6,f12,f14,f18",
+        },
+    )
+
+
 def build_upstream_url(path, query):
     """Map one fixed local API route to a validated upstream URL."""
     if path == "/api/eastmoney-kline":
@@ -117,20 +140,7 @@ def build_upstream_url(path, query):
             },
         )
     if path == "/api/market":
-        return _build_url(
-            "https://push2.eastmoney.com/api/qt/clist/get",
-            {
-                "pn": "1",
-                "pz": "6000",
-                "po": "1",
-                "np": "1",
-                "fltt": "2",
-                "invt": "2",
-                "fid": "f3",
-                "fs": "m:0+t:6,m:0+t:80,m:1+t:2,m:1+t:23",
-                "fields": "f3,f6,f12,f14,f18",
-            },
-        )
+        return _build_market_url(1)
     if path == "/api/margin":
         market = _one(query, "market")
         if market not in {"1", "2"}:
@@ -139,10 +149,10 @@ def build_upstream_url(path, query):
     raise RouteError("unknown route")
 
 
-def parse_json_payload(body):
+def parse_json_payload(body, encoding="utf-8-sig"):
     """Decode an upstream JSON or JSONP response into Python data."""
     try:
-        text = body.decode("utf-8-sig").strip()
+        text = body.decode(encoding).strip()
     except (AttributeError, UnicodeDecodeError) as error:
         raise ValueError("invalid response encoding") from error
     try:
@@ -172,9 +182,158 @@ def fetch_upstream(url, source):
             body = response.read(MAX_RESPONSE_BYTES + 1)
         if len(body) > MAX_RESPONSE_BYTES:
             raise ValueError("response too large")
-        return parse_json_payload(body)
+        encoding = "gb18030" if host == "vip.stock.finance.sina.com.cn" else "utf-8-sig"
+        return parse_json_payload(body, encoding=encoding)
     except (HTTPError, URLError, TimeoutError, OSError, ValueError, json.JSONDecodeError) as error:
         raise UpstreamError(source) from error
+
+
+def _tencent_rows(payload, symbol):
+    data = payload.get("data") if isinstance(payload, dict) else None
+    node = data.get(symbol) if isinstance(data, dict) else None
+    if not isinstance(node, dict):
+        return []
+    rows = node.get("qfqday") or node.get("day") or []
+    return rows if isinstance(rows, list) else []
+
+
+def _build_tencent_kline_url(symbol, count, end_date=""):
+    parameter = f"{symbol},day,,{end_date},{count},qfq"
+    return _build_url(
+        "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get",
+        {"param": parameter},
+    )
+
+
+def fetch_index_history(secid, limit=3000, fetcher=fetch_upstream):
+    """Fetch index history, falling back from Eastmoney to Tencent."""
+    query = {"secid": [secid], "limit": [str(limit)]}
+    upstream_url = build_upstream_url("/api/eastmoney-kline", query)
+    try:
+        payload = fetcher(upstream_url, "eastmoney-kline")
+        rows = payload.get("data", {}).get("klines", []) if isinstance(payload, dict) else []
+        if isinstance(rows, list) and rows:
+            return payload
+    except UpstreamError:
+        pass
+
+    symbol = TENCENT_SYMBOLS.get(secid)
+    if not symbol:
+        raise UpstreamError("index-history")
+    requested = _bounded_int(limit, 250, 4000)
+    rows_by_date = {}
+    end_date = ""
+    while len(rows_by_date) < requested:
+        remaining = requested - len(rows_by_date)
+        count = min(2000, remaining)
+        payload = fetcher(_build_tencent_kline_url(symbol, count, end_date), "tencent-kline")
+        rows = _tencent_rows(payload, symbol)
+        if not rows:
+            break
+        for row in rows[-count:]:
+            if isinstance(row, list) and len(row) >= 3:
+                rows_by_date[str(row[0])] = row
+        earliest = min(rows_by_date)
+        end_date = (datetime.strptime(earliest, "%Y-%m-%d") - timedelta(days=1)).strftime("%Y-%m-%d")
+        if len(rows) < count:
+            break
+    normalized = [
+        ",".join(str(value) for value in rows_by_date[date][:6])
+        for date in sorted(rows_by_date)[-requested:]
+    ]
+    if len(normalized) < 250:
+        raise UpstreamError("index-history")
+    return {"data": {"klines": normalized}, "proxySource": "腾讯行情"}
+
+
+def _fetch_eastmoney_market_snapshot(fetcher, workers):
+    first = fetcher(_build_market_url(1), "market")
+    data = first.get("data") if isinstance(first, dict) else None
+    first_rows = data.get("diff") if isinstance(data, dict) else None
+    total = data.get("total") if isinstance(data, dict) else None
+    if not isinstance(first_rows, list) or not first_rows or not isinstance(total, int) or total <= 0:
+        raise UpstreamError("market")
+    page_size = len(first_rows)
+    page_count = (total + page_size - 1) // page_size
+
+    def load_page(page):
+        payload = fetcher(_build_market_url(page), "market")
+        page_data = payload.get("data") if isinstance(payload, dict) else None
+        rows = page_data.get("diff") if isinstance(page_data, dict) else None
+        if not isinstance(rows, list):
+            raise UpstreamError("market")
+        return page, rows
+
+    pages = {1: first_rows}
+    if page_count > 1:
+        with ThreadPoolExecutor(max_workers=max(1, min(workers, 12))) as executor:
+            for page, rows in executor.map(load_page, range(2, page_count + 1)):
+                pages[page] = rows
+    combined = [row for page in range(1, page_count + 1) for row in pages.get(page, [])]
+    if len(combined) < min(total, 1000):
+        raise UpstreamError("market")
+    return {"data": {"total": total, "diff": combined[:total]}, "proxySource": "东方财富分页聚合"}
+
+
+def _build_sina_market_url(page):
+    return _build_url(
+        "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData",
+        {
+            "page": str(page),
+            "num": "100",
+            "sort": "symbol",
+            "asc": "1",
+            "node": "hs_a",
+            "symbol": "",
+            "_s_r_a": "page",
+        },
+    )
+
+
+def _normalize_sina_row(row):
+    return {
+        "f3": row.get("changepercent"),
+        "f6": row.get("amount"),
+        "f12": row.get("code"),
+        "f14": row.get("name"),
+        "f18": row.get("settlement"),
+    }
+
+
+def _fetch_sina_market_snapshot(fetcher, workers):
+    count_url = "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCount?node=hs_a"
+    count_value = fetcher(count_url, "sina-market")
+    try:
+        total = int(count_value)
+    except (TypeError, ValueError) as error:
+        raise UpstreamError("sina-market") from error
+    if total <= 0:
+        raise UpstreamError("sina-market")
+    page_count = (total + 99) // 100
+
+    def load_page(page):
+        rows = fetcher(_build_sina_market_url(page), "sina-market")
+        if not isinstance(rows, list):
+            raise UpstreamError("sina-market")
+        return page, rows
+
+    pages = {}
+    with ThreadPoolExecutor(max_workers=max(1, min(workers, 12))) as executor:
+        for page, rows in executor.map(load_page, range(1, page_count + 1)):
+            pages[page] = rows
+    combined = [row for page in range(1, page_count + 1) for row in pages.get(page, [])]
+    if len(combined) < min(total, 1000):
+        raise UpstreamError("sina-market")
+    normalized = [_normalize_sina_row(row) for row in combined[:total] if isinstance(row, dict)]
+    return {"data": {"total": total, "diff": normalized}, "proxySource": "新浪财经分页聚合"}
+
+
+def fetch_market_snapshot(fetcher=fetch_upstream, workers=8):
+    """Fetch the full A-share universe with an independent Sina fallback."""
+    try:
+        return _fetch_eastmoney_market_snapshot(fetcher, workers)
+    except UpstreamError:
+        return _fetch_sina_market_snapshot(fetcher, workers)
 
 
 def create_server(host="127.0.0.1", port=0, fetcher=fetch_upstream, dashboard_path=None):
@@ -214,8 +373,21 @@ def create_server(host="127.0.0.1", port=0, fetcher=fetch_upstream, dashboard_pa
                 return self.send_json(404, {"error": "not found"})
             source = SOURCE_NAMES.get(parsed.path, "unknown")
             try:
-                upstream_url = build_upstream_url(parsed.path, parse_qs(parsed.query, keep_blank_values=True))
-                return self.send_json(200, fetcher(upstream_url, source))
+                query = parse_qs(parsed.query, keep_blank_values=True)
+                if parsed.path == "/api/eastmoney-kline":
+                    build_upstream_url(parsed.path, query)
+                    payload = fetch_index_history(
+                        _one(query, "secid"),
+                        _bounded_int(_one(query, "limit", "3000"), 250, 4000),
+                        fetcher,
+                    )
+                elif parsed.path == "/api/market":
+                    build_upstream_url(parsed.path, query)
+                    payload = fetch_market_snapshot(fetcher)
+                else:
+                    upstream_url = build_upstream_url(parsed.path, query)
+                    payload = fetcher(upstream_url, source)
+                return self.send_json(200, payload)
             except RouteError as error:
                 return self.send_json(400, {"error": str(error)})
             except UpstreamError as error:

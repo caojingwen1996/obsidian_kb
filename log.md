@@ -14090,3 +14090,30 @@ develop / html-artifact / test
 
 - 若获得稳定且授权明确的沪深 300 前瞻一致预期数据，可新增适配器并恢复前瞻盈利收益率和 ERP 的完整评分。
 - 第三方公开接口字段或跨域策略变化时，按“数据审计”中的失败记录更新对应独立适配器。
+
+## 2026-07-17
+
+### 操作类型
+
+repair / local-proxy / test
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/scripts/local_proxy.py`
+- `tools/a-share-market-dashboard/启动A股大盘面板.cmd`
+- `tools/a-share-market-dashboard/src/`
+- `tools/a-share-market-dashboard/tests/`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `tools/a-share-market-dashboard/README.md`
+- `docs/superpowers/specs/2026-07-17-a-share-dashboard-local-proxy-design.md`
+- `docs/superpowers/plans/2026-07-17-a-share-dashboard-local-proxy.md`
+- `log.md`
+
+### 操作说明
+
+修复 A 股大盘面板直接以 `file://` 打开时受到浏览器 CORS、JSONP 与跨域请求限制而显示“数据不足”的问题。新增仅监听 `127.0.0.1`、仅开放固定路由的 Python 标准库本地代理和双击启动器；前端在本地模式自动使用同源接口、60 秒超时和数据域顺序刷新。真实上游验证后补充腾讯指数日 K 与新浪财经全市场分页备援，并兼容新浪 GB18030 编码。2026-07-17 实测取得 3000 条指数历史和 5527/5527 条 A 股行情，除无合规公开来源的前瞻 PE 外数据域均成功，评分原始有效覆盖率为 77%，不再触发 70% 以下的“数据不足”。未修改 `index.md`，因为本工具不是正式 Wiki 知识页。
+
+### 后续待办
+
+- 第三方免费接口失效时，依据面板“数据审计”中的具体来源与错误更新对应固定适配器，不降低完整性校验。
+- 获得稳定且授权明确的沪深 300 前瞻一致预期数据后，再恢复前瞻盈利收益率和 ERP 的完整评分。

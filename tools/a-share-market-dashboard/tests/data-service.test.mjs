@@ -82,6 +82,34 @@ test('refreshDomains isolates a failed domain from successful peers', async () =
   assert.equal(result.bad.status, 'missing');
 });
 
+test('refreshDomains honors a sequential concurrency limit', async () => {
+  let active = 0;
+  let maximumActive = 0;
+  const definitions = ['one', 'two', 'three'].map(id => ({
+    id,
+    providers: [{
+      name: id,
+      load: async () => {
+        active += 1;
+        maximumActive = Math.max(maximumActive, active);
+        await Promise.resolve();
+        active -= 1;
+        return [id];
+      },
+    }],
+    validate: Array.isArray,
+  }));
+
+  const result = await refreshDomains(definitions, {
+    storage: createMemoryStorage(),
+    now: () => 1000,
+    concurrency: 1,
+  });
+
+  assert.equal(maximumActive, 1);
+  assert.deepEqual(Object.keys(result), ['one', 'two', 'three']);
+});
+
 test('example snapshot is deterministic, long enough for ten years, and explicitly marked', () => {
   const first = createExampleSnapshot();
   const second = createExampleSnapshot();
@@ -107,6 +135,10 @@ test('live domain definitions identify local proxy sources', () => {
     new Date('2026-07-17T00:00:00Z'),
     { protocol: 'http:', hostname: '127.0.0.1', origin: 'http://127.0.0.1:8765' },
   );
-  assert.match(definitions[0].providers[0].name, /本地代理/);
-  assert.match(definitions.find(definition => definition.id === 'market').providers[0].name, /本地代理/);
+  assert.match(definitions[0].providers[0].name, /东方财富 \/ 腾讯备援.*本地代理/);
+  assert.match(
+    definitions.find(definition => definition.id === 'market').providers[0].name,
+    /东方财富 \/ 新浪备援.*本地代理/,
+  );
+  assert.equal(definitions.find(definition => definition.id === 'treasury').providers.length, 1);
 });
