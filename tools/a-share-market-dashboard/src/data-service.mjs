@@ -3,6 +3,7 @@ import {
   SOURCES,
   buildTreasuryUrl,
   fetchJson,
+  isLocalProxyLocation,
   loadCsindexPerformance,
   loadIndexHistory,
   loadMarginHistory,
@@ -81,10 +82,21 @@ export async function loadDomain({
 }
 
 export async function refreshDomains(definitions, options = {}) {
-  const entries = await Promise.all(definitions.map(async definition => {
-    const result = await loadDomain({ ...definition, ...options });
-    return [definition.id, result];
-  }));
+  if (!definitions.length) return {};
+  const { concurrency = definitions.length, ...loadOptions } = options;
+  const workerCount = Math.max(1, Math.min(definitions.length, Number(concurrency) || definitions.length));
+  const entries = new Array(definitions.length);
+  let nextIndex = 0;
+  const worker = async () => {
+    while (nextIndex < definitions.length) {
+      const index = nextIndex;
+      nextIndex += 1;
+      const definition = definitions[index];
+      const result = await loadDomain({ ...definition, ...loadOptions });
+      entries[index] = [definition.id, result];
+    }
+  };
+  await Promise.all(Array.from({ length: workerCount }, worker));
   return Object.fromEntries(entries);
 }
 
@@ -171,17 +183,23 @@ function compactDate(date) {
   return date.toISOString().slice(0, 10).replaceAll('-', '');
 }
 
-export function createDefaultDomainDefinitions(nowDate = new Date()) {
+export function createDefaultDomainDefinitions(nowDate = new Date(), location = globalThis.location) {
   const start = new Date(nowDate);
   start.setUTCFullYear(start.getUTCFullYear() - 12);
   const startDate = compactDate(start);
   const endDate = compactDate(nowDate);
-  const historyDefinition = (id, secid, sourceName, csiCode = null) => ({
+  const localProxy = isLocalProxyLocation(location);
+  const sourceName = name => `${name}${localProxy ? '（本地代理）' : ''}`;
+  const historyDefinition = (id, secid, providerName, csiCode = null) => ({
     id,
     providers: [
-      { name: sourceName, load: () => loadIndexHistory(secid, 3000), dataAt: lastPointTime },
+      {
+        name: sourceName(localProxy ? '指数历史行情（东方财富 / 腾讯备援）' : providerName),
+        load: () => loadIndexHistory(secid, 3000),
+        dataAt: lastPointTime,
+      },
       ...(csiCode ? [{
-        name: `${SOURCES.csindex.name} ${csiCode}`,
+        name: sourceName(`${SOURCES.csindex.name} ${csiCode}`),
         load: async () => (await loadCsindexPerformance(startDate, endDate, csiCode))
           .map(({ date, close }) => ({ date, close })),
         dataAt: lastPointTime,
@@ -197,14 +215,14 @@ export function createDefaultDomainDefinitions(nowDate = new Date()) {
     historyDefinition('csiAllHistory', INDEX_IDS.csiAll, SOURCES.eastmoneyKline.name, '000985'),
     {
       id: 'csi300Stats',
-      providers: [{ name: SOURCES.csindex.name, load: () => loadCsindexPerformance(startDate, endDate), dataAt: lastPointTime }],
+      providers: [{ name: sourceName(SOURCES.csindex.name), load: () => loadCsindexPerformance(startDate, endDate), dataAt: lastPointTime }],
       validate: data => Array.isArray(data) && data.some(point => Number.isFinite(point.ttmPe)),
       maxAgeMs: 72 * 60 * 60 * 1000,
     },
     {
       id: 'turnoverHistory',
       providers: [{
-        name: `${SOURCES.csindex.name} 中证全指`,
+        name: sourceName(`${SOURCES.csindex.name} 中证全指`),
         load: async () => (await loadCsindexPerformance(startDate, endDate, '000985'))
           .flatMap(point => Number.isFinite(point.turnover) ? [{ date: point.date, value: point.turnover }] : []),
         dataAt: lastPointTime,
@@ -220,22 +238,27 @@ export function createDefaultDomainDefinitions(nowDate = new Date()) {
     },
     {
       id: 'treasury',
-      providers: [
-        { name: `${SOURCES.eastmoneyTreasury.name} JSONP`, load: loadTreasuryHistory, dataAt: lastPointTime },
-        { name: `${SOURCES.eastmoneyTreasury.name} Fetch`, load: async () => parseTreasuryYield(await fetchJson(buildTreasuryUrl())), dataAt: lastPointTime },
-      ],
+      providers: localProxy
+        ? [{ name: sourceName(SOURCES.eastmoneyTreasury.name), load: loadTreasuryHistory, dataAt: lastPointTime }]
+        : [
+          { name: `${SOURCES.eastmoneyTreasury.name} JSONP`, load: loadTreasuryHistory, dataAt: lastPointTime },
+          { name: `${SOURCES.eastmoneyTreasury.name} Fetch`, load: async () => parseTreasuryYield(await fetchJson(buildTreasuryUrl())), dataAt: lastPointTime },
+        ],
       validate: data => Array.isArray(data) && data.length >= 20,
       maxAgeMs: 72 * 60 * 60 * 1000,
     },
     {
       id: 'market',
-      providers: [{ name: SOURCES.eastmoneyMarket.name, load: loadMarketSnapshot }],
+      providers: [{
+        name: sourceName(localProxy ? '全市场行情（东方财富 / 新浪备援）' : SOURCES.eastmoneyMarket.name),
+        load: loadMarketSnapshot,
+      }],
       validate: data => Number.isFinite(data?.universe) && data.universe > 1000,
       maxAgeMs: 10 * 60 * 1000,
     },
     {
       id: 'margin',
-      providers: [{ name: SOURCES.jin10Margin.name, load: loadMarginHistory, dataAt: lastPointTime }],
+      providers: [{ name: sourceName(SOURCES.jin10Margin.name), load: loadMarginHistory, dataAt: lastPointTime }],
       validate: data => Array.isArray(data) && data.length >= 20,
       maxAgeMs: 72 * 60 * 60 * 1000,
     },

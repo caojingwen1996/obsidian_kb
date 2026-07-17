@@ -8,6 +8,7 @@ import {
   conclusionForScore,
   percentileRank,
 } from './core.mjs';
+import { isLocalProxyLocation } from './adapters.mjs';
 import {
   EXAMPLE_SNAPSHOT,
   createMemoryStorage,
@@ -274,6 +275,9 @@ export function resolveStorage(getStorage = () => globalThis.localStorage) {
 function startApp() {
   const state = { snapshot: EXAMPLE_SNAPSHOT, windowYears: 5, busy: false };
   const storage = resolveStorage();
+  const launcherHint = globalThis.location?.protocol === 'file:'
+    ? ' 稳定联网请双击“启动A股大盘面板.cmd”。'
+    : '';
   const notice = document.getElementById('global-notice');
   const refreshButton = document.getElementById('refresh-data');
   const exampleToggle = document.getElementById('example-mode');
@@ -290,10 +294,14 @@ function startApp() {
     refreshButton.disabled = true;
     refreshButton.textContent = '刷新中…';
     notice.className = 'notice';
-    notice.textContent = '正在独立刷新行情、估值、国债、成交额与融资数据；失败项不会阻塞其他指标。';
+    notice.textContent = `正在独立刷新行情、估值、国债、成交额与融资数据；失败项不会阻塞其他指标。${launcherHint}`;
     try {
       const definitions = createDefaultDomainDefinitions().filter(definition => !domainIds || domainIds.includes(definition.id));
-      const refreshed = await refreshDomains(definitions, { storage, now: Date.now });
+      const refreshed = await refreshDomains(definitions, {
+        storage,
+        now: Date.now,
+        concurrency: isLocalProxyLocation() ? 1 : definitions.length,
+      });
       const domains = state.snapshot.mode === 'live' && domainIds
         ? { ...state.snapshot.domains, ...refreshed }
         : refreshed;
@@ -301,17 +309,17 @@ function startApp() {
       if (!usableCount) {
         exampleToggle.checked = true;
         notice.className = 'notice is-error';
-        notice.textContent = '公开接口均不可用，继续显示明确标记的示例数据；没有把示例值写入真实缓存。';
+        notice.textContent = `公开接口均不可用，继续显示明确标记的示例数据；没有把示例值写入真实缓存。${launcherHint}`;
       } else {
         state.snapshot = { mode: 'live', generatedAt: new Date().toISOString(), domains };
         exampleToggle.checked = false;
         notice.className = usableCount === Object.keys(domains).length ? 'notice is-live' : 'notice';
-        notice.textContent = `联网刷新完成：${usableCount} / ${Object.keys(domains).length} 个数据域可用。缺失项已退出评分并重算有效权重。`;
+        notice.textContent = `联网刷新完成：${usableCount} / ${Object.keys(domains).length} 个数据域可用。缺失项已退出评分并重算有效权重。${launcherHint}`;
         render();
       }
     } catch (error) {
       notice.className = 'notice is-error';
-      notice.textContent = `刷新失败：${error instanceof Error ? error.message : String(error)}。当前显示保持不变。`;
+      notice.textContent = `刷新失败：${error instanceof Error ? error.message : String(error)}。当前显示保持不变。${launcherHint}`;
     } finally {
       state.busy = false;
       refreshButton.disabled = false;

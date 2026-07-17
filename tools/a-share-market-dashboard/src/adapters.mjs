@@ -17,6 +17,28 @@ function finiteNumber(value) {
   return Number.isFinite(number) ? number : null;
 }
 
+export function isLocalProxyLocation(location = globalThis.location) {
+  return location?.protocol === 'http:'
+    && ['127.0.0.1', 'localhost'].includes(location.hostname);
+}
+
+export function buildLocalProxyUrl(path, params = {}, location = globalThis.location) {
+  if (!isLocalProxyLocation(location)) throw new Error('local proxy is unavailable');
+  const url = new URL(path, location.origin);
+  Object.entries(params).forEach(([key, value]) => url.searchParams.set(key, String(value)));
+  return url.toString();
+}
+
+export function requestTimeout(location = globalThis.location) {
+  return isLocalProxyLocation(location) ? 60_000 : 12_000;
+}
+
+export async function loadInOrder(values, loader) {
+  const results = [];
+  for (const value of values) results.push(await loader(value));
+  return results;
+}
+
 function normalizeDate(value) {
   const text = String(value ?? '');
   return /^\d{8}$/.test(text)
@@ -198,27 +220,50 @@ export async function fetchJson(url, timeoutMs = 12000) {
 }
 
 export async function loadIndexHistory(secid, limit = 3000) {
+  if (isLocalProxyLocation()) {
+    const payload = await fetchJson(buildLocalProxyUrl('/api/eastmoney-kline', { secid, limit }), requestTimeout());
+    return parseEastmoneyKlines(payload);
+  }
   return parseEastmoneyKlines(await jsonp(buildEastmoneyKlineUrl(secid, limit), 'cb'));
 }
 
 export async function loadCsindexPerformance(startDate, endDate, indexCode = '000300') {
+  if (isLocalProxyLocation()) {
+    const payload = await fetchJson(buildLocalProxyUrl('/api/csindex-performance', { indexCode, startDate, endDate }), requestTimeout());
+    return parseCsindexPerformance(payload);
+  }
   return parseCsindexPerformance(await fetchJson(buildCsindexPerformanceUrl(startDate, endDate, indexCode)));
 }
 
 export async function loadTreasuryHistory() {
+  if (isLocalProxyLocation()) {
+    return parseTreasuryYield(await fetchJson(buildLocalProxyUrl('/api/treasury'), requestTimeout()));
+  }
   return parseTreasuryYield(await jsonp(buildTreasuryUrl(), 'callback'));
 }
 
 export async function loadMarketSnapshot() {
+  if (isLocalProxyLocation()) {
+    return parseMarketSnapshot(await fetchJson(buildLocalProxyUrl('/api/market'), requestTimeout()));
+  }
   return parseMarketSnapshot(await jsonp(buildMarketSnapshotUrl(), 'cb'));
 }
 
 export async function loadMarginHistory() {
-  const urls = [
-    'https://cdn.jin10.com/data_center/reports/fs_1.json',
-    'https://cdn.jin10.com/data_center/reports/fs_2.json',
-  ];
-  const reports = await Promise.all(urls.map(url => fetchJson(`${url}?_=${Date.now()}`)));
+  const urls = isLocalProxyLocation()
+    ? [
+      buildLocalProxyUrl('/api/margin', { market: 1 }),
+      buildLocalProxyUrl('/api/margin', { market: 2 }),
+    ]
+    : [
+      'https://cdn.jin10.com/data_center/reports/fs_1.json',
+      'https://cdn.jin10.com/data_center/reports/fs_2.json',
+    ];
+  const reports = await loadInOrder(urls, url => {
+    const target = new URL(url);
+    target.searchParams.set('_', String(Date.now()));
+    return fetchJson(target.toString(), requestTimeout());
+  });
   const totals = new Map();
   reports.flatMap(parseMarginReport).forEach(point => {
     totals.set(point.date, (totals.get(point.date) ?? 0) + point.value);

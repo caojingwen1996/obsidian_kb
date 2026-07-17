@@ -225,7 +225,7 @@ h3 { font-size: 15px; }
         </div>
       </header>
 
-      <div class="notice" id="global-notice" role="status">正在用内置示例数据初始化，随后尝试联网刷新。</div>
+      <div class="notice" id="global-notice" role="status">正在用内置示例数据初始化。稳定联网请双击“启动A股大盘面板.cmd”。</div>
 
       <section class="view is-active" id="market-summary" aria-labelledby="summary-heading">
         <div class="summary-heading">
@@ -494,6 +494,28 @@ function finiteNumber(value) {
   return Number.isFinite(number) ? number : null;
 }
 
+function isLocalProxyLocation(location = globalThis.location) {
+  return location?.protocol === 'http:'
+    && ['127.0.0.1', 'localhost'].includes(location.hostname);
+}
+
+function buildLocalProxyUrl(path, params = {}, location = globalThis.location) {
+  if (!isLocalProxyLocation(location)) throw new Error('local proxy is unavailable');
+  const url = new URL(path, location.origin);
+  Object.entries(params).forEach(([key, value]) => url.searchParams.set(key, String(value)));
+  return url.toString();
+}
+
+function requestTimeout(location = globalThis.location) {
+  return isLocalProxyLocation(location) ? 60_000 : 12_000;
+}
+
+async function loadInOrder(values, loader) {
+  const results = [];
+  for (const value of values) results.push(await loader(value));
+  return results;
+}
+
 function normalizeDate(value) {
   const text = String(value ?? '');
   return /^\d{8}$/.test(text)
@@ -675,27 +697,50 @@ async function fetchJson(url, timeoutMs = 12000) {
 }
 
 async function loadIndexHistory(secid, limit = 3000) {
+  if (isLocalProxyLocation()) {
+    const payload = await fetchJson(buildLocalProxyUrl('/api/eastmoney-kline', { secid, limit }), requestTimeout());
+    return parseEastmoneyKlines(payload);
+  }
   return parseEastmoneyKlines(await jsonp(buildEastmoneyKlineUrl(secid, limit), 'cb'));
 }
 
 async function loadCsindexPerformance(startDate, endDate, indexCode = '000300') {
+  if (isLocalProxyLocation()) {
+    const payload = await fetchJson(buildLocalProxyUrl('/api/csindex-performance', { indexCode, startDate, endDate }), requestTimeout());
+    return parseCsindexPerformance(payload);
+  }
   return parseCsindexPerformance(await fetchJson(buildCsindexPerformanceUrl(startDate, endDate, indexCode)));
 }
 
 async function loadTreasuryHistory() {
+  if (isLocalProxyLocation()) {
+    return parseTreasuryYield(await fetchJson(buildLocalProxyUrl('/api/treasury'), requestTimeout()));
+  }
   return parseTreasuryYield(await jsonp(buildTreasuryUrl(), 'callback'));
 }
 
 async function loadMarketSnapshot() {
+  if (isLocalProxyLocation()) {
+    return parseMarketSnapshot(await fetchJson(buildLocalProxyUrl('/api/market'), requestTimeout()));
+  }
   return parseMarketSnapshot(await jsonp(buildMarketSnapshotUrl(), 'cb'));
 }
 
 async function loadMarginHistory() {
-  const urls = [
-    'https://cdn.jin10.com/data_center/reports/fs_1.json',
-    'https://cdn.jin10.com/data_center/reports/fs_2.json',
-  ];
-  const reports = await Promise.all(urls.map(url => fetchJson(`${url}?_=${Date.now()}`)));
+  const urls = isLocalProxyLocation()
+    ? [
+      buildLocalProxyUrl('/api/margin', { market: 1 }),
+      buildLocalProxyUrl('/api/margin', { market: 2 }),
+    ]
+    : [
+      'https://cdn.jin10.com/data_center/reports/fs_1.json',
+      'https://cdn.jin10.com/data_center/reports/fs_2.json',
+    ];
+  const reports = await loadInOrder(urls, url => {
+    const target = new URL(url);
+    target.searchParams.set('_', String(Date.now()));
+    return fetchJson(target.toString(), requestTimeout());
+  });
   const totals = new Map();
   reports.flatMap(parseMarginReport).forEach(point => {
     totals.set(point.date, (totals.get(point.date) ?? 0) + point.value);
@@ -776,10 +821,21 @@ async function loadDomain({
 }
 
 async function refreshDomains(definitions, options = {}) {
-  const entries = await Promise.all(definitions.map(async definition => {
-    const result = await loadDomain({ ...definition, ...options });
-    return [definition.id, result];
-  }));
+  if (!definitions.length) return {};
+  const { concurrency = definitions.length, ...loadOptions } = options;
+  const workerCount = Math.max(1, Math.min(definitions.length, Number(concurrency) || definitions.length));
+  const entries = new Array(definitions.length);
+  let nextIndex = 0;
+  const worker = async () => {
+    while (nextIndex < definitions.length) {
+      const index = nextIndex;
+      nextIndex += 1;
+      const definition = definitions[index];
+      const result = await loadDomain({ ...definition, ...loadOptions });
+      entries[index] = [definition.id, result];
+    }
+  };
+  await Promise.all(Array.from({ length: workerCount }, worker));
   return Object.fromEntries(entries);
 }
 
@@ -866,17 +922,23 @@ function compactDate(date) {
   return date.toISOString().slice(0, 10).replaceAll('-', '');
 }
 
-function createDefaultDomainDefinitions(nowDate = new Date()) {
+function createDefaultDomainDefinitions(nowDate = new Date(), location = globalThis.location) {
   const start = new Date(nowDate);
   start.setUTCFullYear(start.getUTCFullYear() - 12);
   const startDate = compactDate(start);
   const endDate = compactDate(nowDate);
-  const historyDefinition = (id, secid, sourceName, csiCode = null) => ({
+  const localProxy = isLocalProxyLocation(location);
+  const sourceName = name => `${name}${localProxy ? '（本地代理）' : ''}`;
+  const historyDefinition = (id, secid, providerName, csiCode = null) => ({
     id,
     providers: [
-      { name: sourceName, load: () => loadIndexHistory(secid, 3000), dataAt: lastPointTime },
+      {
+        name: sourceName(localProxy ? '指数历史行情（东方财富 / 腾讯备援）' : providerName),
+        load: () => loadIndexHistory(secid, 3000),
+        dataAt: lastPointTime,
+      },
       ...(csiCode ? [{
-        name: `${SOURCES.csindex.name} ${csiCode}`,
+        name: sourceName(`${SOURCES.csindex.name} ${csiCode}`),
         load: async () => (await loadCsindexPerformance(startDate, endDate, csiCode))
           .map(({ date, close }) => ({ date, close })),
         dataAt: lastPointTime,
@@ -892,14 +954,14 @@ function createDefaultDomainDefinitions(nowDate = new Date()) {
     historyDefinition('csiAllHistory', INDEX_IDS.csiAll, SOURCES.eastmoneyKline.name, '000985'),
     {
       id: 'csi300Stats',
-      providers: [{ name: SOURCES.csindex.name, load: () => loadCsindexPerformance(startDate, endDate), dataAt: lastPointTime }],
+      providers: [{ name: sourceName(SOURCES.csindex.name), load: () => loadCsindexPerformance(startDate, endDate), dataAt: lastPointTime }],
       validate: data => Array.isArray(data) && data.some(point => Number.isFinite(point.ttmPe)),
       maxAgeMs: 72 * 60 * 60 * 1000,
     },
     {
       id: 'turnoverHistory',
       providers: [{
-        name: `${SOURCES.csindex.name} 中证全指`,
+        name: sourceName(`${SOURCES.csindex.name} 中证全指`),
         load: async () => (await loadCsindexPerformance(startDate, endDate, '000985'))
           .flatMap(point => Number.isFinite(point.turnover) ? [{ date: point.date, value: point.turnover }] : []),
         dataAt: lastPointTime,
@@ -915,22 +977,27 @@ function createDefaultDomainDefinitions(nowDate = new Date()) {
     },
     {
       id: 'treasury',
-      providers: [
-        { name: `${SOURCES.eastmoneyTreasury.name} JSONP`, load: loadTreasuryHistory, dataAt: lastPointTime },
-        { name: `${SOURCES.eastmoneyTreasury.name} Fetch`, load: async () => parseTreasuryYield(await fetchJson(buildTreasuryUrl())), dataAt: lastPointTime },
-      ],
+      providers: localProxy
+        ? [{ name: sourceName(SOURCES.eastmoneyTreasury.name), load: loadTreasuryHistory, dataAt: lastPointTime }]
+        : [
+          { name: `${SOURCES.eastmoneyTreasury.name} JSONP`, load: loadTreasuryHistory, dataAt: lastPointTime },
+          { name: `${SOURCES.eastmoneyTreasury.name} Fetch`, load: async () => parseTreasuryYield(await fetchJson(buildTreasuryUrl())), dataAt: lastPointTime },
+        ],
       validate: data => Array.isArray(data) && data.length >= 20,
       maxAgeMs: 72 * 60 * 60 * 1000,
     },
     {
       id: 'market',
-      providers: [{ name: SOURCES.eastmoneyMarket.name, load: loadMarketSnapshot }],
+      providers: [{
+        name: sourceName(localProxy ? '全市场行情（东方财富 / 新浪备援）' : SOURCES.eastmoneyMarket.name),
+        load: loadMarketSnapshot,
+      }],
       validate: data => Number.isFinite(data?.universe) && data.universe > 1000,
       maxAgeMs: 10 * 60 * 1000,
     },
     {
       id: 'margin',
-      providers: [{ name: SOURCES.jin10Margin.name, load: loadMarginHistory, dataAt: lastPointTime }],
+      providers: [{ name: sourceName(SOURCES.jin10Margin.name), load: loadMarginHistory, dataAt: lastPointTime }],
       validate: data => Array.isArray(data) && data.length >= 20,
       maxAgeMs: 72 * 60 * 60 * 1000,
     },
@@ -1197,6 +1264,9 @@ function resolveStorage(getStorage = () => globalThis.localStorage) {
 function startApp() {
   const state = { snapshot: EXAMPLE_SNAPSHOT, windowYears: 5, busy: false };
   const storage = resolveStorage();
+  const launcherHint = globalThis.location?.protocol === 'file:'
+    ? ' 稳定联网请双击“启动A股大盘面板.cmd”。'
+    : '';
   const notice = document.getElementById('global-notice');
   const refreshButton = document.getElementById('refresh-data');
   const exampleToggle = document.getElementById('example-mode');
@@ -1213,10 +1283,14 @@ function startApp() {
     refreshButton.disabled = true;
     refreshButton.textContent = '刷新中…';
     notice.className = 'notice';
-    notice.textContent = '正在独立刷新行情、估值、国债、成交额与融资数据；失败项不会阻塞其他指标。';
+    notice.textContent = `正在独立刷新行情、估值、国债、成交额与融资数据；失败项不会阻塞其他指标。${launcherHint}`;
     try {
       const definitions = createDefaultDomainDefinitions().filter(definition => !domainIds || domainIds.includes(definition.id));
-      const refreshed = await refreshDomains(definitions, { storage, now: Date.now });
+      const refreshed = await refreshDomains(definitions, {
+        storage,
+        now: Date.now,
+        concurrency: isLocalProxyLocation() ? 1 : definitions.length,
+      });
       const domains = state.snapshot.mode === 'live' && domainIds
         ? { ...state.snapshot.domains, ...refreshed }
         : refreshed;
@@ -1224,17 +1298,17 @@ function startApp() {
       if (!usableCount) {
         exampleToggle.checked = true;
         notice.className = 'notice is-error';
-        notice.textContent = '公开接口均不可用，继续显示明确标记的示例数据；没有把示例值写入真实缓存。';
+        notice.textContent = `公开接口均不可用，继续显示明确标记的示例数据；没有把示例值写入真实缓存。${launcherHint}`;
       } else {
         state.snapshot = { mode: 'live', generatedAt: new Date().toISOString(), domains };
         exampleToggle.checked = false;
         notice.className = usableCount === Object.keys(domains).length ? 'notice is-live' : 'notice';
-        notice.textContent = `联网刷新完成：${usableCount} / ${Object.keys(domains).length} 个数据域可用。缺失项已退出评分并重算有效权重。`;
+        notice.textContent = `联网刷新完成：${usableCount} / ${Object.keys(domains).length} 个数据域可用。缺失项已退出评分并重算有效权重。${launcherHint}`;
         render();
       }
     } catch (error) {
       notice.className = 'notice is-error';
-      notice.textContent = `刷新失败：${error instanceof Error ? error.message : String(error)}。当前显示保持不变。`;
+      notice.textContent = `刷新失败：${error instanceof Error ? error.message : String(error)}。当前显示保持不变。${launcherHint}`;
     } finally {
       state.busy = false;
       refreshButton.disabled = false;
