@@ -13858,6 +13858,26 @@ research / query / equity-analysis
 
 ### 操作类型
 
+design / html-tool / market-monitoring
+
+### 修改文件
+
+- `docs/superpowers/specs/2026-07-17-a-share-market-valuation-dashboard-design.md`
+- `log.md`
+
+### 操作说明
+
+完成 A 股大盘估值分位监控面板的设计规格。确定上证指数、沪深 300、中证全指的位置层，沪深 300 估值与中国 10 年期国债 ERP 的估值层，以及由市场宽度、涨跌停、成交额和融资余额组成的透明情绪代理；同时固化 0—100 买点评分、缺失数据权重归一化、70% 覆盖率结论门槛、固定侧边栏首页和数据审计要求。该设计文档属于工具开发规格，不新增正式 Wiki 页面，因此未更新 `index.md`。
+
+### 后续待办
+
+- 逐一验证公开数据源在独立 HTML 中的 HTTPS、跨域或 JSONP 可用性。
+- 按规格编写实施计划并完成单文件 HTML、计算测试和断网降级验证。
+
+## 2026-07-17
+
+### 操作类型
+
 research / query / equity-valuation
 
 ### 修改文件
