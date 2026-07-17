@@ -3,6 +3,7 @@ import {
   SOURCES,
   buildTreasuryUrl,
   fetchJson,
+  isLocalProxyLocation,
   loadCsindexPerformance,
   loadIndexHistory,
   loadMarginHistory,
@@ -171,17 +172,18 @@ function compactDate(date) {
   return date.toISOString().slice(0, 10).replaceAll('-', '');
 }
 
-export function createDefaultDomainDefinitions(nowDate = new Date()) {
+export function createDefaultDomainDefinitions(nowDate = new Date(), location = globalThis.location) {
   const start = new Date(nowDate);
   start.setUTCFullYear(start.getUTCFullYear() - 12);
   const startDate = compactDate(start);
   const endDate = compactDate(nowDate);
-  const historyDefinition = (id, secid, sourceName, csiCode = null) => ({
+  const sourceName = name => `${name}${isLocalProxyLocation(location) ? '（本地代理）' : ''}`;
+  const historyDefinition = (id, secid, providerName, csiCode = null) => ({
     id,
     providers: [
-      { name: sourceName, load: () => loadIndexHistory(secid, 3000), dataAt: lastPointTime },
+      { name: sourceName(providerName), load: () => loadIndexHistory(secid, 3000), dataAt: lastPointTime },
       ...(csiCode ? [{
-        name: `${SOURCES.csindex.name} ${csiCode}`,
+        name: sourceName(`${SOURCES.csindex.name} ${csiCode}`),
         load: async () => (await loadCsindexPerformance(startDate, endDate, csiCode))
           .map(({ date, close }) => ({ date, close })),
         dataAt: lastPointTime,
@@ -197,14 +199,14 @@ export function createDefaultDomainDefinitions(nowDate = new Date()) {
     historyDefinition('csiAllHistory', INDEX_IDS.csiAll, SOURCES.eastmoneyKline.name, '000985'),
     {
       id: 'csi300Stats',
-      providers: [{ name: SOURCES.csindex.name, load: () => loadCsindexPerformance(startDate, endDate), dataAt: lastPointTime }],
+      providers: [{ name: sourceName(SOURCES.csindex.name), load: () => loadCsindexPerformance(startDate, endDate), dataAt: lastPointTime }],
       validate: data => Array.isArray(data) && data.some(point => Number.isFinite(point.ttmPe)),
       maxAgeMs: 72 * 60 * 60 * 1000,
     },
     {
       id: 'turnoverHistory',
       providers: [{
-        name: `${SOURCES.csindex.name} 中证全指`,
+        name: sourceName(`${SOURCES.csindex.name} 中证全指`),
         load: async () => (await loadCsindexPerformance(startDate, endDate, '000985'))
           .flatMap(point => Number.isFinite(point.turnover) ? [{ date: point.date, value: point.turnover }] : []),
         dataAt: lastPointTime,
@@ -221,21 +223,21 @@ export function createDefaultDomainDefinitions(nowDate = new Date()) {
     {
       id: 'treasury',
       providers: [
-        { name: `${SOURCES.eastmoneyTreasury.name} JSONP`, load: loadTreasuryHistory, dataAt: lastPointTime },
-        { name: `${SOURCES.eastmoneyTreasury.name} Fetch`, load: async () => parseTreasuryYield(await fetchJson(buildTreasuryUrl())), dataAt: lastPointTime },
+        { name: sourceName(`${SOURCES.eastmoneyTreasury.name} JSONP`), load: loadTreasuryHistory, dataAt: lastPointTime },
+        { name: sourceName(`${SOURCES.eastmoneyTreasury.name} Fetch`), load: async () => parseTreasuryYield(await fetchJson(buildTreasuryUrl())), dataAt: lastPointTime },
       ],
       validate: data => Array.isArray(data) && data.length >= 20,
       maxAgeMs: 72 * 60 * 60 * 1000,
     },
     {
       id: 'market',
-      providers: [{ name: SOURCES.eastmoneyMarket.name, load: loadMarketSnapshot }],
+      providers: [{ name: sourceName(SOURCES.eastmoneyMarket.name), load: loadMarketSnapshot }],
       validate: data => Number.isFinite(data?.universe) && data.universe > 1000,
       maxAgeMs: 10 * 60 * 1000,
     },
     {
       id: 'margin',
-      providers: [{ name: SOURCES.jin10Margin.name, load: loadMarginHistory, dataAt: lastPointTime }],
+      providers: [{ name: sourceName(SOURCES.jin10Margin.name), load: loadMarginHistory, dataAt: lastPointTime }],
       validate: data => Array.isArray(data) && data.length >= 20,
       maxAgeMs: 72 * 60 * 60 * 1000,
     },

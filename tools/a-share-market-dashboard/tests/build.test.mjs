@@ -69,6 +69,11 @@ test('built artifact is self-contained and directly openable', () => {
   assert.ok(Buffer.byteLength(output, 'utf8') < 2_000_000);
 });
 
+test('built artifact explains that the launcher is required for stable live data', () => {
+  const output = readFileSync(artifactPath, 'utf8');
+  assert.match(output, /启动A股大盘面板\.cmd/);
+});
+
 test('file-protocol storage restrictions fall back to an in-memory cache', () => {
   const storage = resolveStorage(() => { throw new Error('SecurityError'); });
   storage.setItem('key', 'value');

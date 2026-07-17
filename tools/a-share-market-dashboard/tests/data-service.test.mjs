@@ -101,3 +101,12 @@ test('live domain definitions include turnover history and an explicit missing f
   assert.equal(definitions.find(definition => definition.id === 'csiAllHistory').providers.length, 2);
   assert.equal(definitions.find(definition => definition.id === 'forwardPe').providers.length, 0);
 });
+
+test('live domain definitions identify local proxy sources', () => {
+  const definitions = createDefaultDomainDefinitions(
+    new Date('2026-07-17T00:00:00Z'),
+    { protocol: 'http:', hostname: '127.0.0.1', origin: 'http://127.0.0.1:8765' },
+  );
+  assert.match(definitions[0].providers[0].name, /本地代理/);
+  assert.match(definitions.find(definition => definition.id === 'market').providers[0].name, /本地代理/);
+});
