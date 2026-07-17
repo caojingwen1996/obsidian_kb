@@ -13983,3 +13983,88 @@ research / query-update / html-export
 
 - 等待公司披露可量化的商业航天订单、收入和利润贡献。
 - 在 2026 年半年报后复核航天配套与系统装备毛利率、应收存货占用及经营现金流。
+
+## 2026-07-17
+
+### 操作类型
+
+research / query / equity-valuation / html-export
+
+### 修改文件
+
+- `sources/webpages/2026-07-17-电科蓝天机构级研究资料快照.md`
+- `sources/papers/电科蓝天机构级研究-2026-07-17/电科蓝天-2025年年度报告.pdf`
+- `sources/papers/电科蓝天机构级研究-2026-07-17/电科蓝天-2026年第一季度报告.pdf`
+- `sources/papers/电科蓝天机构级研究-2026-07-17/电科蓝天-上市公告书.pdf`
+- `wiki/queries/2026-07-17-1521-电科蓝天-机构级决策研报.md`
+- `sources/automations/商业航天每日跟踪/2026-07-17-电科蓝天机构级决策研报.html`
+- `index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` 完成电科蓝天（688818.SH）机构级个股研究，并按 Query Page 归档。核验公司身份、上市与股本、2022—2025 财务、2026Q1、法定分部、商业航天产业位置、募投项目、客户集中和近三个月催化剂；完成相对 PE、三情景 DCF、敏感性、反向 DCF 与分部加总估值，并独立执行体系三要素与风险方向判断。公司竞争格局有利，但流动性和情绪位置不利；截至 2026-07-16 收盘 58.32 元，对应约 1,013 亿元市值和 271 倍滚动 PE，三法综合公允价值为 12—24 元。新增现金动作为 `wait / observe`，已有高估值仓位为 `reduce / review`。同步保存三份法定披露 PDF 和独立 HTML 阅读版本。
+
+### 后续待办
+
+- 2026-08-10 解禁后复核流通供给、融资余额与成交承接。
+- 2026-08-28 中报披露后复核宇航电源收入增速、分部毛利率、在手订单、应收存货和自由现金流。
+- 募投产线进入批产后复核产能利用率、良率、单星价值量与资本回报。
+
+## 2026-07-17
+
+### 操作类型
+
+research / query / equity-valuation / html-export
+
+### 修改文件
+
+- `sources/webpages/2026-07-17-上海瀚讯机构级研究资料快照.md`
+- `sources/papers/上海瀚讯机构级研究-2026-07-17/上海瀚讯-2021年年度报告.pdf`
+- `sources/papers/上海瀚讯机构级研究-2026-07-17/上海瀚讯-2022年年度报告.pdf`
+- `sources/papers/上海瀚讯机构级研究-2026-07-17/上海瀚讯-2023年年度报告.pdf`
+- `sources/papers/上海瀚讯机构级研究-2026-07-17/上海瀚讯-2025年年度报告.pdf`
+- `sources/papers/上海瀚讯机构级研究-2026-07-17/上海瀚讯-2026年第一季度报告.pdf`
+- `wiki/queries/2026-07-17-1539-上海瀚讯-机构级决策研报.md`
+- `sources/automations/商业航天每日跟踪/2026-07-17-上海瀚讯机构级决策研报.html`
+- `index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` 完成上海瀚讯（300762.SZ）机构级个股研究并按 Query Page 归档。核验 2021—2025 年法定财务、2026Q1、军品审价、在手订单、向特定对象发行、商业航天产业位置、近三个月催化剂及 2026-07-17 收盘行情、资金、筹码与卖方一致预期；完成前瞻 PE、三情景 DCF、敏感性、反向 DCF 和行业 P/S 估值，并独立执行体系三要素与风险方向判断。公司产业资格较强，但毛利率、自由现金流和商业航天财务贡献尚未验证；综合公允价值为 13—20 元，30.25 元仍属高估。新资金动作为 `wait / observe`，已有持仓在成本与仓位未知时为 `review`。同步保存五份法定披露 PDF 和独立 HTML 阅读版本。
+
+### 后续待办
+
+- 2026 年半年报披露后复核收入恢复、毛利率、应收存货、经营现金流和在手订单兑现。
+- 跟踪军品审价调减、商业航天独立订单与利润贡献，以及定增最终发行条款和项目回报。
+- 若价格进入 17—20 元估值观察区，或基本面上修足以覆盖当前估值，再重新评估现金动作。
+
+## 2026-07-17
+
+### 操作类型
+
+skill-maintenance / query-update / html-export / template-alignment
+
+### 修改文件
+
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `.agents/skills/bbxm-equity-research/agents/openai.yaml`
+- `.agents/skills/bbxm-equity-research/assets/report.css`
+- `.agents/skills/bbxm-equity-research/scripts/render-report-html.cjs`
+- `.agents/skills/bbxm-equity-research/scripts/test-render-report-html.cjs`
+- `wiki/queries/2026-07-15-1433-航天电子机构级决策研报.md`
+- `sources/automations/商业航天每日跟踪/2026-07-17-航天电子机构级决策研报.html`
+- `sources/automations/商业航天每日跟踪/2026-07-17-电科蓝天机构级决策研报.html`
+- `docs/superpowers/specs/2026-07-17-bbxm-equity-research-html-export-design.md`
+- `docs/superpowers/plans/2026-07-17-bbxm-equity-research-html-export.md`
+- `log.md`
+
+### 操作说明
+
+将航天电子机构级决策研报严格重排为当前 `bbxm-equity-research/template.md` 的完整 16 模块，保留既有法定财务、三类估值、商业航天产业位置与来源边界，并补齐三要素、风险方向、动作约束和完整来源清单。修改 `bbxm-equity-research` 技能，将同源 HTML 设为默认必交付物，新增可复用 UTF-8 渲染器、统一 CSS 和回归测试。HTML 统一采用电科蓝天版式：渐变封面、判断徽章、四张指标卡、左侧目录、右侧正文和打印样式。使用同一渲染器重新生成航天电子与电科蓝天 HTML，消除 `??`、`12?24` 等编码缺陷。
+
+### 后续待办
+
+- 以后生成个股研报时先完成 16 模块 Markdown，再由统一渲染器生成 HTML，不再维护独立 HTML 正文。
+- 2026 年半年报后复核航天电子的订单、分部毛利率、经营现金流和估值承接条件。

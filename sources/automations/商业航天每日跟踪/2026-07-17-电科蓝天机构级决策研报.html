@@ -1,0 +1,1204 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>电科蓝天机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.verdict { display: inline-flex; margin-top: 24px; padding: 7px 13px; border-radius: 999px; color: var(--danger); background: var(--danger-bg); font-weight: 750; }
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 26px; }
+.kpi { min-height: 96px; padding: 17px 18px; border: 1px solid rgba(255,255,255,.22); border-radius: 14px; background: rgba(255,255,255,.09); }
+.kpi-value { display: block; font-size: 23px; line-height: 1.3; font-weight: 760; overflow-wrap: anywhere; }
+.kpi-label { display: block; margin-top: 10px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; opacity: .8; }
+
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+}
+
+@media (max-width: 600px) {
+  .kpis { grid-template-columns: 1fr; }
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .verdict, .kpi { border: 1px solid #aebbc2; color: #102f43; background: #fff; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · 688818.SH</p>
+      <h1>电科蓝天机构级决策研报</h1>
+      <div class="hero-meta"><span>2026-07-17 15:21（Asia/Shanghai；行情截至 2026-07-16 收盘）</span><span>2026-07-17 15:21（Asia/Shanghai）</span><span>上海证券交易所科创板 / 人民币</span></div>
+      <div class="verdict">高估 · 新增现金 wait / observe；已有高估值仓位 reduce / review</div>
+      <div class="kpis">
+        <div class="kpi"><span class="kpi-value">58.32 元，2026-07-16 收盘</span><span class="kpi-label">当前价格</span></div>
+        <div class="kpi"><span class="kpi-value">12—24 元</span><span class="kpi-label">综合估值区间</span></div>
+        <div class="kpi"><span class="kpi-value">新增现金 wait / observe；已有高估值仓位 reduce / review</span><span class="kpi-label">冰冰小美动作</span></div>
+        <div class="kpi"><span class="kpi-value">中高</span><span class="kpi-label">结论置信度</span></div>
+      </div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
+<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
+<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
+<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
+<a class="toc-link" href="#section-6">6. 五年财务历史</a>
+<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
+<a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
+<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
+<a class="toc-link" href="#section-10">10. 估值</a>
+<a class="toc-link" href="#section-11">11. 冰冰小美框架判断</a>
+<a class="toc-link" href="#section-12">12. 最终结论</a>
+<a class="toc-link" href="#section-13">13. 后续监控指标</a>
+<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
+<a class="toc-link" href="#section-15">15. 来源清单</a>
+<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
+      <article class="content"><blockquote>
+<p>证券代码：688818.SH<br>交易所 / 币种：上海证券交易所科创板 / 人民币<br>研究截止时间：2026-07-17 15:21（Asia/Shanghai；行情截至 2026-07-16 收盘）<br>报告生成时间：2026-07-17 15:21（Asia/Shanghai）<br>数据口径：中国企业会计准则合并口径；金额默认人民币；自由现金流为经营现金流减资本开支代理值  </p>
+</blockquote>
+<h2 id="section-1">1. 决策摘要</h2>
+
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值状态</td>
+<td>高估</td>
+</tr>
+<tr>
+<td>操作建议</td>
+<td>规避追高；等待估值与订单、利润、现金流重新匹配</td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td>新增现金 <code>wait / observe</code>；已有高估值仓位 <code>reduce / review</code></td>
+</tr>
+<tr>
+<td>当前价格及时间</td>
+<td>58.32 元，2026-07-16 收盘</td>
+</tr>
+<tr>
+<td>综合估值区间</td>
+<td>12—24 元</td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>-79.4% 至 -58.8%</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td>中高</td>
+</tr>
+</tbody></table>
+<h3>如果今天这是一笔现金，我会买它吗</h3>
+<ul>
+<li>回答：不会；只有在特定条件下会。</li>
+<li><strong>我的判断</strong>：电科蓝天的产业位置、技术积累和客户准入壁垒是真实的，但 58.32 元对应约 1,013 亿元市值、约 271 倍滚动 PE 和 18.55 倍 PB。市场已把商业航天批量化、募投产能释放和利润率上升提前按接近乐观情景定价，而 2025 年自由现金流仍为负、特种电源毛利率仅 0.46%、应收与存货合计高于全年收入。</li>
+<li>改变结论的条件：价格进入 18—24 元且订单与毛利率未恶化；或 2026—2027 年连续证明宇航电源收入增速超过 30%、综合毛利率超过 28%、自由现金流转正并持续，足以显著上修本报告现金流模型。</li>
+</ul>
+<h2 id="section-2">2. 证券身份与来源矩阵</h2>
+
+<h3>2.1 证券身份</h3>
+<ul>
+<li>公司全称：中电科蓝天科技股份有限公司。</li>
+<li>证券代码：688818.SH。</li>
+<li>上市地：上海证券交易所科创板，2026-02-10 上市。</li>
+<li>报告准则：中国企业会计准则。</li>
+<li>法定披露体系：A 股交易所与巨潮资讯。</li>
+<li>同名或跨市场歧义：有相近名称，但本报告仅分析 688818.SH，不是中国电研、中科蓝讯或其他中国电科上市平台。</li>
+</ul>
+<h3>2.2 来源矩阵</h3>
+<table>
+<thead>
+<tr>
+<th>数据项目</th>
+<th>目标来源</th>
+<th>实际来源</th>
+<th>数据时间</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>实时价格、52周高低、今年以来表现</td>
+<td>交易所 / 可靠行情平台</td>
+<td>准上市网、经济通、历史行情页交叉核验</td>
+<td>2026-07-16</td>
+<td>已获取；上市不足一年</td>
+</tr>
+<tr>
+<td>第三方公允价值、护城河、星级</td>
+<td>Morningstar 或可核验评级页</td>
+<td>公开搜索、公司公告</td>
+<td>截至 2026-07-17</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>最新季报与管理层指引</td>
+<td>公司法定披露</td>
+<td>2026Q1、提质增效方案</td>
+<td>2026-04</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>分部收入</td>
+<td>公司法定披露</td>
+<td>2025 年报</td>
+<td>2025FY</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>卖方评级与目标价</td>
+<td>券商研报 / 一致预期</td>
+<td>国泰海通、中航、东吴等公开摘要</td>
+<td>2026-04 至 2026-07</td>
+<td>部分获取</td>
+</tr>
+<tr>
+<td>近三个月新闻与催化剂</td>
+<td>公司公告优先</td>
+<td>公司公告、官网、交易所互动、权威媒体</td>
+<td>2026-04 至 2026-07</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>五年财务历史</td>
+<td>法定年报 / 招股书</td>
+<td>招股书与 2025 年报</td>
+<td>2022—2025</td>
+<td>2021 未披露</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 行情与市场预期</h2>
+
+<h3>3.1 行情快照（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">数值</th>
+<th>来源</th>
+<th>时间 / 口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前价格</td>
+<td align="right">58.32 元</td>
+<td>经济通、准上市网</td>
+<td>2026-07-16 收盘</td>
+</tr>
+<tr>
+<td>52周最高</td>
+<td align="right">94.92 元</td>
+<td>富途、历史行情页</td>
+<td>实为上市以来最高</td>
+</tr>
+<tr>
+<td>52周最低</td>
+<td align="right">54.01 元</td>
+<td>富途</td>
+<td>实为上市以来最低</td>
+</tr>
+<tr>
+<td>今年以来表现</td>
+<td align="right">相对发行价 +515.8%；相对上市首日收盘 -11.6%</td>
+<td>发行价 9.47 元、首日收盘 65.94 元</td>
+<td>公司 2 月才上市，不能用完整自然年口径</td>
+</tr>
+<tr>
+<td>总市值</td>
+<td align="right">1,012.97 亿元</td>
+<td>准上市网</td>
+<td>总股本 17.3692 亿股</td>
+</tr>
+<tr>
+<td>PE / PB / EV</td>
+<td align="right">滚动 PE 270.66 倍；PB 18.55 倍；估算 EV 约 984.9 亿元</td>
+<td>准上市网；本报告测算</td>
+<td>EV 扣除 2026Q1 估算净现金约 28.1 亿元</td>
+</tr>
+</tbody></table>
+<h3>3.2 第三方公允价值与评级（事实）</h3>
+<ul>
+<li>公允价值：未获取到。</li>
+<li>护城河评级：未获取到。</li>
+<li>星级：未获取到。</li>
+<li>来源与时间：截至 2026-07-17 检查公开搜索、公司公告和可访问行情页面。</li>
+<li>未获取到的字段及已检查来源：未取得可验证的 Morningstar 公司级覆盖页面；不把卖方目标价替代独立公允价值。</li>
+</ul>
+<h3>3.3 卖方评级与目标价分布（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>机构</th>
+<th>日期</th>
+<th>评级</th>
+<th align="right">目标价</th>
+<th>预测期</th>
+<th>关键假设</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>国泰海通</td>
+<td>2026-05</td>
+<td>增持</td>
+<td align="right">124.88 元</td>
+<td>2026—2028</td>
+<td>归母净利润 4.98/6.45/8.22 亿元，宇航电源加速</td>
+</tr>
+<tr>
+<td>中航证券</td>
+<td>2026-05</td>
+<td>买入</td>
+<td align="right">100.00 元</td>
+<td>2026—2028</td>
+<td>归母净利润 4.96/7.58/10.32 亿元</td>
+</tr>
+<tr>
+<td>东吴证券</td>
+<td>2026-04</td>
+<td>买入</td>
+<td align="right">未获取到</td>
+<td>2026—2028</td>
+<td>EPS 0.32/0.52/0.81 元，商业航天批量化</td>
+</tr>
+<tr>
+<td>方正证券</td>
+<td>2026-04</td>
+<td>推荐口径未完整获取</td>
+<td align="right">未获取到</td>
+<td>未获取到</td>
+<td>宇航电源稳定扩张、特种电源承压</td>
+</tr>
+</tbody></table>
+<ul>
+<li>目标价区间 / 中位数：已核验的两个目标价为 100—124.88 元，中位数 112.44 元；样本过少，不能代表完整一致预期。</li>
+<li>样本数量与完整性：同花顺摘要显示 7 家机构预测 2026 年业绩，但未取得逐家完整明细。</li>
+<li>来源冲突及采信理由：卖方目标价基于约 200—400 倍前瞻 PE/PS 的稀缺性定价，与现金流内在价值差异极大；本报告将盈利预测作为情景参考，不把目标价直接纳入公允价值。</li>
+</ul>
+<h2 id="section-4">4. 商业模式与竞争格局</h2>
+
+<h3>4.1 事实</h3>
+<ul>
+<li>收入来源：2025 年主营业务中，宇航电源占 69.88%、特种电源占 8.32%、新能源应用及服务占 21.80%。</li>
+<li>客户与定价权：采取直销模式，主要客户为航天领域总体单位；前五大客户占收入 77.01%，第一大客户占 53.39%。高可靠、长寿命、在轨验证和军工资质形成准入壁垒，但客户集中和审价机制限制供应商定价权。</li>
+<li>成本结构：宇航电源毛利率 30.01%，特种电源 0.46%，新能源应用及服务 12.47%；原材料、人工、制造与外协费用共同构成成本。</li>
+<li>资本强度：2025 年资本开支约 2.08 亿元；IPO 募投项目总投资约 19.95 亿元、建设期 36 个月，扩产期现金流压力较高。</li>
+<li>竞争者：国家航天体系内的空间电源研究制造单位、商业航天新进入者，以及特种锂电与储能系统集成商；不同产品定制化强，简单横向比较存在口径局限。</li>
+<li>监管和产业位置：公司是中国电科旗下电能源核心产业平台，国内少数具备宇航电源系统级整体解决方案能力的企业之一；公开招股材料显示宇航电源国内市场覆盖率超过 50%。</li>
+</ul>
+<h3>4.2 我的判断</h3>
+<ul>
+<li><strong>我的判断：竞争优势及依据</strong>：公司属于商业航天产业链中游的核心电源分系统平台，横跨空间发电、储能、控制和系统集成。长期在轨履历、系统级验证、军工资质和中国电科平台构成强壁垒，竞争格局显著优于通用储能和普通锂电环节。</li>
+<li><strong>我的判断：商业模式最脆弱的环节及依据</strong>：不是技术本身，而是“客户集中 + 暂定价/审价 + 高营运资本 + 扩产”的现金转化。2025 年应收账款 23.36 亿元、存货 20.21 亿元，合计已超过全年营收；Q1 存货进一步升至 22.71 亿元。</li>
+<li>证伪条件：核心型号失标、在轨质量事故、商业航天降本导致毛利率持续跌破 25%、第一大客户采购或审价显著收缩，均会削弱护城河的经济价值。</li>
+</ul>
+<h2 id="section-5">5. 分部收入与盈利拆解</h2>
+
+<table>
+<thead>
+<tr>
+<th>分部</th>
+<th align="right">收入</th>
+<th align="right">同比</th>
+<th align="right">收入占比</th>
+<th align="right">毛利率</th>
+<th align="right">毛利率变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宇航电源</td>
+<td align="right">21.76 亿元</td>
+<td align="right">+13.63%</td>
+<td align="right">69.88%</td>
+<td align="right">30.01%</td>
+<td align="right">-1.80pct</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>特种电源</td>
+<td align="right">2.59 亿元</td>
+<td align="right">-41.59%</td>
+<td align="right">8.32%</td>
+<td align="right">0.46%</td>
+<td align="right">-12.65pct</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>新能源应用及服务</td>
+<td align="right">6.79 亿元</td>
+<td align="right">+2.73%</td>
+<td align="right">21.80%</td>
+<td align="right">12.47%</td>
+<td align="right">-0.01pct</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>其他业务</td>
+<td align="right">1.73 亿元</td>
+<td align="right">不适用</td>
+<td align="right">5.26%（占总营收）</td>
+<td align="right">未单独披露</td>
+<td align="right">未单独披露</td>
+<td>本报告按总营收与主营差额计算</td>
+</tr>
+</tbody></table>
+<ul>
+<li>披露口径变化：公司官网常用“绿色微网能源、共性基础”等组织口径；法定财报按宇航电源、特种电源、新能源应用及服务披露，本报告以法定口径为准。</li>
+<li>来源冲突：2025 年业绩快报营收为 33.01 亿元，审计年报为 32.86 亿元；采信审计年报。</li>
+<li>采信理由：审计年报由立信出具标准无保留意见，且披露分部收入与成本。</li>
+<li><strong>我的判断：增长质量及依据</strong>：增长主要由高毛利宇航电源贡献，结构改善方向有利；但宇航毛利率仍下降、特种电源近乎不盈利，说明规模效应尚未全面转化为利润和现金流。</li>
+</ul>
+<h2 id="section-6">6. 五年财务历史</h2>
+
+<table>
+<thead>
+<tr>
+<th>财年</th>
+<th align="right">营收</th>
+<th align="right">毛利率</th>
+<th align="right">经营现金流</th>
+<th align="right">资本开支</th>
+<th align="right">自由现金流</th>
+<th align="right">ROIC / 代理值</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>招股书报告期不覆盖</td>
+</tr>
+<tr>
+<td>2022</td>
+<td align="right">25.21 亿元</td>
+<td align="right">24.74%</td>
+<td align="right">5.64 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">ROE 8.28%</td>
+<td>招股书 / 财务概览</td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">35.24 亿元</td>
+<td align="right">21.17%</td>
+<td align="right">-5.70 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">ROE 5.77%</td>
+<td>招股书 / 2025 年报</td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">31.27 亿元</td>
+<td align="right">26.08%</td>
+<td align="right">1.06 亿元</td>
+<td align="right">1.52 亿元</td>
+<td align="right">-0.46 亿元</td>
+<td align="right">ROE 9.71%</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">32.86 亿元</td>
+<td align="right">25.33%</td>
+<td align="right">1.32 亿元</td>
+<td align="right">2.08 亿元</td>
+<td align="right">-0.76 亿元</td>
+<td align="right">ROE 8.90%</td>
+<td>2025 年报</td>
+</tr>
+</tbody></table>
+<ul>
+<li>自由现金流口径：经营活动现金流净额减“购建固定资产、无形资产和其他长期资产支付的现金”；2022—2023 缺少同口径资本开支，不做猜测。</li>
+<li>ROIC 口径：缺少可连续复核的投入资本调整数据，使用年报加权 ROE 作为代理值，不等同于 ROIC。</li>
+<li>一次性项目和会计变化：2024 年数据在 2025 年报中存在同一控制下合并重述；本报告采用调整后数据。</li>
+<li><strong>我的判断：盈利质量、现金转化与资本回报趋势</strong>：收入与利润不是单向增长，现金流季节性和波动显著。2024—2025 自由现金流连续为负，IPO 后净资产大幅增加还将机械稀释短期 ROE；现价要求未来现金转化发生结构性跃迁。</li>
+</ul>
+<h2 id="section-7">7. 最新季度与管理层指引</h2>
+
+<h3>7.1 最新季度（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">本期</th>
+<th align="right">同比 / 变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营收</td>
+<td align="right">4.68 亿元</td>
+<td align="right">+87.19%</td>
+<td>2026Q1</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">27.01%</td>
+<td align="right">+1.60pct</td>
+<td>按收入减成本测算</td>
+</tr>
+<tr>
+<td>净利润</td>
+<td align="right">归母 0.149 亿元</td>
+<td align="right">上年同期 -0.323 亿元，扭亏</td>
+<td>2026Q1</td>
+</tr>
+<tr>
+<td>调整后利润</td>
+<td align="right">扣非归母 0.132 亿元</td>
+<td align="right">上年同期 -0.342 亿元，扭亏</td>
+<td>2026Q1</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">-0.871 亿元</td>
+<td align="right">上年同期 -4.461 亿元，明显改善但仍为负</td>
+<td>2026Q1</td>
+</tr>
+<tr>
+<td>订单 / 储备</td>
+<td align="right">未披露量化在手订单</td>
+<td align="right">不适用</td>
+<td>公司公告</td>
+</tr>
+</tbody></table>
+<h3>7.2 管理层指引（事实）</h3>
+<ul>
+<li>正式量化指引：未发布 2026 年营收、净利润或订单的正式区间指引。</li>
+<li>定性展望：2026 年“提质增效重回报”方案提出以实现效益同比实质性增长为目标，推进前沿技术预研—中试—规模量产链条。</li>
+<li>未获取到：商业航天订单金额、单星价值量、产能利用率、募投产线投产节奏和 2026 年分部利润指引。</li>
+</ul>
+<h3>7.3 我的判断</h3>
+<ul>
+<li><strong>我的判断：边际变化及依据</strong>：Q1 收入、毛利率和利润同比改善，基本面方向转好；但单季只占全年较小部分，且公司收入集中在下半年，不能把 Q1 增速机械年化。</li>
+<li><strong>我的判断：指引可信度及依据</strong>：定性目标符合行业方向，但缺少订单、产能与利润率量化锚，可信度只能评为中等。</li>
+<li>下一验证节点：2026-08-28 中报，重点看宇航电源分部收入、综合毛利率、应收/存货、经营现金流和募投进度。</li>
+</ul>
+<h2 id="section-8">8. 近三个月新闻与催化剂</h2>
+
+<table>
+<thead>
+<tr>
+<th>发生日</th>
+<th>事件</th>
+<th>影响变量</th>
+<th>财务传导</th>
+<th>是否已反映</th>
+<th>验证节点</th>
+<th>失效条件</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-04-07</td>
+<td>千帆星座第七批 18 星发射</td>
+<td>商业航天批量需求</td>
+<td>电源分系统订单与收入</td>
+<td>高度反映</td>
+<td>后续组网频率、公司确认收入</td>
+<td>发射节奏放缓或份额下降</td>
+<td>公司官网 / 公开报道</td>
+</tr>
+<tr>
+<td>2026-04-29</td>
+<td>2026Q1 收入 +87.19%、扭亏</td>
+<td>盈利修复</td>
+<td>收入和毛利率改善</td>
+<td>已反映</td>
+<td>中报持续性</td>
+<td>Q2 增速与现金流回落</td>
+<td>一季报</td>
+</tr>
+<tr>
+<td>2026-06-15</td>
+<td>公司披露机构调研记录</td>
+<td>机构关注度</td>
+<td>估值与流动性溢价</td>
+<td>已反映</td>
+<td>机构持仓、成交承接</td>
+<td>关注不能转化为订单/业绩</td>
+<td>公司公告</td>
+</tr>
+<tr>
+<td>2026-07-17</td>
+<td>每股派息 0.07463 元</td>
+<td>股东回报</td>
+<td>现金流出约 1.30 亿元</td>
+<td>基本反映</td>
+<td>除息后表现</td>
+<td>分红不可持续</td>
+<td>权益分派公告</td>
+</tr>
+<tr>
+<td>2026-08-10</td>
+<td>预计约 1,000 万股首发一般股份解禁</td>
+<td>流通供给</td>
+<td>潜在抛压</td>
+<td>部分反映</td>
+<td>实际解禁与减持</td>
+<td>锁定或无减持</td>
+<td>同花顺事件页，最终以公告为准</td>
+</tr>
+</tbody></table>
+<h2 id="section-9">9. 多头与空头论据</h2>
+
+<h3>9.1 多头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宇航电源稀缺平台</td>
+<td>系统级能力、在轨履历、市场覆盖率超过 50%</td>
+<td>份额、重大型号配套</td>
+<td>失标或质量事故</td>
+</tr>
+<tr>
+<td>商业航天批量化</td>
+<td>2025 宇航电源收入 +13.63%，Q1 高增</td>
+<td>发射批次、订单、产能利用率</td>
+<td>星座节奏放缓</td>
+</tr>
+<tr>
+<td>技术持续迭代</td>
+<td>34.4% 砷化镓外延片在轨验证、300Wh/kg 空间锂电鉴定</td>
+<td>批产良率、单瓦成本</td>
+<td>降本不及预期</td>
+</tr>
+<tr>
+<td>IPO 扩产改善供给</td>
+<td>募资净额约 15.79 亿元投宇航电源产业化</td>
+<td>投产进度、产能利用率</td>
+<td>建设延期、资本回报低</td>
+</tr>
+</tbody></table>
+<h3>9.2 空头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值极端透支</td>
+<td>约 271 倍 TTM PE、18.55 倍 PB</td>
+<td>前瞻 PE、现金收益率</td>
+<td>利润和 FCF 远超预期</td>
+</tr>
+<tr>
+<td>现金转化弱</td>
+<td>2025 FCF -0.76 亿元，Q1 FCF -1.69 亿元</td>
+<td>CFO/净利润、FCF</td>
+<td>连续四季 FCF 转正</td>
+</tr>
+<tr>
+<td>客户与营运资本集中</td>
+<td>第一大客户 53.39%，应收+存货 43.57 亿元</td>
+<td>回款天数、存货周转</td>
+<td>预收增长、回款加快</td>
+</tr>
+<tr>
+<td>非核心业务拖累</td>
+<td>特种电源毛利率 0.46%</td>
+<td>特种电源订单和毛利率</td>
+<td>毛利率回到双位数</td>
+</tr>
+<tr>
+<td>流通盘小、波动大</td>
+<td>初始流通股仅占总股本 7.60%，上市以来高低差大</td>
+<td>换手率、融资余额、解禁</td>
+<td>长期资金扩大承接</td>
+</tr>
+</tbody></table>
+<h2 id="section-10">10. 估值</h2>
+
+<h3>10.1 相对估值</h3>
+<table>
+<thead>
+<tr>
+<th>公司</th>
+<th>业务可比性</th>
+<th align="right">增长</th>
+<th align="right">利润率</th>
+<th align="right">PE</th>
+<th align="right">PB</th>
+<th align="right">EV/EBITDA</th>
+<th>数据时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>电科蓝天</td>
+<td>宇航电源系统</td>
+<td align="right">2026Q1 收入 +87%</td>
+<td align="right">Q1 净利率 3.2%</td>
+<td align="right">TTM 270.7x</td>
+<td align="right">18.55x</td>
+<td align="right">未获取到</td>
+<td>2026-07-16</td>
+</tr>
+<tr>
+<td>航天电子</td>
+<td>航天电子系统与配套</td>
+<td align="right">可比但业务更分散</td>
+<td align="right">低利润率</td>
+<td align="right">未在同一时点完整获取</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>数据缺口</td>
+</tr>
+<tr>
+<td>航天电器</td>
+<td>高端连接器与军工配套</td>
+<td align="right">可比但产品不同</td>
+<td align="right">较高利润率</td>
+<td align="right">未在同一时点完整获取</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>数据缺口</td>
+</tr>
+<tr>
+<td>海博思创</td>
+<td>储能系统集成</td>
+<td align="right">仅新能源分部可比</td>
+<td align="right">高增长</td>
+<td align="right">未在同一时点完整获取</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>数据缺口</td>
+</tr>
+</tbody></table>
+<ul>
+<li>选取理由：不存在完整纯可比上市公司，只能用航天配套和储能系统公司观察区间；因此不伪造同日同行估值表。</li>
+<li>正常化调整：采用卖方 2026 年归母净利润约 4.96—4.98 亿元，对应 EPS 约 0.286 元；给 60—100 倍 PE 已包含稀缺性和高成长溢价。</li>
+<li>对应每股价值区间：17.2—28.6 元，取整为 17—29 元。</li>
+<li><strong>我的判断</strong>：即使给远高于普通军工配套公司的 100 倍前瞻 PE，仍显著低于 58.32 元；当前价格约对应 204 倍 2026E PE。</li>
+</ul>
+<h3>10.2 DCF</h3>
+<h4>关键假设</h4>
+<table>
+<thead>
+<tr>
+<th>假设</th>
+<th align="right">悲观</th>
+<th align="right">基准</th>
+<th align="right">乐观</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026—2030 收入</td>
+<td align="right">37.5→60.5 亿元</td>
+<td align="right">40.1→86.4 亿元</td>
+<td align="right">42.5→116.3 亿元</td>
+<td>商业航天放量与募投爬坡</td>
+</tr>
+<tr>
+<td>经营利润率</td>
+<td align="right">低个位数修复</td>
+<td align="right">逐步升至约 15%</td>
+<td align="right">逐步升至约 18%</td>
+<td>规模效应与业务结构</td>
+</tr>
+<tr>
+<td>税率</td>
+<td align="right">15%</td>
+<td align="right">15%</td>
+<td align="right">15%</td>
+<td>高新技术企业代理假设</td>
+</tr>
+<tr>
+<td>折旧摊销</td>
+<td align="right">含在 FCF 利润率中</td>
+<td align="right">含在 FCF 利润率中</td>
+<td align="right">含在 FCF 利润率中</td>
+<td>简化 FCFF 模型</td>
+</tr>
+<tr>
+<td>资本开支</td>
+<td align="right">高于折旧</td>
+<td align="right">前期扩产、后期正常化</td>
+<td align="right">扩产快且效率高</td>
+<td>募投建设期 36 个月</td>
+</tr>
+<tr>
+<td>营运资本变化</td>
+<td align="right">高占用</td>
+<td align="right">逐步改善</td>
+<td align="right">快速周转</td>
+<td>历史应收与存货高</td>
+</tr>
+<tr>
+<td>WACC</td>
+<td align="right">10.5%</td>
+<td align="right">9.5%</td>
+<td align="right">8.5%</td>
+<td>A 股成长军工风险溢价</td>
+</tr>
+<tr>
+<td>永续增长率</td>
+<td align="right">2.5%</td>
+<td align="right">3.0%</td>
+<td align="right">3.5%</td>
+<td>长期名义增长约束</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>模型直接预测 FCFF：悲观 2026—2030 年为 -0.37/0.86/1.96/3.03/3.93 亿元；基准为 0.80/2.51/4.69/7.13/9.50 亿元；乐观为 1.70/4.59/8.53/12.60/16.86 亿元。</p>
+</blockquote>
+<h4>估值结果</h4>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">企业价值</th>
+<th align="right">净债务</th>
+<th align="right">股权价值</th>
+<th align="right">每股价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观</td>
+<td align="right">36.8 亿元</td>
+<td align="right">-28.1 亿元</td>
+<td align="right">64.9 亿元</td>
+<td align="right">3.74 元</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">113.1 亿元</td>
+<td align="right">-28.1 亿元</td>
+<td align="right">141.2 亿元</td>
+<td align="right">8.13 元</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">264.6 亿元</td>
+<td align="right">-28.1 亿元</td>
+<td align="right">292.7 亿元</td>
+<td align="right">16.85 元</td>
+</tr>
+</tbody></table>
+<h4>敏感性分析</h4>
+<table>
+<thead>
+<tr>
+<th>WACC \ 永续增长率</th>
+<th align="right">2.0%</th>
+<th align="right">3.0%</th>
+<th align="right">4.0%</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>8.5%</td>
+<td align="right">8.37 元</td>
+<td align="right">9.47 元</td>
+<td align="right">11.06 元</td>
+</tr>
+<tr>
+<td>9.5%</td>
+<td align="right">7.35 元</td>
+<td align="right">8.13 元</td>
+<td align="right">9.19 元</td>
+</tr>
+<tr>
+<td>10.5%</td>
+<td align="right">6.57 元</td>
+<td align="right">7.15 元</td>
+<td align="right">7.90 元</td>
+</tr>
+</tbody></table>
+<h4>反向 DCF</h4>
+<ul>
+<li>当前价格隐含的收入增长 / 终值利润率：在基准 WACC 9.5%、永续增长 3.0%、前四年现金流沿用基准路径时，58.32 元要求 2030 年 FCFF 约 96.7 亿元。</li>
+<li>与历史和行业相比是否可实现：该隐含 FCFF 约为本报告基准 2030 年 FCFF 的 10.2 倍，甚至高于基准情景 2030 年 86.4 亿元收入，经济上不可持续。</li>
+<li><strong>我的判断</strong>：当前价格不是对“高增长”定价，而是对“高增长、极高利润率、极高现金转化率同时实现”定价，反向 DCF 显示安全边际严重不足。</li>
+</ul>
+<h3>10.3 行业特定估值</h3>
+<ul>
+<li>方法：分部加总（SOTP）。</li>
+<li>适用理由：宇航电源、特种电源和新能源应用及服务的增长、毛利率与竞争格局差异大。</li>
+<li>关键假设：2026 年分部收入按宇航电源 26.1—30.5 亿元、特种电源 2.85—3.89 亿元、新能源 7.13—8.14 亿元；分别给予宇航 4—12 倍 PS、特种 0.8—3 倍 PS、新能源 0.6—1.5 倍 PS，再加约 28.1 亿元净现金。</li>
+<li>对应每股价值区间：约 8.0—24.1 元，基准约 14.9 元。</li>
+<li>局限性：PS 无法直接反映订单质量、资本开支和现金转化；上限 12 倍宇航 PS 已包含显著稀缺性溢价。</li>
+</ul>
+<h3>10.4 估值交叉验证</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="right">每股价值区间</th>
+<th align="right">权重</th>
+<th>采信理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>相对估值</td>
+<td align="right">17—29 元</td>
+<td align="right">35%</td>
+<td>反映市场对稀缺性与盈利预测的定价</td>
+</tr>
+<tr>
+<td>DCF</td>
+<td align="right">4—17 元</td>
+<td align="right">35%</td>
+<td>约束现金流与资本开支，防止只看叙事</td>
+</tr>
+<tr>
+<td>行业特定估值</td>
+<td align="right">8—24 元</td>
+<td align="right">30%</td>
+<td>分开处理三类业务的质量差异</td>
+</tr>
+</tbody></table>
+<ul>
+<li>综合估值区间：12—24 元，中枢约 17 元。</li>
+<li>相对现价上行 / 下行空间：相对 58.32 元为 -79.4% 至 -58.8%。</li>
+<li>为什么不机械平均：DCF 对营运资本和募投爬坡高度敏感；相对估值又受小流通盘和题材溢价污染，因此只用三法共同覆盖区域形成决策区间，不采用卖方 100—124.88 元目标价作为内在价值锚。</li>
+</ul>
+<h2 id="section-11">11. 冰冰小美框架判断</h2>
+
+<h3>11.1 三要素结果引用</h3>
+<ul>
+<li>三要素结论来源：<code>bbxm-three-factor-analysis</code>。</li>
+<li>分析对象与层级：电科蓝天 / 个股。</li>
+<li>分析截止时间：2026-07-17，行情截至 2026-07-16。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>状态</th>
+<th>核心证据</th>
+<th>核心反证</th>
+<th>失效条件</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>有利</td>
+<td>国家航天方向、系统级能力、在轨履历、覆盖率超过 50%</td>
+<td>商业航天低成本化引入新竞争，客户高度集中</td>
+<td>份额下降、重大质量事故、宇航毛利率跌破 25%</td>
+<td>高</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>不利</td>
+<td>小流通盘曾带来高换手和溢价</td>
+<td>近 10 日跌约 14.9%，3 日资金净流出约 3.89 亿元，融资余额自 7 月初下降</td>
+<td>成交与融资同步企稳、机构增量承接持续</td>
+<td>中高</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>不利</td>
+<td>商业航天仍有价值锚</td>
+<td>由 94.92 元高点回落，近期放量波动与利好钝化，处于拥挤后的退潮/修复观察期</td>
+<td>利好后不再冲高回落，板块与个股形成连续赚钱效应</td>
+<td>中高</td>
+</tr>
+</tbody></table>
+<ul>
+<li>三要素综合判断：尚未形成有利共振。</li>
+<li>主导要素：竞争格局有利，决定公司具备长期跟踪资格。</li>
+<li>拖累要素：估值、流动性与情绪位置共同不利，使好产业不能转化为好买点。</li>
+<li>数据缺口及影响：未取得机构逐日持仓、ETF 申赎和完整订单数据；降低对资金性质与业绩兑现节奏的判断置信度。</li>
+<li>下一验证节点：2026 年中报、8 月解禁后的承接、商业航天后续发射与订单。</li>
+<li>新增现金：<code>wait / observe</code>；条件：估值进入决策区间，或现金流和利润率显著上修。</li>
+<li>已有持仓：<code>reduce / review</code>；条件：高估值仓位优先降风险，低成本小仓可围绕中报验证复核。</li>
+</ul>
+<h3>11.2 风险方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>风险类型</th>
+<th>前一窗口</th>
+<th>当前窗口</th>
+<th>方向证据</th>
+<th>反证</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本面风险</td>
+<td>Q1 扭亏、产业预期强化</td>
+<td>无新增业绩恶化</td>
+<td>基本面风险无明显变化</td>
+<td>中报尚未披露、现金流仍负</td>
+</tr>
+<tr>
+<td>估值风险</td>
+<td>高点 94.92 元、估值极端</td>
+<td>58.32 元，估值有所压缩</td>
+<td>估值风险水平下降</td>
+<td>仍约 271 倍 TTM PE，绝对风险极高</td>
+</tr>
+<tr>
+<td>情绪风险</td>
+<td>高热与扩散</td>
+<td>近 5/10 日明显下跌</td>
+<td>亏钱效应和利好钝化增强</td>
+<td>已从高点显著回撤</td>
+</tr>
+<tr>
+<td>流动性风险</td>
+<td>高换手、有融资接力</td>
+<td>资金净流出、融资余额回落</td>
+<td>承接收缩</td>
+<td>仍保持较高成交与关注度</td>
+</tr>
+</tbody></table>
+<h3>11.3 风险传导链</h3>
+<ul>
+<li>信息源头：商业航天预期过度前置 + 小流通盘拥挤 + 业绩现金流尚未匹配。</li>
+<li>核心变量：估值倍数、融资余额、成交承接、宇航电源订单与 FCF。</li>
+<li>传导机制：兑现速度低于预期 → 高估值压缩 → 融资与趋势资金退出 → 波动和亏钱效应扩大。</li>
+<li>影响对象：高成本追涨资金和依赖题材溢价的持仓。</li>
+<li>市场行为变化：7 月上旬冲高后快速回落，近 10 日跌幅约 14.9%，短期资金净流出。</li>
+<li>风险方向：风险增强。</li>
+<li>验证指标：58/54 元附近承接、融资余额、8 月解禁、中报收入/毛利率/FCF。</li>
+<li>失效条件：中报显著超预期且价格对利好不再冲高回落，资金与成交恢复持续净流入。</li>
+</ul>
+<h3>11.4 风险方向结论</h3>
+<ul>
+<li>风险方向结论：风险增强。</li>
+<li>判断依据：当前窗口相对 6 月下旬，交易层的价格、资金与承接同步恶化；虽估值从高点下降，但绝对估值仍极高，尚不足以抵消情绪和流动性负反馈。</li>
+<li>反证：基本面没有新增恶化，Q1 经营同比改善，价格已从高点回撤约 38.6%。</li>
+<li>未获取到：完整机构持仓变化、逐日主力净流入统一口径、正式在手订单。</li>
+<li>置信度：中。</li>
+</ul>
+<h3>11.5 四层方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>边际改善 / 无明显变化 / 边际恶化 / 未获取到</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观</td>
+<td>无明显变化</td>
+<td>国家航天与商业航天方向未变</td>
+</tr>
+<tr>
+<td>中观</td>
+<td>无明显变化</td>
+<td>星座组网仍推进，但行业低成本化竞争加快</td>
+</tr>
+<tr>
+<td>微观</td>
+<td>无明显变化</td>
+<td>最新可得 Q1 改善，中报尚未披露</td>
+</tr>
+<tr>
+<td>交易</td>
+<td>边际恶化</td>
+<td>价格、融资余额和短期资金流同步走弱</td>
+</tr>
+</tbody></table>
+<h3>11.6 动作与约束</h3>
+<ul>
+<li>主动作：<code>wait / observe</code>。</li>
+<li>新增现金：不追反弹；先等待 2026 中报和估值进入 24 元以内。</li>
+<li>已有持仓：若成本高、仓位重，<code>reduce</code>；若成本低且仓位小，<code>review</code>，不因产业地位自动长期死守。</li>
+<li>承接条件：宇航收入增速 &gt;30%、综合毛利率 &gt;28%、FCF 转正且估值降至 100 倍以内前瞻 PE。</li>
+<li>退出条件：重大型号失标/质量事故、宇航毛利率持续 &lt;25%、应收与存货继续快于收入增长、54 元附近失去承接且融资继续下降。</li>
+<li>下一复核节点：2026-08-10 解禁、2026-08-28 中报。</li>
+<li><strong>我的判断：为什么“方向”不能转化为“买点”</strong>：比较优势只证明标的值得跟踪；当前流动性和情绪位置不配合，估值又要求近乎不可能的现金流，因此缺少买入不败所需的安全边际。</li>
+</ul>
+<h2 id="section-12">12. 最终结论</h2>
+
+<ul>
+<li>估值结论：高估。</li>
+<li>操作结论：规避追高，观望。</li>
+<li>综合估值区间：12—24 元。</li>
+<li>相对现价空间：-79.4% 至 -58.8%。</li>
+<li>如果今天这是一笔现金，我会买它吗：不会。</li>
+<li><strong>我的判断</strong>：电科蓝天是“好产业位置、好技术平台、坏价格”的典型。产业趋势成立并不意味着任何价格都值得买；当前估值远超三种方法可解释区间，且反向 DCF 隐含的 2030 年自由现金流甚至高于基准收入，现金应等待。</li>
+<li>结论失效条件：未来两年订单、毛利率和 FCF 连续显著超过乐观情景，或股价回到 12—24 元而基本面未被证伪。</li>
+</ul>
+<h2 id="section-13">13. 后续监控指标</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">当前值</th>
+<th>触发阈值 / 方向</th>
+<th>数据源</th>
+<th>复核频率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宇航电源收入增速</td>
+<td align="right">2025 +13.63%</td>
+<td>连续 &gt;30% 为上修；&lt;15% 为下修</td>
+<td>中报/年报</td>
+<td>半年</td>
+</tr>
+<tr>
+<td>综合毛利率</td>
+<td align="right">2026Q1 27.01%</td>
+<td>&gt;28% 且持续为上修；&lt;25% 为风险</td>
+<td>季报</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>自由现金流</td>
+<td align="right">2026Q1 -1.69 亿元</td>
+<td>连续四季累计转正</td>
+<td>季报现金流量表</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>应收+存货 / 收入</td>
+<td align="right">2025 约 132.6%</td>
+<td>明显下降为改善；继续上升为恶化</td>
+<td>财报</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>前瞻 PE</td>
+<td align="right">约 204x（按 2026E EPS 0.286）</td>
+<td>&lt;100x 才进入初步观察区</td>
+<td>行情+一致预期</td>
+<td>每周</td>
+</tr>
+<tr>
+<td>融资余额与解禁承接</td>
+<td align="right">7 月中约 6.3 亿元</td>
+<td>融资企稳且解禁后不放量下跌</td>
+<td>交易所/行情平台</td>
+<td>每周</td>
+</tr>
+</tbody></table>
+<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
+
+<ul>
+<li>未获取到：2021 年财务、2022—2023 同口径资本开支、完整在手订单、单星价值量、募投产能与利用率、逐家一致预期、同日完整可比公司估值、第三方公允价值/护城河/星级。</li>
+<li>已检查来源：公司年报、一季报、上市公告书、招股材料、公司官网、上交所、公开行情页、卖方研报公开摘要和近三个月公告。</li>
+<li>对结论的影响：行业和公司地位判断置信度高；短期盈利预测与 DCF 置信度中等。数据缺口不足以推翻“现价显著高于三法可解释区间”的结论，但会扩大公允价值区间。</li>
+</ul>
+<h2 id="section-15">15. 来源清单</h2>
+
+<ol>
+<li><a href="../../webpages/2026-07-17-电科蓝天机构级研究资料快照.html">电科蓝天机构级研究资料快照</a>，2026-07-17。</li>
+<li><a href="../../papers/电科蓝天机构级研究-2026-07-17/电科蓝天-2025年年度报告.pdf.html">中电科蓝天科技股份有限公司2025年年度报告</a>，公司，2026-04-23。</li>
+<li><a href="../../papers/电科蓝天机构级研究-2026-07-17/电科蓝天-2026年第一季度报告.pdf.html">中电科蓝天科技股份有限公司2026年第一季度报告</a>，公司，2026-04-29。</li>
+<li><a href="../../papers/电科蓝天机构级研究-2026-07-17/电科蓝天-上市公告书.pdf.html">中电科蓝天科技股份有限公司上市公告书</a>，公司 / 上交所，2026-02-09。</li>
+<li><a href="https://www.sse.com.cn/disclosure/announcement/listing/ipo/c/c_20260209_10808963.shtml">关于电科蓝天股票科创板上市交易的公告</a>，上海证券交易所，2026-02-09，访问于 2026-07-17。</li>
+<li><a href="https://www.zhunshangshi.com/stock/688818/">电科蓝天2026-07-16行情快照</a>，准上市网，数据截至 2026-07-16，访问于 2026-07-17。</li>
+<li><a href="https://dabanke.com/hangqing-688818.html">电科蓝天历史行情</a>，打板客网，访问于 2026-07-17。</li>
+<li><a href="https://www.fxbaogao.com/detail/5413932">国泰海通：宇航电源龙头，掘金商业航天</a>，国泰海通，2026-05，访问于 2026-07-17。</li>
+<li><a href="https://pdf.dfcfw.com/pdf/H3_AP202604171821307908_1.pdf">东吴证券：电科蓝天公司深度研究</a>，东吴证券，2026-04，访问于 2026-07-17。</li>
+<li><a href="https://www.lantiantech.com.cn/">公司官网</a>，中电科蓝天科技股份有限公司，访问于 2026-07-17。</li>
+</ol>
+<h2 id="section-16">16. 声明</h2>
+
+<p>本报告基于截至研究截止时间可取得的公开信息，不构成收益保证。真实交易前应重新核验价格、公告、流动性和个人风险承受能力。</p>
+<h2>相关页面</h2>
+<ul>
+<li><a href="../../../wiki/topics/冰冰小美-情绪体系理论篇.html">冰冰小美体系三要素</a>：本报告三要素判断的框架依据。</li>
+<li><a href="../../../wiki/queries/2026-07-15-1433-航天电子机构级决策研报.html">航天电子机构级决策研报</a>：商业航天产业链中另一类系统配套平台的对照研究。</li>
+</ul>
+<h2>不确定性</h2>
+<ul>
+<li>商业航天订单和产能数据存在涉密或未披露限制，报告对放量节奏采用情景而非确定预测。</li>
+<li>小流通盘会使短期价格显著偏离内在价值，公允价值不等于短期价格目标。</li>
+</ul>
+</article>
+    </div>
+  </main>
+</body>
+</html>
