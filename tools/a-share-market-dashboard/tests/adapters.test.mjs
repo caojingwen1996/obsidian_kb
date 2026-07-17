@@ -3,12 +3,31 @@ import assert from 'node:assert/strict';
 
 import {
   buildEastmoneyKlineUrl,
+  buildLocalProxyUrl,
+  isLocalProxyLocation,
   parseEastmoneyKlines,
   parseCsindexPerformance,
   parseTreasuryYield,
   parseMarketSnapshot,
   parseMarginReport,
 } from '../src/adapters.mjs';
+
+test('localhost dashboard uses same-origin proxy URLs', () => {
+  const location = {
+    protocol: 'http:',
+    hostname: '127.0.0.1',
+    origin: 'http://127.0.0.1:8765',
+  };
+  assert.equal(isLocalProxyLocation(location), true);
+  assert.equal(
+    buildLocalProxyUrl('/api/eastmoney-kline', { secid: '1.000300', limit: 3000 }, location),
+    'http://127.0.0.1:8765/api/eastmoney-kline?secid=1.000300&limit=3000',
+  );
+});
+
+test('file dashboard retains public transports', () => {
+  assert.equal(isLocalProxyLocation({ protocol: 'file:', hostname: '', origin: 'null' }), false);
+});
 
 test('Eastmoney kline URL encodes the selected index and requested history', () => {
   const url = new URL(buildEastmoneyKlineUrl('1.000300', 3000));
