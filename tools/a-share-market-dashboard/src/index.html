@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A股温度计 · 大盘估值分位监控</title>
+  <!-- DASHBOARD_STYLES -->
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <span class="brand-mark">A</span>
+        <div><strong>A股温度计</strong><small>位置 · 估值 · 情绪</small></div>
+      </div>
+      <button class="mobile-nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">打开导航</button>
+      <nav id="primary-nav" aria-label="面板导航">
+        <button class="nav-item is-active" type="button" data-view="market-summary" aria-current="page"><span>01</span>市场总览</button>
+        <button class="nav-item" type="button" data-view="position-view"><span>02</span>位置分位</button>
+        <button class="nav-item" type="button" data-view="valuation-view"><span>03</span>估值与 ERP</button>
+        <button class="nav-item" type="button" data-view="emotion-view"><span>04</span>情绪温度</button>
+        <button class="nav-item" type="button" data-view="rules-view"><span>05</span>评分规则</button>
+        <button class="nav-item" type="button" data-view="audit-view"><span>06</span>数据审计</button>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="connection"><span class="status-dot" id="sidebar-status-dot"></span><span id="sidebar-status">示例数据</span></div>
+        <div><span id="sidebar-valid">10 / 10 项有效</span><br><time id="sidebar-updated">—</time></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">MARKET VALUATION MONITOR</p>
+          <h1 id="page-title">市场总览</h1>
+        </div>
+        <div class="top-actions">
+          <label class="mode-switch" for="example-mode">
+            <input id="example-mode" type="checkbox" checked>
+            <span>示例数据</span>
+          </label>
+          <button class="button-secondary" id="refresh-data" type="button">刷新数据</button>
+        </div>
+      </header>
+
+      <div class="notice" id="global-notice" role="status">正在用内置示例数据初始化，随后尝试联网刷新。</div>
+
+      <section class="view is-active" id="market-summary" aria-labelledby="summary-heading">
+        <div class="summary-heading">
+          <div>
+            <p class="eyebrow">当前结论</p>
+            <h2 id="summary-heading"><span id="conclusion-label">数据加载中</span></h2>
+            <p class="lead" id="conclusion-detail">评分只描述历史坐标中的贵贱，不预测明日涨跌。</p>
+          </div>
+          <div class="window-controls" id="window-controls" aria-label="历史统计窗口">
+            <button type="button" data-window="1" aria-pressed="false">1年</button>
+            <button type="button" data-window="3" aria-pressed="false">3年</button>
+            <button type="button" data-window="5" aria-pressed="true">5年</button>
+            <button type="button" data-window="10" aria-pressed="false">10年</button>
+          </div>
+        </div>
+
+        <div class="hero-grid">
+          <article class="score-card">
+            <span>综合买点评分</span>
+            <strong id="score-value">—</strong>
+            <div class="score-meta"><span id="coverage-value">覆盖率 —</span><span id="data-mode">示例</span></div>
+          </article>
+          <article class="temperature-card">
+            <div class="temperature-copy"><strong id="temperature-title">以历史为坐标</strong><span id="temperature-updated">最后更新 —</span></div>
+            <div class="temperature-scale" aria-label="从历史便宜到历史昂贵的市场温度">
+              <span class="temperature-marker" id="temperature-marker"></span>
+            </div>
+            <div class="scale-labels"><span>别人恐惧</span><span>中性</span><span>市场贪婪</span></div>
+          </article>
+        </div>
+
+        <div class="layer-grid" id="layer-scores" aria-label="三层评分"></div>
+
+        <div class="section-header"><div><p class="eyebrow">KEY METRICS</p><h2>关键指标</h2></div><p>色条统一从“便宜或恐惧”指向“昂贵或贪婪”</p></div>
+        <div class="metric-list" id="metric-list"></div>
+      </section>
+
+      <section class="view" id="position-view" aria-labelledby="position-heading">
+        <div class="section-header"><div><p class="eyebrow">POSITION</p><h2 id="position-heading">位置分位</h2></div><p>当前价格相对 MA250 的偏离率，在所选历史窗口中的位置。</p></div>
+        <div class="detail-grid" id="position-details"></div>
+      </section>
+
+      <section class="view" id="valuation-view" aria-labelledby="valuation-heading">
+        <div class="section-header"><div><p class="eyebrow">VALUATION</p><h2 id="valuation-heading">估值与 ERP</h2></div><p>前瞻数据缺失时明确退出评分，不用 TTM 指标替代。</p></div>
+        <div class="detail-grid" id="valuation-details"></div>
+      </section>
+
+      <section class="view" id="emotion-view" aria-labelledby="emotion-heading">
+        <div class="section-header"><div><p class="eyebrow">SENTIMENT</p><h2 id="emotion-heading">A股恐惧贪婪代理</h2></div><p>先计算贪婪度，再反向计入买点评分。</p></div>
+        <div class="detail-grid" id="emotion-details"></div>
+      </section>
+
+      <section class="view" id="rules-view" aria-labelledby="rules-heading">
+        <div class="section-header"><div><p class="eyebrow">RULEBOOK V1.0</p><h2 id="rules-heading">评分规则</h2></div><p>固定规则，可解释、可复算、可回溯。</p></div>
+        <div class="rules-layout">
+          <article class="panel"><h3>固定权重</h3><div id="rules-weights"></div></article>
+          <article class="panel"><h3>结论区间</h3><div class="rule-bands">
+            <div><strong>80—100</strong><span>别人恐惧，可以贪婪</span></div>
+            <div><strong>65—79</strong><span>偏便宜，分批关注</span></div>
+            <div><strong>45—64</strong><span>中性，等待赔率改善</span></div>
+            <div><strong>25—44</strong><span>偏贵，控制冲动</span></div>
+            <div><strong>0—24</strong><span>市场贪婪，应该恐惧</span></div>
+          </div></article>
+          <article class="panel formula-panel"><h3>核心公式</h3><pre>趋势偏离率 = 收盘价 ÷ MA250 - 1
+位置得分 = 100 - 偏离率历史分位
+前瞻盈利收益率 = 100 ÷ 前瞻PE
+ERP = 前瞻盈利收益率 - 10年期国债收益率
+情绪买点得分 = 100 - A股贪婪度
+有效权重 = 原始权重 ÷ 有效项权重总和</pre><p>覆盖率低于 70% 时，保留不完整试算分，但顶部停止输出行动性结论。</p></article>
+        </div>
+      </section>
+
+      <section class="view" id="audit-view" aria-labelledby="audit-heading">
+        <div class="section-header"><div><p class="eyebrow">DATA AUDIT</p><h2 id="audit-heading">数据审计</h2></div><p>原始值、公式、来源、时间、权重与失败原因同时留档。</p></div>
+        <div class="audit-summary" id="audit-summary"></div>
+        <div class="audit-errors" id="audit-errors" aria-live="polite"></div>
+        <div class="audit-table-wrap"><table class="audit-table"><thead><tr><th>指标</th><th>状态</th><th>来源</th><th>数据时间</th><th>原始权重</th><th>有效权重</th><th>得分贡献</th></tr></thead><tbody id="audit-table-body"></tbody></table></div>
+      </section>
+    </main>
+  </div>
+  <!-- DASHBOARD_SCRIPT -->
+</body>
+</html>
