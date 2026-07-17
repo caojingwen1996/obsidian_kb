@@ -1,0 +1,35 @@
+2026-07-17T16:10:44.7059753+08:00 [start] BBXM daily summary target_date=2026-07-17 author=冰冰小美
+2026-07-17T16:10:44.7059753+08:00 [precheck] official_dir=sources/automations/BBXM每日汇总/2026-07-17/冰冰小美 existing_state=false cdp_9333=false
+2026-07-17T16:10:44.7059753+08:00 [blocked] extraction command required approval to start/reuse Chrome and access Xueqiu; approval channel rejected before execution
+2026-07-17T16:10:44.7059753+08:00 [boundary] no target-date raw posts were saved; do not interpret this as no posts
+2026-07-17T16:10:44.7059753+08:00 [outputs] wrote incomplete summary.md and processing/risk-analysis.json with analysis_complete=false
+2026-07-17T16:11:58+08:00 [risk-write] updater status=blocked message=analysis_complete=false，禁止更新 Excel
+2026-07-17 17:10:42,050 [INFO] 开始处理已提取帖子 input_file=sources\automations\BBXM每日汇总\2026-07-17\冰冰小美\processing\extracted-posts-rerun-20260717-manual.json author=冰冰小美 target_date=2026-07-17
+2026-07-17 17:10:42,152 [INFO] 保存成功: E:\caojingwen\obsidian\llmwiki\sources\automations\BBXM每日汇总\20260717\冰冰小美\151500_可惜_没有后悔药_7月的风险_后知后觉是多么可怕_有人提前预知_完全避开_有人懵懵懂懂_全程吃土_40077921.md
+2026-07-17 17:10:42,167 [INFO] 保存成功: E:\caojingwen\obsidian\llmwiki\sources\automations\BBXM每日汇总\20260717\冰冰小美\145900_本月诸多不利_都是与米相关_比如石油方向_撕毁协议_通胀_加息比如海力士ADR_利益分配问题比如_40077283.md
+2026-07-17 17:10:42,178 [INFO] 保存成功: E:\caojingwen\obsidian\llmwiki\sources\automations\BBXM每日汇总\20260717\冰冰小美\144900_锚定日韩的4_5_6月的科技行情_盈亏同源_如果走极端_还是可能月线一阴穿三阳_我也没有办法_结_40076891.md
+2026-07-17 17:10:42,191 [INFO] 保存成功: E:\caojingwen\obsidian\llmwiki\sources\automations\BBXM每日汇总\20260717\冰冰小美\143600_7月交易_量力而行_今日打破原有下跌趋势_意味着盘面超卖了_因此_趋势走势有修正需求_修正需求是_40076461.md
+2026-07-17 17:10:42,212 [INFO] 保存成功: E:\caojingwen\obsidian\llmwiki\sources\automations\BBXM每日汇总\20260717\冰冰小美\141500_网页链接海力士ADR的27_大涨_催命符_随后做空_直接抹除涨幅_引发亚太极端恐慌_周四韩国熔断_40075702.md
+2026-07-17 17:10:42,214 [INFO] 跳过非目标日期内容: 帖子不属于目标日期: 2026-07-14
+2026-07-17 17:10:42,222 [INFO] 保存成功: E:\caojingwen\obsidian\llmwiki\sources\automations\BBXM每日汇总\20260717\冰冰小美\135900_市场恐慌_已经跌破下跌趋势通道_-_雪球_40074999.md
+2026-07-17 17:10:42,224 [INFO] 跳过非目标日期内容: 帖子不属于目标日期: 2026-07-14
+2026-07-17 17:10:42,225 [INFO] 跳过非目标日期内容: 帖子不属于目标日期: 2026-07-14
+2026-07-17 17:10:42,226 [INFO] 跳过非目标日期内容: 帖子不属于目标日期: 2026-07-14
+2026-07-17 17:10:42,226 [INFO] 跳过非目标日期内容: 帖子不属于目标日期: 2026-07-14
+2026-07-17 17:10:42,227 [INFO] 跳过非目标日期内容: 帖子不属于目标日期: 2026-07-14
+2026-07-17 17:10:42,227 [INFO] 跳过非目标日期内容: 帖子不属于目标日期: 2026-07-14
+2026-07-17 17:10:42,227 [INFO] 跳过非目标日期内容: 帖子不属于目标日期: 2026-07-14
+2026-07-17 17:10:42,228 [INFO] 跳过非目标日期内容: 帖子不属于目标日期: 2026-07-14
+2026-07-17 17:10:42,228 [INFO] 跳过非目标日期内容: 帖子不属于目标日期: 2026-07-09
+2026-07-17 17:10:42,228 [INFO] 跳过非目标日期内容: 帖子不属于目标日期: 2026-07-14
+2026-07-17 17:10:42,229 [INFO] 跳过非目标日期内容: 帖子不属于目标日期: 2026-07-14
+2026-07-17 17:10:42,229 [INFO] 跳过非目标日期内容: 帖子不属于目标日期: 2026-07-14
+2026-07-17 17:10:42,229 [INFO] 跳过非目标日期内容: 帖子不属于目标日期: 2026-07-14
+2026-07-17 17:10:42,230 [INFO] 跳过非目标日期内容: 帖子不属于目标日期: 2026-07-14
+2026-07-17T17:13:52.0152473+08:00 [rerun] extraction succeeded with manual-verification fallback enabled; no visible manual verification was requested during this run
+2026-07-17T17:13:52.0152473+08:00 [rerun] candidates=21 target_date_saved=6 skipped_non_target=15 failures=0
+2026-07-17T17:13:52.0152473+08:00 [raw] copied 6 target-date posts into official directory with publish-time plus core-view filenames
+2026-07-17T17:13:52.0152473+08:00 [interpretation] generated 6 paired _解读.md files
+2026-07-17T17:13:52.0152473+08:00 [risk-analysis] analysis_complete=true saved=6 analyzed=6 unresolved=0 qualified=5 not_written=1 distribution=R1:0,R2:1,R3:3,W1:1,W2:0,W3:0
+2026-07-17T17:13:52.0152473+08:00 [risk-write] updater status=written count=5 message=已更新自动分析风险提示行
+

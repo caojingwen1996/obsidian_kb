@@ -1,0 +1,1155 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>北斗星通机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.verdict { display: inline-flex; margin-top: 24px; padding: 7px 13px; border-radius: 999px; color: var(--danger); background: var(--danger-bg); font-weight: 750; }
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 26px; }
+.kpi { min-height: 96px; padding: 17px 18px; border: 1px solid rgba(255,255,255,.22); border-radius: 14px; background: rgba(255,255,255,.09); }
+.kpi-value { display: block; font-size: 23px; line-height: 1.3; font-weight: 760; overflow-wrap: anywhere; }
+.kpi-label { display: block; margin-top: 10px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; opacity: .8; }
+
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+}
+
+@media (max-width: 600px) {
+  .kpis { grid-template-columns: 1fr; }
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .verdict, .kpi { border: 1px solid #aebbc2; color: #102f43; background: #fff; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · 002151.SZ</p>
+      <h1>北斗星通机构级决策研报</h1>
+      <div class="hero-meta"><span>2026-07-17 10:22（盘中）</span><span>2026-07-17（Asia/Shanghai）</span><span>深圳证券交易所 / 人民币</span></div>
+      <div class="verdict">高估；转型改善尚未充分转化为可持续利润 · 新增现金 wait / observe；已有持仓 wait / review</div>
+      <div class="kpis">
+        <div class="kpi"><span class="kpi-value">27.89 元，2026-07-17 10:22 盘中</span><span class="kpi-label">当前价格</span></div>
+        <div class="kpi"><span class="kpi-value">16.00–24.00 元/股</span><span class="kpi-label">综合估值区间</span></div>
+        <div class="kpi"><span class="kpi-value">新增现金 wait / observe；已有持仓 wait / review</span><span class="kpi-label">冰冰小美动作</span></div>
+        <div class="kpi"><span class="kpi-value">中</span><span class="kpi-label">结论置信度</span></div>
+      </div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
+<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
+<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
+<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
+<a class="toc-link" href="#section-6">6. 五年财务历史</a>
+<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
+<a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
+<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
+<a class="toc-link" href="#section-10">10. 估值</a>
+<a class="toc-link" href="#section-11">11. 冰冰小美框架判断</a>
+<a class="toc-link" href="#section-12">12. 最终结论</a>
+<a class="toc-link" href="#section-13">13. 后续监控指标</a>
+<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
+<a class="toc-link" href="#section-15">15. 来源清单</a>
+<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
+      <article class="content"><blockquote>
+<p>证券代码：002151.SZ<br>交易所 / 币种：深圳证券交易所 / 人民币<br>研究截止时间：2026-07-17 10:22（盘中）<br>报告生成时间：2026-07-17（Asia/Shanghai）<br>数据口径：中国企业会计准则；历史财务为合并口径；行情为盘中时点快照；自由现金流为经营活动现金流减购建长期资产现金支出；预测均为研究假设而非公司指引  </p>
+</blockquote>
+<h2 id="section-1">1. 决策摘要</h2>
+
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值状态</td>
+<td>高估；转型改善尚未充分转化为可持续利润</td>
+</tr>
+<tr>
+<td>操作建议</td>
+<td>观望；等待价格或盈利证据进一步改善</td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td>新增现金 <code>wait / observe</code>；已有持仓 <code>wait / review</code></td>
+</tr>
+<tr>
+<td>当前价格及时间</td>
+<td>27.89 元，2026-07-17 10:22 盘中</td>
+</tr>
+<tr>
+<td>综合估值区间</td>
+<td>16.00–24.00 元/股</td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>-42.6% 至 -13.9%</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h3>如果今天这是一笔现金，我会买它吗</h3>
+<ul>
+<li>回答：不会；只在特定条件下会。</li>
+<li>我的判断：北斗星通正从连续亏损转向恢复盈利，2026Q1营收增长93.28%、归母净利润转正，2026H1预告归母净利润3,500万—5,000万元，是明确的基本面拐点；但现价对应约151亿元市值、仍为负的滚动净利润，以及对芯片、机器人和低空应用持续高增长的较强预期。当前价格缺少足够安全边际。</li>
+<li>改变结论的条件：价格进入20—22元且2026H1正式报告验证毛利率、扣非利润与回款；或在价格未明显下跌的情况下，连续两个季度单季扣非净利润超过3,000万元、经营现金流转正并证明增长不是并购一次性贡献。</li>
+</ul>
+<h2 id="section-2">2. 证券身份与来源矩阵</h2>
+
+<h3>2.1 证券身份</h3>
+<ul>
+<li>公司全称：北京北斗星通导航技术股份有限公司</li>
+<li>证券代码：002151.SZ</li>
+<li>上市地：深圳证券交易所主板</li>
+<li>报告准则：中国企业会计准则</li>
+<li>法定披露体系：A股交易所与巨潮资讯</li>
+<li>同名或跨市场歧义：无；本文分析上市公司北斗星通，不代表北斗卫星导航系统整体或中国卫星网络集团。</li>
+</ul>
+<h3>2.2 来源矩阵</h3>
+<table>
+<thead>
+<tr>
+<th>数据项目</th>
+<th>目标来源</th>
+<th>实际来源</th>
+<th>数据时间</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>实时价格、52周高低、今年以来表现</td>
+<td>交易行情数据库</td>
+<td>Google Finance盘中快照、公开历史行情交叉核验</td>
+<td>2026-07-17</td>
+<td>已获取；市值按价格×股本复核</td>
+</tr>
+<tr>
+<td>第三方公允价值、护城河、星级</td>
+<td>Morningstar美国站</td>
+<td>Morningstar及公开检索</td>
+<td>2026-07-17</td>
+<td>未获取到可核验覆盖</td>
+</tr>
+<tr>
+<td>最新季报与管理层指引</td>
+<td>公司法定公告</td>
+<td>2026年第一季度报告、2026年半年度业绩预告</td>
+<td>2026-04-29 / 2026-07-14</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>分部收入</td>
+<td>公司年报</td>
+<td>2025年年度报告</td>
+<td>2025年度</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>卖方评级与目标价</td>
+<td>券商研报与一致预期</td>
+<td>公开研报检索</td>
+<td>截至2026-07-17</td>
+<td>未获取到足够近期目标价样本</td>
+</tr>
+<tr>
+<td>近三个月新闻与催化剂</td>
+<td>公司公告、交易行情与权威媒体</td>
+<td>半年度业绩预告、市场交易数据</td>
+<td>2026-04-17—2026-07-17</td>
+<td>已获取核心事件</td>
+</tr>
+<tr>
+<td>五年财务历史</td>
+<td>公司年报</td>
+<td>2021—2025年年度报告</td>
+<td>2021—2025</td>
+<td>已获取；并购处置导致口径不可完全同比</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 行情与市场预期</h2>
+
+<h3>3.1 行情快照（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">数值</th>
+<th>来源</th>
+<th>时间 / 口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前价格</td>
+<td align="right">27.89 元</td>
+<td>Google Finance盘中快照</td>
+<td>2026-07-17 10:22</td>
+</tr>
+<tr>
+<td>52周最高</td>
+<td align="right">66.90 元</td>
+<td>Google Finance</td>
+<td>滚动52周</td>
+</tr>
+<tr>
+<td>52周最低</td>
+<td align="right">27.26 元</td>
+<td>Google Finance</td>
+<td>滚动52周；不同数据商复权口径可有小幅差异</td>
+</tr>
+<tr>
+<td>今年以来表现</td>
+<td align="right">未取得一致可复核值</td>
+<td>—</td>
+<td>不以不完整行情估算冒充事实</td>
+</tr>
+<tr>
+<td>总市值</td>
+<td align="right">约151.4亿元</td>
+<td>27.89元×约5.4291亿股</td>
+<td>2026-07-17盘中估算</td>
+</tr>
+<tr>
+<td>PE / PB / EV</td>
+<td align="right">TTM PE无意义；PB约3.1倍；EV约134亿元</td>
+<td>TTM归母利润仍亏损；PB按2025末归母权益估算；EV按广义净现金约17亿元估算</td>
+<td>2025年报 / 2026Q1</td>
+</tr>
+</tbody></table>
+<p>补充：股价从52周高点回撤约58%，距离52周低点仅约2%；但7月10日前后曾受机器人、商业航天与业绩反转预期推动快速上涨，随后7月13日、15日和16日均出现主力资金净流出。低位不自动等于低估，尤其在滚动利润仍为负时。</p>
+<h3>3.2 第三方公允价值与评级（事实）</h3>
+<ul>
+<li>公允价值：未获取到可核验的Morningstar公允价值。</li>
+<li>护城河评级：未获取到。</li>
+<li>星级：未获取到。</li>
+<li>来源与时间：检查Morningstar公开证券页及通用公开检索，截止2026-07-17。</li>
+<li>未获取到的字段及已检查来源：fair value、economic moat、star rating均无可靠A股覆盖；本文自行估值不得冒充Morningstar评级。</li>
+</ul>
+<h3>3.3 卖方评级与目标价分布（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>机构</th>
+<th>日期</th>
+<th>评级</th>
+<th align="right">目标价</th>
+<th>预测期</th>
+<th>关键假设</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>公开检索样本</td>
+<td>截至2026-07-17</td>
+<td>样本不足</td>
+<td align="right">未获取到</td>
+<td>—</td>
+<td>近期报告完整目标价、盈利预测口径未能同时核验</td>
+</tr>
+</tbody></table>
+<ul>
+<li>目标价区间 / 中位数：无法形成有效区间。</li>
+<li>样本数量与完整性：不足；旧研报目标价可能基于处置前业务口径，不具可比性。</li>
+<li>来源冲突及采信理由：本文不引用时间过旧、缺少原文或无法核验假设的目标价，估值以公开财务数据和明确模型假设为主。</li>
+</ul>
+<h2 id="section-4">4. 商业模式与竞争格局</h2>
+
+<h3>4.1 事实</h3>
+<ul>
+<li>收入来源：2025年主营业务由芯片及数据服务、导航产品、陶瓷元器件三部分构成。公司覆盖卫星导航芯片、板卡/模块、天线、定位数据服务及部分元器件，应用于测量测绘、智能驾驶、机器人、无人机、农机和割草机等场景。</li>
+<li>客户与定价权：核心芯片和高精度模块具备技术认证与切换成本，但下游客户分散、规模化应用对价格敏感；消费和机器人场景通常以量换价，定价权弱于高壁垒军工或垄断运营环节。</li>
+<li>成本结构：2025年综合毛利率约35.3%，研发费用保持高位；芯片与数据服务毛利率明显高于陶瓷元器件，是利润修复的关键。</li>
+<li>资本强度：芯片研发、测试、数据服务基础设施和并购整合均需要持续投入；2025年购建长期资产现金支出2.24亿元。</li>
+<li>竞争者：国内包括华测导航、海格通信、振芯科技、合众思壮等；全球芯片和模组领域包括u-blox等；各细分市场的客户、价格和认证壁垒不同。</li>
+<li>监管和产业位置：处于卫星导航与商业航天产业链上游核心器件及定位数据服务环节。商业航天纯度为中低：公司受益于北斗规模应用和卫星基础设施，但当前收入增长更多来自机器人、割草机、无人机、农机等地面应用，并非卫星制造或卫星运营的纯映射。</li>
+</ul>
+<h3>4.2 我的判断</h3>
+<ul>
+<li>我的判断：竞争优势及依据——“芯片—模块/板卡—天线—数据服务”的纵向能力、长期北斗技术积累和批量客户认证构成竞争壁垒；2025年芯片及数据服务收入增长76.44%、毛利率41.96%，说明高价值环节已经形成规模化收入。</li>
+<li>我的判断：商业模式最脆弱的环节及依据——高研发投入和下游价格竞争之间存在错配风险。若新场景只带来出货量而不能稳定毛利率，收入高增可能无法转化为持续净利润；历史并购与资产减值也说明外延扩张存在执行风险。</li>
+<li>证伪条件：芯片及数据服务连续两个季度收入增速低于20%或毛利率跌破35%；大客户导入延迟；研发项目继续延期且没有替代产品；并购标的未兑现业绩承诺并触发新增商誉减值。</li>
+</ul>
+<h2 id="section-5">5. 分部收入与盈利拆解</h2>
+
+<table>
+<thead>
+<tr>
+<th>分部</th>
+<th align="right">收入</th>
+<th align="right">同比</th>
+<th align="right">收入占比</th>
+<th align="right">毛利率</th>
+<th align="right">毛利率变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>芯片及数据服务</td>
+<td align="right">11.70亿元</td>
+<td align="right">+76.44%</td>
+<td align="right">52.86%</td>
+<td align="right">41.96%</td>
+<td align="right">公司未在摘要中提供可比变动</td>
+<td>2025年年度报告</td>
+</tr>
+<tr>
+<td>导航产品</td>
+<td align="right">8.60亿元</td>
+<td align="right">+24.58%</td>
+<td align="right">38.87%</td>
+<td align="right">31.02%</td>
+<td align="right">同上</td>
+<td>2025年年度报告</td>
+</tr>
+<tr>
+<td>陶瓷元器件</td>
+<td align="right">1.83亿元</td>
+<td align="right">+26.12%</td>
+<td align="right">8.27%</td>
+<td align="right">13.41%</td>
+<td align="right">同上</td>
+<td>2025年年度报告</td>
+</tr>
+<tr>
+<td>合计</td>
+<td align="right">22.13亿元</td>
+<td align="right">+47.67%</td>
+<td align="right">100.00%</td>
+<td align="right">约35.34%</td>
+<td align="right">2024年约34.20%，提升约1.1个百分点</td>
+<td>2025年年度报告</td>
+</tr>
+</tbody></table>
+<ul>
+<li>披露口径变化：公司在2023年末处置北斗智联等相关业务，2024—2025年收入规模与2021—2023年不能简单连续比较；2025年又并购深圳天丽/天力相关资产，需区分内生与并表贡献。</li>
+<li>来源冲突：部分第三方数据库将服务收入单列，与公司按三大主营板块披露的口径存在交叉。</li>
+<li>采信理由：采用2025年年报主营业务分部表，三大板块合计为主营收入的完整口径。</li>
+<li>我的判断：增长质量及依据——收入结构明显向高毛利芯片及数据服务倾斜，毛利率改善且经营现金流转正，质量优于单纯规模扩张；但2025年仍亏损2.57亿元，说明费用、减值和并购整合尚未被毛利完全覆盖。</li>
+</ul>
+<h2 id="section-6">6. 五年财务历史</h2>
+
+<table>
+<thead>
+<tr>
+<th>财年</th>
+<th align="right">营收</th>
+<th align="right">毛利率</th>
+<th align="right">经营现金流</th>
+<th align="right">资本开支</th>
+<th align="right">自由现金流</th>
+<th align="right">ROIC / 代理值</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td align="right">约38.51亿元</td>
+<td align="right">约29%</td>
+<td align="right">3.05亿元</td>
+<td align="right">0.03亿元</td>
+<td align="right">3.02亿元</td>
+<td align="right">归母净利润约2.03亿元（代理）</td>
+<td>2021年年报</td>
+</tr>
+<tr>
+<td>2022</td>
+<td align="right">38.16亿元</td>
+<td align="right">约30.2%</td>
+<td align="right">-2.39亿元</td>
+<td align="right">0.29亿元</td>
+<td align="right">-2.67亿元</td>
+<td align="right">归母净利润约1.45亿元（代理）</td>
+<td>2022年年报</td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">40.82亿元</td>
+<td align="right">21.71%</td>
+<td align="right">-2.13亿元</td>
+<td align="right">3.22亿元</td>
+<td align="right">-5.35亿元</td>
+<td align="right">归母净利润1.61亿元（代理）</td>
+<td>2023年年报</td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">14.98亿元</td>
+<td align="right">34.20%</td>
+<td align="right">-0.78亿元</td>
+<td align="right">1.78亿元</td>
+<td align="right">-2.56亿元</td>
+<td align="right">归母净利润-3.50亿元（代理）</td>
+<td>2024年年报</td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">22.13亿元</td>
+<td align="right">35.34%</td>
+<td align="right">3.93亿元</td>
+<td align="right">2.24亿元</td>
+<td align="right">1.70亿元</td>
+<td align="right">归母净利润-2.57亿元（代理）</td>
+<td>2025年年报</td>
+</tr>
+</tbody></table>
+<ul>
+<li>自由现金流口径：经营活动现金流净额减购建固定资产、无形资产和其他长期资产支付的现金；不扣除并购支付，因此不等同于股东可自由分配现金。</li>
+<li>ROIC口径：因处置业务、并购、减值和滚动亏损使NOPAT与投入资本口径失真，表中使用归母净利润作为资本回报方向代理，不将其冒充严格ROIC。</li>
+<li>一次性项目和会计变化：2023年末业务处置显著降低2024年收入基数；2024—2025年存在商誉、资产和业务重组影响；2025年并购增加收入和整合变量。</li>
+<li>我的判断：盈利质量、现金转化与资本回报趋势——2025年经营现金流和自由现金流转正是重要改善，但连续两年归母亏损意味着资本回报尚未修复。现金改善是否来自持续回款、预收和库存优化，仍需用2026年中报验证；不能只凭单年现金流认定高质量盈利。</li>
+</ul>
+<h2 id="section-7">7. 最新季度与管理层指引</h2>
+
+<h3>7.1 最新季度（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">本期</th>
+<th align="right">同比 / 变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营收</td>
+<td align="right">6.15亿元</td>
+<td align="right">+93.28%</td>
+<td>2026年第一季度报告，2026-04-29</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">约37.9%</td>
+<td align="right">同比口径未完整获取</td>
+<td>以收入6.15亿元、营业成本约3.82亿元估算</td>
+</tr>
+<tr>
+<td>净利润</td>
+<td align="right">归母1,355.5万元</td>
+<td align="right">上年同期-2,962.2万元，转正</td>
+<td>2026年第一季度报告</td>
+</tr>
+<tr>
+<td>调整后利润</td>
+<td align="right">扣非623.0万元</td>
+<td align="right">上年同期-5,046.0万元，转正</td>
+<td>2026年第一季度报告</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">-2,725.6万元</td>
+<td align="right">上年同期1.08亿元，由正转负</td>
+<td>2026年第一季度报告</td>
+</tr>
+<tr>
+<td>订单 / 储备</td>
+<td align="right">未量化披露</td>
+<td align="right">—</td>
+<td>未获取到可核验在手订单口径</td>
+</tr>
+</tbody></table>
+<h3>7.2 管理层指引（事实）</h3>
+<ul>
+<li>正式量化指引：2026年半年度业绩预告预计归母净利润3,500万—5,000万元，同比增长约2,368%—3,426%；扣非净利润2,000万—3,000万元，上年同期为亏损3,402.1万元。</li>
+<li>定性展望：增长主要来自芯片、模块及激光雷达产品在智能割草机、工业无人机、农业机械和机器人等场景的放量；公司强调主营业务盈利能力改善。</li>
+<li>未获取到：公司未提供2026全年收入、净利润、自由现金流和分部增速的正式量化指引。</li>
+</ul>
+<h3>7.3 我的判断</h3>
+<ul>
+<li>我的判断：边际变化及依据——基本面由“减亏”进入“盈利恢复”阶段。按预告中值计算，2026Q2归母净利润约2,900万元，环比Q1继续改善；扣非利润转正也降低了依赖非经常性损益的担忧。</li>
+<li>我的判断：指引可信度及依据——业绩预告属于法定披露，利润区间可信度高于市场传闻；但全年可持续性仍为中等，因为新场景产品可能存在季节性、价格下行和并购贡献，且Q1经营现金流反而转负。</li>
+<li>下一验证节点：2026-08-27半年度报告，重点核验分部内生增速、毛利率、研发费用率、应收与库存、经营现金流、并购标的贡献和业绩承诺完成度。</li>
+</ul>
+<h2 id="section-8">8. 近三个月新闻与催化剂</h2>
+
+<table>
+<thead>
+<tr>
+<th>发生日</th>
+<th>事件</th>
+<th>影响变量</th>
+<th>财务传导</th>
+<th>是否已反映</th>
+<th>验证节点</th>
+<th>失效条件</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-04-29</td>
+<td>2026Q1营收同比+93.28%、归母与扣非利润转正</td>
+<td>收入、毛利、费用率</td>
+<td>规模增长与产品结构改善带来利润修复</td>
+<td>已部分反映</td>
+<td>2026H1正式报告</td>
+<td>Q2增速和毛利率明显回落</td>
+<td>公司一季报</td>
+</tr>
+<tr>
+<td>2026-07-10前后</td>
+<td>机器人、商业航天和业绩反转预期推动股价快速上涨</td>
+<td>风险偏好、估值</td>
+<td>估值倍数扩张，不直接改变现金流</td>
+<td>随后快速回吐，反映不稳定</td>
+<td>成交量与20日均线</td>
+<td>放量突破并由盈利上修确认</td>
+<td>公开交易行情</td>
+</tr>
+<tr>
+<td>2026-07-14</td>
+<td>发布2026H1业绩预告，归母净利润3,500万—5,000万元</td>
+<td>盈利拐点</td>
+<td>Q2利润环比改善，全年扭亏概率上升</td>
+<td>利好后股价未稳定上行，可能仅部分反映</td>
+<td>2026-08-27</td>
+<td>正式中报低于预告中值或现金流恶化</td>
+<td>公司业绩预告</td>
+</tr>
+<tr>
+<td>2026-07-13—16</td>
+<td>多日主力资金净流出，股价逼近52周低位</td>
+<td>流动性、情绪</td>
+<td>提高风险溢价、压缩估值</td>
+<td>正在反映</td>
+<td>连续5日资金流与缩量企稳</td>
+<td>资金持续回流并收复事件前价格</td>
+<td>公开资金流数据</td>
+</tr>
+<tr>
+<td>2026年内</td>
+<td>14nm相关芯片项目进度被披露延后至2028年</td>
+<td>研发兑现、资本效率</td>
+<td>新品收入递延、研发资本回报下降</td>
+<td>可能未充分反映</td>
+<td>项目里程碑公告</td>
+<td>替代芯片按期量产并形成订单</td>
+<td>公司项目披露/公告</td>
+</tr>
+</tbody></table>
+<h2 id="section-9">9. 多头与空头论据</h2>
+
+<h3>9.1 多头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>盈利拐点已经出现</td>
+<td>2026Q1归母与扣非转正，H1预告利润进一步增长</td>
+<td>单季扣非利润、经营利润率</td>
+<td>H2再次大额亏损</td>
+</tr>
+<tr>
+<td>高毛利芯片及数据服务成为第一大业务</td>
+<td>2025年收入11.70亿元、占比52.86%、毛利率41.96%</td>
+<td>分部收入、毛利率、客户数</td>
+<td>毛利率跌破35%或增速低于20%</td>
+</tr>
+<tr>
+<td>机器人和低空场景扩大北斗应用边界</td>
+<td>公司称割草机、工业无人机、农机和机器人需求增长</td>
+<td>出货量、ASP、复购和订单</td>
+<td>仅有样品/小批量，量增价跌吞噬利润</td>
+</tr>
+<tr>
+<td>现金与低有息负债提供转型缓冲</td>
+<td>2025年经营现金流3.93亿元，广义现金类资产约17.9亿元，短借较低</td>
+<td>净现金、现金流、并购支出</td>
+<td>并购和研发持续消耗现金且回报不足</td>
+</tr>
+</tbody></table>
+<h3>9.2 空头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前估值仍依赖远期高增长</td>
+<td>TTM净利润亏损、当前市值约151亿元</td>
+<td>2026/2027净利润、PE</td>
+<td>年化利润快速达到3亿元以上</td>
+</tr>
+<tr>
+<td>现金流修复尚不稳定</td>
+<td>2025年转正，但2026Q1经营现金流-2,725.6万元</td>
+<td>CFO/净利润、应收和库存</td>
+<td>H1和全年CFO持续显著高于净利润</td>
+</tr>
+<tr>
+<td>历史并购和减值暴露资本配置风险</td>
+<td>2024—2025连续亏损，业务处置和并购改变口径</td>
+<td>商誉、减值、业绩承诺</td>
+<td>并购标的连续超额完成承诺且无新增减值</td>
+</tr>
+<tr>
+<td>利好后交易结构仍弱</td>
+<td>多日主力净流出，价格接近52周低位</td>
+<td>成交量、资金流、相对强弱</td>
+<td>放量站稳关键均线并持续相对跑赢</td>
+</tr>
+</tbody></table>
+<h2 id="section-10">10. 估值</h2>
+
+<h3>10.1 相对估值</h3>
+<table>
+<thead>
+<tr>
+<th>公司</th>
+<th>业务可比性</th>
+<th align="right">增长</th>
+<th align="right">利润率</th>
+<th align="right">PE</th>
+<th align="right">PB</th>
+<th align="right">EV/EBITDA</th>
+<th>数据时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>北斗星通</td>
+<td>芯片、模块、天线与定位数据服务</td>
+<td align="right">2026Q1收入+93.28%</td>
+<td align="right">Q1净利率约2.2%</td>
+<td align="right">TTM亏损，不适用</td>
+<td align="right">约3.1倍</td>
+<td align="right">不采用，EBITDA受减值和口径影响</td>
+<td>2026-07-17</td>
+</tr>
+<tr>
+<td>华测导航</td>
+<td>高精度定位设备与解决方案，较高可比</td>
+<td align="right">未在本报告内统一核验</td>
+<td align="right">盈利状态优于北斗星通</td>
+<td align="right">未统一核验</td>
+<td align="right">未统一核验</td>
+<td align="right">未统一核验</td>
+<td>待同口径报告</td>
+</tr>
+<tr>
+<td>海格通信</td>
+<td>军民通信与北斗导航，业务更分散</td>
+<td align="right">未统一核验</td>
+<td align="right">未统一核验</td>
+<td align="right">未统一核验</td>
+<td align="right">未统一核验</td>
+<td align="right">未统一核验</td>
+<td>待同口径报告</td>
+</tr>
+<tr>
+<td>振芯科技</td>
+<td>北斗芯片和元器件，规模与客户结构不同</td>
+<td align="right">未统一核验</td>
+<td align="right">未统一核验</td>
+<td align="right">未统一核验</td>
+<td align="right">未统一核验</td>
+<td align="right">未统一核验</td>
+<td>待同口径报告</td>
+</tr>
+</tbody></table>
+<ul>
+<li>选取理由：三家公司覆盖高精度定位、北斗通信及芯片元器件，可用于观察市场给北斗应用环节的估值边界，但没有完全同构可比公司。</li>
+<li>正常化调整：北斗星通TTM亏损，不能使用静态PE；以2027年正常化EPS 0.45—0.60元、35—40倍PE估算，反映高增长但竞争激烈的应用型科技公司。</li>
+<li>对应每股价值区间：约15.75—24.00元。</li>
+<li>我的判断：相对估值显示现价需要2027年净利润达到约2.4亿—3.3亿元并维持较高倍数，较2026H1预告年化水平仍有明显跨越。</li>
+</ul>
+<h3>10.2 DCF</h3>
+<h4>关键假设</h4>
+<table>
+<thead>
+<tr>
+<th>假设</th>
+<th align="right">悲观</th>
+<th align="right">基准</th>
+<th align="right">乐观</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>收入增长</td>
+<td align="right">未来5年15%/10%/8%/6%/5%</td>
+<td align="right">35%/25%/18%/12%/10%</td>
+<td align="right">50%/35%/25%/18%/12%</td>
+<td>2025收入+47.67%、2026Q1+93.28%，但高基数后应降速</td>
+</tr>
+<tr>
+<td>FCFF利润率（替代经营利润率等组合假设）</td>
+<td align="right">2%升至6%</td>
+<td align="right">4%升至12%</td>
+<td align="right">5%升至18%</td>
+<td>2025 FCF率约7.7%，但含营运资本波动；历史盈利不稳定</td>
+</tr>
+<tr>
+<td>税率</td>
+<td align="right">15%—20%</td>
+<td align="right">15%</td>
+<td align="right">15%</td>
+<td>高新技术企业税率及亏损抵扣，实际税率会波动</td>
+</tr>
+<tr>
+<td>折旧摊销</td>
+<td align="right">包含在FCFF利润率</td>
+<td align="right">包含在FCFF利润率</td>
+<td align="right">包含在FCFF利润率</td>
+<td>采用简化FCFF率模型避免虚假精度</td>
+</tr>
+<tr>
+<td>资本开支</td>
+<td align="right">包含在FCFF利润率</td>
+<td align="right">包含在FCFF利润率</td>
+<td align="right">包含在FCFF利润率</td>
+<td>2025资本开支2.24亿元，研发与设备投入持续</td>
+</tr>
+<tr>
+<td>营运资本变化</td>
+<td align="right">包含在FCFF利润率</td>
+<td align="right">包含在FCFF利润率</td>
+<td align="right">包含在FCFF利润率</td>
+<td>现金流历史波动大，情景率已吸收</td>
+</tr>
+<tr>
+<td>WACC</td>
+<td align="right">10.5%</td>
+<td align="right">9.5%</td>
+<td align="right">8.5%</td>
+<td>A股中小型科技、盈利波动和执行风险溢价</td>
+</tr>
+<tr>
+<td>永续增长率</td>
+<td align="right">2.0%</td>
+<td align="right">2.5%</td>
+<td align="right">3.0%</td>
+<td>长期名义经济增长约束</td>
+</tr>
+</tbody></table>
+<h4>估值结果</h4>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">企业价值</th>
+<th align="right">净债务</th>
+<th align="right">股权价值</th>
+<th align="right">每股价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观</td>
+<td align="right">19.0亿元</td>
+<td align="right">-17.0亿元</td>
+<td align="right">36.0亿元</td>
+<td align="right">6.64元</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">74.8亿元</td>
+<td align="right">-17.0亿元</td>
+<td align="right">91.8亿元</td>
+<td align="right">16.91元</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">193.1亿元</td>
+<td align="right">-17.0亿元</td>
+<td align="right">210.1亿元</td>
+<td align="right">38.70元</td>
+</tr>
+</tbody></table>
+<p>注：净债务为负表示广义净现金。广义净现金约17亿元包含货币资金、交易性金融资产和大额存单等估算，可能含受限或用途受限资产；估值区间因此保留折价。</p>
+<h4>敏感性分析</h4>
+<table>
+<thead>
+<tr>
+<th>WACC \ 永续增长率</th>
+<th align="right">1.5%</th>
+<th align="right">2.5%</th>
+<th align="right">3.5%</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>8.5%</td>
+<td align="right">17.40元</td>
+<td align="right">19.46元</td>
+<td align="right">22.35元</td>
+</tr>
+<tr>
+<td>9.5%</td>
+<td align="right">15.42元</td>
+<td align="right">16.91元</td>
+<td align="right">18.89元</td>
+</tr>
+<tr>
+<td>10.5%</td>
+<td align="right">13.88元</td>
+<td align="right">15.00元</td>
+<td align="right">16.43元</td>
+</tr>
+</tbody></table>
+<h4>反向 DCF</h4>
+<ul>
+<li>当前价格隐含的收入增长 / 终值利润率：在9.5% WACC、2.5%永续增长和约17亿元广义净现金下，27.89元明显高于基准DCF 16.91元，需接近乐观情景的一半以上：未来数年收入维持约30%以上复合增长，且FCFF率较快上升到约15%—16%，或要求更低资本成本。</li>
+<li>与历史和行业相比是否可实现：并非不可能，但明显高于公司2021—2025年利润与现金流稳定性；机器人和低空应用能否维持量、价、毛利率三者同步尚未验证。</li>
+<li>我的判断：当前价格已经为“高增长+高利润率+低资本消耗”支付了较多预期，反向DCF缺少容错空间。</li>
+</ul>
+<h3>10.3 行业特定估值</h3>
+<ul>
+<li>方法：分部加总（SOTP）。</li>
+<li>适用理由：芯片及数据服务、导航产品和陶瓷元器件的增长、毛利率与合理估值倍数差异显著，且公司当前净利润受研发、减值和整合费用影响。</li>
+<li>关键假设：以2025年分部收入为基准，芯片及数据服务给予5—7倍PS，导航产品给予2.5—4倍PS，陶瓷元器件给予1.5—2.5倍PS，再加约17亿元广义净现金并对受限资产和总部费用保留折价。</li>
+<li>对应每股价值区间：约18.4—25.4元；保守取整为18—25元。</li>
+<li>局限性：PS没有直接约束费用率和资本开支，可能高估长期无法盈利的增长；分部间交易和总部成本也未完全拆分。</li>
+</ul>
+<h3>10.4 估值交叉验证</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="right">每股价值区间</th>
+<th align="right">权重</th>
+<th>采信理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>相对估值</td>
+<td align="right">15.75—24.00元</td>
+<td align="right">30%</td>
+<td>反映2027年正常化盈利，但预测误差大</td>
+</tr>
+<tr>
+<td>DCF</td>
+<td align="right">13.88—22.35元（敏感区间）</td>
+<td align="right">35%</td>
+<td>直接约束现金流与资本成本；历史现金流波动使权重受限</td>
+</tr>
+<tr>
+<td>行业特定估值</td>
+<td align="right">18.00—25.00元</td>
+<td align="right">35%</td>
+<td>分部差异显著，SOTP更贴合业务结构</td>
+</tr>
+</tbody></table>
+<ul>
+<li>综合估值区间：16.00—24.00元/股。</li>
+<li>相对现价上行 / 下行空间：相对27.89元为-42.6%至-13.9%。</li>
+<li>为什么不机械平均：盈利恢复早期的DCF和PE对小幅假设极敏感；SOTP可能忽略总部费用。综合区间以三种方法重叠区域为核心，并对广义净现金质量和并购整合风险折价。</li>
+</ul>
+<h2 id="section-11">11. 冰冰小美框架判断</h2>
+
+<h3>11.1 三要素结果引用</h3>
+<ul>
+<li>三要素结论来源：<code>bbxm-three-factor-analysis</code></li>
+<li>分析对象与层级：北斗星通（002151.SZ），个股层；兼顾北斗导航/商业航天中观环境</li>
+<li>分析截止时间：2026-07-17 10:22</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>状态</th>
+<th>核心证据</th>
+<th>核心反证</th>
+<th>失效条件</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>有利</td>
+<td>芯片及数据服务成为第一大分部，2025年增长76.44%、毛利率41.96%；覆盖芯片到数据服务</td>
+<td>同业竞争激烈、下游量价压力高，14nm项目延期</td>
+<td>分部毛利率跌破35%或收入增速连续低于20%</td>
+<td>中</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>不利</td>
+<td>7月13、15、16日连续主力净流出；利好后股价继续逼近52周低位</td>
+<td>股价已大幅回撤，绝对抛压可能接近释放区</td>
+<td>连续5日资金净流入、放量站稳事件前价格和20日均线</td>
+<td>中</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>不利</td>
+<td>7月10附近题材急升后快速回撤，H1预告利好未形成持续上行</td>
+<td>低位和高波动可能孕育超跌反弹</td>
+<td>利好后不再创新低且相对行业持续转强</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<ul>
+<li>三要素综合判断：尚未形成有利共振。</li>
+<li>主导要素：竞争格局与盈利拐点开始有利。</li>
+<li>拖累要素：个股流动性和情绪位置不利，估值安全边际仍不足。</li>
+<li>数据缺口及影响：缺少机构资金完整持仓变化、融资盘分层和逐笔成交结构；因此不能把公开“主力资金”单一指标视为完整流动性事实。</li>
+<li>下一验证节点：2026-08-27中报；此前观察27.26元附近是否缩量企稳、资金是否回流。</li>
+<li>新增现金：<code>wait / observe</code>；条件：20—22元进入首档估值区，或盈利与现金流连续验证后重新估值。</li>
+<li>已有持仓：<code>wait / review</code>；条件：以27.26元附近与中报基本面为双重检查，不因单日反弹追补。</li>
+</ul>
+<h3>11.2 风险方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>风险类型</th>
+<th>前一窗口</th>
+<th>当前窗口</th>
+<th>方向证据</th>
+<th>反证</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本面风险</td>
+<td>2026-04-29至07-10：Q1扭亏但持续性待证</td>
+<td>2026-07-14至07-17：H1预告进一步确认利润修复</td>
+<td>基本面风险减弱</td>
+<td>Q1现金流转负、全年指引缺失</td>
+</tr>
+<tr>
+<td>估值风险</td>
+<td>7月10前后题材上涨、估值扩张</td>
+<td>股价回落至52周低位附近</td>
+<td>估值风险有所释放但仍高</td>
+<td>TTM亏损、现价高于综合估值上限</td>
+</tr>
+<tr>
+<td>情绪风险</td>
+<td>题材与扭亏预期推动快速升温</td>
+<td>利好后回撤、未形成持续承接</td>
+<td>情绪风险重新增强</td>
+<td>超跌位置可能吸引交易性资金</td>
+</tr>
+<tr>
+<td>流动性风险</td>
+<td>上涨阶段成交活跃</td>
+<td>7月13、15、16日连续主力净流出</td>
+<td>流动性风险重新增强</td>
+<td>公开资金流指标不能覆盖全部机构交易</td>
+</tr>
+</tbody></table>
+<h3>11.3 风险传导链</h3>
+<ul>
+<li>信息源头：H1盈利预告利好与此前题材上涨形成高预期，但后续资金持续净流出。</li>
+<li>核心变量：盈利兑现速度、FCFF利润率、资金承接强度与估值倍数。</li>
+<li>传导机制：若利润修复低于高预期，或现金流未跟随，资金先降低估值倍数；股价走弱又触发短线止损与风险偏好下降。</li>
+<li>影响对象：新增资金、高成本持仓者、159218中北斗导航敞口。</li>
+<li>市场行为变化：从追逐机器人/商业航天叙事转向验证扣非利润和现金流。</li>
+<li>风险方向：基本面风险减弱，但交易与流动性风险重新增强，综合为风险重新增强。</li>
+<li>验证指标：中报扣非利润、经营现金流、应收/库存；连续资金流、相对行业强弱、是否收复20日均线。</li>
+<li>失效条件：中报显著超预告中值且经营现金流转正，同时股价放量站稳关键均线并持续获得资金承接。</li>
+</ul>
+<h3>11.4 风险方向结论</h3>
+<ul>
+<li>风险方向结论：风险重新增强。</li>
+<li>判断依据：前一窗口Q1扭亏和题材上涨使风险阶段性减弱；当前窗口虽然H1预告继续确认基本面改善，但价格和资金未形成正反馈，交易风险重新上升，且估值仍高于基本面模型上限。</li>
+<li>反证：公司H1预告是真实的利润改善，价格已大幅回撤，继续下跌的估值弹性小于高位阶段。</li>
+<li>未获取到：完整机构持仓变化、北向资金分项、所有一致预期修订和盘中最终收盘价。</li>
+<li>置信度：中。</li>
+</ul>
+<h3>11.5 四层方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>边际改善 / 无明显变化 / 边际恶化 / 未获取到</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观</td>
+<td>未获取到</td>
+<td>本报告未将宏观流动性变化作为个股买点证据</td>
+</tr>
+<tr>
+<td>中观</td>
+<td>无明显变化</td>
+<td>北斗规模应用、机器人和低空应用方向仍积极，但行业增量订单未在本报告中形成统一量化</td>
+</tr>
+<tr>
+<td>微观</td>
+<td>边际改善</td>
+<td>Q1与H1预告连续证明收入和利润修复</td>
+</tr>
+<tr>
+<td>交易</td>
+<td>边际恶化</td>
+<td>题材上涨后快速回撤，连续多日主力资金净流出</td>
+</tr>
+</tbody></table>
+<h3>11.6 动作与约束</h3>
+<ul>
+<li>主动作：<code>wait / observe</code></li>
+<li>新增现金：不在27.89元主动追买；20—22元可在中报不低于预告中值的前提下试仓20%，17—19元加至50%，14—16元加至80%，余下20%仅在经营现金流与扣非利润连续验证后投入。</li>
+<li>已有持仓：<code>wait / review</code>；若仓位超出计划或成本显著高于估值上限，可在反弹但资金未改善时降低暴露；不因接近52周低位机械补仓。</li>
+<li>承接条件：价格进入估值区、成交由放量下跌转为缩量企稳、连续资金回流；或盈利证据上修使综合估值上限提高。</li>
+<li>退出条件：中报低于预告中值、芯片及数据服务毛利率跌破35%、经营现金流持续恶化、并购标的未兑现承诺；交易层面放量有效跌破52周低位且无基本面解释。</li>
+<li>下一复核节点：2026-08-27半年度报告；若公司提前发布快报、重大合同或项目进度公告则立即复核。</li>
+<li>我的判断：为什么“方向”能够或不能转化为“买点”——盈利方向已经改善，但现价、资金和情绪没有与基本面形成有利共振；所以它是“值得持续跟踪的转型标的”，不是“已经形成安全买点的标的”。</li>
+</ul>
+<h2 id="section-12">12. 最终结论</h2>
+
+<ul>
+<li>估值结论：高估。</li>
+<li>操作结论：观望。</li>
+<li>综合估值区间：16.00—24.00元/股。</li>
+<li>相对现价空间：-42.6%至-13.9%。</li>
+<li>如果今天这是一笔现金，我会买它吗：不会；只在20—22元且中报不证伪时开始小仓，或等待持续盈利与现金流证据抬升公允价值。</li>
+<li>我的判断：北斗星通的产业位置比“商业航天题材股”更具体，它是北斗芯片、模块、天线和定位数据服务平台；2026年盈利拐点可信，但商业航天纯度中低、资本回报尚未修复、交易结构偏弱。当前最合理动作是等待估值与盈利证据对齐。</li>
+<li>结论失效条件：2026H1及后续两个季度扣非利润、经营现金流和高毛利分部同时显著超出基准假设，使2027正常化EPS上修至0.70元以上；或价格进入16—22元而基本面未被证伪。</li>
+</ul>
+<h2 id="section-13">13. 后续监控指标</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">当前值</th>
+<th>触发阈值 / 方向</th>
+<th>数据源</th>
+<th>复核频率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026H1归母净利润</td>
+<td align="right">预告3,500万—5,000万元</td>
+<td>低于3,500万元为证伪；高于5,000万元为上修</td>
+<td>公司中报</td>
+<td>2026-08-27</td>
+</tr>
+<tr>
+<td>芯片及数据服务毛利率</td>
+<td align="right">2025年41.96%</td>
+<td>跌破35%警戒；维持40%以上有利</td>
+<td>公司定期报告</td>
+<td>半年</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">2026Q1 -2,725.6万元</td>
+<td>H1转正并高于净利润为有利；持续为负警戒</td>
+<td>公司现金流量表</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>应收账款与存货</td>
+<td align="right">待中报更新</td>
+<td>合计增速持续高于收入增速为不利</td>
+<td>公司资产负债表</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>股价与资金承接</td>
+<td align="right">27.89元；近期连续净流出</td>
+<td>20—22元进入首档；或连续5日净流入并站稳20日均线</td>
+<td>交易行情</td>
+<td>每周</td>
+</tr>
+</tbody></table>
+<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
+
+<ul>
+<li>未获取到：Morningstar公允价值/护城河/星级；足够数量的2026年近期卖方目标价；完整一致预期修订；2026全年公司量化指引；2026Q1分部收入；完整机构持仓和实时逐笔资金；截至报告生成时的最终收盘价。</li>
+<li>已检查来源：公司2021—2025年报、2026Q1报告、2026H1业绩预告、Google Finance、深圳证券交易所/巨潮与公开财经检索。</li>
+<li>对结论的影响：卖方与第三方估值缺失降低横向验证强度；盘中行情可能与收盘不同；并购和处置导致五年数据可比性偏弱。因此估值结论置信度为“中”，买入计划必须以中报复核为前提。</li>
+</ul>
+<h2 id="section-15">15. 来源清单</h2>
+
+<ol>
+<li>《北京北斗星通导航技术股份有限公司2025年年度报告》，北斗星通，2026-03-26，<a href="https://pdf.dfcfw.com/pdf/H2_AN202603251820746463_1.pdf">PDF</a>，访问时间2026-07-17。</li>
+<li>《北京北斗星通导航技术股份有限公司2026年第一季度报告》，北斗星通，2026-04-29，<a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12201025&stockid=002151">公告页</a>，访问时间2026-07-17。</li>
+<li>《北京北斗星通导航技术股份有限公司2026年半年度业绩预告》，北斗星通，2026-07-14，<a href="https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12442577&stockid=002151">公告页</a>，访问时间2026-07-17。</li>
+<li>《北京北斗星通导航技术股份有限公司2024年年度报告》，北斗星通，2025-03-27，<a href="https://www.bdstar.com/upload/file/2025-03-27/9d4781dd-b585-450e-b8d7-64a764ca63e5.pdf">公司PDF</a>，访问时间2026-07-17。</li>
+<li>《北京北斗星通导航技术股份有限公司2023年年度报告》，北斗星通，2024-03-27，<a href="https://stockn.xueqiu.com/SZ002151/20240327380330.pdf">PDF</a>，访问时间2026-07-17。</li>
+<li>《北京北斗星通导航技术股份有限公司2022年年度报告》，北斗星通，2023-03-27，<a href="https://disc.static.szse.cn/disc/disk03/finalpage/2023-03-27/d5dc735c-ca18-4cd0-a756-3f222288510d.PDF">深交所PDF</a>，访问时间2026-07-17。</li>
+<li>《北京北斗星通导航技术股份有限公司2021年年度报告》，北斗星通，2022-04-15，<a href="https://disc.static.szse.cn/disc/disk03/finalpage/2022-04-15/5eb7fd4e-3504-4c92-ae66-752961d7b9ae.PDF">深交所PDF</a>，访问时间2026-07-17。</li>
+<li>《北斗星通（002151）股价和资讯》，Google Finance，盘中行情，<a href="https://www.google.com/finance/quote/002151:SHE?hl=zh">证券页</a>，访问时间2026-07-17。</li>
+<li>《北斗星通2026半年业绩预告：净利润预计达3500万元—5000万元》，公开财经媒体，2026-07-14，<a href="https://finance.eastmoney.com/a/202607133804156274.html">报道</a>，访问时间2026-07-17。</li>
+</ol>
+<h2 id="section-16">16. 声明</h2>
+
+<p>本报告基于截至研究截止时间可取得的公开信息，不构成收益保证或个性化投资建议。真实交易前应重新核验价格、公告、流动性、个人资产配置与风险承受能力；分批区间是研究纪律示例，不保证触发或盈利。</p>
+</article>
+    </div>
+  </main>
+</body>
+</html>

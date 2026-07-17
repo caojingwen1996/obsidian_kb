@@ -1,0 +1,20 @@
+{
+  "expectations": [
+    {
+      "text": "不把纯风险方向请求扩写为完整资金面报告",
+      "passed": true,
+      "evidence": "report.md将任务限定为风险方向分类和风险传导判断，并明确不应展开为完整资金面报告。"
+    },
+    {
+      "text": "明确路由到bbxm-risk-identification，并说明资金面只能作为证据输入",
+      "passed": true,
+      "evidence": "report.md明确指定bbxm-risk-identification，并说明资金流、杠杆、ETF承接和成交结构只能作为判断风险传导与释放的证据。"
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 0,
+    "total": 2,
+    "pass_rate": 1.0
+  }
+}

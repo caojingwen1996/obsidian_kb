@@ -1,0 +1,20 @@
+{
+  "expectations": [
+    {
+      "text": "不把完整公司研究降级为资金面报告",
+      "passed": true,
+      "evidence": "report.md直接将任务识别为公司基本面与估值研究，明确不应生成完整资金面报告。"
+    },
+    {
+      "text": "明确路由到bbxm-equity-research，并说明资金面只能作为其中一个输入",
+      "passed": true,
+      "evidence": "report.md明确指定bbxm-equity-research，并说明资金面只可补充交易时点证据，是完整公司研究的一个输入，不能替代财务、治理、竞争或估值分析。"
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 0,
+    "total": 2,
+    "pass_rate": 1.0
+  }
+}

@@ -1,5 +1,24 @@
 # 知识库日志
 
+## 2026-07-17
+
+### 操作类型
+
+repair / wikilink / table
+
+### 修改文件
+
+- `wiki/concepts/冰冰小美-concept-风险的定义.md`
+- `log.md`
+
+### 操作说明
+
+修复 `冰冰小美-concept-风险的定义` 中“风险形态”和“体系三要素与风险”两张表格的双链显示问题。根因是表格单元格内的 `[[页面路径|显示名]]` 未转义竖线，被 Markdown 解析器误判为新的列分隔符；本次将相关链接统一改为 `[[页面路径\|显示名]]`，并为三要素页面补齐 `concepts/` 路径。未新增正式页面，因此不更新 `index.md` 页面总数。
+
+### 后续待办
+
+- 后续在 Markdown 表格内使用别名双链时，继续统一转义显示名分隔符。
+
 ## 2026-07-16
 
 ### 操作类型
@@ -14117,3 +14136,152 @@ repair / local-proxy / test
 
 - 第三方免费接口失效时，依据面板“数据审计”中的具体来源与错误更新对应固定适配器，不降低完整性校验。
 - 获得稳定且授权明确的沪深 300 前瞻一致预期数据后，再恢复前瞻盈利收益率和 ERP 的完整评分。
+
+## 2026-07-17
+
+### 操作类型
+
+automation / blocked-capture / risk-dashboard
+
+### 修改文件
+
+- `sources/automations/BBXM每日汇总/2026-07-17/冰冰小美/summary.md`
+- `sources/automations/BBXM每日汇总/2026-07-17/冰冰小美/task.log`
+- `sources/automations/BBXM每日汇总/2026-07-17/冰冰小美/processing/risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026-07-17/冰冰小美/processing/risk-write-status.json`
+- `log.md`
+
+### 操作说明
+
+按 `BBXM每日汇总` 自动化提示词准备 2026-07-17 冰冰小美每日任务。预检发现 CDP 9333 不可用，且启动或复用自动化 Chrome 并访问雪球的提升权限请求未通过自动审批，因此本轮未执行雪球抓取。为避免把未验证覆盖误写成“无新帖”，在官方作者目录写入不完整覆盖的 `summary.md`、`risk-analysis.json` 和 `task.log`；`risk-analysis.json` 设置 `analysis_complete=false`，Excel 更新器返回 `blocked`，未修改风险提示工作簿。没有更新 `index.md`，因为本次只生成自动化运行产物，不新增正式 Wiki 知识页。
+
+### 后续待办
+
+- 允许或手动启动自动化 Chrome/CDP 后，同日重跑 2026-07-17 任务并补抓目标日期帖子。
+- 重跑后必须重新生成逐帖 `_解读.md`、完整 `risk-analysis.json`、`risk-write-status.json` 和 `summary.md`。
+
+## 2026-07-17
+
+### 操作类型
+
+automation / rerun-capture / risk-dashboard
+
+### 修改文件
+
+- `sources/automations/BBXM每日汇总/2026-07-17/冰冰小美/135900_市场恐慌跌破下跌趋势通道.md`
+- `sources/automations/BBXM每日汇总/2026-07-17/冰冰小美/141500_海力士ADR做空引发亚太恐慌.md`
+- `sources/automations/BBXM每日汇总/2026-07-17/冰冰小美/143600_超卖修正是改善市场契机.md`
+- `sources/automations/BBXM每日汇总/2026-07-17/冰冰小美/144900_日韩科技行情极端回撤需重新来过.md`
+- `sources/automations/BBXM每日汇总/2026-07-17/冰冰小美/145900_米相关不利叠加量化收割波动.md`
+- `sources/automations/BBXM每日汇总/2026-07-17/冰冰小美/151500_7月风险应验凸显保护本金.md`
+- `sources/automations/BBXM每日汇总/2026-07-17/冰冰小美/*_解读.md`
+- `sources/automations/BBXM每日汇总/2026-07-17/冰冰小美/summary.md`
+- `sources/automations/BBXM每日汇总/2026-07-17/冰冰小美/task.log`
+- `sources/automations/BBXM每日汇总/2026-07-17/冰冰小美/state.json`
+- `sources/automations/BBXM每日汇总/2026-07-17/冰冰小美/processing/risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026-07-17/冰冰小美/processing/risk-write-status.json`
+- `log.md`
+
+### 操作说明
+
+按 `BBXM每日汇总` 自动化提示词对 2026-07-17 冰冰小美每日任务执行同日补抓。抽取结果共 21 条候选，其中 6 条属于目标日期、15 条为非目标日期并跳过，目标日期原帖已复制到官方目录并按发布时间加核心观点重命名。生成 6 个逐帖 `_解读.md`，将 blocked 版 `summary.md` 替换为完整观点汇总，并把 `risk-analysis.json` 更新为 `analysis_complete=true`：已保存 6、已分析 6、未解决 0、可写入风险节点 5、未写入复盘教育帖 1。风险 Excel 更新器返回 `written`，已更新 2026-07-17 自动分析风险提示行，计数 5。没有更新 `index.md`，因为本次只生成自动化运行产物，不新增正式 Wiki 知识页。
+
+### 后续待办
+
+- 若 2026-07-17 15:15 后冰冰小美继续发帖，需要同日增量重跑并重新计算风险提示次数。
+
+## 2026-07-17
+
+### 操作类型
+
+skill-maintenance / template-alignment / liquidity-analysis
+
+### 修改文件
+
+- `.agents/skills/bbxm-three-factor-analysis/SKILL.md`
+- `.agents/skills/bbxm-three-factor-analysis/template.md`
+- `log.md`
+
+### 操作说明
+
+强化 `bbxm-three-factor-analysis` 的流动性辩证分析契约：要求宏观、中观、微观三层分别核验；明确成交量只是结果，不能单独决定流动性状态；区分场外真实增量、存量迁移和减量报团；拆分杠杆资金与股票融资供给；补入最低数据检查、时间窗口、供给与抛压、资金退出路径及缺口说明。同步扩展模板，避免实际报告只看成交额、ETF 或单日资金流。
+
+### 后续待办
+
+- 后续实际三要素分析应按新模板验证三层流动性、资金来源稳定性与退出路径。
+
+## 2026-07-17
+
+### 操作类型
+
+refactor / concept / risk-framework
+
+### 修改文件
+
+- `wiki/concepts/冰冰小美-concept-风险的定义.md`
+- `index.md`
+- `log.md`
+
+### 操作说明
+
+基于 `sources/articles/2025-10-19-冰冰小美：波动风险.md` 与 `sources/articles/2026-05-21-冰冰小美：风险转弱的节点.md`，重新生成冰冰小美体系中的风险定义。将风险明确为基本面、情绪、流动性或估值锚的不利变化经事件集合、杠杆、赎回与一致性交易传导后，造成承接下降和定价秩序受损的状态；补齐“四类风险是来源分类、体系三要素是动态观察框架”的关系，分别界定竞争格局、流动性和情绪位置在风险形成、扩散与转弱中的作用及边界。没有新建同义页面，也没有改写原始资料。
+
+### 后续待办
+
+- 后续风险复盘应先判断四类风险中的主导来源，再用体系三要素判断其处于形成、扩散还是转弱阶段。
+
+## 2026-07-17
+
+### 操作类型
+
+refactor / merge / concept-dedup
+
+### 修改文件
+
+- `wiki/concepts/冰冰小美-concept-风险的定义.md`
+- `wiki/concepts/冰冰小美-concept-风险类型整理.md`
+- `wiki/reasoning/冰冰小美-欧洲历史金融与地缘变化如何传导为风险视角.md`
+- `wiki/timelines/冰冰小美-风险节点记录.md`
+- `wiki/topics/冰冰小美-风险提示系列.md`
+- `wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md`
+- `index.md`
+- `hot.md`
+- `log.md`
+
+### 操作说明
+
+按用户确认的合并方案，将“风险类型整理”中的四类基础风险、波动风险、杠杆拥挤、对冲工具风险、杠杆清算与美元蓄水池风险、金融诱骗及其验证点整理进“风险的定义”，形成“基础来源—衍生形态—体系三要素阶段判断—仓位动作”的统一入口。原“风险类型整理”页改为 `deprecated` 兼容入口，保留旧文件和来源以保护历史双链；索引及现有引用改指权威定义页，并修复宏观风险关键词清单中 3 处旧“宏观风险信号表”错误路径，没有删除任何原始资料。
+
+### 后续待办
+
+- 新增风险材料时统一更新“风险的定义”或对应具体风险分支，不再向兼容页追加分类内容。
+- QMD 刷新失败：`C:\Users\lenovo\.qmd` 当前为文件，而 QMD 初始化要求该路径为目录；本次未擅自修改用户目录，Markdown Wiki 已照常更新。
+
+## 2026-07-17
+
+### 操作类型
+
+skill / create / fund-flow-analysis
+
+### 修改文件
+
+- `.agents/skills/fund-flow-analysis/SKILL.md`
+- `.agents/skills/fund-flow-analysis/template.md`
+- `.agents/skills/fund-flow-analysis/references/fund-source-framework.md`
+- `.agents/skills/fund-flow-analysis/references/indicator-boundaries.md`
+- `.agents/skills/fund-flow-analysis/evals/evals.json`
+- `.agents/skills/fund-flow-analysis/agents/openai.yaml`
+- `.agents/skills/fund-flow-analysis-workspace/iteration-1/`
+- `docs/superpowers/specs/2026-07-17-fund-flow-analysis-design.md`
+- `docs/superpowers/plans/2026-07-17-fund-flow-analysis.md`
+- `log.md`
+
+### 操作说明
+
+参考华泰证券 2021 年《A股择时之资金面指标测试》的资金来源分类，以及用户提供文章中的 F3 融资、F5 特大单、F7 ETF 日频监测思路，新建独立资金面分析 Skill。Skill 固定检查当日、近 5 日和近 20 日窗口，区分场外真实增量、存量迁移和减量报团，并用价格、广度、相对强弱、筹码供给和连续性验证资金信号。明确特大单、ETF 分组和小单均属于账户身份代理，禁止机械加总 F3/F5/F7。最终按固定模板分别输出新增资金与已有持仓的 `buy / sell / reduce / wait / observe / review`、条件化仓位、验证点和失效条件。
+
+使用四个完整分析压力场景完成基线与加载 Skill 后的对照评测：加载 Skill 的四个输出均通过 6/6 条断言；基线平均通过率为 50%，主要缺口为固定十章模板、完整资金来源矩阵和三窗口数据审计。另以“完整公司研究”和“纯风险方向判断”两个 near-miss 场景验证触发边界，两组均在加载与不加载目标 Skill 时通过 2/2 条路由断言。没有更新 `index.md`，因为本次只新增项目 Skill 和评测产物，不新增正式 Wiki 知识页。
+
+### 后续待办
+
+- 可在用户审阅静态评测页后继续优化触发描述或模板细节。

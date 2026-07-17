@@ -1,0 +1,59 @@
+{
+  "metadata": {
+    "skill_name": "fund-flow-analysis",
+    "skill_path": ".agents/skills/fund-flow-analysis",
+    "executor_model": "gpt-5",
+    "timestamp": "2026-07-17",
+    "evals_run": [
+      "market-etf-support-leverage-exit",
+      "sector-structural-inflow",
+      "stock-large-order-price-conflict",
+      "missing-current-data",
+      "equity-research-near-miss",
+      "risk-direction-near-miss"
+    ],
+    "runs_per_configuration": 1
+  },
+  "runs": [
+    {"eval_id":"market-etf-support-leverage-exit","eval_name":"ETF托底与杠杆撤离分歧","configuration":"with_skill","run_number":1,"result":{"pass_rate":1.0,"passed":6,"failed":0,"total":6,"time_seconds":0,"tokens":0,"tool_calls":0,"errors":0}},
+    {"eval_id":"market-etf-support-leverage-exit","eval_name":"ETF托底与杠杆撤离分歧","configuration":"without_skill","run_number":1,"result":{"pass_rate":0.6666666667,"passed":4,"failed":2,"total":6,"time_seconds":0,"tokens":0,"tool_calls":0,"errors":0}},
+    {"eval_id":"sector-structural-inflow","eval_name":"板块结构性流入与仓位","configuration":"with_skill","run_number":1,"result":{"pass_rate":1.0,"passed":6,"failed":0,"total":6,"time_seconds":0,"tokens":0,"tool_calls":0,"errors":0}},
+    {"eval_id":"sector-structural-inflow","eval_name":"板块结构性流入与仓位","configuration":"without_skill","run_number":1,"result":{"pass_rate":0.3333333333,"passed":2,"failed":4,"total":6,"time_seconds":0,"tokens":0,"tool_calls":0,"errors":0}},
+    {"eval_id":"stock-large-order-price-conflict","eval_name":"特大单与价格响应冲突","configuration":"with_skill","run_number":1,"result":{"pass_rate":1.0,"passed":6,"failed":0,"total":6,"time_seconds":0,"tokens":0,"tool_calls":0,"errors":0}},
+    {"eval_id":"stock-large-order-price-conflict","eval_name":"特大单与价格响应冲突","configuration":"without_skill","run_number":1,"result":{"pass_rate":0.5,"passed":3,"failed":3,"total":6,"time_seconds":0,"tokens":0,"tool_calls":0,"errors":0}},
+    {"eval_id":"missing-current-data","eval_name":"关键当前数据缺失","configuration":"with_skill","run_number":1,"result":{"pass_rate":1.0,"passed":6,"failed":0,"total":6,"time_seconds":0,"tokens":0,"tool_calls":0,"errors":0}},
+    {"eval_id":"missing-current-data","eval_name":"关键当前数据缺失","configuration":"without_skill","run_number":1,"result":{"pass_rate":0.5,"passed":3,"failed":3,"total":6,"time_seconds":0,"tokens":0,"tool_calls":0,"errors":0}},
+    {"eval_id":"equity-research-near-miss","eval_name":"完整公司研究路由边界","configuration":"with_skill","run_number":1,"result":{"pass_rate":1.0,"passed":2,"failed":0,"total":2,"time_seconds":0,"tokens":0,"tool_calls":0,"errors":0}},
+    {"eval_id":"equity-research-near-miss","eval_name":"完整公司研究路由边界","configuration":"without_skill","run_number":1,"result":{"pass_rate":1.0,"passed":2,"failed":0,"total":2,"time_seconds":0,"tokens":0,"tool_calls":0,"errors":0}},
+    {"eval_id":"risk-direction-near-miss","eval_name":"风险方向路由边界","configuration":"with_skill","run_number":1,"result":{"pass_rate":1.0,"passed":2,"failed":0,"total":2,"time_seconds":0,"tokens":0,"tool_calls":0,"errors":0}},
+    {"eval_id":"risk-direction-near-miss","eval_name":"风险方向路由边界","configuration":"without_skill","run_number":1,"result":{"pass_rate":1.0,"passed":2,"failed":0,"total":2,"time_seconds":0,"tokens":0,"tool_calls":0,"errors":0}}
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {"mean": 1.0, "stddev": 0.0, "min": 1.0, "max": 1.0},
+      "time_seconds": {"mean": 0.0, "stddev": 0.0, "min": 0.0, "max": 0.0},
+      "tokens": {"mean": 0.0, "stddev": 0.0, "min": 0.0, "max": 0.0}
+    },
+    "without_skill": {
+      "pass_rate": {"mean": 0.5, "stddev": 0.1178511302, "min": 0.3333333333, "max": 0.6666666667},
+      "time_seconds": {"mean": 0.0, "stddev": 0.0, "min": 0.0, "max": 0.0},
+      "tokens": {"mean": 0.0, "stddev": 0.0, "min": 0.0, "max": 0.0}
+    },
+    "delta": {
+      "pass_rate": "+0.5000",
+      "time_seconds": "not captured",
+      "tokens": "not captured"
+    }
+  },
+  "routing_summary": {
+    "scope": "Near-miss trigger and routing checks are reported separately from full-analysis quality scores.",
+    "with_skill": {"passed": 4, "failed": 0, "total": 4, "pass_rate": 1.0},
+    "without_skill": {"passed": 4, "failed": 0, "total": 4, "pass_rate": 1.0}
+  },
+  "notes": [
+    "All four full-analysis with-skill runs passed all six assertions; baseline mean pass rate was exactly 50.00%.",
+    "Both near-miss routing scenarios passed 2/2 assertions in both configurations; they are separated from the full-analysis quality mean because they test routing rather than report quality.",
+    "Baseline runs often reached the right directional conclusion but did not consistently provide the fixed ten-section template, full source matrix, or three-window audit.",
+    "Timing and token statistics were not captured by the available agent notifications and are intentionally shown as unavailable rather than estimated."
+  ]
+}

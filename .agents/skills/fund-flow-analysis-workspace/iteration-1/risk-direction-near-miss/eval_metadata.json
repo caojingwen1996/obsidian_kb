@@ -1,0 +1,10 @@
+{
+  "eval_id": "risk-direction-near-miss",
+  "eval_name": "风险方向路由边界",
+  "prompt": "今天指数大跌后，风险是在增强、持平、减弱还是重新增强？只判断风险方向和释放节点。",
+  "assertions": [
+    "不把纯风险方向请求扩写为完整资金面报告",
+    "明确路由到bbxm-risk-identification，并说明资金面只能作为证据输入"
+  ]
+}
+

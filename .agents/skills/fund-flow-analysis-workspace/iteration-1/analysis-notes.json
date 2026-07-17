@@ -1,0 +1,7 @@
+[
+  "All proxy-boundary assertions passed in both configurations for several scenarios, so those assertions alone do not distinguish the skill; template and data-audit assertions provide most of the measured lift.",
+  "The sector scenario had the largest gap: baseline 33.33% versus with-skill 100%, driven by missing three-window audit, source taxonomy, and fixed report structure.",
+  "The missing-data baseline already avoided fabrication and chose observe/review, but it still lacked the complete ten-section audit required for reusable reports.",
+  "Every with-skill run preserved the directional conclusion while adding evidence boundaries, indicating the template did not mechanically force a bullish or bearish state."
+]
+

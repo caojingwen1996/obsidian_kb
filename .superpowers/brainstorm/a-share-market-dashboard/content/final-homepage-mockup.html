@@ -1,0 +1,73 @@
+<style>
+  .dash-shell { min-height: 760px; display:grid; grid-template-columns: 190px 1fr; background:#f3f5f7; border:1px solid #d9e0e7; border-radius:16px; overflow:hidden; color:#17212b; }
+  .dash-side { background:#15212b; color:#dfe7ed; padding:24px 16px; display:flex; flex-direction:column; }
+  .dash-brand { font-weight:700; font-size:17px; margin-bottom:28px; }
+  .dash-brand small { display:block; color:#8496a6; font-size:11px; font-weight:400; margin-top:4px; }
+  .dash-nav { display:grid; gap:5px; }
+  .dash-nav span { padding:10px 12px; border-radius:8px; font-size:13px; color:#9fb0bd; }
+  .dash-nav span.active { background:#2f6fed; color:#fff; }
+  .dash-status { margin-top:auto; border-top:1px solid #31404c; padding-top:16px; font-size:11px; color:#91a3b1; line-height:1.7; }
+  .status-dot { display:inline-block; width:7px; height:7px; border-radius:50%; background:#54b889; margin-right:5px; }
+  .dash-main { padding:24px; }
+  .topline { display:flex; justify-content:space-between; gap:18px; align-items:flex-start; margin-bottom:16px; }
+  .topline h2 { font-size:22px; margin:0 0 5px; color:#17212b; }
+  .topline p { margin:0; color:#6d7984; font-size:12px; }
+  .window-tabs { display:flex; gap:4px; background:#e7ebef; padding:3px; border-radius:9px; }
+  .window-tabs span { padding:7px 11px; border-radius:7px; font-size:12px; }
+  .window-tabs span.active { background:#17212b; color:#fff; }
+  .hero { display:grid; grid-template-columns:180px 1fr; gap:12px; margin-bottom:12px; }
+  .score-card { background:#17212b; color:#fff; border-radius:14px; padding:19px; }
+  .score-label { color:#9fb0bd; font-size:12px; }
+  .score-num { font-size:54px; line-height:1; font-weight:700; margin:12px 0 7px; }
+  .score-state { font-size:13px; color:#b9c7d1; }
+  .conclusion { background:#fff; border-radius:14px; padding:19px; }
+  .conclusion h3 { margin:0 0 5px; font-size:18px; color:#17212b; }
+  .conclusion p { color:#687580; margin:0 0 18px; font-size:12px; }
+  .thermo { position:relative; height:12px; border-radius:99px; background:linear-gradient(90deg,#2f7ce1 0%,#6ab99a 38%,#e1b447 68%,#db654d 100%); }
+  .thermo::after { content:""; position:absolute; width:3px; height:20px; top:-4px; left:68%; border-radius:2px; background:#17212b; }
+  .thermo-labels { display:flex; justify-content:space-between; color:#7a8792; font-size:10px; margin-top:7px; }
+  .layer-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; margin-bottom:12px; }
+  .layer { background:#fff; border-radius:12px; padding:14px; }
+  .layer-head { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:9px; }
+  .layer-head b { font-size:14px; }
+  .layer-head strong { font-size:21px; }
+  .layer small { color:#7a8792; font-size:10px; }
+  .mini-bar { height:6px; border-radius:99px; background:linear-gradient(90deg,#2f7ce1,#6ab99a,#e1b447,#db654d); margin:9px 0 7px; position:relative; }
+  .mini-bar i { position:absolute; width:2px; height:12px; top:-3px; background:#17212b; left:var(--x); }
+  .content-grid { display:grid; grid-template-columns:1.7fr 1fr; gap:12px; }
+  .panel { background:#fff; border-radius:12px; padding:15px; }
+  .panel-title { display:flex; justify-content:space-between; align-items:center; margin-bottom:9px; }
+  .panel-title b { font-size:14px; }
+  .panel-title span { color:#7d8993; font-size:10px; }
+  .metric-row { display:grid; grid-template-columns:1fr 58px 62px; gap:8px; align-items:center; padding:9px 0; border-top:1px solid #edf0f2; font-size:11px; }
+  .metric-row:first-of-type { border-top:0; }
+  .metric-row strong { text-align:right; font-size:12px; }
+  .metric-row em { font-style:normal; text-align:right; color:#66747f; }
+  .metric-bar { grid-column:1 / -1; height:5px; border-radius:9px; background:linear-gradient(90deg,#2f7ce1,#6ab99a,#e1b447,#db654d); position:relative; margin-top:-3px; }
+  .metric-bar i { position:absolute; width:2px; height:9px; top:-2px; background:#17212b; left:var(--x); }
+  .rule { padding:10px 0; border-top:1px solid #edf0f2; font-size:11px; display:flex; justify-content:space-between; gap:10px; }
+  .rule:first-of-type { border-top:0; }
+  .rule span { color:#6f7c86; }
+  .coverage { margin-top:10px; background:#eef6f1; color:#36785d; border-radius:8px; padding:9px; font-size:11px; }
+  .approve { margin-top:18px; display:flex; justify-content:center; }
+  @media (max-width:900px) { .dash-shell { grid-template-columns:150px 1fr; } .layer-grid,.content-grid { grid-template-columns:1fr; } }
+</style>
+
+<h2>首页信息层级确认</h2>
+<p class="subtitle">这是方案 A 的成品级结构草图。数值为示意，重点看阅读顺序和信息密度。</p>
+
+<div class="dash-shell">
+  <aside class="dash-side">
+    <div class="dash-brand">A股温度计<small>估值 · 位置 · 情绪</small></div>
+    <nav class="dash-nav"><span class="active">市场总览</span><span>位置分位</span><span>估值与 ERP</span><span>情绪温度</span><span>评分规则</span><span>数据审计</span></nav>
+    <div class="dash-status"><span class="status-dot"></span>数据正常<br>9 / 10 项有效<br>15:04 更新</div>
+  </aside>
+  <main class="dash-main">
+    <div class="topline"><div><h2>偏便宜，分批关注</h2><p>当前赔率改善，但尚未进入极端恐慌区；不要追涨，保留后续加仓空间。</p></div><div class="window-tabs"><span>1年</span><span>3年</span><span class="active">5年</span><span>10年</span></div></div>
+    <section class="hero"><div class="score-card"><div class="score-label">综合买点评分</div><div class="score-num">68</div><div class="score-state">覆盖率 90%</div></div><div class="conclusion"><h3>现在可以比市场更贪婪一点</h3><p>位置与 ERP 提供支撑，情绪仍处中性偏恐惧；本评分不预测明日涨跌。</p><div class="thermo"></div><div class="thermo-labels"><span>别人恐惧</span><span>中性</span><span>市场贪婪</span></div></div></section>
+    <section class="layer-grid"><div class="layer"><div class="layer-head"><b>位置层 · 40%</b><strong>72</strong></div><div class="mini-bar" style="--x:28%"><i></i></div><small>三大指数均低于五年偏离中位数</small></div><div class="layer"><div class="layer-head"><b>估值层 · 35%</b><strong>63</strong></div><div class="mini-bar" style="--x:37%"><i></i></div><small>ERP 尚可，前瞻 PE 暂缺</small></div><div class="layer"><div class="layer-head"><b>情绪层 · 25%</b><strong>66</strong></div><div class="mini-bar" style="--x:34%"><i></i></div><small>市场偏恐惧，但未见流动性踩踏</small></div></section>
+    <section class="content-grid"><div class="panel"><div class="panel-title"><b>关键指标</b><span>5年窗口 · 点击进入详情</span></div><div class="metric-row"><span>上证指数 / MA250 偏离分位</span><strong>38%</strong><em>得分 62</em><div class="metric-bar" style="--x:38%"><i></i></div></div><div class="metric-row"><span>沪深300 / MA250 偏离分位</span><strong>27%</strong><em>得分 73</em><div class="metric-bar" style="--x:27%"><i></i></div></div><div class="metric-row"><span>中证全指 / MA250 偏离分位</span><strong>31%</strong><em>得分 69</em><div class="metric-bar" style="--x:31%"><i></i></div></div><div class="metric-row"><span>沪深300 TTM PE 历史分位</span><strong>34%</strong><em>得分 66</em><div class="metric-bar" style="--x:34%"><i></i></div></div><div class="metric-row"><span>股权风险溢价 ERP 分位</span><strong>71%</strong><em>得分 71</em><div class="metric-bar" style="--x:71%"><i></i></div></div><div class="metric-row"><span>A股恐惧贪婪代理指数</span><strong>41</strong><em>得分 59</em><div class="metric-bar" style="--x:41%"><i></i></div></div></div><div class="panel"><div class="panel-title"><b>评分规则</b><span>规则版本 v1.0</span></div><div class="rule"><span>位置层</span><b>40%</b></div><div class="rule"><span>估值层</span><b>35%</b></div><div class="rule"><span>情绪层</span><b>25%</b></div><div class="rule"><span>缺失处理</span><b>有效权重归一</b></div><div class="rule"><span>行动结论门槛</span><b>覆盖率 ≥ 70%</b></div><div class="coverage">前瞻 PE 数据源失败，本项未计分；其他有效权重已重新归一化。</div></div></section>
+  </main>
+</div>
+
+<div class="approve"><button class="mock-button" data-choice="homepage-approved" onclick="toggleSelect(this)">确认采用这个首页结构</button></div>

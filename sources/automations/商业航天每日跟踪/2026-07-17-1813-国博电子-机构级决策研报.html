@@ -1,0 +1,1161 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>国博电子机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.verdict { display: inline-flex; margin-top: 24px; padding: 7px 13px; border-radius: 999px; color: var(--danger); background: var(--danger-bg); font-weight: 750; }
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 26px; }
+.kpi { min-height: 96px; padding: 17px 18px; border: 1px solid rgba(255,255,255,.22); border-radius: 14px; background: rgba(255,255,255,.09); }
+.kpi-value { display: block; font-size: 23px; line-height: 1.3; font-weight: 760; overflow-wrap: anywhere; }
+.kpi-label { display: block; margin-top: 10px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; opacity: .8; }
+
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+}
+
+@media (max-width: 600px) {
+  .kpis { grid-template-columns: 1fr; }
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .verdict, .kpi { border: 1px solid #aebbc2; color: #102f43; background: #fff; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · 688375.SH</p>
+      <h1>国博电子机构级决策研报</h1>
+      <div class="hero-meta"><span>2026-07-17 13:54（行情为延迟盘中快照；财务信息截至2026Q1，公告截至2026-07-17）</span><span>2026-07-17 18:13（北京时间）</span><span>上海证券交易所科创板 / 人民币</span></div>
+      <div class="verdict">高估 · wait / observe</div>
+      <div class="kpis">
+        <div class="kpi"><span class="kpi-value">69.16元，2026-07-17 13:54延迟盘中价</span><span class="kpi-label">当前价格</span></div>
+        <div class="kpi"><span class="kpi-value">28—43元/股</span><span class="kpi-label">综合估值区间</span></div>
+        <div class="kpi"><span class="kpi-value">wait / observe</span><span class="kpi-label">冰冰小美动作</span></div>
+        <div class="kpi"><span class="kpi-value">中</span><span class="kpi-label">结论置信度</span></div>
+      </div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
+<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
+<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
+<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
+<a class="toc-link" href="#section-6">6. 五年财务历史</a>
+<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
+<a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
+<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
+<a class="toc-link" href="#section-10">10. 估值</a>
+<a class="toc-link" href="#section-11">11. 冰冰小美框架判断</a>
+<a class="toc-link" href="#section-12">12. 最终结论</a>
+<a class="toc-link" href="#section-13">13. 后续监控指标</a>
+<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
+<a class="toc-link" href="#section-15">15. 来源清单</a>
+<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
+      <article class="content"><blockquote>
+<p>证券代码：688375.SH<br>交易所 / 币种：上海证券交易所科创板 / 人民币<br>研究截止时间：2026-07-17 13:54（行情为延迟盘中快照；财务信息截至2026Q1，公告截至2026-07-17）<br>报告生成时间：2026-07-17 18:13（北京时间）<br>数据口径：中国企业会计准则、合并报表；除特别说明外金额为人民币  </p>
+</blockquote>
+<h2 id="section-1">1. 决策摘要</h2>
+
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值状态</td>
+<td>高估</td>
+</tr>
+<tr>
+<td>操作建议</td>
+<td>规避（等待估值与基本面重新匹配）</td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td>wait / observe</td>
+</tr>
+<tr>
+<td>当前价格及时间</td>
+<td>69.16元，2026-07-17 13:54延迟盘中价</td>
+</tr>
+<tr>
+<td>综合估值区间</td>
+<td>28—43元/股</td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>-59.5%至-37.8%</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h3>如果今天这是一笔现金，我会买它吗</h3>
+<ul>
+<li>回答：不会。</li>
+<li><strong>我的判断：</strong> 公司是国内有源相控阵T/R组件重要平台，具备稀缺性，但2026Q1营收同比下降8.90%、归母净利润下降98.51%、T/R组件和射频模块毛利率同比下降10.03个百分点；现价仍隐含远高于已兑现现金流的商业航天增长。好公司与好价格尚未同时出现。</li>
+<li>改变结论的条件：股价进入35元以下且订单、回款和毛利率没有继续恶化；或连续两个季度证明卫星业务放量、归母利润恢复且应收账款回款改善，从而上修每股价值。</li>
+</ul>
+<h2 id="section-2">2. 证券身份与来源矩阵</h2>
+
+<h3>2.1 证券身份</h3>
+<ul>
+<li>公司全称：南京国博电子股份有限公司。</li>
+<li>证券代码：688375.SH。</li>
+<li>上市地：上海证券交易所科创板；币种人民币。</li>
+<li>报告准则：中国企业会计准则。</li>
+<li>法定披露体系：上交所与巨潮资讯法定披露；SEC文件不适用。</li>
+<li>同名或跨市场歧义：无。</li>
+</ul>
+<h3>2.2 来源矩阵</h3>
+<table>
+<thead>
+<tr>
+<th>数据项目</th>
+<th>目标来源</th>
+<th>实际来源</th>
+<th>数据时间</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>实时价格、52周高低、今年以来表现</td>
+<td>上交所 / 可靠行情平台</td>
+<td>Investing.com延迟行情；Google Finance历史快照交叉核验</td>
+<td>2026-07-17 13:54</td>
+<td>价格与52周高低已获取；年初至今精确复权收益未获取到</td>
+</tr>
+<tr>
+<td>第三方公允价值、护城河、星级</td>
+<td>Morningstar等</td>
+<td>Investing.com付费字段、公开页面</td>
+<td>2026-07-17</td>
+<td>公允价值、护城河、星级未获取到</td>
+</tr>
+<tr>
+<td>最新季报与管理层指引</td>
+<td>上交所 / 巨潮资讯</td>
+<td>2026年第一季度报告、2025年度暨2026Q1业绩说明会</td>
+<td>2026-04-30、2026-05</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>分部收入</td>
+<td>2025年报</td>
+<td>2025年年度报告</td>
+<td>2026-04-10</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>卖方评级与目标价</td>
+<td>券商原文</td>
+<td>中信建投2026-05-21报告摘要、Investing分析师聚合</td>
+<td>2026-05至07</td>
+<td>部分获取；样本明细不完整</td>
+</tr>
+<tr>
+<td>近三个月新闻与催化剂</td>
+<td>公司公告、监管问询、权威媒体</td>
+<td>一季报、机构调研、监管问询回复</td>
+<td>2026-04-17至07-04</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>五年财务历史</td>
+<td>法定年报</td>
+<td>2022—2025年报及招股书</td>
+<td>2022—2026</td>
+<td>已获取</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 行情与市场预期</h2>
+
+<h3>3.1 行情快照（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">数值</th>
+<th>来源</th>
+<th>时间 / 口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前价格</td>
+<td align="right">69.16元</td>
+<td><a href="https://cn.investing.com/equities/guobo-electronics">Investing.com国博电子行情</a></td>
+<td>2026-07-17 13:54，延迟盘中价</td>
+</tr>
+<tr>
+<td>52周最高</td>
+<td align="right">178.17元</td>
+<td>同上</td>
+<td>未复权页面口径</td>
+</tr>
+<tr>
+<td>52周最低</td>
+<td align="right">59.76元</td>
+<td>同上</td>
+<td>页面在本次访问时更新后的区间</td>
+</tr>
+<tr>
+<td>今年以来表现</td>
+<td align="right">未获取到</td>
+<td>检查Investing、Google Finance</td>
+<td>缺少2025-12-31同口径复权收盘价</td>
+</tr>
+<tr>
+<td>总市值</td>
+<td align="right">约412.2亿元</td>
+<td>69.16元×5.9601亿股</td>
+<td>研究者计算；行情页面市值字段时间不同步，未采信</td>
+</tr>
+<tr>
+<td>PE / PB / EV</td>
+<td align="right">TTM PE约91倍；PB约6.37倍；EV约386.6亿元</td>
+<td>TTM EPS约0.756元、2026Q1 BVPS约10.85元；研究者计算</td>
+<td>EPS/BVPS来自行情页与季报，估值按盘中价</td>
+</tr>
+</tbody></table>
+<h3>3.2 第三方公允价值与评级（事实）</h3>
+<ul>
+<li>公允价值：未获取到；Investing.com字段受付费墙限制。</li>
+<li>护城河评级：未获取到。</li>
+<li>星级：未获取到。</li>
+<li>来源与时间：Investing.com，2026-07-17访问。</li>
+<li>未获取到的字段及已检查来源：Morningstar未检索到可核验的A股国博电子覆盖页；Investing.com仅显示锁定字段。缺失降低外部估值交叉验证的置信度，但不改变法定财务与自建估值结论。</li>
+</ul>
+<h3>3.3 卖方评级与目标价分布（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>机构</th>
+<th>日期</th>
+<th>评级</th>
+<th align="right">目标价</th>
+<th>预测期</th>
+<th>关键假设</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>中信建投</td>
+<td>2026-05-21</td>
+<td>报告摘要未显示评级</td>
+<td align="right">未获取到</td>
+<td>2026—2028</td>
+<td>T/R组件核心供应商，商业航天与手机芯片带来增量</td>
+</tr>
+<tr>
+<td>Investing分析师聚合</td>
+<td>2026-07-17页面</td>
+<td>买入</td>
+<td align="right">145.84元</td>
+<td>未披露</td>
+<td>样本机构、预测期和逐家假设未展示</td>
+</tr>
+</tbody></table>
+<ul>
+<li>目标价区间 / 中位数：无法形成可审计分布；不采信145.84元作为估值锚。</li>
+<li>样本数量与完整性：聚合页缺少样本明细，可信度低。</li>
+<li>来源冲突及采信理由：市场目标价与2026Q1业绩、现金流估值存在明显冲突；本报告以法定披露和显式假设估值优先。</li>
+</ul>
+<h2 id="section-4">4. 商业模式与竞争格局</h2>
+
+<h3>4.1 事实</h3>
+<ul>
+<li>收入来源：2025年T/R组件和射频模块收入21.08亿元，占主营收入89.4%；射频芯片1.87亿元；其他芯片0.63亿元。</li>
+<li>客户与定价权：客户以科研院所、整机单位和通信终端厂商为主。2025年前五大应收账款及合同资产余额占合计87.81%，第一大客户余额12.20亿元。特种领域定制化和验证壁垒带来议价能力，同时客户集中与审价、采购节奏造成业绩波动。</li>
+<li>成本结构：核心成本为芯片、晶圆、封装材料、制造人工与折旧；2026Q1研发费用0.685亿元，占营收21.48%。</li>
+<li>资本强度：2025年资本开支3.74亿元，射频芯片和组件产业化项目2025年3月达产，仍存在折旧和利用率压力。</li>
+<li>竞争者：特种T/R组件可比雷电微力、天箭科技；相控阵T/R芯片可比铖昌科技、臻镭科技；终端射频芯片可比卓胜微、唯捷创芯。</li>
+<li>监管和产业位置：央企中国电科体系控股，位于雷达、卫星载荷与通信终端的上游射频芯片—T/R组件核心环节。公司2026年1月明确提示，民用通信卫星营收占比较小；不能把全部收入视为商业航天收入。</li>
+</ul>
+<h3>4.2 我的判断</h3>
+<ul>
+<li><strong>我的判断：</strong> 竞争优势来自批量化有源相控阵T/R组件平台、GaN等工艺积累、特种客户认证和中国电科体系协同。这种优势真实存在，但当前利润仍主要受特种项目节奏驱动，商业航天“纯度”低于市场叙事。</li>
+<li><strong>我的判断：</strong> 商业模式最脆弱环节是客户与项目集中导致收入确认、毛利率、回款和减值在季度间剧烈摆动。2025Q4收入8.17亿元、归母利润2.60亿元，而2026Q1归母利润仅85.63万元，已证明波动不是理论风险。</li>
+<li>证伪条件：若连续四个季度客户集中度下降、卫星/终端芯片收入占比提高，且毛利率和现金回款稳定，则上述脆弱性判断需要下调。</li>
+</ul>
+<h2 id="section-5">5. 分部收入与盈利拆解</h2>
+
+<table>
+<thead>
+<tr>
+<th>分部</th>
+<th align="right">收入</th>
+<th align="right">同比</th>
+<th align="right">收入占比</th>
+<th align="right">毛利率</th>
+<th align="right">毛利率变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>T/R组件和射频模块</td>
+<td align="right">21.08亿元</td>
+<td align="right">-9.58%</td>
+<td align="right">89.39%</td>
+<td align="right">42.66%</td>
+<td align="right">+3.56pct</td>
+<td>2025年报，2026-04-10</td>
+</tr>
+<tr>
+<td>射频芯片</td>
+<td align="right">1.87亿元</td>
+<td align="right">+9.84%</td>
+<td align="right">7.94%</td>
+<td align="right">30.16%</td>
+<td align="right">+4.69pct</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>其他芯片</td>
+<td align="right">0.63亿元</td>
+<td align="right">+12.90%</td>
+<td align="right">2.68%</td>
+<td align="right">67.18%</td>
+<td align="right">-4.03pct</td>
+<td>同上</td>
+</tr>
+</tbody></table>
+<ul>
+<li>披露口径变化：表中占比按主营业务收入23.585亿元计算；公司总营收23.860亿元，差额为其他业务收入。</li>
+<li>来源冲突：公司年报总综合毛利率42.09%，主营模拟集成电路毛利率42.33%，二者口径不同。</li>
+<li>采信理由：分部分析使用主营业务口径；总体盈利使用合并利润表口径。</li>
+<li><strong>我的判断：</strong> 2025年增长质量“利润好于收入、现金流显著改善”，但改善主要来自产品结构、成本和回款时点，而非总需求增长；2026Q1核心分部毛利率降至33.72%，证明2025年的高毛利率不能直接线性外推。</li>
+</ul>
+<h2 id="section-6">6. 五年财务历史</h2>
+
+<table>
+<thead>
+<tr>
+<th>财年</th>
+<th align="right">营收</th>
+<th align="right">毛利率</th>
+<th align="right">经营现金流</th>
+<th align="right">资本开支</th>
+<th align="right">自由现金流</th>
+<th align="right">ROIC / 代理值</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td align="right">25.09亿元</td>
+<td align="right">约34.68%</td>
+<td align="right">11.43亿元</td>
+<td align="right">4.52亿元</td>
+<td align="right">6.91亿元</td>
+<td align="right">ROE 15.57%</td>
+<td>招股书、2022年报</td>
+</tr>
+<tr>
+<td>2022</td>
+<td align="right">34.61亿元</td>
+<td align="right">30.67%</td>
+<td align="right">-1.84亿元</td>
+<td align="right">5.06亿元</td>
+<td align="right">-6.90亿元</td>
+<td align="right">ROE 13.29%</td>
+<td>2022年报</td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">35.67亿元</td>
+<td align="right">约32.4%</td>
+<td align="right">8.39亿元</td>
+<td align="right">6.59亿元</td>
+<td align="right">1.80亿元</td>
+<td align="right">ROE 10.31%</td>
+<td>2023、2024年报</td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">25.91亿元</td>
+<td align="right">38.59%</td>
+<td align="right">2.72亿元</td>
+<td align="right">3.35亿元</td>
+<td align="right">-0.63亿元</td>
+<td align="right">ROE 7.86%</td>
+<td>2024、2025年报</td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">23.86亿元</td>
+<td align="right">42.09%</td>
+<td align="right">8.89亿元</td>
+<td align="right">3.74亿元</td>
+<td align="right">5.15亿元</td>
+<td align="right">ROE约8.02%</td>
+<td>2025年报；ROE按平均权益估算</td>
+</tr>
+</tbody></table>
+<ul>
+<li>自由现金流口径：经营活动现金流量净额－购建固定资产、无形资产和其他长期资产支付的现金。</li>
+<li>ROIC口径：因分年度投入资本和经营税率拆分不完整，使用法定/聚合财务数据中的ROE作为代理；2025为归母净利润÷期初期末平均归母权益。</li>
+<li>一次性项目和会计变化：2022年IPO募集资金改变资产负债表；现金流受特种客户预付款、年末集中回款和采购节奏影响，不能把单年FCF当作稳态。</li>
+<li><strong>我的判断：</strong> 2021—2025收入先升后降，ROE持续下行；2025现金流反弹是积极信号，但一半以上改善来自存货与经营性应付项目合计影响4.91亿元，现金转化仍需跨周期验证。</li>
+</ul>
+<h2 id="section-7">7. 最新季度与管理层指引</h2>
+
+<h3>7.1 最新季度（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">本期</th>
+<th align="right">同比 / 变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营收</td>
+<td align="right">3.19亿元</td>
+<td align="right">-8.90%</td>
+<td>2026Q1报告，2026-04-30</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">33.62%</td>
+<td align="right">-9.38pct</td>
+<td>同上，按收入和营业成本计算</td>
+</tr>
+<tr>
+<td>净利润</td>
+<td align="right">85.63万元</td>
+<td align="right">-98.51%</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>调整后利润</td>
+<td align="right">扣非净亏损119.88万元</td>
+<td align="right">同比-102.09%</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">-2.17亿元</td>
+<td align="right">同期-2.01亿元，净流出扩大</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>订单 / 储备</td>
+<td align="right">未披露金额</td>
+<td align="right">公司称交付受项目和采购节奏影响</td>
+<td>2026-07-04问询回复</td>
+</tr>
+</tbody></table>
+<h3>7.2 管理层指引（事实）</h3>
+<ul>
+<li>正式量化指引：未获取到2026全年营收或利润量化指引。</li>
+<li>定性展望：公司表示多款用于低轨卫星和商业航天的T/R组件已批量交付，终端射频开关、天线调谐器向多家客户供货；同时强调特种业务具有季节性和项目波动。</li>
+<li>未获取到：在手订单金额、2026分业务收入目标、卫星业务收入绝对额。</li>
+</ul>
+<h3>7.3 我的判断</h3>
+<ul>
+<li><strong>我的判断：</strong> 2026Q1边际显著恶化，收入下降、核心分部毛利率下降、研发费用率上升、信用减值增加共同挤压利润；不能仅以“季节性”完全解释。</li>
+<li><strong>我的判断：</strong> 指引可信度为中低。公司对长期赛道和产品进展描述具体，但没有量化订单与全年目标；2025Q4与2026Q1反差使线性外推风险很高。</li>
+<li>下一验证节点：2026年半年度报告，Investing日历显示预计2026-08-19；以公司正式公告为准。</li>
+</ul>
+<h2 id="section-8">8. 近三个月新闻与催化剂</h2>
+
+<table>
+<thead>
+<tr>
+<th>发生日</th>
+<th>事件</th>
+<th>影响变量</th>
+<th>财务传导</th>
+<th>是否已反映</th>
+<th>验证节点</th>
+<th>失效条件</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-04-10</td>
+<td>2025年报：净利润+4.72%、FCF转正</td>
+<td>毛利率、回款</td>
+<td>盈利与现金流改善</td>
+<td>年内曾大涨，已较充分反映</td>
+<td>2026H1</td>
+<td>后续现金流再转弱</td>
+<td><a href="https://static.cninfo.com.cn/finalpage/2026-04-10/1225090270.PDF">2025年报</a></td>
+</tr>
+<tr>
+<td>2026-04-17</td>
+<td>58家机构调研，披露GaN模块及移动通信布局</td>
+<td>新产品渗透</td>
+<td>新收入与规模效应</td>
+<td>部分反映</td>
+<td>客户放量、分部收入</td>
+<td>仍停留送样或低占比</td>
+<td><a href="https://stock.10jqka.com.cn/20260417/c676056842.shtml">同花顺调研报道</a></td>
+</tr>
+<tr>
+<td>2026-04-30</td>
+<td>2026Q1净利润同比-98.51%</td>
+<td>毛利率、减值、费用</td>
+<td>盈利预期下修</td>
+<td>股价回落但估值仍高</td>
+<td>2026H1</td>
+<td>Q2利润快速恢复</td>
+<td><a href="https://stockmc.xueqiu.com/202604/688375_20260430_9BZ0.pdf">2026Q1报告</a></td>
+</tr>
+<tr>
+<td>2026-05-21</td>
+<td>券商强调商业航天与手机芯片增量</td>
+<td>收入结构</td>
+<td>估值叙事扩张</td>
+<td>5—6月曾交易，现部分回吐</td>
+<td>卫星业务披露</td>
+<td>卫星收入仍小且无增量</td>
+<td><a href="https://www.nxny.com/report/view_6299497.html">中信建投报告摘要</a></td>
+</tr>
+<tr>
+<td>2026-07-04</td>
+<td>回复年报问询，披露客户集中、季节性和Q1毛利下降</td>
+<td>回款、业绩稳定性</td>
+<td>估值折价与减值风险</td>
+<td>当前下跌正在反映</td>
+<td>A集团期后回款、H1报</td>
+<td>回款显著改善、Q2反弹</td>
+<td><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12430913&stockid=688375">问询回复</a></td>
+</tr>
+</tbody></table>
+<h2 id="section-9">9. 多头与空头论据</h2>
+
+<h3>9.1 多头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>T/R组件平台稀缺</td>
+<td>国内可批量提供有源相控阵T/R组件及系列射频IC</td>
+<td>份额、毛利率、订单</td>
+<td>同业替代或价格持续下降</td>
+</tr>
+<tr>
+<td>卫星与终端芯片提供第二曲线</td>
+<td>低轨卫星产品批量交付；射频芯片2025收入+9.84%</td>
+<td>卫星/芯片收入占比</td>
+<td>两年内仍低占比且亏损</td>
+</tr>
+<tr>
+<td>资产负债表稳健</td>
+<td>2026Q1货币资金21.22亿元、交易性金融资产2.16亿元，无有息借款</td>
+<td>净现金、回款</td>
+<td>大额资本开支或应收坏账吞噬现金</td>
+</tr>
+<tr>
+<td>现金流已有改善样本</td>
+<td>2025 FCF 5.15亿元</td>
+<td>两年累计FCF</td>
+<td>2026再次大幅负FCF</td>
+</tr>
+</tbody></table>
+<h3>9.2 空头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值透支</td>
+<td>现价约91倍TTM PE、6.37倍PB</td>
+<td>未来两年EPS、ROE</td>
+<td>利润持续超预期使2027 PE降至40倍内</td>
+</tr>
+<tr>
+<td>业绩波动巨大</td>
+<td>2025Q4归母2.60亿元，2026Q1仅85.63万元</td>
+<td>单季毛利率和净利</td>
+<td>连续两季恢复且波动收窄</td>
+</tr>
+<tr>
+<td>客户与回款集中</td>
+<td>第一大客户应收及合同资产12.20亿元，至2026-05-31期后回款率1.63%</td>
+<td>期后回款率、坏账</td>
+<td>回款率快速升至80%以上</td>
+</tr>
+<tr>
+<td>商业航天纯度被高估</td>
+<td>公司公告称民用通信卫星营收占比较小</td>
+<td>卫星业务绝对收入</td>
+<td>卫星收入成为可量化主要分部</td>
+</tr>
+</tbody></table>
+<h2 id="section-10">10. 估值</h2>
+
+<h3>10.1 相对估值</h3>
+<table>
+<thead>
+<tr>
+<th>公司</th>
+<th>业务可比性</th>
+<th align="right">增长</th>
+<th align="right">利润率</th>
+<th align="right">PE</th>
+<th align="right">PB</th>
+<th align="right">EV/EBITDA</th>
+<th>数据时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>国博电子</td>
+<td>T/R组件+射频芯片</td>
+<td align="right">2025营收-7.92%</td>
+<td align="right">2025净利率21.27%</td>
+<td align="right">约91x TTM</td>
+<td align="right">约6.37x</td>
+<td align="right">约55x</td>
+<td>2026-07-17</td>
+</tr>
+<tr>
+<td>雷电微力</td>
+<td>毫米波微系统，产品层级更高</td>
+<td align="right">业绩波动</td>
+<td align="right">净利率约17%—21%历史区间</td>
+<td align="right">公开页面约49x静态</td>
+<td align="right">约2.6x</td>
+<td align="right">未获取到</td>
+<td>2026-07附近，页面延迟</td>
+</tr>
+<tr>
+<td>臻镭科技</td>
+<td>射频芯片，可比但规模更小</td>
+<td align="right">2025营收+42.3%</td>
+<td align="right">盈利恢复</td>
+<td align="right">高成长溢价、精确同期PE未获取到</td>
+<td align="right">约17x（2026-01样本）</td>
+<td align="right">未获取到</td>
+<td>非同期，仅作风险提示</td>
+</tr>
+<tr>
+<td>铖昌科技</td>
+<td>T/R芯片，不含组件集成</td>
+<td align="right">高波动</td>
+<td align="right">高毛利、小规模</td>
+<td align="right">精确同期未获取到</td>
+<td align="right">精确同期未获取到</td>
+<td align="right">未获取到</td>
+<td>2026-07</td>
+</tr>
+</tbody></table>
+<ul>
+<li>选取理由：覆盖T/R组件、微系统与射频芯片三类相邻利润池；没有任何一家与国博电子产品结构完全一致。</li>
+<li>正常化调整：以2027年归母净利润5.5—7.0亿元、EPS 0.92—1.17元作为正常化基础，给予35—45倍PE，低于极端题材期、高于成熟军工电子。</li>
+<li>对应每股价值区间：32—53元；高端需要卫星和终端芯片兑现。</li>
+<li><strong>我的判断：</strong> 相对估值最合理中枢约40元；69.16元要求2027利润明显高于当前可见度。</li>
+</ul>
+<h3>10.2 DCF</h3>
+<h4>关键假设</h4>
+<table>
+<thead>
+<tr>
+<th>假设</th>
+<th align="right">悲观</th>
+<th align="right">基准</th>
+<th align="right">乐观</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>收入增长</td>
+<td align="right">-5%、5%、5%、4%、4%</td>
+<td align="right">5%、12%、12%、10%、8%</td>
+<td align="right">15%、18%、18%、15%、12%</td>
+<td>2024—25收入下降；卫星/终端芯片提供潜在增量</td>
+</tr>
+<tr>
+<td>经营利润率</td>
+<td align="right">12%—16%</td>
+<td align="right">16%—23%</td>
+<td align="right">18%—27%</td>
+<td>历史毛利率30%—42%、研发强度与Q1波动</td>
+</tr>
+<tr>
+<td>税率</td>
+<td align="right">10%</td>
+<td align="right">10%</td>
+<td align="right">10%</td>
+<td>高新技术与研发优惠下的标准化假设</td>
+</tr>
+<tr>
+<td>折旧摊销</td>
+<td align="right">收入8%</td>
+<td align="right">收入9%</td>
+<td align="right">收入9%</td>
+<td>新产能折旧较高</td>
+</tr>
+<tr>
+<td>资本开支</td>
+<td align="right">收入10%</td>
+<td align="right">收入10%</td>
+<td align="right">收入11%</td>
+<td>2025资本开支占收入15.7%，逐步正常化</td>
+</tr>
+<tr>
+<td>营运资本变化</td>
+<td align="right">收入增量5%</td>
+<td align="right">收入增量8%</td>
+<td align="right">收入增量10%</td>
+<td>客户账期长、应收集中</td>
+</tr>
+<tr>
+<td>FCFF利润率</td>
+<td align="right">8%升至12%</td>
+<td align="right">12%升至18%</td>
+<td align="right">14%升至22%</td>
+<td>综合以上利润、折旧、资本开支与营运资本</td>
+</tr>
+<tr>
+<td>WACC</td>
+<td align="right">10.5%</td>
+<td align="right">9.5%</td>
+<td align="right">8.5%</td>
+<td>科创板个股、客户集中与央企背景综合</td>
+</tr>
+<tr>
+<td>永续增长率</td>
+<td align="right">2.0%</td>
+<td align="right">2.5%</td>
+<td align="right">3.0%</td>
+<td>长期名义增长上限</td>
+</tr>
+</tbody></table>
+<h4>估值结果</h4>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">企业价值</th>
+<th align="right">净债务</th>
+<th align="right">股权价值</th>
+<th align="right">每股价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观</td>
+<td align="right">33.3亿元</td>
+<td align="right">-25.6亿元</td>
+<td align="right">58.9亿元</td>
+<td align="right">9.88元</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">81.4亿元</td>
+<td align="right">-25.6亿元</td>
+<td align="right">107.0亿元</td>
+<td align="right">17.96元</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">163.8亿元</td>
+<td align="right">-25.6亿元</td>
+<td align="right">189.4亿元</td>
+<td align="right">31.77元</td>
+</tr>
+</tbody></table>
+<p>说明：净债务为负表示净现金；按2026Q1货币资金与交易性金融资产约23.38亿元，并结合2025年末现金等价物与结构性存款取25.6亿元标准化净现金，可能包含受用途或关联财务公司管理约束的资金。</p>
+<h4>敏感性分析</h4>
+<table>
+<thead>
+<tr>
+<th>WACC \ 永续增长率</th>
+<th align="right">1.5%</th>
+<th align="right">2.5%</th>
+<th align="right">3.5%</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>8.5%</td>
+<td align="right">18.44元</td>
+<td align="right">20.38元</td>
+<td align="right">23.09元</td>
+</tr>
+<tr>
+<td>9.5%</td>
+<td align="right">16.56元</td>
+<td align="right">17.96元</td>
+<td align="right">19.83元</td>
+</tr>
+<tr>
+<td>10.5%</td>
+<td align="right">15.10元</td>
+<td align="right">16.15元</td>
+<td align="right">17.50元</td>
+</tr>
+</tbody></table>
+<h4>反向 DCF</h4>
+<ul>
+<li>当前价格隐含的收入增长 / 终值利润率：以现价股权价值约412亿元、净现金25.6亿元倒推，即使WACC 9.5%、永续增长2.5%，五年后FCFF需接近约25亿元，约为2025标准化FCFF的5倍，并要求终值FCFF利润率显著高于历史可持续水平。</li>
+<li>与历史和行业相比是否可实现：只有卫星T/R组件形成大规模增量、终端芯片快速放量且回款不恶化时才可能接近；当前披露不足。</li>
+<li><strong>我的判断：</strong> 现价的核心假设不是“恢复”，而是“跨越式增长并长期维持高现金利润率”，赔率不对称。</li>
+</ul>
+<h3>10.3 行业特定估值</h3>
+<ul>
+<li>方法：分部加总（SOTP）。</li>
+<li>适用理由：特种T/R组件、终端射频芯片与其他芯片的成长、利润率和可比估值不同。</li>
+<li>关键假设：T/R组件和射频模块按2025收入的6—9倍PS；射频芯片按8—12倍PS；其他芯片按8—12倍PS；加净现金25.6亿元。</li>
+<li>对应每股价值区间：约28.9—41.1元。</li>
+<li>局限性：PS未直接约束研发、营运资本和资本开支；高倍数已包含部分商业航天期权。</li>
+</ul>
+<h3>10.4 估值交叉验证</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="right">每股价值区间</th>
+<th align="right">权重</th>
+<th>采信理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>相对估值</td>
+<td align="right">32—53元</td>
+<td align="right">35%</td>
+<td>市场常用，但同行估值高波动、样本不完全同质</td>
+</tr>
+<tr>
+<td>DCF</td>
+<td align="right">10—32元</td>
+<td align="right">30%</td>
+<td>约束现金流与资本强度；对终值敏感</td>
+</tr>
+<tr>
+<td>行业特定估值</td>
+<td align="right">29—41元</td>
+<td align="right">35%</td>
+<td>可拆分三类业务，能保留卫星成长权</td>
+</tr>
+</tbody></table>
+<ul>
+<li>综合估值区间：28—43元/股，核心中枢约35元。</li>
+<li>相对现价上行 / 下行空间：相对69.16元下行37.8%—59.5%。</li>
+<li>为什么不机械平均：DCF对季度现金流波动敏感，相对估值受题材溢价污染；最终以SOTP和正常化盈利为主要锚，DCF用于压测下限。</li>
+</ul>
+<h2 id="section-11">11. 冰冰小美框架判断</h2>
+
+<h3>11.1 三要素结果引用</h3>
+<ul>
+<li>三要素结论来源：<code>bbxm-three-factor-analysis</code>。</li>
+<li>分析对象与层级：国博电子，A股个股层级。</li>
+<li>分析截止时间：2026-07-17 13:54。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>状态</th>
+<th>核心证据</th>
+<th>核心反证</th>
+<th>失效条件</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>有利</td>
+<td>国家安全、相控阵和卫星通信方向；批量T/R组件平台稀缺</td>
+<td>民用卫星收入占比较小，客户/供应商集中</td>
+<td>份额下降、价格战或毛利率持续低于30%</td>
+<td>中高</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>不利</td>
+<td>5月高位后持续回撤，7月15日83.44元、17日盘中69.16元；价格推进与承接弱</td>
+<td>已从178.17元高点大幅回撤，接近52周低位区间</td>
+<td>连续两周放量企稳、ETF与融资承接同步转正</td>
+<td>中</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>不利</td>
+<td>商业航天高热后退潮，利好叙事无法抵消问询与Q1弱业绩</td>
+<td>长期产业锚仍在，低位可能修复</td>
+<td>亏钱效应停止、分歧后形成有锚修复</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<ul>
+<li>三要素综合判断：尚未形成有利共振。</li>
+<li>主导要素：竞争格局长期有利。</li>
+<li>拖累要素：估值、流动性承接和情绪退潮。</li>
+<li>数据缺口及影响：未获取到7月17日收盘成交、当日ETF申赎、融资余额和全市场涨跌广度；流动性结论置信度降为中。</li>
+<li>下一验证节点：2026H1报告、A集团回款、股价能否在52周低位上方形成两周承接。</li>
+<li>新增现金：wait / observe；条件：估值进入35元以下或业绩足以把2027E PE压至40倍以内。</li>
+<li>已有持仓：review / reduce；条件：根据成本与风险预算复核，若放量跌破59.76元且无基本面改善，降低仓位。</li>
+</ul>
+<h3>11.2 风险方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>风险类型</th>
+<th>前一窗口</th>
+<th>当前窗口</th>
+<th>方向证据</th>
+<th>反证</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本面风险</td>
+<td>2026-04-10至05-21：2025年报和新业务叙事改善预期</td>
+<td>2026-07-03至07-17：问询揭示Q1毛利与回款压力</td>
+<td>Q1利润-98.51%、A集团期后回款率1.63%</td>
+<td>2025全年现金流改善、无有息负债</td>
+</tr>
+<tr>
+<td>估值风险</td>
+<td>股价百元以上，叙事拥挤</td>
+<td>股价回落但仍约91倍TTM PE</td>
+<td>绝对估值仍远高于现金流锚</td>
+<td>价格已大幅回撤</td>
+</tr>
+<tr>
+<td>情绪风险</td>
+<td>卫星与芯片题材扩散</td>
+<td>退潮、快速下跌</td>
+<td>利好钝化、亏钱效应扩大</td>
+<td>接近低位可能产生技术修复</td>
+</tr>
+<tr>
+<td>流动性风险</td>
+<td>4—6月放量上行与高换手</td>
+<td>承接收缩、连续下跌</td>
+<td>价格对负面信息敏感</td>
+<td>未取得完整当日资金来源数据</td>
+</tr>
+</tbody></table>
+<h3>11.3 风险传导链</h3>
+<ul>
+<li>信息源头：2026Q1业绩、7月4日监管问询回复与客户回款披露。</li>
+<li>核心变量：T/R组件毛利率、应收账款回款、卫星业务兑现速度。</li>
+<li>传导机制：项目交付/价格和成本波动 → 毛利率下降与减值增加 → 利润预测下修 → 高估值压缩 → 资金撤离。</li>
+<li>影响对象：国博电子股权价值和159218卫星ETF中的该成分贡献。</li>
+<li>市场行为变化：股价从5月百元以上及52周高位持续回落至69.16元。</li>
+<li>风险方向：风险重新增强。</li>
+<li>验证指标：2026H1归母利润、T/R毛利率、A集团回款率、两周价格/成交承接。</li>
+<li>失效条件：Q2利润恢复至1亿元以上、核心毛利率回到40%以上、主要应收显著回款且价格放量企稳。</li>
+</ul>
+<h3>11.4 风险方向结论</h3>
+<ul>
+<li>风险方向结论：风险重新增强。</li>
+<li>判断依据：此前2025年报现金流改善和新业务进展带来可验证的风险缓和；当前Q1利润塌缩、问询披露回款弱、股价持续下跌，使基本面—估值—交易负反馈再次增强。</li>
+<li>反证：净现金充足、2025 FCF为正、产业方向仍具长期比较优势。</li>
+<li>未获取到：7月17日完整收盘数据、ETF申赎、逐日融资余额与机构持仓变化。</li>
+<li>置信度：中。</li>
+</ul>
+<h3>11.5 四层方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>边际改善 / 无明显变化 / 边际恶化 / 未获取到</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观</td>
+<td>未获取到</td>
+<td>未完成全球利率、美元和风险偏好当日全量核验</td>
+</tr>
+<tr>
+<td>中观</td>
+<td>无明显变化</td>
+<td>商业航天与军工电子长期政策方向未变，但订单节奏未量化</td>
+</tr>
+<tr>
+<td>微观</td>
+<td>边际恶化</td>
+<td>2026Q1盈利、毛利率、回款和减值压力</td>
+</tr>
+<tr>
+<td>交易</td>
+<td>边际恶化</td>
+<td>5月以来趋势下行，7月中旬跌速加快</td>
+</tr>
+</tbody></table>
+<h3>11.6 动作与约束</h3>
+<ul>
+<li>主动作：wait。</li>
+<li>新增现金：observe，等待价格和盈利至少一项完成再锚定。</li>
+<li>已有持仓：review；高仓位可在反弹中reduce，低仓位不在急跌日机械割肉。</li>
+<li>承接条件：35元以下且H1毛利/回款不再恶化；或利润连续超预期使43元以上估值获得新证据。</li>
+<li>退出条件：放量跌破52周低点、应收减值显著增加或卫星业务继续只停留在定性叙事。</li>
+<li>下一复核节点：2026H1报告及主要客户回款披露。</li>
+<li><strong>我的判断：</strong> 长期方向有资格不等于当前有买点；流动性和情绪不利、估值仍高，使竞争优势无法转化为“买入不败”的赔率。</li>
+</ul>
+<h2 id="section-12">12. 最终结论</h2>
+
+<ul>
+<li>估值结论：高估。</li>
+<li>操作结论：规避新增买入，进入观察清单。</li>
+<li>综合估值区间：28—43元/股。</li>
+<li>相对现价空间：-59.5%至-37.8%。</li>
+<li>如果今天这是一笔现金，我会买它吗：不会；35元以下且基本面没有继续恶化时再评估。</li>
+<li><strong>我的判断：</strong> 国博电子是“产业位置好、股价赔率仍差”的典型。最大错误不是否认其T/R组件壁垒，而是用全部市值提前支付尚未披露的民用卫星增长。</li>
+<li>结论失效条件：公司量化披露卫星业务成为主要收入来源、2026H1/三季报利润与FCF显著超预期，或股价进入安全边际区间。</li>
+</ul>
+<h2 id="section-13">13. 后续监控指标</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">当前值</th>
+<th>触发阈值 / 方向</th>
+<th>数据源</th>
+<th>复核频率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>T/R组件和射频模块毛利率</td>
+<td align="right">2026Q1 33.72%</td>
+<td>回到40%以上为改善；低于30%为恶化</td>
+<td>公司定期报告/问询回复</td>
+<td>每季</td>
+</tr>
+<tr>
+<td>归母净利润</td>
+<td align="right">2026Q1 85.63万元</td>
+<td>Q2单季≥1亿元且扣非同步</td>
+<td>公司定期报告</td>
+<td>每季</td>
+</tr>
+<tr>
+<td>第一大客户期后回款率</td>
+<td align="right">截至2026-05-31为1.63%</td>
+<td>升至80%以上</td>
+<td>公司公告/问询回复</td>
+<td>每季</td>
+</tr>
+<tr>
+<td>商业航天收入</td>
+<td align="right">未披露绝对额</td>
+<td>单独披露且占总收入≥15%</td>
+<td>年报/调研</td>
+<td>半年</td>
+</tr>
+<tr>
+<td>估值与价格</td>
+<td align="right">69.16元；约91x TTM PE</td>
+<td>≤35元进入重估；跌破59.76元检查风险</td>
+<td>行情平台</td>
+<td>每周</td>
+</tr>
+</tbody></table>
+<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
+
+<ul>
+<li>未获取到：2026年全年量化指引、在手订单金额、商业航天收入绝对额、可审计卖方目标价分布、Morningstar公允价值/护城河/星级、2026-07-17收盘行情与当日全量ETF申赎/融资数据、精确复权YTD收益。</li>
+<li>已检查来源：上交所/巨潮法定公告、公司投资者关系记录、2022—2025年报、2026Q1报告、监管问询回复、Investing.com、Google Finance、公开券商摘要。</li>
+<li>对结论的影响：估值和流动性置信度为中而非高；缺失项整体更可能使商业航天期权难以量化，不支持用乐观叙事填补。</li>
+</ul>
+<h2 id="section-15">15. 来源清单</h2>
+
+<ol>
+<li><a href="https://static.cninfo.com.cn/finalpage/2026-04-10/1225090270.PDF">南京国博电子股份有限公司2025年年度报告</a>，国博电子，2026-04-10，访问时间2026-07-17。</li>
+<li><a href="https://stockmc.xueqiu.com/202604/688375_20260430_9BZ0.pdf">南京国博电子股份有限公司2026年第一季度报告</a>，国博电子，2026-04-30，访问时间2026-07-17。</li>
+<li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12430913&stockid=688375">关于2025年年度报告的信息披露监管问询函的回复公告</a>，国博电子，2026-07-04，访问时间2026-07-17。</li>
+<li><a href="https://static.cninfo.com.cn/finalpage/2025-04-11/1223058747.PDF">南京国博电子股份有限公司2024年年度报告</a>，国博电子，2025-04-11，访问时间2026-07-17。</li>
+<li><a href="https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=10165475&stockid=688375">南京国博电子股份有限公司2023年年度报告</a>，国博电子，2024-04-30，访问时间2026-07-17。</li>
+<li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=8977072&stockid=688375">南京国博电子股份有限公司2022年年度报告</a>，国博电子，2023-04-12，访问时间2026-07-17。</li>
+<li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?CompanyCode=80336711&gather=1&id=8363603.PDF">首次公开发行股票并在科创板上市招股说明书</a>，国博电子，2022-07，访问时间2026-07-17。</li>
+<li><a href="https://cn.investing.com/equities/guobo-electronics">国博电子行情页</a>，Investing.com，行情时间2026-07-17 13:54，访问时间2026-07-17。</li>
+<li><a href="https://stock.10jqka.com.cn/20260417/c676056842.shtml">国博电子获58家机构调研</a>，同花顺，2026-04-17，访问时间2026-07-17。</li>
+<li><a href="https://www.nxny.com/report/view_6299497.html">中信建投：T/R组件核心供应商，商业航天与手机芯片开启新增长</a>，中信建投，2026-05-21，访问时间2026-07-17；仅使用公开摘要。</li>
+</ol>
+<h2 id="section-16">16. 声明</h2>
+
+<p>本报告基于截至研究截止时间可取得的公开信息，不构成收益保证。真实交易前应重新核验价格、公告、流动性和个人风险承受能力。</p>
+</article>
+    </div>
+  </main>
+</body>
+</html>

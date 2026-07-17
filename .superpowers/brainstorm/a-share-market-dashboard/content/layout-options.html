@@ -1,0 +1,64 @@
+<style>
+  .layout-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+  .layout-card { cursor: pointer; border: 2px solid #dce3ea; border-radius: 14px; overflow: hidden; background: #fff; transition: 160ms ease; }
+  .layout-card:hover { transform: translateY(-2px); border-color: #6b7c8f; }
+  .layout-card.selected { border-color: #2356d8; box-shadow: 0 0 0 3px rgba(35,86,216,.12); }
+  .preview { height: 370px; display: grid; grid-template-columns: 92px 1fr; background: #f4f6f8; color: #23303d; font-size: 10px; }
+  .side { background: #17212b; color: #d9e1e8; padding: 12px 9px; }
+  .brand { font-size: 12px; font-weight: 700; margin-bottom: 18px; }
+  .nav-item { padding: 7px 5px; margin: 4px 0; border-radius: 5px; opacity: .72; }
+  .nav-item.active { background: #2f6fed; color: #fff; opacity: 1; }
+  .main { padding: 13px; overflow: hidden; }
+  .headline { font-size: 13px; font-weight: 700; margin-bottom: 5px; }
+  .subline { color: #6d7884; margin-bottom: 11px; }
+  .score-row { display: grid; grid-template-columns: 82px 1fr; gap: 10px; margin-bottom: 10px; }
+  .score { background: #17212b; color: #fff; border-radius: 10px; padding: 12px; text-align: center; }
+  .score b { display:block; font-size: 27px; line-height: 1; }
+  .summary { background: #fff; border-radius: 10px; padding: 10px; }
+  .bar { height: 7px; border-radius: 8px; background: linear-gradient(90deg,#2f86eb,#5fbf91,#e7bb48,#dd654e); margin: 6px 0 8px; position: relative; }
+  .bar::after { content:""; position:absolute; width:2px; height:13px; background:#17212b; left:62%; top:-3px; }
+  .section-title { font-weight:700; margin: 8px 0 5px; }
+  .metric { background: #fff; border-radius: 7px; padding: 7px 8px; margin: 5px 0; display:grid; grid-template-columns: 1fr 40px; gap:4px; }
+  .metric .bar { grid-column: 1 / -1; margin: 2px 0 0; height: 5px; }
+  .three-col { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; }
+  .rulebox { background:#fff; border-radius:8px; padding:9px; margin-top:7px; color:#56616d; }
+  .tabs { display:flex; gap:4px; margin-bottom:7px; }
+  .tab { padding:4px 7px; background:#e6ebf0; border-radius:5px; }
+  .tab.active { background:#17212b; color:#fff; }
+  .split-main { display:grid; grid-template-columns: 1.4fr .8fr; gap:8px; }
+  .timeline { height:95px; border-radius:8px; background:linear-gradient(180deg,#fff,#edf3ff); position:relative; margin-top:6px; }
+  .timeline::after { content:""; position:absolute; left:8px; right:8px; top:54px; height:2px; background:#2f6fed; transform:skewY(-7deg); }
+  .card-body { padding: 13px 15px 15px; }
+  .card-body h3 { margin:0 0 5px; }
+  .recommend { display:inline-block; padding:2px 7px; border-radius:99px; background:#e7f0ff; color:#2356d8; font-size:12px; margin-left:5px; }
+  @media (max-width: 980px) { .layout-grid { grid-template-columns:1fr; } }
+</style>
+
+<h2>固定侧边栏采用哪种信息结构？</h2>
+<p class="subtitle">三个版本包含相同指标，只改变每天打开时的阅读顺序。点击卡片可选择。</p>
+
+<div class="layout-grid">
+  <div class="layout-card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="preview">
+      <aside class="side"><div class="brand">A股温度计</div><div class="nav-item active">总览</div><div class="nav-item">位置</div><div class="nav-item">估值</div><div class="nav-item">情绪</div><div class="nav-item">评分规则</div><div class="nav-item">数据审计</div></aside>
+      <main class="main"><div class="headline">偏便宜，但还没到极端贪婪区</div><div class="subline">数据更新 15:04 · 9/10 项有效</div><div class="score-row"><div class="score"><b>68</b>买点评分</div><div class="summary">建议：分批关注，不追涨<div class="bar"></div>恐惧  ← 市场温度 →  贪婪</div></div><div class="section-title">三层仪表</div><div class="three-col"><div class="metric">位置 <b>72</b><div class="bar"></div></div><div class="metric">估值 <b>63</b><div class="bar"></div></div><div class="metric">情绪 <b>66</b><div class="bar"></div></div></div><div class="section-title">核心指标</div><div class="metric">沪深300 趋势偏离分位 <b>27%</b><div class="bar"></div></div><div class="metric">沪深300 TTM PE 分位 <b>34%</b><div class="bar"></div></div><div class="metric">A股恐惧贪婪代理 <b>41</b><div class="bar"></div></div><div class="rulebox">评分 = 位置 40% + 估值 35% + 情绪 25%</div></main>
+    </div>
+    <div class="card-body"><h3>A · 决策优先 <span class="recommend">推荐</span></h3><p>先看结论和总分，再逐层下钻；最适合每天快速判断“该不该贪婪”。</p></div>
+  </div>
+
+  <div class="layout-card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="preview">
+      <aside class="side"><div class="brand">A股估值台</div><div class="nav-item active">市场地图</div><div class="nav-item">历史分位</div><div class="nav-item">估值与ERP</div><div class="nav-item">情绪</div><div class="nav-item">公式</div></aside>
+      <main class="main"><div class="headline">市场位置与估值全景</div><div class="tabs"><span class="tab">1年</span><span class="tab">3年</span><span class="tab active">5年</span><span class="tab">10年</span></div><div class="split-main"><div><div class="section-title">趋势偏离历史分布</div><div class="timeline"></div><div class="metric">上证指数 <b>38%</b><div class="bar"></div></div><div class="metric">沪深300 <b>27%</b><div class="bar"></div></div><div class="metric">中证全指 <b>31%</b><div class="bar"></div></div></div><div><div class="score"><b>68</b>当前买点</div><div class="section-title">估值</div><div class="metric">TTM PE <b>34%</b><div class="bar"></div></div><div class="metric">ERP <b>71%</b><div class="bar"></div></div><div class="section-title">情绪</div><div class="metric">代理指数 <b>41</b><div class="bar"></div></div></div></div><div class="rulebox">所有图表可切换 1/3/5/10 年窗口</div></main>
+    </div>
+    <div class="card-body"><h3>B · 研究优先</h3><p>图表和分布占主位，适合周度复盘；信息更丰富，但每天扫一眼不如 A 快。</p></div>
+  </div>
+
+  <div class="layout-card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="preview">
+      <aside class="side"><div class="brand">市场审计器</div><div class="nav-item active">评分拆解</div><div class="nav-item">原始数据</div><div class="nav-item">来源状态</div><div class="nav-item">历史快照</div><div class="nav-item">规则版本</div></aside>
+      <main class="main"><div class="headline">评分拆解 · 2026-07-17</div><div class="subline">原始权重 / 有效权重 / 得分贡献</div><div class="metric">上证趋势偏离　8% → 8.9% <b>6.4</b><div class="bar"></div></div><div class="metric">沪深300趋势偏离　16% → 17.8% <b>13.2</b><div class="bar"></div></div><div class="metric">中证全指趋势偏离　16% → 17.8% <b>12.7</b><div class="bar"></div></div><div class="metric">沪深300 TTM PE　15% → 16.7% <b>9.8</b><div class="bar"></div></div><div class="metric">前瞻盈利收益率　10% → 缺失 <b>—</b><div class="bar"></div></div><div class="metric">ERP　10% → 11.1% <b>7.6</b><div class="bar"></div></div><div class="metric">情绪代理　25% → 27.7% <b>18.3</b><div class="bar"></div></div><div class="rulebox">总分 68.0 · 有效覆盖率 90% · 前瞻 PE 数据源失败</div></main>
+    </div>
+    <div class="card-body"><h3>C · 审计优先</h3><p>每一分都能追溯，适合验证系统；透明度最高，但作为日常首页显得偏重。</p></div>
+  </div>
+</div>

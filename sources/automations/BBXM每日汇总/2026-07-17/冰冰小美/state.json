@@ -1,0 +1,107 @@
+﻿{
+    "account":  "冰冰小美",
+    "account_url":  "https://xueqiu.com/u/7143769715",
+    "task_date":  "2026-07-17",
+    "start_time":  "2026-07-17 17:10:42",
+    "end_time":  null,
+    "scan_round":  1,
+    "success_count":  6,
+    "failure_count":  0,
+    "log_file":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-17\\冰冰小美\\task.log",
+    "result_dir":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-17\\冰冰小美",
+    "state_file":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-17\\冰冰小美\\state.json",
+    "processed_items":  {
+                            "400779212":  {
+                                              "source_id":  "400779212",
+                                              "title":  "可惜，没有后悔药。7月的风险，后知后觉是多么可怕。有人提前预知，完全避开，有人懵懵懂懂，全程吃土。希望关注我的，要独立思... - 雪球",
+                                              "published_at":  "2026-07-17 15:15:00",
+                                              "url":  "https://xueqiu.com/7143769715/400779212",
+                                              "platform":  "xueqiu",
+                                              "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-17\\冰冰小美\\151500_7月风险应验凸显保护本金.md",
+                                              "saved_at":  "2026-07-17 17:10:42"
+                                          },
+                            "400772830":  {
+                                              "source_id":  "400772830",
+                                              "title":  "本月诸多不利，都是与米相关。比如石油方向，撕毁协议→通胀→加息比如海力士ADR，→利益分配问题比如 美光 苹果 吵架，→... - 雪球",
+                                              "published_at":  "2026-07-17 14:59:00",
+                                              "url":  "https://xueqiu.com/7143769715/400772830",
+                                              "platform":  "xueqiu",
+                                              "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-17\\冰冰小美\\145900_米相关不利叠加量化收割波动.md",
+                                              "saved_at":  "2026-07-17 17:10:42"
+                                          },
+                            "400768917":  {
+                                              "source_id":  "400768917",
+                                              "title":  "锚定日韩的4/5/6月的科技行情，盈亏同源。如果走极端，还是可能月线一阴穿三阳。我也没有办法。结果其实很明显，就是一次有... - 雪球",
+                                              "published_at":  "2026-07-17 14:49:00",
+                                              "url":  "https://xueqiu.com/7143769715/400768917",
+                                              "platform":  "xueqiu",
+                                              "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-17\\冰冰小美\\144900_日韩科技行情极端回撤需重新来过.md",
+                                              "saved_at":  "2026-07-17 17:10:42"
+                                          },
+                            "400764612":  {
+                                              "source_id":  "400764612",
+                                              "title":  "7月交易，量力而行。今日打破原有下跌趋势，意味着盘面超卖了。因此，趋势走势有修正需求，修正需求是一次改善市场的契机，因此... - 雪球",
+                                              "published_at":  "2026-07-17 14:36:00",
+                                              "url":  "https://xueqiu.com/7143769715/400764612",
+                                              "platform":  "xueqiu",
+                                              "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-17\\冰冰小美\\143600_超卖修正是改善市场契机.md",
+                                              "saved_at":  "2026-07-17 17:10:42"
+                                          },
+                            "400757028":  {
+                                              "source_id":  "400757028",
+                                              "title":  "网页链接海力士ADR的27%大涨，催命符。随后做空，直接抹除涨幅，引发亚太极端恐慌。周四韩国熔断，周四韩国四部分闭门会议... - 雪球",
+                                              "published_at":  "2026-07-17 14:15:00",
+                                              "url":  "https://xueqiu.com/7143769715/400757028",
+                                              "platform":  "xueqiu",
+                                              "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-17\\冰冰小美\\141500_海力士ADR做空引发亚太恐慌.md",
+                                              "saved_at":  "2026-07-17 17:10:42"
+                                          },
+                            "400749999":  {
+                                              "source_id":  "400749999",
+                                              "title":  "市场恐慌，已经跌破下跌趋势通道。 - 雪球",
+                                              "published_at":  "2026-07-17 13:59:00",
+                                              "url":  "https://xueqiu.com/7143769715/400749999",
+                                              "platform":  "xueqiu",
+                                              "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-17\\冰冰小美\\135900_市场恐慌跌破下跌趋势通道.md",
+                                              "saved_at":  "2026-07-17 17:10:42"
+                                          }
+                        },
+    "events":  [
+                   {
+                       "type":  "item_saved",
+                       "time":  "2026-07-17 17:10:42",
+                       "item_key":  "400779212",
+                       "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-17\\冰冰小美\\151500_7月风险应验凸显保护本金.md"
+                   },
+                   {
+                       "type":  "item_saved",
+                       "time":  "2026-07-17 17:10:42",
+                       "item_key":  "400772830",
+                       "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-17\\冰冰小美\\145900_米相关不利叠加量化收割波动.md"
+                   },
+                   {
+                       "type":  "item_saved",
+                       "time":  "2026-07-17 17:10:42",
+                       "item_key":  "400768917",
+                       "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-17\\冰冰小美\\144900_日韩科技行情极端回撤需重新来过.md"
+                   },
+                   {
+                       "type":  "item_saved",
+                       "time":  "2026-07-17 17:10:42",
+                       "item_key":  "400764612",
+                       "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-17\\冰冰小美\\143600_超卖修正是改善市场契机.md"
+                   },
+                   {
+                       "type":  "item_saved",
+                       "time":  "2026-07-17 17:10:42",
+                       "item_key":  "400757028",
+                       "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-17\\冰冰小美\\141500_海力士ADR做空引发亚太恐慌.md"
+                   },
+                   {
+                       "type":  "item_saved",
+                       "time":  "2026-07-17 17:10:42",
+                       "item_key":  "400749999",
+                       "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-17\\冰冰小美\\135900_市场恐慌跌破下跌趋势通道.md"
+                   }
+               ]
+}
