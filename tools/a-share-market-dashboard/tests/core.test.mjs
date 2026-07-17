@@ -42,3 +42,8 @@ test('calculatePositionMetric reverses a high deviation percentile', () => {
 test('window labels map to explicit trading-day counts', () => {
   assert.deepEqual([1, 3, 5, 10].map(tradingDaysForWindow), [250, 750, 1250, 2500]);
 });
+
+test('window labels reject non-numeric object keys', () => {
+  assert.throws(() => tradingDaysForWindow('1'), RangeError);
+  assert.throws(() => tradingDaysForWindow('toString'), RangeError);
+});

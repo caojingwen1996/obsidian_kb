@@ -7,9 +7,9 @@ export function percentileRank(values, current) {
 }
 
 export function tradingDaysForWindow(years) {
-  const map = { 1: 250, 3: 750, 5: 1250, 10: 2500 };
-  if (!map[years]) throw new RangeError(`Unsupported window: ${years}`);
-  return map[years];
+  const map = new Map([[1, 250], [3, 750], [5, 1250], [10, 2500]]);
+  if (!map.has(years)) throw new RangeError(`Unsupported window: ${years}`);
+  return map.get(years);
 }
 
 export function deviationSeries(points, period = 250) {
