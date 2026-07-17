@@ -14285,3 +14285,52 @@ skill / create / fund-flow-analysis
 ### 后续待办
 
 - 可在用户审阅静态评测页后继续优化触发描述或模板细节。
+
+## 2026-07-17
+
+### 操作类型
+
+update / industry-mapping / tracker
+
+### 修改文件
+
+- `sources/automations/商业航天每日跟踪/159218-成分股研究进度.md`
+- `log.md`
+
+### 操作说明
+
+按当前产业思维框架，在 159218 成分股研究进度页中为全部 50 家样本补充产业链位置和卫星产业相关业务占比/纯度。保留指数参考权重，并明确区分 ETF 权重、公司收入占比和产业相关度；已完成研报的公司引用研报结论，尚未研究的公司仅标记初步产业映射及待核验边界，未把通用器件或集团任务直接写成商业航天收入。
+
+### 后续待办
+
+- 每完成一家个股研报，用年报、公告和订单证据将“初步”纯度判断更新为可核验收入比例或更精确口径。
+- 铖昌科技属于产业研报重点订单承载公司，但不在当前 159218 成分股清单中，应另行补充个股研究。
+
+## 2026-07-17
+
+### 操作类型
+
+industry-analysis / skill-maintenance / report-update / html-export / test
+
+### 修改文件
+
+- `.agents/skills/bbxm-industry-analysis/SKILL.md`
+- `.agents/skills/bbxm-industry-analysis/template.md`
+- `.agents/skills/bbxm-industry-analysis/scripts/render-industry-report-html.cjs`
+- `.agents/skills/bbxm-industry-analysis/scripts/test-render-industry-report-html.cjs`
+- `tests/validate_bbxm_industry_company_mapping.py`
+- `wiki/queries/2026-07-17-商业航天产业完整分析报告.md`
+- `wiki/queries/2026-07-17-商业航天产业完整分析报告.html`
+- `sources/automations/商业航天每日跟踪/商业航天产业完整分析报告.html`
+- `log.md`
+
+### 操作说明
+
+为产业分析技能增加强制“产业链公司映射”契约：每次完整产业研报必须覆盖上游、中游、下游代表公司或主体，逐项列出子环节、上市属性/证券代码、具体产业位置、核心产品、业务占比或定性纯度、证据状态、数据时间、来源和边界。明确ETF权重不等于产业收入占比，精确比例只使用法定披露；未披露时标注“未单独披露”并使用高/中高/中/中低/低纯度，不得把集团任务直接映射为上市公司收入。同步删除模板中残留的多版本选择和“周期与节奏专项”，保持完整报告唯一输出契约。
+
+商业航天产业报告新增核心任务/订单承载主体表，以及159218全部50只成分股的产业链位置和业务纯度表；同时新增产业报告专用HTML渲染器，避免误用个股16模块渲染器。修改前基线确认旧契约缺少公司级字段；新增静态契约测试和HTML渲染测试均通过。报告为已有Query Page的结构性更新，没有新增正式页面，因此未调整 `index.md` 页面索引。
+
+### 后续待办
+
+- 随个股研报和法定披露推进，将50只成分股中的“初步”纯度逐步替换为可核验分部比例或明确的未披露结论。
+- 后续产业报告应同时覆盖未上市核心主体和上市映射公司，避免ETF样本替代真实产业链。

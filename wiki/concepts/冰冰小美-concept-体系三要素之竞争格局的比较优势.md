@@ -112,7 +112,7 @@ common_misunderstandings:
 - 在全球产业竞争中取得定价权。
 
 
-具体产业分析详见
+
 
 ### 同质化竞争
 
