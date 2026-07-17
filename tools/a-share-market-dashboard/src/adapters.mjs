@@ -84,7 +84,8 @@ export function parseCsindexPerformance(payload) {
     const date = Array.isArray(row) ? row[0] : row.tradeDate ?? row.date ?? row.trade_date;
     const close = finiteNumber(Array.isArray(row) ? row[9] : row.close ?? row.closePrice);
     const ttmPe = finiteNumber(Array.isArray(row) ? row[15] : row.rollingPES ?? row.rollingPE ?? row.rollingPe);
-    return date && close !== null ? [{ date: String(date).slice(0, 10), close, ttmPe }] : [];
+    const turnover = finiteNumber(Array.isArray(row) ? row[13] : row.tradingAmount ?? row.turnover ?? row.amount);
+    return date && close !== null ? [{ date: String(date).slice(0, 10), close, ttmPe, turnover }] : [];
   });
 }
 
@@ -189,8 +190,8 @@ export async function loadIndexHistory(secid, limit = 3000) {
   return parseEastmoneyKlines(await jsonp(buildEastmoneyKlineUrl(secid, limit), 'cb'));
 }
 
-export async function loadCsindexPerformance(startDate, endDate) {
-  return parseCsindexPerformance(await fetchJson(buildCsindexPerformanceUrl(startDate, endDate)));
+export async function loadCsindexPerformance(startDate, endDate, indexCode = '000300') {
+  return parseCsindexPerformance(await fetchJson(buildCsindexPerformanceUrl(startDate, endDate, indexCode)));
 }
 
 export async function loadTreasuryHistory() {

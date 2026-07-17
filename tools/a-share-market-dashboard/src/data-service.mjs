@@ -194,6 +194,23 @@ export function createDefaultDomainDefinitions(nowDate = new Date()) {
       maxAgeMs: 72 * 60 * 60 * 1000,
     },
     {
+      id: 'turnoverHistory',
+      providers: [{
+        name: `${SOURCES.csindex.name} 中证全指`,
+        load: async () => (await loadCsindexPerformance(startDate, endDate, '000985'))
+          .flatMap(point => Number.isFinite(point.turnover) ? [{ date: point.date, value: point.turnover }] : []),
+        dataAt: lastPointTime,
+      }],
+      validate: data => Array.isArray(data) && data.length >= 250,
+      maxAgeMs: 72 * 60 * 60 * 1000,
+    },
+    {
+      id: 'forwardPe',
+      providers: [],
+      validate: data => Array.isArray(data) && data.some(point => Number.isFinite(point.value)),
+      maxAgeMs: 72 * 60 * 60 * 1000,
+    },
+    {
       id: 'treasury',
       providers: [
         { name: `${SOURCES.eastmoneyTreasury.name} JSONP`, load: loadTreasuryHistory, dataAt: lastPointTime },

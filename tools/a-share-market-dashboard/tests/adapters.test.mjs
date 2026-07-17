@@ -25,17 +25,17 @@ test('Eastmoney kline parser maps date and close', () => {
   );
 });
 
-test('CSI index performance parser keeps close and rolling PE from object rows', () => {
-  const row = { tradeDate: '2026-07-17', close: '4000', rollingPES: '12.5' };
+test('CSI index performance parser keeps close, rolling PE, and turnover from object rows', () => {
+  const row = { tradeDate: '2026-07-17', close: '4000', rollingPES: '12.5', tradingAmount: '123456' };
   assert.deepEqual(parseCsindexPerformance({ data: [row] }), [
-    { date: '2026-07-17', close: 4000, ttmPe: 12.5 },
+    { date: '2026-07-17', close: 4000, ttmPe: 12.5, turnover: 123456 },
   ]);
 });
 
 test('CSI index performance parser supports the documented positional rows', () => {
-  const row = ['2026-07-17', '000300', '', '', '', '', '', '', '', '4000', '', '', '', '', '', '12.5'];
+  const row = ['2026-07-17', '000300', '', '', '', '', '', '', '', '4000', '', '', '', '123456', '', '12.5'];
   assert.deepEqual(parseCsindexPerformance({ data: [row] }), [
-    { date: '2026-07-17', close: 4000, ttmPe: 12.5 },
+    { date: '2026-07-17', close: 4000, ttmPe: 12.5, turnover: 123456 },
   ]);
 });
 

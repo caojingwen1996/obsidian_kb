@@ -6,6 +6,7 @@ import {
   loadDomain,
   refreshDomains,
   createExampleSnapshot,
+  createDefaultDomainDefinitions,
 } from '../src/data-service.mjs';
 
 test('a successful provider stores source and timestamps', async () => {
@@ -89,4 +90,12 @@ test('example snapshot is deterministic, long enough for ten years, and explicit
   assert.equal(first.domains.csi300History.data.length, 2750);
   assert.equal(first.domains.csiAllHistory.data.length, 2750);
   assert.deepEqual(first, second);
+});
+
+test('live domain definitions include turnover history and an explicit missing forward-PE domain', () => {
+  const definitions = createDefaultDomainDefinitions(new Date('2026-07-17T00:00:00Z'));
+  const ids = definitions.map(definition => definition.id);
+  assert.ok(ids.includes('turnoverHistory'));
+  assert.ok(ids.includes('forwardPe'));
+  assert.equal(definitions.find(definition => definition.id === 'forwardPe').providers.length, 0);
 });
