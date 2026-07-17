@@ -165,11 +165,18 @@ def create_server(host='127.0.0.1', port=0, fetcher=fetch_upstream):
 setlocal
 cd /d "%~dp0"
 where python >nul 2>nul
-if not errorlevel 1 python scripts\local_proxy.py & goto :eof
+if not errorlevel 1 goto :python
 where py >nul 2>nul
-if not errorlevel 1 py -3 scripts\local_proxy.py & goto :eof
+if not errorlevel 1 goto :py
 echo 未找到 Python 3，请先安装 Python 3。
 pause
+goto :eof
+:python
+python scripts\local_proxy.py
+goto :eof
+:py
+py -3 scripts\local_proxy.py
+goto :eof
 ```
 
 Python 主入口绑定随机可用端口，打印本地地址，调用 `webbrowser.open(url)` 后 `serve_forever()`，按 Ctrl+C 安全退出。
