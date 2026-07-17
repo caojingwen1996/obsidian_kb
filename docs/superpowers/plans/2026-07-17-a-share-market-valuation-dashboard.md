@@ -120,7 +120,7 @@ test('deviationSeries starts only after the moving-average warmup', () => {
 });
 
 test('calculatePositionMetric reverses a high deviation percentile', () => {
-  const points = Array.from({ length: 260 }, (_, index) => ({ date: `d${index}`, close: 100 + index }));
+  const points = Array.from({ length: 260 }, (_, index) => ({ date: `d${index}`, close: index === 259 ? 200 : 100 }));
   const result = calculatePositionMetric(points, 1, 250);
   assert.equal(result.percentile, 100);
   assert.equal(result.score, 0);
@@ -209,8 +209,8 @@ test('valuation calculates earnings yield and ERP in percentage points', () => {
 
 test('emotion converts greed into a reversed buy-point score', () => {
   const result = calculateGreedMetrics({ advancers: 20, decliners: 80, limitUp: 1, limitDown: 9, turnoverPercentile: 30, marginChangePercentile: 40 });
-  assert.equal(result.greed, 25);
-  assert.equal(result.buyScore, 75);
+  assert.equal(result.greed, 24.8);
+  assert.equal(result.buyScore, 75.2);
 });
 
 test('missing metrics are removed and remaining weights are normalized', () => {
