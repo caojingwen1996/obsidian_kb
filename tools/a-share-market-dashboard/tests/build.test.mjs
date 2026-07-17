@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
@@ -9,6 +9,7 @@ import { deriveDashboard } from '../src/app.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const sourcePath = join(here, '..', 'src', 'index.html');
+const artifactPath = join(here, '..', 'a-share-market-dashboard.html');
 
 test('dashboard shell exposes every approved navigation and rendering target', () => {
   const html = readFileSync(sourcePath, 'utf8');
@@ -52,4 +53,18 @@ test('changing the selected window recomputes position and overall scores', () =
   const tenYear = deriveDashboard(snapshot, 10);
   assert.notEqual(oneYear.positions.csi300.percentile, tenYear.positions.csi300.percentile);
   assert.notEqual(oneYear.score.score, tenYear.score.score);
+});
+
+test('built artifact is self-contained and directly openable', () => {
+  assert.equal(existsSync(artifactPath), true, 'run the build before testing the artifact');
+  const output = readFileSync(artifactPath, 'utf8');
+  assert.match(output, /^<!doctype html>/i);
+  assert.doesNotMatch(output, /<script[^>]+src=/i);
+  assert.doesNotMatch(output, /<link[^>]+href=/i);
+  assert.doesNotMatch(output, /from\s+['"]\.\//);
+  assert.doesNotMatch(output, /DASHBOARD_(STYLES|SCRIPT)/);
+  assert.match(output, /<style>[\s\S]+<\/style>/);
+  assert.match(output, /<script type="module">[\s\S]+<\/script>/);
+  assert.match(output, /A股温度计/);
+  assert.ok(Buffer.byteLength(output, 'utf8') < 2_000_000);
 });

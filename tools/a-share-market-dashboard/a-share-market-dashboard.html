@@ -1,0 +1,1259 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A股温度计 · 大盘估值分位监控</title>
+  <style>:root {
+  color-scheme: light;
+  --ink: #18232c;
+  --muted: #6d7a84;
+  --line: #dfe5e9;
+  --paper: #f3f5f6;
+  --card: #ffffff;
+  --nav: #16222c;
+  --nav-muted: #92a3af;
+  --blue: #3276d8;
+  --green: #55a987;
+  --gold: #d9a83e;
+  --red: #d45e4d;
+  --shadow: 0 16px 40px rgba(26, 38, 48, 0.07);
+  font-family: Inter, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--paper); }
+body { margin: 0; background: var(--paper); color: var(--ink); }
+button, input { font: inherit; }
+button { cursor: pointer; }
+button:focus-visible, input:focus-visible { outline: 3px solid rgba(50, 118, 216, 0.35); outline-offset: 2px; }
+
+.app-shell { min-height: 100vh; display: grid; grid-template-columns: 224px minmax(0, 1fr); }
+.sidebar { position: sticky; top: 0; height: 100vh; padding: 28px 18px 20px; background: var(--nav); color: white; display: flex; flex-direction: column; z-index: 10; }
+.brand { display: flex; align-items: center; gap: 11px; margin: 0 8px 34px; }
+.brand-mark { width: 35px; height: 35px; border-radius: 10px; display: grid; place-items: center; background: var(--blue); font-weight: 700; }
+.brand strong, .brand small { display: block; }
+.brand strong { letter-spacing: .02em; }
+.brand small { color: var(--nav-muted); font-size: 11px; margin-top: 3px; }
+#primary-nav { display: grid; gap: 5px; }
+.nav-item { width: 100%; border: 0; border-radius: 9px; background: transparent; color: var(--nav-muted); padding: 11px 12px; text-align: left; display: flex; align-items: center; gap: 11px; }
+.nav-item span { font-size: 10px; opacity: .65; letter-spacing: .08em; }
+.nav-item:hover { background: rgba(255,255,255,.06); color: #dfe6eb; }
+.nav-item.is-active { background: var(--blue); color: white; }
+.mobile-nav-toggle { display: none; }
+.sidebar-footer { margin-top: auto; padding: 17px 10px 0; border-top: 1px solid rgba(255,255,255,.12); color: var(--nav-muted); font-size: 11px; line-height: 1.7; }
+.connection { color: #dce5eb; margin-bottom: 8px; }
+.status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 7px; background: var(--gold); }
+.status-dot.is-live { background: var(--green); }
+.status-dot.is-error { background: var(--red); }
+
+.main-content { min-width: 0; padding: 28px clamp(20px, 3.4vw, 54px) 56px; }
+.topbar { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; margin-bottom: 18px; }
+.eyebrow { margin: 0 0 6px; color: var(--muted); font-size: 10px; letter-spacing: .16em; font-weight: 700; }
+h1, h2, h3, p { margin-top: 0; }
+h1 { margin-bottom: 0; font-size: clamp(23px, 3vw, 34px); letter-spacing: -.025em; }
+h2 { margin-bottom: 0; font-size: clamp(20px, 2.5vw, 29px); letter-spacing: -.025em; }
+h3 { font-size: 15px; }
+.top-actions { display: flex; align-items: center; gap: 9px; }
+.mode-switch, .button-secondary { min-height: 38px; border: 1px solid var(--line); border-radius: 9px; background: var(--card); color: var(--ink); padding: 8px 12px; }
+.mode-switch { display: flex; align-items: center; gap: 7px; font-size: 12px; }
+.mode-switch input { accent-color: var(--blue); }
+.button-secondary:hover { border-color: #aeb9c0; }
+.button-secondary[disabled] { cursor: wait; opacity: .6; }
+.notice { margin-bottom: 18px; padding: 10px 13px; border-left: 3px solid var(--gold); background: rgba(217,168,62,.11); color: #685728; font-size: 12px; }
+.notice.is-live { border-left-color: var(--green); background: rgba(85,169,135,.11); color: #315f4d; }
+.notice.is-error { border-left-color: var(--red); background: rgba(212,94,77,.1); color: #7a392f; }
+
+.view { display: none; }
+.view.is-active { display: block; }
+.summary-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 28px; margin: 32px 0 19px; }
+.lead { color: var(--muted); margin: 9px 0 0; max-width: 760px; font-size: 13px; }
+.window-controls { display: inline-flex; padding: 3px; border-radius: 10px; background: #e5e9ec; flex-shrink: 0; }
+.window-controls button { border: 0; border-radius: 8px; padding: 8px 12px; background: transparent; color: var(--muted); font-size: 12px; }
+.window-controls button[aria-pressed="true"] { background: var(--nav); color: white; }
+
+.hero-grid { display: grid; grid-template-columns: 196px minmax(0, 1fr); gap: 13px; margin-bottom: 13px; }
+.score-card, .temperature-card, .layer-card, .panel, .metric-row, .detail-card, .audit-summary { border-radius: 14px; box-shadow: var(--shadow); }
+.score-card { min-height: 172px; background: var(--nav); color: white; padding: 21px; display: flex; flex-direction: column; }
+.score-card > span { color: #9db0be; font-size: 12px; }
+.score-card > strong { font-size: 60px; line-height: 1; margin: 19px 0 13px; letter-spacing: -.05em; }
+.score-meta { margin-top: auto; display: flex; justify-content: space-between; color: #aebdc7; font-size: 10px; }
+.temperature-card { background: var(--card); padding: 24px; display: flex; flex-direction: column; justify-content: center; }
+.temperature-copy { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; margin-bottom: 27px; }
+.temperature-copy strong { font-size: 18px; }
+.temperature-copy span { color: var(--muted); font-size: 10px; }
+.temperature-scale, .metric-scale { position: relative; background: linear-gradient(90deg, var(--blue), var(--green) 38%, var(--gold) 69%, var(--red)); border-radius: 99px; }
+.temperature-scale { height: 12px; }
+.temperature-marker, .metric-marker { position: absolute; top: 50%; left: var(--position, 50%); width: 4px; background: var(--ink); border: 2px solid white; box-shadow: 0 1px 4px rgba(0,0,0,.22); transform: translate(-50%, -50%); border-radius: 99px; }
+.temperature-marker { height: 24px; }
+.scale-labels { display: flex; justify-content: space-between; margin-top: 9px; color: var(--muted); font-size: 10px; }
+
+.layer-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 13px; margin-bottom: 35px; }
+.layer-card { background: var(--card); padding: 16px 17px; }
+.layer-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.layer-head span { color: var(--muted); font-size: 11px; }
+.layer-head strong { font-size: 25px; }
+.layer-card p { margin: 10px 0 0; color: var(--muted); font-size: 11px; }
+.layer-rule { margin-top: 12px; height: 5px; background: #e8ecef; border-radius: 99px; overflow: hidden; }
+.layer-rule span { display: block; height: 100%; width: var(--score, 0%); background: var(--blue); border-radius: inherit; }
+
+.section-header { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin: 28px 0 15px; }
+.section-header > p { margin: 0; max-width: 520px; color: var(--muted); font-size: 11px; text-align: right; }
+.metric-list { display: grid; gap: 8px; }
+.metric-row { background: var(--card); padding: 14px 16px; display: grid; grid-template-columns: minmax(170px, 1.7fr) minmax(150px, 1fr) 72px 82px; gap: 16px; align-items: center; }
+.metric-name { min-width: 0; }
+.metric-name strong, .metric-name small { display: block; }
+.metric-name strong { font-size: 13px; }
+.metric-name small { color: var(--muted); font-size: 10px; margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.metric-scale { height: 7px; }
+.metric-marker { height: 15px; width: 3px; }
+.metric-value, .metric-score { text-align: right; }
+.metric-value strong, .metric-score strong { display: block; font-size: 15px; }
+.metric-value small, .metric-score small { color: var(--muted); font-size: 9px; }
+.metric-row.is-missing { opacity: .64; }
+
+.detail-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px; }
+.detail-card { background: var(--card); padding: 18px; }
+.detail-top { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+.detail-top strong { font-size: 17px; }
+.status-badge { border-radius: 99px; background: #edf1f3; color: var(--muted); padding: 4px 7px; font-size: 9px; }
+.status-badge.is-latest { color: #2e7459; background: #e7f4ee; }
+.status-badge.is-expired, .status-badge.is-missing { color: #853d33; background: #f7e9e6; }
+.detail-data { display: grid; grid-template-columns: repeat(2, 1fr); gap: 9px; margin: 16px 0; }
+.detail-data div { padding: 9px; border-radius: 8px; background: #f5f7f8; }
+.detail-data small, .detail-data strong { display: block; }
+.detail-data small { color: var(--muted); font-size: 9px; margin-bottom: 4px; }
+.detail-data strong { font-size: 12px; }
+.formula { margin: 0; padding-top: 13px; border-top: 1px solid var(--line); color: var(--muted); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 10px; line-height: 1.6; }
+
+.rules-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+.panel { background: var(--card); padding: 19px; }
+.formula-panel { grid-column: 1 / -1; }
+.weight-row, .rule-bands div { display: flex; justify-content: space-between; gap: 20px; padding: 10px 0; border-top: 1px solid var(--line); font-size: 12px; }
+.weight-row:first-child, .rule-bands div:first-child { border-top: 0; }
+.weight-row span, .rule-bands span { color: var(--muted); }
+.formula-panel pre { margin: 0; white-space: pre-wrap; color: #42515c; font-size: 11px; line-height: 1.85; }
+.formula-panel p { margin: 14px 0 0; color: var(--muted); font-size: 11px; }
+
+.audit-summary { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 1px; background: var(--line); overflow: hidden; margin-bottom: 13px; }
+.audit-summary div { background: var(--card); padding: 16px; }
+.audit-summary small, .audit-summary strong { display: block; }
+.audit-summary small { color: var(--muted); font-size: 9px; margin-bottom: 6px; }
+.audit-summary strong { font-size: 15px; }
+.audit-table-wrap { overflow-x: auto; background: var(--card); border-radius: 14px; box-shadow: var(--shadow); }
+.audit-errors { margin: 0 0 13px; color: #7a392f; font-size: 11px; }
+.audit-errors ul { margin: 0; padding: 11px 14px 11px 30px; border-radius: 10px; background: rgba(212,94,77,.09); }
+.audit-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+.audit-table th, .audit-table td { padding: 12px 13px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.audit-table th { color: var(--muted); font-size: 9px; letter-spacing: .04em; }
+.audit-table tr:last-child td { border-bottom: 0; }
+
+@media (max-width: 920px) {
+  .app-shell { grid-template-columns: 184px minmax(0,1fr); }
+  .metric-row { grid-template-columns: 1fr 1fr 65px; }
+  .metric-score { display: none; }
+  .detail-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 760px) {
+  .app-shell { display: block; }
+  .sidebar { position: relative; width: 100%; height: auto; padding: 15px 17px; }
+  .brand { margin: 0; }
+  .mobile-nav-toggle { display: block; position: absolute; right: 17px; top: 18px; border: 1px solid rgba(255,255,255,.18); color: white; background: transparent; border-radius: 8px; padding: 7px 10px; }
+  #primary-nav { display: none; margin-top: 15px; }
+  .sidebar.is-open #primary-nav { display: grid; }
+  .sidebar-footer { display: none; }
+  .main-content { padding: 20px 15px 42px; }
+  .topbar, .summary-heading, .section-header { align-items: flex-start; flex-direction: column; }
+  .top-actions { width: 100%; justify-content: space-between; }
+  .summary-heading { margin-top: 23px; }
+  .section-header > p { text-align: left; }
+  .hero-grid, .layer-grid, .rules-layout { grid-template-columns: 1fr; }
+  .formula-panel { grid-column: auto; }
+  .score-card { min-height: 150px; }
+  .metric-row { grid-template-columns: 1fr 62px; gap: 10px; }
+  .metric-scale { grid-column: 1 / -1; grid-row: 2; }
+  .metric-score { display: block; }
+  .metric-value { grid-column: 2; grid-row: 1; }
+  .metric-score { display: none; }
+  .audit-summary { grid-template-columns: repeat(2,1fr); }
+}
+
+@media print {
+  .app-shell { display: block; }
+  .sidebar, .top-actions, .notice, .window-controls { display: none !important; }
+  .main-content { padding: 0; }
+  .view { display: block !important; break-before: page; }
+  #market-summary { break-before: auto; }
+  .score-card, .temperature-card, .layer-card, .panel, .metric-row, .detail-card, .audit-summary, .audit-table-wrap { box-shadow: none; border: 1px solid var(--line); }
+}</style>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <span class="brand-mark">A</span>
+        <div><strong>A股温度计</strong><small>位置 · 估值 · 情绪</small></div>
+      </div>
+      <button class="mobile-nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">打开导航</button>
+      <nav id="primary-nav" aria-label="面板导航">
+        <button class="nav-item is-active" type="button" data-view="market-summary" aria-current="page"><span>01</span>市场总览</button>
+        <button class="nav-item" type="button" data-view="position-view"><span>02</span>位置分位</button>
+        <button class="nav-item" type="button" data-view="valuation-view"><span>03</span>估值与 ERP</button>
+        <button class="nav-item" type="button" data-view="emotion-view"><span>04</span>情绪温度</button>
+        <button class="nav-item" type="button" data-view="rules-view"><span>05</span>评分规则</button>
+        <button class="nav-item" type="button" data-view="audit-view"><span>06</span>数据审计</button>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="connection"><span class="status-dot" id="sidebar-status-dot"></span><span id="sidebar-status">示例数据</span></div>
+        <div><span id="sidebar-valid">10 / 10 项有效</span><br><time id="sidebar-updated">—</time></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">MARKET VALUATION MONITOR</p>
+          <h1 id="page-title">市场总览</h1>
+        </div>
+        <div class="top-actions">
+          <label class="mode-switch" for="example-mode">
+            <input id="example-mode" type="checkbox" checked>
+            <span>示例数据</span>
+          </label>
+          <button class="button-secondary" id="refresh-data" type="button">刷新数据</button>
+        </div>
+      </header>
+
+      <div class="notice" id="global-notice" role="status">正在用内置示例数据初始化，随后尝试联网刷新。</div>
+
+      <section class="view is-active" id="market-summary" aria-labelledby="summary-heading">
+        <div class="summary-heading">
+          <div>
+            <p class="eyebrow">当前结论</p>
+            <h2 id="summary-heading"><span id="conclusion-label">数据加载中</span></h2>
+            <p class="lead" id="conclusion-detail">评分只描述历史坐标中的贵贱，不预测明日涨跌。</p>
+          </div>
+          <div class="window-controls" id="window-controls" aria-label="历史统计窗口">
+            <button type="button" data-window="1" aria-pressed="false">1年</button>
+            <button type="button" data-window="3" aria-pressed="false">3年</button>
+            <button type="button" data-window="5" aria-pressed="true">5年</button>
+            <button type="button" data-window="10" aria-pressed="false">10年</button>
+          </div>
+        </div>
+
+        <div class="hero-grid">
+          <article class="score-card">
+            <span>综合买点评分</span>
+            <strong id="score-value">—</strong>
+            <div class="score-meta"><span id="coverage-value">覆盖率 —</span><span id="data-mode">示例</span></div>
+          </article>
+          <article class="temperature-card">
+            <div class="temperature-copy"><strong id="temperature-title">以历史为坐标</strong><span id="temperature-updated">最后更新 —</span></div>
+            <div class="temperature-scale" aria-label="从历史便宜到历史昂贵的市场温度">
+              <span class="temperature-marker" id="temperature-marker"></span>
+            </div>
+            <div class="scale-labels"><span>别人恐惧</span><span>中性</span><span>市场贪婪</span></div>
+          </article>
+        </div>
+
+        <div class="layer-grid" id="layer-scores" aria-label="三层评分"></div>
+
+        <div class="section-header"><div><p class="eyebrow">KEY METRICS</p><h2>关键指标</h2></div><p>色条统一从“便宜或恐惧”指向“昂贵或贪婪”</p></div>
+        <div class="metric-list" id="metric-list"></div>
+      </section>
+
+      <section class="view" id="position-view" aria-labelledby="position-heading">
+        <div class="section-header"><div><p class="eyebrow">POSITION</p><h2 id="position-heading">位置分位</h2></div><p>当前价格相对 MA250 的偏离率，在所选历史窗口中的位置。</p></div>
+        <div class="detail-grid" id="position-details"></div>
+      </section>
+
+      <section class="view" id="valuation-view" aria-labelledby="valuation-heading">
+        <div class="section-header"><div><p class="eyebrow">VALUATION</p><h2 id="valuation-heading">估值与 ERP</h2></div><p>前瞻数据缺失时明确退出评分，不用 TTM 指标替代。</p></div>
+        <div class="detail-grid" id="valuation-details"></div>
+      </section>
+
+      <section class="view" id="emotion-view" aria-labelledby="emotion-heading">
+        <div class="section-header"><div><p class="eyebrow">SENTIMENT</p><h2 id="emotion-heading">A股恐惧贪婪代理</h2></div><p>先计算贪婪度，再反向计入买点评分。</p></div>
+        <div class="detail-grid" id="emotion-details"></div>
+      </section>
+
+      <section class="view" id="rules-view" aria-labelledby="rules-heading">
+        <div class="section-header"><div><p class="eyebrow">RULEBOOK V1.0</p><h2 id="rules-heading">评分规则</h2></div><p>固定规则，可解释、可复算、可回溯。</p></div>
+        <div class="rules-layout">
+          <article class="panel"><h3>固定权重</h3><div id="rules-weights"></div></article>
+          <article class="panel"><h3>结论区间</h3><div class="rule-bands">
+            <div><strong>80—100</strong><span>别人恐惧，可以贪婪</span></div>
+            <div><strong>65—79</strong><span>偏便宜，分批关注</span></div>
+            <div><strong>45—64</strong><span>中性，等待赔率改善</span></div>
+            <div><strong>25—44</strong><span>偏贵，控制冲动</span></div>
+            <div><strong>0—24</strong><span>市场贪婪，应该恐惧</span></div>
+          </div></article>
+          <article class="panel formula-panel"><h3>核心公式</h3><pre>趋势偏离率 = 收盘价 ÷ MA250 - 1
+位置得分 = 100 - 偏离率历史分位
+前瞻盈利收益率 = 100 ÷ 前瞻PE
+ERP = 前瞻盈利收益率 - 10年期国债收益率
+情绪买点得分 = 100 - A股贪婪度
+有效权重 = 原始权重 ÷ 有效项权重总和</pre><p>覆盖率低于 70% 时，保留不完整试算分，但顶部停止输出行动性结论。</p></article>
+        </div>
+      </section>
+
+      <section class="view" id="audit-view" aria-labelledby="audit-heading">
+        <div class="section-header"><div><p class="eyebrow">DATA AUDIT</p><h2 id="audit-heading">数据审计</h2></div><p>原始值、公式、来源、时间、权重与失败原因同时留档。</p></div>
+        <div class="audit-summary" id="audit-summary"></div>
+        <div class="audit-errors" id="audit-errors" aria-live="polite"></div>
+        <div class="audit-table-wrap"><table class="audit-table"><thead><tr><th>指标</th><th>状态</th><th>来源</th><th>数据时间</th><th>原始权重</th><th>有效权重</th><th>得分贡献</th></tr></thead><tbody id="audit-table-body"></tbody></table></div>
+      </section>
+    </main>
+  </div>
+  <script type="module">
+// ---- core.mjs ----
+function clamp(value, min = 0, max = 100) { return Math.min(max, Math.max(min, value)); }
+
+function percentileRank(values, current) {
+  const valid = values.filter(Number.isFinite);
+  if (!valid.length || !Number.isFinite(current)) return null;
+  return clamp((valid.filter(value => value <= current).length / valid.length) * 100);
+}
+
+function tradingDaysForWindow(years) {
+  const map = new Map([[1, 250], [3, 750], [5, 1250], [10, 2500]]);
+  if (!map.has(years)) throw new RangeError(`Unsupported window: ${years}`);
+  return map.get(years);
+}
+
+function deviationSeries(points, period = 250) {
+  const output = [];
+  let rolling = 0;
+  points.forEach((point, index) => {
+    rolling += point.close;
+    if (index >= period) rolling -= points[index - period].close;
+    if (index >= period - 1) {
+      const average = rolling / period;
+      output.push({ date: point.date, close: point.close, deviation: point.close / average - 1 });
+    }
+  });
+  return output;
+}
+
+function calculatePositionMetric(points, years, period = 250) {
+  const series = deviationSeries(points, period);
+  const sample = series.slice(-tradingDaysForWindow(years));
+  if (!sample.length) return null;
+  const current = sample.at(-1);
+  const percentile = percentileRank(sample.map(point => point.deviation), current.deviation);
+  return { ...current, percentile, score: clamp(100 - percentile), sampleSize: sample.length };
+}
+
+const BASE_WEIGHTS = Object.freeze({
+  positionShanghai: 10,
+  positionCsi300: 15,
+  positionCsiAll: 15,
+  ttmPe: 12,
+  forwardEarningsYield: 10,
+  erp: 13,
+  breadth: 7,
+  limitBalance: 6,
+  turnover: 6,
+  margin: 6,
+});
+
+function round(value, digits = 4) {
+  return Number(value.toFixed(digits));
+}
+
+function positiveNumbers(values) {
+  return values.filter(value => Number.isFinite(value) && value > 0);
+}
+
+function metricFromSeries(values, { reverse = false } = {}) {
+  const valid = values.filter(Number.isFinite);
+  if (!valid.length) return null;
+  const value = valid.at(-1);
+  const percentile = percentileRank(valid, value);
+  return {
+    value: round(value),
+    percentile: round(percentile),
+    score: round(reverse ? 100 - percentile : percentile),
+    sampleSize: valid.length,
+  };
+}
+
+function calculateValuationMetrics({
+  ttmPeHistory = [],
+  forwardPeHistory = [],
+  bond10yHistory = [],
+} = {}) {
+  const ttmPe = metricFromSeries(positiveNumbers(ttmPeHistory), { reverse: true });
+  const forwardPe = positiveNumbers(forwardPeHistory);
+  const bondYields = bond10yHistory.filter(Number.isFinite);
+  const pairCount = Math.min(forwardPe.length, bondYields.length);
+  const alignedForwardPe = pairCount ? forwardPe.slice(-pairCount) : [];
+  const alignedBondYields = pairCount ? bondYields.slice(-pairCount) : [];
+  const earningsYields = alignedForwardPe.map(pe => 100 / pe);
+  const erpValues = earningsYields.map((earningsYield, index) => earningsYield - alignedBondYields[index]);
+
+  return {
+    ttmPe,
+    forwardEarningsYield: metricFromSeries(earningsYields),
+    erp: metricFromSeries(erpValues),
+  };
+}
+
+function calculateWeightedScore(items) {
+  const validItems = items.filter(item => Number.isFinite(item.score) && Number.isFinite(item.weight) && item.weight > 0);
+  const validWeight = validItems.reduce((sum, item) => sum + item.weight, 0);
+  const normalized = items.map(item => {
+    const valid = Number.isFinite(item.score) && Number.isFinite(item.weight) && item.weight > 0 && validWeight > 0;
+    const rawEffectiveWeight = valid ? item.weight / validWeight * 100 : 0;
+    return {
+      ...item,
+      effectiveWeight: round(rawEffectiveWeight),
+      contribution: valid ? round(item.score * rawEffectiveWeight / 100) : 0,
+    };
+  });
+  const score = validWeight
+    ? round(validItems.reduce((sum, item) => sum + item.score * item.weight, 0) / validWeight)
+    : null;
+  return {
+    score,
+    coverage: round(Math.min(100, validWeight)),
+    items: normalized,
+  };
+}
+
+function calculateGreedMetrics({
+  advancers,
+  decliners,
+  limitUp,
+  limitDown,
+  turnoverPercentile,
+  marginChangePercentile,
+} = {}) {
+  const breadthTotal = advancers + decliners;
+  const limitTotal = limitUp + limitDown;
+  const components = {
+    breadth: {
+      id: 'breadth',
+      score: Number.isFinite(breadthTotal) && breadthTotal > 0 ? clamp(advancers / breadthTotal * 100) : null,
+      weight: BASE_WEIGHTS.breadth,
+    },
+    limitBalance: {
+      id: 'limitBalance',
+      score: Number.isFinite(limitTotal) && limitTotal > 0 ? clamp(limitUp / limitTotal * 100) : null,
+      weight: BASE_WEIGHTS.limitBalance,
+    },
+    turnover: {
+      id: 'turnover',
+      score: Number.isFinite(turnoverPercentile) ? clamp(turnoverPercentile) : null,
+      weight: BASE_WEIGHTS.turnover,
+    },
+    margin: {
+      id: 'margin',
+      score: Number.isFinite(marginChangePercentile) ? clamp(marginChangePercentile) : null,
+      weight: BASE_WEIGHTS.margin,
+    },
+  };
+  const weighted = calculateWeightedScore(Object.values(components));
+  return {
+    components,
+    greed: weighted.score,
+    buyScore: weighted.score === null ? null : round(100 - weighted.score),
+    coverage: weighted.coverage,
+  };
+}
+
+function conclusionForScore(score, coverage) {
+  if (!Number.isFinite(score) || !Number.isFinite(coverage) || coverage < 70) {
+    return { label: '数据不足，暂不判断', band: 'insufficient', actionable: false };
+  }
+  if (score >= 80) return { label: '别人恐惧，可以贪婪', band: 'greedy', actionable: true };
+  if (score >= 65) return { label: '偏便宜，分批关注', band: 'cheap', actionable: true };
+  if (score >= 45) return { label: '中性，等待赔率改善', band: 'neutral', actionable: true };
+  if (score >= 25) return { label: '偏贵，控制冲动', band: 'expensive', actionable: true };
+  return { label: '市场贪婪，应该恐惧', band: 'fearful', actionable: true };
+}
+
+// ---- adapters.mjs ----
+const SOURCES = Object.freeze({
+  eastmoneyKline: { name: '东方财富指数行情', url: 'https://push2his.eastmoney.com' },
+  csindex: { name: '中证指数官网', url: 'https://www.csindex.com.cn' },
+  eastmoneyTreasury: { name: '东方财富中美国债收益率', url: 'https://datacenter.eastmoney.com' },
+  eastmoneyMarket: { name: '东方财富沪深A股行情', url: 'https://push2.eastmoney.com' },
+  jin10Margin: { name: '金十融资融券历史汇总', url: 'https://cdn.jin10.com' },
+});
+
+const INDEX_IDS = Object.freeze({
+  shanghai: '1.000001',
+  csi300: '1.000300',
+  csiAll: '1.000985',
+});
+
+function finiteNumber(value) {
+  const number = Number(value);
+  return Number.isFinite(number) ? number : null;
+}
+
+function buildEastmoneyKlineUrl(secid, limit = 3000) {
+  const url = new URL('https://push2his.eastmoney.com/api/qt/stock/kline/get');
+  url.search = new URLSearchParams({
+    secid,
+    klt: '101',
+    fqt: '1',
+    lmt: String(limit),
+    fields1: 'f1,f2,f3,f4,f5,f6',
+    fields2: 'f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61',
+  }).toString();
+  return url.toString();
+}
+
+function buildCsindexPerformanceUrl(startDate, endDate, indexCode = '000300') {
+  const url = new URL('https://www.csindex.com.cn/csindex-home/perf/index-perf');
+  url.search = new URLSearchParams({ indexCode, startDate, endDate }).toString();
+  return url.toString();
+}
+
+function buildTreasuryUrl(page = 1) {
+  const url = new URL('https://datacenter.eastmoney.com/api/data/get');
+  url.search = new URLSearchParams({
+    type: 'RPTA_WEB_TREASURYYIELD',
+    sty: 'ALL',
+    st: 'SOLAR_DATE',
+    sr: '-1',
+    token: '894050c76af8597a853f5b408b759f5d',
+    p: String(page),
+    ps: '500',
+    pageNo: String(page),
+    pageNum: String(page),
+  }).toString();
+  return url.toString();
+}
+
+function buildMarketSnapshotUrl() {
+  const url = new URL('https://push2.eastmoney.com/api/qt/clist/get');
+  url.search = new URLSearchParams({
+    pn: '1',
+    pz: '6000',
+    po: '1',
+    np: '1',
+    fltt: '2',
+    invt: '2',
+    fid: 'f3',
+    fs: 'm:0+t:6,m:0+t:80,m:1+t:2,m:1+t:23',
+    fields: 'f3,f6,f12,f14,f18',
+  }).toString();
+  return url.toString();
+}
+
+function parseEastmoneyKlines(payload) {
+  const rows = payload?.data?.klines;
+  if (!Array.isArray(rows)) return [];
+  return rows.flatMap(row => {
+    const fields = String(row).split(',');
+    const close = finiteNumber(fields[2]);
+    return fields[0] && close !== null ? [{ date: fields[0], close }] : [];
+  });
+}
+
+function parseCsindexPerformance(payload) {
+  const rows = Array.isArray(payload?.data) ? payload.data : [];
+  return rows.flatMap(row => {
+    const date = Array.isArray(row) ? row[0] : row.tradeDate ?? row.date ?? row.trade_date;
+    const close = finiteNumber(Array.isArray(row) ? row[9] : row.close ?? row.closePrice);
+    const ttmPe = finiteNumber(Array.isArray(row) ? row[15] : row.rollingPES ?? row.rollingPE ?? row.rollingPe);
+    const turnover = finiteNumber(Array.isArray(row) ? row[13] : row.tradingAmount ?? row.turnover ?? row.amount);
+    return date && close !== null ? [{ date: String(date).slice(0, 10), close, ttmPe, turnover }] : [];
+  });
+}
+
+function parseTreasuryYield(payload) {
+  const rows = Array.isArray(payload?.result?.data) ? payload.result.data : [];
+  return rows.flatMap(row => {
+    const value = finiteNumber(row.EMM00166466);
+    return row.SOLAR_DATE && value !== null
+      ? [{ date: String(row.SOLAR_DATE).slice(0, 10), value }]
+      : [];
+  }).sort((left, right) => left.date.localeCompare(right.date));
+}
+
+function limitPercent(code, name) {
+  if (/ST/i.test(name)) return 5;
+  if (/^(300|301|688|689)/.test(code)) return 20;
+  if (/^(4|8|92)/.test(code)) return 30;
+  return 10;
+}
+
+function parseMarketSnapshot(payload) {
+  const rows = Array.isArray(payload?.data?.diff) ? payload.data.diff : [];
+  const result = {
+    advancers: 0,
+    decliners: 0,
+    unchanged: 0,
+    limitUp: 0,
+    limitDown: 0,
+    turnover: 0,
+    universe: 0,
+  };
+  rows.forEach(row => {
+    const percent = finiteNumber(row.f3);
+    const code = String(row.f12 ?? '');
+    const name = String(row.f14 ?? '');
+    if (percent === null || !code) return;
+    result.universe += 1;
+    if (percent > 0) result.advancers += 1;
+    else if (percent < 0) result.decliners += 1;
+    else result.unchanged += 1;
+    const threshold = limitPercent(code, name);
+    if (percent >= threshold - 0.15) result.limitUp += 1;
+    if (percent <= -threshold + 0.15) result.limitDown += 1;
+    const turnover = finiteNumber(row.f6);
+    if (turnover !== null && turnover > 0) result.turnover += turnover;
+  });
+  return result;
+}
+
+function parseMarginReport(payload) {
+  const values = payload?.values;
+  if (!values || typeof values !== 'object') return [];
+  return Object.entries(values).flatMap(([date, row]) => {
+    const value = finiteNumber(Array.isArray(row) ? row[1] : null);
+    return value !== null ? [{ date, value }] : [];
+  }).sort((left, right) => left.date.localeCompare(right.date));
+}
+
+function jsonp(url, callbackParam = 'cb', timeoutMs = 12000) {
+  if (typeof document === 'undefined') return Promise.reject(new Error('JSONP requires a browser document'));
+  return new Promise((resolve, reject) => {
+    const callbackName = `__aShareDashboard_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+    const script = document.createElement('script');
+    const target = new URL(url);
+    target.searchParams.set(callbackParam, callbackName);
+    let timer;
+    const cleanup = () => {
+      clearTimeout(timer);
+      script.remove();
+      delete globalThis[callbackName];
+    };
+    globalThis[callbackName] = payload => {
+      cleanup();
+      resolve(payload);
+    };
+    script.onerror = () => {
+      cleanup();
+      reject(new Error(`JSONP request failed: ${target.hostname}`));
+    };
+    timer = setTimeout(() => {
+      cleanup();
+      reject(new Error(`JSONP request timed out: ${target.hostname}`));
+    }, timeoutMs);
+    script.src = target.toString();
+    document.head.append(script);
+  });
+}
+
+async function fetchJson(url, timeoutMs = 12000) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const response = await fetch(url, { cache: 'no-store', signal: controller.signal });
+    if (!response.ok) throw new Error(`HTTP ${response.status}: ${new URL(url).hostname}`);
+    return await response.json();
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function loadIndexHistory(secid, limit = 3000) {
+  return parseEastmoneyKlines(await jsonp(buildEastmoneyKlineUrl(secid, limit), 'cb'));
+}
+
+async function loadCsindexPerformance(startDate, endDate, indexCode = '000300') {
+  return parseCsindexPerformance(await fetchJson(buildCsindexPerformanceUrl(startDate, endDate, indexCode)));
+}
+
+async function loadTreasuryHistory() {
+  return parseTreasuryYield(await jsonp(buildTreasuryUrl(), 'callback'));
+}
+
+async function loadMarketSnapshot() {
+  return parseMarketSnapshot(await jsonp(buildMarketSnapshotUrl(), 'cb'));
+}
+
+async function loadMarginHistory() {
+  const urls = [
+    'https://cdn.jin10.com/data_center/reports/fs_1.json',
+    'https://cdn.jin10.com/data_center/reports/fs_2.json',
+  ];
+  const reports = await Promise.all(urls.map(url => fetchJson(`${url}?_=${Date.now()}`)));
+  const totals = new Map();
+  reports.flatMap(parseMarginReport).forEach(point => {
+    totals.set(point.date, (totals.get(point.date) ?? 0) + point.value);
+  });
+  return [...totals.entries()]
+    .map(([date, value]) => ({ date, value }))
+    .sort((left, right) => left.date.localeCompare(right.date));
+}
+
+// ---- data-service.mjs ----
+const CACHE_PREFIX = 'a-share-dashboard:';
+
+function createMemoryStorage(initial = {}) {
+  const values = new Map(Object.entries(initial));
+  return {
+    getItem(key) { return values.has(key) ? values.get(key) : null; },
+    setItem(key, value) { values.set(key, String(value)); },
+    removeItem(key) { values.delete(key); },
+    clear() { values.clear(); },
+  };
+}
+
+function cacheKey(id) {
+  return `${CACHE_PREFIX}${id}`;
+}
+
+function readCache(storage, id) {
+  try {
+    const value = storage?.getItem(cacheKey(id));
+    if (!value) return null;
+    const parsed = JSON.parse(value);
+    return parsed && typeof parsed === 'object' && 'data' in parsed ? parsed : null;
+  } catch {
+    return null;
+  }
+}
+
+function errorMessage(provider, error) {
+  return `${provider}: ${error instanceof Error ? error.message : String(error)}`;
+}
+
+async function loadDomain({
+  id,
+  providers = [],
+  validate = data => data !== null && data !== undefined,
+  storage = globalThis.localStorage,
+  now = Date.now,
+  maxAgeMs = 24 * 60 * 60 * 1000,
+}) {
+  const errors = [];
+  for (const provider of providers) {
+    try {
+      const data = await provider.load();
+      if (!validate(data)) throw new Error('validation failed');
+      const fetchedAt = now();
+      const dataAt = provider.dataAt?.(data) ?? fetchedAt;
+      const envelope = { data, source: provider.name, savedAt: fetchedAt, dataAt };
+      storage?.setItem(cacheKey(id), JSON.stringify(envelope));
+      return { id, ...envelope, fetchedAt, status: 'latest', errors };
+    } catch (error) {
+      errors.push(errorMessage(provider.name, error));
+    }
+  }
+
+  const cached = readCache(storage, id);
+  if (!cached) {
+    return { id, data: null, source: null, dataAt: null, fetchedAt: now(), status: 'missing', errors };
+  }
+  const referenceTime = Number(cached.dataAt ?? cached.savedAt);
+  const expired = !Number.isFinite(referenceTime) || now() - referenceTime > maxAgeMs;
+  return {
+    id,
+    ...cached,
+    fetchedAt: now(),
+    status: expired ? 'expired' : 'snapshot',
+    errors,
+  };
+}
+
+async function refreshDomains(definitions, options = {}) {
+  const entries = await Promise.all(definitions.map(async definition => {
+    const result = await loadDomain({ ...definition, ...options });
+    return [definition.id, result];
+  }));
+  return Object.fromEntries(entries);
+}
+
+function exampleDates(count) {
+  const dates = [];
+  const cursor = new Date('2015-12-01T00:00:00Z');
+  while (dates.length < count) {
+    const day = cursor.getUTCDay();
+    if (day !== 0 && day !== 6) dates.push(cursor.toISOString().slice(0, 10));
+    cursor.setUTCDate(cursor.getUTCDate() + 1);
+  }
+  return dates;
+}
+
+function exampleIndex(dates, base, drift, phase) {
+  return dates.map((date, index) => ({
+    date,
+    close: Number((base + index * drift + Math.sin(index / 47 + phase) * base * 0.09 + Math.sin(index / 213) * base * 0.06).toFixed(2)),
+  }));
+}
+
+function exampleEnvelope(data, source = '内置示例数据') {
+  const dataAt = Date.parse('2026-06-16T07:00:00Z');
+  return { data, source, savedAt: dataAt, dataAt, fetchedAt: dataAt, status: 'example' };
+}
+
+function createExampleSnapshot() {
+  const dates = exampleDates(2750);
+  const valuationDates = dates.slice(-1500);
+  const ttmPeHistory = valuationDates.map((_, index) => Number((12.8 + Math.sin(index / 73) * 2.6 + Math.sin(index / 211) * 1.3).toFixed(4)));
+  const forwardPeHistory = valuationDates.map((_, index) => Number((11.9 + Math.sin(index / 79 + 0.4) * 2.1 + Math.sin(index / 229) * 1.1).toFixed(4)));
+  const treasury = valuationDates.map((date, index) => ({
+    date,
+    value: Number((2.55 - index * 0.00055 + Math.sin(index / 97) * 0.22).toFixed(4)),
+  }));
+  const turnover = valuationDates.map((date, index) => ({
+    date,
+    value: Math.round(720_000_000_000 + Math.sin(index / 31) * 180_000_000_000 + index * 115_000_000),
+  }));
+  const margin = valuationDates.map((date, index) => ({
+    date,
+    value: Math.round(1_350_000_000_000 + index * 250_000_000 + Math.sin(index / 57) * 55_000_000_000),
+  }));
+  const csi300Stats = valuationDates.map((date, index) => ({
+    date,
+    close: 3500,
+    ttmPe: ttmPeHistory[index],
+  }));
+
+  return {
+    mode: 'example',
+    generatedAt: '2026-06-16T07:00:00.000Z',
+    domains: {
+      shanghaiHistory: exampleEnvelope(exampleIndex(dates, 2800, 0.24, 0)),
+      csi300History: exampleEnvelope(exampleIndex(dates, 3500, 0.16, 1.1)),
+      csiAllHistory: exampleEnvelope(exampleIndex(dates, 4300, 0.19, 2.2)),
+      csi300Stats: exampleEnvelope(csi300Stats),
+      forwardPe: exampleEnvelope(forwardPeHistory.map((value, index) => ({ date: valuationDates[index], value }))),
+      treasury: exampleEnvelope(treasury),
+      turnoverHistory: exampleEnvelope(turnover),
+      margin: exampleEnvelope(margin),
+      market: exampleEnvelope({
+        advancers: 1680,
+        decliners: 2860,
+        unchanged: 138,
+        limitUp: 43,
+        limitDown: 18,
+        turnover: turnover.at(-1).value,
+        universe: 4678,
+      }),
+    },
+  };
+}
+
+const EXAMPLE_SNAPSHOT = createExampleSnapshot();
+
+function lastPointTime(points) {
+  const date = Array.isArray(points) ? points.at(-1)?.date : null;
+  const timestamp = date ? Date.parse(`${date}T07:00:00+08:00`) : NaN;
+  return Number.isFinite(timestamp) ? timestamp : Date.now();
+}
+
+function compactDate(date) {
+  return date.toISOString().slice(0, 10).replaceAll('-', '');
+}
+
+function createDefaultDomainDefinitions(nowDate = new Date()) {
+  const start = new Date(nowDate);
+  start.setUTCFullYear(start.getUTCFullYear() - 12);
+  const startDate = compactDate(start);
+  const endDate = compactDate(nowDate);
+  const historyDefinition = (id, secid, sourceName) => ({
+    id,
+    providers: [{ name: sourceName, load: () => loadIndexHistory(secid, 3000), dataAt: lastPointTime }],
+    validate: data => Array.isArray(data) && data.length >= 250,
+    maxAgeMs: 36 * 60 * 60 * 1000,
+  });
+
+  return [
+    historyDefinition('shanghaiHistory', INDEX_IDS.shanghai, SOURCES.eastmoneyKline.name),
+    historyDefinition('csi300History', INDEX_IDS.csi300, SOURCES.eastmoneyKline.name),
+    historyDefinition('csiAllHistory', INDEX_IDS.csiAll, SOURCES.eastmoneyKline.name),
+    {
+      id: 'csi300Stats',
+      providers: [{ name: SOURCES.csindex.name, load: () => loadCsindexPerformance(startDate, endDate), dataAt: lastPointTime }],
+      validate: data => Array.isArray(data) && data.some(point => Number.isFinite(point.ttmPe)),
+      maxAgeMs: 72 * 60 * 60 * 1000,
+    },
+    {
+      id: 'turnoverHistory',
+      providers: [{
+        name: `${SOURCES.csindex.name} 中证全指`,
+        load: async () => (await loadCsindexPerformance(startDate, endDate, '000985'))
+          .flatMap(point => Number.isFinite(point.turnover) ? [{ date: point.date, value: point.turnover }] : []),
+        dataAt: lastPointTime,
+      }],
+      validate: data => Array.isArray(data) && data.length >= 250,
+      maxAgeMs: 72 * 60 * 60 * 1000,
+    },
+    {
+      id: 'forwardPe',
+      providers: [],
+      validate: data => Array.isArray(data) && data.some(point => Number.isFinite(point.value)),
+      maxAgeMs: 72 * 60 * 60 * 1000,
+    },
+    {
+      id: 'treasury',
+      providers: [
+        { name: `${SOURCES.eastmoneyTreasury.name} JSONP`, load: loadTreasuryHistory, dataAt: lastPointTime },
+        { name: `${SOURCES.eastmoneyTreasury.name} Fetch`, load: async () => parseTreasuryYield(await fetchJson(buildTreasuryUrl())), dataAt: lastPointTime },
+      ],
+      validate: data => Array.isArray(data) && data.length >= 20,
+      maxAgeMs: 72 * 60 * 60 * 1000,
+    },
+    {
+      id: 'market',
+      providers: [{ name: SOURCES.eastmoneyMarket.name, load: loadMarketSnapshot }],
+      validate: data => Number.isFinite(data?.universe) && data.universe > 1000,
+      maxAgeMs: 10 * 60 * 1000,
+    },
+    {
+      id: 'margin',
+      providers: [{ name: SOURCES.jin10Margin.name, load: loadMarginHistory, dataAt: lastPointTime }],
+      validate: data => Array.isArray(data) && data.length >= 20,
+      maxAgeMs: 72 * 60 * 60 * 1000,
+    },
+  ];
+}
+
+// ---- app.mjs ----
+const LAYER_META = Object.freeze({
+  position: { label: '位置层', targetWeight: 40, description: '三大指数相对 MA250 的历史位置' },
+  valuation: { label: '估值层', targetWeight: 35, description: '沪深300估值、盈利收益率与 ERP' },
+  emotion: { label: '情绪层', targetWeight: 25, description: '市场宽度、涨跌停、成交额与融资' },
+});
+
+const STATUS_PRIORITY = Object.freeze({ example: 0, latest: 0, snapshot: 1, expired: 2, missing: 3 });
+const STATUS_LABELS = Object.freeze({ example: '示例', latest: '最新', snapshot: '快照', expired: '已过期', missing: '缺失' });
+
+function domain(snapshot, id) {
+  return snapshot?.domains?.[id] ?? { data: null, source: null, status: 'missing', dataAt: null, fetchedAt: null, errors: [] };
+}
+
+function usableData(snapshot, id) {
+  const entry = domain(snapshot, id);
+  return ['missing', 'expired'].includes(entry.status) ? null : entry.data;
+}
+
+function combineMeta(...entries) {
+  const valid = entries.filter(Boolean);
+  const worst = valid.reduce((current, entry) => (
+    (STATUS_PRIORITY[entry.status] ?? 3) > (STATUS_PRIORITY[current.status] ?? 3) ? entry : current
+  ), valid[0] ?? { status: 'missing' });
+  return {
+    status: worst.status ?? 'missing',
+    source: [...new Set(valid.map(entry => entry.source).filter(Boolean))].join(' + ') || '无可靠来源',
+    dataAt: Math.min(...valid.map(entry => Number(entry.dataAt)).filter(Number.isFinite)),
+    fetchedAt: Math.max(...valid.map(entry => Number(entry.fetchedAt)).filter(Number.isFinite)),
+    errors: valid.flatMap(entry => entry.errors ?? []),
+  };
+}
+
+function alignByDate(left, right) {
+  const rightByDate = new Map((right ?? []).map(point => [point.date, point.value]));
+  const pairs = (left ?? []).flatMap(point => (
+    rightByDate.has(point.date) && Number.isFinite(point.value) && Number.isFinite(rightByDate.get(point.date))
+      ? [{ date: point.date, left: point.value, right: rightByDate.get(point.date) }]
+      : []
+  ));
+  return {
+    left: pairs.map(point => point.left),
+    right: pairs.map(point => point.right),
+  };
+}
+
+function marginChangePercentile(points, lag = 20) {
+  if (!Array.isArray(points) || points.length <= lag) return null;
+  const changes = [];
+  for (let index = lag; index < points.length; index += 1) {
+    const current = points[index]?.value;
+    const previous = points[index - lag]?.value;
+    if (Number.isFinite(current) && Number.isFinite(previous) && previous !== 0) {
+      changes.push((current / previous - 1) * 100);
+    }
+  }
+  return changes.length ? percentileRank(changes, changes.at(-1)) : null;
+}
+
+function metricMeta(snapshot, ...domainIds) {
+  return combineMeta(...domainIds.map(id => domain(snapshot, id)));
+}
+
+function createMetric({ id, layer, label, value = null, percentile = null, score = null, weight, formula, meta, unit = '' }) {
+  return { id, layer, label, value, percentile, score, weight, formula, unit, ...meta };
+}
+
+function deriveDashboard(snapshot, windowYears = 5) {
+  const shanghai = usableData(snapshot, 'shanghaiHistory');
+  const csi300 = usableData(snapshot, 'csi300History');
+  const csiAll = usableData(snapshot, 'csiAllHistory');
+  const positions = {
+    shanghai: Array.isArray(shanghai) ? calculatePositionMetric(shanghai, windowYears) : null,
+    csi300: Array.isArray(csi300) ? calculatePositionMetric(csi300, windowYears) : null,
+    csiAll: Array.isArray(csiAll) ? calculatePositionMetric(csiAll, windowYears) : null,
+  };
+
+  const csi300Stats = usableData(snapshot, 'csi300Stats') ?? [];
+  const forwardPePoints = usableData(snapshot, 'forwardPe') ?? [];
+  const treasuryPoints = usableData(snapshot, 'treasury') ?? [];
+  const alignedForward = alignByDate(forwardPePoints, treasuryPoints);
+  const valuation = calculateValuationMetrics({
+    ttmPeHistory: csi300Stats.map(point => point.ttmPe),
+    forwardPeHistory: alignedForward.left,
+    bond10yHistory: alignedForward.right,
+  });
+
+  const market = usableData(snapshot, 'market');
+  const turnoverHistory = usableData(snapshot, 'turnoverHistory') ?? [];
+  const turnoverValues = turnoverHistory.map(point => point.value).filter(Number.isFinite);
+  const turnoverPercentile = market && Number.isFinite(market.turnover) && turnoverValues.length
+    ? percentileRank([...turnoverValues, market.turnover], market.turnover)
+    : null;
+  const marginPercentile = marginChangePercentile(usableData(snapshot, 'margin'));
+  const greed = calculateGreedMetrics({
+    advancers: market?.advancers,
+    decliners: market?.decliners,
+    limitUp: market?.limitUp,
+    limitDown: market?.limitDown,
+    turnoverPercentile,
+    marginChangePercentile: marginPercentile,
+  });
+
+  const metrics = [
+    createMetric({ id: 'positionShanghai', layer: 'position', label: '上证指数趋势偏离', value: positions.shanghai?.deviation * 100, percentile: positions.shanghai?.percentile, score: positions.shanghai?.score, weight: BASE_WEIGHTS.positionShanghai, formula: '收盘价 ÷ MA250 - 1；得分 = 100 - 历史分位', meta: metricMeta(snapshot, 'shanghaiHistory'), unit: '%' }),
+    createMetric({ id: 'positionCsi300', layer: 'position', label: '沪深300趋势偏离', value: positions.csi300?.deviation * 100, percentile: positions.csi300?.percentile, score: positions.csi300?.score, weight: BASE_WEIGHTS.positionCsi300, formula: '收盘价 ÷ MA250 - 1；得分 = 100 - 历史分位', meta: metricMeta(snapshot, 'csi300History'), unit: '%' }),
+    createMetric({ id: 'positionCsiAll', layer: 'position', label: '中证全指趋势偏离', value: positions.csiAll?.deviation * 100, percentile: positions.csiAll?.percentile, score: positions.csiAll?.score, weight: BASE_WEIGHTS.positionCsiAll, formula: '收盘价 ÷ MA250 - 1；得分 = 100 - 历史分位', meta: metricMeta(snapshot, 'csiAllHistory'), unit: '%' }),
+    createMetric({ id: 'ttmPe', layer: 'valuation', label: '沪深300 TTM PE', value: valuation.ttmPe?.value, percentile: valuation.ttmPe?.percentile, score: valuation.ttmPe?.score, weight: BASE_WEIGHTS.ttmPe, formula: '得分 = 100 - TTM PE 历史分位', meta: metricMeta(snapshot, 'csi300Stats'), unit: '倍' }),
+    createMetric({ id: 'forwardEarningsYield', layer: 'valuation', label: '前瞻盈利收益率', value: valuation.forwardEarningsYield?.value, percentile: valuation.forwardEarningsYield?.percentile, score: valuation.forwardEarningsYield?.score, weight: BASE_WEIGHTS.forwardEarningsYield, formula: '100 ÷ 沪深300前瞻PE', meta: metricMeta(snapshot, 'forwardPe'), unit: '%' }),
+    createMetric({ id: 'erp', layer: 'valuation', label: '股权风险溢价 ERP', value: valuation.erp?.value, percentile: valuation.erp?.percentile, score: valuation.erp?.score, weight: BASE_WEIGHTS.erp, formula: '前瞻盈利收益率 - 中国10年期国债收益率', meta: metricMeta(snapshot, 'forwardPe', 'treasury'), unit: '个百分点' }),
+    createMetric({ id: 'breadth', layer: 'emotion', label: '上涨家数占比', value: greed.components.breadth.score, percentile: greed.components.breadth.score, score: Number.isFinite(greed.components.breadth.score) ? 100 - greed.components.breadth.score : null, weight: BASE_WEIGHTS.breadth, formula: '上涨家数 ÷ (上涨家数 + 下跌家数)', meta: metricMeta(snapshot, 'market'), unit: '%' }),
+    createMetric({ id: 'limitBalance', layer: 'emotion', label: '涨停/跌停强弱', value: greed.components.limitBalance.score, percentile: greed.components.limitBalance.score, score: Number.isFinite(greed.components.limitBalance.score) ? 100 - greed.components.limitBalance.score : null, weight: BASE_WEIGHTS.limitBalance, formula: '涨停数 ÷ (涨停数 + 跌停数)', meta: metricMeta(snapshot, 'market'), unit: '%' }),
+    createMetric({ id: 'turnover', layer: 'emotion', label: '全市场成交额分位', value: market?.turnover, percentile: turnoverPercentile, score: Number.isFinite(turnoverPercentile) ? 100 - turnoverPercentile : null, weight: BASE_WEIGHTS.turnover, formula: '当日沪深A股成交额的历史分位', meta: metricMeta(snapshot, 'market', 'turnoverHistory'), unit: '元' }),
+    createMetric({ id: 'margin', layer: 'emotion', label: '融资余额20日变化分位', value: marginPercentile, percentile: marginPercentile, score: Number.isFinite(marginPercentile) ? 100 - marginPercentile : null, weight: BASE_WEIGHTS.margin, formula: '融资余额20日变化率的历史分位', meta: metricMeta(snapshot, 'margin'), unit: '%' }),
+  ];
+
+  const score = calculateWeightedScore(metrics.map(metric => ({ id: metric.id, score: metric.score, weight: metric.weight })));
+  const scoreById = new Map(score.items.map(item => [item.id, item]));
+  const enrichedMetrics = metrics.map(metric => ({ ...metric, ...scoreById.get(metric.id) }));
+  const layers = Object.fromEntries(Object.entries(LAYER_META).map(([id, meta]) => {
+    const layerScore = calculateWeightedScore(metrics.filter(metric => metric.layer === id).map(metric => ({ id: metric.id, score: metric.score, weight: metric.weight })));
+    return [id, {
+      id,
+      ...meta,
+      score: layerScore.score,
+      coverage: meta.targetWeight ? clamp(layerScore.coverage / meta.targetWeight * 100) : 0,
+    }];
+  }));
+
+  return {
+    mode: snapshot?.mode ?? 'live',
+    generatedAt: snapshot?.generatedAt ?? new Date().toISOString(),
+    windowYears,
+    positions,
+    valuation,
+    greed,
+    metrics: enrichedMetrics,
+    layers,
+    score,
+    conclusion: conclusionForScore(score.score, score.coverage),
+  };
+}
+
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>'"]/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[character]);
+}
+
+function formatNumber(value, digits = 1) {
+  return Number.isFinite(value) ? new Intl.NumberFormat('zh-CN', { maximumFractionDigits: digits }).format(value) : '—';
+}
+
+function formatValue(metric) {
+  if (!Number.isFinite(metric.value)) return '—';
+  if (metric.id === 'turnover') return `${formatNumber(metric.value / 100_000_000, 0)} 亿`;
+  return `${formatNumber(metric.value, 2)}${metric.unit && metric.unit !== '元' ? ` ${metric.unit}` : ''}`;
+}
+
+function formatTime(value) {
+  const timestamp = Number(value);
+  return Number.isFinite(timestamp) ? new Intl.DateTimeFormat('zh-CN', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Shanghai' }).format(timestamp) : '—';
+}
+
+function metricStatus(metric) {
+  return Number.isFinite(metric.score) ? metric.status : 'missing';
+}
+
+function detailCard(metric) {
+  const status = metricStatus(metric);
+  return `<article class="detail-card">
+    <div class="detail-top"><h3>${escapeHtml(metric.label)}</h3><span class="status-badge is-${status}">${STATUS_LABELS[status] ?? status}</span></div>
+    <div class="detail-data">
+      <div><small>原始值</small><strong>${formatValue(metric)}</strong></div>
+      <div><small>历史分位</small><strong>${formatNumber(metric.percentile, 1)}%</strong></div>
+      <div><small>买点得分</small><strong>${formatNumber(metric.score, 1)}</strong></div>
+      <div><small>有效权重</small><strong>${formatNumber(metric.effectiveWeight, 1)}%</strong></div>
+      <div><small>数据来源</small><strong>${escapeHtml(metric.source)}</strong></div>
+      <div><small>数据时间</small><strong>${formatTime(metric.dataAt)}</strong></div>
+    </div>
+    <p class="formula">${escapeHtml(metric.formula)}</p>
+  </article>`;
+}
+
+function renderDerived(derived) {
+  const byId = id => document.getElementById(id);
+  const scoreValue = derived.score.score;
+  byId('conclusion-label').textContent = derived.conclusion.label;
+  byId('conclusion-detail').textContent = derived.conclusion.actionable
+    ? '这是历史赔率判断，不是短期涨跌预测；按既定仓位规则分批执行。'
+    : '有效数据覆盖率低于 70%，当前分数仅供试算，不输出行动性结论。';
+  byId('score-value').textContent = formatNumber(scoreValue, 1);
+  byId('coverage-value').textContent = `覆盖率 ${formatNumber(derived.score.coverage, 1)}%`;
+  byId('data-mode').textContent = derived.mode === 'example' ? '示例' : '联网';
+  byId('temperature-title').textContent = derived.conclusion.label;
+  byId('temperature-updated').textContent = `统计窗口 ${derived.windowYears} 年`;
+  byId('temperature-marker').style.setProperty('--position', `${Number.isFinite(scoreValue) ? clamp(100 - scoreValue) : 50}%`);
+
+  byId('layer-scores').innerHTML = Object.values(derived.layers).map(layer => `<article class="layer-card">
+    <div class="layer-head"><div><strong>${layer.label}</strong><span> · ${layer.targetWeight}%</span></div><strong>${formatNumber(layer.score, 1)}</strong></div>
+    <div class="layer-rule"><span style="--score:${Number.isFinite(layer.score) ? clamp(layer.score) : 0}%"></span></div>
+    <p>${layer.description} · 层内覆盖 ${formatNumber(layer.coverage, 0)}%</p>
+  </article>`).join('');
+
+  byId('metric-list').innerHTML = derived.metrics.map(metric => {
+    const missing = !Number.isFinite(metric.score);
+    return `<article class="metric-row${missing ? ' is-missing' : ''}">
+      <div class="metric-name"><strong>${escapeHtml(metric.label)}</strong><small>${escapeHtml(metric.formula)}</small></div>
+      <div class="metric-scale" aria-label="${escapeHtml(metric.label)}历史分位 ${formatNumber(metric.percentile, 1)}%"><span class="metric-marker" style="--position:${Number.isFinite(metric.percentile) ? clamp(metric.percentile) : 50}%"></span></div>
+      <div class="metric-value"><strong>${formatValue(metric)}</strong><small>当前值</small></div>
+      <div class="metric-score"><strong>${formatNumber(metric.score, 1)}</strong><small>买点得分</small></div>
+    </article>`;
+  }).join('');
+
+  for (const layer of ['position', 'valuation', 'emotion']) {
+    byId(`${layer}-details`).innerHTML = derived.metrics.filter(metric => metric.layer === layer).map(detailCard).join('');
+  }
+  byId('rules-weights').innerHTML = derived.metrics.map(metric => `<div class="weight-row"><span>${escapeHtml(metric.label)}</span><strong>${metric.weight}%</strong></div>`).join('');
+  const validCount = derived.metrics.filter(metric => Number.isFinite(metric.score)).length;
+  const errors = [...new Set(derived.metrics.flatMap(metric => metric.errors ?? []))];
+  byId('audit-summary').innerHTML = `
+    <div><small>规则版本</small><strong>v1.0</strong></div>
+    <div><small>有效指标</small><strong>${validCount} / ${derived.metrics.length}</strong></div>
+    <div><small>有效覆盖率</small><strong>${formatNumber(derived.score.coverage, 1)}%</strong></div>
+    <div><small>接口错误</small><strong>${errors.length}</strong></div>`;
+  byId('audit-errors').innerHTML = errors.length
+    ? `<ul>${errors.map(error => `<li>${escapeHtml(error)}</li>`).join('')}</ul>`
+    : '';
+  byId('audit-table-body').innerHTML = derived.metrics.map(metric => `<tr>
+    <td>${escapeHtml(metric.label)}</td><td>${STATUS_LABELS[metricStatus(metric)] ?? metricStatus(metric)}</td><td>${escapeHtml(metric.source)}</td>
+    <td>${formatTime(metric.dataAt)}</td><td>${metric.weight}%</td><td>${formatNumber(metric.effectiveWeight, 1)}%</td><td>${formatNumber(metric.contribution, 2)}</td>
+  </tr>`).join('');
+  byId('sidebar-valid').textContent = `${validCount} / ${derived.metrics.length} 项有效`;
+  byId('sidebar-updated').textContent = formatTime(Math.max(...derived.metrics.map(metric => Number(metric.fetchedAt)).filter(Number.isFinite)));
+  byId('sidebar-status').textContent = derived.mode === 'example' ? '示例数据' : derived.score.coverage >= 70 ? '数据可判断' : '数据不完整';
+  byId('sidebar-status-dot').className = `status-dot ${derived.mode !== 'example' && derived.score.coverage >= 70 ? 'is-live' : derived.mode !== 'example' ? 'is-error' : ''}`;
+}
+
+function isTradingSession(date = new Date()) {
+  const parts = Object.fromEntries(new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Shanghai', weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23',
+  }).formatToParts(date).map(part => [part.type, part.value]));
+  if (['Sat', 'Sun'].includes(parts.weekday)) return false;
+  const minutes = Number(parts.hour) * 60 + Number(parts.minute);
+  return (minutes >= 570 && minutes <= 690) || (minutes >= 780 && minutes <= 900);
+}
+
+function startApp() {
+  const state = { snapshot: EXAMPLE_SNAPSHOT, windowYears: 5, busy: false };
+  const notice = document.getElementById('global-notice');
+  const refreshButton = document.getElementById('refresh-data');
+  const exampleToggle = document.getElementById('example-mode');
+
+  const render = () => {
+    const derived = deriveDashboard(state.snapshot, state.windowYears);
+    renderDerived(derived);
+    document.querySelectorAll('[data-window]').forEach(button => button.setAttribute('aria-pressed', String(Number(button.dataset.window) === state.windowYears)));
+  };
+
+  const refreshLive = async (domainIds = null) => {
+    if (state.busy) return;
+    state.busy = true;
+    refreshButton.disabled = true;
+    refreshButton.textContent = '刷新中…';
+    notice.className = 'notice';
+    notice.textContent = '正在独立刷新行情、估值、国债、成交额与融资数据；失败项不会阻塞其他指标。';
+    try {
+      const definitions = createDefaultDomainDefinitions().filter(definition => !domainIds || domainIds.includes(definition.id));
+      const refreshed = await refreshDomains(definitions, { storage: globalThis.localStorage, now: Date.now });
+      const domains = state.snapshot.mode === 'live' && domainIds
+        ? { ...state.snapshot.domains, ...refreshed }
+        : refreshed;
+      const usableCount = Object.values(domains).filter(entry => ['latest', 'snapshot'].includes(entry.status)).length;
+      if (!usableCount) {
+        exampleToggle.checked = true;
+        notice.className = 'notice is-error';
+        notice.textContent = '公开接口均不可用，继续显示明确标记的示例数据；没有把示例值写入真实缓存。';
+      } else {
+        state.snapshot = { mode: 'live', generatedAt: new Date().toISOString(), domains };
+        exampleToggle.checked = false;
+        notice.className = usableCount === Object.keys(domains).length ? 'notice is-live' : 'notice';
+        notice.textContent = `联网刷新完成：${usableCount} / ${Object.keys(domains).length} 个数据域可用。缺失项已退出评分并重算有效权重。`;
+        render();
+      }
+    } catch (error) {
+      notice.className = 'notice is-error';
+      notice.textContent = `刷新失败：${error instanceof Error ? error.message : String(error)}。当前显示保持不变。`;
+    } finally {
+      state.busy = false;
+      refreshButton.disabled = false;
+      refreshButton.textContent = '刷新数据';
+    }
+  };
+
+  document.querySelectorAll('[data-window]').forEach(button => button.addEventListener('click', () => {
+    state.windowYears = Number(button.dataset.window);
+    render();
+  }));
+  document.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => {
+    document.querySelectorAll('[data-view]').forEach(item => { item.classList.toggle('is-active', item === button); item.removeAttribute('aria-current'); });
+    button.setAttribute('aria-current', 'page');
+    document.querySelectorAll('.view').forEach(view => view.classList.toggle('is-active', view.id === button.dataset.view));
+    document.getElementById('page-title').textContent = button.textContent.replace(/^\d+/, '').trim();
+    document.getElementById('sidebar').classList.remove('is-open');
+    document.getElementById('nav-toggle').setAttribute('aria-expanded', 'false');
+  }));
+  document.getElementById('nav-toggle').addEventListener('click', event => {
+    const open = document.getElementById('sidebar').classList.toggle('is-open');
+    event.currentTarget.setAttribute('aria-expanded', String(open));
+  });
+  exampleToggle.addEventListener('change', () => {
+    if (exampleToggle.checked) {
+      state.snapshot = EXAMPLE_SNAPSHOT;
+      notice.className = 'notice';
+      notice.textContent = '示例数据模式已开启；所有数值均为演示，不写入真实数据缓存。';
+      render();
+    } else {
+      refreshLive();
+    }
+  });
+  refreshButton.addEventListener('click', () => refreshLive());
+
+  render();
+  refreshLive();
+  setInterval(() => {
+    if (isTradingSession() && state.snapshot.mode === 'live') {
+      refreshLive(['shanghaiHistory', 'csi300History', 'csiAllHistory']);
+    }
+  }, 60_000);
+  setInterval(() => {
+    if (isTradingSession() && state.snapshot.mode === 'live') refreshLive(['market']);
+  }, 300_000);
+}
+
+if (typeof document !== 'undefined') {
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', startApp, { once: true });
+  else startApp();
+}
+</script>
+</body>
+</html>
