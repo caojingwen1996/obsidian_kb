@@ -97,5 +97,7 @@ test('live domain definitions include turnover history and an explicit missing f
   const ids = definitions.map(definition => definition.id);
   assert.ok(ids.includes('turnoverHistory'));
   assert.ok(ids.includes('forwardPe'));
+  assert.equal(definitions.find(definition => definition.id === 'csi300History').providers.length, 2);
+  assert.equal(definitions.find(definition => definition.id === 'csiAllHistory').providers.length, 2);
   assert.equal(definitions.find(definition => definition.id === 'forwardPe').providers.length, 0);
 });

@@ -10,6 +10,7 @@ import {
 } from './core.mjs';
 import {
   EXAMPLE_SNAPSHOT,
+  createMemoryStorage,
   createDefaultDomainDefinitions,
   refreshDomains,
 } from './data-service.mjs';
@@ -258,8 +259,21 @@ export function isTradingSession(date = new Date()) {
   return (minutes >= 570 && minutes <= 690) || (minutes >= 780 && minutes <= 900);
 }
 
+export function resolveStorage(getStorage = () => globalThis.localStorage) {
+  try {
+    const storage = getStorage();
+    const probe = '__a_share_dashboard_probe__';
+    storage.setItem(probe, '1');
+    storage.removeItem(probe);
+    return storage;
+  } catch {
+    return createMemoryStorage();
+  }
+}
+
 function startApp() {
   const state = { snapshot: EXAMPLE_SNAPSHOT, windowYears: 5, busy: false };
+  const storage = resolveStorage();
   const notice = document.getElementById('global-notice');
   const refreshButton = document.getElementById('refresh-data');
   const exampleToggle = document.getElementById('example-mode');
@@ -279,7 +293,7 @@ function startApp() {
     notice.textContent = '正在独立刷新行情、估值、国债、成交额与融资数据；失败项不会阻塞其他指标。';
     try {
       const definitions = createDefaultDomainDefinitions().filter(definition => !domainIds || domainIds.includes(definition.id));
-      const refreshed = await refreshDomains(definitions, { storage: globalThis.localStorage, now: Date.now });
+      const refreshed = await refreshDomains(definitions, { storage, now: Date.now });
       const domains = state.snapshot.mode === 'live' && domainIds
         ? { ...state.snapshot.domains, ...refreshed }
         : refreshed;

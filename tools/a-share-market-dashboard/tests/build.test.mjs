@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 import { createExampleSnapshot } from '../src/data-service.mjs';
-import { deriveDashboard } from '../src/app.mjs';
+import { deriveDashboard, resolveStorage } from '../src/app.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const sourcePath = join(here, '..', 'src', 'index.html');
@@ -67,4 +67,10 @@ test('built artifact is self-contained and directly openable', () => {
   assert.match(output, /<script type="module">[\s\S]+<\/script>/);
   assert.match(output, /A股温度计/);
   assert.ok(Buffer.byteLength(output, 'utf8') < 2_000_000);
+});
+
+test('file-protocol storage restrictions fall back to an in-memory cache', () => {
+  const storage = resolveStorage(() => { throw new Error('SecurityError'); });
+  storage.setItem('key', 'value');
+  assert.equal(storage.getItem('key'), 'value');
 });

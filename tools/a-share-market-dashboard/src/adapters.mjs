@@ -17,6 +17,13 @@ function finiteNumber(value) {
   return Number.isFinite(number) ? number : null;
 }
 
+function normalizeDate(value) {
+  const text = String(value ?? '');
+  return /^\d{8}$/.test(text)
+    ? `${text.slice(0, 4)}-${text.slice(4, 6)}-${text.slice(6, 8)}`
+    : text.slice(0, 10);
+}
+
 export function buildEastmoneyKlineUrl(secid, limit = 3000) {
   const url = new URL('https://push2his.eastmoney.com/api/qt/stock/kline/get');
   url.search = new URLSearchParams({
@@ -83,9 +90,13 @@ export function parseCsindexPerformance(payload) {
   return rows.flatMap(row => {
     const date = Array.isArray(row) ? row[0] : row.tradeDate ?? row.date ?? row.trade_date;
     const close = finiteNumber(Array.isArray(row) ? row[9] : row.close ?? row.closePrice);
-    const ttmPe = finiteNumber(Array.isArray(row) ? row[15] : row.rollingPES ?? row.rollingPE ?? row.rollingPe);
-    const turnover = finiteNumber(Array.isArray(row) ? row[13] : row.tradingAmount ?? row.turnover ?? row.amount);
-    return date && close !== null ? [{ date: String(date).slice(0, 10), close, ttmPe, turnover }] : [];
+    const ttmPe = finiteNumber(Array.isArray(row) ? row[15] : row.rollingPES ?? row.rollingPE ?? row.rollingPe ?? row.peg);
+    const reportedTradingValue = finiteNumber(Array.isArray(row) ? row[13] : row.tradingValue);
+    const nativeTurnover = Array.isArray(row)
+      ? null
+      : finiteNumber(row.tradingAmount ?? row.turnover ?? row.amount);
+    const turnover = reportedTradingValue === null ? nativeTurnover : reportedTradingValue * 100_000_000;
+    return date && close !== null ? [{ date: normalizeDate(date), close, ttmPe, turnover }] : [];
   });
 }
 

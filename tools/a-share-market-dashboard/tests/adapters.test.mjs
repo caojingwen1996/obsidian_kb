@@ -35,7 +35,19 @@ test('CSI index performance parser keeps close, rolling PE, and turnover from ob
 test('CSI index performance parser supports the documented positional rows', () => {
   const row = ['2026-07-17', '000300', '', '', '', '', '', '', '', '4000', '', '', '', '123456', '', '12.5'];
   assert.deepEqual(parseCsindexPerformance({ data: [row] }), [
-    { date: '2026-07-17', close: 4000, ttmPe: 12.5, turnover: 123456 },
+    { date: '2026-07-17', close: 4000, ttmPe: 12.5, turnover: 12_345_600_000_000 },
+  ]);
+});
+
+test('CSI index performance parser supports the current live peg and tradingValue fields', () => {
+  const row = {
+    tradeDate: '20260701',
+    close: 4958.98,
+    peg: 14.75,
+    tradingValue: 11017.18,
+  };
+  assert.deepEqual(parseCsindexPerformance({ data: [row] }), [
+    { date: '2026-07-01', close: 4958.98, ttmPe: 14.75, turnover: 1_101_718_000_000 },
   ]);
 });
 

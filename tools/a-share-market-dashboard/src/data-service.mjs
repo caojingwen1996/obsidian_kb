@@ -176,17 +176,25 @@ export function createDefaultDomainDefinitions(nowDate = new Date()) {
   start.setUTCFullYear(start.getUTCFullYear() - 12);
   const startDate = compactDate(start);
   const endDate = compactDate(nowDate);
-  const historyDefinition = (id, secid, sourceName) => ({
+  const historyDefinition = (id, secid, sourceName, csiCode = null) => ({
     id,
-    providers: [{ name: sourceName, load: () => loadIndexHistory(secid, 3000), dataAt: lastPointTime }],
+    providers: [
+      { name: sourceName, load: () => loadIndexHistory(secid, 3000), dataAt: lastPointTime },
+      ...(csiCode ? [{
+        name: `${SOURCES.csindex.name} ${csiCode}`,
+        load: async () => (await loadCsindexPerformance(startDate, endDate, csiCode))
+          .map(({ date, close }) => ({ date, close })),
+        dataAt: lastPointTime,
+      }] : []),
+    ],
     validate: data => Array.isArray(data) && data.length >= 250,
     maxAgeMs: 36 * 60 * 60 * 1000,
   });
 
   return [
     historyDefinition('shanghaiHistory', INDEX_IDS.shanghai, SOURCES.eastmoneyKline.name),
-    historyDefinition('csi300History', INDEX_IDS.csi300, SOURCES.eastmoneyKline.name),
-    historyDefinition('csiAllHistory', INDEX_IDS.csiAll, SOURCES.eastmoneyKline.name),
+    historyDefinition('csi300History', INDEX_IDS.csi300, SOURCES.eastmoneyKline.name, '000300'),
+    historyDefinition('csiAllHistory', INDEX_IDS.csiAll, SOURCES.eastmoneyKline.name, '000985'),
     {
       id: 'csi300Stats',
       providers: [{ name: SOURCES.csindex.name, load: () => loadCsindexPerformance(startDate, endDate), dataAt: lastPointTime }],

@@ -494,6 +494,13 @@ function finiteNumber(value) {
   return Number.isFinite(number) ? number : null;
 }
 
+function normalizeDate(value) {
+  const text = String(value ?? '');
+  return /^\d{8}$/.test(text)
+    ? `${text.slice(0, 4)}-${text.slice(4, 6)}-${text.slice(6, 8)}`
+    : text.slice(0, 10);
+}
+
 function buildEastmoneyKlineUrl(secid, limit = 3000) {
   const url = new URL('https://push2his.eastmoney.com/api/qt/stock/kline/get');
   url.search = new URLSearchParams({
@@ -560,9 +567,13 @@ function parseCsindexPerformance(payload) {
   return rows.flatMap(row => {
     const date = Array.isArray(row) ? row[0] : row.tradeDate ?? row.date ?? row.trade_date;
     const close = finiteNumber(Array.isArray(row) ? row[9] : row.close ?? row.closePrice);
-    const ttmPe = finiteNumber(Array.isArray(row) ? row[15] : row.rollingPES ?? row.rollingPE ?? row.rollingPe);
-    const turnover = finiteNumber(Array.isArray(row) ? row[13] : row.tradingAmount ?? row.turnover ?? row.amount);
-    return date && close !== null ? [{ date: String(date).slice(0, 10), close, ttmPe, turnover }] : [];
+    const ttmPe = finiteNumber(Array.isArray(row) ? row[15] : row.rollingPES ?? row.rollingPE ?? row.rollingPe ?? row.peg);
+    const reportedTradingValue = finiteNumber(Array.isArray(row) ? row[13] : row.tradingValue);
+    const nativeTurnover = Array.isArray(row)
+      ? null
+      : finiteNumber(row.tradingAmount ?? row.turnover ?? row.amount);
+    const turnover = reportedTradingValue === null ? nativeTurnover : reportedTradingValue * 100_000_000;
+    return date && close !== null ? [{ date: normalizeDate(date), close, ttmPe, turnover }] : [];
   });
 }
 
@@ -860,17 +871,25 @@ function createDefaultDomainDefinitions(nowDate = new Date()) {
   start.setUTCFullYear(start.getUTCFullYear() - 12);
   const startDate = compactDate(start);
   const endDate = compactDate(nowDate);
-  const historyDefinition = (id, secid, sourceName) => ({
+  const historyDefinition = (id, secid, sourceName, csiCode = null) => ({
     id,
-    providers: [{ name: sourceName, load: () => loadIndexHistory(secid, 3000), dataAt: lastPointTime }],
+    providers: [
+      { name: sourceName, load: () => loadIndexHistory(secid, 3000), dataAt: lastPointTime },
+      ...(csiCode ? [{
+        name: `${SOURCES.csindex.name} ${csiCode}`,
+        load: async () => (await loadCsindexPerformance(startDate, endDate, csiCode))
+          .map(({ date, close }) => ({ date, close })),
+        dataAt: lastPointTime,
+      }] : []),
+    ],
     validate: data => Array.isArray(data) && data.length >= 250,
     maxAgeMs: 36 * 60 * 60 * 1000,
   });
 
   return [
     historyDefinition('shanghaiHistory', INDEX_IDS.shanghai, SOURCES.eastmoneyKline.name),
-    historyDefinition('csi300History', INDEX_IDS.csi300, SOURCES.eastmoneyKline.name),
-    historyDefinition('csiAllHistory', INDEX_IDS.csiAll, SOURCES.eastmoneyKline.name),
+    historyDefinition('csi300History', INDEX_IDS.csi300, SOURCES.eastmoneyKline.name, '000300'),
+    historyDefinition('csiAllHistory', INDEX_IDS.csiAll, SOURCES.eastmoneyKline.name, '000985'),
     {
       id: 'csi300Stats',
       providers: [{ name: SOURCES.csindex.name, load: () => loadCsindexPerformance(startDate, endDate), dataAt: lastPointTime }],
@@ -1163,8 +1182,21 @@ function isTradingSession(date = new Date()) {
   return (minutes >= 570 && minutes <= 690) || (minutes >= 780 && minutes <= 900);
 }
 
+function resolveStorage(getStorage = () => globalThis.localStorage) {
+  try {
+    const storage = getStorage();
+    const probe = '__a_share_dashboard_probe__';
+    storage.setItem(probe, '1');
+    storage.removeItem(probe);
+    return storage;
+  } catch {
+    return createMemoryStorage();
+  }
+}
+
 function startApp() {
   const state = { snapshot: EXAMPLE_SNAPSHOT, windowYears: 5, busy: false };
+  const storage = resolveStorage();
   const notice = document.getElementById('global-notice');
   const refreshButton = document.getElementById('refresh-data');
   const exampleToggle = document.getElementById('example-mode');
@@ -1184,7 +1216,7 @@ function startApp() {
     notice.textContent = '正在独立刷新行情、估值、国债、成交额与融资数据；失败项不会阻塞其他指标。';
     try {
       const definitions = createDefaultDomainDefinitions().filter(definition => !domainIds || domainIds.includes(definition.id));
-      const refreshed = await refreshDomains(definitions, { storage: globalThis.localStorage, now: Date.now });
+      const refreshed = await refreshDomains(definitions, { storage, now: Date.now });
       const domains = state.snapshot.mode === 'live' && domainIds
         ? { ...state.snapshot.domains, ...refreshed }
         : refreshed;
