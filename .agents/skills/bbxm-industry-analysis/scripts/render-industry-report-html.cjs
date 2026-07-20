@@ -53,7 +53,8 @@ function normalizeObsidianLinks(markdown, outputPath, vaultRoot) {
     const normalized = target.trim().replace(/\\/g, '/');
     const extension = path.extname(normalized);
     const sourcePath = path.resolve(vaultRoot, extension ? normalized : `${normalized}.md`);
-    const linkedPath = sourcePath.replace(/\.md$/i, '.html');
+    const isWorkbenchReport = normalized.startsWith('workbench/targets/');
+    const linkedPath = isWorkbenchReport ? sourcePath : sourcePath.replace(/\.md$/i, '.html');
     let relative = path.relative(path.dirname(outputPath), linkedPath).replace(/\\/g, '/');
     if (!relative.startsWith('.')) relative = `./${relative}`;
     if (anchor) relative += `#${encodeURIComponent(anchor.trim())}`;
