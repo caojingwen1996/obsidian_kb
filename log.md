@@ -14867,3 +14867,34 @@ migrate / refactor / link / contract
 
 - 航天电子（600879）目前仍只有历史 HTML，Markdown 权威研报待补。
 - `validate_bbxm_project_skills.py` 仍有与本次目录迁移无关的既有失败：`bbxm-industry-analysis` 缺少 `完整读取当前版本` 合同标记；本次未处理。
+
+## 2026-07-20
+
+### 操作类型
+
+link / contract / render / test
+
+### 修改文件
+
+- `wiki/queries/2026-07-17-商业航天产业完整分析报告.md`
+- `wiki/queries/2026-07-17-商业航天产业完整分析报告.html`
+- `sources/automations/商业航天每日跟踪/商业航天产业完整分析报告.html`
+- `.agents/skills/bbxm-industry-analysis/SKILL.md`
+- `.agents/skills/bbxm-industry-analysis/template.md`
+- `.agents/skills/bbxm-industry-analysis/scripts/render-industry-report-html.cjs`
+- `.agents/skills/bbxm-industry-analysis/scripts/test-render-industry-report-html.cjs`
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `tests/validate_bbxm_project_skills.py`
+- `log.md`
+
+### 操作说明
+
+在商业航天产业报告的“核心任务与订单承载主体”和“159218成分股产业链位置与纯度”两张表中，将已有研报的公司名称改为可点击链接，共 25 处、对应 18 个唯一研报目标；没有研报的公司继续保留普通文本。公司全称显示不缩写，多公司单元格逐家公司链接。
+
+将未来产业报告的链接规则固化为“证券代码唯一匹配、HTML 优先、Markdown 回退、无研报不链接”，并明确研报只作为企业研究入口，不改变产业分析口径。渲染器保留 Workbench Markdown 目标，避免改写为不存在的 HTML；项目合同验证同时纳入产业报告模板。
+
+从同一 Markdown 重建 Wiki 与自动化目录两份 HTML。验证结果：两份报告正文在统一链接目标后完全一致，均含 0—7 章、25 处研报链接、18 个真实存在的唯一目标，无未解析双链或替换字符；产业报告渲染测试、项目技能合同测试和 Workbench 边界测试均通过。
+
+### 后续待办
+
+- 其余 34 家 159218 成分股待生成权威研报后，再按相同规则补链。
