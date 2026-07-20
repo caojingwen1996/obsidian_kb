@@ -14581,3 +14581,36 @@ update / query
 
 - [2026-07-19T19:46:41+0800] QUERY query="国产算力与国产大模型是否属于新兴支柱产业" result_pages=6 mode=normal escalated=false
 - [2026-07-19T19:59:00+0800] QUERY query="找出冰冰小美对铜铝分析的原文" result_pages=2 mode=normal escalated=false
+
+## 2026-07-20
+
+### 操作类型
+
+migrate / refactor / link / contract
+
+### 修改文件
+
+- `AGENTS.md`
+- `SCHEMA.md`
+- `page-types.md`
+- `templates/README.md`
+- `.agents/skills/bbxm-equity-research/`
+- `tests/validate_workbench_boundary.py`
+- `tests/validate_bbxm_project_skills.py`
+- `workbench/`
+- `index.md`
+- `hot.md`
+- `.obsidian/graph.json`
+- 受迁移影响的 Wiki 双链页面
+- `sources/automations/商业航天每日跟踪/` 与 `sources/automations/支柱产业/` 中的历史研究产物
+
+### 操作说明
+
+建立与 `wiki/` 同级的投资研究 `workbench/`，明确冰冰小美稳定知识进入 Wiki、具体标的研报和动态跟踪进入 Workbench。将原 `wiki/queries/` 中 14 份个股机构级研报迁入对应标的目录，并把自动化目录中的 41 个历史研报、HTML 和资金分析产物归档到各标的 `reports/` 或 `outputs/`。根索引移除个股研报入口，Workbench 总索引现覆盖 30 个标的；其中共有 29 份可编辑 Markdown 研报、25 份 HTML 输出和 1 份保留的三安光电原始 Markdown 副本。
+
+同步修改 `bbxm-equity-research` 的落盘契约，使后续研报默认写入 `workbench/targets/<证券代码>-<公司简称>/reports/`，并更新标的索引与 Workbench 索引，不再更新根 `index.md`。Obsidian 默认图谱查询加入 `-path:"workbench"`，避免动态标的研究稀释正式 Wiki 图谱。
+
+### 后续待办
+
+- 航天电子（600879）目前只定位到历史 HTML 输出，未定位到同源 Markdown；后续应补档或重新生成权威研报。
+- 中国中车等标的出现影响操作逻辑的新公告时，写入对应 `tracking/YYYY-MM-DD-事件.md`，并在标的 `index.md` 更新最近节点。
