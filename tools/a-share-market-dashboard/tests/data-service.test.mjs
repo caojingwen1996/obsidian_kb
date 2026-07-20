@@ -8,6 +8,22 @@ import {
   createExampleSnapshot,
   createDefaultDomainDefinitions,
 } from '../src/data-service.mjs';
+import { resolveTreeNavigation } from '../src/app.mjs';
+
+test('tree navigation restores the last view for a domain and rejects unknown domains', () => {
+  assert.deepEqual(
+    resolveTreeNavigation({ thermometer: 'position-view', industry: 'industry-emerging' }, 'industry'),
+    { domain: 'industry', viewId: 'industry-emerging' },
+  );
+  assert.deepEqual(
+    resolveTreeNavigation({}, 'changelog'),
+    { domain: 'changelog', viewId: 'changelog-view' },
+  );
+  assert.deepEqual(
+    resolveTreeNavigation({}, 'unknown'),
+    { domain: 'thermometer', viewId: 'market-summary' },
+  );
+});
 
 test('a successful provider stores source and timestamps', async () => {
   const storage = createMemoryStorage();

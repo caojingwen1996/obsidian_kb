@@ -3,14 +3,14 @@
     "account_url":  "https://xueqiu.com/u/7143769715",
     "task_date":  "2026-07-20",
     "start_time":  "2026-07-20 10:53:06",
-    "end_time":  "2026-07-20 10:53:06",
-    "scan_round":  1,
+    "end_time":  "2026-07-20 16:20:34",
+    "scan_round":  2,
     "success_count":  5,
-    "failure_count":  0,
+    "failure_count":  1,
     "log_file":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-20\\冰冰小美\\task.log",
     "result_dir":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-20\\冰冰小美",
     "state_file":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-20\\冰冰小美\\state.json",
-    "capture_boundary":  "auto-only detail capture succeeded for the 5 target-date posts visible during this run; prior auto-then-manual full verification timed out on Xueqiu verification page.",
+    "capture_boundary":  "Same-day rerun at 16:04-16:18 found 7 new target-date candidate detail URLs, but Xueqiu slider verification blocked full body capture; existing 5 saved posts remain the only fully analyzable records.",
     "processed_items":  {
                             "401053971":  {
                                               "source_id":  "401053971",
@@ -108,6 +108,13 @@
                        "item_key":  "401090815",
                        "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-20\\冰冰小美\\103200_救市难改科技流动性瓦解.md",
                        "raw_status":  "written"
+                   },
+                   {
+                       "type":  "rerun_blocked",
+                       "time":  "2026-07-20 16:20:34",
+                       "item_key":  "401098886,401101756,401104160,401108816,401111371,401115044,401141704",
+                       "file_path":  "sources/automations/BBXM每日汇总/2026-07-20/冰冰小美/processing/rerun-blocked-candidates-20260720-1613.json",
+                       "raw_status":  "detail_blocked_by_xueqiu_slider_verification"
                    }
                ]
 }

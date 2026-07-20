@@ -1,5 +1,59 @@
 # 知识库日志
 
+## 2026-07-20
+
+### 操作类型
+
+skill / link / automation
+
+### 修改文件
+
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `.agents/skills/bbxm-equity-research/scripts/link-report-to-industry.cjs`
+- `.agents/skills/bbxm-equity-research/scripts/test-link-report-to-industry.cjs`
+- `sources/automations/新兴产业/商业航天/商业航天产业完整分析报告.html`
+- `log.md`
+
+### 操作说明
+
+补充 `bbxm-equity-research` 个股研报完成流程：生成个股HTML后自动检查同一分类目录是否存在产业研报；存在唯一产业研报时，以相对路径把个股HTML追加到产业研报的统一入口，重复执行不会生成重复链接；不存在时明确记录未链接状态，多候选时要求指定主产业研报。本次已将臻镭科技和铖昌科技HTML链接到商业航天产业完整分析报告。
+
+### 验证结果
+
+- 自动链接测试通过，覆盖存在产业研报、产业研报不存在和重复执行三种情况。
+- 原HTML渲染器回归测试通过。
+- 商业航天产业研报已包含两个目标文件的有效相对链接。
+
+## 2026-07-20
+
+### 操作类型
+
+research / source / valuation / workbench
+
+### 修改文件
+
+- `sources/papers/臻镭科技机构研报-2026-07-20/`
+- `sources/webpages/2026-07-20-臻镭科技机构级研究资料快照.md`
+- `workbench/targets/2026-07-20-臻镭科技-机构级决策研报.md`
+- `sources/automations/新兴产业/商业航天/2026-07-20-臻镭科技-机构级决策研报.html`
+- `workbench/index.md`
+- `log.md`
+
+### 资料来源
+
+- 臻镭科技2021—2025年年度报告、2026年第一季度报告。
+- 前期会计差错更正、其他风险警示、行政处罚决定书及业绩说明会记录。
+- 公开行情、宏观流动性和历史盈利预测快照。
+
+### 操作说明
+
+按 `bbxm-equity-research` 完整合同新增臻镭科技机构级决策研报，并将HTML归入商业航天自动化目录。历史财务采用追溯更正口径，单列ST成因、撤销条件和治理折价；研报完成五年财务、最新季度、分部盈利、近期催化、三种估值、三要素与风险方向分析。结论为“显著高估 / 等待观察”，综合公允价值28—42元，新资金暂不买入，风险方向为重新增强。
+
+### 后续待办
+
+- 半年报发布后验证毛利率、现金流和微系统项目收入。
+- 2027-05-08以后跟踪公司是否满足并申请撤销其他风险警示。
+
 ## 2026-07-19
 
 ### 操作类型
@@ -15331,3 +15385,233 @@ ui / dashboard / build-time-ingest
 ### 后续待办
 
 - 如后续为战略资源生成 `完整分析报告`，再将上方“产业研报”位置改为同目录完整报告链接。
+
+## 2026-07-20
+
+### 操作类型
+
+fund-flow / html / dashboard
+
+### 修改文件
+
+- `sources/automations/战略资源/2026-07-20-云铝股份资金面分析.html`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `log.md`
+
+### 操作说明
+
+按用户要求将云铝股份资金面分析生成为独立 HTML，保存到 `sources/automations/战略资源/`。由于温度计产业页已改为构建时自动读取目录，重新构建 dashboard 后，战略资源页下方标的研报区自动新增“云铝股份资金面分析”，战略资源当日条数由 1 条更新为 2 条。
+
+### 后续待办
+
+- 若后续取得 2026-07-20 当日资金流、最新融资余额、深股通和行业 ETF 申赎数据，可刷新该资金面 HTML 的 F3/F5/F7 面板。
+
+## 2026-07-20
+
+### 操作类型
+
+equity-report / source / valuation / render / classify
+
+### 修改文件
+
+- `sources/papers/铖昌科技机构研报-2026-07-20/`
+- `sources/webpages/2026-07-20-铖昌科技机构级研究资料快照.md`
+- `workbench/targets/2026-07-20-铖昌科技-机构级决策研报.md`
+- `sources/automations/新兴产业/商业航天/2026-07-20-铖昌科技-机构级决策研报.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` 完整合同新增铖昌科技机构级决策研报，保存2022—2025年报、2026年一季报、年报问询回复、撤销退市风险警示和交易异动公告原件。研报完成五年财务、最新季度、客户与供应商集中度、现金流质量、近期行情、三种估值、三要素和风险方向分析；将公司归入商业航天分类。结论为“高估 / 观察”，综合公允价值45—70元，新资金等待，已有持仓按仓位复盘；风险方向为重新增强。
+
+### 后续待办
+
+- 2026年半年报披露后，重点核验经营现金流能否按管理层预期转正、应收增速是否低于收入增速，并据此刷新估值和动作。
+- 若披露可量化的低轨卫星或机载大额订单，再上调盈利预测与产业进度置信度；仅有主题新闻不调整结论。
+
+## 2026-07-20
+
+### 操作类型
+
+automation / xueqiu / risk-dashboard
+
+### 修改文件
+
+- `sources/automations/BBXM每日汇总/2026-07-20/冰冰小美/summary.md`
+- `sources/automations/BBXM每日汇总/2026-07-20/冰冰小美/state.json`
+- `sources/automations/BBXM每日汇总/2026-07-20/冰冰小美/task.log`
+- `sources/automations/BBXM每日汇总/2026-07-20/冰冰小美/processing/rerun-blocked-candidates-20260720-1613.json`
+- `sources/automations/BBXM每日汇总/2026-07-20/冰冰小美/processing/risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026-07-20/冰冰小美/processing/risk-write-status.json`
+- `log.md`
+
+### 操作说明
+
+按 BBXM 每日汇总主提示词对 2026-07-20 冰冰小美目录执行同日重跑。上午已保存的 5 条原帖和 5 个逐帖解读保持不变；16:04 `auto-then-manual` 与 16:13 `auto-only` 重跑均被雪球滑动验证阻断，未能保存新增正文。CDP 证据显示 7 个新增详情页候选被打开但停在验证页，因此将 `risk-analysis.json` 更新为 `analysis_complete=false`，Excel 更新器写出 `blocked` 状态并禁止改写工作簿。
+
+### 后续待办
+
+- 在自动化 Chrome / Edge 窗口内人工完成雪球滑动验证后，按同一目录重跑并补保存 7 个候选详情页：401098886、401101756、401104160、401108816、401111371、401115044、401141704。
+- 新增原帖保存后重新生成对应 `_解读.md`、重算整日 `risk-analysis.json`，再让 Excel 更新器恢复 `written / no_risk / removed` 的完整状态。
+
+## 2026-07-20
+
+### 操作类型
+
+industry-analysis / automation / html
+
+### 修改文件
+
+- `sources/automations/新兴产业/算力/2026-07-20-算力产业完整分析报告.md`
+- `sources/automations/新兴产业/算力/2026-07-20-算力产业完整分析报告.html`
+- `log.md`
+
+### 操作说明
+
+按产业分析模型完整模板生成中国智能算力产业报告，保留 0—7 章、产业链公司映射、业务占比或纯度、证据状态以及风险与证据附录；先保存 Markdown，再使用产业报告专用渲染器生成 HTML 阅读版本。
+
+### 后续待办
+
+- 后续取得全国 GPU 有效利用率、算力租赁价格、52 个万卡设施客户结构及公共智算中心现金流数据后，刷新供需、利润周期和反证指标。
+
+## 2026-07-20
+
+### 操作类型
+
+automation / dashboard / directory-driven-loading
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/scripts/build.mjs`
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `tools/a-share-market-dashboard/README.md`
+- `docs/superpowers/specs/2026-07-20-dashboard-directory-driven-report-loading-design.md`
+- `docs/superpowers/plans/2026-07-20-dashboard-directory-driven-report-loading-implementation.md`
+- `log.md`
+
+### 操作说明
+
+按调整后的 `sources/automations/战略资源`、`新兴产业`、`支柱产业` 目录重写产业看板自动加载逻辑。构建脚本现递归读取三类产业下的 HTML，以一级子目录名生成筛选标签；根目录直属报告只归入“全部”。文件名包含“完整分析报告”的内容进入顶部产业研报区，其余内容进入日期信息流，并生成对应的新目录链接与来源说明。
+
+### 后续待办
+
+- 新增或移动产业 HTML 后需重新运行看板构建脚本，以刷新独立 HTML 产物。
+
+## 2026-07-20
+
+### 操作类型
+
+repair / dashboard / local-server
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/scripts/local_proxy.py`
+- `tools/a-share-market-dashboard/tests/test_local_proxy.py`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/README.md`
+- `log.md`
+
+### 操作说明
+
+修复通过“启动大盘面板.cmd”访问产业研报时返回 `404 not found` 的问题。本地服务器新增受限静态路由，只读提供 `sources/automations/` 内真实存在的 HTML 文件；继续拒绝非 HTML 文件、目录外文件和编码后的路径穿越请求。看板测试中的产业报告数量同步改为按当前目录动态统计，避免新增研报后固定数量断言误报。
+
+### 后续待办
+
+- 无。
+
+## 2026-07-20
+
+### 操作类型
+
+dashboard / interaction / link
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/scripts/build.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+将产业看板中的顶部完整分析报告和普通研报标题链接统一改为在新标签页打开，并加入 `noopener noreferrer` 安全属性，避免离开当前看板页面。
+
+### 后续待办
+
+- 无。
+
+## 2026-07-20
+
+### 操作类型
+
+dashboard / navigation / changelog
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/scripts/build.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/tests/data-service.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `tools/a-share-market-dashboard/README.md`
+- `docs/superpowers/specs/2026-07-20-dashboard-tree-navigation-changelog-design.md`
+- `docs/superpowers/plans/2026-07-20-dashboard-tree-navigation-changelog-implementation.md`
+- `log.md`
+
+### 操作说明
+
+将左侧导航改为“温度计 / 产业 / 更新日志”一级树形结构。“温度计”和“产业”采用互斥展开，并在当前页面生命周期内记住各自最后访问的子页；“更新日志”作为一级叶子直接打开独立时间线页面。新增看板专用 `src/changelog.json`，首批记录产业研报目录自动加载、本地服务器研报访问修复和研报新标签页打开三项更新，由构建脚本校验、转义并写入独立 HTML 产物。同步补充键盘焦点、移动端单列布局和导航状态测试。
+
+### 后续待办
+
+- 后续看板功能调整时，同步维护 `src/changelog.json` 并重新构建独立 HTML 产物。
+
+## 2026-07-20
+
+### 操作类型
+
+ingest / equity-research / compare / link
+
+### 修改文件
+
+- `sources/papers/徐工机械机构研报-2026-07-20/徐工机械2025年年度报告.pdf`
+- `sources/papers/徐工机械机构研报-2026-07-20/徐工机械2026年第一季度报告.pdf`
+- `sources/webpages/2026-07-20-徐工机械行情与研究快照.md`
+- `workbench/targets/2026-07-20-1737-徐工机械-机构级决策研报.md`
+- `workbench/index.md`
+- `sources/automations/支柱产业/高端制造/2026-07-20-1737-徐工机械-机构级决策研报.html`
+
+### 操作说明
+
+按 `bbxm-equity-research` 完成徐工机械机构级研究，执行三类估值、体系三要素和风险方向识别，并与中国中车比较核心/卫星持仓角色；Markdown 落入 Workbench，HTML 返回高端制造自动化分类目录。
+
+### 后续待办
+
+- 2026 半年报后复核海外与矿机增长、利润增速、经营现金流、应收和存货。
+- 用户补充两只股票的真实成本、仓位和最大回撤后，再做个性化换仓判断。
+
+## 2026-07-20
+
+### 操作类型
+
+dashboard / rebuild
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+在徐工机械个股 HTML 生成后重新构建产业看板，使“支柱产业 / 高端制造”筛选收录徐工机械机构级决策研报。核验生成产物包含 1 条高端制造卡片及有效研报链接，看板构建测试 12 项全部通过。
+
+### 后续待办
+
+- 新增或移动产业 HTML 后需执行 `scripts/build.mjs`；仅重新启动本地服务不会重新扫描研报目录。

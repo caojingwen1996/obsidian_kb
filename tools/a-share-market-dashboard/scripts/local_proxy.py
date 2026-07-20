@@ -8,7 +8,7 @@ from pathlib import Path
 import re
 import sys
 from urllib.error import HTTPError, URLError
-from urllib.parse import parse_qs, urlencode, urlparse
+from urllib.parse import parse_qs, unquote, urlencode, urlparse
 from urllib.request import Request, urlopen
 import webbrowser
 
@@ -338,7 +338,8 @@ def fetch_market_snapshot(fetcher=fetch_upstream, workers=8):
 
 def create_server(host="127.0.0.1", port=0, fetcher=fetch_upstream, dashboard_path=None):
     """Create a loopback-only dashboard server with fixed proxy routes."""
-    artifact = Path(dashboard_path or Path(__file__).resolve().parents[1] / "a-share-market-dashboard.html")
+    artifact = Path(dashboard_path or Path(__file__).resolve().parents[1] / "a-share-market-dashboard.html").resolve()
+    automations_root = (artifact.parents[2] / "sources" / "automations").resolve()
 
     class DashboardHandler(BaseHTTPRequestHandler):
         server_version = "AShareDashboard/1.0"
@@ -363,12 +364,32 @@ def create_server(host="127.0.0.1", port=0, fetcher=fetch_upstream, dashboard_pa
                 return self.send_json(500, {"error": "dashboard artifact unavailable"})
             return self._send_bytes(200, body, "text/html; charset=utf-8")
 
+        def send_automation_report(self, request_path):
+            prefix = "/sources/automations/"
+            decoded_path = unquote(request_path)
+            if not decoded_path.startswith(prefix):
+                return self.send_json(404, {"error": "not found"})
+            report = (automations_root / decoded_path[len(prefix):]).resolve()
+            try:
+                report.relative_to(automations_root)
+            except ValueError:
+                return self.send_json(404, {"error": "not found"})
+            if report.suffix.lower() != ".html" or not report.is_file():
+                return self.send_json(404, {"error": "not found"})
+            try:
+                body = report.read_bytes()
+            except OSError:
+                return self.send_json(404, {"error": "not found"})
+            return self._send_bytes(200, body, "text/html; charset=utf-8")
+
         def do_GET(self):
             parsed = urlparse(self.path)
             if parsed.path == "/health":
                 return self.send_json(200, {"ok": True})
             if parsed.path in {"/", "/a-share-market-dashboard.html"}:
                 return self.send_dashboard()
+            if parsed.path.startswith("/sources/automations/"):
+                return self.send_automation_report(parsed.path)
             if not parsed.path.startswith("/api/"):
                 return self.send_json(404, {"error": "not found"})
             source = SOURCE_NAMES.get(parsed.path, "unknown")

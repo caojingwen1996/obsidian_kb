@@ -1,0 +1,1156 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>北方导航机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.verdict { display: inline-flex; margin-top: 24px; padding: 7px 13px; border-radius: 999px; color: var(--danger); background: var(--danger-bg); font-weight: 750; }
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 26px; }
+.kpi { min-height: 96px; padding: 17px 18px; border: 1px solid rgba(255,255,255,.22); border-radius: 14px; background: rgba(255,255,255,.09); }
+.kpi-value { display: block; font-size: 23px; line-height: 1.3; font-weight: 760; overflow-wrap: anywhere; }
+.kpi-label { display: block; margin-top: 10px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; opacity: .8; }
+
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+}
+
+@media (max-width: 600px) {
+  .kpis { grid-template-columns: 1fr; }
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .verdict, .kpi { border: 1px solid #aebbc2; color: #102f43; background: #fff; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · 600435.SH</p>
+      <h1>北方导航机构级决策研报</h1>
+      <div class="hero-meta"><span>2026-07-17 收盘后</span><span>2026-07-17 18:25（Asia/Shanghai）</span><span>上海证券交易所 / 人民币</span></div>
+      <div class="verdict">高估 · wait</div>
+      <div class="kpis">
+        <div class="kpi"><span class="kpi-value">9.73 元，2026-07-17 收盘附近的延迟行情</span><span class="kpi-label">当前价格</span></div>
+        <div class="kpi"><span class="kpi-value">4.50—8.50 元/股</span><span class="kpi-label">综合估值区间</span></div>
+        <div class="kpi"><span class="kpi-value">wait</span><span class="kpi-label">冰冰小美动作</span></div>
+        <div class="kpi"><span class="kpi-value">中</span><span class="kpi-label">结论置信度</span></div>
+      </div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
+<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
+<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
+<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
+<a class="toc-link" href="#section-6">6. 五年财务历史</a>
+<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
+<a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
+<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
+<a class="toc-link" href="#section-10">10. 估值</a>
+<a class="toc-link" href="#section-11">11. 冰冰小美框架判断</a>
+<a class="toc-link" href="#section-12">12. 最终结论</a>
+<a class="toc-link" href="#section-13">13. 后续监控指标</a>
+<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
+<a class="toc-link" href="#section-15">15. 来源清单</a>
+<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
+      <article class="content"><blockquote>
+<p>证券代码：600435.SH<br>交易所 / 币种：上海证券交易所 / 人民币<br>研究截止时间：2026-07-17 收盘后<br>报告生成时间：2026-07-17 18:25（Asia/Shanghai）<br>数据口径：中国企业会计准则；财务数据以合并口径为主；行情为第三方延迟行情；金额如无特别说明均为人民币  </p>
+</blockquote>
+<h2 id="section-1">1. 决策摘要</h2>
+
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值状态</td>
+<td><strong>高估</strong></td>
+</tr>
+<tr>
+<td>操作建议</td>
+<td><strong>观望</strong></td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td><strong>wait</strong></td>
+</tr>
+<tr>
+<td>当前价格及时间</td>
+<td>9.73 元，2026-07-17 收盘附近的延迟行情</td>
+</tr>
+<tr>
+<td>综合估值区间</td>
+<td><strong>4.50—8.50 元/股</strong></td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>-53.8%—-12.6%</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h3>如果今天这是一笔现金，我会买它吗</h3>
+<ul>
+<li>回答：<strong>不会。</strong></li>
+<li>我的判断：北方导航是兵器工业集团体系内稀缺的导航控制与弹药信息化平台，2025 年交付恢复、2026Q1 回款改善都是真实利好；但公司并非高纯度商业航天企业，当前估值仍隐含利润率和现金转化率持续跃升。股价接近 52 周低位不等于估值已经便宜。</li>
+<li>改变结论的条件：股价进入 6.50—7.50 元且半年报确认毛利率回升至 20% 以上、经营现金流改善不是一次性回款；或利润兑现使 2026 年预期 PE 降至 40 倍以内。</li>
+</ul>
+<h2 id="section-2">2. 证券身份与来源矩阵</h2>
+
+<h3>2.1 证券身份</h3>
+<ul>
+<li>公司全称：北方导航控制技术股份有限公司</li>
+<li>证券代码：600435.SH</li>
+<li>上市地：上海证券交易所主板</li>
+<li>报告准则：中国企业会计准则</li>
+<li>法定披露体系：A股交易所与巨潮资讯</li>
+<li>同名或跨市场歧义：无。需要特别澄清：公司名称中的“导航”不等同于卫星制造或卫星运营；主营是制导控制、导航控制、探测与环境控制、军事通信及电连接器，商业航天纯度低。</li>
+</ul>
+<h3>2.2 来源矩阵</h3>
+<table>
+<thead>
+<tr>
+<th>数据项目</th>
+<th>目标来源</th>
+<th>实际来源</th>
+<th>数据时间</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>实时价格、52周高低、今年以来表现</td>
+<td>交易所 / 行情终端</td>
+<td>Investing.com 延迟行情与历史行情</td>
+<td>2026-07-17</td>
+<td>已获取；今年以来精确收益未获取到</td>
+</tr>
+<tr>
+<td>第三方公允价值、护城河、星级</td>
+<td>Morningstar 等</td>
+<td>Morningstar 未覆盖可核验 A 股页面</td>
+<td>2026-07-17</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>最新季报与管理层指引</td>
+<td>上交所 / 公司公告</td>
+<td>2026 年第一季度报告、业绩说明会公告</td>
+<td>2026-04-25</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>分部收入</td>
+<td>年报</td>
+<td>2025 年年度报告</td>
+<td>2026-03-28</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>卖方评级与目标价</td>
+<td>券商研报 / 聚合平台</td>
+<td>国投证券、银河证券及聚合页面</td>
+<td>2026-04</td>
+<td>部分获取</td>
+</tr>
+<tr>
+<td>近三个月新闻与催化剂</td>
+<td>公司公告优先</td>
+<td>公司公告、融资融券公开数据</td>
+<td>2026-04-17—2026-07-14</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>五年财务历史</td>
+<td>年报</td>
+<td>2021—2025 年报、财务数据库交叉核验</td>
+<td>FY2021—FY2025</td>
+<td>已获取；部分资本开支为近似值</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 行情与市场预期</h2>
+
+<h3>3.1 行情快照（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">数值</th>
+<th>来源</th>
+<th>时间 / 口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前价格</td>
+<td align="right">9.73 元</td>
+<td>Investing.com</td>
+<td>2026-07-17 延迟行情</td>
+</tr>
+<tr>
+<td>52周最高</td>
+<td align="right">22.55 元</td>
+<td>Investing.com</td>
+<td>滚动 52 周</td>
+</tr>
+<tr>
+<td>52周最低</td>
+<td align="right">9.71 元</td>
+<td>Investing.com</td>
+<td>滚动 52 周</td>
+</tr>
+<tr>
+<td>今年以来表现</td>
+<td align="right">未获取到精确值；自 1 月高位显著回撤</td>
+<td>历史行情</td>
+<td>截至 2026-07-17</td>
+</tr>
+<tr>
+<td>总市值</td>
+<td align="right">约 147.2 亿元</td>
+<td>现价×15.1236 亿股</td>
+<td>2026-07-17</td>
+</tr>
+<tr>
+<td>PE / PB / EV</td>
+<td align="right">PE(TTM)约 121.9 倍；PB 约 5.2 倍；EV/EBITDA 约 78 倍</td>
+<td>Investing.com</td>
+<td>2026-07-17</td>
+</tr>
+</tbody></table>
+<h3>3.2 第三方公允价值与评级（事实）</h3>
+<ul>
+<li>公允价值：未获取到 Morningstar 可核验公允价值。</li>
+<li>护城河评级：未获取到。</li>
+<li>星级：未获取到。</li>
+<li>来源与时间：检查 Morningstar 证券页与公开检索，2026-07-17。</li>
+<li>未获取到的字段及已检查来源：Morningstar 对该 A 股未提供可公开核验的公允价值、护城河和星级；不以卖方目标价冒充独立公允价值。</li>
+</ul>
+<h3>3.3 卖方评级与目标价分布（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>机构</th>
+<th>日期</th>
+<th>评级</th>
+<th align="right">目标价</th>
+<th>预测期</th>
+<th>关键假设</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>国投证券</td>
+<td>2026-04-16</td>
+<td>买入-A</td>
+<td align="right">18.00 元</td>
+<td>6个月</td>
+<td>订单恢复、军品交付及利润率改善</td>
+</tr>
+<tr>
+<td>银河证券</td>
+<td>2026-04-01</td>
+<td>推荐</td>
+<td align="right">未披露</td>
+<td>2026—2028E</td>
+<td>军用惯导需求与交付节奏改善</td>
+</tr>
+<tr>
+<td>Investing 分析师聚合</td>
+<td>2026-07 查询</td>
+<td>聚合目标</td>
+<td align="right">18.20 元</td>
+<td>12个月</td>
+<td>样本假设未完整公开</td>
+</tr>
+<tr>
+<td>富途聚合</td>
+<td>2026-07-11 查询</td>
+<td>聚合目标</td>
+<td align="right">16.00—18.90 元</td>
+<td>12个月</td>
+<td>样本与更新频率不完整</td>
+</tr>
+</tbody></table>
+<ul>
+<li>目标价区间 / 中位数：可见区间 16.00—18.90 元；有限样本中位数约 18.00 元。</li>
+<li>样本数量与完整性：样本少，且聚合页没有完整披露每家机构的盈利预测、估值基准和更新时间。</li>
+<li>来源冲突及采信理由：卖方目标价显著高于本报告现金流估值；本报告仅将其视为市场预期，不作为公允价值事实。</li>
+</ul>
+<h2 id="section-4">4. 商业模式与竞争格局</h2>
+
+<h3>4.1 事实</h3>
+<ul>
+<li>收入来源：2025 年军民两用产品收入 41.33 亿元，占收入 98.60%；业务围绕制导与控制、AI 目标自主识别、光电探测与导引、先进材料、智能制造、综合热管理、集群组网通信和智能化连接。</li>
+<li>客户与定价权：以军品二、三、四级配套为主，客户集中且交付验收节奏明显；壁垒来自军工资质、型号研制与体系配套，但价格和回款节奏受客户与采购制度约束。</li>
+<li>成本结构：材料和外协成本占比较高。2025 年收入增长 52.56%，营业成本增长 67.48%，导致毛利率降至 15.68%。</li>
+<li>资本强度：固定资产投入不算重，但应收账款和营运资金占用高；2025 年末应收账款 51.02 亿元，超过全年收入。</li>
+<li>竞争者：同属军工电子、制导控制与导航配套领域的航天电子、国睿科技、光电股份等；具体型号和客户体系并不完全可比。</li>
+<li>监管和产业位置：实控人为中国兵器工业集团，是兵器体系内导航控制与弹药信息化核心配套平台。卫星通信只是产品技术之一，公司不是卫星制造商、运营商或商业火箭企业，商业航天纯度<strong>低</strong>。</li>
+</ul>
+<h3>4.2 我的判断</h3>
+<ul>
+<li>我的判断：竞争优势及依据——军工资质、型号积累、央企体系协同和复杂机电系统集成能力构成进入壁垒；2025 年交付恢复说明核心产品仍有需求基础。</li>
+<li>我的判断：商业模式最脆弱的环节及依据——客户集中、验收确认和回款波动使业绩高度季度化；2024—2025 年收入、毛利率和现金流的大幅摆动证明公司尚未形成稳定的现金复利模式。</li>
+<li>证伪条件：若连续两个半年度毛利率低于 18%、应收账款继续高于年化收入且经营现金流转负，则“交付恢复能转化为盈利改善”的判断被证伪。</li>
+</ul>
+<h2 id="section-5">5. 分部收入与盈利拆解</h2>
+
+<table>
+<thead>
+<tr>
+<th>分部</th>
+<th align="right">收入</th>
+<th align="right">同比</th>
+<th align="right">收入占比</th>
+<th align="right">毛利率</th>
+<th align="right">毛利率变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>军民两用产品</td>
+<td align="right">41.33 亿元</td>
+<td align="right">+53.67%</td>
+<td align="right">98.60%</td>
+<td align="right">约 15.3%</td>
+<td align="right">明显下降</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>其他业务</td>
+<td align="right">0.59 亿元</td>
+<td align="right">约 +1%</td>
+<td align="right">1.40%</td>
+<td align="right">约 40%</td>
+<td align="right">小幅波动</td>
+<td>2025 年报；按总额反推</td>
+</tr>
+<tr>
+<td>合计</td>
+<td align="right">41.92 亿元</td>
+<td align="right">+52.56%</td>
+<td align="right">100%</td>
+<td align="right">15.68%</td>
+<td align="right">-6.96pct</td>
+<td>2025 年报</td>
+</tr>
+</tbody></table>
+<ul>
+<li>披露口径变化：公司主要按“军民两用产品 / 其他”披露，未把导航控制、军事通信、电连接器分别披露为完整可比的收入与利润分部。</li>
+<li>来源冲突：部分第三方把公司归为卫星导航或商业航天公司，法定年报并未披露商业航天单独收入。</li>
+<li>采信理由：采用年报法定产品口径；其他业务毛利率为总额反推近似值，不作为核心结论。</li>
+<li>我的判断：增长质量及依据——增长主要来自交付恢复而非新商业模式，但成本增速快于收入、毛利率创低位，属于“规模恢复、质量尚未同步恢复”。</li>
+</ul>
+<h2 id="section-6">6. 五年财务历史</h2>
+
+<table>
+<thead>
+<tr>
+<th>财年</th>
+<th align="right">营收</th>
+<th align="right">毛利率</th>
+<th align="right">经营现金流</th>
+<th align="right">资本开支</th>
+<th align="right">自由现金流</th>
+<th align="right">ROIC / 代理值</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td align="right">39.92 亿元</td>
+<td align="right">约 22.5%</td>
+<td align="right">3.11 亿元</td>
+<td align="right">约 0.79 亿元</td>
+<td align="right">约 2.32 亿元</td>
+<td align="right">ROE约 5.8%</td>
+<td>2021 年报 / 财务数据库</td>
+</tr>
+<tr>
+<td>2022</td>
+<td align="right">38.39 亿元</td>
+<td align="right">21.59%</td>
+<td align="right">4.70 亿元</td>
+<td align="right">约 1.05 亿元</td>
+<td align="right">约 3.65 亿元</td>
+<td align="right">ROE 7.45%</td>
+<td>2022 年报</td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">35.65 亿元</td>
+<td align="right">24.80%</td>
+<td align="right">2.00 亿元</td>
+<td align="right">约 0.78 亿元</td>
+<td align="right">约 1.22 亿元</td>
+<td align="right">ROE 7.09%</td>
+<td>2023 年报</td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">27.48 亿元</td>
+<td align="right">22.64%</td>
+<td align="right">-5.48 亿元</td>
+<td align="right">1.12 亿元</td>
+<td align="right">-6.60 亿元</td>
+<td align="right">ROE 2.13%</td>
+<td>2024 年报</td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">41.92 亿元</td>
+<td align="right">15.68%</td>
+<td align="right">-1.65 亿元</td>
+<td align="right">约 1.20 亿元</td>
+<td align="right">约 -2.85 亿元</td>
+<td align="right">ROE 4.24%</td>
+<td>2025 年报</td>
+</tr>
+</tbody></table>
+<ul>
+<li>自由现金流口径：经营现金流－购建固定资产、无形资产和其他长期资产支付的现金；2021、2022、2023、2025 资本开支为年报及第三方财务表交叉后的近似值。</li>
+<li>ROIC 口径：因军工预收、应收和少数股东权益使精确投入资本口径易失真，采用加权平均 ROE 作为代理值。</li>
+<li>一次性项目和会计变化：2024 年收入显著后移至四季度；2025 年交付集中恢复。该节奏因素使单年同比和自由现金流不能线性外推。</li>
+<li>我的判断：盈利质量、现金转化与资本回报趋势——五年收入没有形成稳定复合增长，2024—2025 连续两年自由现金流为负；2025 ROE 回升但仅 4.24%，不足以支撑 5 倍以上 PB。</li>
+</ul>
+<h2 id="section-7">7. 最新季度与管理层指引</h2>
+
+<h3>7.1 最新季度（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">本期</th>
+<th align="right">同比 / 变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营收</td>
+<td align="right">4.32 亿元</td>
+<td align="right">+22.69%</td>
+<td>2026Q1 报告，2026-04-25</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">18.99%</td>
+<td align="right">-8.91pct</td>
+<td>按季报收入与成本计算</td>
+</tr>
+<tr>
+<td>净利润</td>
+<td align="right">归母 -1572 万元</td>
+<td align="right">去年同期 -1676 万元，亏损收窄</td>
+<td>2026Q1 报告</td>
+</tr>
+<tr>
+<td>调整后利润</td>
+<td align="right">扣非归母 -1938 万元</td>
+<td align="right">去年同期 -2655 万元，亏损收窄</td>
+<td>2026Q1 报告</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">8.30 亿元</td>
+<td align="right">去年同期 -3.79 亿元</td>
+<td>2026Q1 报告</td>
+</tr>
+<tr>
+<td>订单 / 储备</td>
+<td align="right">未披露定量值</td>
+<td align="right">不适用</td>
+<td>2026Q1 报告</td>
+</tr>
+</tbody></table>
+<h3>7.2 管理层指引（事实）</h3>
+<ul>
+<li>正式量化指引：未披露 2026 年收入、利润或订单的正式量化指引。</li>
+<li>定性展望：公司表示将推动高质量发展并完成 2026 年经营目标，但未给出可核验阈值。</li>
+<li>未获取到：具体在手订单、交付节奏、分产品毛利率和年度自由现金流目标。</li>
+</ul>
+<h3>7.3 我的判断</h3>
+<ul>
+<li>我的判断：边际变化及依据——收入和扣非亏损同比改善，销售商品收到现金显著增加；但毛利率仍比去年同期下降近 9 个百分点，经营拐点尚未闭环。</li>
+<li>我的判断：指引可信度及依据——定性指引缺乏量化边界，可信度只能评为中低；Q1 现金流改善受回款时点影响，不能直接年化。</li>
+<li>下一验证节点：2026 年半年报，重点核验收入增速、毛利率、应收账款、合同负债和经营现金流。</li>
+</ul>
+<h2 id="section-8">8. 近三个月新闻与催化剂</h2>
+
+<table>
+<thead>
+<tr>
+<th>发生日</th>
+<th>事件</th>
+<th>影响变量</th>
+<th>财务传导</th>
+<th>是否已反映</th>
+<th>验证节点</th>
+<th>失效条件</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-04-25</td>
+<td>发布 2026Q1，收入增长、现金流转正但仍亏损</td>
+<td>交付、回款、毛利率</td>
+<td>回款改善降低营运资金占用，低毛利压制利润</td>
+<td>部分反映</td>
+<td>2026H1</td>
+<td>Q2 回款回落或毛利率继续下降</td>
+<td>公司季报</td>
+</tr>
+<tr>
+<td>2026-04-25</td>
+<td>召开年度及一季度业绩说明会</td>
+<td>管理层预期</td>
+<td>影响市场对年度任务与分红的预期</td>
+<td>已反映</td>
+<td>半年报</td>
+<td>无量化兑现</td>
+<td>公司公告</td>
+</tr>
+<tr>
+<td>2026-06-26</td>
+<td>融资余额 7.26 亿元，处于近一年 20% 分位以下</td>
+<td>杠杆资金</td>
+<td>杠杆参与度偏低，短期承接不足但去杠杆风险下降</td>
+<td>基本反映</td>
+<td>周度融资余额</td>
+<td>融资余额与价格同步持续回升</td>
+<td>交易所融资数据</td>
+</tr>
+<tr>
+<td>2026-07-14</td>
+<td>设立融合事业发展分公司</td>
+<td>新业务组织</td>
+<td>可能促进军民融合业务拓展，短期无量化利润贡献</td>
+<td>未充分反映但信息量有限</td>
+<td>后续订单/收入披露</td>
+<td>未形成合同或收入</td>
+<td>公司公告</td>
+</tr>
+</tbody></table>
+<h2 id="section-9">9. 多头与空头论据</h2>
+
+<h3>9.1 多头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>交付周期恢复</td>
+<td>2025 收入 +52.56%，2026Q1 收入 +22.69%</td>
+<td>半年收入增速、合同负债</td>
+<td>H1 收入转负增长</td>
+</tr>
+<tr>
+<td>回款边际改善</td>
+<td>2026Q1 经营现金流 +8.30 亿元</td>
+<td>应收账款、全年经营现金流</td>
+<td>H1 经营现金流重新大幅转负</td>
+</tr>
+<tr>
+<td>体系内稀缺平台</td>
+<td>兵器工业集团控制，导航控制和弹药信息化积累深</td>
+<td>新型号、订单与份额</td>
+<td>核心型号需求下降或份额流失</td>
+</tr>
+<tr>
+<td>价格已大幅回撤</td>
+<td>9.73 元接近 52 周低点 9.71 元</td>
+<td>成交量、融资余额、相对强弱</td>
+<td>放量跌破前低</td>
+</tr>
+</tbody></table>
+<h3>9.2 空头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>盈利能力弱</td>
+<td>2025 毛利率 15.68%，ROE 4.24%；2026Q1 仍亏损</td>
+<td>毛利率、净利率、ROE</td>
+<td>毛利率稳定高于 22%、ROE升至 8%+</td>
+</tr>
+<tr>
+<td>现金转化不稳定</td>
+<td>2024—2025 连续两年自由现金流为负</td>
+<td>自由现金流、应收周转</td>
+<td>连续两个半年度自由现金流为正</td>
+</tr>
+<tr>
+<td>估值仍贵</td>
+<td>TTM PE约122倍、PB约5.2倍</td>
+<td>预期PE、盈利兑现</td>
+<td>2026E PE降至40倍以内</td>
+</tr>
+<tr>
+<td>商业航天映射过度</td>
+<td>98.6%收入仅按军民两用产品披露，无商业航天独立收入</td>
+<td>商业航天订单/收入</td>
+<td>公司披露可量化商业航天收入占比明显提升</td>
+</tr>
+</tbody></table>
+<h2 id="section-10">10. 估值</h2>
+
+<h3>10.1 相对估值</h3>
+<table>
+<thead>
+<tr>
+<th>公司</th>
+<th>业务可比性</th>
+<th align="right">增长</th>
+<th align="right">利润率</th>
+<th align="right">PE</th>
+<th align="right">PB</th>
+<th align="right">EV/EBITDA</th>
+<th>数据时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>北方导航</td>
+<td>本体</td>
+<td align="right">2025收入+52.6%</td>
+<td align="right">2025净利率约2.9%</td>
+<td align="right">121.9x TTM</td>
+<td align="right">5.2x</td>
+<td align="right">约78x</td>
+<td>2026-07-17</td>
+</tr>
+<tr>
+<td>行业大类参考</td>
+<td>口径较宽</td>
+<td align="right">不适用</td>
+<td align="right">不适用</td>
+<td align="right">54.34x TTM</td>
+<td align="right">5.50x</td>
+<td align="right">未获取</td>
+<td>公司 2026-01 风险提示公告</td>
+</tr>
+<tr>
+<td>北方导航正常化</td>
+<td>2026E 情景</td>
+<td align="right">收入+10%—20%</td>
+<td align="right">净利率4%—6%</td>
+<td align="right">35—50x合理区间</td>
+<td align="right">3—4.5x</td>
+<td align="right">25—40x</td>
+<td>本报告判断</td>
+</tr>
+</tbody></table>
+<ul>
+<li>选取理由：军工型号、会计确认和客户结构差异大，直接套用单一可比公司容易失真；以行业大类和公司正常化盈利双重约束。</li>
+<li>正常化调整：以 2026 年归母净利润 2.0—2.9 亿元、EPS 0.13—0.19 元作为情景，而不是机械年化 Q1 亏损。</li>
+<li>对应每股价值区间：<strong>5.50—9.00 元</strong>。</li>
+<li>我的判断：只有接近盈利情景上沿并给予 45—50 倍高估值，才能接近当前价；安全边际不足。</li>
+</ul>
+<h3>10.2 DCF</h3>
+<h4>关键假设</h4>
+<table>
+<thead>
+<tr>
+<th>假设</th>
+<th align="right">悲观</th>
+<th align="right">基准</th>
+<th align="right">乐观</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>收入增长</td>
+<td align="right">5%→4%</td>
+<td align="right">15%→7%</td>
+<td align="right">25%→10%</td>
+<td>交付恢复但历史波动大</td>
+</tr>
+<tr>
+<td>经营利润率</td>
+<td align="right">2%→5%</td>
+<td align="right">4%→8.5%</td>
+<td align="right">5%→12%</td>
+<td>2025 毛利率仅15.68%，需显著修复</td>
+</tr>
+<tr>
+<td>税率</td>
+<td align="right">10%</td>
+<td align="right">10%</td>
+<td align="right">10%</td>
+<td>高新技术及历史有效税率近似</td>
+</tr>
+<tr>
+<td>折旧摊销</td>
+<td align="right">收入2.5%</td>
+<td align="right">收入2.5%</td>
+<td align="right">收入2.5%</td>
+<td>历史资产结构</td>
+</tr>
+<tr>
+<td>资本开支</td>
+<td align="right">收入3.0%</td>
+<td align="right">收入3.0%</td>
+<td align="right">收入3.2%</td>
+<td>维持与扩产投入</td>
+</tr>
+<tr>
+<td>营运资本变化</td>
+<td align="right">增量收入8%</td>
+<td align="right">增量收入10%</td>
+<td align="right">增量收入10%</td>
+<td>应收占用高</td>
+</tr>
+<tr>
+<td>WACC</td>
+<td align="right">10.5%</td>
+<td align="right">9.5%</td>
+<td align="right">8.5%</td>
+<td>军工央企风险与权益资本要求</td>
+</tr>
+<tr>
+<td>永续增长率</td>
+<td align="right">2.0%</td>
+<td align="right">2.5%</td>
+<td align="right">3.0%</td>
+<td>长期名义增长约束</td>
+</tr>
+</tbody></table>
+<h4>估值结果</h4>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">企业价值</th>
+<th align="right">净债务</th>
+<th align="right">股权价值</th>
+<th align="right">每股价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观</td>
+<td align="right">18.3 亿元</td>
+<td align="right">采用 9.5 亿元可用净现金并扣 7.4 亿元少数股东权益</td>
+<td align="right">20.4 亿元</td>
+<td align="right">1.35 元</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">51.7 亿元</td>
+<td align="right">同上</td>
+<td align="right">53.8 亿元</td>
+<td align="right">3.56 元</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">119.6 亿元</td>
+<td align="right">同上</td>
+<td align="right">121.7 亿元</td>
+<td align="right">8.06 元</td>
+</tr>
+</tbody></table>
+<h4>敏感性分析</h4>
+<table>
+<thead>
+<tr>
+<th>WACC \ 永续增长率</th>
+<th align="right">2.0%</th>
+<th align="right">2.5%</th>
+<th align="right">3.0%</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>8.5%</td>
+<td align="right">3.91</td>
+<td align="right">4.19</td>
+<td align="right">4.51</td>
+</tr>
+<tr>
+<td>9.5%</td>
+<td align="right">3.36</td>
+<td align="right">3.56</td>
+<td align="right">3.78</td>
+</tr>
+<tr>
+<td>10.5%</td>
+<td align="right">2.94</td>
+<td align="right">3.09</td>
+<td align="right">3.25</td>
+</tr>
+</tbody></table>
+<h4>反向 DCF</h4>
+<ul>
+<li>当前价格隐含的收入增长 / 终值利润率：在基准资本成本下，现价大致要求未来五年收入复合增速接近 18%—20%，并把终值经营利润率提升至 11%—12%，同时显著改善营运资金。</li>
+<li>与历史和行业相比是否可实现：理论上可实现，但明显高于公司过去五年收入轨迹与当前 15.68% 毛利率所支持的基准情景。</li>
+<li>我的判断：现价定价的是“交付高增、利润率修复、回款改善”三者同时发生，容错率低。</li>
+</ul>
+<h3>10.3 行业特定估值</h3>
+<ul>
+<li>方法：分部加总 / EV-Sales 与 P/B-ROE 交叉。</li>
+<li>适用理由：军品订单不公开，利润受交付节奏影响大，收入与净资产比单年 PE 更稳定。</li>
+<li>关键假设：核心军民两用业务给予 1.5—2.5 倍 EV/Sales；再考虑可用净现金和少数股东权益；P/B 上限受中期 ROE 8%约束。</li>
+<li>对应每股价值区间：<strong>4.50—7.50 元</strong>。</li>
+<li>局限性：军工资产的稀缺性溢价、型号寿命和未披露订单无法精确量化；EV/Sales 对利润率极其敏感。</li>
+</ul>
+<h3>10.4 估值交叉验证</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="right">每股价值区间</th>
+<th align="right">权重</th>
+<th>采信理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>相对估值</td>
+<td align="right">5.50—9.00 元</td>
+<td align="right">40%</td>
+<td>反映军工板块现实估值，但需防止高估值循环论证</td>
+</tr>
+<tr>
+<td>DCF</td>
+<td align="right">1.35—8.06 元</td>
+<td align="right">30%</td>
+<td>对现金流纪律最严格；公司营运资金波动使区间较宽</td>
+</tr>
+<tr>
+<td>行业特定估值</td>
+<td align="right">4.50—7.50 元</td>
+<td align="right">30%</td>
+<td>平滑交付周期，但依赖收入倍数假设</td>
+</tr>
+</tbody></table>
+<ul>
+<li>综合估值区间：<strong>4.50—8.50 元/股</strong>。</li>
+<li>相对现价上行 / 下行空间：相对 9.73 元为 <strong>-53.8%—-12.6%</strong>。</li>
+<li>为什么不机械平均：DCF 基准值受营运资金和终值假设强烈影响，军工稀缺性又使市场长期给予溢价，因此以上沿吸收相对估值溢价、以下沿反映现金流约束。</li>
+</ul>
+<h2 id="section-11">11. 冰冰小美框架判断</h2>
+
+<h3>11.1 三要素结果引用</h3>
+<ul>
+<li>三要素结论来源：<code>bbxm-three-factor-analysis</code></li>
+<li>分析对象与层级：北方导航个股；军工电子 / 导航控制中游配套层级</li>
+<li>分析截止时间：2026-07-17 收盘后</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>状态</th>
+<th>核心证据</th>
+<th>核心反证</th>
+<th>失效条件</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>有利</td>
+<td>央企体系、型号资质、导航控制稀缺平台</td>
+<td>客户集中、定价受约束、毛利率下降</td>
+<td>核心型号份额下降或毛利率长期低于18%</td>
+<td>中高</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>不利</td>
+<td>股价接近52周低点，成交低于三月均量，融资余额低分位</td>
+<td>低杠杆意味着潜在强平压力较小</td>
+<td>放量站回 11.50 元且融资与机构持仓同步回升</td>
+<td>中</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>不利</td>
+<td>1月冲高后持续回撤，业绩改善未扭转趋势</td>
+<td>极低位置可能孕育反弹</td>
+<td>形成放量底部并连续两周跑赢军工指数</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<ul>
+<li>三要素综合判断：<strong>尚未形成有利共振</strong></li>
+<li>主导要素：竞争格局仍有利，但不能单独形成买点。</li>
+<li>拖累要素：估值、流动性和情绪趋势。</li>
+<li>数据缺口及影响：订单、机构实时持仓和精确年度收益缺失，降低流动性判断置信度。</li>
+<li>下一验证节点：2026 年半年报及股价能否重新站稳 11.50 元。</li>
+<li>新增现金：<strong>wait</strong>；条件：估值进入 6.50—7.50 元，或盈利兑现把前瞻 PE 压到 40 倍以内。</li>
+<li>已有持仓：<strong>review / wait</strong>；条件：未放量跌破 9.70 元可等待半年报；若跌破且毛利率继续恶化则 reduce。</li>
+</ul>
+<h3>11.2 风险方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>风险类型</th>
+<th>前一窗口</th>
+<th>当前窗口</th>
+<th>方向证据</th>
+<th>反证</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本面风险</td>
+<td>2026-04-25—06-30：收入改善、现金流转正</td>
+<td>2026-07-01—07-17：无新增财务披露</td>
+<td>无新增恶化事实，风险持平</td>
+<td>毛利率低、Q1仍亏损</td>
+</tr>
+<tr>
+<td>估值风险</td>
+<td>高估值随股价回撤释放</td>
+<td>PE仍约122倍、PB约5.2倍</td>
+<td>风险仍高但较1月减弱</td>
+<td>盈利若超预期可快速消化</td>
+</tr>
+<tr>
+<td>情绪风险</td>
+<td>弱势震荡</td>
+<td>跌至52周低位附近</td>
+<td>趋势破坏、好消息反应弱</td>
+<td>超跌可能带来技术反弹</td>
+</tr>
+<tr>
+<td>流动性风险</td>
+<td>融资余额下降</td>
+<td>成交低于均量、承接弱</td>
+<td>增量资金不足</td>
+<td>杠杆率低降低踩踏风险</td>
+</tr>
+</tbody></table>
+<h3>11.3 风险传导链</h3>
+<ul>
+<li>信息源头：交付恢复但毛利率下滑、现金流时点波动，以及商业航天概念映射。</li>
+<li>核心变量：毛利率、应收账款回收、订单兑现、估值溢价。</li>
+<li>传导机制：若利润率修复慢于收入增长，盈利预测下修；高 PE 随之压缩，弱流动性放大回撤。</li>
+<li>影响对象：北方导航股价及含该股的卫星产业、军工 ETF。</li>
+<li>市场行为变化：融资余额低位、量能不足、股价靠近 52 周低点。</li>
+<li>风险方向：<strong>风险增强</strong>，主要来自交易层而非新增基本面利空。</li>
+<li>验证指标：半年报毛利率、经营现金流、应收账款、股价 9.70 / 11.50 元、周成交额。</li>
+<li>失效条件：半年报毛利率回升至 22%以上、自由现金流转正且股价放量站稳 11.50 元。</li>
+</ul>
+<h3>11.4 风险方向结论</h3>
+<ul>
+<li>风险方向结论：<strong>风险增强</strong></li>
+<li>判断依据：当前窗口股价下探至 52 周低位附近，估值仍高，成交和融资承接偏弱；基本面没有同步恶化，但也没有新增证据证明利润率拐点。</li>
+<li>反证：2026Q1 回款强、收入增长，且当前融资杠杆低，系统性踩踏风险有限。</li>
+<li>未获取到：7 月实时机构资金流、订单数据与商业航天收入占比。</li>
+<li>置信度：中</li>
+</ul>
+<h3>11.5 四层方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>边际改善 / 无明显变化 / 边际恶化 / 未获取到</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观</td>
+<td>无明显变化</td>
+<td>国防需求具长期属性，但无公司层面新增量化政策</td>
+</tr>
+<tr>
+<td>中观</td>
+<td>无明显变化</td>
+<td>军工交付周期恢复，商业航天映射仍偏概念化</td>
+</tr>
+<tr>
+<td>微观</td>
+<td>边际改善</td>
+<td>2025收入恢复、2026Q1收入和回款改善；毛利率仍弱</td>
+</tr>
+<tr>
+<td>交易</td>
+<td>边际恶化</td>
+<td>股价接近52周低位，量能和融资承接偏弱</td>
+</tr>
+</tbody></table>
+<h3>11.6 动作与约束</h3>
+<ul>
+<li>主动作：<strong>wait</strong></li>
+<li>新增现金：不追随超跌反弹；6.50—7.50 元且基本面不恶化可分两档试仓，每档不超过计划仓位的 25%。</li>
+<li>已有持仓：在 9.70 元附近不机械割肉，先复核成本与仓位；放量跌破 9.70 元且半年报毛利率低于 18%时 reduce。</li>
+<li>承接条件：毛利率回升、自由现金流转正、股价放量收复 11.50 元三者至少满足两个。</li>
+<li>退出条件：核心订单延后、应收账款继续上升、连续两个报告期毛利率低于 18%，或高估值下利润预测明显下修。</li>
+<li>下一复核节点：2026 年半年报；在此之前每周复核融资余额和 9.70 / 11.50 元价位。</li>
+<li>我的判断：为什么“方向”能够或不能转化为“买点”——基本面方向只是局部改善，交易方向仍恶化且估值没有进入安全区，因此不能把“接近历史低位”直接转化为买点。</li>
+</ul>
+<h2 id="section-12">12. 最终结论</h2>
+
+<ul>
+<li>估值结论：<strong>高估</strong></li>
+<li>操作结论：<strong>观望</strong></li>
+<li>综合估值区间：<strong>4.50—8.50 元/股</strong></li>
+<li>相对现价空间：<strong>-53.8%—-12.6%</strong></li>
+<li>如果今天这是一笔现金，我会买它吗：<strong>不会；只在估值或盈利兑现满足条件后买。</strong></li>
+<li>我的判断：北方导航是高壁垒军工配套平台，但不是高纯度商业航天标的。2025—2026Q1 的收入与回款改善尚未转化为稳定毛利和自由现金流；当前高倍数仍需要乐观情景才能支撑。</li>
+<li>结论失效条件：2026H1 毛利率恢复至 22%以上、自由现金流持续转正、归母利润显著超出 2.9 亿元年度化预期，且订单可见度提高。</li>
+</ul>
+<h2 id="section-13">13. 后续监控指标</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">当前值</th>
+<th>触发阈值 / 方向</th>
+<th>数据源</th>
+<th>复核频率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>毛利率</td>
+<td align="right">2026Q1 18.99%</td>
+<td>&gt;22%改善；&lt;18%恶化</td>
+<td>定期报告</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">2026Q1 +8.30亿元</td>
+<td>H1/全年持续为正</td>
+<td>定期报告</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>应收账款</td>
+<td align="right">2026Q1 36.37亿元</td>
+<td>低于年化收入并继续下降</td>
+<td>定期报告</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>合同负债</td>
+<td align="right">2026Q1 2.44亿元</td>
+<td>连续增长且转化为收入</td>
+<td>定期报告</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>股价与量能</td>
+<td align="right">9.73元</td>
+<td>9.70元支撑；11.50元放量确认</td>
+<td>行情终端</td>
+<td>周度</td>
+</tr>
+<tr>
+<td>融资余额</td>
+<td align="right">6月末约7.26亿元</td>
+<td>与股价同步回升且不过热</td>
+<td>上交所</td>
+<td>周度</td>
+</tr>
+</tbody></table>
+<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
+
+<ul>
+<li>未获取到：Morningstar 公允价值、护城河和星级；完整订单储备；分产品订单和毛利；商业航天收入占比；全部卖方原始研报样本；2026 年以来精确复权收益；部分年度合并口径资本开支。</li>
+<li>已检查来源：上交所、公司年度与季度报告、业绩说明会公告、券商研报公开页、Investing.com、同花顺 / 新浪 / AAStocks 财务页。</li>
+<li>对结论的影响：订单和分产品数据缺失使盈利上行情景可能被低估；但公允价值和现金流判断使用了偏乐观上沿，因此不改变“当前缺乏安全边际”的主结论。</li>
+</ul>
+<h2 id="section-15">15. 来源清单</h2>
+
+<ol>
+<li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12026858&stockid=600435">《北方导航控制技术股份有限公司2025年年度报告》</a>，北方导航 / 上海证券交易所，2026-03-28，访问时间 2026-07-17。</li>
+<li><a href="https://stockmc.xueqiu.com/202604/600435_20260425_3RXA.pdf">《北方导航控制技术股份有限公司2026年第一季度报告》</a>，北方导航 / 上海证券交易所，2026-04-25，访问时间 2026-07-17。</li>
+<li><a href="https://static.cninfo.com.cn/finalpage/2025-04-25/1223275983.PDF">《北方导航控制技术股份有限公司2024年年度报告》</a>，北方导航 / 巨潮资讯，2025-04-25，访问时间 2026-07-17。</li>
+<li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=9983246&stockid=600435">《北方导航控制技术股份有限公司2023年年度报告》</a>，北方导航 / 上海证券交易所，2024-04-18，访问时间 2026-07-17。</li>
+<li><a href="https://cn.investing.com/equities/north-navigati-historical-data">北方导航行情与历史数据</a>，Investing.com，行情截至 2026-07-17，访问时间 2026-07-17。</li>
+<li><a href="https://cn.investing.com/equities/north-navigati-consensus-estimates">北方导航分析师一致预期</a>，Investing.com，访问时间 2026-07-17。</li>
+<li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11910576&stockid=600435">《北方导航：股票交易风险提示公告》</a>，北方导航，2026-01，访问时间 2026-07-17。</li>
+<li><a href="https://stock.finance.sina.com.cn/stock/go.php/vReport_Show/kind/company/rptid/798893694603/index.phtml">《北方导航：下游需求放量，2025年经营计划创历史新高》</a>，证券研究报告公开页，2025-04，访问时间 2026-07-17。</li>
+<li><a href="https://finance.sina.com.cn/stock/aiassist/lr/2026-06-27/doc-inieuyie1663686.shtml">北方导航融资余额公开数据</a>，新浪财经，2026-06-27，访问时间 2026-07-17。</li>
+<li><a href="https://www.cfi.net.cn/p20260713001290.html">《关于设立融合事业发展分公司的公告》</a>，北方导航公告转载页，2026-07-14，访问时间 2026-07-17。</li>
+</ol>
+<h2 id="section-16">16. 声明</h2>
+
+<p>本报告基于截至研究截止时间可取得的公开信息，不构成收益保证。真实交易前应重新核验价格、公告、流动性和个人风险承受能力。</p>
+</article>
+    </div>
+  </main>
+</body>
+</html>

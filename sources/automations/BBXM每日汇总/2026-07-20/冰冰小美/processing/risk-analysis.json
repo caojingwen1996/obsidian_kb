@@ -2,16 +2,21 @@
     "schema_version":  1,
     "target_date":  "2026-07-20",
     "author":  "冰冰小美",
-    "generated_at":  "2026-07-20T10:53:06+08:00",
-    "analysis_complete":  true,
+    "generated_at":  "2026-07-20T16:18:57+08:00",
+    "analysis_complete":  false,
     "coverage":  {
-                     "saved_post_count":  5,
+                     "saved_post_count":  12,
                      "analyzed_post_count":  5,
-                     "unresolved_post_count":  0,
+                     "unresolved_post_count":  7,
                      "unresolved_reasons":  [
-
+                                                "2026-07-20 16:04 同日重跑时，auto-then-manual 抓取卡在雪球滑动验证页，未生成 rerun JSON。",
+                                                "2026-07-20 16:13 auto-only 抓取只生成空数组；CDP 页面证据显示 7 个新增详情页 URL 被滑动验证阻断，正文未保存。",
+                                                "未保存详情页候选：401098886、401101756、401104160、401108816、401111371、401115044、401141704。"
                                             ],
-                     "capture_boundary":  "auto-only detail capture succeeded for the 5 target-date posts visible during this run; full auto-then-manual verification timed out before final snapshot."
+                     "capture_boundary":  "Same-day rerun at 16:04-16:18 found 7 new target-date candidate detail URLs, but Xueqiu slider verification blocked full body capture; analysis is limited to the 5 previously saved posts.",
+                     "saved_detail_post_count":  5,
+                     "unresolved_candidate_count":  7,
+                     "unresolved_candidate_file":  "sources/automations/BBXM每日汇总/2026-07-20/冰冰小美/processing/rerun-blocked-candidates-20260720-1613.json"
                  },
     "qualified":  [
                       {
@@ -102,6 +107,40 @@
                       }
                   ],
     "not_written":  [
-
+                        {
+                            "post_key":  "https://xueqiu.com/7143769715/401098886",
+                            "level":  "待验证",
+                            "reason":  "同日重跑发现该详情页 URL，但雪球滑动验证阻断正文抓取，不能做风险分级。"
+                        },
+                        {
+                            "post_key":  "https://xueqiu.com/7143769715/401101756",
+                            "level":  "待验证",
+                            "reason":  "同日重跑发现该详情页 URL，但雪球滑动验证阻断正文抓取，不能做风险分级。"
+                        },
+                        {
+                            "post_key":  "https://xueqiu.com/7143769715/401104160",
+                            "level":  "待验证",
+                            "reason":  "同日重跑发现该详情页 URL，但雪球滑动验证阻断正文抓取，不能做风险分级。"
+                        },
+                        {
+                            "post_key":  "https://xueqiu.com/7143769715/401108816",
+                            "level":  "待验证",
+                            "reason":  "同日重跑发现该详情页 URL，但雪球滑动验证阻断正文抓取，不能做风险分级。"
+                        },
+                        {
+                            "post_key":  "https://xueqiu.com/7143769715/401111371",
+                            "level":  "待验证",
+                            "reason":  "同日重跑发现该详情页 URL，但雪球滑动验证阻断正文抓取，不能做风险分级。"
+                        },
+                        {
+                            "post_key":  "https://xueqiu.com/7143769715/401115044",
+                            "level":  "待验证",
+                            "reason":  "同日重跑发现该详情页 URL，但雪球滑动验证阻断正文抓取，不能做风险分级。"
+                        },
+                        {
+                            "post_key":  "https://xueqiu.com/7143769715/401141704",
+                            "level":  "待验证",
+                            "reason":  "同日重跑发现该详情页 URL，但雪球滑动验证阻断正文抓取，不能做风险分级。"
+                        }
                     ]
 }

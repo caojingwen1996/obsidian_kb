@@ -1,0 +1,1327 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>铂力特机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.verdict { display: inline-flex; margin-top: 24px; padding: 7px 13px; border-radius: 999px; color: var(--danger); background: var(--danger-bg); font-weight: 750; }
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 26px; }
+.kpi { min-height: 96px; padding: 17px 18px; border: 1px solid rgba(255,255,255,.22); border-radius: 14px; background: rgba(255,255,255,.09); }
+.kpi-value { display: block; font-size: 23px; line-height: 1.3; font-weight: 760; overflow-wrap: anywhere; }
+.kpi-label { display: block; margin-top: 10px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; opacity: .8; }
+
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+}
+
+@media (max-width: 600px) {
+  .kpis { grid-template-columns: 1fr; }
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .verdict, .kpi { border: 1px solid #aebbc2; color: #102f43; background: #fff; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · 688333.SH</p>
+      <h1>铂力特机构级决策研报</h1>
+      <div class="hero-meta"><span>2026-07-17 16:15（Asia/Shanghai，收盘后）</span><span>2026-07-17 18:30（Asia/Shanghai）</span><span>上海证券交易所科创板 / 人民币</span></div>
+      <div class="verdict">高估 · 新增现金 observe；已有持仓 review / reduce</div>
+      <div class="kpis">
+        <div class="kpi"><span class="kpi-value">99.16元，2026-07-17收盘</span><span class="kpi-label">当前价格</span></div>
+        <div class="kpi"><span class="kpi-value">72.00–92.00元/股</span><span class="kpi-label">综合估值区间</span></div>
+        <div class="kpi"><span class="kpi-value">新增现金 observe；已有持仓 review / reduce</span><span class="kpi-label">冰冰小美动作</span></div>
+        <div class="kpi"><span class="kpi-value">中</span><span class="kpi-label">结论置信度</span></div>
+      </div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
+<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
+<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
+<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
+<a class="toc-link" href="#section-6">6. 五年财务历史</a>
+<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
+<a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
+<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
+<a class="toc-link" href="#section-10">10. 估值</a>
+<a class="toc-link" href="#section-11">11. 冰冰小美框架判断</a>
+<a class="toc-link" href="#section-12">12. 最终结论</a>
+<a class="toc-link" href="#section-13">13. 后续监控指标</a>
+<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
+<a class="toc-link" href="#section-15">15. 来源清单</a>
+<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
+      <article class="content"><blockquote>
+<p>证券代码：688333.SH<br>交易所 / 币种：上海证券交易所科创板 / 人民币<br>研究截止时间：2026-07-17 16:15（Asia/Shanghai，收盘后）<br>报告生成时间：2026-07-17 18:30（Asia/Shanghai）<br>数据口径：A股企业会计准则；行情为2026-07-17未复权收盘；财务截至2026Q1，完整年度截至2025年。金额无特别说明均为人民币。</p>
+</blockquote>
+<h2 id="section-1">1. 决策摘要</h2>
+
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值状态</td>
+<td>高估</td>
+</tr>
+<tr>
+<td>操作建议</td>
+<td>规避</td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td>新增现金 <code>observe</code>；已有持仓 <code>review / reduce</code></td>
+</tr>
+<tr>
+<td>当前价格及时间</td>
+<td>99.16元，2026-07-17收盘</td>
+</tr>
+<tr>
+<td>综合估值区间</td>
+<td>72.00–92.00元/股</td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>-27.4%至-7.2%</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h3>如果今天这是一笔现金，我会买它吗</h3>
+<ul>
+<li>回答：不会；只在价格回到估值区间中下部，或业绩兑现显著抬升估值锚后才会重新评估。</li>
+<li><strong>我的判断：</strong> 铂力特是国内金属增材制造全产业链龙头，2025年与2026Q1收入增长均超过39%，商业航天、3C、人形机器人等应用扩张具备真实产业证据；但现价已对应约115.5倍TTM PE、约15倍2025年EV/Sales，五年自由现金流持续为负，2025年审计报告带强调事项段且证监会立案尚未结案。7月17日公司股价下跌11.32%，高估值叠加治理和交易拥挤风险，风险收益比不支持新增现金追入。</li>
+<li>改变结论的条件：①股价回到72–80元且治理风险没有进一步升级；②2026H1/H2收入、扣非利润与经营现金流同时超预期，且扩产资本开支开始转化为产能利用率和自由现金流；③证监会立案结案且未形成重大处罚；④2026年EPS显著高于华泰1.11元预测，令现价对应的前瞻PE降至可解释区间。</li>
+</ul>
+<h2 id="section-2">2. 证券身份与来源矩阵</h2>
+
+<h3>2.1 证券身份</h3>
+<ul>
+<li>公司全称：西安铂力特增材技术股份有限公司。</li>
+<li>证券代码：688333.SH。</li>
+<li>上市地：上海证券交易所科创板。</li>
+<li>报告准则：中国企业会计准则。</li>
+<li>法定披露体系：上海证券交易所、巨潮资讯及公司法定公告；SEC文件不适用。</li>
+<li>同名或跨市场歧义：无。研究对象为西安铂力特，不是铂金材料或其他同名主体。</li>
+</ul>
+<h3>2.2 来源矩阵</h3>
+<table>
+<thead>
+<tr>
+<th>数据项目</th>
+<th>目标来源</th>
+<th>实际来源</th>
+<th>数据时间</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>实时价格、52周高低、今年以来表现</td>
+<td>上交所或可靠行情</td>
+<td>腾讯证券行情接口、腾讯前复权日线</td>
+<td>2026-07-17收盘</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>第三方公允价值、护城河、星级</td>
+<td>Morningstar等公开页面</td>
+<td>Morningstar及公开评级页未见可核验字段</td>
+<td>访问于2026-07-17</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>最新季报与管理层指引</td>
+<td>上交所法定披露</td>
+<td>公司2026年第一季度报告、2025年度业绩说明会记录</td>
+<td>2026-04-30、2026-05-21</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>分部收入</td>
+<td>上交所法定披露</td>
+<td>公司2025年年度报告</td>
+<td>2026-04-30披露</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>卖方评级与目标价</td>
+<td>券商研报原文</td>
+<td>华泰证券2026-05-05研报摘要；公开一致预期页</td>
+<td>2026-05-05至2026-07-08</td>
+<td>已获取，样本有限</td>
+</tr>
+<tr>
+<td>近三个月新闻与催化剂</td>
+<td>公司公告、交易所</td>
+<td>定期报告、回购股份出售结果、异常波动、监管措施公告</td>
+<td>2026-04-17至2026-07-17</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>五年财务历史</td>
+<td>法定年报</td>
+<td>2025年报及历年法定报表；东方财富财务接口仅作交叉核对</td>
+<td>2021–2025</td>
+<td>已获取</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 行情与市场预期</h2>
+
+<h3>3.1 行情快照（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">数值</th>
+<th>来源</th>
+<th>时间 / 口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前价格</td>
+<td align="right">99.16元</td>
+<td>腾讯证券行情接口</td>
+<td>2026-07-17收盘，未复权</td>
+</tr>
+<tr>
+<td>当日涨跌 / 换手</td>
+<td align="right">-11.32% / 7.29%</td>
+<td>腾讯证券行情接口</td>
+<td>2026-07-17</td>
+</tr>
+<tr>
+<td>52周最高</td>
+<td align="right">134.18元</td>
+<td>腾讯证券行情接口</td>
+<td>滚动52周</td>
+</tr>
+<tr>
+<td>52周最低</td>
+<td align="right">89.46元</td>
+<td>腾讯证券行情接口</td>
+<td>滚动52周</td>
+</tr>
+<tr>
+<td>今年以来表现</td>
+<td align="right">-11.01%</td>
+<td>腾讯证券行情接口</td>
+<td>2026年初至7月17日</td>
+</tr>
+<tr>
+<td>总市值</td>
+<td align="right">272.02亿元</td>
+<td>腾讯证券行情接口</td>
+<td>总股本2.7432亿股</td>
+</tr>
+<tr>
+<td>PE TTM / PB</td>
+<td align="right">115.50倍 / 5.46倍</td>
+<td>腾讯证券行情接口</td>
+<td>2026-07-17</td>
+</tr>
+<tr>
+<td>2025 EV/Sales</td>
+<td align="right">约15.1倍</td>
+<td>本报告计算</td>
+<td>市值272.02亿元+保守净债务6.84亿元，除以2025收入18.52亿元</td>
+</tr>
+</tbody></table>
+<ul>
+<li>价格窗口：7月8日收于90.01元，7月15日升至116.20元，7月17日回落至99.16元；九个交易日内经历约29%的反弹和约15%的两日回撤。该路径显示交易定价高度受情绪驱动。</li>
+<li>市场背景：2026-07-17上证指数、科创50、创业板指分别下跌3.05%、7.12%、7.15%，全市场超过5000只股票下跌。铂力特跌幅明显大于大盘、但与高弹性科技成长板块风险释放同向。</li>
+</ul>
+<h3>3.2 第三方公允价值与评级（事实）</h3>
+<ul>
+<li>公允价值：未获取到可核验的独立第三方公允价值字段。</li>
+<li>护城河评级：未获取到。</li>
+<li>星级：未获取到。</li>
+<li>来源与时间：截至2026-07-17检查公开Morningstar、行情评级及公司页面，未找到可核验且无需登录的对应字段。</li>
+<li>未获取到的字段及已检查来源：付费墙或聚合页搜索摘要不能替代实际字段，故不填推测值。</li>
+</ul>
+<h3>3.3 卖方评级与目标价分布（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>机构</th>
+<th>日期</th>
+<th>评级</th>
+<th align="right">目标价</th>
+<th>预测期</th>
+<th>关键假设</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>华泰证券</td>
+<td>2026-05-05</td>
+<td>买入</td>
+<td align="right">94.35元</td>
+<td>2026年</td>
+<td>预计2026–2028年EPS为1.11/1.49/2.00元；给予2026年85倍PE，看好商业航天、人形机器人等新兴民用领域</td>
+</tr>
+<tr>
+<td>富途公开一致预期页</td>
+<td>2026-07-08更新</td>
+<td>综合分析师口径</td>
+<td align="right">均值94.32元，91.97–96.65元</td>
+<td>未完整披露</td>
+<td>未获取到底层机构逐笔明细，可信度低于华泰原始摘要</td>
+</tr>
+</tbody></table>
+<ul>
+<li>目标价区间 / 中位数：可核验样本约91.97–96.65元；中心约94.3元。</li>
+<li>样本数量与完整性：公开页未展示完整底层样本，华泰是本报告唯一能核验关键估值假设的近期卖方样本。</li>
+<li>来源冲突及采信理由：外部目标价均低于2026-07-17收盘99.16元。报告不把卖方目标价直接等同公允价值，只将85倍2026年PE作为相对估值上沿参考。</li>
+</ul>
+<h2 id="section-4">4. 商业模式与竞争格局</h2>
+
+<h3>4.1 事实</h3>
+<ul>
+<li>收入来源：公司覆盖金属增材制造粉末原材料、设备、定制化产品、专用软件及技术服务。2025年定制化产品及技术服务收入10.52亿元，占比56.83%；设备、配件及技术服务6.86亿元，占37.05%；原材料1.13亿元，占6.12%。</li>
+<li>客户与定价权：2025年前五大客户销售额8.67亿元，占收入46.81%，单一最大客户占11.52%。航空航天产品具有认证、工艺数据库和批产稳定性壁垒，但客户集中和项目制交付仍限制绝对定价权。</li>
+<li>成本结构：2025年综合毛利率37.72%，研发投入2.42亿元、占收入13.05%。直接人工增长和工业民品收入占比提升压低毛利率中枢。</li>
+<li>资本强度：2025年购建长期资产现金支出12.45亿元，相当于当年收入67.3%；2024年为14.89亿元。扩产阶段资本强度极高。</li>
+<li>竞争者：海外包括EOS、Nikon SLM Solutions、Additive Industries；国内包括华曙高科、易加三维、镭明激光等。大尺寸、多激光、自动化和核心部件国产化竞争加快。</li>
+<li>监管和产业位置：公司是国家级高新技术企业，拥有国家级企业技术中心等研发平台；截至2025年末约3531名员工、研发人员占19.48%，累计申请专利738项、有效授权456项，与3400余家单位建立合作。</li>
+<li>航空航天与商业航天：公司在国内航空航天增材制造金属零部件市场占据较高份额，是空客金属增材制造服务合格供应商；已服务蓝箭航天、东方空间、九州云箭、星际荣耀、星众空间、天回航天等客户，多个商业航天项目进入批量生产阶段。</li>
+</ul>
+<h3>4.2 我的判断</h3>
+<ul>
+<li><strong>我的判断：竞争优势及依据。</strong> 全产业链覆盖、航空航天认证和长期工艺数据库、设备与自用批产协同，是公司较单一设备商更难复制的优势。工业收入2025年增长97.67%、首次超过航空航天，说明民用场景拓展不是单纯概念。</li>
+<li><strong>我的判断：商业模式最脆弱的环节及依据。</strong> 优势需要持续高研发和高资本开支维持；当产品结构向低毛利工业定制件倾斜时，收入增长未必同步转化为ROIC与自由现金流。客户项目验收、军工及航天采购节奏还会造成明显季节性。</li>
+<li>证伪条件：航空航天批产份额下降；工业毛利率持续低于30%且无法靠规模改善；设备库存和存货增速长期高于销售；核心客户转向竞争对手；扩产后利用率不足导致折旧和财务费用持续侵蚀利润。</li>
+</ul>
+<h2 id="section-5">5. 分部收入与盈利拆解</h2>
+
+<table>
+<thead>
+<tr>
+<th>分部</th>
+<th align="right">收入</th>
+<th align="right">同比</th>
+<th align="right">收入占比</th>
+<th align="right">毛利率</th>
+<th align="right">毛利率变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>航空航天</td>
+<td align="right">8.83亿元</td>
+<td align="right">+8.44%</td>
+<td align="right">47.70%</td>
+<td align="right">45.22%</td>
+<td align="right">+5.25pct</td>
+<td>2025年报</td>
+</tr>
+<tr>
+<td>工业</td>
+<td align="right">8.94亿元</td>
+<td align="right">+97.67%</td>
+<td align="right">48.26%</td>
+<td align="right">30.16%</td>
+<td align="right">-3.84pct</td>
+<td>2025年报</td>
+</tr>
+<tr>
+<td>科研院所</td>
+<td align="right">0.66亿元</td>
+<td align="right">+20.25%</td>
+<td align="right">3.59%</td>
+<td align="right">41.38%</td>
+<td align="right">+11.73pct</td>
+<td>2025年报</td>
+</tr>
+<tr>
+<td>医疗</td>
+<td align="right">0.05亿元</td>
+<td align="right">+40.10%</td>
+<td align="right">0.26%</td>
+<td align="right">33.54%</td>
+<td align="right">+2.37pct</td>
+<td>2025年报</td>
+</tr>
+<tr>
+<td>其他</td>
+<td align="right">0.04亿元</td>
+<td align="right">+956.50%</td>
+<td align="right">0.20%</td>
+<td align="right">10.87%</td>
+<td align="right">+155.47pct</td>
+<td>2025年报，低基数</td>
+</tr>
+</tbody></table>
+<p>按产品补充：</p>
+<table>
+<thead>
+<tr>
+<th>产品</th>
+<th align="right">收入</th>
+<th align="right">同比</th>
+<th align="right">收入占比</th>
+<th align="right">毛利率</th>
+<th align="right">毛利率变化</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3D打印定制化产品及技术服务</td>
+<td align="right">10.52亿元</td>
+<td align="right">+52.63%</td>
+<td align="right">56.83%</td>
+<td align="right">32.51%</td>
+<td align="right">-0.65pct</td>
+</tr>
+<tr>
+<td>3D打印设备、配件及技术服务</td>
+<td align="right">6.86亿元</td>
+<td align="right">+25.80%</td>
+<td align="right">37.05%</td>
+<td align="right">44.67%</td>
+<td align="right">+0.47pct</td>
+</tr>
+<tr>
+<td>3D打印原材料</td>
+<td align="right">1.13亿元</td>
+<td align="right">+24.80%</td>
+<td align="right">6.12%</td>
+<td align="right">44.07%</td>
+<td align="right">+14.85pct</td>
+</tr>
+</tbody></table>
+<ul>
+<li>披露口径变化：公司同时按行业、产品、地区披露，不能把行业与产品收入相加。2025年全部采用直接销售模式。</li>
+<li>地区：境内收入16.90亿元、同比+35.75%、毛利率35.66%；境外收入1.62亿元、同比+100.24%、毛利率59.17%。</li>
+<li>来源冲突：无重大冲突；年报主营业务收入与营业收入均为18.5167亿元。</li>
+<li>采信理由：采用2025年法定年报的直接披露值。</li>
+<li><strong>我的判断：增长质量及依据。</strong> 工业民品和海外增长拓宽了收入来源，减少单一航空航天周期依赖；但工业毛利率仅30.16%且同比下降，增长结构稀释盈利质量。真正的质量改善要看工业毛利率企稳、应收和存货周转改善以及自由现金流转正。</li>
+</ul>
+<h2 id="section-6">6. 五年财务历史</h2>
+
+<table>
+<thead>
+<tr>
+<th>财年</th>
+<th align="right">营收</th>
+<th align="right">毛利率</th>
+<th align="right">经营现金流</th>
+<th align="right">资本开支</th>
+<th align="right">自由现金流</th>
+<th align="right">ROIC / 代理值</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td align="right">5.52亿元</td>
+<td align="right">48.23%</td>
+<td align="right">0.27亿元</td>
+<td align="right">3.19亿元</td>
+<td align="right">-2.91亿元</td>
+<td align="right">约-5%</td>
+<td>历年法定报表</td>
+</tr>
+<tr>
+<td>2022</td>
+<td align="right">9.18亿元</td>
+<td align="right">54.55%</td>
+<td align="right">-1.08亿元</td>
+<td align="right">1.70亿元</td>
+<td align="right">-2.78亿元</td>
+<td align="right">约4%</td>
+<td>历年法定报表</td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">11.52亿元</td>
+<td align="right">47.21%</td>
+<td align="right">-1.31亿元</td>
+<td align="right">2.71亿元</td>
+<td align="right">-4.01亿元</td>
+<td align="right">约4%</td>
+<td>2025年报比较数及历年报表</td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">13.26亿元</td>
+<td align="right">37.44%</td>
+<td align="right">3.46亿元</td>
+<td align="right">14.89亿元</td>
+<td align="right">-11.43亿元</td>
+<td align="right">约2%</td>
+<td>2025年报比较数及历年报表</td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">18.52亿元</td>
+<td align="right">37.72%</td>
+<td align="right">2.39亿元</td>
+<td align="right">12.45亿元</td>
+<td align="right">-10.07亿元</td>
+<td align="right">约4%</td>
+<td>2025年报</td>
+</tr>
+</tbody></table>
+<ul>
+<li>自由现金流口径：经营活动现金流量净额减购建固定资产、无形资产和其他长期资产支付的现金。该口径不扣除金融理财投资，但完整反映扩产现金需求。</li>
+<li>ROIC口径：<code>经营利润×(1-15%标准化税率)÷平均投入资本</code>的粗略代理值；投入资本按股东权益加有息负债减现金类资产估算。历史债务结构与大额募集资金使该指标只能用于方向观察，不是公司披露指标。</li>
+<li>一次性项目和会计变化：公司2024年年报及2025Q1曾进行会计差错更正；2025年净利润2.04亿元中非经常性损益0.54亿元。2025年审计报告为带强调事项段的无保留意见，强调证监会立案事项，不影响会计师已发表意见，但显著降低信息治理置信度。</li>
+<li><strong>我的判断：盈利质量、现金转化与资本回报趋势。</strong> 2025年盈利和经营现金流改善，但五年自由现金流连续为负，2024–2025两年累计资本开支27.35亿元，高于同期收入31.77亿元的86%。公司仍处“以现金换产能”的阶段，估值不能只看利润增速；若扩产不能带来利用率、毛利和周转同步提升，ROIC会长期低于资本成本。</li>
+</ul>
+<h2 id="section-7">7. 最新季度与管理层指引</h2>
+
+<h3>7.1 最新季度（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">本期</th>
+<th align="right">同比 / 变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营收</td>
+<td align="right">3.26亿元</td>
+<td align="right">+43.57%</td>
+<td>2026Q1报告，2026-04-30</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">37.26%</td>
+<td align="right">约+0.31pct</td>
+<td>按收入3.259亿元、成本2.045亿元计算</td>
+</tr>
+<tr>
+<td>归母净利润</td>
+<td align="right">0.17亿元</td>
+<td align="right">上年同期亏损0.15亿元，扭亏</td>
+<td>2026Q1报告</td>
+</tr>
+<tr>
+<td>扣非净利润</td>
+<td align="right">0.06亿元</td>
+<td align="right">上年同期亏损0.27亿元，扭亏</td>
+<td>2026Q1报告</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">-1.41亿元</td>
+<td align="right">上年同期-1.32亿元，净流出扩大0.09亿元</td>
+<td>2026Q1报告</td>
+</tr>
+<tr>
+<td>研发投入</td>
+<td align="right">0.62亿元</td>
+<td align="right">-20.23%；占收入19.01%</td>
+<td>2026Q1报告</td>
+</tr>
+<tr>
+<td>订单 / 储备</td>
+<td align="right">未量化披露</td>
+<td align="right">业绩说明会表示依据行业发展、订单和生产周期安排产能</td>
+<td>2026-05-21业绩说明会</td>
+</tr>
+</tbody></table>
+<ul>
+<li>资产负债表异常项：2026Q1末存货14.88亿元，较2025年末增长10.9%；短期借款12.20亿元、长期借款6.52亿元，分别较年末增加26.1%和4.8%。货币资金12.96亿元、交易性金融资产5.02亿元。</li>
+<li>费用：销售费用同比+39.0%，财务费用同比+208.6%；研发费用同比下降20.2%。季度收入增长已转化为利润扭亏，但非经常性损益占归母利润约64%。</li>
+</ul>
+<h3>7.2 管理层指引（事实）</h3>
+<ul>
+<li>正式量化指引：未获取到公司对2026全年收入、利润或订单的法定量化指引。</li>
+<li>定性展望：公司在2025年报与2026年5月业绩说明会表示，将巩固航空航天，同时拓展3C、商业航天、机器人、能源动力、汽车、医疗、模具和海外市场；商业航天已有多个项目进入批量生产。</li>
+<li>未获取到：截至5月中旬具体在手订单金额、分行业订单、商业航天收入和产能利用率均未量化披露。</li>
+</ul>
+<h3>7.3 我的判断</h3>
+<ul>
+<li><strong>我的判断：边际变化及依据。</strong> Q1收入高增、利润扭亏是基本面改善，但经营现金流继续流出、存货和借款上升，说明扩张尚未完成现金闭环。扣非利润0.06亿元相对272亿元市值仍很薄。</li>
+<li><strong>我的判断：指引可信度及依据。</strong> 新兴场景有客户和产品案例支撑，但缺少订单金额、交付节奏和分业务盈利量化，不能直接外推为全年爆发。治理调查未结案也要求对管理层定性展望打折。</li>
+<li>下一验证节点：2026年半年度报告，重点核对收入增速、工业和航空航天毛利率、存货/应收、订单、资本开支、借款及经营现金流。</li>
+</ul>
+<h2 id="section-8">8. 近三个月新闻与催化剂</h2>
+
+<table>
+<thead>
+<tr>
+<th>发生日</th>
+<th>事件</th>
+<th>影响变量</th>
+<th>财务传导</th>
+<th>是否已反映</th>
+<th>验证节点</th>
+<th>失效条件</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-04-30</td>
+<td>披露2025年报和2026Q1</td>
+<td>收入、利润、现金流、治理</td>
+<td>高增长抬升盈利预期；强调事项和立案压低估值折价</td>
+<td>部分反映</td>
+<td>2026H1</td>
+<td>后续增长、现金流不达预期</td>
+<td>公司定期报告</td>
+</tr>
+<tr>
+<td>2026-04-30</td>
+<td>增加募投项目投资总额并调整结构</td>
+<td>产能、资本开支、负债</td>
+<td>扩产支持长期交付，但短期增加资本需求与折旧</td>
+<td>部分反映</td>
+<td>项目投产和利用率</td>
+<td>产能闲置、借款继续高增</td>
+<td>董事会公告</td>
+</tr>
+<tr>
+<td>2026-05-21</td>
+<td>航空航天行业集体业绩说明会</td>
+<td>商业航天、机器人、3C、海外</td>
+<td>新应用放量可增加收入并改善客户结构</td>
+<td>较多反映</td>
+<td>订单和半年报分部</td>
+<td>无量化订单或毛利恶化</td>
+<td>投资者关系记录</td>
+</tr>
+<tr>
+<td>2026-05-12至05-28</td>
+<td>公司出售全部229.19万股回购股份，占总股本0.84%</td>
+<td>筹码供给、现金</td>
+<td>取得2.29亿元现金，但形成二级市场供给</td>
+<td>已反映</td>
+<td>无；计划已完成</td>
+<td>不适用</td>
+<td>2026-05-29公司公告</td>
+</tr>
+<tr>
+<td>2026-05-27至05-29、06-17至06-19</td>
+<td>股价多次触发异常波动</td>
+<td>情绪、交易拥挤</td>
+<td>不直接改变盈利，放大估值波动</td>
+<td>未完全</td>
+<td>波动率、换手和融资余额</td>
+<td>业绩快速兑现使高估值被消化</td>
+<td>异常波动公告</td>
+</tr>
+<tr>
+<td>2026-07-10/11</td>
+<td>公司及相关人员因募集资金现金管理超董事会额度、审议披露不及时收到警示函</td>
+<td>内控、信披、治理折价</td>
+<td>可能提高融资和合规成本，叠加未结立案调查</td>
+<td>尚未充分定价</td>
+<td>整改报告、立案结论</td>
+<td>及时完成整改且立案无重大处罚</td>
+<td>陕西证监局措施及公司公告</td>
+</tr>
+<tr>
+<td>2026-07-17</td>
+<td>A股科技成长板块大幅下跌，公司跌11.32%</td>
+<td>风险偏好、杠杆承接</td>
+<td>估值压缩和融资盘去杠杆，不改变当期经营</td>
+<td>正在反映</td>
+<td>后续5–10个交易日承接</td>
+<td>快速收复111–116元且量价健康</td>
+<td>腾讯行情、市场收盘数据</td>
+</tr>
+</tbody></table>
+<h2 id="section-9">9. 多头与空头论据</h2>
+
+<h3>9.1 多头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>航空航天批产壁垒</td>
+<td>空客合格供应商；多个商业航天项目进入批量生产</td>
+<td>航空航天收入和毛利率、商业航天订单</td>
+<td>收入停滞或客户转单</td>
+</tr>
+<tr>
+<td>民用第二曲线形成</td>
+<td>2025工业收入+97.67%，超过航空航天；Q1收入+43.57%</td>
+<td>工业收入、复购、3C/机器人量产项目</td>
+<td>工业毛利率持续下滑、订单一次性</td>
+</tr>
+<tr>
+<td>全产业链协同</td>
+<td>材料、设备、软件、定制件全覆盖，累计456项有效授权专利</td>
+<td>自研部件占比、设备销量、服务收入</td>
+<td>研发降速导致产品落后</td>
+</tr>
+<tr>
+<td>海外市场打开</td>
+<td>2025境外收入+100.24%、毛利率59.17%</td>
+<td>海外收入占比、回款、认证</td>
+<td>贸易限制或海外增长回落</td>
+</tr>
+<tr>
+<td>扩产带来规模弹性</td>
+<td>两年资本开支27.35亿元，累计激光数量5200余个</td>
+<td>产能利用率、单位成本、FCF</td>
+<td>利用率不足、折旧财务费用吞噬利润</td>
+</tr>
+</tbody></table>
+<h3>9.2 空头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值透支</td>
+<td>99.16元对应115.5倍TTM PE、约15.1倍2025 EV/Sales；卖方目标约94元</td>
+<td>前瞻EPS和估值倍数</td>
+<td>EPS大幅超1.11元且增长持续</td>
+</tr>
+<tr>
+<td>自由现金流长期为负</td>
+<td>2021–2025五年FCF均为负，2025为-10.07亿元</td>
+<td>CFO、资本开支、FCF</td>
+<td>扩产结束后FCF连续转正</td>
+</tr>
+<tr>
+<td>盈利结构偏弱</td>
+<td>2025工业毛利率30.16%，Q1扣非利润仅0.06亿元，非经常损益占比高</td>
+<td>扣非净利率、工业毛利率</td>
+<td>规模效应显著改善利润率</td>
+</tr>
+<tr>
+<td>治理风险</td>
+<td>会计差错更正、带强调事项审计报告、证监会立案未结、2026年7月再收警示函</td>
+<td>立案结果、整改、审计意见</td>
+<td>无重大处罚且审计意见恢复标准无保留</td>
+</tr>
+<tr>
+<td>筹码和杠杆脆弱</td>
+<td>7月16日融资余额16.99亿元，占市值5.54%；7月17日跌11.32%</td>
+<td>融资余额、换手、反弹承接</td>
+<td>去杠杆后缩量企稳并恢复基本面定价</td>
+</tr>
+</tbody></table>
+<h2 id="section-10">10. 估值</h2>
+
+<h3>10.1 相对估值</h3>
+<table>
+<thead>
+<tr>
+<th>公司</th>
+<th>业务可比性</th>
+<th align="right">增长</th>
+<th align="right">利润率</th>
+<th align="right">PE TTM</th>
+<th align="right">PB</th>
+<th align="right">EV/EBITDA</th>
+<th>数据时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>铂力特</td>
+<td>金属增材制造全产业链</td>
+<td align="right">2025收入+39.69%</td>
+<td align="right">毛利率37.72%</td>
+<td align="right">115.50x</td>
+<td align="right">5.46x</td>
+<td align="right">未获取到可靠一致口径</td>
+<td>2026-07-17</td>
+</tr>
+<tr>
+<td>华曙高科</td>
+<td>金属3D打印设备和材料，最直接可比</td>
+<td align="right">PE受低利润基数影响</td>
+<td align="right">高研发、高成长</td>
+<td align="right">545.92x</td>
+<td align="right">16.42x</td>
+<td align="right">未获取到</td>
+<td>2026-07-17</td>
+</tr>
+<tr>
+<td>斯瑞新材</td>
+<td>航空航天及高端铜合金材料，业务部分可比</td>
+<td align="right">多领域扩张</td>
+<td align="right">材料制造口径不同</td>
+<td align="right">144.53x</td>
+<td align="right">11.43x</td>
+<td align="right">未获取到</td>
+<td>2026-07-17</td>
+</tr>
+<tr>
+<td>航亚科技</td>
+<td>航空发动机零部件批产，终端部分可比</td>
+<td align="right">盈利稳定性更高</td>
+<td align="right">制造口径不同</td>
+<td align="right">59.79x</td>
+<td align="right">4.63x</td>
+<td align="right">未获取到</td>
+<td>2026-07-17</td>
+</tr>
+</tbody></table>
+<ul>
+<li>选取理由：华曙高科反映金属增材设备稀缺溢价；斯瑞新材和航亚科技反映航空航天先进制造估值。三者商业模式、利润基数与资本开支不同，不能机械套用均值。</li>
+<li>正常化调整：采用华泰2026年EPS 1.11元为外部基准，并给予65–85倍PE。65倍已包含高增长和稀缺性，85倍对应华泰目标价上限。</li>
+<li>对应每股价值区间：72.15–94.35元。</li>
+<li><strong>我的判断：</strong> 当前99.16元已经高于近期卖方目标，且公司的自由现金流、治理和高杠杆扩产不支持相对华曙高科的极端高倍数。相对估值合理区间取72–94元。</li>
+</ul>
+<h3>10.2 DCF</h3>
+<h4>关键假设</h4>
+<p>公司2021–2025自由现金流连续为负，传统DCF对终值极端敏感。本报告使用10年显式期，FCFF=<code>EBIT×(1-15%税率)+折旧摊销-资本开支-营运资本增加</code>；净债务保守按2026Q1货币资金抵扣短贷、长贷、一年内到期负债和租赁负债后约6.84亿元，不把交易性金融资产全部视作永久现金。</p>
+<table>
+<thead>
+<tr>
+<th>假设</th>
+<th align="right">悲观</th>
+<th align="right">基准</th>
+<th align="right">乐观</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>收入增长</td>
+<td align="right">前5年20%降至8%，后5年6%降至3%</td>
+<td align="right">前5年30%降至15%，后5年12%降至6%</td>
+<td align="right">前5年40%降至20%，后5年16%降至7%</td>
+<td>2025年+39.69%、2026Q1+43.57%，但高基数后需回落</td>
+</tr>
+<tr>
+<td>经营利润率</td>
+<td align="right">10%逐步升至14%</td>
+<td align="right">12%逐步升至18%</td>
+<td align="right">13%逐步升至22%</td>
+<td>2025经营利润率11.67%；规模化与产品结构情景</td>
+</tr>
+<tr>
+<td>税率</td>
+<td align="right">15%</td>
+<td align="right">15%</td>
+<td align="right">15%</td>
+<td>高新技术企业及标准化处理</td>
+</tr>
+<tr>
+<td>折旧摊销</td>
+<td align="right">收入6%</td>
+<td align="right">收入7%</td>
+<td align="right">收入7%</td>
+<td>重资产扩产后折旧上升</td>
+</tr>
+<tr>
+<td>资本开支</td>
+<td align="right">收入28%逐步降至8%</td>
+<td align="right">30%逐步降至8%</td>
+<td align="right">32%逐步降至7%</td>
+<td>2025实际67%，假设扩产逐步完成</td>
+</tr>
+<tr>
+<td>营运资本变化</td>
+<td align="right">增量收入12%</td>
+<td align="right">增量收入10%</td>
+<td align="right">增量收入8%</td>
+<td>应收、存货和项目交付特征</td>
+</tr>
+<tr>
+<td>WACC</td>
+<td align="right">10.5%</td>
+<td align="right">9.5%</td>
+<td align="right">8.5%</td>
+<td>科创成长、治理和现金流风险溢价</td>
+</tr>
+<tr>
+<td>永续增长率</td>
+<td align="right">2.0%</td>
+<td align="right">3.0%</td>
+<td align="right">4.0%</td>
+<td>长期名义增长边界</td>
+</tr>
+</tbody></table>
+<h4>估值结果</h4>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">企业价值</th>
+<th align="right">净债务</th>
+<th align="right">股权价值</th>
+<th align="right">每股价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观</td>
+<td align="right">20.08亿元</td>
+<td align="right">6.84亿元</td>
+<td align="right">13.24亿元</td>
+<td align="right">4.82元</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">83.63亿元</td>
+<td align="right">6.84亿元</td>
+<td align="right">76.79亿元</td>
+<td align="right">27.99元</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">243.26亿元</td>
+<td align="right">6.84亿元</td>
+<td align="right">236.42亿元</td>
+<td align="right">86.18元</td>
+</tr>
+</tbody></table>
+<ul>
+<li>悲观与基准值很低并非计算错误，而是连续高资本开支和负自由现金流的直接结果。DCF在本公司更适合作为“现价需要多激进假设”的压力测试，而不是唯一目标价。</li>
+</ul>
+<h4>敏感性分析（基准经营假设，元/股）</h4>
+<table>
+<thead>
+<tr>
+<th>WACC \ 永续增长率</th>
+<th align="right">2.0%</th>
+<th align="right">3.0%</th>
+<th align="right">4.0%</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>8.5%</td>
+<td align="right">30.64</td>
+<td align="right">35.69</td>
+<td align="right">42.99</td>
+</tr>
+<tr>
+<td>9.5%</td>
+<td align="right">24.58</td>
+<td align="right">27.99</td>
+<td align="right">32.64</td>
+</tr>
+<tr>
+<td>10.5%</td>
+<td align="right">20.02</td>
+<td align="right">22.43</td>
+<td align="right">25.57</td>
+</tr>
+</tbody></table>
+<h4>反向 DCF</h4>
+<ul>
+<li>当前价格隐含的收入增长 / 终值利润率：在本报告乐观路径（10年收入由18.52亿元增长至108.60亿元、经营利润率升至22%、资本开支降至收入7%）下，只有把WACC压至约8.0%、永续增长率抬至4.0%，每股价值才约99.90元。</li>
+<li>与历史和行业相比是否可实现：理论上可实现，但要求商业航天、机器人、3C和海外多条曲线同时兑现，并且扩产后资本效率显著提升；任一环节低于预期都会造成较大估值回撤。</li>
+<li><strong>我的判断：</strong> 现价近似把乐观经营结果和低资本成本同时计入，安全边际不足。</li>
+</ul>
+<h3>10.3 行业特定估值</h3>
+<ul>
+<li>方法：2026年前瞻EV/Sales与订单/产能价值交叉估值。</li>
+<li>适用理由：公司仍在高资本开支阶段，FCF和当期利润低估了已建产能，但收入已形成规模，EV/Sales比PE更能观察产业稀缺溢价。</li>
+<li>关键假设：2026年收入25–26亿元，同比增长35%–40%；给予7–10倍EV/Sales，考虑高成长、全产业链和行业稀缺性，同时扣除保守净债务6.84亿元。</li>
+<li>对应每股价值区间：约61–92元。高端对应收入26亿元×10倍EV/Sales，再扣净债务；低端对应25亿元×7倍。</li>
+<li>局限性：未获取到分业务在手订单和产能利用率；EV/Sales不能反映毛利结构、扩产回报和治理折价，因此上沿不宜作为直接买点。</li>
+</ul>
+<h3>10.4 估值交叉验证</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="right">每股价值区间</th>
+<th align="right">权重</th>
+<th>采信理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>相对估值</td>
+<td align="right">72–94元</td>
+<td align="right">45%</td>
+<td>有近期卖方EPS和直接可比公司，但高倍数对预期敏感</td>
+</tr>
+<tr>
+<td>DCF</td>
+<td align="right">28–86元</td>
+<td align="right">25%</td>
+<td>严格反映资本开支，终值敏感，取乐观值作为上限约束</td>
+</tr>
+<tr>
+<td>行业特定估值</td>
+<td align="right">61–92元</td>
+<td align="right">30%</td>
+<td>适合扩产期，但缺订单和利用率数据</td>
+</tr>
+</tbody></table>
+<ul>
+<li>综合估值区间：72.00–92.00元/股。</li>
+<li>相对现价上行 / 下行空间：相对99.16元为-27.4%至-7.2%。</li>
+<li>为什么不机械平均：DCF因当前扩产使FCF结构性为负，会给出很低基准值；相对估值又容易受科创稀缺溢价和短期情绪抬升。最终区间以可核验2026 EPS和EV/Sales为主，DCF主要用于否定现价的安全边际。</li>
+</ul>
+<h2 id="section-11">11. 冰冰小美框架判断</h2>
+
+<h3>11.1 三要素结果引用</h3>
+<ul>
+<li>三要素结论来源：<code>bbxm-three-factor-analysis</code>。</li>
+<li>分析对象与层级：铂力特 / A股科创板个股。</li>
+<li>分析截止时间：2026-07-17收盘。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>状态</th>
+<th>核心证据</th>
+<th>核心反证</th>
+<th>失效条件</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>有利</td>
+<td>全产业链、航空航天批产认证、3400余家合作单位、商业航天多客户批产；工业收入+97.67%</td>
+<td>工业毛利率下降、国内外设备竞争加剧、客户集中</td>
+<td>航空航天份额下降或工业毛利长期低于30%</td>
+<td>中高</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>不利</td>
+<td>7月17日科创50-7.12%、公司-11.32%；融资余额16.99亿元、占市值5.54%；5日融资净额-0.72亿元；高位筹码震荡</td>
+<td>10年国债收益率约1.73%、人民币中间价6.7934，宏观资金价格不紧；公司5月回购股份出售已完成</td>
+<td>公司缩量企稳并连续收复111–116元，融资占比下降且出现真实机构承接</td>
+<td>中</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>不利</td>
+<td>7月8日至15日反弹29%后两日回撤15%，多次异常波动，利好与治理消息下剧烈博弈；当前处退潮</td>
+<td>99.16元仍高于7月8日低点，长期产业叙事未破</td>
+<td>5–10日内回到扩散上升且利好能推动持续增量成交</td>
+<td>中高</td>
+</tr>
+</tbody></table>
+<ul>
+<li>三要素综合判断：尚未形成有利共振。</li>
+<li>主导要素：竞争格局有利，产业地位与新应用提供长期支撑。</li>
+<li>拖累要素：微观流动性和情绪位置同步不利，且现价缺乏估值承接。</li>
+<li>数据缺口及影响：未获取到商业航天/机器人订单金额、当日ETF申赎、机构席位持续性、完整股东成本分布；限制对资金来源的精确识别。</li>
+<li>下一验证节点：市场风险释放后的5–10个交易日、2026年半年报、证监会立案与监管整改进展。</li>
+<li>新增现金：<code>observe</code>；条件：价格进入72–80元或H1业绩上修估值锚，且情绪退潮结束。</li>
+<li>已有持仓：<code>review / reduce</code>；条件：核对持仓成本和风险预算，若反弹不能站稳105–111元或融资踩踏继续，降低高波动敞口。</li>
+</ul>
+<p>流动性三层与资金来源：</p>
+<table>
+<thead>
+<tr>
+<th>层级 / 类型</th>
+<th>事实与判断</th>
+<th>持续性 / 退出条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观流动性</td>
+<td>中国10年国债收益率7月15日约1.732%，人民币中间价7月17日为6.7934；资金价格对成长估值并非主要压制</td>
+<td>中性偏支持；若全球科技风险偏好继续下降，低利率不能阻止估值压缩</td>
+</tr>
+<tr>
+<td>中观流动性</td>
+<td>未获取到2026年6月M1/M2和社融的可核验官方完整表；不能用“货币宽松”叙事补空</td>
+<td>证据不足；待央行正式数据</td>
+</tr>
+<tr>
+<td>微观流动性</td>
+<td>当日换手7.29%、成交21.15亿元；科创50与公司同步急跌；7月16日融资余额16.99亿元</td>
+<td>不利；缩量企稳、融资余额下降且价格不再创新低才算改善</td>
+</tr>
+<tr>
+<td>场外真实增量</td>
+<td>证据不足；单日高成交不能证明新资金持续流入</td>
+<td>低；连续净申购和机构承接才确认</td>
+</tr>
+<tr>
+<td>存量迁移</td>
+<td>前期商业航天、机器人和高端制造主题资金集中，7月17日向防御板块再平衡</td>
+<td>低至中；主题强度下降即退出</td>
+</tr>
+<tr>
+<td>减量报团</td>
+<td>7月初股价急涨、异常波动和融资高位显示存在报团特征；7月17日开始瓦解</td>
+<td>低；放量长阴和融资偿还会加速退出</td>
+</tr>
+<tr>
+<td>股票融资供给</td>
+<td>5月公司出售0.84%回购股份已完成；无新增定增公告，但扩产借款上升</td>
+<td>已出售筹码不再新增，潜在供给压力较前期减弱</td>
+</tr>
+</tbody></table>
+<h3>11.2 风险方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>风险类型</th>
+<th>前一窗口（2026-06-19至07-15）</th>
+<th>当前窗口（07-16至07-17）</th>
+<th>方向证据</th>
+<th>反证</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本面风险</td>
+<td>Q1扭亏、收入高增；立案未结</td>
+<td>基本面未新增恶化，7月再收募集资金管理警示函</td>
+<td>治理风险新增、现金流和资本开支压力未解除</td>
+<td>经营增长仍强，警示函事项金额不直接改变收入</td>
+</tr>
+<tr>
+<td>估值风险</td>
+<td>股价一度升至116.20元，估值扩张</td>
+<td>回落至99.16元但仍高于综合估值上沿</td>
+<td>115.5倍TTM PE、卖方目标低于现价</td>
+<td>股价已从高位回撤，2026盈利预期较2025高</td>
+</tr>
+<tr>
+<td>情绪风险</td>
+<td>7月8日后快速修复并重新拥挤</td>
+<td>两日快速退潮，7月17日-11.32%</td>
+<td>高波动、利好钝化和全市场科技踩踏</td>
+<td>仍未跌破7月8日低点</td>
+</tr>
+<tr>
+<td>流动性风险</td>
+<td>7月15日融资与价格共振反弹</td>
+<td>科创50-7.12%，融资盘面临负反馈</td>
+<td>杠杆余额占市值5.54%，承接范围收缩</td>
+<td>7月16日融资净买入仍为正，尚未看到被动平仓完整数据</td>
+</tr>
+</tbody></table>
+<h3>11.3 风险传导链</h3>
+<ul>
+<li>信息源头：高估值科技成长板块风险偏好下降；公司治理警示与未结立案；公司高资本开支和融资余额。</li>
+<li>核心变量：估值倍数、融资盘保证金与承接、2026盈利兑现、治理折价。</li>
+<li>传导机制：外部科技抛售与治理折价上升 → 高倍数估值压缩 → 股价急跌 → 融资盘降低仓位和趋势资金退出 → 承接下降 → 进一步放大波动。</li>
+<li>影响对象：铂力特股东、融资盘和高估值商业航天/机器人主题持仓。</li>
+<li>市场行为变化：7月15日上涨16.71%，7月17日转为下跌11.32%，振幅12.95%、换手7.29%。</li>
+<li>风险方向：风险重新增强。</li>
+<li>验证指标：融资余额及净偿还、90元附近承接、科创50广度、公司异常波动公告、半年报扣非利润和现金流、证监会调查结果。</li>
+<li>失效条件：连续5–10日缩量不创新低、价格站稳111元以上、融资占市值下降、半年报超预期且治理调查无重大处罚。</li>
+</ul>
+<h3>11.4 风险方向结论</h3>
+<ul>
+<li>风险方向结论：风险重新增强。</li>
+<li>判断依据：前一窗口中股价从7月8日90.01元修复至7月15日116.20元，存在可验证的风险减弱过程；随后科创成长板块两日退潮，公司7月17日跌11.32%，高估值、融资和治理风险重新进入可观察价格传导。</li>
+<li>反证：公司经营基本面没有在两日内恶化，当前价格仍高于7月8日低点；因此不是“公司基本面已被证伪”，而是估值与交易风险先行增强。</li>
+<li>未获取到：7月17日收盘后的最新融资余额、商业航天ETF净申购、机构席位持仓变化和被动平仓数据。</li>
+<li>置信度：中高。</li>
+</ul>
+<h3>11.5 四层方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>边际改善 / 无明显变化 / 边际恶化 / 未获取到</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观</td>
+<td>无明显变化</td>
+<td>国内低利率和人民币汇率稳定，但外围科技风险偏好下降；不是公司特有冲击</td>
+</tr>
+<tr>
+<td>中观</td>
+<td>无明显变化</td>
+<td>商业航天、增材制造长期方向未变，订单金额仍缺失</td>
+</tr>
+<tr>
+<td>微观</td>
+<td>边际恶化</td>
+<td>新增监管警示；借款、存货和负FCF压力延续</td>
+</tr>
+<tr>
+<td>交易</td>
+<td>边际恶化</td>
+<td>公司-11.32%、科创50-7.12%，高换手和高融资余额形成负反馈风险</td>
+</tr>
+</tbody></table>
+<h3>11.6 动作与约束</h3>
+<ul>
+<li>主动作：<code>observe</code>。</li>
+<li>新增现金：不追高；进入72–80元且风险不再增强，或半年报上修2026 EPS后再评估。</li>
+<li>已有持仓：<code>review / reduce</code>；若成本显著低于72元可保留核心观察仓，若高成本且无法承受20%以上波动，应在反弹承接不足时降低敞口。</li>
+<li>承接条件：90元附近不再放量破位、融资余额连续下降但价格企稳、科创50广度恢复、公司收复105–111元。</li>
+<li>退出条件：跌破89–90元且融资净偿还加速；半年报收入或扣非利润低于预期；证监会立案形成重大处罚；工业毛利率进一步恶化。</li>
+<li>下一复核节点：2026H1报告、立案/整改公告、未来5–10个交易日的融资与承接。</li>
+<li><strong>我的判断：为什么“方向”不能转化为“买点”。</strong> 产业方向有利只说明公司值得长期跟踪；现价高于估值上沿、FCF持续为负且风险重新增强，竞争优势尚不足以抵消估值和筹码的不利状态。</li>
+</ul>
+<h2 id="section-12">12. 最终结论</h2>
+
+<ul>
+<li>估值结论：高估。</li>
+<li>操作结论：规避。</li>
+<li>综合估值区间：72.00–92.00元/股。</li>
+<li>相对现价空间：相对99.16元为-27.4%至-7.2%。</li>
+<li>如果今天这是一笔现金，我会买它吗：不会；等价格、现金流或盈利锚至少有一项给出安全边际。</li>
+<li><strong>我的判断：</strong> 铂力特是值得长期跟踪的金属增材制造龙头，而不是当前价格下值得立即配置的低风险资产。2025–2026Q1的增长真实，但市场已经按极高倍数预支商业航天、机器人和3C的多年兑现；资本开支、负FCF、借款和治理事项使这种预期的容错率很低。</li>
+<li>结论失效条件：2026年EPS明显超过1.35元且2027增长继续上修；资本开支见顶、经营现金流和自由现金流连续改善；治理调查无重大处罚；或股价跌入72–80元且三要素从“尚未形成有利共振”转向“部分有利/同步有利”。</li>
+</ul>
+<h2 id="section-13">13. 后续监控指标</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">当前值</th>
+<th>触发阈值 / 方向</th>
+<th>数据源</th>
+<th>复核频率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026收入与扣非利润</td>
+<td align="right">Q1收入3.26亿元、扣非0.06亿元</td>
+<td>H1收入同比&gt;35%、扣非利润显著转正并超预期</td>
+<td>定期报告</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>自由现金流</td>
+<td align="right">2025 -10.07亿元；2026Q1约-2.94亿元</td>
+<td>单季FCF改善并在扩产后连续转正</td>
+<td>现金流量表</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>工业毛利率</td>
+<td align="right">2025为30.16%</td>
+<td>稳定在30%以上并回升；低于28%为风险</td>
+<td>年报/中报</td>
+<td>半年</td>
+</tr>
+<tr>
+<td>存货与借款</td>
+<td align="right">Q1存货14.88亿元；短贷12.20亿元</td>
+<td>增速低于收入且净债务不继续扩大</td>
+<td>资产负债表</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>融资余额与价格承接</td>
+<td align="right">7月16日融资16.99亿元，占市值5.54%；现价99.16元</td>
+<td>融资占比下降、90元不破并收复105–111元</td>
+<td>东方财富、腾讯行情</td>
+<td>日/周</td>
+</tr>
+<tr>
+<td>治理调查</td>
+<td align="right">证监会立案未结；7月收到警示函</td>
+<td>无重大处罚并完成整改；重大处罚则下调估值</td>
+<td>公司/监管公告</td>
+<td>事件驱动</td>
+</tr>
+</tbody></table>
+<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
+
+<ul>
+<li>未获取到：独立第三方公允价值、护城河和星级；2026年量化管理层指引；商业航天、机器人、3C分业务收入与在手订单；产能利用率；7月17日收盘后融资余额和ETF申赎；完整卖方目标价底层样本；可比公司统一EV/EBITDA。</li>
+<li>已检查来源：上交所及公司法定公告、2025年报、2026Q1、投资者关系记录、公开卖方研报摘要、腾讯行情、东方财富财务及融资融券接口、公开评级页。</li>
+<li>对结论的影响：订单与产能缺口使行业特定估值上沿可信度下降；卖方样本少使相对估值置信度为中；负FCF令DCF高度依赖资本开支正常化和终值。因此最终区间偏保守，结论置信度为中而非高。</li>
+<li>数据口径限制：历史ROIC为代理值；2026年宏观M1/M2和社融未取得可核验官方完整表，故中观流动性标为证据不足；行情接口字段已与市值、股本及日线交叉核对。</li>
+</ul>
+<h2 id="section-15">15. 来源清单</h2>
+
+<ol>
+<li>《西安铂力特增材技术股份有限公司2025年年度报告》，公司 / 上海证券交易所法定披露，2026-04-30，<a href="https://pdf.dfcfw.com/pdf/H2_AN202604291821774355_1.pdf">年报PDF镜像</a>，访问时间2026-07-17。</li>
+<li>《西安铂力特增材技术股份有限公司2026年第一季度报告》，公司 / 上海证券交易所法定披露，2026-04-30，<a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12288215&stockid=688333">公告正文镜像</a>，访问时间2026-07-17。</li>
+<li>《关于集中竞价减持已回购股份结果公告》，铂力特，2026-05-29，<a href="https://static.cninfo.com.cn/finalpage/2026-05-29/1225335919.PDF">巨潮PDF</a>，访问时间2026-07-17。</li>
+<li>《投资者关系活动记录表（2026年5月21日）》，铂力特，2026-05-22，<a href="https://notice.10jqka.com.cn/api/pdf/e3ec4e2d6568871b.pdf">公告PDF</a>，访问时间2026-07-17。</li>
+<li>《关于公司及相关人员收到陕西证监局行政监管措施决定书的公告》，铂力特，2026-07-11，<a href="http://static.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-07-11/688333_20260711_ADOP.pdf">上交所PDF</a>，访问时间2026-07-17。</li>
+<li>《铂力特（688333）：新兴民用领域实现多项突破》，华泰证券，2026-05-05，<a href="https://quote.cfi.cn/ybdata.aspx?id=20260506000247">公开研报摘要</a>，访问时间2026-07-17。</li>
+<li>腾讯证券行情与前复权日线接口，688333、可比公司及主要指数，数据截至2026-07-17 16:15，访问时间2026-07-17。</li>
+<li>东方财富数据中心财务报表及融资融券接口，688333，财务截至2026Q1、融资截至2026-07-16，访问时间2026-07-17。</li>
+<li>《A股收评：沪指跌超3%，创业板、科创50双双跌超7%》，金融界，2026-07-17，<a href="https://m.jrj.com.cn/madapter/stock/2026/07/17150557834144.shtml">市场收盘报道</a>，访问时间2026-07-17。</li>
+<li>中国10年期国债收益率历史数据，Investing，数据截至2026-07-15，<a href="https://cn.investing.com/rates-bonds/china-10-year-bond-yield-historical-data">历史数据页</a>，访问时间2026-07-17。</li>
+<li>2026-07-17人民币汇率中间价，中国人民银行授权中国外汇交易中心公布，<a href="https://news.smm.cn/news/104009432">转引页</a>，访问时间2026-07-17。</li>
+<li><a href="../../../wiki/topics/冰冰小美-情绪体系理论篇.html">冰冰小美-情绪体系理论篇</a>、<a href="../../../wiki/concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势.html">竞争格局的比较优势</a>、<a href="../../../wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.html">流动性辩证分析</a>、<a href="../../../wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化.html">情绪位置的变化</a>，llmwiki内部框架锚点，访问时间2026-07-17。</li>
+</ol>
+<h2 id="section-16">16. 声明</h2>
+
+<p>本报告基于截至研究截止时间可取得的公开信息，不构成收益保证或个性化投资建议。公司处于高资本开支、高估值和监管调查未结阶段，估值结果对增长、利润率、资本开支、WACC和终值假设高度敏感。真实交易前应重新核验价格、公告、融资余额、流动性、持仓成本和个人风险承受能力。</p>
+</article>
+    </div>
+  </main>
+</body>
+</html>

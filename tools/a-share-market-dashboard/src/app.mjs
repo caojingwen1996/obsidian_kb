@@ -272,6 +272,16 @@ export function resolveStorage(getStorage = () => globalThis.localStorage) {
   }
 }
 
+export function resolveTreeNavigation(activeViews, requestedDomain, requestedView = null) {
+  const defaults = {
+    thermometer: 'market-summary',
+    industry: 'industry-strategy',
+    changelog: 'changelog-view',
+  };
+  const domain = Object.hasOwn(defaults, requestedDomain) ? requestedDomain : 'thermometer';
+  return { domain, viewId: requestedView ?? activeViews[domain] ?? defaults[domain] };
+}
+
 function startApp() {
   const state = { snapshot: EXAMPLE_SNAPSHOT, windowYears: 5, busy: false };
   const storage = resolveStorage();
@@ -282,10 +292,15 @@ function startApp() {
   const refreshButton = document.getElementById('refresh-data');
   const exampleToggle = document.getElementById('example-mode');
   const marketActions = document.getElementById('market-actions');
+  const topbar = document.querySelector('.topbar');
   const pageTitle = document.getElementById('page-title');
   const pageEyebrow = document.querySelector('.topbar .eyebrow');
   const sidebarFooter = document.querySelector('.sidebar-footer');
-  const activeViewByShell = { thermometer: 'market-summary', industry: 'industry-strategy' };
+  const activeViewByShell = {
+    thermometer: 'market-summary',
+    industry: 'industry-strategy',
+    changelog: 'changelog-view',
+  };
 
   const render = () => {
     const derived = deriveDashboard(state.snapshot, state.windowYears);
@@ -337,7 +352,10 @@ function startApp() {
     document.getElementById('nav-toggle').setAttribute('aria-expanded', 'false');
   };
 
-  const shellForButton = button => button.closest('[data-shell-panel]')?.dataset.shellPanel ?? 'thermometer';
+  const shellForButton = button =>
+    button.dataset.treeDomain
+    ?? button.closest('[data-tree-group]')?.dataset.treeGroup
+    ?? 'thermometer';
 
   const labelForView = button => button?.textContent.replace(/^\d+/, '').trim() ?? '';
 
@@ -378,22 +396,25 @@ function startApp() {
   };
 
   const setShell = (shell, viewId = null) => {
-    const targetShell = shell === 'industry' ? 'industry' : 'thermometer';
-    document.querySelectorAll('[data-shell]').forEach(button => {
-      const active = button.dataset.shell === targetShell;
-      button.classList.toggle('is-active', active);
-      button.setAttribute('aria-selected', String(active));
-    });
-    document.querySelectorAll('[data-shell-panel]').forEach(panel => {
-      const active = panel.dataset.shellPanel === targetShell;
-      panel.classList.toggle('is-active', active);
-      panel.hidden = !active;
+    const navigation = resolveTreeNavigation(activeViewByShell, shell, viewId);
+    const targetShell = navigation.domain;
+    document.querySelectorAll('[data-tree-group]').forEach(group => {
+      const expanded = group.dataset.treeGroup === targetShell;
+      group.classList.toggle('is-expanded', expanded);
+      group.querySelector('.tree-root')?.setAttribute('aria-expanded', String(expanded));
+      const children = group.querySelector('.tree-children');
+      if (children) children.hidden = !expanded;
     });
     marketActions.hidden = targetShell !== 'thermometer';
+    topbar.hidden = targetShell === 'changelog';
     notice.hidden = targetShell !== 'thermometer';
     sidebarFooter.hidden = targetShell !== 'thermometer';
-    pageEyebrow.textContent = targetShell === 'thermometer' ? 'MARKET VALUATION MONITOR' : 'INDUSTRY MAP';
-    setActiveView(viewId ?? activeViewByShell[targetShell]);
+    pageEyebrow.textContent = {
+      thermometer: 'MARKET VALUATION MONITOR',
+      industry: 'INDUSTRY MAP',
+      changelog: 'CHANGELOG',
+    }[targetShell];
+    setActiveView(navigation.viewId);
     closeSidebar();
   };
 
@@ -401,7 +422,7 @@ function startApp() {
     state.windowYears = Number(button.dataset.window);
     render();
   }));
-  document.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => {
+  document.querySelectorAll('.nav-item[data-view]').forEach(button => button.addEventListener('click', () => {
     setShell(shellForButton(button), button.dataset.view);
   }));
   document.querySelectorAll('.industry-filter-tabs button').forEach(button => button.addEventListener('click', event => {
@@ -421,8 +442,8 @@ function startApp() {
     });
     form.querySelector('input')?.addEventListener('input', () => applyIndustryFilter(section));
   });
-  document.querySelectorAll('[data-shell]').forEach(button => button.addEventListener('click', () => {
-    setShell(button.dataset.shell);
+  document.querySelectorAll('[data-tree-domain]').forEach(button => button.addEventListener('click', () => {
+    setShell(button.dataset.treeDomain, button.dataset.view ?? null);
   }));
   document.getElementById('nav-toggle').addEventListener('click', event => {
     const open = document.getElementById('sidebar').classList.toggle('is-open');

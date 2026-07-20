@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>云铝股份（000807.SZ）资金面分析</title>
+  <style>
+    :root {
+      --ink: #172a36;
+      --muted: #637684;
+      --paper: #f4f7f8;
+      --card: #ffffff;
+      --line: #dce5e8;
+      --navy: #143c57;
+      --teal: #176f78;
+      --gold: #b38b3f;
+      --red: #a83a32;
+      --green: #347d5b;
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--paper); }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+      line-height: 1.72;
+    }
+    .shell { max-width: 1440px; margin: 0 auto; background: var(--card); min-height: 100vh; }
+    .hero {
+      padding: 54px clamp(28px, 5vw, 76px) 44px;
+      color: #fff;
+      background: linear-gradient(112deg, #0f3449 0%, #15576a 58%, #8b7440 100%);
+    }
+    .eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 12px; opacity: .82; font-weight: 700; }
+    h1 { margin: 0; max-width: 980px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(32px, 4.2vw, 58px); line-height: 1.14; font-weight: 650; }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 18px; font-size: 14px; opacity: .92; }
+    .verdict { display: inline-flex; margin-top: 24px; padding: 7px 13px; border-radius: 999px; color: #fff; background: rgba(168, 58, 50, .88); font-weight: 760; }
+    .kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 26px; }
+    .kpi { min-height: 94px; padding: 16px 17px; border: 1px solid rgba(255,255,255,.24); border-radius: 12px; background: rgba(255,255,255,.1); }
+    .kpi strong { display: block; font-size: 22px; line-height: 1.25; }
+    .kpi span { display: block; margin-top: 10px; font-size: 11px; letter-spacing: .08em; opacity: .78; }
+    .layout { display: grid; grid-template-columns: 260px minmax(0, 1fr); }
+    .toc { padding: 30px 22px; border-right: 1px solid var(--line); background: #f8fafb; }
+    .toc-inner { position: sticky; top: 18px; }
+    .toc-title { margin: 0 0 12px 8px; color: var(--muted); font-size: 12px; letter-spacing: .14em; font-weight: 760; }
+    .toc a { display: block; padding: 7px 9px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+    .toc a:hover { color: var(--navy); background: #e8f0f3; }
+    main { min-width: 0; padding: 38px clamp(24px, 4vw, 62px) 72px; }
+    h2 { margin: 48px 0 18px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 27px; line-height: 1.35; scroll-margin-top: 20px; }
+    h2:first-child { margin-top: 0; }
+    h3 { margin: 28px 0 10px; color: #285b70; font-size: 19px; }
+    p, li { font-size: 15px; }
+    .callout { margin: 18px 0 24px; padding: 14px 18px; border-left: 4px solid var(--teal); background: #edf5f5; color: #395c67; }
+    .decision { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 18px 0 26px; }
+    .decision div { padding: 15px 16px; border: 1px solid var(--line); border-radius: 10px; background: #fbfcfc; }
+    .decision small { display: block; color: var(--muted); font-size: 11px; letter-spacing: .08em; margin-bottom: 5px; }
+    .decision strong { font-size: 17px; }
+    table { width: 100%; margin: 16px 0 26px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+    th, td { min-width: 112px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+    th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+    tr:nth-child(even) td { background: #f7f9fa; }
+    .tag { display: inline-block; padding: 2px 7px; border-radius: 999px; color: #fff; background: var(--teal); font-size: 12px; font-weight: 700; }
+    .tag.warn { background: var(--gold); }
+    .tag.bad { background: var(--red); }
+    .tag.good { background: var(--green); }
+    a { color: #0d678e; text-underline-offset: 3px; }
+    code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+    @media (max-width: 900px) {
+      .kpis, .decision { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .layout { grid-template-columns: 1fr; }
+      .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+      .toc-inner { position: static; columns: 2; }
+    }
+    @media (max-width: 560px) {
+      .kpis, .decision { grid-template-columns: 1fr; }
+      .toc-inner { columns: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="hero">
+      <p class="eyebrow">FUND FLOW ANALYSIS</p>
+      <h1>云铝股份（000807.SZ）资金面分析</h1>
+      <div class="meta">
+        <span>对象层级：个股</span>
+        <span>所属市场：A股 / 深市</span>
+        <span>截止时间：2026-07-20 15:30 北京时间</span>
+        <span>窗口：最新交易日 / 近5日 / 近20日</span>
+      </div>
+      <div class="verdict">资金状态：多空分歧；新增资金：wait</div>
+      <div class="kpis">
+        <div class="kpi"><strong>多空分歧</strong><span>资金状态</span></div>
+        <div class="kpi"><strong>wait</strong><span>新增资金</span></div>
+        <div class="kpi"><strong>review</strong><span>已有持仓</span></div>
+        <div class="kpi"><strong>中低</strong><span>置信度</span></div>
+      </div>
+    </header>
+    <div class="layout">
+      <aside class="toc">
+        <div class="toc-inner">
+          <p class="toc-title">目录</p>
+          <a href="#s1">1. 核心结论与行动</a>
+          <a href="#s2">2. 数据审计</a>
+          <a href="#s3">3. 资金来源全景</a>
+          <a href="#s4">4. F3/F5/F7 日频面板</a>
+          <a href="#s5">5. 价格、广度与筹码</a>
+          <a href="#s6">6. 资金分歧与传导链</a>
+          <a href="#s7">7. 证据、反证与缺口</a>
+          <a href="#s8">8. 行动与仓位映射</a>
+          <a href="#s9">9. 下一验证点</a>
+          <a href="#s10">10. 来源与边界</a>
+        </div>
+      </aside>
+      <main>
+        <section id="s1">
+          <h2>1. 核心结论与行动</h2>
+          <div class="decision">
+            <div><small>资金状态</small><strong>多空分歧</strong></div>
+            <div><small>主导资金</small><strong>短线大额订单代理</strong></div>
+            <div><small>主要拖累</small><strong>7月16—17日转弱</strong></div>
+            <div><small>新增资金</small><strong>wait；0%</strong></div>
+            <div><small>已有持仓</small><strong>review</strong></div>
+            <div><small>置信度</small><strong>中低</strong></div>
+          </div>
+          <p>云铝股份在 2026 年半年度业绩预告、铝价上涨和氧化铝成本下降的催化下，7月14日、7月15日出现放量上行与大额订单流入代理。但 7月16日、7月17日资金转为净流出，价格同步回落；7月20日价格反弹，但当日资金流、最新融资余额、深股通和 ETF 申赎未能核验。</p>
+          <div class="callout">结论不是“资金已经共振流入”，而是“基本面催化强、交易资金活跃，但连续性不足”。新增资金不追涨，等待资金流重新连续转正。</div>
+        </section>
+
+        <section id="s2">
+          <h2>2. 数据审计</h2>
+          <table>
+            <thead><tr><th>数据项目</th><th>最新时点</th><th>观察窗口</th><th>来源</th><th>口径与覆盖范围</th><th>数据性质</th><th>缺口及影响</th></tr></thead>
+            <tbody>
+              <tr><td>股价与成交量</td><td>2026-07-20</td><td>近20日</td><td>Investing</td><td>日K收盘、开高低、成交量</td><td>已验证事实</td><td>可用</td></tr>
+              <tr><td>订单流 / 主力资金代理</td><td>2026-07-17</td><td>近5日 / 近20日</td><td>同花顺</td><td>大单、中单、小单资金流，账户身份不可确认</td><td>统计代理</td><td>缺 7月20日</td></tr>
+              <tr><td>融资融券</td><td>部分旧数据</td><td>近20日替代</td><td>搜狐 / 中财 / 东方财富</td><td>融资买入、偿还、余额</td><td>统计代理</td><td>最新不足，F3 置信度下降</td></tr>
+              <tr><td>ETF申赎</td><td>未获取到</td><td>不适用</td><td>未获取</td><td>单股无法直接映射 ETF 申赎</td><td>统计代理</td><td>F7 不可判断</td></tr>
+              <tr><td>基本面催化</td><td>2026-07-15</td><td>公告与研报快照</td><td>本地研报底稿</td><td>H1预告、铝价、估值</td><td>已验证事实 / 二手整理</td><td>不替代最新交易资金</td></tr>
+            </tbody>
+          </table>
+          <h3>已检查范围</h3>
+          <ul>
+            <li>东方财富资金流页面、同花顺资金流页面、Investing 历史行情、搜狐 / 中财融资融券页面、本地云铝研报。</li>
+            <li>未取得：2026-07-20 当日主力净流入、最新融资余额、深股通持股变动、行业 ETF 申赎拆分。</li>
+          </ul>
+        </section>
+
+        <section id="s3">
+          <h2>3. 资金来源全景</h2>
+          <table>
+            <thead><tr><th>资金类型</th><th>当日</th><th>近5日</th><th>近20日</th><th>核心证据</th><th>持续性</th><th>退出或反转条件</th></tr></thead>
+            <tbody>
+              <tr><td>外资与跨境资金</td><td>未获取到</td><td>未获取到</td><td>未获取到</td><td>深股通持股未核验</td><td>待验证</td><td>深股通连续减持或增持</td></tr>
+              <tr><td>杠杆资金</td><td>未获取到</td><td>待验证</td><td>偏强但滞后</td><td>公开融资余额较5月明显抬升，但最新不足</td><td>中低</td><td>融资余额连续下降且价格走弱</td></tr>
+              <tr><td>公募与ETF</td><td>不适用</td><td>未获取到</td><td>未获取到</td><td>单股 ETF 申赎无法直接映射</td><td>低</td><td>行业 ETF 份额变化需另查</td></tr>
+              <tr><td>产业资本</td><td>未获取到</td><td>未获取到</td><td>未获取到</td><td>未见本次资金面直接证据</td><td>待验证</td><td>减持 / 回购 / 增持公告</td></tr>
+              <tr><td>保险与长期资金</td><td>未获取到</td><td>未获取到</td><td>未获取到</td><td>无日频证据</td><td>待验证</td><td>定期报告持仓变化</td></tr>
+              <tr><td>私募与信托</td><td>未获取到</td><td>未获取到</td><td>未获取到</td><td>无透明日频数据</td><td>待验证</td><td>仓位调查或产品披露</td></tr>
+              <tr><td>券商资管</td><td>未获取到</td><td>未获取到</td><td>未获取到</td><td>无透明日频数据</td><td>待验证</td><td>产品持仓披露</td></tr>
+              <tr><td>个人资金</td><td>分歧</td><td>分歧</td><td>分歧</td><td>小单与中单数据波动大，身份不可确认</td><td>低</td><td>小单持续接盘但价格不涨</td></tr>
+              <tr><td>筹码供给</td><td>未获取到</td><td>待验证</td><td>待验证</td><td>未完成最新减持 / 解禁核验</td><td>待验证</td><td>出现大额减持或解禁压力</td></tr>
+            </tbody>
+          </table>
+          <h3>流入机制</h3>
+          <table>
+            <thead><tr><th>机制</th><th>是否存在</th><th>证据</th><th>边界与下一验证点</th></tr></thead>
+            <tbody>
+              <tr><td>场外真实增量</td><td><span class="tag bad">证据不足</span></td><td>没有确认长期资金或 ETF 份额增量</td><td>查深股通、机构持仓、ETF份额</td></tr>
+              <tr><td>存量迁移</td><td><span class="tag warn">可能存在</span></td><td>资源股 / 电解铝景气催化后，云铝出现放量上涨</td><td>需要行业内资金流对比</td></tr>
+              <tr><td>减量报团</td><td><span class="tag bad">证据不足</span></td><td>近20日订单流大幅反复，不是稳定抱团</td><td>看行业广度和成交集中度</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="s4">
+          <h2>4. F3/F5/F7 日频面板</h2>
+          <table>
+            <thead><tr><th>指标</th><th>定义</th><th>当日</th><th>近5日</th><th>近20日</th><th>方向与持续性</th><th>价格响应</th><th>数据质量与代理边界</th></tr></thead>
+            <tbody>
+              <tr><td>F3</td><td>融资净买入</td><td>缺 7月20日</td><td>待核验</td><td>融资余额较早期抬升，但最新不足</td><td>偏强但不能确认延续</td><td>价格已反弹</td><td>融资不是纯新增资金，也会与订单流重叠</td></tr>
+              <tr><td>F5</td><td>特大单 / 大单净买入</td><td>缺 7月20日</td><td>7月13—17日合计仍为正，但16、17日转负</td><td>近20日大幅反复</td><td>短线冲高后分歧</td><td>14、15日上涨确认，16、17日回落反证</td><td>大单不等于机构</td></tr>
+              <tr><td>F7</td><td>ETF估算净申赎</td><td>不适用</td><td>未获取到</td><td>未获取到</td><td>不判断</td><td>不判断</td><td>单股不能直接从 ETF 申赎推出真实买盘</td></tr>
+            </tbody>
+          </table>
+          <ul>
+            <li>可能重叠：融资买入会进入成交订单流，不能和 F5 金额相加。</li>
+            <li>不可直接比较：融资余额、订单流、ETF 申赎频率与样本不同。</li>
+            <li>是否发生机械求和：否。</li>
+          </ul>
+        </section>
+
+        <section id="s5">
+          <h2>5. 价格、广度与筹码交叉验证</h2>
+          <table>
+            <thead><tr><th>验证项</th><th>当前事实</th><th>与资金信号关系</th><th>结论影响</th></tr></thead>
+            <tbody>
+              <tr><td>价格响应</td><td>7月14日 +8.33%，7月15日 +4.48%，7月16日 -2.80%，7月17日 -0.99%，7月20日 +3.54%</td><td>先确认，后反复</td><td>不能直接升级为共振流入</td></tr>
+              <tr><td>成交与换手</td><td>7月14、15日成交量显著放大，之后仍高位</td><td>放量推进后有分歧</td><td>资金关注高，但也有兑现盘</td></tr>
+              <tr><td>上涨广度</td><td>未获取行业完整广度</td><td>证据不足</td><td>降低置信度</td></tr>
+              <tr><td>相对强弱</td><td>相对自身近20日均价偏强</td><td>改善</td><td>支持观察，不支持追涨</td></tr>
+              <tr><td>筹码供给与抛压</td><td>最新减持 / 解禁未核验</td><td>证据不足</td><td>不输出无条件 buy</td></tr>
+              <tr><td>连续性</td><td>订单流 14、15日强，16、17日转弱，20日价格反弹但资金缺口</td><td>反复</td><td>状态定为多空分歧</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="s6">
+          <h2>6. 资金分歧与传导链</h2>
+          <ul>
+            <li>主导链条：H1业绩预告 + 铝价 / 成本差改善 → 卖方上修和短线资金流入 → 股价快速上修 → 估值安全边际被压缩。</li>
+            <li>反向链条：短线获利盘兑现 + 大单流入转弱 → 放量后价格回撤 → 买点风险上升。</li>
+            <li>谁在承接：只能说“大额订单代理”和短线交易资金，不能确认机构账户。</li>
+            <li>潜在退出路径：若铝价回落、氧化铝成本反弹或资金流继续转负，短线资金可能沿高成交区退出。</li>
+          </ul>
+        </section>
+
+        <section id="s7">
+          <h2>7. 支持证据、反证与缺口</h2>
+          <h3>支持当前状态的证据</h3>
+          <ul>
+            <li>7月14日、7月15日资金净流入强，股价连续放量上涨。</li>
+            <li>7月20日收盘 26.01 元，较 7月13日 23.06 元明显抬升。</li>
+            <li>本地研报已记录：基本面风险转弱，但买点风险未转弱。</li>
+          </ul>
+          <h3>核心反证</h3>
+          <ul>
+            <li>7月16日、7月17日订单流转为净流出，价格也连续回落。</li>
+            <li>最新卖方目标价中，国投证券 7月14日目标价 27.66 元，7月20日收盘 26.01 元已经接近该锚。</li>
+            <li>本地研报原结论仍是“观望，不追涨”。</li>
+          </ul>
+          <h3>数据缺口</h3>
+          <ul>
+            <li>缺 7月20日资金流。</li>
+            <li>缺最新融资余额。</li>
+            <li>缺深股通、机构持仓、行业 ETF 申赎。</li>
+            <li>缺最新减持 / 解禁完整核验。</li>
+          </ul>
+        </section>
+
+        <section id="s8">
+          <h2>8. 行动与仓位映射</h2>
+          <h3>新增资金</h3>
+          <table>
+            <thead><tr><th>行动</th><th>条件化仓位</th><th>触发条件</th><th>维持条件</th><th>取消条件</th></tr></thead>
+            <tbody>
+              <tr><td><span class="tag warn">wait</span></td><td>0% 或仅保留观察单</td><td>资金流连续 2—3 日重新转正，且价格不放量滞涨</td><td>铝价 / 氧化铝价差不恶化，融资余额不快速下降</td><td>放量跌破 24.65—25.00 区间，或大单持续流出</td></tr>
+            </tbody>
+          </table>
+          <h3>已有持仓</h3>
+          <table>
+            <thead><tr><th>行动</th><th>仓位调整</th><th>触发条件</th><th>维持条件</th><th>取消条件</th></tr></thead>
+            <tbody>
+              <tr><td><span class="tag">review</span></td><td>先复核成本、仓位、原计划</td><td>若成本低于 22 元，逻辑和压力不同；若追在 26 元附近，风险不同</td><td>不跌破原计划风控线</td><td>资金继续流出且价格跌回 7月14日启动区</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="s9">
+          <h2>9. 下一验证点与失效条件</h2>
+          <ul>
+            <li>下一验证时间：下一个交易日收盘后。</li>
+            <li>下一验证指标：7月20日及之后主力资金、大单净额、融资余额、成交量、25元附近承接。</li>
+            <li>当前判断失效条件：资金流连续转正并站稳 26.5—27 元，且成交不滞涨。</li>
+            <li>行动升级条件：<code>wait → buy</code> 需要资金连续性 + 价格确认 + 估值仍有安全边际。</li>
+            <li>行动降级条件：<code>wait → observe / reduce</code> 需要资金继续流出并跌破 24.65—25.00。</li>
+          </ul>
+        </section>
+
+        <section id="s10">
+          <h2>10. 来源与使用边界</h2>
+          <h3>当前数据来源</h3>
+          <ul>
+            <li><a href="https://profile.10jqka.com.cn/000807/funds/">同花顺云铝股份资金流向</a></li>
+            <li><a href="https://cn.investing.com/equities/yunnan-alumin-a-historical-data">Investing 云铝股份历史行情</a></li>
+            <li><a href="https://data.eastmoney.com/zjlx/000807.html">东方财富云铝股份资金流向</a></li>
+            <li><a href="https://finance.eastmoney.com/a/202605073729337889.html">东方财富云铝股份融资融券旧数据</a></li>
+            <li><a href="../../workbench/targets/2026-07-15-1921-云铝股份机构级决策研报.md">云铝股份本地机构研报</a></li>
+          </ul>
+          <h3>框架依据</h3>
+          <ul>
+            <li>华泰证券《A股择时之资金面指标测试》（2021-07-02）：资金来源分类与历史指标检验参考。</li>
+            <li>F3/F5/F7 监测文章：日频代理思路参考，不视为已验证或可直接复制的择时模型。</li>
+          </ul>
+          <h3>使用边界</h3>
+          <ul>
+            <li>大单 / 主力资金是订单规模代理，不等于机构真实买卖。</li>
+            <li>融资余额不是纯新增资金，也可能反映价格变化和偿还节奏。</li>
+            <li>当前结论不是投资建议；缺少成本、仓位和风险预算，所以已有持仓只能给 <code>review</code>。</li>
+          </ul>
+        </section>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

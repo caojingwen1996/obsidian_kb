@@ -4,3 +4,11 @@
 - Generated interpretations: 5
 - Risk analysis: processing/risk-analysis.json
 - Boundary: auto-only detail capture succeeded for 5 target-date posts visible during this run; full auto-then-manual verification timed out on Xueqiu verification page, so same-day later posts require rerun.
+
+[2026-07-20 16:18:57] BBXM每日汇总 2026-07-20 同日重跑
+- Source: processing/extracted-posts-rerun-20260720-1613-auto-only.json (empty due verification blockage)
+- Saved raw posts: unchanged at 5; new raw posts: 0
+- Generated interpretations: unchanged at 5; missing new interpretations: 7 candidate details blocked
+- Risk analysis: processing/risk-analysis.json set analysis_complete=false
+- Excel status: blocked; updater refused to modify workbook because capture is incomplete
+- Boundary: 7 new detail URLs were observed as attempted targets but all stopped at Xueqiu slider verification: 401098886, 401101756, 401104160, 401108816, 401111371, 401115044, 401141704.

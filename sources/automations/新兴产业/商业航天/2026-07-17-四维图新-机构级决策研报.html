@@ -1,0 +1,1270 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>四维图新机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.verdict { display: inline-flex; margin-top: 24px; padding: 7px 13px; border-radius: 999px; color: var(--danger); background: var(--danger-bg); font-weight: 750; }
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 26px; }
+.kpi { min-height: 96px; padding: 17px 18px; border: 1px solid rgba(255,255,255,.22); border-radius: 14px; background: rgba(255,255,255,.09); }
+.kpi-value { display: block; font-size: 23px; line-height: 1.3; font-weight: 760; overflow-wrap: anywhere; }
+.kpi-label { display: block; margin-top: 10px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; opacity: .8; }
+
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+}
+
+@media (max-width: 600px) {
+  .kpis { grid-template-columns: 1fr; }
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .verdict, .kpi { border: 1px solid #aebbc2; color: #102f43; background: #fff; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · 002405.SZ</p>
+      <h1>四维图新机构级决策研报</h1>
+      <div class="hero-meta"><span>2026-07-17 15:00（收盘）</span><span>2026-07-17（Asia/Shanghai）</span><span>深圳证券交易所 / 人民币</span></div>
+      <div class="verdict">高估；资产账面值提供一定支撑，但持续经营亏损、毛利率下行与高研发投入尚未被当前市值充分反映 · 新增现金 wait / avoid；已有持仓 review / reduce on rebound</div>
+      <div class="kpis">
+        <div class="kpi"><span class="kpi-value">5.98元，2026-07-17收盘</span><span class="kpi-label">当前价格</span></div>
+        <div class="kpi"><span class="kpi-value">3.00–4.80元/股</span><span class="kpi-label">综合估值区间</span></div>
+        <div class="kpi"><span class="kpi-value">新增现金 wait / avoid；已有持仓 review / reduce on rebound</span><span class="kpi-label">冰冰小美动作</span></div>
+        <div class="kpi"><span class="kpi-value">中高</span><span class="kpi-label">结论置信度</span></div>
+      </div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
+<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
+<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
+<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
+<a class="toc-link" href="#section-6">6. 五年财务历史</a>
+<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
+<a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
+<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
+<a class="toc-link" href="#section-10">10. 估值</a>
+<a class="toc-link" href="#section-11">11. 冰冰小美框架判断</a>
+<a class="toc-link" href="#section-12">12. 最终结论</a>
+<a class="toc-link" href="#section-13">13. 后续监控指标</a>
+<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
+<a class="toc-link" href="#section-15">15. 来源清单</a>
+<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
+      <article class="content"><blockquote>
+<p>证券代码：002405.SZ<br>交易所 / 币种：深圳证券交易所 / 人民币<br>研究截止时间：2026-07-17 15:00（收盘）<br>报告生成时间：2026-07-17（Asia/Shanghai）<br>数据口径：中国企业会计准则；历史财务为合并口径；2026H1为公司业绩预告区间；行情采用收盘快照；估值预测均为研究假设而非公司指引  </p>
+</blockquote>
+<h2 id="section-1">1. 决策摘要</h2>
+
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值状态</td>
+<td>高估；资产账面值提供一定支撑，但持续经营亏损、毛利率下行与高研发投入尚未被当前市值充分反映</td>
+</tr>
+<tr>
+<td>操作建议</td>
+<td>观望；不因股价接近52周低点而机械抄底</td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td>新增现金 <code>wait / avoid</code>；已有持仓 <code>review / reduce on rebound</code></td>
+</tr>
+<tr>
+<td>当前价格及时间</td>
+<td>5.98元，2026-07-17收盘</td>
+</tr>
+<tr>
+<td>综合估值区间</td>
+<td>3.00–4.80元/股</td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>-49.8%至-19.7%</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td>中高</td>
+</tr>
+</tbody></table>
+<h3>如果今天这是一笔现金，我会买它吗</h3>
+<ul>
+<li>回答：不会。</li>
+<li>我的判断：四维图新拥有地图资质、汽车位置数据、车规级芯片与智能驾驶客户基础，确有稀缺资产；但截至本报告日，公司尚未证明这些资产能转化为可持续自由现金流。2025年1.04亿元归母净利润主要来自处置图新智驾形成的15.68亿元投资收益，扣非归母净利润反而亏损14.81亿元；2026H1预告亏损3.52亿—5.02亿元，且公司明确披露高精地图、智驾和车规芯片单价下降。5.98元看似处于52周低位，却仍对应约141.8亿元市值、约1.62倍市净率以及约3.3倍经营业务EV/Sales，不能由“低位”直接推出“低估”。</li>
+<li>改变结论的条件：价格进入3.8—4.5元且2026H1正式报告未差于预告中值；或价格未明显下跌但连续两个季度单季扣非亏损显著收窄、经营现金流转正、智云与智芯毛利率止跌，并能确认2027年经营性盈亏平衡路径。</li>
+</ul>
+<h2 id="section-2">2. 证券身份与来源矩阵</h2>
+
+<h3>2.1 证券身份</h3>
+<ul>
+<li>公司全称：北京四维图新科技股份有限公司</li>
+<li>证券代码：002405.SZ</li>
+<li>上市地：深圳证券交易所主板</li>
+<li>报告准则：中国企业会计准则</li>
+<li>法定披露体系：深圳证券交易所、巨潮资讯</li>
+<li>控制权：无控股股东、无实际控制人；第一大股东为北京屹唐新程科技合伙企业（有限合伙）。</li>
+<li>产业位置：智能汽车产业链上游数据、软件和芯片供应商；在卫星导航链条中位于下游位置数据、高精定位和应用服务环节，不属于卫星制造、发射、运营等商业航天基础设施。</li>
+<li>商业航天纯度：很低。卫星影像采购、北斗定位及位置数据能力是业务输入或技术能力，不代表公司收入主要由商业航天驱动。</li>
+</ul>
+<h3>2.2 来源矩阵</h3>
+<table>
+<thead>
+<tr>
+<th>数据项目</th>
+<th>目标来源</th>
+<th>实际来源</th>
+<th>数据时间</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>收盘价、52周高低、PE/PB</td>
+<td>交易行情数据库</td>
+<td>中财网、经济通公开行情交叉核验</td>
+<td>2026-07-17</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>最新季度</td>
+<td>公司法定公告</td>
+<td>2026年第一季度报告</td>
+<td>2026-04-29</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>半年度业绩预告</td>
+<td>公司法定公告</td>
+<td>2026年半年度业绩预告</td>
+<td>2026-07-15</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>分部与五年财务</td>
+<td>公司年报</td>
+<td>2025年年度报告及历年法定披露</td>
+<td>2021—2025</td>
+<td>已获取核心字段</td>
+</tr>
+<tr>
+<td>第三方公允价值、护城河</td>
+<td>Morningstar美国站</td>
+<td>Morningstar公开检索</td>
+<td>截至2026-07-17</td>
+<td>未获取到可核验A股覆盖</td>
+</tr>
+<tr>
+<td>卖方评级与目标价</td>
+<td>券商研报 / 一致预期</td>
+<td>公开检索</td>
+<td>截至2026-07-17</td>
+<td>样本不足，不用于锚定估值</td>
+</tr>
+<tr>
+<td>资金与持仓结构</td>
+<td>交易所 / 行情数据库</td>
+<td>公开行情与融资数据</td>
+<td>截至2026-07-17</td>
+<td>部分获取；无完整机构逐日流量</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 行情与市场预期</h2>
+
+<h3>3.1 行情快照（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">数值</th>
+<th>来源</th>
+<th>时间 / 口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>收盘价</td>
+<td align="right">5.98元</td>
+<td>中财网</td>
+<td>2026-07-17 15:00</td>
+</tr>
+<tr>
+<td>当日涨跌</td>
+<td align="right">-4.01%</td>
+<td>中财网</td>
+<td>前收6.23元</td>
+</tr>
+<tr>
+<td>当日高 / 低</td>
+<td align="right">6.31 / 5.95元</td>
+<td>中财网</td>
+<td>2026-07-17</td>
+</tr>
+<tr>
+<td>成交额 / 换手率</td>
+<td align="right">3.43亿元 / 2.39%</td>
+<td>中财网</td>
+<td>2026-07-17</td>
+</tr>
+<tr>
+<td>52周最高 / 最低</td>
+<td align="right">11.73 / 约5.95元</td>
+<td>经济通、中财网</td>
+<td>滚动52周；当日刷新区间低点</td>
+</tr>
+<tr>
+<td>总股本</td>
+<td align="right">约23.706亿股</td>
+<td>2026Q1报告及股本变动公告</td>
+<td>2026-06-17后</td>
+</tr>
+<tr>
+<td>总市值</td>
+<td align="right">约141.8亿元</td>
+<td>5.98元×23.706亿股</td>
+<td>2026-07-17</td>
+</tr>
+<tr>
+<td>PE / PB</td>
+<td align="right">PE约127倍、扣非PE无意义；PB约1.62倍</td>
+<td>中财网；Q1净资产</td>
+<td>2026-07-17</td>
+</tr>
+<tr>
+<td>广义净现金</td>
+<td align="right">约5.8亿元</td>
+<td>货币资金18.33亿元减有息债务约12.52亿元</td>
+<td>2026Q1；未扣租赁负债</td>
+</tr>
+<tr>
+<td>经营业务EV / 2025收入</td>
+<td align="right">约3.3倍</td>
+<td>市值+有息债务-货币资金，除以2025收入</td>
+<td>研究估算</td>
+</tr>
+</tbody></table>
+<p>补充：收盘价较52周高点回撤约49%，但价格回撤与经营预期下修同步发生。2026H1预告披露后，公司在7月17日下跌4.01%并触及5.95元，说明市场正在重新定价盈利压力，而非单纯情绪错杀。</p>
+<h3>3.2 第三方公允价值与评级（事实）</h3>
+<ul>
+<li>Morningstar公允价值：未获取到可核验覆盖。</li>
+<li>Morningstar经济护城河：未获取到。</li>
+<li>Morningstar星级：未获取到。</li>
+<li>处理方式：本报告的3.00—4.80元综合区间为独立估值结果，不冒充第三方评级。</li>
+</ul>
+<h3>3.3 卖方评级与目标价分布（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>机构</th>
+<th>日期</th>
+<th>评级</th>
+<th align="right">目标价</th>
+<th>预测期</th>
+<th>可比性判断</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>公开检索样本</td>
+<td>截至2026-07-17</td>
+<td>样本不足</td>
+<td align="right">未形成可靠区间</td>
+<td>—</td>
+<td>图新智驾处置前后业务口径变化，旧目标价不可直接沿用</td>
+</tr>
+</tbody></table>
+<ul>
+<li>目标价区间 / 中位数：不披露伪精确值。</li>
+<li>我的判断：在2026H1亏损扩大预告刚发布、盈利预测需要大幅重置的时点，一致预期的滞后风险高于通常时期。</li>
+</ul>
+<h2 id="section-4">4. 商业模式与竞争格局</h2>
+
+<h3>4.1 事实</h3>
+<ul>
+<li>智云：以导航地图、自动驾驶地图、位置大数据、数据合规、云平台及相关服务为主，2025年收入29.04亿元，占70.42%。</li>
+<li>智芯：杰发科技等提供车规级芯片及解决方案，2025年收入6.59亿元，占15.99%。</li>
+<li>智驾：智能驾驶软硬件和工程服务，处置图新智驾后，公司保留的业务口径与历史口径发生变化；2025年收入2.53亿元。</li>
+<li>智舱：座舱软硬件与车联网方案，2025年收入2.50亿元。</li>
+<li>收入模式：直销占85.68%，经销占14.32%；前五大客户收入占33.71%，单一最大客户占11.08%。</li>
+<li>成本结构：2025年前五大供应商采购额占34.35%；云资源、晶圆及存储等上游成本会直接影响毛利率。</li>
+<li>研发强度：2025年研发费用15.78亿元，同比增长21.94%，相当于收入的38.25%，是技术壁垒来源，也是经营亏损的核心约束。</li>
+</ul>
+<h3>4.2 我的判断</h3>
+<ul>
+<li>护城河：地图测绘资质、长期道路数据积累、车厂验证周期和车规芯片量产经验构成中等强度壁垒，但不是可自由提价的强护城河。</li>
+<li>竞争：智能汽车供应链已从“功能导入”进入“降本量产”。车厂自研、华为、百度、高德、地平线、黑芝麻、Qualcomm及大量Tier 1共同压价，技术能力并不必然转化为超额利润。</li>
+<li>商业模式矛盾：公司需要持续高研发投入维持地图、芯片、云和智驾多条战线；但客户集中度、价格压力和云资源成本上升使投入回报周期拉长。</li>
+<li>产业归类：四维图新更适合被视为汽车智能化与地理信息标的，而不是商业航天核心标的。把它纳入卫星主题可以解释部分情绪相关性，不能解释主要收入与利润。</li>
+<li>竞争格局结论：中性偏不利。优势资产真实存在，但议价能力与盈利兑现不足。</li>
+</ul>
+<h2 id="section-5">5. 分部收入与盈利拆解</h2>
+
+<table>
+<thead>
+<tr>
+<th>分部</th>
+<th align="right">2025收入</th>
+<th align="right">收入占比</th>
+<th align="right">同比</th>
+<th align="right">毛利率</th>
+<th align="right">毛利率同比</th>
+<th>盈利含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>智云</td>
+<td align="right">29.04亿元</td>
+<td align="right">70.42%</td>
+<td align="right">+28.85%</td>
+<td align="right">26.02%</td>
+<td align="right">-14.21pct</td>
+<td>规模增长最快，但低毛利合规云占比提升、地图和云成本压低质量</td>
+</tr>
+<tr>
+<td>智芯</td>
+<td align="right">6.59亿元</td>
+<td align="right">15.99%</td>
+<td align="right">+16.59%</td>
+<td align="right">27.64%</td>
+<td align="right">-5.17pct</td>
+<td>出货规模扩大，但车规芯片价格竞争和备货占用现金</td>
+</tr>
+<tr>
+<td>智驾</td>
+<td align="right">2.53亿元</td>
+<td align="right">6.13%</td>
+<td align="right">-6.58%</td>
+<td align="right">17.82%</td>
+<td align="right">-0.86pct</td>
+<td>研发投入高、处置后口径变化，尚未形成盈利支柱</td>
+</tr>
+<tr>
+<td>智舱</td>
+<td align="right">2.50亿元</td>
+<td align="right">6.07%</td>
+<td align="right">-37.88%</td>
+<td align="right">6.99%</td>
+<td align="right">-7.12pct</td>
+<td>收入与盈利能力同步恶化</td>
+</tr>
+<tr>
+<td>其他</td>
+<td align="right">0.58亿元</td>
+<td align="right">1.39%</td>
+<td align="right">+136.61%</td>
+<td align="right">未单列</td>
+<td align="right">—</td>
+<td>主要为租赁和材料等非核心收入</td>
+</tr>
+<tr>
+<td>合计</td>
+<td align="right">41.25亿元</td>
+<td align="right">100%</td>
+<td align="right">+17.25%</td>
+<td align="right">24.73%</td>
+<td align="right">-9.70pct</td>
+<td>收入增长没有转化为毛利和经营利润改善</td>
+</tr>
+</tbody></table>
+<p>关键拆解：</p>
+<ol>
+<li>2025年收入增长6.07亿元，但营业成本增长更快，综合毛利率下降9.70个百分点。</li>
+<li>智云贡献约75.6亿元毛利、智芯约1.82亿元、智驾约0.45亿元、智舱约0.17亿元；四个核心分部合计毛利约10.2亿元，低于15.78亿元研发费用，尚未覆盖销售、管理等费用。</li>
+<li>2026H1预告显示智芯和智驾收入小幅下降，高毛利高精地图明显下滑；数据合规业务虽增长，但云资源成本同步上升。分部组合继续向低毛利收入倾斜。</li>
+<li>图新智驾处置形成15.68亿元一次性投资收益，不能被外推为持续分部利润。</li>
+</ol>
+<h2 id="section-6">6. 五年财务历史</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">2021</th>
+<th align="right">2022</th>
+<th align="right">2023</th>
+<th align="right">2024</th>
+<th align="right">2025</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营业收入</td>
+<td align="right">30.60亿元</td>
+<td align="right">33.47亿元</td>
+<td align="right">31.22亿元</td>
+<td align="right">35.18亿元</td>
+<td align="right">41.25亿元</td>
+</tr>
+<tr>
+<td>归母净利润</td>
+<td align="right">1.22亿元</td>
+<td align="right">-3.36亿元</td>
+<td align="right">-13.14亿元</td>
+<td align="right">-10.95亿元</td>
+<td align="right">1.04亿元</td>
+</tr>
+<tr>
+<td>扣非归母净利润</td>
+<td align="right">0.60亿元</td>
+<td align="right">-3.51亿元</td>
+<td align="right">-14.28亿元</td>
+<td align="right">-11.18亿元</td>
+<td align="right">-14.81亿元</td>
+</tr>
+<tr>
+<td>经营活动现金流</td>
+<td align="right">2.36亿元</td>
+<td align="right">-4.60亿元</td>
+<td align="right">-4.69亿元</td>
+<td align="right">0.01亿元</td>
+<td align="right">-2.21亿元</td>
+</tr>
+<tr>
+<td>综合毛利率</td>
+<td align="right">约59.9%</td>
+<td align="right">约49.2%</td>
+<td align="right">约47.8%</td>
+<td align="right">34.43%</td>
+<td align="right">24.73%</td>
+</tr>
+<tr>
+<td>加权ROE</td>
+<td align="right">约1.1%</td>
+<td align="right">约-2.7%</td>
+<td align="right">-11.82%</td>
+<td align="right">-11.44%</td>
+<td align="right">1.17%</td>
+</tr>
+<tr>
+<td>每股净资产</td>
+<td align="right">约5.46元</td>
+<td align="right">5.23元</td>
+<td align="right">4.36元</td>
+<td align="right">3.77元</td>
+<td align="right">3.80元</td>
+</tr>
+</tbody></table>
+<p>注：2021—2022个别历史字段来自历年法定披露及公开财务汇总，四舍五入；2023—2025按2025年报列示。2025正利润不代表经营扭亏，扣非亏损和现金流更能反映持续经营。</p>
+<p>五年趋势判断：</p>
+<ul>
+<li>收入复合增长不弱，但毛利率从高毛利地图软件时代持续下降至24.73%，显示产品结构和竞争环境发生结构性变化。</li>
+<li>2022—2025累计扣非亏损约43.8亿元，持续吞噬2021年定增形成的资本缓冲。</li>
+<li>2026Q1归母净资产88.13亿元，其中商誉21.91亿元、无形资产14.77亿元、开发支出4.01亿元；扣除这三项后的有形归母净资产约47亿元，对应每股约2.0元。</li>
+<li>2025年研发费用占收入38.25%，当前经营模式需要先证明规模效应，而不能仅依赖收入增长叙事。</li>
+</ul>
+<h2 id="section-7">7. 最新季度与管理层指引</h2>
+
+<h3>7.1 最新季度（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">2026Q1</th>
+<th align="right">同比</th>
+<th>判断</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营业收入</td>
+<td align="right">8.57亿元</td>
+<td align="right">+13.36%</td>
+<td>收入仍增长</td>
+</tr>
+<tr>
+<td>营业成本</td>
+<td align="right">6.05亿元</td>
+<td align="right">+24.95%</td>
+<td>增速显著快于收入</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">29.36%</td>
+<td align="right">-6.55pct</td>
+<td>延续承压</td>
+</tr>
+<tr>
+<td>归母净利润</td>
+<td align="right">-1.44亿元</td>
+<td align="right">亏损收窄5.26%</td>
+<td>表面改善有限</td>
+</tr>
+<tr>
+<td>扣非归母净利润</td>
+<td align="right">-1.40亿元</td>
+<td align="right">亏损收窄8.15%</td>
+<td>尚未接近盈亏平衡</td>
+</tr>
+<tr>
+<td>经营活动现金流</td>
+<td align="right">-1.34亿元</td>
+<td align="right">由+0.39亿元转负</td>
+<td>回款与备货压力上升</td>
+</tr>
+<tr>
+<td>研发费用</td>
+<td align="right">2.00亿元</td>
+<td align="right">-29.41%</td>
+<td>智驾处置与投入节奏改变，不能仅视为效率改善</td>
+</tr>
+<tr>
+<td>联营企业投资收益</td>
+<td align="right">-0.97亿元</td>
+<td align="right">亏损扩大</td>
+<td>对鉴智等投资的损益形成新波动源</td>
+</tr>
+<tr>
+<td>货币资金 / 有息债务</td>
+<td align="right">18.33 / 约12.52亿元</td>
+<td align="right">—</td>
+<td>流动性可维持，但净现金缓冲不厚</td>
+</tr>
+</tbody></table>
+<p>2026H1业绩预告：</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">预告区间</th>
+<th align="right">同比</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营业收入</td>
+<td align="right">17.0—18.6亿元</td>
+<td align="right">-3.44%至+5.65%</td>
+</tr>
+<tr>
+<td>归母净利润</td>
+<td align="right">-5.02亿至-3.52亿元</td>
+<td align="right">亏损扩大13.22%至61.74%</td>
+</tr>
+<tr>
+<td>扣非归母净利润</td>
+<td align="right">-5.12亿至-3.51亿元</td>
+<td align="right">亏损扩大10.51%至61.48%</td>
+</tr>
+<tr>
+<td>基本EPS</td>
+<td align="right">-0.2151至-0.1506元</td>
+<td align="right">上年同期-0.1330元</td>
+</tr>
+</tbody></table>
+<p>由Q1与H1区间倒算，2026Q2单季归母净利润约亏损2.07亿—3.58亿元，较Q1继续恶化。</p>
+<h3>7.2 管理层指引（事实）</h3>
+<ul>
+<li>公司未提供2026全年收入、利润或现金流量化指引。</li>
+<li>H1预告给出的原因包括：国内乘用车销量与内需承压；车厂压缩零部件采购预算；智驾、车规芯片、高精地图服务单价下行；智芯和智驾收入小幅下降；高毛利高精地图服务明显下滑；云资源成本上升；战略转型期和刚性研发投入。</li>
+<li>年报披露智能网联汽车芯片研发项目使用期延至2028年12月，自动驾驶专属云平台项目延至2026年12月；部分募投项目此前未达到预计效益。</li>
+</ul>
+<h3>7.3 我的判断</h3>
+<ul>
+<li>最新证据不是“亏损暂时波动”，而是产品降价、结构降毛利与固定研发投入共同作用，经营杠杆方向不利。</li>
+<li>2026Q1的亏损收窄被H1预告证伪为可持续改善信号；Q2亏损大概率扩大。</li>
+<li>现金尚可支持转型，但若年经营现金消耗和资本化研发继续扩大，净现金缓冲会快速下降。</li>
+<li>真正拐点需同时满足：分部毛利率止跌、扣非亏损收窄、经营现金流改善；仅看收入或订单数量不够。</li>
+</ul>
+<h2 id="section-8">8. 近三个月新闻与催化剂</h2>
+
+<table>
+<thead>
+<tr>
+<th>日期</th>
+<th>事件</th>
+<th>类型</th>
+<th>对估值的影响</th>
+<th>后续验证</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-04-29</td>
+<td>发布2025年报：收入+17.25%、归母扭亏、扣非亏损14.81亿元</td>
+<td>财报</td>
+<td>一次性处置收益抬高表观PE，经营质量偏弱</td>
+<td>关注扣非和现金流</td>
+</tr>
+<tr>
+<td>2026-04-29</td>
+<td>发布2026Q1：收入+13.36%、归母亏损1.44亿元、CFO转负</td>
+<td>财报</td>
+<td>收入增长但成本更快，估值上修证据不足</td>
+<td>Q2毛利与回款</td>
+</tr>
+<tr>
+<td>2026-04-30</td>
+<td>业绩说明会及车展披露芯片、智驾、座舱定点与量产进展</td>
+<td>经营催化</td>
+<td>证明客户覆盖与产品能力，但未披露订单利润</td>
+<td>单车价值、毛利和回款</td>
+</tr>
+<tr>
+<td>2026-06-17</td>
+<td>完成51.3万股限制性股票回购注销</td>
+<td>股本事项</td>
+<td>占总股本约0.02%，影响不重大</td>
+<td>无</td>
+</tr>
+<tr>
+<td>2026-07-15</td>
+<td>发布H1预告，预计亏损3.52亿—5.02亿元</td>
+<td>业绩预警</td>
+<td>明确产品降价和毛利压力，属于核心负面催化</td>
+<td>H1正式报告</td>
+</tr>
+<tr>
+<td>2026-07-17</td>
+<td>股价下跌4.01%至5.98元，盘中低见5.95元</td>
+<td>市场反应</td>
+<td>市场继续下修盈利预期</td>
+<td>是否缩量止跌、资金承接</td>
+</tr>
+</tbody></table>
+<p>潜在正面催化：芯片新产品量产、智驾平台定点转量产、合规数据业务保持高增长、联营企业估值提升。潜在负面催化：车厂继续压价、云资源与晶圆成本上涨、联营企业亏损、商誉或无形资产减值、融资摊薄。</p>
+<h2 id="section-9">9. 多头与空头论据</h2>
+
+<h3>9.1 多头论据</h3>
+<ol>
+<li>公司在导航地图、位置数据合规和车规芯片领域积累时间长，准入、数据与客户验证形成真实壁垒。</li>
+<li>2025年收入增长17.25%，智云和智芯分别增长28.85%和16.59%，业务并未失去规模增长能力。</li>
+<li>截至2026Q1归母净资产88.13亿元，另有长期股权投资、权益工具和非流动金融资产合计约26.4亿元，资产处置可能释放价值。</li>
+<li>股价已较52周高点回撤约49%，预期位置和情绪明显降温。</li>
+<li>智能汽车、数据合规、国产车规芯片和高精定位长期需求仍在，若规模效应形成，利润弹性高。</li>
+</ol>
+<h3>9.2 空头论据</h3>
+<ol>
+<li>2025年归母盈利主要来自15.68亿元处置收益，扣非亏损14.81亿元，经营并未扭亏。</li>
+<li>综合毛利率2025年下降9.70个百分点；2026Q1再下降约6.55个百分点，结构性降价仍在延续。</li>
+<li>2026H1预计亏损扩大，Q2单季亏损大概率高于Q1；公司已明确车规芯片、智驾和高精地图价格下降。</li>
+<li>高研发投入必须维持，2025年研发费用已超过核心业务毛利；削减研发可能损害竞争力，不削减则亏损持续。</li>
+<li>账面资产质量需打折：商誉、无形资产和开发支出合计约40.7亿元，占归母净资产约46%；长期股权投资也存在亏损和估值波动。</li>
+<li>无控股股东、无实际控制人，资本配置和多业务协同的治理效率需要持续验证。</li>
+<li>当前市值约142亿元，仍高于经营性现金流和扣非利润能够支撑的水平。</li>
+</ol>
+<h2 id="section-10">10. 估值</h2>
+
+<h3>10.1 相对估值</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="right">当前值</th>
+<th>适用性</th>
+<th align="right">合理区间</th>
+<th align="right">对应股价</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>TTM PE</td>
+<td align="right">约127倍</td>
+<td>低；利润含重大一次性收益</td>
+<td align="right">不采用</td>
+<td align="right">—</td>
+</tr>
+<tr>
+<td>扣非PE</td>
+<td align="right">负值</td>
+<td>不适用</td>
+<td align="right">不采用</td>
+<td align="right">—</td>
+</tr>
+<tr>
+<td>PB</td>
+<td align="right">约1.62倍</td>
+<td>中；需对商誉和无形资产折价</td>
+<td align="right">0.9—1.25倍账面PB</td>
+<td align="right">3.37—4.68元</td>
+</tr>
+<tr>
+<td>有形PB</td>
+<td align="right">约3.0倍</td>
+<td>中高；更能反映资产下限</td>
+<td align="right">1.5—2.2倍</td>
+<td align="right">3.0—4.4元</td>
+</tr>
+<tr>
+<td>EV / Sales</td>
+<td align="right">约3.3倍</td>
+<td>中；亏损软件/芯片公司可比较</td>
+<td align="right">1.5—2.4倍</td>
+<td align="right">2.9—4.5元</td>
+</tr>
+</tbody></table>
+<p>相对估值结论：3.0—4.6元。当前1.62倍PB并不极高，但账面净资产约46%由商誉、无形资产和开发支出构成，且持续亏损会进一步侵蚀净资产，因此不能按成熟盈利软件公司的PB定价。</p>
+<h3>10.2 DCF</h3>
+<p>DCF采用企业自由现金流模型，并把非经营性投资资产折价加入股权价值。由于历史FCFF为负，结果对终值利润率高度敏感，仅作为情景约束。</p>
+<h4>关键假设</h4>
+<table>
+<thead>
+<tr>
+<th>假设</th>
+<th align="right">悲观</th>
+<th align="right">基准</th>
+<th align="right">乐观</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026收入</td>
+<td align="right">35.0亿元</td>
+<td align="right">36.5亿元</td>
+<td align="right">38.0亿元</td>
+</tr>
+<tr>
+<td>2027—2030收入CAGR</td>
+<td align="right">3%</td>
+<td align="right">9%</td>
+<td align="right">14%</td>
+</tr>
+<tr>
+<td>2030 EBIT率</td>
+<td align="right">0%</td>
+<td align="right">6%</td>
+<td align="right">12%</td>
+</tr>
+<tr>
+<td>WACC</td>
+<td align="right">11.0%</td>
+<td align="right">10.0%</td>
+<td align="right">9.0%</td>
+</tr>
+<tr>
+<td>永续增长率</td>
+<td align="right">1.5%</td>
+<td align="right">2.5%</td>
+<td align="right">3.0%</td>
+</tr>
+<tr>
+<td>非经营性投资资产折价</td>
+<td align="right">50%</td>
+<td align="right">65%</td>
+<td align="right">80%</td>
+</tr>
+<tr>
+<td>净现金</td>
+<td align="right">约5.8亿元</td>
+<td align="right">约5.8亿元</td>
+<td align="right">约5.8亿元</td>
+</tr>
+</tbody></table>
+<p>基准情景假设2026—2027继续负FCFF，2028后毛利率企稳、研发效率提升，2030 EBIT率回升至6%；没有假设回到历史地图软件时代的50%以上综合毛利率。</p>
+<h4>估值结果</h4>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">企业经营价值</th>
+<th align="right">非经营资产及净现金</th>
+<th align="right">股权价值</th>
+<th align="right">每股价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观</td>
+<td align="right">约8亿元</td>
+<td align="right">约19亿元</td>
+<td align="right">约27亿元</td>
+<td align="right">约1.15元</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">约45亿元</td>
+<td align="right">约23亿元</td>
+<td align="right">约68亿元</td>
+<td align="right">约2.87元</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">约97亿元</td>
+<td align="right">约27亿元</td>
+<td align="right">约124亿元</td>
+<td align="right">约5.23元</td>
+</tr>
+</tbody></table>
+<h4>敏感性分析</h4>
+<p>基准经营假设下每股价值（元）：</p>
+<table>
+<thead>
+<tr>
+<th>WACC \ 永续增长率</th>
+<th align="right">2.0%</th>
+<th align="right">2.5%</th>
+<th align="right">3.0%</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>9.0%</td>
+<td align="right">3.28</td>
+<td align="right">3.51</td>
+<td align="right">3.78</td>
+</tr>
+<tr>
+<td>10.0%</td>
+<td align="right">2.70</td>
+<td align="right">2.87</td>
+<td align="right">3.07</td>
+</tr>
+<tr>
+<td>11.0%</td>
+<td align="right">2.27</td>
+<td align="right">2.40</td>
+<td align="right">2.55</td>
+</tr>
+</tbody></table>
+<h4>反向 DCF</h4>
+<p>5.98元对应约142亿元股权价值。扣除基准折价后的非经营资产与净现金约23亿元，市场赋予经营业务约119亿元价值。要支撑这一价格，公司需要在未来五年实现接近两位数收入复合增长，并把EBIT率提升到约11%—13%，同时2027年前后明显收窄现金消耗。该要求与2026H1收入基本停滞、产品价格下行的最新证据存在明显张力。</p>
+<h3>10.3 行业特定估值</h3>
+<p>采用SOTP，把不同业务按收入倍数估值，并对总部成本、持续研发投入和资产重复计算进行调整：</p>
+<table>
+<thead>
+<tr>
+<th>业务</th>
+<th align="right">估值锚</th>
+<th align="right">合理倍数</th>
+<th align="right">估值区间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>智云</td>
+<td align="right">2025收入29.04亿元</td>
+<td align="right">1.2—1.8倍PS</td>
+<td align="right">35—52亿元</td>
+</tr>
+<tr>
+<td>智芯</td>
+<td align="right">2025收入6.59亿元</td>
+<td align="right">2.5—4.0倍PS</td>
+<td align="right">16—26亿元</td>
+</tr>
+<tr>
+<td>智驾</td>
+<td align="right">2025收入2.53亿元</td>
+<td align="right">1.5—3.0倍PS</td>
+<td align="right">4—8亿元</td>
+</tr>
+<tr>
+<td>智舱</td>
+<td align="right">2025收入2.50亿元</td>
+<td align="right">0.5—1.0倍PS</td>
+<td align="right">1—3亿元</td>
+</tr>
+<tr>
+<td>非经营性投资与净现金</td>
+<td align="right">账面及Q1余额</td>
+<td align="right">折价</td>
+<td align="right">19—27亿元</td>
+</tr>
+<tr>
+<td>减：总部亏损、研发与执行折价</td>
+<td align="right">—</td>
+<td align="right">—</td>
+<td align="right">-20至-5亿元</td>
+</tr>
+<tr>
+<td>合计股权价值</td>
+<td align="right">—</td>
+<td align="right">—</td>
+<td align="right">55—111亿元</td>
+</tr>
+<tr>
+<td>每股价值</td>
+<td align="right">—</td>
+<td align="right">—</td>
+<td align="right">2.32—4.68元</td>
+</tr>
+</tbody></table>
+<p>SOTP的关键不是简单给每条业务高科技倍数，而是必须扣除总部研发与尚未盈利的执行成本。若不扣除，会把同一研发能力在各分部估值中重复计算。</p>
+<h3>10.4 估值交叉验证</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="right">区间</th>
+<th align="right">权重</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>相对估值</td>
+<td align="right">3.0—4.6元</td>
+<td align="right">30%</td>
+<td>对资产质量折价</td>
+</tr>
+<tr>
+<td>DCF</td>
+<td align="right">2.3—5.2元</td>
+<td align="right">30%</td>
+<td>对终值利润率敏感</td>
+</tr>
+<tr>
+<td>SOTP</td>
+<td align="right">2.3—4.7元</td>
+<td align="right">40%</td>
+<td>适合多业务，但需扣总部亏损</td>
+</tr>
+<tr>
+<td>综合结论</td>
+<td align="right"><strong>3.00—4.80元</strong></td>
+<td align="right">100%</td>
+<td>上沿已包含较积极的智芯与智云兑现</td>
+</tr>
+</tbody></table>
+<ul>
+<li>当前5.98元高于综合估值上限约24.6%。</li>
+<li>估值状态：高估。</li>
+<li>安全边际价格：4.0元以下开始具备首档研究价值，3.2元以下才形成较明显的资产与经营双重安全边际；前提是没有新增大额减值或融资摊薄。</li>
+</ul>
+<h2 id="section-11">11. 冰冰小美框架判断</h2>
+
+<h3>11.1 三要素结果引用</h3>
+<ul>
+<li>三要素结论来源：<code>bbxm-three-factor-analysis</code></li>
+<li>分析对象与层级：四维图新（002405.SZ），个股层；中观以汽车智能化、车规芯片及位置数据服务为主，商业航天仅作弱关联背景</li>
+<li>分析截止时间：2026-07-17收盘</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>状态</th>
+<th>核心证据</th>
+<th>核心反证</th>
+<th>失效条件</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>不利</td>
+<td>车厂压价传导至智驾、芯片和高精地图；2025毛利率下降9.70pct，2026H1继续承压</td>
+<td>地图资质、车规验证与数据合规能力仍构成门槛</td>
+<td>高毛利业务恢复增长、智云和智芯毛利率连续两季回升</td>
+<td>高</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>不利</td>
+<td>7月17日放量下跌4.01%并刷新52周低位；融资盘和高股东数增加弱承接风险</td>
+<td>大幅回撤后绝对估值风险已部分释放</td>
+<td>缩量企稳后连续5日资金回流并收复20日均线</td>
+<td>中</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>不利</td>
+<td>H1预警后价格继续创新低，市场从题材交易切换为盈利下修</td>
+<td>极弱情绪可能带来技术反弹</td>
+<td>利空不再创新低、相对软件和汽车零部件指数持续转强</td>
+<td>中高</td>
+</tr>
+</tbody></table>
+<ul>
+<li>三要素综合判断：同步不利，未形成有利共振。</li>
+<li>主导要素：竞争格局与经营盈利恶化。</li>
+<li>拖累要素：流动性和情绪没有形成承接，低价并未构成买点。</li>
+<li>数据缺口及影响：缺少完整机构持仓变动、融资盘成本分布和逐笔订单盈利；因此交易层判断置信度低于基本面判断。</li>
+<li>下一验证节点：2026年半年度报告；观察正式毛利率、Q2现金流、存货与预付款。</li>
+<li>新增现金：<code>wait / avoid</code>。</li>
+<li>已有持仓：<code>review / reduce on rebound</code>，不以5.95元附近机械补仓。</li>
+</ul>
+<h3>11.2 风险方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>风险类型</th>
+<th>前一窗口</th>
+<th>当前窗口</th>
+<th>方向证据</th>
+<th>反证</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本面风险</td>
+<td>2026Q1收入增长、亏损小幅收窄</td>
+<td>H1预告亏损扩大，Q2明显弱于Q1</td>
+<td>风险增强</td>
+<td>收入区间仍可能小幅增长</td>
+</tr>
+<tr>
+<td>毛利风险</td>
+<td>2025毛利率已大降</td>
+<td>公司明确披露产品降价、云成本上升</td>
+<td>风险增强</td>
+<td>数据合规业务保持增长</td>
+</tr>
+<tr>
+<td>现金流风险</td>
+<td>2025 CFO亏损2.21亿元</td>
+<td>2026Q1 CFO亏损1.34亿元、芯片备货增加</td>
+<td>风险增强</td>
+<td>仍有约18.3亿元货币资金</td>
+</tr>
+<tr>
+<td>估值风险</td>
+<td>股价从高位回撤</td>
+<td>现价仍高于估值上限</td>
+<td>风险减弱但未解除</td>
+<td>已接近52周低位</td>
+</tr>
+<tr>
+<td>情绪与流动性风险</td>
+<td>预告前已处弱势</td>
+<td>预告后放量下跌并创新低</td>
+<td>风险重新增强</td>
+<td>超跌反弹可能发生</td>
+</tr>
+</tbody></table>
+<h3>11.3 风险传导链</h3>
+<ul>
+<li>信息源头：乘用车需求承压与车厂压缩采购预算。</li>
+<li>核心变量：产品单价、业务组合毛利率、研发刚性、经营现金流和联营企业投资损益。</li>
+<li>传导机制：车厂降本→智驾/芯片/地图单价下降→毛利不足以覆盖研发→扣非亏损扩大→现金与净资产被消耗→市场下调PS/PB倍数。</li>
+<li>影响对象：公司股东、融资盘、主题ETF中卫星导航与汽车智能化敞口。</li>
+<li>市场行为变化：从“北斗、机器人、智能驾驶概念”转向验证毛利和现金流。</li>
+<li>风险方向：风险增强。</li>
+<li>验证指标：分部毛利率、研发费用率、CFO、预付款和存货、联营企业损益、股价相对行业强弱。</li>
+<li>失效条件：H1正式结果优于预告中值，Q3毛利率环比明显回升、扣非亏损收窄且CFO转正，同时价格不再创新低。</li>
+</ul>
+<h3>11.4 风险方向结论</h3>
+<ul>
+<li>风险方向结论：风险增强。</li>
+<li>判断依据：Q1“收入增长、亏损略收窄”尚可被解释为改善，但H1预告显示Q2亏损扩大，并给出价格下降与成本上升的经营原因；这属于核心变量恶化，不只是市场情绪。</li>
+<li>反证：资产负债表仍有流动性缓冲，长期产业方向未被证伪，股价已释放约一半高点估值。</li>
+<li>未获取到：H1正式分部毛利、Q2现金流、完整机构仓位与订单单车价值。</li>
+<li>置信度：高。</li>
+</ul>
+<h3>11.5 四层方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>边际改善 / 无明显变化 / 边际恶化 / 未获取到</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观</td>
+<td>无明显变化</td>
+<td>报告未发现足以抵消公司盈利压力的流动性宽松证据</td>
+</tr>
+<tr>
+<td>中观</td>
+<td>边际恶化</td>
+<td>公司披露乘用车需求疲软、车厂预算收紧、上游成本抬升</td>
+</tr>
+<tr>
+<td>微观</td>
+<td>边际恶化</td>
+<td>H1亏损扩大、产品降价、毛利承压、Q2弱于Q1</td>
+</tr>
+<tr>
+<td>交易</td>
+<td>边际恶化</td>
+<td>7月17日跌4.01%并刷新52周低位</td>
+</tr>
+</tbody></table>
+<h3>11.6 动作与约束</h3>
+<ul>
+<li>主动作：<code>wait / avoid</code>。</li>
+<li>新增现金：现价不买。4.0—4.5元仅允许在H1正式结果不差于预告中值、现金流没有异常恶化时试仓不超过20%；3.2—3.8元可提升至40%；其余仓位必须等待连续两个季度经营改善。</li>
+<li>已有持仓：<code>review / reduce on rebound</code>。若仓位高于计划，可在反弹但毛利与现金流未改善时降低暴露；不因触及52周低点补仓。</li>
+<li>承接条件：价格进入估值区；H1正式毛利率不再下滑；Q3扣非亏损显著收窄；资金由放量下跌转为缩量企稳与连续回流。</li>
+<li>退出条件：H1落在预告下沿附近或更差；有形净资产继续快速下降；商誉/无形资产大额减值；新增融资摊薄；放量跌破5.95元且基本面同步恶化。</li>
+<li>下一复核节点：2026年半年度报告；如提前披露重大合同、资产减值、融资或联营企业事项则立即复核。</li>
+<li>我的判断：方向不能转化为买点。长期产业方向仍在，但当前竞争、现金流和情绪三项没有共振；“低位”只能说明跌得多，不能替代盈利与估值验证。</li>
+</ul>
+<h2 id="section-12">12. 最终结论</h2>
+
+<p>四维图新是有稀缺数据、资质和车规技术资产的汽车智能化平台，但当前不是经营兑现型资产。2025表观扭亏由15.68亿元处置收益驱动，扣非亏损和现金流仍弱；2026H1预告进一步确认产品降价、结构降毛利和研发刚性对利润的挤压。</p>
+<p>在5.98元、约142亿元市值下，市场仍隐含未来五年恢复两位数增长并把EBIT率提升至约11%—13%的较强假设。综合相对估值、DCF与SOTP，本报告给出3.00—4.80元合理区间，当前高于上限约24.6%。</p>
+<ul>
+<li>投资结论：高估。</li>
+<li>新增资金：<code>wait / avoid</code>。</li>
+<li>已有持仓：<code>review / reduce on rebound</code>。</li>
+<li>产业标签：汽车智能化 / 地理信息 / 车规芯片；商业航天纯度很低。</li>
+<li>最重要验证：不是新增定点或概念曝光，而是毛利率、扣非亏损和经营现金流能否连续改善。</li>
+</ul>
+<h2 id="section-13">13. 后续监控指标</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">当前基线</th>
+<th align="right">改善阈值</th>
+<th align="right">恶化阈值</th>
+<th>频率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>H1归母净利润</td>
+<td align="right">预告-5.02至-3.52亿元</td>
+<td align="right">优于-3.52亿元</td>
+<td align="right">差于-5.02亿元</td>
+<td>半年度</td>
+</tr>
+<tr>
+<td>综合毛利率</td>
+<td align="right">2025为24.73%；2026Q1约29.36%</td>
+<td align="right">连续两季环比提升</td>
+<td align="right">再降至25%以下</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>智云毛利率</td>
+<td align="right">2025为26.02%</td>
+<td align="right">回升至30%以上</td>
+<td align="right">低于23%</td>
+<td>半年度</td>
+</tr>
+<tr>
+<td>智芯毛利率</td>
+<td align="right">2025为27.64%</td>
+<td align="right">回升至30%以上</td>
+<td align="right">低于25%</td>
+<td>半年度</td>
+</tr>
+<tr>
+<td>扣非归母净利润</td>
+<td align="right">2025为-14.81亿元</td>
+<td align="right">单季亏损低于1亿元</td>
+<td align="right">单季亏损高于3亿元</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">2026Q1为-1.34亿元</td>
+<td align="right">单季转正</td>
+<td align="right">半年流出超过5亿元</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>研发费用率</td>
+<td align="right">2025为38.25%</td>
+<td align="right">降至30%以下且产品力不受损</td>
+<td align="right">高于40%且收入不增</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>货币资金 / 有息债务</td>
+<td align="right">18.33 / 12.52亿元</td>
+<td align="right">净现金扩大</td>
+<td align="right">转为净负债</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>联营企业投资收益</td>
+<td align="right">2026Q1为-0.97亿元</td>
+<td align="right">接近盈亏平衡</td>
+<td align="right">单季亏损超过1.5亿元</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>股价与20日均线</td>
+<td align="right">5.98元、弱势</td>
+<td align="right">放量站稳20日线5日以上</td>
+<td align="right">放量跌破5.95元</td>
+<td>日 / 周</td>
+</tr>
+</tbody></table>
+<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
+
+<ol>
+<li>未获取Morningstar对A股四维图新的可核验公允价值、护城河和星级。</li>
+<li>未形成足够新的卖方目标价样本；旧研报跨越图新智驾处置，业务口径不可比。</li>
+<li>2026H1仅为业绩预告，分部收入、毛利率、现金流、存货和应收尚未披露。</li>
+<li>历史五年毛利率中的2021—2022数据来自历年公开财务汇总，虽与法定披露交叉核验，仍以对应年报原表为最终口径。</li>
+<li>DCF对长期利润率高度敏感；公司目前FCFF为负，模型不能替代经营拐点验证。</li>
+<li>非经营性投资资产包含联营企业与金融资产，缺少逐项实时公允价值，估值采用折价区间。</li>
+<li>未获取机构逐笔资金、融资盘成本分布和完整北向资金变化，交易层结论置信度低于基本面结论。</li>
+<li>本报告把商业航天关系限定为下游位置数据和卫星导航应用，不把概念标签当作收入证据。</li>
+</ol>
+<h2 id="section-15">15. 来源清单</h2>
+
+<ol>
+<li><a href="https://static.cninfo.com.cn/finalpage/2026-04-29/1225236620.PDF">四维图新2025年年度报告（巨潮资讯）</a>，披露日期：2026-04-29。</li>
+<li><a href="https://disc.static.szse.cn/disc/disk03/finalpage/2026-04-29/a689c056-59c3-4b2f-9910-221d3ea2b653.PDF">四维图新2026年第一季度报告（深圳证券交易所）</a>，披露日期：2026-04-29。</li>
+<li><a href="https://gubaf10.eastmoney.com/news%2C002405%2C1743442483.html">四维图新2026年半年度业绩预告公开全文</a>，公告日期：2026-07-15；数据以交易所原公告为准。</li>
+<li><a href="https://quote.cfi.cn/quote10937_002405.html">中财网四维图新行情页</a>，行情时间：2026-07-17 15:00。</li>
+<li><a href="https://www.etnet.com.hk/www/sc/ashares/quote.php?code=002405">经济通四维图新行情页</a>，用于52周区间交叉核验。</li>
+<li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12256917&stockid=002405">四维图新2025年度财务决算报告公开页</a>，披露日期：2026-04-29。</li>
+<li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12256945&stockid=002405">四维图新2025年年度报告公开文本页</a>，用于文本检索交叉核验。</li>
+<li><a href="https://www.news.cn/auto/20260430/3c15d8d323914b08a2df001d293324b5/c.html">新华社：四维图新2025年报经营信息</a>，发布日期：2026-04-30；公司宣传口径仅用于经营进展补充，不替代法定财务数据。</li>
+</ol>
+<h2 id="section-16">16. 声明</h2>
+
+<p>本报告仅用于研究与决策框架演示，不构成任何证券买卖、持有或资产配置建议。文中事实尽量以公司法定公告和可复核行情为准；估值、情景、风险方向、动作与价格区间均为研究判断，可能因财报修订、市场价格、行业竞争、会计口径和假设变化而失效。投资者应独立核验原始公告，结合自身资金期限、风险承受能力和仓位约束作出决策。</p>
+</article>
+    </div>
+  </main>
+</body>
+</html>

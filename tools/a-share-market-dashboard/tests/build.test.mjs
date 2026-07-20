@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
@@ -10,6 +10,18 @@ import { deriveDashboard, resolveStorage } from '../src/app.mjs';
 const here = dirname(fileURLToPath(import.meta.url));
 const sourcePath = join(here, '..', 'src', 'index.html');
 const artifactPath = join(here, '..', 'a-share-market-dashboard.html');
+const repoRoot = join(here, '..', '..', '..');
+
+function countFeedReports(directoryName) {
+  return readdirSync(join(repoRoot, 'sources', 'automations', directoryName), {
+    recursive: true,
+    withFileTypes: true,
+  }).filter(entry =>
+    entry.isFile()
+    && entry.name.endsWith('.html')
+    && !entry.name.includes('完整分析报告')
+  ).length;
+}
 
 test('dashboard shell exposes every approved navigation and rendering target', () => {
   const html = readFileSync(sourcePath, 'utf8');
@@ -38,46 +50,51 @@ test('window controls use native buttons with the four approved values', () => {
   }
 });
 
-test('sidebar switches between thermometer and industry panels', () => {
+test('sidebar uses three first-level tree domains', () => {
   const html = readFileSync(sourcePath, 'utf8');
-  for (const shell of ['thermometer', 'industry']) {
-    assert.match(html, new RegExp(`<button[^>]+data-shell="${shell}"`));
+  for (const domain of ['thermometer', 'industry', 'changelog']) {
+    assert.match(html, new RegExp(`<button[^>]+data-tree-domain="${domain}"`));
   }
-  for (const id of [
+  for (const id of ['tree-thermometer', 'tree-industry', 'changelog-view',
     'industry-strategy',
     'industry-emerging',
     'industry-pillar',
   ]) {
     assert.match(html, new RegExp(`id="${id}"`));
   }
+  assert.match(html, /data-tree-domain="thermometer"[^>]+aria-expanded="true"[^>]+aria-controls="tree-thermometer"/);
+  assert.match(html, /data-tree-domain="industry"[^>]+aria-expanded="false"[^>]+aria-controls="tree-industry"/);
+  assert.doesNotMatch(html, /class="shell-switcher"/);
   assert.doesNotMatch(html, /industry-sectors/);
   assert.doesNotMatch(html, />板块</);
 });
 
+test('changelog renders the approved initial entries', () => {
+  const html = readFileSync(artifactPath, 'utf8');
+  assert.match(html, /<p class="eyebrow">CHANGELOG<\/p>/);
+  assert.match(html, /最近发生了什么——新功能、调整与修复，都写在这里。/);
+  for (const title of [
+    '产业研报改为目录自动加载',
+    '修复本地服务器无法打开产业研报',
+    '产业研报链接改为在新标签页打开',
+  ]) {
+    assert.match(html, new RegExp(title));
+  }
+  assert.doesNotMatch(html, /<!-- CHANGELOG_ENTRIES -->/);
+});
+
 test('industry panels use Ice Ice Xiaomei three-industry classification', () => {
-  const html = readFileSync(sourcePath, 'utf8');
+  const html = readFileSync(artifactPath, 'utf8');
   for (const term of [
     '战略资源',
-    '黄金',
+    '电解铝',
     '铜',
-    '稀土',
-    '锂',
-    '能源',
-    '关键矿产',
     '新兴产业',
-    '集成电路',
-    '航空航天',
-    '生物医药',
-    '低空经济',
-    '新型储能',
-    '智能机器人',
+    '商业航天',
+    '机器人',
+    '算力',
     '支柱产业',
-    '汽车',
-    '新能源',
-    '高端制造',
-    '机械装备',
     '电网',
-    '成熟制造业龙头',
   ]) {
     assert.match(html, new RegExp(term));
   }
@@ -98,14 +115,18 @@ test('industry panels use the approved feed layout without the tracking card', (
     'industry-timeline',
     '产业研报',
     '云铝股份机构级决策研报',
-    '../../sources/automations/战略资源/2026-07-15-1921-云铝股份机构级决策研报.html',
+    '../../sources/automations/战略资源/电解铝/2026-07-15-1921-云铝股份机构级决策研报.html',
+    '云铝股份资金面分析',
+    '../../sources/automations/战略资源/电解铝/2026-07-20-云铝股份资金面分析.html',
     '商业航天产业完整分析报告',
-    '../../sources/automations/商业航天/商业航天产业完整分析报告.html',
+    '../../sources/automations/新兴产业/商业航天/商业航天产业完整分析报告.html',
+    '算力产业完整分析报告',
+    '../../sources/automations/新兴产业/算力/2026-07-20-算力产业完整分析报告.html',
     '中国卫星-机构级决策研报',
     '中国卫通-机构级决策研报',
     '航天电子机构级决策研报',
     '十五五电网投资与电网行业完整分析报告',
-    '../../sources/automations/电网产业/2026-07-17-十五五电网投资与电网行业完整分析报告.html',
+    '../../sources/automations/支柱产业/电网/2026-07-17-十五五电网投资与电网行业完整分析报告.html',
     '中国中车机构级决策研报',
     '中国中车资金面分层分析',
     '中国船舶资金面分层分析',
@@ -113,15 +134,16 @@ test('industry panels use the approved feed layout without the tracking card', (
     '../../sources/automations/支柱产业/2026-07-18-中国中车资金面分层分析.html',
     '../../sources/automations/支柱产业/2026-07-18-中国船舶资金面分层分析.html',
     '华明装备机构级决策研报',
-    '../../sources/automations/电网产业/2026-07-15-1514-华明装备机构级决策研报.html',
+    '../../sources/automations/支柱产业/电网/2026-07-15-1514-华明装备机构级决策研报.html',
     '神马电力机构级决策研报',
     '神马电力资金面分层分析',
-    '../../sources/automations/电网产业/2026-07-18-神马电力机构级决策研报.html',
-    '../../sources/automations/电网产业/2026-07-18-神马电力资金面分层分析.html',
-    '来源目录：sources/automations/战略资源',
-    '来源目录：sources/automations/商业航天',
+    '../../sources/automations/支柱产业/电网/2026-07-18-神马电力机构级决策研报.html',
+    '../../sources/automations/支柱产业/电网/2026-07-18-神马电力资金面分层分析.html',
+    '来源目录：sources/automations/战略资源/电解铝',
+    '来源目录：sources/automations/新兴产业/商业航天',
+    '来源目录：sources/automations/新兴产业/算力',
     '来源目录：sources/automations/支柱产业',
-    '来源目录：sources/automations/电网产业',
+    '来源目录：sources/automations/支柱产业/电网',
   ]) {
     assert.match(html, new RegExp(marker));
   }
@@ -132,25 +154,40 @@ test('industry panels use the approved feed layout without the tracking card', (
   assert.doesNotMatch(html, /<button type="button" data-filter="电力设备" aria-pressed="false">电力设备<\/button>/);
   assert.doesNotMatch(html, /集成电路产业链缩圈|生物医药、新型储能与智能机器人观察/);
   assert.doesNotMatch(html, /战略资源：资源安全与硬资产重估|铜与关键矿产供需周期跟踪|黄金与能源的宏观变量观察/);
-  assert.match(html, /<strong>7月20日<\/strong><span>星期一 · 1条<\/span>/);
-  assert.match(html, /<strong>7月20日<\/strong><span>星期一 · 18条<\/span>/);
-  assert.match(html, /<strong>7月20日<\/strong><span>星期一 · 6条<\/span>/);
+  for (const directoryName of ['战略资源', '新兴产业', '支柱产业']) {
+    const count = countFeedReports(directoryName);
+    assert.match(html, new RegExp(`<strong>7月20日<\\/strong><span>星期一 · ${count}条<\\/span>`));
+  }
   assert.match(html, /<section class="industry-research-board"[^>]*>[\s\S]*商业航天产业完整分析报告/);
-  assert.match(html, /<section class="industry-research-board" data-filters="航空航天">[\s\S]*商业航天产业完整分析报告/);
-  assert.doesNotMatch(html, /<article class="industry-report" data-filters="航空航天">[\s\S]*商业航天产业完整分析报告/);
+  assert.match(html, /<section class="industry-research-board" data-filters="商业航天">[\s\S]*商业航天产业完整分析报告/);
+  assert.match(html, /<section class="industry-research-board" data-filters="算力">[\s\S]*算力产业完整分析报告/);
+  const reportCards = [...html.matchAll(/<article class="industry-report"[\s\S]*?<\/article>/g)].map(match => match[0]);
+  assert.equal(reportCards.some(card => card.includes('商业航天产业完整分析报告')), false);
+  assert.equal(reportCards.some(card => card.includes('算力产业完整分析报告')), false);
   assert.match(html, /<section class="industry-research-board"[^>]*>[\s\S]*十五五电网投资与电网行业完整分析报告/);
   assert.match(html, /<section class="industry-research-board" data-filters="电网">[\s\S]*十五五电网投资与电网行业完整分析报告/);
-  assert.doesNotMatch(html, /<article class="industry-report" data-filters="[^"]*电网[^"]*">[\s\S]*十五五电网投资与电网行业完整分析报告/);
+  assert.equal(reportCards.some(card => card.includes('十五五电网投资与电网行业完整分析报告')), false);
   assert.match(html, /data-filters="电网"[\s\S]*华明装备机构级决策研报/);
   assert.match(html, /data-filters="电网"[\s\S]*神马电力机构级决策研报/);
+  assert.match(html, /<article class="industry-report" data-filters="">[\s\S]*中国中车机构级决策研报/);
   assert.match(readFileSync(new URL('../src/app.mjs', import.meta.url), 'utf8'), /querySelectorAll\('\.industry-research-board'\)/);
-  assert.match(readFileSync(new URL('../scripts/build.mjs', import.meta.url), 'utf8'), /readReportFilenames/);
-  assert.match(readFileSync(new URL('../scripts/build.mjs', import.meta.url), 'utf8'), /renderStrategicResourceReports/);
-  assert.match(readFileSync(new URL('../scripts/build.mjs', import.meta.url), 'utf8'), /renderCommercialSpaceReports/);
-  assert.match(readFileSync(new URL('../scripts/build.mjs', import.meta.url), 'utf8'), /renderPillarReports/);
-  assert.match(readFileSync(new URL('../scripts/build.mjs', import.meta.url), 'utf8'), /renderElectricGridReports/);
-  assert.doesNotMatch(html, /<!-- (?:STRATEGY_REPORTS|COMMERCIAL_SPACE_REPORTS|PILLAR_REPORTS|ELECTRIC_GRID_REPORTS|STRATEGY_REPORT_COUNT|EMERGING_REPORT_COUNT|PILLAR_REPORT_COUNT) -->/);
-  assert.doesNotMatch(html, /sources\/automations\/商业航天每日跟踪|sources\/automations\/电网产业跟踪/);
+  const buildSource = readFileSync(new URL('../scripts/build.mjs', import.meta.url), 'utf8');
+  assert.match(buildSource, /scanIndustryReports/);
+  assert.match(buildSource, /renderFilterTabs/);
+  assert.match(buildSource, /renderResearchBoards/);
+  assert.doesNotMatch(buildSource, /commercialSpaceDir|electricGridDir|pillarFilters|strategicResourceFilters/);
+  assert.doesNotMatch(html, /<!-- (?:STRATEGY|EMERGING|PILLAR)_(?:FILTER_TABS|RESEARCH_BOARDS|REPORTS|REPORT_COUNT) -->/);
+  assert.doesNotMatch(html, /sources\/automations\/(?:商业航天|电网产业)\//);
+});
+
+test('industry report links open safely in a new tab', () => {
+  const html = readFileSync(artifactPath, 'utf8');
+  const reportLinks = [...html.matchAll(/<a class="industry-report-link"[^>]*>/g)].map(match => match[0]);
+  assert.ok(reportLinks.length > 0);
+  for (const link of reportLinks) {
+    assert.match(link, /target="_blank"/);
+    assert.match(link, /rel="noopener noreferrer"/);
+  }
 });
 
 test('example state produces a complete auditable score', () => {

@@ -36,14 +36,18 @@ button:focus-visible, input:focus-visible { outline: 3px solid rgba(50, 118, 216
 .brand strong, .brand small { display: block; }
 .brand strong { letter-spacing: .02em; }
 .brand small { color: var(--nav-muted); font-size: 11px; margin-top: 3px; }
-.shell-switcher { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin: 0 6px 20px; padding: 4px; border-radius: 11px; background: rgba(255,255,255,.08); }
-.shell-switch { border: 0; border-radius: 8px; padding: 8px 7px; background: transparent; color: var(--nav-muted); font-size: 12px; }
-.shell-switch:hover { color: #dfe6eb; background: rgba(255,255,255,.07); }
-.shell-switch.is-active { background: white; color: var(--nav); font-weight: 700; }
 .nav-stack { min-height: 0; }
-.sidebar-panel { display: none; }
-.sidebar-panel.is-active { display: block; }
-.sidebar-nav { display: grid; gap: 5px; }
+.tree-nav { display: grid; gap: 7px; }
+.tree-group { min-width: 0; }
+.tree-root { width: 100%; min-height: 44px; border: 0; border-radius: 9px; background: transparent; color: #dfe6eb; padding: 10px 12px; display: flex; align-items: center; justify-content: space-between; gap: 12px; text-align: left; font-weight: 700; }
+.tree-root:hover { background: rgba(255,255,255,.07); }
+.tree-root:focus-visible { outline-color: rgba(255,255,255,.7); }
+.tree-group.is-expanded > .tree-root { background: rgba(255,255,255,.08); color: white; }
+.tree-chevron { width: 8px; height: 8px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; opacity: .72; transform: rotate(45deg); transition: transform 180ms ease; }
+.tree-group.is-expanded .tree-chevron { transform: rotate(225deg); }
+.tree-children { display: grid; gap: 4px; margin: 5px 0 7px 15px; padding-left: 10px; border-left: 1px solid rgba(255,255,255,.13); }
+.tree-leaf { color: var(--nav-muted); font-weight: 600; }
+.tree-leaf.is-active { background: var(--blue); color: white; }
 .nav-item { width: 100%; border: 0; border-radius: 9px; background: transparent; color: var(--nav-muted); padding: 11px 12px; text-align: left; display: flex; align-items: center; gap: 11px; }
 .nav-item span { font-size: 10px; opacity: .65; letter-spacing: .08em; }
 .nav-item:hover { background: rgba(255,255,255,.06); color: #dfe6eb; }
@@ -189,6 +193,27 @@ h3 { font-size: 15px; }
 .industry-reason { padding-top: 10px; border-top: 1px dashed var(--line); color: #246170; font-size: 11px; line-height: 1.7; }
 .industry-empty-results { margin: 14px 0 0 86px; color: var(--muted); font-size: 12px; }
 
+.changelog-page { max-width: 920px; margin: 38px auto 0; }
+.changelog-hero { margin-bottom: 62px; }
+.changelog-hero .eyebrow { color: #0f6672; }
+.changelog-hero h2 { margin: 0 0 8px; font-size: clamp(31px, 4vw, 43px); }
+.changelog-hero > p:last-child { margin: 0; color: #516170; font-size: 14px; }
+.changelog-day { margin-bottom: 66px; }
+.changelog-day > header { display: flex; align-items: baseline; gap: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.changelog-day > header h3 { margin: 0; font-size: 24px; letter-spacing: .01em; }
+.changelog-day > header span { color: var(--muted); font-size: 12px; }
+.changelog-entry { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 24px; padding: 24px 0 18px; }
+.changelog-entry + .changelog-entry { border-top: 1px solid rgba(223,229,233,.72); }
+.changelog-meta { min-height: 48px; padding-right: 18px; border-right: 1px solid var(--line); color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.changelog-meta time { display: block; margin-bottom: 9px; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .06em; }
+.changelog-meta span { display: flex; align-items: center; gap: 7px; color: #2f8063; }
+.changelog-meta i { width: 7px; height: 7px; border-radius: 50%; background: #2f8b69; }
+.changelog-copy h4 { margin: 0 0 9px; font-size: 17px; }
+.changelog-copy p { margin: 0; color: #586875; font-size: 13px; line-height: 1.8; }
+.changelog-copy ul { margin: 12px 0 0; padding-left: 20px; color: #586875; font-size: 13px; line-height: 1.8; }
+.changelog-copy li { padding-left: 4px; }
+.changelog-empty { padding: 32px 0; border-top: 1px solid var(--line); color: var(--muted); }
+
 @media (max-width: 920px) {
   .app-shell { grid-template-columns: 184px minmax(0,1fr); }
   .metric-row { grid-template-columns: 1fr 1fr 65px; }
@@ -200,7 +225,6 @@ h3 { font-size: 15px; }
   .app-shell { display: block; }
   .sidebar { position: relative; width: 100%; height: auto; padding: 15px 17px; }
   .brand { margin: 0; }
-  .shell-switcher { margin: 14px 0 0; max-width: 260px; }
   .mobile-nav-toggle { display: block; position: absolute; right: 17px; top: 18px; border: 1px solid rgba(255,255,255,.18); color: white; background: transparent; border-radius: 8px; padding: 7px 10px; }
   .nav-stack { display: none; margin-top: 15px; }
   .sidebar.is-open .nav-stack { display: block; }
@@ -220,6 +244,13 @@ h3 { font-size: 15px; }
   .industry-time { position: static; display: inline-block; margin-right: 9px; }
   .industry-dot { position: static; display: inline-block; margin-right: 7px; vertical-align: middle; box-shadow: none; }
   .industry-empty-results { margin-left: 0; }
+  .changelog-page { margin-top: 12px; }
+  .changelog-hero { margin-bottom: 42px; }
+  .changelog-day { margin-bottom: 48px; }
+  .changelog-day > header { align-items: flex-start; flex-direction: column; gap: 4px; }
+  .changelog-entry { grid-template-columns: 1fr; gap: 10px; padding: 20px 0; }
+  .changelog-meta { min-height: 0; padding: 0; border-right: 0; display: flex; align-items: center; gap: 14px; }
+  .changelog-meta time { margin: 0; }
   .formula-panel { grid-column: auto; }
   .score-card { min-height: 150px; }
   .metric-row { grid-template-columns: 1fr 62px; gap: 10px; }
@@ -232,7 +263,7 @@ h3 { font-size: 15px; }
 
 @media print {
   .app-shell { display: block; }
-  .sidebar, .top-actions, .notice, .window-controls, .shell-switcher { display: none !important; }
+  .sidebar, .top-actions, .notice, .window-controls { display: none !important; }
   .main-content { padding: 0; }
   .view { display: block !important; break-before: page; }
   #market-summary { break-before: auto; }
@@ -246,28 +277,29 @@ h3 { font-size: 15px; }
         <span class="brand-mark">A</span>
         <div><strong>温度计</strong><small>位置 · 估值 · 情绪</small></div>
       </div>
-      <div class="shell-switcher" role="tablist" aria-label="工具切换">
-        <button class="shell-switch is-active" type="button" data-shell="thermometer" role="tab" aria-selected="true">温度计</button>
-        <button class="shell-switch" type="button" data-shell="industry" role="tab" aria-selected="false">产业</button>
-      </div>
       <button class="mobile-nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-stack">打开导航</button>
       <div class="nav-stack" id="nav-stack">
-        <nav class="sidebar-panel is-active" id="primary-nav" data-shell-panel="thermometer" aria-label="温度计导航">
-          <div class="sidebar-nav">
+        <nav class="tree-nav" aria-label="主导航">
+          <section class="tree-group is-expanded" data-tree-group="thermometer">
+            <button class="tree-root" type="button" data-tree-domain="thermometer" aria-expanded="true" aria-controls="tree-thermometer"><span>温度计</span><span class="tree-chevron" aria-hidden="true"></span></button>
+            <div class="tree-children" id="tree-thermometer">
             <button class="nav-item is-active" type="button" data-view="market-summary" aria-current="page"><span>01</span>市场总览</button>
             <button class="nav-item" type="button" data-view="position-view"><span>02</span>位置分位</button>
             <button class="nav-item" type="button" data-view="valuation-view"><span>03</span>估值与 ERP</button>
             <button class="nav-item" type="button" data-view="emotion-view"><span>04</span>情绪温度</button>
             <button class="nav-item" type="button" data-view="rules-view"><span>05</span>评分规则</button>
             <button class="nav-item" type="button" data-view="audit-view"><span>06</span>数据审计</button>
-          </div>
-        </nav>
-        <nav class="sidebar-panel" data-shell-panel="industry" aria-label="产业导航" hidden>
-          <div class="sidebar-nav">
+            </div>
+          </section>
+          <section class="tree-group" data-tree-group="industry">
+            <button class="tree-root" type="button" data-tree-domain="industry" aria-expanded="false" aria-controls="tree-industry"><span>产业</span><span class="tree-chevron" aria-hidden="true"></span></button>
+            <div class="tree-children" id="tree-industry" hidden>
             <button class="nav-item" type="button" data-view="industry-strategy"><span>01</span>战略</button>
             <button class="nav-item" type="button" data-view="industry-emerging"><span>02</span>新兴</button>
             <button class="nav-item" type="button" data-view="industry-pillar"><span>03</span>支柱</button>
-          </div>
+            </div>
+          </section>
+          <button class="tree-root tree-leaf" type="button" data-tree-domain="changelog" data-view="changelog-view"><span>更新日志</span></button>
         </nav>
       </div>
       <div class="sidebar-footer">
@@ -382,27 +414,28 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
           </div>
           <nav class="industry-filter-tabs" aria-label="战略资源细分方向">
             <button class="is-active" type="button" data-filter="all" aria-pressed="true">全部</button>
-            <button type="button" data-filter="黄金" aria-pressed="false">黄金</button>
+            <button type="button" data-filter="电解铝" aria-pressed="false">电解铝</button>
             <button type="button" data-filter="铜" aria-pressed="false">铜</button>
-            <button type="button" data-filter="稀土" aria-pressed="false">稀土</button>
-            <button type="button" data-filter="锂" aria-pressed="false">锂</button>
-            <button type="button" data-filter="能源" aria-pressed="false">能源</button>
-            <button type="button" data-filter="关键矿产" aria-pressed="false">关键矿产</button>
           </nav>
-          <section class="industry-research-board" data-filters="">
-            <div><p class="eyebrow">产业研报</p><h3>战略资源配置线</h3></div>
-            <span>宏观 / 政治 / 货币 / 国际大宗</span>
-          </section>
-          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 1条</span></div>
+
+          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 2条</span></div>
           <div class="industry-timeline">
             <div class="industry-feed">
-                            <article class="industry-report" data-filters="关键矿产">
-                <span class="industry-time">19:21</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>战略资源 · 关键矿产 <b>研报</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="../../sources/automations/战略资源/2026-07-15-1921-云铝股份机构级决策研报.html">云铝股份机构级决策研报</a></h3>
+              <article class="industry-report" data-filters="电解铝">
+                <span class="industry-time">07-20</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>战略资源 · 电解铝 <b>资金面</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/战略资源/电解铝/2026-07-20-云铝股份资金面分析.html" target="_blank" rel="noopener noreferrer">云铝股份资金面分析</a></h3>
                 <p>从战略资源目录自动读取，点击标题打开对应 HTML 研报。</p>
-                <div class="industry-tags">#战略资源 #目录自动读取 #研报</div>
-                <div class="industry-reason">来源目录：sources/automations/战略资源</div>
+                <div class="industry-tags">#电解铝 #目录自动读取 #资金面</div>
+                <div class="industry-reason">来源目录：sources/automations/战略资源/电解铝</div>
+              </article>
+              <article class="industry-report" data-filters="电解铝">
+                <span class="industry-time">19:21</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>战略资源 · 电解铝 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/战略资源/电解铝/2026-07-15-1921-云铝股份机构级决策研报.html" target="_blank" rel="noopener noreferrer">云铝股份机构级决策研报</a></h3>
+                <p>从战略资源目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#电解铝 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/战略资源/电解铝</div>
               </article>
             </div>
           </div>
@@ -421,163 +454,180 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
           </div>
           <nav class="industry-filter-tabs" aria-label="新兴产业细分方向">
             <button class="is-active" type="button" data-filter="all" aria-pressed="true">全部</button>
-            <button type="button" data-filter="集成电路" aria-pressed="false">集成电路</button>
-            <button type="button" data-filter="航空航天" aria-pressed="false">航空航天</button>
-            <button type="button" data-filter="生物医药" aria-pressed="false">生物医药</button>
-            <button type="button" data-filter="低空经济" aria-pressed="false">低空经济</button>
-            <button type="button" data-filter="新型储能" aria-pressed="false">新型储能</button>
-            <button type="button" data-filter="智能机器人" aria-pressed="false">智能机器人</button>
+            <button type="button" data-filter="机器人" aria-pressed="false">机器人</button>
+            <button type="button" data-filter="商业航天" aria-pressed="false">商业航天</button>
+            <button type="button" data-filter="算力" aria-pressed="false">算力</button>
           </nav>
-          <section class="industry-research-board" data-filters="航空航天">
-            <div><p class="eyebrow">产业研报</p><h3><a class="industry-report-link" href="../../sources/automations/商业航天/商业航天产业完整分析报告.html">商业航天产业完整分析报告</a></h3></div>
-            <span>航空航天 / 商业航天 / 卫星互联网 / 火箭复用</span>
+          <section class="industry-research-board" data-filters="算力">
+            <div><p class="eyebrow">产业研报</p><h3><a class="industry-report-link" href="../../sources/automations/新兴产业/算力/2026-07-20-算力产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力产业完整分析报告</a></h3></div>
+            <span>新兴产业 / 算力 · 来源目录：sources/automations/新兴产业/算力</span>
           </section>
-          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 18条</span></div>
+          <section class="industry-research-board" data-filters="商业航天">
+            <div><p class="eyebrow">产业研报</p><h3><a class="industry-report-link" href="../../sources/automations/新兴产业/商业航天/商业航天产业完整分析报告.html" target="_blank" rel="noopener noreferrer">商业航天产业完整分析报告</a></h3></div>
+            <span>新兴产业 / 商业航天 · 来源目录：sources/automations/新兴产业/商业航天</span>
+          </section>
+          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 20条</span></div>
           <div class="industry-timeline">
             <div class="industry-feed">
-                            <article class="industry-report" data-filters="航空航天">
-                <span class="industry-time">07-17</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-中科星图-机构级决策研报.html">中科星图-机构级决策研报</a></h3>
-                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
-                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
-                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+              <article class="industry-report" data-filters="商业航天">
+                <span class="industry-time">07-20</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 商业航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/商业航天/2026-07-20-臻镭科技-机构级决策研报.html" target="_blank" rel="noopener noreferrer">臻镭科技-机构级决策研报</a></h3>
+                <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#商业航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/商业航天</div>
               </article>
-              <article class="industry-report" data-filters="航空航天">
-                <span class="industry-time">07-17</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-信维通信-机构级决策研报.html">信维通信-机构级决策研报</a></h3>
-                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
-                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
-                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+              <article class="industry-report" data-filters="商业航天">
+                <span class="industry-time">07-20</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 商业航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/商业航天/2026-07-20-铖昌科技-机构级决策研报.html" target="_blank" rel="noopener noreferrer">铖昌科技-机构级决策研报</a></h3>
+                <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#商业航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/商业航天</div>
               </article>
-              <article class="industry-report" data-filters="航空航天">
+              <article class="industry-report" data-filters="商业航天">
                 <span class="industry-time">07-17</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-新雷能-机构级决策研报.html">新雷能-机构级决策研报</a></h3>
-                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
-                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
-                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+                <div class="industry-report-meta"><span>新兴产业 · 商业航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/商业航天/2026-07-17-中科星图-机构级决策研报.html" target="_blank" rel="noopener noreferrer">中科星图-机构级决策研报</a></h3>
+                <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#商业航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/商业航天</div>
               </article>
-              <article class="industry-report" data-filters="航空航天">
+              <article class="industry-report" data-filters="商业航天">
                 <span class="industry-time">07-17</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-芯原股份-机构级决策研报.html">芯原股份-机构级决策研报</a></h3>
-                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
-                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
-                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+                <div class="industry-report-meta"><span>新兴产业 · 商业航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/商业航天/2026-07-17-信维通信-机构级决策研报.html" target="_blank" rel="noopener noreferrer">信维通信-机构级决策研报</a></h3>
+                <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#商业航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/商业航天</div>
               </article>
-              <article class="industry-report" data-filters="航空航天">
+              <article class="industry-report" data-filters="商业航天">
                 <span class="industry-time">07-17</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-四维图新-机构级决策研报.html">四维图新-机构级决策研报</a></h3>
-                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
-                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
-                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+                <div class="industry-report-meta"><span>新兴产业 · 商业航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/商业航天/2026-07-17-新雷能-机构级决策研报.html" target="_blank" rel="noopener noreferrer">新雷能-机构级决策研报</a></h3>
+                <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#商业航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/商业航天</div>
               </article>
-              <article class="industry-report" data-filters="航空航天">
+              <article class="industry-report" data-filters="商业航天">
                 <span class="industry-time">07-17</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-上海瀚讯机构级决策研报.html">上海瀚讯机构级决策研报</a></h3>
-                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
-                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
-                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+                <div class="industry-report-meta"><span>新兴产业 · 商业航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/商业航天/2026-07-17-芯原股份-机构级决策研报.html" target="_blank" rel="noopener noreferrer">芯原股份-机构级决策研报</a></h3>
+                <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#商业航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/商业航天</div>
               </article>
-              <article class="industry-report" data-filters="航空航天">
+              <article class="industry-report" data-filters="商业航天">
                 <span class="industry-time">07-17</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-航天环宇-机构级决策研报.html">航天环宇-机构级决策研报</a></h3>
-                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
-                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
-                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+                <div class="industry-report-meta"><span>新兴产业 · 商业航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/商业航天/2026-07-17-四维图新-机构级决策研报.html" target="_blank" rel="noopener noreferrer">四维图新-机构级决策研报</a></h3>
+                <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#商业航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/商业航天</div>
               </article>
-              <article class="industry-report" data-filters="航空航天">
+              <article class="industry-report" data-filters="商业航天">
                 <span class="industry-time">07-17</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-航天电子机构级决策研报.html">航天电子机构级决策研报</a></h3>
-                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
-                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
-                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+                <div class="industry-report-meta"><span>新兴产业 · 商业航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/商业航天/2026-07-17-上海瀚讯机构级决策研报.html" target="_blank" rel="noopener noreferrer">上海瀚讯机构级决策研报</a></h3>
+                <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#商业航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/商业航天</div>
               </article>
-              <article class="industry-report" data-filters="航空航天">
+              <article class="industry-report" data-filters="商业航天">
                 <span class="industry-time">07-17</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-电科蓝天机构级决策研报.html">电科蓝天机构级决策研报</a></h3>
-                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
-                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
-                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+                <div class="industry-report-meta"><span>新兴产业 · 商业航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/商业航天/2026-07-17-航天环宇-机构级决策研报.html" target="_blank" rel="noopener noreferrer">航天环宇-机构级决策研报</a></h3>
+                <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#商业航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/商业航天</div>
               </article>
-              <article class="industry-report" data-filters="航空航天">
+              <article class="industry-report" data-filters="商业航天">
                 <span class="industry-time">07-17</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-北斗星通-机构级决策研报.html">北斗星通-机构级决策研报</a></h3>
-                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
-                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
-                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+                <div class="industry-report-meta"><span>新兴产业 · 商业航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/商业航天/2026-07-17-航天电子机构级决策研报.html" target="_blank" rel="noopener noreferrer">航天电子机构级决策研报</a></h3>
+                <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#商业航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/商业航天</div>
               </article>
-              <article class="industry-report" data-filters="航空航天">
+              <article class="industry-report" data-filters="商业航天">
+                <span class="industry-time">07-17</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 商业航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/商业航天/2026-07-17-电科蓝天机构级决策研报.html" target="_blank" rel="noopener noreferrer">电科蓝天机构级决策研报</a></h3>
+                <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#商业航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/商业航天</div>
+              </article>
+              <article class="industry-report" data-filters="商业航天">
+                <span class="industry-time">07-17</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 商业航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/商业航天/2026-07-17-北斗星通-机构级决策研报.html" target="_blank" rel="noopener noreferrer">北斗星通-机构级决策研报</a></h3>
+                <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#商业航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/商业航天</div>
+              </article>
+              <article class="industry-report" data-filters="商业航天">
                 <span class="industry-time">18:55</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-1855-国科微-机构级决策研报.html">国科微-机构级决策研报</a></h3>
-                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
-                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
-                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+                <div class="industry-report-meta"><span>新兴产业 · 商业航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/商业航天/2026-07-17-1855-国科微-机构级决策研报.html" target="_blank" rel="noopener noreferrer">国科微-机构级决策研报</a></h3>
+                <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#商业航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/商业航天</div>
               </article>
-              <article class="industry-report" data-filters="航空航天">
+              <article class="industry-report" data-filters="商业航天">
                 <span class="industry-time">18:33</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-1833-航天电器-机构级决策研报.html">航天电器-机构级决策研报</a></h3>
-                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
-                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
-                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+                <div class="industry-report-meta"><span>新兴产业 · 商业航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/商业航天/2026-07-17-1833-航天电器-机构级决策研报.html" target="_blank" rel="noopener noreferrer">航天电器-机构级决策研报</a></h3>
+                <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#商业航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/商业航天</div>
               </article>
-              <article class="industry-report" data-filters="航空航天">
+              <article class="industry-report" data-filters="商业航天">
                 <span class="industry-time">18:30</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-1830-铂力特-机构级决策研报.html">铂力特-机构级决策研报</a></h3>
-                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
-                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
-                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+                <div class="industry-report-meta"><span>新兴产业 · 商业航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/商业航天/2026-07-17-1830-铂力特-机构级决策研报.html" target="_blank" rel="noopener noreferrer">铂力特-机构级决策研报</a></h3>
+                <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#商业航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/商业航天</div>
               </article>
-              <article class="industry-report" data-filters="航空航天">
+              <article class="industry-report" data-filters="商业航天">
                 <span class="industry-time">18:25</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-1825-北方导航-机构级决策研报.html">北方导航-机构级决策研报</a></h3>
-                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
-                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
-                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+                <div class="industry-report-meta"><span>新兴产业 · 商业航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/商业航天/2026-07-17-1825-北方导航-机构级决策研报.html" target="_blank" rel="noopener noreferrer">北方导航-机构级决策研报</a></h3>
+                <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#商业航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/商业航天</div>
               </article>
-              <article class="industry-report" data-filters="航空航天">
+              <article class="industry-report" data-filters="商业航天">
                 <span class="industry-time">18:13</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-1813-国博电子-机构级决策研报.html">国博电子-机构级决策研报</a></h3>
-                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
-                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
-                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+                <div class="industry-report-meta"><span>新兴产业 · 商业航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/商业航天/2026-07-17-1813-国博电子-机构级决策研报.html" target="_blank" rel="noopener noreferrer">国博电子-机构级决策研报</a></h3>
+                <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#商业航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/商业航天</div>
               </article>
-              <article class="industry-report" data-filters="航空航天">
+              <article class="industry-report" data-filters="商业航天">
                 <span class="industry-time">17:44</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-1744-华测导航-机构级决策研报.html">华测导航-机构级决策研报</a></h3>
-                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
-                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
-                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+                <div class="industry-report-meta"><span>新兴产业 · 商业航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/商业航天/2026-07-17-1744-华测导航-机构级决策研报.html" target="_blank" rel="noopener noreferrer">华测导航-机构级决策研报</a></h3>
+                <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#商业航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/商业航天</div>
               </article>
-              <article class="industry-report" data-filters="航空航天">
+              <article class="industry-report" data-filters="商业航天">
                 <span class="industry-time">17:28</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-1728-中国卫通-机构级决策研报.html">中国卫通-机构级决策研报</a></h3>
-                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
-                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
-                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+                <div class="industry-report-meta"><span>新兴产业 · 商业航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/商业航天/2026-07-17-1728-中国卫通-机构级决策研报.html" target="_blank" rel="noopener noreferrer">中国卫通-机构级决策研报</a></h3>
+                <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#商业航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/商业航天</div>
               </article>
-              <article class="industry-report" data-filters="航空航天">
+              <article class="industry-report" data-filters="商业航天">
                 <span class="industry-time">16:16</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-1616-中国卫星-机构级决策研报.html">中国卫星-机构级决策研报</a></h3>
-                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
-                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
-                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+                <div class="industry-report-meta"><span>新兴产业 · 商业航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/商业航天/2026-07-17-1616-中国卫星-机构级决策研报.html" target="_blank" rel="noopener noreferrer">中国卫星-机构级决策研报</a></h3>
+                <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#商业航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/商业航天</div>
               </article>
             </div>
           </div>
@@ -596,71 +646,102 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
           </div>
           <nav class="industry-filter-tabs" aria-label="支柱产业细分方向">
             <button class="is-active" type="button" data-filter="all" aria-pressed="true">全部</button>
-            <button type="button" data-filter="汽车" aria-pressed="false">汽车</button>
-            <button type="button" data-filter="新能源" aria-pressed="false">新能源</button>
-            <button type="button" data-filter="高端制造" aria-pressed="false">高端制造</button>
-            <button type="button" data-filter="机械装备" aria-pressed="false">机械装备</button>
             <button type="button" data-filter="电网" aria-pressed="false">电网</button>
-            <button type="button" data-filter="成熟制造业龙头" aria-pressed="false">成熟制造业龙头</button>
+            <button type="button" data-filter="高端制造" aria-pressed="false">高端制造</button>
           </nav>
           <section class="industry-research-board" data-filters="电网">
-            <div><p class="eyebrow">产业研报</p><h3><a class="industry-report-link" href="../../sources/automations/电网产业/2026-07-17-十五五电网投资与电网行业完整分析报告.html">十五五电网投资与电网行业完整分析报告</a></h3></div>
-            <span>支柱产业 / 电网 / 电力设备 / 新型电力系统</span>
+            <div><p class="eyebrow">产业研报</p><h3><a class="industry-report-link" href="../../sources/automations/支柱产业/电网/2026-07-17-十五五电网投资与电网行业完整分析报告.html" target="_blank" rel="noopener noreferrer">十五五电网投资与电网行业完整分析报告</a></h3></div>
+            <span>支柱产业 / 电网 · 来源目录：sources/automations/支柱产业/电网</span>
           </section>
-          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 6条</span></div>
+          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 7条</span></div>
           <div class="industry-timeline">
             <div class="industry-feed">
-                            <article class="industry-report" data-filters="高端制造,机械装备,成熟制造业龙头">
-                <span class="industry-time">07-18</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>支柱产业 · 高端制造 <b>资金面</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="../../sources/automations/支柱产业/2026-07-18-中国中车资金面分层分析.html">中国中车资金面分层分析</a></h3>
-                <p>从支柱产业目录自动读取，点击标题打开对应 HTML 研报。</p>
-                <div class="industry-tags">#高端制造 #目录自动读取 #资金面</div>
-                <div class="industry-reason">来源目录：sources/automations/支柱产业</div>
-              </article>
-              <article class="industry-report" data-filters="高端制造,机械装备,成熟制造业龙头">
-                <span class="industry-time">07-18</span><span class="industry-dot"></span>
+              <article class="industry-report" data-filters="高端制造">
+                <span class="industry-time">17:37</span><span class="industry-dot"></span>
                 <div class="industry-report-meta"><span>支柱产业 · 高端制造 <b>研报</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="../../sources/automations/支柱产业/2026-07-18-中国中车机构级决策研报.html">中国中车机构级决策研报</a></h3>
+                <h3><a class="industry-report-link" href="../../sources/automations/支柱产业/高端制造/2026-07-20-1737-徐工机械-机构级决策研报.html" target="_blank" rel="noopener noreferrer">徐工机械-机构级决策研报</a></h3>
                 <p>从支柱产业目录自动读取，点击标题打开对应 HTML 研报。</p>
                 <div class="industry-tags">#高端制造 #目录自动读取 #研报</div>
-                <div class="industry-reason">来源目录：sources/automations/支柱产业</div>
+                <div class="industry-reason">来源目录：sources/automations/支柱产业/高端制造</div>
               </article>
-              <article class="industry-report" data-filters="高端制造,机械装备">
-                <span class="industry-time">07-18</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>支柱产业 · 高端制造 <b>资金面</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="../../sources/automations/支柱产业/2026-07-18-中国船舶资金面分层分析.html">中国船舶资金面分层分析</a></h3>
-                <p>从支柱产业目录自动读取，点击标题打开对应 HTML 研报。</p>
-                <div class="industry-tags">#高端制造 #目录自动读取 #资金面</div>
-                <div class="industry-reason">来源目录：sources/automations/支柱产业</div>
-              </article>
-                            <article class="industry-report" data-filters="电网">
+              <article class="industry-report" data-filters="电网">
                 <span class="industry-time">07-18</span><span class="industry-dot"></span>
                 <div class="industry-report-meta"><span>支柱产业 · 电网 <b>资金面</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="../../sources/automations/电网产业/2026-07-18-神马电力资金面分层分析.html">神马电力资金面分层分析</a></h3>
-                <p>从电网产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <h3><a class="industry-report-link" href="../../sources/automations/支柱产业/电网/2026-07-18-神马电力资金面分层分析.html" target="_blank" rel="noopener noreferrer">神马电力资金面分层分析</a></h3>
+                <p>从支柱产业目录自动读取，点击标题打开对应 HTML 研报。</p>
                 <div class="industry-tags">#电网 #目录自动读取 #资金面</div>
-                <div class="industry-reason">来源目录：sources/automations/电网产业</div>
+                <div class="industry-reason">来源目录：sources/automations/支柱产业/电网</div>
               </article>
               <article class="industry-report" data-filters="电网">
                 <span class="industry-time">07-18</span><span class="industry-dot"></span>
                 <div class="industry-report-meta"><span>支柱产业 · 电网 <b>研报</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="../../sources/automations/电网产业/2026-07-18-神马电力机构级决策研报.html">神马电力机构级决策研报</a></h3>
-                <p>从电网产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <h3><a class="industry-report-link" href="../../sources/automations/支柱产业/电网/2026-07-18-神马电力机构级决策研报.html" target="_blank" rel="noopener noreferrer">神马电力机构级决策研报</a></h3>
+                <p>从支柱产业目录自动读取，点击标题打开对应 HTML 研报。</p>
                 <div class="industry-tags">#电网 #目录自动读取 #研报</div>
-                <div class="industry-reason">来源目录：sources/automations/电网产业</div>
+                <div class="industry-reason">来源目录：sources/automations/支柱产业/电网</div>
               </article>
               <article class="industry-report" data-filters="电网">
                 <span class="industry-time">15:14</span><span class="industry-dot"></span>
                 <div class="industry-report-meta"><span>支柱产业 · 电网 <b>研报</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="../../sources/automations/电网产业/2026-07-15-1514-华明装备机构级决策研报.html">华明装备机构级决策研报</a></h3>
-                <p>从电网产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <h3><a class="industry-report-link" href="../../sources/automations/支柱产业/电网/2026-07-15-1514-华明装备机构级决策研报.html" target="_blank" rel="noopener noreferrer">华明装备机构级决策研报</a></h3>
+                <p>从支柱产业目录自动读取，点击标题打开对应 HTML 研报。</p>
                 <div class="industry-tags">#电网 #目录自动读取 #研报</div>
-                <div class="industry-reason">来源目录：sources/automations/电网产业</div>
+                <div class="industry-reason">来源目录：sources/automations/支柱产业/电网</div>
+              </article>
+              <article class="industry-report" data-filters="">
+                <span class="industry-time">07-18</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>支柱产业 <b>资金面</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/支柱产业/2026-07-18-中国中车资金面分层分析.html" target="_blank" rel="noopener noreferrer">中国中车资金面分层分析</a></h3>
+                <p>从支柱产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#支柱产业 #目录自动读取 #资金面</div>
+                <div class="industry-reason">来源目录：sources/automations/支柱产业</div>
+              </article>
+              <article class="industry-report" data-filters="">
+                <span class="industry-time">07-18</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>支柱产业 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/支柱产业/2026-07-18-中国中车机构级决策研报.html" target="_blank" rel="noopener noreferrer">中国中车机构级决策研报</a></h3>
+                <p>从支柱产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#支柱产业 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/支柱产业</div>
+              </article>
+              <article class="industry-report" data-filters="">
+                <span class="industry-time">07-18</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>支柱产业 <b>资金面</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/支柱产业/2026-07-18-中国船舶资金面分层分析.html" target="_blank" rel="noopener noreferrer">中国船舶资金面分层分析</a></h3>
+                <p>从支柱产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#支柱产业 #目录自动读取 #资金面</div>
+                <div class="industry-reason">来源目录：sources/automations/支柱产业</div>
               </article>
             </div>
           </div>
           <p class="industry-empty-results" hidden>没有匹配的研报项。</p>
+        </div>
+      </section>
+
+      <section class="view changelog-view" id="changelog-view" data-shell-content="changelog" aria-labelledby="changelog-heading">
+        <div class="changelog-page">
+          <header class="changelog-hero">
+            <p class="eyebrow">CHANGELOG</p>
+            <h2 id="changelog-heading">更新日志</h2>
+            <p>最近发生了什么——新功能、调整与修复，都写在这里。</p>
+          </header>
+        <section class="changelog-day">
+          <header><h3>2026 年 7 月 20 日</h3><span>星期一</span></header>
+          <div class="changelog-entries">
+            <article class="changelog-entry">
+              <div class="changelog-meta"><span><i aria-hidden="true"></i>更新</span></div>
+              <div class="changelog-copy"><h4>产业研报链接改为在新标签页打开</h4><p>点击顶部产业报告或普通研报标题时，将在新标签页打开，当前看板保持不动。</p><ul><li>全部产业研报链接统一应用</li><li>增加安全的新窗口隔离属性</li></ul></div>
+            </article>
+            <article class="changelog-entry">
+              <div class="changelog-meta"><span><i aria-hidden="true"></i>修复</span></div>
+              <div class="changelog-copy"><h4>修复本地服务器无法打开产业研报</h4><p>本地启动器现在可以安全读取自动化目录中的 HTML 研报。</p><ul><li>非 HTML 文件继续禁止访问</li><li>目录外路径继续禁止访问</li></ul></div>
+            </article>
+            <article class="changelog-entry">
+              <div class="changelog-meta"><span><i aria-hidden="true"></i>更新</span></div>
+              <div class="changelog-copy"><h4>产业研报改为目录自动加载</h4><p>一级目录自动生成产业标签，并递归加载下级 HTML 研报。</p><ul><li>完整分析报告进入顶部研报区</li><li>普通报告进入日期信息流</li></ul></div>
+            </article>
+          </div>
+        </section>
         </div>
       </section>
     </main>
@@ -1620,6 +1701,16 @@ function resolveStorage(getStorage = () => globalThis.localStorage) {
   }
 }
 
+function resolveTreeNavigation(activeViews, requestedDomain, requestedView = null) {
+  const defaults = {
+    thermometer: 'market-summary',
+    industry: 'industry-strategy',
+    changelog: 'changelog-view',
+  };
+  const domain = Object.hasOwn(defaults, requestedDomain) ? requestedDomain : 'thermometer';
+  return { domain, viewId: requestedView ?? activeViews[domain] ?? defaults[domain] };
+}
+
 function startApp() {
   const state = { snapshot: EXAMPLE_SNAPSHOT, windowYears: 5, busy: false };
   const storage = resolveStorage();
@@ -1630,10 +1721,15 @@ function startApp() {
   const refreshButton = document.getElementById('refresh-data');
   const exampleToggle = document.getElementById('example-mode');
   const marketActions = document.getElementById('market-actions');
+  const topbar = document.querySelector('.topbar');
   const pageTitle = document.getElementById('page-title');
   const pageEyebrow = document.querySelector('.topbar .eyebrow');
   const sidebarFooter = document.querySelector('.sidebar-footer');
-  const activeViewByShell = { thermometer: 'market-summary', industry: 'industry-strategy' };
+  const activeViewByShell = {
+    thermometer: 'market-summary',
+    industry: 'industry-strategy',
+    changelog: 'changelog-view',
+  };
 
   const render = () => {
     const derived = deriveDashboard(state.snapshot, state.windowYears);
@@ -1685,7 +1781,10 @@ function startApp() {
     document.getElementById('nav-toggle').setAttribute('aria-expanded', 'false');
   };
 
-  const shellForButton = button => button.closest('[data-shell-panel]')?.dataset.shellPanel ?? 'thermometer';
+  const shellForButton = button =>
+    button.dataset.treeDomain
+    ?? button.closest('[data-tree-group]')?.dataset.treeGroup
+    ?? 'thermometer';
 
   const labelForView = button => button?.textContent.replace(/^\d+/, '').trim() ?? '';
 
@@ -1726,22 +1825,25 @@ function startApp() {
   };
 
   const setShell = (shell, viewId = null) => {
-    const targetShell = shell === 'industry' ? 'industry' : 'thermometer';
-    document.querySelectorAll('[data-shell]').forEach(button => {
-      const active = button.dataset.shell === targetShell;
-      button.classList.toggle('is-active', active);
-      button.setAttribute('aria-selected', String(active));
-    });
-    document.querySelectorAll('[data-shell-panel]').forEach(panel => {
-      const active = panel.dataset.shellPanel === targetShell;
-      panel.classList.toggle('is-active', active);
-      panel.hidden = !active;
+    const navigation = resolveTreeNavigation(activeViewByShell, shell, viewId);
+    const targetShell = navigation.domain;
+    document.querySelectorAll('[data-tree-group]').forEach(group => {
+      const expanded = group.dataset.treeGroup === targetShell;
+      group.classList.toggle('is-expanded', expanded);
+      group.querySelector('.tree-root')?.setAttribute('aria-expanded', String(expanded));
+      const children = group.querySelector('.tree-children');
+      if (children) children.hidden = !expanded;
     });
     marketActions.hidden = targetShell !== 'thermometer';
+    topbar.hidden = targetShell === 'changelog';
     notice.hidden = targetShell !== 'thermometer';
     sidebarFooter.hidden = targetShell !== 'thermometer';
-    pageEyebrow.textContent = targetShell === 'thermometer' ? 'MARKET VALUATION MONITOR' : 'INDUSTRY MAP';
-    setActiveView(viewId ?? activeViewByShell[targetShell]);
+    pageEyebrow.textContent = {
+      thermometer: 'MARKET VALUATION MONITOR',
+      industry: 'INDUSTRY MAP',
+      changelog: 'CHANGELOG',
+    }[targetShell];
+    setActiveView(navigation.viewId);
     closeSidebar();
   };
 
@@ -1749,7 +1851,7 @@ function startApp() {
     state.windowYears = Number(button.dataset.window);
     render();
   }));
-  document.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => {
+  document.querySelectorAll('.nav-item[data-view]').forEach(button => button.addEventListener('click', () => {
     setShell(shellForButton(button), button.dataset.view);
   }));
   document.querySelectorAll('.industry-filter-tabs button').forEach(button => button.addEventListener('click', event => {
@@ -1769,8 +1871,8 @@ function startApp() {
     });
     form.querySelector('input')?.addEventListener('input', () => applyIndustryFilter(section));
   });
-  document.querySelectorAll('[data-shell]').forEach(button => button.addEventListener('click', () => {
-    setShell(button.dataset.shell);
+  document.querySelectorAll('[data-tree-domain]').forEach(button => button.addEventListener('click', () => {
+    setShell(button.dataset.treeDomain, button.dataset.view ?? null);
   }));
   document.getElementById('nav-toggle').addEventListener('click', event => {
     const open = document.getElementById('sidebar').classList.toggle('is-open');

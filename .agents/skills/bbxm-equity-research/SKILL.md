@@ -192,6 +192,25 @@ node .agents/skills/bbxm-equity-research/scripts/render-report-html.cjs --input 
 5. 生成后必须检查 16 个目录锚点、UTF-8 中文、关键指标、Obsidian 双链转换和 Markdown / HTML 结论一致性；
 6. HTML 生成或验证失败时，整份研报仍视为未完成。
 
+### Step 10：检查产业研报并建立 HTML 反向链接
+
+在 llmwiki 中生成个股 HTML 后，检查该 HTML 所在的 `sources/automations/<分类>/` 目录是否已有产业研报。个股研报与产业研报位于同一分类目录时，产业研报应提供通往个股 HTML 的入口，使产业链阅读能够继续下钻到公司研究。
+
+使用命令：
+
+```text
+node .agents/skills/bbxm-equity-research/scripts/link-report-to-industry.cjs --equity-html <个股研报.html>
+```
+
+执行规则：
+
+1. 脚本自动查找同目录名称包含“产业完整分析报告”“产业分析报告”或“产业研报”的 HTML；找到唯一文件时，在其“个股研报链接”区追加当前个股 HTML；
+2. 链接使用同目录相对路径；重复执行必须保持幂等，不得生成重复条目；
+3. 产业研报不存在时，保留个股 HTML，并在完成说明中明确记录“产业研报不存在，未建立反向链接”，不得凭空创建产业研报；
+4. 同目录存在多个产业研报候选时停止自动写入，核对主产业研报后通过 `--industry-report <产业研报.html>` 明确指定；
+5. 写入后检查产业研报已包含个股 HTML 链接，且链接目标文件真实存在；
+6. 非 llmwiki 项目或 HTML 不在产业分类目录时，此步骤标记为“不适用”。
+
 ## 完成前质量门
 
 逐项检查，任一失败都不能声称报告完成：
@@ -214,4 +233,5 @@ node .agents/skills/bbxm-equity-research/scripts/render-report-html.cjs --input 
 - [ ] HTML 已由最终 Markdown 通过统一渲染器生成，未维护第二套正文；
 - [ ] HTML 含 16 个可跳转目录锚点，封面关键字段与 Markdown 一致；
 - [ ] HTML 不含 `??`、`12?24`、替换字符 `U+FFFD` 或未转换的 `[[...]]`；
+- [ ] 已检查同目录产业研报；存在时产业研报已包含个股 HTML 链接，不存在时已明确记录未链接状态；
 - [ ] 链接、计算、编码和文件路径已验证。

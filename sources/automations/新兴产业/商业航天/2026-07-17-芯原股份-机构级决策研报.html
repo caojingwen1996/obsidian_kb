@@ -1,0 +1,1151 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>芯原股份机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.verdict { display: inline-flex; margin-top: 24px; padding: 7px 13px; border-radius: 999px; color: var(--danger); background: var(--danger-bg); font-weight: 750; }
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 26px; }
+.kpi { min-height: 96px; padding: 17px 18px; border: 1px solid rgba(255,255,255,.22); border-radius: 14px; background: rgba(255,255,255,.09); }
+.kpi-value { display: block; font-size: 23px; line-height: 1.3; font-weight: 760; overflow-wrap: anywhere; }
+.kpi-label { display: block; margin-top: 10px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; opacity: .8; }
+
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+}
+
+@media (max-width: 600px) {
+  .kpis { grid-template-columns: 1fr; }
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .verdict, .kpi { border: 1px solid #aebbc2; color: #102f43; background: #fff; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · 688521.SH</p>
+      <h1>芯原股份机构级决策研报</h1>
+      <div class="hero-meta"><span>2026-07-17 收盘</span><span>2026-07-17（Asia/Shanghai）</span><span>上海证券交易所科创板 / 人民币</span></div>
+      <div class="verdict">严重高估 · 新增现金 wait / observe；已有持仓 reduce / review</div>
+      <div class="kpis">
+        <div class="kpi"><span class="kpi-value">231.60元，2026-07-17收盘</span><span class="kpi-label">当前价格</span></div>
+        <div class="kpi"><span class="kpi-value">25–50元/股</span><span class="kpi-label">综合估值区间</span></div>
+        <div class="kpi"><span class="kpi-value">新增现金 wait / observe；已有持仓 reduce / review</span><span class="kpi-label">冰冰小美动作</span></div>
+        <div class="kpi"><span class="kpi-value">中高</span><span class="kpi-label">结论置信度</span></div>
+      </div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
+<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
+<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
+<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
+<a class="toc-link" href="#section-6">6. 五年财务历史</a>
+<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
+<a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
+<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
+<a class="toc-link" href="#section-10">10. 估值</a>
+<a class="toc-link" href="#section-11">11. 冰冰小美框架判断</a>
+<a class="toc-link" href="#section-12">12. 最终结论</a>
+<a class="toc-link" href="#section-13">13. 后续监控指标</a>
+<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
+<a class="toc-link" href="#section-15">15. 来源清单</a>
+<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
+      <article class="content"><blockquote>
+<p>证券代码：688521.SH<br>交易所 / 币种：上海证券交易所科创板 / 人民币<br>研究截止时间：2026-07-17 收盘<br>报告生成时间：2026-07-17（Asia/Shanghai）<br>数据口径：中国企业会计准则；历史财务为合并口径；行情为未复权时点快照；自由现金流为经营现金流减购建长期资产现金支出；预测均为研究假设而非公司指引  </p>
+</blockquote>
+<h2 id="section-1">1. 决策摘要</h2>
+
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值状态</td>
+<td>严重高估</td>
+</tr>
+<tr>
+<td>操作建议</td>
+<td>规避新增买入；等待盈利与估值重新匹配</td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td>新增现金 <code>wait / observe</code>；已有持仓 <code>reduce / review</code></td>
+</tr>
+<tr>
+<td>当前价格及时间</td>
+<td>231.60元，2026-07-17收盘</td>
+</tr>
+<tr>
+<td>综合估值区间</td>
+<td>25–50元/股</td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>-89.2%至-78.4%</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td>中高</td>
+</tr>
+</tbody></table>
+<h3>如果今天这是一笔现金，我会买它吗</h3>
+<ul>
+<li>回答：不会。</li>
+<li>我的判断：公司是国内稀缺的半导体IP与一站式芯片定制平台，AI ASIC订单增长具有产业价值；但2025年亏损5.28亿元、2026Q1亏损扩大至3.41亿元，当前约1,330亿元市值、约42倍2025年PS，已经透支极强的长期增长和利润率跃迁。好公司与好价格严重错位。</li>
+<li>改变结论的条件：价格进入40—50元且订单、IP地位未被证伪；或连续四个季度证明扣非盈利、自由现金流转正，并使未来三年可核验年化净利润达到20亿元以上，从而重构估值锚。</li>
+</ul>
+<h2 id="section-2">2. 证券身份与来源矩阵</h2>
+
+<h3>2.1 证券身份</h3>
+<ul>
+<li>公司全称：芯原微电子（上海）股份有限公司</li>
+<li>证券代码：688521.SH</li>
+<li>上市地：上海证券交易所科创板</li>
+<li>报告准则：中国企业会计准则</li>
+<li>法定披露体系：A股交易所与巨潮资讯/上交所</li>
+<li>同名或跨市场歧义：无；本文不分析晶圆制造企业“中芯国际”，也不把芯原等同于自有品牌AI芯片公司。</li>
+</ul>
+<h3>2.2 来源矩阵</h3>
+<table>
+<thead>
+<tr>
+<th>数据项目</th>
+<th>目标来源</th>
+<th>实际来源</th>
+<th>数据时间</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>实时价格、52周高低、今年以来表现</td>
+<td>交易行情数据库</td>
+<td>Google Finance</td>
+<td>2026-07-17</td>
+<td>价格与52周区间已获取；年初至今未取得一致值</td>
+</tr>
+<tr>
+<td>第三方公允价值、护城河、星级</td>
+<td>Morningstar美国站</td>
+<td>Morningstar及公开检索</td>
+<td>2026-07-17</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>最新季报与管理层指引</td>
+<td>公司法定公告</td>
+<td>2026年第一季度报告、2025年报</td>
+<td>2026-04-30 / 2026-03-31</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>分部收入</td>
+<td>公司年报</td>
+<td>2025年年度报告、监管问询回复</td>
+<td>2025年度</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>卖方评级与目标价</td>
+<td>券商研报</td>
+<td>申万宏源、华创等公开摘要</td>
+<td>2026年</td>
+<td>观点已获取；完整目标价样本不足</td>
+</tr>
+<tr>
+<td>近三个月新闻与催化剂</td>
+<td>公司公告、监管文件、行情</td>
+<td>一季报、年报问询回复、交易行情</td>
+<td>2026-04-17—07-17</td>
+<td>已获取核心事件</td>
+</tr>
+<tr>
+<td>五年财务历史</td>
+<td>公司年报</td>
+<td>2021—2025年年报</td>
+<td>2021—2025</td>
+<td>已获取；个别资本开支为公开报表摘要</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 行情与市场预期</h2>
+
+<h3>3.1 行情快照（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">数值</th>
+<th>来源</th>
+<th>时间 / 口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前价格</td>
+<td align="right">231.60元</td>
+<td>Google Finance</td>
+<td>2026-07-17 15:00</td>
+</tr>
+<tr>
+<td>52周最高</td>
+<td align="right">375.67元</td>
+<td>Google Finance</td>
+<td>滚动52周</td>
+</tr>
+<tr>
+<td>52周最低</td>
+<td align="right">85.18元</td>
+<td>Google Finance</td>
+<td>滚动52周</td>
+</tr>
+<tr>
+<td>今年以来表现</td>
+<td align="right">未获取到一致可复核值</td>
+<td>—</td>
+<td>不以图形估算冒充事实</td>
+</tr>
+<tr>
+<td>总市值</td>
+<td align="right">1,330.46亿元</td>
+<td>Google Finance</td>
+<td>2026-07-17</td>
+</tr>
+<tr>
+<td>PE / PB / EV</td>
+<td align="right">TTM PE不适用；PB约39倍；EV约1,317亿元</td>
+<td>TTM亏损；PB按2025末归母净资产34.18亿元；EV扣除约13.7亿元广义净现金</td>
+<td>2025年报/行情</td>
+</tr>
+</tbody></table>
+<p>当日股价下跌4.91%，盘中高低为255.39元和230.09元。即使较52周高点回撤约38%，现价仍约为52周低点的2.72倍，不能用“已大跌”替代估值分析。</p>
+<h3>3.2 第三方公允价值与评级（事实）</h3>
+<ul>
+<li>公允价值：未获取到可核验的Morningstar公允价值。</li>
+<li>护城河评级：未获取到。</li>
+<li>星级：未获取到。</li>
+<li>来源与时间：检查Morningstar公开覆盖与通用搜索，截止2026-07-17。</li>
+<li>未获取到的字段及已检查来源：fair value、economic moat、star rating均缺失；本文模型结果不冒充第三方评级。</li>
+</ul>
+<h3>3.3 卖方评级与目标价分布（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>机构</th>
+<th>日期</th>
+<th>评级</th>
+<th align="right">目标价</th>
+<th>预测期</th>
+<th>关键假设</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>华创证券</td>
+<td>2026-05</td>
+<td>未完整获取</td>
+<td align="right">未获取到</td>
+<td>2026—2028</td>
+<td>新签订单创新高、AI ASIC量产业务增长、规模效应释放</td>
+</tr>
+<tr>
+<td>申万宏源</td>
+<td>2026-01</td>
+<td>未完整获取</td>
+<td align="right">未获取到</td>
+<td>2026—2028</td>
+<td>AI与数据处理芯片需求、在手订单高位</td>
+</tr>
+</tbody></table>
+<ul>
+<li>目标价区间 / 中位数：有效样本不足，不能计算。</li>
+<li>样本数量与完整性：公开摘要能核验增长逻辑，但缺少同日、同口径目标价及完整假设。</li>
+<li>来源冲突及采信理由：卖方重点强调订单，而监管问询同时要求核验量产业务总额法、毛利率和订单确定性；本文将订单视为领先指标，不直接等同于利润或现金流。</li>
+</ul>
+<h2 id="section-4">4. 商业模式与竞争格局</h2>
+
+<h3>4.1 事实</h3>
+<ul>
+<li>收入来源：半导体IP授权业务包括知识产权授权使用费与特许权使用费；一站式芯片定制业务包括芯片设计服务和芯片量产业务。</li>
+<li>客户与定价权：IP授权具备可复制、高毛利和客户切换成本；芯片设计按项目交付；量产业务依赖晶圆厂、封测厂并承担供应链与交付责任，收入规模大但毛利率较低。</li>
+<li>成本结构：2025年综合毛利率34.19%，研发投入13.49亿元、占收入42.78%；2026Q1研发费用4.39亿元、占收入52.6%。</li>
+<li>资本强度：公司是轻晶圆厂、重人才与IP的研发型企业，但量产业务扩大显著占用营运资金；2025末有息负债本金约15.66亿元。</li>
+<li>竞争者：IP领域包括Arm、Synopsys、Cadence、Imagination、Ceva等；ASIC设计服务包括创意电子、世芯-KY等；国内亦有寒武纪、海光、芯来等在不同IP或芯片环节竞争。</li>
+<li>监管和产业位置：处于集成电路产业链上游IP和中游芯片设计服务环节，是中国大陆半导体IP授权收入领先企业；在卫星产业指数中的位置属于通用算力/芯片设计基础设施，商业航天纯度低，并非卫星专用芯片收入的直接披露标的。</li>
+</ul>
+<h3>4.2 我的判断</h3>
+<ul>
+<li>我的判断：竞争优势及依据——完整处理器IP组合、先进工艺设计能力、全球晶圆厂合作和长期客户复用构成稀缺平台价值。公司披露VPU全球市场地位、GPU/NPU累计出货和中国大陆IP授权领先，具备规模和生态优势。</li>
+<li>我的判断：商业模式最脆弱的环节及依据——量产业务收入增长最快但毛利率低、营运资金占用高；若公司不能把低毛利量产转化为IP复用、设计服务和持续现金流，收入高增会掩盖研发费用与融资压力。</li>
+<li>证伪条件：在手订单连续下降；量产业务毛利率持续下滑；IP授权增速低于行业；研发费用率长期超过40%而扣非利润仍不能转正；监管认定收入确认或总额法存在重大调整。</li>
+</ul>
+<h2 id="section-5">5. 分部收入与盈利拆解</h2>
+
+<table>
+<thead>
+<tr>
+<th>分部</th>
+<th align="right">收入</th>
+<th align="right">同比</th>
+<th align="right">收入占比</th>
+<th align="right">毛利率</th>
+<th align="right">毛利率变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>知识产权授权使用费</td>
+<td align="right">6.71亿元</td>
+<td align="right">+6.07%</td>
+<td align="right">21.3%</td>
+<td align="right">高毛利，未在摘要中单列全年值</td>
+<td align="right">—</td>
+<td>2025年报</td>
+</tr>
+<tr>
+<td>特许权使用费</td>
+<td align="right">1.11亿元</td>
+<td align="right">+7.57%</td>
+<td align="right">3.5%</td>
+<td align="right">高毛利，随客户芯片出货确认</td>
+<td align="right">—</td>
+<td>2025年报</td>
+</tr>
+<tr>
+<td>芯片设计业务</td>
+<td align="right">8.77亿元</td>
+<td align="right">+20.94%</td>
+<td align="right">27.8%</td>
+<td align="right">未在摘要中单列</td>
+<td align="right">受项目结构影响</td>
+<td>2025年报/问询回复</td>
+</tr>
+<tr>
+<td>芯片量产业务</td>
+<td align="right">14.90亿元</td>
+<td align="right">+73.98%</td>
+<td align="right">47.3%</td>
+<td align="right">明显低于IP业务</td>
+<td align="right">量产业务占比上升压低综合毛利率</td>
+<td>2025年报/问询回复</td>
+</tr>
+<tr>
+<td>合计</td>
+<td align="right">31.52亿元</td>
+<td align="right">+35.77%</td>
+<td align="right">100%</td>
+<td align="right">34.19%</td>
+<td align="right">同比-5.68个百分点</td>
+<td>2025年报</td>
+</tr>
+</tbody></table>
+<ul>
+<li>披露口径变化：业务类型总体稳定，但2025年量产业务占比快速提高，导致综合毛利率与收入增速方向相反。</li>
+<li>来源冲突：部分媒体把量产业务高增直接称为“AI利润引擎”；财务事实仅能确认收入增长，不能确认其已经贡献净利润。</li>
+<li>采信理由：以公司年报与2026年7月监管问询回复为主。</li>
+<li>我的判断：增长质量及依据——订单与收入增速强，但毛利率下降、全年仍亏损、经营现金流仍负，增长质量只能评为“规模扩张已验证，股东回报未验证”。</li>
+</ul>
+<h2 id="section-6">6. 五年财务历史</h2>
+
+<table>
+<thead>
+<tr>
+<th>财年</th>
+<th align="right">营收</th>
+<th align="right">毛利率</th>
+<th align="right">经营现金流</th>
+<th align="right">资本开支</th>
+<th align="right">自由现金流</th>
+<th align="right">ROIC / 代理值</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td align="right">21.39亿元</td>
+<td align="right">40.06%</td>
+<td align="right">1.55亿元</td>
+<td align="right">1.36亿元</td>
+<td align="right">0.19亿元</td>
+<td align="right">ROE 0.50%</td>
+<td>2021年报</td>
+</tr>
+<tr>
+<td>2022</td>
+<td align="right">26.79亿元</td>
+<td align="right">41.59%</td>
+<td align="right">-3.29亿元</td>
+<td align="right">约3.85亿元（含房产）</td>
+<td align="right">-7.15亿元</td>
+<td align="right">ROE 2.62%</td>
+<td>2022年报</td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">23.38亿元</td>
+<td align="right">44.75%</td>
+<td align="right">-0.09亿元</td>
+<td align="right">1.15亿元</td>
+<td align="right">-1.24亿元</td>
+<td align="right">ROE -10.54%</td>
+<td>2023年报</td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">23.22亿元</td>
+<td align="right">39.86%</td>
+<td align="right">-3.46亿元</td>
+<td align="right">1.44亿元</td>
+<td align="right">-4.90亿元</td>
+<td align="right">ROE -24.98%</td>
+<td>2024年报</td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">31.52亿元</td>
+<td align="right">34.19%</td>
+<td align="right">-2.22亿元</td>
+<td align="right">约2.0—2.5亿元（前三季2.03亿元）</td>
+<td align="right">约-4.2至-4.7亿元</td>
+<td align="right">ROE -18.64%</td>
+<td>2025年报；资本开支为区间估算</td>
+</tr>
+</tbody></table>
+<ul>
+<li>自由现金流口径：经营现金流减购建固定资产、无形资产和其他长期资产支付的现金；2025年全年资本开支未从可用摘要中精确取得，因此明确采用区间。</li>
+<li>ROIC口径：公司持续亏损且股份支付、并购和研发费用显著，严格ROIC解释力弱，采用加权平均ROE代理资本回报方向。</li>
+<li>一次性项目和会计变化：2025年非经常性损益约0.86亿元；股份支付和并购非现金费用影响调整后利润，但不能从现金流和股东稀释中完全忽略。</li>
+<li>我的判断：盈利质量、现金转化与资本回报趋势——五年内仅2021—2022年实现小额盈利，2023—2025年累计亏损；自由现金流多数年份为负。收入增长尚未形成稳定资本回报，当前高估值缺少历史现金流支撑。</li>
+</ul>
+<h2 id="section-7">7. 最新季度与管理层指引</h2>
+
+<h3>7.1 最新季度（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">本期</th>
+<th align="right">同比 / 变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营收</td>
+<td align="right">8.36亿元</td>
+<td align="right">+114.47%</td>
+<td>2026Q1报告</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">32.29%</td>
+<td align="right">同比-6.76个百分点</td>
+<td>2026Q1报告/公开财务摘要</td>
+</tr>
+<tr>
+<td>净利润</td>
+<td align="right">归母-3.41亿元</td>
+<td align="right">上年同期-2.20亿元，亏损扩大54.69%</td>
+<td>2026Q1报告</td>
+</tr>
+<tr>
+<td>调整后利润</td>
+<td align="right">-2.40亿元</td>
+<td align="right">剔除股份支付及并购相关非经营/非现金费用</td>
+<td>公司一季报定义</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">-3.08亿元</td>
+<td align="right">上年同期-2.20亿元，流出扩大</td>
+<td>2026Q1报告</td>
+</tr>
+<tr>
+<td>订单 / 储备</td>
+<td align="right">2025末在手订单50.75亿元；2026Q1待执行订单超30亿元</td>
+<td align="right">新签订单处于高位</td>
+<td>公司年报/券商摘要</td>
+</tr>
+</tbody></table>
+<h3>7.2 管理层指引（事实）</h3>
+<ul>
+<li>正式量化指引：未提供2026全年营收、利润和自由现金流区间。</li>
+<li>定性展望：AI算力和数据处理芯片需求推动新签订单，量产业务与先进工艺设计服务有望继续增长；公司强调规模效应和调整后利润。</li>
+<li>未获取到：全年收入、毛利率、扣非利润、现金流及分部增长的正式量化指引。</li>
+</ul>
+<h3>7.3 我的判断</h3>
+<ul>
+<li>我的判断：边际变化及依据——收入和订单明显改善，但毛利率下行、归母亏损与现金流恶化，说明规模效应尚未越过研发和并购费用拐点。</li>
+<li>我的判断：指引可信度及依据——订单为已披露事实，但交付周期、取消条款、客户集中和毛利率决定其价值。监管问询要求进一步说明订单确定性与收入确认，降低“订单即利润”的置信度。</li>
+<li>下一验证节点：2026年半年度报告；核验收入转化、量产业务毛利率、研发费用率、经营现金流、在手订单变化和监管问询后续。</li>
+</ul>
+<h2 id="section-8">8. 近三个月新闻与催化剂</h2>
+
+<table>
+<thead>
+<tr>
+<th>发生日</th>
+<th>事件</th>
+<th>影响变量</th>
+<th>财务传导</th>
+<th>是否已反映</th>
+<th>验证节点</th>
+<th>失效条件</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-04-30</td>
+<td>Q1收入同比+114.47%，但归母亏损扩大至3.41亿元</td>
+<td>订单转化、毛利率、费用率</td>
+<td>收入增长尚未覆盖研发和并购费用</td>
+<td>高增长已充分交易，亏损可能被弱化</td>
+<td>2026H1</td>
+<td>收入增速回落且亏损继续扩大</td>
+<td>公司一季报</td>
+</tr>
+<tr>
+<td>2026-05</td>
+<td>券商强调AI ASIC新签订单创新高</td>
+<td>订单、风险偏好</td>
+<td>若顺利交付可推动设计和量产收入</td>
+<td>已高度反映</td>
+<td>订单转收入和现金</td>
+<td>订单延期、毛利率低于预期</td>
+<td>研报摘要</td>
+</tr>
+<tr>
+<td>2026-07-10</td>
+<td>公司回复年报监管问询</td>
+<td>收入确认、订单质量、负债、研发</td>
+<td>提高披露透明度，同时暴露总额法和现金压力审查</td>
+<td>部分反映</td>
+<td>后续公告/审计</td>
+<td>监管要求重大会计调整</td>
+<td>上交所问询回复</td>
+</tr>
+<tr>
+<td>2026-07-17</td>
+<td>股价收跌4.91%，半导体高估值方向波动</td>
+<td>情绪、流动性、估值倍数</td>
+<td>风险偏好下降压缩远期估值</td>
+<td>正在反映但幅度远不足</td>
+<td>成交、相对强弱</td>
+<td>资金快速回流并由盈利上修支持</td>
+<td>Google Finance</td>
+</tr>
+</tbody></table>
+<h2 id="section-9">9. 多头与空头论据</h2>
+
+<h3>9.1 多头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>中国大陆稀缺半导体IP平台</td>
+<td>IP授权市场中国大陆领先，IP组合完整</td>
+<td>IP授权收入、授权次数、特许权收入</td>
+<td>市占率下滑或核心IP被替代</td>
+</tr>
+<tr>
+<td>AI ASIC订单高增</td>
+<td>2025末在手订单50.75亿元，2026Q1收入+114.47%</td>
+<td>新签/在手订单、转化率</td>
+<td>订单取消、延期或低毛利交付</td>
+</tr>
+<tr>
+<td>规模效应可能带来利润跃迁</td>
+<td>量产业务放量后部分固定研发费用可被摊薄</td>
+<td>调整后利润率、研发费用率</td>
+<td>收入高增但亏损和现金流不改善</td>
+</tr>
+<tr>
+<td>国产替代与全球客户基础</td>
+<td>覆盖先进工艺、全球晶圆厂和多类终端</td>
+<td>客户数、先进工艺项目、海外收入</td>
+<td>出口管制或客户集中导致项目中断</td>
+</tr>
+</tbody></table>
+<h3>9.2 空头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值远超可验证基本面</td>
+<td>市值1,330亿元、2025 PS约42倍、TTM亏损</td>
+<td>PS、正常化利润、FCF</td>
+<td>利润在短期跃升至20亿元以上</td>
+</tr>
+<tr>
+<td>收入高增但亏损扩大</td>
+<td>2026Q1营收+114%，归母亏损扩大55%</td>
+<td>单季扣非利润、毛利率</td>
+<td>连续季度盈利和FCF转正</td>
+</tr>
+<tr>
+<td>产品结构压低毛利率</td>
+<td>量产业务占2025收入47.3%，综合毛利率降5.68pct</td>
+<td>分部毛利率、IP占比</td>
+<td>IP和设计收入占比重新提升</td>
+</tr>
+<tr>
+<td>融资、并购和负债增加执行风险</td>
+<td>2025末有息负债15.66亿元，并购逐点半导体</td>
+<td>净债务、商誉、整合费用</td>
+<td>并购产生持续盈利和协同现金流</td>
+</tr>
+</tbody></table>
+<h2 id="section-10">10. 估值</h2>
+
+<h3>10.1 相对估值</h3>
+<table>
+<thead>
+<tr>
+<th>公司</th>
+<th>业务可比性</th>
+<th align="right">增长</th>
+<th align="right">利润率</th>
+<th align="right">PE</th>
+<th align="right">PB</th>
+<th align="right">EV/EBITDA</th>
+<th>数据时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>芯原股份</td>
+<td>IP+设计服务+量产业务</td>
+<td align="right">2026Q1收入+114.47%</td>
+<td align="right">净利率-40.78%</td>
+<td align="right">不适用</td>
+<td align="right">约39倍</td>
+<td align="right">不适用</td>
+<td>2026-07-17</td>
+</tr>
+<tr>
+<td>Arm</td>
+<td>处理器IP，IP纯度更高</td>
+<td align="right">未同口径核验</td>
+<td align="right">已盈利</td>
+<td align="right">未同口径核验</td>
+<td align="right">未同口径核验</td>
+<td align="right">未同口径核验</td>
+<td>仅作商业模式参照</td>
+</tr>
+<tr>
+<td>世芯-KY/创意电子</td>
+<td>ASIC设计服务，地域和客户结构不同</td>
+<td align="right">未同口径核验</td>
+<td align="right">已盈利</td>
+<td align="right">未同口径核验</td>
+<td align="right">未同口径核验</td>
+<td align="right">未同口径核验</td>
+<td>仅作业务参照</td>
+</tr>
+</tbody></table>
+<ul>
+<li>选取理由：芯原的IP与ASIC双模式没有完全可比A股公司，跨市场倍数又受会计、流动性和盈利差异影响。</li>
+<li>正常化调整：给予2028年正常化收入80—100亿元、净利率10%—15%、35—45倍PE，折现回2026年并考虑潜在股份稀释。</li>
+<li>对应每股价值区间：约30—60元。</li>
+<li>我的判断：即使采用高增长、高倍数和盈利跃迁假设，仍无法支持231.60元；当前价格相当于提前支付多个成功阶段。</li>
+</ul>
+<h3>10.2 DCF</h3>
+<h4>关键假设</h4>
+<table>
+<thead>
+<tr>
+<th>假设</th>
+<th align="right">悲观</th>
+<th align="right">基准</th>
+<th align="right">乐观</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>收入增长</td>
+<td align="right">20%降至8%</td>
+<td align="right">35%降至15%</td>
+<td align="right">50%降至20%</td>
+<td>2025收入+35.77%、Q1+114.47%，高增应随基数下降</td>
+</tr>
+<tr>
+<td>FCFF利润率（组合假设）</td>
+<td align="right">-5%升至9%</td>
+<td align="right">-3%升至17%</td>
+<td align="right">0%升至22%</td>
+<td>历史FCF为负；IP业务具高利润潜力但量产稀释</td>
+</tr>
+<tr>
+<td>税率</td>
+<td align="right">15%—20%</td>
+<td align="right">15%</td>
+<td align="right">15%</td>
+<td>高新企业与亏损抵扣</td>
+</tr>
+<tr>
+<td>折旧摊销</td>
+<td align="right">含在FCFF率</td>
+<td align="right">含在FCFF率</td>
+<td align="right">含在FCFF率</td>
+<td>简化模型避免虚假精度</td>
+</tr>
+<tr>
+<td>资本开支</td>
+<td align="right">含在FCFF率</td>
+<td align="right">含在FCFF率</td>
+<td align="right">含在FCFF率</td>
+<td>轻制造但重研发、并购和营运资金</td>
+</tr>
+<tr>
+<td>营运资本变化</td>
+<td align="right">含在FCFF率</td>
+<td align="right">含在FCFF率</td>
+<td align="right">含在FCFF率</td>
+<td>量产业务现金占用显著</td>
+</tr>
+<tr>
+<td>WACC</td>
+<td align="right">11.0%</td>
+<td align="right">10.0%</td>
+<td align="right">9.0%</td>
+<td>高波动、持续亏损和执行风险</td>
+</tr>
+<tr>
+<td>永续增长率</td>
+<td align="right">2.0%</td>
+<td align="right">2.5%</td>
+<td align="right">3.0%</td>
+<td>长期名义增长约束</td>
+</tr>
+</tbody></table>
+<h4>估值结果</h4>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">企业价值</th>
+<th align="right">净债务</th>
+<th align="right">股权价值</th>
+<th align="right">每股价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观</td>
+<td align="right">约40.3亿元</td>
+<td align="right">-13.7亿元</td>
+<td align="right">约54.0亿元</td>
+<td align="right">9.40元</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">约159.5亿元</td>
+<td align="right">-13.7亿元</td>
+<td align="right">约173.2亿元</td>
+<td align="right">30.15元</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">约360.4亿元</td>
+<td align="right">-13.7亿元</td>
+<td align="right">约374.1亿元</td>
+<td align="right">65.11元</td>
+</tr>
+</tbody></table>
+<h4>敏感性分析</h4>
+<table>
+<thead>
+<tr>
+<th>WACC \ 永续增长率</th>
+<th align="right">1.5%</th>
+<th align="right">2.5%</th>
+<th align="right">3.5%</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>9.0%</td>
+<td align="right">31.17元</td>
+<td align="right">35.28元</td>
+<td align="right">40.87元</td>
+</tr>
+<tr>
+<td>10.0%</td>
+<td align="right">27.12元</td>
+<td align="right">30.15元</td>
+<td align="right">34.10元</td>
+</tr>
+<tr>
+<td>11.0%</td>
+<td align="right">23.94元</td>
+<td align="right">26.25元</td>
+<td align="right">29.16元</td>
+</tr>
+</tbody></table>
+<h4>反向 DCF</h4>
+<ul>
+<li>当前价格隐含的收入增长 / 终值利润率：在10% WACC和2.5%永续增长下，231.60元约为基准DCF的7.7倍、乐观DCF的3.6倍。要支持现价，需未来五年收入接近或超过40%复合增长，同时FCFF率迅速升至30%以上，并在终值阶段保持全球顶级IP平台利润率。</li>
+<li>与历史和行业相比是否可实现：理论上存在极小概率，但与公司连续亏损、FCF为负、量产业务占比上升的历史差距过大。</li>
+<li>我的判断：反向DCF表明现价不是普通乐观，而是对“全球级平台成功”进行确定性定价。</li>
+</ul>
+<h3>10.3 行业特定估值</h3>
+<ul>
+<li>方法：分部加总（SOTP）。</li>
+<li>适用理由：IP授权、设计服务和量产业务的毛利率与估值属性差异极大。</li>
+<li>关键假设：2025年IP相关收入7.82亿元给予12—18倍PS；设计业务8.77亿元给予4—7倍PS；量产业务14.90亿元给予1.5—2.5倍PS；加约13.7亿元广义净现金，并对总部研发费用、股份稀释和并购风险折价。</li>
+<li>对应每股价值区间：约29—44元；考虑平台战略溢价，宽区间取30—50元。</li>
+<li>局限性：IP PS可能无法反映特许权增长的远期复利，也可能高估尚未转化为利润的研发资产；分部间协同和总部费用难以准确拆分。</li>
+</ul>
+<h3>10.4 估值交叉验证</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="right">每股价值区间</th>
+<th align="right">权重</th>
+<th>采信理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>相对估值</td>
+<td align="right">30—60元</td>
+<td align="right">25%</td>
+<td>高增长科技股倍数波动大，权重较低</td>
+</tr>
+<tr>
+<td>DCF</td>
+<td align="right">24—41元（基准敏感区间）</td>
+<td align="right">35%</td>
+<td>直接约束现金流；公司历史FCF不稳定</td>
+</tr>
+<tr>
+<td>行业特定估值</td>
+<td align="right">30—50元</td>
+<td align="right">40%</td>
+<td>分部差异显著，SOTP最贴合业务结构</td>
+</tr>
+</tbody></table>
+<ul>
+<li>综合估值区间：25—50元/股。</li>
+<li>相对现价上行 / 下行空间：相对231.60元为-89.2%至-78.4%。</li>
+<li>为什么不机械平均：公司平台期权价值真实但难量化；综合区间保留战略溢价，却不为尚未形成的利润和现金流支付无限倍数。</li>
+</ul>
+<h2 id="section-11">11. 冰冰小美框架判断</h2>
+
+<h3>11.1 三要素结果引用</h3>
+<ul>
+<li>三要素结论来源：<code>bbxm-three-factor-analysis</code></li>
+<li>分析对象与层级：芯原股份（688521.SH）个股；半导体IP/AI ASIC中观层</li>
+<li>分析截止时间：2026-07-17收盘</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>状态</th>
+<th>核心证据</th>
+<th>核心反证</th>
+<th>失效条件</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>有利</td>
+<td>中国大陆IP授权领先、完整IP组合、AI ASIC订单增长</td>
+<td>全球IP巨头强、量产业务定价权与毛利率受限</td>
+<td>IP收入停滞、核心客户流失或收入确认被调整</td>
+<td>中高</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>不利</td>
+<td>高估值依赖持续增量资金；当日下跌4.91%，板块资金波动加剧</td>
+<td>成交活跃且AI主题仍有资金关注</td>
+<td>真实长期资金持续流入且盈利同步上修</td>
+<td>中</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>不利</td>
+<td>现价仍较52周低点高172%，极高估值与题材拥挤并存</td>
+<td>较高点已回撤38%，短线恐慌可能反弹</td>
+<td>估值回到可验证区、利好后不再冲高回落</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<ul>
+<li>三要素综合判断：尚未形成有利共振。</li>
+<li>主导要素：产业竞争地位有利。</li>
+<li>拖累要素：估值、流动性和情绪位置。</li>
+<li>数据缺口及影响：缺少全部机构持仓变化、逐笔资金结构、2026H1订单取消率与分部现金流；不能把成交额单独视为增量资金。</li>
+<li>下一验证节点：2026H1报告及订单/监管后续公告。</li>
+<li>新增现金：<code>wait / observe</code>；条件：50元以下或连续盈利、FCF转正使估值锚大幅上修。</li>
+<li>已有持仓：<code>reduce / review</code>；条件：按照持仓成本和仓位控制，不以题材强度替代退出纪律。</li>
+</ul>
+<h3>11.2 风险方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>风险类型</th>
+<th>前一窗口</th>
+<th>当前窗口</th>
+<th>方向证据</th>
+<th>反证</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本面风险</td>
+<td>2025年收入恢复、亏损收窄</td>
+<td>2026Q1收入高增但亏损和现金流恶化</td>
+<td>收入风险下降，盈利风险重新增强</td>
+<td>调整后亏损小于法定亏损、订单高位</td>
+</tr>
+<tr>
+<td>估值风险</td>
+<td>AI ASIC叙事推动估值扩张</td>
+<td>市值1,330亿元、PS约42倍</td>
+<td>估值风险仍处极高位</td>
+<td>股价已从高点回撤</td>
+</tr>
+<tr>
+<td>情绪风险</td>
+<td>高景气预期与拥挤交易</td>
+<td>当日大跌、半导体高估值波动</td>
+<td>情绪风险增强</td>
+<td>主题资金仍可能快速回流</td>
+</tr>
+<tr>
+<td>流动性风险</td>
+<td>增量资金推动高倍数</td>
+<td>高估值对资金退潮高度敏感</td>
+<td>风险重新增强</td>
+<td>成交活跃、无流动性枯竭证据</td>
+</tr>
+</tbody></table>
+<h3>11.3 风险传导链</h3>
+<ul>
+<li>信息源头：订单高增与AI ASIC叙事对应极高估值，但利润、毛利率和现金流没有同步。</li>
+<li>核心变量：订单转化率、量产业务毛利率、研发费用率、FCF和风险溢价。</li>
+<li>传导机制：若盈利兑现低于预期，市场先下调远期利润率，再提高WACC，双重压缩极高PS；题材资金撤离会放大波动。</li>
+<li>影响对象：追高资金、高仓位持有人和159218中的半导体高弹性敞口。</li>
+<li>市场行为变化：从“看订单”转向“看利润和现金”。</li>
+<li>风险方向：风险重新增强。</li>
+<li>验证指标：扣非利润、FCF、毛利率、订单转化、机构资金和相对行业强弱。</li>
+<li>失效条件：连续四季盈利与FCF转正、利润显著超预期且估值由盈利消化而非股价继续扩张。</li>
+</ul>
+<h3>11.4 风险方向结论</h3>
+<ul>
+<li>风险方向结论：风险重新增强。</li>
+<li>判断依据：产业和订单曾使风险阶段性减弱，但当前盈利与现金流恶化、监管问询和高估值资金波动重新放大风险。</li>
+<li>反证：订单、IP地位和收入增速仍强，公司并未发生产业层证伪。</li>
+<li>未获取到：完整机构资金流、H1分部数据、所有订单条款及客户集中明细。</li>
+<li>置信度：中高。</li>
+</ul>
+<h3>11.5 四层方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>边际改善 / 无明显变化 / 边际恶化 / 未获取到</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观</td>
+<td>未获取到</td>
+<td>本报告不以宏观流动性单独解释个股高估值</td>
+</tr>
+<tr>
+<td>中观</td>
+<td>边际改善</td>
+<td>AI ASIC、国产IP和数据处理需求推动订单增长</td>
+</tr>
+<tr>
+<td>微观</td>
+<td>边际恶化</td>
+<td>Q1毛利率下降、亏损和现金流流出扩大</td>
+</tr>
+<tr>
+<td>交易</td>
+<td>边际恶化</td>
+<td>当日下跌4.91%，极高估值下风险溢价上升</td>
+</tr>
+</tbody></table>
+<h3>11.6 动作与约束</h3>
+<ul>
+<li>主动作：<code>wait / observe</code>。</li>
+<li>新增现金：不买；50元以下才进入基本面复核，35—45元可在盈利路径未被证伪时小仓观察，25—35元且现金流改善才考虑增加。</li>
+<li>已有持仓：<code>reduce / review</code>；高仓位可在反弹但盈利未上修时降低风险敞口，保留小仓跟踪平台期权。</li>
+<li>承接条件：价格回归估值区，或利润与FCF连续验证使公允价值显著上修；资金流必须与基本面同步。</li>
+<li>退出条件：订单下降、收入确认重大调整、IP收入停滞、毛利率继续下滑、现金与负债恶化。</li>
+<li>下一复核节点：2026年半年度报告及后续监管公告。</li>
+<li>我的判断：为什么“方向”能够或不能转化为“买点”——产业竞争格局有利，但流动性和情绪只是在高估值资产中放大波动，基本面尚不能承接价格，因此不能转化为买点。</li>
+</ul>
+<h2 id="section-12">12. 最终结论</h2>
+
+<ul>
+<li>估值结论：严重高估。</li>
+<li>操作结论：规避新增买入。</li>
+<li>综合估值区间：25—50元/股。</li>
+<li>相对现价空间：-89.2%至-78.4%。</li>
+<li>如果今天这是一笔现金，我会买它吗：不会。</li>
+<li>我的判断：芯原股份是值得长期跟踪的稀缺IP平台，但当前市场把产业方向、订单增长、国产替代和全球平台成功几乎全部按确定性计价；2026Q1仍在扩大亏损和现金流流出。现价的主要风险不是公司没有价值，而是价值远低于价格。</li>
+<li>结论失效条件：未来三年收入、利润和FCF远超乐观情景，正常化净利润快速达到20亿元以上并保持高增长；或股价进入25—50元而核心IP与订单未被证伪。</li>
+</ul>
+<h2 id="section-13">13. 后续监控指标</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">当前值</th>
+<th>触发阈值 / 方向</th>
+<th>数据源</th>
+<th>复核频率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>在手订单</td>
+<td align="right">2025末50.75亿元</td>
+<td>连续下降不利；转化为高毛利收入有利</td>
+<td>公司公告</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>综合毛利率</td>
+<td align="right">2026Q1 32.29%</td>
+<td>低于30%警戒；回到38%以上有利</td>
+<td>定期报告</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>扣非净利润</td>
+<td align="right">2026Q1 -3.35亿元</td>
+<td>连续两季转正才确认盈利拐点</td>
+<td>定期报告</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">2026Q1 -3.08亿元</td>
+<td>滚动12月转正并高于净利润有利</td>
+<td>现金流量表</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>PS与股价</td>
+<td align="right">2025 PS约42倍；231.60元</td>
+<td>50元以下进入估值复核；继续扩张为风险</td>
+<td>行情/财报</td>
+<td>每周</td>
+</tr>
+</tbody></table>
+<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
+
+<ul>
+<li>未获取到：Morningstar公允价值/护城河/星级；足够近期卖方目标价；2026全年量化指引；2025全年资本开支精确值；2026Q1完整分部毛利率；机构资金完整结构与所有订单条款。</li>
+<li>已检查来源：公司2021—2025年报、2026Q1报告、2025年报监管问询回复、上交所/巨潮、Google Finance及公开券商摘要。</li>
+<li>对结论的影响：订单价值和盈利拐点的精度受限；但现价与多种估值方法之间差距极大，缺失数据不足以逆转“严重高估”方向，只影响公允价值区间宽度。</li>
+</ul>
+<h2 id="section-15">15. 来源清单</h2>
+
+<ol>
+<li>《芯原微电子（上海）股份有限公司2025年年度报告》，芯原股份，2026-03-31，<a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12043598&stockid=688521">公告页</a>，访问时间2026-07-17。</li>
+<li>《芯原微电子（上海）股份有限公司2026年第一季度报告》，芯原股份，2026-04-30，<a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12284532&stockid=688521">公告页</a>，访问时间2026-07-17。</li>
+<li>《关于上海证券交易所对公司2025年年度报告信息披露监管问询函的回复公告》，芯原股份，2026-07-10，<a href="https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12440953&stockid=688521">公告页</a>，访问时间2026-07-17。</li>
+<li>《芯原微电子（上海）股份有限公司2024年年度报告》，芯原股份，2025-04-26，<a href="https://static.cninfo.com.cn/finalpage/2025-04-26/1223311717.PDF">PDF</a>，访问时间2026-07-17。</li>
+<li>《芯原微电子（上海）股份有限公司2023年年度报告》，芯原股份，2024-03-30，<a href="https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=9922119&stockid=688521">公告页</a>，访问时间2026-07-17。</li>
+<li>《芯原微电子（上海）股份有限公司2022年年度报告》，芯原股份，2023-04，<a href="https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=8909978&stockid=688521">公告页</a>，访问时间2026-07-17。</li>
+<li>《芯原股份2021年实现净利润1329.24万元》，经济观察网，2022-03-29，<a href="https://www.eeo.com.cn/2022/0329/528052.shtml">报道</a>，访问时间2026-07-17。</li>
+<li>《芯原微电子（上海）股份有限公司股价和资讯》，Google Finance，<a href="https://www.google.com/finance/quote/688521:SHA?hl=zh">行情页</a>，访问时间2026-07-17。</li>
+<li>《芯原股份2026年一季报点评：新签订单屡创新高》，公开券商研报摘要，2026-05，<a href="https://stock.finance.sina.com.cn/stock/go.php/vReport_Show/kind/search/rptid/831081122251/index.phtml">摘要页</a>，访问时间2026-07-17。</li>
+</ol>
+<h2 id="section-16">16. 声明</h2>
+
+<p>本报告基于截至研究截止时间可取得的公开信息，不构成收益保证或个性化投资建议。真实交易前应重新核验价格、公告、监管进展、流动性、个人资产配置与风险承受能力。</p>
+</article>
+    </div>
+  </main>
+</body>
+</html>

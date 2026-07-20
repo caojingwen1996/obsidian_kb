@@ -1,0 +1,1148 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>中国卫通机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.verdict { display: inline-flex; margin-top: 24px; padding: 7px 13px; border-radius: 999px; color: var(--danger); background: var(--danger-bg); font-weight: 750; }
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 26px; }
+.kpi { min-height: 96px; padding: 17px 18px; border: 1px solid rgba(255,255,255,.22); border-radius: 14px; background: rgba(255,255,255,.09); }
+.kpi-value { display: block; font-size: 23px; line-height: 1.3; font-weight: 760; overflow-wrap: anywhere; }
+.kpi-label { display: block; margin-top: 10px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; opacity: .8; }
+
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+}
+
+@media (max-width: 600px) {
+  .kpis { grid-template-columns: 1fr; }
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .verdict, .kpi { border: 1px solid #aebbc2; color: #102f43; background: #fff; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · 601698.SH</p>
+      <h1>中国卫通机构级决策研报</h1>
+      <div class="hero-meta"><span>2026-07-17 收盘</span><span>2026-07-17 17:28（Asia/Shanghai）</span><span>上海证券交易所 / 人民币</span></div>
+      <div class="verdict">高估 · 新增现金 wait / observe；已有持仓 reduce / review</div>
+      <div class="kpis">
+        <div class="kpi"><span class="kpi-value">25.59 元，2026-07-17 收盘</span><span class="kpi-label">当前价格</span></div>
+        <div class="kpi"><span class="kpi-value">8.00–14.00 元/股</span><span class="kpi-label">综合估值区间</span></div>
+        <div class="kpi"><span class="kpi-value">新增现金 wait / observe；已有持仓 reduce / review</span><span class="kpi-label">冰冰小美动作</span></div>
+        <div class="kpi"><span class="kpi-value">中高</span><span class="kpi-label">结论置信度</span></div>
+      </div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
+<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
+<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
+<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
+<a class="toc-link" href="#section-6">6. 五年财务历史</a>
+<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
+<a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
+<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
+<a class="toc-link" href="#section-10">10. 估值</a>
+<a class="toc-link" href="#section-11">11. 冰冰小美框架判断</a>
+<a class="toc-link" href="#section-12">12. 最终结论</a>
+<a class="toc-link" href="#section-13">13. 后续监控指标</a>
+<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
+<a class="toc-link" href="#section-15">15. 来源清单</a>
+<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
+      <article class="content"><blockquote>
+<p>证券代码：601698.SH<br>交易所 / 币种：上海证券交易所 / 人民币<br>研究截止时间：2026-07-17 收盘<br>报告生成时间：2026-07-17 17:28（Asia/Shanghai）<br>数据口径：中国企业会计准则；历史财务为合并口径；行情为前复权/未复权不影响的时点快照；自由现金流为经营现金流减购建长期资产现金支出；预测均为研究假设而非公司指引  </p>
+</blockquote>
+<h2 id="section-1">1. 决策摘要</h2>
+
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值状态</td>
+<td>高估</td>
+</tr>
+<tr>
+<td>操作建议</td>
+<td>规避；等待估值与基本面重新匹配</td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td>新增现金 <code>wait / observe</code>；已有持仓 <code>reduce / review</code></td>
+</tr>
+<tr>
+<td>当前价格及时间</td>
+<td>25.59 元，2026-07-17 收盘</td>
+</tr>
+<tr>
+<td>综合估值区间</td>
+<td>8.00–14.00 元/股</td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>-68.7% 至 -45.3%</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td>中高</td>
+</tr>
+</tbody></table>
+<h3>如果今天这是一笔现金，我会买它吗</h3>
+<ul>
+<li>回答：不会。</li>
+<li>我的判断：中国卫通是国内稀缺的高轨卫星通信运营平台，但 2026Q1 收入仅增 0.71%、归母净利润下降 61.90%，当前约 272 倍静态 PE、6.82 倍 PB 已提前计入非常激进的卫星互联网利润释放。产业方向正确不等于当前价格正确。</li>
+<li>改变结论的条件：股价进入 12–14 元且业务未被证伪，或未来两个季度同时出现收入增速超过 20%、毛利率回到 30%附近、经营现金流转正且新增业务形成可核验订单。</li>
+</ul>
+<h2 id="section-2">2. 证券身份与来源矩阵</h2>
+
+<h3>2.1 证券身份</h3>
+<ul>
+<li>公司全称：中国卫通集团股份有限公司</li>
+<li>证券代码：601698.SH</li>
+<li>上市地：上海证券交易所主板</li>
+<li>报告准则：中国企业会计准则</li>
+<li>法定披露体系：A股交易所与巨潮资讯</li>
+<li>同名或跨市场歧义：无；本文不分析“中国卫星”（600118.SH）或中国卫星网络集团。</li>
+</ul>
+<h3>2.2 来源矩阵</h3>
+<table>
+<thead>
+<tr>
+<th>数据项目</th>
+<th>目标来源</th>
+<th>实际来源</th>
+<th>数据时间</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>实时价格、52周高低、今年以来表现</td>
+<td>交易行情数据库</td>
+<td>WeStock 行情快照、Investing 历史行情交叉核验</td>
+<td>2026-07-17</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>第三方公允价值、护城河、星级</td>
+<td>Morningstar 美国站</td>
+<td>Morningstar 未形成该 A 股可用覆盖；公开检索无可靠结果</td>
+<td>2026-07-17</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>最新季报与管理层指引</td>
+<td>公司法定公告</td>
+<td>2026年第一季度报告、2025年年度报告</td>
+<td>2026-04-30 / 2026-04-01</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>分部收入</td>
+<td>公司年报</td>
+<td>2025年年度报告</td>
+<td>2025年度</td>
+<td>已获取，但公司以单一主业口径披露</td>
+</tr>
+<tr>
+<td>卖方评级与目标价</td>
+<td>券商研报与一致预期</td>
+<td>申万宏源、同花顺一致预期</td>
+<td>2026-04-08 / 2026-07-17</td>
+<td>评级已获取；目标价未获取到</td>
+</tr>
+<tr>
+<td>近三个月新闻与催化剂</td>
+<td>公司公告、权威财经媒体</td>
+<td>公司公告、上交所/巨潮、公开行情新闻</td>
+<td>2026-04-17—2026-07-17</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>五年财务历史</td>
+<td>年报/财务数据库</td>
+<td>公司2021—2025年报、WeStock财务快照</td>
+<td>2021—2025</td>
+<td>已获取；2021—2022资本开支为数据库反推值</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 行情与市场预期</h2>
+
+<h3>3.1 行情快照（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">数值</th>
+<th>来源</th>
+<th>时间 / 口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前价格</td>
+<td align="right">25.59 元</td>
+<td>WeStock 行情快照</td>
+<td>2026-07-17 收盘</td>
+</tr>
+<tr>
+<td>52周最高</td>
+<td align="right">53.85 元</td>
+<td>WeStock / Investing</td>
+<td>滚动52周</td>
+</tr>
+<tr>
+<td>52周最低</td>
+<td align="right">19.59 元</td>
+<td>WeStock / Investing</td>
+<td>滚动52周</td>
+</tr>
+<tr>
+<td>今年以来表现</td>
+<td align="right">-28.32%</td>
+<td>WeStock</td>
+<td>2026-01-01至2026-07-17</td>
+</tr>
+<tr>
+<td>总市值</td>
+<td align="right">1,081.02 亿元</td>
+<td>WeStock</td>
+<td>2026-07-17</td>
+</tr>
+<tr>
+<td>PE / PB / EV</td>
+<td align="right">PE 271.86倍；PB 6.82倍；EV约1,031.7亿元</td>
+<td>WeStock；EV按市值减广义净现金估算</td>
+<td>2026-07-17 / 2026Q1</td>
+</tr>
+</tbody></table>
+<p>补充：近5日、10日、20日和60日涨跌幅分别约 -22.17%、-18.11%、-17.07%和 -31.48%；7月10日曾以32.88元涨停，随后快速回撤，属于高波动题材定价而非稳定盈利定价。</p>
+<h3>3.2 第三方公允价值与评级（事实）</h3>
+<ul>
+<li>公允价值：未获取到可核验的 Morningstar 公允价值。</li>
+<li>护城河评级：未获取到。</li>
+<li>星级：未获取到。</li>
+<li>来源与时间：检查 Morningstar 美国站公开证券覆盖及通用搜索，截止2026-07-17。</li>
+<li>未获取到的字段及已检查来源：Morningstar fair value、economic moat、star rating 均未获得；不以模型生成值冒充第三方评级。</li>
+</ul>
+<h3>3.3 卖方评级与目标价分布（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>机构</th>
+<th>日期</th>
+<th>评级</th>
+<th align="right">目标价</th>
+<th>预测期</th>
+<th>关键假设</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>申万宏源</td>
+<td>2026-04-08</td>
+<td>增持</td>
+<td align="right">未披露/未获取到</td>
+<td>2026—2028</td>
+<td>国内业务稳定增长，卫星互联网应用加速；短期受业务结构与费用波动影响</td>
+</tr>
+<tr>
+<td>公开一致预期（4家）</td>
+<td>2026-07-17快照</td>
+<td>—</td>
+<td align="right">未形成有效样本</td>
+<td>2026</td>
+<td>营收30.92亿元、归母净利润5.57亿元、EPS约0.13元</td>
+</tr>
+</tbody></table>
+<ul>
+<li>目标价区间 / 中位数：未获取到足够样本，不能计算。</li>
+<li>样本数量与完整性：评级样本仅1条、盈利预测约4家，覆盖稀疏。</li>
+<li>来源冲突及采信理由：一致预期隐含的2026年利润增长与2026Q1利润大幅下滑存在节奏冲突，本文只将其用于反映市场预期，不直接作为事实。</li>
+</ul>
+<h2 id="section-4">4. 商业模式与竞争格局</h2>
+
+<h3>4.1 事实</h3>
+<ul>
+<li>收入来源：主要提供卫星空间段运营及相关应用服务，包括广播电视、专线通信、卫星宽带、海洋/航空/应急等行业应用；2025年末运营管理19颗商用通信广播卫星。</li>
+<li>客户与定价权：客户以广播电视、政府与行业客户为主；前五大客户贡献2025年收入的40.07%，具备长周期服务属性，但应用市场培育和低轨替代会约束定价权。</li>
+<li>成本结构：2025年营业成本18.66亿元，其中折旧摊销约12.68亿元，占成本67.94%，经营杠杆高。</li>
+<li>资本强度：卫星采购、发射、地面系统建设资金需求大；2025年购建长期资产现金支出11.71亿元，明显高于归母净利润4.41亿元。</li>
+<li>竞争者：国内包括中国电信等具备卫星通信业务的基础运营商、未来低轨卫星互联网运营主体；国际包括 Starlink、Viasat、Eutelsat OneWeb 等。</li>
+<li>监管和产业位置：持有稀缺通信卫星资源和基础电信运营资质，是高轨卫星通信基础设施运营商，并向卫星互联网基础运营和增值服务延伸；在159218中权重约9.89%，为第一大权重股。</li>
+</ul>
+<h3>4.2 我的判断</h3>
+<ul>
+<li>我的判断：竞争优势及依据——“轨位频率资源＋在轨卫星资产＋长期政企客户＋央企信用”构成稀缺进入壁垒，在国内高轨卫星运营环节具有核心平台地位。</li>
+<li>我的判断：商业模式最脆弱的环节及依据——资产先投入、需求后培育，折旧刚性而新增应用收入兑现慢；若低轨网络快速形成成本和终端优势，高轨业务的新增定价能力可能弱于市场预期。</li>
+<li>证伪条件：卫星互联网运营牌照、核心客户或重大项目被其他主体替代；在轨卫星连续故障；新增高通量业务无法带动收入和现金流而折旧继续上升。</li>
+</ul>
+<h2 id="section-5">5. 分部收入与盈利拆解</h2>
+
+<table>
+<thead>
+<tr>
+<th>分部</th>
+<th align="right">收入</th>
+<th align="right">同比</th>
+<th align="right">收入占比</th>
+<th align="right">毛利率</th>
+<th align="right">毛利率变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>广播电视和卫星传输服务（公司主业口径）</td>
+<td align="right">26.45亿元</td>
+<td align="right">+4.08%</td>
+<td align="right">100%附近</td>
+<td align="right">29.45%</td>
+<td align="right">+1.75pct</td>
+<td>2025年年度报告</td>
+</tr>
+<tr>
+<td>其中：细分应用场景</td>
+<td align="right">未单独量化</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>公司未按广播、宽带、海洋、航空等完整披露</td>
+</tr>
+</tbody></table>
+<ul>
+<li>披露口径变化：年报以单一行业/主业为主，不能据此精确拆分传统广播与卫星互联网增量。</li>
+<li>来源冲突：无重大冲突；第三方有时把全部收入标为“卫星通信业务”，与公司会计分部不完全等同。</li>
+<li>采信理由：采用法定年报口径。</li>
+<li>我的判断：2025年毛利率修复但仍显著低于2021—2023年的35%—38%区间，且2026Q1再次下探，增长质量尚未形成连续改善。</li>
+</ul>
+<h2 id="section-6">6. 五年财务历史</h2>
+
+<table>
+<thead>
+<tr>
+<th>财年</th>
+<th align="right">营收</th>
+<th align="right">毛利率</th>
+<th align="right">经营现金流</th>
+<th align="right">资本开支</th>
+<th align="right">自由现金流</th>
+<th align="right">ROIC / 代理值</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td align="right">26.34亿元</td>
+<td align="right">37.54%</td>
+<td align="right">22.69亿元</td>
+<td align="right">约10.16亿元*</td>
+<td align="right">约12.53亿元*</td>
+<td align="right">ROE 约4.85%</td>
+<td>2021年报、WeStock</td>
+</tr>
+<tr>
+<td>2022</td>
+<td align="right">27.33亿元</td>
+<td align="right">36.47%</td>
+<td align="right">14.71亿元</td>
+<td align="right">约21.30亿元*</td>
+<td align="right">约-6.59亿元*</td>
+<td align="right">ROE 6.20%</td>
+<td>2022年报、WeStock</td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">26.16亿元</td>
+<td align="right">35.71%</td>
+<td align="right">17.93亿元</td>
+<td align="right">16.48亿元</td>
+<td align="right">1.45亿元</td>
+<td align="right">ROE 约2.3%</td>
+<td>2023/2024年报</td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">25.41亿元</td>
+<td align="right">27.70%</td>
+<td align="right">18.28亿元</td>
+<td align="right">14.33亿元</td>
+<td align="right">3.95亿元</td>
+<td align="right">ROE 约2.9%</td>
+<td>2024/2025年报</td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">26.45亿元</td>
+<td align="right">29.45%</td>
+<td align="right">13.67亿元</td>
+<td align="right">11.71亿元</td>
+<td align="right">1.96亿元</td>
+<td align="right">ROE 2.79%</td>
+<td>2025年报</td>
+</tr>
+</tbody></table>
+<ul>
+<li>自由现金流口径：经营活动现金流净额减“购建固定资产、无形资产和其他长期资产支付的现金”。标注<code>*</code>的2021—2022资本开支由数据库FCFF字段反推，需在交易前用原始年报现金流量表再次核验。</li>
+<li>ROIC 口径：因分部投入资本和经营性现金/负债拆分不完整，采用归母ROE作为代理值，不等同于ROIC。</li>
+<li>一次性项目和会计变化：2022年归母净利润9.23亿元含较强非经常性/处置等影响，不能作为稳定盈利基准；结构性存款使投资现金流不等同于实体资本开支。</li>
+<li>我的判断：收入五年几乎停滞，毛利率中枢下降，资本开支持续吞噬经营现金流，ROE已回落至约3%。资产负债表低杠杆是优点，但资本回报并未证明当前估值合理。</li>
+</ul>
+<h2 id="section-7">7. 最新季度与管理层指引</h2>
+
+<h3>7.1 最新季度（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">本期</th>
+<th align="right">同比 / 变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营收</td>
+<td align="right">5.42亿元</td>
+<td align="right">+0.71%</td>
+<td>2026年第一季度报告</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">约19.04%</td>
+<td align="right">约-7.6pct</td>
+<td>按季报收入与成本计算</td>
+</tr>
+<tr>
+<td>净利润</td>
+<td align="right">归母0.268亿元</td>
+<td align="right">-61.90%</td>
+<td>2026年第一季度报告</td>
+</tr>
+<tr>
+<td>调整后利润</td>
+<td align="right">扣非归母0.262亿元</td>
+<td align="right">-62.46%</td>
+<td>2026年第一季度报告</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">-0.376亿元</td>
+<td align="right">上年同期+0.236亿元</td>
+<td>2026年第一季度报告</td>
+</tr>
+<tr>
+<td>订单 / 储备</td>
+<td align="right">未量化披露</td>
+<td align="right">未获取到</td>
+<td>季报及年报</td>
+</tr>
+</tbody></table>
+<h3>7.2 管理层指引（事实）</h3>
+<ul>
+<li>正式量化指引：未给出2026年度营收、利润或资本开支量化区间。</li>
+<li>定性展望：强化卫星互联网基础运营商和增值服务商定位，拓展带宽、卫星专线、移动数据等业务，加快中星27和中星26地面站二期建设，推进“感通算用”平台。</li>
+<li>未获取到：分业务收入目标、订单储备、卫星互联网用户数、单星投资回报率。</li>
+</ul>
+<h3>7.3 我的判断</h3>
+<ul>
+<li>我的判断：边际变化及依据——2026Q1收入平稳但毛利率、利润和现金流同步恶化，边际基本面不利。</li>
+<li>我的判断：指引可信度及依据——战略方向可信，但缺乏量化KPI，无法据此支撑短期盈利预测。</li>
+<li>下一验证节点：2026年半年度报告；重点看毛利率能否恢复至25%以上、经营现金流能否转正、新增高通量业务是否量化。</li>
+</ul>
+<h2 id="section-8">8. 近三个月新闻与催化剂</h2>
+
+<table>
+<thead>
+<tr>
+<th>发生日</th>
+<th>事件</th>
+<th>影响变量</th>
+<th>财务传导</th>
+<th>是否已反映</th>
+<th>验证节点</th>
+<th>失效条件</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-04-29</td>
+<td>发布2026Q1：收入+0.71%、归母净利-61.90%</td>
+<td>毛利率、费用、现金流</td>
+<td>利润与现金流承压</td>
+<td>基本已反映</td>
+<td>半年报</td>
+<td>Q2利润快速修复</td>
+<td>公司季报</td>
+</tr>
+<tr>
+<td>2026-05-22/25</td>
+<td>举行2025年度暨2026Q1业绩说明会</td>
+<td>战略预期、信息透明度</td>
+<td>主要影响预期，暂无量化新增利润</td>
+<td>部分反映</td>
+<td>后续公告/半年报</td>
+<td>出现新增量化订单</td>
+<td>公司公告、经济观察网</td>
+</tr>
+<tr>
+<td>2026-06-17</td>
+<td>2025年度现金分红实施，每股0.0314元</td>
+<td>股东回报</td>
+<td>现金流出约1.33亿元，现价股息率约0.12%</td>
+<td>已反映</td>
+<td>下一年度分红</td>
+<td>盈利和分红率显著提升</td>
+<td>公司公告</td>
+</tr>
+<tr>
+<td>2026-07-01</td>
+<td>董事会审议中星6B卫星报废处置</td>
+<td>在轨资产、折旧/处置</td>
+<td>可能产生处置影响，金额未披露</td>
+<td>部分反映</td>
+<td>后续处置公告</td>
+<td>财务影响不重大</td>
+<td>公司董事会公告</td>
+</tr>
+<tr>
+<td>2026-07-10</td>
+<td>卫星通信工作组成立，公司为联合发起方；板块上涨，公司涨停</td>
+<td>产业协同、情绪溢价</td>
+<td>中长期可能带来标准与生态协同，短期无收入确认</td>
+<td>交易层面过度反映后回吐</td>
+<td>工作组项目落地</td>
+<td>无订单或业务增量</td>
+<td>公开新闻、公司事件页</td>
+</tr>
+</tbody></table>
+<h2 id="section-9">9. 多头与空头论据</h2>
+
+<h3>9.1 多头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>国内高轨卫星运营稀缺平台</td>
+<td>运营管理19颗商用通信广播卫星，具备轨频和资质壁垒</td>
+<td>在轨容量利用率、核心客户续约</td>
+<td>核心资源或客户被替代</td>
+</tr>
+<tr>
+<td>卫星互联网应用扩容</td>
+<td>2025年新增近5000个高通量接入点、近1000个物联网接入点</td>
+<td>用户数、ARPU、增量收入</td>
+<td>接入点增长不转化为收入</td>
+</tr>
+<tr>
+<td>资产负债表稳健</td>
+<td>2025年资产负债率9.63%，2026Q1广义净现金约49亿元</td>
+<td>可用现金、资本开支自给率</td>
+<td>大额资本开支导致现金快速下降</td>
+</tr>
+<tr>
+<td>海洋与国际业务存在增量</td>
+<td>“海星通”覆盖全球95%以上海上航线，中星26在老挝商业化</td>
+<td>海外收入、海事终端数</td>
+<td>地缘/合规限制或回款恶化</td>
+</tr>
+</tbody></table>
+<h3>9.2 空头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>盈利兑现远落后于估值</td>
+<td>静态PE约272倍，2026Q1利润-61.9%</td>
+<td>EPS、毛利率</td>
+<td>利润连续数季超50%增长</td>
+</tr>
+<tr>
+<td>自由现金流弱且资本密集</td>
+<td>2025 FCF仅1.96亿元；折旧占成本67.94%</td>
+<td>FCF、资本开支/收入</td>
+<td>FCF稳定升至8—10亿元</td>
+</tr>
+<tr>
+<td>传统业务增长有限</td>
+<td>2021—2025收入基本横盘</td>
+<td>分业务收入增速</td>
+<td>新业务拉动总收入&gt;20%</td>
+</tr>
+<tr>
+<td>题材资金退潮</td>
+<td>7月10日涨停后5个交易日累计大跌，近5日约-22.17%</td>
+<td>主力资金、成交额、相对强弱</td>
+<td>放量站回32.88元且基本面同步验证</td>
+</tr>
+</tbody></table>
+<h2 id="section-10">10. 估值</h2>
+
+<h3>10.1 相对估值</h3>
+<table>
+<thead>
+<tr>
+<th>公司</th>
+<th>业务可比性</th>
+<th align="right">增长</th>
+<th align="right">利润率</th>
+<th align="right">PE</th>
+<th align="right">PB</th>
+<th align="right">EV/EBITDA</th>
+<th>数据时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>中国卫通</td>
+<td>高轨卫星通信运营</td>
+<td align="right">2025营收+4.08%；2026Q1+0.71%</td>
+<td align="right">2025净利率约16.7%</td>
+<td align="right">271.9x</td>
+<td align="right">6.82x</td>
+<td align="right">未获取到一致口径</td>
+<td>2026-07-17</td>
+</tr>
+<tr>
+<td>中国移动A</td>
+<td>基础电信运营，业务规模远大</td>
+<td align="right">低个位数</td>
+<td align="right">高且稳定</td>
+<td align="right">约11—13x</td>
+<td align="right">约1.3—1.6x</td>
+<td align="right">未获取到一致口径</td>
+<td>2026-07中旬快照</td>
+</tr>
+<tr>
+<td>中国电信A</td>
+<td>基础电信运营，含卫星通信服务</td>
+<td align="right">低个位数</td>
+<td align="right">稳定</td>
+<td align="right">约17—20x</td>
+<td align="right">约1.2—1.5x</td>
+<td align="right">未获取到一致口径</td>
+<td>2026-07中旬快照</td>
+</tr>
+<tr>
+<td>中国联通A</td>
+<td>基础电信运营</td>
+<td align="right">低个位数</td>
+<td align="right">较低但稳定</td>
+<td align="right">约15—20x</td>
+<td align="right">约0.8—1.0x</td>
+<td align="right">未获取到一致口径</td>
+<td>2026-07中旬快照</td>
+</tr>
+</tbody></table>
+<ul>
+<li>选取理由：A股不存在业务完全可比的纯高轨卫星运营商，三大运营商可用于约束“基础电信运营”估值下限和现金流要求，但不能机械类比成长性。</li>
+<li>正常化调整：给予中国卫通显著战略稀缺溢价。以2026E EPS约0.13元，采用70—110倍前瞻PE，对应9.10—14.30元；倍数已远高于基础运营商。</li>
+<li>对应每股价值区间：9.00–14.50元。</li>
+<li>我的判断：即使给予高倍数，现价仍要求未来利润数倍扩张；相对估值不支持当前价格。</li>
+</ul>
+<h3>10.2 DCF</h3>
+<h4>关键假设</h4>
+<table>
+<thead>
+<tr>
+<th>假设</th>
+<th align="right">悲观</th>
+<th align="right">基准</th>
+<th align="right">乐观</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>收入增长</td>
+<td align="right">2026—2030：5%/5%/4%/4%/3%</td>
+<td align="right">17%/15%/12%/10%/8%</td>
+<td align="right">25%/25%/20%/15%/12%</td>
+<td>历史低增速、一致预期与卫星互联网放量三种路径</td>
+</tr>
+<tr>
+<td>经营利润率</td>
+<td align="right">2030年约8%</td>
+<td align="right">2030年约12%</td>
+<td align="right">2030年约18%</td>
+<td>传统业务稳定性与新增业务经营杠杆</td>
+</tr>
+<tr>
+<td>税率</td>
+<td align="right">15%</td>
+<td align="right">15%</td>
+<td align="right">15%</td>
+<td>高新技术企业及历史有效税率近似</td>
+</tr>
+<tr>
+<td>折旧摊销</td>
+<td align="right">维持高位</td>
+<td align="right">随新卫星投产增长</td>
+<td align="right">增长但被高利用率吸收</td>
+<td>折旧摊销占2025成本67.94%</td>
+</tr>
+<tr>
+<td>资本开支</td>
+<td align="right">接近折旧，FCFF率0%→5%</td>
+<td align="right">前高后降，FCFF率2%→12%</td>
+<td align="right">利用率快速提升，FCFF率5%→20%</td>
+<td>历史资本开支高且波动大</td>
+</tr>
+<tr>
+<td>营运资本变化</td>
+<td align="right">收入增量的2%</td>
+<td align="right">收入增量的1%</td>
+<td align="right">基本中性</td>
+<td>政企客户回款与应收上升风险</td>
+</tr>
+<tr>
+<td>WACC</td>
+<td align="right">9.5%</td>
+<td align="right">8.5%</td>
+<td align="right">7.5%</td>
+<td>央企低杠杆但股权风险和项目风险较高</td>
+</tr>
+<tr>
+<td>永续增长率</td>
+<td align="right">1.5%</td>
+<td align="right">2.5%</td>
+<td align="right">3.0%</td>
+<td>长期名义经济增速约束</td>
+</tr>
+</tbody></table>
+<h4>估值结果</h4>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">企业价值</th>
+<th align="right">净债务</th>
+<th align="right">股权价值</th>
+<th align="right">每股价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观</td>
+<td align="right">16.18亿元</td>
+<td align="right">-49.29亿元</td>
+<td align="right">65.46亿元</td>
+<td align="right">1.55元</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">76.07亿元</td>
+<td align="right">-49.29亿元</td>
+<td align="right">125.36亿元</td>
+<td align="right">2.97元</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">231.35亿元</td>
+<td align="right">-49.29亿元</td>
+<td align="right">280.64亿元</td>
+<td align="right">6.64元</td>
+</tr>
+</tbody></table>
+<p>注：净债务为负表示广义净现金；2026Q1约50.70亿元货币资金减约1.41亿元有息债务。部分现金为三个月以上存款或受限资金，因此该桥接已偏宽松。</p>
+<h4>敏感性分析</h4>
+<table>
+<thead>
+<tr>
+<th>WACC \ 永续增长率</th>
+<th align="right">1.5%</th>
+<th align="right">2.5%</th>
+<th align="right">3.5%</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>7.5%</td>
+<td align="right">3.03元</td>
+<td align="right">3.37元</td>
+<td align="right">3.87元</td>
+</tr>
+<tr>
+<td>8.5%</td>
+<td align="right">2.74元</td>
+<td align="right">2.97元</td>
+<td align="right">3.29元</td>
+</tr>
+<tr>
+<td>9.5%</td>
+<td align="right">2.51元</td>
+<td align="right">2.68元</td>
+<td align="right">2.90元</td>
+</tr>
+</tbody></table>
+<h4>反向 DCF</h4>
+<ul>
+<li>当前价格隐含的收入增长 / 终值利润率：在基准收入路径、WACC 8.5%、永续增长2.5%且计入全部广义净现金时，现价要求2030年FCFF率约167%，经济上不可持续；若改为以净利润/折旧近似现金流，仍需要远高于历史的利润和资本开支效率。</li>
+<li>与历史和行业相比是否可实现：历史FCF率多数年份为低个位数至十几个百分点，167%不具备可实现性。</li>
+<li>我的判断：传统DCF对卫星资产在轨寿命和远期网络期权较敏感，绝对数值可能低估战略资产，但反向DCF明确显示现价主要由远期叙事而非可见现金流支撑。</li>
+</ul>
+<h3>10.3 行业特定估值</h3>
+<ul>
+<li>方法：P/B-ROE。</li>
+<li>适用理由：公司固定资产占比高、盈利受折旧和卫星投产周期影响，账面净资产比单年利润更稳定。</li>
+<li>关键假设：2026Q1归母净资产约159.75亿元、每股净资产约3.78元；基于约3%当前ROE及战略资源稀缺性，给予2.0—3.5倍PB。</li>
+<li>对应每股价值区间：7.60–13.20元。</li>
+<li>局限性：账面价值不能完整反映轨位频率和牌照，也可能高估低利用率或临近寿命卫星资产。</li>
+</ul>
+<h3>10.4 估值交叉验证</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="right">每股价值区间</th>
+<th align="right">权重</th>
+<th>采信理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>相对估值</td>
+<td align="right">9.00–14.50元</td>
+<td align="right">40%</td>
+<td>反映市场愿意给予的战略溢价，但可比性有限</td>
+</tr>
+<tr>
+<td>DCF</td>
+<td align="right">1.55–6.64元</td>
+<td align="right">20%</td>
+<td>严格约束现金流，但可能低估远期牌照与网络期权</td>
+</tr>
+<tr>
+<td>行业特定估值</td>
+<td align="right">7.60–13.20元</td>
+<td align="right">40%</td>
+<td>更适合重资产、低杠杆卫星运营商</td>
+</tr>
+</tbody></table>
+<ul>
+<li>综合估值区间：8.00–14.00元/股。</li>
+<li>相对现价上行 / 下行空间：较25.59元下行45.3%—68.7%。</li>
+<li>为什么不机械平均：DCF受卫星资本开支周期和终值高度影响，不能直接压倒稀缺资源价值；相对估值又容易被题材泡沫污染。因此以P/B-ROE和经战略溢价调整的前瞻PE为主要锚，DCF用作现金流底线约束。</li>
+</ul>
+<h2 id="section-11">11. 冰冰小美框架判断</h2>
+
+<h3>11.1 三要素结果引用</h3>
+<ul>
+<li>三要素结论来源：<code>bbxm-three-factor-analysis</code></li>
+<li>分析对象与层级：中国卫通个股；同时参考商业航天/卫星互联网板块</li>
+<li>分析截止时间：2026-07-17 收盘</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>状态</th>
+<th>核心证据</th>
+<th>核心反证</th>
+<th>失效条件</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>有利</td>
+<td>国内高轨卫星资源、资质、19颗在轨卫星和央企客户构成壁垒</td>
+<td>低轨卫星互联网运营主体和基础运营商可能分流增量价值</td>
+<td>核心牌照/客户被替代或份额连续下降</td>
+<td>中高</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>不利</td>
+<td>7月10日涨停后近5日跌约22%；7月10—16主力资金多日净流出</td>
+<td>7月13日出现单日资金回流、融资余额仍有活跃度</td>
+<td>放量站回32.88元且连续资金净流入</td>
+<td>高</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>不利</td>
+<td>从一致性高潮快速转为亏钱效应，股价远离短期高点</td>
+<td>已快速回撤，局部超卖可能引发反抽</td>
+<td>板块形成冰点转折且龙头重新放量领涨</td>
+<td>高</td>
+</tr>
+</tbody></table>
+<ul>
+<li>三要素综合判断：尚未形成有利共振。</li>
+<li>主导要素：竞争格局长期有利。</li>
+<li>拖累要素：流动性与情绪同步转弱，且估值缺乏基本面承接。</li>
+<li>数据缺口及影响：缺乏完整龙虎榜、当日逐笔资金和可验证订单数据，不影响“当前不追高”的判断，但影响短线精确择时。</li>
+<li>下一验证节点：半年报、商业航天板块止跌后的首个放量回升窗口。</li>
+<li>新增现金：<code>wait / observe</code>；条件：价格进入价值区间或三要素重新同步有利。</li>
+<li>已有持仓：<code>reduce / review</code>；条件：反弹但无法收复32.88元、或半年报继续低于预期时降低仓位；若成本极低则保留小额观察仓。</li>
+</ul>
+<h3>11.2 风险方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>风险类型</th>
+<th>前一窗口</th>
+<th>当前窗口</th>
+<th>方向证据</th>
+<th>反证</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本面风险</td>
+<td>Q1披露后已偏高</td>
+<td>持平偏高</td>
+<td>无新量化订单，Q1利润和现金流恶化仍待修复</td>
+<td>2025扣非利润同比增长69.39%</td>
+</tr>
+<tr>
+<td>估值风险</td>
+<td>7月10日涨停时极高</td>
+<td>仍高但有所释放</td>
+<td>股价回撤但PE仍约272倍、PB 6.82倍</td>
+<td>已较52周高点跌超50%</td>
+</tr>
+<tr>
+<td>情绪风险</td>
+<td>7月10日一致性高潮</td>
+<td>明显增强</td>
+<td>5日跌约22%，亏钱效应扩散</td>
+<td>急跌后存在技术反弹</td>
+</tr>
+<tr>
+<td>流动性风险</td>
+<td>涨停日成交活跃</td>
+<td>重新增强</td>
+<td>7月10—16主力资金多数净流出，资金面评分偏弱</td>
+<td>个别交易日仍有净流入和融资买入</td>
+</tr>
+</tbody></table>
+<h3>11.3 风险传导链</h3>
+<ul>
+<li>信息源头：卫星通信工作组及商业航天催化带来题材一致性上涨，但公司短期业绩没有同步上修。</li>
+<li>核心变量：高估值下的增量资金持续性。</li>
+<li>传导机制：情绪拥挤 → 涨停后缺乏新增基本面承接 → 资金兑现 → 高波动权重股下跌 → ETF与板块亏钱效应相互强化。</li>
+<li>影响对象：中国卫通、卫星互联网高估值个股、159218等主题ETF。</li>
+<li>市场行为变化：从追涨转为缩量承接/资金净流出，反弹优先成为减仓窗口。</li>
+<li>风险方向：风险重新增强。</li>
+<li>验证指标：能否收复32.88元、主力资金连续5日净流入、半年报毛利率和经营现金流。</li>
+<li>失效条件：基本面超预期并带动板块放量反包，或股价进入12—14元且估值风险充分释放。</li>
+</ul>
+<h3>11.4 风险方向结论</h3>
+<ul>
+<li>风险方向结论：风险重新增强。</li>
+<li>判断依据：前期题材高潮后出现快速回撤、资金净流出和亏钱效应，而盈利预测未同步上修。</li>
+<li>反证：产业竞争格局未被证伪，资产负债表稳健，回撤已释放部分拥挤风险。</li>
+<li>未获取到：7月17日完整逐笔资金、最新机构持仓变动、可量化新增合同。</li>
+<li>置信度：高。</li>
+</ul>
+<h3>11.5 四层方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>边际改善 / 无明显变化 / 边际恶化 / 未获取到</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观</td>
+<td>无明显变化</td>
+<td>国家支持商业航天和卫星互联网方向未变，但没有公司级现金流直接落地</td>
+</tr>
+<tr>
+<td>中观</td>
+<td>边际恶化</td>
+<td>商业航天板块从一致性上涨转为快速回撤，主题拥挤降温</td>
+</tr>
+<tr>
+<td>微观</td>
+<td>边际恶化</td>
+<td>2026Q1毛利率、归母利润、扣非利润和经营现金流同步走弱</td>
+</tr>
+<tr>
+<td>交易</td>
+<td>边际恶化</td>
+<td>近5日约-22.17%，多日资金净流出，涨停后未形成持续承接</td>
+</tr>
+</tbody></table>
+<h3>11.6 动作与约束</h3>
+<ul>
+<li>主动作：<code>wait / observe</code>。</li>
+<li>新增现金：当前不买；12—14元可建立不超过计划仓位20%的观察仓，10—12元再加30%，8—10元再加30%，最后20%只在半年报或资金面验证后投入。</li>
+<li>已有持仓：高成本仓位在反弹无量或无法收复32.88元时<code>reduce</code>；低成本核心观察仓不超过组合的2%—3%。</li>
+<li>承接条件：价格进入综合估值区间、半年报经营现金流转正、毛利率恢复至25%以上、三要素至少“竞争格局有利＋流动性转有利”。</li>
+<li>退出条件：卫星在轨重大故障、核心牌照/客户变化、连续两个季度收入低增长且利润下滑、或有效跌破价值区间后基本面继续恶化。</li>
+<li>下一复核节点：2026年半年报；若此前出现重大订单/牌照公告则提前复核。</li>
+<li>我的判断：方向不能直接转化为买点。当前产业方向有利，但流动性、情绪和估值均不提供安全边际。</li>
+</ul>
+<h2 id="section-12">12. 最终结论</h2>
+
+<ul>
+<li>估值结论：高估。</li>
+<li>操作结论：规避；等待。</li>
+<li>综合估值区间：8.00–14.00元/股。</li>
+<li>相对现价空间：-68.7%至-45.3%。</li>
+<li>如果今天这是一笔现金，我会买它吗：不会。</li>
+<li>我的判断：中国卫通是商业航天产业链中“卫星通信运营/空间段服务”的核心平台资产，也是159218的重要权重，但当前价格支付的是远期卫星互联网大规模盈利，而公开财务仍显示低增长、低ROE和弱FCF。最合理的策略不是猜反弹，而是等价格进入价值区间，或等利润和现金流真正追上估值。</li>
+<li>结论失效条件：未来两个季度收入增速持续超过20%、毛利率恢复至30%附近、年度化FCF达到8—10亿元且可持续；届时应上调估值区间并重新评估买点。</li>
+</ul>
+<h2 id="section-13">13. 后续监控指标</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">当前值</th>
+<th>触发阈值 / 方向</th>
+<th>数据源</th>
+<th>复核频率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>股价/估值</td>
+<td align="right">25.59元；PE约272倍</td>
+<td>12—14元进入首档观察区</td>
+<td>交易行情</td>
+<td>每周/重大波动</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">2026Q1约19.04%</td>
+<td>恢复至25%以上；30%为强验证</td>
+<td>季报</td>
+<td>每季</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">2026Q1 -0.376亿元</td>
+<td>半年累计转正并同比改善</td>
+<td>季报</td>
+<td>每季</td>
+</tr>
+<tr>
+<td>新业务量化</td>
+<td align="right">近5000高通量接入点、近1000物联网点（2025新增）</td>
+<td>用户/收入/ARPU形成连续披露并带动总收入&gt;20%</td>
+<td>年报、业绩会</td>
+<td>每季/半年</td>
+</tr>
+<tr>
+<td>资金与情绪</td>
+<td align="right">近5日约-22.17%，主力多日净流出</td>
+<td>连续5日净流入、放量站回32.88元</td>
+<td>行情/资金流</td>
+<td>每日/每周</td>
+</tr>
+</tbody></table>
+<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
+
+<ul>
+<li>未获取到：Morningstar公允价值、护城河与星级；完整卖方目标价分布；分应用收入、订单储备、容量利用率、ARPU；2021—2022原始年报资本开支复核值；当日完整逐笔资金。</li>
+<li>已检查来源：Morningstar公开检索、公司2021—2025年报及2026Q1、上交所/巨潮公告、同花顺一致预期、公开研报与行情数据库。</li>
+<li>对结论的影响：缺少业务细分和订单数据降低了增长预测置信度；但高估值、低ROE、Q1利润/现金流恶化均为可核验事实，缺口不足以逆转当前“等待/规避”结论。</li>
+</ul>
+<h2 id="section-15">15. 来源清单</h2>
+
+<ol>
+<li>《中国卫通集团股份有限公司2025年年度报告》，中国卫通，2026-04-01，<a href="https://dataclouds.cninfo.com.cn/shgonggao/hsomarket/2026/20260331/76b94f502e83491ca89e9956c82a9010.PDF">https://dataclouds.cninfo.com.cn/shgonggao/hsomarket/2026/20260331/76b94f502e83491ca89e9956c82a9010.PDF</a> ，访问时间2026-07-17。</li>
+<li>《中国卫通集团股份有限公司2026年第一季度报告》，中国卫通，2026-04-30，<a href="https://file.finance.sina.com.cn/211.154.219.97%3A9494/MRGG/CNSESH_STOCK/2026/2026-4/2026-04-30/12275177.PDF">https://file.finance.sina.com.cn/211.154.219.97%3A9494/MRGG/CNSESH_STOCK/2026/2026-4/2026-04-30/12275177.PDF</a> ，访问时间2026-07-17。</li>
+<li>《中国卫通2024年年度报告》，中国卫通，2025-04-01，<a href="https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=10839766&stockid=601698">https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=10839766&amp;stockid=601698</a> ，访问时间2026-07-17。</li>
+<li>《中国卫通2023年年度报告》，中国卫通，2024-04-02，<a href="https://static.cninfo.com.cn/finalpage/2024-04-02/1219492598.PDF">https://static.cninfo.com.cn/finalpage/2024-04-02/1219492598.PDF</a> ，访问时间2026-07-17。</li>
+<li>《中国卫通2022年年度报告》，中国卫通，2023-04-27，<a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=9138598&stockid=601698">https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=9138598&amp;stockid=601698</a> ，访问时间2026-07-17。</li>
+<li>《中国卫通2021年年度报告》，中国卫通，2022-04，<a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=8140786&stockid=601698">https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=8140786&amp;stockid=601698</a> ，访问时间2026-07-17。</li>
+<li>《中国卫通：国内业务稳定增长，业务结构调整及费用波动影响短期业绩》，申万宏源，2026-04-08；评级与一致预期经同花顺盈利预测页核验，<a href="https://basic.10jqka.com.cn/601698/worth.html">https://basic.10jqka.com.cn/601698/worth.html</a> ，访问时间2026-07-17。</li>
+<li>《中国卫通关于召开2025年度暨2026年第一季度业绩说明会的公告》，中国卫通，2026-05-16，<a href="https://stock.stockstar.com/notice/SN2026051500035055.shtml">https://stock.stockstar.com/notice/SN2026051500035055.shtml</a> ，访问时间2026-07-17。</li>
+<li>《中国卫通第三届董事会第三十一次会议决议公告》，中国卫通，2026-07-01，<a href="https://stockmc.xueqiu.com/202606/601698_20260701_4AOQ.pdf">https://stockmc.xueqiu.com/202606/601698_20260701_4AOQ.pdf</a> ，访问时间2026-07-17。</li>
+<li>《中国卫通2026年7月10日涨停分析》，新浪财经，2026-07-10，<a href="https://finance.sina.cn/2026-07-10/detail-inihhvka7201372.d.html">https://finance.sina.cn/2026-07-10/detail-inihhvka7201372.d.html</a> ，访问时间2026-07-17。</li>
+<li>中国卫通资金流向与个股诊断，同花顺，数据截至2026-07-16，<a href="https://doctor.10jqka.com.cn/601698/">https://doctor.10jqka.com.cn/601698/</a> ，访问时间2026-07-17。</li>
+<li>WeStock 行情、财务、资金与一致预期查询快照，查询日2026-07-17；用于时点价格、估值、52周区间和历史财务交叉验证。</li>
+</ol>
+<h2 id="section-16">16. 声明</h2>
+
+<p>本报告基于截至研究截止时间可取得的公开信息，不构成收益保证。真实交易前应重新核验价格、公告、流动性和个人风险承受能力。</p>
+</article>
+    </div>
+  </main>
+</body>
+</html>

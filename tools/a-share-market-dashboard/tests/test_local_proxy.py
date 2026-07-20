@@ -5,7 +5,7 @@ from pathlib import Path
 from threading import Thread
 import unittest
 from urllib.error import HTTPError
-from urllib.parse import parse_qs, urlparse
+from urllib.parse import parse_qs, quote, urlparse
 from urllib.request import urlopen
 
 from scripts.local_proxy import (
@@ -20,6 +20,7 @@ from scripts.local_proxy import (
 
 
 DASHBOARD = Path(__file__).resolve().parents[1] / "a-share-market-dashboard.html"
+REPORT_PATH = "/sources/automations/支柱产业/电网/2026-07-17-十五五电网投资与电网行业完整分析报告.html"
 
 
 def read_text(url):
@@ -142,6 +143,23 @@ class ServerTests(unittest.TestCase):
             with self.assertRaises(HTTPError) as missing:
                 urlopen(f"{base}/AGENTS.md", timeout=3)
             self.assertEqual(missing.exception.code, 404)
+
+    def test_serves_html_reports_from_the_automations_directory(self):
+        with running_server(self.fake_fetch) as base:
+            report = read_text(f"{base}{quote(REPORT_PATH, safe='/')}")
+        self.assertIn("电网投资与电网行业完整分析报告", report)
+
+    def test_rejects_non_html_files_from_the_automations_directory(self):
+        with running_server(self.fake_fetch) as base:
+            with self.assertRaises(HTTPError) as blocked:
+                urlopen(f"{base}{quote('/sources/automations/支柱产业/README.md', safe='/')}", timeout=3)
+        self.assertEqual(blocked.exception.code, 404)
+
+    def test_rejects_encoded_path_traversal_from_the_automations_directory(self):
+        with running_server(self.fake_fetch) as base:
+            with self.assertRaises(HTTPError) as blocked:
+                urlopen(f"{base}/sources/automations/%2e%2e/%2e%2e/AGENTS.md", timeout=3)
+        self.assertEqual(blocked.exception.code, 404)
 
     def test_api_returns_normalized_json(self):
         with running_server(self.fake_fetch) as base:

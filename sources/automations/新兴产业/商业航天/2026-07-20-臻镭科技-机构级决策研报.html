@@ -1,0 +1,772 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>臻镭科技机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.verdict { display: inline-flex; margin-top: 24px; padding: 7px 13px; border-radius: 999px; color: var(--danger); background: var(--danger-bg); font-weight: 750; }
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 26px; }
+.kpi { min-height: 96px; padding: 17px 18px; border: 1px solid rgba(255,255,255,.22); border-radius: 14px; background: rgba(255,255,255,.09); }
+.kpi-value { display: block; font-size: 23px; line-height: 1.3; font-weight: 760; overflow-wrap: anywhere; }
+.kpi-label { display: block; margin-top: 10px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; opacity: .8; }
+
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+}
+
+@media (max-width: 600px) {
+  .kpis { grid-template-columns: 1fr; }
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .verdict, .kpi { border: 1px solid #aebbc2; color: #102f43; background: #fff; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · SECURITY</p>
+      <h1>臻镭科技机构级决策研报</h1>
+      <div class="hero-meta"><span>研究截止时间未获取</span><span>报告生成时间未获取</span><span>市场与币种未获取</span></div>
+      <div class="verdict">显著高估。当前约117.7倍滚动市盈率、7.7倍市净率，股价仍要求公司连续多年兑现高增长 · 新资金：wait / observe（等待 / 观察）；已有持仓：review（复盘），不能把回撤直接等同于低估</div>
+      <div class="kpis">
+        <div class="kpi"><span class="kpi-value">未获取</span><span class="kpi-label">当前价格</span></div>
+        <div class="kpi"><span class="kpi-value">未获取</span><span class="kpi-label">综合估值区间</span></div>
+        <div class="kpi"><span class="kpi-value">新资金：wait / observe（等待 / 观察）；已有持仓：review（复盘），不能把回撤直接等同于低估</span><span class="kpi-label">冰冰小美动作</span></div>
+        <div class="kpi"><span class="kpi-value">未获取</span><span class="kpi-label">结论置信度</span></div>
+      </div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
+<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
+<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
+<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
+<a class="toc-link" href="#section-6">6. 五年财务历史</a>
+<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
+<a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
+<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
+<a class="toc-link" href="#section-10">10. 估值</a>
+<a class="toc-link" href="#section-11">11. 冰冰小美框架判断</a>
+<a class="toc-link" href="#section-12">12. 最终结论</a>
+<a class="toc-link" href="#section-13">13. 后续监控指标</a>
+<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
+<a class="toc-link" href="#section-15">15. 来源清单</a>
+<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
+      <article class="content"><blockquote>
+<p>证券：浙江臻镭科技股份有限公司（688270.SH，当前简称“ST臻镭”）<br>研究截止：2026-07-20收盘（财务以已披露公告为准）<br>当前价格：59.00元；总市值：约176.71亿元<br>研究目的：回答“如果今天持有现金，是否愿意买入臻镭科技”。</p>
+</blockquote>
+<h2 id="section-1">1. 决策摘要</h2>
+
+<table>
+<thead>
+<tr>
+<th>决策字段</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值状态</td>
+<td><strong>显著高估</strong>。当前约117.7倍滚动市盈率、7.7倍市净率，股价仍要求公司连续多年兑现高增长</td>
+</tr>
+<tr>
+<td>综合公允价值</td>
+<td><strong>28—42元/股</strong>；对应权益价值约84—126亿元，中枢35元</td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>相对59元约有 <strong>-53%至-29%</strong> 的估值回归空间</td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td>新资金：<strong>wait / observe（等待 / 观察）</strong>；已有持仓：<strong>review（复盘）</strong>，不能把回撤直接等同于低估</td>
+</tr>
+<tr>
+<td>风险方向</td>
+<td><strong>风险重新增强</strong>，置信度中高：处罚落地曾降低不确定性，但高估值、交易负反馈与治理折价重新主导</td>
+</tr>
+<tr>
+<td>三要素</td>
+<td>竞争格局有利、流动性不利、情绪不利，<strong>尚未形成有利共振</strong></td>
+</tr>
+<tr>
+<td>现金回答</td>
+<td><strong>今天不会买入。</strong> 先等中报验证毛利率、现金流和订单，再等价格进入有安全边际的区间</td>
+</tr>
+<tr>
+<td>关键反转条件</td>
+<td>半年报增长兑现且毛利率企稳、经营现金流转正、商业航天项目形成可核验批量收入，同时股价止跌缩量</td>
+</tr>
+</tbody></table>
+<p>公司拥有射频收发、ADC/DAC、电源管理、微系统及模组的产品组合，2025年和2026Q1收入、利润明显恢复，资产负债表也很强。因此，产业资格并未被最新经营数据证伪。但2026Q1毛利率由上年同期87.40%降至70.52%，经营现金流仍为负；公司又因2022年年报虚假记载被实施其他风险警示。当前176.71亿元市值不是在定价“业务恢复”，而是在定价商业航天、特种领域持续放量并迅速转化为高质量现金流。证据尚不足以支持这一价格。</p>
+<h2 id="section-2">2. 证券身份与来源矩阵</h2>
+
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>公司 / 代码</td>
+<td>浙江臻镭科技股份有限公司 / 688270.SH</td>
+</tr>
+<tr>
+<td>市场 / 币种</td>
+<td>上海证券交易所科创板 / 人民币</td>
+</tr>
+<tr>
+<td>当前简称</td>
+<td>ST臻镭；2026-04-21起实施其他风险警示</td>
+</tr>
+<tr>
+<td>会计准则</td>
+<td>中国企业会计准则</td>
+</tr>
+<tr>
+<td>主业</td>
+<td>射频收发芯片、高速高精度ADC/DAC、电源管理芯片、微系统及模组、终端射频前端及技术服务</td>
+</tr>
+<tr>
+<td>实际控制人</td>
+<td>郁发新；2026Q1持股21.04%</td>
+</tr>
+<tr>
+<td>最新完整年度 / 季度</td>
+<td>2025年年度报告 / 2026年第一季度报告</td>
+</tr>
+<tr>
+<td>股本口径</td>
+<td>2025年度资本公积转增后2.9951亿股</td>
+</tr>
+<tr>
+<td>本地来源</td>
+<td><a href="../../../webpages/2026-07-20-臻镭科技机构级研究资料快照.html">研究资料快照</a>及十份本地法定文件</td>
+</tr>
+</tbody></table>
+<h3>来源层级与更正口径</h3>
+<ol>
+<li>公司法定报告、上交所公告、监管处罚和投资者关系记录；</li>
+<li>人民银行、美国财政部等官方宏观数据；</li>
+<li>公开行情接口、公告镜像和券商历史预测摘要；</li>
+<li>行情聚合网站只作辅助，不替代法定披露。</li>
+</ol>
+<p>2022—2024年历史比较使用2025-12-25会计差错更正后的口径。监管认定2022年虚增收入842.65万元、虚增利润总额672.08万元，不能继续使用原报告未更正数字。公司陈述、本文推断和监管事实在下文分开标注。</p>
+<h2 id="section-3">3. 行情与市场预期</h2>
+
+<h3>3.1 行情快照</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">2026-07-20收盘</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>股价 / 当日涨跌幅</td>
+<td align="right">59.00元 / -5.18%</td>
+</tr>
+<tr>
+<td>总市值 / 流通市值</td>
+<td align="right">176.71 / 176.71亿元</td>
+</tr>
+<tr>
+<td>成交额 / 换手率</td>
+<td align="right">6.87亿元 / 3.77%</td>
+</tr>
+<tr>
+<td>年初至今 / 近20日</td>
+<td align="right">-32.37% / -26.43%</td>
+</tr>
+<tr>
+<td>52周高 / 低</td>
+<td align="right">162.94 / 32.09元</td>
+</tr>
+<tr>
+<td>近20日平均成交额 / 换手率</td>
+<td align="right">11.64亿元 / 4.75%</td>
+</tr>
+<tr>
+<td>滚动市盈率 / 市净率</td>
+<td align="right">约117.7倍 / 约7.70倍</td>
+</tr>
+</tbody></table>
+<p>7月10日盘中见109.87元，至7月20日回撤约46.3%；7月17日单日下跌13.70%，7月20日继续下跌5.18%。同日全A下跌家数明显多于上涨家数，系统环境偏弱，但个股十日内近乎腰斩的强度不能只归因于大盘。</p>
+<h3>3.2 市场隐含要求</h3>
+<p>近六个月公开盈利预测页面没有新的买入评级覆盖。可检索的旧券商报告曾预计2025—2027年归母净利润1.49 / 2.46 / 3.54亿元，但2025年实际为1.33亿元，低于旧预测；这组数字只能解释市场曾经如何定价，不能当作当前一致预期。</p>
+<table>
+<thead>
+<tr>
+<th>口径</th>
+<th align="right">净利润</th>
+<th align="right">当前隐含市盈率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2025实际</td>
+<td align="right">1.330亿元</td>
+<td align="right">132.9倍</td>
+</tr>
+<tr>
+<td>滚动口径</td>
+<td align="right">约1.501亿元</td>
+<td align="right">117.7倍</td>
+</tr>
+<tr>
+<td>本文2026E</td>
+<td align="right">1.90—2.20亿元</td>
+<td align="right">93.0—80.3倍</td>
+</tr>
+<tr>
+<td>旧券商2026E</td>
+<td align="right">2.46亿元</td>
+<td align="right">71.8倍</td>
+</tr>
+</tbody></table>
+<p><strong>预期差：</strong> 市场需要2026年净利润至少接近2亿元、之后继续高增长，才能逐步消化估值。若中报毛利率继续显著低于2025年、经营现金流未转正，或公司仍无法披露可验证的批量订单，预期偏下修；只有微系统项目全面落地、卫星互联网批量交付和高毛利芯片收入占比回升，才构成上修证据。</p>
+<h2 id="section-4">4. 商业模式与竞争格局</h2>
+
+<p>公司采用Fabless模式，将设计、系统理解、工艺适配和高可靠性验证作为核心能力，生产环节依赖晶圆代工和封装测试供应商。客户主要来自特种行业与卫星互联网产业链，认证周期通常为2—4年，进入型号后具有一定粘性。</p>
+<h3>竞争优势</h3>
+<ul>
+<li><strong>产品组合较完整：</strong> 射频收发、高速高精度ADC/DAC、电源管理、终端射频前端与微系统可形成协同，而非单一芯片押注。</li>
+<li><strong>高可靠场景壁垒：</strong> 特种与星载客户对可靠性、寿命和适配要求高，认证时间形成进入壁垒。</li>
+<li><strong>微系统价值量提升：</strong> 公司称三维异构集成方案可使卫星载荷体积缩小60%、重量降低40%，并已有产品在轨运行。这里属于公司披露，外部未提供独立份额验证。</li>
+<li><strong>研发投入高：</strong> 2025年研发费用率28.72%，2026Q1研发费用0.275亿元，同比增长8.8%。</li>
+</ul>
+<h3>竞争约束</h3>
+<ul>
+<li>特种客户项目节奏不透明，订单与验收可能跨期；前五大客户2025年收入占比66.74%。</li>
+<li>微系统及模组的商业化仍不稳定：2025年该披露分部收入同比下降58.78%，公司在业绩说明会解释，约80%的技术服务收入实际与微系统及模组相关，整体类别收入未下降。该解释反而说明分部披露口径会降低外部可验证性。</li>
+<li>Fabless模式降低资本强度，却保留供应商集中风险；2025年前五大供应商采购占比52.08%。</li>
+<li>国博电子、铖昌科技等企业在射频、相控阵与星载芯片的相邻领域竞争。公司优势不能仅用“国产替代”概念证明，最终要看量产、回款和盈利稳定性。</li>
+</ul>
+<h2 id="section-5">5. 分部收入与盈利拆解</h2>
+
+<table>
+<thead>
+<tr>
+<th>2025年业务</th>
+<th align="right">收入（亿元）</th>
+<th align="right">占比</th>
+<th align="right">毛利率</th>
+<th align="right">同比收入</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>射频收发及高速高精度ADC/DAC</td>
+<td align="right">1.367</td>
+<td align="right">31.7%</td>
+<td align="right">94.27%</td>
+<td align="right">+35.17%</td>
+</tr>
+<tr>
+<td>电源管理芯片</td>
+<td align="right">1.966</td>
+<td align="right">45.5%</td>
+<td align="right">86.75%</td>
+<td align="right">+60.26%</td>
+</tr>
+<tr>
+<td>微系统及模组</td>
+<td align="right">0.170</td>
+<td align="right">3.9%</td>
+<td align="right">23.55%</td>
+<td align="right">-58.78%</td>
+</tr>
+<tr>
+<td>终端射频前端</td>
+<td align="right">0.068</td>
+<td align="right">1.6%</td>
+<td align="right">81.26%</td>
+<td align="right">+61.69%</td>
+</tr>
+<tr>
+<td>技术服务</td>
+<td align="right">0.745</td>
+<td align="right">17.3%</td>
+<td align="right">24.95%</td>
+<td align="right">+117.92%</td>
+</tr>
+</tbody></table>
+<p>高毛利芯片仍是利润池，即产业链中能够沉淀较多利润的环节；技术服务和微系统披露分部的毛利率明显较低。2026Q1综合毛利率降至70.52%，管理层解释为产品结构变化而非代工涨价：特种领域收入占比超过60%，射频收发/ADC/DAC稳定毛利率约90%，射频前端和电源管理约80%。这能解释方向，却不能替代半年报的量价拆分。</p>
+<p>客户向公司付款、公司向晶圆代工和封测供应商付款，决定现金转换周期。2025年经营现金流终于转正，但2026Q1又为负；因此“收入增长—利润增长—现金回款”尚未形成连续验证。</p>
+<h2 id="section-6">6. 五年财务历史</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标（亿元）</th>
+<th align="right">2021</th>
+<th align="right">2022更正</th>
+<th align="right">2023更正</th>
+<th align="right">2024更正</th>
+<th align="right">2025</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营业收入</td>
+<td align="right">1.906</td>
+<td align="right">2.342</td>
+<td align="right">2.808</td>
+<td align="right">3.034</td>
+<td align="right">4.317</td>
+</tr>
+<tr>
+<td>归母净利润</td>
+<td align="right">0.988</td>
+<td align="right">1.010</td>
+<td align="right">0.731</td>
+<td align="right">0.195</td>
+<td align="right">1.330</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">88.46%</td>
+<td align="right">87.99%</td>
+<td align="right">83.12%</td>
+<td align="right">76.23%</td>
+<td align="right">75.87%</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">0.048</td>
+<td align="right">0.180</td>
+<td align="right">0.088</td>
+<td align="right">0.095</td>
+<td align="right">0.632</td>
+</tr>
+<tr>
+<td>现金资本开支</td>
+<td align="right">0.092</td>
+<td align="right">0.337</td>
+<td align="right">0.467</td>
+<td align="right">1.988</td>
+<td align="right">0.051</td>
+</tr>
+<tr>
+<td>自由现金流近似值</td>
+<td align="right">-0.045</td>
+<td align="right">-0.157</td>
+<td align="right">-0.379</td>
+<td align="right">-1.893</td>
+<td align="right">0.581</td>
+</tr>
+</tbody></table>
+<p>收入四年复合增速约22.7%，但利润路径先降后升，毛利率从88.46%下行至75.87%。2025年利润大幅恢复，一部分来自收入增长、产品组合与费用效率改善，也受低基数影响；不能把580.76%的同比增速外推。</p>
+<p>本文以“经营利润×85%÷期初期末平均总资产”作保守ROIC代理，2021—2025年约为18.1%、6.3%、2.9%、0.7%、5.0%。该口径把大量净现金也纳入投入资本，绝对值偏低，但趋势说明：公司尚未恢复到上市前的资本回报水平。</p>
+<p>2024年约1.99亿元资本开支主要压低自由现金流，2025年资本开支降至约0.05亿元，推动自由现金流近似值转正。需要观察这是否是投资周期结束，还是项目节点导致的年度波动。</p>
+<h2 id="section-7">7. 最新季度与管理层指引</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">2026Q1</th>
+<th align="right">同比 / 变化</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营业收入</td>
+<td align="right">1.213亿元</td>
+<td align="right">+67.01%</td>
+</tr>
+<tr>
+<td>归母净利润</td>
+<td align="right">0.396亿元</td>
+<td align="right">+76.17%</td>
+</tr>
+<tr>
+<td>扣非归母净利润</td>
+<td align="right">0.363亿元</td>
+<td align="right">+116.39%</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">70.52%</td>
+<td align="right">-16.88个百分点</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">-0.134亿元</td>
+<td align="right">同期-0.153亿元，仍为负</td>
+</tr>
+<tr>
+<td>研发费用</td>
+<td align="right">0.275亿元</td>
+<td align="right">+8.80%</td>
+</tr>
+</tbody></table>
+<p>合并口径货币资金与交易性金融资产合计约11.08亿元，没有短期或长期借款，净现金约占当前市值6.3%。资产负债表是重要缓冲，但相对176.71亿元市值并不足以单独提供安全边际。</p>
+<p>管理层表示订单需求显著增长、部分微系统项目处于客户验证或落地阶段，并已对高速光模块电源管理方案进行小批量供货。但公司没有披露在手订单总额、2026年收入或利润量化指引。故本文不把“显著增长”转换成未经披露的数值。</p>
+<h2 id="section-8">8. 近三个月新闻与催化剂</h2>
+
+<table>
+<thead>
+<tr>
+<th>日期</th>
+<th>事件</th>
+<th>对判断的影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-04-18</td>
+<td>公告实施其他风险警示</td>
+<td>治理折价显性化；仍为20%涨跌幅，单一投资者日买入上限50万股</td>
+</tr>
+<tr>
+<td>2026-04-23</td>
+<td>发布2025年报</td>
+<td>经营修复被确认，但2022—2024比较数据需用更正口径</td>
+</tr>
+<tr>
+<td>2026-04-28</td>
+<td>发布2026Q1</td>
+<td>收入利润增长强，毛利率大幅下降、现金流仍负形成分歧</td>
+</tr>
+<tr>
+<td>2026-05-07</td>
+<td>上交所公开谴责</td>
+<td>表明问题不只影响财务数字，也影响治理可信度</td>
+</tr>
+<tr>
+<td>2026-05-09</td>
+<td>公告行政处罚决定书</td>
+<td>处罚事实和金额落地，监管不确定性下降，但ST至少需等待12个月条件窗</td>
+</tr>
+<tr>
+<td>2026-05-27</td>
+<td>业绩说明会记录</td>
+<td>提供产品结构解释和项目进展，仍缺订单金额与量化指引</td>
+</tr>
+<tr>
+<td>2026-07-10至20</td>
+<td>股价从盘中高点快速回撤</td>
+<td>题材交易负反馈增强；不是公司经营公告本身构成的新利空</td>
+</tr>
+</tbody></table>
+<p>未来三项硬催化剂是：半年报验证毛利率和现金流；微系统或商业航天项目形成可核验批量收入；满足监管条件后申请撤销ST。第三项最早观察窗不早于2027-05-08，且“可申请”不等于自动撤销。</p>
+<h2 id="section-9">9. 多头与空头论据</h2>
+
+<h3>多头论据</h3>
+<ol>
+<li>2025年和2026Q1收入利润连续恢复，不是只有概念、没有收入。</li>
+<li>射频收发/ADC/DAC和电源管理芯片毛利率高，产品进入高可靠场景后粘性较强。</li>
+<li>净现金超过11亿元、无有息借款，短期偿债风险低。</li>
+<li>卫星小型化、国产高可靠芯片和特种信息化提供长期需求空间。</li>
+<li>处罚已经落地且财务已追溯更正，最坏的监管不确定性较处罚前收敛。</li>
+</ol>
+<h3>空头论据</h3>
+<ol>
+<li>117.7倍滚动市盈率仍高，需多年高增长才能消化。</li>
+<li>2026Q1毛利率下降16.88个百分点，利润增长并不代表盈利质量已稳态化。</li>
+<li>客户、供应商集中；订单金额与项目节奏缺乏公开可验证数据。</li>
+<li>2022年年报虚假记载已由监管认定，治理可信度需要更长时间重建。</li>
+<li>ST交易限制压低边际大资金参与能力；股价十日内急跌显示题材筹码脆弱。</li>
+<li>2021—2024年自由现金流近似值连续为负，2025年转正尚需持续验证。</li>
+</ol>
+<p><strong>可证伪规则：</strong> 多头若在两个报告期内看不到毛利率企稳、经营现金流累计转正和可核验批量收入，应下调增长假设；空头若看到商业航天订单定量披露、芯片分部维持高毛利且现金回款同步，则应提高公允价值。</p>
+<h2 id="section-10">10. 估值</h2>
+
+<h3>10.1 当前估值桥</h3>
+<p>2025归母净利润1.330亿元；滚动净利润约1.501亿元，对应117.7倍PE。2026Q1末净现金及类现金约11.08亿元，保守扣除经营准备后估值桥使用10.5亿元调整净现金，企业价值约166.2亿元。市净率约7.70倍。</p>
+<h3>10.2 方法一：前瞻市盈率</h3>
+<p>本文2026E收入5.8—6.2亿元、归母净利润1.90—2.20亿元，对应净利率约31%—36%。给予高可靠模拟/射频芯片60—75倍PE，再对ST治理风险作15%折价：</p>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">2026E净利润</th>
+<th align="right">估值倍数</th>
+<th align="right">ST折价后每股价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>保守</td>
+<td align="right">1.90亿元</td>
+<td align="right">60倍</td>
+<td align="right">约32元</td>
+</tr>
+<tr>
+<td>中性</td>
+<td align="right">2.05亿元</td>
+<td align="right">67倍</td>
+<td align="right">约39元</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">2.20亿元</td>
+<td align="right">75倍</td>
+<td align="right">约47元</td>
+</tr>
+</tbody></table>
+<p>给出 <strong>32—47元</strong>。这一倍数仍明显高于一般制造业，已经承认稀缺性和成长性，并非悲观清算估值。</p>
+<h3>10.3 方法二：EV / Sales可比法</h3>
+<p>相邻公司中，铖昌科技、国博电子等估值受商业航天题材、高增长预期和短期利润波动影响，动态PE失真，因此辅以收入倍数。对2026E收入5.8—6.2亿元给予14—20倍EV/Sales，加回10.5亿元调整净现金，对应每股约31—45元。高端取值要求芯片收入占比回升、微系统实现量产，低端对应产品结构继续压低毛利率。</p>
+<h3>10.4 方法三：DCF</h3>
+<p>DCF从2025年收入4.317亿元出发，显式预测五年自由现金流；折现率反映小市值、高波动、客户集中和治理风险。单位均为人民币。</p>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">2026收入增速</th>
+<th align="right">2030收入</th>
+<th align="right">2030 FCF率</th>
+<th align="right">WACC / 永续增速</th>
+<th align="right">每股价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观</td>
+<td align="right">15%</td>
+<td align="right">6.56亿元</td>
+<td align="right">13%</td>
+<td align="right">13.0% / 2.0%</td>
+<td align="right">5.6元</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">35%</td>
+<td align="right">12.35亿元</td>
+<td align="right">25%</td>
+<td align="right">11.5% / 3.0%</td>
+<td align="right">12.8元</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">55%</td>
+<td align="right">18.27亿元</td>
+<td align="right">35%</td>
+<td align="right">10.5% / 3.5%</td>
+<td align="right">26.8元</td>
+</tr>
+</tbody></table>
+<p>基准情景敏感性（元/股）：</p>
+<table>
+<thead>
+<tr>
+<th>WACC \ 永续增速</th>
+<th align="right">2.0%</th>
+<th align="right">3.0%</th>
+<th align="right">4.0%</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>10.5%</td>
+<td align="right">13.1</td>
+<td align="right">14.2</td>
+<td align="right">15.6</td>
+</tr>
+<tr>
+<td>11.5%</td>
+<td align="right">12.0</td>
+<td align="right">12.8</td>
+<td align="right">13.9</td>
+</tr>
+<tr>
+<td>12.5%</td>
+<td align="right">11.0</td>
+<td align="right">11.7</td>
+<td align="right">12.5</td>
+</tr>
+</tbody></table>
+<p>DCF显著低于相对估值，原因不是公司没有增长，而是当前价格隐含的远期现金流要求极高。即便乐观情景，折现价值仍低于现价。</p>
+<h3>10.5 综合公允价值与反向验证</h3>
+<p>相对估值更能反映A股稀缺赛道溢价，DCF负责约束长期现金流幻想。综合给予PE法50%、EV/Sales法30%、DCF法20%，并保留情景误差后，公允价值取 <strong>28—42元/股</strong>，中枢约35元。</p>
+<p>当前59元要被基本面合理化，需接近以下组合之一：2026净利润约2.6—3.0亿元并长期维持60倍以上估值；或2026—2030收入持续高增长、2030自由现金流显著超过4亿元且折现率下降。现有公告尚未提供足够证据。</p>
+<h2 id="section-11">11. 冰冰小美框架判断</h2>
+
+<p>本节按<a href="../../../../wiki/topics/冰冰小美-体系三要素.html">冰冰小美体系三要素</a>、<a href="../../../../wiki/concepts/冰冰小美-concept-风险的定义.html">风险的定义</a>与<a href="../../../../wiki/concepts/冰冰小美-concept-整体与局部.html">整体与局部</a>执行。</p>
+<h3>11.1 三要素</h3>
+<table>
+<thead>
+<tr>
+<th>要素</th>
+<th>状态</th>
+<th>证据</th>
+<th>判断</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>有利</td>
+<td>高可靠认证周期长、产品组合较完整、星载/特种已有应用</td>
+<td>产业资格成立，但份额缺乏独立验证</td>
+</tr>
+<tr>
+<td>流动性</td>
+<td>不利</td>
+<td>全A偏弱、个股十日急跌；ST单一投资者日买入上限50万股</td>
+<td>存量筹码负反馈占主导，缺少新增资金证据</td>
+</tr>
+<tr>
+<td>情绪</td>
+<td>不利</td>
+<td>7月10日高点后回撤46.3%，高换手后连续下跌</td>
+<td>题材热度从强化转为退潮</td>
+</tr>
+</tbody></table>
+<p>结论：竞争格局单项有利，但流动性和情绪不配合，<strong>尚未形成有利共振</strong>。产业逻辑成立不等于交易节点成立。</p>
+<h3>11.2 风险方向</h3>
+<p>风险不是“坏消息数量”，而是未来负面变化对价格和仓位造成损失的概率与幅度。处罚在2026-05-08落地、会计数字已更正，加上年报和一季报改善，曾使监管不确定性下降；随后股价大幅上涨，风险偏好修复。当前窗口中，高估值未被量化订单验证，股价又从高点快速回撤，负反馈重新成为主导，因此定性为 <strong>风险重新增强</strong>，而不是首次增强。</p>
+<p>风险来源排序：估值透支与交易负反馈 &gt; 治理/ST折价 &gt; 产品结构与毛利率 &gt; 客户项目节奏 &gt; 供应链。风险释放信号是成交收缩后价格企稳、融资和杠杆不再被动去化、半年报现金流转正；风险增强信号是放量破位、毛利率继续降、应收快于收入、再现信息披露问题。</p>
+<h3>11.3 系统性恐慌还是个股证伪</h3>
+<p>7月20日市场整体偏弱，存在系统性成分；但公司回撤更深，且ST、估值和筹码结构属于个股变量。最新财务没有证伪产业逻辑，却也没有验证当前估值。因此更准确的分类是：<strong>系统弱势中的个股估值与筹码风险释放</strong>，不是纯粹错杀，也不是经营基本面已经崩塌。</p>
+<h2 id="section-12">12. 最终结论</h2>
+
+<p>臻镭科技是“好赛道、强产品、治理有污点、价格仍不便宜”的公司。2025年和2026Q1改善提高了基本面下限，净现金降低了财务风险；但治理处罚、毛利率波动、订单透明度和现金流连续性压低了可信估值上限。</p>
+<table>
+<thead>
+<tr>
+<th>股价区间</th>
+<th>动作</th>
+<th>必要条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>高于42元</td>
+<td>avoid / review</td>
+<td>不追高；已有持仓按估值和仓位复盘</td>
+</tr>
+<tr>
+<td>28—42元</td>
+<td>wait / observe</td>
+<td>等半年报和价格止跌，不能仅因进入区间就买</td>
+</tr>
+<tr>
+<td>22—28元</td>
+<td>小仓研究性观察</td>
+<td>需毛利率企稳、现金流改善且无新增治理风险</td>
+</tr>
+<tr>
+<td>低于22元</td>
+<td>重新估值</td>
+<td>若基本面未证伪，才讨论更高安全边际；若因业绩恶化下跌则不机械接盘</td>
+</tr>
+</tbody></table>
+<p><strong>如果今天持有现金：不会买。</strong> 决策改变需要两个条件同时发生：经营证据向上（量化订单、毛利率、现金流）和交易结构止跌。只满足一个条件仍以观察为主。</p>
+<h2 id="section-13">13. 后续监控指标</h2>
+
+<ol>
+<li>半年报收入、扣非净利润是否达到本文全年假设的合理进度。</li>
+<li>综合毛利率是否从2026Q1的70.52%企稳，芯片与技术服务结构如何变化。</li>
+<li>经营现金流、应收账款和存货是否与收入同步改善。</li>
+<li>微系统及模组的真实收入：同时看产品分部与技术服务中的相关收入，防止分类遮蔽。</li>
+<li>商业航天、卫星互联网项目是否出现合同金额、交付数量或在手订单的定量披露。</li>
+<li>前五大客户占比、单一客户变化及回款周期。</li>
+<li>ST撤销条件进度；最早观察窗不早于2027-05-08。</li>
+<li>股价是否完成缩量企稳，而不是只看单日反弹。</li>
+<li>是否发生监管问询、差错更正或内部控制新问题。</li>
+</ol>
+<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
+
+<ul>
+<li>公司未披露可核验的在手订单总额、商业航天分客户收入和2026年量化指引。</li>
+<li>特种行业客户名称和项目进度受保密限制，无法独立验证份额。</li>
+<li>近六个月公开卖方覆盖稀疏；旧券商预测可能已经过时，本文未将其当作一致预期。</li>
+<li>DCF对远期增长、自由现金流率和折现率高度敏感；公司仅有一年明显正自由现金流，可信度低于成熟企业。</li>
+<li>行情、可比估值和市场宽度为2026-07-20盘后快照，后续会变化。</li>
+<li>本文没有获得当日ETF申赎、全部融资融券明细和投资者实际成本，流动性判断主要依据价格、成交和交易制度。</li>
+</ul>
+<h2 id="section-15">15. 来源清单</h2>
+
+<h3>本地法定与公司来源</h3>
+<ul>
+<li><a href="../../../papers/臻镭科技机构研报-2026-07-20/臻镭科技2021年年度报告.pdf.html">2021年年度报告</a></li>
+<li><a href="../../../papers/臻镭科技机构研报-2026-07-20/臻镭科技2022年年度报告.pdf.html">2022年年度报告</a></li>
+<li><a href="../../../papers/臻镭科技机构研报-2026-07-20/臻镭科技2023年年度报告.pdf.html">2023年年度报告</a></li>
+<li><a href="../../../papers/臻镭科技机构研报-2026-07-20/臻镭科技2024年年度报告.pdf.html">2024年年度报告</a></li>
+<li><a href="../../../papers/臻镭科技机构研报-2026-07-20/臻镭科技2025年年度报告.pdf.html">2025年年度报告</a></li>
+<li><a href="../../../papers/臻镭科技机构研报-2026-07-20/臻镭科技2026年第一季度报告.pdf.html">2026年第一季度报告</a></li>
+<li><a href="../../../papers/臻镭科技机构研报-2026-07-20/2025-12-25-臻镭科技前期会计差错更正公告.pdf.html">前期会计差错更正公告</a></li>
+<li><a href="../../../papers/臻镭科技机构研报-2026-07-20/2026-04-18-臻镭科技实施其他风险警示公告.pdf.html">实施其他风险警示公告</a></li>
+<li><a href="../../../papers/臻镭科技机构研报-2026-07-20/2026-05-09-臻镭科技行政处罚决定书公告.pdf.html">行政处罚决定书公告</a></li>
+<li><a href="../../../papers/臻镭科技机构研报-2026-07-20/2026-05-27-臻镭科技业绩说明会记录.docx.html">2025年度业绩说明会记录</a></li>
+<li><a href="../../../webpages/2026-07-20-臻镭科技机构级研究资料快照.html">本次研究资料快照及外部链接</a></li>
+</ul>
+<h3>框架来源</h3>
+<ul>
+<li><a href="../../../../wiki/topics/冰冰小美-体系三要素.html">体系三要素</a></li>
+<li><a href="../../../../wiki/concepts/冰冰小美-concept-风险的定义.html">风险的定义</a></li>
+<li><a href="../../../../wiki/concepts/冰冰小美-concept-整体与局部.html">整体与局部</a></li>
+<li><a href="../../../../wiki/concepts/冰冰小美-concept-风险开始结束与周期.html">风险开始结束与周期</a></li>
+</ul>
+<h2 id="section-16">16. 声明</h2>
+
+<p>本报告是基于公开资料的研究工件，不构成证券投资建议、收益承诺或适当性意见。估值结果依赖假设，可能随业绩、市场利率、监管状态和交易结构变化。使用者应独立核验公告原文并根据自身风险承受能力决策。</p>
+</article>
+    </div>
+  </main>
+</body>
+</html>

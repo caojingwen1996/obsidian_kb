@@ -1,0 +1,847 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>铖昌科技机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.verdict { display: inline-flex; margin-top: 24px; padding: 7px 13px; border-radius: 999px; color: var(--danger); background: var(--danger-bg); font-weight: 750; }
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 26px; }
+.kpi { min-height: 96px; padding: 17px 18px; border: 1px solid rgba(255,255,255,.22); border-radius: 14px; background: rgba(255,255,255,.09); }
+.kpi-value { display: block; font-size: 23px; line-height: 1.3; font-weight: 760; overflow-wrap: anywhere; }
+.kpi-label { display: block; margin-top: 10px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; opacity: .8; }
+
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+}
+
+@media (max-width: 600px) {
+  .kpis { grid-template-columns: 1fr; }
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .verdict, .kpi { border: 1px solid #aebbc2; color: #102f43; background: #fff; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · SECURITY</p>
+      <h1>铖昌科技机构级决策研报</h1>
+      <div class="hero-meta"><span>研究截止时间未获取</span><span>报告生成时间未获取</span><span>市场与币种未获取</span></div>
+      <div class="verdict">高估。当前市值对应约154倍滚动市盈率、约118倍光大证券2026年盈利预测市盈率，已提前计入数年高增长 · 新资金：observe / wait（观察 / 等待）；已有持仓：review（复盘），反弹但预期未上修时评估 reduce</div>
+      <div class="kpis">
+        <div class="kpi"><span class="kpi-value">未获取</span><span class="kpi-label">当前价格</span></div>
+        <div class="kpi"><span class="kpi-value">未获取</span><span class="kpi-label">综合估值区间</span></div>
+        <div class="kpi"><span class="kpi-value">新资金：observe / wait（观察 / 等待）；已有持仓：review（复盘），反弹但预期未上修时评估 reduce</span><span class="kpi-label">冰冰小美动作</span></div>
+        <div class="kpi"><span class="kpi-value">中高。公告和财务证据充分；客户订单金额、可比估值口径和实时ETF申赎仍不完整</span><span class="kpi-label">结论置信度</span></div>
+      </div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
+<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
+<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
+<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
+<a class="toc-link" href="#section-6">6. 五年财务历史</a>
+<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
+<a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
+<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
+<a class="toc-link" href="#section-10">10. 估值</a>
+<a class="toc-link" href="#section-11">11. 冰冰小美框架判断</a>
+<a class="toc-link" href="#section-12">12. 最终结论</a>
+<a class="toc-link" href="#section-13">13. 后续监控指标</a>
+<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
+<a class="toc-link" href="#section-15">15. 来源清单</a>
+<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
+      <article class="content"><blockquote>
+<p>证券：浙江铖昌科技股份有限公司（001270.SZ）<br>研究截止：2026-07-20 收盘（财务以已披露公告为准）<br>当前价格：98.95 元；总市值：约 203.95 亿元<br>研究目的：回答“如果今天持有现金，是否愿意买入铖昌科技”。</p>
+</blockquote>
+<h2 id="section-1">1. 决策摘要</h2>
+
+<table>
+<thead>
+<tr>
+<th>决策字段</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值状态</td>
+<td><strong>高估</strong>。当前市值对应约154倍滚动市盈率、约118倍光大证券2026年盈利预测市盈率，已提前计入数年高增长</td>
+</tr>
+<tr>
+<td>综合公允价值</td>
+<td><strong>45—70元/股</strong>；对应权益价值约93—144亿元</td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>相对98.95元仍有约 <strong>-55%至-29%</strong> 的估值回归空间</td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td>新资金：<strong>observe / wait（观察 / 等待）</strong>；已有持仓：<strong>review（复盘）</strong>，反弹但预期未上修时评估 reduce</td>
+</tr>
+<tr>
+<td>风险方向</td>
+<td><strong>风险重新增强</strong>，置信度高；基本面风险边际减弱，但估值、杠杆与情绪负反馈重新占主导</td>
+</tr>
+<tr>
+<td>三要素</td>
+<td>竞争格局有利、流动性不利、情绪不利，<strong>尚未形成有利共振</strong></td>
+</tr>
+<tr>
+<td>现金回答</td>
+<td><strong>今天不会买入，也不把连续跌停直接定义为“错杀”。</strong> 先等待流动性止跌和中报现金流验证</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td>中高。公告和财务证据充分；客户订单金额、可比估值口径和实时ETF申赎仍不完整</td>
+</tr>
+</tbody></table>
+<p>铖昌科技是国内相控阵T/R芯片的重要设计企业，星载、机载和地面应用构成较高技术壁垒。2025年收入接近翻倍、盈利恢复，2026Q1净利润继续增长50%，说明产业逻辑没有被最新财务证伪。但投资结论取决于“产业资格是否已被价格过度透支”：公司近五年自由现金流近似值持续为负，2026Q1末应收账款及票据高达7.52亿元，而当前股价即使按券商2028年3.27亿元净利润预测仍约62倍市盈率。基本面好转是真，当前赔率不足也是真。</p>
+<h2 id="section-2">2. 证券身份与来源矩阵</h2>
+
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>公司</td>
+<td>浙江铖昌科技股份有限公司</td>
+</tr>
+<tr>
+<td>证券代码</td>
+<td>001270.SZ</td>
+</tr>
+<tr>
+<td>市场 / 币种</td>
+<td>深圳证券交易所主板 / 人民币</td>
+</tr>
+<tr>
+<td>会计准则</td>
+<td>中国企业会计准则</td>
+</tr>
+<tr>
+<td>主业口径</td>
+<td>相控阵T/R芯片及相关技术服务，属于集成电路设计企业</td>
+</tr>
+<tr>
+<td>控股股东</td>
+<td>深圳和而泰智能控制股份有限公司；2026Q1持股46.63%</td>
+</tr>
+<tr>
+<td>最新完整年度</td>
+<td>2025年年度报告</td>
+</tr>
+<tr>
+<td>最新季度</td>
+<td>2026年第一季度报告</td>
+</tr>
+<tr>
+<td>行情时点</td>
+<td>2026-07-20收盘</td>
+</tr>
+<tr>
+<td>本地来源</td>
+<td><a href="../../../webpages/2026-07-20-铖昌科技机构级研究资料快照.html">研究资料快照</a>及八份本地法定PDF</td>
+</tr>
+</tbody></table>
+<h3>来源层级</h3>
+<ol>
+<li>公司法定公告、年度报告、深交所和巨潮资讯文件；</li>
+<li>人民银行口径金融统计、美国财政部利率等官方资料；</li>
+<li>公开行情接口、券商报告摘要；</li>
+<li>行情聚合网站的资金和一致预期，仅作辅助证据。</li>
+</ol>
+<p>事实、公司解释和本文判断分开表述。公司未披露的在手订单金额、客户名称和项目节奏不以传闻替代；券商预测不是管理层指引。</p>
+<h2 id="section-3">3. 行情与市场预期</h2>
+
+<h3>3.1 行情快照</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">2026-07-20收盘</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>股价 / 当日涨跌幅</td>
+<td align="right">98.95元 / -10.00%</td>
+</tr>
+<tr>
+<td>总市值 / 流通市值</td>
+<td align="right">203.95 / 202.65亿元</td>
+</tr>
+<tr>
+<td>当日成交额 / 换手率</td>
+<td align="right">12.85亿元 / 6.14%</td>
+</tr>
+<tr>
+<td>年初至今</td>
+<td align="right">+8.18%</td>
+</tr>
+<tr>
+<td>近20个交易日</td>
+<td align="right">-19.16%</td>
+</tr>
+<tr>
+<td>52周高 / 低</td>
+<td align="right">180.64 / 37.91元</td>
+</tr>
+<tr>
+<td>近20日平均成交额 / 换手率</td>
+<td align="right">20.86亿元 / 6.93%</td>
+</tr>
+<tr>
+<td>2025年市盈率 / 市净率</td>
+<td align="right">约174倍 / 约13.1倍（按2026Q1权益）</td>
+</tr>
+<tr>
+<td>滚动市盈率</td>
+<td align="right">约154倍（本文按公告净利润自行计算）</td>
+</tr>
+</tbody></table>
+<p>7月10日盘中见180.64元后，至7月20日收盘最大回撤约45.2%。7月13、14、17、20日收于跌停，7月15日跌9.72%；7月16日短暂企稳后再次连续跌停。7月20日全A约1,709只上涨、3,756只下跌，存在系统性弱势，但个股跌幅和连续性明显更极端。</p>
+<h3>3.2 市场隐含要求与预期差</h3>
+<p>光大证券2026-06-02将2026 / 2027年归母净利润预测下调13% / 7%至1.73 / 2.43亿元，并给出2028年3.27亿元预测和“增持”评级。按98.95元计：</p>
+<table>
+<thead>
+<tr>
+<th>盈利口径</th>
+<th align="right">净利润</th>
+<th align="right">隐含市盈率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2025实际</td>
+<td align="right">1.171亿元</td>
+<td align="right">174倍</td>
+</tr>
+<tr>
+<td>滚动口径</td>
+<td align="right">约1.320亿元</td>
+<td align="right">154倍</td>
+</tr>
+<tr>
+<td>2026E（光大）</td>
+<td align="right">1.73亿元</td>
+<td align="right">118倍</td>
+</tr>
+<tr>
+<td>2027E（光大）</td>
+<td align="right">2.43亿元</td>
+<td align="right">84倍</td>
+</tr>
+<tr>
+<td>2028E（光大）</td>
+<td align="right">3.27亿元</td>
+<td align="right">62倍</td>
+</tr>
+</tbody></table>
+<p><strong>预期差结论：</strong> 市场已不是在交易“恢复增长”，而是在交易低轨卫星、机载业务持续放量并把利润增长延续至2028年以后。公司公告仅定性表示订单和需求充足，没有披露可核验的在手订单金额。若半年报利润低于约0.85—1.0亿元、经营现金流未转正或应收继续快于收入增长，预期将偏向下修；只有新增定量订单、现金回款兑现且毛利率维持高位，才可能支撑上修。</p>
+<h2 id="section-4">4. 商业模式与竞争格局</h2>
+
+<p>铖昌科技采用Fabless模式，核心价值在相控阵T/R芯片设计、工艺适配、可靠性验证和客户定制。产品涵盖GaAs/GaN功率放大器、低噪声放大器、模拟波束赋形及控制等芯片，主要应用于星载、机载、地面相控阵雷达和低轨卫星通信。</p>
+<h3>比较优势</h3>
+<ul>
+<li><strong>技术和认证壁垒：</strong> 高频、高集成、轻量化和抗辐照要求高，产品从研发到客户定型具有较长验证周期；</li>
+<li><strong>完整产品矩阵：</strong> 公司称已有上千种产品，可提供T/R芯片完整解决方案，减少客户多供应商适配成本；</li>
+<li><strong>星载先发与场景扩张：</strong> 低轨卫星产品自2022年起批量交付，机载业务2025年成为主要收入来源之一，应用不再只有单一星载场景；</li>
+<li><strong>高研发强度：</strong> 2025年研发费用1.46亿元，占收入36.08%，且全部费用化，利润没有依赖研发资本化美化。</li>
+</ul>
+<h3>约束与脆弱点</h3>
+<ul>
+<li>2025年前五大客户收入占94.36%，前两大客户合计70.50%，单一项目节奏会显著影响年度业绩；</li>
+<li>前五大供应商采购占85.45%，晶圆代工等供应集中，议价和交付受上游约束；</li>
+<li>客户回款周期通常超过一年，而供应商约一个月结算，形成结构性营运资金错配；</li>
+<li>核心业务几乎全部来自T/R芯片，收入结构高度单一；</li>
+<li>军工和航天项目存在招投标、验收、交付节奏波动，2024年的项目延后已证明这一风险可以直接冲击利润。</li>
+</ul>
+<p><strong>竞争格局判断：有利，置信度中等。</strong> 公司在细分技术、认证和客户关系上有比较优势，但极高客户与供应商集中度降低了优势兑现的稳定性。这里的“有利”指产业位置，不等于当前股票价格有利。</p>
+<h2 id="section-5">5. 分部收入与盈利拆解</h2>
+
+<table>
+<thead>
+<tr>
+<th>2025年分部</th>
+<th align="right">收入</th>
+<th align="right">收入占比</th>
+<th align="right">同比</th>
+<th align="right">毛利率</th>
+<th>判断</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>T/R芯片</td>
+<td align="right">4.037亿元</td>
+<td align="right">99.78%</td>
+<td align="right">+108.61%</td>
+<td align="right">72.69%</td>
+<td>规模恢复与产品结构改善是利润反转核心</td>
+</tr>
+<tr>
+<td>技术服务</td>
+<td align="right">0.009亿元</td>
+<td align="right">0.22%</td>
+<td align="right">-94.95%</td>
+<td align="right">未单列</td>
+<td>已非主要收入来源</td>
+</tr>
+<tr>
+<td>合计</td>
+<td align="right">4.046亿元</td>
+<td align="right">100%</td>
+<td align="right">+91.28%</td>
+<td align="right">72.68%</td>
+<td>高增长、高毛利，但现金转换偏弱</td>
+</tr>
+</tbody></table>
+<p>2025年生产T/R芯片242.05万只，同比增长218.75%；销售230.07万只，同比增长110.34%；期末库存47.35万只，同比增长33.87%。产量增速显著高于销量，部分来自备货和产能释放，后续必须以订单交付和库存周转验证。</p>
+<p>收入全部来自境内。2025年前五大客户销售额3.818亿元，占收入94.36%；应收账款期末余额5.653亿元，已经高于全年收入。公司在问询函中解释长回款周期与军工客户结算、票据支付有关，并称未放宽信用政策；这能解释现金流差，但不能消除回收风险。</p>
+<h2 id="section-6">6. 五年财务历史</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">2021</th>
+<th align="right">2022</th>
+<th align="right">2023</th>
+<th align="right">2024</th>
+<th align="right">2025</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营业收入（亿元）</td>
+<td align="right">2.109</td>
+<td align="right">2.778</td>
+<td align="right">2.874</td>
+<td align="right">2.115</td>
+<td align="right">4.046</td>
+</tr>
+<tr>
+<td>收入同比</td>
+<td align="right">—</td>
+<td align="right">+31.7%</td>
+<td align="right">+3.4%</td>
+<td align="right">-26.4%</td>
+<td align="right">+91.3%</td>
+</tr>
+<tr>
+<td>归母净利润（亿元）</td>
+<td align="right">1.600</td>
+<td align="right">1.327</td>
+<td align="right">0.797</td>
+<td align="right">-0.311</td>
+<td align="right">1.171</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">77.00%</td>
+<td align="right">71.25%</td>
+<td align="right">62.30%</td>
+<td align="right">63.90%</td>
+<td align="right">72.68%</td>
+</tr>
+<tr>
+<td>经营现金流（亿元）</td>
+<td align="right">0.219</td>
+<td align="right">-0.051</td>
+<td align="right">-0.145</td>
+<td align="right">-0.476</td>
+<td align="right">-0.474</td>
+</tr>
+<tr>
+<td>现金资本开支（亿元）</td>
+<td align="right">0.236</td>
+<td align="right">0.756</td>
+<td align="right">1.166</td>
+<td align="right">1.459</td>
+<td align="right">0.135</td>
+</tr>
+<tr>
+<td>自由现金流近似值（亿元）</td>
+<td align="right">-0.017</td>
+<td align="right">-0.807</td>
+<td align="right">-1.311</td>
+<td align="right">-1.934</td>
+<td align="right">-0.609</td>
+</tr>
+<tr>
+<td>ROIC代理值</td>
+<td align="right">19.3%</td>
+<td align="right">11.0%</td>
+<td align="right">4.9%</td>
+<td align="right">-2.1%</td>
+<td align="right">6.3%</td>
+</tr>
+</tbody></table>
+<p>注：自由现金流近似值=经营现金流-购建固定资产、无形资产和其他长期资产支付的现金；ROIC代理值=税后经营利润/平均总资产，是保守的全资产近似口径，不等同于公司披露ROIC。</p>
+<h3>财务质量结论</h3>
+<ol>
+<li>2021—2025年收入复合增速约17.7%，但年度波动大，2024年项目延期就使收入下降26.4%、利润转负；</li>
+<li>五年自由现金流近似值连续为负，说明会计利润尚未稳定转化为股东可支配现金；</li>
+<li>2025年研发费用1.460亿元，同比增长66.14%，占收入36.08%，投入强度高；</li>
+<li>2025年末货币资金3.004亿元且无有息借款，偿债风险低；核心矛盾是回款效率而不是债务压力；</li>
+<li>2025年确认规模效应和产品结构带来的毛利率修复，但持续性需等待至少两个季度验证。</li>
+</ol>
+<h2 id="section-7">7. 最新季度与管理层指引</h2>
+
+<table>
+<thead>
+<tr>
+<th>2026Q1指标</th>
+<th align="right">数值</th>
+<th align="right">同比 / 变化</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营业收入</td>
+<td align="right">1.039亿元</td>
+<td align="right">+12.92%</td>
+</tr>
+<tr>
+<td>归母净利润</td>
+<td align="right">0.447亿元</td>
+<td align="right">+50.00%</td>
+</tr>
+<tr>
+<td>扣非归母净利润</td>
+<td align="right">0.437亿元</td>
+<td align="right">+51.48%</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">82.17%</td>
+<td align="right">+6.79个百分点</td>
+</tr>
+<tr>
+<td>研发费用</td>
+<td align="right">0.313亿元</td>
+<td align="right">+32.31%</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">-0.210亿元</td>
+<td align="right">同比改善76.06%，仍为负</td>
+</tr>
+<tr>
+<td>应收账款及票据</td>
+<td align="right">7.518亿元</td>
+<td align="right">较年初增加约10.2%</td>
+</tr>
+<tr>
+<td>存货</td>
+<td align="right">1.976亿元</td>
+<td align="right">较年初下降3.9%</td>
+</tr>
+</tbody></table>
+<p>季度利润增长快于收入，主要来自毛利率上升和规模效应。问题在于应收账款及票据继续上升，合同负债只有0.010亿元，无法从预收款验证强订单。</p>
+<p>公司在年报问询回复中称，2025年现金及票据回款3.357亿元，同比增长88.76%；2026年1—4月回款1.144亿元，同比增长243%，并预计上半年经营现金流转正。该表述属于管理层预期，不是已经实现的结果。下一份半年报最重要的不是单看利润，而是检验这一现金流指引。</p>
+<h2 id="section-8">8. 近三个月新闻与催化剂</h2>
+
+<table>
+<thead>
+<tr>
+<th>日期</th>
+<th>事件</th>
+<th>影响</th>
+<th>证据等级</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-04-17</td>
+<td>2025年收入增长91.28%、归母净利润转正至1.171亿元</td>
+<td>基本面风险显著减弱</td>
+<td>公司年报</td>
+</tr>
+<tr>
+<td>2026-04-28</td>
+<td>2026Q1收入+12.92%、净利润+50%、毛利率82.17%</td>
+<td>盈利修复延续，但现金流仍负</td>
+<td>公司季报</td>
+</tr>
+<tr>
+<td>2026-05-19/20</td>
+<td>获准撤销退市风险警示，简称恢复“铖昌科技”</td>
+<td>消除制度性风险与部分交易限制</td>
+<td>深交所公告</td>
+</tr>
+<tr>
+<td>2026-05-19</td>
+<td>回复年报问询，解释客户、供应商集中和回款错配</td>
+<td>提供解释，但未消除现金转换风险</td>
+<td>公司回复</td>
+</tr>
+<tr>
+<td>2026-06-26至07-10</td>
+<td>商业航天主题升温，股价一度升至180.64元</td>
+<td>预期和筹码快速拥挤</td>
+<td>行情数据</td>
+</tr>
+<tr>
+<td>2026-07-14至15</td>
+<td>连续两日跌幅偏离值累计超过20%</td>
+<td>情绪由拥挤转向负反馈</td>
+<td>异动公告</td>
+</tr>
+<tr>
+<td>2026-07-16</td>
+<td>公司核查称无未披露重大事项、经营正常</td>
+<td>排除已知公告级利空，但无新增基本面催化</td>
+<td>异动公告</td>
+</tr>
+<tr>
+<td>2026-07-17/20</td>
+<td>再度连续跌停，股价回落至98.95元</td>
+<td>杠杆和高估值出清仍未结束</td>
+<td>行情数据</td>
+</tr>
+</tbody></table>
+<p>未来三个月关键催化剂是半年报收入、利润、经营现金流和回款；其次是可量化的低轨卫星订单或产品定型公告。仅有产业主题新闻、但没有公司订单或现金兑现，不足以改变估值结论。</p>
+<h2 id="section-9">9. 多头与空头论据</h2>
+
+<h3>多头论据</h3>
+<ul>
+<li>低轨卫星组网、星载相控阵和机载雷达需求提供多年成长空间；</li>
+<li>公司具备完整T/R芯片产品矩阵和批量交付经验，技术与认证壁垒高；</li>
+<li>2025年和2026Q1盈利修复已由财报确认，毛利率回到高位；</li>
+<li>无有息借款、现金类资产较充足，短期偿债风险小；</li>
+<li>ST撤销后制度性风险下降，研发投入为后续新品提供储备。</li>
+</ul>
+<h3>空头论据</h3>
+<ul>
+<li>当前估值提前透支至2028年，任何订单或验收延后都可能压缩估值；</li>
+<li>五年自由现金流近似值连续为负，2026Q1应收账款及票据达到7.52亿元；</li>
+<li>客户和供应商集中度极高，收入和毛利率难以按普通成长股线性外推；</li>
+<li>2024年已发生项目延后、收入下降和信用减值，业务节奏风险不是假设；</li>
+<li>7月14日龙虎榜净卖出约0.96亿元，而融资余额在下跌初期增至约2.66亿元，杠杆承接可能放大后续出清；</li>
+<li>7月16日公司明确不存在应披露未披露重大事项，短期缺少能解释前期涨幅的新信息。</li>
+</ul>
+<h3>证伪条件</h3>
+<ul>
+<li><strong>多头证伪：</strong> 半年报经营现金流未转正、应收继续显著快于收入、毛利率回落至70%以下，或公司/券商连续下修2026—2027年利润；</li>
+<li><strong>空头证伪：</strong> 半年报经营现金流显著转正、回款和收入同步改善，披露可量化大额订单，且股价在放量换手后不再创新低。</li>
+</ul>
+<h2 id="section-10">10. 估值</h2>
+
+<h3>10.1 相对市盈率法</h3>
+<p>直接可比公司臻镭科技、雷电微力、国博电子在业务结构、盈利周期和会计利润上差异较大，2026-07-20动态市盈率分别约112倍、为负和失真，因此不能简单取均值。本文以铖昌科技自身增长与风险给出55—70倍的2026年合理市盈率，低于当前118倍，但仍显著高于普通军工电子公司。</p>
+<ul>
+<li>2026年利润情景：1.73—2.20亿元；</li>
+<li>合理权益价值：约95—154亿元；</li>
+<li>对应每股价值：约46—75元。</li>
+</ul>
+<h3>10.2 DCF法</h3>
+<p>DCF以2025年收入4.046亿元为起点，净现金采用2.5亿元（保留经营安全垫），总股本2.061亿股。因历史自由现金流持续为负，结果对终值假设极敏感：</p>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th>2026—2030收入增速</th>
+<th align="right">2030收入</th>
+<th align="right">2030自由现金流率</th>
+<th align="right">WACC / 永续增速</th>
+<th align="right">每股价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观</td>
+<td>10%、10%、8%、8%、5%</td>
+<td align="right">6.00亿元</td>
+<td align="right">10%</td>
+<td align="right">13% / 2%</td>
+<td align="right">2.96元</td>
+</tr>
+<tr>
+<td>基准</td>
+<td>35%、30%、25%、20%、15%</td>
+<td align="right">12.25亿元</td>
+<td align="right">23%</td>
+<td align="right">11.5% / 3%</td>
+<td align="right">12.97元</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td>55%、40%、30%、25%、20%</td>
+<td align="right">17.12亿元</td>
+<td align="right">32%</td>
+<td align="right">10.5% / 3.5%</td>
+<td align="right">29.55元</td>
+</tr>
+</tbody></table>
+<p>DCF不适合作为短期目标价，但清晰揭示：即便乐观假设，现金流折现价值也显著低于现价。反向看，当前约201亿元企业价值需要远高于上述乐观情景的长期收入或现金利润，估值安全边际不足。</p>
+<h3>10.3 行业特定EV/Sales法</h3>
+<p>对尚处高研发、回款滞后的卫星射频芯片企业，EV/Sales可作为成长权利的辅助口径：</p>
+<ul>
+<li>2026年收入情景：5.4—6.2亿元；</li>
+<li>合理EV/Sales：18—24倍；</li>
+<li>加回调整后净现金2.5亿元；</li>
+<li>对应权益价值约100—151亿元，每股约48—73元。</li>
+</ul>
+<p>这一倍数已经包含稀缺性和商业航天成长溢价。若现金流不改善或订单延后，18倍也可能过高；若取得可验证的大额星座订单并稳定转化为现金，才有理由提高倍数。</p>
+<h3>10.4 交叉验证与公允价值</h3>
+<p>相对市盈率和EV/Sales交叉区间集中在46—75元，DCF为13—30元的风险锚。考虑公司技术稀缺性、资产负债表安全与商业航天成长权利，同时对客户集中和现金流给予折价，综合公允价值取 <strong>45—70元/股</strong>。这不是精确点位，而是需要用半年报不断更新的决策区间。</p>
+<table>
+<thead>
+<tr>
+<th>价格区间</th>
+<th>估值含义</th>
+<th>动作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>高于80元</td>
+<td>仍要求极高增长，安全边际不足</td>
+<td>新资金等待；已有持仓复盘仓位</td>
+</tr>
+<tr>
+<td>60—80元</td>
+<td>进入估值观察区，仍需现金流确认</td>
+<td>小仓观察，不因单日反弹追价</td>
+</tr>
+<tr>
+<td>45—60元</td>
+<td>接近合理区间</td>
+<td>仅在现金流与趋势止跌共振时分批研究性买入</td>
+</tr>
+<tr>
+<td>低于45元</td>
+<td>具备价格安全边际的可能</td>
+<td>先检查是否发生基本面证伪，再决定买入</td>
+</tr>
+</tbody></table>
+<h2 id="section-11">11. 冰冰小美框架判断</h2>
+
+<h3>11.1 三要素</h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>状态</th>
+<th>核心证据</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td><strong>有利</strong></td>
+<td>技术认证壁垒、完整T/R芯片矩阵、星载先发与机载扩张；客户/供应商集中削弱稳定性</td>
+<td>中</td>
+</tr>
+<tr>
+<td>流动性</td>
+<td><strong>不利</strong></td>
+<td>宏观货币偏宽但信用扩张不强；个股高换手连续跌停、融资余额逆势上升，退出流动性恶化</td>
+<td>高</td>
+</tr>
+<tr>
+<td>情绪位置</td>
+<td><strong>不利</strong></td>
+<td>从商业航天拥挤上涨快速切换为连续跌停，负反馈尚未结束</td>
+<td>高</td>
+</tr>
+<tr>
+<td>共振</td>
+<td><strong>尚未形成有利共振</strong></td>
+<td>产业竞争优势没有转化为资金和情绪确认</td>
+<td>高</td>
+</tr>
+</tbody></table>
+<p>宏观层面，6月末M2同比增长8%、M1增长4%、社融存量增长7.4%，1年期LPR为3.0%，人民币流动性并不紧；但上半年社融增量同比少2.02万亿元，说明宽货币没有形成同等强度的信用扩张。外部方面，美国10年期国债收益率4.55%，对长久期高估值资产仍是折现约束。资金来源更像主题轮动和杠杆交易，而不是可确认的持续产业增量资金。</p>
+<h3>11.2 风险方向</h3>
+<p><strong>最终方向：风险重新增强，置信度高。</strong></p>
+<p>风险传导链为：</p>
+<blockquote>
+<p>商业航天主题升温与ST撤销 → 估值和融资筹码快速拥挤 → 没有新增公告级基本面信息支撑高点 → 股价连续跌停、龙虎榜净卖出 → 杠杆承接面临去化 → 流动性与情绪负反馈重新增强。</p>
+</blockquote>
+<p>这不是“公司基本面被完全证伪”：2025年和2026Q1仍显示盈利修复。它也不是纯粹“系统性恐慌”：7月20日市场虽偏弱，但个股下跌强度显著更大。更准确的归类是 <strong>高估值、拥挤筹码与项目不确定性共同触发的个股再定价</strong>。</p>
+<h3>11.3 动作映射</h3>
+<ul>
+<li><strong>新资金：observe / wait。</strong> 不在连续跌停阶段仅凭跌幅抄底；等待至少3—5个交易日不再创新低、成交额收敛且价格重新站稳关键均线；</li>
+<li><strong>已有轻仓：review。</strong> 先确认买入逻辑是产业成长还是短线主题；若逻辑仍在，可等流动性恢复后处理，不把“不能卖出”误解为“估值合理”；</li>
+<li><strong>已有重仓：reduce优先级上升。</strong> 若反弹至80元以上但盈利预测和现金流没有同步上修，应评估降低集中度；</li>
+<li><strong>重新进入买入评估：</strong> 价格进入45—70元区间，同时半年报经营现金流转正、应收增速低于收入增速、无盈利预测下修，三项至少满足两项。</li>
+</ul>
+<h2 id="section-12">12. 最终结论</h2>
+
+<p>铖昌科技属于 <strong>好赛道、强细分位置、但当前价格仍不便宜</strong> 的公司。2025年和2026Q1财务修复证明产业逻辑仍在，ST撤销也消除了制度性风险；但客户高度集中、回款周期长、五年自由现金流持续为负，使其不能仅按“低轨卫星高景气”线性外推。</p>
+<p>以98.95元和203.95亿元市值计，市场已经把2028年前后的利润扩张提前定价。综合估值45—70元，现价仍缺少安全边际。<strong>如果今天持有现金，我选择观察，不买入；如果已经持有，我会按仓位大小复盘，并把半年报经营现金流作为去留的第一验证项。</strong></p>
+<p>评级语言：<strong>高估 / 观察</strong>。不是做空建议，也不是断言股价不会反弹；它表达的是当前胜率、赔率和退出流动性没有同时满足。</p>
+<h2 id="section-13">13. 后续监控指标</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>正面确认</th>
+<th>风险触发</th>
+<th>对应动作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026H1经营现金流</td>
+<td>明显转正，兑现管理层预期</td>
+<td>仍为负或改善很弱</td>
+<td>转正才进入买点评估；未兑现则下调估值</td>
+</tr>
+<tr>
+<td>应收账款及票据</td>
+<td>增速低于收入，回款明显</td>
+<td>继续快于收入增长</td>
+<td>风险触发时降低盈利质量评分</td>
+</tr>
+<tr>
+<td>半年报归母净利润</td>
+<td>约0.85—1.0亿元或更高</td>
+<td>明显低于0.8亿元</td>
+<td>低于阈值复核2026E预测</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td>维持75%以上</td>
+<td>回落至70%以下</td>
+<td>回落则下调PE和EV/Sales倍数</td>
+</tr>
+<tr>
+<td>可量化订单</td>
+<td>披露大额订单、客户验收或批量交付</td>
+<td>只有产业新闻，无公司量化信息</td>
+<td>只对公告级证据上调预期</td>
+</tr>
+<tr>
+<td>存货与产销率</td>
+<td>库存平稳、销售跟上产量</td>
+<td>库存明显上升、交付延后</td>
+<td>检查2024年风险是否重演</td>
+</tr>
+<tr>
+<td>融资余额</td>
+<td>随价格企稳温和下降</td>
+<td>下跌中继续快速增加</td>
+<td>后者视为杠杆风险继续增强</td>
+</tr>
+<tr>
+<td>价格与成交</td>
+<td>3—5日不创新低、缩量止跌后放量确认</td>
+<td>再次跌停或反弹无量</td>
+<td>不抢反弹；等待趋势确认</td>
+</tr>
+</tbody></table>
+<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
+
+<ul>
+<li>公司没有披露可验证的在手订单总额、订单交付日历和主要客户名称；</li>
+<li>未取得完整四家机构一致预期明细，只核验了光大证券最新摘要，不能把单一券商预测当市场共识；</li>
+<li>军工、星载和机载收入没有按场景完整分拆，无法做严格SOTP；</li>
+<li>未取得商业航天主题ETF的当日申赎、机构逐笔成交和融资账户强平数据；</li>
+<li>可比公司盈利口径差异大，动态市盈率存在负值和极端值，横向估值只作为边界参考；</li>
+<li>DCF对远期收入、现金流率和折现率极敏感，而公司历史自由现金流为负，结果只能作为风险锚；</li>
+<li>行情数据来自公开聚合接口，最终成交统计以交易所为准。</li>
+</ul>
+<p>这些缺口不会改变“现价安全边际不足”的主结论，但会影响合理区间的精度。取得半年报后应整体刷新财务、估值和三要素判断。</p>
+<h2 id="section-15">15. 来源清单</h2>
+
+<h3>本地一手资料</h3>
+<ul>
+<li><a href="../../../papers/铖昌科技机构研报-2026-07-20/铖昌科技2022年年度报告.pdf.html">2022年年度报告</a></li>
+<li><a href="../../../papers/铖昌科技机构研报-2026-07-20/铖昌科技2023年年度报告.pdf.html">2023年年度报告</a></li>
+<li><a href="../../../papers/铖昌科技机构研报-2026-07-20/铖昌科技2024年年度报告.pdf.html">2024年年度报告</a></li>
+<li><a href="../../../papers/铖昌科技机构研报-2026-07-20/铖昌科技2025年年度报告.pdf.html">2025年年度报告</a></li>
+<li><a href="../../../papers/铖昌科技机构研报-2026-07-20/铖昌科技2026年第一季度报告.pdf.html">2026年第一季度报告</a></li>
+<li><a href="../../../papers/铖昌科技机构研报-2026-07-20/2026-05-19-铖昌科技2025年度年报问询函回复.pdf.html">2025年度年报问询函回复</a></li>
+<li><a href="../../../papers/铖昌科技机构研报-2026-07-20/2026-05-19-铖昌科技撤销退市风险警示公告.pdf.html">撤销退市风险警示公告</a></li>
+<li><a href="../../../papers/铖昌科技机构研报-2026-07-20/2026-07-16-铖昌科技股票交易异常波动公告.pdf.html">股票交易异常波动公告</a></li>
+<li><a href="../../../webpages/2026-07-20-铖昌科技机构级研究资料快照.html">铖昌科技机构级研究资料快照</a></li>
+</ul>
+<h3>外部核验资料</h3>
+<ul>
+<li><a href="https://disc.static.szse.cn/disc/disk03/finalpage/2026-04-28/016a693e-7238-44a9-91ef-effcac4bdd4d.PDF">2026年第一季度报告（深交所）</a></li>
+<li><a href="https://disc.static.szse.cn/download/disc/disk03/finalpage/2026-05-19/7dcd926a-5a98-4b8b-b5cb-185bc679a713.PDF">撤销退市风险警示公告（深交所）</a></li>
+<li><a href="https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?CompanyCode=80961980&gather=1&id=12331788">2025年度年报问询函回复</a></li>
+<li><a href="https://m.hibor.com.cn/wap_detail.aspx?id=993fa08acaed787072c5b3ac2d817a29">光大证券2025年报及2026年一季报点评摘要</a></li>
+<li><a href="https://www.cfn.cn/index/tushuo/eyesCfnNewsDetail/id/64884.shtml">2026年上半年金融统计数据</a></li>
+<li><a href="https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value=2026&type=daily_treasury_yield_curve">美国财政部每日国债收益率</a></li>
+<li><a href="https://finance.people.com.cn/n1/2026/0720/c1004-40764216.html">2026年7月LPR</a></li>
+</ul>
+<h2 id="section-16">16. 声明</h2>
+
+<p>本报告基于公开资料和可复核计算编制，仅用于研究和知识库维护，不构成任何证券买卖、收益保证或个性化投资建议。商业航天和军工电子项目存在订单、验收、回款、政策及估值波动风险；读者应结合自身资金期限、风险承受能力和独立判断作出决策。</p>
+</article>
+    </div>
+  </main>
+</body>
+</html>

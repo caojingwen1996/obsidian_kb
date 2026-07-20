@@ -13,28 +13,29 @@
         <span class="brand-mark">A</span>
         <div><strong>温度计</strong><small>位置 · 估值 · 情绪</small></div>
       </div>
-      <div class="shell-switcher" role="tablist" aria-label="工具切换">
-        <button class="shell-switch is-active" type="button" data-shell="thermometer" role="tab" aria-selected="true">温度计</button>
-        <button class="shell-switch" type="button" data-shell="industry" role="tab" aria-selected="false">产业</button>
-      </div>
       <button class="mobile-nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-stack">打开导航</button>
       <div class="nav-stack" id="nav-stack">
-        <nav class="sidebar-panel is-active" id="primary-nav" data-shell-panel="thermometer" aria-label="温度计导航">
-          <div class="sidebar-nav">
+        <nav class="tree-nav" aria-label="主导航">
+          <section class="tree-group is-expanded" data-tree-group="thermometer">
+            <button class="tree-root" type="button" data-tree-domain="thermometer" aria-expanded="true" aria-controls="tree-thermometer"><span>温度计</span><span class="tree-chevron" aria-hidden="true"></span></button>
+            <div class="tree-children" id="tree-thermometer">
             <button class="nav-item is-active" type="button" data-view="market-summary" aria-current="page"><span>01</span>市场总览</button>
             <button class="nav-item" type="button" data-view="position-view"><span>02</span>位置分位</button>
             <button class="nav-item" type="button" data-view="valuation-view"><span>03</span>估值与 ERP</button>
             <button class="nav-item" type="button" data-view="emotion-view"><span>04</span>情绪温度</button>
             <button class="nav-item" type="button" data-view="rules-view"><span>05</span>评分规则</button>
             <button class="nav-item" type="button" data-view="audit-view"><span>06</span>数据审计</button>
-          </div>
-        </nav>
-        <nav class="sidebar-panel" data-shell-panel="industry" aria-label="产业导航" hidden>
-          <div class="sidebar-nav">
+            </div>
+          </section>
+          <section class="tree-group" data-tree-group="industry">
+            <button class="tree-root" type="button" data-tree-domain="industry" aria-expanded="false" aria-controls="tree-industry"><span>产业</span><span class="tree-chevron" aria-hidden="true"></span></button>
+            <div class="tree-children" id="tree-industry" hidden>
             <button class="nav-item" type="button" data-view="industry-strategy"><span>01</span>战略</button>
             <button class="nav-item" type="button" data-view="industry-emerging"><span>02</span>新兴</button>
             <button class="nav-item" type="button" data-view="industry-pillar"><span>03</span>支柱</button>
-          </div>
+            </div>
+          </section>
+          <button class="tree-root tree-leaf" type="button" data-tree-domain="changelog" data-view="changelog-view"><span>更新日志</span></button>
         </nav>
       </div>
       <div class="sidebar-footer">
@@ -149,17 +150,9 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
           </div>
           <nav class="industry-filter-tabs" aria-label="战略资源细分方向">
             <button class="is-active" type="button" data-filter="all" aria-pressed="true">全部</button>
-            <button type="button" data-filter="黄金" aria-pressed="false">黄金</button>
-            <button type="button" data-filter="铜" aria-pressed="false">铜</button>
-            <button type="button" data-filter="稀土" aria-pressed="false">稀土</button>
-            <button type="button" data-filter="锂" aria-pressed="false">锂</button>
-            <button type="button" data-filter="能源" aria-pressed="false">能源</button>
-            <button type="button" data-filter="关键矿产" aria-pressed="false">关键矿产</button>
+            <!-- STRATEGY_FILTER_TABS -->
           </nav>
-          <section class="industry-research-board" data-filters="">
-            <div><p class="eyebrow">产业研报</p><h3>战略资源配置线</h3></div>
-            <span>宏观 / 政治 / 货币 / 国际大宗</span>
-          </section>
+          <!-- STRATEGY_RESEARCH_BOARDS -->
           <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · <!-- STRATEGY_REPORT_COUNT -->条</span></div>
           <div class="industry-timeline">
             <div class="industry-feed">
@@ -181,21 +174,13 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
           </div>
           <nav class="industry-filter-tabs" aria-label="新兴产业细分方向">
             <button class="is-active" type="button" data-filter="all" aria-pressed="true">全部</button>
-            <button type="button" data-filter="集成电路" aria-pressed="false">集成电路</button>
-            <button type="button" data-filter="航空航天" aria-pressed="false">航空航天</button>
-            <button type="button" data-filter="生物医药" aria-pressed="false">生物医药</button>
-            <button type="button" data-filter="低空经济" aria-pressed="false">低空经济</button>
-            <button type="button" data-filter="新型储能" aria-pressed="false">新型储能</button>
-            <button type="button" data-filter="智能机器人" aria-pressed="false">智能机器人</button>
+            <!-- EMERGING_FILTER_TABS -->
           </nav>
-          <section class="industry-research-board" data-filters="航空航天">
-            <div><p class="eyebrow">产业研报</p><h3><a class="industry-report-link" href="../../sources/automations/商业航天/商业航天产业完整分析报告.html">商业航天产业完整分析报告</a></h3></div>
-            <span>航空航天 / 商业航天 / 卫星互联网 / 火箭复用</span>
-          </section>
+          <!-- EMERGING_RESEARCH_BOARDS -->
           <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · <!-- EMERGING_REPORT_COUNT -->条</span></div>
           <div class="industry-timeline">
             <div class="industry-feed">
-              <!-- COMMERCIAL_SPACE_REPORTS -->
+              <!-- EMERGING_REPORTS -->
             </div>
           </div>
           <p class="industry-empty-results" hidden>没有匹配的研报项。</p>
@@ -213,25 +198,27 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
           </div>
           <nav class="industry-filter-tabs" aria-label="支柱产业细分方向">
             <button class="is-active" type="button" data-filter="all" aria-pressed="true">全部</button>
-            <button type="button" data-filter="汽车" aria-pressed="false">汽车</button>
-            <button type="button" data-filter="新能源" aria-pressed="false">新能源</button>
-            <button type="button" data-filter="高端制造" aria-pressed="false">高端制造</button>
-            <button type="button" data-filter="机械装备" aria-pressed="false">机械装备</button>
-            <button type="button" data-filter="电网" aria-pressed="false">电网</button>
-            <button type="button" data-filter="成熟制造业龙头" aria-pressed="false">成熟制造业龙头</button>
+            <!-- PILLAR_FILTER_TABS -->
           </nav>
-          <section class="industry-research-board" data-filters="电网">
-            <div><p class="eyebrow">产业研报</p><h3><a class="industry-report-link" href="../../sources/automations/电网产业/2026-07-17-十五五电网投资与电网行业完整分析报告.html">十五五电网投资与电网行业完整分析报告</a></h3></div>
-            <span>支柱产业 / 电网 / 电力设备 / 新型电力系统</span>
-          </section>
+          <!-- PILLAR_RESEARCH_BOARDS -->
           <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · <!-- PILLAR_REPORT_COUNT -->条</span></div>
           <div class="industry-timeline">
             <div class="industry-feed">
               <!-- PILLAR_REPORTS -->
-              <!-- ELECTRIC_GRID_REPORTS -->
             </div>
           </div>
           <p class="industry-empty-results" hidden>没有匹配的研报项。</p>
+        </div>
+      </section>
+
+      <section class="view changelog-view" id="changelog-view" data-shell-content="changelog" aria-labelledby="changelog-heading">
+        <div class="changelog-page">
+          <header class="changelog-hero">
+            <p class="eyebrow">CHANGELOG</p>
+            <h2 id="changelog-heading">更新日志</h2>
+            <p>最近发生了什么——新功能、调整与修复，都写在这里。</p>
+          </header>
+        <!-- CHANGELOG_ENTRIES -->
         </div>
       </section>
     </main>
