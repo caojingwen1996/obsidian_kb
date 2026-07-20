@@ -76,7 +76,7 @@ test('industry panels use Ice Ice Xiaomei three-industry classification', () => 
     '新能源',
     '高端制造',
     '机械装备',
-    '电力设备',
+    '电网',
     '成熟制造业龙头',
   ]) {
     assert.match(html, new RegExp(term));
@@ -87,7 +87,7 @@ test('industry panels use Ice Ice Xiaomei three-industry classification', () => 
 });
 
 test('industry panels use the approved feed layout without the tracking card', () => {
-  const html = readFileSync(sourcePath, 'utf8');
+  const html = readFileSync(artifactPath, 'utf8');
   for (const marker of [
     'industry-workbench',
     'industry-filter-tabs',
@@ -97,19 +97,60 @@ test('industry panels use the approved feed layout without the tracking card', (
     'industry-report',
     'industry-timeline',
     '产业研报',
-    '支柱产业-高端制造',
+    '云铝股份机构级决策研报',
+    '../../sources/automations/战略资源/2026-07-15-1921-云铝股份机构级决策研报.html',
+    '商业航天产业完整分析报告',
+    '../../sources/automations/商业航天/商业航天产业完整分析报告.html',
+    '中国卫星-机构级决策研报',
+    '中国卫通-机构级决策研报',
+    '航天电子机构级决策研报',
+    '十五五电网投资与电网行业完整分析报告',
+    '../../sources/automations/电网产业/2026-07-17-十五五电网投资与电网行业完整分析报告.html',
     '中国中车机构级决策研报',
     '中国中车资金面分层分析',
     '中国船舶资金面分层分析',
+    '../../sources/automations/支柱产业/2026-07-18-中国中车机构级决策研报.html',
+    '../../sources/automations/支柱产业/2026-07-18-中国中车资金面分层分析.html',
+    '../../sources/automations/支柱产业/2026-07-18-中国船舶资金面分层分析.html',
+    '华明装备机构级决策研报',
+    '../../sources/automations/电网产业/2026-07-15-1514-华明装备机构级决策研报.html',
     '神马电力机构级决策研报',
     '神马电力资金面分层分析',
+    '../../sources/automations/电网产业/2026-07-18-神马电力机构级决策研报.html',
+    '../../sources/automations/电网产业/2026-07-18-神马电力资金面分层分析.html',
+    '来源目录：sources/automations/战略资源',
+    '来源目录：sources/automations/商业航天',
+    '来源目录：sources/automations/支柱产业',
+    '来源目录：sources/automations/电网产业',
   ]) {
     assert.match(html, new RegExp(marker));
   }
   assert.doesNotMatch(html, /当前热点/);
   assert.doesNotMatch(html, /industry-tracking/);
-  assert.doesNotMatch(html, /产业跟踪/);
+  assert.doesNotMatch(html, /<h[1-6][^>]*>产业跟踪<\/h[1-6]>/);
   assert.doesNotMatch(html, /<p class="eyebrow">INDUSTRY TRACKING<\/p>/);
+  assert.doesNotMatch(html, /<button type="button" data-filter="电力设备" aria-pressed="false">电力设备<\/button>/);
+  assert.doesNotMatch(html, /集成电路产业链缩圈|生物医药、新型储能与智能机器人观察/);
+  assert.doesNotMatch(html, /战略资源：资源安全与硬资产重估|铜与关键矿产供需周期跟踪|黄金与能源的宏观变量观察/);
+  assert.match(html, /<strong>7月20日<\/strong><span>星期一 · 1条<\/span>/);
+  assert.match(html, /<strong>7月20日<\/strong><span>星期一 · 18条<\/span>/);
+  assert.match(html, /<strong>7月20日<\/strong><span>星期一 · 6条<\/span>/);
+  assert.match(html, /<section class="industry-research-board"[^>]*>[\s\S]*商业航天产业完整分析报告/);
+  assert.match(html, /<section class="industry-research-board" data-filters="航空航天">[\s\S]*商业航天产业完整分析报告/);
+  assert.doesNotMatch(html, /<article class="industry-report" data-filters="航空航天">[\s\S]*商业航天产业完整分析报告/);
+  assert.match(html, /<section class="industry-research-board"[^>]*>[\s\S]*十五五电网投资与电网行业完整分析报告/);
+  assert.match(html, /<section class="industry-research-board" data-filters="电网">[\s\S]*十五五电网投资与电网行业完整分析报告/);
+  assert.doesNotMatch(html, /<article class="industry-report" data-filters="[^"]*电网[^"]*">[\s\S]*十五五电网投资与电网行业完整分析报告/);
+  assert.match(html, /data-filters="电网"[\s\S]*华明装备机构级决策研报/);
+  assert.match(html, /data-filters="电网"[\s\S]*神马电力机构级决策研报/);
+  assert.match(readFileSync(new URL('../src/app.mjs', import.meta.url), 'utf8'), /querySelectorAll\('\.industry-research-board'\)/);
+  assert.match(readFileSync(new URL('../scripts/build.mjs', import.meta.url), 'utf8'), /readReportFilenames/);
+  assert.match(readFileSync(new URL('../scripts/build.mjs', import.meta.url), 'utf8'), /renderStrategicResourceReports/);
+  assert.match(readFileSync(new URL('../scripts/build.mjs', import.meta.url), 'utf8'), /renderCommercialSpaceReports/);
+  assert.match(readFileSync(new URL('../scripts/build.mjs', import.meta.url), 'utf8'), /renderPillarReports/);
+  assert.match(readFileSync(new URL('../scripts/build.mjs', import.meta.url), 'utf8'), /renderElectricGridReports/);
+  assert.doesNotMatch(html, /<!-- (?:STRATEGY_REPORTS|COMMERCIAL_SPACE_REPORTS|PILLAR_REPORTS|ELECTRIC_GRID_REPORTS|STRATEGY_REPORT_COUNT|EMERGING_REPORT_COUNT|PILLAR_REPORT_COUNT) -->/);
+  assert.doesNotMatch(html, /sources\/automations\/商业航天每日跟踪|sources\/automations\/电网产业跟踪/);
 });
 
 test('example state produces a complete auditable score', () => {

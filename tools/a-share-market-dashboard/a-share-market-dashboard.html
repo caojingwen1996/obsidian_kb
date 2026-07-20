@@ -182,6 +182,8 @@ h3 { font-size: 15px; }
 .industry-report-meta { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 11px; margin-bottom: 9px; }
 .industry-report-meta b { margin-left: 5px; border-radius: 5px; background: rgba(217,168,62,.16); color: #886822; padding: 2px 6px; font-size: 10px; }
 .industry-report h3 { margin: 0 0 7px; font-size: 16px; }
+.industry-report-link { color: inherit; text-decoration: none; }
+.industry-report-link:hover { color: #0f6672; text-decoration: underline; text-underline-offset: 3px; }
 .industry-report p { margin: 0 0 10px; color: #566674; font-size: 12px; line-height: 1.7; }
 .industry-tags { margin-bottom: 11px; color: var(--muted); font-size: 11px; line-height: 1.7; }
 .industry-reason { padding-top: 10px; border-top: 1px dashed var(--line); color: #246170; font-size: 11px; line-height: 1.7; }
@@ -387,36 +389,20 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
             <button type="button" data-filter="能源" aria-pressed="false">能源</button>
             <button type="button" data-filter="关键矿产" aria-pressed="false">关键矿产</button>
           </nav>
-          <section class="industry-research-board">
+          <section class="industry-research-board" data-filters="">
             <div><p class="eyebrow">产业研报</p><h3>战略资源配置线</h3></div>
             <span>宏观 / 政治 / 货币 / 国际大宗</span>
           </section>
-          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 3条</span></div>
+          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 1条</span></div>
           <div class="industry-timeline">
             <div class="industry-feed">
-              <article class="industry-report" data-filters="黄金,铜,稀土,锂,能源,关键矿产">
-                <span class="industry-time">12:00</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>战略资源 · 配置线 <b>跟踪</b></span><span>宏观</span></div>
-                <h3>战略资源：资源安全与硬资产重估</h3>
-                <p>战略资源方向更依赖资源安全、工业材料、能源金属和硬资产重估，观察重点放在全球资源争夺、通胀约束和制造业上游。</p>
-                <div class="industry-tags">#黄金 #铜 #稀土 #锂 #能源 #关键矿产</div>
-                <div class="industry-reason">推荐理由：该方向不按普通行业景气度处理，优先看宏观、政治、货币和国际大宗变量。</div>
-              </article>
-              <article class="industry-report" data-filters="铜,关键矿产">
-                <span class="industry-time">11:48</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>战略资源 · 铜 <b>跟踪</b></span><span>供需</span></div>
-                <h3>铜与关键矿产供需周期跟踪</h3>
-                <p>铜和关键矿产用于承接制造业上游、资源安全和地缘重估线索，适合作为战略资源配置的重点观察项。</p>
-                <div class="industry-tags">#铜 #关键矿产 #制造业上游</div>
-                <div class="industry-reason">推荐理由：资源品价格同时受供需、金融定价、地缘和政策影响，必须保留长周期视角。</div>
-              </article>
-              <article class="industry-report" data-filters="黄金,能源">
-                <span class="industry-time">10:07</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>战略资源 · 黄金/能源 <b>线索</b></span><span>避险</span></div>
-                <h3>黄金与能源的宏观变量观察</h3>
-                <p>黄金和能源更适合放入货币、通胀、外部安全和大宗周期中观察，不直接展开成短线交易清单。</p>
-                <div class="industry-tags">#黄金 #能源 #通胀 #外部安全</div>
-                <div class="industry-reason">推荐理由：战略资源的复杂度来自外部变量，适合跟踪而不是机械评分。</div>
+                            <article class="industry-report" data-filters="关键矿产">
+                <span class="industry-time">19:21</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>战略资源 · 关键矿产 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/战略资源/2026-07-15-1921-云铝股份机构级决策研报.html">云铝股份机构级决策研报</a></h3>
+                <p>从战略资源目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#战略资源 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/战略资源</div>
               </article>
             </div>
           </div>
@@ -442,36 +428,156 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
             <button type="button" data-filter="新型储能" aria-pressed="false">新型储能</button>
             <button type="button" data-filter="智能机器人" aria-pressed="false">智能机器人</button>
           </nav>
-          <section class="industry-research-board">
-            <div><p class="eyebrow">产业研报</p><h3>新兴产业缩圈</h3></div>
-            <span>技术革命 / 国产替代 / 产业安全 / 长期成长</span>
+          <section class="industry-research-board" data-filters="航空航天">
+            <div><p class="eyebrow">产业研报</p><h3><a class="industry-report-link" href="../../sources/automations/商业航天/商业航天产业完整分析报告.html">商业航天产业完整分析报告</a></h3></div>
+            <span>航空航天 / 商业航天 / 卫星互联网 / 火箭复用</span>
           </section>
-          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 3条</span></div>
+          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 18条</span></div>
           <div class="industry-timeline">
             <div class="industry-feed">
-              <article class="industry-report" data-filters="集成电路">
-                <span class="industry-time">12:00</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>新兴产业 · 集成电路 <b>跟踪</b></span><span>产业链</span></div>
-                <h3>集成电路产业链缩圈</h3>
-                <p>集成电路方向拆到芯片设计、制造、设备、材料和封测，不把半导体拥挤叙事直接等同为买入清单。</p>
-                <div class="industry-tags">#芯片设计 #制造 #设备 #材料 #封测</div>
-                <div class="industry-reason">推荐理由：新兴产业波动最大，必须缩圈到真正优秀个股和可兑现产业逻辑。</div>
+                            <article class="industry-report" data-filters="航空航天">
+                <span class="industry-time">07-17</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-中科星图-机构级决策研报.html">中科星图-机构级决策研报</a></h3>
+                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
               </article>
-              <article class="industry-report" data-filters="航空航天,低空经济">
-                <span class="industry-time">11:48</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>新兴产业 · 航空航天/低空经济 <b>线索</b></span><span>应用</span></div>
-                <h3>航空航天与低空经济跟踪</h3>
-                <p>航空航天覆盖商业火箭、卫星、卫星互联网和航空装备；低空经济覆盖无人机、eVTOL、低空基建和空管系统。</p>
-                <div class="industry-tags">#航空航天 #商业火箭 #卫星互联网 #低空经济</div>
-                <div class="industry-reason">推荐理由：这类方向叙事强，后续更需要订单、组网、产能和应用场景验证。</div>
+              <article class="industry-report" data-filters="航空航天">
+                <span class="industry-time">07-17</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-信维通信-机构级决策研报.html">信维通信-机构级决策研报</a></h3>
+                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
               </article>
-              <article class="industry-report" data-filters="生物医药,新型储能,智能机器人">
-                <span class="industry-time">10:07</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>新兴产业 · 多方向 <b>观察</b></span><span>成长</span></div>
-                <h3>生物医药、新型储能与智能机器人观察</h3>
-                <p>创新药、储能和机器人方向分别对应研发兑现、能源系统变化和制造业自动化，适合作为长期成长池跟踪。</p>
-                <div class="industry-tags">#生物医药 #新型储能 #智能机器人</div>
-                <div class="industry-reason">推荐理由：新兴方向需要持续验证产业化节奏，避免只买宏大叙事。</div>
+              <article class="industry-report" data-filters="航空航天">
+                <span class="industry-time">07-17</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-新雷能-机构级决策研报.html">新雷能-机构级决策研报</a></h3>
+                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+              </article>
+              <article class="industry-report" data-filters="航空航天">
+                <span class="industry-time">07-17</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-芯原股份-机构级决策研报.html">芯原股份-机构级决策研报</a></h3>
+                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+              </article>
+              <article class="industry-report" data-filters="航空航天">
+                <span class="industry-time">07-17</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-四维图新-机构级决策研报.html">四维图新-机构级决策研报</a></h3>
+                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+              </article>
+              <article class="industry-report" data-filters="航空航天">
+                <span class="industry-time">07-17</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-上海瀚讯机构级决策研报.html">上海瀚讯机构级决策研报</a></h3>
+                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+              </article>
+              <article class="industry-report" data-filters="航空航天">
+                <span class="industry-time">07-17</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-航天环宇-机构级决策研报.html">航天环宇-机构级决策研报</a></h3>
+                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+              </article>
+              <article class="industry-report" data-filters="航空航天">
+                <span class="industry-time">07-17</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-航天电子机构级决策研报.html">航天电子机构级决策研报</a></h3>
+                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+              </article>
+              <article class="industry-report" data-filters="航空航天">
+                <span class="industry-time">07-17</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-电科蓝天机构级决策研报.html">电科蓝天机构级决策研报</a></h3>
+                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+              </article>
+              <article class="industry-report" data-filters="航空航天">
+                <span class="industry-time">07-17</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-北斗星通-机构级决策研报.html">北斗星通-机构级决策研报</a></h3>
+                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+              </article>
+              <article class="industry-report" data-filters="航空航天">
+                <span class="industry-time">18:55</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-1855-国科微-机构级决策研报.html">国科微-机构级决策研报</a></h3>
+                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+              </article>
+              <article class="industry-report" data-filters="航空航天">
+                <span class="industry-time">18:33</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-1833-航天电器-机构级决策研报.html">航天电器-机构级决策研报</a></h3>
+                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+              </article>
+              <article class="industry-report" data-filters="航空航天">
+                <span class="industry-time">18:30</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-1830-铂力特-机构级决策研报.html">铂力特-机构级决策研报</a></h3>
+                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+              </article>
+              <article class="industry-report" data-filters="航空航天">
+                <span class="industry-time">18:25</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-1825-北方导航-机构级决策研报.html">北方导航-机构级决策研报</a></h3>
+                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+              </article>
+              <article class="industry-report" data-filters="航空航天">
+                <span class="industry-time">18:13</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-1813-国博电子-机构级决策研报.html">国博电子-机构级决策研报</a></h3>
+                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+              </article>
+              <article class="industry-report" data-filters="航空航天">
+                <span class="industry-time">17:44</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-1744-华测导航-机构级决策研报.html">华测导航-机构级决策研报</a></h3>
+                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+              </article>
+              <article class="industry-report" data-filters="航空航天">
+                <span class="industry-time">17:28</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-1728-中国卫通-机构级决策研报.html">中国卫通-机构级决策研报</a></h3>
+                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
+              </article>
+              <article class="industry-report" data-filters="航空航天">
+                <span class="industry-time">16:16</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 航空航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/商业航天/2026-07-17-1616-中国卫星-机构级决策研报.html">中国卫星-机构级决策研报</a></h3>
+                <p>从商业航天目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#航空航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/商业航天</div>
               </article>
             </div>
           </div>
@@ -494,55 +600,63 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
             <button type="button" data-filter="新能源" aria-pressed="false">新能源</button>
             <button type="button" data-filter="高端制造" aria-pressed="false">高端制造</button>
             <button type="button" data-filter="机械装备" aria-pressed="false">机械装备</button>
-            <button type="button" data-filter="电力设备" aria-pressed="false">电力设备</button>
+            <button type="button" data-filter="电网" aria-pressed="false">电网</button>
             <button type="button" data-filter="成熟制造业龙头" aria-pressed="false">成熟制造业龙头</button>
           </nav>
-          <section class="industry-research-board">
-            <div><p class="eyebrow">产业研报</p><h3>支柱产业-高端制造</h3></div>
-            <span>利润率 / 反内卷 / 产业整合 / 优胜劣汰</span>
+          <section class="industry-research-board" data-filters="电网">
+            <div><p class="eyebrow">产业研报</p><h3><a class="industry-report-link" href="../../sources/automations/电网产业/2026-07-17-十五五电网投资与电网行业完整分析报告.html">十五五电网投资与电网行业完整分析报告</a></h3></div>
+            <span>支柱产业 / 电网 / 电力设备 / 新型电力系统</span>
           </section>
-          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 5条</span></div>
+          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 6条</span></div>
           <div class="industry-timeline">
             <div class="industry-feed">
-              <article class="industry-report" data-filters="高端制造,机械装备,成熟制造业龙头">
-                <span class="industry-time">12:00</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>支柱产业-高端制造 <b>研报</b></span><span>77</span></div>
-                <h3>中国中车机构级决策研报</h3>
-                <p>围绕轨道交通装备、央企制造平台和出海制造能力，整理产业位置、基本面证据和资金面观察。</p>
-                <div class="industry-tags">#高端制造 #机械装备 #轨道交通 #央企制造</div>
-                <div class="industry-reason">推荐理由：支柱产业不是简单旧经济，重点看规模竞争力、利润率修复和产业整合。</div>
+                            <article class="industry-report" data-filters="高端制造,机械装备,成熟制造业龙头">
+                <span class="industry-time">07-18</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>支柱产业 · 高端制造 <b>资金面</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/支柱产业/2026-07-18-中国中车资金面分层分析.html">中国中车资金面分层分析</a></h3>
+                <p>从支柱产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#高端制造 #目录自动读取 #资金面</div>
+                <div class="industry-reason">来源目录：sources/automations/支柱产业</div>
               </article>
               <article class="industry-report" data-filters="高端制造,机械装备,成熟制造业龙头">
-                <span class="industry-time">11:48</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>支柱产业-高端制造 <b>资金面</b></span><span>79</span></div>
-                <h3>中国中车资金面分层分析</h3>
-                <p>把资金面拆成产业资本、机构资金、交易资金和情绪资金，观察高端装备方向的资金承接质量。</p>
-                <div class="industry-tags">#资金面 #高端装备 #轨交装备</div>
-                <div class="industry-reason">推荐理由：同一支柱方向需要同时看产业逻辑和资金承接，避免只看叙事。</div>
+                <span class="industry-time">07-18</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>支柱产业 · 高端制造 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/支柱产业/2026-07-18-中国中车机构级决策研报.html">中国中车机构级决策研报</a></h3>
+                <p>从支柱产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#高端制造 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/支柱产业</div>
               </article>
               <article class="industry-report" data-filters="高端制造,机械装备">
-                <span class="industry-time">10:07</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>支柱产业-高端制造 <b>资金面</b></span><span>73</span></div>
-                <h3>中国船舶资金面分层分析</h3>
-                <p>跟踪船舶链条在高端制造、出口订单、周期景气和央企平台中的资金面变化。</p>
-                <div class="industry-tags">#中国船舶 #高端制造 #出口订单</div>
-                <div class="industry-reason">推荐理由：船舶链条既有周期属性，也有高端制造和出海制造能力验证。</div>
+                <span class="industry-time">07-18</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>支柱产业 · 高端制造 <b>资金面</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/支柱产业/2026-07-18-中国船舶资金面分层分析.html">中国船舶资金面分层分析</a></h3>
+                <p>从支柱产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#高端制造 #目录自动读取 #资金面</div>
+                <div class="industry-reason">来源目录：sources/automations/支柱产业</div>
               </article>
-              <article class="industry-report" data-filters="高端制造,电力设备,成熟制造业龙头">
-                <span class="industry-time">09:42</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>支柱产业-高端制造 <b>研报</b></span><span>68</span></div>
-                <h3>神马电力机构级决策研报</h3>
-                <p>围绕电网设备、高可靠性材料、特高压出海和复合外绝缘替代，判断其在支柱产业中的位置。</p>
-                <div class="industry-tags">#电力设备 #特高压 #高可靠性材料</div>
-                <div class="industry-reason">推荐理由：支柱产业上游关键零部件要看替代空间、订单兑现和利润率变化。</div>
+                            <article class="industry-report" data-filters="电网">
+                <span class="industry-time">07-18</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>支柱产业 · 电网 <b>资金面</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/电网产业/2026-07-18-神马电力资金面分层分析.html">神马电力资金面分层分析</a></h3>
+                <p>从电网产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#电网 #目录自动读取 #资金面</div>
+                <div class="industry-reason">来源目录：sources/automations/电网产业</div>
               </article>
-              <article class="industry-report" data-filters="高端制造,电力设备,成熟制造业龙头">
-                <span class="industry-time">09:16</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>支柱产业-高端制造 <b>资金面</b></span><span>65</span></div>
-                <h3>神马电力资金面分层分析</h3>
-                <p>跟踪电网设备方向在机构、趋势、情绪和产业资本之间的资金分层状态。</p>
-                <div class="industry-tags">#神马电力 #电网设备 #资金分层</div>
-                <div class="industry-reason">推荐理由：资金面验证用于判断产业逻辑是否获得持续承接，而不是替代基本面。</div>
+              <article class="industry-report" data-filters="电网">
+                <span class="industry-time">07-18</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>支柱产业 · 电网 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/电网产业/2026-07-18-神马电力机构级决策研报.html">神马电力机构级决策研报</a></h3>
+                <p>从电网产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#电网 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/电网产业</div>
+              </article>
+              <article class="industry-report" data-filters="电网">
+                <span class="industry-time">15:14</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>支柱产业 · 电网 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/电网产业/2026-07-15-1514-华明装备机构级决策研报.html">华明装备机构级决策研报</a></h3>
+                <p>从电网产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#电网 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/电网产业</div>
               </article>
             </div>
           </div>
@@ -1579,6 +1693,12 @@ function startApp() {
     const activeFilter = section.querySelector('.industry-filter-tabs button.is-active')?.dataset.filter ?? 'all';
     const query = section.querySelector('.industry-search input')?.value.trim().toLocaleLowerCase('zh-CN') ?? '';
     let visibleCount = 0;
+    section.querySelectorAll('.industry-research-board').forEach(board => {
+      const filters = (board.dataset.filters ?? '').split(',').map(item => item.trim()).filter(Boolean);
+      const matchesFilter = activeFilter === 'all' || filters.includes(activeFilter);
+      const matchesQuery = !query || board.textContent.toLocaleLowerCase('zh-CN').includes(query);
+      board.hidden = !(matchesFilter && matchesQuery);
+    });
     section.querySelectorAll('.industry-report').forEach(card => {
       const filters = (card.dataset.filters ?? '').split(',').map(item => item.trim()).filter(Boolean);
       const matchesFilter = activeFilter === 'all' || filters.includes(activeFilter);

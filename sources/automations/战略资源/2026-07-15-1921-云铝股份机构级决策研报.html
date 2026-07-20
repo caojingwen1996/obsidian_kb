@@ -1,0 +1,953 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>云铝股份（000807.SZ）机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.verdict { display: inline-flex; margin-top: 24px; padding: 7px 13px; border-radius: 999px; color: var(--danger); background: var(--danger-bg); font-weight: 750; }
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 26px; }
+.kpi { min-height: 96px; padding: 17px 18px; border: 1px solid rgba(255,255,255,.22); border-radius: 14px; background: rgba(255,255,255,.09); }
+.kpi-value { display: block; font-size: 23px; line-height: 1.3; font-weight: 760; overflow-wrap: anywhere; }
+.kpi-label { display: block; margin-top: 10px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; opacity: .8; }
+
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+}
+
+@media (max-width: 600px) {
+  .kpis { grid-template-columns: 1fr; }
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .verdict, .kpi { border: 1px solid #aebbc2; color: #102f43; background: #fff; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · 000807.SZ</p>
+      <h1>云铝股份（000807.SZ）机构级决策研报</h1>
+      <div class="hero-meta"><span>研究截止时间未获取</span><span>报告生成时间未获取</span><span>市场与币种未获取</span></div>
+      <div class="verdict">合理偏贵 · wait / observe</div>
+      <div class="kpis">
+        <div class="kpi"><span class="kpi-value">未获取</span><span class="kpi-label">当前价格</span></div>
+        <div class="kpi"><span class="kpi-value">未获取</span><span class="kpi-label">综合估值区间</span></div>
+        <div class="kpi"><span class="kpi-value">wait / observe</span><span class="kpi-label">冰冰小美动作</span></div>
+        <div class="kpi"><span class="kpi-value">中</span><span class="kpi-label">结论置信度</span></div>
+      </div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
+<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
+<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
+<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
+<a class="toc-link" href="#section-6">6. 五年财务历史</a>
+<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
+<a class="toc-link" href="#section-8">8. 近三个月催化剂与风险节点</a>
+<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
+<a class="toc-link" href="#section-10">10. 三种估值交叉验证</a>
+<a class="toc-link" href="#section-11">11. 冰冰小美框架判断</a>
+<a class="toc-link" href="#section-12">12. 最终结论</a>
+<a class="toc-link" href="#section-13">13. 后续监控指标</a>
+<a class="toc-link" href="#section-14">14. 未获取数据与局限</a>
+<a class="toc-link" href="#section-15">15. 相关页面</a>
+<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
+      <article class="content"><blockquote>
+<p>研究时点：2026-07-15 19:21（Asia/Shanghai）<br>行情时点：2026-07-15 收盘<br>法定披露体系：深交所 / 巨潮资讯；不是 SEC 申报主体<br>结论有效期：2026 年半年报正式披露、铝价/氧化铝价格差显著反转或云南限电事件三者中最早发生者。</p>
+</blockquote>
+<h2 id="section-1">1. 决策摘要</h2>
+
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值状态</td>
+<td><strong>合理偏贵</strong></td>
+</tr>
+<tr>
+<td>操作建议</td>
+<td><strong>观望，不追业绩预告后的上涨</strong></td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td><strong>wait / observe</strong></td>
+</tr>
+<tr>
+<td>当前价格</td>
+<td>26.10 元，2026-07-15 收盘</td>
+</tr>
+<tr>
+<td>综合决策区间</td>
+<td><strong>20—28 元</strong>，中枢约 23 元</td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>-23.4% 至 +7.3%；中枢约 -11.9%</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h3>如果今天这是一笔现金，我会买它吗</h3>
+<p><strong>不会立即买。</strong> 公司处在利润高景气和资产负债表改善期，但当前价格已经兑现了相当部分“高铝价 + 低氧化铝成本 + 供给上限”的组合。7 月 14—15 日累计上涨约 13.2%，最新卖方目标价 27.66 元只比现价高约 6.0%，安全边际不足。</p>
+<p>我会等待两种条件之一：</p>
+<ol>
+<li>股价回到 <strong>20—22 元</strong>，同时电解铝—氧化铝利润差、云南供电和社会库存没有恶化；</li>
+<li>半年报和三季报证明单季 35—40 亿元级利润不是短暂价差峰值，正常化 FCF 可持续高于 75 亿元，再上调价值中枢。</li>
+</ol>
+<h2 id="section-2">2. 证券身份与来源矩阵</h2>
+
+<h3>2.1 证券身份</h3>
+<ul>
+<li>公司全称：云南铝业股份有限公司。</li>
+<li>证券代码：000807.SZ。</li>
+<li>上市地 / 币种：深圳证券交易所 / 人民币。</li>
+<li>报告准则：中国企业会计准则。</li>
+<li>同名或跨市场歧义：无。</li>
+</ul>
+<h3>2.2 来源矩阵</h3>
+<table>
+<thead>
+<tr>
+<th>数据项目</th>
+<th>实际来源</th>
+<th>数据时间</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>收盘价、PE、PB、总股本</td>
+<td>中财网行情页</td>
+<td>2026-07-15 收盘</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>52 周高低、年初至今</td>
+<td>搜狐证券历史行情</td>
+<td>2025-07-16—2026-07-15</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>Morningstar 公允价值、护城河、星级</td>
+<td>Bing / Morningstar 关键词公开检索</td>
+<td>2026-07-15</td>
+<td><strong>未获取到</strong></td>
+</tr>
+<tr>
+<td>最新季报和业绩预告</td>
+<td>公司定期报告结构化数据、公告转载</td>
+<td>2026Q1 / 2026H1 预告</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>分部收入</td>
+<td>2025 年报结构化数据</td>
+<td>2025-12-31</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>卖方评级和目标价</td>
+<td>新浪财经研报转载、同花顺聚合</td>
+<td>2026-04-28—07-14</td>
+<td>已获取，完整性有限</td>
+</tr>
+<tr>
+<td>五年财务历史</td>
+<td>中财网 F10 对 2021—2025 年报的结构化数据</td>
+<td>2021—2025</td>
+<td>已获取；巨潮 PDF 原件本轮未取得</td>
+</tr>
+</tbody></table>
+<p>来源页：<a href="../../webpages/2026-07-15-中财网-云铝股份行情财务与公告快照.html">行情、财务与公告快照</a>、<a href="../../webpages/2026-07-15-搜狐-云铝股份历史行情快照.html">历史行情快照</a>、<a href="../../webpages/2026-07-15-云铝股份卖方评级与催化剂检索记录.html">卖方与催化剂检索</a>。</p>
+<h2 id="section-3">3. 行情与市场预期</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">数据</th>
+<th>口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>收盘价</td>
+<td align="right">26.10 元</td>
+<td>2026-07-15</td>
+</tr>
+<tr>
+<td>当日涨跌</td>
+<td align="right">+4.48%</td>
+<td>前一日 +8.33%</td>
+</tr>
+<tr>
+<td>总市值</td>
+<td align="right">约 905.1 亿元</td>
+<td>26.10 元 × 34.68 亿股</td>
+</tr>
+<tr>
+<td>52 周高 / 低</td>
+<td align="right">38.23 / 15.49 元</td>
+<td>未复权日行情</td>
+</tr>
+<tr>
+<td>年初至今</td>
+<td align="right">-20.52%</td>
+<td>以 2025-12-31 收盘 32.84 元计算</td>
+</tr>
+<tr>
+<td>行情页 PE / 扣非 PE</td>
+<td align="right">10.43 / 10.54 倍</td>
+<td>中财网页面口径</td>
+</tr>
+<tr>
+<td>P/B</td>
+<td align="right">2.29 倍</td>
+<td>中财网页面口径</td>
+</tr>
+<tr>
+<td>2026H1 预告 EPS</td>
+<td align="right">2.16—2.25 元</td>
+<td>未审计</td>
+</tr>
+</tbody></table>
+<h3>第三方公允价值和卖方目标</h3>
+<ul>
+<li>Morningstar 公允价值、经济护城河评级、星级：<strong>未获取到</strong>，不作替代填充。</li>
+<li>最新报告：国投证券 2026-07-14，买入-A，6 个月目标价 27.66 元，2026 年归母净利润预测 127.57 亿元。</li>
+<li>较早报告：华创证券 2026-04-28，推荐，目标价 39.70 元，2026 年归母净利润预测 137.8 亿元。</li>
+<li>同花顺 5 月聚合：14 家机构，目标价 36.63—41.00 元、均值 39.18 元；但早于 H1 预告且缺完整明细。</li>
+</ul>
+<p>**采信理由：**7 月 14 日国投证券报告已吸收 H1 预告，目标价时效性最高。39 元附近的聚合目标只能视为乐观情景，不能作为现金买入中枢。</p>
+<h2 id="section-4">4. 商业模式与竞争格局</h2>
+
+<h3>事实</h3>
+<ul>
+<li>公司是“氧化铝—电解铝—铝加工”一体化企业，利润核心仍是电解铝售价与电力、氧化铝、阳极等成本之间的冶炼价差。</li>
+<li>2025 年铝商品产量 322.59 万吨，氧化铝产量 130.36 万吨；收购少数股权后，电解铝权益产能提升 15 万吨以上。</li>
+<li>2025 年生产用电中清洁能源比例约 87.5%（卖方引用公司数据），绿电和云南水电形成低碳品牌与部分成本优势。</li>
+<li>2025 年末资产负债率约 19.84%，2026Q1 进一步降至约 17.74%；货币资金明显高于有息债务。</li>
+<li>国内电解铝产能接近合规上限，供给弹性受约束；但铝并非不可复制的稀缺矿业资源，利润仍会随供需、能源和原料价差周期波动。</li>
+</ul>
+<h3>我的判断</h3>
+<p>云铝的优势是<strong>绿电、规模、一体化运营、低杠杆和成本控制的组合</strong>，不是对铝价的定价权。它更像周期中成本曲线较优的制造企业，而不是拥有永久稀缺性的资源垄断者。</p>
+<p>这与<a href="../../../concepts/冰冰小美-铜铝差异框架.html">冰冰小美-铜铝差异框架</a>一致：铝的核心要看冶炼端电力与制造利润，不能简单套用铜矿稀缺叙事。证伪条件是电耗/成本优势消失、云南限电导致产能利用率下降，或氧化铝价格反弹快于铝价使价差收缩。</p>
+<h2 id="section-5">5. 分部收入与盈利拆解</h2>
+
+<table>
+<thead>
+<tr>
+<th>分部</th>
+<th align="right">2025 收入</th>
+<th align="right">收入占比</th>
+<th align="right">毛利率</th>
+<th>主要变量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>电解铝</td>
+<td align="right">341.05 亿元</td>
+<td align="right">56.80%</td>
+<td align="right">18.16%</td>
+<td>铝价、电价、氧化铝和阳极成本、产量</td>
+</tr>
+<tr>
+<td>铝加工产品</td>
+<td align="right">252.23 亿元</td>
+<td align="right">42.01%</td>
+<td align="right">15.24%</td>
+<td>加工费、合金化率、铝水就地转化、下游需求</td>
+</tr>
+<tr>
+<td>其他</td>
+<td align="right">7.15 亿元</td>
+<td align="right">1.19%</td>
+<td align="right">5.91%</td>
+<td>非核心</td>
+</tr>
+</tbody></table>
+<p>2025 年综合毛利率 16.79%，较 2024 年 13.23% 上升 3.56 个百分点。增长并非纯销量驱动：铝商品产量同比 +6.47%，同时铝价上行、氧化铝成本下降共同放大利润。</p>
+<p>**我的判断：**2026H1 的高增长质量较好，因为归母、扣非与现金流同步改善；但利润对价差高度敏感，不能把 2026Q1 的 31.57% 毛利率线性外推为永续水平。</p>
+<h2 id="section-6">6. 五年财务历史</h2>
+
+<table>
+<thead>
+<tr>
+<th>年度</th>
+<th align="right">营收</th>
+<th align="right">毛利率</th>
+<th align="right">CFO</th>
+<th align="right">资本开支</th>
+<th align="right">FCF</th>
+<th align="right">ROIC 代理值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td align="right">416.69 亿元</td>
+<td align="right">20.36%</td>
+<td align="right">69.62 亿元</td>
+<td align="right">12.74 亿元</td>
+<td align="right">56.87 亿元</td>
+<td align="right">16.1%</td>
+</tr>
+<tr>
+<td>2022</td>
+<td align="right">484.63 亿元</td>
+<td align="right">14.94%</td>
+<td align="right">69.14 亿元</td>
+<td align="right">9.64 亿元</td>
+<td align="right">59.51 亿元</td>
+<td align="right">17.4%</td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">426.69 亿元</td>
+<td align="right">15.80%</td>
+<td align="right">58.71 亿元</td>
+<td align="right">7.33 亿元</td>
+<td align="right">51.38 亿元</td>
+<td align="right">15.6%</td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">544.50 亿元</td>
+<td align="right">13.23%</td>
+<td align="right">69.47 亿元</td>
+<td align="right">6.58 亿元</td>
+<td align="right">62.89 亿元</td>
+<td align="right">16.7%</td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">600.43 亿元</td>
+<td align="right">16.79%</td>
+<td align="right">84.32 亿元</td>
+<td align="right">6.41 亿元</td>
+<td align="right">77.92 亿元</td>
+<td align="right">23.4%</td>
+</tr>
+</tbody></table>
+<p>口径：</p>
+<ul>
+<li><code>FCF = 经营活动现金流净额 - 购建固定资产、无形资产和其他长期资产支付的现金</code>。</li>
+<li><code>ROIC 代理值 = 营业利润 ×（净利润 / 利润总额）÷ 平均投入资本</code>。</li>
+<li>投入资本代理值为归母权益 + 短期借款 + 一年内到期非流动负债 + 长期借款 + 租赁负债 - 货币资金；2021 因缺 2020 同口径数据采用年末值。</li>
+<li>该 ROIC 未完整调整少数股东权益和全部非经营资产，不是公司披露的标准 ROIC。</li>
+</ul>
+<h3>我的判断</h3>
+<p>五年 FCF 均为正，资本开支下降、债务减少，说明本轮盈利改善已经转化为现金和资产负债表质量。2025 年 ROIC 代理值跃升至 23.4%，但这同时提示公司处于利润周期较好位置；现金流质量强，不等于高利润可永久维持。</p>
+<h2 id="section-7">7. 最新季度与管理层指引</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">2026Q1</th>
+<th align="right">同比 / 变化</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营业收入</td>
+<td align="right">163.83 亿元</td>
+<td align="right">+13.68%</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">31.57%</td>
+<td align="right">由收入和成本计算，显著高于 2025 全年</td>
+</tr>
+<tr>
+<td>归母净利润</td>
+<td align="right">36.00 亿元</td>
+<td align="right">+269.45%</td>
+</tr>
+<tr>
+<td>扣非归母净利润</td>
+<td align="right">35.53 亿元</td>
+<td align="right">+266.39%</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">33.97 亿元</td>
+<td align="right">+95.24%</td>
+</tr>
+</tbody></table>
+<p>2026H1 归母净利润预告 75—78 亿元，意味着 Q2 约 39—42 亿元，再创新高。公司解释为产品价格上涨和成本下降。预告未经审计，正式半年报是下一验证节点。</p>
+<p>管理层 2026 年产量计划：氧化铝约 130 万吨、铝商品约 319 万吨、炭素制品约 75 万吨。没有正式披露全年收入、利润或自由现金流指引。</p>
+<h2 id="section-8">8. 近三个月催化剂与风险节点</h2>
+
+<table>
+<thead>
+<tr>
+<th>日期</th>
+<th>事件</th>
+<th>传导</th>
+<th>是否已反映</th>
+<th>下一验证</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-04-23</td>
+<td>Q1 利润和现金流大增</td>
+<td>铝价上行 + 氧化铝下跌 → 毛利率跃升</td>
+<td>部分反映</td>
+<td>Q2 价差与现金流</td>
+</tr>
+<tr>
+<td>2026-07-13</td>
+<td>H1 预告归母 75—78 亿元</td>
+<td>Q2 单季利润创新高</td>
+<td><strong>明显反映</strong>：随后两日约 +13.2%</td>
+<td>半年报审计口径</td>
+</tr>
+<tr>
+<td>2026-07-14</td>
+<td>卖方称社会库存从 146.5 万吨降至 104.7 万吨</td>
+<td>库存去化支撑铝价</td>
+<td>部分反映</td>
+<td>库存是否继续下降</td>
+</tr>
+<tr>
+<td>2025 年末至今</td>
+<td>权益产能提升 15 万吨以上</td>
+<td>少数股权收购 → 归母利润占比提升</td>
+<td>正在反映</td>
+<td>归母/少数股东损益变化</td>
+</tr>
+</tbody></table>
+<h2 id="section-9">9. 多头与空头论据</h2>
+
+<h3>多头</h3>
+<ol>
+<li>国内电解铝产能接近上限，新能源、电网、储能等需求支撑紧平衡。</li>
+<li>云南绿电、一体化运营和低杠杆使公司处于较优成本曲线。</li>
+<li>2026H1 归母净利润同比增长 171%—182%，Q2 单季利润继续上升。</li>
+<li>五年 FCF 全部为正，2025 年 FCF 77.92 亿元；净现金能力增强。</li>
+<li>收购少数股权提高电解铝权益产能和归母利润弹性。</li>
+</ol>
+<h3>空头</h3>
+<ol>
+<li>2026H1 高利润主要来自商品价格与成本价差，周期峰值不可线性外推。</li>
+<li>云南水电存在枯水、限电和电价波动风险；绿电优势不等于产量无约束。</li>
+<li>氧化铝价格回升或铝价回落会产生双向利润挤压。</li>
+<li>当前 P/B 2.29 倍，高于神火股份 1.84 倍、天山铝业 1.88 倍；市场已给质量溢价。</li>
+<li>业绩预告后两日上涨约 13.2%，最新卖方目标价只剩约 6% 上行空间。</li>
+</ol>
+<h2 id="section-10">10. 三种估值交叉验证</h2>
+
+<h3>10.1 相对估值</h3>
+<table>
+<thead>
+<tr>
+<th>公司</th>
+<th align="right">PE</th>
+<th align="right">PB</th>
+<th>数据时间</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>云铝股份</td>
+<td align="right">10.43</td>
+<td align="right">2.29</td>
+<td>2026-07-15</td>
+<td>行情页口径</td>
+</tr>
+<tr>
+<td>神火股份</td>
+<td align="right">10.27</td>
+<td align="right">1.84</td>
+<td>2026-07-15</td>
+<td>煤铝双主业，盈利结构不同</td>
+</tr>
+<tr>
+<td>天山铝业</td>
+<td align="right">9.87</td>
+<td align="right">1.88</td>
+<td>2026-07-15</td>
+<td>铝产业链可比</td>
+</tr>
+</tbody></table>
+<p>云铝的 PE 与两家可比公司接近，P/B 溢价约 22%—24%，反映绿电、资产负债表和本轮利润弹性。采用国投证券 2026E EPS 3.68 元，给予 7.5—9.0 倍周期前瞻 PE，对应 <strong>27.6—33.1 元</strong>。该区间依赖 2026 年归母净利润 127.57 亿元兑现，置信度中低。</p>
+<h3>10.2 简化现金流 DCF</h3>
+<p>使用 CFO 减资本开支作为简化股权现金流。由于该现金流已包含利息影响、未加净借款，折现率是决策用股权现金流折现率，不是严格教科书 FCFF-WACC 模型。</p>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">起点 FCF</th>
+<th align="right">五年增长</th>
+<th align="right">折现率</th>
+<th align="right">永续增长</th>
+<th align="right">每股价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观</td>
+<td align="right">45 亿元</td>
+<td align="right">-1%</td>
+<td align="right">11.5%</td>
+<td align="right">0%</td>
+<td align="right">10.83 元</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">60 亿元</td>
+<td align="right">2%</td>
+<td align="right">10.0%</td>
+<td align="right">1.5%</td>
+<td align="right">21.10 元</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">75 亿元</td>
+<td align="right">3%</td>
+<td align="right">9.0%</td>
+<td align="right">2.0%</td>
+<td align="right">32.90 元</td>
+</tr>
+</tbody></table>
+<h4>基准现金流敏感性（元/股）</h4>
+<table>
+<thead>
+<tr>
+<th align="right">折现率 \ 永续增长</th>
+<th align="right">0%</th>
+<th align="right">1%</th>
+<th align="right">2%</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">9%</td>
+<td align="right">20.91</td>
+<td align="right">22.79</td>
+<td align="right">25.21</td>
+</tr>
+<tr>
+<td align="right">10%</td>
+<td align="right">18.80</td>
+<td align="right">20.25</td>
+<td align="right">22.06</td>
+</tr>
+<tr>
+<td align="right">11%</td>
+<td align="right">17.07</td>
+<td align="right">18.21</td>
+<td align="right">19.61</td>
+</tr>
+</tbody></table>
+<p>**反向 DCF：**现价对应约 905 亿元市值，在五年增长 2%、折现率 10%、永续增长 1.5% 下，需要起点正常化 FCF 约 <strong>74.2 亿元</strong>。这接近 2025 年创高位的 77.92 亿元，说明市场要求高现金流大体延续，安全垫不厚。</p>
+<h3>10.3 行业特定估值：正常化利润 × 周期倍数</h3>
+<p>2021—2025 年归母净利润均值约 44.6 亿元，但产能权益提升、债务下降与供给约束使未来中枢可能高于历史均值。采用 <strong>65—90 亿元正常化归母净利润 × 8—9.5 倍周期 PE</strong>，对应股权价值 520—855 亿元，即 <strong>15.0—24.7 元/股</strong>。</p>
+<p>局限：正常化利润对铝价、氧化铝和电价假设高度敏感；若 2026 年 125—140 亿元利润能够跨周期维持，该方法会低估。</p>
+<h3>10.4 估值汇总</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="right">区间</th>
+<th>权重判断</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>前瞻相对 PE</td>
+<td align="right">27.6—33.1 元</td>
+<td>低到中；依赖卖方高盈利预测</td>
+</tr>
+<tr>
+<td>简化 DCF</td>
+<td align="right">10.8—32.9 元，基准 21.1 元</td>
+<td>中；对周期和折现率敏感</td>
+</tr>
+<tr>
+<td>正常化利润法</td>
+<td align="right">15.0—24.7 元</td>
+<td>高；更适合商品周期企业</td>
+</tr>
+<tr>
+<td>最新卖方目标</td>
+<td align="right">27.66 元</td>
+<td>参考；距现价仅约 6%</td>
+</tr>
+</tbody></table>
+<p>综合不机械平均，采用 <strong>20—28 元</strong>作为决策区间，中枢约 <strong>23 元</strong>。原因是周期股应优先看正常化利润和反向 DCF，而不是把当前单季高利润永久化；上沿保留供给上限、绿电和权益产能提升的结构性溢价。</p>
+<h2 id="section-11">11. 冰冰小美框架判断</h2>
+
+<h3>今日文章后的产业归类</h3>
+<p>按<a href="../BBXM每日汇总/20260718/冰冰小美/summary.html">2026-07-18 冰冰小美每日汇总</a>中“战略资源、支柱产业、新兴产业”的三条配置线重新审视，云铝股份的主标签应是<strong>战略资源 / 周期资源 / 工业材料</strong>，副标签是<strong>支柱产业上游基础材料</strong>；它不是新兴产业，也不是最典型的支柱产业本体。</p>
+<p>原因是云铝的核心利润并不来自终端制造品牌或支柱产业整机能力，而来自电解铝这一上游工业材料的价差、成本曲线和产能约束。它可以服务电力、汽车、新能源、基建和制造业等支柱产业，但交易验证仍要回到铝价周期、电力成本、云南限电、产能约束和需求韧性是否继续共振。</p>
+<p>这与<a href="../../articles/2025-12-27-冰冰小美：铜与铝的不同.html">铜与铝的不同</a>一文中的判断一致：铝更接近电力与制造业利润逻辑，不能简单按铜矿式稀缺资源逻辑处理。因此，后续持仓审视的重点不应停留在“是不是支柱产业”，而应检查上游工业材料的利润变量是否仍然有利。</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>状态</th>
+<th>证据</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>产业方向 / 竞争格局</td>
+<td>正向</td>
+<td>国内产能上限、库存去化、需求结构增长</td>
+<td>新增供给超预期或需求明显转弱</td>
+</tr>
+<tr>
+<td>基本面风险</td>
+<td>低到中</td>
+<td>利润、扣非、CFO 同步改善</td>
+<td>铝价跌、氧化铝涨、云南限电</td>
+</tr>
+<tr>
+<td>估值风险</td>
+<td>中</td>
+<td>现价高于 DCF/正常化利润中枢</td>
+<td>高利润跨周期兑现可降低风险</td>
+</tr>
+<tr>
+<td>流动性</td>
+<td>正常偏热</td>
+<td>7 月 14—15 日连续放量上涨</td>
+<td>板块资金退潮、放量跌破催化前价格</td>
+</tr>
+<tr>
+<td>情绪位置</td>
+<td>催化后升温</td>
+<td>两日约 +13.2%，预告利好快速定价</td>
+<td>回落后缩量企稳</td>
+</tr>
+<tr>
+<td>风险是否转弱</td>
+<td>基本面风险转弱，买点风险未转弱</td>
+<td>盈利确认，但价格同步上修</td>
+<td>价格出现安全边际或盈利再上台阶</td>
+</tr>
+</tbody></table>
+<p>风险传导链：</p>
+<p><code>铝价上涨 + 氧化铝成本下降 + 产能利用率稳定 → 冶炼价差扩大 → 毛利率与现金流跃升 → 卖方上修盈利 → 价格追涨 → 高利润持续性成为新的估值风险。</code></p>
+<p>当前动作：<strong>wait / observe</strong>。</p>
+<p>这不是“方向错了”，而是“方向正确尚不能自动转化为买点”。按照<a href="../../articles/2025-12-27-冰冰小美：铜与铝的不同.html">铜与铝的不同</a>，应继续跟踪电力和制造价差，而不是把供给上限直接解释为永久稀缺。业绩预告后的追涨会把成本安全交给商品价格。</p>
+<h2 id="section-12">12. 最终结论</h2>
+
+<ul>
+<li>估值：<strong>合理偏贵</strong>。</li>
+<li>操作：<strong>观望，不追涨</strong>。</li>
+<li>综合估值区间：<strong>20—28 元</strong>，中枢约 23 元。</li>
+<li>如果今天这是一笔现金：<strong>不会现在买入</strong>。</li>
+<li>允许进入买入复核：价格回到 20—22 元且价差未恶化，或正式半年报/三季报证明正常化 FCF 可持续高于 75 亿元。</li>
+<li>规避/减仓触发：铝价与氧化铝成本同时挤压价差、云南限电导致产量下降、滚动 CFO/净利润显著低于 70%，或股价升至 30 元以上而盈利预测没有同步上修。</li>
+</ul>
+<h2 id="section-13">13. 后续监控指标</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">当前基线</th>
+<th>触发阈值 / 方向</th>
+<th>复核频率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>电解铝价格</td>
+<td align="right">2026H1 均价约 24,140 元/吨（卖方引用 SMM）</td>
+<td>持续跌破成本假设需下修利润</td>
+<td>周</td>
+</tr>
+<tr>
+<td>氧化铝价格及铝氧价差</td>
+<td align="right">2026Q1 氧化铝同比明显下降</td>
+<td>氧化铝反弹快于铝价为风险增强</td>
+<td>周</td>
+</tr>
+<tr>
+<td>国内电解铝社会库存</td>
+<td align="right">2026-07-13 约 104.7 万吨</td>
+<td>重新连续累库</td>
+<td>周</td>
+</tr>
+<tr>
+<td>云南来水、用电与产量</td>
+<td align="right">2026 年铝商品计划约 319 万吨</td>
+<td>限电或产量计划下调</td>
+<td>月 / 季</td>
+</tr>
+<tr>
+<td>单季归母净利润</td>
+<td align="right">Q1 36 亿元，Q2 预估 39—42 亿元</td>
+<td>H2 明显低于 25 亿元且非季节性</td>
+<td>季</td>
+</tr>
+<tr>
+<td>FCF 与现金转化</td>
+<td align="right">2025 FCF 77.92 亿元</td>
+<td>滚动 CFO/归母净利润 &lt;70%</td>
+<td>季</td>
+</tr>
+<tr>
+<td>股价安全边际</td>
+<td align="right">26.10 元</td>
+<td>20—22 元进入买入复核</td>
+<td>日</td>
+</tr>
+</tbody></table>
+<h3>13.1 作者买入逻辑的四组后续验证指标</h3>
+<p>若按“悲观供给预期已经提前交易，真实产业链数据仍未恶化，电解铝优质产能可能从周期定价转向资源 / 现金流定价”这条买入逻辑跟踪，后续验证不能只看云铝股价，也不能只看铝价。应至少拆成供给端、需求端、库存和价格端、公司端四组指标。</p>
+<table>
+<thead>
+<tr>
+<th>分组</th>
+<th>跟踪指标</th>
+<th>验证方向</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>供给端</td>
+<td>国内电解铝运行产能</td>
+<td>若运行产能快速上行，说明供给约束弱化；若维持在合规上限附近，支持紧平衡逻辑。</td>
+</tr>
+<tr>
+<td>供给端</td>
+<td>国内产能利用率</td>
+<td>高利用率且无明显新增弹性，支持“纸面产能不等于有效供给”；利用率回落则提示需求或利润压力。</td>
+</tr>
+<tr>
+<td>供给端</td>
+<td>云南枯水期和丰水期供电情况</td>
+<td>云南供电稳定支持云铝产量和成本优势；枯水期限电会直接削弱公司端利润确定性。</td>
+</tr>
+<tr>
+<td>供给端</td>
+<td>印尼电解铝项目实际投产进度</td>
+<td>若投产延后，支持作者对海外有效供给释放偏慢的判断；若提前稳定投产，则削弱供给约束。</td>
+</tr>
+<tr>
+<td>供给端</td>
+<td>海外冶炼厂复产情况</td>
+<td>海外复产加快会增加全球供给压力；复产受电力、成本或政策约束则支持紧平衡。</td>
+</tr>
+<tr>
+<td>供给端</td>
+<td>国内产能政策是否变化</td>
+<td>4500 万吨红线、绿色产能置换和新增审批变化，是作者逻辑最关键的政策假设。</td>
+</tr>
+<tr>
+<td>需求端</td>
+<td>铝材开工率</td>
+<td>反映下游加工真实订单强弱；持续回落说明需求端未能接住供给。</td>
+</tr>
+<tr>
+<td>需求端</td>
+<td>铝棒加工费</td>
+<td>作者强调加工费比铝价更贴近真实需求；加工费坚挺支持需求韧性，快速下滑提示抢单降价。</td>
+</tr>
+<tr>
+<td>需求端</td>
+<td>铝棒库存</td>
+<td>铝棒库存上升且加工费走弱，说明加工端压力增大；库存去化则支持订单仍在。</td>
+</tr>
+<tr>
+<td>需求端</td>
+<td>铝锭出库量</td>
+<td>出库量稳定或改善，支持现货需求；出库走弱则提示铝价可能只是金融或库存定价。</td>
+</tr>
+<tr>
+<td>需求端</td>
+<td>电网投资增速</td>
+<td>电网、特高压和配网扩容是作者需求重估的重要支点。</td>
+</tr>
+<tr>
+<td>需求端</td>
+<td>光伏装机和组件排产</td>
+<td>光伏链条影响边框、支架等用铝需求，排产走弱会削弱增量需求叙事。</td>
+</tr>
+<tr>
+<td>需求端</td>
+<td>新能源汽车产销量</td>
+<td>新能源车轻量化支撑中长期用铝量，产销放缓会降低需求弹性。</td>
+</tr>
+<tr>
+<td>需求端</td>
+<td>房地产竣工和建筑用铝需求</td>
+<td>地产仍是传统需求变量；若竣工继续下滑，新能源和电网需求必须足够强才能对冲。</td>
+</tr>
+<tr>
+<td>库存和价格端</td>
+<td>国内电解铝社会库存</td>
+<td>连续去库支持供需紧平衡；重新连续累库则是作者逻辑的重要反证。</td>
+</tr>
+<tr>
+<td>库存和价格端</td>
+<td>LME 库存及注销仓单</td>
+<td>LME 库存低位和注销仓单变化可验证海外现货紧张程度。</td>
+</tr>
+<tr>
+<td>库存和价格端</td>
+<td>SHFE 库存</td>
+<td>反映国内交易所库存压力，与社会库存共同验证现货供需。</td>
+</tr>
+<tr>
+<td>库存和价格端</td>
+<td>现货升贴水</td>
+<td>现货升水支持短期现货紧张；持续贴水提示需求承接不足或库存压力上升。</td>
+</tr>
+<tr>
+<td>库存和价格端</td>
+<td>铝价期限结构</td>
+<td>近强远弱支持现货偏紧，远月显著承压则提示市场仍在定价未来过剩。</td>
+</tr>
+<tr>
+<td>库存和价格端</td>
+<td>氧化铝价格</td>
+<td>氧化铝反弹会侵蚀电解铝利润；低位或回落支持云铝利润弹性。</td>
+</tr>
+<tr>
+<td>库存和价格端</td>
+<td>电解铝即时利润</td>
+<td>即时利润决定冶炼端生产意愿和云铝利润外推可靠性。</td>
+</tr>
+<tr>
+<td>公司端</td>
+<td>云铝电解铝产销量</td>
+<td>验证公司是否能把行业景气转化为实际产量和销量。</td>
+</tr>
+<tr>
+<td>公司端</td>
+<td>吨铝成本</td>
+<td>成本优势是云铝被视为优质产能的核心，若吨铝成本上移需下修估值溢价。</td>
+</tr>
+<tr>
+<td>公司端</td>
+<td>云南电价和水电供应</td>
+<td>直接影响绿电铝优势、低碳溢价和枯水期产能稳定性。</td>
+</tr>
+<tr>
+<td>公司端</td>
+<td>资本开支</td>
+<td>低资本开支支持自由现金流和分红；资本开支重新抬升会挤压股东回报。</td>
+</tr>
+<tr>
+<td>公司端</td>
+<td>自由现金流</td>
+<td>检查高利润是否真正变成可分配现金，而不是只停留在账面利润。</td>
+</tr>
+<tr>
+<td>公司端</td>
+<td>分红比例</td>
+<td>作者的高股息逻辑依赖 40%—50% 分红假设，需以董事会预案和年度分红兑现验证。</td>
+</tr>
+<tr>
+<td>公司端</td>
+<td>资产负债率</td>
+<td>低负债支持周期下行期安全垫；负债率上升会削弱资源现金流资产叙事。</td>
+</tr>
+<tr>
+<td>公司端</td>
+<td>关联交易和少数股东损益</td>
+<td>检查归母利润质量和利益分配，避免高景气被少数股东或关联交易稀释。</td>
+</tr>
+</tbody></table>
+<p>这组指标的用法是先看库存和加工费是否继续支持真实需求，再看供给端是否真没有有效扩张，最后落回云铝的吨铝成本、自由现金流和分红兑现。若四组指标中只有价格上涨而库存、加工费、现金流和分红没有同步验证，则作者逻辑更偏交易反弹；若四组指标持续共振，才更接近“优质电解铝产能重估”。</p>
+<h2 id="section-14">14. 未获取数据与局限</h2>
+
+<ul>
+<li>Morningstar 公允价值、经济护城河评级和股票星级：<strong>未获取到</strong>。</li>
+<li>2026H1 正式收入、毛利率、现金流和分部数据：尚未披露，当前只有业绩预告。</li>
+<li>完整 14 家卖方逐份模型：未获取到；聚合目标价只作市场预期背景。</li>
+<li>巨潮资讯 2021—2025 年报和 2026Q1 PDF 原件：本轮未取得；财务表采用中财网 F10 对定期报告的结构化字段，业绩预告采用公司公告转载全文。该限制降低来源层级，但不改变已做的万元/亿元复核。</li>
+<li>EV/EBITDA、标准化 FCFF 和严格 WACC：未完整重建；DCF 为简化股权现金流模型。</li>
+<li>52 周历史行情来自第三方，未用交易所逐笔数据二次校验。</li>
+</ul>
+<h2 id="section-15">15. 相关页面</h2>
+
+<ul>
+<li><a href="../../../concepts/冰冰小美-铜铝差异框架.html">冰冰小美-铜铝差异框架</a>：解释为什么云铝应看电力、成本曲线和制造价差，而不是照搬铜矿稀缺逻辑。</li>
+<li><a href="../../../reasoning/冰冰小美-有色金属二十年供需周期如何传导为全球通胀与产业转型.html">有色金属二十年供需周期推导</a>：提供更长周期的供需、能源和通胀框架。</li>
+<li><a href="../../webpages/2026-07-15-中财网-云铝股份行情财务与公告快照.html">行情财务与公告快照</a>：本报告主要财务底稿。</li>
+<li><a href="../../webpages/2026-07-15-搜狐-云铝股份历史行情快照.html">历史行情快照</a>：52 周区间和公告后价格反应。</li>
+<li><a href="../../webpages/2026-07-15-云铝股份卖方评级与催化剂检索记录.html">卖方与催化剂检索</a>：目标价冲突、盈利预测与近期行业变量。</li>
+</ul>
+<h2 id="section-16">16. 声明</h2>
+
+<p>本报告基于截至研究截止时间可取得的公开信息，不构成收益保证。真实交易前应重新核验价格、正式半年报、铝价、氧化铝价格、云南供电和个人风险承受能力。</p>
+</article>
+    </div>
+  </main>
+</body>
+</html>

@@ -345,6 +345,12 @@ function startApp() {
     const activeFilter = section.querySelector('.industry-filter-tabs button.is-active')?.dataset.filter ?? 'all';
     const query = section.querySelector('.industry-search input')?.value.trim().toLocaleLowerCase('zh-CN') ?? '';
     let visibleCount = 0;
+    section.querySelectorAll('.industry-research-board').forEach(board => {
+      const filters = (board.dataset.filters ?? '').split(',').map(item => item.trim()).filter(Boolean);
+      const matchesFilter = activeFilter === 'all' || filters.includes(activeFilter);
+      const matchesQuery = !query || board.textContent.toLocaleLowerCase('zh-CN').includes(query);
+      board.hidden = !(matchesFilter && matchesQuery);
+    });
     section.querySelectorAll('.industry-report').forEach(card => {
       const filters = (card.dataset.filters ?? '').split(',').map(item => item.trim()).filter(Boolean);
       const matchesFilter = activeFilter === 'all' || filters.includes(activeFilter);

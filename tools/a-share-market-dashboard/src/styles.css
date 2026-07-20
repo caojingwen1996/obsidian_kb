@@ -176,6 +176,8 @@ h3 { font-size: 15px; }
 .industry-report-meta { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 11px; margin-bottom: 9px; }
 .industry-report-meta b { margin-left: 5px; border-radius: 5px; background: rgba(217,168,62,.16); color: #886822; padding: 2px 6px; font-size: 10px; }
 .industry-report h3 { margin: 0 0 7px; font-size: 16px; }
+.industry-report-link { color: inherit; text-decoration: none; }
+.industry-report-link:hover { color: #0f6672; text-decoration: underline; text-underline-offset: 3px; }
 .industry-report p { margin: 0 0 10px; color: #566674; font-size: 12px; line-height: 1.7; }
 .industry-tags { margin-bottom: 11px; color: var(--muted); font-size: 11px; line-height: 1.7; }
 .industry-reason { padding-top: 10px; border-top: 1px dashed var(--line); color: #246170; font-size: 11px; line-height: 1.7; }

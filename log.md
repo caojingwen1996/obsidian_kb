@@ -14921,3 +14921,413 @@ ui / dashboard / directory-contract
 
 - 后续如需把研报卡片改成真实文件链接，应先统一源文件和单文件 artifact 的相对路径策略，避免本地 `src/index.html` 与构建后的 HTML 链接不一致。
 - 后续支柱产业如果拆出其他方向，应新增独立自动化目录，避免继续把所有支柱产业产物混放到高端制造分支。
+
+## 2026-07-20
+
+### 操作类型
+
+copy / automation-source
+
+### 修改文件
+
+- `sources/automations/商业航天每日跟踪/商业航天产业完整分析报告.html`
+- `log.md`
+
+### 操作说明
+
+按用户指定路径，将 `.worktrees/industry-report-equity-links/sources/automations/商业航天/商业航天产业完整分析报告.html` 放入主知识库对应产业研报目录 `sources/automations/商业航天每日跟踪/`，覆盖同名 HTML 文件，并用 SHA-256 校验确认目标文件与来源文件一致。
+
+### 后续待办
+
+- 无
+
+## 2026-07-20
+
+### 操作类型
+
+ui / dashboard / link
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+将 `sources/automations/商业航天每日跟踪/商业航天产业完整分析报告.html` 放入温度计工具“产业 → 新兴 → 航空航天”的产业研报位置，新增可点击研报卡片，并将新兴产业当日研报数从 3 条更新为 4 条。同步补充链接样式和构建测试，确保单文件面板中保留对应相对链接。
+
+### 后续待办
+
+- 后续如继续补产业级研报，按产业方向和细分标签放入对应信息流，不混入无关板块。
+
+## 2026-07-20
+
+### 操作类型
+
+ui / dashboard / layout
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户标注调整“产业 → 新兴 → 航空航天”的信息层级：上方“产业研报”看板放产业级 `商业航天产业完整分析报告`；下方时间线卡片改为个股标的入口，新增 `中国卫星机构级决策研报`、`中国卫通机构级决策研报`、`航天电子机构级决策研报`，并将新兴产业当日条数更新为 6 条。
+
+### 后续待办
+
+- 后续补其他航空航天个股时，继续放在下方个股标的时间线；产业级总报告继续留在上方研报看板。
+
+## 2026-07-20
+
+### 操作类型
+
+copy / ui / dashboard / link
+
+### 修改文件
+
+- `sources/automations/电网产业跟踪/2026-07-17-十五五电网投资与电网行业完整分析报告.html`
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求将 `.worktrees/industry-report-equity-links/sources/automations/电网产业/` 中的电网产业完整报告同步到主知识库对应目录 `sources/automations/电网产业跟踪/`，并在温度计工具“产业 → 支柱 → 电网”的上方“产业研报”看板加入 `十五五电网投资与电网行业完整分析报告` 链接。下方时间线继续作为个股标的区，并为 `神马电力机构级决策研报` 与 `神马电力资金面分层分析` 补充 `电网` 筛选标签。
+
+### 后续待办
+
+- 后续补充更多电网个股时，放入下方个股标的时间线；产业级总报告继续放在上方产业研报看板。
+
+## 2026-07-20
+
+### 操作类型
+
+ui / dashboard / cleanup
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户截图要求删除温度计工具产业页中由页面预写的占位假数据：移除新兴产业中的 `集成电路产业链缩圈`、`生物医药、新型储能与智能机器人观察`，并同步移除战略资源页中尚无真实研报支撑的三条占位卡片。新兴产业下方个股区只保留已经接入真实 HTML 研报链接的商业航天标的入口，并将当日条数修正为 3 条；战略资源当前无真实研报卡片，条数修正为 0 条。
+
+### 后续待办
+
+- 后续新增产业或标的卡片时，必须先有对应来源文件或真实研报链接，避免再次出现占位内容。
+
+## 2026-07-20
+
+### 操作类型
+
+ui / dashboard / filter-fix
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+修复温度计工具产业页上方“产业研报”看板不跟随细分标签筛选的问题。为商业航天产业研报看板补充 `航空航天` 标签，为电网产业研报看板补充 `电网,电力设备` 标签，并让筛选逻辑同时处理 `.industry-research-board` 与下方个股卡片。现在点击“支柱 → 新能源”不会再显示电网产业研报；只有点击“全部”“电力设备”或“电网”时才显示该电网产业研报。
+
+### 后续待办
+
+- 后续新增产业研报看板时，必须同步设置 `data-filters`，保证看板与细分标签一致。
+
+## 2026-07-20
+
+### 操作类型
+
+ui / dashboard / filter-refine
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求将电网产业研报看板的筛选标签从 `电网,电力设备` 收窄为仅 `电网`。现在该产业研报只在“支柱 → 电网”和“全部”下显示，不再出现在“电力设备”筛选结果中。
+
+### 后续待办
+
+- 如后续需要在“电力设备”下放研报，应单独接入对应电力设备产业研报，不复用电网总报告。
+
+## 2026-07-20
+
+### 操作类型
+
+ui / dashboard / filter-cleanup
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户截图要求清理“产业 → 支柱”细分标签栏，移除 `电力设备` 标签，仅保留 `电网` 作为该方向的细分板块入口。个股卡片正文中的行业描述和标签暂不改动，只删除顶部筛选栏中的重复板块入口。
+
+### 后续待办
+
+- 后续如需恢复电力设备，应作为独立方向重新接入真实产业研报和标的清单。
+
+## 2026-07-20
+
+### 操作类型
+
+merge / cleanup / dashboard-link
+
+### 修改文件
+
+- `sources/automations/商业航天/`
+- `sources/automations/电网产业/`
+- `sources/automations/机器人/`
+- `sources/automations/支柱产业/`
+- `sources/automations/商业航天每日跟踪/` -> 删除
+- `sources/automations/电网产业跟踪/` -> 删除
+- `sources/automations/机器人作业/` -> 删除
+- `sources/automations/支柱产业-高端制造/` -> 删除
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `sources/automations/商业航天/产业进度看板.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求将 `.worktrees/industry-report-equity-links` 中的自动化目录内容合并到当前 `main` 工作区，并移除该 worktree。目录结构采用 worktree 版本：`商业航天`、`电网产业`、`机器人`、`支柱产业`；旧目录 `商业航天每日跟踪`、`电网产业跟踪`、`机器人作业`、`支柱产业-高端制造` 已删除。温度计工具中的商业航天、电网产业研报链接同步改为新目录；商业航天新目录内的产业进度看板内部链接也同步改为新目录。商业航天产业报告与 worktree 文件哈希一致；电网产业报告已按 worktree 当前未跟踪文件覆盖并确认哈希一致。完整测试 44 项通过。
+
+### 后续待办
+
+- `.agents/automations/commercial_space_daily_brief.md` 与 `.agents/skills/bbxm-industry-analysis/scripts/test-render-industry-report-html.cjs` 中仍有旧路径 `sources/automations/商业航天每日跟踪`；本次写入受保护 `.agents` 路径被权限拦截，需后续在允许写 `.agents` 后更新。
+
+## 2026-07-20
+
+### 操作类型
+
+ui / dashboard / link
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户截图要求，将“产业 → 支柱 → 电网”下方个股标的区的 `神马电力机构级决策研报` 与 `神马电力资金面分层分析` 标题改为可点击链接，分别指向 `sources/automations/支柱产业/2026-07-18-神马电力机构级决策研报.html` 和 `sources/automations/支柱产业/2026-07-18-神马电力资金面分层分析.html`。同步更新构建测试并重新生成单文件 HTML。
+
+### 后续待办
+
+- 如后续补充更多电网个股卡片，应同步把标题接入对应 HTML 文件。
+
+## 2026-07-20
+
+### 操作类型
+
+ui / dashboard / link
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户截图要求，将“产业 → 支柱”下方个股标的区的 `中国中车机构级决策研报`、`中国中车资金面分层分析`、`中国船舶资金面分层分析` 标题改为可点击链接，分别指向 `sources/automations/支柱产业/` 中对应 HTML 文件。同步更新构建测试并重新生成单文件 HTML。
+
+### 后续待办
+
+- 如后续补充更多支柱产业卡片，应同步把标题接入对应 HTML 文件。
+
+## 2026-07-20
+
+### 操作类型
+
+ui / dashboard / build-time-ingest
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/scripts/build.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求将“产业 → 支柱 → 电网”下方标的区改为构建时自动读取 `sources/automations/电网产业/` 目录。构建脚本扫描该目录下的 HTML 文件，排除产业总报告 `完整分析报告`，将其余标的/资金面报告自动生成卡片并链接到对应文件。目前自动读入 `华明装备机构级决策研报`、`神马电力机构级决策研报` 和 `神马电力资金面分层分析`，支柱页当日条数同步由静态 5 条改为构建时计算的 6 条。
+
+### 后续待办
+
+- 后续新增电网标的 HTML 后，需要重新运行 dashboard 构建脚本，单文件页面才会刷新出新卡片。
+
+## 2026-07-20
+
+### 操作类型
+
+industry-report / structure / company-mapping / sync
+
+### 修改文件
+
+- `.worktrees/industry-report-equity-links/sources/automations/电网产业/2026-07-17-十五五电网投资与电网行业完整分析报告.html`
+- `sources/automations/电网产业跟踪/2026-07-17-十五五电网投资与电网行业完整分析报告.html`
+- `log.md`
+
+### 操作说明
+
+参照商业航天完整产业报告的“产业链全景 + 产业链公司映射”结构，补齐电网产业报告第 3.1 节。新增上游材料与绝缘、中游一次设备、二次设备、电力电子、工程建设、下游电网运营与负荷场景的全景拆分，并为代表公司和主体补充产业链位置、证券代码、业务纯度、证据状态、来源时间及边界说明；仅对已有本地个股研报的神马电力建立研报链接，同时保持工作树版本与主库阅读版本同步。
+
+### 后续待办
+
+- 后续如新增国电南瑞、许继电气、平高电气等个股研报，再按证券代码核验后补充公司链接。
+
+## 2026-07-20
+
+### 操作类型
+
+copy / link
+
+### 修改文件
+
+- `sources/automations/电网产业/2026-07-18-神马电力机构级决策研报.html`
+- `sources/automations/电网产业/2026-07-17-十五五电网投资与电网行业完整分析报告.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求将神马电力机构级 HTML 研报从 `sources/automations/支柱产业/` 复制到 `sources/automations/电网产业/`，保留原文件以避免影响现有入口；同时将电网产业报告公司映射中的神马电力链接改为同目录链接。
+
+### 后续待办
+
+- 如确认所有外部入口均已切换到电网产业目录，可再单独评估是否清理支柱产业目录中的重复副本。
+
+## 2026-07-20
+
+### 操作类型
+
+equity-report / render / industry-mapping / link
+
+### 修改文件
+
+- `workbench/targets/2026-07-15-1514-华明装备机构级决策研报.md`
+- `sources/automations/电网产业/2026-07-15-1514-华明装备机构级决策研报.html`
+- `sources/automations/电网产业/2026-07-17-十五五电网投资与电网行业完整分析报告.html`
+- `log.md`
+
+### 操作说明
+
+将华明装备旧版 13 章机构研报在不改变数据、估值区间和观望结论的前提下迁移到当前 16 章个股研报合同，并通过统一渲染器生成同源 HTML，保存到电网产业目录。随后在电网产业报告的公司映射中新增“上游—变压器关键元器件”华明装备条目，写明分接开关产品位置、2025 年电力设备收入占比、证据状态和映射边界，并链接同目录 HTML 研报。
+
+### 后续待办
+
+- 2026 半年报发布后，重新核验电力设备收入、境外收入增速、境外毛利率及扣非利润，再决定是否更新华明装备当前观望结论。
+
+## 2026-07-20
+
+### 操作类型
+
+ui / dashboard / build-time-ingest
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/scripts/build.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求将温度计工具产业页下方研报卡片统一改为构建时读取目录：新兴产业航空航天从 `sources/automations/商业航天/` 自动生成标的卡片，支柱产业高端制造从 `sources/automations/支柱产业/` 自动生成标的卡片，支柱产业电网从 `sources/automations/电网产业/` 自动生成标的卡片；各目录中的 `完整分析报告` 继续作为上方产业研报，不进入下方标的区。构建脚本同步计算新兴/支柱当日条数，并重新生成单文件 HTML。
+
+### 后续待办
+
+- 后续新增这些目录下的 HTML 后，需要重新运行 dashboard 构建脚本，单文件页面才会刷新出新卡片。
+
+## 2026-07-20
+
+### 操作类型
+
+source / event-tracking / equity-report / render
+
+### 修改文件
+
+- `sources/papers/中国中车机构研报-2026-07-16/2026-07-20-中国中车控股股东增持股份计划公告.pdf`
+- `workbench/targets/2026-07-20-中国中车-控股股东增持股份计划-跟踪.md`
+- `workbench/targets/2026-07-16-1334-中国中车机构级决策研报.md`
+- `sources/automations/支柱产业/2026-07-18-中国中车机构级决策研报.html`
+- `log.md`
+
+### 操作说明
+
+从上交所保存并核验中国中车公告编号2026-024原件，新增控股股东增持股份计划跟踪页，明确本次为2026-07-20至2027-01-19期间拟增持A股1.5亿—3亿元的计划，而非已完成增持。同步更新中国中车权威研报的催化剂、流动性、风险传导、动作约束和监控指标；将事件界定为流动性与信心的边际正面信号，不改变原有估值区间及“有条件买入、小仓分批、不追涨”结论，并重新生成同源HTML。
+
+### 后续待办
+
+- 跟踪首次增持、累计金额、均价、完成比例及2027-01-19前的实施结果；若增持与半年报现金流、毛利率改善共振，再复核第二段加仓条件。
+
+## 2026-07-20
+
+### 操作类型
+
+equity-report / render / classify
+
+### 修改文件
+
+- `sources/automations/战略资源/2026-07-15-1921-云铝股份机构级决策研报.html`
+- `log.md`
+
+### 操作说明
+
+按用户指定分类，将云铝股份权威 Markdown 研报通过统一渲染器生成同源 HTML，并直接保存至 `sources/automations/战略资源/`。未修改研报正文、估值与投资结论。
+
+### 后续待办
+
+- 如战略资源产业页面需要展示该标的，可在对应公司映射中补充同目录链接。
+
+## 2026-07-20
+
+### 操作类型
+
+ui / dashboard / build-time-ingest
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/scripts/build.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+补齐温度计工具产业页的战略资源目录自动读取：战略页下方标的研报卡片现在从 `sources/automations/战略资源/` 构建时生成，当前自动读入云铝股份机构级决策研报，并按目录计算战略页当日条数。新兴、支柱、电网的目录自动读取逻辑保持不变。
+
+### 后续待办
+
+- 如后续为战略资源生成 `完整分析报告`，再将上方“产业研报”位置改为同目录完整报告链接。
