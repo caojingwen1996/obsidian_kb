@@ -213,5 +213,5 @@ node .agents/skills/bbxm-equity-research/scripts/render-report-html.cjs --input 
 - [ ] Markdown 的 16 个编号模块与 `template.md` 名称、顺序完全一致；
 - [ ] HTML 已由最终 Markdown 通过统一渲染器生成，未维护第二套正文；
 - [ ] HTML 含 16 个可跳转目录锚点，封面关键字段与 Markdown 一致；
-- [ ] HTML 不含 `??`、`12?24`、替换字符 `�` 或未转换的 `[[...]]`；
+- [ ] HTML 不含 `??`、`12?24`、替换字符 `U+FFFD` 或未转换的 `[[...]]`；
 - [ ] 链接、计算、编码和文件路径已验证。

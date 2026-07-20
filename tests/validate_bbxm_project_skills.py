@@ -30,6 +30,7 @@ EXPECTED_FILES = {
     ),
     "bbxm-industry-analysis": (
         "SKILL.md",
+        "template.md",
         "agents/openai.yaml",
     ),
     "bbxm-risk-identification": ("SKILL.md",),
@@ -72,6 +73,9 @@ def main() -> None:
     industry_ui = (
         SKILLS_ROOT / "bbxm-industry-analysis" / "agents" / "openai.yaml"
     ).read_text(encoding="utf-8-sig")
+    industry_template = (
+        SKILLS_ROOT / "bbxm-industry-analysis" / "template.md"
+    ).read_text(encoding="utf-8-sig")
     for marker in (
         "wiki/concepts/冰冰小美-framework-产业思维.md",
         "完整读取当前版本",
@@ -84,6 +88,11 @@ def main() -> None:
         require(
             marker in industry_skill,
             f"bbxm-industry-analysis is missing contract marker: {marker}",
+        )
+    for marker in ("HTML 优先", "Markdown 回退", "无研报不链接"):
+        require(
+            marker in industry_skill and marker in industry_template,
+            f"bbxm-industry-analysis report-link contract is missing: {marker}",
         )
     for duplicated_heading in (
         "## 分析流程",
