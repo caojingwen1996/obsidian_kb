@@ -52,7 +52,7 @@ ACTIVE_PATHS = (
 
 OLD_PATH_PATTERN = re.compile(
     r"workbench/targets/[^\]\n]+/(?:reports|index|outputs)/"
-    r"|targets/<证券代码>-<公司简称>/reports"
+    r"|targets/<证券代码>-<公司简称>/" r"reports"
 )
 
 
