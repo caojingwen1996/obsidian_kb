@@ -1,3 +1,13 @@
+---
+artifact_type: equity_research
+security_code: ""
+market: ""
+created: YYYY-MM-DD
+updated: YYYY-MM-DD
+as_of: YYYY-MM-DD HH:mm
+framework_refs: []
+---
+
 # <标的>机构级决策研报
 
 > 证券代码：  

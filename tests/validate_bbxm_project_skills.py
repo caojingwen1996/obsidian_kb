@@ -235,6 +235,24 @@ def main() -> None:
         "bbxm-equity-research must reject heading-only Step 7 validation",
     )
 
+    equity_ui = (
+        SKILLS_ROOT / "bbxm-equity-research" / "agents" / "openai.yaml"
+    ).read_text(encoding="utf-8-sig")
+    for marker in (
+        "workbench/targets/<证券代码>-<公司简称>/reports/",
+        "artifact_type: equity_research",
+        "workbench/index.md",
+        "不更新根 index.md",
+    ):
+        require(
+            marker in equity_skill + equity_template + equity_ui,
+            f"bbxm-equity-research is missing Workbench contract marker: {marker}",
+        )
+    require(
+        "正式研报放入合适的 `wiki/` 页面类型" not in equity_skill,
+        "bbxm-equity-research still routes reports into formal Wiki pages",
+    )
+
     print("PASS: bbxm-expert project-only skill contract validated")
 
 
