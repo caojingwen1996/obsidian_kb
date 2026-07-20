@@ -1,0 +1,781 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>三安光电机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.verdict { display: inline-flex; margin-top: 24px; padding: 7px 13px; border-radius: 999px; color: var(--danger); background: var(--danger-bg); font-weight: 750; }
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 26px; }
+.kpi { min-height: 96px; padding: 17px 18px; border: 1px solid rgba(255,255,255,.22); border-radius: 14px; background: rgba(255,255,255,.09); }
+.kpi-value { display: block; font-size: 23px; line-height: 1.3; font-weight: 760; overflow-wrap: anywhere; }
+.kpi-label { display: block; margin-top: 10px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; opacity: .8; }
+
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+}
+
+@media (max-width: 600px) {
+  .kpis { grid-template-columns: 1fr; }
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .verdict, .kpi { border: 1px solid #aebbc2; color: #102f43; background: #fff; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · SECURITY</p>
+      <h1>三安光电机构级决策研报</h1>
+      <div class="hero-meta"><span>研究截止时间未获取</span><span>报告生成时间未获取</span><span>市场与币种未获取</span></div>
+      <div class="verdict">高估。股价已大幅回撤，但盈利与现金流尚不足以支撑当前约 624 亿元市值 · 新资金：wait / observe（等待 / 观察）；已有持仓：review（复盘），若仓位过重则利用反弹评估 reduce</div>
+      <div class="kpis">
+        <div class="kpi"><span class="kpi-value">未获取</span><span class="kpi-label">当前价格</span></div>
+        <div class="kpi"><span class="kpi-value">未获取</span><span class="kpi-label">综合估值区间</span></div>
+        <div class="kpi"><span class="kpi-value">新资金：wait / observe（等待 / 观察）；已有持仓：review（复盘），若仓位过重则利用反弹评估 reduce</span><span class="kpi-label">冰冰小美动作</span></div>
+        <div class="kpi"><span class="kpi-value">中高。年度报告和近期公告证据较强；卖方一致预期、完整宏观流动性和细分业务独立估值资料不足</span><span class="kpi-label">结论置信度</span></div>
+      </div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
+<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
+<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
+<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
+<a class="toc-link" href="#section-6">6. 五年财务历史</a>
+<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
+<a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
+<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
+<a class="toc-link" href="#section-10">10. 估值</a>
+<a class="toc-link" href="#section-11">11. 冰冰小美框架判断</a>
+<a class="toc-link" href="#section-12">12. 最终结论</a>
+<a class="toc-link" href="#section-13">13. 后续监控指标</a>
+<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
+<a class="toc-link" href="#section-15">15. 来源清单</a>
+<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
+      <article class="content"><blockquote>
+<p>证券：三安光电股份有限公司（600703.SH）<br>研究截止：2026-07-20 10:05 CST（行情为盘中快照，财务以已披露公告为准）<br>当前价格：12.51 元；总市值：约 624.1 亿元<br>研究目的：回答“如果今天持有现金，是否愿意买入三安光电”。</p>
+</blockquote>
+<h2 id="section-1">1. 决策摘要</h2>
+
+<table>
+<thead>
+<tr>
+<th>决策字段</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值状态</td>
+<td><strong>高估</strong>。股价已大幅回撤，但盈利与现金流尚不足以支撑当前约 624 亿元市值</td>
+</tr>
+<tr>
+<td>综合公允价值</td>
+<td><strong>6.5—9.5 元/股</strong>；对应权益价值约 324—474 亿元</td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>相对 12.51 元仍有约 <strong>-48% 至 -24%</strong> 的估值回归空间</td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td>新资金：<strong>wait / observe（等待 / 观察）</strong>；已有持仓：<strong>review（复盘）</strong>，若仓位过重则利用反弹评估 reduce</td>
+</tr>
+<tr>
+<td>风险方向</td>
+<td><strong>风险增强</strong>，置信度高</td>
+</tr>
+<tr>
+<td>三要素</td>
+<td>竞争格局中性、流动性不利、情绪不利，<strong>尚未形成有利共振</strong></td>
+</tr>
+<tr>
+<td>现金回答</td>
+<td><strong>今天不会买入。</strong> 价格下降消化了部分预期，但治理、盈利和库存风险同时恶化，尚不是赔率与胜率兼备的位置</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td>中高。年度报告和近期公告证据较强；卖方一致预期、完整宏观流动性和细分业务独立估值资料不足</td>
+</tr>
+</tbody></table>
+<p><strong>核心矛盾不是“三安光电有没有产业地位”，而是“产业地位何时转化为可持续利润和自由现金流”。</strong> 公司在 LED 芯片和化合物半导体方向具备规模、研发和一体化基础，但 2025 年归母净利润转亏、扣非连续亏损，2026 年上半年预告仍亏；与此同时，Mini/Micro LED 募投项目延期、控股股东体系所持股份全部被冻结。现价对应的反向 DCF 需要公司在 2030 年将终值自由现金流率提升到约 24.8%，显著高于 2025 年约 2.5% 的实际水平。</p>
+<h2 id="section-2">2. 证券身份与来源矩阵</h2>
+
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>公司</td>
+<td>三安光电股份有限公司</td>
+</tr>
+<tr>
+<td>证券代码</td>
+<td>600703.SH</td>
+</tr>
+<tr>
+<td>市场 / 币种</td>
+<td>上海证券交易所 A 股 / 人民币</td>
+</tr>
+<tr>
+<td>主业口径</td>
+<td>LED 外延片与芯片、化合物半导体集成电路、LED 应用产品及材料销售</td>
+</tr>
+<tr>
+<td>最新完整年度</td>
+<td>2025 年年度报告</td>
+</tr>
+<tr>
+<td>最新经营披露</td>
+<td>2026 年一季报；2026 年半年度业绩预告</td>
+</tr>
+<tr>
+<td>行情时点</td>
+<td>2026-07-20 10:05 CST 盘中</td>
+</tr>
+<tr>
+<td>核心本地来源</td>
+<td><a href="../../webpages/2026-07-20-三安光电机构级研究资料快照.html">研究资料快照</a>、<a href="../../papers/2026-04-25-三安光电-2025年年度报告.pdf.html">2025年年度报告 PDF</a></td>
+</tr>
+</tbody></table>
+<h3>来源优先级</h3>
+<ol>
+<li>公司法定公告、年度报告和财务报表；</li>
+<li>国家统计局、国家外汇管理局等官方宏观资料；</li>
+<li>公开行情接口和券商研报；</li>
+<li>行情聚合网站的一致预期，仅作为低置信度参考。</li>
+</ol>
+<p>涉及事实的核心数字均可回溯到本地 <a href="../../webpages/2026-07-20-三安光电机构级研究资料快照.html">研究资料快照</a>。本文将“事实”“公司解释”和“我的判断”分开呈现；缺失数据不以估算冒充已披露事实。</p>
+<h2 id="section-3">3. 行情与市场预期</h2>
+
+<h3>3.1 行情快照</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">2026-07-20 盘中</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>股价</td>
+<td align="right">12.51 元</td>
+</tr>
+<tr>
+<td>前收盘</td>
+<td align="right">12.45 元</td>
+</tr>
+<tr>
+<td>总市值</td>
+<td align="right">624.13 亿元</td>
+</tr>
+<tr>
+<td>5 / 20 / 60 日涨跌幅</td>
+<td align="right">-20.47% / -35.15% / -7.88%</td>
+</tr>
+<tr>
+<td>年初至今</td>
+<td align="right">-11.46%</td>
+</tr>
+<tr>
+<td>52 周高 / 低</td>
+<td align="right">23.18 / 11.33 元</td>
+</tr>
+<tr>
+<td>市净率</td>
+<td align="right">1.79 倍</td>
+</tr>
+<tr>
+<td>市盈率</td>
+<td align="right">因滚动盈利为负，不具解释力</td>
+</tr>
+</tbody></table>
+<p>股价自 2026-06-26 的 23.18 元阶段高点下跌约 46%，其中 2026-07-17 放量下跌 8.39%。同日之后的 2026-07-20 上午，A 股上涨家数约 4,174 家、下跌约 776 家，而三安光电仅微涨，说明弱势不能完全归因于系统性市场环境。</p>
+<h3>3.2 市场对未来的隐含要求</h3>
+<ul>
+<li>行情聚合页面显示的目标价均值约 15.41 元、区间约 13.42—17.40 元，但样本数量、机构名单和预测更新期不完整，不能视为可靠一致预期。</li>
+<li>可核验的一份中邮证券 2026-03-10 报告给出“买入”评级但没有目标价，预测 2026 / 2027 年收入约 217.43 / 257.39 亿元、归母净利润约 4.51 / 9.85 亿元。</li>
+<li>2026 年上半年业绩预告随后显示归母净利润仍为亏损，因此 3 月份盈利预测至少在短期节奏上需要重新校准。</li>
+</ul>
+<p><strong>我的判断：</strong> 市场不是没有下调预期，而是下调后的 624 亿元市值仍包含“化合物半导体业务快速扭亏、LED 盈利继续改善、资本开支下降转化为现金流”的组合假设。当前公告尚未验证这些假设同步发生。</p>
+<h2 id="section-4">4. 商业模式与竞争格局</h2>
+
+<p>三安光电的商业模式不是单一 LED 芯片制造，而是从 LED 外延片和芯片向砷化镓、氮化镓、碳化硅等化合物半导体，以及 LED 应用和材料销售延伸。其投资逻辑由三层构成：</p>
+<ol>
+<li><strong>传统 LED 芯片现金与规模基础</strong>：规模、客户认证和制造经验构成进入壁垒，但行业周期、价格竞争和产能利用率会显著影响利润率；</li>
+<li><strong>化合物半导体成长权利</strong>：射频、功率、光技术与滤波器等方向具备战略价值，但当前收入与利润贡献尚不足以独立支撑高估值；</li>
+<li><strong>Mini/Micro LED 产业升级期权</strong>：技术路径成立，但大规模商业化速度慢于原募投计划，不能按已兑现产能估值。</li>
+</ol>
+<h3>竞争优势</h3>
+<ul>
+<li>公司具备 LED 外延片—芯片的规模化制造基础，技术、设备、良率和客户认证需要长期积累；</li>
+<li>化合物半导体覆盖多种材料体系和应用方向，研发与资本投入形成进入门槛；</li>
+<li>LED 芯片业务 2025 年毛利率为 22.43%，同比提升 1.87 个百分点，显示传统主业并非全面失去竞争力。</li>
+</ul>
+<h3>竞争约束</h3>
+<ul>
+<li>LED 行业供给弹性和价格竞争仍强，规模不等于稳定超额回报；</li>
+<li>集成电路业务 2025 年毛利率仅 5.64%，虽同比改善 6.18 个百分点，但距离覆盖折旧、研发和资本成本仍有较大空间；</li>
+<li>LED 应用业务收入增长 24.04%，毛利率却下降至 4.73%，增长质量偏弱；</li>
+<li>2025 年前五大客户收入占比 42.12%，第一大客户约占总收入 30%，客户集中度较高；</li>
+<li>Mini/Micro LED 募投项目使用进度仅 51.02%，达到预定可使用状态时间延期两年至 2028 年 6 月。</li>
+</ul>
+<p><strong>我的判断：</strong> 竞争格局应评为<strong>中性</strong>，而非有利。公司有产业资格和规模优势，但尚未证明这些优势能够稳定转化为高于资本成本的回报。</p>
+<h2 id="section-5">5. 分部收入与盈利拆解</h2>
+
+<table>
+<thead>
+<tr>
+<th>2025 年分部</th>
+<th align="right">收入（亿元）</th>
+<th align="right">同比</th>
+<th align="right">毛利率</th>
+<th>边际信息</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>LED 外延片及芯片</td>
+<td align="right">58.62</td>
+<td align="right">-2.91%</td>
+<td align="right">22.43%</td>
+<td>收入承压、毛利率修复，是当前主要盈利底盘</td>
+</tr>
+<tr>
+<td>集成电路</td>
+<td align="right">29.16</td>
+<td align="right">+2.07%</td>
+<td align="right">5.64%</td>
+<td>毛利率转正改善，但盈利能力仍弱</td>
+</tr>
+<tr>
+<td>LED 应用产品</td>
+<td align="right">32.30</td>
+<td align="right">+24.04%</td>
+<td align="right">4.73%</td>
+<td>增收不增利，毛利率同比下降 5.37 个百分点</td>
+</tr>
+<tr>
+<td>材料、废料及其他</td>
+<td align="right">58.26</td>
+<td align="right">+30.16%</td>
+<td align="right">10.02%</td>
+<td>收入占比高，估值应低于核心芯片业务</td>
+</tr>
+<tr>
+<td>合计 / 公司口径</td>
+<td align="right">179.49</td>
+<td align="right">+11.45%</td>
+<td align="right">12.43%</td>
+<td>收入增长未转化为归母和扣非利润</td>
+</tr>
+</tbody></table>
+<p>2025 年收入增长 11.45%，但归母净利润亏损 3.53 亿元、扣非亏损 8.28 亿元。非经常性损益中，计入当期损益的政府补助约 6.02 亿元；资产减值损失约 5.26 亿元。2025 年第四季度归母净亏损约 4.42 亿元，说明全年转亏并非仅由上半年造成。</p>
+<p><strong>我的判断：</strong> 三安光电当前是“收入规模大、核心 LED 芯片仍有毛利、但集成电路与应用业务尚未形成足够利润贡献”的结构。若只看收入增长，会高估商业质量；估值应同时约束扣非利润、减值和资本回报。</p>
+<h2 id="section-6">6. 五年财务历史</h2>
+
+<table>
+<thead>
+<tr>
+<th>年度</th>
+<th align="right">营业收入（亿元）</th>
+<th align="right">毛利率</th>
+<th align="right">经营现金流（亿元）</th>
+<th align="right">资本开支（亿元）</th>
+<th align="right">自由现金流（亿元）</th>
+<th align="right">ROIC 近似值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td align="right">125.72</td>
+<td align="right">22.22%</td>
+<td align="right">16.08</td>
+<td align="right">85.21</td>
+<td align="right">-69.14</td>
+<td align="right">约 4.8%</td>
+</tr>
+<tr>
+<td>2022</td>
+<td align="right">132.22</td>
+<td align="right">17.83%</td>
+<td align="right">8.00</td>
+<td align="right">40.92</td>
+<td align="right">-32.93</td>
+<td align="right">约 2.0%</td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">140.53</td>
+<td align="right">10.15%</td>
+<td align="right">39.77</td>
+<td align="right">24.92</td>
+<td align="right">14.85</td>
+<td align="right">约 1.1%</td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">161.06</td>
+<td align="right">11.91%</td>
+<td align="right">26.17</td>
+<td align="right">27.08</td>
+<td align="right">-0.91</td>
+<td align="right">约 0.8%</td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">179.49</td>
+<td align="right">12.43%</td>
+<td align="right">18.81</td>
+<td align="right">14.30</td>
+<td align="right">4.51</td>
+<td align="right">约 -0.3%</td>
+</tr>
+</tbody></table>
+<p>注：自由现金流采用“经营现金流－购建固定资产、无形资产和其他长期资产支付的现金”；ROIC 为研究近似值，采用税后经营利润除以平均投入资本，未对全部非经营资产和一次性项目逐项重述。</p>
+<p>五年历史显示三条明确趋势：</p>
+<ol>
+<li>收入从 125.72 亿元增至 179.49 亿元，但毛利率从 22.22% 降至 12.43%，规模增长没有形成稳定经营杠杆；</li>
+<li>2021—2022 年重资本开支造成巨额负自由现金流；资本开支在 2025 年下降后，自由现金流才恢复为正；</li>
+<li>ROIC 近似值连续下降并在 2025 年转负，显著低于合理资本成本。</li>
+</ol>
+<p>2025 年末归母权益约 348.84 亿元，有息债务约 128.35 亿元，现金及现金等价物约 78.36 亿元，净债务约 50.0 亿元。账面净资产为相对估值提供了锚，但低 ROE、资产减值和产能利用率风险意味着不能机械给予行业平均市净率。</p>
+<h2 id="section-7">7. 最新季度与管理层指引</h2>
+
+<h3>7.1 2026 年第一季度</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">2026Q1</th>
+<th align="right">同比变化</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营业收入</td>
+<td align="right">29.07 亿元</td>
+<td align="right">-32.58%</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">18.49%</td>
+<td align="right">上年同期约 16.33%，有所改善</td>
+</tr>
+<tr>
+<td>归母净利润</td>
+<td align="right">0.67 亿元</td>
+<td align="right">-68.15%</td>
+</tr>
+<tr>
+<td>扣非归母净利润</td>
+<td align="right">-1.79 亿元</td>
+<td align="right">由上年同期盈利 0.75 亿元转亏</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">3.59 亿元</td>
+<td align="right">-39.81%</td>
+</tr>
+<tr>
+<td>存货</td>
+<td align="right">68.35 亿元</td>
+<td align="right">较上年同期约 +22.16%</td>
+</tr>
+</tbody></table>
+<p>收入大幅下降、扣非转亏和存货上升，比毛利率单季修复更值得重视。毛利率改善若不能同时带动库存周转、扣非利润和现金回款，不能视为确定性拐点。</p>
+<h3>7.2 2026 年半年度业绩预告</h3>
+<p>公司 2026-07-14 预计上半年归母净亏损 0.90—1.35 亿元，扣非净亏损 4.90—5.50 亿元；上年同期归母净利润 1.76 亿元、扣非净亏损 1.00 亿元。公司解释包括滤波器及碳化硅业务盈利未改善、汇兑损失增加、利息收入下降和存货跌价准备增加。</p>
+<p><strong>我的判断：</strong> 半年度预告把风险从“季度波动”升级为“盈利修复再次后移”。最关键的不是归母亏损区间本身，而是扣非亏损扩大、库存减值和高估值业务仍未改善同时出现。</p>
+<h2 id="section-8">8. 近三个月新闻与催化剂</h2>
+
+<table>
+<thead>
+<tr>
+<th>日期</th>
+<th>事项</th>
+<th>方向</th>
+<th>研究含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-06-30</td>
+<td>Mini/Micro LED 募投项目延期至 2028 年 6 月</td>
+<td>负面</td>
+<td>下游商业化慢于预期，项目回报和产能兑现继续后移</td>
+</tr>
+<tr>
+<td>2026-07-14</td>
+<td>2026 年半年度业绩预亏</td>
+<td>负面</td>
+<td>滤波器、碳化硅、库存减值与财务费用共同压制盈利</td>
+</tr>
+<tr>
+<td>2026-07-16</td>
+<td>承接 6.69 亿元债务并取得对子公司等额债权</td>
+<td>中性偏负</td>
+<td>不产生一次性现金支出且利率期限不变，但关联方资金安排需持续审视</td>
+</tr>
+<tr>
+<td>2026-07-18</td>
+<td>控股股东体系持有的 26.30% 公司股份累计全部被冻结</td>
+<td>重大负面</td>
+<td>公司经营目前正常，不等于控制权和融资链条风险已经解除</td>
+</tr>
+<tr>
+<td>2026-07-17 附近</td>
+<td>董事长、总经理增持进展约 3,988 万元</td>
+<td>有限正面</td>
+<td>传递支持信号，但金额不足以对冲业绩、冻结和资金面风险</td>
+</tr>
+</tbody></table>
+<p>未来正向催化主要包括：集成电路业务毛利率和扣非利润同步转正、碳化硅产能利用率提升、Mini/Micro LED 获得可量化大客户订单、库存和减值下降、控股股东股份解除冻结。负向催化包括：项目继续延期、库存跌价扩大、控股股东债务或冻结风险向控制权传导、资本开支重新上升而自由现金流恶化。</p>
+<h2 id="section-9">9. 多头与空头论据</h2>
+
+<h3>多头论据</h3>
+<ul>
+<li>LED 芯片业务仍具规模、技术和客户认证基础，2025 年毛利率同比修复；</li>
+<li>化合物半导体覆盖射频、功率、光技术和滤波器等战略方向，长期市场空间大；</li>
+<li>资本开支已由 2021 年的 85.21 亿元降至 2025 年的 14.30 亿元，若盈利修复，自由现金流弹性可能较大；</li>
+<li>股价已从 23.18 元高点回撤约 46%，PB 降至 1.79 倍，部分乐观预期已经消化；</li>
+<li>2026Q1 毛利率改善，为传统主业修复提供了早期信号。</li>
+</ul>
+<h3>空头论据</h3>
+<ul>
+<li>2025 年归母转亏、扣非亏损扩大，2026H1 预告继续亏损，盈利拐点缺乏连续验证；</li>
+<li>五年 ROIC 持续下降，2025 年为负，产业地位尚未转化为股东回报；</li>
+<li>存货上升且跌价准备增加，需求、价格和产品迭代风险同时存在；</li>
+<li>集成电路和 LED 应用分部毛利率低，成长业务尚未形成高质量利润；</li>
+<li>Mini/Micro LED 募投延期两年，商业化节奏被事实下修；</li>
+<li>控股股东体系所持股份累计全部被冻结，治理和控制权尾部风险显著增强；</li>
+<li>盘面资金持续流出、筹码大面积套牢，情绪与流动性未出现修复证据。</li>
+</ul>
+<p><strong>我的判断：</strong> 多头逻辑主要依赖中长期产业期权，空头逻辑则由当期公告、现金流、治理和交易数据支持。现阶段空头证据更近、更硬，多头证据需要未来季度继续验证。</p>
+<h2 id="section-10">10. 估值</h2>
+
+<h3>10.1 相对估值</h3>
+<p>因公司滚动盈利为负，PE 失去解释力，采用市净率作为相对估值锚。2025 年末归母净资产约 348.84 亿元，总股本约 49.89 亿股，对应每股净资产约 6.99 元。</p>
+<p>2026-07-20 可比公司市净率约为：华灿光电 2.89 倍、聚灿光电 2.37 倍、乾照光电 3.65 倍、士兰微 4.52 倍、天岳先进 7.15 倍。三安光电因规模和资产基础应享有一定产业地位溢价，但负 ROE、扣非亏损、减值和治理风险要求显著折价。</p>
+<p>给予 <strong>1.3—1.8 倍 PB</strong>，对应 <strong>9.1—12.6 元/股</strong>。上沿已经接近现价，只有在盈利修复可持续、冻结风险缓解时才成立。</p>
+<h3>10.2 DCF 估值</h3>
+<p>DCF 以 2025 年收入 179.49 亿元为起点，净债务约 50.0 亿元，总股本约 49.89 亿股，显式预测五年。由于当前盈利波动较大，场景差异主要由收入增长、自由现金流率和资本成本驱动。</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>收入增长假设</th>
+<th align="right">2030 年自由现金流率</th>
+<th align="right">WACC / 永续增长</th>
+<th align="right">每股价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观</td>
+<td>5%、6%、6%、5%、4%</td>
+<td align="right">5%</td>
+<td align="right">10.5% / 2.0%</td>
+<td align="right">1.1 元</td>
+</tr>
+<tr>
+<td>基准</td>
+<td>10%、11%、10%、8%、6%</td>
+<td align="right">10%</td>
+<td align="right">9.5% / 2.5%</td>
+<td align="right">5.3 元</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td>15%、16%、14%、12%、9%</td>
+<td align="right">16%</td>
+<td align="right">8.5% / 3.0%</td>
+<td align="right">14.7 元</td>
+</tr>
+</tbody></table>
+<p>基准情景 WACC / 永续增长敏感性如下：</p>
+<table>
+<thead>
+<tr>
+<th>WACC \ 永续增长</th>
+<th align="right">2.0%</th>
+<th align="right">2.5%</th>
+<th align="right">3.0%</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>8.5%</td>
+<td align="right">5.93</td>
+<td align="right">6.44</td>
+<td align="right">7.04</td>
+</tr>
+<tr>
+<td>9.5%</td>
+<td align="right">4.90</td>
+<td align="right">5.26</td>
+<td align="right">5.68</td>
+</tr>
+<tr>
+<td>10.5%</td>
+<td align="right">4.11</td>
+<td align="right">4.38</td>
+<td align="right">4.69</td>
+</tr>
+</tbody></table>
+<p>DCF 对终值利润率高度敏感，因此不把 14.7 元乐观情景当作基础公允价值，而把 <strong>4.9—7.0 元</strong>作为可操作的基准敏感区间。</p>
+<h3>10.3 反向 DCF</h3>
+<p>以 12.51 元股价、约 624.1 亿元权益价值，加回约 50 亿元净债务，市场隐含企业价值约 674 亿元。在基准收入增速、9.5% WACC 和 2.5% 永续增长下，现价大致要求 2030 年终值自由现金流率达到 <strong>约 24.8%</strong>。</p>
+<p>2025 年实际自由现金流约 4.51 亿元，占收入约 2.5%。即便考虑资本开支下降，24.8% 仍要求产品结构、产能利用率、毛利率、营运资本和资本开支同时发生结构性改善。</p>
+<p><strong>我的判断：</strong> 现价并不是在为“维持现状”定价，而是在为“高端业务成功、传统业务修复并进入成熟现金牛阶段”定价，隐含要求偏高。</p>
+<h3>10.4 行业专属估值与综合区间</h3>
+<p>采用简化分部收入倍数交叉验证：LED 芯片 2—3 倍 PS、集成电路 4—6 倍 PS、LED 应用 0.3—0.6 倍 PS、材料及其他 0.1—0.2 倍 PS，扣除约 50 亿元净债务，对应约 <strong>4.2—6.7 元/股</strong>。该方法承认化合物半导体的战略溢价，同时避免把低毛利应用和材料收入按芯片倍数估值。</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="right">估值区间</th>
+<th align="right">权重</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>相对 PB</td>
+<td align="right">9.1—12.6 元</td>
+<td align="right">45%</td>
+</tr>
+<tr>
+<td>DCF 基准敏感区间</td>
+<td align="right">4.9—7.0 元</td>
+<td align="right">30%</td>
+</tr>
+<tr>
+<td>分部估值</td>
+<td align="right">4.2—6.7 元</td>
+<td align="right">25%</td>
+</tr>
+</tbody></table>
+<p>加权并考虑模型误差后，综合公允价值取 <strong>6.5—9.5 元/股</strong>。12.51 元对应高于区间上沿约 31.7%，安全边际不足。</p>
+<h2 id="section-11">11. 冰冰小美框架判断</h2>
+
+<h3>11.1 产业方向</h3>
+<p>LED 高端化、Mini/Micro LED、碳化硅与氮化镓功率器件、射频和光技术均属于有长期需求基础的产业方向。方向成立不等于公司利润已经兑现，也不等于任何价格都值得买入。</p>
+<h3>11.2 竞争格局</h3>
+<p><strong>状态：中性。</strong> 三安光电具备规模、制造、研发和客户认证优势，LED 芯片毛利率有所修复；但集成电路和应用业务盈利弱、Mini/Micro LED 延期、五年 ROIC 下行，比较优势尚未转化为稳定超额回报。</p>
+<h3>11.3 流动性</h3>
+<p><strong>状态：不利。</strong> 2026 年 6 月官方制造业 PMI 为 50.3，CPI 同比上涨 1.0%，宏观环境并非明显紧缩；人民币中间价也相对稳定。但个股微观流动性明显恶化：7 月 14—20 日主力净流出代理值合计约 11.14 亿元，7 月 17 日融资余额约 46.93 亿元且单日下降 0.95%，没有核验到持续的长期增量资金来源。</p>
+<h3>11.4 情绪位置</h3>
+<p><strong>状态：不利。</strong> 股价较 6 月高点回撤约 46%，20 日跌幅 35.15%；筹码平均成本约 17.34 元，获利盘比例仅约 1.48%。下跌已经释放部分估值压力，但尚未形成缩量企稳、资金回流和基本面催化共振。</p>
+<h3>11.5 三要素共振与动作</h3>
+<table>
+<thead>
+<tr>
+<th>要素</th>
+<th>状态</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>中性</td>
+<td>产业资格强，但利润、ROIC 和项目进度未验证优势变现</td>
+</tr>
+<tr>
+<td>流动性</td>
+<td>不利</td>
+<td>资金净流出、融资余额下降、缺乏已核验增量资金</td>
+</tr>
+<tr>
+<td>情绪位置</td>
+<td>不利</td>
+<td>高位大幅回撤、筹码套牢、相对大盘偏弱</td>
+</tr>
+</tbody></table>
+<p>三要素<strong>尚未形成有利共振</strong>。按照 <a href="../../../topics/冰冰小美-情绪体系理论篇.html">冰冰小美情绪体系</a>，此时不应因跌幅大而自动把“便宜”当成“买点”。新资金动作为 <strong>wait / observe</strong>；已有持仓因成本和仓位未知，统一进入 <strong>review</strong>，若仓位过重则在反弹时评估 <strong>reduce</strong>，而不是以摊低成本为理由继续加仓。</p>
+<h3>11.6 风险方向与传导链</h3>
+<p>研究窗口为 2026-07-13 至 2026-07-20，对照窗口为 2026-06-22 至 2026-07-10。风险状态评为 <strong>风险增强</strong>，置信度高：</p>
+<ol>
+<li>半年报预亏与扣非亏损扩大，基本面风险增强；</li>
+<li>Mini/Micro LED 项目延期，产业兑现时间后移；</li>
+<li>控股股东体系所持股份全部被冻结，治理与控制权尾部风险增强；</li>
+<li>股价、资金和筹码同步恶化，交易层风险增强；</li>
+<li>股价下跌使估值风险有所释放，但不足以抵消以上新增风险。</li>
+</ol>
+<p>传导链为：<strong>盈利修复后移 / 库存减值增加 → 市场下调未来现金流 → 资金流出与筹码套牢 → 估值压缩；控股股东股份冻结 → 融资与控制权担忧 → 风险溢价上升 → 反弹承接减弱。</strong> 目前没有证据证明风险已经进入系统性释放完成阶段。</p>
+<h2 id="section-12">12. 最终结论</h2>
+
+<p>三安光电具备真实的产业位置，但当前不是“好公司被短期情绪错杀”的简单故事。2025 年和 2026 年上半年的法定披露显示，扣非盈利、库存、重点项目进度与控股股东风险同时承压；股价下跌更多是对这些新增信息的重新定价，而不是纯粹的系统性恐慌。</p>
+<p>综合相对 PB、DCF 和分部估值，公允价值为 <strong>6.5—9.5 元/股</strong>。现价 12.51 元仍高于区间上沿，估值状态为<strong>高估</strong>。</p>
+<ul>
+<li><strong>如果今天持有现金：不会买入，动作是 wait / observe。</strong></li>
+<li><strong>若价格降至 8.5 元以下：</strong> 可进入重新研究区，但必须同时检查半年报后扣非亏损是否收窄、库存是否下降、控股股东冻结是否缓解；仅价格触发不等于买入。</li>
+<li><strong>若价格进入 6.5—7.5 元：</strong> 在基本面没有继续恶化的前提下，才具备较强安全边际候选资格。</li>
+<li><strong>已有持仓：</strong> 因成本、仓位和期限未知，不给统一卖出指令；若仓位过重，反弹应优先做 review / reduce，而不是盲目补仓。</li>
+</ul>
+<p>结论翻转为“可买”的必要条件包括：至少连续两个季度扣非亏损显著收窄或转正、自由现金流改善不是单纯依靠削减资本开支、集成电路业务毛利率和利用率继续提升、存货与减值压力下降、控股股东股份冻结获得实质解决，并且价格仍留有安全边际。</p>
+<h2 id="section-13">13. 后续监控指标</h2>
+
+<table>
+<thead>
+<tr>
+<th>监控项</th>
+<th>有利信号</th>
+<th>不利信号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>扣非归母净利润</td>
+<td>连续两个季度明显收窄或转正</td>
+<td>亏损继续扩大</td>
+</tr>
+<tr>
+<td>集成电路分部</td>
+<td>毛利率持续提升并覆盖折旧研发</td>
+<td>毛利率停滞或再次转负</td>
+</tr>
+<tr>
+<td>存货与减值</td>
+<td>存货下降、跌价准备减少</td>
+<td>存货和减值继续上升</td>
+</tr>
+<tr>
+<td>自由现金流</td>
+<td>经营现金流和利润同步改善</td>
+<td>仅靠压缩资本开支维持正值</td>
+</tr>
+<tr>
+<td>Mini/Micro LED</td>
+<td>大客户订单、良率和产能利用率可量化</td>
+<td>再次延期或需求验证不足</td>
+</tr>
+<tr>
+<td>碳化硅 / 滤波器</td>
+<td>收入、毛利和亏损收窄同时披露</td>
+<td>仅披露产能，不披露盈利</td>
+</tr>
+<tr>
+<td>控股股东股份冻结</td>
+<td>解除冻结、债务安排透明</td>
+<td>司法处置、被动减持或控制权变化</td>
+</tr>
+<tr>
+<td>个股资金与情绪</td>
+<td>缩量企稳后放量上行、筹码成本下移</td>
+<td>反弹无量、资金继续净流出</td>
+</tr>
+<tr>
+<td>估值</td>
+<td>股价进入 8.5 元以下且基本面不恶化</td>
+<td>股价反弹但盈利预期继续下修</td>
+</tr>
+</tbody></table>
+<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
+
+<ul>
+<li>未获得覆盖充分、更新时间一致的卖方一致预期；目标价聚合数据样本不透明，只作弱参考。</li>
+<li>未获得 Morningstar 公允价值、护城河和星级数据。</li>
+<li>未完整取得 2026-07-20 当日 M1、M2、央行公开市场和全市场信用利差快照，宏观流动性判断只采用已核验官方数据。</li>
+<li>行情中的“主力净流入”和筹码成本来自公开行情算法，是交易代理变量，不等同于真实机构持仓变动。</li>
+<li>分部估值使用收入倍数，因公司未披露各分部独立资产负债表、资本开支和完整税后利润，不能替代正式分拆估值。</li>
+<li>DCF 对远期自由现金流率和终值高度敏感；公司处于盈利波动期，模型区间应与反向 DCF 和相对估值共同使用。</li>
+<li>本报告没有用户成本、仓位、风险预算和持有期限，因此已有持仓只给 review 框架，不构造个性化交易指令。</li>
+</ul>
+<h2 id="section-15">15. 来源清单</h2>
+
+<ol>
+<li><a href="../../papers/2026-04-25-三安光电-2025年年度报告.pdf.html">三安光电2025年年度报告 PDF</a>。</li>
+<li><a href="../../webpages/2026-07-20-三安光电机构级研究资料快照.html">三安光电机构级研究资料快照</a>，含年度财务、季度财务、行情、筹码、资金与公告摘录。</li>
+<li><a href="http://file.finance.qq.com/finance/hs/pdf/2026/07/14/1225421778.PDF">三安光电2026年半年度业绩预告</a>。</li>
+<li><a href="http://file.finance.qq.com/finance/hs/pdf/2026/06/30/1225395377.PDF">Mini/Micro LED募投项目延期公告</a>。</li>
+<li><a href="http://file.finance.qq.com/finance/hs/pdf/2026/07/18/1225429876.PDF">控股股东股份冻结公告</a>。</li>
+<li><a href="http://file.finance.qq.com/finance/hs/pdf/2026/07/16/1225426717.PDF">债务承接暨关联交易公告</a>。</li>
+<li><a href="https://www.stats.gov.cn/sj/zxfbhjd/202606/t20260630_1964033.html">国家统计局：2026年6月中国采购经理指数</a>。</li>
+<li><a href="https://www.stats.gov.cn/sj/zxfbhjd/202607/t20260709_1964082.html">国家统计局：2026年6月CPI和PPI数据</a>。</li>
+<li><a href="https://www.safe.gov.cn/AppStructured/hlw/RMBQuery.do?COLLCC=1275801109">国家外汇管理局：人民币汇率中间价查询</a>。</li>
+<li><a href="https://pdf.dfcfw.com/pdf/H3_AP202603101820455589_1.pdf?1773159597000.pdf=">中邮证券三安光电研究报告（2026-03-10）</a>。</li>
+<li><a href="https://www.futunn.com/stock/600703-SH/forecast">富途三安光电预测聚合页</a>，仅作低置信度市场预期参考。</li>
+<li><a href="../../../topics/冰冰小美-情绪体系理论篇.html">冰冰小美情绪体系理论篇</a>、<a href="../../../concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势.html">体系三要素之竞争格局的比较优势</a>、<a href="../../../concepts/冰冰小美-concept-体系三要素之流动性辩证分析.html">体系三要素之流动性辩证分析</a>、<a href="../../../concepts/冰冰小美-concept-体系三要素之情绪位置的变化.html">体系三要素之情绪位置的变化</a>。</li>
+</ol>
+<h2 id="section-16">16. 声明</h2>
+
+<p>本报告用于个人研究与知识库沉淀，不构成证券投资咨询、收益承诺或个性化买卖建议。报告基于截至 2026-07-20 10:05 CST 可核验的公开资料；盘中价格、资金、预测和后续公告会变化。估值是对假设的条件化表达，不是未来价格保证。投资者应结合自身仓位、成本、期限和风险承受能力独立决策。</p>
+<h2>相关页面</h2>
+<ul>
+<li><a href="../../webpages/2026-07-20-三安光电机构级研究资料快照.html">三安光电机构级研究资料快照</a>：本报告的结构化原始数据与公告摘录。</li>
+<li><a href="../../papers/2026-04-25-三安光电-2025年年度报告.pdf.html">三安光电2025年年度报告</a>：五年财务与分部分析的法定来源。</li>
+<li><a href="../../../topics/冰冰小美-情绪体系理论篇.html">冰冰小美情绪体系理论篇</a>：三要素与交易动作映射框架。</li>
+<li><a href="../../../concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势.html">体系三要素之竞争格局的比较优势</a>：公司竞争位置判断依据。</li>
+<li><a href="../../../concepts/冰冰小美-concept-体系三要素之流动性辩证分析.html">体系三要素之流动性辩证分析</a>：宏观、中观和微观流动性分层依据。</li>
+<li><a href="../../../concepts/冰冰小美-concept-体系三要素之情绪位置的变化.html">体系三要素之情绪位置的变化</a>：情绪位置与筹码状态判断依据。</li>
+</ul>
+</article>
+    </div>
+  </main>
+</body>
+</html>
