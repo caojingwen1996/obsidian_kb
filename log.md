@@ -1364,6 +1364,29 @@ link / repair
 
 - 无。
 
+## 2026-07-20
+
+### 操作类型
+
+ui / content-cleanup / dashboard
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/README.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求撤掉“产业”面板中由 Agent 预填的行业卡片和判断性说明。保留“战略 / 新兴 / 支柱”三个入口，但内容区统一显示“等待你的指示”，避免在用户明确给出分类前自行编写产业内容。温度计页面、指标计算和数据源未改动。
+
+### 后续待办
+
+- 等用户给出产业分类或具体内容后，再填充对应面板。
+
 ## 2026-06-09
 
 ### 操作类型
@@ -14767,6 +14790,28 @@ migrate / refactor / link / contract
 
 - 航天电子（600879）目前只定位到历史 HTML 输出，未定位到同源 Markdown；后续应补档或重新生成权威研报。
 - 中国中车等标的出现影响操作逻辑的新公告时，写入对应 `tracking/YYYY-MM-DD-事件.md`，并在标的 `index.md` 更新最近节点。
+
+## 2026-07-20
+
+### 操作类型
+
+automation / signal-check
+
+### 修改文件
+
+- `sources/automations/中证红利信号/最新信号.md`
+- `sources/automations/中证红利信号/中证红利每日信号.xlsx`
+- `log.md`
+
+### 操作说明
+
+按 `zzhl-dividend-signal` skill 重跑 `python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py --output-dir "sources/automations/中证红利信号" --run-date 2026-07-20`，刷新中证红利 `000922` 股息率信号每日记录。本轮 AKShare 指数估值日期为 `2026-07-17`，股息率2 为 `4.60%`；中国10年国债收益率日期为 `2026-07-17`，收益率为 `1.7404%`，股债利差为 `2.8596` 个百分点。理杏仁公开页面成功解析，估值日期为 `2026-07-17`，市值加权股息率为 `4.38%`，近10年股息率分位为 `12.26%`，近10年 `80%` 分位点为 `6.12%`。雪球实时行情接口仍返回空响应，因此当天涨跌幅保持待验证，未用于修正股息率。
+
+按 Query Page“中证红利什么时候买入收益率最高”的三种触发规则判断：历史分位点 `D（不买或少买）`，绝对股息率 `C（小额定投）`，股债利差 `B（加大买入）`；综合结论为“未进入加大买入区间”，未进入重点买入区间。
+
+### 后续待办
+
+- 继续观察雪球实时行情接口是否恢复；当前信号判断不依赖当天涨跌幅字段。
 
 ## 2026-07-20
 

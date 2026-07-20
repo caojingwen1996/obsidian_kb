@@ -160,6 +160,9 @@ h3 { font-size: 15px; }
 .industry-card { min-height: 112px; border-radius: 14px; background: var(--card); box-shadow: var(--shadow); padding: 18px; display: flex; flex-direction: column; justify-content: space-between; gap: 15px; }
 .industry-card strong { font-size: 17px; }
 .industry-card span { color: var(--muted); font-size: 12px; line-height: 1.7; }
+.industry-empty { border-radius: 14px; background: var(--card); box-shadow: var(--shadow); padding: 22px; display: flex; flex-direction: column; gap: 9px; max-width: 560px; }
+.industry-empty strong { font-size: 17px; }
+.industry-empty span { color: var(--muted); font-size: 12px; }
 
 @media (max-width: 920px) {
   .app-shell { grid-template-columns: 184px minmax(0,1fr); }
@@ -335,33 +338,18 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
       </section>
 
       <section class="view" id="industry-strategy" data-shell-content="industry" aria-labelledby="industry-strategy-heading">
-        <div class="section-header"><div><p class="eyebrow">INDUSTRY MAP</p><h2 id="industry-strategy-heading">战略</h2></div><p>国家安全、能源安全、科技自主和基础设施韧性。</p></div>
-        <div class="industry-grid">
-          <article class="industry-card"><strong>科技自主</strong><span>半导体设备 / 材料 / EDA / 国产算力</span></article>
-          <article class="industry-card"><strong>能源安全</strong><span>油气煤炭 / 电网 / 储能 / 核电</span></article>
-          <article class="industry-card"><strong>国防安全</strong><span>军工电子 / 航空航天 / 船舶装备</span></article>
-          <article class="industry-card"><strong>基础设施</strong><span>电力设备 / 工业母机 / 交通装备</span></article>
-        </div>
+        <div class="section-header"><div><p class="eyebrow">INDUSTRY MAP</p><h2 id="industry-strategy-heading">战略</h2></div></div>
+        <article class="industry-empty"><strong>等待你的指示</strong><span>这里不预填任何内容。</span></article>
       </section>
 
       <section class="view" id="industry-emerging" data-shell-content="industry" aria-labelledby="industry-emerging-heading">
-        <div class="section-header"><div><p class="eyebrow">INDUSTRY MAP</p><h2 id="industry-emerging-heading">新兴</h2></div><p>高成长、高迭代、仍需验证产业化节奏。</p></div>
-        <div class="industry-grid">
-          <article class="industry-card"><strong>AI 算力</strong><span>光模块 / 服务器 / 液冷 / 国产芯片</span></article>
-          <article class="industry-card"><strong>机器人</strong><span>本体 / 减速器 / 传感器 / 控制器</span></article>
-          <article class="industry-card"><strong>低空经济</strong><span>整机 / 空管 / 电池 / 运营场景</span></article>
-          <article class="industry-card"><strong>创新药</strong><span>ADC / GLP-1 / CXO / 出海授权</span></article>
-        </div>
+        <div class="section-header"><div><p class="eyebrow">INDUSTRY MAP</p><h2 id="industry-emerging-heading">新兴</h2></div></div>
+        <article class="industry-empty"><strong>等待你的指示</strong><span>这里不预填任何内容。</span></article>
       </section>
 
       <section class="view" id="industry-pillar" data-shell-content="industry" aria-labelledby="industry-pillar-heading">
-        <div class="section-header"><div><p class="eyebrow">INDUSTRY MAP</p><h2 id="industry-pillar-heading">支柱</h2></div><p>经济基本盘和现金流稳定器。</p></div>
-        <div class="industry-grid">
-          <article class="industry-card"><strong>金融</strong><span>银行 / 保险 / 券商 / 交易基础设施</span></article>
-          <article class="industry-card"><strong>消费</strong><span>食品饮料 / 医疗服务 / 家电 / 商贸</span></article>
-          <article class="industry-card"><strong>制造</strong><span>汽车 / 机械 / 化工 / 建材</span></article>
-          <article class="industry-card"><strong>公用事业</strong><span>电力 / 水务 / 交运 / 通信运营</span></article>
-        </div>
+        <div class="section-header"><div><p class="eyebrow">INDUSTRY MAP</p><h2 id="industry-pillar-heading">支柱</h2></div></div>
+        <article class="industry-empty"><strong>等待你的指示</strong><span>这里不预填任何内容。</span></article>
       </section>
     </main>
   </div>

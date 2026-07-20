@@ -54,6 +54,14 @@ test('sidebar switches between thermometer and industry panels', () => {
   assert.doesNotMatch(html, />板块</);
 });
 
+test('industry panels wait for user supplied content', () => {
+  const html = readFileSync(sourcePath, 'utf8');
+  assert.match(html, /等待你的指示/);
+  assert.doesNotMatch(html, /科技自主|能源安全|国防安全|基础设施|AI 算力|机器人|低空经济|创新药|金融|消费|制造|公用事业/);
+  assert.doesNotMatch(html, /国家安全|高成长|经济基本盘|现金流稳定器|产业化节奏/);
+  assert.doesNotMatch(html, /半导体设备|银行 \/ 保险|食品饮料|电力 \/ 水务/);
+});
+
 test('example state produces a complete auditable score', () => {
   const derived = deriveDashboard(createExampleSnapshot(), 5);
   assert.equal(derived.windowYears, 5);

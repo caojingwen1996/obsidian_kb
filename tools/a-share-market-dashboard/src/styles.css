@@ -154,6 +154,9 @@ h3 { font-size: 15px; }
 .industry-card { min-height: 112px; border-radius: 14px; background: var(--card); box-shadow: var(--shadow); padding: 18px; display: flex; flex-direction: column; justify-content: space-between; gap: 15px; }
 .industry-card strong { font-size: 17px; }
 .industry-card span { color: var(--muted); font-size: 12px; line-height: 1.7; }
+.industry-empty { border-radius: 14px; background: var(--card); box-shadow: var(--shadow); padding: 22px; display: flex; flex-direction: column; gap: 9px; max-width: 560px; }
+.industry-empty strong { font-size: 17px; }
+.industry-empty span { color: var(--muted); font-size: 12px; }
 
 @media (max-width: 920px) {
   .app-shell { grid-template-columns: 184px minmax(0,1fr); }
