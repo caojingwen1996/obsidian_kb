@@ -1,0 +1,113 @@
+{
+    "account":  "冰冰小美",
+    "account_url":  "https://xueqiu.com/u/7143769715",
+    "task_date":  "2026-07-20",
+    "start_time":  "2026-07-20 10:53:06",
+    "end_time":  "2026-07-20 10:53:06",
+    "scan_round":  1,
+    "success_count":  5,
+    "failure_count":  0,
+    "log_file":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-20\\冰冰小美\\task.log",
+    "result_dir":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-20\\冰冰小美",
+    "state_file":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-20\\冰冰小美\\state.json",
+    "capture_boundary":  "auto-only detail capture succeeded for the 5 target-date posts visible during this run; prior auto-then-manual full verification timed out on Xueqiu verification page.",
+    "processed_items":  {
+                            "401053971":  {
+                                              "source_id":  "401053971",
+                                              "title":  "投资策略与市场现象",
+                                              "core_view":  "市场无效与做空风险",
+                                              "published_at":  "2026-07-20 08:58:00",
+                                              "url":  "https://xueqiu.com/7143769715/401053971",
+                                              "platform":  "xueqiu",
+                                              "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-20\\冰冰小美\\085800_市场无效与做空风险.md",
+                                              "interpretation_file":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-20\\冰冰小美\\085800_市场无效与做空风险_解读.md",
+                                              "saved_at":  "2026-07-20 10:53:06",
+                                              "raw_status":  "written"
+                                          },
+                            "401072791":  {
+                                              "source_id":  "401072791",
+                                              "title":  "高开，光，Pcb继续向下，国产算力，紫光浪潮封板，海外链风险，解铃还须系铃人。海力士问题医药与科技跷跷板，石油，煤炭，保... - 雪球",
+                                              "core_view":  "救市锚定低估值高股息",
+                                              "published_at":  "2026-07-20 09:54:00",
+                                              "url":  "https://xueqiu.com/7143769715/401072791",
+                                              "platform":  "xueqiu",
+                                              "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-20\\冰冰小美\\095400_救市锚定低估值高股息.md",
+                                              "interpretation_file":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-20\\冰冰小美\\095400_救市锚定低估值高股息_解读.md",
+                                              "saved_at":  "2026-07-20 10:53:06",
+                                              "raw_status":  "written"
+                                          },
+                            "401078757":  {
+                                              "source_id":  "401078757",
+                                              "title":  "高股息策略在2023就采用过。当时也是两桶油。也就是左手油矿，右手新质。油矿没变，新质内部变化较大。不过目前手段丰富，金... - 雪球",
+                                              "core_view":  "高股息更适合均衡配置",
+                                              "published_at":  "2026-07-20 10:08:00",
+                                              "url":  "https://xueqiu.com/7143769715/401078757",
+                                              "platform":  "xueqiu",
+                                              "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-20\\冰冰小美\\100800_高股息更适合均衡配置.md",
+                                              "interpretation_file":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-20\\冰冰小美\\100800_高股息更适合均衡配置_解读.md",
+                                              "saved_at":  "2026-07-20 10:53:06",
+                                              "raw_status":  "written"
+                                          },
+                            "401085882":  {
+                                              "source_id":  "401085882",
+                                              "title":  "9点35分-9点40分 创业板 跟随韩国指数同步拉直线，随后韩国一路向下，pcb，光，存储一路向下。创业板指数也是如此。... - 雪球",
+                                              "core_view":  "量化锚定亚太导致科技链下行",
+                                              "published_at":  "2026-07-20 10:22:00",
+                                              "url":  "https://xueqiu.com/7143769715/401085882",
+                                              "platform":  "xueqiu",
+                                              "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-20\\冰冰小美\\102200_量化锚定亚太导致科技链下行.md",
+                                              "interpretation_file":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-20\\冰冰小美\\102200_量化锚定亚太导致科技链下行_解读.md",
+                                              "saved_at":  "2026-07-20 10:53:06",
+                                              "raw_status":  "written"
+                                          },
+                            "401090815":  {
+                                              "source_id":  "401090815",
+                                              "title":  "高开缓和恐慌，但是难以改变趋势。交易难度巨大，量力而行。救市也改变不了科技颓势，依托救市心态的羊群，信心受挫，接下来大面... - 雪球",
+                                              "core_view":  "救市难改科技流动性瓦解",
+                                              "published_at":  "2026-07-20 10:32:00",
+                                              "url":  "https://xueqiu.com/7143769715/401090815",
+                                              "platform":  "xueqiu",
+                                              "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-20\\冰冰小美\\103200_救市难改科技流动性瓦解.md",
+                                              "interpretation_file":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-20\\冰冰小美\\103200_救市难改科技流动性瓦解_解读.md",
+                                              "saved_at":  "2026-07-20 10:53:06",
+                                              "raw_status":  "written"
+                                          }
+                        },
+    "events":  [
+                   {
+                       "type":  "item_saved",
+                       "time":  "2026-07-20 10:53:06",
+                       "item_key":  "401053971",
+                       "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-20\\冰冰小美\\085800_市场无效与做空风险.md",
+                       "raw_status":  "written"
+                   },
+                   {
+                       "type":  "item_saved",
+                       "time":  "2026-07-20 10:53:06",
+                       "item_key":  "401072791",
+                       "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-20\\冰冰小美\\095400_救市锚定低估值高股息.md",
+                       "raw_status":  "written"
+                   },
+                   {
+                       "type":  "item_saved",
+                       "time":  "2026-07-20 10:53:06",
+                       "item_key":  "401078757",
+                       "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-20\\冰冰小美\\100800_高股息更适合均衡配置.md",
+                       "raw_status":  "written"
+                   },
+                   {
+                       "type":  "item_saved",
+                       "time":  "2026-07-20 10:53:06",
+                       "item_key":  "401085882",
+                       "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-20\\冰冰小美\\102200_量化锚定亚太导致科技链下行.md",
+                       "raw_status":  "written"
+                   },
+                   {
+                       "type":  "item_saved",
+                       "time":  "2026-07-20 10:53:06",
+                       "item_key":  "401090815",
+                       "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-20\\冰冰小美\\103200_救市难改科技流动性瓦解.md",
+                       "raw_status":  "written"
+                   }
+               ]
+}

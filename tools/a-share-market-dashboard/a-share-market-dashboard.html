@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>A股温度计 · 大盘估值分位监控</title>
+  <title>温度计</title>
   <style>:root {
   color-scheme: light;
   --ink: #18232c;
@@ -22,6 +22,7 @@
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html { background: var(--paper); }
 body { margin: 0; background: var(--paper); color: var(--ink); }
 button, input { font: inherit; }
@@ -35,7 +36,14 @@ button:focus-visible, input:focus-visible { outline: 3px solid rgba(50, 118, 216
 .brand strong, .brand small { display: block; }
 .brand strong { letter-spacing: .02em; }
 .brand small { color: var(--nav-muted); font-size: 11px; margin-top: 3px; }
-#primary-nav { display: grid; gap: 5px; }
+.shell-switcher { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin: 0 6px 20px; padding: 4px; border-radius: 11px; background: rgba(255,255,255,.08); }
+.shell-switch { border: 0; border-radius: 8px; padding: 8px 7px; background: transparent; color: var(--nav-muted); font-size: 12px; }
+.shell-switch:hover { color: #dfe6eb; background: rgba(255,255,255,.07); }
+.shell-switch.is-active { background: white; color: var(--nav); font-weight: 700; }
+.nav-stack { min-height: 0; }
+.sidebar-panel { display: none; }
+.sidebar-panel.is-active { display: block; }
+.sidebar-nav { display: grid; gap: 5px; }
 .nav-item { width: 100%; border: 0; border-radius: 9px; background: transparent; color: var(--nav-muted); padding: 11px 12px; text-align: left; display: flex; align-items: center; gap: 11px; }
 .nav-item span { font-size: 10px; opacity: .65; letter-spacing: .08em; }
 .nav-item:hover { background: rgba(255,255,255,.06); color: #dfe6eb; }
@@ -148,6 +156,11 @@ h3 { font-size: 15px; }
 .audit-table th { color: var(--muted); font-size: 9px; letter-spacing: .04em; }
 .audit-table tr:last-child td { border-bottom: 0; }
 
+.industry-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px; }
+.industry-card { min-height: 112px; border-radius: 14px; background: var(--card); box-shadow: var(--shadow); padding: 18px; display: flex; flex-direction: column; justify-content: space-between; gap: 15px; }
+.industry-card strong { font-size: 17px; }
+.industry-card span { color: var(--muted); font-size: 12px; line-height: 1.7; }
+
 @media (max-width: 920px) {
   .app-shell { grid-template-columns: 184px minmax(0,1fr); }
   .metric-row { grid-template-columns: 1fr 1fr 65px; }
@@ -159,16 +172,17 @@ h3 { font-size: 15px; }
   .app-shell { display: block; }
   .sidebar { position: relative; width: 100%; height: auto; padding: 15px 17px; }
   .brand { margin: 0; }
+  .shell-switcher { margin: 14px 0 0; max-width: 260px; }
   .mobile-nav-toggle { display: block; position: absolute; right: 17px; top: 18px; border: 1px solid rgba(255,255,255,.18); color: white; background: transparent; border-radius: 8px; padding: 7px 10px; }
-  #primary-nav { display: none; margin-top: 15px; }
-  .sidebar.is-open #primary-nav { display: grid; }
+  .nav-stack { display: none; margin-top: 15px; }
+  .sidebar.is-open .nav-stack { display: block; }
   .sidebar-footer { display: none; }
   .main-content { padding: 20px 15px 42px; }
   .topbar, .summary-heading, .section-header { align-items: flex-start; flex-direction: column; }
   .top-actions { width: 100%; justify-content: space-between; }
   .summary-heading { margin-top: 23px; }
   .section-header > p { text-align: left; }
-  .hero-grid, .layer-grid, .rules-layout { grid-template-columns: 1fr; }
+  .hero-grid, .layer-grid, .rules-layout, .industry-grid { grid-template-columns: 1fr; }
   .formula-panel { grid-column: auto; }
   .score-card { min-height: 150px; }
   .metric-row { grid-template-columns: 1fr 62px; gap: 10px; }
@@ -181,7 +195,7 @@ h3 { font-size: 15px; }
 
 @media print {
   .app-shell { display: block; }
-  .sidebar, .top-actions, .notice, .window-controls { display: none !important; }
+  .sidebar, .top-actions, .notice, .window-controls, .shell-switcher { display: none !important; }
   .main-content { padding: 0; }
   .view { display: block !important; break-before: page; }
   #market-summary { break-before: auto; }
@@ -193,17 +207,33 @@ h3 { font-size: 15px; }
     <aside class="sidebar" id="sidebar">
       <div class="brand">
         <span class="brand-mark">A</span>
-        <div><strong>A股温度计</strong><small>位置 · 估值 · 情绪</small></div>
+        <div><strong>温度计</strong><small>位置 · 估值 · 情绪</small></div>
       </div>
-      <button class="mobile-nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">打开导航</button>
-      <nav id="primary-nav" aria-label="面板导航">
-        <button class="nav-item is-active" type="button" data-view="market-summary" aria-current="page"><span>01</span>市场总览</button>
-        <button class="nav-item" type="button" data-view="position-view"><span>02</span>位置分位</button>
-        <button class="nav-item" type="button" data-view="valuation-view"><span>03</span>估值与 ERP</button>
-        <button class="nav-item" type="button" data-view="emotion-view"><span>04</span>情绪温度</button>
-        <button class="nav-item" type="button" data-view="rules-view"><span>05</span>评分规则</button>
-        <button class="nav-item" type="button" data-view="audit-view"><span>06</span>数据审计</button>
-      </nav>
+      <div class="shell-switcher" role="tablist" aria-label="工具切换">
+        <button class="shell-switch is-active" type="button" data-shell="thermometer" role="tab" aria-selected="true">温度计</button>
+        <button class="shell-switch" type="button" data-shell="industry" role="tab" aria-selected="false">产业</button>
+      </div>
+      <button class="mobile-nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-stack">打开导航</button>
+      <div class="nav-stack" id="nav-stack">
+        <nav class="sidebar-panel is-active" id="primary-nav" data-shell-panel="thermometer" aria-label="温度计导航">
+          <div class="sidebar-nav">
+            <button class="nav-item is-active" type="button" data-view="market-summary" aria-current="page"><span>01</span>市场总览</button>
+            <button class="nav-item" type="button" data-view="position-view"><span>02</span>位置分位</button>
+            <button class="nav-item" type="button" data-view="valuation-view"><span>03</span>估值与 ERP</button>
+            <button class="nav-item" type="button" data-view="emotion-view"><span>04</span>情绪温度</button>
+            <button class="nav-item" type="button" data-view="rules-view"><span>05</span>评分规则</button>
+            <button class="nav-item" type="button" data-view="audit-view"><span>06</span>数据审计</button>
+          </div>
+        </nav>
+        <nav class="sidebar-panel" data-shell-panel="industry" aria-label="产业导航" hidden>
+          <div class="sidebar-nav">
+            <button class="nav-item" type="button" data-view="industry-strategy"><span>01</span>战略</button>
+            <button class="nav-item" type="button" data-view="industry-emerging"><span>02</span>新兴</button>
+            <button class="nav-item" type="button" data-view="industry-pillar"><span>03</span>支柱</button>
+            <button class="nav-item" type="button" data-view="industry-sectors"><span>04</span>板块</button>
+          </div>
+        </nav>
+      </div>
       <div class="sidebar-footer">
         <div class="connection"><span class="status-dot" id="sidebar-status-dot"></span><span id="sidebar-status">示例数据</span></div>
         <div><span id="sidebar-valid">10 / 10 项有效</span><br><time id="sidebar-updated">—</time></div>
@@ -216,7 +246,7 @@ h3 { font-size: 15px; }
           <p class="eyebrow">MARKET VALUATION MONITOR</p>
           <h1 id="page-title">市场总览</h1>
         </div>
-        <div class="top-actions">
+        <div class="top-actions" id="market-actions">
           <label class="mode-switch" for="example-mode">
             <input id="example-mode" type="checkbox" checked>
             <span>示例数据</span>
@@ -225,9 +255,9 @@ h3 { font-size: 15px; }
         </div>
       </header>
 
-      <div class="notice" id="global-notice" role="status">正在用内置示例数据初始化。稳定联网请双击“启动A股大盘面板.cmd”。</div>
+      <div class="notice" id="global-notice" role="status">正在用内置示例数据初始化。稳定联网请双击“启动大盘面板.cmd”。</div>
 
-      <section class="view is-active" id="market-summary" aria-labelledby="summary-heading">
+      <section class="view is-active" id="market-summary" data-shell-content="thermometer" aria-labelledby="summary-heading">
         <div class="summary-heading">
           <div>
             <p class="eyebrow">当前结论</p>
@@ -263,22 +293,22 @@ h3 { font-size: 15px; }
         <div class="metric-list" id="metric-list"></div>
       </section>
 
-      <section class="view" id="position-view" aria-labelledby="position-heading">
+      <section class="view" id="position-view" data-shell-content="thermometer" aria-labelledby="position-heading">
         <div class="section-header"><div><p class="eyebrow">POSITION</p><h2 id="position-heading">位置分位</h2></div><p>当前价格相对 MA250 的偏离率，在所选历史窗口中的位置。</p></div>
         <div class="detail-grid" id="position-details"></div>
       </section>
 
-      <section class="view" id="valuation-view" aria-labelledby="valuation-heading">
+      <section class="view" id="valuation-view" data-shell-content="thermometer" aria-labelledby="valuation-heading">
         <div class="section-header"><div><p class="eyebrow">VALUATION</p><h2 id="valuation-heading">估值与 ERP</h2></div><p>前瞻数据缺失时明确退出评分，不用 TTM 指标替代。</p></div>
         <div class="detail-grid" id="valuation-details"></div>
       </section>
 
-      <section class="view" id="emotion-view" aria-labelledby="emotion-heading">
+      <section class="view" id="emotion-view" data-shell-content="thermometer" aria-labelledby="emotion-heading">
         <div class="section-header"><div><p class="eyebrow">SENTIMENT</p><h2 id="emotion-heading">A股恐惧贪婪代理</h2></div><p>先计算贪婪度，再反向计入买点评分。</p></div>
         <div class="detail-grid" id="emotion-details"></div>
       </section>
 
-      <section class="view" id="rules-view" aria-labelledby="rules-heading">
+      <section class="view" id="rules-view" data-shell-content="thermometer" aria-labelledby="rules-heading">
         <div class="section-header"><div><p class="eyebrow">RULEBOOK V1.0</p><h2 id="rules-heading">评分规则</h2></div><p>固定规则，可解释、可复算、可回溯。</p></div>
         <div class="rules-layout">
           <article class="panel"><h3>固定权重</h3><div id="rules-weights"></div></article>
@@ -298,11 +328,51 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
         </div>
       </section>
 
-      <section class="view" id="audit-view" aria-labelledby="audit-heading">
+      <section class="view" id="audit-view" data-shell-content="thermometer" aria-labelledby="audit-heading">
         <div class="section-header"><div><p class="eyebrow">DATA AUDIT</p><h2 id="audit-heading">数据审计</h2></div><p>原始值、公式、来源、时间、权重与失败原因同时留档。</p></div>
         <div class="audit-summary" id="audit-summary"></div>
         <div class="audit-errors" id="audit-errors" aria-live="polite"></div>
         <div class="audit-table-wrap"><table class="audit-table"><thead><tr><th>指标</th><th>状态</th><th>来源</th><th>数据时间</th><th>原始权重</th><th>有效权重</th><th>得分贡献</th></tr></thead><tbody id="audit-table-body"></tbody></table></div>
+      </section>
+
+      <section class="view" id="industry-strategy" data-shell-content="industry" aria-labelledby="industry-strategy-heading">
+        <div class="section-header"><div><p class="eyebrow">INDUSTRY MAP</p><h2 id="industry-strategy-heading">战略</h2></div><p>国家安全、能源安全、科技自主和基础设施韧性。</p></div>
+        <div class="industry-grid">
+          <article class="industry-card"><strong>科技自主</strong><span>半导体设备 / 材料 / EDA / 国产算力</span></article>
+          <article class="industry-card"><strong>能源安全</strong><span>油气煤炭 / 电网 / 储能 / 核电</span></article>
+          <article class="industry-card"><strong>国防安全</strong><span>军工电子 / 航空航天 / 船舶装备</span></article>
+          <article class="industry-card"><strong>基础设施</strong><span>电力设备 / 工业母机 / 交通装备</span></article>
+        </div>
+      </section>
+
+      <section class="view" id="industry-emerging" data-shell-content="industry" aria-labelledby="industry-emerging-heading">
+        <div class="section-header"><div><p class="eyebrow">INDUSTRY MAP</p><h2 id="industry-emerging-heading">新兴</h2></div><p>高成长、高迭代、仍需验证产业化节奏。</p></div>
+        <div class="industry-grid">
+          <article class="industry-card"><strong>AI 算力</strong><span>光模块 / 服务器 / 液冷 / 国产芯片</span></article>
+          <article class="industry-card"><strong>机器人</strong><span>本体 / 减速器 / 传感器 / 控制器</span></article>
+          <article class="industry-card"><strong>低空经济</strong><span>整机 / 空管 / 电池 / 运营场景</span></article>
+          <article class="industry-card"><strong>创新药</strong><span>ADC / GLP-1 / CXO / 出海授权</span></article>
+        </div>
+      </section>
+
+      <section class="view" id="industry-pillar" data-shell-content="industry" aria-labelledby="industry-pillar-heading">
+        <div class="section-header"><div><p class="eyebrow">INDUSTRY MAP</p><h2 id="industry-pillar-heading">支柱</h2></div><p>经济基本盘和现金流稳定器。</p></div>
+        <div class="industry-grid">
+          <article class="industry-card"><strong>金融</strong><span>银行 / 保险 / 券商 / 交易基础设施</span></article>
+          <article class="industry-card"><strong>消费</strong><span>食品饮料 / 医疗服务 / 家电 / 商贸</span></article>
+          <article class="industry-card"><strong>制造</strong><span>汽车 / 机械 / 化工 / 建材</span></article>
+          <article class="industry-card"><strong>公用事业</strong><span>电力 / 水务 / 交运 / 通信运营</span></article>
+        </div>
+      </section>
+
+      <section class="view" id="industry-sectors" data-shell-content="industry" aria-labelledby="industry-sectors-heading">
+        <div class="section-header"><div><p class="eyebrow">INDUSTRY MAP</p><h2 id="industry-sectors-heading">板块</h2></div><p>按市场交易语言归档，便于和温度计信号对照。</p></div>
+        <div class="industry-grid">
+          <article class="industry-card"><strong>科技成长</strong><span>电子 / 计算机 / 通信 / 传媒</span></article>
+          <article class="industry-card"><strong>周期资源</strong><span>有色 / 钢铁 / 煤炭 / 石化</span></article>
+          <article class="industry-card"><strong>红利防守</strong><span>银行 / 公用事业 / 运营商 / 高股息央企</span></article>
+          <article class="industry-card"><strong>内需修复</strong><span>消费 / 医药 / 地产链 / 出行服务</span></article>
+        </div>
       </section>
     </main>
   </div>
@@ -1265,11 +1335,16 @@ function startApp() {
   const state = { snapshot: EXAMPLE_SNAPSHOT, windowYears: 5, busy: false };
   const storage = resolveStorage();
   const launcherHint = globalThis.location?.protocol === 'file:'
-    ? ' 稳定联网请双击“启动A股大盘面板.cmd”。'
+    ? ' 稳定联网请双击“启动大盘面板.cmd”。'
     : '';
   const notice = document.getElementById('global-notice');
   const refreshButton = document.getElementById('refresh-data');
   const exampleToggle = document.getElementById('example-mode');
+  const marketActions = document.getElementById('market-actions');
+  const pageTitle = document.getElementById('page-title');
+  const pageEyebrow = document.querySelector('.topbar .eyebrow');
+  const sidebarFooter = document.querySelector('.sidebar-footer');
+  const activeViewByShell = { thermometer: 'market-summary', industry: 'industry-strategy' };
 
   const render = () => {
     const derived = deriveDashboard(state.snapshot, state.windowYears);
@@ -1316,17 +1391,58 @@ function startApp() {
     }
   };
 
+  const closeSidebar = () => {
+    document.getElementById('sidebar').classList.remove('is-open');
+    document.getElementById('nav-toggle').setAttribute('aria-expanded', 'false');
+  };
+
+  const shellForButton = button => button.closest('[data-shell-panel]')?.dataset.shellPanel ?? 'thermometer';
+
+  const labelForView = button => button?.textContent.replace(/^\d+/, '').trim() ?? '';
+
+  const setActiveView = viewId => {
+    const button = [...document.querySelectorAll('[data-view]')].find(item => item.dataset.view === viewId);
+    const shell = button ? shellForButton(button) : 'thermometer';
+    activeViewByShell[shell] = viewId;
+    document.querySelectorAll('[data-view]').forEach(item => {
+      const active = item === button;
+      item.classList.toggle('is-active', active);
+      if (active) item.setAttribute('aria-current', 'page');
+      else item.removeAttribute('aria-current');
+    });
+    document.querySelectorAll('.view').forEach(view => view.classList.toggle('is-active', view.id === viewId));
+    pageTitle.textContent = labelForView(button) || pageTitle.textContent;
+  };
+
+  const setShell = (shell, viewId = null) => {
+    const targetShell = shell === 'industry' ? 'industry' : 'thermometer';
+    document.querySelectorAll('[data-shell]').forEach(button => {
+      const active = button.dataset.shell === targetShell;
+      button.classList.toggle('is-active', active);
+      button.setAttribute('aria-selected', String(active));
+    });
+    document.querySelectorAll('[data-shell-panel]').forEach(panel => {
+      const active = panel.dataset.shellPanel === targetShell;
+      panel.classList.toggle('is-active', active);
+      panel.hidden = !active;
+    });
+    marketActions.hidden = targetShell !== 'thermometer';
+    notice.hidden = targetShell !== 'thermometer';
+    sidebarFooter.hidden = targetShell !== 'thermometer';
+    pageEyebrow.textContent = targetShell === 'thermometer' ? 'MARKET VALUATION MONITOR' : 'INDUSTRY MAP';
+    setActiveView(viewId ?? activeViewByShell[targetShell]);
+    closeSidebar();
+  };
+
   document.querySelectorAll('[data-window]').forEach(button => button.addEventListener('click', () => {
     state.windowYears = Number(button.dataset.window);
     render();
   }));
   document.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => {
-    document.querySelectorAll('[data-view]').forEach(item => { item.classList.toggle('is-active', item === button); item.removeAttribute('aria-current'); });
-    button.setAttribute('aria-current', 'page');
-    document.querySelectorAll('.view').forEach(view => view.classList.toggle('is-active', view.id === button.dataset.view));
-    document.getElementById('page-title').textContent = button.textContent.replace(/^\d+/, '').trim();
-    document.getElementById('sidebar').classList.remove('is-open');
-    document.getElementById('nav-toggle').setAttribute('aria-expanded', 'false');
+    setShell(shellForButton(button), button.dataset.view);
+  }));
+  document.querySelectorAll('[data-shell]').forEach(button => button.addEventListener('click', () => {
+    setShell(button.dataset.shell);
   }));
   document.getElementById('nav-toggle').addEventListener('click', event => {
     const open = document.getElementById('sidebar').classList.toggle('is-open');
@@ -1344,6 +1460,7 @@ function startApp() {
   });
   refreshButton.addEventListener('click', () => refreshLive());
 
+  setShell('thermometer', 'market-summary');
   render();
   refreshLive();
   setInterval(() => {

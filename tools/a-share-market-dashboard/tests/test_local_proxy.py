@@ -138,7 +138,7 @@ class ServerTests(unittest.TestCase):
     def test_health_and_dashboard_are_served_without_exposing_other_files(self):
         with running_server(self.fake_fetch) as base:
             self.assertEqual(read_json(f"{base}/health"), {"ok": True})
-            self.assertIn("A股温度计", read_text(f"{base}/"))
+            self.assertIn("温度计", read_text(f"{base}/"))
             with self.assertRaises(HTTPError) as missing:
                 urlopen(f"{base}/AGENTS.md", timeout=3)
             self.assertEqual(missing.exception.code, 404)

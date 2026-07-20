@@ -38,6 +38,22 @@ test('window controls use native buttons with the four approved values', () => {
   }
 });
 
+test('sidebar switches between thermometer and industry panels', () => {
+  const html = readFileSync(sourcePath, 'utf8');
+  for (const shell of ['thermometer', 'industry']) {
+    assert.match(html, new RegExp(`<button[^>]+data-shell="${shell}"`));
+  }
+  for (const id of [
+    'industry-strategy',
+    'industry-emerging',
+    'industry-pillar',
+  ]) {
+    assert.match(html, new RegExp(`id="${id}"`));
+  }
+  assert.doesNotMatch(html, /industry-sectors/);
+  assert.doesNotMatch(html, />板块</);
+});
+
 test('example state produces a complete auditable score', () => {
   const derived = deriveDashboard(createExampleSnapshot(), 5);
   assert.equal(derived.windowYears, 5);
@@ -65,13 +81,13 @@ test('built artifact is self-contained and directly openable', () => {
   assert.doesNotMatch(output, /DASHBOARD_(STYLES|SCRIPT)/);
   assert.match(output, /<style>[\s\S]+<\/style>/);
   assert.match(output, /<script type="module">[\s\S]+<\/script>/);
-  assert.match(output, /A股温度计/);
+  assert.match(output, /温度计/);
   assert.ok(Buffer.byteLength(output, 'utf8') < 2_000_000);
 });
 
 test('built artifact explains that the launcher is required for stable live data', () => {
   const output = readFileSync(artifactPath, 'utf8');
-  assert.match(output, /启动A股大盘面板\.cmd/);
+  assert.match(output, /启动大盘面板\.cmd/);
 });
 
 test('file-protocol storage restrictions fall back to an in-memory cache', () => {

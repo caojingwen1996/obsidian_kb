@@ -14586,6 +14586,137 @@ update / query
 
 ### 操作类型
 
+automation / dividend-signal / update
+
+### 修改文件
+
+- `sources/automations/中证红利信号/最新信号.md`
+- `sources/automations/中证红利信号/中证红利每日信号.xlsx`
+- `log.md`
+
+### 操作说明
+
+运行 `.agents/skills/zzhl-dividend-signal/scripts/check_signal.py` 刷新中证红利 `000922` 股息率信号每日记录。AKShare 指数估值日期为 2026-07-17，股息率2为 4.60%；中国10年国债收益率日期为 2026-07-17，收益率为 1.7404%，股债利差为 2.8596 个百分点。理杏仁公开页面本次由脚本成功解析，估值日期为 2026-07-17，市值加权股息率为 4.38%，近10年股息率分位为 12.26%，80%分位点为 6.12%。雪球实时行情接口仍返回空响应，因此当天涨跌幅保留为待验证。
+
+按 Query Page“中证红利什么时候买入收益率最高”的三种触发规则判断：历史分位点为 D（不买或少买），绝对股息率为 C（小额定投），股债利差为 B（加大买入），综合结论为“未进入加大买入区间”，未进入重点买入区间。
+
+### 后续待办
+
+- 后续继续观察理杏仁公开页面和雪球实时行情接口稳定性；若再次失败，不编造缺失数值。
+
+- [2026-07-20T09:59:44+08:00] QUERY query="找出中国船舶的研报" result_pages=2 mode=normal escalated=false
+
+### 中国船舶研报 HTML 导出
+
+- 操作类型：report-update / html-export
+- 修改文件：`wiki/queries/2026-07-17-1133-中国船舶机构级决策研报.md`、`sources/automations/temp/2026-07-17-1133-中国船舶机构级决策研报.html`、`log.md`
+- 操作说明：将旧版 14 模块研报按当前 `bbxm-equity-research` 模板无结论改写地迁移为 16 个编号模块，补齐标准封面字段、研究局限、来源清单和声明，并通过统一渲染器生成 HTML。已验证 16 个目录锚点、UTF-8 中文、关键价格与估值、动作结论、双链转换及 Markdown / HTML 结论一致性。
+
+## 2026-07-20
+
+### 操作类型
+
+research / equity-report / query / html-export
+
+### 修改文件
+
+- `sources/papers/2026-04-25-三安光电-2025年年度报告.pdf`
+- `sources/webpages/2026-07-20-三安光电机构级研究资料快照.md`
+- `wiki/queries/2026-07-20-1005-三安光电-机构级决策研报.md`
+- `sources/automations/temp/2026-07-20-1005-三安光电-机构级决策研报.html`
+- `sources/automations/temp/2026-07-20-1005-三安光电-机构级决策研报.md`
+- `index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` 的 16 模块合同完成三安光电机构级决策研报。研究覆盖五年财务、2026Q1、2026H1业绩预告、近三个月公告、相对PB、三情景DCF、反向DCF、分部估值、冰冰小美三要素和风险方向。综合公允价值为6.5—9.5元；截至2026-07-20 10:05盘中价12.51元仍高估，风险增强，新增现金动作为wait / observe，已有持仓进入review。
+
+按用户要求，将研报 Markdown 成品另存至 `sources/automations/temp/`；正式 Query Page 保留不动，以维持索引和双链有效。
+
+### 后续待办
+
+- 跟踪2026年半年报中集成电路分部毛利率、库存减值和扣非亏损变化。
+- 跟踪控股股东股份冻结是否解除，以及Mini/Micro LED项目是否出现可量化订单与利用率证据。
+
+## 2026-07-20
+
+### 操作类型
+
+automation / bbxm-daily-brief / risk-analysis
+
+### 修改文件
+
+- `sources/automations/BBXM每日汇总/2026-07-20/冰冰小美/summary.md`
+- `sources/automations/BBXM每日汇总/2026-07-20/冰冰小美/state.json`
+- `sources/automations/BBXM每日汇总/2026-07-20/冰冰小美/task.log`
+- `sources/automations/BBXM每日汇总/2026-07-20/冰冰小美/processing/risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026-07-20/冰冰小美/processing/risk-write-status.json`
+- `tools/bbxm-risk-dashboard/data/冰冰小美风险提示.xlsx`
+- `log.md`
+
+### 操作说明
+
+按 `.agents/automations/bbxm_daliy_brief.md` 执行 2026-07-20 BBXM 每日汇总。保存本次运行时可见的 5 条冰冰小美当日雪球帖子，按“发布时间 + 核心观点”生成原始帖文件和逐帖 `_解读.md`，并基于全部已保存帖子生成 `summary.md` 与 `processing/risk-analysis.json`。风险台账更新器已写入 5 条自动分析风险提示。
+
+完整 `auto-then-manual` 验证曾在雪球验证页超时；最终采用 `auto-only` 成功抓取的 5 条目标日期详情页内容，并用首页可见候选交叉确认。本次不声称覆盖 2026-07-20 10:32 之后可能新增的帖子。
+
+### 后续待办
+
+- 下午或收盘后可同日重跑，补抓 10:32 之后可能新增的冰冰小美帖子。
+- 后续维护 `.agents/automations/bbxm_daliy_brief.md` 依赖路径时，需处理仍缺失的 `wiki/concepts/冰冰小美-rule-体系三要素的运用.md`、`wiki/concepts/冰冰小美-rule-减仓.md` 等提示词指定页面，并修复 `wiki/people/冰冰小美.md` 的乱码问题。
+
+## 2026-07-20
+
+### 操作类型
+
+ui / rename / dashboard
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/tests/test_local_proxy.py`
+- `tools/a-share-market-dashboard/README.md`
+- `log.md`
+
+### 操作说明
+
+将 A 股大盘面板的显示名称从“A股温度计”改为“温度计”，同步更新浏览器标题、页面标题、README 标题和测试断言，并重新构建单文件 HTML。指标计算、数据源、页面结构和启动方式未改动。
+
+### 后续待办
+
+- 无。
+
+## 2026-07-20
+
+### 操作类型
+
+ui / navigation / dashboard
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/README.md`
+- `log.md`
+
+### 操作说明
+
+为“温度计”工具左侧增加应用级切换入口：“温度计 / 产业”。“温度计”保留原大盘估值面板；“产业”切换后显示“战略 / 新兴 / 支柱 / 板块”四个分区导航和对应内容区。同步更新样式、切换逻辑、单文件 HTML、README 与结构测试；指标计算和数据源未改动。
+
+### 后续待办
+
+- 后续如需把产业分区接入知识库页面或行情数据，可在当前四个分区下继续扩展。
+
+## 2026-07-20
+
+### 操作类型
+
 migrate / refactor / link / contract
 
 ### 修改文件

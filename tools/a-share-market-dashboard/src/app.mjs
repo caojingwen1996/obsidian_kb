@@ -276,11 +276,16 @@ function startApp() {
   const state = { snapshot: EXAMPLE_SNAPSHOT, windowYears: 5, busy: false };
   const storage = resolveStorage();
   const launcherHint = globalThis.location?.protocol === 'file:'
-    ? ' 稳定联网请双击“启动A股大盘面板.cmd”。'
+    ? ' 稳定联网请双击“启动大盘面板.cmd”。'
     : '';
   const notice = document.getElementById('global-notice');
   const refreshButton = document.getElementById('refresh-data');
   const exampleToggle = document.getElementById('example-mode');
+  const marketActions = document.getElementById('market-actions');
+  const pageTitle = document.getElementById('page-title');
+  const pageEyebrow = document.querySelector('.topbar .eyebrow');
+  const sidebarFooter = document.querySelector('.sidebar-footer');
+  const activeViewByShell = { thermometer: 'market-summary', industry: 'industry-strategy' };
 
   const render = () => {
     const derived = deriveDashboard(state.snapshot, state.windowYears);
@@ -327,17 +332,58 @@ function startApp() {
     }
   };
 
+  const closeSidebar = () => {
+    document.getElementById('sidebar').classList.remove('is-open');
+    document.getElementById('nav-toggle').setAttribute('aria-expanded', 'false');
+  };
+
+  const shellForButton = button => button.closest('[data-shell-panel]')?.dataset.shellPanel ?? 'thermometer';
+
+  const labelForView = button => button?.textContent.replace(/^\d+/, '').trim() ?? '';
+
+  const setActiveView = viewId => {
+    const button = [...document.querySelectorAll('[data-view]')].find(item => item.dataset.view === viewId);
+    const shell = button ? shellForButton(button) : 'thermometer';
+    activeViewByShell[shell] = viewId;
+    document.querySelectorAll('[data-view]').forEach(item => {
+      const active = item === button;
+      item.classList.toggle('is-active', active);
+      if (active) item.setAttribute('aria-current', 'page');
+      else item.removeAttribute('aria-current');
+    });
+    document.querySelectorAll('.view').forEach(view => view.classList.toggle('is-active', view.id === viewId));
+    pageTitle.textContent = labelForView(button) || pageTitle.textContent;
+  };
+
+  const setShell = (shell, viewId = null) => {
+    const targetShell = shell === 'industry' ? 'industry' : 'thermometer';
+    document.querySelectorAll('[data-shell]').forEach(button => {
+      const active = button.dataset.shell === targetShell;
+      button.classList.toggle('is-active', active);
+      button.setAttribute('aria-selected', String(active));
+    });
+    document.querySelectorAll('[data-shell-panel]').forEach(panel => {
+      const active = panel.dataset.shellPanel === targetShell;
+      panel.classList.toggle('is-active', active);
+      panel.hidden = !active;
+    });
+    marketActions.hidden = targetShell !== 'thermometer';
+    notice.hidden = targetShell !== 'thermometer';
+    sidebarFooter.hidden = targetShell !== 'thermometer';
+    pageEyebrow.textContent = targetShell === 'thermometer' ? 'MARKET VALUATION MONITOR' : 'INDUSTRY MAP';
+    setActiveView(viewId ?? activeViewByShell[targetShell]);
+    closeSidebar();
+  };
+
   document.querySelectorAll('[data-window]').forEach(button => button.addEventListener('click', () => {
     state.windowYears = Number(button.dataset.window);
     render();
   }));
   document.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => {
-    document.querySelectorAll('[data-view]').forEach(item => { item.classList.toggle('is-active', item === button); item.removeAttribute('aria-current'); });
-    button.setAttribute('aria-current', 'page');
-    document.querySelectorAll('.view').forEach(view => view.classList.toggle('is-active', view.id === button.dataset.view));
-    document.getElementById('page-title').textContent = button.textContent.replace(/^\d+/, '').trim();
-    document.getElementById('sidebar').classList.remove('is-open');
-    document.getElementById('nav-toggle').setAttribute('aria-expanded', 'false');
+    setShell(shellForButton(button), button.dataset.view);
+  }));
+  document.querySelectorAll('[data-shell]').forEach(button => button.addEventListener('click', () => {
+    setShell(button.dataset.shell);
   }));
   document.getElementById('nav-toggle').addEventListener('click', event => {
     const open = document.getElementById('sidebar').classList.toggle('is-open');
@@ -355,6 +401,7 @@ function startApp() {
   });
   refreshButton.addEventListener('click', () => refreshLive());
 
+  setShell('thermometer', 'market-summary');
   render();
   refreshLive();
   setInterval(() => {

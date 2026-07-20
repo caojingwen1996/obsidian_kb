@@ -1,0 +1,6 @@
+[2026-07-20 10:53:06] BBXM每日汇总 2026-07-20
+- Source: processing/extracted-posts-auto-only.json
+- Saved raw posts: 5
+- Generated interpretations: 5
+- Risk analysis: processing/risk-analysis.json
+- Boundary: auto-only detail capture succeeded for 5 target-date posts visible during this run; full auto-then-manual verification timed out on Xueqiu verification page, so same-day later posts require rerun.
