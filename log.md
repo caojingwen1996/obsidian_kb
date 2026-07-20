@@ -14717,6 +14717,28 @@ ui / navigation / dashboard
 
 ### 操作类型
 
+ui / navigation / dashboard
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/README.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求，从“产业”切换面板中移除“板块”分区，仅保留“战略 / 新兴 / 支柱”。同步更新源码页面、单文件 HTML、README 和结构测试，指标计算、数据源和温度计页面未改动。
+
+### 后续待办
+
+- 无。
+
+## 2026-07-20
+
+### 操作类型
+
 migrate / refactor / link / contract
 
 ### 修改文件
