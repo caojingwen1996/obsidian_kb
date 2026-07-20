@@ -132,6 +132,8 @@ def main() -> None:
         path = ROOT / relative
         candidates = [path] if path.is_file() else path.rglob("*")
         for candidate in candidates:
+            if candidate.resolve() == Path(__file__).resolve():
+                continue
             if not candidate.is_file() or candidate.suffix not in {".md", ".py", ".yaml"}:
                 continue
             content = candidate.read_text(encoding="utf-8-sig")
