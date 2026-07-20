@@ -14767,3 +14767,22 @@ migrate / refactor / link / contract
 
 - 航天电子（600879）目前只定位到历史 HTML 输出，未定位到同源 Markdown；后续应补档或重新生成权威研报。
 - 中国中车等标的出现影响操作逻辑的新公告时，写入对应 `tracking/YYYY-MM-DD-事件.md`，并在标的 `index.md` 更新最近节点。
+
+## 2026-07-20
+
+### 操作类型
+
+repair / directory-contract
+
+### 修改文件
+
+- `sources/automations/支柱产业/README.md`
+- `log.md`
+
+### 操作说明
+
+恢复 `sources/automations/支柱产业/` 作为自动化固定入口。目录通过 `README.md` 长期保留，并明确产业级自动化材料留在此处、具体标的研报和输出继续归档到 Workbench，避免因目录暂时为空而再次从 Git 中消失。
+
+### 后续待办
+
+- 支柱产业自动化后续应把产业级汇总或导航写入本目录；具体标的正文仍写入对应 Workbench 标的目录。
