@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>中国船舶资金面分层分析</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f7f9;
+      --paper: #ffffff;
+      --ink: #17202a;
+      --muted: #667085;
+      --line: #d9dee7;
+      --blue: #1d4ed8;
+      --teal: #0f766e;
+      --amber: #b45309;
+      --red: #b91c1c;
+      --green: #166534;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      line-height: 1.65;
+    }
+
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 32px 20px 56px;
+    }
+
+    header {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      padding: 28px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 30px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 30px 0 12px;
+      font-size: 22px;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 20px 0 10px;
+      font-size: 17px;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 8px 0;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .section {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      padding: 22px;
+      margin-top: 16px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      padding: 16px;
+      min-height: 150px;
+      background: #fbfcfe;
+    }
+
+    .card h3 {
+      margin-top: 0;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 3px 8px;
+      border: 1px solid var(--line);
+      background: #f8fafc;
+      color: var(--muted);
+      font-size: 13px;
+      margin: 2px 4px 2px 0;
+    }
+
+    .verdict {
+      border-left: 4px solid var(--amber);
+      background: #fff7ed;
+      padding: 14px 16px;
+      margin-top: 14px;
+    }
+
+    .formula {
+      background: #eef6ff;
+      border: 1px solid #bfdbfe;
+      color: #1e3a8a;
+      padding: 14px 16px;
+      font-size: 18px;
+      font-weight: 700;
+      margin: 14px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0 18px;
+      font-size: 14px;
+    }
+
+    th,
+    td {
+      border: 1px solid var(--line);
+      padding: 9px 10px;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th {
+      background: #f1f5f9;
+      font-weight: 700;
+    }
+
+    .status {
+      font-weight: 700;
+    }
+
+    .status.good {
+      color: var(--green);
+    }
+
+    .status.warn {
+      color: var(--amber);
+    }
+
+    .status.bad {
+      color: var(--red);
+    }
+
+    .chain {
+      background: #0f172a;
+      color: #e5e7eb;
+      padding: 16px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 14px;
+      white-space: pre-wrap;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    ul {
+      margin: 8px 0 0;
+      padding-left: 22px;
+    }
+
+    a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 820px) {
+      main {
+        padding: 18px 12px 36px;
+      }
+
+      header,
+      .section {
+        padding: 18px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>中国船舶资金面分层分析</h1>
+      <p class="meta">对象：600150.SH | 层级：个股 | 所属市场：A 股 / 上交所 | 分析截止时间：2026-07-18，最新交易日为 2026-07-17</p>
+      <p class="meta">比较窗口：当日 / 近 5 个交易日 / 近 20 个交易日 | 核心问题：按冰冰小美“股价分层”框架拆解中国船舶的资金状态。</p>
+      <div class="formula">股价 = 企业基本面价值 + 造船周期景气价值 + 军工央企 / 海权 / 热钱投机溢价</div>
+      <div class="verdict">
+        <strong>核心结论：</strong>中国船舶前两层价值尚未被证伪，但第三层投机溢价已经明显退潮。当前资金状态是<strong>多空分歧，偏结构性流出</strong>；新增资金以 wait / observe 为主，已有持仓需要 review。
+      </div>
+    </header>
+
+    <section class="section">
+      <h2>1. 核心结论与行动</h2>
+      <table>
+        <tr><th>项目</th><th>判断</th></tr>
+        <tr><td>资金状态</td><td><span class="status warn">多空分歧，偏结构性流出</span></td></tr>
+        <tr><td>主导资金</td><td>基本面资金仍在，但交易资金和杠杆资金开始分歧。</td></tr>
+        <tr><td>主要拖累</td><td>7 月放量回撤、主力资金连续净流出、融资余额处高位。</td></tr>
+        <tr><td>新增资金</td><td><strong>wait / observe</strong>；不适合因为“船舶龙头 + 军工央企”直接追。</td></tr>
+        <tr><td>已有持仓</td><td><strong>review</strong>；低成本轻仓可观察，高成本或重仓要看 30 元承接。</td></tr>
+        <tr><td>总体置信度</td><td>中；ETF 申赎、完整近 5 日 / 20 日 F5 明细仍有缺口。</td></tr>
+      </table>
+      <p>一句话拆分：<strong>基本面资金仍在，周期资金开始犹豫，投机溢价资金撤退。</strong></p>
+    </section>
+
+    <section class="section">
+      <h2>2. 三层股价拆解</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>第一层：企业基本面价值</h3>
+          <p><span class="tag">中长期配置资金</span><span class="tag">产业逻辑资金</span></p>
+          <p>对应高价订单、合并后平台价值、2026Q1 毛利率与利润兑现。这一层当前没有被证伪。</p>
+        </article>
+        <article class="card">
+          <h3>第二层：造船周期景气价值</h3>
+          <p><span class="tag">周期 beta</span><span class="tag">船价与订单</span></p>
+          <p>对应新船价、船台紧张、在手订单排到 2028 年、高端船型占比。这层类似紫金矿业中的“金铜价格上涨价值”。</p>
+        </article>
+        <article class="card">
+          <h3>第三层：投机溢价</h3>
+          <p><span class="tag">军工央企</span><span class="tag">海权安全</span><span class="tag">热钱</span></p>
+          <p>对应南北船整合、央企龙头、海权安全、军工情绪和全球造船定价权叙事。当前退潮最明显的是这一层。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>3. 数据审计</h2>
+      <table>
+        <tr>
+          <th>数据项目</th>
+          <th>最新时点</th>
+          <th>观察窗口</th>
+          <th>数据性质</th>
+          <th>缺口及影响</th>
+        </tr>
+        <tr>
+          <td>股价</td>
+          <td>2026-07-17 收盘 32.34 元</td>
+          <td>当日</td>
+          <td>已验证事实</td>
+          <td>无</td>
+        </tr>
+        <tr>
+          <td>成交额 / 换手</td>
+          <td>成交额约 30.50 亿元，换手 1.55%</td>
+          <td>当日</td>
+          <td>已验证事实</td>
+          <td>无</td>
+        </tr>
+        <tr>
+          <td>融资余额</td>
+          <td>2026-07-17 融资余额 77.82 亿元，占流通市值 3.96%</td>
+          <td>当日</td>
+          <td>已验证事实</td>
+          <td>只看到余额与买入额，缺完整偿还额。</td>
+        </tr>
+        <tr>
+          <td>主力资金</td>
+          <td>2026-07-16 主力净流出 4.45 亿元；7 月 15 日净流出 2097 万元；7 月 8 日净流出 2.04 亿元</td>
+          <td>近 5 / 20 日片段</td>
+          <td>统计代理</td>
+          <td>平台口径，不等于机构身份。</td>
+        </tr>
+        <tr>
+          <td>船舶 ETF</td>
+          <td>船舶 ETF 富国 560710 规模约 17.76 亿元，中国船舶权重约 12.96%</td>
+          <td>近期</td>
+          <td>统计代理</td>
+          <td>未拿到 7 月 17 日净申赎。</td>
+        </tr>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>4. 资金来源全景</h2>
+      <table>
+        <tr>
+          <th>资金类型</th>
+          <th>状态</th>
+          <th>核心证据</th>
+          <th>持续性</th>
+          <th>退出或反转条件</th>
+        </tr>
+        <tr>
+          <td>杠杆资金</td>
+          <td><span class="status warn">偏多但拥挤</span></td>
+          <td>融资余额 77.82 亿元，近一年 90% 分位以上。</td>
+          <td>中低</td>
+          <td>融资余额下降 + 股价跌破 30 元。</td>
+        </tr>
+        <tr>
+          <td>公募与 ETF</td>
+          <td>中性偏承接</td>
+          <td>船舶 ETF 有中国船舶权重，但规模不大。</td>
+          <td>待验证</td>
+          <td>ETF 份额下降或板块资金撤出。</td>
+        </tr>
+        <tr>
+          <td>个人与短线资金</td>
+          <td><span class="status warn">可能承接但分歧</span></td>
+          <td>部分资金流口径显示下跌日仍有承接，但主力净流出更清楚。</td>
+          <td>低</td>
+          <td>继续放量下跌。</td>
+        </tr>
+        <tr>
+          <td>筹码供给</td>
+          <td><span class="status bad">压力上升</span></td>
+          <td>38 元附近冲高后形成套牢盘，融资余额高位。</td>
+          <td>中</td>
+          <td>30 元跌破后止损盘加速。</td>
+        </tr>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>5. F3 / F5 / F7 日频面板</h2>
+      <table>
+        <tr>
+          <th>指标</th>
+          <th>定义</th>
+          <th>当前观察</th>
+          <th>方向与持续性</th>
+          <th>代理边界</th>
+        </tr>
+        <tr>
+          <td>F3</td>
+          <td>融资净买入 / 融资余额</td>
+          <td>7 月 17 日融资买入 2.63 亿元，余额 77.82 亿元；近 20 日有 11 日融资净买入。</td>
+          <td><span class="status warn">杠杆资金偏活跃，但已拥挤。</span></td>
+          <td>融资资金不等于聪明钱；融资买入也会进入订单流，可能与 F5 重叠。</td>
+        </tr>
+        <tr>
+          <td>F5</td>
+          <td>特大单 / 主力资金</td>
+          <td>7 月 16 日主力净流出 4.45 亿元；7 月 15 日小幅净流出；7 月 8 日主力净流出 2.04 亿元。</td>
+          <td><span class="status bad">偏流出，且与股价下跌一致。</span></td>
+          <td>主力资金是订单规模代理，不确认机构身份。</td>
+        </tr>
+        <tr>
+          <td>F7</td>
+          <td>ETF 估算净申赎</td>
+          <td>船舶 ETF 有承接载体，但最新净申赎未获取到。</td>
+          <td>待验证</td>
+          <td>ETF 申购者身份未知，且中国船舶只是成分之一。</td>
+        </tr>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>6. 价格、筹码与资金交叉验证</h2>
+      <table>
+        <tr>
+          <th>验证项</th>
+          <th>当前事实</th>
+          <th>与资金信号关系</th>
+          <th>结论影响</th>
+        </tr>
+        <tr>
+          <td>价格响应</td>
+          <td>7 月高点后回落至 32.34 元。</td>
+          <td>资金未能维持趋势。</td>
+          <td>降低新增买入级别。</td>
+        </tr>
+        <tr>
+          <td>成交与换手</td>
+          <td>回撤时成交放大，7 月 17 日成交约 30.50 亿元。</td>
+          <td>更像分歧换手，不是安静锁筹。</td>
+          <td>需等缩量止跌。</td>
+        </tr>
+        <tr>
+          <td>筹码供给与抛压</td>
+          <td>38 元附近冲高后形成套牢盘，融资余额高。</td>
+          <td>抛压上升。</td>
+          <td>30—32 元承接关键。</td>
+        </tr>
+        <tr>
+          <td>连续性</td>
+          <td>7 月 8、15、16 均见主力流出片段，7 月 17 继续下跌。</td>
+          <td>流出有延续迹象。</td>
+          <td>当前不宜追。</td>
+        </tr>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>7. 资金传导链</h2>
+      <div class="chain">基本面资金仍在
++ 周期资金开始犹豫
++ 投机溢价资金撤退
+= 股价放量回撤、融资高位、主力资金流出</div>
+      <p>现在不是“基本面价值崩了”，而是第三层投机溢价正在被挤掉。融资这一路投机热钱还没有完全褪去，它已经从推升力量变成潜在抛压。</p>
+    </section>
+
+    <section class="section">
+      <h2>8. 行动与仓位映射</h2>
+      <h3>新增资金</h3>
+      <table>
+        <tr>
+          <th>行动</th>
+          <th>条件化仓位</th>
+          <th>触发条件</th>
+          <th>取消条件</th>
+        </tr>
+        <tr>
+          <td><strong>wait / observe</strong></td>
+          <td>0%</td>
+          <td>等 30—32 元缩量止跌，或 26—29 元出现安全边际。</td>
+          <td>放量跌破 30 元且融资余额下降、主力继续流出。</td>
+        </tr>
+      </table>
+      <h3>已有持仓</h3>
+      <table>
+        <tr>
+          <th>行动</th>
+          <th>仓位调整</th>
+          <th>维持条件</th>
+          <th>取消条件</th>
+        </tr>
+        <tr>
+          <td><strong>review</strong></td>
+          <td>看成本与仓位；低成本轻仓可观察，高成本重仓需要复核。</td>
+          <td>30 元上方缩量企稳，半年报不差。</td>
+          <td>订单、毛利率、CFO 两项转弱，或反弹到 35—38 元但盈利预测不上修。</td>
+        </tr>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>9. 下一验证点与失效条件</h2>
+      <ul>
+        <li>下一验证时间：2026 半年报前后，以及下一次 30 元附近承接测试。</li>
+        <li>下一验证指标：融资余额是否下降、主力资金是否转正、船舶 ETF 是否净申购、股价是否缩量企稳。</li>
+        <li>当前判断失效条件：放量重新站稳 35—36 元，同时融资不是单独拉升，主力资金和 ETF 承接同步改善。</li>
+        <li>行动升级条件：30—32 元缩量企稳，或 26—29 元出现且基本面未坏。</li>
+        <li>行动降级条件：放量跌破 30 元，融资盘开始撤，半年报毛利率 / CFO 不及预期。</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>10. 来源与使用边界</h2>
+      <h3>当前数据来源</h3>
+      <ul>
+        <li><a href="https://vip.stock.finance.sina.com.cn/corp/go.php/vCB_AllNewsStock/symbol/sh600150.phtml">新浪：中国船舶 7 月 17 日融资买入与融资余额</a></li>
+        <li><a href="https://vip.stock.finance.sina.com.cn/corp/go.php/vCB_AllBulletin/stockid/600150.phtml">新浪：中国船舶 7 月 17 日行情与成交</a></li>
+        <li><a href="https://www.sohu.com/a/1051170445_121319643">搜狐 / 证券之星：7 月 16 日主力资金净流出</a></li>
+        <li><a href="https://www.sohu.com/a/1050752978_121319643">搜狐 / 证券之星：7 月 15 日主力资金净流出</a></li>
+        <li><a href="https://www.sohu.com/a/1047707515_122123195">搜狐 / 证券之星：7 月 8 日主力资金与大宗交易</a></li>
+        <li>本地研报：/Users/cjw/dev/Obsidian/wiki/wiki/queries/2026-07-17-1133-中国船舶机构级决策研报.md</li>
+      </ul>
+      <h3>使用边界</h3>
+      <p class="note">本报告是资金面与框架分析，不构成投资建议。F3、F5、F7 是不同口径的资金代理，不能机械相加；特大单不等于机构，ETF 申购者身份也不能直接确认。</p>
+    </section>
+  </main>
+</body>
+</html>

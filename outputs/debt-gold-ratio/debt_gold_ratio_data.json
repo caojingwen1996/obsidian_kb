@@ -1,0 +1,518 @@
+{
+  "metadata": {
+    "period": "1976-2025",
+    "generated_on": "2026-07-19",
+    "ratio": "US total public debt / estimated global above-ground gold market cap",
+    "debt_source": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=GFDEBTN",
+    "gold_price_source": "https://thedocs.worldbank.org/en/doc/74e8be41ceb20fa0da750cda2f6b9e4e-0050012026/related/CMO-Historical-Data-Monthly.xlsx",
+    "mine_production_source": "https://ourworldindata.org/grapher/global-mine-production-minerals.csv?v=1&csvType=full&useColumnShortNames=false",
+    "gold_stock_anchor_source": "https://www.gold.org/goldhub/data/how-much-gold",
+    "notes": [
+      "Debt uses FRED GFDEBTN Q4 total public debt, converted from millions to trillions of USD.",
+      "Gold price uses World Bank Pink Sheet annual average from monthly GOLD series, USD per troy ounce.",
+      "Gold stock uses WGC end-2025 stock of 219,891 tonnes as anchor; earlier years are estimated by subtracting global mine production."
+    ]
+  },
+  "rows": [
+    {
+      "year": 1976,
+      "us_total_public_debt_usd_tn": 0.653543,
+      "gold_price_usd_per_oz": 124.833333,
+      "mine_production_tonnes": 1210.0,
+      "above_ground_gold_stock_tonnes_est": 103545.0,
+      "gold_market_cap_usd_tn": 0.415576,
+      "debt_to_gold_market_cap_ratio": 1.572619,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 1977,
+      "us_total_public_debt_usd_tn": 0.718943,
+      "gold_price_usd_per_oz": 147.666667,
+      "mine_production_tonnes": 1210.0,
+      "above_ground_gold_stock_tonnes_est": 104755.0,
+      "gold_market_cap_usd_tn": 0.497334,
+      "debt_to_gold_market_cap_ratio": 1.445593,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 1978,
+      "us_total_public_debt_usd_tn": 0.789207,
+      "gold_price_usd_per_oz": 193.166667,
+      "mine_production_tonnes": 1210.0,
+      "above_ground_gold_stock_tonnes_est": 105965.0,
+      "gold_market_cap_usd_tn": 0.658091,
+      "debt_to_gold_market_cap_ratio": 1.199238,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 1979,
+      "us_total_public_debt_usd_tn": 0.845116,
+      "gold_price_usd_per_oz": 306.75,
+      "mine_production_tonnes": 1210.0,
+      "above_ground_gold_stock_tonnes_est": 107175.0,
+      "gold_market_cap_usd_tn": 1.056986,
+      "debt_to_gold_market_cap_ratio": 0.799553,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 1980,
+      "us_total_public_debt_usd_tn": 0.93021,
+      "gold_price_usd_per_oz": 607.833333,
+      "mine_production_tonnes": 1220.0,
+      "above_ground_gold_stock_tonnes_est": 108395.0,
+      "gold_market_cap_usd_tn": 2.118287,
+      "debt_to_gold_market_cap_ratio": 0.439133,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 1981,
+      "us_total_public_debt_usd_tn": 1.028729,
+      "gold_price_usd_per_oz": 459.75,
+      "mine_production_tonnes": 1280.0,
+      "above_ground_gold_stock_tonnes_est": 109675.0,
+      "gold_market_cap_usd_tn": 1.62114,
+      "debt_to_gold_market_cap_ratio": 0.634571,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 1982,
+      "us_total_public_debt_usd_tn": 1.197074,
+      "gold_price_usd_per_oz": 375.75,
+      "mine_production_tonnes": 1340.0,
+      "above_ground_gold_stock_tonnes_est": 111015.0,
+      "gold_market_cap_usd_tn": 1.341133,
+      "debt_to_gold_market_cap_ratio": 0.892584,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 1983,
+      "us_total_public_debt_usd_tn": 1.410702,
+      "gold_price_usd_per_oz": 422.583333,
+      "mine_production_tonnes": 1400.0,
+      "above_ground_gold_stock_tonnes_est": 112415.0,
+      "gold_market_cap_usd_tn": 1.527312,
+      "debt_to_gold_market_cap_ratio": 0.92365,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 1984,
+      "us_total_public_debt_usd_tn": 1.662966,
+      "gold_price_usd_per_oz": 360.5,
+      "mine_production_tonnes": 1460.0,
+      "above_ground_gold_stock_tonnes_est": 113875.0,
+      "gold_market_cap_usd_tn": 1.31985,
+      "debt_to_gold_market_cap_ratio": 1.259965,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 1985,
+      "us_total_public_debt_usd_tn": 1.945942,
+      "gold_price_usd_per_oz": 318.0,
+      "mine_production_tonnes": 1530.0,
+      "above_ground_gold_stock_tonnes_est": 115405.0,
+      "gold_market_cap_usd_tn": 1.179893,
+      "debt_to_gold_market_cap_ratio": 1.649252,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 1986,
+      "us_total_public_debt_usd_tn": 2.214835,
+      "gold_price_usd_per_oz": 367.75,
+      "mine_production_tonnes": 1610.0,
+      "above_ground_gold_stock_tonnes_est": 117015.0,
+      "gold_market_cap_usd_tn": 1.383519,
+      "debt_to_gold_market_cap_ratio": 1.60087,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 1987,
+      "us_total_public_debt_usd_tn": 2.431715,
+      "gold_price_usd_per_oz": 446.416667,
+      "mine_production_tonnes": 1660.0,
+      "above_ground_gold_stock_tonnes_est": 118675.0,
+      "gold_market_cap_usd_tn": 1.703298,
+      "debt_to_gold_market_cap_ratio": 1.427651,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 1988,
+      "us_total_public_debt_usd_tn": 2.684392,
+      "gold_price_usd_per_oz": 437.083333,
+      "mine_production_tonnes": 1870.0,
+      "above_ground_gold_stock_tonnes_est": 120545.0,
+      "gold_market_cap_usd_tn": 1.693965,
+      "debt_to_gold_market_cap_ratio": 1.584679,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 1989,
+      "us_total_public_debt_usd_tn": 2.952994,
+      "gold_price_usd_per_oz": 381.416667,
+      "mine_production_tonnes": 2010.0,
+      "above_ground_gold_stock_tonnes_est": 122555.0,
+      "gold_market_cap_usd_tn": 1.502871,
+      "debt_to_gold_market_cap_ratio": 1.964902,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 1990,
+      "us_total_public_debt_usd_tn": 3.36482,
+      "gold_price_usd_per_oz": 383.5,
+      "mine_production_tonnes": 2180.0,
+      "above_ground_gold_stock_tonnes_est": 124735.0,
+      "gold_market_cap_usd_tn": 1.537959,
+      "debt_to_gold_market_cap_ratio": 2.187848,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 1991,
+      "us_total_public_debt_usd_tn": 3.801698,
+      "gold_price_usd_per_oz": 362.25,
+      "mine_production_tonnes": 2160.0,
+      "above_ground_gold_stock_tonnes_est": 126895.0,
+      "gold_market_cap_usd_tn": 1.477896,
+      "debt_to_gold_market_cap_ratio": 2.572371,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 1992,
+      "us_total_public_debt_usd_tn": 4.177009,
+      "gold_price_usd_per_oz": 343.666667,
+      "mine_production_tonnes": 2260.0,
+      "above_ground_gold_stock_tonnes_est": 129155.0,
+      "gold_market_cap_usd_tn": 1.427052,
+      "debt_to_gold_market_cap_ratio": 2.92702,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 1993,
+      "us_total_public_debt_usd_tn": 4.535687,
+      "gold_price_usd_per_oz": 359.666667,
+      "mine_production_tonnes": 2280.0,
+      "above_ground_gold_stock_tonnes_est": 131435.0,
+      "gold_market_cap_usd_tn": 1.519855,
+      "debt_to_gold_market_cap_ratio": 2.984288,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 1994,
+      "us_total_public_debt_usd_tn": 4.80015,
+      "gold_price_usd_per_oz": 383.916667,
+      "mine_production_tonnes": 2260.0,
+      "above_ground_gold_stock_tonnes_est": 133695.0,
+      "gold_market_cap_usd_tn": 1.650225,
+      "debt_to_gold_market_cap_ratio": 2.908785,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 1995,
+      "us_total_public_debt_usd_tn": 4.988665,
+      "gold_price_usd_per_oz": 384.166667,
+      "mine_production_tonnes": 2230.0,
+      "above_ground_gold_stock_tonnes_est": 135925.0,
+      "gold_market_cap_usd_tn": 1.678843,
+      "debt_to_gold_market_cap_ratio": 2.97149,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 1996,
+      "us_total_public_debt_usd_tn": 5.323172,
+      "gold_price_usd_per_oz": 387.583333,
+      "mine_production_tonnes": 2290.0,
+      "above_ground_gold_stock_tonnes_est": 138215.0,
+      "gold_market_cap_usd_tn": 1.72231,
+      "debt_to_gold_market_cap_ratio": 3.090716,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 1997,
+      "us_total_public_debt_usd_tn": 5.502388,
+      "gold_price_usd_per_oz": 331.166667,
+      "mine_production_tonnes": 2450.0,
+      "above_ground_gold_stock_tonnes_est": 140665.0,
+      "gold_market_cap_usd_tn": 1.497696,
+      "debt_to_gold_market_cap_ratio": 3.673901,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 1998,
+      "us_total_public_debt_usd_tn": 5.614217,
+      "gold_price_usd_per_oz": 294.083333,
+      "mine_production_tonnes": 2500.0,
+      "above_ground_gold_stock_tonnes_est": 143165.0,
+      "gold_market_cap_usd_tn": 1.353625,
+      "debt_to_gold_market_cap_ratio": 4.147543,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 1999,
+      "us_total_public_debt_usd_tn": 5.776091,
+      "gold_price_usd_per_oz": 278.75,
+      "mine_production_tonnes": 2570.0,
+      "above_ground_gold_stock_tonnes_est": 145735.0,
+      "gold_market_cap_usd_tn": 1.30608,
+      "debt_to_gold_market_cap_ratio": 4.422463,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 2000,
+      "us_total_public_debt_usd_tn": 5.662216,
+      "gold_price_usd_per_oz": 279.0,
+      "mine_production_tonnes": 2590.0,
+      "above_ground_gold_stock_tonnes_est": 148325.0,
+      "gold_market_cap_usd_tn": 1.330484,
+      "debt_to_gold_market_cap_ratio": 4.255757,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 2001,
+      "us_total_public_debt_usd_tn": 5.943439,
+      "gold_price_usd_per_oz": 270.833333,
+      "mine_production_tonnes": 2600.0,
+      "above_ground_gold_stock_tonnes_est": 150925.0,
+      "gold_market_cap_usd_tn": 1.314179,
+      "debt_to_gold_market_cap_ratio": 4.522551,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 2002,
+      "us_total_public_debt_usd_tn": 6.405707,
+      "gold_price_usd_per_oz": 310.0,
+      "mine_production_tonnes": 2550.0,
+      "above_ground_gold_stock_tonnes_est": 153475.0,
+      "gold_market_cap_usd_tn": 1.529644,
+      "debt_to_gold_market_cap_ratio": 4.187711,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 2003,
+      "us_total_public_debt_usd_tn": 6.997964,
+      "gold_price_usd_per_oz": 363.583333,
+      "mine_production_tonnes": 2540.0,
+      "above_ground_gold_stock_tonnes_est": 156015.0,
+      "gold_market_cap_usd_tn": 1.823734,
+      "debt_to_gold_market_cap_ratio": 3.837164,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 2004,
+      "us_total_public_debt_usd_tn": 7.596143,
+      "gold_price_usd_per_oz": 409.166667,
+      "mine_production_tonnes": 2420.0,
+      "above_ground_gold_stock_tonnes_est": 158435.0,
+      "gold_market_cap_usd_tn": 2.084215,
+      "debt_to_gold_market_cap_ratio": 3.644607,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 2005,
+      "us_total_public_debt_usd_tn": 8.170413,
+      "gold_price_usd_per_oz": 444.833333,
+      "mine_production_tonnes": 2470.0,
+      "above_ground_gold_stock_tonnes_est": 160905.0,
+      "gold_market_cap_usd_tn": 2.301219,
+      "debt_to_gold_market_cap_ratio": 3.550472,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 2006,
+      "us_total_public_debt_usd_tn": 8.680224,
+      "gold_price_usd_per_oz": 604.416667,
+      "mine_production_tonnes": 2370.0,
+      "above_ground_gold_stock_tonnes_est": 163275.0,
+      "gold_market_cap_usd_tn": 3.172833,
+      "debt_to_gold_market_cap_ratio": 2.735796,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 2007,
+      "us_total_public_debt_usd_tn": 9.229172,
+      "gold_price_usd_per_oz": 696.666667,
+      "mine_production_tonnes": 2350.0,
+      "above_ground_gold_stock_tonnes_est": 165625.0,
+      "gold_market_cap_usd_tn": 3.709727,
+      "debt_to_gold_market_cap_ratio": 2.48783,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 2008,
+      "us_total_public_debt_usd_tn": 10.699805,
+      "gold_price_usd_per_oz": 871.75,
+      "mine_production_tonnes": 2300.0,
+      "above_ground_gold_stock_tonnes_est": 167925.0,
+      "gold_market_cap_usd_tn": 4.706503,
+      "debt_to_gold_market_cap_ratio": 2.273409,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 2009,
+      "us_total_public_debt_usd_tn": 12.311349,
+      "gold_price_usd_per_oz": 973.0,
+      "mine_production_tonnes": 2490.0,
+      "above_ground_gold_stock_tonnes_est": 170415.0,
+      "gold_market_cap_usd_tn": 5.331037,
+      "debt_to_gold_market_cap_ratio": 2.309372,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 2010,
+      "us_total_public_debt_usd_tn": 14.025215,
+      "gold_price_usd_per_oz": 1224.666667,
+      "mine_production_tonnes": 2590.0,
+      "above_ground_gold_stock_tonnes_est": 173005.0,
+      "gold_market_cap_usd_tn": 6.81189,
+      "debt_to_gold_market_cap_ratio": 2.058932,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 2011,
+      "us_total_public_debt_usd_tn": 15.22294,
+      "gold_price_usd_per_oz": 1569.166667,
+      "mine_production_tonnes": 2680.0,
+      "above_ground_gold_stock_tonnes_est": 175685.0,
+      "gold_market_cap_usd_tn": 8.863287,
+      "debt_to_gold_market_cap_ratio": 1.717528,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 2012,
+      "us_total_public_debt_usd_tn": 16.43273,
+      "gold_price_usd_per_oz": 1669.583333,
+      "mine_production_tonnes": 2740.0,
+      "above_ground_gold_stock_tonnes_est": 178425.0,
+      "gold_market_cap_usd_tn": 9.57756,
+      "debt_to_gold_market_cap_ratio": 1.715753,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 2013,
+      "us_total_public_debt_usd_tn": 17.156119,
+      "gold_price_usd_per_oz": 1411.666667,
+      "mine_production_tonnes": 2960.0,
+      "above_ground_gold_stock_tonnes_est": 181385.0,
+      "gold_market_cap_usd_tn": 8.232365,
+      "debt_to_gold_market_cap_ratio": 2.083984,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 2014,
+      "us_total_public_debt_usd_tn": 18.141444,
+      "gold_price_usd_per_oz": 1265.583333,
+      "mine_production_tonnes": 3040.0,
+      "above_ground_gold_stock_tonnes_est": 184425.0,
+      "gold_market_cap_usd_tn": 7.504152,
+      "debt_to_gold_market_cap_ratio": 2.417521,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 2015,
+      "us_total_public_debt_usd_tn": 18.922179,
+      "gold_price_usd_per_oz": 1160.75,
+      "mine_production_tonnes": 3100.0,
+      "above_ground_gold_stock_tonnes_est": 187525.0,
+      "gold_market_cap_usd_tn": 6.998242,
+      "debt_to_gold_market_cap_ratio": 2.703848,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 2016,
+      "us_total_public_debt_usd_tn": 19.976827,
+      "gold_price_usd_per_oz": 1249.0,
+      "mine_production_tonnes": 3180.0,
+      "above_ground_gold_stock_tonnes_est": 190705.0,
+      "gold_market_cap_usd_tn": 7.658004,
+      "debt_to_gold_market_cap_ratio": 2.608621,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 2017,
+      "us_total_public_debt_usd_tn": 20.492747,
+      "gold_price_usd_per_oz": 1257.5,
+      "mine_production_tonnes": 3260.0,
+      "above_ground_gold_stock_tonnes_est": 193965.0,
+      "gold_market_cap_usd_tn": 7.84192,
+      "debt_to_gold_market_cap_ratio": 2.613231,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 2018,
+      "us_total_public_debt_usd_tn": 21.974096,
+      "gold_price_usd_per_oz": 1269.25,
+      "mine_production_tonnes": 3310.0,
+      "above_ground_gold_stock_tonnes_est": 197275.0,
+      "gold_market_cap_usd_tn": 8.050267,
+      "debt_to_gold_market_cap_ratio": 2.729611,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 2019,
+      "us_total_public_debt_usd_tn": 23.20138,
+      "gold_price_usd_per_oz": 1392.583333,
+      "mine_production_tonnes": 3260.0,
+      "above_ground_gold_stock_tonnes_est": 200535.0,
+      "gold_market_cap_usd_tn": 8.978472,
+      "debt_to_gold_market_cap_ratio": 2.584112,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 2020,
+      "us_total_public_debt_usd_tn": 27.747798,
+      "gold_price_usd_per_oz": 1770.25,
+      "mine_production_tonnes": 3030.0,
+      "above_ground_gold_stock_tonnes_est": 203565.0,
+      "gold_market_cap_usd_tn": 11.585873,
+      "debt_to_gold_market_cap_ratio": 2.394968,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 2021,
+      "us_total_public_debt_usd_tn": 29.617215,
+      "gold_price_usd_per_oz": 1799.583333,
+      "mine_production_tonnes": 3090.0,
+      "above_ground_gold_stock_tonnes_est": 206655.0,
+      "gold_market_cap_usd_tn": 11.956634,
+      "debt_to_gold_market_cap_ratio": 2.477053,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 2022,
+      "us_total_public_debt_usd_tn": 31.419689,
+      "gold_price_usd_per_oz": 1800.75,
+      "mine_production_tonnes": 3060.0,
+      "above_ground_gold_stock_tonnes_est": 209715.0,
+      "gold_market_cap_usd_tn": 12.141546,
+      "debt_to_gold_market_cap_ratio": 2.587783,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 2023,
+      "us_total_public_debt_usd_tn": 34.001494,
+      "gold_price_usd_per_oz": 1942.75,
+      "mine_production_tonnes": 3250.0,
+      "above_ground_gold_stock_tonnes_est": 212965.0,
+      "gold_market_cap_usd_tn": 13.301978,
+      "debt_to_gold_market_cap_ratio": 2.556123,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 2024,
+      "us_total_public_debt_usd_tn": 36.218605,
+      "gold_price_usd_per_oz": 2387.583333,
+      "mine_production_tonnes": 3300.0,
+      "above_ground_gold_stock_tonnes_est": 216265.0,
+      "gold_market_cap_usd_tn": 16.601061,
+      "debt_to_gold_market_cap_ratio": 2.181704,
+      "stock_method": "WGC 2025 anchor rolled backward with OWID mine production"
+    },
+    {
+      "year": 2025,
+      "us_total_public_debt_usd_tn": 38.514009,
+      "gold_price_usd_per_oz": 3441.5,
+      "mine_production_tonnes": 3626.0,
+      "above_ground_gold_stock_tonnes_est": 219891.0,
+      "gold_market_cap_usd_tn": 24.330234,
+      "debt_to_gold_market_cap_ratio": 1.582969,
+      "stock_method": "WGC stated end-2025 above-ground stock"
+    }
+  ]
+}

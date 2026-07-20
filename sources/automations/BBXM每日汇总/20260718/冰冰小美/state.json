@@ -1,0 +1,62 @@
+{
+  "account": "冰冰小美",
+  "account_url": "https://xueqiu.com/u/7143769715",
+  "task_date": "20260718",
+  "start_time": "2026-07-18 16:44:13",
+  "end_time": null,
+  "scan_round": 1,
+  "success_count": 3,
+  "failure_count": 0,
+  "log_file": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/20260718/冰冰小美/task.log",
+  "result_dir": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/20260718/冰冰小美",
+  "state_file": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/20260718/冰冰小美/state.json",
+  "processed_items": {
+    "400916782": {
+      "source_id": "400916782",
+      "title": "保护主义下的金融贸易武器化",
+      "published_at": "2026-07-18 13:02:00",
+      "url": "https://xueqiu.com/7143769715/400916782",
+      "platform": "xueqiu",
+      "file_path": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/20260718/冰冰小美/130200_保护主义下的金融贸易武器化_40091678.md",
+      "saved_at": "2026-07-18 16:44:13"
+    },
+    "400899808": {
+      "source_id": "400899808",
+      "title": "杠杆与趋势\n，\n趋势与牛熊",
+      "published_at": "2026-07-18 09:52:00",
+      "url": "https://xueqiu.com/7143769715/400899808",
+      "platform": "xueqiu",
+      "file_path": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/20260718/冰冰小美/095200_杠杆与趋势_趋势与牛熊_40089980.md",
+      "saved_at": "2026-07-18 16:44:13"
+    },
+    "400878427": {
+      "source_id": "400878427",
+      "title": "本次风险出清的结局与未来演绎",
+      "published_at": "2026-07-18 00:56:00",
+      "url": "https://xueqiu.com/7143769715/400878427",
+      "platform": "xueqiu",
+      "file_path": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/20260718/冰冰小美/005600_本次风险出清的结局与未来演绎_40087842.md",
+      "saved_at": "2026-07-18 16:44:13"
+    }
+  },
+  "events": [
+    {
+      "type": "item_saved",
+      "time": "2026-07-18 16:44:13",
+      "item_key": "400916782",
+      "file_path": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/20260718/冰冰小美/130200_保护主义下的金融贸易武器化_40091678.md"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-07-18 16:44:13",
+      "item_key": "400899808",
+      "file_path": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/20260718/冰冰小美/095200_杠杆与趋势_趋势与牛熊_40089980.md"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-07-18 16:44:13",
+      "item_key": "400878427",
+      "file_path": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/20260718/冰冰小美/005600_本次风险出清的结局与未来演绎_40087842.md"
+    }
+  ]
+}

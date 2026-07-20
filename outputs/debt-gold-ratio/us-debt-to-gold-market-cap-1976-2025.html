@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>美债 / 黄金市值比 1976-2025</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172033;
+      --muted: #5b667a;
+      --line: #d8dee9;
+      --debt: #2f6fed;
+      --gold: #b8871f;
+      --ratio: #1e8a5a;
+      --bg: #f7f9fc;
+      --panel: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+    }
+    main {
+      width: min(1180px, calc(100vw - 32px));
+      margin: 28px auto;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      font-weight: 750;
+      letter-spacing: 0;
+    }
+    .sub {
+      margin: 0 0 20px;
+      color: var(--muted);
+      line-height: 1.5;
+      max-width: 980px;
+    }
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin: 0 0 14px;
+    }
+    button {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--ink);
+      padding: 8px 12px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    button.active {
+      border-color: var(--ratio);
+      color: #fff;
+      background: var(--ratio);
+    }
+    .chart-wrap {
+      position: relative;
+      width: 100%;
+      min-height: 520px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+    }
+    svg {
+      display: block;
+      width: 100%;
+      height: 520px;
+      overflow: visible;
+    }
+    .axis text { fill: var(--muted); font-size: 12px; }
+    .axis line, .axis path { stroke: #ccd5e3; }
+    .grid line { stroke: #edf1f7; }
+    .tooltip {
+      position: absolute;
+      min-width: 230px;
+      pointer-events: none;
+      opacity: 0;
+      transform: translate(-50%, -105%);
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255,255,255,.97);
+      box-shadow: 0 10px 28px rgba(23,32,51,.14);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    .tooltip strong { display: block; margin-bottom: 4px; }
+    .legend {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .key {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .swatch {
+      width: 18px;
+      height: 3px;
+      border-radius: 2px;
+      background: var(--ratio);
+    }
+    .notes {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+    @media (max-width: 760px) {
+      main { width: min(100vw - 20px, 1180px); margin-top: 18px; }
+      h1 { font-size: 22px; }
+      .chart-wrap { min-height: 420px; padding: 10px; }
+      svg { height: 420px; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <h1>美债 / 黄金市值比</h1>
+  <p class="sub">1976-2025 年年度序列。美债使用 FRED GFDEBTN 年末 Q4 美国联邦总债务；黄金市值 = 估算全球地上黄金存量 × 年均金价。鼠标悬停折线可看当年明细。</p>
+  <div class="toolbar">
+    <button class="active" data-mode="ratio">比值</button>
+    <button data-mode="levels">美债与黄金市值</button>
+  </div>
+  <section class="chart-wrap">
+    <svg id="chart" role="img" aria-label="美债与黄金市值比折线图"></svg>
+    <div class="tooltip" id="tooltip"></div>
+    <div class="legend" id="legend"></div>
+  </section>
+  <div class="notes">
+    数据源：FRED GFDEBTN、World Bank Pink Sheet GOLD、Our World in Data 全球矿产金、World Gold Council 地上黄金存量锚点。2010 年以前及大部分历史存量为按矿产金回推估算，适合观察长周期趋势，不适合当作精确清算口径。
+  </div>
+</main>
+<script>
+const data = [{"year":1976,"ratio":1.572619,"debt":0.653543,"goldMarketCap":0.415576,"goldPrice":124.833333,"goldStock":103545},{"year":1977,"ratio":1.445593,"debt":0.718943,"goldMarketCap":0.497334,"goldPrice":147.666667,"goldStock":104755},{"year":1978,"ratio":1.199238,"debt":0.789207,"goldMarketCap":0.658091,"goldPrice":193.166667,"goldStock":105965},{"year":1979,"ratio":0.799553,"debt":0.845116,"goldMarketCap":1.056986,"goldPrice":306.75,"goldStock":107175},{"year":1980,"ratio":0.439133,"debt":0.93021,"goldMarketCap":2.118287,"goldPrice":607.833333,"goldStock":108395},{"year":1981,"ratio":0.634571,"debt":1.028729,"goldMarketCap":1.62114,"goldPrice":459.75,"goldStock":109675},{"year":1982,"ratio":0.892584,"debt":1.197074,"goldMarketCap":1.341133,"goldPrice":375.75,"goldStock":111015},{"year":1983,"ratio":0.92365,"debt":1.410702,"goldMarketCap":1.527312,"goldPrice":422.583333,"goldStock":112415},{"year":1984,"ratio":1.259965,"debt":1.662966,"goldMarketCap":1.31985,"goldPrice":360.5,"goldStock":113875},{"year":1985,"ratio":1.649252,"debt":1.945942,"goldMarketCap":1.179893,"goldPrice":318,"goldStock":115405},{"year":1986,"ratio":1.60087,"debt":2.214835,"goldMarketCap":1.383519,"goldPrice":367.75,"goldStock":117015},{"year":1987,"ratio":1.427651,"debt":2.431715,"goldMarketCap":1.703298,"goldPrice":446.416667,"goldStock":118675},{"year":1988,"ratio":1.584679,"debt":2.684392,"goldMarketCap":1.693965,"goldPrice":437.083333,"goldStock":120545},{"year":1989,"ratio":1.964902,"debt":2.952994,"goldMarketCap":1.502871,"goldPrice":381.416667,"goldStock":122555},{"year":1990,"ratio":2.187848,"debt":3.36482,"goldMarketCap":1.537959,"goldPrice":383.5,"goldStock":124735},{"year":1991,"ratio":2.572371,"debt":3.801698,"goldMarketCap":1.477896,"goldPrice":362.25,"goldStock":126895},{"year":1992,"ratio":2.92702,"debt":4.177009,"goldMarketCap":1.427052,"goldPrice":343.666667,"goldStock":129155},{"year":1993,"ratio":2.984288,"debt":4.535687,"goldMarketCap":1.519855,"goldPrice":359.666667,"goldStock":131435},{"year":1994,"ratio":2.908785,"debt":4.80015,"goldMarketCap":1.650225,"goldPrice":383.916667,"goldStock":133695},{"year":1995,"ratio":2.97149,"debt":4.988665,"goldMarketCap":1.678843,"goldPrice":384.166667,"goldStock":135925},{"year":1996,"ratio":3.090716,"debt":5.323172,"goldMarketCap":1.72231,"goldPrice":387.583333,"goldStock":138215},{"year":1997,"ratio":3.673901,"debt":5.502388,"goldMarketCap":1.497696,"goldPrice":331.166667,"goldStock":140665},{"year":1998,"ratio":4.147543,"debt":5.614217,"goldMarketCap":1.353625,"goldPrice":294.083333,"goldStock":143165},{"year":1999,"ratio":4.422463,"debt":5.776091,"goldMarketCap":1.30608,"goldPrice":278.75,"goldStock":145735},{"year":2000,"ratio":4.255757,"debt":5.662216,"goldMarketCap":1.330484,"goldPrice":279,"goldStock":148325},{"year":2001,"ratio":4.522551,"debt":5.943439,"goldMarketCap":1.314179,"goldPrice":270.833333,"goldStock":150925},{"year":2002,"ratio":4.187711,"debt":6.405707,"goldMarketCap":1.529644,"goldPrice":310,"goldStock":153475},{"year":2003,"ratio":3.837164,"debt":6.997964,"goldMarketCap":1.823734,"goldPrice":363.583333,"goldStock":156015},{"year":2004,"ratio":3.644607,"debt":7.596143,"goldMarketCap":2.084215,"goldPrice":409.166667,"goldStock":158435},{"year":2005,"ratio":3.550472,"debt":8.170413,"goldMarketCap":2.301219,"goldPrice":444.833333,"goldStock":160905},{"year":2006,"ratio":2.735796,"debt":8.680224,"goldMarketCap":3.172833,"goldPrice":604.416667,"goldStock":163275},{"year":2007,"ratio":2.48783,"debt":9.229172,"goldMarketCap":3.709727,"goldPrice":696.666667,"goldStock":165625},{"year":2008,"ratio":2.273409,"debt":10.699805,"goldMarketCap":4.706503,"goldPrice":871.75,"goldStock":167925},{"year":2009,"ratio":2.309372,"debt":12.311349,"goldMarketCap":5.331037,"goldPrice":973,"goldStock":170415},{"year":2010,"ratio":2.058932,"debt":14.025215,"goldMarketCap":6.81189,"goldPrice":1224.666667,"goldStock":173005},{"year":2011,"ratio":1.717528,"debt":15.22294,"goldMarketCap":8.863287,"goldPrice":1569.166667,"goldStock":175685},{"year":2012,"ratio":1.715753,"debt":16.43273,"goldMarketCap":9.57756,"goldPrice":1669.583333,"goldStock":178425},{"year":2013,"ratio":2.083984,"debt":17.156119,"goldMarketCap":8.232365,"goldPrice":1411.666667,"goldStock":181385},{"year":2014,"ratio":2.417521,"debt":18.141444,"goldMarketCap":7.504152,"goldPrice":1265.583333,"goldStock":184425},{"year":2015,"ratio":2.703848,"debt":18.922179,"goldMarketCap":6.998242,"goldPrice":1160.75,"goldStock":187525},{"year":2016,"ratio":2.608621,"debt":19.976827,"goldMarketCap":7.658004,"goldPrice":1249,"goldStock":190705},{"year":2017,"ratio":2.613231,"debt":20.492747,"goldMarketCap":7.84192,"goldPrice":1257.5,"goldStock":193965},{"year":2018,"ratio":2.729611,"debt":21.974096,"goldMarketCap":8.050267,"goldPrice":1269.25,"goldStock":197275},{"year":2019,"ratio":2.584112,"debt":23.20138,"goldMarketCap":8.978472,"goldPrice":1392.583333,"goldStock":200535},{"year":2020,"ratio":2.394968,"debt":27.747798,"goldMarketCap":11.585873,"goldPrice":1770.25,"goldStock":203565},{"year":2021,"ratio":2.477053,"debt":29.617215,"goldMarketCap":11.956634,"goldPrice":1799.583333,"goldStock":206655},{"year":2022,"ratio":2.587783,"debt":31.419689,"goldMarketCap":12.141546,"goldPrice":1800.75,"goldStock":209715},{"year":2023,"ratio":2.556123,"debt":34.001494,"goldMarketCap":13.301978,"goldPrice":1942.75,"goldStock":212965},{"year":2024,"ratio":2.181704,"debt":36.218605,"goldMarketCap":16.601061,"goldPrice":2387.583333,"goldStock":216265},{"year":2025,"ratio":1.582969,"debt":38.514009,"goldMarketCap":24.330234,"goldPrice":3441.5,"goldStock":219891}];
+const svg = document.getElementById("chart");
+const tooltip = document.getElementById("tooltip");
+const legend = document.getElementById("legend");
+let mode = "ratio";
+
+const colors = { ratio: "#1e8a5a", debt: "#2f6fed", gold: "#b8871f" };
+function fmt(v, d = 2) { return Number(v).toLocaleString("en-US", { maximumFractionDigits: d, minimumFractionDigits: d }); }
+function escText(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+}
+function clear() { while (svg.firstChild) svg.removeChild(svg.firstChild); }
+function el(name, attrs = {}) {
+  const node = document.createElementNS("http://www.w3.org/2000/svg", name);
+  Object.entries(attrs).forEach(([k, v]) => node.setAttribute(k, v));
+  return node;
+}
+function draw() {
+  clear();
+  const width = svg.clientWidth || 1000;
+  const height = svg.clientHeight || 520;
+  const margin = { top: 18, right: mode === "levels" ? 54 : 26, bottom: 48, left: 58 };
+  const innerW = width - margin.left - margin.right;
+  const innerH = height - margin.top - margin.bottom;
+  const years = data.map(d => d.year);
+  const x = y => margin.left + (y - Math.min(...years)) / (Math.max(...years) - Math.min(...years)) * innerW;
+  const series = mode === "ratio"
+    ? [{ key: "ratio", label: "美债 / 黄金市值", values: data.map(d => d.ratio), color: colors.ratio }]
+    : [
+        { key: "debt", label: "美债，万亿美元", values: data.map(d => d.debt), color: colors.debt },
+        { key: "goldMarketCap", label: "黄金市值，万亿美元", values: data.map(d => d.goldMarketCap), color: colors.gold },
+      ];
+  const maxY = Math.max(...series.flatMap(s => s.values)) * 1.08;
+  const minY = 0;
+  const y = v => margin.top + innerH - (v - minY) / (maxY - minY) * innerH;
+
+  for (let i = 0; i <= 5; i++) {
+    const value = minY + (maxY - minY) * i / 5;
+    const yy = y(value);
+    svg.appendChild(el("line", { x1: margin.left, y1: yy, x2: width - margin.right, y2: yy, stroke: "#edf1f7" }));
+    const label = el("text", { x: margin.left - 10, y: yy + 4, "text-anchor": "end", fill: "#5b667a", "font-size": 12 });
+    label.textContent = fmt(value, mode === "ratio" ? 1 : 0);
+    svg.appendChild(label);
+  }
+
+  for (let year = 1980; year <= 2025; year += 5) {
+    const xx = x(year);
+    svg.appendChild(el("line", { x1: xx, y1: margin.top, x2: xx, y2: margin.top + innerH, stroke: "#f4f6fa" }));
+    const label = el("text", { x: xx, y: height - 14, "text-anchor": "middle", fill: "#5b667a", "font-size": 12 });
+    label.textContent = year;
+    svg.appendChild(label);
+  }
+
+  series.forEach(s => {
+    const points = data.map((d, i) => x(d.year) + "," + y(s.values[i])).join(" ");
+    svg.appendChild(el("polyline", { points, fill: "none", stroke: s.color, "stroke-width": 3, "stroke-linejoin": "round", "stroke-linecap": "round" }));
+  });
+
+  data.forEach((d, i) => {
+    const cx = x(d.year);
+    const cy = y(mode === "ratio" ? d.ratio : d.debt);
+    const hit = el("circle", { cx, cy, r: 8, fill: "transparent" });
+    hit.addEventListener("mousemove", (event) => {
+      tooltip.style.opacity = "1";
+      tooltip.style.left = event.offsetX + "px";
+      tooltip.style.top = event.offsetY + "px";
+      tooltip.innerHTML = "<strong>" + d.year + "</strong>" +
+        "比值：" + fmt(d.ratio, 2) + "<br>" +
+        "美债：" + fmt(d.debt, 2) + " 万亿美元<br>" +
+        "黄金市值：" + fmt(d.goldMarketCap, 2) + " 万亿美元<br>" +
+        "年均金价：$" + fmt(d.goldPrice, 2) + "/oz<br>" +
+        "黄金存量：" + Math.round(d.goldStock).toLocaleString("en-US") + " 吨";
+    });
+    hit.addEventListener("mouseleave", () => { tooltip.style.opacity = "0"; });
+    svg.appendChild(hit);
+    if (mode === "ratio") svg.appendChild(el("circle", { cx, cy, r: 3.2, fill: colors.ratio }));
+  });
+
+  legend.innerHTML = series.map(s => '<span class="key"><span class="swatch" style="background:' + s.color + '"></span>' + escText(s.label) + '</span>').join("");
+}
+document.querySelectorAll("button[data-mode]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll("button[data-mode]").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    mode = btn.dataset.mode;
+    draw();
+  });
+});
+window.addEventListener("resize", draw);
+draw();
+</script>
+</body>
+</html>
