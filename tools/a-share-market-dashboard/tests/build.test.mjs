@@ -54,12 +54,62 @@ test('sidebar switches between thermometer and industry panels', () => {
   assert.doesNotMatch(html, />板块</);
 });
 
-test('industry panels wait for user supplied content', () => {
+test('industry panels use Ice Ice Xiaomei three-industry classification', () => {
   const html = readFileSync(sourcePath, 'utf8');
-  assert.match(html, /等待你的指示/);
-  assert.doesNotMatch(html, /科技自主|能源安全|国防安全|基础设施|AI 算力|机器人|低空经济|创新药|金融|消费|制造|公用事业/);
-  assert.doesNotMatch(html, /国家安全|高成长|经济基本盘|现金流稳定器|产业化节奏/);
+  for (const term of [
+    '战略资源',
+    '黄金',
+    '铜',
+    '稀土',
+    '锂',
+    '能源',
+    '关键矿产',
+    '新兴产业',
+    '集成电路',
+    '航空航天',
+    '生物医药',
+    '低空经济',
+    '新型储能',
+    '智能机器人',
+    '支柱产业',
+    '汽车',
+    '新能源',
+    '高端制造',
+    '机械装备',
+    '电力设备',
+    '成熟制造业龙头',
+  ]) {
+    assert.match(html, new RegExp(term));
+  }
+  assert.doesNotMatch(html, /等待你的指示|这里不预填任何内容/);
+  assert.doesNotMatch(html, /银行 \/ 保险|食品饮料|电力 \/ 水务|国家安全|高成长|经济基本盘|现金流稳定器/);
   assert.doesNotMatch(html, /半导体设备|银行 \/ 保险|食品饮料|电力 \/ 水务/);
+});
+
+test('industry panels use the approved feed layout without the tracking card', () => {
+  const html = readFileSync(sourcePath, 'utf8');
+  for (const marker of [
+    'industry-workbench',
+    'industry-filter-tabs',
+    'industry-research-board',
+    'industry-date-row',
+    'industry-feed',
+    'industry-report',
+    'industry-timeline',
+    '产业研报',
+    '支柱产业-高端制造',
+    '中国中车机构级决策研报',
+    '中国中车资金面分层分析',
+    '中国船舶资金面分层分析',
+    '神马电力机构级决策研报',
+    '神马电力资金面分层分析',
+  ]) {
+    assert.match(html, new RegExp(marker));
+  }
+  assert.doesNotMatch(html, /当前热点/);
+  assert.doesNotMatch(html, /industry-tracking/);
+  assert.doesNotMatch(html, /产业跟踪/);
+  assert.doesNotMatch(html, /<p class="eyebrow">INDUSTRY TRACKING<\/p>/);
 });
 
 test('example state produces a complete auditable score', () => {

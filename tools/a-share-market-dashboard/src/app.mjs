@@ -341,6 +341,22 @@ function startApp() {
 
   const labelForView = button => button?.textContent.replace(/^\d+/, '').trim() ?? '';
 
+  const applyIndustryFilter = section => {
+    const activeFilter = section.querySelector('.industry-filter-tabs button.is-active')?.dataset.filter ?? 'all';
+    const query = section.querySelector('.industry-search input')?.value.trim().toLocaleLowerCase('zh-CN') ?? '';
+    let visibleCount = 0;
+    section.querySelectorAll('.industry-report').forEach(card => {
+      const filters = (card.dataset.filters ?? '').split(',').map(item => item.trim()).filter(Boolean);
+      const matchesFilter = activeFilter === 'all' || filters.includes(activeFilter);
+      const matchesQuery = !query || card.textContent.toLocaleLowerCase('zh-CN').includes(query);
+      const visible = matchesFilter && matchesQuery;
+      card.hidden = !visible;
+      if (visible) visibleCount += 1;
+    });
+    const empty = section.querySelector('.industry-empty-results');
+    if (empty) empty.hidden = visibleCount > 0;
+  };
+
   const setActiveView = viewId => {
     const button = [...document.querySelectorAll('[data-view]')].find(item => item.dataset.view === viewId);
     const shell = button ? shellForButton(button) : 'thermometer';
@@ -382,6 +398,23 @@ function startApp() {
   document.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => {
     setShell(shellForButton(button), button.dataset.view);
   }));
+  document.querySelectorAll('.industry-filter-tabs button').forEach(button => button.addEventListener('click', event => {
+    const section = event.currentTarget.closest('.view');
+    section.querySelectorAll('.industry-filter-tabs button').forEach(item => {
+      const active = item === event.currentTarget;
+      item.classList.toggle('is-active', active);
+      item.setAttribute('aria-pressed', String(active));
+    });
+    applyIndustryFilter(section);
+  }));
+  document.querySelectorAll('.industry-search').forEach(form => {
+    const section = form.closest('.view');
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      applyIndustryFilter(section);
+    });
+    form.querySelector('input')?.addEventListener('input', () => applyIndustryFilter(section));
+  });
   document.querySelectorAll('[data-shell]').forEach(button => button.addEventListener('click', () => {
     setShell(button.dataset.shell);
   }));

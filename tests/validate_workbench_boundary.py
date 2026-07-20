@@ -101,8 +101,8 @@ def main() -> None:
         "missing unclassified automation README",
     )
     require(
-        (ROOT / "sources/automations/支柱产业/README.md").is_file(),
-        "missing pillar-industry automation README",
+        (ROOT / "sources/automations/支柱产业-高端制造/README.md").is_file(),
+        "missing pillar-industry high-end manufacturing automation README",
     )
 
     equity_skill = (ROOT / ".agents/skills/bbxm-equity-research/SKILL.md").read_text(

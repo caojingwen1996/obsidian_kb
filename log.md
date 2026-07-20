@@ -8999,7 +8999,6 @@ link / cleanup
 ### 后续待办
 
 - 若其他表格中也出现类似“链接被拆成两列”的情况，按同一规则转义表格内 wikilink 的别名分隔符。
-<<<<<<< HEAD
 
 ## 2026-06-16
 
@@ -9011,7 +9010,6 @@ automation / data-refresh / log
 
 - `sources/manual/中证红利信号/最新信号.md`
 - `sources/manual/中证红利信号/中证红利每日信号.csv`
-=======
 ## 2026-06-13
 
 ### 操作类型
@@ -9170,7 +9168,6 @@ ingest / concept / link
 
 - `wiki/concepts/冰冰小美-framework-底线思维.md`
 - `index.md`
->>>>>>> 2194bb4969bf5d2168961ab97a3a5460bedec569
 
 ## 2026-06-16
 
@@ -9213,19 +9210,16 @@ repair / encoding
 
 ### 操作说明
 
-<<<<<<< HEAD
 按 `zzhl-dividend-signal` skill 运行 `python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py`，使用免费数据源刷新中证红利当前股息率信号。AKShare 最新可用指数估值日期与中国 10 年国债收益率日期均推进到 `2026-06-15`；`股息率2 = 4.94%`，中国 10 年国债收益率 `1.7446%`，利差 `3.1954%`。按 Query Page `中证红利什么时候买入收益率最高` 的三种规则判断：历史分位规则仍待验证，绝对股息率规则为“小额定投”，股债利差规则为“历史上偏强买点”。由于未配置 `LIXINGER_TOKEN` 且理杏仁公开页面返回 `HTTP 429 Too Many Requests`，本次未编造历史分位数值，综合结论维持“历史分位点待验证，暂不判定重点买入区间”。
 
 ### 后续待办
 
 - 如后续补齐 `LIXINGER_TOKEN` 或理杏仁公开页恢复可访问，可重新验证近 10 年股息率分位与 80% 分位点，再判断是否进入重点买入区间。
-=======
 根据用户要求新建 Concept Page `冰冰小美-framework-底线思维`。页面以 `sources/manual/372290338/四、投资认知与感悟类/1、国运与长期投资理念/289_底线思维.md` 为核心来源，并连接 `时间窗口`、`仓位承受力`、`买入不败`、`真正中长期需要底线思维`、`风险思考如何支撑交易安全与机遇转化` 和 `三大配置` 等既有页面。同步更新 `index.md` 概念入口和页面总数。
 
 ### 后续待办
 
 - 可后续回链 `冰冰小美-framework-底线思维` 到 `冰冰小美-知识地图`、`宏观经济` 和相关 View / Reasoning 页面，提升图谱中心性。
->>>>>>> 2194bb4969bf5d2168961ab97a3a5460bedec569
 
 ## 2026-06-16
 
@@ -14898,3 +14892,32 @@ link / contract / render / test
 ### 后续待办
 
 - 其余 34 家 159218 成分股待生成权威研报后，再按相同规则补链。
+
+## 2026-07-20
+
+### 操作类型
+
+ui / dashboard / directory-contract
+
+### 修改文件
+
+- `sources/automations/支柱产业-高端制造/`
+- `tests/validate_workbench_boundary.py`
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/README.md`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求将 `sources/automations/支柱产业/` 重命名为 `sources/automations/支柱产业-高端制造/`，并同步更新目录 README 与 Workbench 边界验证中的固定入口路径。
+
+温度计工具新增左侧“产业”切换面板，产业页按冰冰小美三大产业方向分为“战略 / 新兴 / 支柱”，对应战略资源、新兴产业和支柱产业。产业页采用信息流布局，保留细分方向标签、产业研报看板、日期行、研报卡片、页内搜索与标签筛选；后续按用户要求删除内容区重复标题和“产业跟踪”卡片模块。
+
+### 后续待办
+
+- 后续如需把研报卡片改成真实文件链接，应先统一源文件和单文件 artifact 的相对路径策略，避免本地 `src/index.html` 与构建后的 HTML 链接不一致。
+- 后续支柱产业如果拆出其他方向，应新增独立自动化目录，避免继续把所有支柱产业产物混放到高端制造分支。
