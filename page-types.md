@@ -37,6 +37,18 @@ Query Page     = 问题驱动的回答沉淀
 Topic Page     = 主题聚合页 / Hub 页
 ```
 
+### Wiki / Workbench 类型边界
+
+本文的八类页面只适用于 `wiki/`。具体标的动态研究应先进入同级 `workbench/`：
+
+```text
+个股完整研报 → Workbench equity_research，不是 Query Page
+普通公司公告及其价格反应 → Workbench tracking，不是 Event Page
+单一标的持续操作记录 → Workbench tracking，不是 Timeline Page
+```
+
+只有具体案例经提炼后形成可复用的冰冰小美概念、观点、推导或框架演化，才按本文选择正式页面类型。
+
 ---
 
 ## 2. Concept Page：概念页
