@@ -15615,3 +15615,27 @@ dashboard / rebuild
 ### 后续待办
 
 - 新增或移动产业 HTML 后需执行 `scripts/build.mjs`；仅重新启动本地服务不会重新扫描研报目录。
+
+## 2026-07-20
+
+### 操作类型
+
+dashboard / launcher / rebuild
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/启动大盘面板.cmd`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/README.md`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `docs/superpowers/specs/2026-07-20-dashboard-auto-build-launcher-design.md`
+- `docs/superpowers/plans/2026-07-20-dashboard-auto-build-launcher-implementation.md`
+- `log.md`
+
+### 操作说明
+
+将大盘面板启动器改为严格的“先构建、后启动”流程：优先使用系统 Node，缺失时回退到 Codex 工作区运行时 Node；构建成功后才启动本地代理，Node 缺失或构建失败时停止启动，避免继续展示未收录新增研报的旧看板。新增启动顺序与失败门禁测试，移除与当前目录驱动规则冲突的“铜”标签硬编码断言，并更新使用说明。
+
+### 后续待办
+
+- 无。后续新增产业 HTML 后直接重新双击启动器即可自动同步看板。

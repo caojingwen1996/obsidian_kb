@@ -10,6 +10,7 @@ import { deriveDashboard, resolveStorage } from '../src/app.mjs';
 const here = dirname(fileURLToPath(import.meta.url));
 const sourcePath = join(here, '..', 'src', 'index.html');
 const artifactPath = join(here, '..', 'a-share-market-dashboard.html');
+const launcherPath = join(here, '..', '启动大盘面板.cmd');
 const repoRoot = join(here, '..', '..', '..');
 
 function countFeedReports(directoryName) {
@@ -88,7 +89,6 @@ test('industry panels use Ice Ice Xiaomei three-industry classification', () => 
   for (const term of [
     '战略资源',
     '电解铝',
-    '铜',
     '新兴产业',
     '商业航天',
     '机器人',
@@ -188,6 +188,19 @@ test('industry report links open safely in a new tab', () => {
     assert.match(link, /target="_blank"/);
     assert.match(link, /rel="noopener noreferrer"/);
   }
+});
+
+test('launcher rebuilds the dashboard before starting the local proxy', () => {
+  const launcher = readFileSync(launcherPath, 'utf8');
+  const buildIndex = launcher.indexOf('scripts\\build.mjs');
+  const proxyIndex = launcher.indexOf('scripts\\local_proxy.py');
+
+  assert.match(launcher, /where node/i);
+  assert.match(launcher, /%USERPROFILE%\\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node\.exe/i);
+  assert.ok(buildIndex >= 0, 'launcher must invoke the dashboard builder');
+  assert.ok(proxyIndex > buildIndex, 'launcher must build before starting the proxy');
+  assert.match(launcher, /if errorlevel 1 goto :build_failed/i);
+  assert.match(launcher, /:build_failed[\s\S]*goto :eof/i);
 });
 
 test('example state produces a complete auditable score', () => {
