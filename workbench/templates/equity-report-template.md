@@ -14,4 +14,4 @@ framework_refs: []
 ---
 ```
 
-目标路径：`workbench/targets/<证券代码>-<公司简称>/reports/YYYY-MM-DD-HHmm-<标的>-机构级决策研报.md`。
+目标路径：`workbench/targets/YYYY-MM-DD-HHmm-<标的>-机构级决策研报.md`。

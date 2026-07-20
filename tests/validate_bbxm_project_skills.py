@@ -239,7 +239,7 @@ def main() -> None:
         SKILLS_ROOT / "bbxm-equity-research" / "agents" / "openai.yaml"
     ).read_text(encoding="utf-8-sig")
     for marker in (
-        "workbench/targets/<证券代码>-<公司简称>/reports/",
+        "workbench/targets/YYYY-MM-DD-HHmm-<标的>-机构级决策研报.md",
         "artifact_type: equity_research",
         "workbench/index.md",
         "不更新根 index.md",

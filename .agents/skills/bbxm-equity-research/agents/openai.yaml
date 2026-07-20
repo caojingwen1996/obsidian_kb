@@ -1,6 +1,6 @@
 interface:
   display_name: "机构级个股研究"
   short_description: "生成带估值、证据审计、交易结论和HTML版的机构级个股研报"
-  default_prompt: "Use $bbxm-equity-research to research this listed company and produce a decision-ready Markdown report plus its matching HTML version. In llmwiki, save them under workbench/targets/<证券代码>-<公司简称>/reports/ and update the target index plus workbench/index.md, but 不更新根 index.md."
+  default_prompt: "Use $bbxm-equity-research to research this listed company and produce a decision-ready Markdown report plus its matching HTML version. In llmwiki, save the Markdown as workbench/targets/YYYY-MM-DD-HHmm-<标的>-机构级决策研报.md, keep targets flat, return HTML to sources/automations/<分类>/ (or temp when unclassified), update workbench/index.md, but 不更新根 index.md."
 policy:
   allow_implicit_invocation: true

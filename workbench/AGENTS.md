@@ -10,9 +10,11 @@
 - 冰冰小美概念、观点、推导和框架演化进入 `wiki/`。
 - Workbench 工件不得使用 `type: query`、`type: event` 或 `type: timeline`。
 
-## 标的目录
+## 标的文件
 
-使用 `targets/<证券代码>-<公司简称>/`，其下固定为 `index.md`、`reports/`、`tracking/`、`sources/`、`models/`、`outputs/`。
+`targets/` 采用扁平结构，不创建标的子目录。权威研报保存为 `targets/YYYY-MM-DD-HHmm-<标的>-机构级决策研报.md`，后续节点保存为 `targets/YYYY-MM-DD-<标的>-<事件>-跟踪.md`，通过 frontmatter `artifact_type` 区分。
+
+HTML、资金面分析和其他自动化展示产物不进入 Workbench，应返回对应的 `sources/automations/<分类>/`；尚未分类的标的产物进入 `sources/automations/temp/`。
 
 ## 知识回流
 
@@ -20,4 +22,4 @@
 
 ## 更新规则
 
-同一标的的当前权威研报原地更新；影响操作逻辑的增量进入 `tracking/YYYY-MM-DD-事件.md`。所有关键断言必须链接来源并保留抓取时间、口径和不确定性。
+同一标的的当前权威研报原地更新；影响操作逻辑的增量在 `targets/` 根层新增跟踪文件。所有关键断言必须链接来源并保留抓取时间、口径和不确定性。

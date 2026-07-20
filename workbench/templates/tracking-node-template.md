@@ -8,6 +8,8 @@ sources: []
 framework_refs: []
 ---
 
+目标路径：`workbench/targets/YYYY-MM-DD-<标的>-<事件>-跟踪.md`。
+
 # YYYY-MM-DD｜跟踪节点
 
 ## 触发事件

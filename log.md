@@ -14831,3 +14831,39 @@ repair / directory-contract
 ### 后续待办
 
 - 支柱产业自动化后续应把产业级汇总或导航写入本目录；具体标的正文仍写入对应 Workbench 标的目录。
+
+## 2026-07-20
+
+### 操作类型
+
+migrate / refactor / link / contract
+
+### 修改文件
+
+- `workbench/targets/`
+- `workbench/index.md`
+- `workbench/AGENTS.md`
+- `workbench/templates/`
+- `.agents/skills/bbxm-equity-research/`
+- `tests/validate_workbench_boundary.py`
+- `tests/validate_bbxm_project_skills.py`
+- `sources/automations/商业航天每日跟踪/`
+- `sources/automations/支柱产业/`
+- `sources/automations/temp/`
+- `hot.md`
+- `wiki/timelines/cjw-电网设备-变压器.md`
+- `wiki/queries/2026-07-16-神马电力文章逻辑下的华明装备对比分析.md`
+- `log.md`
+
+### 操作说明
+
+按用户确认的扁平结构，将 29 份权威 Markdown 个股研报直接迁移到 `workbench/targets/` 根层，并通过 SHA-256 校验确认迁移前后正文未变化。删除 30 个单标的 `index.md`、对应空目录和失效的标的索引模板；`workbench/index.md` 改为直接链接研报文件。
+
+将 25 份 HTML 恢复到自动化来源目录：商业航天每日跟踪 18 份、支柱产业 5 份、未分类 `temp/` 2 份；三安光电的 1 份重复 Markdown 原始副本也恢复到 `temp/`。新增 `sources/automations/temp/README.md`，明确该目录只保存未分类产物，不作为权威研报目录。
+
+同步更新 Workbench 规则、研报与跟踪模板、`bbxm-equity-research` 技能合同、验证测试和受影响双链。后续 Markdown 研报与跟踪节点直接写入 `workbench/targets/`，HTML 返回 `sources/automations/<分类>/`，不再创建证券代码子目录。
+
+### 后续待办
+
+- 航天电子（600879）目前仍只有历史 HTML，Markdown 权威研报待补。
+- `validate_bbxm_project_skills.py` 仍有与本次目录迁移无关的既有失败：`bbxm-industry-analysis` 缺少 `完整读取当前版本` 合同标记；本次未处理。
