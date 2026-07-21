@@ -15639,3 +15639,30 @@ dashboard / launcher / rebuild
 ### 后续待办
 
 - 无。后续新增产业 HTML 后直接重新双击启动器即可自动同步看板。
+
+## 2026-07-21
+
+### 操作类型
+
+skill-contract / industry-analysis / test
+
+### 修改文件
+
+- `.agents/skills/bbxm-industry-analysis/SKILL.md`
+- `.agents/skills/bbxm-industry-analysis/template.md`
+- `tests/validate_bbxm_industry_company_mapping.py`
+- `docs/superpowers/specs/2026-07-21-industry-chain-granularity-contract-design.md`
+- `docs/superpowers/plans/2026-07-21-industry-chain-granularity-contract.md`
+- `log.md`
+
+### 操作说明
+
+为产业分析技能增加产业链拆分粒度硬契约：上游、中游、下游只作为导航层级，同一层级可按重要子环节重复多行；当产品、技术标准、客户、产业约束、价值与利润机制、竞争格局或代表主体存在实质差异时必须拆行。新增子环节清单、产业链全景对象和双向覆盖审计，要求技术路线、核心约束、价值量、主要增量、跟踪环节和公司映射均可回指产业链全景，并禁止通过合并隐藏证据不足的关键环节。
+
+同步更新完整报告模板与契约测试，以“AI 芯片、存储、光模块、交换机、液冷供电被压缩进同一行”为反例，防止产业链全景再次退化为每层一行的宽泛分类。未重写既有产业报告。
+
+### 验证结果与已知缺口
+
+- `validate_bbxm_industry_company_mapping.py` 与 `validate_bbxm_project_skills.py` 通过。
+- 产业报告专用渲染器可直接生成完整 HTML，0—7 章、产业链公司映射、UTF-8 中文和内部链接检查通过。
+- `test-render-industry-report-html.cjs` 仍被既有商业航天报告中的旧路径 `sources/automations/商业航天每日跟踪/2026-07-17-电科蓝天机构级决策研报.html` 阻断；该链接路径漂移早于本次改动，本次未修改无关报告或渲染测试夹具。
