@@ -35,6 +35,13 @@
             <button class="nav-item" type="button" data-view="industry-pillar"><span>03</span>支柱</button>
             </div>
           </section>
+          <section class="tree-group" data-tree-group="personal">
+            <button class="tree-root" type="button" data-tree-domain="personal" aria-expanded="false" aria-controls="tree-personal"><span>我的</span><span class="tree-chevron" aria-hidden="true"></span></button>
+            <div class="tree-children" id="tree-personal" hidden>
+            <button class="nav-item" type="button" data-view="position-manager"><span>01</span>仓位管理</button>
+            <button class="nav-item" type="button" data-view="holding-tracker"><span>02</span>持仓跟踪</button>
+            </div>
+          </section>
           <button class="tree-root tree-leaf" type="button" data-tree-domain="changelog" data-view="changelog-view"><span>更新日志</span></button>
         </nav>
       </div>
@@ -208,6 +215,51 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
             </div>
           </div>
           <p class="industry-empty-results" hidden>没有匹配的研报项。</p>
+        </div>
+      </section>
+
+      <section class="view" id="position-manager" data-shell-content="personal" aria-labelledby="position-manager-heading">
+        <div class="personal-page">
+          <div class="section-header personal-heading"><div><p class="eyebrow">MY PORTFOLIO</p><h2 id="position-manager-heading">仓位管理</h2></div><p>启动器模式保存在本机，单文件模式保存在当前浏览器；用于记录成本、现价、仓位与浮动盈亏。</p></div>
+          <div class="portfolio-summary" aria-label="仓位摘要">
+            <article><small>持仓标的</small><strong id="holding-count">0</strong><span>只</span></article>
+            <article><small>持仓成本</small><strong id="portfolio-cost">¥0.00</strong><span>累计投入</span></article>
+            <article><small>当前市值</small><strong id="portfolio-market-value">¥0.00</strong><span>按记录现价</span></article>
+            <article id="portfolio-profit-card"><small>浮动盈亏</small><strong id="portfolio-profit">¥0.00</strong><span id="portfolio-profit-rate">0.00%</span></article>
+          </div>
+
+          <div class="position-layout">
+            <form class="holding-form panel" id="holding-form">
+              <input id="holding-id" name="id" type="hidden">
+              <div class="holding-form-title"><div><p class="eyebrow">POSITION RECORD</p><h3 id="holding-form-title">新增持仓</h3></div><button class="text-button" id="cancel-holding-edit" type="button" hidden>取消编辑</button></div>
+              <div class="holding-form-grid">
+                <label><span>证券代码</span><input name="code" required maxlength="12" placeholder="例如 600879"></label>
+                <label><span>标的名称</span><input name="name" required maxlength="30" placeholder="例如 航天电子"></label>
+                <label><span>持有数量</span><input name="quantity" type="number" required min="0" step="any" placeholder="0"></label>
+                <label><span>持仓成本价</span><input name="cost" type="number" required min="0" step="0.001" placeholder="0.000"></label>
+                <label><span>记录现价</span><input name="price" type="number" required min="0" step="0.001" placeholder="0.000"></label>
+                <label><span>跟踪状态</span><select name="status"><option>持有</option><option>观察</option><option>计划加仓</option><option>计划减仓</option></select></label>
+                <label class="holding-note-field"><span>关注要点</span><textarea name="note" rows="3" maxlength="240" placeholder="记录持有逻辑、风险线或下一次复核条件"></textarea></label>
+              </div>
+              <button class="button-primary" type="submit">保存持仓</button>
+            </form>
+
+            <div class="holdings-panel panel">
+              <div class="holding-form-title"><div><p class="eyebrow">POSITIONS</p><h3>当前持仓</h3></div><span id="holdings-updated">尚未记录</span></div>
+              <div class="holdings-table-wrap">
+                <table class="holdings-table"><thead><tr><th>标的</th><th>数量</th><th>成本 / 现价</th><th>市值</th><th>盈亏</th><th>仓位</th><th>操作</th></tr></thead><tbody id="holdings-table-body"></tbody></table>
+              </div>
+              <p class="personal-empty" id="holdings-empty">还没有持仓。先在左侧录入第一只标的。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="holding-tracker" data-shell-content="personal" aria-labelledby="holding-tracker-heading">
+        <div class="personal-page">
+          <div class="section-header personal-heading"><div><p class="eyebrow">HOLDING TRACKER</p><h2 id="holding-tracker-heading">持仓跟踪</h2></div><p>围绕持有逻辑、风险变化和下一步动作持续复核，不把单日涨跌直接当成结论。</p></div>
+          <div class="holding-tracker-list" id="holding-tracker-list"></div>
+          <p class="personal-empty tracker-empty" id="holding-tracker-empty">仓位列表为空。请先到“仓位管理”添加持有标的。</p>
         </div>
       </section>
 

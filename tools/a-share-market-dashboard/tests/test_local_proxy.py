@@ -2,11 +2,12 @@ from contextlib import contextmanager
 from datetime import date, timedelta
 import json
 from pathlib import Path
+from tempfile import TemporaryDirectory
 from threading import Thread
 import unittest
 from urllib.error import HTTPError
 from urllib.parse import parse_qs, quote, urlparse
-from urllib.request import urlopen
+from urllib.request import Request, urlopen
 
 from scripts.local_proxy import (
     RouteError,
@@ -15,12 +16,16 @@ from scripts.local_proxy import (
     create_server,
     fetch_index_history,
     fetch_market_snapshot,
+    fetch_stock_quote,
     parse_json_payload,
 )
 
 
 DASHBOARD = Path(__file__).resolve().parents[1] / "a-share-market-dashboard.html"
 REPORT_PATH = "/sources/automations/支柱产业/电网/2026-07-17-十五五电网投资与电网行业完整分析报告.html"
+WEBPAGE_PATH = "/sources/webpages/2026-07-15-航天电子卖方评级与近期催化剂检索记录.md"
+PAPER_PATH = "/sources/papers/航天电子机构研报-2026-07-15/2025年年度报告.pdf"
+WORKBENCH_PATH = "/workbench/index.md"
 
 
 def read_text(url):
@@ -34,16 +39,23 @@ def read_json(url):
 
 @contextmanager
 def running_server(fetcher):
-    server = create_server(port=0, fetcher=fetcher, dashboard_path=DASHBOARD)
-    thread = Thread(target=server.serve_forever, daemon=True)
-    thread.start()
-    host, port = server.server_address
-    try:
-        yield f"http://{host}:{port}"
-    finally:
-        server.shutdown()
-        server.server_close()
-        thread.join(timeout=3)
+    with TemporaryDirectory() as temporary_directory:
+        portfolio_path = Path(temporary_directory) / "portfolio.json"
+        server = create_server(
+            port=0,
+            fetcher=fetcher,
+            dashboard_path=DASHBOARD,
+            portfolio_path=portfolio_path,
+        )
+        thread = Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+        host, port = server.server_address
+        try:
+            yield f"http://{host}:{port}"
+        finally:
+            server.shutdown()
+            server.server_close()
+            thread.join(timeout=3)
 
 
 class RouteTests(unittest.TestCase):
@@ -65,6 +77,25 @@ class RouteTests(unittest.TestCase):
             build_upstream_url(
                 "/api/eastmoney-kline",
                 {"secid": ["https://example.com"], "limit": ["3000"]},
+            )
+
+    def test_builds_only_allowlisted_stock_quote_url(self):
+        url = build_upstream_url(
+            "/api/stock-quote",
+            {"secid": ["1.600879"]},
+        )
+
+        parsed = urlparse(url)
+        query = parse_qs(parsed.query)
+        self.assertEqual(parsed.hostname, "push2.eastmoney.com")
+        self.assertEqual(parsed.path, "/api/qt/stock/get")
+        self.assertEqual(query["secid"], ["1.600879"])
+        self.assertEqual(query["fields"], ["f43,f57,f58,f60,f86,f170"])
+
+        with self.assertRaises(RouteError):
+            build_upstream_url(
+                "/api/stock-quote",
+                {"secid": ["1.600000"]},
             )
 
 
@@ -92,6 +123,35 @@ class PayloadTests(unittest.TestCase):
 
         self.assertEqual(len(payload["data"]["klines"]), 250)
         self.assertEqual(payload["data"]["klines"][0], "2025-11-10,3500,3510,3520,3490,100")
+        self.assertEqual(payload["proxySource"], "腾讯行情")
+
+    def test_stock_quote_falls_back_to_tencent_when_eastmoney_is_unavailable(self):
+        quote = [""] * 33
+        quote[1] = "航天电子"
+        quote[2] = "600879"
+        quote[3] = "15.15"
+        quote[4] = "14.65"
+        quote[30] = "20260721111726"
+        quote[32] = "3.41"
+
+        def fake_fetch(url, source):
+            if "push2.eastmoney.com" in url:
+                raise UpstreamError(source)
+            return {
+                "data": {
+                    "sh600879": {
+                        "data": {"data": [], "date": "20260721"},
+                        "qt": {"sh600879": quote},
+                    }
+                }
+            }
+
+        payload = fetch_stock_quote("1.600879", fetcher=fake_fetch)
+
+        self.assertEqual(payload["data"]["price"], 15.15)
+        self.assertEqual(payload["data"]["prevClose"], 14.65)
+        self.assertEqual(payload["data"]["changePercent"], 3.41)
+        self.assertEqual(payload["data"]["quoteTimestamp"], 1784603846)
         self.assertEqual(payload["proxySource"], "腾讯行情")
 
     def test_market_snapshot_aggregates_every_reported_page(self):
@@ -134,6 +194,17 @@ class ServerTests(unittest.TestCase):
     def fake_fetch(url, source):
         if "kline/get" in url:
             return {"data": {"klines": ["2026-07-17,3500,3510"]}}
+        if "stock/get" in url:
+            return {
+                "data": {
+                    "f43": 1443,
+                    "f57": "600879",
+                    "f58": "航天电子",
+                    "f60": 1465,
+                    "f86": 1784601060,
+                    "f170": -150,
+                }
+            }
         raise UpstreamError(source)
 
     def test_health_and_dashboard_are_served_without_exposing_other_files(self):
@@ -149,11 +220,18 @@ class ServerTests(unittest.TestCase):
             report = read_text(f"{base}{quote(REPORT_PATH, safe='/')}")
         self.assertIn("电网投资与电网行业完整分析报告", report)
 
-    def test_rejects_non_html_files_from_the_automations_directory(self):
+    def test_serves_files_from_sources_and_workbench_whitelists(self):
         with running_server(self.fake_fetch) as base:
-            with self.assertRaises(HTTPError) as blocked:
-                urlopen(f"{base}{quote('/sources/automations/支柱产业/README.md', safe='/')}", timeout=3)
-        self.assertEqual(blocked.exception.code, 404)
+            webpage = read_text(f"{base}{quote(WEBPAGE_PATH, safe='/')}")
+            workbench = read_text(f"{base}{quote(WORKBENCH_PATH, safe='/')}")
+            with urlopen(f"{base}{quote(PAPER_PATH, safe='/')}", timeout=3) as response:
+                paper_type = response.headers.get_content_type()
+                paper_header = response.read(4)
+
+        self.assertIn("航天电子卖方评级与近期催化剂检索记录", webpage)
+        self.assertIn("Investment Workbench", workbench)
+        self.assertEqual(paper_type, "application/pdf")
+        self.assertEqual(paper_header, b"%PDF")
 
     def test_rejects_encoded_path_traversal_from_the_automations_directory(self):
         with running_server(self.fake_fetch) as base:
@@ -161,12 +239,71 @@ class ServerTests(unittest.TestCase):
                 urlopen(f"{base}/sources/automations/%2e%2e/%2e%2e/AGENTS.md", timeout=3)
         self.assertEqual(blocked.exception.code, 404)
 
+    def test_rejects_traversal_outside_sources_and_workbench_whitelists(self):
+        with running_server(self.fake_fetch) as base:
+            for path in (
+                "/sources/webpages/%2e%2e/%2e%2e/AGENTS.md",
+                "/workbench/%2e%2e/AGENTS.md",
+            ):
+                with self.subTest(path=path):
+                    with self.assertRaises(HTTPError) as blocked:
+                        urlopen(f"{base}{path}", timeout=3)
+                    self.assertEqual(blocked.exception.code, 404)
+
     def test_api_returns_normalized_json(self):
         with running_server(self.fake_fetch) as base:
             payload = read_json(
                 f"{base}/api/eastmoney-kline?secid=1.000300&limit=3000"
             )
         self.assertEqual(payload["data"]["klines"][0].split(",")[0], "2026-07-17")
+
+    def test_stock_quote_api_returns_normalized_quote_and_rejects_other_stocks(self):
+        with running_server(self.fake_fetch) as base:
+            payload = read_json(f"{base}/api/stock-quote?secid=1.600879")
+            with self.assertRaises(HTTPError) as bad_request:
+                urlopen(f"{base}/api/stock-quote?secid=1.600000", timeout=3)
+
+        self.assertEqual(payload, {
+            "data": {
+                "secid": "1.600879",
+                "code": "600879",
+                "name": "航天电子",
+                "price": 14.43,
+                "prevClose": 14.65,
+                "changePercent": -1.5,
+                "quoteTimestamp": 1784601060,
+            },
+            "proxySource": "东方财富行情",
+        })
+        self.assertEqual(bad_request.exception.code, 400)
+
+    def test_portfolio_api_persists_valid_local_holdings(self):
+        payload = {
+            "holdings": [{
+                "id": "holding-1",
+                "code": "600879",
+                "name": "航天电子",
+                "quantity": 1000,
+                "cost": 12.3,
+                "price": 14.5,
+                "status": "持有",
+                "note": "跟踪订单兑现",
+                "updatedAt": 1784601060000,
+            }]
+        }
+        with running_server(self.fake_fetch) as base:
+            request = Request(
+                f"{base}/api/portfolio",
+                data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+                headers={"Content-Type": "application/json"},
+                method="PUT",
+            )
+            with urlopen(request, timeout=3) as response:
+                saved = json.loads(response.read().decode("utf-8"))
+            loaded = read_json(f"{base}/api/portfolio")
+
+        self.assertEqual(saved, payload)
+        self.assertEqual(loaded, payload)
 
     def test_api_rejects_bad_parameters_and_sanitizes_upstream_errors(self):
         with running_server(self.fake_fetch) as base:

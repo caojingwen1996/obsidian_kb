@@ -1,0 +1,63 @@
+flowchart TD
+    TITLE([资金面分析完整流程]) --> INPUT[/输入契约：对象｜层级｜市场｜截止时间｜决策问题｜持仓｜数据缺口/]
+    INPUT --> S1[① 审计数据完整性]
+    S1 --> AUDIT[来源｜时点｜频率｜单位｜范围｜口径｜证据标签]
+
+    AUDIT --> S2[② 建立资金来源全景]
+    S2 --> SRC1[外资与跨境｜杠杆｜公募与 ETF]
+    SRC1 --> SRC2[产业资本｜长期资金｜私募与信托]
+    SRC2 --> SRC3[券商资管｜个人资金｜筹码供给]
+    SRC3 --> S3[③ 判断流入机制]
+    S3 --> M1[场外真实增量]
+    S3 --> M2[存量迁移]
+    S3 --> M3[减量报团]
+
+    AUDIT --> S4[④ 分析 F3 F5 F7 日频面板]
+    S4 --> F3[F3 融资净买入｜杠杆代理]
+    F3 --> F5[F5 特大单净买入｜大额交易代理]
+    F5 --> F7[F7 ETF估算净申赎｜份额代理]
+    F7 --> BOUNDARY[方向｜强度｜持续性｜稳定性｜价格响应]
+    BOUNDARY --> NOADD[可能重叠且身份未知｜不得机械相加]
+
+    M1 & M2 & M3 --> S5[⑤ 检查供给与退出路径]
+    NOADD --> S5
+    S5 --> EXIT1[融资供给｜减持解禁｜套牢盘]
+    EXIT1 --> EXIT2[赎回｜平仓｜集中度｜退出承接]
+    EXIT2 --> S6[⑥ 做交叉验证]
+    S6 --> V1[价格响应｜成交与换手]
+    V1 --> V2[上涨广度｜相对强弱]
+    V2 --> V3[当日｜5日｜20日连续性｜筹码供给]
+    V3 --> CONFLICT{资金 价格 广度 筹码是否确认}
+    CONFLICT -->|冲突或缺口| DOWN1[记录冲突｜降低置信度]
+    DOWN1 --> DOWN2[列出下一验证点]
+    CONFLICT -->|得到确认| S7[⑦ 给出唯一资金状态]
+    DOWN2 --> S7
+
+    S7 --> STATE1[共振流入｜结构性流入｜多空分歧]
+    STATE1 --> STATE2[结构性流出｜共振流出｜证据不足]
+    STATE2 --> S8[⑧ 映射行动与仓位]
+
+    S8 --> NEW[新增资金]
+    NEW --> NEWACT[buy｜wait｜observe｜review]
+    NEWACT --> NEWRULE[仓位只给条件化区间]
+    NEWRULE --> NEWLIMIT[单日 F 信号不得触发 buy]
+
+    S8 --> HOLD[已有持仓]
+    HOLD --> HOLDACT[sell｜reduce｜wait｜review｜observe]
+    HOLDACT --> HOLDRULE[结合成本｜仓位｜原计划｜风险预算]
+    HOLDRULE --> HOLDLIMIT[持仓事实不足先 review]
+
+    NEWLIMIT & HOLDLIMIT --> END[触发｜维持｜取消｜下一验证点｜失效]
+    END -.-> LOOP[新数据到达后：从①数据完整性审计重新开始]
+
+    classDef input fill:#f8fafc,stroke:#64748b,color:#0f172a,stroke-width:1.5px
+    classDef evidence fill:#eff6ff,stroke:#2563eb,color:#1e3a8a,stroke-width:1.5px
+    classDef validation fill:#fff7ed,stroke:#ea580c,color:#7c2d12,stroke-width:1.5px
+    classDef state fill:#f5f3ff,stroke:#7c3aed,color:#4c1d95,stroke-width:1.5px
+    classDef action fill:#ecfdf5,stroke:#059669,color:#064e3b,stroke-width:1.5px
+
+    class TITLE,INPUT input
+    class S1,AUDIT,S2,SRC1,SRC2,SRC3,S3,M1,M2,M3,S4,F3,F5,F7,BOUNDARY,NOADD evidence
+    class S5,EXIT1,EXIT2,S6,V1,V2,V3,CONFLICT,DOWN1,DOWN2 validation
+    class S7,STATE1,STATE2 state
+    class S8,NEW,NEWACT,NEWRULE,NEWLIMIT,HOLD,HOLDACT,HOLDRULE,HOLDLIMIT,END,LOOP action

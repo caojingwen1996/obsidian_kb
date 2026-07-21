@@ -5,13 +5,25 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 import { createExampleSnapshot } from '../src/data-service.mjs';
-import { deriveDashboard, resolveStorage } from '../src/app.mjs';
+import {
+  deriveDashboard,
+  resolveStorage,
+  summarizeHoldings,
+} from '../src/app.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const sourcePath = join(here, '..', 'src', 'index.html');
 const artifactPath = join(here, '..', 'a-share-market-dashboard.html');
 const launcherPath = join(here, '..', '启动大盘面板.cmd');
 const repoRoot = join(here, '..', '..', '..');
+const hangTianElectronicsReportPath = join(
+  repoRoot,
+  'sources',
+  'automations',
+  '新兴产业',
+  '商业航天',
+  '2026-07-17-航天电子机构级决策研报.html',
+);
 
 function countFeedReports(directoryName) {
   return readdirSync(join(repoRoot, 'sources', 'automations', directoryName), {
@@ -51,20 +63,26 @@ test('window controls use native buttons with the four approved values', () => {
   }
 });
 
-test('sidebar uses three first-level tree domains', () => {
+test('sidebar exposes the personal position workspace as a first-level tree domain', () => {
   const html = readFileSync(sourcePath, 'utf8');
-  for (const domain of ['thermometer', 'industry', 'changelog']) {
+  for (const domain of ['thermometer', 'industry', 'personal', 'changelog']) {
     assert.match(html, new RegExp(`<button[^>]+data-tree-domain="${domain}"`));
   }
-  for (const id of ['tree-thermometer', 'tree-industry', 'changelog-view',
+  for (const id of ['tree-thermometer', 'tree-industry', 'tree-personal', 'changelog-view',
     'industry-strategy',
     'industry-emerging',
     'industry-pillar',
+    'position-manager',
+    'holding-tracker',
+    'holding-form',
+    'holdings-table-body',
+    'holding-tracker-list',
   ]) {
     assert.match(html, new RegExp(`id="${id}"`));
   }
   assert.match(html, /data-tree-domain="thermometer"[^>]+aria-expanded="true"[^>]+aria-controls="tree-thermometer"/);
   assert.match(html, /data-tree-domain="industry"[^>]+aria-expanded="false"[^>]+aria-controls="tree-industry"/);
+  assert.match(html, /data-tree-domain="personal"[^>]+aria-expanded="false"[^>]+aria-controls="tree-personal"/);
   assert.doesNotMatch(html, /class="shell-switcher"/);
   assert.doesNotMatch(html, /industry-sectors/);
   assert.doesNotMatch(html, />板块</);
@@ -201,6 +219,52 @@ test('launcher rebuilds the dashboard before starting the local proxy', () => {
   assert.ok(proxyIndex > buildIndex, 'launcher must build before starting the proxy');
   assert.match(launcher, /if errorlevel 1 goto :build_failed/i);
   assert.match(launcher, /:build_failed[\s\S]*goto :eof/i);
+});
+
+test('position summary calculates market value, profit and portfolio weights', () => {
+  const summary = summarizeHoldings([
+    { id: 'a', code: '600879', name: '航天电子', quantity: 1000, cost: 12, price: 15 },
+    { id: 'b', code: '512400', name: '有色ETF', quantity: 2000, cost: 1.1, price: 1 },
+  ]);
+
+  assert.equal(summary.costValue, 14200);
+  assert.equal(summary.marketValue, 17000);
+  assert.equal(summary.profit, 2800);
+  assert.equal(summary.items[0].weight, 88.24);
+  assert.equal(summary.items[1].profitRate, -9.09);
+});
+
+test('航天电子 merges static hero metrics into daily tracking and reserves a live quote', () => {
+  const report = readFileSync(hangTianElectronicsReportPath, 'utf8');
+
+  assert.doesNotMatch(report, /class="kpis"/);
+  assert.doesNotMatch(report, /class="verdict"/);
+  for (const marker of [
+    'data-tracking-key="daily-quote"',
+    'data-tracking-key="intraday-quote"',
+    'data-tracking-key="action-confidence"',
+    '/api/stock-quote?secid=1.600879',
+    '每 60 秒',
+  ]) {
+    assert.match(report, new RegExp(marker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+  }
+});
+
+test('航天电子 local links target real source files or Obsidian pages', () => {
+  const report = readFileSync(hangTianElectronicsReportPath, 'utf8');
+
+  for (const href of [
+    '../../../webpages/2026-07-15-航天电子卖方评级与近期催化剂检索记录.md',
+    '../../../papers/航天电子机构研报-2026-07-15/2025年年度报告.pdf',
+    '商业航天产业完整分析报告.html',
+    'obsidian://open?vault=llmwiki&amp;file=wiki%2Freasoning%2F',
+    'obsidian://open?vault=llmwiki&amp;file=wiki%2Ftimelines%2F',
+  ]) {
+    assert.ok(report.includes(href), `missing corrected href: ${href}`);
+  }
+  assert.doesNotMatch(report, /\.pdf\.html/);
+  assert.doesNotMatch(report, /href="\.\.\/\.\.\/(?:webpages|papers)\//);
+  assert.doesNotMatch(report, /href="\.\.\/\.\.\/\.\.\/(?:queries|reasoning|timelines)\//);
 });
 
 test('example state produces a complete auditable score', () => {

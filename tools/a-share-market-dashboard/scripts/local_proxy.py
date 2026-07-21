@@ -1,9 +1,10 @@
 """Local same-origin data proxy for the A-share market dashboard."""
 
 from concurrent.futures import ThreadPoolExecutor
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
+import math
 from pathlib import Path
 import re
 import sys
@@ -14,6 +15,7 @@ import webbrowser
 
 
 ALLOWED_SECIDS = {"1.000001", "1.000300", "1.000985"}
+ALLOWED_STOCK_SECIDS = {"1.600879"}
 ALLOWED_INDEX_CODES = {"000300", "000985"}
 TENCENT_SYMBOLS = {
     "1.000001": "sh000001",
@@ -27,7 +29,9 @@ SOURCE_NAMES = {
     "/api/treasury": "treasury",
     "/api/market": "market",
     "/api/margin": "margin",
+    "/api/stock-quote": "stock-quote",
 }
+TENCENT_STOCK_SYMBOLS = {"1.600879": "sh600879"}
 
 
 class RouteError(ValueError):
@@ -112,6 +116,17 @@ def build_upstream_url(path, query):
                 "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61",
             },
         )
+    if path == "/api/stock-quote":
+        secid = _one(query, "secid")
+        if secid not in ALLOWED_STOCK_SECIDS:
+            raise RouteError("invalid secid")
+        return _build_url(
+            "https://push2.eastmoney.com/api/qt/stock/get",
+            {
+                "secid": secid,
+                "fields": "f43,f57,f58,f60,f86,f170",
+            },
+        )
     if path == "/api/csindex-performance":
         index_code = _one(query, "indexCode")
         if index_code not in ALLOWED_INDEX_CODES:
@@ -162,6 +177,94 @@ def parse_json_payload(body, encoding="utf-8-sig"):
         if not match:
             raise ValueError("invalid JSON response")
         return json.loads(match.group(1))
+
+
+def normalize_stock_quote(payload, secid):
+    """Normalize one allowlisted Eastmoney stock quote for report pages."""
+    data = payload.get("data") if isinstance(payload, dict) else None
+    if not isinstance(data, dict):
+        raise UpstreamError("stock-quote")
+    numeric_fields = ("f43", "f60", "f86", "f170")
+    if any(isinstance(data.get(field), bool) or not isinstance(data.get(field), (int, float)) for field in numeric_fields):
+        raise UpstreamError("stock-quote")
+    code = data.get("f57")
+    name = data.get("f58")
+    if not isinstance(code, str) or not code or not isinstance(name, str) or not name:
+        raise UpstreamError("stock-quote")
+    return {
+        "data": {
+            "secid": secid,
+            "code": code,
+            "name": name,
+            "price": round(data["f43"] / 100, 2),
+            "prevClose": round(data["f60"] / 100, 2),
+            "changePercent": round(data["f170"] / 100, 2),
+            "quoteTimestamp": int(data["f86"]),
+        },
+        "proxySource": "东方财富行情",
+    }
+
+
+def _build_tencent_stock_quote_url(secid):
+    symbol = TENCENT_STOCK_SYMBOLS.get(secid)
+    if not symbol:
+        raise RouteError("invalid secid")
+    return _build_url(
+        "https://ifzq.gtimg.cn/appstock/app/minute/query",
+        {"code": symbol},
+    )
+
+
+def normalize_tencent_stock_quote(payload, secid):
+    """Normalize the fixed Tencent quote array used as the stock fallback."""
+    symbol = TENCENT_STOCK_SYMBOLS.get(secid)
+    data = payload.get("data") if isinstance(payload, dict) else None
+    node = data.get(symbol) if isinstance(data, dict) else None
+    qt = node.get("qt") if isinstance(node, dict) else None
+    quote = qt.get(symbol) if isinstance(qt, dict) else None
+    if not isinstance(quote, list) or len(quote) < 33:
+        raise UpstreamError("tencent-stock-quote")
+    try:
+        price = float(quote[3])
+        prev_close = float(quote[4])
+        change_percent = float(quote[32])
+        quote_time = datetime.strptime(quote[30], "%Y%m%d%H%M%S").replace(
+            tzinfo=timezone(timedelta(hours=8))
+        )
+    except (TypeError, ValueError) as error:
+        raise UpstreamError("tencent-stock-quote") from error
+    code = quote[2]
+    name = quote[1]
+    if not isinstance(code, str) or not code or not isinstance(name, str) or not name:
+        raise UpstreamError("tencent-stock-quote")
+    return {
+        "data": {
+            "secid": secid,
+            "code": code,
+            "name": name,
+            "price": round(price, 2),
+            "prevClose": round(prev_close, 2),
+            "changePercent": round(change_percent, 2),
+            "quoteTimestamp": int(quote_time.timestamp()),
+        },
+        "proxySource": "腾讯行情",
+    }
+
+
+def fetch_stock_quote(secid, fetcher=None):
+    """Fetch a fixed stock quote, falling back from Eastmoney to Tencent."""
+    if fetcher is None:
+        fetcher = fetch_upstream
+    query = {"secid": [secid]}
+    try:
+        upstream_url = build_upstream_url("/api/stock-quote", query)
+        return normalize_stock_quote(fetcher(upstream_url, "stock-quote"), secid)
+    except UpstreamError:
+        payload = fetcher(
+            _build_tencent_stock_quote_url(secid),
+            "tencent-stock-quote",
+        )
+        return normalize_tencent_stock_quote(payload, secid)
 
 
 def fetch_upstream(url, source):
@@ -336,10 +439,38 @@ def fetch_market_snapshot(fetcher=fetch_upstream, workers=8):
         return _fetch_sina_market_snapshot(fetcher, workers)
 
 
-def create_server(host="127.0.0.1", port=0, fetcher=fetch_upstream, dashboard_path=None):
+def create_server(
+    host="127.0.0.1",
+    port=0,
+    fetcher=fetch_upstream,
+    dashboard_path=None,
+    portfolio_path=None,
+):
     """Create a loopback-only dashboard server with fixed proxy routes."""
     artifact = Path(dashboard_path or Path(__file__).resolve().parents[1] / "a-share-market-dashboard.html").resolve()
-    automations_root = (artifact.parents[2] / "sources" / "automations").resolve()
+    portfolio_file = Path(
+        portfolio_path or artifact.parent / "data" / "portfolio.json"
+    ).resolve()
+    vault_root = artifact.parents[2]
+    file_roots = {
+        "/sources/": (vault_root / "sources").resolve(),
+        "/workbench/": (vault_root / "workbench").resolve(),
+    }
+    content_types = {
+        ".css": "text/css; charset=utf-8",
+        ".csv": "text/csv; charset=utf-8",
+        ".gif": "image/gif",
+        ".html": "text/html; charset=utf-8",
+        ".jpeg": "image/jpeg",
+        ".jpg": "image/jpeg",
+        ".json": "application/json; charset=utf-8",
+        ".md": "text/plain; charset=utf-8",
+        ".pdf": "application/pdf",
+        ".png": "image/png",
+        ".svg": "image/svg+xml",
+        ".txt": "text/plain; charset=utf-8",
+        ".webp": "image/webp",
+    }
 
     class DashboardHandler(BaseHTTPRequestHandler):
         server_version = "AShareDashboard/1.0"
@@ -364,23 +495,102 @@ def create_server(host="127.0.0.1", port=0, fetcher=fetch_upstream, dashboard_pa
                 return self.send_json(500, {"error": "dashboard artifact unavailable"})
             return self._send_bytes(200, body, "text/html; charset=utf-8")
 
-        def send_automation_report(self, request_path):
-            prefix = "/sources/automations/"
-            decoded_path = unquote(request_path)
-            if not decoded_path.startswith(prefix):
-                return self.send_json(404, {"error": "not found"})
-            report = (automations_root / decoded_path[len(prefix):]).resolve()
+        def send_portfolio(self):
             try:
-                report.relative_to(automations_root)
+                payload = json.loads(portfolio_file.read_text(encoding="utf-8"))
+            except FileNotFoundError:
+                payload = {"holdings": []}
+            except (OSError, json.JSONDecodeError):
+                return self.send_json(500, {"error": "portfolio data unavailable"})
+            return self.send_json(200, payload)
+
+        def save_portfolio(self):
+            try:
+                content_length = int(self.headers.get("Content-Length", "0"))
+            except ValueError:
+                return self.send_json(400, {"error": "invalid content length"})
+            if content_length <= 0 or content_length > 262_144:
+                return self.send_json(400, {"error": "invalid portfolio payload"})
+            try:
+                payload = json.loads(self.rfile.read(content_length).decode("utf-8"))
+                holdings = payload.get("holdings")
+                if not isinstance(holdings, list) or len(holdings) > 200:
+                    raise ValueError
+                normalized = []
+                allowed_statuses = {"持有", "观察", "计划加仓", "计划减仓"}
+                for item in holdings:
+                    if not isinstance(item, dict):
+                        raise ValueError
+                    holding_id = str(item.get("id", ""))[:80]
+                    code = str(item.get("code", ""))[:12]
+                    name = str(item.get("name", ""))[:30]
+                    status = str(item.get("status", "持有"))
+                    note = str(item.get("note", ""))[:240]
+                    quantity = float(item.get("quantity", 0))
+                    cost = float(item.get("cost", 0))
+                    price = float(item.get("price", 0))
+                    updated_at = int(item.get("updatedAt", 0))
+                    if (
+                        not holding_id
+                        or not code
+                        or not name
+                        or status not in allowed_statuses
+                        or not all(math.isfinite(value) for value in (quantity, cost, price))
+                        or min(quantity, cost, price, updated_at) < 0
+                    ):
+                        raise ValueError
+                    normalized.append({
+                        "id": holding_id,
+                        "code": code,
+                        "name": name,
+                        "quantity": quantity,
+                        "cost": cost,
+                        "price": price,
+                        "status": status,
+                        "note": note,
+                        "updatedAt": updated_at,
+                    })
+                saved = {"holdings": normalized}
+                portfolio_file.parent.mkdir(parents=True, exist_ok=True)
+                temporary_file = portfolio_file.with_suffix(".tmp")
+                temporary_file.write_text(
+                    json.dumps(saved, ensure_ascii=False, separators=(",", ":")),
+                    encoding="utf-8",
+                )
+                temporary_file.replace(portfolio_file)
+            except (OSError, TypeError, ValueError, json.JSONDecodeError):
+                return self.send_json(400, {"error": "invalid portfolio payload"})
+            return self.send_json(200, saved)
+
+        def send_whitelisted_file(self, request_path):
+            decoded_path = unquote(request_path)
+            match = next(
+                (
+                    (prefix, root)
+                    for prefix, root in file_roots.items()
+                    if decoded_path.startswith(prefix)
+                ),
+                None,
+            )
+            if match is None:
+                return self.send_json(404, {"error": "not found"})
+            prefix, root = match
+            requested_file = (root / decoded_path[len(prefix):]).resolve()
+            try:
+                requested_file.relative_to(root)
             except ValueError:
                 return self.send_json(404, {"error": "not found"})
-            if report.suffix.lower() != ".html" or not report.is_file():
+            if not requested_file.is_file():
                 return self.send_json(404, {"error": "not found"})
             try:
-                body = report.read_bytes()
+                body = requested_file.read_bytes()
             except OSError:
                 return self.send_json(404, {"error": "not found"})
-            return self._send_bytes(200, body, "text/html; charset=utf-8")
+            content_type = content_types.get(
+                requested_file.suffix.lower(),
+                "application/octet-stream",
+            )
+            return self._send_bytes(200, body, content_type)
 
         def do_GET(self):
             parsed = urlparse(self.path)
@@ -388,8 +598,10 @@ def create_server(host="127.0.0.1", port=0, fetcher=fetch_upstream, dashboard_pa
                 return self.send_json(200, {"ok": True})
             if parsed.path in {"/", "/a-share-market-dashboard.html"}:
                 return self.send_dashboard()
-            if parsed.path.startswith("/sources/automations/"):
-                return self.send_automation_report(parsed.path)
+            if parsed.path == "/api/portfolio":
+                return self.send_portfolio()
+            if parsed.path.startswith("/sources/") or parsed.path.startswith("/workbench/"):
+                return self.send_whitelisted_file(parsed.path)
             if not parsed.path.startswith("/api/"):
                 return self.send_json(404, {"error": "not found"})
             source = SOURCE_NAMES.get(parsed.path, "unknown")
@@ -402,6 +614,9 @@ def create_server(host="127.0.0.1", port=0, fetcher=fetch_upstream, dashboard_pa
                         _bounded_int(_one(query, "limit", "3000"), 250, 4000),
                         fetcher,
                     )
+                elif parsed.path == "/api/stock-quote":
+                    secid = _one(query, "secid")
+                    payload = fetch_stock_quote(secid, fetcher)
                 elif parsed.path == "/api/market":
                     build_upstream_url(parsed.path, query)
                     payload = fetch_market_snapshot(fetcher)
@@ -415,6 +630,12 @@ def create_server(host="127.0.0.1", port=0, fetcher=fetch_upstream, dashboard_pa
                 return self.send_json(502, {"error": "upstream request failed", "source": error.source})
             except Exception:
                 return self.send_json(500, {"error": "internal proxy error", "source": source})
+
+        def do_PUT(self):
+            parsed = urlparse(self.path)
+            if parsed.path != "/api/portfolio":
+                return self.send_json(404, {"error": "not found"})
+            return self.save_portfolio()
 
         def log_message(self, message_format, *args):
             sys.stderr.write("proxy: " + message_format % args + "\n")

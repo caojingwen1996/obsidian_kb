@@ -1,0 +1,587 @@
+{
+  "schema_version": 1,
+  "automation": "BBXM每日汇总",
+  "author": "冰冰小美",
+  "author_name": "冰冰小美",
+  "target_date": "2026-07-21",
+  "run_time": "2026-07-21 15:49:39",
+  "generated_at": "2026-07-21T15:49:39+08:00",
+  "analysis_complete": true,
+  "coverage": {
+    "saved_post_count": 18,
+    "analyzed_post_count": 18,
+    "unresolved_post_count": 0,
+    "unresolved_reasons": [],
+    "qualified_risk_count": 13,
+    "not_written_count": 5
+  },
+  "summary": {
+    "daily_risk_count": 13,
+    "risk_grade_distribution": {
+      "R1": 2,
+      "R2": 2,
+      "R3": 0,
+      "W1": 5,
+      "W2": 3,
+      "W3": 1
+    },
+    "strongest_signal": "W3 国产算力交换机承载修正情绪标",
+    "daily_verdict": "风险从早盘恐慌和跷跷板转向修正行情，但极端波动和次日科技接力仍需验证。"
+  },
+  "qualified": [
+    {
+      "post_key": "401305543",
+      "source_id": "401305543",
+      "title": "医药科技跷跷板仍在",
+      "published_at": "2026-07-21T09:42:00+08:00",
+      "published_at_text": "2026-07-21 09:42:00",
+      "url": "https://xueqiu.com/7143769715/401305543",
+      "level": "R1",
+      "risk_grade": "R1",
+      "risk_object": "医药与科技之间的存量流动性挤压",
+      "trigger": "医药跌、科技涨，作者判断跷跷板仍在",
+      "transmission": "存量资金在科技与医药间迁移，非主线方向承接仍受挤压，市场修正质量尚未被确认",
+      "evidence": [
+        "“医药跌，科技涨。跷跷板还是存在的。”"
+      ],
+      "reason": "早盘挤压没有完全解除，属于弱风险观察。",
+      "source_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/094200_医药科技跷跷板仍在.md",
+      "interpretation_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/094200_医药科技跷跷板仍在_解读.md"
+    },
+    {
+      "post_key": "401351183",
+      "source_id": "401351183",
+      "title": "全A加速点触发修正行情",
+      "published_at": "2026-07-21T11:06:00+08:00",
+      "published_at_text": "2026-07-21 11:06:00",
+      "url": "https://xueqiu.com/7143769715/401351183",
+      "level": "W1",
+      "risk_grade": "W1",
+      "risk_object": "全A和创业板短线流动性恐慌",
+      "trigger": "全A回到加速点后出现承接，创业板放量并重回下跌趋势线",
+      "transmission": "极端下跌触发承接力量，短线流动性从踩踏转向修正，但尚未完成趋势反转确认",
+      "evidence": [
+        "“全A回到我的加速点，然后转势”“创业板放量明显”“指数重回下跌趋势线”"
+      ],
+      "reason": "风险从扩散开始边际缓和，但作者仍定位为修正行情。",
+      "source_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/110600_全A加速点触发修正行情.md",
+      "interpretation_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/110600_全A加速点触发修正行情_解读.md"
+    },
+    {
+      "post_key": "401353656",
+      "source_id": "401353656",
+      "title": "极端反弹一次到位",
+      "published_at": "2026-07-21T11:11:00+08:00",
+      "published_at_text": "2026-07-21 11:11:00",
+      "url": "https://xueqiu.com/7143769715/401353656",
+      "level": "R2",
+      "risk_grade": "R2",
+      "risk_object": "短线极端波动与反弹空间快速消耗",
+      "trigger": "市场从ICU到KTV，作者判断一次性反弹到位",
+      "transmission": "急跌急涨压缩交易窗口，追涨与割肉都更容易被日内波动惩罚",
+      "evidence": [
+        "“这行情坏的很，ICU到KTV，一次性反弹到位。”"
+      ],
+      "reason": "反弹太快会降低短线后续买入的风险收益比。",
+      "source_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/111100_极端反弹一次到位.md",
+      "interpretation_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/111100_极端反弹一次到位_解读.md"
+    },
+    {
+      "post_key": "401359951",
+      "source_id": "401359951",
+      "title": "老登同涨确认修正质量",
+      "published_at": "2026-07-21T11:27:00+08:00",
+      "published_at_text": "2026-07-21 11:27:00",
+      "url": "https://xueqiu.com/7143769715/401359951",
+      "level": "W1",
+      "risk_grade": "W1",
+      "risk_object": "科技修复对非科技方向的挤压",
+      "trigger": "作者提出若老登也上涨，则不是跷跷板而是好迹象",
+      "transmission": "非科技方向同步承接，说明市场修正不只依赖科技吸血，流动性挤压边际缓和",
+      "evidence": [
+        "“如果老登也涨，那可不是跷跷板，这就是很好的迹象。”"
+      ],
+      "reason": "这是跷跷板风险减弱的早期确认条件。",
+      "source_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/112700_老登同涨确认修正质量.md",
+      "interpretation_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/112700_老登同涨确认修正质量_解读.md"
+    },
+    {
+      "post_key": "401363192",
+      "source_id": "401363192",
+      "title": "七月暴露贪婪恐惧黑暗面",
+      "published_at": "2026-07-21T11:36:00+08:00",
+      "published_at_text": "2026-07-21 11:36:00",
+      "url": "https://xueqiu.com/7143769715/401363192",
+      "level": "R1",
+      "risk_grade": "R1",
+      "risk_object": "七月市场贪婪恐惧循环",
+      "trigger": "作者将七月描述为股市黑暗面与贪婪恐惧历史",
+      "transmission": "极端情绪让投资者在恐慌割肉和反弹追涨之间失去纪律，放大非理性交易",
+      "evidence": [
+        "“既见证了股票市场最黑暗的一面，也描绘出贪婪与恐惧的人类历史。”"
+      ],
+      "reason": "情绪风险仍在，但这条更多是风险教育而非新增交易信号。",
+      "source_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/113600_七月暴露贪婪恐惧黑暗面.md",
+      "interpretation_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/113600_七月暴露贪婪恐惧黑暗面_解读.md"
+    },
+    {
+      "post_key": "401364828",
+      "source_id": "401364828",
+      "title": "修正行情确认牛熊边界",
+      "published_at": "2026-07-21T11:41:00+08:00",
+      "published_at_text": "2026-07-21 11:41:00",
+      "url": "https://xueqiu.com/7143769715/401364828",
+      "level": "W2",
+      "risk_grade": "W2",
+      "risk_object": "指数技术性熊市与超跌恐慌",
+      "trigger": "指数接近牛熊边界，作者强调修正行情用于确认牛市是否仍在",
+      "transmission": "超跌后的理性修正若能守住关键边界，市场承接和持仓容错会明显改善",
+      "evidence": [
+        "“确认牛市到底还在不在”“指数不能走熊”“由非理性的价格变化，向理性的价格变化修正。”"
+      ],
+      "reason": "风险释放进入关键确认阶段，较早盘恐慌已有实质缓和。",
+      "source_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/114100_修正行情确认牛熊边界.md",
+      "interpretation_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/114100_修正行情确认牛熊边界_解读.md"
+    },
+    {
+      "post_key": "401373870",
+      "source_id": "401373870",
+      "title": "科技仓位均衡优先于做T",
+      "published_at": "2026-07-21T12:23:00+08:00",
+      "published_at_text": "2026-07-21 12:23:00",
+      "url": "https://xueqiu.com/7143769715/401373870",
+      "level": "W1",
+      "risk_grade": "W1",
+      "risk_object": "真科技承接与仓位失衡风险",
+      "trigger": "作者不加不减东材科技，理由是科技总仓不低且做T可能砸坏趋势",
+      "transmission": "用仓位均衡约束低位补仓冲动，避免在修正行情中把个股亏损扩大为组合风险",
+      "evidence": [
+        "“科技的仓位总比例不低”“核心就是仓位均衡。”"
+      ],
+      "reason": "风险处理从恐慌割肉转为组合纪律，属于弱化但仍需约束。",
+      "source_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/122300_科技仓位均衡优先于做T.md",
+      "interpretation_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/122300_科技仓位均衡优先于做T_解读.md"
+    },
+    {
+      "post_key": "401382109",
+      "source_id": "401382109",
+      "title": "医药回升是好现象",
+      "published_at": "2026-07-21T13:13:00+08:00",
+      "published_at_text": "2026-07-21 13:13:00",
+      "url": "https://xueqiu.com/7143769715/401382109",
+      "level": "W1",
+      "risk_grade": "W1",
+      "risk_object": "医药被科技挤压的风险",
+      "trigger": "作者观察到医药有回升并认为是好现象",
+      "transmission": "医药回升说明非科技方向开始承接，早盘跷跷板压力边际减轻",
+      "evidence": [
+        "“药有回升，好现象。”"
+      ],
+      "reason": "单条证据较短，但与全天跷跷板框架一致。",
+      "source_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/131300_医药回升是好现象.md",
+      "interpretation_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/131300_医药回升是好现象_解读.md"
+    },
+    {
+      "post_key": "401382526",
+      "source_id": "401382526",
+      "title": "非科技韧性决定挤压减弱",
+      "published_at": "2026-07-21T13:15:00+08:00",
+      "published_at_text": "2026-07-21 13:15:00",
+      "url": "https://xueqiu.com/7143769715/401382526",
+      "level": "W2",
+      "risk_grade": "W2",
+      "risk_object": "科技挤压效应",
+      "trigger": "作者把核心观察设为非科技方向是否有韧性",
+      "transmission": "科技波动下非科技仍能前进，说明单一方向吸血和存量流动性挤压正在减弱",
+      "evidence": [
+        "“核心观察，还是非科技方向的韧性，也就是所谓的科技挤压效应减弱。”"
+      ],
+      "reason": "这是当天确认风险转弱的关键验证项。",
+      "source_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/131500_非科技韧性决定挤压减弱.md",
+      "interpretation_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/131500_非科技韧性决定挤压减弱_解读.md"
+    },
+    {
+      "post_key": "401383632",
+      "source_id": "401383632",
+      "title": "合理分化胜过极端跷跷板",
+      "published_at": "2026-07-21T13:19:00+08:00",
+      "published_at_text": "2026-07-21 13:19:00",
+      "url": "https://xueqiu.com/7143769715/401383632",
+      "level": "W1",
+      "risk_grade": "W1",
+      "risk_object": "极端跷跷板与市场分化",
+      "trigger": "作者认为正常有涨有跌，只要不是跌停和涨停的极端分化即可",
+      "transmission": "波动回到合理分化，说明恐慌与挤压边际缓和，市场从非理性向可承受结构修正",
+      "evidence": [
+        "“正常有涨有跌，只要不是跌停和涨停，合理范围就行。”"
+      ],
+      "reason": "风险转弱的条件从完全同涨修正为合理分化。",
+      "source_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/131900_合理分化胜过极端跷跷板.md",
+      "interpretation_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/131900_合理分化胜过极端跷跷板_解读.md"
+    },
+    {
+      "post_key": "401390361",
+      "source_id": "401390361",
+      "title": "有色趋势未被风险打断",
+      "published_at": "2026-07-21T13:50:00+08:00",
+      "published_at_text": "2026-07-21 13:50:00",
+      "url": "https://xueqiu.com/7143769715/401390361",
+      "level": "W2",
+      "risk_grade": "W2",
+      "risk_object": "有色趋势被热钱杠杆打断后的修复",
+      "trigger": "作者观察有色完全不受影响，紫金矿业重回30，核心股走稳",
+      "transmission": "前期热钱与杠杆冲击没有破坏有色原趋势，核心股稳定带动其他有色修复反弹",
+      "evidence": [
+        "“有色完全不受影响”“紫金矿业又重回30”“随着核心股走稳，其他有色也跟着修复反弹。”"
+      ],
+      "reason": "有色方向从被风险扰动转向趋势修复确认。",
+      "source_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/135000_有色趋势未被风险打断.md",
+      "interpretation_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/135000_有色趋势未被风险打断_解读.md"
+    },
+    {
+      "post_key": "401401234",
+      "source_id": "401401234",
+      "title": "科技地板买入仍属极端行情",
+      "published_at": "2026-07-21T14:25:00+08:00",
+      "published_at_text": "2026-07-21 14:25:00",
+      "url": "https://xueqiu.com/7143769715/401401234",
+      "level": "R2",
+      "risk_grade": "R2",
+      "risk_object": "科技短线极端化行情",
+      "trigger": "作者称今天买科技像捡尸体，暴利与暴跌同步，市场不正常",
+      "transmission": "日内极端波动放大短线收益与踩踏风险，低位买入也不代表低风险环境已经结束",
+      "evidence": [
+        "“今天买入科技，就像是捡尸体一样”“对短线投资者来说，暴利与暴跌同步。”“市场真的不正常。”"
+      ],
+      "reason": "风险修复伴随极端波动，短线风险仍高。",
+      "source_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/142500_科技地板买入仍属极端行情.md",
+      "interpretation_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/142500_科技地板买入仍属极端行情_解读.md"
+    },
+    {
+      "post_key": "401405319",
+      "source_id": "401405319",
+      "title": "国产算力交换机承载修正情绪标",
+      "published_at": "2026-07-21T14:40:00+08:00",
+      "published_at_text": "2026-07-21 14:40:00",
+      "url": "https://xueqiu.com/7143769715/401405319",
+      "level": "W3",
+      "risk_grade": "W3",
+      "risk_object": "修正行情与国产算力交换机情绪标",
+      "trigger": "国产算力交换机作为情绪标回封，ETF承接平铺，老登医药有色受挤压较小",
+      "transmission": "ETF承接、情绪标不被砸、非科技方向保持韧性，使风险从恐慌释放转向结构性修复窗口",
+      "evidence": [
+        "“修正行情需要一个敢于勇敢突破新高的个股做情绪标”“国产算力交换机合理”“ETF救市”“新登老登一起涨。”"
+      ],
+      "reason": "多项风险转弱条件同日共振，是当天最高等级的修复信号，但仍需次日接力验证。",
+      "source_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/144000_国产算力交换机承载修正情绪标.md",
+      "interpretation_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/144000_国产算力交换机承载修正情绪标_解读.md"
+    }
+  ],
+  "qualified_risks": [
+    {
+      "post_key": "401305543",
+      "source_id": "401305543",
+      "title": "医药科技跷跷板仍在",
+      "published_at": "2026-07-21T09:42:00+08:00",
+      "published_at_text": "2026-07-21 09:42:00",
+      "url": "https://xueqiu.com/7143769715/401305543",
+      "level": "R1",
+      "risk_grade": "R1",
+      "risk_object": "医药与科技之间的存量流动性挤压",
+      "trigger": "医药跌、科技涨，作者判断跷跷板仍在",
+      "transmission": "存量资金在科技与医药间迁移，非主线方向承接仍受挤压，市场修正质量尚未被确认",
+      "evidence": [
+        "“医药跌，科技涨。跷跷板还是存在的。”"
+      ],
+      "reason": "早盘挤压没有完全解除，属于弱风险观察。",
+      "source_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/094200_医药科技跷跷板仍在.md",
+      "interpretation_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/094200_医药科技跷跷板仍在_解读.md"
+    },
+    {
+      "post_key": "401351183",
+      "source_id": "401351183",
+      "title": "全A加速点触发修正行情",
+      "published_at": "2026-07-21T11:06:00+08:00",
+      "published_at_text": "2026-07-21 11:06:00",
+      "url": "https://xueqiu.com/7143769715/401351183",
+      "level": "W1",
+      "risk_grade": "W1",
+      "risk_object": "全A和创业板短线流动性恐慌",
+      "trigger": "全A回到加速点后出现承接，创业板放量并重回下跌趋势线",
+      "transmission": "极端下跌触发承接力量，短线流动性从踩踏转向修正，但尚未完成趋势反转确认",
+      "evidence": [
+        "“全A回到我的加速点，然后转势”“创业板放量明显”“指数重回下跌趋势线”"
+      ],
+      "reason": "风险从扩散开始边际缓和，但作者仍定位为修正行情。",
+      "source_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/110600_全A加速点触发修正行情.md",
+      "interpretation_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/110600_全A加速点触发修正行情_解读.md"
+    },
+    {
+      "post_key": "401353656",
+      "source_id": "401353656",
+      "title": "极端反弹一次到位",
+      "published_at": "2026-07-21T11:11:00+08:00",
+      "published_at_text": "2026-07-21 11:11:00",
+      "url": "https://xueqiu.com/7143769715/401353656",
+      "level": "R2",
+      "risk_grade": "R2",
+      "risk_object": "短线极端波动与反弹空间快速消耗",
+      "trigger": "市场从ICU到KTV，作者判断一次性反弹到位",
+      "transmission": "急跌急涨压缩交易窗口，追涨与割肉都更容易被日内波动惩罚",
+      "evidence": [
+        "“这行情坏的很，ICU到KTV，一次性反弹到位。”"
+      ],
+      "reason": "反弹太快会降低短线后续买入的风险收益比。",
+      "source_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/111100_极端反弹一次到位.md",
+      "interpretation_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/111100_极端反弹一次到位_解读.md"
+    },
+    {
+      "post_key": "401359951",
+      "source_id": "401359951",
+      "title": "老登同涨确认修正质量",
+      "published_at": "2026-07-21T11:27:00+08:00",
+      "published_at_text": "2026-07-21 11:27:00",
+      "url": "https://xueqiu.com/7143769715/401359951",
+      "level": "W1",
+      "risk_grade": "W1",
+      "risk_object": "科技修复对非科技方向的挤压",
+      "trigger": "作者提出若老登也上涨，则不是跷跷板而是好迹象",
+      "transmission": "非科技方向同步承接，说明市场修正不只依赖科技吸血，流动性挤压边际缓和",
+      "evidence": [
+        "“如果老登也涨，那可不是跷跷板，这就是很好的迹象。”"
+      ],
+      "reason": "这是跷跷板风险减弱的早期确认条件。",
+      "source_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/112700_老登同涨确认修正质量.md",
+      "interpretation_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/112700_老登同涨确认修正质量_解读.md"
+    },
+    {
+      "post_key": "401363192",
+      "source_id": "401363192",
+      "title": "七月暴露贪婪恐惧黑暗面",
+      "published_at": "2026-07-21T11:36:00+08:00",
+      "published_at_text": "2026-07-21 11:36:00",
+      "url": "https://xueqiu.com/7143769715/401363192",
+      "level": "R1",
+      "risk_grade": "R1",
+      "risk_object": "七月市场贪婪恐惧循环",
+      "trigger": "作者将七月描述为股市黑暗面与贪婪恐惧历史",
+      "transmission": "极端情绪让投资者在恐慌割肉和反弹追涨之间失去纪律，放大非理性交易",
+      "evidence": [
+        "“既见证了股票市场最黑暗的一面，也描绘出贪婪与恐惧的人类历史。”"
+      ],
+      "reason": "情绪风险仍在，但这条更多是风险教育而非新增交易信号。",
+      "source_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/113600_七月暴露贪婪恐惧黑暗面.md",
+      "interpretation_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/113600_七月暴露贪婪恐惧黑暗面_解读.md"
+    },
+    {
+      "post_key": "401364828",
+      "source_id": "401364828",
+      "title": "修正行情确认牛熊边界",
+      "published_at": "2026-07-21T11:41:00+08:00",
+      "published_at_text": "2026-07-21 11:41:00",
+      "url": "https://xueqiu.com/7143769715/401364828",
+      "level": "W2",
+      "risk_grade": "W2",
+      "risk_object": "指数技术性熊市与超跌恐慌",
+      "trigger": "指数接近牛熊边界，作者强调修正行情用于确认牛市是否仍在",
+      "transmission": "超跌后的理性修正若能守住关键边界，市场承接和持仓容错会明显改善",
+      "evidence": [
+        "“确认牛市到底还在不在”“指数不能走熊”“由非理性的价格变化，向理性的价格变化修正。”"
+      ],
+      "reason": "风险释放进入关键确认阶段，较早盘恐慌已有实质缓和。",
+      "source_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/114100_修正行情确认牛熊边界.md",
+      "interpretation_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/114100_修正行情确认牛熊边界_解读.md"
+    },
+    {
+      "post_key": "401373870",
+      "source_id": "401373870",
+      "title": "科技仓位均衡优先于做T",
+      "published_at": "2026-07-21T12:23:00+08:00",
+      "published_at_text": "2026-07-21 12:23:00",
+      "url": "https://xueqiu.com/7143769715/401373870",
+      "level": "W1",
+      "risk_grade": "W1",
+      "risk_object": "真科技承接与仓位失衡风险",
+      "trigger": "作者不加不减东材科技，理由是科技总仓不低且做T可能砸坏趋势",
+      "transmission": "用仓位均衡约束低位补仓冲动，避免在修正行情中把个股亏损扩大为组合风险",
+      "evidence": [
+        "“科技的仓位总比例不低”“核心就是仓位均衡。”"
+      ],
+      "reason": "风险处理从恐慌割肉转为组合纪律，属于弱化但仍需约束。",
+      "source_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/122300_科技仓位均衡优先于做T.md",
+      "interpretation_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/122300_科技仓位均衡优先于做T_解读.md"
+    },
+    {
+      "post_key": "401382109",
+      "source_id": "401382109",
+      "title": "医药回升是好现象",
+      "published_at": "2026-07-21T13:13:00+08:00",
+      "published_at_text": "2026-07-21 13:13:00",
+      "url": "https://xueqiu.com/7143769715/401382109",
+      "level": "W1",
+      "risk_grade": "W1",
+      "risk_object": "医药被科技挤压的风险",
+      "trigger": "作者观察到医药有回升并认为是好现象",
+      "transmission": "医药回升说明非科技方向开始承接，早盘跷跷板压力边际减轻",
+      "evidence": [
+        "“药有回升，好现象。”"
+      ],
+      "reason": "单条证据较短，但与全天跷跷板框架一致。",
+      "source_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/131300_医药回升是好现象.md",
+      "interpretation_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/131300_医药回升是好现象_解读.md"
+    },
+    {
+      "post_key": "401382526",
+      "source_id": "401382526",
+      "title": "非科技韧性决定挤压减弱",
+      "published_at": "2026-07-21T13:15:00+08:00",
+      "published_at_text": "2026-07-21 13:15:00",
+      "url": "https://xueqiu.com/7143769715/401382526",
+      "level": "W2",
+      "risk_grade": "W2",
+      "risk_object": "科技挤压效应",
+      "trigger": "作者把核心观察设为非科技方向是否有韧性",
+      "transmission": "科技波动下非科技仍能前进，说明单一方向吸血和存量流动性挤压正在减弱",
+      "evidence": [
+        "“核心观察，还是非科技方向的韧性，也就是所谓的科技挤压效应减弱。”"
+      ],
+      "reason": "这是当天确认风险转弱的关键验证项。",
+      "source_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/131500_非科技韧性决定挤压减弱.md",
+      "interpretation_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/131500_非科技韧性决定挤压减弱_解读.md"
+    },
+    {
+      "post_key": "401383632",
+      "source_id": "401383632",
+      "title": "合理分化胜过极端跷跷板",
+      "published_at": "2026-07-21T13:19:00+08:00",
+      "published_at_text": "2026-07-21 13:19:00",
+      "url": "https://xueqiu.com/7143769715/401383632",
+      "level": "W1",
+      "risk_grade": "W1",
+      "risk_object": "极端跷跷板与市场分化",
+      "trigger": "作者认为正常有涨有跌，只要不是跌停和涨停的极端分化即可",
+      "transmission": "波动回到合理分化，说明恐慌与挤压边际缓和，市场从非理性向可承受结构修正",
+      "evidence": [
+        "“正常有涨有跌，只要不是跌停和涨停，合理范围就行。”"
+      ],
+      "reason": "风险转弱的条件从完全同涨修正为合理分化。",
+      "source_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/131900_合理分化胜过极端跷跷板.md",
+      "interpretation_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/131900_合理分化胜过极端跷跷板_解读.md"
+    },
+    {
+      "post_key": "401390361",
+      "source_id": "401390361",
+      "title": "有色趋势未被风险打断",
+      "published_at": "2026-07-21T13:50:00+08:00",
+      "published_at_text": "2026-07-21 13:50:00",
+      "url": "https://xueqiu.com/7143769715/401390361",
+      "level": "W2",
+      "risk_grade": "W2",
+      "risk_object": "有色趋势被热钱杠杆打断后的修复",
+      "trigger": "作者观察有色完全不受影响，紫金矿业重回30，核心股走稳",
+      "transmission": "前期热钱与杠杆冲击没有破坏有色原趋势，核心股稳定带动其他有色修复反弹",
+      "evidence": [
+        "“有色完全不受影响”“紫金矿业又重回30”“随着核心股走稳，其他有色也跟着修复反弹。”"
+      ],
+      "reason": "有色方向从被风险扰动转向趋势修复确认。",
+      "source_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/135000_有色趋势未被风险打断.md",
+      "interpretation_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/135000_有色趋势未被风险打断_解读.md"
+    },
+    {
+      "post_key": "401401234",
+      "source_id": "401401234",
+      "title": "科技地板买入仍属极端行情",
+      "published_at": "2026-07-21T14:25:00+08:00",
+      "published_at_text": "2026-07-21 14:25:00",
+      "url": "https://xueqiu.com/7143769715/401401234",
+      "level": "R2",
+      "risk_grade": "R2",
+      "risk_object": "科技短线极端化行情",
+      "trigger": "作者称今天买科技像捡尸体，暴利与暴跌同步，市场不正常",
+      "transmission": "日内极端波动放大短线收益与踩踏风险，低位买入也不代表低风险环境已经结束",
+      "evidence": [
+        "“今天买入科技，就像是捡尸体一样”“对短线投资者来说，暴利与暴跌同步。”“市场真的不正常。”"
+      ],
+      "reason": "风险修复伴随极端波动，短线风险仍高。",
+      "source_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/142500_科技地板买入仍属极端行情.md",
+      "interpretation_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/142500_科技地板买入仍属极端行情_解读.md"
+    },
+    {
+      "post_key": "401405319",
+      "source_id": "401405319",
+      "title": "国产算力交换机承载修正情绪标",
+      "published_at": "2026-07-21T14:40:00+08:00",
+      "published_at_text": "2026-07-21 14:40:00",
+      "url": "https://xueqiu.com/7143769715/401405319",
+      "level": "W3",
+      "risk_grade": "W3",
+      "risk_object": "修正行情与国产算力交换机情绪标",
+      "trigger": "国产算力交换机作为情绪标回封，ETF承接平铺，老登医药有色受挤压较小",
+      "transmission": "ETF承接、情绪标不被砸、非科技方向保持韧性，使风险从恐慌释放转向结构性修复窗口",
+      "evidence": [
+        "“修正行情需要一个敢于勇敢突破新高的个股做情绪标”“国产算力交换机合理”“ETF救市”“新登老登一起涨。”"
+      ],
+      "reason": "多项风险转弱条件同日共振，是当天最高等级的修复信号，但仍需次日接力验证。",
+      "source_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/144000_国产算力交换机承载修正情绪标.md",
+      "interpretation_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/144000_国产算力交换机承载修正情绪标_解读.md"
+    }
+  ],
+  "not_written": [
+    {
+      "post_key": "401308248",
+      "source_id": "401308248",
+      "title": "数字货币外部锚定意义不大",
+      "published_at": "2026-07-21 09:47:00",
+      "url": "https://xueqiu.com/7143769715/401308248",
+      "level": "N",
+      "risk_grade": "N",
+      "reason": "数字货币概念被作者判断为外部锚定、金融意义不足，未形成明确风险对象与传导链。"
+    },
+    {
+      "post_key": "401391938",
+      "source_id": "401391938",
+      "title": "均衡配置更舒服",
+      "published_at": "2026-07-21 13:53:00",
+      "url": "https://xueqiu.com/7143769715/401391938",
+      "level": "N",
+      "risk_grade": "N",
+      "reason": "均衡配置体验总结，属于仓位纪律提示，不是新增风险节点。"
+    },
+    {
+      "post_key": "401395186",
+      "source_id": "401395186",
+      "title": "均衡配置推动账户修复",
+      "published_at": "2026-07-21 14:05:00",
+      "url": "https://xueqiu.com/7143769715/401395186",
+      "level": "N",
+      "risk_grade": "N",
+      "reason": "账户修复与配置选择说明，未形成独立风险触发。"
+    },
+    {
+      "post_key": "401398466",
+      "source_id": "401398466",
+      "title": "科技接力决定修复延续",
+      "published_at": "2026-07-21 14:17:00",
+      "url": "https://xueqiu.com/7143769715/401398466",
+      "level": "待验证",
+      "risk_grade": "待验证",
+      "reason": "作者提出科技次日能否接力的问题，证据链指向后续观察而非当日可落地风险结论。"
+    },
+    {
+      "post_key": "401408319",
+      "source_id": "401408319",
+      "title": "股神太多引发停更",
+      "published_at": "2026-07-21 14:49:00",
+      "url": "https://xueqiu.com/7143769715/401408319",
+      "level": "N",
+      "risk_grade": "N",
+      "reason": "停更与情绪噪音提示，不构成独立风险提示。"
+    }
+  ],
+  "boundary": [
+    "本轮基于用户完成雪球滑块人工验证后的可见详情页抽取，保存目标日期18条帖子。",
+    "不声称覆盖2026-07-21 14:49之后可能新增或删除的帖子。",
+    "wiki/people/冰冰小美.md存在历史乱码；本轮未修复，只用于确认作者页存在。",
+    "部分提示词列出的体系页缺失，已用同主题现有概念页和推导页替代。"
+  ]
+}

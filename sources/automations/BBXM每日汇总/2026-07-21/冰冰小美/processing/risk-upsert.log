@@ -1,0 +1,9 @@
+COMMAND:
+D:\Python\Python311\python.exe tools\bbxm-risk-dashboard\scripts\upsert_automated_risk.py --analysis-file sources\automations\BBXM每日汇总\2026-07-21\冰冰小美\processing\risk-analysis.json --workbook tools\bbxm-risk-dashboard\data\冰冰小美风险提示.xlsx --status-file sources\automations\BBXM每日汇总\2026-07-21\冰冰小美\processing\risk-write-status.json
+
+STDOUT:
+{"schema_version": 1, "target_date": "2026-07-21", "status": "written", "count": 13, "workbook": "tools\\bbxm-risk-dashboard\\data\\冰冰小美风险提示.xlsx", "analysis_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\processing\\risk-analysis.json", "message": "已更新自动分析风险提示行"}
+
+
+STDERR:
+

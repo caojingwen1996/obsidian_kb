@@ -14,7 +14,10 @@ description: Use when the user asks to use 东方财富妙想, 妙想 Skills, Mi
 ## 凭证与安全
 
 - 不要把 API Key、Token、Cookie、账号或密码写入代码、Markdown、日志或命令输出。
-- 优先读取环境变量：`EASTMONEY_MIAOXIANG_API_KEY`、`MIAOXIANG_API_KEY` 或用户明确指定的非持久凭证变量。
+- 当前项目的本地凭证写入本 Skill 目录下的 `local.env`，只保留 `MX_APIKEY=<API Key>`；该文件必须由 Git 忽略，不得提交。
+- `local.env.example` 只保存占位符，可用于初始化配置；不得把真实 Key 写入示例文件。
+- 调用妙想脚本时，使用 `scripts/load_config.py -- <command>` 启动子进程。加载器在当前子进程环境中设置官方变量 `MX_APIKEY`，并兼容 `EASTMONEY_MIAOXIANG_API_KEY`、`MIAOXIANG_API_KEY`，不修改 Windows、macOS 或 Linux 的全局环境。
+- Windows 可使用 `python scripts/load_config.py -- <command>`；macOS / Linux 可按本机 Python 命令使用 `python3 scripts/load_config.py -- <command>`。
 - 如果需要登录态页面，使用 `web-access` 通过用户 Chrome 的已有登录态访问；不要要求用户把 Cookie 贴出来。
 - 若缺少凭证，先说明需要用户在东方财富 APP / 妙想 Skills / `https://ai.eastmoney.com/mxClaw` 获取或配置 API Key，再继续可离线完成的部分。
 - 任何妙想输出都视为第三方聚合结果，不能替代交易所公告、公司法定披露或监管原文。
@@ -35,11 +38,12 @@ description: Use when the user asks to use 东方财富妙想, 妙想 Skills, Mi
 ## 执行流程
 
 1. 明确目标证券、市场、时间窗口、所需字段和是否需要实时数据。
-2. 检查是否已有项目内来源或报告可复用，避免重复抓取。
-3. 选择妙想能力并获取结果；实时数据必须记录本地时间和市场时区。
-4. 对关键结论做交叉验证：法定公告、交易所、巨潮资讯、东方财富公开页或其他可靠来源至少一个。
-5. 把妙想结果只作为“数据来源 / 线索来源 / 初步解释来源”，在正文中标注其局限。
-6. 如果处于 llmwiki 项目，库外或接口返回的原始材料先保存到 `sources/`，正式分析再进入 `wiki/`，并按项目规则更新 `index.md` 与 `log.md`。
+2. 检查 `local.env` 是否存在并通过 `scripts/load_config.py` 校验；不得打印 Key。
+3. 检查是否已有项目内来源或报告可复用，避免重复抓取。
+4. 选择妙想能力并通过加载器获取结果；实时数据必须记录本地时间和市场时区。
+5. 对关键结论做交叉验证：法定公告、交易所、巨潮资讯、东方财富公开页或其他可靠来源至少一个。
+6. 把妙想结果只作为“数据来源 / 线索来源 / 初步解释来源”，在正文中标注其局限。
+7. 如果处于 llmwiki 项目，库外或接口返回的原始材料先保存到 `sources/`，正式分析再进入 `wiki/`，并按项目规则更新 `index.md` 与 `log.md`。
 
 ## llmwiki 落盘规则
 

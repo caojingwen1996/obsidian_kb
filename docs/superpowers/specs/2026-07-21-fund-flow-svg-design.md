@@ -36,8 +36,8 @@
 
 ## 输出文件
 
-- `sources/assets/资金面分析完整流程.mmd`
-- `sources/assets/资金面分析完整流程.svg`
+- `.agents/skills/fund-flow-analysis/assets/资金面分析完整流程.mmd`
+- `.agents/skills/fund-flow-analysis/assets/资金面分析完整流程.svg`
 - `log.md` 追加本次可视化维护记录。
 
 ## 验证标准

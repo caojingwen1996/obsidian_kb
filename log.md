@@ -1,5 +1,33 @@
 # 知识库日志
 
+## 2026-07-21
+
+### 操作类型
+
+tool / dashboard / portfolio
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/scripts/local_proxy.py`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/tests/test_local_proxy.py`
+- `tools/a-share-market-dashboard/README.md`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `.gitignore`
+- `log.md`
+
+### 操作说明
+
+在 A 股大盘看板左侧新增“我的”根菜单及“仓位管理 / 持仓跟踪”两个子页。仓位页支持新增、编辑、删除持仓并计算成本、市值、盈亏和仓位占比；跟踪页复用持仓记录，维护跟踪状态与关注要点。启动器模式将个人记录写入本机 `data/portfolio.json`，单文件模式使用浏览器本地存储降级。
+
+### 验证结果
+
+- 导航、仓位汇总逻辑、本地保存与构建产物通过自动化检查。
+
 ## 2026-07-20
 
 ### 操作类型
@@ -15639,3 +15667,267 @@ dashboard / launcher / rebuild
 ### 后续待办
 
 - 无。后续新增产业 HTML 后直接重新双击启动器即可自动同步看板。
+
+## 2026-07-21
+
+### 操作类型
+
+fund-flow / tracking / valuation / dashboard
+
+### 修改文件
+
+- `sources/automations/新兴产业/商业航天/2026-07-21-航天电子资金面分析.html`
+- `sources/automations/新兴产业/商业航天/2026-07-17-航天电子机构级决策研报.html`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `docs/superpowers/specs/2026-07-21-hangtian-electronics-daily-tracking-design.md`
+- `docs/superpowers/plans/2026-07-21-hangtian-electronics-daily-tracking.md`
+- `log.md`
+
+### 操作说明
+
+按 `fund-flow-analysis` 完成航天电子资金面分层分析，分别审计 F3 融资、F5 大额主动交易代理、F7 ETF 申赎样本、价格相对强弱与筹码供给，结论为“结构性流出”；新增资金为 `observe`，已有持仓因缺少成本、仓位和风险预算保持 `review`。在原机构级研报中加入带固定替换边界的每日跟踪区，显示基本面状态、动态价值区间与股价偏离度；纳入 2026 年半年报预减后，将临时动态价值区间标为 8—12 元，同时保留原研报 8—15 元区间作为静态基线。重新构建产业大盘以收录新增资金面报告。
+
+### 数据缺口与后续待办
+
+- 2026-07-20 至 2026-07-21 的融资余额尚未取得可靠更新；F3 当前判断使用截至 2026-07-17 的替代窗口。
+- F7 只取得富国军工龙头 ETF 单日份额变化；相关 ETF 的 5 日、20 日完整份额序列仍待补齐。
+- 正式 2026 年半年报披露后重做基本面状态与完整估值，不以临时动态区间替代正式估值更新。
+
+## 2026-07-21
+
+### 操作类型
+
+tracking / live-quote / dashboard
+
+### 修改文件
+
+- `sources/automations/新兴产业/商业航天/2026-07-17-航天电子机构级决策研报.html`
+- `tools/a-share-market-dashboard/scripts/local_proxy.py`
+- `tools/a-share-market-dashboard/tests/test_local_proxy.py`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/README.md`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `docs/superpowers/specs/2026-07-21-hangtian-electronics-live-daily-panel-design.md`
+- `docs/superpowers/plans/2026-07-21-hangtian-electronics-live-daily-panel.md`
+- `log.md`
+
+### 操作说明
+
+将航天电子研报头部的静态价格、估值区间、动作和置信度卡片合并到每日跟踪面板，形成“基本面状态 / 动态价值区间 / 股价偏离度”和“每日同步价 / 盘中实时 / 动作与置信度”两行结构。大盘本地代理新增只允许 `600879.SH` 的固定行情路由；通过启动器打开研报时每 60 秒更新盘中价格并重算价格偏离度，东方财富不可用时自动切换腾讯行情。直接打开 HTML 或两个实时源均失败时保留每日同步快照并明确标注实时未连接。
+
+### 后续待办
+
+- 每日任务继续更新面板中的正式快照；盘中行情只作为增强信息，不替代基本面和动态价值区间更新。
+
+## 2026-07-21
+
+### 操作类型
+
+visualize / fund-flow
+
+### 修改文件
+
+- `.agents/skills/fund-flow-analysis/assets/资金面分析完整流程.mmd`
+- `.agents/skills/fund-flow-analysis/assets/资金面分析完整流程.svg`
+- `docs/superpowers/specs/2026-07-21-fund-flow-svg-design.md`
+- `docs/superpowers/plans/2026-07-21-fund-flow-svg.md`
+- `log.md`
+
+### 操作说明
+
+将 `fund-flow-analysis` 的输入契约和完整八步分析流程绘制为纵向审计漏斗，保留资金来源全景、三种流入机制、F3/F5/F7 代理边界、供给与退出、交叉验证、六类资金状态，以及新增资金与已有持仓的分离行动路径。SVG 为框架说明，不代表任何当前市场、板块或个股的资金结论；同时保留 Mermaid 源文件用于后续维护。
+
+## 2026-07-21
+
+### 操作类型
+
+config / security / portability
+
+### 修改文件
+
+- `.agents/skills/eastmoney-miaoxiang/local.env`
+- `.agents/skills/eastmoney-miaoxiang/local.env.example`
+- `.agents/skills/eastmoney-miaoxiang/scripts/load_config.py`
+- `.agents/skills/eastmoney-miaoxiang/tests/test_load_config.py`
+- `.agents/skills/eastmoney-miaoxiang/SKILL.md`
+- `.gitignore`
+- `log.md`
+
+### 操作说明
+
+将东方财富妙想 Skill 的本地 API Key 配置改为跨平台 `local.env` 模式。真实凭证文件已加入 `.gitignore`，示例文件只保留占位符；无第三方依赖的 Python 加载器负责向当前子进程注入官方变量 `MX_APIKEY` 与项目兼容变量，不修改 Windows、macOS 或 Linux 的全局环境。
+
+### 后续待办
+
+- 用户在本地填入 API Key 后，通过加载器执行最小接口验证。
+## 2026-07-21
+
+### 操作类型
+
+repair / links / local-proxy
+
+### 修改文件
+
+- `sources/automations/新兴产业/商业航天/2026-07-17-航天电子机构级决策研报.html`
+- `tools/a-share-market-dashboard/scripts/local_proxy.py`
+- `tools/a-share-market-dashboard/tests/test_local_proxy.py`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/README.md`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+修正航天电子研报中来源网页、法定年报和相关页面的本地链接：网页资料恢复为 `sources/webpages/` 下的真实 Markdown 文件，法定报告恢复为 `sources/papers/` 下的真实 PDF，同目录产业报告改为直接链接，正式 Wiki 推导与时间线改用 Obsidian 内部链接。本地大盘服务将文件读取白名单扩展为当前知识库的 `sources/` 和 `workbench/` 两棵目录，并继续通过规范化路径检查阻止目录穿越。
+
+### 后续待办
+
+- 其他历史 HTML 研报如仍含 `.pdf.html` 或错误相对层级，可按本次规则批量审计后逐份修复。
+
+## 2026-07-21
+
+### 操作类型
+
+automation / signal / valuation
+
+### 修改文件
+
+- `sources/automations/中证红利信号/最新信号.md`
+- `sources/automations/中证红利信号/中证红利每日信号.xlsx`
+- `log.md`
+
+### 操作说明
+
+按 `zzhl-dividend-signal` skill 运行 `python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py --output-dir "sources/automations/中证红利信号" --run-date 2026-07-21`，刷新中证红利 `000922` 股息率信号每日记录。本轮写入记录日为 `2026-07-21`；AKShare 指数估值日期为 `2026-07-20`，中证红利 `股息率2` 为 `4.46%`；中国 10 年国债收益率日期为 `2026-07-20`，收益率为 `1.7453%`，股债利差为 `2.7147` 个百分点。
+
+按 Query Page“中证红利什么时候买入收益率最高”的三种触发规则判断：历史分位点 `待验证`，绝对股息率 `C（小额定投）`，股债利差 `B（加大买入）`；综合结论为“历史分位点待验证，暂不判定加大买入区间”，未进入重点买入区间。理杏仁公开页面返回 `HTTP Error 429: Too Many Requests`，雪球实时行情接口返回空响应，因此未编造近10年历史分位、80% 分位点或当天涨跌幅。
+
+## 2026-07-21
+
+### 操作类型
+
+repair / skill-contract / equity-research
+
+### 修改文件
+
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `.agents/skills/bbxm-equity-research/template.md`
+- `.agents/skills/bbxm-equity-research/scripts/test-render-report-html.cjs`
+- `sources/automations/新兴产业/商业航天/2026-07-17-航天电子机构级决策研报.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+将机构级研报第 11 章的三要素导入改为硬契约：状态总表只作索引，必须继续展开竞争格局、宏观/中观/微观流动性、资金来源、供给与抛压、最低数据检查、退出路径、情绪位置、综合判断、行动映射和数据缺口。新增模板契约测试，防止后续再次静默退化为三行摘要。
+
+同步补全航天电子历史 HTML 研报的三要素章节，资金面采用同目录 2026-07-21 资金面报告的已验证口径；原风险识别内容保留并后移至 11.8—11.12。因该历史报告缺少对应权威 Markdown，本次仅作遗留 HTML 修复，并在 Workbench 索引中继续标注 Markdown 待补。
+
+### 后续待办
+
+- 航天电子下次完整重跑机构级研报时，在 `workbench/targets/` 补建权威 Markdown，并由 Markdown 统一渲染 HTML。
+
+## 2026-07-21
+
+### 操作类型
+
+refactor / skill-contract / equity-research
+
+### 修改文件
+
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `.agents/skills/bbxm-equity-research/template.md`
+- `.agents/skills/bbxm-equity-research/scripts/test-render-report-html.cjs`
+- `sources/automations/新兴产业/商业航天/2026-07-17-航天电子机构级决策研报.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+调整机构级研报结构：第 4 章不再独立展开商业模式与竞争格局，仅保留研究结构说明和导航锚点；原第 4 章的收入来源、客户与定价权、成本结构、资本强度、竞争者、监管和产业位置、产业链角色、商业模式判断及证伪条件，统一并入第 11.2 节。第 11.2 节同时承担静态商业模式底稿与动态竞争状态判断，避免两章重复而不丢失基本面信息。
+
+同步迁移航天电子历史 HTML 的实际内容并更新目录标题。新增技能契约测试，要求第 4 章不得残留独立的 4.1 / 4.2 分析，第 11.2 节必须包含完整商业模式字段。
+
+### 后续待办
+
+- 航天电子下次完整重跑时，继续按新模板补建权威 Markdown。
+
+## 2026-07-21
+
+### 操作类型
+
+revert / skill-contract / evidence-mapping
+
+### 修改文件
+
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `.agents/skills/bbxm-equity-research/template.md`
+- `.agents/skills/bbxm-equity-research/scripts/test-render-report-html.cjs`
+- `sources/automations/新兴产业/商业航天/2026-07-17-航天电子机构级决策研报.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按用户修正撤销“第 4 章并入第 11.2 节”：恢复第 4 章完整商业模式与竞争格局，第 11.2 节只引用前文章节并解释竞争证据的决策含义，不再重复基本面正文。
+
+重定义 Step 7 为证据映射流程：以 Step 1—6 已取得并登记来源的证据为主要输入，分别映射到竞争格局、流动性辩证分析和情绪位置变化；估值仅作为行动约束，不强行归入三要素。新增证据充分性闸门：证据不足时必须标为“证据不足”，列明缺失项、已检查来源、影响和验证点，不得盲目给出有利、中性或不利结论。Step 7 默认不另起搜索；明确要求补采时，新增数据必须先回填来源矩阵和对应事实章节。
+
+航天电子现有 HTML 同步恢复第 4 章，并把 2026-07-21 资金面数据先登记到第 2 章来源矩阵和第 3.4 节事实快照，再由第 11 章完成三要素映射。
+
+### 后续待办
+
+- 航天电子下次完整重跑时，在 `workbench/targets/` 补建权威 Markdown，并继续遵守“事实先落前文、Step 7 后映射”的顺序。
+
+- [2026-07-21T14:42:51+08:00] QUERY query="打开国产算力的研报，我想分析国产算力交换机部分" result_pages=3 mode=normal escalated=true
+
+## 2026-07-21
+
+### 操作类型
+
+skill-contract / industry-analysis / test
+
+### 修改文件
+
+- `.agents/skills/bbxm-industry-analysis/SKILL.md`
+- `.agents/skills/bbxm-industry-analysis/template.md`
+- `tests/validate_bbxm_industry_company_mapping.py`
+- `docs/superpowers/specs/2026-07-21-industry-chain-granularity-contract-design.md`
+- `docs/superpowers/plans/2026-07-21-industry-chain-granularity-contract.md`
+- `log.md`
+
+### 操作说明
+
+为产业分析技能增加产业链拆分粒度硬契约：上游、中游、下游只作为导航层级，同一层级可按重要子环节重复多行；当产品、技术标准、客户、产业约束、价值与利润机制、竞争格局或代表主体存在实质差异时必须拆行。新增子环节清单、产业链全景对象和双向覆盖审计，要求技术路线、核心约束、价值量、主要增量、跟踪环节和公司映射均可回指产业链全景，并禁止通过合并隐藏证据不足的关键环节。
+
+同步更新完整报告模板与契约测试，以“AI 芯片、存储、光模块、交换机、液冷供电被压缩进同一行”为反例，防止产业链全景再次退化为每层一行的宽泛分类。未重写既有产业报告。
+
+### 验证结果与已知缺口
+
+- `validate_bbxm_industry_company_mapping.py` 与 `validate_bbxm_project_skills.py` 通过。
+- 产业报告专用渲染器可直接生成完整 HTML，0—7 章、产业链公司映射、UTF-8 中文和内部链接检查通过。
+- `test-render-industry-report-html.cjs` 直接运行会被既有商业航天报告中的旧路径 `sources/automations/商业航天每日跟踪/2026-07-17-电科蓝天机构级决策研报.html` 阻断；使用当前真实研报目录补齐临时测试夹具后，原渲染测试通过。本次未修改无关报告或渲染测试夹具。
+
+## 2026-07-21
+
+### 操作类型
+
+automation / bbxm-daily-brief / risk-analysis
+
+### 修改文件
+
+- `sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/`
+- `tools/bbxm-risk-dashboard/data/冰冰小美风险提示.xlsx`
+- `log.md`
+
+### 操作说明
+
+按 `.agents/automations/bbxm_daliy_brief.md` 执行 2026-07-21 BBXM 每日汇总。用户完成雪球滑块人工验证后，重跑详情抽取并保存 18 条目标日期帖子，生成 18 个单帖解读、`summary.md`、`risk-analysis.json` 和风险写入状态。
+
+### 后续待办
+
+- 不声称覆盖 14:49 之后可能新增内容，如需盘后完整覆盖需再次抓取。
+- `wiki/people/冰冰小美.md` 存在历史乱码，后续可单独修复。
+- 提示词列出的部分体系页缺失，后续可补齐或修正提示词引用路径。

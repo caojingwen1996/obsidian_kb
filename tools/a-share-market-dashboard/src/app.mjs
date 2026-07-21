@@ -24,6 +24,8 @@ const LAYER_META = Object.freeze({
 
 const STATUS_PRIORITY = Object.freeze({ example: 0, latest: 0, snapshot: 1, expired: 2, missing: 3 });
 const STATUS_LABELS = Object.freeze({ example: '示例', latest: '最新', snapshot: '快照', expired: '已过期', missing: '缺失' });
+const HOLDINGS_STORAGE_KEY = 'a-share-market-dashboard:holdings:v1';
+const HOLDING_STATUSES = new Set(['持有', '观察', '计划加仓', '计划减仓']);
 
 function domain(snapshot, id) {
   return snapshot?.domains?.[id] ?? { data: null, source: null, status: 'missing', dataAt: null, fetchedAt: null, errors: [] };
@@ -272,10 +274,73 @@ export function resolveStorage(getStorage = () => globalThis.localStorage) {
   }
 }
 
+function roundMoney(value) {
+  return Number(value.toFixed(2));
+}
+
+export function summarizeHoldings(holdings = []) {
+  const items = holdings.map(holding => {
+    const quantity = Math.max(0, Number(holding.quantity) || 0);
+    const cost = Math.max(0, Number(holding.cost) || 0);
+    const price = Math.max(0, Number(holding.price) || 0);
+    const costValue = quantity * cost;
+    const marketValue = quantity * price;
+    const profit = marketValue - costValue;
+    return {
+      ...holding,
+      quantity,
+      cost,
+      price,
+      costValue: roundMoney(costValue),
+      marketValue: roundMoney(marketValue),
+      profit: roundMoney(profit),
+      profitRate: costValue > 0 ? roundMoney((profit / costValue) * 100) : 0,
+      weight: 0,
+    };
+  });
+  const costValue = roundMoney(items.reduce((sum, item) => sum + item.costValue, 0));
+  const marketValue = roundMoney(items.reduce((sum, item) => sum + item.marketValue, 0));
+  const profit = roundMoney(marketValue - costValue);
+  return {
+    costValue,
+    marketValue,
+    profit,
+    profitRate: costValue > 0 ? roundMoney((profit / costValue) * 100) : 0,
+    items: items.map(item => ({
+      ...item,
+      weight: marketValue > 0 ? roundMoney((item.marketValue / marketValue) * 100) : 0,
+    })),
+  };
+}
+
+function normalizeHoldings(items) {
+  if (!Array.isArray(items)) return [];
+  return items.filter(item => item && typeof item === 'object').map(item => ({
+      id: String(item.id ?? ''),
+      code: String(item.code ?? '').slice(0, 12),
+      name: String(item.name ?? '').slice(0, 30),
+      quantity: Math.max(0, Number(item.quantity) || 0),
+      cost: Math.max(0, Number(item.cost) || 0),
+      price: Math.max(0, Number(item.price) || 0),
+      status: HOLDING_STATUSES.has(item.status) ? item.status : '持有',
+      note: String(item.note ?? '').slice(0, 240),
+      updatedAt: Number(item.updatedAt) || Date.now(),
+    })).filter(item => item.id && item.code && item.name);
+}
+
+function loadHoldings(storage) {
+  try {
+    return normalizeHoldings(JSON.parse(storage.getItem(HOLDINGS_STORAGE_KEY) ?? '[]'));
+  } catch {
+    return [];
+  }
+}
+
 export function resolveTreeNavigation(activeViews, requestedDomain, requestedView = null) {
   const defaults = {
     thermometer: 'market-summary',
     industry: 'industry-strategy',
+    personal: 'position-manager',
     changelog: 'changelog-view',
   };
   const domain = Object.hasOwn(defaults, requestedDomain) ? requestedDomain : 'thermometer';
@@ -285,6 +350,7 @@ export function resolveTreeNavigation(activeViews, requestedDomain, requestedVie
 function startApp() {
   const state = { snapshot: EXAMPLE_SNAPSHOT, windowYears: 5, busy: false };
   const storage = resolveStorage();
+  let holdings = loadHoldings(storage);
   const launcherHint = globalThis.location?.protocol === 'file:'
     ? ' 稳定联网请双击“启动大盘面板.cmd”。'
     : '';
@@ -299,7 +365,90 @@ function startApp() {
   const activeViewByShell = {
     thermometer: 'market-summary',
     industry: 'industry-strategy',
+    personal: 'position-manager',
     changelog: 'changelog-view',
+  };
+
+  const formatMoney = value => `¥${Number(value).toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+  const saveHoldings = () => {
+    storage.setItem(HOLDINGS_STORAGE_KEY, JSON.stringify(holdings));
+    if (isLocalProxyLocation()) {
+      fetch('/api/portfolio', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ holdings }),
+      }).catch(() => {});
+    }
+  };
+
+  const loadProxyHoldings = async () => {
+    if (!isLocalProxyLocation()) return;
+    try {
+      const response = await fetch('/api/portfolio', { cache: 'no-store' });
+      if (!response.ok) return;
+      const payload = await response.json();
+      const proxyHoldings = normalizeHoldings(payload.holdings);
+      if (!proxyHoldings.length && holdings.length) {
+        saveHoldings();
+        return;
+      }
+      holdings = proxyHoldings;
+      storage.setItem(HOLDINGS_STORAGE_KEY, JSON.stringify(holdings));
+      renderHoldings();
+    } catch {
+      // Browser storage remains the explicit fallback when the local file endpoint is unavailable.
+    }
+  };
+
+  const resetHoldingForm = () => {
+    const form = document.getElementById('holding-form');
+    form.reset();
+    form.elements.id.value = '';
+    form.elements.status.value = '持有';
+    document.getElementById('holding-form-title').textContent = '新增持仓';
+    document.getElementById('cancel-holding-edit').hidden = true;
+  };
+
+  const renderHoldings = () => {
+    const summary = summarizeHoldings(holdings);
+    document.getElementById('holding-count').textContent = String(summary.items.length);
+    document.getElementById('portfolio-cost').textContent = formatMoney(summary.costValue);
+    document.getElementById('portfolio-market-value').textContent = formatMoney(summary.marketValue);
+    document.getElementById('portfolio-profit').textContent = formatMoney(summary.profit);
+    document.getElementById('portfolio-profit-rate').textContent = `${summary.profitRate.toFixed(2)}%`;
+    const profitCard = document.getElementById('portfolio-profit-card');
+    profitCard.classList.toggle('is-profit', summary.profit > 0);
+    profitCard.classList.toggle('is-loss', summary.profit < 0);
+    document.getElementById('holdings-empty').hidden = summary.items.length > 0;
+    document.getElementById('holding-tracker-empty').hidden = summary.items.length > 0;
+    document.getElementById('holdings-updated').textContent = summary.items.length
+      ? `最近记录 ${new Date(Math.max(...summary.items.map(item => item.updatedAt))).toLocaleString('zh-CN', { hour12: false })}`
+      : '尚未记录';
+
+    document.getElementById('holdings-table-body').innerHTML = summary.items.map(item => `<tr>
+      <td class="holding-name"><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(item.code)}</small></td>
+      <td>${item.quantity.toLocaleString('zh-CN')}</td>
+      <td>${formatMoney(item.cost)} / ${formatMoney(item.price)}</td>
+      <td>${formatMoney(item.marketValue)}</td>
+      <td class="holding-profit ${item.profit > 0 ? 'is-profit' : item.profit < 0 ? 'is-loss' : ''}">${formatMoney(item.profit)}<br>${item.profitRate.toFixed(2)}%</td>
+      <td>${item.weight.toFixed(2)}%</td>
+      <td><div class="holding-row-actions"><button type="button" data-action="edit" data-id="${escapeHtml(item.id)}">编辑</button><button type="button" data-action="delete" data-id="${escapeHtml(item.id)}">删除</button></div></td>
+    </tr>`).join('');
+
+    document.getElementById('holding-tracker-list').innerHTML = summary.items.map(item => `<article class="tracker-card" data-holding-id="${escapeHtml(item.id)}">
+      <div class="tracker-card-head"><div><h3>${escapeHtml(item.name)}</h3><p>${escapeHtml(item.code)} · 仓位 ${item.weight.toFixed(2)}%</p></div><span class="tracker-status">${escapeHtml(item.status)}</span></div>
+      <div class="tracker-metrics">
+        <div><small>记录现价</small><strong>${formatMoney(item.price)}</strong></div>
+        <div><small>浮动盈亏</small><strong class="holding-profit ${item.profit > 0 ? 'is-profit' : item.profit < 0 ? 'is-loss' : ''}">${item.profitRate.toFixed(2)}%</strong></div>
+        <div><small>当前市值</small><strong>${formatMoney(item.marketValue)}</strong></div>
+      </div>
+      <div class="tracker-edit">
+        <label><span>跟踪状态</span><select data-field="status">${[...HOLDING_STATUSES].map(status => `<option${status === item.status ? ' selected' : ''}>${status}</option>`).join('')}</select></label>
+        <label><span>关注要点</span><textarea data-field="note" rows="2" maxlength="240" placeholder="持有逻辑、风险线或复核条件">${escapeHtml(item.note)}</textarea></label>
+        <button type="button" data-action="save-tracking">保存跟踪</button>
+      </div>
+    </article>`).join('');
   };
 
   const render = () => {
@@ -412,6 +561,7 @@ function startApp() {
     pageEyebrow.textContent = {
       thermometer: 'MARKET VALUATION MONITOR',
       industry: 'INDUSTRY MAP',
+      personal: 'MY PORTFOLIO',
       changelog: 'CHANGELOG',
     }[targetShell];
     setActiveView(navigation.viewId);
@@ -445,6 +595,60 @@ function startApp() {
   document.querySelectorAll('[data-tree-domain]').forEach(button => button.addEventListener('click', () => {
     setShell(button.dataset.treeDomain, button.dataset.view ?? null);
   }));
+  document.getElementById('holding-form').addEventListener('submit', event => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const id = String(data.get('id') ?? '') || `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    const next = {
+      id,
+      code: String(data.get('code') ?? '').trim(),
+      name: String(data.get('name') ?? '').trim(),
+      quantity: Math.max(0, Number(data.get('quantity')) || 0),
+      cost: Math.max(0, Number(data.get('cost')) || 0),
+      price: Math.max(0, Number(data.get('price')) || 0),
+      status: HOLDING_STATUSES.has(data.get('status')) ? data.get('status') : '持有',
+      note: String(data.get('note') ?? '').trim().slice(0, 240),
+      updatedAt: Date.now(),
+    };
+    const existingIndex = holdings.findIndex(item => item.id === id);
+    if (existingIndex >= 0) holdings[existingIndex] = next;
+    else holdings.push(next);
+    saveHoldings();
+    renderHoldings();
+    resetHoldingForm();
+  });
+  document.getElementById('cancel-holding-edit').addEventListener('click', resetHoldingForm);
+  document.getElementById('holdings-table-body').addEventListener('click', event => {
+    const button = event.target.closest('button[data-action]');
+    if (!button) return;
+    const holding = holdings.find(item => item.id === button.dataset.id);
+    if (!holding) return;
+    if (button.dataset.action === 'delete') {
+      if (!globalThis.confirm(`删除 ${holding.name} 的持仓记录？`)) return;
+      holdings = holdings.filter(item => item.id !== holding.id);
+      saveHoldings();
+      renderHoldings();
+      resetHoldingForm();
+      return;
+    }
+    const form = document.getElementById('holding-form');
+    for (const key of ['id', 'code', 'name', 'quantity', 'cost', 'price', 'status', 'note']) form.elements[key].value = holding[key];
+    document.getElementById('holding-form-title').textContent = `编辑 ${holding.name}`;
+    document.getElementById('cancel-holding-edit').hidden = false;
+    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  document.getElementById('holding-tracker-list').addEventListener('click', event => {
+    const button = event.target.closest('button[data-action="save-tracking"]');
+    if (!button) return;
+    const card = button.closest('[data-holding-id]');
+    const index = holdings.findIndex(item => item.id === card.dataset.holdingId);
+    if (index < 0) return;
+    const status = card.querySelector('[data-field="status"]').value;
+    const note = card.querySelector('[data-field="note"]').value.trim().slice(0, 240);
+    holdings[index] = { ...holdings[index], status: HOLDING_STATUSES.has(status) ? status : '持有', note, updatedAt: Date.now() };
+    saveHoldings();
+    renderHoldings();
+  });
   document.getElementById('nav-toggle').addEventListener('click', event => {
     const open = document.getElementById('sidebar').classList.toggle('is-open');
     event.currentTarget.setAttribute('aria-expanded', String(open));
@@ -463,6 +667,8 @@ function startApp() {
 
   setShell('thermometer', 'market-summary');
   render();
+  renderHoldings();
+  loadProxyHoldings();
   refreshLive();
   setInterval(() => {
     if (isTradingSession() && state.snapshot.mode === 'live') {

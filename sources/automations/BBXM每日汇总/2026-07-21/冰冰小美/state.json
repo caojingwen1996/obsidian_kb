@@ -1,0 +1,201 @@
+{
+  "account": "冰冰小美",
+  "account_url": "https://xueqiu.com/u/7143769715",
+  "platform": "xueqiu",
+  "task_date": "2026-07-21",
+  "date_source": "target",
+  "layout": "date-author",
+  "capture_scope": "daily",
+  "verification_mode": "auto-then-manual",
+  "start_time": "2026-07-21 15:35:26",
+  "end_time": "2026-07-21 15:49:39",
+  "success_count": 18,
+  "failure_count": 0,
+  "result_dir": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美",
+  "state_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\state.json",
+  "log_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\task.log",
+  "capture_boundary": "用户完成雪球滑块人工验证后，重跑详情抽取并保存18条目标日期可见帖子；覆盖到14:49，不声称覆盖之后新增内容。",
+  "processed_items": [
+    {
+      "source_id": "401305543",
+      "title": "医药跌，科技涨。跷跷板还是存在的。 - 雪球",
+      "core_view": "医药科技跷跷板仍在",
+      "published_at": "2026-07-21 09:42:00",
+      "url": "https://xueqiu.com/7143769715/401305543",
+      "raw_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\094200_医药科技跷跷板仍在.md",
+      "interpretation_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\094200_医药科技跷跷板仍在_解读.md",
+      "status": "saved"
+    },
+    {
+      "source_id": "401308248",
+      "title": "比如锚定国外上涨比特币回暖，拉数字货币概念。没啥意思。不看盘了。 - 雪球",
+      "core_view": "数字货币外部锚定意义不大",
+      "published_at": "2026-07-21 09:47:00",
+      "url": "https://xueqiu.com/7143769715/401308248",
+      "raw_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\094700_数字货币外部锚定意义不大.md",
+      "interpretation_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\094700_数字货币外部锚定意义不大_解读.md",
+      "status": "saved"
+    },
+    {
+      "source_id": "401351183",
+      "title": "全A指数伴随 创业板 冲高回落下跌，-2%，随后科技股纷纷跌停。这个过程，医药同步下跌，创业板指数下探加速，全A回到加速... - 雪球",
+      "core_view": "全A加速点触发修正行情",
+      "published_at": "2026-07-21 11:06:00",
+      "url": "https://xueqiu.com/7143769715/401351183",
+      "raw_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\110600_全A加速点触发修正行情.md",
+      "interpretation_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\110600_全A加速点触发修正行情_解读.md",
+      "status": "saved"
+    },
+    {
+      "source_id": "401353656",
+      "title": "这行情，坏的很。icu到ktv，一次性反弹到位。 - 雪球",
+      "core_view": "极端反弹一次到位",
+      "published_at": "2026-07-21 11:11:00",
+      "url": "https://xueqiu.com/7143769715/401353656",
+      "raw_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\111100_极端反弹一次到位.md",
+      "interpretation_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\111100_极端反弹一次到位_解读.md",
+      "status": "saved"
+    },
+    {
+      "source_id": "401359951",
+      "title": "修正点位， 创业板 3750。不过这个过程，如果老登也涨，不是跷跷板。就是很好的迹象。 - 雪球",
+      "core_view": "老登同涨确认修正质量",
+      "published_at": "2026-07-21 11:27:00",
+      "url": "https://xueqiu.com/7143769715/401359951",
+      "raw_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\112700_老登同涨确认修正质量.md",
+      "interpretation_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\112700_老登同涨确认修正质量_解读.md",
+      "status": "saved"
+    },
+    {
+      "source_id": "401363192",
+      "title": "七月的经历，估计参与过的这辈子都难以忘记。这是股市的黑暗面。但是也清晰的描绘贪婪与恐惧的历史。 - 雪球",
+      "core_view": "七月暴露贪婪恐惧黑暗面",
+      "published_at": "2026-07-21 11:36:00",
+      "url": "https://xueqiu.com/7143769715/401363192",
+      "raw_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\113600_七月暴露贪婪恐惧黑暗面.md",
+      "interpretation_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\113600_七月暴露贪婪恐惧黑暗面_解读.md",
+      "status": "saved"
+    },
+    {
+      "source_id": "401364828",
+      "title": "修正行情是啥意义？1，对牛市的是否还在的确认。指数不能走熊。因此修正指数的高点，就是介入牛熊之间的点位。比如技术性熊市-... - 雪球",
+      "core_view": "修正行情确认牛熊边界",
+      "published_at": "2026-07-21 11:41:00",
+      "url": "https://xueqiu.com/7143769715/401364828",
+      "raw_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\114100_修正行情确认牛熊边界.md",
+      "interpretation_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\114100_修正行情确认牛熊边界_解读.md",
+      "status": "saved"
+    },
+    {
+      "source_id": "401373870",
+      "title": "很多人估计会疑惑，为什么 东材科技 亏钱，不卖也不买。这就涉及到仓位配置了，因为我买了其他科技。科技总仓不低。如果我买东... - 雪球",
+      "core_view": "科技仓位均衡优先于做T",
+      "published_at": "2026-07-21 12:23:00",
+      "url": "https://xueqiu.com/7143769715/401373870",
+      "raw_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\122300_科技仓位均衡优先于做T.md",
+      "interpretation_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\122300_科技仓位均衡优先于做T_解读.md",
+      "status": "saved"
+    },
+    {
+      "source_id": "401382109",
+      "title": "药有回升，好现象。 - 雪球",
+      "core_view": "医药回升是好现象",
+      "published_at": "2026-07-21 13:13:00",
+      "url": "https://xueqiu.com/7143769715/401382109",
+      "raw_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\131300_医药回升是好现象.md",
+      "interpretation_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\131300_医药回升是好现象_解读.md",
+      "status": "saved"
+    },
+    {
+      "source_id": "401382526",
+      "title": "目前日内涨跌幅，震荡过大，参考意义不大。核心是观察，非科技方向的韧性。也就是不管科技如何波动，都能够游刃有余的前进。换句... - 雪球",
+      "core_view": "非科技韧性决定挤压减弱",
+      "published_at": "2026-07-21 13:15:00",
+      "url": "https://xueqiu.com/7143769715/401382526",
+      "raw_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\131500_非科技韧性决定挤压减弱.md",
+      "interpretation_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\131500_非科技韧性决定挤压减弱_解读.md",
+      "status": "saved"
+    },
+    {
+      "source_id": "401383632",
+      "title": "完全不挤压，完全不跷跷板，那是理想主义。正常的是有涨有跌，而不是只有跌停与涨停。合理范围即可。 - 雪球",
+      "core_view": "合理分化胜过极端跷跷板",
+      "published_at": "2026-07-21 13:19:00",
+      "url": "https://xueqiu.com/7143769715/401383632",
+      "raw_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\131900_合理分化胜过极端跷跷板.md",
+      "interpretation_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\131900_合理分化胜过极端跷跷板_解读.md",
+      "status": "saved"
+    },
+    {
+      "source_id": "401390361",
+      "title": "有色完全不受影响。回顾7月，1-2月有色波动的核心因素，应该热钱+杠杆打断原本趋势为主。目前 紫金矿业 重回30，27的... - 雪球",
+      "core_view": "有色趋势未被风险打断",
+      "published_at": "2026-07-21 13:50:00",
+      "url": "https://xueqiu.com/7143769715/401390361",
+      "raw_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\135000_有色趋势未被风险打断.md",
+      "interpretation_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\135000_有色趋势未被风险打断_解读.md",
+      "status": "saved"
+    },
+    {
+      "source_id": "401391938",
+      "title": "观察下来，均衡配置会更舒服。 - 雪球",
+      "core_view": "均衡配置更舒服",
+      "published_at": "2026-07-21 13:53:00",
+      "url": "https://xueqiu.com/7143769715/401391938",
+      "raw_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\135300_均衡配置更舒服.md",
+      "interpretation_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\135300_均衡配置更舒服_解读.md",
+      "status": "saved"
+    },
+    {
+      "source_id": "401395186",
+      "title": "为何不买 东材科技 ，因为有更重要的地方需要我。然而市场的确走均衡配置的路，因此，如鱼得水。7月扭亏为盈。 - 雪球",
+      "core_view": "均衡配置推动账户修复",
+      "published_at": "2026-07-21 14:05:00",
+      "url": "https://xueqiu.com/7143769715/401395186",
+      "raw_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\140500_均衡配置推动账户修复.md",
+      "interpretation_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\140500_均衡配置推动账户修复_解读.md",
+      "status": "saved"
+    },
+    {
+      "source_id": "401398466",
+      "title": "目前的问题是，科技明天有接力吗。今天几乎地天板。如果科技分化，市场如何演绎？指数恐慌修复，能否更进一步，靠单一方向还是多... - 雪球",
+      "core_view": "科技接力决定修复延续",
+      "published_at": "2026-07-21 14:17:00",
+      "url": "https://xueqiu.com/7143769715/401398466",
+      "raw_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\141700_科技接力决定修复延续.md",
+      "interpretation_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\141700_科技接力决定修复延续_解读.md",
+      "status": "saved"
+    },
+    {
+      "source_id": "401401234",
+      "title": "今天买入科技的不就是捡尸体吗。这是道德的沦丧，还是股市的黑暗。还是算法的极致，还是什么？这种行情极端化，对于短线投资者，... - 雪球",
+      "core_view": "科技地板买入仍属极端行情",
+      "published_at": "2026-07-21 14:25:00",
+      "url": "https://xueqiu.com/7143769715/401401234",
+      "raw_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\142500_科技地板买入仍属极端行情.md",
+      "interpretation_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\142500_科技地板买入仍属极端行情_解读.md",
+      "status": "saved"
+    },
+    {
+      "source_id": "401405319",
+      "title": "很多人不知足，也反应慢。早上发帖，说修正行情，科技涨，然后因为眼睛没看到涨而质疑。因为有点事，全A指数跌到加速点，展开修... - 雪球",
+      "core_view": "国产算力交换机承载修正情绪标",
+      "published_at": "2026-07-21 14:40:00",
+      "url": "https://xueqiu.com/7143769715/401405319",
+      "raw_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\144000_国产算力交换机承载修正情绪标.md",
+      "interpretation_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\144000_国产算力交换机承载修正情绪标_解读.md",
+      "status": "saved"
+    },
+    {
+      "source_id": "401408319",
+      "title": "停更停更。股神太多了。 - 雪球",
+      "core_view": "股神太多引发停更",
+      "published_at": "2026-07-21 14:49:00",
+      "url": "https://xueqiu.com/7143769715/401408319",
+      "raw_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\144900_股神太多引发停更.md",
+      "interpretation_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\144900_股神太多引发停更_解读.md",
+      "status": "saved"
+    }
+  ],
+  "failures": []
+}

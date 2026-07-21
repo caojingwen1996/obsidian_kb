@@ -19,9 +19,9 @@
 [hidden] { display: none !important; }
 html { background: var(--paper); }
 body { margin: 0; background: var(--paper); color: var(--ink); }
-button, input { font: inherit; }
+button, input, select, textarea { font: inherit; }
 button { cursor: pointer; }
-button:focus-visible, input:focus-visible { outline: 3px solid rgba(50, 118, 216, 0.35); outline-offset: 2px; }
+button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid rgba(50, 118, 216, 0.35); outline-offset: 2px; }
 
 .app-shell { min-height: 100vh; display: grid; grid-template-columns: 224px minmax(0, 1fr); }
 .sidebar { position: sticky; top: 0; height: 100vh; padding: 28px 18px 20px; background: var(--nav); color: white; display: flex; flex-direction: column; z-index: 10; }
@@ -187,6 +187,56 @@ h3 { font-size: 15px; }
 .industry-reason { padding-top: 10px; border-top: 1px dashed var(--line); color: #246170; font-size: 11px; line-height: 1.7; }
 .industry-empty-results { margin: 14px 0 0 86px; color: var(--muted); font-size: 12px; }
 
+.personal-page { max-width: 1500px; }
+.personal-heading { margin-top: 4px; }
+.portfolio-summary { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 14px; }
+.portfolio-summary article { min-height: 118px; border-radius: 13px; background: var(--card); box-shadow: var(--shadow); padding: 18px; display: flex; flex-direction: column; }
+.portfolio-summary small, .portfolio-summary span { color: var(--muted); font-size: 10px; }
+.portfolio-summary strong { margin: 14px 0 7px; font-size: 24px; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.portfolio-summary article.is-profit strong, .holding-profit.is-profit { color: #26815e; }
+.portfolio-summary article.is-loss strong, .holding-profit.is-loss { color: var(--red); }
+.position-layout { display: grid; grid-template-columns: minmax(280px, .72fr) minmax(580px, 1.6fr); gap: 13px; align-items: start; }
+.holding-form-title { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 17px; }
+.holding-form-title h3 { margin: 0; }
+.holding-form-title > span { color: var(--muted); font-size: 10px; }
+.holding-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.holding-form label { display: grid; gap: 6px; color: var(--muted); font-size: 10px; }
+.holding-form input, .holding-form select, .holding-form textarea, .tracker-edit select, .tracker-edit textarea { width: 100%; border: 1px solid var(--line); border-radius: 8px; background: #fbfcfc; color: var(--ink); padding: 9px 10px; }
+.holding-form input, .holding-form select { min-height: 39px; }
+.holding-form textarea, .tracker-edit textarea { resize: vertical; line-height: 1.6; }
+.holding-note-field { grid-column: 1 / -1; }
+.button-primary { width: 100%; min-height: 41px; margin-top: 14px; border: 0; border-radius: 8px; background: var(--blue); color: white; font-weight: 700; }
+.button-primary:hover { background: #2868c3; }
+.text-button { border: 0; background: transparent; color: var(--blue); padding: 2px 0; font-size: 11px; }
+.holdings-panel { min-width: 0; }
+.holdings-table-wrap { overflow-x: auto; }
+.holdings-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+.holdings-table th, .holdings-table td { padding: 12px 10px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+.holdings-table th { color: var(--muted); font-size: 9px; letter-spacing: .04em; }
+.holdings-table tbody tr:last-child td { border-bottom: 0; }
+.holding-name strong, .holding-name small { display: block; }
+.holding-name small { margin-top: 3px; color: var(--muted); }
+.holding-row-actions { display: flex; gap: 9px; }
+.holding-row-actions button { border: 0; background: transparent; color: var(--blue); padding: 0; font-size: 10px; }
+.holding-row-actions button[data-action="delete"] { color: var(--red); }
+.personal-empty { margin: 14px 0 0; padding: 18px; border: 1px dashed #cdd6dc; border-radius: 10px; color: var(--muted); text-align: center; font-size: 12px; }
+.holding-tracker-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px; }
+.tracker-card { border-radius: 14px; background: var(--card); box-shadow: var(--shadow); padding: 19px; }
+.tracker-card-head { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; }
+.tracker-card-head h3 { margin: 0 0 4px; font-size: 18px; }
+.tracker-card-head p { margin: 0; color: var(--muted); font-size: 10px; }
+.tracker-status { border-radius: 99px; background: #e8f0fb; color: #275fAE; padding: 5px 9px; font-size: 10px; white-space: nowrap; }
+.tracker-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 17px 0; }
+.tracker-metrics div { border-radius: 8px; background: #f5f7f8; padding: 10px; }
+.tracker-metrics small, .tracker-metrics strong { display: block; }
+.tracker-metrics small { margin-bottom: 5px; color: var(--muted); font-size: 9px; }
+.tracker-metrics strong { font-size: 12px; font-variant-numeric: tabular-nums; }
+.tracker-edit { display: grid; grid-template-columns: 150px minmax(0, 1fr) auto; gap: 9px; align-items: end; }
+.tracker-edit label { display: grid; gap: 5px; color: var(--muted); font-size: 9px; }
+.tracker-edit textarea { min-height: 58px; }
+.tracker-edit button { min-height: 39px; border: 0; border-radius: 8px; background: var(--nav); color: white; padding: 8px 13px; }
+.tracker-empty { margin-top: 0; }
+
 .changelog-page { max-width: 920px; margin: 38px auto 0; }
 .changelog-hero { margin-bottom: 62px; }
 .changelog-hero .eyebrow { color: #0f6672; }
@@ -213,6 +263,8 @@ h3 { font-size: 15px; }
   .metric-row { grid-template-columns: 1fr 1fr 65px; }
   .metric-score { display: none; }
   .detail-grid { grid-template-columns: 1fr; }
+  .portfolio-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .position-layout, .holding-tracker-list { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 760px) {
@@ -238,6 +290,9 @@ h3 { font-size: 15px; }
   .industry-time { position: static; display: inline-block; margin-right: 9px; }
   .industry-dot { position: static; display: inline-block; margin-right: 7px; vertical-align: middle; box-shadow: none; }
   .industry-empty-results { margin-left: 0; }
+  .portfolio-summary, .holding-form-grid { grid-template-columns: 1fr; }
+  .holding-note-field { grid-column: auto; }
+  .tracker-edit { grid-template-columns: 1fr; }
   .changelog-page { margin-top: 12px; }
   .changelog-hero { margin-bottom: 42px; }
   .changelog-day { margin-bottom: 48px; }
