@@ -22,7 +22,7 @@ const hangTianElectronicsReportPath = join(
   'automations',
   '新兴产业',
   '商业航天',
-  '2026-07-17-航天电子机构级决策研报.html',
+  '2026-07-21-1650-航天电子-机构级决策研报.html',
 );
 
 function countFeedReports(directoryName) {
@@ -254,17 +254,15 @@ test('航天电子 local links target real source files or Obsidian pages', () =
   const report = readFileSync(hangTianElectronicsReportPath, 'utf8');
 
   for (const href of [
-    '../../../webpages/2026-07-15-航天电子卖方评级与近期催化剂检索记录.md',
-    '../../../papers/航天电子机构研报-2026-07-15/2025年年度报告.pdf',
-    '商业航天产业完整分析报告.html',
-    'obsidian://open?vault=llmwiki&amp;file=wiki%2Freasoning%2F',
-    'obsidian://open?vault=llmwiki&amp;file=wiki%2Ftimelines%2F',
+    './2026-07-21-航天电子资金面分析.html',
+    '../../../webpages/2026-07-21-航天电子机构级研报公开资料底稿.md',
+    'https://dataclouds.cninfo.com.cn/shgonggao/hsomarket/2026/20260327/01fc31123b944c3396c26972e042ab76.PDF',
+    'https://static.cninfo.com.cn/finalpage/2026-04-29/1225229950.PDF',
   ]) {
     assert.ok(report.includes(href), `missing corrected href: ${href}`);
   }
   assert.doesNotMatch(report, /\.pdf\.html/);
-  assert.doesNotMatch(report, /href="\.\.\/\.\.\/(?:webpages|papers)\//);
-  assert.doesNotMatch(report, /href="\.\.\/\.\.\/\.\.\/(?:queries|reasoning|timelines)\//);
+  assert.doesNotMatch(report, /href="[^\"]+\.html"[^>]*>[^<]*(?:公开资料底稿|年年度报告)/);
 });
 
 test('example state produces a complete auditable score', () => {

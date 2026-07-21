@@ -1,7 +1,6 @@
 interface:
   display_name: "资金面分析"
-  short_description: "分析资金来源、F3/F5/F7分歧并给出条件化交易动作"
-  default_prompt: "分析这个市场、指数、板块或个股的资金面，判断资金状态，并分别给出新资金和已有持仓行动。"
+  short_description: "识别交易方、资金来源与信号独立性并给出条件化动作"
+  default_prompt: "分析这个市场、指数、板块或个股的资金面，建立交易方画像，审计数据层独立性和信号冲突，判断资金状态，并分别给出新资金和已有持仓行动。"
 policy:
   allow_implicit_invocation: true
-

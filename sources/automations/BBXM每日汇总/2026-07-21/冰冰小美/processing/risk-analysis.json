@@ -4,16 +4,24 @@
   "author": "冰冰小美",
   "author_name": "冰冰小美",
   "target_date": "2026-07-21",
-  "run_time": "2026-07-21 15:49:39",
-  "generated_at": "2026-07-21T15:49:39+08:00",
-  "analysis_complete": true,
+  "run_time": "2026-07-21 16:20:57",
+  "generated_at": "2026-07-21T16:20:57+08:00",
+  "analysis_complete": false,
   "coverage": {
     "saved_post_count": 18,
     "analyzed_post_count": 18,
     "unresolved_post_count": 0,
-    "unresolved_reasons": [],
+    "unresolved_reasons": [
+      "2026-07-21 16:20:57 同日增量重跑未完成：auto-then-manual 抓取超时且未生成 JSON。",
+      "2026-07-21 16:20:57 auto-only 抓取超时，仅写出空数组；CDP 详情页显示滑动验证阻断，随后 9333 断开。",
+      "本轮未发现可保存的新详情正文，但也未能验证 14:49 之后是否存在新增目标日期帖子；不得写成无新增。"
+    ],
     "qualified_risk_count": 13,
-    "not_written_count": 5
+    "not_written_count": 5,
+    "capture_boundary": "同日增量重跑被雪球滑动验证/CDP 断开阻断；风险分析仍只覆盖已保存的 18 条原帖，14:49 之后覆盖未验证。",
+    "saved_detail_post_count": 18,
+    "unresolved_candidate_count": 0,
+    "unresolved_candidate_file": "sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/processing/rerun-blocked-status-20260721-1619.json"
   },
   "summary": {
     "daily_risk_count": 13,
@@ -582,6 +590,62 @@
     "本轮基于用户完成雪球滑块人工验证后的可见详情页抽取，保存目标日期18条帖子。",
     "不声称覆盖2026-07-21 14:49之后可能新增或删除的帖子。",
     "wiki/people/冰冰小美.md存在历史乱码；本轮未修复，只用于确认作者页存在。",
-    "部分提示词列出的体系页缺失，已用同主题现有概念页和推导页替代。"
-  ]
+    "部分提示词列出的体系页缺失，已用同主题现有概念页和推导页替代。",
+    "2026-07-21 同日增量重跑被雪球滑动验证和 CDP 断开阻断。",
+    "未保存新增原帖；不能确认 14:49 之后是否有新增目标日期帖子。",
+    "本轮将 analysis_complete 置为 false，Excel 更新器应返回 blocked，避免用不完整覆盖改写风险工具。"
+  ],
+  "rerun_boundary": {
+    "schema_version": 1,
+    "target_date": "2026-07-21",
+    "author": "冰冰小美",
+    "generated_at": "2026-07-21T16:20:57+08:00",
+    "run_type": "same-day-rerun",
+    "status": "blocked",
+    "reason": "同日增量重跑被雪球滑块验证和 CDP 断开阻断，未能验证 14:49 之后是否有新增目标日期帖子。",
+    "attempts": [
+      {
+        "mode": "auto-then-manual",
+        "output_file": "processing/extracted-posts-rerun-20260721-automated.json",
+        "status": "timeout_no_json",
+        "detail": "命令 360s 超时，未生成 JSON。"
+      },
+      {
+        "mode": "auto-only",
+        "output_file": "processing/extracted-posts-rerun-20260721-auto-only.json",
+        "status": "timeout_empty_json",
+        "detail": "命令 240s 超时，输出空数组；CDP 列表显示已尝试详情页进入滑动验证页面，随后 9333 断开。"
+      },
+      {
+        "mode": "homepage-cdp-diagnostic",
+        "output_file": "processing/homepage-candidates-rerun-20260721-cdp.json",
+        "status": "not_captured",
+        "detail": "诊断时 CDP 已断开，未能保存主页候选快照。"
+      }
+    ],
+    "saved_detail_post_count_before_rerun": 18,
+    "new_raw_post_count": 0,
+    "new_interpretation_count": 0,
+    "blocked_existing_detail_urls_sample": [
+      "https://xueqiu.com/7143769715/401305543",
+      "https://xueqiu.com/7143769715/401308248",
+      "https://xueqiu.com/7143769715/401351183",
+      "https://xueqiu.com/7143769715/401353656",
+      "https://xueqiu.com/7143769715/401359951",
+      "https://xueqiu.com/7143769715/401363192",
+      "https://xueqiu.com/7143769715/401364828",
+      "https://xueqiu.com/7143769715/401373870",
+      "https://xueqiu.com/7143769715/401382109",
+      "https://xueqiu.com/7143769715/401382526",
+      "https://xueqiu.com/7143769715/401383632",
+      "https://xueqiu.com/7143769715/401390361",
+      "https://xueqiu.com/7143769715/401391938",
+      "https://xueqiu.com/7143769715/401395186",
+      "https://xueqiu.com/7143769715/401398466",
+      "https://xueqiu.com/7143769715/401401234",
+      "https://xueqiu.com/7143769715/401405319",
+      "https://xueqiu.com/7143769715/401408319"
+    ],
+    "capture_boundary": "上一轮完整保存 18 条目标日期帖子，覆盖至 14:49；本轮未能验证 14:49 之后是否有新增帖子，不能报告为无新增。"
+  }
 }

@@ -15931,3 +15931,186 @@ automation / bbxm-daily-brief / risk-analysis
 - 不声称覆盖 14:49 之后可能新增内容，如需盘后完整覆盖需再次抓取。
 - `wiki/people/冰冰小美.md` 存在历史乱码，后续可单独修复。
 - 提示词列出的部分体系页缺失，后续可补齐或修正提示词引用路径。
+
+## 2026-07-21
+
+### 操作类型
+
+industry-analysis / refactor / render / coverage-audit
+
+### 修改文件
+
+- `sources/automations/新兴产业/算力/2026-07-20-算力产业完整分析报告.md`
+- `sources/automations/新兴产业/算力/2026-07-20-算力产业完整分析报告.html`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-industry-analysis` v2.1.0 与完整报告模板 v1.2.0 原位修订算力产业研报。产业链全景由上中下游各一行的 3 行压缩结构扩为 17 个可比较子环节，并将原先笼统的“交换”拆为交换芯片与高速接口、网卡 / DPU、Scale-up 超节点互联、Scale-out 数据中心交换网络、光互联及 DCI，补充各自产品边界、价值量、技术路线、约束、竞争格局和代表主体。
+
+产业链公司映射新增盛科通信、紫光股份 / 新华三、锐捷网络、科华数据、长鑫存储、长江存储和中兴通讯等证据，并明确产品能力、分部收入、细分收入和市场份额之间不得互相替代。同步修订价值量与利润池、技术路线、约束条件、竞争格局、主要增量和最值得跟踪环节，使交换机链条可以跨章节回指；数据截止仍为 2026-07-20，结构复核日期为 2026-07-21。
+
+### 验证结果与已知缺口
+
+- Markdown 产业链全景共 17 行，25 个表格均通过列数一致性检查；库内紫光股份、浪潮信息研报链接存在。
+- 专用渲染器已重生成 HTML，0—7 章、3.1.1 公司映射、交换机关键主体与关键术语均存在，无 Obsidian 未解析双链、替换字符或典型中文乱码。
+- `validate_bbxm_industry_company_mapping.py` 通过；`validate_bbxm_project_skills.py` 被当前工作区内与本任务无关的 `bbxm-equity-research` 集成契约缺口阻断，本次未修改该技能。
+- 国产高端交换芯片 51.2T 以上产品、800G 端口客户验证及数据中心交换机 AI 收入口径仍缺统一法定披露，已列入待验证事项。
+
+## 2026-07-21
+
+### 操作类型
+
+industry-analysis / refactor / render / coverage-audit
+
+### 修改文件
+
+- `sources/automations/支柱产业/电网/2026-07-17-十五五电网投资与电网行业完整分析报告.md`
+- `sources/automations/支柱产业/电网/2026-07-17-十五五电网投资与电网行业完整分析报告.html`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-industry-analysis` v2.1.0 与完整报告模板 v1.2.0 重新修订电网行业研报。原目录只有 HTML，本次补建同名 Markdown 作为可维护主文件，再由产业报告专用渲染器覆盖生成阅读版 HTML。
+
+产业链全景由原来的 8 个宽泛环节扩展为 24 个可比较子环节。重点拆分了原先被压在“一次设备”中的变压器、电抗器、GIS、高压开关、换流阀、无功补偿、线缆和铁塔，以及被压在“二次设备与数字化”中的继电保护、主网调度、配网自动化、智能计量、微电网控制和状态运维。公司映射形成 24 行，与产业链全景逐项对应，并继续保留业务纯度、证据状态、数据时间和边界说明。
+
+同步按完整模板补齐价值量与利润池、技术路线、商业模式、约束清单、四维周期、竞争格局、资本作用、主要增量、跟踪环节和情景分析表。数据截止仍为 2026-07-17，结构复核日期为 2026-07-21；固定资产投资、设备采购、中标、收入、利润和现金流分别处理。
+
+### 验证结果与已知缺口
+
+- Markdown 含 25 个表格，列数一致；产业链全景与公司映射均为 24 行，子环节集合双向一致。
+- 神马电力和华明装备显式研报链接存在；HTML 已重生成，完整包含 0—7 章、3.1.1 公司映射及通用风险与证据附录。
+- Markdown 与 HTML 均无替换字符、典型中文乱码或未解析 Obsidian 双链；`git diff --check` 另行执行。
+- `validate_bbxm_industry_company_mapping.py` 通过。产业渲染器通用测试仍被既有商业航天旧路径 `sources/automations/商业航天每日跟踪/2026-07-17-电科蓝天机构级决策研报.html` 阻断，本次未修改无关报告或测试夹具。
+- 各设备子环节统一 CR3 / CR5、2026 年完整招标拆分、构网型与微电网规模收入及海外盈利质量仍待验证，已写入报告附录。
+
+## 2026-07-21
+
+### 操作类型
+
+automation / bbxm-daily-brief / same-day-rerun-blocked
+
+### 修改文件
+
+- `sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/summary.md`
+- `sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/task.log`
+- `sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/processing/risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/processing/risk-write-status.json`
+- `sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/processing/rerun-blocked-status-20260721-1619.json`
+- `log.md`
+
+### 操作说明
+
+按 `.agents/automations/bbxm_daliy_brief.md` 对 2026-07-21 BBXM 每日汇总执行同日增量重跑。`auto-then-manual` 抓取超时且未生成 JSON；`auto-only` 抓取超时，只写出空数组，CDP 详情页显示滑动验证阻断，随后 9333 断开。未保存新增原帖，不能确认 14:49 之后是否有新增目标日期帖子，因此把 `risk-analysis.json` 标记为 `analysis_complete=false`，并由风险工具更新器返回 `blocked`，本轮不改写 Excel。
+
+### 后续待办
+
+- 人工恢复自动化 Chrome/CDP 并完成雪球滑块验证后，继续复用 `sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/` 同一目录重跑。
+- 若发现 14:49 之后新增帖子，需补保存原帖、生成对应 `_解读.md`、按当天完整集合重算风险分析，并重新运行 Excel 更新器。
+- `wiki/people/冰冰小美.md` 历史乱码，以及提示词所列部分体系页路径缺失，仍是独立修复项。
+
+## 2026-07-21
+
+### 操作类型
+
+equity-research / valuation / bbxm-three-factor / risk-identification / render
+
+### 修改文件
+
+- `sources/webpages/2026-07-21-航天电子机构级研报公开资料底稿.md`
+- `workbench/targets/2026-07-21-1650-航天电子-机构级决策研报.md`
+- `sources/automations/新兴产业/商业航天/2026-07-21-1650-航天电子-机构级决策研报.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` 完整模板建立航天电子当前权威 Markdown 研报，并将库外法定披露、公司公告和第三方行情证据整理为库内来源底稿。报告覆盖证券身份、来源矩阵、五年财务、最新业绩预告、商业模式、三类估值、三要素展开、风险方向、现金决策和监控指标。
+
+截至 2026-07-21 收盘，报告将航天电子判断为高估、观望：新增现金 `wait`，已有持仓 `review`。主导矛盾是约 500 亿元市值与低 ROE、连续负自由现金流、2026H1 利润预减之间的错配；风险方向判断为“风险重新增强”。HTML 由最终 Markdown 通过统一渲染器生成，并检查同目录商业航天产业报告反向链接。
+
+## 2026-07-21
+
+### 操作类型
+
+ingest / equity-tracking / transaction-party-profile / link
+
+### 修改文件
+
+- `sources/posts/2026-07-20-兆易创新交易方画像报告.md`
+- `workbench/targets/2026-07-21-航天电子-交易方画像-跟踪.md`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+将用户提供的兆易创新交易方画像示例完整复制到库内 `sources/posts/`，并参考其“交易方分类—数据层—信号独立性—冲突与盲区”逻辑，为航天电子新增交易方画像跟踪。分析使用 2026-07-21 收盘行情、7 月 13—21 日资金分档、最新融资、筹码、股东与 7 月 15 日龙虎榜数据，明确区分金额方向与账户身份推断。
+
+结论未改变当前权威研报的基本动作：大额资金与融资盘仍偏撤退，小额资金承接和局部龙虎榜买入不足以确认反转；新增现金继续 `wait / observe`，已有持仓 `review`。国家队、北向、QFII、质押比例和完整 ETF 序列均因缺少直接数据而保留为不可知或未获取到。
+
+### 后续待办
+
+- 连续复核至少 5 个交易日的主力资金、融资余额、相对商业航天板块强弱和筹码获利比例，确认是否由退潮转为修复。
+- 2026 年半年度正式报告披露后，复核交付、定价、毛利率、经营现金流和估值区间。
+
+## 2026-07-21
+
+### 操作类型
+
+skill-maintenance / fund-flow-analysis / contract-update / eval
+
+### 修改文件
+
+- `.agents/skills/fund-flow-analysis/SKILL.md`
+- `.agents/skills/fund-flow-analysis/template.md`
+- `.agents/skills/fund-flow-analysis/references/indicator-boundaries.md`
+- `.agents/skills/fund-flow-analysis/agents/openai.yaml`
+- `.agents/skills/fund-flow-analysis/evals/evals.json`
+- `log.md`
+
+### 操作说明
+
+将航天电子“交易方画像跟踪”中可复用的分析逻辑纳入 `fund-flow-analysis`：在资金来源全景之后新增交易方画像与数据层独立性审计，统一检查 G/I/N/Q/H/M/R/C 交易方，区分直接测量、可靠推断、弱推断和不可知，并要求金额方向与账户身份分开表达。
+
+同步补充资金分档、跨境、融资、大宗、龙虎榜、回购增减持、股东户数、ETF、质押解禁和筹码之间的独立、部分独立、非独立关系。龙虎榜明确作为全市场成交与资金分档的子集，不与特大单重复计票；数据冲突先解释覆盖、身份、时间和重叠，再判断局部买入、全局卖出或证据不足。
+
+模板由 10 章扩为 11 章，新增“交易方画像与数据层独立性”硬契约；评测断言同步更新，并新增“龙虎榜机构净买但全口径资金净卖”的冲突案例。
+
+## 2026-07-21
+
+### 操作类型
+
+skill-fix / daily-tracking-panel / render / regression-test
+
+### 修改文件
+
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `.agents/skills/bbxm-equity-research/template.md`
+- `.agents/skills/bbxm-equity-research/assets/report.css`
+- `.agents/skills/bbxm-equity-research/scripts/render-report-html.cjs`
+- `.agents/skills/bbxm-equity-research/scripts/test-render-report-html.cjs`
+- `workbench/targets/2026-07-21-1650-航天电子-机构级决策研报.md`
+- `sources/automations/新兴产业/商业航天/2026-07-21-1650-航天电子-机构级决策研报.html`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `log.md`
+
+### 操作说明
+
+修复个股研报统一渲染器会丢失每日跟踪面板的问题。将基本面状态、资金状态、风险方向、每日跟踪时间和资金面链接纳入第1章正式字段；统一渲染器生成六卡面板、稳定替换边界、离线每日快照和本地代理盘中行情，并禁止实时价格自动改写价值区间与动作。
+
+航天电子当前研报面板采用 2026-07-21 收盘价 15.14 元、动态价值区间 7.5—11.5 元、基本面恶化、资金结构性流出、风险重新增强及 `wait / review` 动作；完整资金面分析继续链接同目录既有 HTML。
+
+## 2026-07-21
+
+### 操作类型
+
+skill-validation / fund-flow-analysis
+
+### 验证结果
+
+- 定向契约检查通过：`template.md` 含连续 11 个一级章节，交易方画像、金额与身份分离、龙虎榜非独立、四级证据结论和不可知边界均存在。
+- `evals/evals.json` 可解析，7 个评测 ID 唯一；原有 4 个正向案例的章节断言已同步为 11 章，并新增交易方独立性冲突案例。
+- 三个只读前向案例通过：龙虎榜机构净买与全口径净卖被解释为“局部买、全局卖”；融资流出与 ETF 申购被识别为托底与撤退并存；完整 DCF 研报仍正确路由到 `bbxm-equity-research`。
+- `git diff --check` 通过，相关文件未发现替换字符、典型中文乱码或私用区字符。
+- 项目全量 `tests/validate_bbxm_project_skills.py` 仍被工作区既有 `bbxm-equity-research` 集成标记缺失阻断：`不得在本技能中复制其检查清单`。该失败与本次 `fund-flow-analysis` 修改无关，本次未改动相邻技能以规避检查。

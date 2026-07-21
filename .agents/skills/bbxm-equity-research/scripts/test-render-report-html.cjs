@@ -11,6 +11,7 @@ const reportTemplate = fs.readFileSync(path.join(skillRoot, 'template.md'), 'utf
 const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'bbxm-report-html-'));
 const input = path.join(tempDir, '测试公司机构级决策研报.md');
 const output = path.join(tempDir, '测试公司机构级决策研报.html');
+fs.writeFileSync(path.join(tempDir, '2026-07-21-航天电子资金面分析.html'), '<!doctype html><title>资金面</title>', 'utf8');
 
 const sections = [
   '决策摘要',
@@ -33,7 +34,7 @@ const sections = [
 
 const sectionBody = sections.map((name, index) => {
   if (index === 0) {
-    return `## 1. ${name}\n\n| 项目 | 结论 |\n|---|---|\n| 估值状态 | 高估 |\n| 操作建议 | 观望 |\n| 冰冰小美动作 | wait / observe |\n| 当前价格及时间 | 58.32 CNY |\n| 综合估值区间 | 12—24 CNY |\n| 相对现价空间 | -79.4% 至 -58.8% |\n| 结论置信度 | 中 |`;
+    return `## 1. ${name}\n\n| 项目 | 结论 |\n|---|---|\n| 估值状态 | 高估 |\n| 操作建议 | 观望 |\n| 冰冰小美动作 | wait / review |\n| 当前价格及时间 | 15.14 CNY，2026-07-21 收盘 |\n| 综合估值区间 | 7.5—11.5 CNY |\n| 相对现价空间 | -50.5% 至 -24.0% |\n| 结论置信度 | 中高 |\n| 基本面状态 | 恶化 |\n| 资金状态 | 结构性流出 |\n| 风险方向 | 风险重新增强 |\n| 每日跟踪时间 | 2026-07-21 15:00（Asia/Shanghai，收盘） |\n| 资金面分析链接 | 2026-07-21-航天电子资金面分析.html |`;
   }
   if (index === 10) {
     return `## 11. ${name}
@@ -150,7 +151,7 @@ assert.match(skillContract, /证据不足[^。\n]*不得[^。\n]*有利[^。\n]*
 assert.match(skillContract, /默认不补采/);
 assert.equal((reportTemplate.match(/- 证据充分性：充分 \/ 不充分；依据：/g) || []).length, 3);
 
-fs.writeFileSync(input, `# 测试公司（688818.SH）机构级决策研报\n\n> 证券代码：688818.SH<br>\n> 交易所 / 币种：上交所科创板 / CNY<br>\n> 研究截止时间：2026-07-17<br>\n> 报告生成时间：2026-07-17<br>\n> 数据口径：公开信息<br>\n\n${sectionBody}\n`, 'utf8');
+fs.writeFileSync(input, `# 航天电子机构级决策研报\n\n> 证券代码：600879.SH<br>\n> 交易所 / 币种：上海证券交易所 / CNY<br>\n> 研究截止时间：2026-07-21 15:00<br>\n> 报告生成时间：2026-07-21<br>\n> 数据口径：公开信息<br>\n\n${sectionBody}\n`, 'utf8');
 
 const result = spawnSync(process.execPath, [renderer, '--input', input, '--output', output, '--vault-root', tempDir], {
   encoding: 'utf8',
@@ -159,15 +160,34 @@ const result = spawnSync(process.execPath, [renderer, '--input', input, '--outpu
 assert.equal(result.status, 0, `renderer failed:\n${result.stderr || result.stdout}`);
 const html = fs.readFileSync(output, 'utf8');
 
-assert.match(html, /高估 · wait \/ observe/);
-assert.match(html, /12—24/);
+assert.doesNotMatch(html, /class="kpis"/);
+assert.doesNotMatch(html, /class="verdict"/);
+assert.match(html, /<!-- DAILY_TRACKING_START -->/);
+assert.match(html, /<!-- DAILY_TRACKING_END -->/);
+assert.equal((html.match(/DAILY_TRACKING_START/g) || []).length, 1);
+assert.equal((html.match(/DAILY_TRACKING_END/g) || []).length, 1);
+for (const marker of [
+  'data-tracking-key="fundamental-status"',
+  'data-tracking-key="dynamic-value-range"',
+  'data-tracking-key="price-deviation"',
+  'data-tracking-key="daily-quote"',
+  'data-tracking-key="intraday-quote"',
+  'data-tracking-key="action-confidence"',
+  '/api/stock-quote?secid=1.600879',
+  '2026-07-21-航天电子资金面分析.html',
+  '每 60 秒',
+]) {
+  assert.ok(html.includes(marker), `daily tracking missing marker: ${marker}`);
+}
+assert.match(html, /高估 · wait \/ review/);
+assert.match(html, /7.5—11.5/);
 assert.equal((html.match(/class="toc-link"/g) || []).length, 16);
 assert.doesNotMatch(html, /\[\[/);
 assert.doesNotMatch(html, /�|12\?24|\?\?/);
-assert.match(html, /href=".*相关页面\.html"/);
+assert.match(html, /href=".*相关页面\.md"/);
 assert.match(html, /lang="zh-CN"/);
-assert.match(html, /BBXM EQUITY RESEARCH · 688818\.SH/);
-assert.doesNotMatch(html, /BBXM EQUITY RESEARCH · 688818\.SH&amp;lt;br/);
+assert.match(html, /BBXM EQUITY RESEARCH · 600879\.SH/);
+assert.doesNotMatch(html, /BBXM EQUITY RESEARCH · 600879\.SH&amp;lt;br/);
 assert.match(html, /宏观流动性/);
 assert.match(html, /前六步证据映射/);
 assert.match(html, /资金来源分类/);
