@@ -35,6 +35,29 @@ def main() -> None:
         require(marker in template, f"industry template is missing company-map field: {marker}")
 
     for marker in (
+        "导航层级，不是每层一行的压缩配额",
+        "一个表格行只表达一个可比较子环节",
+        "证据不足不能成为合并理由",
+        "双向覆盖审计",
+        "AI 芯片、存储、光模块、交换机、液冷供电",
+    ):
+        require(
+            marker in skill,
+            f"industry skill is missing chain-granularity contract: {marker}",
+        )
+
+    for marker in (
+        "导航层级，不是每层一行的压缩配额",
+        "同一层级可以重复多行",
+        "证据不足不能成为合并理由",
+        "双向覆盖审计",
+    ):
+        require(
+            marker in template,
+            f"industry template is missing chain-granularity contract: {marker}",
+        )
+
+    for marker in (
         "### 3.1.1 产业链公司映射",
         "业务占比或纯度",
         "上海格思航天",
