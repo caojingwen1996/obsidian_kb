@@ -26,7 +26,14 @@ These situations require explicit operator visibility and must not be silently i
 - one failed item should not automatically invalidate the entire day
 - one failing account should not corrupt results for other accounts
 
-4. Allow human recovery
+4. Reduce preventable risk before capture
+
+- actual detail-page capture must begin with a 抓取数量 precheck
+- when the candidate count reaches 15, lower the request frequency automatically
+- use a 4–8 秒随机间隔 between detail pages and a 30–60 秒 random cooldown after every 10 detail pages
+- pacing reduces risk but does not prove the platform will not trigger risk control
+
+5. Allow human recovery
 
 - when a Xueqiu verification page appears, first let the script automatically attempt DOM-based slider detection and dragging; if that cannot locate a stable control, let it try the screenshot-based visual fallback before manual recovery
 - when login or page issues appear, keep the current automation Chrome window open and let the operator recover in that same window first

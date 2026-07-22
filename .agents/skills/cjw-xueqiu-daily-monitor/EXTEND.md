@@ -109,6 +109,18 @@ The current repo-local convention is:
 
 These are operator defaults for this repository. Capture and summary commands must point to the same output root for a given task date.
 
+## Risk-Control Pacing
+
+实际抓取详情页前必须先识别抓取数量并评估风控风险。当前默认规则是：
+
+- request pacing: `auto`
+- high-risk threshold: `15` 篇候选详情页
+- high-risk detail delay: `4–8 秒`随机间隔
+- high-risk batch size: 每 `10` 篇一批
+- high-risk batch cooldown: `30–60 秒`随机冷却
+
+候选数量达到 15 篇时，自动降低频率并启用上述随机间隔。该阈值是基于实际抓取失败经验设置的保守预检线，不代表低于阈值绝对不会触发风控；如果当前会话刚经历验证、登录恢复或“安全威胁”拦截，应直接使用 `--request-pacing cautious`。
+
 ## Output Expectations
 
 Within the configured output root declared by `preferred output root`:

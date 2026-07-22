@@ -16114,3 +16114,340 @@ skill-validation / fund-flow-analysis
 - 三个只读前向案例通过：龙虎榜机构净买与全口径净卖被解释为“局部买、全局卖”；融资流出与 ETF 申购被识别为托底与撤退并存；完整 DCF 研报仍正确路由到 `bbxm-equity-research`。
 - `git diff --check` 通过，相关文件未发现替换字符、典型中文乱码或私用区字符。
 - 项目全量 `tests/validate_bbxm_project_skills.py` 仍被工作区既有 `bbxm-equity-research` 集成标记缺失阻断：`不得在本技能中复制其检查清单`。该失败与本次 `fund-flow-analysis` 修改无关，本次未改动相邻技能以规避检查。
+
+## 2026-07-21
+
+### 操作类型
+
+fund-flow-analysis / html-export / portfolio-review
+
+### 修改文件
+
+- `sources/webpages/2026-07-21-中国中车资金面行情快照.md`
+- `sources/automations/支柱产业/2026-07-21-中国中车资金面分层分析.html`
+- `log.md`
+
+### 操作说明
+
+按 `fund-flow-analysis` 当前11章完整模板更新中国中车资金面分析，补齐交易方画像与数据层独立性审计。核验2026-07-21收盘行情、2026-07-20公告日大额订单代理、2026-07-21午间大额订单代理、截至2026-07-17的融资序列，以及中车集团1.5亿—3亿元增持计划。
+
+最终状态定为“多空分歧”：公告日股价上涨6.73%、大额订单代理净流入约1.11亿元，次日价格只回落0.66%，但午间大额订单代理转为净流出约2.19亿元；7月13日至17日融资净买入合计约-6491万元，呈现去杠杆与价格走强并存。新增资金为 `wait / observe`，已有持仓为 `review / wait`；控股股东增持仅按计划处理，不提前计入实际流入。
+
+未更新 `index.md`：本次新增的是个股动态资金快照与自动化HTML，不属于正式Wiki页面。
+
+## 2026-07-22
+
+### 操作类型
+
+migrate / classification
+
+### 修改文件
+
+- `sources/automations/战略资源/电解铝/`（迁出）
+- `sources/automations/支柱产业/电解铝/`（迁入）
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+根据电解铝以冶炼制造和国民经济基础材料供给为主、产业主属性属于支柱产业的判断，将电解铝自动化目录及其中两份云铝股份 HTML 从“战略资源”迁入“支柱产业”。同步更新 A 股市场面板的路径契约与生成产物；铝土矿、能源和合规产能指标仍保留战略资源属性，但不再作为该目录的主分类。
+
+未更新 `index.md`：本次仅调整自动化输出分类和面板链接，不新增正式 Wiki 页面。
+
+## 2026-07-22
+
+### 操作类型
+
+industry-analysis / html-export
+
+### 修改文件
+
+- `sources/automations/支柱产业/电解铝/2026-07-22-电解铝产业完整分析报告.md`
+- `sources/automations/支柱产业/电解铝/2026-07-22-电解铝产业完整分析报告.html`
+- `log.md`
+
+### 操作说明
+
+将电解铝产业分析落为完整 Markdown 母稿，并使用 `bbxm-industry-analysis` 产业报告专用渲染器导出 HTML。报告完整覆盖 0—7 章、产业链公司映射、周期判断、情景分析和证据附录，主属性明确为“支柱产业（兼具战略资源属性）”；云铝股份公司映射链接复用同目录已有 HTML 研报。
+
+已验证 HTML 的 8 个编号章节、目录、公司映射字段、本地研报链接、UTF-8 编码及无残留 Obsidian 双链。技能自带回归测试因旧商业航天样例引用的“电科蓝天”HTML缺失而中止，该失败与本次电解铝报告无关，未修改无关资料。
+
+未更新 `index.md`：本次新增的是自动化产业报告产物，不属于正式 Wiki 页面。
+
+## 2026-07-22
+
+### 操作类型
+
+skill / workflow
+
+### 修改文件
+
+- `.agents/skills/bbxm-industry-analysis/SKILL.md`
+- `log.md`
+
+### 操作说明
+
+将 `industry-analysis-model` 从“按需导出 HTML”升级为“每次产业分析结束后强制落盘 Markdown 母稿并生成 HTML 阅读版”。新增步骤 13，明确对应目录的路由优先级、按主要产业属性单目录归档、同名 Markdown/HTML 命名、产业报告专用渲染器、定向验证、失败处理和最终路径交付；版本由 `2.1.0` 升级为 `2.2.0`。
+
+未更新 `index.md`：本次修改的是技能执行契约，不新增正式 Wiki 页面。
+
+## 2026-07-22
+
+### 操作类型
+
+skill / equity-research
+
+### 修改文件
+
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `.agents/skills/bbxm-equity-research/template.md`
+- `log.md`
+
+### 操作说明
+
+将个股研究中的“产业位置”由单一标签升级为多位置景气度排序。要求分别识别直接经营环节、战略或关键资源属性、AI 等下游需求链映射，按当前景气度、趋势、公司利润或资产暴露依次排序；证据不足项单列，并补充财务传导、验证指标、失效条件、交叉关系和业绩贡献去重规则。同步更新第 4 章模板、第 11 章三要素引用和完成前质量门。
+
+已通过技能基础校验、个股研报 HTML 渲染器回归、产业研报反向链接幂等回归和 `git diff --check`。项目级组合检查仍有三项既有阻断：Workbench 扁平研报清单与当前文件不一致；个股模板原有第 11.1 标题不符合三要素检查器要求的精确标题；相邻产业分析技能缺少检查器要求的旧标记“明确要求保存”。本次未修改无关库存、旧三要素接口或相邻技能来规避失败。
+
+未更新 `index.md`：本次修改的是技能执行契约和研报模板，不新增正式 Wiki 页面。
+
+## 2026-07-22
+
+### 操作类型
+
+industry-analysis / correction / html-export
+
+### 修改文件
+
+- `sources/automations/战略资源/铜/2026-07-22-铜产业完整分析报告.md`
+- `sources/automations/战略资源/铜/2026-07-22-铜产业完整分析报告.html`
+- `log.md`
+
+### 操作说明
+
+修正铜产业报告的公司覆盖遗漏：在产业链全景中补入西部矿业，在公司映射中分别补充其上游玉龙铜矿、获各琦铜矿等铜矿采选位置，以及通过青海铜业参与的中游铜冶炼位置；在主要参与者和证据清单中同步补充西部矿业。依据公司 2024 年年度报告记录矿产铜 17.75 万金属吨、同比增长 35%，同时明确公司还经营铅锌、铁矿、盐湖化工等业务，不能视为纯铜公司，精确铜收入及利润占比仍需按分部口径复核。
+
+重新生成同名 HTML，定向验证确认 Markdown 与 HTML 均出现西部矿业 5 次，上游位置、中游位置和年报链接全部存在，未发现典型中文乱码。通用渲染回归仍被既有缺失夹具 `sources/automations/商业航天每日跟踪/2026-07-17-电科蓝天机构级决策研报.html` 阻断；本次未修改无关商业航天目录。
+
+未更新 `index.md`：本次仅修正 `sources/automations/` 下的既有产业报告，不新增正式 Wiki 页面。
+
+## 2026-07-22
+
+### 操作类型
+
+industry-analysis / report / html-export
+
+### 新增文件
+
+- `sources/automations/战略资源/铜/2026-07-22-铜产业完整分析报告.md`
+- `sources/automations/战略资源/铜/2026-07-22-铜产业完整分析报告.html`
+
+### 操作说明
+
+按 `industry-analysis-model` 2.2.0 和产业分析模板 1.2.0 完成铜产业 0—7 模块分析、通用风险与证据附录、上中下游公司映射及情景分析。铜按主要属性归入“战略资源”，并把“支柱产业基础原材料”保留为次要属性；报告明确区分矿端精矿紧张与 2026 年精炼铜小幅过剩预测，避免用高铜价直接替代供需平衡验证。同步生成同名 HTML 阅读版。
+
+定向验证通过：Markdown 与 HTML 均存在，HTML 包含标题、0—7 章节、风险附录、20 个以上表格和外部证据链接，未发现典型中文乱码或 Markdown 标题泄漏。产业渲染器通用回归检查仍被既有缺失夹具 `sources/automations/商业航天每日跟踪/2026-07-17-电科蓝天机构级决策研报.html` 阻断；本次未修改无关商业航天目录。
+
+未更新 `index.md`：本次新增的是 `sources/automations/` 下的产业报告产物，不是正式 Wiki 页面。
+
+## 2026-07-22
+
+### 操作类型
+
+skill / equity-research
+
+### 修改文件
+
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `.agents/skills/bbxm-equity-research/template.md`
+- `log.md`
+
+### 操作说明
+
+根据用户反馈取消多产业位置的预设类型。技能改为依据企业实际业务、资源禀赋、供需关系、客户用途、政策环境和技术变化识别产业位置；模板以“位置识别依据”替代固定“类型”字段。景气度排序、业务暴露、财务传导、证据不足单列和业绩贡献去重规则保持不变。
+
+未更新 `index.md`：本次修改的是技能执行契约和研报模板，不新增正式 Wiki 页面。
+
+## 2026-07-22
+
+### 操作类型
+
+industry-analysis / evidence-refresh / correction
+
+### 修改文件
+
+- `sources/automations/战略资源/铜/2026-07-22-铜产业完整分析报告.md`
+- `sources/automations/战略资源/铜/2026-07-22-铜产业完整分析报告.html`
+- `log.md`
+
+### 操作说明
+
+纠正西部矿业证据时效错误。此前补入公司映射时错误沿用 2024 年年报数据；经重新核验，公司已于 2026-03-26 披露 2025 年年报，并于 2026-04-29 披露 2026 年一季报。报告现改用 2025 年年报经营口径：矿产铜 16.75 万吨、同比下降 5.63%，冶炼铜 33.42 万吨、同比增长 26.69%；同时注明最新财务披露时点为 2026 年一季度。旧的 17.75 万吨及 2024 年年报链接已从 Markdown 和 HTML 中清除。
+
+重新生成同名 HTML，定向验证确认新数据和公告链接在两版报告中一致，旧数据不存在，未发现典型中文乱码。通用渲染回归仍被既有缺失夹具 `sources/automations/商业航天每日跟踪/2026-07-17-电科蓝天机构级决策研报.html` 阻断；本次未修改无关商业航天目录。
+
+未更新 `index.md`：本次仅刷新既有自动化产业报告的证据口径，不新增正式 Wiki 页面。
+
+## 2026-07-22
+
+### 操作类型
+
+capture / source-comparison / report
+
+### 新增文件
+
+- `sources/automations/BBXM每日汇总/2026-07-22/雪球链接文章入口/`
+- `sources/automations/战略资源/铜/2026-07-22-冰冰小美铜文章与铜产业报告对比分析.md`
+
+### 操作说明
+
+按 `cjw-xueqiu-daily-monitor` 的本次输入模式处理雪球入口 `https://xueqiu.com/2786922896/372657050`，识别并保存 102 个铜与西部矿业相关文章链接。本轮取得 14 篇可靠正文，另从当前知识库既有 `sources/` 原始资料中复用 10 篇；其余 78 篇因雪球“安全威胁”风控未取得可靠正文，已保留链接和标题作为待补抓清单，不以拦截页或标题代替原文。
+
+基于 24 篇可用正文生成作者观点汇总，并同 `2026-07-22-铜产业完整分析报告.md` 做对比分析。报告明确区分作者的宏观与交易假设、产业报告的官方和行业证据，以及矿山、冶炼、普通加工和高端材料的利润传导差异；最终动作结论为“观察与等待验证”，不依据历史文章追高。
+
+未更新 `index.md`：本次新增的是 `sources/automations/` 下的抓取与对比分析产物，不是正式 Wiki 页面。
+
+## 2026-07-22
+
+### 操作类型
+
+capture / incremental-rerun / source-comparison
+
+### 修改文件
+
+- `sources/automations/BBXM每日汇总/2026-07-22/雪球链接文章入口/冰冰小美-铜与西部矿业合集/`
+- `sources/automations/战略资源/铜/2026-07-22-冰冰小美铜文章与铜产业报告对比分析.md`
+- `log.md`
+
+### 操作说明
+
+复用现有 `state.json` 对铜与西部矿业合集执行下一批 14 篇增量补抓。采用降频访问，14 篇页面全部成功取得并保存原文；其中《铜合集》正文仅为合集跳转，实质观点样本为 13 篇。累计状态更新为：本轮可靠正文 28 篇、复用库内既有来源 10 篇、仍待补抓 64 篇，未覆盖或改写此前成功原文。
+
+新增第二批逐篇分析，并同步刷新作者汇总和累计产业报告对比。新增结论主要是：长期持有仍受估值约束；LME 库存、供需和美元需共同跟踪；“实业”只能过滤纯概念，不能替代成本、产量、现金流和资本效率；2024 年西部矿业 17.5 元价格表述仅是历史估值纪律，不作为当前买卖线。累计动作结论仍为“等待 / 观察 / 复核”。
+
+未更新 `index.md`：本次是 `sources/automations/` 下的同任务增量补抓与分析更新，不新增正式 Wiki 页面。
+
+## 2026-07-22
+
+### 操作类型
+
+skill / risk-control / capture-pacing
+
+### 修改文件
+
+- `.agents/skills/cjw-xueqiu-daily-monitor/SKILL.md`
+- `.agents/skills/cjw-xueqiu-daily-monitor/EXTEND.md`
+- `.agents/skills/cjw-xueqiu-daily-monitor/references/workflow.md`
+- `.agents/skills/cjw-xueqiu-daily-monitor/references/error-policy.md`
+- `.agents/skills/cjw-xueqiu-daily-monitor/scripts/extract_xueqiu_posts.mjs`
+- `.agents/skills/cjw-xueqiu-daily-monitor/scripts/tests/test_extract_xueqiu_posts.py`
+- `.agents/skills/cjw-xueqiu-daily-monitor/scripts/tests/test_skill_docs.py`
+- `log.md`
+
+### 操作说明
+
+为雪球实际详情页抓取增加第 2.5 步“抓取数量与风控预检”。默认 `--request-pacing auto`：候选详情页达到 15 篇时自动切换谨慎节奏，在详情页之间加入 4–8 秒随机间隔，并在每 10 篇后加入 30–60 秒随机冷却；同时保留 `cautious` 强制谨慎模式和 `normal` 明确覆盖模式。运行时会在打开详情页前输出候选数量、风险等级和节奏模式。
+
+新增阈值、随机间隔、默认参数和文档契约测试。定向测试通过：`test_extract_xueqiu_posts.py` 22 项、`test_skill_docs.py` 13 项。
+
+未更新 `index.md`：本次修改的是抓取技能及其测试，不新增正式 Wiki 页面。
+
+## 2026-07-22
+
+### 操作类型
+
+industry-analysis / taxonomy / render
+
+### 修改文件
+
+- `sources/automations/新兴产业/算力/2026-07-20-算力产业完整分析报告.md`
+- `sources/automations/新兴产业/算力/2026-07-20-算力产业完整分析报告.html`
+- `log.md`
+
+### 操作说明
+
+按最新产业思维框架与产业报告完整模板，复用既有算力报告并补充两级产业拆分。一级拆为“芯片与基础软件、计算系统与集群、存储力、运载力、算力基础设施与能源、资源运营与调度、模型与行业应用”七个子产业；二级保留 17 个可比较子环节，并与产业链公司映射逐项对齐。另将通用算力、智能算力、超级算力、边缘算力定义为横跨七个子产业的供给形态，避免与产业链环节混层。
+
+使用产业报告专用渲染器更新同名 HTML。定向检查通过：完整保留 0—7 章与通用风险附录，七个子产业、产业链公司映射、业务占比或纯度和证据状态均存在；库内研报链接有效，HTML 无未解析双链和中文乱码。通用渲染回归测试因旧商业航天样例依赖的 `sources/automations/商业航天每日跟踪/2026-07-17-电科蓝天机构级决策研报.html` 缺失而未通过，该失败与本次算力报告无关。
+
+未更新 `index.md`：本次更新的是 `sources/automations/` 下的产业分析产物，不新增或改写正式 Wiki 页面。
+
+## 2026-07-22
+
+### 操作类型
+
+industry-analysis / subagent-research / cross-audit / render
+
+### 修改文件
+
+- `sources/automations/新兴产业/算力/2026-07-20-算力产业完整分析报告.md`
+- `sources/automations/新兴产业/算力/2026-07-20-算力产业完整分析报告.html`
+- `sources/automations/新兴产业/算力/芯片与基础软件/`
+- `sources/automations/新兴产业/算力/计算系统与集群/`
+- `sources/automations/新兴产业/算力/存储力/`
+- `sources/automations/新兴产业/算力/运载力/`
+- `sources/automations/新兴产业/算力/算力基础设施与能源/`
+- `sources/automations/新兴产业/算力/资源运营与调度/`
+- `sources/automations/新兴产业/算力/模型与行业应用/`
+- `log.md`
+
+### 操作说明
+
+按 `industry-analysis-model` 的完整报告合同，使用子代理分别完成算力七个子产业的独立研究。每个子产业均生成一份完整 Markdown 母稿与同名 HTML 阅读版，完整保留 0—7 章、产业链公司映射及通用风险与证据附录，并披露框架版本、数据截止、证据缺口和模板适配状态。
+
+主任务对七份报告执行统一定向审计：七份 MD/HTML 均存在，章节顺序、分析元数据、公司映射字段和上中下游覆盖完整，公司映射合计 106 行；HTML 目录锚点可用，库内链接目标存在，无未解析双链、Unicode 替换字符或典型中文乱码。交叉审计后修正两处边界重叠：完整超节点 / 整机 / 集群收入归“计算系统与集群”，运载力只保留 Scale-up 互联部件与协议；任务放置、资源池调度、计量交易归“资源运营与调度”，运载力只保留网络遥测、路径 / 带宽编排和 DCI / OTN SLA。
+
+算力总报告增加七份独立子产业报告的 Markdown / HTML 导航入口并重新渲染。通用渲染回归测试仍因仓库既有目标 `sources/automations/商业航天每日跟踪/2026-07-17-电科蓝天机构级决策研报.html` 缺失而失败；该失败与本次七份算力子产业产物无关，本次定向检查全部通过。
+
+未更新 `index.md`：本次新增和更新的是 `sources/automations/` 下的产业研究产物，不新增正式 Wiki 页面。
+
+## 2026-07-22
+
+### 操作类型
+
+capture / source-analysis / comparison
+
+### 修改文件
+
+- `sources/automations/BBXM每日汇总/2026-07-22/雪球链接文章入口/冰冰小美-铜与西部矿业合集/raw/`
+- `sources/automations/BBXM每日汇总/2026-07-22/雪球链接文章入口/冰冰小美-铜与西部矿业合集/index.md`
+- `sources/automations/BBXM每日汇总/2026-07-22/雪球链接文章入口/冰冰小美-铜与西部矿业合集/state.json`
+- `sources/automations/BBXM每日汇总/2026-07-22/雪球链接文章入口/冰冰小美-铜与西部矿业合集/summary.md`
+- `sources/automations/BBXM每日汇总/2026-07-22/雪球链接文章入口/冰冰小美-铜与西部矿业合集/batch-03-analysis.md`
+- `sources/automations/战略资源/铜/2026-07-22-冰冰小美铜文章与铜产业报告对比分析.md`
+- `log.md`
+
+### 操作说明
+
+复用既有 102 篇入口清单与抓取状态，按雪球详情页高风险谨慎节奏继续抓取第三批 14 篇，14/14 取得可靠正文。累计覆盖更新为本轮正文 42 篇、库内既有来源 10 篇、仍待补抓 50 篇。
+
+逐篇阅读并与铜产业完整分析报告对照。新增结论是：作者明确使用需求、季度盈利和估值作为长期资源逻辑转化为仓位的闸门，并主动识别资金拥挤与泡沫风险；但“调整结束概率 80%”、周线做 T 和利空脱敏等短周期判断证据不足，不纳入稳定产业结论。当前动作维持等待、观察与经营复核，不使用 2024 年价格锚作为当前买卖线。
+
+未更新根 `index.md`：本次新增与更新均为 `sources/automations/` 下的抓取及分析产物，不新增正式 Wiki 页面。
+
+## 2026-07-22
+
+### 操作类型
+
+capture / source-analysis / risk-control
+
+### 修改文件
+
+- `sources/automations/BBXM每日汇总/2026-07-22/雪球链接文章入口/冰冰小美-铜与西部矿业合集/raw/`
+- `sources/automations/BBXM每日汇总/2026-07-22/雪球链接文章入口/冰冰小美-铜与西部矿业合集/index.md`
+- `sources/automations/BBXM每日汇总/2026-07-22/雪球链接文章入口/冰冰小美-铜与西部矿业合集/state.json`
+- `sources/automations/BBXM每日汇总/2026-07-22/雪球链接文章入口/冰冰小美-铜与西部矿业合集/task.log`
+- `sources/automations/BBXM每日汇总/2026-07-22/雪球链接文章入口/冰冰小美-铜与西部矿业合集/summary.md`
+- `sources/automations/BBXM每日汇总/2026-07-22/雪球链接文章入口/冰冰小美-铜与西部矿业合集/batch-04-analysis.md`
+- `sources/automations/BBXM每日汇总/2026-07-22/雪球链接文章入口/冰冰小美-铜与西部矿业合集/batch-05-analysis.md`
+- `sources/automations/战略资源/铜/2026-07-22-冰冰小美铜文章与铜产业报告对比分析.md`
+- `log.md`
+
+### 操作说明
+
+继续谨慎抓取第四批 14 篇及第五批前 6 篇，新增 20 篇可靠正文；累计为本轮正文 62 篇、库内复用 10 篇、仍待抓 30 篇。第 73 个可分析样本对应的雪球详情页持续触发滑块验证，技能自动滑块两次失败、5 分钟人工恢复窗口超时，随后单页自动复检仍失败。按技能错误策略停止继续访问，保留既有成果并等待操作者在自动化专用 Chrome 中完成验证。
+
+新增分析强化了加工利润、财报、开工率、项目进度和下游需求的核验价值；同时校正“公司库存增加等同产业补库”和“交易所限仓等同偏多”的过度推断。当前动作仍为等待、观察和经营复核。
+
+未更新根 `index.md`：本次均为 `sources/automations/` 下的抓取与分析产物。

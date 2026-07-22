@@ -1,8 +1,8 @@
 ---
 name: industry-analysis-model
 title: 产业分析模型
-description: 动态读取知识库中的最新产业分析框架，完成证据搜集、模块分析、周期判断、交叉验证和结构化输出。
-version: 2.1.0
+description: 动态读取知识库中的最新产业分析框架，完成证据搜集、模块分析、周期判断、交叉验证和结构化输出，并在每次分析结束后保存完整 Markdown 母稿、生成 HTML 阅读版放入对应产业目录。
+version: 2.2.0
 language: zh-CN
 
 knowledge_sources:
@@ -32,6 +32,7 @@ runtime_policy:
 - 按最新框架逐模块完成分析；
 - 处理模块之间的传导、冲突和阶段错位；
 - 调用 `template.md` 生成最终输出；
+- 将完整报告保存为 Markdown 母稿，并生成 HTML 阅读版放入对应产业目录；
 - 执行质量检查并披露不确定性。
 
 本 Skill 不负责维护产业分析框架的具体内容。
@@ -269,9 +270,10 @@ framework_snapshot:
 5. 对非用户重点但证据不足的章节标记“待验证”，不得删除章节；
 6. 不得选择简版、专项版、监测版、比较版或任何自行压缩的输出形式。
 7. 在“产业结构”中完整输出“产业链公司映射”，覆盖上游、中游、下游的主要子环节；逐家公司或主体列出产业链位置、核心产品、上市属性 / 证券代码、业务占比或纯度、证据状态和来源时间。
+8. 分析完成后必须保存完整 Markdown 母稿，并生成 HTML 阅读版；两份文件使用相同文件名主体，放入同一个对应产业目录。
 
 用户问题只决定报告的研究重点和证据投入，不改变完整报告的输出结构。
-除非用户明确要求保存，否则只返回报告，不写入知识库文件。
+每次运行均须保存 Markdown 和 HTML 产物，但不得因此自动创建或改写正式 `wiki/` 页面；只有用户明确要求沉淀为正式知识页时，才进入 Wiki 维护流程。
 
 ### 7.1 产业链公司映射强制口径
 
@@ -657,15 +659,7 @@ company_mapping:
 6. 禁止沿用模板中的旧阶段名称；
 7. 在报告末尾注明模板是否存在待同步项。
 
-### HTML 导出
-
-当用户要求 HTML，或目标自动化目录以 HTML 作为阅读版本时，先完成并保存 Markdown，再使用产业报告专用渲染器：
-
-```powershell
-node .agents/skills/bbxm-industry-analysis/scripts/render-industry-report-html.cjs --input <产业报告.md> --output <产业报告.html> --vault-root <知识库根目录>
-```
-
-导出后运行 `scripts/test-render-industry-report-html.cjs`，并检查0—7章、产业链公司映射、目录、内部链接和UTF-8中文均完整。公司研报链接仍须执行“HTML 优先、Markdown 回退、无研报不链接”，且所有显式目标必须存在。不得调用要求个股16模块的 `bbxm-equity-research` 渲染器。
+HTML 产物的保存、渲染与验证统一在步骤 13 执行；不得在仅完成对话输出后提前结束任务。
 
 ### 通用模块结构
 
@@ -761,6 +755,81 @@ node .agents/skills/bbxm-industry-analysis/scripts/render-industry-report-html.c
 
 ---
 
+# 步骤 13：保存 Markdown 并生成 HTML 阅读版
+
+完整分析和内容质量检查通过后，必须执行以下收尾流程。该步骤属于每次产业分析的必做项，不以用户是否另行提出“保存”或“导出 HTML”为前提。
+
+## 13.1 确定对应目录
+
+按以下优先级确定输出目录：
+
+1. 用户明确指定目录时，使用用户指定目录；
+2. 已存在该产业的自动化目录时，复用已有目录，不得创建同义或重复目录；
+3. 未指定且没有既有目录时，根据报告“产业属性”中的**主要属性**路由到：
+   - 战略资源：`sources/automations/战略资源/<产业名称>/`
+   - 支柱产业：`sources/automations/支柱产业/<产业名称>/`
+   - 新兴产业：`sources/automations/新兴产业/<产业名称>/`
+   - 其他或主属性证据不足：`sources/automations/其他产业/<产业名称>/`
+4. 一个产业同时具备多种属性时，只按主要属性选择目录，次要属性写入报告，不复制到多个目录；
+5. 目录归类存在会实质改变落点的歧义时，先完成证据判断；仍无法确定时，明确询问用户，不得静默任选目录。
+
+## 13.2 保存 Markdown 母稿
+
+使用以下默认命名：
+
+```text
+YYYY-MM-DD-<产业名称>产业完整分析报告.md
+```
+
+保存要求：
+
+- 使用 UTF-8；
+- 完整保留 `0—7` 章、“通用风险与证据附录”和分析元数据；
+- 先保存 Markdown，再生成 HTML，Markdown 是可继续维护的唯一母稿；
+- 同目录已有同名文件时，只有在本次任务明确属于该报告更新时才覆盖；否则使用能够区分日期或版本的文件名；
+- 保存前验证公司研报的每个显式链接目标真实存在。
+
+## 13.3 生成 HTML 阅读版
+
+HTML 与 Markdown 使用相同文件名主体：
+
+```text
+YYYY-MM-DD-<产业名称>产业完整分析报告.html
+```
+
+使用产业报告专用渲染器：
+
+```powershell
+node .agents/skills/bbxm-industry-analysis/scripts/render-industry-report-html.cjs --input <产业报告.md> --output <产业报告.html> --vault-root <知识库根目录>
+```
+
+不得调用要求个股 16 模块的 `bbxm-equity-research` 渲染器，也不得绕过 Markdown 母稿直接手写 HTML。
+
+## 13.4 验证产物
+
+导出后运行：
+
+```powershell
+node .agents/skills/bbxm-industry-analysis/scripts/test-render-industry-report-html.cjs
+```
+
+同时对本次报告执行定向检查：
+
+- [ ] Markdown 与 HTML 均位于同一个对应产业目录；
+- [ ] 两份文件名主体一致；
+- [ ] HTML 依次包含完整的 `0—7` 章；
+- [ ] HTML 包含“产业链公司映射”“业务占比或纯度”和“证据状态”；
+- [ ] HTML 目录可用，章节锚点完整；
+- [ ] 内部链接和公司研报链接可打开；
+- [ ] HTML 不含未解析的 `[[...]]`；
+- [ ] Markdown 与 HTML 均无 Unicode 替换字符（U+FFFD）或典型中文乱码；
+- [ ] 未调用个股报告渲染器；
+- [ ] 最终回复列出 Markdown 和 HTML 的实际保存路径。
+
+若通用回归测试因与本次报告无关的旧样例或缺失文件失败，仍须对本次报告完成上述定向检查，并在最终回复披露回归测试失败的具体边界；不得把无关失败描述为本次 HTML 已通过全部测试。
+
+---
+
 ## 9. 失败与降级处理
 
 ### 9.1 框架文件不可用
@@ -788,6 +857,13 @@ node .agents/skills/bbxm-industry-analysis/scripts/render-industry-report-html.c
 
 使用最近可得数据，并明确数据截止时间，不得将旧数据描述为当前状态。
 
+### 9.6 HTML 导出失败
+
+- 保留已完成且验证通过的 Markdown 母稿；
+- 检查渲染器、Node 运行时、报告结构、显式链接和 UTF-8 编码；
+- 修复后重新导出并验证，不得用手写 HTML 绕过专用渲染器；
+- 若仍无法生成，明确报告 Markdown 路径、失败原因和未完成的 HTML 路径，不得宣称本次产业分析任务已完整完成。
+
 ---
 
 ## 10. 输出溯源信息
@@ -805,6 +881,8 @@ analysis_metadata:
   generated_at:
   unresolved_gaps:
   template_sync_status:
+  markdown_output:
+  html_output:
 ```
 
 最终报告应能回答：
@@ -851,7 +929,15 @@ analysis_metadata:
 ↓
 附框架版本、数据截止日期和待验证事项
 ↓
-输出报告
+按主要产业属性确定对应目录
+↓
+保存完整 Markdown 母稿
+↓
+使用产业报告专用渲染器生成同名 HTML 阅读版
+↓
+验证章节、目录、公司映射、链接与 UTF-8 编码
+↓
+返回综合结论及 Markdown、HTML 实际路径
 ```
 
 ---

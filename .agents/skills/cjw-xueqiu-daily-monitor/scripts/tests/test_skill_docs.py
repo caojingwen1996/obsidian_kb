@@ -162,6 +162,22 @@ class SkillDocumentationTests(unittest.TestCase):
         self.assertIn("验证", workflow_text)
         self.assertIn("回退", error_policy_text)
 
+    def test_docs_require_capture_volume_risk_precheck_and_random_pacing(self) -> None:
+        skill_text = read_text("SKILL.md")
+        extend_text = read_text("EXTEND.md")
+        workflow_text = read_text("references", "workflow.md")
+
+        for text in (skill_text, extend_text, workflow_text):
+            self.assertIn("抓取数量", text)
+            self.assertIn("随机间隔", text)
+            self.assertIn("15", text)
+            self.assertIn("4–8 秒", text)
+            self.assertIn("30–60 秒", text)
+
+        self.assertIn("第 2.5 步", skill_text)
+        self.assertIn("Step 2.5", workflow_text)
+        self.assertIn("--request-pacing", workflow_text)
+
 
 if __name__ == "__main__":
     unittest.main()

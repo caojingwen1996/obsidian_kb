@@ -28,6 +28,7 @@ function printHelp() {
       "  --max-posts N          Maximum detail pages to extract; defaults to 30",
       "  --capture-scope SCOPE  daily | all-visible; defaults to daily",
       "  --comment-scope SCOPE  none | author-only | all; defaults to none",
+      "  --request-pacing MODE   auto | normal | cautious; defaults to auto",
       "  --verification-mode MODE  manual | auto-then-manual | auto-only; defaults to auto-then-manual",
       "  --headless             Launch Chrome in headless mode when starting a new instance",
       "  --help                 Show this help",
@@ -164,6 +165,67 @@ const LOGIN_PAYLOAD_PATTERN =
 const VERIFICATION_MODES = new Set(["manual", "auto-then-manual", "auto-only"]);
 const CAPTURE_SCOPES = new Set(["daily", "all-visible"]);
 const COMMENT_SCOPES = new Set(["none", "author-only", "all"]);
+const REQUEST_PACING_MODES = new Set(["auto", "normal", "cautious"]);
+const HIGH_RISK_CAPTURE_THRESHOLD = 15;
+
+export function chooseRandomDelayMs(minMs, maxMs, random = Math.random) {
+  if (!Number.isFinite(minMs) || !Number.isFinite(maxMs) || minMs < 0 || maxMs < minMs) {
+    throw new Error("Invalid random delay interval");
+  }
+  return Math.floor(minMs + random() * (maxMs - minMs + 1));
+}
+
+export function buildCaptureRiskPlan(candidateCount, requestPacing = "auto") {
+  if (!Number.isInteger(candidateCount) || candidateCount < 0) {
+    throw new Error("candidateCount must be a non-negative integer");
+  }
+  if (!REQUEST_PACING_MODES.has(requestPacing)) {
+    throw new Error("requestPacing must be one of: auto, normal, cautious");
+  }
+
+  const useCautiousPacing = requestPacing === "cautious" || (
+    requestPacing === "auto" && candidateCount >= HIGH_RISK_CAPTURE_THRESHOLD
+  );
+  if (!useCautiousPacing) {
+    return {
+      candidateCount,
+      riskLevel: "normal",
+      detailDelayMinMs: 0,
+      detailDelayMaxMs: 0,
+      batchSize: 0,
+      batchCooldownMinMs: 0,
+      batchCooldownMaxMs: 0,
+    };
+  }
+
+  return {
+    candidateCount,
+    riskLevel: "high",
+    detailDelayMinMs: 4_000,
+    detailDelayMaxMs: 8_000,
+    batchSize: 10,
+    batchCooldownMinMs: 30_000,
+    batchCooldownMaxMs: 60_000,
+  };
+}
+
+async function applyCapturePacing(plan, candidateIndex) {
+  if (candidateIndex <= 0 || plan.riskLevel !== "high") return;
+
+  if (plan.batchSize > 0 && candidateIndex % plan.batchSize === 0) {
+    const cooldownMs = chooseRandomDelayMs(plan.batchCooldownMinMs, plan.batchCooldownMaxMs);
+    process.stderr.write(
+      `[extract_xueqiu_posts] high-risk batch cooldown before item ${candidateIndex + 1}: ${cooldownMs}ms\n`
+    );
+    await sleep(cooldownMs);
+  }
+
+  const delayMs = chooseRandomDelayMs(plan.detailDelayMinMs, plan.detailDelayMaxMs);
+  process.stderr.write(
+    `[extract_xueqiu_posts] high-risk randomized detail delay before item ${candidateIndex + 1}: ${delayMs}ms\n`
+  );
+  await sleep(delayMs);
+}
 
 export function isXueqiuPostUrl(value) {
   return /^https?:\/\/xueqiu\.com\/\d+\/\d+(?:[?#].*)?$/.test(String(value || ""));
@@ -264,6 +326,7 @@ function parseArgs(argv) {
     maxPosts: 30,
     captureScope: "daily",
     commentScope: "none",
+    requestPacing: "auto",
     verificationMode: "auto-then-manual",
     headless: false,
   };
@@ -298,6 +361,9 @@ function parseArgs(argv) {
       case "--comment-scope":
         args.commentScope = argv[++index] ?? "";
         break;
+      case "--request-pacing":
+        args.requestPacing = argv[++index] ?? "";
+        break;
       case "--verification-mode":
         args.verificationMode = argv[++index] ?? "";
         break;
@@ -328,6 +394,9 @@ function parseArgs(argv) {
   }
   if (!COMMENT_SCOPES.has(args.commentScope)) {
     throw new Error("--comment-scope must be one of: none, author-only, all");
+  }
+  if (!REQUEST_PACING_MODES.has(args.requestPacing)) {
+    throw new Error("--request-pacing must be one of: auto, normal, cautious");
   }
   if (!VERIFICATION_MODES.has(args.verificationMode)) {
     throw new Error("--verification-mode must be one of: manual, auto-then-manual, auto-only");
@@ -1280,11 +1349,19 @@ async function main() {
     }
 
     const candidates = await extractHomepageCandidates(cdp, homepage.sessionId, args);
+    const captureCandidates = (candidates ?? []).filter((item) =>
+      shouldKeepCandidateForCaptureScope(item, targetDate, args.captureScope)
+    );
+    const captureRiskPlan = buildCaptureRiskPlan(captureCandidates.length, args.requestPacing);
+    process.stderr.write(
+      `[extract_xueqiu_posts] capture risk precheck: candidates=${captureRiskPlan.candidateCount}, ` +
+      `requestPacing=${args.requestPacing}, riskLevel=${captureRiskPlan.riskLevel}\n`
+    );
 
     const posts = [];
-    for (const candidate of (candidates ?? []).filter((item) =>
-      shouldKeepCandidateForCaptureScope(item, targetDate, args.captureScope)
-    )) {
+    for (let candidateIndex = 0; candidateIndex < captureCandidates.length; candidateIndex += 1) {
+      const candidate = captureCandidates[candidateIndex];
+      await applyCapturePacing(captureRiskPlan, candidateIndex);
       let detailSession = null;
       let closeDetailTarget = true;
       try {

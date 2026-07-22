@@ -149,6 +149,27 @@ Related files:
 - state and logs: `scripts/task_store.py`
 - output root: `EXTEND.md`
 
+## Step 2.5: Estimate capture volume and choose pacing
+
+Before opening any candidate detail page, finish candidate discovery and count the detail pages that this extractor pass would actually open after input-scope and target-date filtering. This is a risk estimate rather than a guarantee: platform risk control also depends on session, IP, cookies, recent history, and page response.
+
+Use `--request-pacing auto` by default:
+
+- fewer than 15 detail pages: keep normal pacing
+- 15 or more detail pages: classify the pass as high risk and automatically use cautious pacing
+- cautious pacing: wait a random 4–8 秒 between detail pages; after every 10 detail pages, add a random 30–60 秒 cooldown
+- `--request-pacing cautious`: force cautious pacing even below the threshold
+- `--request-pacing normal`: bypass automatic throttling only when the operator explicitly decides the current environment is safe
+
+Before detail capture starts, write the following precheck to the task output or runtime log:
+
+- 抓取数量
+- risk level (`normal` or `high`)
+- request pacing mode (`auto`, `normal`, or `cautious`)
+- whether 4–8 秒随机间隔 and 30–60 秒 batch cooldown are active
+
+Do not estimate volume from `--max-posts` alone. Use the candidates that remain after the current input scope and target-date filter. If the orchestration layer has already excluded items found in existing state, count only the remaining candidates; otherwise include every detail page the extractor will actually open.
+
 ## Step 3: Capture one pass
 
 Each manual start performs one pass only.
@@ -172,6 +193,7 @@ For each resolved Xueqiu account:
 2. reuse the `自动化专用 Chrome 实例` prepared in Step 1.3
 
 In other words, Step 3 must `复用第 1.3 步` already prepared browser instance instead of recreating the browser startup path.
+It must also reuse the Step 2.5 risk plan. Do not switch a high-risk pass back to fixed, rapid detail-page requests.
 2. run `scripts/extract_xueqiu_posts.mjs` against the account homepage
 3. open the homepage through the repo-local browser-access method defined by `extract_xueqiu_posts.mjs`
 4. scan currently visible posts
@@ -231,6 +253,7 @@ node scripts/extract_xueqiu_posts.mjs \
   --account-url https://xueqiu.com/u/9838764557 \
   --date 2026-03-25 \
   --author-name "闵行一霸" \
+  --request-pacing auto \
   --output-file ./tmp/posts.json
 ```
 

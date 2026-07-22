@@ -25,6 +25,64 @@ class ExtractXueqiuPostsScriptTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("--account-url", result.stdout)
         self.assertIn("--date", result.stdout)
+        self.assertIn("--request-pacing", result.stdout)
+
+    def test_request_pacing_defaults_to_auto(self) -> None:
+        script_path = (PROJECT_ROOT / "scripts" / "extract_xueqiu_posts.mjs").as_uri()
+        payload = self.run_node_module_json(
+            f"""
+import {{ parseArgsForTesting }} from {json.dumps(script_path)};
+console.log(JSON.stringify(parseArgsForTesting([
+  "--account-url", "https://xueqiu.com/u/1",
+  "--date", "2026-07-22"
+])));
+"""
+        )
+
+        self.assertEqual(payload["requestPacing"], "auto")
+
+    def test_capture_risk_plan_switches_to_cautious_at_threshold(self) -> None:
+        script_path = (PROJECT_ROOT / "scripts" / "extract_xueqiu_posts.mjs").as_uri()
+        payload = self.run_node_module_json(
+            f"""
+import {{ buildCaptureRiskPlan }} from {json.dumps(script_path)};
+console.log(JSON.stringify({{
+  below: buildCaptureRiskPlan(14, "auto"),
+  threshold: buildCaptureRiskPlan(15, "auto"),
+  forcedCautious: buildCaptureRiskPlan(1, "cautious"),
+  forcedNormal: buildCaptureRiskPlan(100, "normal")
+}}));
+"""
+        )
+
+        self.assertEqual(payload["below"]["riskLevel"], "normal")
+        self.assertEqual(payload["below"]["detailDelayMinMs"], 0)
+        self.assertEqual(payload["threshold"]["riskLevel"], "high")
+        self.assertEqual(payload["threshold"]["detailDelayMinMs"], 4000)
+        self.assertEqual(payload["threshold"]["detailDelayMaxMs"], 8000)
+        self.assertEqual(payload["threshold"]["batchSize"], 10)
+        self.assertEqual(payload["threshold"]["batchCooldownMinMs"], 30000)
+        self.assertEqual(payload["threshold"]["batchCooldownMaxMs"], 60000)
+        self.assertEqual(payload["forcedCautious"]["riskLevel"], "high")
+        self.assertEqual(payload["forcedNormal"]["riskLevel"], "normal")
+
+    def test_random_delay_stays_inside_configured_interval(self) -> None:
+        script_path = (PROJECT_ROOT / "scripts" / "extract_xueqiu_posts.mjs").as_uri()
+        payload = self.run_node_module_json(
+            f"""
+import {{ chooseRandomDelayMs }} from {json.dumps(script_path)};
+console.log(JSON.stringify({{
+  low: chooseRandomDelayMs(4000, 8000, () => 0),
+  middle: chooseRandomDelayMs(4000, 8000, () => 0.5),
+  high: chooseRandomDelayMs(4000, 8000, () => 0.999999)
+}}));
+"""
+        )
+
+        self.assertEqual(payload["low"], 4000)
+        self.assertEqual(payload["middle"], 6000)
+        self.assertGreaterEqual(payload["high"], 4000)
+        self.assertLessEqual(payload["high"], 8000)
 
     def test_vendor_js_entry_contains_cdp_exports(self) -> None:
         vendor_path = PROJECT_ROOT / "scripts" / "vendor" / "baoyu-chrome-cdp" / "src" / "index.mjs"
