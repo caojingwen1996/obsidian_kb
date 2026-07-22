@@ -1,9 +1,0 @@
-{
-  "schema_version": 1,
-  "target_date": "2026-07-21",
-  "status": "blocked",
-  "count": 0,
-  "workbook": "tools\\bbxm-risk-dashboard\\data\\冰冰小美风险提示.xlsx",
-  "analysis_file": "sources\\automations\\BBXM每日汇总\\2026-07-21\\冰冰小美\\processing\\risk-analysis.json",
-  "message": "analysis_complete=false，禁止更新 Excel"
-}

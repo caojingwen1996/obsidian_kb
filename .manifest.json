@@ -1,9 +1,9 @@
 {
   "version": 1,
   "stats": {
-    "total_sources_ingested": 216,
+    "total_sources_ingested": 217,
     "total_pages": 456,
-    "source_count": 258
+    "source_count": 259
   },
   "sources": {
     "E:/caojingwen/obsidian/llmwiki/sources/articles/2023-06-20-冰冰小美：常见亏钱认知第十期会卖的是师傅，会买的是徒弟.md": {
@@ -5745,7 +5745,246 @@
                               "log.md",
                               ".manifest.json"
                           ]
-    }  },
+    },
+    "E:/caojingwen/obsidian/llmwiki/sources/automations/BBXM每日汇总/铜与西部矿业合集/010_2025-03-12_铜：周期与成长的仓位再平衡.md": {
+      "ingested_at": "2026-07-22T14:42:33+08:00",
+      "size_bytes": 6788,
+      "modified_at": "2026-07-22T10:57:56+08:00",
+      "content_hash": "sha256:bb67e1d0a93fef0eee661e1871012ceac898c5b18c9908f0c29ebcac902db393",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/topics/冰冰小美-减仓案例合集.md",
+        "wiki/topics/冰冰小美-加仓案例合集.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/sources/automations/BBXM每日汇总/铜与西部矿业合集/2025年/007_2025-03-13_铜：产业投资热潮中的价值审视.md": {
+      "ingested_at": "2026-07-22T15:25:22+08:00",
+      "size_bytes": 15672,
+      "modified_at": "2026-07-22T10:57:56+08:00",
+      "content_hash": "sha256:9601eb75016d07f04954b84eca8bfe452c2c1e667fdb7992a1360737081efc65",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/topics/冰冰小美-减仓案例合集.md",
+        "wiki/topics/冰冰小美-加仓案例合集.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/sources/automations/BBXM每日汇总/铜与西部矿业合集/031_2024-07-12_西部矿业仓位调整与交易策略回顾.md": {
+      "ingested_at": "2026-07-22T15:25:22+08:00",
+      "size_bytes": 6920,
+      "modified_at": "2026-07-22T11:35:42+08:00",
+      "content_hash": "sha256:71bec1522cefde5cb017905f24dbb4d1b054dda5ca7d3c79e9987cf3cf1df9f8",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/topics/冰冰小美-减仓案例合集.md",
+        "wiki/topics/冰冰小美-加仓案例合集.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/sources/automations/BBXM每日汇总/铜与西部矿业合集/036_2024-07-05_西部矿业持仓半年的核心审视.md": {
+      "ingested_at": "2026-07-22T15:25:22+08:00",
+      "size_bytes": 8775,
+      "modified_at": "2026-07-22T11:35:42+08:00",
+      "content_hash": "sha256:4c3c9ea864793ebf930daf33774ac6c2df9c967d380d6002f95e3a49ff1bd75f",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/topics/冰冰小美-减仓案例合集.md",
+        "wiki/topics/冰冰小美-加仓案例合集.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/sources/automations/BBXM每日汇总/铜与西部矿业合集/037_2024-07-01_西部矿业油矿资产的稳定力量.md": {
+      "ingested_at": "2026-07-22T15:25:22+08:00",
+      "size_bytes": 5756,
+      "modified_at": "2026-07-22T11:35:42+08:00",
+      "content_hash": "sha256:53f47e15f79feedf2ca0126e540038de2970296a6160ceca86bbdd35863c9940",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/topics/冰冰小美-减仓案例合集.md",
+        "wiki/topics/冰冰小美-加仓案例合集.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/sources/automations/BBXM每日汇总/铜与西部矿业合集/045_2024-05-16_西部矿业：从估值回归到仓位取舍.md": {
+      "ingested_at": "2026-07-22T15:25:22+08:00",
+      "size_bytes": 3694,
+      "modified_at": "2026-07-22T11:35:42+08:00",
+      "content_hash": "sha256:0e190e75f861f5c510568826c5a41c935849467c3d980051b911b81988f110d9",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/topics/冰冰小美-减仓案例合集.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/sources/automations/BBXM每日汇总/铜与西部矿业合集/050_2024-05-14_铜价新高下的估值博弈与坚守.md": {
+      "ingested_at": "2026-07-22T15:25:22+08:00",
+      "size_bytes": 7982,
+      "modified_at": "2026-07-22T11:47:38+08:00",
+      "content_hash": "sha256:3ae6e936a0c67d5743fdac8315b4735d1f73e2be9aec33e5961f7281d95402b8",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/topics/冰冰小美-减仓案例合集.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/sources/automations/BBXM每日汇总/铜与西部矿业合集/064_2024-04-08_铜周期博弈中的敬畏与切换.md": {
+      "ingested_at": "2026-07-22T15:25:22+08:00",
+      "size_bytes": 2875,
+      "modified_at": "2026-07-22T12:00:55+08:00",
+      "content_hash": "sha256:b40b3abf0726ddcb1be99dd1994075b01874f52748538561f6b6158fb247d440",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/topics/冰冰小美-减仓案例合集.md",
+        "wiki/topics/冰冰小美-加仓案例合集.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/sources/automations/BBXM每日汇总/铜与西部矿业合集/066_2024-04-08_西部矿业锁仓背后的逻辑坚守.md": {
+      "ingested_at": "2026-07-22T15:25:22+08:00",
+      "size_bytes": 3004,
+      "modified_at": "2026-07-22T12:00:55+08:00",
+      "content_hash": "sha256:42cc3ee8404ff0b0c09410d1699bb1f2bfc3c3d3cfe6c98cafc986135414c370",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/topics/冰冰小美-减仓案例合集.md",
+        "wiki/topics/冰冰小美-加仓案例合集.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/sources/automations/BBXM每日汇总/铜与西部矿业合集/034_2024-07-09_西部矿业：从认知到财富的周期穿越.md": {
+      "ingested_at": "2026-07-22T16:00:00+08:00",
+      "size_bytes": 5247,
+      "modified_at": "2026-07-22T11:35:42+08:00",
+      "content_hash": "sha256:590ee140e5b6c36bb1e81259ccaef408645fa63d6be773ec3cfbc6e9acf271ed",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/topics/冰冰小美-加仓案例合集.md",
+        "index.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/sources/automations/BBXM每日汇总/铜与西部矿业合集/038_2024-06-28_西部矿业估值锚定后的横盘观察.md": {
+      "ingested_at": "2026-07-22T16:00:00+08:00",
+      "size_bytes": 9304,
+      "modified_at": "2026-07-22T11:35:42+08:00",
+      "content_hash": "sha256:a9a8d63ef648adb134a5ff97cd3f3421a29106ca60c1204006ff3cc38b5185b5",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/topics/冰冰小美-加仓案例合集.md",
+        "index.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/sources/automations/BBXM每日汇总/铜与西部矿业合集/039_2024-06-21_铜的周线逻辑与持仓策略验证.md": {
+      "ingested_at": "2026-07-22T16:00:00+08:00",
+      "size_bytes": 7218,
+      "modified_at": "2026-07-22T11:35:42+08:00",
+      "content_hash": "sha256:1f4688a741149276d35f65eb618354cb7dfe730620671c8dda2e34d6baba8953",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/topics/冰冰小美-加仓案例合集.md",
+        "index.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/sources/automations/BBXM每日汇总/铜与西部矿业合集/047_2024-05-15_铜：避险逻辑下的博弈与坚守.md": {
+      "ingested_at": "2026-07-22T16:00:00+08:00",
+      "size_bytes": 3688,
+      "modified_at": "2026-07-22T11:47:38+08:00",
+      "content_hash": "sha256:0e2577844c5e1bc680f0cf55403bf78429efa37b81cb0e07f7a2625eb33de608",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/topics/冰冰小美-加仓案例合集.md",
+        "index.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/sources/automations/BBXM每日汇总/铜与西部矿业合集/051_2024-05-13_铜：新估值体系下的稀缺锚点.md": {
+      "ingested_at": "2026-07-22T16:00:00+08:00",
+      "size_bytes": 13041,
+      "modified_at": "2026-07-22T11:47:38+08:00",
+      "content_hash": "sha256:e325e307354b70cea39a9939dc296e4203aca9fc4d68360c092615fe8a0803cf",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/topics/冰冰小美-加仓案例合集.md",
+        "index.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "E:/caojingwen/obsidian/llmwiki/sources/automations/BBXM每日汇总/铜与西部矿业合集/074_2024-03-29_西部矿业周线交易逻辑再确认.md": {
+      "ingested_at": "2026-07-22T16:00:00+08:00",
+      "size_bytes": 4670,
+      "modified_at": "2026-07-22T12:51:10+08:00",
+      "content_hash": "sha256:879c63a50dee4df754701e9b74e8d8be9c0f97ad09af0ae7c8b1b15209eb0950",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/topics/冰冰小美-加仓案例合集.md",
+        "index.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    }
+  },
   "research": [
     {
       "type": "research",
@@ -5804,5 +6043,5 @@
       ]
     }
   ],
-  "updated_at": "2026-07-15T16:00:00+08:00"
+  "updated_at": "2026-07-22T16:00:00+08:00"
 }

@@ -1,0 +1,143 @@
+{
+  "targets": {
+    "东材科技": {
+      "code": "601208",
+      "yfinance_symbol": "601208.SS",
+      "market": "a_share",
+      "display_name": "东材科技"
+    },
+    "西部矿业": {
+      "code": "601168",
+      "yfinance_symbol": "601168.SS",
+      "market": "a_share",
+      "display_name": "西部矿业"
+    },
+    "江淮汽车": {
+      "code": "600418",
+      "yfinance_symbol": "600418.SS",
+      "market": "a_share",
+      "display_name": "江淮汽车"
+    },
+    "科创芯片 ETF": {
+      "code": "588200",
+      "yfinance_symbol": "588200.SS",
+      "market": "etf",
+      "display_name": "科创芯片 ETF",
+      "note": "默认映射为 588200；如原帖对应其他产品，请在此修改。"
+    },
+    "中韩半导体 ETF": {
+      "code": "513310",
+      "yfinance_symbol": "513310.SS",
+      "market": "etf",
+      "display_name": "中韩半导体 ETF"
+    },
+    "中芯国际 H": {
+      "code": "00981",
+      "yfinance_symbol": "0981.HK",
+      "market": "hk",
+      "display_name": "中芯国际 H"
+    },
+    "比亚迪": {
+      "code": "002594",
+      "yfinance_symbol": "002594.SZ",
+      "market": "a_share",
+      "display_name": "比亚迪 A"
+    },
+    "小米": {
+      "code": "01810",
+      "yfinance_symbol": "1810.HK",
+      "market": "hk",
+      "display_name": "小米集团-W"
+    },
+    "中国石油": {
+      "code": "601857",
+      "yfinance_symbol": "601857.SS",
+      "market": "a_share",
+      "display_name": "中国石油"
+    },
+    "中国海油": {
+      "code": "600938",
+      "yfinance_symbol": "600938.SS",
+      "market": "a_share",
+      "display_name": "中国海油"
+    },
+    "柳工": {
+      "code": "000528",
+      "yfinance_symbol": "000528.SZ",
+      "market": "a_share",
+      "display_name": "柳工"
+    },
+    "中国中车": {
+      "code": "601766",
+      "yfinance_symbol": "601766.SS",
+      "market": "a_share",
+      "display_name": "中国中车"
+    },
+    "中国电信": {
+      "code": "601728",
+      "yfinance_symbol": "601728.SS",
+      "market": "a_share",
+      "display_name": "中国电信"
+    },
+    "中国移动": {
+      "code": "600941",
+      "yfinance_symbol": "600941.SS",
+      "market": "a_share",
+      "display_name": "中国移动"
+    },
+    "中远海控": {
+      "code": "601919",
+      "yfinance_symbol": "601919.SS",
+      "market": "a_share",
+      "display_name": "中远海控"
+    },
+    "我爱我家": {
+      "code": "000560",
+      "yfinance_symbol": "000560.SZ",
+      "market": "a_share",
+      "display_name": "我爱我家"
+    },
+    "北方铜业": {
+      "code": "000737",
+      "yfinance_symbol": "000737.SZ",
+      "market": "a_share",
+      "display_name": "北方铜业"
+    },
+    "中科磁业": {
+      "code": "301141",
+      "yfinance_symbol": "301141.SZ",
+      "market": "a_share",
+      "display_name": "中科磁业"
+    },
+    "新洁能": {
+      "code": "605111",
+      "yfinance_symbol": "605111.SS",
+      "market": "a_share",
+      "display_name": "新洁能"
+    },
+    "天齐锂业": {
+      "code": "002466",
+      "yfinance_symbol": "002466.SZ",
+      "market": "a_share",
+      "display_name": "天齐锂业"
+    },
+    "芒果超媒": {
+      "code": "300413",
+      "yfinance_symbol": "300413.SZ",
+      "market": "a_share",
+      "display_name": "芒果超媒"
+    },
+    "赛力斯": {
+      "code": "601127",
+      "yfinance_symbol": "601127.SS",
+      "market": "a_share",
+      "display_name": "赛力斯"
+    },
+    "软通动力": {
+      "code": "301236",
+      "yfinance_symbol": "301236.SZ",
+      "market": "a_share",
+      "display_name": "软通动力"
+    }
+  }
+}
