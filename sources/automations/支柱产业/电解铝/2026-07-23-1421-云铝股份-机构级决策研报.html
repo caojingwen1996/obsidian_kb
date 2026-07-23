@@ -68,6 +68,11 @@ body {
 .tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
 .tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
 .tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
+.tracking-card[data-tracking-key="dynamic-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
+.range-breakdown { display: block; }
+.range-main { display: inline-flex; align-items: center; max-width: 100%; margin-bottom: 10px; padding: 3px 9px; border-radius: 999px; background: #e7f0f3; color: var(--navy); font-size: 20px; line-height: 1.3; font-weight: 800; }
+.range-points { display: grid; gap: 7px; margin-top: 1px; }
+.range-point { display: block; padding-left: 11px; border-left: 3px solid #bed2d8; color: #245068; font-size: 14px; line-height: 1.52; font-weight: 650; }
 .tracking-value.bad { color: var(--danger); }
 .tracking-detail { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; }
 .tracking-status { display: inline-flex; margin-top: 10px; padding: 3px 8px; border-radius: 999px; color: #526b77; background: #edf2f4; font-size: 12px; font-weight: 700; }
@@ -140,7 +145,7 @@ body {
   </div>
   <div class="tracking-grid">
     <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">持平</p><p class="tracking-detail">风险方向：风险持平。下一验证点与失效条件见第 11—13 章。</p></div>
-    <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value">20—28 元，中枢约 23 元</p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
+    <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value"><span class="range-breakdown"><span class="range-main">20—28 元</span><span class="range-points"><span class="range-point">20 元附近=正常化利润与周期折价下的保守价值</span><span class="range-point">23 元附近=高铝价 / 低氧化铝成本下的合理中枢</span><span class="range-point">28 元附近=已含供给上限、绿电和权益产能溢价</span><span class="range-point">28 元以上需半年报 / 三季报证明高利润与 75 亿元以上正常化 FCF 可持续</span></span></span></p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
     <div class="tracking-card" data-tracking-key="price-deviation"><p class="tracking-label">股价偏离度</p><p class="tracking-value" id="deviation-value">位于动态价值区间内</p><p class="tracking-detail" id="deviation-detail">每日同步价 25.58 元；相对区间中枢 24.00 元为 +6.6%，相对下沿为 +27.9%，相对上沿为 -8.6%。价格不改变价值区间本身。</p></div>
   </div>
   <div class="tracking-grid">
@@ -153,6 +158,7 @@ body {
 <!-- DAILY_TRACKING_END -->
 <h2 id="section-1">1. 决策摘要</h2>
 
+<h3>1.1 基本面组</h3>
 <table>
 <thead>
 <tr>
@@ -165,6 +171,35 @@ body {
 <td><strong>合理偏贵</strong></td>
 </tr>
 <tr>
+<td>综合估值区间</td>
+<td><strong>20—28 元</strong>；20 元附近=正常化利润与周期折价下的保守价值，23 元附近=高铝价 / 低氧化铝成本下的合理中枢，28 元附近=已含供给上限、绿电和权益产能溢价，28 元以上需半年报 / 三季报证明高利润与 75 亿元以上正常化 FCF 可持续</td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>相对下沿 +27.9%；相对上沿 -8.6%；相对中枢 +11.2%</td>
+</tr>
+<tr>
+<td>基本面状态</td>
+<td>持平</td>
+</tr>
+<tr>
+<td>关键经营变化</td>
+<td>2026H1 盈利创高位，受益于铝价、氧化铝成本下降和绿电成本优势；但当前价格已兑现高铝价、低氧化铝成本和供给上限预期，需半年报 / 三季报证明高利润与正常化 FCF 可持续</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h3>1.2 资金面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
 <td>操作建议</td>
 <td><strong>观望，不追业绩预告后的上涨</strong></td>
 </tr>
@@ -175,22 +210,6 @@ body {
 <tr>
 <td>当前价格及时间</td>
 <td>25.58 元，2026-07-22 收盘</td>
-</tr>
-<tr>
-<td>综合估值区间</td>
-<td><strong>20—28 元</strong>，中枢约 23 元</td>
-</tr>
-<tr>
-<td>相对现价空间</td>
-<td>相对下沿 +27.9%；相对上沿 -8.6%；相对中枢 +11.2%</td>
-</tr>
-<tr>
-<td>结论置信度</td>
-<td>中</td>
-</tr>
-<tr>
-<td>基本面状态</td>
-<td>持平</td>
 </tr>
 <tr>
 <td>资金状态</td>

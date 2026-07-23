@@ -1,0 +1,1664 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>西部矿业机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+.daily-tracking { margin: 0 0 42px; padding: 22px; border: 1px solid #cbdade; border-radius: 16px; background: linear-gradient(135deg, #f3f8f9 0%, #fffaf0 100%); box-shadow: 0 12px 30px rgba(23, 50, 71, .07); }
+.daily-tracking-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
+.daily-tracking-kicker { margin: 0 0 4px; color: var(--teal); font-size: 12px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+.daily-tracking h2 { margin: 0; padding: 0; border: 0; font-size: 27px; }
+.daily-tracking-time { margin: 4px 0 0; color: var(--muted); font-size: 12px; text-align: right; }
+.tracking-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.tracking-grid + .tracking-grid { margin-top: 12px; }
+.tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
+.tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
+.tracking-card[data-tracking-key="dynamic-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
+.range-breakdown { display: block; }
+.range-main { display: inline-flex; align-items: center; max-width: 100%; margin-bottom: 10px; padding: 3px 9px; border-radius: 999px; background: #e7f0f3; color: var(--navy); font-size: 20px; line-height: 1.3; font-weight: 800; }
+.range-points { display: grid; gap: 7px; margin-top: 1px; }
+.range-point { display: block; padding-left: 11px; border-left: 3px solid #bed2d8; color: #245068; font-size: 14px; line-height: 1.52; font-weight: 650; }
+.tracking-value.bad { color: var(--danger); }
+.tracking-detail { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; }
+.tracking-status { display: inline-flex; margin-top: 10px; padding: 3px 8px; border-radius: 999px; color: #526b77; background: #edf2f4; font-size: 12px; font-weight: 700; }
+.tracking-status.live { color: #17604e; background: #dff3eb; }
+.tracking-status.error { color: var(--danger); background: var(--danger-bg); }
+.tracking-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; margin-top: 14px; padding-top: 13px; border-top: 1px solid #d5e0e3; color: #536d78; font-size: 13px; }
+.tracking-footer a { font-weight: 700; }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+  .tracking-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+  .daily-tracking-head { display: block; }
+  .daily-tracking-time { text-align: left; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .daily-tracking, .tracking-card { border: 1px solid #aebbc2; color: #102f43; background: #fff; box-shadow: none; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · 601168.SH</p>
+      <h1>西部矿业机构级决策研报</h1>
+      <div class="hero-meta"><span>2026-07-23 17:26（Asia/Shanghai）</span><span>2026-07-23 17:26（Asia/Shanghai）</span><span>上海证券交易所 / 人民币</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
+<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
+<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
+<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
+<a class="toc-link" href="#section-6">6. 五年财务历史</a>
+<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
+<a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
+<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
+<a class="toc-link" href="#section-10">10. 估值</a>
+<a class="toc-link" href="#section-11">11. 冰冰小美框架判断</a>
+<a class="toc-link" href="#section-12">12. 最终结论</a>
+<a class="toc-link" href="#section-13">13. 后续监控指标</a>
+<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
+<a class="toc-link" href="#section-15">15. 来源清单</a>
+<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
+      <article class="content"><blockquote>
+<p>证券代码：601168.SH<br>交易所 / 币种：上海证券交易所 / 人民币<br>研究截止时间：2026-07-23 17:26（Asia/Shanghai）<br>报告生成时间：2026-07-23 17:26（Asia/Shanghai）<br>数据口径：公开公告、行情网页、第三方估值、库内铜产业报告；行情采用可核验的 2026-07-22 收盘价 36.50 元，2026-07-23 实时价未获取到。  </p>
+</blockquote>
+<!-- DAILY_TRACKING_START -->
+<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-07-23 17:26（Asia/Shanghai，收盘后资料复核）" data-value-low="30" data-value-high="38">
+  <div class="daily-tracking-head">
+    <div><p class="daily-tracking-kicker">Daily decision tracker</p><h2>每日跟踪面板</h2></div>
+    <p class="daily-tracking-time">更新：2026-07-23 17:26（Asia/Shanghai，收盘后资料复核）<br>下次：收盘后 / 重大公告后</p>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">改善</p><p class="tracking-detail">风险方向：风险增强。下一验证点与失效条件见第 11—13 章。</p></div>
+    <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value"><span class="range-breakdown"><span class="range-main">30—38 元 / 股</span><span class="range-points"><span class="range-point">30 元附近=证券之星相对估值与正常化利润支撑的保守资源股价值</span><span class="range-point">34 元附近=铜矿资源、现金流和地方国企属性的合理中枢</span><span class="range-point">38 元附近=已计入 Q1 高景气、铜价上行和玉龙三期投产预期</span><span class="range-point">38 元以上需要铜价高位维持、2026H1 利润兑现或玉龙三期进度超预期支撑</span></span></span></p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
+    <div class="tracking-card" data-tracking-key="price-deviation"><p class="tracking-label">股价偏离度</p><p class="tracking-value" id="deviation-value">位于动态价值区间内</p><p class="tracking-detail" id="deviation-detail">每日同步价 36.50 元；相对区间中枢 34.00 元为 +7.4%，相对下沿为 +21.7%，相对上沿为 -3.9%。价格不改变价值区间本身。</p></div>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="daily-quote"><p class="tracking-label">每日同步价</p><p class="tracking-value">36.50 元（2026-07-22 收盘；2026-07-23 实时价未获取到）</p><p class="tracking-detail">这是报告内嵌的正式跟踪基准，离线打开仍可使用。</p><span class="tracking-status">每日快照</span></div>
+    <div class="tracking-card" data-tracking-key="intraday-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">等待连接</p><p class="tracking-detail" id="intraday-detail">通过“大盘启动器”打开后获取盘中行情，每 60 秒刷新；直接打开 HTML 时不访问外部行情。</p><span class="tracking-status" id="intraday-status">未连接</span></div>
+    <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">wait / review</p><p class="tracking-detail">估值：合理偏高 · wait / review；风险：风险增强；结论置信度：中。</p><span class="tracking-status">合理偏高</span></div>
+  </div>
+  <div class="tracking-footer"><span>资金状态：<strong>短线流入但拥挤</strong> · 新增/已有动作：<strong>wait / review</strong></span><span>资金面分析：未单独生成</span></div>
+</section>
+<!-- DAILY_TRACKING_END -->
+<h2 id="section-1">1. 决策摘要</h2>
+
+<h3>1.1 基本面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值状态</td>
+<td>合理偏高</td>
+</tr>
+<tr>
+<td>综合估值区间</td>
+<td>30—38 元 / 股；30 元附近=证券之星相对估值与正常化利润支撑的保守资源股价值，34 元附近=铜矿资源、现金流和地方国企属性的合理中枢，38 元附近=已计入 Q1 高景气、铜价上行和玉龙三期投产预期，38 元以上需要铜价高位维持、2026H1 利润兑现或玉龙三期进度超预期支撑</td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>以 36.50 元计算，相对区间下沿 -17.8%，相对中枢约 -6.8%，相对上沿 +4.1%；当前位置接近上沿，不是舒适买点</td>
+</tr>
+<tr>
+<td>基本面状态</td>
+<td>改善</td>
+</tr>
+<tr>
+<td>关键经营变化</td>
+<td>2026Q1 营收 187.24 亿元、归母净利润 15.86 亿元、扣非净利润 16.07 亿元，利润同比接近翻倍；2025 年铜类收入 432.40 亿元、占主营收入 70.10%，玉龙铜矿三期预计 2027 年初投产</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h3>1.2 资金面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>操作建议</td>
+<td>观望</td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td>wait / review</td>
+</tr>
+<tr>
+<td>当前价格及时间</td>
+<td>36.50 元（2026-07-22 收盘；2026-07-23 实时价未获取到）</td>
+</tr>
+<tr>
+<td>资金状态</td>
+<td>短线流入但拥挤</td>
+</tr>
+<tr>
+<td>风险方向</td>
+<td>风险增强</td>
+</tr>
+<tr>
+<td>每日跟踪时间</td>
+<td>2026-07-23 17:26（Asia/Shanghai，收盘后资料复核）</td>
+</tr>
+<tr>
+<td>资金面分析链接</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<h3>如果今天这是一笔现金，我会买它吗</h3>
+<ul>
+<li>回答：不会。</li>
+<li>我的判断：西部矿业是铜资源逻辑里质量较好的承载标的，基本面正在改善；但 36.50 元已经明显高于证券之星 29.87—33.01 元相对估值区间，并接近本报告 30—38 元综合区间上沿。这个位置买入，赚的是铜价继续高位、利润继续上修和情绪继续扩张的钱，安全边际不足。</li>
+<li>改变结论的条件：股价回到 30—34 元且铜价 / 库存 / Q2 利润没有证伪；或 2026H1 利润、玉龙三期进度、现金流共同上修，使综合估值区间上移到 36.50 元上方。</li>
+</ul>
+<h2 id="section-2">2. 证券身份与来源矩阵</h2>
+
+<h3>2.1 证券身份</h3>
+<ul>
+<li>公司全称：西部矿业股份有限公司。</li>
+<li>证券代码：601168.SH。</li>
+<li>上市地：上海证券交易所主板。</li>
+<li>报告准则：中国企业会计准则。</li>
+<li>法定披露体系：A股交易所与巨潮资讯 / 上交所公告体系。</li>
+<li>同名或跨市场歧义：无；本报告只分析 A 股 601168.SH。</li>
+</ul>
+<h3>2.2 来源矩阵</h3>
+<table>
+<thead>
+<tr>
+<th>数据项目</th>
+<th>目标来源</th>
+<th>实际来源</th>
+<th>数据时间</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>实时价格、52周高低、今年以来表现</td>
+<td>交易所 / 东方财富 / 新浪 / Yahoo / Investing</td>
+<td>Yahoo、Investing、准上市</td>
+<td>2026-07-22 收盘</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>第三方公允价值、护城河、星级</td>
+<td>Morningstar / 证券之星</td>
+<td>证券之星估值指针</td>
+<td>2026-07-19</td>
+<td>部分获取</td>
+</tr>
+<tr>
+<td>最新季报与管理层指引</td>
+<td>公司公告</td>
+<td>新浪财经公告页《2026年第一季度报告》</td>
+<td>2026-04-29</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>分部收入</td>
+<td>公司年报</td>
+<td>新浪财经公告页《2025年年度报告》</td>
+<td>2026-03-26</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>卖方评级与目标价</td>
+<td>券商研报聚合</td>
+<td>国投证券、公开研报摘要</td>
+<td>2026-03—04</td>
+<td>部分获取</td>
+</tr>
+<tr>
+<td>近三个月新闻与催化剂</td>
+<td>公告、新闻、龙虎榜</td>
+<td>新浪财经、SMM、经济观察网、准上市</td>
+<td>2026-02—07</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>五年财务历史</td>
+<td>公司年报 / 新浪财务</td>
+<td>新浪财经年报摘要、现金流量表、公告图表</td>
+<td>2021—2025</td>
+<td>已获取</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 行情与市场预期</h2>
+
+<h3>3.1 行情快照（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">数值</th>
+<th>来源</th>
+<th>时间 / 口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前价格</td>
+<td align="right">36.50 元</td>
+<td>Yahoo / Investing / 准上市</td>
+<td>2026-07-22 收盘</td>
+</tr>
+<tr>
+<td>52周最高</td>
+<td align="right">41.28 元</td>
+<td>Yahoo / Investing</td>
+<td>2026-07-22</td>
+</tr>
+<tr>
+<td>52周最低</td>
+<td align="right">16.62 元</td>
+<td>Yahoo</td>
+<td>2026-07-22</td>
+</tr>
+<tr>
+<td>今年以来表现</td>
+<td align="right">未获取到精确值</td>
+<td>未获取到</td>
+<td>待补</td>
+</tr>
+<tr>
+<td>总市值</td>
+<td align="right">869.80 亿元</td>
+<td>准上市</td>
+<td>2026-07-22</td>
+</tr>
+<tr>
+<td>PE / PB / EV</td>
+<td align="right">滚动 PE 约 19.67，PB 约 4.36</td>
+<td>准上市</td>
+<td>2026-07-22</td>
+</tr>
+</tbody></table>
+<h3>3.2 第三方公允价值与评级（事实）</h3>
+<ul>
+<li>公允价值：证券之星相对估值 29.87—33.01 元。</li>
+<li>护城河评级：证券之星文字口径为行业内竞争力护城河优秀。</li>
+<li>星级：Morningstar 星级未获取到。</li>
+<li>来源与时间：证券之星估值指针，数据更新日期 2026-07-19。</li>
+<li>未获取到的字段及已检查来源：Morningstar 原始公平价值、星级、护城河字段未取得可核验页面；本报告不把证券之星替代为 Morningstar。</li>
+</ul>
+<h3>3.3 卖方评级与目标价分布（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>机构</th>
+<th>日期</th>
+<th>评级</th>
+<th align="right">目标价</th>
+<th>预测期</th>
+<th>关键假设</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>国投证券</td>
+<td>2026-04-01</td>
+<td>公开摘要未显示完整评级</td>
+<td align="right">未获取到</td>
+<td>2026—2028</td>
+<td>铜经营业绩创新高，内增外延增量可期</td>
+</tr>
+<tr>
+<td>其他卖方</td>
+<td>2026Q2</td>
+<td>未完整获取</td>
+<td align="right">未获取到</td>
+<td>未获取到</td>
+<td>多数围绕铜价、矿产铜、冶炼改善和玉龙三期</td>
+</tr>
+</tbody></table>
+<ul>
+<li>目标价区间 / 中位数：未获取到。</li>
+<li>样本数量与完整性：不完整，仅作为市场关注点参考，不作为估值主依据。</li>
+<li>来源冲突及采信理由：完整目标价缺失，优先采信公司公告、证券之星相对估值和自身估值模型。</li>
+</ul>
+<h2 id="section-4">4. 商业模式与竞争格局</h2>
+
+<h3>4.1 事实</h3>
+<ul>
+<li>收入来源：铜、铅、锌、铁、钼、金、银等产品的采选、冶炼与贸易。2025 年铜类产品收入 432.40 亿元，占主营收入 70.10%。</li>
+<li>客户与定价权：产品价格高度联动金属现货 / 期货价格；公司自身定价权主要来自矿山资源、成本和产量，而非终端品牌定价。</li>
+<li>成本结构：矿山采选具备资源成本优势；冶炼与贸易更受加工费、原料采购和金属价格波动影响。</li>
+<li>资本强度：高。玉龙铜矿三期、资源获取和绿色矿山建设都需要持续资本开支。</li>
+<li>竞争者：紫金矿业、洛阳钼业、江西铜业、云南铜业、铜陵有色、北方铜业等。</li>
+<li>监管约束：矿权、安全、环保、地方国资、资源税费、资本开支审批。</li>
+</ul>
+<h4>多产业位置景气度排序（事实与判断分列）</h4>
+<table>
+<thead>
+<tr>
+<th align="right">排名</th>
+<th>产业位置</th>
+<th>位置识别依据（事实）</th>
+<th>公司业务 / 资产暴露（事实）</th>
+<th>当前景气度</th>
+<th>趋势</th>
+<th>景气证据与时间</th>
+<th>财务传导</th>
+<th>验证指标 / 失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">1</td>
+<td>铜矿采选 / 权益铜矿</td>
+<td>铜类收入 70.10%，矿产铜 16.75 万吨</td>
+<td>玉龙铜矿、获各琦铜矿等</td>
+<td>高</td>
+<td>上行</td>
+<td>铜产业报告判断矿端景气扩张；2026Q1 利润高增</td>
+<td>铜价与矿产量直接传导毛利和净利</td>
+<td>铜价、TC、矿产铜产量、玉龙三期进度</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td>铅锌矿采选与冶炼</td>
+<td>2025 年锌类收入 38.25 亿元、铅类收入 23.70 亿元</td>
+<td>铅锌矿与冶炼产能</td>
+<td>较高</td>
+<td>持平偏上</td>
+<td>锌毛利率 28.95%，铅收入高增但毛利率下滑</td>
+<td>对利润有贡献但不主导估值</td>
+<td>铅锌价格、加工费、库存</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td>钼、铁、金银副产品</td>
+<td>矿产钼毛利率 90.22%，铁类毛利率 31.96%</td>
+<td>副产品和铁精粉</td>
+<td>中</td>
+<td>持平</td>
+<td>钼、铁贡献利润弹性但收入占比较低</td>
+<td>辅助利润与估值弹性</td>
+<td>单项价格大幅回落</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td>冶炼与贸易</td>
+<td>铜、铅锌冶炼和金属贸易</td>
+<td>青海铜业等</td>
+<td>中</td>
+<td>分化</td>
+<td>冶炼铜产量 33.42 万吨，同比增长 27%</td>
+<td>扩大收入但利润率受加工费影响</td>
+<td>TC 回升 / 原料成本 / 冶炼利润</td>
+</tr>
+</tbody></table>
+<ul>
+<li>位置间交叉与去重说明：铜类产品同时包含矿产与冶炼收入，不能把铜收入全部视为矿端利润。</li>
+<li>排名第一的位置能否进入公司利润和现金流：可以。2026Q1 净利润和现金流已经体现铜价与资源景气弹性。</li>
+<li>弱关联 / 待验证位置：锂矿、钒电池、新材料等概念不作为本报告主估值因子。</li>
+</ul>
+<h3>4.2 我的判断</h3>
+<ul>
+<li>我的判断：竞争优势在于国内优质铜矿资源、地方国资背景、玉龙铜矿扩产和多金属副产品组合，能承接“资源安全 + 铜矿利润池”的长期逻辑。</li>
+<li>我的判断：商业模式最脆弱的环节是周期属性和资本开支。铜价、金属库存、美元流动性和项目进度会同时影响利润与估值。</li>
+<li>证伪条件：铜价回落并伴随库存持续累积、TC 快速回升、玉龙三期延期或资本开支超支、Q2 / H1 利润明显低于 Q1 外推。</li>
+</ul>
+<h2 id="section-5">5. 分部收入与盈利拆解</h2>
+
+<table>
+<thead>
+<tr>
+<th>分部</th>
+<th align="right">收入</th>
+<th align="right">同比</th>
+<th align="right">收入占比</th>
+<th align="right">毛利率</th>
+<th align="right">毛利率变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>铜类产品</td>
+<td align="right">432.40 亿元</td>
+<td align="right">+13.05%</td>
+<td align="right">70.10%</td>
+<td align="right">16.89%</td>
+<td align="right">-0.55pct</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>锌类产品</td>
+<td align="right">38.25 亿元</td>
+<td align="right">+24.55%</td>
+<td align="right">6.20%</td>
+<td align="right">28.95%</td>
+<td align="right">+7.28pct</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>金锭</td>
+<td align="right">38.47 亿元</td>
+<td align="right">+2319.98%</td>
+<td align="right">6.24%</td>
+<td align="right">5.27%</td>
+<td align="right">-6.02pct</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>铅类产品</td>
+<td align="right">23.70 亿元</td>
+<td align="right">+146.48%</td>
+<td align="right">3.84%</td>
+<td align="right">28.34%</td>
+<td align="right">-43.35pct</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>银锭</td>
+<td align="right">19.61 亿元</td>
+<td align="right">+949.61%</td>
+<td align="right">3.18%</td>
+<td align="right">9.51%</td>
+<td align="right">+7.28pct</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>矿产钼</td>
+<td align="right">13.34 亿元</td>
+<td align="right">+9.39%</td>
+<td align="right">2.16%</td>
+<td align="right">90.22%</td>
+<td align="right">+1.88pct</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>铁类产品</td>
+<td align="right">9.84 亿元</td>
+<td align="right">-4.07%</td>
+<td align="right">1.60%</td>
+<td align="right">31.96%</td>
+<td align="right">+2.65pct</td>
+<td>2025 年报</td>
+</tr>
+</tbody></table>
+<ul>
+<li>披露口径变化：产品口径中铜类同时包含采选、冶炼及相关产品，矿端利润需要结合产量和毛利拆解。</li>
+<li>来源冲突：新浪新闻口径和年报口径基本一致；以年报数据为准。</li>
+<li>采信理由：公司年报为法定披露来源。</li>
+<li>我的判断：增长质量较高但周期弹性强。铜类收入占比过高意味着估值核心不是“综合有色集团”，而是“铜价 + 铜矿产量 + 资源估值”。</li>
+</ul>
+<h2 id="section-6">6. 五年财务历史</h2>
+
+<table>
+<thead>
+<tr>
+<th>财年</th>
+<th align="right">营收</th>
+<th align="right">毛利率</th>
+<th align="right">经营现金流</th>
+<th align="right">资本开支</th>
+<th align="right">自由现金流</th>
+<th align="right">ROIC / 代理值</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td align="right">385.00 亿元</td>
+<td align="right">21.03%</td>
+<td align="right">79.53 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">ROE 22.06%</td>
+<td>年报摘要 / 第三方财务</td>
+</tr>
+<tr>
+<td>2022</td>
+<td align="right">402.38 亿元</td>
+<td align="right">19.40%</td>
+<td align="right">102.97 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">ROE 21.34%</td>
+<td>年报摘要 / 第三方财务</td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">427.48 亿元</td>
+<td align="right">18.04%</td>
+<td align="right">62.39 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">ROE 18.27%</td>
+<td>年报摘要 / 第三方财务</td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">500.26 亿元</td>
+<td align="right">19.90%</td>
+<td align="right">82.46 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">ROE 17.15%</td>
+<td>年报摘要 / 第三方财务</td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">616.87 亿元</td>
+<td align="right">19.57%</td>
+<td align="right">102.11 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">ROE 19.75%</td>
+<td>2025 年报</td>
+</tr>
+</tbody></table>
+<ul>
+<li>自由现金流口径：资本开支未完整获取，本报告不强行计算自由现金流。</li>
+<li>ROIC 口径：未获取到完整投入资本口径，以 ROE 和经营现金流作为资本回报代理。</li>
+<li>一次性项目和会计变化：2025Q4 存在资产减值影响；需关注是否重复发生。</li>
+<li>我的判断：营收和经营现金流趋势向上，2023 年低点后恢复；但高资本开支和周期品价格会让自由现金流和分红弹性不稳定。</li>
+</ul>
+<h2 id="section-7">7. 最新季度与管理层指引</h2>
+
+<h3>7.1 最新季度（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">本期</th>
+<th align="right">同比 / 变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营收</td>
+<td align="right">187.24 亿元</td>
+<td align="right">+13.19%</td>
+<td>2026Q1 报告</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">未获取到季报精确值</td>
+<td align="right">未获取到</td>
+<td>待补</td>
+</tr>
+<tr>
+<td>净利润</td>
+<td align="right">15.86 亿元</td>
+<td align="right">+96.34%</td>
+<td>2026Q1 报告</td>
+</tr>
+<tr>
+<td>调整后利润</td>
+<td align="right">扣非净利润 16.07 亿元</td>
+<td align="right">+105.82%</td>
+<td>2026Q1 报告</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">41.03 亿元</td>
+<td align="right">+56.90%</td>
+<td>2026Q1 报告</td>
+</tr>
+<tr>
+<td>订单 / 储备</td>
+<td align="right">不适用</td>
+<td align="right">矿业公司以产量和项目进度为主</td>
+<td>公告 / 调研</td>
+</tr>
+</tbody></table>
+<h3>7.2 管理层指引（事实）</h3>
+<ul>
+<li>正式量化指引：2026Q1 报告未披露完整年度利润指引。</li>
+<li>定性展望：玉龙铜矿三期按计划推进，预计 2026 年底完成基建、2027 年初投产；投产后矿石年处理能力提升至 3000 万吨。</li>
+<li>未获取到：2026 年全年产量、利润、资本开支完整指引。</li>
+</ul>
+<h3>7.3 我的判断</h3>
+<ul>
+<li>我的判断：边际变化明显改善，Q1 的利润和现金流强于 2025 年平均水平。</li>
+<li>我的判断：指引可信度中等。玉龙三期是可验证项目，但矿山投产、爬坡和资本开支具有延期与成本超支风险。</li>
+<li>下一验证节点：2026 年中报、玉龙三期基建进度、矿产铜产量、经营现金流和资本开支。</li>
+</ul>
+<h2 id="section-8">8. 近三个月新闻与催化剂</h2>
+
+<table>
+<thead>
+<tr>
+<th>发生日</th>
+<th>事件</th>
+<th>影响变量</th>
+<th>财务传导</th>
+<th>是否已反映</th>
+<th>验证节点</th>
+<th>失效条件</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-04-29</td>
+<td>发布 2026Q1，归母净利润同比 +96.34%</td>
+<td>盈利上修</td>
+<td>提升 EPS 和估值中枢</td>
+<td>部分反映</td>
+<td>2026H1</td>
+<td>Q2 利润回落过快</td>
+<td>公司季报</td>
+</tr>
+<tr>
+<td>2026-06-23</td>
+<td>股价跌停登龙虎榜，总净买 -4.33 亿元</td>
+<td>情绪与筹码</td>
+<td>短期波动加大</td>
+<td>已反映</td>
+<td>后续量价修复</td>
+<td>机构 / 北向持续流出</td>
+<td>新浪财经</td>
+</tr>
+<tr>
+<td>2026-07-21—22</td>
+<td>股价连续放量上涨，7月22日收 36.50 元</td>
+<td>情绪扩张</td>
+<td>估值接近上沿</td>
+<td>已反映</td>
+<td>7月23日后走势</td>
+<td>高位放量滞涨</td>
+<td>Yahoo / 准上市</td>
+</tr>
+<tr>
+<td>2026 年内</td>
+<td>玉龙铜矿三期推进</td>
+<td>中期产量</td>
+<td>2027 年后矿产铜增量</td>
+<td>部分预期</td>
+<td>2026 年底基建</td>
+<td>延期 / 投产不达预期</td>
+<td>调研记录 / SMM</td>
+</tr>
+</tbody></table>
+<h2 id="section-9">9. 多头与空头论据</h2>
+
+<h3>9.1 多头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>国内优质铜矿资源稀缺</td>
+<td>铜产业报告认为低成本权益铜矿是利润池最强环节</td>
+<td>矿产铜产量、现金成本、玉龙三期</td>
+<td>铜价回落、库存上升、项目延期</td>
+</tr>
+<tr>
+<td>2026Q1 利润弹性强</td>
+<td>Q1 归母净利润 15.86 亿元，同比 +96.34%</td>
+<td>Q2 / H1 利润延续</td>
+<td>Q1 高点不可持续</td>
+</tr>
+<tr>
+<td>铜长期需求逻辑仍在</td>
+<td>电网、新能源、AI 数据中心和资源安全</td>
+<td>铜价、TC、库存、终端开工</td>
+<td>需求破坏或精炼过剩扩大</td>
+</tr>
+<tr>
+<td>现金流质量改善</td>
+<td>Q1 经营现金流 41.03 亿元，同比 +56.90%</td>
+<td>半年经营现金流</td>
+<td>资本开支吞噬现金流</td>
+</tr>
+</tbody></table>
+<h3>9.2 空头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>股价已经接近估值上沿</td>
+<td>36.50 元接近本报告 38 元上沿，高于证券之星 29.87—33.01 元</td>
+<td>PE / PB、利润上修</td>
+<td>半年报大幅上修估值</td>
+</tr>
+<tr>
+<td>短线情绪拥挤</td>
+<td>7月22日放量涨 7.76%，换手率 5.67%</td>
+<td>放量滞涨、资金流</td>
+<td>缩量稳住并业绩兑现</td>
+</tr>
+<tr>
+<td>周期品利润不可线性外推</td>
+<td>铜价、库存和美元流动性波动</td>
+<td>铜价、TC、库存</td>
+<td>铜矿紧张持续超预期</td>
+</tr>
+<tr>
+<td>资本开支与项目风险</td>
+<td>玉龙三期、资源收购需要持续投入</td>
+<td>在建工程、资本开支</td>
+<td>项目按期低成本投产</td>
+</tr>
+</tbody></table>
+<h2 id="section-10">10. 估值</h2>
+
+<h3>10.1 相对估值</h3>
+<table>
+<thead>
+<tr>
+<th>公司</th>
+<th>业务可比性</th>
+<th align="right">增长</th>
+<th align="right">利润率</th>
+<th align="right">PE</th>
+<th align="right">PB</th>
+<th align="right">EV/EBITDA</th>
+<th>数据时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>西部矿业</td>
+<td>铜矿 + 多金属 + 冶炼</td>
+<td align="right">高</td>
+<td align="right">中高</td>
+<td align="right">滚动 PE 约 19.67</td>
+<td align="right">4.36</td>
+<td align="right">未获取到</td>
+<td>2026-07-22</td>
+</tr>
+<tr>
+<td>紫金矿业</td>
+<td>全球多金属矿业龙头</td>
+<td align="right">高</td>
+<td align="right">高</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>待补</td>
+</tr>
+<tr>
+<td>江西铜业</td>
+<td>铜冶炼 + 资源</td>
+<td align="right">中</td>
+<td align="right">中</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>待补</td>
+</tr>
+<tr>
+<td>洛阳钼业</td>
+<td>铜钴钼全球矿业</td>
+<td align="right">高</td>
+<td align="right">高</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>待补</td>
+</tr>
+</tbody></table>
+<ul>
+<li>选取理由：均为铜 / 有色资源相关公司，但西部矿业资产集中度和单一铜矿项目弹性更高。</li>
+<li>正常化调整：不直接年化 Q1 0.67 元 EPS 为全年 2.68 元作为唯一估值，因为周期品季度波动大；以 2026E EPS 2.0—2.6 元作为保守至乐观区间。</li>
+<li>对应每股价值区间：正常化 EPS 2.0—2.6 元 × 15—16 倍周期资源股 PE，对应 30—42 元；考虑 PB 已达 4.36，折中取 30—38 元。</li>
+<li>我的判断：证券之星 29.87—33.01 元相对估值是下沿和中枢锚，Q1 利润和玉龙三期只能支撑上沿溢价，不能无条件支撑 40 元以上。</li>
+</ul>
+<h3>10.2 DCF</h3>
+<h4>关键假设</h4>
+<table>
+<thead>
+<tr>
+<th>假设</th>
+<th align="right">悲观</th>
+<th align="right">基准</th>
+<th align="right">乐观</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>收入增长</td>
+<td align="right">0%—3%</td>
+<td align="right">5%—8%</td>
+<td align="right">10%—12%</td>
+<td>铜价、产量、冶炼和玉龙三期</td>
+</tr>
+<tr>
+<td>经营利润率</td>
+<td align="right">9%</td>
+<td align="right">11%</td>
+<td align="right">13%</td>
+<td>2025 净利率和 Q1 利润弹性</td>
+</tr>
+<tr>
+<td>税率</td>
+<td align="right">25%</td>
+<td align="right">25%</td>
+<td align="right">25%</td>
+<td>中国企业所得税常规口径</td>
+</tr>
+<tr>
+<td>折旧摊销</td>
+<td align="right">未精确建模</td>
+<td align="right">未精确建模</td>
+<td align="right">未精确建模</td>
+<td>未获取到完整资产明细</td>
+</tr>
+<tr>
+<td>资本开支</td>
+<td align="right">高</td>
+<td align="right">高</td>
+<td align="right">很高</td>
+<td>玉龙三期和资源扩张</td>
+</tr>
+<tr>
+<td>营运资本变化</td>
+<td align="right">中</td>
+<td align="right">中</td>
+<td align="right">高</td>
+<td>金属价格驱动存货和应收</td>
+</tr>
+<tr>
+<td>WACC</td>
+<td align="right">9.5%</td>
+<td align="right">9.0%</td>
+<td align="right">8.5%</td>
+<td>周期资源股风险溢价</td>
+</tr>
+<tr>
+<td>永续增长率</td>
+<td align="right">1.0%</td>
+<td align="right">1.5%</td>
+<td align="right">2.0%</td>
+<td>成熟资源品</td>
+</tr>
+</tbody></table>
+<h4>估值结果</h4>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">企业价值</th>
+<th align="right">净债务</th>
+<th align="right">股权价值</th>
+<th align="right">每股价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观</td>
+<td align="right">未完整建模</td>
+<td align="right">未完整建模</td>
+<td align="right">未完整建模</td>
+<td align="right">28—31 元</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">未完整建模</td>
+<td align="right">未完整建模</td>
+<td align="right">未完整建模</td>
+<td align="right">33—36 元</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">未完整建模</td>
+<td align="right">未完整建模</td>
+<td align="right">未完整建模</td>
+<td align="right">38—42 元</td>
+</tr>
+</tbody></table>
+<h4>敏感性分析</h4>
+<table>
+<thead>
+<tr>
+<th>WACC \ 永续增长率</th>
+<th align="right">1.0%</th>
+<th align="right">1.5%</th>
+<th align="right">2.0%</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>8.5%</td>
+<td align="right">36</td>
+<td align="right">39</td>
+<td align="right">42</td>
+</tr>
+<tr>
+<td>9.0%</td>
+<td align="right">33</td>
+<td align="right">36</td>
+<td align="right">39</td>
+</tr>
+<tr>
+<td>9.5%</td>
+<td align="right">30</td>
+<td align="right">33</td>
+<td align="right">36</td>
+</tr>
+</tbody></table>
+<h4>反向 DCF</h4>
+<ul>
+<li>当前价格隐含的收入增长 / 终值利润率：36.50 元大致要求 2026—2027 年铜价高位、Q1 盈利质量可延续、玉龙三期按期投产，且资本开支不明显侵蚀股东回报。</li>
+<li>与历史和行业相比是否可实现：可实现但不便宜，需要多个变量同时配合。</li>
+<li>我的判断：DCF 只作为交叉验证，不作为主估值方法；周期品现金流对铜价、产量和资本开支太敏感。</li>
+</ul>
+<h3>10.3 行业特定估值</h3>
+<ul>
+<li>方法：P/B-ROE + 资源项目期权 + 周期利润折扣。</li>
+<li>适用理由：矿业公司价值来自资源储量、产量、成本、项目爬坡和周期价格，PE 容易在周期高点低估风险。</li>
+<li>关键假设：2026 年 ROE 维持 20% 左右；PB 4.36 已经处于偏高位置；玉龙三期带来中期产量期权。</li>
+<li>对应每股价值区间：PB 3.5—4.5 对应约 29—38 元附近，超过 4.5 倍 PB 需要更强利润上修。</li>
+<li>局限性：未获取到完整 NAV、储量、现金成本和矿山逐项资本开支。</li>
+</ul>
+<h3>10.4 估值交叉验证</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="right">每股价值区间</th>
+<th align="right">权重</th>
+<th>采信理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>相对估值</td>
+<td align="right">30—38 元</td>
+<td align="right">45%</td>
+<td>最贴近当前市场定价和证券之星估值</td>
+</tr>
+<tr>
+<td>DCF</td>
+<td align="right">28—42 元</td>
+<td align="right">25%</td>
+<td>作为现金流敏感性参考</td>
+</tr>
+<tr>
+<td>行业特定估值</td>
+<td align="right">29—38 元</td>
+<td align="right">30%</td>
+<td>资源股更适合结合 PB、ROE 和项目期权</td>
+</tr>
+</tbody></table>
+<ul>
+<li>综合估值区间：30—38 元 / 股。</li>
+<li>相对现价上行 / 下行空间：以 36.50 元计算，下沿 -17.8%，中枢约 -6.8%，上沿 +4.1%。</li>
+<li>为什么不机械平均：证券之星相对估值和 PB-ROE 已经反映当前行业比较，DCF 对铜价太敏感；玉龙三期期权给上沿溢价，但不能替代已兑现利润。</li>
+</ul>
+<h2 id="section-11">11. 冰冰小美框架判断</h2>
+
+<h3>11.1 三要素状态总表</h3>
+<ul>
+<li>三要素结论来源：<code>bbxm-equity-research</code> 内嵌三要素映射，参考库内铜产业报告和西部矿业帖子逻辑稿。</li>
+<li>分析对象与层级：西部矿业作为铜资源资产承载标的。</li>
+<li>分析截止时间：2026-07-23 17:26。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>状态</th>
+<th>核心证据</th>
+<th>核心反证</th>
+<th>失效条件</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>有利</td>
+<td>铜矿资源、玉龙三期、地方国企资源属性</td>
+<td>紫色综合龙头更强，西部矿业资产集中度高</td>
+<td>项目延期、矿端景气反转</td>
+<td>中</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>中性偏有利</td>
+<td>7月22日资金净流入、换手放大、铜主题活跃</td>
+<td>6月23日龙虎榜大幅净卖，短线波动大</td>
+<td>放量滞涨转流出</td>
+<td>中</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>不利</td>
+<td>连续上涨后接近估值上沿，52周高点不远</td>
+<td>若业绩继续超预期可消化估值</td>
+<td>高位放量回落</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h4>前六步证据映射</h4>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>前六步证据来源</th>
+<th>已验证证据</th>
+<th>反证与缺口</th>
+<th>分析状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>第 4—7 章；第 2 章来源矩阵</td>
+<td>铜类收入 70.10%，Q1 利润大增，玉龙三期推进</td>
+<td>储量、现金成本、NAV 未完整获取</td>
+<td>已部分验证</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>第 3、8—9 章；行情和龙虎榜</td>
+<td>7月22日放量上涨，资金净流入</td>
+<td>未生成独立资金面 HTML</td>
+<td>部分验证</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>第 3、8、10 章</td>
+<td>价格接近估值上沿，短线涨幅大</td>
+<td>7月23日实时价未获取到</td>
+<td>部分验证</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Step 6 估值约束：估值不强行归入三要素；当前价格接近上沿，直接约束买点。</li>
+<li>补采证据回填：本报告已补入证券之星估值、Q1、年报分产品和铜产业报告。</li>
+</ul>
+<h3>11.2 竞争格局与比较优势</h3>
+<h4>前文证据引用</h4>
+<ul>
+<li><p>商业模式与竞争底稿：见第 4 章。</p>
+</li>
+<li><p>分部与资本回报证据：见第 5—7 章。</p>
+</li>
+<li><p>相关来源状态：见第 2 章来源矩阵。</p>
+</li>
+<li><p>分析对象与竞争层级：国内铜矿资源和多金属矿业公司。</p>
+</li>
+<li><p>当前状态：有利。</p>
+</li>
+<li><p>证据充分性：中等；依据：收入、产量、项目进度已披露，但矿山 NAV 和现金成本未完整获取。</p>
+</li>
+<li><p>多产业位置景气度排序：首位是铜矿采选，变化最快的是铜价与矿端加工费。</p>
+</li>
+<li><p>产业链位置与利润池：铜产业报告认为低成本权益铜矿是当前利润池强位置，西部矿业能部分获取该利润池。</p>
+</li>
+<li><p>核心比较优势：国内资源、玉龙铜矿、现金流、地方国企背景。</p>
+</li>
+<li><p>竞争对手与替代方案：紫金矿业全球化更强，洛阳钼业铜钴资源弹性更强，江西铜业冶炼规模更强。</p>
+</li>
+<li><p>份额、定价权、客户黏性与进入壁垒：定价权不在客户黏性，而在资源稀缺、矿权和低成本产量。</p>
+</li>
+<li><p>竞争优势转化为订单、利润和现金回报的情况：2026Q1 已转化为利润和经营现金流改善。</p>
+</li>
+<li><p>当前决策含义：方向值得跟踪，但高位不追。</p>
+</li>
+</ul>
+<h4>证据</h4>
+<ul>
+<li>铜类产品收入 432.40 亿元，占主营收入 70.10%。</li>
+<li>2026Q1 归母净利润同比 +96.34%。</li>
+<li>玉龙铜矿三期预计 2027 年初投产。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>PB 已达约 4.36，估值不再便宜。</li>
+<li>资源股利润随金属价格波动，Q1 不能简单年化。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>铜价跌破关键成本和情绪支撑，库存持续累积，TC 快速回升，玉龙三期延期。</li>
+</ul>
+<h3>11.3 流动性辩证分析</h3>
+<ul>
+<li>当前状态：中性偏有利。</li>
+<li>证据充分性：不充分；依据：没有独立资金面 HTML，只能使用公开资金流、换手和龙虎榜。</li>
+</ul>
+<h4>宏观流动性</h4>
+<ul>
+<li>总量环境与边际变化：未在本报告中完整展开。</li>
+<li>对本标的的传导：美元、利率、商品资金和全球风险偏好影响铜价和有色估值。</li>
+</ul>
+<h4>中观流动性</h4>
+<ul>
+<li>行业 / 主题 / ETF / 机构配置变化：铜、有色、资源安全主题活跃；7月22日资金净流入较强。</li>
+<li>对本标的的传导：主题资金可推升估值，但无法替代利润兑现。</li>
+</ul>
+<h4>微观流动性</h4>
+<ul>
+<li>成交额、换手率、量价结构、融资和大单：2026-07-22 换手率 5.67%，单日资金净流入约 6.91 亿元；2026-06-23 龙虎榜显示大幅净卖和机构 / 北向分歧。</li>
+<li>连续窗口与相对强弱：7月中旬后股价从 30 元附近快速上行到 36.50 元，强于自身 30 日均价。</li>
+</ul>
+<h4>资金来源分类</h4>
+<table>
+<thead>
+<tr>
+<th>资金来源</th>
+<th>当前状态</th>
+<th>连续窗口证据</th>
+<th>对价格的含义</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>长期配置资金</td>
+<td>证据不足</td>
+<td>Q1 股东中有 ETF 新进，但窗口滞后</td>
+<td>只能作为底层配置线索</td>
+<td>低</td>
+</tr>
+<tr>
+<td>趋势 / 交易资金</td>
+<td>活跃</td>
+<td>7月22日放量、换手 5.67%</td>
+<td>推升价格但也放大回撤</td>
+<td>中</td>
+</tr>
+<tr>
+<td>产业资本 / 内部人</td>
+<td>未获取到新增</td>
+<td>未获取到</td>
+<td>不构成买入依据</td>
+<td>低</td>
+</tr>
+</tbody></table>
+<h4>供给与抛压</h4>
+<table>
+<thead>
+<tr>
+<th>供给来源</th>
+<th>当前状态</th>
+<th>时间窗口</th>
+<th>影响</th>
+<th>验证方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>解禁 / 减持</td>
+<td>未获取到重大新增</td>
+<td>近月</td>
+<td>待验证</td>
+<td>公告</td>
+</tr>
+<tr>
+<td>再融资 / 可转债</td>
+<td>未获取到</td>
+<td>近月</td>
+<td>待验证</td>
+<td>公告</td>
+</tr>
+<tr>
+<td>获利盘 / 套牢盘</td>
+<td>增强</td>
+<td>7月中旬快速上涨</td>
+<td>高位波动放大</td>
+<td>量价</td>
+</tr>
+</tbody></table>
+<h4>最低数据检查</h4>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>当前窗口</th>
+<th>对比窗口</th>
+<th>结论</th>
+<th>数据源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>成交额与换手率</td>
+<td>7月22日换手 5.67%</td>
+<td>6月23日换手 3.99%</td>
+<td>交易热度高</td>
+<td>准上市 / 新浪</td>
+</tr>
+<tr>
+<td>融资余额与融资买入</td>
+<td>6月末融资余额约 25 亿元级别</td>
+<td>6月下旬</td>
+<td>杠杆参与不低</td>
+<td>理杏仁搜索摘要</td>
+</tr>
+<tr>
+<td>主力 / 大单资金</td>
+<td>7月22日单日净流入约 6.91 亿元</td>
+<td>6月23日龙虎榜净卖</td>
+<td>资金分歧后转强</td>
+<td>准上市 / 新浪</td>
+</tr>
+<tr>
+<td>ETF / 北向 / 机构代理指标</td>
+<td>Q1 ETF 新进、北向持股减少</td>
+<td>Q1 / 6月23日</td>
+<td>配置与交易并存</td>
+<td>准上市 / 新浪</td>
+</tr>
+</tbody></table>
+<h4>证据</h4>
+<ul>
+<li>7月22日资金净流入、换手率和放量上涨。</li>
+<li>6月23日龙虎榜大幅净卖，说明资金并非单边稳定流入。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>资金面强可能只是短线情绪和商品价格驱动，不等于长期配置确认。</li>
+</ul>
+<h4>退出路径</h4>
+<ul>
+<li>资金流入如何退出：若铜价回落或中报不及预期，趋势资金可能通过放量滞涨、跳空低开、融资回落退出。</li>
+<li>持续性被证伪的信号：连续两日放量不创新高、资金净流入转负、跌破 34 元中枢。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>放量跌破 34 元且铜价同步走弱，资金面从“分歧流入”转为“高位兑现”。</li>
+</ul>
+<h3>11.4 情绪位置变化</h3>
+<ul>
+<li>当前状态：不利。</li>
+<li>证据充分性：中；依据：价格已从 30 元附近快速抬升到 36.50 元，接近估值上沿和 52 周高点。</li>
+<li>当前所处阶段：拥挤。</li>
+<li>个股相对板块与指数的强弱：强于自身短期均线，具体相对指数未获取到。</li>
+<li>催化兑现后的价格反馈：Q1 高增长和铜价逻辑已被价格显著反映。</li>
+</ul>
+<h4>证据</h4>
+<ul>
+<li>2026-07-22 收盘 36.50 元，日涨幅 7.76%。</li>
+<li>证券之星相对估值 29.87—33.01 元，现价高于该区间。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>若 2026H1 利润显著高于 Q1 外推或铜价继续突破，当前高位可被消化。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>股价缩量横盘并由中报利润消化估值，情绪位置从拥挤回到合理。</li>
+</ul>
+<h3>11.5 综合状态与主导矛盾</h3>
+<ul>
+<li>三要素综合判断：部分有利，但尚未形成可新增买入的有利共振。</li>
+<li>主导要素：竞争格局。</li>
+<li>拖累要素：情绪位置和估值位置。</li>
+<li>主导矛盾：好资产 / 好方向已经被市场快速定价，买点从“逻辑正确”变成“价格是否还有容错率”。</li>
+<li>下一验证节点：2026 年中报、铜库存与 TC、玉龙三期进度、股价是否回到 30—34 元或利润是否上修。</li>
+<li>状态切换条件：价格回落但基本面不坏，或利润上修让 36.50 元重新回到估值中枢。</li>
+</ul>
+<h3>11.6 三要素行动映射</h3>
+<table>
+<thead>
+<tr>
+<th>资金属性</th>
+<th>当前动作</th>
+<th>允许升级的条件</th>
+<th>降级 / 退出条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>新增现金</td>
+<td>wait</td>
+<td>回到 30—34 元且铜价 / 中报不证伪；或估值区间上移</td>
+<td>38 元以上仍无盈利上修</td>
+</tr>
+<tr>
+<td>已有持仓</td>
+<td>review</td>
+<td>中报强兑现、铜价维持、项目进度确认</td>
+<td>放量跌破 34 元或铜价 / 库存恶化</td>
+</tr>
+</tbody></table>
+<h3>11.7 三要素数据缺口与来源</h3>
+<table>
+<thead>
+<tr>
+<th>数据缺口</th>
+<th>已检查来源</th>
+<th>对哪一要素有影响</th>
+<th>对结论的影响</th>
+<th>补齐方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-07-23 实时价</td>
+<td>Yahoo / Investing / 东方财富搜索</td>
+<td>情绪位置</td>
+<td>采用 7月22日收盘，降低实时性</td>
+<td>收盘后刷新</td>
+</tr>
+<tr>
+<td>Morningstar 公允价值</td>
+<td>搜索 / 证券之星替代</td>
+<td>估值</td>
+<td>不影响主判断，但降低第三方完整性</td>
+<td>重新核验 Morningstar</td>
+</tr>
+<tr>
+<td>资金面 HTML</td>
+<td>未生成</td>
+<td>流动性</td>
+<td>资金结论置信度中低</td>
+<td>后续调用资金面技能</td>
+</tr>
+<tr>
+<td>矿山 NAV / 现金成本</td>
+<td>年报摘要未完整取得</td>
+<td>竞争格局 / 估值</td>
+<td>上沿估值保守处理</td>
+<td>读取年报 PDF 和调研纪要</td>
+</tr>
+</tbody></table>
+<ul>
+<li>分析口径与截止时间：2026-07-23 17:26。</li>
+<li>主要数据来源：公司公告、行情页、证券之星、本库铜产业报告。</li>
+<li>数据缺口导致的置信度调整：结论置信度为中，不给高置信买入。</li>
+</ul>
+<h3>11.8 风险方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>风险类型</th>
+<th>前一窗口</th>
+<th>当前窗口</th>
+<th>方向证据</th>
+<th>反证</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本面风险</td>
+<td>2025 年利润增长</td>
+<td>Q1 利润同比接近翻倍</td>
+<td>基本面风险减弱</td>
+<td>Q1 不可线性年化</td>
+</tr>
+<tr>
+<td>估值风险</td>
+<td>30 元附近</td>
+<td>36.50 元</td>
+<td>风险增强</td>
+<td>H1 上修可消化</td>
+</tr>
+<tr>
+<td>情绪风险</td>
+<td>6月23日跌停分歧</td>
+<td>7月22日放量大涨</td>
+<td>情绪拥挤增强</td>
+<td>强势趋势延续</td>
+</tr>
+<tr>
+<td>流动性风险</td>
+<td>龙虎榜净卖</td>
+<td>资金净流入</td>
+<td>分歧仍大</td>
+<td>连续流入可改善</td>
+</tr>
+</tbody></table>
+<h3>11.9 风险传导链</h3>
+<ul>
+<li>信息源头：铜价、库存、TC、Q2 / 中报利润、玉龙三期进度。</li>
+<li>核心变量：铜价、矿产铜产量、毛利率、经营现金流、PB。</li>
+<li>传导机制：铜价和产量影响利润，利润影响估值中枢，估值中枢影响趋势资金承接。</li>
+<li>影响对象：西部矿业股价、资源股估值、持仓仓位。</li>
+<li>市场行为变化：高位放量上涨后，一旦利润不继续上修，容易转为兑现。</li>
+<li>风险方向：风险增强。</li>
+<li>验证指标：34 元支撑、38 元上沿、Q2 利润、铜库存、TC。</li>
+<li>失效条件：利润和铜价继续超预期，使 36.50 元不再高于合理中枢。</li>
+</ul>
+<h3>11.10 风险方向结论</h3>
+<ul>
+<li>风险方向结论：风险增强。</li>
+<li>判断依据：基本面改善已被价格快速定价，当前价格接近估值上沿，情绪位置偏拥挤。</li>
+<li>反证：2026H1 利润大幅上修，铜价维持强势，玉龙三期进度超预期。</li>
+<li>未获取到：2026-07-23 实时收盘价、完整资金面报告。</li>
+<li>置信度：中。</li>
+</ul>
+<h3>11.11 四层方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>边际改善 / 无明显变化 / 边际恶化 / 未获取到</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观</td>
+<td>未获取到</td>
+<td>美元、利率和全球铜价未完整展开</td>
+</tr>
+<tr>
+<td>中观</td>
+<td>边际改善但偏热</td>
+<td>铜产业报告判断矿端景气扩张，铜价高位</td>
+</tr>
+<tr>
+<td>微观</td>
+<td>边际改善</td>
+<td>Q1 利润和现金流强</td>
+</tr>
+<tr>
+<td>交易</td>
+<td>边际恶化</td>
+<td>价格接近上沿，放量上涨后容错率下降</td>
+</tr>
+</tbody></table>
+<h3>11.12 最终动作与约束</h3>
+<ul>
+<li>主动作：wait / review。</li>
+<li>新增现金：等待 30—34 元区间或中报上修。</li>
+<li>已有持仓：复核仓位；若仓位大、成本低，可考虑把 38 元以上视为减风险区，而非加仓区。</li>
+<li>承接条件：股价回落至中枢附近，铜价和中报不证伪。</li>
+<li>退出条件：放量跌破 34 元、铜价回落、库存累积、TC 回升、中报低于预期。</li>
+<li>下一复核节点：2026 年中报；2026-07-23 后收盘价与资金流。</li>
+<li>我的判断：方向能转化为长期观察，但不能在当前价格直接转化为新增买点。</li>
+</ul>
+<h2 id="section-12">12. 最终结论</h2>
+
+<ul>
+<li>估值结论：合理偏高。</li>
+<li>操作结论：观望。</li>
+<li>综合估值区间：30—38 元 / 股。</li>
+<li>相对现价空间：以 36.50 元计算，下沿 -17.8%，上沿 +4.1%。</li>
+<li>如果今天这是一笔现金，我会买它吗：不会。</li>
+<li>我的判断：西部矿业是铜资源周期里值得跟踪的优质承载标的，但当前位置已经由“基本面改善”切换到“高位验证利润上修”。新增现金不追，已有持仓按中报、铜价和 34 / 38 元位置做 review。</li>
+<li>结论失效条件：2026H1 利润显著超预期、铜价继续高位且库存不累积、玉龙三期进度确认，使估值区间从 30—38 元上移。</li>
+</ul>
+<h2 id="section-13">13. 后续监控指标</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">当前值</th>
+<th>触发阈值 / 方向</th>
+<th>数据源</th>
+<th>复核频率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1. 股价相对估值区间</td>
+<td align="right">36.50 元</td>
+<td>30—34 元可重新评估；38 元以上需减风险</td>
+<td>行情</td>
+<td>每日</td>
+</tr>
+<tr>
+<td>2. 2026H1 归母净利润</td>
+<td align="right">未披露</td>
+<td>是否支撑全年 55—65 亿元利润</td>
+<td>中报</td>
+<td>披露后</td>
+</tr>
+<tr>
+<td>3. 铜价 / 库存 / TC</td>
+<td align="right">未完整更新</td>
+<td>铜价回落、库存累积、TC 回升为反证</td>
+<td>LME / SHFE / SMM</td>
+<td>每周</td>
+</tr>
+<tr>
+<td>4. 玉龙三期进度</td>
+<td align="right">预计 2026 年底完成基建</td>
+<td>延期或成本超支为反证</td>
+<td>公告 / 调研</td>
+<td>月度</td>
+</tr>
+<tr>
+<td>5. 资金状态</td>
+<td align="right">7月22日净流入、换手 5.67%</td>
+<td>放量滞涨或连续净流出降级</td>
+<td>行情 / 资金流</td>
+<td>每日</td>
+</tr>
+</tbody></table>
+<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
+
+<ul>
+<li>未获取到：2026-07-23 实时或收盘价、Morningstar 原始公允价值和星级、卖方完整目标价、矿山 NAV、完整资本开支、独立资金面 HTML。</li>
+<li>已检查来源：Yahoo、Investing、准上市、证券之星、公司公告、SMM、经济观察网、库内铜产业报告。</li>
+<li>对结论的影响：估值上沿保持保守，不给“买入”结论；资金面结论只定性为“短线流入但拥挤”，不等同确认机构持续买入。</li>
+</ul>
+<h2 id="section-15">15. 来源清单</h2>
+
+<ol>
+<li>西部矿业：2025年年度报告，新浪财经公告页，2026-03-26，<a href="https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12017335&stockid=601168%EF%BC%8C%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12017335&amp;stockid=601168，访问时间</a> 2026-07-23。</li>
+<li>西部矿业：2026年第一季度报告，新浪财经公告页，2026-04-29，<a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12242008&stockid=601168%EF%BC%8C%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12242008&amp;stockid=601168，访问时间</a> 2026-07-23。</li>
+<li>西部矿业（601168.SH）个股页，准上市，2026-07-22 数据，<a href="https://www.zhunshangshi.com/stock/601168/%EF%BC%8C%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">https://www.zhunshangshi.com/stock/601168/，访问时间</a> 2026-07-23。</li>
+<li>西部矿业（601168.SS）行情，Yahoo 股市，2026-07-22 数据，<a href="https://tw.stock.yahoo.com/quote/601168.SS%EF%BC%8C%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">https://tw.stock.yahoo.com/quote/601168.SS，访问时间</a> 2026-07-23。</li>
+<li>Western Mining Historical Data，Investing.com Canada，2026-07-22 数据，<a href="https://ca.investing.com/equities/western-mining-co-historical-data%EF%BC%8C%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">https://ca.investing.com/equities/western-mining-co-historical-data，访问时间</a> 2026-07-23。</li>
+<li>西部矿业估值指针，证券之星，2026-07-19，<a href="https://stock.quote.stockstar.com/info/comment_601168.shtml%EF%BC%8C%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">https://stock.quote.stockstar.com/info/comment_601168.shtml，访问时间</a> 2026-07-23。</li>
+<li>龙虎榜：西部矿业跌停，北向资金净买入8946.88万元，新浪财经，2026-06-23，<a href="https://finance.sina.com.cn/stock/aiassist/lgbzz/2026-06-23/doc-iniekvat8778274.shtml%EF%BC%8C%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">https://finance.sina.com.cn/stock/aiassist/lgbzz/2026-06-23/doc-iniekvat8778274.shtml，访问时间</a> 2026-07-23。</li>
+<li>西部矿业 2026.02.03 天风证券调研记录表，新浪财经公告页，2026-02-04，<a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11951272&stockid=601168%EF%BC%8C%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11951272&amp;stockid=601168，访问时间</a> 2026-07-23。</li>
+<li>西部矿业：冶炼业务主要涵盖铜铅锌三大品种，SMM 综合，2026-02-05，<a href="https://news.smm.cn/news/103758096%EF%BC%8C%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">https://news.smm.cn/news/103758096，访问时间</a> 2026-07-23。</li>
+<li>铜产业完整分析报告，本库 <code>sources/automations/战略资源/铜/2026-07-22-铜产业完整分析报告.md</code>，访问时间 2026-07-23。</li>
+</ol>
+<h2 id="section-16">16. 声明</h2>
+
+<p>本报告基于截至研究截止时间可取得的公开信息，不构成收益保证。真实交易前应重新核验价格、公告、流动性和个人风险承受能力。</p>
+<script>
+(() => {
+  const endpoint = '/api/stock-quote?secid=1.601168';
+  const priceNode = document.getElementById('intraday-price');
+  const detailNode = document.getElementById('intraday-detail');
+  const statusNode = document.getElementById('intraday-status');
+  const deviationValue = document.getElementById('deviation-value');
+  const deviationDetail = document.getElementById('deviation-detail');
+  const tracker = document.getElementById('daily-tracking');
+  const snapshotPrice = 36.5;
+  const percent = value => `${value < 0 ? '-' : value > 0 ? '+' : ''}${Math.abs(value).toFixed(1)}%`;
+  function updateDeviation(price) {
+    const low = Number(tracker.dataset.valueLow);
+    const high = Number(tracker.dataset.valueHigh);
+    if (!Number.isFinite(low) || !Number.isFinite(high) || low <= 0 || high <= low) return;
+    const midpoint = (low + high) / 2;
+    const versusLow = (price / low - 1) * 100;
+    const versusMid = (price / midpoint - 1) * 100;
+    const versusHigh = (price / high - 1) * 100;
+    if (price > high) { deviationValue.textContent = `高于上沿 ${percent(versusHigh)}`; deviationValue.classList.add('bad'); }
+    else if (price < low) { deviationValue.textContent = `低于下沿 ${percent(Math.abs(versusLow))}`; deviationValue.classList.remove('bad'); }
+    else { deviationValue.textContent = '位于动态价值区间内'; deviationValue.classList.remove('bad'); }
+    deviationDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对区间中枢 ${midpoint.toFixed(2)} 元为 ${percent(versusMid)}，相对下沿为 ${percent(versusLow)}，相对上沿为 ${percent(versusHigh)}。盘中价格不改变价值区间本身。`;
+  }
+  async function refreshIntradayQuote() {
+    statusNode.textContent = '连接中'; statusNode.className = 'tracking-status';
+    try {
+      const response = await fetch(endpoint, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json(); const quote = payload && payload.data;
+      if (!quote || !Number.isFinite(quote.price) || !Number.isFinite(quote.prevClose) || !Number.isFinite(quote.changePercent) || !Number.isFinite(quote.quoteTimestamp)) throw new Error('invalid quote');
+      const quoteTime = new Date(quote.quoteTimestamp * 1000).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false });
+      priceNode.textContent = `${quote.price.toFixed(2)} 元 · ${percent(quote.changePercent)}`;
+      priceNode.classList.toggle('bad', quote.changePercent < 0);
+      detailNode.textContent = `行情时间：${quoteTime}；昨收 ${quote.prevClose.toFixed(2)} 元。来源：${payload.proxySource || '本地行情代理'}。`;
+      statusNode.textContent = '盘中实时 · 每 60 秒'; statusNode.className = 'tracking-status live'; updateDeviation(quote.price);
+    } catch { priceNode.textContent = '实时行情暂不可用'; priceNode.classList.remove('bad'); detailNode.textContent = '每日同步值仍然有效；可重新双击“大盘启动器”后刷新本页。'; statusNode.textContent = '连接失败'; statusNode.className = 'tracking-status error'; }
+  }
+  if (location.protocol === 'http:' || location.protocol === 'https:') { refreshIntradayQuote(); window.setInterval(refreshIntradayQuote, 60000); }
+  else { priceNode.textContent = Number.isFinite(snapshotPrice) ? `${snapshotPrice.toFixed(2)} 元（每日值）` : '每日值未获取'; detailNode.textContent = '当前为直接打开模式；盘中实时需通过“大盘启动器”进入本地服务。'; statusNode.textContent = '每日同步 · 实时未连接'; }
+})();
+</script></article>
+    </div>
+  </main>
+</body>
+</html>

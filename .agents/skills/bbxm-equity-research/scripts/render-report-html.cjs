@@ -50,6 +50,19 @@ function extractMetadata(markdown) {
   return fields;
 }
 
+function extractSecurityCode(source, markdown, metadata, title) {
+  const candidates = [
+    metadata['证券代码'],
+    source.match(/^security_code:\s*["']?([^"'\r\n]+)["']?\s*$/m)?.[1],
+    source.match(/^stock_code:\s*["']?([^"'\r\n]+)["']?\s*$/m)?.[1],
+    title.match(/（([^）]+)）/)?.[1],
+    markdown.match(/证券代码\s*[|：:]\s*([^|\r\n]+)/)?.[1],
+    markdown.match(/\b(?:SH|SZ)?\d{6}(?:\.(?:SH|SZ))?\b/i)?.[0],
+  ];
+  const code = candidates.map(cleanInline).find(Boolean);
+  return code || 'SECURITY';
+}
+
 function extractDecisionRows(markdown) {
   const section = markdown.match(/^## 1\. 决策摘要\s*$([\s\S]*?)(?=^## 2\.|\Z)/m)?.[1] ?? '';
   const rows = {};
@@ -100,24 +113,35 @@ function describeDeviation(price, low, high, label = '每日同步价') {
 
 function liveQuoteSecid(code) {
   const normalized = String(code ?? '').toUpperCase().replace(/\s/g, '');
-  const secids = new Map([
-    ['000807', '0.000807'],
-    ['000807.SZ', '0.000807'],
-    ['SZ000807', '0.000807'],
-    ['002270', '0.002270'],
-    ['002270.SZ', '0.002270'],
-    ['SZ002270', '0.002270'],
-    ['600879', '1.600879'],
-    ['600879.SH', '1.600879'],
-    ['SH600879', '1.600879'],
-  ]);
-  return secids.get(normalized) ?? '';
+  const match = normalized.match(/(?:^|[^A-Z0-9])(?:SH|SZ)?(\d{6})(?:\.(SH|SZ))?|^(?:SH|SZ)?(\d{6})(?:\.(SH|SZ))?/);
+  if (!match) return '';
+
+  const digits = match[1] || match[3];
+  const suffix = match[2] || match[4] || '';
+  if (suffix === 'SH' || normalized.startsWith('SH') || digits.startsWith('6')) return `1.${digits}`;
+  if (suffix === 'SZ' || normalized.startsWith('SZ') || /^[023]/.test(digits)) return `0.${digits}`;
+  return '';
 }
 
 function safeSiblingHtml(value) {
   const cleaned = cleanInline(value);
   if (!cleaned || path.basename(cleaned) !== cleaned || !/^[^<>:"/\\|?*]+\.html$/i.test(cleaned)) return '';
   return cleaned;
+}
+
+function renderValueRange(value) {
+  const cleaned = cleanInline(value || '未获取到');
+  const parts = cleaned.split(/[；;]/).map((part) => part.trim()).filter(Boolean);
+  const main = parts[0] || cleaned;
+  const detailText = parts.slice(1).join('；');
+  const points = detailText
+    ? detailText.split(/[，,；;]/).map((part) => part.trim()).filter(Boolean)
+    : [];
+
+  if (cleaned === '未获取到') return escapeHtml(cleaned);
+
+  const pointHtml = points.length ? `<span class="range-points">${points.map((point) => `<span class="range-point">${escapeHtml(point)}</span>`).join('')}</span>` : '';
+  return `<span class="range-breakdown"><span class="range-main">${escapeHtml(main)}</span>${pointHtml}</span>`;
 }
 
 function renderDailyTracking(decisions, metadata, code, outputPath) {
@@ -149,7 +173,7 @@ function renderDailyTracking(decisions, metadata, code, outputPath) {
   </div>
   <div class="tracking-grid">
     <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value${badFundamental ? ' bad' : ''}">${escapeHtml(fundamental)}</p><p class="tracking-detail">风险方向：${escapeHtml(riskDirection)}。下一验证点与失效条件见第 11—13 章。</p></div>
-    <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value">${escapeHtml(fairValue)}</p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
+    <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value">${renderValueRange(fairValue)}</p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
     <div class="tracking-card" data-tracking-key="price-deviation"><p class="tracking-label">股价偏离度</p><p class="tracking-value${deviation.isBad ? ' bad' : ''}" id="deviation-value">${escapeHtml(deviation.value)}</p><p class="tracking-detail" id="deviation-detail">${escapeHtml(deviation.detail)}</p></div>
   </div>
   <div class="tracking-grid">
@@ -257,7 +281,7 @@ function main() {
   const marked = loadMarked();
   const body = marked.parse(sectioned.markdown, { gfm: true, breaks: false });
   const css = fs.readFileSync(cssPath, 'utf8');
-  const code = cleanInline(metadata['证券代码']) || cleanInline(title.match(/（([^）]+)）/)?.[1]) || 'SECURITY';
+  const code = extractSecurityCode(source, markdown, metadata, title);
   const market = cleanInline(metadata['交易所 / 币种']) || '市场与币种未获取';
   const cutoff = cleanInline(metadata['研究截止时间']) || '研究截止时间未获取';
   const generated = cleanInline(metadata['报告生成时间']) || '报告生成时间未获取';

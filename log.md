@@ -17109,3 +17109,241 @@ automation / industry-report / company-mapping
 ### 操作说明
 
 按用户要求检查电网产业研报的产业链章节，确认原 `3.1.1 产业链公司映射` 未包含特锐德后，将 `300001 特锐德` 补入配网一次设备与预制舱变电站环节，并在产业链全景表中加入代表公司。同步复制特锐德个股 HTML 研报到电网目录并重新生成电网产业 HTML 阅读版；保留证据边界：特锐德收入还包含充电网、海外和算力供配电叙事，不能把总收入全部视为电网配网收入，预中标仍需跟踪正式中标、交付、毛利和回款。
+
+## 2026-07-23
+
+### 操作类型
+
+workbench / equity_research / update
+
+### 修改文件
+
+- `workbench/targets/2026-07-17-1134-三花智控-机构级决策研报.md`
+- `sources/webpages/2026-07-23-三花智控机构级研究资料快照.md`
+- `sources/automations/temp/2026-07-17-1134-三花智控-机构级决策研报.html`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` 技能原地更新 `002050 三花智控` 权威研报。新增 2026-07-20 急跌、控股股东提议 2–4 亿元回购、2026-07-22 收盘价、融资余额下降和用户机器人板块总仓位 12% 等证据，将结论细化为“新增现金 wait；已有持仓在主题仓位过高时 reduce / review”。同步新增 2026-07-23 资料快照并生成 HTML 阅读版；因 HTML 位于 `sources/automations/temp/` 且同目录无产业研报，未建立产业反向链接。
+
+### 后续补充
+
+根据用户指出的“第三方公允价值、护城河、星级”字段缺口，复核后确认 Morningstar 原始字段仍未取得可核签页面，但证券之星估值指针有公开替代参考：相对估值 33.28-36.78 元、估值准确性 B、护城河良好、盈利能力优秀、营收成长性良好、综合判断股价偏高，数据更新日期 2026-07-21。已补入资料快照和研报第三方估值小节，并重新生成机器人目录 HTML。
+
+### 估值计算过程补充
+
+根据用户指出的“综合估值区间看不到计算过程”问题，在第 10 章新增 `10.0 综合估值区间计算过程总览`，补充 2026E EPS × PE、证券之星第三方区间、DCF 三情景、分部加总和最终收敛到 30-37 元的桥接逻辑，并重新生成机器人目录 HTML。
+
+## 2026-07-23
+
+### 操作类型
+
+automation / equity_research / filing
+
+### 修改文件
+
+- `sources/automations/新兴产业/机器人/2026-07-17-1134-三花智控-机构级决策研报.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求将 `002050 三花智控` HTML 阅读版从 `sources/automations/temp/` 移入机器人目录 `sources/automations/新兴产业/机器人/`。已重新检查同目录产业研报，当前机器人目录下未发现可追加反向链接的产业 HTML 报告。
+
+## 2026-07-23
+
+### 操作类型
+
+workbench / equity_research / robot-directory
+
+### 修改文件
+
+- `sources/webpages/2026-07-23-拓普集团机构级研究资料快照.md`
+- `workbench/targets/2026-07-23-1602-拓普集团-机构级决策研报.md`
+- `sources/automations/新兴产业/机器人/2026-07-23-1602-拓普集团-机构级决策研报.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` 技能为 `601689 拓普集团` 新增机构级决策研报，并按用户要求将 HTML 阅读版直接生成到机器人目录。报告采用 2026-07-22 收盘价 49.49 元，给出合理价值区间 40-52 元，结论为“新增现金 wait；已有持仓 review；若机器人主题仓位偏高则优先控制仓位”。证据边界明确为：拓普集团可作为机器人执行器链条重点跟踪对象，但截至当前资料未见正式机器人订单、批量交付收入或分部收入披露。已运行产业反链脚本，当前机器人目录下未发现可追加反向链接的产业 HTML 报告。
+
+### 后续补充
+
+根据用户指出的“第三方公允价值、护城河、星级”字段缺口，复核后确认 Morningstar 原始字段仍未取得可核签页面，但证券之星估值指针有公开替代参考：相对估值 44.66-49.36 元、估值准确性 B、护城河良好、综合判断股价合理，数据更新日期 2026-07-22。已补入资料快照和研报第三方估值小节，并重新生成机器人目录 HTML。
+
+## 2026-07-23
+
+### 操作类型
+
+workbench / equity_research / template-sync
+
+### 修改文件
+
+- `workbench/targets/2026-07-17-1134-三花智控-机构级决策研报.md`
+- `workbench/targets/2026-07-23-1602-拓普集团-机构级决策研报.md`
+- `workbench/targets/2026-07-23-1427-华明装备-机构级决策研报.md`
+- `workbench/targets/2026-07-23-1421-云铝股份-机构级决策研报.md`
+- `sources/automations/新兴产业/机器人/2026-07-17-1134-三花智控-机构级决策研报.html`
+- `sources/automations/新兴产业/机器人/2026-07-23-1602-拓普集团-机构级决策研报.html`
+- `sources/automations/支柱产业/电网/2026-07-23-1427-华明装备-机构级决策研报.html`
+- `sources/automations/支柱产业/电解铝/2026-07-23-1421-云铝股份-机构级决策研报.html`
+- `sources/automations/支柱产业/电解铝/2026-07-22-电解铝产业完整分析报告.html`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` v1.0.4 的新契约，批量更新 `三花智控`、`拓普集团`、`华明装备`、`云铝股份` 当前权威研报第 1 章 `综合估值区间` 字段：在原数值区间基础上补充下沿、中枢、上沿和高于上沿分别隐含的主业价值、合理溢价、新业务 / 周期 / 海外增长期权及所需新增证据。同步重新生成四份 HTML 阅读版。产业反链脚本结果：机器人目录下三花智控、拓普集团未发现产业总报告；电网目录下华明装备未发现脚本可识别产业报告；云铝股份已成功链接到电解铝产业完整分析报告。
+
+### 决策摘要结构修正
+
+根据用户指出的“决策摘要未改为新格式”问题，继续按 `bbxm-equity-research` v1.0.4 契约修正四份研报第 1 章结构：将原单表摘要拆为 `1.1 基本面组` 与 `1.2 资金面组`，并新增 / 归并 `关键经营变化` 字段。同步重新生成四份 HTML 阅读版；其中拓普集团估值区间由 `40-52` 统一为 `40—52`，以便 HTML 每日面板正确解析股价偏离度。
+
+## 2026-07-23
+
+### 操作类型
+
+skill / template-contract
+
+### 修改文件
+
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `.agents/skills/bbxm-equity-research/template.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求修改 `bbxm-equity-research` 技能，将“综合估值区间”的区间含义前置到第 1 章决策摘要。技能版本从 `1.0.3` 升至 `1.0.4`：后续研报的第 1 章 `综合估值区间` 字段不能只写数值，必须同时解释下沿、中枢、上沿和高于上沿分别隐含的主业价值、合理溢价、新业务期权及所需新增证据，并要求与第 10 章计算过程一致。
+
+## 2026-07-23
+
+### 操作类型
+
+automation / industry-report / robot
+
+### 修改文件
+
+- `sources/webpages/2026-07-23-机器人产业分析证据快照.md`
+- `sources/automations/新兴产业/机器人/2026-07-23-机器人产业完整分析报告.md`
+- `sources/automations/新兴产业/机器人/2026-07-23-机器人产业完整分析报告.html`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-industry-analysis` 技能，以“中国机器人产业，工业机器人为成熟底座、人形机器人 / 具身智能为重点增量”为口径完成完整产业分析。报告重新加载 `wiki/concepts/冰冰小美-framework-产业思维.md`，严格保留模板 `0—7` 章与“通用风险与证据附录”，并按可比较子环节拆分上游运动控制、精密传动、执行器、感知、软件 / 数据，中游工业机器人、人形整机、移动机器人与系统集成，以及下游工业、物流、医疗和特种场景。
+
+公司映射分别标注产品能力、送样、订单、收入和现金流边界：优必选 2025 年报提供少数可核验人形收入样本；汇川技术宽口径“新兴产业”不得全部视为机器人收入；贝斯特人形丝杠样品收入仍极低；三花智控、拓普集团机器人业务未单列订单、收入和毛利。综合判断为：长期方向强，工业机器人处于国产替代与景气扩张，人形机器人处于技术验证向小批量商用过渡，产业进展领先于全行业利润和现金流兑现。报告未写入正式 `wiki/` 页面，因此未更新 `index.md`。
+## 2026-07-23
+
+### 操作类型
+
+skill / html-style / equity_research
+
+### 修改文件
+
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `.agents/skills/bbxm-equity-research/scripts/render-report-html.cjs`
+- `.agents/skills/bbxm-equity-research/assets/report.css`
+- `sources/automations/新兴产业/机器人/2026-07-17-1134-三花智控-机构级决策研报.html`
+- `sources/automations/新兴产业/机器人/2026-07-23-1602-拓普集团-机构级决策研报.html`
+- `sources/automations/支柱产业/电网/2026-07-23-1427-华明装备-机构级决策研报.html`
+- `sources/automations/支柱产业/电解铝/2026-07-23-1421-云铝股份-机构级决策研报.html`
+- `log.md`
+
+### 操作说明
+
+根据用户反馈优化每日跟踪面板中“动态价值区间”的展示：将长估值区间拆成主区间与多行解释，降低卡片内信息拥挤。同步将 `bbxm-equity-research` 技能版本升至 `1.0.5`，并重新生成三花智控、拓普集团、华明装备、云铝股份四份 HTML 阅读版。
+## 2026-07-23
+
+### 操作类型
+
+skill / html-style / equity_research
+
+### 修改文件
+
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `.agents/skills/bbxm-equity-research/scripts/render-report-html.cjs`
+- `sources/automations/新兴产业/商业航天/2026-07-17-航天电子机构级决策研报.html`
+- `sources/automations/新兴产业/商业航天/2026-07-21-1650-航天电子-机构级决策研报.html`
+- `sources/automations/新兴产业/商业航天/2026-07-23-1427-航天电子-机构级决策研报.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求将航天电子研报的每日跟踪面板同步为新版“动态价值区间”样式。对 2026-07-21 与 2026-07-23 两份有 Markdown 源稿的 HTML 重新渲染；对 2026-07-17 旧版 HTML 直接补入同款主区间标签样式。同步将 `bbxm-equity-research` 技能版本升至 `1.0.6`，使后续简单估值区间也按主区间标签展示。
+## 2026-07-23
+
+### 操作类型
+
+workbench / equity_research / strategic-resource-copper
+
+### 修改文件
+
+- `sources/webpages/2026-07-23-西部矿业机构级研究资料快照.md`
+- `workbench/targets/2026-07-23-1726-西部矿业-机构级决策研报.md`
+- `sources/automations/战略资源/铜/2026-07-23-1726-西部矿业-机构级决策研报.html`
+- `sources/automations/战略资源/铜/2026-07-22-铜产业完整分析报告.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` v1.0.6 为 `601168 西部矿业` 新建机构级决策研报。报告采用 2026-07-22 可核验收盘价 36.50 元作为价格锚，明确 2026-07-23 实时价未获取到；综合估值区间为 30—38 元 / 股，结论为基本面改善但估值合理偏高，新增现金 `wait`、已有持仓 `review`。HTML 阅读版已生成到战略资源 / 铜目录，并成功反链到铜产业完整分析报告。
+## 2026-07-23
+
+### 操作类型
+
+cleanup / skill-contract / equity_research
+
+### 修改文件
+
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `workbench/targets/2026-07-21-1650-航天电子-机构级决策研报.md`（删除旧版）
+- `sources/automations/新兴产业/商业航天/2026-07-17-航天电子机构级决策研报.html`（删除旧版）
+- `sources/automations/新兴产业/商业航天/2026-07-21-1650-航天电子-机构级决策研报.html`（删除旧版）
+- `log.md`
+
+### 操作说明
+
+根据用户要求清理航天电子重复机构级决策研报，只保留 `workbench/targets/2026-07-23-1427-航天电子-机构级决策研报.md` 及同名 HTML 作为当前权威版本。同步将 `bbxm-equity-research` 升级至 `1.0.7`：生成或重渲染前必须先检索同标的既有研报，已有权威研报时在原 Markdown 基础上更新并覆盖同名 HTML，不得为同一标的并列生成多份机构级决策研报。
+## 2026-07-23
+
+### 操作类型
+
+workbench / equity_research / strategic-resource-silver-tin
+
+### 修改文件
+
+- `sources/webpages/2026-07-23-兴业银锡机构级研究资料快照.md`
+- `workbench/targets/2026-07-23-1732-兴业银锡-机构级决策研报.md`
+- `sources/automations/战略资源/银锡/2026-07-23-1732-兴业银锡-机构级决策研报.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` v1.0.6 为 `000426 兴业银锡` 新建机构级决策研报。报告采用 2026-07-22 可核验收盘价 31.73 元作为价格锚，明确 2026-07-23 实时价未获取到；综合估值区间为 28—38 元 / 股，结论为基本面改善、估值合理但不是深度低估，新增现金 `wait / observe`、已有持仓 `review`。HTML 阅读版已生成到 `sources/automations/战略资源/银锡/`；当前银锡目录无产业完整分析报告，未建立反向链接。
+## 2026-07-23
+
+### 操作类型
+
+skill / html-renderer / equity_research
+
+### 修改文件
+
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `.agents/skills/bbxm-equity-research/scripts/render-report-html.cjs`
+- `.agents/skills/bbxm-equity-research/scripts/test-render-report-html.cjs`
+- `sources/automations/新兴产业/机器人/2026-07-23-1602-拓普集团-机构级决策研报.html`
+- `sources/automations/新兴产业/机器人/2026-07-17-1134-三花智控-机构级决策研报.html`
+- `sources/automations/战略资源/铜/2026-07-23-1726-西部矿业-机构级决策研报.html`
+- `sources/automations/战略资源/银锡/2026-07-23-1732-兴业银锡-机构级决策研报.html`
+- `sources/automations/新兴产业/商业航天/2026-07-23-1600-斯瑞新材-机构级决策研报.html`
+- `sources/automations/新兴产业/商业航天/2026-07-23-1500-火炬电子-机构级决策研报.html`
+- `sources/automations/temp/2026-07-23-1508-特锐德-机构级决策研报.html`
+- `sources/automations/支柱产业/电网/2026-07-23-1508-特锐德-机构级决策研报.html`
+- `log.md`
+
+### 操作说明
+
+根据用户反馈修正每日跟踪面板“盘中实时”默认状态：沪深 A 股证券代码现在由渲染器自动转换为本地行情代理 `secid`，直接打开 HTML 或本地服务未连接时显示“每日同步 · 实时未连接”，不再默认显示“未配置实时行情”。同步将 `bbxm-equity-research` 升级至 `1.0.8`，补充回归测试，并原地重渲染已受影响的个股 HTML。

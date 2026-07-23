@@ -11,6 +11,8 @@ const reportTemplate = fs.readFileSync(path.join(skillRoot, 'template.md'), 'utf
 const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'bbxm-report-html-'));
 const input = path.join(tempDir, '测试公司机构级决策研报.md');
 const output = path.join(tempDir, '测试公司机构级决策研报.html');
+const inputAutoSecid = path.join(tempDir, '西部矿业机构级决策研报.md');
+const outputAutoSecid = path.join(tempDir, '西部矿业机构级决策研报.html');
 fs.writeFileSync(path.join(tempDir, '2026-07-21-航天电子资金面分析.html'), '<!doctype html><title>资金面</title>', 'utf8');
 
 const sections = [
@@ -194,5 +196,15 @@ assert.match(html, /资金来源分类/);
 assert.match(html, /供给与抛压/);
 assert.match(html, /退出路径/);
 assert.match(html, /三要素数据缺口与来源/);
+
+fs.writeFileSync(inputAutoSecid, fs.readFileSync(input, 'utf8').replaceAll('600879.SH', '601168.SH').replaceAll('航天电子', '西部矿业'), 'utf8');
+const autoSecidResult = spawnSync(process.execPath, [renderer, '--input', inputAutoSecid, '--output', outputAutoSecid, '--vault-root', tempDir], {
+  encoding: 'utf8',
+});
+assert.equal(autoSecidResult.status, 0, `auto secid renderer failed:\n${autoSecidResult.stderr || autoSecidResult.stdout}`);
+const autoSecidHtml = fs.readFileSync(outputAutoSecid, 'utf8');
+assert.match(autoSecidHtml, /\/api\/stock-quote\?secid=1\.601168/);
+assert.doesNotMatch(autoSecidHtml, /未配置实时行情|当前证券未配置本地行情白名单/);
+assert.match(autoSecidHtml, /等待连接|实时未连接/);
 
 console.log('PASS: report HTML renderer');

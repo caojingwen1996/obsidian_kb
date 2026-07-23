@@ -1,0 +1,1693 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>兴业银锡机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+.daily-tracking { margin: 0 0 42px; padding: 22px; border: 1px solid #cbdade; border-radius: 16px; background: linear-gradient(135deg, #f3f8f9 0%, #fffaf0 100%); box-shadow: 0 12px 30px rgba(23, 50, 71, .07); }
+.daily-tracking-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
+.daily-tracking-kicker { margin: 0 0 4px; color: var(--teal); font-size: 12px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+.daily-tracking h2 { margin: 0; padding: 0; border: 0; font-size: 27px; }
+.daily-tracking-time { margin: 4px 0 0; color: var(--muted); font-size: 12px; text-align: right; }
+.tracking-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.tracking-grid + .tracking-grid { margin-top: 12px; }
+.tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
+.tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
+.tracking-card[data-tracking-key="dynamic-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
+.range-breakdown { display: block; }
+.range-main { display: inline-flex; align-items: center; max-width: 100%; margin-bottom: 10px; padding: 3px 9px; border-radius: 999px; background: #e7f0f3; color: var(--navy); font-size: 20px; line-height: 1.3; font-weight: 800; }
+.range-points { display: grid; gap: 7px; margin-top: 1px; }
+.range-point { display: block; padding-left: 11px; border-left: 3px solid #bed2d8; color: #245068; font-size: 14px; line-height: 1.52; font-weight: 650; }
+.tracking-value.bad { color: var(--danger); }
+.tracking-detail { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; }
+.tracking-status { display: inline-flex; margin-top: 10px; padding: 3px 8px; border-radius: 999px; color: #526b77; background: #edf2f4; font-size: 12px; font-weight: 700; }
+.tracking-status.live { color: #17604e; background: #dff3eb; }
+.tracking-status.error { color: var(--danger); background: var(--danger-bg); }
+.tracking-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; margin-top: 14px; padding-top: 13px; border-top: 1px solid #d5e0e3; color: #536d78; font-size: 13px; }
+.tracking-footer a { font-weight: 700; }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+  .tracking-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+  .daily-tracking-head { display: block; }
+  .daily-tracking-time { text-align: left; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .daily-tracking, .tracking-card { border: 1px solid #aebbc2; color: #102f43; background: #fff; box-shadow: none; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · 000426.SZ</p>
+      <h1>兴业银锡机构级决策研报</h1>
+      <div class="hero-meta"><span>2026-07-23 17:32（Asia/Shanghai）</span><span>2026-07-23 17:32（Asia/Shanghai）</span><span>深圳证券交易所 / 人民币</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
+<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
+<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
+<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
+<a class="toc-link" href="#section-6">6. 五年财务历史</a>
+<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
+<a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
+<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
+<a class="toc-link" href="#section-10">10. 估值</a>
+<a class="toc-link" href="#section-11">11. 冰冰小美框架判断</a>
+<a class="toc-link" href="#section-12">12. 最终结论</a>
+<a class="toc-link" href="#section-13">13. 后续监控指标</a>
+<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
+<a class="toc-link" href="#section-15">15. 来源清单</a>
+<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
+      <article class="content"><blockquote>
+<p>证券代码：000426.SZ<br>交易所 / 币种：深圳证券交易所 / 人民币<br>研究截止时间：2026-07-23 17:32（Asia/Shanghai）<br>报告生成时间：2026-07-23 17:32（Asia/Shanghai）<br>数据口径：公开公告、行情网页、第三方估值与资金流网页；行情采用可核验的 2026-07-22 收盘价 31.73 元，2026-07-23 实时价未获取到。  </p>
+</blockquote>
+<!-- DAILY_TRACKING_START -->
+<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-07-23 17:32（Asia/Shanghai，收盘后资料复核）" data-value-low="28" data-value-high="38">
+  <div class="daily-tracking-head">
+    <div><p class="daily-tracking-kicker">Daily decision tracker</p><h2>每日跟踪面板</h2></div>
+    <p class="daily-tracking-time">更新：2026-07-23 17:32（Asia/Shanghai，收盘后资料复核）<br>下次：收盘后 / 重大公告后</p>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">改善</p><p class="tracking-detail">风险方向：风险持平偏增强。下一验证点与失效条件见第 11—13 章。</p></div>
+    <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value"><span class="range-breakdown"><span class="range-main">28—38 元 / 股</span><span class="range-points"><span class="range-point">28 元附近=证券之星相对估值下沿与保守扣非利润支撑的安全垫</span><span class="range-point">32 元附近=银锡主业量价齐升和 2026H1 业绩预告兑现后的合理中枢</span><span class="range-point">38 元附近=已计入银漫二期、宇邦矿业释放和银价 / 锡价强势的乐观预期</span><span class="range-point">38 元以上需要 2026H1 正式报表、下半年产量和金属价格继续上修支撑</span></span></span></p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
+    <div class="tracking-card" data-tracking-key="price-deviation"><p class="tracking-label">股价偏离度</p><p class="tracking-value" id="deviation-value">位于动态价值区间内</p><p class="tracking-detail" id="deviation-detail">每日同步价 31.73 元；相对区间中枢 33.00 元为 -3.8%，相对下沿为 +13.3%，相对上沿为 -16.5%。价格不改变价值区间本身。</p></div>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="daily-quote"><p class="tracking-label">每日同步价</p><p class="tracking-value">31.73 元（2026-07-22 收盘；2026-07-23 实时价未获取到）</p><p class="tracking-detail">这是报告内嵌的正式跟踪基准，离线打开仍可使用。</p><span class="tracking-status">每日快照</span></div>
+    <div class="tracking-card" data-tracking-key="intraday-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">等待连接</p><p class="tracking-detail" id="intraday-detail">通过“大盘启动器”打开后获取盘中行情，每 60 秒刷新；直接打开 HTML 时不访问外部行情。</p><span class="tracking-status" id="intraday-status">未连接</span></div>
+    <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">wait / observe</p><p class="tracking-detail">估值：合理 · wait / observe；风险：风险持平偏增强；结论置信度：中。</p><span class="tracking-status">合理</span></div>
+  </div>
+  <div class="tracking-footer"><span>资金状态：<strong>多空分歧</strong> · 新增/已有动作：<strong>wait / observe</strong></span><span>资金面分析：未单独生成</span></div>
+</section>
+<!-- DAILY_TRACKING_END -->
+<h2 id="section-1">1. 决策摘要</h2>
+
+<h3>1.1 基本面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值状态</td>
+<td>合理</td>
+</tr>
+<tr>
+<td>综合估值区间</td>
+<td>28—38 元 / 股；28 元附近=证券之星相对估值下沿与保守扣非利润支撑的安全垫，32 元附近=银锡主业量价齐升和 2026H1 业绩预告兑现后的合理中枢，38 元附近=已计入银漫二期、宇邦矿业释放和银价 / 锡价强势的乐观预期，38 元以上需要 2026H1 正式报表、下半年产量和金属价格继续上修支撑</td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>以 31.73 元计算，相对下沿 -11.8%，相对中枢约 +0.9%，相对上沿 +19.8%；当前位置接近中枢，不是深度低估</td>
+</tr>
+<tr>
+<td>基本面状态</td>
+<td>改善</td>
+</tr>
+<tr>
+<td>关键经营变化</td>
+<td>2026H1 预告归母净利润 21.40—23.70 亿元，同比增长 168.95%—197.86%；扣非 16.90—19.20 亿元，同比增长 110.87%—139.57%；银漫扩建取得用地批复但预计 2028Q4 带料试车，当期业绩主要来自现有矿山、宇邦矿业释放、价格上涨和非经常性损益</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h3>1.2 资金面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>操作建议</td>
+<td>观望</td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td>wait / observe</td>
+</tr>
+<tr>
+<td>当前价格及时间</td>
+<td>31.73 元（2026-07-22 收盘；2026-07-23 实时价未获取到）</td>
+</tr>
+<tr>
+<td>资金状态</td>
+<td>多空分歧</td>
+</tr>
+<tr>
+<td>风险方向</td>
+<td>风险持平偏增强</td>
+</tr>
+<tr>
+<td>每日跟踪时间</td>
+<td>2026-07-23 17:32（Asia/Shanghai，收盘后资料复核）</td>
+</tr>
+<tr>
+<td>资金面分析链接</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<h3>如果今天这是一笔现金，我会买它吗</h3>
+<ul>
+<li>回答：只在特定条件下会。</li>
+<li>我的判断：兴业银锡的基本面比“普通有色弹性股”更强，银、锡收入占比高，2026H1 业绩预告已经把量价齐升兑现到利润里。但 31.73 元已基本落在本报告 28—38 元估值区间中枢，也靠近证券之星 28.92—31.97 元相对估值上沿；新增现金现在买不是错得离谱，但没有低位安全边际。</li>
+<li>改变结论的条件：股价回到 28—30 元且银 / 锡价格与 H1 正式利润不证伪，可以从 wait 升级到 observe / 小仓试错；若 H1 正式报表确认扣非利润靠近上限、Q3 金属价格维持强势，估值区间可上移。</li>
+</ul>
+<h2 id="section-2">2. 证券身份与来源矩阵</h2>
+
+<h3>2.1 证券身份</h3>
+<ul>
+<li>公司全称：内蒙古兴业银锡矿业股份有限公司。</li>
+<li>证券代码：000426.SZ。</li>
+<li>上市地：深圳证券交易所主板。</li>
+<li>报告准则：中国企业会计准则。</li>
+<li>法定披露体系：A股交易所与巨潮资讯 / 深交所公告体系。</li>
+<li>同名或跨市场歧义：无；本报告只分析 A 股 000426.SZ，旧称兴业矿业的历史行情仅作为同一证券的历史名称参考。</li>
+</ul>
+<h3>2.2 来源矩阵</h3>
+<table>
+<thead>
+<tr>
+<th>数据项目</th>
+<th>目标来源</th>
+<th>实际来源</th>
+<th>数据时间</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>实时价格、52周高低、今年以来表现</td>
+<td>深交所 / 东方财富 / 同花顺 / 证券之星</td>
+<td>证券之星、Investing、同花顺</td>
+<td>2026-07-22 收盘</td>
+<td>部分获取</td>
+</tr>
+<tr>
+<td>第三方公允价值、护城河、星级</td>
+<td>Morningstar / 证券之星</td>
+<td>证券之星估值指针</td>
+<td>2026-07-22</td>
+<td>部分获取</td>
+</tr>
+<tr>
+<td>最新季报与管理层指引</td>
+<td>公司公告</td>
+<td>2026Q1 报告、2026H1 业绩预告</td>
+<td>2026-04-30 / 2026-07-15</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>分部收入</td>
+<td>公司年报</td>
+<td>2025 年年报</td>
+<td>2026-04-22</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>卖方评级与目标价</td>
+<td>券商研报聚合</td>
+<td>证券之星估值分析 / 公开研报摘要</td>
+<td>2026-07</td>
+<td>部分获取</td>
+</tr>
+<tr>
+<td>近三个月新闻与催化剂</td>
+<td>公司公告 / 新闻 / 互动</td>
+<td>新浪财经公告、证券之星、同花顺</td>
+<td>2026-05—07</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>五年财务历史</td>
+<td>公司公告 / 新浪财务</td>
+<td>2023—2025 年报摘要、2026Q1 报告</td>
+<td>2021—2025</td>
+<td>已获取</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 行情与市场预期</h2>
+
+<h3>3.1 行情快照（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">数值</th>
+<th>来源</th>
+<th>时间 / 口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前价格</td>
+<td align="right">31.73 元</td>
+<td>证券之星每日必读</td>
+<td>2026-07-22 收盘</td>
+</tr>
+<tr>
+<td>52周最高</td>
+<td align="right">未获取到</td>
+<td>未获取到</td>
+<td>待补</td>
+</tr>
+<tr>
+<td>52周最低</td>
+<td align="right">未获取到</td>
+<td>未获取到</td>
+<td>待补</td>
+</tr>
+<tr>
+<td>今年以来表现</td>
+<td align="right">未获取到精确值</td>
+<td>未获取到</td>
+<td>待补</td>
+</tr>
+<tr>
+<td>总市值</td>
+<td align="right">约 563.41 亿元</td>
+<td>证券之星新闻动态页</td>
+<td>2026-07-22 附近</td>
+</tr>
+<tr>
+<td>PE / PB / EV</td>
+<td align="right">PE / PB 实时完整口径未获取到；2026-07-21 延时页 PE 18.50、PB 4.28；2026-03-31 每股收益 1.50 元</td>
+<td>CFI 延时页</td>
+<td>2026-07-21 10:52</td>
+</tr>
+</tbody></table>
+<h3>3.2 第三方公允价值与评级（事实）</h3>
+<ul>
+<li>公允价值：证券之星相对估值 28.92—31.97 元。</li>
+<li>护城河评级：证券之星文字口径为行业内竞争力护城河优秀。</li>
+<li>星级：Morningstar 星级未获取到。</li>
+<li>来源与时间：证券之星估值指针，数据更新日期 2026-07-22。</li>
+<li>未获取到的字段及已检查来源：Morningstar 原始公平价值、星级、护城河字段未取得可核验页面；证券之星不等同 Morningstar。</li>
+</ul>
+<h3>3.3 卖方评级与目标价分布（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>机构</th>
+<th>日期</th>
+<th>评级</th>
+<th align="right">目标价</th>
+<th>预测期</th>
+<th>关键假设</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>证券之星估值分析</td>
+<td>2026-07-22</td>
+<td>非卖方评级</td>
+<td align="right">28.92—31.97 元相对估值</td>
+<td>当前</td>
+<td>量价齐升、宇邦矿业并表、银锡价格上涨</td>
+</tr>
+<tr>
+<td>公开研报摘要</td>
+<td>2026Q2</td>
+<td>未完整获取</td>
+<td align="right">未获取到</td>
+<td>2026—2028</td>
+<td>市场预期 2026 年净利润高增长，驱动来自银锡价格与产能释放</td>
+</tr>
+</tbody></table>
+<ul>
+<li>目标价区间 / 中位数：未获取到完整卖方目标价。</li>
+<li>样本数量与完整性：不完整；本报告不把搜索摘要作为估值核心来源。</li>
+<li>来源冲突及采信理由：优先采用公司公告、证券之星相对估值和自建估值交叉验证。</li>
+</ul>
+<h2 id="section-4">4. 商业模式与竞争格局</h2>
+
+<h3>4.1 事实</h3>
+<ul>
+<li>收入来源：采矿行业矿精粉销售，2025 年采矿行业收入 55.35 亿元，占营业收入 99.64%。</li>
+<li>客户与定价权：产品价格高度跟随白银、锡、锌、铅、锑等金属价格；公司定价权主要来自矿山资源禀赋、品位、产量和成本，而非终端品牌。</li>
+<li>成本结构：采矿成本、选矿成本、安全环保投入、折旧摊销、资源税费和项目建设投入。</li>
+<li>资本强度：高。银漫矿业 297 万吨/年扩建、宇邦矿业释放、西藏阳光矿业收购、海外锡资源投资都需要资本开支和管理能力。</li>
+<li>竞争者：锡业股份、盛达资源、银泰黄金、赤峰黄金、湖南黄金、西部矿业、紫金矿业等有色 / 贵金属资源公司。</li>
+<li>监管约束：矿权、安全生产、环保、用地审批、跨境投资、H 股上市审核。</li>
+</ul>
+<h4>多产业位置景气度排序（事实与判断分列）</h4>
+<table>
+<thead>
+<tr>
+<th align="right">排名</th>
+<th>产业位置</th>
+<th>位置识别依据（事实）</th>
+<th>公司业务 / 资产暴露（事实）</th>
+<th>当前景气度</th>
+<th>趋势</th>
+<th>景气证据与时间</th>
+<th>财务传导</th>
+<th>验证指标 / 失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">1</td>
+<td>银矿采选 / 贵金属资源</td>
+<td>2025 年矿产银收入 21.76 亿元、占比 39.17%；2026H1 预告称矿产银产销量同比大幅增加</td>
+<td>银漫矿业、宇邦矿业等</td>
+<td>高</td>
+<td>上行</td>
+<td>银价上涨、产销量提升、H1 净利预增</td>
+<td>银价与产量直接进入收入、毛利和现金流</td>
+<td>银价、矿产银产量、H1 正式报表</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td>锡矿采选 / 小金属资源</td>
+<td>2025 年矿产锡收入 16.50 亿元、占比 29.70%</td>
+<td>银漫矿业锡银多金属资源</td>
+<td>较高</td>
+<td>上行</td>
+<td>锡价强势，2025 年矿产锡仍是第二大收入来源</td>
+<td>锡价和销量影响利润率</td>
+<td>锡价、锡产量、库存、加工费</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td>锌铅锑等多金属</td>
+<td>2025 年锌收入 9.76 亿元、铅收入 2.21 亿元、锑收入 1.00 亿元</td>
+<td>多金属伴生资源</td>
+<td>中</td>
+<td>持平偏上</td>
+<td>锌产量提升，锑收入增长</td>
+<td>分散收入并贡献副产品利润</td>
+<td>铅锌锑价格和产量</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td>产能扩张 / 资源并购期权</td>
+<td>银漫 297 万吨扩建获用地批复；西藏阳光矿业完成工商变更；对外投资 TAT</td>
+<td>中长期资源增量</td>
+<td>中</td>
+<td>上行</td>
+<td>扩建预计 2028Q4 带料试车</td>
+<td>当前不进利润，影响远期估值</td>
+<td>开工、环评、建设进度、资金安排</td>
+</tr>
+</tbody></table>
+<ul>
+<li>位置间交叉与去重说明：银、锡、锌、铅等来自同一采矿体系和多金属矿山，不能把每个金属的远期扩产期权重复计入估值。</li>
+<li>排名第一的位置能否进入公司利润和现金流：可以，2026Q1 和 H1 业绩预告已经体现矿产银产销量和价格传导。</li>
+<li>弱关联 / 待验证位置：海外锡资源、H 股上市、资源并购是期权，不等同当前利润。</li>
+</ul>
+<h3>4.2 我的判断</h3>
+<ul>
+<li>我的判断：兴业银锡当前核心优势是“银 + 锡”多金属资源弹性，既有贵金属避险/通胀属性，又有锡的小金属供给约束属性；2026H1 业绩预告说明产业逻辑已经进入利润兑现阶段。</li>
+<li>我的判断：商业模式最脆弱的环节是资源股典型的价格和项目双周期。金属价格回落、银漫二期延期、并购整合不顺或安全环保事件都会同时压利润和估值。</li>
+<li>证伪条件：H1 正式扣非利润低于预告下沿，银 / 锡价格回落，银漫二期进度低于公告节奏，或融资/资金面在高位持续流出。</li>
+</ul>
+<h2 id="section-5">5. 分部收入与盈利拆解</h2>
+
+<table>
+<thead>
+<tr>
+<th>分部</th>
+<th align="right">收入</th>
+<th align="right">同比</th>
+<th align="right">收入占比</th>
+<th align="right">毛利率</th>
+<th align="right">毛利率变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>矿产银</td>
+<td align="right">21.76 亿元</td>
+<td align="right">+86.70%</td>
+<td align="right">39.17%</td>
+<td align="right">约 58.71%</td>
+<td align="right">未获取到精确变化</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>矿产锡</td>
+<td align="right">16.50 亿元</td>
+<td align="right">+16.55%</td>
+<td align="right">29.70%</td>
+<td align="right">约 67.84%</td>
+<td align="right">未获取到精确变化</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>矿产锌</td>
+<td align="right">9.76 亿元</td>
+<td align="right">-0.53%</td>
+<td align="right">17.57%</td>
+<td align="right">约 43.79%</td>
+<td align="right">未获取到精确变化</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>矿产铁</td>
+<td align="right">1.80 亿元</td>
+<td align="right">-23.15%</td>
+<td align="right">3.25%</td>
+<td align="right">约 36.18%</td>
+<td align="right">未获取到精确变化</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>矿产铅</td>
+<td align="right">2.21 亿元</td>
+<td align="right">-4.09%</td>
+<td align="right">3.98%</td>
+<td align="right">约 49.79%</td>
+<td align="right">未获取到精确变化</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>矿产铜</td>
+<td align="right">1.33 亿元</td>
+<td align="right">+2.54%</td>
+<td align="right">2.39%</td>
+<td align="right">约 64.38%</td>
+<td align="right">未获取到精确变化</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>矿产锑</td>
+<td align="right">1.00 亿元</td>
+<td align="right">+59.77%</td>
+<td align="right">1.81%</td>
+<td align="right">约 60.18%</td>
+<td align="right">未获取到精确变化</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>矿产金</td>
+<td align="right">0.82 亿元</td>
+<td align="right">+500.21%</td>
+<td align="right">1.48%</td>
+<td align="right">约 45.52%</td>
+<td align="right">未获取到精确变化</td>
+<td>2025 年报</td>
+</tr>
+</tbody></table>
+<ul>
+<li>披露口径变化：公司按分产品披露收入和成本，主营仍为采矿行业；不同金属来自多金属矿山，存在伴生和成本分摊口径。</li>
+<li>来源冲突：年报和 SMM 摘要基本一致；以公司年报为准。</li>
+<li>采信理由：公司年报为法定披露来源。</li>
+<li>我的判断：收入和毛利高度集中于银、锡，2026 年市场实际给公司的定价核心不是“锌铅矿”，而是“白银价格 + 锡价 + 矿山扩产期权”。</li>
+</ul>
+<h2 id="section-6">6. 五年财务历史</h2>
+
+<table>
+<thead>
+<tr>
+<th>财年</th>
+<th align="right">营收</th>
+<th align="right">毛利率</th>
+<th align="right">经营现金流</th>
+<th align="right">资本开支</th>
+<th align="right">自由现金流</th>
+<th align="right">ROIC / 代理值</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td align="right">20.09 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">6.88 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">ROE 约 4.68%</td>
+<td>2023 年报摘要</td>
+</tr>
+<tr>
+<td>2022</td>
+<td align="right">20.86 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">7.77 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">ROE 约 3.19%</td>
+<td>2023 / 2024 年报摘要</td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">37.06 亿元</td>
+<td align="right">52.88%</td>
+<td align="right">17.50 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">ROE 16.12%</td>
+<td>2023 年报</td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">42.70 亿元</td>
+<td align="right">62.95%</td>
+<td align="right">18.15 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">ROE 21.28%</td>
+<td>2024 年报摘要</td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">55.55 亿元</td>
+<td align="right">57.59%</td>
+<td align="right">24.88 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">ROE 19.60%</td>
+<td>2025 年报</td>
+</tr>
+</tbody></table>
+<ul>
+<li>自由现金流口径：资本开支未完整获取，本报告不强行计算自由现金流。</li>
+<li>ROIC 口径：未获取完整投入资本口径，以 ROE、毛利率和经营现金流作为资本回报代理。</li>
+<li>一次性项目和会计变化：2026Q1 和 2026H1 包含双源有色股权转让非经常性损益；必须区分归母和扣非。</li>
+<li>我的判断：2023 年以来利润和现金流进入上行周期，2026H1 更进一步；但资本开支和并购扩张会让未来自由现金流与股东回报存在不确定性。</li>
+</ul>
+<h2 id="section-7">7. 最新季度与管理层指引</h2>
+
+<h3>7.1 最新季度（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">本期</th>
+<th align="right">同比 / 变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营收</td>
+<td align="right">21.30 亿元</td>
+<td align="right">+85.32%</td>
+<td>2026Q1 报告</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">未获取到季报精确值</td>
+<td align="right">未获取到</td>
+<td>待补</td>
+</tr>
+<tr>
+<td>净利润</td>
+<td align="right">13.38 亿元</td>
+<td align="right">+257.32%</td>
+<td>2026Q1 报告</td>
+</tr>
+<tr>
+<td>调整后利润</td>
+<td align="right">扣非净利润 8.91 亿元</td>
+<td align="right">+137.89%</td>
+<td>2026Q1 报告</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">12.17 亿元</td>
+<td align="right">+1.56%</td>
+<td>2026Q1 报告</td>
+</tr>
+<tr>
+<td>订单 / 储备</td>
+<td align="right">不适用</td>
+<td align="right">矿企以产量、项目和资源储量为主</td>
+<td>公司公告</td>
+</tr>
+</tbody></table>
+<h3>7.2 管理层指引（事实）</h3>
+<ul>
+<li>正式量化指引：2026H1 归母净利润预计 21.40—23.70 亿元，扣非净利润 16.90—19.20 亿元；基本 EPS 1.2052—1.3347 元 / 股。</li>
+<li>定性展望：宇邦矿业产能逐步释放，矿产银产销量同比大幅增加；银、锡等矿产品销售价格上涨；银漫 297 万吨扩建预计 2028Q4 带料试车。</li>
+<li>未获取到：2026 全年产量、全年资本开支、2027—2028 明确利润指引。</li>
+</ul>
+<h3>7.3 我的判断</h3>
+<ul>
+<li>我的判断：边际变化非常强，且扣非也高增，不是单纯非经常性收益；但 H1 归母中约 4.54 亿元非经常性损益需要从估值中折价。</li>
+<li>我的判断：指引可信度中高。业绩预告已经正式公告，但最终以 2026 半年报为准；扩建项目周期长，不应提前全部资本化。</li>
+<li>下一验证节点：2026 半年报（预约 2026-08-29）、银漫二期正式开工披露、Q3 金属价格和矿产银 / 锡产销量。</li>
+</ul>
+<h2 id="section-8">8. 近三个月新闻与催化剂</h2>
+
+<table>
+<thead>
+<tr>
+<th>发生日</th>
+<th>事件</th>
+<th>影响变量</th>
+<th>财务传导</th>
+<th>是否已反映</th>
+<th>验证节点</th>
+<th>失效条件</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-05-28</td>
+<td>公告拟以场外要约收购 Far East Gold</td>
+<td>资源并购</td>
+<td>远期资源储备</td>
+<td>部分反映</td>
+<td>交易进展</td>
+<td>价格过高或失败</td>
+<td>理杏仁公告列表</td>
+</tr>
+<tr>
+<td>2026-06-23</td>
+<td>跌幅偏离值上榜，净买入 -5.32 亿元</td>
+<td>情绪和筹码</td>
+<td>高波动风险</td>
+<td>已反映</td>
+<td>后续资金修复</td>
+<td>持续大额净卖</td>
+<td>同花顺龙虎榜</td>
+</tr>
+<tr>
+<td>2026-07-14</td>
+<td>银漫矿业 297 万吨扩建取得建设用地批复</td>
+<td>远期产能</td>
+<td>2028Q4 后逐步体现</td>
+<td>部分反映</td>
+<td>正式开工和建设进度</td>
+<td>工期延期</td>
+<td>公司公告</td>
+</tr>
+<tr>
+<td>2026-07-15</td>
+<td>发布 2026H1 业绩预告</td>
+<td>盈利上修</td>
+<td>提升 2026E EPS</td>
+<td>已反映一部分</td>
+<td>半年报</td>
+<td>低于预告下沿</td>
+<td>公司公告</td>
+</tr>
+<tr>
+<td>2026-07-16</td>
+<td>H 股上市申请发回暨拟重新递交</td>
+<td>融资与国际化</td>
+<td>可能影响资本结构和扩张能力</td>
+<td>部分反映</td>
+<td>重新递交进度</td>
+<td>审核不顺</td>
+<td>证券之星公告</td>
+</tr>
+<tr>
+<td>2026-07-22</td>
+<td>股价收 31.73 元，主力净流入 3.76 亿元</td>
+<td>流动性</td>
+<td>短线承接增强</td>
+<td>已反映</td>
+<td>连续资金流</td>
+<td>次日冲高回落</td>
+<td>证券之星每日必读</td>
+</tr>
+</tbody></table>
+<h2 id="section-9">9. 多头与空头论据</h2>
+
+<h3>9.1 多头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>银锡主业高景气</td>
+<td>2025 银 + 锡收入占比 68.87%，H1 预告高增</td>
+<td>银价、锡价、矿产银 / 锡产量</td>
+<td>金属价格回落</td>
+</tr>
+<tr>
+<td>扣非利润也高增</td>
+<td>H1 扣非预计 16.90—19.20 亿元，同比 +110.87%—139.57%</td>
+<td>半年报扣非利润</td>
+<td>低于预告下沿</td>
+</tr>
+<tr>
+<td>银漫扩建提供中长期产能期权</td>
+<td>297 万吨/年扩建获用地批复，预计 2028Q4 试车</td>
+<td>开工、施工、投产</td>
+<td>延期或成本超支</td>
+</tr>
+<tr>
+<td>现金流质量仍强</td>
+<td>2025 经营现金流 24.88 亿元，Q1 经营现金流 12.17 亿元</td>
+<td>半年经营现金流</td>
+<td>现金流明显弱于利润</td>
+</tr>
+</tbody></table>
+<h3>9.2 空头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值已接近第三方区间上沿</td>
+<td>31.73 元接近证券之星 28.92—31.97 元上沿</td>
+<td>PE / PB、利润上修</td>
+<td>半年报和 Q3 上修</td>
+</tr>
+<tr>
+<td>非经常性损益抬高归母</td>
+<td>H1 预告中双源有色转让贡献非经常性损益 4.54 亿元</td>
+<td>扣非利润</td>
+<td>扣非继续超预期</td>
+</tr>
+<tr>
+<td>情绪和资金波动大</td>
+<td>6月23日龙虎榜净卖 5.32 亿元，近 5 日资金口径冲突</td>
+<td>连续资金流、换手</td>
+<td>资金持续净流入</td>
+</tr>
+<tr>
+<td>远期项目兑现慢</td>
+<td>银漫二期预计 2028Q4 带料试车</td>
+<td>建设进度</td>
+<td>提前投产或产能替代释放</td>
+</tr>
+</tbody></table>
+<h2 id="section-10">10. 估值</h2>
+
+<h3>10.1 相对估值</h3>
+<table>
+<thead>
+<tr>
+<th>公司</th>
+<th>业务可比性</th>
+<th align="right">增长</th>
+<th align="right">利润率</th>
+<th align="right">PE</th>
+<th align="right">PB</th>
+<th align="right">EV/EBITDA</th>
+<th>数据时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>兴业银锡</td>
+<td>银锡锌采选</td>
+<td align="right">高</td>
+<td align="right">高</td>
+<td align="right">2026H1 年化 PE 约 12—15 倍</td>
+<td align="right">约 4—5 倍</td>
+<td align="right">未获取到</td>
+<td>2026-07</td>
+</tr>
+<tr>
+<td>锡业股份</td>
+<td>锡产业链龙头</td>
+<td align="right">中高</td>
+<td align="right">中</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>待补</td>
+</tr>
+<tr>
+<td>盛达资源</td>
+<td>银铅锌资源</td>
+<td align="right">高</td>
+<td align="right">中高</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>待补</td>
+</tr>
+<tr>
+<td>银泰黄金</td>
+<td>贵金属资源</td>
+<td align="right">中高</td>
+<td align="right">高</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>待补</td>
+</tr>
+</tbody></table>
+<ul>
+<li>选取理由：均属于贵金属 / 小金属资源企业，收益由金属价格、资源禀赋和项目扩张驱动。</li>
+<li>正常化调整：不直接把 H1 归母年化为全年 42.8—47.4 亿元，因为包含 4.54 亿元非经常性损益；以 2026E 扣非利润 34—40 亿元、EPS 1.91—2.25 元作为核心口径。</li>
+<li>对应每股价值区间：EPS 1.91—2.25 元 × 15—17 倍资源股 PE，对应 28.7—38.3 元。</li>
+<li>我的判断：证券之星 28.92—31.97 元给出保守相对估值锚；H1 预告和银漫期权可支撑上沿，但 38 元以上需要利润继续上修。</li>
+</ul>
+<h3>10.2 DCF</h3>
+<h4>关键假设</h4>
+<table>
+<thead>
+<tr>
+<th>假设</th>
+<th align="right">悲观</th>
+<th align="right">基准</th>
+<th align="right">乐观</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>收入增长</td>
+<td align="right">5%</td>
+<td align="right">10%</td>
+<td align="right">15%</td>
+<td>银锡价格、产量释放、并购</td>
+</tr>
+<tr>
+<td>经营利润率</td>
+<td align="right">35%</td>
+<td align="right">40%</td>
+<td align="right">45%</td>
+<td>采矿业务高毛利与价格周期</td>
+</tr>
+<tr>
+<td>税率</td>
+<td align="right">25%</td>
+<td align="right">25%</td>
+<td align="right">25%</td>
+<td>中国企业所得税常规口径</td>
+</tr>
+<tr>
+<td>折旧摊销</td>
+<td align="right">中</td>
+<td align="right">中</td>
+<td align="right">高</td>
+<td>矿山资产和扩建</td>
+</tr>
+<tr>
+<td>资本开支</td>
+<td align="right">高</td>
+<td align="right">高</td>
+<td align="right">很高</td>
+<td>银漫二期、并购、海外项目</td>
+</tr>
+<tr>
+<td>营运资本变化</td>
+<td align="right">中</td>
+<td align="right">中</td>
+<td align="right">高</td>
+<td>金属价格和库存</td>
+</tr>
+<tr>
+<td>WACC</td>
+<td align="right">10.0%</td>
+<td align="right">9.5%</td>
+<td align="right">9.0%</td>
+<td>资源股与项目风险溢价</td>
+</tr>
+<tr>
+<td>永续增长率</td>
+<td align="right">1.0%</td>
+<td align="right">1.5%</td>
+<td align="right">2.0%</td>
+<td>成熟矿业资产</td>
+</tr>
+</tbody></table>
+<h4>估值结果</h4>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">企业价值</th>
+<th align="right">净债务</th>
+<th align="right">股权价值</th>
+<th align="right">每股价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观</td>
+<td align="right">未完整建模</td>
+<td align="right">未完整建模</td>
+<td align="right">未完整建模</td>
+<td align="right">25—29 元</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">未完整建模</td>
+<td align="right">未完整建模</td>
+<td align="right">未完整建模</td>
+<td align="right">31—35 元</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">未完整建模</td>
+<td align="right">未完整建模</td>
+<td align="right">未完整建模</td>
+<td align="right">38—43 元</td>
+</tr>
+</tbody></table>
+<h4>敏感性分析</h4>
+<table>
+<thead>
+<tr>
+<th>WACC \ 永续增长率</th>
+<th align="right">1.0%</th>
+<th align="right">1.5%</th>
+<th align="right">2.0%</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>9.0%</td>
+<td align="right">35</td>
+<td align="right">39</td>
+<td align="right">43</td>
+</tr>
+<tr>
+<td>9.5%</td>
+<td align="right">31</td>
+<td align="right">35</td>
+<td align="right">39</td>
+</tr>
+<tr>
+<td>10.0%</td>
+<td align="right">28</td>
+<td align="right">31</td>
+<td align="right">35</td>
+</tr>
+</tbody></table>
+<h4>反向 DCF</h4>
+<ul>
+<li>当前价格隐含的收入增长 / 终值利润率：31.73 元大致要求 2026H1 扣非高增可延续到全年，并且银 / 锡价格不明显回落。</li>
+<li>与历史和行业相比是否可实现：可实现，但对金属价格和项目节奏敏感。</li>
+<li>我的判断：DCF 只能作为敏感性校验，不能替代资源股的相对估值和项目期权判断。</li>
+</ul>
+<h3>10.3 行业特定估值</h3>
+<ul>
+<li>方法：P/B-ROE + 分部加总 + 项目期权折价。</li>
+<li>适用理由：矿业公司价值来自资源量、产量、成本、项目爬坡和金属价格；PE 在价格高点容易低估风险。</li>
+<li>关键假设：2026E 扣非 ROE 维持高位；银漫二期在 2028Q4 后才进入兑现，不按满额计入现值。</li>
+<li>对应每股价值区间：保守 PB / ROE 约 28—32 元；计入银锡强景气和扩建期权约 34—38 元。</li>
+<li>局限性：未获取到完整资源储量 NAV、现金成本曲线和逐矿山资本开支。</li>
+</ul>
+<h3>10.4 估值交叉验证</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="right">每股价值区间</th>
+<th align="right">权重</th>
+<th>采信理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>相对估值</td>
+<td align="right">28—38 元</td>
+<td align="right">45%</td>
+<td>与证券之星估值和 2026E 扣非 EPS 最贴近</td>
+</tr>
+<tr>
+<td>DCF</td>
+<td align="right">25—43 元</td>
+<td align="right">20%</td>
+<td>价格和资本开支敏感，只作边界</td>
+</tr>
+<tr>
+<td>行业特定估值</td>
+<td align="right">28—38 元</td>
+<td align="right">35%</td>
+<td>资源股更适合 PB-ROE 与项目期权</td>
+</tr>
+</tbody></table>
+<ul>
+<li>综合估值区间：28—38 元 / 股。</li>
+<li>相对现价上行 / 下行空间：以 31.73 元计算，下沿 -11.8%，中枢约 +0.9%，上沿 +19.8%。</li>
+<li>为什么不机械平均：公司正处在金属价格和产量双弹性期，PE 会低估价格回落风险；银漫二期远期价值不能按满额提前兑现。</li>
+</ul>
+<h2 id="section-11">11. 冰冰小美框架判断</h2>
+
+<h3>11.1 三要素状态总表</h3>
+<ul>
+<li>三要素结论来源：<code>bbxm-equity-research</code> 内嵌三要素映射。</li>
+<li>分析对象与层级：兴业银锡作为银锡资源弹性标的。</li>
+<li>分析截止时间：2026-07-23 17:32。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>状态</th>
+<th>核心证据</th>
+<th>核心反证</th>
+<th>失效条件</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>有利</td>
+<td>银锡收入占比高，H1 扣非高增，银漫扩建获批</td>
+<td>资源储量 NAV 和现金成本未完整取得</td>
+<td>H1 低于预告、项目延期</td>
+<td>中</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>中性</td>
+<td>7月22日主力净流入，但同花顺 5 日资金显示流出，融资余额高</td>
+<td>资金口径冲突，龙虎榜曾大幅净卖</td>
+<td>连续高位流出</td>
+<td>中低</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>中性偏不利</td>
+<td>31.73 元接近证券之星估值上沿，6月以来波动剧烈</td>
+<td>H1 业绩预告仍可继续消化估值</td>
+<td>38 元以上无盈利上修</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h4>前六步证据映射</h4>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>前六步证据来源</th>
+<th>已验证证据</th>
+<th>反证与缺口</th>
+<th>分析状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>第 4—7 章；第 2 章来源矩阵对应行</td>
+<td>银锡收入占比 68.87%，H1 预告扣非高增，银漫扩建获批</td>
+<td>储量 NAV、现金成本未获取</td>
+<td>已部分验证</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>Step 2 交易数据；第 8—9 章；第 2 章来源矩阵对应行</td>
+<td>7月22日放量、主力净流入、融资余额 43.91 亿元</td>
+<td>资金口径冲突，未生成资金面 HTML</td>
+<td>部分验证</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>第 3、8、9 章；第 2 章来源矩阵对应行</td>
+<td>股价接近第三方估值上沿，龙虎榜波动大</td>
+<td>2026-07-23 实时价未获取到</td>
+<td>部分验证</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Step 6 估值约束：估值不强行归入三要素；当前价格靠近中枢，允许观察，不支持重仓追买。</li>
+<li>补采证据回填：H1 业绩预告、银漫扩建、证券之星估值和资金流已回填第 2—10 章。</li>
+</ul>
+<h3>11.2 竞争格局与比较优势</h3>
+<h4>前文证据引用</h4>
+<ul>
+<li><p>商业模式与竞争底稿：引用第 4 章，不重复正文。</p>
+</li>
+<li><p>分部与资本回报证据：引用第 5—7 章。</p>
+</li>
+<li><p>相关来源状态：引用第 2 章来源矩阵。</p>
+</li>
+<li><p>分析对象与竞争层级：国内银锡多金属矿山企业。</p>
+</li>
+<li><p>当前状态：有利。</p>
+</li>
+<li><p>证据充分性：中等；依据：收入、产量、H1 预告和项目公告较完整，但储量 NAV、现金成本曲线未完整取得。</p>
+</li>
+<li><p>多产业位置景气度排序：首位是银矿采选，第二是锡矿采选，远期期权是银漫扩建和并购。</p>
+</li>
+<li><p>产业链位置与利润池：公司处于上游矿产资源端，金属价格上行时利润池优先向矿山采选集中。</p>
+</li>
+<li><p>核心比较优势：银锡收入占比高、矿山扩张、扣非利润兑现、现金流强。</p>
+</li>
+<li><p>竞争对手与替代方案：锡业股份更偏锡产业链，盛达资源更偏银铅锌，银泰黄金更偏金资源，兴业银锡的差异是银锡多金属弹性。</p>
+</li>
+<li><p>份额、定价权、客户黏性与进入壁垒：定价权主要是资源控制、品位、成本和矿权审批壁垒。</p>
+</li>
+<li><p>竞争优势转化为订单、利润和现金回报的情况：2026H1 预告显示已转化为利润；银漫扩建是 2028 年后的第二阶段。</p>
+</li>
+<li><p>当前决策含义：标的值得重点跟踪，但买点仍受价格约束。</p>
+</li>
+</ul>
+<h4>证据</h4>
+<ul>
+<li>2025 年银锡收入占比 68.87%。</li>
+<li>2026H1 扣非净利润预计 16.90—19.20 亿元，同比 +110.87%—139.57%。</li>
+<li>银漫 297 万吨扩建获用地批复。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>H1 归母含 4.54 亿元非经常性损益。</li>
+<li>远期扩建预计 2028Q4 试车，不能支撑当期利润。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>银 / 锡价格回落，H1 正式报表低于预告，银漫扩建延期或成本超支。</li>
+</ul>
+<h3>11.3 流动性辩证分析</h3>
+<ul>
+<li>当前状态：中性。</li>
+<li>证据充分性：不充分；依据：资金口径冲突，且没有独立资金面 HTML。</li>
+</ul>
+<h4>宏观流动性</h4>
+<ul>
+<li>总量环境与边际变化：未完整展开。</li>
+<li>对本标的的传导：贵金属价格、美元利率预期、商品资金风险偏好共同影响银锡价格和资源股估值。</li>
+</ul>
+<h4>中观流动性</h4>
+<ul>
+<li>行业 / 主题 / ETF / 机构配置变化：贵金属、有色、小金属主题活跃；但资金容易在高位快速轮动。</li>
+<li>对本标的的传导：主题资金推动价格靠近估值中枢上方，但不等于长期资金确认。</li>
+</ul>
+<h4>微观流动性</h4>
+<ul>
+<li>成交额、换手率、量价结构、融资和大单：7月22日成交额 36.19 亿元、换手率 6.34%、主力净流入 3.76 亿元；同花顺显示近 5 日资金流出较多；7月21日融资余额 43.91 亿元。</li>
+<li>连续窗口与相对强弱：7月17—22 日波动剧烈，先大跌后涨停再放量上涨。</li>
+</ul>
+<h4>资金来源分类</h4>
+<table>
+<thead>
+<tr>
+<th>资金来源</th>
+<th>当前状态</th>
+<th>连续窗口证据</th>
+<th>对价格的含义</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>长期配置资金</td>
+<td>证据不足</td>
+<td>未获取到机构连续持仓</td>
+<td>不作为买点依据</td>
+<td>低</td>
+</tr>
+<tr>
+<td>趋势 / 交易资金</td>
+<td>活跃但分歧</td>
+<td>7月22日主力净流入，近 5 日口径显示流出</td>
+<td>可推升也可快速撤退</td>
+<td>中</td>
+</tr>
+<tr>
+<td>产业资本 / 内部人</td>
+<td>证据不足</td>
+<td>未获取到新增增减持</td>
+<td>不构成判断核心</td>
+<td>低</td>
+</tr>
+</tbody></table>
+<h4>供给与抛压</h4>
+<table>
+<thead>
+<tr>
+<th>供给来源</th>
+<th>当前状态</th>
+<th>时间窗口</th>
+<th>影响</th>
+<th>验证方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>解禁 / 减持</td>
+<td>未获取到重大新增</td>
+<td>近月</td>
+<td>待验证</td>
+<td>公告</td>
+</tr>
+<tr>
+<td>再融资 / H股上市</td>
+<td>H 股申请发回拟重新递交</td>
+<td>2026-07</td>
+<td>中期融资预期影响估值</td>
+<td>后续公告</td>
+</tr>
+<tr>
+<td>获利盘 / 套牢盘</td>
+<td>较高</td>
+<td>1月、6月、7月多次龙虎榜和大波动</td>
+<td>高位波动放大</td>
+<td>量价和龙虎榜</td>
+</tr>
+</tbody></table>
+<h4>最低数据检查</h4>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>当前窗口</th>
+<th>对比窗口</th>
+<th>结论</th>
+<th>数据源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>成交额与换手率</td>
+<td>7月22日 36.19 亿元、6.34%</td>
+<td>7月21日 20.36 亿元、4.07%</td>
+<td>放量活跃</td>
+<td>证券之星 / Investing</td>
+</tr>
+<tr>
+<td>融资余额与融资买入</td>
+<td>7月21日融资余额 43.91 亿元</td>
+<td>7月8—21 高位波动</td>
+<td>杠杆参与高</td>
+<td>证券之星</td>
+</tr>
+<tr>
+<td>主力 / 大单资金</td>
+<td>7月22日主力净流入 3.76 亿元</td>
+<td>同花顺近 5 日流出</td>
+<td>口径分歧</td>
+<td>证券之星 / 同花顺</td>
+</tr>
+<tr>
+<td>ETF / 北向 / 机构代理指标</td>
+<td>未获取到</td>
+<td>未获取到</td>
+<td>证据不足</td>
+<td>待补</td>
+</tr>
+</tbody></table>
+<h4>证据</h4>
+<ul>
+<li>7月22日放量上涨并有主力净流入。</li>
+<li>融资余额高，说明杠杆资金参与度不低。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>同花顺资金口径显示近 5 日流出，6月23日龙虎榜净卖 5.32 亿元，资金并不稳定。</li>
+</ul>
+<h4>退出路径</h4>
+<ul>
+<li>资金流入如何退出：若银价 / 锡价回落或 H1 正式利润低于预告，趋势资金可能通过放量滞涨和融资余额下降退出。</li>
+<li>持续性被证伪的信号：连续两日放量不创新高、主力净流入转负、跌破 30 元。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>价格跌破 30 元并伴随资金连续净流出，流动性由中性转不利。</li>
+</ul>
+<h3>11.4 情绪位置变化</h3>
+<ul>
+<li>当前状态：中性偏不利。</li>
+<li>证据充分性：中；依据：价格快速反弹、资金活跃，但已接近第三方相对估值上沿。</li>
+<li>当前所处阶段：扩散后偏拥挤。</li>
+<li>个股相对板块与指数的强弱：具体相对指数未获取到，但单日上涨 7.12%、换手 6.34%显示强势。</li>
+<li>催化兑现后的价格反馈：H1 业绩预告和金属价格上涨已被快速反映。</li>
+</ul>
+<h4>证据</h4>
+<ul>
+<li>7月22日收盘 31.73 元，涨 7.12%。</li>
+<li>证券之星相对估值上沿 31.97 元，现价接近上沿。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>若 H1 正式扣非靠近上限且 Q3 金属价格强势，现价可被利润消化。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>38 元以上仍无新利润上修，或回落跌破 30 元且资金流出。</li>
+</ul>
+<h3>11.5 综合状态与主导矛盾</h3>
+<ul>
+<li>三要素综合判断：部分有利。</li>
+<li>主导要素：竞争格局和基本面兑现。</li>
+<li>拖累要素：资金口径分歧、情绪位置偏热。</li>
+<li>主导矛盾：利润兑现很强，但价格已经从低位修复到合理中枢，新增现金要等价格或新利润证据。</li>
+<li>下一验证节点：2026 半年报、银 / 锡价格、银漫扩建开工公告、30 / 38 元价格区间。</li>
+<li>状态切换条件：回落到 28—30 元且业绩不坏，或正式利润上修使估值区间上移。</li>
+</ul>
+<h3>11.6 三要素行动映射</h3>
+<table>
+<thead>
+<tr>
+<th>资金属性</th>
+<th>当前动作</th>
+<th>允许升级的条件</th>
+<th>降级 / 退出条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>新增现金</td>
+<td>wait / observe</td>
+<td>28—30 元且 H1 不证伪；或 H1 扣非靠上沿并金属价格继续强</td>
+<td>38 元以上无新证据</td>
+</tr>
+<tr>
+<td>已有持仓</td>
+<td>review</td>
+<td>30 元上方稳住且半年报强兑现</td>
+<td>跌破 30 元并资金连续流出</td>
+</tr>
+</tbody></table>
+<h3>11.7 三要素数据缺口与来源</h3>
+<table>
+<thead>
+<tr>
+<th>数据缺口</th>
+<th>已检查来源</th>
+<th>对哪一要素有影响</th>
+<th>对结论的影响</th>
+<th>补齐方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-07-23 实时价</td>
+<td>搜索 / 行情页</td>
+<td>情绪位置</td>
+<td>采用 7月22日收盘，降低实时性</td>
+<td>收盘后刷新</td>
+</tr>
+<tr>
+<td>Morningstar 原始估值</td>
+<td>搜索 / 证券之星替代</td>
+<td>估值</td>
+<td>不影响主区间，但第三方完整性不足</td>
+<td>重新核验</td>
+</tr>
+<tr>
+<td>独立资金面 HTML</td>
+<td>未生成</td>
+<td>流动性</td>
+<td>资金结论降为中低置信</td>
+<td>后续调用资金面技能</td>
+</tr>
+<tr>
+<td>储量 NAV / 现金成本</td>
+<td>年报摘要未完整取得</td>
+<td>竞争格局 / 估值</td>
+<td>上沿不按满额给</td>
+<td>读取完整 PDF 和调研纪要</td>
+</tr>
+</tbody></table>
+<ul>
+<li>分析口径与截止时间：2026-07-23 17:32。</li>
+<li>主要数据来源：公司公告、证券之星、同花顺、Investing、新浪财经。</li>
+<li>数据缺口导致的置信度调整：结论置信度为中，不给高置信买入。</li>
+</ul>
+<h3>11.8 风险方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>风险类型</th>
+<th>前一窗口</th>
+<th>当前窗口</th>
+<th>方向证据</th>
+<th>反证</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本面风险</td>
+<td>2025 利润高增</td>
+<td>H1 预告继续高增</td>
+<td>风险减弱</td>
+<td>非经常性损益较大</td>
+</tr>
+<tr>
+<td>估值风险</td>
+<td>7月21日 29.62 元</td>
+<td>7月22日 31.73 元</td>
+<td>接近第三方上沿</td>
+<td>扣非上修可消化</td>
+</tr>
+<tr>
+<td>情绪风险</td>
+<td>6月23日龙虎榜净卖</td>
+<td>7月22日放量上涨</td>
+<td>波动仍大</td>
+<td>主力净流入</td>
+</tr>
+<tr>
+<td>流动性风险</td>
+<td>近 5 日资金分歧</td>
+<td>单日主力流入</td>
+<td>分歧未消除</td>
+<td>连续流入可改善</td>
+</tr>
+</tbody></table>
+<h3>11.9 风险传导链</h3>
+<ul>
+<li>信息源头：银价、锡价、H1 正式利润、银漫扩建进度、资金口径分歧。</li>
+<li>核心变量：扣非利润、矿产银 / 锡产量、金属价格、融资余额、30 / 38 元价格位置。</li>
+<li>传导机制：金属价格和产量提升利润，利润上修支撑估值；若价格高位而利润不继续上修，资金从成长兑现转为获利了结。</li>
+<li>影响对象：兴业银锡估值、资源股情绪、持仓仓位。</li>
+<li>市场行为变化：高换手放量后更依赖后续业绩确认。</li>
+<li>风险方向：风险持平偏增强。</li>
+<li>验证指标：H1 正式报表、30 元中枢、38 元上沿、融资余额、金属价格。</li>
+<li>失效条件：正式业绩强于预告上沿或 Q3 金属价格继续上行，使风险重新转弱。</li>
+</ul>
+<h3>11.10 风险方向结论</h3>
+<ul>
+<li>风险方向结论：风险持平偏增强。</li>
+<li>判断依据：基本面明显改善，但价格接近第三方估值上沿，资金口径分歧，远期项目已部分被交易。</li>
+<li>反证：H1 正式扣非利润靠上限、银 / 锡价格继续上行、资金连续净流入。</li>
+<li>未获取到：2026-07-23 实时价、完整资金面报告、Morningstar 原始估值。</li>
+<li>置信度：中。</li>
+</ul>
+<h3>11.11 四层方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>边际改善 / 无明显变化 / 边际恶化 / 未获取到</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观</td>
+<td>未获取到</td>
+<td>美元、利率和贵金属宏观未完整展开</td>
+</tr>
+<tr>
+<td>中观</td>
+<td>边际改善</td>
+<td>银锡价格上涨，贵金属 / 小金属主题活跃</td>
+</tr>
+<tr>
+<td>微观</td>
+<td>边际改善</td>
+<td>H1 归母和扣非利润大幅预增</td>
+</tr>
+<tr>
+<td>交易</td>
+<td>边际恶化</td>
+<td>接近相对估值上沿，资金口径分歧</td>
+</tr>
+</tbody></table>
+<h3>11.12 最终动作与约束</h3>
+<ul>
+<li>主动作：wait / observe。</li>
+<li>新增现金：不在 31.73 元重仓追，等待 28—30 元或 H1 正式利润上修。</li>
+<li>已有持仓：review，按 30 元支撑和 38 元上沿管理仓位。</li>
+<li>承接条件：30 元附近缩量企稳，H1 正式扣非靠近预告上限，银 / 锡价格不回落。</li>
+<li>退出条件：跌破 30 元、资金连续流出、H1 低于预告下沿、银漫扩建延期。</li>
+<li>下一复核节点：2026 半年报（预约 2026-08-29）和银漫二期后续公告。</li>
+<li>我的判断：方向能够转化为观察标的，但当前位置只能小心观察，不能因为业绩预增就忽视情绪和估值位置。</li>
+</ul>
+<h2 id="section-12">12. 最终结论</h2>
+
+<ul>
+<li>估值结论：合理。</li>
+<li>操作结论：观望。</li>
+<li>综合估值区间：28—38 元 / 股。</li>
+<li>相对现价空间：以 31.73 元计算，下沿 -11.8%，上沿 +19.8%。</li>
+<li>如果今天这是一笔现金，我会买它吗：只在特定条件下会。</li>
+<li>我的判断：兴业银锡是银锡资源弹性里基本面兑现较强的标的，H1 预告足够亮眼；但 31.73 元已经接近第三方相对估值上沿和本报告估值中枢，新增现金不追高，等价格回落或正式报表继续上修。</li>
+<li>结论失效条件：2026H1 正式扣非利润超预告上限、银 / 锡价格继续强势、银漫扩建进度超预期，使估值区间从 28—38 元上移。</li>
+</ul>
+<h2 id="section-13">13. 后续监控指标</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">当前值</th>
+<th>触发阈值 / 方向</th>
+<th>数据源</th>
+<th>复核频率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1. 股价相对估值区间</td>
+<td align="right">31.73 元</td>
+<td>28—30 元重新评估；38 元以上需新证据</td>
+<td>行情</td>
+<td>每日</td>
+</tr>
+<tr>
+<td>2. 2026H1 扣非净利润</td>
+<td align="right">预告 16.90—19.20 亿元</td>
+<td>靠近上限上修，低于下限降级</td>
+<td>半年报</td>
+<td>披露后</td>
+</tr>
+<tr>
+<td>3. 银 / 锡价格</td>
+<td align="right">未完整记录</td>
+<td>高位维持支持估值；快速回落为反证</td>
+<td>SMM / 交易所</td>
+<td>每周</td>
+</tr>
+<tr>
+<td>4. 银漫 297 万吨扩建</td>
+<td align="right">获用地批复，预计 2028Q4 试车</td>
+<td>正式开工 / 建设进度</td>
+<td>公告</td>
+<td>月度</td>
+</tr>
+<tr>
+<td>5. 资金状态</td>
+<td align="right">单日主力流入但口径分歧</td>
+<td>连续净流入改善；跌破 30 元降级</td>
+<td>资金流 / 融资</td>
+<td>每日</td>
+</tr>
+</tbody></table>
+<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
+
+<ul>
+<li>未获取到：2026-07-23 实时或收盘价、Morningstar 原始公允价值和星级、完整卖方目标价分布、矿山储量 NAV、现金成本、完整资本开支、独立资金面 HTML。</li>
+<li>已检查来源：新浪财经公告、证券之星、同花顺、Investing、理杏仁公告列表。</li>
+<li>对结论的影响：估值区间上沿保守处理，资金状态只写“多空分歧”，不把单日主力净流入等同长期机构买入。</li>
+</ul>
+<h2 id="section-15">15. 来源清单</h2>
+
+<ol>
+<li>兴业银锡：2025年年度报告，新浪财经公告页，2026-04-22，<a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12131356&stockid=000426%EF%BC%8C%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12131356&amp;stockid=000426，访问时间</a> 2026-07-23。</li>
+<li>兴业银锡：2026年第一季度报告，新浪财经公告页，2026-04-30，<a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12276935&stockid=000426%EF%BC%8C%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12276935&amp;stockid=000426，访问时间</a> 2026-07-23。</li>
+<li>兴业银锡：2026年半年度业绩预告，新浪财经公告页，2026-07-15，<a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12444524&stockid=000426%EF%BC%8C%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12444524&amp;stockid=000426，访问时间</a> 2026-07-23。</li>
+<li>兴业银锡：关于全资子公司银漫矿业297万吨/年扩建工程项目取得建设用地批复的公告，新浪财经公告页，2026-07-14，<a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12442420&stockid=000426%EF%BC%8C%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12442420&amp;stockid=000426，访问时间</a> 2026-07-23。</li>
+<li>兴业银锡估值指针，证券之星，2026-07-22，<a href="https://resource.stockstar.com/DataCenter/PrivateData/Assess_value_000426.html%EF%BC%8C%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">https://resource.stockstar.com/DataCenter/PrivateData/Assess_value_000426.html，访问时间</a> 2026-07-23。</li>
+<li>股市必读：兴业银锡（000426）7月22日主力资金净流入3.76亿元，证券之星，2026-07-23，<a href="https://wap.stockstar.com/detail/RB2026072300000228%EF%BC%8C%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">https://wap.stockstar.com/detail/RB2026072300000228，访问时间</a> 2026-07-23。</li>
+<li>兴业银锡新闻动态，证券之星，<a href="https://stock.quote.stockstar.com/info_000426.shtml%EF%BC%8C%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">https://stock.quote.stockstar.com/info_000426.shtml，访问时间</a> 2026-07-23。</li>
+<li>兴业银锡个股分析，同花顺财经，<a href="https://doctor.10jqka.com.cn/000426/%EF%BC%8C%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">https://doctor.10jqka.com.cn/000426/，访问时间</a> 2026-07-23。</li>
+<li>兴业银锡龙虎榜，同花顺财经，<a href="https://data.10jqka.com.cn/market/lhbgg/code/000426/%EF%BC%8C%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">https://data.10jqka.com.cn/market/lhbgg/code/000426/，访问时间</a> 2026-07-23。</li>
+<li>兴业矿业历史行情，Investing.com，<a href="https://cn.investing.com/equities/inner-mongolia-xingye-mining-co-ltd-historical-data%EF%BC%8C%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">https://cn.investing.com/equities/inner-mongolia-xingye-mining-co-ltd-historical-data，访问时间</a> 2026-07-23。</li>
+</ol>
+<h2 id="section-16">16. 声明</h2>
+
+<p>本报告基于截至研究截止时间可取得的公开信息，不构成收益保证。真实交易前应重新核验价格、公告、流动性和个人风险承受能力。</p>
+<script>
+(() => {
+  const endpoint = '/api/stock-quote?secid=0.000426';
+  const priceNode = document.getElementById('intraday-price');
+  const detailNode = document.getElementById('intraday-detail');
+  const statusNode = document.getElementById('intraday-status');
+  const deviationValue = document.getElementById('deviation-value');
+  const deviationDetail = document.getElementById('deviation-detail');
+  const tracker = document.getElementById('daily-tracking');
+  const snapshotPrice = 31.73;
+  const percent = value => `${value < 0 ? '-' : value > 0 ? '+' : ''}${Math.abs(value).toFixed(1)}%`;
+  function updateDeviation(price) {
+    const low = Number(tracker.dataset.valueLow);
+    const high = Number(tracker.dataset.valueHigh);
+    if (!Number.isFinite(low) || !Number.isFinite(high) || low <= 0 || high <= low) return;
+    const midpoint = (low + high) / 2;
+    const versusLow = (price / low - 1) * 100;
+    const versusMid = (price / midpoint - 1) * 100;
+    const versusHigh = (price / high - 1) * 100;
+    if (price > high) { deviationValue.textContent = `高于上沿 ${percent(versusHigh)}`; deviationValue.classList.add('bad'); }
+    else if (price < low) { deviationValue.textContent = `低于下沿 ${percent(Math.abs(versusLow))}`; deviationValue.classList.remove('bad'); }
+    else { deviationValue.textContent = '位于动态价值区间内'; deviationValue.classList.remove('bad'); }
+    deviationDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对区间中枢 ${midpoint.toFixed(2)} 元为 ${percent(versusMid)}，相对下沿为 ${percent(versusLow)}，相对上沿为 ${percent(versusHigh)}。盘中价格不改变价值区间本身。`;
+  }
+  async function refreshIntradayQuote() {
+    statusNode.textContent = '连接中'; statusNode.className = 'tracking-status';
+    try {
+      const response = await fetch(endpoint, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json(); const quote = payload && payload.data;
+      if (!quote || !Number.isFinite(quote.price) || !Number.isFinite(quote.prevClose) || !Number.isFinite(quote.changePercent) || !Number.isFinite(quote.quoteTimestamp)) throw new Error('invalid quote');
+      const quoteTime = new Date(quote.quoteTimestamp * 1000).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false });
+      priceNode.textContent = `${quote.price.toFixed(2)} 元 · ${percent(quote.changePercent)}`;
+      priceNode.classList.toggle('bad', quote.changePercent < 0);
+      detailNode.textContent = `行情时间：${quoteTime}；昨收 ${quote.prevClose.toFixed(2)} 元。来源：${payload.proxySource || '本地行情代理'}。`;
+      statusNode.textContent = '盘中实时 · 每 60 秒'; statusNode.className = 'tracking-status live'; updateDeviation(quote.price);
+    } catch { priceNode.textContent = '实时行情暂不可用'; priceNode.classList.remove('bad'); detailNode.textContent = '每日同步值仍然有效；可重新双击“大盘启动器”后刷新本页。'; statusNode.textContent = '连接失败'; statusNode.className = 'tracking-status error'; }
+  }
+  if (location.protocol === 'http:' || location.protocol === 'https:') { refreshIntradayQuote(); window.setInterval(refreshIntradayQuote, 60000); }
+  else { priceNode.textContent = Number.isFinite(snapshotPrice) ? `${snapshotPrice.toFixed(2)} 元（每日值）` : '每日值未获取'; detailNode.textContent = '当前为直接打开模式；盘中实时需通过“大盘启动器”进入本地服务。'; statusNode.textContent = '每日同步 · 实时未连接'; }
+})();
+</script></article>
+    </div>
+  </main>
+</body>
+</html>

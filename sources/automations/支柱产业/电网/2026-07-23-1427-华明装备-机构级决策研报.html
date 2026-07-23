@@ -68,6 +68,11 @@ body {
 .tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
 .tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
 .tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
+.tracking-card[data-tracking-key="dynamic-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
+.range-breakdown { display: block; }
+.range-main { display: inline-flex; align-items: center; max-width: 100%; margin-bottom: 10px; padding: 3px 9px; border-radius: 999px; background: #e7f0f3; color: var(--navy); font-size: 20px; line-height: 1.3; font-weight: 800; }
+.range-points { display: grid; gap: 7px; margin-top: 1px; }
+.range-point { display: block; padding-left: 11px; border-left: 3px solid #bed2d8; color: #245068; font-size: 14px; line-height: 1.52; font-weight: 650; }
 .tracking-value.bad { color: var(--danger); }
 .tracking-detail { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; }
 .tracking-status { display: inline-flex; margin-top: 10px; padding: 3px 8px; border-radius: 999px; color: #526b77; background: #edf2f4; font-size: 12px; font-weight: 700; }
@@ -140,7 +145,7 @@ body {
   </div>
   <div class="tracking-grid">
     <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">证据不足；Q1 主业与扣非利润放缓，等待半年报验证</p><p class="tracking-detail">风险方向：风险增强。下一验证点与失效条件见第 11—13 章。</p></div>
-    <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value">15—21 元</p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
+    <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value"><span class="range-breakdown"><span class="range-main">15—21 元</span><span class="range-points"><span class="range-point">15 元附近=现金流法与设备企业保守价值</span><span class="range-point">18 元附近=分接开关龙头主业合理中枢</span><span class="range-point">21 元附近=已含海外增长与电网投资溢价</span><span class="range-point">21 元以上需半年报确认主业恢复、海外增速和毛利率稳定</span></span></span></p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
     <div class="tracking-card" data-tracking-key="price-deviation"><p class="tracking-label">股价偏离度</p><p class="tracking-value" id="deviation-value">位于动态价值区间内</p><p class="tracking-detail" id="deviation-detail">每日同步价 17.99 元；相对区间中枢 18.00 元为 -0.1%，相对下沿为 +19.9%，相对上沿为 -14.3%。价格不改变价值区间本身。</p></div>
   </div>
   <div class="tracking-grid">
@@ -153,6 +158,7 @@ body {
 <!-- DAILY_TRACKING_END -->
 <h2 id="section-1">1. 决策摘要</h2>
 
+<h3>1.1 基本面组</h3>
 <table>
 <thead>
 <tr>
@@ -165,6 +171,35 @@ body {
 <td>合理，偏贵</td>
 </tr>
 <tr>
+<td>综合估值区间</td>
+<td>15—21 元；15 元附近=现金流法与设备企业保守价值，18 元附近=分接开关龙头主业合理中枢，21 元附近=已含海外增长与电网投资溢价，21 元以上需半年报确认主业恢复、海外增速和毛利率稳定</td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>-16.6% 至 +16.7%</td>
+</tr>
+<tr>
+<td>基本面状态</td>
+<td>证据不足；Q1 主业与扣非利润放缓，等待半年报验证</td>
+</tr>
+<tr>
+<td>关键经营变化</td>
+<td>2025 年高毛利和海外增长仍是质量锚，但 2026Q1 主业收入、扣非利润和毛利率均放缓；管理层未给出足够量化加速指引，当前估值已反映高端国产替代、海外增长和电网投资预期</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h3>1.2 资金面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
 <td>操作建议</td>
 <td>观望</td>
 </tr>
@@ -175,22 +210,6 @@ body {
 <tr>
 <td>当前价格及时间</td>
 <td>17.99 元，2026-07-15 盘中</td>
-</tr>
-<tr>
-<td>综合估值区间</td>
-<td>15—21 元</td>
-</tr>
-<tr>
-<td>相对现价空间</td>
-<td>-16.6% 至 +16.7%</td>
-</tr>
-<tr>
-<td>结论置信度</td>
-<td>中</td>
-</tr>
-<tr>
-<td>基本面状态</td>
-<td>证据不足；Q1 主业与扣非利润放缓，等待半年报验证</td>
 </tr>
 <tr>
 <td>资金状态</td>
