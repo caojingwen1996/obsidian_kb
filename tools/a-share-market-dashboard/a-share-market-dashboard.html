@@ -79,6 +79,7 @@ h3 { font-size: 15px; }
 .view { display: none; }
 .view.is-active { display: block; }
 .summary-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 28px; margin: 32px 0 19px; }
+.compact-summary { margin-top: 24px; }
 .lead { color: var(--muted); margin: 9px 0 0; max-width: 760px; font-size: 13px; }
 .window-controls { display: inline-flex; padding: 3px; border-radius: 10px; background: #e5e9ec; flex-shrink: 0; }
 .window-controls button { border: 0; border-radius: 8px; padding: 8px 12px; background: transparent; color: var(--muted); font-size: 12px; }
@@ -100,6 +101,38 @@ h3 { font-size: 15px; }
 .temperature-marker { height: 24px; }
 .scale-labels { display: flex; justify-content: space-between; margin-top: 9px; color: var(--muted); font-size: 10px; }
 
+.overview-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; align-items: stretch; margin: 0 0 36px; }
+.overview-card { min-height: 284px; border-radius: 14px; background: var(--card); box-shadow: var(--shadow); padding: 20px; display: flex; flex-direction: column; overflow: hidden; }
+.is-clickable-card { color: inherit; text-decoration: none; cursor: pointer; transition: transform .16s ease, box-shadow .16s ease; }
+.is-clickable-card:hover { transform: translateY(-2px); box-shadow: 0 18px 40px rgba(16,27,38,.13); }
+.is-clickable-card:focus-visible { outline: 3px solid rgba(49,119,219,.35); outline-offset: 3px; }
+.overview-card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; margin-bottom: 18px; }
+.overview-card-head span { color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .08em; }
+.overview-card-head strong { font-size: 22px; letter-spacing: -.02em; text-align: right; }
+.overview-card p { color: #4e5e69; font-size: 12px; line-height: 1.65; }
+.market-thermometer-card { border-left: 4px solid var(--blue); }
+.market-thermometer-main { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 18px; align-items: center; margin-bottom: 18px; }
+.market-temperature-value { width: 114px; height: 114px; border-radius: 18px; background: var(--nav); color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; font-variant-numeric: tabular-nums; }
+.market-temperature-value strong { display: block; font-size: 44px; line-height: .95; letter-spacing: 0; }
+.market-temperature-value span { display: block; margin-top: 9px; font-size: 13px; letter-spacing: .02em; }
+.market-temperature-copy p, .market-temperature-copy small { display: block; }
+.market-temperature-copy p { margin: 0 0 8px; color: var(--ink); font-size: 17px; font-weight: 800; line-height: 1.35; }
+.market-temperature-copy small { color: var(--muted); font-size: 11px; line-height: 1.65; }
+.market-temperature-scale { position: relative; height: 12px; margin: 8px 0 12px; border-radius: 99px; background: linear-gradient(90deg, var(--blue), var(--green) 35%, var(--gold) 70%, var(--red)); }
+.market-temperature-scale span { position: absolute; top: 50%; left: var(--position, 50%); width: 5px; height: 24px; border: 2px solid white; border-radius: 99px; background: var(--ink); transform: translate(-50%, -50%); box-shadow: 0 2px 6px rgba(0,0,0,.22); }
+.market-temperature-bands { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; margin-top: auto; }
+.market-temperature-bands div { border-radius: 8px; background: #f5f7f8; padding: 10px; }
+.market-temperature-bands small, .market-temperature-bands strong { display: block; }
+.market-temperature-bands small { color: var(--muted); font-size: 9px; margin-bottom: 5px; }
+.market-temperature-bands strong { font-size: 13px; }
+.market-temperature-empty { margin: 0 0 auto; }
+.source-link { margin-top: 14px; color: var(--blue); font-size: 11px; font-weight: 700; text-decoration: none; }
+.source-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+.overview-placeholder { border: 1px dashed #cbd5dc; box-shadow: none; justify-content: center; }
+.overview-placeholder .overview-card-head { display: block; }
+.overview-placeholder .overview-card-head strong { display: block; margin-top: 10px; text-align: left; }
+.overview-placeholder p { margin: 0; }
+
 .layer-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 13px; margin-bottom: 35px; }
 .layer-card { background: var(--card); padding: 16px 17px; }
 .layer-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
@@ -108,6 +141,19 @@ h3 { font-size: 15px; }
 .layer-card p { margin: 10px 0 0; color: var(--muted); font-size: 11px; }
 .layer-rule { margin-top: 12px; height: 5px; background: #e8ecef; border-radius: 99px; overflow: hidden; }
 .layer-rule span { display: block; height: 100%; width: var(--score, 0%); background: var(--blue); border-radius: inherit; }
+.dividend-signal-card { min-height: 284px; display: flex; flex-direction: column; gap: 16px; align-items: stretch; border-radius: 14px; background: var(--card); box-shadow: var(--shadow); padding: 20px; border-left: 4px solid var(--green); overflow: hidden; }
+.dividend-signal-card.is-focus { border-left-color: var(--red); }
+.dividend-signal-card.is-missing { border-left-color: var(--gold); }
+.dividend-signal-main { display: flex; flex-direction: column; min-width: 0; }
+.dividend-signal-main span { color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .08em; }
+.dividend-signal-main strong { margin: 9px 0 8px; font-size: 22px; letter-spacing: -.02em; }
+.dividend-signal-main p { margin: 0; color: #4e5e69; font-size: 12px; line-height: 1.65; }
+.dividend-signal-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: auto; }
+.dividend-signal-grid div { min-width: 0; border-radius: 9px; background: #f5f7f8; padding: 12px; }
+.dividend-signal-grid small, .dividend-signal-grid strong, .dividend-signal-grid span { display: block; }
+.dividend-signal-grid small { color: var(--muted); font-size: 9px; margin-bottom: 6px; }
+.dividend-signal-grid strong { font-size: 18px; font-variant-numeric: tabular-nums; }
+.dividend-signal-grid span { margin-top: 6px; color: var(--muted); font-size: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 .section-header { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin: 28px 0 15px; }
 .section-header > p { margin: 0; max-width: 520px; color: var(--muted); font-size: 11px; text-align: right; }
@@ -170,10 +216,17 @@ h3 { font-size: 15px; }
 .industry-filter-tabs button { min-height: 32px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: var(--muted); padding: 6px 0; font-size: 12px; }
 .industry-filter-tabs button:hover { color: var(--ink); }
 .industry-filter-tabs button.is-active { border-color: #0f6672; color: #0f6672; font-weight: 700; }
-.industry-research-board, .industry-report { border: 1px solid var(--line); border-radius: 8px; background: var(--card); box-shadow: var(--shadow); }
-.industry-research-board { display: flex; justify-content: space-between; align-items: center; gap: 20px; min-height: 86px; margin-bottom: 22px; padding: 18px 22px; }
-.industry-research-board h3 { margin: 0; font-size: 22px; }
-.industry-research-board span { color: var(--muted); font-size: 11px; text-align: right; }
+.industry-research-list, .industry-report { border: 1px solid var(--line); border-radius: 8px; background: var(--card); box-shadow: var(--shadow); }
+.industry-research-list { margin-bottom: 12px; overflow: hidden; }
+.industry-research-list h3 { margin: 0; padding: 13px 16px; border-bottom: 1px solid var(--line); font-size: 13px; }
+.industry-research-list ol { margin: 0; padding: 5px 0 8px; list-style: none; }
+.industry-research-item { display: grid; grid-template-columns: 34px minmax(0, 1fr); column-gap: 6px; align-items: baseline; padding: 8px 18px; }
+.industry-research-item[hidden] { display: none; }
+.industry-research-rank { color: #6d7a84; font-size: 14px; font-weight: 800; font-variant-numeric: tabular-nums; text-align: center; }
+.industry-research-item:nth-child(1) .industry-research-rank { color: #d64a2d; }
+.industry-research-item:nth-child(2) .industry-research-rank { color: #d56c36; }
+.industry-research-item:nth-child(3) .industry-research-rank { color: #ce8a24; }
+.industry-research-item a { min-width: 0; color: #071a2d; font-size: 15px; font-weight: 800; line-height: 1.5; }
 .industry-date-row { display: flex; align-items: baseline; gap: 10px; width: fit-content; margin: 0 0 12px 8px; padding: 10px 16px; border: 1px solid var(--line); border-radius: 8px; background: var(--card); }
 .industry-date-row strong { font-size: 16px; }
 .industry-date-row span { color: var(--muted); font-size: 12px; }
@@ -195,22 +248,29 @@ h3 { font-size: 15px; }
 
 .personal-page { max-width: 1500px; }
 .personal-heading { margin-top: 4px; }
-.portfolio-summary { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 14px; }
-.portfolio-summary article { min-height: 118px; border-radius: 13px; background: var(--card); box-shadow: var(--shadow); padding: 18px; display: flex; flex-direction: column; }
-.portfolio-summary small, .portfolio-summary span { color: var(--muted); font-size: 10px; }
-.portfolio-summary strong { margin: 14px 0 7px; font-size: 24px; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.portfolio-summary, .tracker-summary { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 14px; }
+.portfolio-summary article, .tracker-summary article { min-height: 118px; border-radius: 13px; background: var(--card); box-shadow: var(--shadow); padding: 18px; display: flex; flex-direction: column; }
+.portfolio-summary small, .portfolio-summary span, .tracker-summary small, .tracker-summary span { color: var(--muted); font-size: 10px; }
+.portfolio-summary strong, .tracker-summary strong { margin: 14px 0 7px; font-size: 24px; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
 .portfolio-summary article.is-profit strong, .holding-profit.is-profit { color: #26815e; }
 .portfolio-summary article.is-loss strong, .holding-profit.is-loss { color: var(--red); }
+.tracker-summary { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+.tracker-summary article { min-height: 0; width: auto; border: 1px solid var(--line); border-radius: 8px; box-shadow: none; padding: 7px 10px; flex-direction: row; align-items: center; gap: 6px; }
+.tracker-summary small, .tracker-summary span { font-size: 10px; }
+.tracker-summary strong { margin: 0; font-size: 15px; letter-spacing: 0; }
 .position-layout { display: grid; grid-template-columns: minmax(280px, .72fr) minmax(580px, 1.6fr); gap: 13px; align-items: start; }
+.tracker-workspace { display: grid; gap: 13px; align-items: start; }
 .holding-form-title { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 17px; }
 .holding-form-title h3 { margin: 0; }
 .holding-form-title > span { color: var(--muted); font-size: 10px; }
-.holding-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.holding-form label { display: grid; gap: 6px; color: var(--muted); font-size: 10px; }
-.holding-form input, .holding-form select, .holding-form textarea, .tracker-edit select, .tracker-edit textarea { width: 100%; border: 1px solid var(--line); border-radius: 8px; background: #fbfcfc; color: var(--ink); padding: 9px 10px; }
-.holding-form input, .holding-form select { min-height: 39px; }
-.holding-form textarea, .tracker-edit textarea { resize: vertical; line-height: 1.6; }
-.holding-note-field { grid-column: 1 / -1; }
+.holding-form-grid, .tracking-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.tracking-form-grid { grid-template-columns: 1.1fr .8fr .8fr 1.3fr; align-items: start; }
+.holding-form label, .tracking-form label { display: grid; gap: 6px; color: var(--muted); font-size: 10px; }
+.holding-form input, .holding-form select, .holding-form textarea, .tracking-form input, .tracking-form select, .tracking-form textarea, .tracker-edit select, .tracker-edit textarea { width: 100%; border: 1px solid var(--line); border-radius: 8px; background: #fbfcfc; color: var(--ink); padding: 9px 10px; }
+.holding-form input, .holding-form select, .tracking-form input, .tracking-form select { min-height: 39px; }
+.holding-form textarea, .tracking-form textarea, .tracker-edit textarea { resize: vertical; line-height: 1.6; }
+.holding-note-field, .tracking-wide-field { grid-column: 1 / -1; }
+.tracking-wide-field { grid-column: span 1; }
 .button-primary { width: 100%; min-height: 41px; margin-top: 14px; border: 0; border-radius: 8px; background: var(--blue); color: white; font-weight: 700; }
 .button-primary:hover { background: #2868c3; }
 .text-button { border: 0; background: transparent; color: var(--blue); padding: 2px 0; font-size: 11px; }
@@ -226,12 +286,26 @@ h3 { font-size: 15px; }
 .holding-row-actions button { border: 0; background: transparent; color: var(--blue); padding: 0; font-size: 10px; }
 .holding-row-actions button[data-action="delete"] { color: var(--red); }
 .personal-empty { margin: 14px 0 0; padding: 18px; border: 1px dashed #cdd6dc; border-radius: 10px; color: var(--muted); text-align: center; font-size: 12px; }
-.holding-tracker-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px; }
-.tracker-card { border-radius: 14px; background: var(--card); box-shadow: var(--shadow); padding: 19px; }
-.tracker-card-head { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; }
-.tracker-card-head h3 { margin: 0 0 4px; font-size: 18px; }
-.tracker-card-head p { margin: 0; color: var(--muted); font-size: 10px; }
-.tracker-status { border-radius: 99px; background: #e8f0fb; color: #275fAE; padding: 5px 9px; font-size: 10px; white-space: nowrap; }
+.tracker-list-panel { min-width: 0; }
+.tracker-filter { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 7px; }
+.tracker-filter button { min-height: 30px; border: 1px solid var(--line); border-radius: 7px; background: #fbfcfc; color: var(--muted); padding: 6px 10px; font-size: 10px; }
+.tracker-filter button.is-active { border-color: var(--blue); background: #e8f0fb; color: #275fAE; font-weight: 700; }
+.tracking-table-wrap { overflow-x: auto; }
+.tracking-table { width: 100%; min-width: 1080px; border-collapse: collapse; font-size: 11px; }
+.tracking-table th, .tracking-table td { padding: 12px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.tracking-table th { color: var(--muted); font-size: 9px; letter-spacing: .04em; white-space: nowrap; }
+.tracking-table tbody tr:last-child td { border-bottom: 0; }
+.tracking-table tbody tr:hover { background: #f8fafb; }
+.tracking-table tbody tr[data-report-href] { cursor: pointer; }
+.tracking-target strong, .tracking-target small { display: block; white-space: nowrap; }
+.tracking-target small { margin-top: 3px; color: var(--muted); }
+.tracking-target a { color: inherit; text-decoration: none; }
+.tracking-target a:hover { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; }
+.tracker-status { display: inline-flex; border-radius: 99px; background: #e8f0fb; color: #275fAE; padding: 5px 9px; font-size: 10px; white-space: nowrap; }
+.tracking-updated { color: var(--muted); white-space: nowrap; }
+.tracker-row-actions { display: flex; gap: 9px; white-space: nowrap; }
+.tracker-row-actions button { border: 0; background: transparent; color: var(--blue); padding: 0; font-size: 10px; }
+.tracker-row-actions button[data-action="delete-tracking"] { color: var(--red); }
 .tracker-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 17px 0; }
 .tracker-metrics div { border-radius: 8px; background: #f5f7f8; padding: 10px; }
 .tracker-metrics small, .tracker-metrics strong { display: block; }
@@ -269,8 +343,11 @@ h3 { font-size: 15px; }
   .metric-row { grid-template-columns: 1fr 1fr 65px; }
   .metric-score { display: none; }
   .detail-grid { grid-template-columns: 1fr; }
-  .portfolio-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .position-layout, .holding-tracker-list { grid-template-columns: 1fr; }
+  .overview-grid { grid-template-columns: 1fr; }
+  .portfolio-summary, .tracker-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .position-layout { grid-template-columns: 1fr; }
+  .tracking-form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tracking-wide-field { grid-column: span 1; }
 }
 
 @media (max-width: 760px) {
@@ -286,8 +363,9 @@ h3 { font-size: 15px; }
   .top-actions { width: 100%; justify-content: space-between; }
   .summary-heading { margin-top: 23px; }
   .section-header > p { text-align: left; }
-  .hero-grid, .layer-grid, .rules-layout, .industry-grid { grid-template-columns: 1fr; }
-  .industry-controls, .industry-research-board { align-items: flex-start; flex-direction: column; }
+  .hero-grid, .layer-grid, .rules-layout, .industry-grid, .overview-grid { grid-template-columns: 1fr; }
+  .dividend-signal-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .industry-controls { align-items: flex-start; flex-direction: column; }
   .industry-search, .industry-search input { width: 100%; }
   .industry-filter-tabs { flex-wrap: nowrap; overflow-x: auto; }
   .industry-filter-tabs button { flex: 0 0 auto; }
@@ -296,8 +374,9 @@ h3 { font-size: 15px; }
   .industry-time { position: static; display: inline-block; margin-right: 9px; }
   .industry-dot { position: static; display: inline-block; margin-right: 7px; vertical-align: middle; box-shadow: none; }
   .industry-empty-results { margin-left: 0; }
-  .portfolio-summary, .holding-form-grid { grid-template-columns: 1fr; }
-  .holding-note-field { grid-column: auto; }
+  .portfolio-summary, .tracker-summary, .holding-form-grid, .tracking-form-grid { grid-template-columns: 1fr; }
+  .holding-note-field, .tracking-wide-field { grid-column: auto; }
+  .tracker-filter { width: 100%; justify-content: flex-start; }
   .tracker-edit { grid-template-columns: 1fr; }
   .changelog-page { margin-top: 12px; }
   .changelog-hero { margin-bottom: 42px; }
@@ -365,7 +444,7 @@ h3 { font-size: 15px; }
         </nav>
       </div>
       <div class="sidebar-footer">
-        <div class="connection"><span class="status-dot" id="sidebar-status-dot"></span><span id="sidebar-status">示例数据</span></div>
+        <div class="connection"><span class="status-dot" id="sidebar-status-dot"></span><span id="sidebar-status">初始化</span></div>
         <div><span id="sidebar-valid">10 / 10 项有效</span><br><time id="sidebar-updated">—</time></div>
       </div>
     </aside>
@@ -377,7 +456,7 @@ h3 { font-size: 15px; }
           <h1 id="page-title">市场总览</h1>
         </div>
         <div class="top-actions" id="market-actions">
-          <label class="mode-switch" for="example-mode">
+          <label class="mode-switch" for="example-mode" hidden>
             <input id="example-mode" type="checkbox" checked>
             <span>示例数据</span>
           </label>
@@ -385,16 +464,16 @@ h3 { font-size: 15px; }
         </div>
       </header>
 
-      <div class="notice" id="global-notice" role="status">正在用内置示例数据初始化。稳定联网请双击“启动大盘面板.cmd”。</div>
+      <div class="notice" id="global-notice" role="status">正在初始化。稳定联网请双击“启动大盘面板.cmd”。</div>
 
       <section class="view is-active" id="market-summary" data-shell-content="thermometer" aria-labelledby="summary-heading">
-        <div class="summary-heading">
+        <div class="summary-heading compact-summary is-render-target" hidden>
           <div>
             <p class="eyebrow">当前结论</p>
             <h2 id="summary-heading"><span id="conclusion-label">数据加载中</span></h2>
-            <p class="lead" id="conclusion-detail">评分只描述历史坐标中的贵贱，不预测明日涨跌。</p>
+            <p class="lead" id="conclusion-detail">市场温度使用有知有行官方温度计，中证红利信号使用本地规则记录。</p>
           </div>
-          <div class="window-controls" id="window-controls" aria-label="历史统计窗口">
+          <div class="window-controls" id="window-controls" aria-label="历史统计窗口" hidden>
             <button type="button" data-window="1" aria-pressed="false">1年</button>
             <button type="button" data-window="3" aria-pressed="false">3年</button>
             <button type="button" data-window="5" aria-pressed="true">5年</button>
@@ -402,7 +481,16 @@ h3 { font-size: 15px; }
           </div>
         </div>
 
-        <div class="hero-grid">
+        <div class="overview-grid" aria-label="市场总览三块">
+          <div id="youzhiyouxing-temperature-card"></div>
+          <div id="dividend-signal-card" aria-label="中证红利股息率信号"></div>
+          <article class="overview-card overview-placeholder">
+            <div class="overview-card-head"><span>预留模块</span><strong>暂空</strong></div>
+            <p>留给下一类市场信号，不预填判断。</p>
+          </article>
+        </div>
+
+        <div class="hero-grid is-render-target" hidden>
           <article class="score-card">
             <span>综合买点评分</span>
             <strong id="score-value">—</strong>
@@ -416,11 +504,8 @@ h3 { font-size: 15px; }
             <div class="scale-labels"><span>别人恐惧</span><span>中性</span><span>市场贪婪</span></div>
           </article>
         </div>
-
-        <div class="layer-grid" id="layer-scores" aria-label="三层评分"></div>
-
-        <div class="section-header"><div><p class="eyebrow">KEY METRICS</p><h2>关键指标</h2></div><p>色条统一从“便宜或恐惧”指向“昂贵或贪婪”</p></div>
-        <div class="metric-list" id="metric-list"></div>
+        <div class="layer-grid is-render-target" id="layer-scores" aria-label="三层评分" hidden></div>
+        <div class="metric-list is-render-target" id="metric-list" hidden></div>
       </section>
 
       <section class="view" id="position-view" data-shell-content="thermometer" aria-labelledby="position-heading">
@@ -478,14 +563,26 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
             <button class="is-active" type="button" data-filter="all" aria-pressed="true">全部</button>
             <button type="button" data-filter="铜" aria-pressed="false">铜</button>
           </nav>
-          <section class="industry-research-board" data-filters="铜">
-            <div><p class="eyebrow">产业研报</p><h3><a class="industry-report-link" href="../../sources/automations/战略资源/铜/2026-07-22-铜产业完整分析报告.html" target="_blank" rel="noopener noreferrer">铜产业完整分析报告</a></h3></div>
-            <span>战略资源 / 铜 · 来源目录：sources/automations/战略资源/铜</span>
+          <section class="industry-research-list" aria-label="战略资源产业研报">
+            <h3>产业研报</h3>
+            <ol>
+              <li class="industry-research-item" data-filters="铜">
+                <span class="industry-research-rank">1</span>
+                <a class="industry-report-link" href="../../sources/automations/战略资源/铜/2026-07-22-铜产业完整分析报告.html" target="_blank" rel="noopener noreferrer">铜产业完整分析报告</a>
+              </li>
+            </ol>
           </section>
-          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 0条</span></div>
+          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 1条</span></div>
           <div class="industry-timeline">
             <div class="industry-feed">
-
+              <article class="industry-report" data-filters="铜">
+                <span class="industry-time">07-22</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>战略资源 · 铜 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/战略资源/铜/2026-07-22-西部矿业-目录帖子逻辑研报.html" target="_blank" rel="noopener noreferrer">西部矿业-目录帖子逻辑研报</a></h3>
+                <p>从战略资源目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#铜 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/战略资源/铜</div>
+              </article>
             </div>
           </div>
           <p class="industry-empty-results" hidden>没有匹配的研报项。</p>
@@ -507,45 +604,82 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
             <button type="button" data-filter="商业航天" aria-pressed="false">商业航天</button>
             <button type="button" data-filter="算力" aria-pressed="false">算力</button>
           </nav>
-          <section class="industry-research-board" data-filters="算力">
-            <div><p class="eyebrow">产业研报</p><h3><a class="industry-report-link" href="../../sources/automations/新兴产业/算力/资源运营与调度/2026-07-22-资源运营与调度产业完整分析报告.html" target="_blank" rel="noopener noreferrer">资源运营与调度产业完整分析报告</a></h3></div>
-            <span>新兴产业 / 算力 · 来源目录：sources/automations/新兴产业/算力/资源运营与调度</span>
+          <section class="industry-research-list" aria-label="新兴产业产业研报">
+            <h3>产业研报</h3>
+            <ol>
+              <li class="industry-research-item" data-filters="商业航天">
+                <span class="industry-research-rank">1</span>
+                <a class="industry-report-link" href="../../sources/automations/新兴产业/商业航天/商业航天产业完整分析报告.html" target="_blank" rel="noopener noreferrer">商业航天产业完整分析报告</a>
+              </li>
+              <li class="industry-research-item" data-filters="算力">
+                <span class="industry-research-rank">2</span>
+                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/2026-07-20-算力产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力产业完整分析报告</a>
+              </li>
+              <li class="industry-research-item" data-filters="算力">
+                <span class="industry-research-rank">3</span>
+                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/存储力/2026-07-22-存储力产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-存储力产业完整分析报告</a>
+              </li>
+              <li class="industry-research-item" data-filters="算力">
+                <span class="industry-research-rank">4</span>
+                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/计算系统与集群/2026-07-22-计算系统与集群产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-计算系统与集群产业完整分析报告</a>
+              </li>
+              <li class="industry-research-item" data-filters="算力">
+                <span class="industry-research-rank">5</span>
+                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/模型与行业应用/2026-07-22-模型与行业应用产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-模型与行业应用产业完整分析报告</a>
+              </li>
+              <li class="industry-research-item" data-filters="算力">
+                <span class="industry-research-rank">6</span>
+                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/算力基础设施与能源/2026-07-22-算力基础设施与能源产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-算力基础设施与能源产业完整分析报告</a>
+              </li>
+              <li class="industry-research-item" data-filters="算力">
+                <span class="industry-research-rank">7</span>
+                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/芯片与基础软件/2026-07-22-芯片与基础软件产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-芯片与基础软件产业完整分析报告</a>
+              </li>
+              <li class="industry-research-item" data-filters="算力">
+                <span class="industry-research-rank">8</span>
+                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/运载力/2026-07-22-运载力产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-运载力产业完整分析报告</a>
+              </li>
+              <li class="industry-research-item" data-filters="算力">
+                <span class="industry-research-rank">9</span>
+                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/资源运营与调度/2026-07-22-资源运营与调度产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-资源运营与调度产业完整分析报告</a>
+              </li>
+            </ol>
           </section>
-          <section class="industry-research-board" data-filters="算力">
-            <div><p class="eyebrow">产业研报</p><h3><a class="industry-report-link" href="../../sources/automations/新兴产业/算力/运载力/2026-07-22-运载力产业完整分析报告.html" target="_blank" rel="noopener noreferrer">运载力产业完整分析报告</a></h3></div>
-            <span>新兴产业 / 算力 · 来源目录：sources/automations/新兴产业/算力/运载力</span>
-          </section>
-          <section class="industry-research-board" data-filters="算力">
-            <div><p class="eyebrow">产业研报</p><h3><a class="industry-report-link" href="../../sources/automations/新兴产业/算力/芯片与基础软件/2026-07-22-芯片与基础软件产业完整分析报告.html" target="_blank" rel="noopener noreferrer">芯片与基础软件产业完整分析报告</a></h3></div>
-            <span>新兴产业 / 算力 · 来源目录：sources/automations/新兴产业/算力/芯片与基础软件</span>
-          </section>
-          <section class="industry-research-board" data-filters="算力">
-            <div><p class="eyebrow">产业研报</p><h3><a class="industry-report-link" href="../../sources/automations/新兴产业/算力/算力基础设施与能源/2026-07-22-算力基础设施与能源产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力基础设施与能源产业完整分析报告</a></h3></div>
-            <span>新兴产业 / 算力 · 来源目录：sources/automations/新兴产业/算力/算力基础设施与能源</span>
-          </section>
-          <section class="industry-research-board" data-filters="算力">
-            <div><p class="eyebrow">产业研报</p><h3><a class="industry-report-link" href="../../sources/automations/新兴产业/算力/模型与行业应用/2026-07-22-模型与行业应用产业完整分析报告.html" target="_blank" rel="noopener noreferrer">模型与行业应用产业完整分析报告</a></h3></div>
-            <span>新兴产业 / 算力 · 来源目录：sources/automations/新兴产业/算力/模型与行业应用</span>
-          </section>
-          <section class="industry-research-board" data-filters="算力">
-            <div><p class="eyebrow">产业研报</p><h3><a class="industry-report-link" href="../../sources/automations/新兴产业/算力/计算系统与集群/2026-07-22-计算系统与集群产业完整分析报告.html" target="_blank" rel="noopener noreferrer">计算系统与集群产业完整分析报告</a></h3></div>
-            <span>新兴产业 / 算力 · 来源目录：sources/automations/新兴产业/算力/计算系统与集群</span>
-          </section>
-          <section class="industry-research-board" data-filters="算力">
-            <div><p class="eyebrow">产业研报</p><h3><a class="industry-report-link" href="../../sources/automations/新兴产业/算力/存储力/2026-07-22-存储力产业完整分析报告.html" target="_blank" rel="noopener noreferrer">存储力产业完整分析报告</a></h3></div>
-            <span>新兴产业 / 算力 · 来源目录：sources/automations/新兴产业/算力/存储力</span>
-          </section>
-          <section class="industry-research-board" data-filters="算力">
-            <div><p class="eyebrow">产业研报</p><h3><a class="industry-report-link" href="../../sources/automations/新兴产业/算力/2026-07-20-算力产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力产业完整分析报告</a></h3></div>
-            <span>新兴产业 / 算力 · 来源目录：sources/automations/新兴产业/算力</span>
-          </section>
-          <section class="industry-research-board" data-filters="商业航天">
-            <div><p class="eyebrow">产业研报</p><h3><a class="industry-report-link" href="../../sources/automations/新兴产业/商业航天/商业航天产业完整分析报告.html" target="_blank" rel="noopener noreferrer">商业航天产业完整分析报告</a></h3></div>
-            <span>新兴产业 / 商业航天 · 来源目录：sources/automations/新兴产业/商业航天</span>
-          </section>
-          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 22条</span></div>
+          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 26条</span></div>
           <div class="industry-timeline">
             <div class="industry-feed">
+              <article class="industry-report" data-filters="算力">
+                <span class="industry-time">07-23</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 算力 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/算力/算力基础设施与能源/2026-07-23-东阳光机构级决策研报-阅读版.html" target="_blank" rel="noopener noreferrer">东阳光机构级决策研报-阅读版</a></h3>
+                <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#算力 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/算力/算力基础设施与能源</div>
+              </article>
+              <article class="industry-report" data-filters="商业航天">
+                <span class="industry-time">16:00</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 商业航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/商业航天/2026-07-23-1600-斯瑞新材-机构级决策研报.html" target="_blank" rel="noopener noreferrer">斯瑞新材-机构级决策研报</a></h3>
+                <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#商业航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/商业航天</div>
+              </article>
+              <article class="industry-report" data-filters="商业航天">
+                <span class="industry-time">15:00</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 商业航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/商业航天/2026-07-23-1500-火炬电子-机构级决策研报.html" target="_blank" rel="noopener noreferrer">火炬电子-机构级决策研报</a></h3>
+                <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#商业航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/商业航天</div>
+              </article>
+              <article class="industry-report" data-filters="商业航天">
+                <span class="industry-time">14:27</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 商业航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/商业航天/2026-07-23-1427-航天电子-机构级决策研报.html" target="_blank" rel="noopener noreferrer">航天电子-机构级决策研报</a></h3>
+                <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#商业航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/商业航天</div>
+              </article>
               <article class="industry-report" data-filters="商业航天">
                 <span class="industry-time">07-21</span><span class="industry-dot"></span>
                 <div class="industry-report-meta"><span>新兴产业 · 商业航天 <b>资金面</b></span><span>自动</span></div>
@@ -743,15 +877,20 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
             <button type="button" data-filter="电网" aria-pressed="false">电网</button>
             <button type="button" data-filter="高端制造" aria-pressed="false">高端制造</button>
           </nav>
-          <section class="industry-research-board" data-filters="电网">
-            <div><p class="eyebrow">产业研报</p><h3><a class="industry-report-link" href="../../sources/automations/支柱产业/电网/2026-07-17-十五五电网投资与电网行业完整分析报告.html" target="_blank" rel="noopener noreferrer">十五五电网投资与电网行业完整分析报告</a></h3></div>
-            <span>支柱产业 / 电网 · 来源目录：sources/automations/支柱产业/电网</span>
+          <section class="industry-research-list" aria-label="支柱产业产业研报">
+            <h3>产业研报</h3>
+            <ol>
+              <li class="industry-research-item" data-filters="电解铝">
+                <span class="industry-research-rank">1</span>
+                <a class="industry-report-link" href="../../sources/automations/支柱产业/电解铝/2026-07-22-电解铝产业完整分析报告.html" target="_blank" rel="noopener noreferrer">电解铝产业完整分析报告</a>
+              </li>
+              <li class="industry-research-item" data-filters="电网">
+                <span class="industry-research-rank">2</span>
+                <a class="industry-report-link" href="../../sources/automations/支柱产业/电网/2026-07-17-十五五电网投资与电网行业完整分析报告.html" target="_blank" rel="noopener noreferrer">十五五电网投资与电网行业完整分析报告</a>
+              </li>
+            </ol>
           </section>
-          <section class="industry-research-board" data-filters="电解铝">
-            <div><p class="eyebrow">产业研报</p><h3><a class="industry-report-link" href="../../sources/automations/支柱产业/电解铝/2026-07-22-电解铝产业完整分析报告.html" target="_blank" rel="noopener noreferrer">电解铝产业完整分析报告</a></h3></div>
-            <span>支柱产业 / 电解铝 · 来源目录：sources/automations/支柱产业/电解铝</span>
-          </section>
-          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 10条</span></div>
+          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 12条</span></div>
           <div class="industry-timeline">
             <div class="industry-feed">
               <article class="industry-report" data-filters="高端制造">
@@ -761,6 +900,14 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                 <p>从支柱产业目录自动读取，点击标题打开对应 HTML 研报。</p>
                 <div class="industry-tags">#高端制造 #目录自动读取 #研报</div>
                 <div class="industry-reason">来源目录：sources/automations/支柱产业/高端制造</div>
+              </article>
+              <article class="industry-report" data-filters="电网">
+                <span class="industry-time">14:27</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>支柱产业 · 电网 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/支柱产业/电网/2026-07-23-1427-华明装备-机构级决策研报.html" target="_blank" rel="noopener noreferrer">华明装备-机构级决策研报</a></h3>
+                <p>从支柱产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#电网 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/支柱产业/电网</div>
               </article>
               <article class="industry-report" data-filters="电网">
                 <span class="industry-time">07-18</span><span class="industry-dot"></span>
@@ -785,6 +932,14 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                 <p>从支柱产业目录自动读取，点击标题打开对应 HTML 研报。</p>
                 <div class="industry-tags">#电网 #目录自动读取 #研报</div>
                 <div class="industry-reason">来源目录：sources/automations/支柱产业/电网</div>
+              </article>
+              <article class="industry-report" data-filters="电解铝">
+                <span class="industry-time">14:21</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>支柱产业 · 电解铝 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/支柱产业/电解铝/2026-07-23-1421-云铝股份-机构级决策研报.html" target="_blank" rel="noopener noreferrer">云铝股份-机构级决策研报</a></h3>
+                <p>从支柱产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#电解铝 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/支柱产业/电解铝</div>
               </article>
               <article class="industry-report" data-filters="电解铝">
                 <span class="industry-time">07-20</span><span class="industry-dot"></span>
@@ -842,7 +997,7 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
 
       <section class="view" id="position-manager" data-shell-content="personal" aria-labelledby="position-manager-heading">
         <div class="personal-page">
-          <div class="section-header personal-heading"><div><p class="eyebrow">MY PORTFOLIO</p><h2 id="position-manager-heading">仓位管理</h2></div><p>启动器模式保存在本机，单文件模式保存在当前浏览器；用于记录成本、现价、仓位与浮动盈亏。</p></div>
+          <h2 class="visually-hidden" id="position-manager-heading">仓位管理</h2>
           <div class="portfolio-summary" aria-label="仓位摘要">
             <article><small>持仓标的</small><strong id="holding-count">0</strong><span>只</span></article>
             <article><small>持仓成本</small><strong id="portfolio-cost">¥0.00</strong><span>累计投入</span></article>
@@ -879,9 +1034,39 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
 
       <section class="view" id="holding-tracker" data-shell-content="personal" aria-labelledby="holding-tracker-heading">
         <div class="personal-page">
-          <div class="section-header personal-heading"><div><p class="eyebrow">HOLDING TRACKER</p><h2 id="holding-tracker-heading">持仓跟踪</h2></div><p>围绕持有逻辑、风险变化和下一步动作持续复核，不把单日涨跌直接当成结论。</p></div>
-          <div class="holding-tracker-list" id="holding-tracker-list"></div>
-          <p class="personal-empty tracker-empty" id="holding-tracker-empty">仓位列表为空。请先到“仓位管理”添加持有标的。</p>
+          <h2 class="visually-hidden" id="holding-tracker-heading">持仓跟踪</h2>
+          <div class="tracker-summary" aria-label="持仓跟踪摘要">
+            <article><small>跟踪标的</small><strong id="tracking-count">0</strong><span>只</span></article>
+            <article><small>持有</small><strong id="tracking-holding-count">0</strong><span>已在计划内</span></article>
+            <article><small>观察</small><strong id="tracking-watch-count">0</strong><span>等待验证</span></article>
+            <article><small>最近更新</small><strong id="tracking-updated">尚未记录</strong><span>手工复核</span></article>
+          </div>
+          <div class="tracker-workspace">
+            <form class="tracking-form panel" id="tracking-form">
+              <input name="id" type="hidden">
+              <div class="holding-form-title"><div><p class="eyebrow">TRACKING ITEM</p><h3 id="tracking-form-title">新增跟踪</h3></div><button class="text-button" id="cancel-tracking-edit" type="button" hidden>取消编辑</button></div>
+              <div class="tracking-form-grid">
+                <label><span>标的名称</span><input name="name" required maxlength="30" placeholder="例如 航天电子"></label>
+                <label><span>证券代码</span><input name="code" maxlength="12" placeholder="填写名称后自动匹配"></label>
+                <label><span>跟踪状态</span><select name="status"><option>持有</option><option>观察</option><option>计划加仓</option><option>计划减仓</option></select></label>
+                <label><span>下一步动作</span><input name="nextAction" maxlength="80" placeholder="例如 等待风险转弱后复核"></label>
+                <label class="tracking-wide-field"><span>跟踪逻辑</span><textarea name="thesis" rows="3" maxlength="300" placeholder="记录为什么跟踪：产业逻辑、资金状态、情绪位置或买入初衷"></textarea></label>
+                <label class="tracking-wide-field"><span>风险线</span><textarea name="riskLine" rows="2" maxlength="220" placeholder="记录哪些变化会说明逻辑变弱或需要降级观察"></textarea></label>
+                <label class="tracking-wide-field"><span>复核条件</span><textarea name="reviewCondition" rows="2" maxlength="220" placeholder="记录下一次复核需要看到的价格、基本面、资金或情绪证据"></textarea></label>
+              </div>
+              <button class="button-primary" type="submit">保存跟踪</button>
+            </form>
+            <div class="tracker-list-panel panel">
+              <div class="holding-form-title"><div><p class="eyebrow">WATCHLIST</p><h3>跟踪清单</h3></div><div class="tracker-filter" id="tracking-filter" aria-label="跟踪状态筛选"><button class="is-active" type="button" data-status-filter="all" aria-pressed="true">全部</button><button type="button" data-status-filter="持有" aria-pressed="false">持有</button><button type="button" data-status-filter="观察" aria-pressed="false">观察</button><button type="button" data-status-filter="计划加仓" aria-pressed="false">加仓</button><button type="button" data-status-filter="计划减仓" aria-pressed="false">减仓</button></div></div>
+              <div class="tracking-table-wrap">
+                <table class="tracking-table">
+                  <thead><tr><th>标的</th><th>状态</th><th>跟踪逻辑</th><th>风险线</th><th>下一步</th><th>复核条件</th><th>更新</th><th>操作</th></tr></thead>
+                  <tbody id="holding-tracker-list"></tbody>
+                </table>
+              </div>
+              <p class="personal-empty tracker-empty" id="holding-tracker-empty">还没有跟踪标的。先在左侧新增一条观察记录。</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -892,6 +1077,15 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
             <h2 id="changelog-heading">更新日志</h2>
             <p>最近发生了什么——新功能、调整与修复，都写在这里。</p>
           </header>
+        <section class="changelog-day">
+          <header><h3>2026 年 7 月 23 日</h3><span>星期四</span></header>
+          <div class="changelog-entries">
+            <article class="changelog-entry">
+              <div class="changelog-meta"><span><i aria-hidden="true"></i>更新</span></div>
+              <div class="changelog-copy"><h4>市场总览改为三张信号卡</h4><p>市场总览现在直接展示有知有行市场温度计、中证红利股息率信号和预留卡位，并隐藏顶部示例数据开关。</p><ul><li>市场温度计卡片接入有知有行公开温度计，点击卡片打开官方源页</li><li>中证红利卡片显示股息率动作、股债利差动作和历史分位状态，点击卡片打开本地最新信号</li><li>数据审计新增有知有行市场温度计和中证红利观察项</li></ul></div>
+            </article>
+          </div>
+        </section>
         <section class="changelog-day">
           <header><h3>2026 年 7 月 21 日</h3><span>星期二</span></header>
           <div class="changelog-entries">
@@ -1637,8 +1831,76 @@ const LAYER_META = Object.freeze({
 
 const STATUS_PRIORITY = Object.freeze({ example: 0, latest: 0, snapshot: 1, expired: 2, missing: 3 });
 const STATUS_LABELS = Object.freeze({ example: '示例', latest: '最新', snapshot: '快照', expired: '已过期', missing: '缺失' });
-const HOLDINGS_STORAGE_KEY = 'a-share-market-dashboard:holdings:v1';
+const PORTFOLIO_STORAGE_KEY = 'a-share-market-dashboard:holdings:v1';
+const YOUZHIYOUXING_TEMPERATURE_URL = 'https://youzhiyouxing.cn/data';
+const CSI_DIVIDEND_SIGNAL_SOURCE_URL = '../../sources/automations/中证红利信号/最新信号.md';
 const HOLDING_STATUSES = new Set(['持有', '观察', '计划加仓', '计划减仓']);
+const STOCK_CODE_ALIASES = Object.freeze({
+  航天电子: '600879',
+  云铝股份: '000807',
+  东阳光: '600673',
+  中国卫星: '600118',
+  中国卫通: '601698',
+  中国中车: '601766',
+  中国船舶: '600150',
+  神马电力: '603530',
+  华明装备: '002270',
+  中证500ETF南方: '510500',
+  有色ETF: '512400',
+});
+const STOCK_REPORT_LINKS = Object.freeze({
+  "北斗星通": "../../sources/automations/新兴产业/商业航天/2026-07-17-北斗星通-机构级决策研报.html",
+  "北方导航": "../../sources/automations/新兴产业/商业航天/2026-07-17-1825-北方导航-机构级决策研报.html",
+  "铂力特": "../../sources/automations/新兴产业/商业航天/2026-07-17-1830-铂力特-机构级决策研报.html",
+  "铖昌科技": "../../sources/automations/新兴产业/商业航天/2026-07-20-铖昌科技-机构级决策研报.html",
+  "电科蓝天": "../../sources/automations/新兴产业/商业航天/2026-07-17-电科蓝天机构级决策研报.html",
+  "东阳光": "../../sources/automations/新兴产业/算力/算力基础设施与能源/2026-07-23-东阳光机构级决策研报-阅读版.html",
+  "国博电子": "../../sources/automations/新兴产业/商业航天/2026-07-17-1813-国博电子-机构级决策研报.html",
+  "国科微": "../../sources/automations/新兴产业/商业航天/2026-07-17-1855-国科微-机构级决策研报.html",
+  "航天电器": "../../sources/automations/新兴产业/商业航天/2026-07-17-1833-航天电器-机构级决策研报.html",
+  "航天电子": "../../sources/automations/新兴产业/商业航天/2026-07-23-1427-航天电子-机构级决策研报.html",
+  "航天环宇": "../../sources/automations/新兴产业/商业航天/2026-07-17-航天环宇-机构级决策研报.html",
+  "华测导航": "../../sources/automations/新兴产业/商业航天/2026-07-17-1744-华测导航-机构级决策研报.html",
+  "华明装备": "../../sources/automations/支柱产业/电网/2026-07-23-1427-华明装备-机构级决策研报.html",
+  "火炬电子": "../../sources/automations/新兴产业/商业航天/2026-07-23-1500-火炬电子-机构级决策研报.html",
+  "上海瀚讯": "../../sources/automations/新兴产业/商业航天/2026-07-17-上海瀚讯机构级决策研报.html",
+  "神马电力": "../../sources/automations/支柱产业/电网/2026-07-18-神马电力机构级决策研报.html",
+  "斯瑞新材": "../../sources/automations/新兴产业/商业航天/2026-07-23-1600-斯瑞新材-机构级决策研报.html",
+  "四维图新": "../../sources/automations/新兴产业/商业航天/2026-07-17-四维图新-机构级决策研报.html",
+  "芯原股份": "../../sources/automations/新兴产业/商业航天/2026-07-17-芯原股份-机构级决策研报.html",
+  "新雷能": "../../sources/automations/新兴产业/商业航天/2026-07-17-新雷能-机构级决策研报.html",
+  "信维通信": "../../sources/automations/新兴产业/商业航天/2026-07-17-信维通信-机构级决策研报.html",
+  "徐工机械": "../../sources/automations/支柱产业/高端制造/2026-07-20-1737-徐工机械-机构级决策研报.html",
+  "云铝股份": "../../sources/automations/支柱产业/电解铝/2026-07-23-1421-云铝股份-机构级决策研报.html",
+  "臻镭科技": "../../sources/automations/新兴产业/商业航天/2026-07-20-臻镭科技-机构级决策研报.html",
+  "中国卫通": "../../sources/automations/新兴产业/商业航天/2026-07-17-1728-中国卫通-机构级决策研报.html",
+  "中国卫星": "../../sources/automations/新兴产业/商业航天/2026-07-17-1616-中国卫星-机构级决策研报.html",
+  "中国中车": "../../sources/automations/支柱产业/2026-07-18-中国中车机构级决策研报.html",
+  "中科星图": "../../sources/automations/新兴产业/商业航天/2026-07-17-中科星图-机构级决策研报.html",
+});
+const CSI_DIVIDEND_SIGNAL = Object.freeze(
+{
+  "recordDate": "2026-07-23",
+  "runTime": "2026-07-23 14:17:41",
+  "indexDate": "2026-07-22",
+  "bondDate": "2026-07-22",
+  "dividendYield2": 4.46,
+  "xueqiuChangePercent": "待验证",
+  "lixingerDate": "待确认",
+  "lixingerDividendYield": "待验证",
+  "lixingerPercentile10y": "待验证",
+  "lixingerPercentile80Value": "待验证",
+  "bond10yYield": 1.73,
+  "spread": 2.73,
+  "percentileSignal": "待验证",
+  "absoluteSignal": "C（小额定投）",
+  "spreadSignal": "B（加大买入）",
+  "headline": "历史分位点待验证，暂不判定加大买入区间",
+  "source": "zzhl-dividend-signal 最新信号",
+  "sourceNote": "AKShare: stock_zh_index_value_csindex(000922, 股息率2), bond_zh_us_rate; 雪球实时行情待验证: 雪球实时行情失败：雪球实时行情接口返回空响应; 理杏仁待验证: 公开页面失败：HTTP Error 429: Too Many Requests; 未提供大模型网页查询结果",
+  "status": "latest"
+}
+);
 
 function domain(snapshot, id) {
   return snapshot?.domains?.[id] ?? { data: null, source: null, status: 'missing', dataAt: null, fetchedAt: null, errors: [] };
@@ -1792,8 +2054,98 @@ function formatTime(value) {
   return Number.isFinite(timestamp) ? new Intl.DateTimeFormat('zh-CN', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Shanghai' }).format(timestamp) : '—';
 }
 
+function normalizeStockName(value) {
+  return String(value ?? '').trim().replace(/\s+/g, '');
+}
+
+function reportLinkForTrackingItem(item) {
+  const candidates = [item.name, ...Object.entries(STOCK_CODE_ALIASES)
+    .filter(([, code]) => code === item.code)
+    .map(([name]) => name)]
+    .map(normalizeStockName)
+    .filter(Boolean);
+  for (const candidate of candidates) {
+    if (STOCK_REPORT_LINKS[candidate]) return STOCK_REPORT_LINKS[candidate];
+  }
+  const partial = Object.entries(STOCK_REPORT_LINKS).find(([name]) =>
+    candidates.some(candidate => name.includes(candidate) || candidate.includes(name))
+  );
+  return partial?.[1] ?? '';
+}
+
 function metricStatus(metric) {
   return Number.isFinite(metric.score) ? metric.status : 'missing';
+}
+
+function normalizeSignalLevel(value) {
+  const text = String(value ?? '').trim();
+  const match = text.match(/^([ABCD])(?:[（(](.+)[）)])?$/);
+  return match ? { grade: match[1], label: match[2] ?? '' } : { grade: '', label: text };
+}
+
+function signalDataTime(signal) {
+  const date = signal?.indexDate || signal?.recordDate;
+  const timestamp = date ? Date.parse(`${date}T15:00:00+08:00`) : NaN;
+  return Number.isFinite(timestamp) ? timestamp : null;
+}
+
+function renderDividendSignalCard(signal) {
+  if (!signal) {
+    return `<a class="dividend-signal-card is-missing is-clickable-card" href="${CSI_DIVIDEND_SIGNAL_SOURCE_URL}" target="_blank" rel="noopener noreferrer" aria-label="打开中证红利最新信号源数据">
+      <div class="dividend-signal-main"><span>中证红利信号</span><strong>待接入</strong><p>未找到本地最新信号记录。</p></div>
+    </a>`;
+  }
+  const absolute = normalizeSignalLevel(signal.absoluteSignal);
+  const spread = normalizeSignalLevel(signal.spreadSignal);
+  const percentile = normalizeSignalLevel(signal.percentileSignal);
+  const isFocus = /重点买入区间|重点买入/.test(signal.headline ?? '') || [absolute, spread, percentile].some(item => item.grade === 'A');
+  return `<a class="dividend-signal-card is-clickable-card${isFocus ? ' is-focus' : ''}" href="${CSI_DIVIDEND_SIGNAL_SOURCE_URL}" target="_blank" rel="noopener noreferrer" aria-label="打开中证红利最新信号源数据">
+    <div class="dividend-signal-main">
+      <span>中证红利股息率信号</span>
+      <strong>${escapeHtml(isFocus ? '重点买入观察' : '未进重点买入')}</strong>
+      <p>${escapeHtml(signal.headline ?? '暂无综合结论')}</p>
+    </div>
+    <div class="dividend-signal-grid">
+      <div><small>股息率2</small><strong>${formatNumber(signal.dividendYield2, 2)}%</strong><span>${escapeHtml(absolute.grade ? `${absolute.grade} ${absolute.label}` : signal.absoluteSignal ?? '待验证')}</span></div>
+      <div><small>10年国债</small><strong>${formatNumber(signal.bond10yYield, 2)}%</strong><span>${escapeHtml(signal.bondDate ?? '日期待确认')}</span></div>
+      <div><small>股债利差</small><strong>${formatNumber(signal.spread, 2)}%</strong><span>${escapeHtml(spread.grade ? `${spread.grade} ${spread.label}` : signal.spreadSignal ?? '待验证')}</span></div>
+      <div><small>历史分位</small><strong>${escapeHtml(percentile.grade || '待验证')}</strong><span>${escapeHtml(signal.percentileSignal ?? '待验证')}</span></div>
+    </div>
+  </a>`;
+}
+
+function renderYouzhiyouxingTemperatureCard(envelope) {
+  const data = envelope?.data;
+  const sourceUrl = data?.sourceUrl ?? envelope?.sourceUrl ?? YOUZHIYOUXING_TEMPERATURE_URL;
+  const status = envelope?.status ?? 'loading';
+  if (status === 'latest' && data && Number.isFinite(data.temperature)) {
+    const probabilities = data.probabilities ?? {};
+    return `<a class="overview-card market-thermometer-card is-clickable-card" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener noreferrer" aria-label="打开有知有行市场温度计源数据">
+      <div class="overview-card-head"><span>市场温度计</span><strong>有知有行</strong></div>
+      <div class="market-thermometer-main">
+        <div class="market-temperature-value"><strong>${formatNumber(data.temperature, 0)}°</strong><span>${escapeHtml(data.band ?? '待确认')}</span></div>
+        <div class="market-temperature-copy">
+          <p>${escapeHtml(data.trend || '温度方向待确认')}</p>
+          <small>${escapeHtml(data.updatedText || '更新时间待确认')}</small>
+        </div>
+      </div>
+      <div class="market-temperature-scale" aria-label="有知有行全市场温度 ${formatNumber(data.temperature, 0)}°"><span style="--position:${clamp(data.temperature)}%"></span></div>
+      <div class="market-temperature-bands">
+        <div><small>低估</small><strong>${formatNumber(probabilities.low, 0)}%</strong></div>
+        <div><small>中估</small><strong>${formatNumber(probabilities.mid, 0)}%</strong></div>
+        <div><small>高估</small><strong>${formatNumber(probabilities.high, 0)}%</strong></div>
+      </div>
+      <span class="source-link">打开官方温度计</span>
+    </a>`;
+  }
+  const copy = status === 'loading'
+    ? '正在通过本地代理读取有知有行官方温度计。'
+    : envelope?.error || '启动本地代理后读取有知有行官方温度计。';
+  return `<a class="overview-card market-thermometer-card is-pending is-clickable-card" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener noreferrer" aria-label="打开有知有行市场温度计源数据">
+    <div class="overview-card-head"><span>市场温度计</span><strong>${status === 'loading' ? '读取中' : '待连接'}</strong></div>
+    <p class="market-temperature-empty">${escapeHtml(copy)}</p>
+    <span class="source-link">打开有知有行温度计</span>
+  </a>`;
 }
 
 function detailCard(metric) {
@@ -1812,7 +2164,7 @@ function detailCard(metric) {
   </article>`;
 }
 
-function renderDerived(derived) {
+function renderDerived(derived, officialTemperature = { status: 'loading' }) {
   const byId = id => document.getElementById(id);
   const scoreValue = derived.score.score;
   byId('conclusion-label').textContent = derived.conclusion.label;
@@ -1831,6 +2183,8 @@ function renderDerived(derived) {
     <div class="layer-rule"><span style="--score:${Number.isFinite(layer.score) ? clamp(layer.score) : 0}%"></span></div>
     <p>${layer.description} · 层内覆盖 ${formatNumber(layer.coverage, 0)}%</p>
   </article>`).join('');
+  byId('youzhiyouxing-temperature-card').innerHTML = renderYouzhiyouxingTemperatureCard(officialTemperature);
+  byId('dividend-signal-card').innerHTML = renderDividendSignalCard(CSI_DIVIDEND_SIGNAL);
 
   byId('metric-list').innerHTML = derived.metrics.map(metric => {
     const missing = !Number.isFinite(metric.score);
@@ -1847,7 +2201,11 @@ function renderDerived(derived) {
   }
   byId('rules-weights').innerHTML = derived.metrics.map(metric => `<div class="weight-row"><span>${escapeHtml(metric.label)}</span><strong>${metric.weight}%</strong></div>`).join('');
   const validCount = derived.metrics.filter(metric => Number.isFinite(metric.score)).length;
-  const errors = [...new Set(derived.metrics.flatMap(metric => metric.errors ?? []))];
+  const dividendErrors = CSI_DIVIDEND_SIGNAL?.sourceNote
+    ? CSI_DIVIDEND_SIGNAL.sourceNote.split(';').map(item => item.trim()).filter(item => /失败|待验证|429|空响应/.test(item))
+    : [];
+  const temperatureError = officialTemperature.status === 'missing' && officialTemperature.error ? [officialTemperature.error] : [];
+  const errors = [...new Set([...derived.metrics.flatMap(metric => metric.errors ?? []), ...dividendErrors, ...temperatureError])];
   byId('audit-summary').innerHTML = `
     <div><small>规则版本</small><strong>v1.0</strong></div>
     <div><small>有效指标</small><strong>${validCount} / ${derived.metrics.length}</strong></div>
@@ -1856,13 +2214,23 @@ function renderDerived(derived) {
   byId('audit-errors').innerHTML = errors.length
     ? `<ul>${errors.map(error => `<li>${escapeHtml(error)}</li>`).join('')}</ul>`
     : '';
+  const dividendAuditRow = CSI_DIVIDEND_SIGNAL ? `<tr>
+    <td>中证红利股息率信号</td><td>${CSI_DIVIDEND_SIGNAL.status === 'latest' ? '最新' : '快照'}</td><td>${escapeHtml(CSI_DIVIDEND_SIGNAL.source ?? 'zzhl-dividend-signal 最新信号')}</td>
+    <td>${formatTime(signalDataTime(CSI_DIVIDEND_SIGNAL))}</td><td>观察项</td><td>—</td><td>—</td>
+  </tr>` : `<tr class="is-missing">
+    <td>中证红利股息率信号</td><td>缺失</td><td>本地最新信号</td><td>—</td><td>观察项</td><td>—</td><td>—</td>
+  </tr>`;
+  const temperatureAuditRow = `<tr${officialTemperature.status === 'missing' ? ' class="is-missing"' : ''}>
+    <td>有知有行市场温度计</td><td>${officialTemperature.status === 'latest' ? '最新' : officialTemperature.status === 'loading' ? '读取中' : '缺失'}</td><td>有知有行公开温度计</td>
+    <td>${escapeHtml(officialTemperature.data?.updatedText ?? '—')}</td><td>观察项</td><td>—</td><td>—</td>
+  </tr>`;
   byId('audit-table-body').innerHTML = derived.metrics.map(metric => `<tr>
     <td>${escapeHtml(metric.label)}</td><td>${STATUS_LABELS[metricStatus(metric)] ?? metricStatus(metric)}</td><td>${escapeHtml(metric.source)}</td>
     <td>${formatTime(metric.dataAt)}</td><td>${metric.weight}%</td><td>${formatNumber(metric.effectiveWeight, 1)}%</td><td>${formatNumber(metric.contribution, 2)}</td>
-  </tr>`).join('');
+  </tr>`).join('') + temperatureAuditRow + dividendAuditRow;
   byId('sidebar-valid').textContent = `${validCount} / ${derived.metrics.length} 项有效`;
   byId('sidebar-updated').textContent = formatTime(Math.max(...derived.metrics.map(metric => Number(metric.fetchedAt)).filter(Number.isFinite)));
-  byId('sidebar-status').textContent = derived.mode === 'example' ? '示例数据' : derived.score.coverage >= 70 ? '数据可判断' : '数据不完整';
+  byId('sidebar-status').textContent = derived.mode === 'example' ? '等待联网' : derived.score.coverage >= 70 ? '数据可判断' : '数据不完整';
   byId('sidebar-status-dot').className = `status-dot ${derived.mode !== 'example' && derived.score.coverage >= 70 ? 'is-live' : derived.mode !== 'example' ? 'is-error' : ''}`;
 }
 
@@ -1941,11 +2309,51 @@ function normalizeHoldings(items) {
     })).filter(item => item.id && item.code && item.name);
 }
 
-function loadHoldings(storage) {
+function normalizeTrackingItems(items) {
+  if (!Array.isArray(items)) return [];
+  return items.filter(item => item && typeof item === 'object').map(item => ({
+      id: String(item.id ?? '').slice(0, 80),
+      code: String(item.code ?? '').trim().slice(0, 12),
+      name: String(item.name ?? '').trim().slice(0, 30),
+      status: HOLDING_STATUSES.has(item.status) ? item.status : '观察',
+      thesis: String(item.thesis ?? '').trim().slice(0, 300),
+      riskLine: String(item.riskLine ?? '').trim().slice(0, 220),
+      nextAction: String(item.nextAction ?? '').trim().slice(0, 80),
+      reviewCondition: String(item.reviewCondition ?? '').trim().slice(0, 220),
+      updatedAt: Number(item.updatedAt) || Date.now(),
+    })).filter(item => item.id && item.name);
+}
+
+function summarizeTrackingItems(items = []) {
+  const normalized = normalizeTrackingItems(items);
+  const countByStatus = Object.fromEntries([...HOLDING_STATUSES].map(status => [status, 0]));
+  for (const item of normalized) countByStatus[item.status] += 1;
+  return {
+    items: normalized.sort((left, right) => right.updatedAt - left.updatedAt),
+    count: normalized.length,
+    countByStatus,
+    latestUpdatedAt: normalized.length ? Math.max(...normalized.map(item => item.updatedAt)) : null,
+  };
+}
+
+function normalizePortfolioPayload(payload) {
+  if (Array.isArray(payload)) {
+    return { holdings: normalizeHoldings(payload), trackingItems: [] };
+  }
+  if (!payload || typeof payload !== 'object') {
+    return { holdings: [], trackingItems: [] };
+  }
+  return {
+    holdings: normalizeHoldings(payload.holdings),
+    trackingItems: normalizeTrackingItems(payload.trackingItems),
+  };
+}
+
+function loadPortfolio(storage) {
   try {
-    return normalizeHoldings(JSON.parse(storage.getItem(HOLDINGS_STORAGE_KEY) ?? '[]'));
+    return normalizePortfolioPayload(JSON.parse(storage.getItem(PORTFOLIO_STORAGE_KEY) ?? '{}'));
   } catch {
-    return [];
+    return { holdings: [], trackingItems: [] };
   }
 }
 
@@ -1961,9 +2369,15 @@ function resolveTreeNavigation(activeViews, requestedDomain, requestedView = nul
 }
 
 function startApp() {
-  const state = { snapshot: EXAMPLE_SNAPSHOT, windowYears: 5, busy: false };
+  const state = {
+    snapshot: EXAMPLE_SNAPSHOT,
+    windowYears: 5,
+    busy: false,
+    youzhiyouxingTemperature: { status: 'loading', sourceUrl: YOUZHIYOUXING_TEMPERATURE_URL },
+  };
   const storage = resolveStorage();
-  let holdings = loadHoldings(storage);
+  let { holdings, trackingItems } = loadPortfolio(storage);
+  let trackingStatusFilter = 'all';
   const launcherHint = globalThis.location?.protocol === 'file:'
     ? ' 稳定联网请双击“启动大盘面板.cmd”。'
     : '';
@@ -1984,31 +2398,53 @@ function startApp() {
 
   const formatMoney = value => `¥${Number(value).toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
-  const saveHoldings = () => {
-    storage.setItem(HOLDINGS_STORAGE_KEY, JSON.stringify(holdings));
+  const findStockCodeByName = name => {
+    const normalizedName = String(name ?? '').trim();
+    if (!normalizedName) return '';
+    const exactMatch = [...holdings, ...trackingItems].find(item => item.name === normalizedName && item.code);
+    if (exactMatch) return exactMatch.code;
+    if (STOCK_CODE_ALIASES[normalizedName]) return STOCK_CODE_ALIASES[normalizedName];
+    const partialMatch = Object.entries(STOCK_CODE_ALIASES).find(([alias]) =>
+      alias.includes(normalizedName) || normalizedName.includes(alias)
+    );
+    return partialMatch?.[1] ?? '';
+  };
+
+  const fillTrackingCodeFromName = (force = false) => {
+    const form = document.getElementById('tracking-form');
+    const codeInput = form.elements.code;
+    if (!force && codeInput.value.trim()) return;
+    codeInput.value = findStockCodeByName(form.elements.name.value);
+  };
+
+  const savePortfolio = () => {
+    const payload = { holdings, trackingItems };
+    storage.setItem(PORTFOLIO_STORAGE_KEY, JSON.stringify(payload));
     if (isLocalProxyLocation()) {
       fetch('/api/portfolio', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ holdings }),
+        body: JSON.stringify(payload),
       }).catch(() => {});
     }
   };
 
-  const loadProxyHoldings = async () => {
+  const loadProxyPortfolio = async () => {
     if (!isLocalProxyLocation()) return;
     try {
       const response = await fetch('/api/portfolio', { cache: 'no-store' });
       if (!response.ok) return;
       const payload = await response.json();
-      const proxyHoldings = normalizeHoldings(payload.holdings);
-      if (!proxyHoldings.length && holdings.length) {
-        saveHoldings();
+      const proxyPortfolio = normalizePortfolioPayload(payload);
+      if (!proxyPortfolio.holdings.length && !proxyPortfolio.trackingItems.length && (holdings.length || trackingItems.length)) {
+        savePortfolio();
         return;
       }
-      holdings = proxyHoldings;
-      storage.setItem(HOLDINGS_STORAGE_KEY, JSON.stringify(holdings));
+      holdings = proxyPortfolio.holdings;
+      trackingItems = proxyPortfolio.trackingItems;
+      storage.setItem(PORTFOLIO_STORAGE_KEY, JSON.stringify({ holdings, trackingItems }));
       renderHoldings();
+      renderTrackingItems();
     } catch {
       // Browser storage remains the explicit fallback when the local file endpoint is unavailable.
     }
@@ -2023,6 +2459,15 @@ function startApp() {
     document.getElementById('cancel-holding-edit').hidden = true;
   };
 
+  const resetTrackingForm = () => {
+    const form = document.getElementById('tracking-form');
+    form.reset();
+    form.elements.id.value = '';
+    form.elements.status.value = '观察';
+    document.getElementById('tracking-form-title').textContent = '新增跟踪';
+    document.getElementById('cancel-tracking-edit').hidden = true;
+  };
+
   const renderHoldings = () => {
     const summary = summarizeHoldings(holdings);
     document.getElementById('holding-count').textContent = String(summary.items.length);
@@ -2034,7 +2479,6 @@ function startApp() {
     profitCard.classList.toggle('is-profit', summary.profit > 0);
     profitCard.classList.toggle('is-loss', summary.profit < 0);
     document.getElementById('holdings-empty').hidden = summary.items.length > 0;
-    document.getElementById('holding-tracker-empty').hidden = summary.items.length > 0;
     document.getElementById('holdings-updated').textContent = summary.items.length
       ? `最近记录 ${new Date(Math.max(...summary.items.map(item => item.updatedAt))).toLocaleString('zh-CN', { hour12: false })}`
       : '尚未记录';
@@ -2048,26 +2492,74 @@ function startApp() {
       <td>${item.weight.toFixed(2)}%</td>
       <td><div class="holding-row-actions"><button type="button" data-action="edit" data-id="${escapeHtml(item.id)}">编辑</button><button type="button" data-action="delete" data-id="${escapeHtml(item.id)}">删除</button></div></td>
     </tr>`).join('');
+  };
 
-    document.getElementById('holding-tracker-list').innerHTML = summary.items.map(item => `<article class="tracker-card" data-holding-id="${escapeHtml(item.id)}">
-      <div class="tracker-card-head"><div><h3>${escapeHtml(item.name)}</h3><p>${escapeHtml(item.code)} · 仓位 ${item.weight.toFixed(2)}%</p></div><span class="tracker-status">${escapeHtml(item.status)}</span></div>
-      <div class="tracker-metrics">
-        <div><small>记录现价</small><strong>${formatMoney(item.price)}</strong></div>
-        <div><small>浮动盈亏</small><strong class="holding-profit ${item.profit > 0 ? 'is-profit' : item.profit < 0 ? 'is-loss' : ''}">${item.profitRate.toFixed(2)}%</strong></div>
-        <div><small>当前市值</small><strong>${formatMoney(item.marketValue)}</strong></div>
-      </div>
-      <div class="tracker-edit">
-        <label><span>跟踪状态</span><select data-field="status">${[...HOLDING_STATUSES].map(status => `<option${status === item.status ? ' selected' : ''}>${status}</option>`).join('')}</select></label>
-        <label><span>关注要点</span><textarea data-field="note" rows="2" maxlength="240" placeholder="持有逻辑、风险线或复核条件">${escapeHtml(item.note)}</textarea></label>
-        <button type="button" data-action="save-tracking">保存跟踪</button>
-      </div>
-    </article>`).join('');
+  const renderTrackingItems = () => {
+    const summary = summarizeTrackingItems(trackingItems);
+    const visibleItems = trackingStatusFilter === 'all'
+      ? summary.items
+      : summary.items.filter(item => item.status === trackingStatusFilter);
+    document.getElementById('tracking-count').textContent = String(summary.count);
+    document.getElementById('tracking-holding-count').textContent = String(summary.countByStatus['持有']);
+    document.getElementById('tracking-watch-count').textContent = String(summary.countByStatus['观察']);
+    document.getElementById('tracking-updated').textContent = summary.latestUpdatedAt
+      ? new Date(summary.latestUpdatedAt).toLocaleDateString('zh-CN')
+      : '尚未记录';
+    document.getElementById('holding-tracker-empty').hidden = visibleItems.length > 0;
+    document.getElementById('holding-tracker-list').innerHTML = visibleItems.map(item => {
+      const reportHref = reportLinkForTrackingItem(item);
+      const nameHtml = reportHref
+        ? `<a href="${escapeHtml(reportHref)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.name)}</a>`
+        : escapeHtml(item.name);
+      return `<tr data-tracking-id="${escapeHtml(item.id)}"${reportHref ? ` data-report-href="${escapeHtml(reportHref)}"` : ''}>
+      <td class="tracking-target"><strong>${nameHtml}</strong><small>${escapeHtml(item.code) || '未填代码'}</small></td>
+      <td><span class="tracker-status">${escapeHtml(item.status)}</span></td>
+      <td>${escapeHtml(item.thesis) || '未记录'}</td>
+      <td>${escapeHtml(item.riskLine) || '未记录'}</td>
+      <td>${escapeHtml(item.nextAction) || '未记录'}</td>
+      <td>${escapeHtml(item.reviewCondition) || '未记录'}</td>
+      <td class="tracking-updated">${new Date(item.updatedAt).toLocaleString('zh-CN', { hour12: false })}</td>
+      <td><div class="tracker-row-actions"><button type="button" data-action="edit-tracking">编辑</button><button type="button" data-action="delete-tracking">删除</button></div></td>
+    </tr>`;
+    }).join('');
   };
 
   const render = () => {
     const derived = deriveDashboard(state.snapshot, state.windowYears);
-    renderDerived(derived);
+    renderDerived(derived, state.youzhiyouxingTemperature);
     document.querySelectorAll('[data-window]').forEach(button => button.setAttribute('aria-pressed', String(Number(button.dataset.window) === state.windowYears)));
+  };
+
+  const loadYouzhiyouxingTemperature = async () => {
+    if (!isLocalProxyLocation()) {
+      state.youzhiyouxingTemperature = {
+        status: 'missing',
+        error: '稳定联网请双击“启动大盘面板.cmd”。',
+        sourceUrl: YOUZHIYOUXING_TEMPERATURE_URL,
+      };
+      render();
+      return;
+    }
+    state.youzhiyouxingTemperature = { status: 'loading', sourceUrl: YOUZHIYOUXING_TEMPERATURE_URL };
+    render();
+    try {
+      const response = await fetch('/api/youzhiyouxing-temperature', { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json();
+      state.youzhiyouxingTemperature = {
+        status: 'latest',
+        data: payload.data,
+        proxySource: payload.proxySource,
+        sourceUrl: payload.data?.sourceUrl ?? YOUZHIYOUXING_TEMPERATURE_URL,
+      };
+    } catch (error) {
+      state.youzhiyouxingTemperature = {
+        status: 'missing',
+        error: `有知有行温度计读取失败：${error instanceof Error ? error.message : String(error)}`,
+        sourceUrl: YOUZHIYOUXING_TEMPERATURE_URL,
+      };
+    }
+    render();
   };
 
   const refreshLive = async (domainIds = null) => {
@@ -2091,7 +2583,7 @@ function startApp() {
       if (!usableCount) {
         exampleToggle.checked = true;
         notice.className = 'notice is-error';
-        notice.textContent = `公开接口均不可用，继续显示明确标记的示例数据；没有把示例值写入真实缓存。${launcherHint}`;
+        notice.textContent = `公开接口均不可用，继续显示初始化数据；没有把初始化值写入真实缓存。${launcherHint}`;
       } else {
         state.snapshot = { mode: 'live', generatedAt: new Date().toISOString(), domains };
         exampleToggle.checked = false;
@@ -2125,11 +2617,18 @@ function startApp() {
     const activeFilter = section.querySelector('.industry-filter-tabs button.is-active')?.dataset.filter ?? 'all';
     const query = section.querySelector('.industry-search input')?.value.trim().toLocaleLowerCase('zh-CN') ?? '';
     let visibleCount = 0;
-    section.querySelectorAll('.industry-research-board').forEach(board => {
-      const filters = (board.dataset.filters ?? '').split(',').map(item => item.trim()).filter(Boolean);
-      const matchesFilter = activeFilter === 'all' || filters.includes(activeFilter);
-      const matchesQuery = !query || board.textContent.toLocaleLowerCase('zh-CN').includes(query);
-      board.hidden = !(matchesFilter && matchesQuery);
+    section.querySelectorAll('.industry-research-list').forEach(list => {
+      let visibleBoardCount = 0;
+      list.querySelectorAll('.industry-research-item').forEach(board => {
+        const filters = (board.dataset.filters ?? '').split(',').map(item => item.trim()).filter(Boolean);
+        const matchesFilter = activeFilter === 'all' || filters.includes(activeFilter);
+        const matchesQuery = !query || board.textContent.toLocaleLowerCase('zh-CN').includes(query);
+        const visible = matchesFilter && matchesQuery;
+        board.hidden = !visible;
+        if (visible) visibleBoardCount += 1;
+      });
+      list.hidden = visibleBoardCount === 0;
+      visibleCount += visibleBoardCount;
     });
     section.querySelectorAll('.industry-report').forEach(card => {
       const filters = (card.dataset.filters ?? '').split(',').map(item => item.trim()).filter(Boolean);
@@ -2226,7 +2725,7 @@ function startApp() {
     const existingIndex = holdings.findIndex(item => item.id === id);
     if (existingIndex >= 0) holdings[existingIndex] = next;
     else holdings.push(next);
-    saveHoldings();
+    savePortfolio();
     renderHoldings();
     resetHoldingForm();
   });
@@ -2239,7 +2738,7 @@ function startApp() {
     if (button.dataset.action === 'delete') {
       if (!globalThis.confirm(`删除 ${holding.name} 的持仓记录？`)) return;
       holdings = holdings.filter(item => item.id !== holding.id);
-      saveHoldings();
+      savePortfolio();
       renderHoldings();
       resetHoldingForm();
       return;
@@ -2250,17 +2749,69 @@ function startApp() {
     document.getElementById('cancel-holding-edit').hidden = false;
     form.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
-  document.getElementById('holding-tracker-list').addEventListener('click', event => {
-    const button = event.target.closest('button[data-action="save-tracking"]');
+  document.getElementById('tracking-form').addEventListener('submit', event => {
+    event.preventDefault();
+    fillTrackingCodeFromName(false);
+    const data = new FormData(event.currentTarget);
+    const id = String(data.get('id') ?? '') || `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    const next = {
+      id,
+      code: String(data.get('code') ?? '').trim(),
+      name: String(data.get('name') ?? '').trim(),
+      status: HOLDING_STATUSES.has(data.get('status')) ? data.get('status') : '观察',
+      thesis: String(data.get('thesis') ?? '').trim().slice(0, 300),
+      riskLine: String(data.get('riskLine') ?? '').trim().slice(0, 220),
+      nextAction: String(data.get('nextAction') ?? '').trim().slice(0, 80),
+      reviewCondition: String(data.get('reviewCondition') ?? '').trim().slice(0, 220),
+      updatedAt: Date.now(),
+    };
+    const existingIndex = trackingItems.findIndex(item => item.id === id);
+    if (existingIndex >= 0) trackingItems[existingIndex] = next;
+    else trackingItems.push(next);
+    savePortfolio();
+    renderTrackingItems();
+    resetTrackingForm();
+  });
+  document.querySelector('#tracking-form [name="name"]').addEventListener('input', () => fillTrackingCodeFromName(true));
+  document.querySelector('#tracking-form [name="name"]').addEventListener('change', () => fillTrackingCodeFromName(false));
+  document.getElementById('cancel-tracking-edit').addEventListener('click', resetTrackingForm);
+  document.getElementById('tracking-filter').addEventListener('click', event => {
+    const button = event.target.closest('button[data-status-filter]');
     if (!button) return;
-    const card = button.closest('[data-holding-id]');
-    const index = holdings.findIndex(item => item.id === card.dataset.holdingId);
-    if (index < 0) return;
-    const status = card.querySelector('[data-field="status"]').value;
-    const note = card.querySelector('[data-field="note"]').value.trim().slice(0, 240);
-    holdings[index] = { ...holdings[index], status: HOLDING_STATUSES.has(status) ? status : '持有', note, updatedAt: Date.now() };
-    saveHoldings();
-    renderHoldings();
+    trackingStatusFilter = button.dataset.statusFilter;
+    document.querySelectorAll('#tracking-filter button').forEach(item => {
+      const active = item === button;
+      item.classList.toggle('is-active', active);
+      item.setAttribute('aria-pressed', String(active));
+    });
+    renderTrackingItems();
+  });
+  document.getElementById('holding-tracker-list').addEventListener('click', event => {
+    const button = event.target.closest('button[data-action]');
+    if (!button) {
+      const clickedLink = event.target.closest('a');
+      const reportHref = event.target.closest('[data-report-href]')?.dataset.reportHref;
+      if (!clickedLink && reportHref) globalThis.open(reportHref, '_blank', 'noopener,noreferrer');
+      return;
+    }
+    const row = button.closest('[data-tracking-id]');
+    const item = trackingItems.find(entry => entry.id === row.dataset.trackingId);
+    if (!item) return;
+    if (button.dataset.action === 'delete-tracking') {
+      if (!globalThis.confirm(`删除 ${item.name} 的跟踪记录？`)) return;
+      trackingItems = trackingItems.filter(entry => entry.id !== item.id);
+      savePortfolio();
+      renderTrackingItems();
+      resetTrackingForm();
+      return;
+    }
+    const form = document.getElementById('tracking-form');
+    for (const key of ['id', 'code', 'name', 'status', 'thesis', 'riskLine', 'nextAction', 'reviewCondition']) {
+      form.elements[key].value = item[key];
+    }
+    document.getElementById('tracking-form-title').textContent = `编辑 ${item.name}`;
+    document.getElementById('cancel-tracking-edit').hidden = false;
+    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
   document.getElementById('nav-toggle').addEventListener('click', event => {
     const open = document.getElementById('sidebar').classList.toggle('is-open');
@@ -2270,18 +2821,23 @@ function startApp() {
     if (exampleToggle.checked) {
       state.snapshot = EXAMPLE_SNAPSHOT;
       notice.className = 'notice';
-      notice.textContent = '示例数据模式已开启；所有数值均为演示，不写入真实数据缓存。';
+      notice.textContent = '初始化数据已开启；所有数值均为演示，不写入真实数据缓存。';
       render();
     } else {
       refreshLive();
     }
   });
-  refreshButton.addEventListener('click', () => refreshLive());
+  refreshButton.addEventListener('click', () => {
+    refreshLive();
+    loadYouzhiyouxingTemperature();
+  });
 
   setShell('thermometer', 'market-summary');
   render();
   renderHoldings();
-  loadProxyHoldings();
+  renderTrackingItems();
+  loadProxyPortfolio();
+  loadYouzhiyouxingTemperature();
   refreshLive();
   setInterval(() => {
     if (isTradingSession() && state.snapshot.mode === 'live') {

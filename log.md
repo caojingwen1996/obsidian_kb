@@ -15804,6 +15804,55 @@ automation / signal / valuation
 
 按 Query Page“中证红利什么时候买入收益率最高”的三种触发规则判断：历史分位点 `待验证`，绝对股息率 `C（小额定投）`，股债利差 `B（加大买入）`；综合结论为“历史分位点待验证，暂不判定加大买入区间”，未进入重点买入区间。理杏仁公开页面返回 `HTTP Error 429: Too Many Requests`，雪球实时行情接口返回空响应，因此未编造近10年历史分位、80% 分位点或当天涨跌幅。
 
+## 2026-07-23
+
+### 操作类型
+
+research / workbench / html-reading
+
+### 修改文件
+
+- `workbench/targets/2026-07-23-1421-云铝股份-机构级决策研报.md`
+- `sources/automations/支柱产业/电解铝/2026-07-23-1421-云铝股份-机构级决策研报.html`
+- `sources/automations/支柱产业/电解铝/2026-07-22-电解铝产业完整分析报告.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求重新生成云铝股份（000807.SZ）机构级决策研报阅读版，重点新增“每日跟踪面板”。新面板沿用原 20—28 元估值区间，使用 2026-07-22 收盘价 25.58 元和同日资金面日报结论作为每日跟踪输入，记录基本面状态、资金状态、风险方向、股价偏离度、每日同步价、动作与置信度。HTML 已放入 `sources/automations/支柱产业/电解铝/`，并已回链到电解铝产业完整分析报告。本次属于具体标的 workbench 资料，未更新正式 wiki 根索引。
+
+### 后续待办
+
+- 2026 半年报正式披露后，复核利润高景气是否延续、氧化铝成本和铝价价差是否收缩，以及资金状态是否从分歧转为持续流入或流出。
+
+## 2026-07-23
+
+### 操作类型
+
+research / workbench / html-reading
+
+### 修改文件
+
+- `workbench/targets/2026-07-23-1427-华明装备-机构级决策研报.md`
+- `sources/automations/支柱产业/电网/2026-07-23-1427-华明装备-机构级决策研报.html`
+- `sources/automations/支柱产业/电网/2026-07-17-十五五电网投资与电网行业完整分析报告.html`
+- `workbench/targets/2026-07-23-1427-航天电子-机构级决策研报.md`
+- `sources/automations/新兴产业/商业航天/2026-07-23-1427-航天电子-机构级决策研报.html`
+- `sources/automations/新兴产业/商业航天/商业航天产业完整分析报告.html`
+- `workbench/index.md`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求继续处理华明装备（002270.SZ）和航天电子（600879.SH）机构级决策研报，生成带“每日跟踪面板”的新版 HTML。华明装备未取得独立资金日报，因此资金状态明确写为“未获取到”，不编造资金流；航天电子沿用 2026-07-21 资金面分析和 15.14 元收盘价，并保留本地代理下的 600879 盘中实时行情卡。两份 HTML 均已写入对应自动化产业目录，并回链到相应产业母报告；持仓跟踪看板已重新构建，点击标的将打开新版研报。
+
+### 后续待办
+
+- 华明装备待补独立资金面日报后，再把每日跟踪面板中的资金状态从“未获取到”更新为可审计结论。
+- 航天电子后续若有新收盘价、融资或订单进展，应重跑资金面分析并刷新每日同步价与风险方向。
+
 ## 2026-07-21
 
 ### 操作类型
@@ -16749,3 +16798,314 @@ skill / create
 ### 操作说明
 
 根据用户提供的 `AKShare资金面日报-SKILL-修订版.md` 新建项目级 `akshare-fund-flow-daily` skill。该 skill 以 AKShare 为默认主数据源，面向市场、指数、板块和个股的日频资金监测，固定比较最新完整交易日、近 5 日和近 20 日，并保留日期、单位、数据缺口、代理口径和交易方身份边界；不扩展为完整公司研究、长期交易方画像或交易仓位建议。
+
+## 2026-07-22
+
+### 操作类型
+
+automation / fund-flow-daily
+
+### 修改文件
+
+- `sources/automations/支柱产业/电解铝/2026-07-22-云铝股份资金面日报.md`
+- `log.md`
+
+### 操作说明
+
+重新生成云铝股份资金面日报并写入电解铝自动化目录。修正此前将2026-07-22资金分档标为“未获取到”的问题：AKShare资金接口异常时，使用证券之星动态页面作为补充数据源，并明确订单分档只属于资金方向代理，不能识别机构或散户身份。
+
+### 验证结果
+
+- 最新交易日状态：分歧；近5日：分歧；近20日：流入。
+- 已记录补充源、采用原因、数据日期、抓取时间、单位、覆盖范围与接口缺口。
+- 本次为动态个股资金快照，未更新 `index.md`。
+
+## 2026-07-23
+
+### 操作类型
+
+automation / html-reading
+
+### 修改文件
+
+- `sources/automations/新兴产业/算力/算力基础设施与能源/2026-07-23-东阳光机构级决策研报-阅读版.html`
+- `log.md`
+
+### 操作说明
+
+基于 `workbench/targets/2026-07-16-1138-东阳光-机构级决策研报.md` 生成 HTML 阅读版，并按 Workbench 规则放入 `sources/automations/新兴产业/算力/算力基础设施与能源/`。本次未修改原始研报正文，未更新正式 `index.md`。
+
+## 2026-07-23
+
+### 操作类型
+
+skill / maintenance
+
+### 修改文件
+
+- `.agents/skills/akshare-fund-flow-daily/SKILL.md`
+- `log.md`
+
+### 操作说明
+
+为 `akshare-fund-flow-daily` skill 增加 `version: 1.0.0` frontmatter 字段，并新增“版本与更新日志”章节。后续每次修改该技能时，需要同步更新版本号并追加日期、版本和实际变更内容。
+
+## 2026-07-23
+
+### 操作类型
+
+skill / maintenance
+
+### 修改文件
+
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `log.md`
+
+### 操作说明
+
+为 `bbxm-equity-research` skill 增加 `version: 1.0.0` frontmatter 字段，并新增“版本与更新日志”章节。该版本作为机构级个股研究技能后续迭代的基线；以后每次修改该技能时，需要同步更新版本号并追加日期、版本和实际变更内容。
+
+## 2026-07-23
+
+### 操作类型
+
+research / workbench / html-reading
+
+### 修改文件
+
+- `sources/webpages/2026-07-23-火炬电子法定财报与经营数据快照.md`
+- `sources/webpages/2026-07-23-火炬电子行情估值与催化剂快照.md`
+- `workbench/targets/2026-07-23-1500-火炬电子-机构级决策研报.md`
+- `sources/automations/新兴产业/商业航天/2026-07-23-1500-火炬电子-机构级决策研报.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` 模板为火炬电子（603678.SH）生成机构级决策研报，区分原始公开资料摘录与 workbench 决策分析；研报覆盖产业链位置、业务拆分、五年财务复盘、最新季度、相对估值、DCF、分部估值、冰冰小美三要素、风险方向和操作结论。本次属于具体标的 workbench 资料，未更新正式 wiki 根索引。
+
+HTML 阅读版已按用户要求放入 `sources/automations/新兴产业/商业航天/`。自动关联产业 HTML 时已匹配到 `商业航天产业完整分析报告.html` 并完成联动。
+
+### 后续待办
+
+- 2026-08-22 半年报披露后，复核自产元器件收入、贸易业务毛利率、经营现金流和并购资产利润贡献。
+## 2026-07-23
+
+### 操作类型
+
+research / workbench / html-reading
+
+### 修改文件
+
+- `sources/webpages/2026-07-23-斯瑞新材法定财报与经营数据快照.md`
+- `sources/webpages/2026-07-23-斯瑞新材行情估值与催化剂快照.md`
+- `workbench/targets/2026-07-23-1600-斯瑞新材-机构级决策研报.md`
+- `sources/automations/新兴产业/商业航天/2026-07-23-1600-斯瑞新材-机构级决策研报.html`
+- `sources/automations/新兴产业/商业航天/商业航天产业完整分析报告.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` 模板为斯瑞新材（688102.SH）生成机构级决策研报，区分原始公开资料摘录与 workbench 决策分析；研报覆盖商业航天推力室内壁产业位置、分部增长、五年财务复盘、2026Q1、相对估值、DCF、分部估值、冰冰小美三要素、风险方向和操作结论。HTML 阅读版按用户要求放入 `sources/automations/新兴产业/商业航天/`，并已回链到商业航天产业母报告。本次属于具体标的 workbench 资料，未更新正式 wiki 根索引。
+
+### 后续待办
+
+- 2026 半年报披露后，复核商业航天收入 / 订单、光模块芯片基座 / 壳体延续性、经营现金流和估值区间。
+## 2026-07-23
+
+### 操作类型
+
+html-reading / link / maintenance
+
+### 修改文件
+
+- `sources/automations/新兴产业/商业航天/商业航天产业完整分析报告.html`
+- `.agents/skills/bbxm-equity-research/scripts/link-report-to-industry.cjs`
+- `log.md`
+
+### 操作说明
+
+按用户反馈调整商业航天产业研报的个股研报入口：将个股研报链接从报告末尾的孤立“个股研报链接”区，迁移到 `3.1.1 产业链公司映射` 章节的对应标的名称上；已回填铖昌科技、航天电子、火炬电子、臻镭科技和斯瑞新材。同步修改 `bbxm-equity-research` 的产业反链脚本，使后续个股 HTML 优先链接产业链公司映射表中的公司名，避免继续在报告末尾堆链接。
+
+## 2026-07-23
+
+### 操作类型
+
+automation / dividend-signal
+
+### 修改文件
+
+- `sources/automations/中证红利信号/最新信号.md`
+- `sources/automations/中证红利信号/中证红利每日信号.xlsx`
+- `log.md`
+
+### 操作说明
+
+按 `zzhl-dividend-signal` skill 运行 `python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py --output-dir "sources/automations/中证红利信号" --run-date 2026-07-23`，刷新中证红利 `000922` 股息率信号每日记录。本轮写入记录日为 `2026-07-23`；AKShare 指数估值日期为 `2026-07-22`，中证红利 `股息率2` 为 `4.46%`；中国 10 年国债收益率日期为 `2026-07-22`，收益率为 `1.7297%`，股债利差为 `2.7303` 个百分点。
+
+按 Query Page“中证红利什么时候买入收益率最高”的三种触发规则判断：历史分位点 `待验证`，绝对股息率 `C（小额定投）`，股债利差 `B（加大买入）`；综合结论为“历史分位点待验证，暂不判定加大买入区间”，未进入重点买入区间。理杏仁公开页面返回 `HTTP Error 429: Too Many Requests`，雪球实时行情接口返回空响应，因此未编造近10年历史分位、80% 分位点或当天涨跌幅。
+
+## 2026-07-23
+
+### 操作类型
+
+tool / dashboard / dividend-signal
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/scripts/build.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+将 `sources/automations/中证红利信号/最新信号.md` 接入“温度计-市场总览”：构建时解析最新中证红利股息率信号，前端以独立卡片展示股息率2、10年国债、股债利差、历史分位和综合结论。该信号作为红利资产观察项展示，不纳入原有综合买点评分权重。
+
+同步将“中证红利股息率信号”加入数据审计表，标记为“观察项”，保留来源、数据时间和理杏仁 / 雪球失败边界。已重新构建 `a-share-market-dashboard.html`，并通过 `node --test tests/*.test.mjs` 全量测试。
+
+## 2026-07-23
+
+### 操作类型
+
+tool / dashboard / redesign
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/scripts/local_proxy.py`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/tests/test_local_proxy.py`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户截图要求将“温度计-市场总览”重排为三块卡片：第一块为“市场温度计”，通过本地代理 `/api/youzhiyouxing-temperature` 读取有知有行公开温度计页面并解析全市场温度、估值区间、温度方向、更新时间和低 / 中 / 高估概率；第二块保留中证红利股息率信号卡片；第三块作为“暂空”预留模块，不预填判断。
+
+同步将“有知有行市场温度计”加入数据审计表，标记为观察项；代理或页面读取失败时前端只显示失败原因和官方入口，不编造温度数值。已重新构建 `a-share-market-dashboard.html`，并通过前端与本地代理测试。
+
+## 2026-07-23
+
+### 操作类型
+
+tool / dashboard / link
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求将市场总览卡片位改为可点击源数据入口：点击“市场温度计”卡片打开有知有行官方温度计源页；点击“中证红利股息率信号”卡片打开本地 `sources/automations/中证红利信号/最新信号.md`。第三块“暂空”尚无源数据，因此保持为预留说明卡，不跳转。未改变原有评分、红利信号判断或数据审计规则。
+
+## 2026-07-23
+
+### 操作类型
+
+tool / dashboard / layout
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户截图反馈隐藏“温度计-市场总览”顶部的“当前结论 / 偏贵，控制冲动 / 说明文案”区域，使页面直接从三块总览卡片开始展示。为避免破坏现有脚本，相关 DOM 渲染节点保留为隐藏元素；未改变市场评分、数据源读取、卡片跳转和数据审计逻辑。已重新构建 `a-share-market-dashboard.html` 并通过前端测试。
+
+## 2026-07-23
+
+### 操作类型
+
+tool / dashboard / display
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户反馈修正中证红利股息率信号卡片的信息展示：股息率2小卡底部不再只显示估值日期，改为显示该规则对应买入动作，即当前源数据的 `C（小额定投）`；股债利差继续显示 `B（加大买入）`，历史分位保持 `待验证`。未改变综合结论、规则判断或数据源。已重新构建 `a-share-market-dashboard.html`，并通过前端与本地代理测试。
+
+## 2026-07-23
+
+### 操作类型
+
+tool / dashboard / layout
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户截图反馈隐藏顶部“示例数据”开关，并将侧边栏和初始化提示中的可见“示例数据”文案改为“初始化 / 等待联网”。内部 `example-mode` 节点保留为隐藏元素，用于继续承载初始化和联网失败兜底逻辑；未改变数据源、评分、卡片展示或数据审计规则。已重新构建 `a-share-market-dashboard.html`，并通过前端与本地代理测试。
+
+## 2026-07-23
+
+### 操作类型
+
+tool / dashboard / changelog
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求更新面板内“更新日志”：新增 `2026-07-23` 记录“市场总览改为三张信号卡”，覆盖有知有行市场温度计接入、中证红利股息率信号卡片、卡片源数据跳转、数据审计观察项和隐藏示例数据入口。已重新构建 `a-share-market-dashboard.html`，并通过前端与本地代理测试。
+
+## 2026-07-23
+
+### 操作类型
+
+workbench / equity_research
+
+### 修改文件
+
+- `workbench/targets/2026-07-23-1508-特锐德-机构级决策研报.md`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` 技能为 `300001 特锐德` 新增机构级决策研报。报告基于 2025 年报、2026 年一季报、2026 年半年度业绩预告、近期预中标公告、融资融券数据和可取得行情快照，完成商业模式、分部、财务历史、估值、冰冰小美三要素与风险方向判断。因 2026-07-23 实时行情、主力资金和 ETF / 机构代理数据未获取到，最终动作降为 `observe`，并在报告内保留数据缺口和复核节点。
+
+## 2026-07-23
+
+### 操作类型
+
+automation / industry-report / company-mapping
+
+### 修改文件
+
+- `sources/automations/支柱产业/电网/2026-07-17-十五五电网投资与电网行业完整分析报告.md`
+- `sources/automations/支柱产业/电网/2026-07-17-十五五电网投资与电网行业完整分析报告.html`
+- `sources/automations/支柱产业/电网/2026-07-23-1508-特锐德-机构级决策研报.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求检查电网产业研报的产业链章节，确认原 `3.1.1 产业链公司映射` 未包含特锐德后，将 `300001 特锐德` 补入配网一次设备与预制舱变电站环节，并在产业链全景表中加入代表公司。同步复制特锐德个股 HTML 研报到电网目录并重新生成电网产业 HTML 阅读版；保留证据边界：特锐德收入还包含充电网、海外和算力供配电叙事，不能把总收入全部视为电网配网收入，预中标仍需跟踪正式中标、交付、毛利和回款。

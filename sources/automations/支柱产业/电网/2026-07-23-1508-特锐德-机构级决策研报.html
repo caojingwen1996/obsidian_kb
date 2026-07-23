@@ -1,0 +1,1600 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>特锐德机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+.daily-tracking { margin: 0 0 42px; padding: 22px; border: 1px solid #cbdade; border-radius: 16px; background: linear-gradient(135deg, #f3f8f9 0%, #fffaf0 100%); box-shadow: 0 12px 30px rgba(23, 50, 71, .07); }
+.daily-tracking-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
+.daily-tracking-kicker { margin: 0 0 4px; color: var(--teal); font-size: 12px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+.daily-tracking h2 { margin: 0; padding: 0; border: 0; font-size: 27px; }
+.daily-tracking-time { margin: 4px 0 0; color: var(--muted); font-size: 12px; text-align: right; }
+.tracking-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.tracking-grid + .tracking-grid { margin-top: 12px; }
+.tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
+.tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
+.tracking-value.bad { color: var(--danger); }
+.tracking-detail { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; }
+.tracking-status { display: inline-flex; margin-top: 10px; padding: 3px 8px; border-radius: 999px; color: #526b77; background: #edf2f4; font-size: 12px; font-weight: 700; }
+.tracking-status.live { color: #17604e; background: #dff3eb; }
+.tracking-status.error { color: var(--danger); background: var(--danger-bg); }
+.tracking-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; margin-top: 14px; padding-top: 13px; border-top: 1px solid #d5e0e3; color: #536d78; font-size: 13px; }
+.tracking-footer a { font-weight: 700; }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+  .tracking-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+  .daily-tracking-head { display: block; }
+  .daily-tracking-time { text-align: left; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .daily-tracking, .tracking-card { border: 1px solid #aebbc2; color: #102f43; background: #fff; box-shadow: none; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · 300001</p>
+      <h1>特锐德机构级决策研报</h1>
+      <div class="hero-meta"><span>2026-07-23 15:08（Asia/Shanghai）</span><span>2026-07-23 15:08（Asia/Shanghai）</span><span>深交所创业板 / 人民币</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
+<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
+<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
+<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
+<a class="toc-link" href="#section-6">6. 五年财务历史</a>
+<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
+<a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
+<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
+<a class="toc-link" href="#section-10">10. 估值</a>
+<a class="toc-link" href="#section-11">11. 冰冰小美框架判断</a>
+<a class="toc-link" href="#section-12">12. 最终结论</a>
+<a class="toc-link" href="#section-13">13. 后续监控指标</a>
+<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
+<a class="toc-link" href="#section-15">15. 来源清单</a>
+<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
+      <article class="content"><blockquote>
+<p>证券代码：300001<br>交易所 / 币种：深交所创业板 / 人民币<br>研究截止时间：2026-07-23 15:08（Asia/Shanghai）<br>报告生成时间：2026-07-23 15:08（Asia/Shanghai）<br>数据口径：法定披露优先；行情使用已核验到的公开网页快照，2026-07-23 盘中实时价格未获取到。  </p>
+</blockquote>
+<!-- DAILY_TRACKING_START -->
+<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-07-23 15:08（Asia/Shanghai，收盘后研究；实时价格未获取到）" data-value-low="32" data-value-high="-42">
+  <div class="daily-tracking-head">
+    <div><p class="daily-tracking-kicker">Daily decision tracker</p><h2>每日跟踪面板</h2></div>
+    <p class="daily-tracking-time">更新：2026-07-23 15:08（Asia/Shanghai，收盘后研究；实时价格未获取到）<br>下次：收盘后 / 重大公告后</p>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">改善</p><p class="tracking-detail">风险方向：风险持平。下一验证点与失效条件见第 11—13 章。</p></div>
+    <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value">32.0-42.0 元 / 股</p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
+    <div class="tracking-card" data-tracking-key="price-deviation"><p class="tracking-label">股价偏离度</p><p class="tracking-value" id="deviation-value">未获取到</p><p class="tracking-detail" id="deviation-detail">价格或动态价值区间无法解析，未计算偏离度。</p></div>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="daily-quote"><p class="tracking-label">每日同步价</p><p class="tracking-value">31.99 元，Google Finance 快照，2026-07-09 12:09:31 GMT+8；2026-07-23 实时价未获取到</p><p class="tracking-detail">这是报告内嵌的正式跟踪基准，离线打开仍可使用。</p><span class="tracking-status">每日快照</span></div>
+    <div class="tracking-card" data-tracking-key="intraday-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">未配置实时行情</p><p class="tracking-detail" id="intraday-detail">当前证券未配置本地行情白名单，继续使用每日正式快照。</p><span class="tracking-status" id="intraday-status">未配置</span></div>
+    <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">observe</p><p class="tracking-detail">估值：合理偏低，但依赖 2026 全年利润兑现 · observe；风险：风险持平；结论置信度：中低。</p><span class="tracking-status">合理偏低，但依赖 2026 全年利润兑现</span></div>
+  </div>
+  <div class="tracking-footer"><span>资金状态：<strong>证据不足</strong> · 新增/已有动作：<strong>observe</strong></span><span>资金面分析：未单独生成</span></div>
+</section>
+<!-- DAILY_TRACKING_END -->
+<h2 id="section-1">1. 决策摘要</h2>
+
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值状态</td>
+<td>合理偏低，但依赖 2026 全年利润兑现</td>
+</tr>
+<tr>
+<td>操作建议</td>
+<td>观望，若回到价值区间下沿并有成交承接再考虑买入</td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td>observe</td>
+</tr>
+<tr>
+<td>当前价格及时间</td>
+<td>31.99 元，Google Finance 快照，2026-07-09 12:09:31 GMT+8；2026-07-23 实时价未获取到</td>
+</tr>
+<tr>
+<td>综合估值区间</td>
+<td>32.0-42.0 元 / 股</td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>约 0%-31%，仅相对 31.99 元快照测算</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td>中低</td>
+</tr>
+<tr>
+<td>基本面状态</td>
+<td>改善</td>
+</tr>
+<tr>
+<td>资金状态</td>
+<td>证据不足</td>
+</tr>
+<tr>
+<td>风险方向</td>
+<td>风险持平</td>
+</tr>
+<tr>
+<td>每日跟踪时间</td>
+<td>2026-07-23 15:08（Asia/Shanghai，收盘后研究；实时价格未获取到）</td>
+</tr>
+<tr>
+<td>资金面分析链接</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<h3>如果今天这是一笔现金，我会买它吗</h3>
+<ul>
+<li>回答：只在特定条件下会。</li>
+<li>我的判断：特锐德已经从“充电桩亏损叙事”转向“电力设备稳现金流 + 充电网盈利改善 + 海外和算力电力系统新曲线”的组合，但以 31.99 元快照计算，估值并没有便宜到可以忽略行情核验缺口。新增现金更适合等两类确认：一是 2026 半年报落地后验证利润质量，二是股价回到 28-30 元区间或融资余额下降后仍有承接。</li>
+<li>改变结论的条件：2026H1 净利润落在预告上沿且经营现金流明显修复，可上调为 wait / buy 候选；若充电网毛利改善反转、应收账款继续扩张或融资盘放量滞涨，则降为 review / reduce。</li>
+</ul>
+<h2 id="section-2">2. 证券身份与来源矩阵</h2>
+
+<h3>2.1 证券身份</h3>
+<ul>
+<li>公司全称：青岛特锐德电气股份有限公司。</li>
+<li>证券代码：300001。</li>
+<li>上市地：深圳证券交易所创业板。</li>
+<li>报告准则：中国企业会计准则。</li>
+<li>法定披露体系：A 股交易所与巨潮资讯；本报告使用公司公告、公司官网投资者关系页、深交所指定媒体转载公告作为披露镜像。</li>
+<li>同名或跨市场歧义：无；本报告不分析非上市子公司特来电的独立估值。</li>
+</ul>
+<h3>2.2 来源矩阵</h3>
+<table>
+<thead>
+<tr>
+<th>数据项目</th>
+<th>目标来源</th>
+<th>实际来源</th>
+<th>数据时间</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>实时价格、52周高低、今年以来表现</td>
+<td>交易所 / 东方财富 / Google Finance</td>
+<td>Google Finance 搜索快照；东方财富页面未渲染数值；公司官网仅显示 2026-07-23 13时但未给出数值</td>
+<td>2026-07-09；2026-07-23 实时未获取到</td>
+<td>口径冲突待解释</td>
+</tr>
+<tr>
+<td>第三方公允价值、护城河、星级</td>
+<td>Morningstar / 公开估值平台</td>
+<td>未获取到</td>
+<td>2026-07-23</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>最新季报与管理层指引</td>
+<td>公司 2026Q1 报告、2026H1 业绩预告</td>
+<td>新浪财经公告镜像、公司公告</td>
+<td>2026-04-28；2026-07-20</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>分部收入</td>
+<td>2025 年报 / 审计报告</td>
+<td>2025 年报与审计报告公告镜像</td>
+<td>2026-04-09</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>卖方评级与目标价</td>
+<td>券商研报</td>
+<td>西部证券年报点评摘要；目标价未获取到</td>
+<td>2026-04-19</td>
+<td>部分获取</td>
+</tr>
+<tr>
+<td>近三个月新闻与催化剂</td>
+<td>公司公告 / 权威财经媒体</td>
+<td>业绩预告、国网/铁路/预制舱预中标公告</td>
+<td>2026-04-01 至 2026-07-20</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>五年财务历史</td>
+<td>年报 / 审计报告</td>
+<td>2021-2025 年报公告镜像；部分资本开支用现金流表行项目</td>
+<td>2021-2025</td>
+<td>已获取</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 行情与市场预期</h2>
+
+<h3>3.1 行情快照（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">数值</th>
+<th>来源</th>
+<th>时间 / 口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前价格</td>
+<td align="right">31.99 元</td>
+<td>Google Finance 搜索快照</td>
+<td>2026-07-09 12:09:31 GMT+8；非 2026-07-23 实时</td>
+</tr>
+<tr>
+<td>52周最高</td>
+<td align="right">45.00 元</td>
+<td>Google Finance 搜索快照</td>
+<td>2026-07-09 快照</td>
+</tr>
+<tr>
+<td>52周最低</td>
+<td align="right">22.50 元</td>
+<td>Google Finance 搜索快照</td>
+<td>2026-07-09 快照</td>
+</tr>
+<tr>
+<td>今年以来表现</td>
+<td align="right">未获取到</td>
+<td>已查公开行情页但未取得完整序列</td>
+<td>影响交易判断置信度</td>
+</tr>
+<tr>
+<td>总市值</td>
+<td align="right">约 362.68 亿元</td>
+<td>Google Finance 搜索快照</td>
+<td>2026-07-09 快照</td>
+</tr>
+<tr>
+<td>PE / PB / EV</td>
+<td align="right">PE 约 27.29；PB、EV 未获取到</td>
+<td>Google Finance 搜索快照</td>
+<td>PE 为快照口径</td>
+</tr>
+</tbody></table>
+<h3>3.2 第三方公允价值与评级（事实）</h3>
+<ul>
+<li>公允价值：未获取到。</li>
+<li>护城河评级：未获取到。</li>
+<li>星级：未获取到。</li>
+<li>来源与时间：未取得可核验的公开页面字段。</li>
+<li>未获取到的字段及已检查来源：Morningstar 类字段未取得；东方财富行情页公开抓取为空壳，不能用空值替代真实数据。</li>
+</ul>
+<h3>3.3 卖方评级与目标价分布（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>机构</th>
+<th>日期</th>
+<th align="right">评级</th>
+<th align="right">目标价</th>
+<th>预测期</th>
+<th>关键假设</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>西部证券</td>
+<td>2026-04-19</td>
+<td align="right">未获取到完整评级字段</td>
+<td align="right">未获取到</td>
+<td>2025 年报点评</td>
+<td>海外业务带动电力设备利润增长，充电业务效率提升</td>
+</tr>
+</tbody></table>
+<ul>
+<li>目标价区间 / 中位数：未获取到。</li>
+<li>样本数量与完整性：仅取得一篇研报摘要，不足以形成卖方目标价分布。</li>
+<li>来源冲突及采信理由：卖方摘要只用于补充市场预期，不作为核心估值来源。</li>
+</ul>
+<h2 id="section-4">4. 商业模式与竞争格局</h2>
+
+<h3>4.1 事实</h3>
+<ul>
+<li>收入来源：公司主营电力设备与电动汽车充电网两大行业。2025 年主营业务收入 156.49 亿元，其中电力设备行业 107.81 亿元，电动汽车充电网行业 48.68 亿元。</li>
+<li>客户与定价权：电力设备客户包含电网、新能源、轨交、工商业和海外项目；定价权受招标机制约束，但预制舱、电力系统集成、海外 E-house 与充电网络运营可形成差异化。</li>
+<li>成本结构：2025 年主营业务成本 113.94 亿元；电力设备行业成本 81.65 亿元，充电网行业成本 32.29 亿元。</li>
+<li>资本强度：充电场站、固定资产和使用权资产导致资本开支与折旧压力较高，但 2025 年经营现金流显著改善。</li>
+<li>竞争者：电力设备方向面对国网、南网供应链合格厂商竞争；充电运营方向面对星星充电、国家电网、云快充、小桔充电等运营商。</li>
+<li>监管约束：A 股信披、输配电设备招投标、充电基础设施安全、地方电价和新能源车补能政策。</li>
+</ul>
+<h4>多产业位置景气度排序（事实与判断分列）</h4>
+<table>
+<thead>
+<tr>
+<th align="right">排名</th>
+<th>产业位置</th>
+<th>位置识别依据（事实）</th>
+<th>公司业务 / 资产暴露（事实）</th>
+<th>当前景气度</th>
+<th>趋势</th>
+<th>景气证据与时间</th>
+<th>财务传导</th>
+<th>验证指标 / 失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">1</td>
+<td>新型电力系统与预制舱变电站</td>
+<td>2026 年多次预中标国网、南网、铁路和新能源项目</td>
+<td>电力设备收入 107.81 亿元，占主营约 68.9%</td>
+<td>较高</td>
+<td>上行</td>
+<td>2026-02 南网约 1.70 亿元、2026-04 预制舱约 2.07 亿元、2026-05 铁路约 1.26 亿元、2026-06 国网约 2.78 亿元、2026-07 国网约 1.53 亿元</td>
+<td>订单转收入，提升产能利用率和毛利稳定性</td>
+<td>中标转正式合同；订单毛利率低于历史；应收拖累现金流</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td>电动汽车充电网运营</td>
+<td>特来电为控股子公司，2025 年充电网收入 48.68 亿元</td>
+<td>特来电子公司 2025 年收入 49.76 亿元、净利润 2.99 亿元</td>
+<td>中</td>
+<td>上行</td>
+<td>2025 年充电网成本下降、毛利率改善；2026H1 预告称充电网业务稳健增长</td>
+<td>充电量提升和运营效率改善带来利润弹性</td>
+<td>单桩利用率、充电量增速、毛利率；价格战或补贴退坡</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td>海外电力设备 / E-house</td>
+<td>2025 年海外收入 13.63 亿元，较 2024 年 4.72 亿元大幅增长</td>
+<td>海外收入占比仍低，但增速高</td>
+<td>中</td>
+<td>上行</td>
+<td>2025 年报披露海外业务增长；2025 年募集资金用途变更用于智能制造海外总部基地</td>
+<td>海外毛利率与订单规模提升公司估值弹性</td>
+<td>海外订单持续性、汇率、交付认证、回款</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td>AI 算力基础设施供配电</td>
+<td>2026H1 预告提到向 AI 算力基础设施延伸</td>
+<td>与预制舱、配电、算电岛等电力系统能力相关</td>
+<td>证据不足</td>
+<td>上行待验证</td>
+<td>公司口径已有方向描述，但收入占比未单列</td>
+<td>若形成数据中心供配电订单，可提高成长预期</td>
+<td>单列订单、客户、收入占比；仅概念宣传则失效</td>
+</tr>
+</tbody></table>
+<ul>
+<li>位置间交叉与去重说明：预制舱、电网、新能源、铁路、数据中心供配电可能共享同一电力设备收入池，不能重复估值；充电网为相对独立业务。</li>
+<li>排名第一的位置能否进入公司利润和现金流：能，但受招标价格、交付节奏和应收回款约束。</li>
+<li>弱关联 / 待验证位置：AI 算力基础设施、无人驾驶补能和重卡充电均有叙事空间，但尚需分部收入和订单验证。</li>
+</ul>
+<h3>4.2 我的判断</h3>
+<ul>
+<li>我的判断：竞争优势来自两层，一层是电力设备的系统集成、预制舱和持续中标能力，另一层是特来电充电网的运营规模与数据/场站网络。二者共同改善了公司从“设备周期股”到“电力基础设施平台”的定价可能。</li>
+<li>我的判断：商业模式最脆弱的环节是回款和资本开支。公司 2025 年利润强，但应收账款原值超过 105 亿元，充电网与电力项目都可能出现收入确认领先现金回收。</li>
+<li>证伪条件：2026H1 / 2026 年报显示订单增长但毛利率下行、经营现金流转弱、充电网净利率回落，或海外业务无法持续。</li>
+</ul>
+<h2 id="section-5">5. 分部收入与盈利拆解</h2>
+
+<table>
+<thead>
+<tr>
+<th>分部</th>
+<th align="right">收入</th>
+<th align="right">同比</th>
+<th align="right">收入占比</th>
+<th align="right">毛利率</th>
+<th align="right">毛利率变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>电力设备行业</td>
+<td align="right">107.81 亿元</td>
+<td align="right">+3.39%</td>
+<td align="right">68.9%</td>
+<td align="right">24.27%</td>
+<td align="right">约 -1.02pct</td>
+<td>2025 年报 / 审计报告</td>
+</tr>
+<tr>
+<td>电动汽车充电网行业</td>
+<td align="right">48.68 亿元</td>
+<td align="right">+0.64%</td>
+<td align="right">31.1%</td>
+<td align="right">33.66%</td>
+<td align="right">约 +0.77pct</td>
+<td>2025 年报 / 审计报告</td>
+</tr>
+<tr>
+<td>中压预制舱变电站</td>
+<td align="right">44.71 亿元</td>
+<td align="right">+3.87%</td>
+<td align="right">28.6%</td>
+<td align="right">21.48%</td>
+<td align="right">约 +4.04pct</td>
+<td>2025 年报 / 审计报告</td>
+</tr>
+<tr>
+<td>高压预制舱变电站</td>
+<td align="right">31.07 亿元</td>
+<td align="right">+16.61%</td>
+<td align="right">19.9%</td>
+<td align="right">27.38%</td>
+<td align="right">约 +0.66pct</td>
+<td>2025 年报 / 审计报告</td>
+</tr>
+<tr>
+<td>变配电核心设备</td>
+<td align="right">32.02 亿元</td>
+<td align="right">-7.39%</td>
+<td align="right">20.5%</td>
+<td align="right">25.13%</td>
+<td align="right">约 +0.77pct</td>
+<td>2025 年报 / 审计报告</td>
+</tr>
+<tr>
+<td>电动汽车充电设备</td>
+<td align="right">33.94 亿元</td>
+<td align="right">+3.39%</td>
+<td align="right">21.7%</td>
+<td align="right">32.17%</td>
+<td align="right">约 -2.60pct</td>
+<td>2025 年报 / 审计报告</td>
+</tr>
+<tr>
+<td>电动汽车充电网运营服务</td>
+<td align="right">14.74 亿元</td>
+<td align="right">-5.16%</td>
+<td align="right">9.4%</td>
+<td align="right">37.11%</td>
+<td align="right">约 +8.10pct</td>
+<td>2025 年报 / 审计报告</td>
+</tr>
+</tbody></table>
+<ul>
+<li>披露口径变化：2024 年起充电服务收入受财政部充供电业务净额法案例影响，历史收入同比需注意口径变化。</li>
+<li>来源冲突：年报摘要、年报全文、审计报告对总收入一致；分部细项以审计报告主营收入表为准。</li>
+<li>采信理由：审计报告分部表给出收入与成本，可直接计算毛利率。</li>
+<li>我的判断：增长质量比收入增速更好。2025 年总收入仅 +2.68%，但归母净利润 +35.62%、经营现金流 +77.61%，说明利润率、充电网运营效率和费用/资产效率改善是主变量。</li>
+</ul>
+<h2 id="section-6">6. 五年财务历史</h2>
+
+<table>
+<thead>
+<tr>
+<th>财年</th>
+<th align="right">营收</th>
+<th align="right">毛利率</th>
+<th align="right">经营现金流</th>
+<th align="right">资本开支</th>
+<th align="right">自由现金流</th>
+<th align="right">ROIC / 代理值</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td align="right">94.41 亿元</td>
+<td align="right">21.49%</td>
+<td align="right">2.97 亿元</td>
+<td align="right">1.75 亿元</td>
+<td align="right">1.22 亿元</td>
+<td align="right">约 3%-4%</td>
+<td>2022 年报列示 2021 数据</td>
+</tr>
+<tr>
+<td>2022</td>
+<td align="right">116.30 亿元</td>
+<td align="right">约 22.17%</td>
+<td align="right">12.16 亿元</td>
+<td align="right">4.84-9.31 亿元区间</td>
+<td align="right">2.85-7.32 亿元</td>
+<td align="right">约 4%-5%</td>
+<td>2022、2023 年报</td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">146.02 亿元</td>
+<td align="right">23.36%</td>
+<td align="right">13.45 亿元</td>
+<td align="right">10.63 亿元</td>
+<td align="right">2.82 亿元</td>
+<td align="right">约 7%-8%</td>
+<td>2023 年报</td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">153.74 亿元</td>
+<td align="right">25.92%</td>
+<td align="right">13.15 亿元</td>
+<td align="right">8.62 亿元</td>
+<td align="right">4.53 亿元</td>
+<td align="right">约 13%</td>
+<td>2024 年报 / 审计报告</td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">157.86 亿元</td>
+<td align="right">27.38%</td>
+<td align="right">23.35 亿元</td>
+<td align="right">约 9.0-10.9 亿元</td>
+<td align="right">约 12.5-14.4 亿元</td>
+<td align="right">约 16%</td>
+<td>2025 年报 / 审计报告</td>
+</tr>
+</tbody></table>
+<ul>
+<li>自由现金流口径：经营活动现金流量净额 - 购建固定资产、无形资产和其他长期资产支付的现金；2025 年资本开支行项目未完整独立抽取，以上用投资现金流出与固定资产增加估算区间，正式交易前需复核 PDF。</li>
+<li>ROIC 口径：以 NOPAT / 平均投入资本近似，未逐项调整租赁负债和少数股东权益，作为方向性代理值。</li>
+<li>一次性项目和会计变化：2025 年资产减值 -2.99 亿元，占利润总额约 19.28%；充电服务收入确认口径变化影响收入可比性。</li>
+<li>我的判断：财务拐点已经发生，但高应收、高资本开支和分部口径变化使“利润质量”仍需要用 2026H1 现金流二次确认。</li>
+</ul>
+<h2 id="section-7">7. 最新季度与管理层指引</h2>
+
+<h3>7.1 最新季度（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">本期</th>
+<th align="right">同比 / 变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营收</td>
+<td align="right">22.16 亿元</td>
+<td align="right">+5.41%</td>
+<td>2026Q1 报告，2026-04-28</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>2026Q1 报告摘要未完整披露</td>
+</tr>
+<tr>
+<td>净利润</td>
+<td align="right">0.72 亿元</td>
+<td align="right">+11.05%</td>
+<td>2026Q1 报告</td>
+</tr>
+<tr>
+<td>调整后利润</td>
+<td align="right">扣非归母 0.50 亿元</td>
+<td align="right">+9.46%</td>
+<td>2026Q1 报告</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">-9.19 亿元</td>
+<td align="right">同比多流出 2.51 亿元</td>
+<td>2026Q1 报告</td>
+</tr>
+<tr>
+<td>订单 / 储备</td>
+<td align="right">多项预中标</td>
+<td align="right">南网、预制舱、铁路、国网项目</td>
+<td>2026-02 至 2026-07 公告</td>
+</tr>
+</tbody></table>
+<h3>7.2 管理层指引（事实）</h3>
+<ul>
+<li>正式量化指引：2026H1 归母净利润预计 3.9242-4.5782 亿元，同比增长 20%-40%；扣非归母净利润预计 3.1242-3.7782 亿元，同比增长 25%-51%。</li>
+<li>定性展望：公司称预制舱变电站为主的变电核心设备与电动汽车充电网业务保持稳健增长，并向海外市场、AI 算力基础设施、重卡充电及无人驾驶补能等高成长领域延伸。</li>
+<li>未获取到：2026 全年量化收入、净利润、毛利率、资本开支指引。</li>
+</ul>
+<h3>7.3 我的判断</h3>
+<ul>
+<li>我的判断：边际变化偏正面，H1 预告说明 Q2 利润增速快于 Q1，业务拐点仍在延续。</li>
+<li>我的判断：指引可信度中等，因为是公司财务部门初步测算且未经审计；但方向与 2025 年利润改善和订单公告相互印证。</li>
+<li>下一验证节点：2026 半年报（预约披露 2026-08-25）中的经营现金流、应收账款、充电网毛利率、海外收入。</li>
+</ul>
+<h2 id="section-8">8. 近三个月新闻与催化剂</h2>
+
+<table>
+<thead>
+<tr>
+<th>发生日</th>
+<th>事件</th>
+<th>影响变量</th>
+<th>财务传导</th>
+<th>是否已反映</th>
+<th>验证节点</th>
+<th>失效条件</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-04-01</td>
+<td>预中标预制舱变电站项目约 2.07 亿元</td>
+<td>电力设备订单</td>
+<td>未来收入和产能利用率</td>
+<td>部分反映</td>
+<td>中标通知书、交付进度</td>
+<td>未正式中标或低毛利</td>
+<td>公司公告镜像</td>
+</tr>
+<tr>
+<td>2026-05-25</td>
+<td>预中标铁路项目约 1.26 亿元</td>
+<td>轨交电力设备订单</td>
+<td>提升负荷侧订单</td>
+<td>部分反映</td>
+<td>合同签订</td>
+<td>项目延期</td>
+<td>公司公告镜像</td>
+</tr>
+<tr>
+<td>2026-06-09</td>
+<td>预中标国网三大区域项目约 2.78 亿元</td>
+<td>配网 / 变压器订单</td>
+<td>稳定电力设备收入</td>
+<td>部分反映</td>
+<td>中标公告、毛利率</td>
+<td>招标价格低于预期</td>
+<td>公司公告与财经媒体</td>
+</tr>
+<tr>
+<td>2026-07-20</td>
+<td>预中标国网输变电项目约 1.53 亿元</td>
+<td>组合电器和开关柜订单</td>
+<td>增强主业订单可见度</td>
+<td>可能已部分反映</td>
+<td>中标通知书</td>
+<td>未转正式订单</td>
+<td>中国基金报 / 界面</td>
+</tr>
+<tr>
+<td>2026-07-20</td>
+<td>2026H1 净利润预增 20%-40%</td>
+<td>盈利兑现</td>
+<td>支撑 2026E 盈利上修</td>
+<td>已反映一部分</td>
+<td>2026 半年报</td>
+<td>现金流或毛利率弱于利润</td>
+<td>公司公告镜像</td>
+</tr>
+</tbody></table>
+<h2 id="section-9">9. 多头与空头论据</h2>
+
+<h3>9.1 多头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>电力设备订单可见度提高</td>
+<td>2026 年连续预中标南网、国网、铁路、预制舱项目</td>
+<td>新签订单、收入确认、毛利率</td>
+<td>预中标不能转正式中标，或价格竞争压毛利</td>
+</tr>
+<tr>
+<td>充电网从规模扩张转向效率改善</td>
+<td>特来电 2025 年收入约 49.76 亿元、净利润约 2.99 亿元；运营服务毛利率提升</td>
+<td>充电量、单桩利用率、运营服务毛利率</td>
+<td>价格战、补贴退坡、电价波动</td>
+</tr>
+<tr>
+<td>海外和算力电力系统提供估值弹性</td>
+<td>2025 年海外收入大幅增长，2026H1 预告提到 AI 算力基础设施</td>
+<td>海外订单、算力项目订单、收入占比</td>
+<td>新曲线只停留在叙事</td>
+</tr>
+<tr>
+<td>现金流改善明显</td>
+<td>2025 年经营现金流 23.35 亿元，同比 +77.61%</td>
+<td>2026H1 / FY2026 经营现金流</td>
+<td>Q1 大额流出延续、应收继续扩张</td>
+</tr>
+</tbody></table>
+<h3>9.2 空头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值已经包含一部分改善预期</td>
+<td>31.99 元快照对应 PE 约 27.3 倍</td>
+<td>2026E PE、PEG、行业可比估值</td>
+<td>2026 利润增速显著超预期</td>
+</tr>
+<tr>
+<td>应收账款和减值压力</td>
+<td>2025 年应收账款原值约 105.70 亿元，资产减值 -2.99 亿元</td>
+<td>应收周转、坏账准备、合同资产</td>
+<td>回款改善、减值下降</td>
+</tr>
+<tr>
+<td>充电行业竞争仍强</td>
+<td>充电运营商多，价格和利用率区域差异大</td>
+<td>充电单价、利用率、毛利率</td>
+<td>特来电份额与毛利率继续提升</td>
+</tr>
+<tr>
+<td>实时交易证据不足</td>
+<td>2026-07-23 价格、换手、主力资金未获取到</td>
+<td>当日和连续窗口成交额、融资余额、价格位置</td>
+<td>后续补齐显示资金承接强</td>
+</tr>
+</tbody></table>
+<h2 id="section-10">10. 估值</h2>
+
+<h3>10.1 相对估值</h3>
+<table>
+<thead>
+<tr>
+<th>公司</th>
+<th>业务可比性</th>
+<th align="right">增长</th>
+<th align="right">利润率</th>
+<th align="right">PE</th>
+<th align="right">PB</th>
+<th align="right">EV/EBITDA</th>
+<th>数据时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>特锐德</td>
+<td>电力设备 + 充电网运营</td>
+<td align="right">2026H1 净利预增 20%-40%</td>
+<td align="right">2025 净利率约 7.9%</td>
+<td align="right">27.3x（快照）</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>2026-07-09</td>
+</tr>
+<tr>
+<td>许继电气 / 国电南瑞 / 思源电气</td>
+<td>电力设备可比</td>
+<td align="right">未逐项获取</td>
+<td align="right">未逐项获取</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>充电运营商可比</td>
+<td>业务模式可比但上市口径差异大</td>
+<td align="right">未逐项获取</td>
+<td align="right">未逐项获取</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<ul>
+<li>选取理由：电力设备同行用于主业估值，充电运营平台用于特来电业务弹性，但本次未取得完整可比公司数据。</li>
+<li>正常化调整：2026E 净利润按 2026H1 预告和季节性估计为 14.8-17.0 亿元；给予 22-27x PE，对应市值约 326-459 亿元。</li>
+<li>对应每股价值区间：约 30.9-43.5 元，按约 10.55 亿股粗算。</li>
+<li>我的判断：相对估值支持“合理偏低”，但不支持无条件追高买入。</li>
+</ul>
+<h3>10.2 DCF</h3>
+<h4>关键假设</h4>
+<table>
+<thead>
+<tr>
+<th>假设</th>
+<th align="right">悲观</th>
+<th align="right">基准</th>
+<th align="right">乐观</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>收入增长</td>
+<td align="right">3%-5%</td>
+<td align="right">6%-8%</td>
+<td align="right">9%-11%</td>
+<td>电力设备订单 + 充电网效率</td>
+</tr>
+<tr>
+<td>经营利润率</td>
+<td align="right">8.0%</td>
+<td align="right">9.0%</td>
+<td align="right">10.0%</td>
+<td>2025 利润率改善，但招标压价约束</td>
+</tr>
+<tr>
+<td>税率</td>
+<td align="right">15%</td>
+<td align="right">15%</td>
+<td align="right">15%</td>
+<td>高新技术企业口径待复核</td>
+</tr>
+<tr>
+<td>折旧摊销</td>
+<td align="right">收入 4.5%</td>
+<td align="right">收入 4.5%</td>
+<td align="right">收入 4.2%</td>
+<td>充电场站和固定资产折旧</td>
+</tr>
+<tr>
+<td>资本开支</td>
+<td align="right">收入 6.0%</td>
+<td align="right">收入 5.5%</td>
+<td align="right">收入 5.0%</td>
+<td>充电网与海外基地投入</td>
+</tr>
+<tr>
+<td>营运资本变化</td>
+<td align="right">收入增量 8%</td>
+<td align="right">收入增量 6%</td>
+<td align="right">收入增量 5%</td>
+<td>应收账款较高</td>
+</tr>
+<tr>
+<td>WACC</td>
+<td align="right">9.5%</td>
+<td align="right">8.5%</td>
+<td align="right">7.8%</td>
+<td>A 股电力设备成长股风险溢价</td>
+</tr>
+<tr>
+<td>永续增长率</td>
+<td align="right">1.5%</td>
+<td align="right">2.5%</td>
+<td align="right">3.0%</td>
+<td>长期基础设施增速</td>
+</tr>
+</tbody></table>
+<h4>估值结果</h4>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">企业价值</th>
+<th align="right">净债务</th>
+<th align="right">股权价值</th>
+<th align="right">每股价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观</td>
+<td align="right">285 亿元</td>
+<td align="right">约 20 亿元</td>
+<td align="right">265 亿元</td>
+<td align="right">25.1 元</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">405 亿元</td>
+<td align="right">约 20 亿元</td>
+<td align="right">385 亿元</td>
+<td align="right">36.5 元</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">520 亿元</td>
+<td align="right">约 20 亿元</td>
+<td align="right">500 亿元</td>
+<td align="right">47.4 元</td>
+</tr>
+</tbody></table>
+<h4>敏感性分析</h4>
+<table>
+<thead>
+<tr>
+<th>WACC \ 永续增长率</th>
+<th align="right">1.5%</th>
+<th align="right">2.5%</th>
+<th align="right">3.0%</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>7.8%</td>
+<td align="right">39.0</td>
+<td align="right">45.0</td>
+<td align="right">48.5</td>
+</tr>
+<tr>
+<td>8.5%</td>
+<td align="right">32.8</td>
+<td align="right">36.5</td>
+<td align="right">39.2</td>
+</tr>
+<tr>
+<td>9.5%</td>
+<td align="right">25.1</td>
+<td align="right">28.0</td>
+<td align="right">30.4</td>
+</tr>
+</tbody></table>
+<h4>反向 DCF</h4>
+<ul>
+<li>当前价格隐含的收入增长 / 终值利润率：以 31.99 元快照看，市场大致要求公司维持中个位数收入增长、经营利润率不回落、自由现金流持续超过 12 亿元。</li>
+<li>与历史和行业相比是否可实现：可实现但需要 2025 年现金流改善延续，不能只靠利润表。</li>
+<li>我的判断：DCF 给出 32-42 元核心区间；31.99 元处在区间下沿附近，但实时价格缺口和融资盘证据不足使新增现金不宜直接 buy。</li>
+</ul>
+<h3>10.3 行业特定估值</h3>
+<ul>
+<li>方法：分部加总。</li>
+<li>适用理由：电力设备与充电网的估值驱动不同，前者看订单、毛利和周期，后者看网络规模、充电量、单桩效率和平台属性。</li>
+<li>关键假设：电力设备归母贡献按 10-12 亿元、20-24x PE；充电网归母贡献按 3-4 亿元、25-35x PE；扣除重复与少数股东折价。</li>
+<li>对应每股价值区间：31-44 元。</li>
+<li>局限性：特来电少数股东权益、内部交易、净额法收入口径和分部利润口径需要更细拆。</li>
+</ul>
+<h3>10.4 估值交叉验证</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="right">每股价值区间</th>
+<th align="right">权重</th>
+<th>采信理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>相对估值</td>
+<td align="right">31-44 元</td>
+<td align="right">35%</td>
+<td>更贴近 A 股交易定价，但可比公司数据不完整</td>
+</tr>
+<tr>
+<td>DCF</td>
+<td align="right">32-42 元</td>
+<td align="right">45%</td>
+<td>能体现现金流改善与资本开支约束</td>
+</tr>
+<tr>
+<td>行业特定估值</td>
+<td align="right">31-44 元</td>
+<td align="right">20%</td>
+<td>能分拆电力设备与充电网，但分部利润仍需验证</td>
+</tr>
+</tbody></table>
+<ul>
+<li>综合估值区间：32.0-42.0 元 / 股。</li>
+<li>相对现价上行 / 下行空间：相对 31.99 元快照约 0%-31%；若 2026-07-23 实时价显著高于快照，应重新计算。</li>
+<li>为什么不机械平均：实时价格缺口、可比公司数据不足和 2026H1 未披露，使估值需要更多倚重现金流和情景约束。</li>
+</ul>
+<h2 id="section-11">11. 冰冰小美框架判断</h2>
+
+<h3>11.1 三要素状态总表</h3>
+<ul>
+<li>三要素结论来源：<code>bbxm-three-factor-analysis</code></li>
+<li>分析对象与层级：特锐德 / A 股个股。</li>
+<li>分析截止时间：2026-07-23 15:08。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>状态</th>
+<th>核心证据</th>
+<th>核心反证</th>
+<th>失效条件</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>有利</td>
+<td>电力设备订单、充电网盈利改善、海外增长</td>
+<td>招标压价、应收和资本开支</td>
+<td>订单不转收入或毛利率下滑</td>
+<td>中</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>证据不足</td>
+<td>融资余额 7月中下旬仍约 11 亿元级别，说明交易关注未消失</td>
+<td>2026-07-23 实时成交、资金流、相对强弱未获取到</td>
+<td>补齐数据后若放量滞涨或融资继续堆高</td>
+<td>低</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>中性</td>
+<td>半年报预增和连续预中标提供价值锚</td>
+<td>估值已不低，短期催化可能已部分反映</td>
+<td>利好兑现不涨、跟风退潮</td>
+<td>中低</td>
+</tr>
+</tbody></table>
+<h4>前六步证据映射</h4>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>前六步证据来源</th>
+<th>已验证证据</th>
+<th>反证与缺口</th>
+<th>分析状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>第 4-7 章；第 2 章来源矩阵对应行</td>
+<td>2025 分部、利润、现金流；2026H1 预告；多项订单</td>
+<td>2026H1 分部现金流未披露</td>
+<td>可判断</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>Step 2 交易数据；第 8-9 章；第 2 章来源矩阵对应行</td>
+<td>2026-07-21 融资余额约 11.05 亿元</td>
+<td>当日价格、成交额、主力资金、ETF/北向代理未获取到</td>
+<td>证据不足</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>第 3、8、9 章；第 2 章来源矩阵对应行</td>
+<td>业绩预增和订单形成基本面锚</td>
+<td>当前价格位置和催化后反馈不足</td>
+<td>中性偏观察</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Step 6 估值约束：估值不强行归入三要素；在第 11.6 节作为行动价格约束。</li>
+<li>补采证据回填：已尝试补采 2026-07-23 实时行情，未成功；缺口已写入第 2、3 章。</li>
+</ul>
+<h3>11.2 竞争格局与比较优势</h3>
+<h4>前文证据引用</h4>
+<ul>
+<li><p>商业模式与竞争底稿：引用第 4 章，不重复正文。</p>
+</li>
+<li><p>分部与资本回报证据：引用第 5-7 章。</p>
+</li>
+<li><p>相关来源状态：引用第 2 章来源矩阵。</p>
+</li>
+<li><p>分析对象与竞争层级：A 股电力设备 / 充电基础设施复合标的。</p>
+</li>
+<li><p>当前状态：有利。</p>
+</li>
+<li><p>证据充分性：较充分；依据：法定分部、订单公告、业绩预告相互印证。</p>
+</li>
+<li><p>多产业位置景气度排序：第 4 章排序首位是新型电力系统与预制舱变电站；变化最快的是海外和算力基础设施，但后者证据不足。</p>
+</li>
+<li><p>产业链位置与利润池：电力设备利润池来自新型电力系统建设、配网升级、新能源并网、轨交和工商业供配电；充电网利润池来自充电量、运营效率和场站网络。</p>
+</li>
+<li><p>核心比较优势：预制舱系统集成能力、持续中标能力、特来电网络规模和运营经验。</p>
+</li>
+<li><p>竞争对手与替代方案：电力设备同行、充电运营平台、地方城投与主机厂自建补能网络。</p>
+</li>
+<li><p>份额、定价权、客户黏性与进入壁垒：客户较强、招标抑制定价权；充电网具备网络效应但需看利用率。</p>
+</li>
+<li><p>竞争优势转化为订单、利润和现金回报的情况：2025 年已体现利润和经营现金流改善；2026 年需确认 H1 和全年。</p>
+</li>
+<li><p>当前决策含义：方向有资格进入观察池，但方向资格不等于买点。</p>
+</li>
+</ul>
+<h4>证据</h4>
+<ul>
+<li>2025 年归母净利润 12.43 亿元，同比增长 35.62%；经营现金流 23.35 亿元，同比增长 77.61%。</li>
+<li>2026H1 预告归母净利润 3.9242-4.5782 亿元，同比增长 20%-40%。</li>
+<li>2026 年多项预中标合计金额可观，支撑电力设备订单可见度。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>应收账款规模高，2025 年仍有较大资产减值。</li>
+<li>招标类业务天然存在价格竞争。</li>
+<li>充电运营长期收益率受电价、利用率和区域竞争影响。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>2026 半年报经营现金流没有改善，或分部毛利率明显回落。</li>
+<li>预中标项目无法转为正式合同。</li>
+<li>特来电利润增速低于充电量增速，说明效率改善失效。</li>
+</ul>
+<h3>11.3 流动性辩证分析</h3>
+<ul>
+<li>当前状态：证据不足。</li>
+<li>证据充分性：不充分；依据：实时价格、成交额、当日资金流、ETF/北向代理未获取到。</li>
+</ul>
+<h4>宏观流动性</h4>
+<ul>
+<li>总量环境与边际变化：未在本报告中重跑宏观流动性，仅按 A 股中观环境处理。</li>
+<li>对本标的的传导：电力设备和充电基础设施属于政策和产业资金可关注方向，但具体买点仍看微观承接。</li>
+</ul>
+<h4>中观流动性</h4>
+<ul>
+<li>行业 / 主题 / ETF / 机构配置变化：未获取到 ETF / 机构代理数据。</li>
+<li>对本标的的传导：新能源电力系统、算力供配电和充电基础设施有主题承接基础。</li>
+</ul>
+<h4>微观流动性</h4>
+<ul>
+<li>成交额、换手率、量价结构、融资和大单：仅取得融资融券部分数据。2026-07-21 融资余额约 11.05 亿元，融资买入约 8702 万元，融资偿还约 9171 万元，融资净买入为负。</li>
+<li>连续窗口与相对强弱：2026-07-15 至 2026-07-21 融资余额大致在 10.89-11.50 亿元之间，显示杠杆关注度较高但不构成确定流入。</li>
+</ul>
+<h4>资金来源分类</h4>
+<table>
+<thead>
+<tr>
+<th>资金来源</th>
+<th>当前状态</th>
+<th>连续窗口证据</th>
+<th>对价格的含义</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>长期配置资金</td>
+<td>未获取到</td>
+<td>未取得基金/ETF持仓变化</td>
+<td>不能确认</td>
+<td>低</td>
+</tr>
+<tr>
+<td>趋势 / 交易资金</td>
+<td>存在但方向不明</td>
+<td>融资余额约 11 亿元级别</td>
+<td>有关注，也有杠杆抛压</td>
+<td>中低</td>
+</tr>
+<tr>
+<td>产业资本 / 内部人</td>
+<td>未获取到</td>
+<td>未完成减持/增持核验</td>
+<td>不能确认</td>
+<td>低</td>
+</tr>
+</tbody></table>
+<h4>供给与抛压</h4>
+<table>
+<thead>
+<tr>
+<th>供给来源</th>
+<th>当前状态</th>
+<th>时间窗口</th>
+<th>影响</th>
+<th>验证方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>解禁 / 减持</td>
+<td>有小额限售解禁日历</td>
+<td>2026-07-17、2027、2028</td>
+<td>短期不是最大矛盾</td>
+<td>东方财富日历、公告</td>
+</tr>
+<tr>
+<td>再融资 / 可转债</td>
+<td>未获取到新增重大再融资</td>
+<td>2026-07-23</td>
+<td>暂不构成主抛压</td>
+<td>公告复核</td>
+</tr>
+<tr>
+<td>获利盘 / 套牢盘</td>
+<td>52 周区间 22.50-45.00 元，31.99 位于中位偏上</td>
+<td>2026-07-09 快照</td>
+<td>上方存在前高压力</td>
+<td>补齐 K 线与筹码</td>
+</tr>
+</tbody></table>
+<h4>最低数据检查</h4>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>当前窗口</th>
+<th>对比窗口</th>
+<th>结论</th>
+<th>数据源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>成交额与换手率</td>
+<td>未获取到</td>
+<td>未获取到</td>
+<td>证据不足</td>
+<td>东方财富未渲染</td>
+</tr>
+<tr>
+<td>融资余额与融资买入</td>
+<td>2026-07-21 融资余额约 11.05 亿元</td>
+<td>2026-07-15 约 10.89 亿元</td>
+<td>杠杆关注仍高，但最近两日净偿还</td>
+<td>同花顺数据中心</td>
+</tr>
+<tr>
+<td>主力 / 大单资金</td>
+<td>未获取到</td>
+<td>未获取到</td>
+<td>证据不足</td>
+<td>未取得</td>
+</tr>
+<tr>
+<td>ETF / 北向 / 机构代理指标</td>
+<td>未获取到</td>
+<td>未获取到</td>
+<td>证据不足</td>
+<td>未取得</td>
+</tr>
+</tbody></table>
+<h4>证据</h4>
+<ul>
+<li>融资余额仍在 11 亿元级别，说明交易关注度不低。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>2026-07-20、2026-07-21 融资净买入为负，不能确认杠杆资金持续增量。</li>
+</ul>
+<h4>退出路径</h4>
+<ul>
+<li>资金流入如何退出：若融资盘驱动股价上行，业绩预告兑现后可能通过放量滞涨退出。</li>
+<li>持续性被证伪的信号：股价跌破 30 元且融资余额不降，或利好后缩量回落。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>后续补齐数据证明 2026-07-23 前后机构净流入、成交扩散、融资余额下降但股价抗跌，则流动性可从证据不足上调为中性 / 有利。</li>
+</ul>
+<h3>11.4 情绪位置变化</h3>
+<ul>
+<li>当前状态：中性。</li>
+<li>证据充分性：不充分；依据：有基本面催化，但缺价格反馈。</li>
+<li>当前所处阶段：有锚修复 / 证据不足之间。</li>
+<li>个股相对板块与指数的强弱：未获取到最新相对强弱。</li>
+<li>催化兑现后的价格反馈：未获取到 2026-07-20 后完整行情反馈。</li>
+</ul>
+<h4>证据</h4>
+<ul>
+<li>业绩预增、连续预中标和充电网盈利改善构成价值锚。</li>
+<li>估值区间下沿附近若成立，情绪不会完全无锚。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>31.99 元快照距离 52 周低点已有较大涨幅，可能并非冰点。</li>
+<li>多个利好集中发布后，若没有放量承接，容易形成兑现。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>半年报兑现但股价冲高回落、融资继续堆高、板块扩散失败。</li>
+</ul>
+<h3>11.5 综合状态与主导矛盾</h3>
+<ul>
+<li>三要素综合判断：部分有利。</li>
+<li>主导要素：竞争格局。</li>
+<li>拖累要素：流动性证据不足、估值安全边际不足。</li>
+<li>主导矛盾：基本面改善已经能解释公司重估，但当前是否还有足够交易承接和安全边际，证据不足。</li>
+<li>下一验证节点：2026 半年报、2026-07-20 业绩预告后的价格反馈、融资余额变化。</li>
+<li>状态切换条件：补齐交易数据后若承接强且价格未脱离估值区间，可从 observe 升为 wait / buy 候选；若放量滞涨，则转 review。</li>
+</ul>
+<h3>11.6 三要素行动映射</h3>
+<table>
+<thead>
+<tr>
+<th>资金属性</th>
+<th>当前动作</th>
+<th>允许升级的条件</th>
+<th>降级 / 退出条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>新增现金</td>
+<td>observe</td>
+<td>价格回到 28-30 元，或半年报现金流确认且股价仍低于 34 元</td>
+<td>放量滞涨、融资余额上升、业绩低于预告中位</td>
+</tr>
+<tr>
+<td>已有持仓</td>
+<td>review</td>
+<td>若成本低于 28 元且半年报兑现，可继续持有观察</td>
+<td>跌破 30 元且基本面/现金流证伪，或冲高至 42 元以上缺承接</td>
+</tr>
+</tbody></table>
+<h3>11.7 三要素数据缺口与来源</h3>
+<table>
+<thead>
+<tr>
+<th>数据缺口</th>
+<th>已检查来源</th>
+<th>对哪一要素有影响</th>
+<th>对结论的影响</th>
+<th>补齐方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-07-23 实时价格、成交额、换手</td>
+<td>东方财富、公司官网、行情接口</td>
+<td>流动性、情绪</td>
+<td>降低置信度，不给 buy</td>
+<td>收盘后行情表或本地行情源</td>
+</tr>
+<tr>
+<td>ETF / 北向 / 机构代理</td>
+<td>未取得</td>
+<td>流动性</td>
+<td>不能确认长期配置资金</td>
+<td>东方财富资金、基金持仓</td>
+</tr>
+<tr>
+<td>可比公司估值</td>
+<td>未完整取得</td>
+<td>估值</td>
+<td>相对估值权重下降</td>
+<td>Wind / Choice / 东方财富</td>
+</tr>
+<tr>
+<td>特来电单独充电量和利用率</td>
+<td>年报摘要仅有部分信息</td>
+<td>竞争格局</td>
+<td>充电网估值需折价</td>
+<td>半年报 / 经营交流</td>
+</tr>
+</tbody></table>
+<ul>
+<li>分析口径与截止时间：2026-07-23 15:08。</li>
+<li>主要数据来源：公司公告、公司官网投资者关系页、年报/审计报告公告镜像、Google Finance 搜索快照、同花顺融资融券数据。</li>
+<li>数据缺口导致的置信度调整：最终结论从“可买候选”降为“observe”。</li>
+</ul>
+<h3>11.8 风险方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>风险类型</th>
+<th>前一窗口</th>
+<th>当前窗口</th>
+<th>方向证据</th>
+<th>反证</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本面风险</td>
+<td>2025 年利润与现金流改善</td>
+<td>2026Q1 增长较温和、H1 预告较强</td>
+<td>H1 净利预计 +20%-40%，风险未增强</td>
+<td>Q1 经营现金流大额为负</td>
+</tr>
+<tr>
+<td>估值风险</td>
+<td>52 周中高位波动</td>
+<td>31.99 元快照约 27x PE</td>
+<td>不算极端贵</td>
+<td>当前实时价未获取到，若已大涨则风险增强</td>
+</tr>
+<tr>
+<td>情绪风险</td>
+<td>订单和充电网改善被市场关注</td>
+<td>多重利好集中</td>
+<td>有价值锚</td>
+<td>利好集中可能兑现</td>
+</tr>
+<tr>
+<td>流动性风险</td>
+<td>融资余额约 10.9-11.5 亿元</td>
+<td>7月下旬仍约 11亿元</td>
+<td>未见极端踩踏证据</td>
+<td>融资净偿还、当日承接缺失</td>
+</tr>
+</tbody></table>
+<h3>11.9 风险传导链</h3>
+<ul>
+<li>信息源头：订单、业绩预告、分部盈利改善与高应收账款并存。</li>
+<li>核心变量：利润兑现、现金流、应收回款、招标毛利率、交易承接。</li>
+<li>传导机制：若订单利润率和充电网效率改善延续，则利润和现金流支撑估值；若回款、毛利或资金承接恶化，则高估值和杠杆资金会放大波动。</li>
+<li>影响对象：特锐德股价、估值中枢、持仓信心。</li>
+<li>市场行为变化：利好发布后若放量滞涨，说明风险增强；若缩量抗跌并融资下降，说明风险减弱。</li>
+<li>风险方向：风险持平。</li>
+<li>验证指标：2026H1 经营现金流、应收账款、充电网毛利率、融资余额、股价对业绩预告反馈。</li>
+<li>失效条件：实时价格已显著脱离估值区间上沿，或 H1 现金流显著弱于利润。</li>
+</ul>
+<h3>11.10 风险方向结论</h3>
+<ul>
+<li>风险方向结论：风险持平。</li>
+<li>判断依据：基本面改善证据较强，但估值和交易数据缺口抵消了风险减弱结论；目前更像“风险仍需验证”而不是“风险重新增强”。</li>
+<li>反证：若 2026-07-20 后股价大幅上涨且融资余额继续上升，则估值和流动性风险可能增强。</li>
+<li>未获取到：2026-07-23 实时行情、主力资金、可比估值。</li>
+<li>置信度：中低。</li>
+</ul>
+<h3>11.11 四层方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>边际改善 / 无明显变化 / 边际恶化 / 未获取到</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观</td>
+<td>未获取到</td>
+<td>未重跑宏观流动性</td>
+</tr>
+<tr>
+<td>中观</td>
+<td>边际改善</td>
+<td>电网、新能源、轨交、算力供配电订单线索增加</td>
+</tr>
+<tr>
+<td>微观</td>
+<td>边际改善</td>
+<td>2025 利润和现金流改善，2026H1 预告继续增长</td>
+</tr>
+<tr>
+<td>交易</td>
+<td>未获取到</td>
+<td>实时行情和主力资金缺失，仅有融资余额</td>
+</tr>
+</tbody></table>
+<h3>11.12 最终动作与约束</h3>
+<ul>
+<li>主动作：observe。</li>
+<li>新增现金：不追；等 28-30 元或 H1 现金流确认后再评估。</li>
+<li>已有持仓：按成本分层复核，低成本可持有观察，高成本遇 42 元上方且承接弱可考虑减仓。</li>
+<li>承接条件：半年报现金流改善、股价不脱离 32-42 元估值区间、融资余额不继续堆高。</li>
+<li>退出条件：充电网毛利率回落、应收继续扩张、订单毛利被招标压缩、利好后放量滞涨。</li>
+<li>下一复核节点：2026-08-25 半年报披露。</li>
+<li>我的判断：方向能够进入观察池，但现在不能把方向直接转化为买点；缺的是交易承接和安全边际确认。</li>
+</ul>
+<h2 id="section-12">12. 最终结论</h2>
+
+<ul>
+<li>估值结论：合理偏低。</li>
+<li>操作结论：观望。</li>
+<li>综合估值区间：32.0-42.0 元 / 股。</li>
+<li>相对现价空间：相对 31.99 元快照约 0%-31%；若实时价不同需重算。</li>
+<li>如果今天这是一笔现金，我会买它吗：只在特定条件下会；当前更适合 observe。</li>
+<li>我的判断：特锐德是电力设备和充电基础设施里“基本面确实在改善”的标的，但当前报告最大短板是 2026-07-23 实时交易数据未获取到。基本面给观察资格，估值给下沿参考，交易数据缺口阻止我给出直接买入。</li>
+<li>结论失效条件：2026H1 现金流和应收明显恶化；股价上行到 42 元以上但业绩没有上修；或实时交易数据显示利好后资金撤退。</li>
+</ul>
+<h2 id="section-13">13. 后续监控指标</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">当前值</th>
+<th>触发阈值 / 方向</th>
+<th>数据源</th>
+<th>复核频率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026H1 归母净利润</td>
+<td align="right">预告 3.9242-4.5782 亿元</td>
+<td>低于预告中位需降级</td>
+<td>半年报</td>
+<td>2026-08-25</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">2026Q1 -9.19 亿元</td>
+<td>H1 若仍大幅为负需警惕</td>
+<td>半年报</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>应收账款原值</td>
+<td align="right">2025 年约 105.70 亿元</td>
+<td>增速高于收入增速需降级</td>
+<td>半年报 / 年报</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>充电网运营服务毛利率</td>
+<td align="right">2025 年约 37.11%</td>
+<td>低于 33% 需复核商业模式</td>
+<td>年报 / 半年报</td>
+<td>半年</td>
+</tr>
+<tr>
+<td>融资余额</td>
+<td align="right">2026-07-21 约 11.05 亿元</td>
+<td>股价涨而融资继续升，警惕拥挤</td>
+<td>同花顺 / 交易所</td>
+<td>每周</td>
+</tr>
+</tbody></table>
+<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
+
+<ul>
+<li>未获取到：2026-07-23 实时收盘价、当日成交额、换手率、主力资金、ETF / 北向 / 基金持仓代理、第三方公允价值、完整卖方目标价分布、2025 年精确资本开支行项目。</li>
+<li>已检查来源：东方财富行情页、公司官网投资者关系页、行情接口、Google Finance 搜索快照、同花顺融资融券、公司公告镜像。</li>
+<li>对结论的影响：估值区间可作为研究锚，但交易动作从 wait / buy 候选降为 observe；真实交易前必须重取行情和流动性数据。</li>
+</ul>
+<h2 id="section-15">15. 来源清单</h2>
+
+<ol>
+<li>特锐德：2025年年度报告，青岛特锐德电气股份有限公司，2026-04-09，新浪财经公告镜像，访问时间 2026-07-23。</li>
+<li>特锐德：2025年年度审计报告，青岛特锐德电气股份有限公司 / 和信会计师事务所，2026-04-09，新浪财经公告镜像，访问时间 2026-07-23。</li>
+<li>特锐德：2026年第一季度报告，青岛特锐德电气股份有限公司，2026-04-28，新浪财经公告镜像，访问时间 2026-07-23。</li>
+<li>特锐德：2026年半年度业绩预告，青岛特锐德电气股份有限公司，2026-07-20，新浪财经公告镜像，访问时间 2026-07-23。</li>
+<li>特锐德公司官网投资者关系页，青岛特锐德电气股份有限公司，页面显示 2026-07-23 13时，访问时间 2026-07-23。</li>
+<li>特锐德：关于预中标南网项目的提示性公告，青岛特锐德电气股份有限公司，2026-02-11，新浪财经公告镜像，访问时间 2026-07-23。</li>
+<li>特锐德：关于预中标预制舱变电站项目的提示性公告，青岛特锐德电气股份有限公司，2026-04-01，同花顺财经公告镜像，访问时间 2026-07-23。</li>
+<li>特锐德：关于预中标铁路项目的提示性公告，青岛特锐德电气股份有限公司，2026-05-25，新浪财经公告镜像，访问时间 2026-07-23。</li>
+<li>特锐德：预中标国网项目金额约1.53亿元，中国基金报，2026-07-20，访问时间 2026-07-23。</li>
+<li>特锐德融资融券，同花顺数据中心，数据至 2026-07-21，访问时间 2026-07-23。</li>
+<li>Google Finance 特锐德 300001:SHE 搜索快照，2026-07-09 12:09:31 GMT+8，访问时间 2026-07-23。</li>
+</ol>
+<h2 id="section-16">16. 声明</h2>
+
+<p>本报告基于截至研究截止时间可取得的公开信息，不构成收益保证。真实交易前应重新核验价格、公告、流动性和个人风险承受能力。</p>
+</article>
+    </div>
+  </main>
+</body>
+</html>

@@ -8,6 +8,7 @@ const sourceDir = join(root, 'src');
 const outputPath = join(root, 'a-share-market-dashboard.html');
 const moduleOrder = ['core.mjs', 'adapters.mjs', 'data-service.mjs', 'app.mjs'];
 const automationsDir = join(repoRoot, 'sources', 'automations');
+const dividendSignalPath = join(automationsDir, '中证红利信号', '最新信号.md');
 const industryDefinitions = [
   { key: 'STRATEGY', directoryName: '战略资源' },
   { key: 'EMERGING', directoryName: '新兴产业' },
@@ -30,6 +31,38 @@ function titleFromFilename(filename) {
     .replace(/\.html$/i, '')
     .replace(/^\d{4}-\d{2}-\d{2}-\d{4}-/, '')
     .replace(/^\d{4}-\d{2}-\d{2}-/, '');
+}
+
+function reportPathParts(report) {
+  return report.sourceDirectory.split('/').filter(Boolean);
+}
+
+function compareResearchReports(left, right) {
+  const leftParts = reportPathParts(left);
+  const rightParts = reportPathParts(right);
+  const topLevel = (leftParts[0] ?? '').localeCompare(rightParts[0] ?? '', 'zh-CN');
+  if (topLevel !== 0) return topLevel;
+  if (leftParts.length !== rightParts.length) return leftParts.length - rightParts.length;
+  return titleFromFilename(left.filename).localeCompare(titleFromFilename(right.filename), 'zh-CN');
+}
+
+function researchTitle(industry, report) {
+  const parts = reportPathParts(report);
+  if (parts.length <= 1) return titleFromFilename(report.filename);
+  return `${parts[0]}-${parts.at(-1)}产业完整分析报告`;
+}
+
+function normalizeStockName(value) {
+  return String(value ?? '').trim().replace(/\s+/g, '');
+}
+
+function stockNameFromReportTitle(title) {
+  return normalizeStockName(title
+    .replace(/[-_]?机构级(?:决策|研究)?研报(?:-阅读版)?$/u, '')
+    .replace(/[-_]?机构级(?:决策|研究)?报告(?:-阅读版)?$/u, '')
+    .replace(/[-_]?目录帖子逻辑研报$/u, '')
+    .replace(/[-_]?阅读版$/u, '')
+    .replace(/[-_]+$/u, ''));
 }
 
 function timeFromFilename(filename) {
@@ -70,7 +103,9 @@ async function scanIndustryReports(definition) {
   return {
     ...definition,
     filters,
-    researchReports: reports.filter(report => report.filename.includes('完整分析报告')),
+    researchReports: reports
+      .filter(report => report.filename.includes('完整分析报告'))
+      .sort(compareResearchReports),
     feedReports: reports.filter(report => !report.filename.includes('完整分析报告')),
   };
 }
@@ -108,14 +143,70 @@ function renderReportCards(industry) {
 }
 
 function renderResearchBoards(industry) {
-  return industry.researchReports.map(report => {
-    const title = titleFromFilename(report.filename);
-    const scope = report.filter ? `${industry.directoryName} / ${report.filter}` : industry.directoryName;
-    return `          <section class="industry-research-board" data-filters="${escapeHtml(report.filter)}">
-            <div><p class="eyebrow">产业研报</p><h3><a class="industry-report-link" href="${escapeHtml(reportHref(industry, report))}" target="_blank" rel="noopener noreferrer">${escapeHtml(title)}</a></h3></div>
-            <span>${escapeHtml(scope)} · 来源目录：${escapeHtml(sourceDirectoryLabel(industry, report))}</span>
-          </section>`;
+  if (!industry.researchReports.length) return '';
+  const items = industry.researchReports.map((report, index) => {
+    const title = researchTitle(industry, report);
+    return `              <li class="industry-research-item" data-filters="${escapeHtml(report.filter)}">
+                <span class="industry-research-rank">${index + 1}</span>
+                <a class="industry-report-link" href="${escapeHtml(reportHref(industry, report))}" target="_blank" rel="noopener noreferrer">${escapeHtml(title)}</a>
+              </li>`;
   }).join('\n');
+  return `          <section class="industry-research-list" aria-label="${escapeHtml(industry.directoryName)}产业研报">
+            <h3>产业研报</h3>
+            <ol>
+${items}
+            </ol>
+          </section>`;
+}
+
+function renderStockReportLinkMap(industries) {
+  const links = new Map();
+  for (const industry of industries) {
+    for (const report of industry.feedReports) {
+      if (!/(?:机构级(?:决策|研究)?研报|机构级(?:决策|研究)?报告|阅读版)/u.test(report.filename)) continue;
+      const stockName = stockNameFromReportTitle(titleFromFilename(report.filename));
+      if (!stockName || links.has(stockName)) continue;
+      links.set(stockName, reportHref(industry, report));
+    }
+  }
+  return [...links.entries()]
+    .sort(([left], [right]) => left.localeCompare(right, 'zh-CN'))
+    .map(([name, href]) => `  ${JSON.stringify(name)}: ${JSON.stringify(href)},`)
+    .join('\n');
+}
+
+function numberFromText(value) {
+  const match = String(value ?? '').match(/-?\d+(?:\.\d+)?/);
+  return match ? Number(match[0]) : null;
+}
+
+function parseDividendSignal(markdown) {
+  if (!markdown?.trim()) return null;
+  const pick = label => markdown.match(new RegExp(`^- ${label}：(.+)$`, 'mu'))?.[1].trim() ?? '';
+  const runTime = pick('运行时间');
+  const recordDate = runTime.match(/\d{4}-\d{2}-\d{2}/)?.[0] ?? '';
+  const signal = {
+    recordDate,
+    runTime,
+    indexDate: pick('AKShare 指数估值日期'),
+    bondDate: pick('10年国债收益率日期'),
+    dividendYield2: numberFromText(pick('AKShare 中证红利股息率2')),
+    xueqiuChangePercent: pick('雪球当天涨跌幅'),
+    lixingerDate: pick('理杏仁估值日期'),
+    lixingerDividendYield: pick('理杏仁市值加权股息率'),
+    lixingerPercentile10y: pick('理杏仁近10年股息率分位'),
+    lixingerPercentile80Value: pick('理杏仁近10年80%分位点'),
+    bond10yYield: numberFromText(pick('中国10年国债收益率')),
+    spread: numberFromText(pick('AKShare 股息率2 - 10年国债收益率')),
+    percentileSignal: pick('历史分位点触发'),
+    absoluteSignal: pick('绝对股息率触发'),
+    spreadSignal: pick('相对债券收益率触发'),
+    headline: pick('综合结论'),
+    source: 'zzhl-dividend-signal 最新信号',
+    sourceNote: markdown.match(/^## 来源[\s\S]*?^- (.+)$/mu)?.[1].trim() ?? '',
+    status: recordDate ? 'latest' : 'snapshot',
+  };
+  return signal.recordDate || signal.indexDate ? signal : null;
 }
 
 function validateChangelog(entries) {
@@ -191,9 +282,18 @@ const [template, styles, changelogSource, ...modules] = await Promise.all([
 ]);
 const industries = await Promise.all(industryDefinitions.map(scanIndustryReports));
 const changelog = validateChangelog(JSON.parse(changelogSource));
+const dividendSignal = parseDividendSignal(await readFile(dividendSignalPath, 'utf8').catch(() => ''));
 
+const stockReportLinks = renderStockReportLinkMap(industries);
 const bundle = modules
-  .map((source, index) => stripModuleSyntax(source, moduleOrder[index]))
+  .map((source, index) => {
+    const withGeneratedData = moduleOrder[index] === 'app.mjs'
+      ? source
+        .replace('  // STOCK_REPORT_LINKS', stockReportLinks)
+        .replace('  // CSI_DIVIDEND_SIGNAL', JSON.stringify(dividendSignal, null, 2))
+      : source;
+    return stripModuleSyntax(withGeneratedData, moduleOrder[index]);
+  })
   .join('')
   .replaceAll('</script', '<\\/script');
 

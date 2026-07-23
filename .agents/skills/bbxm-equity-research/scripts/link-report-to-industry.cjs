@@ -34,8 +34,67 @@ function extractLabel(html, filename) {
   return title || path.basename(filename, path.extname(filename));
 }
 
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function extractCompanyName(filename, label) {
+  const base = path.basename(filename, path.extname(filename));
+  const fromFile = base
+    .replace(/^\d{4}-\d{2}-\d{2}(?:-\d{4})?-/, '')
+    .replace(/-?机构级决策研报$/, '')
+    .trim();
+  if (fromFile) return fromFile;
+  return label
+    .replace(/（[^）]+）/g, '')
+    .replace(/\([^)]*\)/g, '')
+    .replace(/机构级决策研报.*$/, '')
+    .trim();
+}
+
+function linkCompanyInIndustryChain(industryHtml, filename, label) {
+  const companyName = extractCompanyName(filename, label);
+  if (!companyName) return null;
+
+  const sectionMatch = industryHtml.match(/<h3[^>]*>\s*3\.1\.1\s+产业链公司映射/i);
+  if (!sectionMatch || sectionMatch.index === undefined) return null;
+  const sectionStart = sectionMatch.index;
+  const nextSection = industryHtml.indexOf('<h3', sectionStart + 1);
+  const sectionEnd = nextSection >= 0 ? nextSection : industryHtml.length;
+  const before = industryHtml.slice(0, sectionStart);
+  let section = industryHtml.slice(sectionStart, sectionEnd);
+  const after = industryHtml.slice(sectionEnd);
+
+  const encodedFilename = escapeHtml(filename);
+  const link = `<a href="./${encodedFilename}">`;
+  const companyPattern = escapeRegExp(companyName);
+
+  const linkedCell = new RegExp(`(<td>\\s*<a\\s+href=")[^"]+("[^>]*>[^<]*${companyPattern}[^<]*<\\/a>\\s*<\\/td>)`);
+  if (linkedCell.test(section)) {
+    section = section.replace(linkedCell, `$1./${encodedFilename}$2`);
+    return {
+      html: `${before}${section}${after}`,
+      status: section.includes(`href="./${encodedFilename}"`) ? 'linked-in-industry-chain' : 'already-linked',
+    };
+  }
+
+  const plainCell = new RegExp(`(<td>)([^<]*${companyPattern}[^<]*)(<\\/td>)`);
+  if (plainCell.test(section)) {
+    section = section.replace(plainCell, `$1<a href="./${encodedFilename}">$2</a>$3`);
+    return {
+      html: `${before}${section}${after}`,
+      status: 'linked-in-industry-chain',
+    };
+  }
+
+  return null;
+}
+
 function insertLink(industryHtml, filename, label) {
   const encodedFilename = escapeHtml(filename);
+  const industryChainResult = linkCompanyInIndustryChain(industryHtml, filename, label);
+  if (industryChainResult) return industryChainResult;
+
   if (industryHtml.includes(`href="./${encodedFilename}"`) || industryHtml.includes(`href="${encodedFilename}"`)) {
     return { html: industryHtml, status: 'already-linked' };
   }
@@ -87,7 +146,7 @@ try {
   const equityHtml = fs.readFileSync(equityPath, 'utf8');
   const industryHtml = fs.readFileSync(industryPath, 'utf8');
   const result = insertLink(industryHtml, path.basename(equityPath), extractLabel(equityHtml, equityPath));
-  if (result.status === 'linked') fs.writeFileSync(industryPath, result.html, 'utf8');
+  if (result.html !== industryHtml) fs.writeFileSync(industryPath, result.html, 'utf8');
   console.log(`${result.status}: ${industryPath}`);
 } catch (error) {
   console.error(error.message);

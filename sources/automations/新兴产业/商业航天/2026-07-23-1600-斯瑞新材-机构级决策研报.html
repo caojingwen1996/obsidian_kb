@@ -1,0 +1,1623 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>斯瑞新材机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+.daily-tracking { margin: 0 0 42px; padding: 22px; border: 1px solid #cbdade; border-radius: 16px; background: linear-gradient(135deg, #f3f8f9 0%, #fffaf0 100%); box-shadow: 0 12px 30px rgba(23, 50, 71, .07); }
+.daily-tracking-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
+.daily-tracking-kicker { margin: 0 0 4px; color: var(--teal); font-size: 12px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+.daily-tracking h2 { margin: 0; padding: 0; border: 0; font-size: 27px; }
+.daily-tracking-time { margin: 4px 0 0; color: var(--muted); font-size: 12px; text-align: right; }
+.tracking-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.tracking-grid + .tracking-grid { margin-top: 12px; }
+.tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
+.tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
+.tracking-value.bad { color: var(--danger); }
+.tracking-detail { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; }
+.tracking-status { display: inline-flex; margin-top: 10px; padding: 3px 8px; border-radius: 999px; color: #526b77; background: #edf2f4; font-size: 12px; font-weight: 700; }
+.tracking-status.live { color: #17604e; background: #dff3eb; }
+.tracking-status.error { color: var(--danger); background: var(--danger-bg); }
+.tracking-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; margin-top: 14px; padding-top: 13px; border-top: 1px solid #d5e0e3; color: #536d78; font-size: 13px; }
+.tracking-footer a { font-weight: 700; }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+  .tracking-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+  .daily-tracking-head { display: block; }
+  .daily-tracking-time { text-align: left; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .daily-tracking, .tracking-card { border: 1px solid #aebbc2; color: #102f43; background: #fff; box-shadow: none; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · 688102.SH</p>
+      <h1>斯瑞新材机构级决策研报</h1>
+      <div class="hero-meta"><span>2026-07-23 11:29（Asia/Shanghai，盘中延时行情）</span><span>2026-07-23</span><span>上海证券交易所科创板 / 人民币</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
+<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
+<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
+<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
+<a class="toc-link" href="#section-6">6. 五年财务历史</a>
+<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
+<a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
+<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
+<a class="toc-link" href="#section-10">10. 估值</a>
+<a class="toc-link" href="#section-11">11. 冰冰小美框架判断</a>
+<a class="toc-link" href="#section-12">12. 最终结论</a>
+<a class="toc-link" href="#section-13">13. 后续监控指标</a>
+<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
+<a class="toc-link" href="#section-15">15. 来源清单</a>
+<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
+      <article class="content"><blockquote>
+<p>证券代码：688102.SH<br>交易所 / 币种：上海证券交易所科创板 / 人民币<br>研究截止时间：2026-07-23 11:29（Asia/Shanghai，盘中延时行情）<br>报告生成时间：2026-07-23<br>数据口径：A 股法定披露、公开行情与公开网页摘录  </p>
+</blockquote>
+<!-- DAILY_TRACKING_START -->
+<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-07-23 11:29（Asia/Shanghai，盘中）" data-value-low="14" data-value-high="-22">
+  <div class="daily-tracking-head">
+    <div><p class="daily-tracking-kicker">Daily decision tracker</p><h2>每日跟踪面板</h2></div>
+    <p class="daily-tracking-time">更新：2026-07-23 11:29（Asia/Shanghai，盘中）<br>下次：收盘后 / 重大公告后</p>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">改善</p><p class="tracking-detail">风险方向：风险增强。下一验证点与失效条件见第 11—13 章。</p></div>
+    <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value">14-22 元 / 股</p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
+    <div class="tracking-card" data-tracking-key="price-deviation"><p class="tracking-label">股价偏离度</p><p class="tracking-value" id="deviation-value">未获取到</p><p class="tracking-detail" id="deviation-detail">价格或动态价值区间无法解析，未计算偏离度。</p></div>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="daily-quote"><p class="tracking-label">每日同步价</p><p class="tracking-value">28.42 元，2026-07-23 11:29:58 延时行情</p><p class="tracking-detail">这是报告内嵌的正式跟踪基准，离线打开仍可使用。</p><span class="tracking-status">每日快照</span></div>
+    <div class="tracking-card" data-tracking-key="intraday-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">未配置实时行情</p><p class="tracking-detail" id="intraday-detail">当前证券未配置本地行情白名单，继续使用每日正式快照。</p><span class="tracking-status" id="intraday-status">未配置</span></div>
+    <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">observe / wait</p><p class="tracking-detail">估值：高估 · observe / wait；风险：风险增强；结论置信度：中。</p><span class="tracking-status error">高估</span></div>
+  </div>
+  <div class="tracking-footer"><span>资金状态：<strong>结构性流出 / 高波动</strong> · 新增/已有动作：<strong>observe / wait</strong></span><span>资金面分析：未单独生成</span></div>
+</section>
+<!-- DAILY_TRACKING_END -->
+<h2 id="section-1">1. 决策摘要</h2>
+
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值状态</td>
+<td>高估</td>
+</tr>
+<tr>
+<td>操作建议</td>
+<td>观望</td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td>observe / wait</td>
+</tr>
+<tr>
+<td>当前价格及时间</td>
+<td>28.42 元，2026-07-23 11:29:58 延时行情</td>
+</tr>
+<tr>
+<td>综合估值区间</td>
+<td>14-22 元 / 股</td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>约 -51% 至 -23%</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td>中</td>
+</tr>
+<tr>
+<td>基本面状态</td>
+<td>改善</td>
+</tr>
+<tr>
+<td>资金状态</td>
+<td>结构性流出 / 高波动</td>
+</tr>
+<tr>
+<td>风险方向</td>
+<td>风险增强</td>
+</tr>
+<tr>
+<td>每日跟踪时间</td>
+<td>2026-07-23 11:29（Asia/Shanghai，盘中）</td>
+</tr>
+<tr>
+<td>资金面分析链接</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<h3>如果今天这是一笔现金，我会买它吗</h3>
+<ul>
+<li>回答：不会。</li>
+<li>我的判断：斯瑞新材是商业航天上游材料和液体火箭发动机推力室零组件的优质观察标的，基本面收入、利润、研发投入都在改善；但 2026 年 7 月价格仍对应约 130-140 倍滚动市盈率，且 7 月短周期出现大幅波动，当前更像“产业方向好、交易位置不便宜、需要等商业航天订单和现金流兑现”的观察标的。</li>
+<li>改变结论的条件：股价回到 14-18 元区域，或 2026 半年报 / 三季报证明商业航天相关收入开始实质放量、经营现金流修复、估值回到可由利润增速解释的区间。</li>
+</ul>
+<h2 id="section-2">2. 证券身份与来源矩阵</h2>
+
+<h3>2.1 证券身份</h3>
+<ul>
+<li>公司全称：陕西斯瑞新材料股份有限公司。</li>
+<li>证券代码：688102.SH。</li>
+<li>上市地：上海证券交易所科创板。</li>
+<li>报告准则：企业会计准则。</li>
+<li>法定披露体系：A 股交易所与上市公司公告。</li>
+<li>同名或跨市场歧义：未发现本次研究范围内的同名证券混用。</li>
+</ul>
+<h3>2.2 来源矩阵</h3>
+<table>
+<thead>
+<tr>
+<th>数据项目</th>
+<th>目标来源</th>
+<th>实际来源</th>
+<th>数据时间</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>实时价格、52周高低、今年以来表现</td>
+<td>交易所 / 行情平台</td>
+<td>Investing.com、中财网</td>
+<td>2026-07-22 至 2026-07-23</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>第三方公允价值、护城河、星级</td>
+<td>Morningstar / 第三方平台</td>
+<td>未获取到护城河和星级；富途目标价均值可见</td>
+<td>2026-07-07</td>
+<td>部分已获取</td>
+</tr>
+<tr>
+<td>最新季报与管理层指引</td>
+<td>交易所公告</td>
+<td>2026 年一季度报告公开摘录</td>
+<td>2026Q1</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>分部收入</td>
+<td>2025 年报</td>
+<td>年报摘要公开摘录</td>
+<td>2025</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>卖方评级与目标价</td>
+<td>券商 / 聚合平台</td>
+<td>富途牛牛评级摘要</td>
+<td>近三个月</td>
+<td>部分已获取</td>
+</tr>
+<tr>
+<td>近三个月新闻与催化剂</td>
+<td>公告日历</td>
+<td>新浪财经公告页</td>
+<td>2026-07</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>五年财务历史</td>
+<td>法定年报</td>
+<td>年报摘要与公开摘录</td>
+<td>2021-2025</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>商业航天产业位置</td>
+<td>年报业务与研发项目</td>
+<td>2025 年报公开摘录</td>
+<td>2025</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>三要素交易数据</td>
+<td>行情、龙虎榜、资金数据</td>
+<td>Investing.com、中财网、同花顺</td>
+<td>2026-07 / 历史龙虎榜</td>
+<td>部分已获取</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 行情与市场预期</h2>
+
+<h3>3.1 行情快照（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">数值</th>
+<th>来源</th>
+<th>时间 / 口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前价格</td>
+<td align="right">28.42 元</td>
+<td>Investing.com</td>
+<td>2026-07-23 11:29:58 延时</td>
+</tr>
+<tr>
+<td>52周最高</td>
+<td align="right">56.17 元</td>
+<td>Investing.com</td>
+<td>52 周区间</td>
+</tr>
+<tr>
+<td>52周最低</td>
+<td align="right">13.60 元</td>
+<td>Investing.com</td>
+<td>52 周区间</td>
+</tr>
+<tr>
+<td>今年以来表现</td>
+<td align="right">未获取到完整 YTD</td>
+<td>已检查行情页</td>
+<td>缺口</td>
+</tr>
+<tr>
+<td>总市值</td>
+<td align="right">约 222 亿元</td>
+<td>价格 × 约 7.81 亿股估算</td>
+<td>2026-07-23</td>
+</tr>
+<tr>
+<td>PE / PB / EV</td>
+<td align="right">PE 约 137.87 倍，PB 约 10.99 倍</td>
+<td>中财网</td>
+<td>2026-07-22 延时</td>
+</tr>
+</tbody></table>
+<h3>3.2 第三方公允价值与评级（事实）</h3>
+<ul>
+<li>公允价值：未获取到独立第三方公允价值。</li>
+<li>护城河评级：未获取到。</li>
+<li>星级：未获取到。</li>
+<li>来源与时间：本次检查公开行情、富途评级摘要、卖方摘要页面。</li>
+<li>未获取到的字段及已检查来源：未获取到 Morningstar 类护城河、星级和逐机构目标价假设。</li>
+</ul>
+<h3>3.3 卖方评级与目标价分布（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>机构</th>
+<th>日期</th>
+<th>评级</th>
+<th align="right">目标价</th>
+<th>预测期</th>
+<th>关键假设</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>近三个月 7 位分析师样本</td>
+<td>2026-07-07 摘录</td>
+<td>买入 / 强力推荐占比 100%</td>
+<td align="right">平均 22.41 元</td>
+<td>未获取到</td>
+<td>明细受平台限制，未获取到</td>
+</tr>
+</tbody></table>
+<ul>
+<li>目标价区间 / 中位数：公开摘录均为 22.41 元。</li>
+<li>样本数量与完整性：样本数量可见，机构明细、盈利预测和假设未获取到，可信度下调。</li>
+<li>来源冲突及采信理由：该目标价低于 2026-07-23 盘中价 28.42 元，说明即使卖方摘要偏乐观，当前价格也已高于可见目标价。</li>
+</ul>
+<h2 id="section-4">4. 商业模式与竞争格局</h2>
+
+<h3>4.1 事实</h3>
+<ul>
+<li>收入来源：高强高导铜合金材料及制品、中高压电接触材料及制品、高性能金属铬粉、医疗影像零组件、光模块芯片基座 / 壳体及其他。</li>
+<li>客户与定价权：商业航天方向披露客户包括蓝箭航天、九州云箭、深蓝航天等；医疗影像、光模块、电接触材料等方向对应不同工业客户。</li>
+<li>成本结构：以金属材料、加工制造、研发投入和产能建设为主；2025 年主营业务综合毛利率 25.44%。</li>
+<li>资本强度：材料和零部件制造具备较强资本开支和研发投入需求；2025 年研发投入占收入 5.96%。</li>
+<li>竞争者：高端铜合金材料、真空电接触材料、医疗影像零组件、光通信零组件和商业航天零部件领域的国内外材料与精密制造厂商。</li>
+<li>监管约束：科创板信息披露、军工及航天供应链认证、医疗影像客户质量认证、环保与安全生产。</li>
+</ul>
+<h4>多产业位置景气度排序（事实与判断分列）</h4>
+<table>
+<thead>
+<tr>
+<th align="right">排名</th>
+<th>产业位置</th>
+<th>位置识别依据（事实）</th>
+<th>公司业务 / 资产暴露（事实）</th>
+<th>当前景气度</th>
+<th>趋势</th>
+<th>景气证据与时间</th>
+<th>财务传导</th>
+<th>验证指标 / 失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">1</td>
+<td>商业航天液体火箭发动机材料与零组件</td>
+<td>年报披露推力室内壁、200 吨级以上发动机项目、增材制造和连接技术研发</td>
+<td>铜合金推力室内壁材料及零组件，客户包括蓝箭航天、九州云箭、深蓝航天</td>
+<td>较高</td>
+<td>上行</td>
+<td>商业航天目录中产业报告已有主题热度；公司年报披露多项相关研发</td>
+<td>商业火箭试车、发射和批产节奏进入订单与收入</td>
+<td>商业航天收入单列披露、客户订单、毛利率提升；若长期停留在研发项目或小批量验证则失效</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td>光模块芯片基座 / 壳体</td>
+<td>2025 年该产品收入同比 +208.29%，毛利率 38.39%</td>
+<td>光模块芯片基座 / 壳体收入 0.74 亿元</td>
+<td>较高</td>
+<td>上行</td>
+<td>2025 年分产品收入高速增长</td>
+<td>AI / 光通信需求传导到高附加值材料与壳体</td>
+<td>收入连续增长、客户扩展；若高增来自低基数一次性订单则失效</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td>医疗影像零组件</td>
+<td>2025 年收入同比 +46.43%，毛利率 35.75%</td>
+<td>医疗影像零组件收入 0.88 亿元</td>
+<td>中</td>
+<td>上行</td>
+<td>医疗影像零组件收入和毛利率较高</td>
+<td>医疗设备客户需求和国产替代带动高毛利收入</td>
+<td>客户验证、收入规模扩大；若增速回落或客户集中度风险上升则失效</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td>电力与工业铜合金材料</td>
+<td>高强高导铜合金、中高压电接触材料是收入主体</td>
+<td>两项合计收入约 10.65 亿元，占主营大头</td>
+<td>中</td>
+<td>持平</td>
+<td>2025 年收入分别 +18.24%、+9.50%</td>
+<td>稳定收入和现金流基础</td>
+<td>毛利率稳定、经营现金流恢复；若金属价格和竞争压缩毛利则失效</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td>高性能金属铬粉</td>
+<td>年报披露收入同比 +73.76%</td>
+<td>收入 0.74 亿元，毛利率 18.01%</td>
+<td>证据不足</td>
+<td>上行待验证</td>
+<td>高增但毛利率偏低、业务体量小</td>
+<td>可能贡献收入但利润弹性待验证</td>
+<td>毛利率提升、客户结构改善；否则不应给高估值</td>
+</tr>
+</tbody></table>
+<ul>
+<li>位置间交叉与去重说明：商业航天、光模块、医疗影像和电力工业材料使用不同产品和客户场景；估值时不能把同一铜合金产能重复计入多个主题。</li>
+<li>排名第一的位置能否进入公司利润和现金流：能，但尚需验证规模。当前商业航天更多是产业价值和订单期权，尚未看到单列收入与利润占比。</li>
+<li>弱关联 / 待验证位置：商业航天之外的低空经济、卫星互联网主题，如不能传导到公司产品订单，不纳入核心估值。</li>
+</ul>
+<h3>4.2 我的判断</h3>
+<ul>
+<li>我的判断：公司具备“高端铜合金材料平台 + 精密零组件”的比较优势雏形，商业航天推力室内壁是最能承载主题溢价的方向；但当前利润主要仍由更广泛的工业材料和零组件业务贡献，商业航天收入占比未单列，不能按纯商业航天龙头给估值。</li>
+<li>我的判断：商业模式最脆弱的环节是“产业叙事先行、利润兑现滞后”。如果火箭发动机项目不能从试车验证走向批量交付，估值会先于利润回落。</li>
+<li>证伪条件：2026 半年报或 2026 年报显示商业航天相关收入单列放量、毛利率持续提升、经营现金流恢复，且估值回到可由盈利增长解释的区间。</li>
+</ul>
+<h2 id="section-5">5. 分部收入与盈利拆解</h2>
+
+<table>
+<thead>
+<tr>
+<th>分部</th>
+<th align="right">收入</th>
+<th align="right">同比</th>
+<th align="right">收入占比</th>
+<th align="right">毛利率</th>
+<th align="right">毛利率变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>高强高导铜合金材料及制品</td>
+<td align="right">6.99 亿元</td>
+<td align="right">+18.24%</td>
+<td align="right">47.66%</td>
+<td align="right">22.24%</td>
+<td align="right">未获取到</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>中高压电接触材料及制品</td>
+<td align="right">3.66 亿元</td>
+<td align="right">+9.50%</td>
+<td align="right">24.99%</td>
+<td align="right">29.45%</td>
+<td align="right">未获取到</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>高性能金属铬粉</td>
+<td align="right">0.74 亿元</td>
+<td align="right">+73.76%</td>
+<td align="right">5.03%</td>
+<td align="right">18.01%</td>
+<td align="right">未获取到</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>医疗影像零组件</td>
+<td align="right">0.88 亿元</td>
+<td align="right">+46.43%</td>
+<td align="right">6.01%</td>
+<td align="right">35.75%</td>
+<td align="right">未获取到</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>光模块芯片基座 / 壳体</td>
+<td align="right">0.74 亿元</td>
+<td align="right">+208.29%</td>
+<td align="right">5.03%</td>
+<td align="right">38.39%</td>
+<td align="right">未获取到</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>其他</td>
+<td align="right">1.65 亿元</td>
+<td align="right">-13.96%</td>
+<td align="right">11.28%</td>
+<td align="right">22.15%</td>
+<td align="right">未获取到</td>
+<td>2025 年报</td>
+</tr>
+</tbody></table>
+<ul>
+<li>披露口径变化：本次未获取到分产品可比口径变化说明。</li>
+<li>来源冲突：未发现关键分部收入冲突。</li>
+<li>采信理由：以上取自 2025 年报公开摘要。</li>
+<li>我的判断：增长质量比一般材料公司更好，因为光模块、医疗影像、商业航天相关能力能带来更高毛利和主题估值；但收入主体仍是铜合金材料和电接触材料，估值不能完全按商业航天期权定价。</li>
+</ul>
+<h2 id="section-6">6. 五年财务历史</h2>
+
+<table>
+<thead>
+<tr>
+<th>财年</th>
+<th align="right">营收</th>
+<th align="right">毛利率</th>
+<th align="right">经营现金流</th>
+<th align="right">资本开支</th>
+<th align="right">自由现金流</th>
+<th align="right">ROIC / 代理值</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td align="right">9.68 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">0.73 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">ROE 未完整摘录</td>
+<td>年报摘要</td>
+</tr>
+<tr>
+<td>2022</td>
+<td align="right">9.94 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">0.51 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">ROE 8.92%</td>
+<td>年报摘要</td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">11.80 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">1.69 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">ROE 9.58%</td>
+<td>年报摘要</td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">13.30 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">1.70 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">ROE 10.44%</td>
+<td>年报摘要</td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">15.72 亿元</td>
+<td align="right">主营 25.44%</td>
+<td align="right">1.47 亿元</td>
+<td align="right">未获取到合并口径</td>
+<td align="right">未获取到</td>
+<td align="right">ROE 10.98%</td>
+<td>2025 年报</td>
+</tr>
+</tbody></table>
+<ul>
+<li>自由现金流口径：自由现金流 = 经营现金流 - 购建长期资产支付现金；本次未获取到完整合并口径资本开支序列，因此不伪造五年自由现金流。</li>
+<li>ROIC 口径：本次未获取到完整投入资本计算所需细项，使用 ROE 作为资本回报代理值。</li>
+<li>一次性项目和会计变化：2025 年股权激励、利润分配和研发投入提升需要后续结合费用化 / 资本化情况复核。</li>
+<li>我的判断：财务趋势是持续改善的，收入从 2021 年 9.68 亿元增至 2025 年 15.72 亿元，归母净利润从 0.63 亿元增至 1.48 亿元；但按 28.42 元价格倒推的估值，已经远高于这条改善曲线本身。</li>
+</ul>
+<h2 id="section-7">7. 最新季度与管理层指引</h2>
+
+<h3>7.1 最新季度（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">本期</th>
+<th align="right">同比 / 变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营收</td>
+<td align="right">4.43 亿元</td>
+<td align="right">+28.75%</td>
+<td>2026Q1</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>2026Q1</td>
+</tr>
+<tr>
+<td>净利润</td>
+<td align="right">0.43 亿元</td>
+<td align="right">+33.24%</td>
+<td>2026Q1</td>
+</tr>
+<tr>
+<td>调整后利润</td>
+<td align="right">扣非 0.40 亿元</td>
+<td align="right">+45.91%</td>
+<td>2026Q1</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">-2.32 亿元</td>
+<td align="right">上年同期 -0.33 亿元，降幅扩大</td>
+<td>2026Q1</td>
+</tr>
+<tr>
+<td>订单 / 储备</td>
+<td align="right">未获取到量化订单</td>
+<td align="right">年报披露商业航天客户和研发项目</td>
+<td>2025 年报</td>
+</tr>
+</tbody></table>
+<h3>7.2 管理层指引（事实）</h3>
+<ul>
+<li>正式量化指引：未获取到。</li>
+<li>定性展望：商业航天推力室内壁、重型火箭发动机、增材制造、光模块芯片基座 / 壳体、医疗影像零组件等方向为业务拓展重点。</li>
+<li>未获取到：未获取到 2026 全年收入、利润、订单和资本开支量化指引。</li>
+</ul>
+<h3>7.3 我的判断</h3>
+<ul>
+<li>我的判断：2026Q1 收入、归母净利润、扣非净利润同步增长，基本面边际改善；但经营现金流大幅为负，意味着应收、存货、预付或项目交付节奏仍需跟踪。</li>
+<li>我的判断：指引可信度中等。研发和客户验证是真实线索，但商业航天收入未单列，无法判断利润贡献节奏。</li>
+<li>下一验证节点：2026 半年报；重点看经营现金流是否修复、商业航天相关订单是否披露、光模块和医疗影像高毛利业务是否延续高增。</li>
+</ul>
+<h2 id="section-8">8. 近三个月新闻与催化剂</h2>
+
+<table>
+<thead>
+<tr>
+<th>发生日</th>
+<th>事件</th>
+<th>影响变量</th>
+<th>财务传导</th>
+<th>是否已反映</th>
+<th>验证节点</th>
+<th>失效条件</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-07-21</td>
+<td>2025 年年度权益分派除权除息，每股派 0.04 元</td>
+<td>股息、股价除权</td>
+<td>股息率较低，对估值支撑有限</td>
+<td>已反映</td>
+<td>除权后价格走势</td>
+<td>股息不能解释高估值</td>
+<td>新浪公告</td>
+</tr>
+<tr>
+<td>2026-07-08</td>
+<td>限制性股票授予登记完成</td>
+<td>激励、费用、员工绑定</td>
+<td>若业绩目标合理，可改善执行；也可能带来摊销费用</td>
+<td>部分反映</td>
+<td>激励计划考核目标</td>
+<td>激励无法转化为利润增长</td>
+<td>公告</td>
+</tr>
+<tr>
+<td>2026-07-07</td>
+<td>股票期权首次授予登记完成，数量 2,395.70 万份，912 人</td>
+<td>激励覆盖面</td>
+<td>可能增强组织执行力</td>
+<td>部分反映</td>
+<td>行权条件、费用摊销</td>
+<td>股权激励稀释但业绩不兑现</td>
+<td>公告</td>
+</tr>
+<tr>
+<td>2025 年报</td>
+<td>商业航天推力室内壁及多项研发项目披露</td>
+<td>商业航天收入期权</td>
+<td>试车 / 发射验证走向批产后进入收入利润</td>
+<td>市场高度交易</td>
+<td>2026 半年报 / 订单公告</td>
+<td>只停留在验证和研发，不形成收入</td>
+<td>年报</td>
+</tr>
+</tbody></table>
+<h2 id="section-9">9. 多头与空头论据</h2>
+
+<h3>9.1 多头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>商业航天核心材料卡位</td>
+<td>年报披露推力室内壁、蓝箭航天等客户、多项火箭发动机项目</td>
+<td>商业航天收入单列、订单公告、毛利率提升</td>
+<td>相关收入长期不披露或规模过小</td>
+</tr>
+<tr>
+<td>多业务高附加值方向增长</td>
+<td>光模块芯片基座 / 壳体收入 +208.29%，医疗影像零组件 +46.43%</td>
+<td>2026 半年报延续高增</td>
+<td>2025 高增只是低基数或一次性订单</td>
+</tr>
+<tr>
+<td>财务趋势改善</td>
+<td>2021-2025 营收和净利润持续增长，2026Q1 扣非 +45.91%</td>
+<td>利润增速持续高于收入增速</td>
+<td>现金流恶化吞噬利润质量</td>
+</tr>
+<tr>
+<td>研发投入提升</td>
+<td>2025 研发投入 +36.09%，2026Q1 +36.74%</td>
+<td>研发转化为量产产品</td>
+<td>研发费用上升但收入不兑现</td>
+</tr>
+</tbody></table>
+<h3>9.2 空头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值过高</td>
+<td>2026-07-22 PE 约 137.87 倍，PB 约 10.99 倍</td>
+<td>利润连续高增并支撑估值</td>
+<td>股价回落或利润爆发式增长</td>
+</tr>
+<tr>
+<td>商业航天收入未单列</td>
+<td>年报有项目和客户，但未见单独收入占比</td>
+<td>收入披露和订单量化</td>
+<td>公司披露明确规模并持续增长</td>
+</tr>
+<tr>
+<td>经营现金流恶化</td>
+<td>2026Q1 经营现金流 -2.32 亿元</td>
+<td>半年报现金流修复</td>
+<td>现金流转正且应收 / 存货可控</td>
+</tr>
+<tr>
+<td>情绪波动剧烈</td>
+<td>2026 年 7 月多日大幅涨跌，52 周区间 13.60-56.17</td>
+<td>换手降温、价格企稳</td>
+<td>高波动继续，资金撤退</td>
+</tr>
+</tbody></table>
+<h2 id="section-10">10. 估值</h2>
+
+<h3>10.1 相对估值</h3>
+<table>
+<thead>
+<tr>
+<th>公司</th>
+<th>业务可比性</th>
+<th align="right">增长</th>
+<th align="right">利润率</th>
+<th align="right">PE</th>
+<th align="right">PB</th>
+<th align="right">EV/EBITDA</th>
+<th>数据时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>斯瑞新材</td>
+<td>高端铜合金、商业航天材料、光模块壳体</td>
+<td align="right">中高</td>
+<td align="right">主营毛利率 25.44%</td>
+<td align="right">约 137.87</td>
+<td align="right">约 10.99</td>
+<td align="right">未获取到</td>
+<td>2026-07-22</td>
+</tr>
+<tr>
+<td>有色金属加工行业中位</td>
+<td>行业参考</td>
+<td align="right">中</td>
+<td align="right">未获取到</td>
+<td align="right">约 35.69</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>2026-07-22</td>
+</tr>
+<tr>
+<td>商业航天上游材料可比</td>
+<td>主题参考</td>
+<td align="right">高</td>
+<td align="right">差异大</td>
+<td align="right">未获取到完整样本</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<ul>
+<li>选取理由：斯瑞新材既有材料制造属性，也有商业航天和高端零组件期权，因此相对估值需要同时参考有色加工中位和高成长材料公司的溢价。</li>
+<li>正常化调整：若用 2026Q1 年化净利润约 1.72 亿元，对应现价市值约 222 亿元，仍约 129 倍 PE；若用 TTM 净利润约 1.58 亿元，对应约 140 倍 PE。</li>
+<li>对应每股价值区间：按 2026 年可能净利润 1.7-2.0 亿元、合理 50-80 倍 PE，对应股权价值 85-160 亿元，每股约 11-20 元；若商业航天订单明确放量，可给 80-100 倍阶段性上沿，对应约 18-26 元。</li>
+<li>我的判断：相对估值显示当前 28.42 元已经透支商业航天高弹性预期。</li>
+</ul>
+<h3>10.2 DCF</h3>
+<h4>关键假设</h4>
+<table>
+<thead>
+<tr>
+<th>假设</th>
+<th align="right">悲观</th>
+<th align="right">基准</th>
+<th align="right">乐观</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>收入增长</td>
+<td align="right">8%</td>
+<td align="right">15%</td>
+<td align="right">22%</td>
+<td>2021-2025 稳步增长，2026Q1 +28.75%</td>
+</tr>
+<tr>
+<td>经营利润率</td>
+<td align="right">9%</td>
+<td align="right">12%</td>
+<td align="right">15%</td>
+<td>主营毛利率 25.44%，高毛利业务占比提升是关键</td>
+</tr>
+<tr>
+<td>税率</td>
+<td align="right">15%</td>
+<td align="right">15%</td>
+<td align="right">15%</td>
+<td>高新技术企业假设，需复核</td>
+</tr>
+<tr>
+<td>折旧摊销</td>
+<td align="right">收入 4%</td>
+<td align="right">收入 4%</td>
+<td align="right">收入 4%</td>
+<td>制造业资本强度估算</td>
+</tr>
+<tr>
+<td>资本开支</td>
+<td align="right">收入 8%</td>
+<td align="right">收入 9%</td>
+<td align="right">收入 10%</td>
+<td>扩产、研发和新业务建设</td>
+</tr>
+<tr>
+<td>营运资本变化</td>
+<td align="right">偏高</td>
+<td align="right">中</td>
+<td align="right">高增长占用</td>
+<td>Q1 经营现金流为负提示占用</td>
+</tr>
+<tr>
+<td>WACC</td>
+<td align="right">10.5%</td>
+<td align="right">10.0%</td>
+<td align="right">9.5%</td>
+<td>科创板高波动成长股</td>
+</tr>
+<tr>
+<td>永续增长率</td>
+<td align="right">2.0%</td>
+<td align="right">2.5%</td>
+<td align="right">3.0%</td>
+<td>高端材料长期增长但不能过高</td>
+</tr>
+</tbody></table>
+<h4>估值结果</h4>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">企业价值</th>
+<th align="right">净债务</th>
+<th align="right">股权价值</th>
+<th align="right">每股价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观</td>
+<td align="right">85-105 亿元</td>
+<td align="right">未精确获取</td>
+<td align="right">80-100 亿元</td>
+<td align="right">10-13 元</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">125-160 亿元</td>
+<td align="right">未精确获取</td>
+<td align="right">115-150 亿元</td>
+<td align="right">15-19 元</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">190-240 亿元</td>
+<td align="right">未精确获取</td>
+<td align="right">180-225 亿元</td>
+<td align="right">23-29 元</td>
+</tr>
+</tbody></table>
+<h4>敏感性分析</h4>
+<table>
+<thead>
+<tr>
+<th>WACC \ 永续增长率</th>
+<th align="right">2.0%</th>
+<th align="right">2.5%</th>
+<th align="right">3.0%</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>9.5%</td>
+<td align="right">18 元</td>
+<td align="right">20 元</td>
+<td align="right">23 元</td>
+</tr>
+<tr>
+<td>10.0%</td>
+<td align="right">15 元</td>
+<td align="right">17 元</td>
+<td align="right">20 元</td>
+</tr>
+<tr>
+<td>10.5%</td>
+<td align="right">13 元</td>
+<td align="right">15 元</td>
+<td align="right">17 元</td>
+</tr>
+</tbody></table>
+<h4>反向 DCF</h4>
+<ul>
+<li>当前价格隐含的收入增长 / 终值利润率：28.42 元大致要求公司未来数年维持 20% 以上收入增速，并显著提升自由现金流转化率，同时商业航天等高毛利业务成为主要利润弹性来源。</li>
+<li>与历史和行业相比是否可实现：不是不可能，但需要商业航天从研发验证进入批量收入，同时光模块和医疗影像继续高增；证据尚未充分。</li>
+<li>我的判断：当前价格接近乐观情景，需要后续业绩强验证；缺少安全边际。</li>
+</ul>
+<h3>10.3 行业特定估值</h3>
+<ul>
+<li>方法：分部加总。</li>
+<li>适用理由：公司同时有成熟材料业务、光模块 / 医疗影像高毛利业务和商业航天期权，用单一 PE 容易失真。</li>
+<li>关键假设：<ul>
+<li>成熟铜合金与电接触材料：按 25-35 倍归属利润；</li>
+<li>光模块和医疗影像高毛利零组件：按 50-70 倍归属利润；</li>
+<li>商业航天推力室内壁：在未单列收入前按期权价值 30-60 亿元；</li>
+<li>高性能金属铬粉和其他业务：按较低倍数处理。</li>
+</ul>
+</li>
+<li>对应每股价值区间：14-22 元 / 股。</li>
+<li>局限性：商业航天期权价值对订单、客户验证、火箭发射节奏高度敏感。</li>
+</ul>
+<h3>10.4 估值交叉验证</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="right">每股价值区间</th>
+<th align="right">权重</th>
+<th>采信理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>相对估值</td>
+<td align="right">11-26 元</td>
+<td align="right">35%</td>
+<td>可反映市场给成长材料的倍数，但受主题波动影响大</td>
+</tr>
+<tr>
+<td>DCF</td>
+<td align="right">13-23 元</td>
+<td align="right">35%</td>
+<td>能约束现金流和资本开支，但输入缺口较多</td>
+</tr>
+<tr>
+<td>行业特定估值</td>
+<td align="right">14-22 元</td>
+<td align="right">30%</td>
+<td>更适合多业务和商业航天期权，但商业航天收入未单列</td>
+</tr>
+</tbody></table>
+<ul>
+<li>综合估值区间：14-22 元 / 股。</li>
+<li>相对现价上行 / 下行空间：相对 28.42 元，约 -51% 至 -23%。</li>
+<li>为什么不机械平均：商业航天期权的上限取决于订单兑现，成熟材料业务给现金流底座，二者确定性不同，不能用同一个倍数机械平均。</li>
+</ul>
+<h2 id="section-11">11. 冰冰小美框架判断</h2>
+
+<h3>11.1 三要素状态总表</h3>
+<ul>
+<li>三要素结论来源：<code>bbxm-three-factor-analysis</code></li>
+<li>分析对象与层级：斯瑞新材，A 股科创板个股。</li>
+<li>分析截止时间：2026-07-23 11:29。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>状态</th>
+<th>核心证据</th>
+<th>核心反证</th>
+<th>失效条件</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>有利</td>
+<td>商业航天推力室内壁、高端铜合金、光模块和医疗影像零组件均有增长证据</td>
+<td>商业航天收入未单列，成熟材料仍是收入主体</td>
+<td>商业航天长期不能转化为订单和利润</td>
+<td>中</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>不利</td>
+<td>7 月高波动、从 52 周高位大幅回落、估值仍高</td>
+<td>股价已较 52 周高点回落，仍有主题交易资金</td>
+<td>换手降温后基本面继续兑现</td>
+<td>中</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>不利</td>
+<td>多日大幅涨跌，商业航天叙事已被市场充分交易</td>
+<td>价格回落可能释放部分风险</td>
+<td>价格企稳且半年报兑现高增</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h4>前六步证据映射</h4>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>前六步证据来源</th>
+<th>已验证证据</th>
+<th>反证与缺口</th>
+<th>分析状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>第 4—7 章；第 2 章来源矩阵对应行</td>
+<td>商业航天客户、推力室内壁研发、高端分部增长</td>
+<td>商业航天收入和利润未单列</td>
+<td>可判断</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>Step 2 交易数据；第 8—9 章；第 2 章来源矩阵对应行</td>
+<td>7 月波动、换手、估值、公告催化</td>
+<td>融资余额、ETF / 机构代理未获取到</td>
+<td>可判断但置信度中</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>第 3、8、9 章；第 2 章来源矩阵对应行</td>
+<td>52 周高低、近期连续大幅波动、主题交易</td>
+<td>未获取到完整投资者结构</td>
+<td>可判断</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Step 6 估值约束：估值不强行归入三要素；在第 11.6 节作为行动价格约束。</li>
+<li>补采证据回填：本次补采的行情、公告和分部数据已写入第 2—10 章。</li>
+</ul>
+<h3>11.2 竞争格局与比较优势</h3>
+<h4>前文证据引用</h4>
+<ul>
+<li><p>商业模式与竞争底稿：引用第 4 章。</p>
+</li>
+<li><p>分部与资本回报证据：引用第 5—7 章。</p>
+</li>
+<li><p>相关来源状态：引用第 2 章来源矩阵。</p>
+</li>
+<li><p>分析对象与竞争层级：商业航天发动机材料与高端铜合金材料供应链中的科创板公司。</p>
+</li>
+<li><p>当前状态：有利。</p>
+</li>
+<li><p>证据充分性：部分充分；产业方向和产品证据充分，收入占比证据不足。</p>
+</li>
+<li><p>多产业位置景气度排序：第 4 章排序首位为商业航天液体火箭发动机材料与零组件，变化最快的是光模块芯片基座 / 壳体。</p>
+</li>
+<li><p>产业链位置与利润池：商业航天是上游关键材料和发动机零组件；光模块和医疗影像是高毛利精密零组件；成熟铜合金是收入底座。</p>
+</li>
+<li><p>核心比较优势：高端铜合金材料工艺、客户验证、研发项目积累。</p>
+</li>
+<li><p>竞争对手与替代方案：其他高端铜合金、火箭发动机零件、医疗影像零组件和光通信封装材料厂商。</p>
+</li>
+<li><p>份额、定价权、客户黏性与进入壁垒：客户验证和可靠性要求形成壁垒，但份额和单价未完整获取。</p>
+</li>
+<li><p>竞争优势转化为订单、利润和现金回报的情况：收入和利润改善已验证，商业航天单独兑现未充分验证。</p>
+</li>
+<li><p>当前决策含义：方向值得跟踪，但不在高估值高波动阶段追买。</p>
+</li>
+</ul>
+<h4>证据</h4>
+<ul>
+<li>年报披露商业航天推力室内壁客户和多个火箭发动机研发项目。</li>
+<li>2025 年光模块芯片基座 / 壳体收入同比 +208.29%，医疗影像零组件同比 +46.43%。</li>
+<li>2026Q1 营收 +28.75%，扣非净利润 +45.91%。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>2026Q1 经营现金流 -2.32 亿元。</li>
+<li>商业航天收入未单列，无法确认主题利润占比。</li>
+<li>当前估值远高于行业中位。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>商业航天订单不放量；</li>
+<li>光模块和医疗影像高增不可持续；</li>
+<li>经营现金流长期恶化。</li>
+</ul>
+<h3>11.3 流动性辩证分析</h3>
+<ul>
+<li>当前状态：不利。</li>
+<li>证据充分性：不充分但可形成方向判断；已获取价格、换手和波动，未获取融资余额、ETF / 机构代理完整数据。</li>
+</ul>
+<h4>宏观流动性</h4>
+<ul>
+<li>总量环境与边际变化：本报告未展开宏观利率、汇率和央行操作全量数据。</li>
+<li>对本标的的传导：高估值科创成长股对流动性折现率较敏感。</li>
+</ul>
+<h4>中观流动性</h4>
+<ul>
+<li>行业 / 主题 / ETF / 机构配置变化：商业航天主题热度较高，但未获取到 ETF 或机构持续配置的直接证据。</li>
+<li>对本标的的传导：主题资金可能推动溢价，但也会提高回撤弹性。</li>
+</ul>
+<h4>微观流动性</h4>
+<ul>
+<li>成交额、换手率、量价结构、融资和大单：2026-07-22 换手率 2.30%、成交额 5.09 亿元；7 月多日成交量放大并伴随大幅涨跌。</li>
+<li>连续窗口与相对强弱：7 月初至 7 月中旬波动剧烈，从 52 周高点附近大幅回落。</li>
+</ul>
+<h4>资金来源分类</h4>
+<table>
+<thead>
+<tr>
+<th>资金来源</th>
+<th>当前状态</th>
+<th>连续窗口证据</th>
+<th>对价格的含义</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>长期配置资金</td>
+<td>证据不足</td>
+<td>未获取到机构持仓增量</td>
+<td>不能确认长期承接</td>
+<td>低</td>
+</tr>
+<tr>
+<td>趋势 / 交易资金</td>
+<td>活跃但不稳定</td>
+<td>7 月多日大幅涨跌和高成交</td>
+<td>放大波动，非稳定买点</td>
+<td>中</td>
+</tr>
+<tr>
+<td>产业资本 / 内部人</td>
+<td>股权激励进行中</td>
+<td>2026 年股权激励公告</td>
+<td>有组织绑定，但不等同买入</td>
+<td>中低</td>
+</tr>
+</tbody></table>
+<h4>供给与抛压</h4>
+<table>
+<thead>
+<tr>
+<th>供给来源</th>
+<th>当前状态</th>
+<th>时间窗口</th>
+<th>影响</th>
+<th>验证方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>解禁 / 减持</td>
+<td>未获取到最新减持压力</td>
+<td>近三个月</td>
+<td>缺口</td>
+<td>后续公告</td>
+</tr>
+<tr>
+<td>再融资 / 可转债</td>
+<td>未获取到</td>
+<td>近三个月</td>
+<td>缺口</td>
+<td>后续公告</td>
+</tr>
+<tr>
+<td>获利盘 / 套牢盘</td>
+<td>高</td>
+<td>52 周区间 13.60-56.17，现价 28.42</td>
+<td>高位获利盘与回落套牢盘并存</td>
+<td>价格与换手</td>
+</tr>
+</tbody></table>
+<h4>最低数据检查</h4>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>当前窗口</th>
+<th>对比窗口</th>
+<th>结论</th>
+<th>数据源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>成交额与换手率</td>
+<td>2026-07-22 成交额 5.09 亿元、换手 2.30%</td>
+<td>7 月多日高波动</td>
+<td>交易活跃但不稳</td>
+<td>中财网 / Investing</td>
+</tr>
+<tr>
+<td>融资余额与融资买入</td>
+<td>未获取到</td>
+<td>未获取到</td>
+<td>缺口</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>主力 / 大单资金</td>
+<td>未获取到 7 月完整资金流</td>
+<td>历史龙虎榜非当前</td>
+<td>缺口</td>
+<td>同花顺</td>
+</tr>
+<tr>
+<td>ETF / 北向 / 机构代理指标</td>
+<td>未获取到</td>
+<td>未获取到</td>
+<td>缺口</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<h4>证据</h4>
+<ul>
+<li>近期股价从 52 周高位明显回落，且 7 月出现连续大幅波动。</li>
+<li>当前估值仍高，承接需要持续增量资金。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>股价已经较 52 周高点 56.17 元回落约一半，部分风险已释放。</li>
+<li>商业航天主题仍有产业催化。</li>
+</ul>
+<h4>退出路径</h4>
+<ul>
+<li>资金流入如何退出：若半年报无法兑现商业航天或高毛利分部增长，主题资金可能通过反弹和高换手退出。</li>
+<li>持续性被证伪的信号：缩量阴跌、利好不涨、估值仍高但利润预期下修。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>成交降温后价格企稳；</li>
+<li>经营现金流修复；</li>
+<li>商业航天订单公告验证。</li>
+</ul>
+<h3>11.4 情绪位置变化</h3>
+<ul>
+<li>当前状态：不利。</li>
+<li>证据充分性：部分充分；交易波动和价格区间证据充分，投资者结构证据不足。</li>
+<li>当前所处阶段：拥挤后退潮 / 修复观察。</li>
+<li>个股相对板块与指数的强弱：未获取到完整相对指数序列，但个股 7 月波动明显高于一般宽基。</li>
+<li>催化兑现后的价格反馈：权益分派和激励公告期间，股价仍剧烈波动，说明市场主要交易主题和估值，而非分红本身。</li>
+</ul>
+<h4>证据</h4>
+<ul>
+<li>52 周最高 56.17 元，当前 28.42 元，回撤幅度大。</li>
+<li>2026 年 7 月多日涨跌幅超过 7%-13%，显示情绪剧烈。</li>
+<li>当前价格仍高于可见卖方目标价均值 22.41 元。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>回撤后可能进入风险释放阶段。</li>
+<li>若半年报兑现高增，情绪可能从退潮转为有锚修复。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>价格稳定在 20-24 元并成交降温；</li>
+<li>高毛利业务继续兑现；</li>
+<li>商业航天订单从题材变成业绩。</li>
+</ul>
+<h3>11.5 综合状态与主导矛盾</h3>
+<ul>
+<li>三要素综合判断：尚未形成有利共振。</li>
+<li>主导要素：竞争格局有利。</li>
+<li>拖累要素：流动性、情绪位置和估值。</li>
+<li>主导矛盾：产业位置好，但交易价格和情绪位置已经先行透支。</li>
+<li>下一验证节点：2026 半年报。</li>
+<li>状态切换条件：商业航天或高毛利分部收入明确放量、现金流修复、股价回到估值可承接区。</li>
+</ul>
+<h3>11.6 三要素行动映射</h3>
+<table>
+<thead>
+<tr>
+<th>资金属性</th>
+<th>当前动作</th>
+<th>允许升级的条件</th>
+<th>降级 / 退出条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>新增现金</td>
+<td>observe / wait</td>
+<td>股价回到 14-18 元，或半年报证明利润和现金流同步改善</td>
+<td>股价反弹但业绩无验证，继续观望</td>
+</tr>
+<tr>
+<td>已有持仓</td>
+<td>review / reduce</td>
+<td>若成本低且仓位小，可等半年报验证</td>
+<td>若价格高于 22 元且现金流继续恶化，反弹降仓</td>
+</tr>
+</tbody></table>
+<h3>11.7 三要素数据缺口与来源</h3>
+<table>
+<thead>
+<tr>
+<th>数据缺口</th>
+<th>已检查来源</th>
+<th>对哪一要素有影响</th>
+<th>对结论的影响</th>
+<th>补齐方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>融资余额、融资买入</td>
+<td>公开网页未取得</td>
+<td>流动性</td>
+<td>降低置信度</td>
+<td>后续用交易所 / 东方财富补齐</td>
+</tr>
+<tr>
+<td>ETF / 机构配置代理</td>
+<td>未获取到</td>
+<td>流动性</td>
+<td>不能确认长期资金承接</td>
+<td>基金持仓和 ETF 份额</td>
+</tr>
+<tr>
+<td>商业航天收入占比</td>
+<td>年报未单列</td>
+<td>竞争格局</td>
+<td>不能给纯商业航天估值</td>
+<td>公司公告 / 调研纪要</td>
+</tr>
+<tr>
+<td>相对板块强弱</td>
+<td>未完整获取</td>
+<td>情绪位置</td>
+<td>降低情绪判断精度</td>
+<td>指数对比数据</td>
+</tr>
+</tbody></table>
+<ul>
+<li>分析口径与截止时间：截至 2026-07-23 11:29。</li>
+<li>主要数据来源：法定财报摘录、Investing.com、中财网、同花顺、富途牛牛、公告页。</li>
+<li>数据缺口导致的置信度调整：综合结论置信度为中。</li>
+</ul>
+<h3>11.8 风险方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>风险类型</th>
+<th>前一窗口</th>
+<th>当前窗口</th>
+<th>方向证据</th>
+<th>反证</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本面风险</td>
+<td>2025 年收入利润改善</td>
+<td>2026Q1 利润继续改善但现金流转负扩大</td>
+<td>现金流质量风险增强</td>
+<td>利润增长仍好</td>
+</tr>
+<tr>
+<td>估值风险</td>
+<td>主题升温阶段</td>
+<td>当前 PE 约 137.87，PB 约 10.99</td>
+<td>估值风险高</td>
+<td>股价已较高点回落</td>
+</tr>
+<tr>
+<td>情绪风险</td>
+<td>主题上行</td>
+<td>7 月高波动和快速回撤</td>
+<td>情绪退潮风险增强</td>
+<td>回撤后部分释放</td>
+</tr>
+<tr>
+<td>流动性风险</td>
+<td>成交活跃推升</td>
+<td>高换手高波动但承接不稳</td>
+<td>交易资金不稳定</td>
+<td>仍有主题资金</td>
+</tr>
+</tbody></table>
+<h3>11.9 风险传导链</h3>
+<ul>
+<li>信息源头：商业航天主题溢价与公司基本面改善。</li>
+<li>核心变量：商业航天订单兑现速度、经营现金流、估值倍数、交易资金承接。</li>
+<li>传导机制：主题预期推高估值 → 业绩兑现需要时间 → 若现金流和订单不跟上，估值回落 → 高波动放大亏钱效应。</li>
+<li>影响对象：斯瑞新材股价、持仓者风险承受力、商业航天材料链估值锚。</li>
+<li>市场行为变化：7 月高波动、从 52 周高点大幅回落。</li>
+<li>风险方向：风险增强。</li>
+<li>验证指标：半年报现金流、商业航天收入、分部毛利率、换手率、股价相对 22 元目标价位置。</li>
+<li>失效条件：业绩和现金流强兑现，价格企稳且估值回到可解释区间。</li>
+</ul>
+<h3>11.10 风险方向结论</h3>
+<ul>
+<li>风险方向结论：风险增强。</li>
+<li>判断依据：估值仍高、7 月情绪波动大、经营现金流在 2026Q1 明显转弱。</li>
+<li>反证：公司收入、利润、研发投入均在改善，且股价已较 52 周高点明显回落。</li>
+<li>未获取到：融资、ETF / 机构代理、商业航天收入占比。</li>
+<li>置信度：中。</li>
+</ul>
+<h3>11.11 四层方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>边际改善 / 无明显变化 / 边际恶化 / 未获取到</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观</td>
+<td>未获取到</td>
+<td>本报告未完整展开宏观流动性</td>
+</tr>
+<tr>
+<td>中观</td>
+<td>边际改善</td>
+<td>商业航天方向属新兴产业，产业政策和客户验证方向有利</td>
+</tr>
+<tr>
+<td>微观</td>
+<td>分化</td>
+<td>利润改善，但经营现金流恶化</td>
+</tr>
+<tr>
+<td>交易</td>
+<td>边际恶化</td>
+<td>7 月高波动、估值高、回撤大</td>
+</tr>
+</tbody></table>
+<h3>11.12 最终动作与约束</h3>
+<ul>
+<li>主动作：observe / wait。</li>
+<li>新增现金：不买。</li>
+<li>已有持仓：复盘成本和仓位；若成本较高，反弹中控制仓位。</li>
+<li>承接条件：14-18 元区域，或 2026 半年报证明商业航天 / 高毛利业务和现金流共同兑现。</li>
+<li>退出条件：高估值反弹但现金流不修复，或商业航天收入继续不能量化。</li>
+<li>下一复核节点：2026 半年报。</li>
+<li>我的判断：方向可以进入观察池，但“方向正确”不能直接转化为“当前买点”，现在的主要问题是价格和情绪位置。</li>
+</ul>
+<h2 id="section-12">12. 最终结论</h2>
+
+<ul>
+<li>估值结论：高估。</li>
+<li>操作结论：观望。</li>
+<li>综合估值区间：14-22 元 / 股。</li>
+<li>相对现价空间：相对 28.42 元，约 -51% 至 -23%。</li>
+<li>如果今天这是一笔现金，我会买它吗：不会。</li>
+<li>我的判断：斯瑞新材是商业航天产业链里值得持续跟踪的上游材料和发动机零组件公司，但当前估值需要更强业绩和现金流兑现。更舒服的策略是把它放进商业航天观察池，等半年报和价格位置共同给答案。</li>
+<li>结论失效条件：商业航天订单和高毛利业务大幅兑现，经营现金流恢复，或价格回落到 14-18 元并出现基本面反证。</li>
+</ul>
+<h2 id="section-13">13. 后续监控指标</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">当前值</th>
+<th>触发阈值 / 方向</th>
+<th>数据源</th>
+<th>复核频率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>经营现金流</td>
+<td align="right">2026Q1 -2.32 亿元</td>
+<td>半年报转正或明显改善</td>
+<td>半年报</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>商业航天收入 / 订单</td>
+<td align="right">未单列</td>
+<td>出现量化订单或收入占比披露</td>
+<td>公告 / 年报</td>
+<td>事件</td>
+</tr>
+<tr>
+<td>光模块芯片基座 / 壳体收入</td>
+<td align="right">2025 年 0.74 亿元，+208.29%</td>
+<td>继续高增且毛利率维持高位</td>
+<td>半年报 / 年报</td>
+<td>半年</td>
+</tr>
+<tr>
+<td>医疗影像零组件收入</td>
+<td align="right">2025 年 0.88 亿元，+46.43%</td>
+<td>继续高增</td>
+<td>半年报 / 年报</td>
+<td>半年</td>
+</tr>
+<tr>
+<td>估值</td>
+<td align="right">PE 约 137.87，PB 约 10.99</td>
+<td>回落至 50-80 倍可验证利润</td>
+<td>行情平台</td>
+<td>周度</td>
+</tr>
+<tr>
+<td>股价位置</td>
+<td align="right">28.42 元</td>
+<td>14-18 元重新评估，22 元以上谨慎</td>
+<td>行情平台</td>
+<td>日度</td>
+</tr>
+</tbody></table>
+<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
+
+<ul>
+<li>未获取到：完整合并口径五年资本开支、自由现金流、ROIC；商业航天收入和利润占比；融资余额；ETF / 机构代理指标；逐机构目标价和盈利预测假设；完整 YTD 表现。</li>
+<li>已检查来源：交易所披露摘要、上海证券报摘要、Investing.com、中财网、同花顺龙虎榜、富途评级摘要、公告页。</li>
+<li>对结论的影响：估值精度下降，因此本报告采用区间估值和反向 DCF，不给单点目标价；三要素流动性置信度为中而非高。</li>
+</ul>
+<h2 id="section-15">15. 来源清单</h2>
+
+<ol>
+<li><a href="../../../webpages/2026-07-23-斯瑞新材法定财报与经营数据快照.md">斯瑞新材法定财报与经营数据快照</a>，2026-07-23。</li>
+<li><a href="../../../webpages/2026-07-23-斯瑞新材行情估值与催化剂快照.md">斯瑞新材行情估值与催化剂快照</a>，2026-07-23。</li>
+<li>上海证券交易所公告披露页，<a href="https://www.sse.com.cn/">https://www.sse.com.cn/</a> ，访问时间 2026-07-23。</li>
+<li>新浪财经公告页，<a href="https://money.finance.sina.com.cn/">https://money.finance.sina.com.cn/</a> ，访问时间 2026-07-23。</li>
+<li>Investing.com 中文行情页，<a href="https://cn.investing.com/">https://cn.investing.com/</a> ，访问时间 2026-07-23。</li>
+<li>中财网行情页，<a href="https://quote.cfi.cn/">https://quote.cfi.cn/</a> ，访问时间 2026-07-23。</li>
+<li>同花顺龙虎榜公开页，<a href="https://data.10jqka.com.cn/">https://data.10jqka.com.cn/</a> ，访问时间 2026-07-23。</li>
+<li>富途牛牛分析师评级页，<a href="https://www.futunn.com/">https://www.futunn.com/</a> ，访问时间 2026-07-23。</li>
+</ol>
+<h2 id="section-16">16. 声明</h2>
+
+<p>本报告基于截至研究截止时间可取得的公开信息，不构成收益保证或个性化投资建议。真实交易前应重新核验价格、公告、流动性、持仓成本和个人风险承受能力。</p>
+</article>
+    </div>
+  </main>
+</body>
+</html>

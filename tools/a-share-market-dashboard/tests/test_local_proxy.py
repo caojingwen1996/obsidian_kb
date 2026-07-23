@@ -10,6 +10,7 @@ from urllib.parse import parse_qs, quote, urlparse
 from urllib.request import Request, urlopen
 
 from scripts.local_proxy import (
+    DEFAULT_PORT,
     RouteError,
     UpstreamError,
     build_upstream_url,
@@ -17,7 +18,9 @@ from scripts.local_proxy import (
     fetch_index_history,
     fetch_market_snapshot,
     fetch_stock_quote,
+    fetch_youzhiyouxing_temperature,
     parse_json_payload,
+    parse_youzhiyouxing_temperature,
 )
 
 
@@ -59,6 +62,9 @@ def running_server(fetcher):
 
 
 class RouteTests(unittest.TestCase):
+    def test_dashboard_uses_a_fixed_default_port(self):
+        self.assertEqual(DEFAULT_PORT, 49888)
+
     def test_builds_only_allowlisted_index_history_url(self):
         url = build_upstream_url(
             "/api/eastmoney-kline",
@@ -80,17 +86,19 @@ class RouteTests(unittest.TestCase):
             )
 
     def test_builds_only_allowlisted_stock_quote_url(self):
-        url = build_upstream_url(
-            "/api/stock-quote",
-            {"secid": ["1.600879"]},
-        )
+        for secid in ("0.000807", "0.002270", "1.600879"):
+            with self.subTest(secid=secid):
+                url = build_upstream_url(
+                    "/api/stock-quote",
+                    {"secid": [secid]},
+                )
 
-        parsed = urlparse(url)
-        query = parse_qs(parsed.query)
-        self.assertEqual(parsed.hostname, "push2.eastmoney.com")
-        self.assertEqual(parsed.path, "/api/qt/stock/get")
-        self.assertEqual(query["secid"], ["1.600879"])
-        self.assertEqual(query["fields"], ["f43,f57,f58,f60,f86,f170"])
+                parsed = urlparse(url)
+                query = parse_qs(parsed.query)
+                self.assertEqual(parsed.hostname, "push2.eastmoney.com")
+                self.assertEqual(parsed.path, "/api/qt/stock/get")
+                self.assertEqual(query["secid"], [secid])
+                self.assertEqual(query["fields"], ["f43,f57,f58,f60,f86,f170"])
 
         with self.assertRaises(RouteError):
             build_upstream_url(
@@ -107,6 +115,34 @@ class PayloadTests(unittest.TestCase):
     def test_decodes_gb18030_market_names(self):
         body = '{"name":"测试股份"}'.encode("gb18030")
         self.assertEqual(parse_json_payload(body, encoding="gb18030"), {"name": "测试股份"})
+
+    def test_parses_youzhiyouxing_market_temperature_page(self):
+        page = """
+        <main>
+          温度更新时间：2026年7月22日 20:00
+          全市场温度 使用说明 38° 中估 温度下降
+          当前市场处于 低估 40% 中估 38% 高估 22%
+        </main>
+        """
+
+        payload = parse_youzhiyouxing_temperature(page)
+
+        self.assertEqual(payload["proxySource"], "有知有行公开温度计")
+        self.assertEqual(payload["data"]["temperature"], 38)
+        self.assertEqual(payload["data"]["band"], "中估")
+        self.assertEqual(payload["data"]["trend"], "温度下降")
+        self.assertEqual(payload["data"]["updatedText"], "2026年7月22日 20:00")
+        self.assertEqual(payload["data"]["probabilities"], {"low": 40.0, "mid": 38.0, "high": 22.0})
+
+    def test_fetches_youzhiyouxing_market_temperature_through_injected_fetcher(self):
+        def fake_fetch(url, source):
+            self.assertEqual(source, "youzhiyouxing-temperature")
+            self.assertEqual(url, "https://youzhiyouxing.cn/data")
+            return "温度更新时间：2026年7月22日 20:00 全市场温度 38° 中估 温度下降 低估 40% 中估 38% 高估 22%"
+
+        payload = fetch_youzhiyouxing_temperature(fake_fetch)
+
+        self.assertEqual(payload["data"]["temperature"], 38)
 
     def test_index_history_falls_back_to_tencent_and_normalizes_rows(self):
         rows = [
@@ -257,6 +293,19 @@ class ServerTests(unittest.TestCase):
             )
         self.assertEqual(payload["data"]["klines"][0].split(",")[0], "2026-07-17")
 
+    def test_youzhiyouxing_temperature_api_returns_normalized_temperature(self):
+        def fake_fetch(url, source):
+            if url == "https://youzhiyouxing.cn/data":
+                return "温度更新时间：2026年7月22日 20:00 全市场温度 38° 中估 温度下降 低估 40% 中估 38% 高估 22%"
+            raise UpstreamError(source)
+
+        with running_server(fake_fetch) as base:
+            payload = read_json(f"{base}/api/youzhiyouxing-temperature")
+
+        self.assertEqual(payload["proxySource"], "有知有行公开温度计")
+        self.assertEqual(payload["data"]["temperature"], 38)
+        self.assertEqual(payload["data"]["band"], "中估")
+
     def test_stock_quote_api_returns_normalized_quote_and_rejects_other_stocks(self):
         with running_server(self.fake_fetch) as base:
             payload = read_json(f"{base}/api/stock-quote?secid=1.600879")
@@ -289,7 +338,18 @@ class ServerTests(unittest.TestCase):
                 "status": "持有",
                 "note": "跟踪订单兑现",
                 "updatedAt": 1784601060000,
-            }]
+            }],
+            "trackingItems": [{
+                "id": "tracking-1",
+                "code": "",
+                "name": "航天电子",
+                "status": "观察",
+                "thesis": "等待产业逻辑和资金状态重新共振",
+                "riskLine": "跌破复核线且资金继续转弱",
+                "nextAction": "复核",
+                "reviewCondition": "出现风险转弱证据",
+                "updatedAt": 1784601060000,
+            }],
         }
         with running_server(self.fake_fetch) as base:
             request = Request(
@@ -304,6 +364,46 @@ class ServerTests(unittest.TestCase):
 
         self.assertEqual(saved, payload)
         self.assertEqual(loaded, payload)
+
+    def test_portfolio_api_accepts_legacy_holdings_only_payload(self):
+        payload = {"holdings": []}
+        expected = {"holdings": [], "trackingItems": []}
+        with running_server(self.fake_fetch) as base:
+            request = Request(
+                f"{base}/api/portfolio",
+                data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+                headers={"Content-Type": "application/json"},
+                method="PUT",
+            )
+            with urlopen(request, timeout=3) as response:
+                saved = json.loads(response.read().decode("utf-8"))
+            loaded = read_json(f"{base}/api/portfolio")
+
+        self.assertEqual(saved, expected)
+        self.assertEqual(loaded, expected)
+
+    def test_portfolio_api_rejects_invalid_tracking_items(self):
+        payload = {
+            "holdings": [],
+            "trackingItems": [{
+                "id": "tracking-1",
+                "code": "600879",
+                "name": "航天电子",
+                "status": "随便买",
+                "updatedAt": 1784601060000,
+            }],
+        }
+        with running_server(self.fake_fetch) as base:
+            request = Request(
+                f"{base}/api/portfolio",
+                data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+                headers={"Content-Type": "application/json"},
+                method="PUT",
+            )
+            with self.assertRaises(HTTPError) as bad_request:
+                urlopen(request, timeout=3)
+
+        self.assertEqual(bad_request.exception.code, 400)
 
     def test_api_rejects_bad_parameters_and_sanitizes_upstream_errors(self):
         with running_server(self.fake_fetch) as base:

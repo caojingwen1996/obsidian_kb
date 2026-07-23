@@ -1,9 +1,29 @@
 ---
 name: bbxm-equity-research
 description: Use when the user asks for institutional-grade equity research, company deep dives, fair value, DCF, target prices, valuation ranges, HTML research reports, or a decision on whether a listed stock is worth buying.
+version: 1.0.0
 ---
 
 # 机构级个股研究
+
+## 0. 版本与更新日志
+
+当前版本：`1.0.0`
+
+### 更新日志
+
+#### 2026-07-23｜v1.0.0
+
+- 建立技能版本号与更新日志机制。
+- 将当前 `bbxm-equity-research` 技能内容作为后续迭代的基线版本，后续修改需同步记录版本号、日期和实际变更内容。
+
+### 维护规则
+
+- 每次修改本技能时，同步更新 frontmatter 中的 `version`。
+- 每次修改本技能时，在本节追加一条更新日志，记录日期、版本号和实际变更内容。
+- 版本号采用语义化版本：重大输出契约变化升主版本，新增能力或重要规则升次版本，文字修订或边界澄清升补丁版本。
+
+---
 
 ## 定位
 

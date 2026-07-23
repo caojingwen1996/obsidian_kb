@@ -1,0 +1,1027 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>火炬电子（603678.SH）机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+.daily-tracking { margin: 0 0 42px; padding: 22px; border: 1px solid #cbdade; border-radius: 16px; background: linear-gradient(135deg, #f3f8f9 0%, #fffaf0 100%); box-shadow: 0 12px 30px rgba(23, 50, 71, .07); }
+.daily-tracking-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
+.daily-tracking-kicker { margin: 0 0 4px; color: var(--teal); font-size: 12px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+.daily-tracking h2 { margin: 0; padding: 0; border: 0; font-size: 27px; }
+.daily-tracking-time { margin: 4px 0 0; color: var(--muted); font-size: 12px; text-align: right; }
+.tracking-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.tracking-grid + .tracking-grid { margin-top: 12px; }
+.tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
+.tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
+.tracking-value.bad { color: var(--danger); }
+.tracking-detail { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; }
+.tracking-status { display: inline-flex; margin-top: 10px; padding: 3px 8px; border-radius: 999px; color: #526b77; background: #edf2f4; font-size: 12px; font-weight: 700; }
+.tracking-status.live { color: #17604e; background: #dff3eb; }
+.tracking-status.error { color: var(--danger); background: var(--danger-bg); }
+.tracking-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; margin-top: 14px; padding-top: 13px; border-top: 1px solid #d5e0e3; color: #536d78; font-size: 13px; }
+.tracking-footer a { font-weight: 700; }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+  .tracking-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+  .daily-tracking-head { display: block; }
+  .daily-tracking-time { text-align: left; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .daily-tracking, .tracking-card { border: 1px solid #aebbc2; color: #102f43; background: #fff; box-shadow: none; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · 603678.SH</p>
+      <h1>火炬电子（603678.SH）机构级决策研报</h1>
+      <div class="hero-meta"><span>研究截止时间未获取</span><span>报告生成时间未获取</span><span>市场与币种未获取</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 研究对象定义</a>
+<a class="toc-link" href="#section-2">2. 资料来源与可靠性矩阵</a>
+<a class="toc-link" href="#section-3">3. 生意模式与收入拆解</a>
+<a class="toc-link" href="#section-4">4. 行业与产业链位置</a>
+<a class="toc-link" href="#section-5">5. 竞争格局与护城河</a>
+<a class="toc-link" href="#section-6">6. 管理层、治理与资本配置</a>
+<a class="toc-link" href="#section-7">7. 五年财务复盘</a>
+<a class="toc-link" href="#section-8">8. 最新季度与边际变化</a>
+<a class="toc-link" href="#section-9">9. 可比公司与相对估值</a>
+<a class="toc-link" href="#section-10">10. DCF 与反向估值</a>
+<a class="toc-link" href="#section-11">11. 分部估值与产业价值量</a>
+<a class="toc-link" href="#section-12">12. 冰冰小美三要素映射</a>
+<a class="toc-link" href="#section-13">13. 风险识别与风险方向</a>
+<a class="toc-link" href="#section-14">14. 催化剂与跟踪清单</a>
+<a class="toc-link" href="#section-15">15. 投资结论与操作方案</a>
+<a class="toc-link" href="#section-16">16. 附录：关键数据与来源链接</a></div></aside>
+      <article class="content"><!-- DAILY_TRACKING_START -->
+<section class="daily-tracking" id="daily-tracking" data-updated-at="未获取到" data-value-low="" data-value-high="">
+  <div class="daily-tracking-head">
+    <div><p class="daily-tracking-kicker">Daily decision tracker</p><h2>每日跟踪面板</h2></div>
+    <p class="daily-tracking-time">更新：未获取到<br>下次：收盘后 / 重大公告后</p>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">未获取到</p><p class="tracking-detail">风险方向：未获取到。下一验证点与失效条件见第 11—13 章。</p></div>
+    <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value">未获取到</p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
+    <div class="tracking-card" data-tracking-key="price-deviation"><p class="tracking-label">股价偏离度</p><p class="tracking-value" id="deviation-value">未获取到</p><p class="tracking-detail" id="deviation-detail">价格或动态价值区间无法解析，未计算偏离度。</p></div>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="daily-quote"><p class="tracking-label">每日同步价</p><p class="tracking-value">未获取到</p><p class="tracking-detail">这是报告内嵌的正式跟踪基准，离线打开仍可使用。</p><span class="tracking-status">每日快照</span></div>
+    <div class="tracking-card" data-tracking-key="intraday-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">未配置实时行情</p><p class="tracking-detail" id="intraday-detail">当前证券未配置本地行情白名单，继续使用每日正式快照。</p><span class="tracking-status" id="intraday-status">未配置</span></div>
+    <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">未获取到</p><p class="tracking-detail">估值：未获取到 · 未获取到；风险：未获取到；结论置信度：未获取到。</p><span class="tracking-status">未获取到</span></div>
+  </div>
+  <div class="tracking-footer"><span>资金状态：<strong>未获取到</strong> · 新增/已有动作：<strong>未获取到</strong></span><span>资金面分析：未单独生成</span></div>
+</section>
+<!-- DAILY_TRACKING_END -->
+<h2>报告封面与结论摘要</h2>
+<h3>0.1 标的身份</h3>
+<ul>
+<li>公司名称：福建火炬电子科技股份有限公司</li>
+<li>证券代码：603678.SH</li>
+<li>上市地点：上海证券交易所主板</li>
+<li>所属产业链：军工电子 / 高可靠电子元器件 / 陶瓷材料 / 电子元器件贸易</li>
+<li>报告日期：2026-07-23</li>
+<li>主要来源：<a href="../../../webpages/2026-07-23-火炬电子法定财报与经营数据快照.md">法定财报与经营数据快照</a>、<a href="../../../webpages/2026-07-23-火炬电子行情估值与催化剂快照.md">行情估值与催化剂快照</a></li>
+</ul>
+<h3>0.2 一句话结论</h3>
+<p>火炬电子的产业位置不是单纯“军工电子龙头”一句话可以概括：它一端是高毛利的自产高可靠元器件和陶瓷材料，一端是收入占比很高但毛利率较低的国际贸易业务；2025 年收入与利润恢复，但 2026Q1 出现“收入高增、利润大降、经营现金流继续转负”的背离，叠加 2026 年 6-7 月股价和龙虎榜剧烈波动，当前更像“产业逻辑有看点、交易价格已透支、现金流证伪尚未解除”的观察标的，而不是安全买点。</p>
+<h3>0.3 结论表</h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>当前判断</th>
+<th align="right">证据强度</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本面状态</td>
+<td>证据不足</td>
+<td align="right">中</td>
+<td>2025 年恢复，但 2026Q1 利润和经营现金流恶化，与收入高增背离。</td>
+</tr>
+<tr>
+<td>估值状态</td>
+<td>高估</td>
+<td align="right">中高</td>
+<td>2026-07-23 延时价 46.21 元，对应 TTM PE 约 85-90 倍，明显高于未验证现金流质量的基本面。</td>
+</tr>
+<tr>
+<td>风险方向</td>
+<td>风险增强</td>
+<td align="right">中</td>
+<td>高换手、异常波动、龙虎榜密集、Q1 利润下滑共同出现。</td>
+</tr>
+<tr>
+<td>资金状态</td>
+<td>结构性流出 / 高波动</td>
+<td align="right">中低</td>
+<td>公开资金流和龙虎榜显示强交易性，不足以证明长期资金稳定承接。</td>
+</tr>
+<tr>
+<td>BBXM 三要素</td>
+<td>未形成有利共振</td>
+<td align="right">中</td>
+<td>竞争格局有产业价值，但流动性和情绪位置不配合。</td>
+</tr>
+<tr>
+<td>最终动作</td>
+<td>观望 / 不新增现金</td>
+<td align="right">中高</td>
+<td>等半年报验证利润、现金流和自产业务订单质量。</td>
+</tr>
+</tbody></table>
+<h3>0.4 如果今天必须给一个操作答案</h3>
+<ul>
+<li>新开仓：不买。</li>
+<li>已持有且成本较高：把 34 元以上区域视为估值压力区，若 2026 半年报仍是利润承压、现金流未转正，应考虑逢反弹降低仓位。</li>
+<li>已持有且成本较低：可以继续观察，但不把 6-7 月的高波动当成“机构持续买入”的证据。</li>
+<li>重新评估触发点：2026 半年报、Q3 订单利润率、经营现金流、自产元器件收入占比、贸易业务毛利率。</li>
+</ul>
+<h2 id="section-1">1. 研究对象定义</h2>
+
+<h3>1.1 公司做什么</h3>
+<p>火炬电子主营电子元器件、新材料及相关产品的研发、生产、销售、检测及服务。按 2025 年收入结构，它不是纯自产元器件公司，而是“自产高可靠元器件 + 陶瓷材料 + 国际贸易”的组合体。</p>
+<h3>1.2 产业链位置</h3>
+<pre><code class="language-mermaid">flowchart LR
+  A[&quot;上游材料与设备&quot;] --&gt; B[&quot;陶瓷介质材料 / 电子陶瓷粉体&quot;]
+  B --&gt; C[&quot;MLCC / 高可靠被动元器件 / 微波芯片电容器 / 薄膜集成产品&quot;]
+  C --&gt; D[&quot;军工电子、航天、航空、通信、工业控制&quot;]
+  E[&quot;海外与国内元器件品牌&quot;] --&gt; F[&quot;国际贸易与分销&quot;]
+  F --&gt; D
+  H[&quot;火炬电子&quot;] --&gt; B
+  H --&gt; C
+  H --&gt; F
+</code></pre>
+<p>更直白地说，火炬电子在产业链里有三层身份：</p>
+<ol>
+<li>自产高可靠电子元器件供应商：这是利润池核心，2025 年元器件业务毛利率 54.29%。</li>
+<li>陶瓷材料供应商：规模较小，但毛利率高，2025 年陶瓷材料毛利率 55.78%。</li>
+<li>电子元器件贸易商 / 分销商：收入规模最大，2025 年国际贸易业务收入 25.31 亿元，占产品收入约 61.8%，但毛利率仅 10.12%。</li>
+</ol>
+<h3>1.3 研究边界</h3>
+<p>本报告回答的是“以当前公开信息和价格，火炬电子是否值得配置”。不把军工、商业航天、低空经济等主题标签直接等同于公司利润兑现；所有未能落到收入、毛利、现金流或订单质量的数据，均只作为待验证线索。</p>
+<h2 id="section-2">2. 资料来源与可靠性矩阵</h2>
+
+<table>
+<thead>
+<tr>
+<th>信息类别</th>
+<th>来源</th>
+<th>时间口径</th>
+<th align="right">可靠性</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>年报与一季报</td>
+<td>交易所披露页及公开财报摘录</td>
+<td>2025 年、2026Q1</td>
+<td align="right">高</td>
+<td>财务、业务结构、现金流</td>
+</tr>
+<tr>
+<td>公司档案</td>
+<td>准上市公司档案页</td>
+<td>2026-07</td>
+<td align="right">中</td>
+<td>上市身份、主营描述</td>
+</tr>
+<tr>
+<td>行情估值</td>
+<td>Investing.com、Yahoo、iGu888、准上市公司</td>
+<td>2026-07-22 / 2026-07-23</td>
+<td align="right">中</td>
+<td>当前估值和波动状态</td>
+</tr>
+<tr>
+<td>龙虎榜</td>
+<td>同花顺、东方财富摘录</td>
+<td>2026-06 至 2026-07</td>
+<td align="right">中</td>
+<td>交易结构和情绪状态</td>
+</tr>
+<tr>
+<td>券商研报摘录</td>
+<td>长江证券等公开摘录</td>
+<td>2026-04</td>
+<td align="right">中</td>
+<td>业务进展线索</td>
+</tr>
+<tr>
+<td>三要素框架</td>
+<td><a href="../../../../wiki/topics/冰冰小美-情绪体系理论篇.md">冰冰小美情绪体系</a>、<a href="../../../../wiki/concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势.md">竞争格局</a>、<a href="../../../../wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md">流动性</a>、<a href="../../../../wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化.md">情绪位置</a></td>
+<td>知识库框架</td>
+<td align="right">中</td>
+<td>操作决策翻译</td>
+</tr>
+</tbody></table>
+<p>未获取到或未完整获取的数据：</p>
+<ul>
+<li>2021 年完整利润表细项；</li>
+<li>2021-2023 年合并口径资本开支完整序列；</li>
+<li>2026 年一致预期目标价分布；</li>
+<li>订单分行业、分军民口径、分客户集中度的最新明细。</li>
+</ul>
+<p>这些缺口会降低 DCF 精度，因此本报告使用“估值区间 + 反向 DCF + 触发条件”而不是伪精确目标价。</p>
+<h2 id="section-3">3. 生意模式与收入拆解</h2>
+
+<h3>3.1 2025 年收入结构</h3>
+<table>
+<thead>
+<tr>
+<th>业务</th>
+<th align="right">收入</th>
+<th align="right">收入占产品收入比例</th>
+<th align="right">毛利率</th>
+<th>经营含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>元器件</td>
+<td align="right">13.63 亿元</td>
+<td align="right">约 33.3%</td>
+<td align="right">54.29%</td>
+<td>利润池核心，决定公司质量。</td>
+</tr>
+<tr>
+<td>陶瓷材料</td>
+<td align="right">2.04 亿元</td>
+<td align="right">约 5.0%</td>
+<td align="right">55.78%</td>
+<td>高毛利小体量，偏期权属性。</td>
+</tr>
+<tr>
+<td>国际贸易</td>
+<td align="right">25.31 亿元</td>
+<td align="right">约 61.8%</td>
+<td align="right">10.12%</td>
+<td>收入放大器，但稀释综合毛利和估值质量。</td>
+</tr>
+<tr>
+<td>合计</td>
+<td align="right">40.99 亿元</td>
+<td align="right">100%</td>
+<td align="right">约 27.1%</td>
+<td>高毛利自产业务被低毛利贸易业务显著摊薄。</td>
+</tr>
+</tbody></table>
+<h3>3.2 利润池判断</h3>
+<p>真正支撑估值的不是营业收入 41.21 亿元，而是自产元器件和陶瓷材料能不能持续贡献高毛利、高现金转化的利润。贸易业务收入大，但 10% 左右毛利率决定它不应享受和军工高可靠元器件同样的估值倍数。</p>
+<h3>3.3 关键矛盾</h3>
+<p>2025 年看起来是“收入 +47%、归母净利 +64%”的恢复年；但 2026Q1 变成“收入 +77%、归母净利 -63%、经营现金流 -3.22 亿元”。这意味着增长质量还没有被证明，尤其需要检查：</p>
+<ul>
+<li>贸易收入增长是否拉低利润率；</li>
+<li>自产元器件订单是否只是交付节奏恢复，而非持续景气；</li>
+<li>供应商付款增加是否会继续压制现金流；</li>
+<li>并购资产是否带来利润，还是带来资本占用。</li>
+</ul>
+<h2 id="section-4">4. 行业与产业链位置</h2>
+
+<h3>4.1 所在行业</h3>
+<p>火炬电子横跨军工电子、电子元器件分销、陶瓷材料三类业务。若只用一个行业标签，最接近的是“高可靠电子元器件”，但财务上不能忽略国际贸易业务。</p>
+<h3>4.2 上游</h3>
+<ul>
+<li>陶瓷粉体、介质材料、金属材料、封装材料；</li>
+<li>精密制造设备、检测设备；</li>
+<li>海外和国内电子元器件品牌供应体系。</li>
+</ul>
+<h3>4.3 中游</h3>
+<ul>
+<li>MLCC 等被动元器件；</li>
+<li>微波芯片电容器、薄膜集成产品；</li>
+<li>陶瓷材料；</li>
+<li>元器件检测和贸易分销服务。</li>
+</ul>
+<h3>4.4 下游</h3>
+<ul>
+<li>军工电子；</li>
+<li>航空航天；</li>
+<li>通信与工业控制；</li>
+<li>民用电子元器件需求；</li>
+<li>可能涉及商业航天、低空经济等主题场景，但本报告不把主题映射当作收入确认。</li>
+</ul>
+<h3>4.5 产业链位置结论</h3>
+<p>火炬电子不是产业链最上游的基础材料平台，也不是最下游的整机系统厂商，而是处在“高可靠元器件制造 + 材料配套 + 分销服务”的中游偏上位置。它的优势需要通过自产高毛利业务体现；如果收入主要由贸易扩张推动，市场应给予的估值应更接近“分销 + 制造混合体”，而不是纯军工电子成长股。</p>
+<h2 id="section-5">5. 竞争格局与护城河</h2>
+
+<h3>5.1 可见优势</h3>
+<ol>
+<li>高可靠元器件资质与客户积累：军工电子客户对认证、可靠性和交付稳定性要求高，进入门槛高于普通消费电子。</li>
+<li>自产元器件毛利率高：2025 年元器件毛利率 54.29%，说明高可靠业务具备较强利润弹性。</li>
+<li>陶瓷材料协同：陶瓷材料业务虽小，但毛利率 55.78%，有向上游材料延伸的意义。</li>
+<li>并购与产品扩张：公开研报摘录提到四川中星、福建毫米、天极科技等方向，为薄膜电容器、微波芯片电容器、薄膜集成产品提供扩展线索。</li>
+</ol>
+<h3>5.2 可见弱点</h3>
+<ol>
+<li>收入结构被低毛利贸易业务主导：2025 年国际贸易业务占产品收入约 61.8%，但毛利率仅 10.12%。</li>
+<li>现金流波动大：2025 年经营现金流转负，2026Q1 继续为 -3.22 亿元。</li>
+<li>2026Q1 利润未跟随收入增长：说明收入放量不一定转化为股东利润。</li>
+<li>市场给的是成长股估值，但财务呈现的是混合业务模型。</li>
+</ol>
+<h3>5.3 竞争格局结论</h3>
+<p>在 <a href="../../../../wiki/concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势.md">竞争格局</a> 维度，火炬电子“产业方向有利，但财务兑现不足”。它有高毛利业务和军工电子门槛，但当前收入和现金流结构不足以支持纯粹高端制造龙头的估值叙事。</p>
+<h2 id="section-6">6. 管理层、治理与资本配置</h2>
+
+<h3>6.1 治理与股本</h3>
+<ul>
+<li>总股本约 4.76 亿股。</li>
+<li>2026-06-27 公开摘录显示实际控制人部分股份质押、解除质押及延期购回，合计质押约 200 万股，占总股本约 0.42%。该比例不高，但在高波动阶段仍应跟踪。</li>
+</ul>
+<h3>6.2 分红</h3>
+<p>2025 年分红方案为每 10 股派发现金红利 0.80 元。按 46.21 元股价计算，静态股息率约 0.17%，不构成股息资产定价逻辑。</p>
+<h3>6.3 并购与资本支出</h3>
+<p>2025 年投资活动现金流净额为 -8.39 亿元，公开摘录提到收购融科热控、四川中星和购买理财产品等因素。资本配置是否创造价值，需要看并购资产后续能否带来利润和现金流。</p>
+<h3>6.4 资本配置评价</h3>
+<p>目前资本配置的核心风险是：公司在收入恢复期同时出现经营现金流转负和投资现金流大幅流出。如果后续利润不能转化为现金，估值就需要折价。</p>
+<h2 id="section-7">7. 五年财务复盘</h2>
+
+<h3>7.1 核心财务表</h3>
+<table>
+<thead>
+<tr>
+<th>年度</th>
+<th align="right">营业收入</th>
+<th align="right">归母净利润</th>
+<th align="right">扣非归母净利润</th>
+<th align="right">经营现金流</th>
+<th align="right">ROE</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td align="right">47.34 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">5.94 亿元</td>
+<td align="right">22.41%</td>
+<td>本次未完整获取利润明细。</td>
+</tr>
+<tr>
+<td>2022</td>
+<td align="right">35.59 亿元</td>
+<td align="right">8.01 亿元</td>
+<td align="right">7.70 亿元</td>
+<td align="right">9.26 亿元</td>
+<td align="right">16.22%</td>
+<td>盈利高点。</td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">35.04 亿元</td>
+<td align="right">3.18 亿元</td>
+<td align="right">3.10 亿元</td>
+<td align="right">8.67 亿元</td>
+<td align="right">5.97%</td>
+<td>利润显著下台阶。</td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">28.02 亿元</td>
+<td align="right">1.95 亿元</td>
+<td align="right">1.69 亿元</td>
+<td align="right">6.54 亿元</td>
+<td align="right">3.57%</td>
+<td>收入和利润继续承压。</td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">41.21 亿元</td>
+<td align="right">3.20 亿元</td>
+<td align="right">2.97 亿元</td>
+<td align="right">-2.35 亿元</td>
+<td align="right">5.41%</td>
+<td>收入利润恢复，但现金流转负。</td>
+</tr>
+</tbody></table>
+<h3>7.2 现金流质量</h3>
+<table>
+<thead>
+<tr>
+<th>年度</th>
+<th align="right">经营现金流</th>
+<th align="right">已获取资本开支</th>
+<th>自由现金流观察</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td align="right">5.94 亿元</td>
+<td align="right">未获取到合并口径</td>
+<td>待验证</td>
+</tr>
+<tr>
+<td>2022</td>
+<td align="right">9.26 亿元</td>
+<td align="right">未获取到合并口径</td>
+<td>待验证</td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">8.67 亿元</td>
+<td align="right">未获取到合并口径</td>
+<td>待验证</td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">6.54 亿元</td>
+<td align="right">3.34 亿元左右</td>
+<td>正向，约 3.20 亿元</td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">-2.35 亿元</td>
+<td align="right">2.22 亿元左右</td>
+<td>负向，约 -4.57 亿元</td>
+</tr>
+</tbody></table>
+<p>自由现金流的方向比净利润更刺眼：2025 年公司账面利润恢复，但自由现金流转为明显负值。这是当前估值不能只看 PE 的主要原因。</p>
+<h3>7.3 财务复盘结论</h3>
+<p>火炬电子的盈利能力从 2021-2022 年高位回落，2025 年有恢复迹象，但还不是高质量复苏。2026Q1 又出现收入与利润背离，说明投资者需要等“收入增长 → 毛利率稳定 → 净利润恢复 → 经营现金流转正”的闭环，而不能只看收入增速。</p>
+<h2 id="section-8">8. 最新季度与边际变化</h2>
+
+<h3>8.1 2026Q1 关键数据</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">2026Q1</th>
+<th align="right">同比</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营业收入</td>
+<td align="right">13.50 亿元</td>
+<td align="right">+77.16%</td>
+</tr>
+<tr>
+<td>归母净利润</td>
+<td align="right">0.40 亿元</td>
+<td align="right">-62.82%</td>
+</tr>
+<tr>
+<td>扣非归母净利润</td>
+<td align="right">0.30 亿元</td>
+<td align="right">-70.72%</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">-3.22 亿元</td>
+<td align="right">-316.23%</td>
+</tr>
+<tr>
+<td>EPS</td>
+<td align="right">0.08 元</td>
+<td align="right">下降</td>
+</tr>
+<tr>
+<td>加权 ROE</td>
+<td align="right">0.65%</td>
+<td align="right">下降</td>
+</tr>
+</tbody></table>
+<h3>8.2 边际变化判断</h3>
+<p>最重要的边际变化不是“收入高增”，而是“收入高增没有带来利润高增”。这通常意味着三个可能性：</p>
+<ol>
+<li>收入结构偏低毛利业务；</li>
+<li>费用、成本或交付节奏压制利润；</li>
+<li>回款与付款节奏导致现金流压力。</li>
+</ol>
+<p>公司解释经营现金流下降与支付供应商款项增加有关。这个解释并不等于风险解除，因为供应链付款压力本身就是现金转化质量的一部分。</p>
+<h3>8.3 半年报观察点</h3>
+<p>2026 半年报预约披露日期为 2026-08-22。半年报需要重点看：</p>
+<ul>
+<li>自产元器件收入增速是否高于贸易业务；</li>
+<li>元器件毛利率是否维持 50% 以上；</li>
+<li>贸易业务毛利率是否继续压缩；</li>
+<li>经营现金流是否转正；</li>
+<li>存货、应收、预付和合同负债是否出现异常变化；</li>
+<li>并购资产是否贡献利润。</li>
+</ul>
+<h2 id="section-9">9. 可比公司与相对估值</h2>
+
+<h3>9.1 可比公司</h3>
+<table>
+<thead>
+<tr>
+<th>公司</th>
+<th>业务相似点</th>
+<th align="right">公开估值摘录</th>
+<th>可比性说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>振华科技</td>
+<td>军工电子元器件平台</td>
+<td align="right">TTM PE 约 22.10 倍</td>
+<td>更偏军工电子平台，估值可作为成熟军工电子参考。</td>
+</tr>
+<tr>
+<td>宏达电子</td>
+<td>钽电容、军工电子元器件</td>
+<td align="right">TTM PE 约 46-50 倍</td>
+<td>业务属性更接近高可靠被动元器件。</td>
+</tr>
+<tr>
+<td>鸿远电子</td>
+<td>MLCC / 军工电子元器件</td>
+<td align="right">TTM PE 约 73 倍</td>
+<td>估值较高，反映弹性预期，但同样需要利润验证。</td>
+</tr>
+</tbody></table>
+<h3>9.2 火炬电子当前估值</h3>
+<p>按 2026-07-23 延时价 46.21 元、总股本约 4.756 亿股估算，市值约 219.8 亿元。</p>
+<p>TTM 归母净利润估算：</p>
+<pre><code class="language-text">2025 归母净利润 3.20 亿元
++ 2026Q1 归母净利润 0.40 亿元
+- 2025Q1 归母净利润约 1.07 亿元
+= TTM 归母净利润约 2.53 亿元
+</code></pre>
+<p>对应 TTM PE 约 87 倍，与公开行情页 82.77-83.00 倍口径接近。差异来自延时价、EPS 口径和四舍五入。</p>
+<h3>9.3 相对估值结论</h3>
+<p>如果把火炬电子当作纯高可靠元器件成长股，市场可能愿意给 40-60 倍 PE；但如果把它还原为“高毛利自产业务 + 低毛利贸易业务 + 现金流转负”的混合体，合理估值应明显低于当前 80 倍以上 TTM PE。</p>
+<p>相对估值给出的基本结论是：当前价格已经包含强复苏和高弹性预期，但公开财务数据尚未验证这种预期。</p>
+<h2 id="section-10">10. DCF 与反向估值</h2>
+
+<h3>10.1 DCF 输入假设</h3>
+<p>由于本次未完整获取 2021-2023 年合并口径资本开支序列，DCF 不做伪精确预测，而采用三情景自由现金流恢复模型。</p>
+<table>
+<thead>
+<tr>
+<th>假设</th>
+<th align="right">熊市情景</th>
+<th align="right">基准情景</th>
+<th align="right">牛市情景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-2030 收入 CAGR</td>
+<td align="right">3%</td>
+<td align="right">8%</td>
+<td align="right">12%</td>
+</tr>
+<tr>
+<td>稳态净利率</td>
+<td align="right">5%-6%</td>
+<td align="right">8%-9%</td>
+<td align="right">11%-12%</td>
+</tr>
+<tr>
+<td>自由现金流转化率</td>
+<td align="right">低</td>
+<td align="right">中</td>
+<td align="right">高</td>
+</tr>
+<tr>
+<td>WACC</td>
+<td align="right">9.5%</td>
+<td align="right">9.0%</td>
+<td align="right">8.5%</td>
+</tr>
+<tr>
+<td>永续增长率</td>
+<td align="right">1.5%</td>
+<td align="right">2.0%</td>
+<td align="right">2.5%</td>
+</tr>
+</tbody></table>
+<h3>10.2 DCF 估值区间</h3>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">股权价值估算</th>
+<th align="right">每股价值估算</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>熊市</td>
+<td align="right">55-75 亿元</td>
+<td align="right">12-16 元</td>
+<td>贸易扩张但利润和现金流持续偏弱。</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">105-145 亿元</td>
+<td align="right">22-30 元</td>
+<td>自产业务恢复，现金流逐步修复。</td>
+</tr>
+<tr>
+<td>牛市</td>
+<td align="right">170-220 亿元</td>
+<td align="right">36-46 元</td>
+<td>自产元器件高增、材料业务放量、现金流显著改善。</td>
+</tr>
+</tbody></table>
+<h3>10.3 反向 DCF</h3>
+<p>以 46.21 元股价估算，市场隐含的是接近牛市上沿的情景：公司需要在未来几年持续证明自产高毛利业务扩张，并把净利润和经营现金流同步修复。若 2026 半年报或三季报仍是“收入增长、利润下滑、现金流为负”，当前价格的反向 DCF 假设就会被削弱。</p>
+<h3>10.4 DCF 结论</h3>
+<p>DCF 并不支持在 46 元附近把火炬电子当成安全配置。它更像一个需要等验证的高弹性标的：若基本面兑现，当前价格可以解释；若兑现不足，估值回落空间很大。</p>
+<h2 id="section-11">11. 分部估值与产业价值量</h2>
+
+<h3>11.1 分部估值框架</h3>
+<table>
+<thead>
+<tr>
+<th>分部</th>
+<th>估值方法</th>
+<th align="right">合理倍数 / 参数</th>
+<th>估值含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>自产元器件</td>
+<td>利润倍数</td>
+<td align="right">30-40 倍归属利润</td>
+<td>高毛利、军工属性，核心价值来源。</td>
+</tr>
+<tr>
+<td>陶瓷材料</td>
+<td>利润倍数 / 期权</td>
+<td align="right">25-35 倍归属利润</td>
+<td>小体量高毛利，取决于放量。</td>
+</tr>
+<tr>
+<td>国际贸易</td>
+<td>PS 或低 PE</td>
+<td align="right">0.3-0.5 倍收入</td>
+<td>低毛利业务，不应给高成长制造估值。</td>
+</tr>
+<tr>
+<td>并购与新业务</td>
+<td>期权折价</td>
+<td align="right">待验证</td>
+<td>需看利润贡献和现金流。</td>
+</tr>
+</tbody></table>
+<h3>11.2 SOTP 粗估</h3>
+<ul>
+<li>国际贸易业务：25.31 亿元收入，按 0.3-0.5 倍 PS，约 8-13 亿元。</li>
+<li>自产元器件与材料：若归属净利润恢复到 3-4 亿元，并给予 30-40 倍，约 90-160 亿元。</li>
+<li>新业务和并购资产：在未确认利润贡献前，给予有限期权价值。</li>
+</ul>
+<p>综合看，火炬电子更合理的中性股权价值区间约 115-165 亿元，对应每股约 24-35 元。若当前价格 46.21 元，已经高于中性估值区间。</p>
+<h3>11.3 价值量与利润池</h3>
+<p>这里的“价值量”指公司在产业链中能捕获多少收入和利润；“利润池”指能长期转化为股东利润和现金流的业务位置。火炬电子的价值量由贸易业务放大，但利润池主要在自产元器件和陶瓷材料。因此，市场如果只看 41 亿元收入，容易高估；如果只看军工元器件标签，也容易忽略贸易业务对估值质量的稀释。</p>
+<h2 id="section-12">12. 冰冰小美三要素映射</h2>
+
+<h3>12.1 三要素评分</h3>
+<table>
+<thead>
+<tr>
+<th>三要素</th>
+<th>当前状态</th>
+<th>证据</th>
+<th>操作含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>中性</td>
+<td>高毛利自产元器件和陶瓷材料具备门槛，但贸易业务收入占比过高，现金流未验证。</td>
+<td>有产业观察价值，但不构成单独买入条件。</td>
+</tr>
+<tr>
+<td>流动性</td>
+<td>不利</td>
+<td>2026 年 6-7 月异常波动、龙虎榜密集、高换手，资金流结构不稳定。</td>
+<td>不能把短线成交活跃误判为长期资金共识。</td>
+</tr>
+<tr>
+<td>情绪位置</td>
+<td>不利</td>
+<td>从高位快速回落，连续涨跌停和异常波动公告显示情绪拥挤后退潮。</td>
+<td>不适合在情绪高波动阶段追买。</td>
+</tr>
+</tbody></table>
+<h3>12.2 三要素共振判断</h3>
+<p>根据 <a href="../../../../wiki/topics/冰冰小美-情绪体系理论篇.md">冰冰小美情绪体系</a>，好的交易点通常不是“故事最热的时候”，而是竞争格局、流动性、情绪位置出现正向共振时。火炬电子目前只有竞争格局存在可讨论的产业价值，流动性和情绪位置都不配合，因此没有形成有利共振。</p>
+<h3>12.3 对应动作</h3>
+<ul>
+<li>买入：否。</li>
+<li>观察：是。</li>
+<li>等待：是，等半年报和现金流。</li>
+<li>减仓 / 复盘：若已有仓位且成本高，应把反弹看作风险管理窗口，而不是自动加仓信号。</li>
+</ul>
+<h2 id="section-13">13. 风险识别与风险方向</h2>
+
+<h3>13.1 风险清单</h3>
+<table>
+<thead>
+<tr>
+<th>风险</th>
+<th>当前状态</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值风险</td>
+<td>高</td>
+<td>TTM PE 约 80 倍以上，已计入强复苏预期。</td>
+</tr>
+<tr>
+<td>现金流风险</td>
+<td>高</td>
+<td>2025 年经营现金流转负，2026Q1 继续大幅为负。</td>
+</tr>
+<tr>
+<td>利润质量风险</td>
+<td>中高</td>
+<td>2026Q1 收入 +77%，归母净利 -63%。</td>
+</tr>
+<tr>
+<td>业务结构风险</td>
+<td>中高</td>
+<td>贸易收入占比较高，低毛利业务稀释估值质量。</td>
+</tr>
+<tr>
+<td>情绪交易风险</td>
+<td>高</td>
+<td>近期涨跌幅、龙虎榜、异常波动公告密集。</td>
+</tr>
+<tr>
+<td>并购整合风险</td>
+<td>中</td>
+<td>并购资产是否贡献利润和现金流仍待验证。</td>
+</tr>
+<tr>
+<td>客户与订单风险</td>
+<td>中</td>
+<td>军工订单节奏、验收节奏和预算节奏可能影响收入确认。</td>
+</tr>
+</tbody></table>
+<h3>13.2 风险方向</h3>
+<p>风险方向判断为：风险增强。</p>
+<p>理由：</p>
+<ol>
+<li>当前价格相对中性估值区间仍偏高；</li>
+<li>2026Q1 没有验证利润和现金流；</li>
+<li>2026 年 6-7 月交易波动显著放大；</li>
+<li>龙虎榜资金只能证明交易活跃，不能证明基本面确认。</li>
+</ol>
+<h3>13.3 反证条件</h3>
+<p>如果后续出现以下证据，风险判断可以下修：</p>
+<ul>
+<li>2026 半年报经营现金流转正；</li>
+<li>自产元器件收入和毛利率同步改善；</li>
+<li>贸易业务收入占比下降或毛利率回升；</li>
+<li>存货、应收、预付没有异常扩张；</li>
+<li>股价回到 24-30 元并且交易换手降温。</li>
+</ul>
+<h2 id="section-14">14. 催化剂与跟踪清单</h2>
+
+<h3>14.1 正向催化剂</h3>
+<ul>
+<li>2026 半年报利润恢复；</li>
+<li>经营现金流转正；</li>
+<li>自产元器件订单持续增长；</li>
+<li>陶瓷材料和 SiC 纤维等新材料业务放量；</li>
+<li>并购资产贡献明确利润；</li>
+<li>军工电子行业订单恢复。</li>
+</ul>
+<h3>14.2 负向催化剂</h3>
+<ul>
+<li>半年报继续“收入高增、利润下滑”；</li>
+<li>经营现金流继续为负；</li>
+<li>贸易业务占比继续提升、综合毛利率下降；</li>
+<li>应收账款、存货、预付款异常扩张；</li>
+<li>大股东质押比例扩大；</li>
+<li>股价高位继续异常波动。</li>
+</ul>
+<h3>14.3 跟踪表</h3>
+<table>
+<thead>
+<tr>
+<th>跟踪指标</th>
+<th>观察阈值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>经营现金流</td>
+<td>半年报转正</td>
+<td>证明利润有现金含量。</td>
+</tr>
+<tr>
+<td>自产元器件毛利率</td>
+<td>维持 50% 以上</td>
+<td>证明核心利润池稳定。</td>
+</tr>
+<tr>
+<td>贸易业务收入占比</td>
+<td>下降或毛利率提升</td>
+<td>降低估值稀释。</td>
+</tr>
+<tr>
+<td>扣非净利润</td>
+<td>连续两个季度改善</td>
+<td>证明复苏不是一次性。</td>
+</tr>
+<tr>
+<td>换手率</td>
+<td>明显降温</td>
+<td>情绪风险释放。</td>
+</tr>
+<tr>
+<td>股价区间</td>
+<td>24-30 元</td>
+<td>进入可重新评估区。</td>
+</tr>
+</tbody></table>
+<h2 id="section-15">15. 投资结论与操作方案</h2>
+
+<h3>15.1 估值结论</h3>
+<p>综合相对估值、DCF 和分部估值，火炬电子当前合理价值中枢更接近 24-35 元 / 股；46.21 元附近属于偏高估区域。若按更严格的现金流折价，安全边际还要更低。</p>
+<h3>15.2 操作方案</h3>
+<table>
+<thead>
+<tr>
+<th>投资者状态</th>
+<th>建议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>没有持仓</td>
+<td>观望，不追买。</td>
+</tr>
+<tr>
+<td>小仓观察</td>
+<td>保留观察仓可以，但不加仓。</td>
+</tr>
+<tr>
+<td>高成本持仓</td>
+<td>半年报前后重点复盘，若现金流未改善，逢反弹降风险。</td>
+</tr>
+<tr>
+<td>短线交易</td>
+<td>不把龙虎榜净买入当作基本面买点，需严格止损。</td>
+</tr>
+</tbody></table>
+<h3>15.3 买入条件</h3>
+<p>只有同时满足以下条件，才值得重新考虑：</p>
+<ol>
+<li>股价回到 24-30 元，或估值回到 35-45 倍可验证利润；</li>
+<li>2026 半年报或三季报显示扣非利润恢复；</li>
+<li>经营现金流转正；</li>
+<li>自产元器件和陶瓷材料收入占比提升；</li>
+<li>情绪换手降温，不再主要由异常波动驱动。</li>
+</ol>
+<h3>15.4 最终评级</h3>
+<ul>
+<li>评级：观察。</li>
+<li>操作：等待。</li>
+<li>风险方向：风险增强。</li>
+<li>当前是否买入：否。</li>
+</ul>
+<h2 id="section-16">16. 附录：关键数据与来源链接</h2>
+
+<h3>16.1 关键数据汇总</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">数值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2025 营业收入</td>
+<td align="right">41.21 亿元</td>
+</tr>
+<tr>
+<td>2025 归母净利润</td>
+<td align="right">3.20 亿元</td>
+</tr>
+<tr>
+<td>2025 扣非归母净利润</td>
+<td align="right">2.97 亿元</td>
+</tr>
+<tr>
+<td>2025 经营现金流</td>
+<td align="right">-2.35 亿元</td>
+</tr>
+<tr>
+<td>2026Q1 营业收入</td>
+<td align="right">13.50 亿元</td>
+</tr>
+<tr>
+<td>2026Q1 归母净利润</td>
+<td align="right">0.40 亿元</td>
+</tr>
+<tr>
+<td>2026Q1 经营现金流</td>
+<td align="right">-3.22 亿元</td>
+</tr>
+<tr>
+<td>2026-07-23 延时价</td>
+<td align="right">46.21 元</td>
+</tr>
+<tr>
+<td>估算市值</td>
+<td align="right">约 220 亿元</td>
+</tr>
+<tr>
+<td>估算 TTM PE</td>
+<td align="right">约 85-90 倍</td>
+</tr>
+<tr>
+<td>中性估值区间</td>
+<td align="right">24-35 元 / 股</td>
+</tr>
+</tbody></table>
+<h3>16.2 来源页</h3>
+<ul>
+<li><a href="../../../webpages/2026-07-23-火炬电子法定财报与经营数据快照.md">火炬电子法定财报与经营数据快照</a></li>
+<li><a href="../../../webpages/2026-07-23-火炬电子行情估值与催化剂快照.md">火炬电子行情估值与催化剂快照</a></li>
+<li>上海证券交易所：<a href="https://www.sse.com.cn/">https://www.sse.com.cn/</a></li>
+<li>公司官网：<a href="https://www.torch.cn/">https://www.torch.cn/</a></li>
+<li>准上市公司档案：<a href="https://zhunshangshi.com/index.php/stock/603678">https://zhunshangshi.com/index.php/stock/603678</a></li>
+<li>Investing.com 中文行情：<a href="https://cn.investing.com/">https://cn.investing.com/</a></li>
+<li>Yahoo Finance 台湾行情：<a href="https://tw.stock.yahoo.com/">https://tw.stock.yahoo.com/</a></li>
+<li>东方财富公告日历：<a href="https://data.eastmoney.com/">https://data.eastmoney.com/</a></li>
+<li>同花顺龙虎榜：<a href="https://data.10jqka.com.cn/">https://data.10jqka.com.cn/</a></li>
+</ul>
+<h3>16.3 不确定性声明</h3>
+<p>本报告基于截至 2026-07-23 可获取的公开资料和网页摘录生成，不构成投资建议。实时行情、完整 PDF 年报细项、一致预期和订单数据可能变化；若用于真实交易，应在下单前再次核对交易所公告、最新行情和自身仓位约束。</p>
+</article>
+    </div>
+  </main>
+</body>
+</html>

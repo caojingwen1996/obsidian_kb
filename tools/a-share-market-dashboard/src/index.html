@@ -46,7 +46,7 @@
         </nav>
       </div>
       <div class="sidebar-footer">
-        <div class="connection"><span class="status-dot" id="sidebar-status-dot"></span><span id="sidebar-status">示例数据</span></div>
+        <div class="connection"><span class="status-dot" id="sidebar-status-dot"></span><span id="sidebar-status">初始化</span></div>
         <div><span id="sidebar-valid">10 / 10 项有效</span><br><time id="sidebar-updated">—</time></div>
       </div>
     </aside>
@@ -58,7 +58,7 @@
           <h1 id="page-title">市场总览</h1>
         </div>
         <div class="top-actions" id="market-actions">
-          <label class="mode-switch" for="example-mode">
+          <label class="mode-switch" for="example-mode" hidden>
             <input id="example-mode" type="checkbox" checked>
             <span>示例数据</span>
           </label>
@@ -66,16 +66,16 @@
         </div>
       </header>
 
-      <div class="notice" id="global-notice" role="status">正在用内置示例数据初始化。稳定联网请双击“启动大盘面板.cmd”。</div>
+      <div class="notice" id="global-notice" role="status">正在初始化。稳定联网请双击“启动大盘面板.cmd”。</div>
 
       <section class="view is-active" id="market-summary" data-shell-content="thermometer" aria-labelledby="summary-heading">
-        <div class="summary-heading">
+        <div class="summary-heading compact-summary is-render-target" hidden>
           <div>
             <p class="eyebrow">当前结论</p>
             <h2 id="summary-heading"><span id="conclusion-label">数据加载中</span></h2>
-            <p class="lead" id="conclusion-detail">评分只描述历史坐标中的贵贱，不预测明日涨跌。</p>
+            <p class="lead" id="conclusion-detail">市场温度使用有知有行官方温度计，中证红利信号使用本地规则记录。</p>
           </div>
-          <div class="window-controls" id="window-controls" aria-label="历史统计窗口">
+          <div class="window-controls" id="window-controls" aria-label="历史统计窗口" hidden>
             <button type="button" data-window="1" aria-pressed="false">1年</button>
             <button type="button" data-window="3" aria-pressed="false">3年</button>
             <button type="button" data-window="5" aria-pressed="true">5年</button>
@@ -83,7 +83,16 @@
           </div>
         </div>
 
-        <div class="hero-grid">
+        <div class="overview-grid" aria-label="市场总览三块">
+          <div id="youzhiyouxing-temperature-card"></div>
+          <div id="dividend-signal-card" aria-label="中证红利股息率信号"></div>
+          <article class="overview-card overview-placeholder">
+            <div class="overview-card-head"><span>预留模块</span><strong>暂空</strong></div>
+            <p>留给下一类市场信号，不预填判断。</p>
+          </article>
+        </div>
+
+        <div class="hero-grid is-render-target" hidden>
           <article class="score-card">
             <span>综合买点评分</span>
             <strong id="score-value">—</strong>
@@ -97,11 +106,8 @@
             <div class="scale-labels"><span>别人恐惧</span><span>中性</span><span>市场贪婪</span></div>
           </article>
         </div>
-
-        <div class="layer-grid" id="layer-scores" aria-label="三层评分"></div>
-
-        <div class="section-header"><div><p class="eyebrow">KEY METRICS</p><h2>关键指标</h2></div><p>色条统一从“便宜或恐惧”指向“昂贵或贪婪”</p></div>
-        <div class="metric-list" id="metric-list"></div>
+        <div class="layer-grid is-render-target" id="layer-scores" aria-label="三层评分" hidden></div>
+        <div class="metric-list is-render-target" id="metric-list" hidden></div>
       </section>
 
       <section class="view" id="position-view" data-shell-content="thermometer" aria-labelledby="position-heading">
@@ -220,7 +226,7 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
 
       <section class="view" id="position-manager" data-shell-content="personal" aria-labelledby="position-manager-heading">
         <div class="personal-page">
-          <div class="section-header personal-heading"><div><p class="eyebrow">MY PORTFOLIO</p><h2 id="position-manager-heading">仓位管理</h2></div><p>启动器模式保存在本机，单文件模式保存在当前浏览器；用于记录成本、现价、仓位与浮动盈亏。</p></div>
+          <h2 class="visually-hidden" id="position-manager-heading">仓位管理</h2>
           <div class="portfolio-summary" aria-label="仓位摘要">
             <article><small>持仓标的</small><strong id="holding-count">0</strong><span>只</span></article>
             <article><small>持仓成本</small><strong id="portfolio-cost">¥0.00</strong><span>累计投入</span></article>
@@ -257,9 +263,39 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
 
       <section class="view" id="holding-tracker" data-shell-content="personal" aria-labelledby="holding-tracker-heading">
         <div class="personal-page">
-          <div class="section-header personal-heading"><div><p class="eyebrow">HOLDING TRACKER</p><h2 id="holding-tracker-heading">持仓跟踪</h2></div><p>围绕持有逻辑、风险变化和下一步动作持续复核，不把单日涨跌直接当成结论。</p></div>
-          <div class="holding-tracker-list" id="holding-tracker-list"></div>
-          <p class="personal-empty tracker-empty" id="holding-tracker-empty">仓位列表为空。请先到“仓位管理”添加持有标的。</p>
+          <h2 class="visually-hidden" id="holding-tracker-heading">持仓跟踪</h2>
+          <div class="tracker-summary" aria-label="持仓跟踪摘要">
+            <article><small>跟踪标的</small><strong id="tracking-count">0</strong><span>只</span></article>
+            <article><small>持有</small><strong id="tracking-holding-count">0</strong><span>已在计划内</span></article>
+            <article><small>观察</small><strong id="tracking-watch-count">0</strong><span>等待验证</span></article>
+            <article><small>最近更新</small><strong id="tracking-updated">尚未记录</strong><span>手工复核</span></article>
+          </div>
+          <div class="tracker-workspace">
+            <form class="tracking-form panel" id="tracking-form">
+              <input name="id" type="hidden">
+              <div class="holding-form-title"><div><p class="eyebrow">TRACKING ITEM</p><h3 id="tracking-form-title">新增跟踪</h3></div><button class="text-button" id="cancel-tracking-edit" type="button" hidden>取消编辑</button></div>
+              <div class="tracking-form-grid">
+                <label><span>标的名称</span><input name="name" required maxlength="30" placeholder="例如 航天电子"></label>
+                <label><span>证券代码</span><input name="code" maxlength="12" placeholder="填写名称后自动匹配"></label>
+                <label><span>跟踪状态</span><select name="status"><option>持有</option><option>观察</option><option>计划加仓</option><option>计划减仓</option></select></label>
+                <label><span>下一步动作</span><input name="nextAction" maxlength="80" placeholder="例如 等待风险转弱后复核"></label>
+                <label class="tracking-wide-field"><span>跟踪逻辑</span><textarea name="thesis" rows="3" maxlength="300" placeholder="记录为什么跟踪：产业逻辑、资金状态、情绪位置或买入初衷"></textarea></label>
+                <label class="tracking-wide-field"><span>风险线</span><textarea name="riskLine" rows="2" maxlength="220" placeholder="记录哪些变化会说明逻辑变弱或需要降级观察"></textarea></label>
+                <label class="tracking-wide-field"><span>复核条件</span><textarea name="reviewCondition" rows="2" maxlength="220" placeholder="记录下一次复核需要看到的价格、基本面、资金或情绪证据"></textarea></label>
+              </div>
+              <button class="button-primary" type="submit">保存跟踪</button>
+            </form>
+            <div class="tracker-list-panel panel">
+              <div class="holding-form-title"><div><p class="eyebrow">WATCHLIST</p><h3>跟踪清单</h3></div><div class="tracker-filter" id="tracking-filter" aria-label="跟踪状态筛选"><button class="is-active" type="button" data-status-filter="all" aria-pressed="true">全部</button><button type="button" data-status-filter="持有" aria-pressed="false">持有</button><button type="button" data-status-filter="观察" aria-pressed="false">观察</button><button type="button" data-status-filter="计划加仓" aria-pressed="false">加仓</button><button type="button" data-status-filter="计划减仓" aria-pressed="false">减仓</button></div></div>
+              <div class="tracking-table-wrap">
+                <table class="tracking-table">
+                  <thead><tr><th>标的</th><th>状态</th><th>跟踪逻辑</th><th>风险线</th><th>下一步</th><th>复核条件</th><th>更新</th><th>操作</th></tr></thead>
+                  <tbody id="holding-tracker-list"></tbody>
+                </table>
+              </div>
+              <p class="personal-empty tracker-empty" id="holding-tracker-empty">还没有跟踪标的。先在左侧新增一条观察记录。</p>
+            </div>
+          </div>
         </div>
       </section>
 

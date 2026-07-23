@@ -100,7 +100,18 @@ function describeDeviation(price, low, high, label = '每日同步价') {
 
 function liveQuoteSecid(code) {
   const normalized = String(code ?? '').toUpperCase().replace(/\s/g, '');
-  return ['600879', '600879.SH', 'SH600879'].includes(normalized) ? '1.600879' : '';
+  const secids = new Map([
+    ['000807', '0.000807'],
+    ['000807.SZ', '0.000807'],
+    ['SZ000807', '0.000807'],
+    ['002270', '0.002270'],
+    ['002270.SZ', '0.002270'],
+    ['SZ002270', '0.002270'],
+    ['600879', '1.600879'],
+    ['600879.SH', '1.600879'],
+    ['SH600879', '1.600879'],
+  ]);
+  return secids.get(normalized) ?? '';
 }
 
 function safeSiblingHtml(value) {

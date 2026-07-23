@@ -1,0 +1,915 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>华明装备（002270.SZ）机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+.daily-tracking { margin: 0 0 42px; padding: 22px; border: 1px solid #cbdade; border-radius: 16px; background: linear-gradient(135deg, #f3f8f9 0%, #fffaf0 100%); box-shadow: 0 12px 30px rgba(23, 50, 71, .07); }
+.daily-tracking-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
+.daily-tracking-kicker { margin: 0 0 4px; color: var(--teal); font-size: 12px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+.daily-tracking h2 { margin: 0; padding: 0; border: 0; font-size: 27px; }
+.daily-tracking-time { margin: 4px 0 0; color: var(--muted); font-size: 12px; text-align: right; }
+.tracking-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.tracking-grid + .tracking-grid { margin-top: 12px; }
+.tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
+.tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
+.tracking-value.bad { color: var(--danger); }
+.tracking-detail { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; }
+.tracking-status { display: inline-flex; margin-top: 10px; padding: 3px 8px; border-radius: 999px; color: #526b77; background: #edf2f4; font-size: 12px; font-weight: 700; }
+.tracking-status.live { color: #17604e; background: #dff3eb; }
+.tracking-status.error { color: var(--danger); background: var(--danger-bg); }
+.tracking-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; margin-top: 14px; padding-top: 13px; border-top: 1px solid #d5e0e3; color: #536d78; font-size: 13px; }
+.tracking-footer a { font-weight: 700; }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+  .tracking-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+  .daily-tracking-head { display: block; }
+  .daily-tracking-time { text-align: left; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .daily-tracking, .tracking-card { border: 1px solid #aebbc2; color: #102f43; background: #fff; box-shadow: none; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · 002270.SZ</p>
+      <h1>华明装备（002270.SZ）机构级决策研报</h1>
+      <div class="hero-meta"><span>研究截止时间未获取</span><span>报告生成时间未获取</span><span>市场与币种未获取</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
+<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
+<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
+<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
+<a class="toc-link" href="#section-6">6. 五年财务历史</a>
+<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
+<a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
+<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
+<a class="toc-link" href="#section-10">10. 估值</a>
+<a class="toc-link" href="#section-11">11. 冰冰小美框架判断</a>
+<a class="toc-link" href="#section-12">12. 最终结论</a>
+<a class="toc-link" href="#section-13">13. 后续监控指标</a>
+<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
+<a class="toc-link" href="#section-15">15. 来源清单</a>
+<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
+      <article class="content"><blockquote>
+<p>研究时点：2026-07-15 15:14（Asia/Shanghai）<br>行情时点：2026-07-15 盘中，未收盘<br>每日跟踪版生成时间：2026-07-23 14:27（Asia/Shanghai）；未新增行情或资金数据<br>结论有效期：2026 半年报、重大海外订单或 H 股发行进展三者中最早发生者<br>风险提示：本文是基于公开信息的研究记录，不构成保证收益的投资建议。</p>
+</blockquote>
+<!-- DAILY_TRACKING_START -->
+<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-07-23 14:27（Asia/Shanghai，未新增资金日报）" data-value-low="15" data-value-high="21">
+  <div class="daily-tracking-head">
+    <div><p class="daily-tracking-kicker">Daily decision tracker</p><h2>每日跟踪面板</h2></div>
+    <p class="daily-tracking-time">更新：2026-07-23 14:27（Asia/Shanghai，未新增资金日报）<br>下次：收盘后 / 重大公告后</p>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">证据不足；Q1 主业与扣非利润放缓，等待半年报验证</p><p class="tracking-detail">风险方向：风险增强。下一验证点与失效条件见第 11—13 章。</p></div>
+    <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value">15—21 元</p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
+    <div class="tracking-card" data-tracking-key="price-deviation"><p class="tracking-label">股价偏离度</p><p class="tracking-value" id="deviation-value">位于动态价值区间内</p><p class="tracking-detail" id="deviation-detail">每日同步价 17.99 元；相对区间中枢 18.00 元为 -0.1%，相对下沿为 +19.9%，相对上沿为 -14.3%。价格不改变价值区间本身。</p></div>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="daily-quote"><p class="tracking-label">每日同步价</p><p class="tracking-value">17.99 元，2026-07-15 盘中</p><p class="tracking-detail">这是报告内嵌的正式跟踪基准，离线打开仍可使用。</p><span class="tracking-status">每日快照</span></div>
+    <div class="tracking-card" data-tracking-key="intraday-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">等待连接</p><p class="tracking-detail" id="intraday-detail">通过“大盘启动器”打开后获取盘中行情，每 60 秒刷新；直接打开 HTML 时不访问外部行情。</p><span class="tracking-status" id="intraday-status">未连接</span></div>
+    <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">wait / observe</p><p class="tracking-detail">估值：合理，偏贵 · wait / observe；风险：风险增强；结论置信度：中。</p><span class="tracking-status">合理，偏贵</span></div>
+  </div>
+  <div class="tracking-footer"><span>资金状态：<strong>未获取到</strong> · 新增/已有动作：<strong>wait / observe</strong></span><span>资金面分析：未单独生成</span></div>
+</section>
+<!-- DAILY_TRACKING_END -->
+<h2 id="section-1">1. 决策摘要</h2>
+
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值状态</td>
+<td>合理，偏贵</td>
+</tr>
+<tr>
+<td>操作建议</td>
+<td>观望</td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td>wait / observe</td>
+</tr>
+<tr>
+<td>当前价格及时间</td>
+<td>17.99 元，2026-07-15 盘中</td>
+</tr>
+<tr>
+<td>综合估值区间</td>
+<td>15—21 元</td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>-16.6% 至 +16.7%</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td>中</td>
+</tr>
+<tr>
+<td>基本面状态</td>
+<td>证据不足；Q1 主业与扣非利润放缓，等待半年报验证</td>
+</tr>
+<tr>
+<td>资金状态</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>风险方向</td>
+<td>风险增强</td>
+</tr>
+<tr>
+<td>每日跟踪时间</td>
+<td>2026-07-23 14:27（Asia/Shanghai，未新增资金日报）</td>
+</tr>
+<tr>
+<td>资金面分析链接</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<h3>决策问题</h3>
+<blockquote>
+<p>华明装备当前是低估、合理还是高估？如果今天这是一笔现金，我会买它吗？</p>
+</blockquote>
+<h3>一页结论</h3>
+<h3>事实</h3>
+<ul>
+<li>华明装备是深交所 A 股（002270.SZ），不是美国 SEC 注册发行人，没有 10-K/10-Q。近五年财务历史因此以巨潮资讯法定年报替代 SEC 文件；2021—2025 年报与 2026Q1 原件已保存。</li>
+<li>东方财富盘中价为 17.99 元，总市值 161.23 亿元；52 周区间 16.75—38.01 元，2026 年初至今 -28.15%，P/B 5.17 倍，东方财富动态 PE 24.72 倍。来源：<a href="../../../webpages/2026-07-15-东方财富-华明装备行情快照.md">东方财富行情快照，2026-07-15 盘中</a>。</li>
+<li>2025 年收入 24.27 亿元、归母净利润 7.10 亿元、毛利率 54.49%、FCF 4.92 亿元；电力设备收入 21.02 亿元、毛利率 59.61%，海外会计口径收入 4.79 亿元、同比 +55.65%。来源：<a href="../../../papers/华明装备机构研报-2026-07-15/2025年年度报告.pdf.md">2025 年报，第 13—17、92—97 页</a>。</li>
+<li>2026Q1 收入同比 +4.07%，归母净利润同比 -4.85%，扣非归母净利润同比 -9.51%；电力设备收入同比 -1.28%，综合毛利率从 55.21% 降至 53.25%，但经营现金流同比 +50.30%。来源：<a href="../../../papers/华明装备机构研报-2026-07-15/2026年第一季度报告.pdf.md">2026Q1，第 2、8—12 页</a>。</li>
+<li>Morningstar 公允价值、护城河评级和股票星级均<strong>未获取到</strong>，没有用其他数据替代。来源：<a href="../../../webpages/2026-07-15-Morningstar-华明装备覆盖核验.md">Morningstar 覆盖核验，2026-07-15</a>。</li>
+</ul>
+<h3>我的判断</h3>
+<p><strong>估值结论：合理，但偏贵。操作结论：观望。</strong></p>
+<p>三种估值没有形成共同交集：前瞻 PE 相对法给出 19.1—24.8 元，DCF 给出 7.2—21.5 元，设备企业 EV/正常化 FCF 给出 12.2—16.2 元。剔除极端情景后，我采用 <strong>15—21 元</strong>作为决策区间，对现价对应约 <strong>-16.6% 至 +16.7%</strong>；中枢约 18 元，几乎等于现价，没有足够安全边际。</p>
+<p><strong>如果今天这是一笔现金，我不会立即买入华明装备。</strong> 公司质量值得持续跟踪，但当前 P/B 5.17 倍、EV/正常化 FCF 约 26.6 倍，已经反映相当一部分“高端国产替代 + 海外增长 + 电网投资”预期；同时 2026Q1 主业收入、扣非利润和毛利率均未给出加速确认。我的动作是<strong>等待</strong>：价格进入 14.5—16.0 元且基本面未被证伪，或半年报确认电力设备恢复增长、海外增速与毛利率同时稳定后，再进入规则化买入评估。</p>
+<h2 id="section-2">2. 证券身份与来源矩阵</h2>
+
+<h3>2.1 证券身份</h3>
+<ul>
+<li>公司全称：华明电力装备股份有限公司</li>
+<li>证券代码：002270.SZ</li>
+<li>上市地：深圳证券交易所</li>
+<li>交易币种：人民币</li>
+<li>报告准则：中国企业会计准则</li>
+<li>法定披露体系：A 股交易所与巨潮资讯</li>
+<li>同名或跨市场歧义：无；公司不是美国 SEC 注册发行人，SEC 文件不适用</li>
+</ul>
+<h3>2.2 来源矩阵</h3>
+<table>
+<thead>
+<tr>
+<th>数据项目</th>
+<th>目标来源</th>
+<th>实际来源</th>
+<th>数据时间</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>实时价格、52 周高低、今年以来表现</td>
+<td>可靠行情平台</td>
+<td>东方财富行情快照</td>
+<td>2026-07-15 盘中</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>第三方公允价值、护城河、星级</td>
+<td>Morningstar</td>
+<td>Morningstar 覆盖核验</td>
+<td>2026-07-15</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>最新季报与管理层指引</td>
+<td>法定披露、公司调研</td>
+<td>2026Q1、机构调研记录</td>
+<td>截至 2026-07-15</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>分部收入</td>
+<td>公司年报</td>
+<td>2025 年年度报告</td>
+<td>2025 财年</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>卖方评级与目标价</td>
+<td>完整卖方样本</td>
+<td>同花顺聚合及检索记录</td>
+<td>截至 2026-07-15</td>
+<td>口径冲突待解释</td>
+</tr>
+<tr>
+<td>近三个月新闻与催化剂</td>
+<td>公告及公开检索</td>
+<td>催化剂检索记录</td>
+<td>截至 2026-07-15</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>五年财务历史</td>
+<td>法定年报</td>
+<td>2021—2025 年年度报告</td>
+<td>2021—2025</td>
+<td>已获取</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 行情与市场预期</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">数据</th>
+<th>来源与时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>盘中价</td>
+<td align="right">17.99 元</td>
+<td>东方财富，2026-07-15 盘中</td>
+</tr>
+<tr>
+<td>当日涨跌</td>
+<td align="right">+0.50%</td>
+<td>东方财富，盘中</td>
+</tr>
+<tr>
+<td>总市值</td>
+<td align="right">161.23 亿元</td>
+<td>东方财富，盘中</td>
+</tr>
+<tr>
+<td>52 周高 / 低</td>
+<td align="right">38.01 / 16.75 元</td>
+<td>东方财富未复权日 K，2025-07-16—2026-07-15</td>
+</tr>
+<tr>
+<td>年初至今</td>
+<td align="right">-28.15%</td>
+<td>以 2025-12-31 收盘 25.04 元计算</td>
+</tr>
+<tr>
+<td>东方财富动态 PE</td>
+<td align="right">24.72 倍</td>
+<td>年化/预测口径，只作行情背景</td>
+</tr>
+<tr>
+<td>P/B</td>
+<td align="right">5.17 倍</td>
+<td>东方财富，盘中</td>
+</tr>
+<tr>
+<td>2026 卖方净利润均值</td>
+<td align="right">8.56 亿元</td>
+<td>同花顺近六个月 7 家机构聚合，2026-04-29</td>
+</tr>
+<tr>
+<td>2026 卖方目标价分布</td>
+<td align="right">37.00—40.18 元，均值 38.81 元</td>
+<td>同上；样本明细不完整，低置信度</td>
+</tr>
+</tbody></table>
+<h3>来源冲突与采信理由</h3>
+<ol>
+<li><strong>卖方目标价冲突。</strong> 同花顺 2026-02-27 快照为 28.42—37.00 元、均值 30.98 元；4 月 29 日变成 37.00—40.18 元、均值 38.81 元。后者时间更晚但明细不透明，故只用于描述市场乐观预期，不作为估值中枢。</li>
+<li><strong>动态 PE 与可复核 PE 口径不同。</strong> 以 2025 年归母净利润计算静态 PE 约 22.7 倍；以卖方 2026 年净利润均值计算前瞻 PE 约 18.8 倍；东方财富动态 PE 为 24.72 倍。报告分别标注，不混用。</li>
+<li><strong>实时行情会变化。</strong> 所有上行/下行空间均针对 17.99 元盘中快照，而非当日收盘价。</li>
+</ol>
+<h2 id="section-4">4. 商业模式与竞争格局</h2>
+
+<p>华明装备以变压器分接开关为核心，通过设备销售、控制与在线监测、原厂检修和全生命周期服务获取收入。客户切换成本主要来自可靠性责任、型号适配、认证与历史运行记录；竞争边界在于特高压高端领域仍有进口品牌，海外本地团队与产品形态仍需完善。</p>
+<h2 id="section-5">5. 分部收入与盈利拆解</h2>
+
+<h3>事实：2025 年分部</h3>
+<table>
+<thead>
+<tr>
+<th>分部</th>
+<th align="right">收入（亿元）</th>
+<th align="right">收入占比</th>
+<th align="right">同比</th>
+<th align="right">毛利率</th>
+<th>事实观察</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>电力设备</td>
+<td align="right">21.02</td>
+<td align="right">86.63%</td>
+<td align="right">+16.05%</td>
+<td align="right">59.61%</td>
+<td>核心为变压器分接开关，贡献主要利润</td>
+</tr>
+<tr>
+<td>数控设备</td>
+<td align="right">2.44</td>
+<td align="right">10.07%</td>
+<td align="right">+39.86%</td>
+<td align="right">21.40%</td>
+<td>收入与毛利率改善，但经济性显著低于主业</td>
+</tr>
+<tr>
+<td>电力工程</td>
+<td align="right">0.29</td>
+<td align="right">1.19%</td>
+<td align="right">-89.93%</td>
+<td align="right">-27.95%</td>
+<td>公司主动收缩退出，拖累规模但有利于利润质量</td>
+</tr>
+<tr>
+<td>其他</td>
+<td align="right">0.51</td>
+<td align="right">2.11%</td>
+<td align="right">—</td>
+<td align="right">48.64%</td>
+<td>规模较小</td>
+</tr>
+<tr>
+<td>境内</td>
+<td align="right">19.48</td>
+<td align="right">80.27%</td>
+<td align="right">-3.31%</td>
+<td align="right">53.52%</td>
+<td>会计地域口径</td>
+</tr>
+<tr>
+<td>境外</td>
+<td align="right">4.79</td>
+<td align="right">19.73%</td>
+<td align="right">+55.65%</td>
+<td align="right">58.45%</td>
+<td>境外增长快，但毛利率同比下降 6.75 个百分点</td>
+</tr>
+</tbody></table>
+<p>来源：<a href="../../../papers/华明装备机构研报-2026-07-15/2025年年度报告.pdf.md">2025 年报，第 13—17 页</a>。</p>
+<h3>出口口径冲突</h3>
+<ul>
+<li>年报分部表的境外收入是 4.79 亿元。</li>
+<li>管理层业务叙述称电力设备直接与间接出口合计 7.14 亿元，同比 +47.37%。</li>
+<li><strong>采信理由：</strong> 4.79 亿元是审计财务报表的地域收入；7.14 亿元包含通过国内变压器厂商实现的“间接出口”，来自销售部门不完全统计。估值和分部占比采用 4.79 亿元，7.14 亿元仅作为运营渗透指标。</li>
+</ul>
+<h3>我的判断：护城河</h3>
+<p>分接开关是变压器中少数需要长期机械动作、直接影响可靠性的核心部件，认证、故障责任、历史运行记录与客户切换成本形成进入壁垒。公司在国内 500kV 以下市场处领先位置，并向特高压、高端市场和海外扩张。</p>
+<p><strong>我的判断是“窄到中等的经济护城河，且正在增强，但不是无条件宽护城河”。</strong> 依据是核心电力设备毛利率接近 60%、五年毛利率上行、资本回报改善；限制因素是特高压高端领域仍存在进口品牌、海外市占率不足 20%、本地团队与产品形态尚未完善。Morningstar 没有可用评级，以上判断不代表 Morningstar 观点。</p>
+<h2 id="section-6">6. 五年财务历史</h2>
+
+<table>
+<thead>
+<tr>
+<th>年度</th>
+<th align="right">营收（亿元）</th>
+<th align="right">毛利率</th>
+<th align="right">CFO（亿元）</th>
+<th align="right">资本开支（亿元）</th>
+<th align="right">FCF（亿元）</th>
+<th align="right">ROIC 代理值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td align="right">15.32</td>
+<td align="right">48.43%</td>
+<td align="right">2.82</td>
+<td align="right">1.08</td>
+<td align="right">1.73</td>
+<td align="right">18.4%</td>
+</tr>
+<tr>
+<td>2022</td>
+<td align="right">17.12</td>
+<td align="right">49.30%</td>
+<td align="right">4.96</td>
+<td align="right">0.69</td>
+<td align="right">4.27</td>
+<td align="right">14.3%</td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">19.61</td>
+<td align="right">51.92%</td>
+<td align="right">6.22</td>
+<td align="right">0.63</td>
+<td align="right">5.59</td>
+<td align="right">21.5%</td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">23.22</td>
+<td align="right">48.80%</td>
+<td align="right">8.89</td>
+<td align="right">1.14</td>
+<td align="right">7.76</td>
+<td align="right">25.8%</td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">24.27</td>
+<td align="right">54.49%</td>
+<td align="right">6.04</td>
+<td align="right">1.12</td>
+<td align="right">4.92</td>
+<td align="right">30.4%</td>
+</tr>
+</tbody></table>
+<p>来源：<a href="../../../papers/华明装备机构研报-2026-07-15/2021年年度报告（修订稿）.pdf.md">2021 年报，第 119—126 页</a>、<a href="../../../papers/华明装备机构研报-2026-07-15/2022年年度报告.pdf.md">2022 年报，第 107—111 页</a>、<a href="../../../papers/华明装备机构研报-2026-07-15/2023年年度报告.pdf.md">2023 年报，第 110—115 页</a>、<a href="../../../papers/华明装备机构研报-2026-07-15/2024年年度报告.pdf.md">2024 年报，第 95—100 页</a>、<a href="../../../papers/华明装备机构研报-2026-07-15/2025年年度报告.pdf.md">2025 年报，第 92—97 页</a>。</p>
+<p>口径：</p>
+<ul>
+<li><code>FCF = 经营活动现金流净额 - 购建固定资产、无形资产和其他长期资产支付的现金</code>。</li>
+<li><code>ROIC 代理值 = (利润总额 + 利息费用) × (1 - 实际所得税率) / 平均投入资本</code>。</li>
+<li>投入资本代理值为“归母权益 + 短期借款 + 长期借款 - 货币资金”；没有完整纳入租赁负债、一年内到期债务及少数股东权益，因此不是公司披露的标准 ROIC。</li>
+<li>2023 年营业成本在 2023 原年报为 9.37 亿元，在 2024 年报比较口径重述为 9.43 亿元；报告采用更新后的重述数，毛利率为 51.92%。</li>
+</ul>
+<h3>我的判断</h3>
+<p>五年质量的核心不是收入增速，而是主业结构改善：工程业务退出、分接开关和海外占比提升，使毛利率、FCF 与资本回报总体上行。2025 年 CFO 同比下降 32.1%、FCF 同比下降 36.6%，但仍显著为正；单年回落尚不足以否定现金创造能力，需结合应收账款和海外营运资本继续跟踪。</p>
+<h2 id="section-7">7. 最新季度与管理层指引</h2>
+
+<h3>2026Q1 事实</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">2026Q1</th>
+<th align="right">同比</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营收</td>
+<td align="right">5.30 亿元</td>
+<td align="right">+4.07%</td>
+<td>数控设备增长抵消主业发货节奏影响</td>
+</tr>
+<tr>
+<td>电力设备收入</td>
+<td align="right">4.42 亿元</td>
+<td align="right">-1.28%</td>
+<td>新能源项目发货减少、部分客户调整交付节奏</td>
+</tr>
+<tr>
+<td>数控设备收入</td>
+<td align="right">0.74 亿元</td>
+<td align="right">+53.3%</td>
+<td>复合式产品量产推进</td>
+</tr>
+<tr>
+<td>归母净利润</td>
+<td align="right">1.63 亿元</td>
+<td align="right">-4.85%</td>
+<td>股份支付、汇兑收益下降和海外投入增加</td>
+</tr>
+<tr>
+<td>扣非归母净利润</td>
+<td align="right">1.43 亿元</td>
+<td align="right">-9.51%</td>
+<td>核心盈利短期承压</td>
+</tr>
+<tr>
+<td>剔除股份支付后归母净利润</td>
+<td align="right">1.78 亿元</td>
+<td align="right">+3.6%</td>
+<td>公司自述的补充口径</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">53.25%</td>
+<td align="right">-1.96pct</td>
+<td>由收入与营业成本直接计算</td>
+</tr>
+<tr>
+<td>CFO</td>
+<td align="right">0.92 亿元</td>
+<td align="right">+50.30%</td>
+<td>现金流好于利润趋势</td>
+</tr>
+<tr>
+<td>FCF</td>
+<td align="right">0.73 亿元</td>
+<td align="right">+85.3%</td>
+<td>CFO 减资本开支</td>
+</tr>
+</tbody></table>
+<p>来源：<a href="../../../papers/华明装备机构研报-2026-07-15/2026年第一季度报告.pdf.md">2026Q1，第 2、8—12 页</a>。</p>
+<h3>管理层指引</h3>
+<p>公司没有给出法定的全年收入或利润数值指引。管理层提出的方向包括：高端和特高压进口替代、印尼/新加坡/土耳其/欧洲/北美/中东本地化、在线监测和检修服务、数控升级、推进 H 股上市。4 月机构调研中，公司称全年仍争取完成激励目标，但这是努力目标，不是承诺。</p>
+<p>**未获取到：**可验证的 2026 年订单金额指引、海外收入数值指引、分部利润指引和 H 股发行定价/股数。</p>
+<h3>我的判断</h3>
+<p>Q1 更像“交付节奏 + 投入前置”，尚非主业证伪；但若 2026H1 电力设备收入仍为负增长、海外毛利率继续下滑或剔除股份支付后扣非利润转负增长扩大，就应把“短期节奏”下调为“增长斜率下降”。</p>
+<h2 id="section-8">8. 近三个月新闻与催化剂</h2>
+
+<table>
+<thead>
+<tr>
+<th>日期</th>
+<th>事件</th>
+<th>风险方向</th>
+<th>传导与验证</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-04-27</td>
+<td>Q1 主业收入和扣非利润下滑</td>
+<td>风险增强候选</td>
+<td>交付节奏与费用投入 → 盈利斜率下降；需半年报验证</td>
+</tr>
+<tr>
+<td>2026-05-05 / 05-27</td>
+<td>两轮机构调研确认海外仍在起步期</td>
+<td>双向</td>
+<td>长期空间大，但团队、产品形态和地缘约束真实存在</td>
+</tr>
+<tr>
+<td>2026-05-19 / 06-02</td>
+<td>员工持股预留份额过户</td>
+<td>中性偏正</td>
+<td>激励信号；仅占总股本约 0.03%，不能单独上修盈利</td>
+</tr>
+<tr>
+<td>2026-06-12</td>
+<td>电网投资与出海预期推动涨停</td>
+<td>交易催化</td>
+<td>行业资金回流，但尚无公司订单同步验证</td>
+</tr>
+<tr>
+<td>2026-07-03</td>
+<td>电网设备板块反弹、公司涨停</td>
+<td>风险释放后反弹 / 情绪升温</td>
+<td>板块共振提供价格验证，单日涨停不能确认 W2/W3</td>
+</tr>
+<tr>
+<td>2026-03-07（持续）</td>
+<td>提交 H 股上市申请</td>
+<td>双向</td>
+<td>海外品牌与融资平台增强；摊薄、费用和执行存在不确定性</td>
+</tr>
+</tbody></table>
+<p>来源：<a href="../../../webpages/2026-07-15-华明装备卖方评级与近期催化剂检索记录.md">卖方评级与近期催化剂检索，2026-07-15</a>。</p>
+<h2 id="section-9">9. 多头与空头论据</h2>
+
+<h3>多头事实</h3>
+<ol>
+<li>电力设备是高毛利核心业务，2025 年收入 +16.05%、毛利率 59.61%。</li>
+<li>境外收入 +55.65%，全球电网老旧、新能源并网和负荷增长形成长期需求。</li>
+<li>公司在国内分接开关市场领先，高端和特高压进口替代仍有空间。</li>
+<li>五年 FCF 全部为正，2025 年仍有 4.92 亿元 FCF；资本回报代理值总体上升。</li>
+<li>电力工程业务主动退出，减少低毛利和负毛利收入；2026—2028 年现金分红规划不低于可分配利润 60%。</li>
+</ol>
+<h3>多头判断</h3>
+<p>**我的判断：**公司最有价值的不是“电网设备概念”，而是小部件、高可靠、认证壁垒、较低资本开支和全球替代空间的组合。若海外收入保持 30% 以上增长、境外毛利率稳定在 55% 附近，盈利增速可以明显快于国内收入增速。</p>
+<h3>空头事实</h3>
+<ol>
+<li>2026Q1 电力设备收入 -1.28%、扣非归母净利润 -9.51%、毛利率下降 1.96 个百分点。</li>
+<li>2025 年境外毛利率同比下降 6.75 个百分点，海外高增长伴随价格、渠道和本地投入压力。</li>
+<li>海外市占率不足 20%，美国外挂式产品线、本地团队与供应链仍需建设，地缘政治会影响客户信任与投资节奏。</li>
+<li>当前 P/B 5.17 倍，明显高于平高电气、中国西电等大型电网设备公司；当前 EV/正常化 FCF 约 26.6 倍。</li>
+<li>卖方目标价依赖 2026—2028 年高增长预测，而管理层没有正式数值指引。</li>
+</ol>
+<h3>空头判断</h3>
+<p>**我的判断：**最大风险不是公司失去行业地位，而是“好公司但买贵了”。若海外增速从 50% 降至 20% 左右、境外毛利率继续下行，市场可能同时下修盈利增速和估值倍数。</p>
+<h2 id="section-10">10. 估值</h2>
+
+<h3>8.1 相对估值：前瞻 PE</h3>
+<ul>
+<li>卖方 2026 年归母净利润均值：8.56 亿元。</li>
+<li>总股本：8.962 亿股；对应 2026E EPS 约 0.955 元。</li>
+<li>华明装备 2025—2026 年预计仍保持双位数利润增速，但 Q1 没有加速确认。给予 20—26 倍前瞻 PE。</li>
+<li>估值结果：<strong>19.10—24.83 元/股</strong>。</li>
+</ul>
+<p>东方财富动态 PE 的同业区间为 14—62 倍，但季节性、业务结构和字段年化方法差异过大，不用于直接取中位数。华明的 P/B 5.17 倍低于思源电气 7.56 倍，但高于许继电气、平高电气、中国西电和国电南瑞的 1.69—3.58 倍；这说明市场已经给了细分龙头与高毛利溢价。</p>
+<h3>8.2 DCF：FCF 折现</h3>
+<p>DCF 使用“经营现金流减资本开支”作为简化 FCFF，2023—2025 年平均约 6.09 亿元，基准起点取 6.00 亿元；净现金采用 2026Q1 货币资金减短期借款、长期借款及租赁负债，约 1.47 亿元；总股本 8.962 亿股。</p>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">起点 FCF</th>
+<th>五年增速</th>
+<th align="right">WACC</th>
+<th align="right">永续增速</th>
+<th align="right">价值/股</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观</td>
+<td align="right">4.80 亿元</td>
+<td>5% / 5% / 4% / 4% / 3%</td>
+<td align="right">10.5%</td>
+<td align="right">2.0%</td>
+<td align="right">7.23 元</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">6.00 亿元</td>
+<td>12% / 10% / 8% / 7% / 6%</td>
+<td align="right">9.5%</td>
+<td align="right">2.5%</td>
+<td align="right">12.92 元</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">7.20 亿元</td>
+<td>15% / 13% / 11% / 9% / 7%</td>
+<td align="right">8.5%</td>
+<td align="right">3.0%</td>
+<td align="right">21.45 元</td>
+</tr>
+</tbody></table>
+<h4>基准现金流的敏感性分析（元/股）</h4>
+<table>
+<thead>
+<tr>
+<th align="right">WACC \ 永续增速</th>
+<th align="right">2.0%</th>
+<th align="right">2.5%</th>
+<th align="right">3.0%</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">8.5%</td>
+<td align="right">14.16</td>
+<td align="right">15.09</td>
+<td align="right">16.20</td>
+</tr>
+<tr>
+<td align="right">9.5%</td>
+<td align="right">12.25</td>
+<td align="right">12.92</td>
+<td align="right">13.69</td>
+</tr>
+<tr>
+<td align="right">10.5%</td>
+<td align="right">10.79</td>
+<td align="right">11.29</td>
+<td align="right">11.85</td>
+</tr>
+</tbody></table>
+<p>**我的判断：**乐观 DCF 要求海外增长、毛利率和现金转化同时维持较高水平；基准 DCF 低于现价，说明当前价格包含了较大的质量与成长溢价。</p>
+<h3>8.3 行业特定指标：EV / 正常化 FCF</h3>
+<ul>
+<li>当前市值 161.23 亿元，2026Q1 含租赁负债后的净现金约 1.47 亿元，企业价值约 159.76 亿元。</li>
+<li>2023—2025 年正常化 FCF 均值约 6.09 亿元，当前 EV/正常化 FCF 约 <strong>26.2 倍</strong>。</li>
+<li>对高毛利、低资本开支、存在售后检修收入的细分设备龙头，采用 18—24 倍正常化 FCF；不采用纯周期重资产设备公司的低倍数，也不采用无上限成长股倍数。</li>
+<li>估值结果：<strong>12.39—16.47 元/股</strong>；若取 6.00 亿元整作为正常化 FCF，则为 12.21—16.23 元，差异不影响结论。</li>
+</ul>
+<h3>8.4 估值汇总</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="right">估值区间</th>
+<th align="right">相对 17.99 元</th>
+<th>主要含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>前瞻 PE</td>
+<td align="right">19.10—24.83 元</td>
+<td align="right">+6.2% 至 +38.0%</td>
+<td>依赖 2026 盈利兑现和估值溢价</td>
+</tr>
+<tr>
+<td>DCF</td>
+<td align="right">7.23—21.45 元</td>
+<td align="right">-59.8% 至 +19.2%</td>
+<td>对现金流增速和折现率非常敏感</td>
+</tr>
+<tr>
+<td>EV / 正常化 FCF</td>
+<td align="right">12.21—16.47 元</td>
+<td align="right">-32.1% 至 -8.4%</td>
+<td>当前现金收益率偏低</td>
+</tr>
+<tr>
+<td>决策区间</td>
+<td align="right"><strong>15.00—21.00 元</strong></td>
+<td align="right"><strong>-16.6% 至 +16.7%</strong></td>
+<td>剔除极端情景后的综合区间</td>
+</tr>
+</tbody></table>
+<p>卖方目标价 37—40 元对应约 39—42 倍 2026E PE，且远高于 DCF 与 FCF 法。<strong>我的判断是不采信其作为决策中枢</strong>：公开聚合页没有完整披露目标价样本与假设，公司也没有相匹配的数值指引。卖方目标可视为牛市情景上限，而不是现金买入的安全价值。</p>
+<h2 id="section-11">11. 冰冰小美框架判断</h2>
+
+<h3>风险方向与动作</h3>
+<ul>
+<li>风险增强：Q1 扣非利润下滑（+1）；当前现金流倍数与 P/B 不低（+1）；近期利好和涨停叙事较密集但订单尚未验证（+1）。</li>
+<li>风险减弱：股价年初至今 -28.15%、已接近 52 周低位区域（-1）；行业电网投资与海外需求方向仍正向（-1）。</li>
+<li>评分：+1，评级 <strong>R1 弱风险观察</strong>。</li>
+</ul>
+<p>**我的判断：**公司基本面没有进入 R2/R3，但也没有满足 W2/W3 的买入窗口标准。当前应“观察”，而不是因为年内下跌或单日涨停直接买入。</p>
+<h2 id="section-12">12. 最终结论</h2>
+
+<h3>明确评级</h3>
+<ul>
+<li>估值：<strong>合理，偏贵</strong>。</li>
+<li>操作：<strong>观望</strong>。</li>
+<li>如果今天这是一笔现金：<strong>我不会现在买入。</strong></li>
+</ul>
+<h3>允许转为买入评估的条件</h3>
+<p>满足以下两类中的至少一类，并且没有出现基本面证伪：</p>
+<ol>
+<li>**价格条件：**进入 14.5—16.0 元区间，对应基准综合价值出现约 10%—20% 安全边际；同时电网设备板块未出现持续放量杀跌。</li>
+<li>**盈利条件：**2026H1 电力设备收入恢复正增长，境外收入保持 30% 以上增长，境外毛利率不低于 55%，剔除股份支付后扣非利润恢复正增长；即使股价不跌，也允许重估现金流上限。</li>
+</ol>
+<h3>失效与规避条件</h3>
+<ul>
+<li>2026H1 电力设备收入继续负增长，且管理层仍只归因于交付节奏而没有订单/发货证据。</li>
+<li>境外毛利率跌破 50%，或海外收入增速降至 20% 以下。</li>
+<li>应收账款和存货增速持续显著高于收入，滚动十二个月 CFO/归母净利润低于 70%。</li>
+<li>H 股发行规模、折价或费用显著损害每股价值。</li>
+<li>股价重新进入 24 元以上而盈利预测没有同步上修，前瞻 PE 超过约 25 倍。</li>
+</ul>
+<h2 id="section-13">13. 后续监控指标</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">当前基线</th>
+<th>观察方向</th>
+<th>决策含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>电力设备收入增速</td>
+<td align="right">2026Q1 -1.28%</td>
+<td>H1 恢复正增长</td>
+<td>验证“交付节奏”而非需求下滑</td>
+</tr>
+<tr>
+<td>境外收入增速与毛利率</td>
+<td align="right">2025 +55.65% / 58.45%</td>
+<td>增速 &gt;30%、毛利率 ≥55%</td>
+<td>验证海外增长质量</td>
+</tr>
+<tr>
+<td>扣非利润（剔除股份支付）</td>
+<td align="right">2026Q1 -0.34%</td>
+<td>恢复正增长</td>
+<td>识别真实核心盈利趋势</td>
+</tr>
+<tr>
+<td>滚动 CFO / 归母净利润</td>
+<td align="right">2025 85.1%</td>
+<td>保持 ≥80%</td>
+<td>防止海外扩张吞噬现金</td>
+</tr>
+<tr>
+<td>估值与价格</td>
+<td align="right">17.99 元、P/B 5.17 倍</td>
+<td>14.5—16 元或盈利上修</td>
+<td>决定是否出现安全边际</td>
+</tr>
+</tbody></table>
+<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
+
+<ul>
+<li>Morningstar 公允价值：<strong>未获取到</strong>。</li>
+<li>Morningstar 护城河评级：<strong>未获取到</strong>。</li>
+<li>Morningstar 股票星级：<strong>未获取到</strong>。</li>
+<li>管理层 2026 年正式收入、利润、海外收入和订单数值指引：<strong>未获取到</strong>。</li>
+<li>完整卖方目标价逐份样本及估值模型：<strong>未获取到</strong>。</li>
+<li>H 股发行股数、定价、预计摊薄与完成时间：<strong>未获取到</strong>。</li>
+</ul>
+<h2 id="section-15">15. 来源清单</h2>
+
+<p>以下法定报告、行情快照与检索记录构成本报告的来源清单；相关页面同时作为可追溯入口。</p>
+<ul>
+<li><a href="../../../../timelines/cjw-电网设备-变压器.md">cjw-电网设备-变压器</a>：已有华明装备应用场景、估值修复和建仓策略时间线；本报告用法定财务与现金流估值对其做当期校准。</li>
+<li><a href="../../../webpages/2026-07-15-东方财富-华明装备行情快照.md">东方财富行情快照</a>：实时价格、52 周区间、年初至今表现和同业估值。</li>
+<li><a href="../../../webpages/2026-07-15-Morningstar-华明装备覆盖核验.md">Morningstar 覆盖核验</a>：记录未获取字段与不填充纪律。</li>
+<li><a href="../../../webpages/2026-07-15-华明装备卖方评级与近期催化剂检索记录.md">卖方评级与近期催化剂检索</a>：卖方分布、来源冲突和近三个月事件。</li>
+</ul>
+<h2 id="section-16">16. 声明</h2>
+
+<p>本报告基于截至研究截止时间可取得的公开信息，不构成收益保证。真实交易前应重新核验价格、公告、流动性和个人风险承受能力。</p>
+<script>
+(() => {
+  const endpoint = '/api/stock-quote?secid=0.002270';
+  const priceNode = document.getElementById('intraday-price');
+  const detailNode = document.getElementById('intraday-detail');
+  const statusNode = document.getElementById('intraday-status');
+  const deviationValue = document.getElementById('deviation-value');
+  const deviationDetail = document.getElementById('deviation-detail');
+  const tracker = document.getElementById('daily-tracking');
+  const snapshotPrice = 17.99;
+  const percent = value => `${value < 0 ? '-' : value > 0 ? '+' : ''}${Math.abs(value).toFixed(1)}%`;
+  function updateDeviation(price) {
+    const low = Number(tracker.dataset.valueLow);
+    const high = Number(tracker.dataset.valueHigh);
+    if (!Number.isFinite(low) || !Number.isFinite(high) || low <= 0 || high <= low) return;
+    const midpoint = (low + high) / 2;
+    const versusLow = (price / low - 1) * 100;
+    const versusMid = (price / midpoint - 1) * 100;
+    const versusHigh = (price / high - 1) * 100;
+    if (price > high) { deviationValue.textContent = `高于上沿 ${percent(versusHigh)}`; deviationValue.classList.add('bad'); }
+    else if (price < low) { deviationValue.textContent = `低于下沿 ${percent(Math.abs(versusLow))}`; deviationValue.classList.remove('bad'); }
+    else { deviationValue.textContent = '位于动态价值区间内'; deviationValue.classList.remove('bad'); }
+    deviationDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对区间中枢 ${midpoint.toFixed(2)} 元为 ${percent(versusMid)}，相对下沿为 ${percent(versusLow)}，相对上沿为 ${percent(versusHigh)}。盘中价格不改变价值区间本身。`;
+  }
+  async function refreshIntradayQuote() {
+    statusNode.textContent = '连接中'; statusNode.className = 'tracking-status';
+    try {
+      const response = await fetch(endpoint, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json(); const quote = payload && payload.data;
+      if (!quote || !Number.isFinite(quote.price) || !Number.isFinite(quote.prevClose) || !Number.isFinite(quote.changePercent) || !Number.isFinite(quote.quoteTimestamp)) throw new Error('invalid quote');
+      const quoteTime = new Date(quote.quoteTimestamp * 1000).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false });
+      priceNode.textContent = `${quote.price.toFixed(2)} 元 · ${percent(quote.changePercent)}`;
+      priceNode.classList.toggle('bad', quote.changePercent < 0);
+      detailNode.textContent = `行情时间：${quoteTime}；昨收 ${quote.prevClose.toFixed(2)} 元。来源：${payload.proxySource || '本地行情代理'}。`;
+      statusNode.textContent = '盘中实时 · 每 60 秒'; statusNode.className = 'tracking-status live'; updateDeviation(quote.price);
+    } catch { priceNode.textContent = '实时行情暂不可用'; priceNode.classList.remove('bad'); detailNode.textContent = '每日同步值仍然有效；可重新双击“大盘启动器”后刷新本页。'; statusNode.textContent = '连接失败'; statusNode.className = 'tracking-status error'; }
+  }
+  if (location.protocol === 'http:' || location.protocol === 'https:') { refreshIntradayQuote(); window.setInterval(refreshIntradayQuote, 60000); }
+  else { priceNode.textContent = Number.isFinite(snapshotPrice) ? `${snapshotPrice.toFixed(2)} 元（每日值）` : '每日值未获取'; detailNode.textContent = '当前为直接打开模式；盘中实时需通过“大盘启动器”进入本地服务。'; statusNode.textContent = '每日同步 · 实时未连接'; }
+})();
+</script></article>
+    </div>
+  </main>
+</body>
+</html>
