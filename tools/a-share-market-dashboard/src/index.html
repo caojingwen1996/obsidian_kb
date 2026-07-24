@@ -40,6 +40,7 @@
             <div class="tree-children" id="tree-personal" hidden>
             <button class="nav-item" type="button" data-view="position-manager"><span>01</span>仓位管理</button>
             <button class="nav-item" type="button" data-view="holding-tracker"><span>02</span>持仓跟踪</button>
+            <button class="nav-item" type="button" data-view="book-list"><span>03</span>书单</button>
             </div>
           </section>
           <button class="tree-root tree-leaf" type="button" data-tree-domain="changelog" data-view="changelog-view"><span>更新日志</span></button>
@@ -86,10 +87,7 @@
         <div class="overview-grid" aria-label="市场总览三块">
           <div id="youzhiyouxing-temperature-card"></div>
           <div id="dividend-signal-card" aria-label="中证红利股息率信号"></div>
-          <article class="overview-card overview-placeholder">
-            <div class="overview-card-head"><span>预留模块</span><strong>暂空</strong></div>
-            <p>留给下一类市场信号，不预填判断。</p>
-          </article>
+          <div id="nasdaq100-card" aria-label="纳斯达克100指数"></div>
         </div>
 
         <div class="hero-grid is-render-target" hidden>
@@ -270,8 +268,11 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
             <article><small>观察</small><strong id="tracking-watch-count">0</strong><span>等待验证</span></article>
             <article><small>最近更新</small><strong id="tracking-updated">尚未记录</strong><span>手工复核</span></article>
           </div>
+          <div class="tracker-actions">
+            <button class="button-secondary" id="open-tracking-form" type="button">新增跟踪</button>
+          </div>
           <div class="tracker-workspace">
-            <form class="tracking-form panel" id="tracking-form">
+            <form class="tracking-form panel" id="tracking-form" hidden>
               <input name="id" type="hidden">
               <div class="holding-form-title"><div><p class="eyebrow">TRACKING ITEM</p><h3 id="tracking-form-title">新增跟踪</h3></div><button class="text-button" id="cancel-tracking-edit" type="button" hidden>取消编辑</button></div>
               <div class="tracking-form-grid">
@@ -286,15 +287,29 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
               <button class="button-primary" type="submit">保存跟踪</button>
             </form>
             <div class="tracker-list-panel panel">
-              <div class="holding-form-title"><div><p class="eyebrow">WATCHLIST</p><h3>跟踪清单</h3></div><div class="tracker-filter" id="tracking-filter" aria-label="跟踪状态筛选"><button class="is-active" type="button" data-status-filter="all" aria-pressed="true">全部</button><button type="button" data-status-filter="持有" aria-pressed="false">持有</button><button type="button" data-status-filter="观察" aria-pressed="false">观察</button><button type="button" data-status-filter="计划加仓" aria-pressed="false">加仓</button><button type="button" data-status-filter="计划减仓" aria-pressed="false">减仓</button></div></div>
+              <div class="holding-form-title"><div><p class="eyebrow">WATCHLIST</p><h3>跟踪清单</h3></div><div class="tracker-filter" id="tracking-filter" aria-label="跟踪状态筛选"><button class="is-active" type="button" data-status-filter="all" aria-pressed="true">全部</button><button type="button" data-status-filter="持有" aria-pressed="false">持有</button><button type="button" data-status-filter="观察" aria-pressed="false">观察</button><button type="button" data-status-filter="allocation" aria-pressed="false">配比模式</button></div></div>
+              <div class="allocation-view" id="tracking-allocation-view" hidden>
+                <div class="allocation-donut" id="tracking-allocation-chart" aria-label="资产配比饼图"></div>
+                <div class="allocation-legend" id="tracking-allocation-legend" aria-label="资产配比明细"></div>
+              </div>
               <div class="tracking-table-wrap">
                 <table class="tracking-table">
-                  <thead><tr><th>标的</th><th>状态</th><th>跟踪逻辑</th><th>风险线</th><th>下一步</th><th>复核条件</th><th>更新</th><th>操作</th></tr></thead>
+                  <thead><tr><th>标的</th><th>动态价值区间</th><th>盘中实时</th><th>风险方向</th><th>数据来自研报</th></tr></thead>
                   <tbody id="holding-tracker-list"></tbody>
                 </table>
               </div>
               <p class="personal-empty tracker-empty" id="holding-tracker-empty">还没有跟踪标的。先在左侧新增一条观察记录。</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="book-list" data-shell-content="personal" aria-labelledby="book-list-heading">
+        <div class="personal-page">
+          <h2 class="visually-hidden" id="book-list-heading">书单</h2>
+          <div class="panel book-list-panel">
+            <div class="holding-form-title"><div><p class="eyebrow">READING LIST</p><h3>书单</h3></div><span>待整理</span></div>
+            <p class="personal-empty">这里先作为你的投资阅读书单入口，后续可以继续加分类、进度和读书笔记链接。</p>
           </div>
         </div>
       </section>

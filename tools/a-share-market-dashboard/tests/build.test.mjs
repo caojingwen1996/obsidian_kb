@@ -81,6 +81,7 @@ test('sidebar exposes the personal position workspace as a first-level tree doma
     'industry-pillar',
     'position-manager',
     'holding-tracker',
+    'book-list',
     'holding-form',
     'tracking-form',
     'tracking-count',
@@ -93,9 +94,18 @@ test('sidebar exposes the personal position workspace as a first-level tree doma
   }
   for (const status of ['持有', '观察', '计划加仓', '计划减仓']) {
     assert.match(html, new RegExp(`<option>${status}</option>`));
+  }
+  for (const status of ['持有', '观察']) {
     assert.match(html, new RegExp(`data-status-filter="${status}"`));
   }
-  const trackingForm = html.match(/<form class="tracking-form panel" id="tracking-form">[\s\S]*?<\/form>/)?.[0] ?? '';
+  assert.match(html, /data-status-filter="allocation"[^>]*>配比模式<\/button>/);
+  assert.doesNotMatch(html, /data-status-filter="计划加仓"/);
+  assert.doesNotMatch(html, /data-status-filter="计划减仓"/);
+  assert.match(html, /id="tracking-allocation-view" hidden/);
+  assert.match(html, /id="tracking-allocation-chart"/);
+  assert.match(html, /id="tracking-allocation-legend"/);
+  assert.match(html, /<button class="button-secondary" id="open-tracking-form" type="button">新增跟踪<\/button>/);
+  const trackingForm = html.match(/<form class="tracking-form panel" id="tracking-form" hidden>[\s\S]*?<\/form>/)?.[0] ?? '';
   assert.match(trackingForm, /<label><span>标的名称<\/span><input name="name" required maxlength="30"/);
   assert.match(trackingForm, /<label><span>证券代码<\/span><input name="code" maxlength="12"/);
   assert.doesNotMatch(trackingForm, /<label><span>证券代码<\/span><input name="code" required/);
@@ -107,6 +117,9 @@ test('sidebar exposes the personal position workspace as a first-level tree doma
   assert.doesNotMatch(html, />板块</);
   assert.match(html, /class="tracking-table-wrap"/);
   assert.match(html, /<table class="tracking-table">/);
+  assert.match(html, /<button class="nav-item" type="button" data-view="book-list"><span>03<\/span>书单<\/button>/);
+  assert.match(html, /<h2 class="visually-hidden" id="book-list-heading">书单<\/h2>/);
+  assert.match(html, /<thead><tr><th>标的<\/th><th>动态价值区间<\/th><th>盘中实时<\/th><th>风险方向<\/th><th>数据来自研报<\/th><\/tr><\/thead>/);
   assert.match(html, /<tbody id="holding-tracker-list"><\/tbody>/);
   assert.doesNotMatch(html, /tracker-card/);
 });
@@ -119,8 +132,9 @@ test('market summary renders three overview cards and includes signal sources in
   assert.match(source, /class="overview-grid"/);
   assert.match(source, /id="youzhiyouxing-temperature-card"/);
   assert.match(source, /id="dividend-signal-card"/);
-  assert.match(source, /预留模块/);
-  assert.match(source, /暂空/);
+  assert.match(source, /id="nasdaq100-card"/);
+  assert.doesNotMatch(source, /预留模块/);
+  assert.doesNotMatch(source, /暂空/);
   for (const marker of [
     '市场温度计',
     '打开有知有行市场温度计源数据',
@@ -136,6 +150,10 @@ test('market summary renders three overview cards and includes signal sources in
     'zzhl-dividend-signal 最新信号',
     '<td>中证红利股息率信号</td>',
     '<td>观察项</td>',
+    '纳斯达克100指数',
+    '当前点位',
+    '距离历史最高点跌幅',
+    '/api/nasdaq100',
   ]) {
     assert.match(artifact, new RegExp(marker));
   }

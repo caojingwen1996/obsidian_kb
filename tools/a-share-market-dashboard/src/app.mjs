@@ -26,8 +26,14 @@ const STATUS_PRIORITY = Object.freeze({ example: 0, latest: 0, snapshot: 1, expi
 const STATUS_LABELS = Object.freeze({ example: '示例', latest: '最新', snapshot: '快照', expired: '已过期', missing: '缺失' });
 const PORTFOLIO_STORAGE_KEY = 'a-share-market-dashboard:holdings:v1';
 const YOUZHIYOUXING_TEMPERATURE_URL = 'https://youzhiyouxing.cn/data';
+const NASDAQ100_SOURCE_URL = 'https://finance.yahoo.com/quote/%5ENDX/';
 const CSI_DIVIDEND_SIGNAL_SOURCE_URL = '../../sources/automations/中证红利信号/最新信号.md';
 const HOLDING_STATUSES = new Set(['持有', '观察', '计划加仓', '计划减仓']);
+const ALLOCATION_CATEGORIES = Object.freeze([
+  { key: 'pillar', label: '支柱', color: '#2f7ee6' },
+  { key: 'strategy', label: '战略资源', color: '#26a68f' },
+  { key: 'emerging', label: '新兴', color: '#f3b42b' },
+]);
 const STOCK_CODE_ALIASES = Object.freeze({
   航天电子: '600879',
   云铝股份: '000807',
@@ -219,6 +225,143 @@ function reportLinkForTrackingItem(item) {
   return partial?.[1] ?? '';
 }
 
+function allocationCategoryForReport(reportHref) {
+  const href = (() => {
+    try { return decodeURIComponent(reportHref); }
+    catch { return reportHref; }
+  })();
+  if (href.includes('支柱产业')) return 'pillar';
+  if (href.includes('战略资源')) return 'strategy';
+  if (href.includes('新兴产业')) return 'emerging';
+  return '';
+}
+
+function holdingValueForTrackingItem(item, holdings) {
+  const itemCode = String(item.code ?? '').trim();
+  const itemName = normalizeStockName(item.name);
+  const holding = holdings.find(entry =>
+    (itemCode && String(entry.code ?? '').trim() === itemCode)
+    || (itemName && normalizeStockName(entry.name) === itemName)
+  );
+  const value = Number(holding?.quantity) * Number(holding?.price);
+  if (Number.isFinite(value) && value > 0) return value;
+  return item.status === '持有' ? 1 : 0;
+}
+
+function summarizeTrackingAllocation(items, holdings) {
+  const buckets = Object.fromEntries(ALLOCATION_CATEGORIES.map(category => [category.key, { value: 0, targets: [] }]));
+  for (const item of items) {
+    if (item.status !== '持有') continue;
+    const category = allocationCategoryForReport(reportLinkForTrackingItem(item));
+    if (!category) continue;
+    const value = holdingValueForTrackingItem(item, holdings);
+    if (value <= 0) continue;
+    buckets[category].value += value;
+    buckets[category].targets.push({
+      name: item.name,
+      code: item.code,
+      value,
+      percent: 0,
+    });
+  }
+  const total = Object.values(buckets).reduce((sum, bucket) => sum + bucket.value, 0);
+  return ALLOCATION_CATEGORIES.map(category => {
+    const bucket = buckets[category.key] ?? { value: 0, targets: [] };
+    return {
+      ...category,
+      value: bucket.value,
+      percent: total > 0 ? bucket.value / total * 100 : 0,
+      targets: bucket.targets
+        .map(target => ({ ...target, percent: total > 0 ? target.value / total * 100 : 0 }))
+        .sort((left, right) => right.percent - left.percent),
+    };
+  });
+}
+
+function compactText(value) {
+  return String(value ?? '').replace(/\s+/g, ' ').trim();
+}
+
+function nodeText(node) {
+  return compactText(node?.textContent ?? '');
+}
+
+function tableValueByLabel(documentNode, labels) {
+  for (const row of documentNode.querySelectorAll('tr')) {
+    const cells = [...row.children].map(nodeText);
+    if (cells.length < 2) continue;
+    if (labels.some(label => cells[0].includes(label))) return cells[1];
+  }
+  return '';
+}
+
+function trackingCardValue(documentNode, key) {
+  const card = documentNode.querySelector(`[data-tracking-key="${key}"]`);
+  if (!card) return '';
+  const value = nodeText(card.querySelector('.tracking-value'));
+  const detail = nodeText(card.querySelector('.tracking-detail'));
+  return [value, detail].filter(Boolean).join('；');
+}
+
+function firstTextMatch(text, patterns) {
+  for (const pattern of patterns) {
+    const match = text.match(pattern);
+    if (match?.[1]) return compactText(match[1]);
+  }
+  return '';
+}
+
+function priceRangeOnly(value) {
+  const text = compactText(value);
+  const match = text.match(/\d+(?:\.\d+)?\s*[—\-–至到]\s*\d+(?:\.\d+)?\s*元(?:\s*\/\s*股)?/);
+  return match ? compactText(match[0]) : text;
+}
+
+export function parseReportSummary(html) {
+  if (typeof DOMParser === 'undefined') return {};
+  const documentNode = new DOMParser().parseFromString(html, 'text/html');
+  const bodyText = nodeText(documentNode.body);
+  const secid = documentNode.querySelector('meta[name="stock-secid"]')?.getAttribute('content')
+    || firstTextMatch(html, [/stock-quote\?secid=([01]\.\d{6})/]);
+  const fundamental = trackingCardValue(documentNode, 'fundamental-status')
+    || [
+      tableValueByLabel(documentNode, ['估值状态']),
+      tableValueByLabel(documentNode, ['操作建议']),
+    ].filter(Boolean).join('；')
+    || firstTextMatch(bodyText, [
+      /我的判断[：:]\s*([^。；]{8,120})/,
+      /一句话[：:]\s*([^。；]{8,120})/,
+    ]);
+  const valueRange = priceRangeOnly(trackingCardValue(documentNode, 'dynamic-value-range')
+    || tableValueByLabel(documentNode, ['综合估值区间', '公允价值', '估值区间'])
+    || firstTextMatch(bodyText, [
+      /综合公允价值(?:为|取)?\s*([0-9.]+[—\\-–至到][0-9.]+\s*元(?:\/股)?)/,
+      /公允价值(?:为|取)?\s*([0-9.]+[—\\-–至到][0-9.]+\s*元(?:\/股)?)/,
+      /综合估值区间\s*([0-9.]+[—\\-–至到][0-9.]+\s*元(?:\/股)?)/,
+    ]));
+  const reportQuote = trackingCardValue(documentNode, 'daily-quote')
+    || tableValueByLabel(documentNode, ['当前价格及时间', '当前价格'])
+    || firstTextMatch(bodyText, [/当前价格[：:]\s*([^。；]{3,80})/]);
+  const riskDirection = firstTextMatch(bodyText, [
+    /风险方向[：:]\s*([^。；，,]{2,40})/,
+    /(风险重新增强)/,
+    /(风险明显增强)/,
+    /(风险增强)/,
+    /(风险持平)/,
+    /(风险减弱)/,
+    /(风险释放)/,
+  ]) || tableValueByLabel(documentNode, ['风险方向']);
+  return {
+    secid,
+    fundamental,
+    valueRange,
+    reportQuote,
+    riskDirection,
+    sourceUpdated: documentNode.querySelector('#daily-tracking')?.getAttribute('data-updated-at')
+      || firstTextMatch(bodyText, [/报告生成时间[：:]\s*([^。；]{6,50})/]),
+  };
+}
+
 function metricStatus(metric) {
   return Number.isFinite(metric.score) ? metric.status : 'missing';
 }
@@ -294,6 +437,35 @@ function renderYouzhiyouxingTemperatureCard(envelope) {
   </a>`;
 }
 
+function renderNasdaq100Card(envelope) {
+  const data = envelope?.data;
+  if (envelope?.status === 'latest' && data && Number.isFinite(data.currentPoint)) {
+    const drawdown = Number.isFinite(data.drawdownPercent) ? data.drawdownPercent : null;
+    const drawdownText = drawdown === null ? '待验证' : `${drawdown.toFixed(2)}%`;
+    const updatedText = data.updatedText || formatTime(data.updatedAt);
+    return `<a class="overview-card nasdaq-card is-clickable-card" href="${NASDAQ100_SOURCE_URL}" target="_blank" rel="noopener noreferrer" aria-label="打开纳斯达克100指数行情">
+      <div class="overview-card-head"><span>纳斯达克100指数</span><strong>NASDAQ 100</strong></div>
+      <div class="nasdaq-main">
+        <small>当前点位</small>
+        <strong>${formatNumber(data.currentPoint, 2)}</strong>
+        <span>${escapeHtml(updatedText)}</span>
+      </div>
+      <div class="nasdaq-drawdown ${drawdown !== null && drawdown <= -10 ? 'is-deep' : ''}">
+        <small>距离历史最高点跌幅</small>
+        <strong>${drawdownText}</strong>
+        <span>最高点 ${formatNumber(data.highPoint, 2)}</span>
+      </div>
+    </a>`;
+  }
+  const copy = envelope?.status === 'loading'
+    ? '正在读取纳斯达克100指数行情。'
+    : envelope?.error || '启动本地代理后读取纳斯达克100指数。';
+  return `<a class="overview-card nasdaq-card is-pending is-clickable-card" href="${NASDAQ100_SOURCE_URL}" target="_blank" rel="noopener noreferrer" aria-label="打开纳斯达克100指数行情">
+    <div class="overview-card-head"><span>纳斯达克100指数</span><strong>待连接</strong></div>
+    <p class="nasdaq-empty">${escapeHtml(copy)}</p>
+  </a>`;
+}
+
 function detailCard(metric) {
   const status = metricStatus(metric);
   return `<article class="detail-card">
@@ -310,7 +482,7 @@ function detailCard(metric) {
   </article>`;
 }
 
-function renderDerived(derived, officialTemperature = { status: 'loading' }) {
+function renderDerived(derived, officialTemperature = { status: 'loading' }, nasdaq100 = { status: 'loading' }) {
   const byId = id => document.getElementById(id);
   const scoreValue = derived.score.score;
   byId('conclusion-label').textContent = derived.conclusion.label;
@@ -331,6 +503,7 @@ function renderDerived(derived, officialTemperature = { status: 'loading' }) {
   </article>`).join('');
   byId('youzhiyouxing-temperature-card').innerHTML = renderYouzhiyouxingTemperatureCard(officialTemperature);
   byId('dividend-signal-card').innerHTML = renderDividendSignalCard(CSI_DIVIDEND_SIGNAL);
+  byId('nasdaq100-card').innerHTML = renderNasdaq100Card(nasdaq100);
 
   byId('metric-list').innerHTML = derived.metrics.map(metric => {
     const missing = !Number.isFinite(metric.score);
@@ -520,10 +693,12 @@ function startApp() {
     windowYears: 5,
     busy: false,
     youzhiyouxingTemperature: { status: 'loading', sourceUrl: YOUZHIYOUXING_TEMPERATURE_URL },
+    nasdaq100: { status: 'loading', sourceUrl: NASDAQ100_SOURCE_URL },
   };
   const storage = resolveStorage();
   let { holdings, trackingItems } = loadPortfolio(storage);
   let trackingStatusFilter = 'all';
+  const reportSummaryCache = new Map();
   const launcherHint = globalThis.location?.protocol === 'file:'
     ? ' 稳定联网请双击“启动大盘面板.cmd”。'
     : '';
@@ -605,6 +780,13 @@ function startApp() {
     document.getElementById('cancel-holding-edit').hidden = true;
   };
 
+  const openTrackingForm = () => {
+    const form = document.getElementById('tracking-form');
+    form.hidden = false;
+    document.getElementById('cancel-tracking-edit').hidden = false;
+    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   const resetTrackingForm = () => {
     const form = document.getElementById('tracking-form');
     form.reset();
@@ -612,6 +794,7 @@ function startApp() {
     form.elements.status.value = '观察';
     document.getElementById('tracking-form-title').textContent = '新增跟踪';
     document.getElementById('cancel-tracking-edit').hidden = true;
+    form.hidden = true;
   };
 
   const renderHoldings = () => {
@@ -640,39 +823,120 @@ function startApp() {
     </tr>`).join('');
   };
 
+  const renderTrackingAllocation = items => {
+    const allocation = summarizeTrackingAllocation(items, holdings);
+    const chart = document.getElementById('tracking-allocation-chart');
+    const legend = document.getElementById('tracking-allocation-legend');
+    let cursor = 0;
+    const segments = allocation
+      .filter(item => item.percent > 0)
+      .map(item => {
+        const start = cursor;
+        cursor += item.percent;
+        return `${item.color} ${start.toFixed(3)}% ${cursor.toFixed(3)}%`;
+      });
+    chart.style.background = segments.length
+      ? `conic-gradient(${segments.join(', ')})`
+      : 'conic-gradient(#dfe6eb 0% 100%)';
+    chart.innerHTML = `<div class="allocation-center"><small>资产配比</small><strong>${segments.length ? '100%' : '0%'}</strong></div>${allocation.map(item => {
+      const angle = (allocation.slice(0, allocation.indexOf(item)).reduce((sum, entry) => sum + entry.percent, 0) + item.percent / 2) / 100 * 360 - 90;
+      const radius = 39;
+      const left = 50 + Math.cos(angle * Math.PI / 180) * radius;
+      const top = 50 + Math.sin(angle * Math.PI / 180) * radius;
+      return item.percent > 0
+        ? `<span class="allocation-chart-label" style="left:${left.toFixed(2)}%;top:${top.toFixed(2)}%">${item.label}<b>${item.percent.toFixed(0)}%</b></span>`
+        : '';
+    }).join('')}`;
+    legend.innerHTML = allocation.map(item => `<div class="allocation-legend-row">
+      <span class="allocation-color" style="background:${item.color}"></span>
+      <div class="allocation-legend-copy">
+        <strong>${item.label}</strong>
+        <div class="allocation-targets">${item.targets.length
+          ? item.targets.map(target => `<span><em>${escapeHtml(target.name)}</em><b>${target.percent.toFixed(0)}%</b></span>`).join('')
+          : '<span><em>暂无持有标的</em><b>0%</b></span>'}</div>
+      </div>
+      <b>${item.percent.toFixed(0)}%</b>
+    </div>`).join('');
+    return allocation.some(item => item.percent > 0);
+  };
+
   const renderTrackingItems = () => {
     const summary = summarizeTrackingItems(trackingItems);
+    const allocationMode = trackingStatusFilter === 'allocation';
     const visibleItems = trackingStatusFilter === 'all'
       ? summary.items
+      : allocationMode
+        ? summary.items
       : summary.items.filter(item => item.status === trackingStatusFilter);
+    const hasAllocation = renderTrackingAllocation(summary.items);
     document.getElementById('tracking-count').textContent = String(summary.count);
     document.getElementById('tracking-holding-count').textContent = String(summary.countByStatus['持有']);
     document.getElementById('tracking-watch-count').textContent = String(summary.countByStatus['观察']);
     document.getElementById('tracking-updated').textContent = summary.latestUpdatedAt
       ? new Date(summary.latestUpdatedAt).toLocaleDateString('zh-CN')
       : '尚未记录';
-    document.getElementById('holding-tracker-empty').hidden = visibleItems.length > 0;
+    document.getElementById('tracking-allocation-view').hidden = !allocationMode;
+    document.querySelector('#holding-tracker .tracking-table-wrap').hidden = allocationMode;
+    const empty = document.getElementById('holding-tracker-empty');
+    empty.textContent = allocationMode
+      ? '还没有可计算的持有配比。先在仓位管理里记录持有数量和现价，或把跟踪项设为持有。'
+      : '还没有跟踪标的。先在左侧新增一条观察记录。';
+    empty.hidden = allocationMode ? hasAllocation : visibleItems.length > 0;
     document.getElementById('holding-tracker-list').innerHTML = visibleItems.map(item => {
       const reportHref = reportLinkForTrackingItem(item);
+      let reportEntry = reportHref ? reportSummaryCache.get(reportHref) : null;
+      if (reportHref && !reportEntry) {
+        reportEntry = { status: 'loading' };
+        reportSummaryCache.set(reportHref, reportEntry);
+        loadReportSummary(reportHref);
+      }
+      const report = reportEntry?.data ?? {};
+      const liveQuote = reportEntry?.quote;
+      const intraday = liveQuote
+        ? `${liveQuote.price.toFixed(2)} 元 · ${liveQuote.changePercent >= 0 ? '+' : ''}${liveQuote.changePercent.toFixed(2)}%`
+        : report.reportQuote || (reportEntry?.status === 'loading' ? '读取研报…' : item.nextAction || '未获取到');
       const nameHtml = reportHref
         ? `<a href="${escapeHtml(reportHref)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.name)}</a>`
         : escapeHtml(item.name);
       return `<tr data-tracking-id="${escapeHtml(item.id)}"${reportHref ? ` data-report-href="${escapeHtml(reportHref)}"` : ''}>
-      <td class="tracking-target"><strong>${nameHtml}</strong><small>${escapeHtml(item.code) || '未填代码'}</small></td>
-      <td><span class="tracker-status">${escapeHtml(item.status)}</span></td>
-      <td>${escapeHtml(item.thesis) || '未记录'}</td>
-      <td>${escapeHtml(item.riskLine) || '未记录'}</td>
-      <td>${escapeHtml(item.nextAction) || '未记录'}</td>
-      <td>${escapeHtml(item.reviewCondition) || '未记录'}</td>
-      <td class="tracking-updated">${new Date(item.updatedAt).toLocaleString('zh-CN', { hour12: false })}</td>
-      <td><div class="tracker-row-actions"><button type="button" data-action="edit-tracking">编辑</button><button type="button" data-action="delete-tracking">删除</button></div></td>
+      <td class="tracking-target"><strong>${nameHtml}</strong><small>${escapeHtml(item.code || report.secid || '未填代码')}</small><span class="tracker-status">${escapeHtml(item.status)}</span></td>
+      <td>${escapeHtml(report.valueRange || item.thesis || (reportEntry?.status === 'loading' ? '读取研报…' : '未获取到'))}</td>
+      <td>${escapeHtml(intraday)}</td>
+      <td>${escapeHtml(report.riskDirection || item.riskLine || (reportEntry?.status === 'loading' ? '读取研报…' : '未获取到'))}</td>
+      <td><div>${reportHref ? `<a href="${escapeHtml(reportHref)}" target="_blank" rel="noopener noreferrer">打开研报</a>` : escapeHtml(item.reviewCondition || '未关联研报')}</div><small class="tracking-updated">${escapeHtml(report.sourceUpdated ? `研报：${report.sourceUpdated}` : `记录：${new Date(item.updatedAt).toLocaleString('zh-CN', { hour12: false })}`)}</small><div class="tracker-row-actions"><button type="button" data-action="edit-tracking">编辑</button><button type="button" data-action="delete-tracking">删除</button></div></td>
     </tr>`;
     }).join('');
   };
 
+  async function loadReportSummary(reportHref) {
+    try {
+      const response = await fetch(reportHref, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const html = await response.text();
+      const data = parseReportSummary(html);
+      reportSummaryCache.set(reportHref, { status: 'loaded', data });
+      if (data.secid && isLocalProxyLocation()) {
+        try {
+          const quoteResponse = await fetch(`/api/stock-quote?secid=${encodeURIComponent(data.secid)}`, { cache: 'no-store' });
+          if (quoteResponse.ok) {
+            const payload = await quoteResponse.json();
+            if (payload?.data && Number.isFinite(payload.data.price)) {
+              reportSummaryCache.set(reportHref, { status: 'loaded', data, quote: payload.data });
+            }
+          }
+        } catch {
+          reportSummaryCache.set(reportHref, { status: 'loaded', data });
+        }
+      }
+    } catch {
+      reportSummaryCache.set(reportHref, { status: 'error', data: {} });
+    }
+    renderTrackingItems();
+  }
+
   const render = () => {
     const derived = deriveDashboard(state.snapshot, state.windowYears);
-    renderDerived(derived, state.youzhiyouxingTemperature);
+    renderDerived(derived, state.youzhiyouxingTemperature, state.nasdaq100);
     document.querySelectorAll('[data-window]').forEach(button => button.setAttribute('aria-pressed', String(Number(button.dataset.window) === state.windowYears)));
   };
 
@@ -703,6 +967,38 @@ function startApp() {
         status: 'missing',
         error: `有知有行温度计读取失败：${error instanceof Error ? error.message : String(error)}`,
         sourceUrl: YOUZHIYOUXING_TEMPERATURE_URL,
+      };
+    }
+    render();
+  };
+
+  const loadNasdaq100 = async () => {
+    if (!isLocalProxyLocation()) {
+      state.nasdaq100 = {
+        status: 'missing',
+        error: '稳定联网请双击“启动大盘面板.cmd”。',
+        sourceUrl: NASDAQ100_SOURCE_URL,
+      };
+      render();
+      return;
+    }
+    state.nasdaq100 = { status: 'loading', sourceUrl: NASDAQ100_SOURCE_URL };
+    render();
+    try {
+      const response = await fetch('/api/nasdaq100', { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json();
+      state.nasdaq100 = {
+        status: 'latest',
+        data: payload.data,
+        proxySource: payload.proxySource,
+        sourceUrl: payload.data?.sourceUrl ?? NASDAQ100_SOURCE_URL,
+      };
+    } catch (error) {
+      state.nasdaq100 = {
+        status: 'missing',
+        error: `纳斯达克100读取失败：${error instanceof Error ? error.message : String(error)}`,
+        sourceUrl: NASDAQ100_SOURCE_URL,
       };
     }
     render();
@@ -895,6 +1191,12 @@ function startApp() {
     document.getElementById('cancel-holding-edit').hidden = false;
     form.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
+  document.getElementById('open-tracking-form').addEventListener('click', () => {
+    resetTrackingForm();
+    document.getElementById('tracking-form').hidden = false;
+    document.getElementById('cancel-tracking-edit').hidden = false;
+    document.querySelector('#tracking-form [name="name"]').focus();
+  });
   document.getElementById('tracking-form').addEventListener('submit', event => {
     event.preventDefault();
     fillTrackingCodeFromName(false);
@@ -957,7 +1259,7 @@ function startApp() {
     }
     document.getElementById('tracking-form-title').textContent = `编辑 ${item.name}`;
     document.getElementById('cancel-tracking-edit').hidden = false;
-    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    openTrackingForm();
   });
   document.getElementById('nav-toggle').addEventListener('click', event => {
     const open = document.getElementById('sidebar').classList.toggle('is-open');
@@ -976,6 +1278,7 @@ function startApp() {
   refreshButton.addEventListener('click', () => {
     refreshLive();
     loadYouzhiyouxingTemperature();
+    loadNasdaq100();
   });
 
   setShell('thermometer', 'market-summary');
@@ -984,6 +1287,7 @@ function startApp() {
   renderTrackingItems();
   loadProxyPortfolio();
   loadYouzhiyouxingTemperature();
+  loadNasdaq100();
   refreshLive();
   setInterval(() => {
     if (isTradingSession() && state.snapshot.mode === 'live') {

@@ -16,7 +16,6 @@ import webbrowser
 
 
 ALLOWED_SECIDS = {"1.000001", "1.000300", "1.000985"}
-ALLOWED_STOCK_SECIDS = {"0.000807", "0.002270", "1.600879"}
 ALLOWED_INDEX_CODES = {"000300", "000985"}
 TENCENT_SYMBOLS = {
     "1.000001": "sh000001",
@@ -32,13 +31,10 @@ SOURCE_NAMES = {
     "/api/margin": "margin",
     "/api/stock-quote": "stock-quote",
     "/api/youzhiyouxing-temperature": "youzhiyouxing-temperature",
+    "/api/nasdaq100": "nasdaq100",
 }
 YOUZHIYOUXING_TEMPERATURE_URL = "https://youzhiyouxing.cn/data"
-TENCENT_STOCK_SYMBOLS = {
-    "0.000807": "sz000807",
-    "0.002270": "sz002270",
-    "1.600879": "sh600879",
-}
+NASDAQ100_CHART_URL = "https://query1.finance.yahoo.com/v8/finance/chart/%5ENDX?range=max&interval=1d"
 PORTFOLIO_STATUSES = {"持有", "观察", "计划加仓", "计划减仓"}
 DEFAULT_PORT = 49888
 
@@ -86,6 +82,12 @@ def _date8(value):
     return value
 
 
+def _stock_secid(value):
+    if not re.fullmatch(r"[01]\.\d{6}", value):
+        raise RouteError("invalid secid")
+    return value
+
+
 def _build_url(base, params):
     return f"{base}?{urlencode(params)}"
 
@@ -126,9 +128,7 @@ def build_upstream_url(path, query):
             },
         )
     if path == "/api/stock-quote":
-        secid = _one(query, "secid")
-        if secid not in ALLOWED_STOCK_SECIDS:
-            raise RouteError("invalid secid")
+        secid = _stock_secid(_one(query, "secid"))
         return _build_url(
             "https://push2.eastmoney.com/api/qt/stock/get",
             {
@@ -215,18 +215,22 @@ def normalize_stock_quote(payload, secid):
 
 
 def _build_tencent_stock_quote_url(secid):
-    symbol = TENCENT_STOCK_SYMBOLS.get(secid)
-    if not symbol:
-        raise RouteError("invalid secid")
+    symbol = _tencent_stock_symbol(secid)
     return _build_url(
         "https://ifzq.gtimg.cn/appstock/app/minute/query",
         {"code": symbol},
     )
 
 
+def _tencent_stock_symbol(secid):
+    secid = _stock_secid(secid)
+    market, code = secid.split(".", 1)
+    return f"{'sz' if market == '0' else 'sh'}{code}"
+
+
 def normalize_tencent_stock_quote(payload, secid):
     """Normalize the fixed Tencent quote array used as the stock fallback."""
-    symbol = TENCENT_STOCK_SYMBOLS.get(secid)
+    symbol = _tencent_stock_symbol(secid)
     data = payload.get("data") if isinstance(payload, dict) else None
     node = data.get(symbol) if isinstance(data, dict) else None
     qt = node.get("qt") if isinstance(node, dict) else None
@@ -279,7 +283,12 @@ def fetch_stock_quote(secid, fetcher=None):
 def fetch_upstream(url, source):
     """Fetch one allowlisted upstream response with bounded resources."""
     host = urlparse(url).hostname or ""
-    referer = "https://www.csindex.com.cn/" if host.endswith("csindex.com.cn") else "https://quote.eastmoney.com/"
+    if host.endswith("csindex.com.cn"):
+        referer = "https://www.csindex.com.cn/"
+    elif host.endswith("finance.yahoo.com"):
+        referer = "https://finance.yahoo.com/"
+    else:
+        referer = "https://quote.eastmoney.com/"
     request = Request(
         url,
         headers={
@@ -372,6 +381,59 @@ def fetch_youzhiyouxing_temperature(fetcher=fetch_upstream_text):
     if not isinstance(text, str):
         raise UpstreamError("youzhiyouxing-temperature")
     return parse_youzhiyouxing_temperature(text)
+
+
+def normalize_nasdaq100_chart(payload):
+    chart = payload.get("chart") if isinstance(payload, dict) else None
+    results = chart.get("result") if isinstance(chart, dict) else None
+    if not isinstance(results, list) or not results:
+        raise UpstreamError("nasdaq100")
+    result = results[0]
+    meta = result.get("meta") if isinstance(result, dict) else None
+    indicators = result.get("indicators") if isinstance(result, dict) else None
+    quotes = indicators.get("quote") if isinstance(indicators, dict) else None
+    quote = quotes[0] if isinstance(quotes, list) and quotes else None
+    closes = quote.get("close") if isinstance(quote, dict) else None
+    if not isinstance(meta, dict) or not isinstance(closes, list):
+        raise UpstreamError("nasdaq100")
+    close_values = [
+        float(value)
+        for value in closes
+        if isinstance(value, (int, float)) and math.isfinite(float(value)) and float(value) > 0
+    ]
+    current = meta.get("regularMarketPrice")
+    if not isinstance(current, (int, float)) or not math.isfinite(float(current)) or float(current) <= 0:
+        if not close_values:
+            raise UpstreamError("nasdaq100")
+        current = close_values[-1]
+    current = float(current)
+    high_point = max([current, *close_values]) if close_values else current
+    quote_timestamp = meta.get("regularMarketTime")
+    updated_at = int(quote_timestamp) if isinstance(quote_timestamp, (int, float)) else None
+    updated_text = (
+        datetime.fromtimestamp(updated_at, timezone.utc)
+        .astimezone(timezone(timedelta(hours=8)))
+        .strftime("%Y-%m-%d %H:%M")
+        if updated_at else ""
+    )
+    drawdown = (current / high_point - 1) * 100 if high_point > 0 else 0
+    return {
+        "data": {
+            "symbol": "^NDX",
+            "name": "纳斯达克100指数",
+            "currentPoint": round(current, 2),
+            "highPoint": round(high_point, 2),
+            "drawdownPercent": round(drawdown, 2),
+            "updatedAt": updated_at,
+            "updatedText": updated_text,
+            "sourceUrl": "https://finance.yahoo.com/quote/%5ENDX/",
+        },
+        "proxySource": "Yahoo Finance",
+    }
+
+
+def fetch_nasdaq100_snapshot(fetcher=fetch_upstream):
+    return normalize_nasdaq100_chart(fetcher(NASDAQ100_CHART_URL, "nasdaq100"))
 
 
 def _tencent_rows(payload, symbol):
@@ -764,6 +826,8 @@ def create_server(
                     payload = fetch_youzhiyouxing_temperature(
                         fetch_upstream_text if fetcher is fetch_upstream else fetcher
                     )
+                elif parsed.path == "/api/nasdaq100":
+                    payload = fetch_nasdaq100_snapshot(fetcher)
                 else:
                     upstream_url = build_upstream_url(parsed.path, query)
                     payload = fetcher(upstream_url, source)

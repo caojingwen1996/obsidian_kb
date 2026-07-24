@@ -1,0 +1,1730 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>中国中车（601766.SH）机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+.daily-tracking { margin: 0 0 42px; padding: 22px; border: 1px solid #cbdade; border-radius: 16px; background: linear-gradient(135deg, #f3f8f9 0%, #fffaf0 100%); box-shadow: 0 12px 30px rgba(23, 50, 71, .07); }
+.daily-tracking-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
+.daily-tracking-kicker { margin: 0 0 4px; color: var(--teal); font-size: 12px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+.daily-tracking h2 { margin: 0; padding: 0; border: 0; font-size: 27px; }
+.daily-tracking-time { margin: 4px 0 0; color: var(--muted); font-size: 12px; text-align: right; }
+.tracking-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.tracking-grid + .tracking-grid { margin-top: 12px; }
+.tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
+.tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
+.tracking-card[data-tracking-key="dynamic-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
+.range-breakdown { display: block; }
+.range-main { display: inline-flex; align-items: center; max-width: 100%; margin-bottom: 10px; padding: 3px 9px; border-radius: 999px; background: #e7f0f3; color: var(--navy); font-size: 20px; line-height: 1.3; font-weight: 800; }
+.range-points { display: grid; gap: 7px; margin-top: 1px; }
+.range-point { display: block; padding-left: 11px; border-left: 3px solid #bed2d8; color: #245068; font-size: 14px; line-height: 1.52; font-weight: 650; }
+.tracking-value.bad { color: var(--danger); }
+.tracking-detail { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; }
+.tracking-status { display: inline-flex; margin-top: 10px; padding: 3px 8px; border-radius: 999px; color: #526b77; background: #edf2f4; font-size: 12px; font-weight: 700; }
+.tracking-status.live { color: #17604e; background: #dff3eb; }
+.tracking-status.error { color: var(--danger); background: var(--danger-bg); }
+.tracking-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; margin-top: 14px; padding-top: 13px; border-top: 1px solid #d5e0e3; color: #536d78; font-size: 13px; }
+.tracking-footer a { font-weight: 700; }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+  .tracking-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+  .daily-tracking-head { display: block; }
+  .daily-tracking-time { text-align: left; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .daily-tracking, .tracking-card { border: 1px solid #aebbc2; color: #102f43; background: #fff; box-shadow: none; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · 601766.SH</p>
+      <h1>中国中车（601766.SH）机构级决策研报</h1>
+      <div class="hero-meta"><span>2026-07-23 10:29（Asia/Shanghai，盘中）</span><span>2026-07-23</span><span>上海证券交易所 / 人民币</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
+<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
+<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
+<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
+<a class="toc-link" href="#section-6">6. 五年财务历史</a>
+<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
+<a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
+<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
+<a class="toc-link" href="#section-10">10. 估值</a>
+<a class="toc-link" href="#section-11">11. 冰冰小美框架判断</a>
+<a class="toc-link" href="#section-12">12. 最终结论</a>
+<a class="toc-link" href="#section-13">13. 后续监控指标</a>
+<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
+<a class="toc-link" href="#section-15">15. 来源清单</a>
+<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
+      <article class="content"><blockquote>
+<p>证券代码：601766.SH
+交易所 / 币种：上海证券交易所 / 人民币
+研究截止时间：2026-07-23 10:29（Asia/Shanghai，盘中）
+报告生成时间：2026-07-23
+数据口径：中国企业会计准则；法定财务截至 2026Q1，行情为盘中延时快照；2026-07-16 原估值在无新财务披露的前提下复核、不机械重算</p>
+</blockquote>
+<!-- DAILY_TRACKING_START -->
+<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-07-23 10:29（Asia/Shanghai，盘中）" data-value-low="6.2" data-value-high="9">
+  <div class="daily-tracking-head">
+    <div><p class="daily-tracking-kicker">Daily decision tracker</p><h2>每日跟踪面板</h2></div>
+    <p class="daily-tracking-time">更新：2026-07-23 10:29（Asia/Shanghai，盘中）<br>下次：收盘后 / 重大公告后</p>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">改善但现金转化待确认</p><p class="tracking-detail">风险方向：风险持平（低置信度；相对上一窗口未出现足以确认风险减弱或增强的完整证据）。下一验证点与失效条件见第 11—13 章。</p></div>
+    <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value"><span class="range-breakdown"><span class="range-main">6.2—9.0 元</span><span class="range-points"><span class="range-point">6.2 元附近=只看已验证主业与低资本回报约束的保守价值</span><span class="range-point">7.4—7.8 元=订单改善和正常现金转化下的主业合理中枢</span><span class="range-point">9.0 元附近=已计入较强铁路景气、海外与新产业期权</span><span class="range-point">9.0 元以上需半年报现金流、毛利率、国铁招标或盈利预测上修支撑。</span></span></span></p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
+    <div class="tracking-card" data-tracking-key="price-deviation"><p class="tracking-label">股价偏离度</p><p class="tracking-value" id="deviation-value">低于下沿 +3.4%</p><p class="tracking-detail" id="deviation-detail">每日同步价 5.99 元；相对区间中枢 7.60 元为 -21.2%，相对下沿为 -3.4%，相对上沿为 -33.4%。价格不改变价值区间本身。</p></div>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="daily-quote"><p class="tracking-label">每日同步价</p><p class="tracking-value">5.99 元，2026-07-23 10:29（盘中延时行情）</p><p class="tracking-detail">这是报告内嵌的正式跟踪基准，离线打开仍可使用。</p><span class="tracking-status">每日快照</span></div>
+    <div class="tracking-card" data-tracking-key="intraday-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">等待连接</p><p class="tracking-detail" id="intraday-detail">通过“大盘启动器”打开后获取盘中行情，每 60 秒刷新；直接打开 HTML 时不访问外部行情。</p><span class="tracking-status" id="intraday-status">未连接</span></div>
+    <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">observe；已有持仓 review / wait</p><p class="tracking-detail">估值：低估，但相对估值下沿的安全边际很窄 · observe；已有持仓 review / wait；风险：风险持平（低置信度；相对上一窗口未出现足以确认风险减弱或增强的完整证据）；结论置信度：中。</p><span class="tracking-status">低估，但相对估值下沿的安全边际很窄</span></div>
+  </div>
+  <div class="tracking-footer"><span>资金状态：<strong>证据不足；7月20日大单代理流入、7月21日午间转为流出，融资余额此前下降，控股股东仅披露计划</strong> · 新增/已有动作：<strong>observe；已有持仓 review / wait</strong></span><a href="./2026-07-21-中国中车资金面分层分析.html">查看完整资金面分析 →</a></div>
+</section>
+<!-- DAILY_TRACKING_END -->
+<h2 id="section-1">1. 决策摘要</h2>
+
+<h3>1.1 基本面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值状态</td>
+<td><strong>低估，但相对估值下沿的安全边际很窄</strong></td>
+</tr>
+<tr>
+<td>综合估值区间</td>
+<td><strong>6.2—9.0 元；6.2 元附近=只看已验证主业与低资本回报约束的保守价值，7.4—7.8 元=订单改善和正常现金转化下的主业合理中枢，9.0 元附近=已计入较强铁路景气、海外与新产业期权，9.0 元以上需半年报现金流、毛利率、国铁招标或盈利预测上修支撑。</strong></td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>以 5.99 元计，下沿约 +3.5%，中枢 7.6 元约 +26.9%，上沿约 +50.3%</td>
+</tr>
+<tr>
+<td>基本面状态</td>
+<td><strong>改善但现金转化待确认</strong></td>
+</tr>
+<tr>
+<td>关键经营变化</td>
+<td>2025 与 2026Q1 铁路装备收入、毛利率和扣非利润改善；管理层未给量化全年指引，并提示高级修招标回落及 CR450 尚处运用考核；市场已交易订单和增持预期，但尚未验证 2026H1 经营现金流修复。</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h3>1.2 资金面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>操作建议</td>
+<td><strong>观望；不在盘中 5.99 元追涨，等待价格或财报给出更好赔率</strong></td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td><strong>observe；已有持仓 review / wait</strong></td>
+</tr>
+<tr>
+<td>当前价格及时间</td>
+<td>5.99 元，2026-07-23 10:29（盘中延时行情）</td>
+</tr>
+<tr>
+<td>资金状态</td>
+<td><strong>证据不足；7月20日大单代理流入、7月21日午间转为流出，融资余额此前下降，控股股东仅披露计划</strong></td>
+</tr>
+<tr>
+<td>风险方向</td>
+<td><strong>风险持平</strong>（低置信度；相对上一窗口未出现足以确认风险减弱或增强的完整证据）</td>
+</tr>
+<tr>
+<td>每日跟踪时间</td>
+<td>2026-07-23 10:29（Asia/Shanghai，盘中）</td>
+</tr>
+<tr>
+<td>资金面分析链接</td>
+<td>2026-07-21-中国中车资金面分层分析.html</td>
+</tr>
+</tbody></table>
+<h3>如果今天这是一笔现金，我会买它吗</h3>
+<ul>
+<li>回答：<strong>不会在 5.99 元立即买；只在特定条件下会。</strong></li>
+<li>我的判断：基本面方向仍偏正面，但当前价较 6.2 元保守价值下沿仅约 3.5%，已不具备原 5.3—5.7 元试仓区间的赔率。估值低于中枢不等于当下就是好买点。</li>
+<li>改变结论的条件：价格回到 <strong>5.3—5.7 元</strong>且无新利空，可试计划仓位约 1/3；或者 2026 半年报确认经营现金流、铁路装备毛利率和新产业毛利率未同时恶化后，再按新数据重估承接区间。若先涨至 6.8 元以上而验证未到，继续 <code>observe</code>。</li>
+</ul>
+<h2 id="section-2">2. 证券身份与来源矩阵</h2>
+
+<h3>2.1 证券身份</h3>
+<ul>
+<li>公司全称：中国中车股份有限公司。</li>
+<li>证券代码：601766.SH；交叉上市 01766.HK。</li>
+<li>上市地：上海证券交易所 A 股；人民币计价。本报告不混用 H 股港币股价或每股估值。</li>
+<li>报告准则：中国企业会计准则。</li>
+<li>法定披露体系：上交所、巨潮资讯及港交所披露；SEC 文件不适用。</li>
+<li>同名或跨市场歧义：无；A/H 股仅共享公司财务事实，不共享行情口径。</li>
+<li>总股本：286.99 亿股；中车集团合计持股约 51.45%。</li>
+<li>口径事项：2025 年同一控制下企业合并导致 2021—2024 比较数重述，本报告优先采用 2025 年报重述序列。</li>
+</ul>
+<h3>2.2 来源矩阵</h3>
+<table>
+<thead>
+<tr>
+<th>数据项目</th>
+<th>目标来源</th>
+<th>实际来源</th>
+<th>数据时间</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>实时价格、52周高低、今年以来表现</td>
+<td>交易所 / 可靠行情平台</td>
+<td><a href="../../webpages/2026-07-23-中国中车行情与公告核验快照.md">盘中行情核验快照</a></td>
+<td>2026-07-23 10:29</td>
+<td>已获取；盘中延时</td>
+</tr>
+<tr>
+<td>第三方公允价值、护城河、星级</td>
+<td>Morningstar</td>
+<td>公开可访问页与搜索</td>
+<td>2026-07-23复核</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>最新季报与管理层指引</td>
+<td>法定披露 / 公司交流</td>
+<td><a href="../../papers/中国中车机构研报-2026-07-16/中国中车2026年第一季度报告.pdf.md">2026Q1</a>及业绩交流记录</td>
+<td>2026-04-29前</td>
+<td>已获取；无量化全年指引</td>
+</tr>
+<tr>
+<td>分部收入</td>
+<td>法定年报与季报</td>
+<td><a href="../../papers/中国中车机构研报-2026-07-16/中国中车2025年年度报告.pdf.md">2025年报</a>、2026Q1</td>
+<td>2025全年 / 2026Q1</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>卖方评级与目标价</td>
+<td>研报原件 / 平台聚合</td>
+<td><a href="../../webpages/2026-07-16-中国中车卖方评级与近期催化剂检索记录.md">卖方检索记录</a></td>
+<td>近六个月</td>
+<td>口径冲突待解释；样本明细不完整</td>
+</tr>
+<tr>
+<td>近三个月新闻与催化剂</td>
+<td>公司公告</td>
+<td>Q1、交流纪要、合同公告、增持计划</td>
+<td>2026-04-16—07-23</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>五年财务历史</td>
+<td>法定年报</td>
+<td>2025、2024、2022年报重述序列</td>
+<td>2021—2025</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>连续量价、相对强弱</td>
+<td>可靠行情平台</td>
+<td><a href="../../webpages/2026-07-21-中国中车资金面行情快照.md">资金面行情快照</a>、7月23日盘中快照</td>
+<td>2026-06-24—07-23</td>
+<td>部分获取；7月23日未收盘</td>
+</tr>
+<tr>
+<td>融资、ETF / 机构代理、大单资金</td>
+<td>交易所 / 可靠资金平台</td>
+<td><a href="../../webpages/2026-07-21-中国中车资金面行情快照.md">资金面行情快照</a></td>
+<td>融资至7月17；资金代理至7月21午间</td>
+<td>部分获取；ETF与账户身份未获取到</td>
+</tr>
+<tr>
+<td>多产业位置景气证据</td>
+<td>法定分部、订单、行业与公司披露</td>
+<td>2025年报、2026Q1、合同与交流记录</td>
+<td>截至2026-07-23</td>
+<td>已获取；现代服务细分不足</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 行情与市场预期</h2>
+
+<h3>3.1 行情快照（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">数值</th>
+<th>来源</th>
+<th>时间 / 口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前价格</td>
+<td align="right">5.99 元</td>
+<td><a href="../../webpages/2026-07-23-中国中车行情与公告核验快照.md">行情核验快照</a></td>
+<td>2026-07-23 10:29，盘中延时</td>
+</tr>
+<tr>
+<td>52周最高</td>
+<td align="right">8.12 元</td>
+<td>同上</td>
+<td>行情页展示口径</td>
+</tr>
+<tr>
+<td>52周最低</td>
+<td align="right">5.12 元</td>
+<td>同上</td>
+<td>行情页展示口径</td>
+</tr>
+<tr>
+<td>今年以来表现</td>
+<td align="right">约 -12.2%</td>
+<td>5.99元对2025-12-31收盘6.82元</td>
+<td>盘中计算</td>
+</tr>
+<tr>
+<td>总市值</td>
+<td align="right">约 1,719 亿元</td>
+<td>当前价×286.99亿股</td>
+<td>盘中估算</td>
+</tr>
+<tr>
+<td>PE / PB</td>
+<td align="right">约 13.0倍 / 约1.0倍</td>
+<td>2025 EPS 0.46元 / 年末每股净资产约6.00元</td>
+<td>静态、未扣除分红影响</td>
+</tr>
+<tr>
+<td>EV / 正常化FCF</td>
+<td align="right">约11.3倍</td>
+<td>调整EV约1,759亿元 / 2025 FCF 148亿元</td>
+<td>估值桥接口径</td>
+</tr>
+</tbody></table>
+<p>7月20日股价收于6.03元、单日上涨6.73%，7月21日收于5.99元；7月23日10:29仍为5.99元。<strong>我的判断：</strong> 增持计划带来的价格重估已使安全边际从7月16日的约10%收窄至约3.5%，但尚未突破估值中枢。</p>
+<h3>3.2 第三方公允价值与评级（事实）</h3>
+<ul>
+<li>公允价值：未获取到。</li>
+<li>护城河评级：未获取到。</li>
+<li>星级：未获取到。</li>
+<li>来源与时间：Morningstar公开可访问页与搜索，2026-07-23复核。</li>
+<li>未获取到的字段及已检查来源：上述三项均未获得可直接核验的页面字段，不用搜索摘要或同业评级替代。</li>
+</ul>
+<h3>3.3 卖方评级与目标价分布（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>机构 / 聚合口径</th>
+<th>日期</th>
+<th>评级</th>
+<th align="right">目标价</th>
+<th>预测期</th>
+<th>关键假设</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>近六个月9家机构聚合</td>
+<td>2026-07-16前</td>
+<td>偏正面</td>
+<td align="right">8.00—9.60元</td>
+<td>2026</td>
+<td>2026归母净利润均值约150.22亿元；逐家假设未获取到</td>
+</tr>
+<tr>
+<td>另一平台聚合</td>
+<td>2026-07-09</td>
+<td>偏正面</td>
+<td align="right">9.00—10.60元</td>
+<td>未完整披露</td>
+<td>样本与口径未获取到</td>
+</tr>
+</tbody></table>
+<ul>
+<li>目标价区间 / 中位数：公开聚合约 8.00—10.60 元；因样本不一致，不计算伪精确中位数。</li>
+<li>样本数量与完整性：第一组9家，第二组样本数未完整披露；可信度低于法定财务和本报告估值。</li>
+<li>来源冲突及采信理由：聚合区间、样本和日期不同，只用于识别市场预期偏乐观，不作为公允价值直接输入。</li>
+</ul>
+<h2 id="section-4">4. 商业模式与竞争格局</h2>
+
+<h3>4.1 事实</h3>
+<ul>
+<li>收入来源：铁路装备、城轨与城市基础设施、新产业、现代服务四部分。</li>
+<li>客户与定价权：铁路装备核心客户是国铁集团及其附属路局；2025年前五大客户占销售额47.98%，其中国铁集团占43.64%。公司具备技术与认证壁垒，但大客户集中限制定价权。</li>
+<li>成本结构：直接材料占营业成本81.93%，原材料、产品结构和采购效率对利润率影响大。</li>
+<li>资本强度：研发、制造、存货、应收和合同执行占用资金，现金转化具有周期波动。</li>
+<li>竞争者：核心铁路整车领域国内竞争结构集中；城轨、新产业及海外项目面对国内外综合装备商和细分厂商竞争。</li>
+<li>监管约束：轨道交通安全认证、招标采购、出口合规、地方财政与基础设施投资节奏。</li>
+</ul>
+<h4>多产业位置景气度排序（事实与判断分列）</h4>
+<table>
+<thead>
+<tr>
+<th align="right">排名</th>
+<th>产业位置</th>
+<th>位置识别依据（事实）</th>
+<th>公司业务 / 资产暴露（事实）</th>
+<th>当前景气度</th>
+<th>趋势</th>
+<th>景气证据与时间</th>
+<th>财务传导</th>
+<th>验证指标 / 失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">1</td>
+<td>国内铁路装备与高级修</td>
+<td>铁路装备是核心分部，受国铁招标、设备更新和维保周期驱动</td>
+<td>2025收入1,236.08亿元，占45.27%，毛利率25.69%</td>
+<td>高</td>
+<td>上行</td>
+<td>2025收入+11.90%、毛利率+0.97pct；2026Q1收入+12.93%</td>
+<td>招标与交付→收入/毛利→回款与现金流</td>
+<td>国铁招标、交付、毛利率；招标持续低于预期或毛利率跌破24%则失效</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td>海外轨道交通装备与服务</td>
+<td>境外项目是轨交制造与服务的区域市场延伸</td>
+<td>2025境外收入348.21亿元，占12.75%；横跨铁路、城轨等分部</td>
+<td>较高</td>
+<td>上行</td>
+<td>2025境外收入+22.88%</td>
+<td>海外订单→交付与服务→收入、利润、应收与汇率风险</td>
+<td>海外新签、交付、回款；项目延期或现金回收恶化则失效</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td>清洁能源等新产业装备</td>
+<td>风电、储能等装备构成第二增长曲线</td>
+<td>2025收入1,031.21亿元，占37.76%，毛利率16.46%</td>
+<td>较高</td>
+<td>上行</td>
+<td>2025收入+19.39%，但毛利率-1.06pct；2026Q1收入+16.36%</td>
+<td>放量→收入增长；价格竞争决定利润与现金弹性</td>
+<td>分部毛利率、经营现金流；持续增收不增利则降级</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td>城轨与城市基础设施</td>
+<td>地方轨交建设、车辆更新及相关基础设施需求</td>
+<td>2025收入420.90亿元，占15.41%，毛利率19.81%</td>
+<td>较低</td>
+<td>下行</td>
+<td>2025收入-7.37%；2026Q1收入-6.60%</td>
+<td>地方财政与订单→交付→收入、应收与回款</td>
+<td>城轨新签与回款；连续恢复则上调，继续收缩则维持低景气</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td>现代服务</td>
+<td>公司披露的独立小分部</td>
+<td>2025收入42.45亿元，占1.56%，毛利率30.96%</td>
+<td>证据不足</td>
+<td>证据不足</td>
+<td>收入+1.11%、毛利率+2.52pct，但业务细分和持续性信息不足</td>
+<td>规模小，对集团利润影响有限</td>
+<td>细分利润与现金贡献；未单独披露前不外推</td>
+</tr>
+</tbody></table>
+<ul>
+<li>位置间交叉与去重说明：海外轨交是区域维度，与铁路装备和城轨分部有交叉；估值和收入加总时只按法定分部计一次。高级修包含在铁路装备相关收入中，不另加收入。新产业与轨交主业分列。</li>
+<li>排名第一的位置能否进入公司利润和现金流：利润已通过收入和毛利率改善体现，但2026Q1经营现金净流出扩大，现金转化尚未确认。</li>
+<li>弱关联 / 待验证位置：CR450商业化属于铁路装备的技术与订单期权，尚未取得商业订单，不单列为已兑现产业位置。</li>
+</ul>
+<h3>4.2 我的判断</h3>
+<ul>
+<li>我的判断：核心铁路装备拥有完整整机与零部件体系、长期安全认证、运行记录、规模制造、国铁客户关系和全生命周期服务能力，比较优势明确；但优势更多体现为份额与订单稳定，而不是高定价权和高ROIC。</li>
+<li>我的判断：商业模式最脆弱的环节是“订单增长未转化为现金回报”。大客户集中、长回款、备货和新产业价格竞争可能让收入增长停留在应收、存货或低毛利环节。</li>
+<li>证伪条件：国铁采购持续低于预期、铁路装备毛利率连续下降、海外订单无法转化为现金、重大产品质量事故，或新产业持续增收不增利。</li>
+</ul>
+<h2 id="section-5">5. 分部收入与盈利拆解</h2>
+
+<table>
+<thead>
+<tr>
+<th>分部</th>
+<th align="right">收入</th>
+<th align="right">同比</th>
+<th align="right">收入占比</th>
+<th align="right">毛利率</th>
+<th align="right">毛利率变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>铁路装备</td>
+<td align="right">1,236.08亿元</td>
+<td align="right">+11.90%</td>
+<td align="right">45.27%</td>
+<td align="right">25.69%</td>
+<td align="right">+0.97pct</td>
+<td><a href="../../papers/中国中车机构研报-2026-07-16/中国中车2025年年度报告.pdf.md">2025年报</a></td>
+</tr>
+<tr>
+<td>城轨与城市基础设施</td>
+<td align="right">420.90亿元</td>
+<td align="right">-7.37%</td>
+<td align="right">15.41%</td>
+<td align="right">19.81%</td>
+<td align="right">-0.14pct</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>新产业</td>
+<td align="right">1,031.21亿元</td>
+<td align="right">+19.39%</td>
+<td align="right">37.76%</td>
+<td align="right">16.46%</td>
+<td align="right">-1.06pct</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>现代服务</td>
+<td align="right">42.45亿元</td>
+<td align="right">+1.11%</td>
+<td align="right">1.56%</td>
+<td align="right">30.96%</td>
+<td align="right">+2.52pct</td>
+<td>同上</td>
+</tr>
+</tbody></table>
+<ul>
+<li>披露口径变化：2025年同一控制下合并导致比较数重述，采用年报重述口径。</li>
+<li>来源冲突：未发现法定分部表内部冲突。</li>
+<li>采信理由：法定年报优先于聚合平台和卖方摘要。</li>
+<li>我的判断：增长质量是“铁路装备收入与毛利同步改善 + 新产业放量但毛利受压 + 城轨收缩”。最优部分是铁路装备，最大质量折扣来自新产业利润率和集团现金转化。</li>
+</ul>
+<h2 id="section-6">6. 五年财务历史</h2>
+
+<p>单位：亿元；毛利率、ROIC代理值为百分比。</p>
+<table>
+<thead>
+<tr>
+<th>财年</th>
+<th align="right">营收</th>
+<th align="right">毛利率</th>
+<th align="right">经营现金流</th>
+<th align="right">资本开支</th>
+<th align="right">自由现金流</th>
+<th align="right">ROIC / 代理值</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td align="right">2,257.32</td>
+<td align="right">20.57%</td>
+<td align="right">205.93</td>
+<td align="right">59.07</td>
+<td align="right">146.86</td>
+<td align="right">2.56%</td>
+<td>2025年报重述、2022年报资本开支</td>
+</tr>
+<tr>
+<td>2022</td>
+<td align="right">2,229.39</td>
+<td align="right">21.22%</td>
+<td align="right">239.53</td>
+<td align="right">74.17</td>
+<td align="right">165.36</td>
+<td align="right">3.13%</td>
+<td>2025年报重述、2022年报</td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">2,342.71</td>
+<td align="right">20.54%</td>
+<td align="right">147.23</td>
+<td align="right">81.04</td>
+<td align="right">66.19</td>
+<td align="right">2.98%</td>
+<td>2025年报重述、2024年报资本开支</td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">2,464.74</td>
+<td align="right">21.38%</td>
+<td align="right">270.57</td>
+<td align="right">101.85</td>
+<td align="right">168.72</td>
+<td align="right">2.92%</td>
+<td>2025年报重述、2024年报</td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">2,730.63</td>
+<td align="right">21.38%</td>
+<td align="right">241.86</td>
+<td align="right">93.83</td>
+<td align="right">148.03</td>
+<td align="right">2.99%</td>
+<td><a href="../../papers/中国中车机构研报-2026-07-16/中国中车2025年年度报告.pdf.md">2025年报</a></td>
+</tr>
+</tbody></table>
+<ul>
+<li>自由现金流口径：经营现金流－购建固定资产、无形资产和其他长期资产支付的现金。</li>
+<li>ROIC口径：营业利润×（1－15%标准化税率）÷平均总资产，是保守全资产回报代理，不是真正投入资本ROIC；2021以期末总资产代替平均值。</li>
+<li>一次性项目和会计变化：2025年同一控制下合并对历史比较数进行了重述。</li>
+<li>我的判断：五年收入复合增速约4.9%，毛利率稳定，但FCF在66—169亿元间波动。盈利稳定不等于现金稳定，低资本回报是估值不能照搬高成长同业倍数的核心原因。</li>
+</ul>
+<h2 id="section-7">7. 最新季度与管理层指引</h2>
+
+<h3>7.1 最新季度（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">本期</th>
+<th align="right">同比 / 变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营收</td>
+<td align="right">538.19亿元</td>
+<td align="right">+10.57%</td>
+<td><a href="../../papers/中国中车机构研报-2026-07-16/中国中车2026年第一季度报告.pdf.md">2026Q1</a>，2026-04-29</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">23.81%</td>
+<td align="right">+0.38pct</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>净利润</td>
+<td align="right">33.78亿元</td>
+<td align="right">+10.66%</td>
+<td>同上，归母口径</td>
+</tr>
+<tr>
+<td>调整后利润</td>
+<td align="right">31.63亿元</td>
+<td align="right">+12.70%</td>
+<td>同上，扣非归母口径</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">-90.84亿元</td>
+<td align="right">上年同期-50.69亿元，净流出扩大</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>订单 / 储备</td>
+<td align="right">2025年末在手3,571亿元；2026年4—6月重大合同516.4亿元</td>
+<td align="right">订单可见度仍在</td>
+<td>年报与合同公告；非Q1单季同口径</td>
+</tr>
+</tbody></table>
+<h3>7.2 管理层指引（事实）</h3>
+<ul>
+<li>正式量化指引：未获取到全年收入、利润或现金流量化指引。</li>
+<li>定性展望：2026年4月中旬国铁大规模采购尚未正式启动；CR450样车仍在运用考核。</li>
+<li>未获取到：国铁全年正式招标总量、CR450商业订单、2026全年分部毛利率目标。</li>
+</ul>
+<h3>7.3 我的判断</h3>
+<ul>
+<li>我的判断：收入、毛利率、归母与扣非利润同步改善，说明利润端转折有事实支持；经营现金净流出扩大使“订单景气已经转化为现金回报”尚不能成立。</li>
+<li>我的判断：管理层态度偏审慎而非激进，没有用量化全年目标强化市场预期，并主动提示高级修招标回落与CR450考核进度，可信度高于只看卖方目标价的乐观叙事。</li>
+<li>下一验证节点：2026半年报的应收、存货、合同负债、经营现金流、铁路装备与新产业毛利率。</li>
+</ul>
+<h2 id="section-8">8. 近三个月新闻与催化剂</h2>
+
+<table>
+<thead>
+<tr>
+<th>发生日</th>
+<th>事件</th>
+<th>影响变量</th>
+<th>财务传导</th>
+<th>是否已反映</th>
+<th>验证节点</th>
+<th>失效条件</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-07-20</td>
+<td>中车集团拟增持A股1.5亿—3亿元</td>
+<td>真实买盘、治理信号、估值折价</td>
+<td>不直接改变收入利润；实际实施才形成市场承接</td>
+<td>7月20日股价+6.73%，已反映部分信心预期</td>
+<td>首次实施、累计金额、均价、完成公告</td>
+<td>长期未实施、未达下限或被基本面恶化抵消</td>
+<td><a href="../../../workbench/targets/2026-07-20-中国中车-控股股东增持股份计划-跟踪.md">事件跟踪</a></td>
+</tr>
+<tr>
+<td>2026-06-30</td>
+<td>4—6月签约516.4亿元</td>
+<td>订单可见度</td>
+<td>交付→收入与毛利→回款</td>
+<td>公告后至7月中温和修复，后叠加增持事件</td>
+<td>交付、毛利与回款</td>
+<td>合同延迟、低毛利或回款恶化</td>
+<td>公司合同公告</td>
+</tr>
+<tr>
+<td>2026-04-30</td>
+<td>高级修与CR450进展交流</td>
+<td>维保收入、技术期权</td>
+<td>高级修短期承压；CR450商业化可带来新车与维保</td>
+<td>CR450尚无商业订单，不应提前资本化</td>
+<td>国铁招标、商业订单</td>
+<td>考核延迟或采购低于预期</td>
+<td>公司业绩交流纪要</td>
+</tr>
+<tr>
+<td>2026-04-29</td>
+<td>2026Q1收入和扣非利润双位数增长</td>
+<td>利润与现金转化</td>
+<td>铁路装备、新产业交付增加；CFO恶化</td>
+<td>利润改善部分反映，现金流缺口仍在</td>
+<td>2026半年报</td>
+<td>毛利率与现金流同时转弱</td>
+<td><a href="../../papers/中国中车机构研报-2026-07-16/中国中车2026年第一季度报告.pdf.md">2026Q1</a></td>
+</tr>
+</tbody></table>
+<h2 id="section-9">9. 多头与空头论据</h2>
+
+<h3>9.1 多头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>核心铁路装备景气改善</td>
+<td>2025收入+11.9%、毛利率+0.97pct；2026Q1收入+12.93%</td>
+<td>国铁招标、动车交付、铁路装备毛利率</td>
+<td>招标与交付连续低于预期</td>
+</tr>
+<tr>
+<td>订单提供收入可见度</td>
+<td>2025在手订单3,571亿元；二季度重大合同516.4亿元</td>
+<td>新签/收入、合同负债、交付与回款</td>
+<td>订单增但收入、利润或现金不增</td>
+</tr>
+<tr>
+<td>海外与第二曲线扩张</td>
+<td>2025境外收入+22.88%、新产业+19.39%</td>
+<td>海外回款、新产业毛利率与现金流</td>
+<td>价格战吞噬利润或海外回款恶化</td>
+</tr>
+<tr>
+<td>估值仍低于中枢</td>
+<td>盘中PE约13倍、PB约1倍，综合区间6.2—9.0元</td>
+<td>ROE、分红、FCF与盈利预测</td>
+<td>ROE跌破6%且现金流走弱</td>
+</tr>
+<tr>
+<td>控股股东计划形成潜在承接</td>
+<td>未来6个月拟增持1.5亿—3亿元</td>
+<td>实际金额、均价、进度</td>
+<td>未实施或无法抵消自然卖压</td>
+</tr>
+</tbody></table>
+<h3>9.2 空头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>低资本回报</td>
+<td>五年ROIC全资产代理约2.6%—3.1%，ROE约7%—8%</td>
+<td>ROE、ROIC、资产周转</td>
+<td>维保和海外推动ROE持续升至9%以上</td>
+</tr>
+<tr>
+<td>安全边际已经收窄</td>
+<td>5.99元距6.2元下沿仅约3.5%</td>
+<td>价格与估值下沿、盈利预测</td>
+<td>半年报上修内在价值或价格回落</td>
+</tr>
+<tr>
+<td>城轨结构性承压</td>
+<td>2025城轨收入-7.37%，2026Q1-6.60%</td>
+<td>城轨新签、地方财政、维保占比</td>
+<td>订单与回款连续恢复</td>
+</tr>
+<tr>
+<td>新产业价格竞争</td>
+<td>2025新产业收入+19.39%，毛利率-1.06pct</td>
+<td>风储价格、分部毛利率</td>
+<td>毛利率回升且现金转化改善</td>
+</tr>
+<tr>
+<td>营运资金占用</td>
+<td>Q1经营现金净流出扩大至90.84亿元</td>
+<td>应收、存货、合同资产、CFO</td>
+<td>半年/全年CFO显著覆盖净利润</td>
+</tr>
+<tr>
+<td>交易承接证据冲突</td>
+<td>7月20日大单代理流入，7月21日午间转流出；融资余额此前下降</td>
+<td>连续资金、融资、ETF、实际增持</td>
+<td>多窗口承接转为持续且账户证据补齐</td>
+</tr>
+</tbody></table>
+<h2 id="section-10">10. 估值</h2>
+
+<h3>10.1 相对估值</h3>
+<table>
+<thead>
+<tr>
+<th>公司</th>
+<th>业务可比性</th>
+<th align="right">增长</th>
+<th align="right">利润率</th>
+<th align="right">PE</th>
+<th align="right">PB</th>
+<th align="right">EV/EBITDA</th>
+<th>数据时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>中国中车</td>
+<td>综合轨交整车、零部件与新产业平台</td>
+<td align="right">2026Q1营收+10.57%</td>
+<td align="right">2025毛利率21.38%</td>
+<td align="right">约13.0倍</td>
+<td align="right">约1.0倍</td>
+<td align="right">未获取到同口径</td>
+<td>2026-07-23盘中</td>
+</tr>
+<tr>
+<td>中国通号</td>
+<td>轨交控制系统，可比但更偏系统设备</td>
+<td align="right">未取得同口径最新值</td>
+<td align="right">未取得</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>2026-07-23复核</td>
+</tr>
+<tr>
+<td>时代电气</td>
+<td>轨交电气与功率半导体，成长与利润结构更优</td>
+<td align="right">未取得同口径最新值</td>
+<td align="right">未取得</td>
+<td align="right">公开历史页面约19—20倍</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>近期公开页面，非同日</td>
+</tr>
+<tr>
+<td>思维列控 / 佳讯飞鸿</td>
+<td>轨交细分设备，体量与资本结构差异大</td>
+<td align="right">未取得同口径最新值</td>
+<td align="right">未取得</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>2026-07-23复核</td>
+</tr>
+</tbody></table>
+<ul>
+<li>选取理由：均处于轨交装备或控制系统，但中国中车业务更综合、体量更大、ROE较低、少数股东权益较多，应给予折价。</li>
+<li>正常化调整：采用2026卖方归母净利润均值约150.22亿元、EPS约0.52元；卖方样本不完整，因此不提高权重。</li>
+<li>对应每股价值区间：给予12—16倍PE，对应 <strong>6.3—8.4元</strong>。</li>
+<li>我的判断：相对估值支持低估，但缺少同日完整可比表，不能单独支撑9元以上目标。</li>
+</ul>
+<h3>10.2 DCF</h3>
+<h4>关键假设</h4>
+<p>DCF以2025年“经营现金流－现金资本开支”148亿元为基期。股权桥接采用企业价值 + 400亿元调整后净现金－440亿元少数股东权益；调整后净现金低于账面现金减带息债务约481亿元，以扣除运营所需流动性和财务公司口径影响。</p>
+<table>
+<thead>
+<tr>
+<th>假设</th>
+<th align="right">悲观</th>
+<th align="right">基准</th>
+<th align="right">乐观</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>收入增长 / FCFF增长</td>
+<td align="right">1%</td>
+<td align="right">4%</td>
+<td align="right">7%</td>
+<td>五年收入CAGR约4.9%，订单改善但现金波动</td>
+</tr>
+<tr>
+<td>经营利润率 / 稳态FCF利润率代理</td>
+<td align="right">约4.7%</td>
+<td align="right">约5.2%</td>
+<td align="right">约5.8%</td>
+<td>以历史现金转化校准，不把毛利率直接当经营利润率</td>
+</tr>
+<tr>
+<td>税率</td>
+<td align="right">15%标准化</td>
+<td align="right">15%标准化</td>
+<td align="right">15%标准化</td>
+<td>ROIC与估值统一代理口径</td>
+</tr>
+<tr>
+<td>折旧摊销</td>
+<td align="right">含在FCFF历史基期</td>
+<td align="right">同左</td>
+<td align="right">同左</td>
+<td>未单独预测，避免与现金基期重复</td>
+</tr>
+<tr>
+<td>资本开支</td>
+<td align="right">以2025年93.83亿元为锚</td>
+<td align="right">同左并随业务增长</td>
+<td align="right">同左并随业务增长</td>
+<td>历史现金资本开支</td>
+</tr>
+<tr>
+<td>营运资本变化</td>
+<td align="right">偏不利</td>
+<td align="right">正常化</td>
+<td align="right">改善</td>
+<td>2026Q1 CFO恶化是核心分歧</td>
+</tr>
+<tr>
+<td>WACC</td>
+<td align="right">9.0%</td>
+<td align="right">8.0%</td>
+<td align="right">7.0%</td>
+<td>央企稳定性与低资本回报并存</td>
+</tr>
+<tr>
+<td>永续增长率</td>
+<td align="right">1.0%</td>
+<td align="right">2.0%</td>
+<td align="right">3.0%</td>
+<td>长期名义增长边界</td>
+</tr>
+</tbody></table>
+<h4>估值结果</h4>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">企业价值</th>
+<th align="right">净债务 / 桥接调整</th>
+<th align="right">股权价值</th>
+<th align="right">每股价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观</td>
+<td align="right">1,704亿元</td>
+<td align="right">+400亿元净现金－440亿元少数股东权益</td>
+<td align="right">1,665亿元</td>
+<td align="right">5.80元</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">2,745亿元</td>
+<td align="right">同上</td>
+<td align="right">2,705亿元</td>
+<td align="right">9.43元</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">4,766亿元</td>
+<td align="right">同上</td>
+<td align="right">4,727亿元</td>
+<td align="right">16.47元</td>
+</tr>
+</tbody></table>
+<p>乐观情景对WACC和永续增长过度敏感，只作为边界，不进入决策上沿。</p>
+<h4>敏感性分析</h4>
+<table>
+<thead>
+<tr>
+<th>WACC \ 永续增长率</th>
+<th align="right">1.5%</th>
+<th align="right">2.0%</th>
+<th align="right">2.5%</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>7.5%</td>
+<td align="right">9.59</td>
+<td align="right">10.30</td>
+<td align="right">11.16</td>
+</tr>
+<tr>
+<td>8.0%</td>
+<td align="right">8.84</td>
+<td align="right">9.43</td>
+<td align="right">10.13</td>
+</tr>
+<tr>
+<td>8.5%</td>
+<td align="right">8.19</td>
+<td align="right">8.68</td>
+<td align="right">9.27</td>
+</tr>
+</tbody></table>
+<h4>反向 DCF</h4>
+<ul>
+<li>当前价格隐含的收入增长 / 终值利润率：5.99元对应调整企业价值约1,759亿元。在WACC 8%、永续增长2%的同一模型下，若未来五年FCFF零增长，所需基期FCFF约113亿元；若未来五年增长4%，约需95亿元。</li>
+<li>与历史和行业相比是否可实现：公司2021—2025实际FCF中位数约147亿元，仅2023年66亿元显著低于上述隐含值；但现金波动、少数股东权益和现金可分配性使折价有现实依据。</li>
+<li>我的判断：现价仍隐含现金流折价，但折价幅度已小于7月16日；真正风险不是没有利润，而是现金流正常化低于模型假设。</li>
+</ul>
+<h3>10.3 行业特定估值</h3>
+<ul>
+<li>方法：P/B—ROE。</li>
+<li>适用理由：重资产、低至中等ROE装备央企，账面价值和资本回报对估值有约束力。</li>
+<li>关键假设：2026年每股账面价值约6.1—6.2元，长期ROE 7%—9%、股权成本8%—9%、永续增长2%，合理P/B约0.85—1.20倍。</li>
+<li>对应每股价值区间：<strong>5.2—7.4元</strong>。</li>
+<li>局限性：未单独给予上市子公司、海外增量和CR450期权更高估值；也可能低估低ROE长期化的折价。</li>
+</ul>
+<h3>10.4 估值交叉验证</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="right">每股价值区间</th>
+<th align="right">权重</th>
+<th>采信理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>相对估值</td>
+<td align="right">6.3—8.4元</td>
+<td align="right">35%</td>
+<td>盈利稳定可用，但可比体量、业务和资本回报不同</td>
+</tr>
+<tr>
+<td>DCF</td>
+<td align="right">5.8—16.5元；核心8.2—10.3元</td>
+<td align="right">40%</td>
+<td>现金流可审计，但终值、净现金和少数股东权益高度敏感</td>
+</tr>
+<tr>
+<td>P/B—ROE</td>
+<td align="right">5.2—7.4元</td>
+<td align="right">25%</td>
+<td>对低ROE重资产企业形成下沿约束，低估成长选择权</td>
+</tr>
+</tbody></table>
+<ul>
+<li>综合估值区间：<strong>6.2—9.0元</strong>。</li>
+<li>相对现价上行 / 下行空间：以5.99元计，下沿+3.5%，中枢7.6元+26.9%，上沿+50.3%。</li>
+<li>为什么不机械平均：剔除DCF乐观尾部；用P/B—ROE约束下沿，用相对PE和DCF核心区间确定中上部。价格上涨只改变安全边际和动作，不自动改变内在价值。</li>
+</ul>
+<h2 id="section-11">11. 冰冰小美框架判断</h2>
+
+<h3>11.1 三要素状态总表</h3>
+<ul>
+<li>三要素结论来源：<code>bbxm-three-factor-analysis</code>。</li>
+<li>分析对象与层级：中国中车A股，个股层级。</li>
+<li>分析截止时间：2026-07-23 10:29（盘中）。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>状态</th>
+<th>核心证据</th>
+<th>核心反证</th>
+<th>失效条件</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>有利</td>
+<td>核心轨交壁垒、铁路装备量利改善、在手订单覆盖</td>
+<td>新产业价格竞争、城轨下降、低ROIC</td>
+<td>铁路装备订单和毛利率连续转弱</td>
+<td>中高</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>证据不足</td>
+<td>7月20日放量上涨和大单代理流入；控股股东拟增持</td>
+<td>7月21日午间资金代理流出、融资余额此前下降；ETF和账户身份缺失</td>
+<td>连续资金、融资、ETF和实际增持补齐后重判</td>
+<td>低</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>中性</td>
+<td>从52周低位修复，增持利好后未连续加速</td>
+<td>7月20日单日+6.73%，安全边际收窄；尚无板块广度和接力数据</td>
+<td>连续放量突破或利好后跌回事件前区间</td>
+<td>中低</td>
+</tr>
+</tbody></table>
+<h4>前六步证据映射</h4>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>前六步证据来源</th>
+<th>已验证证据</th>
+<th>反证与缺口</th>
+<th>分析状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>第4—7章；第2章来源矩阵</td>
+<td>铁路装备收入/毛利率改善，订单与核心壁垒明确</td>
+<td>现金转化未确认；新产业和城轨拖累</td>
+<td>有利</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>第2—3、8—9章；资金快照</td>
+<td>量价、大单代理、融资至7月17、增持计划</td>
+<td>ETF申赎、账户级机构、7月21全天资金、7月20后融资未获取到</td>
+<td>证据不足</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>第3、8、9章</td>
+<td>低位修复、事件日放量、次日未继续加速</td>
+<td>板块广度、情绪标与接力行为未获取到</td>
+<td>中性</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Step 6 估值约束：5.99元距6.2元下沿仅约3.5%，限制新增现金动作；估值不强行归入三要素。</li>
+<li>补采证据回填：7月21资金快照与7月23盘中行情已先写入第2—3章，再用于本章。</li>
+</ul>
+<h3>11.2 竞争格局与比较优势</h3>
+<h4>前文证据引用</h4>
+<ul>
+<li><p>商业模式与竞争底稿：见第4章。</p>
+</li>
+<li><p>分部与资本回报证据：见第5—7章。</p>
+</li>
+<li><p>相关来源状态：见第2章来源矩阵。</p>
+</li>
+<li><p>分析对象与竞争层级：国内外轨交整机、核心系统及延伸装备市场。</p>
+</li>
+<li><p>当前状态：<strong>有利</strong>。</p>
+</li>
+<li><p>证据充分性：充分；核心分部、订单、客户、毛利率与五年资本回报均有法定披露。</p>
+</li>
+<li><p>多产业位置景气度排序：国内铁路装备居首；海外轨交变化快但与法定分部交叉；现代服务证据不足。</p>
+</li>
+<li><p>产业链位置与利润池：公司处于整机、核心部件、系统集成和全生命周期服务环节；核心利润池在铁路装备与维保，新产业扩大收入池但利润率较低。海外收入与轨交分部去重，不重复估值。</p>
+</li>
+<li><p>核心比较优势：安全认证、运行记录、全谱系产品、规模制造、国铁客户关系与维保能力。</p>
+</li>
+<li><p>竞争对手与替代方案：国内外轨交综合装备商、细分系统厂商；大客户自有维修、其他交通方式和地方项目延后构成替代或需求约束。</p>
+</li>
+<li><p>份额、定价权、客户黏性与进入壁垒：份额与进入壁垒强，客户黏性高；大客户集中使定价权并非单边有利。</p>
+</li>
+<li><p>竞争优势转化为订单、利润和现金回报的情况：订单与利润已改善，现金回报尚未验证。</p>
+</li>
+<li><p>当前决策含义：方向支持长期跟踪，但不能绕过价格和现金流闸门。</p>
+</li>
+</ul>
+<h4>证据</h4>
+<ul>
+<li>2025铁路装备收入+11.90%、毛利率+0.97pct，2026Q1分部收入+12.93%。</li>
+<li>2025新签订单3,461亿元、期末在手订单3,571亿元，约为收入1.31倍。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>城轨收入连续下降；新产业增收但毛利率下降。</li>
+<li>ROIC全资产代理长期约3%，竞争壁垒未转化为高资本回报。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>国铁招标、铁路装备收入和毛利率连续转弱，或重大质量事故破坏认证与客户黏性。</li>
+</ul>
+<h3>11.3 流动性辩证分析</h3>
+<ul>
+<li>当前状态：<strong>证据不足</strong>。</li>
+<li>证据充分性：不充分；微观量价与部分融资可得，但宏观/中观传导、ETF申赎、账户身份和最新融资未完整取得。</li>
+</ul>
+<h4>宏观流动性</h4>
+<ul>
+<li>总量环境与边际变化：全球利率、美元、商品、外部风险偏好以及同窗口中国M1/M2和信用传导的完整序列未获取到。</li>
+<li>对本标的的传导：大盘央企估值受无风险利率与风险偏好影响，但本报告不以缺失的宏观叙事替代个股资金证据。</li>
+</ul>
+<h4>中观流动性</h4>
+<ul>
+<li>行业 / 主题 / ETF / 机构配置变化：铁路装备相关ETF净申购与机构账户级持仓未获取到；控股股东增持计划是产业资本潜在增量，不是已成交资金。</li>
+<li>对本标的的传导：只有实际增持、ETF/机构连续承接与基本面验证同时出现，才能把事件性上涨升级为持续流动性有利。</li>
+</ul>
+<h4>微观流动性</h4>
+<ul>
+<li>成交额、换手率、量价结构、融资和大单：7月20日成交约31.97亿元、换手2.21%、上涨6.73%，大单代理净流入约1.11亿元；7月21日收跌0.66%，午间大单代理净流出约2.19亿元。7月6日至17日融资余额下降约2.216亿元。</li>
+<li>连续窗口与相对强弱：7月15—21上涨约6.96%，6月24—7月21上涨约13.88%；7月23盘中5.99元与7月21收盘持平。相对行业和上证指数同窗口完整序列未获取到。</li>
+</ul>
+<h4>资金来源分类</h4>
+<table>
+<thead>
+<tr>
+<th>资金来源</th>
+<th>当前状态</th>
+<th>连续窗口证据</th>
+<th>对价格的含义</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>长期配置资金</td>
+<td>待验证</td>
+<td>控股股东拟增持1.5亿—3亿元，但无实施数据；机构/ETF未获取到</td>
+<td>潜在承接，不能计为已流入</td>
+<td>低</td>
+</tr>
+<tr>
+<td>趋势 / 交易资金</td>
+<td>先流入后分歧</td>
+<td>7月20日放量上涨，7月21日午间资金代理转流出</td>
+<td>事件交易存在，持续性未确认</td>
+<td>中低</td>
+</tr>
+<tr>
+<td>产业资本 / 内部人</td>
+<td>计划已披露</td>
+<td>增持窗口2026-07-20至2027-01-19</td>
+<td>实施后才形成真实买盘</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h4>供给与抛压</h4>
+<table>
+<thead>
+<tr>
+<th>供给来源</th>
+<th>当前状态</th>
+<th>时间窗口</th>
+<th>影响</th>
+<th>验证方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>解禁 / 减持</td>
+<td>控股股东承诺增持完成后锁定；其他重大供给未获取到</td>
+<td>未来6个月</td>
+<td>控股股东方向偏承接，但历史资管持仓仍待核验</td>
+<td>法定公告、股东名单</td>
+</tr>
+<tr>
+<td>再融资 / 可转债</td>
+<td>未获取到本窗口新增计划</td>
+<td>截至2026-07-23</td>
+<td>不把未获取到写成没有</td>
+<td>交易所公告</td>
+</tr>
+<tr>
+<td>获利盘 / 套牢盘</td>
+<td>5.12元低点以来已有修复，52周高位套牢盘仍大</td>
+<td>近1—20交易日 / 52周</td>
+<td>6元以上可能出现事件获利与旧套牢筹码</td>
+<td>成交密集区、放量滞涨</td>
+</tr>
+</tbody></table>
+<h4>最低数据检查</h4>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>当前窗口</th>
+<th>对比窗口</th>
+<th>结论</th>
+<th>数据源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>成交额与换手率</td>
+<td>7月20日31.97亿元、2.21%；7月23盘中3.63亿元、0.25%</td>
+<td>7月15日成交量1.50亿股，近5日涨6.96%</td>
+<td>事件日放量，之后未持续加速</td>
+<td><a href="../../webpages/2026-07-21-中国中车资金面行情快照.md">7月21快照</a>、<a href="../../webpages/2026-07-23-中国中车行情与公告核验快照.md">7月23快照</a></td>
+</tr>
+<tr>
+<td>融资余额与融资买入</td>
+<td>7月17日余额32.386亿元</td>
+<td>7月6日34.602亿元</td>
+<td>边际去杠杆，非增量接力</td>
+<td>7月21资金快照</td>
+</tr>
+<tr>
+<td>主力 / 大单资金</td>
+<td>7月21午间净流出约2.19亿元</td>
+<td>7月20净流入约1.11亿元</td>
+<td>方向反转，不能称持续流入</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>ETF / 北向 / 机构代理指标</td>
+<td>未获取到</td>
+<td>未获取到</td>
+<td>证据不足</td>
+<td>已检查公开行情与资金页</td>
+</tr>
+</tbody></table>
+<h4>证据</h4>
+<ul>
+<li>7月20日放量上涨显示增持计划能吸引交易资金；个股正常成交规模支持小中等个人仓位退出。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>次日资金代理转流出、融资余额此前下降，且控股股东尚未披露实际买入。</li>
+</ul>
+<h4>退出路径</h4>
+<ul>
+<li>资金流入如何退出：事件交易资金可在6元附近获利兑现；历史套牢盘可能在反弹中提供供给。</li>
+<li>持续性被证伪的信号：实际增持长期不落地、放量滞涨、融资继续下降且价格跌回5.65元事件前区域。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>若补齐ETF、机构、融资和实际增持后显示连续承接，可由“证据不足”上调；若多窗口资金与价格同步转弱，则下调为“不利”。</li>
+</ul>
+<h3>11.4 情绪位置变化</h3>
+<ul>
+<li>当前状态：<strong>中性</strong>。</li>
+<li>证据充分性：不充分；个股量价与事件反馈可得，板块广度、接力、赚钱效应与情绪标未完整取得。</li>
+<li>当前所处阶段：<strong>修复，未确认扩散</strong>。</li>
+<li>个股相对板块与指数的强弱：个股6月24日至7月21上涨约13.88%，但同窗口行业与指数精确对比未获取到。</li>
+<li>催化兑现后的价格反馈：7月20日增持计划推动单日上涨6.73%，7月21日小幅回落，7月23盘中仍在5.99元；属于利好后承接尚存但未继续加速。</li>
+</ul>
+<h4>证据</h4>
+<ul>
+<li>股价从52周低位修复，尚未接近8.12元高位；利好后没有连续涨停或极端加速。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>单日大涨已消耗部分低估赔率；资金代理次日转弱，无法确认扩散与赚钱效应。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>连续放量突破并获得板块广度和资金承接，则进入扩散；跌回5.65元以下并伴随放量，则修复失败并转退潮。</li>
+</ul>
+<h3>11.5 综合状态与主导矛盾</h3>
+<ul>
+<li>三要素综合判断：<strong>证据不足</strong>。</li>
+<li>主导要素：竞争格局有利。</li>
+<li>拖累要素：流动性证据不足，情绪仅处修复。</li>
+<li>主导矛盾：订单与利润改善能否转化为现金，以及事件性买盘能否转化为持续承接。</li>
+<li>下一验证节点：2026半年报、国铁大规模招标、控股股东首次/进展增持公告、连续融资与ETF数据。</li>
+<li>状态切换条件：现金流修复 + 核心毛利稳定 + 实际增持/机构连续承接，可升级为部分有利；反之若现金流、毛利和量价同步恶化，则转同步不利。</li>
+</ul>
+<h3>11.6 三要素行动映射</h3>
+<table>
+<thead>
+<tr>
+<th>资金属性</th>
+<th>当前动作</th>
+<th>允许升级的条件</th>
+<th>降级 / 退出条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>新增现金</td>
+<td>observe</td>
+<td>回到5.3—5.7元且无新利空；或半年报验证后重估仍有足够安全边际</td>
+<td>6.8元以上但验证未到；核心毛利、CFO和订单转弱</td>
+</tr>
+<tr>
+<td>已有持仓</td>
+<td>review / wait</td>
+<td>半年报现金流改善、实际增持持续、价格未透支估值</td>
+<td>连续两个报告期核心毛利恶化、全年FCF显著低于100亿元或重大质量治理风险</td>
+</tr>
+</tbody></table>
+<h3>11.7 三要素数据缺口与来源</h3>
+<table>
+<thead>
+<tr>
+<th>数据缺口</th>
+<th>已检查来源</th>
+<th>对哪一要素有影响</th>
+<th>对结论的影响</th>
+<th>补齐方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>7月21全天及7月23全天大单资金</td>
+<td>公开资金页、盘中行情页</td>
+<td>流动性</td>
+<td>无法判断资金是否持续流入</td>
+<td>收盘后核验完整资金分档</td>
+</tr>
+<tr>
+<td>7月20后个股融资明细</td>
+<td>公开融资页</td>
+<td>流动性</td>
+<td>去杠杆是否逆转未知</td>
+<td>上交所/可靠融资明细</td>
+</tr>
+<tr>
+<td>ETF净申购、北向/QFII/主动公募账户变化</td>
+<td>公开行情与资金页</td>
+<td>流动性</td>
+<td>不能识别长期配置资金</td>
+<td>ETF份额与定期持仓披露</td>
+</tr>
+<tr>
+<td>行业/指数同窗口相对强弱与情绪广度</td>
+<td>现有行情快照</td>
+<td>情绪</td>
+<td>情绪阶段置信度下降</td>
+<td>补齐轨交指数与市场广度</td>
+</tr>
+<tr>
+<td>宏观与中观同窗口流动性序列</td>
+<td>本次未专项采集</td>
+<td>流动性</td>
+<td>不给“有利/不利”方向</td>
+<td>补齐利率、汇率、M1/M2、社融与政策操作</td>
+</tr>
+</tbody></table>
+<ul>
+<li>分析口径与截止时间：个股A股，2026-07-23 10:29盘中；资金截止日不一致已逐项标注。</li>
+<li>主要数据来源：法定财报、公司公告、库内7月21资金快照和7月23盘中行情快照。</li>
+<li>数据缺口导致的置信度调整：流动性降为“证据不足”，综合状态亦为“证据不足”；不以单日上涨补空。</li>
+</ul>
+<h3>11.8 风险方向证据</h3>
+<p>比较窗口：2026-06-24至2026-07-16；当前窗口：2026-07-17至2026-07-23 10:29。</p>
+<table>
+<thead>
+<tr>
+<th>风险类型</th>
+<th>前一窗口</th>
+<th>当前窗口</th>
+<th>方向证据</th>
+<th>反证</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本面风险</td>
+<td>Q1利润改善、CFO恶化，等待半年报</td>
+<td>无新财务披露，订单与增持事件不改变盈利事实</td>
+<td>未出现新基本面恶化</td>
+<td>现金流风险未被新数据缓解</td>
+</tr>
+<tr>
+<td>估值风险</td>
+<td>5.61元，距6.2元下沿约10.5%</td>
+<td>5.99元，距下沿约3.5%</td>
+<td>安全边际收窄，估值风险小幅上升</td>
+<td>仍低于7.6元中枢</td>
+</tr>
+<tr>
+<td>情绪风险</td>
+<td>低位温和修复</td>
+<td>增持日单日+6.73%，随后未连续加速</td>
+<td>未形成极端拥挤</td>
+<td>事件交易提高短线获利盘</td>
+</tr>
+<tr>
+<td>流动性风险</td>
+<td>融资余额下降，长期资金身份缺失</td>
+<td>大单代理先流入后流出；增持仅为计划</td>
+<td>潜在产业资本承接</td>
+<td>实际买盘、ETF和最新融资未确认</td>
+</tr>
+</tbody></table>
+<h3>11.9 风险传导链</h3>
+<ul>
+<li>信息源头：控股股东增持计划、国铁招标节奏、城轨财政约束、新产业价格竞争、订单回款周期。</li>
+<li>核心变量：实际增持金额、铁路装备订单与毛利率、新产业毛利率、经营现金流、筹码供给。</li>
+<li>传导机制：事件与订单预期→价格和成交→估值安全边际；订单/价格→收入与毛利→应收存货与现金转化→ROE与估值锚。</li>
+<li>影响对象：中国中车归母利润、自由现金流、P/B和PE中枢及短线承接。</li>
+<li>市场行为变化：增持公告推动单日放量上涨，但次日资金代理转弱，尚未形成连续扩散。</li>
+<li>风险方向：<strong>风险持平</strong>。</li>
+<li>验证指标：半年报CFO和分部毛利率、实际增持金额与均价、融资余额、ETF/机构承接、5.65元与6.2元附近量价。</li>
+<li>失效条件：若现金流与资金承接同步改善，转风险减弱；若毛利、CFO与价格承接同步恶化，转风险增强。</li>
+</ul>
+<h3>11.10 风险方向结论</h3>
+<ul>
+<li>风险方向结论：<strong>风险持平</strong>。</li>
+<li>判断依据：当前窗口没有新财务披露；估值安全边际收窄与潜在产业资本承接相互抵消，资金连续性又不完整，不能确认风险减弱或增强。</li>
+<li>反证：铁路装备和订单仍支持基本面；但Q1现金流恶化未被半年报证伪。</li>
+<li>未获取到：实际增持进度、最新融资、ETF/机构账户变化、完整宏观与中观流动性序列。</li>
+<li>置信度：低。</li>
+</ul>
+<h3>11.11 四层方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>边际改善 / 无明显变化 / 边际恶化 / 未获取到</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观</td>
+<td>未获取到</td>
+<td>本次未补齐全球利率、美元、商品、M1/M2与信用传导的可比窗口</td>
+</tr>
+<tr>
+<td>中观</td>
+<td>无明显变化</td>
+<td>铁路订单与设备更新逻辑延续，城轨拖累未出现新拐点</td>
+</tr>
+<tr>
+<td>微观</td>
+<td>无明显变化</td>
+<td>无新财务披露；Q1利润改善与CFO恶化的分歧仍在</td>
+</tr>
+<tr>
+<td>交易</td>
+<td>无明显变化</td>
+<td>增持日放量上涨，但资金代理次日转弱，潜在承接未转为可验证持续流入</td>
+</tr>
+</tbody></table>
+<h3>11.12 最终动作与约束</h3>
+<ul>
+<li>主动作：<strong>observe</strong>。</li>
+<li>新增现金：5.99元不追；等待5.3—5.7元价格承接或半年报验证后重估。</li>
+<li>已有持仓：<code>review / wait</code>；成本低于6.2元可继续观察基本面，成本较高者不以补仓摊薄代替逻辑复核。</li>
+<li>承接条件：铁路装备毛利率维持25%左右、半年/全年CFO向正常化回归、国铁招标落地、实际增持持续且价格不过度透支。</li>
+<li>退出条件：连续两个报告期铁路装备和新产业毛利率同时恶化；全年FCF低于100亿元且非暂时性；重大质量/治理风险；或估值超过9元但盈利预测未上修。</li>
+<li>下一复核节点：2026半年报、国铁大规模采购公告、CR450商业订单、控股股东增持进展。</li>
+<li>我的判断：竞争方向正确，但价格已靠近保守价值下沿且资金证据不完整，所以方向不能直接转化为当下买点。</li>
+</ul>
+<h2 id="section-12">12. 最终结论</h2>
+
+<ul>
+<li>估值结论：<strong>低估，但不是深度低估</strong>。</li>
+<li>操作结论：<strong>观望</strong>。</li>
+<li>综合估值区间：<strong>6.2—9.0元</strong>。</li>
+<li>相对现价空间：下沿+3.5%，中枢约+26.9%，上沿+50.3%。</li>
+<li>如果今天这是一笔现金，我会买它吗：<strong>不会在5.99元立即买；价格回到5.3—5.7元或半年报验证后才重新评估。</strong></li>
+<li>我的判断：中国中车是“核心轨交壁垒 + 订单周期 + 央企折价 + 新产业选择权”的重资产平台。铁路装备和海外改善是真实优势，低资本回报、城轨收缩、新产业价格竞争与现金转化是估值约束。7月20日增持计划改善潜在承接，但股价上涨已使短期赔率明显收窄。</li>
+<li>结论失效条件：半年报显著上修现金流和分部盈利可提高价值中枢；反之若订单、毛利和现金流同步恶化，6.2元下沿也需下修。</li>
+</ul>
+<h2 id="section-13">13. 后续监控指标</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">当前值</th>
+<th>触发阈值 / 方向</th>
+<th>数据源</th>
+<th>复核频率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>经营现金流 / FCF</td>
+<td align="right">2026Q1 CFO -90.84亿元</td>
+<td>半年改善；全年FCF不低于100—150亿元</td>
+<td>法定财报</td>
+<td>季报</td>
+</tr>
+<tr>
+<td>铁路装备毛利率</td>
+<td align="right">2025为25.69%</td>
+<td>维持25%左右；跌破24%需重估</td>
+<td>法定分部披露</td>
+<td>半年</td>
+</tr>
+<tr>
+<td>新产业毛利率</td>
+<td align="right">2025为16.46%</td>
+<td>停止下降并伴随现金改善</td>
+<td>法定分部披露</td>
+<td>半年</td>
+</tr>
+<tr>
+<td>新签与在手订单</td>
+<td align="right">2025新签3,461亿元、在手3,571亿元</td>
+<td>新签/收入不低于1倍，交付与回款同步</td>
+<td>公司公告 / 年报</td>
+<td>公告 / 年报</td>
+</tr>
+<tr>
+<td>国铁与CR450</td>
+<td align="right">大规模采购与商业订单待验证</td>
+<td>招标数量、交付时点、商业订单落地</td>
+<td>公司 / 国铁公开信息</td>
+<td>事件驱动</td>
+</tr>
+<tr>
+<td>控股股东增持</td>
+<td align="right">计划1.5亿—3亿元</td>
+<td>首次实施、累计金额、均价与完成比例</td>
+<td>上交所公告</td>
+<td>公告驱动</td>
+</tr>
+<tr>
+<td>资金连续性</td>
+<td align="right">融资余额至7月17下降；资金代理先流入后流出</td>
+<td>融资、ETF、实际增持和价格形成连续承接</td>
+<td>交易所 / 可靠资金平台</td>
+<td>日 / 周</td>
+</tr>
+</tbody></table>
+<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
+
+<ul>
+<li>未获取到Morningstar公允价值、护城河和星级；已检查公开可访问页与搜索。</li>
+<li>卖方目标价缺少逐家完整样本、预测表和假设，不能作为关键估值的唯一来源。</li>
+<li>未获取到7月21全天与7月23收盘资金分档、7月20后融资明细、ETF净申购、北向/QFII/主动公募账户级变化。</li>
+<li>未补齐同窗口全球利率、美元、商品、M1/M2、社融与信用传导，流动性三要素状态因此为“证据不足”。</li>
+<li>控股股东增持目前是计划，未获取到实际成交金额、均价和完成比例，不能等同于已完成增持。</li>
+<li>DCF的FCFF代理、调整净现金、少数股东权益和终值假设对结果敏感；乐观情景不作为交易目标。</li>
+<li>2026-07-23行情为盘中延时快照，真实交易前必须重核收盘价与最新公告。</li>
+</ul>
+<h2 id="section-15">15. 来源清单</h2>
+
+<ol>
+<li><a href="../../papers/中国中车机构研报-2026-07-16/中国中车2025年年度报告.pdf.md">中国中车2025年年度报告</a>，中国中车 / 港交所，2026-04-16。</li>
+<li><a href="../../papers/中国中车机构研报-2026-07-16/中国中车2026年第一季度报告.pdf.md">中国中车2026年第一季度报告</a>，中国中车 / 上交所，2026-04-29。</li>
+<li><a href="../../papers/中国中车机构研报-2026-07-16/中国中车2024年年度报告.pdf.md">中国中车2024年年度报告</a>，中国中车 / 上交所，2025-03-28。</li>
+<li><a href="../../papers/中国中车机构研报-2026-07-16/中国中车2022年年度报告.pdf.md">中国中车2022年年度报告</a>，中国中车 / 上交所，2023-03-30。</li>
+<li><a href="../../papers/中国中车机构研报-2026-07-16/2026-07-20-中国中车控股股东增持股份计划公告.pdf.md">中国中车控股股东增持股份计划公告</a>，上交所公告2026-024，2026-07-20。</li>
+<li><a href="../../webpages/2026-07-23-中国中车行情与公告核验快照.md">中国中车行情与公告核验快照</a>，Moomoo行情页与中国中车公告列表，访问时间2026-07-23 10:29。</li>
+<li><a href="../../webpages/2026-07-21-中国中车资金面行情快照.md">中国中车资金面行情快照</a>，公开行情、资金与融资数据核验，2026-07-21。</li>
+<li><a href="../../webpages/2026-07-16-中国中车行情与交易快照.md">中国中车行情与交易快照</a>，2026-07-16。</li>
+<li><a href="../../webpages/2026-07-16-中国中车卖方评级与近期催化剂检索记录.md">中国中车卖方评级与近期催化剂检索记录</a>，2026-07-16。</li>
+</ol>
+<h2 id="section-16">16. 声明</h2>
+
+<p>本报告基于截至研究截止时间可取得的公开信息，不构成收益保证。真实交易前应重新核验价格、公告、流动性和个人风险承受能力。</p>
+<h2>相关页面</h2>
+<ul>
+<li><a href="../../../workbench/targets/2026-07-20-中国中车-控股股东增持股份计划-跟踪.md">中国中车控股股东增持股份计划跟踪</a>：记录计划事实、金融意义、验证节点和失效条件。</li>
+<li><a href="../../../views/买股票的老木匠对2015救市资管计划退场会形成任务型卖压的看法.md">2015救市资管计划退场的任务型卖压观点</a>：提供潜在非基本面卖压的待验证解释框架。</li>
+</ul>
+<script>
+(() => {
+  const endpoint = '/api/stock-quote?secid=1.601766';
+  const priceNode = document.getElementById('intraday-price');
+  const detailNode = document.getElementById('intraday-detail');
+  const statusNode = document.getElementById('intraday-status');
+  const deviationValue = document.getElementById('deviation-value');
+  const deviationDetail = document.getElementById('deviation-detail');
+  const tracker = document.getElementById('daily-tracking');
+  const snapshotPrice = 5.99;
+  const percent = value => `${value < 0 ? '-' : value > 0 ? '+' : ''}${Math.abs(value).toFixed(1)}%`;
+  function updateDeviation(price) {
+    const low = Number(tracker.dataset.valueLow);
+    const high = Number(tracker.dataset.valueHigh);
+    if (!Number.isFinite(low) || !Number.isFinite(high) || low <= 0 || high <= low) return;
+    const midpoint = (low + high) / 2;
+    const versusLow = (price / low - 1) * 100;
+    const versusMid = (price / midpoint - 1) * 100;
+    const versusHigh = (price / high - 1) * 100;
+    if (price > high) { deviationValue.textContent = `高于上沿 ${percent(versusHigh)}`; deviationValue.classList.add('bad'); }
+    else if (price < low) { deviationValue.textContent = `低于下沿 ${percent(Math.abs(versusLow))}`; deviationValue.classList.remove('bad'); }
+    else { deviationValue.textContent = '位于动态价值区间内'; deviationValue.classList.remove('bad'); }
+    deviationDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对区间中枢 ${midpoint.toFixed(2)} 元为 ${percent(versusMid)}，相对下沿为 ${percent(versusLow)}，相对上沿为 ${percent(versusHigh)}。盘中价格不改变价值区间本身。`;
+  }
+  async function refreshIntradayQuote() {
+    statusNode.textContent = '连接中'; statusNode.className = 'tracking-status';
+    try {
+      const response = await fetch(endpoint, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json(); const quote = payload && payload.data;
+      if (!quote || !Number.isFinite(quote.price) || !Number.isFinite(quote.prevClose) || !Number.isFinite(quote.changePercent) || !Number.isFinite(quote.quoteTimestamp)) throw new Error('invalid quote');
+      const quoteTime = new Date(quote.quoteTimestamp * 1000).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false });
+      priceNode.textContent = `${quote.price.toFixed(2)} 元 · ${percent(quote.changePercent)}`;
+      priceNode.classList.toggle('bad', quote.changePercent < 0);
+      detailNode.textContent = `行情时间：${quoteTime}；昨收 ${quote.prevClose.toFixed(2)} 元。来源：${payload.proxySource || '本地行情代理'}。`;
+      statusNode.textContent = '盘中实时 · 每 60 秒'; statusNode.className = 'tracking-status live'; updateDeviation(quote.price);
+    } catch { priceNode.textContent = '实时行情暂不可用'; priceNode.classList.remove('bad'); detailNode.textContent = '每日同步值仍然有效；可重新双击“大盘启动器”后刷新本页。'; statusNode.textContent = '连接失败'; statusNode.className = 'tracking-status error'; }
+  }
+  if (location.protocol === 'http:' || location.protocol === 'https:') { refreshIntradayQuote(); window.setInterval(refreshIntradayQuote, 60000); }
+  else { priceNode.textContent = Number.isFinite(snapshotPrice) ? `${snapshotPrice.toFixed(2)} 元（每日值）` : '每日值未获取'; detailNode.textContent = '当前为直接打开模式；盘中实时需通过“大盘启动器”进入本地服务。'; statusNode.textContent = '每日同步 · 实时未连接'; }
+})();
+</script></article>
+    </div>
+  </main>
+</body>
+</html>

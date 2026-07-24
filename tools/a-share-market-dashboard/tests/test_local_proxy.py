@@ -17,8 +17,10 @@ from scripts.local_proxy import (
     create_server,
     fetch_index_history,
     fetch_market_snapshot,
+    fetch_nasdaq100_snapshot,
     fetch_stock_quote,
     fetch_youzhiyouxing_temperature,
+    normalize_nasdaq100_chart,
     parse_json_payload,
     parse_youzhiyouxing_temperature,
 )
@@ -85,8 +87,12 @@ class RouteTests(unittest.TestCase):
                 {"secid": ["https://example.com"], "limit": ["3000"]},
             )
 
-    def test_builds_only_allowlisted_stock_quote_url(self):
-        for secid in ("0.000807", "0.002270", "1.600879"):
+    def test_builds_stock_quote_url_for_valid_a_share_secids(self):
+        for secid in (
+            "0.300001",
+            "1.600000",
+            "1.688102",
+        ):
             with self.subTest(secid=secid):
                 url = build_upstream_url(
                     "/api/stock-quote",
@@ -100,11 +106,13 @@ class RouteTests(unittest.TestCase):
                 self.assertEqual(query["secid"], [secid])
                 self.assertEqual(query["fields"], ["f43,f57,f58,f60,f86,f170"])
 
-        with self.assertRaises(RouteError):
-            build_upstream_url(
-                "/api/stock-quote",
-                {"secid": ["1.600000"]},
-            )
+        for bad_secid in ("https://example.com", "2.600000", "1.60000", "sh600000"):
+            with self.subTest(secid=bad_secid):
+                with self.assertRaises(RouteError):
+                    build_upstream_url(
+                        "/api/stock-quote",
+                        {"secid": [bad_secid]},
+                    )
 
 
 class PayloadTests(unittest.TestCase):
@@ -143,6 +151,47 @@ class PayloadTests(unittest.TestCase):
         payload = fetch_youzhiyouxing_temperature(fake_fetch)
 
         self.assertEqual(payload["data"]["temperature"], 38)
+
+    def test_normalizes_nasdaq100_chart_current_point_and_drawdown(self):
+        payload = normalize_nasdaq100_chart({
+            "chart": {
+                "result": [{
+                    "meta": {
+                        "regularMarketPrice": 18000.0,
+                        "regularMarketTime": 1784601060,
+                    },
+                    "indicators": {
+                        "quote": [{
+                            "close": [12000.0, None, 20000.0, 18000.0],
+                        }],
+                    },
+                }],
+            },
+        })
+
+        self.assertEqual(payload["data"]["currentPoint"], 18000.0)
+        self.assertEqual(payload["data"]["highPoint"], 20000.0)
+        self.assertEqual(payload["data"]["drawdownPercent"], -10.0)
+        self.assertEqual(payload["proxySource"], "Yahoo Finance")
+
+    def test_fetches_nasdaq100_snapshot_through_fixed_yahoo_url(self):
+        def fake_fetch(url, source):
+            self.assertEqual(source, "nasdaq100")
+            self.assertEqual(url, "https://query1.finance.yahoo.com/v8/finance/chart/%5ENDX?range=max&interval=1d")
+            return {
+                "chart": {
+                    "result": [{
+                        "meta": {"regularMarketPrice": 95.0},
+                        "indicators": {"quote": [{"close": [80.0, 100.0, 90.0]}]},
+                    }],
+                },
+            }
+
+        payload = fetch_nasdaq100_snapshot(fake_fetch)
+
+        self.assertEqual(payload["data"]["currentPoint"], 95.0)
+        self.assertEqual(payload["data"]["highPoint"], 100.0)
+        self.assertEqual(payload["data"]["drawdownPercent"], -5.0)
 
     def test_index_history_falls_back_to_tencent_and_normalizes_rows(self):
         rows = [
@@ -306,11 +355,31 @@ class ServerTests(unittest.TestCase):
         self.assertEqual(payload["data"]["temperature"], 38)
         self.assertEqual(payload["data"]["band"], "中估")
 
-    def test_stock_quote_api_returns_normalized_quote_and_rejects_other_stocks(self):
+    def test_nasdaq100_api_returns_current_point_and_drawdown(self):
+        def fake_fetch(url, source):
+            if source == "nasdaq100":
+                return {
+                    "chart": {
+                        "result": [{
+                            "meta": {"regularMarketPrice": 190.0},
+                            "indicators": {"quote": [{"close": [100.0, 200.0, 190.0]}]},
+                        }],
+                    },
+                }
+            raise UpstreamError(source)
+
+        with running_server(fake_fetch) as base:
+            payload = read_json(f"{base}/api/nasdaq100")
+
+        self.assertEqual(payload["data"]["currentPoint"], 190.0)
+        self.assertEqual(payload["data"]["highPoint"], 200.0)
+        self.assertEqual(payload["data"]["drawdownPercent"], -5.0)
+
+    def test_stock_quote_api_returns_normalized_quote_and_rejects_invalid_secids(self):
         with running_server(self.fake_fetch) as base:
             payload = read_json(f"{base}/api/stock-quote?secid=1.600879")
             with self.assertRaises(HTTPError) as bad_request:
-                urlopen(f"{base}/api/stock-quote?secid=1.600000", timeout=3)
+                urlopen(f"{base}/api/stock-quote?secid=2.600000", timeout=3)
 
         self.assertEqual(payload, {
             "data": {

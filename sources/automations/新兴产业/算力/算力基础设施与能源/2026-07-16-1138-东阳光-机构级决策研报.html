@@ -1,0 +1,1739 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>东阳光机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+.daily-tracking { margin: 0 0 42px; padding: 22px; border: 1px solid #cbdade; border-radius: 16px; background: linear-gradient(135deg, #f3f8f9 0%, #fffaf0 100%); box-shadow: 0 12px 30px rgba(23, 50, 71, .07); }
+.daily-tracking-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
+.daily-tracking-kicker { margin: 0 0 4px; color: var(--teal); font-size: 12px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+.daily-tracking h2 { margin: 0; padding: 0; border: 0; font-size: 27px; }
+.daily-tracking-time { margin: 4px 0 0; color: var(--muted); font-size: 12px; text-align: right; }
+.tracking-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.tracking-grid + .tracking-grid { margin-top: 12px; }
+.tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
+.tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
+.tracking-card[data-tracking-key="dynamic-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
+.range-breakdown { display: block; }
+.range-main { display: inline-flex; align-items: center; max-width: 100%; margin-bottom: 10px; padding: 3px 9px; border-radius: 999px; background: #e7f0f3; color: var(--navy); font-size: 20px; line-height: 1.3; font-weight: 800; }
+.range-points { display: grid; gap: 7px; margin-top: 1px; }
+.range-point { display: block; padding-left: 11px; border-left: 3px solid #bed2d8; color: #245068; font-size: 14px; line-height: 1.52; font-weight: 650; }
+.tracking-value.bad { color: var(--danger); }
+.tracking-detail { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; }
+.tracking-status { display: inline-flex; margin-top: 10px; padding: 3px 8px; border-radius: 999px; color: #526b77; background: #edf2f4; font-size: 12px; font-weight: 700; }
+.tracking-status.live { color: #17604e; background: #dff3eb; }
+.tracking-status.error { color: var(--danger); background: var(--danger-bg); }
+.tracking-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; margin-top: 14px; padding-top: 13px; border-top: 1px solid #d5e0e3; color: #536d78; font-size: 13px; }
+.tracking-footer a { font-weight: 700; }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+  .tracking-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+  .daily-tracking-head { display: block; }
+  .daily-tracking-time { text-align: left; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .daily-tracking, .tracking-card { border: 1px solid #aebbc2; color: #102f43; background: #fff; box-shadow: none; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · 600673.SH</p>
+      <h1>东阳光机构级决策研报</h1>
+      <div class="hero-meta"><span>2026-07-24 10:00（Asia/Shanghai，盘中）</span><span>2026-07-24</span><span>上海证券交易所 / 人民币</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
+<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
+<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
+<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
+<a class="toc-link" href="#section-6">6. 五年财务历史</a>
+<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
+<a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
+<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
+<a class="toc-link" href="#section-10">10. 估值</a>
+<a class="toc-link" href="#section-11">11. 冰冰小美框架判断</a>
+<a class="toc-link" href="#section-12">12. 最终结论</a>
+<a class="toc-link" href="#section-13">13. 后续监控指标</a>
+<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
+<a class="toc-link" href="#section-15">15. 来源清单</a>
+<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
+      <article class="content"><blockquote>
+<p>证券代码：600673.SH
+交易所 / 币种：上海证券交易所 / 人民币
+研究截止时间：2026-07-24 10:00（Asia/Shanghai，盘中）
+报告生成时间：2026-07-24
+数据口径：中国企业会计准则；2021—2025 法定年报、2026Q1 未经审计季报；重大重组按申报稿情景处理，未视作已完成</p>
+</blockquote>
+<!-- DAILY_TRACKING_START -->
+<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-07-24 10:00（Asia/Shanghai，盘中）" data-value-low="24" data-value-high="32">
+  <div class="daily-tracking-head">
+    <div><p class="daily-tracking-kicker">Daily decision tracker</p><h2>每日跟踪面板</h2></div>
+    <p class="daily-tracking-time">更新：2026-07-24 10:00（Asia/Shanghai，盘中）<br>下次：收盘后 / 重大公告后</p>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">改善但质量分化；制冷剂利润修复和算力转型推进，法定利润、自由现金流与资本回报尚未同步</p><p class="tracking-detail">风险方向：风险增强；基本面推进未停止，但交易、质押、融资与兑现风险相对前一窗口增强。下一验证点与失效条件见第 11—13 章。</p></div>
+    <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value"><span class="range-breakdown"><span class="range-main">24—32 元</span><span class="range-points"><span class="range-point">24 元附近=只计已验证传统主业与保守重组价值</span><span class="range-point">27—29 元=传统利润修复、秦淮数据交易价值与正常协同的合理中枢</span><span class="range-point">32 元附近=已计入部分算力合同和液冷成长溢价</span><span class="range-point">33 元以上需重组注册、合同毛利与自由现金流、盈利预测上修共同支撑</span></span></span></p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
+    <div class="tracking-card" data-tracking-key="price-deviation"><p class="tracking-label">股价偏离度</p><p class="tracking-value" id="deviation-value">位于动态价值区间内</p><p class="tracking-detail" id="deviation-detail">每日同步价 29.89 元；相对区间中枢 28.00 元为 +6.8%，相对下沿为 +24.5%，相对上沿为 -6.6%。价格不改变价值区间本身。</p></div>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="daily-quote"><p class="tracking-label">每日同步价</p><p class="tracking-value">29.89 元，2026-07-24 约 10:00 盘中；前收 30.16 元</p><p class="tracking-detail">这是报告内嵌的正式跟踪基准，离线打开仍可使用。</p><span class="tracking-status">每日快照</span></div>
+    <div class="tracking-card" data-tracking-key="intraday-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">等待连接</p><p class="tracking-detail" id="intraday-detail">通过“大盘启动器”打开后获取盘中行情，每 60 秒刷新；直接打开 HTML 时不访问外部行情。</p><span class="tracking-status" id="intraday-status">未连接</span></div>
+    <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">新增现金 observe；已有持仓 review / wait</p><p class="tracking-detail">估值：合理偏高；价格已从旧报告的高估区回落，但仍预付了部分并购、算力合同和液冷期权 · 新增现金 observe；已有持仓 review / wait；风险：风险增强；基本面推进未停止，但交易、质押、融资与兑现风险相对前一窗口增强；结论置信度：中；法定财务和重组文件充分，但并表时点、配套融资、合同利润率、服务器资本开支与 H1 现金流尚未获取。</p><span class="tracking-status">合理偏高；价格已从旧报告的高估区回落，但仍预付了部分并购、算力合同和液冷期权</span></div>
+  </div>
+  <div class="tracking-footer"><span>资金状态：<strong>结构性流出；价格跌破多数短中期均线，7 月 16—22 日主力分档以净流出为主，筹码平均成本明显高于现价</strong> · 新增/已有动作：<strong>新增现金 observe；已有持仓 review / wait</strong></span><span>资金面分析：未单独生成</span></div>
+</section>
+<!-- DAILY_TRACKING_END -->
+<h2 id="section-1">1. 决策摘要</h2>
+
+<h3>1.1 基本面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值状态</td>
+<td><strong>合理偏高</strong>；价格已从旧报告的高估区回落，但仍预付了部分并购、算力合同和液冷期权</td>
+</tr>
+<tr>
+<td>综合估值区间</td>
+<td><strong>24—32 元</strong>；24 元附近=只计已验证传统主业与保守重组价值，27—29 元=传统利润修复、秦淮数据交易价值与正常协同的合理中枢，32 元附近=已计入部分算力合同和液冷成长溢价，33 元以上需重组注册、合同毛利与自由现金流、盈利预测上修共同支撑</td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>以 29.89 元计约 <strong>-19.7%—+7.1%</strong></td>
+</tr>
+<tr>
+<td>基本面状态</td>
+<td><strong>改善但质量分化</strong>；制冷剂利润修复和算力转型推进，法定利润、自由现金流与资本回报尚未同步</td>
+</tr>
+<tr>
+<td>关键经营变化</td>
+<td>2025 年收入、毛利率和调整后利润修复；2026Q1 收入 +26.95%，但法定归母净利 -57.10%、扣非 -37.29%，经营现金流仅 +3.79%。管理层把战略从传统材料延伸到秦淮数据与算力服务，市场则在三份大额合同后先重估、再于 7 月中下旬快速去估值</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td><strong>中</strong>；法定财务和重组文件充分，但并表时点、配套融资、合同利润率、服务器资本开支与 H1 现金流尚未获取</td>
+</tr>
+</tbody></table>
+<h3>1.2 资金面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>操作建议</td>
+<td><strong>观望</strong>；估值回归不等于交易结构已经稳定</td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td>新增现金 <code>observe</code>；已有持仓 <code>review / wait</code></td>
+</tr>
+<tr>
+<td>当前价格及时间</td>
+<td>29.89 元，2026-07-24 约 10:00 盘中；前收 30.16 元</td>
+</tr>
+<tr>
+<td>资金状态</td>
+<td><strong>结构性流出</strong>；价格跌破多数短中期均线，7 月 16—22 日主力分档以净流出为主，筹码平均成本明显高于现价</td>
+</tr>
+<tr>
+<td>风险方向</td>
+<td><strong>风险增强</strong>；基本面推进未停止，但交易、质押、融资与兑现风险相对前一窗口增强</td>
+</tr>
+<tr>
+<td>每日跟踪时间</td>
+<td>2026-07-24 10:00（Asia/Shanghai，盘中）</td>
+</tr>
+<tr>
+<td>资金面分析链接</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<h3>如果今天这是一笔现金，我会买它吗</h3>
+<ul>
+<li>回答：<strong>不会在 29.89 元直接买，只在承接和基本面条件同时满足后分段。</strong></li>
+<li>我的判断：价格已回到价值区间内，但公司仍处于重组、融资、服务器采购和合同交付共同放大资产负债表的阶段；当前弱承接使“便宜了一些”还不能转化为“买入不败”。</li>
+<li>改变结论的条件：价格进入 24—27 元后缩量企稳，或 H1 / 重组问询证明合同毛利、自由现金流和最终摊薄优于本报告保守假设，且资金重新站稳 30—32 元。</li>
+</ul>
+<h2 id="section-2">2. 证券身份与来源矩阵</h2>
+
+<h3>2.1 证券身份</h3>
+<ul>
+<li>公司全称：广东东阳光科技控股股份有限公司。</li>
+<li>证券代码：600673.SH。</li>
+<li>上市地：上海证券交易所主板。</li>
+<li>报告准则：中国企业会计准则。</li>
+<li>法定披露体系：上海证券交易所与公司法定公告；SEC 文件不适用。</li>
+<li>同名或跨市场歧义：有。本报告不混用港股东阳光药（06887.HK）、宜昌东阳光药业或其他集团公司的独立财务数据。</li>
+</ul>
+<h3>2.2 来源矩阵</h3>
+<table>
+<thead>
+<tr>
+<th>数据项目</th>
+<th>目标来源</th>
+<th>实际来源</th>
+<th>数据时间</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>实时价格、52 周高低、今年以来表现</td>
+<td>交易所 / 可靠行情平台</td>
+<td><a href="../../../../webpages/2026-07-24-东阳光行情公告与研究快照.md">行情公告与研究快照</a>，腾讯自选股公开接口</td>
+<td>2026-07-24 10:00</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>连续量价、融资、筹码与相对强弱</td>
+<td>行情与交易平台</td>
+<td>同上；沪深广度、沪深300、氟化工、液冷、数据中心板块</td>
+<td>2026-07-01—2026-07-24</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>第三方公允价值、护城河、星级</td>
+<td>Morningstar 等独立平台</td>
+<td>未取得可审计页面字段</td>
+<td>截止 2026-07-24</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>最新季报与管理层展望</td>
+<td>公司法定报告</td>
+<td><a href="../../../../papers/东阳光机构研报-2026-07-24/东阳光2026年第一季度报告.pdf.md">2026Q1 报告</a>、<a href="../../../../papers/东阳光机构研报-2026-07-24/东阳光2025年年度报告.pdf.md">2025 年报</a></td>
+<td>2026-04-27 / 2026-04-09</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>分部收入与产业位置</td>
+<td>公司年报与合同公告</td>
+<td>2025 年报、<a href="../../../../papers/东阳光机构研报-2026-07-24/东阳光算力服务采购合同公告.pdf.md">算力合同公告</a></td>
+<td>2025 / 2026-07</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>卖方评级与目标价</td>
+<td>券商原文 / 聚合平台</td>
+<td>旧快照与聚合一致预期；最新明细样本不可审计</td>
+<td>截止 2026-07-24</td>
+<td>口径冲突待解释</td>
+</tr>
+<tr>
+<td>近三个月新闻与催化剂</td>
+<td>法定公告</td>
+<td>算力合同、重组申报稿、受理、质押公告</td>
+<td>2026-05—2026-07</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>五年财务历史</td>
+<td>法定年报</td>
+<td><a href="../../../../webpages/2026-07-16-东阳光法定财报与重组数据快照.md">法定财报与重组快照</a>、2025 年报</td>
+<td>2021—2025</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>重组、摊薄与资产负债</td>
+<td>上交所 / 公司文件</td>
+<td><a href="../../../../papers/东阳光机构研报-2026-07-24/东阳光重大资产重组报告书申报稿.pdf.md">重组申报稿</a>、<a href="../../../../papers/东阳光机构研报-2026-07-24/东阳光重大资产重组获上交所受理公告.pdf.md">受理公告</a></td>
+<td>2026-07-20</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>ETF / 主动机构连续流向</td>
+<td>基金公告 / 交易平台</td>
+<td>未取得连续 ETF 份额；股东表仅作代理</td>
+<td>截止 2026-07-24</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 行情与市场预期</h2>
+
+<h3>3.1 行情快照（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">数值</th>
+<th>来源</th>
+<th>时间 / 口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前价格</td>
+<td align="right">29.89 元</td>
+<td><a href="../../../../webpages/2026-07-24-东阳光行情公告与研究快照.md">行情快照</a></td>
+<td>2026-07-24 约 10:00 盘中</td>
+</tr>
+<tr>
+<td>52 周最高 / 最低</td>
+<td align="right">42.83 / 13.45 元</td>
+<td>同上</td>
+<td>聚合行情口径</td>
+</tr>
+<tr>
+<td>今年以来表现</td>
+<td align="right">+33.26%</td>
+<td>同上</td>
+<td>盘中相对年初</td>
+</tr>
+<tr>
+<td>5 / 10 / 20 / 60 日表现</td>
+<td align="right">-8.79% / -19.54% / -12.81% / -7.97%</td>
+<td>同上</td>
+<td>多窗口聚合</td>
+</tr>
+<tr>
+<td>总市值</td>
+<td align="right">约 899.56 亿元</td>
+<td>同上</td>
+<td>当前约 30.10 亿股，未计重组摊薄</td>
+</tr>
+<tr>
+<td>PE TTM / PB</td>
+<td align="right">770.8x / 9.06x</td>
+<td>同上</td>
+<td>法定利润低基数；未计并表</td>
+</tr>
+<tr>
+<td>筹码平均成本 / 获利比例</td>
+<td align="right">35.67 元 / 6.12%</td>
+<td>同上</td>
+<td>2026-07-24</td>
+</tr>
+</tbody></table>
+<ul>
+<li>量价判断：当前仅贴近 MA5，低于 MA10/20/60/120；高于 MA250 26.69 元。RSI6 约 29.6，短线进入偏冷区，但套牢盘并未消失。</li>
+<li>相对强弱：20 日东阳光 -12.81%，数据中心约 -13.28%、液冷约 -18.06%、氟化工约 -20.65%，调整与多重主题退潮同步；不能只解释为公司被单独证伪。</li>
+</ul>
+<h3>3.2 第三方公允价值与评级（事实）</h3>
+<ul>
+<li>公允价值、护城河评级、星级：未获取到可复现的独立页面字段。</li>
+<li>已检查来源：公开行情与评级聚合、既有来源快照。</li>
+<li>对结论的影响：不使用第三方星级做估值锚。</li>
+</ul>
+<h3>3.3 卖方评级与目标价分布（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>来源 / 机构</th>
+<th>日期</th>
+<th>评级</th>
+<th align="right">目标价</th>
+<th>预测期</th>
+<th>关键假设</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>聚合一致预期</td>
+<td>2026-07-24 查询</td>
+<td>未统一</td>
+<td align="right">38.17 元</td>
+<td>2026—2028</td>
+<td>2026E 净利约16.04亿元；机构明细数为0</td>
+</tr>
+<tr>
+<td>中金公司（旧快照）</td>
+<td>2026-07 前</td>
+<td>跑赢行业</td>
+<td align="right">38.00 元</td>
+<td>2026—2027</td>
+<td>传统主业修复与算力期权</td>
+</tr>
+<tr>
+<td>国泰海通（旧快照）</td>
+<td>2026-07 前</td>
+<td>增持</td>
+<td align="right">34.77 元</td>
+<td>2026</td>
+<td>高倍数计入成长</td>
+</tr>
+<tr>
+<td>国金证券（旧快照）</td>
+<td>2026-03</td>
+<td>买入</td>
+<td align="right">50.90 元</td>
+<td>2026</td>
+<td>80倍PE，估值假设激进</td>
+</tr>
+</tbody></table>
+<ul>
+<li>样本数量与完整性：旧快照可定位三家观点，最新聚合样本明细不可审计。</li>
+<li>来源冲突及采信理由：目标价与并表、融资和摊薄口径不统一；只作预期温度计，不直接纳入现金决策。</li>
+</ul>
+<h2 id="section-4">4. 商业模式与竞争格局</h2>
+
+<h3>4.1 事实</h3>
+<ul>
+<li>收入来源：高端铝箔、化工新材料、电子元器件、能源材料，以及正在扩张的液冷、IDC 与算力服务。</li>
+<li>客户与定价权：制冷剂受配额与供需影响，具备阶段议价权；电子材料依靠认证和规模；算力合同按验收服务器数量与月租计费，客户、硬件与融资成本决定实际回报。</li>
+<li>成本结构：传统制造受电力、铝、原料与折旧影响；算力业务需要服务器、数据中心、电力、运维和融资成本。</li>
+<li>资本强度：高。2022—2025 自由现金流持续为负或接近零，重组并表与服务器采购将继续占用资本。</li>
+<li>竞争者：氟化工对标巨化股份、三美股份；数据中心对标润泽科技、数据港、奥飞数据；液冷与电子材料另有专业供应商竞争。</li>
+<li>监管约束：制冷剂配额、环保安全、能耗与数据中心政策、重大资产重组审核和再融资监管。</li>
+</ul>
+<h4>多产业位置景气度排序（事实与判断分列）</h4>
+<table>
+<thead>
+<tr>
+<th align="right">排名</th>
+<th>产业位置</th>
+<th>位置识别依据（事实）</th>
+<th>公司业务 / 资产暴露（事实）</th>
+<th>当前景气度</th>
+<th>趋势</th>
+<th>景气证据与时间</th>
+<th>财务传导</th>
+<th>验证指标 / 失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">1</td>
+<td>第三代制冷剂与氟化工</td>
+<td>化工新材料2025年收入40.60亿元、毛利43.33%</td>
+<td>当前主要利润池；受配额和价格影响</td>
+<td>较高</td>
+<td>上行</td>
+<td>2025收入+50.12%，Q1调整利润仍增长</td>
+<td>价格与开工率→毛利→传统主业现金缓冲</td>
+<td>制冷剂价格、配额、毛利；毛利跌破35%则降级</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td>算力基础设施与服务</td>
+<td>三份五年算力合同合计测算390—460亿元；拟并表秦淮数据</td>
+<td>服务器采购、租赁式算力服务和IDC运营</td>
+<td>较高</td>
+<td>上行</td>
+<td>合同已生效，前期订单称已交付验收；重组获受理</td>
+<td>验收数量×月租→收入；扣除硬件、利息与折旧后才形成现金</td>
+<td>实际收入、毛利、回款、资本开支；无法验收或融资过贵则失效</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td>液冷与数据中心电子材料</td>
+<td>年报将液冷列为板块，积层箔、电容器与数据中心存在协同</td>
+<td>目前独立收入和利润披露不足</td>
+<td>中</td>
+<td>上行</td>
+<td>液冷主题仍有需求，但板块20日跌18.06%</td>
+<td>认证与放量→高毛利电子材料收入</td>
+<td>独立订单、收入、毛利；只有概念无收入则降为证据不足</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td>高端铝箔与电子元器件</td>
+<td>2025年两者合计为最大收入主体</td>
+<td>高端铝箔毛利4.12%，电子元器件22.05%</td>
+<td>中</td>
+<td>持平</td>
+<td>收入增长但资本回报差异大</td>
+<td>销量和加工费→毛利；低毛利铝箔占用资本</td>
+<td>加工费、稼动率、毛利率、应收和库存</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td>能源材料 / PVDF扩产</td>
+<td>年报与近期项目新闻涉及能源材料和PVDF</td>
+<td>2025能源材料收入6.31亿元、毛利3.19%</td>
+<td>证据不足</td>
+<td>证据不足</td>
+<td>项目投资存在，需求、价格和产能回报未完成核验</td>
+<td>产能投放→销量价差→现金流</td>
+<td>投产、订单、价差与ROIC；未披露则不计成长价值</td>
+</tr>
+</tbody></table>
+<ul>
+<li>位置间交叉与去重说明：算力服务、IDC与液冷共享“AI基础设施”叙事，但利润池不同；合同收入不与秦淮数据交易价值重复资本化，液冷期权也不重复计入传统电子元器件利润。</li>
+<li>排名第一的位置能否进入利润和现金流：制冷剂已进入利润，但算力合同是否进入自由现金流仍待验收、融资和财报验证。</li>
+<li>弱关联 / 待验证位置：具身智能与新能源叙事尚无足够分部收入和利润证据，不作为主估值来源。</li>
+</ul>
+<h3>4.2 我的判断</h3>
+<ul>
+<li>我的判断：公司真正的比较优势是传统制造链、制冷剂配额与正在获取的秦淮数据运营能力组合；其稀缺性高于单一材料公司，但尚未证明组合后的资本回报。</li>
+<li>我的判断：最脆弱环节是“长合同—服务器融资—验收—回款—自由现金流”链条，任何一环偏离都可能使收入增长反而加重杠杆。</li>
+<li>证伪条件：算力毛利和回款不达预期、配套融资造成明显额外摊薄、制冷剂利润回落或并表后ROIC继续低位。</li>
+</ul>
+<h2 id="section-5">5. 分部收入与盈利拆解</h2>
+
+<p>单位：亿元。</p>
+<table>
+<thead>
+<tr>
+<th>分部</th>
+<th align="right">2025收入</th>
+<th align="right">同比</th>
+<th align="right">收入占比</th>
+<th align="right">毛利率</th>
+<th align="right">毛利率变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>高端铝箔</td>
+<td align="right">59.21</td>
+<td align="right">+14.07%</td>
+<td align="right">约39.6%</td>
+<td align="right">4.12%</td>
+<td align="right">未统一取得</td>
+<td>2025年报</td>
+</tr>
+<tr>
+<td>化工新材料</td>
+<td align="right">40.60</td>
+<td align="right">+50.12%</td>
+<td align="right">约27.2%</td>
+<td align="right">43.33%</td>
+<td align="right">显著改善</td>
+<td>2025年报</td>
+</tr>
+<tr>
+<td>电子元器件</td>
+<td align="right">35.63</td>
+<td align="right">+4.89%</td>
+<td align="right">约23.9%</td>
+<td align="right">22.05%</td>
+<td align="right">未统一取得</td>
+<td>2025年报</td>
+</tr>
+<tr>
+<td>能源材料</td>
+<td align="right">6.31</td>
+<td align="right">+78.12%</td>
+<td align="right">约4.2%</td>
+<td align="right">3.19%</td>
+<td align="right">低位</td>
+<td>2025年报</td>
+</tr>
+<tr>
+<td>其他</td>
+<td align="right">1.59</td>
+<td align="right">+89.00%</td>
+<td align="right">约1.1%</td>
+<td align="right">30.29%</td>
+<td align="right">未统一取得</td>
+<td>2025年报</td>
+</tr>
+</tbody></table>
+<ul>
+<li>披露口径变化：秦淮数据和新增算力服务尚未形成完整年度并表分部。</li>
+<li>来源冲突：法定归母净利润2.75亿元、扣非7.10亿元，公司剔除股份支付和部分金融资产公允价值变动后的调整口径为9.55亿元；三者不能混用。</li>
+<li>我的判断：2025增长质量主要由化工新材料改善，而不是全部业务共同抬升；高端铝箔和能源材料收入规模不能自动转化为股东回报。</li>
+</ul>
+<h2 id="section-6">6. 五年财务历史</h2>
+
+<p>单位：亿元；自由现金流=经营现金流-购建长期资产支付的现金。</p>
+<table>
+<thead>
+<tr>
+<th>财年</th>
+<th align="right">营收</th>
+<th align="right">毛利率</th>
+<th align="right">经营现金流</th>
+<th align="right">资本开支</th>
+<th align="right">自由现金流</th>
+<th align="right">ROIC / 代理值</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td align="right">128.02</td>
+<td align="right">21.54%</td>
+<td align="right">18.64</td>
+<td align="right">11.12</td>
+<td align="right">7.51</td>
+<td align="right">ROA约6.27%（不可与后续ROIC直比）</td>
+<td>法定年报序列</td>
+</tr>
+<tr>
+<td>2022</td>
+<td align="right">116.99</td>
+<td align="right">20.23%</td>
+<td align="right">11.64</td>
+<td align="right">14.41</td>
+<td align="right">-2.77</td>
+<td align="right">ROIC代理6.14%</td>
+<td>法定年报序列</td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">108.54</td>
+<td align="right">11.11%</td>
+<td align="right">4.10</td>
+<td align="right">15.98</td>
+<td align="right">-11.88</td>
+<td align="right">ROIC代理-1.35%</td>
+<td>法定年报序列</td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">121.99</td>
+<td align="right">14.59%</td>
+<td align="right">5.68</td>
+<td align="right">11.44</td>
+<td align="right">-5.76</td>
+<td align="right">ROIC代理1.69%</td>
+<td>法定年报序列</td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">149.35</td>
+<td align="right">19.89%</td>
+<td align="right">13.09</td>
+<td align="right">14.07</td>
+<td align="right">-0.98</td>
+<td align="right">ROIC代理1.16%</td>
+<td><a href="../../../../papers/东阳光机构研报-2026-07-24/东阳光2025年年度报告.pdf.md">2025年报</a></td>
+</tr>
+</tbody></table>
+<ul>
+<li>ROIC口径：2022—2025为既有公开财务比率代理，不是公司披露值；2021仅有ROA代理，已隔离标注。</li>
+<li>一次性项目和会计变化：2021仍受医药业务处置前口径影响；2025股份支付和金融资产公允价值变动显著影响法定利润。</li>
+<li>我的判断：毛利率和经营现金流已从2023低点修复，但连续四年自由现金流不佳，资本回报尚未证明转型可自我融资。</li>
+</ul>
+<h2 id="section-7">7. 最新季度与管理层指引</h2>
+
+<h3>7.1 最新季度（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">2026Q1</th>
+<th align="right">同比 / 变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营收</td>
+<td align="right">42.49亿元</td>
+<td align="right">+26.95%</td>
+<td><a href="../../../../papers/东阳光机构研报-2026-07-24/东阳光2026年第一季度报告.pdf.md">2026Q1报告</a></td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">约19.20%</td>
+<td align="right">约-1.06个百分点</td>
+<td>同上；按收入成本重算</td>
+</tr>
+<tr>
+<td>归母净利润</td>
+<td align="right">1.19亿元</td>
+<td align="right">-57.10%</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>扣非归母净利润</td>
+<td align="right">1.68亿元</td>
+<td align="right">-37.29%</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>公司调整口径利润</td>
+<td align="right">3.52亿元</td>
+<td align="right">+22.50%</td>
+<td>同上；剔除股份支付和金融资产波动</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">1.64亿元</td>
+<td align="right">+3.79%</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>订单 / 储备</td>
+<td align="right">三份算力合同合计测算390—460亿元</td>
+<td align="right">服务期与验收后60个月相关</td>
+<td>法定合同公告</td>
+</tr>
+</tbody></table>
+<h3>7.2 管理层指引（事实）</h3>
+<ul>
+<li>正式量化指引：未获取到年度利润或现金流硬指引。</li>
+<li>定性展望：公司称前期算力合同正在按约交付并取得验收、确认相关收入；重组申请已获受理并继续推进。</li>
+<li>边界：合同预计总额不构成业绩承诺；重组受理不等于审核通过或注册完成。</li>
+</ul>
+<h3>7.3 我的判断</h3>
+<ul>
+<li>我的判断：边际变化是战略与收入增速更积极，但法定利润、毛利和现金转化变差；这构成“叙事先行、质量待验”的预期差。</li>
+<li>我的判断：管理层方向可信度中等，利润与现金流可信度仍需 H1、实际服务器融资和并表报表验证。</li>
+<li>下一验证节点：重组问询与回复、2026半年报、算力合同实际收入和资本开支。</li>
+</ul>
+<h2 id="section-8">8. 近三个月新闻与催化剂</h2>
+
+<table>
+<thead>
+<tr>
+<th>发生日</th>
+<th>事件</th>
+<th>影响变量</th>
+<th>财务传导</th>
+<th>是否已反映</th>
+<th>验证节点</th>
+<th>失效条件</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-07-23</td>
+<td>一致行动人解除质押5000万股</td>
+<td>质押与潜在被动供给</td>
+<td>局部压力下降，但集团质押仍高</td>
+<td>部分反映</td>
+<td>后续质押变化</td>
+<td>再质押或融资压力上升</td>
+<td><a href="../../../../papers/东阳光机构研报-2026-07-24/东阳光控股股东一致行动人解质押公告.pdf.md">解质押公告</a></td>
+</tr>
+<tr>
+<td>2026-07-20</td>
+<td>重组申请获上交所受理</td>
+<td>审核进度</td>
+<td>推进并表预期，尚不改变现金流</td>
+<td>已有较多预期</td>
+<td>审核问询、注册</td>
+<td>审核延迟或方案调整</td>
+<td><a href="../../../../papers/东阳光机构研报-2026-07-24/东阳光重大资产重组获上交所受理公告.pdf.md">受理公告</a></td>
+</tr>
+<tr>
+<td>2026-07-10</td>
+<td>新签130—150亿元算力服务合同</td>
+<td>订单、硬件与融资</td>
+<td>验收后月租收入，前期需大额服务器投入</td>
+<td>合同公布后先涨后跌</td>
+<td>交付、验收、收入、毛利</td>
+<td>验收失败、融资成本过高</td>
+<td><a href="../../../../papers/东阳光机构研报-2026-07-24/东阳光算力服务采购合同公告.pdf.md">合同公告</a></td>
+</tr>
+<tr>
+<td>2026-06-15</td>
+<td>重组申报方案披露</td>
+<td>并表、摊薄、负债</td>
+<td>秦淮数据利润并入，同时增加股份和杠杆</td>
+<td>已成为核心估值叙事</td>
+<td>审核、交割、融资价</td>
+<td>摊薄或净债务超预期</td>
+<td><a href="../../../../papers/东阳光机构研报-2026-07-24/东阳光重大资产重组报告书申报稿.pdf.md">重组申报稿</a></td>
+</tr>
+</tbody></table>
+<h2 id="section-9">9. 多头与空头论据</h2>
+
+<h3>9.1 多头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>制冷剂利润池修复</td>
+<td>化工新材料2025收入+50.12%、毛利43.33%</td>
+<td>制冷剂价格、毛利和现金回款</td>
+<td>毛利跌破35%、价格明显回落</td>
+</tr>
+<tr>
+<td>秦淮数据交易价格不激进</td>
+<td>东数一号整体股权作价115亿元，2025净利9.49亿元</td>
+<td>并表利润、债务、少数股东与资本开支</td>
+<td>交易后现金流和ROIC低于预期</td>
+</tr>
+<tr>
+<td>算力合同提供收入可见性</td>
+<td>三份合同合计测算390—460亿元，期限与验收后60个月相关</td>
+<td>验收服务器、月租、毛利和回款</td>
+<td>订单取消、验收失败、融资不到位</td>
+</tr>
+<tr>
+<td>价格已大幅去估值</td>
+<td>10日跌19.54%，从42.83元高点回落约30%</td>
+<td>24—30元承接与盈利预期</td>
+<td>跌破24元且基本面同步恶化</td>
+</tr>
+</tbody></table>
+<h3>9.2 空头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>增收不增利</td>
+<td>Q1收入+26.95%，法定归母-57.10%、扣非-37.29%</td>
+<td>H1毛利、扣非和财务费用</td>
+<td>扣非与CFO恢复双位数增长</td>
+</tr>
+<tr>
+<td>自由现金流与资本回报弱</td>
+<td>2022—2025 FCF连续为负或近零，ROIC代理低</td>
+<td>CFO、资本开支、ROIC</td>
+<td>并表后FCF稳定转正并覆盖利息</td>
+</tr>
+<tr>
+<td>重组和服务器融资叠加</td>
+<td>不超80亿元配套融资，算力合同需硬件投入</td>
+<td>最终股数、净债务、融资成本</td>
+<td>融资主要降杠杆且摊薄较低</td>
+</tr>
+<tr>
+<td>控股集团质押高</td>
+<td>最新集团质押占其持股73.96%、占总股本约39.08%</td>
+<td>解质押、补充质押、债务安排</td>
+<td>质押持续显著下降</td>
+</tr>
+<tr>
+<td>交易结构仍弱</td>
+<td>价格低于主要均线、获利筹码仅6.12%、主力分档偏流出</td>
+<td>30—32元承接、资金连续性</td>
+<td>放量站稳32元且资金来源可持续</td>
+</tr>
+</tbody></table>
+<h2 id="section-10">10. 估值</h2>
+
+<h3>10.1 相对估值</h3>
+<table>
+<thead>
+<tr>
+<th>公司</th>
+<th>业务可比性</th>
+<th align="right">2026E增长</th>
+<th>利润率 / 状态</th>
+<th align="right">前瞻 PE</th>
+<th align="right">PB</th>
+<th align="right">EV/EBITDA</th>
+<th>数据时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>东阳光</td>
+<td>氟化工+材料+拟并表IDC</td>
+<td align="right">净利+482%（低基数）</td>
+<td>法定利润低、调整口径较高</td>
+<td align="right">约56x；聚合口径冲突</td>
+<td align="right">9.06x</td>
+<td align="right">未获取到统一口径</td>
+<td>2026-07-24</td>
+</tr>
+<tr>
+<td>巨化股份</td>
+<td>氟化工高可比</td>
+<td align="right">+57.06%</td>
+<td>成熟制冷剂利润池</td>
+<td align="right">23.13x</td>
+<td align="right">5.27x</td>
+<td align="right">未获取到</td>
+<td>2026-07-24</td>
+</tr>
+<tr>
+<td>三美股份</td>
+<td>氟化工高可比</td>
+<td align="right">+36.64%</td>
+<td>制冷剂高景气</td>
+<td align="right">18.33x</td>
+<td align="right">4.70x</td>
+<td align="right">未获取到</td>
+<td>2026-07-24</td>
+</tr>
+<tr>
+<td>润泽科技</td>
+<td>IDC高可比</td>
+<td align="right">-37.67%</td>
+<td>资产重、成长溢价高</td>
+<td align="right">46.48x</td>
+<td align="right">7.75x</td>
+<td align="right">未获取到</td>
+<td>2026-07-24</td>
+</tr>
+<tr>
+<td>奥飞数据</td>
+<td>IDC中高可比</td>
+<td align="right">+174.51%</td>
+<td>高资本开支</td>
+<td align="right">57.40x</td>
+<td align="right">5.57x</td>
+<td align="right">未获取到</td>
+<td>2026-07-24</td>
+</tr>
+</tbody></table>
+<ul>
+<li>正常化调整：以传统主业2026E净利16—19亿元，加上东数一号2025净利9.49亿元的备考基准，考虑并表时点、利息和摊薄后使用24—29亿元利润；给予混合业务32—42倍PE。</li>
+<li>对应每股价值区间：按34.2—38.3亿股计算约 <strong>20—36元</strong>；剔除最乐观倍数后的主要区间为 <strong>24—32元</strong>。</li>
+<li>我的判断：现价接近相对估值中上部，仍要求传统利润和并表大体兑现。</li>
+</ul>
+<h3>10.2 DCF</h3>
+<h4>关键假设</h4>
+<p>单位以并购备考口径近似；DCF用于暴露重资本假设，不制造精确目标价。</p>
+<table>
+<thead>
+<tr>
+<th>假设</th>
+<th align="right">悲观</th>
+<th align="right">基准</th>
+<th align="right">乐观</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026备考收入</td>
+<td align="right">250亿元</td>
+<td align="right">250亿元</td>
+<td align="right">250亿元</td>
+<td>传统业务加拟并表资产情景</td>
+</tr>
+<tr>
+<td>九年收入增长</td>
+<td align="right">15%降至2.5%</td>
+<td align="right">25%降至4%</td>
+<td align="right">35%降至5%</td>
+<td>合同交付与IDC扩张三情景</td>
+</tr>
+<tr>
+<td>FCFF率</td>
+<td align="right">3%升至10%</td>
+<td align="right">4%升至14%</td>
+<td align="right">5%升至18%</td>
+<td>历史FCF弱，乐观情景才接近平台化回报</td>
+</tr>
+<tr>
+<td>WACC</td>
+<td align="right">12.0%</td>
+<td align="right">10.5%</td>
+<td align="right">9.5%</td>
+<td>杠杆、重组、客户与技术风险</td>
+</tr>
+<tr>
+<td>永续增长率</td>
+<td align="right">2.0%</td>
+<td align="right">3.0%</td>
+<td align="right">4.0%</td>
+<td>长期名义增长约束</td>
+</tr>
+<tr>
+<td>净金融负债</td>
+<td align="right">250亿元</td>
+<td align="right">200亿元</td>
+<td align="right">150亿元</td>
+<td>并表和融资结构不确定</td>
+</tr>
+<tr>
+<td>摊薄股本</td>
+<td align="right">38.3亿股</td>
+<td align="right">36.5亿股</td>
+<td align="right">34.2亿股</td>
+<td>收购股份与配套融资情景</td>
+</tr>
+</tbody></table>
+<h4>估值结果</h4>
+<p>单位：亿元；每股价值为元。</p>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">企业价值</th>
+<th align="right">净债务</th>
+<th align="right">股权价值</th>
+<th align="right">每股价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观</td>
+<td align="right">329.2</td>
+<td align="right">250.0</td>
+<td align="right">79.2</td>
+<td align="right">2.07</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">937.8</td>
+<td align="right">200.0</td>
+<td align="right">737.8</td>
+<td align="right">20.21</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">2,422.3</td>
+<td align="right">150.0</td>
+<td align="right">2,272.3</td>
+<td align="right">66.44</td>
+</tr>
+</tbody></table>
+<ul>
+<li>情景跨度很大，说明服务器资本开支、净债务和终值现金率是股权价值的主要来源；乐观值不是目标价。</li>
+</ul>
+<h4>敏感性分析</h4>
+<p>基于基准经营路径，单位为元 / 股。</p>
+<table>
+<thead>
+<tr>
+<th>WACC \ 永续增长率</th>
+<th align="right">2.0%</th>
+<th align="right">3.0%</th>
+<th align="right">4.0%</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>9.5%</td>
+<td align="right">21.99</td>
+<td align="right">25.16</td>
+<td align="right">29.48</td>
+</tr>
+<tr>
+<td>10.5%</td>
+<td align="right">17.96</td>
+<td align="right">20.21</td>
+<td align="right">23.16</td>
+</tr>
+<tr>
+<td>11.5%</td>
+<td align="right">14.82</td>
+<td align="right">16.48</td>
+<td align="right">18.57</td>
+</tr>
+</tbody></table>
+<h4>反向 DCF</h4>
+<ul>
+<li>当前价格隐含的终值现金能力：在基准收入增长、WACC10.5%、永续增长3%、净债务200亿元和36.5亿股下，29.89元约要求终值FCFF率达到 <strong>19.6%</strong>。</li>
+<li>与历史和行业相比是否可实现：显著高于公司2022—2025实际自由现金流水平，只能由高质量IDC、算力租赁和融资效率共同兑现。</li>
+<li>我的判断：现价已不再像36元以上那样极端，但仍不是只凭传统主业即可解释。</li>
+</ul>
+<h3>10.3 行业特定估值</h3>
+<ul>
+<li>方法：分部加总（SOTP）。</li>
+<li>传统材料、制冷剂和电子元器件：16—19亿元正常化利润×28—34倍，约448—646亿元。</li>
+<li>东数一号 / 秦淮数据：以115亿元交易整体价值为基准，给予1.0—1.5倍，约115—173亿元。</li>
+<li>液冷与算力合同期权：在毛利、资本开支和回款未披露前仅给50—150亿元。</li>
+<li>合计：约613—969亿元；按34.2—38.3亿股约 <strong>16—28元 / 股</strong>，若合同开始证明高FCFF，可向32元扩展。</li>
+<li>局限性：交易价值可能低估高景气IDC，也可能高估高负债资产的可分配现金；期权价值主观性高。</li>
+</ul>
+<h3>10.4 估值交叉验证</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="right">每股价值区间</th>
+<th align="right">权重</th>
+<th>采信理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>相对估值</td>
+<td align="right">24—32元（主要区间）</td>
+<td align="right">40%</td>
+<td>能反映氟化工与IDC市场定价，但预测口径不统一</td>
+</tr>
+<tr>
+<td>DCF</td>
+<td align="right">14.8—29.5元（主要敏感区）</td>
+<td align="right">30%</td>
+<td>约束现金流和净债务，终值极敏感</td>
+</tr>
+<tr>
+<td>分部加总</td>
+<td align="right">16—28元；验证后可扩展至32元</td>
+<td align="right">30%</td>
+<td>能隔离传统业务、交易资产与期权，仍依赖并表假设</td>
+</tr>
+</tbody></table>
+<ul>
+<li>综合估值区间：<strong>24—32元 / 股</strong>。</li>
+<li>相对现价上行 / 下行空间：以29.89元计约 <strong>-19.7%—+7.1%</strong>。</li>
+<li>为什么不机械平均：DCF悲观情景受净债务放大，SOTP未充分计入合同期权，相对估值又受低透明度预测影响；以下沿约束传统业务和现金流风险，以中枢反映交易价值，上沿只保留有限成长期权。</li>
+</ul>
+<h2 id="section-11">11. 冰冰小美框架判断</h2>
+
+<h3>11.1 三要素状态总表</h3>
+<ul>
+<li>三要素结论来源：<code>bbxm-three-factor-analysis</code>。</li>
+<li>分析对象与层级：东阳光，A股个股；兼顾氟化工、液冷和算力基础设施。</li>
+<li>分析截止时间：2026-07-24 10:00。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>状态</th>
+<th>核心证据</th>
+<th>核心反证</th>
+<th>失效条件</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>中性</td>
+<td>制冷剂高毛利、秦淮数据交易资产、三份算力长约</td>
+<td>算力利润率与融资未验证，传统FCF和ROIC弱</td>
+<td>合同高毛利高回款可转有利；制冷剂和合同同步恶化转不利</td>
+<td>中</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>不利</td>
+<td>价格低于主要均线、主力分档偏流出、获利筹码仅6.12%</td>
+<td>短线RSI偏冷，现价仍高于MA250</td>
+<td>站稳32元且连续资金流入转中性；跌破26.7元并放量则更不利</td>
+<td>中</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>不利</td>
+<td>合同利好后快速回撤、10日跌19.54%，板块主题同步退潮</td>
+<td>估值已回落，坏消息未出现连续跌停扩散</td>
+<td>缩量企稳并对新利好转强可转中性；利好钝化继续下跌则维持不利</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h4>前六步证据映射</h4>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>前六步证据来源</th>
+<th>已验证证据</th>
+<th>反证与缺口</th>
+<th>分析状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>第4—7章；第2章来源矩阵</td>
+<td>制冷剂分部、重组资产、算力合同、五年FCF与Q1质量</td>
+<td>H1分部、合同毛利、并表ROIC缺失</td>
+<td>只能判断中性</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>第3、8、9章；行情快照</td>
+<td>多窗口价格、均线、资金分档、融资、筹码、市场广度</td>
+<td>ETF申赎和主动机构身份缺失</td>
+<td>可判断不利</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>第3、8、9章；行情快照</td>
+<td>合同后反馈、板块相对强弱、RSI与筹码</td>
+<td>讨论热度和接力序列不足</td>
+<td>可判断不利</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Step 6 估值约束：价格已进入估值区间，但三要素未共振，不能把“回调”直接翻译为 <code>buy</code>。</li>
+<li>补采证据回填：当日行情、资金、股东和公告数据均已回填第2—3、8—9章及来源快照。</li>
+</ul>
+<h3>11.2 竞争格局与比较优势</h3>
+<h4>前文证据引用</h4>
+<ul>
+<li><p>商业模式与产业位置：见第4章。</p>
+</li>
+<li><p>分部与资本回报：见第5—7章。</p>
+</li>
+<li><p>相关来源状态：见第2章来源矩阵。</p>
+</li>
+<li><p>分析对象与竞争层级：传统氟化工与电子材料、拟并表IDC、算力服务三层竞争。</p>
+</li>
+<li><p>当前状态：<strong>中性</strong>。</p>
+</li>
+<li><p>证据充分性：部分充分；传统业务有法定证据，算力经济性尚缺。</p>
+</li>
+<li><p>多产业位置景气度排序：制冷剂居首，算力基础设施次之；能源材料列证据不足。</p>
+</li>
+<li><p>产业链位置与利润池：制冷剂利润已兑现，秦淮数据和算力合同利润池需去重，液冷只计有限期权。</p>
+</li>
+<li><p>核心比较优势：制冷剂配额、材料制造链、数据中心运营资产和长合同入口。</p>
+</li>
+<li><p>竞争对手与替代方案：巨化、三美、润泽、数据港、奥飞数据，以及客户自建或选择其他算力供应商。</p>
+</li>
+<li><p>份额、定价权、客户黏性与进入壁垒：制冷剂配额壁垒明确；算力业务受硬件供应、融资和客户集中约束，尚无足够证据证明定价权。</p>
+</li>
+<li><p>竞争优势转化为订单、利润和现金回报：订单已出现，利润和现金回报尚未完成闭环。</p>
+</li>
+<li><p>当前决策含义：方向具备研究资格，但不能为当前价提供确定安全边际。</p>
+</li>
+</ul>
+<h4>证据</h4>
+<ul>
+<li>化工新材料2025毛利率43.33%；东数一号2025净利9.49亿元、经营现金流36.72亿元；三份算力合同形成多年收入可见性。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>上市公司2022—2025自由现金流持续不佳；算力合同需大额服务器投入；并表备考负债率约72.39%。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>有利切换：合同毛利、回款与并表ROIC可审计且显著改善；不利切换：制冷剂利润回落、重组失败或算力合同造成持续负FCF。</li>
+</ul>
+<h3>11.3 流动性辩证分析</h3>
+<ul>
+<li>当前状态：<strong>不利</strong>。</li>
+<li>证据充分性：部分充分；微观量价、资金、融资、筹码与市场广度已取得，ETF申赎和主动账户身份缺失。</li>
+</ul>
+<h4>宏观流动性</h4>
+<ul>
+<li>总量环境与边际变化：当日市场广度弱，沪深下跌4,069家；最新完整M1/M2、社融和全球利率序列本次未补齐。</li>
+<li>对本标的的传导：高杠杆、重资本和长久期成长估值对融资成本与风险偏好更敏感。</li>
+</ul>
+<h4>中观流动性</h4>
+<ul>
+<li>行业 / 主题 / ETF / 机构配置变化：20日数据中心、液冷与氟化工分别下跌约13.28%、18.06%、20.65%；多个暴露方向同时退潮。</li>
+<li>对本标的的传导：东阳光不是孤立下跌，但也缺少板块承接；主题资金迁移不能确认是真实场外增量。</li>
+</ul>
+<h4>微观流动性</h4>
+<ul>
+<li>成交额、换手率、量价结构、融资和大单：7月16—22日主力分档多数净流出，融资余额约30.08亿元；价格低于MA10/20/60/120。</li>
+<li>连续窗口与相对强弱：5/10/20/60日均为负，10日回撤最大；获利筹码仅6.12%，平均成本35.67元。</li>
+</ul>
+<h4>资金来源分类</h4>
+<table>
+<thead>
+<tr>
+<th>资金来源</th>
+<th>当前状态</th>
+<th>连续窗口证据</th>
+<th>对价格的含义</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>场外真实增量</td>
+<td>未确认</td>
+<td>ETF申赎与主动机构净流未获取</td>
+<td>不能把单日反弹视作新资金进场</td>
+<td>低</td>
+</tr>
+<tr>
+<td>存量迁移</td>
+<td>先流入后撤出</td>
+<td>合同与重组催化后资金分档转负</td>
+<td>高位主题资金兑现，低位承接尚不稳定</td>
+<td>中</td>
+</tr>
+<tr>
+<td>减量报团</td>
+<td>不成立 / 证据不足</td>
+<td>公司与相关主题同步回撤</td>
+<td>暂无逆势报团证据</td>
+<td>中低</td>
+</tr>
+</tbody></table>
+<h4>供给与抛压</h4>
+<table>
+<thead>
+<tr>
+<th>供给来源</th>
+<th>当前状态</th>
+<th>时间窗口</th>
+<th>影响</th>
+<th>验证方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>解禁 / 减持</td>
+<td>未获取重大近期减持</td>
+<td>截止2026-07-24</td>
+<td>暂无新增证据</td>
+<td>上交所公告</td>
+</tr>
+<tr>
+<td>再融资 / 潜在新增股</td>
+<td>重大</td>
+<td>重组与不超80亿元配套融资</td>
+<td>摊薄与融资定价压制每股价值</td>
+<td>最终注册与发行方案</td>
+</tr>
+<tr>
+<td>质押与套牢盘</td>
+<td>偏高</td>
+<td>最新公告 / 当前筹码</td>
+<td>集团质押和35.67元筹码成本形成潜在供给</td>
+<td>解质押、成交与筹码迁移</td>
+</tr>
+</tbody></table>
+<h4>最低数据检查</h4>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>当前窗口</th>
+<th>对比窗口</th>
+<th>结论</th>
+<th>数据源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>成交额与换手率</td>
+<td>7/24盘中约2.73亿元、换手0.31%</td>
+<td>7月中旬合同催化期更活跃</td>
+<td>热度明显下降</td>
+<td>行情快照</td>
+</tr>
+<tr>
+<td>融资余额与融资买入</td>
+<td>余额约30.08亿元、日变动约-0.05%</td>
+<td>7/20、7/21有较大融资净卖出报道</td>
+<td>杠杆承接不足</td>
+<td>融资接口</td>
+</tr>
+<tr>
+<td>主力 / 大单资金</td>
+<td>7/16—22多数净流出</td>
+<td>7/1曾大幅流入</td>
+<td>从流入转为撤出</td>
+<td>资金分档接口</td>
+</tr>
+<tr>
+<td>ETF / 机构代理指标</td>
+<td>Q1港股通持股下降、股东户数上升</td>
+<td>2025年末</td>
+<td>筹码分散；非主动身份结论</td>
+<td>股东表；ETF未获取</td>
+</tr>
+</tbody></table>
+<h4>证据</h4>
+<ul>
+<li>多窗口下跌、资金连续性转弱、融资与筹码承接不足，且相关主题同步退潮。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>RSI6约29.6已偏冷，价格仍高于MA250 26.69元；7月21和23出现过资金净流入，说明并非无承接。</li>
+</ul>
+<h4>退出路径</h4>
+<ul>
+<li>资金流入如何退出：合同和重组预期先吸引趋势资金，利好兑现后通过高位成交与反弹撤出；35.67元附近套牢盘可能限制后续反弹。</li>
+<li>持续性被证伪的信号：反弹无法站稳30—32元、融资继续净卖出、资金净流出恢复并跌破26.7元。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>连续5—10日资金转正、价格站稳32元且板块广度修复，可把流动性由不利上调为中性；跌破26.7元伴随放量和质押风险上升则更不利。</li>
+</ul>
+<h3>11.4 情绪位置变化</h3>
+<ul>
+<li>当前状态：<strong>不利</strong>。</li>
+<li>证据充分性：部分充分；价格反馈明确，讨论热度与完整接力序列不足。</li>
+<li>当前所处阶段：<strong>退潮后寻找修复</strong>，还不是确认的冰点反转。</li>
+<li>个股相对板块与指数的强弱：公司与数据中心、液冷、氟化工同步走弱，明显弱于沪深300；个股并非唯一风险源。</li>
+<li>催化兑现后的价格反馈：7月10日合同与7月20日重组受理未带来持续上涨，反而出现快速去估值，属于利好承接不足。</li>
+</ul>
+<h4>证据</h4>
+<ul>
+<li>10日跌19.54%、价格低于主要均线、获利筹码仅6.12%，高位一致叙事已被打破。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>RSI进入偏冷区，现价接近估值中枢；若后续利空不再推动下跌，可能形成情绪修复。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>缩量企稳并在新公告后放量站稳32元，可转中性；利好继续钝化并跌破24—26元，则维持或强化不利。</li>
+</ul>
+<h3>11.5 综合状态与主导矛盾</h3>
+<ul>
+<li>三要素综合判断：<strong>尚未形成有利共振</strong>。</li>
+<li>主导要素：交易层流动性与情绪退潮。</li>
+<li>拖累要素：合同现金经济性、重组融资与控股集团质押。</li>
+<li>主导矛盾：价格已回到合理区间，但“产业方向正确”尚未转化为可审计自由现金流，短线承接又未稳定。</li>
+<li>下一验证节点：重组问询、半年报、算力合同实际毛利和回款、30—32元承接。</li>
+<li>状态切换条件：基本面证明高质量现金流且资金站稳32元，可转部分有利；跌破24元且合同或融资恶化，转同步不利。</li>
+</ul>
+<h3>11.6 三要素行动映射</h3>
+<table>
+<thead>
+<tr>
+<th>资金属性</th>
+<th>当前动作</th>
+<th>允许升级的条件</th>
+<th>降级 / 退出条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>新增现金</td>
+<td><code>observe</code></td>
+<td>24—27元缩量企稳且逻辑未坏，可 <code>buy</code> 首段；或H1上修价值上沿并站稳32元</td>
+<td>重组/合同现金流证伪则继续观察，不因急跌抄底</td>
+</tr>
+<tr>
+<td>已有持仓</td>
+<td><code>review / wait</code></td>
+<td>低成本小仓、能承受重组波动且基本面未坏可 <code>wait</code></td>
+<td>反弹至32—35元但盈利未上修可 <code>reduce</code>；跌破24元并基本面恶化需 <code>review</code></td>
+</tr>
+</tbody></table>
+<h3>11.7 三要素数据缺口与来源</h3>
+<table>
+<thead>
+<tr>
+<th>数据缺口</th>
+<th>已检查来源</th>
+<th>对哪一要素有影响</th>
+<th>对结论的影响</th>
+<th>补齐方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026H1分部与现金流</td>
+<td>Q1、年报、公告</td>
+<td>竞争格局</td>
+<td>无法确认合同和制冷剂利润共同兑现</td>
+<td>半年报</td>
+</tr>
+<tr>
+<td>算力合同毛利、服务器资本开支与客户回款</td>
+<td>合同公告、申报稿</td>
+<td>竞争格局 / 流动性</td>
+<td>不能把合同金额当现金流</td>
+<td>财报、问询回复、验收公告</td>
+</tr>
+<tr>
+<td>ETF连续申赎与主动机构身份</td>
+<td>行情、股东表</td>
+<td>流动性</td>
+<td>场外真实增量无法确认</td>
+<td>基金份额与持仓披露</td>
+</tr>
+<tr>
+<td>讨论热度与板块接力</td>
+<td>公开行情</td>
+<td>情绪</td>
+<td>阶段判断置信度下降</td>
+<td>连续广度与热度序列</td>
+</tr>
+<tr>
+<td>最终融资价格、股数与净债务</td>
+<td>重组申报稿</td>
+<td>估值 / 风险</td>
+<td>每股价值区间仍宽</td>
+<td>注册与发行结果</td>
+</tr>
+</tbody></table>
+<ul>
+<li>分析口径与截止时间：2026-07-24 10:00，盘中数据不作为收盘事实。</li>
+<li>主要数据来源：法定财报、上交所文件、公司公告、腾讯行情与交易聚合字段。</li>
+<li>数据缺口导致的置信度调整：竞争格局、流动性和情绪均为中等置信度；现金动作保持保守。</li>
+</ul>
+<h3>11.8 风险方向证据</h3>
+<p>当前窗口：2026-07-16—2026-07-24；前一窗口：2026-07-01—2026-07-15。</p>
+<table>
+<thead>
+<tr>
+<th>风险类型</th>
+<th>前一窗口</th>
+<th>当前窗口</th>
+<th>方向证据</th>
+<th>反证</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本面风险</td>
+<td>合同与重组叙事升温</td>
+<td>重组受理，但合同现金流未验证</td>
+<td>审核推进</td>
+<td>Q1利润质量弱、融资需求未降</td>
+</tr>
+<tr>
+<td>估值风险</td>
+<td>价格36—39元、预期拥挤</td>
+<td>回落至29.89元，估值风险释放一部分</td>
+<td>价格进入价值区间</td>
+<td>反向DCF仍要求约19.6%终值FCFF率</td>
+</tr>
+<tr>
+<td>情绪风险</td>
+<td>合同后热度高</td>
+<td>利好后快速退潮</td>
+<td>拥挤明显缓解</td>
+<td>下跌动能和套牢盘仍在</td>
+</tr>
+<tr>
+<td>流动性风险</td>
+<td>高位资金反复</td>
+<td>多日资金净流出、融资承接弱</td>
+<td>7/21、7/23有局部回流</td>
+<td>价格仍未站回主要均线</td>
+</tr>
+<tr>
+<td>治理 / 质押风险</td>
+<td>已存在高质押</td>
+<td>局部解质押但集团比例仍高</td>
+<td>解质押5000万股</td>
+<td>集团质押仍占其持股73.96%</td>
+</tr>
+</tbody></table>
+<h3>11.9 风险传导链</h3>
+<ul>
+<li>信息源头：重组与配套融资、服务器采购、合同验收和回款、控股股东质押、制冷剂价格。</li>
+<li>核心变量：最终摊薄股本、净债务、融资成本、算力毛利率、CFO / capex、制冷剂毛利。</li>
+<li>传导机制：合同扩张与并表→资本和债务需求上升→财务费用、折旧和摊薄增加→若毛利和回款不足则FCF/ROIC下降→估值锚下移→质押与套牢盘放大交易压力。</li>
+<li>影响对象：东阳光每股盈利、自由现金流、资产负债表和股价。</li>
+<li>市场行为变化：利好无法推动持续上涨，趋势资金撤出并留下高位套牢盘。</li>
+<li>风险方向：<strong>风险增强</strong>。</li>
+<li>验证指标：重组问询、最终发行股数、合同毛利与回款、H1 CFO / capex、质押比例、26.7—32元量价。</li>
+<li>失效条件：若合同现金流、融资结构和价格承接同步改善，则风险转为减弱；若只有价格反弹而现金流未改善，不改变结论。</li>
+</ul>
+<h3>11.10 风险方向结论</h3>
+<ul>
+<li>风险方向结论：<strong>风险增强</strong>。</li>
+<li>判断依据：相对前一窗口，估值风险因价格下跌有所释放，但资金撤出、套牢盘、重组融资与合同现金经济性不确定性开始通过价格反馈显性化；局部解质押不足以覆盖集团高质押和重资本风险。</li>
+<li>反证：重组已获受理、合同称前期交付已获验收，且价格已回落约两成；这些因素限制风险增强的强度。</li>
+<li>未获取到：H1法定财务、最终融资安排、ETF申赎、合同毛利和客户回款。</li>
+<li>置信度：中。</li>
+</ul>
+<h3>11.11 四层方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>边际改善 / 无明显变化 / 边际恶化 / 未获取到</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观</td>
+<td>未获取到</td>
+<td>本次未补齐最新官方货币与全球利率完整序列</td>
+</tr>
+<tr>
+<td>中观</td>
+<td>边际恶化</td>
+<td>氟化工、液冷和数据中心20日主题均明显回撤</td>
+</tr>
+<tr>
+<td>微观</td>
+<td>无明显变化</td>
+<td>重组受理推进，但合同利润和现金流仍未验证，Q1质量问题未解除</td>
+</tr>
+<tr>
+<td>交易</td>
+<td>边际恶化</td>
+<td>多窗口下跌、资金偏流出、融资与筹码承接不足</td>
+</tr>
+</tbody></table>
+<h3>11.12 最终动作与约束</h3>
+<ul>
+<li>主动作：<code>observe</code>。</li>
+<li>新增现金：29.89元不立即买；24—27元且基本面未坏、出现缩量承接时只买计划仓位首段，不超过1/4。</li>
+<li>已有持仓：低成本小仓可 <code>wait</code>；成本高、仓位重则 <code>review</code>，反弹32—35元而盈利未上修可 <code>reduce</code>。</li>
+<li>承接条件：30—32元重新站稳、资金连续转正、板块广度修复、H1现金流改善。</li>
+<li>退出条件：重组方案显著恶化、合同验收或回款失败、制冷剂毛利快速下滑，或跌破24元并伴随融资/质押风险上升。</li>
+<li>下一复核节点：重组问询回复、2026半年报、算力合同交付、后续质押公告。</li>
+<li>我的判断：估值回落解决了一部分“贵”的问题，但没有解决“谁来承接”和“合同能否变成自由现金流”的问题，因此仍不能升级为 <code>buy</code>。</li>
+</ul>
+<h2 id="section-12">12. 最终结论</h2>
+
+<ul>
+<li>估值结论：<strong>合理偏高</strong>。</li>
+<li>操作结论：<strong>观望</strong>。</li>
+<li>综合估值区间：<strong>24—32元 / 股</strong>。</li>
+<li>相对现价空间：以29.89元计约 <strong>-19.7%—+7.1%</strong>。</li>
+<li>如果今天这是一笔现金，我会买它吗：<strong>不会直接买；等待24—27元的安全边际和承接，或等待H1与重组问询把价值上沿实质上修。</strong></li>
+<li>我的判断：东阳光的制冷剂利润池、材料链和秦淮数据资产组合具备稀缺性，但市场此前已把合同金额提前资本化；当前回调使估值合理化，却没有消除重资本、摊薄、质押与现金流风险。</li>
+<li>结论失效条件：若合同毛利和回款优于预期、并表后FCF转正、最终摊薄低于36.5亿股且价格站稳32元，可上修价值区间；反之下修。</li>
+</ul>
+<h2 id="section-13">13. 后续监控指标</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">当前值</th>
+<th>触发阈值 / 方向</th>
+<th>数据源</th>
+<th>复核频率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>重组审核与最终摊薄</td>
+<td align="right">已获受理；收购新增约4.09亿股，配套融资未定</td>
+<td>最终股本≤36.5亿股偏正面；明显&gt;38亿股预警</td>
+<td>上交所 / 公司公告</td>
+<td>事件</td>
+</tr>
+<tr>
+<td>算力合同利润与回款</td>
+<td align="right">合计测算390—460亿元，毛利未披露</td>
+<td>披露验收、毛利、CFO和资本开支；FCF转正</td>
+<td>财报 / 问询回复</td>
+<td>季度 / 事件</td>
+</tr>
+<tr>
+<td>制冷剂利润池</td>
+<td align="right">2025化工新材料毛利43.33%</td>
+<td>维持≥40%偏正面；跌破35%预警</td>
+<td>半年报 / 行业价格</td>
+<td>月 / 半年</td>
+</tr>
+<tr>
+<td>质押比例</td>
+<td align="right">集团持股质押73.96%，占总股本约39.08%</td>
+<td>持续下降偏正面；再质押或违约预警</td>
+<td>公司公告</td>
+<td>事件</td>
+</tr>
+<tr>
+<td>价格与资金承接</td>
+<td align="right">29.89元；筹码成本35.67元</td>
+<td>24—27元观察首段；站稳32元才确认修复</td>
+<td>行情 / 资金</td>
+<td>周 / 事件</td>
+</tr>
+</tbody></table>
+<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
+
+<ul>
+<li>未获取到：2026H1分部和现金流、算力合同实际毛利与客户回款、服务器采购资本开支、最终配套融资价格与股数、ETF连续申赎、最新卖方原文、独立第三方公允价值。</li>
+<li>已检查来源：上交所和公司法定文件、2025年报、2026Q1报告、重组申报稿与受理公告、合同和质押公告、腾讯行情与交易聚合字段、既有研究快照。</li>
+<li>对结论的影响：估值区间较宽，竞争格局仅能判断中性；盘中29.89元不是收盘事实，真实交易前必须复核收盘价和最新公告。</li>
+</ul>
+<h2 id="section-15">15. 来源清单</h2>
+
+<ol>
+<li><a href="../../../../papers/东阳光机构研报-2026-07-24/东阳光2025年年度报告.pdf.md">东阳光2025年年度报告</a>，东阳光，2026-04-09。</li>
+<li><a href="../../../../papers/东阳光机构研报-2026-07-24/东阳光2026年第一季度报告.pdf.md">东阳光2026年第一季度报告</a>，东阳光，2026-04-27。</li>
+<li><a href="../../../../papers/东阳光机构研报-2026-07-24/东阳光重大资产重组报告书申报稿.pdf.md">发行股份购买资产并募集配套资金暨关联交易报告书（申报稿）</a>，东阳光，2026-07-20。</li>
+<li><a href="../../../../papers/东阳光机构研报-2026-07-24/东阳光重大资产重组获上交所受理公告.pdf.md">重大资产重组申请获上交所受理公告</a>，东阳光，2026-07-20。</li>
+<li><a href="../../../../papers/东阳光机构研报-2026-07-24/东阳光算力服务采购合同公告.pdf.md">控股子公司签署算力服务采购合同公告</a>，东阳光，2026-07-10。</li>
+<li><a href="../../../../papers/东阳光机构研报-2026-07-24/东阳光控股股东一致行动人解质押公告.pdf.md">控股股东一致行动人部分股份解质押公告</a>，东阳光，2026-07-23。</li>
+<li><a href="../../../../webpages/2026-07-24-东阳光行情公告与研究快照.md">东阳光行情、公告与研究快照</a>，2026-07-24。</li>
+<li><a href="../../../../webpages/2026-07-16-东阳光法定财报与重组数据快照.md">东阳光法定财报与重组数据快照</a>，2026-07-16。</li>
+<li><a href="../../../../webpages/2026-07-16-东阳光行情评级与催化剂快照.md">东阳光行情评级与催化剂快照</a>，2026-07-16。</li>
+<li><a href="../../../../../wiki/topics/冰冰小美-情绪体系理论篇.md">冰冰小美-体系三要素</a>。</li>
+<li><a href="../../../../../wiki/concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势.md">竞争格局的比较优势</a>。</li>
+<li><a href="../../../../../wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md">流动性辩证分析</a>。</li>
+<li><a href="../../../../../wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化.md">情绪位置变化</a>。</li>
+</ol>
+<h2 id="section-16">16. 声明</h2>
+
+<p>本报告基于截至研究截止时间可取得的公开信息，不构成收益保证或持牌投资建议。真实交易前应重新核验价格、重组审核、合同交付、融资、质押、流动性、持仓成本、组合集中度和个人风险承受能力。</p>
+<script>
+(() => {
+  const endpoint = '/api/stock-quote?secid=1.600673';
+  const priceNode = document.getElementById('intraday-price');
+  const detailNode = document.getElementById('intraday-detail');
+  const statusNode = document.getElementById('intraday-status');
+  const deviationValue = document.getElementById('deviation-value');
+  const deviationDetail = document.getElementById('deviation-detail');
+  const tracker = document.getElementById('daily-tracking');
+  const snapshotPrice = 29.89;
+  const percent = value => `${value < 0 ? '-' : value > 0 ? '+' : ''}${Math.abs(value).toFixed(1)}%`;
+  function updateDeviation(price) {
+    const low = Number(tracker.dataset.valueLow);
+    const high = Number(tracker.dataset.valueHigh);
+    if (!Number.isFinite(low) || !Number.isFinite(high) || low <= 0 || high <= low) return;
+    const midpoint = (low + high) / 2;
+    const versusLow = (price / low - 1) * 100;
+    const versusMid = (price / midpoint - 1) * 100;
+    const versusHigh = (price / high - 1) * 100;
+    if (price > high) { deviationValue.textContent = `高于上沿 ${percent(versusHigh)}`; deviationValue.classList.add('bad'); }
+    else if (price < low) { deviationValue.textContent = `低于下沿 ${percent(Math.abs(versusLow))}`; deviationValue.classList.remove('bad'); }
+    else { deviationValue.textContent = '位于动态价值区间内'; deviationValue.classList.remove('bad'); }
+    deviationDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对区间中枢 ${midpoint.toFixed(2)} 元为 ${percent(versusMid)}，相对下沿为 ${percent(versusLow)}，相对上沿为 ${percent(versusHigh)}。盘中价格不改变价值区间本身。`;
+  }
+  async function refreshIntradayQuote() {
+    statusNode.textContent = '连接中'; statusNode.className = 'tracking-status';
+    try {
+      const response = await fetch(endpoint, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json(); const quote = payload && payload.data;
+      if (!quote || !Number.isFinite(quote.price) || !Number.isFinite(quote.prevClose) || !Number.isFinite(quote.changePercent) || !Number.isFinite(quote.quoteTimestamp)) throw new Error('invalid quote');
+      const quoteTime = new Date(quote.quoteTimestamp * 1000).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false });
+      priceNode.textContent = `${quote.price.toFixed(2)} 元 · ${percent(quote.changePercent)}`;
+      priceNode.classList.toggle('bad', quote.changePercent < 0);
+      detailNode.textContent = `行情时间：${quoteTime}；昨收 ${quote.prevClose.toFixed(2)} 元。来源：${payload.proxySource || '本地行情代理'}。`;
+      statusNode.textContent = '盘中实时 · 每 60 秒'; statusNode.className = 'tracking-status live'; updateDeviation(quote.price);
+    } catch { priceNode.textContent = '实时行情暂不可用'; priceNode.classList.remove('bad'); detailNode.textContent = '每日同步值仍然有效；可重新双击“大盘启动器”后刷新本页。'; statusNode.textContent = '连接失败'; statusNode.className = 'tracking-status error'; }
+  }
+  if (location.protocol === 'http:' || location.protocol === 'https:') { refreshIntradayQuote(); window.setInterval(refreshIntradayQuote, 60000); }
+  else { priceNode.textContent = Number.isFinite(snapshotPrice) ? `${snapshotPrice.toFixed(2)} 元（每日值）` : '每日值未获取'; detailNode.textContent = '当前为直接打开模式；盘中实时需通过“大盘启动器”进入本地服务。'; statusNode.textContent = '每日同步 · 实时未连接'; }
+})();
+</script></article>
+    </div>
+  </main>
+</body>
+</html>

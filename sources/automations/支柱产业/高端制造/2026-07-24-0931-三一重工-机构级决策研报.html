@@ -1,0 +1,1749 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>三一重工机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+.daily-tracking { margin: 0 0 42px; padding: 22px; border: 1px solid #cbdade; border-radius: 16px; background: linear-gradient(135deg, #f3f8f9 0%, #fffaf0 100%); box-shadow: 0 12px 30px rgba(23, 50, 71, .07); }
+.daily-tracking-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
+.daily-tracking-kicker { margin: 0 0 4px; color: var(--teal); font-size: 12px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+.daily-tracking h2 { margin: 0; padding: 0; border: 0; font-size: 27px; }
+.daily-tracking-time { margin: 4px 0 0; color: var(--muted); font-size: 12px; text-align: right; }
+.tracking-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.tracking-grid + .tracking-grid { margin-top: 12px; }
+.tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
+.tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
+.tracking-card[data-tracking-key="dynamic-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
+.range-breakdown { display: block; }
+.range-main { display: inline-flex; align-items: center; max-width: 100%; margin-bottom: 10px; padding: 3px 9px; border-radius: 999px; background: #e7f0f3; color: var(--navy); font-size: 20px; line-height: 1.3; font-weight: 800; }
+.range-points { display: grid; gap: 7px; margin-top: 1px; }
+.range-point { display: block; padding-left: 11px; border-left: 3px solid #bed2d8; color: #245068; font-size: 14px; line-height: 1.52; font-weight: 650; }
+.tracking-value.bad { color: var(--danger); }
+.tracking-detail { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; }
+.tracking-status { display: inline-flex; margin-top: 10px; padding: 3px 8px; border-radius: 999px; color: #526b77; background: #edf2f4; font-size: 12px; font-weight: 700; }
+.tracking-status.live { color: #17604e; background: #dff3eb; }
+.tracking-status.error { color: var(--danger); background: var(--danger-bg); }
+.tracking-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; margin-top: 14px; padding-top: 13px; border-top: 1px solid #d5e0e3; color: #536d78; font-size: 13px; }
+.tracking-footer a { font-weight: 700; }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+  .tracking-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+  .daily-tracking-head { display: block; }
+  .daily-tracking-time { text-align: left; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .daily-tracking, .tracking-card { border: 1px solid #aebbc2; color: #102f43; background: #fff; box-shadow: none; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · 600031.SH；H 股代码 06031.HK</p>
+      <h1>三一重工机构级决策研报</h1>
+      <div class="hero-meta"><span>2026-07-24 09:31（Asia/Shanghai，盘中）</span><span>2026-07-24</span><span>上海证券交易所 / 人民币；香港联交所 / 港元（本报告估值以 A 股人民币计）</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
+<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
+<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
+<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
+<a class="toc-link" href="#section-6">6. 五年财务历史</a>
+<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
+<a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
+<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
+<a class="toc-link" href="#section-10">10. 估值</a>
+<a class="toc-link" href="#section-11">11. 冰冰小美框架判断</a>
+<a class="toc-link" href="#section-12">12. 最终结论</a>
+<a class="toc-link" href="#section-13">13. 后续监控指标</a>
+<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
+<a class="toc-link" href="#section-15">15. 来源清单</a>
+<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
+      <article class="content"><blockquote>
+<p>证券代码：600031.SH；H 股代码 06031.HK<br>交易所 / 币种：上海证券交易所 / 人民币；香港联交所 / 港元（本报告估值以 A 股人民币计）<br>研究截止时间：2026-07-24 09:31（Asia/Shanghai，盘中）<br>报告生成时间：2026-07-24<br>数据口径：中国企业会计准则；2021—2025 法定年报、2026Q1 未经审计季报；行情为盘中聚合快照  </p>
+</blockquote>
+<!-- DAILY_TRACKING_START -->
+<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-07-24 09:31（Asia/Shanghai，盘中）" data-value-low="16.5" data-value-high="20.5">
+  <div class="daily-tracking-head">
+    <div><p class="daily-tracking-kicker">Daily decision tracker</p><h2>每日跟踪面板</h2></div>
+    <p class="daily-tracking-time">更新：2026-07-24 09:31（Asia/Shanghai，盘中）<br>下次：收盘后 / 重大公告后</p>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">改善，但最新季度经营质量出现分化</p><p class="tracking-detail">风险方向：风险持平；基本面风险减弱与估值、短线情绪风险抬升互相抵消。下一验证点与失效条件见第 11—13 章。</p></div>
+    <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value"><span class="range-breakdown"><span class="range-main">16.5—20.5 元</span><span class="range-points"><span class="range-point">16.5 元附近=保守主业与周期回落价值</span><span class="range-point">18—19 元=海外优势和正常化盈利的合理中枢</span><span class="range-point">20.5 元附近=已计入行业复苏、回购与部分新能源溢价</span><span class="range-point">21 元以上需半年报利润、现金流或盈利预测继续上修支撑</span></span></span></p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
+    <div class="tracking-card" data-tracking-key="price-deviation"><p class="tracking-label">股价偏离度</p><p class="tracking-value" id="deviation-value">位于动态价值区间内</p><p class="tracking-detail" id="deviation-detail">每日同步价 19.64 元；相对区间中枢 18.50 元为 +6.2%，相对下沿为 +19.0%，相对上沿为 -4.2%。价格不改变价值区间本身。</p></div>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="daily-quote"><p class="tracking-label">每日同步价</p><p class="tracking-value">19.64 元，2026-07-24 09:31 盘中；前收 19.97 元</p><p class="tracking-detail">这是报告内嵌的正式跟踪基准，离线打开仍可使用。</p><span class="tracking-status">每日快照</span></div>
+    <div class="tracking-card" data-tracking-key="intraday-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">等待连接</p><p class="tracking-detail" id="intraday-detail">通过“大盘启动器”打开后获取盘中行情，每 60 秒刷新；直接打开 HTML 时不访问外部行情。</p><span class="tracking-status" id="intraday-status">未连接</span></div>
+    <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">新增现金 observe；已有持仓 wait / review</p><p class="tracking-detail">估值：合理偏高；行业复苏与海外优势已被价格计入较多 · 新增现金 observe；已有持仓 wait / review；风险：风险持平；基本面风险减弱与估值、短线情绪风险抬升互相抵消；结论置信度：中；法定财务充分，但卖方明细、订单、H1 分部数据和连续 ETF 申赎缺失。</p><span class="tracking-status">合理偏高；行业复苏与海外优势已被价格计入较多</span></div>
+  </div>
+  <div class="tracking-footer"><span>资金状态：<strong>结构性流入后偏热；7 月 20—23 日主力分档连续净流入，但未证明场外持续增量</strong> · 新增/已有动作：<strong>新增现金 observe；已有持仓 wait / review</strong></span><span>资金面分析：未单独生成</span></div>
+</section>
+<!-- DAILY_TRACKING_END -->
+<h2 id="section-1">1. 决策摘要</h2>
+
+<h3>1.1 基本面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值状态</td>
+<td><strong>合理偏高</strong>；行业复苏与海外优势已被价格计入较多</td>
+</tr>
+<tr>
+<td>综合估值区间</td>
+<td><strong>16.5—20.5 元</strong>；16.5 元附近=保守主业与周期回落价值，18—19 元=海外优势和正常化盈利的合理中枢，20.5 元附近=已计入行业复苏、回购与部分新能源溢价，21 元以上需半年报利润、现金流或盈利预测继续上修支撑</td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>以 19.64 元计约 <strong>-16.0%—+4.4%</strong></td>
+</tr>
+<tr>
+<td>基本面状态</td>
+<td><strong>改善，但最新季度经营质量出现分化</strong></td>
+</tr>
+<tr>
+<td>关键经营变化</td>
+<td>2025 年营收 +14.73%、归母净利 +41.18%、经营现金流 +34.84%，国际主营收入占约 64%；2026Q1 收入 +14.22%、毛利率改善，但归母净利仅约 +0.46%、扣非净利 -16.24%、经营现金流 -19.76%，财务费用由 -3.70 亿元恶化至 +7.98 亿元。管理层继续押注全球化、数智化、低碳化，市场则在 7 月回购提议后先行重估</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td><strong>中</strong>；法定财务充分，但卖方明细、订单、H1 分部数据和连续 ETF 申赎缺失</td>
+</tr>
+</tbody></table>
+<h3>1.2 资金面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>操作建议</td>
+<td><strong>观望</strong>；等待价格重新给出安全边际或半年报上修估值锚</td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td>新增现金 <code>observe</code>；已有持仓 <code>wait / review</code></td>
+</tr>
+<tr>
+<td>当前价格及时间</td>
+<td>19.64 元，2026-07-24 09:31 盘中；前收 19.97 元</td>
+</tr>
+<tr>
+<td>资金状态</td>
+<td><strong>结构性流入后偏热</strong>；7 月 20—23 日主力分档连续净流入，但未证明场外持续增量</td>
+</tr>
+<tr>
+<td>风险方向</td>
+<td><strong>风险持平</strong>；基本面风险减弱与估值、短线情绪风险抬升互相抵消</td>
+</tr>
+<tr>
+<td>每日跟踪时间</td>
+<td>2026-07-24 09:31（Asia/Shanghai，盘中）</td>
+</tr>
+<tr>
+<td>资金面分析链接</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<h3>如果今天这是一笔现金，我会买它吗</h3>
+<ul>
+<li>回答：<strong>不会在 19.64 元直接买；只在特定条件下会。</strong></li>
+<li>我的判断：三一重工是工程机械龙头，海外高毛利业务和国内更新周期都在改善，但当前价格已接近本报告价值区间上沿，且 2026Q1 的利润与现金流没有同步收入增长。</li>
+<li>改变结论的条件：其一，价格回到 16.5—17.5 元且 H1 海外毛利率、扣非利润和现金流未恶化；其二，半年报证明财务费用回落、扣非利润恢复双位数增长，使合理区间上移至 21 元以上。</li>
+</ul>
+<h2 id="section-2">2. 证券身份与来源矩阵</h2>
+
+<h3>2.1 证券身份</h3>
+<ul>
+<li>公司全称：三一重工股份有限公司。</li>
+<li>证券代码：600031.SH；06031.HK。</li>
+<li>上市地：上海证券交易所主板、香港联交所主板。</li>
+<li>报告准则：中国企业会计准则；公司 2026 年公告拟统一采用中国企业会计准则编制财务报告。</li>
+<li>法定披露体系：上海证券交易所、巨潮资讯、香港联交所披露易及公司法定报告；SEC 文件不适用。</li>
+<li>同名或跨市场歧义：有。本报告研究三一重工，不混用三一重能（688349）或三一国际（00631）的独立财务数据。</li>
+</ul>
+<h3>2.2 来源矩阵</h3>
+<table>
+<thead>
+<tr>
+<th>数据项目</th>
+<th>目标来源</th>
+<th>实际来源</th>
+<th>数据时间</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>实时价格、52 周高低、今年以来表现</td>
+<td>交易所 / 可靠行情平台</td>
+<td><a href="../../../webpages/2026-07-24-三一重工行情与研究快照.md">行情与研究快照</a>，腾讯自选股聚合接口</td>
+<td>2026-07-24 09:31</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>连续量价、融资、筹码与相对强弱</td>
+<td>交易所 / 行情平台</td>
+<td>同上；申万工程机械、沪深 300、沪深涨跌分布</td>
+<td>2026-06-24—2026-07-24</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>第三方公允价值、护城河、星级</td>
+<td>Morningstar 等独立平台</td>
+<td>未取得可审计页面字段</td>
+<td>截止 2026-07-24</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>最新季报与管理层指引</td>
+<td>公司法定报告</td>
+<td><a href="../../../papers/三一重工机构研报-2026-07-24/三一重工2026年第一季度报告.pdf.md">2026Q1 报告</a>、<a href="../../../papers/三一重工机构研报-2026-07-24/三一重工2025年年度报告.pdf.md">2025 年报</a></td>
+<td>2026-04-29 / 2026-03-30</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>分部收入与产业位置</td>
+<td>公司年报 / 行业协会</td>
+<td>2025 年报、中国工程机械工业协会上半年销量数据、公司官网产品信息</td>
+<td>2025 / 2026H1</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>卖方评级与目标价</td>
+<td>券商明细</td>
+<td>聚合一致预期与评级接口；目标价明细不可审计</td>
+<td>2026-07-24</td>
+<td>口径冲突待解释</td>
+</tr>
+<tr>
+<td>近三个月新闻与催化剂</td>
+<td>法定公告 / 公司 / 行业协会</td>
+<td>Q1 报告、员工持股、分红、回购提议、行业销量</td>
+<td>2026-04-29—2026-07-24</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>五年财务历史</td>
+<td>法定年报</td>
+<td>2021—2025 法定报告；本地保存 2022、2024、2025 年报副本</td>
+<td>2021—2025</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>宏观流动性</td>
+<td>PBOC、SAFE、FRED</td>
+<td>SAFE 美元中间价、FRED 美债收益率；最新 M1/M2/社融接口失败</td>
+<td>2026-07</td>
+<td>口径冲突待解释</td>
+</tr>
+<tr>
+<td>ETF / 机构连续申赎</td>
+<td>基金公告 / 交易平台</td>
+<td>未取得工程机械 ETF 连续净申购序列；仅有股东与香港中央结算持股代理</td>
+<td>截止 2026-07-24</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 行情与市场预期</h2>
+
+<h3>3.1 行情快照（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">数值</th>
+<th>来源</th>
+<th>时间 / 口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前价格</td>
+<td align="right">19.64 元</td>
+<td><a href="../../../webpages/2026-07-24-三一重工行情与研究快照.md">行情快照</a></td>
+<td>2026-07-24 09:31 盘中</td>
+</tr>
+<tr>
+<td>52 周最高</td>
+<td align="right">24.11 元</td>
+<td>同上</td>
+<td>前复权聚合口径</td>
+</tr>
+<tr>
+<td>52 周最低</td>
+<td align="right">16.50 元</td>
+<td>同上</td>
+<td>前复权聚合口径</td>
+</tr>
+<tr>
+<td>今年以来表现</td>
+<td align="right">-6.25%</td>
+<td>同上</td>
+<td>盘中相对年初</td>
+</tr>
+<tr>
+<td>总市值</td>
+<td align="right">约 1,805.90 亿元</td>
+<td>同上</td>
+<td>19.64 元 × 91.95 亿股</td>
+</tr>
+<tr>
+<td>PE / PB / 前瞻 PE</td>
+<td align="right">21.45x / 2.03x / 18.20x</td>
+<td>同上</td>
+<td>聚合行情口径</td>
+</tr>
+</tbody></table>
+<ul>
+<li>事实：三一重工 5 / 20 / 60 日涨跌幅为 +5.31% / +12.23% / +1.66%，均强于同期申万工程机械指数的 +5.09% / +3.85% / -3.74%。</li>
+<li>事实：价格站上 MA20 与 MA60，但仍低于 MA120 与 MA250；RSI6 为 76.05，表明短期修复较快，而非长期趋势已完全反转。</li>
+</ul>
+<h3>3.2 第三方公允价值与评级（事实）</h3>
+<ul>
+<li>公允价值：未获取到可核验的独立第三方公允价值。</li>
+<li>护城河评级：未获取到。</li>
+<li>星级：未获取到。</li>
+<li>来源与时间：已检查公开搜索、行情聚合和卖方聚合字段，截止 2026-07-24。</li>
+<li>未获取到的字段及已检查来源：付费或无机构明细的字段不从搜索摘要推定。</li>
+</ul>
+<h3>3.3 卖方评级与目标价分布（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>机构</th>
+<th>日期</th>
+<th>评级</th>
+<th align="right">目标价</th>
+<th>预测期</th>
+<th>关键假设</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>聚合一致预期</td>
+<td>2026-07-24</td>
+<td>未提供明细</td>
+<td align="right">25.3713 元</td>
+<td>2026—2028</td>
+<td>2026E EPS 1.17 元、收入 +14.67%、净利 +28.05%</td>
+</tr>
+<tr>
+<td>聚合评级接口</td>
+<td>2026-07-24</td>
+<td>买入 1 家</td>
+<td align="right">未获取到</td>
+<td>未获取到</td>
+<td>机构名称、报告日期与模型未返回</td>
+</tr>
+</tbody></table>
+<ul>
+<li>目标价区间 / 中位数：未获取到可审计区间；25.3713 元不是可验证中位数。</li>
+<li>样本数量与完整性：一致预期字段显示 <code>institutionCnt=0</code>，评级接口仅 1 个无明细样本，完整性低。</li>
+<li>来源冲突及采信理由：采用聚合 EPS 作为低权重相对估值输入，不采信聚合目标价作为最终估值锚。</li>
+</ul>
+<h2 id="section-4">4. 商业模式与竞争格局</h2>
+
+<h3>4.1 事实</h3>
+<ul>
+<li>收入来源：2025 年主营收入 872.70 亿元，挖掘机械 345.44 亿元、混凝土机械 157.38 亿元、起重机械 155.63 亿元、路面机械 37.57 亿元、桩工机械 28.20 亿元，其他 148.49 亿元。</li>
+<li>客户与定价权：客户覆盖基建、建筑、矿山、港口、能源等场景；品牌、渠道、产品全生命周期服务和核心零部件自研提供相对议价力，但国内同质化竞争与客户资本开支周期限制绝对定价权。</li>
+<li>成本结构：2025 年工程机械成本中原材料占 84.21%、人工 5.01%、折旧摊销 2.94%；钢材、零部件、物流和汇率均会影响利润率。</li>
+<li>资本强度：制造端为重资产，但 2025 年购建长期资产现金支出仅占收入约 3.1%；销售融资、应收和长期应收使资产负债表仍有周期与信用属性。</li>
+<li>竞争者：国内主要为徐工机械、中联重科、柳工，全球主要为 Caterpillar、Komatsu、Liebherr、Volvo CE、Hitachi Construction Machinery 等。</li>
+<li>监管约束：产品安全与排放、跨境贸易和制裁、数据与自动驾驶合规、海外本地化、销售融资与金融子公司监管。</li>
+</ul>
+<h4>多产业位置景气度排序（事实与判断分列）</h4>
+<blockquote>
+<p>排序不重复计算同一台设备收入；“海外”“新能源”是交叉维度，需与产品口径去重。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="right">排名</th>
+<th>产业位置</th>
+<th>位置识别依据（事实）</th>
+<th>公司业务 / 资产暴露（事实）</th>
+<th>当前景气度</th>
+<th>趋势</th>
+<th>景气证据与时间</th>
+<th>财务传导</th>
+<th>验证指标 / 失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">1</td>
+<td>全球工程机械出海与本地化</td>
+<td>国际收入和毛利率已独立披露，直接构成利润池</td>
+<td>2025 国际主营收入 558.56 亿元、占约 64%，毛利率 31.64%</td>
+<td>较高</td>
+<td>上行</td>
+<td>国际收入 +15.14%、毛利率 +1.92pct；公司继续扩展欧洲、矿山及新能源产品</td>
+<td>海外销量与高毛利率 → 主营利润、现金流；汇率和本地化投入反向影响</td>
+<td>国际收入保持双位数、毛利率不低于 30%；若贸易壁垒、回款或汇兑令利润转弱则失效</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td>国内挖掘机更新与矿山需求</td>
+<td>挖掘机为最大产品，行业销量可验证</td>
+<td>2025 挖掘机收入 345.44 亿元、毛利率 34.24%</td>
+<td>较高</td>
+<td>上行</td>
+<td>2026H1 全行业挖机销量 +26.4%；公司 2025 挖机收入 +13.73%、毛利率 +2.42pct</td>
+<td>行业更新与矿山需求 → 销量、产能利用率 → 分部毛利与现金回款</td>
+<td>公司 H1 挖机收入、销量、库存；若行业增速不能转为公司收入或价格战重启则失效</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td>工程机械新能源化与智能化</td>
+<td>新能源主机已有销售额，不只是概念</td>
+<td>2025 新能源产品销售额 86.40 亿元、同比 +115%，约占营收 9.7%，与主机产品交叉</td>
+<td>较高</td>
+<td>上行</td>
+<td>电动搅拌车、泵车、起重机、挖机等销量 13,992 台；政策与客户 TCO 共同驱动</td>
+<td>新能源渗透率 → 单机价值量、产品结构与研发摊销 → 毛利率</td>
+<td>新能源销量、售价、毛利率和复购；若增长只靠低价且毛利不增则失效</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td>国内混凝土、起重、桩工与路面设备</td>
+<td>多品类收入和行业基建需求可验证</td>
+<td>合计约 319 亿元主营收入，国内主营收入 314.14 亿元、毛利率 20.69%</td>
+<td>中</td>
+<td>上行</td>
+<td>2025 各产品收入均增长；2026H1 装载机销量 +26.7%，但不是公司各分部直接销量</td>
+<td>基建与设备更新 → 销量；国内竞争和价格 → 较低毛利率</td>
+<td>H1 分品类收入、国内毛利率、库存；若固定资产投资与回款转弱则失效</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td>大型矿山智能装备</td>
+<td>100 吨级矿挖欧洲发布，场景与海外渠道明确</td>
+<td>未单独披露矿山设备收入、利润或订单</td>
+<td>证据不足</td>
+<td>证据不足</td>
+<td>有产品和展会事件，缺少财务拆分</td>
+<td>若形成订单 → 挖机收入和售后服务；当前无法量化</td>
+<td>独立订单、交付、收入与毛利披露；未披露前不计入额外估值</td>
+</tr>
+</tbody></table>
+<ul>
+<li>位置间交叉与去重说明：海外收入、国内收入按地域切分；新能源和矿山是产品用途维度，不能再与挖机、起重机等产品收入相加。</li>
+<li>排名第一的位置能否进入公司利润和现金流：已进入。国际主营毛利率比国内高约 10.95pct，是 2025 利润率修复的核心来源；但回款、汇兑和海外资本投入决定其现金转化。</li>
+<li>弱关联 / 待验证位置：人形机器人整机不是三一重工已披露主业，不纳入估值；工业 AI 主要是制造和产品效率工具，不单独计价。</li>
+</ul>
+<h3>4.2 我的判断</h3>
+<ul>
+<li>我的判断：三一的比较优势不是“工程机械复苏”一句话，而是品牌与渠道、挖机高毛利、海外本地化、核心零部件和多品类协同共同形成；2025 国际业务已证明优势能转成利润。</li>
+<li>我的判断：商业模式最脆弱环节是“海外高增长 + 销售融资 + 汇率”的组合。销量增长若伴随应收、融资资产和财务费用恶化，账面利润会先于现金回报见顶。</li>
+<li>证伪条件：国际毛利率连续两个报告期低于 28%、应收及长期应收持续快于收入、海外收入转负，或国内价格战使挖机毛利率跌回 30%以下。</li>
+</ul>
+<h2 id="section-5">5. 分部收入与盈利拆解</h2>
+
+<table>
+<thead>
+<tr>
+<th>分部</th>
+<th align="right">收入</th>
+<th align="right">同比</th>
+<th align="right">收入占主营</th>
+<th align="right">毛利率</th>
+<th align="right">毛利率变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>挖掘机械</td>
+<td align="right">345.44 亿元</td>
+<td align="right">+13.73%</td>
+<td align="right">39.58%</td>
+<td align="right">34.24%</td>
+<td align="right">+2.42pct</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>混凝土机械</td>
+<td align="right">157.38 亿元</td>
+<td align="right">+9.53%</td>
+<td align="right">18.03%</td>
+<td align="right">20.15%</td>
+<td align="right">-0.36pct</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>起重机械</td>
+<td align="right">155.63 亿元</td>
+<td align="right">+18.67%</td>
+<td align="right">17.83%</td>
+<td align="right">28.96%</td>
+<td align="right">+1.73pct</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>路面机械</td>
+<td align="right">37.57 亿元</td>
+<td align="right">+25.18%</td>
+<td align="right">4.30%</td>
+<td align="right">28.67%</td>
+<td align="right">+1.17pct</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>桩工机械</td>
+<td align="right">28.20 亿元</td>
+<td align="right">+35.81%</td>
+<td align="right">3.23%</td>
+<td align="right">32.88%</td>
+<td align="right">+0.13pct</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>其他</td>
+<td align="right">148.49 亿元</td>
+<td align="right">+15.13%</td>
+<td align="right">17.02%</td>
+<td align="right">17.91%</td>
+<td align="right">-1.48pct</td>
+<td>2025 年报</td>
+</tr>
+</tbody></table>
+<ul>
+<li>披露口径变化：2025 年发生同一控制下企业合并并追溯部分比较数据；A+H 上市令总股本增至 91.95 亿股，估值须使用当前股本。</li>
+<li>来源冲突：2025 年报主营收入 872.70 亿元，利润表营业收入 892.31 亿元；差异为其他业务收入，不应混为分部合计。</li>
+<li>采信理由：分部拆解采用主营业务表，整体估值和利润率采用合并利润表。</li>
+<li>我的判断：增长质量整体改善，但利润池高度集中于挖机与海外；“所有产品增长”不能掩盖混凝土毛利率和其他业务毛利率下降。</li>
+</ul>
+<h2 id="section-6">6. 五年财务历史</h2>
+
+<table>
+<thead>
+<tr>
+<th>财年</th>
+<th align="right">营收</th>
+<th align="right">毛利率</th>
+<th align="right">经营现金流</th>
+<th align="right">资本开支</th>
+<th align="right">自由现金流</th>
+<th align="right">ROIC / 代理值</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td align="right">1,061.13 亿元</td>
+<td align="right">25.85%</td>
+<td align="right">119.04 亿元</td>
+<td align="right">103.00 亿元</td>
+<td align="right">16.04 亿元</td>
+<td align="right">加权 ROE 19.95%</td>
+<td>2022 年报比较数据</td>
+</tr>
+<tr>
+<td>2022</td>
+<td align="right">800.18 亿元</td>
+<td align="right">24.02%</td>
+<td align="right">40.99 亿元</td>
+<td align="right">56.65 亿元</td>
+<td align="right">-15.66 亿元</td>
+<td align="right">加权 ROE 6.65%</td>
+<td><a href="../../../papers/三一重工机构研报-2026-07-24/三一重工2022年年度报告.pdf.md">2022 年报</a></td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">732.22 亿元</td>
+<td align="right">26.18%</td>
+<td align="right">57.08 亿元</td>
+<td align="right">45.25 亿元</td>
+<td align="right">11.83 亿元</td>
+<td align="right">加权 ROE 6.85%</td>
+<td>2024 年报比较数据</td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">777.73 亿元</td>
+<td align="right">26.43%</td>
+<td align="right">148.14 亿元</td>
+<td align="right">29.38 亿元</td>
+<td align="right">118.76 亿元</td>
+<td align="right">加权 ROE 8.52%</td>
+<td><a href="../../../papers/三一重工机构研报-2026-07-24/三一重工2024年年度报告.pdf.md">2024 年报</a></td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">892.31 亿元</td>
+<td align="right">27.54%</td>
+<td align="right">199.75 亿元</td>
+<td align="right">27.71 亿元</td>
+<td align="right">172.04 亿元</td>
+<td align="right">加权 ROE 11.18%</td>
+<td><a href="../../../papers/三一重工机构研报-2026-07-24/三一重工2025年年度报告.pdf.md">2025 年报</a></td>
+</tr>
+</tbody></table>
+<ul>
+<li>自由现金流口径：经营现金流减购建固定资产、无形资产和其他长期资产支付的现金；未扣除理财投资和并购。</li>
+<li>ROIC 口径：由于金融子公司、销售融资及投入资本口径复杂，本表使用法定年报加权 ROE 作为资本回报代理，明确不等同于 ROIC。</li>
+<li>一次性项目和会计变化：2025 年同一控制合并追溯部分数据；H 股发行带来约 72.06 亿股本千股增量和约 145 亿元融资现金，影响每股与资产负债表比较。</li>
+<li>我的判断：2022—2023 是周期与现金流低谷，2024—2025 修复明显；但 2025 FCF 受经营应付项目增加约 101.34 亿元支持，不能把 172 亿元机械外推为永续 FCFF。</li>
+</ul>
+<h2 id="section-7">7. 最新季度与管理层指引</h2>
+
+<h3>7.1 最新季度（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">本期</th>
+<th align="right">同比 / 变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营业收入</td>
+<td align="right">240.42 亿元</td>
+<td align="right">+14.22%</td>
+<td>2026Q1 报告，2026-04-29</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">27.48%</td>
+<td align="right">约 +0.64pct</td>
+<td>2026Q1 利润表计算</td>
+</tr>
+<tr>
+<td>归母净利润</td>
+<td align="right">24.81 亿元</td>
+<td align="right">约 +0.46%</td>
+<td>2026Q1 报告</td>
+</tr>
+<tr>
+<td>扣非净利润</td>
+<td align="right">20.13 亿元</td>
+<td align="right">约 -16.24%</td>
+<td>2026Q1 报告</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">35.41 亿元</td>
+<td align="right">-19.76%</td>
+<td>2026Q1 报告</td>
+</tr>
+<tr>
+<td>订单 / 储备</td>
+<td align="right">未获取到统一可审计订单余额</td>
+<td align="right">不适用</td>
+<td>已检查 Q1 与年报</td>
+</tr>
+</tbody></table>
+<ul>
+<li>资产负债表异常项：2026Q1 货币资金约 331.67 亿元、有息债务约 224.07 亿元，仍为净现金；应收票据及应收账款约 273.74 亿元、长期应收款约 124.03 亿元，回款质量仍是重要约束。</li>
+<li>利润分化：财务费用 7.98 亿元，上年同期 -3.70 亿元，约 11.68 亿元反向变化，抵消了收入和毛利率改善。</li>
+</ul>
+<h3>7.2 管理层指引（事实）</h3>
+<ul>
+<li>正式量化指引：未获取到 2026 全年收入或利润的法定量化指引。</li>
+<li>定性展望：继续推进全球化、数智化、低碳化，坚持“规模服从效益、效益服从品牌、品牌服从价值观”，加强存货与货款管理。</li>
+<li>未获取到：2026H1 分产品销量、订单余额、海外分区利润率与全年资本开支目标。</li>
+</ul>
+<h3>7.3 我的判断</h3>
+<ul>
+<li>我的判断：经营指标从 2025 的“收入、利润、现金流同步修复”转成 2026Q1 的“收入和毛利率继续改善、净利与现金流掉队”，边际质量弱于标题增速。</li>
+<li>我的判断：管理层方向与 2025 海外和新能源结构吻合，但缺少量化指引；市场在回购提议后先计入修复，H1 必须证明扣非利润和现金流重新跟上。</li>
+<li>下一验证节点：2026 半年报的海外收入与毛利率、财务费用、扣非净利、经营现金流、应收与存货周转。</li>
+</ul>
+<h2 id="section-8">8. 近三个月新闻与催化剂</h2>
+
+<table>
+<thead>
+<tr>
+<th>发生日</th>
+<th>事件</th>
+<th>影响变量</th>
+<th>财务传导</th>
+<th>是否已反映</th>
+<th>验证节点</th>
+<th>失效条件</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-04-29</td>
+<td>发布 2026Q1</td>
+<td>收入、毛利、费用、现金流</td>
+<td>收入和毛利改善，但财务费用与现金流削弱利润质量</td>
+<td>部分反映</td>
+<td>2026H1</td>
+<td>Q2 扣非利润和现金流继续弱于收入</td>
+<td><a href="../../../papers/三一重工机构研报-2026-07-24/三一重工2026年第一季度报告.pdf.md">Q1 报告</a></td>
+</tr>
+<tr>
+<td>2026-05-29</td>
+<td>100 吨矿用挖掘机在欧洲发布</td>
+<td>矿山产品与海外渠道</td>
+<td>若形成订单，可提高挖机收入和售后服务</td>
+<td>尚无订单数据，未确认</td>
+<td>H1/H2 订单与交付</td>
+<td>仅展会发布、无商业化收入</td>
+<td>三一全球官网</td>
+</tr>
+<tr>
+<td>2026-06-24 / 07-14</td>
+<td>A 股员工持股计划获股东会通过</td>
+<td>激励、股份承接与摊薄</td>
+<td>提升员工利益绑定；回购股转让不等同于注销</td>
+<td>受让价 21.30 元附近形成叙事锚</td>
+<td>过户、锁定与考核完成</td>
+<td>激励不能转化为盈利改善</td>
+<td><a href="../../../papers/三一重工机构研报-2026-07-24/三一重工2026年A股员工持股计划草案.pdf.md">员工持股计划</a></td>
+</tr>
+<tr>
+<td>2026-07-17</td>
+<td>2025 年年度分红实施，每股 0.18 元</td>
+<td>股东回报</td>
+<td>现金支出约 16.47 亿元；TTM 回报还含中期分红</td>
+<td>已除息</td>
+<td>2026 中期 / 年度回报</td>
+<td>FCF下降导致回报不可持续</td>
+<td><a href="../../../papers/三一重工机构研报-2026-07-24/三一重工2025年年度权益分派实施公告.pdf.md">分红公告</a></td>
+</tr>
+<tr>
+<td>2026-07-20</td>
+<td>董事长提议 4—8 亿元回购 A 股用于员工持股</td>
+<td>真实买盘预期、治理信号</td>
+<td>实施后提供承接，但不直接增加利润；未使用部分 36 个月后注销</td>
+<td>7 月 20 日以来股价与成交已明显反映</td>
+<td>董事会方案与实际回购进度</td>
+<td>方案未获通过、执行慢或价格先透支</td>
+<td><a href="../../../papers/三一重工机构研报-2026-07-24/三一重工2026-07-21董事长提议回购公告.pdf.md">回购提议公告</a></td>
+</tr>
+<tr>
+<td>2026-07-20</td>
+<td>行业披露 H1 挖机 +26.4%、装载机 +26.7%</td>
+<td>行业需求与更新周期</td>
+<td>行业销量 → 公司销量与产能利用率 → 毛利与现金流</td>
+<td>板块仍低于中长期均线，未全面确认</td>
+<td>公司 H1 分部数据</td>
+<td>公司份额、价格或回款弱于行业</td>
+<td>中国工程机械工业协会口径、人民网</td>
+</tr>
+</tbody></table>
+<h2 id="section-9">9. 多头与空头论据</h2>
+
+<h3>9.1 多头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>海外高毛利利润池已兑现</td>
+<td>国际主营收入占约 64%，毛利率 31.64%，收入 +15.14%</td>
+<td>海外收入、毛利率、应收和汇兑</td>
+<td>海外毛利率跌破 28%或回款显著恶化</td>
+</tr>
+<tr>
+<td>国内更新周期与挖机复苏</td>
+<td>2026H1 行业挖机销量 +26.4%；公司挖机毛利率 34.24%</td>
+<td>公司销量、份额、库存与售价</td>
+<td>行业增长不能转化为公司收入或价格战重启</td>
+</tr>
+<tr>
+<td>盈利与现金流已走出低谷</td>
+<td>2025 净利 +41.18%、CFO 199.75 亿元</td>
+<td>扣非净利、CFO/净利、应付与应收周转</td>
+<td>CFO重新低于净利润且营运资金恶化</td>
+</tr>
+<tr>
+<td>新能源产品形成第二曲线</td>
+<td>2025 新能源销售 86.4 亿元、+115%</td>
+<td>销量、毛利率、海外订单</td>
+<td>只增收入不增利润或补贴退坡后失速</td>
+</tr>
+<tr>
+<td>回购与员工持股强化治理信号</td>
+<td>4—8 亿元回购提议，员工持股计划覆盖 5,420 人</td>
+<td>实际回购金额、考核、过户</td>
+<td>只停留在提议或激励未绑定业绩</td>
+</tr>
+</tbody></table>
+<h3>9.2 空头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Q1 增收不增利</td>
+<td>收入 +14.22%，归母净利约 +0.46%，扣非 -16.24%</td>
+<td>Q2 财务费用、扣非利润率</td>
+<td>财务费用回落且扣非净利恢复双位数增长</td>
+</tr>
+<tr>
+<td>2025 FCF含营运资金高贡献</td>
+<td>经营应付项目增加约 101.34 亿元</td>
+<td>应付、应收、存货与现金转换周期</td>
+<td>现金流在应付回归后仍稳定</td>
+</tr>
+<tr>
+<td>估值已给龙头高溢价</td>
+<td>当前 PB 2.03x、前瞻 PE 18.2x，显著高于多数国内可比</td>
+<td>ROE、盈利上修、相对估值</td>
+<td>ROE升至 14%—16%且海外增长维持</td>
+</tr>
+<tr>
+<td>贸易、汇率和本地化风险</td>
+<td>国际收入约 63%，Q1 财务费用显著恶化</td>
+<td>汇率、关税、海外毛利和现金流</td>
+<td>本地化与套保使利润波动显著下降</td>
+</tr>
+<tr>
+<td>短线事件驱动偏热</td>
+<td>20 日涨停式修复后 RSI6 约 76，价格接近筹码成本上方</td>
+<td>成交、资金连续性、20.5 元承接</td>
+<td>缩量消化并由业绩上修接力</td>
+</tr>
+<tr>
+<td>控股股东质押</td>
+<td>质押约占公司股本 5.03%</td>
+<td>质押比例、补充质押与处置</td>
+<td>解除质押且无强平风险</td>
+</tr>
+</tbody></table>
+<h2 id="section-10">10. 估值</h2>
+
+<h3>10.1 相对估值</h3>
+<table>
+<thead>
+<tr>
+<th>公司</th>
+<th>业务可比性</th>
+<th align="right">2026E 增长</th>
+<th align="right">2025 / TTM 利润率</th>
+<th align="right">前瞻 PE</th>
+<th align="right">PB</th>
+<th align="right">EV/EBITDA</th>
+<th>数据时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>三一重工</td>
+<td>工程机械龙头，海外与挖机优势</td>
+<td align="right">净利 +28.05%</td>
+<td align="right">2025 净利率 9.42%</td>
+<td align="right">18.20x</td>
+<td align="right">2.03x</td>
+<td align="right">未获取到统一口径</td>
+<td>2026-07-24</td>
+</tr>
+<tr>
+<td>徐工机械</td>
+<td>高可比，全品类与国企属性</td>
+<td align="right">净利 +25.73%</td>
+<td align="right">2025 毛利率 22.61%</td>
+<td align="right">12.84x</td>
+<td align="right">1.76x</td>
+<td align="right">未获取到</td>
+<td>2026-07-24</td>
+</tr>
+<tr>
+<td>中联重科</td>
+<td>高可比，海外与多品类</td>
+<td align="right">净利 +24.37%</td>
+<td align="right">未统一核验</td>
+<td align="right">18.19x</td>
+<td align="right">1.14x</td>
+<td align="right">未获取到</td>
+<td>2026-07-24</td>
+</tr>
+<tr>
+<td>柳工</td>
+<td>中高可比，土方机械为主</td>
+<td align="right">净利 +22.02%</td>
+<td align="right">未统一核验</td>
+<td align="right">7.25x</td>
+<td align="right">0.96x</td>
+<td align="right">未获取到</td>
+<td>2026-07-24</td>
+</tr>
+</tbody></table>
+<ul>
+<li>选取理由：均受工程机械周期、出口、原材料与销售融资影响；三一的挖机份额、海外毛利率和品牌支持溢价。</li>
+<li>正常化调整：聚合预测机构明细为 0，采用 2026E EPS 1.17 元但降低权重；给予 15—18 倍 PE，而不是照搬 25.37 元聚合目标价。</li>
+<li>对应每股价值区间：<strong>17.6—21.1 元</strong>。</li>
+<li>我的判断：19.64 元位于相对估值中上部，估值需要 2026 净利增长约 28%兑现。</li>
+</ul>
+<h3>10.2 DCF</h3>
+<h4>关键假设</h4>
+<table>
+<thead>
+<tr>
+<th>假设</th>
+<th align="right">悲观</th>
+<th align="right">基准</th>
+<th align="right">乐观</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>收入增长</td>
+<td align="right">4%降至2%</td>
+<td align="right">12%降至5%</td>
+<td align="right">16%降至6%</td>
+<td>国内更新、海外与新能源三情景</td>
+</tr>
+<tr>
+<td>经营利润率</td>
+<td align="right">9.0%降至8.5%</td>
+<td align="right">10.2%升至11.0%</td>
+<td align="right">11.2%升至12.2%</td>
+<td>2025 EBIT 代理约10.45%，Q1费用扰动</td>
+</tr>
+<tr>
+<td>税率</td>
+<td align="right">17%</td>
+<td align="right">16%</td>
+<td align="right">15%</td>
+<td>2025 实际税率约14.3%，留安全垫</td>
+</tr>
+<tr>
+<td>折旧摊销</td>
+<td align="right">收入2.8%</td>
+<td align="right">收入3.0%</td>
+<td align="right">收入3.1%</td>
+<td>历史资产强度近似</td>
+</tr>
+<tr>
+<td>资本开支</td>
+<td align="right">收入3.8%</td>
+<td align="right">收入3.5%</td>
+<td align="right">收入3.4%</td>
+<td>2025 现金资本开支约3.1%</td>
+</tr>
+<tr>
+<td>营运资本变化</td>
+<td align="right">收入1.8%</td>
+<td align="right">收入1.2%</td>
+<td align="right">收入0.8%</td>
+<td>反映销售融资与应收回款差异</td>
+</tr>
+<tr>
+<td>WACC</td>
+<td align="right">10.5%</td>
+<td align="right">9.5%</td>
+<td align="right">8.5%</td>
+<td>周期制造、海外与汇率风险</td>
+</tr>
+<tr>
+<td>永续增长率</td>
+<td align="right">1.0%</td>
+<td align="right">2.5%</td>
+<td align="right">3.0%</td>
+<td>长期名义增长约束</td>
+</tr>
+</tbody></table>
+<h4>估值结果</h4>
+<p>单位：企业价值、净现金、股权价值为十亿元；净现金使用 2026Q1 货币资金减有息债务约 107.60 亿元。</p>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">企业价值</th>
+<th align="right">净债务</th>
+<th align="right">股权价值</th>
+<th align="right">每股价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观</td>
+<td align="right">43.9</td>
+<td align="right">-10.8（净现金）</td>
+<td align="right">54.7</td>
+<td align="right">5.94 元</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">125.1</td>
+<td align="right">-10.8（净现金）</td>
+<td align="right">135.8</td>
+<td align="right">14.77 元</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">218.0</td>
+<td align="right">-10.8（净现金）</td>
+<td align="right">228.7</td>
+<td align="right">24.88 元</td>
+</tr>
+</tbody></table>
+<h4>敏感性分析</h4>
+<p>基于基准经营路径，单位为元 / 股。</p>
+<table>
+<thead>
+<tr>
+<th>WACC \ 永续增长率</th>
+<th align="right">1.5%</th>
+<th align="right">2.5%</th>
+<th align="right">3.5%</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>8.5%</td>
+<td align="right">15.24</td>
+<td align="right">17.10</td>
+<td align="right">19.71</td>
+</tr>
+<tr>
+<td>9.5%</td>
+<td align="right">13.43</td>
+<td align="right">14.77</td>
+<td align="right">16.57</td>
+</tr>
+<tr>
+<td>10.5%</td>
+<td align="right">12.02</td>
+<td align="right">13.03</td>
+<td align="right">14.32</td>
+</tr>
+</tbody></table>
+<h4>反向 DCF</h4>
+<ul>
+<li>当前价格隐含的收入增长 / 终值利润率：在 WACC 9.5%、永续增长 2.5%、收入五年 CAGR 约 12%、折旧/资本开支/营运资本使用基准假设时，现价约要求经营利润率达到 <strong>12.44%</strong>；明显高于 2025 EBIT 代理约 10.45%。</li>
+<li>与历史和行业相比是否可实现：海外占比、挖机毛利与新能源结构可推动利润率，但 Q1 财务费用和现金流表明兑现并不线性。</li>
+<li>我的判断：现价不是无法解释，但已经要求“行业复苏 + 海外高毛利 + 费用正常化”大体同时兑现，安全边际不足。</li>
+</ul>
+<h3>10.3 行业特定估值</h3>
+<ul>
+<li>方法：P/B—ROE。</li>
+<li>适用理由：三一是周期制造与销售融资并存的资产负债表，资本回报决定其 PB 上限。</li>
+<li>关键假设：2026Q1 每股净资产约 10.02 元；可持续 ROE 11%—14%；给予 1.5—1.95 倍 PB，较国内同行保留品牌、海外和盈利质量溢价。</li>
+<li>对应每股价值区间：<strong>15.0—19.5 元</strong>。</li>
+<li>局限性：对海外渠道、新能源产品和矿山产品期权计价较保守；若 ROE 稳定升至 15%以上会低估。</li>
+</ul>
+<h3>10.4 估值交叉验证</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="right">每股价值区间</th>
+<th align="right">权重</th>
+<th>采信理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>相对估值</td>
+<td align="right">17.6—21.1 元</td>
+<td align="right">40%</td>
+<td>可比公司充分，但一致预期样本不可审计</td>
+</tr>
+<tr>
+<td>DCF</td>
+<td align="right">13.4—19.7 元（主要敏感区）</td>
+<td align="right">35%</td>
+<td>能约束现金流和终值，但营运资金波动很大</td>
+</tr>
+<tr>
+<td>P/B—ROE</td>
+<td align="right">15.0—19.5 元</td>
+<td align="right">25%</td>
+<td>适合周期制造，可能低估成长选择权</td>
+</tr>
+</tbody></table>
+<ul>
+<li>综合估值区间：<strong>16.5—20.5 元 / 股</strong>。</li>
+<li>相对现价上行 / 下行空间：以 19.64 元计约 <strong>-16.0%—+4.4%</strong>。</li>
+<li>为什么不机械平均：相对估值依赖低透明度预测，DCF对 WACC 与营运资金极敏感，P/B—ROE则低估海外与新能源期权；以相对估值定中枢、DCF控制下沿、P/B—ROE约束资本回报溢价。</li>
+</ul>
+<h2 id="section-11">11. 冰冰小美框架判断</h2>
+
+<h3>11.1 三要素状态总表</h3>
+<ul>
+<li>三要素结论来源：<code>bbxm-three-factor-analysis</code>。</li>
+<li>分析对象与层级：三一重工，A 股个股；兼顾工程机械行业与宏观流动性。</li>
+<li>分析截止时间：2026-07-24 09:31。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>状态</th>
+<th>核心证据</th>
+<th>核心反证</th>
+<th>失效条件</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>有利</td>
+<td>国际收入约64%、毛利率31.64%；挖机毛利34.24%；多品类、品牌、渠道与新能源增长</td>
+<td>海外贸易/汇率、国内价格战、销售融资</td>
+<td>海外利润率和回款持续恶化，挖机份额或毛利下滑</td>
+<td>中高</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>中性</td>
+<td>7月20—23日主力分档连续净流入；融资余额小幅增；个股显著强于行业</td>
+<td>市场广度极弱；行业仍低于中长期均线；ETF连续申赎未获取</td>
+<td>连续 5—10 日真实增量并突破 20.5 元可转有利；跌破 18.7 元且资金转负则转不利</td>
+<td>中</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>中性</td>
+<td>回购提议后修复、价格站上20/60日均线</td>
+<td>RSI6约76、接近价值上沿，仍低于120/250日均线，事件驱动成分高</td>
+<td>利好钝化、放量滞涨转不利；缩量消化并由业绩上修接力转有利</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h4>前六步证据映射</h4>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>前六步证据来源</th>
+<th>已验证证据</th>
+<th>反证与缺口</th>
+<th>分析状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>第4—7章；第2章来源矩阵</td>
+<td>海外、挖机、新能源、毛利率、现金流和多产品数据</td>
+<td>H1 分部、份额、订单未获取</td>
+<td>可判断为有利</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>第3、8、9章；行情快照</td>
+<td>两个以上窗口量价、融资、资金分档、筹码、行业与大盘相对强弱</td>
+<td>工程机械 ETF 申赎、主动机构身份和最新 M1/M2/社融未获取</td>
+<td>只能判断中性</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>第3、8、9章；行情快照</td>
+<td>5/20/60日相对强弱、均线、RSI、催化后反馈</td>
+<td>讨论热度、板块接力和完整情绪标序列未获取</td>
+<td>只能判断中性</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Step 6 估值约束：当前价格在价值区间上部，不能把竞争格局有利直接翻译为 <code>buy</code>。</li>
+<li>补采证据回填：本章使用的行情、融资、资金、筹码与行业证据均已回填第 2—3 章及来源快照。</li>
+</ul>
+<h3>11.2 竞争格局与比较优势</h3>
+<h4>前文证据引用</h4>
+<ul>
+<li><p>商业模式与竞争底稿：见第 4 章。</p>
+</li>
+<li><p>分部与资本回报证据：见第 5—7 章。</p>
+</li>
+<li><p>相关来源状态：见第 2 章来源矩阵。</p>
+</li>
+<li><p>分析对象与竞争层级：中国工程机械龙头在国内整机、全球出海与新能源装备三层竞争中的相对位置。</p>
+</li>
+<li><p>当前状态：<strong>有利</strong>。</p>
+</li>
+<li><p>证据充分性：充分；海外、产品、毛利率、现金流与行业需求均有法定或行业证据。</p>
+</li>
+<li><p>多产业位置景气度排序：首位为全球工程机械出海，其次为国内挖机更新与新能源化；大型矿山智能装备因收入与订单未披露列为证据不足。</p>
+</li>
+<li><p>产业链位置与利润池：公司位于整机、核心零部件、渠道服务和销售融资环节；海外高毛利与挖机利润池交叉，已去重。</p>
+</li>
+<li><p>核心比较优势：品牌、全球渠道、本地化、挖机产品力、核心零部件、灯塔工厂和售后网络。</p>
+</li>
+<li><p>竞争对手与替代方案：国内徐工、中联、柳工，全球 Caterpillar、Komatsu 等；租赁、二手机与延迟更新是客户侧替代。</p>
+</li>
+<li><p>份额、定价权、客户黏性与进入壁垒：品牌与服务提升黏性，制造规模和核心部件构成壁垒；但客户可在多品牌间切换，定价权非绝对。</p>
+</li>
+<li><p>竞争优势转化为订单、利润和现金回报的情况：2025 已转化为海外高毛利、整体利润和现金流；2026Q1 现金与净利转化弱化。</p>
+</li>
+<li><p>当前决策含义：方向具备研究资格，但价格没有留下充足安全边际。</p>
+</li>
+</ul>
+<h4>证据</h4>
+<ul>
+<li>国际主营收入 558.56 亿元、毛利率 31.64%；挖机毛利率 34.24%；新能源销售 86.4 亿元、同比 +115%。</li>
+<li>2026H1 行业挖机与装载机销量分别 +26.4%和 +26.7%。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>国内主营毛利率仅 20.69%；混凝土和其他业务毛利率下降；海外贸易、汇率与销售融资可能吞噬产品优势。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>海外收入转负且毛利率跌破 28%；挖机毛利率跌破 30%；应收、长期应收与库存连续快于收入。</li>
+</ul>
+<h3>11.3 流动性辩证分析</h3>
+<ul>
+<li>当前状态：<strong>中性</strong>。</li>
+<li>证据充分性：部分充分；量价、资金、融资、筹码和相对强弱已取得，但宏观最新官方货币序列、ETF申赎和主动机构身份不足。</li>
+</ul>
+<h4>宏观流动性</h4>
+<ul>
+<li>总量环境与边际变化：美国 10 年期国债收益率 2026-07-21 周均约 4.58%，外部贴现率仍高；人民币对美元中间价从 6 月 23 日约 6.8171 升至 7 月 23 日约 6.7906，人民币阶段升值。</li>
+<li>对本标的的传导：较高全球利率压制周期成长估值上限；人民币升值有利进口成本但不利海外收入折算，方向非单一。</li>
+</ul>
+<h4>中观流动性</h4>
+<ul>
+<li>行业 / 主题 / ETF / 机构配置变化：行业销量强，但申万工程机械指数 60/120/250 日均线仍在上方；2026Q1 香港中央结算与社保持股增加。</li>
+<li>对本标的的传导：存在龙头配置和存量迁移，但未获取工程机械 ETF 连续净申购，不能确认场外真实增量。</li>
+</ul>
+<h4>微观流动性</h4>
+<ul>
+<li>成交额、换手率、量价结构、融资和大单：7 月 20—23 日主力分档连续净流入约 1.97 / 1.38 / 0.74 / 1.61 亿元；融资余额约 14.54 亿元、日增 0.70%；筹码成本约 19.48 元。</li>
+<li>连续窗口与相对强弱：个股 20 日 +12.23%，行业 +3.85%；个股 60 日 +1.66%，行业 -3.74%，相对强势明确。</li>
+</ul>
+<h4>资金来源分类</h4>
+<table>
+<thead>
+<tr>
+<th>资金来源</th>
+<th>当前状态</th>
+<th>连续窗口证据</th>
+<th>对价格的含义</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>长期配置资金</td>
+<td>有代理证据、缺实时确认</td>
+<td>Q1 香港中央结算、社保增持；无 ETF 连续申赎</td>
+<td>支持中期承接，但不能解释 7 月每日流入</td>
+<td>中低</td>
+</tr>
+<tr>
+<td>趋势 / 交易资金</td>
+<td>活跃</td>
+<td>回购提议后连续资金净流入、20日相对强</td>
+<td>推动价格快速靠近价值上沿，持续性待验</td>
+<td>中</td>
+</tr>
+<tr>
+<td>产业资本 / 内部人</td>
+<td>提议阶段</td>
+<td>董事长提议 4—8 亿元回购，员工持股拟受让回购股</td>
+<td>形成预期承接，但尚非已完成买盘</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h4>供给与抛压</h4>
+<table>
+<thead>
+<tr>
+<th>供给来源</th>
+<th>当前状态</th>
+<th>时间窗口</th>
+<th>影响</th>
+<th>验证方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>解禁 / 减持</td>
+<td>未获取重大近期解禁或明确减持</td>
+<td>截止 2026-07-24</td>
+<td>暂无新增证据</td>
+<td>交易所公告</td>
+</tr>
+<tr>
+<td>再融资 / 可转债</td>
+<td>H股发行已完成；无新可转债证据</td>
+<td>2025—2026</td>
+<td>H股融资已稀释并增强净现金</td>
+<td>后续融资公告</td>
+</tr>
+<tr>
+<td>获利盘 / 套牢盘</td>
+<td>获利筹码约60%，19.5—20.5元为密集验证区</td>
+<td>当前</td>
+<td>上涨后兑现压力增加</td>
+<td>换手、放量滞涨与筹码成本</td>
+</tr>
+</tbody></table>
+<h4>最低数据检查</h4>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>当前窗口</th>
+<th>对比窗口</th>
+<th>结论</th>
+<th>数据源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>成交额与换手率</td>
+<td>7/20—23 放量，单日约15.8—23.2亿元</td>
+<td>6月多数约13—21亿元</td>
+<td>事件后活跃度提升</td>
+<td>行情快照</td>
+</tr>
+<tr>
+<td>融资余额与融资买入</td>
+<td>14.54亿元、日增0.70%</td>
+<td>完整中期序列未获取</td>
+<td>杠杆边际小幅增加</td>
+<td>融资融券接口</td>
+</tr>
+<tr>
+<td>主力 / 大单资金</td>
+<td>7/20—23连续净流入</td>
+<td>6月下旬至7月中反复</td>
+<td>近期改善，但此前非持续</td>
+<td>资金分档接口</td>
+</tr>
+<tr>
+<td>ETF / 北向 / 机构代理指标</td>
+<td>Q1港股通与社保持股增加</td>
+<td>2025年末</td>
+<td>有配置代理，无日度净流入证明</td>
+<td>股东表；ETF申赎未获取</td>
+</tr>
+</tbody></table>
+<h4>证据</h4>
+<ul>
+<li>个股多窗口显著强于行业，近期主力分档连续净流入，融资余额小幅上升。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>7 月 24 日早盘全市场下跌家数 4,260，行业指数低于中长期均线；回购尚未实施，真实场外增量未证实。</li>
+</ul>
+<h4>退出路径</h4>
+<ul>
+<li>资金流入如何退出：回购预期落地不及预期、20.5 元附近无盈利上修承接时，趋势资金可能向筹码成本 19.48 元及 MA20 18.71 元回撤。</li>
+<li>持续性被证伪的信号：连续 3—5 日主力资金转负、放量滞涨、融资余额上升但价格跌破 18.7 元。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>连续 5—10 日资金、成交和行业广度同步改善并站稳 20.5 元，则中性可转有利；反之跌破 18.7 元且资金转负则转不利。</li>
+</ul>
+<h3>11.4 情绪位置变化</h3>
+<ul>
+<li>当前状态：<strong>中性</strong>。</li>
+<li>证据充分性：部分充分；价格反馈可核验，讨论热度、板块接力和完整情绪标序列不足。</li>
+<li>当前所处阶段：<strong>修复向局部拥挤过渡</strong>，尚不能判定全面扩散。</li>
+<li>个股相对板块与指数的强弱：5—60 日均强于工程机械指数，20 日超额最明显。</li>
+<li>催化兑现后的价格反馈：回购提议后 7 月 20 日收涨约 4.9%，随后三日继续上行，但 7 月 24 日早盘转弱，说明利好已快速计价。</li>
+</ul>
+<h4>证据</h4>
+<ul>
+<li>价格站上 20/60 日均线、RSI6 约 76、获利筹码约 60%，从低位修复进入偏热区。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>仍低于 120/250 日均线，行业中期趋势未反转；没有板块广度和接力证据支持“主升扩散”。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>利好后放量不涨或回落跌破 18.7 元转为退潮；缩量消化并由半年报上修推动突破 20.5 元，才可转为有利扩散。</li>
+</ul>
+<h3>11.5 综合状态与主导矛盾</h3>
+<ul>
+<li>三要素综合判断：<strong>部分有利</strong>。</li>
+<li>主导要素：竞争格局与行业需求改善。</li>
+<li>拖累要素：估值安全边际、Q1 利润现金转化、宏观与行业中期流动性。</li>
+<li>主导矛盾：基本面方向改善，但价格已先行接近价值区间上沿，尚缺半年报盈利上修接力。</li>
+<li>下一验证节点：回购董事会方案、2026 半年报、月度挖机销量、19.48 / 18.7 元承接。</li>
+<li>状态切换条件：盈利上修并站稳 20.5 元可转更有利；Q2 扣非与现金流继续恶化或跌破 18.7 元转为不利。</li>
+</ul>
+<h3>11.6 三要素行动映射</h3>
+<table>
+<thead>
+<tr>
+<th>资金属性</th>
+<th>当前动作</th>
+<th>允许升级的条件</th>
+<th>降级 / 退出条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>新增现金</td>
+<td><code>observe</code></td>
+<td>16.5—17.5 元且 H1 逻辑未坏，可 <code>buy</code> 首段；或 H1 上修使价值上沿超过 23 元</td>
+<td>20.5 元以上无盈利上修不追；H1现金流与扣非继续恶化则保持 <code>observe</code></td>
+</tr>
+<tr>
+<td>已有持仓</td>
+<td><code>wait / review</code></td>
+<td>成本低于 17.5 元、仓位可控且基本面未坏可 <code>wait</code></td>
+<td>21 元以上盈利未上修可 <code>reduce</code>；跌破18.7且资金/基本面共振恶化则 <code>review</code></td>
+</tr>
+</tbody></table>
+<h3>11.7 三要素数据缺口与来源</h3>
+<table>
+<thead>
+<tr>
+<th>数据缺口</th>
+<th>已检查来源</th>
+<th>对哪一要素有影响</th>
+<th>对结论的影响</th>
+<th>补齐方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>工程机械 ETF 连续申赎</td>
+<td>行情与公开搜索</td>
+<td>流动性</td>
+<td>无法确认场外真实增量</td>
+<td>基金份额与申赎日报</td>
+</tr>
+<tr>
+<td>最新 M1/M2/社融完整序列</td>
+<td>PBOC搜索、宏观接口失败</td>
+<td>宏观流动性</td>
+<td>中观流动性置信度下降</td>
+<td>PBOC 6月金融统计正式稿</td>
+</tr>
+<tr>
+<td>机构评级与目标价明细</td>
+<td>聚合评级 / 一致预期</td>
+<td>情绪、估值</td>
+<td>不采信25.37元为强锚</td>
+<td>券商原始研报</td>
+</tr>
+<tr>
+<td>H1 分部、订单和回款</td>
+<td>Q1、年报</td>
+<td>竞争格局、风险</td>
+<td>无法确认行业增速向公司利润转化</td>
+<td>2026半年报与业绩会</td>
+</tr>
+<tr>
+<td>讨论热度与板块接力序列</td>
+<td>公开行情</td>
+<td>情绪</td>
+<td>只能判断修复，不能确认扩散</td>
+<td>连续涨跌广度与情绪标跟踪</td>
+</tr>
+</tbody></table>
+<ul>
+<li>分析口径与截止时间：2026-07-24 09:31，盘中数据不作为收盘事实。</li>
+<li>主要数据来源：法定报告、公司公告、腾讯行情聚合、工程机械协会、SAFE、FRED。</li>
+<li>数据缺口导致的置信度调整：竞争格局中高；流动性与情绪中；综合中。</li>
+</ul>
+<h3>11.8 风险方向证据</h3>
+<p>当前窗口：2026-04-29—2026-07-24；前一窗口：2026-01-01—2026-04-28。</p>
+<table>
+<thead>
+<tr>
+<th>风险类型</th>
+<th>前一窗口</th>
+<th>当前窗口</th>
+<th>方向证据</th>
+<th>反证</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本面风险</td>
+<td>等待年报后 Q1 验证</td>
+<td>行业与收入继续改善，但利润和现金流分化</td>
+<td>海外、毛利率、行业销量改善</td>
+<td>扣非净利与CFO下滑、财务费用恶化</td>
+</tr>
+<tr>
+<td>估值风险</td>
+<td>年内回落、预期较弱</td>
+<td>回购催化后快速靠近价值上沿</td>
+<td>盈利一致预期上修空间</td>
+<td>现价隐含利润率高于2025水平</td>
+</tr>
+<tr>
+<td>情绪风险</td>
+<td>价格中期偏弱</td>
+<td>短线修复偏热</td>
+<td>个股相对强、资金连续流入</td>
+<td>RSI6偏高、行业中期趋势未反转</td>
+</tr>
+<tr>
+<td>流动性风险</td>
+<td>资金反复</td>
+<td>个股承接改善、市场广度偏弱</td>
+<td>主力分档流入、融资小幅增加</td>
+<td>ETF增量缺失、当日4260家下跌</td>
+</tr>
+</tbody></table>
+<h3>11.9 风险传导链</h3>
+<ul>
+<li>信息源头：工程机械需求与价格纪律、海外贸易 / 汇率、销售融资回款、回购执行。</li>
+<li>核心变量：海外收入与毛利率、扣非利润、财务费用、应收与长期应收、经营现金流、估值倍数。</li>
+<li>传导机制：需求或价格转弱 / 汇率成本上升 → 收入与毛利承压 → 回款放慢和财务费用上升 → 扣非利润、FCF下降 → ROE与估值锚下移；反向改善则风险减弱。</li>
+<li>影响对象：三一重工盈利、现金流、资本回报与 A/H 股价格。</li>
+<li>市场行为变化：若回购未实施且 20.5 元附近利好钝化，事件资金可能撤离；若半年报上修，则趋势资金获得基本面承接。</li>
+<li>风险方向：<strong>风险持平</strong>。</li>
+<li>验证指标：H1海外毛利率、扣非净利、财务费用、CFO、应收/收入、实际回购金额、18.7—20.5元量价。</li>
+<li>失效条件：若上述指标多数边际改善则转风险减弱；若扣非、现金流与资金承接同步恶化则转风险增强。</li>
+</ul>
+<h3>11.10 风险方向结论</h3>
+<ul>
+<li>风险方向结论：<strong>风险持平</strong>。</li>
+<li>判断依据：相对前一窗口，行业需求、收入和毛利率降低了基本面下行风险，但 Q1 扣非利润、现金流、财务费用以及 7 月估值与情绪升温增加了新的兑现风险，四类风险未形成一致方向。</li>
+<li>反证：若把海外与行业销量权重置于短期费用之上，可以支持“风险减弱”；若只看回购后估值和 RSI，则可支持“风险增强”。两者均不足以覆盖全部证据。</li>
+<li>未获取到：H1财务、订单、ETF申赎、最新官方M1/M2/社融、机构目标价明细。</li>
+<li>置信度：中低。</li>
+</ul>
+<h3>11.11 四层方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>边际改善 / 无明显变化 / 边际恶化 / 未获取到</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观</td>
+<td>无明显变化</td>
+<td>国内更新政策支持与外部4.58%美债收益率、人民币升值影响相互抵消；最新货币序列缺失</td>
+</tr>
+<tr>
+<td>中观</td>
+<td>边际改善</td>
+<td>2026H1挖机与装载机销量增长，行业需求回升</td>
+</tr>
+<tr>
+<td>微观</td>
+<td>无明显变化</td>
+<td>收入和毛利改善，但扣非利润、CFO与财务费用恶化</td>
+</tr>
+<tr>
+<td>交易</td>
+<td>边际恶化</td>
+<td>相对强势和资金流入后，估值接近上沿、RSI偏热，盈亏比收窄</td>
+</tr>
+</tbody></table>
+<h3>11.12 最终动作与约束</h3>
+<ul>
+<li>主动作：<code>observe</code>。</li>
+<li>新增现金：19.64 元不买；16.5—17.5 元且 H1 未证伪时 <code>buy</code> 第一段，不超过计划仓位的 1/4。</li>
+<li>已有持仓：低成本小仓 <code>wait</code>；成本接近或高于 20.5 元、仓位偏重时 <code>review</code>，21 元以上无盈利上修可 <code>reduce</code>。</li>
+<li>承接条件：回购进入实际实施、19.48 / 18.7 元区域缩量承接、H1扣非与现金流改善。</li>
+<li>退出条件：海外毛利率跌破28%、扣非连续下降、CFO显著低于净利润且应收恶化，或跌破18.7元伴随资金持续流出。</li>
+<li>下一复核节点：回购董事会正式方案、2026半年报、7—8月挖机月度销量。</li>
+<li>我的判断：竞争格局有利能证明“值得研究”，不能证明“19.64 元值得买”；当前主要问题不是公司差，而是价格已要求多个改善同时兑现。</li>
+</ul>
+<h2 id="section-12">12. 最终结论</h2>
+
+<ul>
+<li>估值结论：<strong>合理偏高</strong>。</li>
+<li>操作结论：<strong>观望</strong>。</li>
+<li>综合估值区间：<strong>16.5—20.5 元 / 股</strong>。</li>
+<li>相对现价空间：以 19.64 元计约 <strong>-16.0%—+4.4%</strong>。</li>
+<li>如果今天这是一笔现金，我会买它吗：<strong>不会；等 16.5—17.5 元的价格安全边际，或等半年报把价值上沿实质上修。</strong></li>
+<li>我的判断：三一重工的产业方向、海外利润池和龙头比较优势都成立，且比一般国内工程机械企业更有资格享受溢价；但 Q1 经营质量分化与当前估值共同决定它更适合 <code>observe</code>，不是“行业复苏就立即 buy”。</li>
+<li>结论失效条件：H1 扣非净利与 CFO 恢复双位数增长、财务费用显著回落、海外毛利不低于31%，可上修价值区间；相反，回款、毛利和海外增长同步恶化则下修。</li>
+</ul>
+<h2 id="section-13">13. 后续监控指标</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">当前值</th>
+<th>触发阈值 / 方向</th>
+<th>数据源</th>
+<th>复核频率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>国际收入与毛利率</td>
+<td align="right">2025占主营约64%，毛利率31.64%</td>
+<td>收入保持双位数、毛利率不低于30%；跌破28%预警</td>
+<td>半年报 / 年报</td>
+<td>半年</td>
+</tr>
+<tr>
+<td>扣非净利与财务费用</td>
+<td align="right">Q1扣非20.13亿元、-16.24%；财务费用7.98亿元</td>
+<td>Q2扣非恢复增长、财务费用明显回落</td>
+<td>法定财报</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>经营现金流与应收</td>
+<td align="right">Q1 CFO35.41亿元、-19.76%；应收类与长期应收规模高</td>
+<td>CFO/净利回升；应收增速不持续高于收入</td>
+<td>法定财报</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>行业与公司挖机销量</td>
+<td align="right">2026H1行业+26.4%</td>
+<td>公司收入/销量跟上行业、价格纪律稳定</td>
+<td>协会 / 公司</td>
+<td>月 / 半年</td>
+</tr>
+<tr>
+<td>价格、估值与承接</td>
+<td align="right">19.64元；筹码成本19.48元；价值区间16.5—20.5元</td>
+<td>16.5—17.5元观察买点；20.5元以上需盈利上修</td>
+<td>行情 / 财报</td>
+<td>周 / 事件</td>
+</tr>
+</tbody></table>
+<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
+
+<ul>
+<li>未获取到：独立第三方公允价值、护城河与星级；卖方目标价逐家明细；统一 EV/EBITDA；2026H1分部、订单与回款；工程机械ETF连续申赎；最新官方M1/M2/社融完整序列；讨论热度与板块接力序列。</li>
+<li>已检查来源：上交所、巨潮资讯、公司法定报告与公告、公司官网、中国工程机械工业协会、腾讯自选股公开接口、SAFE、FRED、公开搜索。</li>
+<li>对结论的影响：估值、流动性与情绪结论置信度为中；盘中 19.64 元仅是快照，真实交易前必须复核收盘价、回购进度、半年报和个人仓位。</li>
+</ul>
+<h2 id="section-15">15. 来源清单</h2>
+
+<ol>
+<li><a href="../../../papers/三一重工机构研报-2026-07-24/三一重工2025年年度报告.pdf.md">三一重工2025年年度报告</a>，三一重工，2026-03-30。</li>
+<li><a href="../../../papers/三一重工机构研报-2026-07-24/三一重工2026年第一季度报告.pdf.md">三一重工2026年第一季度报告</a>，三一重工，2026-04-29。</li>
+<li><a href="../../../papers/三一重工机构研报-2026-07-24/三一重工2024年年度报告.pdf.md">三一重工2024年年度报告</a>，三一重工，2025-04-17。</li>
+<li><a href="../../../papers/三一重工机构研报-2026-07-24/三一重工2022年年度报告.pdf.md">三一重工2022年年度报告</a>，三一重工，2023-03-31。</li>
+<li><a href="../../../webpages/2026-07-24-三一重工行情与研究快照.md">三一重工行情与研究快照</a>，腾讯自选股公开接口及公告索引，2026-07-24。</li>
+<li><a href="../../../papers/三一重工机构研报-2026-07-24/三一重工2026-07-21董事长提议回购公告.pdf.md">关于董事长提议回购公司股份的提示性公告</a>，三一重工，2026-07-21。</li>
+<li><a href="../../../papers/三一重工机构研报-2026-07-24/三一重工2026年A股员工持股计划草案.pdf.md">2026年A股员工持股计划草案</a>，三一重工，2026-06-24。</li>
+<li><a href="../../../papers/三一重工机构研报-2026-07-24/三一重工2025年年度权益分派实施公告.pdf.md">2025年年度权益分派实施公告</a>，三一重工，2026-07-10。</li>
+<li><a href="https://static.cninfo.com.cn/finalpage/2026-03-31/1225061378.PDF">三一重工2025年年度报告（巨潮资讯）</a>，访问于2026-07-24。</li>
+<li><a href="https://finance.people.com.cn/n1/2026/0720/c1004-40764451.html">上半年我国工程机械行业运行稳中向好</a>，人民网 / 中国工程机械工业协会口径，2026-07-20。</li>
+<li><a href="https://www.sanyglobal.com/news_list/0_0_0_2/">SANY 100-Ton Mining Excavator Makes Official Debut in Europe</a>，三一全球，2026-05-29。</li>
+<li><a href="https://fred.stlouisfed.org/series/DGS10">美国10年期国债收益率 DGS10</a>，FRED，访问于2026-07-24。</li>
+<li><a href="https://www.safe.gov.cn/AppStructured/hlw/RMBQuery.do">人民币汇率中间价</a>，国家外汇管理局，访问于2026-07-24。</li>
+<li><a href="../../../../wiki/topics/冰冰小美-情绪体系理论篇.md">冰冰小美-体系三要素</a>。</li>
+<li><a href="../../../../wiki/concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势.md">竞争格局的比较优势</a>。</li>
+<li><a href="../../../../wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md">流动性辩证分析</a>。</li>
+<li><a href="../../../../wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化.md">情绪位置变化</a>。</li>
+</ol>
+<h2 id="section-16">16. 声明</h2>
+
+<p>本报告基于截至研究截止时间可取得的公开信息，不构成收益保证或持牌投资建议。真实交易前应重新核验价格、公告、回购进度、半年报、流动性、持仓成本、组合集中度和个人风险承受能力。</p>
+<script>
+(() => {
+  const endpoint = '/api/stock-quote?secid=1.600031';
+  const priceNode = document.getElementById('intraday-price');
+  const detailNode = document.getElementById('intraday-detail');
+  const statusNode = document.getElementById('intraday-status');
+  const deviationValue = document.getElementById('deviation-value');
+  const deviationDetail = document.getElementById('deviation-detail');
+  const tracker = document.getElementById('daily-tracking');
+  const snapshotPrice = 19.64;
+  const percent = value => `${value < 0 ? '-' : value > 0 ? '+' : ''}${Math.abs(value).toFixed(1)}%`;
+  function updateDeviation(price) {
+    const low = Number(tracker.dataset.valueLow);
+    const high = Number(tracker.dataset.valueHigh);
+    if (!Number.isFinite(low) || !Number.isFinite(high) || low <= 0 || high <= low) return;
+    const midpoint = (low + high) / 2;
+    const versusLow = (price / low - 1) * 100;
+    const versusMid = (price / midpoint - 1) * 100;
+    const versusHigh = (price / high - 1) * 100;
+    if (price > high) { deviationValue.textContent = `高于上沿 ${percent(versusHigh)}`; deviationValue.classList.add('bad'); }
+    else if (price < low) { deviationValue.textContent = `低于下沿 ${percent(Math.abs(versusLow))}`; deviationValue.classList.remove('bad'); }
+    else { deviationValue.textContent = '位于动态价值区间内'; deviationValue.classList.remove('bad'); }
+    deviationDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对区间中枢 ${midpoint.toFixed(2)} 元为 ${percent(versusMid)}，相对下沿为 ${percent(versusLow)}，相对上沿为 ${percent(versusHigh)}。盘中价格不改变价值区间本身。`;
+  }
+  async function refreshIntradayQuote() {
+    statusNode.textContent = '连接中'; statusNode.className = 'tracking-status';
+    try {
+      const response = await fetch(endpoint, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json(); const quote = payload && payload.data;
+      if (!quote || !Number.isFinite(quote.price) || !Number.isFinite(quote.prevClose) || !Number.isFinite(quote.changePercent) || !Number.isFinite(quote.quoteTimestamp)) throw new Error('invalid quote');
+      const quoteTime = new Date(quote.quoteTimestamp * 1000).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false });
+      priceNode.textContent = `${quote.price.toFixed(2)} 元 · ${percent(quote.changePercent)}`;
+      priceNode.classList.toggle('bad', quote.changePercent < 0);
+      detailNode.textContent = `行情时间：${quoteTime}；昨收 ${quote.prevClose.toFixed(2)} 元。来源：${payload.proxySource || '本地行情代理'}。`;
+      statusNode.textContent = '盘中实时 · 每 60 秒'; statusNode.className = 'tracking-status live'; updateDeviation(quote.price);
+    } catch { priceNode.textContent = '实时行情暂不可用'; priceNode.classList.remove('bad'); detailNode.textContent = '每日同步值仍然有效；可重新双击“大盘启动器”后刷新本页。'; statusNode.textContent = '连接失败'; statusNode.className = 'tracking-status error'; }
+  }
+  if (location.protocol === 'http:' || location.protocol === 'https:') { refreshIntradayQuote(); window.setInterval(refreshIntradayQuote, 60000); }
+  else { priceNode.textContent = Number.isFinite(snapshotPrice) ? `${snapshotPrice.toFixed(2)} 元（每日值）` : '每日值未获取'; detailNode.textContent = '当前为直接打开模式；盘中实时需通过“大盘启动器”进入本地服务。'; statusNode.textContent = '每日同步 · 实时未连接'; }
+})();
+</script></article>
+    </div>
+  </main>
+</body>
+</html>
