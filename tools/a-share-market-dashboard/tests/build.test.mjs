@@ -7,16 +7,18 @@ import { dirname, join } from 'node:path';
 import { createExampleSnapshot } from '../src/data-service.mjs';
 import {
   deriveDashboard,
+  leftEdgeFromValueRange,
   normalizeTrackingItems,
   resolveStorage,
   summarizeHoldings,
   summarizeTrackingItems,
+  trackingLeftEdgeDistance,
 } from '../src/app.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const sourcePath = join(here, '..', 'src', 'index.html');
 const artifactPath = join(here, '..', 'a-share-market-dashboard.html');
-const launcherPath = join(here, '..', '启动大盘面板.cmd');
+const launcherPath = join(here, '..', '启动面板.cmd');
 const repoRoot = join(here, '..', '..', '..');
 const hangTianElectronicsReportPath = join(
   repoRoot,
@@ -46,6 +48,9 @@ test('dashboard shell exposes every approved navigation and rendering target', (
     'layer-scores',
     'youzhiyouxing-temperature-card',
     'dividend-signal-card',
+    'event-calendar-heading',
+    'event-calendar-list',
+    'event-calendar-count',
     'metric-list',
     'position-view',
     'valuation-view',
@@ -119,7 +124,7 @@ test('sidebar exposes the personal position workspace as a first-level tree doma
   assert.match(html, /<table class="tracking-table">/);
   assert.match(html, /<button class="nav-item" type="button" data-view="book-list"><span>03<\/span>书单<\/button>/);
   assert.match(html, /<h2 class="visually-hidden" id="book-list-heading">书单<\/h2>/);
-  assert.match(html, /<thead><tr><th>标的<\/th><th>动态价值区间<\/th><th>盘中实时<\/th><th>风险方向<\/th><th>数据来自研报<\/th><\/tr><\/thead>/);
+  assert.match(html, /<thead><tr><th>标的<\/th><th>动态价值区间<\/th><th><button class="table-sort-button" type="button" id="tracking-sort-intraday"[^>]*>盘中实时<\/button><\/th><th>风险方向<\/th><th>数据来自研报<\/th><\/tr><\/thead>/);
   assert.match(html, /<tbody id="holding-tracker-list"><\/tbody>/);
   assert.doesNotMatch(html, /tracker-card/);
 });
@@ -133,6 +138,7 @@ test('market summary renders three overview cards and includes signal sources in
   assert.match(source, /id="youzhiyouxing-temperature-card"/);
   assert.match(source, /id="dividend-signal-card"/);
   assert.match(source, /id="nasdaq100-card"/);
+  assert.match(source, /id="event-calendar-list"/);
   assert.doesNotMatch(source, /预留模块/);
   assert.doesNotMatch(source, /暂空/);
   for (const marker of [
@@ -154,6 +160,9 @@ test('market summary renders three overview cards and includes signal sources in
     '当前点位',
     '距离历史最高点跌幅',
     '/api/nasdaq100',
+    'EVENT CALENDAR',
+    '事件日历',
+    'event-calendar-empty',
   ]) {
     assert.match(artifact, new RegExp(marker));
   }
@@ -356,6 +365,17 @@ test('tracking items normalize independently from actual position holdings', () 
   }
 });
 
+test('tracking intraday sort distance measures closeness to dynamic value left edge', () => {
+  assert.equal(leftEdgeFromValueRange('16.5—20.5 元'), 16.5);
+  const nearLeft = trackingLeftEdgeDistance({ valueRange: '16.5—20.5 元', livePrice: 16.8 });
+  const farFromLeft = trackingLeftEdgeDistance({ valueRange: '16.5—20.5 元', livePrice: 19.58 });
+  const parsedQuote = trackingLeftEdgeDistance({ valueRange: '7.5—11.5 元/股', reportQuote: '14.62 元 · -4.76%' });
+
+  assert.ok(nearLeft < farFromLeft);
+  assert.equal(Number.isFinite(parsedQuote), true);
+  assert.equal(trackingLeftEdgeDistance({ valueRange: '未获取到', livePrice: 12 }), Number.POSITIVE_INFINITY);
+});
+
 test('航天电子 merges static hero metrics into daily tracking and reserves a live quote', () => {
   const report = readFileSync(hangTianElectronicsReportPath, 'utf8');
 
@@ -420,7 +440,7 @@ test('built artifact is self-contained and directly openable', () => {
 
 test('built artifact explains that the launcher is required for stable live data', () => {
   const output = readFileSync(artifactPath, 'utf8');
-  assert.match(output, /启动大盘面板\.cmd/);
+  assert.match(output, /启动面板\.cmd/);
 });
 
 test('file-protocol storage restrictions fall back to an in-memory cache', () => {

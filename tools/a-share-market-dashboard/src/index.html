@@ -67,7 +67,7 @@
         </div>
       </header>
 
-      <div class="notice" id="global-notice" role="status">正在初始化。稳定联网请双击“启动大盘面板.cmd”。</div>
+      <div class="notice" id="global-notice" role="status">正在初始化。稳定联网请双击“启动面板.cmd”。</div>
 
       <section class="view is-active" id="market-summary" data-shell-content="thermometer" aria-labelledby="summary-heading">
         <div class="summary-heading compact-summary is-render-target" hidden>
@@ -89,6 +89,14 @@
           <div id="dividend-signal-card" aria-label="中证红利股息率信号"></div>
           <div id="nasdaq100-card" aria-label="纳斯达克100指数"></div>
         </div>
+
+        <section class="event-calendar panel" aria-labelledby="event-calendar-heading">
+          <div class="event-calendar-head">
+            <div><p class="eyebrow">EVENT CALENDAR</p><h2 id="event-calendar-heading">事件日历</h2></div>
+            <span id="event-calendar-count">0 项</span>
+          </div>
+          <div class="event-calendar-list" id="event-calendar-list"></div>
+        </section>
 
         <div class="hero-grid is-render-target" hidden>
           <article class="score-card">
@@ -294,7 +302,7 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
               </div>
               <div class="tracking-table-wrap">
                 <table class="tracking-table">
-                  <thead><tr><th>标的</th><th>动态价值区间</th><th>盘中实时</th><th>风险方向</th><th>数据来自研报</th></tr></thead>
+                  <thead><tr><th>标的</th><th>动态价值区间</th><th><button class="table-sort-button" type="button" id="tracking-sort-intraday" aria-pressed="false" aria-label="按盘中实时价格接近动态估值区间左侧排序">盘中实时</button></th><th>风险方向</th><th>数据来自研报</th></tr></thead>
                   <tbody id="holding-tracker-list"></tbody>
                 </table>
               </div>

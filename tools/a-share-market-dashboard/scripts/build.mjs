@@ -228,6 +228,23 @@ function validateChangelog(entries) {
   return entries;
 }
 
+function validateEventCalendar(entries) {
+  if (!Array.isArray(entries)) throw new Error('Event calendar must be an array');
+  entries.forEach((entry, index) => {
+    for (const field of ['date', 'type', 'title']) {
+      if (typeof entry[field] !== 'string' || !entry[field].trim()) {
+        throw new Error(`Invalid event calendar entry ${index}: ${field}`);
+      }
+    }
+    for (const field of ['scope', 'note']) {
+      if (entry[field] != null && typeof entry[field] !== 'string') {
+        throw new Error(`Invalid event calendar entry ${index}: ${field}`);
+      }
+    }
+  });
+  return entries;
+}
+
 function displayChangelogDate(date) {
   const match = date.match(/^(\d{4})-(\d{2})-(\d{2})$/);
   return match ? `${match[1]} 年 ${Number(match[2])} 月 ${Number(match[3])} 日` : date;
@@ -274,14 +291,16 @@ function stripModuleSyntax(source, filename) {
   return `\n// ---- ${filename} ----\n${withoutExports.trim()}\n`;
 }
 
-const [template, styles, changelogSource, ...modules] = await Promise.all([
+const [template, styles, changelogSource, eventCalendarSource, ...modules] = await Promise.all([
   readFile(join(sourceDir, 'index.html'), 'utf8'),
   readFile(join(sourceDir, 'styles.css'), 'utf8'),
   readFile(join(sourceDir, 'changelog.json'), 'utf8'),
+  readFile(join(sourceDir, 'event-calendar.json'), 'utf8'),
   ...moduleOrder.map(filename => readFile(join(sourceDir, filename), 'utf8')),
 ]);
 const industries = await Promise.all(industryDefinitions.map(scanIndustryReports));
 const changelog = validateChangelog(JSON.parse(changelogSource));
+const eventCalendar = validateEventCalendar(JSON.parse(eventCalendarSource));
 const dividendSignal = parseDividendSignal(await readFile(dividendSignalPath, 'utf8').catch(() => ''));
 
 const stockReportLinks = renderStockReportLinkMap(industries);
@@ -290,6 +309,7 @@ const bundle = modules
     const withGeneratedData = moduleOrder[index] === 'app.mjs'
       ? source
         .replace('  // STOCK_REPORT_LINKS', stockReportLinks)
+        .replace('  // EVENT_CALENDAR', JSON.stringify(eventCalendar, null, 2))
         .replace('  // CSI_DIVIDEND_SIGNAL', JSON.stringify(dividendSignal, null, 2))
       : source;
     return stripModuleSyntax(withGeneratedData, moduleOrder[index]);

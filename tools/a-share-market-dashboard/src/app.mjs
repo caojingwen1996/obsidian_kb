@@ -50,6 +50,9 @@ const STOCK_CODE_ALIASES = Object.freeze({
 const STOCK_REPORT_LINKS = Object.freeze({
   // STOCK_REPORT_LINKS
 });
+const EVENT_CALENDAR = Object.freeze(
+  // EVENT_CALENDAR
+);
 const CSI_DIVIDEND_SIGNAL = Object.freeze(
   // CSI_DIVIDEND_SIGNAL
 );
@@ -317,6 +320,22 @@ function priceRangeOnly(value) {
   return match ? compactText(match[0]) : text;
 }
 
+export function leftEdgeFromValueRange(value) {
+  const text = compactText(value);
+  const match = text.match(/(\d+(?:\.\d+)?)\s*[—\-–至到]\s*\d+(?:\.\d+)?\s*元/);
+  const leftEdge = match ? Number(match[1]) : NaN;
+  return Number.isFinite(leftEdge) && leftEdge > 0 ? leftEdge : null;
+}
+
+export function trackingLeftEdgeDistance({ valueRange, livePrice, reportQuote } = {}) {
+  const leftEdge = leftEdgeFromValueRange(valueRange);
+  const price = Number.isFinite(Number(livePrice))
+    ? Number(livePrice)
+    : Number(compactText(reportQuote).match(/(\d+(?:\.\d+)?)/)?.[1]);
+  if (!leftEdge || !Number.isFinite(price) || price <= 0) return Number.POSITIVE_INFINITY;
+  return Math.abs(price - leftEdge) / leftEdge;
+}
+
 export function parseReportSummary(html) {
   if (typeof DOMParser === 'undefined') return {};
   const documentNode = new DOMParser().parseFromString(html, 'text/html');
@@ -466,6 +485,35 @@ function renderNasdaq100Card(envelope) {
   </a>`;
 }
 
+function renderEventCalendar(events = EVENT_CALENDAR) {
+  const list = document.getElementById('event-calendar-list');
+  const count = document.getElementById('event-calendar-count');
+  if (!list || !count) return;
+  const today = new Date().toISOString().slice(0, 10);
+  const sorted = [...events]
+    .filter(event => event && typeof event === 'object')
+    .sort((left, right) => String(left.date).localeCompare(String(right.date)));
+  count.textContent = `${sorted.length} 项`;
+  if (!sorted.length) {
+    list.innerHTML = '<p class="event-calendar-empty">暂无事件。可在 src/event-calendar.json 中维护财报、政策、会议、解禁、复核节点等事件。</p>';
+    return;
+  }
+  list.innerHTML = sorted.map(event => {
+    const date = String(event.date ?? '');
+    const isPast = date && date < today;
+    const isToday = date === today;
+    const badge = isToday ? '今日' : isPast ? '已过' : '待跟踪';
+    return `<article class="event-calendar-item ${isToday ? 'is-today' : isPast ? 'is-past' : ''}">
+      <time datetime="${escapeHtml(date)}">${escapeHtml(date || '待定')}</time>
+      <div>
+        <div class="event-calendar-title"><span>${escapeHtml(event.type || '事件')}</span><strong>${escapeHtml(event.title || '未命名事件')}</strong></div>
+        <p>${escapeHtml(event.note || event.scope || '待补充说明')}</p>
+      </div>
+      <b>${badge}</b>
+    </article>`;
+  }).join('');
+}
+
 function detailCard(metric) {
   const status = metricStatus(metric);
   return `<article class="detail-card">
@@ -504,6 +552,7 @@ function renderDerived(derived, officialTemperature = { status: 'loading' }, nas
   byId('youzhiyouxing-temperature-card').innerHTML = renderYouzhiyouxingTemperatureCard(officialTemperature);
   byId('dividend-signal-card').innerHTML = renderDividendSignalCard(CSI_DIVIDEND_SIGNAL);
   byId('nasdaq100-card').innerHTML = renderNasdaq100Card(nasdaq100);
+  renderEventCalendar();
 
   byId('metric-list').innerHTML = derived.metrics.map(metric => {
     const missing = !Number.isFinite(metric.score);
@@ -698,9 +747,10 @@ function startApp() {
   const storage = resolveStorage();
   let { holdings, trackingItems } = loadPortfolio(storage);
   let trackingStatusFilter = 'all';
+  let trackingSortMode = 'updated';
   const reportSummaryCache = new Map();
   const launcherHint = globalThis.location?.protocol === 'file:'
-    ? ' 稳定联网请双击“启动大盘面板.cmd”。'
+    ? ' 稳定联网请双击“启动面板.cmd”。'
     : '';
   const notice = document.getElementById('global-notice');
   const refreshButton = document.getElementById('refresh-data');
@@ -863,12 +913,48 @@ function startApp() {
   const renderTrackingItems = () => {
     const summary = summarizeTrackingItems(trackingItems);
     const allocationMode = trackingStatusFilter === 'allocation';
-    const visibleItems = trackingStatusFilter === 'all'
+    const filteredItems = trackingStatusFilter === 'all'
       ? summary.items
       : allocationMode
         ? summary.items
       : summary.items.filter(item => item.status === trackingStatusFilter);
+    const enrichedItems = filteredItems.map((item, index) => {
+      const reportHref = reportLinkForTrackingItem(item);
+      let reportEntry = reportHref ? reportSummaryCache.get(reportHref) : null;
+      if (reportHref && !reportEntry) {
+        reportEntry = { status: 'loading' };
+        reportSummaryCache.set(reportHref, reportEntry);
+        loadReportSummary(reportHref);
+      }
+      const report = reportEntry?.data ?? {};
+      const liveQuote = reportEntry?.quote;
+      return {
+        item,
+        index,
+        reportHref,
+        reportEntry,
+        report,
+        liveQuote,
+        leftEdgeDistance: trackingLeftEdgeDistance({
+          valueRange: report.valueRange,
+          livePrice: liveQuote?.price,
+          reportQuote: report.reportQuote,
+        }),
+      };
+    });
+    const visibleItems = trackingSortMode === 'near-left'
+      ? [...enrichedItems].sort((left, right) =>
+          left.leftEdgeDistance - right.leftEdgeDistance
+          || right.item.updatedAt - left.item.updatedAt
+          || left.index - right.index
+        )
+      : enrichedItems;
     const hasAllocation = renderTrackingAllocation(summary.items);
+    const sortButton = document.getElementById('tracking-sort-intraday');
+    if (sortButton) {
+      sortButton.classList.toggle('is-active', trackingSortMode === 'near-left');
+      sortButton.setAttribute('aria-pressed', String(trackingSortMode === 'near-left'));
+    }
     document.getElementById('tracking-count').textContent = String(summary.count);
     document.getElementById('tracking-holding-count').textContent = String(summary.countByStatus['持有']);
     document.getElementById('tracking-watch-count').textContent = String(summary.countByStatus['观察']);
@@ -882,16 +968,7 @@ function startApp() {
       ? '还没有可计算的持有配比。先在仓位管理里记录持有数量和现价，或把跟踪项设为持有。'
       : '还没有跟踪标的。先在左侧新增一条观察记录。';
     empty.hidden = allocationMode ? hasAllocation : visibleItems.length > 0;
-    document.getElementById('holding-tracker-list').innerHTML = visibleItems.map(item => {
-      const reportHref = reportLinkForTrackingItem(item);
-      let reportEntry = reportHref ? reportSummaryCache.get(reportHref) : null;
-      if (reportHref && !reportEntry) {
-        reportEntry = { status: 'loading' };
-        reportSummaryCache.set(reportHref, reportEntry);
-        loadReportSummary(reportHref);
-      }
-      const report = reportEntry?.data ?? {};
-      const liveQuote = reportEntry?.quote;
+    document.getElementById('holding-tracker-list').innerHTML = visibleItems.map(({ item, reportHref, reportEntry, report, liveQuote }) => {
       const intraday = liveQuote
         ? `${liveQuote.price.toFixed(2)} 元 · ${liveQuote.changePercent >= 0 ? '+' : ''}${liveQuote.changePercent.toFixed(2)}%`
         : report.reportQuote || (reportEntry?.status === 'loading' ? '读取研报…' : item.nextAction || '未获取到');
@@ -944,7 +1021,7 @@ function startApp() {
     if (!isLocalProxyLocation()) {
       state.youzhiyouxingTemperature = {
         status: 'missing',
-        error: '稳定联网请双击“启动大盘面板.cmd”。',
+        error: '稳定联网请双击“启动面板.cmd”。',
         sourceUrl: YOUZHIYOUXING_TEMPERATURE_URL,
       };
       render();
@@ -976,7 +1053,7 @@ function startApp() {
     if (!isLocalProxyLocation()) {
       state.nasdaq100 = {
         status: 'missing',
-        error: '稳定联网请双击“启动大盘面板.cmd”。',
+        error: '稳定联网请双击“启动面板.cmd”。',
         sourceUrl: NASDAQ100_SOURCE_URL,
       };
       render();
@@ -1232,6 +1309,10 @@ function startApp() {
       item.classList.toggle('is-active', active);
       item.setAttribute('aria-pressed', String(active));
     });
+    renderTrackingItems();
+  });
+  document.getElementById('tracking-sort-intraday')?.addEventListener('click', () => {
+    trackingSortMode = trackingSortMode === 'near-left' ? 'updated' : 'near-left';
     renderTrackingItems();
   });
   document.getElementById('holding-tracker-list').addEventListener('click', event => {

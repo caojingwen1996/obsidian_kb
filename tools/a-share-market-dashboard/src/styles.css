@@ -137,6 +137,21 @@ h3 { font-size: 15px; }
 .nasdaq-drawdown.is-deep strong { color: var(--red); }
 .nasdaq-drawdown span { display: block; margin-top: 6px; color: var(--muted); font-size: 11px; }
 .nasdaq-empty { margin: auto 0 0; color: #516170; font-size: 12px; line-height: 1.7; }
+.event-calendar { margin: -16px 0 36px; padding: 18px 20px; }
+.event-calendar-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 12px; }
+.event-calendar-head h2 { margin: 4px 0 0; font-size: 18px; }
+.event-calendar-head > span { border: 1px solid var(--line); border-radius: 8px; background: #fbfcfc; color: var(--muted); padding: 6px 10px; font-size: 11px; }
+.event-calendar-list { display: grid; gap: 8px; }
+.event-calendar-item { display: grid; grid-template-columns: 98px minmax(0, 1fr) 64px; gap: 14px; align-items: center; border: 1px solid var(--line); border-radius: 9px; background: #fbfcfc; padding: 12px 14px; }
+.event-calendar-item time { color: #071a2d; font-size: 13px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.event-calendar-title { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+.event-calendar-title span { border-radius: 6px; background: #e8f0fb; color: #275fAE; padding: 3px 6px; font-size: 10px; white-space: nowrap; }
+.event-calendar-title strong { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; }
+.event-calendar-item p { margin: 5px 0 0; color: var(--muted); font-size: 11px; line-height: 1.6; }
+.event-calendar-item > b { color: var(--blue); font-size: 11px; text-align: right; white-space: nowrap; }
+.event-calendar-item.is-today { border-color: rgba(47,125,225,.45); background: #f3f7fd; }
+.event-calendar-item.is-past { opacity: .62; }
+.event-calendar-empty { margin: 0; border: 1px dashed #cbd5dc; border-radius: 9px; color: var(--muted); padding: 18px; text-align: center; font-size: 12px; }
 
 .layer-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 13px; margin-bottom: 35px; }
 .layer-card { background: var(--card); padding: 16px 17px; }
@@ -321,6 +336,10 @@ h3 { font-size: 15px; }
 .tracking-table { width: 100%; min-width: 920px; border-collapse: collapse; font-size: 11px; }
 .tracking-table th, .tracking-table td { padding: 12px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
 .tracking-table th { color: var(--muted); font-size: 9px; letter-spacing: .04em; white-space: nowrap; }
+.table-sort-button { appearance: none; border: 0; background: transparent; color: inherit; font: inherit; font-weight: 700; padding: 0; cursor: pointer; }
+.table-sort-button::after { content: "↕"; margin-left: 6px; color: var(--muted); font-size: .9em; }
+.table-sort-button.is-active { color: var(--accent); }
+.table-sort-button.is-active::after { content: "↑"; color: currentColor; }
 .tracking-table tbody tr:last-child td { border-bottom: 0; }
 .tracking-table tbody tr:hover { background: #f8fafb; }
 .tracking-table tbody tr[data-report-href] { cursor: pointer; }
@@ -403,6 +422,10 @@ h3 { font-size: 15px; }
   .industry-time { position: static; display: inline-block; margin-right: 9px; }
   .industry-dot { position: static; display: inline-block; margin-right: 7px; vertical-align: middle; box-shadow: none; }
   .industry-empty-results { margin-left: 0; }
+  .event-calendar { margin-top: 0; }
+  .event-calendar-head { align-items: flex-start; flex-direction: column; gap: 8px; }
+  .event-calendar-item { grid-template-columns: 1fr; gap: 8px; }
+  .event-calendar-item > b { text-align: left; }
   .portfolio-summary, .tracker-summary, .holding-form-grid, .tracking-form-grid { grid-template-columns: 1fr; }
   .holding-note-field, .tracking-wide-field { grid-column: auto; }
   .tracker-filter { width: 100%; justify-content: flex-start; }

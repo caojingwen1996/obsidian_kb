@@ -143,6 +143,21 @@ h3 { font-size: 15px; }
 .nasdaq-drawdown.is-deep strong { color: var(--red); }
 .nasdaq-drawdown span { display: block; margin-top: 6px; color: var(--muted); font-size: 11px; }
 .nasdaq-empty { margin: auto 0 0; color: #516170; font-size: 12px; line-height: 1.7; }
+.event-calendar { margin: -16px 0 36px; padding: 18px 20px; }
+.event-calendar-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 12px; }
+.event-calendar-head h2 { margin: 4px 0 0; font-size: 18px; }
+.event-calendar-head > span { border: 1px solid var(--line); border-radius: 8px; background: #fbfcfc; color: var(--muted); padding: 6px 10px; font-size: 11px; }
+.event-calendar-list { display: grid; gap: 8px; }
+.event-calendar-item { display: grid; grid-template-columns: 98px minmax(0, 1fr) 64px; gap: 14px; align-items: center; border: 1px solid var(--line); border-radius: 9px; background: #fbfcfc; padding: 12px 14px; }
+.event-calendar-item time { color: #071a2d; font-size: 13px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.event-calendar-title { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+.event-calendar-title span { border-radius: 6px; background: #e8f0fb; color: #275fAE; padding: 3px 6px; font-size: 10px; white-space: nowrap; }
+.event-calendar-title strong { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; }
+.event-calendar-item p { margin: 5px 0 0; color: var(--muted); font-size: 11px; line-height: 1.6; }
+.event-calendar-item > b { color: var(--blue); font-size: 11px; text-align: right; white-space: nowrap; }
+.event-calendar-item.is-today { border-color: rgba(47,125,225,.45); background: #f3f7fd; }
+.event-calendar-item.is-past { opacity: .62; }
+.event-calendar-empty { margin: 0; border: 1px dashed #cbd5dc; border-radius: 9px; color: var(--muted); padding: 18px; text-align: center; font-size: 12px; }
 
 .layer-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 13px; margin-bottom: 35px; }
 .layer-card { background: var(--card); padding: 16px 17px; }
@@ -327,6 +342,10 @@ h3 { font-size: 15px; }
 .tracking-table { width: 100%; min-width: 920px; border-collapse: collapse; font-size: 11px; }
 .tracking-table th, .tracking-table td { padding: 12px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
 .tracking-table th { color: var(--muted); font-size: 9px; letter-spacing: .04em; white-space: nowrap; }
+.table-sort-button { appearance: none; border: 0; background: transparent; color: inherit; font: inherit; font-weight: 700; padding: 0; cursor: pointer; }
+.table-sort-button::after { content: "↕"; margin-left: 6px; color: var(--muted); font-size: .9em; }
+.table-sort-button.is-active { color: var(--accent); }
+.table-sort-button.is-active::after { content: "↑"; color: currentColor; }
 .tracking-table tbody tr:last-child td { border-bottom: 0; }
 .tracking-table tbody tr:hover { background: #f8fafb; }
 .tracking-table tbody tr[data-report-href] { cursor: pointer; }
@@ -409,6 +428,10 @@ h3 { font-size: 15px; }
   .industry-time { position: static; display: inline-block; margin-right: 9px; }
   .industry-dot { position: static; display: inline-block; margin-right: 7px; vertical-align: middle; box-shadow: none; }
   .industry-empty-results { margin-left: 0; }
+  .event-calendar { margin-top: 0; }
+  .event-calendar-head { align-items: flex-start; flex-direction: column; gap: 8px; }
+  .event-calendar-item { grid-template-columns: 1fr; gap: 8px; }
+  .event-calendar-item > b { text-align: left; }
   .portfolio-summary, .tracker-summary, .holding-form-grid, .tracking-form-grid { grid-template-columns: 1fr; }
   .holding-note-field, .tracking-wide-field { grid-column: auto; }
   .tracker-filter { width: 100%; justify-content: flex-start; }
@@ -500,7 +523,7 @@ h3 { font-size: 15px; }
         </div>
       </header>
 
-      <div class="notice" id="global-notice" role="status">正在初始化。稳定联网请双击“启动大盘面板.cmd”。</div>
+      <div class="notice" id="global-notice" role="status">正在初始化。稳定联网请双击“启动面板.cmd”。</div>
 
       <section class="view is-active" id="market-summary" data-shell-content="thermometer" aria-labelledby="summary-heading">
         <div class="summary-heading compact-summary is-render-target" hidden>
@@ -522,6 +545,14 @@ h3 { font-size: 15px; }
           <div id="dividend-signal-card" aria-label="中证红利股息率信号"></div>
           <div id="nasdaq100-card" aria-label="纳斯达克100指数"></div>
         </div>
+
+        <section class="event-calendar panel" aria-labelledby="event-calendar-heading">
+          <div class="event-calendar-head">
+            <div><p class="eyebrow">EVENT CALENDAR</p><h2 id="event-calendar-heading">事件日历</h2></div>
+            <span id="event-calendar-count">0 项</span>
+          </div>
+          <div class="event-calendar-list" id="event-calendar-list"></div>
+        </section>
 
         <div class="hero-grid is-render-target" hidden>
           <article class="score-card">
@@ -1137,7 +1168,7 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
               </div>
               <div class="tracking-table-wrap">
                 <table class="tracking-table">
-                  <thead><tr><th>标的</th><th>动态价值区间</th><th>盘中实时</th><th>风险方向</th><th>数据来自研报</th></tr></thead>
+                  <thead><tr><th>标的</th><th>动态价值区间</th><th><button class="table-sort-button" type="button" id="tracking-sort-intraday" aria-pressed="false" aria-label="按盘中实时价格接近动态估值区间左侧排序">盘中实时</button></th><th>风险方向</th><th>数据来自研报</th></tr></thead>
                   <tbody id="holding-tracker-list"></tbody>
                 </table>
               </div>
@@ -1977,6 +2008,9 @@ const STOCK_REPORT_LINKS = Object.freeze({
   "中国中车": "../../sources/automations/支柱产业/2026-07-16-1334-中国中车机构级决策研报.html",
   "中科星图": "../../sources/automations/新兴产业/商业航天/2026-07-17-中科星图-机构级决策研报.html",
 });
+const EVENT_CALENDAR = Object.freeze(
+[]
+);
 const CSI_DIVIDEND_SIGNAL = Object.freeze(
 {
   "recordDate": "2026-07-24",
@@ -2264,6 +2298,22 @@ function priceRangeOnly(value) {
   return match ? compactText(match[0]) : text;
 }
 
+function leftEdgeFromValueRange(value) {
+  const text = compactText(value);
+  const match = text.match(/(\d+(?:\.\d+)?)\s*[—\-–至到]\s*\d+(?:\.\d+)?\s*元/);
+  const leftEdge = match ? Number(match[1]) : NaN;
+  return Number.isFinite(leftEdge) && leftEdge > 0 ? leftEdge : null;
+}
+
+function trackingLeftEdgeDistance({ valueRange, livePrice, reportQuote } = {}) {
+  const leftEdge = leftEdgeFromValueRange(valueRange);
+  const price = Number.isFinite(Number(livePrice))
+    ? Number(livePrice)
+    : Number(compactText(reportQuote).match(/(\d+(?:\.\d+)?)/)?.[1]);
+  if (!leftEdge || !Number.isFinite(price) || price <= 0) return Number.POSITIVE_INFINITY;
+  return Math.abs(price - leftEdge) / leftEdge;
+}
+
 function parseReportSummary(html) {
   if (typeof DOMParser === 'undefined') return {};
   const documentNode = new DOMParser().parseFromString(html, 'text/html');
@@ -2413,6 +2463,35 @@ function renderNasdaq100Card(envelope) {
   </a>`;
 }
 
+function renderEventCalendar(events = EVENT_CALENDAR) {
+  const list = document.getElementById('event-calendar-list');
+  const count = document.getElementById('event-calendar-count');
+  if (!list || !count) return;
+  const today = new Date().toISOString().slice(0, 10);
+  const sorted = [...events]
+    .filter(event => event && typeof event === 'object')
+    .sort((left, right) => String(left.date).localeCompare(String(right.date)));
+  count.textContent = `${sorted.length} 项`;
+  if (!sorted.length) {
+    list.innerHTML = '<p class="event-calendar-empty">暂无事件。可在 src/event-calendar.json 中维护财报、政策、会议、解禁、复核节点等事件。</p>';
+    return;
+  }
+  list.innerHTML = sorted.map(event => {
+    const date = String(event.date ?? '');
+    const isPast = date && date < today;
+    const isToday = date === today;
+    const badge = isToday ? '今日' : isPast ? '已过' : '待跟踪';
+    return `<article class="event-calendar-item ${isToday ? 'is-today' : isPast ? 'is-past' : ''}">
+      <time datetime="${escapeHtml(date)}">${escapeHtml(date || '待定')}</time>
+      <div>
+        <div class="event-calendar-title"><span>${escapeHtml(event.type || '事件')}</span><strong>${escapeHtml(event.title || '未命名事件')}</strong></div>
+        <p>${escapeHtml(event.note || event.scope || '待补充说明')}</p>
+      </div>
+      <b>${badge}</b>
+    </article>`;
+  }).join('');
+}
+
 function detailCard(metric) {
   const status = metricStatus(metric);
   return `<article class="detail-card">
@@ -2451,6 +2530,7 @@ function renderDerived(derived, officialTemperature = { status: 'loading' }, nas
   byId('youzhiyouxing-temperature-card').innerHTML = renderYouzhiyouxingTemperatureCard(officialTemperature);
   byId('dividend-signal-card').innerHTML = renderDividendSignalCard(CSI_DIVIDEND_SIGNAL);
   byId('nasdaq100-card').innerHTML = renderNasdaq100Card(nasdaq100);
+  renderEventCalendar();
 
   byId('metric-list').innerHTML = derived.metrics.map(metric => {
     const missing = !Number.isFinite(metric.score);
@@ -2645,9 +2725,10 @@ function startApp() {
   const storage = resolveStorage();
   let { holdings, trackingItems } = loadPortfolio(storage);
   let trackingStatusFilter = 'all';
+  let trackingSortMode = 'updated';
   const reportSummaryCache = new Map();
   const launcherHint = globalThis.location?.protocol === 'file:'
-    ? ' 稳定联网请双击“启动大盘面板.cmd”。'
+    ? ' 稳定联网请双击“启动面板.cmd”。'
     : '';
   const notice = document.getElementById('global-notice');
   const refreshButton = document.getElementById('refresh-data');
@@ -2810,12 +2891,48 @@ function startApp() {
   const renderTrackingItems = () => {
     const summary = summarizeTrackingItems(trackingItems);
     const allocationMode = trackingStatusFilter === 'allocation';
-    const visibleItems = trackingStatusFilter === 'all'
+    const filteredItems = trackingStatusFilter === 'all'
       ? summary.items
       : allocationMode
         ? summary.items
       : summary.items.filter(item => item.status === trackingStatusFilter);
+    const enrichedItems = filteredItems.map((item, index) => {
+      const reportHref = reportLinkForTrackingItem(item);
+      let reportEntry = reportHref ? reportSummaryCache.get(reportHref) : null;
+      if (reportHref && !reportEntry) {
+        reportEntry = { status: 'loading' };
+        reportSummaryCache.set(reportHref, reportEntry);
+        loadReportSummary(reportHref);
+      }
+      const report = reportEntry?.data ?? {};
+      const liveQuote = reportEntry?.quote;
+      return {
+        item,
+        index,
+        reportHref,
+        reportEntry,
+        report,
+        liveQuote,
+        leftEdgeDistance: trackingLeftEdgeDistance({
+          valueRange: report.valueRange,
+          livePrice: liveQuote?.price,
+          reportQuote: report.reportQuote,
+        }),
+      };
+    });
+    const visibleItems = trackingSortMode === 'near-left'
+      ? [...enrichedItems].sort((left, right) =>
+          left.leftEdgeDistance - right.leftEdgeDistance
+          || right.item.updatedAt - left.item.updatedAt
+          || left.index - right.index
+        )
+      : enrichedItems;
     const hasAllocation = renderTrackingAllocation(summary.items);
+    const sortButton = document.getElementById('tracking-sort-intraday');
+    if (sortButton) {
+      sortButton.classList.toggle('is-active', trackingSortMode === 'near-left');
+      sortButton.setAttribute('aria-pressed', String(trackingSortMode === 'near-left'));
+    }
     document.getElementById('tracking-count').textContent = String(summary.count);
     document.getElementById('tracking-holding-count').textContent = String(summary.countByStatus['持有']);
     document.getElementById('tracking-watch-count').textContent = String(summary.countByStatus['观察']);
@@ -2829,16 +2946,7 @@ function startApp() {
       ? '还没有可计算的持有配比。先在仓位管理里记录持有数量和现价，或把跟踪项设为持有。'
       : '还没有跟踪标的。先在左侧新增一条观察记录。';
     empty.hidden = allocationMode ? hasAllocation : visibleItems.length > 0;
-    document.getElementById('holding-tracker-list').innerHTML = visibleItems.map(item => {
-      const reportHref = reportLinkForTrackingItem(item);
-      let reportEntry = reportHref ? reportSummaryCache.get(reportHref) : null;
-      if (reportHref && !reportEntry) {
-        reportEntry = { status: 'loading' };
-        reportSummaryCache.set(reportHref, reportEntry);
-        loadReportSummary(reportHref);
-      }
-      const report = reportEntry?.data ?? {};
-      const liveQuote = reportEntry?.quote;
+    document.getElementById('holding-tracker-list').innerHTML = visibleItems.map(({ item, reportHref, reportEntry, report, liveQuote }) => {
       const intraday = liveQuote
         ? `${liveQuote.price.toFixed(2)} 元 · ${liveQuote.changePercent >= 0 ? '+' : ''}${liveQuote.changePercent.toFixed(2)}%`
         : report.reportQuote || (reportEntry?.status === 'loading' ? '读取研报…' : item.nextAction || '未获取到');
@@ -2891,7 +2999,7 @@ function startApp() {
     if (!isLocalProxyLocation()) {
       state.youzhiyouxingTemperature = {
         status: 'missing',
-        error: '稳定联网请双击“启动大盘面板.cmd”。',
+        error: '稳定联网请双击“启动面板.cmd”。',
         sourceUrl: YOUZHIYOUXING_TEMPERATURE_URL,
       };
       render();
@@ -2923,7 +3031,7 @@ function startApp() {
     if (!isLocalProxyLocation()) {
       state.nasdaq100 = {
         status: 'missing',
-        error: '稳定联网请双击“启动大盘面板.cmd”。',
+        error: '稳定联网请双击“启动面板.cmd”。',
         sourceUrl: NASDAQ100_SOURCE_URL,
       };
       render();
@@ -3179,6 +3287,10 @@ function startApp() {
       item.classList.toggle('is-active', active);
       item.setAttribute('aria-pressed', String(active));
     });
+    renderTrackingItems();
+  });
+  document.getElementById('tracking-sort-intraday')?.addEventListener('click', () => {
+    trackingSortMode = trackingSortMode === 'near-left' ? 'updated' : 'near-left';
     renderTrackingItems();
   });
   document.getElementById('holding-tracker-list').addEventListener('click', event => {

@@ -1,5 +1,38 @@
 # 知识库日志
 
+## 2026-07-24
+
+### 操作类型
+
+workbench / equity_research / commercial-aerospace / refresh
+
+### 修改文件
+
+- `sources/webpages/2026-07-24-航天电子行情与资金面快照.md`
+- `workbench/targets/2026-07-23-1427-航天电子-机构级决策研报.md`
+- `sources/automations/新兴产业/商业航天/2026-07-23-1427-航天电子-机构级决策研报.html`
+- `sources/automations/新兴产业/商业航天/商业航天产业完整分析报告.html`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` v1.0.8 原地更新 `600879 航天电子` 当前权威研报，未新建第二份研报。更新内容包括：将研究截止时间同步到 2026-07-24 收盘；把第 1 章改为基本面组 / 资金面组；将当前价格从 15.14 元更新为 14.71 元；将资金面链接更新为 `2026-07-24-航天电子资金面分析.html`；同步调整相对估值空间、流动性证据、三要素行动映射、最终结论和后续监控指标。7 月 24 日订单流与融资融券细项尚未获取到，报告明确保留为数据缺口。HTML 已由统一渲染器覆盖同名文件，并重新确认商业航天产业完整分析报告反向链接。
+
+## 2026-07-24
+
+### 操作类型
+
+automation / fund-flow-analysis / commercial-aerospace
+
+### 修改文件
+
+- `sources/automations/新兴产业/商业航天/2026-07-24-航天电子资金面分析.html`
+- `log.md`
+
+### 操作说明
+
+按 `fund-flow-analysis` 模板为 `600879 航天电子` 新增 2026-07-24 资金面 HTML 快照，保留 2026-07-21 旧版不覆盖。新版本采用 2026-07-24 收盘行情、截至 2026-07-23 的同花顺订单流代理与上交所融资融券明细；资金状态为 `结构性流出`，新增资金为 `wait / observe`，已有持仓为 `review`。报告保留订单流与账户身份边界，未将大单净流入、ETF、北向或国家队写成已确认机构买入。
+
 ## 2026-07-21
 
 ### 操作类型
@@ -17370,6 +17403,25 @@ workbench / equity_research / optimize / pillar-industry
 
 ### 操作类型
 
+workbench / equity_research / source-supplement / commercial-space
+
+### 修改文件
+
+- `sources/screenshots/2026-07-24-Wind-航天电子公司短评截图.jpg`
+- `sources/screenshots/2026-07-24-Wind-航天电子公司短评截图转写.md`
+- `workbench/targets/2026-07-23-1427-航天电子-机构级决策研报.md`
+- `sources/automations/新兴产业/商业航天/2026-07-23-1427-航天电子-机构级决策研报.html`
+- `sources/automations/新兴产业/商业航天/商业航天产业完整分析报告.html`
+- `log.md`
+
+### 操作说明
+
+将用户提供的 Wind 航天电子公司短评截图保存到 `sources/screenshots/` 并完成文字转写；同步补充到航天电子机构级决策研报的来源矩阵、行情预期、商业模式、分部盈利、季度判断、多空论据、估值约束、三要素判断、流动性资金来源、监控指标和研究局限中。处理口径为“第三方观点 / 待验证线索”，用于强化长期预期证据，但不改变当前高估、基本面恶化、资金结构性流出、wait / observe 的主结论。
+
+## 2026-07-24
+
+### 操作类型
+
 workbench / equity_research / pillar-industry-high-end-manufacturing
 
 ### 修改文件
@@ -17422,3 +17474,25 @@ automation / dividend-signal
 按 `zzhl-dividend-signal` skill 运行 `python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py --output-dir "sources/automations/中证红利信号" --run-date 2026-07-24`，刷新中证红利 `000922` 股息率信号每日记录。本轮写入记录日为 `2026-07-24`；AKShare 指数估值日期为 `2026-07-23`，中证红利 `股息率2` 为 `4.41%`；理杏仁公开页面成功解析，估值日期为 `2026-07-23`，市值加权股息率为 `4.23%`，近10年股息率分位为 `4.96%`，近10年80%分位点为 `6.12%`；中国 10 年国债收益率日期为 `2026-07-23`，收益率为 `1.7325%`，股债利差为 `2.6775` 个百分点。
 
 三类规则判断为：历史分位点 `D（不买或少买）`，绝对股息率 `C（小额定投）`，股债利差 `B（加大买入）`。综合结论为 `未进入加大买入区间`，不是重点买入区间。雪球实时行情接口返回空响应，雪球当天涨跌幅保留为 `待验证`，未用于修正股息率。
+
+## 2026-07-24
+
+### 操作类型
+
+automation / industry-routing / computing-system-cluster
+
+### 修改文件
+
+- `sources/automations/新兴产业/算力/计算系统与集群/2026-07-16-1117-紫光股份-机构级决策研报.md`
+- `sources/automations/新兴产业/算力/计算系统与集群/2026-07-16-1136-浪潮信息-机构级决策研报.md`
+- `sources/automations/新兴产业/算力/计算系统与集群/2026-07-22-计算系统与集群产业完整分析报告.md`
+- `sources/automations/新兴产业/算力/计算系统与集群/2026-07-22-计算系统与集群产业完整分析报告.html`
+- `sources/automations/新兴产业/算力/2026-07-20-算力产业完整分析报告.md`
+- `sources/automations/新兴产业/算力/2026-07-20-算力产业完整分析报告.html`
+- `workbench/index.md`
+- `tests/validate_workbench_boundary.py`
+- `log.md`
+
+### 操作说明
+
+按用户指定，将 `000938 紫光股份` 与 `000977 浪潮信息` 的机构级决策研报从 `workbench/targets/` 归位到 `sources/automations/新兴产业/算力/计算系统与集群/`。同步修正算力总报告与计算系统与集群报告中的本地研报链接，并将计算系统与集群报告中“新华三”公司映射补为“紫光股份 / 新华三”研报入口。因这两个文件已不再位于 Workbench，移除 `workbench/index.md` 中对应导航项，并同步更新 Workbench 边界校验清单。
