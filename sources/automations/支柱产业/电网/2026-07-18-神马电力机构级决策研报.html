@@ -4,329 +4,1399 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>神马电力机构级决策研报</title>
-  <style>
-    :root {
-      color-scheme: light;
-      --bg: #f7f8fa;
-      --paper: #ffffff;
-      --ink: #17202a;
-      --muted: #667085;
-      --line: #d8dee8;
-      --blue: #1d4ed8;
-      --green: #166534;
-      --amber: #b45309;
-      --red: #b91c1c;
-      --slate: #0f172a;
-      --shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
-    }
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
 
-    * { box-sizing: border-box; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
 
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--ink);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-      line-height: 1.65;
-    }
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
 
-    main {
-      max-width: 1160px;
-      margin: 0 auto;
-      padding: 32px 20px 56px;
-    }
+.daily-tracking { margin: 0 0 42px; padding: 22px; border: 1px solid #cbdade; border-radius: 16px; background: linear-gradient(135deg, #f3f8f9 0%, #fffaf0 100%); box-shadow: 0 12px 30px rgba(23, 50, 71, .07); }
+.daily-tracking-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
+.daily-tracking-kicker { margin: 0 0 4px; color: var(--teal); font-size: 12px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+.daily-tracking h2 { margin: 0; padding: 0; border: 0; font-size: 27px; }
+.daily-tracking-time { margin: 4px 0 0; color: var(--muted); font-size: 12px; text-align: right; }
+.tracking-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.tracking-grid + .tracking-grid { margin-top: 12px; }
+.tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
+.tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
+.tracking-card[data-tracking-key="dynamic-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
+.range-breakdown { display: block; }
+.range-main { display: inline-flex; align-items: center; max-width: 100%; margin-bottom: 10px; padding: 3px 9px; border-radius: 999px; background: #e7f0f3; color: var(--navy); font-size: 20px; line-height: 1.3; font-weight: 800; }
+.range-points { display: grid; gap: 7px; margin-top: 1px; }
+.range-point { display: block; padding-left: 11px; border-left: 3px solid #bed2d8; color: #245068; font-size: 14px; line-height: 1.52; font-weight: 650; }
+.tracking-value.bad { color: var(--danger); }
+.tracking-detail { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; }
+.tracking-status { display: inline-flex; margin-top: 10px; padding: 3px 8px; border-radius: 999px; color: #526b77; background: #edf2f4; font-size: 12px; font-weight: 700; }
+.tracking-status.live { color: #17604e; background: #dff3eb; }
+.tracking-status.error { color: var(--danger); background: var(--danger-bg); }
+.tracking-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; margin-top: 14px; padding-top: 13px; border-top: 1px solid #d5e0e3; color: #536d78; font-size: 13px; }
+.tracking-footer a { font-weight: 700; }
 
-    header, section {
-      background: var(--paper);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-      padding: 24px;
-      margin-bottom: 16px;
-    }
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+  .tracking-grid { grid-template-columns: 1fr; }
+}
 
-    h1 {
-      margin: 0 0 10px;
-      font-size: 30px;
-      line-height: 1.25;
-      letter-spacing: 0;
-    }
+@media (max-width: 600px) {
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+  .daily-tracking-head { display: block; }
+  .daily-tracking-time { text-align: left; }
+}
 
-    h2 {
-      margin: 0 0 14px;
-      font-size: 22px;
-      line-height: 1.3;
-      letter-spacing: 0;
-    }
-
-    h3 {
-      margin: 18px 0 8px;
-      font-size: 17px;
-      letter-spacing: 0;
-    }
-
-    p { margin: 8px 0; }
-
-    .meta {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .verdict {
-      border-left: 4px solid var(--amber);
-      background: #fff7ed;
-      padding: 14px 16px;
-      margin-top: 14px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 14px;
-    }
-
-    .card {
-      border: 1px solid var(--line);
-      background: #fbfcfe;
-      padding: 16px;
-      min-height: 140px;
-    }
-
-    .card h3 { margin-top: 0; }
-
-    .tag {
-      display: inline-block;
-      padding: 3px 8px;
-      border: 1px solid var(--line);
-      background: #f8fafc;
-      color: var(--muted);
-      font-size: 13px;
-      margin: 2px 4px 2px 0;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 12px 0 18px;
-      font-size: 14px;
-    }
-
-    th, td {
-      border: 1px solid var(--line);
-      padding: 9px 10px;
-      vertical-align: top;
-      text-align: left;
-    }
-
-    th {
-      background: #f1f5f9;
-      font-weight: 700;
-    }
-
-    .good { color: var(--green); font-weight: 700; }
-    .warn { color: var(--amber); font-weight: 700; }
-    .bad { color: var(--red); font-weight: 700; }
-
-    .chain {
-      background: var(--slate);
-      color: #e5e7eb;
-      padding: 16px;
-      overflow-x: auto;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 14px;
-      white-space: pre-wrap;
-    }
-
-    ul { margin: 8px 0 0; padding-left: 22px; }
-    a { color: var(--blue); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    @media (max-width: 860px) {
-      main { padding: 18px 12px 36px; }
-      header, section { padding: 18px; }
-      h1 { font-size: 24px; }
-      .grid { grid-template-columns: 1fr; }
-      table { display: block; overflow-x: auto; white-space: nowrap; }
-    }
-  </style>
-  <meta name="stock-secid" content="1.603530">
-  <meta name="stock-quote-endpoint" content="/api/stock-quote?secid=1.603530">
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .daily-tracking, .tracking-card { border: 1px solid #aebbc2; color: #102f43; background: #fff; box-shadow: none; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
 </head>
 <body>
-  <main>
-    <header>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · 603530.SH</p>
       <h1>神马电力机构级决策研报</h1>
-      <p class="meta">证券代码：603530.SH | 市场：上交所 A 股 | 研报更新：2026-07-18 | 行情基准：2026-07-16 收盘 42.85 元</p>
-      <p class="meta">本 HTML 版根据知识库正式研报生成，并补充“支柱产业上游关键零部件”的产业位置判断。</p>
-      <div class="verdict">
-        <strong>核心结论：</strong>神马电力是支柱产业链里的高壁垒材料部件商，主标签为<strong>支柱产业上游关键零部件</strong>，副标签为<strong>高可靠性电网材料、特高压出海、复合外绝缘替代</strong>。公司质量和产业位置较好，但 42.85 元仍缺少充分安全边际，当前动作维持 wait / observe。
-      </div>
+      <div class="hero-meta"><span>2026-07-24 收盘；公告更新至 2026-07-25</span><span>2026-07-27</span><span>上海证券交易所 / 人民币</span></div>
     </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
+<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
+<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
+<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
+<a class="toc-link" href="#section-6">6. 五年财务历史</a>
+<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
+<a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
+<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
+<a class="toc-link" href="#section-10">10. 估值</a>
+<a class="toc-link" href="#section-11">11. 冰冰小美框架判断</a>
+<a class="toc-link" href="#section-12">12. 风险清单</a>
+<a class="toc-link" href="#section-13">13. 关键验证点</a>
+<a class="toc-link" href="#section-14">14. 仓位与组合含义</a>
+<a class="toc-link" href="#section-15">15. 结论与操作计划</a>
+<a class="toc-link" href="#section-16">16. 相关页面</a></div></aside>
+      <article class="content"><blockquote>
+<p>证券代码：603530.SH<br>交易所 / 币种：上海证券交易所 / 人民币<br>研究截止时间：2026-07-24 收盘；公告更新至 2026-07-25
+报告生成时间：2026-07-27
+数据口径：A 股企业会计准则；行情为未复权收盘价；资金面为公开网页可得口径，缺失项标为未获取到。</p>
+</blockquote>
+<!-- DAILY_TRACKING_START -->
+<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-07-27 20:00（Asia/Shanghai，收盘后资料更新）" data-value-low="35" data-value-high="46">
+  <div class="daily-tracking-head">
+    <div><p class="daily-tracking-kicker">Daily decision tracker</p><h2>每日跟踪面板</h2></div>
+    <p class="daily-tracking-time">更新：2026-07-27 20:00（Asia/Shanghai，收盘后资料更新）<br>下次：收盘后 / 重大公告后</p>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">改善，但全年现金流和海外订单持续性仍待半年报验证</p><p class="tracking-detail">风险方向：风险持平。下一验证点与失效条件见第 11—13 章。</p></div>
+    <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value"><span class="range-breakdown"><span class="range-main">35 至 46 元/股。下沿=保守主业现金流价值</span><span class="range-points"><span class="range-point">中枢=电网复合外绝缘和海外业务继续增长的合理溢价</span><span class="range-point">上沿=已计入较高订单、利润率和现金转化兑现</span><span class="range-point">高于上沿需半年报和订单继续上修支撑</span></span></span></p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
+    <div class="tracking-card" data-tracking-key="risk-reward"><p class="tracking-label">盈亏比</p><p class="tracking-value bad" id="risk-reward-value">约 0.4:1</p><p class="tracking-detail" id="risk-reward-detail">每日同步价 42.41 元；到上沿 46.00 元的潜在上行 +8.5%，跌至下沿 35.00 元的风险 +21.2%。价格不改变价值区间本身。</p></div>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="daily-quote"><p class="tracking-label">每日同步价</p><p class="tracking-value">42.41 元，2026-07-24 收盘</p><p class="tracking-detail">这是报告内嵌的正式跟踪基准，离线打开仍可使用。</p><span class="tracking-status">每日快照</span></div>
+    <div class="tracking-card" data-tracking-key="intraday-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">等待连接</p><p class="tracking-detail" id="intraday-detail">通过“大盘启动器”打开后获取盘中行情，每 60 秒刷新；直接打开 HTML 时不访问外部行情。</p><span class="tracking-status" id="intraday-status">未连接</span></div>
+    <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">wait / observe</p><p class="tracking-detail">估值：合理偏贵 · wait / observe；风险：风险持平；结论置信度：中。</p><span class="tracking-status">合理偏贵</span></div>
+  </div>
+  <div class="tracking-footer"><span>资金状态：<strong>证据不足偏结构性流出</strong> · 新增/已有动作：<strong>wait / observe</strong></span><a href="./2026-07-18-神马电力资金面分层分析.html">查看完整资金面分析 →</a></div>
+</section>
+<!-- DAILY_TRACKING_END -->
+<h2 id="section-1">1. 决策摘要</h2>
 
-    <section>
-      <h2>1. 决策摘要</h2>
-      <table>
-        <tr><th>项目</th><th>结论</th></tr>
-        <tr><td>估值状态</td><td><span class="warn">合理偏贵，缺少足够安全边际</span></td></tr>
-        <tr><td>操作建议</td><td>观望；等待价格或基本面验证。</td></tr>
-        <tr><td>冰冰小美动作</td><td><strong>wait / observe</strong></td></tr>
-        <tr><td>当前价格</td><td>42.85 元，2026-07-16 收盘。</td></tr>
-        <tr><td>综合估值区间</td><td>35—46 元 / 股。</td></tr>
-        <tr><td>基准 DCF</td><td>38.82 元 / 股。</td></tr>
-        <tr><td>结论置信度</td><td>中等偏低：增长证据强，但长期现金转化和海外兑现不确定性高。</td></tr>
-      </table>
-      <p><strong>如果今天是一笔新增现金：</strong>当前不会买。价格需要回到约 37 元以下且风险转弱，或者 2026 年订单、海外收入和经营现金流显著高于基准，使公允价值上移。</p>
-    </section>
+<h3>1.1 基本面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值状态</td>
+<td>合理偏贵</td>
+</tr>
+<tr>
+<td>综合估值区间</td>
+<td>35 至 46 元/股。下沿=保守主业现金流价值；中枢=电网复合外绝缘和海外业务继续增长的合理溢价；上沿=已计入较高订单、利润率和现金转化兑现；高于上沿需半年报和订单继续上修支撑</td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>以 42.41 元计，下沿 -17.5%，上沿 +8.5%</td>
+</tr>
+<tr>
+<td>基本面状态</td>
+<td>改善，但全年现金流和海外订单持续性仍待半年报验证</td>
+</tr>
+<tr>
+<td>关键经营变化</td>
+<td>2025 年营收 17.21 亿元、归母净利润 4.32 亿元；2026Q1 营收 3.81 亿元、归母净利润 0.98 亿元，经营现金流由上年同期负值转为 1.09 亿元；7月新增期权授予强化管理层增长约束</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h3>1.2 资金面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>操作建议</td>
+<td>观望</td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td>wait / observe</td>
+</tr>
+<tr>
+<td>当前价格及时间</td>
+<td>42.41 元，2026-07-24 收盘</td>
+</tr>
+<tr>
+<td>资金状态</td>
+<td>证据不足偏结构性流出</td>
+</tr>
+<tr>
+<td>风险方向</td>
+<td>风险持平</td>
+</tr>
+<tr>
+<td>每日跟踪时间</td>
+<td>2026-07-27 20:00（Asia/Shanghai，收盘后资料更新）</td>
+</tr>
+<tr>
+<td>资金面分析链接</td>
+<td>2026-07-18-神马电力资金面分层分析.html</td>
+</tr>
+</tbody></table>
+<h3>如果今天这是一笔现金，我会买它吗？</h3>
+<ul>
+<li>回答：只在特定条件下会，现在不追买。</li>
+<li>我的判断：公司质量和产业方向不差，Q1 仍在兑现增长，但 42.41 元已经对应约 38.6 倍 TTM PE、约 9.6 倍 PB，处在价值区间中上部；新增现金没有足够安全边际，已有仓位可继续观察半年报兑现。</li>
+<li>改变结论的条件：价格回到 37 元附近，同时资金由结构性流出转为连续流入；或 2026H1 正式报告显示海外收入、毛利率、经营现金流明显超出当前基准。</li>
+<li>否决条件：海外订单或交付低于预期、毛利率跌破 43%、经营现金流再次明显弱于净利润、减持/质押/激励摊销扰动扩大。</li>
+</ul>
+<h2 id="section-2">2. 证券身份与来源矩阵</h2>
 
-    <section>
-      <h2>2. 产业位置归类</h2>
-      <div class="grid">
-        <article class="card">
-          <h3>主标签</h3>
-          <p><span class="tag">支柱产业上游关键零部件</span></p>
-          <p>公司不属于电网主设备总包，而是嵌在特高压、主网架和变电站中的高可靠性材料部件商。</p>
-        </article>
-        <article class="card">
-          <h3>副标签</h3>
-          <p><span class="tag">高可靠性电网材料</span><span class="tag">特高压出海</span><span class="tag">复合外绝缘替代</span></p>
-          <p>核心价值来自绝缘可靠性、抗污闪、防爆、轻量化、免维护和长期运行记录。</p>
-        </article>
-        <article class="card">
-          <h3>不是</h3>
-          <p><span class="tag">非纯战略资源</span><span class="tag">非典型新兴产业</span><span class="tag">非电网总投资代理</span></p>
-          <p>不能用 4 万亿元电网投资总额机械外推公司收入弹性。</p>
-        </article>
-      </div>
-      <div class="chain">电网支柱产业升级
--> 特高压 / 主网架 / 海外电网更新
--> 高电压等级可靠性要求提升
--> 复合外绝缘替代瓷和玻璃材料
--> 神马电力订单、毛利率、现金流验证</div>
-    </section>
+<h3>2.1 证券身份</h3>
+<ul>
+<li>公司全称：江苏神马电力股份有限公司。</li>
+<li>证券代码：603530.SH。</li>
+<li>上市市场：上海证券交易所主板。</li>
+<li>报告准则：中国企业会计准则。</li>
+<li>法定披露体系：上交所和中国证监会指定信息披露渠道。</li>
+<li>同名歧义：本报告不涉及神马股份（600810.SH）或其他同名企业。</li>
+</ul>
+<h3>2.2 来源矩阵</h3>
+<table>
+<thead>
+<tr>
+<th>数据项目</th>
+<th>目标来源</th>
+<th>实际来源</th>
+<th>数据时间</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>价格、52周高低、市值、PE</td>
+<td>交易所或行情平台</td>
+<td>Investing.com、Yahoo 股市、集思录</td>
+<td>2026-07-24</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>最新公告</td>
+<td>公司法定披露</td>
+<td>新浪财经公告、CFi 转录</td>
+<td>2026-07-25</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>最新季报</td>
+<td>公司法定披露</td>
+<td>2026 年一季度报告</td>
+<td>2026-04-28</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>年报与分部收入</td>
+<td>公司法定披露</td>
+<td>2025 年报摘要、2024 年报</td>
+<td>2026-04</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>融资融券</td>
+<td>交易所/行情平台</td>
+<td>同花顺 F10</td>
+<td>2026-07-24</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>大单、北向、ETF、QFII</td>
+<td>公开资金数据</td>
+<td>未获取到稳定逐日口径</td>
+<td>2026-07-27</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>卖方评级与目标价</td>
+<td>卖方研报</td>
+<td>东吴证券深度报告及公开研报摘要</td>
+<td>2026-06</td>
+<td>部分获取</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 行情与市场预期</h2>
 
-    <section>
-      <h2>3. 商业模式与竞争格局</h2>
-      <table>
-        <tr>
-          <th>项目</th>
-          <th>事实与判断</th>
-        </tr>
-        <tr>
-          <td>主营产品</td>
-          <td>变电站复合外绝缘、输配电线路复合外绝缘、橡胶密封件及相关新材料产品。</td>
-        </tr>
-        <tr>
-          <td>收入结构</td>
-          <td>2025 年变电站复合外绝缘占 73.9%，橡胶密封件占 16.0%，输配电线路复合外绝缘占 10.0%。</td>
-        </tr>
-        <tr>
-          <td>订单</td>
-          <td>2025 年新增订单约 19.48 亿元，同比增长 27.47%；海外订单 10.12 亿元，同比增长 36.40%。</td>
-        </tr>
-        <tr>
-          <td>竞争优势</td>
-          <td>高压设备认证、故障成本、运行记录和材料配方形成进入壁垒；海外收入和毛利率同步提高。</td>
-        </tr>
-        <tr>
-          <td>主要脆弱点</td>
-          <td>海外贸易壁垒、本地化产能爬坡、客户验收节奏、汇率，以及高估值对增长失速的放大。</td>
-        </tr>
-      </table>
-    </section>
+<h3>3.1 行情快照（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">数值</th>
+<th>来源</th>
+<th>时间 / 口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前价格</td>
+<td align="right">42.41 元</td>
+<td>Investing.com / Yahoo 股市</td>
+<td>2026-07-24 收盘</td>
+</tr>
+<tr>
+<td>52周最高</td>
+<td align="right">73.93 元</td>
+<td>Investing.com / Yahoo 股市</td>
+<td>2026-07-24</td>
+</tr>
+<tr>
+<td>52周最低</td>
+<td align="right">26.22 元</td>
+<td>Investing.com / Yahoo 股市</td>
+<td>2026-07-24</td>
+</tr>
+<tr>
+<td>当日涨跌幅</td>
+<td align="right">-5.25%</td>
+<td>Investing.com / Yahoo 股市</td>
+<td>2026-07-24</td>
+</tr>
+<tr>
+<td>总市值</td>
+<td align="right">约 182.96 亿元</td>
+<td>Yahoo 股市 / 集思录</td>
+<td>2026-07-24</td>
+</tr>
+<tr>
+<td>PE / PB</td>
+<td align="right">PE(TTM)约38.6倍，PB(TTM)约9.6倍</td>
+<td>Yahoo 股市 / 集思录</td>
+<td>2026-07-24</td>
+</tr>
+</tbody></table>
+<h3>3.2 第三方公允价值与评级（事实）</h3>
+<ul>
+<li>公允价值：未获取到 Morningstar 或同等可审计第三方公允价值字段。</li>
+<li>护城河评级：未获取到。</li>
+<li>星级：未获取到。</li>
+<li>已检查来源：公开行情页、公司公告、已有卖方研报文件；未把不可复核网页估值当作正式公允价值。</li>
+</ul>
+<h3>3.3 卖方评级与目标价分布（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>机构</th>
+<th>日期</th>
+<th>评级</th>
+<th align="right">目标价</th>
+<th>预测期</th>
+<th>关键假设</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>东吴证券</td>
+<td>2026-06-04</td>
+<td>买入类表述，具体评级以原文为准</td>
+<td align="right">未在本轮快照中复核到统一目标价</td>
+<td>2026-2028E</td>
+<td>复合外绝缘渗透率、海外业务增长、盈利能力维持</td>
+</tr>
+</tbody></table>
+<ul>
+<li>目标价区间 / 中位数：证据不足。</li>
+<li>样本数量与完整性：样本偏少，不能用卖方目标价替代本报告估值。</li>
+<li>来源冲突及采信理由：公司公告和财务报表优先；卖方研报仅用于交叉验证增长逻辑。</li>
+</ul>
+<h2 id="section-4">4. 商业模式与竞争格局</h2>
 
-    <section>
-      <h2>4. 十五五电网投资映射</h2>
-      <table>
-        <tr>
-          <th>产业模块</th>
-          <th>对神马电力的映射</th>
-          <th>受益强度</th>
-          <th>边界</th>
-        </tr>
-        <tr>
-          <td>特高压与主网架升级</td>
-          <td>直流支柱绝缘子、变电站复合外绝缘、高压套管及 GIS/GIL 绝缘部件。</td>
-          <td class="good">强</td>
-          <td>单个中标金额仍需落到合同、交付和收入确认。</td>
-        </tr>
-        <tr>
-          <td>新能源接入与系统稳定性</td>
-          <td>高可靠性绝缘部件随变电站和主设备扩容增长。</td>
-          <td class="good">中强</td>
-          <td>公司不掌握整站项目收入，弹性低于主设备总投资。</td>
-        </tr>
-        <tr>
-          <td>配电网扩容与数字化</td>
-          <td>输配电线路复合外绝缘、复合横担。</td>
-          <td class="warn">中弱</td>
-          <td>公司不是调度自动化、通信或配网软件供应商。</td>
-        </tr>
-        <tr>
-          <td>海外电网老化更新</td>
-          <td>变电站复合外绝缘、橡胶密封件及本地化产能。</td>
-          <td class="good">强</td>
-          <td>仍受关税、本地化爬坡和汇率约束。</td>
-        </tr>
-      </table>
-    </section>
+<h3>4.1 事实</h3>
+<ul>
+<li>收入来源：变电站复合外绝缘、输配电线路复合外绝缘、橡胶密封件及其他。</li>
+<li>客户与定价权：客户以电网、能源与海外输配电系统相关客户为主；定价权来自材料替代、可靠性、工程认证和长期客户关系。</li>
+<li>成本结构：营业成本以材料、制造、人工和工程交付相关成本为主。</li>
+<li>资本强度：制造属性明显，扩产、研发和海外交付会占用营运资本。</li>
+<li>竞争者：传统瓷/玻璃绝缘子、复合绝缘子厂商、海外电网设备供应商。</li>
+<li>监管约束：电网设备进入客户体系需要认证、运行可靠性和项目交付记录。</li>
+</ul>
+<h4>多产业位置景气度排序（事实与判断分列）</h4>
+<table>
+<thead>
+<tr>
+<th align="right">排名</th>
+<th>产业位置</th>
+<th>位置识别依据（事实）</th>
+<th>公司业务 / 资产暴露（事实）</th>
+<th>当前景气度</th>
+<th>趋势</th>
+<th>景气证据与时间</th>
+<th>财务传导</th>
+<th>验证指标 / 失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">1</td>
+<td>特高压与主网建设外绝缘</td>
+<td>藏粤工程等重点工程催化</td>
+<td>变电站复合外绝缘</td>
+<td>较高</td>
+<td>上行</td>
+<td>2026 年相关中标公告</td>
+<td>收入与毛利率</td>
+<td>中标额、交付节奏、毛利率</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td>海外输配电线路升级</td>
+<td>公司年报披露境外收入占比提升</td>
+<td>输配电线路复合外绝缘</td>
+<td>较高</td>
+<td>上行</td>
+<td>2024-2025 年报</td>
+<td>收入增速和应收账款</td>
+<td>海外订单、回款、汇率</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td>橡胶密封件</td>
+<td>与电力设备客户和工业客户相关</td>
+<td>橡胶密封件</td>
+<td>中</td>
+<td>持平</td>
+<td>年报分部</td>
+<td>稳定利润池</td>
+<td>毛利率、客户粘性</td>
+</tr>
+</tbody></table>
+<ul>
+<li>位置间交叉与去重说明：变电站与输电线路都服务电网投资，但应用环节不同，估值时不重复计算同一订单。</li>
+<li>排名第一的位置能否进入公司利润和现金流：能，但需确认重点工程交付周期和回款。</li>
+<li>弱关联 / 待验证位置：新能源装机、电力出海景气只是间接需求，不单独作为高权重估值依据。</li>
+</ul>
+<h3>4.2 我的判断</h3>
+<ul>
+<li>我的判断：公司优势来自复合外绝缘材料替代、工程可靠性记录和全球客户拓展，属于“小市场高壁垒”的电网设备细分冠军。</li>
+<li>我的判断：商业模式最脆弱环节是订单周期与现金流错配。高增长若伴随应收账款和资本开支上升，利润质量会被削弱。</li>
+<li>证伪条件：重点工程交付低于计划、海外收入增速明显回落、毛利率下降且无法用产品结构解释。</li>
+</ul>
+<h2 id="section-5">5. 分部收入与盈利拆解</h2>
 
-    <section>
-      <h2>5. 分部收入与盈利质量</h2>
-      <table>
-        <tr>
-          <th>分部</th>
-          <th>2025 收入</th>
-          <th>同比</th>
-          <th>收入占比</th>
-          <th>毛利率</th>
-        </tr>
-        <tr><td>变电站复合外绝缘</td><td>12.44 亿元</td><td>+41.43%</td><td>73.9%</td><td>48.67%</td></tr>
-        <tr><td>橡胶密封件</td><td>2.70 亿元</td><td>+21.25%</td><td>16.0%</td><td>54.16%</td></tr>
-        <tr><td>输配电线路复合外绝缘</td><td>1.69 亿元</td><td>-19.30%</td><td>10.0%</td><td>14.00%</td></tr>
-        <tr><td>境外</td><td>7.94 亿元</td><td>+41.42%</td><td>47.2%</td><td>47.34%</td></tr>
-      </table>
-      <p>增长质量的亮点是境外收入与毛利率同步提高；风险点是收入结构高度依赖变电站复合外绝缘，且 2025 年自由现金流为负。</p>
-    </section>
+<table>
+<thead>
+<tr>
+<th>分部</th>
+<th align="right">收入</th>
+<th align="right">同比</th>
+<th align="right">收入占比</th>
+<th align="right">毛利率</th>
+<th align="right">毛利率变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>变电站复合外绝缘</td>
+<td align="right">8.79 亿元</td>
+<td align="right">+34.71%</td>
+<td align="right">约65.38%</td>
+<td align="right">46.98%</td>
+<td align="right">+4.69pct</td>
+<td>2024 年报</td>
+</tr>
+<tr>
+<td>橡胶密封件</td>
+<td align="right">2.23 亿元</td>
+<td align="right">+14.10%</td>
+<td align="right">约16.55%</td>
+<td align="right">46.86%</td>
+<td align="right">+3.56pct</td>
+<td>2024 年报</td>
+</tr>
+<tr>
+<td>输配电线路复合外绝缘</td>
+<td align="right">2.09 亿元</td>
+<td align="right">+126.57%</td>
+<td align="right">约15.57%</td>
+<td align="right">25.95%</td>
+<td align="right">+8.65pct</td>
+<td>2024 年报</td>
+</tr>
+<tr>
+<td>其他业务</td>
+<td align="right">0.34 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">约2.50%</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>2024 年报</td>
+</tr>
+</tbody></table>
+<ul>
+<li>披露口径变化：2025 年报摘要获取到公司整体财务数据，本轮未完整提取 2025 年分产品表。</li>
+<li>来源冲突：无重大冲突；分部结构采用 2024 年报完整表，增长中枢采用 2025 年报摘要与 2026Q1。</li>
+<li>我的判断：增长质量处在改善阶段，但线路复合外绝缘毛利率仍低于变电站产品，海外和线路业务高增不能机械等同为同等利润率扩张。</li>
+</ul>
+<h2 id="section-6">6. 五年财务历史</h2>
 
-    <section>
-      <h2>6. 财务与估值</h2>
-      <table>
-        <tr><th>方法</th><th>区间或结论</th><th>含义</th></tr>
-        <tr><td>相对 PE</td><td>41.7—50.0 元 / 股</td><td>依赖 2026E EPS 1.39 元和 30—36 倍 PE。</td></tr>
-        <tr><td>DCF</td><td>基准 38.82 元 / 股</td><td>对收入增速、资本开支和营运资金占用敏感。</td></tr>
-        <tr><td>综合估值</td><td>35—46 元 / 股</td><td>当前 42.85 元位于区间偏上位置。</td></tr>
-      </table>
-      <p>估值问题不是公司没有成长，而是当前价格要求增长、利润率和现金转化同时兑现。2025 年经营现金流只相当于净利润约 27.2%，是关键质量折扣。</p>
-    </section>
+<table>
+<thead>
+<tr>
+<th>财年</th>
+<th align="right">营收</th>
+<th align="right">毛利率</th>
+<th align="right">经营现金流</th>
+<th align="right">资本开支</th>
+<th align="right">自由现金流</th>
+<th align="right">ROIC / 代理值</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>待补</td>
+</tr>
+<tr>
+<td>2022</td>
+<td align="right">7.37 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">-0.57 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">ROE约3.10%</td>
+<td>2024 年报</td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">9.59 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">1.04 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">ROE约9.57%</td>
+<td>2024 年报</td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">13.45 亿元</td>
+<td align="right">43.62%</td>
+<td align="right">1.60 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">ROE约18.63%</td>
+<td>2024 年报</td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">17.21 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">1.17 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">ROE约24.28%</td>
+<td>2025 年报摘要</td>
+</tr>
+</tbody></table>
+<ul>
+<li>自由现金流口径：本轮未完整提取资本开支，暂不硬算自由现金流。</li>
+<li>ROIC 口径：以 ROE 作为代理值，不等同于投入资本回报率。</li>
+<li>一次性项目和会计变化：未发现足以改变主业判断的一次性利润主导项。</li>
+<li>我的判断：收入和利润连续改善成立，但 2025 年经营现金流低于净利润，说明增长仍有营运资本占用压力。</li>
+</ul>
+<h2 id="section-7">7. 最新季度与管理层指引</h2>
 
-    <section>
-      <h2>7. 关键监控指标</h2>
-      <table>
-        <tr><th>指标</th><th>有利</th><th>不利 / 触发复盘</th></tr>
-        <tr><td>海外收入和订单</td><td>继续保持 30% 以上增长</td><td>海外增速低于 20% 或订单放缓</td></tr>
-        <tr><td>毛利率</td><td>整体毛利率不低于 46%</td><td>毛利率跌破 43%</td></tr>
-        <tr><td>现金流</td><td>经营现金流持续覆盖净利润</td><td>连续明显弱于净利润</td></tr>
-        <tr><td>产品结构</td><td>变电站复合外绝缘继续高增，线路板块止跌</td><td>关键产品增长失速或价格竞争加剧</td></tr>
-        <tr><td>资本与治理</td><td>减持低比例实施或终止，回购有效承接</td><td>减持扩散、质押风险或激励稀释</td></tr>
-      </table>
-    </section>
+<h3>7.1 最新季度（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">本期</th>
+<th align="right">同比 / 变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营收</td>
+<td align="right">3.81 亿元</td>
+<td align="right">+33.55%</td>
+<td>2026Q1</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>2026Q1</td>
+</tr>
+<tr>
+<td>净利润</td>
+<td align="right">0.98 亿元</td>
+<td align="right">+44.07%</td>
+<td>2026Q1</td>
+</tr>
+<tr>
+<td>调整后利润</td>
+<td align="right">扣非归母 0.95 亿元</td>
+<td align="right">+43.57%</td>
+<td>2026Q1</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">1.09 亿元</td>
+<td align="right">上年同期 -1.11 亿元，明显改善</td>
+<td>2026Q1</td>
+</tr>
+<tr>
+<td>订单 / 储备</td>
+<td align="right">未披露统一订单余额</td>
+<td align="right">待半年报验证</td>
+<td>公告与调研记录</td>
+</tr>
+</tbody></table>
+<h3>7.2 管理层指引（事实）</h3>
+<ul>
+<li>正式量化指引：未获取到公司对 2026 全年收入、利润、订单的正式量化指引。</li>
+<li>定性展望：公司持续强调复合外绝缘替代、海外市场、重点工程交付和提质增效。</li>
+<li>股权激励约束：2026-07-25 披露的预留授予公告显示，85.77 万份期权授予 16 名激励对象，行权价格 26.47 元/股。</li>
+</ul>
+<h3>7.3 我的判断</h3>
+<ul>
+<li>我的判断：边际变化是“Q1 现金流修复 + 期权继续绑定核心骨干”，这提高了 2026 年业绩兑现可观察度。</li>
+<li>我的判断：指引可信度中等，因为增长已有报表验证，但缺少订单余额、海外回款和分产品利润率的完整公开数据。</li>
+<li>下一验证节点：2026-08-13 中报披露。</li>
+</ul>
+<h2 id="section-8">8. 近三个月新闻与催化剂</h2>
 
-    <section>
-      <h2>8. 最终结论</h2>
-      <p>神马电力不是产业方向差，而是产业位置好、增长证据强，但价格仍在要求持续高增长和现金流改善。它的产业胜负手在订单兑现、海外增长、毛利率维持和现金流质量，不在“电网投资总额很大”这个宏观叙事本身。</p>
-      <p><strong>当前动作：</strong>新增现金 wait / observe；已有持仓按成本、仓位和现金流验证进行 review。真正进入更好买点，需要价格回到约 37 元以下且风险转弱，或半年报证明订单、海外收入、毛利率与现金流同时超预期。</p>
-    </section>
+<table>
+<thead>
+<tr>
+<th>发生日</th>
+<th>事件</th>
+<th>影响变量</th>
+<th>财务传导</th>
+<th>是否已反映</th>
+<th>验证节点</th>
+<th>失效条件</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-06-13</td>
+<td>藏粤工程中标公告</td>
+<td>主网/特高压交付预期</td>
+<td>收入、产能利用率</td>
+<td>部分反映</td>
+<td>中报合同负债/收入</td>
+<td>中标无法按期转收入</td>
+<td>公司公告</td>
+</tr>
+<tr>
+<td>2026-07-07</td>
+<td>股份回购进展公告</td>
+<td>管理层态度、股价托底</td>
+<td>对每股价值边际正向</td>
+<td>部分反映</td>
+<td>后续回购金额</td>
+<td>回购力度低或中止</td>
+<td>公司公告</td>
+</tr>
+<tr>
+<td>2026-07-25</td>
+<td>期权预留授予</td>
+<td>骨干绑定、业绩目标约束</td>
+<td>股份支付费用与中长期激励</td>
+<td>当日股价已下跌</td>
+<td>2026-2027 利润兑现</td>
+<td>业绩未达解锁条件</td>
+<td>公司公告</td>
+</tr>
+<tr>
+<td>2026-08-13</td>
+<td>中报预约披露</td>
+<td>关键验证点</td>
+<td>收入、毛利率、现金流</td>
+<td>未反映完整数据</td>
+<td>中报</td>
+<td>现金流或海外低于预期</td>
+<td>同花顺 F10</td>
+</tr>
+</tbody></table>
+<h2 id="section-9">9. 多头与空头论据</h2>
 
-    <section>
-      <h2>9. 来源与边界</h2>
-      <ul>
-        <li>本地正式研报：/Users/cjw/dev/Obsidian/wiki/wiki/queries/2026-07-16-1021-神马电力-机构级决策研报.md</li>
-        <li>来源：神马电力 2025 年年度报告、2026 年第一季度报告、东吴证券 2026-06-04 深度报告。</li>
-        <li>来源：十五五电网投资与电网行业完整分析报告。</li>
-        <li>框架：2026-07-18 冰冰小美每日汇总中的战略资源、支柱产业、新兴产业三条配置线。</li>
-      </ul>
-      <p class="meta">本报告为研究整理，不构成收益保证或投资建议。真实交易前应重新核验价格、订单、半年报、现金流、减持进展和个人风险承受能力。</p>
-    </section>
+<h3>9.1 多头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>复合外绝缘替代仍有空间</td>
+<td>2024 年主业高增，2026Q1 延续</td>
+<td>分产品收入、毛利率</td>
+<td>增速降至行业普通水平</td>
+</tr>
+<tr>
+<td>海外业务带来新增曲线</td>
+<td>2024 年境外收入 5.61 亿元</td>
+<td>海外收入、回款、汇率影响</td>
+<td>境外收入放缓或应收恶化</td>
+</tr>
+<tr>
+<td>Q1 现金流修复</td>
+<td>2026Q1 经营现金流 1.09 亿元</td>
+<td>半年报 CFO/净利润</td>
+<td>Q2 再次显著转弱</td>
+</tr>
+<tr>
+<td>激励绑定核心人员</td>
+<td>2026-07-25 期权预留授予</td>
+<td>解锁利润目标完成</td>
+<td>股份支付压力大但业绩不达标</td>
+</tr>
+</tbody></table>
+<h3>9.2 空头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值不低</td>
+<td>42.41 元对应约 38.6 倍 TTM PE</td>
+<td>PE、PB、利润上修</td>
+<td>利润显著超预期</td>
+</tr>
+<tr>
+<td>现金流历史波动</td>
+<td>2025 年 CFO 低于净利润</td>
+<td>CFO/净利润</td>
+<td>连续两个季度现金流修复</td>
+</tr>
+<tr>
+<td>资金未共振</td>
+<td>7月中下旬融资余额未持续放大，旧资金面显示结构性流出</td>
+<td>大单、融资、换手</td>
+<td>连续资金净流入</td>
+</tr>
+<tr>
+<td>预期已高</td>
+<td>52周高点曾到 73.93 元</td>
+<td>中报与订单</td>
+<td>新订单和利润率兑现</td>
+</tr>
+</tbody></table>
+<h2 id="section-10">10. 估值</h2>
+
+<h3>10.1 相对估值</h3>
+<table>
+<thead>
+<tr>
+<th>公司</th>
+<th>业务可比性</th>
+<th align="right">增长</th>
+<th align="right">利润率</th>
+<th align="right">PE</th>
+<th align="right">PB</th>
+<th align="right">EV/EBITDA</th>
+<th>数据时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>神马电力</td>
+<td>目标公司</td>
+<td align="right">高</td>
+<td align="right">高</td>
+<td align="right">约38.6</td>
+<td align="right">约9.6</td>
+<td align="right">未获取到</td>
+<td>2026-07-24</td>
+</tr>
+<tr>
+<td>可比电网设备公司</td>
+<td>中等</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>待补</td>
+</tr>
+</tbody></table>
+<ul>
+<li>选取理由：公司细分业务壁垒强，可比公司需要按电网设备、绝缘材料、海外业务占比筛选。</li>
+<li>正常化调整：使用 2026E 利润区间而非单纯 TTM。</li>
+<li>对应每股价值区间：约 34-44 元。</li>
+<li>我的判断：相对估值对增长高度敏感，当前市场已给出细分冠军溢价。</li>
+</ul>
+<h3>10.2 DCF</h3>
+<h4>关键假设</h4>
+<table>
+<thead>
+<tr>
+<th>假设</th>
+<th align="right">悲观</th>
+<th align="right">基准</th>
+<th align="right">乐观</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>收入增长</td>
+<td align="right">12%-15%</td>
+<td align="right">18%-22%</td>
+<td align="right">25%+</td>
+<td>2025 与 2026Q1 增速回落后的保守化</td>
+</tr>
+<tr>
+<td>经营利润率</td>
+<td align="right">21%-22%</td>
+<td align="right">23%-24%</td>
+<td align="right">25%+</td>
+<td>2024-2026Q1 盈利改善</td>
+</tr>
+<tr>
+<td>税率</td>
+<td align="right">15%</td>
+<td align="right">15%</td>
+<td align="right">15%</td>
+<td>高新技术企业假设，待复核</td>
+</tr>
+<tr>
+<td>折旧摊销</td>
+<td align="right">未单独建模</td>
+<td align="right">未单独建模</td>
+<td align="right">未单独建模</td>
+<td>简化口径</td>
+</tr>
+<tr>
+<td>资本开支</td>
+<td align="right">偏高</td>
+<td align="right">中等</td>
+<td align="right">可控</td>
+<td>扩产与海外交付需求</td>
+</tr>
+<tr>
+<td>营运资本变化</td>
+<td align="right">占用增加</td>
+<td align="right">温和占用</td>
+<td align="right">周转改善</td>
+<td>应收和库存压力</td>
+</tr>
+<tr>
+<td>WACC</td>
+<td align="right">9.5%</td>
+<td align="right">8.8%</td>
+<td align="right">8.2%</td>
+<td>A股中小市值制造业折现率</td>
+</tr>
+<tr>
+<td>永续增长率</td>
+<td align="right">2.0%</td>
+<td align="right">2.5%</td>
+<td align="right">3.0%</td>
+<td>成熟期保守假设</td>
+</tr>
+</tbody></table>
+<h4>估值结果</h4>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">企业价值</th>
+<th align="right">净债务</th>
+<th align="right">股权价值</th>
+<th align="right">每股价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观</td>
+<td align="right">约150亿元</td>
+<td align="right">低净债务压力</td>
+<td align="right">约150亿元</td>
+<td align="right">约35元</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">约170亿元</td>
+<td align="right">低净债务压力</td>
+<td align="right">约170亿元</td>
+<td align="right">约39元</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">约198亿元</td>
+<td align="right">低净债务压力</td>
+<td align="right">约198亿元</td>
+<td align="right">约46元</td>
+</tr>
+</tbody></table>
+<h4>敏感性分析</h4>
+<table>
+<thead>
+<tr>
+<th>WACC \ 永续增长率</th>
+<th align="right">2.0%</th>
+<th align="right">2.5%</th>
+<th align="right">3.0%</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>9.5%</td>
+<td align="right">35</td>
+<td align="right">37</td>
+<td align="right">39</td>
+</tr>
+<tr>
+<td>8.8%</td>
+<td align="right">38</td>
+<td align="right">40</td>
+<td align="right">43</td>
+</tr>
+<tr>
+<td>8.2%</td>
+<td align="right">41</td>
+<td align="right">44</td>
+<td align="right">46</td>
+</tr>
+</tbody></table>
+<h4>反向 DCF</h4>
+<ul>
+<li>当前价格隐含的收入增长 / 终值利润率：隐含公司需要维持 20% 左右收入复合增长，并维持较高利润率与现金转化。</li>
+<li>与历史和行业相比是否可实现：可实现但不便宜，要求中报和海外订单继续给证据。</li>
+<li>我的判断：当前价格不是明显泡沫，但已经没有低估保护。</li>
+</ul>
+<h3>10.3 行业特定估值</h3>
+<ul>
+<li>方法：P/E + 订单/收入兑现交叉验证。</li>
+<li>适用理由：电网设备订单和交付周期决定当年利润兑现，PE 需要结合订单质量。</li>
+<li>关键假设：2026E 归母净利润约 5.2-5.8 亿元，对应合理 PE 28-34 倍。</li>
+<li>对应每股价值区间：约 34-46 元。</li>
+<li>局限性：订单余额、海外分产品毛利率、现金回款缺失。</li>
+</ul>
+<h3>10.4 估值交叉验证</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="right">每股价值区间</th>
+<th align="right">权重</th>
+<th>采信理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>相对估值</td>
+<td align="right">34-44 元</td>
+<td align="right">35%</td>
+<td>市场可比但样本不足</td>
+</tr>
+<tr>
+<td>DCF</td>
+<td align="right">35-46 元</td>
+<td align="right">45%</td>
+<td>能体现现金流和增长约束</td>
+</tr>
+<tr>
+<td>行业特定估值</td>
+<td align="right">34-46 元</td>
+<td align="right">20%</td>
+<td>订单兑现视角补充</td>
+</tr>
+</tbody></table>
+<ul>
+<li>综合估值区间：35-46 元。</li>
+<li>相对现价上行 / 下行空间：以 42.41 元计，下行至下沿约 -17.5%，上行至上沿约 +8.5%。</li>
+<li>为什么不机械平均：当前最大不确定性是现金转化与海外订单持续性，DCF权重更高。</li>
+</ul>
+<h2 id="section-11">11. 冰冰小美框架判断</h2>
+
+<h3>11.1 三要素状态总表</h3>
+<ul>
+<li>三要素结论来源：<code>bbxm-three-factor-analysis</code>。</li>
+<li>分析对象与层级：神马电力个股，电网设备 / 复合外绝缘细分产业。</li>
+<li>分析截止时间：2026-07-24 收盘，公告更新至 2026-07-25。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>状态</th>
+<th>核心证据</th>
+<th>核心反证</th>
+<th>失效条件</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>有利</td>
+<td>细分产品高毛利、海外和重点工程增长</td>
+<td>可比公司与份额数据不完整</td>
+<td>毛利率跌破 43% 且份额无法维持</td>
+<td>中</td>
+</tr>
+<tr>
+<td>流动性辨证分析</td>
+<td>中性偏不利</td>
+<td>股价回落后融资小幅回补，但缺少大单/机构共振</td>
+<td>2026Q1 基本面改善</td>
+<td>连续放量净流入并站回价值上沿</td>
+<td>中低</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>中性偏不利</td>
+<td>从高位回撤，7月24日单日下跌 5.25%</td>
+<td>下跌后估值压力释放一部分</td>
+<td>放量跌破 40 且无基本面解释</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h4>前六步证据映射</h4>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>前六步证据来源</th>
+<th>已验证证据</th>
+<th>反证与缺口</th>
+<th>分析状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>第4-7章</td>
+<td>分部毛利率、Q1增长、重点工程公告</td>
+<td>订单余额和份额缺失</td>
+<td>可用</td>
+</tr>
+<tr>
+<td>流动性辨证分析</td>
+<td>第3、8、9章</td>
+<td>价格、融资融券、旧资金面报告</td>
+<td>北向、大单、ETF未获取到</td>
+<td>证据不足</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>第3、8、9章</td>
+<td>高位回撤、期权公告后下跌</td>
+<td>盘中与逐笔数据缺失</td>
+<td>可观察</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Step 6 估值约束：估值不并入三要素本身，只作为第11.6行动价格约束。</li>
+<li>补采证据回填：若后续补齐逐日资金流、北向和机构持仓，应先更新第2、3、8章，再回填本章。</li>
+</ul>
+<h3>11.2 竞争格局与比较优势</h3>
+<ul>
+<li>分析对象与竞争层级：复合外绝缘细分设备公司，主要竞争在材料替代、工程认证和客户粘性。</li>
+<li>当前状态：有利。</li>
+<li>证据充分性：中等；财务和公告证据足够证明增长，但不足以量化全球份额。</li>
+<li>核心比较优势：变电站复合外绝缘产品毛利率接近 47%，境内外客户共同驱动，重点工程公告提供需求验证。</li>
+<li>竞争对手与替代方案：传统瓷/玻璃绝缘子与其他复合绝缘子供应商；替代压力来自客户验证周期和价格竞争。</li>
+<li>当前决策含义：基本面可放进跟踪池，但不能因为“好公司”忽略估值和资金。</li>
+</ul>
+<h3>11.3 流动性辨证分析</h3>
+<ul>
+<li>当前状态：中性偏不利。</li>
+<li>正向证据：2026-07-24 融资净买入约 59.34 万元，未见融资余额快速下降。</li>
+<li>反向证据：融资余额规模不大；旧资金面报告显示结构性流出；本轮未获取到大单、北向、ETF、QFII、公募私募逐日买卖。</li>
+<li>辨证结论：资金没有形成“基本面改善 + 价格回落 + 增量资金承接”的共振。</li>
+<li>决策含义：新增现金等待，不用抢。</li>
+</ul>
+<h3>11.4 情绪位置变化</h3>
+<ul>
+<li>当前状态：中性偏不利。</li>
+<li>证据：52周高点 73.93 元，2026-07-24 收于 42.41 元，已经有较大回撤；但当天仍下跌 5.25%，说明资金对期权公告、估值或短期筹码仍有分歧。</li>
+<li>判断：情绪从高亢回落到分歧区，但还没有转成低位恐慌后的确定反转。</li>
+<li>失效条件：若中报强于预期并放量站回 46 元上方，情绪可重新转强；若跌破 40 元且无承接，需复核基本面是否被质疑。</li>
+</ul>
+<h3>11.5 三要素共振 / 背离</h3>
+<table>
+<thead>
+<tr>
+<th>组合</th>
+<th>当前表现</th>
+<th>解释</th>
+<th>行动</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局强</td>
+<td>成立</td>
+<td>公司在细分主业仍有质量</td>
+<td>保留观察</td>
+</tr>
+<tr>
+<td>流动性弱</td>
+<td>部分成立</td>
+<td>缺少增量资金共振</td>
+<td>不追买</td>
+</tr>
+<tr>
+<td>情绪回落</td>
+<td>成立</td>
+<td>价格从高位回撤但未见极端低估</td>
+<td>等验证</td>
+</tr>
+</tbody></table>
+<ul>
+<li>共振结论：不是买点共振，而是“基本面强、资金弱、估值不便宜”的背离。</li>
+</ul>
+<h3>11.6 行动映射</h3>
+<table>
+<thead>
+<tr>
+<th>条件</th>
+<th>动作</th>
+<th>价格/证据门槛</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>价格 35-37 元且资金止跌</td>
+<td>observe -&gt; buy candidate</td>
+<td>估值有安全边际，资金不再流出</td>
+</tr>
+<tr>
+<td>价格 40-46 元</td>
+<td>wait / observe</td>
+<td>只看中报和资金确认</td>
+</tr>
+<tr>
+<td>价格高于 46 元</td>
+<td>reduce / avoid new buy</td>
+<td>需要利润上修，否则性价比下降</td>
+</tr>
+<tr>
+<td>中报现金流差于净利润</td>
+<td>review / reduce</td>
+<td>复核增长质量</td>
+</tr>
+</tbody></table>
+<h3>11.7 风险识别嵌入</h3>
+<ul>
+<li>风险方向来源：<code>bbxm-risk-identification</code>。</li>
+<li>当前风险：风险持平。原因是旧资金面结构性流出尚未被扭转，最新公告偏中长期激励，短期不构成基本面证伪。</li>
+<li>主要风险源：估值压力、资金承接不足、海外订单和现金流兑现不确定、股权激励费用摊销。</li>
+<li>传导路径：高估值预期 -&gt; 中报或订单低于预期 -&gt; 情绪转弱 -&gt; 估值倍数压缩。</li>
+</ul>
+<h3>11.8 系统性恐慌还是个股证伪</h3>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>观察</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本面公告是否证伪</td>
+<td>未见负面经营公告</td>
+<td>暂非基本面证伪</td>
+</tr>
+<tr>
+<td>行业是否同步下跌</td>
+<td>未完整复核</td>
+<td>待验证</td>
+</tr>
+<tr>
+<td>个股资金是否异常撤退</td>
+<td>有下跌和旧资金流出，但缺逐笔数据</td>
+<td>资金分歧</td>
+</tr>
+<tr>
+<td>估值是否过高</td>
+<td>PE/PB不低</td>
+<td>估值压力成立</td>
+</tr>
+</tbody></table>
+<ul>
+<li>结论：更像估值和筹码压力下的个股分歧，不足以判定系统性恐慌，也不足以判定基本面证伪。</li>
+</ul>
+<h3>11.9 资金面与基本面交叉</h3>
+<ul>
+<li>基本面：改善。</li>
+<li>资金面：证据不足偏结构性流出。</li>
+<li>交叉含义：不能只看增长；要等资金承接证明市场愿意为增长继续付费。</li>
+<li>触发复核：若 2026-08-13 中报强于预期但股价仍走弱，重点检查机构是否在卖预期兑现。</li>
+</ul>
+<h3>11.10 预期差</h3>
+<ul>
+<li>正向预期差：海外订单和现金流在中报中超预期。</li>
+<li>负向预期差：利润高增但现金流再次走弱，或期权费用影响利润表。</li>
+<li>当前判断：预期差方向未明，价格已经反映一部分好公司溢价。</li>
+</ul>
+<h3>11.11 交易纪律</h3>
+<ul>
+<li>新增现金：不在 42 元上方追买。</li>
+<li>已有仓位：若成本低且仓位可控，可继续观察到中报；若仓位过重，反弹至价值上沿附近应做风险回收。</li>
+<li>止损/复核：跌破 40 元且无法在资金面看到承接，进入 review；跌破 37 元但基本面未变，进入重点观察。</li>
+</ul>
+<h3>11.12 框架结论</h3>
+<ul>
+<li>冰冰小美动作：<code>wait / observe</code>。</li>
+<li>核心理由：产业位置和经营趋势尚可，但资金和情绪没有形成买点共振，估值区间也不支持无条件追买。</li>
+<li>下一动作：等 2026-08-13 中报，把收入、毛利率、经营现金流、海外订单和资金承接统一复核。</li>
+</ul>
+<h2 id="section-12">12. 风险清单</h2>
+
+<table>
+<thead>
+<tr>
+<th>风险</th>
+<th>触发信号</th>
+<th>影响</th>
+<th>应对</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值压缩</td>
+<td>PE/PB高位而利润不再上修</td>
+<td>股价跌向区间下沿</td>
+<td>不追高，等安全边际</td>
+</tr>
+<tr>
+<td>现金流不匹配</td>
+<td>CFO/净利润低于 0.5</td>
+<td>利润质量下降</td>
+<td>中报后复核</td>
+</tr>
+<tr>
+<td>海外交付和回款</td>
+<td>境外收入放缓或应收上升</td>
+<td>增长故事削弱</td>
+<td>降低估值中枢</td>
+</tr>
+<tr>
+<td>重点工程延迟</td>
+<td>中标无法转收入</td>
+<td>短期业绩低于预期</td>
+<td>等订单兑现</td>
+</tr>
+<tr>
+<td>股权激励摊销</td>
+<td>费用高于预期</td>
+<td>利润表承压</td>
+<td>关注公告测算</td>
+</tr>
+<tr>
+<td>资金持续流出</td>
+<td>大单/融资/换手共振走弱</td>
+<td>情绪继续压估值</td>
+<td>review / reduce</td>
+</tr>
+</tbody></table>
+<h2 id="section-13">13. 关键验证点</h2>
+
+<table>
+<thead>
+<tr>
+<th>时间</th>
+<th>验证事项</th>
+<th>看多条件</th>
+<th>看空条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-08-13</td>
+<td>2026 年中报</td>
+<td>收入和利润继续高增，CFO同步改善</td>
+<td>利润增长但现金流弱</td>
+</tr>
+<tr>
+<td>2026Q3</td>
+<td>订单与工程交付</td>
+<td>重点工程确认收入</td>
+<td>合同负债或应收异常</td>
+</tr>
+<tr>
+<td>每日收盘后</td>
+<td>资金面跟踪</td>
+<td>连续资金流入且站稳 46 元</td>
+<td>放量跌破 40 元</td>
+</tr>
+<tr>
+<td>后续公告</td>
+<td>回购与激励</td>
+<td>回购执行、激励目标兑现</td>
+<td>回购力度低或激励扰动扩大</td>
+</tr>
+</tbody></table>
+<h2 id="section-14">14. 仓位与组合含义</h2>
+
+<ul>
+<li>新增现金：0%-半仓观察位，不建议直接打满。</li>
+<li>已有低成本仓位：可持有观察至中报，但要给 40 元和 37 元两个复核点。</li>
+<li>已有高成本仓位：反弹到 46 元附近若无利润上修，优先降低波动敞口。</li>
+<li>组合角色：适合作为电网设备细分成长观察仓，不适合作为防守底仓。</li>
+</ul>
+<h2 id="section-15">15. 结论与操作计划</h2>
+
+<ol>
+<li>当前结论：神马电力是基本面改善但估值不便宜的细分成长股。</li>
+<li>当前动作：新增现金 <code>wait / observe</code>；已有仓位以中报为核心验证节点。</li>
+<li>买入区：35-37 元附近，且资金不再结构性流出。</li>
+<li>观察区：40-46 元，重点看半年报。</li>
+<li>风险区：高于 46 元但没有订单/利润/现金流上修，性价比下降。</li>
+<li>下一次更新：2026-08-13 中报披露后，重算估值区间和风险方向。</li>
+</ol>
+<h2 id="section-16">16. 相关页面</h2>
+
+<ul>
+<li><a href="../../../manual/2026-07-16-神马电力研究数据快照.md">神马电力研究数据快照</a>：旧版研究数据来源。</li>
+<li><a href="../../../webpages/2026-07-27-神马电力最新行情公告资金快照.md">神马电力最新行情公告资金快照</a>：本轮新增行情、公告、资金来源。</li>
+<li><a href="./2026-07-18-%E7%A5%9E%E9%A9%AC%E7%94%B5%E5%8A%9B%E8%B5%84%E9%87%91%E9%9D%A2%E5%88%86%E5%B1%82%E5%88%86%E6%9E%90.html">神马电力资金面分层分析</a>：独立资金面快照，需后续刷新。</li>
+<li><a href="../../../../wiki/concepts/冰冰小美-framework-产业思维.md">产业思维</a>：用于解释公司产业位置。</li>
+<li><a href="../../../../wiki/concepts/冰冰小美-concept-风险的定义.md">风险的定义</a>：用于解释风险增强、持平与释放。</li>
+</ul>
+<script>
+(() => {
+  const endpoint = '/api/stock-quote?secid=1.603530';
+  const priceNode = document.getElementById('intraday-price');
+  const detailNode = document.getElementById('intraday-detail');
+  const statusNode = document.getElementById('intraday-status');
+  const riskRewardValue = document.getElementById('risk-reward-value');
+  const riskRewardDetail = document.getElementById('risk-reward-detail');
+  const tracker = document.getElementById('daily-tracking');
+  const snapshotPrice = 42.41;
+  const percent = value => `${value < 0 ? '-' : value > 0 ? '+' : ''}${Math.abs(value).toFixed(1)}%`;
+  function updateRiskReward(price) {
+    const low = Number(tracker.dataset.valueLow);
+    const high = Number(tracker.dataset.valueHigh);
+    if (!Number.isFinite(low) || !Number.isFinite(high) || low <= 0 || high <= low) return;
+    const upside = (high / price - 1) * 100;
+    const downside = (price / low - 1) * 100;
+    if (price <= low) {
+      riskRewardValue.textContent = '低于价值下沿';
+      riskRewardValue.classList.remove('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿潜在空间 ${percent(upside)}。价格已低于动态价值下沿，不能直接用下沿作为止损风险，需另设风控线。`;
+      return;
+    }
+    if (price >= high) {
+      riskRewardValue.textContent = '无正向盈亏比';
+      riskRewardValue.classList.add('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿空间 ${percent(upside)}，回落至下沿风险 ${percent(downside)}。价格已到或高于动态价值上沿，新增现金不具备正向盈亏比。`;
+      return;
+    }
+    const ratio = upside / downside;
+    riskRewardValue.textContent = `约 ${ratio.toFixed(1)}:1`;
+    riskRewardValue.classList.toggle('bad', ratio < 1);
+    riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；到上沿 ${high.toFixed(2)} 元的潜在上行 ${percent(upside)}，跌至下沿 ${low.toFixed(2)} 元的风险 ${percent(downside)}。盘中价格不改变价值区间本身。`;
+  }
+  async function refreshIntradayQuote() {
+    statusNode.textContent = '连接中'; statusNode.className = 'tracking-status';
+    try {
+      const response = await fetch(endpoint, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json(); const quote = payload && payload.data;
+      if (!quote || !Number.isFinite(quote.price) || !Number.isFinite(quote.prevClose) || !Number.isFinite(quote.changePercent) || !Number.isFinite(quote.quoteTimestamp)) throw new Error('invalid quote');
+      const quoteTime = new Date(quote.quoteTimestamp * 1000).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false });
+      priceNode.textContent = `${quote.price.toFixed(2)} 元 · ${percent(quote.changePercent)}`;
+      priceNode.classList.toggle('bad', quote.changePercent < 0);
+      detailNode.textContent = `行情时间：${quoteTime}；昨收 ${quote.prevClose.toFixed(2)} 元。来源：${payload.proxySource || '本地行情代理'}。`;
+      statusNode.textContent = '盘中实时 · 每 60 秒'; statusNode.className = 'tracking-status live'; updateRiskReward(quote.price);
+    } catch { priceNode.textContent = '实时行情暂不可用'; priceNode.classList.remove('bad'); detailNode.textContent = '每日同步值仍然有效；可重新双击“大盘启动器”后刷新本页。'; statusNode.textContent = '连接失败'; statusNode.className = 'tracking-status error'; }
+  }
+  if (location.protocol === 'http:' || location.protocol === 'https:') { refreshIntradayQuote(); window.setInterval(refreshIntradayQuote, 60000); }
+  else { priceNode.textContent = Number.isFinite(snapshotPrice) ? `${snapshotPrice.toFixed(2)} 元（每日值）` : '每日值未获取'; detailNode.textContent = '当前为直接打开模式；盘中实时需通过“大盘启动器”进入本地服务。'; statusNode.textContent = '每日同步 · 实时未连接'; }
+})();
+</script></article>
+    </div>
   </main>
 </body>
 </html>

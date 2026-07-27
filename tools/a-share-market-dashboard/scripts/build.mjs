@@ -8,6 +8,7 @@ const sourceDir = join(root, 'src');
 const outputPath = join(root, 'a-share-market-dashboard.html');
 const moduleOrder = ['core.mjs', 'adapters.mjs', 'data-service.mjs', 'app.mjs'];
 const automationsDir = join(repoRoot, 'sources', 'automations');
+const topicsDir = join(repoRoot, 'wiki', 'topics');
 const dividendSignalPath = join(automationsDir, '中证红利信号', '最新信号.md');
 const bbxmDailyDigestDir = join(automationsDir, 'BBXM每日汇总');
 const industryDefinitions = [
@@ -88,6 +89,47 @@ function weekdayFromDate(date) {
 function truncateText(value, maxLength = 118) {
   const text = String(value ?? '').replace(/\s+/g, ' ').trim();
   return text.length > maxLength ? `${text.slice(0, maxLength - 1)}…` : text;
+}
+
+function stripFrontmatter(markdown) {
+  return String(markdown ?? '').replace(/^---\s*[\s\S]*?\n---\s*/u, '');
+}
+
+function markdownTitle(markdown, fallback) {
+  return markdown.match(/^title:\s*"?([^"\n]+)"?\s*$/mu)?.[1]?.trim()
+    ?? markdown.match(/^#\s+(.+)$/mu)?.[1]?.trim()
+    ?? fallback;
+}
+
+function markdownSummary(markdown) {
+  const frontmatterSummary = markdown.match(/^summary:\s*"?([^"\n]+)"?\s*$/mu)?.[1]?.trim();
+  if (frontmatterSummary) return truncateText(frontmatterSummary, 118);
+  const body = stripFrontmatter(markdown)
+    .replace(/^#\s+.+$/mu, '')
+    .replace(/!\[[^\]]*\]\([^)]+\)/g, '')
+    .replace(/\[\[([^\]|]+)\|([^\]]+)\]\]/g, '$2')
+    .replace(/\[\[([^\]]+)\]\]/g, '$1')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/[#>*_`|-]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return truncateText(body || '主题页暂无可提取摘要。', 118);
+}
+
+function topicCategory(title) {
+  if (title.startsWith('冰冰小美')) return 'bbxm';
+  if (title.startsWith('碧树西风')) return 'bishi';
+  if (/AI|人工智能|模型|算力/u.test(title)) return 'ai';
+  return 'other';
+}
+
+function topicCategoryLabel(category) {
+  return {
+    bbxm: '冰冰小美',
+    bishi: '碧树西风',
+    ai: 'AI',
+    other: '其他',
+  }[category] ?? category;
 }
 
 function normalizeDigestText(value) {
@@ -171,6 +213,30 @@ async function scanBbxmDailyDigest() {
     .slice(0, 10);
 }
 
+async function scanTopicPages() {
+  const files = await readdir(topicsDir, { withFileTypes: true }).catch(() => []);
+  const topics = [];
+  for (const file of files) {
+    if (!file.isFile() || !file.name.endsWith('.md')) continue;
+    const markdown = await readFile(join(topicsDir, file.name), 'utf8');
+    const fallbackTitle = file.name.replace(/\.md$/i, '');
+    const title = markdownTitle(markdown, fallbackTitle);
+    const category = topicCategory(title);
+    topics.push({
+      filename: file.name,
+      title,
+      summary: markdownSummary(markdown),
+      category,
+      href: `../../wiki/topics/${file.name}`,
+      updated: markdown.match(/^updated:\s*"?([^"\n]+)"?\s*$/mu)?.[1]?.trim() ?? '待更新',
+    });
+  }
+  return topics.sort((left, right) =>
+    topicCategoryLabel(left.category).localeCompare(topicCategoryLabel(right.category), 'zh-CN')
+    || left.title.localeCompare(right.title, 'zh-CN')
+  );
+}
+
 function renderFeaturedDigest(groups) {
   if (!groups.length) {
     return `            <p class="personal-empty">未找到 BBXM 每日汇总。来源目录：sources/automations/BBXM每日汇总</p>`;
@@ -224,6 +290,32 @@ ${cards || summary}
             <div class="featured-source-note">来源目录：sources/automations/BBXM每日汇总</div>
 ${dayBlocks}
             <p class="featured-empty-results" hidden>没有匹配的精选条目。</p>`;
+}
+
+function renderTopicFilterTabs(topics) {
+  const categories = [...new Set(topics.map(topic => topic.category))];
+  return categories.map(category =>
+    `              <button type="button" data-topic-filter="${escapeHtml(category)}" aria-pressed="false">${escapeHtml(topicCategoryLabel(category))}</button>`
+  ).join('\n');
+}
+
+function renderTopicCards(topics) {
+  if (!topics.length) {
+    return `            <p class="personal-empty">未找到主题页。来源目录：wiki/topics</p>`;
+  }
+  const cards = topics.map(topic =>
+    `              <article class="topic-card" data-topic-category="${escapeHtml(topic.category)}">
+                <div class="topic-card-meta"><span>${escapeHtml(topicCategoryLabel(topic.category))}</span><span>${escapeHtml(topic.updated)}</span></div>
+                <h3><a href="${escapeHtml(topic.href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(topic.title)}</a></h3>
+                <p>${escapeHtml(topic.summary)}</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="${escapeHtml(topic.href)}" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>`
+  ).join('\n');
+  return `            <div class="topic-source-note">来源目录：wiki/topics · ${topics.length} 个主题页</div>
+            <div class="topic-grid">
+${cards}
+            </div>
+            <p class="topic-empty-results" hidden>没有匹配的主题页。</p>`;
 }
 
 async function walkHtmlFiles(directory, pathParts = []) {
@@ -453,6 +545,7 @@ const [template, styles, changelogSource, eventCalendarSource, ...modules] = awa
 ]);
 const industries = await Promise.all(industryDefinitions.map(scanIndustryReports));
 const bbxmDailyDigest = await scanBbxmDailyDigest();
+const topicPages = await scanTopicPages();
 const changelog = validateChangelog(JSON.parse(changelogSource));
 const eventCalendar = validateEventCalendar(JSON.parse(eventCalendarSource));
 const dividendSignal = parseDividendSignal(await readFile(dividendSignalPath, 'utf8').catch(() => ''));
@@ -485,6 +578,8 @@ for (const industry of industries) {
 
 const output = renderedTemplate
   .replace('            <!-- BBXM_FEATURED_DIGEST -->', renderFeaturedDigest(bbxmDailyDigest))
+  .replace('              <!-- TOPIC_FILTER_TABS -->', renderTopicFilterTabs(topicPages))
+  .replace('            <!-- TOPIC_CARDS -->', renderTopicCards(topicPages))
   .replace('        <!-- CHANGELOG_ENTRIES -->', renderChangelog(changelog))
   .replace('<!-- DASHBOARD_STYLES -->', `<style>${styles.trim()}</style>`)
   .replace('<!-- DASHBOARD_SCRIPT -->', `<script type="module">${bundle}</script>`);

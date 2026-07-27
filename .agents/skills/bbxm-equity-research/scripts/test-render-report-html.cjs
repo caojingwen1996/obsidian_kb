@@ -171,7 +171,7 @@ assert.equal((html.match(/DAILY_TRACKING_END/g) || []).length, 1);
 for (const marker of [
   'data-tracking-key="fundamental-status"',
   'data-tracking-key="dynamic-value-range"',
-  'data-tracking-key="price-deviation"',
+  'data-tracking-key="risk-reward"',
   'data-tracking-key="daily-quote"',
   'data-tracking-key="intraday-quote"',
   'data-tracking-key="action-confidence"',
@@ -183,6 +183,8 @@ for (const marker of [
 }
 assert.match(html, /高估 · wait \/ review/);
 assert.match(html, /7.5—11.5/);
+assert.match(html, /盈亏比/);
+assert.match(html, /无正向盈亏比/);
 assert.equal((html.match(/class="toc-link"/g) || []).length, 16);
 assert.doesNotMatch(html, /\[\[/);
 assert.doesNotMatch(html, /�|12\?24|\?\?/);

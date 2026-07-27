@@ -14,6 +14,8 @@ import {
   summarizeHoldings,
   summarizeTrackingItems,
   trackingLeftEdgeDistance,
+  trackingQuotePriceOnly,
+  trackingRiskRewardForQuote,
   trackingSignalForQuote,
   valueRangePrices,
 } from '../src/app.mjs';
@@ -92,6 +94,7 @@ test('sidebar exposes the personal position workspace as a first-level tree doma
     'position-manager',
     'holding-tracker',
     'featured-digest',
+    'topic-map',
     'holding-form',
     'tracking-form',
     'tracking-count',
@@ -130,11 +133,15 @@ test('sidebar exposes the personal position workspace as a first-level tree doma
   assert.match(html, /class="tracking-table-wrap"/);
   assert.match(html, /<table class="tracking-table">/);
   assert.match(html, /id="tree-thermometer"[\s\S]*<button class="nav-item" type="button" data-view="featured-digest"><span>07<\/span>精选汇总<\/button>/);
+  assert.match(html, /id="tree-thermometer"[\s\S]*<button class="nav-item" type="button" data-view="topic-map"><span>08<\/span>主题<\/button>/);
   const personalTree = html.match(/<div class="tree-children" id="tree-personal" hidden>[\s\S]*?<\/div>/)?.[0] ?? '';
   assert.doesNotMatch(personalTree, /data-view="featured-digest"/);
+  assert.doesNotMatch(personalTree, /data-view="topic-map"/);
   assert.match(html, /<section class="view" id="featured-digest" data-shell-content="thermometer" aria-labelledby="featured-digest-heading">/);
   assert.match(html, /<h2 class="visually-hidden" id="featured-digest-heading">精选汇总<\/h2>/);
-  assert.match(html, /<thead><tr><th>标的<\/th><th>动态价值区间<\/th><th><button class="table-sort-button" type="button" id="tracking-sort-intraday"[^>]*>盘中实时<\/button><\/th><th>风险方向<\/th><th>数据来自研报<\/th><\/tr><\/thead>/);
+  assert.match(html, /<section class="view" id="topic-map" data-shell-content="thermometer" aria-labelledby="topic-map-heading">/);
+  assert.match(html, /<h2[^>]*id="topic-map-heading"[^>]*>主题<\/h2>/);
+  assert.match(html, /<thead><tr><th>标的<\/th><th>动态价值区间<\/th><th>盘中实时<\/th><th><button class="table-sort-button" type="button" id="tracking-sort-intraday"[^>]*>盈亏比<\/button><\/th><th>风险方向<\/th><th>数据来自研报<\/th><th>星级<\/th><\/tr><\/thead>/);
   assert.match(html, /<tbody id="holding-tracker-list"><\/tbody>/);
   assert.doesNotMatch(html, /tracker-card/);
 });
@@ -356,6 +363,35 @@ test('featured digest replaces book list and reads BBXM daily summaries', () => 
   assert.doesNotMatch(html, /READING LIST|这里先作为你的投资阅读书单入口|<!-- BBXM_FEATURED_DIGEST -->/);
 });
 
+test('topic map reads wiki topic pages into the thermometer navigation', () => {
+  const source = readFileSync(sourcePath, 'utf8');
+  const html = readFileSync(artifactPath, 'utf8');
+  const buildSource = readFileSync(new URL('../scripts/build.mjs', import.meta.url), 'utf8');
+  const appSource = readFileSync(new URL('../src/app.mjs', import.meta.url), 'utf8');
+
+  assert.match(source, /data-view="topic-map"/);
+  assert.match(source, /data-shell-content="thermometer" aria-labelledby="topic-map-heading"/);
+  assert.match(source, /TOPIC_FILTER_TABS/);
+  assert.match(source, /TOPIC_CARDS/);
+  assert.match(buildSource, /wiki', 'topics'/);
+  assert.match(buildSource, /scanTopicPages/);
+  assert.match(buildSource, /renderTopicCards/);
+  assert.match(appSource, /applyTopicFilter/);
+  for (const marker of [
+    '主题',
+    '来源目录：wiki/topics',
+    'topic-filter-tabs',
+    'topic-card',
+    'data-topic-filter="bbxm"',
+    'data-topic-filter="bishi"',
+    '../../wiki/topics/冰冰小美-知识地图.md',
+    '../../wiki/topics/碧树西风-投资系统建模.md',
+  ]) {
+    assert.match(html, new RegExp(marker));
+  }
+  assert.doesNotMatch(html, /<!-- TOPIC_(?:FILTER_TABS|CARDS) -->/);
+});
+
 test('position summary calculates market value, profit and portfolio weights', () => {
   const summary = summarizeHoldings([
     { id: 'a', code: '600879', name: '航天电子', quantity: 1000, cost: 12, price: 15 },
@@ -426,9 +462,26 @@ test('tracking addable and reducible filters derive signals from dynamic value r
   assert.deepEqual(trackingSignalForQuote({ valueRange: '16.5—20.5 元', livePrice: 18 }), { addStars: 1, reducible: false });
   assert.deepEqual(trackingSignalForQuote({ valueRange: '16.5—20.5 元', livePrice: 16 }), { addStars: 2, reducible: false });
   assert.deepEqual(trackingSignalForQuote({ valueRange: '16.5—20.5 元', livePrice: 21 }), { addStars: 0, reducible: true });
+  assert.equal(trackingRiskRewardForQuote({ valueRange: '16.5—20.5 元', livePrice: 18 }).label, '约 1.5:1');
+  assert.equal(trackingRiskRewardForQuote({ valueRange: '16.5—20.5 元', livePrice: 21 }).label, '无正向盈亏比');
+  assert.equal(trackingRiskRewardForQuote({ valueRange: '16.5—20.5 元', livePrice: 16 }).label, '低于下沿');
+  assert.equal(trackingRiskRewardForQuote({ valueRange: '16.5—20.5 元', reportQuote: '18.00 元' }).label, '等待实时');
   assert.match(appSource, /trackingStatusFilter === 'addable'/);
   assert.match(appSource, /trackingStatusFilter === 'reducible'/);
-  assert.match(appSource, /可加\$\{'★'\.repeat\(signal\.addStars\)\}/);
+  assert.match(appSource, /'★'\.repeat\(signal\.addStars\)/);
+});
+
+test('tracking risk-reward display hides quote change percentage', () => {
+  const appSource = readFileSync(new URL('../src/app.mjs', import.meta.url), 'utf8');
+
+  assert.equal(trackingQuotePriceOnly('14.62 元 · -4.76%'), '14.62 元');
+  assert.equal(trackingQuotePriceOnly('未获取到'), '未获取到');
+  assert.match(appSource, /`\$\{liveQuote\.price\.toFixed\(2\)\} 元`/);
+  assert.doesNotMatch(appSource, /`\$\{liveQuote\.price\.toFixed\(2\)\} 元\$\{signalLabel\}`/);
+  assert.match(appSource, /riskRewardText/);
+  assert.match(appSource, /盈亏比|riskReward/);
+  assert.doesNotMatch(appSource, /riskReward\.detail/);
+  assert.doesNotMatch(appSource, /liveQuote\.changePercent >= 0 \? '\+' : ''/);
 });
 
 test('tracking list refreshes intraday quotes directly from stock codes', () => {

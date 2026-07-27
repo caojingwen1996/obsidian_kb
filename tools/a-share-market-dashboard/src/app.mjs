@@ -388,6 +388,42 @@ export function trackingSignalForQuote({ valueRange, livePrice, reportQuote } = 
   return { addStars: 0, reducible: price > range.right };
 }
 
+export function trackingRiskRewardForQuote({ valueRange, livePrice } = {}) {
+  const range = valueRangePrices(valueRange);
+  const price = Number(livePrice);
+  if (!range || !Number.isFinite(price) || price <= 0) {
+    return { label: '等待实时', ratio: null, sortValue: Number.NEGATIVE_INFINITY };
+  }
+  const upside = range.right / price - 1;
+  const downside = price / range.left - 1;
+  if (price <= range.left) {
+    return {
+      label: '低于下沿',
+      ratio: Number.POSITIVE_INFINITY,
+      sortValue: Number.POSITIVE_INFINITY,
+    };
+  }
+  if (price >= range.right) {
+    return {
+      label: '无正向盈亏比',
+      ratio: 0,
+      sortValue: 0,
+    };
+  }
+  const ratio = upside / downside;
+  return {
+    label: `约 ${ratio.toFixed(1)}:1`,
+    ratio,
+    sortValue: ratio,
+  };
+}
+
+export function trackingQuotePriceOnly(value) {
+  const text = compactText(value);
+  const price = text.match(/(\d+(?:\.\d+)?)\s*元/)?.[0];
+  return price || text;
+}
+
 export function parseReportSummary(html) {
   if (typeof DOMParser === 'undefined') return {};
   const documentNode = new DOMParser().parseFromString(html, 'text/html');
@@ -1020,6 +1056,10 @@ function startApp() {
         livePrice: liveQuote?.price,
         reportQuote: report.reportQuote,
       });
+      const riskReward = trackingRiskRewardForQuote({
+        valueRange: report.valueRange,
+        livePrice: liveQuote?.price,
+      });
       return {
         item,
         index,
@@ -1029,6 +1069,7 @@ function startApp() {
         quoteEntry,
         liveQuote,
         signal,
+        riskReward,
         leftEdgeDistance: trackingLeftEdgeDistance({
           valueRange: report.valueRange,
           livePrice: liveQuote?.price,
@@ -1044,7 +1085,7 @@ function startApp() {
     });
     const visibleItems = trackingSortMode === 'near-left'
       ? [...filteredItems].sort((left, right) =>
-          left.leftEdgeDistance - right.leftEdgeDistance
+          right.riskReward.sortValue - left.riskReward.sortValue
           || right.item.updatedAt - left.item.updatedAt
           || left.index - right.index
         )
@@ -1068,13 +1109,16 @@ function startApp() {
       ? '还没有可计算的持有配比。先在仓位管理里记录持有数量和现价，或把跟踪项设为持有。'
       : '还没有跟踪标的。先在左侧新增一条观察记录。';
     empty.hidden = allocationMode ? hasAllocation : visibleItems.length > 0;
-    document.getElementById('holding-tracker-list').innerHTML = visibleItems.map(({ item, reportHref, reportEntry, report, quoteEntry, liveQuote, signal }) => {
+    document.getElementById('holding-tracker-list').innerHTML = visibleItems.map(({ item, reportHref, reportEntry, report, quoteEntry, liveQuote, signal, riskReward }) => {
       const signalLabel = signal.addStars > 0
-        ? ` · 可加${'★'.repeat(signal.addStars)}`
-        : signal.reducible ? ' · 可减' : '';
+        ? '★'.repeat(signal.addStars)
+        : signal.reducible ? '可减' : '—';
       const intraday = liveQuote
-        ? `${liveQuote.price.toFixed(2)} 元 · ${liveQuote.changePercent >= 0 ? '+' : ''}${liveQuote.changePercent.toFixed(2)}%${signalLabel}`
-        : report.reportQuote ? `${report.reportQuote}${signalLabel}` : (quoteEntry?.status === 'loading' ? '读取行情…' : reportEntry?.status === 'loading' ? '读取研报…' : item.nextAction || '未获取到');
+        ? `${liveQuote.price.toFixed(2)} 元`
+        : report.reportQuote ? trackingQuotePriceOnly(report.reportQuote) : (quoteEntry?.status === 'loading' ? '读取行情…' : reportEntry?.status === 'loading' ? '读取研报…' : item.nextAction || '未获取到');
+      const riskRewardText = riskReward.label !== '等待实时'
+        ? riskReward.label
+        : (quoteEntry?.status === 'loading' ? '读取行情…' : reportEntry?.status === 'loading' ? '读取研报…' : item.nextAction || '未获取到');
       const nameHtml = reportHref
         ? `<a href="${escapeHtml(reportHref)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.name)}</a>`
         : escapeHtml(item.name);
@@ -1082,8 +1126,10 @@ function startApp() {
       <td class="tracking-target"><strong>${nameHtml}</strong><small>${escapeHtml(item.code || report.secid || '未填代码')}</small><span class="tracker-status">${escapeHtml(item.status)}</span></td>
       <td>${escapeHtml(report.valueRange || item.thesis || (reportEntry?.status === 'loading' ? '读取研报…' : '未获取到'))}</td>
       <td>${escapeHtml(intraday)}</td>
+      <td>${escapeHtml(riskRewardText)}</td>
       <td>${escapeHtml(report.riskDirection || item.riskLine || (reportEntry?.status === 'loading' ? '读取研报…' : '未获取到'))}</td>
       <td><div>${reportHref ? `<a href="${escapeHtml(reportHref)}" target="_blank" rel="noopener noreferrer">打开研报</a>` : escapeHtml(item.reviewCondition || '未关联研报')}</div><small class="tracking-updated">${escapeHtml(report.sourceUpdated ? `研报：${report.sourceUpdated}` : `记录：${new Date(item.updatedAt).toLocaleString('zh-CN', { hour12: false })}`)}</small><div class="tracker-row-actions"><button type="button" data-action="edit-tracking">编辑</button><button type="button" data-action="delete-tracking">删除</button></div></td>
+      <td>${escapeHtml(signalLabel)}</td>
     </tr>`;
     }).join('');
   };
@@ -1280,6 +1326,18 @@ function startApp() {
     if (empty) empty.hidden = visibleCount > 0;
   };
 
+  const applyTopicFilter = () => {
+    const activeFilter = document.querySelector('.topic-filter-tabs button.is-active')?.dataset.topicFilter ?? 'all';
+    let visibleCount = 0;
+    document.querySelectorAll('.topic-card').forEach(card => {
+      const visible = activeFilter === 'all' || card.dataset.topicCategory === activeFilter;
+      card.hidden = !visible;
+      if (visible) visibleCount += 1;
+    });
+    const empty = document.querySelector('.topic-empty-results');
+    if (empty) empty.hidden = visibleCount > 0;
+  };
+
   const setActiveView = viewId => {
     const button = [...document.querySelectorAll('[data-view]')].find(item => item.dataset.view === viewId);
     const shell = button ? shellForButton(button) : 'thermometer';
@@ -1349,6 +1407,14 @@ function startApp() {
       item.setAttribute('aria-pressed', String(active));
     });
     applyFeaturedFilter();
+  }));
+  document.querySelectorAll('.topic-filter-tabs button').forEach(button => button.addEventListener('click', event => {
+    document.querySelectorAll('.topic-filter-tabs button').forEach(item => {
+      const active = item === event.currentTarget;
+      item.classList.toggle('is-active', active);
+      item.setAttribute('aria-pressed', String(active));
+    });
+    applyTopicFilter();
   }));
   document.getElementById('open-featured-digest')?.addEventListener('click', () => {
     setShell('thermometer', 'featured-digest');

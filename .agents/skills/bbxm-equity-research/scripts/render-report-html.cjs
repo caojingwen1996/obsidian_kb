@@ -88,26 +88,31 @@ function formatPercent(value) {
   return `${sign}${Math.abs(value).toFixed(1)}%`;
 }
 
-function describeDeviation(price, low, high, label = '每日同步价') {
+function describeRiskReward(price, low, high, label = '每日同步价') {
   if (![price, low, high].every(Number.isFinite) || low <= 0 || high <= low) {
-    return { value: '未获取到', detail: '价格或动态价值区间无法解析，未计算偏离度。', isBad: false };
+    return { value: '未获取到', detail: '价格或动态价值区间无法解析，未计算盈亏比。', isBad: false };
   }
-  const midpoint = (low + high) / 2;
-  const versusLow = (price / low - 1) * 100;
-  const versusMid = (price / midpoint - 1) * 100;
-  const versusHigh = (price / high - 1) * 100;
-  let value = '位于动态价值区间内';
-  let isBad = false;
-  if (price > high) {
-    value = `高于上沿 ${formatPercent(versusHigh)}`;
-    isBad = true;
-  } else if (price < low) {
-    value = `低于下沿 ${formatPercent(Math.abs(versusLow))}`;
+  const upside = (high / price - 1) * 100;
+  const downside = (price / low - 1) * 100;
+  if (price <= low) {
+    return {
+      value: '低于价值下沿',
+      detail: `${label} ${price.toFixed(2)} 元；相对上沿潜在空间 ${formatPercent(upside)}。价格已低于动态价值下沿，不能直接用下沿作为止损风险，需另设风控线。`,
+      isBad: false,
+    };
   }
+  if (price >= high) {
+    return {
+      value: '无正向盈亏比',
+      detail: `${label} ${price.toFixed(2)} 元；相对上沿空间 ${formatPercent(upside)}，回落至下沿风险 ${formatPercent(downside)}。价格已到或高于动态价值上沿，新增现金不具备正向盈亏比。`,
+      isBad: true,
+    };
+  }
+  const ratio = upside / downside;
   return {
-    value,
-    detail: `${label} ${price.toFixed(2)} 元；相对区间中枢 ${midpoint.toFixed(2)} 元为 ${formatPercent(versusMid)}，相对下沿为 ${formatPercent(versusLow)}，相对上沿为 ${formatPercent(versusHigh)}。价格不改变价值区间本身。`,
-    isBad,
+    value: `约 ${ratio.toFixed(1)}:1`,
+    detail: `${label} ${price.toFixed(2)} 元；到上沿 ${high.toFixed(2)} 元的潜在上行 ${formatPercent(upside)}，跌至下沿 ${low.toFixed(2)} 元的风险 ${formatPercent(downside)}。价格不改变价值区间本身。`,
+    isBad: ratio < 1,
   };
 }
 
@@ -158,7 +163,7 @@ function renderDailyTracking(decisions, metadata, code, outputPath) {
   const fundReport = candidateFundReport && fs.existsSync(path.join(path.dirname(outputPath), candidateFundReport)) ? candidateFundReport : '';
   const price = extractNumbers(priceText)[0];
   const [low, high] = extractNumbers(fairValue);
-  const deviation = describeDeviation(price, low, high);
+  const riskReward = describeRiskReward(price, low, high);
   const secid = liveQuoteSecid(code);
   const liveValue = secid ? '等待连接' : '未配置实时行情';
   const liveDetail = secid ? '通过“大盘启动器”打开后获取盘中行情，每 60 秒刷新；直接打开 HTML 时不访问外部行情。' : '当前证券未配置本地行情白名单，继续使用每日正式快照。';
@@ -174,7 +179,7 @@ function renderDailyTracking(decisions, metadata, code, outputPath) {
   <div class="tracking-grid">
     <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value${badFundamental ? ' bad' : ''}">${escapeHtml(fundamental)}</p><p class="tracking-detail">风险方向：${escapeHtml(riskDirection)}。下一验证点与失效条件见第 11—13 章。</p></div>
     <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value">${renderValueRange(fairValue)}</p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
-    <div class="tracking-card" data-tracking-key="price-deviation"><p class="tracking-label">股价偏离度</p><p class="tracking-value${deviation.isBad ? ' bad' : ''}" id="deviation-value">${escapeHtml(deviation.value)}</p><p class="tracking-detail" id="deviation-detail">${escapeHtml(deviation.detail)}</p></div>
+    <div class="tracking-card" data-tracking-key="risk-reward"><p class="tracking-label">盈亏比</p><p class="tracking-value${riskReward.isBad ? ' bad' : ''}" id="risk-reward-value">${escapeHtml(riskReward.value)}</p><p class="tracking-detail" id="risk-reward-detail">${escapeHtml(riskReward.detail)}</p></div>
   </div>
   <div class="tracking-grid">
     <div class="tracking-card" data-tracking-key="daily-quote"><p class="tracking-label">每日同步价</p><p class="tracking-value">${escapeHtml(priceText)}</p><p class="tracking-detail">这是报告内嵌的正式跟踪基准，离线打开仍可使用。</p><span class="tracking-status">每日快照</span></div>
@@ -196,23 +201,33 @@ function renderLiveQuoteScript(code, decisions) {
   const priceNode = document.getElementById('intraday-price');
   const detailNode = document.getElementById('intraday-detail');
   const statusNode = document.getElementById('intraday-status');
-  const deviationValue = document.getElementById('deviation-value');
-  const deviationDetail = document.getElementById('deviation-detail');
+  const riskRewardValue = document.getElementById('risk-reward-value');
+  const riskRewardDetail = document.getElementById('risk-reward-detail');
   const tracker = document.getElementById('daily-tracking');
   const snapshotPrice = ${Number.isFinite(snapshotPrice) ? snapshotPrice : 'null'};
   const percent = value => \`${'${value < 0 ? \'-\' : value > 0 ? \'+\' : \'\'}${Math.abs(value).toFixed(1)}'}%\`;
-  function updateDeviation(price) {
+  function updateRiskReward(price) {
     const low = Number(tracker.dataset.valueLow);
     const high = Number(tracker.dataset.valueHigh);
     if (!Number.isFinite(low) || !Number.isFinite(high) || low <= 0 || high <= low) return;
-    const midpoint = (low + high) / 2;
-    const versusLow = (price / low - 1) * 100;
-    const versusMid = (price / midpoint - 1) * 100;
-    const versusHigh = (price / high - 1) * 100;
-    if (price > high) { deviationValue.textContent = \`高于上沿 ${'${percent(versusHigh)}'}\`; deviationValue.classList.add('bad'); }
-    else if (price < low) { deviationValue.textContent = \`低于下沿 ${'${percent(Math.abs(versusLow))}'}\`; deviationValue.classList.remove('bad'); }
-    else { deviationValue.textContent = '位于动态价值区间内'; deviationValue.classList.remove('bad'); }
-    deviationDetail.textContent = \`盘中价 ${'${price.toFixed(2)}'} 元；相对区间中枢 ${'${midpoint.toFixed(2)}'} 元为 ${'${percent(versusMid)}'}，相对下沿为 ${'${percent(versusLow)}'}，相对上沿为 ${'${percent(versusHigh)}'}。盘中价格不改变价值区间本身。\`;
+    const upside = (high / price - 1) * 100;
+    const downside = (price / low - 1) * 100;
+    if (price <= low) {
+      riskRewardValue.textContent = '低于价值下沿';
+      riskRewardValue.classList.remove('bad');
+      riskRewardDetail.textContent = \`盘中价 ${'${price.toFixed(2)}'} 元；相对上沿潜在空间 ${'${percent(upside)}'}。价格已低于动态价值下沿，不能直接用下沿作为止损风险，需另设风控线。\`;
+      return;
+    }
+    if (price >= high) {
+      riskRewardValue.textContent = '无正向盈亏比';
+      riskRewardValue.classList.add('bad');
+      riskRewardDetail.textContent = \`盘中价 ${'${price.toFixed(2)}'} 元；相对上沿空间 ${'${percent(upside)}'}，回落至下沿风险 ${'${percent(downside)}'}。价格已到或高于动态价值上沿，新增现金不具备正向盈亏比。\`;
+      return;
+    }
+    const ratio = upside / downside;
+    riskRewardValue.textContent = \`约 ${'${ratio.toFixed(1)}'}:1\`;
+    riskRewardValue.classList.toggle('bad', ratio < 1);
+    riskRewardDetail.textContent = \`盘中价 ${'${price.toFixed(2)}'} 元；到上沿 ${'${high.toFixed(2)}'} 元的潜在上行 ${'${percent(upside)}'}，跌至下沿 ${'${low.toFixed(2)}'} 元的风险 ${'${percent(downside)}'}。盘中价格不改变价值区间本身。\`;
   }
   async function refreshIntradayQuote() {
     statusNode.textContent = '连接中'; statusNode.className = 'tracking-status';
@@ -225,7 +240,7 @@ function renderLiveQuoteScript(code, decisions) {
       priceNode.textContent = \`${'${quote.price.toFixed(2)}'} 元 · ${'${percent(quote.changePercent)}'}\`;
       priceNode.classList.toggle('bad', quote.changePercent < 0);
       detailNode.textContent = \`行情时间：${'${quoteTime}'}；昨收 ${'${quote.prevClose.toFixed(2)}'} 元。来源：${'${payload.proxySource || \'本地行情代理\'}'}。\`;
-      statusNode.textContent = '盘中实时 · 每 60 秒'; statusNode.className = 'tracking-status live'; updateDeviation(quote.price);
+      statusNode.textContent = '盘中实时 · 每 60 秒'; statusNode.className = 'tracking-status live'; updateRiskReward(quote.price);
     } catch { priceNode.textContent = '实时行情暂不可用'; priceNode.classList.remove('bad'); detailNode.textContent = '每日同步值仍然有效；可重新双击“大盘启动器”后刷新本页。'; statusNode.textContent = '连接失败'; statusNode.className = 'tracking-status error'; }
   }
   if (location.protocol === 'http:' || location.protocol === 'https:') { refreshIntradayQuote(); window.setInterval(refreshIntradayQuote, 60000); }

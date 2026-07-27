@@ -318,6 +318,24 @@ h3 { font-size: 15px; }
 .featured-source { display: inline-block; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line); color: #246170; font-size: 11px; font-weight: 700; text-decoration: none; }
 .featured-source:hover { text-decoration: underline; text-underline-offset: 3px; }
 .featured-empty-results { margin: 14px 0 0 86px; color: var(--muted); font-size: 12px; }
+.topic-filter-tabs { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 0 0 16px; padding: 0 0 12px; border-bottom: 1px solid var(--line); }
+.topic-filter-tabs button { min-height: 30px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: var(--muted); padding: 5px 0; font-size: 12px; }
+.topic-filter-tabs button:hover { color: var(--ink); }
+.topic-filter-tabs button.is-active { border-color: #0f6672; color: #0f6672; font-weight: 800; }
+.topic-source-note { width: fit-content; margin: 0 0 14px; color: var(--muted); font-size: 11px; }
+.topic-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.topic-card { min-height: 196px; border: 1px solid var(--line); border-radius: 8px; background: var(--card); box-shadow: 0 8px 24px rgba(26,38,48,.06); padding: 17px 18px 14px; display: flex; flex-direction: column; }
+.topic-card[hidden] { display: none; }
+.topic-card-meta, .topic-card-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 11px; }
+.topic-card-meta span:first-child { border-radius: 5px; background: rgba(15,102,114,.1); color: #0f6672; padding: 3px 7px; font-weight: 800; }
+.topic-card h3 { margin: 13px 0 8px; font-size: 17px; line-height: 1.45; }
+.topic-card h3 a { color: inherit; text-decoration: none; }
+.topic-card h3 a:hover { color: #0f6672; text-decoration: underline; text-underline-offset: 3px; }
+.topic-card p { margin: 0 0 16px; color: #566674; font-size: 12px; line-height: 1.75; }
+.topic-card-footer { margin-top: auto; padding-top: 11px; border-top: 1px dashed var(--line); }
+.topic-card-footer a { color: #246170; font-size: 11px; font-weight: 800; text-decoration: none; white-space: nowrap; }
+.topic-card-footer a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.topic-empty-results { margin: 14px 0 0; color: var(--muted); font-size: 12px; }
 .personal-heading { margin-top: 4px; }
 .portfolio-summary, .tracker-summary { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 14px; }
 .portfolio-summary article, .tracker-summary article { min-height: 118px; border-radius: 13px; background: var(--card); box-shadow: var(--shadow); padding: 18px; display: flex; flex-direction: column; }
@@ -466,8 +484,8 @@ h3 { font-size: 15px; }
   .dividend-signal-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .industry-controls { align-items: flex-start; flex-direction: column; }
   .industry-search, .industry-search input { width: 100%; }
-  .industry-filter-tabs, .featured-filter-tabs { flex-wrap: nowrap; overflow-x: auto; }
-  .industry-filter-tabs button, .featured-filter-tabs button { flex: 0 0 auto; }
+  .industry-filter-tabs, .featured-filter-tabs, .topic-filter-tabs { flex-wrap: nowrap; overflow-x: auto; }
+  .industry-filter-tabs button, .featured-filter-tabs button, .topic-filter-tabs button { flex: 0 0 auto; }
   .industry-timeline, .featured-timeline { padding-left: 0; }
   .industry-timeline::before, .featured-timeline::before { display: none; }
   .industry-time, .featured-time { position: static; display: inline-block; margin-right: 9px; }
@@ -529,6 +547,7 @@ h3 { font-size: 15px; }
             <button class="nav-item" type="button" data-view="rules-view"><span>05</span>评分规则</button>
             <button class="nav-item" type="button" data-view="audit-view"><span>06</span>数据审计</button>
             <button class="nav-item" type="button" data-view="featured-digest"><span>07</span>精选汇总</button>
+            <button class="nav-item" type="button" data-view="topic-map"><span>08</span>主题</button>
             </div>
           </section>
           <section class="tree-group" data-tree-group="industry">
@@ -693,9 +712,17 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
               </li>
             </ol>
           </section>
-          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 3条</span></div>
+          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 4条</span></div>
           <div class="industry-timeline">
             <div class="industry-feed">
+              <article class="industry-report" data-filters="银锡">
+                <span class="industry-time">07-27</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>战略资源 · 银锡 <b>资金面</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/战略资源/银锡/2026-07-27-兴业银锡资金面分析.html" target="_blank" rel="noopener noreferrer">兴业银锡资金面分析</a></h3>
+                <p>从战略资源目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#银锡 #目录自动读取 #资金面</div>
+                <div class="industry-reason">来源目录：sources/automations/战略资源/银锡</div>
+              </article>
               <article class="industry-report" data-filters="银锡">
                 <span class="industry-time">17:32</span><span class="industry-dot"></span>
                 <div class="industry-report-meta"><span>战略资源 · 银锡 <b>研报</b></span><span>自动</span></div>
@@ -1039,7 +1066,7 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
               </li>
             </ol>
           </section>
-          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 15条</span></div>
+          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 16条</span></div>
           <div class="industry-timeline">
             <div class="industry-feed">
               <article class="industry-report" data-filters="高端制造">
@@ -1155,6 +1182,14 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                 <div class="industry-reason">来源目录：sources/automations/支柱产业</div>
               </article>
               <article class="industry-report" data-filters="">
+                <span class="industry-time">11:33</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>支柱产业 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/支柱产业/2026-07-17-1133-中国船舶机构级决策研报.html" target="_blank" rel="noopener noreferrer">中国船舶机构级决策研报</a></h3>
+                <p>从支柱产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#支柱产业 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/支柱产业</div>
+              </article>
+              <article class="industry-report" data-filters="">
                 <span class="industry-time">13:34</span><span class="industry-dot"></span>
                 <div class="industry-report-meta"><span>支柱产业 <b>研报</b></span><span>自动</span></div>
                 <h3><a class="industry-report-link" href="../../sources/automations/支柱产业/2026-07-16-1334-中国中车机构级决策研报.html" target="_blank" rel="noopener noreferrer">中国中车机构级决策研报</a></h3>
@@ -1240,7 +1275,7 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
               </div>
               <div class="tracking-table-wrap">
                 <table class="tracking-table">
-                  <thead><tr><th>标的</th><th>动态价值区间</th><th><button class="table-sort-button" type="button" id="tracking-sort-intraday" aria-pressed="false" aria-label="按盘中实时价格接近动态估值区间左侧排序">盘中实时</button></th><th>风险方向</th><th>数据来自研报</th></tr></thead>
+                  <thead><tr><th>标的</th><th>动态价值区间</th><th>盘中实时</th><th><button class="table-sort-button" type="button" id="tracking-sort-intraday" aria-pressed="false" aria-label="按盈亏比从高到低排序">盈亏比</button></th><th>风险方向</th><th>数据来自研报</th><th>星级</th></tr></thead>
                   <tbody id="holding-tracker-list"></tbody>
                 </table>
               </div>
@@ -2355,6 +2390,209 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
         </div>
       </section>
 
+      <section class="view" id="topic-map" data-shell-content="thermometer" aria-labelledby="topic-map-heading">
+        <div class="personal-page">
+          <h2 class="visually-hidden" id="topic-map-heading">主题</h2>
+          <nav class="topic-filter-tabs" aria-label="主题筛选">
+            <button class="is-active" type="button" data-topic-filter="all" aria-pressed="true">全部</button>
+              <button type="button" data-topic-filter="bishi" aria-pressed="false">碧树西风</button>
+              <button type="button" data-topic-filter="bbxm" aria-pressed="false">冰冰小美</button>
+              <button type="button" data-topic-filter="other" aria-pressed="false">其他</button>
+              <button type="button" data-topic-filter="ai" aria-pressed="false">AI</button>
+          </nav>
+            <div class="topic-source-note">来源目录：wiki/topics · 31 个主题页</div>
+            <div class="topic-grid">
+              <article class="topic-card" data-topic-category="bishi">
+                <div class="topic-card-meta"><span>碧树西风</span><span>2026-06-05</span></div>
+                <h3><a href="../../wiki/topics/碧树西风-概率化决策.md" target="_blank" rel="noopener noreferrer">碧树西风-概率化决策</a></h3>
+                <p>本页是碧树西风关于不可测环境中如何做概率化决策的总入口；投资系统、职业路径、非标机会、人生选择和 AI 时代能力判断，都是这一框架的具体应用场景。</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/碧树西风-概率化决策.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+              <article class="topic-card" data-topic-category="bishi">
+                <div class="topic-card-meta"><span>碧树西风</span><span>2026-06-09</span></div>
+                <h3><a href="../../wiki/topics/碧树西风-投资系统建模.md" target="_blank" rel="noopener noreferrer">碧树西风-投资系统建模</a></h3>
+                <p>聚合碧树西风关于投资系统如何建模及何时适用的核心框架：以市场端、主体端和策略端三要素为主轴，判断市场机会是否真实，主体的人和钱能否承接，以及策略能否完成规则化执行、风控和复盘修正。</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/碧树西风-投资系统建模.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+              <article class="topic-card" data-topic-category="bishi">
+                <div class="topic-card-meta"><span>碧树西风</span><span>2026-06-04</span></div>
+                <h3><a href="../../wiki/topics/碧树西风的策略.md" target="_blank" rel="noopener noreferrer">碧树西风的策略</a></h3>
+                <p>聚合碧树西风关于策略选择的上位框架：在不可测和强链接时代，不把全部资源押在中间值路径上，而是以大部分资源保持生存和等待，用小部分资源布置低成本、高赔率、可退出的极端错价机会。</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/碧树西风的策略.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+              <article class="topic-card" data-topic-category="bbxm">
+                <div class="topic-card-meta"><span>冰冰小美</span><span>2026-07-03</span></div>
+                <h3><a href="../../wiki/topics/冰冰小美-产业思维下案例集合.md" target="_blank" rel="noopener noreferrer">冰冰小美-产业思维下案例集合</a></h3>
+                <p>聚合冰冰小美产业思维下的案例样本，用来观察不同产业如何从时代主线、资本市场作用、技术应用和利润验证进入长期跟踪。</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-产业思维下案例集合.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+              <article class="topic-card" data-topic-category="bbxm">
+                <div class="topic-card-meta"><span>冰冰小美</span><span>2026-06-09</span></div>
+                <h3><a href="../../wiki/topics/冰冰小美-对左侧交易的理解.md" target="_blank" rel="noopener noreferrer">冰冰小美-对左侧交易的理解</a></h3>
+                <p>聚合冰冰小美关于左侧交易、左侧建仓、抄底和等待窗口的相关页面。其核心不是“跌了就买”，而是在风险充分释放、底层共识仍成立、情绪或产业变量接近拐点时，提前观察并分阶段承接。</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-对左侧交易的理解.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+              <article class="topic-card" data-topic-category="bbxm">
+                <div class="topic-card-meta"><span>冰冰小美</span><span>2026-07-17</span></div>
+                <h3><a href="../../wiki/topics/冰冰小美-风险提示系列.md" target="_blank" rel="noopener noreferrer">冰冰小美-风险提示系列</a></h3>
+                <p>聚合冰冰小美关于风险节点、危机经验、波动风险、流动性挤压、仓位控制和风险转弱观察的文章、观点页与推导页，作为后续整理风险提示材料的入口。</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-风险提示系列.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+              <article class="topic-card" data-topic-category="bbxm">
+                <div class="topic-card-meta"><span>冰冰小美</span><span>2026-07-01</span></div>
+                <h3><a href="../../wiki/topics/冰冰小美-观测指标.md" target="_blank" rel="noopener noreferrer">冰冰小美-观测指标</a></h3>
+                <p>聚合冰冰小美体系中可反复观察的宏观全球指标、中观央行指标和微观企业指标，作为从全球价格信号、政策流动性、企业经营验证到交易前过滤的指标地图。</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-观测指标.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+              <article class="topic-card" data-topic-category="bbxm">
+                <div class="topic-card-meta"><span>冰冰小美</span><span>2026-07-17</span></div>
+                <h3><a href="../../wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md" target="_blank" rel="noopener noreferrer">冰冰小美-宏观风险关键词文章整理清单</a></h3>
+                <p>逐篇跟踪 2026-03-23 外部索引帖中 40 条冰冰小美宏观风险相关链接的 source 归档、正式整理状态和后续页面路由。</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+              <article class="topic-card" data-topic-category="bbxm">
+                <div class="topic-card-meta"><span>冰冰小美</span><span>2026-06-18</span></div>
+                <h3><a href="../../wiki/topics/冰冰小美-宏观经济.md" target="_blank" rel="noopener noreferrer">冰冰小美-宏观经济</a></h3>
+                <p>围绕冰冰小美体系中的增长、通胀、利率、流动性、债务与分配如何塑造市场环境形成的长期主题，关注宏观变量如何服务风险识别、仓位边界、产业方向和阶段复盘，而不是直接替代执行系统。</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-宏观经济.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+              <article class="topic-card" data-topic-category="bbxm">
+                <div class="topic-card-meta"><span>冰冰小美</span><span>2026-07-22</span></div>
+                <h3><a href="../../wiki/topics/冰冰小美-加仓案例合集.md" target="_blank" rel="noopener noreferrer">冰冰小美-加仓案例合集</a></h3>
+                <p>聚合冰冰小美资料中可追溯的建仓、加仓、回补和低吸案例，按时间、单一标的、加仓分型、触发条件和动作组织，并明确剔除所有做 T 动作。</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-加仓案例合集.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+              <article class="topic-card" data-topic-category="bbxm">
+                <div class="topic-card-meta"><span>冰冰小美</span><span>2026-07-22</span></div>
+                <h3><a href="../../wiki/topics/冰冰小美-减仓案例合集.md" target="_blank" rel="noopener noreferrer">冰冰小美-减仓案例合集</a></h3>
+                <p>聚合冰冰小美体系中已经出现的减仓、卖出与清仓案例，按时间、单一标的、减仓分型、触发条件和动作层级组织，并配套历史行情图。</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-减仓案例合集.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+              <article class="topic-card" data-topic-category="bbxm">
+                <div class="topic-card-meta"><span>冰冰小美</span><span>2026-06-18</span></div>
+                <h3><a href="../../wiki/topics/冰冰小美-交易心法.md" target="_blank" rel="noopener noreferrer">冰冰小美-交易心法</a></h3>
+                <p>冰冰小美-交易心法把《交易的至高境界》整理为交易之道、交易之术、交易之戒和可执行规则四层：先识别风险，再顺势进攻，用体系统一认知、性格和买卖动作，减少平庸交易。</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-交易心法.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+              <article class="topic-card" data-topic-category="bbxm">
+                <div class="topic-card-meta"><span>冰冰小美</span><span>2026-07-10</span></div>
+                <h3><a href="../../wiki/topics/冰冰小美-亏钱认知系列.md" target="_blank" rel="noopener noreferrer">冰冰小美-亏钱认知系列</a></h3>
+                <p>逐期组织冰冰小美 19 篇“常见亏钱认知”资料，把每篇文章沉淀为可回查来源、核心命题、风险类型和相关概念，而不是把原文堆进正式知识层。</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-亏钱认知系列.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+              <article class="topic-card" data-topic-category="bbxm">
+                <div class="topic-card-meta"><span>冰冰小美</span><span>2026-07-13</span></div>
+                <h3><a href="../../wiki/topics/冰冰小美-情绪体系操作篇.md" target="_blank" rel="noopener noreferrer">冰冰小美-情绪体系交易系列</a></h3>
+                <p>聚合冰冰小美情绪体系交易系列中关于分仓、借势、等待、买卖、空仓、交割单、容忍度、冰点转势、围魏救赵、竞争定位、挡刀和执行者状态的既有页面。</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-情绪体系操作篇.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+              <article class="topic-card" data-topic-category="bbxm">
+                <div class="topic-card-meta"><span>冰冰小美</span><span>2026-06-12</span></div>
+                <h3><a href="../../wiki/topics/冰冰小美-情绪体系理论篇.md" target="_blank" rel="noopener noreferrer">冰冰小美-体系三要素</a></h3>
+                <p>冰冰小美体系三要素的主题聚合入口，用于组织竞争格局、流动性辩证分析、情绪位置变化，以及这些要素如何传导为交易窗口、看盘判断、仓位动作和风险复盘。</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-情绪体系理论篇.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+              <article class="topic-card" data-topic-category="bbxm">
+                <div class="topic-card-meta"><span>冰冰小美</span><span>2026-07-10</span></div>
+                <h3><a href="../../wiki/topics/冰冰小美-投资体系.md" target="_blank" rel="noopener noreferrer">冰冰小美-投资体系</a></h3>
+                <p>冰冰小美-投资体系是比交易心法、选股体系和情绪体系更上层的 Topic Page，用市场端、主体端和策略端组织她的投资判断：市场端负责机会识别和准入，主体端负责人和钱的承载力，策略端负责规则化表达、执行、风控和复盘。</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-投资体系.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+              <article class="topic-card" data-topic-category="bbxm">
+                <div class="topic-card-meta"><span>冰冰小美</span><span>2026-06-17</span></div>
+                <h3><a href="../../wiki/topics/冰冰小美-信息的金融意义系列.md" target="_blank" rel="noopener noreferrer">冰冰小美-信息的金融意义系列</a></h3>
+                <p>组织冰冰小美“信息的金融意义”系列，将金融信息、非金融信息、显学隐学、来源可信度、传播对象、信息评级、时效性和交易应用整理成交易前信息过滤框架。</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-信息的金融意义系列.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+              <article class="topic-card" data-topic-category="bbxm">
+                <div class="topic-card-meta"><span>冰冰小美</span><span>2026-06-12</span></div>
+                <h3><a href="../../wiki/topics/冰冰小美-选股体系.md" target="_blank" rel="noopener noreferrer">冰冰小美-选股体系</a></h3>
+                <p>冰冰小美-选股体系是围绕长线选股、国运方向、短线投机、投资边界和等待纪律建立的主题入口：长线先用国运和产业使命确定候选方向，再用企业经营、壁垒、盈利驱动和可理解机会筛选对象；短线强调三要素、最优解、等待与避免平庸交易。</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-选股体系.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+              <article class="topic-card" data-topic-category="bbxm">
+                <div class="topic-card-meta"><span>冰冰小美</span><span>2026-05-29</span></div>
+                <h3><a href="../../wiki/topics/冰冰小美-月报地图.md" target="_blank" rel="noopener noreferrer">冰冰小美-月报地图</a></h3>
+                <p>本页集中组织冰冰小美 2026 年 1-5 月月报、半月报和月度补充篇，记录每篇来源的整理状态、对应 View / Reasoning 页面、所属主线和后续缺口。</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-月报地图.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+              <article class="topic-card" data-topic-category="bbxm">
+                <div class="topic-card-meta"><span>冰冰小美</span><span>2026-05-29</span></div>
+                <h3><a href="../../wiki/topics/冰冰小美-知识地图.md" target="_blank" rel="noopener noreferrer">冰冰小美-知识地图</a></h3>
+                <p>本页是冰冰小美相关内容的知识地图，用宏观、产业思维、交易体系和情绪体系四个一级分类组织已建立的专题、观点、推导、时间线、来源原文，以及后续待整理素材与缺口。</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-知识地图.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+              <article class="topic-card" data-topic-category="bbxm">
+                <div class="topic-card-meta"><span>冰冰小美</span><span>2026-07-18</span></div>
+                <h3><a href="../../wiki/topics/冰冰小美-中国股市看法.md" target="_blank" rel="noopener noreferrer">冰冰小美-中国股市看法</a></h3>
+                <p>聚合冰冰小美关于中国股市和 A 股的长期判断：长期看国情国运与产业转型，政策上看中央加杠杆和化债，市场结构上警惕指数慢牛、个股分化、ETF承接和投机产业链并存。</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-中国股市看法.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+              <article class="topic-card" data-topic-category="bbxm">
+                <div class="topic-card-meta"><span>冰冰小美</span><span>2026-06-13</span></div>
+                <h3><a href="../../wiki/topics/冰冰小美-宏观战略-竞争格局分析.md" target="_blank" rel="noopener noreferrer">冰冰小美-中美产业竞争</a></h3>
+                <p>围绕冰冰小美关于中美产业竞争的相关页面建立主题入口，组织美国再工业化、AI与芯片国家竞争、中国金融市场转型、两强格局和竞争合作边界等材料。</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-宏观战略-竞争格局分析.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+              <article class="topic-card" data-topic-category="other">
+                <div class="topic-card-meta"><span>其他</span><span>2026-07-18</span></div>
+                <h3><a href="../../wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md" target="_blank" rel="noopener noreferrer">地缘重估与资源-货币秩序</a></h3>
+                <p>围绕全球割裂、资源争夺、避险资产重估与货币形态竞争形成的长期主题，关注地缘变化如何通过黄金、白银、大宗、汇率与贸易网络重新传导到资产定价。</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+              <article class="topic-card" data-topic-category="other">
+                <div class="topic-card-meta"><span>其他</span><span>2026-06-02</span></div>
+                <h3><a href="../../wiki/topics/碧树西风-量化交易.md" target="_blank" rel="noopener noreferrer">量化交易</a></h3>
+                <p>围绕量化思维、分布视角与可计算化表达展开的长期主题，关注如何把市场中的变化、结构、情绪与反馈转成可观察、可比较、可执行的变量，而不是把量化误解成高频系统。</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/碧树西风-量化交易.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+              <article class="topic-card" data-topic-category="other">
+                <div class="topic-card-meta"><span>其他</span><span>2026-06-04</span></div>
+                <h3><a href="../../wiki/topics/碧树西风-人生观与财富观.md" target="_blank" rel="noopener noreferrer">人生观与财富观</a></h3>
+                <p>围绕人生目标、财富定义、风险承受力与投资系统之间的相互约束形成的长期主题，关注一个人如何先定义自己要过什么生活、能承受什么代价，再决定追求哪一种财富与收益；核心隐喻是财富观像一口缸，重点不只是装进多少，还要有进有出、量入为出、够用不焦…</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/碧树西风-人生观与财富观.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+              <article class="topic-card" data-topic-category="other">
+                <div class="topic-card-meta"><span>其他</span><span>2026-06-03</span></div>
+                <h3><a href="../../wiki/topics/人物金句.md" target="_blank" rel="noopener noreferrer">人物金句</a></h3>
+                <p>聚合长期跟踪人物的高密度表达，把金句回链到对应人物、观点、推导、概念或来源页面，避免脱离语境的摘录。</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/人物金句.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+              <article class="topic-card" data-topic-category="other">
+                <div class="topic-card-meta"><span>其他</span><span>2026-07-03</span></div>
+                <h3><a href="../../wiki/topics/如何学习冰冰小美.md" target="_blank" rel="noopener noreferrer">如何学习冰冰小美</a></h3>
+                <p>如何学习冰冰小美是一个学习入口页：把抄作业从复制买卖动作改成学习产业思维、长期跟踪、价格纪律、仓位匹配和反向审视自己持仓初心。</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/如何学习冰冰小美.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+              <article class="topic-card" data-topic-category="other">
+                <div class="topic-card-meta"><span>其他</span><span>2026-06-05</span></div>
+                <h3><a href="../../wiki/topics/什么是交易.md" target="_blank" rel="noopener noreferrer">什么是交易？</a></h3>
+                <p>围绕“什么是交易”建立主题入口：交易不是单次买卖动作，而是在不确定市场中识别机会、约束仓位、预设退出、承受错误并用反馈修正系统的一组行动框架。</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/什么是交易.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+              <article class="topic-card" data-topic-category="other">
+                <div class="topic-card-meta"><span>其他</span><span>2026-04-24</span></div>
+                <h3><a href="../../wiki/topics/碧树西风-信息高地、上位者博弈与非标路径.md" target="_blank" rel="noopener noreferrer">信息高地、上位者博弈与非标路径</a></h3>
+                <p>围绕信息不对称、信息高地、上位者视角与非标路径展开的长期主题，关注人在多牌桌世界里如何识别真正的规则、避开伪竞争，并寻找更有利的位置。</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/碧树西风-信息高地、上位者博弈与非标路径.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+              <article class="topic-card" data-topic-category="ai">
+                <div class="topic-card-meta"><span>AI</span><span>2026-06-09</span></div>
+                <h3><a href="../../wiki/topics/冰冰小美-AI产业趋势.md" target="_blank" rel="noopener noreferrer">AI产业趋势</a></h3>
+                <p>这个主题页组织冰冰小美关于 AI 的主要判断：AI 是国家门票，也是新钱承接器与新基建抓手；产业机会主要沿国家竞争、系统能效、卖铲子环节、全球供应链映射和估值分层展开。</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-AI产业趋势.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+              <article class="topic-card" data-topic-category="ai">
+                <div class="topic-card-meta"><span>AI</span><span>2026-06-02</span></div>
+                <h3><a href="../../wiki/topics/AI门票.md" target="_blank" rel="noopener noreferrer">AI门票</a></h3>
+                <p>AI门票是一个跨作者主题：冰冰小美把 AI 理解为第四次工业革命和 G2 国家竞争的昂贵准入资格；碧树西风则把同一现象压回“谁负债赚谁的钱”，提醒 AI 门票之所以形成行情，是因为国家、大公司和投资者不得不为基础设施、资本开支和竞争资…</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/AI门票.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+            </div>
+            <p class="topic-empty-results" hidden>没有匹配的主题页。</p>
+        </div>
+      </section>
+
       <section class="view changelog-view" id="changelog-view" data-shell-content="changelog" aria-labelledby="changelog-heading">
         <div class="changelog-page">
           <header class="changelog-hero">
@@ -3188,6 +3426,7 @@ const STOCK_REPORT_LINKS = Object.freeze({
   "徐工机械": "../../sources/automations/支柱产业/高端制造/2026-07-20-1737-徐工机械-机构级决策研报.html",
   "云铝股份": "../../sources/automations/支柱产业/电解铝/2026-07-23-1421-云铝股份-机构级决策研报.html",
   "臻镭科技": "../../sources/automations/新兴产业/商业航天/2026-07-20-臻镭科技-机构级决策研报.html",
+  "中国船舶": "../../sources/automations/支柱产业/2026-07-17-1133-中国船舶机构级决策研报.html",
   "中国卫通": "../../sources/automations/新兴产业/商业航天/2026-07-17-1728-中国卫通-机构级决策研报.html",
   "中国卫星": "../../sources/automations/新兴产业/商业航天/2026-07-17-1616-中国卫星-机构级决策研报.html",
   "中国中车": "../../sources/automations/支柱产业/2026-07-16-1334-中国中车机构级决策研报.html",
@@ -3199,7 +3438,7 @@ const EVENT_CALENDAR = Object.freeze(
 const CSI_DIVIDEND_SIGNAL = Object.freeze(
 {
   "recordDate": "2026-07-27",
-  "runTime": "2026-07-27 09:30:49",
+  "runTime": "2026-07-27 12:01:47",
   "indexDate": "2026-07-24",
   "bondDate": "2026-07-24",
   "dividendYield2": 4.5,
@@ -3544,6 +3783,42 @@ function trackingSignalForQuote({ valueRange, livePrice, reportQuote } = {}) {
   if (price < range.left) return { addStars: 2, reducible: false };
   if (price < range.center) return { addStars: 1, reducible: false };
   return { addStars: 0, reducible: price > range.right };
+}
+
+function trackingRiskRewardForQuote({ valueRange, livePrice } = {}) {
+  const range = valueRangePrices(valueRange);
+  const price = Number(livePrice);
+  if (!range || !Number.isFinite(price) || price <= 0) {
+    return { label: '等待实时', ratio: null, sortValue: Number.NEGATIVE_INFINITY };
+  }
+  const upside = range.right / price - 1;
+  const downside = price / range.left - 1;
+  if (price <= range.left) {
+    return {
+      label: '低于下沿',
+      ratio: Number.POSITIVE_INFINITY,
+      sortValue: Number.POSITIVE_INFINITY,
+    };
+  }
+  if (price >= range.right) {
+    return {
+      label: '无正向盈亏比',
+      ratio: 0,
+      sortValue: 0,
+    };
+  }
+  const ratio = upside / downside;
+  return {
+    label: `约 ${ratio.toFixed(1)}:1`,
+    ratio,
+    sortValue: ratio,
+  };
+}
+
+function trackingQuotePriceOnly(value) {
+  const text = compactText(value);
+  const price = text.match(/(\d+(?:\.\d+)?)\s*元/)?.[0];
+  return price || text;
 }
 
 function parseReportSummary(html) {
@@ -4178,6 +4453,10 @@ function startApp() {
         livePrice: liveQuote?.price,
         reportQuote: report.reportQuote,
       });
+      const riskReward = trackingRiskRewardForQuote({
+        valueRange: report.valueRange,
+        livePrice: liveQuote?.price,
+      });
       return {
         item,
         index,
@@ -4187,6 +4466,7 @@ function startApp() {
         quoteEntry,
         liveQuote,
         signal,
+        riskReward,
         leftEdgeDistance: trackingLeftEdgeDistance({
           valueRange: report.valueRange,
           livePrice: liveQuote?.price,
@@ -4202,7 +4482,7 @@ function startApp() {
     });
     const visibleItems = trackingSortMode === 'near-left'
       ? [...filteredItems].sort((left, right) =>
-          left.leftEdgeDistance - right.leftEdgeDistance
+          right.riskReward.sortValue - left.riskReward.sortValue
           || right.item.updatedAt - left.item.updatedAt
           || left.index - right.index
         )
@@ -4226,13 +4506,16 @@ function startApp() {
       ? '还没有可计算的持有配比。先在仓位管理里记录持有数量和现价，或把跟踪项设为持有。'
       : '还没有跟踪标的。先在左侧新增一条观察记录。';
     empty.hidden = allocationMode ? hasAllocation : visibleItems.length > 0;
-    document.getElementById('holding-tracker-list').innerHTML = visibleItems.map(({ item, reportHref, reportEntry, report, quoteEntry, liveQuote, signal }) => {
+    document.getElementById('holding-tracker-list').innerHTML = visibleItems.map(({ item, reportHref, reportEntry, report, quoteEntry, liveQuote, signal, riskReward }) => {
       const signalLabel = signal.addStars > 0
-        ? ` · 可加${'★'.repeat(signal.addStars)}`
-        : signal.reducible ? ' · 可减' : '';
+        ? '★'.repeat(signal.addStars)
+        : signal.reducible ? '可减' : '—';
       const intraday = liveQuote
-        ? `${liveQuote.price.toFixed(2)} 元 · ${liveQuote.changePercent >= 0 ? '+' : ''}${liveQuote.changePercent.toFixed(2)}%${signalLabel}`
-        : report.reportQuote ? `${report.reportQuote}${signalLabel}` : (quoteEntry?.status === 'loading' ? '读取行情…' : reportEntry?.status === 'loading' ? '读取研报…' : item.nextAction || '未获取到');
+        ? `${liveQuote.price.toFixed(2)} 元`
+        : report.reportQuote ? trackingQuotePriceOnly(report.reportQuote) : (quoteEntry?.status === 'loading' ? '读取行情…' : reportEntry?.status === 'loading' ? '读取研报…' : item.nextAction || '未获取到');
+      const riskRewardText = riskReward.label !== '等待实时'
+        ? riskReward.label
+        : (quoteEntry?.status === 'loading' ? '读取行情…' : reportEntry?.status === 'loading' ? '读取研报…' : item.nextAction || '未获取到');
       const nameHtml = reportHref
         ? `<a href="${escapeHtml(reportHref)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.name)}</a>`
         : escapeHtml(item.name);
@@ -4240,8 +4523,10 @@ function startApp() {
       <td class="tracking-target"><strong>${nameHtml}</strong><small>${escapeHtml(item.code || report.secid || '未填代码')}</small><span class="tracker-status">${escapeHtml(item.status)}</span></td>
       <td>${escapeHtml(report.valueRange || item.thesis || (reportEntry?.status === 'loading' ? '读取研报…' : '未获取到'))}</td>
       <td>${escapeHtml(intraday)}</td>
+      <td>${escapeHtml(riskRewardText)}</td>
       <td>${escapeHtml(report.riskDirection || item.riskLine || (reportEntry?.status === 'loading' ? '读取研报…' : '未获取到'))}</td>
       <td><div>${reportHref ? `<a href="${escapeHtml(reportHref)}" target="_blank" rel="noopener noreferrer">打开研报</a>` : escapeHtml(item.reviewCondition || '未关联研报')}</div><small class="tracking-updated">${escapeHtml(report.sourceUpdated ? `研报：${report.sourceUpdated}` : `记录：${new Date(item.updatedAt).toLocaleString('zh-CN', { hour12: false })}`)}</small><div class="tracker-row-actions"><button type="button" data-action="edit-tracking">编辑</button><button type="button" data-action="delete-tracking">删除</button></div></td>
+      <td>${escapeHtml(signalLabel)}</td>
     </tr>`;
     }).join('');
   };
@@ -4438,6 +4723,18 @@ function startApp() {
     if (empty) empty.hidden = visibleCount > 0;
   };
 
+  const applyTopicFilter = () => {
+    const activeFilter = document.querySelector('.topic-filter-tabs button.is-active')?.dataset.topicFilter ?? 'all';
+    let visibleCount = 0;
+    document.querySelectorAll('.topic-card').forEach(card => {
+      const visible = activeFilter === 'all' || card.dataset.topicCategory === activeFilter;
+      card.hidden = !visible;
+      if (visible) visibleCount += 1;
+    });
+    const empty = document.querySelector('.topic-empty-results');
+    if (empty) empty.hidden = visibleCount > 0;
+  };
+
   const setActiveView = viewId => {
     const button = [...document.querySelectorAll('[data-view]')].find(item => item.dataset.view === viewId);
     const shell = button ? shellForButton(button) : 'thermometer';
@@ -4507,6 +4804,14 @@ function startApp() {
       item.setAttribute('aria-pressed', String(active));
     });
     applyFeaturedFilter();
+  }));
+  document.querySelectorAll('.topic-filter-tabs button').forEach(button => button.addEventListener('click', event => {
+    document.querySelectorAll('.topic-filter-tabs button').forEach(item => {
+      const active = item === event.currentTarget;
+      item.classList.toggle('is-active', active);
+      item.setAttribute('aria-pressed', String(active));
+    });
+    applyTopicFilter();
   }));
   document.getElementById('open-featured-digest')?.addEventListener('click', () => {
     setShell('thermometer', 'featured-digest');

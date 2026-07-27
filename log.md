@@ -1,5 +1,155 @@
 # 知识库日志
 
+## 2026-07-27
+
+### 操作类型
+
+fund-flow-analysis / html-snapshot
+
+### 修改文件
+
+- `sources/automations/支柱产业/电网/2026-07-27-华明装备资金面分析.html`
+- `log.md`
+
+### 操作说明
+
+按 `fund-flow-analysis` 资金面分析合同为 `002270.SZ 华明装备` 生成独立 HTML 快照。数据截止到公开页面可回溯的 `2026-07-24` 收盘后资金与行情、`2026-07-23` 融资融券及 `2026-07-24` 个股日历；因东方财富实时接口连接失败且不同平台资金口径冲突，结论保留为 `多空分歧`，新增资金动作为 `wait`，已有持仓因缺少用户成本、仓位和原计划只给 `review`。报告明确区分大单金额方向与账户身份，不把大单、ETF、北向或机构评级写成已确认机构买入。
+
+### 后续待办
+
+- 2026-07-27 收盘后补取当日资金分档、融资余额、深股通持股和电网设备板块广度，判断资金状态是否从 `多空分歧` 上修为 `结构性流入` 或下修为 `结构性流出`。
+
+## 2026-07-27
+
+### 操作类型
+
+workbench / equity-research / html-refresh
+
+### 修改文件
+
+- `sources/automations/战略资源/银锡/2026-07-23-1732-兴业银锡-机构级决策研报.html`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` v1.0.9 重新渲染 `000426.SZ 兴业银锡` 当前 HTML 研报，覆盖旧每日跟踪面板中的“股价偏离度”。本轮未刷新行情、估值或研究结论，仅用既有 Markdown 中的 `31.73 元` 与 `28—38 元` 动态价值区间重算展示层；新面板第三张卡片为“盈亏比”，显示约 `1.5:1`。
+
+## 2026-07-27
+
+### 操作类型
+
+workbench / equity-research / html-refresh
+
+### 修改文件
+
+- `sources/automations/支柱产业/电网/2026-07-23-1427-华明装备-机构级决策研报.html`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` v1.0.9 重新渲染 `002270.SZ 华明装备` 当前 HTML 研报，覆盖截图中仍显示“股价偏离度”的旧每日跟踪面板。本轮未刷新行情、估值或研究结论，仅用既有 Markdown 中的 `17.99 元` 与 `15—21 元` 动态价值区间重算展示层；新面板第三张卡片为“盈亏比”，显示约 `0.8:1`。
+
+## 2026-07-27
+
+### 操作类型
+
+tool / a-share-market-dashboard / tracking
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+将 A 股市场面板的跟踪清单标的展示从价格相对动态价值区间的旧口径统一改为“盈亏比”。每个标的只使用盘中实时价计算盈亏比，不再用研报同步价兜底，也不在盈亏比列重复显示价格；动态价值区间右侧计算潜在收益，左侧计算风险边界。价格高于右侧显示“无正向盈亏比”，价格低于左侧显示“低于下沿”。同步保留“盘中实时”列，新增独立“盈亏比”列，并重建单文件 HTML。
+
+## 2026-07-27
+
+### 操作类型
+
+workbench / equity-research / template-refresh
+
+### 修改文件
+
+- `workbench/targets/2026-07-16-1021-神马电力-机构级决策研报.md`
+- `sources/automations/支柱产业/电网/2026-07-18-神马电力机构级决策研报.html`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` v1.0.9 原地更新 `603530.SH 神马电力` 当前权威研报，未新建第二份研报。本轮不刷新行情与基本面数据，只将研报元信息从 `bbxm-equity-research@1.0.8` 同步为 `bbxm-equity-research@1.0.9`，并用统一渲染器覆盖同名 HTML。每日跟踪面板第三张卡片已由“股价偏离度”改为“盈亏比”，以 42.41 元、35—46 元动态价值区间计算为约 `0.4:1`，新增现金仍不具备理想安全边际。产业研报反向链接脚本未自动识别当前“电网行业完整分析报告”文件名，但人工核对该 HTML 已保留通往神马电力研报的入口。
+
+## 2026-07-27
+
+### 操作类型
+
+skill / equity_research / maintenance
+
+### 修改文件
+
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `.agents/skills/bbxm-equity-research/scripts/render-report-html.cjs`
+- `.agents/skills/bbxm-equity-research/scripts/test-render-report-html.cjs`
+- `log.md`
+
+### 操作说明
+
+将 `bbxm-equity-research` 升级到 v1.0.9：每日跟踪面板第三张卡片由“股价偏离度”改为“盈亏比”，口径调整为以上沿计算潜在收益、以下沿计算风险边界；盘中刷新只更新盘中卡和盈亏比，不改写动态价值区间、基本面状态或动作。同步更新 HTML 渲染器与自测断言。
+
+## 2026-07-27
+
+### 操作类型
+
+automation / fund-flow-analysis / strategic-resource
+
+### 修改文件
+
+- `sources/webpages/2026-07-27-兴业银锡资金面行情快照.md`
+- `sources/automations/战略资源/银锡/2026-07-27-兴业银锡资金面分析.html`
+- `log.md`
+
+### 操作说明
+
+按 `fund-flow-analysis` 技能为 `000426.SZ 兴业银锡` 生成 2026-07-27 资金面 HTML 快照。最新可核验行情与订单流截至 `2026-07-24`，融资融券截至 `2026-07-23`；`2026-07-27` 当日收盘价、当日资金流和当日融资融券未获取到，未编造当天数据。结论为 `多空分歧`：证券之星超大单 + 大单近 5 日代理约 `+5.82` 亿元，但同花顺主动资金近 5 日约 `-3.67` 亿元、近 20 日约 `-13.77` 亿元，融资账户 7 月 17—23 日合计净流出约 `2.73` 亿元，且 7 月 24 日股价下跌 `6.61%`。新增资金动作为 `wait / observe`，已有持仓为 `review / wait`。报告保留交易方身份边界，未将大额订单、小单、龙虎榜、ETF 或融资数据写成确认机构 / 散户 / 国家队买卖。
+
+## 2026-07-27
+
+### 操作类型
+
+workbench / equity_research / refresh
+
+### 修改文件
+
+- `sources/webpages/2026-07-27-上海瀚讯定增发行与行情快照.md`
+- `workbench/targets/2026-07-17-1539-上海瀚讯-机构级决策研报.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` 对 `300762 上海瀚讯` 当前权威研报原地增量更新，未新建第二份研报。更新内容包括：将研究时点改为 2026-07-27；补入 2026-07-24 向特定对象发行股票发行情况报告书，发行 22,388,955 股、发行价 33.32 元/股、净募资约 7.39 亿元、限售 6 个月；将最新可核验行情锚改为 2026-07-24 收盘 27.45 元，并明确 2026-07-27 实时价未获取到；将摊薄后综合公允价值调整为 14—20.5 元/股，动作维持 `wait / observe`，已有持仓维持 `review`。本机东方财富实时接口连接被关闭，未编造当天行情。
+
+## 2026-07-27
+
+### 操作类型
+
+automation / dividend-signal
+
+### 修改文件
+
+- `sources/automations/中证红利信号/最新信号.md`
+- `sources/automations/中证红利信号/中证红利每日信号.xlsx`
+- `log.md`
+
+### 操作说明
+
+按 `zzhl-dividend-signal` skill 运行 `python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py --output-dir "sources/automations/中证红利信号" --run-date 2026-07-27`，刷新中证红利 `000922` 股息率信号每日记录。本轮写入记录日为 `2026-07-27`；AKShare 指数估值日期为 `2026-07-24`，中证红利 `股息率2` 为 `4.50%`；中国 10 年国债收益率日期为 `2026-07-24`，收益率为 `1.7282%`，股债利差为 `2.7718` 个百分点。
+
+三类规则判断为：历史分位点 `待验证`，绝对股息率 `C（小额定投）`，股债利差 `B（加大买入）`。综合结论为 `历史分位点待验证，暂不判定加大买入区间`，不是重点买入区间。理杏仁公开页面返回 `HTTP Error 429: Too Many Requests`，雪球实时行情接口返回空响应；对应字段保留为 `待验证`，未编造数值，也未用当天涨跌幅修正股息率。
+
 ## 2026-07-24
 
 ### 操作类型
@@ -17496,3 +17646,123 @@ automation / industry-routing / computing-system-cluster
 ### 操作说明
 
 按用户指定，将 `000938 紫光股份` 与 `000977 浪潮信息` 的机构级决策研报从 `workbench/targets/` 归位到 `sources/automations/新兴产业/算力/计算系统与集群/`。同步修正算力总报告与计算系统与集群报告中的本地研报链接，并将计算系统与集群报告中“新华三”公司映射补为“紫光股份 / 新华三”研报入口。因这两个文件已不再位于 Workbench，移除 `workbench/index.md` 中对应导航项，并同步更新 Workbench 边界校验清单。
+
+## 2026-07-27
+
+### 操作类型
+
+workbench / equity-research / pillar-industry
+
+### 修改文件
+
+- `sources/automations/支柱产业/电网/2026-07-23-1427-华明装备-机构级决策研报.html`
+- `sources/automations/支柱产业/电网/2026-07-17-十五五电网投资与电网行业完整分析报告.md`
+- `sources/automations/支柱产业/电网/2026-07-17-十五五电网投资与电网行业完整分析报告.html`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` v1.0.9 重新渲染 `002270.SZ 华明装备` 当前权威研报 HTML，保持原 Markdown 研究数据口径不变，将每日跟踪面板稳定为 `盈亏比` 口径。同步把电网行业完整分析报告中的华明装备入口从旧版 `2026-07-15` HTML 改为当前权威版 `2026-07-23-1427` HTML。验证通过：个股 HTML 含 16 个目录锚点、唯一每日跟踪边界、无 `股价偏离度 / price-deviation` 残留、无未转换双链和无典型乱码。
+
+## 2026-07-27
+
+### 操作类型
+
+dashboard / tracking-list
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户截图反馈调整 A 股市场面板“跟踪清单”：`盘中实时` 列去掉 `可加 / 可减` 信号，只保留实时价格或行情读取状态；新增独立 `星级` 列，`可加` 筛选后可直接查看一星/二星，超过右侧价的标的显示 `可减`。同步更新测试断言并重新生成自包含 HTML。
+
+## 2026-07-27
+
+### 操作类型
+
+automation / bbxm-daily-brief
+
+### 修改文件
+
+- `sources/automations/BBXM每日汇总/2026-07-27/冰冰小美/processing/extracted-posts.json`
+- `sources/automations/BBXM每日汇总/2026-07-27/冰冰小美/processing/risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026-07-27/冰冰小美/processing/risk-write-status.json`
+- `sources/automations/BBXM每日汇总/2026-07-27/冰冰小美/task.log`
+- `sources/automations/BBXM每日汇总/2026-07-27/冰冰小美/summary.md`
+- `log.md`
+
+### 操作说明
+
+按 `.agents/automations/bbxm_daliy_brief.md` 执行 `2026-07-27` 冰冰小美每日汇总。本轮通过项目专用 Chrome/CDP 提取 18 条可见详情记录，发布时间分布为 `2026-07-25` 5 条、`2026-07-22` 1 条、`2026-07-21` 12 条；保存脚本按目标日期过滤后保存 0 条 `2026-07-27` 原帖，未生成逐帖解读。风险分析覆盖 0 / 0，`analysis_complete=true`；Excel 更新器返回 `no_risk`，没有可写入节点且未修改风险提示工作簿。
+
+### 后续补充
+
+根据用户批注“按日期保存到对应目录即可”，已将上述非目标日期详情记录按实际发布时间回填：新增 `sources/automations/BBXM每日汇总/2026-07-25/冰冰小美/` 原帖 5 条，新增 `sources/automations/BBXM每日汇总/2026-07-22/冰冰小美/` 原帖 1 条；`2026-07-21` 的 12 条与官方目录已有原帖重复，未重复保存。同步修正新增目录的 `state.json` 路径，并清理临时 `20260725`、`20260722`、`20260721` 目录。
+
+## 2026-07-27
+
+### 操作类型
+
+automation / fund-flow-analysis / pillar-industry
+
+### 修改文件
+
+- `sources/webpages/2026-07-27-中国中车资金面行情快照.md`
+- `sources/automations/支柱产业/2026-07-27-中国中车资金面分析.html`
+- `log.md`
+
+### 操作说明
+
+按 `fund-flow-analysis` 技能对 `601766.SH 中国中车` 生成资金面分析快照。最新可得交易日为 `2026-07-24`，资金状态维持 `多空分歧`：近5日大单/主力代理仍净流入约 `43109.60` 万元，但 `2026-07-24` 当日转为净流出约 `10373.73` 万元；融资余额约 `31.07` 亿元，近5日融资净买入估算约 `-13212.61` 万元，未见杠杆资金显著追涨。控股股东增持计划保留为产业资本潜在买盘，未提前视作实际成交；ETF/F7、北向、QFII、公募和实际增持金额均标注为未获取到或待核验。HTML 按模板保留 11 个一级章节，保存到 `sources/automations/支柱产业/`，未更新正式 `index.md`。
+
+## 2026-07-27
+
+### 操作类型
+
+workbench / equity-research / pillar-industry
+
+### 修改文件
+
+- `workbench/targets/2026-07-17-1133-中国船舶机构级决策研报.md`
+- `sources/automations/支柱产业/2026-07-17-1133-中国船舶机构级决策研报.html`
+- `sources/webpages/2026-07-27-中国船舶行情公告资金快照.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` 原地更新 `600150.SH 中国船舶` 当前权威研报，未新建第二份同标的研报。本轮补入 2026-07-14 半年度业绩预增公告、2026-07-27 盘中行情和 2026-07-24 融资融券快照：公司预计 2026H1 归母净利润 92-110 亿元、扣非 90-108 亿元；盘中价 33.22 元，总市值约 2500.01 亿元；最新可得融资余额约 70.81 亿元，10 日融资净买入为负。综合估值区间由 26-36 元上修为 29-40 元，结论调整为估值合理区间中部偏下、基本面改善但流动性和情绪尚未形成共振，新增现金 `wait / observe`，已有持仓 `observe / review`。
+
+已用 `bbxm-equity-research` 统一渲染器生成同源 HTML 至 `sources/automations/支柱产业/2026-07-17-1133-中国船舶机构级决策研报.html`。同目录产业研报反向链接脚本返回 `industry-report-not-found`，未建立反向链接；HTML 检查通过 16 个正文锚点、唯一一组每日跟踪边界、无未转换双链和无典型乱码。
+
+### 后续待办
+
+- 2026 年半年报正式披露后复核毛利率、CFO/归母净利润、合同负债和分部利润。
+- 后续重跑资金面时补齐逐日 K 线、大单资金、ETF / 机构代理资金和北向口径。
+
+## 2026-07-27
+
+### 操作类型
+
+workbench / equity-research / template-refresh
+
+### 修改文件
+
+- `workbench/targets/2026-07-16-1021-神马电力-机构级决策研报.md`
+- `sources/webpages/2026-07-27-神马电力最新行情公告资金快照.md`
+- `sources/automations/支柱产业/电网/2026-07-18-神马电力机构级决策研报.html`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` v1.0.8 原地升级 `603530.SH 神马电力` 既有权威研报，未新建第二份同标的研报。本轮补入 2026-07-24 最新可核验收盘价 `42.41` 元、2026-07-25 股票期权预留部分第二次授予公告、2026-07-24 融资融券快照与 2026-08-13 中报验证节点；将旧版压缩结构升级为 16 章正式模板，并补齐 1.1 基本面组、1.2 资金面组、11.1-11.12 冰冰小美三要素与风险识别结构。
+
+### 后续待办
+
+- 2026-08-13 中报披露后，复核收入、毛利率、经营现金流、海外订单和合同负债，并重算 35-46 元估值区间。
+- 后续若刷新资金面，应补齐大单、北向、ETF、QFII、公募私募和逐日融资变化，避免把资金代理变量误判为确认机构买入。
