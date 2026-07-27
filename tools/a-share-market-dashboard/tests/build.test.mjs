@@ -10,9 +10,12 @@ import {
   leftEdgeFromValueRange,
   normalizeTrackingItems,
   resolveStorage,
+  stockSecidFromCode,
   summarizeHoldings,
   summarizeTrackingItems,
   trackingLeftEdgeDistance,
+  trackingSignalForQuote,
+  valueRangePrices,
 } from '../src/app.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -26,7 +29,7 @@ const hangTianElectronicsReportPath = join(
   'automations',
   '新兴产业',
   '商业航天',
-  '2026-07-21-1650-航天电子-机构级决策研报.html',
+  '2026-07-23-1427-航天电子-机构级决策研报.html',
 );
 
 function countFeedReports(directoryName) {
@@ -51,6 +54,8 @@ test('dashboard shell exposes every approved navigation and rendering target', (
     'event-calendar-heading',
     'event-calendar-list',
     'event-calendar-count',
+    'featured-entry-heading',
+    'open-featured-digest',
     'metric-list',
     'position-view',
     'valuation-view',
@@ -86,7 +91,7 @@ test('sidebar exposes the personal position workspace as a first-level tree doma
     'industry-pillar',
     'position-manager',
     'holding-tracker',
-    'book-list',
+    'featured-digest',
     'holding-form',
     'tracking-form',
     'tracking-count',
@@ -103,6 +108,8 @@ test('sidebar exposes the personal position workspace as a first-level tree doma
   for (const status of ['持有', '观察']) {
     assert.match(html, new RegExp(`data-status-filter="${status}"`));
   }
+  assert.match(html, /data-status-filter="addable"[^>]*>可加<\/button>/);
+  assert.match(html, /data-status-filter="reducible"[^>]*>可减<\/button>/);
   assert.match(html, /data-status-filter="allocation"[^>]*>配比模式<\/button>/);
   assert.doesNotMatch(html, /data-status-filter="计划加仓"/);
   assert.doesNotMatch(html, /data-status-filter="计划减仓"/);
@@ -122,8 +129,11 @@ test('sidebar exposes the personal position workspace as a first-level tree doma
   assert.doesNotMatch(html, />板块</);
   assert.match(html, /class="tracking-table-wrap"/);
   assert.match(html, /<table class="tracking-table">/);
-  assert.match(html, /<button class="nav-item" type="button" data-view="book-list"><span>03<\/span>书单<\/button>/);
-  assert.match(html, /<h2 class="visually-hidden" id="book-list-heading">书单<\/h2>/);
+  assert.match(html, /id="tree-thermometer"[\s\S]*<button class="nav-item" type="button" data-view="featured-digest"><span>07<\/span>精选汇总<\/button>/);
+  const personalTree = html.match(/<div class="tree-children" id="tree-personal" hidden>[\s\S]*?<\/div>/)?.[0] ?? '';
+  assert.doesNotMatch(personalTree, /data-view="featured-digest"/);
+  assert.match(html, /<section class="view" id="featured-digest" data-shell-content="thermometer" aria-labelledby="featured-digest-heading">/);
+  assert.match(html, /<h2 class="visually-hidden" id="featured-digest-heading">精选汇总<\/h2>/);
   assert.match(html, /<thead><tr><th>标的<\/th><th>动态价值区间<\/th><th><button class="table-sort-button" type="button" id="tracking-sort-intraday"[^>]*>盘中实时<\/button><\/th><th>风险方向<\/th><th>数据来自研报<\/th><\/tr><\/thead>/);
   assert.match(html, /<tbody id="holding-tracker-list"><\/tbody>/);
   assert.doesNotMatch(html, /tracker-card/);
@@ -138,6 +148,8 @@ test('market summary renders three overview cards and includes signal sources in
   assert.match(source, /id="youzhiyouxing-temperature-card"/);
   assert.match(source, /id="dividend-signal-card"/);
   assert.match(source, /id="nasdaq100-card"/);
+  assert.match(source, /class="featured-entry-card panel"/);
+  assert.match(source, /id="open-featured-digest"[^>]*>进入精选汇总<\/button>/);
   assert.match(source, /id="event-calendar-list"/);
   assert.doesNotMatch(source, /预留模块/);
   assert.doesNotMatch(source, /暂空/);
@@ -161,6 +173,8 @@ test('market summary renders three overview cards and includes signal sources in
     '距离历史最高点跌幅',
     '/api/nasdaq100',
     'EVENT CALENDAR',
+    'BBXM DAILY DIGEST',
+    '进入精选汇总',
     '事件日历',
     'event-calendar-empty',
   ]) {
@@ -228,13 +242,13 @@ test('industry panels use the approved feed layout without the tracking card', (
     '../../sources/automations/新兴产业/算力/2026-07-20-算力产业完整分析报告.html',
     '中国卫星-机构级决策研报',
     '中国卫通-机构级决策研报',
-    '航天电子机构级决策研报',
+    '航天电子-机构级决策研报',
     '十五五电网投资与电网行业完整分析报告',
     '../../sources/automations/支柱产业/电网/2026-07-17-十五五电网投资与电网行业完整分析报告.html',
     '中国中车机构级决策研报',
     '中国中车资金面分层分析',
     '中国船舶资金面分层分析',
-    '../../sources/automations/支柱产业/2026-07-18-中国中车机构级决策研报.html',
+    '../../sources/automations/支柱产业/2026-07-16-1334-中国中车机构级决策研报.html',
     '../../sources/automations/支柱产业/2026-07-18-中国中车资金面分层分析.html',
     '../../sources/automations/支柱产业/2026-07-18-中国船舶资金面分层分析.html',
     '华明装备机构级决策研报',
@@ -251,7 +265,6 @@ test('industry panels use the approved feed layout without the tracking card', (
   ]) {
     assert.match(html, new RegExp(marker));
   }
-  assert.doesNotMatch(html, /当前热点/);
   assert.doesNotMatch(html, /industry-tracking/);
   assert.doesNotMatch(html, /<h[1-6][^>]*>产业跟踪<\/h[1-6]>/);
   assert.doesNotMatch(html, /<p class="eyebrow">INDUSTRY TRACKING<\/p>/);
@@ -311,6 +324,36 @@ test('launcher rebuilds the dashboard before starting the local proxy', () => {
   assert.ok(proxyIndex > buildIndex, 'launcher must build before starting the proxy');
   assert.match(launcher, /if errorlevel 1 goto :build_failed/i);
   assert.match(launcher, /:build_failed[\s\S]*goto :eof/i);
+});
+
+test('featured digest replaces book list and reads BBXM daily summaries', () => {
+  const source = readFileSync(sourcePath, 'utf8');
+  const html = readFileSync(artifactPath, 'utf8');
+  const buildSource = readFileSync(new URL('../scripts/build.mjs', import.meta.url), 'utf8');
+  const appSource = readFileSync(new URL('../src/app.mjs', import.meta.url), 'utf8');
+
+  assert.match(source, /data-view="featured-digest"/);
+  assert.match(source, /data-shell-content="thermometer" aria-labelledby="featured-digest-heading"/);
+  assert.match(source, /BBXM_FEATURED_DIGEST/);
+  assert.doesNotMatch(source, /READING LIST|书单入口|book-list/);
+  assert.match(buildSource, /BBXM每日汇总/);
+  assert.match(buildSource, /scanBbxmDailyDigest/);
+  assert.match(appSource, /applyFeaturedFilter/);
+  assert.match(appSource, /setShell\('thermometer', 'featured-digest'\)/);
+  for (const marker of [
+    '精选汇总',
+    '当前热点',
+    '来源目录：sources/automations/BBXM每日汇总',
+    '投机周期',
+    '../../sources/automations/BBXM每日汇总/2026-07-25/冰冰小美/135900_投机周期_40209002.md',
+    '打开雪球原帖',
+    'featured-filter-tabs',
+    'featured-card',
+    'data-featured-filter="macro"',
+  ]) {
+    assert.match(html, new RegExp(marker));
+  }
+  assert.doesNotMatch(html, /READING LIST|这里先作为你的投资阅读书单入口|<!-- BBXM_FEATURED_DIGEST -->/);
 });
 
 test('position summary calculates market value, profit and portfolio weights', () => {
@@ -376,6 +419,39 @@ test('tracking intraday sort distance measures closeness to dynamic value left e
   assert.equal(trackingLeftEdgeDistance({ valueRange: '未获取到', livePrice: 12 }), Number.POSITIVE_INFINITY);
 });
 
+test('tracking addable and reducible filters derive signals from dynamic value range', () => {
+  const appSource = readFileSync(new URL('../src/app.mjs', import.meta.url), 'utf8');
+
+  assert.deepEqual(valueRangePrices('16.5—20.5 元'), { left: 16.5, right: 20.5, center: 18.5 });
+  assert.deepEqual(trackingSignalForQuote({ valueRange: '16.5—20.5 元', livePrice: 18 }), { addStars: 1, reducible: false });
+  assert.deepEqual(trackingSignalForQuote({ valueRange: '16.5—20.5 元', livePrice: 16 }), { addStars: 2, reducible: false });
+  assert.deepEqual(trackingSignalForQuote({ valueRange: '16.5—20.5 元', livePrice: 21 }), { addStars: 0, reducible: true });
+  assert.match(appSource, /trackingStatusFilter === 'addable'/);
+  assert.match(appSource, /trackingStatusFilter === 'reducible'/);
+  assert.match(appSource, /可加\$\{'★'\.repeat\(signal\.addStars\)\}/);
+});
+
+test('tracking list refreshes intraday quotes directly from stock codes', () => {
+  const appSource = readFileSync(new URL('../src/app.mjs', import.meta.url), 'utf8');
+
+  assert.equal(stockSecidFromCode('300750'), '0.300750');
+  assert.equal(stockSecidFromCode('601168'), '1.601168');
+  assert.equal(stockSecidFromCode('000426'), '0.000426');
+  assert.equal(stockSecidFromCode('bad'), '');
+  for (const marker of [
+    "宁德时代: '300750'",
+    "西部矿业: '601168'",
+    'trackingQuoteCache',
+    'refreshTrackingQuotes',
+    '/api/stock-quote?secid=',
+    '读取行情…',
+  ]) {
+    assert.match(appSource, new RegExp(marker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+  }
+  assert.match(appSource, /refreshTrackingQuotes\(\)/);
+  assert.match(appSource, /60_000/);
+});
+
 test('航天电子 merges static hero metrics into daily tracking and reserves a live quote', () => {
   const report = readFileSync(hangTianElectronicsReportPath, 'utf8');
 
@@ -396,7 +472,7 @@ test('航天电子 local links target real source files or Obsidian pages', () =
   const report = readFileSync(hangTianElectronicsReportPath, 'utf8');
 
   for (const href of [
-    './2026-07-21-航天电子资金面分析.html',
+    './2026-07-24-航天电子资金面分析.html',
     '../../../webpages/2026-07-21-航天电子机构级研报公开资料底稿.md',
     'https://dataclouds.cninfo.com.cn/shgonggao/hsomarket/2026/20260327/01fc31123b944c3396c26972e042ab76.PDF',
     'https://static.cninfo.com.cn/finalpage/2026-04-29/1225229950.PDF',

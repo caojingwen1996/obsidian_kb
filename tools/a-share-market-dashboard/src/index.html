@@ -25,6 +25,7 @@
             <button class="nav-item" type="button" data-view="emotion-view"><span>04</span>情绪温度</button>
             <button class="nav-item" type="button" data-view="rules-view"><span>05</span>评分规则</button>
             <button class="nav-item" type="button" data-view="audit-view"><span>06</span>数据审计</button>
+            <button class="nav-item" type="button" data-view="featured-digest"><span>07</span>精选汇总</button>
             </div>
           </section>
           <section class="tree-group" data-tree-group="industry">
@@ -40,7 +41,6 @@
             <div class="tree-children" id="tree-personal" hidden>
             <button class="nav-item" type="button" data-view="position-manager"><span>01</span>仓位管理</button>
             <button class="nav-item" type="button" data-view="holding-tracker"><span>02</span>持仓跟踪</button>
-            <button class="nav-item" type="button" data-view="book-list"><span>03</span>书单</button>
             </div>
           </section>
           <button class="tree-root tree-leaf" type="button" data-tree-domain="changelog" data-view="changelog-view"><span>更新日志</span></button>
@@ -89,6 +89,15 @@
           <div id="dividend-signal-card" aria-label="中证红利股息率信号"></div>
           <div id="nasdaq100-card" aria-label="纳斯达克100指数"></div>
         </div>
+
+        <section class="featured-entry-card panel" aria-labelledby="featured-entry-heading">
+          <div>
+            <p class="eyebrow">BBXM DAILY DIGEST</p>
+            <h2 id="featured-entry-heading">精选汇总</h2>
+            <p>集中查看冰冰小美每日汇总、当前热点和按日期整理的精选帖子。</p>
+          </div>
+          <button class="button-secondary" id="open-featured-digest" type="button">进入精选汇总</button>
+        </section>
 
         <section class="event-calendar panel" aria-labelledby="event-calendar-heading">
           <div class="event-calendar-head">
@@ -295,7 +304,7 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
               <button class="button-primary" type="submit">保存跟踪</button>
             </form>
             <div class="tracker-list-panel panel">
-              <div class="holding-form-title"><div><p class="eyebrow">WATCHLIST</p><h3>跟踪清单</h3></div><div class="tracker-filter" id="tracking-filter" aria-label="跟踪状态筛选"><button class="is-active" type="button" data-status-filter="all" aria-pressed="true">全部</button><button type="button" data-status-filter="持有" aria-pressed="false">持有</button><button type="button" data-status-filter="观察" aria-pressed="false">观察</button><button type="button" data-status-filter="allocation" aria-pressed="false">配比模式</button></div></div>
+              <div class="holding-form-title"><div><p class="eyebrow">WATCHLIST</p><h3>跟踪清单</h3></div><div class="tracker-filter" id="tracking-filter" aria-label="跟踪状态筛选"><button class="is-active" type="button" data-status-filter="all" aria-pressed="true">全部</button><button type="button" data-status-filter="持有" aria-pressed="false">持有</button><button type="button" data-status-filter="观察" aria-pressed="false">观察</button><button type="button" data-status-filter="addable" aria-pressed="false">可加</button><button type="button" data-status-filter="reducible" aria-pressed="false">可减</button><button type="button" data-status-filter="allocation" aria-pressed="false">配比模式</button></div></div>
               <div class="allocation-view" id="tracking-allocation-view" hidden>
                 <div class="allocation-donut" id="tracking-allocation-chart" aria-label="资产配比饼图"></div>
                 <div class="allocation-legend" id="tracking-allocation-legend" aria-label="资产配比明细"></div>
@@ -312,12 +321,18 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
         </div>
       </section>
 
-      <section class="view" id="book-list" data-shell-content="personal" aria-labelledby="book-list-heading">
+      <section class="view" id="featured-digest" data-shell-content="thermometer" aria-labelledby="featured-digest-heading">
         <div class="personal-page">
-          <h2 class="visually-hidden" id="book-list-heading">书单</h2>
-          <div class="panel book-list-panel">
-            <div class="holding-form-title"><div><p class="eyebrow">READING LIST</p><h3>书单</h3></div><span>待整理</span></div>
-            <p class="personal-empty">这里先作为你的投资阅读书单入口，后续可以继续加分类、进度和读书笔记链接。</p>
+          <h2 class="visually-hidden" id="featured-digest-heading">精选汇总</h2>
+          <div class="featured-workbench">
+            <nav class="featured-filter-tabs" aria-label="精选汇总筛选">
+              <button class="is-active" type="button" data-featured-filter="all" aria-pressed="true">全部</button>
+              <button type="button" data-featured-filter="macro" aria-pressed="false">宏观</button>
+              <button type="button" data-featured-filter="market" aria-pressed="false">市场</button>
+              <button type="button" data-featured-filter="industry" aria-pressed="false">产业</button>
+              <button type="button" data-featured-filter="trade" aria-pressed="false">交易</button>
+            </nav>
+            <!-- BBXM_FEATURED_DIGEST -->
           </div>
         </div>
       </section>

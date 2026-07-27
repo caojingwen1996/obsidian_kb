@@ -9,6 +9,7 @@ const outputPath = join(root, 'a-share-market-dashboard.html');
 const moduleOrder = ['core.mjs', 'adapters.mjs', 'data-service.mjs', 'app.mjs'];
 const automationsDir = join(repoRoot, 'sources', 'automations');
 const dividendSignalPath = join(automationsDir, '中证红利信号', '最新信号.md');
+const bbxmDailyDigestDir = join(automationsDir, 'BBXM每日汇总');
 const industryDefinitions = [
   { key: 'STRATEGY', directoryName: '战略资源' },
   { key: 'EMERGING', directoryName: '新兴产业' },
@@ -71,6 +72,158 @@ function timeFromFilename(filename) {
   const dated = filename.match(/^\d{4}-(\d{2})-(\d{2})-/);
   if (dated) return `${dated[1]}-${dated[2]}`;
   return '—';
+}
+
+function displayDigestDate(date) {
+  const match = String(date).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  return match ? `${Number(match[2])}月${Number(match[3])}日` : date;
+}
+
+function weekdayFromDate(date) {
+  const timestamp = Date.parse(`${date}T12:00:00+08:00`);
+  if (!Number.isFinite(timestamp)) return '';
+  return new Intl.DateTimeFormat('zh-CN', { weekday: 'short', timeZone: 'Asia/Shanghai' }).format(timestamp);
+}
+
+function truncateText(value, maxLength = 118) {
+  const text = String(value ?? '').replace(/\s+/g, ' ').trim();
+  return text.length > maxLength ? `${text.slice(0, maxLength - 1)}…` : text;
+}
+
+function normalizeDigestText(value) {
+  return String(value ?? '')
+    .replace(/[]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function frontmatterValue(markdown, label) {
+  return markdown.match(new RegExp(`^${label}：(.+)$`, 'mu'))?.[1].trim() ?? '';
+}
+
+function digestTitleFromFilename(filename) {
+  return filename
+    .replace(/\.md$/i, '')
+    .replace(/^\d{6}_/, '')
+    .replace(/_\d{6,}$/, '')
+    .replace(/_/g, ' ');
+}
+
+function digestExcerpt(markdown, fallbackTitle) {
+  const body = markdown.split(/^正文：$/mu).at(1) ?? markdown;
+  const cleaned = normalizeDigestText(body)
+    .replace(/^首页 下载App 发帖.*?冰冰小美\s*/u, '')
+    .replace(/风险提示：用户发表的所有文章[\s\S]*$/u, '')
+    .replace(fallbackTitle, '')
+    .trim();
+  return truncateText(cleaned || fallbackTitle, 132);
+}
+
+function digestFilters(text) {
+  const filters = new Set();
+  if (/宏观|财政|税|美元|美债|利率|流动性|关税|汇率|风险|救市|股指期货/u.test(text)) filters.add('macro');
+  if (/市场|A股|牛市|熊市|行情|股市|指数|资金|做空|交易节点/u.test(text)) filters.add('market');
+  if (/产业|科技|AI|有色|黄金|银行|半导体|机器人|商业航天|电力|资源/u.test(text)) filters.add('industry');
+  if (/交易|投机|仓位|加仓|减仓|持仓|观察|复盘|等待|买入|卖出/u.test(text)) filters.add('trade');
+  if (!filters.size) filters.add('market');
+  return [...filters];
+}
+
+async function scanBbxmDailyDigest() {
+  const dateEntries = await readdir(bbxmDailyDigestDir, { withFileTypes: true }).catch(() => []);
+  const dayGroups = [];
+  for (const dateEntry of dateEntries) {
+    if (!dateEntry.isDirectory() || !/^\d{4}-\d{2}-\d{2}$/.test(dateEntry.name)) continue;
+    const dayDir = join(bbxmDailyDigestDir, dateEntry.name, '冰冰小美');
+    const files = await readdir(dayDir, { withFileTypes: true }).catch(() => []);
+    const entries = [];
+    for (const file of files) {
+      if (!file.isFile() || !file.name.endsWith('.md') || file.name === 'summary.md' || file.name.includes('_解读')) continue;
+      const markdown = await readFile(join(dayDir, file.name), 'utf8');
+      const title = frontmatterValue(markdown, '标题') || digestTitleFromFilename(file.name);
+      const publishedAt = frontmatterValue(markdown, '发布时间') || `${dateEntry.name} ${timeFromFilename(file.name)}`;
+      const sourceUrl = frontmatterValue(markdown, '原始链接');
+      const text = `${title} ${markdown}`;
+      entries.push({
+        date: dateEntry.name,
+        time: publishedAt.match(/\d{2}:\d{2}/)?.[0] ?? timeFromFilename(file.name),
+        title: truncateText(title, 78),
+        excerpt: digestExcerpt(markdown, title),
+        sourceUrl,
+        href: `../../sources/automations/BBXM每日汇总/${dateEntry.name}/冰冰小美/${file.name}`,
+        filters: digestFilters(text),
+      });
+    }
+    const summaryPath = join(dayDir, 'summary.md');
+    const summary = await readFile(summaryPath, 'utf8').catch(() => '');
+    const summaryHeadline = summary.match(/^## 总观点\s+([\s\S]*?)(?:\n## |\n$)/u)?.[1]?.trim() ?? '';
+    dayGroups.push({
+      date: dateEntry.name,
+      weekday: weekdayFromDate(dateEntry.name),
+      entries: entries.sort((left, right) => right.time.localeCompare(left.time)),
+      summary: truncateText(summaryHeadline, 138),
+      summaryHref: summary ? `../../sources/automations/BBXM每日汇总/${dateEntry.name}/冰冰小美/summary.md` : '',
+    });
+  }
+  return dayGroups
+    .sort((left, right) => right.date.localeCompare(left.date))
+    .filter(group => group.entries.length || group.summary)
+    .slice(0, 10);
+}
+
+function renderFeaturedDigest(groups) {
+  if (!groups.length) {
+    return `            <p class="personal-empty">未找到 BBXM 每日汇总。来源目录：sources/automations/BBXM每日汇总</p>`;
+  }
+  const allEntries = groups.flatMap(group => group.entries.map(entry => ({ ...entry, groupDate: group.date })));
+  const hotItems = allEntries.slice(0, 5).map((entry, index) =>
+    `                <li class="featured-hot-item" data-featured-filters="${escapeHtml(entry.filters.join(','))}">
+                  <span>${index + 1}</span>
+                  <a href="${escapeHtml(entry.href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(entry.title)}</a>
+                </li>`
+  ).join('\n');
+  const latestGroup = groups[0];
+  const hotBlock = `            <section class="featured-hot panel" aria-label="当前热点">
+              <h3>当前热点</h3>
+              ${hotItems ? `<ol>\n${hotItems}\n              </ol>` : `<p>${escapeHtml(latestGroup.summary || '最新日期暂无目标日期原帖。')}</p>`}
+            </section>`;
+  const dayBlocks = groups.map(group => {
+    const cards = group.entries.map(entry =>
+      `                <article class="featured-card" data-featured-filters="${escapeHtml(entry.filters.join(','))}">
+                  <span class="featured-time">${escapeHtml(entry.time)}</span><span class="featured-dot"></span>
+                  <div class="featured-card-inner">
+                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
+                    <h3><a href="${escapeHtml(entry.href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(entry.title)}</a></h3>
+                    <p>${escapeHtml(entry.excerpt)}</p>
+                    <div class="featured-tags">${entry.filters.map(filter => `#${escapeHtml({ macro: '宏观', market: '市场', industry: '产业', trade: '交易' }[filter] ?? filter)}`).join(' ')}</div>
+                    ${entry.sourceUrl ? `<a class="featured-source" href="${escapeHtml(entry.sourceUrl)}" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>` : ''}
+                  </div>
+                </article>`
+    ).join('\n');
+    const summary = group.summary && !group.entries.length
+      ? `              <article class="featured-card is-summary" data-featured-filters="market">
+                <span class="featured-time">—</span><span class="featured-dot"></span>
+                <div class="featured-card-inner">
+                  <div class="featured-meta"><span>自动化摘要</span><b>汇总</b></div>
+                  <h3><a href="${escapeHtml(group.summaryHref)}" target="_blank" rel="noopener noreferrer">${escapeHtml(displayDigestDate(group.date))} 无目标日期原帖</a></h3>
+                  <p>${escapeHtml(group.summary)}</p>
+                  <div class="featured-tags">#市场 #自动化边界</div>
+                </div>
+              </article>`
+      : '';
+    return `            <details class="featured-day">
+              <summary class="featured-date-row"><strong>${escapeHtml(displayDigestDate(group.date))}</strong><span>${escapeHtml(group.weekday)} · ${group.entries.length} 条</span></summary>
+              <div class="featured-timeline">
+                <div class="featured-feed">
+${cards || summary}
+                </div>
+              </div>
+            </details>`;
+  }).join('\n');
+  return `${hotBlock}
+            <div class="featured-source-note">来源目录：sources/automations/BBXM每日汇总</div>
+${dayBlocks}
+            <p class="featured-empty-results" hidden>没有匹配的精选条目。</p>`;
 }
 
 async function walkHtmlFiles(directory, pathParts = []) {
@@ -299,6 +452,7 @@ const [template, styles, changelogSource, eventCalendarSource, ...modules] = awa
   ...moduleOrder.map(filename => readFile(join(sourceDir, filename), 'utf8')),
 ]);
 const industries = await Promise.all(industryDefinitions.map(scanIndustryReports));
+const bbxmDailyDigest = await scanBbxmDailyDigest();
 const changelog = validateChangelog(JSON.parse(changelogSource));
 const eventCalendar = validateEventCalendar(JSON.parse(eventCalendarSource));
 const dividendSignal = parseDividendSignal(await readFile(dividendSignalPath, 'utf8').catch(() => ''));
@@ -330,6 +484,7 @@ for (const industry of industries) {
 }
 
 const output = renderedTemplate
+  .replace('            <!-- BBXM_FEATURED_DIGEST -->', renderFeaturedDigest(bbxmDailyDigest))
   .replace('        <!-- CHANGELOG_ENTRIES -->', renderChangelog(changelog))
   .replace('<!-- DASHBOARD_STYLES -->', `<style>${styles.trim()}</style>`)
   .replace('<!-- DASHBOARD_SCRIPT -->', `<script type="module">${bundle}</script>`);

@@ -35,6 +35,11 @@ const ALLOCATION_CATEGORIES = Object.freeze([
   { key: 'emerging', label: '新兴', color: '#f3b42b' },
 ]);
 const STOCK_CODE_ALIASES = Object.freeze({
+  宁德时代: '300750',
+  西部矿业: '601168',
+  三一重工: '600031',
+  兴业银锡: '000426',
+  三花智控: '002050',
   航天电子: '600879',
   云铝股份: '000807',
   东阳光: '600673',
@@ -213,6 +218,31 @@ function normalizeStockName(value) {
   return String(value ?? '').trim().replace(/\s+/g, '');
 }
 
+export function stockSecidFromCode(code) {
+  const digits = String(code ?? '').replace(/\D/g, '');
+  if (!/^\d{6}$/.test(digits)) return '';
+  if (/^[69]/.test(digits)) return `1.${digits}`;
+  if (/^[023]/.test(digits)) return `0.${digits}`;
+  return '';
+}
+
+function stockCodeForTrackingItem(item = {}) {
+  const explicitCode = String(item.code ?? '').trim();
+  if (stockSecidFromCode(explicitCode)) return explicitCode;
+  const normalizedName = normalizeStockName(item.name);
+  if (!normalizedName) return '';
+  if (STOCK_CODE_ALIASES[normalizedName]) return STOCK_CODE_ALIASES[normalizedName];
+  const partialMatch = Object.entries(STOCK_CODE_ALIASES).find(([alias]) =>
+    alias.includes(normalizedName) || normalizedName.includes(alias)
+  );
+  return partialMatch?.[1] ?? '';
+}
+
+function secidForTrackingItem(item = {}, report = {}) {
+  if (/^[01]\.\d{6}$/.test(String(report.secid ?? ''))) return report.secid;
+  return stockSecidFromCode(stockCodeForTrackingItem(item));
+}
+
 function reportLinkForTrackingItem(item) {
   const candidates = [item.name, ...Object.entries(STOCK_CODE_ALIASES)
     .filter(([, code]) => code === item.code)
@@ -327,6 +357,15 @@ export function leftEdgeFromValueRange(value) {
   return Number.isFinite(leftEdge) && leftEdge > 0 ? leftEdge : null;
 }
 
+export function valueRangePrices(value) {
+  const text = compactText(value);
+  const match = text.match(/(\d+(?:\.\d+)?)\s*[—\-–至到]\s*(\d+(?:\.\d+)?)/);
+  const left = match ? Number(match[1]) : NaN;
+  const right = match ? Number(match[2]) : NaN;
+  if (!Number.isFinite(left) || !Number.isFinite(right) || left <= 0 || right <= 0 || left >= right) return null;
+  return { left, right, center: (left + right) / 2 };
+}
+
 export function trackingLeftEdgeDistance({ valueRange, livePrice, reportQuote } = {}) {
   const leftEdge = leftEdgeFromValueRange(valueRange);
   const price = Number.isFinite(Number(livePrice))
@@ -334,6 +373,19 @@ export function trackingLeftEdgeDistance({ valueRange, livePrice, reportQuote } 
     : Number(compactText(reportQuote).match(/(\d+(?:\.\d+)?)/)?.[1]);
   if (!leftEdge || !Number.isFinite(price) || price <= 0) return Number.POSITIVE_INFINITY;
   return Math.abs(price - leftEdge) / leftEdge;
+}
+
+export function trackingSignalForQuote({ valueRange, livePrice, reportQuote } = {}) {
+  const range = valueRangePrices(valueRange);
+  const price = Number.isFinite(Number(livePrice))
+    ? Number(livePrice)
+    : Number(compactText(reportQuote).match(/(\d+(?:\.\d+)?)/)?.[1]);
+  if (!range || !Number.isFinite(price) || price <= 0) {
+    return { addStars: 0, reducible: false };
+  }
+  if (price < range.left) return { addStars: 2, reducible: false };
+  if (price < range.center) return { addStars: 1, reducible: false };
+  return { addStars: 0, reducible: price > range.right };
 }
 
 export function parseReportSummary(html) {
@@ -749,6 +801,7 @@ function startApp() {
   let trackingStatusFilter = 'all';
   let trackingSortMode = 'updated';
   const reportSummaryCache = new Map();
+  const trackingQuoteCache = new Map();
   const launcherHint = globalThis.location?.protocol === 'file:'
     ? ' 稳定联网请双击“启动面板.cmd”。'
     : '';
@@ -910,15 +963,42 @@ function startApp() {
     return allocation.some(item => item.percent > 0);
   };
 
+  async function loadTrackingQuote(secid) {
+    if (!isLocalProxyLocation() || !secid) return null;
+    const previous = trackingQuoteCache.get(secid);
+    trackingQuoteCache.set(secid, { status: 'loading', quote: previous?.quote ?? null, updatedAt: previous?.updatedAt ?? null });
+    try {
+      const quoteResponse = await fetch(`/api/stock-quote?secid=${encodeURIComponent(secid)}`, { cache: 'no-store' });
+      if (!quoteResponse.ok) throw new Error(`HTTP ${quoteResponse.status}`);
+      const payload = await quoteResponse.json();
+      if (!payload?.data || !Number.isFinite(payload.data.price)) throw new Error('Invalid quote payload');
+      const entry = { status: 'loaded', quote: payload.data, proxySource: payload.proxySource, updatedAt: Date.now() };
+      trackingQuoteCache.set(secid, entry);
+      return entry.quote;
+    } catch {
+      trackingQuoteCache.set(secid, { status: 'error', quote: previous?.quote ?? null, updatedAt: previous?.updatedAt ?? null });
+      return previous?.quote ?? null;
+    }
+  }
+
+  async function refreshTrackingQuotes() {
+    if (!isLocalProxyLocation()) return;
+    const secids = new Set();
+    for (const item of summarizeTrackingItems(trackingItems).items) {
+      const reportHref = reportLinkForTrackingItem(item);
+      const report = reportHref ? reportSummaryCache.get(reportHref)?.data ?? {} : {};
+      const secid = secidForTrackingItem(item, report);
+      if (secid) secids.add(secid);
+    }
+    if (!secids.size) return;
+    await Promise.all([...secids].map(secid => loadTrackingQuote(secid)));
+    renderTrackingItems();
+  }
+
   const renderTrackingItems = () => {
     const summary = summarizeTrackingItems(trackingItems);
     const allocationMode = trackingStatusFilter === 'allocation';
-    const filteredItems = trackingStatusFilter === 'all'
-      ? summary.items
-      : allocationMode
-        ? summary.items
-      : summary.items.filter(item => item.status === trackingStatusFilter);
-    const enrichedItems = filteredItems.map((item, index) => {
+    const enrichedItems = summary.items.map((item, index) => {
       const reportHref = reportLinkForTrackingItem(item);
       let reportEntry = reportHref ? reportSummaryCache.get(reportHref) : null;
       if (reportHref && !reportEntry) {
@@ -927,14 +1007,28 @@ function startApp() {
         loadReportSummary(reportHref);
       }
       const report = reportEntry?.data ?? {};
-      const liveQuote = reportEntry?.quote;
+      const secid = secidForTrackingItem(item, report);
+      let quoteEntry = secid ? trackingQuoteCache.get(secid) : null;
+      if (secid && isLocalProxyLocation() && !quoteEntry) {
+        quoteEntry = { status: 'loading' };
+        trackingQuoteCache.set(secid, quoteEntry);
+        loadTrackingQuote(secid).then(() => renderTrackingItems());
+      }
+      const liveQuote = quoteEntry?.quote ?? reportEntry?.quote;
+      const signal = trackingSignalForQuote({
+        valueRange: report.valueRange,
+        livePrice: liveQuote?.price,
+        reportQuote: report.reportQuote,
+      });
       return {
         item,
         index,
         reportHref,
         reportEntry,
         report,
+        quoteEntry,
         liveQuote,
+        signal,
         leftEdgeDistance: trackingLeftEdgeDistance({
           valueRange: report.valueRange,
           livePrice: liveQuote?.price,
@@ -942,13 +1036,19 @@ function startApp() {
         }),
       };
     });
+    const filteredItems = enrichedItems.filter(({ item, signal }) => {
+      if (trackingStatusFilter === 'all' || allocationMode) return true;
+      if (trackingStatusFilter === 'addable') return signal.addStars > 0;
+      if (trackingStatusFilter === 'reducible') return signal.reducible;
+      return item.status === trackingStatusFilter;
+    });
     const visibleItems = trackingSortMode === 'near-left'
-      ? [...enrichedItems].sort((left, right) =>
+      ? [...filteredItems].sort((left, right) =>
           left.leftEdgeDistance - right.leftEdgeDistance
           || right.item.updatedAt - left.item.updatedAt
           || left.index - right.index
         )
-      : enrichedItems;
+      : filteredItems;
     const hasAllocation = renderTrackingAllocation(summary.items);
     const sortButton = document.getElementById('tracking-sort-intraday');
     if (sortButton) {
@@ -968,10 +1068,13 @@ function startApp() {
       ? '还没有可计算的持有配比。先在仓位管理里记录持有数量和现价，或把跟踪项设为持有。'
       : '还没有跟踪标的。先在左侧新增一条观察记录。';
     empty.hidden = allocationMode ? hasAllocation : visibleItems.length > 0;
-    document.getElementById('holding-tracker-list').innerHTML = visibleItems.map(({ item, reportHref, reportEntry, report, liveQuote }) => {
+    document.getElementById('holding-tracker-list').innerHTML = visibleItems.map(({ item, reportHref, reportEntry, report, quoteEntry, liveQuote, signal }) => {
+      const signalLabel = signal.addStars > 0
+        ? ` · 可加${'★'.repeat(signal.addStars)}`
+        : signal.reducible ? ' · 可减' : '';
       const intraday = liveQuote
-        ? `${liveQuote.price.toFixed(2)} 元 · ${liveQuote.changePercent >= 0 ? '+' : ''}${liveQuote.changePercent.toFixed(2)}%`
-        : report.reportQuote || (reportEntry?.status === 'loading' ? '读取研报…' : item.nextAction || '未获取到');
+        ? `${liveQuote.price.toFixed(2)} 元 · ${liveQuote.changePercent >= 0 ? '+' : ''}${liveQuote.changePercent.toFixed(2)}%${signalLabel}`
+        : report.reportQuote ? `${report.reportQuote}${signalLabel}` : (quoteEntry?.status === 'loading' ? '读取行情…' : reportEntry?.status === 'loading' ? '读取研报…' : item.nextAction || '未获取到');
       const nameHtml = reportHref
         ? `<a href="${escapeHtml(reportHref)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.name)}</a>`
         : escapeHtml(item.name);
@@ -1161,6 +1264,22 @@ function startApp() {
     if (empty) empty.hidden = visibleCount > 0;
   };
 
+  const applyFeaturedFilter = () => {
+    const activeFilter = document.querySelector('.featured-filter-tabs button.is-active')?.dataset.featuredFilter ?? 'all';
+    let visibleCount = 0;
+    document.querySelectorAll('[data-featured-filters]').forEach(item => {
+      const filters = (item.dataset.featuredFilters ?? '').split(',').map(value => value.trim()).filter(Boolean);
+      const visible = activeFilter === 'all' || filters.includes(activeFilter);
+      item.hidden = !visible;
+      if (visible && item.classList.contains('featured-card')) visibleCount += 1;
+    });
+    document.querySelectorAll('.featured-day').forEach(day => {
+      day.hidden = day.querySelectorAll('.featured-card:not([hidden])').length === 0;
+    });
+    const empty = document.querySelector('.featured-empty-results');
+    if (empty) empty.hidden = visibleCount > 0;
+  };
+
   const setActiveView = viewId => {
     const button = [...document.querySelectorAll('[data-view]')].find(item => item.dataset.view === viewId);
     const shell = button ? shellForButton(button) : 'thermometer';
@@ -1222,6 +1341,17 @@ function startApp() {
       applyIndustryFilter(section);
     });
     form.querySelector('input')?.addEventListener('input', () => applyIndustryFilter(section));
+  });
+  document.querySelectorAll('.featured-filter-tabs button').forEach(button => button.addEventListener('click', event => {
+    document.querySelectorAll('.featured-filter-tabs button').forEach(item => {
+      const active = item === event.currentTarget;
+      item.classList.toggle('is-active', active);
+      item.setAttribute('aria-pressed', String(active));
+    });
+    applyFeaturedFilter();
+  }));
+  document.getElementById('open-featured-digest')?.addEventListener('click', () => {
+    setShell('thermometer', 'featured-digest');
   });
   document.querySelectorAll('[data-tree-domain]').forEach(button => button.addEventListener('click', () => {
     setShell(button.dataset.treeDomain, button.dataset.view ?? null);
@@ -1360,12 +1490,14 @@ function startApp() {
     refreshLive();
     loadYouzhiyouxingTemperature();
     loadNasdaq100();
+    refreshTrackingQuotes();
   });
 
   setShell('thermometer', 'market-summary');
   render();
   renderHoldings();
   renderTrackingItems();
+  refreshTrackingQuotes();
   loadProxyPortfolio();
   loadYouzhiyouxingTemperature();
   loadNasdaq100();
@@ -1373,6 +1505,7 @@ function startApp() {
   setInterval(() => {
     if (isTradingSession() && state.snapshot.mode === 'live') {
       refreshLive(['shanghaiHistory', 'csi300History', 'csiAllHistory']);
+      refreshTrackingQuotes();
     }
   }, 60_000);
   setInterval(() => {

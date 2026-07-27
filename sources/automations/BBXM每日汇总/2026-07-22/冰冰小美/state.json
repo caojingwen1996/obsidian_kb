@@ -1,0 +1,32 @@
+﻿{
+    "account":  "冰冰小美",
+    "account_url":  "https://xueqiu.com/u/7143769715",
+    "task_date":  "20260722",
+    "start_time":  "2026-07-27 09:54:51",
+    "end_time":  null,
+    "scan_round":  1,
+    "success_count":  1,
+    "failure_count":  0,
+    "log_file":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-22\\冰冰小美\\task.log",
+    "result_dir":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-22\\冰冰小美",
+    "state_file":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-22\\冰冰小美\\state.json",
+    "processed_items":  {
+                            "401686252":  {
+                                              "source_id":  "401686252",
+                                              "title":  "咕咕嘎嘎今天晚上是非常有意思的一天。1，美元对日元，突破162来到163。危机进一步传导到某国家经济体，美日利差→汇市→... - 雪球",
+                                              "published_at":  "2026-07-22 23:00:00",
+                                              "url":  "https://xueqiu.com/7143769715/401686252",
+                                              "platform":  "xueqiu",
+                                              "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026-07-22\\冰冰小美\\230000_咕咕嘎嘎今天晚上是非常有意思的一天_1_美元对日元_突破162来到163_危机进一步传导到某国家_40168625.md",
+                                              "saved_at":  "2026-07-27 09:54:51"
+                                          }
+                        },
+    "events":  [
+                   {
+                       "type":  "item_saved",
+                       "time":  "2026-07-27 09:54:51",
+                       "item_key":  "401686252",
+                       "file_path":  "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\20260722\\冰冰小美\\230000_咕咕嘎嘎今天晚上是非常有意思的一天_1_美元对日元_突破162来到163_危机进一步传导到某国家_40168625.md"
+                   }
+               ]
+}
