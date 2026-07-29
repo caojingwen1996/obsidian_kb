@@ -1,6 +1,7 @@
 import { readFile, readdir, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { inflateRawSync } from 'node:zlib';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const repoRoot = join(root, '..', '..');
@@ -10,6 +11,7 @@ const moduleOrder = ['core.mjs', 'adapters.mjs', 'data-service.mjs', 'app.mjs'];
 const automationsDir = join(repoRoot, 'sources', 'automations');
 const topicsDir = join(repoRoot, 'wiki', 'topics');
 const dividendSignalPath = join(automationsDir, '中证红利信号', '最新信号.md');
+const dividendHistoryWorkbookPath = join(automationsDir, '中证红利信号', '中证红利每日信号.xlsx');
 const bbxmDailyDigestDir = join(automationsDir, 'BBXM每日汇总');
 const industryDefinitions = [
   { key: 'STRATEGY', directoryName: '战略资源' },
@@ -425,6 +427,99 @@ function numberFromText(value) {
   return match ? Number(match[0]) : null;
 }
 
+function decodeXml(value) {
+  return String(value ?? '')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&amp;/g, '&');
+}
+
+function columnIndexFromCellRef(ref) {
+  const letters = String(ref ?? '').match(/^[A-Z]+/)?.[0] ?? '';
+  return [...letters].reduce((sum, char) => sum * 26 + char.charCodeAt(0) - 64, 0) - 1;
+}
+
+function readZipEntries(buffer) {
+  const eocdSignature = 0x06054b50;
+  let eocdOffset = -1;
+  for (let offset = buffer.length - 22; offset >= Math.max(0, buffer.length - 66000); offset -= 1) {
+    if (buffer.readUInt32LE(offset) === eocdSignature) {
+      eocdOffset = offset;
+      break;
+    }
+  }
+  if (eocdOffset < 0) throw new Error('Invalid xlsx: EOCD not found');
+  const entryCount = buffer.readUInt16LE(eocdOffset + 10);
+  let centralOffset = buffer.readUInt32LE(eocdOffset + 16);
+  const entries = new Map();
+  for (let index = 0; index < entryCount; index += 1) {
+    if (buffer.readUInt32LE(centralOffset) !== 0x02014b50) throw new Error('Invalid xlsx: central directory mismatch');
+    const method = buffer.readUInt16LE(centralOffset + 10);
+    const compressedSize = buffer.readUInt32LE(centralOffset + 20);
+    const nameLength = buffer.readUInt16LE(centralOffset + 28);
+    const extraLength = buffer.readUInt16LE(centralOffset + 30);
+    const commentLength = buffer.readUInt16LE(centralOffset + 32);
+    const localOffset = buffer.readUInt32LE(centralOffset + 42);
+    const name = buffer.subarray(centralOffset + 46, centralOffset + 46 + nameLength).toString('utf8');
+    const localNameLength = buffer.readUInt16LE(localOffset + 26);
+    const localExtraLength = buffer.readUInt16LE(localOffset + 28);
+    const dataStart = localOffset + 30 + localNameLength + localExtraLength;
+    const compressed = buffer.subarray(dataStart, dataStart + compressedSize);
+    const data = method === 0 ? compressed : method === 8 ? inflateRawSync(compressed) : null;
+    if (data) entries.set(name, data.toString('utf8'));
+    centralOffset += 46 + nameLength + extraLength + commentLength;
+  }
+  return entries;
+}
+
+function parseXlsxSharedStrings(xml) {
+  if (!xml) return [];
+  return [...xml.matchAll(/<si\b[\s\S]*?<\/si>/g)].map(match => (
+    [...match[0].matchAll(/<t\b[^>]*>([\s\S]*?)<\/t>/g)].map(text => decodeXml(text[1])).join('')
+  ));
+}
+
+function cellValue(cellXml, sharedStrings) {
+  const type = cellXml.match(/\bt="([^"]+)"/)?.[1] ?? '';
+  const rawValue = cellXml.match(/<v>([\s\S]*?)<\/v>/)?.[1] ?? cellXml.match(/<t\b[^>]*>([\s\S]*?)<\/t>/)?.[1] ?? '';
+  if (type === 's') return sharedStrings[Number(rawValue)] ?? '';
+  return decodeXml(rawValue);
+}
+
+function parseXlsxSheetRows(sheetXml, sharedStrings) {
+  return [...sheetXml.matchAll(/<row\b[^>]*>([\s\S]*?)<\/row>/g)].map(rowMatch => {
+    const row = [];
+    for (const cellMatch of rowMatch[1].matchAll(/<c\b([^>]*)>([\s\S]*?)<\/c>/g)) {
+      const index = columnIndexFromCellRef(cellMatch[1].match(/\br="([^"]+)"/)?.[1]);
+      if (index >= 0) row[index] = cellValue(cellMatch[0], sharedStrings);
+    }
+    return row;
+  });
+}
+
+function parseDividendYieldHistoryFromWorkbook(buffer) {
+  if (!buffer?.length) return [];
+  const entries = readZipEntries(buffer);
+  const sharedStrings = parseXlsxSharedStrings(entries.get('xl/sharedStrings.xml'));
+  const sheetXml = entries.get('xl/worksheets/sheet1.xml') ?? [...entries.entries()].find(([name]) => /^xl\/worksheets\/sheet\d+\.xml$/.test(name))?.[1] ?? '';
+  const rows = parseXlsxSheetRows(sheetXml, sharedStrings).filter(row => row.some(value => String(value ?? '').trim()));
+  const header = rows[0] ?? [];
+  const indexDateIndex = header.findIndex(value => String(value).trim() === 'index_date__index_valuation_date');
+  const runDateIndex = header.findIndex(value => String(value).trim() === 'run_date__record_date');
+  const dateIndex = indexDateIndex >= 0 ? indexDateIndex : runDateIndex;
+  const dividendIndex = header.findIndex(value => String(value).trim() === 'akshare_dividend_yield_2');
+  if (dateIndex < 0 || dividendIndex < 0) return [];
+  return rows.slice(2).map(row => {
+    const date = String(row[dateIndex] ?? '').trim().replaceAll('/', '-');
+    const value = Number(row[dividendIndex]);
+    return /^\d{4}-\d{1,2}-\d{1,2}$/.test(date) && Number.isFinite(value)
+      ? { date: date.replace(/^(\d{4})-(\d{1,2})-(\d{1,2})$/, (_, year, month, day) => `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`), value }
+      : null;
+  }).filter(Boolean);
+}
+
 function parseDividendSignal(markdown) {
   if (!markdown?.trim()) return null;
   const pick = label => markdown.match(new RegExp(`^- ${label}：(.+)$`, 'mu'))?.[1].trim() ?? '';
@@ -549,6 +644,7 @@ const topicPages = await scanTopicPages();
 const changelog = validateChangelog(JSON.parse(changelogSource));
 const eventCalendar = validateEventCalendar(JSON.parse(eventCalendarSource));
 const dividendSignal = parseDividendSignal(await readFile(dividendSignalPath, 'utf8').catch(() => ''));
+const dividendYieldHistory = parseDividendYieldHistoryFromWorkbook(await readFile(dividendHistoryWorkbookPath).catch(() => null));
 
 const stockReportLinks = renderStockReportLinkMap(industries);
 const bundle = modules
@@ -558,6 +654,7 @@ const bundle = modules
         .replace('  // STOCK_REPORT_LINKS', stockReportLinks)
         .replace('  // EVENT_CALENDAR', JSON.stringify(eventCalendar, null, 2))
         .replace('  // CSI_DIVIDEND_SIGNAL', JSON.stringify(dividendSignal, null, 2))
+        .replace('  // CSI_DIVIDEND_YIELD_HISTORY', JSON.stringify(dividendYieldHistory, null, 2))
       : source;
     return stripModuleSyntax(withGeneratedData, moduleOrder[index]);
   })

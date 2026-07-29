@@ -7,3 +7,11 @@
 .agents/skills/cjw-xueqiu-daily-monitor/scripts/.xueqiu-chrome-profile/
 .codex/skills/cjw-xueqiu-daily-monitor/scripts/.xueqiu-chrome-profile/
 tools/a-share-market-dashboard/data/portfolio.json
+tools/a-share-market-dashboard/data/proxy.log
+tools/a-share-market-dashboard/.env
+tools/a-share-market-dashboard/vendor/
+tools/tushare-data/.env
+tools/tushare-data/vendor/
+tools/tushare-data/.cache/
+tools/tushare-data/scripts/__pycache__/
+tools/tushare-data/tests/__pycache__/

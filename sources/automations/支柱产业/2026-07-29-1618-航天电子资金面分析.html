@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>航天电子资金面分析 - 2026-07-29 16:18</title>
+  <style>
+    :root { color-scheme: light; --ink:#20242a; --muted:#657282; --line:#d9e1e8; --soft:#f5f7fa; --accent:#2d6cdf; --warn:#9b5c00; --bad:#b42318; --good:#137333; }
+    body { margin:0; font-family:"Microsoft YaHei", "Segoe UI", sans-serif; color:var(--ink); background:#ffffff; line-height:1.68; }
+    main { max-width:1180px; margin:0 auto; padding:28px 24px 52px; }
+    header { border-bottom:2px solid var(--line); padding-bottom:18px; margin-bottom:24px; }
+    h1 { margin:0 0 12px; font-size:30px; letter-spacing:0; }
+    h2 { margin:32px 0 12px; padding-top:10px; border-top:1px solid var(--line); font-size:22px; letter-spacing:0; }
+    h3 { margin:22px 0 8px; font-size:17px; letter-spacing:0; }
+    .meta { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:8px 16px; color:var(--muted); font-size:14px; }
+    .hero { display:grid; grid-template-columns:repeat(auto-fit, minmax(190px, 1fr)); gap:12px; margin-top:18px; }
+    .tile { border:1px solid var(--line); border-radius:8px; padding:12px 14px; background:var(--soft); min-height:86px; }
+    .tile b { display:block; color:var(--muted); font-size:13px; font-weight:600; }
+    .tile span { display:block; margin-top:5px; font-size:20px; font-weight:700; }
+    .status { color:var(--bad); }
+    .action { color:var(--warn); }
+    table { width:100%; border-collapse:collapse; margin:12px 0 18px; font-size:14px; }
+    th, td { border:1px solid var(--line); padding:8px 9px; vertical-align:top; }
+    th { background:#eef3f8; text-align:left; }
+    ul { margin-top:8px; }
+    .note { color:var(--muted); font-size:14px; }
+    .bad { color:var(--bad); font-weight:600; }
+    .good { color:var(--good); font-weight:600; }
+    .warn { color:var(--warn); font-weight:600; }
+    code { background:#eef3f8; border-radius:4px; padding:1px 4px; }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>航天电子资金面分析</h1>
+    <div class="meta">
+      <div>对象层级：个股</div>
+      <div>所属市场：A 股 / 上交所</div>
+      <div>代码：600879.SH</div>
+      <div>分析截止时间：2026-07-29 16:18 CST</div>
+      <div>比较窗口：当日 / 近5个交易日 / 近20个交易日</div>
+      <div>核心问题：测试新版资金面技能，判断当前资金结构是否支持新增或持仓动作</div>
+    </div>
+    <section class="hero">
+      <div class="tile"><b>资金状态</b><span class="status">结构性流出</span></div>
+      <div class="tile"><b>新增资金</b><span class="action">observe / 0%</span></div>
+      <div class="tile"><b>已有持仓</b><span class="action">review / reduce</span></div>
+      <div class="tile"><b>总体置信度</b><span>中</span></div>
+      <div class="tile"><b>最新收盘</b><span>14.71 元</span></div>
+      <div class="tile"><b>20日主力代理</b><span class="bad">-24.01 亿元</span></div>
+    </section>
+  </header>
+
+  <h2>1. 核心结论与行动</h2>
+  <ul>
+    <li>资金状态：<strong>结构性流出</strong>。大额订单代理在 20 日维度持续净流出，融资资金最新可得窗口也偏撤退，但小额订单代理仍在承接，尚未达到多源共振流出的证据强度。</li>
+    <li>主导资金：大额订单代理和融资杠杆资金偏卖出。2026-07-29 主力代理净流出 1088.31 万元；近5日净流出 2.77 亿元；近20日净流出 24.01 亿元。</li>
+    <li>主要分歧或拖累：当日收盘小涨 0.48%，但资金分档仍未修复；小单代理当日净流入 6193.35 万元，更多像被动承接或交易性接力，不能证明长期资金入场。</li>
+    <li>新增资金：<strong>observe</strong>；新增仓位 0%。等主力代理至少连续 3 日转正，5 日窗口止住净流出，且融资净买入或独立身份锚点同步改善后再评估。</li>
+    <li>已有持仓：<strong>review / reduce</strong>。用户未提供成本、仓位和原计划，因此默认先复核；若已有仓位较重，可把风险敞口降低 1/4 至 1/2，或降到原风险预算线以内。</li>
+    <li>总体置信度：中。MCP 已补齐 2026-07-29 收盘行情和估值；资金分档与融资融券来自公开数据回退；北向、ETF 申赎、质押、大宗交易和最新股东户数未完整取得。</li>
+  </ul>
+
+  <h2>2. 数据审计</h2>
+  <table>
+    <tr><th>数据项目</th><th>最新时点</th><th>观察窗口</th><th>来源</th><th>口径与覆盖范围</th><th>数据性质</th><th>缺口及影响</th></tr>
+    <tr><td>证券身份</td><td>2026-07-29</td><td>当前</td><td>tushare-data MCP / <code>get_stock_basic</code></td><td>A 股基础资料；本轮接口返回代码、交易所、上市日期可用，中文字段显示异常，未引用异常文本。</td><td>已验证事实</td><td>行业和简称使用既有对象名称校验，置信度轻微下降。</td></tr>
+    <tr><td>日线行情</td><td>2026-07-29</td><td>32 个交易日</td><td>tushare-data MCP / <code>get_stock_daily</code></td><td>不复权日线；收盘 14.71 元，成交额约 10.21 亿元。</td><td>已验证事实</td><td>无。</td></tr>
+    <tr><td>估值、市值、换手</td><td>2026-07-29</td><td>近20日</td><td>tushare-data MCP / <code>get_stock_valuation</code></td><td>市值单位为万元；总市值和流通市值约 485.33 亿元，换手率 2.1216%，PE TTM 212.36，PB 2.32。</td><td>已验证事实</td><td>估值不证明资金买卖，只用于背景。</td></tr>
+    <tr><td>财报</td><td>2026-03-31 查询</td><td>单期</td><td>tushare-data MCP / <code>get_financial_statements</code></td><td>本轮查询返回 0 行。</td><td>待核验</td><td>不能用财报数据强化资金结论；半年度业绩预减来自旧底稿公开信息。</td></tr>
+    <tr><td>分红历史</td><td>历史区间</td><td>20 条记录</td><td>tushare-data MCP / <code>get_dividend_history</code></td><td>历史分红记录可回传，但中文状态字段显示异常。</td><td>已验证事实 / 待核验</td><td>仅作长期吸引力旁证，本次不纳入日频资金判断。</td></tr>
+    <tr><td>资金分档 / 订单流</td><td>2026-07-29</td><td>当日 / 近5日 / 近20日</td><td>AKShare 东方财富资金流向封装</td><td>主力、超大单、大单、中单、小单分档；同一成交按订单规模重分类。</td><td>统计代理</td><td>无账户身份锚点，不能改写成机构或散户买卖。</td></tr>
+    <tr><td>融资融券</td><td>2026-07-28</td><td>当日 / 近5日 / 近10日</td><td>既有同日公开底稿，东方财富融资融券明细</td><td>融资余额、买入、偿还、净买额；账户属性比订单流更独立。</td><td>统计代理</td><td>2026-07-29 最新融资融券未获取到，存在 T+1 缺口。</td></tr>
+    <tr><td>龙虎榜</td><td>2026-07-15</td><td>上榜期</td><td>既有同日公开底稿 / AKShare 当前查询返回空</td><td>连续三日跌幅偏离值累计达 20% 的席位数据。</td><td>统计代理 / 局部身份锚点</td><td>只覆盖上榜席位和上榜期，不能代表全市场。</td></tr>
+    <tr><td>解禁、质押、大宗交易、北向、ETF</td><td>2026-07-29 检查</td><td>当前</td><td>AKShare / 公开数据检查</td><td>解禁查询返回空；质押全表扫描本轮未完成；北向、ETF、最新大宗交易未获取到。</td><td>待核验</td><td>这些缺口限制对供给压力和外部增量的判断。</td></tr>
+  </table>
+  <h3>已检查范围</h3>
+  <ul>
+    <li>MCP：<code>get_stock_basic</code>、<code>get_stock_daily</code>、<code>get_stock_valuation</code>、<code>get_financial_statements</code>、<code>get_dividend_history</code>。</li>
+    <li>公开数据回退：个股资金流、融资融券旧底稿、龙虎榜、解禁、股东增减持历史、基金持仓历史。</li>
+    <li>未取得项目：2026-07-29 融资融券最新日、北向个股持股变化、ETF 份额到个股权重映射、质押明细、大宗交易和实时盘口订单分档。</li>
+  </ul>
+
+  <h2>3. 资金来源全景</h2>
+  <table>
+    <tr><th>资金类型</th><th>当日</th><th>近5日</th><th>近20日</th><th>核心证据</th><th>持续性</th><th>退出或反转条件</th></tr>
+    <tr><td>外资与跨境资金</td><td>未获取到</td><td>未获取到</td><td>未获取到</td><td>仅旧底稿提到 2026-07-15 龙虎榜卖方含沪股通专用。</td><td>待验证</td><td>需陆股通持股数量或席位连续数据确认。</td></tr>
+    <tr><td>杠杆资金</td><td>流出</td><td>流出</td><td>偏流出</td><td>2026-07-28 融资净买额 -1303.08 万元；近5日 -5255.84 万元；近10日 -4.10 亿元。</td><td>中</td><td>融资净买入连续转正且余额占流通市值不再下降。</td></tr>
+    <tr><td>公募与ETF</td><td>未获取到</td><td>未获取到</td><td>低频持仓可见</td><td>2025-09-30 基金持仓中易方达国防军工、军工 ETF 等持有较多，但不是当前流量。</td><td>低</td><td>需最新基金季报或 ETF 份额和成分权重映射。</td></tr>
+    <tr><td>产业资本</td><td>未获取到</td><td>未获取到</td><td>未获取到</td><td>公开增减持历史多数为旧数据，无法代表当前。</td><td>待验证</td><td>需最新增减持、回购或控股股东公告。</td></tr>
+    <tr><td>保险与长期资金</td><td>未获取到</td><td>未获取到</td><td>未获取到</td><td>未取得可核验主体数据。</td><td>待验证</td><td>需法定持仓或定期报告。</td></tr>
+    <tr><td>私募与信托</td><td>未获取到</td><td>未获取到</td><td>未获取到</td><td>未取得产品或仓位样本。</td><td>待验证</td><td>需披露样本或席位证据。</td></tr>
+    <tr><td>券商资管</td><td>未获取到</td><td>未获取到</td><td>未获取到</td><td>未取得产品或持仓代理。</td><td>待验证</td><td>需产品披露或席位连续性。</td></tr>
+    <tr><td>个人资金</td><td>流入代理</td><td>流入代理</td><td>流入代理</td><td>小单当日净流入 6193.35 万元；近5日 +3.69 亿元；近20日 +25.29 亿元。</td><td>中</td><td>小单代理停止承接或股价继续弱化。</td></tr>
+    <tr><td>筹码供给</td><td>待核验</td><td>待核验</td><td>压力存在</td><td>半年度业绩预减公告带来基本面兑现压力；解禁查询返回空但不能等同无风险。</td><td>中</td><td>半年报落地、解禁和质押数据补齐。</td></tr>
+  </table>
+  <h3>流入机制</h3>
+  <table>
+    <tr><th>机制</th><th>是否存在</th><th>证据</th><th>边界与下一验证点</th></tr>
+    <tr><td>场外真实增量</td><td>证据不足</td><td>未取得北向、ETF、长期资金或产业资本的当前增量证据。</td><td>等法定披露、ETF 份额映射或陆股通持股变化。</td></tr>
+    <tr><td>存量迁移</td><td>可能存在但未确认</td><td>当日价格小幅修复，个股仍有交易资金参与。</td><td>需要同板块相对强弱和流出端证据。</td></tr>
+    <tr><td>减量报团</td><td>证据不足</td><td>没有板块广度和 ETF 样本，不能把个股承接解释为报团。</td><td>需军工 / 商业航天板块广度与成交集中度。</td></tr>
+  </table>
+
+  <h2>4. 交易方画像与数据层独立性</h2>
+  <h3>4.1 交易方画像</h3>
+  <table>
+    <tr><th>交易方</th><th>方向</th><th>角色</th><th>核心证据</th><th>证据等级</th><th>反证</th><th>不可知项</th></tr>
+    <tr><td>G 国家队 / 政策性资金</td><td>不可知</td><td>未确认</td><td>未取得可识别账户或政策工具数据。</td><td>不可知</td><td>无。</td><td>ETF 承接不能自动确认国家队。</td></tr>
+    <tr><td>I 内资机构</td><td>弱流出代理</td><td>可能主卖</td><td>大额订单代理近20日显著净流出；2026-07-15 龙虎榜买卖两侧均见机构专用。</td><td>弱推断</td><td>龙虎榜也出现买方机构。</td><td>大单不等于机构账户。</td></tr>
+    <tr><td>N 北向 / 跨境资金</td><td>不可知</td><td>未确认</td><td>旧底稿提到 2026-07-15 卖方含沪股通专用。</td><td>弱推断</td><td>缺少连续持股变化。</td><td>当前个股北向数据未取得。</td></tr>
+    <tr><td>Q QFII 等境外机构</td><td>不可知</td><td>未确认</td><td>未取得法定持仓或可识别席位。</td><td>不可知</td><td>无。</td><td>账户身份缺失。</td></tr>
+    <tr><td>H 游资 / 量化 / 短线资金</td><td>分歧</td><td>交易性参与</td><td>7 月中旬龙虎榜和高换手显示短线资金参与，但 20 日价格大幅回落。</td><td>弱推断</td><td>当日大单小幅净流入。</td><td>不能区分游资、量化与拆单。</td></tr>
+    <tr><td>M 融资等杠杆资金</td><td>净卖 / 去杠杆</td><td>主卖之一</td><td>2026-07-28 融资净买额 -1303.08 万元，近10日 -4.10 亿元。</td><td>可靠推断</td><td>融资余额仍有 21.51 亿元，不是完全撤离。</td><td>2026-07-29 当日融资数据未取得。</td></tr>
+    <tr><td>R 个人 / 小额订单代理</td><td>净买代理</td><td>承接方</td><td>小单当日、近5日、近20日均净流入。</td><td>弱推断</td><td>小单不是全部个人账户。</td><td>无法穿透账户。</td></tr>
+    <tr><td>C 产业资本 / 公司 / 内部人</td><td>不可知</td><td>未确认</td><td>未取得当前增持、回购或减持实施证据。</td><td>不可知</td><td>无。</td><td>公告和实际成交需另行核验。</td></tr>
+  </table>
+  <ul>
+    <li>主卖方：大额订单代理与融资杠杆资金，证据来自资金分档和融资融券。</li>
+    <li>主买方：小额订单代理承接，但无账户身份锚点。</li>
+    <li>主要承接方：统计代理层面是小单代理；真实账户类型不可知。</li>
+    <li>无法确认的主体：国家队、北向、QFII、产业资本、主动公募当前买卖。</li>
+  </ul>
+  <h3>4.2 数据层与独立性</h3>
+  <table>
+    <tr><th>数据渠道</th><th>当前结果</th><th>身份锚点</th><th>与其他层关系</th><th>可用于什么结论</th><th>不能推出什么</th></tr>
+    <tr><td>资金分档 / 订单流</td><td>20日主力代理 -24.01 亿元，小单代理 +25.29 亿元。</td><td>无</td><td>与融资买入、龙虎榜成交可能部分重叠。</td><td>订单规模方向。</td><td>机构、散户、国家队真实身份。</td></tr>
+    <tr><td>跨境流量与持股</td><td>未获取到当前连续数据。</td><td>缺失</td><td>无法判断。</td><td>暂不能确认。</td><td>不能用全市场北向替代个股方向。</td></tr>
+    <tr><td>融资融券</td><td>2026-07-28 融资净买额 -1303.08 万元。</td><td>融资账户</td><td>余额相对独立，买入金额与订单流部分重叠。</td><td>杠杆风险偏好下降。</td><td>不能与主力净额机械相加。</td></tr>
+    <tr><td>大宗交易</td><td>未获取到。</td><td>缺失</td><td>无法判断。</td><td>待核验。</td><td>不能推导无协议转让。</td></tr>
+    <tr><td>龙虎榜</td><td>2026-07-15 上榜，买卖两侧均有机构专用等席位。</td><td>局部席位</td><td>全市场成交子集，非独立第二票。</td><td>局部席位分歧。</td><td>全市场资金方向。</td></tr>
+    <tr><td>回购 / 增减持</td><td>当前未取得。</td><td>缺失</td><td>日频订单流外的独立层。</td><td>待核验。</td><td>不能推导产业资本无动作。</td></tr>
+    <tr><td>股东户数 / 持仓披露</td><td>基金持仓为 2025-09-30 等低频历史样本。</td><td>低频主体</td><td>与日频订单流独立但滞后。</td><td>历史配置背景。</td><td>当前买卖方向。</td></tr>
+    <tr><td>ETF 份额与申赎</td><td>未完成样本映射。</td><td>产品层</td><td>申赎后成分股交易与订单流可能部分重叠。</td><td>待核验。</td><td>申购者身份和个股实际买入额。</td></tr>
+    <tr><td>质押 / 解禁</td><td>解禁查询返回空；质押明细未完成。</td><td>部分缺失</td><td>通常独立。</td><td>只能记录缺口。</td><td>不能推导无质押或无解禁风险。</td></tr>
+    <tr><td>筹码成本 / 获利比例</td><td>未获取到。</td><td>无</td><td>与量价半独立。</td><td>待核验。</td><td>不能证明账户身份或强平。</td></tr>
+  </table>
+  <h3>4.3 信号冲突与不可知</h3>
+  <ul>
+    <li>方向冲突：2026-07-29 股价小涨，但主力代理仍净流出，小单代理净流入，属于价格边际修复先于交易结构修复。</li>
+    <li>重复统计：资金分档、龙虎榜和融资买入都可能来自同一批竞价成交，不能重复加分。</li>
+    <li>金额方向与身份边界：可以确认大额订单代理持续净卖，不能确认“机构持续砸盘”；可以确认小单代理承接，不能确认“散户全盘接货”。</li>
+    <li>不可知项：未获取到不等于没有，尤其是国家队、北向、QFII、产业资本和 ETF 资金。</li>
+    <li>下一身份验证点：陆股通持股变化、龙虎榜后续席位、基金二季报 / 三季报、增减持和回购公告。</li>
+  </ul>
+
+  <h2>5. F3/F5/F7 日频面板</h2>
+  <table>
+    <tr><th>指标</th><th>定义</th><th>当日</th><th>近5日</th><th>近20日</th><th>方向与持续性</th><th>价格响应</th><th>数据质量与代理边界</th></tr>
+    <tr><td>F3</td><td>融资净买入</td><td>2026-07-28：-1303.08 万元</td><td>-5255.84 万元</td><td>近10日 -4.10 亿元，20日未取得</td><td>杠杆资金偏撤退</td><td>同期股价弱，未见杠杆托底</td><td>来自公开融资融券底稿；2026-07-29 缺失；融资买入与订单流部分重叠。</td></tr>
+    <tr><td>F5</td><td>特大单 / 大额主动交易代理</td><td>超大单 -1634.23 万元，大单 +545.92 万元，主力合计 -1088.31 万元</td><td>主力 -2.77 亿元</td><td>主力 -24.01 亿元</td><td>20日持续流出，5日未修复</td><td>20日价格从 20.91 元降至 14.71 元，跌约 29.65%</td><td>AKShare 东方财富资金分档；不能确认机构身份。</td></tr>
+    <tr><td>F7</td><td>ETF估算净申赎</td><td>未获取到</td><td>未获取到</td><td>未获取到</td><td>证据不足</td><td>无法验证</td><td>未完成 ETF 样本、份额变化、净值和成分股权重映射。</td></tr>
+  </table>
+  <h3>指标关系审计</h3>
+  <ul>
+    <li>可能重叠：F3 融资买入会进入股票成交，F5 资金分档也来自成交订单；龙虎榜属于成交子集。</li>
+    <li>不可直接比较：F3 最新为 2026-07-28，F5 最新为 2026-07-29；窗口、单位和身份锚点不同。</li>
+    <li>是否发生机械求和：否。本报告只比较方向和持续性，不把 F3、F5、F7 金额相加。</li>
+  </ul>
+
+  <h2>6. 价格、广度与筹码交叉验证</h2>
+  <table>
+    <tr><th>验证项</th><th>当前事实</th><th>与资金信号关系</th><th>结论影响</th></tr>
+    <tr><td>价格响应</td><td>2026-07-29 收盘 14.71 元，上涨 0.48%；近20日从 20.91 元降至 14.71 元。</td><td>当日修复弱，20日确认资金流出压力。</td><td>支持结构性流出，而非流入反转。</td></tr>
+    <tr><td>成交与换手</td><td>当日成交额约 10.21 亿元，换手率 2.1216%；7月中旬曾出现高换手和急跌。</td><td>高换手后的承接质量仍未确认。</td><td>降低新增资金动作等级。</td></tr>
+    <tr><td>上涨广度</td><td>未获取到板块广度。</td><td>证据不足。</td><td>不能判断是否有板块共振。</td></tr>
+    <tr><td>相对强弱</td><td>未完成相对军工、商业航天和上证指数的量化对比。</td><td>证据不足。</td><td>保留下一验证点。</td></tr>
+    <tr><td>筹码供给与抛压</td><td>半年度业绩预减公告显示盈利压力；解禁、质押、大宗交易未完整取得。</td><td>供给与基本面压力未解除。</td><td>已有仓位倾向 review / reduce。</td></tr>
+    <tr><td>连续性</td><td>近5日主力代理只有 1 日为正；近20日只有 5 日为正。</td><td>持续性偏弱。</td><td>结构性流出判断更稳。</td></tr>
+  </table>
+
+  <h2>7. 资金分歧与传导链</h2>
+  <ul>
+    <li>主导链条：业绩预减和高位筹码压力 → 大额订单代理持续撤退 → 融资资金边际去杠杆 → 股价 20 日大幅回落 → 当日小幅修复但结构未修复。</li>
+    <li>反向链条：军工 / 航天主题仍有交易关注 → 小额订单代理和短线资金尝试承接 → 当日收盘小涨 → 但缺少独立长期资金锚点。</li>
+    <li>谁在承接：统计代理层面主要是小单代理；真实账户身份不可知。</li>
+    <li>潜在退出路径：若小单承接减弱、融资继续净偿还、股价跌破 14.33 元附近短期低点，短线承接可能继续撤退；若半年报验证不及预期，上方套牢筹码会继续压制反弹。</li>
+  </ul>
+
+  <h2>8. 支持证据、反证与缺口</h2>
+  <h3>支持当前状态的证据</h3>
+  <ul>
+    <li>2026-07-29 主力代理净流出 1088.31 万元，近5日净流出 2.77 亿元，近20日净流出 24.01 亿元。</li>
+    <li>2026-07-28 融资净买额 -1303.08 万元，近5日 -5255.84 万元，近10日 -4.10 亿元。</li>
+    <li>2026-07-29 MCP 行情显示收盘 14.71 元，20 日窗口从 20.91 元降至 14.71 元，资金弱化已被价格确认。</li>
+  </ul>
+  <h3>核心反证</h3>
+  <ul>
+    <li>2026-07-29 股价上涨 0.48%，大单净流入 545.92 万元，小单净流入 6193.35 万元，说明局部承接并未消失。</li>
+    <li>融资余额仍有约 21.51 亿元，并非所有杠杆资金退出。</li>
+    <li>历史基金持仓中仍有军工主题基金和 ETF 配置，但数据低频，不能代表当日流入。</li>
+  </ul>
+  <h3>数据缺口</h3>
+  <ul>
+    <li>北向个股持股变化、ETF 申赎映射、最新大宗交易、质押明细、股东户数和 2026-07-29 融资融券未取得。</li>
+    <li>MCP 财报查询本轮返回空行；公开个股信息接口报字段长度异常。</li>
+    <li>这些缺口使结论停留在“结构性流出”，不升级为“共振流出”。</li>
+  </ul>
+
+  <h2>9. 行动与仓位映射</h2>
+  <h3>新增资金</h3>
+  <table>
+    <tr><th>行动</th><th>条件化仓位</th><th>触发条件</th><th>维持条件</th><th>取消条件</th></tr>
+    <tr><td>observe</td><td>0%</td><td>当前资金状态为结构性流出，且缺少长期资金或场外增量证据。</td><td>继续跟踪但不追买。</td><td>F5 连续 3 日转正、近5日主力净流出收敛为正、融资净买入恢复，且价格站回 15.35 元附近并能放量维持。</td></tr>
+  </table>
+  <h3>已有持仓</h3>
+  <table>
+    <tr><th>行动</th><th>仓位调整</th><th>触发条件</th><th>维持条件</th><th>取消条件</th></tr>
+    <tr><td>review / reduce</td><td>未给出成本和仓位时先 review；若仓位较重，可降 1/4 至 1/2 或降至原风险预算线。</td><td>20日主力代理持续流出、融资资金偏撤退、价格大幅回落后未出现结构修复。</td><td>若只是很小的长期观察仓，可保留观察，但不加仓。</td><td>资金分档、融资和独立身份资金同步改善，且半年报风险落地后价格不再破低。</td></tr>
+  </table>
+
+  <h2>10. 下一验证点与失效条件</h2>
+  <ul>
+    <li>下一验证时间：下一个交易日收盘后，以及 2026-08-26 半年报预约披露日前后。</li>
+    <li>下一验证指标：主力代理是否连续转正；近5日主力净额是否由负转正；融资净买入和融资余额是否止跌；是否出现独立身份锚点的买入证据。</li>
+    <li>当前判断失效条件：主力代理 3 至 5 日连续净流入，融资净买入同步恢复，且股价站稳 15.35 元上方并带动板块广度改善。</li>
+    <li>行动升级条件：observe → wait / buy 的前提是资金状态至少从结构性流出修复到多空分歧或结构性流入，并补齐一个独立身份锚点。</li>
+    <li>行动降级条件：若跌破 14.33 元且融资继续净偿还、主力代理放大流出，已有持仓从 review / reduce 降级为更严格的 reduce / sell 复核。</li>
+  </ul>
+
+  <h2>11. 来源与使用边界</h2>
+  <h3>当前数据来源</h3>
+  <ul>
+    <li><code>sources/webpages/2026-07-29-1618-hangtian-electronics-fund-flow-data.json</code>：本次 MCP 与 AKShare 数据抓取底稿，生成时间 2026-07-29 16:18 CST。</li>
+    <li><code>sources/webpages/2026-07-29-航天电子资金面数据快照.md</code>：同日早前公开数据底稿，含融资融券、龙虎榜和公告事项摘要。</li>
+    <li>tushare-data MCP：<code>get_stock_basic</code>、<code>get_stock_daily</code>、<code>get_stock_valuation</code>、<code>get_financial_statements</code>、<code>get_dividend_history</code>。</li>
+    <li>AKShare / 东方财富公开数据封装：个股资金流、融资融券、龙虎榜、解禁、基金持仓等公开数据查询。</li>
+  </ul>
+  <h3>框架依据</h3>
+  <ul>
+    <li>华泰证券《A股择时之资金面指标测试》（2021-07-02）：资金来源分类与历史指标检验参考。</li>
+    <li>F3/F5/F7 监测文章：日频代理思路参考，不视为已验证或可直接复制的择时模型。</li>
+  </ul>
+  <h3>使用边界</h3>
+  <ul>
+    <li>本报告是资金面测试快照，不构成投资建议。</li>
+    <li>大额订单代理不等于机构，小单代理不等于散户，ETF 申赎不等于国家队。</li>
+    <li>未获取到不等于没有；北向、ETF、质押、大宗交易和产业资本数据缺口仍需后续核验。</li>
+    <li>融资融券、资金分档和龙虎榜存在成交层重叠风险，报告没有进行机械求和。</li>
+  </ul>
+</main>
+</body>
+</html>

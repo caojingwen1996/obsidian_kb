@@ -49,6 +49,22 @@ class XueqiuQuote:
 
 
 @dataclass
+class IndexValuation:
+    date: str
+    dividend_yield: float
+    source: str
+    note: str
+
+
+@dataclass
+class BondYield:
+    date: str
+    yield_10y: float
+    source: str
+    note: str
+
+
+@dataclass
 class Signal:
     run_date: str
     run_time: str
@@ -82,7 +98,7 @@ CSV_HEADER_LABELS = {
 CSV_CHINESE_LABELS = {
     "run_date": "记录日期",
     "index_date": "指数估值日期",
-    "akshare_dividend_yield_2": "AKShare股息率2(%)",
+    "akshare_dividend_yield_2": "指数股息率口径(%)",
     "xueqiu_change_percent": "雪球当天涨跌幅(%)",
     "bond_date": "中国10年国债收益率日期",
     "bond_10y_yield": "中国10年国债收益率(%)",
@@ -464,11 +480,7 @@ def display_signal_grade(signal: str) -> str:
     return f"{signal}（{SIGNAL_GRADE_LABELS.get(signal, signal)}）"
 
 
-def fetch_signal(
-    llm_percentile: LixingerPercentile | None = None,
-    target_run_date: datetime | None = None,
-) -> Signal:
-    ak = import_akshare()
+def fetch_index_valuation(ak, run_date: datetime) -> IndexValuation:
     valuation = ak.stock_zh_index_value_csindex(symbol=INDEX_CODE)
     if valuation.empty:
         raise RuntimeError(f"AKShare did not return valuation data for {INDEX_CODE}")
@@ -480,15 +492,18 @@ def fetch_signal(
 
     valuation = valuation.copy()
     valuation["_dividend_yield"] = valuation[dividend_col].apply(to_float)
-    run_date = target_run_date or datetime.now()
     latest = select_latest_on_or_before(valuation, date_col, run_date)
-    latest_date = latest["_date"]
-    index_date = latest_date.strftime("%Y-%m-%d")
-    dividend_yield_2 = float(latest["_dividend_yield"])
-    xueqiu_quote = get_xueqiu_realtime_quote()
+    return IndexValuation(
+        date=latest["_date"].strftime("%Y-%m-%d"),
+        dividend_yield=float(latest["_dividend_yield"]),
+        source=f"AKShare {dividend_col}",
+        note="AKShare: stock_zh_index_value_csindex(000922, 股息率2)",
+    )
 
+
+def fetch_bond_yield(ak, target_date: datetime) -> BondYield:
     bond = ak.bond_zh_us_rate(
-        start_date=latest_date.replace(year=latest_date.year - 10).strftime("%Y%m%d")
+        start_date=target_date.replace(year=target_date.year - 10).strftime("%Y%m%d")
     )
     if bond.empty:
         raise RuntimeError("AKShare did not return China government bond yield data")
@@ -496,8 +511,28 @@ def fetch_signal(
     bond_rate_col = first_existing(bond.columns, ["中国国债收益率10年", "中国10年期国债"])
     bond = bond.copy()
     bond["_bond_10y_yield"] = bond[bond_rate_col].apply(to_float)
-    latest_bond = select_latest_on_or_before(bond, bond_date_col, latest_date)
-    bond_10y = float(latest_bond["_bond_10y_yield"])
+    latest_bond = select_latest_on_or_before(bond, bond_date_col, target_date)
+    return BondYield(
+        date=latest_bond["_date"].strftime("%Y-%m-%d"),
+        yield_10y=float(latest_bond["_bond_10y_yield"]),
+        source="AKShare bond_zh_us_rate",
+        note="AKShare: bond_zh_us_rate",
+    )
+
+
+def fetch_signal(
+    llm_percentile: LixingerPercentile | None = None,
+    target_run_date: datetime | None = None,
+) -> Signal:
+    ak = import_akshare()
+    run_date = target_run_date or datetime.now()
+    index_valuation = fetch_index_valuation(ak, run_date)
+    latest_date = datetime.fromisoformat(index_valuation.date)
+    dividend_yield_2 = index_valuation.dividend_yield
+    xueqiu_quote = get_xueqiu_realtime_quote()
+
+    bond_yield = fetch_bond_yield(ak, latest_date)
+    bond_10y = bond_yield.yield_10y
     spread = dividend_yield_2 - bond_10y
 
     lixinger = fetch_lixinger_percentile(llm_percentile)
@@ -509,8 +544,8 @@ def fetch_signal(
     return Signal(
         run_date=run_date.strftime("%Y-%m-%d"),
         run_time=datetime.now().strftime("%H:%M:%S"),
-        index_date=index_date,
-        bond_date=latest_bond["_date"].strftime("%Y-%m-%d"),
+        index_date=index_valuation.date,
+        bond_date=bond_yield.date,
         akshare_dividend_yield_2=dividend_yield_2,
         xueqiu_quote_date=xueqiu_quote.date,
         xueqiu_change_percent=(
@@ -538,8 +573,8 @@ def fetch_signal(
         spread_signal=spread_signal,
         headline_signal=headline,
         source_note=(
-            "AKShare: stock_zh_index_value_csindex(000922, 股息率2), "
-            f"bond_zh_us_rate; {xueqiu_quote.source}: {xueqiu_quote.note}; "
+            f"{index_valuation.note}; {bond_yield.note}; "
+            f"{xueqiu_quote.source}: {xueqiu_quote.note}; "
             f"{lixinger.source}: {lixinger.note}"
         ),
     )
@@ -733,16 +768,16 @@ def write_markdown(signal: Signal, md_path: Path) -> None:
     text = f"""# 中证红利最新股息率信号
 
 - 运行时间：{signal.run_date} {signal.run_time}
-- AKShare 指数估值日期：{signal.index_date}
+- 指数估值日期：{signal.index_date}
 - 理杏仁估值日期：{signal.lixinger_date or "待确认"}
 - 10年国债收益率日期：{signal.bond_date}
-- AKShare 中证红利股息率2：{signal.akshare_dividend_yield_2:.2f}%
+- 中证红利股息率口径：{signal.akshare_dividend_yield_2:.2f}%
 - 雪球当天涨跌幅：{signal.xueqiu_change_percent + "%" if signal.xueqiu_change_percent else "待验证"}
 - 理杏仁市值加权股息率：{signal.lixinger_dividend_yield + "%" if signal.lixinger_dividend_yield else "待验证"}
 - 理杏仁近10年股息率分位：{percentile_text}
 - 理杏仁近10年80%分位点：{p80_text}
 - 中国10年国债收益率：{signal.bond_10y_yield:.2f}%
-- AKShare 股息率2 - 10年国债收益率：{signal.spread:.2f}%
+- 指数股息率口径 - 10年国债收益率：{signal.spread:.2f}%
 
 ## 判断
 
@@ -758,7 +793,7 @@ def write_markdown(signal: Signal, md_path: Path) -> None:
 ## 说明
 
 - 本记录只是按既定规则生成的观察信号，不构成投资建议。
-- AKShare `股息率2` 用于绝对股息率和股债利差判断。
+- 指数股息率口径用于绝对股息率和股债利差判断；当前使用 AKShare `股息率2`。
 - 理杏仁市值加权股息率用于近10年历史分位判断。
 - 若数据源字段、接口或口径变化，需要重新核对脚本。
 """
@@ -767,7 +802,7 @@ def write_markdown(signal: Signal, md_path: Path) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output-dir", default="sources/manual/中证红利信号")
+    parser.add_argument("--output-dir", default="sources/automations/中证红利信号")
     parser.add_argument("--run-date", default=None, help="Override run date in YYYY-MM-DD")
     parser.add_argument("--llm-lixinger-date", default=None)
     parser.add_argument("--llm-lixinger-dividend-yield", default=None)
@@ -804,7 +839,7 @@ def main() -> int:
     )
     print(
         f"{signal.index_date} {signal.headline_signal}："
-        f"AKShare股息率2 {signal.akshare_dividend_yield_2:.2f}%，"
+        f"指数股息率口径 {signal.akshare_dividend_yield_2:.2f}%，"
         f"理杏仁分位 {percentile_print}，利差 {signal.spread:.2f}%"
     )
     return 0

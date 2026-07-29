@@ -1,5 +1,168 @@
 # 知识库日志
 
+- [2026-07-28T00:00:00+08:00] QUERY query="查找冰冰小美 对海尔智家的看法" result_pages=8 mode=normal escalated=true
+
+## 2026-07-28
+
+### 操作类型
+
+tool / dashboard / diagnostics
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+排查用户在 `富贵策略` 中添加 `兴业银锡` 失败的问题。实测本机 `http://127.0.0.1:49888/health` 正常，但 `http://127.0.0.1:49888/api/fugui-candidate?name=...` 返回 `HTTP 400`，而当前源码已包含 `/api/fugui-candidate` 路由，判断为浏览器连接的本地代理仍是旧进程，未加载新增接口。同步优化前端提示：当自动填写接口返回 `HTTP 400` 时，明确提示“本地面板服务版本过旧，请关闭旧面板后重新双击启动面板.cmd”。
+
+### 后续待办
+
+- 用户需要关闭旧的面板服务进程后重新双击 `tools/a-share-market-dashboard/启动面板.cmd`。
+
+## 2026-07-28
+
+### 操作类型
+
+tool / dashboard / cleanup
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求移除左侧导航栏的全局 `收起面板 / 打开面板` 功能，恢复左侧导航固定展示。同步删除对应按钮、样式、浏览器本地存储状态、事件绑定和更新日志条目；保留 `富贵策略` 录入卡片自身的收起/打开功能。
+
+### 后续待办
+
+- 无。
+
+## 2026-07-28
+
+### 操作类型
+
+tool / dashboard / fugui-panel-toggle
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户截图澄清，将“收起面板 / 打开面板”功能补到 `富贵策略` 顶部录入卡片本身，而不是左侧导航侧栏。`FUGUI STRATEGY` 卡片标题行新增 `收起面板` 按钮，收起后隐藏标的名称输入区和添加按钮，并在清单表格上方保留 `打开面板` 按钮；收起状态保存到浏览器本地存储，下次进入该页自动恢复。
+
+### 后续待办
+
+- 若用户确认左侧导航不需要收起，可再移除前一次新增的全局侧栏收起功能。
+
+## 2026-07-28
+
+### 操作类型
+
+tool / dashboard / auto-fill
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/scripts/local_proxy.py`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/tests/test_local_proxy.py`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求将 `富贵策略` 面板的添加区简化为只输入 `标的名称`。新增本地代理接口 `/api/fugui-candidate?name=...`，用于按名称查找 A 股标的并自动填写行业、代码、性质、市值、股息率、股价和10年国债利率；前端拿到候选字段后继续使用原策略规则判断是否加入清单。若自动填写失败，或数据源无法确认央企/国企性质、缺少市值/股息率/价格等关键字段，页面会提示失败原因，不写入清单。
+
+### 后续待办
+
+- 若东方财富个股详情接口继续出现上游断开，可再接入第二个稳定的市值/股息率数据源作为 `/api/fugui-candidate` 的备选。
+
+## 2026-07-28
+
+### 操作类型
+
+tool / dashboard / navigation
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求为 A 股市场面板新增左侧面板收起/打开功能：侧栏顶部增加 `收起面板` 按钮，收起后主内容区自动铺满，页面左上角显示 `打开面板` 按钮；收起状态写入浏览器本地存储，下次打开保持上次选择。移动端继续使用原有 `打开导航` 交互，避免按钮重复。
+
+### 后续待办
+
+- 若后续需要更紧凑的图标折叠栏，可在当前完全收起模式基础上追加窄栏模式。
+
+## 2026-07-28
+
+### 操作类型
+
+tool / dashboard / manual-tracking
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/scripts/local_proxy.py`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/tests/test_local_proxy.py`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求取消 `富贵策略` 页的一键自动拉取与 `/api/fugui-strategy` 代理入口，避免继续依赖当前不稳定的东方财富成分股列表接口。页面改为手动建立富贵策略跟踪清单：录入行业、标的、代码、性质、市值、股息率、股价和10年国债利率；添加前按“央企/国企、市值大于1000亿、股息率不低于3倍10年国债利率、股价低于30元”即时判断，符合才加入本地浏览器清单，不符合则提示未通过原因。同步更新构建测试、代理测试、更新日志和单文件 HTML 构建产物。
+
+### 后续待办
+
+- 若后续需要恢复自动筛选，应先确认稳定且可长期访问的成分股与股息率数据源，再重新接入，不复用当前已移除的失败接口路径。
+
+## 2026-07-28
+
+### 操作类型
+
+tool / a-share-market-dashboard / tracking
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求收紧跟踪清单“可加”列表规则：在原有“低于动态价值区间中枢给一星、低于左沿给二星”的基础上，新增“盈亏比必须大于 1”的约束。页面渲染时使用盘中实时价计算的盈亏比作为可加准入；低于左沿仍视为正向盈亏比充分，价格高于右侧的可减规则不变。同步补充构建测试并重建 A 股市场面板单文件 HTML。
+
 ## 2026-07-27
 
 ### 操作类型
@@ -17766,3 +17929,516 @@ workbench / equity-research / template-refresh
 
 - 2026-08-13 中报披露后，复核收入、毛利率、经营现金流、海外订单和合同负债，并重算 35-46 元估值区间。
 - 后续若刷新资金面，应补齐大单、北向、ETF、QFII、公募私募和逐日融资变化，避免把资金代理变量误判为确认机构买入。
+
+## 2026-07-28
+
+### 操作类型
+
+tool / dashboard / diagnostics
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+排查温度计工具 `富贵策略` 一键扫描返回 `HTTP 502` 的原因。分段测试显示东方财富中国10年国债收益率接口正常返回最新数据，但东方财富 `clist/get` 行情列表接口在读取 `央国企改革 BK0683` 成分股时远端断开连接；同时全 A `clist/get` 小样本也出现远端断开，判断为东方财富行情列表上游临时不可用 / 限流，而非本地筛选公式或页面表格渲染问题。
+
+同步增强前端错误提示：当 `/api/fugui-strategy` 返回结构化错误时，页面不再只显示 `HTTP 502`，会附带代理返回的 `source`，方便区分失败来自 `treasury` 还是 `fugui-strategy`。已重新构建单文件 HTML，并通过构建测试和代理测试。
+
+### 后续待办
+
+- 如东方财富列表接口频繁限流，考虑为富贵策略增加稳定备用数据源或本地缓存。
+
+## 2026-07-28
+
+### 操作类型
+
+tool / dashboard / scanner
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/scripts/local_proxy.py`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/tests/test_local_proxy.py`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求为温度计工具 `富贵策略` 页面新增 `一键扫描` 按钮。按钮通过本地代理 `/api/fugui-strategy` 执行筛选：范围采用东方财富 `央国企改革` 概念成分 `BK0683`，条件为总市值大于 `1000` 亿、股息率不低于 `3 × 中国10年国债收益率`、股价低于 `30` 元；结果回填到 `行业 / 标的 / 市值 / 股息率` 四列表格。若直接打开单文件或上游接口失败，页面明确显示失败原因，不用代理变量或缺失字段替代股息率。
+
+已补充构建测试和代理单元测试。模拟数据测试通过；真实联网小试中东方财富板块接口出现远端断开连接，已为该接口加入专用重试读取，但当前环境下仍可能受上游临时限流影响。
+
+### 后续待办
+
+- 若东方财富 `f39` 股息率字段长期不可用或受限，可改接更稳定的估值/股息率数据源，并保留当前筛选口径。
+
+## 2026-07-28
+
+### 操作类型
+
+tool / dashboard / ui-fix
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+根据用户截图反馈，修正温度计工具 `富贵策略` 页面：内容区不再重复显示可见大标题，只保留无障碍标题；富贵策略表格取消固定最小宽度，改为四列等宽布局，避免窄视窗下只露出 `行业 / 标的` 两列。已重新构建单文件 HTML，并通过现有测试。
+
+### 后续待办
+
+- 若后续接入真实富贵策略池，再补充数据来源、更新频率和字段口径。
+
+## 2026-07-28
+
+### 操作类型
+
+tool / dashboard / navigation
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户截图要求，在温度计左侧导航下新增 `08 富贵策略` 入口，并将原 `主题` 顺延为 `09`。新增富贵策略页面，打开后展示四列表格：行业、标的、市值、股息率；当前未接入来源数据，因此表格内容只用 `待补充` 占位，不预填无来源市值或股息率。同步更新看板内 `changelog.json`、单文件 HTML 构建产物和结构测试。
+
+### 后续待办
+
+- 如需展示真实策略池，可补充富贵策略的数据来源、更新口径和字段计算规则。
+
+## 2026-07-28
+
+### 操作类型
+
+skill / template-refresh / industry-analysis
+
+### 修改文件
+
+- `.agents/skills/bbxm-industry-analysis/SKILL.md`
+- `.agents/skills/bbxm-industry-analysis/template.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求更新 `bbxm-industry-analysis` 技能与完整产业分析模板：在“7.3 最值得跟踪的产业环节”中新增对应公司 / 主体和最新估值观察要求。估值观察必须标注数据日期、指标口径和来源边界；未上市、亏损、指标失真或数据不可得时写“未获取到 / 不适用 / 待验证”，不得自行估算或输出个股买卖建议。该变更只更新技能执行契约与模板结构，未新增正式 Wiki 页面，因此未更新 `index.md`。
+## 2026-07-28
+
+### 操作类型
+
+tool / dashboard / data-source-fix
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/scripts/local_proxy.py`
+- `tools/a-share-market-dashboard/tests/test_local_proxy.py`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求将温度计下 `富贵策略` 的自动填写链路改为 AKShare 优先：标的名称/代码来自 AKShare A股代码名称表，股价来自 AKShare 新浪实时行情，行业和注册资本来自 AKShare 巨潮公司资料，股息率由 AKShare 已实施分红明细和实时股价计算；不再用东方财富搜索和 `push2.eastmoney.com/api/qt/stock/get` 个股详情接口填充富贵策略候选标的。实测 `600900` 可返回行业、标的、性质、市值、股息率、股价和10年国债收益率。
+
+### 后续待办
+
+- AKShare 新浪全市场行情接口会显示进度并耗时约数十秒；如后续体验慢，可增加本地短时缓存。
+## 2026-07-28
+
+### 操作类型
+
+tool / dashboard / performance-fix
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/scripts/local_proxy.py`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+排查用户点击 `富贵策略` 添加按钮后长时间显示“自动填写中...”的问题。接口实际可返回，但 AKShare `stock_zh_a_spot()` 首次拉取新浪全市场实时行情耗时约 30 秒以上，造成页面看起来像无响应。为富贵策略自动填写增加本地短时缓存：A股代码名称表缓存 10 分钟，全市场实时行情缓存 2 分钟。重启面板服务后实测 `兴业银锡` 第一次约 36 秒返回，缓存命中后约 6 秒返回。
+
+### 后续待办
+
+- 若仍觉得首次等待过长，可继续把股价数据源改为单标的实时行情接口，避免每次冷启动拉全市场行情。
+## 2026-07-28
+
+### 操作类型
+
+tool / dashboard / performance-fix
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/scripts/local_proxy.py`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+继续排查 `富贵策略` 添加 `长江电力` 仍然慢的问题。分段计时确认冷启动慢点主要来自 AKShare A股代码名称表和10年国债收益率，且原价格口径仍需等待较慢的行情链路。将富贵策略价格改为腾讯单标的行情，避免为一只股票拉取全市场行情；同时增加单标的行情 30 秒缓存、10年国债收益率 10 分钟缓存，并在面板服务启动后后台预热 A股代码名称表和国债收益率。重启后实测 `长江电力` 预热后约 5.5 秒返回，连续第二次约 1.3 秒返回。
+
+### 后续待办
+
+- 若首次点击仍需进一步压缩到 1 秒内，可考虑持久化 A股代码名称表到本地文件，或要求用户输入股票代码以跳过名称查找。
+## 2026-07-28
+
+### 操作类型
+
+tool / dashboard / behavior-update
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求调整 `富贵策略` 跟踪清单行为：自动填写成功的标的无论是否符合策略条件都会先加入清单；表格新增 `是否达标` 列，显示 `达标 / 未达标`，并在未达标时列出未满足的策略条件。原有策略判断函数保留，用于状态展示而非准入拦截。已同步更新构建测试和单文件 HTML。
+
+### 后续待办
+
+- 如后续需要筛选视图，可在清单上方增加 `全部 / 达标 / 未达标` 切换。
+## 2026-07-29
+
+### 操作类型
+
+tool / dashboard / data-provider-toggle
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/scripts/local_proxy.py`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/tests/test_local_proxy.py`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求在 `刷新数据` 旁新增富贵策略数据源切换按钮。按钮根据当前来源显示 `切换到Tushare` 或 `切换到AKShare`，选择写入浏览器本地存储。富贵策略自动填写仍使用同一个 `/api/fugui-candidate` 接口，并新增 `provider=akshare|tushare` 参数；AKShare 分支保留原有名称、行业、分红和单标的行情口径，Tushare 分支使用 `stock_basic` 匹配名称/行业，使用 `daily_basic` 填充收盘价、市值和股息率。已补充前端结构测试和本地代理单元测试。
+
+### 后续待办
+
+- 当前本机尚未安装 `tushare`，也未配置 `TUSHARE_TOKEN` / `TUSHARE_PRO_TOKEN`；切换到 Tushare 后需先补齐环境才能真实取数。
+## 2026-07-29
+
+### 操作类型
+
+automation / fund-flow-analysis / html-snapshot
+
+### 修改文件
+
+- `sources/webpages/2026-07-29-中国中车资金面数据快照.md`
+- `sources/automations/支柱产业/2026-07-29-中国中车资金面分析.html`
+- `log.md`
+
+### 操作说明
+
+按 `fund-flow-analysis` 模板生成中国中车 2026-07-29 资金面分析快照。公开可得完整行情与资金分档截至 2026-07-28 收盘，融资融券截至 2026-07-27；控股股东首次增持 2818.495 万元已落地，但订单流、杠杆资金与账户身份数据仍有分歧和缺口，因此资金状态维持“多空分歧”，新增资金为 `wait`，已有持仓为 `review / wait`。HTML 保存到 `sources/automations/支柱产业/`，不更新正式 `index.md`。
+
+### 后续待办
+
+- 后续跟踪中车集团剩余增持执行节奏、F5 是否连续转正、融资余额是否止跌，以及 ETF/沪股通/QFII 等独立身份数据是否补齐。
+## 2026-07-29
+
+### 操作类型
+
+automation / fund-flow-analysis / html-snapshot
+
+### 修改文件
+
+- `sources/webpages/2026-07-29-航天电子资金面数据快照.md`
+- `sources/automations/支柱产业/2026-07-29-航天电子资金面分析.html`
+- `log.md`
+
+### 操作说明
+
+按 `fund-flow-analysis` 模板生成航天电子 2026-07-29 资金面分析快照。完整日频资金分档与融资融券数据截至 2026-07-28 收盘，2026-07-29 行情为盘中公开接口读取。资金分档显示近 5 日主力代理净流出约 3.85 亿元、近 20 日约 24.02 亿元，融资净买额近 5 日约 -5256 万元、近 10 日约 -4.10 亿元；结合 7 月业绩预减和异常波动后的价格承接，资金状态判为“结构性流出”，新增资金为 `observe`，已有持仓偏 `reduce`。HTML 保存到 `sources/automations/支柱产业/`，不更新正式 `index.md`。
+
+### 后续待办
+
+- 后续补查 2026-07-29 收盘后资金分档、融资融券、沪股通持股变化、ETF 成分股申赎映射、产业资本增减持 / 回购执行，以及最新质押、解禁、大宗交易和股东户数。
+
+## 2026-07-29
+
+### 操作类型
+
+automation / dividend-signal / daily-record
+
+### 修改文件
+
+- `sources/automations/中证红利信号/最新信号.md`
+- `sources/automations/中证红利信号/中证红利每日信号.xlsx`
+- `log.md`
+
+### 操作说明
+
+运行 `zzhl-dividend-signal` 技能脚本，按 Query Page“中证红利什么时候买入收益率最高”的历史分位点、绝对股息率和股债利差三类规则刷新 2026-07-29 每日记录。记录日期为 2026-07-29，AKShare 指数估值、理杏仁估值和中国10年国债收益率数据截至 2026-07-28：AKShare 股息率2 为 4.47%，理杏仁近10年股息率分位为 2.07%，中国10年国债收益率为 1.7351%，股债利差为 2.7349%。三类信号为 D / C / B，综合结论为“未进入加大买入区间”，未进入重点买入区间。雪球实时行情接口返回空响应，雪球当天涨跌幅保留为“待验证”，未用于修正股息率。
+
+### 后续待办
+
+- 下次运行继续观察理杏仁公开页面是否稳定返回分位数据；若雪球实时行情仍为空响应，只记录失败边界，不手工修正股息率。
+
+## 2026-07-29
+
+### 操作类型
+
+skill-maintenance / data-source-priority
+
+### 修改文件
+
+- `.agents/skills/zzhl-dividend-signal/SKILL.md`
+- `.agents/skills/zzhl-dividend-signal/scripts/check_signal.py`
+- `.agents/skills/zzhl-dividend-signal/tests/test_check_signal.py`
+- `tools/tushare-data/SKILL.md`
+- `tools/tushare-data/scripts/mcp_server.py`
+- `tools/tushare-data/scripts/tushare_client.py`
+- `tools/tushare-data/tests/test_tushare_mcp.py`
+- `tools/tushare-data/config/datasets.yaml`
+- `log.md`
+
+### 操作说明
+
+按用户要求将 `zzhl-dividend-signal` 的指数估值和中国10年国债收益率取数顺序调整为优先尝试本地 `tushare-data` MCP；当 Tushare MCP 不返回中证红利股息率字段、无数据、权限不足或 MCP 不可用时，脚本回退 AKShare，并在来源说明中保留回退原因。同步为 `tushare-data` MCP 增加 `get_index_daily_basic` 和 `get_china_bond_yield` 工具入口及单元测试。
+
+### 后续待办
+
+- 当前 Tushare `index_dailybasic` 对 `000922` 抽样返回空行，`yc_cb` 抽样提示当前 token 无接口权限；后续如升级 Tushare 权限或补齐指数股息率数据源，可再次验证是否能减少 AKShare 回退。
+
+## 2026-07-29
+
+### 操作类型
+
+skill-maintenance / mcp-permission-pruning
+
+### 修改文件
+
+- `tools/tushare-data/SKILL.md`
+- `tools/tushare-data/scripts/mcp_server.py`
+- `tools/tushare-data/scripts/tushare_client.py`
+- `tools/tushare-data/tests/test_tushare_mcp.py`
+- `tools/tushare-data/config/datasets.yaml`
+- `.agents/skills/zzhl-dividend-signal/SKILL.md`
+- `.agents/skills/zzhl-dividend-signal/scripts/check_signal.py`
+- `.agents/skills/zzhl-dividend-signal/tests/test_check_signal.py`
+- `log.md`
+
+### 操作说明
+
+按用户 2000 积分账号的可用边界裁剪 `tushare-data` MCP 工具：移除 `get_index_daily_basic` 和 `get_china_bond_yield` 暴露入口、客户端数据集配置、文档说明和对应测试。实测工具列表保留 `get_stock_basic`、`get_stock_daily`、`get_stock_valuation`、`get_financial_statements`、`get_dividend_history`、`get_index_constituents` 六个工具。同步将 `zzhl-dividend-signal` 改回直接使用 AKShare 获取中证红利股息率和中国10年国债收益率，避免运行时先调用 2000 积分不支持或当前账号无权限的 Tushare 接口。
+
+### 后续待办
+
+- 如后续 Tushare 账号升级或单独开通 `index_dailybasic` / `yc_cb` 权限，再重新评估是否恢复对应 MCP 工具。
+
+## 2026-07-29
+
+### 操作类型
+
+automation / dividend-signal / daily-record
+
+### 修改文件
+
+- `sources/automations/中证红利信号/最新信号.md`
+- `sources/automations/中证红利信号/中证红利每日信号.xlsx`
+- `.agents/skills/zzhl-dividend-signal/scripts/check_signal.py`
+- `log.md`
+
+### 操作说明
+
+使用修改后的 `zzhl-dividend-signal` 技能刷新 2026-07-29 中证红利股息率信号。记录日期为 2026-07-29；AKShare 中证红利估值和中国10年国债收益率数据截至 2026-07-28，理杏仁公开页面估值日期为 2026-07-29。中证红利股息率口径为 4.47%，理杏仁市值加权股息率为 4.18%，近10年股息率分位为 2.34%，80% 分位点为 6.11%；中国10年国债收益率为 1.7351%，股债利差为 2.7349%。三类信号为 D / C / B，综合结论为“未进入加大买入区间”。雪球实时行情接口返回空响应，雪球当天涨跌幅保留为“待验证”，未用于修正股息率。本次同时将脚本默认输出目录修正为 `sources/automations/中证红利信号`，与技能说明保持一致。
+
+### 后续待办
+
+- 下次运行继续观察雪球实时行情接口是否恢复；若仍为空响应，只保留失败边界，不手工修正股息率。
+
+## 2026-07-29
+
+### 操作类型
+
+skill-maintenance / data-source-priority
+
+### 修改文件
+
+- `.agents/skills/fund-flow-analysis/SKILL.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求更新 `fund-flow-analysis` 技能的数据源优先级：资金面分析时优先使用本地 `tushare-data` MCP 已暴露且当前账号可用的工具获取证券身份、日线行情、估值市值股息率、财报、分红和指数成分权重；融资融券 F3、特大单 / 主力资金 F5、ETF 估算申赎 F7、龙虎榜、北向、回购、增减持、股东户数、质押、解禁、大宗交易和实时订单分档等 MCP 未覆盖项目，继续回退 AKShare / 交易所 / 公告 / 公开页面，并保留代理边界。同步要求数据审计列明哪些字段来自 MCP、哪些来自其他来源、哪些未获取到，避免用成交额、换手率、市值或财报字段替代资金流指标。
+
+### 后续待办
+
+- 如后续 `tushare-data` MCP 新增并验证 2000 积分可用的融资融券、龙虎榜、北向或 ETF 相关工具，再同步扩展本技能的数据源矩阵。
+
+## 2026-07-29
+
+### 操作类型
+
+automation / fund-flow-analysis / skill-test
+
+### 修改文件
+
+- `sources/webpages/2026-07-29-1618-hangtian-electronics-fund-flow-data.json`
+- `sources/automations/支柱产业/2026-07-29-1618-航天电子资金面分析.html`
+- `log.md`
+
+### 操作说明
+
+使用修改后的 `fund-flow-analysis` 技能测试分析航天电子（600879.SH）资金面。优先通过 `tushare-data` MCP 获取证券身份、2026-07-29 日线行情、估值市值换手、财报查询和分红历史；其中日线和估值数据可用，财报查询返回空行，部分中文基础字段显示异常未写入结论。MCP 未覆盖的资金分档、融资融券、龙虎榜、解禁、基金持仓等项目回退 AKShare / 东方财富公开数据和同日既有底稿。结论为资金状态“结构性流出”，新增资金 `observe / 0%`，已有持仓在缺少成本和仓位前提下为 `review / reduce`。
+
+### 后续待办
+
+- 继续补查 2026-07-29 收盘后的融资融券、北向个股持股变化、ETF 份额与成分股权重映射、质押、大宗交易和最新股东户数，避免把当前缺口误读为风险不存在。
+
+## 2026-07-29
+
+### 操作类型
+
+tooling / mcp-extension / data-source-priority
+
+### 修改文件
+
+- `tools/tushare-data/SKILL.md`
+- `tools/tushare-data/config/datasets.yaml`
+- `tools/tushare-data/scripts/mcp_server.py`
+- `tools/tushare-data/scripts/tushare_client.py`
+- `tools/tushare-data/tests/test_tushare_mcp.py`
+- `.agents/skills/fund-flow-analysis/SKILL.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求将当前 2000 积分账号可用的 Tushare 资金面接口接入 `tushare-data` MCP：新增 `get_stock_moneyflow`，封装 Tushare `moneyflow` 个股资金流向和大小单分档；新增 `get_margin_detail`，封装 Tushare `margin_detail` 个股融资融券交易明细。同步更新 `fund-flow-analysis` 技能，使个股资金分档 / F5 和融资融券 / F3 优先走 `tushare-data` MCP；ETF 估算申赎 F7、龙虎榜、北向、回购、增减持、股东户数、质押、解禁、大宗交易等仍按缺口回退公开来源。真实抽样验证航天电子（600879.SH）在 2026-07-28 返回 `moneyflow` 1 行、`margin_detail` 1 行。
+
+### 后续待办
+
+- 暂不接入 `top_inst` 龙虎榜机构明细、`moneyflow_ths` 同花顺资金流和 `moneyflow_cnt_ths` 板块资金流等 5000 积分接口；若账号升级后再评估。
+
+## 2026-07-29
+
+### 操作类型
+
+skill-maintenance / fund-flow-analysis / mcp-tool-sync
+
+### 修改文件
+
+- `.agents/skills/fund-flow-analysis/SKILL.md`
+- `log.md`
+
+### 操作说明
+
+按用户批注继续补充 `fund-flow-analysis` 技能，将新增的 `get_stock_moneyflow` 和 `get_margin_detail` 从中段数据源表提升到技能描述、来源优先级总句、数据审计步骤和最终检查项中。后续执行资金面分析时，个股资金分档 / 大小单 / F5 和融资融券 / F3 应优先使用 `tushare-data` MCP；MCP 未覆盖的 ETF 申赎、龙虎榜、北向、产业资本、质押、解禁和大宗交易等仍按回退规则处理。
+
+### 后续待办
+
+- 下次用 `fund-flow-analysis` 生成个股资金面报告时，检查数据审计章节是否明确列出 `get_stock_moneyflow` 与 `get_margin_detail` 的实际调用结果和失败回退原因。
+
+## 2026-07-29
+
+### 操作类型
+
+automation / fund-flow-analysis / mcp-tool-test
+
+### 修改文件
+
+- `sources/webpages/2026-07-29-1705-hangtian-electronics-fund-flow-data.json`
+- `sources/automations/支柱产业/2026-07-29-1705-航天电子资金面分析.html`
+- `log.md`
+
+### 操作说明
+
+使用新版 `fund-flow-analysis` 技能再次测试航天电子（600879.SH）资金面，重点验证新增 MCP 工具进入报告链路。`tushare-data` MCP 成功返回：`get_stock_daily` 20 行、`get_stock_valuation` 20 行、`get_stock_moneyflow` 20 行、`get_margin_detail` 19 行，另有证券基础资料和 2026-03-31 财报数据。报告将资金分档 / F5 和融资融券 / F3 明确列为 MCP 优先数据源：2026-07-29 当日 Tushare `moneyflow` 净流入 2081.38 万元，但近5日净流出 1.70 亿元、近20日净流出 20.51 亿元；2026-07-28 融资净买额 -1303.08 万元，近5日融资净买额 -5255.84 万元，19日融资净买额 -5.81 亿元。综合判断仍为“结构性流出”，新增资金 `observe / 0%`，已有持仓 `review / reduce`。
+
+### 后续待办
+
+- 下一次复查时等待 2026-07-29 对应融资融券数据更新，并继续补 ETF 申赎、北向持股、龙虎榜机构明细、产业资本、质押、解禁和大宗交易等 MCP 未覆盖项目。
+
+## 2026-07-29
+
+### 操作类型
+
+skill-maintenance / fund-flow-analysis / equity-research-integration
+
+### 修改文件
+
+- `.agents/skills/fund-flow-analysis/SKILL.md`
+- `.agents/skills/fund-flow-analysis/template.md`
+- `.agents/skills/fund-flow-analysis/references/equity-research-integration.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求将 Anthropic financial-services 示例中的 LSEG `equity-research` 技能方法论融入 `fund-flow-analysis`。本次只吸收其“共识预期、历史基本面、价格表现、估值、宏观背景必须服务投资论点”的研究骨架，不引入 LSEG / IBES 工具依赖，也不把资金面技能改成完整公司研报技能。新增参考文件说明 A 股 / Tushare MCP 映射关系，并在技能正文、模板数据审计、交叉验证、反证和下一验证点中加入预期、基本面、估值、分红、价格位置和宏观背景校验。
+
+### 后续待办
+
+- 下一次用个股测试时，检查 HTML 是否仍保持 11 个一级章节，同时在数据审计中出现“共识、基本面、估值与宏观校验”表。
+
+## 2026-07-29
+
+### 操作类型
+
+skill-maintenance / fund-flow-analysis / boundary-clarification
+
+### 修改文件
+
+- `.agents/skills/fund-flow-analysis/SKILL.md`
+- `.agents/skills/fund-flow-analysis/template.md`
+- `.agents/skills/fund-flow-analysis/references/equity-research-integration.md`
+- `log.md`
+
+### 操作说明
+
+按用户批注将上一轮引入的“基本面”表述统一改为“基本面与价格预期校验”。同步强化边界：该模块只服务资金面分析中的资金持续性、承接理由、价格是否透支预期和下一验证点，不输出完整基本面评级、目标价、DCF、公允价值，也不得把基本面好、估值低或分红高直接写成长期资金已买入。
+
+### 后续待办
+
+- 下一次生成资金面 HTML 时，确认数据审计章节使用“基本面与价格预期校验”表，并在来源与使用边界中保留其资金面从属关系。
+
+## 2026-07-29
+
+### 操作类型
+
+skill-maintenance / bbxm-equity-research / data-source-priority
+
+### 修改文件
+
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `.agents/skills/bbxm-equity-research/template.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求将 `bbxm-equity-research` 的 A 股数据调用顺序调整为优先使用本地 `tushare-data` MCP 已暴露工具。技能版本升至 `1.1.0`，新增 A 股 Tushare MCP 优先调用规则，覆盖证券身份、日线行情、估值、市值、股息率、资金分档、融资融券、财务报表、分红和指数成分；MCP 未覆盖、无权限、无数据或字段不足时，继续回退 AKShare、交易所、巨潮资讯、公司公告和公开页面。同步更新模板第 2 章来源矩阵，要求记录 MCP 调用清单、返回状态、缺失字段、回退原因和法定披露复核状态。
+
+### 后续待办
+
+- 下一次用 A 股标的生成机构级研报时，检查第 2 章来源矩阵是否明确列出 `tushare-data` MCP 工具调用结果，并确认五年财务历史仍经交易所 / 巨潮 / 公司年报复核。

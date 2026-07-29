@@ -103,6 +103,49 @@ class XueqiuQuoteParseTest(unittest.TestCase):
         self.assertEqual(parsed.source, "雪球实时行情")
 
 
+class AkshareDataSourceTest(unittest.TestCase):
+    def test_uses_akshare_index_dividend_yield(self):
+        class AkStub:
+            def stock_zh_index_value_csindex(self, symbol):
+                self.symbol = symbol
+                return pd.DataFrame(
+                    {
+                        "日期": ["2026-07-02", "2026-07-03"],
+                        "股息率2": ["4.64", "4.67"],
+                    }
+                )
+
+        valuation = check_signal.fetch_index_valuation(
+            AkStub(),
+            datetime(2026, 7, 4),
+        )
+
+        self.assertEqual(valuation.date, "2026-07-03")
+        self.assertEqual(valuation.dividend_yield, 4.67)
+        self.assertIn("AKShare", valuation.source)
+        self.assertNotIn("Tushare MCP", valuation.note)
+
+    def test_uses_akshare_bond_yield(self):
+        class AkStub:
+            def bond_zh_us_rate(self, start_date):
+                self.start_date = start_date
+                return pd.DataFrame(
+                    {
+                        "日期": ["2026-07-01", "2026-07-03"],
+                        "中国国债收益率10年": ["1.71", "1.7463"],
+                    }
+                )
+
+        bond = check_signal.fetch_bond_yield(
+            AkStub(),
+            datetime(2026, 7, 4),
+        )
+
+        self.assertEqual(bond.date, "2026-07-03")
+        self.assertEqual(bond.yield_10y, 1.7463)
+        self.assertIn("AKShare", bond.source)
+
+
 class SignalEvaluationTest(unittest.TestCase):
     def test_uses_consistent_signal_labels_and_headline(self):
         self.assertEqual(check_signal.evaluate_percentile(85), "A")
@@ -184,7 +227,7 @@ class CsvHeaderLabelTest(unittest.TestCase):
             [
                 "记录日期",
                 "指数估值日期",
-                "AKShare股息率2(%)",
+                "指数股息率口径(%)",
                 "雪球当天涨跌幅(%)",
                 "中国10年国债收益率日期",
                 "中国10年国债收益率(%)",

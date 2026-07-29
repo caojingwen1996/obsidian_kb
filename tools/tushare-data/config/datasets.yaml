@@ -1,0 +1,69 @@
+datasets:
+  stock_basic:
+    api: stock_basic
+    purpose: A股上市公司基础资料
+    cache_ttl_seconds: 300
+    required_params: []
+    allowed_params: [ts_code, name, exchange, list_status, fields]
+    fields: [ts_code, symbol, name, area, industry, market, exchange, list_date, list_status]
+  daily:
+    api: daily
+    purpose: A股个股不复权历史日线行情
+    adjustment: none
+    cache_ttl_seconds: 300
+    required_params: [ts_code]
+    allowed_params: [ts_code, trade_date, start_date, end_date, fields]
+    fields: [ts_code, trade_date, open, high, low, close, pre_close, change, pct_chg, vol, amount]
+  daily_basic:
+    api: daily_basic
+    purpose: A股估值、股息率、市值和交易活跃度
+    dividend_yield_field: dv_ttm
+    cache_ttl_seconds: 300
+    required_params: [ts_code]
+    allowed_params: [ts_code, trade_date, start_date, end_date, fields]
+    fields: [ts_code, trade_date, close, turnover_rate, turnover_rate_f, volume_ratio, pe, pe_ttm, pb, ps_ttm, dv_ratio, dv_ttm, total_mv, circ_mv]
+  moneyflow:
+    api: moneyflow
+    purpose: A股个股资金流向和大小单分档
+    cache_ttl_seconds: 300
+    required_params: [ts_code]
+    allowed_params: [ts_code, trade_date, start_date, end_date, fields]
+    fields: [ts_code, trade_date, buy_sm_vol, buy_sm_amount, sell_sm_vol, sell_sm_amount, buy_md_vol, buy_md_amount, sell_md_vol, sell_md_amount, buy_lg_vol, buy_lg_amount, sell_lg_vol, sell_lg_amount, buy_elg_vol, buy_elg_amount, sell_elg_vol, sell_elg_amount, net_mf_vol, net_mf_amount]
+  margin_detail:
+    api: margin_detail
+    purpose: 沪深两市每日融资融券交易明细
+    cache_ttl_seconds: 300
+    required_params: [ts_code]
+    allowed_params: [ts_code, trade_date, start_date, end_date, fields]
+    fields: [trade_date, ts_code, name, rzye, rqye, rzmre, rqyl, rzche, rqchl, rqmcl, rzrqye]
+  income:
+    api: income
+    purpose: 利润表核心科目
+    cache_ttl_seconds: 300
+    required_params: [ts_code]
+    allowed_params: [ts_code, ann_date, start_date, end_date, period, report_type, comp_type, fields]
+  balancesheet:
+    api: balancesheet
+    purpose: 资产负债表核心科目
+    cache_ttl_seconds: 300
+    required_params: [ts_code]
+    allowed_params: [ts_code, ann_date, start_date, end_date, period, report_type, comp_type, fields]
+  cashflow:
+    api: cashflow
+    purpose: 现金流量表核心科目
+    cache_ttl_seconds: 300
+    required_params: [ts_code]
+    allowed_params: [ts_code, ann_date, start_date, end_date, period, report_type, comp_type, fields]
+  dividend:
+    api: dividend
+    purpose: 历史分红方案及实施记录
+    cache_ttl_seconds: 300
+    required_params: [ts_code]
+    allowed_params: [ts_code, ann_date, record_date, ex_date, imp_ann_date, fields]
+  index_weight:
+    api: index_weight
+    purpose: 指数历史成分股和权重
+    cache_ttl_seconds: 300
+    required_params: [index_code]
+    allowed_params: [index_code, trade_date, start_date, end_date, fields]
+    fields: [index_code, con_code, trade_date, weight]

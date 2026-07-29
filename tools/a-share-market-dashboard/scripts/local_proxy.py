@@ -2,6 +2,7 @@
 
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
+from http.client import RemoteDisconnected
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import html
 import json
@@ -9,11 +10,20 @@ import math
 from pathlib import Path
 import re
 import sys
+from threading import Thread
+from time import monotonic
 from urllib.error import HTTPError, URLError
 from urllib.parse import parse_qs, unquote, urlencode, urlparse
 from urllib.request import Request, urlopen
 import webbrowser
 
+
+VENDOR_PYTHON_PATH = Path(__file__).resolve().parents[1] / "vendor" / "python"
+if VENDOR_PYTHON_PATH.exists():
+    sys.path.append(str(VENDOR_PYTHON_PATH))
+TUSHARE_CLIENT_PATH = Path(__file__).resolve().parents[2] / "tushare-data" / "scripts"
+if TUSHARE_CLIENT_PATH.exists() and str(TUSHARE_CLIENT_PATH) not in sys.path:
+    sys.path.append(str(TUSHARE_CLIENT_PATH))
 
 ALLOWED_SECIDS = {"1.000001", "1.000300", "1.000985"}
 ALLOWED_INDEX_CODES = {"000300", "000985"}
@@ -32,11 +42,23 @@ SOURCE_NAMES = {
     "/api/stock-quote": "stock-quote",
     "/api/youzhiyouxing-temperature": "youzhiyouxing-temperature",
     "/api/nasdaq100": "nasdaq100",
+    "/api/fugui-candidate": "fugui-candidate",
+    "/api/review-diary": "review-diary",
 }
 YOUZHIYOUXING_TEMPERATURE_URL = "https://youzhiyouxing.cn/data"
 NASDAQ100_CHART_URL = "https://query1.finance.yahoo.com/v8/finance/chart/%5ENDX?range=max&interval=1d"
 PORTFOLIO_STATUSES = {"持有", "观察", "计划加仓", "计划减仓"}
 DEFAULT_PORT = 49888
+FUGUI_DATA_PROVIDERS = {"akshare", "tushare"}
+AKSHARE_CODE_NAME_CACHE_TTL_SECONDS = 600
+AKSHARE_SPOT_CACHE_TTL_SECONDS = 120
+FUGUI_QUOTE_CACHE_TTL_SECONDS = 30
+FUGUI_TREASURY_CACHE_TTL_SECONDS = 600
+_AKSHARE_CODE_NAME_CACHE = {"expires": 0.0, "rows": None}
+_AKSHARE_SPOT_CACHE = {"expires": 0.0, "rows": None}
+_FUGUI_QUOTE_CACHE = {}
+_FUGUI_TREASURY_CACHE = {"expires": 0.0, "payload": None}
+PROXY_LOG_PATH = Path(__file__).resolve().parents[1] / "data" / "proxy.log"
 
 
 class RouteError(ValueError):
@@ -49,6 +71,35 @@ class UpstreamError(RuntimeError):
     def __init__(self, source):
         super().__init__("upstream request failed")
         self.source = source
+
+
+def _trim_log_value(value):
+    text = str(value)
+    return text if len(text) <= 500 else f"{text[:497]}..."
+
+
+def write_proxy_log(event, **fields):
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    details = " ".join(f"{key}={_trim_log_value(value)}" for key, value in fields.items() if value is not None)
+    message = f"[{timestamp}] {event}" + (f" {details}" if details else "")
+    print(message, flush=True)
+    try:
+        PROXY_LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
+        with PROXY_LOG_PATH.open("a", encoding="utf-8") as handle:
+            handle.write(message + "\n")
+    except OSError:
+        pass
+
+
+def call_logged_data_api(provider, method, loader, **fields):
+    write_proxy_log("DATA_CALL", provider=provider, method=method, **fields)
+    try:
+        result = loader()
+    except Exception as error:
+        write_proxy_log("DATA_FAIL", provider=provider, method=method, error=type(error).__name__, **fields)
+        raise
+    write_proxy_log("DATA_OK", provider=provider, method=method, **fields)
+    return result
 
 
 def _one(query, key, default=None):
@@ -86,6 +137,17 @@ def _stock_secid(value):
     if not re.fullmatch(r"[01]\.\d{6}", value):
         raise RouteError("invalid secid")
     return value
+
+
+def _stock_market_for_code(code):
+    digits = str(code or "").strip()
+    if not re.fullmatch(r"\d{6}", digits):
+        raise RouteError("invalid stock code")
+    if digits.startswith(("6", "9")):
+        return f"1.{digits}"
+    if digits.startswith(("0", "2", "3")):
+        return f"0.{digits}"
+    raise RouteError("invalid stock code")
 
 
 def _build_url(base, params):
@@ -214,6 +276,393 @@ def normalize_stock_quote(payload, secid):
     }
 
 
+def _finite_number(value):
+    if isinstance(value, bool):
+        return None
+    if isinstance(value, (int, float)):
+        number = float(value)
+    elif isinstance(value, str):
+        stripped = value.strip().replace(",", "")
+        if stripped in {"", "-", "--"}:
+            return None
+        try:
+            number = float(stripped)
+        except ValueError:
+            return None
+    else:
+        return None
+    return number if math.isfinite(number) else None
+
+
+def _latest_treasury_yield(payload):
+    rows = payload.get("result", {}).get("data") if isinstance(payload, dict) else None
+    if not isinstance(rows, list):
+        raise UpstreamError("treasury")
+    candidates = []
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        value = _finite_number(row.get("EMM00166466"))
+        date_text = str(row.get("SOLAR_DATE") or "")
+        if value is not None and date_text:
+            candidates.append((date_text[:10], value))
+    if not candidates:
+        raise UpstreamError("treasury")
+    return sorted(candidates, key=lambda item: item[0])[-1]
+
+
+def _akshare_rows(frame):
+    try:
+        records = frame.to_dict("records")
+    except AttributeError as error:
+        raise UpstreamError("akshare") from error
+    return records if isinstance(records, list) else []
+
+
+def _akshare_value(row, *keys):
+    if not isinstance(row, dict):
+        return None
+    for key in keys:
+        if key in row:
+            return row.get(key)
+    return None
+
+
+def _cached_akshare_rows(cache, ttl_seconds, loader):
+    now = monotonic()
+    cached_rows = cache.get("rows")
+    if isinstance(cached_rows, list) and cache.get("expires", 0.0) > now:
+        return cached_rows
+    rows = _akshare_rows(loader())
+    cache["rows"] = rows
+    cache["expires"] = now + ttl_seconds
+    return rows
+
+
+def _cached_fugui_quote(code, fetcher):
+    now = monotonic()
+    cached = _FUGUI_QUOTE_CACHE.get(code)
+    if isinstance(cached, dict) and cached.get("expires", 0.0) > now:
+        return cached["payload"]
+    secid = _stock_market_for_code(code)
+    payload = fetcher(_build_tencent_stock_quote_url(secid), "tencent-stock-quote")
+    _FUGUI_QUOTE_CACHE[code] = {"expires": now + FUGUI_QUOTE_CACHE_TTL_SECONDS, "payload": payload}
+    return payload
+
+
+def _cached_fugui_treasury(fetcher):
+    now = monotonic()
+    payload = _FUGUI_TREASURY_CACHE.get("payload")
+    if payload is not None and _FUGUI_TREASURY_CACHE.get("expires", 0.0) > now:
+        return payload
+    payload = fetcher(build_upstream_url("/api/treasury", {}), "treasury")
+    _FUGUI_TREASURY_CACHE["payload"] = payload
+    _FUGUI_TREASURY_CACHE["expires"] = now + FUGUI_TREASURY_CACHE_TTL_SECONDS
+    return payload
+
+
+def _money_to_yuan(value):
+    number = _finite_number(value)
+    if number is not None:
+        return number
+    if not isinstance(value, str):
+        return None
+    text = value.strip().replace(",", "")
+    units = (("亿元", 100_000_000), ("亿", 100_000_000), ("万元", 10_000), ("万", 10_000), ("元", 1))
+    for suffix, multiplier in units:
+        if text.endswith(suffix):
+            number = _finite_number(text[: -len(suffix)])
+            return number * multiplier if number is not None else None
+    return None
+
+
+def _fugui_provider(value):
+    provider = str(value or "akshare").strip().lower()
+    if provider not in FUGUI_DATA_PROVIDERS:
+        raise RouteError("invalid provider")
+    return provider
+
+
+def _fugui_candidate_from_akshare_code_name(rows, query):
+    normalized_query = str(query or "").strip()
+    candidates = []
+    for row in rows:
+        code = str(_akshare_value(row, "code", "代码", "A股代码") or "").strip()
+        name = str(_akshare_value(row, "name", "名称", "A股简称") or "").strip()
+        if not re.fullmatch(r"\d{6}", code) or not name:
+            continue
+        if code == normalized_query or name == normalized_query:
+            score = 0
+        elif normalized_query and (normalized_query in name or name in normalized_query):
+            score = 1
+        else:
+            continue
+        candidates.append((score, code, {"code": code, "name": name}))
+    if not candidates:
+        raise UpstreamError("akshare-code-name")
+    return sorted(candidates, key=lambda item: (item[0], item[1]))[0][2]
+
+
+def _fugui_candidate_from_tushare_stock_basic(rows, query):
+    from tushare_client import plain_code_from_ts_code
+
+    normalized_query = str(query or "").strip()
+    candidates = []
+    for row in rows:
+        code = plain_code_from_ts_code(_akshare_value(row, "ts_code", "symbol"))
+        name = str(_akshare_value(row, "name") or "").strip()
+        if not re.fullmatch(r"\d{6}", code) or not name:
+            continue
+        if code == normalized_query or name == normalized_query:
+            score = 0
+        elif normalized_query and (normalized_query in name or name in normalized_query):
+            score = 1
+        else:
+            continue
+        candidates.append((score, code, {
+            "code": code,
+            "name": name,
+            "industry": str(_akshare_value(row, "industry") or "未获取到").strip() or "未获取到",
+        }))
+    if not candidates:
+        raise UpstreamError("tushare-code-name")
+    return sorted(candidates, key=lambda item: (item[0], item[1]))[0][2]
+
+
+def _infer_fugui_ownership(*values):
+    text = " ".join(str(value or "") for value in values)
+    if "央企" in text or "中央" in text or "中证央企" in text:
+        return "央企"
+    if "国企" in text or "国有" in text or "国资" in text:
+        return "国企"
+    return "待验证"
+
+
+def _fugui_spot_row(rows, code):
+    for row in rows:
+        row_code = str(_akshare_value(row, "代码", "code") or "").strip()
+        if row_code == code or row_code[-6:] == code:
+            return row
+    raise UpstreamError("akshare-spot")
+
+
+def _fugui_quote_row_from_tencent(code, fetcher):
+    secid = _stock_market_for_code(code)
+    payload = _cached_fugui_quote(code, fetcher)
+    quote = normalize_tencent_stock_quote(payload, secid)["data"]
+    return {"代码": quote["code"], "名称": quote["name"], "最新价": quote["price"]}
+
+
+def _fugui_profile_row(rows, code):
+    for row in rows:
+        row_code = str(_akshare_value(row, "A股代码", "代码", "code") or "").strip()
+        if not row_code or row_code == code:
+            return row
+    return {}
+
+
+def _latest_cash_dividend_per_10(rows):
+    candidates = []
+    for row in rows:
+        progress = str(_akshare_value(row, "进度") or "")
+        if "实施" not in progress:
+            continue
+        amount = _finite_number(_akshare_value(row, "派息"))
+        date_text = str(_akshare_value(row, "除权除息日", "股权登记日", "公告日期") or "")
+        if amount is not None and amount > 0 and date_text:
+            candidates.append((date_text[:10], amount))
+    if not candidates:
+        raise UpstreamError("akshare-dividend")
+    return sorted(candidates, key=lambda item: item[0])[-1]
+
+
+def normalize_fugui_candidate_from_akshare(candidate, spot_row, profile_row, dividend_rows, treasury_payload):
+    """Normalize one automatically fetched Fugui strategy candidate from AKShare data."""
+    bond_date, bond10y_yield = _latest_treasury_yield(treasury_payload)
+    code = str(candidate.get("code") or _akshare_value(spot_row, "代码", "code") or "").strip()
+    name = str(candidate.get("name") or _akshare_value(spot_row, "名称", "name") or "").strip()
+    price = _finite_number(_akshare_value(spot_row, "最新价", "最新", "price"))
+    dividend_date, cash_dividend_per_10 = _latest_cash_dividend_per_10(dividend_rows)
+    industry = str(_akshare_value(profile_row, "所属行业") or "未获取到").strip() or "未获取到"
+    registered_capital_wan = _finite_number(_akshare_value(profile_row, "注册资金"))
+    market_cap_yi = None
+    if price is not None and registered_capital_wan is not None:
+        market_cap_yi = price * registered_capital_wan / 10_000
+    market_cap_yuan = _money_to_yuan(_akshare_value(profile_row, "总市值", "市值"))
+    if market_cap_yuan is not None:
+        market_cap_yi = market_cap_yuan / 100_000_000
+    if price is None or market_cap_yi is None or not code or not name:
+        raise UpstreamError("akshare-candidate")
+    dividend_yield = cash_dividend_per_10 / 10 / price * 100
+    ownership = _infer_fugui_ownership(
+        _akshare_value(profile_row, "入选指数"),
+        _akshare_value(profile_row, "公司名称"),
+        _akshare_value(profile_row, "机构简介"),
+    )
+    return {
+        "data": {
+            "candidate": {
+                "industry": industry,
+                "code": code,
+                "name": name,
+                "ownership": ownership,
+                "price": round(price, 2),
+                "marketCapYi": round(market_cap_yi, 2),
+                "dividendYield": round(dividend_yield, 2),
+                "bond10yYield": round(bond10y_yield, 2),
+                "bondDate": bond_date,
+                "dividendDate": dividend_date,
+            },
+        },
+        "proxySource": "AKShare A股代码名称 + 腾讯单标的行情 + 巨潮公司资料 + 分红明细 + 10年国债收益率",
+    }
+
+
+def normalize_fugui_candidate_from_tushare(candidate, daily_basic_rows, treasury_payload):
+    """Normalize one automatically fetched Fugui strategy candidate from Tushare data."""
+    bond_date, bond10y_yield = _latest_treasury_yield(treasury_payload)
+    if not daily_basic_rows:
+        raise UpstreamError("tushare-daily-basic")
+    row = daily_basic_rows[0]
+    code = candidate["code"]
+    name = candidate["name"]
+    price = _finite_number(_akshare_value(row, "close"))
+    market_cap_wan = _finite_number(_akshare_value(row, "total_mv"))
+    dividend_yield = _finite_number(_akshare_value(row, "dv_ttm"))
+    if price is None or market_cap_wan is None or dividend_yield is None:
+        raise UpstreamError("tushare-daily-basic")
+    industry = candidate.get("industry") or "未获取到"
+    ownership = _infer_fugui_ownership(name, industry)
+    return {
+        "data": {
+            "candidate": {
+                "industry": industry,
+                "code": code,
+                "name": name,
+                "ownership": ownership,
+                "price": round(price, 2),
+                "marketCapYi": round(market_cap_wan / 10_000, 2),
+                "dividendYield": round(dividend_yield, 2),
+                "bond10yYield": round(bond10y_yield, 2),
+                "bondDate": bond_date,
+            },
+        },
+        "proxySource": "Tushare stock_basic + daily_basic(dv_ttm) + 10年国债收益率",
+    }
+
+
+def fetch_fugui_candidate_from_akshare(query, fetcher, ak_provider):
+    """Fetch one stock by name and return auto-filled Fugui strategy fields from AKShare."""
+    provider_was_injected = ak_provider is not None
+    if ak_provider is None:
+        try:
+            import akshare as ak_provider
+        except ImportError as error:
+            raise UpstreamError("akshare") from error
+    if provider_was_injected:
+        code_name_frame = call_logged_data_api(
+            "AKShare",
+            "stock_info_a_code_name",
+            ak_provider.stock_info_a_code_name,
+            query=query,
+        )
+        code_name_rows = _akshare_rows(code_name_frame)
+    else:
+        code_name_rows = _cached_akshare_rows(
+            _AKSHARE_CODE_NAME_CACHE,
+            AKSHARE_CODE_NAME_CACHE_TTL_SECONDS,
+            lambda: call_logged_data_api(
+                "AKShare",
+                "stock_info_a_code_name",
+                ak_provider.stock_info_a_code_name,
+                query=query,
+            ),
+        )
+    candidate = _fugui_candidate_from_akshare_code_name(code_name_rows, query)
+    spot_row = _fugui_quote_row_from_tencent(candidate["code"], fetcher)
+    profile_frame = call_logged_data_api(
+        "AKShare",
+        "stock_profile_cninfo",
+        lambda: ak_provider.stock_profile_cninfo(symbol=candidate["code"]),
+        code=candidate["code"],
+        name=candidate["name"],
+    )
+    profile_row = _fugui_profile_row(_akshare_rows(profile_frame), candidate["code"])
+    dividend_frame = call_logged_data_api(
+        "AKShare",
+        "stock_history_dividend_detail",
+        lambda: ak_provider.stock_history_dividend_detail(symbol=candidate["code"], indicator="分红"),
+        code=candidate["code"],
+        name=candidate["name"],
+    )
+    dividend_rows = _akshare_rows(dividend_frame)
+    treasury = _cached_fugui_treasury(fetcher)
+    return normalize_fugui_candidate_from_akshare(candidate, spot_row, profile_row, dividend_rows, treasury)
+
+
+def fetch_fugui_candidate_from_tushare(query, fetcher, tushare_provider=None):
+    """Fetch one stock by name and return auto-filled Fugui strategy fields from Tushare."""
+    from tushare_client import TushareClient, TushareClientError, a_share_ts_code, frame_to_rows
+
+    dashboard_env_path = Path(__file__).resolve().parents[1] / ".env"
+    client = TushareClient(
+        pro=tushare_provider,
+        extra_env_paths=(dashboard_env_path,),
+        logger=write_proxy_log,
+    )
+    try:
+        stock_basic_frame = client.stock_basic(use_cache=tushare_provider is None)
+    except TushareClientError as error:
+        if error.source == "tushare-token":
+            write_proxy_log("CONFIG_MISSING", provider="Tushare", key="TUSHARE_TOKEN")
+        raise UpstreamError(error.source) from error
+    except Exception as error:
+        raise UpstreamError("tushare") from error
+    stock_rows = frame_to_rows(stock_basic_frame)
+    candidate = _fugui_candidate_from_tushare_stock_basic(stock_rows, query)
+    ts_code = a_share_ts_code(candidate["code"])
+    try:
+        daily_basic_frame = client.daily_basic(ts_code=ts_code, use_cache=tushare_provider is None)
+    except TushareClientError as error:
+        raise UpstreamError(error.source) from error
+    except Exception as error:
+        raise UpstreamError("tushare") from error
+    daily_rows = frame_to_rows(daily_basic_frame)
+    treasury = _cached_fugui_treasury(fetcher)
+    return normalize_fugui_candidate_from_tushare(candidate, daily_rows, treasury)
+
+
+def fetch_fugui_candidate(name, fetcher=None, ak_provider=None, tushare_provider=None, provider="akshare"):
+    """Fetch one stock by name and return auto-filled Fugui strategy fields."""
+    if fetcher is None:
+        fetcher = fetch_upstream
+    query = str(name or "").strip()
+    if not query or len(query) > 30:
+        raise RouteError("invalid name")
+    selected_provider = _fugui_provider(provider)
+    write_proxy_log("FUGUI_REQUEST", provider=selected_provider, name=query)
+    if selected_provider == "tushare":
+        return fetch_fugui_candidate_from_tushare(query, fetcher, tushare_provider)
+    return fetch_fugui_candidate_from_akshare(query, fetcher, ak_provider)
+
+
+def prewarm_fugui_reference_data(fetcher=None):
+    """Warm shared Fugui strategy reference data without blocking the dashboard."""
+    if fetcher is None:
+        fetcher = fetch_upstream
+    try:
+        import akshare as ak_provider
+        _cached_akshare_rows(
+            _AKSHARE_CODE_NAME_CACHE,
+            AKSHARE_CODE_NAME_CACHE_TTL_SECONDS,
+            ak_provider.stock_info_a_code_name,
+        )
+        _cached_fugui_treasury(fetcher)
+        print("富贵策略公共数据已预热。")
+    except Exception as error:
+        print(f"富贵策略公共数据预热失败：{error}")
+
+
 def _build_tencent_stock_quote_url(secid):
     symbol = _tencent_stock_symbol(secid)
     return _build_url(
@@ -283,6 +732,7 @@ def fetch_stock_quote(secid, fetcher=None):
 def fetch_upstream(url, source):
     """Fetch one allowlisted upstream response with bounded resources."""
     host = urlparse(url).hostname or ""
+    write_proxy_log("API_CALL", source=source, url=url)
     if host.endswith("csindex.com.cn"):
         referer = "https://www.csindex.com.cn/"
     elif host.endswith("finance.yahoo.com"):
@@ -304,8 +754,11 @@ def fetch_upstream(url, source):
         if len(body) > MAX_RESPONSE_BYTES:
             raise ValueError("response too large")
         encoding = "gb18030" if host == "vip.stock.finance.sina.com.cn" else "utf-8-sig"
-        return parse_json_payload(body, encoding=encoding)
-    except (HTTPError, URLError, TimeoutError, OSError, ValueError, json.JSONDecodeError) as error:
+        payload = parse_json_payload(body, encoding=encoding)
+        write_proxy_log("API_OK", source=source, bytes=len(body), host=host)
+        return payload
+    except (HTTPError, URLError, TimeoutError, OSError, RemoteDisconnected, ValueError, json.JSONDecodeError) as error:
+        write_proxy_log("API_FAIL", source=source, host=host, error=type(error).__name__)
         raise UpstreamError(source) from error
 
 
@@ -314,6 +767,7 @@ def fetch_upstream_text(url, source):
     host = urlparse(url).hostname or ""
     if host != "youzhiyouxing.cn":
         raise RouteError("invalid upstream host")
+    write_proxy_log("API_CALL", source=source, url=url)
     request = Request(
         url,
         headers={
@@ -328,8 +782,11 @@ def fetch_upstream_text(url, source):
             body = response.read(2_000_000 + 1)
         if len(body) > 2_000_000:
             raise ValueError("response too large")
-        return body.decode("utf-8", errors="replace")
+        text = body.decode("utf-8", errors="replace")
+        write_proxy_log("API_OK", source=source, bytes=len(body), host=host)
+        return text
     except (HTTPError, URLError, TimeoutError, OSError, ValueError) as error:
+        write_proxy_log("API_FAIL", source=source, host=host, error=type(error).__name__)
         raise UpstreamError(source) from error
 
 
@@ -675,12 +1132,81 @@ def normalize_portfolio_payload(payload):
     }
 
 
+def _safe_diary_slug(value, fallback="unknown"):
+    slug = re.sub(r'[<>:"/\\|?*\x00-\x1f]', "", str(value or "")).strip()
+    slug = re.sub(r"\s+", "", slug)
+    slug = slug.strip(".")
+    return (slug or fallback)[:60]
+
+
+def normalize_review_diary_payload(payload):
+    """Validate a review diary entry before writing a local Markdown file."""
+    if not isinstance(payload, dict):
+        raise ValueError
+    code = str(payload.get("code", "")).strip()[:12]
+    name = str(payload.get("name", "")).strip()[:30]
+    status = str(payload.get("status", "")).strip()[:12]
+    content = str(payload.get("content", "")).strip()
+    tracking_id = str(payload.get("trackingId", "")).strip()[:80]
+    if not name or not content or len(content) > 3000:
+        raise ValueError
+    if code and not re.fullmatch(r"[\w.-]{1,12}", code, re.ASCII):
+        raise ValueError
+    return {
+        "trackingId": tracking_id,
+        "code": code,
+        "name": name,
+        "status": status if status in PORTFOLIO_STATUSES else "",
+        "content": content,
+    }
+
+
+def append_review_diary_entry(payload, diary_dir, now=None):
+    """Append a dated review diary entry to one Markdown file per target."""
+    normalized = normalize_review_diary_payload(payload)
+    timestamp = now or datetime.now(timezone(timedelta(hours=8)))
+    date_text = timestamp.strftime("%Y-%m-%d")
+    time_text = timestamp.strftime("%H:%M")
+    code_slug = _safe_diary_slug(normalized["code"], "no-code")
+    name_slug = _safe_diary_slug(normalized["name"], "unknown")
+    filename = f"{code_slug}-{name_slug}-复盘日记.md"
+    target_dir = Path(diary_dir).resolve()
+    target_dir.mkdir(parents=True, exist_ok=True)
+    target_file = (target_dir / filename).resolve()
+    target_file.relative_to(target_dir)
+    if target_file.exists():
+        prefix = "\n\n"
+    else:
+        title_code = f"（{normalized['code']}）" if normalized["code"] else ""
+        prefix = (
+            f"# {normalized['name']}{title_code}复盘日记\n\n"
+            "## 基本信息\n\n"
+            f"- 标的：{normalized['name']}\n"
+            f"- 代码：{normalized['code'] or '未填写'}\n\n"
+        )
+    status_line = f"- 跟踪状态：{normalized['status']}\n" if normalized["status"] else ""
+    entry = (
+        f"{prefix}## {date_text}\n\n"
+        f"- 记录时间：{date_text} {time_text}（Asia/Shanghai）\n"
+        f"{status_line}"
+        f"- 来源：A股大盘面板 / 持仓跟踪 / 复盘日记\n\n"
+        f"{normalized['content']}\n"
+    )
+    with target_file.open("a", encoding="utf-8", newline="\n") as handle:
+        handle.write(entry)
+    return {
+        "date": date_text,
+        "path": target_file.relative_to(target_dir.parents[1]).as_posix(),
+    }
+
+
 def create_server(
     host="127.0.0.1",
     port=DEFAULT_PORT,
     fetcher=fetch_upstream,
     dashboard_path=None,
     portfolio_path=None,
+    review_diary_dir=None,
 ):
     """Create a loopback-only dashboard server with fixed proxy routes."""
     artifact = Path(dashboard_path or Path(__file__).resolve().parents[1] / "a-share-market-dashboard.html").resolve()
@@ -688,6 +1214,9 @@ def create_server(
         portfolio_path or artifact.parent / "data" / "portfolio.json"
     ).resolve()
     vault_root = artifact.parents[2]
+    review_diary_dir = Path(
+        review_diary_dir or vault_root / "workbench" / "targets"
+    ).resolve()
     file_roots = {
         "/sources/": (vault_root / "sources").resolve(),
         "/workbench/": (vault_root / "workbench").resolve(),
@@ -764,6 +1293,22 @@ def create_server(
                 return self.send_json(400, {"error": "invalid portfolio payload"})
             return self.send_json(200, saved)
 
+        def save_review_diary(self):
+            try:
+                content_length = int(self.headers.get("Content-Length", "0"))
+            except ValueError:
+                return self.send_json(400, {"error": "invalid content length"})
+            if content_length <= 0 or content_length > 16_384:
+                return self.send_json(400, {"error": "invalid review diary payload"})
+            try:
+                saved = append_review_diary_entry(
+                    json.loads(self.rfile.read(content_length).decode("utf-8")),
+                    review_diary_dir,
+                )
+            except (OSError, TypeError, ValueError, json.JSONDecodeError):
+                return self.send_json(400, {"error": "invalid review diary payload"})
+            return self.send_json(200, saved)
+
         def send_whitelisted_file(self, request_path):
             decoded_path = unquote(request_path)
             match = next(
@@ -828,6 +1373,12 @@ def create_server(
                     )
                 elif parsed.path == "/api/nasdaq100":
                     payload = fetch_nasdaq100_snapshot(fetcher)
+                elif parsed.path == "/api/fugui-candidate":
+                    payload = fetch_fugui_candidate(
+                        _one(query, "name"),
+                        fetcher,
+                        provider=_one(query, "provider", "akshare"),
+                    )
                 else:
                     upstream_url = build_upstream_url(parsed.path, query)
                     payload = fetcher(upstream_url, source)
@@ -836,7 +1387,8 @@ def create_server(
                 return self.send_json(400, {"error": str(error)})
             except UpstreamError as error:
                 return self.send_json(502, {"error": "upstream request failed", "source": error.source})
-            except Exception:
+            except Exception as error:
+                write_proxy_log("INTERNAL_FAIL", route=parsed.path, source=source, error=type(error).__name__)
                 return self.send_json(500, {"error": "internal proxy error", "source": source})
 
         def do_PUT(self):
@@ -844,6 +1396,12 @@ def create_server(
             if parsed.path != "/api/portfolio":
                 return self.send_json(404, {"error": "not found"})
             return self.save_portfolio()
+
+        def do_POST(self):
+            parsed = urlparse(self.path)
+            if parsed.path != "/api/review-diary":
+                return self.send_json(404, {"error": "not found"})
+            return self.save_review_diary()
 
         def log_message(self, message_format, *args):
             sys.stderr.write("proxy: " + message_format % args + "\n")
@@ -862,6 +1420,7 @@ def main():
     url = f"http://{host}:{port}/"
     print(f"A 股大盘面板已启动：{url}")
     print("关闭此窗口或按 Ctrl+C 可停止本地数据服务。")
+    Thread(target=prewarm_fugui_reference_data, daemon=True).start()
     webbrowser.open(url)
     try:
         server.serve_forever()

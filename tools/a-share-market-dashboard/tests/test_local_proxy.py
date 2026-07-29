@@ -1,5 +1,5 @@
 from contextlib import contextmanager
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta, timezone
 import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -13,17 +13,21 @@ from scripts.local_proxy import (
     DEFAULT_PORT,
     RouteError,
     UpstreamError,
+    append_review_diary_entry,
     build_upstream_url,
     create_server,
+    fetch_fugui_candidate,
     fetch_index_history,
     fetch_market_snapshot,
     fetch_nasdaq100_snapshot,
     fetch_stock_quote,
     fetch_youzhiyouxing_temperature,
     normalize_nasdaq100_chart,
+    normalize_review_diary_payload,
     parse_json_payload,
     parse_youzhiyouxing_temperature,
 )
+from tushare_client import token_from_env_file
 
 
 DASHBOARD = Path(__file__).resolve().parents[1] / "a-share-market-dashboard.html"
@@ -42,6 +46,16 @@ def read_json(url):
     return json.loads(read_text(url))
 
 
+class DataFrameStub:
+    def __init__(self, rows):
+        self.rows = rows
+
+    def to_dict(self, orient):
+        if orient != "records":
+            raise ValueError("unsupported orient")
+        return self.rows
+
+
 @contextmanager
 def running_server(fetcher):
     with TemporaryDirectory() as temporary_directory:
@@ -51,6 +65,7 @@ def running_server(fetcher):
             fetcher=fetcher,
             dashboard_path=DASHBOARD,
             portfolio_path=portfolio_path,
+            review_diary_dir=Path(temporary_directory) / "workbench" / "targets",
         )
         thread = Thread(target=server.serve_forever, daemon=True)
         thread.start()
@@ -113,7 +128,6 @@ class RouteTests(unittest.TestCase):
                         "/api/stock-quote",
                         {"secid": [bad_secid]},
                     )
-
 
 class PayloadTests(unittest.TestCase):
     def test_accepts_json_and_unwraps_jsonp(self):
@@ -192,6 +206,122 @@ class PayloadTests(unittest.TestCase):
         self.assertEqual(payload["data"]["currentPoint"], 95.0)
         self.assertEqual(payload["data"]["highPoint"], 100.0)
         self.assertEqual(payload["data"]["drawdownPercent"], -5.0)
+
+    def test_fetches_fugui_candidate_by_name_and_auto_fills_fields(self):
+        calls = []
+        testcase = self
+
+        class AkshareStub:
+            def stock_info_a_code_name(self):
+                return DataFrameStub([
+                    {"code": "600900", "name": "长江电力"},
+                ])
+
+            def stock_profile_cninfo(self, symbol):
+                testcase.assertEqual(symbol, "600900")
+                return DataFrameStub([
+                    {
+                        "A股代码": "600900",
+                        "A股简称": "长江电力",
+                        "所属行业": "电力",
+                        "注册资金": 2_175_438.5965,
+                        "入选指数": "中证央企",
+                    },
+                ])
+
+            def stock_history_dividend_detail(self, symbol, indicator):
+                testcase.assertEqual(symbol, "600900")
+                testcase.assertEqual(indicator, "分红")
+                return DataFrameStub([
+                    {"公告日期": "2026-04-22", "派息": 16.53, "进度": "预案"},
+                    {"公告日期": "2025-07-15", "除权除息日": "2025-08-22", "派息": 16.53, "进度": "实施"},
+                ])
+
+        def fake_fetch(url, source):
+            calls.append((url, source))
+            if source == "tencent-stock-quote":
+                quote = [""] * 33
+                quote[1] = "长江电力"
+                quote[2] = "600900"
+                quote[3] = "28.5"
+                quote[4] = "28.0"
+                quote[30] = "20260728150000"
+                quote[32] = "1.79"
+                return {
+                    "data": {
+                        "sh600900": {
+                            "qt": {"sh600900": quote},
+                        }
+                    }
+                }
+            self.assertEqual(source, "treasury")
+            return {"result": {"data": [{"SOLAR_DATE": "2026-07-24", "EMM00166466": 1.73}]}}
+
+        payload = fetch_fugui_candidate("长江电力", fake_fetch, AkshareStub())
+
+        candidate = payload["data"]["candidate"]
+        self.assertEqual(candidate["industry"], "电力")
+        self.assertEqual(candidate["code"], "600900")
+        self.assertEqual(candidate["name"], "长江电力")
+        self.assertEqual(candidate["ownership"], "央企")
+        self.assertEqual(candidate["price"], 28.5)
+        self.assertEqual(candidate["marketCapYi"], 6200.0)
+        self.assertEqual(candidate["dividendYield"], 5.8)
+        self.assertEqual(candidate["bond10yYield"], 1.73)
+        self.assertEqual([source for _, source in calls], ["tencent-stock-quote", "treasury"])
+
+    def test_fetches_fugui_candidate_from_tushare_provider(self):
+        calls = []
+        testcase = self
+
+        class TushareStub:
+            def stock_basic(self, exchange, list_status, fields):
+                testcase.assertEqual(list_status, "L")
+                return DataFrameStub([
+                    {"ts_code": "600900.SH", "symbol": "600900", "name": "长江电力", "industry": "电力"},
+                ])
+
+            def daily_basic(self, ts_code, fields):
+                testcase.assertEqual(ts_code, "600900.SH")
+                return DataFrameStub([
+                    {
+                        "ts_code": "600900.SH",
+                        "trade_date": "20260728",
+                        "close": 28.5,
+                        "dv_ratio": 1.2,
+                        "dv_ttm": 5.8,
+                        "total_mv": 62_000_000,
+                    },
+                ])
+
+        def fake_fetch(url, source):
+            calls.append((url, source))
+            self.assertEqual(source, "treasury")
+            return {"result": {"data": [{"SOLAR_DATE": "2026-07-24", "EMM00166466": 1.73}]}}
+
+        payload = fetch_fugui_candidate(
+            "长江电力",
+            fake_fetch,
+            tushare_provider=TushareStub(),
+            provider="tushare",
+        )
+
+        candidate = payload["data"]["candidate"]
+        self.assertEqual(candidate["industry"], "电力")
+        self.assertEqual(candidate["code"], "600900")
+        self.assertEqual(candidate["name"], "长江电力")
+        self.assertEqual(candidate["price"], 28.5)
+        self.assertEqual(candidate["marketCapYi"], 6200.0)
+        self.assertEqual(candidate["dividendYield"], 5.8)
+        self.assertEqual(candidate["bond10yYield"], 1.73)
+        self.assertIn([source for _, source in calls], ([], ["treasury"]))
+
+    def test_reads_tushare_token_from_env_file(self):
+        with TemporaryDirectory() as directory:
+            env_path = Path(directory) / ".env"
+            env_path.write_text("TUSHARE_TOKEN=\nTUSHARE_PRO_TOKEN='abc123'\n", encoding="utf-8")
+
+            self.assertEqual(token_from_env_file(env_path), "abc123")
 
     def test_index_history_falls_back_to_tencent_and_normalizes_rows(self):
         rows = [
@@ -451,6 +581,37 @@ class ServerTests(unittest.TestCase):
         self.assertEqual(saved, expected)
         self.assertEqual(loaded, expected)
 
+    def test_review_diary_writer_appends_one_file_per_target(self):
+        with TemporaryDirectory() as directory:
+            saved = append_review_diary_entry(
+                {
+                    "trackingId": "tracking-1",
+                    "code": "600879",
+                    "name": "航天电子",
+                    "status": "持有",
+                    "content": "今天检查风险方向和明日承接。",
+                },
+                Path(directory) / "workbench" / "targets",
+                now=datetime(2026, 7, 29, 10, 30, tzinfo=timezone(timedelta(hours=8))),
+            )
+            target = Path(directory) / saved["path"]
+            text = target.read_text(encoding="utf-8")
+
+        self.assertEqual(saved["date"], "2026-07-29")
+        self.assertEqual(saved["path"], "workbench/targets/600879-航天电子-复盘日记.md")
+        self.assertIn("# 航天电子（600879）复盘日记", text)
+        self.assertIn("## 2026-07-29", text)
+        self.assertIn("记录时间：2026-07-29 10:30（Asia/Shanghai）", text)
+        self.assertIn("今天检查风险方向和明日承接。", text)
+
+    def test_review_diary_payload_rejects_invalid_code(self):
+        with self.assertRaises(ValueError):
+            normalize_review_diary_payload({
+                "code": "../AGENTS",
+                "name": "航天电子",
+                "content": "复盘",
+            })
+
     def test_portfolio_api_rejects_invalid_tracking_items(self):
         payload = {
             "holdings": [],
@@ -473,6 +634,26 @@ class ServerTests(unittest.TestCase):
                 urlopen(request, timeout=3)
 
         self.assertEqual(bad_request.exception.code, 400)
+
+    def test_review_diary_api_writes_markdown_file(self):
+        payload = {
+            "trackingId": "tracking-1",
+            "code": "600879",
+            "name": "航天电子",
+            "status": "持有",
+            "content": "复盘日记接口写入。",
+        }
+        with running_server(self.fake_fetch) as base:
+            request = Request(
+                f"{base}/api/review-diary",
+                data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+                headers={"Content-Type": "application/json"},
+                method="POST",
+            )
+            with urlopen(request, timeout=3) as response:
+                saved = json.loads(response.read().decode("utf-8"))
+
+        self.assertEqual(saved["path"], "workbench/targets/600879-航天电子-复盘日记.md")
 
     def test_api_rejects_bad_parameters_and_sanitizes_upstream_errors(self):
         with running_server(self.fake_fetch) as base:

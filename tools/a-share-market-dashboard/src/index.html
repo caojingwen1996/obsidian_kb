@@ -20,13 +20,15 @@
             <button class="tree-root" type="button" data-tree-domain="thermometer" aria-expanded="true" aria-controls="tree-thermometer"><span>温度计</span><span class="tree-chevron" aria-hidden="true"></span></button>
             <div class="tree-children" id="tree-thermometer">
             <button class="nav-item is-active" type="button" data-view="market-summary" aria-current="page"><span>01</span>市场总览</button>
-            <button class="nav-item" type="button" data-view="position-view"><span>02</span>位置分位</button>
-            <button class="nav-item" type="button" data-view="valuation-view"><span>03</span>估值与 ERP</button>
-            <button class="nav-item" type="button" data-view="emotion-view"><span>04</span>情绪温度</button>
-            <button class="nav-item" type="button" data-view="rules-view"><span>05</span>评分规则</button>
-            <button class="nav-item" type="button" data-view="audit-view"><span>06</span>数据审计</button>
-            <button class="nav-item" type="button" data-view="featured-digest"><span>07</span>精选汇总</button>
-            <button class="nav-item" type="button" data-view="topic-map"><span>08</span>主题</button>
+            <button class="nav-item" type="button" data-view="dividend-signal-view"><span>02</span>红利信号</button>
+            <button class="nav-item" type="button" data-view="position-view"><span>03</span>位置分位</button>
+            <button class="nav-item" type="button" data-view="valuation-view"><span>04</span>估值与 ERP</button>
+            <button class="nav-item" type="button" data-view="emotion-view"><span>05</span>情绪温度</button>
+            <button class="nav-item" type="button" data-view="rules-view"><span>06</span>评分规则</button>
+            <button class="nav-item" type="button" data-view="audit-view"><span>07</span>数据审计</button>
+            <button class="nav-item" type="button" data-view="featured-digest"><span>08</span>精选汇总</button>
+            <button class="nav-item" type="button" data-view="fugui-strategy"><span>09</span>富贵策略</button>
+            <button class="nav-item" type="button" data-view="topic-map"><span>10</span>主题</button>
             </div>
           </section>
           <section class="tree-group" data-tree-group="industry">
@@ -64,6 +66,7 @@
             <input id="example-mode" type="checkbox" checked>
             <span>示例数据</span>
           </label>
+          <button class="button-secondary" id="fugui-provider-toggle" type="button">切换到Tushare</button>
           <button class="button-secondary" id="refresh-data" type="button">刷新数据</button>
         </div>
       </header>
@@ -129,6 +132,11 @@
       <section class="view" id="position-view" data-shell-content="thermometer" aria-labelledby="position-heading">
         <div class="section-header"><div><p class="eyebrow">POSITION</p><h2 id="position-heading">位置分位</h2></div><p>当前价格相对 MA250 的偏离率，在所选历史窗口中的位置。</p></div>
         <div class="detail-grid" id="position-details"></div>
+      </section>
+
+      <section class="view" id="dividend-signal-view" data-shell-content="thermometer" aria-labelledby="dividend-signal-heading">
+        <div class="section-header"><div><p class="eyebrow">CSI DIVIDEND SIGNAL</p><h2 id="dividend-signal-heading">红利信号</h2></div><p>中证红利股息率、10年国债收益率、股债利差与历史分位点的买入区间检查。</p></div>
+        <div id="dividend-signal-detail"></div>
       </section>
 
       <section class="view" id="valuation-view" data-shell-content="thermometer" aria-labelledby="valuation-heading">
@@ -312,7 +320,7 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
               </div>
               <div class="tracking-table-wrap">
                 <table class="tracking-table">
-                  <thead><tr><th>标的</th><th>动态价值区间</th><th>盘中实时</th><th><button class="table-sort-button" type="button" id="tracking-sort-intraday" aria-pressed="false" aria-label="按盈亏比从高到低排序">盈亏比</button></th><th>风险方向</th><th>数据来自研报</th><th>星级</th></tr></thead>
+                  <thead><tr><th>标的</th><th>动态价值区间</th><th>盘中实时</th><th><button class="table-sort-button" type="button" id="tracking-sort-intraday" aria-pressed="false" aria-label="按盈亏比从高到低排序">盈亏比</button></th><th>风险方向</th><th>数据来自研报</th><th>复盘</th><th>星级</th></tr></thead>
                   <tbody id="holding-tracker-list"></tbody>
                 </table>
               </div>
@@ -321,6 +329,29 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
           </div>
         </div>
       </section>
+
+      <div class="diary-modal" id="review-diary-modal" role="dialog" aria-modal="true" aria-labelledby="review-diary-title" hidden>
+        <div class="diary-modal-backdrop" data-action="close-review-diary"></div>
+        <form class="diary-dialog" id="review-diary-form">
+          <input name="trackingId" type="hidden">
+          <div class="diary-dialog-head">
+            <div>
+              <p class="eyebrow">REVIEW DIARY</p>
+              <h3 id="review-diary-title">复盘日记</h3>
+            </div>
+            <button class="text-button" type="button" data-action="close-review-diary">关闭</button>
+          </div>
+          <label class="diary-field">
+            <span>今天的复盘</span>
+            <textarea name="content" rows="8" maxlength="3000" required placeholder="记录今日持有理由是否变化、风险方向、明日谁来接、加减仓想法或需要验证的条件。"></textarea>
+          </label>
+          <p class="diary-status" id="review-diary-status" role="status" aria-live="polite">提交后会自动写入今天日期，并按标的保存为独立文件。</p>
+          <div class="diary-actions">
+            <button class="button-secondary" type="button" data-action="close-review-diary">取消</button>
+            <button class="button-primary" type="submit">保存日记</button>
+          </div>
+        </form>
+      </div>
 
       <section class="view" id="featured-digest" data-shell-content="thermometer" aria-labelledby="featured-digest-heading">
         <div class="personal-page">
@@ -334,6 +365,36 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
               <button type="button" data-featured-filter="trade" aria-pressed="false">交易</button>
             </nav>
             <!-- BBXM_FEATURED_DIGEST -->
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="fugui-strategy" data-shell-content="thermometer" aria-labelledby="fugui-strategy-heading">
+        <div class="personal-page">
+          <h2 class="visually-hidden" id="fugui-strategy-heading">富贵策略</h2>
+          <form class="fugui-form panel" id="fugui-strategy-form">
+            <div class="holding-form-title">
+              <div><p class="eyebrow">FUGUI STRATEGY</p><h3>自动填写跟踪清单</h3></div>
+              <div class="fugui-form-actions">
+                <span id="fugui-strategy-status">输入标的名称后自动填写行业、代码、性质、市值、股息率、股价和10年国债利率，并判断是否符合策略。</span>
+                <button class="text-button" id="fugui-panel-collapse" type="button" aria-controls="fugui-strategy-form">收起面板</button>
+              </div>
+            </div>
+            <div class="fugui-form-body" id="fugui-form-body">
+              <div class="fugui-form-grid">
+              <label><span>标的名称</span><input name="name" required maxlength="30" placeholder="例如 长江电力"></label>
+              </div>
+              <button class="button-primary" type="submit">添加到跟踪清单</button>
+            </div>
+          </form>
+          <button class="button-secondary fugui-panel-open" id="fugui-panel-open" type="button" aria-controls="fugui-strategy-form" hidden>打开面板</button>
+          <div class="fugui-table-wrap panel">
+            <table class="fugui-table">
+              <thead><tr><th>行业</th><th>标的</th><th>市值</th><th>股息率</th><th>是否达标</th></tr></thead>
+              <tbody id="fugui-strategy-body">
+                <tr><td>待补充</td><td>待补充</td><td>待补充</td><td>待补充</td><td>待补充</td></tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </section>
