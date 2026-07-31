@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 import { createExampleSnapshot } from '../src/data-service.mjs';
+import { parseUsDollarIndex, parseUsTreasuryYield } from '../src/adapters.mjs';
 import {
   deriveDashboard,
   allocationCategoryForReport,
@@ -64,6 +65,14 @@ test('dashboard shell exposes every approved navigation and rendering target', (
     'event-calendar-count',
     'featured-entry-heading',
     'open-featured-digest',
+    'risk-monitor-card',
+    'risk-level-value',
+    'risk-level-detail',
+    'risk-monitor',
+    'risk-monitor-heading',
+    'risk-screen-level',
+    'risk-margin-chart',
+    'risk-watch-list',
     'metric-list',
     'position-view',
     'valuation-view',
@@ -167,7 +176,8 @@ test('sidebar exposes the personal position workspace as a first-level tree doma
   assert.match(html, /id="tree-thermometer"[\s\S]*data-view="market-summary"[^>]*aria-current="page"><span>01<\/span>市场总览<\/button>\s*<button class="nav-item" type="button" data-view="dividend-signal-view"><span>02<\/span>红利信号<\/button>/);
   assert.match(html, /id="tree-thermometer"[\s\S]*<button class="nav-item" type="button" data-view="featured-digest"><span>08<\/span>每日跟踪<\/button>/);
   assert.doesNotMatch(html.match(/<div class="tree-children" id="tree-thermometer">[\s\S]*?<\/div>/)?.[0] ?? '', /data-view="fugui-strategy"/);
-  assert.match(html, /id="tree-thermometer"[\s\S]*<button class="nav-item" type="button" data-view="topic-map"><span>09<\/span>主题<\/button>/);
+  assert.match(html, /id="tree-thermometer"[\s\S]*<button class="nav-item" type="button" data-view="risk-monitor"><span>09<\/span>风险监控<\/button>/);
+  assert.match(html, /id="tree-thermometer"[\s\S]*<button class="nav-item" type="button" data-view="topic-map"><span>10<\/span>主题<\/button>/);
   assert.match(html, /id="tree-strategy"[\s\S]*<button class="nav-item" type="button" data-view="fugui-strategy"><span>01<\/span>富贵策略<\/button>\s*<button class="nav-item" type="button" data-view="xiaomei-strategy"><span>02<\/span>小美策略<\/button>/);
   const personalTree = html.match(/<div class="tree-children" id="tree-personal" hidden>[\s\S]*?<\/div>/)?.[0] ?? '';
   assert.doesNotMatch(personalTree, /data-view="featured-digest"/);
@@ -175,6 +185,8 @@ test('sidebar exposes the personal position workspace as a first-level tree doma
   assert.doesNotMatch(personalTree, /data-view="topic-map"/);
   assert.match(html, /<section class="view" id="featured-digest" data-shell-content="thermometer" aria-labelledby="featured-digest-heading">/);
   assert.match(html, /<h2 class="visually-hidden" id="featured-digest-heading">每日跟踪<\/h2>/);
+  assert.match(html, /<section class="view" id="risk-monitor" data-shell-content="thermometer" aria-labelledby="risk-monitor-heading">/);
+  assert.match(html, /<h2 class="visually-hidden" id="risk-monitor-heading">风险监控<\/h2>/);
   assert.match(html, /<section class="view" id="fugui-strategy" data-shell-content="strategy" aria-labelledby="fugui-strategy-heading">/);
   assert.match(html, /<h2 class="visually-hidden" id="fugui-strategy-heading">富贵策略<\/h2>/);
   assert.match(html, /<section class="view" id="xiaomei-strategy" data-shell-content="strategy" aria-labelledby="xiaomei-strategy-heading">/);
@@ -226,10 +238,14 @@ test('market summary renders three overview cards and includes signal sources in
   assert.doesNotMatch(source, /id="dividend-signal-heading"/);
   assert.match(source, /id="nasdaq100-card"/);
   assert.match(source, /class="summary-shortcut-grid"/);
-  assert.match(source, /融资余额/);
+  assert.doesNotMatch(source, /id="margin-balance-card"/);
   assert.match(source, /每日跟踪/);
-  assert.equal((source.match(/summary-shortcut-card/g) ?? []).length >= 5, true);
-  assert.equal((source.match(/summary-shortcut-card-empty/g) ?? []).length, 3);
+  assert.match(source, /id="risk-monitor-card"/);
+  assert.match(source, /id="risk-level-value"/);
+  assert.match(source, /风险等级/);
+  assert.match(source, /进入风险监控/);
+  assert.equal((source.match(/class="summary-shortcut-card/g) ?? []).length, 4);
+  assert.equal((source.match(/summary-shortcut-card-empty/g) ?? []).length, 2);
   assert.match(source, /id="open-featured-digest"[^>]*>进入每日跟踪<\/button>/);
   assert.match(source, /id="event-calendar-list"/);
   assert.doesNotMatch(source, /预留模块/);
@@ -284,8 +300,8 @@ test('market summary renders three overview cards and includes signal sources in
   assert.match(appSource, /<p>\$\{escapeHtml\(displayDate\)\}<\/p>/);
   assert.doesNotMatch(artifact, /CSI_DIVIDEND_SIGNAL\s*=\s*Object\.freeze\(\s*\/\/ CSI_DIVIDEND_SIGNAL/);
   assert.doesNotMatch(artifact, /CSI_DIVIDEND_YIELD_HISTORY\s*=\s*Object\.freeze\(\s*\/\/ CSI_DIVIDEND_YIELD_HISTORY/);
-  assert.match(artifact, /"dividendYield2": 4\.4/);
-  assert.match(artifact, /"spread": 2\.67/);
+  assert.match(artifact, /"dividendYield2": 4\.36/);
+  assert.match(artifact, /"spread": 2\.64/);
   assert.match(artifact, /"spreadSignal": "C（小额定投）"/);
   assert.match(artifact, /"date": "2026-06-02"[\s\S]*"value": 4\.83/);
   assert.match(readFileSync(new URL('../scripts/build.mjs', import.meta.url), 'utf8'), /中证红利每日信号\.xlsx/);
@@ -436,9 +452,32 @@ test('featured digest replaces book list and reads BBXM daily summaries', () => 
   const html = readFileSync(artifactPath, 'utf8');
   const buildSource = readFileSync(new URL('../scripts/build.mjs', import.meta.url), 'utf8');
   const appSource = readFileSync(new URL('../src/app.mjs', import.meta.url), 'utf8');
+  const styles = readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8');
 
   assert.match(source, /data-view="featured-digest"/);
   assert.match(source, /data-shell-content="thermometer" aria-labelledby="featured-digest-heading"/);
+  assert.match(source, /data-view="risk-monitor"/);
+  assert.match(source, /data-shell-content="thermometer" aria-labelledby="risk-monitor-heading"/);
+  assert.match(source, /id="risk-margin-chart"/);
+  assert.match(source, /SECOND SCREEN/);
+  assert.match(appSource, /margin-hover-point/);
+  assert.match(appSource, /const value = Number\(row\.rzye\)/);
+  assert.match(appSource, /融资余额 \$\{formatNumber\(valueTrillion, 3\)\} 万亿/);
+  assert.match(appSource, /截至某个交易日收盘，投资者尚未偿还的融资负债总额。/);
+  assert.match(source, /美债10年/);
+  assert.match(source, /美元指数/);
+  assert.match(appSource, /usTreasury10y/);
+  assert.match(appSource, /usDollarIndex/);
+  assert.match(appSource, /> 4\.5/);
+  assert.match(appSource, /> 100/);
+  assert.match(appSource, /高风险/);
+  assert.match(styles, /margin-hover-tooltip/);
+  assert.match(styles, /risk-watch-list li\.is-high-risk/);
+  assert.match(styles, /cursor: crosshair/);
+  assert.match(readFileSync(new URL('../src/adapters.mjs', import.meta.url), 'utf8'), /\/api\/us-treasury-yield/);
+  assert.match(readFileSync(new URL('../src/adapters.mjs', import.meta.url), 'utf8'), /\/api\/us-dollar-index/);
+  assert.match(readFileSync(new URL('../scripts/local_proxy.py', import.meta.url), 'utf8'), /fetch_us_treasury_yield/);
+  assert.match(readFileSync(new URL('../scripts/local_proxy.py', import.meta.url), 'utf8'), /fetch_us_dollar_index/);
   assert.match(source, /BBXM_FEATURED_DIGEST/);
   assert.doesNotMatch(source, /READING LIST|书单入口|book-list/);
   assert.match(buildSource, /BBXM每日汇总/);
@@ -463,6 +502,10 @@ test('featured digest replaces book list and reads BBXM daily summaries', () => 
   assert.match(appSource, /TextDecoder/);
   assert.match(appSource, /收起原文/);
   assert.match(appSource, /setShell\('thermometer', 'featured-digest'\)/);
+  assert.match(appSource, /setShell\('thermometer', 'risk-monitor'\)/);
+  assert.match(appSource, /refreshRiskMarginChart/);
+  assert.match(appSource, /riskLevelForDashboard/);
+  assert.match(appSource, /风险等级计算暂未接入/);
   for (const marker of [
     '每日跟踪',
     '当前热点',
@@ -503,12 +546,20 @@ test('topic map reads wiki topic pages into the thermometer navigation', () => {
     'topic-card',
     'data-topic-filter="bbxm"',
     'data-topic-filter="bishi"',
-    '../../wiki/topics/冰冰小美-知识地图.md',
-    '../../wiki/topics/碧树西风-投资系统建模.md',
+    'obsidian://open?path=',
+    encodeURIComponent(join(repoRoot, 'wiki', 'topics', '冰冰小美-知识地图.md')),
+    encodeURIComponent(join(repoRoot, 'wiki', 'topics', '碧树西风-投资系统建模.md')),
   ]) {
-    assert.match(html, new RegExp(marker));
+    assert.ok(html.includes(marker), marker);
   }
   assert.doesNotMatch(html, /<!-- TOPIC_(?:FILTER_TABS|CARDS) -->/);
+});
+
+test('local proxy allows wiki markdown links generated by topic cards', () => {
+  const proxySource = readFileSync(new URL('../scripts/local_proxy.py', import.meta.url), 'utf8');
+
+  assert.match(proxySource, /"\/wiki\/": \(vault_root \/ "wiki"\)\.resolve\(\)/);
+  assert.match(proxySource, /parsed\.path\.startswith\("\/sources\/"\) or parsed\.path\.startswith\("\/wiki\/"\) or parsed\.path\.startswith\("\/workbench\/"\)/);
 });
 
 test('position summary calculates market value, profit and portfolio weights', () => {
@@ -723,6 +774,38 @@ test('example state produces a complete auditable score', () => {
   assert.equal(derived.metrics.length, 10);
   assert.equal(derived.conclusion.actionable, true);
   assert.ok(Number.isFinite(derived.score.score));
+  assert.ok(Number.isFinite(derived.usTreasury10y.data.at(-1).value));
+  assert.ok(Number.isFinite(derived.usDollarIndex.data.at(-1).value));
+});
+
+test('us treasury yield parser keeps 10 year rate sorted by date', () => {
+  const rows = parseUsTreasuryYield({
+    rows: [
+      { date: '20260730', y10: '4.51' },
+      { date: '2026-07-29', y10: '4.48' },
+      { date: '2026-07-28', y10: null },
+    ],
+  });
+
+  assert.deepEqual(rows, [
+    { date: '2026-07-29', value: 4.48 },
+    { date: '2026-07-30', value: 4.51 },
+  ]);
+});
+
+test('us dollar index parser keeps close values sorted by date', () => {
+  const rows = parseUsDollarIndex({
+    rows: [
+      { trade_date: '20260730', close: '100.2' },
+      { trade_date: '2026-07-29', bid_close: '99.8' },
+      { trade_date: '2026-07-28', bid_close: null },
+    ],
+  });
+
+  assert.deepEqual(rows, [
+    { date: '2026-07-29', value: 99.8 },
+    { date: '2026-07-30', value: 100.2 },
+  ]);
 });
 
 test('changing the selected window recomputes position and overall scores', () => {

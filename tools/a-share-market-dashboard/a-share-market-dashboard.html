@@ -156,6 +156,13 @@ h3 { font-size: 15px; }
 .margin-balance-foot span { color: #526170; font-weight: 800; white-space: nowrap; }
 .margin-balance-foot span.is-up { color: var(--red); }
 .margin-balance-foot span.is-down { color: #0f8a65; }
+.risk-shortcut-card { border-left-color: #d64a2d; }
+.risk-shortcut-main strong { display: block; font-size: 26px; line-height: 1; letter-spacing: 0; }
+.risk-shortcut-main strong.is-high { color: var(--red); }
+.risk-shortcut-main strong.is-medium { color: #d18a20; }
+.risk-shortcut-main strong.is-low { color: #0f8a65; }
+.risk-shortcut-main strong.is-unknown { color: #536673; }
+.risk-shortcut-main span { display: block; margin-top: 7px; color: var(--muted); font-size: 11px; line-height: 1.55; }
 .summary-shortcut-card-empty { border-left-color: #d5dde4; box-shadow: none; background: #fbfcfc; }
 .event-calendar { margin: 0 0 36px; padding: 18px 20px; }
 .event-calendar-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 12px; }
@@ -284,6 +291,53 @@ h3 { font-size: 15px; }
 .audit-table th, .audit-table td { padding: 12px 13px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
 .audit-table th { color: var(--muted); font-size: 9px; letter-spacing: .04em; }
 .audit-table tr:last-child td { border-bottom: 0; }
+
+.risk-screen { min-height: calc(100vh - 96px); border: 1px solid rgba(56, 194, 190, .2); border-radius: 12px; background: radial-gradient(circle at 22% 12%, rgba(47,126,230,.2), transparent 28%), linear-gradient(135deg, #071521 0%, #081f26 48%, #120f1a 100%); box-shadow: 0 22px 60px rgba(5,16,28,.28); color: #eef8fb; padding: 18px; overflow: hidden; }
+.risk-screen .eyebrow { color: #76d7d6; }
+.risk-screen-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 18px; border-bottom: 1px solid rgba(118,215,214,.24); padding-bottom: 16px; margin-bottom: 16px; }
+.risk-screen-head h3 { margin: 4px 0 6px; font-size: 30px; letter-spacing: 0; }
+.risk-screen-head span { color: #8daab8; font-size: 12px; }
+.risk-screen-head > strong { border: 1px solid rgba(118,215,214,.36); border-radius: 8px; background: rgba(5,18,27,.72); color: #d5e7ee; padding: 10px 18px; font-size: 18px; }
+.risk-screen-head > strong.is-high { border-color: rgba(222,75,62,.56); color: #ff6b59; }
+.risk-screen-head > strong.is-medium { border-color: rgba(235,169,59,.56); color: #f4b34d; }
+.risk-screen-head > strong.is-low { border-color: rgba(72,198,157,.56); color: #55d8a8; }
+.risk-screen-grid { display: grid; grid-template-columns: minmax(260px, .78fr) minmax(520px, 1.55fr) minmax(240px, .72fr); gap: 14px; align-items: stretch; }
+.risk-panel { min-width: 0; border: 1px solid rgba(72,152,167,.26); border-radius: 10px; background: rgba(4,16,25,.78); box-shadow: inset 0 0 24px rgba(42,179,184,.07); padding: 16px; }
+.risk-panel-main, .risk-panel-side, .risk-panel-secondary { min-height: 430px; }
+.risk-panel-title { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; margin-bottom: 14px; }
+.risk-panel-title span { font-size: 15px; font-weight: 900; }
+.risk-panel-title b { color: #5fa9bb; font-size: 10px; letter-spacing: .1em; }
+.risk-score-orb { width: min(220px, 66vw); aspect-ratio: 1; margin: 20px auto 22px; border: 12px solid rgba(52,178,172,.34); border-top-color: #ef574b; border-right-color: #eba93b; border-radius: 50%; display: grid; place-items: center; box-shadow: 0 0 38px rgba(239,87,75,.16); }
+.risk-score-orb strong { font-size: 62px; line-height: 1; color: #f4f9fb; font-variant-numeric: tabular-nums; }
+.risk-score-orb span { margin-top: -18px; color: #88a6b4; font-size: 13px; }
+.risk-panel-main p { color: #a6bdc8; font-size: 12px; line-height: 1.8; text-align: center; }
+.risk-signal-row { display: grid; grid-template-columns: 1fr; gap: 9px; margin-top: 18px; }
+.risk-signal-row div, .risk-watch-list li { border: 1px solid rgba(118,215,214,.16); border-radius: 8px; background: rgba(10,35,47,.66); padding: 11px 12px; }
+.risk-signal-row small, .risk-watch-list span { display: block; color: #83a3b1; font-size: 10px; font-weight: 800; }
+.risk-signal-row strong, .risk-watch-list strong { display: block; margin-top: 7px; color: #f4f9fb; font-size: 18px; font-variant-numeric: tabular-nums; }
+.risk-watch-list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.risk-watch-list li { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; }
+.risk-watch-list li.is-high-risk { border-color: rgba(255,107,89,.48); background: rgba(104,26,22,.42); }
+.risk-watch-list li.is-high-risk strong { color: #ff6b59; }
+.risk-watch-list strong { margin: 0; font-size: 16px; }
+.risk-screen .margin-chart-card { color: #eef8fb; }
+.risk-screen .margin-chart-head span, .risk-screen .margin-chart-stats span, .risk-screen .margin-chart-stats small { color: #8daab8; }
+.risk-screen .margin-buy-chart { border-color: rgba(118,215,214,.24); background: rgba(3,13,21,.82); }
+.risk-screen .margin-buy-chart rect { fill: rgba(3,13,21,.82); }
+.risk-screen .margin-buy-chart line { stroke: rgba(141,170,184,.24); }
+.risk-screen .margin-buy-chart text { fill: #96b4c1; }
+.risk-screen .margin-buy-chart .x-label { fill: #7d98a5; }
+.risk-screen .margin-buy-chart path { stroke: #47d0c4; }
+.risk-screen .margin-buy-chart circle { fill: #f04438; stroke: #ffd166; }
+.risk-screen .margin-buy-chart .margin-hover-hit { fill: transparent; }
+.risk-screen .margin-buy-chart .margin-hover-line { stroke: #f4b34d; }
+.risk-screen .margin-buy-chart .margin-hover-dot { fill: #ffd166; stroke: #f04438; }
+.risk-screen .margin-buy-chart .margin-hover-tooltip rect { fill: rgba(3, 13, 21, .94); }
+.risk-screen .margin-chart-stats div { border-color: rgba(118,215,214,.16); background: rgba(10,35,47,.66); }
+.risk-screen .margin-chart-stats strong { color: #f4f9fb; }
+.risk-screen .margin-chart-stats strong.is-up { color: #ff6b59; }
+.risk-screen .margin-chart-stats strong.is-down { color: #55d8a8; }
+.risk-screen .margin-chart-empty { border-color: rgba(118,215,214,.32); color: #8daab8; }
 
 .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 .industry-workbench { max-width: 1680px; }
@@ -538,6 +592,19 @@ h3 { font-size: 15px; }
 .margin-buy-chart .x-label { fill: #778894; font-size: 10px; }
 .margin-buy-chart path { fill: none; stroke: #0f6672; stroke-width: 2; }
 .margin-buy-chart circle { fill: var(--gold); stroke: #5b4310; stroke-width: 1.5; }
+.margin-hover-point { outline: none; }
+.margin-hover-hit { fill: transparent; cursor: crosshair; pointer-events: all; }
+.margin-hover-line, .margin-hover-dot, .margin-hover-tooltip { opacity: 0; transition: opacity 120ms ease; pointer-events: none; }
+.margin-hover-line { stroke: #f4b34d; stroke-width: 1.2; stroke-dasharray: 0; }
+.margin-hover-dot { fill: #ffd166; stroke: #f04438; stroke-width: 2; }
+.margin-hover-tooltip rect { fill: rgba(3, 13, 21, .94); stroke: rgba(118, 215, 214, .5); }
+.margin-hover-tooltip text { fill: #eef8fb; font-size: 11px; font-weight: 800; letter-spacing: 0; }
+.margin-hover-point:hover .margin-hover-line,
+.margin-hover-point:hover .margin-hover-dot,
+.margin-hover-point:hover .margin-hover-tooltip,
+.margin-hover-point:focus .margin-hover-line,
+.margin-hover-point:focus .margin-hover-dot,
+.margin-hover-point:focus .margin-hover-tooltip { opacity: 1; }
 .margin-chart-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
 .margin-chart-stats div { border: 1px solid var(--line); border-radius: 8px; background: #f6f8f9; padding: 12px; }
 .margin-chart-stats small, .margin-chart-stats strong, .margin-chart-stats span { display: block; }
@@ -589,6 +656,8 @@ h3 { font-size: 15px; }
   .portfolio-summary, .tracker-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .position-layout { grid-template-columns: 1fr; }
   .allocation-view-body { grid-template-columns: 1fr; }
+  .risk-screen-grid { grid-template-columns: 1fr; }
+  .risk-panel-main, .risk-panel-side, .risk-panel-secondary { min-height: 0; }
   .allocation-donut { width: min(360px, 76vw); }
   .tracking-form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .tracking-wide-field { grid-column: span 1; }
@@ -633,6 +702,10 @@ h3 { font-size: 15px; }
   .event-calendar-head { align-items: flex-start; flex-direction: column; gap: 8px; }
   .event-calendar-item { grid-template-columns: 1fr; gap: 8px; }
   .event-calendar-item > b { text-align: left; }
+  .risk-screen { min-height: 0; padding: 14px; }
+  .risk-screen-head { flex-direction: column; }
+  .risk-screen-head h3 { font-size: 24px; }
+  .risk-score-orb strong { font-size: 48px; }
   .portfolio-summary, .tracker-summary, .holding-form-grid, .tracking-form-grid { grid-template-columns: 1fr; }
   .dividend-detail-metrics { grid-template-columns: 1fr; }
   .dividend-yield-chart-stats { grid-template-columns: 1fr; }
@@ -686,7 +759,8 @@ h3 { font-size: 15px; }
             <button class="nav-item" type="button" data-view="rules-view"><span>06</span>评分规则</button>
             <button class="nav-item" type="button" data-view="audit-view"><span>07</span>数据审计</button>
             <button class="nav-item" type="button" data-view="featured-digest"><span>08</span>每日跟踪</button>
-            <button class="nav-item" type="button" data-view="topic-map"><span>09</span>主题</button>
+            <button class="nav-item" type="button" data-view="risk-monitor"><span>09</span>风险监控</button>
+            <button class="nav-item" type="button" data-view="topic-map"><span>10</span>主题</button>
             </div>
           </section>
           <section class="tree-group" data-tree-group="strategy">
@@ -760,10 +834,6 @@ h3 { font-size: 15px; }
         </div>
 
         <div class="summary-shortcut-grid" aria-label="市场总览快捷卡片">
-          <article class="summary-shortcut-card panel" id="margin-balance-card" role="button" tabindex="0" aria-labelledby="margin-balance-card-heading">
-            <p class="eyebrow">MARGIN BALANCE</p>
-            <h2 id="margin-balance-card-heading">融资余额</h2>
-          </article>
           <article class="summary-shortcut-card panel" aria-labelledby="featured-entry-heading">
             <div>
               <p class="eyebrow">BBXM DAILY DIGEST</p>
@@ -771,7 +841,17 @@ h3 { font-size: 15px; }
             </div>
             <button class="button-secondary" id="open-featured-digest" type="button">进入每日跟踪</button>
           </article>
-          <article class="summary-shortcut-card summary-shortcut-card-empty panel" aria-hidden="true"></article>
+          <article class="summary-shortcut-card risk-shortcut-card panel" id="risk-monitor-card" role="button" tabindex="0" aria-labelledby="risk-monitor-card-heading">
+            <div>
+              <p class="eyebrow">RISK MONITOR</p>
+              <h2 id="risk-monitor-card-heading">风险等级</h2>
+            </div>
+            <div class="risk-shortcut-main">
+              <strong id="risk-level-value">读取中</strong>
+              <span id="risk-level-detail">基于温度计与融资变化</span>
+            </div>
+            <button class="button-secondary" type="button" data-open-risk-monitor>进入风险监控</button>
+          </article>
           <article class="summary-shortcut-card summary-shortcut-card-empty panel" aria-hidden="true"></article>
           <article class="summary-shortcut-card summary-shortcut-card-empty panel" aria-hidden="true"></article>
         </div>
@@ -846,6 +926,48 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
         <div class="audit-summary" id="audit-summary"></div>
         <div class="audit-errors" id="audit-errors" aria-live="polite"></div>
         <div class="audit-table-wrap"><table class="audit-table"><thead><tr><th>指标</th><th>状态</th><th>来源</th><th>数据时间</th><th>原始权重</th><th>有效权重</th><th>得分贡献</th></tr></thead><tbody id="audit-table-body"></tbody></table></div>
+      </section>
+
+      <section class="view" id="risk-monitor" data-shell-content="thermometer" aria-labelledby="risk-monitor-heading">
+        <h2 class="visually-hidden" id="risk-monitor-heading">风险监控</h2>
+        <div class="risk-screen">
+          <header class="risk-screen-head">
+            <div>
+              <p class="eyebrow">MARKET RISK COMMAND</p>
+              <h3>风险监控大屏</h3>
+              <span id="risk-monitor-updated">随温度计同步更新</span>
+            </div>
+            <strong id="risk-screen-level">读取中</strong>
+          </header>
+          <div class="risk-screen-grid">
+            <article class="risk-panel risk-panel-main">
+              <div class="risk-panel-title"><span>综合风险</span><b>RISK SCORE</b></div>
+              <div class="risk-score-orb"><strong id="risk-score-value">--</strong><span>/100</span></div>
+              <p id="risk-screen-summary">正在读取市场温度、情绪和杠杆信号。</p>
+              <div class="risk-signal-row">
+                <div><small>温度计分数</small><strong id="risk-buy-score">--</strong></div>
+                <div><small>有效覆盖率</small><strong id="risk-coverage">--</strong></div>
+                <div><small>监控口径</small><strong>温度 + 杠杆</strong></div>
+              </div>
+            </article>
+            <article class="risk-panel risk-panel-secondary">
+              <div class="risk-panel-title"><span>融资余额趋势</span><b>SECOND SCREEN</b></div>
+              <div id="risk-margin-chart" aria-live="polite">
+                <div class="margin-chart-empty">进入风险监控后读取近一年融资余额。</div>
+              </div>
+            </article>
+            <article class="risk-panel risk-panel-side">
+              <div class="risk-panel-title"><span>风险观察</span><b>CHECKPOINTS</b></div>
+              <ul class="risk-watch-list" id="risk-watch-list">
+                <li><span>位置</span><strong>等待数据</strong></li>
+                <li><span>估值</span><strong>等待数据</strong></li>
+                <li><span>情绪</span><strong>等待数据</strong></li>
+                <li><span>美债10年</span><strong>等待数据</strong></li>
+                <li><span>美元指数</span><strong>等待数据</strong></li>
+              </ul>
+            </article>
+          </div>
+        </div>
       </section>
 
       <section class="view" id="industry-strategy" data-shell-content="industry" aria-labelledby="industry-strategy-heading">
@@ -1588,10 +1710,10 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
         <div class="diary-modal-backdrop" data-action="close-margin-balance"></div>
         <section class="diary-dialog margin-dialog" aria-describedby="margin-balance-modal-status">
           <div class="diary-dialog-head">
-            <div><p class="eyebrow">MARGIN BUYING</p><h3 id="margin-balance-modal-title">近一年融资买入额</h3></div>
+            <div><p class="eyebrow">MARGIN BALANCE</p><h3 id="margin-balance-modal-title">近一年融资余额</h3></div>
             <button class="text-button" type="button" data-action="close-margin-balance">关闭</button>
           </div>
-          <p class="diary-status" id="margin-balance-modal-status" role="status" aria-live="polite">打开后读取最近一年融资买入额。</p>
+          <p class="diary-status" id="margin-balance-modal-status" role="status" aria-live="polite">打开后读取最近一年融资余额。</p>
           <div id="margin-balance-modal-body"></div>
         </section>
       </div>
@@ -3747,193 +3869,175 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
               <button type="button" data-topic-filter="other" aria-pressed="false">其他</button>
               <button type="button" data-topic-filter="ai" aria-pressed="false">AI</button>
           </nav>
-            <div class="topic-source-note">来源目录：wiki/topics · 31 个主题页</div>
+            <div class="topic-source-note">来源目录：wiki/topics · 28 个主题页</div>
             <div class="topic-grid">
               <article class="topic-card" data-topic-category="bishi">
                 <div class="topic-card-meta"><span>碧树西风</span><span>2026-06-05</span></div>
-                <h3><a href="../../wiki/topics/碧树西风-概率化决策.md" target="_blank" rel="noopener noreferrer">碧树西风-概率化决策</a></h3>
+                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E7%A2%A7%E6%A0%91%E8%A5%BF%E9%A3%8E-%E6%A6%82%E7%8E%87%E5%8C%96%E5%86%B3%E7%AD%96.md" target="_blank" rel="noopener noreferrer">碧树西风-概率化决策</a></h3>
                 <p>本页是碧树西风关于不可测环境中如何做概率化决策的总入口；投资系统、职业路径、非标机会、人生选择和 AI 时代能力判断，都是这一框架的具体应用场景。</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/碧树西风-概率化决策.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E7%A2%A7%E6%A0%91%E8%A5%BF%E9%A3%8E-%E6%A6%82%E7%8E%87%E5%8C%96%E5%86%B3%E7%AD%96.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="bishi">
                 <div class="topic-card-meta"><span>碧树西风</span><span>2026-06-09</span></div>
-                <h3><a href="../../wiki/topics/碧树西风-投资系统建模.md" target="_blank" rel="noopener noreferrer">碧树西风-投资系统建模</a></h3>
+                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E7%A2%A7%E6%A0%91%E8%A5%BF%E9%A3%8E-%E6%8A%95%E8%B5%84%E7%B3%BB%E7%BB%9F%E5%BB%BA%E6%A8%A1.md" target="_blank" rel="noopener noreferrer">碧树西风-投资系统建模</a></h3>
                 <p>聚合碧树西风关于投资系统如何建模及何时适用的核心框架：以市场端、主体端和策略端三要素为主轴，判断市场机会是否真实，主体的人和钱能否承接，以及策略能否完成规则化执行、风控和复盘修正。</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/碧树西风-投资系统建模.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E7%A2%A7%E6%A0%91%E8%A5%BF%E9%A3%8E-%E6%8A%95%E8%B5%84%E7%B3%BB%E7%BB%9F%E5%BB%BA%E6%A8%A1.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="bishi">
                 <div class="topic-card-meta"><span>碧树西风</span><span>2026-06-04</span></div>
-                <h3><a href="../../wiki/topics/碧树西风的策略.md" target="_blank" rel="noopener noreferrer">碧树西风的策略</a></h3>
+                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E7%A2%A7%E6%A0%91%E8%A5%BF%E9%A3%8E%E7%9A%84%E7%AD%96%E7%95%A5.md" target="_blank" rel="noopener noreferrer">碧树西风的策略</a></h3>
                 <p>聚合碧树西风关于策略选择的上位框架：在不可测和强链接时代，不把全部资源押在中间值路径上，而是以大部分资源保持生存和等待，用小部分资源布置低成本、高赔率、可退出的极端错价机会。</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/碧树西风的策略.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E7%A2%A7%E6%A0%91%E8%A5%BF%E9%A3%8E%E7%9A%84%E7%AD%96%E7%95%A5.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="bbxm">
                 <div class="topic-card-meta"><span>冰冰小美</span><span>2026-07-03</span></div>
-                <h3><a href="../../wiki/topics/冰冰小美-产业思维下案例集合.md" target="_blank" rel="noopener noreferrer">冰冰小美-产业思维下案例集合</a></h3>
+                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E4%BA%A7%E4%B8%9A%E6%80%9D%E7%BB%B4%E4%B8%8B%E6%A1%88%E4%BE%8B%E9%9B%86%E5%90%88.md" target="_blank" rel="noopener noreferrer">冰冰小美-产业思维下案例集合</a></h3>
                 <p>聚合冰冰小美产业思维下的案例样本，用来观察不同产业如何从时代主线、资本市场作用、技术应用和利润验证进入长期跟踪。</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-产业思维下案例集合.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E4%BA%A7%E4%B8%9A%E6%80%9D%E7%BB%B4%E4%B8%8B%E6%A1%88%E4%BE%8B%E9%9B%86%E5%90%88.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="bbxm">
                 <div class="topic-card-meta"><span>冰冰小美</span><span>2026-06-09</span></div>
-                <h3><a href="../../wiki/topics/冰冰小美-对左侧交易的理解.md" target="_blank" rel="noopener noreferrer">冰冰小美-对左侧交易的理解</a></h3>
+                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E5%AF%B9%E5%B7%A6%E4%BE%A7%E4%BA%A4%E6%98%93%E7%9A%84%E7%90%86%E8%A7%A3.md" target="_blank" rel="noopener noreferrer">冰冰小美-对左侧交易的理解</a></h3>
                 <p>聚合冰冰小美关于左侧交易、左侧建仓、抄底和等待窗口的相关页面。其核心不是“跌了就买”，而是在风险充分释放、底层共识仍成立、情绪或产业变量接近拐点时，提前观察并分阶段承接。</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-对左侧交易的理解.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E5%AF%B9%E5%B7%A6%E4%BE%A7%E4%BA%A4%E6%98%93%E7%9A%84%E7%90%86%E8%A7%A3.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="bbxm">
                 <div class="topic-card-meta"><span>冰冰小美</span><span>2026-07-17</span></div>
-                <h3><a href="../../wiki/topics/冰冰小美-风险提示系列.md" target="_blank" rel="noopener noreferrer">冰冰小美-风险提示系列</a></h3>
+                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E9%A3%8E%E9%99%A9%E6%8F%90%E7%A4%BA%E7%B3%BB%E5%88%97.md" target="_blank" rel="noopener noreferrer">冰冰小美-风险提示系列</a></h3>
                 <p>聚合冰冰小美关于风险节点、危机经验、波动风险、流动性挤压、仓位控制和风险转弱观察的文章、观点页与推导页，作为后续整理风险提示材料的入口。</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-风险提示系列.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E9%A3%8E%E9%99%A9%E6%8F%90%E7%A4%BA%E7%B3%BB%E5%88%97.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="bbxm">
                 <div class="topic-card-meta"><span>冰冰小美</span><span>2026-07-01</span></div>
-                <h3><a href="../../wiki/topics/冰冰小美-观测指标.md" target="_blank" rel="noopener noreferrer">冰冰小美-观测指标</a></h3>
+                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E8%A7%82%E6%B5%8B%E6%8C%87%E6%A0%87.md" target="_blank" rel="noopener noreferrer">冰冰小美-观测指标</a></h3>
                 <p>聚合冰冰小美体系中可反复观察的宏观全球指标、中观央行指标和微观企业指标，作为从全球价格信号、政策流动性、企业经营验证到交易前过滤的指标地图。</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-观测指标.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E8%A7%82%E6%B5%8B%E6%8C%87%E6%A0%87.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="bbxm">
-                <div class="topic-card-meta"><span>冰冰小美</span><span>2026-07-17</span></div>
-                <h3><a href="../../wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md" target="_blank" rel="noopener noreferrer">冰冰小美-宏观风险关键词文章整理清单</a></h3>
+                <div class="topic-card-meta"><span>冰冰小美</span><span>2026-07-31</span></div>
+                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E5%AE%8F%E8%A7%82%E9%A3%8E%E9%99%A9%E5%85%B3%E9%94%AE%E8%AF%8D%E6%96%87%E7%AB%A0%E6%95%B4%E7%90%86%E6%B8%85%E5%8D%95.md" target="_blank" rel="noopener noreferrer">冰冰小美-宏观风险关键词文章整理清单</a></h3>
                 <p>逐篇跟踪 2026-03-23 外部索引帖中 40 条冰冰小美宏观风险相关链接的 source 归档、正式整理状态和后续页面路由。</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E5%AE%8F%E8%A7%82%E9%A3%8E%E9%99%A9%E5%85%B3%E9%94%AE%E8%AF%8D%E6%96%87%E7%AB%A0%E6%95%B4%E7%90%86%E6%B8%85%E5%8D%95.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="bbxm">
                 <div class="topic-card-meta"><span>冰冰小美</span><span>2026-06-18</span></div>
-                <h3><a href="../../wiki/topics/冰冰小美-宏观经济.md" target="_blank" rel="noopener noreferrer">冰冰小美-宏观经济</a></h3>
+                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E5%AE%8F%E8%A7%82%E7%BB%8F%E6%B5%8E.md" target="_blank" rel="noopener noreferrer">冰冰小美-宏观经济</a></h3>
                 <p>围绕冰冰小美体系中的增长、通胀、利率、流动性、债务与分配如何塑造市场环境形成的长期主题，关注宏观变量如何服务风险识别、仓位边界、产业方向和阶段复盘，而不是直接替代执行系统。</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-宏观经济.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E5%AE%8F%E8%A7%82%E7%BB%8F%E6%B5%8E.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="bbxm">
                 <div class="topic-card-meta"><span>冰冰小美</span><span>2026-07-22</span></div>
-                <h3><a href="../../wiki/topics/冰冰小美-加仓案例合集.md" target="_blank" rel="noopener noreferrer">冰冰小美-加仓案例合集</a></h3>
+                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E5%8A%A0%E4%BB%93%E6%A1%88%E4%BE%8B%E5%90%88%E9%9B%86.md" target="_blank" rel="noopener noreferrer">冰冰小美-加仓案例合集</a></h3>
                 <p>聚合冰冰小美资料中可追溯的建仓、加仓、回补和低吸案例，按时间、单一标的、加仓分型、触发条件和动作组织，并明确剔除所有做 T 动作。</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-加仓案例合集.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E5%8A%A0%E4%BB%93%E6%A1%88%E4%BE%8B%E5%90%88%E9%9B%86.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="bbxm">
                 <div class="topic-card-meta"><span>冰冰小美</span><span>2026-07-22</span></div>
-                <h3><a href="../../wiki/topics/冰冰小美-减仓案例合集.md" target="_blank" rel="noopener noreferrer">冰冰小美-减仓案例合集</a></h3>
+                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E5%87%8F%E4%BB%93%E6%A1%88%E4%BE%8B%E5%90%88%E9%9B%86.md" target="_blank" rel="noopener noreferrer">冰冰小美-减仓案例合集</a></h3>
                 <p>聚合冰冰小美体系中已经出现的减仓、卖出与清仓案例，按时间、单一标的、减仓分型、触发条件和动作层级组织，并配套历史行情图。</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-减仓案例合集.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E5%87%8F%E4%BB%93%E6%A1%88%E4%BE%8B%E5%90%88%E9%9B%86.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="bbxm">
                 <div class="topic-card-meta"><span>冰冰小美</span><span>2026-06-18</span></div>
-                <h3><a href="../../wiki/topics/冰冰小美-交易心法.md" target="_blank" rel="noopener noreferrer">冰冰小美-交易心法</a></h3>
+                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E4%BA%A4%E6%98%93%E5%BF%83%E6%B3%95.md" target="_blank" rel="noopener noreferrer">冰冰小美-交易心法</a></h3>
                 <p>冰冰小美-交易心法把《交易的至高境界》整理为交易之道、交易之术、交易之戒和可执行规则四层：先识别风险，再顺势进攻，用体系统一认知、性格和买卖动作，减少平庸交易。</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-交易心法.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E4%BA%A4%E6%98%93%E5%BF%83%E6%B3%95.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="bbxm">
-                <div class="topic-card-meta"><span>冰冰小美</span><span>2026-07-10</span></div>
-                <h3><a href="../../wiki/topics/冰冰小美-亏钱认知系列.md" target="_blank" rel="noopener noreferrer">冰冰小美-亏钱认知系列</a></h3>
+                <div class="topic-card-meta"><span>冰冰小美</span><span>2026-07-31</span></div>
+                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E4%BA%8F%E9%92%B1%E8%AE%A4%E7%9F%A5%E7%B3%BB%E5%88%97.md" target="_blank" rel="noopener noreferrer">冰冰小美-亏钱认知系列</a></h3>
                 <p>逐期组织冰冰小美 19 篇“常见亏钱认知”资料，把每篇文章沉淀为可回查来源、核心命题、风险类型和相关概念，而不是把原文堆进正式知识层。</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-亏钱认知系列.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E4%BA%8F%E9%92%B1%E8%AE%A4%E7%9F%A5%E7%B3%BB%E5%88%97.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="bbxm">
                 <div class="topic-card-meta"><span>冰冰小美</span><span>2026-07-13</span></div>
-                <h3><a href="../../wiki/topics/冰冰小美-情绪体系操作篇.md" target="_blank" rel="noopener noreferrer">冰冰小美-情绪体系交易系列</a></h3>
+                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E6%83%85%E7%BB%AA%E4%BD%93%E7%B3%BB%E6%93%8D%E4%BD%9C%E7%AF%87.md" target="_blank" rel="noopener noreferrer">冰冰小美-情绪体系交易系列</a></h3>
                 <p>聚合冰冰小美情绪体系交易系列中关于分仓、借势、等待、买卖、空仓、交割单、容忍度、冰点转势、围魏救赵、竞争定位、挡刀和执行者状态的既有页面。</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-情绪体系操作篇.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E6%83%85%E7%BB%AA%E4%BD%93%E7%B3%BB%E6%93%8D%E4%BD%9C%E7%AF%87.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="bbxm">
                 <div class="topic-card-meta"><span>冰冰小美</span><span>2026-06-12</span></div>
-                <h3><a href="../../wiki/topics/冰冰小美-情绪体系理论篇.md" target="_blank" rel="noopener noreferrer">冰冰小美-体系三要素</a></h3>
+                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E6%83%85%E7%BB%AA%E4%BD%93%E7%B3%BB%E7%90%86%E8%AE%BA%E7%AF%87.md" target="_blank" rel="noopener noreferrer">冰冰小美-体系三要素</a></h3>
                 <p>冰冰小美体系三要素的主题聚合入口，用于组织竞争格局、流动性辩证分析、情绪位置变化，以及这些要素如何传导为交易窗口、看盘判断、仓位动作和风险复盘。</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-情绪体系理论篇.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E6%83%85%E7%BB%AA%E4%BD%93%E7%B3%BB%E7%90%86%E8%AE%BA%E7%AF%87.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="bbxm">
                 <div class="topic-card-meta"><span>冰冰小美</span><span>2026-07-10</span></div>
-                <h3><a href="../../wiki/topics/冰冰小美-投资体系.md" target="_blank" rel="noopener noreferrer">冰冰小美-投资体系</a></h3>
+                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E6%8A%95%E8%B5%84%E4%BD%93%E7%B3%BB.md" target="_blank" rel="noopener noreferrer">冰冰小美-投资体系</a></h3>
                 <p>冰冰小美-投资体系是比交易心法、选股体系和情绪体系更上层的 Topic Page，用市场端、主体端和策略端组织她的投资判断：市场端负责机会识别和准入，主体端负责人和钱的承载力，策略端负责规则化表达、执行、风控和复盘。</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-投资体系.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E6%8A%95%E8%B5%84%E4%BD%93%E7%B3%BB.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="bbxm">
                 <div class="topic-card-meta"><span>冰冰小美</span><span>2026-06-17</span></div>
-                <h3><a href="../../wiki/topics/冰冰小美-信息的金融意义系列.md" target="_blank" rel="noopener noreferrer">冰冰小美-信息的金融意义系列</a></h3>
+                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E4%BF%A1%E6%81%AF%E7%9A%84%E9%87%91%E8%9E%8D%E6%84%8F%E4%B9%89%E7%B3%BB%E5%88%97.md" target="_blank" rel="noopener noreferrer">冰冰小美-信息的金融意义系列</a></h3>
                 <p>组织冰冰小美“信息的金融意义”系列，将金融信息、非金融信息、显学隐学、来源可信度、传播对象、信息评级、时效性和交易应用整理成交易前信息过滤框架。</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-信息的金融意义系列.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E4%BF%A1%E6%81%AF%E7%9A%84%E9%87%91%E8%9E%8D%E6%84%8F%E4%B9%89%E7%B3%BB%E5%88%97.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="bbxm">
                 <div class="topic-card-meta"><span>冰冰小美</span><span>2026-06-12</span></div>
-                <h3><a href="../../wiki/topics/冰冰小美-选股体系.md" target="_blank" rel="noopener noreferrer">冰冰小美-选股体系</a></h3>
+                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E9%80%89%E8%82%A1%E4%BD%93%E7%B3%BB.md" target="_blank" rel="noopener noreferrer">冰冰小美-选股体系</a></h3>
                 <p>冰冰小美-选股体系是围绕长线选股、国运方向、短线投机、投资边界和等待纪律建立的主题入口：长线先用国运和产业使命确定候选方向，再用企业经营、壁垒、盈利驱动和可理解机会筛选对象；短线强调三要素、最优解、等待与避免平庸交易。</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-选股体系.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E9%80%89%E8%82%A1%E4%BD%93%E7%B3%BB.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="bbxm">
                 <div class="topic-card-meta"><span>冰冰小美</span><span>2026-05-29</span></div>
-                <h3><a href="../../wiki/topics/冰冰小美-月报地图.md" target="_blank" rel="noopener noreferrer">冰冰小美-月报地图</a></h3>
+                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E6%9C%88%E6%8A%A5%E5%9C%B0%E5%9B%BE.md" target="_blank" rel="noopener noreferrer">冰冰小美-月报地图</a></h3>
                 <p>本页集中组织冰冰小美 2026 年 1-5 月月报、半月报和月度补充篇，记录每篇来源的整理状态、对应 View / Reasoning 页面、所属主线和后续缺口。</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-月报地图.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E6%9C%88%E6%8A%A5%E5%9C%B0%E5%9B%BE.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="bbxm">
                 <div class="topic-card-meta"><span>冰冰小美</span><span>2026-05-29</span></div>
-                <h3><a href="../../wiki/topics/冰冰小美-知识地图.md" target="_blank" rel="noopener noreferrer">冰冰小美-知识地图</a></h3>
+                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E7%9F%A5%E8%AF%86%E5%9C%B0%E5%9B%BE.md" target="_blank" rel="noopener noreferrer">冰冰小美-知识地图</a></h3>
                 <p>本页是冰冰小美相关内容的知识地图，用宏观、产业思维、交易体系和情绪体系四个一级分类组织已建立的专题、观点、推导、时间线、来源原文，以及后续待整理素材与缺口。</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-知识地图.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E7%9F%A5%E8%AF%86%E5%9C%B0%E5%9B%BE.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="bbxm">
                 <div class="topic-card-meta"><span>冰冰小美</span><span>2026-07-18</span></div>
-                <h3><a href="../../wiki/topics/冰冰小美-中国股市看法.md" target="_blank" rel="noopener noreferrer">冰冰小美-中国股市看法</a></h3>
+                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E4%B8%AD%E5%9B%BD%E8%82%A1%E5%B8%82%E7%9C%8B%E6%B3%95.md" target="_blank" rel="noopener noreferrer">冰冰小美-中国股市看法</a></h3>
                 <p>聚合冰冰小美关于中国股市和 A 股的长期判断：长期看国情国运与产业转型，政策上看中央加杠杆和化债，市场结构上警惕指数慢牛、个股分化、ETF承接和投机产业链并存。</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-中国股市看法.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E4%B8%AD%E5%9B%BD%E8%82%A1%E5%B8%82%E7%9C%8B%E6%B3%95.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="bbxm">
                 <div class="topic-card-meta"><span>冰冰小美</span><span>2026-06-13</span></div>
-                <h3><a href="../../wiki/topics/冰冰小美-宏观战略-竞争格局分析.md" target="_blank" rel="noopener noreferrer">冰冰小美-中美产业竞争</a></h3>
+                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E5%AE%8F%E8%A7%82%E6%88%98%E7%95%A5-%E7%AB%9E%E4%BA%89%E6%A0%BC%E5%B1%80%E5%88%86%E6%9E%90.md" target="_blank" rel="noopener noreferrer">冰冰小美-中美产业竞争</a></h3>
                 <p>围绕冰冰小美关于中美产业竞争的相关页面建立主题入口，组织美国再工业化、AI与芯片国家竞争、中国金融市场转型、两强格局和竞争合作边界等材料。</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-宏观战略-竞争格局分析.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E5%AE%8F%E8%A7%82%E6%88%98%E7%95%A5-%E7%AB%9E%E4%BA%89%E6%A0%BC%E5%B1%80%E5%88%86%E6%9E%90.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+              <article class="topic-card" data-topic-category="bbxm">
+                <div class="topic-card-meta"><span>冰冰小美</span><span>待更新</span></div>
+                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E7%AD%96%E7%95%A5%E5%90%88%E9%9B%86.md" target="_blank" rel="noopener noreferrer">冰冰小美成长型价值投资</a></h3>
+                <p>从策略看，你应该每季度根据财报投资。而不是根据股价。一年投四次。如果投的这次盈利，财报前卖出。底仓不变，灵活定投。可能对平缓波动。应对更加游刃有余。 富贵低波红利策略 老木匠策略 买入某一只低估的股票，然后股价继续下跌，然后继续买入，…</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E7%AD%96%E7%95%A5%E5%90%88%E9%9B%86.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="other">
                 <div class="topic-card-meta"><span>其他</span><span>2026-07-18</span></div>
-                <h3><a href="../../wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md" target="_blank" rel="noopener noreferrer">地缘重估与资源-货币秩序</a></h3>
+                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E5%9C%B0%E7%BC%98%E9%87%8D%E4%BC%B0%E4%B8%8E%E8%B5%84%E6%BA%90-%E8%B4%A7%E5%B8%81%E7%A7%A9%E5%BA%8F.md" target="_blank" rel="noopener noreferrer">地缘重估与资源-货币秩序</a></h3>
                 <p>围绕全球割裂、资源争夺、避险资产重估与货币形态竞争形成的长期主题，关注地缘变化如何通过黄金、白银、大宗、汇率与贸易网络重新传导到资产定价。</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E5%9C%B0%E7%BC%98%E9%87%8D%E4%BC%B0%E4%B8%8E%E8%B5%84%E6%BA%90-%E8%B4%A7%E5%B8%81%E7%A7%A9%E5%BA%8F.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="other">
                 <div class="topic-card-meta"><span>其他</span><span>2026-06-02</span></div>
-                <h3><a href="../../wiki/topics/碧树西风-量化交易.md" target="_blank" rel="noopener noreferrer">量化交易</a></h3>
+                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E7%A2%A7%E6%A0%91%E8%A5%BF%E9%A3%8E-%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93.md" target="_blank" rel="noopener noreferrer">量化交易</a></h3>
                 <p>围绕量化思维、分布视角与可计算化表达展开的长期主题，关注如何把市场中的变化、结构、情绪与反馈转成可观察、可比较、可执行的变量，而不是把量化误解成高频系统。</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/碧树西风-量化交易.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E7%A2%A7%E6%A0%91%E8%A5%BF%E9%A3%8E-%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="other">
                 <div class="topic-card-meta"><span>其他</span><span>2026-06-04</span></div>
-                <h3><a href="../../wiki/topics/碧树西风-人生观与财富观.md" target="_blank" rel="noopener noreferrer">人生观与财富观</a></h3>
+                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E7%A2%A7%E6%A0%91%E8%A5%BF%E9%A3%8E-%E4%BA%BA%E7%94%9F%E8%A7%82%E4%B8%8E%E8%B4%A2%E5%AF%8C%E8%A7%82.md" target="_blank" rel="noopener noreferrer">人生观与财富观</a></h3>
                 <p>围绕人生目标、财富定义、风险承受力与投资系统之间的相互约束形成的长期主题，关注一个人如何先定义自己要过什么生活、能承受什么代价，再决定追求哪一种财富与收益；核心隐喻是财富观像一口缸，重点不只是装进多少，还要有进有出、量入为出、够用不焦…</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/碧树西风-人生观与财富观.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
-              </article>
-              <article class="topic-card" data-topic-category="other">
-                <div class="topic-card-meta"><span>其他</span><span>2026-06-03</span></div>
-                <h3><a href="../../wiki/topics/人物金句.md" target="_blank" rel="noopener noreferrer">人物金句</a></h3>
-                <p>聚合长期跟踪人物的高密度表达，把金句回链到对应人物、观点、推导、概念或来源页面，避免脱离语境的摘录。</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/人物金句.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
-              </article>
-              <article class="topic-card" data-topic-category="other">
-                <div class="topic-card-meta"><span>其他</span><span>2026-07-03</span></div>
-                <h3><a href="../../wiki/topics/如何学习冰冰小美.md" target="_blank" rel="noopener noreferrer">如何学习冰冰小美</a></h3>
-                <p>如何学习冰冰小美是一个学习入口页：把抄作业从复制买卖动作改成学习产业思维、长期跟踪、价格纪律、仓位匹配和反向审视自己持仓初心。</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/如何学习冰冰小美.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
-              </article>
-              <article class="topic-card" data-topic-category="other">
-                <div class="topic-card-meta"><span>其他</span><span>2026-06-05</span></div>
-                <h3><a href="../../wiki/topics/什么是交易.md" target="_blank" rel="noopener noreferrer">什么是交易？</a></h3>
-                <p>围绕“什么是交易”建立主题入口：交易不是单次买卖动作，而是在不确定市场中识别机会、约束仓位、预设退出、承受错误并用反馈修正系统的一组行动框架。</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/什么是交易.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E7%A2%A7%E6%A0%91%E8%A5%BF%E9%A3%8E-%E4%BA%BA%E7%94%9F%E8%A7%82%E4%B8%8E%E8%B4%A2%E5%AF%8C%E8%A7%82.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="other">
                 <div class="topic-card-meta"><span>其他</span><span>2026-04-24</span></div>
-                <h3><a href="../../wiki/topics/碧树西风-信息高地、上位者博弈与非标路径.md" target="_blank" rel="noopener noreferrer">信息高地、上位者博弈与非标路径</a></h3>
+                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E7%A2%A7%E6%A0%91%E8%A5%BF%E9%A3%8E-%E4%BF%A1%E6%81%AF%E9%AB%98%E5%9C%B0%E3%80%81%E4%B8%8A%E4%BD%8D%E8%80%85%E5%8D%9A%E5%BC%88%E4%B8%8E%E9%9D%9E%E6%A0%87%E8%B7%AF%E5%BE%84.md" target="_blank" rel="noopener noreferrer">信息高地、上位者博弈与非标路径</a></h3>
                 <p>围绕信息不对称、信息高地、上位者视角与非标路径展开的长期主题，关注人在多牌桌世界里如何识别真正的规则、避开伪竞争，并寻找更有利的位置。</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/碧树西风-信息高地、上位者博弈与非标路径.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E7%A2%A7%E6%A0%91%E8%A5%BF%E9%A3%8E-%E4%BF%A1%E6%81%AF%E9%AB%98%E5%9C%B0%E3%80%81%E4%B8%8A%E4%BD%8D%E8%80%85%E5%8D%9A%E5%BC%88%E4%B8%8E%E9%9D%9E%E6%A0%87%E8%B7%AF%E5%BE%84.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="ai">
                 <div class="topic-card-meta"><span>AI</span><span>2026-06-09</span></div>
-                <h3><a href="../../wiki/topics/冰冰小美-AI产业趋势.md" target="_blank" rel="noopener noreferrer">AI产业趋势</a></h3>
+                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-AI%E4%BA%A7%E4%B8%9A%E8%B6%8B%E5%8A%BF.md" target="_blank" rel="noopener noreferrer">AI产业趋势</a></h3>
                 <p>这个主题页组织冰冰小美关于 AI 的主要判断：AI 是国家门票，也是新钱承接器与新基建抓手；产业机会主要沿国家竞争、系统能效、卖铲子环节、全球供应链映射和估值分层展开。</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/冰冰小美-AI产业趋势.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
-              </article>
-              <article class="topic-card" data-topic-category="ai">
-                <div class="topic-card-meta"><span>AI</span><span>2026-06-02</span></div>
-                <h3><a href="../../wiki/topics/AI门票.md" target="_blank" rel="noopener noreferrer">AI门票</a></h3>
-                <p>AI门票是一个跨作者主题：冰冰小美把 AI 理解为第四次工业革命和 G2 国家竞争的昂贵准入资格；碧树西风则把同一现象压回“谁负债赚谁的钱”，提醒 AI 门票之所以形成行情，是因为国家、大公司和投资者不得不为基础设施、资本开支和竞争资…</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="../../wiki/topics/AI门票.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-AI%E4%BA%A7%E4%B8%9A%E8%B6%8B%E5%8A%BF.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
             </div>
             <p class="topic-empty-results" hidden>没有匹配的主题页。</p>
@@ -4233,6 +4337,8 @@ const SOURCES = Object.freeze({
   eastmoneyTreasury: { name: '东方财富中美国债收益率', url: 'https://datacenter.eastmoney.com' },
   eastmoneyMarket: { name: '东方财富沪深A股行情', url: 'https://push2.eastmoney.com' },
   tushareMargin: { name: 'Tushare融资融券汇总', url: '/api/margin' },
+  tushareUsTreasury: { name: 'Tushare美国国债收益率', url: '/api/us-treasury-yield' },
+  tushareUsDollarIndex: { name: 'Tushare美元指数', url: '/api/us-dollar-index' },
 });
 
 const INDEX_IDS = Object.freeze({
@@ -4413,6 +4519,24 @@ function parseMarginReport(payload) {
   }).sort((left, right) => left.date.localeCompare(right.date));
 }
 
+function parseUsTreasuryYield(payload) {
+  const rows = Array.isArray(payload?.rows) ? payload.rows : [];
+  return rows.flatMap(row => {
+    const date = row.date ?? row.trade_date ?? row.tradeDate;
+    const value = finiteNumber(row.y10 ?? row.value);
+    return date && value !== null ? [{ date: normalizeDate(date), value }] : [];
+  }).sort((left, right) => left.date.localeCompare(right.date));
+}
+
+function parseUsDollarIndex(payload) {
+  const rows = Array.isArray(payload?.rows) ? payload.rows : [];
+  return rows.flatMap(row => {
+    const date = row.trade_date ?? row.tradeDate ?? row.date;
+    const value = finiteNumber(row.close ?? row.bid_close ?? row.ask_close ?? row.value);
+    return date && value !== null ? [{ date: normalizeDate(date), value }] : [];
+  }).sort((left, right) => left.date.localeCompare(right.date));
+}
+
 function jsonp(url, callbackParam = 'cb', timeoutMs = 12000) {
   if (typeof document === 'undefined') return Promise.reject(new Error('JSONP requires a browser document'));
   return new Promise((resolve, reject) => {
@@ -4502,6 +4626,16 @@ async function loadMarginHistory() {
   return [...totals.entries()]
     .map(([date, value]) => ({ date, value }))
     .sort((left, right) => left.date.localeCompare(right.date));
+}
+
+async function loadUsTreasury10yHistory() {
+  if (!isLocalProxyLocation()) throw new Error('local proxy is unavailable');
+  return parseUsTreasuryYield(await fetchJson(buildLocalProxyUrl('/api/us-treasury-yield'), requestTimeout()));
+}
+
+async function loadUsDollarIndexHistory() {
+  if (!isLocalProxyLocation()) throw new Error('local proxy is unavailable');
+  return parseUsDollarIndex(await fetchJson(buildLocalProxyUrl('/api/us-dollar-index'), requestTimeout()));
 }
 
 // ---- data-service.mjs ----
@@ -4637,6 +4771,14 @@ function createExampleSnapshot() {
     date,
     value: Number((2.55 - index * 0.00055 + Math.sin(index / 97) * 0.22).toFixed(4)),
   }));
+  const usTreasury10y = valuationDates.map((date, index) => ({
+    date,
+    value: Number((4.22 + Math.sin(index / 67) * 0.22 + Math.sin(index / 197) * 0.14).toFixed(4)),
+  }));
+  const usDollarIndex = valuationDates.map((date, index) => ({
+    date,
+    value: Number((98.8 + Math.sin(index / 71) * 1.9 + Math.sin(index / 191) * 0.9).toFixed(4)),
+  }));
   const turnover = valuationDates.map((date, index) => ({
     date,
     value: Math.round(720_000_000_000 + Math.sin(index / 31) * 180_000_000_000 + index * 115_000_000),
@@ -4661,6 +4803,8 @@ function createExampleSnapshot() {
       csi300Stats: exampleEnvelope(csi300Stats),
       forwardPe: exampleEnvelope(forwardPeHistory.map((value, index) => ({ date: valuationDates[index], value }))),
       treasury: exampleEnvelope(treasury),
+      usTreasury10y: exampleEnvelope(usTreasury10y),
+      usDollarIndex: exampleEnvelope(usDollarIndex),
       turnoverHistory: exampleEnvelope(turnover),
       margin: exampleEnvelope(margin),
       market: exampleEnvelope({
@@ -4753,6 +4897,22 @@ function createDefaultDomainDefinitions(nowDate = new Date(), location = globalT
       maxAgeMs: 72 * 60 * 60 * 1000,
     },
     {
+      id: 'usTreasury10y',
+      providers: localProxy
+        ? [{ name: sourceName(SOURCES.tushareUsTreasury.name), load: loadUsTreasury10yHistory, dataAt: lastPointTime }]
+        : [],
+      validate: data => Array.isArray(data) && data.length >= 1,
+      maxAgeMs: 72 * 60 * 60 * 1000,
+    },
+    {
+      id: 'usDollarIndex',
+      providers: localProxy
+        ? [{ name: sourceName(SOURCES.tushareUsDollarIndex.name), load: loadUsDollarIndexHistory, dataAt: lastPointTime }]
+        : [],
+      validate: data => Array.isArray(data) && data.length >= 1,
+      maxAgeMs: 72 * 60 * 60 * 1000,
+    },
+    {
       id: 'market',
       providers: [{
         name: sourceName(localProxy ? '全市场行情（东方财富 / 新浪备援）' : SOURCES.eastmoneyMarket.name),
@@ -4783,9 +4943,9 @@ const PORTFOLIO_STORAGE_KEY = 'a-share-market-dashboard:holdings:v1';
 const FUGUI_STRATEGY_STORAGE_KEY = 'a-share-market-dashboard:fugui-strategy:v1';
 const FUGUI_PANEL_COLLAPSED_STORAGE_KEY = 'a-share-market-dashboard:fugui-panel-collapsed:v1';
 const FUGUI_PROVIDER_STORAGE_KEY = 'a-share-market-dashboard:fugui-provider:v1';
-const MARGIN_BUY_CACHE_STORAGE_KEY = 'a-share-market-dashboard:margin-buy:one-year:v1';
+const MARGIN_BALANCE_CACHE_STORAGE_KEY = 'a-share-market-dashboard:margin-balance:one-year:v1';
 const FEATURED_DELETED_STORAGE_KEY = 'a-share-market-dashboard:featured-deleted:v1';
-const MARGIN_BUY_CACHE_MAX_AGE_MS = 24 * 60 * 60 * 1000;
+const MARGIN_BALANCE_CACHE_MAX_AGE_MS = 24 * 60 * 60 * 1000;
 const FUGUI_STRATEGY_RULES = Object.freeze({
   allowedOwnership: new Set(['央企', '国企']),
   marketCapMinYi: 1000,
@@ -5197,6 +5357,8 @@ function deriveDashboard(snapshot, windowYears = 5) {
     layers,
     score,
     margin: domain(snapshot, 'margin'),
+    usTreasury10y: domain(snapshot, 'usTreasury10y'),
+    usDollarIndex: domain(snapshot, 'usDollarIndex'),
     conclusion: conclusionForScore(score.score, score.coverage),
   };
 }
@@ -5753,64 +5915,169 @@ function renderMarginBalanceCard(envelope) {
     </div>`;
 }
 
-function marketMarginBuyPoints(payload) {
+function marketMarginBalancePoints(payload) {
   const rows = Array.isArray(payload?.summary) ? payload.summary : [];
   return rows.flatMap(row => {
     const rawDate = String(row.trade_date ?? row.tradeDate ?? row.date ?? '');
     const date = /^\d{8}$/.test(rawDate)
       ? `${rawDate.slice(0, 4)}-${rawDate.slice(4, 6)}-${rawDate.slice(6, 8)}`
       : rawDate.slice(0, 10);
-    const value = Number(row.rzmre);
+    const value = Number(row.rzye);
     return date && Number.isFinite(value) ? [{ date, value }] : [];
   }).sort((left, right) => left.date.localeCompare(right.date));
 }
 
-function renderMarginBuyChart(points = []) {
+function renderMarginBalanceChart(points = []) {
   if (!Array.isArray(points) || points.length < 2) {
-    return '<div class="margin-chart-empty">未获取到足够的融资买入额数据。</div>';
+    return '<div class="margin-chart-empty">未获取到足够的融资余额数据。</div>';
   }
   const width = 760;
   const height = 280;
   const pad = { left: 58, right: 22, top: 22, bottom: 42 };
-  const values = points.map(point => point.value / 100_000_000);
+  const values = points.map(point => point.value / 1_000_000_000_000);
   const min = Math.min(...values);
   const max = Math.max(...values);
   const span = max - min || 1;
   const x = index => pad.left + (index / Math.max(1, points.length - 1)) * (width - pad.left - pad.right);
   const y = value => pad.top + (max - value) / span * (height - pad.top - pad.bottom);
   const line = values.map((value, index) => `${index ? 'L' : 'M'}${x(index).toFixed(1)},${y(value).toFixed(1)}`).join(' ');
+  const hoverMarkers = points.map((point, index) => {
+    const cx = x(index);
+    const cy = y(values[index]);
+    const left = index === 0 ? pad.left : (x(index - 1) + cx) / 2;
+    const right = index === points.length - 1 ? width - pad.right : (cx + x(index + 1)) / 2;
+    const tooltipWidth = 150;
+    const tooltipHeight = 46;
+    const tooltipX = clamp(cx + 10, pad.left, width - pad.right - tooltipWidth);
+    const tooltipY = cy - tooltipHeight - 12 < 6 ? cy + 14 : cy - tooltipHeight - 12;
+    const valueTrillion = point.value / 1_000_000_000_000;
+    const label = `${point.date} · 融资余额 ${formatNumber(valueTrillion, 3)} 万亿`;
+    return `<g class="margin-hover-point" tabindex="0" aria-label="${escapeHtml(label)}">
+        <title>${escapeHtml(label)}</title>
+        <rect class="margin-hover-hit" x="${left.toFixed(1)}" y="${pad.top}" width="${Math.max(1, right - left).toFixed(1)}" height="${height - pad.top - pad.bottom}"></rect>
+        <line class="margin-hover-line" x1="${cx.toFixed(1)}" y1="${pad.top}" x2="${cx.toFixed(1)}" y2="${height - pad.bottom}"></line>
+        <circle class="margin-hover-dot" cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="5"></circle>
+        <g class="margin-hover-tooltip" transform="translate(${tooltipX.toFixed(1)} ${tooltipY.toFixed(1)})">
+          <rect width="${tooltipWidth}" height="${tooltipHeight}" rx="7"></rect>
+          <text x="10" y="18">${escapeHtml(point.date)}</text>
+          <text x="10" y="36">融资余额 ${formatNumber(valueTrillion, 3)} 万亿</text>
+        </g>
+      </g>`;
+  }).join('');
   const latest = points.at(-1);
   const previous = points.at(-2);
-  const latestYi = latest.value / 100_000_000;
-  const changeYi = (latest.value - previous.value) / 100_000_000;
+  const latestTrillion = latest.value / 1_000_000_000_000;
+  const changeTrillion = (latest.value - previous.value) / 1_000_000_000_000;
   const grid = [0, 0.5, 1].map(ratio => {
     const yy = pad.top + ratio * (height - pad.top - pad.bottom);
     const label = max - ratio * span;
     return `<line x1="${pad.left}" y1="${yy.toFixed(1)}" x2="${width - pad.right}" y2="${yy.toFixed(1)}"></line>
-      <text x="${pad.left - 8}" y="${(yy + 4).toFixed(1)}" text-anchor="end">${formatNumber(label, 0)}</text>`;
+      <text x="${pad.left - 8}" y="${(yy + 4).toFixed(1)}" text-anchor="end">${formatNumber(label, 2)}</text>`;
   }).join('');
   const firstDate = points[0].date;
   const midDate = points[Math.floor(points.length / 2)].date;
   return `<article class="margin-chart-card">
     <div class="margin-chart-head">
-      <div><p class="eyebrow">ONE YEAR</p><h4>融资买入额折线</h4></div>
+      <div><p class="eyebrow">ONE YEAR</p><h4>融资余额折线</h4></div>
       <span>${escapeHtml(firstDate)} 至 ${escapeHtml(latest.date)}</span>
     </div>
-    <svg class="margin-buy-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="近一年融资买入额折线图">
+    <svg class="margin-buy-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="近一年融资余额折线图">
       <rect x="0" y="0" width="${width}" height="${height}"></rect>
       ${grid}
       <path d="${line}"></path>
-      <circle cx="${x(points.length - 1).toFixed(1)}" cy="${y(latestYi).toFixed(1)}" r="4"></circle>
+      <circle cx="${x(points.length - 1).toFixed(1)}" cy="${y(latestTrillion).toFixed(1)}" r="4"></circle>
+      ${hoverMarkers}
       <text class="x-label" x="${pad.left}" y="${height - 14}" text-anchor="start">${escapeHtml(firstDate)}</text>
       <text class="x-label" x="${width / 2}" y="${height - 14}" text-anchor="middle">${escapeHtml(midDate)}</text>
       <text class="x-label" x="${width - pad.right}" y="${height - 14}" text-anchor="end">${escapeHtml(latest.date)}</text>
     </svg>
     <div class="margin-chart-stats">
-      <div><small>最新融资买入额</small><strong>${formatNumber(latestYi, 0)} 亿</strong><span>${escapeHtml(latest.date)}</span></div>
-      <div><small>较前日变化</small><strong class="${changeYi > 0 ? 'is-up' : changeYi < 0 ? 'is-down' : ''}">${changeYi >= 0 ? '+' : ''}${formatNumber(changeYi, 0)} 亿</strong><span>融资买入额，不等同净买入</span></div>
-      <div><small>样本天数</small><strong>${points.length}</strong><span>来自 Tushare margin 汇总</span></div>
+      <div><small>最新融资余额</small><strong>${formatNumber(latestTrillion, 3)} 万亿</strong><span>${escapeHtml(latest.date)}</span></div>
+      <div><small>较前日变化</small><strong class="${changeTrillion > 0 ? 'is-up' : changeTrillion < 0 ? 'is-down' : ''}">${changeTrillion >= 0 ? '+' : ''}${formatNumber(changeTrillion, 3)} 万亿</strong><span>截至收盘尚未偿还的融资负债变化</span></div>
+      <div><small>指标含义</small><strong>${points.length}</strong><span>截至某个交易日收盘，投资者尚未偿还的融资负债总额。</span></div>
     </div>
   </article>`;
+}
+
+function riskLevelForDashboard(derived) {
+  const usTreasuryLatest = Array.isArray(derived?.usTreasury10y?.data)
+    ? derived.usTreasury10y.data.at(-1)
+    : null;
+  const usTreasuryYield = Number(usTreasuryLatest?.value);
+  const rateRiskHigh = Number.isFinite(usTreasuryYield) && usTreasuryYield > 4.5;
+  const dollarLatest = Array.isArray(derived?.usDollarIndex?.data)
+    ? derived.usDollarIndex.data.at(-1)
+    : null;
+  const dollarIndex = Number(dollarLatest?.value);
+  const dollarRiskHigh = Number.isFinite(dollarIndex) && dollarIndex > 100;
+  const highRisk = rateRiskHigh || dollarRiskHigh;
+  const highRiskMessages = [
+    rateRiskHigh ? `美国10年国债收益率 ${formatNumber(usTreasuryYield, 2)}%，已高于 4.5% 风险线。` : '',
+    dollarRiskHigh ? `美元指数 ${formatNumber(dollarIndex, 2)}，已高于 100 风险线。` : '',
+  ].filter(Boolean);
+  return {
+    label: highRisk ? '高风险' : '暂空',
+    className: highRisk ? 'is-high' : 'is-unknown',
+    riskScore: highRisk ? 80 : null,
+    buyScore: Number(derived?.score?.score),
+    action: highRisk
+      ? highRiskMessages.join(' ')
+      : '风险等级计算暂未接入，当前页面先用于集中观察融资、温度计、美债利率和美元指数信号。',
+    usTreasury10y: {
+      date: usTreasuryLatest?.date ?? null,
+      value: Number.isFinite(usTreasuryYield) ? usTreasuryYield : null,
+      highRisk: rateRiskHigh,
+      status: derived?.usTreasury10y?.status ?? 'missing',
+    },
+    usDollarIndex: {
+      date: dollarLatest?.date ?? null,
+      value: Number.isFinite(dollarIndex) ? dollarIndex : null,
+      highRisk: dollarRiskHigh,
+      status: derived?.usDollarIndex?.status ?? 'missing',
+    },
+  };
+}
+
+function updateRiskMonitor(derived) {
+  const risk = riskLevelForDashboard(derived);
+  const setText = (id, text) => {
+    const node = document.getElementById(id);
+    if (node) node.textContent = text;
+  };
+  const riskLevelNodes = [
+    document.getElementById('risk-level-value'),
+    document.getElementById('risk-screen-level'),
+  ];
+  riskLevelNodes.forEach(node => {
+    if (!node) return;
+    node.textContent = risk.label;
+    node.className = risk.className;
+  });
+  setText('risk-level-detail', Number.isFinite(risk.riskScore)
+    ? `综合风险 ${formatNumber(risk.riskScore, 0)} / 100`
+    : '风险等级计算暂未接入');
+  setText('risk-score-value', Number.isFinite(risk.riskScore) ? formatNumber(risk.riskScore, 0) : '--');
+  setText('risk-buy-score', Number.isFinite(risk.buyScore) ? formatNumber(risk.buyScore, 1) : '--');
+  setText('risk-coverage', `${formatNumber(derived?.score?.coverage, 1)}%`);
+  setText('risk-screen-summary', risk.action);
+  setText('risk-monitor-updated', `统计窗口 ${derived?.windowYears ?? 5} 年 · ${formatTime(derived?.generatedAt)}`);
+  const layers = Object.values(derived?.layers ?? {});
+  const watchList = document.getElementById('risk-watch-list');
+  if (watchList) {
+    const us = risk.usTreasury10y;
+    const dollar = risk.usDollarIndex;
+    const usLabel = Number.isFinite(us.value)
+      ? `${formatNumber(us.value, 2)}% · ${us.highRisk ? '高风险' : '未触发'}`
+      : '等待数据';
+    const dollarLabel = Number.isFinite(dollar.value)
+      ? `${formatNumber(dollar.value, 2)} · ${dollar.highRisk ? '高风险' : '未触发'}`
+      : '等待数据';
+    watchList.innerHTML = [
+      ...layers.map(layer => `<li><span>${escapeHtml(layer.label)}</span><strong>${formatNumber(layer.score, 1)}</strong></li>`),
+      `<li class="${us.highRisk ? 'is-high-risk' : ''}"><span>美债10年</span><strong>${escapeHtml(usLabel)}</strong></li>`,
+      `<li class="${dollar.highRisk ? 'is-high-risk' : ''}"><span>美元指数</span><strong>${escapeHtml(dollarLabel)}</strong></li>`,
+    ].join('');
+  }
 }
 
 function renderEventCalendar(events = EVENT_CALENDAR) {
@@ -5881,7 +6148,10 @@ function renderDerived(derived, officialTemperature = { status: 'loading' }, nas
   byId('dividend-signal-card').innerHTML = renderDividendSignalCard(CSI_DIVIDEND_SIGNAL);
   byId('dividend-signal-detail').innerHTML = renderDividendSignalDetail(CSI_DIVIDEND_SIGNAL);
   byId('nasdaq100-card').innerHTML = renderNasdaq100Card(nasdaq100);
-  byId('margin-balance-card').innerHTML = renderMarginBalanceCard(derived.margin);
+  if (byId('margin-balance-card')) {
+    byId('margin-balance-card').innerHTML = renderMarginBalanceCard(derived.margin);
+  }
+  updateRiskMonitor(derived);
   renderEventCalendar();
 
   byId('metric-list').innerHTML = derived.metrics.map(metric => {
@@ -6350,62 +6620,84 @@ function startApp() {
     document.getElementById('margin-balance-modal').hidden = true;
   };
 
-  const openMarginBalanceModal = async () => {
-    const modal = document.getElementById('margin-balance-modal');
-    const status = document.getElementById('margin-balance-modal-status');
-    const body = document.getElementById('margin-balance-modal-body');
-    modal.hidden = false;
-    body.innerHTML = '<div class="margin-chart-empty">正在读取最近一年融资买入额。</div>';
-    if (!isLocalProxyLocation()) {
-      status.textContent = '请通过“启动面板.cmd”打开面板后查看融资买入额。';
-      body.innerHTML = '<div class="margin-chart-empty">本地代理未连接，无法读取 Tushare 融资数据。</div>';
-      return;
-    }
+  const loadMarginBuyPoints = async () => {
     const end = new Date();
     const start = new Date(end);
     start.setFullYear(start.getFullYear() - 1);
     const startDate = start.toISOString().slice(0, 10);
     const endDate = end.toISOString().slice(0, 10);
     try {
-      const cached = JSON.parse(storage.getItem(MARGIN_BUY_CACHE_STORAGE_KEY) ?? 'null');
+      const cached = JSON.parse(storage.getItem(MARGIN_BALANCE_CACHE_STORAGE_KEY) ?? 'null');
       if (
         cached?.startDate === startDate
         && cached?.endDate === endDate
         && Array.isArray(cached.points)
-        && Date.now() - Number(cached.savedAt) < MARGIN_BUY_CACHE_MAX_AGE_MS
+        && Date.now() - Number(cached.savedAt) < MARGIN_BALANCE_CACHE_MAX_AGE_MS
       ) {
-        body.innerHTML = renderMarginBuyChart(cached.points);
-        status.textContent = `已使用缓存：${cached.points.length} 个交易日；口径为 Tushare margin 的 rzmre（融资买入额）。`;
-        return;
+        return { points: cached.points, startDate, endDate, cached: true };
       }
     } catch {
-      storage.removeItem(MARGIN_BUY_CACHE_STORAGE_KEY);
+      storage.removeItem(MARGIN_BALANCE_CACHE_STORAGE_KEY);
     }
-    status.textContent = `正在读取 ${startDate} 至 ${endDate} 的融资买入额。`;
+    const payload = await fetchJson(
+      buildLocalProxyUrl('/api/margin', { start_date: startDate, end_date: endDate }),
+      requestTimeout(),
+    );
+    const points = marketMarginBalancePoints(payload);
+    if (points.length) {
+      storage.setItem(MARGIN_BALANCE_CACHE_STORAGE_KEY, JSON.stringify({
+        startDate,
+        endDate,
+        savedAt: Date.now(),
+        points,
+      }));
+    }
+    return { points, startDate, endDate, cached: false };
+  };
+
+  const refreshRiskMarginChart = async () => {
+    const chart = document.getElementById('risk-margin-chart');
+    if (!chart) return;
+    chart.innerHTML = '<div class="margin-chart-empty">正在读取近一年融资余额。</div>';
+    if (!isLocalProxyLocation()) {
+      chart.innerHTML = '<div class="margin-chart-empty">请通过“启动面板.cmd”打开面板后查看融资余额。</div>';
+      return;
+    }
     try {
-      const payload = await fetchJson(
-        buildLocalProxyUrl('/api/margin', { start_date: startDate, end_date: endDate }),
-        requestTimeout(),
-      );
-      const points = marketMarginBuyPoints(payload);
-      if (points.length) {
-        storage.setItem(MARGIN_BUY_CACHE_STORAGE_KEY, JSON.stringify({
-          startDate,
-          endDate,
-          savedAt: Date.now(),
-          points,
-        }));
-      }
-      body.innerHTML = renderMarginBuyChart(points);
+      const { points } = await loadMarginBuyPoints();
+      chart.innerHTML = renderMarginBalanceChart(points);
+    } catch {
+      chart.innerHTML = '<div class="margin-chart-empty">融资余额读取失败，请检查 Tushare token 或稍后重试。</div>';
+    }
+  };
+
+  const openMarginBalanceModal = async () => {
+    const modal = document.getElementById('margin-balance-modal');
+    const status = document.getElementById('margin-balance-modal-status');
+    const body = document.getElementById('margin-balance-modal-body');
+    modal.hidden = false;
+    body.innerHTML = '<div class="margin-chart-empty">正在读取最近一年融资余额。</div>';
+    if (!isLocalProxyLocation()) {
+      status.textContent = '请通过“启动面板.cmd”打开面板后查看融资余额。';
+      body.innerHTML = '<div class="margin-chart-empty">本地代理未连接，无法读取 Tushare 融资数据。</div>';
+      return;
+    }
+    try {
+      const rangeEnd = new Date().toISOString().slice(0, 10);
+      const rangeStart = new Date();
+      rangeStart.setFullYear(rangeStart.getFullYear() - 1);
+      status.textContent = `正在读取 ${rangeStart.toISOString().slice(0, 10)} 至 ${rangeEnd} 的融资余额。`;
+      const { points, cached } = await loadMarginBuyPoints();
+      body.innerHTML = renderMarginBalanceChart(points);
       status.textContent = points.length
-        ? `已读取 ${points.length} 个交易日；口径为 Tushare margin 的 rzmre（融资买入额）。`
-        : '未获取到最近一年融资买入额。';
+        ? `${cached ? '已使用缓存' : '已读取'} ${points.length} 个交易日；口径为 Tushare margin 的 rzye（融资余额）。`
+        : '未获取到最近一年融资余额。';
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       const staleProxy = /HTTP 400/.test(message);
       status.textContent = staleProxy
-        ? '融资买入额读取失败：本地面板服务版本过旧，请关闭旧面板后重新双击“启动面板.cmd”。'
-        : `融资买入额读取失败：${message}。`;
+        ? '融资余额读取失败：本地面板服务版本过旧，请关闭旧面板后重新双击“启动面板.cmd”。'
+        : `融资余额读取失败：${message}。`;
       body.innerHTML = staleProxy
         ? '<div class="margin-chart-empty">当前代理仍按旧参数处理 /api/margin。重启面板服务后会切换到 Tushare 近一年数据接口。</div>'
         : '<div class="margin-chart-empty">读取失败，请检查 Tushare token 或稍后重试。</div>';
@@ -7010,6 +7302,7 @@ function startApp() {
     });
     document.querySelectorAll('.view').forEach(view => view.classList.toggle('is-active', view.id === viewId));
     pageTitle.textContent = labelForView(button) || pageTitle.textContent;
+    if (viewId === 'risk-monitor') refreshRiskMarginChart();
   };
 
   const setShell = (shell, viewId = null) => {
@@ -7120,6 +7413,15 @@ function startApp() {
   }));
   document.getElementById('open-featured-digest')?.addEventListener('click', () => {
     setShell('thermometer', 'featured-digest');
+  });
+  document.getElementById('risk-monitor-card')?.addEventListener('click', () => {
+    setShell('thermometer', 'risk-monitor');
+  });
+  document.getElementById('risk-monitor-card')?.addEventListener('keydown', event => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      setShell('thermometer', 'risk-monitor');
+    }
   });
   document.getElementById('dividend-signal-card')?.addEventListener('click', event => {
     if (event.target.closest('[data-open-dividend-signal]')) setShell('thermometer', 'dividend-signal-view');

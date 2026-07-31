@@ -4,6 +4,8 @@ export const SOURCES = Object.freeze({
   eastmoneyTreasury: { name: '东方财富中美国债收益率', url: 'https://datacenter.eastmoney.com' },
   eastmoneyMarket: { name: '东方财富沪深A股行情', url: 'https://push2.eastmoney.com' },
   tushareMargin: { name: 'Tushare融资融券汇总', url: '/api/margin' },
+  tushareUsTreasury: { name: 'Tushare美国国债收益率', url: '/api/us-treasury-yield' },
+  tushareUsDollarIndex: { name: 'Tushare美元指数', url: '/api/us-dollar-index' },
 });
 
 export const INDEX_IDS = Object.freeze({
@@ -184,6 +186,24 @@ export function parseMarginReport(payload) {
   }).sort((left, right) => left.date.localeCompare(right.date));
 }
 
+export function parseUsTreasuryYield(payload) {
+  const rows = Array.isArray(payload?.rows) ? payload.rows : [];
+  return rows.flatMap(row => {
+    const date = row.date ?? row.trade_date ?? row.tradeDate;
+    const value = finiteNumber(row.y10 ?? row.value);
+    return date && value !== null ? [{ date: normalizeDate(date), value }] : [];
+  }).sort((left, right) => left.date.localeCompare(right.date));
+}
+
+export function parseUsDollarIndex(payload) {
+  const rows = Array.isArray(payload?.rows) ? payload.rows : [];
+  return rows.flatMap(row => {
+    const date = row.trade_date ?? row.tradeDate ?? row.date;
+    const value = finiteNumber(row.close ?? row.bid_close ?? row.ask_close ?? row.value);
+    return date && value !== null ? [{ date: normalizeDate(date), value }] : [];
+  }).sort((left, right) => left.date.localeCompare(right.date));
+}
+
 export function jsonp(url, callbackParam = 'cb', timeoutMs = 12000) {
   if (typeof document === 'undefined') return Promise.reject(new Error('JSONP requires a browser document'));
   return new Promise((resolve, reject) => {
@@ -273,4 +293,14 @@ export async function loadMarginHistory() {
   return [...totals.entries()]
     .map(([date, value]) => ({ date, value }))
     .sort((left, right) => left.date.localeCompare(right.date));
+}
+
+export async function loadUsTreasury10yHistory() {
+  if (!isLocalProxyLocation()) throw new Error('local proxy is unavailable');
+  return parseUsTreasuryYield(await fetchJson(buildLocalProxyUrl('/api/us-treasury-yield'), requestTimeout()));
+}
+
+export async function loadUsDollarIndexHistory() {
+  if (!isLocalProxyLocation()) throw new Error('local proxy is unavailable');
+  return parseUsDollarIndex(await fetchJson(buildLocalProxyUrl('/api/us-dollar-index'), requestTimeout()));
 }

@@ -43,6 +43,20 @@ datasets:
     required_params: []
     allowed_params: [trade_date, start_date, end_date, exchange_id, fields]
     fields: [trade_date, exchange_id, rzye, rzmre, rzche, rqye, rqmcl, rzrqye]
+  us_tycr:
+    api: us_tycr
+    purpose: 美国每日国债收益率曲线
+    cache_ttl_seconds: 300
+    required_params: []
+    allowed_params: [date, start_date, end_date, fields]
+    fields: [date, m1, m2, m3, m6, y1, y2, y3, y5, y7, y10, y20, y30]
+  fx_daily:
+    api: fx_daily
+    purpose: 外汇日线行情，默认美元指数
+    cache_ttl_seconds: 300
+    required_params: [ts_code]
+    allowed_params: [ts_code, trade_date, start_date, end_date, fields]
+    fields: [ts_code, trade_date, bid_open, bid_close, bid_high, bid_low, ask_open, ask_close, ask_high, ask_low, tick_qty]
   income:
     api: income
     purpose: 利润表核心科目

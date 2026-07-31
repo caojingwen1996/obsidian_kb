@@ -24,6 +24,8 @@ from scripts.local_proxy import (
     fetch_market_snapshot,
     fetch_nasdaq100_snapshot,
     fetch_stock_quote,
+    fetch_us_dollar_index,
+    fetch_us_treasury_yield,
     fetch_youzhiyouxing_temperature,
     normalize_nasdaq100_chart,
     normalize_review_diary_payload,
@@ -428,6 +430,60 @@ class PayloadTests(unittest.TestCase):
         self.assertEqual(calls[0][1], {"trade_date": "2026-07-29"})
         self.assertEqual(payload["summary"][0]["rzye"], 30)
         self.assertEqual(payload["proxySource"], "Tushare margin via tushare-data")
+
+    def test_fetches_us_treasury_yield_through_tushare_tool(self):
+        calls = []
+
+        def fake_tool(client, args):
+            calls.append((client, args))
+            return {
+                "dataset": "us_tycr",
+                "tenor": "y10",
+                "rows": [{"date": "2026-07-30", "y10": 4.51}],
+                "row_count": 1,
+                "latest": {"date": "2026-07-30", "y10": 4.51},
+            }
+
+        payload = fetch_us_treasury_yield(
+            {"start_date": ["2026-07-01"], "end_date": ["2026-07-30"]},
+            client=object(),
+            us_treasury_tool=fake_tool,
+        )
+
+        self.assertEqual(calls[0][1], {"start_date": "2026-07-01", "end_date": "2026-07-30"})
+        self.assertEqual(payload["latest"], {"date": "2026-07-30", "y10": 4.51})
+        self.assertEqual(payload["proxySource"], "Tushare us_tycr via tushare-data")
+
+    def test_us_treasury_yield_rejects_unknown_parameters(self):
+        with self.assertRaises(RouteError):
+            fetch_us_treasury_yield({"market": ["US"]}, client=object(), us_treasury_tool=lambda client, args: {})
+
+    def test_fetches_us_dollar_index_through_tushare_tool(self):
+        calls = []
+
+        def fake_tool(client, args):
+            calls.append((client, args))
+            return {
+                "dataset": "fx_daily",
+                "symbol": "USDOLLAR.FXCM",
+                "rows": [{"trade_date": "2026-07-30", "close": 100.2}],
+                "row_count": 1,
+                "latest": {"trade_date": "2026-07-30", "close": 100.2},
+            }
+
+        payload = fetch_us_dollar_index(
+            {"start_date": ["2026-07-01"], "end_date": ["2026-07-30"]},
+            client=object(),
+            us_dollar_tool=fake_tool,
+        )
+
+        self.assertEqual(calls[0][1], {"start_date": "2026-07-01", "end_date": "2026-07-30"})
+        self.assertEqual(payload["latest"], {"trade_date": "2026-07-30", "close": 100.2})
+        self.assertEqual(payload["proxySource"], "Tushare fx_daily via tushare-data")
+
+    def test_us_dollar_index_rejects_unknown_parameters(self):
+        with self.assertRaises(RouteError):
+            fetch_us_dollar_index({"market": ["US"]}, client=object(), us_dollar_tool=lambda client, args: {})
 
     def test_market_margin_rejects_legacy_market_parameter(self):
         with self.assertRaises(RouteError):

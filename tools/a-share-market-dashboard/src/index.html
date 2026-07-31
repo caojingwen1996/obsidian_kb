@@ -27,7 +27,8 @@
             <button class="nav-item" type="button" data-view="rules-view"><span>06</span>评分规则</button>
             <button class="nav-item" type="button" data-view="audit-view"><span>07</span>数据审计</button>
             <button class="nav-item" type="button" data-view="featured-digest"><span>08</span>每日跟踪</button>
-            <button class="nav-item" type="button" data-view="topic-map"><span>09</span>主题</button>
+            <button class="nav-item" type="button" data-view="risk-monitor"><span>09</span>风险监控</button>
+            <button class="nav-item" type="button" data-view="topic-map"><span>10</span>主题</button>
             </div>
           </section>
           <section class="tree-group" data-tree-group="strategy">
@@ -101,10 +102,6 @@
         </div>
 
         <div class="summary-shortcut-grid" aria-label="市场总览快捷卡片">
-          <article class="summary-shortcut-card panel" id="margin-balance-card" role="button" tabindex="0" aria-labelledby="margin-balance-card-heading">
-            <p class="eyebrow">MARGIN BALANCE</p>
-            <h2 id="margin-balance-card-heading">融资余额</h2>
-          </article>
           <article class="summary-shortcut-card panel" aria-labelledby="featured-entry-heading">
             <div>
               <p class="eyebrow">BBXM DAILY DIGEST</p>
@@ -112,7 +109,17 @@
             </div>
             <button class="button-secondary" id="open-featured-digest" type="button">进入每日跟踪</button>
           </article>
-          <article class="summary-shortcut-card summary-shortcut-card-empty panel" aria-hidden="true"></article>
+          <article class="summary-shortcut-card risk-shortcut-card panel" id="risk-monitor-card" role="button" tabindex="0" aria-labelledby="risk-monitor-card-heading">
+            <div>
+              <p class="eyebrow">RISK MONITOR</p>
+              <h2 id="risk-monitor-card-heading">风险等级</h2>
+            </div>
+            <div class="risk-shortcut-main">
+              <strong id="risk-level-value">读取中</strong>
+              <span id="risk-level-detail">基于温度计与融资变化</span>
+            </div>
+            <button class="button-secondary" type="button" data-open-risk-monitor>进入风险监控</button>
+          </article>
           <article class="summary-shortcut-card summary-shortcut-card-empty panel" aria-hidden="true"></article>
           <article class="summary-shortcut-card summary-shortcut-card-empty panel" aria-hidden="true"></article>
         </div>
@@ -187,6 +194,48 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
         <div class="audit-summary" id="audit-summary"></div>
         <div class="audit-errors" id="audit-errors" aria-live="polite"></div>
         <div class="audit-table-wrap"><table class="audit-table"><thead><tr><th>指标</th><th>状态</th><th>来源</th><th>数据时间</th><th>原始权重</th><th>有效权重</th><th>得分贡献</th></tr></thead><tbody id="audit-table-body"></tbody></table></div>
+      </section>
+
+      <section class="view" id="risk-monitor" data-shell-content="thermometer" aria-labelledby="risk-monitor-heading">
+        <h2 class="visually-hidden" id="risk-monitor-heading">风险监控</h2>
+        <div class="risk-screen">
+          <header class="risk-screen-head">
+            <div>
+              <p class="eyebrow">MARKET RISK COMMAND</p>
+              <h3>风险监控大屏</h3>
+              <span id="risk-monitor-updated">随温度计同步更新</span>
+            </div>
+            <strong id="risk-screen-level">读取中</strong>
+          </header>
+          <div class="risk-screen-grid">
+            <article class="risk-panel risk-panel-main">
+              <div class="risk-panel-title"><span>综合风险</span><b>RISK SCORE</b></div>
+              <div class="risk-score-orb"><strong id="risk-score-value">--</strong><span>/100</span></div>
+              <p id="risk-screen-summary">正在读取市场温度、情绪和杠杆信号。</p>
+              <div class="risk-signal-row">
+                <div><small>温度计分数</small><strong id="risk-buy-score">--</strong></div>
+                <div><small>有效覆盖率</small><strong id="risk-coverage">--</strong></div>
+                <div><small>监控口径</small><strong>温度 + 杠杆</strong></div>
+              </div>
+            </article>
+            <article class="risk-panel risk-panel-secondary">
+              <div class="risk-panel-title"><span>融资余额趋势</span><b>SECOND SCREEN</b></div>
+              <div id="risk-margin-chart" aria-live="polite">
+                <div class="margin-chart-empty">进入风险监控后读取近一年融资余额。</div>
+              </div>
+            </article>
+            <article class="risk-panel risk-panel-side">
+              <div class="risk-panel-title"><span>风险观察</span><b>CHECKPOINTS</b></div>
+              <ul class="risk-watch-list" id="risk-watch-list">
+                <li><span>位置</span><strong>等待数据</strong></li>
+                <li><span>估值</span><strong>等待数据</strong></li>
+                <li><span>情绪</span><strong>等待数据</strong></li>
+                <li><span>美债10年</span><strong>等待数据</strong></li>
+                <li><span>美元指数</span><strong>等待数据</strong></li>
+              </ul>
+            </article>
+          </div>
+        </div>
       </section>
 
       <section class="view" id="industry-strategy" data-shell-content="industry" aria-labelledby="industry-strategy-heading">
@@ -375,10 +424,10 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
         <div class="diary-modal-backdrop" data-action="close-margin-balance"></div>
         <section class="diary-dialog margin-dialog" aria-describedby="margin-balance-modal-status">
           <div class="diary-dialog-head">
-            <div><p class="eyebrow">MARGIN BUYING</p><h3 id="margin-balance-modal-title">近一年融资买入额</h3></div>
+            <div><p class="eyebrow">MARGIN BALANCE</p><h3 id="margin-balance-modal-title">近一年融资余额</h3></div>
             <button class="text-button" type="button" data-action="close-margin-balance">关闭</button>
           </div>
-          <p class="diary-status" id="margin-balance-modal-status" role="status" aria-live="polite">打开后读取最近一年融资买入额。</p>
+          <p class="diary-status" id="margin-balance-modal-status" role="status" aria-live="polite">打开后读取最近一年融资余额。</p>
           <div id="margin-balance-modal-body"></div>
         </section>
       </div>

@@ -19054,3 +19054,129 @@ ingest / equity_research
 
 - 下载并复核星源材质 2025 年报、2026 一季报和 2026 半年报 PDF 中的分部收入、资本开支、海外收入和管理层展望。
 - 补齐隔膜行业价格、产能利用率、同业估值、卖方目标价和 ETF / 北向 / 机构持仓数据。
+
+## 2026-07-31
+
+### 操作类型
+
+dashboard / feature
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+在 A 股大盘面板的“温度计”导航下新增“风险监控”栏目，并将首页快捷卡片第三个位置改为“风险等级”入口。按用户要求，风险等级计算暂不接入，卡片和大屏均显示暂空占位；点击卡片可进入风险监控页。风险监控页采用深色大屏风格，并在次大屏面板中加载近一年融资买入额折线图，复用原有本地代理与缓存逻辑。
+
+### 后续待办
+
+- 后续确定风险等级规则后，再把风险等级占位接入真实计算口径。
+
+## 2026-07-31
+
+### 操作类型
+
+dashboard / cleanup
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户反馈移除市场总览快捷卡片层中的“每日市场融资余额”卡片，使该层保留四个卡片位置：每日跟踪、风险等级和两个空白占位。保留风险监控页中的融资买入额折线图，并为旧的融资余额卡片渲染逻辑增加元素缺失保护，避免首页移除卡片后影响页面初始化。
+
+### 后续待办
+
+- 如后续不再需要融资余额弹窗，可进一步清理相关弹窗入口和冗余渲染函数。
+
+## 2026-07-31
+
+### 操作类型
+
+dashboard / data-definition
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+将风险监控大屏中的融资图表口径从 Tushare `margin` 汇总中的融资买入额 `rzmre` 改为融资余额 `rzye`，图表单位保持“万亿”。同步修改图表标题、悬浮提示、统计卡片和弹窗文案，并新增指标含义备注：“截至某个交易日收盘，投资者尚未偿还的融资负债总额。” 同时更换浏览器缓存 key，避免复用旧融资买入额缓存。
+
+### 后续待办
+
+- 后续可按风险等级规则将融资余额变化纳入风险监控综合判断。
+
+## 2026-07-31
+
+### 操作类型
+
+link / repair
+
+### 修改文件
+
+- `wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md`
+- `log.md`
+
+### 操作说明
+
+修复 `wiki/topics/冰冰小美-宏观风险关键词文章整理清单.md` 中“逐篇整理状态”表格内的 Obsidian 双链别名分隔符，将表格行中的 `[[目标|别名]]` 统一改为 `[[目标\|别名]]`，避免 Markdown 表格把链接内部 `|` 误解析为列分隔符，导致链接原样显示和表格错列。
+
+QMD skipped: QMD_WIKI_COLLECTION unset.
+
+### 后续待办
+
+- 可按同一规则检查其他含大量双链别名的 Markdown 表格页面。
+
+## 2026-07-31
+
+### 操作类型
+
+link / workbench
+
+### 修改文件
+
+- `workbench/targets/2026-07-23-1421-云铝股份-机构级决策研报.md`
+- `log.md`
+
+### 操作说明
+
+阅读 `sources/automations/老木匠每日汇总/2026-07-02老木匠谈有色.md` 原文后，将其多头依据和空头依据补充到云铝股份新版机构级决策研报的 `9. 多头与空头论据`：多头侧补入当前铜铝价格下铝冶炼利润丰厚、中报优秀、若价格维持则下半年利润仍强、估值偏低；空头侧补入美联储货币政策变量、强美元压制金属价格、AI 数据中心需求依赖融资与泡沫化股市、流动性危机传导为有色股戴维斯双杀。来源链接统一放入文末 `15. 相关页面`。
+
+### 后续待办
+
+- 如后续更新有色金属统一框架，可把该来源同时纳入铜铝周期与云铝股份复盘材料。
+
+## 2026-07-31
+
+### 操作类型
+
+refactor / link
+
+### 修改文件
+
+- `wiki/topics/冰冰小美-亏钱认知系列.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求重构 `wiki/topics/冰冰小美-亏钱认知系列.md` 的聚合结构：在“逐期整理”表格中新增“观点”列，将原“逐篇观点页”区块中的 19 个 View Page 链接逐期并入对应表格行，并删除独立的“逐篇观点页”列表，降低同一映射关系的重复维护成本。未新增正式页面，因此未更新 `index.md`。
+
+### 后续待办
+
+- 后续新增亏钱认知期数时，直接在“逐期整理”表格同步维护 source、观点、核心命题和风险类型。

@@ -41,6 +41,8 @@ SOURCE_NAMES = {
     "/api/treasury": "treasury",
     "/api/market": "market",
     "/api/margin": "margin",
+    "/api/us-treasury-yield": "us-treasury-yield",
+    "/api/us-dollar-index": "us-dollar-index",
     "/api/stock-quote": "stock-quote",
     "/api/youzhiyouxing-temperature": "youzhiyouxing-temperature",
     "/api/nasdaq100": "nasdaq100",
@@ -1076,6 +1078,68 @@ def fetch_market_margin(query=None, client=None, market_margin_tool=None):
     }
 
 
+def fetch_us_treasury_yield(query=None, client=None, us_treasury_tool=None):
+    from mcp_server import get_us_treasury_yield
+    from tushare_client import TushareClient, TushareClientError
+
+    args = {}
+    query = query or {}
+    allowed = {"date", "start_date", "end_date", "limit", "_"}
+    unknown = {key for key, value in query.items() if key not in allowed and any(str(item).strip() for item in value)}
+    if unknown:
+        raise RouteError("invalid us treasury query")
+    for key in ("date", "start_date", "end_date", "limit"):
+        value = _one(query, key, "")
+        if value:
+            args[key] = value
+    if "date" not in args and not any(key in args for key in ("start_date", "end_date")):
+        today = datetime.now(timezone(timedelta(hours=8))).date()
+        args["start_date"] = (today - timedelta(days=120)).isoformat()
+        args["end_date"] = today.isoformat()
+    try:
+        payload = (us_treasury_tool or get_us_treasury_yield)(
+            client or TushareClient(logger=write_proxy_log),
+            args,
+        )
+    except TushareClientError as error:
+        raise UpstreamError(getattr(error, "source", "tushare-us-tycr")) from error
+    return {
+        **payload,
+        "proxySource": "Tushare us_tycr via tushare-data",
+    }
+
+
+def fetch_us_dollar_index(query=None, client=None, us_dollar_tool=None):
+    from mcp_server import get_us_dollar_index
+    from tushare_client import TushareClient, TushareClientError
+
+    args = {}
+    query = query or {}
+    allowed = {"ts_code", "trade_date", "start_date", "end_date", "limit", "_"}
+    unknown = {key for key, value in query.items() if key not in allowed and any(str(item).strip() for item in value)}
+    if unknown:
+        raise RouteError("invalid us dollar index query")
+    for key in ("ts_code", "trade_date", "start_date", "end_date", "limit"):
+        value = _one(query, key, "")
+        if value:
+            args[key] = value
+    if "trade_date" not in args and not any(key in args for key in ("start_date", "end_date")):
+        today = datetime.now(timezone(timedelta(hours=8))).date()
+        args["start_date"] = (today - timedelta(days=120)).isoformat()
+        args["end_date"] = today.isoformat()
+    try:
+        payload = (us_dollar_tool or get_us_dollar_index)(
+            client or TushareClient(logger=write_proxy_log),
+            args,
+        )
+    except TushareClientError as error:
+        raise UpstreamError(getattr(error, "source", "tushare-fx-daily")) from error
+    return {
+        **payload,
+        "proxySource": "Tushare fx_daily via tushare-data",
+    }
+
+
 def _finite_non_negative_number(value):
     number = float(value)
     if not math.isfinite(number) or number < 0:
@@ -1560,6 +1624,7 @@ def create_server(
     ).resolve()
     file_roots = {
         "/sources/": (vault_root / "sources").resolve(),
+        "/wiki/": (vault_root / "wiki").resolve(),
         "/workbench/": (vault_root / "workbench").resolve(),
     }
     content_types = {
@@ -1744,7 +1809,7 @@ def create_server(
                 return self.send_dashboard()
             if parsed.path == "/api/portfolio":
                 return self.send_portfolio()
-            if parsed.path.startswith("/sources/") or parsed.path.startswith("/workbench/"):
+            if parsed.path.startswith("/sources/") or parsed.path.startswith("/wiki/") or parsed.path.startswith("/workbench/"):
                 return self.send_whitelisted_file(parsed.path)
             if not parsed.path.startswith("/api/"):
                 return self.send_json(404, {"error": "not found"})
@@ -1766,6 +1831,10 @@ def create_server(
                     payload = fetch_market_snapshot(fetcher)
                 elif parsed.path == "/api/margin":
                     payload = fetch_market_margin(query)
+                elif parsed.path == "/api/us-treasury-yield":
+                    payload = fetch_us_treasury_yield(query)
+                elif parsed.path == "/api/us-dollar-index":
+                    payload = fetch_us_dollar_index(query)
                 elif parsed.path == "/api/youzhiyouxing-temperature":
                     payload = fetch_youzhiyouxing_temperature(
                         fetch_upstream_text if fetcher is fetch_upstream else fetcher

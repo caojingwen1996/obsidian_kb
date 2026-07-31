@@ -101,6 +101,20 @@ DATASETS = {
         },
         "date_fields": {"trade_date", "start_date", "end_date"},
     },
+    "us_tycr": {
+        "fields": ("date", "m1", "m2", "m3", "m6", "y1", "y2", "y3", "y5", "y7", "y10", "y20", "y30"),
+        "allowed_params": {"date", "start_date", "end_date", "fields"},
+        "required_params": set(),
+        "defaults": {"fields": "date,y10"},
+        "date_fields": {"date", "start_date", "end_date"},
+    },
+    "fx_daily": {
+        "fields": ("ts_code", "trade_date", "bid_open", "bid_close", "bid_high", "bid_low", "ask_open", "ask_close", "ask_high", "ask_low", "tick_qty"),
+        "allowed_params": {"ts_code", "trade_date", "start_date", "end_date", "fields"},
+        "required_params": {"ts_code"},
+        "defaults": {"ts_code": "USDOLLAR.FXCM", "fields": "ts_code,trade_date,bid_close"},
+        "date_fields": {"trade_date", "start_date", "end_date"},
+    },
     "income": {
         "fields": (
             "ts_code", "ann_date", "f_ann_date", "end_date", "report_type", "comp_type",
@@ -326,6 +340,13 @@ def normalize_index_code(code):
     return text
 
 
+def normalize_fx_code(code):
+    text = str(code or "").strip().upper()
+    if re.fullmatch(r"[A-Z0-9_]{2,24}\.[A-Z0-9_]{2,12}", text):
+        return text
+    raise TushareClientError("tushare-code", "invalid fx code", {"code": code})
+
+
 def _fields_to_text(fields):
     if fields is None:
         return None
@@ -393,10 +414,10 @@ def validate_params(method, params):
     if "fields" in merged:
         merged["fields"] = _fields_to_text(merged["fields"])
     if "ts_code" in merged:
-        merged["ts_code"] = a_share_ts_code(merged["ts_code"])
+        merged["ts_code"] = normalize_fx_code(merged["ts_code"]) if method == "fx_daily" else a_share_ts_code(merged["ts_code"])
     if "index_code" in merged:
         merged["index_code"] = normalize_index_code(merged["index_code"])
-    for key in ("trade_date", "start_date", "end_date"):
+    for key in ("trade_date", "start_date", "end_date", "date"):
         if key in merged and merged[key]:
             merged[key] = tushare_date(merged[key])
     for key in ("ann_date", "period", "record_date", "ex_date", "imp_ann_date"):

@@ -30,6 +30,10 @@ function escapeHtml(value) {
   return String(value).replace(/[&<>"]/g, char => htmlEscapeMap.get(char));
 }
 
+function obsidianOpenPathHref(path) {
+  return `obsidian://open?path=${encodeURIComponent(path)}`;
+}
+
 function titleFromFilename(filename) {
   return filename
     .replace(/\.html$/i, '')
@@ -260,7 +264,8 @@ async function scanTopicPages() {
   const topics = [];
   for (const file of files) {
     if (!file.isFile() || !file.name.endsWith('.md')) continue;
-    const markdown = await readFile(join(topicsDir, file.name), 'utf8');
+    const topicPath = join(topicsDir, file.name);
+    const markdown = await readFile(topicPath, 'utf8');
     const fallbackTitle = file.name.replace(/\.md$/i, '');
     const title = markdownTitle(markdown, fallbackTitle);
     const category = topicCategory(title);
@@ -269,7 +274,7 @@ async function scanTopicPages() {
       title,
       summary: markdownSummary(markdown),
       category,
-      href: `../../wiki/topics/${file.name}`,
+      href: obsidianOpenPathHref(topicPath),
       updated: markdown.match(/^updated:\s*"?([^"\n]+)"?\s*$/mu)?.[1]?.trim() ?? '待更新',
     });
   }

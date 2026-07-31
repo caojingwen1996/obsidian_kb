@@ -8,6 +8,8 @@ sys.path.append(str(SCRIPT_DIR))
 
 from mcp_server import handle
 from mcp_server import get_market_margin
+from mcp_server import get_us_dollar_index
+from mcp_server import get_us_treasury_yield
 from tushare_client import (
     TushareClientError,
     a_share_ts_code,
@@ -55,6 +57,19 @@ class TushareClientTests(unittest.TestCase):
         self.assertEqual(params["trade_date"], "20260729")
         self.assertNotIn("ts_code", params)
 
+    def test_us_treasury_yield_param_validation(self):
+        params = validate_params("us_tycr", {"start_date": "2026-07-01", "fields": ["date", "y10"]})
+        self.assertEqual(params["start_date"], "20260701")
+        self.assertEqual(params["fields"], "date,y10")
+
+    def test_us_dollar_index_param_validation(self):
+        params = validate_params("fx_daily", {"start_date": "2026-07-01"})
+        self.assertEqual(params["ts_code"], "USDOLLAR.FXCM")
+        self.assertEqual(params["start_date"], "20260701")
+        self.assertEqual(params["fields"], "ts_code,trade_date,bid_close")
+        with self.assertRaises(TushareClientError):
+            validate_params("fx_daily", {"ts_code": "600000"})
+
 
 class McpServerTests(unittest.TestCase):
     def test_initialize_response(self):
@@ -71,6 +86,8 @@ class McpServerTests(unittest.TestCase):
             "get_stock_moneyflow",
             "get_margin_detail",
             "get_market_margin",
+            "get_us_treasury_yield",
+            "get_us_dollar_index",
             "get_financial_statements",
             "get_dividend_history",
             "get_index_constituents",
@@ -96,6 +113,38 @@ class McpServerTests(unittest.TestCase):
             "rqmcl": 12.0,
             "rzrqye": 40.0,
         }])
+
+    def test_us_treasury_yield_returns_latest_y10(self):
+        class FakeClient:
+            def call_frame(self, dataset, use_cache=True, **params):
+                assert dataset == "us_tycr"
+                self.params = params
+                return [
+                    {"date": "2026-07-29", "y10": "4.48", "y30": "4.91"},
+                    {"date": "2026-07-30", "y10": 4.51, "y30": "4.93"},
+                    {"date": "2026-07-31", "y10": None},
+                ]
+
+        payload = get_us_treasury_yield(FakeClient(), {"start_date": "2026-07-01", "limit": 1})
+        self.assertEqual(payload["row_count"], 1)
+        self.assertEqual(payload["rows"], [{"date": "2026-07-29", "y10": 4.48}])
+        self.assertEqual(payload["latest"], {"date": "2026-07-30", "y10": 4.51})
+
+    def test_us_dollar_index_returns_latest_close(self):
+        class FakeClient:
+            def call_frame(self, dataset, use_cache=True, **params):
+                assert dataset == "fx_daily"
+                self.params = params
+                return [
+                    {"trade_date": "2026-07-29", "bid_close": "99.8"},
+                    {"trade_date": "2026-07-30", "bid_close": 100.2},
+                    {"trade_date": "2026-07-31", "bid_close": None},
+                ]
+
+        payload = get_us_dollar_index(FakeClient(), {"limit": 1})
+        self.assertEqual(payload["row_count"], 1)
+        self.assertEqual(payload["rows"], [{"trade_date": "2026-07-29", "close": 99.8}])
+        self.assertEqual(payload["latest"], {"trade_date": "2026-07-30", "close": 100.2})
 
 
 if __name__ == "__main__":

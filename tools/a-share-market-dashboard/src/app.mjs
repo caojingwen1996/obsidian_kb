@@ -33,9 +33,9 @@ const PORTFOLIO_STORAGE_KEY = 'a-share-market-dashboard:holdings:v1';
 const FUGUI_STRATEGY_STORAGE_KEY = 'a-share-market-dashboard:fugui-strategy:v1';
 const FUGUI_PANEL_COLLAPSED_STORAGE_KEY = 'a-share-market-dashboard:fugui-panel-collapsed:v1';
 const FUGUI_PROVIDER_STORAGE_KEY = 'a-share-market-dashboard:fugui-provider:v1';
-const MARGIN_BUY_CACHE_STORAGE_KEY = 'a-share-market-dashboard:margin-buy:one-year:v1';
+const MARGIN_BALANCE_CACHE_STORAGE_KEY = 'a-share-market-dashboard:margin-balance:one-year:v1';
 const FEATURED_DELETED_STORAGE_KEY = 'a-share-market-dashboard:featured-deleted:v1';
-const MARGIN_BUY_CACHE_MAX_AGE_MS = 24 * 60 * 60 * 1000;
+const MARGIN_BALANCE_CACHE_MAX_AGE_MS = 24 * 60 * 60 * 1000;
 const FUGUI_STRATEGY_RULES = Object.freeze({
   allowedOwnership: new Set(['央企', '国企']),
   marketCapMinYi: 1000,
@@ -212,6 +212,8 @@ export function deriveDashboard(snapshot, windowYears = 5) {
     layers,
     score,
     margin: domain(snapshot, 'margin'),
+    usTreasury10y: domain(snapshot, 'usTreasury10y'),
+    usDollarIndex: domain(snapshot, 'usDollarIndex'),
     conclusion: conclusionForScore(score.score, score.coverage),
   };
 }
@@ -768,64 +770,169 @@ function renderMarginBalanceCard(envelope) {
     </div>`;
 }
 
-function marketMarginBuyPoints(payload) {
+function marketMarginBalancePoints(payload) {
   const rows = Array.isArray(payload?.summary) ? payload.summary : [];
   return rows.flatMap(row => {
     const rawDate = String(row.trade_date ?? row.tradeDate ?? row.date ?? '');
     const date = /^\d{8}$/.test(rawDate)
       ? `${rawDate.slice(0, 4)}-${rawDate.slice(4, 6)}-${rawDate.slice(6, 8)}`
       : rawDate.slice(0, 10);
-    const value = Number(row.rzmre);
+    const value = Number(row.rzye);
     return date && Number.isFinite(value) ? [{ date, value }] : [];
   }).sort((left, right) => left.date.localeCompare(right.date));
 }
 
-function renderMarginBuyChart(points = []) {
+function renderMarginBalanceChart(points = []) {
   if (!Array.isArray(points) || points.length < 2) {
-    return '<div class="margin-chart-empty">未获取到足够的融资买入额数据。</div>';
+    return '<div class="margin-chart-empty">未获取到足够的融资余额数据。</div>';
   }
   const width = 760;
   const height = 280;
   const pad = { left: 58, right: 22, top: 22, bottom: 42 };
-  const values = points.map(point => point.value / 100_000_000);
+  const values = points.map(point => point.value / 1_000_000_000_000);
   const min = Math.min(...values);
   const max = Math.max(...values);
   const span = max - min || 1;
   const x = index => pad.left + (index / Math.max(1, points.length - 1)) * (width - pad.left - pad.right);
   const y = value => pad.top + (max - value) / span * (height - pad.top - pad.bottom);
   const line = values.map((value, index) => `${index ? 'L' : 'M'}${x(index).toFixed(1)},${y(value).toFixed(1)}`).join(' ');
+  const hoverMarkers = points.map((point, index) => {
+    const cx = x(index);
+    const cy = y(values[index]);
+    const left = index === 0 ? pad.left : (x(index - 1) + cx) / 2;
+    const right = index === points.length - 1 ? width - pad.right : (cx + x(index + 1)) / 2;
+    const tooltipWidth = 150;
+    const tooltipHeight = 46;
+    const tooltipX = clamp(cx + 10, pad.left, width - pad.right - tooltipWidth);
+    const tooltipY = cy - tooltipHeight - 12 < 6 ? cy + 14 : cy - tooltipHeight - 12;
+    const valueTrillion = point.value / 1_000_000_000_000;
+    const label = `${point.date} · 融资余额 ${formatNumber(valueTrillion, 3)} 万亿`;
+    return `<g class="margin-hover-point" tabindex="0" aria-label="${escapeHtml(label)}">
+        <title>${escapeHtml(label)}</title>
+        <rect class="margin-hover-hit" x="${left.toFixed(1)}" y="${pad.top}" width="${Math.max(1, right - left).toFixed(1)}" height="${height - pad.top - pad.bottom}"></rect>
+        <line class="margin-hover-line" x1="${cx.toFixed(1)}" y1="${pad.top}" x2="${cx.toFixed(1)}" y2="${height - pad.bottom}"></line>
+        <circle class="margin-hover-dot" cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="5"></circle>
+        <g class="margin-hover-tooltip" transform="translate(${tooltipX.toFixed(1)} ${tooltipY.toFixed(1)})">
+          <rect width="${tooltipWidth}" height="${tooltipHeight}" rx="7"></rect>
+          <text x="10" y="18">${escapeHtml(point.date)}</text>
+          <text x="10" y="36">融资余额 ${formatNumber(valueTrillion, 3)} 万亿</text>
+        </g>
+      </g>`;
+  }).join('');
   const latest = points.at(-1);
   const previous = points.at(-2);
-  const latestYi = latest.value / 100_000_000;
-  const changeYi = (latest.value - previous.value) / 100_000_000;
+  const latestTrillion = latest.value / 1_000_000_000_000;
+  const changeTrillion = (latest.value - previous.value) / 1_000_000_000_000;
   const grid = [0, 0.5, 1].map(ratio => {
     const yy = pad.top + ratio * (height - pad.top - pad.bottom);
     const label = max - ratio * span;
     return `<line x1="${pad.left}" y1="${yy.toFixed(1)}" x2="${width - pad.right}" y2="${yy.toFixed(1)}"></line>
-      <text x="${pad.left - 8}" y="${(yy + 4).toFixed(1)}" text-anchor="end">${formatNumber(label, 0)}</text>`;
+      <text x="${pad.left - 8}" y="${(yy + 4).toFixed(1)}" text-anchor="end">${formatNumber(label, 2)}</text>`;
   }).join('');
   const firstDate = points[0].date;
   const midDate = points[Math.floor(points.length / 2)].date;
   return `<article class="margin-chart-card">
     <div class="margin-chart-head">
-      <div><p class="eyebrow">ONE YEAR</p><h4>融资买入额折线</h4></div>
+      <div><p class="eyebrow">ONE YEAR</p><h4>融资余额折线</h4></div>
       <span>${escapeHtml(firstDate)} 至 ${escapeHtml(latest.date)}</span>
     </div>
-    <svg class="margin-buy-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="近一年融资买入额折线图">
+    <svg class="margin-buy-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="近一年融资余额折线图">
       <rect x="0" y="0" width="${width}" height="${height}"></rect>
       ${grid}
       <path d="${line}"></path>
-      <circle cx="${x(points.length - 1).toFixed(1)}" cy="${y(latestYi).toFixed(1)}" r="4"></circle>
+      <circle cx="${x(points.length - 1).toFixed(1)}" cy="${y(latestTrillion).toFixed(1)}" r="4"></circle>
+      ${hoverMarkers}
       <text class="x-label" x="${pad.left}" y="${height - 14}" text-anchor="start">${escapeHtml(firstDate)}</text>
       <text class="x-label" x="${width / 2}" y="${height - 14}" text-anchor="middle">${escapeHtml(midDate)}</text>
       <text class="x-label" x="${width - pad.right}" y="${height - 14}" text-anchor="end">${escapeHtml(latest.date)}</text>
     </svg>
     <div class="margin-chart-stats">
-      <div><small>最新融资买入额</small><strong>${formatNumber(latestYi, 0)} 亿</strong><span>${escapeHtml(latest.date)}</span></div>
-      <div><small>较前日变化</small><strong class="${changeYi > 0 ? 'is-up' : changeYi < 0 ? 'is-down' : ''}">${changeYi >= 0 ? '+' : ''}${formatNumber(changeYi, 0)} 亿</strong><span>融资买入额，不等同净买入</span></div>
-      <div><small>样本天数</small><strong>${points.length}</strong><span>来自 Tushare margin 汇总</span></div>
+      <div><small>最新融资余额</small><strong>${formatNumber(latestTrillion, 3)} 万亿</strong><span>${escapeHtml(latest.date)}</span></div>
+      <div><small>较前日变化</small><strong class="${changeTrillion > 0 ? 'is-up' : changeTrillion < 0 ? 'is-down' : ''}">${changeTrillion >= 0 ? '+' : ''}${formatNumber(changeTrillion, 3)} 万亿</strong><span>截至收盘尚未偿还的融资负债变化</span></div>
+      <div><small>指标含义</small><strong>${points.length}</strong><span>截至某个交易日收盘，投资者尚未偿还的融资负债总额。</span></div>
     </div>
   </article>`;
+}
+
+function riskLevelForDashboard(derived) {
+  const usTreasuryLatest = Array.isArray(derived?.usTreasury10y?.data)
+    ? derived.usTreasury10y.data.at(-1)
+    : null;
+  const usTreasuryYield = Number(usTreasuryLatest?.value);
+  const rateRiskHigh = Number.isFinite(usTreasuryYield) && usTreasuryYield > 4.5;
+  const dollarLatest = Array.isArray(derived?.usDollarIndex?.data)
+    ? derived.usDollarIndex.data.at(-1)
+    : null;
+  const dollarIndex = Number(dollarLatest?.value);
+  const dollarRiskHigh = Number.isFinite(dollarIndex) && dollarIndex > 100;
+  const highRisk = rateRiskHigh || dollarRiskHigh;
+  const highRiskMessages = [
+    rateRiskHigh ? `美国10年国债收益率 ${formatNumber(usTreasuryYield, 2)}%，已高于 4.5% 风险线。` : '',
+    dollarRiskHigh ? `美元指数 ${formatNumber(dollarIndex, 2)}，已高于 100 风险线。` : '',
+  ].filter(Boolean);
+  return {
+    label: highRisk ? '高风险' : '暂空',
+    className: highRisk ? 'is-high' : 'is-unknown',
+    riskScore: highRisk ? 80 : null,
+    buyScore: Number(derived?.score?.score),
+    action: highRisk
+      ? highRiskMessages.join(' ')
+      : '风险等级计算暂未接入，当前页面先用于集中观察融资、温度计、美债利率和美元指数信号。',
+    usTreasury10y: {
+      date: usTreasuryLatest?.date ?? null,
+      value: Number.isFinite(usTreasuryYield) ? usTreasuryYield : null,
+      highRisk: rateRiskHigh,
+      status: derived?.usTreasury10y?.status ?? 'missing',
+    },
+    usDollarIndex: {
+      date: dollarLatest?.date ?? null,
+      value: Number.isFinite(dollarIndex) ? dollarIndex : null,
+      highRisk: dollarRiskHigh,
+      status: derived?.usDollarIndex?.status ?? 'missing',
+    },
+  };
+}
+
+function updateRiskMonitor(derived) {
+  const risk = riskLevelForDashboard(derived);
+  const setText = (id, text) => {
+    const node = document.getElementById(id);
+    if (node) node.textContent = text;
+  };
+  const riskLevelNodes = [
+    document.getElementById('risk-level-value'),
+    document.getElementById('risk-screen-level'),
+  ];
+  riskLevelNodes.forEach(node => {
+    if (!node) return;
+    node.textContent = risk.label;
+    node.className = risk.className;
+  });
+  setText('risk-level-detail', Number.isFinite(risk.riskScore)
+    ? `综合风险 ${formatNumber(risk.riskScore, 0)} / 100`
+    : '风险等级计算暂未接入');
+  setText('risk-score-value', Number.isFinite(risk.riskScore) ? formatNumber(risk.riskScore, 0) : '--');
+  setText('risk-buy-score', Number.isFinite(risk.buyScore) ? formatNumber(risk.buyScore, 1) : '--');
+  setText('risk-coverage', `${formatNumber(derived?.score?.coverage, 1)}%`);
+  setText('risk-screen-summary', risk.action);
+  setText('risk-monitor-updated', `统计窗口 ${derived?.windowYears ?? 5} 年 · ${formatTime(derived?.generatedAt)}`);
+  const layers = Object.values(derived?.layers ?? {});
+  const watchList = document.getElementById('risk-watch-list');
+  if (watchList) {
+    const us = risk.usTreasury10y;
+    const dollar = risk.usDollarIndex;
+    const usLabel = Number.isFinite(us.value)
+      ? `${formatNumber(us.value, 2)}% · ${us.highRisk ? '高风险' : '未触发'}`
+      : '等待数据';
+    const dollarLabel = Number.isFinite(dollar.value)
+      ? `${formatNumber(dollar.value, 2)} · ${dollar.highRisk ? '高风险' : '未触发'}`
+      : '等待数据';
+    watchList.innerHTML = [
+      ...layers.map(layer => `<li><span>${escapeHtml(layer.label)}</span><strong>${formatNumber(layer.score, 1)}</strong></li>`),
+      `<li class="${us.highRisk ? 'is-high-risk' : ''}"><span>美债10年</span><strong>${escapeHtml(usLabel)}</strong></li>`,
+      `<li class="${dollar.highRisk ? 'is-high-risk' : ''}"><span>美元指数</span><strong>${escapeHtml(dollarLabel)}</strong></li>`,
+    ].join('');
+  }
 }
 
 function renderEventCalendar(events = EVENT_CALENDAR) {
@@ -896,7 +1003,10 @@ function renderDerived(derived, officialTemperature = { status: 'loading' }, nas
   byId('dividend-signal-card').innerHTML = renderDividendSignalCard(CSI_DIVIDEND_SIGNAL);
   byId('dividend-signal-detail').innerHTML = renderDividendSignalDetail(CSI_DIVIDEND_SIGNAL);
   byId('nasdaq100-card').innerHTML = renderNasdaq100Card(nasdaq100);
-  byId('margin-balance-card').innerHTML = renderMarginBalanceCard(derived.margin);
+  if (byId('margin-balance-card')) {
+    byId('margin-balance-card').innerHTML = renderMarginBalanceCard(derived.margin);
+  }
+  updateRiskMonitor(derived);
   renderEventCalendar();
 
   byId('metric-list').innerHTML = derived.metrics.map(metric => {
@@ -1365,62 +1475,84 @@ function startApp() {
     document.getElementById('margin-balance-modal').hidden = true;
   };
 
-  const openMarginBalanceModal = async () => {
-    const modal = document.getElementById('margin-balance-modal');
-    const status = document.getElementById('margin-balance-modal-status');
-    const body = document.getElementById('margin-balance-modal-body');
-    modal.hidden = false;
-    body.innerHTML = '<div class="margin-chart-empty">正在读取最近一年融资买入额。</div>';
-    if (!isLocalProxyLocation()) {
-      status.textContent = '请通过“启动面板.cmd”打开面板后查看融资买入额。';
-      body.innerHTML = '<div class="margin-chart-empty">本地代理未连接，无法读取 Tushare 融资数据。</div>';
-      return;
-    }
+  const loadMarginBuyPoints = async () => {
     const end = new Date();
     const start = new Date(end);
     start.setFullYear(start.getFullYear() - 1);
     const startDate = start.toISOString().slice(0, 10);
     const endDate = end.toISOString().slice(0, 10);
     try {
-      const cached = JSON.parse(storage.getItem(MARGIN_BUY_CACHE_STORAGE_KEY) ?? 'null');
+      const cached = JSON.parse(storage.getItem(MARGIN_BALANCE_CACHE_STORAGE_KEY) ?? 'null');
       if (
         cached?.startDate === startDate
         && cached?.endDate === endDate
         && Array.isArray(cached.points)
-        && Date.now() - Number(cached.savedAt) < MARGIN_BUY_CACHE_MAX_AGE_MS
+        && Date.now() - Number(cached.savedAt) < MARGIN_BALANCE_CACHE_MAX_AGE_MS
       ) {
-        body.innerHTML = renderMarginBuyChart(cached.points);
-        status.textContent = `已使用缓存：${cached.points.length} 个交易日；口径为 Tushare margin 的 rzmre（融资买入额）。`;
-        return;
+        return { points: cached.points, startDate, endDate, cached: true };
       }
     } catch {
-      storage.removeItem(MARGIN_BUY_CACHE_STORAGE_KEY);
+      storage.removeItem(MARGIN_BALANCE_CACHE_STORAGE_KEY);
     }
-    status.textContent = `正在读取 ${startDate} 至 ${endDate} 的融资买入额。`;
+    const payload = await fetchJson(
+      buildLocalProxyUrl('/api/margin', { start_date: startDate, end_date: endDate }),
+      requestTimeout(),
+    );
+    const points = marketMarginBalancePoints(payload);
+    if (points.length) {
+      storage.setItem(MARGIN_BALANCE_CACHE_STORAGE_KEY, JSON.stringify({
+        startDate,
+        endDate,
+        savedAt: Date.now(),
+        points,
+      }));
+    }
+    return { points, startDate, endDate, cached: false };
+  };
+
+  const refreshRiskMarginChart = async () => {
+    const chart = document.getElementById('risk-margin-chart');
+    if (!chart) return;
+    chart.innerHTML = '<div class="margin-chart-empty">正在读取近一年融资余额。</div>';
+    if (!isLocalProxyLocation()) {
+      chart.innerHTML = '<div class="margin-chart-empty">请通过“启动面板.cmd”打开面板后查看融资余额。</div>';
+      return;
+    }
     try {
-      const payload = await fetchJson(
-        buildLocalProxyUrl('/api/margin', { start_date: startDate, end_date: endDate }),
-        requestTimeout(),
-      );
-      const points = marketMarginBuyPoints(payload);
-      if (points.length) {
-        storage.setItem(MARGIN_BUY_CACHE_STORAGE_KEY, JSON.stringify({
-          startDate,
-          endDate,
-          savedAt: Date.now(),
-          points,
-        }));
-      }
-      body.innerHTML = renderMarginBuyChart(points);
+      const { points } = await loadMarginBuyPoints();
+      chart.innerHTML = renderMarginBalanceChart(points);
+    } catch {
+      chart.innerHTML = '<div class="margin-chart-empty">融资余额读取失败，请检查 Tushare token 或稍后重试。</div>';
+    }
+  };
+
+  const openMarginBalanceModal = async () => {
+    const modal = document.getElementById('margin-balance-modal');
+    const status = document.getElementById('margin-balance-modal-status');
+    const body = document.getElementById('margin-balance-modal-body');
+    modal.hidden = false;
+    body.innerHTML = '<div class="margin-chart-empty">正在读取最近一年融资余额。</div>';
+    if (!isLocalProxyLocation()) {
+      status.textContent = '请通过“启动面板.cmd”打开面板后查看融资余额。';
+      body.innerHTML = '<div class="margin-chart-empty">本地代理未连接，无法读取 Tushare 融资数据。</div>';
+      return;
+    }
+    try {
+      const rangeEnd = new Date().toISOString().slice(0, 10);
+      const rangeStart = new Date();
+      rangeStart.setFullYear(rangeStart.getFullYear() - 1);
+      status.textContent = `正在读取 ${rangeStart.toISOString().slice(0, 10)} 至 ${rangeEnd} 的融资余额。`;
+      const { points, cached } = await loadMarginBuyPoints();
+      body.innerHTML = renderMarginBalanceChart(points);
       status.textContent = points.length
-        ? `已读取 ${points.length} 个交易日；口径为 Tushare margin 的 rzmre（融资买入额）。`
-        : '未获取到最近一年融资买入额。';
+        ? `${cached ? '已使用缓存' : '已读取'} ${points.length} 个交易日；口径为 Tushare margin 的 rzye（融资余额）。`
+        : '未获取到最近一年融资余额。';
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       const staleProxy = /HTTP 400/.test(message);
       status.textContent = staleProxy
-        ? '融资买入额读取失败：本地面板服务版本过旧，请关闭旧面板后重新双击“启动面板.cmd”。'
-        : `融资买入额读取失败：${message}。`;
+        ? '融资余额读取失败：本地面板服务版本过旧，请关闭旧面板后重新双击“启动面板.cmd”。'
+        : `融资余额读取失败：${message}。`;
       body.innerHTML = staleProxy
         ? '<div class="margin-chart-empty">当前代理仍按旧参数处理 /api/margin。重启面板服务后会切换到 Tushare 近一年数据接口。</div>'
         : '<div class="margin-chart-empty">读取失败，请检查 Tushare token 或稍后重试。</div>';
@@ -2025,6 +2157,7 @@ function startApp() {
     });
     document.querySelectorAll('.view').forEach(view => view.classList.toggle('is-active', view.id === viewId));
     pageTitle.textContent = labelForView(button) || pageTitle.textContent;
+    if (viewId === 'risk-monitor') refreshRiskMarginChart();
   };
 
   const setShell = (shell, viewId = null) => {
@@ -2135,6 +2268,15 @@ function startApp() {
   }));
   document.getElementById('open-featured-digest')?.addEventListener('click', () => {
     setShell('thermometer', 'featured-digest');
+  });
+  document.getElementById('risk-monitor-card')?.addEventListener('click', () => {
+    setShell('thermometer', 'risk-monitor');
+  });
+  document.getElementById('risk-monitor-card')?.addEventListener('keydown', event => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      setShell('thermometer', 'risk-monitor');
+    }
   });
   document.getElementById('dividend-signal-card')?.addEventListener('click', event => {
     if (event.target.closest('[data-open-dividend-signal]')) setShell('thermometer', 'dividend-signal-view');

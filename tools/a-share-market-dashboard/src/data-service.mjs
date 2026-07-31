@@ -9,6 +9,8 @@ import {
   loadMarginHistory,
   loadMarketSnapshot,
   loadTreasuryHistory,
+  loadUsDollarIndexHistory,
+  loadUsTreasury10yHistory,
   parseTreasuryYield,
 } from './adapters.mjs';
 
@@ -144,6 +146,14 @@ export function createExampleSnapshot() {
     date,
     value: Number((2.55 - index * 0.00055 + Math.sin(index / 97) * 0.22).toFixed(4)),
   }));
+  const usTreasury10y = valuationDates.map((date, index) => ({
+    date,
+    value: Number((4.22 + Math.sin(index / 67) * 0.22 + Math.sin(index / 197) * 0.14).toFixed(4)),
+  }));
+  const usDollarIndex = valuationDates.map((date, index) => ({
+    date,
+    value: Number((98.8 + Math.sin(index / 71) * 1.9 + Math.sin(index / 191) * 0.9).toFixed(4)),
+  }));
   const turnover = valuationDates.map((date, index) => ({
     date,
     value: Math.round(720_000_000_000 + Math.sin(index / 31) * 180_000_000_000 + index * 115_000_000),
@@ -168,6 +178,8 @@ export function createExampleSnapshot() {
       csi300Stats: exampleEnvelope(csi300Stats),
       forwardPe: exampleEnvelope(forwardPeHistory.map((value, index) => ({ date: valuationDates[index], value }))),
       treasury: exampleEnvelope(treasury),
+      usTreasury10y: exampleEnvelope(usTreasury10y),
+      usDollarIndex: exampleEnvelope(usDollarIndex),
       turnoverHistory: exampleEnvelope(turnover),
       margin: exampleEnvelope(margin),
       market: exampleEnvelope({
@@ -257,6 +269,22 @@ export function createDefaultDomainDefinitions(nowDate = new Date(), location = 
           { name: `${SOURCES.eastmoneyTreasury.name} Fetch`, load: async () => parseTreasuryYield(await fetchJson(buildTreasuryUrl())), dataAt: lastPointTime },
         ],
       validate: data => Array.isArray(data) && data.length >= 20,
+      maxAgeMs: 72 * 60 * 60 * 1000,
+    },
+    {
+      id: 'usTreasury10y',
+      providers: localProxy
+        ? [{ name: sourceName(SOURCES.tushareUsTreasury.name), load: loadUsTreasury10yHistory, dataAt: lastPointTime }]
+        : [],
+      validate: data => Array.isArray(data) && data.length >= 1,
+      maxAgeMs: 72 * 60 * 60 * 1000,
+    },
+    {
+      id: 'usDollarIndex',
+      providers: localProxy
+        ? [{ name: sourceName(SOURCES.tushareUsDollarIndex.name), load: loadUsDollarIndexHistory, dataAt: lastPointTime }]
+        : [],
+      validate: data => Array.isArray(data) && data.length >= 1,
       maxAgeMs: 72 * 60 * 60 * 1000,
     },
     {

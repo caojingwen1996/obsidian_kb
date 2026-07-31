@@ -8,7 +8,7 @@ from tushare_client import DATASETS, TushareClient, TushareClientError, tushare_
 
 
 SERVER_NAME = "tushare-data"
-SERVER_VERSION = "0.3.0"
+SERVER_VERSION = "0.4.0"
 
 
 def stderr_logger(event, **fields):
@@ -136,6 +136,35 @@ def tools():
                     "end_date": {"type": "string", "description": "YYYYMMDD 或 YYYY-MM-DD。"},
                     "exchange_id": {"type": "string", "description": "可选，交易所代码，例如 SSE 或 SZSE。"},
                     **common_query_props(DATASETS["margin"]["fields"]),
+                },
+                "additionalProperties": False,
+            },
+        },
+        {
+            "name": "get_us_treasury_yield",
+            "description": "获取美国每日国债收益率曲线，默认返回10年期 y10，用于观察美债利率风险。",
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "date": {"type": "string", "description": "YYYYMMDD 或 YYYY-MM-DD。"},
+                    "start_date": {"type": "string", "description": "YYYYMMDD 或 YYYY-MM-DD。"},
+                    "end_date": {"type": "string", "description": "YYYYMMDD 或 YYYY-MM-DD。"},
+                    **common_query_props(DATASETS["us_tycr"]["fields"]),
+                },
+                "additionalProperties": False,
+            },
+        },
+        {
+            "name": "get_us_dollar_index",
+            "description": "获取美元指数日线，默认 USDOLLAR.FXCM，用于观察美元走强风险。",
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "ts_code": {"type": "string", "default": "USDOLLAR.FXCM", "description": "外汇代码，默认 USDOLLAR.FXCM。"},
+                    "trade_date": {"type": "string", "description": "YYYYMMDD 或 YYYY-MM-DD。"},
+                    "start_date": {"type": "string", "description": "YYYYMMDD 或 YYYY-MM-DD。"},
+                    "end_date": {"type": "string", "description": "YYYYMMDD 或 YYYY-MM-DD。"},
+                    **common_query_props(DATASETS["fx_daily"]["fields"]),
                 },
                 "additionalProperties": False,
             },
@@ -291,6 +320,45 @@ def get_market_margin(client, arguments):
     return {"rows": visible_rows, "row_count": len(visible_rows), "summary": summaries}
 
 
+def get_us_treasury_yield(client, arguments):
+    args, use_cache, limit = pop_common(arguments)
+    args.setdefault("fields", "date,y10")
+    rows = client.call_frame("us_tycr", use_cache=use_cache, **args)
+    normalized = []
+    for row in rows:
+        date = row.get("date")
+        try:
+            y10 = float(row.get("y10"))
+        except (TypeError, ValueError):
+            continue
+        if date:
+            normalized.append({"date": date, "y10": y10})
+    normalized.sort(key=lambda row: row["date"])
+    latest = normalized[-1] if normalized else None
+    visible_rows = apply_limit(normalized, limit)
+    return {"rows": visible_rows, "row_count": len(visible_rows), "latest": latest}
+
+
+def get_us_dollar_index(client, arguments):
+    args, use_cache, limit = pop_common(arguments)
+    args.setdefault("ts_code", "USDOLLAR.FXCM")
+    args.setdefault("fields", "ts_code,trade_date,bid_close")
+    rows = client.call_frame("fx_daily", use_cache=use_cache, **args)
+    normalized = []
+    for row in rows:
+        trade_date = row.get("trade_date")
+        try:
+            close = float(row.get("bid_close") or row.get("close") or row.get("ask_close"))
+        except (TypeError, ValueError):
+            continue
+        if trade_date:
+            normalized.append({"trade_date": trade_date, "close": close})
+    normalized.sort(key=lambda row: row["trade_date"])
+    latest = normalized[-1] if normalized else None
+    visible_rows = apply_limit(normalized, limit)
+    return {"rows": visible_rows, "row_count": len(visible_rows), "latest": latest}
+
+
 def call_tool(name, arguments):
     arguments = arguments or {}
     client = TushareClient(logger=stderr_logger)
@@ -315,6 +383,10 @@ def call_tool(name, arguments):
         return {"dataset": "margin_detail", "rows": rows, "row_count": len(rows)}
     if name == "get_market_margin":
         return {"dataset": "margin", **get_market_margin(client, arguments)}
+    if name == "get_us_treasury_yield":
+        return {"dataset": "us_tycr", "tenor": "y10", **get_us_treasury_yield(client, arguments)}
+    if name == "get_us_dollar_index":
+        return {"dataset": "fx_daily", "symbol": "USDOLLAR.FXCM", **get_us_dollar_index(client, arguments)}
     if name == "get_financial_statements":
         statements = get_financial_statements(client, arguments)
         return {"dataset": "financial_statements", "statements": statements}
