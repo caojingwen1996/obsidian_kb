@@ -7,6 +7,7 @@ SCRIPT_DIR = Path(__file__).resolve().parents[1] / "scripts"
 sys.path.append(str(SCRIPT_DIR))
 
 from mcp_server import handle
+from mcp_server import get_market_margin
 from tushare_client import (
     TushareClientError,
     a_share_ts_code,
@@ -49,6 +50,11 @@ class TushareClientTests(unittest.TestCase):
         self.assertEqual(params["ts_code"], "000001.SZ")
         self.assertEqual(params["trade_date"], "20260729")
 
+    def test_market_margin_param_validation_without_code(self):
+        params = validate_params("margin", {"trade_date": "2026-07-29"})
+        self.assertEqual(params["trade_date"], "20260729")
+        self.assertNotIn("ts_code", params)
+
 
 class McpServerTests(unittest.TestCase):
     def test_initialize_response(self):
@@ -64,10 +70,32 @@ class McpServerTests(unittest.TestCase):
             "get_stock_valuation",
             "get_stock_moneyflow",
             "get_margin_detail",
+            "get_market_margin",
             "get_financial_statements",
             "get_dividend_history",
             "get_index_constituents",
         ])
+
+    def test_market_margin_summary_uses_full_rows_when_limited(self):
+        class FakeClient:
+            def call_frame(self, dataset, use_cache=True, **params):
+                assert dataset == "margin"
+                return [
+                    {"trade_date": "2026-07-29", "exchange_id": "SSE", "rzye": 10, "rzmre": 2, "rzche": 1, "rqye": 3, "rqmcl": 4, "rzrqye": 13},
+                    {"trade_date": "2026-07-29", "exchange_id": "SZSE", "rzye": "20", "rzmre": 5, "rzche": 6, "rqye": 7, "rqmcl": 8, "rzrqye": 27},
+                ]
+
+        payload = get_market_margin(FakeClient(), {"trade_date": "2026-07-29", "limit": 1})
+        self.assertEqual(payload["row_count"], 1)
+        self.assertEqual(payload["summary"], [{
+            "trade_date": "2026-07-29",
+            "rzye": 30.0,
+            "rzmre": 7.0,
+            "rzche": 7.0,
+            "rqye": 10.0,
+            "rqmcl": 12.0,
+            "rzrqye": 40.0,
+        }])
 
 
 if __name__ == "__main__":

@@ -43,6 +43,16 @@ function errorMessage(provider, error) {
   return `${provider}: ${error instanceof Error ? error.message : String(error)}`;
 }
 
+function withTimeout(promise, timeoutMs, label) {
+  const timeout = Number(timeoutMs);
+  if (!Number.isFinite(timeout) || timeout <= 0) return promise;
+  let timer;
+  const timeoutPromise = new Promise((_, reject) => {
+    timer = setTimeout(() => reject(new Error(`${label} timed out after ${timeout}ms`)), timeout);
+  });
+  return Promise.race([promise, timeoutPromise]).finally(() => clearTimeout(timer));
+}
+
 export async function loadDomain({
   id,
   providers = [],
@@ -50,11 +60,13 @@ export async function loadDomain({
   storage = globalThis.localStorage,
   now = Date.now,
   maxAgeMs = 24 * 60 * 60 * 1000,
+  providerTimeoutMs = 65_000,
 }) {
   const errors = [];
   for (const provider of providers) {
     try {
-      const data = await provider.load();
+      const loadPromise = Promise.resolve().then(() => provider.load());
+      const data = await withTimeout(loadPromise, provider.timeoutMs ?? providerTimeoutMs, provider.name);
       if (!validate(data)) throw new Error('validation failed');
       const fetchedAt = now();
       const dataAt = provider.dataAt?.(data) ?? fetchedAt;
@@ -258,7 +270,7 @@ export function createDefaultDomainDefinitions(nowDate = new Date(), location = 
     },
     {
       id: 'margin',
-      providers: [{ name: sourceName(SOURCES.jin10Margin.name), load: loadMarginHistory, dataAt: lastPointTime }],
+      providers: [{ name: sourceName(SOURCES.tushareMargin.name), load: loadMarginHistory, dataAt: lastPointTime }],
       validate: data => Array.isArray(data) && data.length >= 20,
       maxAgeMs: 72 * 60 * 60 * 1000,
     },

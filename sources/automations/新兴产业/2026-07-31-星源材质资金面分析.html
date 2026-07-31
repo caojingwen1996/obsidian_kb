@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>星源材质资金面分析</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17202a;
+      --muted: #5b6673;
+      --line: #d8dee6;
+      --soft: #f4f7fb;
+      --accent: #1d6fb8;
+      --warn: #b45309;
+      --bad: #b42318;
+      --good: #067647;
+    }
+    body { margin: 0; font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif; color: var(--ink); background: #ffffff; line-height: 1.65; }
+    header { padding: 34px 40px 24px; background: linear-gradient(135deg, #0f2f57, #1d6fb8); color: #fff; }
+    header h1 { margin: 0 0 12px; font-size: 30px; letter-spacing: 0; }
+    header p { margin: 4px 0; color: rgba(255,255,255,.88); }
+    main { max-width: 1180px; margin: 0 auto; padding: 28px 28px 64px; }
+    h2 { margin-top: 34px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 22px; }
+    h3 { margin-top: 24px; font-size: 18px; }
+    table { width: 100%; border-collapse: collapse; margin: 14px 0 22px; font-size: 14px; }
+    th, td { border: 1px solid var(--line); padding: 9px 10px; vertical-align: top; }
+    th { background: var(--soft); text-align: left; }
+    .cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 22px; }
+    .card { border: 1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.12); padding: 14px; border-radius: 8px; }
+    .card b { display: block; font-size: 13px; opacity: .82; }
+    .card span { display: block; margin-top: 6px; font-size: 20px; font-weight: 700; }
+    .tag { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 700; }
+    .tag.bad { background: #fee4e2; color: var(--bad); }
+    .tag.warn { background: #fef0c7; color: var(--warn); }
+    .tag.good { background: #dcfae6; color: var(--good); }
+    .note { color: var(--muted); font-size: 14px; }
+    .summary { background: #f8fafc; border-left: 4px solid var(--accent); padding: 12px 14px; margin: 14px 0 20px; }
+    code { background: #f1f5f9; padding: 1px 5px; border-radius: 4px; }
+    @media (max-width: 860px) { header { padding: 26px 20px; } main { padding: 18px; } .cards { grid-template-columns: 1fr 1fr; } table { font-size: 13px; } }
+    @media (max-width: 560px) { .cards { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>星源材质资金面分析</h1>
+    <p>对象层级：个股 | 所属市场：深交所创业板 | 证券代码：300568.SZ</p>
+    <p>分析截止时间：2026-07-31 10:39（Asia/Shanghai） | 最新可得交易日：2026-07-30</p>
+    <p>比较窗口：最新交易日 / 近 5 个交易日 / 近 20 个交易日</p>
+    <div class="cards">
+      <div class="card"><b>资金状态</b><span>结构性流出</span></div>
+      <div class="card"><b>新增资金动作</b><span>observe</span></div>
+      <div class="card"><b>已有持仓动作</b><span>review</span></div>
+      <div class="card"><b>总体置信度</b><span>中</span></div>
+    </div>
+  </header>
+  <main>
+    <h2 id="section-1">1. 核心结论与行动</h2>
+    <div class="summary">
+      星源材质的资金面不是共振流入，而是“近 20 日主趋势流出、近 5 日短线修复”的结构。最新交易日和近 5 日有大额订单代理与融资净买入修复，但近 20 日价格下跌 34.5%，大额订单代理净流出约 4.33 亿元，融资净买入约 -1.38 亿元，仍不能把短线反弹升级为稳定买点。
+    </div>
+    <ul>
+      <li>资金状态：<span class="tag bad">结构性流出</span></li>
+      <li>主导资金：近 20 日大额订单代理与融资资金共同偏流出；最新 5 日为短线修复。</li>
+      <li>主要分歧或拖累：F5 和 F3 近 5 日转正，但 20 日趋势、价格响应、估值位置仍是拖累。</li>
+      <li>新增资金：observe；条件化仓位 0%，等待 20 日窗口转正或价格回到 9-10 元安全边际。</li>
+      <li>已有持仓：review；没有用户成本和仓位，不假设卖出或加仓。高成本仓遇反弹应复核风险暴露。</li>
+      <li>总体置信度：中。Tushare 的 F3/F5、行情、估值、财务和分红已获取；北向、ETF、龙虎榜、产业资本、解禁和质押未获取到。</li>
+    </ul>
+
+    <h2 id="section-2">2. 资金来源全景</h2>
+    <h3>有效资金来源</h3>
+    <table>
+      <tr><th>资金来源</th><th>当前方向</th><th>观察窗口</th><th>核心证据</th><th>对资金状态的影响</th><th>持续性</th><th>退出或反转条件</th></tr>
+      <tr><td>杠杆资金 / 融资融券</td><td>短线流入，中期流出</td><td>最新日 / 5 日 / 20 日</td><td>最新日融资净买入 0.59 亿元；近 5 日净买入 0.60 亿元；近 20 日净买入 -1.38 亿元，融资余额下降 0.75 亿元。</td><td>中期拖累，短期修复反证</td><td>低到中</td><td>融资余额连续企稳，近 20 日融资净买入转正。</td></tr>
+      <tr><td>订单流 / 资金分档代理</td><td>短线流入，中期流出</td><td>最新日 / 5 日 / 20 日</td><td>最新日净流入 4720 万元；近 5 日净流入 1.05 亿元；近 20 日净流出 5.80 亿元。大额+特大额近 20 日净流出 4.33 亿元。</td><td>主导资金状态</td><td>中</td><td>大额订单近 20 日转正且价格站稳 15 元。</td></tr>
+      <tr><td>小额订单代理</td><td>中期流入，短期流出</td><td>5 日 / 20 日</td><td>近 20 日小单净流入 0.92 亿元，近 5 日小单净流出 1.85 亿元。</td><td>说明承接结构变化，但不能确认散户身份</td><td>待验证</td><td>小单与大额订单同向流入或同向流出。</td></tr>
+      <tr><td>基本面承接资金</td><td>证据不足</td><td>2025 年报 / 2026Q1</td><td>2026Q1 毛利率边际修复，但 PE TTM 1034.56、PB 2.01，分红收益很低。</td><td>不能证明长期资金买入</td><td>低</td><td>半年报确认利润和现金流修复。</td></tr>
+    </table>
+    <h3>关键缺口摘要</h3>
+    <table>
+      <tr><th>缺口</th><th>为什么重要</th><th>是否影响主结论</th><th>后续验证点</th></tr>
+      <tr><td>北向 / 跨境资金</td><td>可验证外部配置是否参与承接。</td><td>中</td><td>陆股通持股和深股通成交。</td></tr>
+      <tr><td>ETF 份额与申赎</td><td>可验证新能源材料主题是否有产品资金流入。</td><td>中</td><td>相关 ETF 份额、权重和成分股交易映射。</td></tr>
+      <tr><td>龙虎榜 / 大宗交易</td><td>可提供局部席位和协议转让身份锚点。</td><td>中</td><td>交易所龙虎榜、大宗交易公告。</td></tr>
+      <tr><td>回购 / 增减持 / 解禁 / 质押</td><td>决定产业资本态度和潜在筹码供给。</td><td>中</td><td>巨潮公告、交易所披露。</td></tr>
+    </table>
+    <h3>流入机制</h3>
+    <table>
+      <tr><th>机制</th><th>是否存在</th><th>证据</th><th>边界与下一验证点</th></tr>
+      <tr><td>场外真实增量</td><td>证据不足</td><td>未取得 ETF、北向、基金或长期资金增量数据。</td><td>不能把单日大额订单净买写成场外增量。</td></tr>
+      <tr><td>存量迁移</td><td>证据不足</td><td>近 5 日价格反弹和订单流转正，但未找到明确流出端。</td><td>需要板块和同业相对强弱。</td></tr>
+      <tr><td>减量报团</td><td>可能存在但未确认</td><td>20 日大跌后短线反弹，成交和换手仍高。</td><td>若只有少数新能源材料标的反弹且广度差，才可确认。</td></tr>
+    </table>
+
+    <h2 id="section-3">3. F3/F5/F7 日频面板</h2>
+    <table>
+      <tr><th>指标</th><th>定义</th><th>当日</th><th>近5日</th><th>近20日</th><th>方向与持续性</th><th>价格响应</th><th>数据质量与代理边界</th></tr>
+      <tr><td>F3</td><td>融资净买入 = 融资买入额 - 融资偿还额</td><td>+0.59 亿元</td><td>+0.60 亿元；融资余额 +0.50 亿元</td><td>-1.38 亿元；融资余额 -0.75 亿元</td><td>短线修复，中期仍弱</td><td>近 5 日价格 +8.80%，近 20 日 -34.50%</td><td>来自 Tushare `get_margin_detail`，row_count 43；融资买入会进入订单流，不能与 F5 机械相加。</td></tr>
+      <tr><td>F5</td><td>大额订单代理；本报告用大单+特大单净额观察</td><td>+0.45 亿元；全口径资金 +0.47 亿元</td><td>+1.54 亿元；全口径资金 +1.05 亿元</td><td>-4.33 亿元；全口径资金 -5.80 亿元</td><td>短线大额回补，中期仍是撤退</td><td>最新日上涨 2.26%，近 5 日反弹，但未修复 20 日跌幅</td><td>来自 Tushare `get_stock_moneyflow`，订单规模代理，不确认机构身份。</td></tr>
+      <tr><td>F7</td><td>ETF 估算净申赎</td><td>未获取到</td><td>未获取到</td><td>未获取到</td><td>证据不足</td><td>无法验证 ETF 产品资金是否承接</td><td>MCP 未覆盖；需基金份额和权重映射，不能用成交额替代。</td></tr>
+    </table>
+    <h3>指标关系审计</h3>
+    <ul>
+      <li>可能重叠：融资买入会进入订单流，F3 买入额与 F5 订单分档可能重叠。</li>
+      <li>不可直接比较：F3 单位为人民币融资交易，F5 为订单规模统计代理，F7 是基金份额估算。</li>
+      <li>是否发生机械求和：否。本报告只比较方向、窗口和价格响应，不把 F3、F5、F7 金额相加。</li>
+    </ul>
+
+    <h2 id="section-4">4. 交易方画像与数据层独立性</h2>
+    <h3>4.1 标的类型声明</h3>
+    <p>星源材质是深交所创业板 A 股个股，属于两融标的，近 20 日换手高、波动大。融资融券能直接观察杠杆资金余额和流量；资金分档只能观察订单规模方向，不能穿透账户身份。国家队、北向、QFII、产业资本和 ETF 资金本次未取得直接证据。</p>
+    <h3>4.2 一句话交易方画像</h3>
+    <p>近 20 日主卖方是大额订单代理和融资杠杆资金，近 5 日出现大额订单代理和融资资金的短线回补；小额订单代理在 20 日窗口偏承接，但账户身份不可穿透，不能直接写成散户接盘。</p>
+    <h3>4.3 交易方画像表</h3>
+    <table>
+      <tr><th>买方类型</th><th>方向</th><th>强度</th><th>确认数据源</th><th>源独立性</th><th>数据质量</th><th>身份边界</th></tr>
+      <tr><td>G 国家队 / 政策性资金</td><td>不可知</td><td>不可知</td><td>未获取到</td><td>无法判断</td><td>不可知</td><td>ETF 或指数承接不能自动确认为国家队。</td></tr>
+      <tr><td>I 内资机构</td><td>弱推断为中期净卖、短线净买</td><td>中</td><td>大额订单代理</td><td>部分独立</td><td>弱推断</td><td>大额订单不等于机构账户。</td></tr>
+      <tr><td>N 北向 / 跨境资金</td><td>不可知</td><td>不可知</td><td>未获取到</td><td>无法判断</td><td>不可知</td><td>不能用全市场北向替代个股方向。</td></tr>
+      <tr><td>H 游资 / 量化 / 短线资金</td><td>短线活跃</td><td>中</td><td>高换手、高波动、近 5 日订单转正</td><td>无法判断</td><td>弱推断</td><td>高换手不等于游资或量化真实账户。</td></tr>
+      <tr><td>M 融资等杠杆资金</td><td>短线净买，中期净卖</td><td>中</td><td>`get_margin_detail`</td><td>部分独立</td><td>直接测量</td><td>融资余额可锚定杠杆账户，融资买入金额与订单流重叠。</td></tr>
+      <tr><td>C 产业资本 / 公司 / 内部人</td><td>不可知</td><td>不可知</td><td>未获取到</td><td>独立但缺失</td><td>不可知</td><td>未获取到不代表无增减持。</td></tr>
+      <tr><td>R 个人 / 小额订单代理</td><td>20 日承接、5 日净卖</td><td>弱</td><td>小单净额</td><td>部分独立</td><td>弱推断</td><td>小单不等于全部散户。</td></tr>
+      <tr><td>Q QFII 等境外机构</td><td>不可知</td><td>不可知</td><td>未获取到</td><td>无法判断</td><td>不可知</td><td>需要法定披露或可识别席位。</td></tr>
+    </table>
+    <ul>
+      <li>主卖方：近 20 日大额订单代理净流出 4.33 亿元，融资净买入 -1.38 亿元。</li>
+      <li>主买方：近 5 日大额订单代理净流入 1.54 亿元，融资净买入 0.60 亿元，属于短线修复。</li>
+      <li>主要承接方：统计代理层面为近 20 日小单和中单承接，账户身份不可知。</li>
+      <li>无法确认的主体：国家队、北向、QFII、产业资本、ETF 产品资金。</li>
+    </ul>
+    <h3>4.4 核心结论</h3>
+    <p>当前交易方结构是“短线回补对抗中期退潮”。如果只看最新日或近 5 日，会误判为资金转强；把 20 日窗口放进来，大额订单和融资都仍显示中期流出。因此资金状态只能写结构性流出，不能写共振流入。</p>
+    <h3>4.5 交易方结构特征</h3>
+    <ul>
+      <li>主买方：近 5 日大额订单代理和融资资金，证据层为统计代理 + 直接测量。</li>
+      <li>主卖方：近 20 日大额订单代理和融资资金，持续性更长。</li>
+      <li>次要买卖方：小额订单代理 20 日净流入、近 5 日净流出，说明承接结构在变化。</li>
+      <li>多空分歧：F3/F5 近 5 日与近 20 日方向相反。</li>
+      <li>异常信号：近 20 日跌幅 34.5%，高换手仍未带来中期修复。</li>
+      <li>不可知主体：G / N / Q / C / ETF，缺少直接身份数据。</li>
+    </ul>
+    <h3>4.6 证据详情</h3>
+    <h4>可用数据层</h4>
+    <table>
+      <tr><th>层级</th><th>数据层</th><th>状态</th><th>独立性</th><th>关键结果</th><th>可支持结论</th><th>不能推出</th></tr>
+      <tr><td>L0</td><td>资金分档 / 订单流</td><td>可用</td><td>部分独立</td><td>20 日全口径净流出 5.80 亿元</td><td>金额方向偏流出</td><td>账户身份</td></tr>
+      <tr><td>L1</td><td>北向 / 跨境资金</td><td>不可用</td><td>无法判断</td><td>未获取到</td><td>无</td><td>外资方向</td></tr>
+      <tr><td>L2</td><td>融资融券</td><td>可用</td><td>部分独立</td><td>20 日融资净买入 -1.38 亿元</td><td>杠杆资金中期撤退</td><td>不等于全市场卖方</td></tr>
+      <tr><td>L3</td><td>大宗交易</td><td>不可用</td><td>无法判断</td><td>未获取到</td><td>无</td><td>协议转让方向</td></tr>
+      <tr><td>L4</td><td>龙虎榜</td><td>不可用</td><td>非独立或无法判断</td><td>未获取到</td><td>无</td><td>全市场方向</td></tr>
+      <tr><td>L5</td><td>回购 / 增减持</td><td>不可用</td><td>独立但缺失</td><td>未获取到</td><td>无</td><td>产业资本态度</td></tr>
+      <tr><td>L6</td><td>股东户数 / 持仓披露 / 质押 / 解禁</td><td>不可用</td><td>独立但缺失</td><td>未获取到</td><td>无</td><td>筹码供给全貌</td></tr>
+      <tr><td>L7</td><td>ETF 份额与申赎 / 筹码成本</td><td>不可用</td><td>无法判断</td><td>未获取到</td><td>无</td><td>产品资金和获利盘比例</td></tr>
+    </table>
+    <h4>不可用 / 不适用层</h4>
+    <table>
+      <tr><th>层级或主体</th><th>状态</th><th>原因</th><th>对结论影响</th></tr>
+      <tr><td>北向 / QFII / ETF</td><td>无数据</td><td>本地 MCP 未覆盖，未接入专业数据源。</td><td>长期配置资金判断置信度降低。</td></tr>
+      <tr><td>龙虎榜 / 大宗交易</td><td>待核验</td><td>未检索交易所逐日席位和大宗成交。</td><td>无法识别局部席位。</td></tr>
+      <tr><td>产业资本 / 解禁 / 质押</td><td>待核验</td><td>需逐条公告复核。</td><td>筹码供给判断不完整。</td></tr>
+    </table>
+    <h3>4.7 数据层与独立性</h3>
+    <table>
+      <tr><th>数据渠道</th><th>当前结果</th><th>身份锚点</th><th>与其他层关系</th><th>可用于什么结论</th><th>不能推出什么</th></tr>
+      <tr><td>资金分档 / 订单流</td><td>20 日净流出，5 日净流入</td><td>无</td><td>与融资、龙虎榜可能重叠</td><td>订单规模方向</td><td>机构或散户身份</td></tr>
+      <tr><td>跨境流量与持股</td><td>未获取到</td><td>无</td><td>未知</td><td>无</td><td>外资买卖</td></tr>
+      <tr><td>融资融券</td><td>20 日净卖、5 日净买</td><td>融资账户</td><td>买入额与订单流重叠，余额较独立</td><td>杠杆方向</td><td>普通账户方向</td></tr>
+      <tr><td>大宗交易</td><td>未获取到</td><td>潜在席位</td><td>竞价外通常独立</td><td>协议换手</td><td>全市场方向</td></tr>
+      <tr><td>龙虎榜</td><td>未获取到</td><td>席位</td><td>成交子集</td><td>局部身份方向</td><td>全市场方向</td></tr>
+      <tr><td>回购 / 增减持</td><td>未获取到</td><td>产业资本</td><td>独立但低频</td><td>内部人行为</td><td>日频资金方向</td></tr>
+      <tr><td>股东户数 / 持仓披露</td><td>未获取到</td><td>法定披露</td><td>独立但滞后</td><td>筹码变化</td><td>当日买卖</td></tr>
+      <tr><td>ETF 份额与申赎</td><td>未获取到</td><td>产品层</td><td>成分股交易可能进入订单流</td><td>产品资金代理</td><td>申购者身份</td></tr>
+      <tr><td>质押 / 解禁</td><td>未获取到</td><td>公告</td><td>独立</td><td>潜在供给</td><td>当前卖压已经发生</td></tr>
+      <tr><td>筹码成本 / 获利比例</td><td>未获取到</td><td>无</td><td>由量价推导</td><td>抛压估计</td><td>账户身份或强平</td></tr>
+    </table>
+    <h3>4.8 交叉验证总结</h3>
+    <ul>
+      <li>资金分档 + 融资融券：近 20 日同向偏流出，支持结构性流出。</li>
+      <li>近 5 日 F3 + F5：同向修复，但与 20 日趋势冲突，只能作为反证。</li>
+      <li>融资买入与订单流：部分重叠，不能重复计票提高强度。</li>
+    </ul>
+    <h3>4.9 信号冲突与不可知</h3>
+    <ul>
+      <li>方向冲突：短线流入与中期流出冲突。</li>
+      <li>重复统计：融资买入可能已经进入订单流。</li>
+      <li>金额方向与身份边界：可确认大额订单代理净卖，不能确认机构真实净卖。</li>
+      <li>不可知项：北向、ETF、产业资本、龙虎榜和解禁未获取到。</li>
+      <li>下一身份验证点：陆股通持股、龙虎榜席位、基金持仓和公司公告。</li>
+    </ul>
+
+    <h2 id="section-5">5. 价格、广度与筹码交叉验证</h2>
+    <table>
+      <tr><th>验证项</th><th>当前事实</th><th>与资金信号关系</th><th>结论影响</th></tr>
+      <tr><td>价格响应</td><td>最新日收 13.10 元；近 5 日 +8.80%；近 20 日 -34.50%。</td><td>短线确认修复，中期确认流出。</td><td>不能因 5 日反弹升级为买入。</td></tr>
+      <tr><td>成交与换手</td><td>近 20 日均成交额 12.99 亿元、均换手 6.94%；最新日换手 7.73%。</td><td>高换手但未修复 20 日跌幅。</td><td>说明筹码仍在换手，承接未稳定。</td></tr>
+      <tr><td>上涨广度</td><td>未获取到板块和同业广度。</td><td>证据不足。</td><td>降低对存量迁移或报团的判断置信度。</td></tr>
+      <tr><td>相对强弱</td><td>未获取到相对创业板和隔膜板块数据。</td><td>证据不足。</td><td>不能确认是否强于行业。</td></tr>
+      <tr><td>筹码供给与抛压</td><td>未获取到解禁、减持、质押和获利比例；20 日高点 21.56 元后回撤。</td><td>上方套牢盘压力存在，但具体供给待核验。</td><td>新增资金需要等待压力消化。</td></tr>
+      <tr><td>连续性</td><td>5 日转正，20 日仍负。</td><td>反弹未完成趋势反转。</td><td>资金状态定为结构性流出。</td></tr>
+      <tr><td>基本面与价格预期</td><td>2026Q1 毛利率边际修复；PE TTM 1034.56、PB 2.01；2025 年现金分红很低。</td><td>基本面支持观察，不支持追高。</td><td>资金继续流入需要半年报和行业价格确认。</td></tr>
+    </table>
+
+    <h2 id="section-6">6. 资金分歧与传导链</h2>
+    <ul>
+      <li>主导链条：隔膜修复预期 → 6 月至 7 月初交易资金推升 → 高位回撤 → 近 20 日大额订单和融资资金撤退 → 当前结构性流出。</li>
+      <li>反向链条：跌深后短线资金回补 + 融资净买入转正 → 近 5 日价格反弹 → 但未修复 20 日跌幅。</li>
+      <li>谁在承接：统计代理层面，近 20 日小单和中单有承接，近 5 日大额订单和融资回补；真实账户身份不可知。</li>
+      <li>潜在退出路径：若半年报或隔膜价格不确认，短线回补资金可能在 14-15 元附近遇套牢盘退出；若跌破 11.48 元，融资盘可能重新减仓。</li>
+    </ul>
+
+    <h2 id="section-7">7. 支持证据、反证与缺口</h2>
+    <h3>支持当前状态的证据</h3>
+    <ul>
+      <li>近 20 日价格从 20.00 元跌至 13.10 元，跌幅 34.50%。</li>
+      <li>近 20 日全口径资金净流出约 5.80 亿元，大额+特大额订单净流出约 4.33 亿元。</li>
+      <li>近 20 日融资净买入约 -1.38 亿元，融资余额下降约 0.75 亿元。</li>
+      <li>当前估值 PE TTM 1034.56，资金追高容错不够。</li>
+    </ul>
+    <h3>核心反证</h3>
+    <ul>
+      <li>最新交易日全口径资金净流入 4720 万元，大额+特大额订单净流入 4504 万元。</li>
+      <li>近 5 日价格上涨 8.80%，资金净流入约 1.05 亿元，融资净买入约 0.60 亿元。</li>
+      <li>2026Q1 毛利率较 2025 全年边际改善，支持市场继续观察隔膜修复。</li>
+    </ul>
+    <h3>数据缺口</h3>
+    <ul>
+      <li>ETF、北向、龙虎榜、大宗交易、产业资本和筹码供给未获取到，无法确认长期资金和真实账户身份。</li>
+      <li>隔膜价格、产能利用率和半年报未获取到，无法确认短线资金修复是否有基本面支撑。</li>
+    </ul>
+
+    <h2 id="section-8">8. 行动与仓位映射</h2>
+    <h3>新增资金</h3>
+    <table>
+      <tr><th>行动</th><th>条件化仓位</th><th>触发条件</th><th>维持条件</th><th>取消条件</th></tr>
+      <tr><td>observe</td><td>0%</td><td>当前即为触发状态：20 日资金仍流出，估值容错不足。</td><td>继续跟踪 F3/F5、价格 11.48 元支撑和半年报。</td><td>近 20 日 F3/F5 同步转正、价格站稳 15 元且半年报确认修复；或股价回到 9-10 元安全边际。</td></tr>
+    </table>
+    <h3>已有持仓</h3>
+    <table>
+      <tr><th>行动</th><th>仓位调整</th><th>触发条件</th><th>维持条件</th><th>取消条件</th></tr>
+      <tr><td>review</td><td>未提供成本和仓位，不给固定比例；高成本仓可考虑反弹中降低 1/4-1/2 风险暴露，需用户风险预算确认。</td><td>持仓成本、原计划和风险预算缺失。</td><td>不跌破 11.48 元，融资余额不再下降，半年报未证伪修复。</td><td>跌破 11.48 元且资金继续净流出，或半年报低于修复预期。</td></tr>
+    </table>
+
+    <h2 id="section-9">9. 下一验证点与失效条件</h2>
+    <ul>
+      <li>下一验证时间：2026 半年报披露后；同时每周复核融资余额和资金分档。</li>
+      <li>下一验证指标：近 20 日大额订单净额、近 20 日融资净买入、融资余额、价格是否站稳 12 元并重回 15 元。</li>
+      <li>基本面与价格预期验证：毛利率是否继续高于 26%，单季净利润是否明显超过 2026Q1，经营现金流是否维持正值，隔膜价格是否修复。</li>
+      <li>当前判断失效条件：近 20 日 F3/F5 同步转正且价格站稳 15 元，或出现可识别长期配置资金承接。</li>
+      <li>行动升级条件：observe → wait / buy，需要资金趋势和基本面同时确认；单日流入不够。</li>
+      <li>行动降级条件：跌破 11.48 元、融资余额继续下降、半年报证伪修复，则已有持仓从 review 转 reduce / sell 复核。</li>
+    </ul>
+
+    <h2 id="section-10">10. 数据审计</h2>
+    <h3>数据采集清单</h3>
+    <table>
+      <tr><th>数据层</th><th>状态</th><th>最新时点</th><th>观察窗口</th><th>来源</th><th>口径与覆盖范围</th><th>数据性质</th><th>缺口及影响</th></tr>
+      <tr><td>L0 资金分档 / F5</td><td>已获取</td><td>2026-07-30</td><td>43 个交易日；本报告使用 1 / 5 / 20 日</td><td>Tushare MCP `get_stock_moneyflow`</td><td>订单规模统计代理，单位万元；大额+特大额作为 F5 代理</td><td>统计代理</td><td>不能确认账户身份；与融资买入可能重叠。</td></tr>
+      <tr><td>L1 北向 / 跨境资金</td><td>未获取</td><td>不适用</td><td>未获取</td><td>未接入</td><td>个股陆股通持股和成交未取得</td><td>缺口</td><td>外资方向不可知。</td></tr>
+      <tr><td>L2 融资融券 / F3</td><td>已获取</td><td>2026-07-30</td><td>43 个交易日；本报告使用 1 / 5 / 20 日</td><td>Tushare MCP `get_margin_detail` 本地 stdio 脚本调用</td><td>row_count 43；核心字段 `rzye`、`rzmre`、`rzche`、`rqye`、`rzrqye`；融资净买入 = `rzmre - rzche`</td><td>已验证事实 / 统计代理</td><td>融资买入与订单流部分重叠。</td></tr>
+      <tr><td>L3 大宗交易</td><td>未获取</td><td>未获取</td><td>未获取</td><td>未接入</td><td>成交价格、金额、买卖席位未查</td><td>缺口</td><td>协议转让和机构间换手不可知。</td></tr>
+      <tr><td>L4 龙虎榜</td><td>未获取</td><td>未获取</td><td>未获取</td><td>未接入</td><td>上榜席位未查</td><td>缺口</td><td>游资和机构席位不可知。</td></tr>
+      <tr><td>L5 回购 / 增减持</td><td>未获取</td><td>未获取</td><td>未获取</td><td>需公告复核</td><td>回购、增持、减持实施未系统检查</td><td>缺口</td><td>产业资本态度不可知。</td></tr>
+      <tr><td>L6 股东户数 / 持仓披露</td><td>未获取</td><td>未获取</td><td>最新报告期待核验</td><td>需定期报告 / 公告复核</td><td>股东户数、户均持股和十大股东变化未查</td><td>低频缺口</td><td>筹码集中度不可知。</td></tr>
+      <tr><td>L7 ETF 资金流 / 筹码分布</td><td>未获取</td><td>未获取</td><td>未获取</td><td>需基金公告 / AKShare / 专业数据</td><td>相关 ETF 份额、权重映射和筹码成本未查</td><td>统计代理缺口</td><td>产品资金和套牢盘量化不足。</td></tr>
+      <tr><td>质押</td><td>未获取</td><td>未获取</td><td>最新可得待核验</td><td>需公告 / 专业数据</td><td>质押比例和风险阈值未查</td><td>风险代理缺口</td><td>空值不能推导无质押。</td></tr>
+      <tr><td>筹码供给</td><td>未获取</td><td>未获取</td><td>2026Q3 待核验</td><td>需解禁 / 减持 / 大宗 / 公告</td><td>潜在供给压力未系统检查</td><td>缺口</td><td>上方抛压只能由量价弱推断。</td></tr>
+    </table>
+
+    <h2 id="section-11">11. 来源与使用边界</h2>
+    <h3>当前数据来源</h3>
+    <ul>
+      <li>Tushare 本地 MCP：`get_stock_basic`、`get_stock_daily`、`get_stock_valuation`、`get_stock_moneyflow`、`get_margin_detail`、`get_financial_statements`、`get_dividend_history`，抓取时间 2026-07-31。</li>
+      <li>同日机构级研报：workbench/targets/2026-07-31-1039-星源材质-机构级决策研报.md。</li>
+      <li>来源归档：sources/articles/2026-07-31-星源材质研究来源汇总.md。</li>
+    </ul>
+    <h3>框架依据</h3>
+    <ul>
+      <li>华泰证券《A股择时之资金面指标测试》（2021-07-02）：资金来源分类与历史指标检验参考。</li>
+      <li>F3/F5/F7 监测文章：日频代理思路参考，不视为已验证或可直接复制的择时模型。</li>
+      <li>本项目 `fund-flow-analysis` 技能：资金来源、交易方画像、数据层独立性和行动映射。</li>
+    </ul>
+    <h3>使用边界</h3>
+    <ul>
+      <li>资金分档只能说明订单规模方向，不能确认机构、散户或国家队账户身份。</li>
+      <li>融资买入会进入订单流，不能与大额订单净额机械相加。</li>
+      <li>ETF、北向、龙虎榜、大宗、增减持、质押和解禁未获取到；未获取到不等于没有。</li>
+      <li>基本面与估值只用于校验资金持续性，不替代完整估值和交易决策。</li>
+      <li>本报告不构成收益保证；真实交易前应重新核验最新行情、公告、资金和个人风险预算。</li>
+    </ul>
+  </main>
+</body>
+</html>

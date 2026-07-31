@@ -126,6 +126,21 @@ def tools():
             },
         },
         {
+            "name": "get_market_margin",
+            "description": "获取沪深市场融资融券交易汇总，用于观察全市场融资余额、融资买入、融资偿还和融资融券余额变化。",
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "trade_date": {"type": "string", "description": "YYYYMMDD 或 YYYY-MM-DD。"},
+                    "start_date": {"type": "string", "description": "YYYYMMDD 或 YYYY-MM-DD。"},
+                    "end_date": {"type": "string", "description": "YYYYMMDD 或 YYYY-MM-DD。"},
+                    "exchange_id": {"type": "string", "description": "可选，交易所代码，例如 SSE 或 SZSE。"},
+                    **common_query_props(DATASETS["margin"]["fields"]),
+                },
+                "additionalProperties": False,
+            },
+        },
+        {
             "name": "get_financial_statements",
             "description": "获取A股利润表、资产负债表和现金流量表核心科目，并保留报告期、公告日期、报表类型和合并口径信息。",
             "inputSchema": {
@@ -254,6 +269,28 @@ def get_index_constituents(client, arguments):
     }
 
 
+def get_market_margin(client, arguments):
+    args, use_cache, limit = pop_common(arguments)
+    rows = client.call_frame("margin", use_cache=use_cache, **args)
+    total_fields = ("rzye", "rzmre", "rzche", "rqye", "rqmcl", "rzrqye")
+    totals_by_date = {}
+    for row in rows:
+        trade_date = row.get("trade_date") or "unknown"
+        totals = totals_by_date.setdefault(trade_date, {field: 0 for field in total_fields})
+        for field in total_fields:
+            value = row.get(field)
+            try:
+                totals[field] += float(value)
+            except (TypeError, ValueError):
+                pass
+    summaries = [
+        {"trade_date": trade_date, **totals}
+        for trade_date, totals in sorted(totals_by_date.items())
+    ]
+    visible_rows = apply_limit(rows, limit)
+    return {"rows": visible_rows, "row_count": len(visible_rows), "summary": summaries}
+
+
 def call_tool(name, arguments):
     arguments = arguments or {}
     client = TushareClient(logger=stderr_logger)
@@ -276,6 +313,8 @@ def call_tool(name, arguments):
     if name == "get_margin_detail":
         rows = query_dataset(client, "margin_detail", arguments)
         return {"dataset": "margin_detail", "rows": rows, "row_count": len(rows)}
+    if name == "get_market_margin":
+        return {"dataset": "margin", **get_market_margin(client, arguments)}
     if name == "get_financial_statements":
         statements = get_financial_statements(client, arguments)
         return {"dataset": "financial_statements", "statements": statements}

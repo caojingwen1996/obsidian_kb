@@ -2,6 +2,7 @@ from contextlib import contextmanager
 from datetime import date, datetime, timedelta, timezone
 import json
 from pathlib import Path
+import sys
 from tempfile import TemporaryDirectory
 from threading import Thread
 import unittest
@@ -16,8 +17,10 @@ from scripts.local_proxy import (
     append_review_diary_entry,
     build_upstream_url,
     create_server,
+    delete_bbxm_featured_post,
     fetch_fugui_candidate,
     fetch_index_history,
+    fetch_market_margin,
     fetch_market_snapshot,
     fetch_nasdaq100_snapshot,
     fetch_stock_quote,
@@ -26,6 +29,7 @@ from scripts.local_proxy import (
     normalize_review_diary_payload,
     parse_json_payload,
     parse_youzhiyouxing_temperature,
+    rerender_tracking_reports,
 )
 from tushare_client import token_from_env_file
 
@@ -403,6 +407,32 @@ class PayloadTests(unittest.TestCase):
             "f18": 10,
         })
 
+    def test_fetches_market_margin_through_tushare_tool(self):
+        calls = []
+
+        def fake_tool(client, args):
+            calls.append((client, args))
+            return {
+                "dataset": "margin",
+                "rows": [{"trade_date": "2026-07-29", "exchange_id": "SSE", "rzye": 10}],
+                "row_count": 1,
+                "summary": [{"trade_date": "2026-07-29", "rzye": 30}],
+            }
+
+        payload = fetch_market_margin(
+            {"trade_date": ["2026-07-29"]},
+            client=object(),
+            market_margin_tool=fake_tool,
+        )
+
+        self.assertEqual(calls[0][1], {"trade_date": "2026-07-29"})
+        self.assertEqual(payload["summary"][0]["rzye"], 30)
+        self.assertEqual(payload["proxySource"], "Tushare margin via tushare-data")
+
+    def test_market_margin_rejects_legacy_market_parameter(self):
+        with self.assertRaises(RouteError):
+            fetch_market_margin({"market": ["1"]}, client=object(), market_margin_tool=lambda client, args: {})
+
 
 class ServerTests(unittest.TestCase):
     @staticmethod
@@ -612,6 +642,72 @@ class ServerTests(unittest.TestCase):
                 "content": "复盘",
             })
 
+    def test_featured_post_delete_removes_only_allowlisted_daily_post(self):
+        with TemporaryDirectory() as directory:
+            vault_root = Path(directory)
+            post = vault_root / "sources" / "automations" / "BBXM每日汇总" / "2026-07-30" / "冰冰小美" / "162100_样例.md"
+            post.parent.mkdir(parents=True)
+            post.write_text("标题：样例\n", encoding="utf-8")
+
+            result = delete_bbxm_featured_post(
+                {"href": "../../sources/automations/BBXM每日汇总/2026-07-30/冰冰小美/162100_样例.md"},
+                vault_root,
+            )
+            post_exists = post.exists()
+
+        self.assertEqual(result["deleted"], True)
+        self.assertEqual(result["path"], "sources/automations/BBXM每日汇总/2026-07-30/冰冰小美/162100_样例.md")
+        self.assertFalse(post_exists)
+
+    def test_featured_post_delete_rejects_summary_and_path_escape(self):
+        with TemporaryDirectory() as directory:
+            vault_root = Path(directory)
+            summary = vault_root / "sources" / "automations" / "BBXM每日汇总" / "2026-07-30" / "冰冰小美" / "summary.md"
+            summary.parent.mkdir(parents=True)
+            summary.write_text("# summary\n", encoding="utf-8")
+
+            with self.assertRaises(ValueError):
+                delete_bbxm_featured_post({"href": "../../sources/automations/BBXM每日汇总/2026-07-30/冰冰小美/summary.md"}, vault_root)
+            with self.assertRaises(ValueError):
+                delete_bbxm_featured_post({"href": "../../AGENTS.md"}, vault_root)
+            summary_exists = summary.exists()
+
+        self.assertTrue(summary_exists)
+
+    def test_tracking_report_rerender_overwrites_existing_html(self):
+        with TemporaryDirectory() as directory:
+            vault_root = Path(directory)
+            targets_dir = vault_root / "workbench" / "targets"
+            html_dir = vault_root / "sources" / "automations" / "战略资源" / "银锡"
+            targets_dir.mkdir(parents=True)
+            html_dir.mkdir(parents=True)
+            markdown = targets_dir / "2026-07-30-兴业银锡-机构级决策研报.md"
+            output = html_dir / "2026-07-30-兴业银锡-机构级决策研报.html"
+            renderer = vault_root / "fake_renderer.py"
+            markdown.write_text("# 兴业银锡\n\n证券代码：000426.SZ\n", encoding="utf-8")
+            output.write_text("<html>old</html>", encoding="utf-8")
+            renderer.write_text(
+                "from pathlib import Path\n"
+                "import sys\n"
+                "args = dict(zip(sys.argv[1::2], sys.argv[2::2]))\n"
+                "Path(args['--output']).write_text('rendered:' + Path(args['--input']).name, encoding='utf-8')\n",
+                encoding="utf-8",
+            )
+
+            result = rerender_tracking_reports(
+                [{"name": "兴业银锡", "code": "000426"}],
+                vault_root,
+                renderer_path=renderer,
+                node_executable=sys.executable,
+            )
+
+            self.assertEqual(output.read_text(encoding="utf-8"), "rendered:2026-07-30-兴业银锡-机构级决策研报.md")
+
+        self.assertEqual(result["total"], 1)
+        self.assertEqual(len(result["updated"]), 1)
+        self.assertEqual(result["updated"][0]["markdown"], "workbench/targets/2026-07-30-兴业银锡-机构级决策研报.md")
+        self.assertEqual(result["updated"][0]["html"], "sources/automations/战略资源/银锡/2026-07-30-兴业银锡-机构级决策研报.html")
+
     def test_portfolio_api_rejects_invalid_tracking_items(self):
         payload = {
             "holdings": [],
@@ -660,15 +756,6 @@ class ServerTests(unittest.TestCase):
             with self.assertRaises(HTTPError) as bad_request:
                 urlopen(f"{base}/api/margin?market=3", timeout=3)
             self.assertEqual(bad_request.exception.code, 400)
-
-            with self.assertRaises(HTTPError) as upstream:
-                urlopen(f"{base}/api/margin?market=1", timeout=3)
-            self.assertEqual(upstream.exception.code, 502)
-            body = json.loads(upstream.exception.read().decode("utf-8"))
-            self.assertEqual(body, {
-                "error": "upstream request failed",
-                "source": "margin",
-            })
 
 
 if __name__ == "__main__":

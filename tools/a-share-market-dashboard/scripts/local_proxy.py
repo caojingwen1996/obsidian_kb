@@ -9,6 +9,8 @@ import json
 import math
 from pathlib import Path
 import re
+import shutil
+import subprocess
 import sys
 from threading import Thread
 from time import monotonic
@@ -44,6 +46,8 @@ SOURCE_NAMES = {
     "/api/nasdaq100": "nasdaq100",
     "/api/fugui-candidate": "fugui-candidate",
     "/api/review-diary": "review-diary",
+    "/api/tracking-rerender-reports": "tracking-rerender-reports",
+    "/api/featured-post": "featured-post",
 }
 YOUZHIYOUXING_TEMPERATURE_URL = "https://youzhiyouxing.cn/data"
 NASDAQ100_CHART_URL = "https://query1.finance.yahoo.com/v8/finance/chart/%5ENDX?range=max&interval=1d"
@@ -1041,6 +1045,37 @@ def fetch_market_snapshot(fetcher=fetch_upstream, workers=8):
         return _fetch_sina_market_snapshot(fetcher, workers)
 
 
+def fetch_market_margin(query=None, client=None, market_margin_tool=None):
+    from mcp_server import get_market_margin
+    from tushare_client import TushareClient, TushareClientError
+
+    args = {}
+    query = query or {}
+    allowed = {"trade_date", "start_date", "end_date", "exchange_id", "limit", "_"}
+    unknown = {key for key, value in query.items() if key not in allowed and any(str(item).strip() for item in value)}
+    if unknown:
+        raise RouteError("invalid margin query")
+    for key in ("trade_date", "start_date", "end_date", "exchange_id", "limit"):
+        value = _one(query, key, "")
+        if value:
+            args[key] = value
+    if not any(key in args for key in ("trade_date", "start_date", "end_date")):
+        today = datetime.now(timezone(timedelta(hours=8))).date()
+        args["start_date"] = (today - timedelta(days=120)).isoformat()
+        args["end_date"] = today.isoformat()
+    try:
+        payload = (market_margin_tool or get_market_margin)(
+            client or TushareClient(logger=write_proxy_log),
+            args,
+        )
+    except TushareClientError as error:
+        raise UpstreamError(getattr(error, "source", "tushare-margin")) from error
+    return {
+        **payload,
+        "proxySource": "Tushare margin via tushare-data",
+    }
+
+
 def _finite_non_negative_number(value):
     number = float(value)
     if not math.isfinite(number) or number < 0:
@@ -1200,6 +1235,310 @@ def append_review_diary_entry(payload, diary_dir, now=None):
     }
 
 
+def _normalize_dashboard_href(value):
+    href = unquote(str(value or "").strip()).replace("\\", "/")
+    while href.startswith("../"):
+        href = href[3:]
+    return href.lstrip("/")
+
+
+def delete_bbxm_featured_post(payload, vault_root):
+    """Delete one BBXM daily source post from the allowlisted automation folder."""
+    if not isinstance(payload, dict):
+        raise ValueError
+    relative_path = _normalize_dashboard_href(payload.get("href", ""))
+    parts = relative_path.split("/")
+    if (
+        len(parts) != 6
+        or parts[0] != "sources"
+        or parts[1] != "automations"
+        or parts[2] != "BBXM每日汇总"
+        or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", parts[3])
+        or parts[4] != "冰冰小美"
+    ):
+        raise ValueError
+    filename = parts[5]
+    if (
+        not filename.endswith(".md")
+        or filename in {"summary.md", "操作.md"}
+        or "_解读" in filename
+        or "/" in filename
+        or "\\" in filename
+    ):
+        raise ValueError
+    root = (Path(vault_root) / "sources" / "automations" / "BBXM每日汇总").resolve()
+    target_file = (Path(vault_root) / relative_path).resolve()
+    target_file.relative_to(root)
+    if not target_file.is_file():
+        raise FileNotFoundError
+    target_file.unlink()
+    return {"deleted": True, "path": target_file.relative_to(Path(vault_root).resolve()).as_posix()}
+
+
+def _tracking_items_for_rerender(portfolio_file):
+    try:
+        payload = json.loads(Path(portfolio_file).read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        return []
+    if not isinstance(payload, dict):
+        raise ValueError
+    items = payload.get("trackingItems", [])
+    if not isinstance(items, list) or len(items) > 200:
+        raise ValueError
+    normalized = []
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+        name = str(item.get("name", "")).strip()[:30]
+        code = re.sub(r"\D", "", str(item.get("code", "")))[:6]
+        if name:
+            normalized.append({"name": name, "code": code})
+    return normalized
+
+
+def _compact_target_name(value):
+    return re.sub(r"\s+", "", str(value or "").strip())
+
+
+def _report_date_key(path):
+    match = re.match(r"^(\d{4})-(\d{2})-(\d{2})(?:-(\d{2})(\d{2}))?", path.name)
+    if not match:
+        return ""
+    hour = match.group(4) or "00"
+    minute = match.group(5) or "00"
+    return "".join(match.group(index) for index in (1, 2, 3)) + hour + minute
+
+
+def _is_equity_research_filename(path):
+    name = path.name
+    return (
+        name.endswith(".md")
+        and ("机构级决策研报" in name or "机构级研报" in name)
+        and "资金面" not in name
+    )
+
+
+def _report_match_score(path, item):
+    name = _compact_target_name(item.get("name"))
+    code = item.get("code", "")
+    filename = _compact_target_name(path.stem)
+    score = 0
+    if name and name in filename:
+        score += 100
+    if code and code in filename:
+        score += 80
+    if score:
+        return score
+    try:
+        head = path.read_text(encoding="utf-8", errors="ignore")[:20000]
+    except OSError:
+        return 0
+    compact_head = _compact_target_name(head)
+    if name and name in compact_head:
+        score += 40
+    if code and code in head:
+        score += 30
+    return score
+
+
+def find_tracking_report_markdown(item, targets_dir):
+    candidates = []
+    for path in Path(targets_dir).glob("*.md"):
+        if not _is_equity_research_filename(path):
+            continue
+        score = _report_match_score(path, item)
+        if score:
+            candidates.append((score, _report_date_key(path), path))
+    if not candidates:
+        return None
+    return sorted(candidates, key=lambda entry: (entry[0], entry[1], entry[2].name), reverse=True)[0][2]
+
+
+def find_tracking_report_html(markdown_path, automations_dir, item):
+    automations_dir = Path(automations_dir)
+    exact_matches = list(automations_dir.rglob(f"{markdown_path.stem}.html"))
+    if exact_matches:
+        return sorted(exact_matches, key=lambda path: (_report_date_key(path), path.as_posix()), reverse=True)[0]
+    candidates = []
+    for path in automations_dir.rglob("*.html"):
+        if "机构级决策研报" not in path.name or "资金面" in path.name:
+            continue
+        score = _report_match_score(path, item)
+        if score:
+            candidates.append((score, _report_date_key(path), path))
+    if not candidates:
+        return None
+    matched_path = sorted(candidates, key=lambda entry: (entry[0], entry[1], entry[2].as_posix()), reverse=True)[0][2]
+    return matched_path.parent / f"{markdown_path.stem}.html"
+
+
+def resolve_node_executable(preferred=None):
+    if preferred:
+        return str(preferred)
+    node = shutil.which("node")
+    if node:
+        return node
+    bundled = Path.home() / ".cache" / "codex-runtimes" / "codex-primary-runtime" / "dependencies" / "node" / "bin" / "node.exe"
+    if bundled.exists():
+        return str(bundled)
+    return "node"
+
+
+def _vault_relative(path, vault_root):
+    return Path(path).resolve().relative_to(Path(vault_root).resolve()).as_posix()
+
+
+def rerender_tracking_reports(tracking_items, vault_root, renderer_path=None, node_executable=None, timeout_seconds=120, logger=None):
+    vault_root = Path(vault_root).resolve()
+    targets_dir = (vault_root / "workbench" / "targets").resolve()
+    automations_dir = (vault_root / "sources" / "automations").resolve()
+    renderer = Path(
+        renderer_path or vault_root / ".agents" / "skills" / "bbxm-equity-research" / "scripts" / "render-report-html.cjs"
+    ).resolve()
+    node = resolve_node_executable(node_executable)
+    updated = []
+    skipped = []
+    failed = []
+    if not renderer.is_file():
+        raise RuntimeError("report renderer unavailable")
+    for index, item in enumerate(tracking_items, start=1):
+        item_started_at = monotonic()
+        if logger:
+            logger(
+                "TRACKING_REPORT_RERENDER_ITEM_START",
+                index=index,
+                total=len(tracking_items),
+                name=item.get("name", ""),
+                code=item.get("code", ""),
+            )
+        markdown_path = find_tracking_report_markdown(item, targets_dir)
+        if markdown_path is None:
+            skipped.append({"name": item.get("name", ""), "code": item.get("code", ""), "reason": "markdown not found"})
+            if logger:
+                logger(
+                    "TRACKING_REPORT_RERENDER_ITEM_SKIP",
+                    index=index,
+                    total=len(tracking_items),
+                    name=item.get("name", ""),
+                    code=item.get("code", ""),
+                    reason="markdown not found",
+                )
+            continue
+        html_path = find_tracking_report_html(markdown_path, automations_dir, item)
+        if html_path is None:
+            skipped.append({
+                "name": item.get("name", ""),
+                "code": item.get("code", ""),
+                "markdown": _vault_relative(markdown_path, vault_root),
+                "reason": "html not found",
+            })
+            if logger:
+                logger(
+                    "TRACKING_REPORT_RERENDER_ITEM_SKIP",
+                    index=index,
+                    total=len(tracking_items),
+                    name=item.get("name", ""),
+                    code=item.get("code", ""),
+                    markdown=_vault_relative(markdown_path, vault_root),
+                    reason="html not found",
+                )
+            continue
+        try:
+            markdown_path.resolve().relative_to(targets_dir)
+            html_path.resolve().relative_to(automations_dir)
+            if logger:
+                logger(
+                    "TRACKING_REPORT_RERENDER_ITEM_RUN",
+                    index=index,
+                    total=len(tracking_items),
+                    name=item.get("name", ""),
+                    code=item.get("code", ""),
+                    markdown=_vault_relative(markdown_path, vault_root),
+                    html=_vault_relative(html_path, vault_root),
+                )
+            result = subprocess.run(
+                [
+                    node,
+                    str(renderer),
+                    "--input",
+                    str(markdown_path),
+                    "--output",
+                    str(html_path),
+                    "--vault-root",
+                    str(vault_root),
+                ],
+                capture_output=True,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+                timeout=timeout_seconds,
+            )
+        except (OSError, ValueError, subprocess.TimeoutExpired) as error:
+            failed.append({
+                "name": item.get("name", ""),
+                "code": item.get("code", ""),
+                "markdown": _vault_relative(markdown_path, vault_root),
+                "html": _vault_relative(html_path, vault_root),
+                "error": type(error).__name__,
+            })
+            if logger:
+                logger(
+                    "TRACKING_REPORT_RERENDER_ITEM_FAIL",
+                    index=index,
+                    total=len(tracking_items),
+                    name=item.get("name", ""),
+                    code=item.get("code", ""),
+                    markdown=_vault_relative(markdown_path, vault_root),
+                    html=_vault_relative(html_path, vault_root),
+                    error=type(error).__name__,
+                )
+            continue
+        if result.returncode != 0:
+            error_text = (result.stderr or result.stdout or "renderer failed")[-500:]
+            failed.append({
+                "name": item.get("name", ""),
+                "code": item.get("code", ""),
+                "markdown": _vault_relative(markdown_path, vault_root),
+                "html": _vault_relative(html_path, vault_root),
+                "error": error_text,
+            })
+            if logger:
+                logger(
+                    "TRACKING_REPORT_RERENDER_ITEM_FAIL",
+                    index=index,
+                    total=len(tracking_items),
+                    name=item.get("name", ""),
+                    code=item.get("code", ""),
+                    markdown=_vault_relative(markdown_path, vault_root),
+                    html=_vault_relative(html_path, vault_root),
+                    error=error_text,
+                )
+            continue
+        updated.append({
+            "name": item.get("name", ""),
+            "code": item.get("code", ""),
+            "markdown": _vault_relative(markdown_path, vault_root),
+            "html": _vault_relative(html_path, vault_root),
+        })
+        if logger:
+            logger(
+                "TRACKING_REPORT_RERENDER_ITEM_OK",
+                index=index,
+                total=len(tracking_items),
+                name=item.get("name", ""),
+                code=item.get("code", ""),
+                markdown=_vault_relative(markdown_path, vault_root),
+                html=_vault_relative(html_path, vault_root),
+                seconds=round(monotonic() - item_started_at, 3),
+            )
+    return {
+        "total": len(tracking_items),
+        "updated": updated,
+        "skipped": skipped,
+        "failed": failed,
+    }
+
+
 def create_server(
     host="127.0.0.1",
     port=DEFAULT_PORT,
@@ -1207,6 +1546,8 @@ def create_server(
     dashboard_path=None,
     portfolio_path=None,
     review_diary_dir=None,
+    renderer_path=None,
+    node_executable=None,
 ):
     """Create a loopback-only dashboard server with fixed proxy routes."""
     artifact = Path(dashboard_path or Path(__file__).resolve().parents[1] / "a-share-market-dashboard.html").resolve()
@@ -1241,13 +1582,21 @@ def create_server(
         server_version = "AShareDashboard/1.0"
 
         def _send_bytes(self, status, body, content_type):
-            self.send_response(status)
-            self.send_header("Content-Type", content_type)
-            self.send_header("Content-Length", str(len(body)))
-            self.send_header("Cache-Control", "no-store")
-            self.send_header("X-Content-Type-Options", "nosniff")
-            self.end_headers()
-            self.wfile.write(body)
+            try:
+                self.send_response(status)
+                self.send_header("Content-Type", content_type)
+                self.send_header("Content-Length", str(len(body)))
+                self.send_header("Cache-Control", "no-store")
+                self.send_header("X-Content-Type-Options", "nosniff")
+                self.end_headers()
+                self.wfile.write(body)
+            except (BrokenPipeError, ConnectionAbortedError, ConnectionResetError) as error:
+                write_proxy_log(
+                    "CLIENT_DISCONNECT",
+                    route=getattr(self, "path", ""),
+                    status=status,
+                    error=type(error).__name__,
+                )
 
         def send_json(self, status, payload):
             body = json.dumps(payload, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
@@ -1309,6 +1658,54 @@ def create_server(
                 return self.send_json(400, {"error": "invalid review diary payload"})
             return self.send_json(200, saved)
 
+        def rerender_tracking_reports(self):
+            try:
+                tracking_items = _tracking_items_for_rerender(portfolio_file)
+                write_proxy_log(
+                    "TRACKING_REPORT_RERENDER_START",
+                    total=len(tracking_items),
+                    portfolio=portfolio_file,
+                )
+                result = rerender_tracking_reports(
+                    tracking_items,
+                    vault_root,
+                    renderer_path=renderer_path,
+                    node_executable=node_executable,
+                    logger=write_proxy_log,
+                )
+            except (OSError, RuntimeError, TypeError, ValueError, json.JSONDecodeError) as error:
+                write_proxy_log(
+                    "TRACKING_REPORT_RERENDER_FAIL",
+                    error=type(error).__name__,
+                )
+                return self.send_json(500, {"error": "tracking report rerender failed"})
+            write_proxy_log(
+                "TRACKING_REPORT_RERENDER_OK",
+                total=result["total"],
+                updated=len(result["updated"]),
+                skipped=len(result["skipped"]),
+                failed=len(result["failed"]),
+            )
+            return self.send_json(200, result)
+
+        def delete_featured_post(self):
+            try:
+                content_length = int(self.headers.get("Content-Length", "0"))
+            except ValueError:
+                return self.send_json(400, {"error": "invalid content length"})
+            if content_length <= 0 or content_length > 16_384:
+                return self.send_json(400, {"error": "invalid featured post payload"})
+            try:
+                deleted = delete_bbxm_featured_post(
+                    json.loads(self.rfile.read(content_length).decode("utf-8")),
+                    vault_root,
+                )
+            except FileNotFoundError:
+                return self.send_json(404, {"error": "featured post not found"})
+            except (OSError, TypeError, ValueError, json.JSONDecodeError):
+                return self.send_json(400, {"error": "invalid featured post payload"})
+            return self.send_json(200, deleted)
+
         def send_whitelisted_file(self, request_path):
             decoded_path = unquote(request_path)
             match = next(
@@ -1367,6 +1764,8 @@ def create_server(
                 elif parsed.path == "/api/market":
                     build_upstream_url(parsed.path, query)
                     payload = fetch_market_snapshot(fetcher)
+                elif parsed.path == "/api/margin":
+                    payload = fetch_market_margin(query)
                 elif parsed.path == "/api/youzhiyouxing-temperature":
                     payload = fetch_youzhiyouxing_temperature(
                         fetch_upstream_text if fetcher is fetch_upstream else fetcher
@@ -1399,9 +1798,17 @@ def create_server(
 
         def do_POST(self):
             parsed = urlparse(self.path)
-            if parsed.path != "/api/review-diary":
-                return self.send_json(404, {"error": "not found"})
-            return self.save_review_diary()
+            if parsed.path == "/api/review-diary":
+                return self.save_review_diary()
+            if parsed.path == "/api/tracking-rerender-reports":
+                return self.rerender_tracking_reports()
+            return self.send_json(404, {"error": "not found"})
+
+        def do_DELETE(self):
+            parsed = urlparse(self.path)
+            if parsed.path == "/api/featured-post":
+                return self.delete_featured_post()
+            return self.send_json(404, {"error": "not found"})
 
         def log_message(self, message_format, *args):
             sys.stderr.write("proxy: " + message_format % args + "\n")

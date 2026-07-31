@@ -17,6 +17,7 @@ python E:\caojingwen\obsidian\llmwiki\tools\tushare-data\scripts\mcp_server.py
 - `get_stock_valuation`：获取估值、股息率、市值和交易活跃度数据，当前股息率使用 `dv_ttm`。
 - `get_stock_moneyflow`：获取 A 股个股资金流向和大小单分档数据，用于订单规模方向代理，不确认账户身份。
 - `get_margin_detail`：获取 A 股个股融资融券交易明细，用于观察融资余额、融资买入、融资偿还和融券变化。
+- `get_market_margin`：获取沪深市场融资融券交易汇总，用于观察全市场融资余额、融资买入、融资偿还和融资融券余额变化。
 - `get_financial_statements`：获取利润表、资产负债表和现金流量表核心科目。
 - `get_dividend_history`：获取历史分红方案及实施记录。
 - `get_index_constituents`：获取指数历史成分股和权重。

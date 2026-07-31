@@ -36,12 +36,6 @@ body {
 .eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
 .hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
 .hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
-.verdict { display: inline-flex; margin-top: 24px; padding: 7px 13px; border-radius: 999px; color: var(--danger); background: var(--danger-bg); font-weight: 750; }
-.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 26px; }
-.kpi { min-height: 96px; padding: 17px 18px; border: 1px solid rgba(255,255,255,.22); border-radius: 14px; background: rgba(255,255,255,.09); }
-.kpi-value { display: block; font-size: 23px; line-height: 1.3; font-weight: 760; overflow-wrap: anywhere; }
-.kpi-label { display: block; margin-top: 10px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; opacity: .8; }
-
 .layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
 .toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
 .toc-inner { position: sticky; top: 18px; }
@@ -64,26 +58,50 @@ body {
 .content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
 .content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
 
+.daily-tracking { margin: 0 0 42px; padding: 22px; border: 1px solid #cbdade; border-radius: 16px; background: linear-gradient(135deg, #f3f8f9 0%, #fffaf0 100%); box-shadow: 0 12px 30px rgba(23, 50, 71, .07); }
+.daily-tracking-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
+.daily-tracking-kicker { margin: 0 0 4px; color: var(--teal); font-size: 12px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+.daily-tracking h2 { margin: 0; padding: 0; border: 0; font-size: 27px; }
+.daily-tracking-time { margin: 4px 0 0; color: var(--muted); font-size: 12px; text-align: right; }
+.tracking-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.tracking-grid + .tracking-grid { margin-top: 12px; }
+.tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
+.tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
+.tracking-card[data-tracking-key="dynamic-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
+.range-breakdown { display: block; }
+.range-main { display: inline-flex; align-items: center; max-width: 100%; margin-bottom: 10px; padding: 3px 9px; border-radius: 999px; background: #e7f0f3; color: var(--navy); font-size: 20px; line-height: 1.3; font-weight: 800; }
+.range-points { display: grid; gap: 7px; margin-top: 1px; }
+.range-point { display: block; padding-left: 11px; border-left: 3px solid #bed2d8; color: #245068; font-size: 14px; line-height: 1.52; font-weight: 650; }
+.tracking-value.bad { color: var(--danger); }
+.tracking-detail { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; }
+.tracking-status { display: inline-flex; margin-top: 10px; padding: 3px 8px; border-radius: 999px; color: #526b77; background: #edf2f4; font-size: 12px; font-weight: 700; }
+.tracking-status.live { color: #17604e; background: #dff3eb; }
+.tracking-status.error { color: var(--danger); background: var(--danger-bg); }
+.tracking-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; margin-top: 14px; padding-top: 13px; border-top: 1px solid #d5e0e3; color: #536d78; font-size: 13px; }
+.tracking-footer a { font-weight: 700; }
+
 @media (max-width: 980px) {
   .hero { padding: 40px 30px 34px; }
-  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .layout { grid-template-columns: 1fr; }
   .toc { border-right: 0; border-bottom: 1px solid var(--line); }
   .toc-inner { position: static; columns: 2; }
   .content { padding: 34px 30px 64px; }
+  .tracking-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 600px) {
-  .kpis { grid-template-columns: 1fr; }
   .toc-inner { columns: 1; }
   .content { padding: 28px 18px 54px; }
+  .daily-tracking-head { display: block; }
+  .daily-tracking-time { text-align: left; }
 }
 
 @media print {
   body { background: #fff; }
   .report-shell { max-width: none; }
   .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
-  .verdict, .kpi { border: 1px solid #aebbc2; color: #102f43; background: #fff; }
+  .daily-tracking, .tracking-card { border: 1px solid #aebbc2; color: #102f43; background: #fff; box-shadow: none; }
   .layout { display: block; }
   .toc { display: none; }
   .content { padding: 25px 36px; }
@@ -91,8 +109,6 @@ body {
   .content table { display: table; overflow: visible; break-inside: avoid; }
 }
 </style>
-  <meta name="stock-secid" content="0.000425">
-  <meta name="stock-quote-endpoint" content="/api/stock-quote?secid=0.000425">
 </head>
 <body>
   <main class="report-shell">
@@ -100,13 +116,6 @@ body {
       <p class="eyebrow">BBXM EQUITY RESEARCH · 000425.SZ</p>
       <h1>徐工机械（000425.SZ）机构级决策研报</h1>
       <div class="hero-meta"><span>2026-07-20 17:37（Asia/Shanghai，收盘后）</span><span>2026-07-20</span><span>深圳证券交易所 / 人民币</span></div>
-      <div class="verdict">合理偏低，但不是深度低估 · 新增现金 wait / buy（条件化）；已有持仓 wait / review</div>
-      <div class="kpis">
-        <div class="kpi"><span class="kpi-value">8.69 元，2026-07-20 收盘</span><span class="kpi-label">当前价格</span></div>
-        <div class="kpi"><span class="kpi-value">7.8—10.6 元/股</span><span class="kpi-label">综合估值区间</span></div>
-        <div class="kpi"><span class="kpi-value">新增现金 wait / buy（条件化）；已有持仓 wait / review</span><span class="kpi-label">冰冰小美动作</span></div>
-        <div class="kpi"><span class="kpi-value">中</span><span class="kpi-label">结论置信度</span></div>
-      </div>
     </header>
     <div class="layout">
       <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
@@ -128,6 +137,25 @@ body {
       <article class="content"><blockquote>
 <p>证券代码：000425.SZ<br>交易所 / 币种：深圳证券交易所 / 人民币<br>研究截止时间：2026-07-20 17:37（Asia/Shanghai，收盘后）<br>报告生成时间：2026-07-20<br>数据口径：中国企业会计准则；法定财务优先采用深交所与巨潮资讯披露，行情与资金采用腾讯自选股公开接口<br>个性化假设：用户未提供成本、仓位、持有期和最大回撤；比较按新增现金、3—5 年、中等风险承受能力、核心/卫星组合角色进行  </p>
 </blockquote>
+<!-- DAILY_TRACKING_START -->
+<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-07-20 17:37（Asia/Shanghai，收盘后）" data-value-low="7.8" data-value-high="10.6">
+  <div class="daily-tracking-head">
+    <div><p class="daily-tracking-kicker">Daily decision tracker</p><h2>每日跟踪面板</h2></div>
+    <p class="daily-tracking-time">更新：2026-07-20 17:37（Asia/Shanghai，收盘后）<br>下次：收盘后 / 重大公告后</p>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">未获取到</p><p class="tracking-detail">风险方向：未获取到。下一验证点与失效条件见第 11—13 章。</p></div>
+    <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value"><span class="range-breakdown"><span class="range-main">7.8—10.6 元/股</span></span></p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
+    <div class="tracking-card" data-tracking-key="risk-reward"><p class="tracking-label">盈亏比</p><p class="tracking-value" id="risk-reward-value">约 1.9:1</p><p class="tracking-detail" id="risk-reward-detail">每日同步价 8.69 元；到上沿 10.60 元的潜在上行 +22.0%，跌至下沿 7.80 元的风险 +11.4%。价格不改变价值区间本身。</p></div>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="daily-quote"><p class="tracking-label">每日同步价</p><p class="tracking-value">8.69 元，2026-07-20 收盘</p><p class="tracking-detail">这是报告内嵌的正式跟踪基准，离线打开仍可使用。</p><span class="tracking-status">每日快照</span></div>
+    <div class="tracking-card" data-tracking-key="intraday-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">等待连接</p><p class="tracking-detail" id="intraday-detail">通过“大盘启动器”打开后获取盘中行情，每 60 秒刷新；直接打开 HTML 时不访问外部行情。</p><span class="tracking-status" id="intraday-status">未连接</span></div>
+    <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">新增现金 wait / buy（条件化）；已有持仓 wait / review</p><p class="tracking-detail">估值：合理偏低，但不是深度低估 · 新增现金 wait / buy（条件化）；已有持仓 wait / review；风险：未获取到；结论置信度：中。</p><span class="tracking-status">合理偏低，但不是深度低估</span></div>
+  </div>
+  <div class="tracking-footer"><span>资金状态：<strong>未获取到</strong> · 新增/已有动作：<strong>新增现金 wait / buy（条件化）；已有持仓 wait / review</strong></span><span>资金面分析：未单独生成</span></div>
+</section>
+<!-- DAILY_TRACKING_END -->
 <h2 id="section-1">1. 决策摘要</h2>
 
 <table>
@@ -301,7 +329,7 @@ body {
 <tbody><tr>
 <td>当前价格</td>
 <td align="right">8.69 元</td>
-<td><a href="../../../webpages/2026-07-20-徐工机械行情与研究快照.html">行情快照</a></td>
+<td><a href="../../../webpages/2026-07-20-徐工机械行情与研究快照.md">行情快照</a></td>
 <td>2026-07-20 收盘</td>
 </tr>
 <tr>
@@ -1308,24 +1336,75 @@ body {
 <h2 id="section-15">15. 来源清单</h2>
 
 <ol>
-<li><a href="../../../papers/徐工机械机构研报-2026-07-20/徐工机械2025年年度报告.pdf.html">徐工机械2025年年度报告</a>，徐工机械，2026-04-29。</li>
-<li><a href="../../../papers/徐工机械机构研报-2026-07-20/徐工机械2026年第一季度报告.pdf.html">徐工机械2026年第一季度报告</a>，徐工机械，2026-04-29。</li>
-<li><a href="../../../webpages/2026-07-20-徐工机械行情与研究快照.html">徐工机械行情与研究快照</a>，腾讯自选股公开接口及公告索引，2026-07-20。</li>
+<li><a href="../../../papers/徐工机械机构研报-2026-07-20/徐工机械2025年年度报告.pdf.md">徐工机械2025年年度报告</a>，徐工机械，2026-04-29。</li>
+<li><a href="../../../papers/徐工机械机构研报-2026-07-20/徐工机械2026年第一季度报告.pdf.md">徐工机械2026年第一季度报告</a>，徐工机械，2026-04-29。</li>
+<li><a href="../../../webpages/2026-07-20-徐工机械行情与研究快照.md">徐工机械行情与研究快照</a>，腾讯自选股公开接口及公告索引，2026-07-20。</li>
 <li><a href="https://static.cninfo.com.cn/finalpage/2026-04-29/1225240627.PDF">徐工机械2025年年度报告（巨潮资讯）</a>，访问于2026-07-20。</li>
 <li><a href="https://static.cninfo.com.cn/finalpage/2026-04-29/1225240635.PDF">徐工机械2026年第一季度报告（巨潮资讯）</a>，访问于2026-07-20。</li>
 <li><a href="https://www.cncma.org/article/22403">2026工程机械产业发展大会高层对话</a>，中国工程机械工业协会，2026。</li>
 <li><a href="https://fred.stlouisfed.org/series/dgs10">美国10年期国债收益率DGS10</a>，FRED，访问于2026-07-20。</li>
 <li><a href="https://www.safe.gov.cn/AppStructured/hlw/RMBQuery.do">人民币汇率中间价</a>，国家外汇管理局，访问于2026-07-20。</li>
-<li><a href="../../../../workbench/targets/2026-07-16-1334-中国中车机构级决策研报.html">中国中车机构级决策研报</a>，更新至2026-07-20事件。</li>
-<li><a href="../../../../wiki/topics/冰冰小美-情绪体系理论篇.html">冰冰小美-体系三要素</a>。</li>
-<li><a href="../../../../wiki/concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势.html">竞争格局的比较优势</a>。</li>
-<li><a href="../../../../wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.html">流动性辩证分析</a>。</li>
-<li><a href="../../../../wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化.html">情绪位置的变化</a>。</li>
+<li><a href="../../../../workbench/targets/2026-07-16-1334-中国中车机构级决策研报.md">中国中车机构级决策研报</a>，更新至2026-07-20事件。</li>
+<li><a href="../../../../wiki/topics/冰冰小美-情绪体系理论篇.md">冰冰小美-体系三要素</a>。</li>
+<li><a href="../../../../wiki/concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势.md">竞争格局的比较优势</a>。</li>
+<li><a href="../../../../wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md">流动性辩证分析</a>。</li>
+<li><a href="../../../../wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化.md">情绪位置的变化</a>。</li>
 </ol>
 <h2 id="section-16">16. 声明</h2>
 
 <p>本报告基于截至研究截止时间可取得的公开信息，不构成收益保证或持牌投资建议。估值对现金流、WACC、周期位置和会计口径高度敏感；真实交易前应重新核验价格、公告、流动性、持仓成本、组合集中度和个人风险承受能力。</p>
-</article>
+<script>
+(() => {
+  const endpoint = '/api/stock-quote?secid=0.000425';
+  const priceNode = document.getElementById('intraday-price');
+  const detailNode = document.getElementById('intraday-detail');
+  const statusNode = document.getElementById('intraday-status');
+  const riskRewardValue = document.getElementById('risk-reward-value');
+  const riskRewardDetail = document.getElementById('risk-reward-detail');
+  const tracker = document.getElementById('daily-tracking');
+  const snapshotPrice = 8.69;
+  const percent = value => `${value < 0 ? '-' : value > 0 ? '+' : ''}${Math.abs(value).toFixed(1)}%`;
+  function updateRiskReward(price) {
+    const low = Number(tracker.dataset.valueLow);
+    const high = Number(tracker.dataset.valueHigh);
+    if (!Number.isFinite(low) || !Number.isFinite(high) || low <= 0 || high <= low) return;
+    const upside = (high / price - 1) * 100;
+    const downside = (price / low - 1) * 100;
+    if (price <= low) {
+      riskRewardValue.textContent = '低于价值下沿';
+      riskRewardValue.classList.remove('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿潜在空间 ${percent(upside)}。价格已低于动态价值下沿，不能直接用下沿作为止损风险，需另设风控线。`;
+      return;
+    }
+    if (price >= high) {
+      riskRewardValue.textContent = '无正向盈亏比';
+      riskRewardValue.classList.add('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿空间 ${percent(upside)}，回落至下沿风险 ${percent(downside)}。价格已到或高于动态价值上沿，新增现金不具备正向盈亏比。`;
+      return;
+    }
+    const ratio = upside / downside;
+    riskRewardValue.textContent = `约 ${ratio.toFixed(1)}:1`;
+    riskRewardValue.classList.toggle('bad', ratio < 1);
+    riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；到上沿 ${high.toFixed(2)} 元的潜在上行 ${percent(upside)}，跌至下沿 ${low.toFixed(2)} 元的风险 ${percent(downside)}。盘中价格不改变价值区间本身。`;
+  }
+  async function refreshIntradayQuote() {
+    statusNode.textContent = '连接中'; statusNode.className = 'tracking-status';
+    try {
+      const response = await fetch(endpoint, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json(); const quote = payload && payload.data;
+      if (!quote || !Number.isFinite(quote.price) || !Number.isFinite(quote.prevClose) || !Number.isFinite(quote.changePercent) || !Number.isFinite(quote.quoteTimestamp)) throw new Error('invalid quote');
+      const quoteTime = new Date(quote.quoteTimestamp * 1000).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false });
+      priceNode.textContent = `${quote.price.toFixed(2)} 元 · ${percent(quote.changePercent)}`;
+      priceNode.classList.toggle('bad', quote.changePercent < 0);
+      detailNode.textContent = `行情时间：${quoteTime}；昨收 ${quote.prevClose.toFixed(2)} 元。来源：${payload.proxySource || '本地行情代理'}。`;
+      statusNode.textContent = '盘中实时 · 每 60 秒'; statusNode.className = 'tracking-status live'; updateRiskReward(quote.price);
+    } catch { priceNode.textContent = '实时行情暂不可用'; priceNode.classList.remove('bad'); detailNode.textContent = '每日同步值仍然有效；可重新双击“大盘启动器”后刷新本页。'; statusNode.textContent = '连接失败'; statusNode.className = 'tracking-status error'; }
+  }
+  if (location.protocol === 'http:' || location.protocol === 'https:') { refreshIntradayQuote(); window.setInterval(refreshIntradayQuote, 60000); }
+  else { priceNode.textContent = Number.isFinite(snapshotPrice) ? `${snapshotPrice.toFixed(2)} 元（每日值）` : '每日值未获取'; detailNode.textContent = '当前为直接打开模式；盘中实时需通过“大盘启动器”进入本地服务。'; statusNode.textContent = '每日同步 · 实时未连接'; }
+})();
+</script></article>
     </div>
   </main>
 </body>

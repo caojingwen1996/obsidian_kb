@@ -36,6 +36,13 @@ datasets:
     required_params: [ts_code]
     allowed_params: [ts_code, trade_date, start_date, end_date, fields]
     fields: [trade_date, ts_code, name, rzye, rqye, rzmre, rqyl, rzche, rqchl, rqmcl, rzrqye]
+  margin:
+    api: margin
+    purpose: 沪深市场融资融券交易汇总
+    cache_ttl_seconds: 300
+    required_params: []
+    allowed_params: [trade_date, start_date, end_date, exchange_id, fields]
+    fields: [trade_date, exchange_id, rzye, rzmre, rzche, rqye, rqmcl, rzrqye]
   income:
     api: income
     purpose: 利润表核心科目

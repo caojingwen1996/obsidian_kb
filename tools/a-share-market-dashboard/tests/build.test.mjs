@@ -7,7 +7,9 @@ import { dirname, join } from 'node:path';
 import { createExampleSnapshot } from '../src/data-service.mjs';
 import {
   deriveDashboard,
+  allocationCategoryForReport,
   evaluateFuguiStrategyCandidate,
+  findDuplicateTrackingItem,
   leftEdgeFromValueRange,
   normalizeFuguiStrategyItems,
   normalizeTrackingItems,
@@ -94,10 +96,11 @@ test('window controls use native buttons with the four approved values', () => {
 
 test('sidebar exposes the personal position workspace as a first-level tree domain', () => {
   const html = readFileSync(sourcePath, 'utf8');
-  for (const domain of ['thermometer', 'industry', 'personal', 'changelog']) {
+  const appSource = readFileSync(new URL('../src/app.mjs', import.meta.url), 'utf8');
+  for (const domain of ['thermometer', 'strategy', 'industry', 'personal', 'changelog']) {
     assert.match(html, new RegExp(`<button[^>]+data-tree-domain="${domain}"`));
   }
-  for (const id of ['tree-thermometer', 'tree-industry', 'tree-personal', 'changelog-view',
+  for (const id of ['tree-thermometer', 'tree-strategy', 'tree-industry', 'tree-personal', 'changelog-view',
     'industry-strategy',
     'industry-emerging',
     'industry-pillar',
@@ -111,11 +114,16 @@ test('sidebar exposes the personal position workspace as a first-level tree doma
     'fugui-panel-open',
     'fugui-strategy-status',
     'fugui-strategy-body',
+    'xiaomei-strategy',
+    'xiaomei-strategy-heading',
     'topic-map',
     'holding-form',
     'tracking-form',
     'tracking-count',
     'tracking-filter',
+    'tracking-allocation-mode',
+    'tracking-allocation-collapse',
+    'tracking-allocation-body',
     'holdings-table-body',
     'holding-tracker-list',
     'holding-tracker-empty',
@@ -130,18 +138,25 @@ test('sidebar exposes the personal position workspace as a first-level tree doma
   }
   assert.match(html, /data-status-filter="addable"[^>]*>可加<\/button>/);
   assert.match(html, /data-status-filter="reducible"[^>]*>可减<\/button>/);
-  assert.match(html, /data-status-filter="allocation"[^>]*>配比模式<\/button>/);
+  assert.doesNotMatch(html, /data-status-filter="allocation"/);
+  assert.match(html, /id="open-tracking-form"[^>]*>新增跟踪<\/button>\s*<button class="button-secondary" id="refresh-tracking-reports"[^>]*>一键更新<\/button>\s*<button class="allocation-ribbon" id="tracking-allocation-mode"[^>]*>配比模式<\/button>/);
   assert.doesNotMatch(html, /data-status-filter="计划加仓"/);
   assert.doesNotMatch(html, /data-status-filter="计划减仓"/);
   assert.match(html, /id="tracking-allocation-view" hidden/);
+  assert.match(html, /id="tracking-allocation-collapse"[^>]*aria-controls="tracking-allocation-body"[^>]*aria-expanded="true"/);
   assert.match(html, /id="tracking-allocation-chart"/);
   assert.match(html, /id="tracking-allocation-legend"/);
   assert.match(html, /<button class="button-secondary" id="open-tracking-form" type="button">新增跟踪<\/button>/);
+  assert.match(html, /<button class="button-secondary" id="refresh-tracking-reports" type="button">一键更新<\/button>/);
   const trackingForm = html.match(/<form class="tracking-form panel" id="tracking-form" hidden>[\s\S]*?<\/form>/)?.[0] ?? '';
   assert.match(trackingForm, /<label><span>标的名称<\/span><input name="name" required maxlength="30"/);
   assert.match(trackingForm, /<label><span>证券代码<\/span><input name="code" maxlength="12"/);
   assert.doesNotMatch(trackingForm, /<label><span>证券代码<\/span><input name="code" required/);
+  assert.match(trackingForm, /id="tracking-form-status"/);
+  assert.match(appSource, /findDuplicateTrackingItem\(trackingItems, next/);
+  assert.match(appSource, /已在跟踪清单中/);
   assert.match(html, /data-tree-domain="thermometer"[^>]+aria-expanded="true"[^>]+aria-controls="tree-thermometer"/);
+  assert.match(html, /data-tree-domain="strategy"[^>]+aria-expanded="false"[^>]+aria-controls="tree-strategy"/);
   assert.match(html, /data-tree-domain="industry"[^>]+aria-expanded="false"[^>]+aria-controls="tree-industry"/);
   assert.match(html, /data-tree-domain="personal"[^>]+aria-expanded="false"[^>]+aria-controls="tree-personal"/);
   assert.doesNotMatch(html, /class="shell-switcher"/);
@@ -150,17 +165,21 @@ test('sidebar exposes the personal position workspace as a first-level tree doma
   assert.match(html, /class="tracking-table-wrap"/);
   assert.match(html, /<table class="tracking-table">/);
   assert.match(html, /id="tree-thermometer"[\s\S]*data-view="market-summary"[^>]*aria-current="page"><span>01<\/span>市场总览<\/button>\s*<button class="nav-item" type="button" data-view="dividend-signal-view"><span>02<\/span>红利信号<\/button>/);
-  assert.match(html, /id="tree-thermometer"[\s\S]*<button class="nav-item" type="button" data-view="featured-digest"><span>08<\/span>精选汇总<\/button>/);
-  assert.match(html, /id="tree-thermometer"[\s\S]*<button class="nav-item" type="button" data-view="fugui-strategy"><span>09<\/span>富贵策略<\/button>/);
-  assert.match(html, /id="tree-thermometer"[\s\S]*<button class="nav-item" type="button" data-view="topic-map"><span>10<\/span>主题<\/button>/);
+  assert.match(html, /id="tree-thermometer"[\s\S]*<button class="nav-item" type="button" data-view="featured-digest"><span>08<\/span>每日跟踪<\/button>/);
+  assert.doesNotMatch(html.match(/<div class="tree-children" id="tree-thermometer">[\s\S]*?<\/div>/)?.[0] ?? '', /data-view="fugui-strategy"/);
+  assert.match(html, /id="tree-thermometer"[\s\S]*<button class="nav-item" type="button" data-view="topic-map"><span>09<\/span>主题<\/button>/);
+  assert.match(html, /id="tree-strategy"[\s\S]*<button class="nav-item" type="button" data-view="fugui-strategy"><span>01<\/span>富贵策略<\/button>\s*<button class="nav-item" type="button" data-view="xiaomei-strategy"><span>02<\/span>小美策略<\/button>/);
   const personalTree = html.match(/<div class="tree-children" id="tree-personal" hidden>[\s\S]*?<\/div>/)?.[0] ?? '';
   assert.doesNotMatch(personalTree, /data-view="featured-digest"/);
   assert.doesNotMatch(personalTree, /data-view="fugui-strategy"/);
   assert.doesNotMatch(personalTree, /data-view="topic-map"/);
   assert.match(html, /<section class="view" id="featured-digest" data-shell-content="thermometer" aria-labelledby="featured-digest-heading">/);
-  assert.match(html, /<h2 class="visually-hidden" id="featured-digest-heading">精选汇总<\/h2>/);
-  assert.match(html, /<section class="view" id="fugui-strategy" data-shell-content="thermometer" aria-labelledby="fugui-strategy-heading">/);
+  assert.match(html, /<h2 class="visually-hidden" id="featured-digest-heading">每日跟踪<\/h2>/);
+  assert.match(html, /<section class="view" id="fugui-strategy" data-shell-content="strategy" aria-labelledby="fugui-strategy-heading">/);
   assert.match(html, /<h2 class="visually-hidden" id="fugui-strategy-heading">富贵策略<\/h2>/);
+  assert.match(html, /<section class="view" id="xiaomei-strategy" data-shell-content="strategy" aria-labelledby="xiaomei-strategy-heading">/);
+  assert.match(html, /<h2 class="visually-hidden" id="xiaomei-strategy-heading">小美策略<\/h2>/);
+  assert.match(html, /<p class="eyebrow">XIAOMEI STRATEGY<\/p>\s*<h3>小美策略<\/h3>/);
   assert.doesNotMatch(html, /class="section-header fugui-strategy-head"/);
   assert.match(html, /<form class="fugui-form panel" id="fugui-strategy-form">/);
   assert.match(html, /id="fugui-panel-collapse"[^>]*aria-controls="fugui-strategy-form"[^>]*>收起面板<\/button>/);
@@ -174,7 +193,6 @@ test('sidebar exposes the personal position workspace as a first-level tree doma
   assert.match(html, /<tbody id="fugui-strategy-body">/);
   assert.match(readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8'), /\.fugui-table \{ width: 100%; table-layout: fixed;/);
   assert.doesNotMatch(readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8'), /\.fugui-table \{[^}]*min-width:/);
-  const appSource = readFileSync(new URL('../src/app.mjs', import.meta.url), 'utf8');
   assert.doesNotMatch(appSource, /\/api\/fugui-strategy|scanFuguiStrategy/);
   assert.match(html, /<button class="button-secondary" id="fugui-provider-toggle" type="button">切换到Tushare<\/button>/);
   assert.match(appSource, /\/api\/fugui-candidate\?name=.*provider=/);
@@ -190,6 +208,7 @@ test('sidebar exposes the personal position workspace as a first-level tree doma
   assert.match(html, /id="review-diary-modal"/);
   assert.match(html, /id="review-diary-form"/);
   assert.match(appSource, /\/api\/review-diary/);
+  assert.match(appSource, /\/api\/tracking-rerender-reports/);
   assert.match(appSource, /data-action="review-diary"[\s\S]*复盘日记/);
   assert.doesNotMatch(html, /tracker-card/);
 });
@@ -204,9 +223,14 @@ test('market summary renders three overview cards and includes signal sources in
   assert.match(source, /id="dividend-signal-card"/);
   assert.match(source, /id="dividend-signal-view"/);
   assert.match(source, /id="dividend-signal-detail"/);
+  assert.doesNotMatch(source, /id="dividend-signal-heading"/);
   assert.match(source, /id="nasdaq100-card"/);
-  assert.match(source, /class="featured-entry-card panel"/);
-  assert.match(source, /id="open-featured-digest"[^>]*>进入精选汇总<\/button>/);
+  assert.match(source, /class="summary-shortcut-grid"/);
+  assert.match(source, /融资余额/);
+  assert.match(source, /每日跟踪/);
+  assert.equal((source.match(/summary-shortcut-card/g) ?? []).length >= 5, true);
+  assert.equal((source.match(/summary-shortcut-card-empty/g) ?? []).length, 3);
+  assert.match(source, /id="open-featured-digest"[^>]*>进入每日跟踪<\/button>/);
   assert.match(source, /id="event-calendar-list"/);
   assert.doesNotMatch(source, /预留模块/);
   assert.doesNotMatch(source, /暂空/);
@@ -228,8 +252,16 @@ test('market summary renders three overview cards and includes signal sources in
     '../../sources/automations/中证红利信号/最新信号.md',
     '未进重点买入',
     '股息率2',
+    '10年国债收益率',
+    'AKShare bond_zh_us_rate',
     'C（小额定投）',
+    '2026-07-29',
     '股债利差',
+    '股息率2 - 10年国债收益率',
+    '历史分位',
+    '理杏仁公开页面',
+    '雪球行情',
+    '原始来源备注',
     'zzhl-dividend-signal 最新信号',
     '<td>中证红利股息率信号</td>',
     '<td>观察项</td>',
@@ -239,15 +271,22 @@ test('market summary renders three overview cards and includes signal sources in
     '/api/nasdaq100',
     'EVENT CALENDAR',
     'BBXM DAILY DIGEST',
-    '进入精选汇总',
+    '进入每日跟踪',
     '事件日历',
     'event-calendar-empty',
   ]) {
     assert.match(artifact, new RegExp(marker));
   }
+  assert.doesNotMatch(artifact, /记录信息|dividend-record-list|运行时间|指数估值日期|国债收益率日期|理杏仁估值日期/);
+  assert.ok(artifact.includes('AKShare stock_zh_index_value_csindex(000922, 股息率2)'));
   assert.match(appSource, /absolute\.grade \? `\$\{absolute\.grade\} \$\{absolute\.label\}`/);
+  assert.match(appSource, /const displayDate = signal\.indexDate \|\| signal\.recordDate/);
+  assert.match(appSource, /<p>\$\{escapeHtml\(displayDate\)\}<\/p>/);
   assert.doesNotMatch(artifact, /CSI_DIVIDEND_SIGNAL\s*=\s*Object\.freeze\(\s*\/\/ CSI_DIVIDEND_SIGNAL/);
   assert.doesNotMatch(artifact, /CSI_DIVIDEND_YIELD_HISTORY\s*=\s*Object\.freeze\(\s*\/\/ CSI_DIVIDEND_YIELD_HISTORY/);
+  assert.match(artifact, /"dividendYield2": 4\.4/);
+  assert.match(artifact, /"spread": 2\.67/);
+  assert.match(artifact, /"spreadSignal": "C（小额定投）"/);
   assert.match(artifact, /"date": "2026-06-02"[\s\S]*"value": 4\.83/);
   assert.match(readFileSync(new URL('../scripts/build.mjs', import.meta.url), 'utf8'), /中证红利每日信号\.xlsx/);
 });
@@ -340,10 +379,7 @@ test('industry panels use the approved feed layout without the tracking card', (
   assert.doesNotMatch(html, /<button type="button" data-filter="电力设备" aria-pressed="false">电力设备<\/button>/);
   assert.doesNotMatch(html, /集成电路产业链缩圈|生物医药、新型储能与智能机器人观察/);
   assert.doesNotMatch(html, /战略资源：资源安全与硬资产重估|铜与关键矿产供需周期跟踪|黄金与能源的宏观变量观察/);
-  for (const directoryName of ['战略资源', '新兴产业', '支柱产业']) {
-    const count = countFeedReports(directoryName);
-    assert.match(html, new RegExp(`<strong>7月20日<\\/strong><span>星期一 · ${count}条<\\/span>`));
-  }
+  assert.match(html, /<div class="industry-date-row"><strong>\d+月\d+日<\/strong><span>星期[一二三四五六日] · \d+条<\/span><\/div>/);
   assert.match(html, /<section class="industry-research-list"[^>]*>[\s\S]*商业航天产业完整分析报告/);
   assert.match(html, /<li class="industry-research-item" data-filters="商业航天">[\s\S]*商业航天产业完整分析报告/);
   assert.match(html, /<li class="industry-research-item" data-filters="算力">[\s\S]*算力产业完整分析报告/);
@@ -407,15 +443,36 @@ test('featured digest replaces book list and reads BBXM daily summaries', () => 
   assert.doesNotMatch(source, /READING LIST|书单入口|book-list/);
   assert.match(buildSource, /BBXM每日汇总/);
   assert.match(buildSource, /scanBbxmDailyDigest/);
+  assert.match(buildSource, /metadataValue\(markdown, '标签'\)/);
+  assert.match(buildSource, /digestFiltersFromPost\(markdown\)/);
+  assert.match(buildSource, /digestOriginalText\(markdown, title\)/);
+  assert.match(buildSource, /originalTextEncoded/);
+  assert.match(buildSource, /featured-original-toggle/);
+  assert.match(buildSource, /featured-delete/);
+  assert.match(buildSource, /data-featured-id/);
+  assert.doesNotMatch(buildSource, /digestFilters\(text\)/);
   assert.match(appSource, /applyFeaturedFilter/);
+  assert.match(appSource, /featured-original-toggle/);
+  assert.match(appSource, /featured-delete/);
+  assert.match(appSource, /FEATURED_DELETED_STORAGE_KEY/);
+  assert.match(appSource, /confirm\(`确认删除/);
+  assert.match(appSource, /\/api\/featured-post/);
+  assert.match(appSource, /method: 'DELETE'/);
+  assert.match(appSource, /删除原始 Markdown/);
+  assert.match(appSource, /decodeFeaturedOriginal/);
+  assert.match(appSource, /TextDecoder/);
+  assert.match(appSource, /收起原文/);
   assert.match(appSource, /setShell\('thermometer', 'featured-digest'\)/);
   for (const marker of [
-    '精选汇总',
+    '每日跟踪',
     '当前热点',
     '来源目录：sources/automations/BBXM每日汇总',
     '投机周期',
     '../../sources/automations/BBXM每日汇总/2026-07-25/冰冰小美/135900_投机周期_40209002.md',
     '打开雪球原帖',
+    '显示原文',
+    '删除',
+    'featured-original',
     'featured-filter-tabs',
     'featured-card',
     'data-featured-filter="macro"',
@@ -506,6 +563,17 @@ test('tracking items normalize independently from actual position holdings', () 
   }
 });
 
+test('tracking duplicate check blocks same code or same name while editing self', () => {
+  const items = [
+    { id: 'tracking-1', code: '002436', name: '兴森科技', status: '观察' },
+    { id: 'tracking-2', code: '600879', name: '航天电子', status: '持有' },
+  ];
+
+  assert.equal(findDuplicateTrackingItem(items, { code: '002436', name: '兴森科技' })?.id, 'tracking-1');
+  assert.equal(findDuplicateTrackingItem(items, { code: '', name: '航天电子' })?.id, 'tracking-2');
+  assert.equal(findDuplicateTrackingItem(items, { code: '002436', name: '兴森科技' }, 'tracking-1'), null);
+});
+
 test('fugui strategy keeps rule results as status instead of admission gate', () => {
   const appSource = readFileSync(new URL('../src/app.mjs', import.meta.url), 'utf8');
   const passed = evaluateFuguiStrategyCandidate({
@@ -562,6 +630,9 @@ test('tracking intraday sort distance measures closeness to dynamic value left e
 test('tracking addable and reducible filters derive signals from dynamic value range', () => {
   const appSource = readFileSync(new URL('../src/app.mjs', import.meta.url), 'utf8');
 
+  assert.equal(allocationCategoryForReport('../../sources/automations/战略资源/铜/铜产业报告.html'), 'strategy');
+  assert.equal(allocationCategoryForReport('../../sources/automations/新兴产业/商业航天/航天电子.html'), 'emerging');
+  assert.equal(allocationCategoryForReport('../../sources/automations/支柱产业/高端制造/福田汽车.html'), 'pillar');
   assert.deepEqual(valueRangePrices('16.5—20.5 元'), { left: 16.5, right: 20.5, center: 18.5 });
   assert.deepEqual(trackingSignalForQuote({ valueRange: '16.5—20.5 元', livePrice: 18 }), { addStars: 1, reducible: false });
   assert.deepEqual(trackingSignalForQuote({ valueRange: '16.5—20.5 元', livePrice: 18.4 }), { addStars: 0, reducible: false });
@@ -574,6 +645,9 @@ test('tracking addable and reducible filters derive signals from dynamic value r
   assert.equal(trackingRiskRewardForQuote({ valueRange: '16.5—20.5 元', reportQuote: '18.00 元' }).label, '等待实时');
   assert.match(appSource, /trackingStatusFilter === 'addable'/);
   assert.match(appSource, /trackingStatusFilter === 'reducible'/);
+  assert.match(appSource, /trackingAllocationMode/);
+  assert.match(appSource, /trackingAllocationCollapsed/);
+  assert.match(appSource, /tracking-group-row/);
   assert.match(appSource, /'★'\.repeat\(signal\.addStars\)/);
 });
 

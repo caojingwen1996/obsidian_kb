@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>华明装备资金面分析</title>
+  <style>
+    :root { color-scheme: light; --ink:#172033; --muted:#667085; --line:#d7dde8; --soft:#f5f7fb; --accent:#0f766e; --warn:#b45309; --bad:#b42318; --good:#047857; }
+    body { margin:0; font-family: "Microsoft YaHei", "Segoe UI", sans-serif; color:var(--ink); background:#eef2f7; line-height:1.65; }
+    main { max-width:1180px; margin:0 auto; padding:28px 22px 56px; }
+    header { background:#0f172a; color:white; padding:28px; border-radius:8px; margin-bottom:18px; }
+    h1 { margin:0 0 12px; font-size:30px; letter-spacing:0; }
+    h2 { margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid var(--line); font-size:22px; }
+    h3 { margin:22px 0 8px; font-size:18px; }
+    .meta { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin-top:14px; }
+    .meta div, .card { background:white; border:1px solid var(--line); border-radius:8px; padding:14px; }
+    header .meta div { background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.18); }
+    .summary { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin:16px 0 8px; }
+    .summary .value { font-size:22px; font-weight:700; }
+    .tag { display:inline-block; padding:3px 8px; border-radius:999px; background:#e6fffb; color:#0f766e; font-size:13px; font-weight:700; }
+    .tag.warn { background:#fff7ed; color:var(--warn); }
+    .tag.bad { background:#fef3f2; color:var(--bad); }
+    table { width:100%; border-collapse:collapse; background:white; margin:12px 0 18px; border:1px solid var(--line); }
+    th, td { border:1px solid var(--line); padding:9px 10px; vertical-align:top; }
+    th { background:#f1f5f9; text-align:left; }
+    td.num { text-align:right; white-space:nowrap; }
+    ul { padding-left:22px; }
+    a { color:#0f766e; text-decoration:none; }
+    .note { background:#fff7ed; border:1px solid #fed7aa; color:#7c2d12; border-radius:8px; padding:12px 14px; }
+    .section { background:white; border:1px solid var(--line); border-radius:8px; padding:18px; margin:16px 0; }
+    footer { color:var(--muted); font-size:13px; margin-top:30px; }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>华明装备（002270.SZ）资金面分析</h1>
+    <div class="meta">
+      <div><strong>对象层级</strong><br>个股</div>
+      <div><strong>所属市场</strong><br>A 股 / 深交所</div>
+      <div><strong>分析截止时间</strong><br>2026-07-30 23:59 Asia/Shanghai</div>
+      <div><strong>比较窗口</strong><br>当日或最新可得 / 近5个可得交易日 / 近20个可得交易日</div>
+      <div><strong>核心问题</strong><br>华明装备当前资金是继续流入、流出，还是分歧？新增资金能否买入？</div>
+    </div>
+  </header>
+
+  <section class="summary">
+    <div class="card"><div>资金状态</div><div class="value">多空分歧</div><span class="tag warn">短线修复，中期未修复</span></div>
+    <div class="card"><div>新增资金动作</div><div class="value">wait / 0%</div><span class="tag warn">等待确认</span></div>
+    <div class="card"><div>已有持仓动作</div><div class="value">review</div><span class="tag">需结合成本仓位</span></div>
+    <div class="card"><div>置信度</div><div class="value">低到中</div><span class="tag bad">当日数据缺口</span></div>
+  </section>
+
+  <h2>1. 核心结论与行动</h2>
+  <div class="section">
+    <ul>
+      <li><strong>资金状态：</strong>多空分歧。最新可得资金分档显示 2026-07-27 单日和近 5 个可得交易日转为净流入，但近 20 个可得交易日仍为资金净流出，融资融券已通过 Tushare MCP 核到 2026-07-29，近 5 个可得交易日明显净流出。</li>
+      <li><strong>主导资金：</strong>短线主导是大额订单代理的阶段性回补；身份不可穿透，不能写成机构建仓。</li>
+      <li><strong>主要分歧或拖累：</strong>中期资金仍未修复，融资余额未同步增强，2026-07-30 当日实时资金、北向、ETF、龙虎榜和产业资本均未获取到。</li>
+      <li><strong>新增资金：</strong>wait；0%。等待当日资金、近 5 日大额订单、融资余额和价格同时确认。</li>
+      <li><strong>已有持仓：</strong>review；因未提供成本、仓位、原计划和风险预算，不给 sell / reduce / wait 的无条件结论。</li>
+      <li><strong>总体置信度：</strong>低到中。已有数据能说明“短线修复”，不足以确认“共振流入”。</li>
+    </ul>
+  </div>
+
+  <h2>2. 数据审计</h2>
+  <table>
+    <thead><tr><th>数据项目</th><th>最新时点</th><th>观察窗口</th><th>来源</th><th>口径与覆盖范围</th><th>数据性质</th><th>缺口及影响</th></tr></thead>
+    <tbody>
+      <tr><td>Tushare MCP</td><td>2026-07-29</td><td>2026-07-01 至 2026-07-29</td><td>本地 tushare-data MCP / get_margin_detail</td><td>返回 21 行融资融券明细，字段含 rzye、rzmre、rzche、rqye、rzrqye</td><td>已验证事实</td><td>2026-07-30 当日融资融券仍未获取到；资金分档仍回退同花顺</td></tr>
+      <tr><td>资金分档 / 订单流</td><td>2026-07-27</td><td>1 / 5 / 20 个可得交易日</td><td>同花顺资金流向</td><td>资金净额与大单净额，单位万元</td><td>统计代理</td><td>只到 7 月 27 日；不能确认账户身份</td></tr>
+      <tr><td>融资融券</td><td>2026-07-29</td><td>近 5 个可得交易日、近 20 个可得交易日</td><td>本地 Tushare MCP get_margin_detail</td><td>融资余额、融资买入、融资偿还、融券余额、融资融券余额，单位万元</td><td>已验证事实 / 统计代理</td><td>2026-07-30 当日数据未获取到；融资买入与订单流部分重叠</td></tr>
+      <tr><td>价格快照</td><td>2026-07-28</td><td>最新可核验</td><td>既有机构级研报、CFI/Investing.com 搜索快照</td><td>收盘价 19.56 元，PE 24.99 倍，PB 5.57 倍</td><td>已验证事实</td><td>2026-07-30 实时价未获取到</td></tr>
+      <tr><td>股东户数</td><td>2026-07-20</td><td>7 月中旬</td><td>东方财富个股日历</td><td>59,620 户，较 7 月 10 日下降</td><td>统计代理</td><td>低频滞后，不能归因当日买方</td></tr>
+      <tr><td>ETF / 北向 / 龙虎榜 / 产业资本</td><td>2026-07-30</td><td>最新检索</td><td>公开检索</td><td>未获取到可复核当日数据</td><td>缺口</td><td>降低交易方身份判断置信度</td></tr>
+    </tbody>
+  </table>
+
+  <h3>基本面与价格预期校验</h3>
+  <table>
+    <thead><tr><th>校验项</th><th>当前事实</th><th>来源</th><th>与资金面的关系</th><th>缺口及影响</th></tr></thead>
+    <tbody>
+      <tr><td>市场预期 / 共识</td><td>资金可能交易电网投资、海外分接开关、高分红和半年报修复预期</td><td>既有机构级研报、公开公告</td><td>解释短线资金回补的叙事背景</td><td>一致预期样本未获取到，不能量化共识强弱</td></tr>
+      <tr><td>基本面证据</td><td>2026Q1 主业收入与扣非利润承压，经营现金流改善</td><td>2026Q1 报告</td><td>支持“未证伪但需验证”的承接理由</td><td>半年报未披露，修复预期未确认</td></tr>
+      <tr><td>价格预期位置</td><td>最新可核验价 19.56 元，接近 15.0 至 21.0 元价值区间上沿</td><td>既有机构级研报</td><td>价格容错下降，资金继续上攻需要新证据</td><td>7 月 30 日实时价未获取到</td></tr>
+      <tr><td>估值与分红</td><td>PE 约 24.99 倍，PB 约 5.57 倍；2025 年每 10 股派 2.10 元</td><td>CFI、分红公告</td><td>分红改善承接，但估值不便宜</td><td>历史估值分位未获取到</td></tr>
+      <tr><td>宏观与行业背景</td><td>电网设备和出口链仍有政策与需求叙事</td><td>公开研报与行业跟踪</td><td>中性偏顺风</td><td>缺少当天板块广度和 ETF 申赎数据</td></tr>
+    </tbody>
+  </table>
+
+  <h3>已检查范围</h3>
+  <ul>
+    <li>检查对象：002270.SZ 华明装备。</li>
+    <li>检查关键词：华明装备、002270、资金流向、融资融券、股东户数、资金面、北向、龙虎榜。</li>
+    <li>未取得项目：2026-07-30 实时资金、2026-07-30 当日融资融券、北向个股持仓、ETF 成分申赎、龙虎榜、产业资本当日交易；融资融券已通过 Tushare 核到 2026-07-29。</li>
+  </ul>
+
+  <h2>3. 资金来源全景</h2>
+  <table>
+    <thead><tr><th>资金类型</th><th>当日</th><th>近5日</th><th>近20日</th><th>核心证据</th><th>持续性</th><th>退出或反转条件</th></tr></thead>
+    <tbody>
+      <tr><td>外资与跨境资金</td><td>未获取到</td><td>未获取到</td><td>未获取到</td><td>北向/陆股通个股数据未取得</td><td>待验证</td><td>后续持股数量下降或通道净卖出</td></tr>
+      <tr><td>杠杆资金</td><td>未获取到</td><td>略偏流出</td><td>偏弱</td><td>Tushare 核到 2026-07-29：近5个可得交易日融资净买入约 -3,645.87 万元，融资余额较 2026-07-23 下降约 1,901.38 万元；近20个可得交易日融资净买入约 -1,465.90 万元</td><td>低</td><td>融资余额连续回升并配合价格上行</td></tr>
+      <tr><td>公募与ETF</td><td>未获取到</td><td>未获取到</td><td>未获取到</td><td>未取得行业 ETF 申赎及华明权重映射</td><td>待验证</td><td>行业 ETF 份额持续扩张且成分权重可映射</td></tr>
+      <tr><td>产业资本</td><td>未获取到</td><td>未获取到</td><td>中性</td><td>未见当日增减持或回购实施数据；此前有分红与员工持股安排</td><td>待验证</td><td>出现减持、折价大宗交易或 H 股摊薄进展</td></tr>
+      <tr><td>保险与长期资金</td><td>未获取到</td><td>未获取到</td><td>未获取到</td><td>缺少低频持仓披露</td><td>待验证</td><td>定期报告披露长期资金增减持</td></tr>
+      <tr><td>私募与信托</td><td>未获取到</td><td>未获取到</td><td>未获取到</td><td>缺少产品持仓与仓位调查映射</td><td>待验证</td><td>公开披露或席位证据出现</td></tr>
+      <tr><td>券商资管</td><td>未获取到</td><td>未获取到</td><td>未获取到</td><td>未取得产品持仓代理</td><td>待验证</td><td>持仓披露验证</td></tr>
+      <tr><td>个人资金</td><td>未获取到</td><td>弱承接代理</td><td>筹码收敛代理</td><td>股东户数 7 月中旬下降；小单数据未系统取得</td><td>低</td><td>股东户数重新上升或价格放量滞涨</td></tr>
+      <tr><td>筹码供给</td><td>未获取到</td><td>未见新增大供给</td><td>待验证</td><td>未取得当日解禁、质押、大宗和减持完整数据</td><td>待验证</td><td>减持、解禁、质押风险或 H 股折价发行落地</td></tr>
+    </tbody>
+  </table>
+
+  <h3>流入机制</h3>
+  <table>
+    <thead><tr><th>机制</th><th>是否存在</th><th>证据</th><th>边界与下一验证点</th></tr></thead>
+    <tbody>
+      <tr><td>场外真实增量</td><td>证据不足</td><td>没有北向、ETF、基金或长期资金增量证据</td><td>等待可识别账户或份额数据</td></tr>
+      <tr><td>存量迁移</td><td>可能存在</td><td>近 5 个可得交易日大额订单代理转正，价格反弹</td><td>需要板块相对强弱和流出端验证</td></tr>
+      <tr><td>减量报团</td><td>证据不足</td><td>缺少板块广度和成交集中度数据</td><td>等待行业广度与 ETF 申赎</td></tr>
+    </tbody>
+  </table>
+
+  <h2>4. 交易方画像与数据层独立性</h2>
+  <h3>4.1 交易方画像</h3>
+  <table>
+    <thead><tr><th>交易方</th><th>方向</th><th>角色</th><th>核心证据</th><th>证据等级</th><th>反证</th><th>不可知项</th></tr></thead>
+    <tbody>
+      <tr><td>G 国家队 / 政策性资金</td><td>不可知</td><td>未确认</td><td>无可识别账户或政策工具数据</td><td>不可知</td><td>无</td><td>ETF 申赎和持有人未取得</td></tr>
+      <tr><td>I 内资机构</td><td>弱净买代理</td><td>可能承接</td><td>近 5 日大额订单代理净流入</td><td>弱推断</td><td>近 20 日资金仍净流出</td><td>大单不等于机构账户</td></tr>
+      <tr><td>N 北向 / 跨境资金</td><td>不可知</td><td>未确认</td><td>未取得个股持股变化</td><td>不可知</td><td>无</td><td>陆股通持股与交易方向缺口</td></tr>
+      <tr><td>Q QFII 等境外机构</td><td>不可知</td><td>未确认</td><td>无席位或持仓披露</td><td>不可知</td><td>无</td><td>低频披露滞后</td></tr>
+      <tr><td>H 游资 / 量化 / 短线资金</td><td>可能净买</td><td>短线推动</td><td>近 5 日订单流修复与价格反弹</td><td>弱推断</td><td>无龙虎榜身份锚点</td><td>席位、换手结构未取得</td></tr>
+      <tr><td>M 融资等杠杆资金</td><td>略偏净卖</td><td>拖累</td><td>近 5 个可得交易日融资净买入约 -3,645.87 万元</td><td>弱推断</td><td>单日曾有正流入</td><td>2026-07-30 当日数据缺口</td></tr>
+      <tr><td>R 个人 / 小额订单代理</td><td>不可知</td><td>承接未确认</td><td>股东户数下降是筹码收敛代理</td><td>弱推断</td><td>小单数据未系统取得</td><td>不能确认个人买卖方向</td></tr>
+      <tr><td>C 产业资本 / 公司 / 内部人</td><td>中性</td><td>低频稳定</td><td>分红和员工持股安排偏正，但非日频买盘</td><td>弱推断</td><td>H 股发行不确定</td><td>当日增减持和大宗未取得</td></tr>
+    </tbody>
+  </table>
+  <ul>
+    <li><strong>主卖方：</strong>中期订单流与融资资金代理仍偏弱，账户身份不可知。</li>
+    <li><strong>主买方：</strong>近 5 日大额订单代理，可能包含机构、量化、短线资金或大额个人。</li>
+    <li><strong>主要承接方：</strong>统计代理层面是大额订单和部分筹码收敛；没有直接账户证据。</li>
+    <li><strong>无法确认的主体：</strong>国家队、北向、QFII、保险、公募、产业资本当日行为均不可知。</li>
+  </ul>
+
+  <h3>4.2 数据层与独立性</h3>
+  <table>
+    <thead><tr><th>数据渠道</th><th>当前结果</th><th>身份锚点</th><th>与其他层关系</th><th>可用于什么结论</th><th>不能推出什么</th></tr></thead>
+    <tbody>
+      <tr><td>资金分档 / 订单流</td><td>7 月 27 日和近 5 日转正，近 20 日仍流出</td><td>无</td><td>与融资、龙虎榜可能重叠</td><td>金额方向和短线修复</td><td>机构建仓或散户接盘</td></tr>
+      <tr><td>跨境流量与持股</td><td>未获取到</td><td>应有身份锚点但缺数据</td><td>与订单流部分重叠</td><td>不可用</td><td>北向买卖方向</td></tr>
+      <tr><td>融资融券</td><td>截至 7 月 29 日偏弱</td><td>融资账户</td><td>融资买入与订单流部分重叠</td><td>杠杆风险偏好</td><td>与 F5 金额相加</td></tr>
+      <tr><td>大宗交易</td><td>未获取到</td><td>可能有席位</td><td>通常独立于竞价订单流</td><td>不可用</td><td>无大宗压力</td></tr>
+      <tr><td>龙虎榜</td><td>未获取到</td><td>若上榜可有席位</td><td>全市场成交子集</td><td>不可用</td><td>全市场机构方向</td></tr>
+      <tr><td>回购 / 增减持</td><td>未获取到当日执行</td><td>公司/股东</td><td>低频独立</td><td>产业资本方向待核验</td><td>当日买卖力量</td></tr>
+      <tr><td>股东户数 / 持仓披露</td><td>7 月中旬户数下降</td><td>账户数量但非身份</td><td>低频独立且滞后</td><td>筹码收敛代理</td><td>当日主买方身份</td></tr>
+      <tr><td>ETF 份额与申赎</td><td>未获取到</td><td>无</td><td>成分股交易可能进入订单流</td><td>不可用</td><td>国家队或配置盘买入</td></tr>
+      <tr><td>质押 / 解禁</td><td>未获取到完整当日数据</td><td>股东/供给</td><td>通常独立</td><td>不可用</td><td>没有质押或解禁风险</td></tr>
+      <tr><td>筹码成本 / 获利比例</td><td>未获取到</td><td>无</td><td>与量价半独立</td><td>不可用</td><td>账户身份或强平风险</td></tr>
+    </tbody>
+  </table>
+
+  <h3>4.3 信号冲突与不可知</h3>
+  <ul>
+    <li><strong>方向冲突：</strong>近 5 日订单流转正，但近 20 日仍为净流出，融资数据也未同步增强。</li>
+    <li><strong>重复统计：</strong>融资买入可能进入订单流；若后续出现龙虎榜，也只是成交子集，不能重复计票。</li>
+    <li><strong>金额方向与身份边界：</strong>可确认大额订单代理近 5 日转正，不能确认机构净买。</li>
+    <li><strong>不可知项：</strong>未获取到不等于没有，尤其是北向、ETF、产业资本、龙虎榜。</li>
+    <li><strong>下一身份验证点：</strong>陆股通持股、融资融券更新、龙虎榜席位、半年报前十大流通股东、ETF 权重与份额变化。</li>
+  </ul>
+
+  <h2>5. F3/F5/F7 日频面板</h2>
+  <table>
+    <thead><tr><th>指标</th><th>定义</th><th>当日</th><th>近5日</th><th>近20日</th><th>方向与持续性</th><th>价格响应</th><th>数据质量与代理边界</th></tr></thead>
+    <tbody>
+      <tr><td>F3</td><td>融资净买入</td><td>2026-07-29 融资净买入 -550.63 万元，融资余额 32,779.49 万元；2026-07-30 未获取到</td><td>约 -3,645.87 万元，融资余额较 2026-07-23 下降约 1,901.38 万元</td><td>近 20 个可得交易日融资净买入约 -1,465.90 万元，融资余额较 2026-07-02 下降约 388.89 万元</td><td>偏弱，杠杆资金未确认回补</td><td>与价格修复背离</td><td>Tushare MCP 已核到 2026-07-29；融资买入与订单流部分重叠，不机械相加</td></tr>
+      <tr><td>F5</td><td>大额订单 / 资金分档代理</td><td>2026-07-27 资金净流入 10,667.15 万元，大单净流入 5,863.80 万元</td><td>资金净流入约 10,393.37 万元，大单净流入约 6,374.04 万元</td><td>资金净流出约 27,605.60 万元，大单净流出约 1,629.76 万元</td><td>短线转正，中期未修复</td><td>与 7 月下旬反弹相匹配</td><td>只代表订单规模方向，不确认机构身份</td></tr>
+      <tr><td>F7</td><td>ETF估算净申赎</td><td>未获取到</td><td>未获取到</td><td>未获取到</td><td>待验证</td><td>无法判断</td><td>ETF 申购者身份未知，且需样本权重映射</td></tr>
+    </tbody>
+  </table>
+
+  <h3>指标关系审计</h3>
+  <ul>
+    <li><strong>可能重叠：</strong>融资买入会进入成交订单流；ETF 成分股交易也可能进入订单流。</li>
+    <li><strong>不可直接比较：</strong>F5 到 7 月 27 日，F3 到 7 月 29 日，F7 未取得，时点仍不可完全对齐。</li>
+    <li><strong>是否机械求和：</strong>否。本报告只比较方向与持续性，不把 F3、F5、F7 加总。</li>
+  </ul>
+
+  <h2>6. 价格、广度与筹码交叉验证</h2>
+  <table>
+    <thead><tr><th>验证项</th><th>当前事实</th><th>与资金信号关系</th><th>结论影响</th></tr></thead>
+    <tbody>
+      <tr><td>价格响应</td><td>最新可核验价 19.56 元，较 7 月中旬 17.99 元修复</td><td>确认短线订单流转正</td><td>支持“短线修复”</td></tr>
+      <tr><td>成交与换手</td><td>完整当日换手未获取到</td><td>证据不足</td><td>不能确认放量推进或滞涨</td></tr>
+      <tr><td>上涨广度</td><td>电网设备板块广度未获取到</td><td>证据不足</td><td>不能确认板块共振</td></tr>
+      <tr><td>相对强弱</td><td>7 月下旬价格相对自身低位修复</td><td>局部改善</td><td>不足以升级为买入</td></tr>
+      <tr><td>筹码供给与抛压</td><td>股东户数下降，H 股发行变量未定</td><td>筹码收敛与潜在供给并存</td><td>中性偏分歧</td></tr>
+      <tr><td>连续性</td><td>近 5 日转正，近 20 日仍负</td><td>反复</td><td>维持多空分歧</td></tr>
+      <tr><td>基本面与价格预期</td><td>Q1 未确认加速，半年报待验证，估值靠近区间上沿</td><td>未确认</td><td>新增资金继续等待</td></tr>
+    </tbody>
+  </table>
+
+  <h2>7. 资金分歧与传导链</h2>
+  <div class="section">
+    <ul>
+      <li><strong>主导链条：</strong>电网设备与海外分接开关预期 → 大额订单代理在 7 月下旬回补 → 价格从低位修复 → 当前形成短线资金改善。</li>
+      <li><strong>反向链条：</strong>Q1 主业与扣非利润放缓、估值接近价值区间上沿、融资未同步增强 → 中期资金仍未完成修复 → 价格继续上攻需要半年报或资金确认。</li>
+      <li><strong>谁在承接：</strong>统计代理层面为大额订单代理和筹码收敛；账户身份不可知。</li>
+      <li><strong>潜在退出路径：</strong>如果半年度业绩不验证、资金分档再度转负或融资余额继续下降，短线资金可能从修复交易转为获利了结。</li>
+    </ul>
+  </div>
+
+  <h2>8. 支持证据、反证与缺口</h2>
+  <h3>支持当前状态的证据</h3>
+  <ul>
+    <li>同花顺资金流向：2026-07-27 单日资金净流入 10,667.15 万元，大单净流入 5,863.80 万元。</li>
+    <li>近 5 个可得交易日：资金净流入约 10,393.37 万元，大单净流入约 6,374.04 万元，说明短线回补存在。</li>
+    <li>股东户数 2026-07-20 较 2026-07-10 下降，构成低频筹码收敛代理。</li>
+  </ul>
+  <h3>核心反证</h3>
+  <ul>
+    <li>近 20 个可得交易日资金净流出约 27,605.60 万元，大单净流出约 1,629.76 万元，中期结构没有完全修复。</li>
+    <li>融资融券通过 Tushare 核到 2026-07-29：近 5 个可得交易日融资净买入约 -3,645.87 万元，融资余额较 2026-07-23 下降约 1,901.38 万元，未支持杠杆资金回补。</li>
+    <li>最新可核验价格 19.56 元接近既有研报综合价值区间上沿，估值容错下降。</li>
+  </ul>
+  <h3>数据缺口</h3>
+  <ul>
+    <li>2026-07-30 当日实时行情和资金分档未获取到，不能给“今日已流入”的结论。</li>
+    <li>北向、ETF、龙虎榜、产业资本、质押、解禁和大宗交易未获取到，交易方身份置信度较低。</li>
+    <li>半年报未披露，资金交易的基本面修复预期仍待验证。</li>
+  </ul>
+
+  <h2>9. 行动与仓位映射</h2>
+  <h3>新增资金</h3>
+  <table>
+    <thead><tr><th>行动</th><th>条件化仓位</th><th>触发条件</th><th>维持条件</th><th>取消条件</th></tr></thead>
+    <tbody>
+      <tr><td>wait</td><td>0%</td><td>暂不投入新增资金</td><td>等待 F5 近 5 日继续为正、F3 融资余额回升、价格不放量滞涨、半年报预期不恶化</td><td>近 20 日资金转正且至少一个身份锚点出现，可进入试探评估</td></tr>
+    </tbody>
+  </table>
+  <h3>已有持仓</h3>
+  <table>
+    <thead><tr><th>行动</th><th>仓位调整</th><th>触发条件</th><th>维持条件</th><th>取消条件</th></tr></thead>
+    <tbody>
+      <tr><td>review</td><td>不预设比例</td><td>用户未提供成本、仓位、原计划和风险预算</td><td>若持仓成本低且原计划是等半年报，可继续复核资金和基本面</td><td>若成本接近或高于现价且资金再度转弱，应转入 reduce / sell 复盘</td></tr>
+    </tbody>
+  </table>
+
+  <h2>10. 下一验证点与失效条件</h2>
+  <ul>
+    <li><strong>下一验证时间：</strong>下一个交易日收盘后；以及 2026-08-29 半年报披露。</li>
+    <li><strong>下一验证指标：</strong>F5 近 5 日是否继续净流入、F3 融资余额是否回升、价格是否站稳且不放量滞涨、是否出现北向/龙虎榜/产业资本身份锚点。</li>
+    <li><strong>基本面与价格预期验证：</strong>2026H1 电力设备收入、海外毛利率、扣非利润和经营现金流能否修复；19.56 元以上继续上涨是否有业绩证据支持。</li>
+    <li><strong>当前判断失效条件：</strong>近 5 日订单流转负、融资余额继续下降、价格跌破 18 元并放量，或半年报确认主业继续走弱。</li>
+    <li><strong>行动升级条件：</strong>observe / wait → buy 评估，需要近 20 日资金转正、融资同步改善、价格强于板块且半年报预期不被证伪。</li>
+    <li><strong>行动降级条件：</strong>review → reduce / sell，需要结合用户成本仓位；若资金转为共振流出且价格确认转弱，应重新评估持仓风险。</li>
+  </ul>
+
+  <h2>11. 来源与使用边界</h2>
+  <h3>当前数据来源</h3>
+  <ul>
+    <li><a href="../../../webpages/2026-07-30-华明装备资金面公开数据记录.md">2026-07-30 华明装备资金面公开数据记录</a>：本次资金数据、缺口和口径边界。</li>
+    <li>同花顺资金流向页：资金净额、大单净额、近 5 日与近 20 日资金分档代理。</li>
+    <li>本地 Tushare MCP get_margin_detail：融资余额、融资买入、融资偿还、融券余额、融资融券余额。</li>
+    <li>东方财富个股日历：股东户数与半年报预约披露日。</li>
+    <li><a href="../../../../workbench/targets/2026-07-30-华明装备-机构级决策研报.md">2026-07-30 华明装备机构级决策研报</a>：价格、估值与基本面校验背景。</li>
+  </ul>
+  <h3>框架依据</h3>
+  <ul>
+    <li>华泰证券《A股择时之资金面指标测试》（2021-07-02）：资金来源分类与历史指标检验参考。</li>
+    <li>F3/F5/F7 监测文章：日频代理思路参考，不视为已验证或可直接复制的择时模型。</li>
+  </ul>
+  <h3>使用边界</h3>
+  <ul>
+    <li>资金分档是订单规模代理，不确认机构、游资、量化或个人账户身份。</li>
+    <li>融资买入会进入订单流，不能与资金分档机械相加。</li>
+    <li>股东户数是低频滞后指标，只能作为筹码收敛代理。</li>
+    <li>基本面与价格预期只用于校验资金持续性，不替代完整估值或公司研究。</li>
+    <li>本文为公开信息资金面记录，不构成收益保证或投资建议。</li>
+  </ul>
+
+  <footer>Generated on 2026-07-30 for local llmwiki automation archive.</footer>
+</main>
+</body>
+</html>

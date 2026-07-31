@@ -146,7 +146,7 @@ body {
   <div class="tracking-grid">
     <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">改善</p><p class="tracking-detail">风险方向：风险持平偏增强。下一验证点与失效条件见第 11—13 章。</p></div>
     <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value"><span class="range-breakdown"><span class="range-main">29-40 元</span><span class="range-points"><span class="range-point">29-31 元=只承认主业保守兑现和合同负债现金约束</span><span class="range-point">34-36 元=2026H1预增兑现后的主业合理中枢</span><span class="range-point">38-40 元=计入全年184-220亿元利润可持续和央企整合溢价</span><span class="range-point">40元以上需半年报后盈利预测继续上修、新船价维持强势或现金流质量进一步验证。</span></span></span></p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
-    <div class="tracking-card" data-tracking-key="price-deviation"><p class="tracking-label">股价偏离度</p><p class="tracking-value" id="deviation-value">未获取到</p><p class="tracking-detail" id="deviation-detail">价格或动态价值区间无法解析，未计算偏离度。</p></div>
+    <div class="tracking-card" data-tracking-key="risk-reward"><p class="tracking-label">盈亏比</p><p class="tracking-value" id="risk-reward-value">未获取到</p><p class="tracking-detail" id="risk-reward-detail">价格或动态价值区间无法解析，未计算盈亏比。</p></div>
   </div>
   <div class="tracking-grid">
     <div class="tracking-card" data-tracking-key="daily-quote"><p class="tracking-label">每日同步价</p><p class="tracking-value">33.22 元，2026-07-27 17:05 接口抓取</p><p class="tracking-detail">这是报告内嵌的正式跟踪基准，离线打开仍可使用。</p><span class="tracking-status">每日快照</span></div>
@@ -1231,23 +1231,33 @@ body {
   const priceNode = document.getElementById('intraday-price');
   const detailNode = document.getElementById('intraday-detail');
   const statusNode = document.getElementById('intraday-status');
-  const deviationValue = document.getElementById('deviation-value');
-  const deviationDetail = document.getElementById('deviation-detail');
+  const riskRewardValue = document.getElementById('risk-reward-value');
+  const riskRewardDetail = document.getElementById('risk-reward-detail');
   const tracker = document.getElementById('daily-tracking');
   const snapshotPrice = 33.22;
   const percent = value => `${value < 0 ? '-' : value > 0 ? '+' : ''}${Math.abs(value).toFixed(1)}%`;
-  function updateDeviation(price) {
+  function updateRiskReward(price) {
     const low = Number(tracker.dataset.valueLow);
     const high = Number(tracker.dataset.valueHigh);
     if (!Number.isFinite(low) || !Number.isFinite(high) || low <= 0 || high <= low) return;
-    const midpoint = (low + high) / 2;
-    const versusLow = (price / low - 1) * 100;
-    const versusMid = (price / midpoint - 1) * 100;
-    const versusHigh = (price / high - 1) * 100;
-    if (price > high) { deviationValue.textContent = `高于上沿 ${percent(versusHigh)}`; deviationValue.classList.add('bad'); }
-    else if (price < low) { deviationValue.textContent = `低于下沿 ${percent(Math.abs(versusLow))}`; deviationValue.classList.remove('bad'); }
-    else { deviationValue.textContent = '位于动态价值区间内'; deviationValue.classList.remove('bad'); }
-    deviationDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对区间中枢 ${midpoint.toFixed(2)} 元为 ${percent(versusMid)}，相对下沿为 ${percent(versusLow)}，相对上沿为 ${percent(versusHigh)}。盘中价格不改变价值区间本身。`;
+    const upside = (high / price - 1) * 100;
+    const downside = (price / low - 1) * 100;
+    if (price <= low) {
+      riskRewardValue.textContent = '低于价值下沿';
+      riskRewardValue.classList.remove('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿潜在空间 ${percent(upside)}。价格已低于动态价值下沿，不能直接用下沿作为止损风险，需另设风控线。`;
+      return;
+    }
+    if (price >= high) {
+      riskRewardValue.textContent = '无正向盈亏比';
+      riskRewardValue.classList.add('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿空间 ${percent(upside)}，回落至下沿风险 ${percent(downside)}。价格已到或高于动态价值上沿，新增现金不具备正向盈亏比。`;
+      return;
+    }
+    const ratio = upside / downside;
+    riskRewardValue.textContent = `约 ${ratio.toFixed(1)}:1`;
+    riskRewardValue.classList.toggle('bad', ratio < 1);
+    riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；到上沿 ${high.toFixed(2)} 元的潜在上行 ${percent(upside)}，跌至下沿 ${low.toFixed(2)} 元的风险 ${percent(downside)}。盘中价格不改变价值区间本身。`;
   }
   async function refreshIntradayQuote() {
     statusNode.textContent = '连接中'; statusNode.className = 'tracking-status';
@@ -1260,7 +1270,7 @@ body {
       priceNode.textContent = `${quote.price.toFixed(2)} 元 · ${percent(quote.changePercent)}`;
       priceNode.classList.toggle('bad', quote.changePercent < 0);
       detailNode.textContent = `行情时间：${quoteTime}；昨收 ${quote.prevClose.toFixed(2)} 元。来源：${payload.proxySource || '本地行情代理'}。`;
-      statusNode.textContent = '盘中实时 · 每 60 秒'; statusNode.className = 'tracking-status live'; updateDeviation(quote.price);
+      statusNode.textContent = '盘中实时 · 每 60 秒'; statusNode.className = 'tracking-status live'; updateRiskReward(quote.price);
     } catch { priceNode.textContent = '实时行情暂不可用'; priceNode.classList.remove('bad'); detailNode.textContent = '每日同步值仍然有效；可重新双击“大盘启动器”后刷新本页。'; statusNode.textContent = '连接失败'; statusNode.className = 'tracking-status error'; }
   }
   if (location.protocol === 'http:' || location.protocol === 'https:') { refreshIntradayQuote(); window.setInterval(refreshIntradayQuote, 60000); }

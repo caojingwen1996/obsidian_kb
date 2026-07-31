@@ -152,10 +152,10 @@ class SignalEvaluationTest(unittest.TestCase):
         self.assertEqual(check_signal.evaluate_percentile(72), "B")
         self.assertEqual(check_signal.evaluate_percentile(55), "C")
         self.assertEqual(check_signal.evaluate_percentile(30), "D")
-        self.assertEqual(check_signal.evaluate_spread(3.1), "A")
-        self.assertEqual(check_signal.evaluate_spread(2.6), "B")
-        self.assertEqual(check_signal.evaluate_spread(2.0), "C")
-        self.assertEqual(check_signal.evaluate_spread(1.0), "D")
+        self.assertEqual(check_signal.evaluate_spread(6.0, 1.5), "A")
+        self.assertEqual(check_signal.evaluate_spread(4.5, 1.5), "B")
+        self.assertEqual(check_signal.evaluate_spread(3.75, 1.5), "C")
+        self.assertEqual(check_signal.evaluate_spread(2.9, 1.5), "D")
         self.assertEqual(
             check_signal.build_headline("B", "C", "A"),
             "加大买入区间",
@@ -182,8 +182,8 @@ class CsvHeaderLabelTest(unittest.TestCase):
             spread=2.9237,
             percentile_signal="D",
             absolute_signal="B",
-            spread_signal="B",
-            headline_signal="加大买入区间",
+            spread_signal="C",
+            headline_signal="未进入加大买入区间",
             source_note="test",
         )
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -259,7 +259,7 @@ class CsvHeaderLabelTest(unittest.TestCase):
             for row_index in range(1, sheet.max_row + 1):
                 self.assertTrue(sheet.cell(row=row_index, column=column_index).font.bold)
         for cell in sheet[sheet.max_row]:
-            self.assertEqual(cell.fill.fgColor.rgb, "00FFF2CC")
+            self.assertEqual(cell.fill.fill_type, None)
         self.assertFalse(sheet.sheet_view.showGridLines)
         self.assertEqual(sheet.freeze_panes, "A3")
         self.assertTrue(sheet.row_dimensions[2].hidden)

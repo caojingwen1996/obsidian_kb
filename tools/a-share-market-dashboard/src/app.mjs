@@ -8,7 +8,12 @@ import {
   conclusionForScore,
   percentileRank,
 } from './core.mjs';
-import { isLocalProxyLocation } from './adapters.mjs';
+import {
+  buildLocalProxyUrl,
+  fetchJson,
+  isLocalProxyLocation,
+  requestTimeout,
+} from './adapters.mjs';
 import {
   EXAMPLE_SNAPSHOT,
   createMemoryStorage,
@@ -28,6 +33,9 @@ const PORTFOLIO_STORAGE_KEY = 'a-share-market-dashboard:holdings:v1';
 const FUGUI_STRATEGY_STORAGE_KEY = 'a-share-market-dashboard:fugui-strategy:v1';
 const FUGUI_PANEL_COLLAPSED_STORAGE_KEY = 'a-share-market-dashboard:fugui-panel-collapsed:v1';
 const FUGUI_PROVIDER_STORAGE_KEY = 'a-share-market-dashboard:fugui-provider:v1';
+const MARGIN_BUY_CACHE_STORAGE_KEY = 'a-share-market-dashboard:margin-buy:one-year:v1';
+const FEATURED_DELETED_STORAGE_KEY = 'a-share-market-dashboard:featured-deleted:v1';
+const MARGIN_BUY_CACHE_MAX_AGE_MS = 24 * 60 * 60 * 1000;
 const FUGUI_STRATEGY_RULES = Object.freeze({
   allowedOwnership: new Set(['央企', '国企']),
   marketCapMinYi: 1000,
@@ -38,10 +46,11 @@ const NASDAQ100_SOURCE_URL = 'https://finance.yahoo.com/quote/%5ENDX/';
 const CSI_DIVIDEND_SIGNAL_SOURCE_URL = '../../sources/automations/中证红利信号/最新信号.md';
 const HOLDING_STATUSES = new Set(['持有', '观察', '计划加仓', '计划减仓']);
 const ALLOCATION_CATEGORIES = Object.freeze([
-  { key: 'pillar', label: '支柱', color: '#2f7ee6' },
   { key: 'strategy', label: '战略资源', color: '#26a68f' },
   { key: 'emerging', label: '新兴', color: '#f3b42b' },
+  { key: 'pillar', label: '支柱', color: '#2f7ee6' },
 ]);
+const UNCATEGORIZED_ALLOCATION_CATEGORY = Object.freeze({ key: 'uncategorized', label: '未分类', color: '#8aa0b4' });
 const STOCK_CODE_ALIASES = Object.freeze({
   宁德时代: '300750',
   西部矿业: '601168',
@@ -202,6 +211,7 @@ export function deriveDashboard(snapshot, windowYears = 5) {
     metrics: enrichedMetrics,
     layers,
     score,
+    margin: domain(snapshot, 'margin'),
     conclusion: conclusionForScore(score.score, score.coverage),
   };
 }
@@ -269,7 +279,7 @@ function reportLinkForTrackingItem(item) {
   return partial?.[1] ?? '';
 }
 
-function allocationCategoryForReport(reportHref) {
+export function allocationCategoryForReport(reportHref) {
   const href = (() => {
     try { return decodeURIComponent(reportHref); }
     catch { return reportHref; }
@@ -510,11 +520,12 @@ function renderDividendSignalCard(signal) {
   const spread = normalizeSignalLevel(signal.spreadSignal);
   const percentile = normalizeSignalLevel(signal.percentileSignal);
   const isFocus = /重点买入区间|重点买入/.test(signal.headline ?? '') || [absolute, spread, percentile].some(item => item.grade === 'A');
+  const displayDate = signal.indexDate || signal.recordDate || signal.runTime?.match(/\d{4}-\d{2}-\d{2}/)?.[0] || '日期待确认';
   return `<button class="dividend-signal-card is-clickable-card${isFocus ? ' is-focus' : ''}" type="button" data-open-dividend-signal aria-label="查看红利信号详情">
     <div class="dividend-signal-main">
       <span>中证红利股息率信号</span>
       <strong>${escapeHtml(isFocus ? '重点买入观察' : '未进重点买入')}</strong>
-      <p>${escapeHtml(signal.headline ?? '暂无综合结论')}</p>
+      <p>${escapeHtml(displayDate)}</p>
     </div>
     <div class="dividend-signal-grid">
       <div><small>股息率2</small><strong>${formatNumber(signal.dividendYield2, 2)}%</strong><span>${escapeHtml(absolute.grade ? `${absolute.grade} ${absolute.label}` : signal.absoluteSignal ?? '待验证')}</span></div>
@@ -537,11 +548,39 @@ function renderDividendSignalDetail(signal) {
   const spread = normalizeSignalLevel(signal.spreadSignal);
   const percentile = normalizeSignalLevel(signal.percentileSignal);
   const sourceNotes = String(signal.sourceNote ?? '').split(';').map(item => item.trim()).filter(Boolean);
-  const rows = [
-    ['运行时间', signal.runTime || '待确认'],
-    ['指数估值日期', signal.indexDate || '待确认'],
-    ['国债收益率日期', signal.bondDate || '待确认'],
-    ['理杏仁估值日期', signal.lixingerDate || '待确认'],
+  const sourceNoteText = sourceNotes.join('；');
+  const sourceBoundary = pattern => sourceNotes.find(item => pattern.test(item)) ?? '';
+  const sourceRows = [
+    {
+      metric: '股息率2',
+      source: 'AKShare stock_zh_index_value_csindex(000922, 股息率2)',
+      date: signal.indexDate || signal.recordDate || '待确认',
+      note: sourceBoundary(/stock_zh_index_value_csindex|股息率2/) || '用于判断绝对股息率分档。',
+    },
+    {
+      metric: '10年国债收益率',
+      source: 'AKShare bond_zh_us_rate',
+      date: signal.bondDate || '待确认',
+      note: sourceBoundary(/bond_zh_us_rate|国债/) || '用于计算股债利差。',
+    },
+    {
+      metric: '股债利差',
+      source: '股息率2 - 10年国债收益率',
+      date: `${signal.indexDate || '股息率日期待确认'} / ${signal.bondDate || '国债日期待确认'}`,
+      note: '由上面两个指标计算，不是独立抓取字段。',
+    },
+    {
+      metric: '历史分位',
+      source: '理杏仁公开页面',
+      date: signal.lixingerDate || '待确认',
+      note: sourceBoundary(/理杏仁|lixinger/) || '用于检查近10年股息率分位与80%分位点。',
+    },
+    {
+      metric: '雪球行情',
+      source: '雪球实时行情接口',
+      date: signal.recordDate || signal.runTime || '待确认',
+      note: sourceBoundary(/雪球/) || '用于辅助记录当日涨跌幅；失败时不参与核心信号判断。',
+    },
   ];
   return `<div class="dividend-detail-layout">
     <article class="panel dividend-detail-hero">
@@ -553,7 +592,7 @@ function renderDividendSignalDetail(signal) {
       </div>
     </article>
     <div class="dividend-detail-metrics" aria-label="红利信号核心指标">
-      <article><small>股息率2</small><strong>${formatNumber(signal.dividendYield2, 2)}%</strong><span>${escapeHtml(absolute.grade ? `${absolute.grade} ${absolute.label}` : signal.absoluteSignal ?? '待验证')}</span></article>
+      <article><small>股息率2</small><strong>${formatNumber(signal.dividendYield2, 2)}%</strong><span>${escapeHtml(absolute.grade ? `${absolute.grade} ${absolute.label}` : signal.absoluteSignal ?? '待验证')}</span><span>${escapeHtml(signal.indexDate ?? signal.recordDate ?? '日期待确认')}</span></article>
       <article><small>10年国债</small><strong>${formatNumber(signal.bond10yYield, 2)}%</strong><span>${escapeHtml(signal.bondDate ?? '日期待确认')}</span></article>
       <article><small>股债利差</small><strong>${formatNumber(signal.spread, 2)}%</strong><span>${escapeHtml(spread.grade ? `${spread.grade} ${spread.label}` : signal.spreadSignal ?? '待验证')}</span></article>
       <article><small>历史分位</small><strong>${escapeHtml(percentile.grade || '待验证')}</strong><span>${escapeHtml(signal.percentileSignal ?? '待验证')}</span></article>
@@ -568,13 +607,10 @@ function renderDividendSignalDetail(signal) {
         <div><small>雪球当天涨跌幅</small><strong>${escapeHtml(signal.xueqiuChangePercent || '待验证')}</strong></div>
       </div>
     </article>
-    <article class="panel dividend-detail-panel">
-      <h3>记录信息</h3>
-      <div class="dividend-record-list">${rows.map(([label, value]) => `<div><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong></div>`).join('')}</div>
-    </article>
     <article class="panel dividend-detail-panel dividend-detail-source">
       <h3>来源与验证边界</h3>
-      ${sourceNotes.length ? `<ul>${sourceNotes.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>` : '<p>暂无来源说明。</p>'}
+      <ul>${sourceRows.map(item => `<li><strong>${escapeHtml(item.metric)}</strong>：${escapeHtml(item.source)}；日期：${escapeHtml(item.date)}；说明：${escapeHtml(item.note)}</li>`).join('')}</ul>
+      ${sourceNoteText ? `<p>原始来源备注：${escapeHtml(sourceNoteText)}</p>` : ''}
     </article>
   </div>`;
 }
@@ -704,6 +740,94 @@ function renderNasdaq100Card(envelope) {
   </a>`;
 }
 
+function renderMarginBalanceCard(envelope) {
+  const points = Array.isArray(envelope?.data) ? envelope.data : [];
+  const latest = points.at(-1);
+  const previous = points.at(-2);
+  const value = Number(latest?.value);
+  const previousValue = Number(previous?.value);
+  const change = Number.isFinite(value) && Number.isFinite(previousValue) ? value - previousValue : null;
+  const changeClass = Number.isFinite(change) && change > 0 ? 'is-up' : Number.isFinite(change) && change < 0 ? 'is-down' : '';
+  const status = STATUS_LABELS[envelope?.status] ?? '读取中';
+  if (!Number.isFinite(value)) {
+    return `<p class="eyebrow">MARGIN BALANCE</p>
+      <h2 id="margin-balance-card-heading">融资余额</h2>
+      <p class="shortcut-empty">${escapeHtml(envelope?.status === 'missing' ? '未获取到每日市场融资余额。' : '正在读取每日市场融资余额。')}</p>`;
+  }
+  return `<div>
+      <p class="eyebrow">MARGIN BALANCE</p>
+      <h2 id="margin-balance-card-heading">每日市场融资余额</h2>
+    </div>
+    <div class="margin-balance-main">
+      <strong>${formatNumber(value / 100_000_000, 0)} 亿</strong>
+      <span>${escapeHtml(latest.date || '日期待确认')}</span>
+    </div>
+    <div class="margin-balance-foot">
+      <span class="${changeClass}">较前日 ${Number.isFinite(change) ? `${change >= 0 ? '+' : ''}${formatNumber(change / 100_000_000, 0)} 亿` : '—'}</span>
+      <small>${escapeHtml(status)} · ${escapeHtml(envelope?.source || 'Tushare')}</small>
+    </div>`;
+}
+
+function marketMarginBuyPoints(payload) {
+  const rows = Array.isArray(payload?.summary) ? payload.summary : [];
+  return rows.flatMap(row => {
+    const rawDate = String(row.trade_date ?? row.tradeDate ?? row.date ?? '');
+    const date = /^\d{8}$/.test(rawDate)
+      ? `${rawDate.slice(0, 4)}-${rawDate.slice(4, 6)}-${rawDate.slice(6, 8)}`
+      : rawDate.slice(0, 10);
+    const value = Number(row.rzmre);
+    return date && Number.isFinite(value) ? [{ date, value }] : [];
+  }).sort((left, right) => left.date.localeCompare(right.date));
+}
+
+function renderMarginBuyChart(points = []) {
+  if (!Array.isArray(points) || points.length < 2) {
+    return '<div class="margin-chart-empty">未获取到足够的融资买入额数据。</div>';
+  }
+  const width = 760;
+  const height = 280;
+  const pad = { left: 58, right: 22, top: 22, bottom: 42 };
+  const values = points.map(point => point.value / 100_000_000);
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  const span = max - min || 1;
+  const x = index => pad.left + (index / Math.max(1, points.length - 1)) * (width - pad.left - pad.right);
+  const y = value => pad.top + (max - value) / span * (height - pad.top - pad.bottom);
+  const line = values.map((value, index) => `${index ? 'L' : 'M'}${x(index).toFixed(1)},${y(value).toFixed(1)}`).join(' ');
+  const latest = points.at(-1);
+  const previous = points.at(-2);
+  const latestYi = latest.value / 100_000_000;
+  const changeYi = (latest.value - previous.value) / 100_000_000;
+  const grid = [0, 0.5, 1].map(ratio => {
+    const yy = pad.top + ratio * (height - pad.top - pad.bottom);
+    const label = max - ratio * span;
+    return `<line x1="${pad.left}" y1="${yy.toFixed(1)}" x2="${width - pad.right}" y2="${yy.toFixed(1)}"></line>
+      <text x="${pad.left - 8}" y="${(yy + 4).toFixed(1)}" text-anchor="end">${formatNumber(label, 0)}</text>`;
+  }).join('');
+  const firstDate = points[0].date;
+  const midDate = points[Math.floor(points.length / 2)].date;
+  return `<article class="margin-chart-card">
+    <div class="margin-chart-head">
+      <div><p class="eyebrow">ONE YEAR</p><h4>融资买入额折线</h4></div>
+      <span>${escapeHtml(firstDate)} 至 ${escapeHtml(latest.date)}</span>
+    </div>
+    <svg class="margin-buy-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="近一年融资买入额折线图">
+      <rect x="0" y="0" width="${width}" height="${height}"></rect>
+      ${grid}
+      <path d="${line}"></path>
+      <circle cx="${x(points.length - 1).toFixed(1)}" cy="${y(latestYi).toFixed(1)}" r="4"></circle>
+      <text class="x-label" x="${pad.left}" y="${height - 14}" text-anchor="start">${escapeHtml(firstDate)}</text>
+      <text class="x-label" x="${width / 2}" y="${height - 14}" text-anchor="middle">${escapeHtml(midDate)}</text>
+      <text class="x-label" x="${width - pad.right}" y="${height - 14}" text-anchor="end">${escapeHtml(latest.date)}</text>
+    </svg>
+    <div class="margin-chart-stats">
+      <div><small>最新融资买入额</small><strong>${formatNumber(latestYi, 0)} 亿</strong><span>${escapeHtml(latest.date)}</span></div>
+      <div><small>较前日变化</small><strong class="${changeYi > 0 ? 'is-up' : changeYi < 0 ? 'is-down' : ''}">${changeYi >= 0 ? '+' : ''}${formatNumber(changeYi, 0)} 亿</strong><span>融资买入额，不等同净买入</span></div>
+      <div><small>样本天数</small><strong>${points.length}</strong><span>来自 Tushare margin 汇总</span></div>
+    </div>
+  </article>`;
+}
+
 function renderEventCalendar(events = EVENT_CALENDAR) {
   const list = document.getElementById('event-calendar-list');
   const count = document.getElementById('event-calendar-count');
@@ -772,6 +896,7 @@ function renderDerived(derived, officialTemperature = { status: 'loading' }, nas
   byId('dividend-signal-card').innerHTML = renderDividendSignalCard(CSI_DIVIDEND_SIGNAL);
   byId('dividend-signal-detail').innerHTML = renderDividendSignalDetail(CSI_DIVIDEND_SIGNAL);
   byId('nasdaq100-card').innerHTML = renderNasdaq100Card(nasdaq100);
+  byId('margin-balance-card').innerHTML = renderMarginBalanceCard(derived.margin);
   renderEventCalendar();
 
   byId('metric-list').innerHTML = derived.metrics.map(metric => {
@@ -924,6 +1049,18 @@ export function summarizeTrackingItems(items = []) {
   };
 }
 
+export function findDuplicateTrackingItem(items = [], candidate = {}, editingId = '') {
+  const candidateCode = String(candidate.code ?? '').trim();
+  const candidateName = String(candidate.name ?? '').trim();
+  return normalizeTrackingItems(items).find(item =>
+    item.id !== editingId
+    && (
+      (candidateCode && item.code === candidateCode)
+      || (candidateName && item.name === candidateName)
+    )
+  ) ?? null;
+}
+
 function finitePositiveNumber(value) {
   const number = Number(value);
   return Number.isFinite(number) && number > 0 ? number : null;
@@ -1011,12 +1148,17 @@ function loadPortfolio(storage) {
 export function resolveTreeNavigation(activeViews, requestedDomain, requestedView = null) {
   const defaults = {
     thermometer: 'market-summary',
+    strategy: 'fugui-strategy',
     industry: 'industry-strategy',
     personal: 'position-manager',
     changelog: 'changelog-view',
   };
   const domain = Object.hasOwn(defaults, requestedDomain) ? requestedDomain : 'thermometer';
   return { domain, viewId: requestedView ?? activeViews[domain] ?? defaults[domain] };
+}
+
+export function shouldApplyPortfolioLoad(requestVersion, currentVersion) {
+  return requestVersion === currentVersion;
 }
 
 function startApp() {
@@ -1030,6 +1172,7 @@ function startApp() {
   };
   const storage = resolveStorage();
   let { holdings, trackingItems } = loadPortfolio(storage);
+  let portfolioVersion = 0;
   let fuguiStrategyItems = [];
   try {
     fuguiStrategyItems = normalizeFuguiStrategyItems(JSON.parse(storage.getItem(FUGUI_STRATEGY_STORAGE_KEY) ?? '[]'));
@@ -1037,7 +1180,15 @@ function startApp() {
     fuguiStrategyItems = [];
   }
   state.fuguiStrategy.items = fuguiStrategyItems;
+  let featuredDeletedIds = new Set();
+  try {
+    featuredDeletedIds = new Set(JSON.parse(storage.getItem(FEATURED_DELETED_STORAGE_KEY) ?? '[]'));
+  } catch {
+    featuredDeletedIds = new Set();
+  }
   let trackingStatusFilter = 'all';
+  let trackingAllocationMode = false;
+  let trackingAllocationCollapsed = false;
   let trackingSortMode = 'updated';
   const reportSummaryCache = new Map();
   const trackingQuoteCache = new Map();
@@ -1060,6 +1211,7 @@ function startApp() {
   const sidebarFooter = document.querySelector('.sidebar-footer');
   const activeViewByShell = {
     thermometer: 'market-summary',
+    strategy: 'fugui-strategy',
     industry: 'industry-strategy',
     personal: 'position-manager',
     changelog: 'changelog-view',
@@ -1186,6 +1338,7 @@ function startApp() {
   };
 
   const savePortfolio = () => {
+    portfolioVersion += 1;
     const payload = { holdings, trackingItems };
     storage.setItem(PORTFOLIO_STORAGE_KEY, JSON.stringify(payload));
     if (isLocalProxyLocation()) {
@@ -1206,6 +1359,72 @@ function startApp() {
     const status = document.getElementById('review-diary-status');
     status.className = 'diary-status';
     status.textContent = '提交后会自动写入今天日期，并按标的保存为独立文件。';
+  };
+
+  const closeMarginBalanceModal = () => {
+    document.getElementById('margin-balance-modal').hidden = true;
+  };
+
+  const openMarginBalanceModal = async () => {
+    const modal = document.getElementById('margin-balance-modal');
+    const status = document.getElementById('margin-balance-modal-status');
+    const body = document.getElementById('margin-balance-modal-body');
+    modal.hidden = false;
+    body.innerHTML = '<div class="margin-chart-empty">正在读取最近一年融资买入额。</div>';
+    if (!isLocalProxyLocation()) {
+      status.textContent = '请通过“启动面板.cmd”打开面板后查看融资买入额。';
+      body.innerHTML = '<div class="margin-chart-empty">本地代理未连接，无法读取 Tushare 融资数据。</div>';
+      return;
+    }
+    const end = new Date();
+    const start = new Date(end);
+    start.setFullYear(start.getFullYear() - 1);
+    const startDate = start.toISOString().slice(0, 10);
+    const endDate = end.toISOString().slice(0, 10);
+    try {
+      const cached = JSON.parse(storage.getItem(MARGIN_BUY_CACHE_STORAGE_KEY) ?? 'null');
+      if (
+        cached?.startDate === startDate
+        && cached?.endDate === endDate
+        && Array.isArray(cached.points)
+        && Date.now() - Number(cached.savedAt) < MARGIN_BUY_CACHE_MAX_AGE_MS
+      ) {
+        body.innerHTML = renderMarginBuyChart(cached.points);
+        status.textContent = `已使用缓存：${cached.points.length} 个交易日；口径为 Tushare margin 的 rzmre（融资买入额）。`;
+        return;
+      }
+    } catch {
+      storage.removeItem(MARGIN_BUY_CACHE_STORAGE_KEY);
+    }
+    status.textContent = `正在读取 ${startDate} 至 ${endDate} 的融资买入额。`;
+    try {
+      const payload = await fetchJson(
+        buildLocalProxyUrl('/api/margin', { start_date: startDate, end_date: endDate }),
+        requestTimeout(),
+      );
+      const points = marketMarginBuyPoints(payload);
+      if (points.length) {
+        storage.setItem(MARGIN_BUY_CACHE_STORAGE_KEY, JSON.stringify({
+          startDate,
+          endDate,
+          savedAt: Date.now(),
+          points,
+        }));
+      }
+      body.innerHTML = renderMarginBuyChart(points);
+      status.textContent = points.length
+        ? `已读取 ${points.length} 个交易日；口径为 Tushare margin 的 rzmre（融资买入额）。`
+        : '未获取到最近一年融资买入额。';
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      const staleProxy = /HTTP 400/.test(message);
+      status.textContent = staleProxy
+        ? '融资买入额读取失败：本地面板服务版本过旧，请关闭旧面板后重新双击“启动面板.cmd”。'
+        : `融资买入额读取失败：${message}。`;
+      body.innerHTML = staleProxy
+        ? '<div class="margin-chart-empty">当前代理仍按旧参数处理 /api/margin。重启面板服务后会切换到 Tushare 近一年数据接口。</div>'
+        : '<div class="margin-chart-empty">读取失败，请检查 Tushare token 或稍后重试。</div>';
+    }
   };
 
   const openReviewDiary = item => {
@@ -1263,11 +1482,13 @@ function startApp() {
 
   const loadProxyPortfolio = async () => {
     if (!isLocalProxyLocation()) return;
+    const requestVersion = portfolioVersion;
     try {
       const response = await fetch('/api/portfolio', { cache: 'no-store' });
       if (!response.ok) return;
       const payload = await response.json();
       const proxyPortfolio = normalizePortfolioPayload(payload);
+      if (!shouldApplyPortfolioLoad(requestVersion, portfolioVersion)) return;
       if (!proxyPortfolio.holdings.length && !proxyPortfolio.trackingItems.length && (holdings.length || trackingItems.length)) {
         savePortfolio();
         return;
@@ -1303,6 +1524,9 @@ function startApp() {
     form.reset();
     form.elements.id.value = '';
     form.elements.status.value = '观察';
+    const status = document.getElementById('tracking-form-status');
+    status.textContent = '';
+    status.className = 'tracking-form-status';
     document.getElementById('tracking-form-title').textContent = '新增跟踪';
     document.getElementById('cancel-tracking-edit').hidden = true;
     form.hidden = true;
@@ -1403,9 +1627,50 @@ function startApp() {
     renderTrackingItems();
   }
 
+  async function refreshTrackingReports() {
+    const button = document.getElementById('refresh-tracking-reports');
+    if (!button) return;
+    const idleLabel = button.textContent;
+    if (!trackingItems.length) {
+      button.textContent = '暂无标的';
+      setTimeout(() => { button.textContent = idleLabel; }, 1400);
+      return;
+    }
+    if (!isLocalProxyLocation()) {
+      button.textContent = '需启动面板';
+      setTimeout(() => { button.textContent = idleLabel; }, 1800);
+      return;
+    }
+    button.disabled = true;
+    button.textContent = '更新中…';
+    try {
+      const response = await fetch('/api/tracking-rerender-reports', {
+        method: 'POST',
+        cache: 'no-store',
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json();
+      console.info('tracking report rerender result', payload);
+      const updatedCount = Array.isArray(payload.updated) ? payload.updated.length : 0;
+      const skippedCount = (Array.isArray(payload.skipped) ? payload.skipped.length : 0)
+        + (Array.isArray(payload.failed) ? payload.failed.length : 0);
+      reportSummaryCache.clear();
+      renderTrackingItems();
+      refreshTrackingQuotes();
+      button.textContent = skippedCount ? `已更新 ${updatedCount} 份` : '已全部更新';
+    } catch (error) {
+      console.error('tracking report rerender failed', error);
+      button.textContent = '更新失败，看日志';
+    } finally {
+      setTimeout(() => {
+        button.disabled = false;
+        button.textContent = idleLabel;
+      }, 1800);
+    }
+  }
+
   const renderTrackingItems = () => {
     const summary = summarizeTrackingItems(trackingItems);
-    const allocationMode = trackingStatusFilter === 'allocation';
     const enrichedItems = summary.items.map((item, index) => {
       const reportHref = reportLinkForTrackingItem(item);
       let reportEntry = reportHref ? reportSummaryCache.get(reportHref) : null;
@@ -1451,7 +1716,7 @@ function startApp() {
       };
     });
     const filteredItems = enrichedItems.filter(({ item, signal }) => {
-      if (trackingStatusFilter === 'all' || allocationMode) return true;
+      if (trackingStatusFilter === 'all') return true;
       if (trackingStatusFilter === 'addable') return signal.addStars > 0;
       if (trackingStatusFilter === 'reducible') return signal.reducible;
       return item.status === trackingStatusFilter;
@@ -1464,25 +1729,7 @@ function startApp() {
         )
       : filteredItems;
     const hasAllocation = renderTrackingAllocation(summary.items);
-    const sortButton = document.getElementById('tracking-sort-intraday');
-    if (sortButton) {
-      sortButton.classList.toggle('is-active', trackingSortMode === 'near-left');
-      sortButton.setAttribute('aria-pressed', String(trackingSortMode === 'near-left'));
-    }
-    document.getElementById('tracking-count').textContent = String(summary.count);
-    document.getElementById('tracking-holding-count').textContent = String(summary.countByStatus['持有']);
-    document.getElementById('tracking-watch-count').textContent = String(summary.countByStatus['观察']);
-    document.getElementById('tracking-updated').textContent = summary.latestUpdatedAt
-      ? new Date(summary.latestUpdatedAt).toLocaleDateString('zh-CN')
-      : '尚未记录';
-    document.getElementById('tracking-allocation-view').hidden = !allocationMode;
-    document.querySelector('#holding-tracker .tracking-table-wrap').hidden = allocationMode;
-    const empty = document.getElementById('holding-tracker-empty');
-    empty.textContent = allocationMode
-      ? '还没有可计算的持有配比。先在仓位管理里记录持有数量和现价，或把跟踪项设为持有。'
-      : '还没有跟踪标的。先在左侧新增一条观察记录。';
-    empty.hidden = allocationMode ? hasAllocation : visibleItems.length > 0;
-    document.getElementById('holding-tracker-list').innerHTML = visibleItems.map(({ item, reportHref, reportEntry, report, quoteEntry, liveQuote, signal, riskReward }) => {
+    const renderTrackingRow = ({ item, reportHref, reportEntry, report, quoteEntry, liveQuote, signal, riskReward }) => {
       const signalLabel = signal.addStars > 0
         ? '★'.repeat(signal.addStars)
         : signal.reducible ? '可减' : '—';
@@ -1505,7 +1752,50 @@ function startApp() {
       <td><button class="review-diary-button" type="button" data-action="review-diary">复盘日记</button></td>
       <td>${escapeHtml(signalLabel)}</td>
     </tr>`;
-    }).join('');
+    };
+    const groupedRows = () => {
+      const groupMetas = [...ALLOCATION_CATEGORIES, UNCATEGORIZED_ALLOCATION_CATEGORY];
+      return groupMetas.map(group => {
+        const groupItems = visibleItems.filter(({ reportHref }) =>
+          (allocationCategoryForReport(reportHref) || UNCATEGORIZED_ALLOCATION_CATEGORY.key) === group.key
+        );
+        if (!groupItems.length) return '';
+        return `<tr class="tracking-group-row"><th colspan="8" style="--group-color:${group.color}"><div class="tracking-group-head"><span>${escapeHtml(group.label)}</span><small>${groupItems.length} 个标的</small></div></th></tr>${groupItems.map(renderTrackingRow).join('')}`;
+      }).join('');
+    };
+    const sortButton = document.getElementById('tracking-sort-intraday');
+    if (sortButton) {
+      sortButton.classList.toggle('is-active', trackingSortMode === 'near-left');
+      sortButton.setAttribute('aria-pressed', String(trackingSortMode === 'near-left'));
+    }
+    const allocationModeButton = document.getElementById('tracking-allocation-mode');
+    if (allocationModeButton) {
+      allocationModeButton.classList.toggle('is-active', trackingAllocationMode);
+      allocationModeButton.setAttribute('aria-pressed', String(trackingAllocationMode));
+    }
+    document.getElementById('tracking-count').textContent = String(summary.count);
+    document.getElementById('tracking-holding-count').textContent = String(summary.countByStatus['持有']);
+    document.getElementById('tracking-watch-count').textContent = String(summary.countByStatus['观察']);
+    document.getElementById('tracking-updated').textContent = summary.latestUpdatedAt
+      ? new Date(summary.latestUpdatedAt).toLocaleDateString('zh-CN')
+      : '尚未记录';
+    const allocationView = document.getElementById('tracking-allocation-view');
+    allocationView.hidden = !trackingAllocationMode;
+    allocationView.classList.toggle('is-collapsed', trackingAllocationCollapsed);
+    const allocationCollapseButton = document.getElementById('tracking-allocation-collapse');
+    if (allocationCollapseButton) {
+      allocationCollapseButton.setAttribute('aria-expanded', String(!trackingAllocationCollapsed));
+      document.getElementById('tracking-allocation-collapse-label').textContent = trackingAllocationCollapsed ? '展开' : '收起';
+    }
+    document.querySelector('#holding-tracker .tracking-table-wrap').hidden = false;
+    const empty = document.getElementById('holding-tracker-empty');
+    empty.textContent = trackingAllocationMode && !hasAllocation && !visibleItems.length
+      ? '还没有可计算的持有配比。先在仓位管理里记录持有数量和现价，或把跟踪项设为持有。'
+      : '还没有跟踪标的。先在左侧新增一条观察记录。';
+    empty.hidden = visibleItems.length > 0;
+    document.getElementById('holding-tracker-list').innerHTML = trackingAllocationMode
+      ? groupedRows()
+      : visibleItems.map(renderTrackingRow).join('');
   };
 
   async function loadReportSummary(reportHref) {
@@ -1616,7 +1906,7 @@ function startApp() {
       const refreshed = await refreshDomains(definitions, {
         storage,
         now: Date.now,
-        concurrency: isLocalProxyLocation() ? 1 : definitions.length,
+        concurrency: definitions.length,
       });
       const domains = state.snapshot.mode === 'live' && domainIds
         ? { ...state.snapshot.domains, ...refreshed }
@@ -1689,7 +1979,8 @@ function startApp() {
     let visibleCount = 0;
     document.querySelectorAll('[data-featured-filters]').forEach(item => {
       const filters = (item.dataset.featuredFilters ?? '').split(',').map(value => value.trim()).filter(Boolean);
-      const visible = activeFilter === 'all' || filters.includes(activeFilter);
+      const deleted = featuredDeletedIds.has(item.dataset.featuredId ?? '');
+      const visible = !deleted && (activeFilter === 'all' || filters.includes(activeFilter));
       item.hidden = !visible;
       if (visible && item.classList.contains('featured-card')) visibleCount += 1;
     });
@@ -1698,6 +1989,16 @@ function startApp() {
     });
     const empty = document.querySelector('.featured-empty-results');
     if (empty) empty.hidden = visibleCount > 0;
+  };
+
+  const decodeFeaturedOriginal = encoded => {
+    try {
+      const binary = atob(encoded);
+      const bytes = Uint8Array.from(binary, char => char.charCodeAt(0));
+      return new TextDecoder().decode(bytes);
+    } catch {
+      return '原文读取失败。';
+    }
   };
 
   const applyTopicFilter = () => {
@@ -1736,12 +2037,13 @@ function startApp() {
       const children = group.querySelector('.tree-children');
       if (children) children.hidden = !expanded;
     });
-    marketActions.hidden = targetShell !== 'thermometer';
+    marketActions.hidden = targetShell !== 'thermometer' && targetShell !== 'strategy';
     topbar.hidden = targetShell === 'changelog';
     notice.hidden = targetShell !== 'thermometer';
     sidebarFooter.hidden = targetShell !== 'thermometer';
     pageEyebrow.textContent = {
       thermometer: 'MARKET VALUATION MONITOR',
+      strategy: 'STRATEGY MENU',
       industry: 'INDUSTRY MAP',
       personal: 'MY PORTFOLIO',
       changelog: 'CHANGELOG',
@@ -1782,6 +2084,47 @@ function startApp() {
     });
     applyFeaturedFilter();
   }));
+  document.querySelectorAll('.featured-original-toggle').forEach(button => button.addEventListener('click', event => {
+    const toggle = event.currentTarget;
+    const original = toggle.closest('.featured-card-inner')?.querySelector('.featured-original');
+    if (!original) return;
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    if (!expanded && original.dataset.loaded !== 'true') {
+      original.querySelector('pre').textContent = decodeFeaturedOriginal(original.dataset.featuredOriginal ?? '');
+      original.dataset.loaded = 'true';
+    }
+    original.hidden = expanded;
+    toggle.setAttribute('aria-expanded', String(!expanded));
+    toggle.textContent = expanded ? '显示原文' : '收起原文';
+  }));
+  document.querySelectorAll('.featured-delete').forEach(button => button.addEventListener('click', event => {
+    const card = event.currentTarget.closest('.featured-card');
+    const featuredId = card?.dataset.featuredId;
+    const title = card?.querySelector('h3')?.textContent?.trim() ?? '这条记录';
+    if (!featuredId) return;
+    if (!globalThis.confirm(`确认删除「${title}」？`)) return;
+    if (!isLocalProxyLocation()) {
+      globalThis.alert('删除原始 Markdown 需要通过“启动面板.cmd”打开面板。');
+      return;
+    }
+    const deleteButton = event.currentTarget;
+    deleteButton.disabled = true;
+    deleteButton.textContent = '删除中...';
+    fetch('/api/featured-post', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ href: featuredId }),
+    }).then(response => {
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      featuredDeletedIds.add(featuredId);
+      storage.setItem(FEATURED_DELETED_STORAGE_KEY, JSON.stringify([...featuredDeletedIds]));
+      applyFeaturedFilter();
+    }).catch(() => {
+      globalThis.alert('删除失败：未能删除原始 Markdown。');
+      deleteButton.disabled = false;
+      deleteButton.textContent = '删除';
+    });
+  }));
   document.querySelectorAll('.topic-filter-tabs button').forEach(button => button.addEventListener('click', event => {
     document.querySelectorAll('.topic-filter-tabs button').forEach(item => {
       const active = item === event.currentTarget;
@@ -1795,6 +2138,13 @@ function startApp() {
   });
   document.getElementById('dividend-signal-card')?.addEventListener('click', event => {
     if (event.target.closest('[data-open-dividend-signal]')) setShell('thermometer', 'dividend-signal-view');
+  });
+  document.getElementById('margin-balance-card')?.addEventListener('click', openMarginBalanceModal);
+  document.getElementById('margin-balance-card')?.addEventListener('keydown', event => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      openMarginBalanceModal();
+    }
   });
   fuguiStrategyForm?.addEventListener('submit', event => {
     event.preventDefault();
@@ -1862,6 +2212,7 @@ function startApp() {
     document.getElementById('cancel-tracking-edit').hidden = false;
     document.querySelector('#tracking-form [name="name"]').focus();
   });
+  document.getElementById('refresh-tracking-reports')?.addEventListener('click', refreshTrackingReports);
   document.getElementById('tracking-form').addEventListener('submit', event => {
     event.preventDefault();
     fillTrackingCodeFromName(false);
@@ -1879,6 +2230,13 @@ function startApp() {
       updatedAt: Date.now(),
     };
     const existingIndex = trackingItems.findIndex(item => item.id === id);
+    const duplicate = findDuplicateTrackingItem(trackingItems, next, existingIndex >= 0 ? id : '');
+    const status = document.getElementById('tracking-form-status');
+    if (duplicate) {
+      status.textContent = `未保存：${duplicate.name}${duplicate.code ? `（${duplicate.code}）` : ''} 已在跟踪清单中。`;
+      status.className = 'tracking-form-status is-error';
+      return;
+    }
     if (existingIndex >= 0) trackingItems[existingIndex] = next;
     else trackingItems.push(next);
     savePortfolio();
@@ -1901,6 +2259,14 @@ function startApp() {
   });
   document.getElementById('tracking-sort-intraday')?.addEventListener('click', () => {
     trackingSortMode = trackingSortMode === 'near-left' ? 'updated' : 'near-left';
+    renderTrackingItems();
+  });
+  document.getElementById('tracking-allocation-mode')?.addEventListener('click', () => {
+    trackingAllocationMode = !trackingAllocationMode;
+    renderTrackingItems();
+  });
+  document.getElementById('tracking-allocation-collapse')?.addEventListener('click', () => {
+    trackingAllocationCollapsed = !trackingAllocationCollapsed;
     renderTrackingItems();
   });
   document.getElementById('holding-tracker-list').addEventListener('click', event => {
@@ -1936,6 +2302,9 @@ function startApp() {
   });
   document.getElementById('review-diary-modal').addEventListener('click', event => {
     if (event.target.closest('[data-action="close-review-diary"]')) closeReviewDiary();
+  });
+  document.getElementById('margin-balance-modal').addEventListener('click', event => {
+    if (event.target.closest('[data-action="close-margin-balance"]')) closeMarginBalanceModal();
   });
   document.getElementById('review-diary-form').addEventListener('submit', event => {
     event.preventDefault();

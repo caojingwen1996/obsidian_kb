@@ -8,12 +8,16 @@ import {
   createExampleSnapshot,
   createDefaultDomainDefinitions,
 } from '../src/data-service.mjs';
-import { resolveTreeNavigation } from '../src/app.mjs';
+import { resolveTreeNavigation, shouldApplyPortfolioLoad } from '../src/app.mjs';
 
 test('tree navigation restores the last view for a domain and rejects unknown domains', () => {
   assert.deepEqual(
     resolveTreeNavigation({ thermometer: 'position-view', industry: 'industry-emerging' }, 'industry'),
     { domain: 'industry', viewId: 'industry-emerging' },
+  );
+  assert.deepEqual(
+    resolveTreeNavigation({}, 'strategy'),
+    { domain: 'strategy', viewId: 'fugui-strategy' },
   );
   assert.deepEqual(
     resolveTreeNavigation({}, 'changelog'),
@@ -23,6 +27,11 @@ test('tree navigation restores the last view for a domain and rejects unknown do
     resolveTreeNavigation({}, 'unknown'),
     { domain: 'thermometer', viewId: 'market-summary' },
   );
+});
+
+test('stale portfolio loads cannot overwrite newer local edits', () => {
+  assert.equal(shouldApplyPortfolioLoad(0, 0), true);
+  assert.equal(shouldApplyPortfolioLoad(0, 1), false);
 });
 
 test('a successful provider stores source and timestamps', async () => {
@@ -86,6 +95,19 @@ test('invalid provider data does not overwrite a valid cache', async () => {
   assert.equal(result.status, 'snapshot');
   assert.deepEqual(result.data, { cached: true });
   assert.match(result.errors[0], /validation failed/);
+});
+
+test('provider timeout returns a bounded missing result', async () => {
+  const result = await loadDomain({
+    id: 'slow',
+    providers: [{ name: 'slow-source', load: () => new Promise(() => {}) }],
+    storage: createMemoryStorage(),
+    now: () => 1000,
+    providerTimeoutMs: 5,
+  });
+
+  assert.equal(result.status, 'missing');
+  assert.match(result.errors[0], /slow-source: slow-source timed out after 5ms/);
 });
 
 test('refreshDomains isolates a failed domain from successful peers', async () => {

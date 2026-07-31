@@ -134,6 +134,33 @@ function safeSiblingHtml(value) {
   return cleaned;
 }
 
+function fundReportSortKey(filename) {
+  const match = filename.match(/(\d{4}-\d{2}-\d{2})(?:-(\d{4}))?/);
+  if (!match) return '';
+  return `${match[1]}-${match[2] || '0000'}-${filename}`;
+}
+
+function latestSiblingFundReport(outputPath) {
+  const outputDir = path.dirname(outputPath);
+  const outputName = path.basename(outputPath);
+  let names = [];
+  try {
+    names = fs.readdirSync(outputDir);
+  } catch {
+    return '';
+  }
+
+  const candidates = names
+    .filter((name) => name !== outputName)
+    .filter((name) => /^[^<>:"/\\|?*]+\.html$/i.test(name))
+    .filter((name) => name.includes('资金面分析'))
+    .map((name) => ({ name, key: fundReportSortKey(name) }))
+    .filter((item) => item.key)
+    .sort((a, b) => b.key.localeCompare(a.key, 'zh-CN'));
+
+  return candidates[0]?.name || '';
+}
+
 function renderValueRange(value) {
   const cleaned = cleanInline(value || '未获取到');
   const parts = cleaned.split(/[；;]/).map((part) => part.trim()).filter(Boolean);
@@ -160,7 +187,9 @@ function renderDailyTracking(decisions, metadata, code, outputPath) {
   const riskDirection = cleanInline(decisions['风险方向']) || '未获取到';
   const updatedAt = cleanInline(decisions['每日跟踪时间'] || metadata['研究截止时间']) || '未获取到';
   const candidateFundReport = safeSiblingHtml(decisions['资金面分析链接']);
-  const fundReport = candidateFundReport && fs.existsSync(path.join(path.dirname(outputPath), candidateFundReport)) ? candidateFundReport : '';
+  const fundReport = candidateFundReport && fs.existsSync(path.join(path.dirname(outputPath), candidateFundReport))
+    ? candidateFundReport
+    : latestSiblingFundReport(outputPath);
   const price = extractNumbers(priceText)[0];
   const [low, high] = extractNumbers(fairValue);
   const riskReward = describeRiskReward(price, low, high);

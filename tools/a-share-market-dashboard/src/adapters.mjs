@@ -3,7 +3,7 @@ export const SOURCES = Object.freeze({
   csindex: { name: '中证指数官网', url: 'https://www.csindex.com.cn' },
   eastmoneyTreasury: { name: '东方财富中美国债收益率', url: 'https://datacenter.eastmoney.com' },
   eastmoneyMarket: { name: '东方财富沪深A股行情', url: 'https://push2.eastmoney.com' },
-  jin10Margin: { name: '金十融资融券历史汇总', url: 'https://cdn.jin10.com' },
+  tushareMargin: { name: 'Tushare融资融券汇总', url: '/api/margin' },
 });
 
 export const INDEX_IDS = Object.freeze({
@@ -169,6 +169,13 @@ export function parseMarketSnapshot(payload) {
 }
 
 export function parseMarginReport(payload) {
+  if (Array.isArray(payload?.summary)) {
+    return payload.summary.flatMap(row => {
+      const date = row.trade_date ?? row.tradeDate ?? row.date;
+      const value = finiteNumber(row.rzye);
+      return date && value !== null ? [{ date: normalizeDate(date), value }] : [];
+    }).sort((left, right) => left.date.localeCompare(right.date));
+  }
   const values = payload?.values;
   if (!values || typeof values !== 'object') return [];
   return Object.entries(values).flatMap(([date, row]) => {
@@ -251,14 +258,9 @@ export async function loadMarketSnapshot() {
 
 export async function loadMarginHistory() {
   const urls = isLocalProxyLocation()
-    ? [
-      buildLocalProxyUrl('/api/margin', { market: 1 }),
-      buildLocalProxyUrl('/api/margin', { market: 2 }),
-    ]
-    : [
-      'https://cdn.jin10.com/data_center/reports/fs_1.json',
-      'https://cdn.jin10.com/data_center/reports/fs_2.json',
-    ];
+    ? [buildLocalProxyUrl('/api/margin')]
+    : [];
+  if (!urls.length) throw new Error('local proxy is unavailable');
   const reports = await loadInOrder(urls, url => {
     const target = new URL(url);
     target.searchParams.set('_', String(Date.now()));

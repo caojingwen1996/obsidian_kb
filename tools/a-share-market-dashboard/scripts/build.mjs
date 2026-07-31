@@ -145,6 +145,10 @@ function frontmatterValue(markdown, label) {
   return markdown.match(new RegExp(`^${label}：(.+)$`, 'mu'))?.[1].trim() ?? '';
 }
 
+function metadataValue(markdown, label) {
+  return markdown.match(new RegExp(`^(?:-\\s*)?${label}：(.+)$`, 'mu'))?.[1].trim() ?? '';
+}
+
 function digestTitleFromFilename(filename) {
   return filename
     .replace(/\.md$/i, '')
@@ -153,8 +157,14 @@ function digestTitleFromFilename(filename) {
     .replace(/_/g, ' ');
 }
 
+function digestBody(markdown) {
+  return markdown.split(/^正文：$/mu).at(1)
+    ?? markdown.split(/^## 原文内容\s*$/mu).at(1)
+    ?? markdown;
+}
+
 function digestExcerpt(markdown, fallbackTitle) {
-  const body = markdown.split(/^正文：$/mu).at(1) ?? markdown;
+  const body = digestBody(markdown);
   const cleaned = normalizeDigestText(body)
     .replace(/^首页 下载App 发帖.*?冰冰小美\s*/u, '')
     .replace(/风险提示：用户发表的所有文章[\s\S]*$/u, '')
@@ -163,12 +173,42 @@ function digestExcerpt(markdown, fallbackTitle) {
   return truncateText(cleaned || fallbackTitle, 132);
 }
 
-function digestFilters(text) {
-  const filters = new Set();
-  if (/宏观|财政|税|美元|美债|利率|流动性|关税|汇率|风险|救市|股指期货/u.test(text)) filters.add('macro');
-  if (/市场|A股|牛市|熊市|行情|股市|指数|资金|做空|交易节点/u.test(text)) filters.add('market');
-  if (/产业|科技|AI|有色|黄金|银行|半导体|机器人|商业航天|电力|资源/u.test(text)) filters.add('industry');
-  if (/交易|投机|仓位|加仓|减仓|持仓|观察|复盘|等待|买入|卖出/u.test(text)) filters.add('trade');
+function digestOriginalText(markdown, fallbackTitle) {
+  const cleanedLines = digestBody(markdown)
+    .replace(/[]/g, '')
+    .replace(/风险提示：用户发表的所有文章[\s\S]*$/u, '')
+    .replace(/\r\n/g, '\n')
+    .split('\n')
+    .map(line => line.trim())
+    .filter(Boolean);
+  const cleaned = cleanedLines.join('\n').replace(fallbackTitle, '').trim();
+  return cleaned || fallbackTitle;
+}
+
+const digestFilterLabels = {
+  macro: '宏观',
+  market: '市场',
+  industry: '产业',
+  trade: '交易',
+};
+
+const digestFilterAliases = new Map([
+  ['宏观', 'macro'],
+  ['市场', 'market'],
+  ['行业', 'industry'],
+  ['产业', 'industry'],
+  ['交易', 'trade'],
+]);
+
+function digestFiltersFromPost(markdown) {
+  const rawTags = metadataValue(markdown, '标签');
+  const filters = new Set(
+    rawTags
+      .replace(/[。；;]/g, ' ')
+      .split(/[,\s，、]+/u)
+      .map(tag => digestFilterAliases.get(tag.trim()))
+      .filter(Boolean)
+  );
   if (!filters.size) filters.add('market');
   return [...filters];
 }
@@ -187,15 +227,15 @@ async function scanBbxmDailyDigest() {
       const title = frontmatterValue(markdown, '标题') || digestTitleFromFilename(file.name);
       const publishedAt = frontmatterValue(markdown, '发布时间') || `${dateEntry.name} ${timeFromFilename(file.name)}`;
       const sourceUrl = frontmatterValue(markdown, '原始链接');
-      const text = `${title} ${markdown}`;
       entries.push({
         date: dateEntry.name,
         time: publishedAt.match(/\d{2}:\d{2}/)?.[0] ?? timeFromFilename(file.name),
         title: truncateText(title, 78),
         excerpt: digestExcerpt(markdown, title),
+        originalTextEncoded: Buffer.from(digestOriginalText(markdown, title), 'utf8').toString('base64'),
         sourceUrl,
         href: `../../sources/automations/BBXM每日汇总/${dateEntry.name}/冰冰小美/${file.name}`,
-        filters: digestFilters(text),
+        filters: digestFiltersFromPost(markdown),
       });
     }
     const summaryPath = join(dayDir, 'summary.md');
@@ -245,7 +285,7 @@ function renderFeaturedDigest(groups) {
   }
   const allEntries = groups.flatMap(group => group.entries.map(entry => ({ ...entry, groupDate: group.date })));
   const hotItems = allEntries.slice(0, 5).map((entry, index) =>
-    `                <li class="featured-hot-item" data-featured-filters="${escapeHtml(entry.filters.join(','))}">
+    `                <li class="featured-hot-item" data-featured-id="${escapeHtml(entry.href)}" data-featured-filters="${escapeHtml(entry.filters.join(','))}">
                   <span>${index + 1}</span>
                   <a href="${escapeHtml(entry.href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(entry.title)}</a>
                 </li>`
@@ -257,14 +297,21 @@ function renderFeaturedDigest(groups) {
             </section>`;
   const dayBlocks = groups.map(group => {
     const cards = group.entries.map(entry =>
-      `                <article class="featured-card" data-featured-filters="${escapeHtml(entry.filters.join(','))}">
+      `                <article class="featured-card" data-featured-id="${escapeHtml(entry.href)}" data-featured-filters="${escapeHtml(entry.filters.join(','))}">
                   <span class="featured-time">${escapeHtml(entry.time)}</span><span class="featured-dot"></span>
                   <div class="featured-card-inner">
                     <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
                     <h3><a href="${escapeHtml(entry.href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(entry.title)}</a></h3>
                     <p>${escapeHtml(entry.excerpt)}</p>
-                    <div class="featured-tags">${entry.filters.map(filter => `#${escapeHtml({ macro: '宏观', market: '市场', industry: '产业', trade: '交易' }[filter] ?? filter)}`).join(' ')}</div>
-                    ${entry.sourceUrl ? `<a class="featured-source" href="${escapeHtml(entry.sourceUrl)}" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>` : ''}
+                    <div class="featured-tags">${entry.filters.map(filter => `#${escapeHtml(digestFilterLabels[filter] ?? filter)}`).join(' ')}</div>
+                    <div class="featured-actions">
+                      ${entry.sourceUrl ? `<a class="featured-source" href="${escapeHtml(entry.sourceUrl)}" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>` : ''}
+                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
+                      <button class="featured-delete" type="button">删除</button>
+                    </div>
+                    <div class="featured-original" data-featured-original="${escapeHtml(entry.originalTextEncoded)}" hidden>
+                      <pre></pre>
+                    </div>
                   </div>
                 </article>`
     ).join('\n');
@@ -523,21 +570,22 @@ function parseDividendYieldHistoryFromWorkbook(buffer) {
 function parseDividendSignal(markdown) {
   if (!markdown?.trim()) return null;
   const pick = label => markdown.match(new RegExp(`^- ${label}：(.+)$`, 'mu'))?.[1].trim() ?? '';
+  const pickAny = labels => labels.map(pick).find(Boolean) ?? '';
   const runTime = pick('运行时间');
   const recordDate = runTime.match(/\d{4}-\d{2}-\d{2}/)?.[0] ?? '';
   const signal = {
     recordDate,
     runTime,
-    indexDate: pick('AKShare 指数估值日期'),
+    indexDate: pickAny(['指数估值日期', 'AKShare 指数估值日期']),
     bondDate: pick('10年国债收益率日期'),
-    dividendYield2: numberFromText(pick('AKShare 中证红利股息率2')),
+    dividendYield2: numberFromText(pickAny(['中证红利股息率口径', 'AKShare 中证红利股息率2'])),
     xueqiuChangePercent: pick('雪球当天涨跌幅'),
     lixingerDate: pick('理杏仁估值日期'),
     lixingerDividendYield: pick('理杏仁市值加权股息率'),
     lixingerPercentile10y: pick('理杏仁近10年股息率分位'),
     lixingerPercentile80Value: pick('理杏仁近10年80%分位点'),
     bond10yYield: numberFromText(pick('中国10年国债收益率')),
-    spread: numberFromText(pick('AKShare 股息率2 - 10年国债收益率')),
+    spread: numberFromText(pickAny(['指数股息率口径 - 10年国债收益率', 'AKShare 股息率2 - 10年国债收益率'])),
     percentileSignal: pick('历史分位点触发'),
     absoluteSignal: pick('绝对股息率触发'),
     spreadSignal: pick('相对债券收益率触发'),

@@ -1,0 +1,1663 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>星源材质机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+.daily-tracking { margin: 0 0 42px; padding: 22px; border: 1px solid #cbdade; border-radius: 16px; background: linear-gradient(135deg, #f3f8f9 0%, #fffaf0 100%); box-shadow: 0 12px 30px rgba(23, 50, 71, .07); }
+.daily-tracking-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
+.daily-tracking-kicker { margin: 0 0 4px; color: var(--teal); font-size: 12px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+.daily-tracking h2 { margin: 0; padding: 0; border: 0; font-size: 27px; }
+.daily-tracking-time { margin: 4px 0 0; color: var(--muted); font-size: 12px; text-align: right; }
+.tracking-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.tracking-grid + .tracking-grid { margin-top: 12px; }
+.tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
+.tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
+.tracking-card[data-tracking-key="dynamic-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
+.range-breakdown { display: block; }
+.range-main { display: inline-flex; align-items: center; max-width: 100%; margin-bottom: 10px; padding: 3px 9px; border-radius: 999px; background: #e7f0f3; color: var(--navy); font-size: 20px; line-height: 1.3; font-weight: 800; }
+.range-points { display: grid; gap: 7px; margin-top: 1px; }
+.range-point { display: block; padding-left: 11px; border-left: 3px solid #bed2d8; color: #245068; font-size: 14px; line-height: 1.52; font-weight: 650; }
+.tracking-value.bad { color: var(--danger); }
+.tracking-detail { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; }
+.tracking-status { display: inline-flex; margin-top: 10px; padding: 3px 8px; border-radius: 999px; color: #526b77; background: #edf2f4; font-size: 12px; font-weight: 700; }
+.tracking-status.live { color: #17604e; background: #dff3eb; }
+.tracking-status.error { color: var(--danger); background: var(--danger-bg); }
+.tracking-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; margin-top: 14px; padding-top: 13px; border-top: 1px solid #d5e0e3; color: #536d78; font-size: 13px; }
+.tracking-footer a { font-weight: 700; }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+  .tracking-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+  .daily-tracking-head { display: block; }
+  .daily-tracking-time { text-align: left; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .daily-tracking, .tracking-card { border: 1px solid #aebbc2; color: #102f43; background: #fff; box-shadow: none; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · 300568</p>
+      <h1>星源材质机构级决策研报</h1>
+      <div class="hero-meta"><span>2026-07-31 10:39（Asia/Shanghai）</span><span>2026-07-31 10:39（Asia/Shanghai）</span><span>深交所创业板 / 人民币</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
+<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
+<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
+<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
+<a class="toc-link" href="#section-6">6. 五年财务历史</a>
+<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
+<a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
+<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
+<a class="toc-link" href="#section-10">10. 估值</a>
+<a class="toc-link" href="#section-11">11. 冰冰小美框架判断</a>
+<a class="toc-link" href="#section-12">12. 最终结论</a>
+<a class="toc-link" href="#section-13">13. 后续监控指标</a>
+<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
+<a class="toc-link" href="#section-15">15. 来源清单</a>
+<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
+      <article class="content"><blockquote>
+<p>证券代码：300568<br>交易所 / 币种：深交所创业板 / 人民币<br>研究截止时间：2026-07-31 10:39（Asia/Shanghai）<br>报告生成时间：2026-07-31 10:39（Asia/Shanghai）<br>数据口径：A 股法定披露优先；行情、估值、资金、融资和财务底稿优先使用本地 Tushare MCP；最新行情为 2026-07-30 不复权收盘价，非盘中实时价。  </p>
+</blockquote>
+<!-- DAILY_TRACKING_START -->
+<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-07-31 10:39（Asia/Shanghai，收盘后研究）" data-value-low="7" data-value-high="-12">
+  <div class="daily-tracking-head">
+    <div><p class="daily-tracking-kicker">Daily decision tracker</p><h2>每日跟踪面板</h2></div>
+    <p class="daily-tracking-time">更新：2026-07-31 10:39（Asia/Shanghai，收盘后研究）<br>下次：收盘后 / 重大公告后</p>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">改善但证据不充分</p><p class="tracking-detail">风险方向：风险持平偏增强。下一验证点与失效条件见第 11—13 章。</p></div>
+    <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value"><span class="range-breakdown"><span class="range-main">7.0-12.0 元</span><span class="range-points"><span class="range-point">7 元附近=只按低迷隔膜主业和 PB 下沿估值</span><span class="range-point">9-10 元=温和修复的主业合理价值</span><span class="range-point">12 元附近=计入部分高端膜与海外客户改善</span><span class="range-point">高于 12 元需 2026H2 利润、现金流和隔膜价格共同上修支撑</span></span></span></p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
+    <div class="tracking-card" data-tracking-key="risk-reward"><p class="tracking-label">盈亏比</p><p class="tracking-value" id="risk-reward-value">未获取到</p><p class="tracking-detail" id="risk-reward-detail">价格或动态价值区间无法解析，未计算盈亏比。</p></div>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="daily-quote"><p class="tracking-label">每日同步价</p><p class="tracking-value">13.10 元，2026-07-30 Tushare 不复权收盘价</p><p class="tracking-detail">这是报告内嵌的正式跟踪基准，离线打开仍可使用。</p><span class="tracking-status">每日快照</span></div>
+    <div class="tracking-card" data-tracking-key="intraday-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">等待连接</p><p class="tracking-detail" id="intraday-detail">通过“大盘启动器”打开后获取盘中行情，每 60 秒刷新；直接打开 HTML 时不访问外部行情。</p><span class="tracking-status" id="intraday-status">未连接</span></div>
+    <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">observe</p><p class="tracking-detail">估值：合理偏高；当前价格已提前计入隔膜盈利修复与海外 / 高端膜期权 · observe；风险：风险持平偏增强；结论置信度：中。</p><span class="tracking-status">合理偏高；当前价格已提前计入隔膜盈利修复与海外 / 高端膜期权</span></div>
+  </div>
+  <div class="tracking-footer"><span>资金状态：<strong>结构性流出；7 月价格大幅回落、融资余额下降，7 月末单日资金有所修复但连续性不足</strong> · 新增/已有动作：<strong>observe</strong></span><span>资金面分析：未单独生成</span></div>
+</section>
+<!-- DAILY_TRACKING_END -->
+<h2 id="section-1">1. 决策摘要</h2>
+
+<h3>1.1 基本面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值状态</td>
+<td>合理偏高；当前价格已提前计入隔膜盈利修复与海外 / 高端膜期权</td>
+</tr>
+<tr>
+<td>综合估值区间</td>
+<td>7.0-12.0 元；7 元附近=只按低迷隔膜主业和 PB 下沿估值，9-10 元=温和修复的主业合理价值，12 元附近=计入部分高端膜与海外客户改善，高于 12 元需 2026H2 利润、现金流和隔膜价格共同上修支撑</td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>相对 13.10 元收盘价，核心区间约 -46.6% 至 -8.4%；乐观情景可到 15-16 元但需要新增事实</td>
+</tr>
+<tr>
+<td>基本面状态</td>
+<td>改善但证据不充分</td>
+</tr>
+<tr>
+<td>关键经营变化</td>
+<td>2025 年收入 41.25 亿元但归母净利润仅 0.36 亿元，利润处于周期底部；2026Q1 收入 10.81 亿元、归母净利润 0.29 亿元，利润环比修复但绝对值仍低；市场预期已交易海外、高端膜和隔膜价格修复，基本面兑现滞后于股价弹性</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h3>1.2 资金面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>操作建议</td>
+<td>观望；不建议把新增现金直接追入</td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td>observe</td>
+</tr>
+<tr>
+<td>当前价格及时间</td>
+<td>13.10 元，2026-07-30 Tushare 不复权收盘价</td>
+</tr>
+<tr>
+<td>资金状态</td>
+<td>结构性流出；7 月价格大幅回落、融资余额下降，7 月末单日资金有所修复但连续性不足</td>
+</tr>
+<tr>
+<td>风险方向</td>
+<td>风险持平偏增强</td>
+</tr>
+<tr>
+<td>每日跟踪时间</td>
+<td>2026-07-31 10:39（Asia/Shanghai，收盘后研究）</td>
+</tr>
+<tr>
+<td>资金面分析链接</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<h3>如果今天这是一笔现金，我会买它吗</h3>
+<ul>
+<li>回答：不会直接买；只在特定条件下会。</li>
+<li>我的判断：星源材质是值得跟踪的锂电隔膜龙头，但当前不是“闭眼长拿”的价格。公司处在周期底部修复阶段，真正的买点应来自利润率、现金流、价格和资金承接共同验证，而不是只靠“隔膜反转”和 H 股 / 海外叙事。</li>
+<li>改变结论的条件：2026 半年报确认毛利率修复、经营现金流转正且融资余额不再下滑；或股价回到 9-10 元附近但基本面没有恶化，可从 observe 升级为 wait / buy 候选。</li>
+</ul>
+<h2 id="section-2">2. 证券身份与来源矩阵</h2>
+
+<h3>2.1 证券身份</h3>
+<ul>
+<li>公司全称：深圳市星源材质科技股份有限公司。</li>
+<li>证券代码：300568.SZ。</li>
+<li>上市地：深圳证券交易所创业板。</li>
+<li>报告准则：中国企业会计准则。</li>
+<li>法定披露体系：A 股交易所与巨潮资讯。</li>
+<li>同名或跨市场歧义：本报告仅分析 A 股 300568；如涉及 H 股上市信息，仅作为融资和情绪变量，不作为独立估值对象。</li>
+</ul>
+<h3>2.2 来源矩阵</h3>
+<table>
+<thead>
+<tr>
+<th>数据项目</th>
+<th>目标来源</th>
+<th>实际来源</th>
+<th>数据时间</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Tushare MCP 调用清单（A股适用）</td>
+<td><code>tushare-data</code> MCP 已暴露工具</td>
+<td>已调用 <code>get_stock_basic</code>、<code>get_stock_daily</code>、<code>get_stock_valuation</code>、<code>get_stock_moneyflow</code>、<code>get_margin_detail</code>、<code>get_financial_statements</code>、<code>get_dividend_history</code></td>
+<td>2026-07-31 抓取；行情至 2026-07-30</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>证券身份与上市状态</td>
+<td><code>get_stock_basic</code>；交易所 / 巨潮</td>
+<td>Tushare：300568.SZ，创业板，上市状态 L</td>
+<td>2026-07-31</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>实时价格、52周高低、今年以来表现</td>
+<td>Tushare 日线 / 行情平台</td>
+<td>Tushare 日线；未取得 2026-07-31 盘中价</td>
+<td>2026-07-30 收盘</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>估值、市值、股息率和换手率</td>
+<td><code>get_stock_valuation</code></td>
+<td>Tushare daily_basic</td>
+<td>2026-07-30</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>资金分档 / 大单资金代理</td>
+<td><code>get_stock_moneyflow</code></td>
+<td>Tushare moneyflow</td>
+<td>2026-07-01 至 2026-07-30</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>融资融券代理</td>
+<td><code>get_margin_detail</code></td>
+<td>Tushare margin_detail</td>
+<td>2026-07-01 至 2026-07-30</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>第三方公允价值、护城河、星级</td>
+<td>Morningstar / 公开估值平台</td>
+<td>未获取到可核验字段</td>
+<td>2026-07-31</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>最新季报与管理层指引</td>
+<td>2026Q1 报告 / 公司公告</td>
+<td>Tushare 财务字段；公开公告线索</td>
+<td>2026Q1；2026H1 预告需 PDF 复核</td>
+<td>部分获取</td>
+</tr>
+<tr>
+<td>分部收入</td>
+<td>2025 年报</td>
+<td>未完整抽取 PDF 分部表</td>
+<td>2025 年报</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>卖方评级与目标价</td>
+<td>券商研报</td>
+<td>公开研报摘要线索，目标价样本不完整</td>
+<td>2026 年</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>近三个月新闻与催化剂</td>
+<td>公司公告 / 交易所 / 财经媒体</td>
+<td>公开搜索线索：H 股、隔膜修复、2026H1 业绩预告</td>
+<td>2026-05 至 2026-07</td>
+<td>部分获取</td>
+</tr>
+<tr>
+<td>五年财务历史</td>
+<td><code>get_financial_statements</code> 起底；年报复核</td>
+<td>Tushare 利润表、资产负债表、现金流表核心科目</td>
+<td>2021-2025；2026Q1</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>分红历史</td>
+<td><code>get_dividend_history</code></td>
+<td>Tushare dividend</td>
+<td>2025 年度分红至 2026-05-19 实施</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>指数成分与权重（如适用）</td>
+<td><code>get_index_constituents</code></td>
+<td>未调用，个股研报非必要</td>
+<td>2026-07-31</td>
+<td>不适用</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 行情与市场预期</h2>
+
+<h3>3.1 行情快照（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">数值</th>
+<th>来源</th>
+<th>时间 / 口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前价格</td>
+<td align="right">13.10 元</td>
+<td>Tushare <code>get_stock_daily</code></td>
+<td>2026-07-30，不复权收盘价</td>
+</tr>
+<tr>
+<td>52周最高</td>
+<td align="right">21.56 元</td>
+<td>Tushare 日线区间高点</td>
+<td>2025-07-01 至 2026-07-30</td>
+</tr>
+<tr>
+<td>52周最低</td>
+<td align="right">11.48 元</td>
+<td>Tushare 日线区间低点</td>
+<td>2025-07-01 至 2026-07-30</td>
+</tr>
+<tr>
+<td>今年以来表现</td>
+<td align="right">-14.99%</td>
+<td>Tushare 日线计算</td>
+<td>2026-01-05 至 2026-07-30</td>
+</tr>
+<tr>
+<td>总市值</td>
+<td align="right">195.88 亿元</td>
+<td>Tushare <code>get_stock_valuation</code></td>
+<td>2026-07-30</td>
+</tr>
+<tr>
+<td>PE / PB / EV</td>
+<td align="right">PE TTM 1034.56；PB 2.01；PS TTM 4.54；EV 未获取到</td>
+<td>Tushare daily_basic</td>
+<td>2026-07-30</td>
+</tr>
+</tbody></table>
+<h3>3.2 第三方公允价值与评级（事实）</h3>
+<ul>
+<li>公允价值：未获取到。</li>
+<li>护城河评级：未获取到。</li>
+<li>星级：未获取到。</li>
+<li>来源与时间：未取得可核验的公开页面字段。</li>
+<li>未获取到的字段及已检查来源：公开搜索未取得可直接审计的第三方公允价值和护城河评级字段，不使用搜索摘要补全。</li>
+</ul>
+<h3>3.3 卖方评级与目标价分布（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>机构</th>
+<th>日期</th>
+<th>评级</th>
+<th align="right">目标价</th>
+<th>预测期</th>
+<th>关键假设</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>未获取到完整样本</td>
+<td>2026 年</td>
+<td>未获取到</td>
+<td align="right">未获取到</td>
+<td>未获取到</td>
+<td>隔膜价格修复、海外客户、高端涂覆膜和产能利用率改善是主要关注点</td>
+</tr>
+</tbody></table>
+<ul>
+<li>目标价区间 / 中位数：未获取到。</li>
+<li>样本数量与完整性：不足以形成卖方目标价分布。</li>
+<li>来源冲突及采信理由：公开研报线索只作为市场预期提示，不作为估值核心依据。</li>
+</ul>
+<h2 id="section-4">4. 商业模式与竞争格局</h2>
+
+<h3>4.1 事实</h3>
+<ul>
+<li>收入来源：公司主营锂离子电池隔膜，包括干法隔膜、湿法隔膜、涂覆膜及相关材料服务；客户主要为动力、储能和消费电池产业链。</li>
+<li>客户与定价权：隔膜属于锂电池关键材料，但中低端产能扩张后价格竞争强，定价权取决于高端膜认证、海外客户、良率、规模成本和供需位置。</li>
+<li>成本结构：成本主要来自原材料、能源、折旧、人工和产线良率；在价格下行期，折旧和产能利用率会显著放大利润波动。</li>
+<li>资本强度：隔膜产线投资强度高，2025 年总资产 247.24 亿元、负债 146.52 亿元，经营现金流 7.53 亿元但投资现金流仍为大额流出。</li>
+<li>竞争者：恩捷股份、中材科技、璞泰来、沧州明珠以及海外隔膜企业。</li>
+<li>监管约束：A 股信披、锂电安全标准、客户认证体系、海外贸易和环保安全生产要求。</li>
+</ul>
+<h4>多产业位置景气度排序（事实与判断分列）</h4>
+<table>
+<thead>
+<tr>
+<th align="right">排名</th>
+<th>产业位置</th>
+<th>位置识别依据（事实）</th>
+<th>公司业务 / 资产暴露（事实）</th>
+<th>当前景气度</th>
+<th>趋势</th>
+<th>景气证据与时间</th>
+<th>财务传导</th>
+<th>验证指标 / 失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">1</td>
+<td>高端锂电隔膜与涂覆膜</td>
+<td>隔膜是公司主业，利润修复依赖高端产品和海外客户</td>
+<td>几乎全部收入和资产暴露在隔膜产业链</td>
+<td>中</td>
+<td>上行待验证</td>
+<td>2026Q1 收入 10.81 亿元，利润 0.29 亿元，修复仍弱</td>
+<td>高端产品占比提升可提高 ASP 和毛利率</td>
+<td>毛利率连续改善、海外客户放量；若 ASP 继续下行则失效</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td>动力与储能电池材料</td>
+<td>下游动力和储能需求仍增长，但上游材料竞争激烈</td>
+<td>隔膜需求随电池出货增长</td>
+<td>中</td>
+<td>持平</td>
+<td>收入保持增长，2025 年收入 41.25 亿元</td>
+<td>需求增长提升产能利用率</td>
+<td>下游装机 / 储能出货、库存；若价格战吞噬增量则失效</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td>海外客户与全球化产能</td>
+<td>市场预期关注海外认证、H 股融资和全球化产能</td>
+<td>具体海外收入和订单未完整获取</td>
+<td>证据不足</td>
+<td>上行待验证</td>
+<td>公开研报线索关注海外客户，但缺少分部数据</td>
+<td>若海外放量，估值可从材料周期股向全球供应商重估</td>
+<td>海外收入、客户认证、订单、毛利率；若只融资不放量则失效</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td>固态 / 半固态电池相关隔膜</td>
+<td>市场可能给予新技术期权</td>
+<td>公司具体收入暴露未获取到</td>
+<td>证据不足</td>
+<td>证据不足</td>
+<td>未取得可审计收入和订单</td>
+<td>仅在技术路线进入规模订单后才影响估值</td>
+<td>客户验证、量产订单；技术替代或低渗透则失效</td>
+</tr>
+</tbody></table>
+<ul>
+<li>位置间交叉与去重说明：高端膜、海外客户、动力储能需求本质上都作用于同一隔膜收入池，估值时不能重复计算。</li>
+<li>排名第一的位置能否进入公司利润和现金流：可以，但前提是隔膜价格和产能利用率改善，而不是只有需求增长。</li>
+<li>弱关联 / 待验证位置：固态电池、海外融资和 H 股上市只作为期权，不作为基准估值。</li>
+</ul>
+<h3>4.2 我的判断</h3>
+<ul>
+<li>我的判断：公司的核心优势是隔膜龙头地位、产能规模、客户认证和高端膜技术积累；但当前行业利润池偏薄，优势还没有稳定转化为高 ROIC。</li>
+<li>我的判断：商业模式最脆弱的环节是“资本强度高 + 价格竞争强”。只要隔膜价格低迷，收入增长很容易被折旧、费用、减值和融资成本吃掉。</li>
+<li>证伪条件：2026H1 / 2026 年报显示毛利率、经营现金流和净利率连续改善，且融资余额下降后股价仍能放量承接。</li>
+</ul>
+<h2 id="section-5">5. 分部收入与盈利拆解</h2>
+
+<table>
+<thead>
+<tr>
+<th>分部</th>
+<th align="right">收入</th>
+<th align="right">同比</th>
+<th align="right">收入占比</th>
+<th align="right">毛利率</th>
+<th align="right">毛利率变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>锂电隔膜相关主业</td>
+<td align="right">41.25 亿元</td>
+<td align="right">+16.50%</td>
+<td align="right">约 100%</td>
+<td align="right">约 23.03%</td>
+<td align="right">需年报分部复核</td>
+<td>Tushare 利润表反算，2025 年</td>
+</tr>
+<tr>
+<td>2026Q1 锂电隔膜相关主业</td>
+<td align="right">10.81 亿元</td>
+<td align="right">未完整获取</td>
+<td align="right">约 100%</td>
+<td align="right">约 26.20%</td>
+<td align="right">需季报分部复核</td>
+<td>Tushare 利润表反算，2026Q1</td>
+</tr>
+<tr>
+<td>海外 / 高端膜 / 涂覆膜细分</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>需年报 PDF 分部表复核</td>
+</tr>
+</tbody></table>
+<ul>
+<li>披露口径变化：未获取到分部表，无法区分干法、湿法、涂覆膜、海外和国内收入。</li>
+<li>来源冲突：Tushare 财务字段与公司法定披露口径需用年报 PDF 复核。</li>
+<li>采信理由：在未取得分部表前，只用总收入、营业成本和利润作为基本面底稿。</li>
+<li>我的判断：增长质量仍弱。2025 年营收增长但归母净利润只有 3636.78 万元，说明价格、减值、折旧或费用仍在压制利润。</li>
+</ul>
+<h2 id="section-6">6. 五年财务历史</h2>
+
+<table>
+<thead>
+<tr>
+<th>财年</th>
+<th align="right">营收</th>
+<th align="right">毛利率</th>
+<th align="right">经营现金流</th>
+<th align="right">资本开支</th>
+<th align="right">自由现金流</th>
+<th align="right">ROIC / 代理值</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td align="right">18.61 亿元</td>
+<td align="right">37.80%</td>
+<td align="right">3.99 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">约 4%-6%</td>
+<td>Tushare 财务字段</td>
+</tr>
+<tr>
+<td>2022</td>
+<td align="right">28.80 亿元</td>
+<td align="right">45.57%</td>
+<td align="right">12.93 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">约 8%-10%</td>
+<td>Tushare 财务字段</td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">30.13 亿元</td>
+<td align="right">44.42%</td>
+<td align="right">11.34 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">约 5%-7%</td>
+<td>Tushare 财务字段</td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">35.41 亿元</td>
+<td align="right">29.09%</td>
+<td align="right">3.68 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">约 3%-4%</td>
+<td>Tushare 财务字段</td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">41.25 亿元</td>
+<td align="right">23.03%</td>
+<td align="right">7.53 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">低于 1%</td>
+<td>Tushare 财务字段</td>
+</tr>
+</tbody></table>
+<ul>
+<li>自由现金流口径：理论口径为经营现金流 - 购建固定资产、无形资产和其他长期资产支付的现金；本次未从 PDF 抽取资本开支明细，因此自由现金流写未获取到。</li>
+<li>ROIC 口径：以归母净利润 / 平均归母权益粗略观察方向，未做 NOPAT、净债务和在建工程调整。</li>
+<li>一次性项目和会计变化：2024-2025 毛利率下行明显，净利润从 2022 高点显著回落；需进一步核查资产减值、折旧、价格和费用拆分。</li>
+<li>我的判断：财务周期从 2022 的高景气转入 2024-2025 的低利润阶段，2026 的核心问题不是收入能否增长，而是利润率能否回到可支撑 200 亿元市值的水平。</li>
+</ul>
+<h2 id="section-7">7. 最新季度与管理层指引</h2>
+
+<h3>7.1 最新季度（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">本期</th>
+<th align="right">同比 / 变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营收</td>
+<td align="right">10.81 亿元</td>
+<td align="right">未完整获取</td>
+<td>Tushare 财务字段，2026Q1</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">约 26.20%</td>
+<td align="right">较 2025 全年修复</td>
+<td>Tushare 收入与成本反算，2026Q1</td>
+</tr>
+<tr>
+<td>净利润</td>
+<td align="right">0.29 亿元</td>
+<td align="right">未完整获取</td>
+<td>Tushare 财务字段，2026Q1</td>
+</tr>
+<tr>
+<td>调整后利润</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>未取得完整季报字段</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">0.68 亿元</td>
+<td align="right">未完整获取</td>
+<td>Tushare 现金流字段，2026Q1</td>
+</tr>
+<tr>
+<td>订单 / 储备</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>需公告与客户认证数据</td>
+</tr>
+</tbody></table>
+<h3>7.2 管理层指引（事实）</h3>
+<ul>
+<li>正式量化指引：未取得可审计的全年量化指引。</li>
+<li>定性展望：公开线索显示公司和卖方关注隔膜价格修复、高端膜、海外客户和全球化产能。</li>
+<li>未获取到：2026 全年收入、净利润、毛利率、资本开支、海外收入和订单指引。</li>
+</ul>
+<h3>7.3 我的判断</h3>
+<ul>
+<li>我的判断：2026Q1 出现毛利率边际修复，但利润规模仍不足以支撑当前估值，需要 H1 和 H2 继续确认。</li>
+<li>我的判断：指引可信度低到中，因为本次未获取完整管理层交流和年报 PDF 经营计划原文。</li>
+<li>下一验证节点：2026 半年报中的毛利率、扣非净利润、经营现金流、应收账款、存货和资本开支。</li>
+</ul>
+<h2 id="section-8">8. 近三个月新闻与催化剂</h2>
+
+<table>
+<thead>
+<tr>
+<th>发生日</th>
+<th>事件</th>
+<th>影响变量</th>
+<th>财务传导</th>
+<th>是否已反映</th>
+<th>验证节点</th>
+<th>失效条件</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-05 至 2026-07</td>
+<td>隔膜行业反转预期升温</td>
+<td>估值与情绪</td>
+<td>若价格修复，毛利率和净利率回升</td>
+<td>已部分反映，股价 6 月至 7 月初曾明显上行</td>
+<td>行业价格、毛利率</td>
+<td>价格不涨或产能继续过剩</td>
+<td>公开研报线索</td>
+</tr>
+<tr>
+<td>2026-07</td>
+<td>股价从 21.56 元高点回落至 13.10 元</td>
+<td>情绪和资金承接</td>
+<td>降低估值风险，但也说明拥挤资金撤退</td>
+<td>已反映</td>
+<td>成交额、融资余额、资金流</td>
+<td>继续放量下跌</td>
+<td>Tushare 日线</td>
+</tr>
+<tr>
+<td>2026-07</td>
+<td>融资余额由 12.30 亿元降至 9.63 亿元</td>
+<td>杠杆资金</td>
+<td>杠杆降温，短期承接压力下降但趋势资金撤退</td>
+<td>部分反映</td>
+<td>融资余额稳定</td>
+<td>融资继续下降且价格不稳</td>
+<td>Tushare margin_detail</td>
+</tr>
+<tr>
+<td>2026Q1</td>
+<td>毛利率较 2025 年边际改善</td>
+<td>基本面修复</td>
+<td>利润率上行可带动盈利弹性</td>
+<td>尚需 H1 验证</td>
+<td>半年报毛利率</td>
+<td>Q2 毛利率回落</td>
+<td>Tushare 财务字段</td>
+</tr>
+</tbody></table>
+<h2 id="section-9">9. 多头与空头论据</h2>
+
+<h3>9.1 多头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>周期底部利润修复弹性大</td>
+<td>2025 年净利润仅 0.36 亿元，基数低；2026Q1 毛利率边际修复</td>
+<td>2026H1 / H2 净利率、毛利率</td>
+<td>利润修复停留在 Q1</td>
+</tr>
+<tr>
+<td>龙头和高端膜具备溢价期权</td>
+<td>公司为隔膜龙头，市场关注高端膜和海外客户</td>
+<td>高端膜收入占比、海外订单</td>
+<td>客户认证不放量</td>
+</tr>
+<tr>
+<td>杠杆资金已有降温</td>
+<td>7 月融资余额下降约 2.67 亿元</td>
+<td>融资余额稳定、价格企稳</td>
+<td>融资继续撤退且股价破位</td>
+</tr>
+<tr>
+<td>当前价格较 52 周高点明显回落</td>
+<td>13.10 元较 21.56 元高点回撤约 39%</td>
+<td>缩量企稳、资金净流入</td>
+<td>下跌只是趋势退潮中继</td>
+</tr>
+</tbody></table>
+<h3>9.2 空头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>静态估值极高</td>
+<td>PE TTM 1034.56，PS TTM 4.54</td>
+<td>2026E 净利润</td>
+<td>利润恢复到 5-8 亿元以上</td>
+</tr>
+<tr>
+<td>行业供给和价格竞争仍强</td>
+<td>2025 毛利率降至约 23%，净利率接近 1%</td>
+<td>隔膜价格、毛利率</td>
+<td>供给出清且价格上涨</td>
+</tr>
+<tr>
+<td>资本强度和负债压力</td>
+<td>2025 总资产 247.24 亿元、负债 146.52 亿元</td>
+<td>资本开支、资产负债率、利息费用</td>
+<td>自由现金流持续转正</td>
+</tr>
+<tr>
+<td>情绪曾明显拥挤</td>
+<td>6-7 月高换手高波动，7 月净资金为负</td>
+<td>成交额下降后价格企稳</td>
+<td>放量反包并持续净流入</td>
+</tr>
+</tbody></table>
+<h2 id="section-10">10. 估值</h2>
+
+<h3>10.1 相对估值</h3>
+<table>
+<thead>
+<tr>
+<th>公司</th>
+<th>业务可比性</th>
+<th align="right">增长</th>
+<th align="right">利润率</th>
+<th align="right">PE</th>
+<th align="right">PB</th>
+<th align="right">EV/EBITDA</th>
+<th>数据时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>星源材质</td>
+<td>隔膜主业</td>
+<td align="right">收入增长但利润低位</td>
+<td align="right">2025 净利率约 0.9%</td>
+<td align="right">1034.56</td>
+<td align="right">2.01</td>
+<td align="right">未获取到</td>
+<td>2026-07-30</td>
+</tr>
+<tr>
+<td>恩捷股份</td>
+<td>隔膜可比</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>中材科技</td>
+<td>隔膜 / 材料部分可比</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<ul>
+<li>选取理由：隔膜行业利润周期强，静态 PE 失真，PB、PS 和正常化利润更适合交叉验证。</li>
+<li>正常化调整：若公司回到 8%-10% 净利率、收入 45-55 亿元，正常化净利润约 3.6-5.5 亿元；以 25-30 倍 PE，对应市值约 90-165 亿元，每股约 6.0-11.0 元。</li>
+<li>对应每股价值区间：6.0-11.0 元。</li>
+<li>我的判断：相对估值不支持在 13.10 元直接买入，除非 2026 利润恢复速度显著超出上述正常化假设。</li>
+</ul>
+<h3>10.2 DCF</h3>
+<h4>关键假设</h4>
+<table>
+<thead>
+<tr>
+<th>假设</th>
+<th align="right">悲观</th>
+<th align="right">基准</th>
+<th align="right">乐观</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>收入增长</td>
+<td align="right">0%-3%</td>
+<td align="right">5%-8%</td>
+<td align="right">10%-15%</td>
+<td>2025 收入 41.25 亿元，2026Q1 收入 10.81 亿元</td>
+</tr>
+<tr>
+<td>经营利润率</td>
+<td align="right">2%-4%</td>
+<td align="right">6%-8%</td>
+<td align="right">10%-12%</td>
+<td>2025 净利率低，Q1 毛利率边际修复</td>
+</tr>
+<tr>
+<td>税率</td>
+<td align="right">15%-20%</td>
+<td align="right">15%-20%</td>
+<td align="right">15%-20%</td>
+<td>高新技术企业假设，需复核</td>
+</tr>
+<tr>
+<td>折旧摊销</td>
+<td align="right">高</td>
+<td align="right">高</td>
+<td align="right">高</td>
+<td>隔膜资本密集</td>
+</tr>
+<tr>
+<td>资本开支</td>
+<td align="right">高</td>
+<td align="right">中高</td>
+<td align="right">中</td>
+<td>本次未取得资本开支明细</td>
+</tr>
+<tr>
+<td>营运资本变化</td>
+<td align="right">占用</td>
+<td align="right">中性</td>
+<td align="right">释放</td>
+<td>应收、存货需半年报验证</td>
+</tr>
+<tr>
+<td>WACC</td>
+<td align="right">9.5%</td>
+<td align="right">8.5%</td>
+<td align="right">7.8%</td>
+<td>A 股成长制造业假设</td>
+</tr>
+<tr>
+<td>永续增长率</td>
+<td align="right">1.5%</td>
+<td align="right">2.0%</td>
+<td align="right">2.5%</td>
+<td>成熟材料行业假设</td>
+</tr>
+</tbody></table>
+<h4>估值结果</h4>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">企业价值</th>
+<th align="right">净债务</th>
+<th align="right">股权价值</th>
+<th align="right">每股价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观</td>
+<td align="right">约 90 亿元</td>
+<td align="right">未精确获取</td>
+<td align="right">约 75-90 亿元</td>
+<td align="right">5.0-6.0 元</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">约 145 亿元</td>
+<td align="right">未精确获取</td>
+<td align="right">约 135-165 亿元</td>
+<td align="right">9.0-11.0 元</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">约 230 亿元</td>
+<td align="right">未精确获取</td>
+<td align="right">约 210-240 亿元</td>
+<td align="right">14.0-16.0 元</td>
+</tr>
+</tbody></table>
+<h4>敏感性分析</h4>
+<table>
+<thead>
+<tr>
+<th>WACC \ 永续增长率</th>
+<th align="right">1.5%</th>
+<th align="right">2.0%</th>
+<th align="right">2.5%</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>7.8%</td>
+<td align="right">11.8</td>
+<td align="right">12.9</td>
+<td align="right">14.4</td>
+</tr>
+<tr>
+<td>8.5%</td>
+<td align="right">9.7</td>
+<td align="right">10.6</td>
+<td align="right">11.8</td>
+</tr>
+<tr>
+<td>9.5%</td>
+<td align="right">7.6</td>
+<td align="right">8.3</td>
+<td align="right">9.1</td>
+</tr>
+</tbody></table>
+<h4>反向 DCF</h4>
+<ul>
+<li>当前价格隐含的收入增长 / 终值利润率：13.10 元约对应 196 亿元市值，隐含公司需要在未来数年恢复到 6 亿元以上可持续净利润，或以更高增长 / 更低 WACC 支撑终值。</li>
+<li>与历史和行业相比是否可实现：不是不可能，但要求隔膜价格修复、高端膜占比提升、资本开支放缓和现金流改善同时发生。</li>
+<li>我的判断：当前价格更像乐观预期的预付款，而不是保守投资者的安全边际。</li>
+</ul>
+<h3>10.3 行业特定估值</h3>
+<ul>
+<li>方法：PB-ROE 与正常化利润。</li>
+<li>适用理由：隔膜为重资产材料行业，周期底部利润失真，PB 可约束下行，正常化利润可约束上行。</li>
+<li>关键假设：当前 PB 约 2.01；若 ROE 低于 5%，合理 PB 应向 1.0-1.5 倍收敛；若 ROE 回到 8%-10%，2 倍 PB 才有支撑。</li>
+<li>对应每股价值区间：7.0-12.0 元。</li>
+<li>局限性：未完整获取资本开支、净债务、产能、海外订单和可比公司最新估值。</li>
+</ul>
+<h3>10.4 估值交叉验证</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="right">每股价值区间</th>
+<th align="right">权重</th>
+<th>采信理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>相对估值</td>
+<td align="right">6.0-11.0 元</td>
+<td align="right">35%</td>
+<td>隔膜同业周期可比，但缺少完整同业样本</td>
+</tr>
+<tr>
+<td>DCF</td>
+<td align="right">8.0-14.0 元</td>
+<td align="right">35%</td>
+<td>能体现利润修复，但对长期利润率敏感</td>
+</tr>
+<tr>
+<td>行业特定估值</td>
+<td align="right">7.0-12.0 元</td>
+<td align="right">30%</td>
+<td>适合重资产材料周期股</td>
+</tr>
+</tbody></table>
+<ul>
+<li>综合估值区间：7.0-12.0 元，乐观期权区 12.0-16.0 元。</li>
+<li>相对现价上行 / 下行空间：相对 13.10 元，核心区间为 -46.6% 至 -8.4%；乐观期权上沿约 +22.1%。</li>
+<li>为什么不机械平均：静态 PE 因利润低点失真，DCF 对利润率假设高度敏感，PB 只能约束而不能证明成长性，因此以核心区间而非单点目标价表达。</li>
+</ul>
+<h2 id="section-11">11. 冰冰小美框架判断</h2>
+
+<h3>11.1 三要素状态总表</h3>
+<ul>
+<li>三要素结论来源：<code>bbxm-three-factor-analysis</code></li>
+<li>分析对象与层级：星源材质，A 股个股。</li>
+<li>分析截止时间：2026-07-31 10:39。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>状态</th>
+<th>核心证据</th>
+<th>核心反证</th>
+<th>失效条件</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>中性</td>
+<td>隔膜龙头、高端膜和海外期权存在</td>
+<td>行业供给竞争强，2025 净利率极低</td>
+<td>毛利率无法连续修复</td>
+<td>中</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>不利</td>
+<td>7 月融资余额下降、月度资金净流出、价格从高位回撤</td>
+<td>7 月末单日净流入转正</td>
+<td>连续放量上行且融资稳定</td>
+<td>中</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>中性偏不利</td>
+<td>从拥挤高位回落，风险有所释放</td>
+<td>尚未确认冰点和重新扩散</td>
+<td>再次放量滞涨或跌破 11.48 元</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h4>前六步证据映射</h4>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>前六步证据来源</th>
+<th>已验证证据</th>
+<th>反证与缺口</th>
+<th>分析状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>第 4-7 章；第 2 章来源矩阵</td>
+<td>收入增长、Q1 毛利率修复、隔膜龙头地位</td>
+<td>分部、海外订单、高端膜收入未获取到</td>
+<td>可判断但置信度中</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>第 3、8、9 章；资金和融资数据</td>
+<td>7 月融资余额下降、月度资金净流出</td>
+<td>ETF、北向、机构持仓未获取到</td>
+<td>偏不利</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>第 3、8、9 章</td>
+<td>高位回撤、换手仍高</td>
+<td>情绪热度和板块广度未获取到</td>
+<td>中性偏不利</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Step 6 估值约束：估值不强行归入三要素；当前价格高于核心价值区间，是新增现金动作的主要约束。</li>
+<li>补采证据回填：本报告未在 Step 7 后补采新数据。</li>
+</ul>
+<h3>11.2 竞争格局与比较优势</h3>
+<h4>前文证据引用</h4>
+<ul>
+<li><p>商业模式与竞争底稿：见第 4 章。</p>
+</li>
+<li><p>分部与资本回报证据：见第 5-7 章。</p>
+</li>
+<li><p>相关来源状态：见第 2 章来源矩阵。</p>
+</li>
+<li><p>分析对象与竞争层级：锂电隔膜材料龙头的国内和全球竞争。</p>
+</li>
+<li><p>当前状态：中性。</p>
+</li>
+<li><p>证据充分性：不充分；依据：缺少完整分部、海外订单、客户认证和价格数据。</p>
+</li>
+<li><p>多产业位置景气度排序：首位是高端锂电隔膜与涂覆膜，但趋势仍待验证。</p>
+</li>
+<li><p>产业链位置与利润池：公司处于电池材料中游，利润池受下游电池厂议价和同行产能扩张挤压。</p>
+</li>
+<li><p>核心比较优势：规模、技术、客户认证和高端膜积累。</p>
+</li>
+<li><p>竞争对手与替代方案：恩捷股份、中材科技、璞泰来、沧州明珠及海外供应商。</p>
+</li>
+<li><p>份额、定价权、客户黏性与进入壁垒：进入壁垒存在，但定价权在周期下行阶段不强。</p>
+</li>
+<li><p>竞争优势转化为订单、利润和现金回报的情况：尚未充分体现，2025 净利率偏低。</p>
+</li>
+<li><p>当前决策含义：竞争格局支持跟踪，不支持忽略估值追高。</p>
+</li>
+</ul>
+<h4>证据</h4>
+<ul>
+<li>2025 收入 41.25 亿元，仍在增长。</li>
+<li>2026Q1 毛利率较 2025 全年边际修复。</li>
+<li>隔膜主业具备技术和客户认证壁垒。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>2025 归母净利润仅 0.36 亿元，资本回报很低。</li>
+<li>高端膜、海外客户和产能全球化数据未完整获取。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>2026H1 毛利率回落、经营现金流转弱，或隔膜价格继续下行。</li>
+</ul>
+<h3>11.3 流动性辩证分析</h3>
+<ul>
+<li>当前状态：不利。</li>
+<li>证据充分性：部分充分；依据：已取得成交、换手、资金和融资数据，但缺少 ETF、北向和机构持仓。</li>
+</ul>
+<h4>宏观流动性</h4>
+<ul>
+<li>总量环境与边际变化：未在本报告中独立核验全球利率、美元和商品。</li>
+<li>对本标的的传导：材料成长股对风险偏好和新能源主题流动性敏感。</li>
+</ul>
+<h4>中观流动性</h4>
+<ul>
+<li>行业 / 主题 / ETF / 机构配置变化：未获取到 ETF、北向和机构代理数据。</li>
+<li>对本标的的传导：新能源材料若从拥挤主题退潮，会优先压缩估值而非立刻改变基本面。</li>
+</ul>
+<h4>微观流动性</h4>
+<ul>
+<li>成交额、换手率、量价结构、融资和大单：7 月平均换手率 7.43%，低于 6 月 9.21%；7 月资金净流出约 2.24 亿元；融资余额从 12.30 亿元降至 9.63 亿元。</li>
+<li>连续窗口与相对强弱：7 月均价 15.36 元，低于 6 月 17.77 元，价格和成交同步降温。</li>
+</ul>
+<h4>资金来源分类</h4>
+<table>
+<thead>
+<tr>
+<th>资金来源</th>
+<th>当前状态</th>
+<th>连续窗口证据</th>
+<th>对价格的含义</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>长期配置资金</td>
+<td>未获取到</td>
+<td>ETF、北向、机构持仓未获取</td>
+<td>不能证明长期资金承接</td>
+<td>低</td>
+</tr>
+<tr>
+<td>趋势 / 交易资金</td>
+<td>撤退后局部修复</td>
+<td>7 月高波动、资金净流出，7 月末单日净流入</td>
+<td>情绪仍在修复期</td>
+<td>中</td>
+</tr>
+<tr>
+<td>产业资本 / 内部人</td>
+<td>未获取到</td>
+<td>减持、回购、质押未系统检查</td>
+<td>对供给判断不足</td>
+<td>低</td>
+</tr>
+</tbody></table>
+<h4>供给与抛压</h4>
+<table>
+<thead>
+<tr>
+<th>供给来源</th>
+<th>当前状态</th>
+<th>时间窗口</th>
+<th>影响</th>
+<th>验证方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>解禁 / 减持</td>
+<td>未获取到</td>
+<td>2026Q3 待查</td>
+<td>可能影响筹码供给</td>
+<td>巨潮公告</td>
+</tr>
+<tr>
+<td>再融资 / 可转债</td>
+<td>未获取到</td>
+<td>待查</td>
+<td>可能影响估值锚</td>
+<td>公告</td>
+</tr>
+<tr>
+<td>获利盘 / 套牢盘</td>
+<td>存在</td>
+<td>6-7 月高位回撤</td>
+<td>上方套牢盘增加</td>
+<td>量价结构</td>
+</tr>
+</tbody></table>
+<h4>最低数据检查</h4>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>当前窗口</th>
+<th>对比窗口</th>
+<th>结论</th>
+<th>数据源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>成交额与换手率</td>
+<td>7 月均成交额约 14.50 亿元、换手 7.43%</td>
+<td>6 月均成交额约 19.84 亿元、换手 9.21%</td>
+<td>热度下降</td>
+<td>Tushare</td>
+</tr>
+<tr>
+<td>融资余额与融资买入</td>
+<td>2026-07-30 融资余额 9.63 亿元</td>
+<td>2026-07-01 为 12.30 亿元</td>
+<td>杠杆降温</td>
+<td>Tushare</td>
+</tr>
+<tr>
+<td>主力 / 大单资金</td>
+<td>7 月净流出约 2.24 亿元</td>
+<td>未做 6 月同口径</td>
+<td>偏不利</td>
+<td>Tushare</td>
+</tr>
+<tr>
+<td>ETF / 北向 / 机构代理指标</td>
+<td>未获取到</td>
+<td>未获取到</td>
+<td>数据缺口</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<h4>证据</h4>
+<ul>
+<li>7 月价格、成交、融资同步降温。</li>
+<li>7 月资金合计净流出。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>7 月末单日资金转正，股价从 11.5-12 元区域反弹至 13.10 元。</li>
+</ul>
+<h4>退出路径</h4>
+<ul>
+<li>资金流入如何退出：若只是交易资金反弹，退出路径是缩量反弹后遇上方套牢盘回落。</li>
+<li>持续性被证伪的信号：连续 3-5 个交易日放量但价格无法站上 15 元，或融资继续下降。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>股价重新站上 15-16 元，成交温和放大，融资余额企稳，且半年报基本面确认。</li>
+</ul>
+<h3>11.4 情绪位置变化</h3>
+<ul>
+<li>当前状态：中性偏不利。</li>
+<li>证据充分性：部分充分；依据：价格、换手、融资有数据，但板块广度、讨论热度未获取到。</li>
+<li>当前所处阶段：退潮后的修复尝试。</li>
+<li>个股相对板块与指数的强弱：未完整获取板块和指数对比。</li>
+<li>催化兑现后的价格反馈：6-7 月先涨后大幅回撤，说明催化后兑现压力较大。</li>
+</ul>
+<h4>证据</h4>
+<ul>
+<li>52 周高点 21.56 元后回撤至 13.10 元。</li>
+<li>7 月平均成交额低于 6 月，融资余额下降。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>价格没有跌破 52 周低点，7 月末出现反弹。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>重新放量突破 15-16 元并保持资金净流入；或跌破 11.48 元确认退潮延续。</li>
+</ul>
+<h3>11.5 综合状态与主导矛盾</h3>
+<ul>
+<li>三要素综合判断：尚未形成有利共振。</li>
+<li>主导要素：估值约束和微观流动性。</li>
+<li>拖累要素：静态盈利弱、资金退潮、分部证据缺失。</li>
+<li>主导矛盾：隔膜利润修复预期已经被股价部分表达，但财务兑现和资金承接尚未同步。</li>
+<li>下一验证节点：2026 半年报、隔膜价格、融资余额、股价是否能站稳 12 元上方并重回 15 元。</li>
+<li>状态切换条件：基本面确认 + 资金承接确认 + 价格回到合理估值区间。</li>
+</ul>
+<h3>11.6 三要素行动映射</h3>
+<table>
+<thead>
+<tr>
+<th>资金属性</th>
+<th>当前动作</th>
+<th>允许升级的条件</th>
+<th>降级 / 退出条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>新增现金</td>
+<td>observe</td>
+<td>股价回到 9-10 元附近且半年报确认毛利率和现金流修复；或股价站稳 15 元且利润显著上修</td>
+<td>跌破 11.48 元且资金继续流出，或半年报证伪修复</td>
+</tr>
+<tr>
+<td>已有持仓</td>
+<td>review</td>
+<td>持仓成本低于 10 元且基本面未恶化，可继续观察</td>
+<td>高成本仓位遇反弹可降低暴露，避免把期权当确定性</td>
+</tr>
+</tbody></table>
+<h3>11.7 三要素数据缺口与来源</h3>
+<table>
+<thead>
+<tr>
+<th>数据缺口</th>
+<th>已检查来源</th>
+<th>对哪一要素有影响</th>
+<th>对结论的影响</th>
+<th>补齐方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>分部收入和海外订单</td>
+<td>公开搜索、Tushare</td>
+<td>竞争格局</td>
+<td>降低置信度</td>
+<td>下载年报 PDF 和公告</td>
+</tr>
+<tr>
+<td>ETF / 北向 / 机构持仓</td>
+<td>本次未取得</td>
+<td>流动性</td>
+<td>不能识别长期资金</td>
+<td>东方财富 / Wind / 基金公告</td>
+</tr>
+<tr>
+<td>隔膜价格和产能利用率</td>
+<td>公开研报线索</td>
+<td>竞争格局、情绪</td>
+<td>无法确认周期反转强度</td>
+<td>行业数据库 / 研报全文</td>
+</tr>
+<tr>
+<td>同业估值完整样本</td>
+<td>本次未取得</td>
+<td>估值</td>
+<td>估值区间偏保守</td>
+<td>同业行情和一致预期</td>
+</tr>
+</tbody></table>
+<ul>
+<li>分析口径与截止时间：2026-07-31 10:39。</li>
+<li>主要数据来源：Tushare MCP、来源汇总、公开公告和研报线索。</li>
+<li>数据缺口导致的置信度调整：结论置信度为中，不上调为高。</li>
+</ul>
+<h3>11.8 风险方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>风险类型</th>
+<th>前一窗口</th>
+<th>当前窗口</th>
+<th>方向证据</th>
+<th>反证</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本面风险</td>
+<td>2025 利润低谷</td>
+<td>2026Q1 毛利率边际修复</td>
+<td>利润仍低，修复未充分</td>
+<td>Q1 毛利率回升</td>
+</tr>
+<tr>
+<td>估值风险</td>
+<td>6 月至 7 月初情绪升温</td>
+<td>13.10 元仍高于核心价值区间</td>
+<td>PE TTM 极高，PS 4.54</td>
+<td>已从高点大幅回撤</td>
+</tr>
+<tr>
+<td>情绪风险</td>
+<td>高换手上涨</td>
+<td>高位回撤后修复</td>
+<td>套牢盘和主题退潮</td>
+<td>7 月末反弹</td>
+</tr>
+<tr>
+<td>流动性风险</td>
+<td>6 月成交更活跃</td>
+<td>7 月融资余额下降、资金净流出</td>
+<td>杠杆和交易资金撤退</td>
+<td>单日净流入转正</td>
+</tr>
+</tbody></table>
+<h3>11.9 风险传导链</h3>
+<ul>
+<li>信息源头：隔膜行业价格竞争和股票资金退潮。</li>
+<li>核心变量：毛利率、净利率、融资余额、资金净流入。</li>
+<li>传导机制：隔膜价格低迷压制利润，股价提前交易反转后，若财务兑现不足，交易资金撤退会压缩估值。</li>
+<li>影响对象：星源材质 A 股市值和新增现金买点。</li>
+<li>市场行为变化：6-7 月高波动后价格从高点回落，融资余额下降。</li>
+<li>风险方向：风险持平偏增强。</li>
+<li>验证指标：2026H1 毛利率、扣非净利、经营现金流、融资余额、股价 11.48 元支撑。</li>
+<li>失效条件：半年报超预期且融资余额企稳，价格重新站上 15-16 元。</li>
+</ul>
+<h3>11.10 风险方向结论</h3>
+<ul>
+<li>风险方向结论：风险持平偏增强。</li>
+<li>判断依据：基本面修复尚未充分，估值仍高于核心区间；微观资金从 7 月整体看仍偏撤退。</li>
+<li>反证：股价已有明显回撤，7 月末单日资金转正，Q1 毛利率边际改善。</li>
+<li>未获取到：隔膜价格、ETF / 北向 / 机构持仓、半年报。</li>
+<li>置信度：中。</li>
+</ul>
+<h3>11.11 四层方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>边际改善 / 无明显变化 / 边际恶化 / 未获取到</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观</td>
+<td>未获取到</td>
+<td>未独立核验全球利率、美元、商品</td>
+</tr>
+<tr>
+<td>中观</td>
+<td>无明显变化</td>
+<td>锂电需求增长仍在，但隔膜供给竞争未证伪</td>
+</tr>
+<tr>
+<td>微观</td>
+<td>边际改善但弱</td>
+<td>Q1 毛利率修复，利润绝对值仍低</td>
+</tr>
+<tr>
+<td>交易</td>
+<td>边际恶化后修复</td>
+<td>7 月资金净流出、融资下降，7 月末单日反弹</td>
+</tr>
+</tbody></table>
+<h3>11.12 最终动作与约束</h3>
+<ul>
+<li>主动作：observe。</li>
+<li>新增现金：不追；等待 9-10 元安全边际，或等半年报确认后重新评估。</li>
+<li>已有持仓：按成本分层 review；低成本可观察，高成本遇反弹降低情绪暴露。</li>
+<li>承接条件：半年报确认毛利率和现金流；股价不破 11.48 元；融资余额企稳。</li>
+<li>退出条件：股价跌破 11.48 元且资金继续净流出；半年报低于修复预期；隔膜价格继续下行。</li>
+<li>下一复核节点：2026 半年报披露后。</li>
+<li>我的判断：方向可以跟踪，但当前还不能转化为买点，因为估值和资金没有给新增现金足够容错。</li>
+</ul>
+<h2 id="section-12">12. 最终结论</h2>
+
+<ul>
+<li>估值结论：合理偏高。</li>
+<li>操作结论：观望。</li>
+<li>综合估值区间：7.0-12.0 元，乐观期权区 12.0-16.0 元。</li>
+<li>相对现价空间：核心区间相对 13.10 元约 -46.6% 至 -8.4%。</li>
+<li>如果今天这是一笔现金，我会买它吗：不会直接买；只在 9-10 元附近或半年报强确认后考虑。</li>
+<li>我的判断：星源材质适合放进“锂电隔膜周期修复观察池”，但不适合此刻作为长期重仓标的。它的赔率来自利润率修复，风险来自股价已提前交易一部分修复。</li>
+<li>结论失效条件：2026H1 / H2 净利润和经营现金流显著超预期，隔膜价格确认上行，且资金承接连续改善。</li>
+</ul>
+<h2 id="section-13">13. 后续监控指标</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">当前值</th>
+<th>触发阈值 / 方向</th>
+<th>数据源</th>
+<th>复核频率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1. 毛利率</td>
+<td align="right">2026Q1 约 26.20%</td>
+<td>连续两个季度高于 27%-30%</td>
+<td>季报 / 年报</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>2. 归母净利润</td>
+<td align="right">2026Q1 0.29 亿元</td>
+<td>单季超过 1 亿元且扣非同步改善</td>
+<td>季报</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>3. 经营现金流</td>
+<td align="right">2026Q1 0.68 亿元</td>
+<td>半年报转强且不靠融资填补</td>
+<td>现金流量表</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>4. 融资余额</td>
+<td align="right">2026-07-30 为 9.63 亿元</td>
+<td>企稳而非继续单边下降</td>
+<td>Tushare / 交易所</td>
+<td>周度</td>
+</tr>
+<tr>
+<td>5. 价格位置</td>
+<td align="right">13.10 元</td>
+<td>9-10 元进入安全边际观察；跌破 11.48 元需降级</td>
+<td>Tushare / 行情</td>
+<td>日度</td>
+</tr>
+</tbody></table>
+<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
+
+<ul>
+<li>未获取到：完整年报 PDF 分部表、资本开支明细、隔膜价格序列、海外收入 / 订单、高端膜收入、同业估值、卖方目标价完整样本、第三方公允价值和护城河评级、ETF / 北向 / 机构持仓。</li>
+<li>已检查来源：Tushare 本地 MCP、公开搜索、公司公告和研报线索。</li>
+<li>对结论的影响：估值区间偏保守，三要素置信度不上调；任何真实交易前应补齐半年度报告和隔膜行业价格数据。</li>
+</ul>
+<h2 id="section-15">15. 来源清单</h2>
+
+<ol>
+<li><a href="../../articles/2026-07-31-星源材质研究来源汇总.md">星源材质研究来源汇总</a>，本地归档，2026-07-31。</li>
+<li>Tushare 本地 MCP：<code>get_stock_basic</code>、<code>get_stock_daily</code>、<code>get_stock_valuation</code>、<code>get_stock_moneyflow</code>、<code>get_margin_detail</code>、<code>get_financial_statements</code>、<code>get_dividend_history</code>，抓取时间 2026-07-31 10:39。</li>
+<li>深圳证券交易所 / 巨潮资讯披露体系：星源材质 2025 年年度报告、2026 年第一季度报告及相关公告，具体 PDF 未在本次工作中完整落盘。</li>
+<li>公开券商研报和财经媒体搜索线索：用于定位隔膜周期修复、海外客户和高端膜预期，不作为关键财务数字唯一来源。</li>
+</ol>
+<h2 id="section-16">16. 声明</h2>
+
+<p>本报告基于截至研究截止时间可取得的公开信息，不构成收益保证。真实交易前应重新核验价格、公告、流动性、隔膜行业价格和个人风险承受能力。</p>
+<script>
+(() => {
+  const endpoint = '/api/stock-quote?secid=0.300568';
+  const priceNode = document.getElementById('intraday-price');
+  const detailNode = document.getElementById('intraday-detail');
+  const statusNode = document.getElementById('intraday-status');
+  const riskRewardValue = document.getElementById('risk-reward-value');
+  const riskRewardDetail = document.getElementById('risk-reward-detail');
+  const tracker = document.getElementById('daily-tracking');
+  const snapshotPrice = 13.1;
+  const percent = value => `${value < 0 ? '-' : value > 0 ? '+' : ''}${Math.abs(value).toFixed(1)}%`;
+  function updateRiskReward(price) {
+    const low = Number(tracker.dataset.valueLow);
+    const high = Number(tracker.dataset.valueHigh);
+    if (!Number.isFinite(low) || !Number.isFinite(high) || low <= 0 || high <= low) return;
+    const upside = (high / price - 1) * 100;
+    const downside = (price / low - 1) * 100;
+    if (price <= low) {
+      riskRewardValue.textContent = '低于价值下沿';
+      riskRewardValue.classList.remove('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿潜在空间 ${percent(upside)}。价格已低于动态价值下沿，不能直接用下沿作为止损风险，需另设风控线。`;
+      return;
+    }
+    if (price >= high) {
+      riskRewardValue.textContent = '无正向盈亏比';
+      riskRewardValue.classList.add('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿空间 ${percent(upside)}，回落至下沿风险 ${percent(downside)}。价格已到或高于动态价值上沿，新增现金不具备正向盈亏比。`;
+      return;
+    }
+    const ratio = upside / downside;
+    riskRewardValue.textContent = `约 ${ratio.toFixed(1)}:1`;
+    riskRewardValue.classList.toggle('bad', ratio < 1);
+    riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；到上沿 ${high.toFixed(2)} 元的潜在上行 ${percent(upside)}，跌至下沿 ${low.toFixed(2)} 元的风险 ${percent(downside)}。盘中价格不改变价值区间本身。`;
+  }
+  async function refreshIntradayQuote() {
+    statusNode.textContent = '连接中'; statusNode.className = 'tracking-status';
+    try {
+      const response = await fetch(endpoint, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json(); const quote = payload && payload.data;
+      if (!quote || !Number.isFinite(quote.price) || !Number.isFinite(quote.prevClose) || !Number.isFinite(quote.changePercent) || !Number.isFinite(quote.quoteTimestamp)) throw new Error('invalid quote');
+      const quoteTime = new Date(quote.quoteTimestamp * 1000).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false });
+      priceNode.textContent = `${quote.price.toFixed(2)} 元 · ${percent(quote.changePercent)}`;
+      priceNode.classList.toggle('bad', quote.changePercent < 0);
+      detailNode.textContent = `行情时间：${quoteTime}；昨收 ${quote.prevClose.toFixed(2)} 元。来源：${payload.proxySource || '本地行情代理'}。`;
+      statusNode.textContent = '盘中实时 · 每 60 秒'; statusNode.className = 'tracking-status live'; updateRiskReward(quote.price);
+    } catch { priceNode.textContent = '实时行情暂不可用'; priceNode.classList.remove('bad'); detailNode.textContent = '每日同步值仍然有效；可重新双击“大盘启动器”后刷新本页。'; statusNode.textContent = '连接失败'; statusNode.className = 'tracking-status error'; }
+  }
+  if (location.protocol === 'http:' || location.protocol === 'https:') { refreshIntradayQuote(); window.setInterval(refreshIntradayQuote, 60000); }
+  else { priceNode.textContent = Number.isFinite(snapshotPrice) ? `${snapshotPrice.toFixed(2)} 元（每日值）` : '每日值未获取'; detailNode.textContent = '当前为直接打开模式；盘中实时需通过“大盘启动器”进入本地服务。'; statusNode.textContent = '每日同步 · 实时未连接'; }
+})();
+</script></article>
+    </div>
+  </main>
+</body>
+</html>

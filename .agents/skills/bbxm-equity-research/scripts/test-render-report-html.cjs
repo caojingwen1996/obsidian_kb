@@ -13,7 +13,10 @@ const input = path.join(tempDir, '测试公司机构级决策研报.md');
 const output = path.join(tempDir, '测试公司机构级决策研报.html');
 const inputAutoSecid = path.join(tempDir, '西部矿业机构级决策研报.md');
 const outputAutoSecid = path.join(tempDir, '西部矿业机构级决策研报.html');
+const inputAutoFundReport = path.join(tempDir, '自动资金面机构级决策研报.md');
+const outputAutoFundReport = path.join(tempDir, '自动资金面机构级决策研报.html');
 fs.writeFileSync(path.join(tempDir, '2026-07-21-航天电子资金面分析.html'), '<!doctype html><title>资金面</title>', 'utf8');
+fs.writeFileSync(path.join(tempDir, '2026-07-30-航天电子资金面分析.html'), '<!doctype html><title>最新资金面</title>', 'utf8');
 
 const sections = [
   '决策摘要',
@@ -208,5 +211,16 @@ const autoSecidHtml = fs.readFileSync(outputAutoSecid, 'utf8');
 assert.match(autoSecidHtml, /\/api\/stock-quote\?secid=1\.601168/);
 assert.doesNotMatch(autoSecidHtml, /未配置实时行情|当前证券未配置本地行情白名单/);
 assert.match(autoSecidHtml, /等待连接|实时未连接/);
+
+fs.writeFileSync(inputAutoFundReport, fs.readFileSync(input, 'utf8').replace('| 资金面分析链接 | 2026-07-21-航天电子资金面分析.html |', '| 资金面分析链接 | 未获取到 |'), 'utf8');
+const autoFundResult = spawnSync(process.execPath, [renderer, '--input', inputAutoFundReport, '--output', outputAutoFundReport, '--vault-root', tempDir], {
+  encoding: 'utf8',
+});
+assert.equal(autoFundResult.status, 0, `auto fund renderer failed:\n${autoFundResult.stderr || autoFundResult.stdout}`);
+const autoFundHtml = fs.readFileSync(outputAutoFundReport, 'utf8');
+assert.match(autoFundHtml, /2026-07-30-航天电子资金面分析\.html/);
+assert.doesNotMatch(autoFundHtml, /资金面分析：未单独生成/);
+assert.match(skillContract, /自动匹配[^。\n]*资金面分析/);
+assert.match(reportTemplate, /自动挂最新日期/);
 
 console.log('PASS: report HTML renderer');

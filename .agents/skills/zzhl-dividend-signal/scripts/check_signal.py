@@ -413,12 +413,15 @@ def evaluate_absolute(dividend_yield: float) -> str:
     return "A"
 
 
-def evaluate_spread(spread: float) -> str:
-    if spread > 3.0:
+def evaluate_spread(dividend_yield: float, bond_10y_yield: float) -> str:
+    if bond_10y_yield <= 0:
+        return "D"
+    ratio = dividend_yield / bond_10y_yield
+    if ratio >= 4.0:
         return "A"
-    if spread > 2.5:
+    if ratio >= 3.0:
         return "B"
-    if spread >= 1.5:
+    if ratio >= 2.0:
         return "C"
     return "D"
 
@@ -538,7 +541,7 @@ def fetch_signal(
     lixinger = fetch_lixinger_percentile(llm_percentile)
     percentile_signal = evaluate_percentile(lixinger.percentile_10y)
     absolute_signal = evaluate_absolute(dividend_yield_2)
-    spread_signal = evaluate_spread(spread)
+    spread_signal = evaluate_spread(dividend_yield_2, bond_10y)
     headline = build_headline(percentile_signal, absolute_signal, spread_signal)
 
     return Signal(
@@ -793,7 +796,7 @@ def write_markdown(signal: Signal, md_path: Path) -> None:
 ## 说明
 
 - 本记录只是按既定规则生成的观察信号，不构成投资建议。
-- 指数股息率口径用于绝对股息率和股债利差判断；当前使用 AKShare `股息率2`。
+- 指数股息率口径用于绝对股息率、股债利差记录和相对国债收益率倍数评级；当前使用 AKShare `股息率2`。
 - 理杏仁市值加权股息率用于近10年历史分位判断。
 - 若数据源字段、接口或口径变化，需要重新核对脚本。
 """

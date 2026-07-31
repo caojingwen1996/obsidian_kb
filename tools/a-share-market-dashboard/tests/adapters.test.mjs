@@ -136,3 +136,14 @@ test('margin report parser extracts financing balance by date', () => {
     { date: '2026-07-17', value: 110 },
   ]);
 });
+
+test('margin report parser reads tushare market summary balances', () => {
+  const payload = { summary: [
+    { trade_date: '20260717', rzye: '1200000000000' },
+    { trade_date: '2026-07-18', rzye: 1210000000000 },
+  ] };
+  assert.deepEqual(parseMarginReport(payload), [
+    { date: '2026-07-17', value: 1200000000000 },
+    { date: '2026-07-18', value: 1210000000000 },
+  ]);
+});

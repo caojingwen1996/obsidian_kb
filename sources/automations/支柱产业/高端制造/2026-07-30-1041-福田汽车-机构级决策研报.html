@@ -1,0 +1,1714 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>福田汽车机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+.daily-tracking { margin: 0 0 42px; padding: 22px; border: 1px solid #cbdade; border-radius: 16px; background: linear-gradient(135deg, #f3f8f9 0%, #fffaf0 100%); box-shadow: 0 12px 30px rgba(23, 50, 71, .07); }
+.daily-tracking-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
+.daily-tracking-kicker { margin: 0 0 4px; color: var(--teal); font-size: 12px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+.daily-tracking h2 { margin: 0; padding: 0; border: 0; font-size: 27px; }
+.daily-tracking-time { margin: 4px 0 0; color: var(--muted); font-size: 12px; text-align: right; }
+.tracking-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.tracking-grid + .tracking-grid { margin-top: 12px; }
+.tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
+.tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
+.tracking-card[data-tracking-key="dynamic-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
+.range-breakdown { display: block; }
+.range-main { display: inline-flex; align-items: center; max-width: 100%; margin-bottom: 10px; padding: 3px 9px; border-radius: 999px; background: #e7f0f3; color: var(--navy); font-size: 20px; line-height: 1.3; font-weight: 800; }
+.range-points { display: grid; gap: 7px; margin-top: 1px; }
+.range-point { display: block; padding-left: 11px; border-left: 3px solid #bed2d8; color: #245068; font-size: 14px; line-height: 1.52; font-weight: 650; }
+.tracking-value.bad { color: var(--danger); }
+.tracking-detail { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; }
+.tracking-status { display: inline-flex; margin-top: 10px; padding: 3px 8px; border-radius: 999px; color: #526b77; background: #edf2f4; font-size: 12px; font-weight: 700; }
+.tracking-status.live { color: #17604e; background: #dff3eb; }
+.tracking-status.error { color: var(--danger); background: var(--danger-bg); }
+.tracking-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; margin-top: 14px; padding-top: 13px; border-top: 1px solid #d5e0e3; color: #536d78; font-size: 13px; }
+.tracking-footer a { font-weight: 700; }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+  .tracking-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+  .daily-tracking-head { display: block; }
+  .daily-tracking-time { text-align: left; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .daily-tracking, .tracking-card { border: 1px solid #aebbc2; color: #102f43; background: #fff; box-shadow: none; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · 600166.SH</p>
+      <h1>福田汽车机构级决策研报</h1>
+      <div class="hero-meta"><span>2026-07-30 10:41 Asia/Shanghai</span><span>2026-07-30 10:41 Asia/Shanghai</span><span>上海证券交易所 / 人民币</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
+<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
+<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
+<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
+<a class="toc-link" href="#section-6">6. 五年财务历史</a>
+<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
+<a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
+<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
+<a class="toc-link" href="#section-10">10. 估值</a>
+<a class="toc-link" href="#section-11">11. 冰冰小美框架判断</a>
+<a class="toc-link" href="#section-12">12. 最终结论</a>
+<a class="toc-link" href="#section-13">13. 后续监控指标</a>
+<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
+<a class="toc-link" href="#section-15">15. 来源清单</a>
+<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
+      <article class="content"><blockquote>
+<p>证券代码：600166.SH<br>交易所 / 币种：上海证券交易所 / 人民币<br>研究截止时间：2026-07-30 10:41 Asia/Shanghai<br>报告生成时间：2026-07-30 10:41 Asia/Shanghai<br>数据口径：公司公告、投资者关系活动记录、公开行情页面；实时盘中价未获取到，最近可核验收盘价为 2026-07-28 的 3.04 元。</p>
+</blockquote>
+<!-- DAILY_TRACKING_START -->
+<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-07-30 10:41（Asia/Shanghai，盘中数据未连接）" data-value-low="2.7" data-value-high="-3.8">
+  <div class="daily-tracking-head">
+    <div><p class="daily-tracking-kicker">Daily decision tracker</p><h2>每日跟踪面板</h2></div>
+    <p class="daily-tracking-time">更新：2026-07-30 10:41（Asia/Shanghai，盘中数据未连接）<br>下次：收盘后 / 重大公告后</p>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">改善</p><p class="tracking-detail">风险方向：风险减弱但未消失。下一验证点与失效条件见第 11—13 章。</p></div>
+    <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value"><span class="range-breakdown"><span class="range-main">2.70-3.80 元</span><span class="range-points"><span class="range-point">2.70 元附近=只看传统商用车周期和低 PB 的保守价值</span><span class="range-point">3.10-3.30 元=当前盈利修复、出口增长和新能源渗透的合理中枢</span><span class="range-point">3.80 元附近=已计入重卡、新能源和海外共同上修</span><span class="range-point">高于 3.80 元需 2026H1 / Q3 利润、出口和新能源毛利继续超预期支撑。</span></span></span></p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
+    <div class="tracking-card" data-tracking-key="risk-reward"><p class="tracking-label">盈亏比</p><p class="tracking-value" id="risk-reward-value">未获取到</p><p class="tracking-detail" id="risk-reward-detail">价格或动态价值区间无法解析，未计算盈亏比。</p></div>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="daily-quote"><p class="tracking-label">每日同步价</p><p class="tracking-value">3.04 元，2026-07-28 收盘，中财网；实时盘中未获取到</p><p class="tracking-detail">这是报告内嵌的正式跟踪基准，离线打开仍可使用。</p><span class="tracking-status">每日快照</span></div>
+    <div class="tracking-card" data-tracking-key="intraday-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">等待连接</p><p class="tracking-detail" id="intraday-detail">通过“大盘启动器”打开后获取盘中行情，每 60 秒刷新；直接打开 HTML 时不访问外部行情。</p><span class="tracking-status" id="intraday-status">未连接</span></div>
+    <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">新增现金 wait / observe；已有持仓 wait</p><p class="tracking-detail">估值：合理偏低，但不是无条件低估 · 新增现金 wait / observe；已有持仓 wait；风险：风险减弱但未消失；结论置信度：中。</p><span class="tracking-status">合理偏低，但不是无条件低估</span></div>
+  </div>
+  <div class="tracking-footer"><span>资金状态：<strong>结构性流入待验证；控股股东增持提供产业资本信号，资金分档和融资未获取到</strong> · 新增/已有动作：<strong>新增现金 wait / observe；已有持仓 wait</strong></span><span>资金面分析：未单独生成</span></div>
+</section>
+<!-- DAILY_TRACKING_END -->
+<h2 id="section-1">1. 决策摘要</h2>
+
+<h3>1.1 基本面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值状态</td>
+<td>合理偏低，但不是无条件低估</td>
+</tr>
+<tr>
+<td>综合估值区间</td>
+<td>2.70-3.80 元；2.70 元附近=只看传统商用车周期和低 PB 的保守价值，3.10-3.30 元=当前盈利修复、出口增长和新能源渗透的合理中枢，3.80 元附近=已计入重卡、新能源和海外共同上修，高于 3.80 元需 2026H1 / Q3 利润、出口和新能源毛利继续超预期支撑。</td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>以 2026-07-28 收盘 3.04 元为参照，接近中枢下沿；向上到 3.80 元约 25%，向下到 2.70 元约 -11%。</td>
+</tr>
+<tr>
+<td>基本面状态</td>
+<td>改善</td>
+</tr>
+<tr>
+<td>关键经营变化</td>
+<td>2025 年从低利润状态显著修复，归母净利润 13.64 亿元、扣非 8.26 亿元；2026Q1 收入同比 +6.61%，归母净利润 +15.10%，扣非 +76.12%；管理层继续强调全面国际化、全面新能源化、全面智能化，2026 年经营计划为销量 72.2 万辆、收入 700 亿元；市场预期从“周期修复”转向“出口 + 新能源 + 重卡持续性验证”。</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h3>1.2 资金面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>操作建议</td>
+<td>观望偏积极；只适合分批，不适合追高一把买满</td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td>新增现金 wait / observe；已有持仓 wait</td>
+</tr>
+<tr>
+<td>当前价格及时间</td>
+<td>3.04 元，2026-07-28 收盘，中财网；实时盘中未获取到</td>
+</tr>
+<tr>
+<td>资金状态</td>
+<td>结构性流入待验证；控股股东增持提供产业资本信号，资金分档和融资未获取到</td>
+</tr>
+<tr>
+<td>风险方向</td>
+<td>风险减弱但未消失</td>
+</tr>
+<tr>
+<td>每日跟踪时间</td>
+<td>2026-07-30 10:41（Asia/Shanghai，盘中数据未连接）</td>
+</tr>
+<tr>
+<td>资金面分析链接</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<h3>如果今天这是一笔现金，我会买它吗</h3>
+<ul>
+<li>回答：只在特定条件下会。</li>
+<li>我的判断：福田汽车基本面比江淮更扎实，已经有利润、现金流、出口、新能源和重卡数据支撑。但 3.04 元附近已经反映一部分修复预期，且商用车仍有周期属性，资金分档 / 融资 / 北向等交易证据未取得，所以新增现金适合等回落到 2.85-3.00 元且销量和利润不变坏时分批，或等放量站稳 3.30 元并由 H1 数据确认后再升级。</li>
+<li>改变结论的条件：2026H1 扣非利润继续高增、出口和新能源重卡保持高增、PB 仍低于 1.6 倍且价格站稳 3.30 元；若重卡增速回落、海外毛利下滑或现金流明显恶化，则降为观望。</li>
+</ul>
+<h2 id="section-2">2. 证券身份与来源矩阵</h2>
+
+<h3>2.1 证券身份</h3>
+<ul>
+<li>公司全称：北汽福田汽车股份有限公司。</li>
+<li>证券代码：600166.SH。</li>
+<li>上市地：上海证券交易所。</li>
+<li>报告准则：中国企业会计准则。</li>
+<li>法定披露体系：A 股交易所与巨潮资讯 / 上交所公告体系，本文以新浪财经公告转载页和公司公告口径为入口复核。</li>
+<li>同名或跨市场歧义：未发现同名证券混用；注意不要混同“福达股份 603166”。</li>
+</ul>
+<h3>2.2 来源矩阵</h3>
+<table>
+<thead>
+<tr>
+<th>数据项目</th>
+<th>目标来源</th>
+<th>实际来源</th>
+<th>数据时间</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Tushare MCP 调用清单（A股适用）</td>
+<td><code>tushare-data</code> MCP 已暴露工具</td>
+<td>当前会话未热加载对应工具；已回退公开页面</td>
+<td>2026-07-30</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>证券身份与上市状态</td>
+<td><code>get_stock_basic</code>；交易所 / 公司公告</td>
+<td>2025 年报、2026Q1 报告</td>
+<td>2026-05-01</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>实时价格、52周高低、今年以来表现</td>
+<td>Tushare / 行情平台</td>
+<td>中财网、英为财情；实时盘中未获取到</td>
+<td>2026-07-28</td>
+<td>部分已获取</td>
+</tr>
+<tr>
+<td>估值、市值、股息率和换手率</td>
+<td><code>get_stock_valuation</code>；行情平台</td>
+<td>中财网：PE 16.84、扣非 PE 24.08、PB 1.44、市值约 240.7 亿元、换手 1.39%</td>
+<td>2026-07-28</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>资金分档 / 大单资金代理</td>
+<td><code>get_stock_moneyflow</code>；东方财富等</td>
+<td>未获取到</td>
+<td>2026-07-30</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>融资融券代理</td>
+<td><code>get_margin_detail</code>；交易所 / 公开页面</td>
+<td>未获取到</td>
+<td>2026-07-30</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>第三方公允价值、护城河、星级</td>
+<td>第三方平台</td>
+<td>未获取到</td>
+<td>2026-07-30</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>最新季报与管理层指引</td>
+<td>公司公告</td>
+<td>2026Q1 报告、2025 年报经营计划、7 月投资者关系记录</td>
+<td>2026-04 至 2026-07</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>分部收入</td>
+<td>2025 年报</td>
+<td>2025 年报</td>
+<td>2026-04-25</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>卖方评级与目标价</td>
+<td>券商研报</td>
+<td>未获取到完整目标价分布</td>
+<td>2026-07-30</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>近三个月新闻与催化剂</td>
+<td>公司公告、公开新闻</td>
+<td>产销快报、投资者关系记录、控股股东增持计划、担保进展</td>
+<td>2026-05 至 2026-07</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>五年财务历史</td>
+<td>年报复核</td>
+<td>2024 年报披露 2022-2024，2025 年报披露 2025；2021 未完整获取</td>
+<td>2022-2025</td>
+<td>部分已获取</td>
+</tr>
+<tr>
+<td>分红历史</td>
+<td>公司公告</td>
+<td>2025 年因母公司未弥补亏损，不分红</td>
+<td>2026-04-25</td>
+<td>部分已获取</td>
+</tr>
+<tr>
+<td>指数成分与权重（如适用）</td>
+<td>指数公司 / MCP</td>
+<td>未获取到</td>
+<td>2026-07-30</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 行情与市场预期</h2>
+
+<h3>3.1 行情快照（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">数值</th>
+<th>来源</th>
+<th>时间 / 口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前价格</td>
+<td align="right">3.04 元</td>
+<td>中财网</td>
+<td>2026-07-28 收盘</td>
+</tr>
+<tr>
+<td>52周最高</td>
+<td align="right">3.86 元</td>
+<td>英为财情页面摘要</td>
+<td>近 52 周</td>
+</tr>
+<tr>
+<td>52周最低</td>
+<td align="right">2.63 元</td>
+<td>英为财情页面摘要</td>
+<td>近 52 周</td>
+</tr>
+<tr>
+<td>今年以来表现</td>
+<td align="right">未获取到</td>
+<td>已检查公开行情，未取得年初基准</td>
+<td>2026-07-30</td>
+</tr>
+<tr>
+<td>总市值</td>
+<td align="right">约 240.7 亿元</td>
+<td>中财网</td>
+<td>2026-07-28</td>
+</tr>
+<tr>
+<td>PE / PB / EV</td>
+<td align="right">PE 16.84；扣非 PE 24.08；PB 1.44</td>
+<td>中财网</td>
+<td>2026-07-28</td>
+</tr>
+</tbody></table>
+<h3>3.2 第三方公允价值与评级（事实）</h3>
+<ul>
+<li>公允价值：未获取到。</li>
+<li>护城河评级：未获取到。</li>
+<li>星级：未获取到。</li>
+<li>来源与时间：未取得可审计字段。</li>
+<li>未获取到的字段及已检查来源：第三方公允价值、护城河、星级；搜索摘要不能作为关键估值依据。</li>
+</ul>
+<h3>3.3 卖方评级与目标价分布（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>机构</th>
+<th>日期</th>
+<th>评级</th>
+<th align="right">目标价</th>
+<th>预测期</th>
+<th>关键假设</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>未获取到</td>
+<td>未获取到</td>
+<td>未获取到</td>
+<td align="right">未获取到</td>
+<td>未获取到</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<ul>
+<li>目标价区间 / 中位数：未获取到。</li>
+<li>样本数量与完整性：不足。</li>
+<li>来源冲突及采信理由：未使用搜索摘要猜测卖方目标价。</li>
+</ul>
+<h2 id="section-4">4. 商业模式与竞争格局</h2>
+
+<h3>4.1 事实</h3>
+<ul>
+<li>收入来源：整车、配件 / 零部件、海外、发动机等商用车产业链业务。2025 年汽车行业收入 586.04 亿元，整车收入 473.13 亿元，其他收入 139.34 亿元。</li>
+<li>客户与定价权：轻卡行业份额高，重卡正在修复，海外市场和新能源商用车有更高结构弹性；但商用车总体仍受物流景气、基建、出口汇率和价格竞争影响。</li>
+<li>成本结构：汽车制造原材料、人工工资、折旧、能源等；2025 年汽车行业毛利率 9.37%，同比下降 2.4pct，说明规模增长没有自动转化为毛利率提升。</li>
+<li>资本强度：商用车整车和新能源平台研发制造需要持续投入；2025 经营现金流改善，但分红受母公司未弥补亏损约束。</li>
+<li>竞争者：中国重汽、一汽解放、陕汽、东风、江淮、长城、长安、比亚迪等。</li>
+<li>监管约束：A 股信息披露、汽车产业政策、排放法规、运输和新能源补贴 / 路权政策。</li>
+</ul>
+<h4>多产业位置景气度排序（事实与判断分列）</h4>
+<table>
+<thead>
+<tr>
+<th align="right">排名</th>
+<th>产业位置</th>
+<th>位置识别依据（事实）</th>
+<th>公司业务 / 资产暴露（事实）</th>
+<th>当前景气度</th>
+<th>趋势</th>
+<th>景气证据与时间</th>
+<th>财务传导</th>
+<th>验证指标 / 失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">1</td>
+<td>新能源商用车</td>
+<td>2025 新能源销量 10.12 万辆，同比 +87.21%；2026H1 新能源累计 5.91 万辆，同比 +17.86%</td>
+<td>纯电、混动、氢燃料商用车产品矩阵</td>
+<td>较高</td>
+<td>上行</td>
+<td>2026H1 仍增长，但增速低于 2025 高基数</td>
+<td>提升产品结构和估值弹性，若毛利改善可推升扣非利润</td>
+<td>新能源销量、毛利率、平台成本；失效条件为销量增速低于行业或亏损销售</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td>重卡 / 中重卡周期修复</td>
+<td>2025 重卡销量同比 +103.6%；2026H1 中重型货车累计销量 +39.25%</td>
+<td>欧曼、福田戴姆勒等重卡业务</td>
+<td>较高</td>
+<td>上行</td>
+<td>2026H1 重卡约 9 万辆，同比超 35%；新能源重卡约 1.4 万辆，同比近 50%</td>
+<td>放大利润弹性和规模效应</td>
+<td>重卡销量、份额、单车利润；失效条件为重卡周期回落或价格战加剧</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td>海外商用车出口</td>
+<td>2025 海外销量 16.45 万辆；2026H1 出口约 10.9 万辆，同比近 40%</td>
+<td>海外销售、属地化运营、拉美等市场</td>
+<td>较高</td>
+<td>上行</td>
+<td>投资者关系记录披露出口高增</td>
+<td>海外毛利率通常高于国内，改善利润质量</td>
+<td>出口销量、区域毛利、汇率；失效条件为贸易壁垒、汇率或当地需求恶化</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td>轻卡基本盘</td>
+<td>2025 轻卡销量约 44.52 万辆，行业第一；2026H1 轻型货车累计 +2.35%</td>
+<td>奥铃、欧马可、领航等轻卡业务</td>
+<td>中</td>
+<td>持平</td>
+<td>份额领先但增长低</td>
+<td>稳定规模与渠道，弹性弱于重卡 / 新能源</td>
+<td>轻卡份额和毛利；失效条件为新能源轻卡转型落后或价格战</td>
+</tr>
+</tbody></table>
+<ul>
+<li>位置间交叉与去重说明：新能源重卡同时属于新能源商用车和重卡周期修复，估值时不重复计算销量贡献。</li>
+<li>排名第一的位置能否进入公司利润和现金流：部分已进入。2025 扣非扭亏、2026Q1 扣非继续增长是正证据；但汽车行业毛利率下降说明盈利质量仍需继续验证。</li>
+<li>弱关联 / 待验证位置：智能驾驶、氢燃料和后市场生态仍是中长期期权，不能直接折成当前利润。</li>
+</ul>
+<h3>4.2 我的判断</h3>
+<ul>
+<li>我的判断：福田的比较优势来自“轻卡基本盘 + 重卡修复 + 出口网络 + 新能源商用车产品矩阵”的组合，不是单一爆款逻辑。</li>
+<li>我的判断：商业模式最脆弱的环节是毛利率。2025 收入和利润大幅修复，但汽车行业毛利率下降，说明销量增长中可能有价格、结构和成本压力；如果重卡 / 新能源增长不能改善毛利，利润弹性会低于市场想象。</li>
+<li>证伪条件：2026H1 / Q3 扣非利润不再增长、海外毛利下滑、重卡和新能源销量增速掉头。</li>
+</ul>
+<h2 id="section-5">5. 分部收入与盈利拆解</h2>
+
+<table>
+<thead>
+<tr>
+<th>分部</th>
+<th align="right">收入</th>
+<th align="right">同比</th>
+<th align="right">收入占比</th>
+<th align="right">毛利率</th>
+<th align="right">毛利率变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>汽车行业</td>
+<td align="right">586.04 亿元</td>
+<td align="right">+30.43%</td>
+<td align="right">95.69%</td>
+<td align="right">9.37%</td>
+<td align="right">-2.40pct</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>整车</td>
+<td align="right">473.13 亿元</td>
+<td align="right">+24.08%</td>
+<td align="right">77.25%</td>
+<td align="right">9.20%</td>
+<td align="right">-2.27pct</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>其他</td>
+<td align="right">139.34 亿元</td>
+<td align="right">+45.64%</td>
+<td align="right">22.75%</td>
+<td align="right">12.60%</td>
+<td align="right">-4.70pct</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>中国大陆境内</td>
+<td align="right">444.15 亿元</td>
+<td align="right">+32.19%</td>
+<td align="right">72.52%</td>
+<td align="right">7.90%</td>
+<td align="right">-4.72pct</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>其他国家及地区</td>
+<td align="right">168.33 亿元</td>
+<td align="right">+19.40%</td>
+<td align="right">27.48%</td>
+<td align="right">15.44%</td>
+<td align="right">+2.73pct</td>
+<td>2025 年报</td>
+</tr>
+</tbody></table>
+<ul>
+<li>披露口径变化：2025 年主营业务分产品调整为“整车 / 其他”，其他包含配件、零部件等业务。</li>
+<li>来源冲突：收入和利润修复很强，但毛利率下降；海外毛利率高于境内且改善，是利润质量的重要支撑。</li>
+<li>采信理由：分部收入以 2025 年报为准。</li>
+<li>我的判断：增长质量中上。利润修复和现金流改善是真变化，但毛利率下降提醒不能只看销量。</li>
+</ul>
+<h2 id="section-6">6. 五年财务历史</h2>
+
+<table>
+<thead>
+<tr>
+<th>财年</th>
+<th align="right">营收</th>
+<th align="right">毛利率</th>
+<th align="right">经营现金流</th>
+<th align="right">资本开支</th>
+<th align="right">自由现金流</th>
+<th align="right">ROIC / 代理值</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>2022</td>
+<td align="right">464.47 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">8.70 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>2024 年报追溯数据</td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">560.97 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">2.56 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>2024 年报</td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">476.98 亿元</td>
+<td align="right">约 12.64%</td>
+<td align="right">13.05 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>2024 年报</td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">612.47 亿元</td>
+<td align="right">约 9.97%</td>
+<td align="right">18.95 亿元</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>2025 年报</td>
+</tr>
+</tbody></table>
+<ul>
+<li>自由现金流口径：自由现金流 = 经营现金流 - 购建长期资产支付的现金；资本开支未完整取得，故未计算。</li>
+<li>ROIC 口径：NOPAT / 平均投入资本；经营利润和投入资本拆分不足，未计算。</li>
+<li>一次性项目和会计变化：2025 年非经常性损益包含政府补助、资产处置等，扣非利润 8.26 亿元更能代表经营修复。</li>
+<li>我的判断：福田从 2024 的低利润 / 扣非亏损，进入 2025-2026 的利润修复期；但这种修复仍带有商用车周期属性，不能按稳定消费品给高倍数。</li>
+</ul>
+<h2 id="section-7">7. 最新季度与管理层指引</h2>
+
+<h3>7.1 最新季度（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">本期</th>
+<th align="right">同比 / 变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营收</td>
+<td align="right">157.79 亿元</td>
+<td align="right">+6.61%</td>
+<td>2026Q1 报告</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>2026Q1 报告未从当前入口完整提取</td>
+</tr>
+<tr>
+<td>净利润</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>当前入口未完整提取</td>
+</tr>
+<tr>
+<td>归母净利润</td>
+<td align="right">5.01 亿元</td>
+<td align="right">+15.10%</td>
+<td>2026Q1 报告</td>
+</tr>
+<tr>
+<td>扣非归母净利润</td>
+<td align="right">4.02 亿元</td>
+<td align="right">+76.12%</td>
+<td>2026Q1 报告</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">11.93 亿元</td>
+<td align="right">-32.59%</td>
+<td>2026Q1 报告</td>
+</tr>
+<tr>
+<td>订单 / 储备</td>
+<td align="right">未获取到</td>
+<td align="right">产销快报显示 2026H1 销量 +10.06%</td>
+<td>2026 年 6 月产销快报</td>
+</tr>
+</tbody></table>
+<h3>7.2 管理层指引（事实）</h3>
+<ul>
+<li>正式量化指引：2026 年经营计划为销量 72.2 万辆（含福田戴姆勒）、营业收入 700 亿元；公司提示该经营计划不代表盈利预测。</li>
+<li>定性展望：坚持全面国际化、全面新能源化、全面智能化；提升海外出口、新能源、重卡等战略增长业务，巩固轻卡 / 微卡基盘。</li>
+<li>未获取到：2026 年正式净利润目标、毛利率目标、各业务分部盈利目标。</li>
+</ul>
+<h3>7.3 我的判断</h3>
+<ul>
+<li>我的判断：边际变化仍是改善。2026Q1 扣非利润高增，2026H1 销量、出口、重卡、新能源继续增长，说明 2025 的修复不是孤立一年。</li>
+<li>我的判断：指引可信度中等。销量和收入目标清楚，但公司明确不构成盈利预测，最终仍要看毛利率和费用率。</li>
+<li>下一验证节点：2026 半年报、7-8 月产销快报、控股股东增持进度。</li>
+</ul>
+<h2 id="section-8">8. 近三个月新闻与催化剂</h2>
+
+<table>
+<thead>
+<tr>
+<th>发生日</th>
+<th>事件</th>
+<th>影响变量</th>
+<th>财务传导</th>
+<th>是否已反映</th>
+<th>验证节点</th>
+<th>失效条件</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-04-25</td>
+<td>2025 年报披露利润大幅修复</td>
+<td>盈利质量</td>
+<td>扣非扭亏、现金流改善</td>
+<td>已反映</td>
+<td>2026H1</td>
+<td>毛利率继续下降、扣非回落</td>
+<td>公司年报</td>
+</tr>
+<tr>
+<td>2026-05-01</td>
+<td>2026Q1 报告修订版披露</td>
+<td>季度延续性</td>
+<td>扣非 +76.12%，但经营现金流同比下降</td>
+<td>部分反映</td>
+<td>半年报</td>
+<td>Q2 利润不连续</td>
+<td>公司公告</td>
+</tr>
+<tr>
+<td>2026-07-07</td>
+<td>6 月产销快报</td>
+<td>销量、结构</td>
+<td>H1 销量 +10.06%，新能源 +17.86%，中重卡 +39.25%</td>
+<td>部分反映</td>
+<td>7 月快报</td>
+<td>增速快速回落</td>
+<td>公司公告</td>
+</tr>
+<tr>
+<td>2026-07-13</td>
+<td>投资者关系记录</td>
+<td>出口 / 重卡 / 新能源重卡</td>
+<td>出口约 10.9 万辆、重卡约 9 万辆、新能源重卡约 1.4 万辆</td>
+<td>部分反映</td>
+<td>H1 报告</td>
+<td>投关数据不能转化为收入和利润</td>
+<td>东方财富转载</td>
+</tr>
+<tr>
+<td>2026-07-25</td>
+<td>控股股东增持计划</td>
+<td>产业资本信号</td>
+<td>增强信心，但金额 5,000 万至 1 亿元相对市值有限</td>
+<td>部分反映</td>
+<td>增持进度公告</td>
+<td>未实施或实施弱</td>
+<td>公司公告</td>
+</tr>
+</tbody></table>
+<h2 id="section-9">9. 多头与空头论据</h2>
+
+<h3>9.1 多头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>利润修复有财报支撑</td>
+<td>2025 归母 13.64 亿元，2026Q1 归母 5.01 亿元</td>
+<td>H1 扣非利润、全年利润</td>
+<td>Q2 / H1 利润回落</td>
+</tr>
+<tr>
+<td>出口和海外毛利率较强</td>
+<td>2025 海外收入毛利率 15.44%；2026H1 出口约 10.9 万辆，同比近 40%</td>
+<td>出口销量、海外毛利</td>
+<td>汇率、关税、海外需求恶化</td>
+</tr>
+<tr>
+<td>新能源商用车增长</td>
+<td>2025 新能源销量 +87.21%；2026H1 +17.86%</td>
+<td>新能源销量和盈利</td>
+<td>新能源销量增速低于行业或亏损销售</td>
+</tr>
+<tr>
+<td>控股股东增持</td>
+<td>北汽集团拟增持 5,000 万至 1 亿元</td>
+<td>实施进度</td>
+<td>延迟或未完成</td>
+</tr>
+</tbody></table>
+<h3>9.2 空头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>毛利率压力</td>
+<td>2025 汽车行业毛利率 9.37%，同比 -2.40pct</td>
+<td>H1 毛利率</td>
+<td>毛利率恢复到 10% 以上</td>
+</tr>
+<tr>
+<td>商用车周期波动</td>
+<td>重卡和轻卡受宏观、物流、置换政策影响</td>
+<td>月度销量、行业库存</td>
+<td>出口和新能源能抵消周期</td>
+</tr>
+<tr>
+<td>分红约束</td>
+<td>2025 年不分红，母公司未分配利润为负</td>
+<td>母公司利润修复</td>
+<td>恢复分红能力</td>
+</tr>
+<tr>
+<td>资金数据缺口</td>
+<td>未取得资金分档、融资、北向 / ETF</td>
+<td>MCP / 交易所数据</td>
+<td>资金连续净流入确认</td>
+</tr>
+</tbody></table>
+<h2 id="section-10">10. 估值</h2>
+
+<h3>10.1 相对估值</h3>
+<table>
+<thead>
+<tr>
+<th>公司</th>
+<th>业务可比性</th>
+<th align="right">增长</th>
+<th align="right">利润率</th>
+<th align="right">PE</th>
+<th align="right">PB</th>
+<th align="right">EV/EBITDA</th>
+<th>数据时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>福田汽车</td>
+<td>本体</td>
+<td align="right">2026Q1 扣非 +76.12%</td>
+<td align="right">2025 净利率约 2.10%</td>
+<td align="right">16.84</td>
+<td align="right">1.44</td>
+<td align="right">未获取到</td>
+<td>2026-07-28</td>
+</tr>
+<tr>
+<td>江淮汽车</td>
+<td>同属商用车 / 汽车，但盈利状态不同</td>
+<td align="right">亏损</td>
+<td align="right">亏损</td>
+<td align="right">不适用</td>
+<td align="right">约 4.9</td>
+<td align="right">未获取到</td>
+<td>2026-07</td>
+</tr>
+<tr>
+<td>江铃汽车</td>
+<td>商用车可比，盈利更稳</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>中国重汽 / 一汽解放</td>
+<td>重卡可比</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<ul>
+<li>选取理由：福田处于商用车龙头 + 重卡修复 + 出口增长 + 新能源商用车转型交叉位置。</li>
+<li>正常化调整：2025 非经常性损益较多，扣非 PE 更应被重视；2026Q1 扣非高增可降低前瞻 PE。</li>
+<li>对应每股价值区间：2.90-3.70 元。</li>
+<li>我的判断：3.04 元的静态 PE / PB 不贵，但扣非 PE 仍需要 H1 数据确认，不应只凭单季年化追高。</li>
+</ul>
+<h3>10.2 DCF</h3>
+<h4>关键假设</h4>
+<table>
+<thead>
+<tr>
+<th>假设</th>
+<th align="right">悲观</th>
+<th align="right">基准</th>
+<th align="right">乐观</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>收入增长</td>
+<td align="right">0%-3%</td>
+<td align="right">5%-8%</td>
+<td align="right">10%-12%</td>
+<td>2026 计划收入 700 亿元，H1 销量 +10.06%</td>
+</tr>
+<tr>
+<td>经营利润率</td>
+<td align="right">2.0%-2.5%</td>
+<td align="right">3.0%-3.5%</td>
+<td align="right">4.0%-4.5%</td>
+<td>2025 净利率较低，利润修复靠结构优化</td>
+</tr>
+<tr>
+<td>税率</td>
+<td align="right">25%</td>
+<td align="right">25%</td>
+<td align="right">25%</td>
+<td>中国企业所得税标准口径</td>
+</tr>
+<tr>
+<td>折旧摊销</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>当前字段不足</td>
+</tr>
+<tr>
+<td>资本开支</td>
+<td align="right">中高</td>
+<td align="right">中</td>
+<td align="right">中</td>
+<td>新能源、智能化和海外属地化投入</td>
+</tr>
+<tr>
+<td>营运资本变化</td>
+<td align="right">压力</td>
+<td align="right">中性</td>
+<td align="right">改善</td>
+<td>Q1 现金流同比下降但仍为正</td>
+</tr>
+<tr>
+<td>WACC</td>
+<td align="right">10%</td>
+<td align="right">9%</td>
+<td align="right">8%</td>
+<td>周期制造业 + 国企背景</td>
+</tr>
+<tr>
+<td>永续增长率</td>
+<td align="right">1%</td>
+<td align="right">2%</td>
+<td align="right">3%</td>
+<td>成熟商用车行业加转型增长</td>
+</tr>
+</tbody></table>
+<h4>估值结果</h4>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">企业价值</th>
+<th align="right">净债务</th>
+<th align="right">股权价值</th>
+<th align="right">每股价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观</td>
+<td align="right">未精算</td>
+<td align="right">未获取到</td>
+<td align="right">未精算</td>
+<td align="right">2.20-2.70 元</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">未精算</td>
+<td align="right">未获取到</td>
+<td align="right">未精算</td>
+<td align="right">3.00-3.50 元</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">未精算</td>
+<td align="right">未获取到</td>
+<td align="right">未精算</td>
+<td align="right">3.80-4.40 元</td>
+</tr>
+</tbody></table>
+<h4>敏感性分析</h4>
+<table>
+<thead>
+<tr>
+<th>WACC \ 永续增长率</th>
+<th align="right">1%</th>
+<th align="right">2%</th>
+<th align="right">3%</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>8%</td>
+<td align="right">3.20-3.70</td>
+<td align="right">3.60-4.10</td>
+<td align="right">3.90-4.40</td>
+</tr>
+<tr>
+<td>9%</td>
+<td align="right">2.70-3.10</td>
+<td align="right">3.00-3.50</td>
+<td align="right">3.40-3.90</td>
+</tr>
+<tr>
+<td>10%</td>
+<td align="right">2.20-2.70</td>
+<td align="right">2.50-3.00</td>
+<td align="right">2.80-3.30</td>
+</tr>
+</tbody></table>
+<h4>反向 DCF</h4>
+<ul>
+<li>当前价格隐含的收入增长 / 终值利润率：3.04 元附近隐含市场相信福田可以维持 2025-2026 的盈利修复，但尚未给出高成长股估值。</li>
+<li>与历史和行业相比是否可实现：可实现，但依赖重卡、新能源、出口三条线继续兑现。</li>
+<li>我的判断：反向要求不苛刻，但必须防止毛利率下降吞掉销量增长。</li>
+</ul>
+<h3>10.3 行业特定估值</h3>
+<ul>
+<li>方法：P/B-ROE + 分部加总。</li>
+<li>适用理由：商用车制造企业资产重、周期强，PB 与 ROE 修复比单一年份 PE 更稳。</li>
+<li>关键假设：净资产约 167.9 亿元，1.3-1.8 倍 PB 对应 218-302 亿元市值；若 ROE 向 10% 以上稳定，PB 上沿可扩张。</li>
+<li>对应每股价值区间：2.75-3.80 元。</li>
+<li>局限性：未取得完整净债务、资本开支和同业估值表，区间仍需复核。</li>
+</ul>
+<h3>10.4 估值交叉验证</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="right">每股价值区间</th>
+<th align="right">权重</th>
+<th>采信理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>相对估值</td>
+<td align="right">2.90-3.70 元</td>
+<td align="right">40%</td>
+<td>当前 PE / PB 与盈利修复最直接</td>
+</tr>
+<tr>
+<td>DCF</td>
+<td align="right">2.20-4.40 元</td>
+<td align="right">25%</td>
+<td>对利润率敏感，作压力测试</td>
+</tr>
+<tr>
+<td>行业特定估值</td>
+<td align="right">2.75-3.80 元</td>
+<td align="right">35%</td>
+<td>更贴合周期制造业和 ROE 修复</td>
+</tr>
+</tbody></table>
+<ul>
+<li>综合估值区间：2.70-3.80 元。</li>
+<li>相对现价上行 / 下行空间：以 3.04 元计，上行约 25%，下行约 -11%。</li>
+<li>为什么不机械平均：当前关键变量不是单年利润，而是盈利修复是否能变成稳定 ROE；所以对 PB-ROE 和相对估值赋更高权重。</li>
+</ul>
+<h2 id="section-11">11. 冰冰小美框架判断</h2>
+
+<h3>11.1 三要素状态总表</h3>
+<ul>
+<li>三要素结论来源：<code>bbxm-three-factor-analysis</code> 方法映射。</li>
+<li>分析对象与层级：福田汽车 / 个股。</li>
+<li>分析截止时间：2026-07-30 10:41。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>状态</th>
+<th>核心证据</th>
+<th>核心反证</th>
+<th>失效条件</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>有利</td>
+<td>商用车龙头、轻卡第一、重卡 / 新能源 / 出口共振</td>
+<td>毛利率下降、周期属性强</td>
+<td>H1 毛利和扣非利润无法延续</td>
+<td>中</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>证据不足</td>
+<td>股价低估值区间，控股股东拟增持</td>
+<td>未获取资金分档、融资、ETF / 北向</td>
+<td>资金连续流出或放量滞涨</td>
+<td>低</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>中性偏有利</td>
+<td>股价在 52 周中低位，基本面改善，增持催化</td>
+<td>7 月已有波动，3.30 元附近可能有短线兑现</td>
+<td>利好钝化或跌破 2.90 元</td>
+<td>中低</td>
+</tr>
+</tbody></table>
+<h4>前六步证据映射</h4>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>前六步证据来源</th>
+<th>已验证证据</th>
+<th>反证与缺口</th>
+<th>分析状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>第 4-7 章；第 2 章来源矩阵</td>
+<td>2025 利润修复、2026Q1 扣非高增、H1 销量增长</td>
+<td>毛利率下降、分部盈利不完整</td>
+<td>有利</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>第 3、8、9 章；第 2 章来源矩阵</td>
+<td>7 月成交活跃、控股股东拟增持</td>
+<td>MCP 资金、融资、ETF / 北向未获取</td>
+<td>证据不足</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>第 3、8、9 章；第 2 章来源矩阵</td>
+<td>低 PB、利润修复、增持计划</td>
+<td>价格已反弹，短线追高盈亏比一般</td>
+<td>中性偏有利</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Step 6 估值约束：估值不强行归入三要素；当前价格接近区间中枢下沿，可以观察分批，但不支持追高。</li>
+<li>补采证据回填：未新增孤立数据；所有补采已进入第 2 章和事实章节。</li>
+</ul>
+<h3>11.2 竞争格局与比较优势</h3>
+<h4>前文证据引用</h4>
+<ul>
+<li><p>商业模式与竞争底稿：见第 4 章。</p>
+</li>
+<li><p>分部与资本回报证据：见第 5-7 章。</p>
+</li>
+<li><p>相关来源状态：见第 2 章来源矩阵。</p>
+</li>
+<li><p>分析对象与竞争层级：商用车龙头、重卡修复、新能源商用车、海外出口。</p>
+</li>
+<li><p>当前状态：有利。</p>
+</li>
+<li><p>证据充分性：中等；依据是销量、利润、出口和新能源都有公开证据，但分部利润、毛利率连续性和资金数据不足。</p>
+</li>
+<li><p>多产业位置景气度排序：第 4 章显示新能源商用车、重卡修复和海外出口是主要弹性来源，轻卡是基本盘。</p>
+</li>
+<li><p>产业链位置与利润池：公司获取的是整车制造、零部件、发动机及海外渠道利润；新能源和海外若毛利率更高，会提高利润池占比。</p>
+</li>
+<li><p>核心比较优势：轻卡份额、商用车渠道、海外网络、重卡修复和新能源产品矩阵。</p>
+</li>
+<li><p>竞争对手与替代方案：中国重汽、一汽解放、陕汽、东风、江淮等。</p>
+</li>
+<li><p>份额、定价权、客户黏性与进入壁垒：轻卡份额强，海外渠道有壁垒，但毛利率显示定价权仍有限。</p>
+</li>
+<li><p>竞争优势转化为订单、利润和现金回报的情况：已部分转化，体现为 2025 扣非扭亏和 2026Q1 扣非高增。</p>
+</li>
+<li><p>当前决策含义：可进入观察买入池，但买点要受价格和资金验证约束。</p>
+</li>
+</ul>
+<h4>证据</h4>
+<ul>
+<li>2025 销量 65.01 万辆，商用车行业领先。</li>
+<li>2026H1 销量、出口、重卡、新能源均增长。</li>
+<li>2025 和 2026Q1 扣非利润改善。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>2025 汽车行业毛利率下降。</li>
+<li>商用车周期和价格竞争仍存在。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>重卡 / 新能源 / 出口任一主线明显掉速，且扣非利润不再增长。</li>
+</ul>
+<h3>11.3 流动性辩证分析</h3>
+<ul>
+<li>当前状态：证据不足。</li>
+<li>证据充分性：不充分；依据是未取得资金分档、融资、ETF / 北向和机构持仓。</li>
+</ul>
+<h4>宏观流动性</h4>
+<ul>
+<li>总量环境与边际变化：未获取到本轮宏观流动性数据。</li>
+<li>对本标的的传导：商用车顺周期资产受信用、物流和基建预期影响，低估值有防守但弹性依赖风险偏好。</li>
+</ul>
+<h4>中观流动性</h4>
+<ul>
+<li>行业 / 主题 / ETF / 机构配置变化：未获取到。</li>
+<li>对本标的的传导：汽车板块内部从亏损故事股向盈利兑现型商用车切换的可能性存在，但未被资金数据确认。</li>
+</ul>
+<h4>微观流动性</h4>
+<ul>
+<li>成交额、换手率、量价结构、融资和大单：2026-07-28 收 3.04 元，换手 1.39%，成交额 3.33 亿元；7 月 23-24 日波动较大。</li>
+<li>连续窗口与相对强弱：7 月在 2.9-3.3 元区间波动，未突破 52 周高位。</li>
+</ul>
+<h4>资金来源分类</h4>
+<table>
+<thead>
+<tr>
+<th>资金来源</th>
+<th>当前状态</th>
+<th>连续窗口证据</th>
+<th>对价格的含义</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>长期配置资金</td>
+<td>未获取到</td>
+<td>无机构 / ETF 数据</td>
+<td>不能确认长期资金加仓</td>
+<td>低</td>
+</tr>
+<tr>
+<td>趋势 / 交易资金</td>
+<td>活跃但波动</td>
+<td>7 月成交较高、价格区间震荡</td>
+<td>可能有修复交易，也可能短线兑现</td>
+<td>低</td>
+</tr>
+<tr>
+<td>产业资本 / 内部人</td>
+<td>正向</td>
+<td>北汽集团拟增持 5,000 万至 1 亿元</td>
+<td>有信心信号但金额有限</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h4>供给与抛压</h4>
+<table>
+<thead>
+<tr>
+<th>供给来源</th>
+<th>当前状态</th>
+<th>时间窗口</th>
+<th>影响</th>
+<th>验证方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>解禁 / 减持</td>
+<td>未获取到</td>
+<td>2026 年</td>
+<td>待验证</td>
+<td>公告</td>
+</tr>
+<tr>
+<td>再融资 / 可转债</td>
+<td>未获取到</td>
+<td>2026 年</td>
+<td>待验证</td>
+<td>公告</td>
+</tr>
+<tr>
+<td>获利盘 / 套牢盘</td>
+<td>中等</td>
+<td>3.3-3.8 元区间</td>
+<td>反弹上沿可能有抛压</td>
+<td>成交额与换手</td>
+</tr>
+</tbody></table>
+<h4>最低数据检查</h4>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>当前窗口</th>
+<th>对比窗口</th>
+<th>结论</th>
+<th>数据源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>成交额与换手率</td>
+<td>2026-07-28 成交额 3.33 亿元，换手 1.39%</td>
+<td>2026-07-24 成交量较高且下跌</td>
+<td>资金活跃但方向未确认</td>
+<td>中财网 / 英为财情</td>
+</tr>
+<tr>
+<td>融资余额与融资买入</td>
+<td>未获取到</td>
+<td>未获取到</td>
+<td>缺口</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>主力 / 大单资金</td>
+<td>未获取到</td>
+<td>未获取到</td>
+<td>缺口</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>ETF / 北向 / 机构代理指标</td>
+<td>未获取到</td>
+<td>未获取到</td>
+<td>缺口</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<h4>证据</h4>
+<ul>
+<li>控股股东拟增持。</li>
+<li>估值仍在合理偏低区间。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>资金分档和融资未确认。</li>
+<li>7 月波动较大，追涨容易遇到兑现。</li>
+</ul>
+<h4>退出路径</h4>
+<ul>
+<li>资金流入如何退出：短线修复资金可能在 3.30-3.50 元兑现。</li>
+<li>持续性被证伪的信号：放量无法站稳 3.30 元，或跌破 2.90 元后无承接。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>资金数据转为连续流出，且价格跌破 2.90 元。</li>
+</ul>
+<h3>11.4 情绪位置变化</h3>
+<ul>
+<li>当前状态：中性偏有利。</li>
+<li>证据充分性：中等；财报和产销快报正向，但资金与讨论热度未获取。</li>
+<li>当前所处阶段：修复 / 扩散观察。</li>
+<li>个股相对板块与指数的强弱：未获取到。</li>
+<li>催化兑现后的价格反馈：产销快报和增持计划后价格仍在 3 元附近震荡，尚未透支到 52 周高位。</li>
+</ul>
+<h4>证据</h4>
+<ul>
+<li>2025 / 2026Q1 利润兑现。</li>
+<li>2026H1 销量、出口、重卡、新能源延续增长。</li>
+<li>控股股东增持计划增强信心。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>股价 7 月已有快速波动，短线一致性不明。</li>
+<li>若半年报低于预期，情绪会迅速回落。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>产销快报利好不涨，或半年报后利润兑现不及预期。</li>
+</ul>
+<h3>11.5 综合状态与主导矛盾</h3>
+<ul>
+<li>三要素综合判断：部分有利。</li>
+<li>主导要素：竞争格局 / 基本面改善。</li>
+<li>拖累要素：资金证据不足、毛利率压力。</li>
+<li>主导矛盾：销量和结构改善能否持续转化为 ROE 与现金流。</li>
+<li>下一验证节点：2026 半年报、7 月产销快报、控股股东增持进度、资金分档 / 融资数据。</li>
+<li>状态切换条件：若 H1 扣非继续高增且站稳 3.30 元，升级；若利润或毛利率走弱且跌破 2.90 元，降级。</li>
+</ul>
+<h3>11.6 三要素行动映射</h3>
+<table>
+<thead>
+<tr>
+<th>资金属性</th>
+<th>当前动作</th>
+<th>允许升级的条件</th>
+<th>降级 / 退出条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>新增现金</td>
+<td>wait / observe</td>
+<td>2.85-3.00 元回落不破基本面，或 3.30 元上方由 H1 扣非和资金流确认</td>
+<td>跌破 2.90 元且销量 / 利润走弱</td>
+</tr>
+<tr>
+<td>已有持仓</td>
+<td>wait</td>
+<td>继续持有到 H1 披露，观察利润和增持进度</td>
+<td>H1 毛利率、扣非利润、现金流三项中两项恶化</td>
+</tr>
+</tbody></table>
+<h3>11.7 三要素数据缺口与来源</h3>
+<table>
+<thead>
+<tr>
+<th>数据缺口</th>
+<th>已检查来源</th>
+<th>对哪一要素有影响</th>
+<th>对结论的影响</th>
+<th>补齐方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Tushare 资金分档</td>
+<td>当前会话工具</td>
+<td>流动性</td>
+<td>降低资金面置信度</td>
+<td>后续重跑 MCP</td>
+</tr>
+<tr>
+<td>融资融券</td>
+<td>当前会话工具 / 公开页</td>
+<td>流动性</td>
+<td>无法确认杠杆资金</td>
+<td>交易所 / Tushare</td>
+</tr>
+<tr>
+<td>H1 正式财报</td>
+<td>公司公告</td>
+<td>竞争格局 / 风险</td>
+<td>2026Q2 延续性未确认</td>
+<td>半年报</td>
+</tr>
+<tr>
+<td>北向 / ETF / 机构持仓</td>
+<td>未获取到</td>
+<td>中观流动性</td>
+<td>不能确认长期资金</td>
+<td>Wind / 东方财富 / 基金公告</td>
+</tr>
+</tbody></table>
+<ul>
+<li>分析口径与截止时间：2026-07-30 10:41，实时盘中未连接。</li>
+<li>主要数据来源：公司公告、投资者关系记录、公开行情页面。</li>
+<li>数据缺口导致的置信度调整：资金面结论降为低置信，综合动作偏等待。</li>
+</ul>
+<h3>11.8 风险方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>风险类型</th>
+<th>前一窗口</th>
+<th>当前窗口</th>
+<th>方向证据</th>
+<th>反证</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本面风险</td>
+<td>2024 低利润、扣非亏损</td>
+<td>2025 扣非扭亏，2026Q1 扣非高增</td>
+<td>风险减弱</td>
+<td>毛利率下降</td>
+</tr>
+<tr>
+<td>估值风险</td>
+<td>低估值但盈利不稳</td>
+<td>PE 16.84、PB 1.44，利润改善</td>
+<td>估值锚更有效</td>
+<td>扣非 PE 仍需 H1 确认</td>
+</tr>
+<tr>
+<td>情绪风险</td>
+<td>周期股关注度有限</td>
+<td>增持、产销和利润改善带来修复</td>
+<td>情绪改善</td>
+<td>追涨易受兑现影响</td>
+</tr>
+<tr>
+<td>流动性风险</td>
+<td>未获取到</td>
+<td>交易活跃，产业资本增持计划</td>
+<td>部分缓和</td>
+<td>资金分档缺失</td>
+</tr>
+</tbody></table>
+<h3>11.9 风险传导链</h3>
+<ul>
+<li>信息源头：2025 利润修复、2026Q1 扣非高增、2026H1 产销和出口增长、控股股东增持计划。</li>
+<li>核心变量：扣非利润、毛利率、重卡 / 新能源 / 出口销量、现金流。</li>
+<li>传导机制：销量结构改善带动利润修复，利润修复提高 PB-ROE 估值锚；若毛利率下降或周期回落，则估值重新被压回低 PB。</li>
+<li>影响对象：福田汽车股价、估值中枢、可买区间。</li>
+<li>市场行为变化：从低关注周期股转为盈利修复型观察标的。</li>
+<li>风险方向：风险减弱但未消失。</li>
+<li>验证指标：H1 扣非利润、毛利率、经营现金流、出口和新能源销量。</li>
+<li>失效条件：H1 利润不连续或资金放量滞涨。</li>
+</ul>
+<h3>11.10 风险方向结论</h3>
+<ul>
+<li>风险方向结论：风险减弱但未消失。</li>
+<li>判断依据：2025 扣非扭亏、2026Q1 扣非高增、H1 销量和出口延续增长。</li>
+<li>反证：毛利率下降、现金流 Q1 同比下降、资金数据缺失。</li>
+<li>未获取到：实时资金、融资融券、H1 正式财务。</li>
+<li>置信度：中。</li>
+</ul>
+<h3>11.11 四层方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>边际改善 / 无明显变化 / 边际恶化 / 未获取到</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观</td>
+<td>未获取到</td>
+<td>未补采宏观流动性</td>
+</tr>
+<tr>
+<td>中观</td>
+<td>边际改善</td>
+<td>商用车、新能源商用车、重卡、出口增长</td>
+</tr>
+<tr>
+<td>微观</td>
+<td>边际改善</td>
+<td>2025 / 2026Q1 扣非利润改善</td>
+</tr>
+<tr>
+<td>交易</td>
+<td>无明显变化</td>
+<td>股价在 3 元附近震荡，资金方向未确认</td>
+</tr>
+</tbody></table>
+<h3>11.12 最终动作与约束</h3>
+<ul>
+<li>主动作：wait / observe。</li>
+<li>新增现金：不追；优先等 2.85-3.00 元回落确认，或 3.30 元上方被 H1 财报和资金共同确认。</li>
+<li>已有持仓：wait；基本面改善未破坏前可继续持有复核。</li>
+<li>承接条件：H1 扣非继续增长、毛利率不继续恶化、出口 / 新能源 / 重卡维持高增、资金不放量流出。</li>
+<li>退出条件：H1 利润或现金流明显低于预期，跌破 2.90 元且无承接。</li>
+<li>下一复核节点：2026 半年报、7 月产销快报、控股股东增持进度。</li>
+<li>我的判断：方向可以进入“观察到分批”的候选，但还不能无条件升级为 <code>buy</code>，因为资金证据和 H1 利润连续性还没补齐。</li>
+</ul>
+<h2 id="section-12">12. 最终结论</h2>
+
+<ul>
+<li>估值结论：合理偏低。</li>
+<li>操作结论：观望偏积极；分批条件优于追高。</li>
+<li>综合估值区间：2.70-3.80 元。</li>
+<li>相对现价空间：以 3.04 元计，上行到 3.80 元约 25%，下行到 2.70 元约 -11%。</li>
+<li>如果今天这是一笔现金，我会买它吗：只在特定条件下会，优先等回落或 H1 数据确认。</li>
+<li>我的判断：福田汽车是本轮高端制造 / 商用车里更接近“利润兑现”的标的，胜在轻卡基本盘、重卡修复、新能源商用车和出口共振；短板是毛利率和周期属性。3 元附近值得跟踪，但买入动作要让位于半年报和资金验证。</li>
+<li>结论失效条件：H1 扣非利润不连续、毛利率继续下滑、出口 / 新能源 / 重卡任一主线明显失速，或价格跌破 2.90 元后无法修复。</li>
+</ul>
+<h2 id="section-13">13. 后续监控指标</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">当前值</th>
+<th>触发阈值 / 方向</th>
+<th>数据源</th>
+<th>复核频率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>H1 扣非归母净利润</td>
+<td align="right">未披露</td>
+<td>继续高增，至少不低于市场修复预期</td>
+<td>半年报</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>汽车行业毛利率</td>
+<td align="right">2025 年 9.37%</td>
+<td>不再继续明显下滑，最好回到 10% 以上</td>
+<td>定期报告</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>出口销量</td>
+<td align="right">2026H1 约 10.9 万辆</td>
+<td>同比保持 25% 以上</td>
+<td>投关 / 月报</td>
+<td>月度</td>
+</tr>
+<tr>
+<td>新能源销量</td>
+<td align="right">2026H1 5.91 万辆，+17.86%</td>
+<td>增速不低于行业，毛利改善</td>
+<td>产销快报 / 半年报</td>
+<td>月度</td>
+</tr>
+<tr>
+<td>股价承接</td>
+<td align="right">2026-07-28 收 3.04 元</td>
+<td>2.85-3.00 元缩量承接，或站稳 3.30 元</td>
+<td>行情平台</td>
+<td>日度</td>
+</tr>
+</tbody></table>
+<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
+
+<ul>
+<li>未获取到：实时盘中价、Tushare MCP 数据、资金分档、融资融券、北向 / ETF 持仓、完整五年资本开支、ROIC、第三方公允价值、卖方目标价分布、2026H1 正式财报。</li>
+<li>已检查来源：公司公告转载页、公开行情页、投资者关系记录、工作区已有文件。</li>
+<li>对结论的影响：资金面置信度下降；估值只能给压力测试区间，不能给精确目标价。</li>
+</ul>
+<h2 id="section-15">15. 来源清单</h2>
+
+<ol>
+<li><a href="../../../webpages/2026-07-30-1041-福田汽车公开资料快照.md">福田汽车公开资料快照</a>，2026-07-30。</li>
+<li>福田汽车 2025 年年度报告，北汽福田汽车股份有限公司，2026-04-25，新浪财经公告转载页，访问时间 2026-07-30。</li>
+<li>福田汽车 2026 年第一季度报告修订版，北汽福田汽车股份有限公司，2026-05-01，新浪财经公告转载页，访问时间 2026-07-30。</li>
+<li>福田汽车 2026 年 6 月份各产品产销数据快报，北汽福田汽车股份有限公司，2026-07-07，新浪财经公告转载页，访问时间 2026-07-30。</li>
+<li>北汽福田汽车股份有限公司关于控股股东增持股份计划的公告，2026-07-25，新浪财经 / 上海证券报，访问时间 2026-07-30。</li>
+<li>福田汽车 2026 年 7 月 7 日-9 日投资者关系活动记录表，2026-07-13，东方财富转载，访问时间 2026-07-30。</li>
+<li>中财网福田汽车行情页，2026-07-28，访问时间 2026-07-30。</li>
+<li>英为财情福田汽车历史行情，访问时间 2026-07-30。</li>
+</ol>
+<h2 id="section-16">16. 声明</h2>
+
+<p>本报告基于截至研究截止时间可取得的公开信息，不构成收益保证。真实交易前应重新核验价格、公告、流动性和个人风险承受能力。</p>
+<script>
+(() => {
+  const endpoint = '/api/stock-quote?secid=1.600166';
+  const priceNode = document.getElementById('intraday-price');
+  const detailNode = document.getElementById('intraday-detail');
+  const statusNode = document.getElementById('intraday-status');
+  const riskRewardValue = document.getElementById('risk-reward-value');
+  const riskRewardDetail = document.getElementById('risk-reward-detail');
+  const tracker = document.getElementById('daily-tracking');
+  const snapshotPrice = 3.04;
+  const percent = value => `${value < 0 ? '-' : value > 0 ? '+' : ''}${Math.abs(value).toFixed(1)}%`;
+  function updateRiskReward(price) {
+    const low = Number(tracker.dataset.valueLow);
+    const high = Number(tracker.dataset.valueHigh);
+    if (!Number.isFinite(low) || !Number.isFinite(high) || low <= 0 || high <= low) return;
+    const upside = (high / price - 1) * 100;
+    const downside = (price / low - 1) * 100;
+    if (price <= low) {
+      riskRewardValue.textContent = '低于价值下沿';
+      riskRewardValue.classList.remove('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿潜在空间 ${percent(upside)}。价格已低于动态价值下沿，不能直接用下沿作为止损风险，需另设风控线。`;
+      return;
+    }
+    if (price >= high) {
+      riskRewardValue.textContent = '无正向盈亏比';
+      riskRewardValue.classList.add('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿空间 ${percent(upside)}，回落至下沿风险 ${percent(downside)}。价格已到或高于动态价值上沿，新增现金不具备正向盈亏比。`;
+      return;
+    }
+    const ratio = upside / downside;
+    riskRewardValue.textContent = `约 ${ratio.toFixed(1)}:1`;
+    riskRewardValue.classList.toggle('bad', ratio < 1);
+    riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；到上沿 ${high.toFixed(2)} 元的潜在上行 ${percent(upside)}，跌至下沿 ${low.toFixed(2)} 元的风险 ${percent(downside)}。盘中价格不改变价值区间本身。`;
+  }
+  async function refreshIntradayQuote() {
+    statusNode.textContent = '连接中'; statusNode.className = 'tracking-status';
+    try {
+      const response = await fetch(endpoint, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json(); const quote = payload && payload.data;
+      if (!quote || !Number.isFinite(quote.price) || !Number.isFinite(quote.prevClose) || !Number.isFinite(quote.changePercent) || !Number.isFinite(quote.quoteTimestamp)) throw new Error('invalid quote');
+      const quoteTime = new Date(quote.quoteTimestamp * 1000).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false });
+      priceNode.textContent = `${quote.price.toFixed(2)} 元 · ${percent(quote.changePercent)}`;
+      priceNode.classList.toggle('bad', quote.changePercent < 0);
+      detailNode.textContent = `行情时间：${quoteTime}；昨收 ${quote.prevClose.toFixed(2)} 元。来源：${payload.proxySource || '本地行情代理'}。`;
+      statusNode.textContent = '盘中实时 · 每 60 秒'; statusNode.className = 'tracking-status live'; updateRiskReward(quote.price);
+    } catch { priceNode.textContent = '实时行情暂不可用'; priceNode.classList.remove('bad'); detailNode.textContent = '每日同步值仍然有效；可重新双击“大盘启动器”后刷新本页。'; statusNode.textContent = '连接失败'; statusNode.className = 'tracking-status error'; }
+  }
+  if (location.protocol === 'http:' || location.protocol === 'https:') { refreshIntradayQuote(); window.setInterval(refreshIntradayQuote, 60000); }
+  else { priceNode.textContent = Number.isFinite(snapshotPrice) ? `${snapshotPrice.toFixed(2)} 元（每日值）` : '每日值未获取'; detailNode.textContent = '当前为直接打开模式；盘中实时需通过“大盘启动器”进入本地服务。'; statusNode.textContent = '每日同步 · 实时未连接'; }
+})();
+</script></article>
+    </div>
+  </main>
+</body>
+</html>

@@ -90,6 +90,17 @@ DATASETS = {
         },
         "date_fields": {"trade_date", "start_date", "end_date"},
     },
+    "margin": {
+        "fields": (
+            "trade_date", "exchange_id", "rzye", "rzmre", "rzche", "rqye", "rqmcl", "rzrqye",
+        ),
+        "allowed_params": {"trade_date", "start_date", "end_date", "exchange_id", "fields"},
+        "required_params": set(),
+        "defaults": {
+            "fields": "trade_date,exchange_id,rzye,rzmre,rzche,rqye,rqmcl,rzrqye"
+        },
+        "date_fields": {"trade_date", "start_date", "end_date"},
+    },
     "income": {
         "fields": (
             "ts_code", "ann_date", "f_ann_date", "end_date", "report_type", "comp_type",

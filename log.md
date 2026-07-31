@@ -1,3 +1,270 @@
+## 2026-07-31
+
+### 操作类型
+
+automation / zzhl-dividend-signal / daily-record
+
+### 修改文件
+
+- `sources/automations/中证红利信号/最新信号.md`
+- `sources/automations/中证红利信号/中证红利每日信号.xlsx`
+- `log.md`
+
+### 操作说明
+
+按 `zzhl-dividend-signal` skill 运行 `python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py --output-dir "sources/automations/中证红利信号" --run-date 2026-07-31`，刷新中证红利 `000922` 股息率信号每日记录。本轮写入记录日为 `2026-07-31`；AKShare 指数估值日期为 `2026-07-30`，中证红利 `股息率2` 为 `4.36%`；理杏仁公开页面成功解析，估值日期为 `2026-07-30`，市值加权股息率为 `4.08%`，近10年股息率分位为 `0.14%`，近10年80%分位点为 `6.11%`；中国 10 年国债收益率日期为 `2026-07-30`，收益率为 `1.7196%`，股债利差为 `2.6404` 个百分点。
+
+三类规则判断为：历史分位点 `D（不买或少买）`，绝对股息率 `C（小额定投）`，相对债券收益率 `C（小额定投）`。综合结论为 `未进入加大买入区间`，不是重点买入区间。雪球实时行情接口返回空响应，雪球当天涨跌幅保留为 `待验证`，未用于修正股息率。
+
+### 后续待办
+
+- 下次运行继续观察雪球实时行情接口是否恢复；若仍为空响应，只保留失败边界，不手工修正股息率。
+
+## 2026-07-31
+
+### 操作类型
+
+tool / dashboard / bugfix
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/data-service.mjs`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/tests/data-service.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+排查温度计面板刷新按钮长时间显示“刷新中…”的问题。原因是 `refreshLive()` 在本地代理模式下按数据域串行等待，且数据聚合层没有独立的单域超时兜底；一旦某个公开接口或本地代理请求长时间不返回，`finally` 无法执行，刷新按钮就不会恢复。修复后，各数据域并发刷新；单个数据源超时后转入错误/缓存处理，不再阻塞整轮刷新。
+
+### 后续待办
+
+- 若仍出现卡住，优先检查浏览器控制台中具体哪个 `/api/*` 接口超时或本地代理旧进程未重启。
+
+## 2026-07-31
+
+### 操作类型
+
+ui / dashboard-navigation
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/tests/data-service.test.mjs`
+- `tools/a-share-market-dashboard/README.md`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户截图要求，在温度计同级新增“策略”一级菜单；将原温度计下的“富贵策略”迁入“策略”菜单，并新增“小美策略”子菜单入口。富贵策略原有录入、清单和数据源切换逻辑保持不变，小美策略先保留为独立入口。
+
+### 后续待办
+
+- 等用户明确小美策略的页面内容、数据来源和规则后，再补充对应策略页功能。
+
+## 2026-07-30
+
+### 操作类型
+
+skill-maintenance / bbxm-equity-research / fund-flow-autolink
+
+### 修改文件
+
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `.agents/skills/bbxm-equity-research/template.md`
+- `.agents/skills/bbxm-equity-research/scripts/render-report-html.cjs`
+- `.agents/skills/bbxm-equity-research/scripts/test-render-report-html.cjs`
+- `log.md`
+
+### 操作说明
+
+按用户要求调整机构级研报与资金面分析 HTML 的连接机制。统一渲染器现在在 `资金面分析链接` 显式填写且同目录文件存在时优先使用该文件；若字段为 `未获取到`、为空或显式文件不存在，则自动扫描研报 HTML 输出目录下文件名包含“资金面分析”的 HTML，并按文件名日期选择最新一份挂入每日跟踪面板。同步更新 `bbxm-equity-research` 技能说明和模板字段说明，新增回归测试覆盖“显式链接优先”和“未获取到时自动挂最新资金面 HTML”两种场景。
+
+### 后续待办
+
+- 对已经先生成研报、后生成资金面分析的旧标的，重新渲染对应研报 HTML 后即可自动挂上同目录最新资金面分析；静态 HTML 不会在未重新渲染时自行变化。
+
+## 2026-07-30
+
+### 操作类型
+
+automation / fund-flow-analysis / tushare-mcp
+
+### 修改文件
+
+- `sources/webpages/2026-07-30-兴业银锡资金面数据快照.md`
+- `sources/automations/战略资源/银锡/2026-07-30-兴业银锡资金面分析.html`
+- `log.md`
+
+### 操作说明
+
+使用修改后的 `fund-flow-analysis` 技能为兴业银锡（000426.SZ）生成 2026-07-30 资金面 HTML 快照。本次优先通过本地 `tushare-data` MCP 获取证券身份、日线、估值、资金分档、融资融券、财报和分红；其中 `get_margin_detail` 成功返回 2026-07-01 至 2026-07-29 共 21 行融资融券明细，最新 2026-07-29 融资净买入约 +1,592.53 万元，近 5 个可得交易日约 -2,274.62 万元，近 20 个可得交易日约 -45,624.05 万元。Tushare 资金分档显示近 5 个可得交易日短线转正，但近 20 个可得交易日 `net_mf_amount` 仍大幅净流出，且 2026-07-30 股价下跌 -2.63%。综合判断为 `多空分歧`，新增资金 `wait / 0%`，已有持仓因缺少成本、仓位和原计划给 `review`。
+
+### 后续待办
+
+- 下一个交易日收盘后补查 2026-07-30 当日资金分档、融资融券、北向持股、ETF 申赎、龙虎榜、产业资本、大宗交易、质押和解禁数据。
+- 2026-08-29 半年报披露后复核 H1 正式利润、扣非利润、矿产银产销量、现金流和 H 股重递交进展。
+
+## 2026-07-30
+
+### 操作类型
+
+skill-maintenance / zzhl-dividend-signal / rule-change
+
+### 修改文件
+
+- `.agents/skills/zzhl-dividend-signal/scripts/check_signal.py`
+- `.agents/skills/zzhl-dividend-signal/tests/test_check_signal.py`
+- `.agents/skills/zzhl-dividend-signal/SKILL.md`
+- `wiki/queries/中证红利什么时候买入收益率最高.md`
+- `sources/automations/中证红利信号/最新信号.md`
+- `sources/automations/中证红利信号/中证红利每日信号.xlsx`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求修改中证红利股债利差信号评级：不再用固定 `2.5%` 利差作为 B 档阈值，而是按股息率相对 10 年国债收益率的倍数评级。新规则为：股息率低于 2 倍国债收益率为 `D`，2-3 倍为 `C`，3-4 倍为 `B（加大买入）`，4 倍及以上为 `A（重点买入）`。同步更新 skill 说明、Query Page 规则、脚本测试和 dashboard 构建断言。
+
+使用新规则重跑 2026-07-30 中证红利信号：记录日为 `2026-07-30`，指数估值日期为 `2026-07-29`，中证红利 `股息率2` 为 `4.40%`，中国 10 年国债收益率为 `1.7329%`，约为国债收益率 `2.54` 倍，股债项评级由旧规则下的 `B` 改为 `C（小额定投）`。三类信号为 `D / C / C`，综合结论仍为 `未进入加大买入区间`。理杏仁公开页面本轮成功，雪球实时行情仍为空响应并保留为 `待验证`。
+
+### 后续待办
+
+- 后续运行中继续观察低利率环境下倍数阈值是否更符合用户的中证红利买入规则。
+
+## 2026-07-30
+
+### 操作类型
+
+tool / dashboard / bugfix
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/scripts/build.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+修复 A 股市场仪表盘“中证红利股息率信号”卡片中 `股息率2` 和 `股债利差` 显示为 `—%` 的问题。原因是构建脚本仍按旧字段名读取 `最新信号.md`，而当前信号文件已使用 `中证红利股息率口径` 和 `指数股息率口径 - 10年国债收益率`。本次将解析逻辑改为兼容新旧字段名，并重建 `a-share-market-dashboard.html`；构建产物已写入 `dividendYield2: 4.4` 和 `spread: 2.67`。
+
+### 后续待办
+
+- 若后续 `zzhl-dividend-signal` 输出字段继续调整，同步补充构建测试中的字段兼容断言。
+
+## 2026-07-30
+
+### 操作类型
+
+automation / zzhl-dividend-signal / daily-record
+
+### 修改文件
+
+- `sources/automations/中证红利信号/最新信号.md`
+- `sources/automations/中证红利信号/中证红利每日信号.xlsx`
+- `log.md`
+
+### 操作说明
+
+按 `zzhl-dividend-signal` skill 运行 `python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py --output-dir "sources/automations/中证红利信号" --run-date 2026-07-30`，刷新中证红利 `000922` 股息率信号每日记录。本轮写入记录日为 `2026-07-30`；AKShare 指数估值日期为 `2026-07-29`，中证红利 `股息率2` 为 `4.40%`；理杏仁公开页面成功解析，估值日期为 `2026-07-29`，市值加权股息率为 `4.18%`，近10年股息率分位为 `2.34%`，近10年80%分位点为 `6.11%`；中国 10 年国债收益率日期为 `2026-07-29`，收益率为 `1.7329%`，股债利差为 `2.6671` 个百分点。
+
+三类规则判断为：历史分位点 `D（不买或少买）`，绝对股息率 `C（小额定投）`，股债利差 `B（加大买入）`。综合结论为 `未进入加大买入区间`，不是重点买入区间。雪球实时行情接口返回空响应，雪球当天涨跌幅保留为 `待验证`，未用于修正股息率。
+
+### 后续待办
+
+- 下次运行继续观察雪球实时行情接口是否恢复；若仍为空响应，只保留失败边界，不手工修正股息率。
+
+## 2026-07-30
+
+### 操作类型
+
+skill-maintenance / fund-flow-analysis / tushare-mcp
+
+### 修改文件
+
+- `.agents/skills/fund-flow-analysis/SKILL.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求强化 `fund-flow-analysis` 的 A 股个股融资融券取数规则：融资融券 / F3 必须优先调用本地 `tushare-data` MCP 暴露的 `get_margin_detail`；即使当前会话工具列表未直接显示该工具，也必须先尝试通过 `tools/tushare-data/scripts/mcp_server.py` 的 stdio JSON-RPC 调用。报告需记录返回状态、`row_count`、最新 `trade_date`、`rzye`、`rzmre`、`rzche`、`rqye`、`rzrqye`，并分别汇总最新交易日、近 5 个可得交易日、近 20 个可得交易日的融资净买入及融资余额变化。只有 MCP 失败、无权限、空行、字段缺失或对象不适用时才允许回退公开融资融券来源。
+
+### 后续待办
+
+- 下一次资金面报告生成时检查数据审计和 F3 面板是否明确写出 `get_margin_detail` 调用结果，而不是只写“当前会话未暴露工具入口”。
+
+## 2026-07-30
+
+### 操作类型
+
+automation / fund-flow-analysis / html-render
+
+### 修改文件
+
+- `sources/webpages/2026-07-30-华明装备资金面公开数据记录.md`
+- `sources/automations/支柱产业/电网/2026-07-30-华明装备资金面分析.html`
+- `log.md`
+
+### 操作说明
+
+按 `fund-flow-analysis` 技能为华明装备（002270.SZ）生成 2026-07-30 资金面 HTML 快照。根据用户提醒补用本地 `tushare-data` MCP 的 `get_margin_detail` 复核融资融券，并继续回退同花顺资金流向、东方财富个股日历和既有机构级研报做交叉验证。最新可得资金分档截至 2026-07-27，显示近 5 个可得交易日短线资金转正，但近 20 个可得交易日仍为净流出；Tushare 融资融券已核到 2026-07-29，近 5 个可得交易日融资净买入约 -3,645.87 万元，融资余额较 2026-07-23 下降约 1,901.38 万元，未同步确认杠杆资金回补。结论为 `多空分歧`，新增资金 `wait / 0%`，已有持仓因缺少成本、仓位和原计划给 `review`。
+
+### 后续待办
+
+- 待数据源恢复后补齐 2026-07-30 当日资金分档、融资融券、北向持股、ETF 申赎、龙虎榜、产业资本、大宗交易、质押和解禁数据。
+- 2026-08-29 半年报披露后复核资金交易的基本面修复预期。
+
+## 2026-07-30
+
+### 操作类型
+
+workbench / equity-research / html-render
+
+### 修改文件
+
+- `workbench/targets/2026-07-30-华明装备-机构级决策研报.md`
+- `sources/webpages/2026-07-30-华明装备公开数据刷新记录.md`
+- `sources/automations/支柱产业/电网/2026-07-30-华明装备-机构级决策研报.html`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` 技能更新华明装备（002270.SZ）既有权威机构级研报，未新建重复 workbench 页面。报告刷新至 2026-07-30，记录 Tushare MCP 当前未暴露、2026-07-30 实时行情未获取到、最新可核验行情为 2026-07-28 收盘 19.56 元，并补入 2026Q1、2025 年度权益分派、股东户数、半年报预约披露日等公开信息。同步覆盖生成同名 HTML；行业反链脚本返回 `industry-report-not-found`，未找到同目录产业总览页。
+
+### 后续待办
+
+- 2026-08-29 半年报披露后复核电力设备收入、海外毛利率、扣非利润、应收账款和经营现金流。
+- 待可用数据源恢复后补齐 2026-07-30 当日行情、资金分档、融资融券、北向/ETF/机构资金信息。
+
+## 2026-07-30
+
+### 操作类型
+
+ingest / workbench
+
+### 修改文件
+
+- `workbench/targets/2026-07-30-1012-柳工-机构级决策研报.md`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` 技能生成柳工（000528.SZ）机构级决策研报，落入 `workbench/targets/`，并记录实时行情接口未获取到的边界。
+
+### 后续待办
+
+- 2026 年中报披露后复核利润、经营现金流、海外毛利率与应收账款减值。
+- 补齐实时资金、融资融券、大单资金和可比公司估值。
+
 # 知识库日志
 
 - [2026-07-28T00:00:00+08:00] QUERY query="查找冰冰小美 对海尔智家的看法" result_pages=8 mode=normal escalated=true
@@ -205,7 +472,7 @@ workbench / equity-research / html-refresh
 
 ### 修改文件
 
-- `sources/automations/支柱产业/电网/2026-07-23-1427-华明装备-机构级决策研报.html`
+- `sources/automations/支柱产业/电网/2026-07-30-华明装备-机构级决策研报.html`
 - `log.md`
 
 ### 操作说明
@@ -16180,8 +16447,8 @@ research / workbench / html-reading
 
 ### 修改文件
 
-- `workbench/targets/2026-07-23-1427-华明装备-机构级决策研报.md`
-- `sources/automations/支柱产业/电网/2026-07-23-1427-华明装备-机构级决策研报.html`
+- `workbench/targets/2026-07-30-华明装备-机构级决策研报.md`
+- `sources/automations/支柱产业/电网/2026-07-30-华明装备-机构级决策研报.html`
 - `sources/automations/支柱产业/电网/2026-07-17-十五五电网投资与电网行业完整分析报告.html`
 - `workbench/targets/2026-07-23-1427-航天电子-机构级决策研报.md`
 - `sources/automations/新兴产业/商业航天/2026-07-23-1427-航天电子-机构级决策研报.html`
@@ -17528,11 +17795,11 @@ workbench / equity_research / template-sync
 
 - `workbench/targets/2026-07-17-1134-三花智控-机构级决策研报.md`
 - `workbench/targets/2026-07-23-1602-拓普集团-机构级决策研报.md`
-- `workbench/targets/2026-07-23-1427-华明装备-机构级决策研报.md`
+- `workbench/targets/2026-07-30-华明装备-机构级决策研报.md`
 - `workbench/targets/2026-07-23-1421-云铝股份-机构级决策研报.md`
 - `sources/automations/新兴产业/机器人/2026-07-17-1134-三花智控-机构级决策研报.html`
 - `sources/automations/新兴产业/机器人/2026-07-23-1602-拓普集团-机构级决策研报.html`
-- `sources/automations/支柱产业/电网/2026-07-23-1427-华明装备-机构级决策研报.html`
+- `sources/automations/支柱产业/电网/2026-07-30-华明装备-机构级决策研报.html`
 - `sources/automations/支柱产业/电解铝/2026-07-23-1421-云铝股份-机构级决策研报.html`
 - `sources/automations/支柱产业/电解铝/2026-07-22-电解铝产业完整分析报告.html`
 - `log.md`
@@ -17592,7 +17859,7 @@ skill / html-style / equity_research
 - `.agents/skills/bbxm-equity-research/assets/report.css`
 - `sources/automations/新兴产业/机器人/2026-07-17-1134-三花智控-机构级决策研报.html`
 - `sources/automations/新兴产业/机器人/2026-07-23-1602-拓普集团-机构级决策研报.html`
-- `sources/automations/支柱产业/电网/2026-07-23-1427-华明装备-机构级决策研报.html`
+- `sources/automations/支柱产业/电网/2026-07-30-华明装备-机构级决策研报.html`
 - `sources/automations/支柱产业/电解铝/2026-07-23-1421-云铝股份-机构级决策研报.html`
 - `log.md`
 
@@ -17818,7 +18085,7 @@ workbench / equity-research / pillar-industry
 
 ### 修改文件
 
-- `sources/automations/支柱产业/电网/2026-07-23-1427-华明装备-机构级决策研报.html`
+- `sources/automations/支柱产业/电网/2026-07-30-华明装备-机构级决策研报.html`
 - `sources/automations/支柱产业/电网/2026-07-17-十五五电网投资与电网行业完整分析报告.md`
 - `sources/automations/支柱产业/电网/2026-07-17-十五五电网投资与电网行业完整分析报告.html`
 - `log.md`
@@ -18123,6 +18390,90 @@ tool / dashboard / behavior-update
 ### 后续待办
 
 - 如后续需要筛选视图，可在清单上方增加 `全部 / 达标 / 未达标` 切换。
+## 2026-07-30
+
+### 操作类型
+
+equity-research / workbench
+
+### 修改文件
+
+- `sources/webpages/2026-07-30-1041-福田汽车公开资料快照.md`
+- `sources/automations/支柱产业/高端制造/2026-07-30-1041-福田汽车-机构级决策研报.html`
+- `workbench/targets/2026-07-30-1041-福田汽车-机构级决策研报.md`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` 技能为福田汽车（600166.SH）新建机构级决策研报，并将 HTML 产物归档到 `sources/automations/支柱产业/高端制造/`。当前未热加载 `tushare-data` MCP 工具，因此第 2 章来源矩阵登记为“未获取到 / 回退公开页面”，并以 2025 年报、2026Q1 报告、2026 年 6 月产销快报、控股股东增持计划、投资者关系记录和公开行情页为主要证据。结论为“合理偏低”，新增现金 `wait / observe`，已有持仓 `wait`，核心验证点为 2026H1 扣非利润、毛利率、出口、新能源销量和 3.30 元附近承接。
+
+### 后续待办
+
+- 后续重跑时补齐 Tushare MCP 的日线、估值、资金分档、融资融券和财务字段，并用公司半年报复核 H1 正式利润、现金流和毛利率。
+
+## 2026-07-30
+
+### 操作类型
+
+workbench / artifact-routing
+
+### 修改文件
+
+- `sources/automations/支柱产业/高端制造/2026-07-30-1012-柳工-机构级决策研报.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求将柳工（000528.SZ）机构级决策研报 HTML 从 `sources/automations/temp/` 移动到 `sources/automations/支柱产业/高端制造/`。同目录未发现产业研报，未建立反向链接。
+
+### 后续待办
+
+- 若后续生成高端制造产业研报，可再将柳工个股 HTML 挂入产业研报入口。
+
+## 2026-07-30
+
+### 操作类型
+
+fund-flow-analysis / automation-snapshot / stock-monitoring
+
+### 修改文件
+
+- `sources/webpages/2026-07-30-东阳光资金面数据快照.md`
+- `sources/automations/新兴产业/算力/算力基础设施与能源/2026-07-30-东阳光资金面分析.html`
+- `log.md`
+
+### 操作说明
+
+按 `fund-flow-analysis` 技能为东阳光（600673.SH）生成资金面分析。优先使用本地 `tushare-data` 可覆盖数据，核验证券身份、日线、估值、资金分档、融资融券、财报和分红；最新完整交易日为 2026-07-29。结论保留为结构性流出，新增资金 `observe`，已有持仓因缺少成本、仓位和原计划而标记 `review`。HTML 保留模板 11 个一级章节，并显式区分资金方向、账户身份和数据层重叠边界。
+
+### 后续待办
+
+- 下一个完整交易日盘后复核 2026-07-30 日线、资金分档、融资融券和是否出现新增公告。
+- 补齐 ETF 份额 / 申赎、北向个股持股、龙虎榜、大宗交易、股东户数、解禁和 2026H1 法定财务后再提高交易方画像置信度。
+
+## 2026-07-30
+
+### 操作类型
+
+equity-research / workbench
+
+### 修改文件
+
+- `sources/webpages/2026-07-30-1011-江淮汽车公开资料快照.md`
+- `sources/automations/支柱产业/高端制造/2026-07-30-1011-江淮汽车-机构级决策研报.html`
+- `workbench/targets/2026-07-30-1011-江淮汽车-机构级决策研报.md`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` 技能为江淮汽车（600418.SH）新建机构级决策研报，并将 HTML 产物归档到 `sources/automations/支柱产业/高端制造/`。当前未热加载 `tushare-data` MCP 工具，因此第 2 章来源矩阵登记为“未获取到 / 回退公开页面”，并以公司公告、公开行情页和库内冰冰小美 2026-07-09 江淮汽车跟踪为主要证据。结论为“偏高 / 高波动期权定价”，新增现金 `observe`，已有持仓 `review / reduce`，核心验证点为尊界交付、扣非亏损、经营现金流和 22 元附近承接。目标目录下未发现可匹配产业研报，未建立 HTML 反向链接。
+
+### 后续待办
+
+- 后续重跑时补齐 Tushare MCP 的日线、估值、资金分档、融资融券和财务字段，并用公司半年报复核 H1 正式亏损、现金流和分部口径。
+
 ## 2026-07-29
 
 ### 操作类型
@@ -18442,3 +18793,264 @@ skill-maintenance / bbxm-equity-research / data-source-priority
 ### 后续待办
 
 - 下一次用 A 股标的生成机构级研报时，检查第 2 章来源矩阵是否明确列出 `tushare-data` MCP 工具调用结果，并确认五年财务历史仍经交易所 / 巨潮 / 公司年报复核。
+## 2026-07-30
+
+### 操作类型
+
+tooling / dashboard / rerender-log
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/scripts/local_proxy.py`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+修复 A 股大盘面板“一键更新”失败时难以定位的问题：本地代理现在会将浏览器主动断开连接记录为 `CLIENT_DISCONNECT`，不再打印大段 traceback；研报批量重新生成会按标的逐条写入 `TRACKING_REPORT_RERENDER_START`、`TRACKING_REPORT_RERENDER_ITEM_START`、`TRACKING_REPORT_RERENDER_ITEM_RUN`、`TRACKING_REPORT_RERENDER_ITEM_OK / SKIP / FAIL` 和汇总日志。前端失败提示改为“更新失败，看日志”，并在浏览器控制台输出接口返回结果或错误对象。
+
+### 后续待办
+
+- 后续若需要页面内实时进度条，可将当前单次 POST 改成任务 ID + 轮询日志状态；本次先满足本地服务窗口和 `data/proxy.log` 可追踪。
+
+## 2026-07-30
+
+### 操作类型
+
+tooling / dashboard / equity-research-render
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/scripts/local_proxy.py`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/tests/test_local_proxy.py`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+在 A 股大盘面板的持仓跟踪页，“新增跟踪”后新增“一键更新”按钮。按钮通过本地代理触发跟踪清单中标的的机构级研报 Markdown 重新生成 HTML：后端从 `workbench/targets` 匹配研报母稿，从 `sources/automations` 匹配同名 HTML 或复用同标的旧 HTML 所在目录，并调用 `bbxm-equity-research` 的 HTML 渲染脚本生成；找不到母稿或可定位输出目录的标的会跳过并返回原因。
+
+### 后续待办
+
+- 如果后续希望“一键更新”同时创建缺失 HTML，需要补充每个标的的输出目录映射规则，避免落到临时目录或错误产业分类。
+
+## 2026-07-30
+
+### 操作类型
+
+automation / bbxm-daily-brief / risk-analysis
+
+### 修改文件
+
+- `sources/automations/BBXM每日汇总/2026-07-30/冰冰小美/summary.md`
+- `sources/automations/BBXM每日汇总/2026-07-30/冰冰小美/操作.md`
+- `sources/automations/BBXM每日汇总/2026-07-30/冰冰小美/processing/risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026-07-30/冰冰小美/*_解读.md`
+- `log.md`
+
+### 操作说明
+
+按 BBXM 每日汇总自动化提示词抓取并整理 2026-07-30 冰冰小美雪球内容，保存 16 条当日原帖并为每条生成冰冰小美体系解读；生成当日操作信号、summary.md 和风险分析 JSON。因候选详情页 `https://xueqiu.com/7143769715/402860635` 在 CDP 导航阶段超时，风险分析标记为 `analysis_complete=false`，禁止自动写入 Excel。
+
+### 后续待办
+
+- 同日或次日重跑雪球详情页抓取，补齐 `402860635` 后再允许风险分析完成并尝试写入风险提示 Excel。
+- 后续可单独修复 `wiki/people/冰冰小美.md` 乱码，并补齐提示词中缺失的三份体系页面。
+
+## 2026-07-31
+
+### 操作类型
+
+automation / dashboard / metadata
+
+### 修改文件
+
+- `.agents/automations/bbxm_daliy_brief.md`
+- `sources/automations/BBXM每日汇总/*/冰冰小美/*.md`
+- `tools/a-share-market-dashboard/scripts/build.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+将 BBXM 每日汇总帖子的标签记录位置调整到原帖 Markdown 元数据区，支持一个或多个标签；自动化说明要求后续新增或同日重跑时直接在原帖补写 `标签：` 字段。A 股大盘面板构建脚本改为从原帖标签字段读取精选汇总标签，兼容新格式 `标签：...` 与旧格式 `- 标签：...`，不再按正文关键词临时推断展示标签。已为现有 117 篇冰冰小美原帖补齐标签并重新生成仪表盘 HTML。
+
+### 后续待办
+
+- 后续生成新帖时检查自动化输出是否持续把标签写入原帖头部，而不是只写入 `_解读.md`。
+
+## 2026-07-31
+
+### 操作类型
+
+dashboard / rename
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+将 A 股大盘面板中原“精选汇总”的可见文案统一改为“每日跟踪”，包括左侧温度计菜单入口、市场总览入口卡片、页面标题、筛选导航说明和变更日志展示文案；内部视图标识继续沿用 `featured-digest`，避免扩大路由与状态迁移范围。
+
+### 后续待办
+
+- 如果后续需要连内部代码命名也从 `featured-digest` 迁移为每日跟踪语义，可单独安排一次路由与测试命名清理。
+
+## 2026-07-31
+
+### 操作类型
+
+automation / prompt
+
+### 修改文件
+
+- `.agents/automations/bbxm_daliy_brief.md`
+- `log.md`
+
+### 操作说明
+
+调整 BBXM 每日汇总自动化提示词：取消逐帖生成单独解读文件的步骤，改为每篇帖子只生成原帖 Markdown，标签写入原帖头部，逐帖观点与原文内容统一进入 `summary.md`。第五步 `summary.md` 输出规则改为区分专栏文章与普通帖子：专栏文章只记录发布时间和核心观点，普通帖子需要把原文主要内容汇总进 `summary.md`。
+
+### 后续待办
+
+- 下次运行每日汇总任务时，检查输出目录中是否不再新增逐帖解读文件，并确认普通帖原文汇总已进入 `summary.md`。
+
+## 2026-07-31
+
+### 操作类型
+
+dashboard / feature
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/scripts/build.mjs`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+在 A 股大盘面板的“每日跟踪”帖子卡片中新增“显示原文”按钮。构建阶段从原帖 Markdown 提取正文或旧格式“原文内容”，清理基础页面噪声后编码写入卡片；点击按钮时在当前页面解码并展开原文，再次点击收起，不跳转到新窗口。补充对应样式与测试断言，并重新生成仪表盘 HTML。
+
+### 后续待办
+
+- 如后续原帖正文过长影响单页体积，可考虑改成本地代理按需读取原帖文件。
+
+## 2026-07-31
+
+### 操作类型
+
+dashboard / validation
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+为 A 股大盘面板“持仓跟踪”的新增跟踪表单增加重复校验：保存前按证券代码或标的名称检查已有跟踪清单，新增时若发现同名或同代码标的则阻止保存并在表单内提示“已在跟踪清单中”；编辑原条目时允许保存自身。同步补充表单状态提示、错误态样式、单元测试和重新生成后的 HTML。
+
+### 后续待办
+
+- 如果后续需要在本地代理写入接口层面也禁止重复，可继续为 `/api/portfolio` 增加服务端去重校验。
+
+## 2026-07-31
+
+### 操作类型
+
+dashboard / feature
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/scripts/build.mjs`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+在 A 股大盘面板“每日跟踪”的帖子卡片操作区新增“删除”按钮。点击删除时弹出浏览器确认框；确认后按帖子稳定链接隐藏该卡片，并同步隐藏“当前热点”中的同一帖子，删除状态写入本地浏览器存储，刷新页面后仍保持隐藏。补充按钮样式、构建输出标识和测试断言，并重新生成仪表盘 HTML。
+
+### 后续待办
+
+- 当前删除仅影响本地仪表盘显示；如后续需要真实删除原帖 Markdown，可新增本地代理接口并做文件级确认与备份。
+
+## 2026-07-31
+
+### 操作类型
+
+dashboard / feature / file-operation
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/scripts/local_proxy.py`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/tests/test_local_proxy.py`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+将“每日跟踪”帖子卡片的删除按钮从本地隐藏升级为真实删除原始 Markdown：点击删除后先弹窗确认，确认后通过本地代理 `DELETE /api/featured-post` 删除对应 `sources/automations/BBXM每日汇总/{DATE}/冰冰小美/*.md` 原帖文件，删除成功后再隐藏当前卡片和热点项。后端删除接口只允许删除每日汇总目录中的普通原帖 Markdown，拒绝 `summary.md`、`操作.md`、`_解读.md`、越界路径和非目标目录文件。
+
+### 后续待办
+
+- 删除原帖后如需让静态 HTML 永久不包含该卡片，仍需重新运行 A 股大盘面板构建脚本。
+## 2026-07-31
+
+### 操作类型
+
+fund_flow_analysis
+
+### 修改文件
+
+- `sources/automations/新兴产业/2026-07-31-星源材质资金面分析.html`
+
+### 操作说明
+
+按 `fund-flow-analysis` 流程为星源材质生成资金面分析 HTML 快照。优先调用本地 Tushare MCP 获取 F3 融资融券、F5 资金分档、行情、估值、财务和分红数据；结论为结构性流出，新增资金动作为 `observe`，已有持仓动作为 `review`。
+
+### 后续待办
+
+- 补齐北向 / 跨境资金、ETF 份额与申赎、龙虎榜、大宗交易、回购 / 增减持、股东户数、质押、解禁和筹码分布。
+
+## 2026-07-31
+
+### 操作类型
+
+ingest / equity_research
+
+### 修改文件
+
+- `sources/articles/2026-07-31-星源材质研究来源汇总.md`
+- `workbench/targets/2026-07-31-1039-星源材质-机构级决策研报.md`
+- `workbench/index.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` 流程新建星源材质机构级决策研报，优先调用本地 Tushare MCP 获取证券身份、行情估值、资金、融资、财务和分红数据，并将原始研究来源汇总归档到 `sources/`。本次研报不进入正式 `wiki/`，仅登记到 `workbench/index.md`。
+
+### 后续待办
+
+- 下载并复核星源材质 2025 年报、2026 一季报和 2026 半年报 PDF 中的分部收入、资本开支、海外收入和管理层展望。
+- 补齐隔膜行业价格、产能利用率、同业估值、卖方目标价和 ETF / 北向 / 机构持仓数据。

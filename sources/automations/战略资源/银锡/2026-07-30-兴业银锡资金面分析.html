@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>兴业银锡资金面分析</title>
+  <style>
+    :root { --ink:#182230; --muted:#667085; --line:#d0d7e2; --soft:#f6f8fb; --navy:#111827; --accent:#0f766e; --warn:#b45309; --bad:#b42318; --good:#047857; }
+    body { margin:0; font-family:"Microsoft YaHei","Segoe UI",sans-serif; color:var(--ink); background:#eef2f7; line-height:1.65; }
+    main { max-width:1180px; margin:0 auto; padding:28px 22px 56px; }
+    header { background:var(--navy); color:white; padding:28px; border-radius:8px; margin-bottom:16px; }
+    h1 { margin:0 0 12px; font-size:30px; letter-spacing:0; }
+    h2 { margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid var(--line); font-size:22px; }
+    h3 { margin:22px 0 8px; font-size:18px; }
+    .meta, .summary { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; }
+    .meta div, .card, .section { background:white; border:1px solid var(--line); border-radius:8px; padding:14px; }
+    header .meta div { background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.18); }
+    .summary { margin:16px 0; }
+    .value { font-size:22px; font-weight:700; }
+    .tag { display:inline-block; padding:3px 8px; border-radius:999px; background:#e6fffb; color:var(--accent); font-size:13px; font-weight:700; }
+    .tag.warn { background:#fff7ed; color:var(--warn); }
+    .tag.bad { background:#fef3f2; color:var(--bad); }
+    .tag.good { background:#ecfdf3; color:var(--good); }
+    table { width:100%; border-collapse:collapse; background:white; margin:12px 0 18px; border:1px solid var(--line); }
+    th, td { border:1px solid var(--line); padding:9px 10px; vertical-align:top; }
+    th { background:#f1f5f9; text-align:left; }
+    td.num { text-align:right; white-space:nowrap; }
+    ul { padding-left:22px; }
+    a { color:#0f766e; text-decoration:none; }
+    .note { background:#fff7ed; border:1px solid #fed7aa; color:#7c2d12; border-radius:8px; padding:12px 14px; }
+    footer { color:var(--muted); font-size:13px; margin-top:30px; }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>兴业银锡（000426.SZ）资金面分析</h1>
+    <div class="meta">
+      <div><strong>对象层级</strong><br>个股</div>
+      <div><strong>所属市场</strong><br>A 股 / 深交所 / 铅锌银锡资源</div>
+      <div><strong>分析截止时间</strong><br>2026-07-30 23:59 Asia/Shanghai</div>
+      <div><strong>比较窗口</strong><br>当日或最新可得 / 近5个可得交易日 / 近20个可得交易日</div>
+      <div><strong>核心问题</strong><br>兴业银锡资金面是否从分歧转向可买入的结构性流入？</div>
+    </div>
+  </header>
+
+  <section class="summary">
+    <div class="card"><div>资金状态</div><div class="value">多空分歧</div><span class="tag warn">短线修复，中期仍弱</span></div>
+    <div class="card"><div>新增资金</div><div class="value">wait / 0%</div><span class="tag warn">不追反弹</span></div>
+    <div class="card"><div>已有持仓</div><div class="value">review</div><span class="tag">需结合成本仓位</span></div>
+    <div class="card"><div>关键冲突</div><div class="value">价弱 + F3弱</div><span class="tag bad">F5短线转正</span></div>
+  </section>
+
+  <h2>1. 核心结论与行动</h2>
+  <div class="section">
+    <ul>
+      <li><strong>资金状态：</strong>多空分歧。Tushare 资金分档显示近 5 个可得交易日订单流转正，但近 20 个可得交易日 `net_mf_amount` 仍大幅净流出；价格在 2026-07-30 下跌 -2.63%，近 5 日约 -6.22%，近 20 日约 -8.24%。</li>
+      <li><strong>主导资金：</strong>短线大额订单代理有回补迹象，但账户身份不可穿透，不能写成机构买入。</li>
+      <li><strong>主要分歧或拖累：</strong>按修改后的技能强制调用 `get_margin_detail` 后，F3 融资融券核到 2026-07-29：近 5 日融资净买入约 -2,274.62 万元，近 20 日约 -45,624.05 万元，杠杆资金不支持共振流入。</li>
+      <li><strong>新增资金：</strong>wait；0%。资金面没有达到 `buy` 条件，尤其不能在价格转弱、融资中期流出时追高。</li>
+      <li><strong>已有持仓：</strong>review；用户未提供成本、仓位、原计划和风险预算，不能直接给 sell / reduce / wait 的绝对动作。</li>
+      <li><strong>总体置信度：</strong>中。Tushare MCP 核心日频数据较完整，但北向、ETF、龙虎榜、产业资本当日交易和 2026-07-30 当日资金分档仍缺失。</li>
+    </ul>
+  </div>
+
+  <h2>2. 数据审计</h2>
+  <table>
+    <thead><tr><th>数据项目</th><th>最新时点</th><th>观察窗口</th><th>来源</th><th>口径与覆盖范围</th><th>数据性质</th><th>缺口及影响</th></tr></thead>
+    <tbody>
+      <tr><td>证券身份</td><td>2026-07-30</td><td>当前</td><td>Tushare MCP get_stock_basic</td><td>000426.SZ，深交所上市，地区内蒙古，行业铅锌；中文字段返回显示异常，未直接写入结论</td><td>已验证事实</td><td>无</td></tr>
+      <tr><td>日线行情</td><td>2026-07-30</td><td>22 个交易日</td><td>Tushare MCP get_stock_daily</td><td>不复权日线；收盘价、涨跌幅、成交量、成交额</td><td>已验证事实</td><td>无</td></tr>
+      <tr><td>估值交易指标</td><td>2026-07-30</td><td>22 个交易日</td><td>Tushare MCP get_stock_valuation</td><td>PE、PE_TTM、PB、PS_TTM、市值、换手率</td><td>已验证事实</td><td>历史分位未获取到</td></tr>
+      <tr><td>资金分档 / F5</td><td>2026-07-29</td><td>21 个交易日</td><td>Tushare MCP get_stock_moneyflow</td><td>订单规模统计代理，单位万元</td><td>统计代理</td><td>2026-07-30 当日资金分档未获取到；账户身份不可穿透</td></tr>
+      <tr><td>融资融券 / F3</td><td>2026-07-29</td><td>21 个交易日</td><td>Tushare MCP get_margin_detail</td><td>row_count=21；字段含 rzye、rzmre、rzche、rqye、rzrqye；融资净买入 = rzmre - rzche</td><td>已验证事实 / 统计代理</td><td>2026-07-30 当日融资融券未获取到；融资买入与订单流部分重叠</td></tr>
+      <tr><td>财报基础校验</td><td>2026Q1</td><td>最新季报</td><td>Tushare MCP get_financial_statements</td><td>营业收入约 21.30 亿元，归母净利润约 13.38 亿元，经营现金流约 12.17 亿元</td><td>已验证事实</td><td>半年报正式数未披露</td></tr>
+      <tr><td>分红</td><td>2025 年度方案</td><td>低频</td><td>Tushare MCP get_dividend_history</td><td>2025 年度方案通过，现金分红税前 0.11 元/股；实施日未获取到</td><td>已验证事实</td><td>当前股息率字段为空</td></tr>
+      <tr><td>北向、ETF、龙虎榜、产业资本</td><td>2026-07-30 检索</td><td>最新可得</td><td>公开检索</td><td>未取得可直接使用的当日主体数据</td><td>缺口</td><td>降低交易方身份判断置信度</td></tr>
+    </tbody>
+  </table>
+
+  <h3>基本面与价格预期校验</h3>
+  <table>
+    <thead><tr><th>校验项</th><th>当前事实</th><th>来源</th><th>与资金面的关系</th><th>缺口及影响</th></tr></thead>
+    <tbody>
+      <tr><td>市场预期 / 共识</td><td>资金交易的是银、锡价格、矿产银放量、H1 高增长和战略资源叙事</td><td>新浪财经半年度业绩预告、既有研报</td><td>解释短线订单流回补的叙事</td><td>一致预期逐份样本未获取到</td></tr>
+      <tr><td>基本面证据</td><td>2026H1 预告归母净利润 21.40 亿至 23.70 亿元，同比 +168.95% 至 +197.86%</td><td>新浪财经公告转载</td><td>基本面方向支持资金关注</td><td>正式半年报预约 2026-08-29，仍需落地验证</td></tr>
+      <tr><td>价格预期位置</td><td>2026-07-30 收盘 31.50 元，日跌 -2.63%，近 5 日约 -6.22%，近 20 日约 -8.24%</td><td>Tushare daily</td><td>价格没有确认短线流入，反而体现承接不足</td><td>无</td></tr>
+      <tr><td>估值与分红</td><td>PE_TTM 20.97 倍、PB 5.17 倍、总市值约 559.33 亿元；2025 年度方案 0.11 元/股税前</td><td>Tushare valuation/dividend</td><td>估值不低，分红不是本轮资金主因</td><td>股息率字段为空，历史估值分位未获取到</td></tr>
+      <tr><td>宏观与行业背景</td><td>银、锡、铅锌资源品与有色周期、美元利率、工业需求和贵金属风险偏好相关</td><td>公开行业背景</td><td>中性偏顺风，但波动大</td><td>未取得当日商品价格联动和板块广度</td></tr>
+    </tbody>
+  </table>
+
+  <h3>已检查范围</h3>
+  <ul>
+    <li>Tushare MCP：get_stock_basic、get_stock_daily、get_stock_valuation、get_stock_moneyflow、get_margin_detail、get_financial_statements、get_dividend_history。</li>
+    <li>公开检索：半年度业绩预告、股东户数、H 股申请发回、同花顺资金口径。</li>
+    <li>未取得：2026-07-30 当日资金分档、2026-07-30 融资融券、北向个股持股、ETF 申赎、龙虎榜席位、产业资本当日交易、质押、解禁和大宗交易。</li>
+  </ul>
+
+  <h2>3. 资金来源全景</h2>
+  <table>
+    <thead><tr><th>资金类型</th><th>当日</th><th>近5日</th><th>近20日</th><th>核心证据</th><th>持续性</th><th>退出或反转条件</th></tr></thead>
+    <tbody>
+      <tr><td>外资与跨境资金</td><td>未获取到</td><td>未获取到</td><td>未获取到</td><td>未取得陆股通 / QFII 当日变动</td><td>待验证</td><td>持股数量连续增加并与价格强势共振</td></tr>
+      <tr><td>杠杆资金</td><td>2026-07-29 小幅净买</td><td>流出</td><td>明显流出</td><td>F3 最新 +1,592.53 万元；近5日 -2,274.62 万元；近20日 -45,624.05 万元</td><td>低</td><td>融资净买入连续转正且余额不靠价格被动抬升</td></tr>
+      <tr><td>公募与ETF</td><td>未获取到</td><td>未获取到</td><td>未获取到</td><td>未取得有色/资源 ETF 份额及兴业银锡权重映射</td><td>待验证</td><td>ETF 份额扩张且权重映射明确</td></tr>
+      <tr><td>产业资本</td><td>未获取到</td><td>未获取到</td><td>中性偏风险</td><td>H 股上市申请被发回并拟重新递交；不构成经营证伪，但属于融资供给变量</td><td>待验证</td><td>H 股折价、摊薄或大宗减持压力显性化</td></tr>
+      <tr><td>保险与长期资金</td><td>未获取到</td><td>未获取到</td><td>未获取到</td><td>缺少低频持仓更新</td><td>待验证</td><td>定期报告披露增配</td></tr>
+      <tr><td>私募与信托</td><td>未获取到</td><td>未获取到</td><td>未获取到</td><td>缺少产品仓位和席位证据</td><td>待验证</td><td>公开持仓或席位证据出现</td></tr>
+      <tr><td>券商资管</td><td>未获取到</td><td>未获取到</td><td>未获取到</td><td>未取得产品持仓代理</td><td>待验证</td><td>产品披露验证</td></tr>
+      <tr><td>个人资金</td><td>未获取到</td><td>分歧</td><td>筹码扩散</td><td>2026-07-10 股东户数 215,400 户，高于 6 月中旬；小单代理未系统归因</td><td>低</td><td>户数下降、换手收敛且价格企稳</td></tr>
+      <tr><td>筹码供给</td><td>未获取到</td><td>待验证</td><td>压力变量</td><td>H 股申请重递交是潜在融资供给；质押、解禁、大宗未取得</td><td>待验证</td><td>供给落地价格与规模明确</td></tr>
+    </tbody>
+  </table>
+
+  <h3>流入机制</h3>
+  <table>
+    <thead><tr><th>机制</th><th>是否存在</th><th>证据</th><th>边界与下一验证点</th></tr></thead>
+    <tbody>
+      <tr><td>场外真实增量</td><td>证据不足</td><td>没有北向、ETF、基金、长期资金增量证据</td><td>等待持股或份额数据</td></tr>
+      <tr><td>存量迁移</td><td>可能存在</td><td>银锡资源叙事和短线 F5 转正，可能吸引有色内部轮动</td><td>需要板块相对强弱和流出端验证</td></tr>
+      <tr><td>减量报团</td><td>证据不足</td><td>缺少板块广度和成交集中度</td><td>等待有色板块广度和 ETF 申赎</td></tr>
+    </tbody>
+  </table>
+
+  <h2>4. 交易方画像与数据层独立性</h2>
+  <h3>4.1 交易方画像</h3>
+  <table>
+    <thead><tr><th>交易方</th><th>方向</th><th>角色</th><th>核心证据</th><th>证据等级</th><th>反证</th><th>不可知项</th></tr></thead>
+    <tbody>
+      <tr><td>G 国家队 / 政策性资金</td><td>不可知</td><td>未确认</td><td>无可识别政策性账户数据</td><td>不可知</td><td>无</td><td>ETF 持有人和政策工具未取得</td></tr>
+      <tr><td>I 内资机构</td><td>弱净买代理</td><td>短线承接候选</td><td>大单 + 特大单近5日约 +4,576.10 万元，近20日约 +36,271.68 万元</td><td>弱推断</td><td>Tushare `net_mf_amount` 近20日 -116,742.64 万元；价格转弱</td><td>大额订单不等于机构账户</td></tr>
+      <tr><td>N 北向 / 跨境资金</td><td>不可知</td><td>未确认</td><td>未取得陆股通个股持股变化</td><td>不可知</td><td>无</td><td>持股数量和交易方向缺口</td></tr>
+      <tr><td>Q QFII 等境外机构</td><td>不可知</td><td>未确认</td><td>2026Q1 有 QFII 持仓结构线索，但当期变动未取得</td><td>不可知</td><td>无</td><td>低频披露滞后</td></tr>
+      <tr><td>H 游资 / 量化 / 短线资金</td><td>分歧</td><td>短线交易主导候选</td><td>订单流短线转正，但价格下跌</td><td>弱推断</td><td>无龙虎榜身份锚点</td><td>席位和高频拆单不可知</td></tr>
+      <tr><td>M 融资等杠杆资金</td><td>净卖 / 去杠杆</td><td>拖累</td><td>近20日融资净买入约 -45,624.05 万元，融资余额较 7 月 2 日下降约 43,335.72 万元</td><td>可靠推断</td><td>最新单日 7 月 29 小幅净买</td><td>7 月 30 当日数据缺口</td></tr>
+      <tr><td>R 个人 / 小额订单代理</td><td>不可知 / 筹码扩散</td><td>承接未确认</td><td>股东户数 7 月 10 为 215,400 户，较 6 月中旬继续增加</td><td>弱推断</td><td>小单分档无法直接等同个人</td><td>当日个人买卖方向不可知</td></tr>
+      <tr><td>C 产业资本 / 公司 / 内部人</td><td>中性偏供给风险</td><td>潜在供给</td><td>H 股申请发回后拟重递交，属于融资变量</td><td>弱推断</td><td>公告称不涉及实质性不利变化</td><td>定价、规模、摊薄和完成时间未定</td></tr>
+    </tbody>
+  </table>
+  <ul>
+    <li><strong>主卖方：</strong>中期层面是融资资金和整体 `net_mf_amount` 代理。</li>
+    <li><strong>主买方：</strong>短线层面是大单 + 特大单代理，但账户身份不可确认。</li>
+    <li><strong>主要承接方：</strong>统计代理层面的短线大额订单；没有直接主体锚点。</li>
+    <li><strong>无法确认的主体：</strong>国家队、北向、QFII 当期变动、公募 ETF、产业资本当日交易。</li>
+  </ul>
+
+  <h3>4.2 数据层与独立性</h3>
+  <table>
+    <thead><tr><th>数据渠道</th><th>当前结果</th><th>身份锚点</th><th>与其他层关系</th><th>可用于什么结论</th><th>不能推出什么</th></tr></thead>
+    <tbody>
+      <tr><td>资金分档 / 订单流</td><td>近5日转正，近20日整体净流出</td><td>无</td><td>与融资买入、龙虎榜、ETF成分交易可能重叠</td><td>订单规模方向</td><td>机构、游资或散户真实身份</td></tr>
+      <tr><td>跨境流量与持股</td><td>未获取到</td><td>应有身份锚点但缺数据</td><td>与订单流部分重叠</td><td>不可用</td><td>北向净买卖</td></tr>
+      <tr><td>融资融券</td><td>近20日明显净流出</td><td>融资账户</td><td>余额较独立，融资买入与订单流部分重叠</td><td>杠杆风险偏好偏弱</td><td>与 F5 加总为总净流</td></tr>
+      <tr><td>大宗交易</td><td>未获取到</td><td>可能有席位</td><td>通常独立于竞价</td><td>不可用</td><td>无大宗压力</td></tr>
+      <tr><td>龙虎榜</td><td>未获取到</td><td>若上榜可提供席位</td><td>全市场成交子集</td><td>不可用</td><td>全市场机构方向</td></tr>
+      <tr><td>回购 / 增减持</td><td>未获取到当日执行</td><td>公司/股东</td><td>低频独立</td><td>不可用</td><td>产业资本无动作</td></tr>
+      <tr><td>股东户数 / 持仓披露</td><td>股东户数继续偏高</td><td>账户数量但非身份</td><td>低频独立且滞后</td><td>筹码分散代理</td><td>当日主买方身份</td></tr>
+      <tr><td>ETF 份额与申赎</td><td>未获取到</td><td>无</td><td>成分交易可能进入订单流</td><td>不可用</td><td>国家队或配置盘买入</td></tr>
+      <tr><td>质押 / 解禁</td><td>未获取到完整当日数据</td><td>股东/供给</td><td>通常独立</td><td>不可用</td><td>没有质押或解禁风险</td></tr>
+      <tr><td>筹码成本 / 获利比例</td><td>未获取到</td><td>无</td><td>与量价半独立</td><td>不可用</td><td>账户身份或强平风险</td></tr>
+    </tbody>
+  </table>
+
+  <h3>4.3 信号冲突与不可知</h3>
+  <ul>
+    <li><strong>方向冲突：</strong>大额订单代理短线转正，但价格下跌、近20日整体订单流净流出、融资资金近20日明显净流出。</li>
+    <li><strong>重复统计：</strong>融资买入可能进入订单流；若后续出现龙虎榜，也只是成交子集，不提高独立证据等级。</li>
+    <li><strong>金额方向与身份边界：</strong>可确认订单规模方向，不能确认机构或国家队买卖。</li>
+    <li><strong>不可知项：</strong>北向、ETF、产业资本、龙虎榜、质押、解禁、当日大宗均未获取到；未获取到不等于没有。</li>
+    <li><strong>下一身份验证点：</strong>陆股通持股、龙虎榜席位、ETF 份额和权重、半年报前十大流通股东、H 股重递交文件。</li>
+  </ul>
+
+  <h2>5. F3/F5/F7 日频面板</h2>
+  <table>
+    <thead><tr><th>指标</th><th>定义</th><th>当日</th><th>近5日</th><th>近20日</th><th>方向与持续性</th><th>价格响应</th><th>数据质量与代理边界</th></tr></thead>
+    <tbody>
+      <tr><td>F3</td><td>融资净买入</td><td>2026-07-29 +1,592.53 万元；2026-07-30 未获取到</td><td>-2,274.62 万元；融资余额较 2026-07-23 增加 6,518.59 万元</td><td>-45,624.05 万元；融资余额较 2026-07-02 下降 43,335.72 万元</td><td>中期偏弱，最新单日修复不足以逆转</td><td>与 7 月 30 价格下跌共同偏弱</td><td>本地 Tushare MCP get_margin_detail，row_count=21；融资买入与订单流部分重叠</td></tr>
+      <tr><td>F5</td><td>大额订单 / 资金分档代理</td><td>2026-07-29 `net_mf_amount` +16,021.61 万元；大单 + 特大单约 +8,912.35 万元</td><td>`net_mf_amount` +17,291.32 万元；大单 + 特大单约 +4,576.10 万元</td><td>`net_mf_amount` -116,742.64 万元；大单 + 特大单约 +36,271.68 万元</td><td>短线修复，中期内部口径分歧</td><td>价格未确认，7 月 30 下跌</td><td>Tushare moneyflow，row_count=21；订单规模不确认账户身份</td></tr>
+      <tr><td>F7</td><td>ETF估算净申赎</td><td>未获取到</td><td>未获取到</td><td>未获取到</td><td>待验证</td><td>无法判断</td><td>需有色/贵金属/资源 ETF 样本、份额和权重映射；申购者身份未知</td></tr>
+    </tbody>
+  </table>
+
+  <h3>指标关系审计</h3>
+  <ul>
+    <li><strong>可能重叠：</strong>融资买入会进入成交订单流；ETF 成分股交易可能进入订单流；龙虎榜若出现属于成交子集。</li>
+    <li><strong>不可直接比较：</strong>F5 到 2026-07-29，F3 到 2026-07-29，日线与估值到 2026-07-30，F7 未取得。</li>
+    <li><strong>是否发生机械求和：</strong>否。F3、F5、F7 只比较方向、持续性和冲突，不加总。</li>
+  </ul>
+
+  <h2>6. 价格、广度与筹码交叉验证</h2>
+  <table>
+    <thead><tr><th>验证项</th><th>当前事实</th><th>与资金信号关系</th><th>结论影响</th></tr></thead>
+    <tbody>
+      <tr><td>价格响应</td><td>2026-07-30 收 31.50 元，日跌 -2.63%，近5日约 -6.22%，近20日约 -8.24%</td><td>背离短线资金分档修复</td><td>降低流入置信度</td></tr>
+      <tr><td>成交与换手</td><td>2026-07-30 换手率 3.66%，成交额约 20.97 亿元</td><td>仍有交易活跃度，但未形成价格确认</td><td>中性偏弱</td></tr>
+      <tr><td>上涨广度</td><td>有色/银锡板块广度未获取到</td><td>证据不足</td><td>不能升级为板块共振</td></tr>
+      <tr><td>相对强弱</td><td>个股 5 日、20 日均为负收益</td><td>未确认资金主导向上</td><td>偏弱</td></tr>
+      <tr><td>筹码供给与抛压</td><td>股东户数偏高且 H 股重递交是潜在供给变量</td><td>供给压力未消除</td><td>压制新增资金动作</td></tr>
+      <tr><td>连续性</td><td>F5 短线转正，F3 与价格未同步</td><td>反复 / 分歧</td><td>维持多空分歧</td></tr>
+      <tr><td>基本面与价格预期</td><td>H1 高增长预告强，但 7 月下旬价格和融资资金未确认</td><td>基本面强、资金确认不足</td><td>等待正式半年报和资金连续性</td></tr>
+    </tbody>
+  </table>
+
+  <h2>7. 资金分歧与传导链</h2>
+  <div class="section">
+    <ul>
+      <li><strong>主导链条：</strong>银锡资源价格和 H1 高增长预告 → 短线大额订单代理回补 → 但价格未确认、融资资金仍偏弱 → 当前只能判为多空分歧。</li>
+      <li><strong>反向链条：</strong>股东户数上升、H 股供给变量、融资净买入近20日大幅为负 → 筹码与杠杆资金承接不足 → 反弹容易被兑现或轮动资金退出。</li>
+      <li><strong>谁在承接：</strong>短线大额订单代理；没有可识别机构、北向、QFII 或产业资本主体锚点。</li>
+      <li><strong>潜在退出路径：</strong>如果银锡价格回落、H 股重递交带来供给折价担忧、或 F5 再度转负，短线资金可能继续撤退；融资盘下降会放大价格波动。</li>
+    </ul>
+  </div>
+
+  <h2>8. 支持证据、反证与缺口</h2>
+  <h3>支持当前状态的证据</h3>
+  <ul>
+    <li>Tushare moneyflow：2026-07-29 `net_mf_amount` +16,021.61 万元，近 5 个可得交易日 +17,291.32 万元。</li>
+    <li>大单 + 特大单代理近 5 个可得交易日约 +4,576.10 万元，近 20 个可得交易日约 +36,271.68 万元。</li>
+    <li>2026H1 业绩预告显示归母净利润预计同比 +168.95% 至 +197.86%，基本面叙事仍强。</li>
+  </ul>
+  <h3>核心反证</h3>
+  <ul>
+    <li>2026-07-30 股价 -2.63%，近 5 日约 -6.22%，近 20 日约 -8.24%，价格没有确认资金流入。</li>
+    <li>Tushare `net_mf_amount` 近 20 个可得交易日合计 -116,742.64 万元，中期资金仍偏流出。</li>
+    <li>Tushare `get_margin_detail`：近 20 个可得交易日融资净买入约 -45,624.05 万元，融资余额较 2026-07-02 下降约 43,335.72 万元。</li>
+    <li>同花顺资金面诊股公开页面显示另一主动资金口径近 5 日流出 18,784.51 万元，与 Tushare 近 5 日方向冲突，说明口径差异较大。</li>
+  </ul>
+  <h3>数据缺口</h3>
+  <ul>
+    <li>2026-07-30 当日资金分档和融资融券未获取到，Tushare 资金流和融资融券最新到 2026-07-29。</li>
+    <li>北向、ETF、龙虎榜、产业资本当日交易、质押、解禁、大宗交易未获取到。</li>
+    <li>H1 正式半年报尚未披露，业绩预告中的非经常性损益和后续资源品价格仍需验证。</li>
+  </ul>
+
+  <h2>9. 行动与仓位映射</h2>
+  <h3>新增资金</h3>
+  <table>
+    <thead><tr><th>行动</th><th>条件化仓位</th><th>触发条件</th><th>维持条件</th><th>取消条件</th></tr></thead>
+    <tbody>
+      <tr><td>wait</td><td>0%</td><td>当前不新增</td><td>等待 F5 连续为正、F3 近5日转正、价格不再放量下跌、板块广度修复</td><td>若近20日 F5 和 F3 同步转正且价格重新强于有色板块，可进入试探评估</td></tr>
+    </tbody>
+  </table>
+  <h3>已有持仓</h3>
+  <table>
+    <thead><tr><th>行动</th><th>仓位调整</th><th>触发条件</th><th>维持条件</th><th>取消条件</th></tr></thead>
+    <tbody>
+      <tr><td>review</td><td>不预设比例</td><td>缺少成本、仓位、原计划和风险预算</td><td>若成本低且原计划是等半年报，可继续跟踪资金连续性</td><td>若成本接近现价且 F5 再度转负、F3 延续流出、价格跌破关键计划线，应转入 reduce / sell 复盘</td></tr>
+    </tbody>
+  </table>
+
+  <h2>10. 下一验证点与失效条件</h2>
+  <ul>
+    <li><strong>下一验证时间：</strong>下一个交易日收盘后；以及 2026-08-29 半年报披露。</li>
+    <li><strong>下一验证指标：</strong>2026-07-30 之后 Tushare moneyflow 和 get_margin_detail 更新；近 5 日 F5 / F3 是否同步转正；价格是否站回 33 元以上且不放量滞涨。</li>
+    <li><strong>基本面与价格预期验证：</strong>H1 正式净利润、扣非利润、矿产银产销量、银锡价格、H 股申请重递交文件和潜在摊薄。</li>
+    <li><strong>当前判断失效条件：</strong>F5 近 5 日重新转负、F3 继续净流出、价格跌破 30 元并放量，或 H 股供给折价担忧增强。</li>
+    <li><strong>行动升级条件：</strong>wait → buy 评估，需要结构性流入确认：订单流、融资、价格、板块广度至少三项同步转强，并出现一个身份锚点或长期资金线索。</li>
+    <li><strong>行动降级条件：</strong>review → reduce / sell 需要结合用户持仓；若资金转为共振流出且价格破位，应降低风险敞口。</li>
+  </ul>
+
+  <h2>11. 来源与使用边界</h2>
+  <h3>当前数据来源</h3>
+  <ul>
+    <li><a href="../../../webpages/2026-07-30-兴业银锡资金面数据快照.md">2026-07-30 兴业银锡资金面数据快照</a>：本次 Tushare MCP 数据、公开检索和缺口边界。</li>
+    <li>本地 Tushare MCP：get_stock_basic、get_stock_daily、get_stock_valuation、get_stock_moneyflow、get_margin_detail、get_financial_statements、get_dividend_history。</li>
+    <li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12444524&stockid=000426">新浪财经：兴业银锡 2026 年半年度业绩预告</a>。</li>
+    <li><a href="https://quote.cfi.cn/gdhs/97/000426.html">中财网：兴业银锡股东户数</a>。</li>
+    <li><a href="https://doctor.10jqka.com.cn/000426/">同花顺资金面诊股</a>：另一主动资金口径，用于冲突提示，不替代 Tushare MCP。</li>
+    <li><a href="https://finance.sina.com.cn/stock/relnews/cn/2026-07-16/doc-inihyywa1307063.shtml">新浪财经转载：H 股上市申请被发回并拟重递交</a>。</li>
+  </ul>
+  <h3>框架依据</h3>
+  <ul>
+    <li>华泰证券《A股择时之资金面指标测试》（2021-07-02）：资金来源分类与历史指标检验参考。</li>
+    <li>F3/F5/F7 监测文章：日频代理思路参考，不视为已验证或可直接复制的择时模型。</li>
+  </ul>
+  <h3>使用边界</h3>
+  <ul>
+    <li>资金分档是订单规模代理，不确认机构、游资、量化、个人或国家队账户身份。</li>
+    <li>融资买入会进入订单流，不能与资金分档机械相加。</li>
+    <li>股东户数是低频滞后指标，只能作为筹码分散或收敛代理。</li>
+    <li>业绩预告和估值只用于资金持续性校验，不替代完整公司估值和交易计划。</li>
+    <li>本文为公开信息资金面记录，不构成收益保证或投资建议。</li>
+  </ul>
+
+  <footer>Generated on 2026-07-30 for local llmwiki automation archive.</footer>
+</main>
+</body>
+</html>
