@@ -300,10 +300,11 @@ test('market summary renders three overview cards and includes signal sources in
   assert.match(appSource, /<p>\$\{escapeHtml\(displayDate\)\}<\/p>/);
   assert.doesNotMatch(artifact, /CSI_DIVIDEND_SIGNAL\s*=\s*Object\.freeze\(\s*\/\/ CSI_DIVIDEND_SIGNAL/);
   assert.doesNotMatch(artifact, /CSI_DIVIDEND_YIELD_HISTORY\s*=\s*Object\.freeze\(\s*\/\/ CSI_DIVIDEND_YIELD_HISTORY/);
-  assert.match(artifact, /"dividendYield2": 4\.36/);
-  assert.match(artifact, /"spread": 2\.64/);
+  assert.match(artifact, /"dividendYield2": 4\.16/);
+  assert.match(artifact, /"spread": 2\.44/);
   assert.match(artifact, /"spreadSignal": "C（小额定投）"/);
   assert.match(artifact, /"date": "2026-06-02"[\s\S]*"value": 4\.83/);
+  assert.doesNotMatch(artifact, /<circle class="is-(?:high|low)"/);
   assert.match(readFileSync(new URL('../scripts/build.mjs', import.meta.url), 'utf8'), /中证红利每日信号\.xlsx/);
 });
 

@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "target_date": "2026-08-03",
+  "status": "no_risk",
+  "count": 0,
+  "workbook": "tools\\bbxm-risk-dashboard\\data\\冰冰小美风险提示.xlsx",
+  "analysis_file": "sources\\automations\\BBXM每日汇总\\2026-08-03\\冰冰小美\\processing\\risk-analysis.json",
+  "message": "完整分析后没有可写入节点，未修改 Excel"
+}

@@ -1,0 +1,1666 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>国药现代机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+.daily-tracking { margin: 0 0 42px; padding: 22px; border: 1px solid #cbdade; border-radius: 16px; background: linear-gradient(135deg, #f3f8f9 0%, #fffaf0 100%); box-shadow: 0 12px 30px rgba(23, 50, 71, .07); }
+.daily-tracking-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
+.daily-tracking-kicker { margin: 0 0 4px; color: var(--teal); font-size: 12px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+.daily-tracking h2 { margin: 0; padding: 0; border: 0; font-size: 27px; }
+.daily-tracking-time { margin: 4px 0 0; color: var(--muted); font-size: 12px; text-align: right; }
+.tracking-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.tracking-grid + .tracking-grid { margin-top: 12px; }
+.tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
+.tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
+.tracking-card[data-tracking-key="dynamic-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
+.range-breakdown { display: block; }
+.range-main { display: inline-flex; align-items: center; max-width: 100%; margin-bottom: 10px; padding: 3px 9px; border-radius: 999px; background: #e7f0f3; color: var(--navy); font-size: 20px; line-height: 1.3; font-weight: 800; }
+.range-points { display: grid; gap: 7px; margin-top: 1px; }
+.range-point { display: block; padding-left: 11px; border-left: 3px solid #bed2d8; color: #245068; font-size: 14px; line-height: 1.52; font-weight: 650; }
+.tracking-value.bad { color: var(--danger); }
+.tracking-detail { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; }
+.tracking-status { display: inline-flex; margin-top: 10px; padding: 3px 8px; border-radius: 999px; color: #526b77; background: #edf2f4; font-size: 12px; font-weight: 700; }
+.tracking-status.live { color: #17604e; background: #dff3eb; }
+.tracking-status.error { color: var(--danger); background: var(--danger-bg); }
+.tracking-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; margin-top: 14px; padding-top: 13px; border-top: 1px solid #d5e0e3; color: #536d78; font-size: 13px; }
+.tracking-footer a { font-weight: 700; }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+  .tracking-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+  .daily-tracking-head { display: block; }
+  .daily-tracking-time { text-align: left; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .daily-tracking, .tracking-card { border: 1px solid #aebbc2; color: #102f43; background: #fff; box-shadow: none; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · 600420.SH</p>
+      <h1>国药现代机构级决策研报</h1>
+      <div class="hero-meta"><span>2026-08-03 11:28（Asia/Shanghai，盘中）</span><span>2026-08-03</span><span>上海证券交易所 / CNY</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
+<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
+<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
+<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
+<a class="toc-link" href="#section-6">6. 五年财务历史</a>
+<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
+<a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
+<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
+<a class="toc-link" href="#section-10">10. 估值</a>
+<a class="toc-link" href="#section-11">11. 冰冰小美框架判断</a>
+<a class="toc-link" href="#section-12">12. 最终结论</a>
+<a class="toc-link" href="#section-13">13. 后续监控指标</a>
+<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
+<a class="toc-link" href="#section-15">15. 来源清单</a>
+<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
+      <article class="content"><blockquote>
+<p>证券代码：600420.SH<br>交易所 / 币种：上海证券交易所 / CNY<br>研究截止时间：2026-08-03 11:28（Asia/Shanghai，盘中）<br>报告生成时间：2026-08-03<br>数据口径：法定披露以巨潮资讯 / 上交所公告 PDF 为准；行情为腾讯公开行情盘中快照；Tushare MCP 未热加载为可调用工具。  </p>
+</blockquote>
+<!-- DAILY_TRACKING_START -->
+<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-08-03 11:28（Asia/Shanghai，盘中）" data-value-low="6.8" data-value-high="-9.6">
+  <div class="daily-tracking-head">
+    <div><p class="daily-tracking-kicker">Daily decision tracker</p><h2>每日跟踪面板</h2></div>
+    <p class="daily-tracking-time">更新：2026-08-03 11:28（Asia/Shanghai，盘中）<br>下次：收盘后 / 重大公告后</p>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value bad">恶化。2026Q1 收入 -20.81%、归母净利 -61.71%、扣非 -57.86%；2026H1 预告归母净利同比下降 54.61%-63.54%。</p><p class="tracking-detail">风险方向：风险重新增强。2025 年盈利下滑后，2026Q1/H1 预告把风险从“周期压力”推进到“利润兑现大幅下修”。。下一验证点与失效条件见第 11—13 章。</p></div>
+    <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value"><span class="range-breakdown"><span class="range-main">6.8-9.6 元</span><span class="range-points"><span class="range-point">6.8 元附近=按 2026H1 预告年化后的保守盈利底线</span><span class="range-point">8.0-8.8 元=盈利承压但央企平台与分红仍有效的中枢</span><span class="range-point">9.6 元附近=需要 H2 原料药价格企稳、制剂毛利稳定和扣非修复支撑</span><span class="range-point">10 元以上需盈利预测重新上修。</span></span></span></p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
+    <div class="tracking-card" data-tracking-key="risk-reward"><p class="tracking-label">盈亏比</p><p class="tracking-value" id="risk-reward-value">未获取到</p><p class="tracking-detail" id="risk-reward-detail">价格或动态价值区间无法解析，未计算盈亏比。</p></div>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="daily-quote"><p class="tracking-label">每日同步价</p><p class="tracking-value">8.92 元，2026-08-03 11:28 盘中；前收 8.84 元，日内 +0.90%。</p><p class="tracking-detail">这是报告内嵌的正式跟踪基准，离线打开仍可使用。</p><span class="tracking-status">每日快照</span></div>
+    <div class="tracking-card" data-tracking-key="intraday-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">等待连接</p><p class="tracking-detail" id="intraday-detail">通过“大盘启动器”打开后获取盘中行情，每 60 秒刷新；直接打开 HTML 时不访问外部行情。</p><span class="tracking-status" id="intraday-status">未连接</span></div>
+    <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">wait / observe；已有持仓 review。</p><p class="tracking-detail">估值：表观便宜但不构成低估；盈利下修前景下属于“低 PB + 利润坍缩验证期”。 · wait / observe；已有持仓 review。；风险：风险重新增强。2025 年盈利下滑后，2026Q1/H1 预告把风险从“周期压力”推进到“利润兑现大幅下修”。；结论置信度：中高。财报和业绩预告证据强；资金分档、融资融券、卖方一致预期未取得，交易判断降一档。。</p><span class="tracking-status">表观便宜但不构成低估；盈利下修前景下属于“低 PB + 利润坍缩验证期”。</span></div>
+  </div>
+  <div class="tracking-footer"><span>资金状态：<strong>弱修复但证据不足。6 月末破位后 7 月初有反弹，当前成交额约 0.37 亿元、换手 0.31%，不足以证明机构增量承接。</strong> · 新增/已有动作：<strong>wait / observe；已有持仓 review。</strong></span><span>资金面分析：未单独生成</span></div>
+</section>
+<!-- DAILY_TRACKING_END -->
+<h2 id="section-1">1. 决策摘要</h2>
+
+<h3>1.1 基本面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值状态</td>
+<td>表观便宜但不构成低估；盈利下修前景下属于“低 PB + 利润坍缩验证期”。</td>
+</tr>
+<tr>
+<td>综合估值区间</td>
+<td>6.8-9.6 元；6.8 元附近=按 2026H1 预告年化后的保守盈利底线，8.0-8.8 元=盈利承压但央企平台与分红仍有效的中枢，9.6 元附近=需要 H2 原料药价格企稳、制剂毛利稳定和扣非修复支撑，10 元以上需盈利预测重新上修。</td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>现价 8.92 元处于估值区间中上部；到上沿约 +7.6%，回落至下沿约 -23.8%，新增现金盈亏比不足。</td>
+</tr>
+<tr>
+<td>基本面状态</td>
+<td>恶化。2026Q1 收入 -20.81%、归母净利 -61.71%、扣非 -57.86%；2026H1 预告归母净利同比下降 54.61%-63.54%。</td>
+</tr>
+<tr>
+<td>关键经营变化</td>
+<td>2025 年收入和利润已同比下滑；2026Q1 与 H1 预告显示抗生素中间体及原料药价格下行、毛利率坍缩是主因；管理层仍采取“以价换量”保份额，但市场此前对低估值和央企医药平台的防御预期被盈利预减打破。</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td>中高。财报和业绩预告证据强；资金分档、融资融券、卖方一致预期未取得，交易判断降一档。</td>
+</tr>
+</tbody></table>
+<h3>1.2 资金面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>操作建议</td>
+<td>观望 / 规避新增。已有低成本仓位可 review；若 H1 正式报未改善，倾向 reduce。</td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td>wait / observe；已有持仓 review。</td>
+</tr>
+<tr>
+<td>当前价格及时间</td>
+<td>8.92 元，2026-08-03 11:28 盘中；前收 8.84 元，日内 +0.90%。</td>
+</tr>
+<tr>
+<td>资金状态</td>
+<td>弱修复但证据不足。6 月末破位后 7 月初有反弹，当前成交额约 0.37 亿元、换手 0.31%，不足以证明机构增量承接。</td>
+</tr>
+<tr>
+<td>风险方向</td>
+<td>风险重新增强。2025 年盈利下滑后，2026Q1/H1 预告把风险从“周期压力”推进到“利润兑现大幅下修”。</td>
+</tr>
+<tr>
+<td>每日跟踪时间</td>
+<td>2026-08-03 11:28（Asia/Shanghai，盘中）</td>
+</tr>
+<tr>
+<td>资金面分析链接</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<h3>如果今天这是一笔现金，我会买它吗</h3>
+<ul>
+<li>回答：不会；只在特定条件下重新评估。</li>
+<li>我的判断：国药现代的央企平台、原料药 + 制剂一体化和分红能力仍有底，但当前最重要的变量不是估值便宜，而是盈利是否还在下修。H1 预告确认原料药板块毛利率从 32.04% 降到 17.32%，这个幅度足以压低估值中枢。</li>
+<li>改变结论的条件：H1 正式报显示价格压力边际放缓；H2 原料药毛利率回到 20%以上；制剂板块收入和毛利率不再同步下滑；股价回落至 7.5 元附近并出现缩量止跌。</li>
+</ul>
+<h2 id="section-2">2. 证券身份与来源矩阵</h2>
+
+<h3>2.1 证券身份</h3>
+<ul>
+<li>公司全称：上海现代制药股份有限公司</li>
+<li>证券代码：600420.SH</li>
+<li>上市地：上海证券交易所 A 股</li>
+<li>报告准则：中国企业会计准则</li>
+<li>法定披露体系：A 股交易所与巨潮资讯</li>
+<li>同名或跨市场歧义：无。简称“国药现代”，曾用简称“现代制药”。</li>
+</ul>
+<h3>2.2 来源矩阵</h3>
+<table>
+<thead>
+<tr>
+<th>数据项目</th>
+<th>目标来源</th>
+<th>实际来源</th>
+<th>数据时间</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Tushare MCP 调用清单（A股适用）</td>
+<td><code>tushare-data</code> MCP 已暴露工具</td>
+<td>当前会话未热加载可调用 Tushare MCP；已通过 tool search 检查，无对应可调用工具</td>
+<td>2026-08-03</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>证券身份与上市状态</td>
+<td><code>get_stock_basic</code>；交易所 / 巨潮 / 公司公告</td>
+<td>2025 年报、巨潮公告</td>
+<td>2026-03-28</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>实时价格、52周高低、今年以来表现</td>
+<td>Tushare / 行情平台</td>
+<td>腾讯公开行情 <code>qt.gtimg.cn</code></td>
+<td>2026-08-03 11:28</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>估值、市值、股息率和换手率</td>
+<td>Tushare 估值；行情平台</td>
+<td>腾讯公开行情</td>
+<td>2026-08-03 11:28</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>资金分档 / 大单资金代理</td>
+<td>Tushare moneyflow</td>
+<td>未获取到；仅有成交额、换手和日线量价</td>
+<td>2026-08-03</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>融资融券代理</td>
+<td>Tushare margin / 交易所</td>
+<td>未获取到</td>
+<td>2026-08-03</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>第三方公允价值、护城河、星级</td>
+<td>第三方平台</td>
+<td>未获取到</td>
+<td>2026-08-03</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>最新季报与管理层指引</td>
+<td>公司公告</td>
+<td>2026Q1 报告、2026H1 业绩预告</td>
+<td>2026-04-30 / 2026-07-11</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>分部收入</td>
+<td>年报</td>
+<td>2025 年报经营分析</td>
+<td>2026-03-28</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>卖方评级与目标价</td>
+<td>券商研报</td>
+<td>未获取到可审计样本</td>
+<td>2026-08-03</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>近三个月新闻与催化剂</td>
+<td>公司公告</td>
+<td>半年度业绩预告、权益分派、药品注册证 / MAH 转让公告</td>
+<td>2026-05 至 2026-07</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>五年财务历史</td>
+<td>财务报表 / 年报</td>
+<td>2023-2025 年报三年表交叉复核</td>
+<td>2021-2025</td>
+<td>已获取；资本开支未可靠抽取</td>
+</tr>
+<tr>
+<td>分红历史</td>
+<td>Tushare / 公司公告</td>
+<td>2025 年年度权益分派实施公告</td>
+<td>2026-05-26</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>指数成分与权重（如适用）</td>
+<td>中证 / 基金公告</td>
+<td>未获取到</td>
+<td>2026-08-03</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 行情与市场预期</h2>
+
+<h3>3.1 行情快照（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">数值</th>
+<th>来源</th>
+<th>时间 / 口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前价格</td>
+<td align="right">8.92 元</td>
+<td>腾讯公开行情</td>
+<td>2026-08-03 11:28 盘中</td>
+</tr>
+<tr>
+<td>52周最高</td>
+<td align="right">11.48 元</td>
+<td>腾讯公开行情</td>
+<td>盘中快照字段</td>
+</tr>
+<tr>
+<td>52周最低</td>
+<td align="right">7.67 元</td>
+<td>腾讯公开行情</td>
+<td>盘中快照字段</td>
+</tr>
+<tr>
+<td>今年以来表现</td>
+<td align="right">-9.90%</td>
+<td>腾讯公开行情</td>
+<td>年初至 2026-08-03 盘中</td>
+</tr>
+<tr>
+<td>总市值</td>
+<td align="right">119.63 亿元</td>
+<td>腾讯公开行情</td>
+<td>盘中快照</td>
+</tr>
+<tr>
+<td>PE / PB</td>
+<td align="right">PE TTM 16.65x；PB 0.88x</td>
+<td>腾讯公开行情</td>
+<td>盘中快照</td>
+</tr>
+</tbody></table>
+<h3>3.2 第三方公允价值与评级（事实）</h3>
+<ul>
+<li>公允价值：未获取到。</li>
+<li>护城河评级：未获取到。</li>
+<li>星级：未获取到。</li>
+<li>来源与时间：本次未接入付费估值平台。</li>
+<li>未获取到的字段及已检查来源：Tushare MCP 未可用；未使用搜索摘要填补。</li>
+</ul>
+<h3>3.3 卖方评级与目标价分布（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>机构</th>
+<th>日期</th>
+<th>评级</th>
+<th align="right">目标价</th>
+<th>预测期</th>
+<th>关键假设</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>未获取到</td>
+<td>-</td>
+<td>-</td>
+<td align="right">-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<ul>
+<li>目标价区间 / 中位数：未获取到。</li>
+<li>样本数量与完整性：无可审计样本。</li>
+<li>来源冲突及采信理由：不使用搜索摘要中的评级或目标价。</li>
+</ul>
+<h2 id="section-4">4. 商业模式与竞争格局</h2>
+
+<h3>4.1 事实</h3>
+<ul>
+<li>收入来源：医药中间体与原料药、化学制剂、动物疫苗、大健康等。</li>
+<li>客户与定价权：制剂端受国家和省级带量采购、医保控费和终端渠道影响；原料药 / 中间体端直接服务国内终端客户，国际市场面向境外医药企业与贸易商，价格受全球产能、贸易保护和客户需求影响。</li>
+<li>成本结构：制造业属性明显，原料药 / 中间体毛利率对价格高度敏感；制剂端需要研发、销售和合规体系。</li>
+<li>资本强度：拥有多剂型生产线，推进 MES、LIMS、ERP 等系统建设；2026Q1 固定资产约 50.57 亿元。</li>
+<li>竞争者：化学仿制药和抗生素产业链企业，包括普洛药业、华海药业及其他仿制药 / 原料药公司。</li>
+<li>监管约束：GMP、药品注册、仿制药一致性评价、集采、医保和环保安全监管。</li>
+</ul>
+<h4>多产业位置景气度排序（事实与判断分列）</h4>
+<table>
+<thead>
+<tr>
+<th align="right">排名</th>
+<th>产业位置</th>
+<th>位置识别依据（事实）</th>
+<th>公司业务 / 资产暴露（事实）</th>
+<th>当前景气度</th>
+<th>趋势</th>
+<th>景气证据与时间</th>
+<th>财务传导</th>
+<th>验证指标 / 失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">1</td>
+<td>化学制剂平台</td>
+<td>2025 年制剂板块收入 46.22 亿元，占收入 49.36%，毛利率 42.06%</td>
+<td>抗感染、心血管、麻醉及精神、代谢、抗肿瘤等</td>
+<td>中</td>
+<td>下行</td>
+<td>2025 年制剂收入 -15.21%，毛利率 -3.66pct；心血管部分以价换量</td>
+<td>价格下行压收入，市占率提升缓冲利润</td>
+<td>制剂收入恢复、毛利率稳定；若集采继续压价且新品不足，失效</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td>原料药及医药中间体</td>
+<td>2025 年收入 44.76 亿元，占 47.81%</td>
+<td>6-APA、7-ACA、青霉素工业钾盐、阿莫西林、克拉维酸钾等</td>
+<td>较低</td>
+<td>下行</td>
+<td>2026H1 预告称毛利率从 32.04% 降至 17.32%；2026Q1 同口径从 32.65% 降至 15.35%</td>
+<td>价格下降直接压缩利润，是当前业绩预减主因</td>
+<td>毛利率回到 20%+、出口价格企稳；若价格继续下行，估值继续下修</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td>动物疫苗 / 大健康</td>
+<td>年报披露拥有兽用疫苗和大健康产品</td>
+<td>收入占比未单独充分披露</td>
+<td>证据不足</td>
+<td>证据不足</td>
+<td>缺少分部利润和持续增长证据</td>
+<td>目前不足以支撑估值重定价</td>
+<td>单独收入、利润率、订单或注册证放量</td>
+</tr>
+</tbody></table>
+<ul>
+<li>位置间交叉与去重说明：原料药和制剂存在产业链一体化协同，但估值时不能把同一抗感染产品链条重复计入。</li>
+<li>排名第一的位置能否进入公司利润和现金流：制剂毛利率较高但仍下行；当前利润主导矛盾反而来自排名第二的原料药 / 中间体毛利率坍缩。</li>
+<li>弱关联 / 待验证位置：大健康和动物疫苗暂不构成核心估值驱动。</li>
+</ul>
+<h3>4.2 我的判断</h3>
+<ul>
+<li>我的判断：公司具备央企平台、国药集团协同、原料药 + 制剂一体化和多治疗领域产品组合优势，但这些优势当前只能提高生存质量，不能抵消原料药价格坍缩。</li>
+<li>我的判断：商业模式最脆弱环节是“集采向上游传导 + 原料药产能过剩 + 海外保护主义”三者同时压价格，导致以价换量失去利润弹性。</li>
+<li>证伪条件：H2 原料药 / 中间体毛利率企稳回升、制剂毛利率不再下滑、扣非净利恢复同比增长。</li>
+</ul>
+<h2 id="section-5">5. 分部收入与盈利拆解</h2>
+
+<table>
+<thead>
+<tr>
+<th>分部</th>
+<th align="right">收入</th>
+<th align="right">同比</th>
+<th align="right">收入占比</th>
+<th align="right">毛利率</th>
+<th align="right">毛利率变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>原料药及医药中间体</td>
+<td align="right">44.76 亿元</td>
+<td align="right">-13.89%</td>
+<td align="right">47.81%</td>
+<td align="right">未直接摘得年度值</td>
+<td align="right">-9.15pct</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>化学制剂</td>
+<td align="right">46.22 亿元</td>
+<td align="right">-15.21%</td>
+<td align="right">49.36%</td>
+<td align="right">42.06%</td>
+<td align="right">-3.66pct</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>其他（动物疫苗 / 大健康等）</td>
+<td align="right">未单独可靠摘得</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td>2025 年报</td>
+</tr>
+</tbody></table>
+<ul>
+<li>披露口径变化：本次以年报经营分析披露口径为准。</li>
+<li>来源冲突：无。</li>
+<li>采信理由：公司法定披露优先。</li>
+<li>我的判断：2025 年已经不是单一价格扰动，而是两大核心板块同步降收入；2026H1 预告把原料药 / 中间体确认成利润下修主因。</li>
+</ul>
+<h2 id="section-6">6. 五年财务历史</h2>
+
+<p>单位：亿元；ROIC 使用 ROE 作为资本回报代理值，原因是本次未可靠抽取投入资本口径。</p>
+<table>
+<thead>
+<tr>
+<th>财年</th>
+<th align="right">营收</th>
+<th align="right">毛利率</th>
+<th align="right">经营现金流</th>
+<th align="right">资本开支</th>
+<th align="right">自由现金流</th>
+<th align="right">ROIC / 代理值</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td align="right">139.45</td>
+<td align="right">未获取到</td>
+<td align="right">16.80</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">ROE 6.80%</td>
+<td>2023 年报</td>
+</tr>
+<tr>
+<td>2022</td>
+<td align="right">129.59</td>
+<td align="right">未获取到</td>
+<td align="right">28.56</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">ROE 7.09%</td>
+<td>2023/2024 年报</td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">120.70</td>
+<td align="right">未获取到</td>
+<td align="right">17.20</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">ROE 6.02%</td>
+<td>2023/2025 年报</td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">109.38</td>
+<td align="right">未获取到</td>
+<td align="right">22.56</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">ROE 8.45%</td>
+<td>2024/2025 年报</td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">93.63</td>
+<td align="right">未获取到</td>
+<td align="right">16.98</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">ROE 6.97%</td>
+<td>2025 年报</td>
+</tr>
+</tbody></table>
+<ul>
+<li>自由现金流口径：资本开支未从 PDF 文本层可靠抽取，因此不估算 FCF。</li>
+<li>ROIC 口径：未取得标准投入资本，使用加权 ROE 作为资本回报代理。</li>
+<li>一次性项目和会计变化：2025 年非经常性损益 0.92 亿元，低于归母净利 9.42 亿元，主业下滑是真问题；2023 年股本增加导致 EPS 和 ROE 摊薄。</li>
+<li>我的判断：五年收入从 139.45 亿元降至 93.63 亿元，经营现金流仍为正但趋势不稳定；这是“现金流尚可、收入与利润中枢下移”的公司，不是高成长标的。</li>
+</ul>
+<h2 id="section-7">7. 最新季度与管理层指引</h2>
+
+<h3>7.1 最新季度（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">本期</th>
+<th align="right">同比 / 变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营收</td>
+<td align="right">20.64 亿元</td>
+<td align="right">-20.81%</td>
+<td>2026Q1 报告</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">未披露总毛利率；原料药 / 中间体板块 15.35%</td>
+<td align="right">上年同期 32.65%</td>
+<td>2026Q1 报告说明</td>
+</tr>
+<tr>
+<td>净利润</td>
+<td align="right">1.38 亿元</td>
+<td align="right">-61.71%</td>
+<td>2026Q1 报告</td>
+</tr>
+<tr>
+<td>调整后利润</td>
+<td align="right">扣非 1.46 亿元</td>
+<td align="right">-57.86%</td>
+<td>2026Q1 报告</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">-3.63 亿元</td>
+<td align="right">-219.19%</td>
+<td>2026Q1 报告</td>
+</tr>
+<tr>
+<td>订单 / 储备</td>
+<td align="right">未获取到</td>
+<td align="right">-</td>
+<td>公司未在 Q1 报告中披露订单储备</td>
+</tr>
+</tbody></table>
+<h3>7.2 管理层指引（事实）</h3>
+<ul>
+<li>正式量化指引：2026H1 预告归母净利润 2.45-3.05 亿元，同比下降 54.61%-63.54%；扣非净利润 2.25-2.85 亿元，同比下降 55.26%-64.68%。</li>
+<li>定性展望：H1 预告称抗生素类中间体及原料药领域受海外保护主义、国内产能过剩、集采向上游传导影响，经营压力显著增大；公司优化销售结构、以价换量保持竞争优势，但部分重点产品价格同比明显下降。</li>
+<li>未获取到：H2 明确量化指引、订单或价格改善承诺。</li>
+</ul>
+<h3>7.3 我的判断</h3>
+<ul>
+<li>我的判断：边际变化是明确恶化，不是短期噪声。Q1 已经大幅下滑，H1 预告延续下滑，说明 Q2 没有立刻修复。</li>
+<li>我的判断：指引可信度较高，因为业绩预告直接披露区间、原因和毛利率变化。</li>
+<li>下一验证节点：2026 半年报正式披露后的分部收入、原料药 / 中间体毛利率、现金流和库存。</li>
+</ul>
+<h2 id="section-8">8. 近三个月新闻与催化剂</h2>
+
+<table>
+<thead>
+<tr>
+<th>发生日</th>
+<th>事件</th>
+<th>影响变量</th>
+<th>财务传导</th>
+<th>是否已反映</th>
+<th>验证节点</th>
+<th>失效条件</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-05-26</td>
+<td>2025 年年度权益分派，每股派 0.20 元</td>
+<td>股息率 / 防御属性</td>
+<td>以 8.92 元计静态股息率约 2.24%</td>
+<td>部分反映</td>
+<td>后续分红政策</td>
+<td>盈利下滑导致分红不可持续</td>
+<td>权益分派公告</td>
+</tr>
+<tr>
+<td>2026-07-11</td>
+<td>2026H1 业绩预告大幅预减</td>
+<td>盈利预期 / 估值锚</td>
+<td>归母净利 2.45-3.05 亿元，同比 -54.61% 至 -63.54%</td>
+<td>价格已部分反映，但估值中枢需下修</td>
+<td>半年报</td>
+<td>H2 毛利率快速修复</td>
+<td></td>
+</tr>
+<tr>
+<td>2026-07-25</td>
+<td>全资子公司获得药品注册证书</td>
+<td>产品管线</td>
+<td>丰富产品线，短期业绩影响通常有限</td>
+<td>未充分量化</td>
+<td>销售放量</td>
+<td>未中标 / 价格低 / 放量慢</td>
+<td></td>
+</tr>
+<tr>
+<td>2026-07-31</td>
+<td>乳果糖口服溶液 MAH 转让进展</td>
+<td>慢病产品线</td>
+<td>公司称有助于丰富慢病治疗产品线，对当期业绩不重大</td>
+<td>已公告但不是主线</td>
+<td>GMP 检查、上市销售</td>
+<td>销售不达预期</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="section-9">9. 多头与空头论据</h2>
+
+<h3>9.1 多头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>央企化学制药平台仍有资产质量底</td>
+<td>国药集团旗下化学药工业平台，多治疗领域布局</td>
+<td>净资产稳定、分红延续、研发注册进展</td>
+<td>盈利持续下滑导致 PB 折价扩大</td>
+</tr>
+<tr>
+<td>估值和股息有防御性</td>
+<td>PB 0.88x、PE TTM 16.65x，每股分红 0.20 元</td>
+<td>股价接近 7.5-8.0 元且利润不再下修</td>
+<td>分红下降或利润中枢继续下移</td>
+</tr>
+<tr>
+<td>产品注册和一致性评价持续推进</td>
+<td>2026 年多项药品注册证 / 一致性评价公告</td>
+<td>新品销售、集采中标、毛利贡献</td>
+<td>新品不放量或价格过低</td>
+</tr>
+</tbody></table>
+<h3>9.2 空头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>盈利出现断崖式下修</td>
+<td>2026Q1 归母 -61.71%，H1 预告归母 -54.61% 至 -63.54%</td>
+<td>H1 正式报、H2 毛利率</td>
+<td>H2 原料药价格和毛利率修复</td>
+</tr>
+<tr>
+<td>原料药 / 中间体毛利率坍缩</td>
+<td>Q1 从 32.65% 降至 15.35%；H1 从 32.04% 降至 17.32%</td>
+<td>产品价格、销量、毛利率</td>
+<td>行业供给出清或海外订单改善</td>
+</tr>
+<tr>
+<td>收入五年趋势下行</td>
+<td>2021-2025 收入从 139.45 亿元降至 93.63 亿元</td>
+<td>收入恢复增长</td>
+<td>新品和制剂板块带动总收入回升</td>
+</tr>
+</tbody></table>
+<h2 id="section-10">10. 估值</h2>
+
+<h3>10.1 相对估值</h3>
+<table>
+<thead>
+<tr>
+<th>公司</th>
+<th>业务可比性</th>
+<th align="right">增长</th>
+<th align="right">利润率</th>
+<th align="right">PE</th>
+<th align="right">PB</th>
+<th align="right">EV/EBITDA</th>
+<th>数据时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>国药现代</td>
+<td>化学仿制药 + 原料药 / 中间体</td>
+<td align="right">下行</td>
+<td align="right">承压</td>
+<td align="right">16.65</td>
+<td align="right">0.88</td>
+<td align="right">未获取到</td>
+<td>2026-08-03</td>
+</tr>
+<tr>
+<td>普洛药业</td>
+<td>原料药 / CDMO / 制剂</td>
+<td align="right">未核验</td>
+<td align="right">未核验</td>
+<td align="right">25.88</td>
+<td align="right">3.67</td>
+<td align="right">未获取到</td>
+<td>2026-08-03</td>
+</tr>
+<tr>
+<td>复星医药</td>
+<td>综合医药集团</td>
+<td align="right">未核验</td>
+<td align="right">未核验</td>
+<td align="right">17.74</td>
+<td align="right">1.28</td>
+<td align="right">未获取到</td>
+<td>2026-08-03</td>
+</tr>
+<tr>
+<td>人福医药</td>
+<td>制剂 / 麻醉药等</td>
+<td align="right">未核验</td>
+<td align="right">未核验</td>
+<td align="right">15.17</td>
+<td align="right">1.55</td>
+<td align="right">未获取到</td>
+<td>2026-08-03</td>
+</tr>
+<tr>
+<td>华海药业</td>
+<td>原料药 + 制剂</td>
+<td align="right">未核验</td>
+<td align="right">未核验</td>
+<td align="right">66.60</td>
+<td align="right">2.63</td>
+<td align="right">未获取到</td>
+<td>2026-08-03</td>
+</tr>
+</tbody></table>
+<ul>
+<li>选取理由：同属 A 股医药制造、仿制药 / 原料药 / 制剂相关公司；业务完全可比性有限。</li>
+<li>正常化调整：国药现代盈利处在下修期，不能直接用 2025 年或 TTM PE 作为便宜证据。</li>
+<li>对应每股价值区间：若按 2026E 归母 5.0-6.0 亿元、合理 PE 16-20x，对应市值 80-120 亿元，每股约 6.0-8.9 元；若 H2 修复至全年 7.0 亿元，20x 可到约 10.4 元。</li>
+<li>我的判断：相对估值只能支持“下跌有净资产和央企平台缓冲”，不能支持当前买入。</li>
+</ul>
+<h3>10.2 DCF</h3>
+<h4>关键假设</h4>
+<table>
+<thead>
+<tr>
+<th>假设</th>
+<th align="right">悲观</th>
+<th align="right">基准</th>
+<th align="right">乐观</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>收入增长</td>
+<td align="right">2026 年 -15%，后续低个位数</td>
+<td align="right">2026 年 -10%，后续 0%-3%</td>
+<td align="right">2026 年 -5%，后续 3%-5%</td>
+<td>2021-2025 收入下行，2026H1 预告承压</td>
+</tr>
+<tr>
+<td>经营利润率</td>
+<td align="right">6%-7%</td>
+<td align="right">7%-8%</td>
+<td align="right">8%-9%</td>
+<td>原料药毛利率大幅下滑，制剂仍有较高毛利</td>
+</tr>
+<tr>
+<td>税率</td>
+<td align="right">20%</td>
+<td align="right">20%</td>
+<td align="right">20%</td>
+<td>简化估算</td>
+</tr>
+<tr>
+<td>折旧摊销</td>
+<td align="right">未单列，含在利润率折现</td>
+<td align="right">未单列</td>
+<td align="right">未单列</td>
+<td>数据不足</td>
+</tr>
+<tr>
+<td>资本开支</td>
+<td align="right">未可靠抽取，按维护性支出内嵌</td>
+<td align="right">同左</td>
+<td align="right">同左</td>
+<td>数据缺口</td>
+</tr>
+<tr>
+<td>营运资本变化</td>
+<td align="right">偏负面</td>
+<td align="right">中性偏负</td>
+<td align="right">中性</td>
+<td>Q1 经营现金流转负</td>
+</tr>
+<tr>
+<td>WACC</td>
+<td align="right">8.5%</td>
+<td align="right">8.0%</td>
+<td align="right">7.5%</td>
+<td>A 股成熟医药制造估算</td>
+</tr>
+<tr>
+<td>永续增长率</td>
+<td align="right">0.5%</td>
+<td align="right">1.0%</td>
+<td align="right">1.5%</td>
+<td>成熟仿制药行业</td>
+</tr>
+</tbody></table>
+<h4>估值结果</h4>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">企业价值</th>
+<th align="right">净债务</th>
+<th align="right">股权价值</th>
+<th align="right">每股价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观</td>
+<td align="right">约 90 亿元</td>
+<td align="right">近似净现金 / 低债务</td>
+<td align="right">约 91 亿元</td>
+<td align="right">6.8 元</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">约 112 亿元</td>
+<td align="right">近似净现金 / 低债务</td>
+<td align="right">约 114 亿元</td>
+<td align="right">8.5 元</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">约 140 亿元</td>
+<td align="right">近似净现金 / 低债务</td>
+<td align="right">约 129-140 亿元</td>
+<td align="right">9.6-10.4 元</td>
+</tr>
+</tbody></table>
+<h4>敏感性分析</h4>
+<table>
+<thead>
+<tr>
+<th>WACC \ 永续增长率</th>
+<th align="right">0.5%</th>
+<th align="right">1.0%</th>
+<th align="right">1.5%</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>7.5%</td>
+<td align="right">8.8</td>
+<td align="right">9.6</td>
+<td align="right">10.4</td>
+</tr>
+<tr>
+<td>8.0%</td>
+<td align="right">7.8</td>
+<td align="right">8.5</td>
+<td align="right">9.3</td>
+</tr>
+<tr>
+<td>8.5%</td>
+<td align="right">6.8</td>
+<td align="right">7.4</td>
+<td align="right">8.1</td>
+</tr>
+</tbody></table>
+<h4>反向 DCF</h4>
+<ul>
+<li>当前价格隐含的收入增长 / 终值利润率：大致隐含公司能够在 2026 年后止住收入下滑，并把经营利润率稳定在 7.5%-8% 附近。</li>
+<li>与历史和行业相比是否可实现：不是不可能，但需要原料药 / 中间体价格压力停止扩散；当前证据还没到。</li>
+<li>我的判断：现价不贵，但也不便宜到可以忽视盈利风险。</li>
+</ul>
+<h3>10.3 行业特定估值</h3>
+<ul>
+<li>方法：P/B-ROE。</li>
+<li>适用理由：国药现代当前利润波动较大，PB 低于 1，但 ROE 也从 2024 年 8.45% 回落至 2025 年 6.97%，2026 年还会继续承压。</li>
+<li>关键假设：若 2026E ROE 下降到 3%-4%，合理 PB 约 0.65-0.85；若 2027 年 ROE 回到 6%-7%，合理 PB 可回到 0.9-1.1。</li>
+<li>对应每股价值区间：2026Q1 每股净资产约 10.38 元；0.65-0.95x PB 对应 6.7-9.9 元。</li>
+<li>局限性：净资产质量较好但并不自动等于股价修复，ROE 才是 PB 修复的钥匙。</li>
+</ul>
+<h3>10.4 估值交叉验证</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="right">每股价值区间</th>
+<th align="right">权重</th>
+<th>采信理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>相对估值</td>
+<td align="right">6.0-10.4 元</td>
+<td align="right">35%</td>
+<td>反映医药制造可比估值，但盈利下修期要打折</td>
+</tr>
+<tr>
+<td>DCF</td>
+<td align="right">6.8-10.4 元</td>
+<td align="right">35%</td>
+<td>能纳入收入下行和利润率压力，但资本开支缺口降低精度</td>
+</tr>
+<tr>
+<td>P/B-ROE</td>
+<td align="right">6.7-9.9 元</td>
+<td align="right">30%</td>
+<td>适合低 PB、ROE 下行阶段</td>
+</tr>
+</tbody></table>
+<ul>
+<li>综合估值区间：6.8-9.6 元。</li>
+<li>相对现价上行 / 下行空间：现价 8.92 元至上沿约 +7.6%，至下沿约 -23.8%。</li>
+<li>为什么不机械平均：盈利下修期应压低 DCF 和 PE 权重的乐观端；PB 只能提供底线，不直接提供买点。</li>
+</ul>
+<h2 id="section-11">11. 冰冰小美框架判断</h2>
+
+<h3>11.1 三要素状态总表</h3>
+<ul>
+<li>三要素结论来源：<code>bbxm-three-factor-analysis</code></li>
+<li>分析对象与层级：国药现代 / 个股</li>
+<li>分析截止时间：2026-08-03 11:28</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>状态</th>
+<th>核心证据</th>
+<th>核心反证</th>
+<th>失效条件</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>中性偏不利</td>
+<td>国药平台和产业链一体化仍在</td>
+<td>原料药产能过剩、集采向上游传导，毛利率大幅下滑</td>
+<td>原料药毛利率重回 20%+</td>
+<td>中高</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>不利</td>
+<td>年初以来 -9.90%，成交和换手低，H1 预减后无强承接证据</td>
+<td>低 PB 和分红可能带来防御资金</td>
+<td>放量突破并站回 9.6 元，同时业绩不再下修</td>
+<td>中</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>不利</td>
+<td>价值锚从“央企低估 + 分红”转为“盈利预减”</td>
+<td>7.67-8.0 元附近可能有净资产防守预期</td>
+<td>半年报利空钝化、缩量止跌</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h4>前六步证据映射</h4>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>前六步证据来源</th>
+<th>已验证证据</th>
+<th>反证与缺口</th>
+<th>分析状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>第 4—7 章；第 2 章来源矩阵</td>
+<td>平台、产品和分部披露；H1 预告</td>
+<td>未获取行业价格序列</td>
+<td>可判断</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>第 3 章量价；第 8—9 章；第 2 章来源矩阵</td>
+<td>盘中价、日线、成交、换手</td>
+<td>未获取资金分档 / 融资融券 / ETF</td>
+<td>降低置信度</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>第 3、8、9 章</td>
+<td>H1 预减后股价仍弱，年内跑输</td>
+<td>未获取讨论热度和机构持仓</td>
+<td>可作中等置信判断</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Step 6 估值约束：估值区间 6.8-9.6 元，现价处于中上部，限制新增现金动作。</li>
+<li>补采证据回填：本报告未在第 11 章额外补采孤立数据。</li>
+</ul>
+<h3>11.2 竞争格局与比较优势</h3>
+<h4>前文证据引用</h4>
+<ul>
+<li><p>商业模式与竞争底稿：见第 4 章。</p>
+</li>
+<li><p>分部与资本回报证据：见第 5—7 章。</p>
+</li>
+<li><p>相关来源状态：见第 2 章来源矩阵。</p>
+</li>
+<li><p>分析对象与竞争层级：化学仿制药 / 抗生素原料药产业链中的央企平台。</p>
+</li>
+<li><p>当前状态：中性偏不利。</p>
+</li>
+<li><p>证据充分性：较充分；依据为年报、Q1 报告和 H1 预告。</p>
+</li>
+<li><p>多产业位置景气度排序：制剂中等下行，原料药 / 中间体较低下行，动物疫苗和大健康证据不足。</p>
+</li>
+<li><p>产业链位置与利润池：公司有原料药 + 制剂一体化，但当前利润池被上游价格战和集采传导压缩。</p>
+</li>
+<li><p>核心比较优势：央企平台、产品文号、品牌、产业链协同、渠道覆盖。</p>
+</li>
+<li><p>竞争对手与替代方案：其他仿制药和原料药企业；集采使替代更容易发生。</p>
+</li>
+<li><p>份额、定价权、客户黏性与进入壁垒：份额和文号是优势，定价权是弱点。</p>
+</li>
+<li><p>竞争优势转化为订单、利润和现金回报的情况：2026H1 暂未转化，利润明显下滑。</p>
+</li>
+<li><p>当前决策含义：有观察价值，但不支持新增买入。</p>
+</li>
+</ul>
+<h4>证据</h4>
+<ul>
+<li>2025 年报披露公司拥有 1,309 个药品批准文号、21 个兽用疫苗批准文号。</li>
+<li>原料药及医药中间体收入 44.76 亿元，制剂收入 46.22 亿元。</li>
+<li>多项制剂产品市场占有率位居行业前列。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>2026H1 预告归母净利同比下降 54.61%-63.54%。</li>
+<li>原料药 / 中间体毛利率大幅下降。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>若 H2 仍未看到毛利率修复，比较优势需从“中性偏不利”下调为“不利”。</li>
+</ul>
+<h3>11.3 流动性辩证分析</h3>
+<ul>
+<li>当前状态：不利。</li>
+<li>证据充分性：不充分；仅有公开价格、成交额和换手率，缺少资金分档和融资融券。</li>
+</ul>
+<h4>宏观流动性</h4>
+<ul>
+<li>总量环境与边际变化：未做宏观专题更新，本报告不以宏观流动性作为买入依据。</li>
+<li>对本标的的传导：医药低估值防御资金可能受益于宽松环境，但盈利预减会削弱承接。</li>
+</ul>
+<h4>中观流动性</h4>
+<ul>
+<li>行业 / 主题 / ETF / 机构配置变化：未获取到 ETF 和机构配置数据。</li>
+<li>对本标的的传导：医药防御属性不足以抵消业绩预减。</li>
+</ul>
+<h4>微观流动性</h4>
+<ul>
+<li>成交额、换手率、量价结构、融资和大单：2026-08-03 盘中成交额约 0.37 亿元、换手 0.31%；6 月底曾跌至前复权 7.78 元，7 月初反弹至 8.85-9.0 元附近。</li>
+<li>连续窗口与相对强弱：年初以来 -9.90%，弱于一般防御资产预期。</li>
+</ul>
+<h4>资金来源分类</h4>
+<table>
+<thead>
+<tr>
+<th>资金来源</th>
+<th>当前状态</th>
+<th>连续窗口证据</th>
+<th>对价格的含义</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>长期配置资金</td>
+<td>证据不足</td>
+<td>未获取 ETF / 机构持仓</td>
+<td>不作为买点依据</td>
+<td>低</td>
+</tr>
+<tr>
+<td>趋势 / 交易资金</td>
+<td>偏弱</td>
+<td>7 月反弹后未站稳 9.6 元</td>
+<td>反弹更像修复而非主升</td>
+<td>中</td>
+</tr>
+<tr>
+<td>产业资本 / 内部人</td>
+<td>证据不足</td>
+<td>未获取增减持</td>
+<td>不判断</td>
+<td>低</td>
+</tr>
+</tbody></table>
+<h4>供给与抛压</h4>
+<table>
+<thead>
+<tr>
+<th>供给来源</th>
+<th>当前状态</th>
+<th>时间窗口</th>
+<th>影响</th>
+<th>验证方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>解禁 / 减持</td>
+<td>未获取到</td>
+<td>-</td>
+<td>不判断</td>
+<td>交易所公告</td>
+</tr>
+<tr>
+<td>再融资 / 可转债</td>
+<td>未获取到新增</td>
+<td>-</td>
+<td>不判断</td>
+<td>公告</td>
+</tr>
+<tr>
+<td>获利盘 / 套牢盘</td>
+<td>中性偏不利</td>
+<td>10 元以上套牢较多</td>
+<td>反弹压力位明显</td>
+<td>9.6-10 元成交表现</td>
+</tr>
+</tbody></table>
+<h4>最低数据检查</h4>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>当前窗口</th>
+<th>对比窗口</th>
+<th>结论</th>
+<th>数据源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>成交额与换手率</td>
+<td>0.37 亿元、0.31%</td>
+<td>7 月初反弹日量能更高</td>
+<td>当前承接不足</td>
+<td>腾讯公开行情</td>
+</tr>
+<tr>
+<td>融资余额与融资买入</td>
+<td>未获取到</td>
+<td>未获取到</td>
+<td>数据缺口</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>主力 / 大单资金</td>
+<td>未获取到</td>
+<td>未获取到</td>
+<td>数据缺口</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>ETF / 北向 / 机构代理指标</td>
+<td>未获取到</td>
+<td>未获取到</td>
+<td>数据缺口</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<h4>证据</h4>
+<ul>
+<li>年初以来下跌，低位反弹未形成趋势突破。</li>
+<li>H1 预减后没有强势放量重估证据。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>PB 低于 1，分红和央企平台可能吸引防御资金。</li>
+</ul>
+<h4>退出路径</h4>
+<ul>
+<li>资金流入如何退出：若 H1 正式报继续证实利润坍缩，低估值资金可能转向其他高股息 / 稳利润资产。</li>
+<li>持续性被证伪的信号：跌破 7.67 元前低，或反弹至 9.6 元附近放量滞涨。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>半年报后价格对利空钝化、换手放大且站稳 9.6 元。</li>
+</ul>
+<h3>11.4 情绪位置变化</h3>
+<ul>
+<li>当前状态：不利。</li>
+<li>证据充分性：中等；公告与价格反馈可用，讨论热度和资金主体缺失。</li>
+<li>当前所处阶段：下跌后的弱修复 / 验证期。</li>
+<li>个股相对板块与指数的强弱：年初以来 -9.90%，弱。</li>
+<li>催化兑现后的价格反馈：分红不能改变下行趋势，H1 预减成为新的负面锚。</li>
+</ul>
+<h4>证据</h4>
+<ul>
+<li>2026Q1 和 H1 预告连续下修，市场对“低估值央企医药”的价值锚转弱。</li>
+<li>7 月初反弹后仍在 8.5-9.2 元附近震荡，未形成上攻确认。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>6 月底低点后有反弹，说明低 PB 区间仍有承接。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>半年报披露后利空不跌，并且缩量站稳 9 元、放量突破 9.6 元。</li>
+</ul>
+<h3>11.5 综合状态与主导矛盾</h3>
+<ul>
+<li>三要素综合判断：尚未形成有利共振。</li>
+<li>主导要素：基本面 / 竞争格局恶化。</li>
+<li>拖累要素：流动性和情绪位置。</li>
+<li>主导矛盾：低 PB 防御属性与盈利大幅下修之间的矛盾。</li>
+<li>下一验证节点：2026 半年报正式披露。</li>
+<li>状态切换条件：原料药 / 中间体毛利率企稳，制剂收入不再下滑，股价站稳 9.6 元。</li>
+</ul>
+<h3>11.6 三要素行动映射</h3>
+<table>
+<thead>
+<tr>
+<th>资金属性</th>
+<th>当前动作</th>
+<th>允许升级的条件</th>
+<th>降级 / 退出条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>新增现金</td>
+<td>wait / observe</td>
+<td>股价回到 7.5-8.0 元，H1 正式报没有进一步低于预告，H2 毛利率改善</td>
+<td>跌破 7.67 元且业绩继续下修</td>
+</tr>
+<tr>
+<td>已有持仓</td>
+<td>review；高成本仓 reduce</td>
+<td>持仓成本低且半年报后利空钝化</td>
+<td>9.6 元附近放量滞涨，或 H2 指引继续下修</td>
+</tr>
+</tbody></table>
+<h3>11.7 三要素数据缺口与来源</h3>
+<table>
+<thead>
+<tr>
+<th>数据缺口</th>
+<th>已检查来源</th>
+<th>对哪一要素有影响</th>
+<th>对结论的影响</th>
+<th>补齐方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Tushare moneyflow / margin</td>
+<td>tool search 未发现可调用 Tushare MCP</td>
+<td>流动性</td>
+<td>降低资金判断置信度</td>
+<td>后续接入 Tushare / AKShare</td>
+</tr>
+<tr>
+<td>ETF / 北向 / 机构持仓</td>
+<td>未获取到</td>
+<td>流动性 / 情绪</td>
+<td>不能判断长期资金承接</td>
+<td>基金公告 / 沪股通数据</td>
+</tr>
+<tr>
+<td>行业价格序列</td>
+<td>未获取到</td>
+<td>竞争格局</td>
+<td>只能用公司披露毛利率替代</td>
+<td>第三方原料药价格数据库</td>
+</tr>
+<tr>
+<td>卖方一致预期</td>
+<td>未获取到</td>
+<td>情绪 / 估值</td>
+<td>不用目标价作为锚</td>
+<td>研报数据库</td>
+</tr>
+</tbody></table>
+<ul>
+<li>分析口径与截止时间：2026-08-03 11:28。</li>
+<li>主要数据来源：公司年报、季报、业绩预告、权益分派公告、腾讯行情。</li>
+<li>数据缺口导致的置信度调整：交易资金面从中高降为中。</li>
+</ul>
+<h3>11.8 风险方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>风险类型</th>
+<th>前一窗口</th>
+<th>当前窗口</th>
+<th>方向证据</th>
+<th>反证</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本面风险</td>
+<td>2025 年收入利润下滑</td>
+<td>2026Q1/H1 大幅预减</td>
+<td>利润下降超过 50%</td>
+<td>仍盈利，现金流历史较好</td>
+</tr>
+<tr>
+<td>估值风险</td>
+<td>PB 低于 1，有防御预期</td>
+<td>盈利中枢下移，PB 可能应更低</td>
+<td>ROE 下行压 PB</td>
+<td>净资产和分红支撑</td>
+</tr>
+<tr>
+<td>情绪风险</td>
+<td>低估值修复预期</td>
+<td>预减打破预期</td>
+<td>年内下跌、弱修复</td>
+<td>低位有反弹</td>
+</tr>
+<tr>
+<td>流动性风险</td>
+<td>7 月初反弹</td>
+<td>当前低换手</td>
+<td>无强承接证据</td>
+<td>未获取资金分档</td>
+</tr>
+</tbody></table>
+<h3>11.9 风险传导链</h3>
+<ul>
+<li>信息源头：2026Q1 报告与 2026H1 业绩预告。</li>
+<li>核心变量：抗生素类医药中间体及原料药价格与毛利率。</li>
+<li>传导机制：海外保护主义 + 国内产能过剩 + 集采向上游传导 → 公司以价换量 → 毛利率从 32% 附近降至 15%-17% → 归母和扣非利润大幅下降 → 估值锚从低 PB 修复转为盈利下修。</li>
+<li>影响对象：国药现代利润表、PB-ROE 估值、交易情绪。</li>
+<li>市场行为变化：年初以来下跌，低位反弹但未形成强趋势。</li>
+<li>风险方向：风险重新增强。</li>
+<li>验证指标：H1 正式报、H2 毛利率、原料药价格、股价是否跌破 7.67 元。</li>
+<li>失效条件：价格压力缓和、半年报利空钝化、扣非利润环比改善。</li>
+</ul>
+<h3>11.10 风险方向结论</h3>
+<ul>
+<li>风险方向结论：风险重新增强。</li>
+<li>判断依据：2025 年已有收入利润下滑，2026Q1/H1 预告进一步大幅恶化，且原因直指核心板块毛利率坍缩。</li>
+<li>反证：公司仍盈利、低 PB、央企平台和分红仍有防御价值。</li>
+<li>未获取到：融资融券、资金分档、行业价格序列。</li>
+<li>置信度：中高。</li>
+</ul>
+<h3>11.11 四层方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>边际改善 / 无明显变化 / 边际恶化 / 未获取到</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观</td>
+<td>未获取到</td>
+<td>本报告未更新宏观流动性专题</td>
+</tr>
+<tr>
+<td>中观</td>
+<td>边际恶化</td>
+<td>抗生素中间体及原料药行业受产能过剩、集采传导、海外保护主义影响</td>
+</tr>
+<tr>
+<td>微观</td>
+<td>边际恶化</td>
+<td>Q1/H1 预告利润大幅下滑，毛利率大降</td>
+</tr>
+<tr>
+<td>交易</td>
+<td>边际恶化后弱修复</td>
+<td>年初以来 -9.90%，低位反弹但未突破</td>
+</tr>
+</tbody></table>
+<h3>11.12 最终动作与约束</h3>
+<ul>
+<li>主动作：wait / observe。</li>
+<li>新增现金：不买，等待 7.5-8.0 元或 H2 经营改善证据。</li>
+<li>已有持仓：review；高成本仓在反弹接近 9.6 元且无业绩修复时考虑 reduce。</li>
+<li>承接条件：H1 正式报不低于预告中枢、H2 毛利率改善、成交放大站稳 9.6 元。</li>
+<li>退出条件：跌破 7.67 元、H2 指引继续下修、原料药毛利率低于 17% 且无改善。</li>
+<li>下一复核节点：2026 半年报。</li>
+<li>我的判断：方向不能转化为买点，因为估值便宜被盈利下修抵消，三要素没有共振。</li>
+</ul>
+<h2 id="section-12">12. 最终结论</h2>
+
+<ul>
+<li>估值结论：合理偏高。不是绝对高估，但相对当前盈利下修风险，现价没有足够安全边际。</li>
+<li>操作结论：观望 / 规避新增。</li>
+<li>综合估值区间：6.8-9.6 元。</li>
+<li>相对现价空间：上行约 +7.6%，下行至下沿约 -23.8%。</li>
+<li>如果今天这是一笔现金，我会买它吗：不会。</li>
+<li>我的判断：国药现代的低 PB 和央企背景值得跟踪，但 2026H1 预告确认主业风险正在重新增强。当前更像“等待利润坑确认是否到底”的标的，而不是“便宜就买”的标的。</li>
+<li>结论失效条件：H1 正式报和 H2 经营数据显示毛利率企稳，扣非利润环比改善，股价在利空后不跌并放量站稳 9.6 元。</li>
+</ul>
+<h2 id="section-13">13. 后续监控指标</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">当前值</th>
+<th>触发阈值 / 方向</th>
+<th>数据源</th>
+<th>复核频率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026H1 归母净利</td>
+<td align="right">预告 2.45-3.05 亿元</td>
+<td>低于 2.45 亿元则风险继续增强</td>
+<td>半年报</td>
+<td>披露时</td>
+</tr>
+<tr>
+<td>原料药 / 中间体毛利率</td>
+<td align="right">H1 预告 17.32%</td>
+<td>回到 20%+ 才算边际修复</td>
+<td>半年报 / 季报</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>制剂板块收入和毛利率</td>
+<td align="right">2025 收入 46.22 亿元、毛利率 42.06%</td>
+<td>不再下滑才可稳住估值</td>
+<td>年报 / 半年报</td>
+<td>半年</td>
+</tr>
+<tr>
+<td>股价位置</td>
+<td align="right">8.92 元</td>
+<td>7.5-8.0 元观察；9.6 元上方需业绩支撑</td>
+<td>行情</td>
+<td>日 / 周</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">2026Q1 -3.63 亿元</td>
+<td>转正且不靠应收/存货挤压</td>
+<td>季报</td>
+<td>季度</td>
+</tr>
+</tbody></table>
+<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
+
+<ul>
+<li>未获取到：Tushare 结构化行情 / 估值 / 资金 / 融资融券；资本开支和自由现金流可靠序列；卖方一致预期；第三方公允价值和护城河评级；行业原料药价格序列。</li>
+<li>已检查来源：本地 tool search、巨潮公告、公司年报/季报/业绩预告、腾讯公开行情。</li>
+<li>对结论的影响：基本面结论置信度较高；资金面和情绪面置信度中等；DCF 精度较低，因此最终更重视 P/B-ROE 与盈利下修约束。</li>
+</ul>
+<h2 id="section-15">15. 来源清单</h2>
+
+<ol>
+<li><a href="../../papers/国药现代机构研报-2026-08-03/国药现代2025年年度报告.pdf.md">《国药现代2025年年度报告》</a>，上海现代制药股份有限公司，2026-03-28。</li>
+<li><a href="../../papers/国药现代机构研报-2026-08-03/国药现代2024年年度报告.pdf.md">《国药现代2024年年度报告》</a>，上海现代制药股份有限公司，2025-03-28。</li>
+<li><a href="../../papers/国药现代机构研报-2026-08-03/国药现代2023年年度报告.pdf.md">《国药现代2023年年度报告》</a>，上海现代制药股份有限公司，2024-03-30。</li>
+<li><a href="../../papers/国药现代机构研报-2026-08-03/国药现代2026年第一季度报告.pdf.md">《国药现代2026年第一季度报告》</a>，上海现代制药股份有限公司，2026-04-30。</li>
+<li><a href="../../papers/国药现代机构研报-2026-08-03/国药现代2026年半年度业绩预告.pdf.md">《国药现代2026年半年度业绩预告》</a>，上海现代制药股份有限公司，2026-07-11。</li>
+<li><a href="../../papers/国药现代机构研报-2026-08-03/国药现代2025年年度权益分派实施公告.pdf.md">《国药现代2025年年度权益分派实施公告》</a>，上海现代制药股份有限公司，2026-05-26。</li>
+<li><a href="../../papers/国药现代机构研报-2026-08-03/国药现代药品上市许可转让进展公告.pdf.md">《关于控股子公司签署〈药品上市许可转让合同〉的进展公告》</a>，上海现代制药股份有限公司，2026-07-31。</li>
+<li>腾讯公开行情接口：<code>https://qt.gtimg.cn/q=sh600420</code>，访问时间 2026-08-03 11:28。</li>
+<li>腾讯前复权日线接口：<code>https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh600420,day,,,180,qfq</code>，访问时间 2026-08-03。</li>
+</ol>
+<h2 id="section-16">16. 声明</h2>
+
+<p>本报告基于截至研究截止时间可取得的公开信息，不构成收益保证。真实交易前应重新核验价格、公告、流动性和个人风险承受能力。</p>
+<script>
+(() => {
+  const endpoint = '/api/stock-quote?secid=1.600420';
+  const priceNode = document.getElementById('intraday-price');
+  const detailNode = document.getElementById('intraday-detail');
+  const statusNode = document.getElementById('intraday-status');
+  const riskRewardValue = document.getElementById('risk-reward-value');
+  const riskRewardDetail = document.getElementById('risk-reward-detail');
+  const tracker = document.getElementById('daily-tracking');
+  const snapshotPrice = 8.92;
+  const percent = value => `${value < 0 ? '-' : value > 0 ? '+' : ''}${Math.abs(value).toFixed(1)}%`;
+  function updateRiskReward(price) {
+    const low = Number(tracker.dataset.valueLow);
+    const high = Number(tracker.dataset.valueHigh);
+    if (!Number.isFinite(low) || !Number.isFinite(high) || low <= 0 || high <= low) return;
+    const upside = (high / price - 1) * 100;
+    const downside = (price / low - 1) * 100;
+    if (price <= low) {
+      riskRewardValue.textContent = '低于价值下沿';
+      riskRewardValue.classList.remove('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿潜在空间 ${percent(upside)}。价格已低于动态价值下沿，不能直接用下沿作为止损风险，需另设风控线。`;
+      return;
+    }
+    if (price >= high) {
+      riskRewardValue.textContent = '无正向盈亏比';
+      riskRewardValue.classList.add('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿空间 ${percent(upside)}，回落至下沿风险 ${percent(downside)}。价格已到或高于动态价值上沿，新增现金不具备正向盈亏比。`;
+      return;
+    }
+    const ratio = upside / downside;
+    riskRewardValue.textContent = `约 ${ratio.toFixed(1)}:1`;
+    riskRewardValue.classList.toggle('bad', ratio < 1);
+    riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；到上沿 ${high.toFixed(2)} 元的潜在上行 ${percent(upside)}，跌至下沿 ${low.toFixed(2)} 元的风险 ${percent(downside)}。盘中价格不改变价值区间本身。`;
+  }
+  async function refreshIntradayQuote() {
+    statusNode.textContent = '连接中'; statusNode.className = 'tracking-status';
+    try {
+      const response = await fetch(endpoint, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json(); const quote = payload && payload.data;
+      if (!quote || !Number.isFinite(quote.price) || !Number.isFinite(quote.prevClose) || !Number.isFinite(quote.changePercent) || !Number.isFinite(quote.quoteTimestamp)) throw new Error('invalid quote');
+      const quoteTime = new Date(quote.quoteTimestamp * 1000).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false });
+      priceNode.textContent = `${quote.price.toFixed(2)} 元 · ${percent(quote.changePercent)}`;
+      priceNode.classList.toggle('bad', quote.changePercent < 0);
+      detailNode.textContent = `行情时间：${quoteTime}；昨收 ${quote.prevClose.toFixed(2)} 元。来源：${payload.proxySource || '本地行情代理'}。`;
+      statusNode.textContent = '盘中实时 · 每 60 秒'; statusNode.className = 'tracking-status live'; updateRiskReward(quote.price);
+    } catch { priceNode.textContent = '实时行情暂不可用'; priceNode.classList.remove('bad'); detailNode.textContent = '每日同步值仍然有效；可重新双击“大盘启动器”后刷新本页。'; statusNode.textContent = '连接失败'; statusNode.className = 'tracking-status error'; }
+  }
+  if (location.protocol === 'http:' || location.protocol === 'https:') { refreshIntradayQuote(); window.setInterval(refreshIntradayQuote, 60000); }
+  else { priceNode.textContent = Number.isFinite(snapshotPrice) ? `${snapshotPrice.toFixed(2)} 元（每日值）` : '每日值未获取'; detailNode.textContent = '当前为直接打开模式；盘中实时需通过“大盘启动器”进入本地服务。'; statusNode.textContent = '每日同步 · 实时未连接'; }
+})();
+</script></article>
+    </div>
+  </main>
+</body>
+</html>

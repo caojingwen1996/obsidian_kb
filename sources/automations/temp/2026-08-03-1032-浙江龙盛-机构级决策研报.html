@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>浙江龙盛（600352.SH）机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+.daily-tracking { margin: 0 0 42px; padding: 22px; border: 1px solid #cbdade; border-radius: 16px; background: linear-gradient(135deg, #f3f8f9 0%, #fffaf0 100%); box-shadow: 0 12px 30px rgba(23, 50, 71, .07); }
+.daily-tracking-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
+.daily-tracking-kicker { margin: 0 0 4px; color: var(--teal); font-size: 12px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+.daily-tracking h2 { margin: 0; padding: 0; border: 0; font-size: 27px; }
+.daily-tracking-time { margin: 4px 0 0; color: var(--muted); font-size: 12px; text-align: right; }
+.tracking-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.tracking-grid + .tracking-grid { margin-top: 12px; }
+.tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
+.tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
+.tracking-card[data-tracking-key="dynamic-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
+.range-breakdown { display: block; }
+.range-main { display: inline-flex; align-items: center; max-width: 100%; margin-bottom: 10px; padding: 3px 9px; border-radius: 999px; background: #e7f0f3; color: var(--navy); font-size: 20px; line-height: 1.3; font-weight: 800; }
+.range-points { display: grid; gap: 7px; margin-top: 1px; }
+.range-point { display: block; padding-left: 11px; border-left: 3px solid #bed2d8; color: #245068; font-size: 14px; line-height: 1.52; font-weight: 650; }
+.tracking-value.bad { color: var(--danger); }
+.tracking-detail { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; }
+.tracking-status { display: inline-flex; margin-top: 10px; padding: 3px 8px; border-radius: 999px; color: #526b77; background: #edf2f4; font-size: 12px; font-weight: 700; }
+.tracking-status.live { color: #17604e; background: #dff3eb; }
+.tracking-status.error { color: var(--danger); background: var(--danger-bg); }
+.tracking-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; margin-top: 14px; padding-top: 13px; border-top: 1px solid #d5e0e3; color: #536d78; font-size: 13px; }
+.tracking-footer a { font-weight: 700; }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+  .tracking-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+  .daily-tracking-head { display: block; }
+  .daily-tracking-time { text-align: left; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .daily-tracking, .tracking-card { border: 1px solid #aebbc2; color: #102f43; background: #fff; box-shadow: none; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · 600352.SH</p>
+      <h1>浙江龙盛（600352.SH）机构级决策研报</h1>
+      <div class="hero-meta"><span>2026-08-03 10:32（盘中快照）</span><span>报告生成时间未获取</span><span>市场与币种未获取</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 公司与业务地图</a>
+<a class="toc-link" href="#section-3">3. 行业与竞争格局</a>
+<a class="toc-link" href="#section-4">4. 近五年财务表现</a>
+<a class="toc-link" href="#section-5">5. 2026Q1 更新</a>
+<a class="toc-link" href="#section-6">6. 资产负债表与资本配置</a>
+<a class="toc-link" href="#section-7">7. 分红与股东回报</a>
+<a class="toc-link" href="#section-8">8. 估值框架</a>
+<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
+<a class="toc-link" href="#section-10">10. 资金面与价格位置</a>
+<a class="toc-link" href="#section-11">11. 冰冰小美三要素映射</a>
+<a class="toc-link" href="#section-12">12. 主要风险识别</a>
+<a class="toc-link" href="#section-13">13. 情景推演与行动表</a>
+<a class="toc-link" href="#section-14">14. 数据缺口与下一步跟踪</a>
+<a class="toc-link" href="#section-15">15. 来源与相关页面</a>
+<a class="toc-link" href="#section-16">16. 结论</a></div></aside>
+      <article class="content"><blockquote>
+<p>研究截止时间：2026-08-03 10:32（盘中快照）<br>证券代码：600352.SH<br>当前价格及时间：13.30 元，2026-08-03 10:32，盘中；腾讯公开行情口径约 13.29-13.30 元<br>综合估值区间：10.8-14.8 元/股；悲观 9.0-10.8，基准 10.8-13.6，乐观 13.6-14.8+<br>估值状态：估值已修复至区间上半部，安全边际偏薄<br>基本面状态：染料销量修复、部分产品价格上涨、毛利率改善；但 2026Q1 扣非增速仅 4.74%，非经常性收益贡献较高<br>资金状态：年初以来涨幅约 30%，成交与弹性显著抬升；短线偏趋势修复后的分歧观察<br>风险方向：中性偏增强，主要来自估值修复后追高风险、行业价格波动、地产存货/投资性房地产和债务融资扩张<br>冰冰小美动作：wait / hold；不追高，回落到 11.5-12.0 元或 Q2 扣非与价格继续确认后再评估 buy<br>结论置信度：中等；财报与公告证据较强，实时资金面缺少 Tushare/交易明细级验证  </p>
+</blockquote>
+<!-- DAILY_TRACKING_START -->
+<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-08-03 10:32（盘中快照）" data-value-low="" data-value-high="">
+  <div class="daily-tracking-head">
+    <div><p class="daily-tracking-kicker">Daily decision tracker</p><h2>每日跟踪面板</h2></div>
+    <p class="daily-tracking-time">更新：2026-08-03 10:32（盘中快照）<br>下次：收盘后 / 重大公告后</p>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">未获取到</p><p class="tracking-detail">风险方向：未获取到。下一验证点与失效条件见第 11—13 章。</p></div>
+    <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value">未获取到</p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
+    <div class="tracking-card" data-tracking-key="risk-reward"><p class="tracking-label">盈亏比</p><p class="tracking-value" id="risk-reward-value">未获取到</p><p class="tracking-detail" id="risk-reward-detail">价格或动态价值区间无法解析，未计算盈亏比。</p></div>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="daily-quote"><p class="tracking-label">每日同步价</p><p class="tracking-value">未获取到</p><p class="tracking-detail">这是报告内嵌的正式跟踪基准，离线打开仍可使用。</p><span class="tracking-status">每日快照</span></div>
+    <div class="tracking-card" data-tracking-key="intraday-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">等待连接</p><p class="tracking-detail" id="intraday-detail">通过“大盘启动器”打开后获取盘中行情，每 60 秒刷新；直接打开 HTML 时不访问外部行情。</p><span class="tracking-status" id="intraday-status">未连接</span></div>
+    <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">未获取到</p><p class="tracking-detail">估值：未获取到 · 未获取到；风险：未获取到；结论置信度：未获取到。</p><span class="tracking-status">未获取到</span></div>
+  </div>
+  <div class="tracking-footer"><span>资金状态：<strong>未获取到</strong> · 新增/已有动作：<strong>未获取到</strong></span><span>资金面分析：未单独生成</span></div>
+</section>
+<!-- DAILY_TRACKING_END -->
+<h2 id="section-1">1. 决策摘要</h2>
+
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>一句话结论</td>
+<td>浙江龙盛是染料和中间体全球龙头，2026Q1 显示价格、销量和毛利率改善，但股价已经明显修复，当前更适合持有和等待验证，不适合无条件追高。</td>
+</tr>
+<tr>
+<td>核心多头</td>
+<td>分散染料销量创历史新高、染料/中间体业务仍是利润核心；2026Q1 收入 +11.83%、归母净利 +35.67%；现金余额高，2026 年两次分红合计 0.45 元/股。</td>
+</tr>
+<tr>
+<td>核心空头</td>
+<td>2025 年收入和归母净利仍同比下滑；2026Q1 扣非净利仅 +4.74%，非流动资产处置与金融资产收益贡献较大；房地产和投资性房地产仍占用资产负债表。</td>
+</tr>
+<tr>
+<td>当前定价</td>
+<td>盘中市值约 432.7 亿元，对 2025 年归母净利约 23.7x，对 2026E 基准归母净利约 20.6x。</td>
+</tr>
+<tr>
+<td>动作</td>
+<td><code>wait / hold</code>。若跌回 11.5-12.0 元且产品价格/销量趋势未坏，可转为观察买点；若冲向 14.8 元以上而扣非未同步加速，应防兑现。</td>
+</tr>
+</tbody></table>
+<h2 id="section-2">2. 公司与业务地图</h2>
+
+<p>浙江龙盛主营两条核心线：一是以染料、助剂为主的纺织用化学品，二是以间苯二胺、间苯二酚为主的中间体。公司在年报中称，上述业务均处于全球行业龙头地位，是收入与利润的主要来源。</p>
+<p>2025 年业务结构显示，公司不是单一染料小周期公司，而是“染料 + 中间体 + 高现金/金融资产 + 房地产遗留资产”的组合：</p>
+<table>
+<thead>
+<tr>
+<th>业务/产品</th>
+<th align="right">2025 收入</th>
+<th align="right">毛利率</th>
+<th>变化含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>染料</td>
+<td align="right">72.78 亿元</td>
+<td align="right">34.38%</td>
+<td>收入 -4.12%，毛利率 +2.71pct，销量改善抵消价格压力。</td>
+</tr>
+<tr>
+<td>助剂</td>
+<td align="right">9.39 亿元</td>
+<td align="right">28.99%</td>
+<td>收入 -6.27%，仍属于染料客户生态的配套业务。</td>
+</tr>
+<tr>
+<td>中间体</td>
+<td align="right">28.64 亿元</td>
+<td align="right">27.00%</td>
+<td>收入 -12.72%，毛利率 -2.40pct；仍是壁垒较高但价格弹性弱于染料的利润源。</td>
+</tr>
+<tr>
+<td>基础化工</td>
+<td align="right">6.98 亿元</td>
+<td align="right">-7.47%</td>
+<td>亏损毛利，说明非核心化工品仍拖累。</td>
+</tr>
+<tr>
+<td>房地产</td>
+<td align="right">8.14 亿元</td>
+<td align="right">43.87%</td>
+<td>收入 -67.23%，资产周转和存货现金化仍需跟踪。</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 行业与竞争格局</h2>
+
+<p>国内染料行业 2025 年处在“需求微增、供给出清、价格承压”的位置。公司年报披露，2025 年国内印染布产量 577.3 亿米，同比增长 0.92%；国内染料产量约 96.4 万吨，同比增长 2.55%。行业仍有产能过剩和低价竞争，但环保、安全和危化品准入持续提高了尾部产能的退出压力。</p>
+<p>浙江龙盛的相对优势在于三点：</p>
+<ol>
+<li>规模和渠道：公司 2025 年全球染料销量同比增长，分散染料销量创历史新高。</li>
+<li>一体化：染料、中间体和全球销售网络形成一定链条优势。</li>
+<li>中间体壁垒：间苯二胺、间苯二酚相关产品受环保、安全、装置经验约束，新进入者释放不易。</li>
+</ol>
+<p>但这个行业不是强成长行业。它更像周期制造业中的龙头修复：当价格、销量和成本同时转好时利润弹性明显；当下游纺织需求走弱或同行低价抢单时，估值不宜给到成长股溢价。</p>
+<h2 id="section-4">4. 近五年财务表现</h2>
+
+<p>单位：亿元，EPS/ROE 除外。</p>
+<table>
+<thead>
+<tr>
+<th>年度</th>
+<th align="right">营业收入</th>
+<th align="right">归母净利</th>
+<th align="right">扣非归母</th>
+<th align="right">经营现金流</th>
+<th align="right">EPS</th>
+<th align="right">ROE</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td align="right">166.60</td>
+<td align="right">33.74</td>
+<td align="right">23.72</td>
+<td align="right">46.81</td>
+<td align="right">1.0429</td>
+<td align="right">11.64%</td>
+</tr>
+<tr>
+<td>2022</td>
+<td align="right">212.26</td>
+<td align="right">30.03</td>
+<td align="right">27.66</td>
+<td align="right">9.56</td>
+<td align="right">0.9357</td>
+<td align="right">9.61%</td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">153.03</td>
+<td align="right">15.34</td>
+<td align="right">16.29</td>
+<td align="right">27.51</td>
+<td align="right">0.4861</td>
+<td align="right">4.72%</td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">158.84</td>
+<td align="right">20.30</td>
+<td align="right">18.38</td>
+<td align="right">92.65</td>
+<td align="right">0.6320</td>
+<td align="right">6.00%</td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">133.13</td>
+<td align="right">18.29</td>
+<td align="right">16.06</td>
+<td align="right">58.37</td>
+<td align="right">0.5622</td>
+<td align="right">5.30%</td>
+</tr>
+</tbody></table>
+<p>财务结论：</p>
+<ul>
+<li>收入峰值在 2022 年，2023-2025 尚未回到高点，说明行业还不是扩张周期。</li>
+<li>利润 2023 年见低后 2024 年修复，2025 年又回落，说明盈利并不平滑。</li>
+<li>经营现金流 2024-2025 很强，但 2026Q1 同比大幅下降，公司解释为上年收到商品房预售款较多，因此现金流需要剔除地产节奏扰动。</li>
+<li>ROE 从 2021 年 11.64% 降至 2025 年 5.30%，资本效率仍处低位修复阶段。</li>
+</ul>
+<h2 id="section-5">5. 2026Q1 更新</h2>
+
+<p>2026Q1 公司实现营业收入 36.18 亿元，同比增长 11.83%；归母净利润 5.37 亿元，同比增长 35.67%；扣非归母净利润 3.06 亿元，同比增长 4.74%；经营现金流 4.03 亿元，同比下降 83.95%。</p>
+<p>公司披露，EPS 和归母净利增长主要来自部分产品价格上涨、销量增加、毛利率提升，以及资产处置收益增加。这里要把“经营修复”和“非经常性贡献”拆开看：</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th align="right">2026Q1 金额</th>
+<th>判断</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>归母净利</td>
+<td align="right">5.37 亿元</td>
+<td>表观增长强。</td>
+</tr>
+<tr>
+<td>扣非归母</td>
+<td align="right">3.06 亿元</td>
+<td>经营性利润改善温和。</td>
+</tr>
+<tr>
+<td>非经常性损益</td>
+<td align="right">2.31 亿元</td>
+<td>其中非流动资产处置损益 1.55 亿元，金融资产损益 0.87 亿元。</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">4.03 亿元</td>
+<td>同比大降，但基数受商品房预售款扰动。</td>
+</tr>
+</tbody></table>
+<p>Q1 经营数据公告显示，染料销量 68,946 吨、收入 20.71 亿元；助剂销量 14,877 吨、收入 2.28 亿元；中间体销量 29,742 吨、收入 7.71 亿元。染料仍是最大弹性来源。</p>
+<h2 id="section-6">6. 资产负债表与资本配置</h2>
+
+<p>截至 2026Q1 末，公司总资产 781.10 亿元，归属于上市公司股东权益 331.43 亿元。货币资金 219.18 亿元，较 2025 年末 195.15 亿元继续增加。高现金余额提高了抗周期能力，也让公司具备持续分红和债务周转弹性。</p>
+<p>但资产端也有三类需要折价看待：</p>
+<ul>
+<li>存货：2026Q1 末存货 276.48 亿元，其中包含房地产业务和化工库存，现金化速度影响真实资产质量。</li>
+<li>投资性房地产：2025 年末投资性房地产约 64.68 亿元，后续公允价值和出租/处置情况需要跟踪。</li>
+<li>金融资产：公允价值变动可能影响利润表，不能简单视为持续经营利润。</li>
+</ul>
+<p>2026-07-30 公司公告，银行间债券市场非金融企业债务融资工具获准注册，注册金额 130 亿元，有效期 2 年，主承销商为招商银行，可分期发行超短融、短融、中票、永续票据等。这增强融资灵活性，但也提示公司仍在维持较大的资产负债和资金周转盘子。</p>
+<h2 id="section-7">7. 分红与股东回报</h2>
+
+<p>2026 年公司已实施两次现金分红：</p>
+<table>
+<thead>
+<tr>
+<th>分红事项</th>
+<th align="right">每股现金红利</th>
+<th>除息日</th>
+<th align="right">总额</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2025 年年度分红</td>
+<td align="right">0.10 元</td>
+<td>2026-06-18</td>
+<td align="right">3.25 亿元</td>
+</tr>
+<tr>
+<td>2026Q1 分红</td>
+<td align="right">0.35 元</td>
+<td>2026-07-03</td>
+<td align="right">11.39 亿元</td>
+</tr>
+<tr>
+<td>合计</td>
+<td align="right">0.45 元</td>
+<td>-</td>
+<td align="right">14.64 亿元</td>
+</tr>
+</tbody></table>
+<p>以 13.30 元股价测算，已实施现金分红对应静态现金回报约 3.38%。分红是当前估值的重要支撑，但也需要注意：如果 2026Q1 的高分红部分来自高现金余额和资产处置收益，而不是扣非利润持续高增，则不能把一次性分红直接年化为长期股息率。</p>
+<h2 id="section-8">8. 估值框架</h2>
+
+<p>本报告使用盈利情景 + 股息/资产折价辅助的估值方式。</p>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">2026E 归母净利</th>
+<th align="right">EPS</th>
+<th align="right">合理 PE</th>
+<th align="right">对应股价</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观</td>
+<td align="right">16.5 亿元</td>
+<td align="right">0.51 元</td>
+<td align="right">18x-21x</td>
+<td align="right">9.0-10.8 元</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">21.0 亿元</td>
+<td align="right">0.65 元</td>
+<td align="right">17x-21x</td>
+<td align="right">10.8-13.6 元</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">25.0 亿元</td>
+<td align="right">0.77 元</td>
+<td align="right">18x-22x</td>
+<td align="right">13.6-16.9 元</td>
+</tr>
+</tbody></table>
+<p>综合估值区间取 10.8-14.8 元/股，保守压低乐观上沿，原因是：</p>
+<ul>
+<li>2026Q1 扣非净利增长只有 4.74%，经营性弹性尚未完全证明。</li>
+<li>当前股价已经反映产品价格和高分红预期。</li>
+<li>房地产、投资性房地产和金融资产对利润表和净资产的可持续性贡献需要折价。</li>
+</ul>
+<p>当前 13.30 元处于基准区间上半部，新增买入的风险收益不够舒服。若 Q2 继续验证产品涨价、销量增长和扣非利润提速，估值上沿可以向 15 元以上移动；若价格回落或扣非不及预期，估值应回到 10.8-12 元。</p>
+<h2 id="section-9">9. 多头与空头论据</h2>
+
+<p>多头论据：</p>
+<ul>
+<li>全球染料龙头地位仍在，分散染料销量创历史新高。</li>
+<li>2026Q1 产品价格、销量、毛利率共同改善，周期修复有现实证据。</li>
+<li>中间体业务壁垒较高，环保和安全准入抬高尾部供给成本。</li>
+<li>货币资金充裕，现金分红提升股东回报确定性。</li>
+<li>年初以来股价仍在趋势修复中，市场愿意重新给化工涨价和高分红组合定价。</li>
+</ul>
+<p>空头论据：</p>
+<ul>
+<li>2025 年收入 -16.18%、归母净利 -9.91%，行业仍不是强扩张阶段。</li>
+<li>2026Q1 归母净利高增主要受非经常性收益拉动，扣非增速仅 4.74%。</li>
+<li>基础化工毛利率为负，房地产收入大幅下降且存货体量较大。</li>
+<li>股价已从 2026 年初约 10.2 元修复至 13 元以上，估值不再便宜。</li>
+<li>债务融资工具注册金额 130 亿元，虽然增强资金弹性，但也意味着资产负债表仍较重。</li>
+</ul>
+<h2 id="section-10">10. 资金面与价格位置</h2>
+
+<p>腾讯公开行情显示，2026-08-03 10:32 附近，浙江龙盛盘中价格约 13.29-13.30 元，前收 13.28 元，开盘 13.08 元，高 13.46 元，低 12.58 元，成交额约 7.25 亿元，换手率约 1.72%，总市值约 432.7 亿元，PB 约 1.37。</p>
+<p>从前复权日线看：</p>
+<ul>
+<li>2025-12-31 收盘约 10.21 元；</li>
+<li>2026-02-12 收盘约 16.26 元，春节前后出现快速拉升；</li>
+<li>2026-06-18 年度分红除息后收盘约 10.61 元；</li>
+<li>2026-07-03 Q1 分红除息后收盘约 12.08 元；</li>
+<li>2026-07-29 收盘约 13.55 元，随后在 13 元附近震荡。</li>
+</ul>
+<p>这说明当前不是左侧底部，而是分红、涨价和业绩修复交易后的右侧确认阶段。资金面结论是：强于基本面底部，但也更容易在扣非验证不足时出现高位分歧。</p>
+<h2 id="section-11">11. 冰冰小美三要素映射</h2>
+
+<h3>11.1 竞争格局的比较优势</h3>
+<p>浙江龙盛具备“成熟制造业龙头 + 高环保安全壁垒 + 全球渠道”的比较优势。染料和中间体不是新兴高增产业，但龙头在行业低价竞争和尾部出清时有更强生存能力。按 <a href="../../../topics/冰冰小美-情绪体系理论篇.md">体系三要素</a>，它的方向资格来自有序出清和龙头集中，而不是来自行业总量高成长。</p>
+<p>判断：比较优势中等偏强，但不是强成长级别。</p>
+<h3>11.2 流动性辩证分析</h3>
+<p>流动性上，公司兼具高分红、高现金和化工涨价弹性，容易获得阶段性资金承接；但当前承接已经体现在年初以来约 30% 的涨幅和 7 亿元级盘中成交额里。若后续只有存量资金围绕高分红和涨价反复轮动，而没有扣非利润继续加速，流动性溢价会变成兑现压力。</p>
+<p>判断：微观流动性已经改善，但当前位置追高风险上升。</p>
+<h3>11.3 情绪位置的变化</h3>
+<p>浙江龙盛当前属于“有锚价值投机”而非无锚题材：锚是涨价、分红、龙头和高现金。情绪位置不是冰点修复初期，而是修复后的验证期。此时若 Q2 继续证实产品价格和扣非利润改善，情绪可以延续；若验证落空，13-15 元区间会成为兑现带。</p>
+<p>判断：情绪位置中性偏拥挤，适合持有验证，不适合新增追高。</p>
+<h3>11.4 动作约束</h3>
+<ul>
+<li><code>buy</code> 条件：价格回落至 11.5-12.0 元，同时 Q2 扣非利润、染料价格和成交承接未破坏。</li>
+<li><code>hold</code> 条件：持仓成本低于 11 元，可继续拿分红和 Q2 验证，但 14.8 元以上要降低预期。</li>
+<li><code>sell/reduce</code> 条件：价格冲高但扣非利润不加速，或产品价格回落、成交放量滞涨。</li>
+</ul>
+<h2 id="section-12">12. 主要风险识别</h2>
+
+<table>
+<thead>
+<tr>
+<th>风险</th>
+<th>当前状态</th>
+<th>传导路径</th>
+<th>观察指标</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>行业价格回落</td>
+<td>中等</td>
+<td>染料/中间体价格下行 → 毛利率回落 → 估值压缩</td>
+<td>季度主要经营数据、产品价格、毛利率</td>
+</tr>
+<tr>
+<td>扣非利润不及表观</td>
+<td>偏高</td>
+<td>非经常性收益抬高归母净利 → 市场年化过度</td>
+<td>扣非归母、资产处置收益、公允价值损益</td>
+</tr>
+<tr>
+<td>资产负债表折价</td>
+<td>中等</td>
+<td>房地产/投资性房地产/金融资产波动 → 净资产质量折价</td>
+<td>存货、投资性房地产、公允价值变动</td>
+</tr>
+<tr>
+<td>追高拥挤</td>
+<td>中等偏高</td>
+<td>分红和涨价预期已交易 → 高位分歧扩大</td>
+<td>成交额、换手率、13.6-14.8 元区间表现</td>
+</tr>
+<tr>
+<td>债务融资扩张</td>
+<td>中等</td>
+<td>注册 130 亿元债务融资工具 → 利息、期限错配和再融资风险</td>
+<td>实际发行规模、利率、资金用途</td>
+</tr>
+</tbody></table>
+<p>风险方向：从基本面角度看风险未明显恶化；从交易角度看，风险随估值修复而增强。</p>
+<h2 id="section-13">13. 情景推演与行动表</h2>
+
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th>触发条件</th>
+<th>股价区间判断</th>
+<th>动作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>乐观</td>
+<td>Q2 扣非明显加速，染料价格继续上行，成交承接不衰退</td>
+<td>14.8-16.9 元</td>
+<td>持有，逐步兑现而非盲目上修</td>
+</tr>
+<tr>
+<td>基准</td>
+<td>收入和归母增长延续，但扣非温和，行业价格小幅波动</td>
+<td>10.8-14.8 元</td>
+<td>区间交易，当前 wait / hold</td>
+</tr>
+<tr>
+<td>悲观</td>
+<td>产品价格回落、扣非低于预期、地产/金融资产拖累</td>
+<td>9.0-10.8 元</td>
+<td>回避或等风险释放</td>
+</tr>
+</tbody></table>
+<p>最重要的边界不是“公司是不是龙头”，而是“当前价格是否还给龙头修复留出足够安全边际”。在 13.30 元附近，答案偏谨慎。</p>
+<h2 id="section-14">14. 数据缺口与下一步跟踪</h2>
+
+<p>本次研究缺口：</p>
+<ul>
+<li>Tushare MCP 在当前会话中未热加载为可调用工具，未能获取逐笔/资金流/融资融券口径；已用腾讯公开行情、CNINFO 公告和公司定期报告替代。</li>
+<li>染料和中间体产品价格没有取得完整第三方价格序列，只能依赖公司 Q1 对“部分产品价格上涨”的披露。</li>
+<li>没有独立核验房地产项目去化和投资性房地产公允价值假设。</li>
+</ul>
+<p>后续跟踪清单：</p>
+<ol>
+<li>2026 半年报：收入、毛利率、扣非归母、经营现金流、存货、投资性房地产。</li>
+<li>Q2 主要经营数据：染料销量、收入、均价是否继续改善。</li>
+<li>债务融资工具实际发行：规模、期限、利率、资金用途。</li>
+<li>13.6-14.8 元区间成交：放量突破还是放量滞涨。</li>
+</ol>
+<h2 id="section-15">15. 来源与相关页面</h2>
+
+<p>公司公告与公开数据：</p>
+<ul>
+<li><a href="../../papers/浙江龙盛机构研报-2026-08-03/浙江龙盛2025年年度报告.pdf.md">浙江龙盛2025年年度报告</a></li>
+<li><a href="../../papers/浙江龙盛机构研报-2026-08-03/浙江龙盛2024年年度报告.pdf.md">浙江龙盛2024年年度报告</a></li>
+<li><a href="../../papers/浙江龙盛机构研报-2026-08-03/浙江龙盛2023年年度报告.pdf.md">浙江龙盛2023年年度报告</a></li>
+<li><a href="../../papers/浙江龙盛机构研报-2026-08-03/浙江龙盛2026年第一季度报告.pdf.md">浙江龙盛2026年第一季度报告</a></li>
+<li><a href="../../papers/浙江龙盛机构研报-2026-08-03/浙江龙盛2026年第一季度主要经营数据公告.pdf.md">浙江龙盛2026年第一季度主要经营数据公告</a></li>
+<li><a href="../../papers/浙江龙盛机构研报-2026-08-03/浙江龙盛2025年年度权益分派实施公告.pdf.md">浙江龙盛2025年年度权益分派实施公告</a></li>
+<li><a href="../../papers/浙江龙盛机构研报-2026-08-03/浙江龙盛2026年第一季度权益分派实施公告.pdf.md">浙江龙盛2026年第一季度权益分派实施公告</a></li>
+<li><a href="../../papers/浙江龙盛机构研报-2026-08-03/浙江龙盛2026-07-30债务融资工具获准注册公告.pdf.md">浙江龙盛债务融资工具获准注册公告</a></li>
+<li>腾讯公开行情接口：<code>https://qt.gtimg.cn/q=sh600352</code></li>
+<li>腾讯前复权日线接口：<code>https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh600352,day,,,160,qfq</code></li>
+<li>巨潮资讯公告检索：<code>https://www.cninfo.com.cn/new/disclosure/stock?stockCode=600352&amp;orgId=gssh0600352</code></li>
+</ul>
+<p>体系相关页面：</p>
+<ul>
+<li><a href="../../../topics/冰冰小美-情绪体系理论篇.md">冰冰小美-体系三要素</a></li>
+<li><a href="../../../冰冰小美-concept-体系三要素之竞争格局的比较优势.md">竞争格局的比较优势</a></li>
+<li><a href="../../../冰冰小美-concept-体系三要素之流动性辩证分析.md">流动性辩证分析</a></li>
+<li><a href="../../../冰冰小美-concept-体系三要素之情绪位置的变化.md">情绪位置的变化</a></li>
+</ul>
+<h2 id="section-16">16. 结论</h2>
+
+<p>浙江龙盛不是差公司，反而是成熟化工里少数同时具备全球染料龙头、高现金余额、较强分红能力和中间体壁垒的标的。问题在于交易位置：2026Q1 的表观利润修复已经被市场部分定价，而扣非利润和产品价格的持续性还没有给出足够强的第二段证据。</p>
+<p>因此当前结论是：持仓可以继续跟踪验证，新增资金不追高；把 11.5-12.0 元视为更合理的重新评估区，把 14.8 元以上视为需要业绩继续兑现才能站稳的压力区。</p>
+<script>
+(() => {
+  const endpoint = '/api/stock-quote?secid=1.600352';
+  const priceNode = document.getElementById('intraday-price');
+  const detailNode = document.getElementById('intraday-detail');
+  const statusNode = document.getElementById('intraday-status');
+  const riskRewardValue = document.getElementById('risk-reward-value');
+  const riskRewardDetail = document.getElementById('risk-reward-detail');
+  const tracker = document.getElementById('daily-tracking');
+  const snapshotPrice = null;
+  const percent = value => `${value < 0 ? '-' : value > 0 ? '+' : ''}${Math.abs(value).toFixed(1)}%`;
+  function updateRiskReward(price) {
+    const low = Number(tracker.dataset.valueLow);
+    const high = Number(tracker.dataset.valueHigh);
+    if (!Number.isFinite(low) || !Number.isFinite(high) || low <= 0 || high <= low) return;
+    const upside = (high / price - 1) * 100;
+    const downside = (price / low - 1) * 100;
+    if (price <= low) {
+      riskRewardValue.textContent = '低于价值下沿';
+      riskRewardValue.classList.remove('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿潜在空间 ${percent(upside)}。价格已低于动态价值下沿，不能直接用下沿作为止损风险，需另设风控线。`;
+      return;
+    }
+    if (price >= high) {
+      riskRewardValue.textContent = '无正向盈亏比';
+      riskRewardValue.classList.add('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿空间 ${percent(upside)}，回落至下沿风险 ${percent(downside)}。价格已到或高于动态价值上沿，新增现金不具备正向盈亏比。`;
+      return;
+    }
+    const ratio = upside / downside;
+    riskRewardValue.textContent = `约 ${ratio.toFixed(1)}:1`;
+    riskRewardValue.classList.toggle('bad', ratio < 1);
+    riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；到上沿 ${high.toFixed(2)} 元的潜在上行 ${percent(upside)}，跌至下沿 ${low.toFixed(2)} 元的风险 ${percent(downside)}。盘中价格不改变价值区间本身。`;
+  }
+  async function refreshIntradayQuote() {
+    statusNode.textContent = '连接中'; statusNode.className = 'tracking-status';
+    try {
+      const response = await fetch(endpoint, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json(); const quote = payload && payload.data;
+      if (!quote || !Number.isFinite(quote.price) || !Number.isFinite(quote.prevClose) || !Number.isFinite(quote.changePercent) || !Number.isFinite(quote.quoteTimestamp)) throw new Error('invalid quote');
+      const quoteTime = new Date(quote.quoteTimestamp * 1000).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false });
+      priceNode.textContent = `${quote.price.toFixed(2)} 元 · ${percent(quote.changePercent)}`;
+      priceNode.classList.toggle('bad', quote.changePercent < 0);
+      detailNode.textContent = `行情时间：${quoteTime}；昨收 ${quote.prevClose.toFixed(2)} 元。来源：${payload.proxySource || '本地行情代理'}。`;
+      statusNode.textContent = '盘中实时 · 每 60 秒'; statusNode.className = 'tracking-status live'; updateRiskReward(quote.price);
+    } catch { priceNode.textContent = '实时行情暂不可用'; priceNode.classList.remove('bad'); detailNode.textContent = '每日同步值仍然有效；可重新双击“大盘启动器”后刷新本页。'; statusNode.textContent = '连接失败'; statusNode.className = 'tracking-status error'; }
+  }
+  if (location.protocol === 'http:' || location.protocol === 'https:') { refreshIntradayQuote(); window.setInterval(refreshIntradayQuote, 60000); }
+  else { priceNode.textContent = Number.isFinite(snapshotPrice) ? `${snapshotPrice.toFixed(2)} 元（每日值）` : '每日值未获取'; detailNode.textContent = '当前为直接打开模式；盘中实时需通过“大盘启动器”进入本地服务。'; statusNode.textContent = '每日同步 · 实时未连接'; }
+})();
+</script></article>
+    </div>
+  </main>
+</body>
+</html>

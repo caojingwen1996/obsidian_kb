@@ -661,12 +661,6 @@ function renderDividendYieldChart(points = []) {
           return `<g><line x1="${padding.left}" y1="${y.toFixed(2)}" x2="${width - padding.right}" y2="${y.toFixed(2)}"></line><text x="${width - padding.right + 12}" y="${(y + 4).toFixed(2)}">${formatNumber(tick, 2)}%</text></g>`;
         }).join('')}
         <path d="${path}"></path>
-        ${valid.map((point, index) => {
-          const isHigh = point === maxPoint;
-          const isLow = point === minPoint;
-          if (!isHigh && !isLow && index !== valid.length - 1) return '';
-          return `<circle class="${isLow ? 'is-low' : 'is-high'}" cx="${xAt(index).toFixed(2)}" cy="${yAt(point.value).toFixed(2)}" r="${index === valid.length - 1 ? 5 : 4}"></circle>`;
-        }).join('')}
         ${labels.map((point, index) => `<text class="x-label" x="${xAt(valid.indexOf(point)).toFixed(2)}" y="${height - 20}" transform="rotate(-40 ${xAt(valid.indexOf(point)).toFixed(2)} ${height - 20})">${escapeHtml(point.date.slice(5))}</text>`).join('')}
       </svg>
       <aside class="dividend-yield-chart-stats" aria-label="股息率统计">

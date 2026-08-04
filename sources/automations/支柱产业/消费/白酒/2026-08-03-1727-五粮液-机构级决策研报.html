@@ -1,0 +1,1054 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>五粮液机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+.daily-tracking { margin: 0 0 42px; padding: 22px; border: 1px solid #cbdade; border-radius: 16px; background: linear-gradient(135deg, #f3f8f9 0%, #fffaf0 100%); box-shadow: 0 12px 30px rgba(23, 50, 71, .07); }
+.daily-tracking-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
+.daily-tracking-kicker { margin: 0 0 4px; color: var(--teal); font-size: 12px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+.daily-tracking h2 { margin: 0; padding: 0; border: 0; font-size: 27px; }
+.daily-tracking-time { margin: 4px 0 0; color: var(--muted); font-size: 12px; text-align: right; }
+.tracking-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.tracking-grid + .tracking-grid { margin-top: 12px; }
+.tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
+.tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
+.tracking-card[data-tracking-key="dynamic-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
+.range-breakdown { display: block; }
+.range-main { display: inline-flex; align-items: center; max-width: 100%; margin-bottom: 10px; padding: 3px 9px; border-radius: 999px; background: #e7f0f3; color: var(--navy); font-size: 20px; line-height: 1.3; font-weight: 800; }
+.range-points { display: grid; gap: 7px; margin-top: 1px; }
+.range-point { display: block; padding-left: 11px; border-left: 3px solid #bed2d8; color: #245068; font-size: 14px; line-height: 1.52; font-weight: 650; }
+.tracking-value.bad { color: var(--danger); }
+.tracking-detail { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; }
+.tracking-status { display: inline-flex; margin-top: 10px; padding: 3px 8px; border-radius: 999px; color: #526b77; background: #edf2f4; font-size: 12px; font-weight: 700; }
+.tracking-status.live { color: #17604e; background: #dff3eb; }
+.tracking-status.error { color: var(--danger); background: var(--danger-bg); }
+.tracking-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; margin-top: 14px; padding-top: 13px; border-top: 1px solid #d5e0e3; color: #536d78; font-size: 13px; }
+.tracking-footer a { font-weight: 700; }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+  .tracking-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+  .daily-tracking-head { display: block; }
+  .daily-tracking-time { text-align: left; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .daily-tracking, .tracking-card { border: 1px solid #aebbc2; color: #102f43; background: #fff; box-shadow: none; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · 000858.SZ</p>
+      <h1>五粮液机构级决策研报</h1>
+      <div class="hero-meta"><span>2026-08-03 17:27（Asia/Shanghai，收盘后）</span><span>2026-08-03 17:27</span><span>深圳证券交易所主板 / 人民币</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
+<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
+<a class="toc-link" href="#section-4">4. 投资叙事与业务拆解</a>
+<a class="toc-link" href="#section-5">5. 三要素分析</a>
+<a class="toc-link" href="#section-6">6. 财务质量与盈利能力</a>
+<a class="toc-link" href="#section-7">7. 股息、回购与资本配置</a>
+<a class="toc-link" href="#section-8">8. 资金面与交易结构</a>
+<a class="toc-link" href="#section-9">9. 风险识别</a>
+<a class="toc-link" href="#section-10">10. 估值</a>
+<a class="toc-link" href="#section-11">11. 催化剂</a>
+<a class="toc-link" href="#section-12">12. 反证清单</a>
+<a class="toc-link" href="#section-13">13. 操作计划</a>
+<a class="toc-link" href="#section-14">14. 跟踪仪表盘</a>
+<a class="toc-link" href="#section-15">15. 结论与评级</a>
+<a class="toc-link" href="#section-16">16. 相关页面与来源</a></div></aside>
+      <article class="content"><blockquote>
+<p>证券代码：000858.SZ<br>交易所 / 币种：深圳证券交易所主板 / 人民币<br>研究截止时间：2026-08-03 17:27（Asia/Shanghai，收盘后）<br>报告生成时间：2026-08-03 17:27<br>数据口径：Tushare 收盘行情、估值、资金分档、融资融券、财务与分红字段；2025 年年报口径受前期差错更正影响，公告原文仍需复核  </p>
+</blockquote>
+<!-- DAILY_TRACKING_START -->
+<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-08-03 17:27（Asia/Shanghai，收盘）" data-value-low="72" data-value-high="96">
+  <div class="daily-tracking-head">
+    <div><p class="daily-tracking-kicker">Daily decision tracker</p><h2>每日跟踪面板</h2></div>
+    <p class="daily-tracking-time">更新：2026-08-03 17:27（Asia/Shanghai，收盘）<br>下次：收盘后 / 重大公告后</p>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">现金流和资产质量强，收入 / 利润口径存在重大噪音</p><p class="tracking-detail">风险方向：风险减弱，但不是风险消失。下一验证点与失效条件见第 11—13 章。</p></div>
+    <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value"><span class="range-breakdown"><span class="range-main">72—96 元</span><span class="range-points"><span class="range-point">72 元附近=只给分红与现金流保守底</span><span class="range-point">82—88 元=承认品牌与高股息但等待盈利质量修复</span><span class="range-point">96 元附近=需要半年报、渠道库存和价格体系共同验证</span></span></span></p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
+    <div class="tracking-card" data-tracking-key="risk-reward"><p class="tracking-label">盈亏比</p><p class="tracking-value" id="risk-reward-value">约 2.7:1</p><p class="tracking-detail" id="risk-reward-detail">每日同步价 78.06 元；到上沿 96.00 元的潜在上行 +23.0%，跌至下沿 72.00 元的风险 +8.4%。价格不改变价值区间本身。</p></div>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="daily-quote"><p class="tracking-label">每日同步价</p><p class="tracking-value">78.06 元，2026-08-03 收盘</p><p class="tracking-detail">这是报告内嵌的正式跟踪基准，离线打开仍可使用。</p><span class="tracking-status">每日快照</span></div>
+    <div class="tracking-card" data-tracking-key="intraday-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">等待连接</p><p class="tracking-detail" id="intraday-detail">通过“大盘启动器”打开后获取盘中行情，每 60 秒刷新；直接打开 HTML 时不访问外部行情。</p><span class="tracking-status" id="intraday-status">未连接</span></div>
+    <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">observe</p><p class="tracking-detail">估值：合理偏低 / 低估边缘：价格已接近 52 周低位，股息率与现金储备形成支撑，但盈利口径和白酒景气仍有疑问 · observe；风险：风险减弱，但不是风险消失；结论置信度：中低：财务口径需要公告原文复核，行业需求修复尚未被充分验证。</p><span class="tracking-status">合理偏低 / 低估边缘：价格已接近 52 周低位，股息率与现金储备形成支撑，但盈利口径和白酒景气仍有疑问</span></div>
+  </div>
+  <div class="tracking-footer"><span>资金状态：<strong>中性偏修复：7 月以来资金分档合计小幅净流入，融资余额温和下降，未看到强制去杠杆式恐慌</strong> · 新增/已有动作：<strong>observe</strong></span><span>资金面分析：未单独生成</span></div>
+</section>
+<!-- DAILY_TRACKING_END -->
+<h2 id="section-1">1. 决策摘要</h2>
+
+<h3>1.1 基本面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值状态</td>
+<td>合理偏低 / 低估边缘：价格已接近 52 周低位，股息率与现金储备形成支撑，但盈利口径和白酒景气仍有疑问</td>
+</tr>
+<tr>
+<td>综合估值区间</td>
+<td>72—96 元；72 元附近=只给分红与现金流保守底，82—88 元=承认品牌与高股息但等待盈利质量修复，96 元附近=需要半年报、渠道库存和价格体系共同验证</td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>以 78.06 元计，下沿 -7.8%，上沿 +23.0%；赔率开始变好，但还不是厚安全边际</td>
+</tr>
+<tr>
+<td>基本面状态</td>
+<td>现金流和资产质量强，收入 / 利润口径存在重大噪音</td>
+</tr>
+<tr>
+<td>关键经营变化</td>
+<td>2025 年报口径显示收入和利润显著下修，但经营现金流、货币资金、合同负债和分红能力仍强；2026Q1 收入 228.38 亿元、归母净利润 80.63 亿元，单季现金流为负，需要 H1 正式报告复核</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td>中低：财务口径需要公告原文复核，行业需求修复尚未被充分验证</td>
+</tr>
+</tbody></table>
+<h3>1.2 资金面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>操作建议</td>
+<td>逆向观察 / 小仓分批观察，不适合短钱重仓</td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td>observe</td>
+</tr>
+<tr>
+<td>当前价格及时间</td>
+<td>78.06 元，2026-08-03 收盘</td>
+</tr>
+<tr>
+<td>资金状态</td>
+<td>中性偏修复：7 月以来资金分档合计小幅净流入，融资余额温和下降，未看到强制去杠杆式恐慌</td>
+</tr>
+<tr>
+<td>风险方向</td>
+<td>风险减弱，但不是风险消失</td>
+</tr>
+<tr>
+<td>每日跟踪时间</td>
+<td>2026-08-03 17:27（Asia/Shanghai，收盘）</td>
+</tr>
+<tr>
+<td>资金面分析链接</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<h3>1.3 霍华德·马克斯逆向投资结论</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>逆向等级</td>
+<td>B：逆向观察区</td>
+</tr>
+<tr>
+<td>核心判断</td>
+<td>五粮液已经满足“价格显著下跌、市场情绪偏冷、资产未被永久毁灭”的一部分条件，但还没有满足“被迫卖出导致价格明显低于保守价值”的强买条件</td>
+</tr>
+<tr>
+<td>已满足条件</td>
+<td>股价较 52 周高点回撤约 40.8%，接近 52 周低位；白酒行业处于低预期区；公司仍有强现金、强分红和高毛利品牌资产</td>
+</tr>
+<tr>
+<td>部分满足条件</td>
+<td>当前价格低于综合价值中枢，但未明显跌穿保守底；资金流不再单边恶化，但也没有形成强共振流入</td>
+</tr>
+<tr>
+<td>未满足条件</td>
+<td>2025 年财务口径和 2026 年盈利质量未完全澄清；没有证据证明市场出现足够极端的被迫抛售</td>
+</tr>
+<tr>
+<td>对动作的约束</td>
+<td>可以从 <code>wait</code> 升为 <code>observe</code>，但不能直接升为 <code>buy</code>；若价格回到 72—75 元、半年报验证现金流和合同负债，才具备上调动作的条件</td>
+</tr>
+</tbody></table>
+<h3>如果今天这是一笔现金，我会买它吗</h3>
+<ul>
+<li>回答：会小仓观察式买，不会一次性重仓。</li>
+<li>我的判断：78.06 元已经进入可以认真逆向看的位置，股息率、现金和品牌资产都在提供下方支撑；但 2025 年口径变化和白酒渠道压力仍未完全解释清楚，现价更像“可建观察仓”，不是“闭眼买”。</li>
+<li>更舒服的位置：72—75 元；如果只给一笔新增现金，我会把大部分预算留给这个区间，78 元附近只做小仓。</li>
+<li>改变结论的条件：2026 半年报确认经营现金流恢复、合同负债稳定、渠道价格不继续下探，且资金面从“风险减弱”转成“主动增量流入”。</li>
+</ul>
+<h2 id="section-2">2. 证券身份与来源矩阵</h2>
+
+<h3>2.1 证券身份</h3>
+<ul>
+<li>公司名称：宜宾五粮液股份有限公司。</li>
+<li>证券代码：000858.SZ。</li>
+<li>上市地：深圳证券交易所主板。</li>
+<li>所属行业：白酒。</li>
+<li>上市日期：1998-04-27。</li>
+<li>同名或跨市场歧义：本报告仅指 A 股五粮液（000858.SZ），不得与五粮液集团其他主体混用。</li>
+</ul>
+<h3>2.2 来源矩阵</h3>
+<table>
+<thead>
+<tr>
+<th>数据项目</th>
+<th>目标来源</th>
+<th>实际来源</th>
+<th>数据时间</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Tushare MCP 调用清单（A股适用）</td>
+<td>本地 Tushare 工具</td>
+<td><code>stock_basic</code>、<code>daily</code>、<code>daily_basic</code>、<code>moneyflow</code>、<code>margin_detail</code>、<code>income</code>、<code>balancesheet</code>、<code>cashflow</code>、<code>dividend</code></td>
+<td>2026-08-03</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>证券身份与上市状态</td>
+<td>Tushare <code>stock_basic</code></td>
+<td>000858.SZ，五粮液，四川，白酒，深交所主板，上市状态 L</td>
+<td>2026-08-03</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>实时价格、52周高低、今年以来表现</td>
+<td>Tushare 日线</td>
+<td>78.06 元收盘，52 周高点 131.85 元，低点 70.52 元，YTD -26.3%</td>
+<td>2026-08-03</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>估值、市值、股息率和换手率</td>
+<td>Tushare <code>daily_basic</code></td>
+<td>PE_TTM 24.05，PB 2.37，总市值约 3030 亿元，TTM 股息率 6.61%</td>
+<td>2026-08-03</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>资金分档 / 大单资金代理</td>
+<td>Tushare <code>moneyflow</code></td>
+<td>2026-07-01 至 2026-08-03 合计约 +6.22 亿元，近 10 日约 +3.30 亿元，8 月 3 日单日流出</td>
+<td>2026-08-03</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>融资融券代理</td>
+<td>Tushare <code>margin_detail</code></td>
+<td>2026-07-31 融资余额约 56.74 亿元，较 7 月 23 日温和下降</td>
+<td>2026-07-31</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>第三方公允价值、护城河、星级</td>
+<td>独立第三方页面</td>
+<td>本次未取得可复现字段</td>
+<td>2026-08-03</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>最新季报与管理层指引</td>
+<td>公司公告 / Tushare 财务字段</td>
+<td>2026Q1 结构化字段；H1 预告线索已定位但公告原文未保存</td>
+<td>2026-04-30 / 待复核</td>
+<td>部分获取</td>
+</tr>
+<tr>
+<td>五年财务历史</td>
+<td>年报结构化字段</td>
+<td>2021—2025 年收入、利润、现金流、资产负债字段</td>
+<td>2021—2025</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>分红历史</td>
+<td>Tushare <code>dividend</code></td>
+<td>2025 年度每股派 2.5796852 元；前期另有每股派 2.578 元</td>
+<td>2025—2026</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>北向、ETF、机构持仓</td>
+<td>深股通 / 基金持仓 / ETF 明细</td>
+<td>本次未取得完整样本</td>
+<td>2026-08-03</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 行情与市场预期</h2>
+
+<h3>3.1 行情快照（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">数值</th>
+<th>来源</th>
+<th>时间 / 口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前价格</td>
+<td align="right">78.06 元</td>
+<td>Tushare <code>daily</code></td>
+<td>2026-08-03 收盘</td>
+</tr>
+<tr>
+<td>52 周最高</td>
+<td align="right">131.85 元</td>
+<td>Tushare <code>daily</code></td>
+<td>2025-08-26</td>
+</tr>
+<tr>
+<td>52 周最低</td>
+<td align="right">70.52 元</td>
+<td>Tushare <code>daily</code></td>
+<td>2026-07-09</td>
+</tr>
+<tr>
+<td>距高点回撤</td>
+<td align="right">-40.8%</td>
+<td>计算</td>
+<td>以 78.06 元计</td>
+</tr>
+<tr>
+<td>今年以来表现</td>
+<td align="right">-26.3%</td>
+<td>计算</td>
+<td>以 2025-12-31 收盘 105.94 元为基准</td>
+</tr>
+<tr>
+<td>总市值</td>
+<td align="right">约 3030.0 亿元</td>
+<td>Tushare <code>daily_basic</code></td>
+<td>2026-08-03</td>
+</tr>
+<tr>
+<td>PE / PB / EV</td>
+<td align="right">PE 33.84，PE_TTM 24.05，PB 2.37；EV 未获取到</td>
+<td>Tushare <code>daily_basic</code></td>
+<td>2026-08-03</td>
+</tr>
+</tbody></table>
+<h3>3.2 第三方公允价值与评级（事实）</h3>
+<ul>
+<li>公允价值：未获取到。</li>
+<li>护城河评级：未获取到。</li>
+<li>星级：未获取到。</li>
+<li>来源与时间：本次未取得可复现的独立第三方组合评价字段。</li>
+<li>未获取到的字段及已检查来源：本地数据、Tushare、公司公告线索；不使用无法复现的搜索摘要补全估值结论。</li>
+</ul>
+<h3>3.3 市场当前在定价什么（推断）</h3>
+<ul>
+<li>市场不是在简单定价“白酒龙头变差”，而是在同时定价三件事：行业需求下行、渠道价格压力、2025 年会计口径变化带来的盈利可信度折价。</li>
+<li>价格从 131.85 元跌到 78.06 元，说明悲观已经显性化；但离 70.52 元低点不远，也说明市场还没有给出稳定反转溢价。</li>
+<li>现价隐含的核心问题是：五粮液的真实可持续利润到底更接近 2024 年的 318.5 亿元，还是更接近经调整后的低口径。</li>
+</ul>
+<h2 id="section-4">4. 投资叙事与业务拆解</h2>
+
+<h3>4.1 一句话业务本质</h3>
+<p>五粮液是中国高端白酒第二梯队中最重要的品牌资产之一，本质是高毛利、轻资本、强现金回款的品牌消费品公司，但当前处在需求、价格和会计口径三重再定价阶段。</p>
+<h3>4.2 主营业务与收入来源</h3>
+<ul>
+<li>核心产品：五粮液主品牌及系列酒。</li>
+<li>收入驱动：高端白酒动销、渠道价格体系、经销商打款、合同负债和节庆消费。</li>
+<li>成本结构：原料、制造、渠道费用和品牌费用占比较低，毛利率长期维持在 75% 以上。</li>
+<li>现金流特征：成熟白酒龙头通常具有先款后货、库存可管理和高现金沉淀特征；五粮液 2025 年末货币资金约 1270 亿元，2026Q1 仍约 1243 亿元。</li>
+</ul>
+<h3>4.3 关键价值驱动因素</h3>
+<ol>
+<li>主品牌批价和渠道利润能否企稳。</li>
+<li>经销商库存是否继续压制打款节奏。</li>
+<li>合同负债是否维持，能否证明终端需求仍在。</li>
+<li>2025 年会计差错更正后的真实盈利基线。</li>
+<li>高分红是否可持续。</li>
+</ol>
+<h2 id="section-5">5. 三要素分析</h2>
+
+<h3>5.1 竞争格局</h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>判断</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>状态</td>
+<td>中性，偏长期有利</td>
+</tr>
+<tr>
+<td>有利证据</td>
+<td>五粮液品牌资产强、价格带高、毛利率高、现金储备极厚，在白酒行业低景气时仍具备比中小酒企更强的抗压能力</td>
+</tr>
+<tr>
+<td>反证</td>
+<td>高端和次高端需求都受消费预期影响，行业库存和批价压力会削弱品牌溢价兑现</td>
+</tr>
+<tr>
+<td>结论</td>
+<td>长期竞争格局不是主要问题，短期问题在景气与价格体系</td>
+</tr>
+</tbody></table>
+<h3>5.2 流动性</h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>判断</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>状态</td>
+<td>中性</td>
+</tr>
+<tr>
+<td>有利证据</td>
+<td>7 月以来资金分档合计小幅净流入，融资余额只是温和下降，未见持续恐慌式卖出；TTM 股息率 6.61% 对长线资金有吸引力</td>
+</tr>
+<tr>
+<td>反证</td>
+<td>8 月 3 日单日资金为流出，换手率低，尚未看到主动增量资金持续买入</td>
+</tr>
+<tr>
+<td>结论</td>
+<td>流动性从坏转稳，但还不是强买共振</td>
+</tr>
+</tbody></table>
+<h3>5.3 情绪位置</h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>判断</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>状态</td>
+<td>中性偏低位</td>
+</tr>
+<tr>
+<td>有利证据</td>
+<td>52 周回撤约 40.8%，YTD -26.3%，市场对白酒和财务口径的疑虑已经反映在价格里</td>
+</tr>
+<tr>
+<td>反证</td>
+<td>价格仍高于 70.52 元低点，且没有看到明确的基本面拐点确认</td>
+</tr>
+<tr>
+<td>结论</td>
+<td>情绪进入可逆向观察区，但不是极端恐慌底</td>
+</tr>
+</tbody></table>
+<h3>5.4 三要素合成</h3>
+<table>
+<thead>
+<tr>
+<th>要素</th>
+<th>状态</th>
+<th>权重</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>中性</td>
+<td>品牌强但行业弱</td>
+</tr>
+<tr>
+<td>流动性</td>
+<td>中性</td>
+<td>风险减弱但增量不足</td>
+</tr>
+<tr>
+<td>情绪位置</td>
+<td>中性偏低</td>
+<td>可逆向，但不极端</td>
+</tr>
+<tr>
+<td>综合动作</td>
+<td>observe</td>
+<td>小仓观察、等待验证</td>
+</tr>
+</tbody></table>
+<h2 id="section-6">6. 财务质量与盈利能力</h2>
+
+<h3>6.1 五年财务概览</h3>
+<table>
+<thead>
+<tr>
+<th>年度 / 期间</th>
+<th align="right">营收</th>
+<th align="right">归母净利润</th>
+<th align="right">毛利率</th>
+<th align="right">经营现金流</th>
+<th align="right">自由现金流代理</th>
+<th align="right">货币资金</th>
+<th align="right">合同负债</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021A</td>
+<td align="right">662.09 亿</td>
+<td align="right">233.77 亿</td>
+<td align="right">75.35%</td>
+<td align="right">267.75 亿</td>
+<td align="right">252.36 亿</td>
+<td align="right">823.36 亿</td>
+<td align="right">130.59 亿</td>
+</tr>
+<tr>
+<td>2022A</td>
+<td align="right">739.69 亿</td>
+<td align="right">266.91 亿</td>
+<td align="right">75.43%</td>
+<td align="right">244.31 亿</td>
+<td align="right">226.51 亿</td>
+<td align="right">923.58 亿</td>
+<td align="right">123.79 亿</td>
+</tr>
+<tr>
+<td>2023A</td>
+<td align="right">832.72 亿</td>
+<td align="right">302.11 亿</td>
+<td align="right">75.80%</td>
+<td align="right">417.42 亿</td>
+<td align="right">387.85 亿</td>
+<td align="right">1154.56 亿</td>
+<td align="right">68.64 亿</td>
+</tr>
+<tr>
+<td>2024A</td>
+<td align="right">891.75 亿</td>
+<td align="right">318.53 亿</td>
+<td align="right">77.06%</td>
+<td align="right">339.40 亿</td>
+<td align="right">312.73 亿</td>
+<td align="right">1273.99 亿</td>
+<td align="right">116.90 亿</td>
+</tr>
+<tr>
+<td>2025A</td>
+<td align="right">405.29 亿</td>
+<td align="right">89.54 亿</td>
+<td align="right">77.54%</td>
+<td align="right">297.06 亿</td>
+<td align="right">277.39 亿</td>
+<td align="right">1270.14 亿</td>
+<td align="right">134.60 亿</td>
+</tr>
+<tr>
+<td>2026Q1</td>
+<td align="right">228.38 亿</td>
+<td align="right">80.63 亿</td>
+<td align="right">81.44%</td>
+<td align="right">-25.35 亿</td>
+<td align="right">-28.82 亿</td>
+<td align="right">1242.59 亿</td>
+<td align="right">141.38 亿</td>
+</tr>
+</tbody></table>
+<h3>6.2 财务质量判断</h3>
+<ul>
+<li>优点：毛利率高、货币资金极厚、资本开支低、长期经营现金流优于大多数消费品公司。</li>
+<li>问题：2025 年收入和利润口径出现断崖式变化，但现金流并未同步坍塌，这更像会计口径和收入确认问题叠加经营压力，而不是简单的需求崩溃。</li>
+<li>关键验证：2026H1 正式报告必须证明收入、利润、现金流、合同负债和存货能互相解释；否则估值不能回到高景气时期。</li>
+</ul>
+<h2 id="section-7">7. 股息、回购与资本配置</h2>
+
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>判断</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>股息</td>
+<td>2025 年度每股派 2.5796852 元，前期另有每股派 2.578 元；TTM 股息率约 6.61%</td>
+</tr>
+<tr>
+<td>回购</td>
+<td>本次未取得完整回购样本</td>
+</tr>
+<tr>
+<td>现金</td>
+<td>2026Q1 货币资金约 1242.59 亿元，按约 38.82 亿股估算约 32 元 / 股现金</td>
+</tr>
+<tr>
+<td>资本开支</td>
+<td>年度资本开支通常远低于经营现金流，轻资本属性明显</td>
+</tr>
+<tr>
+<td>结论</td>
+<td>股息和现金是估值底的重要来源，但不能替代对盈利质量的验证</td>
+</tr>
+</tbody></table>
+<h2 id="section-8">8. 资金面与交易结构</h2>
+
+<!-- DAILY_TRACKING_START -->
+
+<table>
+<thead>
+<tr>
+<th>日期</th>
+<th align="right">收盘价</th>
+<th align="right">换手率</th>
+<th align="right">资金分档代理</th>
+<th align="right">融资余额</th>
+<th>判断</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-08-03</td>
+<td align="right">78.06 元</td>
+<td align="right">0.719%</td>
+<td align="right">-9967.59</td>
+<td align="right">待更新</td>
+<td>单日流出，但幅度不构成恐慌</td>
+</tr>
+<tr>
+<td>2026-07-31</td>
+<td align="right">78.00 元</td>
+<td align="right">未列示</td>
+<td align="right">-1532.24</td>
+<td align="right">56.74 亿元</td>
+<td>融资温和下降</td>
+</tr>
+<tr>
+<td>2026-07-30</td>
+<td align="right">77.91 元</td>
+<td align="right">未列示</td>
+<td align="right">+67507.62</td>
+<td align="right">待更新</td>
+<td>大额流入，显示低位承接</td>
+</tr>
+</tbody></table>
+<!-- DAILY_TRACKING_END -->
+
+<h3>8.1 资金面结论</h3>
+<ul>
+<li>7 月以来合计净流入约 +6.22 亿元，近 10 个交易日约 +3.30 亿元，说明不是持续单边抛售。</li>
+<li>融资余额从 7 月 23 日约 58.06 亿元降至 7 月 31 日约 56.74 亿元，属于温和降杠杆，不像踩踏。</li>
+<li>结论：风险正在减弱，但尚未转成强资金共振。</li>
+</ul>
+<h2 id="section-9">9. 风险识别</h2>
+
+<h3>9.1 当前主要风险</h3>
+<table>
+<thead>
+<tr>
+<th>风险</th>
+<th>方向</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>财务口径风险</td>
+<td>仍高</td>
+<td>2025 年收入和利润显著下修，需要公告原文和半年报交叉验证</td>
+</tr>
+<tr>
+<td>行业景气风险</td>
+<td>中高</td>
+<td>白酒消费、商务宴请和礼赠需求仍可能偏弱</td>
+</tr>
+<tr>
+<td>渠道库存风险</td>
+<td>中高</td>
+<td>若批价继续下探，经销商利润和打款意愿会受压</td>
+</tr>
+<tr>
+<td>估值陷阱风险</td>
+<td>中</td>
+<td>高股息和现金很诱人，但若利润基线下移，估值中枢也会下移</td>
+</tr>
+<tr>
+<td>短线资金风险</td>
+<td>中</td>
+<td>资金未继续恶化，但单日流向仍有波动</td>
+</tr>
+</tbody></table>
+<h3>9.2 风险方向判断</h3>
+<ul>
+<li>综合判断：风险减弱。</li>
+<li>依据：价格已大幅回撤，资金未呈现恐慌式流出，现金和分红提供支撑。</li>
+<li>限制：风险减弱不等于拐点确认；真正的风险解除需要半年报和渠道价格验证。</li>
+</ul>
+<h2 id="section-10">10. 估值</h2>
+
+<h3>10.1 相对估值</h3>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">归母净利润中枢</th>
+<th align="right">合理 PE</th>
+<th align="right">对应价值区间</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>保守</td>
+<td align="right">130—150 亿元</td>
+<td align="right">15x</td>
+<td align="right">50—58 元</td>
+<td>假设利润基线明显下移，只给成熟消费低估值</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">170—190 亿元</td>
+<td align="right">16—18x</td>
+<td align="right">70—88 元</td>
+<td>假设会计口径澄清后盈利恢复一部分，但行业景气仍弱</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">210—230 亿元</td>
+<td align="right">18—20x</td>
+<td align="right">97—119 元</td>
+<td>假设渠道企稳、利润质量恢复、市场重新给白酒龙头溢价</td>
+</tr>
+</tbody></table>
+<h3>10.2 现金流与股息锚</h3>
+<ul>
+<li>现金流法参考：若可持续自由现金流落在 150—280 亿元之间，叠加货币资金折价处理，估值会非常宽，约 70—110 元。宽区间说明当前估值争议不是模型参数问题，而是真实利润基线问题。</li>
+<li>股息锚参考：TTM 分红约 5.16 元 / 股，若要求 6%—7% 股息率，对应 74—86 元；这与当前股价接近，构成下方支撑。</li>
+<li>现金支撑：2026Q1 货币资金约 1242.59 亿元，约 32 元 / 股；这不是清算价值，但能提高分红和抗周期能力。</li>
+</ul>
+<h3>10.3 综合估值结论</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>保守底</td>
+<td>72 元</td>
+</tr>
+<tr>
+<td>合理中枢</td>
+<td>82—88 元</td>
+</tr>
+<tr>
+<td>乐观上沿</td>
+<td>96 元</td>
+</tr>
+<tr>
+<td>当前价格</td>
+<td>78.06 元</td>
+</tr>
+<tr>
+<td>判断</td>
+<td>位于价值区间下半段，可逆向观察；若跌到 72—75 元，赔率明显改善</td>
+</tr>
+</tbody></table>
+<h2 id="section-11">11. 催化剂</h2>
+
+<table>
+<thead>
+<tr>
+<th>催化剂</th>
+<th>类型</th>
+<th>时间窗口</th>
+<th>影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026 半年报正式披露</td>
+<td>基本面</td>
+<td>2026H1</td>
+<td>验证收入、利润、现金流、合同负债是否自洽</td>
+</tr>
+<tr>
+<td>渠道批价企稳</td>
+<td>经营</td>
+<td>未来 1—2 个季度</td>
+<td>若批价不再下探，估值修复概率上升</td>
+</tr>
+<tr>
+<td>高分红持续</td>
+<td>资本配置</td>
+<td>年度 / 中期</td>
+<td>强化长线资金配置逻辑</td>
+</tr>
+<tr>
+<td>资金面转为持续流入</td>
+<td>交易</td>
+<td>日度跟踪</td>
+<td>观察风险是否由减弱转为释放完成</td>
+</tr>
+</tbody></table>
+<h2 id="section-12">12. 反证清单</h2>
+
+<table>
+<thead>
+<tr>
+<th>需要推翻的假设</th>
+<th>反证指标</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>“现金和分红能托底”</td>
+<td>半年报经营现金流继续弱、分红承诺下降、货币资金明显减少</td>
+</tr>
+<tr>
+<td>“渠道压力可控”</td>
+<td>批价继续下跌、合同负债下降、存货继续上行且收入不恢复</td>
+</tr>
+<tr>
+<td>“会计口径只是一次性噪音”</td>
+<td>后续利润继续低于 2025 口径，且公告解释不能自洽</td>
+</tr>
+<tr>
+<td>“估值已进入合理偏低”</td>
+<td>股价跌破 70 元且没有资金承接，说明市场在重新定价更低利润中枢</td>
+</tr>
+</tbody></table>
+<h2 id="section-13">13. 操作计划</h2>
+
+<table>
+<thead>
+<tr>
+<th>账户类型</th>
+<th>动作</th>
+<th>价格 / 条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>长期现金流账户</td>
+<td>小仓观察</td>
+<td>78 元附近可少量建观察仓，仓位不宜重</td>
+</tr>
+<tr>
+<td>逆向账户</td>
+<td>等待更好赔率</td>
+<td>72—75 元更适合加大配置</td>
+</tr>
+<tr>
+<td>趋势账户</td>
+<td>暂不参与</td>
+<td>需要站稳 82—88 元并配合资金持续流入</td>
+</tr>
+<tr>
+<td>风险控制</td>
+<td>停止加仓</td>
+<td>半年报证明现金流、合同负债或渠道价格继续恶化</td>
+</tr>
+</tbody></table>
+<h2 id="section-14">14. 跟踪仪表盘</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">当前值</th>
+<th align="right">跟踪阈值</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>股价</td>
+<td align="right">78.06 元</td>
+<td align="right">72—75 元观察加仓区</td>
+<td>低于 75 元赔率改善</td>
+</tr>
+<tr>
+<td>TTM 股息率</td>
+<td align="right">6.61%</td>
+<td align="right">低于 5.5% 或高于 7%</td>
+<td>低于 5.5% 可能说明价格修复，高于 7% 需辨别陷阱</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">2026Q1 -25.35 亿</td>
+<td align="right">H1 转正并与利润匹配</td>
+<td>验证利润质量</td>
+</tr>
+<tr>
+<td>合同负债</td>
+<td align="right">2026Q1 141.38 亿</td>
+<td align="right">不明显下滑</td>
+<td>验证经销商打款</td>
+</tr>
+<tr>
+<td>融资余额</td>
+<td align="right">56.74 亿</td>
+<td align="right">快速下降或重新上升</td>
+<td>下降过快是卖压，上升需看是否健康</td>
+</tr>
+<tr>
+<td>资金分档</td>
+<td align="right">近 10 日 +3.30 亿</td>
+<td align="right">连续 5 日净流入</td>
+<td>判断主动增量资金</td>
+</tr>
+</tbody></table>
+<h2 id="section-15">15. 结论与评级</h2>
+
+<ul>
+<li>决策评级：observe。</li>
+<li>投资结论：五粮液已经从“贵的白酒龙头”变成“可逆向观察的高股息品牌资产”，但财务口径和行业景气仍未彻底澄清。</li>
+<li>当前位置：78.06 元属于合理偏低，但不够极端。更有吸引力的位置在 72—75 元，或者等待半年报把价值中枢重新抬高。</li>
+<li>最大风险：把高股息当成确定底，而忽略利润基线下移和渠道压力。</li>
+<li>最大机会：若 2026H1 证明会计扰动后现金流和合同负债仍健康，市场可能把它从“价值陷阱”重新定价为“高股息优质龙头”。</li>
+</ul>
+<h2 id="section-16">16. 相关页面与来源</h2>
+
+<ul>
+<li><a href="../../../../manual/2026-08-03-五粮液研究数据快照.md">2026-08-03 五粮液研究数据快照</a>：本报告的结构化数据来源。</li>
+<li><a href="../../../../../topics/冰冰小美-情绪体系理论篇.md">冰冰小美-体系三要素</a>：竞争格局、流动性、情绪位置的分析框架。</li>
+<li><a href="../../../../../concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势.md">竞争格局的比较优势</a>：解释为什么强品牌不等于短期可买。</li>
+<li><a href="../../../../../concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md">流动性辩证分析</a>：解释资金从恶化到修复的阶段差异。</li>
+<li><a href="../../../../../concepts/冰冰小美-concept-体系三要素之情绪位置的变化.md">情绪位置的变化</a>：解释低位逆向观察和极端恐慌买点的区别。</li>
+</ul>
+<script>
+(() => {
+  const endpoint = '/api/stock-quote?secid=0.000858';
+  const priceNode = document.getElementById('intraday-price');
+  const detailNode = document.getElementById('intraday-detail');
+  const statusNode = document.getElementById('intraday-status');
+  const riskRewardValue = document.getElementById('risk-reward-value');
+  const riskRewardDetail = document.getElementById('risk-reward-detail');
+  const tracker = document.getElementById('daily-tracking');
+  const snapshotPrice = 78.06;
+  const percent = value => `${value < 0 ? '-' : value > 0 ? '+' : ''}${Math.abs(value).toFixed(1)}%`;
+  function updateRiskReward(price) {
+    const low = Number(tracker.dataset.valueLow);
+    const high = Number(tracker.dataset.valueHigh);
+    if (!Number.isFinite(low) || !Number.isFinite(high) || low <= 0 || high <= low) return;
+    const upside = (high / price - 1) * 100;
+    const downside = (price / low - 1) * 100;
+    if (price <= low) {
+      riskRewardValue.textContent = '低于价值下沿';
+      riskRewardValue.classList.remove('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿潜在空间 ${percent(upside)}。价格已低于动态价值下沿，不能直接用下沿作为止损风险，需另设风控线。`;
+      return;
+    }
+    if (price >= high) {
+      riskRewardValue.textContent = '无正向盈亏比';
+      riskRewardValue.classList.add('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿空间 ${percent(upside)}，回落至下沿风险 ${percent(downside)}。价格已到或高于动态价值上沿，新增现金不具备正向盈亏比。`;
+      return;
+    }
+    const ratio = upside / downside;
+    riskRewardValue.textContent = `约 ${ratio.toFixed(1)}:1`;
+    riskRewardValue.classList.toggle('bad', ratio < 1);
+    riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；到上沿 ${high.toFixed(2)} 元的潜在上行 ${percent(upside)}，跌至下沿 ${low.toFixed(2)} 元的风险 ${percent(downside)}。盘中价格不改变价值区间本身。`;
+  }
+  async function refreshIntradayQuote() {
+    statusNode.textContent = '连接中'; statusNode.className = 'tracking-status';
+    try {
+      const response = await fetch(endpoint, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json(); const quote = payload && payload.data;
+      if (!quote || !Number.isFinite(quote.price) || !Number.isFinite(quote.prevClose) || !Number.isFinite(quote.changePercent) || !Number.isFinite(quote.quoteTimestamp)) throw new Error('invalid quote');
+      const quoteTime = new Date(quote.quoteTimestamp * 1000).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false });
+      priceNode.textContent = `${quote.price.toFixed(2)} 元 · ${percent(quote.changePercent)}`;
+      priceNode.classList.toggle('bad', quote.changePercent < 0);
+      detailNode.textContent = `行情时间：${quoteTime}；昨收 ${quote.prevClose.toFixed(2)} 元。来源：${payload.proxySource || '本地行情代理'}。`;
+      statusNode.textContent = '盘中实时 · 每 60 秒'; statusNode.className = 'tracking-status live'; updateRiskReward(quote.price);
+    } catch { priceNode.textContent = '实时行情暂不可用'; priceNode.classList.remove('bad'); detailNode.textContent = '每日同步值仍然有效；可重新双击“大盘启动器”后刷新本页。'; statusNode.textContent = '连接失败'; statusNode.className = 'tracking-status error'; }
+  }
+  if (location.protocol === 'http:' || location.protocol === 'https:') { refreshIntradayQuote(); window.setInterval(refreshIntradayQuote, 60000); }
+  else { priceNode.textContent = Number.isFinite(snapshotPrice) ? `${snapshotPrice.toFixed(2)} 元（每日值）` : '每日值未获取'; detailNode.textContent = '当前为直接打开模式；盘中实时需通过“大盘启动器”进入本地服务。'; statusNode.textContent = '每日同步 · 实时未连接'; }
+})();
+</script></article>
+    </div>
+  </main>
+</body>
+</html>

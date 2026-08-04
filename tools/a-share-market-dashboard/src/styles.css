@@ -225,8 +225,6 @@ h3 { font-size: 15px; }
 .dividend-yield-chart text { fill: #dce5ed; font-size: 11px; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
 .dividend-yield-chart .x-label { fill: #a9b3bc; font-size: 10px; }
 .dividend-yield-chart path { fill: none; stroke: #9ba8b5; stroke-width: 1.4; }
-.dividend-yield-chart circle { fill: #00ff5a; stroke: #052f18; stroke-width: 1.5; }
-.dividend-yield-chart circle.is-low { fill: #ff1616; stroke: #3d0505; }
 .dividend-yield-chart-stats { display: grid; gap: 8px; }
 .dividend-yield-chart-stats div { border: 1px solid #f0f3f6; min-height: 60px; padding: 7px 8px; text-align: center; display: flex; flex-direction: column; justify-content: center; }
 .dividend-yield-chart-stats small, .dividend-yield-chart-stats strong, .dividend-yield-chart-stats span { display: block; }

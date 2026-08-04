@@ -1,0 +1,32 @@
+{
+  "account": "冰冰小美",
+  "account_url": "https://xueqiu.com/u/7143769715",
+  "task_date": "20260804",
+  "start_time": "2026-08-04 16:13:59",
+  "end_time": null,
+  "scan_round": 1,
+  "success_count": 1,
+  "failure_count": 0,
+  "log_file": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\20260804\\冰冰小美\\task.log",
+  "result_dir": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\20260804\\冰冰小美",
+  "state_file": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\20260804\\冰冰小美\\state.json",
+  "processed_items": {
+    "403553323": {
+      "source_id": "403553323",
+      "title": "午盘总结:1，美股 道指 新高，刺激了某些神经。政策开始陆续加码。2， 创业板 指数首次突破下降趋势线。3469救市多空... - 雪球",
+      "published_at": "2026-08-04 11:54:00",
+      "url": "https://xueqiu.com/7143769715/403553323",
+      "platform": "xueqiu",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\20260804\\冰冰小美\\115400_午盘总结_1_美股_道指_新高_刺激了某些神经_政策开始陆续加码_2_创业板_指数首次突破下降趋_40355332.md",
+      "saved_at": "2026-08-04 16:13:59"
+    }
+  },
+  "events": [
+    {
+      "type": "item_saved",
+      "time": "2026-08-04 16:13:59",
+      "item_key": "403553323",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\20260804\\冰冰小美\\115400_午盘总结_1_美股_道指_新高_刺激了某些神经_政策开始陆续加码_2_创业板_指数首次突破下降趋_40355332.md"
+    }
+  ]
+}
