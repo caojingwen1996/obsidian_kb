@@ -569,6 +569,7 @@ h3 { font-size: 15px; }
 .tracking-table { width: 100%; min-width: 990px; border-collapse: collapse; font-size: 11px; }
 .tracking-table th, .tracking-table td { padding: 12px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
 .tracking-table th { color: var(--muted); font-size: 9px; letter-spacing: .04em; white-space: nowrap; }
+.tracking-table th small { display: block; margin-top: 3px; color: var(--muted); font-size: 10px; font-weight: 500; letter-spacing: 0; }
 .tracking-group-row th { border-bottom: 0; background: #eef4f8; color: #17324b; font-size: 11px; letter-spacing: 0; }
 .tracking-group-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .tracking-group-head span { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; }
@@ -1762,7 +1763,7 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
               </div>
               <div class="tracking-table-wrap">
                 <table class="tracking-table">
-                  <thead><tr><th>标的</th><th>动态价值区间</th><th>盘中实时</th><th>收盘表现</th><th><button class="table-sort-button" type="button" id="tracking-sort-intraday" aria-pressed="false" aria-label="按盈亏比从高到低排序">盈亏比</button></th><th>监控状态</th><th>数据来自研报</th><th>复盘</th><th>星级</th></tr></thead>
+                  <thead><tr><th>标的</th><th>动态价值区间</th><th>盘中实时</th><th>收盘表现<small id="tracking-close-date"></small></th><th><button class="table-sort-button" type="button" id="tracking-sort-intraday" aria-pressed="false" aria-label="按盈亏比从高到低排序">盈亏比</button></th><th>监控状态（待实现）</th><th>数据来自研报</th><th>复盘</th><th>星级</th></tr></thead>
                   <tbody id="holding-tracker-list"></tbody>
                 </table>
               </div>
@@ -7149,6 +7150,14 @@ function startApp() {
         )
       : filteredItems;
     const hasAllocation = renderTrackingAllocation(summary.items);
+    const closeDates = visibleItems
+      .map(({ closePerformanceEntry }) => closePerformanceEntry?.data?.tradeDate)
+      .filter(Boolean)
+      .sort();
+    const trackingCloseDate = document.getElementById('tracking-close-date');
+    if (trackingCloseDate) {
+      trackingCloseDate.textContent = closeDates.length ? `${closeDates.at(-1)}收盘` : '';
+    }
     const renderTrackingRow = ({ item, reportHref, reportEntry, report, quoteEntry, closePerformanceEntry, liveQuote, signal, riskReward }) => {
       const signalLabel = signal.addStars > 0
         ? '★'.repeat(signal.addStars)

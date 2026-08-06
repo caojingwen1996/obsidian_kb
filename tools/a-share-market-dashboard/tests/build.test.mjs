@@ -250,7 +250,7 @@ test('sidebar exposes the personal position workspace as a first-level tree doma
   assert.match(readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8'), /\.fugui-form\.is-collapsed \.fugui-form-body/);
   assert.match(html, /<section class="view" id="topic-map" data-shell-content="thermometer" aria-labelledby="topic-map-heading">/);
   assert.match(html, /<h2[^>]*id="topic-map-heading"[^>]*>主题<\/h2>/);
-  assert.match(html, /<thead><tr><th>标的<\/th><th>动态价值区间<\/th><th>盘中实时<\/th><th>收盘表现<\/th><th><button class="table-sort-button" type="button" id="tracking-sort-intraday"[^>]*>盈亏比<\/button><\/th><th>监控状态<\/th><th>数据来自研报<\/th><th>复盘<\/th><th>星级<\/th><\/tr><\/thead>/);
+  assert.match(html, /<thead><tr><th>标的<\/th><th>动态价值区间<\/th><th>盘中实时<\/th><th>收盘表现<small id="tracking-close-date"><\/small><\/th><th><button class="table-sort-button" type="button" id="tracking-sort-intraday"[^>]*>盈亏比<\/button><\/th><th>监控状态（待实现）<\/th><th>数据来自研报<\/th><th>复盘<\/th><th>星级<\/th><\/tr><\/thead>/);
   assert.match(html, /<tbody id="holding-tracker-list"><\/tbody>/);
   assert.match(appSource, /DAILY_MONITOR_LINKS/);
   assert.match(appSource, /dailyMonitorLinkForTrackingItem/);
@@ -797,11 +797,15 @@ test('tracking list refreshes intraday quotes directly from stock codes', () => 
     '/api/stock-close-performance?secid=',
     'tracking-close-performance',
     'latestClose',
+    'tradeDate',
+    'tracking-close-date',
+    '收盘',
     '读取行情…',
   ]) {
     assert.match(appSource, new RegExp(marker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   }
   assert.doesNotMatch(appSource, /stock-decline-streak|trackingDeclineCache|declineStreakText/);
+  assert.doesNotMatch(appSource, /closePerformanceEntry\.data\.tradeDate \? `\$\{closePerformanceEntry\.data\.tradeDate\}收盘`/);
   assert.match(appSource, /refreshTrackingQuotes\(\)/);
   assert.match(appSource, /60_000/);
 });

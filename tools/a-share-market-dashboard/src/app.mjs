@@ -2051,6 +2051,14 @@ function startApp() {
         )
       : filteredItems;
     const hasAllocation = renderTrackingAllocation(summary.items);
+    const closeDates = visibleItems
+      .map(({ closePerformanceEntry }) => closePerformanceEntry?.data?.tradeDate)
+      .filter(Boolean)
+      .sort();
+    const trackingCloseDate = document.getElementById('tracking-close-date');
+    if (trackingCloseDate) {
+      trackingCloseDate.textContent = closeDates.length ? `${closeDates.at(-1)}收盘` : '';
+    }
     const renderTrackingRow = ({ item, reportHref, reportEntry, report, quoteEntry, closePerformanceEntry, liveQuote, signal, riskReward }) => {
       const signalLabel = signal.addStars > 0
         ? '★'.repeat(signal.addStars)
