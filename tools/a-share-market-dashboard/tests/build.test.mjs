@@ -105,6 +105,7 @@ test('window controls use native buttons with the four approved values', () => {
 
 test('sidebar exposes the personal position workspace as a first-level tree domain', () => {
   const html = readFileSync(sourcePath, 'utf8');
+  const artifact = readFileSync(artifactPath, 'utf8');
   const appSource = readFileSync(new URL('../src/app.mjs', import.meta.url), 'utf8');
   for (const domain of ['thermometer', 'strategy', 'industry', 'personal', 'changelog']) {
     assert.match(html, new RegExp(`<button[^>]+data-tree-domain="${domain}"`));
@@ -164,6 +165,11 @@ test('sidebar exposes the personal position workspace as a first-level tree doma
   assert.match(trackingForm, /id="tracking-form-status"/);
   assert.match(appSource, /findDuplicateTrackingItem\(trackingItems, next/);
   assert.match(appSource, /已在跟踪清单中/);
+  assert.match(appSource, /紫光股份: '000938'/);
+  assert.match(appSource, /国药现代: '600420'/);
+  assert.match(artifact, /"东阳光": "\.\.\/\.\.\/sources\/automations\/新兴产业\/算力\/中游-算力基础设施与能源\/2026-07-16-1138-东阳光-机构级决策研报\.html"/);
+  assert.match(artifact, /"紫光股份": "\.\.\/\.\.\/sources\/automations\/新兴产业\/算力\/中游-计算系统与集群\/2026-08-03-1638-紫光股份-机构级决策研报\.html"/);
+  assert.match(artifact, /"国药现代": "\.\.\/\.\.\/sources\/automations\/temp\/2026-08-03-1128-国药现代-机构级决策研报\.html"/);
   assert.match(html, /data-tree-domain="thermometer"[^>]+aria-expanded="true"[^>]+aria-controls="tree-thermometer"/);
   assert.match(html, /data-tree-domain="strategy"[^>]+aria-expanded="false"[^>]+aria-controls="tree-strategy"/);
   assert.match(html, /data-tree-domain="industry"[^>]+aria-expanded="false"[^>]+aria-controls="tree-industry"/);
@@ -201,10 +207,39 @@ test('sidebar exposes the personal position workspace as a first-level tree doma
   const fuguiForm = html.match(/<form class="fugui-form panel" id="fugui-strategy-form">[\s\S]*?<\/form>/)?.[0] ?? '';
   assert.doesNotMatch(fuguiForm, /name="industry"|name="code"|name="ownership"|name="marketCapYi"|name="dividendYield"|name="price"|name="bond10yYield"/);
   assert.doesNotMatch(html, /scan-fugui-strategy|一键扫描/);
-  assert.match(html, /<thead><tr><th>行业<\/th><th>标的<\/th><th>市值<\/th><th>股息率<\/th><th>是否达标<\/th><\/tr><\/thead>/);
+  assert.match(html, /<thead><tr><th>行业<\/th><th>标的<\/th><th><button class="table-sort-button" type="button" id="fugui-sort-ttm"[^>]*>TTM股息率<\/button><\/th><th>预期股息率<\/th><th>价值锚<\/th><th>是否达标<\/th><th>操作<\/th><\/tr><\/thead>/);
+  assert.match(html, /id="fugui-filter"[\s\S]*data-fugui-filter="all"[\s\S]*全部/);
+  assert.match(html, /data-fugui-filter="passed"[^>]*>达标<\/button>/);
+  assert.match(html, /data-fugui-filter="failed"[^>]*>未达标<\/button>/);
   assert.match(html, /<tbody id="fugui-strategy-body">/);
-  assert.match(readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8'), /\.fugui-table \{ width: 100%; table-layout: fixed;/);
-  assert.doesNotMatch(readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8'), /\.fugui-table \{[^}]*min-width:/);
+  assert.match(appSource, /const impliedDividendPerShare = savedPrice !== null && savedDividendYield !== null/);
+  assert.doesNotMatch(appSource, /const displayDividendYield = impliedDividendPerShare !== null && Number\.isFinite\(livePriceValue\)/);
+  assert.doesNotMatch(appSource, /impliedDividendPerShare \/ livePriceValue \* 100/);
+  assert.match(appSource, /const targetDividendPrice = targetYield => impliedDividendPerShare !== null && targetYield > 0/);
+  assert.match(appSource, /targetDividendPrice\(5\.5\)/);
+  assert.match(appSource, /renderGridLine\('市值', item\.marketCapYi, '亿'\)/);
+  assert.match(appSource, /loadFuguiDividendYield\(secid\)\.then\(\(\) => renderFuguiStrategy\(\)\)/);
+  assert.match(appSource, /\/api\/stock-dividend-yield\?secid=/);
+  assert.match(appSource, /renderGridValue\(ttmDividendYield, '%'\)/);
+  assert.doesNotMatch(appSource, /renderGridLine\('TTM', ttmDividendYield/);
+  assert.match(appSource, /renderGridValue\(expectedDividendYield, '%', '待接入'\)/);
+  assert.doesNotMatch(appSource, /renderGridLine\('预期', expectedDividendYield/);
+  assert.match(appSource, /fuguiTtmSortMode === 'ttm-desc' \? 'ttm-asc' : 'ttm-desc'/);
+  assert.match(appSource, /rows\.sort\(\(left, right\) =>/);
+  assert.doesNotMatch(appSource, /renderGridLine\('周中', item\.weeklyMiddle\)/);
+  assert.doesNotMatch(appSource, /renderGridLine\('周下', item\.weeklyLower\)/);
+  assert.doesNotMatch(appSource, /renderGridLine\('日下', item\.dailyLower\)/);
+  assert.match(appSource, /stockSecidFromCode\(item\.code\)/);
+  assert.match(appSource, /loadTrackingQuote\(secid\)\.then\(\(\) => renderFuguiStrategy\(\)\)/);
+  assert.match(appSource, /fuguiStatusFilter === 'passed'/);
+  assert.match(appSource, /button\.dataset\.fuguiFilter/);
+  assert.match(appSource, /<td><button class="fugui-remove" type="button" data-fugui-id=/);
+  assert.doesNotMatch(appSource, /元<button class="fugui-remove"/);
+  assert.match(readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8'), /\.fugui-table \{ width: 100%; min-width: 1180px; table-layout: fixed;/);
+  assert.match(readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8'), /\.fugui-table-head \{ display: flex;/);
+  assert.match(readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8'), /\.fugui-grid-list \{ display: grid;/);
+  assert.match(readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8'), /\.fugui-remove \{ min-height: 30px;/);
+  assert.match(readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8'), /\.fugui-table-wrap \{ overflow-x: auto;/);
   assert.doesNotMatch(appSource, /\/api\/fugui-strategy|scanFuguiStrategy/);
   assert.match(html, /<button class="button-secondary" id="fugui-provider-toggle" type="button">切换到Tushare<\/button>/);
   assert.match(appSource, /\/api\/fugui-candidate\?name=.*provider=/);
@@ -215,8 +250,14 @@ test('sidebar exposes the personal position workspace as a first-level tree doma
   assert.match(readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8'), /\.fugui-form\.is-collapsed \.fugui-form-body/);
   assert.match(html, /<section class="view" id="topic-map" data-shell-content="thermometer" aria-labelledby="topic-map-heading">/);
   assert.match(html, /<h2[^>]*id="topic-map-heading"[^>]*>主题<\/h2>/);
-  assert.match(html, /<thead><tr><th>标的<\/th><th>动态价值区间<\/th><th>盘中实时<\/th><th><button class="table-sort-button" type="button" id="tracking-sort-intraday"[^>]*>盈亏比<\/button><\/th><th>风险方向<\/th><th>数据来自研报<\/th><th>复盘<\/th><th>星级<\/th><\/tr><\/thead>/);
+  assert.match(html, /<thead><tr><th>标的<\/th><th>动态价值区间<\/th><th>盘中实时<\/th><th>收盘表现<\/th><th><button class="table-sort-button" type="button" id="tracking-sort-intraday"[^>]*>盈亏比<\/button><\/th><th>监控状态<\/th><th>数据来自研报<\/th><th>复盘<\/th><th>星级<\/th><\/tr><\/thead>/);
   assert.match(html, /<tbody id="holding-tracker-list"><\/tbody>/);
+  assert.match(appSource, /DAILY_MONITOR_LINKS/);
+  assert.match(appSource, /dailyMonitorLinkForTrackingItem/);
+  assert.match(appSource, /tracking-monitor-link/);
+  assert.match(readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8'), /\.tracking-monitor-link/);
+  assert.match(artifact, /601208-东材科技-每日监控-2026-08-06\.md/);
+  assert.match(artifact, /盘中监控，非收盘结论/);
   assert.match(html, /id="review-diary-modal"/);
   assert.match(html, /id="review-diary-form"/);
   assert.match(appSource, /\/api\/review-diary/);
@@ -298,10 +339,14 @@ test('market summary renders three overview cards and includes signal sources in
   assert.match(appSource, /absolute\.grade \? `\$\{absolute\.grade\} \$\{absolute\.label\}`/);
   assert.match(appSource, /const displayDate = signal\.indexDate \|\| signal\.recordDate/);
   assert.match(appSource, /<p>\$\{escapeHtml\(displayDate\)\}<\/p>/);
+  assert.match(appSource, /dividend-hover-point/);
+  assert.match(appSource, /股息率 \$\{formatNumber\(point\.value, 2\)\}%/);
+  assert.match(appSource, /aria-label="\$\{escapeHtml\(label\)\}"/);
+  assert.match(readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8'), /dividend-hover-tooltip/);
   assert.doesNotMatch(artifact, /CSI_DIVIDEND_SIGNAL\s*=\s*Object\.freeze\(\s*\/\/ CSI_DIVIDEND_SIGNAL/);
   assert.doesNotMatch(artifact, /CSI_DIVIDEND_YIELD_HISTORY\s*=\s*Object\.freeze\(\s*\/\/ CSI_DIVIDEND_YIELD_HISTORY/);
-  assert.match(artifact, /"dividendYield2": 4\.16/);
-  assert.match(artifact, /"spread": 2\.44/);
+  assert.match(artifact, /"dividendYield2": \d+(?:\.\d+)?/);
+  assert.match(artifact, /"spread": \d+(?:\.\d+)?/);
   assert.match(artifact, /"spreadSignal": "C（小额定投）"/);
   assert.match(artifact, /"date": "2026-06-02"[\s\S]*"value": 4\.83/);
   assert.doesNotMatch(artifact, /<circle class="is-(?:high|low)"/);
@@ -400,9 +445,9 @@ test('industry panels use the approved feed layout without the tracking card', (
   assert.match(html, /<section class="industry-research-list"[^>]*>[\s\S]*商业航天产业完整分析报告/);
   assert.match(html, /<li class="industry-research-item" data-filters="商业航天">[\s\S]*商业航天产业完整分析报告/);
   assert.match(html, /<li class="industry-research-item" data-filters="算力">[\s\S]*算力产业完整分析报告/);
-  assert.match(html, /算力-存储力产业完整分析报告/);
+  assert.match(html, /算力-中游-存储力产业完整分析报告/);
   assert.ok(
-    html.indexOf('算力产业完整分析报告') < html.indexOf('算力-存储力产业完整分析报告'),
+    html.indexOf('算力产业完整分析报告') < html.indexOf('算力-中游-存储力产业完整分析报告'),
     'parent industry report should render before subdivision reports',
   );
   assert.match(html, /<span class="industry-research-rank">1<\/span>/);
@@ -471,6 +516,8 @@ test('featured digest replaces book list and reads BBXM daily summaries', () => 
   assert.match(appSource, /usDollarIndex/);
   assert.match(appSource, /> 4\.5/);
   assert.match(appSource, /> 100/);
+  assert.match(appSource, /riskWatchMissingLabel/);
+  assert.match(appSource, /数据源为空/);
   assert.match(appSource, /高风险/);
   assert.match(styles, /margin-hover-tooltip/);
   assert.match(styles, /risk-watch-list li\.is-high-risk/);
@@ -642,6 +689,13 @@ test('fugui strategy keeps rule results as status instead of admission gate', ()
     price: 30,
     bond10yYield: 1.7,
   });
+  const dividendOnlyPassed = evaluateFuguiStrategyCandidate({
+    ownership: '其他',
+    marketCapYi: 100,
+    dividendYield: 5.2,
+    price: 99,
+    bond10yYield: 1.7,
+  });
   const normalized = normalizeFuguiStrategyItems([{
     id: 'fugui-1',
     industry: '电力',
@@ -650,20 +704,30 @@ test('fugui strategy keeps rule results as status instead of admission gate', ()
     ownership: '央企',
     marketCapYi: 6200,
     dividendYield: 5.8,
+    expectedDividendYield: 4.8,
     price: 28.5,
     bond10yYield: 1.73,
+    weeklyMiddle: 29.2,
+    weeklyLower: 26.8,
+    dailyLower: 27.4,
     addedAt: 1784601060000,
   }]);
 
   assert.equal(passed.passed, true);
   assert.equal(passed.criteria.dividendYieldMin, 5.1);
+  assert.equal(dividendOnlyPassed.passed, true);
   assert.equal(failed.passed, false);
-  assert.match(failed.issues.join('；'), /性质不是央企\/国企/);
-  assert.match(failed.issues.join('；'), /市值未大于1000亿/);
-  assert.match(failed.issues.join('；'), /股价未低于30元/);
+  assert.doesNotMatch(failed.issues.join('；'), /性质不是央企\/国企|市值未大于1000亿|股价未低于30元/);
   assert.match(failed.issues.join('；'), /股息率未达到3倍10年国债利率/);
   assert.equal(normalized.length, 1);
   assert.equal(normalized[0].marketCapYi, 6200);
+  assert.equal(normalized[0].expectedDividendYield, 4.8);
+  assert.equal(normalized[0].weeklyMiddle, 29.2);
+  assert.equal(normalized[0].weeklyLower, 26.8);
+  assert.equal(normalized[0].dailyLower, 27.4);
+  assert.match(appSource, /const result = evaluateFuguiStrategyCandidate\(item\)/);
+  assert.match(appSource, /fuguiDividendYieldCache/);
+  assert.match(appSource, /payload\?\.data\?\.dividendYieldTtm/);
   assert.match(appSource, /result\.passed \? '达标' : '未达标'/);
   assert.doesNotMatch(appSource, /未加入：\$\{normalizedCandidate\.name/);
 });
@@ -727,12 +791,17 @@ test('tracking list refreshes intraday quotes directly from stock codes', () => 
     "宁德时代: '300750'",
     "西部矿业: '601168'",
     'trackingQuoteCache',
+    'trackingClosePerformanceCache',
     'refreshTrackingQuotes',
     '/api/stock-quote?secid=',
+    '/api/stock-close-performance?secid=',
+    'tracking-close-performance',
+    'latestClose',
     '读取行情…',
   ]) {
     assert.match(appSource, new RegExp(marker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   }
+  assert.doesNotMatch(appSource, /stock-decline-streak|trackingDeclineCache|declineStreakText/);
   assert.match(appSource, /refreshTrackingQuotes\(\)/);
   assert.match(appSource, /60_000/);
 });

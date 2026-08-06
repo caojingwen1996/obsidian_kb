@@ -6,6 +6,7 @@ import { inflateRawSync } from 'node:zlib';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const repoRoot = join(root, '..', '..');
 const sourceDir = join(root, 'src');
+const dataDir = join(root, 'data');
 const outputPath = join(root, 'a-share-market-dashboard.html');
 const moduleOrder = ['core.mjs', 'adapters.mjs', 'data-service.mjs', 'app.mjs'];
 const automationsDir = join(repoRoot, 'sources', 'automations');
@@ -458,19 +459,64 @@ ${items}
           </section>`;
 }
 
-function renderStockReportLinkMap(industries) {
+function reportHrefFromAutomations(report) {
+  return `../../sources/automations/${report.relativePath}`;
+}
+
+function renderStockReportLinkMap(industries, automationReports = []) {
   const links = new Map();
+  const addReport = (href, filename) => {
+    if (!/(?:机构级(?:决策|研究)?研报|机构级(?:决策|研究)?报告|阅读版)/u.test(filename)) return;
+    const stockName = stockNameFromReportTitle(titleFromFilename(filename));
+    if (!stockName || links.has(stockName)) return;
+    links.set(stockName, href);
+  };
   for (const industry of industries) {
     for (const report of industry.feedReports) {
-      if (!/(?:机构级(?:决策|研究)?研报|机构级(?:决策|研究)?报告|阅读版)/u.test(report.filename)) continue;
-      const stockName = stockNameFromReportTitle(titleFromFilename(report.filename));
-      if (!stockName || links.has(stockName)) continue;
-      links.set(stockName, reportHref(industry, report));
+      addReport(reportHref(industry, report), report.filename);
     }
+  }
+  for (const report of automationReports) {
+    addReport(reportHrefFromAutomations(report), report.filename);
   }
   return [...links.entries()]
     .sort(([left], [right]) => left.localeCompare(right, 'zh-CN'))
     .map(([name, href]) => `  ${JSON.stringify(name)}: ${JSON.stringify(href)},`)
+    .join('\n');
+}
+
+async function scanDailyMonitorLinks() {
+  const entries = await readdir(dataDir, { withFileTypes: true }).catch(() => []);
+  const links = new Map();
+  const addLink = (key, value) => {
+    const normalizedKey = normalizeStockName(key);
+    if (!normalizedKey) return;
+    const previous = links.get(normalizedKey);
+    if (!previous || String(value.date).localeCompare(String(previous.date), 'zh-CN') > 0) {
+      links.set(normalizedKey, value);
+    }
+  };
+  for (const entry of entries) {
+    if (!entry.isFile()) continue;
+    const match = entry.name.match(/^(\d{6})-(.+)-每日监控-(\d{4}-\d{2}-\d{2})\.md$/u);
+    if (!match) continue;
+    const [, code, name, date] = match;
+    const markdown = await readFile(join(dataDir, entry.name), 'utf8').catch(() => '');
+    const status = markdown.match(/监控状态[：:]\s*([^\n]+)/u)?.[1]?.trim() || '打开监控';
+    const value = {
+      href: `data/${entry.name}`,
+      title: titleFromFilename(entry.name.replace(/\.md$/i, '.html')),
+      code,
+      name,
+      date,
+      status,
+    };
+    addLink(code, value);
+    addLink(name, value);
+  }
+  return [...links.entries()]
+    .sort(([left], [right]) => left.localeCompare(right, 'zh-CN'))
+    .map(([key, value]) => `  ${JSON.stringify(key)}: ${JSON.stringify(value)},`)
     .join('\n');
 }
 
@@ -699,12 +745,14 @@ const eventCalendar = validateEventCalendar(JSON.parse(eventCalendarSource));
 const dividendSignal = parseDividendSignal(await readFile(dividendSignalPath, 'utf8').catch(() => ''));
 const dividendYieldHistory = parseDividendYieldHistoryFromWorkbook(await readFile(dividendHistoryWorkbookPath).catch(() => null));
 
-const stockReportLinks = renderStockReportLinkMap(industries);
+const stockReportLinks = renderStockReportLinkMap(industries, await walkHtmlFiles(automationsDir));
+const dailyMonitorLinks = await scanDailyMonitorLinks();
 const bundle = modules
   .map((source, index) => {
     const withGeneratedData = moduleOrder[index] === 'app.mjs'
       ? source
         .replace('  // STOCK_REPORT_LINKS', stockReportLinks)
+        .replace('  // DAILY_MONITOR_LINKS', dailyMonitorLinks)
         .replace('  // EVENT_CALENDAR', JSON.stringify(eventCalendar, null, 2))
         .replace('  // CSI_DIVIDEND_SIGNAL', JSON.stringify(dividendSignal, null, 2))
         .replace('  // CSI_DIVIDEND_YIELD_HISTORY', JSON.stringify(dividendYieldHistory, null, 2))

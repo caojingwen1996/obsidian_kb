@@ -1,0 +1,1709 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>中国核建机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+.daily-tracking { margin: 0 0 42px; padding: 22px; border: 1px solid #cbdade; border-radius: 16px; background: linear-gradient(135deg, #f3f8f9 0%, #fffaf0 100%); box-shadow: 0 12px 30px rgba(23, 50, 71, .07); }
+.daily-tracking-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
+.daily-tracking-kicker { margin: 0 0 4px; color: var(--teal); font-size: 12px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+.daily-tracking h2 { margin: 0; padding: 0; border: 0; font-size: 27px; }
+.daily-tracking-time { margin: 4px 0 0; color: var(--muted); font-size: 12px; text-align: right; }
+.tracking-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.tracking-grid + .tracking-grid { margin-top: 12px; }
+.tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
+.tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
+.tracking-card[data-tracking-key="dynamic-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
+.range-breakdown { display: block; }
+.range-main { display: inline-flex; align-items: center; max-width: 100%; margin-bottom: 10px; padding: 3px 9px; border-radius: 999px; background: #e7f0f3; color: var(--navy); font-size: 20px; line-height: 1.3; font-weight: 800; }
+.range-points { display: grid; gap: 7px; margin-top: 1px; }
+.range-point { display: block; padding-left: 11px; border-left: 3px solid #bed2d8; color: #245068; font-size: 14px; line-height: 1.52; font-weight: 650; }
+.tracking-value.bad { color: var(--danger); }
+.tracking-detail { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; }
+.tracking-status { display: inline-flex; margin-top: 10px; padding: 3px 8px; border-radius: 999px; color: #526b77; background: #edf2f4; font-size: 12px; font-weight: 700; }
+.tracking-status.live { color: #17604e; background: #dff3eb; }
+.tracking-status.error { color: var(--danger); background: var(--danger-bg); }
+.tracking-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; margin-top: 14px; padding-top: 13px; border-top: 1px solid #d5e0e3; color: #536d78; font-size: 13px; }
+.tracking-footer a { font-weight: 700; }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+  .tracking-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+  .daily-tracking-head { display: block; }
+  .daily-tracking-time { text-align: left; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .daily-tracking, .tracking-card { border: 1px solid #aebbc2; color: #102f43; background: #fff; box-shadow: none; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · 601611.SH</p>
+      <h1>中国核建机构级决策研报</h1>
+      <div class="hero-meta"><span>2026-08-06 11:29（Asia/Shanghai）</span><span>2026-08-06 11:29（Asia/Shanghai）</span><span>上交所 / 人民币</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
+<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
+<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
+<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
+<a class="toc-link" href="#section-6">6. 五年财务历史</a>
+<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
+<a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
+<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
+<a class="toc-link" href="#section-10">10. 估值</a>
+<a class="toc-link" href="#section-11">11. 冰冰小美框架判断</a>
+<a class="toc-link" href="#section-12">12. 最终结论</a>
+<a class="toc-link" href="#section-13">13. 后续监控指标</a>
+<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
+<a class="toc-link" href="#section-15">15. 来源清单</a>
+<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
+      <article class="content"><blockquote>
+<p>证券代码：601611.SH<br>交易所 / 币种：上交所 / 人民币<br>研究截止时间：2026-08-06 11:29（Asia/Shanghai）<br>报告生成时间：2026-08-06 11:29（Asia/Shanghai）<br>数据口径：新浪行情、同花顺财务摘要经 AKShare 抓取；上交所、巨潮资讯、公司官网作为法定披露复核入口。Tushare MCP 未暴露可调用工具，已回退公开接口。  </p>
+</blockquote>
+<!-- DAILY_TRACKING_START -->
+<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-08-06 11:29（Asia/Shanghai，盘中）" data-value-low="8.5" data-value-high="-11.2">
+  <div class="daily-tracking-head">
+    <div><p class="daily-tracking-kicker">Daily decision tracker</p><h2>每日跟踪面板</h2></div>
+    <p class="daily-tracking-time">更新：2026-08-06 11:29（Asia/Shanghai，盘中）<br>下次：收盘后 / 重大公告后</p>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value bad">恶化后待验证</p><p class="tracking-detail">风险方向：风险增强。下一验证点与失效条件见第 11—13 章。</p></div>
+    <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value"><span class="range-breakdown"><span class="range-main">8.5-11.2 元</span><span class="range-points"><span class="range-point">8.5 元附近=只看建筑承包与弱现金流的保守主业价值</span><span class="range-point">9.5-10.3 元=核电工程稀缺性和正常化 ROE 的合理中枢</span><span class="range-point">11.2 元附近=已计入核电建设景气和央企融资改善</span><span class="range-point">高于 11.2 元需新签核电订单、利润率修复、现金流转正或盈利预测上修支撑。</span></span></span></p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
+    <div class="tracking-card" data-tracking-key="risk-reward"><p class="tracking-label">盈亏比</p><p class="tracking-value" id="risk-reward-value">未获取到</p><p class="tracking-detail" id="risk-reward-detail">价格或动态价值区间无法解析，未计算盈亏比。</p></div>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="daily-quote"><p class="tracking-label">每日同步价</p><p class="tracking-value">11.96 元，2026-08-06 11:27 盘中；前收盘 12.70 元，2026-08-05</p><p class="tracking-detail">这是报告内嵌的正式跟踪基准，离线打开仍可使用。</p><span class="tracking-status">每日快照</span></div>
+    <div class="tracking-card" data-tracking-key="intraday-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">等待连接</p><p class="tracking-detail" id="intraday-detail">通过“大盘启动器”打开后获取盘中行情，每 60 秒刷新；直接打开 HTML 时不访问外部行情。</p><span class="tracking-status" id="intraday-status">未连接</span></div>
+    <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">observe</p><p class="tracking-detail">估值：合理偏高 · observe；风险：风险增强；结论置信度：中低。</p><span class="tracking-status">合理偏高</span></div>
+  </div>
+  <div class="tracking-footer"><span>资金状态：<strong>结构性放量但资金身份证据不足</strong> · 新增/已有动作：<strong>observe</strong></span><span>资金面分析：未单独生成</span></div>
+</section>
+<!-- DAILY_TRACKING_END -->
+<h2 id="section-1">1. 决策摘要</h2>
+
+<h3>1.1 基本面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值状态</td>
+<td>合理偏高</td>
+</tr>
+<tr>
+<td>综合估值区间</td>
+<td>8.5-11.2 元；8.5 元附近=只看建筑承包与弱现金流的保守主业价值，9.5-10.3 元=核电工程稀缺性和正常化 ROE 的合理中枢，11.2 元附近=已计入核电建设景气和央企融资改善，高于 11.2 元需新签核电订单、利润率修复、现金流转正或盈利预测上修支撑。</td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>相对 2026-08-06 11:27 盘中价 11.96 元，综合区间约 -28.9% 至 -6.4%；相对 2026-08-05 收盘价 12.70 元，约 -33.1% 至 -11.8%。</td>
+</tr>
+<tr>
+<td>基本面状态</td>
+<td>恶化后待验证</td>
+</tr>
+<tr>
+<td>关键经营变化</td>
+<td>2025 年收入同比下降、归母净利润下降至 13.19 亿元，2026Q1 收入和归母净利润继续同比回落；管理层公开定量利润修复指引未获取到；市场可能交易核电建设与央企资本补充，但基本面兑现仍落后于股价反弹。</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td>中低</td>
+</tr>
+</tbody></table>
+<h3>1.2 资金面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>操作建议</td>
+<td>观望</td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td>observe</td>
+</tr>
+<tr>
+<td>当前价格及时间</td>
+<td>11.96 元，2026-08-06 11:27 盘中；前收盘 12.70 元，2026-08-05</td>
+</tr>
+<tr>
+<td>资金状态</td>
+<td>结构性放量但资金身份证据不足</td>
+</tr>
+<tr>
+<td>风险方向</td>
+<td>风险增强</td>
+</tr>
+<tr>
+<td>每日跟踪时间</td>
+<td>2026-08-06 11:29（Asia/Shanghai，盘中）</td>
+</tr>
+<tr>
+<td>资金面分析链接</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<h3>如果今天这是一笔现金，我会买它吗</h3>
+<ul>
+<li>回答：不会。</li>
+<li>我的判断：方向上，中国核建受益于核电建设的国家安全与能源转型叙事，具备“方向资格”；但以 11.96 元计，股价已经高于保守估值区间上沿附近，而 2025 年利润回落、2026Q1 继续回落、自由现金流连续为负，说明“价值锚”没有跟上交易热度。</li>
+<li>改变结论的条件：新签核电订单和在手订单转化为收入、毛利率和经营现金流；2026H1 或 Q3 归母净利润恢复增长；定增摊薄压力落地后价格回到 9.5-10.3 元中枢附近；资金分档、融资余额和机构持仓显示非短线资金持续承接。</li>
+</ul>
+<h2 id="section-2">2. 证券身份与来源矩阵</h2>
+
+<h3>2.1 证券身份</h3>
+<ul>
+<li>公司全称：中国核工业建设股份有限公司。</li>
+<li>证券代码：601611.SH。</li>
+<li>上市地：上交所主板。</li>
+<li>报告准则：中国企业会计准则。</li>
+<li>法定披露体系：A股交易所与巨潮资讯。</li>
+<li>同名或跨市场歧义：无；本报告仅研究 A 股 601611.SH。</li>
+</ul>
+<h3>2.2 来源矩阵</h3>
+<table>
+<thead>
+<tr>
+<th>数据项目</th>
+<th>目标来源</th>
+<th>实际来源</th>
+<th>数据时间</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Tushare MCP 调用清单（A股适用）</td>
+<td><code>tushare-data</code> MCP</td>
+<td>当前会话未暴露可调用工具；已回退 AKShare / 新浪 / 同花顺 / 公告入口</td>
+<td>2026-08-06</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>证券身份与上市状态</td>
+<td><code>get_stock_basic</code>；上交所 / 巨潮</td>
+<td>上交所上市公司信息页、巨潮公告入口</td>
+<td>2026-08-06</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>实时价格、52周高低、今年以来表现</td>
+<td><code>get_stock_daily</code>；行情平台</td>
+<td>AKShare 转引新浪日线与分钟线</td>
+<td>2026-08-06 11:27</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>估值、市值、股息率和换手率</td>
+<td><code>get_stock_valuation</code>；行情平台</td>
+<td>估值由行情和财务底稿计算；换手率来自新浪日线</td>
+<td>2026-08-05 / 2026-08-06</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>资金分档 / 大单资金代理</td>
+<td><code>get_stock_moneyflow</code>；东方财富</td>
+<td>东方财富资金接口连接失败</td>
+<td>2026-08-06</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>融资融券代理</td>
+<td><code>get_margin_detail</code>；上交所 / 东方财富</td>
+<td>本次未取得单股融资余额序列</td>
+<td>2026-08-06</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>第三方公允价值、护城河、星级</td>
+<td>第三方估值平台</td>
+<td>未取得付费或登录字段</td>
+<td>2026-08-06</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>最新季报与管理层指引</td>
+<td>公司 2026Q1 报告</td>
+<td>AKShare 财务摘要；巨潮/上交所作为复核入口</td>
+<td>2026Q1</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>分部收入</td>
+<td>2025 年报</td>
+<td>本次未稳定抽取分部表；按公司核电工程、工业与民用工程业务事实分析</td>
+<td>2025</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>卖方评级与目标价</td>
+<td>券商研报 / 一致预期</td>
+<td>未获取到可审计样本明细</td>
+<td>2026-08-06</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>近三个月新闻与催化剂</td>
+<td>公告、行业政策、公开新闻</td>
+<td>定增预案、新签合同与核电建设景气线索；具体公告链接需交易前复核</td>
+<td>2026-05 至 2026-08</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>五年财务历史</td>
+<td>财务报表；同花顺财务</td>
+<td>AKShare 转引同花顺财务摘要与三张表</td>
+<td>2021-2025</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>分红历史</td>
+<td>分红公告</td>
+<td>未系统抽取历史分红</td>
+<td>2026-08-06</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>指数成分与权重（如适用）</td>
+<td>中证指数 / 基金公告</td>
+<td>本报告不依赖指数成分判断</td>
+<td>2026-08-06</td>
+<td>不适用</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 行情与市场预期</h2>
+
+<h3>3.1 行情快照（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">数值</th>
+<th>来源</th>
+<th>时间 / 口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前价格</td>
+<td align="right">11.96 元</td>
+<td><a href="../../manual/2026-08-06-中国核建公开数据快照.md">新浪分钟线快照</a></td>
+<td>2026-08-06 11:27，盘中</td>
+</tr>
+<tr>
+<td>52周最高</td>
+<td align="right">20.10 元</td>
+<td><a href="../../manual/2026-08-06-中国核建公开数据快照.md">新浪日线</a></td>
+<td>2026-01-13，未复权</td>
+</tr>
+<tr>
+<td>52周最低</td>
+<td align="right">8.48 元</td>
+<td><a href="../../manual/2026-08-06-中国核建公开数据快照.md">新浪日线</a></td>
+<td>2025-09-23，未复权</td>
+</tr>
+<tr>
+<td>今年以来表现</td>
+<td align="right">-9.16%</td>
+<td><a href="../../manual/2026-08-06-中国核建公开数据快照.md">新浪日线</a></td>
+<td>2026-01-02 至 2026-08-05</td>
+</tr>
+<tr>
+<td>总市值</td>
+<td align="right">约 360.5 亿元</td>
+<td>11.96 元 x 30.14 亿股</td>
+<td>盘中估算</td>
+</tr>
+<tr>
+<td>PE / PB / EV</td>
+<td align="right">PE 约 27.3x；PB 约 1.63x</td>
+<td>以 2025 归母净利 13.19 亿元、2025 每股净资产 7.33 元估算</td>
+<td>未含 2026 定增摊薄</td>
+</tr>
+</tbody></table>
+<h3>3.2 第三方公允价值与评级（事实）</h3>
+<ul>
+<li>公允价值：未获取到。</li>
+<li>护城河评级：未获取到。</li>
+<li>星级：未获取到。</li>
+<li>来源与时间：未取得 Morningstar / 付费平台字段。</li>
+<li>未获取到的字段及已检查来源：公开搜索、行情与公告入口未提供可审计的第三方公允价值字段。</li>
+</ul>
+<h3>3.3 卖方评级与目标价分布（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>机构</th>
+<th>日期</th>
+<th>评级</th>
+<th align="right">目标价</th>
+<th>预测期</th>
+<th>关键假设</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>未获取到</td>
+<td>未获取到</td>
+<td>未获取到</td>
+<td align="right">未获取到</td>
+<td>未获取到</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<ul>
+<li>目标价区间 / 中位数：未获取到。</li>
+<li>样本数量与完整性：不足。</li>
+<li>来源冲突及采信理由：不使用搜索摘要替代卖方目标价。</li>
+</ul>
+<h2 id="section-4">4. 商业模式与竞争格局</h2>
+
+<h3>4.1 事实</h3>
+<ul>
+<li>收入来源：中国核建是核电工程建设主承包与核工程建设平台，业务还包括工业与民用工程建设、基础设施及相关工程服务。</li>
+<li>客户与定价权：核电工程客户集中于核电业主和央国企体系，项目资质和安全质量壁垒高；但建筑承包模式通常定价权弱于核电运营商和核心设备商。</li>
+<li>成本结构：营业成本占收入比例高，毛利率 2021-2025 年从 9.94% 升至 12.14%，但净利率仅 2%-3% 区间。</li>
+<li>资本强度：资产负债率高，营运资本占用大，经营现金流波动强，2021-2025 年自由现金流代理均为负。</li>
+<li>竞争者：中国能建、中国中冶、中国建筑、中国铁建等央企工程承包商；核电工程资质上又与中核体系内部单位形成差异化。</li>
+<li>监管约束：核安全、项目审批、央企资本开支和工程质量监管约束高。</li>
+</ul>
+<h4>多产业位置景气度排序（事实与判断分列）</h4>
+<table>
+<thead>
+<tr>
+<th align="right">排名</th>
+<th>产业位置</th>
+<th>位置识别依据（事实）</th>
+<th>公司业务 / 资产暴露（事实）</th>
+<th>当前景气度</th>
+<th>趋势</th>
+<th>景气证据与时间</th>
+<th>财务传导</th>
+<th>验证指标 / 失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">1</td>
+<td>核电工程建设</td>
+<td>公司定位于核工程建设平台，核电项目建设具备高资质壁垒</td>
+<td>核电工程建设订单、工程总承包与施工能力</td>
+<td>较高</td>
+<td>上行</td>
+<td>国家能源安全、低碳电源与核电项目持续推进；需以正式项目核准和公司订单公告复核</td>
+<td>新项目核准 -&gt; 新签合同 -&gt; 工程收入确认 -&gt; 毛利与回款</td>
+<td>新签合同增速、核电工程毛利率、回款；若项目延后或回款恶化则失效</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td>央企工程承包与基础设施</td>
+<td>公司仍有大量工业与民用工程、基础设施业务</td>
+<td>收入规模大但利润率低</td>
+<td>中</td>
+<td>持平</td>
+<td>工程承包需求稳定但房地产和地方基建约束仍在</td>
+<td>收入规模托底，但低毛利和营运资本占用压制 ROE</td>
+<td>收入恢复、应收账款周转、资产负债率；若应收继续扩大则失效</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td>核技术应用 / 新兴产业映射</td>
+<td>仅有核技术、核安全、工程能力相关弱映射</td>
+<td>独立收入和利润贡献未获取到</td>
+<td>证据不足</td>
+<td>证据不足</td>
+<td>未获取到独立分部收入</td>
+<td>暂不计入估值主线</td>
+<td>独立订单、收入、毛利披露；没有披露则保持弱关联</td>
+</tr>
+</tbody></table>
+<ul>
+<li>位置间交叉与去重说明：核电工程建设是核心价值锚；央企工程承包贡献收入规模但不能与核电稀缺性重复估值。</li>
+<li>排名第一的位置能否进入公司利润和现金流：可以进入收入和利润，但当前尚未证明能显著改善自由现金流。</li>
+<li>弱关联 / 待验证位置：商业航天、核技术应用、军工等主题若无独立订单和利润披露，不进入主估值。</li>
+</ul>
+<h3>4.2 我的判断</h3>
+<ul>
+<li>我的判断：竞争优势在“核电工程资质 + 中核体系央企平台 + 国家能源安全方向”，方向资格强于普通建筑承包商。</li>
+<li>我的判断：商业模式最脆弱的环节是低净利率、高负债、应收和营运资本占用，导致核电建设景气不一定转化为股东自由现金流。</li>
+<li>证伪条件：2026H1/H2 显示收入恢复、核电订单加速、经营现金流连续改善、ROE 回到 8% 以上，则当前“合理偏高”判断需要上修。</li>
+</ul>
+<h2 id="section-5">5. 分部收入与盈利拆解</h2>
+
+<table>
+<thead>
+<tr>
+<th>分部</th>
+<th align="right">收入</th>
+<th align="right">同比</th>
+<th align="right">收入占比</th>
+<th align="right">毛利率</th>
+<th align="right">毛利率变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>核电工程建设</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>需复核 2025 年报分部表</td>
+</tr>
+<tr>
+<td>工业与民用工程</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>需复核 2025 年报分部表</td>
+</tr>
+<tr>
+<td>其他业务</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>需复核 2025 年报分部表</td>
+</tr>
+</tbody></table>
+<ul>
+<li>披露口径变化：未获取到。</li>
+<li>来源冲突：未发现可比口径分部冲突；本次主要缺口是分部表未稳定抽取。</li>
+<li>采信理由：估值不把全部收入都当作高壁垒核电收入，而按“核电稀缺性 + 工程承包低 ROE”折中处理。</li>
+<li>我的判断：增长质量当前偏弱，原因是 2025 年和 2026Q1 收入利润回落，且现金转化没有改善到足以支撑估值上修。</li>
+</ul>
+<h2 id="section-6">6. 五年财务历史</h2>
+
+<table>
+<thead>
+<tr>
+<th>财年</th>
+<th align="right">营收</th>
+<th align="right">毛利率</th>
+<th align="right">经营现金流</th>
+<th align="right">资本开支</th>
+<th align="right">自由现金流</th>
+<th align="right">ROIC / 代理值</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td align="right">837.20 亿</td>
+<td align="right">9.94%</td>
+<td align="right">24.06 亿</td>
+<td align="right">80.12 亿</td>
+<td align="right">-56.06 亿</td>
+<td align="right">ROE 10.77%</td>
+<td><a href="../../manual/2026-08-06-中国核建公开数据快照.md">财务快照</a></td>
+</tr>
+<tr>
+<td>2022</td>
+<td align="right">991.38 亿</td>
+<td align="right">10.07%</td>
+<td align="right">-44.03 亿</td>
+<td align="right">55.10 亿</td>
+<td align="right">-99.13 亿</td>
+<td align="right">ROE 10.85%</td>
+<td><a href="../../manual/2026-08-06-中国核建公开数据快照.md">财务快照</a></td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">1093.85 亿</td>
+<td align="right">11.35%</td>
+<td align="right">-3.15 亿</td>
+<td align="right">31.00 亿</td>
+<td align="right">-34.15 亿</td>
+<td align="right">ROE 9.94%</td>
+<td><a href="../../manual/2026-08-06-中国核建公开数据快照.md">财务快照</a></td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">1135.41 亿</td>
+<td align="right">11.72%</td>
+<td align="right">-33.40 亿</td>
+<td align="right">17.46 亿</td>
+<td align="right">-50.86 亿</td>
+<td align="right">ROE 8.95%</td>
+<td><a href="../../manual/2026-08-06-中国核建公开数据快照.md">财务快照</a></td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">1019.16 亿</td>
+<td align="right">12.14%</td>
+<td align="right">0.06 亿</td>
+<td align="right">18.02 亿</td>
+<td align="right">-17.96 亿</td>
+<td align="right">ROE 5.12%</td>
+<td><a href="../../manual/2026-08-06-中国核建公开数据快照.md">财务快照</a></td>
+</tr>
+</tbody></table>
+<ul>
+<li>自由现金流口径：经营活动现金流量净额 - 购建固定资产、无形资产和其他长期资产支付的现金。</li>
+<li>ROIC 口径：未完整计算投入资本和 NOPAT；使用 ROE 作为资本回报代理值。</li>
+<li>一次性项目和会计变化：2025 年归母净利润与扣非净利润接近，利润下滑不是简单由非经常性损益解释；具体一次性项目需年报复核。</li>
+<li>我的判断：盈利质量的核心问题不是毛利率，而是营运资本和杠杆。毛利率改善但 ROE 下行、FCF 连续为负，说明股东价值转化弱。</li>
+</ul>
+<h2 id="section-7">7. 最新季度与管理层指引</h2>
+
+<h3>7.1 最新季度（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">本期</th>
+<th align="right">同比 / 变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营收</td>
+<td align="right">230.07 亿</td>
+<td align="right">较 2025Q1 295.49 亿下降约 22.1%</td>
+<td><a href="../../manual/2026-08-06-中国核建公开数据快照.md">财务快照</a> / 2026Q1</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>需复核 2026Q1 报告</td>
+</tr>
+<tr>
+<td>净利润</td>
+<td align="right">6.94 亿</td>
+<td align="right">较 2025Q1 7.56 亿下降约 8.2%</td>
+<td><a href="../../manual/2026-08-06-中国核建公开数据快照.md">财务快照</a> / 2026Q1</td>
+</tr>
+<tr>
+<td>调整后利润</td>
+<td align="right">扣非净利润 3.73 亿</td>
+<td align="right">较 2025Q1 5.26 亿下降约 29.2%</td>
+<td><a href="../../manual/2026-08-06-中国核建公开数据快照.md">财务快照</a> / 2026Q1</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">-95.12 亿</td>
+<td align="right">较 2025Q1 -101.95 亿略改善但仍大幅流出</td>
+<td><a href="../../manual/2026-08-06-中国核建公开数据快照.md">财务快照</a> / 2026Q1</td>
+</tr>
+<tr>
+<td>订单 / 储备</td>
+<td align="right">未系统抽取</td>
+<td align="right">近期新签合同线索存在，但需公告复核</td>
+<td>公司公告入口 / 2026</td>
+</tr>
+</tbody></table>
+<h3>7.2 管理层指引（事实）</h3>
+<ul>
+<li>正式量化指引：未获取到。</li>
+<li>定性展望：核电建设、能源安全和央企工程平台方向具备中长期景气，但需要以正式年报、经营简报和订单公告复核。</li>
+<li>未获取到：分部利润、2026 年量化收入/利润指引、订单转化节奏。</li>
+</ul>
+<h3>7.3 我的判断</h3>
+<ul>
+<li>我的判断：边际变化偏弱。2026Q1 收入、归母净利和扣非净利均同比下降，短期基本面没有支持追高。</li>
+<li>我的判断：指引可信度当前无法评估，因本次未取得管理层量化指引和分部订单表。</li>
+<li>下一验证节点：2026 半年报、月度经营简报、新签核电工程合同公告、经营现金流和应收账款变化。</li>
+</ul>
+<h2 id="section-8">8. 近三个月新闻与催化剂</h2>
+
+<table>
+<thead>
+<tr>
+<th>发生日</th>
+<th>事件</th>
+<th>影响变量</th>
+<th>财务传导</th>
+<th>是否已反映</th>
+<th>验证节点</th>
+<th>失效条件</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-05 至 2026-08</td>
+<td>核电建设景气和新项目推进线索</td>
+<td>新签合同、工程收入</td>
+<td>项目核准 -&gt; 订单 -&gt; 收入确认 -&gt; 回款</td>
+<td>股价从 2025 年低点已大幅反弹，部分反映</td>
+<td>月度经营简报、半年报</td>
+<td>订单不增或回款恶化</td>
+<td>上交所/巨潮/公司官网入口</td>
+</tr>
+<tr>
+<td>2026 年内</td>
+<td>向特定对象发行股票预案，拟募资不超过 40 亿元</td>
+<td>资本金、负债率、摊薄</td>
+<td>补充资金改善财务约束，但摊薄 EPS/BPS</td>
+<td>市场已有预期</td>
+<td>发行价格、发行对象、落地时间</td>
+<td>折价发行、用途不改善 ROE</td>
+<td>上交所/巨潮公告入口</td>
+</tr>
+<tr>
+<td>2026-08-03 至 2026-08-05</td>
+<td>股价连续放量，上穿近 20 日成交均值</td>
+<td>情绪与资金承接</td>
+<td>短线关注提升，但不直接改善利润</td>
+<td>已反映在股价和换手</td>
+<td>5 日后是否缩量回落或继续承接</td>
+<td>放量后跌回 11 元以下</td>
+<td>新浪行情快照</td>
+</tr>
+</tbody></table>
+<h2 id="section-9">9. 多头与空头论据</h2>
+
+<h3>9.1 多头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>核电工程方向具备国家能源安全和低碳电源长期逻辑</td>
+<td>公司是核工程建设央企平台</td>
+<td>核电项目核准、新签合同、核电工程收入占比</td>
+<td>核电项目延后或订单无法转化收入</td>
+</tr>
+<tr>
+<td>毛利率近五年改善</td>
+<td>销售毛利率 2021 年 9.94% 升至 2025 年 12.14%</td>
+<td>毛利率继续稳定、费用率不吞噬改善</td>
+<td>毛利率回落或减值增加</td>
+</tr>
+<tr>
+<td>定增可能改善资本约束</td>
+<td>拟募资不超过 40 亿元</td>
+<td>发行价、资金用途、负债率下降</td>
+<td>低价摊薄且 ROE 不改善</td>
+</tr>
+</tbody></table>
+<h3>9.2 空头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>利润已出现明显下滑</td>
+<td>2025 归母净利 13.19 亿，同比下降约 36%；2026Q1 继续下降</td>
+<td>2026H1 / Q3 利润增速</td>
+<td>利润恢复增长</td>
+</tr>
+<tr>
+<td>自由现金流连续为负</td>
+<td>2021-2025 FCF 代理均为负</td>
+<td>经营现金流转正、应收账款改善</td>
+<td>连续两个报告期现金流改善</td>
+</tr>
+<tr>
+<td>估值已不便宜</td>
+<td>11.96 元对应约 27.3x 2025 PE、1.63x PB</td>
+<td>股价回落或盈利上修</td>
+<td>盈利中枢升至 20 亿以上且现金流改善</td>
+</tr>
+<tr>
+<td>股权融资供给压力</td>
+<td>定增上限约 4.07 亿股</td>
+<td>发行方案落地</td>
+<td>发行取消或高价小比例发行</td>
+</tr>
+</tbody></table>
+<h2 id="section-10">10. 估值</h2>
+
+<h3>10.1 相对估值</h3>
+<table>
+<thead>
+<tr>
+<th>公司</th>
+<th>业务可比性</th>
+<th align="right">增长</th>
+<th align="right">利润率</th>
+<th align="right">PE</th>
+<th align="right">PB</th>
+<th align="right">EV/EBITDA</th>
+<th>数据时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>中国核建</td>
+<td>核电工程 + 央企工程承包</td>
+<td align="right">2025 回落，2026Q1 回落</td>
+<td align="right">低净利率</td>
+<td align="right">约 27.3x</td>
+<td align="right">约 1.63x</td>
+<td align="right">未获取到</td>
+<td>2026-08-06</td>
+</tr>
+<tr>
+<td>中国能建</td>
+<td>能源电力工程央企</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>中国中冶</td>
+<td>冶金工程央企</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>中国铁建</td>
+<td>基建工程央企</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>中国核电</td>
+<td>核电运营商，不是工程承包</td>
+<td align="right">未获取到</td>
+<td align="right">通常高于承包商</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<ul>
+<li>选取理由：中国核建应同时参考央企工程承包商和核电产业链稀缺性，但不能用核电运营商估值完全替代。</li>
+<li>正常化调整：用 2021-2024 归母净利 15-21 亿元作为正常化利润区间，2025-2026Q1 显示下修风险。</li>
+<li>对应每股价值区间：8.0-11.0 元，对应约 15-20x 正常化 EPS 0.53 元或 1.1-1.5x 2025 BPS。</li>
+<li>我的判断：相对估值不支持在 11.96-12.70 元追买。</li>
+</ul>
+<h3>10.2 DCF</h3>
+<h4>关键假设</h4>
+<table>
+<thead>
+<tr>
+<th>假设</th>
+<th align="right">悲观</th>
+<th align="right">基准</th>
+<th align="right">乐观</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>收入增长</td>
+<td align="right">-3% 至 1%</td>
+<td align="right">2% 至 4%</td>
+<td align="right">5% 至 7%</td>
+<td>2025 收入回落、2026Q1 继续回落；核电订单提供上行期权</td>
+</tr>
+<tr>
+<td>经营利润率</td>
+<td align="right">2.3%</td>
+<td align="right">2.8%</td>
+<td align="right">3.2%</td>
+<td>建筑承包低利润率，毛利率改善但净利率低</td>
+</tr>
+<tr>
+<td>税率</td>
+<td align="right">20%</td>
+<td align="right">20%</td>
+<td align="right">20%</td>
+<td>税率代理，需年报复核</td>
+</tr>
+<tr>
+<td>折旧摊销</td>
+<td align="right">按收入 1.0%</td>
+<td align="right">按收入 1.0%</td>
+<td align="right">按收入 1.1%</td>
+<td>粗略代理</td>
+</tr>
+<tr>
+<td>资本开支</td>
+<td align="right">18-25 亿 / 年</td>
+<td align="right">18-22 亿 / 年</td>
+<td align="right">18-24 亿 / 年</td>
+<td>2025 购建长期资产支出 18.02 亿</td>
+</tr>
+<tr>
+<td>营运资本变化</td>
+<td align="right">持续占用</td>
+<td align="right">小幅改善</td>
+<td align="right">明显改善</td>
+<td>应收与工程回款是核心变量</td>
+</tr>
+<tr>
+<td>WACC</td>
+<td align="right">8.5%</td>
+<td align="right">8.0%</td>
+<td align="right">7.5%</td>
+<td>央企信用优势但股权风险仍高</td>
+</tr>
+<tr>
+<td>永续增长率</td>
+<td align="right">1.0%</td>
+<td align="right">1.5%</td>
+<td align="right">2.0%</td>
+<td>工程承包长期增长保守</td>
+</tr>
+</tbody></table>
+<h4>估值结果</h4>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">企业价值</th>
+<th align="right">净债务</th>
+<th align="right">股权价值</th>
+<th align="right">每股价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观</td>
+<td align="right">未单列</td>
+<td align="right">未单列</td>
+<td align="right">未单列</td>
+<td align="right">6.8-8.5 元</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">未单列</td>
+<td align="right">未单列</td>
+<td align="right">未单列</td>
+<td align="right">8.8-10.8 元</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">未单列</td>
+<td align="right">未单列</td>
+<td align="right">未单列</td>
+<td align="right">11.0-13.0 元</td>
+</tr>
+</tbody></table>
+<h4>敏感性分析</h4>
+<table>
+<thead>
+<tr>
+<th>WACC \ 永续增长率</th>
+<th align="right">1.0%</th>
+<th align="right">1.5%</th>
+<th align="right">2.0%</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>7.5%</td>
+<td align="right">9.6</td>
+<td align="right">10.7</td>
+<td align="right">12.2</td>
+</tr>
+<tr>
+<td>8.0%</td>
+<td align="right">8.7</td>
+<td align="right">9.7</td>
+<td align="right">10.9</td>
+</tr>
+<tr>
+<td>8.5%</td>
+<td align="right">7.9</td>
+<td align="right">8.8</td>
+<td align="right">9.8</td>
+</tr>
+</tbody></table>
+<h4>反向 DCF</h4>
+<ul>
+<li>当前价格隐含的收入增长 / 终值利润率：11.96 元大致要求收入恢复增长、经营利润率稳定在 3% 附近，并且营运资本占用明显改善；12.70 元则需要更强订单和现金流兑现。</li>
+<li>与历史和行业相比是否可实现：可实现但尚未被 2025 与 2026Q1 证实。</li>
+<li>我的判断：DCF 不给买入信号，因为关键输入不是收入规模，而是现金流转化。</li>
+</ul>
+<h3>10.3 行业特定估值</h3>
+<ul>
+<li>方法：P/B-ROE。</li>
+<li>适用理由：公司资产负债率高、工程业务现金流波动大，用 PB-ROE 比单纯 PE 更能约束估值。</li>
+<li>关键假设：2025 BPS 7.33 元；保守 PB 1.15x，中枢 PB 1.35x，乐观 PB 1.55x。</li>
+<li>对应每股价值区间：8.4-11.4 元。</li>
+<li>局限性：若核电工程订单显著提高 ROE，PB 上限可以上修；若应收和负债继续扩大，PB 应下修。</li>
+</ul>
+<h3>10.4 估值交叉验证</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="right">每股价值区间</th>
+<th align="right">权重</th>
+<th>采信理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>相对估值</td>
+<td align="right">8.0-11.0 元</td>
+<td align="right">35%</td>
+<td>行业可比但缺少完整实时样本</td>
+</tr>
+<tr>
+<td>DCF</td>
+<td align="right">8.8-10.8 元</td>
+<td align="right">30%</td>
+<td>FCF 连续为负，DCF 只能作为约束</td>
+</tr>
+<tr>
+<td>行业特定估值</td>
+<td align="right">8.4-11.4 元</td>
+<td align="right">35%</td>
+<td>PB-ROE 最能约束高负债工程商</td>
+</tr>
+</tbody></table>
+<ul>
+<li>综合估值区间：8.5-11.2 元。</li>
+<li>相对现价上行 / 下行空间：相对 11.96 元约 -28.9% 至 -6.4%；相对 12.70 元约 -33.1% 至 -11.8%。</li>
+<li>为什么不机械平均：相对估值、DCF 和 PB-ROE都指向相似中枢，但 DCF 因现金流缺口降低权重；不把核电主题溢价直接资本化到乐观终值。</li>
+</ul>
+<h2 id="section-11">11. 冰冰小美框架判断</h2>
+
+<h3>11.1 三要素状态总表</h3>
+<ul>
+<li>三要素结论来源：<code>bbxm-three-factor-analysis</code></li>
+<li>分析对象与层级：中国核建 / A股个股</li>
+<li>分析截止时间：2026-08-06 11:29</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>状态</th>
+<th>核心证据</th>
+<th>核心反证</th>
+<th>失效条件</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>有利</td>
+<td>核电工程央企平台，方向符合能源安全与低碳电源</td>
+<td>工程承包低净利率、现金流弱</td>
+<td>核电订单不能转收入和现金流</td>
+<td>中</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>中性</td>
+<td>近 5 日成交额显著高于近 20 日均值</td>
+<td>资金分档、融资、ETF/机构代理未获取到，且存在定增供给</td>
+<td>放量后缩量回落或跌破 11 元</td>
+<td>低</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>中性偏不利</td>
+<td>从 52 周高点回落后近期有修复</td>
+<td>当前价高于估值区间上沿，短线放量可能是事件交易</td>
+<td>利润与现金流未修复而股价继续上冲</td>
+<td>低</td>
+</tr>
+</tbody></table>
+<h4>前六步证据映射</h4>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>前六步证据来源</th>
+<th>已验证证据</th>
+<th>反证与缺口</th>
+<th>分析状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>第 4-7 章；第 2 章来源矩阵</td>
+<td>核电工程方向、央企平台、毛利率改善</td>
+<td>分部收入、订单利润率未获取到；利润下滑</td>
+<td>可判断但非买点</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>Step 2 交易数据；第 8-9 章；第 2 章来源矩阵</td>
+<td>近期成交额放大、换手提升</td>
+<td>资金身份、融资余额、主力资金未获取到；定增供给</td>
+<td>证据不足降置信</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>第 3、8、9 章；第 2 章来源矩阵</td>
+<td>从低位反弹、核电价值锚清晰</td>
+<td>追高位置、估值偏高、基本面未验证</td>
+<td>中性偏不利</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Step 6 估值约束：估值不强行归入三要素；当前价高于综合价值区间上沿，是行动降级的核心约束。</li>
+<li>补采证据回填：本次补采的行情、财务和现金流已写回第 2、3、6、7 章。</li>
+</ul>
+<h3>11.2 竞争格局与比较优势</h3>
+<ul>
+<li>分析对象与竞争层级：核电工程建设平台 / 央企工程承包商。</li>
+<li>当前状态：有利。</li>
+<li>证据充分性：部分充分；方向资格充分，分部利润和订单转化证据不足。</li>
+<li>多产业位置景气度排序：核电工程建设排名第一，央企工程承包排名第二，核技术应用为证据不足项。</li>
+<li>产业链位置与利润池：公司位于核电工程建设环节，不是电价收益最高的核电运营商，也不是核心设备供应商；利润池受工程承包毛利率和回款约束。</li>
+<li>核心比较优势：核电工程资质、央企信用、中核体系协同。</li>
+<li>当前决策含义：方向可以放入观察池，但不能越过估值和现金流闸门。</li>
+</ul>
+<h4>证据</h4>
+<ul>
+<li>核电工程平台属性与能源安全方向匹配。</li>
+<li>毛利率五年改善。</li>
+<li>央企信用和定增可缓解资本约束。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>2025 年和 2026Q1 利润下滑。</li>
+<li>自由现金流连续为负。</li>
+<li>分部订单和利润率未获取到。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>核电建设景气无法转化为公司利润；</li>
+<li>应收账款和营运资本占用持续恶化；</li>
+<li>定增摊薄后 ROE 进一步下降。</li>
+</ul>
+<h3>11.3 流动性辩证分析</h3>
+<ul>
+<li>当前状态：中性。</li>
+<li>证据充分性：不充分；只有价格成交数据，缺资金来源。</li>
+</ul>
+<h4>宏观流动性</h4>
+<ul>
+<li>总量环境与边际变化：未在本报告中重新核验利率、汇率和商品全局数据。</li>
+<li>对本标的的传导：央企工程和核电建设偏政策/信用周期，宏观宽松有利估值，但未作为核心买入依据。</li>
+</ul>
+<h4>中观流动性</h4>
+<ul>
+<li>行业 / 主题 / ETF / 机构配置变化：核电、央企、能源安全主题可能获得资金关注；ETF/机构代理未获取到。</li>
+<li>对本标的的传导：主题关注提升会推升成交和估值溢价，但无法替代现金流验证。</li>
+</ul>
+<h4>微观流动性</h4>
+<ul>
+<li>成交额、换手率、量价结构、融资和大单：2026-08-05 成交额 19.56 亿元、换手 5.32%，近 5 日均成交额 11.12 亿元，高于近 20 日 5.01 亿元；融资和大单未获取到。</li>
+<li>连续窗口与相对强弱：8 月初放量上行，但 2026 年以来仍为 -9.16%，且距 52 周高点仍约 -40%。</li>
+</ul>
+<h4>资金来源分类</h4>
+<table>
+<thead>
+<tr>
+<th>资金来源</th>
+<th>当前状态</th>
+<th>连续窗口证据</th>
+<th>对价格的含义</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>长期配置资金</td>
+<td>未获取到</td>
+<td>ETF/机构持仓未获取到</td>
+<td>不能确认长期资金接力</td>
+<td>低</td>
+</tr>
+<tr>
+<td>趋势 / 交易资金</td>
+<td>可能流入</td>
+<td>近 5 日成交放大，8 月初价格快速上行</td>
+<td>支撑短线弹性，也带来回撤风险</td>
+<td>中低</td>
+</tr>
+<tr>
+<td>产业资本 / 内部人</td>
+<td>供给压力</td>
+<td>定增预案存在潜在新增股本</td>
+<td>对价格构成摊薄和供给约束</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h4>供给与抛压</h4>
+<table>
+<thead>
+<tr>
+<th>供给来源</th>
+<th>当前状态</th>
+<th>时间窗口</th>
+<th>影响</th>
+<th>验证方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>解禁 / 减持</td>
+<td>未获取到</td>
+<td>2026</td>
+<td>未判断</td>
+<td>公告复核</td>
+</tr>
+<tr>
+<td>再融资 / 可转债</td>
+<td>定增预案存在</td>
+<td>2026</td>
+<td>潜在摊薄和筹码供给</td>
+<td>发行方案、价格、对象</td>
+</tr>
+<tr>
+<td>获利盘 / 套牢盘</td>
+<td>上方套牢明显</td>
+<td>52 周高点 20.10 元</td>
+<td>反弹至 12 元上方可能遇到抛压</td>
+<td>成交额和回撤</td>
+</tr>
+</tbody></table>
+<h4>最低数据检查</h4>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>当前窗口</th>
+<th>对比窗口</th>
+<th>结论</th>
+<th>数据源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>成交额与换手率</td>
+<td>8 月初放量，8/5 成交 19.56 亿元</td>
+<td>近 20 日均 5.01 亿元</td>
+<td>有短线资金关注</td>
+<td>新浪行情</td>
+</tr>
+<tr>
+<td>融资余额与融资买入</td>
+<td>未获取到</td>
+<td>未获取到</td>
+<td>不能确认杠杆状态</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>主力 / 大单资金</td>
+<td>未获取到</td>
+<td>未获取到</td>
+<td>不能确认资金身份</td>
+<td>东方财富接口失败</td>
+</tr>
+<tr>
+<td>ETF / 北向 / 机构代理指标</td>
+<td>未获取到</td>
+<td>未获取到</td>
+<td>不能确认长期承接</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<h4>证据</h4>
+<ul>
+<li>成交额明显放大。</li>
+<li>主题价值锚存在。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>资金身份缺失；</li>
+<li>存在定增供给；</li>
+<li>价格已高于保守估值上沿。</li>
+</ul>
+<h4>退出路径</h4>
+<ul>
+<li>资金流入如何退出：若主题热度下降，短线交易资金可能以缩量阴跌或放量冲高回落退出。</li>
+<li>持续性被证伪的信号：跌破 11 元且成交不能修复；后续公告不支撑订单和利润；资金分档继续净流出。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>出现明确机构/长期资金持续买入，并伴随利润和订单验证；</li>
+<li>定增高价落地且不明显摊薄 ROE；</li>
+<li>股价回落到 9.5-10.3 元且承接稳定。</li>
+</ul>
+<h3>11.4 情绪位置变化</h3>
+<ul>
+<li>当前状态：中性偏不利。</li>
+<li>证据充分性：不充分；缺少板块广度、龙虎榜、社交热度和资金身份。</li>
+<li>当前所处阶段：修复后接近拥挤观察。</li>
+<li>个股相对板块与指数的强弱：8 月初短线较强，但年内仍负收益。</li>
+<li>催化兑现后的价格反馈：核电和央企主题被交易，价格已先于基本面恢复。</li>
+</ul>
+<h4>证据</h4>
+<ul>
+<li>从 52 周低点 8.48 元反弹到 11.96-12.70 元区间，风险偏好已有修复。</li>
+<li>近 5 日成交显著放大，说明关注度提升。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>52 周高点 20.10 元上方仍有大量套牢空间；</li>
+<li>利润和现金流没有同步修复；</li>
+<li>当前价格对保守价值缺乏安全边际。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>放量后不能继续承接；</li>
+<li>公告或半年报低于预期；</li>
+<li>价格跌破 11 元后无修复。</li>
+</ul>
+<h3>11.5 综合状态与主导矛盾</h3>
+<ul>
+<li>三要素综合判断：尚未形成有利共振。</li>
+<li>主导要素：竞争格局。</li>
+<li>拖累要素：估值约束、现金流、流动性证据不足。</li>
+<li>主导矛盾：核电工程方向具备比较优势，但中国核建当前股东回报、现金流和股价位置没有共同确认。</li>
+<li>下一验证节点：2026 半年报、月度经营简报、定增方案、资金分档和融资余额。</li>
+<li>状态切换条件：价格回到估值中枢且资金承接不弱，或利润/现金流先行验证。</li>
+</ul>
+<h3>11.6 三要素行动映射</h3>
+<table>
+<thead>
+<tr>
+<th>资金属性</th>
+<th>当前动作</th>
+<th>允许升级的条件</th>
+<th>降级 / 退出条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>新增现金</td>
+<td>observe</td>
+<td>回到 9.5-10.3 元；或半年报显示利润和现金流修复；资金身份转为长期承接</td>
+<td>12 元以上继续无基本面验证而放量冲高</td>
+</tr>
+<tr>
+<td>已有持仓</td>
+<td>review</td>
+<td>若成本低于 10 元，可跟踪订单和现金流，分批设保护</td>
+<td>跌破 11 元且成交走弱；半年报低于预期；定增折价压力加大</td>
+</tr>
+</tbody></table>
+<h3>11.7 三要素数据缺口与来源</h3>
+<table>
+<thead>
+<tr>
+<th>数据缺口</th>
+<th>已检查来源</th>
+<th>对哪一要素有影响</th>
+<th>对结论的影响</th>
+<th>补齐方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>资金分档 / 大单</td>
+<td>东方财富接口</td>
+<td>流动性</td>
+<td>降低资金判断置信度</td>
+<td>复核东方财富/同花顺资金流</td>
+</tr>
+<tr>
+<td>融资余额</td>
+<td>上交所 / AKShare 尝试</td>
+<td>流动性、风险方向</td>
+<td>无法判断杠杆拥挤</td>
+<td>拉取单股融资融券</td>
+</tr>
+<tr>
+<td>分部收入和订单毛利</td>
+<td>年报分部表</td>
+<td>竞争格局</td>
+<td>无法细拆核电纯度</td>
+<td>复核 2025 年报 PDF</td>
+</tr>
+<tr>
+<td>卖方一致预期</td>
+<td>券商/平台</td>
+<td>情绪与估值</td>
+<td>不使用目标价作为依据</td>
+<td>获取 Wind/Choice/研报样本</td>
+</tr>
+</tbody></table>
+<ul>
+<li>分析口径与截止时间：2026-08-06 11:29。</li>
+<li>主要数据来源：<a href="../../manual/2026-08-06-中国核建公开数据快照.md">中国核建公开数据快照</a>。</li>
+<li>数据缺口导致的置信度调整：流动性和情绪置信度为低，最终动作不升级为 buy。</li>
+</ul>
+<h3>11.8 风险方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>风险类型</th>
+<th>前一窗口</th>
+<th>当前窗口</th>
+<th>方向证据</th>
+<th>反证</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本面风险</td>
+<td>2024 利润基本持平</td>
+<td>2025 利润下滑，2026Q1 继续下滑</td>
+<td>盈利风险增强</td>
+<td>毛利率改善、Q1 OCF 较去年同期略改善</td>
+</tr>
+<tr>
+<td>估值风险</td>
+<td>低位估值修复</td>
+<td>现价高于综合估值区间上沿</td>
+<td>安全边际不足</td>
+<td>若订单/利润上修，估值可消化</td>
+</tr>
+<tr>
+<td>情绪风险</td>
+<td>低位修复</td>
+<td>8 月初放量上行</td>
+<td>短线拥挤风险上升</td>
+<td>仍低于 52 周高点</td>
+</tr>
+<tr>
+<td>流动性风险</td>
+<td>成交较平稳</td>
+<td>成交放大但资金身份不明，且定增供给存在</td>
+<td>分歧和供给风险上升</td>
+<td>若长期资金承接，可缓解</td>
+</tr>
+</tbody></table>
+<h3>11.9 风险传导链</h3>
+<ul>
+<li>信息源头：2025 利润下滑、2026Q1 继续回落、自由现金流连续为负、定增预案、8 月初放量反弹。</li>
+<li>核心变量：订单转化、净利率、营运资本、定增摊薄、资金承接。</li>
+<li>传导机制：盈利下修和现金流弱 -&gt; 估值锚下移；定增 -&gt; 潜在供给增加；短线放量 -&gt; 若基本面未验证，容易变成回撤压力。</li>
+<li>影响对象：中国核建股价和新增现金买入安全边际。</li>
+<li>市场行为变化：成交放大但不能确认长期资金，股价高于保守价值区间。</li>
+<li>风险方向：风险增强。</li>
+<li>验证指标：2026H1 归母净利增速、经营现金流、应收账款、定增发行价、资金分档。</li>
+<li>失效条件：利润和现金流明确改善，定增高质量落地，股价回到 9.5-10.3 元且承接稳定。</li>
+</ul>
+<h3>11.10 风险方向结论</h3>
+<ul>
+<li>风险方向结论：风险增强。</li>
+<li>判断依据：相对上一低位修复窗口，当前价格上移而基本面没有同步修复，叠加定增供给和资金身份缺口。</li>
+<li>反证：核电建设方向资格较强，毛利率改善，2026Q1 经营现金流较上年同期略改善。</li>
+<li>未获取到：融资余额、大单资金、机构持仓变化、分部订单毛利。</li>
+<li>置信度：中低。</li>
+</ul>
+<h3>11.11 四层方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>边际改善 / 无明显变化 / 边际恶化 / 未获取到</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观</td>
+<td>未获取到</td>
+<td>未重新核验宏观利率、汇率和流动性</td>
+</tr>
+<tr>
+<td>中观</td>
+<td>边际改善</td>
+<td>核电建设与能源安全方向有景气支撑</td>
+</tr>
+<tr>
+<td>微观</td>
+<td>边际恶化</td>
+<td>2025 和 2026Q1 利润下滑，FCF 连续为负</td>
+</tr>
+<tr>
+<td>交易</td>
+<td>边际恶化</td>
+<td>价格反弹、成交放大、资金身份不明，估值安全边际变薄</td>
+</tr>
+</tbody></table>
+<h3>11.12 最终动作与约束</h3>
+<ul>
+<li>主动作：observe。</li>
+<li>新增现金：不追买，等待价格回到 9.5-10.3 元或基本面修复。</li>
+<li>已有持仓：按成本复核，低成本可持有观察，高于 11.2 元的持仓应设置复核/减仓条件。</li>
+<li>承接条件：资金分档转强、融资不过热、半年报利润和现金流修复。</li>
+<li>退出条件：跌破 11 元且放量转弱；半年报继续下滑；定增折价造成估值压力。</li>
+<li>下一复核节点：2026 半年报发布后；或股价回落到 10 元附近。</li>
+<li>我的判断：方向正确不能转化为当前买点，因为估值和现金流没有给新增现金足够容错。</li>
+</ul>
+<h3>11.13 霍华德·马克斯逆向投资条件判断</h3>
+<table>
+<thead>
+<tr>
+<th>条件</th>
+<th>状态</th>
+<th>证据</th>
+<th>反证</th>
+<th>验证指标 / 失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>市场共识是否极端悲观</td>
+<td>部分满足</td>
+<td>股价较 52 周高点回撤约 40%</td>
+<td>8 月初已放量修复，不是无人问津</td>
+<td>价格重新回到低位且成交低迷</td>
+</tr>
+<tr>
+<td>是否存在恐慌或被迫卖家</td>
+<td>证据不足</td>
+<td>未获取到融资、基金赎回或强制卖出证据</td>
+<td>当前更像主题交易放量</td>
+<td>融资余额快速下降、大单被迫卖出</td>
+</tr>
+<tr>
+<td>价格是否明显低于保守价值</td>
+<td>不满足</td>
+<td>现价 11.96 元高于 8.5-11.2 元区间上沿</td>
+<td>无</td>
+<td>回到 9.5-10.3 元</td>
+</tr>
+<tr>
+<td>基本面是否未永久毁灭</td>
+<td>部分满足</td>
+<td>核电工程方向长期仍在，央企平台仍有信用</td>
+<td>利润和现金流恶化，不能忽略</td>
+<td>订单、利润、现金流恢复</td>
+</tr>
+<tr>
+<td>风险补偿是否足够厚</td>
+<td>不满足</td>
+<td>下行到估值中枢的空间大于上行确定性</td>
+<td>核电订单可能带来上修</td>
+<td>半年报上修或价格下修</td>
+</tr>
+<tr>
+<td>自身资金是否能等待</td>
+<td>证据不足</td>
+<td>用户未提供持仓成本和期限</td>
+<td>无法判断资金期限</td>
+<td>明确持仓成本、仓位和期限</td>
+</tr>
+</tbody></table>
+<ul>
+<li>逆向等级：C：普通下跌或周期底部候选。</li>
+<li>缺失条件：没有证明恐慌/被迫卖出；价格没有明显低于保守价值；风险补偿不够厚。</li>
+<li>是否存在价值陷阱风险：中等。不是业务永久毁灭型，但可能是“好方向、低股东回报、现金流弱、估值先涨”的价值陷阱。</li>
+<li>对最终动作的影响：不能从 observe 升级为 buy。</li>
+</ul>
+<h2 id="section-12">12. 最终结论</h2>
+
+<ul>
+<li>估值结论：合理偏高。</li>
+<li>操作结论：观望。</li>
+<li>综合估值区间：8.5-11.2 元。</li>
+<li>相对现价空间：相对 11.96 元约 -28.9% 至 -6.4%。</li>
+<li>如果今天这是一笔现金，我会买它吗：不会；只会在价格回到 9.5-10.3 元、或基本面先验证利润和现金流修复后重新评估。</li>
+<li>我的判断：中国核建是“方向资格较强、经营兑现偏弱、当前买点不舒服”的标的。核电工程叙事可以进入观察池，但目前更像反弹后的复核对象，而不是新增现金的高质量逆向机会。</li>
+<li>结论失效条件：2026H1/H2 归母净利恢复增长、经营现金流转正、分部核电工程订单和毛利率超预期、定增高价低摊薄落地、长期资金持续承接。</li>
+</ul>
+<h2 id="section-13">13. 后续监控指标</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">当前值</th>
+<th>触发阈值 / 方向</th>
+<th>数据源</th>
+<th>复核频率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1. 股价</td>
+<td align="right">11.96 元</td>
+<td>回到 9.5-10.3 元进入重新估值区；高于 12.7 元不追</td>
+<td>新浪行情</td>
+<td>每日</td>
+</tr>
+<tr>
+<td>2. 2026H1 归母净利润</td>
+<td align="right">未披露</td>
+<td>同比转正或降幅显著收窄</td>
+<td>半年报</td>
+<td>披露时</td>
+</tr>
+<tr>
+<td>3. 经营现金流</td>
+<td align="right">2026Q1 -95.12 亿</td>
+<td>半年报明显改善，全年转正更优</td>
+<td>财报</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>4. 新签核电工程订单</td>
+<td align="right">未系统抽取</td>
+<td>新签合同持续增长且明确核电项目</td>
+<td>经营简报 / 公告</td>
+<td>月度</td>
+</tr>
+<tr>
+<td>5. 定增方案</td>
+<td align="right">拟募资不超过 40 亿元</td>
+<td>发行价、摊薄比例、资金用途是否改善 ROE</td>
+<td>公告</td>
+<td>事件触发</td>
+</tr>
+</tbody></table>
+<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
+
+<ul>
+<li>未获取到：Tushare MCP 数据、资金分档、融资融券单股序列、北向/ETF/机构持仓、卖方目标价分布、第三方公允价值、分部收入与分部毛利、管理层量化指引。</li>
+<li>已检查来源：AKShare 行情和财务接口、东方财富行情/资金接口尝试、巨潮/上交所/公司官网公开入口、库内工作台。</li>
+<li>对结论的影响：资金面和情绪面置信度降低；估值因现金流缺口采用保守权重；不因数据缺口把结论升级为买入。</li>
+</ul>
+<h2 id="section-15">15. 来源清单</h2>
+
+<ol>
+<li><a href="../../manual/2026-08-06-中国核建公开数据快照.md">中国核建公开数据快照</a>，AKShare 转引新浪行情、同花顺财务及公开披露入口，抓取时间 2026-08-06 11:29。</li>
+<li>上交所上市公司信息页，中国核建 601611，<a href="https://www.sse.com.cn/assortment/stock/list/info/company/index.shtml?COMPANY_CODE=601611%EF%BC%8C%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">https://www.sse.com.cn/assortment/stock/list/info/company/index.shtml?COMPANY_CODE=601611，访问时间</a> 2026-08-06。</li>
+<li>巨潮资讯公告查询页，中国核建 601611，<a href="http://www.cninfo.com.cn/new/disclosure/stock?stockCode=601611%EF%BC%8C%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">http://www.cninfo.com.cn/new/disclosure/stock?stockCode=601611，访问时间</a> 2026-08-06。</li>
+<li>新浪财经行情页，中国核建 sh601611，<a href="https://finance.sina.com.cn/realstock/company/sh601611/nc.shtml%EF%BC%8C%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">https://finance.sina.com.cn/realstock/company/sh601611/nc.shtml，访问时间</a> 2026-08-06。</li>
+<li>同花顺财务页，中国核建 601611，<a href="http://basic.10jqka.com.cn/601611/finance.html%EF%BC%8C%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">http://basic.10jqka.com.cn/601611/finance.html，访问时间</a> 2026-08-06。</li>
+<li>中国核建官网，<a href="https://www.cnecc.com/%EF%BC%8C%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">https://www.cnecc.com/，访问时间</a> 2026-08-06。</li>
+</ol>
+<h2 id="section-16">16. 声明</h2>
+
+<p>本报告基于截至研究截止时间可取得的公开信息，不构成收益保证。真实交易前应重新核验价格、公告、流动性和个人风险承受能力。</p>
+<script>
+(() => {
+  const endpoint = '/api/stock-quote?secid=1.601611';
+  const priceNode = document.getElementById('intraday-price');
+  const detailNode = document.getElementById('intraday-detail');
+  const statusNode = document.getElementById('intraday-status');
+  const riskRewardValue = document.getElementById('risk-reward-value');
+  const riskRewardDetail = document.getElementById('risk-reward-detail');
+  const tracker = document.getElementById('daily-tracking');
+  const snapshotPrice = 11.96;
+  const percent = value => `${value < 0 ? '-' : value > 0 ? '+' : ''}${Math.abs(value).toFixed(1)}%`;
+  function updateRiskReward(price) {
+    const low = Number(tracker.dataset.valueLow);
+    const high = Number(tracker.dataset.valueHigh);
+    if (!Number.isFinite(low) || !Number.isFinite(high) || low <= 0 || high <= low) return;
+    const upside = (high / price - 1) * 100;
+    const downside = (price / low - 1) * 100;
+    if (price <= low) {
+      riskRewardValue.textContent = '低于价值下沿';
+      riskRewardValue.classList.remove('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿潜在空间 ${percent(upside)}。价格已低于动态价值下沿，不能直接用下沿作为止损风险，需另设风控线。`;
+      return;
+    }
+    if (price >= high) {
+      riskRewardValue.textContent = '无正向盈亏比';
+      riskRewardValue.classList.add('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿空间 ${percent(upside)}，回落至下沿风险 ${percent(downside)}。价格已到或高于动态价值上沿，新增现金不具备正向盈亏比。`;
+      return;
+    }
+    const ratio = upside / downside;
+    riskRewardValue.textContent = `约 ${ratio.toFixed(1)}:1`;
+    riskRewardValue.classList.toggle('bad', ratio < 1);
+    riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；到上沿 ${high.toFixed(2)} 元的潜在上行 ${percent(upside)}，跌至下沿 ${low.toFixed(2)} 元的风险 ${percent(downside)}。盘中价格不改变价值区间本身。`;
+  }
+  async function refreshIntradayQuote() {
+    statusNode.textContent = '连接中'; statusNode.className = 'tracking-status';
+    try {
+      const response = await fetch(endpoint, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json(); const quote = payload && payload.data;
+      if (!quote || !Number.isFinite(quote.price) || !Number.isFinite(quote.prevClose) || !Number.isFinite(quote.changePercent) || !Number.isFinite(quote.quoteTimestamp)) throw new Error('invalid quote');
+      const quoteTime = new Date(quote.quoteTimestamp * 1000).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false });
+      priceNode.textContent = `${quote.price.toFixed(2)} 元 · ${percent(quote.changePercent)}`;
+      priceNode.classList.toggle('bad', quote.changePercent < 0);
+      detailNode.textContent = `行情时间：${quoteTime}；昨收 ${quote.prevClose.toFixed(2)} 元。来源：${payload.proxySource || '本地行情代理'}。`;
+      statusNode.textContent = '盘中实时 · 每 60 秒'; statusNode.className = 'tracking-status live'; updateRiskReward(quote.price);
+    } catch { priceNode.textContent = '实时行情暂不可用'; priceNode.classList.remove('bad'); detailNode.textContent = '每日同步值仍然有效；可重新双击“大盘启动器”后刷新本页。'; statusNode.textContent = '连接失败'; statusNode.className = 'tracking-status error'; }
+  }
+  if (location.protocol === 'http:' || location.protocol === 'https:') { refreshIntradayQuote(); window.setInterval(refreshIntradayQuote, 60000); }
+  else { priceNode.textContent = Number.isFinite(snapshotPrice) ? `${snapshotPrice.toFixed(2)} 元（每日值）` : '每日值未获取'; detailNode.textContent = '当前为直接打开模式；盘中实时需通过“大盘启动器”进入本地服务。'; statusNode.textContent = '每日同步 · 实时未连接'; }
+})();
+</script></article>
+    </div>
+  </main>
+</body>
+</html>

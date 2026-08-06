@@ -15,7 +15,7 @@ import sys
 from threading import Thread
 from time import monotonic
 from urllib.error import HTTPError, URLError
-from urllib.parse import parse_qs, unquote, urlencode, urlparse
+from urllib.parse import parse_qs, quote, unquote, urlencode, urlparse
 from urllib.request import Request, urlopen
 import webbrowser
 
@@ -44,6 +44,8 @@ SOURCE_NAMES = {
     "/api/us-treasury-yield": "us-treasury-yield",
     "/api/us-dollar-index": "us-dollar-index",
     "/api/stock-quote": "stock-quote",
+    "/api/stock-close-performance": "stock-close-performance",
+    "/api/stock-dividend-yield": "stock-dividend-yield",
     "/api/youzhiyouxing-temperature": "youzhiyouxing-temperature",
     "/api/nasdaq100": "nasdaq100",
     "/api/fugui-candidate": "fugui-candidate",
@@ -143,6 +145,10 @@ def _stock_secid(value):
     if not re.fullmatch(r"[01]\.\d{6}", value):
         raise RouteError("invalid secid")
     return value
+
+
+def _stock_code_from_secid(value):
+    return _stock_secid(value).split(".", 1)[1]
 
 
 def _stock_market_for_code(code):
@@ -279,6 +285,75 @@ def normalize_stock_quote(payload, secid):
             "quoteTimestamp": int(data["f86"]),
         },
         "proxySource": "东方财富行情",
+    }
+
+
+def _stock_daily_rows_for_close_performance(secid, client=None):
+    from tushare_client import TushareClient, TushareClientError, a_share_ts_code, frame_to_rows
+
+    code = _stock_code_from_secid(secid)
+    today = datetime.now(timezone(timedelta(hours=8))).date()
+    start_date = (today - timedelta(days=140)).isoformat()
+    end_date = today.isoformat()
+    try:
+        frame = (client or TushareClient(logger=write_proxy_log)).daily(
+            ts_code=a_share_ts_code(code),
+            start_date=start_date,
+            end_date=end_date,
+            fields=["ts_code", "trade_date", "close", "pre_close", "change"],
+        )
+    except TushareClientError as error:
+        raise UpstreamError(getattr(error, "source", "tushare-daily")) from error
+    return frame_to_rows(frame)
+
+
+def calculate_close_performance(rows):
+    if not isinstance(rows, list) or not rows:
+        raise UpstreamError("tushare-daily")
+    ordered = sorted(
+        (row for row in rows if isinstance(row, dict)),
+        key=lambda row: str(row.get("trade_date") or ""),
+        reverse=True,
+    )
+    valid = []
+    for row in ordered:
+        try:
+            close = float(row.get("close"))
+            pre_close = float(row.get("pre_close"))
+        except (TypeError, ValueError):
+            continue
+        if not math.isfinite(close) or not math.isfinite(pre_close) or pre_close <= 0:
+            continue
+        valid.append({
+            "tradeDate": str(row.get("trade_date") or ""),
+            "close": close,
+            "preClose": pre_close,
+        })
+    if not valid:
+        raise UpstreamError("tushare-daily")
+    latest = valid[0]
+    baseline = valid[min(4, len(valid) - 1)]
+    week_change_percent = None
+    if baseline["close"] > 0:
+        week_change_percent = round(((latest["close"] / baseline["close"]) - 1) * 100, 2)
+    return {
+        "tradeDate": latest["tradeDate"],
+        "latestClose": round(latest["close"], 2),
+        "preClose": round(latest["preClose"], 2),
+        "weekChangePercent": week_change_percent,
+        "sampleDays": min(5, len(valid)),
+    }
+
+
+def fetch_stock_close_performance(secid, client=None):
+    normalized_secid = _stock_secid(secid)
+    rows = _stock_daily_rows_for_close_performance(normalized_secid, client)
+    return {
+        "data": {
+            "secid": normalized_secid,
+            **calculate_close_performance(rows),
+        },
+        "proxySource": "Tushare daily via tushare-data",
     }
 
 
@@ -650,6 +725,47 @@ def fetch_fugui_candidate(name, fetcher=None, ak_provider=None, tushare_provider
     if selected_provider == "tushare":
         return fetch_fugui_candidate_from_tushare(query, fetcher, tushare_provider)
     return fetch_fugui_candidate_from_akshare(query, fetcher, ak_provider)
+
+
+def fetch_stock_dividend_yield(secid, tushare_provider=None):
+    """Fetch latest TTM dividend yield from Tushare daily_basic.dv_ttm."""
+    from tushare_client import TushareClient, TushareClientError, a_share_ts_code, frame_to_rows
+
+    code = _stock_code_from_secid(secid)
+    dashboard_env_path = Path(__file__).resolve().parents[1] / ".env"
+    client = TushareClient(
+        pro=tushare_provider,
+        extra_env_paths=(dashboard_env_path,),
+        logger=write_proxy_log,
+    )
+    try:
+        daily_basic_frame = client.daily_basic(
+            ts_code=a_share_ts_code(code),
+            use_cache=tushare_provider is None,
+        )
+    except TushareClientError as error:
+        if error.source == "tushare-token":
+            write_proxy_log("CONFIG_MISSING", provider="Tushare", key="TUSHARE_TOKEN")
+        raise UpstreamError(error.source) from error
+    except Exception as error:
+        raise UpstreamError("tushare") from error
+    rows = frame_to_rows(daily_basic_frame)
+    if not rows:
+        raise UpstreamError("tushare-daily-basic")
+    row = rows[0]
+    dividend_yield = _finite_number(_akshare_value(row, "dv_ttm"))
+    if dividend_yield is None:
+        raise UpstreamError("tushare-daily-basic")
+    trade_date = str(_akshare_value(row, "trade_date") or "").strip()
+    return {
+        "data": {
+            "secid": secid,
+            "code": code,
+            "dividendYieldTtm": round(dividend_yield, 2),
+            "tradeDate": trade_date or None,
+        },
+        "proxySource": "Tushare daily_basic.dv_ttm",
+    }
 
 
 def prewarm_fugui_reference_data(fetcher=None):
@@ -1623,6 +1739,7 @@ def create_server(
         review_diary_dir or vault_root / "workbench" / "targets"
     ).resolve()
     file_roots = {
+        "/data/": (artifact.parent / "data").resolve(),
         "/sources/": (vault_root / "sources").resolve(),
         "/wiki/": (vault_root / "wiki").resolve(),
         "/workbench/": (vault_root / "workbench").resolve(),
@@ -1789,6 +1906,30 @@ def create_server(
                 requested_file.relative_to(root)
             except ValueError:
                 return self.send_json(404, {"error": "not found"})
+            if not requested_file.is_file() and prefix == "/data/":
+                requested_name = Path(decoded_path).name
+                requested_encoded_name = request_path.rsplit("/", 1)[-1]
+                requested_monitor_match = re.match(
+                    r"^(\d{6})-.+-(\d{4}-\d{2}-\d{2})\.md$",
+                    requested_encoded_name,
+                )
+                requested_file = next(
+                    (
+                        candidate.resolve()
+                        for candidate in root.iterdir()
+                        if candidate.is_file()
+                        and (
+                            candidate.name == requested_name
+                            or quote(candidate.name) == requested_encoded_name
+                            or (
+                                requested_monitor_match
+                                and candidate.name.startswith(f"{requested_monitor_match.group(1)}-")
+                                and candidate.name.endswith(f"-{requested_monitor_match.group(2)}.md")
+                            )
+                        )
+                    ),
+                    requested_file,
+                )
             if not requested_file.is_file():
                 return self.send_json(404, {"error": "not found"})
             try:
@@ -1809,7 +1950,7 @@ def create_server(
                 return self.send_dashboard()
             if parsed.path == "/api/portfolio":
                 return self.send_portfolio()
-            if parsed.path.startswith("/sources/") or parsed.path.startswith("/wiki/") or parsed.path.startswith("/workbench/"):
+            if parsed.path.startswith("/data/") or parsed.path.startswith("/sources/") or parsed.path.startswith("/wiki/") or parsed.path.startswith("/workbench/"):
                 return self.send_whitelisted_file(parsed.path)
             if not parsed.path.startswith("/api/"):
                 return self.send_json(404, {"error": "not found"})
@@ -1826,6 +1967,12 @@ def create_server(
                 elif parsed.path == "/api/stock-quote":
                     secid = _one(query, "secid")
                     payload = fetch_stock_quote(secid, fetcher)
+                elif parsed.path == "/api/stock-close-performance":
+                    secid = _one(query, "secid")
+                    payload = fetch_stock_close_performance(secid)
+                elif parsed.path == "/api/stock-dividend-yield":
+                    secid = _one(query, "secid")
+                    payload = fetch_stock_dividend_yield(secid)
                 elif parsed.path == "/api/market":
                     build_upstream_url(parsed.path, query)
                     payload = fetch_market_snapshot(fetcher)

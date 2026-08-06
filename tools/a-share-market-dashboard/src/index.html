@@ -388,7 +388,7 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
               </div>
               <div class="tracking-table-wrap">
                 <table class="tracking-table">
-                  <thead><tr><th>标的</th><th>动态价值区间</th><th>盘中实时</th><th><button class="table-sort-button" type="button" id="tracking-sort-intraday" aria-pressed="false" aria-label="按盈亏比从高到低排序">盈亏比</button></th><th>风险方向</th><th>数据来自研报</th><th>复盘</th><th>星级</th></tr></thead>
+                  <thead><tr><th>标的</th><th>动态价值区间</th><th>盘中实时</th><th>收盘表现</th><th><button class="table-sort-button" type="button" id="tracking-sort-intraday" aria-pressed="false" aria-label="按盈亏比从高到低排序">盈亏比</button></th><th>监控状态</th><th>数据来自研报</th><th>复盘</th><th>星级</th></tr></thead>
                   <tbody id="holding-tracker-list"></tbody>
                 </table>
               </div>
@@ -468,10 +468,18 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
           </form>
           <button class="button-secondary fugui-panel-open" id="fugui-panel-open" type="button" aria-controls="fugui-strategy-form" hidden>打开面板</button>
           <div class="fugui-table-wrap panel">
+            <div class="fugui-table-head">
+              <div><p class="eyebrow">WATCHLIST</p><h3>跟踪清单</h3></div>
+              <div class="tracker-filter" id="fugui-filter" aria-label="富贵策略达标筛选">
+                <button class="is-active" type="button" data-fugui-filter="all" aria-pressed="true">全部</button>
+                <button type="button" data-fugui-filter="passed" aria-pressed="false">达标</button>
+                <button type="button" data-fugui-filter="failed" aria-pressed="false">未达标</button>
+              </div>
+            </div>
             <table class="fugui-table">
-              <thead><tr><th>行业</th><th>标的</th><th>市值</th><th>股息率</th><th>是否达标</th></tr></thead>
+              <thead><tr><th>行业</th><th>标的</th><th><button class="table-sort-button" type="button" id="fugui-sort-ttm" aria-pressed="false" aria-label="按TTM股息率排序">TTM股息率</button></th><th>预期股息率</th><th>价值锚</th><th>是否达标</th><th>操作</th></tr></thead>
               <tbody id="fugui-strategy-body">
-                <tr><td>待补充</td><td>待补充</td><td>待补充</td><td>待补充</td><td>待补充</td></tr>
+                <tr><td>待补充</td><td>待补充</td><td>待补充</td><td>待补充</td><td>待补充</td><td>待补充</td><td>—</td></tr>
               </tbody>
             </table>
           </div>

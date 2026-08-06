@@ -60,6 +60,8 @@ const STOCK_CODE_ALIASES = Object.freeze({
   航天电子: '600879',
   云铝股份: '000807',
   东阳光: '600673',
+  紫光股份: '000938',
+  国药现代: '600420',
   中国卫星: '600118',
   中国卫通: '601698',
   中国中车: '601766',
@@ -71,6 +73,9 @@ const STOCK_CODE_ALIASES = Object.freeze({
 });
 const STOCK_REPORT_LINKS = Object.freeze({
   // STOCK_REPORT_LINKS
+});
+const DAILY_MONITOR_LINKS = Object.freeze({
+  // DAILY_MONITOR_LINKS
 });
 const EVENT_CALENDAR = Object.freeze(
   // EVENT_CALENDAR
@@ -279,6 +284,27 @@ function reportLinkForTrackingItem(item) {
     candidates.some(candidate => name.includes(candidate) || candidate.includes(name))
   );
   return partial?.[1] ?? '';
+}
+
+function dailyMonitorLinkForTrackingItem(item = {}, report = {}) {
+  const code = stockCodeForTrackingItem(item);
+  const secidCode = String(report.secid ?? '').match(/^[01]\.(\d{6})$/)?.[1] ?? '';
+  const candidates = [
+    item.code,
+    code,
+    secidCode,
+    item.name,
+    ...Object.entries(STOCK_CODE_ALIASES)
+      .filter(([, aliasCode]) => [item.code, code, secidCode].includes(aliasCode))
+      .map(([name]) => name),
+  ].map(normalizeStockName).filter(Boolean);
+  for (const candidate of candidates) {
+    if (DAILY_MONITOR_LINKS[candidate]) return DAILY_MONITOR_LINKS[candidate];
+  }
+  const partial = Object.entries(DAILY_MONITOR_LINKS).find(([key]) =>
+    candidates.some(candidate => key.includes(candidate) || candidate.includes(key))
+  );
+  return partial?.[1] ?? null;
 }
 
 export function allocationCategoryForReport(reportHref) {
@@ -648,6 +674,28 @@ function renderDividendYieldChart(points = []) {
   const maxPoint = valid.reduce((current, point) => point.value > current.value ? point : current, valid[0]);
   const minPoint = valid.reduce((current, point) => point.value < current.value ? point : current, valid[0]);
   const average = values.reduce((sum, value) => sum + value, 0) / values.length;
+  const hoverMarkers = valid.map((point, index) => {
+    const cx = xAt(index);
+    const cy = yAt(point.value);
+    const left = index === 0 ? padding.left : (xAt(index - 1) + cx) / 2;
+    const right = index === valid.length - 1 ? width - padding.right : (cx + xAt(index + 1)) / 2;
+    const tooltipWidth = 132;
+    const tooltipHeight = 44;
+    const tooltipX = clamp(cx + 10, padding.left, width - padding.right - tooltipWidth);
+    const tooltipY = cy - tooltipHeight - 12 < 8 ? cy + 14 : cy - tooltipHeight - 12;
+    const label = `${point.date} · 股息率 ${formatNumber(point.value, 2)}%`;
+    return `<g class="dividend-hover-point" tabindex="0" aria-label="${escapeHtml(label)}">
+        <title>${escapeHtml(label)}</title>
+        <rect class="dividend-hover-hit" x="${left.toFixed(1)}" y="${padding.top}" width="${Math.max(1, right - left).toFixed(1)}" height="${height - padding.top - padding.bottom}"></rect>
+        <line class="dividend-hover-line" x1="${cx.toFixed(1)}" y1="${padding.top}" x2="${cx.toFixed(1)}" y2="${height - padding.bottom}"></line>
+        <circle class="dividend-hover-dot" cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="4.5"></circle>
+        <g class="dividend-hover-tooltip" transform="translate(${tooltipX.toFixed(1)} ${tooltipY.toFixed(1)})">
+          <rect width="${tooltipWidth}" height="${tooltipHeight}" rx="6"></rect>
+          <text x="10" y="17">${escapeHtml(point.date)}</text>
+          <text x="10" y="34">股息率 ${formatNumber(point.value, 2)}%</text>
+        </g>
+      </g>`;
+  }).join('');
   return `<article class="dividend-yield-chart-card">
     <div class="dividend-yield-chart-head">
       <div><p class="eyebrow">DIVIDEND YIELD HISTORY</p><h3>中证红利股息率走势</h3></div>
@@ -662,6 +710,7 @@ function renderDividendYieldChart(points = []) {
         }).join('')}
         <path d="${path}"></path>
         ${labels.map((point, index) => `<text class="x-label" x="${xAt(valid.indexOf(point)).toFixed(2)}" y="${height - 20}" transform="rotate(-40 ${xAt(valid.indexOf(point)).toFixed(2)} ${height - 20})">${escapeHtml(point.date.slice(5))}</text>`).join('')}
+        ${hoverMarkers}
       </svg>
       <aside class="dividend-yield-chart-stats" aria-label="股息率统计">
         <div><small>最新股息率</small><strong>${formatNumber(latest.value, 2)}%</strong><span>${escapeHtml(latest.date)}</span></div>
@@ -887,6 +936,12 @@ function riskLevelForDashboard(derived) {
   };
 }
 
+function riskWatchMissingLabel(entry) {
+  if (entry?.status === 'missing') return '数据源为空';
+  if (entry?.status === 'expired') return '缓存过期';
+  return '等待数据';
+}
+
 function updateRiskMonitor(derived) {
   const risk = riskLevelForDashboard(derived);
   const setText = (id, text) => {
@@ -917,10 +972,10 @@ function updateRiskMonitor(derived) {
     const dollar = risk.usDollarIndex;
     const usLabel = Number.isFinite(us.value)
       ? `${formatNumber(us.value, 2)}% · ${us.highRisk ? '高风险' : '未触发'}`
-      : '等待数据';
+      : riskWatchMissingLabel(us);
     const dollarLabel = Number.isFinite(dollar.value)
       ? `${formatNumber(dollar.value, 2)} · ${dollar.highRisk ? '高风险' : '未触发'}`
-      : '等待数据';
+      : riskWatchMissingLabel(dollar);
     watchList.innerHTML = [
       ...layers.map(layer => `<li><span>${escapeHtml(layer.label)}</span><strong>${formatNumber(layer.score, 1)}</strong></li>`),
       `<li class="${us.highRisk ? 'is-high-risk' : ''}"><span>美债10年</span><strong>${escapeHtml(usLabel)}</strong></li>`,
@@ -1172,14 +1227,10 @@ function finitePositiveNumber(value) {
 
 export function evaluateFuguiStrategyCandidate(item = {}) {
   const ownership = String(item.ownership ?? '').trim();
-  const marketCapYi = finitePositiveNumber(item.marketCapYi);
   const dividendYield = finitePositiveNumber(item.dividendYield);
   const price = finitePositiveNumber(item.price);
   const bond10yYield = finitePositiveNumber(item.bond10yYield);
   const issues = [];
-  if (!FUGUI_STRATEGY_RULES.allowedOwnership.has(ownership)) issues.push('性质不是央企/国企');
-  if (marketCapYi === null || marketCapYi <= FUGUI_STRATEGY_RULES.marketCapMinYi) issues.push('市值未大于1000亿');
-  if (price === null || price >= FUGUI_STRATEGY_RULES.priceMax) issues.push('股价未低于30元');
   if (bond10yYield === null) issues.push('10年国债利率无效');
   const dividendYieldMin = bond10yYield === null ? null : bond10yYield * 3;
   if (dividendYield === null || (dividendYieldMin !== null && dividendYield < dividendYieldMin)) {
@@ -1192,6 +1243,7 @@ export function evaluateFuguiStrategyCandidate(item = {}) {
       ownership,
       marketCapMinYi: FUGUI_STRATEGY_RULES.marketCapMinYi,
       priceMax: FUGUI_STRATEGY_RULES.priceMax,
+      price,
       bond10yYield,
       dividendYieldMin: dividendYieldMin === null ? null : roundMoney(dividendYieldMin),
     },
@@ -1203,8 +1255,12 @@ export function normalizeFuguiStrategyItems(items = []) {
   return items.filter(item => item && typeof item === 'object').map(item => {
     const marketCapYi = finitePositiveNumber(item.marketCapYi);
     const dividendYield = finitePositiveNumber(item.dividendYield);
+    const expectedDividendYield = finitePositiveNumber(item.expectedDividendYield);
     const price = finitePositiveNumber(item.price);
     const bond10yYield = finitePositiveNumber(item.bond10yYield);
+    const weeklyMiddle = finitePositiveNumber(item.weeklyMiddle);
+    const weeklyLower = finitePositiveNumber(item.weeklyLower);
+    const dailyLower = finitePositiveNumber(item.dailyLower);
     return {
       id: String(item.id ?? '').slice(0, 80),
       industry: String(item.industry ?? '').trim().slice(0, 24),
@@ -1213,8 +1269,12 @@ export function normalizeFuguiStrategyItems(items = []) {
       ownership: String(item.ownership ?? '').trim().slice(0, 8),
       marketCapYi,
       dividendYield,
+      expectedDividendYield,
       price,
       bond10yYield,
+      weeklyMiddle,
+      weeklyLower,
+      dailyLower,
       addedAt: Number(item.addedAt) || Date.now(),
     };
   }).filter(item =>
@@ -1294,8 +1354,12 @@ function startApp() {
   let trackingAllocationMode = false;
   let trackingAllocationCollapsed = false;
   let trackingSortMode = 'updated';
+  let fuguiStatusFilter = 'all';
+  let fuguiTtmSortMode = 'none';
   const reportSummaryCache = new Map();
   const trackingQuoteCache = new Map();
+  const trackingClosePerformanceCache = new Map();
+  const fuguiDividendYieldCache = new Map();
   const launcherHint = globalThis.location?.protocol === 'file:'
     ? ' 稳定联网请双击“启动面板.cmd”。'
     : '';
@@ -1309,6 +1373,7 @@ function startApp() {
   const fuguiPanelOpenButton = document.getElementById('fugui-panel-open');
   const fuguiStrategyStatus = document.getElementById('fugui-strategy-status');
   const fuguiStrategyBody = document.getElementById('fugui-strategy-body');
+  const fuguiTtmSortButton = document.getElementById('fugui-sort-ttm');
   const topbar = document.querySelector('.topbar');
   const pageTitle = document.getElementById('page-title');
   const pageEyebrow = document.querySelector('.topbar .eyebrow');
@@ -1341,17 +1406,99 @@ function startApp() {
   const renderFuguiStrategy = () => {
     const items = state.fuguiStrategy.items;
     if (!items.length) {
-      fuguiStrategyBody.innerHTML = '<tr><td>待补充</td><td>待补充</td><td>待补充</td><td>待补充</td><td>待补充</td></tr>';
+      fuguiStrategyBody.innerHTML = '<tr><td>待补充</td><td>待补充</td><td>待补充</td><td>待补充</td><td>待补充</td><td>待补充</td><td>—</td></tr>';
       return;
     }
-    fuguiStrategyBody.innerHTML = items.map(item => {
-      const result = evaluateFuguiStrategyCandidate(item);
+    const rows = items
+      .map(item => {
+        const secid = stockSecidFromCode(item.code);
+        let quoteEntry = secid ? trackingQuoteCache.get(secid) : null;
+        let dividendEntry = secid ? fuguiDividendYieldCache.get(secid) : null;
+        if (secid && isLocalProxyLocation() && !quoteEntry) {
+          quoteEntry = { status: 'loading' };
+          trackingQuoteCache.set(secid, quoteEntry);
+          loadTrackingQuote(secid).then(() => renderFuguiStrategy());
+        }
+        if (secid && isLocalProxyLocation() && !dividendEntry) {
+          dividendEntry = { status: 'loading' };
+          fuguiDividendYieldCache.set(secid, dividendEntry);
+          loadFuguiDividendYield(secid).then(() => renderFuguiStrategy());
+        }
+        const result = evaluateFuguiStrategyCandidate(item);
+        const ttmDividendYield = dividendEntry?.status === 'loaded'
+          ? finitePositiveNumber(dividendEntry.data?.dividendYieldTtm)
+          : null;
+        return { item, result, quoteEntry, dividendEntry, ttmDividendYield, livePrice: quoteEntry?.quote?.price };
+      })
+      .filter(({ result }) =>
+        fuguiStatusFilter === 'all'
+        || (fuguiStatusFilter === 'passed' && result.passed)
+        || (fuguiStatusFilter === 'failed' && !result.passed)
+      );
+    if (fuguiTtmSortButton) {
+      fuguiTtmSortButton.classList.toggle('is-active', fuguiTtmSortMode !== 'none');
+      fuguiTtmSortButton.classList.toggle('is-asc', fuguiTtmSortMode === 'ttm-asc');
+      fuguiTtmSortButton.classList.toggle('is-desc', fuguiTtmSortMode === 'ttm-desc');
+      fuguiTtmSortButton.setAttribute('aria-pressed', String(fuguiTtmSortMode !== 'none'));
+    }
+    if (fuguiTtmSortMode !== 'none') {
+      const direction = fuguiTtmSortMode === 'ttm-asc' ? 1 : -1;
+      rows.sort((left, right) => {
+        const leftValue = Number.isFinite(left.ttmDividendYield) ? left.ttmDividendYield : null;
+        const rightValue = Number.isFinite(right.ttmDividendYield) ? right.ttmDividendYield : null;
+        if (leftValue === null && rightValue === null) return 0;
+        if (leftValue === null) return 1;
+        if (rightValue === null) return -1;
+        return (leftValue - rightValue) * direction;
+      });
+    }
+    if (!rows.length) {
+      fuguiStrategyBody.innerHTML = '<tr><td colspan="7">没有符合当前筛选的标的。</td></tr>';
+      return;
+    }
+    fuguiStrategyBody.innerHTML = rows.map(({ item, result, quoteEntry, dividendEntry, ttmDividendYield, livePrice }) => {
+      const renderGridLine = (label, value, suffix = '元', emptyText = '待接入') =>
+        `<span class="fugui-grid-line"><b>${escapeHtml(label)}</b><strong>${Number.isFinite(value) ? `${formatNumber(value, 2)}${suffix}` : escapeHtml(emptyText)}</strong></span>`;
+      const renderGridValue = (value, suffix = '', emptyText = '') =>
+        `<span class="fugui-grid-line"><strong>${Number.isFinite(value) ? `${formatNumber(value, 2)}${suffix}` : escapeHtml(emptyText)}</strong></span>`;
+      const livePriceValue = Number.isFinite(livePrice) ? livePrice : item.price;
+      const livePriceSuffix = Number.isFinite(livePrice) ? '元' : quoteEntry?.status === 'loading' ? '' : '元';
+      const savedPrice = finitePositiveNumber(item.price);
+      const savedDividendYield = finitePositiveNumber(item.dividendYield);
+      const impliedDividendPerShare = savedPrice !== null && savedDividendYield !== null
+        ? savedPrice * savedDividendYield / 100
+        : null;
+      const expectedDividendYield = finitePositiveNumber(item.expectedDividendYield);
+      const targetDividendPrice = targetYield => impliedDividendPerShare !== null && targetYield > 0
+        ? impliedDividendPerShare / (targetYield / 100)
+        : NaN;
       return `<tr>
       <td>${escapeHtml(item.industry)}</td>
-      <td>${escapeHtml(item.name)}<small>${escapeHtml(item.code || '未填代码')} · ${escapeHtml(item.ownership)} · ${formatNumber(item.price, 2)}元<button class="fugui-remove" type="button" data-fugui-id="${escapeHtml(item.id)}">移除</button></small></td>
-      <td>${formatYi(item.marketCapYi)}亿</td>
-      <td>${formatNumber(item.dividendYield, 2)}%<small>门槛 ${formatNumber(item.bond10yYield * 3, 2)}%</small></td>
-      <td>${result.passed ? '达标' : '未达标'}<small>${escapeHtml(result.passed ? '符合全部条件' : result.issues.join('；'))}</small></td>
+      <td>
+        ${escapeHtml(item.name)}
+        <small>${escapeHtml(item.code || '未填代码')} · ${escapeHtml(item.ownership)}</small>
+        <div class="fugui-symbol-meta">
+          ${renderGridLine('市值', item.marketCapYi, '亿')}
+          ${quoteEntry?.status === 'loading' && !Number.isFinite(livePrice) ? '<span class="fugui-grid-line"><b>现价</b><strong>读取中…</strong></span>' : renderGridLine('现价', livePriceValue, livePriceSuffix)}
+        </div>
+      </td>
+      <td>
+        ${dividendEntry?.status === 'loading'
+          ? '<span class="fugui-grid-line"><strong>读取中…</strong></span>'
+          : renderGridValue(ttmDividendYield, '%')}
+      </td>
+      <td>
+        ${renderGridValue(expectedDividendYield, '%', '待接入')}
+      </td>
+      <td>
+        <div class="fugui-grid-list is-value-anchor">
+          ${renderGridLine('5%', targetDividendPrice(5))}
+          ${renderGridLine('5.5%', targetDividendPrice(5.5))}
+          ${renderGridLine('6%', targetDividendPrice(6))}
+        </div>
+      </td>
+      <td>${result.passed ? '达标' : '未达标'}<small>${escapeHtml(result.passed ? '股息率达标' : result.issues.join('；'))}</small></td>
+      <td><button class="fugui-remove" type="button" data-fugui-id="${escapeHtml(item.id)}" aria-label="删除 ${escapeHtml(item.name)}">删除</button></td>
     </tr>`;
     }).join('');
   };
@@ -1739,6 +1886,48 @@ function startApp() {
     }
   }
 
+  async function loadFuguiDividendYield(secid) {
+    if (!isLocalProxyLocation() || !secid) return null;
+    const previous = fuguiDividendYieldCache.get(secid);
+    fuguiDividendYieldCache.set(secid, { status: 'loading', data: previous?.data ?? null, updatedAt: previous?.updatedAt ?? null });
+    try {
+      const response = await fetch(`/api/stock-dividend-yield?secid=${encodeURIComponent(secid)}`, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json();
+      const dividendYieldTtm = finitePositiveNumber(payload?.data?.dividendYieldTtm);
+      if (dividendYieldTtm === null) throw new Error('Invalid dividend yield payload');
+      const entry = {
+        status: 'loaded',
+        data: { ...payload.data, dividendYieldTtm },
+        proxySource: payload.proxySource,
+        updatedAt: Date.now(),
+      };
+      fuguiDividendYieldCache.set(secid, entry);
+      return entry.data;
+    } catch {
+      fuguiDividendYieldCache.set(secid, { status: 'error', data: null, updatedAt: Date.now() });
+      return null;
+    }
+  }
+
+  async function loadTrackingClosePerformance(secid) {
+    if (!isLocalProxyLocation() || !secid) return null;
+    const previous = trackingClosePerformanceCache.get(secid);
+    trackingClosePerformanceCache.set(secid, { status: 'loading', data: previous?.data ?? null, updatedAt: previous?.updatedAt ?? null });
+    try {
+      const response = await fetch(`/api/stock-close-performance?secid=${encodeURIComponent(secid)}`, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json();
+      if (!payload?.data || !Number.isFinite(payload.data.latestClose)) throw new Error('Invalid close performance payload');
+      const entry = { status: 'loaded', data: payload.data, proxySource: payload.proxySource, updatedAt: Date.now() };
+      trackingClosePerformanceCache.set(secid, entry);
+      return entry.data;
+    } catch {
+      trackingClosePerformanceCache.set(secid, { status: 'error', data: previous?.data ?? null, updatedAt: previous?.updatedAt ?? null });
+      return previous?.data ?? null;
+    }
+  }
+
   async function refreshTrackingQuotes() {
     if (!isLocalProxyLocation()) return;
     const secids = new Set();
@@ -1749,7 +1938,7 @@ function startApp() {
       if (secid) secids.add(secid);
     }
     if (!secids.size) return;
-    await Promise.all([...secids].map(secid => loadTrackingQuote(secid)));
+    await Promise.all([...secids].flatMap(secid => [loadTrackingQuote(secid), loadTrackingClosePerformance(secid)]));
     renderTrackingItems();
   }
 
@@ -1813,6 +2002,12 @@ function startApp() {
         trackingQuoteCache.set(secid, quoteEntry);
         loadTrackingQuote(secid).then(() => renderTrackingItems());
       }
+      let closePerformanceEntry = secid ? trackingClosePerformanceCache.get(secid) : null;
+      if (secid && isLocalProxyLocation() && !closePerformanceEntry) {
+        closePerformanceEntry = { status: 'loading' };
+        trackingClosePerformanceCache.set(secid, closePerformanceEntry);
+        loadTrackingClosePerformance(secid).then(() => renderTrackingItems());
+      }
       const liveQuote = quoteEntry?.quote ?? reportEntry?.quote;
       const riskReward = trackingRiskRewardForQuote({
         valueRange: report.valueRange,
@@ -1831,6 +2026,7 @@ function startApp() {
         reportEntry,
         report,
         quoteEntry,
+        closePerformanceEntry,
         liveQuote,
         signal,
         riskReward,
@@ -1855,7 +2051,7 @@ function startApp() {
         )
       : filteredItems;
     const hasAllocation = renderTrackingAllocation(summary.items);
-    const renderTrackingRow = ({ item, reportHref, reportEntry, report, quoteEntry, liveQuote, signal, riskReward }) => {
+    const renderTrackingRow = ({ item, reportHref, reportEntry, report, quoteEntry, closePerformanceEntry, liveQuote, signal, riskReward }) => {
       const signalLabel = signal.addStars > 0
         ? '★'.repeat(signal.addStars)
         : signal.reducible ? '可减' : '—';
@@ -1865,6 +2061,14 @@ function startApp() {
       const riskRewardText = riskReward.label !== '等待实时'
         ? riskReward.label
         : (quoteEntry?.status === 'loading' ? '读取行情…' : reportEntry?.status === 'loading' ? '读取研报…' : item.nextAction || '未获取到');
+      const closePerformanceHtml = Number.isFinite(closePerformanceEntry?.data?.latestClose)
+        ? `<div class="tracking-close-performance"><strong>${formatNumber(closePerformanceEntry.data.latestClose, 2)} 元</strong><small>近一周 ${Number.isFinite(closePerformanceEntry.data.weekChangePercent) ? `${closePerformanceEntry.data.weekChangePercent >= 0 ? '+' : ''}${formatNumber(closePerformanceEntry.data.weekChangePercent, 2)}%` : '—'}</small></div>`
+        : escapeHtml(closePerformanceEntry?.status === 'loading' ? '读取中…' : '未获取到');
+      const monitorLink = dailyMonitorLinkForTrackingItem(item, report);
+      const monitorStatusText = report.riskDirection || item.riskLine || (reportEntry?.status === 'loading' ? '读取研报…' : '未获取到');
+      const monitorStatusHtml = monitorLink
+        ? `<a class="tracking-monitor-link" href="${escapeHtml(monitorLink.href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(monitorLink.status || '打开监控')}</a><small class="tracking-monitor-meta">${escapeHtml(monitorLink.date ? `${monitorLink.date} · 每日监控` : '每日监控')}</small>`
+        : escapeHtml(monitorStatusText);
       const nameHtml = reportHref
         ? `<a href="${escapeHtml(reportHref)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.name)}</a>`
         : escapeHtml(item.name);
@@ -1872,8 +2076,9 @@ function startApp() {
       <td class="tracking-target"><strong>${nameHtml}</strong><small>${escapeHtml(item.code || report.secid || '未填代码')}</small><span class="tracker-status">${escapeHtml(item.status)}</span></td>
       <td>${escapeHtml(report.valueRange || item.thesis || (reportEntry?.status === 'loading' ? '读取研报…' : '未获取到'))}</td>
       <td>${escapeHtml(intraday)}</td>
+      <td>${closePerformanceHtml}</td>
       <td>${escapeHtml(riskRewardText)}</td>
-      <td>${escapeHtml(report.riskDirection || item.riskLine || (reportEntry?.status === 'loading' ? '读取研报…' : '未获取到'))}</td>
+      <td>${monitorStatusHtml}</td>
       <td><div>${reportHref ? `<a href="${escapeHtml(reportHref)}" target="_blank" rel="noopener noreferrer">打开研报</a>` : escapeHtml(item.reviewCondition || '未关联研报')}</div><small class="tracking-updated">${escapeHtml(report.sourceUpdated ? `研报：${report.sourceUpdated}` : `记录：${new Date(item.updatedAt).toLocaleString('zh-CN', { hour12: false })}`)}</small><div class="tracker-row-actions"><button type="button" data-action="edit-tracking">编辑</button><button type="button" data-action="delete-tracking">删除</button></div></td>
       <td><button class="review-diary-button" type="button" data-action="review-diary">复盘日记</button></td>
       <td>${escapeHtml(signalLabel)}</td>
@@ -1886,7 +2091,7 @@ function startApp() {
           (allocationCategoryForReport(reportHref) || UNCATEGORIZED_ALLOCATION_CATEGORY.key) === group.key
         );
         if (!groupItems.length) return '';
-        return `<tr class="tracking-group-row"><th colspan="8" style="--group-color:${group.color}"><div class="tracking-group-head"><span>${escapeHtml(group.label)}</span><small>${groupItems.length} 个标的</small></div></th></tr>${groupItems.map(renderTrackingRow).join('')}`;
+        return `<tr class="tracking-group-row"><th colspan="9" style="--group-color:${group.color}"><div class="tracking-group-head"><span>${escapeHtml(group.label)}</span><small>${groupItems.length} 个标的</small></div></th></tr>${groupItems.map(renderTrackingRow).join('')}`;
       }).join('');
     };
     const sortButton = document.getElementById('tracking-sort-intraday');
@@ -2293,6 +2498,21 @@ function startApp() {
     state.fuguiStrategy.items = fuguiStrategyItems;
     saveFuguiStrategyItems();
     fuguiStrategyStatus.textContent = '已从富贵策略跟踪清单移除。';
+    renderFuguiStrategy();
+  });
+  document.getElementById('fugui-filter')?.addEventListener('click', event => {
+    const button = event.target.closest('button[data-fugui-filter]');
+    if (!button) return;
+    fuguiStatusFilter = button.dataset.fuguiFilter;
+    document.querySelectorAll('#fugui-filter button').forEach(item => {
+      const active = item === button;
+      item.classList.toggle('is-active', active);
+      item.setAttribute('aria-pressed', String(active));
+    });
+    renderFuguiStrategy();
+  });
+  fuguiTtmSortButton?.addEventListener('click', () => {
+    fuguiTtmSortMode = fuguiTtmSortMode === 'ttm-desc' ? 'ttm-asc' : 'ttm-desc';
     renderFuguiStrategy();
   });
   fuguiPanelCollapseButton?.addEventListener('click', () => setFuguiPanelCollapsed(true));

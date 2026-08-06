@@ -231,6 +231,19 @@ h3 { font-size: 15px; }
 .dividend-yield-chart text { fill: #dce5ed; font-size: 11px; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
 .dividend-yield-chart .x-label { fill: #a9b3bc; font-size: 10px; }
 .dividend-yield-chart path { fill: none; stroke: #9ba8b5; stroke-width: 1.4; }
+.dividend-hover-point { outline: none; }
+.dividend-yield-chart .dividend-hover-hit { fill: transparent; cursor: crosshair; pointer-events: all; }
+.dividend-hover-line, .dividend-hover-dot, .dividend-hover-tooltip { opacity: 0; transition: opacity 120ms ease; pointer-events: none; }
+.dividend-yield-chart .dividend-hover-line { stroke: #f4b34d; stroke-width: 1.1; stroke-dasharray: 0; }
+.dividend-yield-chart .dividend-hover-dot { fill: #ff5b45; stroke: #ffd166; stroke-width: 1.8; }
+.dividend-yield-chart .dividend-hover-tooltip rect { fill: rgba(3, 8, 12, .96); stroke: rgba(126, 214, 210, .6); }
+.dividend-yield-chart .dividend-hover-tooltip text { fill: #eef8fb; font-size: 11px; font-weight: 800; letter-spacing: 0; }
+.dividend-hover-point:hover .dividend-hover-line,
+.dividend-hover-point:hover .dividend-hover-dot,
+.dividend-hover-point:hover .dividend-hover-tooltip,
+.dividend-hover-point:focus .dividend-hover-line,
+.dividend-hover-point:focus .dividend-hover-dot,
+.dividend-hover-point:focus .dividend-hover-tooltip { opacity: 1; }
 .dividend-yield-chart-stats { display: grid; gap: 8px; }
 .dividend-yield-chart-stats div { border: 1px solid #f0f3f6; min-height: 60px; padding: 7px 8px; text-align: center; display: flex; flex-direction: column; justify-content: center; }
 .dividend-yield-chart-stats small, .dividend-yield-chart-stats strong, .dividend-yield-chart-stats span { display: block; }
@@ -434,14 +447,27 @@ h3 { font-size: 15px; }
 .fugui-form-grid { display: grid; grid-template-columns: minmax(220px, 420px); gap: 12px; }
 .fugui-form label { display: grid; gap: 6px; color: var(--muted); font-size: 10px; }
 .fugui-form input, .fugui-form select { width: 100%; min-height: 39px; border: 1px solid var(--line); border-radius: 8px; background: #fbfcfc; color: var(--ink); padding: 9px 10px; }
+.fugui-table-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 16px 10px; }
+.fugui-table-head h3 { margin: 0; }
+.fugui-table-head .tracker-filter { flex: 0 0 auto; }
 .fugui-table-wrap { overflow-x: auto; padding: 0; }
-.fugui-table { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 12px; }
+.fugui-table { width: 100%; min-width: 1180px; table-layout: fixed; border-collapse: collapse; font-size: 12px; }
 .fugui-table th, .fugui-table td { padding: 15px 16px; border-bottom: 1px solid var(--line); text-align: left; overflow-wrap: anywhere; }
 .fugui-table th { color: var(--muted); font-size: 10px; letter-spacing: .04em; }
 .fugui-table tbody tr:last-child td { border-bottom: 0; }
 .fugui-table tbody tr:hover { background: #f8fafb; }
 .fugui-table small { display: block; margin-top: 4px; color: var(--muted); font-size: 10px; }
-.fugui-remove { margin-top: 6px; border: 0; background: transparent; color: var(--red); padding: 0; font-size: 10px; }
+.fugui-symbol-meta { display: grid; gap: 5px; max-width: 172px; margin-top: 10px; }
+.fugui-grid-list { display: grid; gap: 5px; max-width: 176px; }
+.fugui-grid-line { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 28px; border-radius: 7px; background: #f6f8fa; padding: 5px 8px; }
+.fugui-grid-line b { color: var(--muted); font-size: 10px; font-weight: 700; white-space: nowrap; }
+.fugui-grid-line strong { color: var(--ink); font-size: 12px; font-weight: 800; white-space: nowrap; }
+.fugui-grid-list.is-value-anchor .fugui-grid-line { background: rgba(47,128,99,.09); }
+.fugui-grid-list.is-value-anchor .fugui-grid-line b { color: #2f8063; }
+.fugui-grid-list.is-tech-anchor .fugui-grid-line { background: rgba(48,123,214,.09); }
+.fugui-grid-list.is-tech-anchor .fugui-grid-line b { color: #2768b8; }
+.fugui-remove { min-height: 30px; border: 1px solid rgba(212,94,77,.45); border-radius: 8px; background: #fff; color: var(--red); padding: 5px 10px; font-size: 12px; font-weight: 800; white-space: nowrap; }
+.fugui-remove:hover { border-color: var(--red); background: rgba(212,94,77,.08); }
 .topic-filter-tabs { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 0 0 16px; padding: 0 0 12px; border-bottom: 1px solid var(--line); }
 .topic-filter-tabs button { min-height: 30px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: var(--muted); padding: 5px 0; font-size: 12px; }
 .topic-filter-tabs button:hover { color: var(--ink); }
@@ -552,6 +578,8 @@ h3 { font-size: 15px; }
 .table-sort-button::after { content: "↕"; margin-left: 6px; color: var(--muted); font-size: .9em; }
 .table-sort-button.is-active { color: var(--accent); }
 .table-sort-button.is-active::after { content: "↑"; color: currentColor; }
+.table-sort-button.is-desc::after { content: "↓"; color: currentColor; }
+.table-sort-button.is-asc::after { content: "↑"; color: currentColor; }
 .tracking-table tbody tr:last-child td { border-bottom: 0; }
 .tracking-table tbody tr:hover { background: #f8fafb; }
 .tracking-table tbody tr[data-report-href] { cursor: pointer; }
@@ -560,6 +588,11 @@ h3 { font-size: 15px; }
 .tracking-target a { color: inherit; text-decoration: none; }
 .tracking-target a:hover { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; }
 .tracker-status { display: inline-flex; margin-top: 7px; border-radius: 99px; background: #e8f0fb; color: #275fAE; padding: 5px 9px; font-size: 10px; white-space: nowrap; }
+.tracking-close-performance { display: grid; gap: 4px; white-space: nowrap; }
+.tracking-close-performance strong { color: var(--ink); font-size: 11px; }
+.tracking-close-performance small { color: var(--muted); font-size: 10px; }
+.tracking-monitor-link { color: var(--blue); font-weight: 800; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+.tracking-monitor-meta { display: block; margin-top: 5px; color: var(--muted); font-size: 10px; white-space: nowrap; }
 .tracking-updated { display: block; margin-top: 6px; color: var(--muted); white-space: nowrap; }
 .tracker-row-actions { display: flex; gap: 9px; margin-top: 7px; white-space: nowrap; }
 .tracker-row-actions button { border: 0; background: transparent; color: var(--blue); padding: 0; font-size: 10px; }
@@ -1072,60 +1105,84 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
               </li>
               <li class="industry-research-item" data-filters="算力">
                 <span class="industry-research-rank">4</span>
-                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/存储力/2026-07-22-存储力产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-存储力产业完整分析报告</a>
+                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-存储力/2026-07-22-存储力产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-中游-存储力产业完整分析报告</a>
               </li>
               <li class="industry-research-item" data-filters="算力">
                 <span class="industry-research-rank">5</span>
-                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/计算系统与集群/2026-07-22-计算系统与集群产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-计算系统与集群产业完整分析报告</a>
+                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-计算系统与集群/2026-07-22-计算系统与集群产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-中游-计算系统与集群产业完整分析报告</a>
               </li>
               <li class="industry-research-item" data-filters="算力">
                 <span class="industry-research-rank">6</span>
-                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/模型与行业应用/2026-07-22-模型与行业应用产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-模型与行业应用产业完整分析报告</a>
+                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/下游-模型与行业应用/2026-07-22-模型与行业应用产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-下游-模型与行业应用产业完整分析报告</a>
               </li>
               <li class="industry-research-item" data-filters="算力">
                 <span class="industry-research-rank">7</span>
-                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/算力基础设施与能源/2026-07-22-算力基础设施与能源产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-算力基础设施与能源产业完整分析报告</a>
+                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-数据中心网络/2026-07-22-数据中心网络产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-中游-数据中心网络产业完整分析报告</a>
               </li>
               <li class="industry-research-item" data-filters="算力">
                 <span class="industry-research-rank">8</span>
-                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/芯片与基础软件/2026-07-22-芯片与基础软件产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-芯片与基础软件产业完整分析报告</a>
+                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-算力基础设施与能源/2026-07-22-算力基础设施与能源产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-中游-算力基础设施与能源产业完整分析报告</a>
               </li>
               <li class="industry-research-item" data-filters="算力">
                 <span class="industry-research-rank">9</span>
-                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/运载力/2026-07-22-运载力产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-运载力产业完整分析报告</a>
+                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/上游-芯片与基础软件/2026-07-22-芯片与基础软件产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-上游-芯片与基础软件产业完整分析报告</a>
               </li>
               <li class="industry-research-item" data-filters="算力">
                 <span class="industry-research-rank">10</span>
-                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/资源运营与调度/2026-07-22-资源运营与调度产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-资源运营与调度产业完整分析报告</a>
+                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/下游-资源运营与调度/2026-07-22-资源运营与调度产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-下游-资源运营与调度产业完整分析报告</a>
               </li>
             </ol>
           </section>
-          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 31条</span></div>
+          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 34条</span></div>
           <div class="industry-timeline">
             <div class="industry-feed">
               <article class="industry-report" data-filters="算力">
                 <span class="industry-time">07-30</span><span class="industry-dot"></span>
                 <div class="industry-report-meta"><span>新兴产业 · 算力 <b>资金面</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/算力/算力基础设施与能源/2026-07-30-东阳光资金面分析.html" target="_blank" rel="noopener noreferrer">东阳光资金面分析</a></h3>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-算力基础设施与能源/2026-07-30-东阳光资金面分析.html" target="_blank" rel="noopener noreferrer">东阳光资金面分析</a></h3>
                 <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
                 <div class="industry-tags">#算力 #目录自动读取 #资金面</div>
-                <div class="industry-reason">来源目录：sources/automations/新兴产业/算力/算力基础设施与能源</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/算力/中游-算力基础设施与能源</div>
               </article>
               <article class="industry-report" data-filters="算力">
                 <span class="industry-time">11:38</span><span class="industry-dot"></span>
                 <div class="industry-report-meta"><span>新兴产业 · 算力 <b>研报</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/算力/算力基础设施与能源/2026-07-16-1138-东阳光-机构级决策研报.html" target="_blank" rel="noopener noreferrer">东阳光-机构级决策研报</a></h3>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-算力基础设施与能源/2026-07-16-1138-东阳光-机构级决策研报.html" target="_blank" rel="noopener noreferrer">东阳光-机构级决策研报</a></h3>
                 <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
                 <div class="industry-tags">#算力 #目录自动读取 #研报</div>
-                <div class="industry-reason">来源目录：sources/automations/新兴产业/算力/算力基础设施与能源</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/算力/中游-算力基础设施与能源</div>
+              </article>
+              <article class="industry-report" data-filters="算力">
+                <span class="industry-time">10:10</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 算力 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-数据中心网络/2026-08-05-1010-星网锐捷-机构级决策研报.html" target="_blank" rel="noopener noreferrer">星网锐捷-机构级决策研报</a></h3>
+                <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#算力 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/算力/中游-数据中心网络</div>
               </article>
               <article class="industry-report" data-filters="算力">
                 <span class="industry-time">16:38</span><span class="industry-dot"></span>
                 <div class="industry-report-meta"><span>新兴产业 · 算力 <b>研报</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/算力/计算系统与集群/2026-08-03-1638-紫光股份-机构级决策研报.html" target="_blank" rel="noopener noreferrer">紫光股份-机构级决策研报</a></h3>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-03-1638-紫光股份-机构级决策研报.html" target="_blank" rel="noopener noreferrer">紫光股份-机构级决策研报</a></h3>
                 <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
                 <div class="industry-tags">#算力 #目录自动读取 #研报</div>
-                <div class="industry-reason">来源目录：sources/automations/新兴产业/算力/计算系统与集群</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/算力/中游-计算系统与集群</div>
+              </article>
+              <article class="industry-report" data-filters="算力">
+                <span class="industry-time">14:50</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 算力 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/算力/上游-PCB材料/2026-07-17-1450-东材科技-机构级决策研报.html" target="_blank" rel="noopener noreferrer">东材科技-机构级决策研报</a></h3>
+                <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#算力 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/算力/上游-PCB材料</div>
+              </article>
+              <article class="industry-report" data-filters="商业航天">
+                <span class="industry-time">—</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 商业航天 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/商业航天/SpaceX财报分析.html" target="_blank" rel="noopener noreferrer">SpaceX财报分析</a></h3>
+                <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#商业航天 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/商业航天</div>
               </article>
               <article class="industry-report" data-filters="商业航天">
                 <span class="industry-time">07-24</span><span class="industry-dot"></span>
@@ -1705,7 +1762,7 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
               </div>
               <div class="tracking-table-wrap">
                 <table class="tracking-table">
-                  <thead><tr><th>标的</th><th>动态价值区间</th><th>盘中实时</th><th><button class="table-sort-button" type="button" id="tracking-sort-intraday" aria-pressed="false" aria-label="按盈亏比从高到低排序">盈亏比</button></th><th>风险方向</th><th>数据来自研报</th><th>复盘</th><th>星级</th></tr></thead>
+                  <thead><tr><th>标的</th><th>动态价值区间</th><th>盘中实时</th><th>收盘表现</th><th><button class="table-sort-button" type="button" id="tracking-sort-intraday" aria-pressed="false" aria-label="按盈亏比从高到低排序">盈亏比</button></th><th>监控状态</th><th>数据来自研报</th><th>复盘</th><th>星级</th></tr></thead>
                   <tbody id="holding-tracker-list"></tbody>
                 </table>
               </div>
@@ -1763,29 +1820,172 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
             <section class="featured-hot panel" aria-label="当前热点">
               <h3>当前热点</h3>
               <ol>
-                <li class="featured-hot-item" data-featured-id="../../sources/automations/BBXM每日汇总/2026-07-30/冰冰小美/162100_提个股不是推荐_是市场行为的观察_-_雪球_40291067.md" data-featured-filters="trade">
+                <li class="featured-hot-item" data-featured-id="../../sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/160500_网页链接非常重要的一篇调研_1_增储_有节奏的_这是战略与管理问题_冰冰小美思考_资产增厚_资产_40380023.md" data-featured-filters="macro,industry,trade">
                   <span>1</span>
-                  <a href="../../sources/automations/BBXM每日汇总/2026-07-30/冰冰小美/162100_提个股不是推荐_是市场行为的观察_-_雪球_40291067.md" target="_blank" rel="noopener noreferrer">提个股不是推荐，是市场行为的观察。 - 雪球</a>
+                  <a href="../../sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/160500_网页链接非常重要的一篇调研_1_增储_有节奏的_这是战略与管理问题_冰冰小美思考_资产增厚_资产_40380023.md" target="_blank" rel="noopener noreferrer">网页链接非常重要的一篇调研，1，增储，有节奏的。这是战略与管理问题。冰冰小美思考: 资产增厚，资产推动股价，与人民币升值... - 雪球</a>
                 </li>
-                <li class="featured-hot-item" data-featured-id="../../sources/automations/BBXM每日汇总/2026-07-30/冰冰小美/152900_回顾本月上涨的个股或者方向_没人要的_柳工_比亚迪_西部矿业_月线都是大涨_均衡配置的话_可以对_40289941.md" data-featured-filters="industry,trade">
+                <li class="featured-hot-item" data-featured-id="../../sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/111600_计划明天就停更_注意事项_1_7-21口号救市_成交量巨大_这里对应的个股股价_有一定阻力_2__40374290.md" data-featured-filters="macro,market,trade">
                   <span>2</span>
-                  <a href="../../sources/automations/BBXM每日汇总/2026-07-30/冰冰小美/152900_回顾本月上涨的个股或者方向_没人要的_柳工_比亚迪_西部矿业_月线都是大涨_均衡配置的话_可以对_40289941.md" target="_blank" rel="noopener noreferrer">回顾本月上涨的个股或者方向，没人要的 柳工 ， 比亚迪 ， 西部矿业 。月线都是大涨。均衡配置的话，可以对冲科技的下跌。... - 雪球</a>
+                  <a href="../../sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/111600_计划明天就停更_注意事项_1_7-21口号救市_成交量巨大_这里对应的个股股价_有一定阻力_2__40374290.md" target="_blank" rel="noopener noreferrer">计划明天就停更。注意事项:1，7-21口号救市，成交量巨大，这里对应的个股股价，有一定阻力。2，7-13后，全球联动做空... - 雪球</a>
                 </li>
-                <li class="featured-hot-item" data-featured-id="../../sources/automations/BBXM每日汇总/2026-07-30/冰冰小美/150000_周末尽量写好月报_8月要去云南旅游一周_没发帖就是去了_-_雪球_40289026.md" data-featured-filters="trade">
+                <li class="featured-hot-item" data-featured-id="../../sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/105200_组合不要抄作业_用于观察市场变化的_本周末过生日_下周旅游停更_-_雪球_40373611.md" data-featured-filters="market">
                   <span>3</span>
-                  <a href="../../sources/automations/BBXM每日汇总/2026-07-30/冰冰小美/150000_周末尽量写好月报_8月要去云南旅游一周_没发帖就是去了_-_雪球_40289026.md" target="_blank" rel="noopener noreferrer">周末尽量写好月报。8月要去云南旅游一周。没发帖就是去了。 - 雪球</a>
+                  <a href="../../sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/105200_组合不要抄作业_用于观察市场变化的_本周末过生日_下周旅游停更_-_雪球_40373611.md" target="_blank" rel="noopener noreferrer">组合不要抄作业。用于观察市场变化的。本周末过生日，下周旅游停更。 - 雪球</a>
                 </li>
-                <li class="featured-hot-item" data-featured-id="../../sources/automations/BBXM每日汇总/2026-07-30/冰冰小美/145200_画图与技术面提一句_是观察市场波动变化_但是如果从宏观看_没啥变化_因此底背离可以跳空放量低开低_40288796.md" data-featured-filters="macro,trade">
+                <li class="featured-hot-item" data-featured-id="../../sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/104700_今日_创业板_前1小时放量超过昨日_承接力较强_创业板自7-31底背离化解后_8-3自由回落_而_40373462.md" data-featured-filters="macro,market,trade">
                   <span>4</span>
-                  <a href="../../sources/automations/BBXM每日汇总/2026-07-30/冰冰小美/145200_画图与技术面提一句_是观察市场波动变化_但是如果从宏观看_没啥变化_因此底背离可以跳空放量低开低_40288796.md" target="_blank" rel="noopener noreferrer">画图与技术面提一句，是观察市场波动变化。但是如果从宏观看，没啥变化。因此底背离可以跳空放量低开低走，顿化，底背离就会失效... - 雪球</a>
+                  <a href="../../sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/104700_今日_创业板_前1小时放量超过昨日_承接力较强_创业板自7-31底背离化解后_8-3自由回落_而_40373462.md" target="_blank" rel="noopener noreferrer">今日 创业板 前1小时放量超过昨日，承接力较强。创业板自7-31底背离化解后，8-3自由回落，而8-4宏观减弱节点，第一... - 雪球</a>
                 </li>
-                <li class="featured-hot-item" data-featured-id="../../sources/automations/BBXM每日汇总/2026-07-30/冰冰小美/141000_这里就是十字路口的感觉_创业板_60分钟macd底背离技术面反弹_主板很明显稳定力量存在_-_雪_40287411.md" data-featured-filters="market,trade">
+                <li class="featured-hot-item" data-featured-id="../../sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/102300_目前市场的波动_核心变化就是卖盘松动_多空分歧_做T降低成本是常态_目前也提供了这种环境_-_雪_40372650.md" data-featured-filters="market,trade">
                   <span>5</span>
-                  <a href="../../sources/automations/BBXM每日汇总/2026-07-30/冰冰小美/141000_这里就是十字路口的感觉_创业板_60分钟macd底背离技术面反弹_主板很明显稳定力量存在_-_雪_40287411.md" target="_blank" rel="noopener noreferrer">这里就是十字路口的感觉。 创业板 60分钟macd底背离技术面反弹。主板很明显稳定力量存在。 - 雪球</a>
+                  <a href="../../sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/102300_目前市场的波动_核心变化就是卖盘松动_多空分歧_做T降低成本是常态_目前也提供了这种环境_-_雪_40372650.md" target="_blank" rel="noopener noreferrer">目前市场的波动，核心变化就是卖盘松动。多空分歧，做T降低成本是常态。目前也提供了这种环境。 - 雪球</a>
                 </li>
               </ol>
             </section>
             <div class="featured-source-note">来源目录：sources/automations/BBXM每日汇总</div>
+            <details class="featured-day">
+              <summary class="featured-date-row"><strong>8月5日</strong><span>周三 · 8 条</span></summary>
+              <div class="featured-timeline">
+                <div class="featured-feed">
+                <article class="featured-card" data-featured-id="../../sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/160500_网页链接非常重要的一篇调研_1_增储_有节奏的_这是战略与管理问题_冰冰小美思考_资产增厚_资产_40380023.md" data-featured-filters="macro,industry,trade">
+                  <span class="featured-time">16:05</span><span class="featured-dot"></span>
+                  <div class="featured-card-inner">
+                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
+                    <h3><a href="../../sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/160500_网页链接非常重要的一篇调研_1_增储_有节奏的_这是战略与管理问题_冰冰小美思考_资产增厚_资产_40380023.md" target="_blank" rel="noopener noreferrer">网页链接非常重要的一篇调研，1，增储，有节奏的。这是战略与管理问题。冰冰小美思考: 资产增厚，资产推动股价，与人民币升值... - 雪球</a></h3>
+                    <p>发布于2026-08-05 16:05 来自Android · 广东 网页链接 非常重要的一篇调研 ， 1 ， 增储 ， 有节奏的 。 这是战略与管理问题 。 冰冰小美思考: 资产增厚 ， 资产推动股价 ， 与人民币升值同步 。 这个是明牌的 ， 在全球战略资源…</p>
+                    <div class="featured-tags">#宏观 #产业 #交易</div>
+                    <div class="featured-actions">
+                      <a class="featured-source" href="https://xueqiu.com/7143769715/403800230" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>
+                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
+                      <button class="featured-delete" type="button">删除</button>
+                    </div>
+                    <div class="featured-original" data-featured-original="6aaW6aG1CuS4i+i9vUFwcArlj5HluJYKY2p3MTExCuWFs+azqDYK57KJ5LidMjkK5Y+R5biWCummlumhtQroh6rpgIkK6KGM5oOFCuWfuumHkQrnp4Hli58K5oiR55qE6LWE5LqnCuWIm+S9nOiAheS4reW/gwrmiJHnmoTmtojmga8K5Zue5aSNCkDmiJEK6LWeCuaIkeeahOeyieS4nQrns7vnu5/mtojmga8K56eB5L+hCuWGsOWGsOWwj+e+jgrlj5HluIPkuo4yMDI2LTA4LTA1IDE2OjA1CuadpeiHqkFuZHJvaWQKwrcK5bm/5LicCue9kemhtemTvuaOpQrpnZ7luLjph43opoHnmoTkuIDnr4fosIPnoJQK77yMCjEK77yMCuWinuWCqArvvIwK5pyJ6IqC5aWP55qECuOAggrov5nmmK/miJjnlaXkuI7nrqHnkIbpl67popgK44CCCuWGsOWGsOWwj+e+juaAneiAgzog6LWE5Lqn5aKe5Y6aCu+8jArotYTkuqfmjqjliqjogqHku7cK77yMCuS4juS6uuawkeW4geWNh+WAvOWQjOatpQrjgIIK6L+Z5Liq5piv5piO54mM55qECu+8jArlnKjlhajnkIPmiJjnlaXotYTmupDkuonlpLrov4fnqIsK77yMCuWinuWCqOaYr+WQpuaYr+aIkOmVv+aApwrjgIIK5Y+C6ICD57Sr6YeR55+/5LiaCuOAggrpmpDol4/lm6DlrZAK77yMCuWboOW3qOm+meeOiem+memTnOefv+ebuOiBlOaApwrvvIwK57Sr6YeR55+/5Lia5LiO6KW/6YOo55+/5Lia5pyJ5LiA5a6a5ZCI5L2cCu+8jArntKvph5Hnn7/kuJrnmoTpo47pmanor4TkvLAv566h55CGL+Wll+S/neiDveWKmwrvvIwK5a+56KW/6YOo55+/5Lia5pyJ5biu5Yqp55qECuOAggrmiJDlip/mi7/kuIvlronlvr3pk5znn7/ml7blgJnlj5HluJbmj5Dlj4rlhazlvIDmi5vmoIfmi7/kuIvpnIDopoHlvojlvLrnmoTpo47pmanor4TkvLDog73lipsK44CCCuiwg+eglOesrOS4ieeCuQrvvIwK5aWX5L+dCu+8jArku6XliY3lvLHpobkK77yMCuWvvOiHtOWOu+W5tOS4mue7qeWwkTLkur/lpJoK77yMCumaj+WQjuaNoueuoeeQhuWxggrvvIwK5LuK5bm05Lia57up5aSn5aKeCu+8jArlvojmmL7nhLblpZfkv53lvbHlk43ovoPlsI8K44CCCjIK77yMCuWGtumHkeebiOWIqQrvvIwK5ouW5rK555O25LiJ5bm0Cu+8jArovazmraPmhI/kuYnovoPlpKcK44CCCumHjeeCuQrvvIwK5YWo55CD5a6P6KeC5rOi5Yqo5o6o5Yqo5Lu35qC85pyJ5YipCuOAggrlm6DmraTmnInmipfpo47pmanog73lipsK77yMCui/meS5n+aYrzfmnIjpgIbluILlnLrlpKfmtqjnmoTln7rmnKzpnaLmlK/mkpHmiYDlnKgK44CCCuWGsOWGsOWwj+e+juaAneiAgzoK6L+Z6YeM6ZyA6KaB5rOo5oSP55qE5pivCu+8jArmmK/lkKbmmK/lhrbph5HlhajooYzkuJrovazmraMK44CCCuS7juaVsOaNrueciwrvvIwK6ZShCu+8jArpk58K77yMCumTnOS9nOS4uueul+WKm+mHkeWxngrvvIwK55uu5YmN5bqT5a2Y6L6D5L2OCuOAggrlm6DmraQK77yMCuebuOWFs+WGtumHkeWPl+ebigrjgIIKMwrvvIwK5Lym6ZOcCuOAggrlhrDlhrDlsI/nvo7ooaXlhYXmgJ3ogIM6CuS4reaKpeS4mue7qemihOWRiuaXtuWPkeW4luaPkOi/hwrvvIwK6IKh5Lu35LiK5rao5LiO5Lym6ZOc6LaL5Yq/5ZCM5q2lCuOAggrnm67liY3ljbDor4EK44CCCumTnOmcgOaxgueahOWinumHj+WcqOS6jkFp5pyN5Yqh5ZmoCu+8jArmmK/kvKDnu5/mnI3liqHlmagz5YCN55So6YePCuOAggrlm6DmraQK77yMCumTnOmcgOaxguWinumVv+S+neaXp+aYr0Fp566X5Yqb5o6o5YqoCuOAggrljJfnvo7lm6Tpk5zkuI7lupPlrZjkuIvpmY0K77yMCuWNl+e+jjfmnIjlm6DmnoHnq6/lpKnmsJTlvIDlt6XnjofkuIvpmY0K77yMCuWIuua/gOS8pumTnOS7t+agvOi2i+W8ugrjgIIK5qC45b+D6Zeu6aKY6L+Y5piv5Zyo5LqO6ZOc55+/6LWE5pys5byA5pSv6Lef5LiN5LiK6ZyA5rGC5aKe6ZW/Cu+8jArpk5znn7/nmoTmianlvKDkuI7kvKbpk5zku7fmoLzlkIzmraUK77yMCuacieWIqeWPr+WbvuaJjeS8muacieWKqOWKm+aJqeW8oArjgIIK55uu5YmN55yLCu+8jArmmbrliKnpk5znn7/mianlvKDlj6/og70xMOW5tOaXoOacmwrvvIwK5Zug5q2kCu+8jArmn5DkupvmhI/kuYnnnIsK77yMCuebruWJjemTnOaJqeW8oOaYr+i4qeedgOaZr+awlOW6pgrvvIwK5L2G5piv5omp5byg5pe26Ze05oiQ5pys6L6D5aSnCu+8jArlvojlpJrlt6jlpLTkvIHkuJrkuI3kvJrotLjnhLbmianlvKAK44CCCui/meaYr+mVv+acn+S+m+e7memcgOaxgumXrumimArvvIwK5L6b6ZyA5ZGo5pyf5LiO5byA5bel546H5b6I6YeN6KaBCuOAgg==" hidden>
+                      <pre></pre>
+                    </div>
+                  </div>
+                </article>
+                <article class="featured-card" data-featured-id="../../sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/111600_计划明天就停更_注意事项_1_7-21口号救市_成交量巨大_这里对应的个股股价_有一定阻力_2__40374290.md" data-featured-filters="macro,market,trade">
+                  <span class="featured-time">11:16</span><span class="featured-dot"></span>
+                  <div class="featured-card-inner">
+                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
+                    <h3><a href="../../sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/111600_计划明天就停更_注意事项_1_7-21口号救市_成交量巨大_这里对应的个股股价_有一定阻力_2__40374290.md" target="_blank" rel="noopener noreferrer">计划明天就停更。注意事项:1，7-21口号救市，成交量巨大，这里对应的个股股价，有一定阻力。2，7-13后，全球联动做空... - 雪球</a></h3>
+                    <p>发布于2026-08-05 11:16 来自Android · 广东 计划明天就停更 。 注意事项: 1 ， 7-21口号救市 ， 成交量巨大 ， 这里对应的个股股价 ， 有一定阻力 。 2 ， 7-13后 ， 全球联动做空猖獗 ， 因此 ， 7-13对应指数以…</p>
+                    <div class="featured-tags">#宏观 #市场 #交易</div>
+                    <div class="featured-actions">
+                      <a class="featured-source" href="https://xueqiu.com/7143769715/403742903" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>
+                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
+                      <button class="featured-delete" type="button">删除</button>
+                    </div>
+                    <div class="featured-original" data-featured-original="6aaW6aG1CuS4i+i9vUFwcArlj5HluJYKY2p3MTExCuWFs+azqDYK57KJ5LidMjkK5Y+R5biWCummlumhtQroh6rpgIkK6KGM5oOFCuWfuumHkQrnp4Hli58K5oiR55qE6LWE5LqnCuWIm+S9nOiAheS4reW/gwrmiJHnmoTmtojmga8K5Zue5aSNCkDmiJEK6LWeCuaIkeeahOeyieS4nQrns7vnu5/mtojmga8K56eB5L+hCuWGsOWGsOWwj+e+jgrlj5HluIPkuo4yMDI2LTA4LTA1IDExOjE2CuadpeiHqkFuZHJvaWQKwrcK5bm/5LicCuiuoeWIkuaYjuWkqeWwseWBnOabtArjgIIK5rOo5oSP5LqL6aG5OgoxCu+8jAo3LTIx5Y+j5Y+35pWR5biCCu+8jArmiJDkuqTph4/lt6jlpKcK77yMCui/memHjOWvueW6lOeahOS4quiCoeiCoeS7twrvvIwK5pyJ5LiA5a6a6Zi75YqbCuOAggoyCu+8jAo3LTEz5ZCOCu+8jArlhajnkIPogZTliqjlgZrnqbrnjJbnjZcK77yMCuWboOatpArvvIwKNy0xM+WvueW6lOaMh+aVsOS7peS4igrvvIwK5aWX54mi55uY6YeNCu+8jArov5nph4zmnInph43lpKfpmLvlipsK44CCCjMK77yMCuebruWJjei/mOaYr+acieS4gOS6m+i3t+i3t+advwrjgIIK6L+Z5bm25LiN5YGl5bq3CuOAggrlpoLmnpzkuIror4HlubTnur/opoHnv7vnuqIK77yMCui/mOmcgOimgeaWsOeZu+iAgeeZu+S4gOi1t+WPkeWKmwrjgIIK57+757qi55qE5oSP5LmJ5b6I6YeN6KaBCu+8jArku6PooajmsqHmnInov5vlhaXnhorluIIK44CC" hidden>
+                      <pre></pre>
+                    </div>
+                  </div>
+                </article>
+                <article class="featured-card" data-featured-id="../../sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/105200_组合不要抄作业_用于观察市场变化的_本周末过生日_下周旅游停更_-_雪球_40373611.md" data-featured-filters="market">
+                  <span class="featured-time">10:52</span><span class="featured-dot"></span>
+                  <div class="featured-card-inner">
+                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
+                    <h3><a href="../../sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/105200_组合不要抄作业_用于观察市场变化的_本周末过生日_下周旅游停更_-_雪球_40373611.md" target="_blank" rel="noopener noreferrer">组合不要抄作业。用于观察市场变化的。本周末过生日，下周旅游停更。 - 雪球</a></h3>
+                    <p>发布于2026-08-05 10:52 来自Android · 广东 组合不要抄作业 。 用于观察市场变化的 。 本周末过生日 ， 下周旅游停更 。</p>
+                    <div class="featured-tags">#市场</div>
+                    <div class="featured-actions">
+                      <a class="featured-source" href="https://xueqiu.com/7143769715/403736115" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>
+                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
+                      <button class="featured-delete" type="button">删除</button>
+                    </div>
+                    <div class="featured-original" data-featured-original="6aaW6aG1CuS4i+i9vUFwcArlj5HluJYKY2p3MTExCuWFs+azqDYK57KJ5LidMjkK5Y+R5biWCummlumhtQroh6rpgIkK6KGM5oOFCuWfuumHkQrnp4Hli58K5oiR55qE6LWE5LqnCuWIm+S9nOiAheS4reW/gwrmiJHnmoTmtojmga8K5Yaw5Yaw5bCP576OCuWPkeW4g+S6jjIwMjYtMDgtMDUgMTA6NTIK5p2l6IeqQW5kcm9pZArCtwrlub/kuJwK57uE5ZCI5LiN6KaB5oqE5L2c5LiaCuOAggrnlKjkuo7op4Llr5/luILlnLrlj5jljJbnmoQK44CCCuacrOWRqOacq+i/h+eUn+aXpQrvvIwK5LiL5ZGo5peF5ri45YGc5pu0CuOAgg==" hidden>
+                      <pre></pre>
+                    </div>
+                  </div>
+                </article>
+                <article class="featured-card" data-featured-id="../../sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/104700_今日_创业板_前1小时放量超过昨日_承接力较强_创业板自7-31底背离化解后_8-3自由回落_而_40373462.md" data-featured-filters="macro,market,trade">
+                  <span class="featured-time">10:47</span><span class="featured-dot"></span>
+                  <div class="featured-card-inner">
+                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
+                    <h3><a href="../../sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/104700_今日_创业板_前1小时放量超过昨日_承接力较强_创业板自7-31底背离化解后_8-3自由回落_而_40373462.md" target="_blank" rel="noopener noreferrer">今日 创业板 前1小时放量超过昨日，承接力较强。创业板自7-31底背离化解后，8-3自由回落，而8-4宏观减弱节点，第一... - 雪球</a></h3>
+                    <p>发布于2026-08-05 10:47 来自Android · 广东 今日创业板前1小时放量超过昨日 ， 承接力较强 。 创业板自7-31底背离化解后 ， 8-3自由回落 ， 而8-4宏观减弱节点 ， 第一次摆脱下降趋势线 ， 技术面上 ， 资金入场明显 ， 今…</p>
+                    <div class="featured-tags">#宏观 #市场 #交易</div>
+                    <div class="featured-actions">
+                      <a class="featured-source" href="https://xueqiu.com/7143769715/403734620" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>
+                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
+                      <button class="featured-delete" type="button">删除</button>
+                    </div>
+                    <div class="featured-original" data-featured-original="6aaW6aG1CuS4i+i9vUFwcArlj5HluJYKY2p3MTExCuWFs+azqDYK57KJ5LidMjkK5Y+R5biWCummlumhtQroh6rpgIkK6KGM5oOFCuWfuumHkQrnp4Hli58K5oiR55qE6LWE5LqnCuWIm+S9nOiAheS4reW/gwrmiJHnmoTmtojmga8K5Zue5aSNCkDmiJEK6LWeCuaIkeeahOeyieS4nQrns7vnu5/mtojmga8K56eB5L+hCuWGsOWGsOWwj+e+jgrlj5HluIPkuo4yMDI2LTA4LTA1IDEwOjQ3CuadpeiHqkFuZHJvaWQKwrcK5bm/5LicCuS7iuaXpeWIm+S4muadv+WJjTHlsI/ml7bmlL7ph4/otoXov4fmmKjml6UK77yMCuaJv+aOpeWKm+i+g+W8ugrjgIIK5Yib5Lia5p2/6IeqNy0zMeW6leiDjOemu+WMluino+WQjgrvvIwKOC0z6Ieq55Sx5Zue6JC9Cu+8jArogIw4LTTlro/op4Llh4/lvLHoioLngrkK77yMCuesrOS4gOasoeaRhuiEseS4i+mZjei2i+WKv+e6vwrvvIwK5oqA5pyv6Z2i5LiKCu+8jArotYTph5HlhaXlnLrmmI7mmL4K77yMCuS7iuaXpeWPl+WItuS6juWkluWbtOS/oeaBrwrvvIwK5oOF57uq5rOi5YqoCu+8jArkuI3ov4flnKjlro/op4Lnm7jlr7nmnInliKnnmoToioLngrkK77yMCuWFpeWcuuaEj+aEv+i/mOaYr+WKoOW8uueahArvvIwK5om/5o6l5bCa5Y+vCuOAggrkuI3ov4fnqoHlpoLlhbbmnaXnmoTliKnnqbrmiZPmlq3ljp/mnKzotbDlir8K77yMCuWboOatpArvvIwK5a+55biC5Zy65a6P6KeC5b6u6KeC55qE55CG6Kej5Yqb6KaB5rGC5Yqg5aSnCuOAgg==" hidden>
+                      <pre></pre>
+                    </div>
+                  </div>
+                </article>
+                <article class="featured-card" data-featured-id="../../sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/102300_目前市场的波动_核心变化就是卖盘松动_多空分歧_做T降低成本是常态_目前也提供了这种环境_-_雪_40372650.md" data-featured-filters="market,trade">
+                  <span class="featured-time">10:23</span><span class="featured-dot"></span>
+                  <div class="featured-card-inner">
+                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
+                    <h3><a href="../../sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/102300_目前市场的波动_核心变化就是卖盘松动_多空分歧_做T降低成本是常态_目前也提供了这种环境_-_雪_40372650.md" target="_blank" rel="noopener noreferrer">目前市场的波动，核心变化就是卖盘松动。多空分歧，做T降低成本是常态。目前也提供了这种环境。 - 雪球</a></h3>
+                    <p>发布于2026-08-05 10:23 来自Android · 广东 目前市场的波动 ， 核心变化就是卖盘松动 。 多空分歧 ， 做T降低成本是常态 。 目前也提供了这种环境 。</p>
+                    <div class="featured-tags">#市场 #交易</div>
+                    <div class="featured-actions">
+                      <a class="featured-source" href="https://xueqiu.com/7143769715/403726508" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>
+                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
+                      <button class="featured-delete" type="button">删除</button>
+                    </div>
+                    <div class="featured-original" data-featured-original="6aaW6aG1CuS4i+i9vUFwcArlj5HluJYKY2p3MTExCuWFs+azqDYK57KJ5LidMjkK5Y+R5biWCummlumhtQroh6rpgIkK6KGM5oOFCuWfuumHkQrnp4Hli58K5oiR55qE6LWE5LqnCuWIm+S9nOiAheS4reW/gwrmiJHnmoTmtojmga8K5Zue5aSNCkDmiJEK6LWeCuaIkeeahOeyieS4nQrns7vnu5/mtojmga8K56eB5L+hCuWGsOWGsOWwj+e+jgrlj5HluIPkuo4yMDI2LTA4LTA1IDEwOjIzCuadpeiHqkFuZHJvaWQKwrcK5bm/5LicCuebruWJjeW4guWcuueahOazouWKqArvvIwK5qC45b+D5Y+Y5YyW5bCx5piv5Y2W55uY5p2+5YqoCuOAggrlpJrnqbrliIbmracK77yMCuWBmlTpmY3kvY7miJDmnKzmmK/luLjmgIEK44CCCuebruWJjeS5n+aPkOS+m+S6hui/meenjeeOr+WigwrjgII=" hidden>
+                      <pre></pre>
+                    </div>
+                  </div>
+                </article>
+                <article class="featured-card" data-featured-id="../../sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/100900_光的利空_影响交易的节奏_市场成长一致性减弱_成长与均衡跷跷板_市场震荡上行_符合修复行情的分歧_40372141.md" data-featured-filters="market,industry,trade">
+                  <span class="featured-time">10:09</span><span class="featured-dot"></span>
+                  <div class="featured-card-inner">
+                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
+                    <h3><a href="../../sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/100900_光的利空_影响交易的节奏_市场成长一致性减弱_成长与均衡跷跷板_市场震荡上行_符合修复行情的分歧_40372141.md" target="_blank" rel="noopener noreferrer">光的利空，影响交易的节奏。市场成长一致性减弱，成长与均衡跷跷板，市场震荡上行，符合修复行情的分歧与螺旋上涨。 - 雪球</a></h3>
+                    <p>发布于2026-08-05 10:09 来自Android · 广东 光的利空 ， 影响交易的节奏 。 市场成长一致性减弱 ， 成长与均衡跷跷板 ， 市场震荡上行 ， 符合修复行情的分歧与螺旋上涨 。</p>
+                    <div class="featured-tags">#市场 #产业 #交易</div>
+                    <div class="featured-actions">
+                      <a class="featured-source" href="https://xueqiu.com/7143769715/403721411" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>
+                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
+                      <button class="featured-delete" type="button">删除</button>
+                    </div>
+                    <div class="featured-original" data-featured-original="6aaW6aG1CuS4i+i9vUFwcArlj5HluJYKY2p3MTExCuWFs+azqDYK57KJ5LidMjkK5Y+R5biWCummlumhtQroh6rpgIkK6KGM5oOFCuWfuumHkQrnp4Hli58K5oiR55qE6LWE5LqnCuWIm+S9nOiAheS4reW/gwrmiJHnmoTmtojmga8K5Zue5aSNCkDmiJEK6LWeCuaIkeeahOeyieS4nQrns7vnu5/mtojmga8K56eB5L+hCuWGsOWGsOWwj+e+jgrlj5HluIPkuo4yMDI2LTA4LTA1IDEwOjA5CuadpeiHqkFuZHJvaWQKwrcK5bm/5LicCuWFieeahOWIqeepugrvvIwK5b2x5ZON5Lqk5piT55qE6IqC5aWPCuOAggrluILlnLrmiJDplb/kuIDoh7TmgKflh4/lvLEK77yMCuaIkOmVv+S4juWdh+ihoei3t+i3t+advwrvvIwK5biC5Zy66ZyH6I2h5LiK6KGMCu+8jArnrKblkIjkv67lpI3ooYzmg4XnmoTliIbmrafkuI7onrrml4vkuIrmtqgK44CC" hidden>
+                      <pre></pre>
+                    </div>
+                  </div>
+                </article>
+                <article class="featured-card" data-featured-id="../../sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/100200_宏观决定仓位_美日干预日汇率_经济体暴雷风险减弱_宏观减弱的_石油危机减弱_油价暴跌_动用法案限_40371853.md" data-featured-filters="macro,market,trade">
+                  <span class="featured-time">10:02</span><span class="featured-dot"></span>
+                  <div class="featured-card-inner">
+                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
+                    <h3><a href="../../sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/100200_宏观决定仓位_美日干预日汇率_经济体暴雷风险减弱_宏观减弱的_石油危机减弱_油价暴跌_动用法案限_40371853.md" target="_blank" rel="noopener noreferrer">宏观决定仓位，（美日干预日汇率，经济体暴雷风险减弱，宏观减弱的）（石油危机减弱，油价暴跌（动用法案限制美石油巨头的汽油涨... - 雪球</a></h3>
+                    <p>发布于2026-08-05 10:02 来自Android · 广东 宏观决定仓位 ， （美日干预日汇率 ， 经济体暴雷风险减弱 ， 宏观减弱的） （石油危机减弱 ， 油价暴跌（动用法案限制美石油巨头的汽油涨价） （云商盈利 ， Ai上下游跑通） 体系三要素决定…</p>
+                    <div class="featured-tags">#宏观 #市场 #交易</div>
+                    <div class="featured-actions">
+                      <a class="featured-source" href="https://xueqiu.com/7143769715/403718539" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>
+                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
+                      <button class="featured-delete" type="button">删除</button>
+                    </div>
+                    <div class="featured-original" data-featured-original="6aaW6aG1CuS4i+i9vUFwcArlj5HluJYKY2p3MTExCuWFs+azqDYK57KJ5LidMjkK5Y+R5biWCummlumhtQroh6rpgIkK6KGM5oOFCuWfuumHkQrnp4Hli58K5oiR55qE6LWE5LqnCuWIm+S9nOiAheS4reW/gwrmiJHnmoTmtojmga8K5Zue5aSNCkDmiJEK6LWeCuaIkeeahOeyieS4nQrns7vnu5/mtojmga8K56eB5L+hCuWGsOWGsOWwj+e+jgrlj5HluIPkuo4yMDI2LTA4LTA1IDEwOjAyCuadpeiHqkFuZHJvaWQKwrcK5bm/5LicCuWuj+inguWGs+WumuS7k+S9jQrvvIwK77yI576O5pel5bmy6aKE5pel5rGH546HCu+8jArnu4/mtY7kvZPmmrTpm7fpo47pmanlh4/lvLEK77yMCuWuj+inguWHj+W8seeahO+8iQrvvIjnn7PmsrnljbHmnLrlh4/lvLEK77yMCuayueS7t+aatOi3jO+8iOWKqOeUqOazleahiOmZkOWItue+juefs+ayueW3qOWktOeahOaxveayuea2qOS7t++8iQrvvIjkupHllYbnm4jliKkK77yMCkFp5LiK5LiL5ri46LeR6YCa77yJCuS9k+ezu+S4ieimgee0oOWGs+WumuaXtuacugrjgII=" hidden>
+                      <pre></pre>
+                    </div>
+                  </div>
+                </article>
+                <article class="featured-card" data-featured-id="../../sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/095600_小作文利空_引发卖盘放量_昨日卖盘衰竭惜筹_今日分歧放量拉升_卖盘动摇导致_创突破3469_依旧_40371613.md" data-featured-filters="macro,market,industry,trade">
+                  <span class="featured-time">09:56</span><span class="featured-dot"></span>
+                  <div class="featured-card-inner">
+                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
+                    <h3><a href="../../sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/095600_小作文利空_引发卖盘放量_昨日卖盘衰竭惜筹_今日分歧放量拉升_卖盘动摇导致_创突破3469_依旧_40371613.md" target="_blank" rel="noopener noreferrer">小作文利空，引发卖盘放量。昨日卖盘衰竭惜筹，今日分歧放量拉升。卖盘动摇导致。创突破3469，依旧是B浪行情，国外链分歧，... - 雪球</a></h3>
+                    <p>发布于2026-08-05 09:56 来自Android · 广东 小作文利空 ， 引发卖盘放量 。 昨日卖盘衰竭惜筹 ， 今日分歧放量拉升 。 卖盘动摇导致 。 创突破3469 ， 依旧是B浪行情 ， 国外链分歧 ， 国产链暴涨 。 制裁光1 ， 还有Pcb…</p>
+                    <div class="featured-tags">#宏观 #市场 #产业 #交易</div>
+                    <div class="featured-actions">
+                      <a class="featured-source" href="https://xueqiu.com/7143769715/403716131" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>
+                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
+                      <button class="featured-delete" type="button">删除</button>
+                    </div>
+                    <div class="featured-original" data-featured-original="6aaW6aG1CuS4i+i9vUFwcArlj5HluJYKY2p3MTExCuWFs+azqDYK57KJ5LidMjkK5Y+R5biWCummlumhtQroh6rpgIkK6KGM5oOFCuWfuumHkQrnp4Hli58K5oiR55qE6LWE5LqnCuWIm+S9nOiAheS4reW/gwrmiJHnmoTmtojmga8K5Zue5aSNCkDmiJEK6LWeCuaIkeeahOeyieS4nQrns7vnu5/mtojmga8K56eB5L+hCuWGsOWGsOWwj+e+jgrlj5HluIPkuo4yMDI2LTA4LTA1IDA5OjU2CuadpeiHqkFuZHJvaWQKwrcK5bm/5LicCuWwj+S9nOaWh+WIqeepugrvvIwK5byV5Y+R5Y2W55uY5pS+6YePCuOAggrmmKjml6XljZbnm5joobDnq63mg5znrbkK77yMCuS7iuaXpeWIhuatp+aUvumHj+aLieWNhwrjgIIK5Y2W55uY5Yqo5pGH5a+86Ie0CuOAggrliJvnqoHnoLQzNDY5Cu+8jArkvp3ml6fmmK9C5rWq6KGM5oOFCu+8jArlm73lpJbpk77liIbmracK77yMCuWbveS6p+mTvuaatOa2qArjgIIK5Yi26KOB5YWJMQrvvIwK6L+Y5pyJUGNiMgrvvIwK6L+Y5pyJ5pyN5Yqh5ZmoMwrvvIwK6L+Y5pyJ5YWJ57qkNArvvIwK6L+Y5pyJ56iA5ZyfNQrvvIwK5Yi26KOB5LiN5a6M55qECu+8jArkuqfkuJrpk77op4TmqKHlpKrlpKcK44CCCuebruWJjeaMiULmtarkv67lpI3ooYzmg4UK77yMCuaMh+aVsOebruagh+S+neaXp+aYrzM3NTAK44CCCuS8pumTnOaYqOaZmueqgeegtDE0MDAwCu+8jArnvo7mm53lhYnlm6Tpk5zvvIjmnKrmnaXpk5zlhbPnqI7vvIkK77yMCui/meWFtuWunuS4jeeUqOabneWFiQrvvIwK5Y675bm05YiX5YWl5oiY55Wl6LWE5rqQ5bCx5byA5aeL5ZukCuOAggrpk5znmoTpnIDmsYLku6PooahBaeeahOaKlei1hOS4juW7uuiuvui/m+WFpei+g+mVv+WRqOacnwrvvIwK5LiN54S25Zuk5LqG5oSP5LmJ5LiN5aSnCuOAgg==" hidden>
+                      <pre></pre>
+                    </div>
+                  </div>
+                </article>
+                </div>
+              </div>
+            </details>
             <details class="featured-day">
               <summary class="featured-date-row"><strong>7月30日</strong><span>周四 · 17 条</span></summary>
               <div class="featured-timeline">
@@ -3532,319 +3732,6 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                 </div>
               </div>
             </details>
-            <details class="featured-day">
-              <summary class="featured-date-row"><strong>7月9日</strong><span>周四 · 18 条</span></summary>
-              <div class="featured-timeline">
-                <div class="featured-feed">
-                <article class="featured-card" data-featured-id="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/151200_收盘总结_浪潮信息_开板_通源石油_暴涨_浪潮信息封板_通源石油下跌_华天科技_封板_通源石油加_39928291.md" data-featured-filters="macro,market,industry">
-                  <span class="featured-time">15:12</span><span class="featured-dot"></span>
-                  <div class="featured-card-inner">
-                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
-                    <h3><a href="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/151200_收盘总结_浪潮信息_开板_通源石油_暴涨_浪潮信息封板_通源石油下跌_华天科技_封板_通源石油加_39928291.md" target="_blank" rel="noopener noreferrer">收盘总结， 浪潮信息 开板， 通源石油 暴涨，浪潮信息封板，通源石油下跌。 华天科技 封板，通源石油加速下跌。国产算力+... - 雪球</a></h3>
-                    <p>发布于2026-07-09 15:12 来自Android · 广东 收盘总结 ， 浪潮信息开板 ， 通源石油暴涨 ， 浪潮信息封板 ， 通源石油下跌 。 华天科技封板 ， 通源石油加速下跌 。 国产算力+韬定律vs石油危机风险 随后指数在光的向下带动下 ， 翻…</p>
-                    <div class="featured-tags">#宏观 #市场 #产业</div>
-                    <div class="featured-actions">
-                      <a class="featured-source" href="https://xueqiu.com/7143769715/399282912" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>
-                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
-                      <button class="featured-delete" type="button">删除</button>
-                    </div>
-                    <div class="featured-original" data-featured-original="6aaW6aG1CuS4i+i9vUFwcArlj5HluJYKY2p3MTExCuWFs+azqDMK57KJ5LidMjAK5Y+R5biWCummlumhtQroh6rpgIkK6KGM5oOFCuWfuumHkQrnp4Hli58K5oiR55qE6LWE5LqnCuWIm+S9nOiAheS4reW/gwrmiJHnmoTmtojmga8K5Zue5aSNCkDmiJEK6LWeCuaIkeeahOeyieS4nQrns7vnu5/mtojmga8K56eB5L+hCuWGsOWGsOWwj+e+jgrlj5HluIPkuo4yMDI2LTA3LTA5IDE1OjEyCuadpeiHqkFuZHJvaWQKwrcK5bm/5LicCuaUtuebmOaAu+e7kwrvvIwK5rWq5r2u5L+h5oGv5byA5p2/Cu+8jArpgJrmupDnn7PmsrnmmrTmtqgK77yMCua1qua9ruS/oeaBr+WwgeadvwrvvIwK6YCa5rqQ55+z5rK55LiL6LeMCuOAggrljY7lpKnnp5HmioDlsIHmnb8K77yMCumAmua6kOefs+ayueWKoOmAn+S4i+i3jArjgIIK5Zu95Lqn566X5YqbK+mfrOWumuW+i3Zz55+z5rK55Y2x5py66aOO6ZmpCumaj+WQjuaMh+aVsOWcqOWFieeahOWQkeS4i+W4puWKqOS4iwrvvIwK57+757u/CuOAggrmg4XlhrXlsozlsozlj6/ljbEK44CCCumAmua6kOefs+ayuTIwJeWwgeadvwrjgIIK5Y2I55uYCu+8jArplb/nlLXnp5HmioDlsIHmnb8K77yMCumaj+WQjuS4nOWxseeyvuWvhuaMgee7reaAp+aLieWNhwrvvIwK5YWJ5L+u5aSN5byA5ZCvCu+8jArpmo/lkI7nlJ/nm4rnp5HmioBwY3XnrYnmjIHnu63mgKfmi4nljYcK77yMCnBjYuS/ruWkjeW8gOWQrwrvvIwK5Lit6Iqv5Zu96ZmFCu+8jArljY7ombnljYrlr7zkvZPmjIHnu63mgKfmi4nljYcK77yMCuWIm+S4i+WOhuWPsuaWsOmrmArjgIIK5Y2K5a+85L2T6K6+5aSHCu+8jArnp5HliJvljYrlr7zkvZPnrYlldGblhajpnaLmi4nljYcK44CCCmV0ZuebtOaOpeaLieWIsOS6hua2qOWBnArjgIIK5a6e5Yqb5Y+v5oCVCuOAggrlpKflpYfov7nml6UK44CC" hidden>
-                      <pre></pre>
-                    </div>
-                  </div>
-                </article>
-                <article class="featured-card" data-featured-id="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/150200_这实力_吓死宝宝了_几乎全面All_in_ETF_带动盘面多个方向修复_航天_机器人_药_车_材_39927953.md" data-featured-filters="macro,market,industry,trade">
-                  <span class="featured-time">15:02</span><span class="featured-dot"></span>
-                  <div class="featured-card-inner">
-                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
-                    <h3><a href="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/150200_这实力_吓死宝宝了_几乎全面All_in_ETF_带动盘面多个方向修复_航天_机器人_药_车_材_39927953.md" target="_blank" rel="noopener noreferrer">这实力，吓死宝宝了。几乎全面All in ETF，带动盘面多个方向修复。航天，机器人，药，车，材料，光，pcb等等都走修... - 雪球</a></h3>
-                    <p>发布于2026-07-09 15:02 来自Android · 广东 这实力 ， 吓死宝宝了 。 几乎全面All in ETF ， 带动盘面多个方向修复 。 航天 ， 机器人 ， 药 ， 车 ， 材料 ， 光 ， pcb等等都走修复 。 就差老登白酒了 。</p>
-                    <div class="featured-tags">#宏观 #市场 #产业 #交易</div>
-                    <div class="featured-actions">
-                      <a class="featured-source" href="https://xueqiu.com/7143769715/399279537" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>
-                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
-                      <button class="featured-delete" type="button">删除</button>
-                    </div>
-                    <div class="featured-original" data-featured-original="6aaW6aG1CuS4i+i9vUFwcArlj5HluJYKY2p3MTExCuWFs+azqDMK57KJ5LidMjAK5Y+R5biWCummlumhtQroh6rpgIkK6KGM5oOFCuWfuumHkQrnp4Hli58K5oiR55qE6LWE5LqnCuWIm+S9nOiAheS4reW/gwrmiJHnmoTmtojmga8K5Zue5aSNCkDmiJEK6LWeCuaIkeeahOeyieS4nQrns7vnu5/mtojmga8K56eB5L+hCuWGsOWGsOWwj+e+jgrlj5HluIPkuo4yMDI2LTA3LTA5IDE1OjAyCuadpeiHqkFuZHJvaWQKwrcK5bm/5LicCui/meWunuWKmwrvvIwK5ZCT5q275a6d5a6d5LqGCuOAggrlh6DkuY7lhajpnaJBbGwgaW4gRVRGCu+8jArluKbliqjnm5jpnaLlpJrkuKrmlrnlkJHkv67lpI0K44CCCuiIquWkqQrvvIwK5py65Zmo5Lq6Cu+8jAroja8K77yMCui9pgrvvIwK5p2Q5paZCu+8jArlhYkK77yMCnBjYuetieetiemDvei1sOS/ruWkjQrjgIIK5bCx5beu6ICB55m755m96YWS5LqGCuOAgg==" hidden>
-                      <pre></pre>
-                    </div>
-                  </div>
-                </article>
-                <article class="featured-card" data-featured-id="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/143800_依旧是科技推动信心恢复_需要观察市场是否继续走K型分化_由于很多老登跌幅也很大_老登如果修复也同_39927093.md" data-featured-filters="macro,market,industry,trade">
-                  <span class="featured-time">14:38</span><span class="featured-dot"></span>
-                  <div class="featured-card-inner">
-                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
-                    <h3><a href="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/143800_依旧是科技推动信心恢复_需要观察市场是否继续走K型分化_由于很多老登跌幅也很大_老登如果修复也同_39927093.md" target="_blank" rel="noopener noreferrer">依旧是科技推动信心恢复。需要观察市场是否继续走K型分化。由于很多老登跌幅也很大，老登如果修复也同步上涨，这种走势会更良性... - 雪球</a></h3>
-                    <p>发布于2026-07-09 14:38 来自Android · 广东 依旧是科技推动信心恢复 。 需要观察市场是否继续走K型分化 。 由于很多老登跌幅也很大 ， 老登如果修复也同步上涨 ， 这种走势会更良性 。</p>
-                    <div class="featured-tags">#宏观 #市场 #产业 #交易</div>
-                    <div class="featured-actions">
-                      <a class="featured-source" href="https://xueqiu.com/7143769715/399270932" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>
-                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
-                      <button class="featured-delete" type="button">删除</button>
-                    </div>
-                    <div class="featured-original" data-featured-original="6aaW6aG1CuS4i+i9vUFwcArlj5HluJYKY2p3MTExCuWFs+azqDMK57KJ5LidMjAK5Y+R5biWCummlumhtQroh6rpgIkK6KGM5oOFCuWfuumHkQrnp4Hli58K5oiR55qE6LWE5LqnCuWIm+S9nOiAheS4reW/gwrmiJHnmoTmtojmga8K5Zue5aSNCkDmiJEK6LWeCuaIkeeahOeyieS4nQrns7vnu5/mtojmga8K56eB5L+hCuWGsOWGsOWwj+e+jgrlj5HluIPkuo4yMDI2LTA3LTA5IDE0OjM4CuadpeiHqkFuZHJvaWQKwrcK5bm/5LicCuS+neaXp+aYr+enkeaKgOaOqOWKqOS/oeW/g+aBouWkjQrjgIIK6ZyA6KaB6KeC5a+f5biC5Zy65piv5ZCm57un57ut6LWwS+Wei+WIhuWMlgrjgIIK55Sx5LqO5b6I5aSa6ICB55m76LeM5bmF5Lmf5b6I5aSnCu+8jArogIHnmbvlpoLmnpzkv67lpI3kuZ/lkIzmraXkuIrmtqgK77yMCui/meenjei1sOWKv+S8muabtOiJr+aApwrjgII=" hidden>
-                      <pre></pre>
-                    </div>
-                  </div>
-                </article>
-                <article class="featured-card" data-featured-id="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/141500_昨天央行报告解读_明明白白的_总是否定我爱国_不拉黑你拉黑谁_财政扩张_之前提过地方政府投资几百_39926309.md" data-featured-filters="macro,market,industry,trade">
-                  <span class="featured-time">14:15</span><span class="featured-dot"></span>
-                  <div class="featured-card-inner">
-                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
-                    <h3><a href="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/141500_昨天央行报告解读_明明白白的_总是否定我爱国_不拉黑你拉黑谁_财政扩张_之前提过地方政府投资几百_39926309.md" target="_blank" rel="noopener noreferrer">昨天央行报告解读，明明白白的。总是否定我爱国，不拉黑你拉黑谁。财政扩张（之前提过地方政府投资几百亿半导体）央妈给信贷支持... - 雪球</a></h3>
-                    <p>发布于2026-07-09 14:15 来自Android · 广东 昨天央行报告解读 ， 明明白白的 。 总是否定我爱国 ， 不拉黑你拉黑谁 。 财政扩张（之前提过地方政府投资几百亿半导体）央妈给信贷支持 。 前瞻性 ， 灵活性 ， 针对性 ， 不就是之前二周…</p>
-                    <div class="featured-tags">#宏观 #市场 #产业 #交易</div>
-                    <div class="featured-actions">
-                      <a class="featured-source" href="https://xueqiu.com/7143769715/399263093" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>
-                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
-                      <button class="featured-delete" type="button">删除</button>
-                    </div>
-                    <div class="featured-original" data-featured-original="6aaW6aG1CuS4i+i9vUFwcArlj5HluJYKY2p3MTExCuWFs+azqDMK57KJ5LidMjAK5Y+R5biWCummlumhtQroh6rpgIkK6KGM5oOFCuWfuumHkQrnp4Hli58K5oiR55qE6LWE5LqnCuWIm+S9nOiAheS4reW/gwrmiJHnmoTmtojmga8K5Zue5aSNCkDmiJEK6LWeCuaIkeeahOeyieS4nQrns7vnu5/mtojmga8K56eB5L+hCuWGsOWGsOWwj+e+jgrlj5HluIPkuo4yMDI2LTA3LTA5IDE0OjE1CuadpeiHqkFuZHJvaWQKwrcK5bm/5LicCuaYqOWkqeWkruihjOaKpeWRiuino+ivuwrvvIwK5piO5piO55m955m955qECuOAggrmgLvmmK/lkKblrprmiJHniLHlm70K77yMCuS4jeaLiem7keS9oOaLiem7keiwgQrjgIIK6LSi5pS/5omp5byg77yI5LmL5YmN5o+Q6L+H5Zyw5pa55pS/5bqc5oqV6LWE5Yeg55m+5Lq/5Y2K5a+85L2T77yJ5aSu5aaI57uZ5L+h6LS35pSv5oyBCuOAggrliY3nnrvmgKcK77yMCueBtea0u+aApwrvvIwK6ZKI5a+55oCnCu+8jArkuI3lsLHmmK/kuYvliY3kuozlkajnmoTlm7Dpmr7mg4XlhrUK44CCCuaXtuacugrvvIwK5bel5YW3566xCu+8jArmiJHkuI3nn6XpgZPmmK/ku4rlpKkK77yMCuaJgOS7peWwj+W/g+axguivgQrjgIIK5oiR6aKE6K6h5rW35Yqb5aOr6JC95ZywCu+8jArkuZ/pooTorqF6emrkvJrorq4K77yMCuaIkeS4jea4healmuWFt+S9k+aXtumXtArjgIIK5LuK5aSp55qE6K+dCu+8jArmiJHnkIbop6MK77yMCumCo+WwseaYr+S6ieWkuuW5tOe6v+W+iOmHjeimgQrjgIIKMzk4Nui3jOegtOWwseS8muacieaUv+etluaUr+aMgQrjgIIK6YKj5LmICu+8jAo35pyI5YmN5Y2K5pyI5YGa56m66aOO6Zmp6ZqP552A5rW35Yqb5aOr6JC95Zyw6ICM57yT5ZKMCuOAggrmjqXkuIvmnaXkuIvljYrmnIgK77yMCuWImemcgOimgeWFs+W/g+S/oeW/g+aBouWkjeaDheWGtQrjgIIK77yI5YW25LuW5LiL6LeM5pa55ZCR55qE5L+u5aSN5LiO5pS/562W5pSv5oyB77yJ" hidden>
-                      <pre></pre>
-                    </div>
-                  </div>
-                </article>
-                <article class="featured-card" data-featured-id="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/140500_大奇迹日_一阳改三观_从6-26月报提示风险_到7-9_大奇迹日_14天_二周_明天_7_10__39925926.md" data-featured-filters="macro,market,industry,trade">
-                  <span class="featured-time">14:05</span><span class="featured-dot"></span>
-                  <div class="featured-card-inner">
-                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
-                    <h3><a href="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/140500_大奇迹日_一阳改三观_从6-26月报提示风险_到7-9_大奇迹日_14天_二周_明天_7_10__39925926.md" target="_blank" rel="noopener noreferrer">大奇迹日。一阳改三观。从6-26月报提示风险，到7-9，大奇迹日。14天，二周。明天，7/10，海力士落地。第一阶段到这... - 雪球</a></h3>
-                    <p>发布于2026-07-09 14:05 来自Android · 广东 大奇迹日 。 一阳改三观 。 从6-26月报提示风险 ， 到7-9 ， 大奇迹日 。 14天 ， 二周 。 明天 ， 7/10 ， 海力士落地 。 第一阶段到这 。 7/17-7/20全球人工…</p>
-                    <div class="featured-tags">#宏观 #市场 #产业 #交易</div>
-                    <div class="featured-actions">
-                      <a class="featured-source" href="https://xueqiu.com/7143769715/399259266" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>
-                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
-                      <button class="featured-delete" type="button">删除</button>
-                    </div>
-                    <div class="featured-original" data-featured-original="6aaW6aG1CuS4i+i9vUFwcArlj5HluJYKY2p3MTExCuWFs+azqDMK57KJ5LidMjAK5Y+R5biWCummlumhtQroh6rpgIkK6KGM5oOFCuWfuumHkQrnp4Hli58K5oiR55qE6LWE5LqnCuWIm+S9nOiAheS4reW/gwrmiJHnmoTmtojmga8K5Zue5aSNCkDmiJEK6LWeCuaIkeeahOeyieS4nQrns7vnu5/mtojmga8K56eB5L+hCuWGsOWGsOWwj+e+jgrlj5HluIPkuo4yMDI2LTA3LTA5IDE0OjA1CuadpeiHqkFuZHJvaWQKwrcK5bm/5LicCuWkp+Wlh+i/ueaXpQrjgIIK5LiA6Ziz5pS55LiJ6KeCCuOAggrku442LTI25pyI5oql5o+Q56S66aOO6ZmpCu+8jArliLA3LTkK77yMCuWkp+Wlh+i/ueaXpQrjgIIKMTTlpKkK77yMCuS6jOWRqArjgIIK5piO5aSpCu+8jAo3LzEwCu+8jArmtbflipvlo6vokL3lnLAK44CCCuesrOS4gOmYtuauteWIsOi/mQrjgIIKNy8xNy03LzIw5YWo55CD5Lq65bel5pm66IO95aSn5LyaCu+8jArmiJHlm71Baei/m+eoi+eahOS4gOasoeWFqOmdouWxleekugrjgIIK6L+Z5piv5L+u5aSN5pe26Ze0CuOAggo3LzIw5ZCOCu+8jAp6emrkvJrorq7kuI7nsbPogZTlgqjkvJrorq4K44CCCuaIkemAieaLqeWmguS9leS6pOaYk+aYr+aIkeeahOmXrumimArjgIIK5ZCs5YW26KiACu+8jArop4LlhbbooYwK44CC" hidden>
-                      <pre></pre>
-                    </div>
-                  </div>
-                </article>
-                <article class="featured-card" data-featured-id="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/135300_举个例子_亨通作为光的代表_都跌成这样_这不就是国外宏观流动性危机导致的_央妈昨天说_政策前瞻性_39925507.md" data-featured-filters="macro,market,industry">
-                  <span class="featured-time">13:53</span><span class="featured-dot"></span>
-                  <div class="featured-card-inner">
-                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
-                    <h3><a href="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/135300_举个例子_亨通作为光的代表_都跌成这样_这不就是国外宏观流动性危机导致的_央妈昨天说_政策前瞻性_39925507.md" target="_blank" rel="noopener noreferrer">举个例子，亨通作为光的代表，都跌成这样。这不就是国外宏观流动性危机导致的。央妈昨天说，政策前瞻性，灵活性，货币宽松预期，... - 雪球</a></h3>
-                    <p>发布于2026-07-09 13:53 来自Android · 广东 举个例子 ， 亨通作为光的代表 ， 都跌成这样 。 这不就是国外宏观流动性危机导致的 。 央妈昨天说 ， 政策前瞻性 ， 灵活性 ， 货币宽松预期 ， 不就是针对外围流动性的政策托底吗 。 如…</p>
-                    <div class="featured-tags">#宏观 #市场 #产业</div>
-                    <div class="featured-actions">
-                      <a class="featured-source" href="https://xueqiu.com/7143769715/399255072" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>
-                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
-                      <button class="featured-delete" type="button">删除</button>
-                    </div>
-                    <div class="featured-original" data-featured-original="6aaW6aG1CuS4i+i9vUFwcArlj5HluJYKY2p3MTExCuWFs+azqDMK57KJ5LidMjAK5Y+R5biWCummlumhtQroh6rpgIkK6KGM5oOFCuWfuumHkQrnp4Hli58K5oiR55qE6LWE5LqnCuWIm+S9nOiAheS4reW/gwrmiJHnmoTmtojmga8K5Zue5aSNCkDmiJEK6LWeCuaIkeeahOeyieS4nQrns7vnu5/mtojmga8K56eB5L+hCuWGsOWGsOWwj+e+jgrlj5HluIPkuo4yMDI2LTA3LTA5IDEzOjUzCuadpeiHqkFuZHJvaWQKwrcK5bm/5LicCuS4vuS4quS+i+WtkArvvIwK5Lqo6YCa5L2c5Li65YWJ55qE5Luj6KGoCu+8jArpg73ot4zmiJDov5nmoLcK44CCCui/meS4jeWwseaYr+WbveWkluWuj+ingua1geWKqOaAp+WNseacuuWvvOiHtOeahArjgIIK5aSu5aaI5pio5aSp6K+0Cu+8jArmlL/nrZbliY3nnrvmgKcK77yMCueBtea0u+aApwrvvIwK6LSn5biB5a695p2+6aKE5pyfCu+8jArkuI3lsLHmmK/pkojlr7nlpJblm7TmtYHliqjmgKfnmoTmlL/nrZbmiZjlupXlkJcK44CCCuWmguaenOi/mOS4gOebtOi3jOS4i+WOuwrvvIwK55yL6LW35p2l6YO95piv6IKh54G+CuOAggrpg73ot4zkuoY0MCUK44CCCuaJrei9rOS/oeW/g+W+iOmHjeimgQrjgIIK5aaC5L2V5omt6L2sCu+8jArku4rlpKnkuI3lsLHmmK/pn6zlrprlvovkuIDnm7TlvLoK77yMCuacgOWQjuW4puWKqOS6huWFiQrvvIwKcGNi5ZibCuOAggrmtarmva7kv6Hmga/ml6nnm5jpobbkvY/mipvljovogIzlsIHmnb8K77yMCuS4jeWwseaYr+WbveS6p+mTvuS/oeW/g+WKoOW8uuWQlwrjgIIKQeiCoeWPquiDveWBmuWkmuebiOWIqQrvvIwK6YCG5Yq/5Y675YGa5b6I6ZyA6KaB5YuH5rCU55qECuOAgg==" hidden>
-                      <pre></pre>
-                    </div>
-                  </div>
-                </article>
-                <article class="featured-card" data-featured-id="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/134500_生气有用吗_有用的_提纯粉丝_留下来的_注定会思考我买卖_活该我挣钱_因为我是央妈的脑残粉_气死_39925199.md" data-featured-filters="macro,market,industry,trade">
-                  <span class="featured-time">13:45</span><span class="featured-dot"></span>
-                  <div class="featured-card-inner">
-                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
-                    <h3><a href="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/134500_生气有用吗_有用的_提纯粉丝_留下来的_注定会思考我买卖_活该我挣钱_因为我是央妈的脑残粉_气死_39925199.md" target="_blank" rel="noopener noreferrer">生气有用吗。有用的，提纯粉丝。留下来的，注定会思考我买卖。活该我挣钱，因为我是央妈的脑残粉。气死你。又挣了。 - 雪球</a></h3>
-                    <p>发布于2026-07-09 13:45 来自Android · 广东 生气有用吗 。 有用的 ， 提纯粉丝 。 留下来的 ， 注定会思考我买卖 。 活该我挣钱 ， 因为我是央妈的脑残粉 。 气死你 。 又挣了 。</p>
-                    <div class="featured-tags">#宏观 #市场 #产业 #交易</div>
-                    <div class="featured-actions">
-                      <a class="featured-source" href="https://xueqiu.com/7143769715/399251999" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>
-                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
-                      <button class="featured-delete" type="button">删除</button>
-                    </div>
-                    <div class="featured-original" data-featured-original="6aaW6aG1CuS4i+i9vUFwcArlj5HluJYKY2p3MTExCuWFs+azqDMK57KJ5LidMjAK5Y+R5biWCummlumhtQroh6rpgIkK6KGM5oOFCuWfuumHkQrnp4Hli58K5oiR55qE6LWE5LqnCuWIm+S9nOiAheS4reW/gwrmiJHnmoTmtojmga8K5Zue5aSNCkDmiJEK6LWeCuaIkeeahOeyieS4nQrns7vnu5/mtojmga8K56eB5L+hCuWGsOWGsOWwj+e+jgrlj5HluIPkuo4yMDI2LTA3LTA5IDEzOjQ1CuadpeiHqkFuZHJvaWQKwrcK5bm/5LicCueUn+awlOacieeUqOWQlwrjgIIK5pyJ55So55qECu+8jArmj5Dnuq/nsonkuJ0K44CCCueVmeS4i+adpeeahArvvIwK5rOo5a6a5Lya5oCd6ICD5oiR5Lmw5Y2WCuOAggrmtLvor6XmiJHmjKPpkrEK77yMCuWboOS4uuaIkeaYr+WkruWmiOeahOiEkeaui+eyiQrjgIIK5rCU5q275L2gCuOAggrlj4jmjKPkuoYK44CC" hidden>
-                      <pre></pre>
-                    </div>
-                  </div>
-                </article>
-                <article class="featured-card" data-featured-id="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/133200_下午Etf集体拉升_如果没有昨天央妈对下阶段流动性宽松表态_今年能有一次像样的反弹_我解读有利__39924795.md" data-featured-filters="macro,market,industry,trade">
-                  <span class="featured-time">13:32</span><span class="featured-dot"></span>
-                  <div class="featured-card-inner">
-                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
-                    <h3><a href="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/133200_下午Etf集体拉升_如果没有昨天央妈对下阶段流动性宽松表态_今年能有一次像样的反弹_我解读有利__39924795.md" target="_blank" rel="noopener noreferrer">下午Etf集体拉升。如果没有昨天央妈对下阶段流动性宽松表态。今年能有一次像样的反弹？我解读有利，但是我也不知道今天就有反... - 雪球</a></h3>
-                    <p>发布于2026-07-09 13:32 来自Android · 广东 下午Etf集体拉升 。 如果没有昨天央妈对下阶段流动性宽松表态 。 今年能有一次像样的反弹？ 我解读有利 ， 但是我也不知道今天就有反弹 。 流动性多杀多 ， 央妈救一手 。 还怪央妈？ 这是…</p>
-                    <div class="featured-tags">#宏观 #市场 #产业 #交易</div>
-                    <div class="featured-actions">
-                      <a class="featured-source" href="https://xueqiu.com/7143769715/399247953" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>
-                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
-                      <button class="featured-delete" type="button">删除</button>
-                    </div>
-                    <div class="featured-original" data-featured-original="6aaW6aG1CuS4i+i9vUFwcArlj5HluJYKY2p3MTExCuWFs+azqDMK57KJ5LidMjAK5Y+R5biWCummlumhtQroh6rpgIkK6KGM5oOFCuWfuumHkQrnp4Hli58K5oiR55qE6LWE5LqnCuWIm+S9nOiAheS4reW/gwrmiJHnmoTmtojmga8K5Zue5aSNCkDmiJEK6LWeCuaIkeeahOeyieS4nQrns7vnu5/mtojmga8K56eB5L+hCuWGsOWGsOWwj+e+jgrlj5HluIPkuo4yMDI2LTA3LTA5IDEzOjMyCuadpeiHqkFuZHJvaWQKwrcK5bm/5LicCuS4i+WNiEV0ZumbhuS9k+aLieWNhwrjgIIK5aaC5p6c5rKh5pyJ5pio5aSp5aSu5aaI5a+55LiL6Zi25q615rWB5Yqo5oCn5a695p2+6KGo5oCBCuOAggrku4rlubTog73mnInkuIDmrKHlg4/moLfnmoTlj43lvLnvvJ8K5oiR6Kej6K+75pyJ5YipCu+8jArkvYbmmK/miJHkuZ/kuI3nn6XpgZPku4rlpKnlsLHmnInlj43lvLkK44CCCua1geWKqOaAp+WkmuadgOWkmgrvvIwK5aSu5aaI5pWR5LiA5omLCuOAggrov5jmgKrlpK7lpojvvJ8K6L+Z5piv6IuP5ZGz77yfCuWeg+WcvuS6ugrvvIwK5oG25b+DCuOAggrkuI3lhbPlv4Plm73lrrYK77yMCuS5n+S4jeeIseWbvQrvvIwK6K+05Liq6Z+s5a6a5b6LCu+8jAropoHkvaDlkb0K44CCCua7muibiwrjgII=" hidden>
-                      <pre></pre>
-                    </div>
-                  </div>
-                </article>
-                <article class="featured-card" data-featured-id="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/132200_光和_东鹏饮料_跷跷板_我能决定_这不是量化吗_-_雪球_39924493.md" data-featured-filters="macro,market,industry,trade">
-                  <span class="featured-time">13:22</span><span class="featured-dot"></span>
-                  <div class="featured-card-inner">
-                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
-                    <h3><a href="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/132200_光和_东鹏饮料_跷跷板_我能决定_这不是量化吗_-_雪球_39924493.md" target="_blank" rel="noopener noreferrer">光和 东鹏饮料 ，跷跷板，我能决定？这不是量化吗？ - 雪球</a></h3>
-                    <p>发布于2026-07-09 13:22 来自Android · 广东 光和东鹏饮料 ， 跷跷板 ， 我能决定？ 这不是量化吗？</p>
-                    <div class="featured-tags">#宏观 #市场 #产业 #交易</div>
-                    <div class="featured-actions">
-                      <a class="featured-source" href="https://xueqiu.com/7143769715/399244932" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>
-                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
-                      <button class="featured-delete" type="button">删除</button>
-                    </div>
-                    <div class="featured-original" data-featured-original="6aaW6aG1CuS4i+i9vUFwcArlj5HluJYKY2p3MTExCuWFs+azqDMK57KJ5LidMjAK5Y+R5biWCummlumhtQroh6rpgIkK6KGM5oOFCuWfuumHkQrnp4Hli58K5oiR55qE6LWE5LqnCuWIm+S9nOiAheS4reW/gwrmiJHnmoTmtojmga8K5Zue5aSNCkDmiJEK6LWeCuaIkeeahOeyieS4nQrns7vnu5/mtojmga8K56eB5L+hCuWGsOWGsOWwj+e+jgrlj5HluIPkuo4yMDI2LTA3LTA5IDEzOjIyCuadpeiHqkFuZHJvaWQKwrcK5bm/5LicCuWFieWSjOS4nOm5j+mlruaWmQrvvIwK6Le36Le35p2/Cu+8jArmiJHog73lhrPlrprvvJ8K6L+Z5LiN5piv6YeP5YyW5ZCX77yf" hidden>
-                      <pre></pre>
-                    </div>
-                  </div>
-                </article>
-                <article class="featured-card" data-featured-id="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/132000_这涨的我能决定_-_雪球_39924443.md" data-featured-filters="macro,market,industry,trade">
-                  <span class="featured-time">13:20</span><span class="featured-dot"></span>
-                  <div class="featured-card-inner">
-                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
-                    <h3><a href="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/132000_这涨的我能决定_-_雪球_39924443.md" target="_blank" rel="noopener noreferrer">这涨的我能决定？ - 雪球</a></h3>
-                    <p>发布于2026-07-09 13:20 来自Android · 广东 这涨的我能决定？</p>
-                    <div class="featured-tags">#宏观 #市场 #产业 #交易</div>
-                    <div class="featured-actions">
-                      <a class="featured-source" href="https://xueqiu.com/7143769715/399244434" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>
-                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
-                      <button class="featured-delete" type="button">删除</button>
-                    </div>
-                    <div class="featured-original" data-featured-original="6aaW6aG1CuS4i+i9vUFwcArlj5HluJYKY2p3MTExCuWFs+azqDMK57KJ5LidMjAK5Y+R5biWCummlumhtQroh6rpgIkK6KGM5oOFCuWfuumHkQrnp4Hli58K5oiR55qE6LWE5LqnCuWIm+S9nOiAheS4reW/gwrmiJHnmoTmtojmga8K5Zue5aSNCkDmiJEK6LWeCuaIkeeahOeyieS4nQrns7vnu5/mtojmga8K56eB5L+hCuWGsOWGsOWwj+e+jgrlj5HluIPkuo4yMDI2LTA3LTA5IDEzOjIwCuadpeiHqkFuZHJvaWQKwrcK5bm/5LicCui/mea2qOeahOaIkeiDveWGs+Wumu+8nw==" hidden>
-                      <pre></pre>
-                    </div>
-                  </div>
-                </article>
-                <article class="featured-card" data-featured-id="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/113700_韩国独有_外资_北美机构为主_扎堆韩国买海力士股票_海力士飞升_北美上市_北美机构逃离韩国市场__39922467.md" data-featured-filters="macro,market,industry">
-                  <span class="featured-time">11:37</span><span class="featured-dot"></span>
-                  <div class="featured-card-inner">
-                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
-                    <h3><a href="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/113700_韩国独有_外资_北美机构为主_扎堆韩国买海力士股票_海力士飞升_北美上市_北美机构逃离韩国市场__39922467.md" target="_blank" rel="noopener noreferrer">韩国独有，外资（北美机构为主）扎堆韩国买海力士股票。海力士飞升。北美上市，北美机构逃离韩国市场，导致韩国海力士市值动荡，... - 雪球</a></h3>
-                    <p>发布于2026-07-09 11:37 来自Android · 广东 韩国独有 ， 外资（北美机构为主）扎堆韩国买海力士股票 。 海力士飞升 。 北美上市 ， 北美机构逃离韩国市场 ， 导致韩国海力士市值动荡 ， 资金搬家去北美市场 ， 北美机构+全球投资者 ，…</p>
-                    <div class="featured-tags">#宏观 #市场 #产业</div>
-                    <div class="featured-actions">
-                      <a class="featured-source" href="https://xueqiu.com/7143769715/399224670" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>
-                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
-                      <button class="featured-delete" type="button">删除</button>
-                    </div>
-                    <div class="featured-original" data-featured-original="6aaW6aG1CuS4i+i9vUFwcArlj5HluJYKY2p3MTExCuWFs+azqDMK57KJ5LidMjAK5Y+R5biWCummlumhtQroh6rpgIkK6KGM5oOFCuWfuumHkQrnp4Hli58K5oiR55qE6LWE5LqnCuWIm+S9nOiAheS4reW/gwrmiJHnmoTmtojmga8K5Zue5aSNCkDmiJEK6LWeCuaIkeeahOeyieS4nQrns7vnu5/mtojmga8K56eB5L+hCuWGsOWGsOWwj+e+jgrlj5HluIPkuo4yMDI2LTA3LTA5IDExOjM3CuadpeiHqkFuZHJvaWQKwrcK5bm/5LicCumfqeWbveeLrOaciQrvvIwK5aSW6LWE77yI5YyX576O5py65p6E5Li65Li777yJ5omO5aCG6Z+p5Zu95Lmw5rW35Yqb5aOr6IKh56WoCuOAggrmtbflipvlo6vpo57ljYcK44CCCuWMl+e+juS4iuW4ggrvvIwK5YyX576O5py65p6E6YCD56a76Z+p5Zu95biC5Zy6Cu+8jArlr7zoh7Tpn6nlm73mtbflipvlo6vluILlgLzliqjojaEK77yMCui1hOmHkeaQrOWutuWOu+WMl+e+juW4guWcugrvvIwK5YyX576O5py65p6EK+WFqOeQg+aKlei1hOiAhQrvvIwK6YeN5paw57uZ5rW35Yqb5aOr5a6a5Lu3CuOAggrljJfnvo7luILlnLpWU+mfqeWbveW4guWcugrvvIwK5a6a5Lu35p2D5LiN5LiA5qC3Cu+8jArluILlgLzlt67lvILkvJrkv67lpI3kv67lpI0K44CCCuWmguaenOWMl+e+juWumuS7t+S9jgrvvIwK6YKj5LmICu+8jArku47luILlnLrku73pop0K77yMCuebiOWIqeiDveWKm+eci+WcsOS9jQrvvIwK6L+Z5Lya5Y6L5Yi25YyF5ous576O5YWJ56eR5oqACu+8jArpl6rov6rlnKjlhoXnmoTlrZjlgqjkvLDlgLwK44CCCuWtmOWCqOS8sOWAvOS4i+mZjeKGkuWCqOWtmOaKlei1hOWPl+aNnwrvvIwK5Lya5b2x5ZON5Zuk6LSn562J6YeR6J6N6KGM5Li6CuOAggrmnYDph5Hono3ljJbmnaDmnYYK44CCCuWQjOatpQrvvIwK5a2Y5YKo5omp5byg4oaS5omp5byg6LaK5b+r4oaS57yT6Kej6K6i5Y2V5Y6L5Yqb4oaS5L6b6ZyA5bmz6KGh5YeP57yT4oaS5Lu35qC85Zue6JC94oaS5Lu35qC85o6o5Yqo55qE6aKE5pyf55uI5Yip5LiL6ZmN4oaS5biC5YC85pyq5p2l5aKe6ZW/6aKE5pyf5YeP5oWiCuOAgg==" hidden>
-                      <pre></pre>
-                    </div>
-                  </div>
-                </article>
-                <article class="featured-card" data-featured-id="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/110300_创业板_指数本月跌幅近-12_市场恐慌在所难免_但是如果6月末有清晰认识_轻仓度过_观察为主_现_39921104.md" data-featured-filters="macro,market,industry,trade">
-                  <span class="featured-time">11:03</span><span class="featured-dot"></span>
-                  <div class="featured-card-inner">
-                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
-                    <h3><a href="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/110300_创业板_指数本月跌幅近-12_市场恐慌在所难免_但是如果6月末有清晰认识_轻仓度过_观察为主_现_39921104.md" target="_blank" rel="noopener noreferrer">创业板 指数本月跌幅近-12%，市场恐慌在所难免。但是如果6月末有清晰认识，轻仓度过，观察为主，现在可能不那么后悔，今天... - 雪球</a></h3>
-                    <p>发布于2026-07-09 11:03 来自Android · 广东 创业板指数本月跌幅近-12% ， 市场恐慌在所难免 。 但是如果6月末有清晰认识 ， 轻仓度过 ， 观察为主 ， 现在可能不那么后悔 ， 今天才理解 ， 是为时已晚 ， 并且进退两难 。 处于…</p>
-                    <div class="featured-tags">#宏观 #市场 #产业 #交易</div>
-                    <div class="featured-actions">
-                      <a class="featured-source" href="https://xueqiu.com/7143769715/399211047" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>
-                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
-                      <button class="featured-delete" type="button">删除</button>
-                    </div>
-                    <div class="featured-original" data-featured-original="6aaW6aG1CuS4i+i9vUFwcArlj5HluJYKY2p3MTExCuWFs+azqDMK57KJ5LidMjAK5Y+R5biWCummlumhtQroh6rpgIkK6KGM5oOFCuWfuumHkQrnp4Hli58K5oiR55qE6LWE5LqnCuWIm+S9nOiAheS4reW/gwrmiJHnmoTmtojmga8K5Zue5aSNCkDmiJEK6LWeCuaIkeeahOeyieS4nQrns7vnu5/mtojmga8K56eB5L+hCuWGsOWGsOWwj+e+jgrlj5HluIPkuo4yMDI2LTA3LTA5IDExOjAzCuadpeiHqkFuZHJvaWQKwrcK5bm/5LicCuWIm+S4muadv+aMh+aVsOacrOaciOi3jOW5hei/kS0xMiUK77yMCuW4guWcuuaBkOaFjOWcqOaJgOmavuWFjQrjgIIK5L2G5piv5aaC5p6cNuaciOacq+aciea4heaZsOiupOivhgrvvIwK6L275LuT5bqm6L+HCu+8jArop4Llr5/kuLrkuLsK77yMCueOsOWcqOWPr+iDveS4jemCo+S5iOWQjuaClArvvIwK5LuK5aSp5omN55CG6KejCu+8jArmmK/kuLrml7blt7LmmZoK77yMCuW5tuS4lOi/m+mAgOS4pOmavgrjgIIK5aSE5LqO6L+Z56eN5oOF5Ya1Cu+8jArkuZ/lj6rog73mmK/mnJ/lvoXlnLrlpJbmlZHmj7QK44CCCumdoOWcuuWGheiHquWPkeS/ruWkjQrvvIwK6Zq+5bqm5p6B5aSnCuOAggrogIzlnLrlpJbmnIDph43opoHnmoTlsLHmmK/mnIjmnKt6emrnu4/mtY7kvJrorq4K44CCCumAhuaMh+aVsOebiOWIqeaYr+WwkeaVsOS6ugrvvIwK6aG65oyH5pWw55uI5Yip6Zq+5bqm6L6D5bCPCuOAggrnm67liY3nmoTlupTlr7kK77yMCuWFs+WFs+mavui/h+WFs+WFs+i/hwrjgIIK5LiL5LiA5Liq6Zq+5YWz5bCx5piv5rW35Yqb5aOr6JC95ZywCuOAggrlho3kuIvkuIDkuKrpmr7lhbPlsLHmmK/mnIjmnKvnsbPogZTlgqjkvJrorq7mmK/lkKbmgIHluqblj5jljaYK44CCCuebruWJjeWuj+ingua1geWKqOaAp+WPquiDvemdoOeMnOa1iwrvvIwK5Y6M5oG25LiN56Gu5a6a5oCnCu+8jArlm6DmraQK77yMCuW4guWcuuazouWKqOW3qOWkpwrjgIIK5Y+C5LiON+aciOW4guWcuuS6pOaYkwrvvIwK6ZyA6KaB6YeP5Yqb6ICM6KGMCuOAgg==" hidden>
-                      <pre></pre>
-                    </div>
-                  </div>
-                </article>
-                <article class="featured-card" data-featured-id="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/105400_其实看一眼光就知道为何指数下跌_高开低走_头也不回_然后继续带动指数下跌_持续性指数下跌_指数其_39920690.md" data-featured-filters="macro,market,industry,trade">
-                  <span class="featured-time">10:54</span><span class="featured-dot"></span>
-                  <div class="featured-card-inner">
-                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
-                    <h3><a href="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/105400_其实看一眼光就知道为何指数下跌_高开低走_头也不回_然后继续带动指数下跌_持续性指数下跌_指数其_39920690.md" target="_blank" rel="noopener noreferrer">其实看一眼光就知道为何指数下跌。高开低走，头也不回。然后继续带动指数下跌，持续性指数下跌，指数其他权重板块方向也会受影响... - 雪球</a></h3>
-                    <p>发布于2026-07-09 10:54 来自Android · 广东 其实看一眼光就知道为何指数下跌 。 高开低走 ， 头也不回 。 然后继续带动指数下跌 ， 持续性指数下跌 ， 指数其他权重板块方向也会受影响 。 （有可能就是这种连锁反应 ， 把锂电顺带带崩了…</p>
-                    <div class="featured-tags">#宏观 #市场 #产业 #交易</div>
-                    <div class="featured-actions">
-                      <a class="featured-source" href="https://xueqiu.com/7143769715/399206908" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>
-                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
-                      <button class="featured-delete" type="button">删除</button>
-                    </div>
-                    <div class="featured-original" data-featured-original="6aaW6aG1CuS4i+i9vUFwcArlj5HluJYKY2p3MTExCuWFs+azqDMK57KJ5LidMjAK5Y+R5biWCummlumhtQroh6rpgIkK6KGM5oOFCuWfuumHkQrnp4Hli58K5oiR55qE6LWE5LqnCuWIm+S9nOiAheS4reW/gwrmiJHnmoTmtojmga8K5Zue5aSNCkDmiJEK6LWeCuaIkeeahOeyieS4nQrns7vnu5/mtojmga8K56eB5L+hCuWGsOWGsOWwj+e+jgrlj5HluIPkuo4yMDI2LTA3LTA5IDEwOjU0CuadpeiHqkFuZHJvaWQKwrcK5bm/5LicCuWFtuWunueci+S4gOecvOWFieWwseefpemBk+S4uuS9leaMh+aVsOS4i+i3jArjgIIK6auY5byA5L2O6LWwCu+8jArlpLTkuZ/kuI3lm54K44CCCueEtuWQjue7p+e7reW4puWKqOaMh+aVsOS4i+i3jArvvIwK5oyB57ut5oCn5oyH5pWw5LiL6LeMCu+8jArmjIfmlbDlhbbku5bmnYPph43mnb/lnZfmlrnlkJHkuZ/kvJrlj5flvbHlk40K44CCCu+8iOacieWPr+iDveWwseaYr+i/meenjei/numUgeWPjeW6lArvvIwK5oqK6ZSC55S16aG65bim5bim5bSp5LqG77yJCuWboOatpArvvIwK5a6P6KeC6aOO6Zmp5Yiw5biC5Zy65oGQ5oWMCu+8jArlrrnmmJPlvaLmiJDlpJrmnYDlpJrouKnouI8K44CCCuWfuumHkei1juWbnuS5n+S8muiuqeW4guWcuuaJv+aOpeaXoOWKmwrjgII=" hidden>
-                      <pre></pre>
-                    </div>
-                  </div>
-                </article>
-                <article class="featured-card" data-featured-id="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/104900_除韬与少数细分方向上涨_其他方向几乎不讲逻辑_泥沙俱下_最近发帖解释过_帖子很多_核心是_宏观风_39920405.md" data-featured-filters="macro,market,industry,trade">
-                  <span class="featured-time">10:49</span><span class="featured-dot"></span>
-                  <div class="featured-card-inner">
-                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
-                    <h3><a href="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/104900_除韬与少数细分方向上涨_其他方向几乎不讲逻辑_泥沙俱下_最近发帖解释过_帖子很多_核心是_宏观风_39920405.md" target="_blank" rel="noopener noreferrer">除韬与少数细分方向上涨，其他方向几乎不讲逻辑，泥沙俱下，最近发帖解释过，帖子很多。核心是，宏观风险并没有解除。并且昨日，... - 雪球</a></h3>
-                    <p>发布于2026-07-09 10:49 来自Android · 广东 除韬与少数细分方向上涨 ， 其他方向几乎不讲逻辑 ， 泥沙俱下 ， 最近发帖解释过 ， 帖子很多 。 核心是 ， 宏观风险并没有解除 。 并且昨日 ， 宏观各种不利数据 ， 反而增加 。 今日…</p>
-                    <div class="featured-tags">#宏观 #市场 #产业 #交易</div>
-                    <div class="featured-actions">
-                      <a class="featured-source" href="https://xueqiu.com/7143769715/399204052" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>
-                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
-                      <button class="featured-delete" type="button">删除</button>
-                    </div>
-                    <div class="featured-original" data-featured-original="6aaW6aG1CuS4i+i9vUFwcArlj5HluJYKY2p3MTExCuWFs+azqDMK57KJ5LidMjAK5Y+R5biWCummlumhtQroh6rpgIkK6KGM5oOFCuWfuumHkQrnp4Hli58K5oiR55qE6LWE5LqnCuWIm+S9nOiAheS4reW/gwrmiJHnmoTmtojmga8K5Zue5aSNCkDmiJEK6LWeCuaIkeeahOeyieS4nQrns7vnu5/mtojmga8K56eB5L+hCuWGsOWGsOWwj+e+jgrlj5HluIPkuo4yMDI2LTA3LTA5IDEwOjQ5CuadpeiHqkFuZHJvaWQKwrcK5bm/5LicCumZpOmfrOS4juWwkeaVsOe7huWIhuaWueWQkeS4iua2qArvvIwK5YW25LuW5pa55ZCR5Yeg5LmO5LiN6K6y6YC76L6RCu+8jArms6Xmspnkv7HkuIsK77yMCuacgOi/keWPkeW4luino+mHiui/hwrvvIwK5biW5a2Q5b6I5aSaCuOAggrmoLjlv4PmmK8K77yMCuWuj+ingumjjumZqeW5tuayoeacieino+mZpArjgIIK5bm25LiU5pio5pelCu+8jArlro/op4LlkITnp43kuI3liKnmlbDmja4K77yMCuWPjeiAjOWinuWKoArjgIIK5LuK5pel6auY5byA5Y6f5Zug77yI5pyq55+l77yJCu+8jArkvYbmmK/mjqnnm5bkuobov5nnp43kuI3liKkK44CCCuW9k+W4guWcuumHjeWbngrvvIwK6Z2e55CG5oCn54q25Ya15LiLCu+8jArlnKjor7jlpJrkuI3noa7lrprmgKfmsqHmnInop6PpmaTliY0K77yMCuS4quiCoeazouWKqOW8guW4uArvvIwK56qB5aaC5YW25p2l55qE5oyB57ut5oCn5LiL6LeMCu+8jArlj6rog73op6Pph4rkuLrlro/op4Lpo47pmankuIsK77yMCua1geWKqOaAp+WkmuadgOWkmuaKoui3kQrjgIIK5Zug5q2kCu+8jArop6Pph4rkuKrogqHmtqjot4zmr6vml6DmhI/kuYkK44CC" hidden>
-                      <pre></pre>
-                    </div>
-                  </div>
-                </article>
-                <article class="featured-card" data-featured-id="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/103800_国外链依旧是高开低走_依旧是风险聚集地_国产线_财政扩张_产业规划_央行宽松定向支持_目前为数不_39919864.md" data-featured-filters="macro,market,industry,trade">
-                  <span class="featured-time">10:38</span><span class="featured-dot"></span>
-                  <div class="featured-card-inner">
-                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
-                    <h3><a href="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/103800_国外链依旧是高开低走_依旧是风险聚集地_国产线_财政扩张_产业规划_央行宽松定向支持_目前为数不_39919864.md" target="_blank" rel="noopener noreferrer">国外链依旧是高开低走，依旧是风险聚集地。国产线，财政扩张→产业规划→央行宽松定向支持。(目前为数不多还能涨点的方向，但是... - 雪球</a></h3>
-                    <p>发布于2026-07-09 10:38 来自Android · 广东 国外链依旧是高开低走 ， 依旧是风险聚集地 。 国产线 ， 财政扩张→产业规划→央行宽松定向支持 。 (目前为数不多还能涨点的方向 ， 但是能涨多久 ， 未知） 老登白酒 ， 依旧死气沉沉 。…</p>
-                    <div class="featured-tags">#宏观 #市场 #产业 #交易</div>
-                    <div class="featured-actions">
-                      <a class="featured-source" href="https://xueqiu.com/7143769715/399198641" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>
-                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
-                      <button class="featured-delete" type="button">删除</button>
-                    </div>
-                    <div class="featured-original" data-featured-original="6aaW6aG1CuS4i+i9vUFwcArlj5HluJYKY2p3MTExCuWFs+azqDMK57KJ5LidMjAK5Y+R5biWCummlumhtQroh6rpgIkK6KGM5oOFCuWfuumHkQrnp4Hli58K5oiR55qE6LWE5LqnCuWIm+S9nOiAheS4reW/gwrmiJHnmoTmtojmga8K5Zue5aSNCkDmiJEK6LWeCuaIkeeahOeyieS4nQrns7vnu5/mtojmga8K56eB5L+hCuWGsOWGsOWwj+e+jgrlj5HluIPkuo4yMDI2LTA3LTA5IDEwOjM4CuadpeiHqkFuZHJvaWQKwrcK5bm/5LicCuWbveWklumTvuS+neaXp+aYr+mrmOW8gOS9jui1sArvvIwK5L6d5pen5piv6aOO6Zmp6IGa6ZuG5ZywCuOAggrlm73kuqfnur8K77yMCui0ouaUv+aJqeW8oOKGkuS6p+S4muinhOWIkuKGkuWkruihjOWuveadvuWumuWQkeaUr+aMgQrjgIIKKOebruWJjeS4uuaVsOS4jeWkmui/mOiDvea2qOeCueeahOaWueWQkQrvvIwK5L2G5piv6IO95rao5aSa5LmFCu+8jArmnKrnn6XvvIkK6ICB55m755m96YWSCu+8jArkvp3ml6fmrbvmsJTmsonmsokK44CCCuebmOmdouWSjOaYqOWkqeayoeWMuuWIqwrjgII=" hidden>
-                      <pre></pre>
-                    </div>
-                  </div>
-                </article>
-                <article class="featured-card" data-featured-id="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/103100_由衷希望高质量发展转型成功_交割单_非推荐_仅个人交易理解_-_雪球_39919535.md" data-featured-filters="macro,market,industry,trade">
-                  <span class="featured-time">10:31</span><span class="featured-dot"></span>
-                  <div class="featured-card-inner">
-                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
-                    <h3><a href="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/103100_由衷希望高质量发展转型成功_交割单_非推荐_仅个人交易理解_-_雪球_39919535.md" target="_blank" rel="noopener noreferrer">由衷希望高质量发展转型成功。交割单，非推荐。仅个人交易理解。 - 雪球</a></h3>
-                    <p>发布于2026-07-09 10:31 来自Android · 广东 由衷希望高质量发展转型成功 。 交割单 ， 非推荐 。 仅个人交易理解 。</p>
-                    <div class="featured-tags">#宏观 #市场 #产业 #交易</div>
-                    <div class="featured-actions">
-                      <a class="featured-source" href="https://xueqiu.com/7143769715/399195356" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>
-                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
-                      <button class="featured-delete" type="button">删除</button>
-                    </div>
-                    <div class="featured-original" data-featured-original="6aaW6aG1CuS4i+i9vUFwcArlj5HluJYKY2p3MTExCuWFs+azqDMK57KJ5LidMjAK5Y+R5biWCummlumhtQroh6rpgIkK6KGM5oOFCuWfuumHkQrnp4Hli58K5oiR55qE6LWE5LqnCuWIm+S9nOiAheS4reW/gwrmiJHnmoTmtojmga8K5Zue5aSNCkDmiJEK6LWeCuaIkeeahOeyieS4nQrns7vnu5/mtojmga8K56eB5L+hCuWGsOWGsOWwj+e+jgrlj5HluIPkuo4yMDI2LTA3LTA5IDEwOjMxCuadpeiHqkFuZHJvaWQKwrcK5bm/5LicCueUseiht+W4jOacm+mrmOi0qOmHj+WPkeWxlei9rOWei+aIkOWKnwrjgIIK5Lqk5Ymy5Y2VCu+8jArpnZ7mjqjojZAK44CCCuS7heS4quS6uuS6pOaYk+eQhuinowrjgII=" hidden>
-                      <pre></pre>
-                    </div>
-                  </div>
-                </article>
-                <article class="featured-card" data-featured-id="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/102600_收拾心情_重新出发_市场依旧是围绕韬定律_芯片设计_制程制造_高端封测_推动上涨_信息_长鑫科技_39919324.md" data-featured-filters="macro,market,industry">
-                  <span class="featured-time">10:26</span><span class="featured-dot"></span>
-                  <div class="featured-card-inner">
-                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
-                    <h3><a href="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/102600_收拾心情_重新出发_市场依旧是围绕韬定律_芯片设计_制程制造_高端封测_推动上涨_信息_长鑫科技_39919324.md" target="_blank" rel="noopener noreferrer">收拾心情，重新出发。市场依旧是围绕韬定律→芯片设计+制程制造+高端封测，推动上涨。信息，长鑫科技Ipo+流动性宽松推动。... - 雪球</a></h3>
-                    <p>发布于2026-07-09 10:26 来自Android · 广东 收拾心情 ， 重新出发 。 市场依旧是围绕韬定律→ 芯片设计+制程制造+高端封测 ， 推动上涨 。 信息 ， 长鑫科技Ipo+流动性宽松推动 。 交换机方向 ， 浪潮信息充分博弈 ， 百亿成交…</p>
-                    <div class="featured-tags">#宏观 #市场 #产业</div>
-                    <div class="featured-actions">
-                      <a class="featured-source" href="https://xueqiu.com/7143769715/399193241" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>
-                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
-                      <button class="featured-delete" type="button">删除</button>
-                    </div>
-                    <div class="featured-original" data-featured-original="6aaW6aG1CuS4i+i9vUFwcArlj5HluJYKY2p3MTExCuWFs+azqDMK57KJ5LidMjAK5Y+R5biWCummlumhtQroh6rpgIkK6KGM5oOFCuWfuumHkQrnp4Hli58K5oiR55qE6LWE5LqnCuWIm+S9nOiAheS4reW/gwrmiJHnmoTmtojmga8K5Zue5aSNCkDmiJEK6LWeCuaIkeeahOeyieS4nQrns7vnu5/mtojmga8K56eB5L+hCuWGsOWGsOWwj+e+jgrlj5HluIPkuo4yMDI2LTA3LTA5IDEwOjI2CuadpeiHqkFuZHJvaWQKwrcK5bm/5LicCuaUtuaLvuW/g+aDhQrvvIwK6YeN5paw5Ye65Y+RCuOAggrluILlnLrkvp3ml6fmmK/lm7Tnu5Xpn6zlrprlvovihpIK6Iqv54mH6K6+6K6hK+WItueoi+WItumAoCvpq5jnq6/lsIHmtYsK77yMCuaOqOWKqOS4iua2qArjgIIK5L+h5oGvCu+8jArplb/pkavnp5HmioBJcG8r5rWB5Yqo5oCn5a695p2+5o6o5YqoCuOAggrkuqTmjaLmnLrmlrnlkJEK77yMCua1qua9ruS/oeaBr+WFheWIhuWNmuW8iArvvIwK55m+5Lq/5oiQ5LqkCu+8jArliIbmrafkuK0K77yMCumcgOimgeeci+WQjue7reaOqOi/mwrjgIIK5rGf5reu5Lia57up5oqr6Zyy5ZCOCu+8jArluILlgLzku4XlrZjpq5jnq6/osarljY7ovabkvLDlgLwK44CCCuaPkOWJjeiDjOWQjuiuoeS7twrvvIwK6Z2e6LGq5Y2O5Lyw5YC8Cu+8jArln7rmnKzmjInnoLTlh4DorqHku7cK44CCCuWboOatpArvvIwKNuaciOixquWNjui9pjUwMCvplIDllK7ph48K77yMCuWPr+iDveaYr+mUgOWUrumHj+S9jueCuQrjgIIK5ZCO57ut5rao6LeM6YeN5paw5oyJ6LGq5Y2O6L2m6ZSA5ZSu6YeP5rOi5YqoCuOAggrpq5jluqbliJnpnIDopoHnnIvplIDllK7ph4/lop7pgJ8K77yMCuWinumAn+ebruWJjeaXoOazlemihOa1iwrvvIwK5aaC5p6c5oyJ5bm06ZSA5ZSu55uu5qCH55yLCu+8jArku4rlubTkuIvljYrlubTplIDllK7ku7vliqHoibDlt6gK44CCCuS4i+WNiuW5tG1wdivlsIrkuozmrL7lkIzmraXorqHlhaXplIDllK7ph48K77yMCuimgeaJreS6j+S4uuebiArvvIwK6ZyA6KaB5pu05aSa5Yqq5YqbCuOAggrluIzmnJvotormnaXotorlpb0K77yMCui2iuWNlui2iuWlvQrjgIIK5L2G5piv6ZSA5ZSu6YePCu+8jArkuZ/kuI3mmK/miJHog73pooTmtYvnmoQK44CCCuaxn+a3ruaxvei9puWmguaenOiDveWkn+W/q+mAn+WJlOmZpOS6j+aNn+S4muWKoQrvvIwK5pyA5aW95omT5YyF5Ye65ZSuCu+8jArpgqPovazlnovnmoTprYTlipvlsLHmm7TlvLrkuoYK44CC" hidden>
-                      <pre></pre>
-                    </div>
-                  </div>
-                </article>
-                <article class="featured-card" data-featured-id="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/071800_江淮汽车_发布业绩预告_业绩依旧亏钱_扣非净利润亏损扩大_6-25新车mpv预定开始_还没有交付_39915030.md" data-featured-filters="macro,market,industry,trade">
-                  <span class="featured-time">07:18</span><span class="featured-dot"></span>
-                  <div class="featured-card-inner">
-                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
-                    <h3><a href="../../sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/071800_江淮汽车_发布业绩预告_业绩依旧亏钱_扣非净利润亏损扩大_6-25新车mpv预定开始_还没有交付_39915030.md" target="_blank" rel="noopener noreferrer">江淮汽车 ，发布业绩预告，业绩依旧亏钱，扣非净利润亏损扩大。6-25新车mpv预定开始，还没有交付。因此当前业绩反应的是... - 雪球</a></h3>
-                    <p>发布于2026-07-09 07:18 来自Android · 广东 江淮汽车 ， 发布业绩预告 ， 业绩依旧亏钱 ， 扣非净利润亏损扩大 。 6-25新车mpv预定开始 ， 还没有交付 。 因此当前业绩反应的是尊界与转型阵痛 。 这是一笔坑人的作业 ， 对不起…</p>
-                    <div class="featured-tags">#宏观 #市场 #产业 #交易</div>
-                    <div class="featured-actions">
-                      <a class="featured-source" href="https://xueqiu.com/7143769715/399150304" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>
-                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
-                      <button class="featured-delete" type="button">删除</button>
-                    </div>
-                    <div class="featured-original" data-featured-original="6aaW6aG1CuS4i+i9vUFwcArlj5HluJYKY2p3MTExCuWFs+azqDMK57KJ5LidMjAK5Y+R5biWCummlumhtQroh6rpgIkK6KGM5oOFCuWfuumHkQrnp4Hli58K5oiR55qE6LWE5LqnCuWIm+S9nOiAheS4reW/gwrmiJHnmoTmtojmga8K5Zue5aSNCkDmiJEK6LWeCuaIkeeahOeyieS4nQrns7vnu5/mtojmga8K56eB5L+hCuWGsOWGsOWwj+e+jgrlj5HluIPkuo4yMDI2LTA3LTA5IDA3OjE4CuadpeiHqkFuZHJvaWQKwrcK5bm/5LicCuaxn+a3ruaxvei9pgrvvIwK5Y+R5biD5Lia57up6aKE5ZGKCu+8jArkuJrnu6nkvp3ml6fkuo/pkrEK77yMCuaJo+mdnuWHgOWIqea2puS6j+aNn+aJqeWkpwrjgIIKNi0yNeaWsOi9pm1wdumihOWumuW8gOWniwrvvIwK6L+Y5rKh5pyJ5Lqk5LuYCuOAggrlm6DmraTlvZPliY3kuJrnu6nlj43lupTnmoTmmK/lsIrnlYzkuI7ovazlnovpmLXnl5sK44CCCui/meaYr+S4gOeslOWdkeS6uueahOS9nOS4mgrvvIwK5a+55LiN6LW3CuOAggrljp/lm6DmmK/nlLHkuo7lr7k1LzbmnIjlsIrplIDllK7ph4/mlbDmja7ot5/ouKrkuI3otrMK77yMCuayoeacieaEj+ivhuWIsOaWsOi9puWei+mcgOimgeWwiuS6p+e6v+iuqeatpeaDheWGtQrvvIwK5rKh5pyJ5Y+K5pe25o+Q6YaS5q2i5o2fCu+8jArov53og4zlvZPliJ0ydy/lubTplIDllK7ph4/vvIgyMDI25LiK5Y2K5bm05YWxNzE4Nei+hgrvvIwK5oyJ55uu5YmN6ZSA5ZSu6YeP6L+b5bqm5LiL5Y2K5bm05Lqk5LuY5Y6L5Yqb6L+H5aSn6ICM5oKy6KeC77yJCu+8jArnm67moIcxMDAwLTE2MDDluILlgLzliKTmlq0K77yMCuayoeacieWPiuaXtuabtOaWsOebuOWFs+WGheWuueW5tuiwg+aVtOW6lee6v+W4guWAvOWIpOaWreiAjOaMgeS7k+S6j+aNnwrjgIIK5bCK55WM6Ieq5LiK5biC5Lul5p2lCu+8jArkuqTku5jph4/mlbDmja46CjIwMjXlubQ45pyI77yaMSwwMDbovoYK77yMCuKGkQoyMDI15bm0OeaciO+8mjEsODk26L6GCu+8jArihpEKMjAyNeW5tDEw5pyI77yaMSw5NzDovoYK77yMCuKGkQoyMDI15bm0MTHmnIjvvJoyLDIwNei+hgrvvIwK4oaRCjIwMjXlubQxMuaciO+8mjQsMjIz6L6GCu+8jArihpHihpEKMjAyNuW5tDHmnIjvvJoyLDc5OOi+hgrvvIwK4oaTCjIwMjblubQy5pyI77yaOTIy6L6G77yI5pil6IqC77yJCu+8jArihpMKMjAyNuW5tDPmnIjvvJo3ODPovoYK77yMCuKGkwoyMDI25bm0NOaciO+8mjEsMTQ36L6GCu+8jArkuIoKMjAyNuW5tDXmnIjvvJo5MzjovoYK77yMCu+8iOS4um1wduiuqeatpQrvvIwK5ouQ54K577yJ4oaTCjIwMjblubQ25pyI77yaNTk36L6GCu+8jArihpPihpMK5LiACu+8jAoyMDIzLTEyLTAxCu+8jArmsZ/mt67lhazlkYrkuI7ljY7kuLrnu4jnq6/nrb7nvbLjgIrmmbrog73mlrDog73mupDmsb3ovablkIjkvZzljY/orq7jgIsK44CCCuiCoeS7t++8mjE3LjI1Cu+8jArihpEK5LqMCu+8jAoyMDI0LTA3LTE1Cu+8jArpppbmrKHlrpjlrqPlkIjkvZzlk4HniYzlrprlkI3lsIrnlYwK44CCCuiCoeS7t++8mjE5LjEzCu+8jArihpEK5LiJCu+8jAoyMDI0LTExLTI2Cu+8jArlsIrnlYxTODAw5ZyoTWF0Zeebm+WFuOmmluWPkQrvvIwK5byA5ZCv6aKE6K6iCuOAggrogqHku7fvvJozNy4xOQrvvIwK4oaRCuWbmwrvvIwKMjAyNC0xMi0xNgrvvIwK5bCK55WM6LaF57qn5bel5Y6C5q2j5byP6JC95oiQCuOAggrogqHku7fvvJozNi44OQrvvIwK4oaTCuS6lArvvIwKMjAyNS0wNS0zMArvvIwK5bCK55WMUzgwMOato+W8j+S4iuW4ggrjgIIK6IKh5Lu377yaMzguMwrvvIwK4oaRCu+8iOaguOW/g+aXtumXtOeCuQrvvIwKMjAyNS01LTIw5Yaw5Yaw5bCP576OCu+8jAozNuWFg+aOqOiNkOS5sOWFpeaxn+a3ruaxvei9pgrjgIIK5oq85rOo5paw6L2m6L2s5Z6L5oiQ5Yqf77yJCuWFrQrvvIwKMjAyNS0wNi0zMArvvIwK5LiK5biC6aaW5pyI5aSn5a6aNjUwMOWPsArjgIIK6IKh5Lu377yaNDAuMDkK77yMCuKGkQrkuIMK77yMCjIwMjUtMDgtMjUK77yMCuS4iuW4gjg35aSp5aSn5a6aMTIwMDDlj7AK44CCCuiCoeS7t++8mjUyLjQ4Cu+8jArihpEK77yI5qC45b+D5pe26Ze054K5Cu+8jArlhrDlhrDlsI/nvo4yMDI1LTjmnIjliLA55pyICu+8jArogqHku7fotoXov4c1MOWFgwrvvIwK5bm25ZyoNTTlhYPlh4/ku5PkuIDljYoK44CCCuW5tuaPkOekuuS4jeimgei2hei/hzUw5Lul5LiK6LSt5Lmw5rGf5reu5rG96L2m44CC77yJCuWFqwrvvIwKMjAyNS0xMi0xNgrvvIwK5bCK55WMUzgwMOesrDEwMDAw5Y+w5pW06L2m5LiL57q/CuOAggrogqHku7fvvJo0Ny4zNQrvvIwK4oaTCu+8iOaguOW/g+aXtumXtOeCuQrvvIwKMjAyNi0x5pyILTXmnIjlhrDlhrDlsI/nvo7mrbvlrogxMDAw5Lq/5biC5YC8Cu+8jArljbM0N+WFg+W3puWPswrjgIIK5pyf5b6F5paw6L2m5Y+R5biDCuOAggrov5nph4zmoLjlv4Pmrbvlrojljp/lm6AK77yMCuebuOS/oeaxn+a3ruaxvei9puWwiuW5tOmUgOWUrumHjzJ3L+W5tArvvIwK6YKj5LmI5Lyw5YC85Y+v5Lul57u05oyBMTAwMC0xNjAw5Lq/Cu+8jArljbPmr4/mnIjlubPlnYcxNjAw6L6G77yJCuOAggrkuZ0K77yMCjIwMjYtNC0zCu+8jArmsZ/mt67msb3ovablj5HluIPlubTmiqUK44CCCu+8iOaxn+a3ruWkp+S8l+Wkp+W5heW6puS6j+aNn+e7p+e7reaLlue0r+ebiOWIqei9rOatowrvvIwK6L2s5Z6L6Zi155eb77yJCu+8jArogqHku7c6IDQ0LjUz5YWD4oaTCuWNgQrvvIwKMjAyNi00LTI2Cu+8jArkvZnnrKzkuIDmrKHpgI/pnLLmlrDovablnottcHbpooTlrprml7bpl7TlnKg25pyICu+8jArlubbkuJTlo7Dnp7Dku7fmoLzlnKgxNTAtMjAwd+WMuumXtArjgIIK6IKh5Lu3OjQ4Ljk05YWDCu+8jArihpHvvIjlr7nkuo7mlrDovabnmoTmnJ/lvoXvvIkK5Y2B5LiACu+8jAoyMDI2LTYtMjUK77yMCm1wdumihOWumuW8gOWQrwrjgIIK6IKh5Lu3OjI4LjgK77yMCuKGk+KGk+KGkwrvvIjmoLjlv4Pljp/lm6DlnKjkuo7lsIrmnIg1LzbmnIjplIDllK7ph4/lv6vpgJ/kuIvmu5EK77yMCue7n+iuoeWxgDXmnIjmlbDmja7kuZ/mmL7npLrlh7rmsb3ovabooYzkuJotMjAl5LiL5ruRCu+8jAroh6o15pyI5Yid5byA5aeLCu+8jArogqHku7fmjIHnu63mgKfkuIvot4wK77yMCuihjOS4muWfuuacrOmdouaBtuWMluWvvOiHtArvvIwK5Y6f5Lul5Li66LGq5Y2O6L+c56a75YaF5Y235Lu35qC85Yy66Ze05Y+v5Lul6KeE6YG/5LiA5a6a5LiL6LeMCu+8jArlrp7pmYXkuIrlkIzmoLfplIDllK7ph4/mlbDmja7lkIzmoLfkuIvot4wK77yMCui/meaYr+aIkeWIpOaWremUmeivr+eahOaguea6kArvvIwK5a+55YaF5Y2356qB5Zu055qE6L+H5LqO6Ieq5L+h44CC77yJCuWNgeS6jArvvIwKMjAyNi03LTgK77yMCjIwMjblubTkuIrljYrlubTkuJrnu6npooTlkYoK44CCCuayoeacieaJreS6j+S4uuebiArvvIwK5L6d5pen5LqP5o2fCuOAggrmiaPpnZ7kuo/mjZ/mianlpKfov5E4JQrjgIIK5qC45b+D5LqP5o2f5p2l5rqQ5LqO77yI6JCl6ZSAK+WOn+adkOaWmeeahOWPjOaIkOacrOS4iuWNhyvmsYflhZHmjZ/lpLHvvIkK44CCCuiCoeS7t+Wkp+W5heW6puS4i+i3jOWOn+WboArvvIwK6Z2e6LGq5Y2O5rG96L2m5Lyw5YC85b2S6Zu2Cu+8jArmjInotJ/otYTkuqfkvLDlgLwK77yMCuW4guWHgOeOh+W/q+mAn+S4i+mZjQrjgIIK6LGq5Y2O5rG96L2m5YiZ5oyJ6ZSA5ZSu6YeP5LiL5ruRCu+8jArov57nu63kuInmnIjkuIvmu5EK77yMCuS7juaIkOmVv+aAp+i9rOS4uuWRqOacn+aAp+S8sOWAvArvvIwK6LWE5Lqn5Lu35qC85aSn5bmF5bqm57yp5rC0CuOAggrogqHku7fkuIvot4zpgJ/luqbliJnnlLE15pyINuaciEvlnovliIbljJbnmoTluILlnLrog4zmma8K77yMCuWPoOWKoOeroOWHj+aMgQrvvIwK5b2i5oiQ5YW45Z6L5rWB5Yqo5oCn5oyk5Y6LCu+8jArljZXovrnlv6vpgJ/kuIvot4wK44CCCuiCoeS7tzoyMi4yMwrvvIwK4oaT4oaTCuOAggrkuovlt7Loh7PmraQK77yMCuaAneiAg+acquadpQrvvIwK5rGf5reu5rG96L2m6L2s5Z6L5L6d5pen5piv5piv6Zi155ebCu+8jArmnKrmnaXlh7rot6/kvp3ml6fmmK/lpoLkvZXlsIbosarljY7lk4HniYznmoTmlYXkuovorrLkuIvljrsK77yMCuW5tuS4lOaKiuWTgeeJjOaVheS6i+i9rOS4uuebiOWIqeWIqea2pgrjgIIK5b2T5LiL5Zuw5aKD5pivCu+8jArlrprlop7ojrflvpfkuobkuIDlrprotYTph5HmlK/mjIEK77yMCuS9huaYr+ebiOWIqei/n+i/n+aXoOazlei9rOatowrvvIwK6L+f5pep6Z2i5Li0546w6YeR5rWB6Zeu6aKYCu+8jArlpoLkvZXmia3ovazmipXotYTkurrkv6Hlv4MK77yMCumcgOimgeWBmuabtOWkmuWKquWKmwrjgII=" hidden>
-                      <pre></pre>
-                    </div>
-                  </div>
-                </article>
-                </div>
-              </div>
-            </details>
             <p class="featured-empty-results" hidden>没有匹配的精选条目。</p>
           </div>
         </div>
@@ -3870,10 +3757,18 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
           </form>
           <button class="button-secondary fugui-panel-open" id="fugui-panel-open" type="button" aria-controls="fugui-strategy-form" hidden>打开面板</button>
           <div class="fugui-table-wrap panel">
+            <div class="fugui-table-head">
+              <div><p class="eyebrow">WATCHLIST</p><h3>跟踪清单</h3></div>
+              <div class="tracker-filter" id="fugui-filter" aria-label="富贵策略达标筛选">
+                <button class="is-active" type="button" data-fugui-filter="all" aria-pressed="true">全部</button>
+                <button type="button" data-fugui-filter="passed" aria-pressed="false">达标</button>
+                <button type="button" data-fugui-filter="failed" aria-pressed="false">未达标</button>
+              </div>
+            </div>
             <table class="fugui-table">
-              <thead><tr><th>行业</th><th>标的</th><th>市值</th><th>股息率</th><th>是否达标</th></tr></thead>
+              <thead><tr><th>行业</th><th>标的</th><th><button class="table-sort-button" type="button" id="fugui-sort-ttm" aria-pressed="false" aria-label="按TTM股息率排序">TTM股息率</button></th><th>预期股息率</th><th>价值锚</th><th>是否达标</th><th>操作</th></tr></thead>
               <tbody id="fugui-strategy-body">
-                <tr><td>待补充</td><td>待补充</td><td>待补充</td><td>待补充</td><td>待补充</td></tr>
+                <tr><td>待补充</td><td>待补充</td><td>待补充</td><td>待补充</td><td>待补充</td><td>待补充</td><td>—</td></tr>
               </tbody>
             </table>
           </div>
@@ -3933,12 +3828,6 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                 <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E5%AF%B9%E5%B7%A6%E4%BE%A7%E4%BA%A4%E6%98%93%E7%9A%84%E7%90%86%E8%A7%A3.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="bbxm">
-                <div class="topic-card-meta"><span>冰冰小美</span><span>2026-07-17</span></div>
-                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E9%A3%8E%E9%99%A9%E6%8F%90%E7%A4%BA%E7%B3%BB%E5%88%97.md" target="_blank" rel="noopener noreferrer">冰冰小美-风险提示系列</a></h3>
-                <p>聚合冰冰小美关于风险节点、危机经验、波动风险、流动性挤压、仓位控制和风险转弱观察的文章、观点页与推导页，作为后续整理风险提示材料的入口。</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E9%A3%8E%E9%99%A9%E6%8F%90%E7%A4%BA%E7%B3%BB%E5%88%97.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
-              </article>
-              <article class="topic-card" data-topic-category="bbxm">
                 <div class="topic-card-meta"><span>冰冰小美</span><span>2026-07-01</span></div>
                 <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E8%A7%82%E6%B5%8B%E6%8C%87%E6%A0%87.md" target="_blank" rel="noopener noreferrer">冰冰小美-观测指标</a></h3>
                 <p>聚合冰冰小美体系中可反复观察的宏观全球指标、中观央行指标和微观企业指标，作为从全球价格信号、政策流动性、企业经营验证到交易前过滤的指标地图。</p>
@@ -3985,6 +3874,12 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                 <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E6%83%85%E7%BB%AA%E4%BD%93%E7%B3%BB%E6%93%8D%E4%BD%9C%E7%AF%87.md" target="_blank" rel="noopener noreferrer">冰冰小美-情绪体系交易系列</a></h3>
                 <p>聚合冰冰小美情绪体系交易系列中关于分仓、借势、等待、买卖、空仓、交割单、容忍度、冰点转势、围魏救赵、竞争定位、挡刀和执行者状态的既有页面。</p>
                 <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E6%83%85%E7%BB%AA%E4%BD%93%E7%B3%BB%E6%93%8D%E4%BD%9C%E7%AF%87.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+              </article>
+              <article class="topic-card" data-topic-category="bbxm">
+                <div class="topic-card-meta"><span>冰冰小美</span><span>2026-08-04</span></div>
+                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E8%B0%88%E9%A3%8E%E9%99%A9.md" target="_blank" rel="noopener noreferrer">冰冰小美-谈风险</a></h3>
+                <p>聚合冰冰小美关于风险定义、风险节点、危机经验、波动风险、流动性挤压、仓位控制和风险转弱观察的文章、观点页与推导页，作为理解其风险框架的入口。</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E8%B0%88%E9%A3%8E%E9%99%A9.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="bbxm">
                 <div class="topic-card-meta"><span>冰冰小美</span><span>2026-06-12</span></div>
@@ -5001,6 +4896,8 @@ const STOCK_CODE_ALIASES = Object.freeze({
   航天电子: '600879',
   云铝股份: '000807',
   东阳光: '600673',
+  紫光股份: '000938',
+  国药现代: '600420',
   中国卫星: '600118',
   中国卫通: '601698',
   中国中车: '601766',
@@ -5016,10 +4913,12 @@ const STOCK_REPORT_LINKS = Object.freeze({
   "铂力特": "../../sources/automations/新兴产业/商业航天/2026-07-17-1830-铂力特-机构级决策研报.html",
   "铖昌科技": "../../sources/automations/新兴产业/商业航天/2026-07-20-铖昌科技-机构级决策研报.html",
   "电科蓝天": "../../sources/automations/新兴产业/商业航天/2026-07-17-电科蓝天机构级决策研报.html",
-  "东阳光": "../../sources/automations/新兴产业/算力/算力基础设施与能源/2026-07-16-1138-东阳光-机构级决策研报.html",
+  "东材科技": "../../sources/automations/新兴产业/算力/上游-PCB材料/2026-07-17-1450-东材科技-机构级决策研报.html",
+  "东阳光": "../../sources/automations/新兴产业/算力/中游-算力基础设施与能源/2026-07-16-1138-东阳光-机构级决策研报.html",
   "福田汽车": "../../sources/automations/支柱产业/高端制造/2026-07-30-1041-福田汽车-机构级决策研报.html",
   "国博电子": "../../sources/automations/新兴产业/商业航天/2026-07-17-1813-国博电子-机构级决策研报.html",
   "国科微": "../../sources/automations/新兴产业/商业航天/2026-07-17-1855-国科微-机构级决策研报.html",
+  "国药现代": "../../sources/automations/temp/2026-08-03-1128-国药现代-机构级决策研报.html",
   "航天电器": "../../sources/automations/新兴产业/商业航天/2026-07-17-1833-航天电器-机构级决策研报.html",
   "航天电子": "../../sources/automations/新兴产业/商业航天/2026-07-23-1427-航天电子-机构级决策研报.html",
   "航天环宇": "../../sources/automations/新兴产业/商业航天/2026-07-17-航天环宇-机构级决策研报.html",
@@ -5028,6 +4927,7 @@ const STOCK_REPORT_LINKS = Object.freeze({
   "火炬电子": "../../sources/automations/新兴产业/商业航天/2026-07-23-1500-火炬电子-机构级决策研报.html",
   "江淮汽车": "../../sources/automations/支柱产业/高端制造/2026-07-30-1011-江淮汽车-机构级决策研报.html",
   "柳工": "../../sources/automations/支柱产业/高端制造/2026-07-30-1012-柳工-机构级决策研报.html",
+  "三安光电": "../../sources/automations/temp/2026-07-20-1005-三安光电-机构级决策研报.html",
   "三花智控": "../../sources/automations/新兴产业/机器人/2026-07-17-1134-三花智控-机构级决策研报.html",
   "三一重工": "../../sources/automations/支柱产业/高端制造/2026-07-24-0931-三一重工-机构级决策研报.html",
   "上海瀚讯": "../../sources/automations/新兴产业/商业航天/2026-07-17-上海瀚讯机构级决策研报.html",
@@ -5041,41 +4941,50 @@ const STOCK_REPORT_LINKS = Object.freeze({
   "芯原股份": "../../sources/automations/新兴产业/商业航天/2026-07-17-芯原股份-机构级决策研报.html",
   "新雷能": "../../sources/automations/新兴产业/商业航天/2026-07-17-新雷能-机构级决策研报.html",
   "信维通信": "../../sources/automations/新兴产业/商业航天/2026-07-17-信维通信-机构级决策研报.html",
+  "星网锐捷": "../../sources/automations/新兴产业/算力/中游-数据中心网络/2026-08-05-1010-星网锐捷-机构级决策研报.html",
   "星源材质": "../../sources/automations/新兴产业/2026-07-31-1039-星源材质-机构级决策研报.html",
   "兴业银锡": "../../sources/automations/战略资源/银锡/2026-07-23-1732-兴业银锡-机构级决策研报.html",
   "徐工机械": "../../sources/automations/支柱产业/高端制造/2026-07-20-1737-徐工机械-机构级决策研报.html",
   "云铝股份": "../../sources/automations/支柱产业/电解铝/2026-07-23-1421-云铝股份-机构级决策研报.html",
+  "浙江龙盛": "../../sources/automations/temp/2026-08-03-1032-浙江龙盛-机构级决策研报.html",
   "臻镭科技": "../../sources/automations/新兴产业/商业航天/2026-07-20-臻镭科技-机构级决策研报.html",
   "中国船舶": "../../sources/automations/支柱产业/2026-07-17-1133-中国船舶机构级决策研报.html",
+  "中国核建": "../../sources/automations/temp/2026-08-06-1129-中国核建-机构级决策研报.html",
   "中国卫通": "../../sources/automations/新兴产业/商业航天/2026-07-17-1728-中国卫通-机构级决策研报.html",
   "中国卫星": "../../sources/automations/新兴产业/商业航天/2026-07-17-1616-中国卫星-机构级决策研报.html",
   "中国中车": "../../sources/automations/支柱产业/2026-07-16-1334-中国中车机构级决策研报.html",
   "中科星图": "../../sources/automations/新兴产业/商业航天/2026-07-17-中科星图-机构级决策研报.html",
-  "紫光股份": "../../sources/automations/新兴产业/算力/计算系统与集群/2026-08-03-1638-紫光股份-机构级决策研报.html",
+  "紫光股份": "../../sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-03-1638-紫光股份-机构级决策研报.html",
+});
+const DAILY_MONITOR_LINKS = Object.freeze({
+  "000426": {"href":"data/000426-兴业银锡-每日监控-2026-08-06.md","title":"000426-兴业银锡-每日监控-2026-08-06","code":"000426","name":"兴业银锡","date":"2026-08-06","status":"盘中监控，非收盘结论"},
+  "601208": {"href":"data/601208-东材科技-每日监控-2026-08-06.md","title":"601208-东材科技-每日监控-2026-08-06","code":"601208","name":"东材科技","date":"2026-08-06","status":"盘中监控，非收盘结论"},
+  "东材科技": {"href":"data/601208-东材科技-每日监控-2026-08-06.md","title":"601208-东材科技-每日监控-2026-08-06","code":"601208","name":"东材科技","date":"2026-08-06","status":"盘中监控，非收盘结论"},
+  "兴业银锡": {"href":"data/000426-兴业银锡-每日监控-2026-08-06.md","title":"000426-兴业银锡-每日监控-2026-08-06","code":"000426","name":"兴业银锡","date":"2026-08-06","status":"盘中监控，非收盘结论"},
 });
 const EVENT_CALENDAR = Object.freeze(
 []
 );
 const CSI_DIVIDEND_SIGNAL = Object.freeze(
 {
-  "recordDate": "2026-08-04",
-  "runTime": "2026-08-04 12:05:59",
-  "indexDate": "2026-08-03",
-  "bondDate": "2026-08-03",
-  "dividendYield2": 4.16,
+  "recordDate": "2026-08-06",
+  "runTime": "2026-08-06 12:06:17",
+  "indexDate": "2026-08-05",
+  "bondDate": "2026-08-05",
+  "dividendYield2": 4.24,
   "xueqiuChangePercent": "待验证",
-  "lixingerDate": "待确认",
-  "lixingerDividendYield": "待验证",
-  "lixingerPercentile10y": "待验证",
-  "lixingerPercentile80Value": "待验证",
-  "bond10yYield": 1.72,
-  "spread": 2.44,
-  "percentileSignal": "待验证",
+  "lixingerDate": "2026-08-05",
+  "lixingerDividendYield": "4.34%",
+  "lixingerPercentile10y": "10.34%",
+  "lixingerPercentile80Value": "6.11%",
+  "bond10yYield": 1.71,
+  "spread": 2.53,
+  "percentileSignal": "D（不买或少买）",
   "absoluteSignal": "C（小额定投）",
   "spreadSignal": "C（小额定投）",
-  "headline": "历史分位点待验证，暂不判定加大买入区间",
+  "headline": "未进入加大买入区间",
   "source": "zzhl-dividend-signal 最新信号",
-  "sourceNote": "AKShare: stock_zh_index_value_csindex(000922, 股息率2); AKShare: bond_zh_us_rate; 雪球实时行情待验证: 雪球实时行情失败：雪球实时行情接口返回空响应; 理杏仁待验证: 公开页面失败：HTTP Error 429: Too Many Requests; 未提供大模型网页查询结果",
+  "sourceNote": "AKShare: stock_zh_index_value_csindex(000922, 股息率2); AKShare: bond_zh_us_rate; 雪球实时行情待验证: 雪球实时行情失败：雪球实时行情接口返回空响应; 理杏仁公开页面: https://www.lixinger.com/equity/index/detail/sh/000922/922/fundamental/valuation/dyr?metrics-type=mcw",
   "status": "latest"
 }
 );
@@ -5264,6 +5173,14 @@ const CSI_DIVIDEND_YIELD_HISTORY = Object.freeze(
   {
     "date": "2026-08-03",
     "value": 4.16
+  },
+  {
+    "date": "2026-08-04",
+    "value": 4.23
+  },
+  {
+    "date": "2026-08-05",
+    "value": 4.24
   }
 ]
 );
@@ -5465,6 +5382,27 @@ function reportLinkForTrackingItem(item) {
     candidates.some(candidate => name.includes(candidate) || candidate.includes(name))
   );
   return partial?.[1] ?? '';
+}
+
+function dailyMonitorLinkForTrackingItem(item = {}, report = {}) {
+  const code = stockCodeForTrackingItem(item);
+  const secidCode = String(report.secid ?? '').match(/^[01]\.(\d{6})$/)?.[1] ?? '';
+  const candidates = [
+    item.code,
+    code,
+    secidCode,
+    item.name,
+    ...Object.entries(STOCK_CODE_ALIASES)
+      .filter(([, aliasCode]) => [item.code, code, secidCode].includes(aliasCode))
+      .map(([name]) => name),
+  ].map(normalizeStockName).filter(Boolean);
+  for (const candidate of candidates) {
+    if (DAILY_MONITOR_LINKS[candidate]) return DAILY_MONITOR_LINKS[candidate];
+  }
+  const partial = Object.entries(DAILY_MONITOR_LINKS).find(([key]) =>
+    candidates.some(candidate => key.includes(candidate) || candidate.includes(key))
+  );
+  return partial?.[1] ?? null;
 }
 
 function allocationCategoryForReport(reportHref) {
@@ -5834,6 +5772,28 @@ function renderDividendYieldChart(points = []) {
   const maxPoint = valid.reduce((current, point) => point.value > current.value ? point : current, valid[0]);
   const minPoint = valid.reduce((current, point) => point.value < current.value ? point : current, valid[0]);
   const average = values.reduce((sum, value) => sum + value, 0) / values.length;
+  const hoverMarkers = valid.map((point, index) => {
+    const cx = xAt(index);
+    const cy = yAt(point.value);
+    const left = index === 0 ? padding.left : (xAt(index - 1) + cx) / 2;
+    const right = index === valid.length - 1 ? width - padding.right : (cx + xAt(index + 1)) / 2;
+    const tooltipWidth = 132;
+    const tooltipHeight = 44;
+    const tooltipX = clamp(cx + 10, padding.left, width - padding.right - tooltipWidth);
+    const tooltipY = cy - tooltipHeight - 12 < 8 ? cy + 14 : cy - tooltipHeight - 12;
+    const label = `${point.date} · 股息率 ${formatNumber(point.value, 2)}%`;
+    return `<g class="dividend-hover-point" tabindex="0" aria-label="${escapeHtml(label)}">
+        <title>${escapeHtml(label)}</title>
+        <rect class="dividend-hover-hit" x="${left.toFixed(1)}" y="${padding.top}" width="${Math.max(1, right - left).toFixed(1)}" height="${height - padding.top - padding.bottom}"></rect>
+        <line class="dividend-hover-line" x1="${cx.toFixed(1)}" y1="${padding.top}" x2="${cx.toFixed(1)}" y2="${height - padding.bottom}"></line>
+        <circle class="dividend-hover-dot" cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="4.5"></circle>
+        <g class="dividend-hover-tooltip" transform="translate(${tooltipX.toFixed(1)} ${tooltipY.toFixed(1)})">
+          <rect width="${tooltipWidth}" height="${tooltipHeight}" rx="6"></rect>
+          <text x="10" y="17">${escapeHtml(point.date)}</text>
+          <text x="10" y="34">股息率 ${formatNumber(point.value, 2)}%</text>
+        </g>
+      </g>`;
+  }).join('');
   return `<article class="dividend-yield-chart-card">
     <div class="dividend-yield-chart-head">
       <div><p class="eyebrow">DIVIDEND YIELD HISTORY</p><h3>中证红利股息率走势</h3></div>
@@ -5848,6 +5808,7 @@ function renderDividendYieldChart(points = []) {
         }).join('')}
         <path d="${path}"></path>
         ${labels.map((point, index) => `<text class="x-label" x="${xAt(valid.indexOf(point)).toFixed(2)}" y="${height - 20}" transform="rotate(-40 ${xAt(valid.indexOf(point)).toFixed(2)} ${height - 20})">${escapeHtml(point.date.slice(5))}</text>`).join('')}
+        ${hoverMarkers}
       </svg>
       <aside class="dividend-yield-chart-stats" aria-label="股息率统计">
         <div><small>最新股息率</small><strong>${formatNumber(latest.value, 2)}%</strong><span>${escapeHtml(latest.date)}</span></div>
@@ -6073,6 +6034,12 @@ function riskLevelForDashboard(derived) {
   };
 }
 
+function riskWatchMissingLabel(entry) {
+  if (entry?.status === 'missing') return '数据源为空';
+  if (entry?.status === 'expired') return '缓存过期';
+  return '等待数据';
+}
+
 function updateRiskMonitor(derived) {
   const risk = riskLevelForDashboard(derived);
   const setText = (id, text) => {
@@ -6103,10 +6070,10 @@ function updateRiskMonitor(derived) {
     const dollar = risk.usDollarIndex;
     const usLabel = Number.isFinite(us.value)
       ? `${formatNumber(us.value, 2)}% · ${us.highRisk ? '高风险' : '未触发'}`
-      : '等待数据';
+      : riskWatchMissingLabel(us);
     const dollarLabel = Number.isFinite(dollar.value)
       ? `${formatNumber(dollar.value, 2)} · ${dollar.highRisk ? '高风险' : '未触发'}`
-      : '等待数据';
+      : riskWatchMissingLabel(dollar);
     watchList.innerHTML = [
       ...layers.map(layer => `<li><span>${escapeHtml(layer.label)}</span><strong>${formatNumber(layer.score, 1)}</strong></li>`),
       `<li class="${us.highRisk ? 'is-high-risk' : ''}"><span>美债10年</span><strong>${escapeHtml(usLabel)}</strong></li>`,
@@ -6358,14 +6325,10 @@ function finitePositiveNumber(value) {
 
 function evaluateFuguiStrategyCandidate(item = {}) {
   const ownership = String(item.ownership ?? '').trim();
-  const marketCapYi = finitePositiveNumber(item.marketCapYi);
   const dividendYield = finitePositiveNumber(item.dividendYield);
   const price = finitePositiveNumber(item.price);
   const bond10yYield = finitePositiveNumber(item.bond10yYield);
   const issues = [];
-  if (!FUGUI_STRATEGY_RULES.allowedOwnership.has(ownership)) issues.push('性质不是央企/国企');
-  if (marketCapYi === null || marketCapYi <= FUGUI_STRATEGY_RULES.marketCapMinYi) issues.push('市值未大于1000亿');
-  if (price === null || price >= FUGUI_STRATEGY_RULES.priceMax) issues.push('股价未低于30元');
   if (bond10yYield === null) issues.push('10年国债利率无效');
   const dividendYieldMin = bond10yYield === null ? null : bond10yYield * 3;
   if (dividendYield === null || (dividendYieldMin !== null && dividendYield < dividendYieldMin)) {
@@ -6378,6 +6341,7 @@ function evaluateFuguiStrategyCandidate(item = {}) {
       ownership,
       marketCapMinYi: FUGUI_STRATEGY_RULES.marketCapMinYi,
       priceMax: FUGUI_STRATEGY_RULES.priceMax,
+      price,
       bond10yYield,
       dividendYieldMin: dividendYieldMin === null ? null : roundMoney(dividendYieldMin),
     },
@@ -6389,8 +6353,12 @@ function normalizeFuguiStrategyItems(items = []) {
   return items.filter(item => item && typeof item === 'object').map(item => {
     const marketCapYi = finitePositiveNumber(item.marketCapYi);
     const dividendYield = finitePositiveNumber(item.dividendYield);
+    const expectedDividendYield = finitePositiveNumber(item.expectedDividendYield);
     const price = finitePositiveNumber(item.price);
     const bond10yYield = finitePositiveNumber(item.bond10yYield);
+    const weeklyMiddle = finitePositiveNumber(item.weeklyMiddle);
+    const weeklyLower = finitePositiveNumber(item.weeklyLower);
+    const dailyLower = finitePositiveNumber(item.dailyLower);
     return {
       id: String(item.id ?? '').slice(0, 80),
       industry: String(item.industry ?? '').trim().slice(0, 24),
@@ -6399,8 +6367,12 @@ function normalizeFuguiStrategyItems(items = []) {
       ownership: String(item.ownership ?? '').trim().slice(0, 8),
       marketCapYi,
       dividendYield,
+      expectedDividendYield,
       price,
       bond10yYield,
+      weeklyMiddle,
+      weeklyLower,
+      dailyLower,
       addedAt: Number(item.addedAt) || Date.now(),
     };
   }).filter(item =>
@@ -6480,8 +6452,12 @@ function startApp() {
   let trackingAllocationMode = false;
   let trackingAllocationCollapsed = false;
   let trackingSortMode = 'updated';
+  let fuguiStatusFilter = 'all';
+  let fuguiTtmSortMode = 'none';
   const reportSummaryCache = new Map();
   const trackingQuoteCache = new Map();
+  const trackingClosePerformanceCache = new Map();
+  const fuguiDividendYieldCache = new Map();
   const launcherHint = globalThis.location?.protocol === 'file:'
     ? ' 稳定联网请双击“启动面板.cmd”。'
     : '';
@@ -6495,6 +6471,7 @@ function startApp() {
   const fuguiPanelOpenButton = document.getElementById('fugui-panel-open');
   const fuguiStrategyStatus = document.getElementById('fugui-strategy-status');
   const fuguiStrategyBody = document.getElementById('fugui-strategy-body');
+  const fuguiTtmSortButton = document.getElementById('fugui-sort-ttm');
   const topbar = document.querySelector('.topbar');
   const pageTitle = document.getElementById('page-title');
   const pageEyebrow = document.querySelector('.topbar .eyebrow');
@@ -6527,17 +6504,99 @@ function startApp() {
   const renderFuguiStrategy = () => {
     const items = state.fuguiStrategy.items;
     if (!items.length) {
-      fuguiStrategyBody.innerHTML = '<tr><td>待补充</td><td>待补充</td><td>待补充</td><td>待补充</td><td>待补充</td></tr>';
+      fuguiStrategyBody.innerHTML = '<tr><td>待补充</td><td>待补充</td><td>待补充</td><td>待补充</td><td>待补充</td><td>待补充</td><td>—</td></tr>';
       return;
     }
-    fuguiStrategyBody.innerHTML = items.map(item => {
-      const result = evaluateFuguiStrategyCandidate(item);
+    const rows = items
+      .map(item => {
+        const secid = stockSecidFromCode(item.code);
+        let quoteEntry = secid ? trackingQuoteCache.get(secid) : null;
+        let dividendEntry = secid ? fuguiDividendYieldCache.get(secid) : null;
+        if (secid && isLocalProxyLocation() && !quoteEntry) {
+          quoteEntry = { status: 'loading' };
+          trackingQuoteCache.set(secid, quoteEntry);
+          loadTrackingQuote(secid).then(() => renderFuguiStrategy());
+        }
+        if (secid && isLocalProxyLocation() && !dividendEntry) {
+          dividendEntry = { status: 'loading' };
+          fuguiDividendYieldCache.set(secid, dividendEntry);
+          loadFuguiDividendYield(secid).then(() => renderFuguiStrategy());
+        }
+        const result = evaluateFuguiStrategyCandidate(item);
+        const ttmDividendYield = dividendEntry?.status === 'loaded'
+          ? finitePositiveNumber(dividendEntry.data?.dividendYieldTtm)
+          : null;
+        return { item, result, quoteEntry, dividendEntry, ttmDividendYield, livePrice: quoteEntry?.quote?.price };
+      })
+      .filter(({ result }) =>
+        fuguiStatusFilter === 'all'
+        || (fuguiStatusFilter === 'passed' && result.passed)
+        || (fuguiStatusFilter === 'failed' && !result.passed)
+      );
+    if (fuguiTtmSortButton) {
+      fuguiTtmSortButton.classList.toggle('is-active', fuguiTtmSortMode !== 'none');
+      fuguiTtmSortButton.classList.toggle('is-asc', fuguiTtmSortMode === 'ttm-asc');
+      fuguiTtmSortButton.classList.toggle('is-desc', fuguiTtmSortMode === 'ttm-desc');
+      fuguiTtmSortButton.setAttribute('aria-pressed', String(fuguiTtmSortMode !== 'none'));
+    }
+    if (fuguiTtmSortMode !== 'none') {
+      const direction = fuguiTtmSortMode === 'ttm-asc' ? 1 : -1;
+      rows.sort((left, right) => {
+        const leftValue = Number.isFinite(left.ttmDividendYield) ? left.ttmDividendYield : null;
+        const rightValue = Number.isFinite(right.ttmDividendYield) ? right.ttmDividendYield : null;
+        if (leftValue === null && rightValue === null) return 0;
+        if (leftValue === null) return 1;
+        if (rightValue === null) return -1;
+        return (leftValue - rightValue) * direction;
+      });
+    }
+    if (!rows.length) {
+      fuguiStrategyBody.innerHTML = '<tr><td colspan="7">没有符合当前筛选的标的。</td></tr>';
+      return;
+    }
+    fuguiStrategyBody.innerHTML = rows.map(({ item, result, quoteEntry, dividendEntry, ttmDividendYield, livePrice }) => {
+      const renderGridLine = (label, value, suffix = '元', emptyText = '待接入') =>
+        `<span class="fugui-grid-line"><b>${escapeHtml(label)}</b><strong>${Number.isFinite(value) ? `${formatNumber(value, 2)}${suffix}` : escapeHtml(emptyText)}</strong></span>`;
+      const renderGridValue = (value, suffix = '', emptyText = '') =>
+        `<span class="fugui-grid-line"><strong>${Number.isFinite(value) ? `${formatNumber(value, 2)}${suffix}` : escapeHtml(emptyText)}</strong></span>`;
+      const livePriceValue = Number.isFinite(livePrice) ? livePrice : item.price;
+      const livePriceSuffix = Number.isFinite(livePrice) ? '元' : quoteEntry?.status === 'loading' ? '' : '元';
+      const savedPrice = finitePositiveNumber(item.price);
+      const savedDividendYield = finitePositiveNumber(item.dividendYield);
+      const impliedDividendPerShare = savedPrice !== null && savedDividendYield !== null
+        ? savedPrice * savedDividendYield / 100
+        : null;
+      const expectedDividendYield = finitePositiveNumber(item.expectedDividendYield);
+      const targetDividendPrice = targetYield => impliedDividendPerShare !== null && targetYield > 0
+        ? impliedDividendPerShare / (targetYield / 100)
+        : NaN;
       return `<tr>
       <td>${escapeHtml(item.industry)}</td>
-      <td>${escapeHtml(item.name)}<small>${escapeHtml(item.code || '未填代码')} · ${escapeHtml(item.ownership)} · ${formatNumber(item.price, 2)}元<button class="fugui-remove" type="button" data-fugui-id="${escapeHtml(item.id)}">移除</button></small></td>
-      <td>${formatYi(item.marketCapYi)}亿</td>
-      <td>${formatNumber(item.dividendYield, 2)}%<small>门槛 ${formatNumber(item.bond10yYield * 3, 2)}%</small></td>
-      <td>${result.passed ? '达标' : '未达标'}<small>${escapeHtml(result.passed ? '符合全部条件' : result.issues.join('；'))}</small></td>
+      <td>
+        ${escapeHtml(item.name)}
+        <small>${escapeHtml(item.code || '未填代码')} · ${escapeHtml(item.ownership)}</small>
+        <div class="fugui-symbol-meta">
+          ${renderGridLine('市值', item.marketCapYi, '亿')}
+          ${quoteEntry?.status === 'loading' && !Number.isFinite(livePrice) ? '<span class="fugui-grid-line"><b>现价</b><strong>读取中…</strong></span>' : renderGridLine('现价', livePriceValue, livePriceSuffix)}
+        </div>
+      </td>
+      <td>
+        ${dividendEntry?.status === 'loading'
+          ? '<span class="fugui-grid-line"><strong>读取中…</strong></span>'
+          : renderGridValue(ttmDividendYield, '%')}
+      </td>
+      <td>
+        ${renderGridValue(expectedDividendYield, '%', '待接入')}
+      </td>
+      <td>
+        <div class="fugui-grid-list is-value-anchor">
+          ${renderGridLine('5%', targetDividendPrice(5))}
+          ${renderGridLine('5.5%', targetDividendPrice(5.5))}
+          ${renderGridLine('6%', targetDividendPrice(6))}
+        </div>
+      </td>
+      <td>${result.passed ? '达标' : '未达标'}<small>${escapeHtml(result.passed ? '股息率达标' : result.issues.join('；'))}</small></td>
+      <td><button class="fugui-remove" type="button" data-fugui-id="${escapeHtml(item.id)}" aria-label="删除 ${escapeHtml(item.name)}">删除</button></td>
     </tr>`;
     }).join('');
   };
@@ -6925,6 +6984,48 @@ function startApp() {
     }
   }
 
+  async function loadFuguiDividendYield(secid) {
+    if (!isLocalProxyLocation() || !secid) return null;
+    const previous = fuguiDividendYieldCache.get(secid);
+    fuguiDividendYieldCache.set(secid, { status: 'loading', data: previous?.data ?? null, updatedAt: previous?.updatedAt ?? null });
+    try {
+      const response = await fetch(`/api/stock-dividend-yield?secid=${encodeURIComponent(secid)}`, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json();
+      const dividendYieldTtm = finitePositiveNumber(payload?.data?.dividendYieldTtm);
+      if (dividendYieldTtm === null) throw new Error('Invalid dividend yield payload');
+      const entry = {
+        status: 'loaded',
+        data: { ...payload.data, dividendYieldTtm },
+        proxySource: payload.proxySource,
+        updatedAt: Date.now(),
+      };
+      fuguiDividendYieldCache.set(secid, entry);
+      return entry.data;
+    } catch {
+      fuguiDividendYieldCache.set(secid, { status: 'error', data: null, updatedAt: Date.now() });
+      return null;
+    }
+  }
+
+  async function loadTrackingClosePerformance(secid) {
+    if (!isLocalProxyLocation() || !secid) return null;
+    const previous = trackingClosePerformanceCache.get(secid);
+    trackingClosePerformanceCache.set(secid, { status: 'loading', data: previous?.data ?? null, updatedAt: previous?.updatedAt ?? null });
+    try {
+      const response = await fetch(`/api/stock-close-performance?secid=${encodeURIComponent(secid)}`, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json();
+      if (!payload?.data || !Number.isFinite(payload.data.latestClose)) throw new Error('Invalid close performance payload');
+      const entry = { status: 'loaded', data: payload.data, proxySource: payload.proxySource, updatedAt: Date.now() };
+      trackingClosePerformanceCache.set(secid, entry);
+      return entry.data;
+    } catch {
+      trackingClosePerformanceCache.set(secid, { status: 'error', data: previous?.data ?? null, updatedAt: previous?.updatedAt ?? null });
+      return previous?.data ?? null;
+    }
+  }
+
   async function refreshTrackingQuotes() {
     if (!isLocalProxyLocation()) return;
     const secids = new Set();
@@ -6935,7 +7036,7 @@ function startApp() {
       if (secid) secids.add(secid);
     }
     if (!secids.size) return;
-    await Promise.all([...secids].map(secid => loadTrackingQuote(secid)));
+    await Promise.all([...secids].flatMap(secid => [loadTrackingQuote(secid), loadTrackingClosePerformance(secid)]));
     renderTrackingItems();
   }
 
@@ -6999,6 +7100,12 @@ function startApp() {
         trackingQuoteCache.set(secid, quoteEntry);
         loadTrackingQuote(secid).then(() => renderTrackingItems());
       }
+      let closePerformanceEntry = secid ? trackingClosePerformanceCache.get(secid) : null;
+      if (secid && isLocalProxyLocation() && !closePerformanceEntry) {
+        closePerformanceEntry = { status: 'loading' };
+        trackingClosePerformanceCache.set(secid, closePerformanceEntry);
+        loadTrackingClosePerformance(secid).then(() => renderTrackingItems());
+      }
       const liveQuote = quoteEntry?.quote ?? reportEntry?.quote;
       const riskReward = trackingRiskRewardForQuote({
         valueRange: report.valueRange,
@@ -7017,6 +7124,7 @@ function startApp() {
         reportEntry,
         report,
         quoteEntry,
+        closePerformanceEntry,
         liveQuote,
         signal,
         riskReward,
@@ -7041,7 +7149,7 @@ function startApp() {
         )
       : filteredItems;
     const hasAllocation = renderTrackingAllocation(summary.items);
-    const renderTrackingRow = ({ item, reportHref, reportEntry, report, quoteEntry, liveQuote, signal, riskReward }) => {
+    const renderTrackingRow = ({ item, reportHref, reportEntry, report, quoteEntry, closePerformanceEntry, liveQuote, signal, riskReward }) => {
       const signalLabel = signal.addStars > 0
         ? '★'.repeat(signal.addStars)
         : signal.reducible ? '可减' : '—';
@@ -7051,6 +7159,14 @@ function startApp() {
       const riskRewardText = riskReward.label !== '等待实时'
         ? riskReward.label
         : (quoteEntry?.status === 'loading' ? '读取行情…' : reportEntry?.status === 'loading' ? '读取研报…' : item.nextAction || '未获取到');
+      const closePerformanceHtml = Number.isFinite(closePerformanceEntry?.data?.latestClose)
+        ? `<div class="tracking-close-performance"><strong>${formatNumber(closePerformanceEntry.data.latestClose, 2)} 元</strong><small>近一周 ${Number.isFinite(closePerformanceEntry.data.weekChangePercent) ? `${closePerformanceEntry.data.weekChangePercent >= 0 ? '+' : ''}${formatNumber(closePerformanceEntry.data.weekChangePercent, 2)}%` : '—'}</small></div>`
+        : escapeHtml(closePerformanceEntry?.status === 'loading' ? '读取中…' : '未获取到');
+      const monitorLink = dailyMonitorLinkForTrackingItem(item, report);
+      const monitorStatusText = report.riskDirection || item.riskLine || (reportEntry?.status === 'loading' ? '读取研报…' : '未获取到');
+      const monitorStatusHtml = monitorLink
+        ? `<a class="tracking-monitor-link" href="${escapeHtml(monitorLink.href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(monitorLink.status || '打开监控')}</a><small class="tracking-monitor-meta">${escapeHtml(monitorLink.date ? `${monitorLink.date} · 每日监控` : '每日监控')}</small>`
+        : escapeHtml(monitorStatusText);
       const nameHtml = reportHref
         ? `<a href="${escapeHtml(reportHref)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.name)}</a>`
         : escapeHtml(item.name);
@@ -7058,8 +7174,9 @@ function startApp() {
       <td class="tracking-target"><strong>${nameHtml}</strong><small>${escapeHtml(item.code || report.secid || '未填代码')}</small><span class="tracker-status">${escapeHtml(item.status)}</span></td>
       <td>${escapeHtml(report.valueRange || item.thesis || (reportEntry?.status === 'loading' ? '读取研报…' : '未获取到'))}</td>
       <td>${escapeHtml(intraday)}</td>
+      <td>${closePerformanceHtml}</td>
       <td>${escapeHtml(riskRewardText)}</td>
-      <td>${escapeHtml(report.riskDirection || item.riskLine || (reportEntry?.status === 'loading' ? '读取研报…' : '未获取到'))}</td>
+      <td>${monitorStatusHtml}</td>
       <td><div>${reportHref ? `<a href="${escapeHtml(reportHref)}" target="_blank" rel="noopener noreferrer">打开研报</a>` : escapeHtml(item.reviewCondition || '未关联研报')}</div><small class="tracking-updated">${escapeHtml(report.sourceUpdated ? `研报：${report.sourceUpdated}` : `记录：${new Date(item.updatedAt).toLocaleString('zh-CN', { hour12: false })}`)}</small><div class="tracker-row-actions"><button type="button" data-action="edit-tracking">编辑</button><button type="button" data-action="delete-tracking">删除</button></div></td>
       <td><button class="review-diary-button" type="button" data-action="review-diary">复盘日记</button></td>
       <td>${escapeHtml(signalLabel)}</td>
@@ -7072,7 +7189,7 @@ function startApp() {
           (allocationCategoryForReport(reportHref) || UNCATEGORIZED_ALLOCATION_CATEGORY.key) === group.key
         );
         if (!groupItems.length) return '';
-        return `<tr class="tracking-group-row"><th colspan="8" style="--group-color:${group.color}"><div class="tracking-group-head"><span>${escapeHtml(group.label)}</span><small>${groupItems.length} 个标的</small></div></th></tr>${groupItems.map(renderTrackingRow).join('')}`;
+        return `<tr class="tracking-group-row"><th colspan="9" style="--group-color:${group.color}"><div class="tracking-group-head"><span>${escapeHtml(group.label)}</span><small>${groupItems.length} 个标的</small></div></th></tr>${groupItems.map(renderTrackingRow).join('')}`;
       }).join('');
     };
     const sortButton = document.getElementById('tracking-sort-intraday');
@@ -7479,6 +7596,21 @@ function startApp() {
     state.fuguiStrategy.items = fuguiStrategyItems;
     saveFuguiStrategyItems();
     fuguiStrategyStatus.textContent = '已从富贵策略跟踪清单移除。';
+    renderFuguiStrategy();
+  });
+  document.getElementById('fugui-filter')?.addEventListener('click', event => {
+    const button = event.target.closest('button[data-fugui-filter]');
+    if (!button) return;
+    fuguiStatusFilter = button.dataset.fuguiFilter;
+    document.querySelectorAll('#fugui-filter button').forEach(item => {
+      const active = item === button;
+      item.classList.toggle('is-active', active);
+      item.setAttribute('aria-pressed', String(active));
+    });
+    renderFuguiStrategy();
+  });
+  fuguiTtmSortButton?.addEventListener('click', () => {
+    fuguiTtmSortMode = fuguiTtmSortMode === 'ttm-desc' ? 'ttm-asc' : 'ttm-desc';
     renderFuguiStrategy();
   });
   fuguiPanelCollapseButton?.addEventListener('click', () => setFuguiPanelCollapsed(true));

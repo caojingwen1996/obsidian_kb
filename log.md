@@ -1,3 +1,28 @@
+﻿## 2026-08-06
+
+### 操作类型
+
+dashboard / tracking-metric-update
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/scripts/local_proxy.py`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/tests/test_local_proxy.py`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求将跟踪清单“连跌”列改为“收盘表现”，通过本地代理读取 Tushare `daily` 日线数据，展示最新收盘价与近一周涨跌幅。前端刷新行情时同步刷新该字段，后端接口改为 `/api/stock-close-performance`。
+
+### 后续待办
+
+- 如后续需要，可把近一周涨跌幅加入筛选或排序。
+
 ## 2026-08-04
 
 ### 操作类型
@@ -106,7 +131,7 @@ refactor / workbench
 ### 修改文件
 
 - `workbench/targets/2026-08-03-1638-紫光股份-机构级决策研报.md`
-- `sources/automations/新兴产业/算力/计算系统与集群/2026-08-03-1638-紫光股份-机构级决策研报.html`
+- `sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-03-1638-紫光股份-机构级决策研报.html`
 
 ### 操作说明
 
@@ -17213,13 +17238,13 @@ industry-analysis / subagent-research / cross-audit / render
 
 - `sources/automations/新兴产业/算力/2026-07-20-算力产业完整分析报告.md`
 - `sources/automations/新兴产业/算力/2026-07-20-算力产业完整分析报告.html`
-- `sources/automations/新兴产业/算力/芯片与基础软件/`
-- `sources/automations/新兴产业/算力/计算系统与集群/`
-- `sources/automations/新兴产业/算力/存储力/`
+- `sources/automations/新兴产业/算力/上游-芯片与基础软件/`
+- `sources/automations/新兴产业/算力/中游-计算系统与集群/`
+- `sources/automations/新兴产业/算力/中游-存储力/`
 - `sources/automations/新兴产业/算力/运载力/`
-- `sources/automations/新兴产业/算力/算力基础设施与能源/`
-- `sources/automations/新兴产业/算力/资源运营与调度/`
-- `sources/automations/新兴产业/算力/模型与行业应用/`
+- `sources/automations/新兴产业/算力/中游-算力基础设施与能源/`
+- `sources/automations/新兴产业/算力/下游-资源运营与调度/`
+- `sources/automations/新兴产业/算力/下游-模型与行业应用/`
 - `log.md`
 
 ### 操作说明
@@ -17609,12 +17634,12 @@ automation / html-reading
 
 ### 修改文件
 
-- `sources/automations/新兴产业/算力/算力基础设施与能源/2026-07-23-东阳光机构级决策研报-阅读版.html`
+- `sources/automations/新兴产业/算力/中游-算力基础设施与能源/2026-07-23-东阳光机构级决策研报-阅读版.html`
 - `log.md`
 
 ### 操作说明
 
-基于 `workbench/targets/2026-07-16-1138-东阳光-机构级决策研报.md` 生成 HTML 阅读版，并按 Workbench 规则放入 `sources/automations/新兴产业/算力/算力基础设施与能源/`。本次未修改原始研报正文，未更新正式 `index.md`。
+基于 `workbench/targets/2026-07-16-1138-东阳光-机构级决策研报.md` 生成 HTML 阅读版，并按 Workbench 规则放入 `sources/automations/新兴产业/算力/中游-算力基础设施与能源/`。本次未修改原始研报正文，未更新正式 `index.md`。
 
 ## 2026-07-23
 
@@ -18196,9 +18221,9 @@ workbench / equity_research / upgrade / computing-infrastructure
 - `sources/papers/东阳光机构研报-2026-07-24/`
 - `sources/webpages/2026-07-24-东阳光行情公告与研究快照.md`
 - `workbench/targets/2026-07-16-1138-东阳光-机构级决策研报.md`
-- `sources/automations/新兴产业/算力/算力基础设施与能源/2026-07-16-1138-东阳光-机构级决策研报.html`
-- `sources/automations/新兴产业/算力/算力基础设施与能源/2026-07-23-东阳光机构级决策研报-阅读版.html`（旧版删除）
-- `sources/automations/新兴产业/算力/算力基础设施与能源/2026-07-22-算力基础设施与能源产业完整分析报告.html`
+- `sources/automations/新兴产业/算力/中游-算力基础设施与能源/2026-07-16-1138-东阳光-机构级决策研报.html`
+- `sources/automations/新兴产业/算力/中游-算力基础设施与能源/2026-07-23-东阳光机构级决策研报-阅读版.html`（旧版删除）
+- `sources/automations/新兴产业/算力/中游-算力基础设施与能源/2026-07-22-算力基础设施与能源产业完整分析报告.html`
 - `log.md`
 
 ### 操作说明
@@ -18231,10 +18256,10 @@ automation / industry-routing / computing-system-cluster
 
 ### 修改文件
 
-- `sources/automations/新兴产业/算力/计算系统与集群/2026-07-16-1117-紫光股份-机构级决策研报.md`
-- `sources/automations/新兴产业/算力/计算系统与集群/2026-07-16-1136-浪潮信息-机构级决策研报.md`
-- `sources/automations/新兴产业/算力/计算系统与集群/2026-07-22-计算系统与集群产业完整分析报告.md`
-- `sources/automations/新兴产业/算力/计算系统与集群/2026-07-22-计算系统与集群产业完整分析报告.html`
+- `sources/automations/新兴产业/算力/中游-计算系统与集群/2026-07-16-1117-紫光股份-机构级决策研报.md`
+- `sources/automations/新兴产业/算力/中游-计算系统与集群/2026-07-16-1136-浪潮信息-机构级决策研报.md`
+- `sources/automations/新兴产业/算力/中游-计算系统与集群/2026-07-22-计算系统与集群产业完整分析报告.md`
+- `sources/automations/新兴产业/算力/中游-计算系统与集群/2026-07-22-计算系统与集群产业完整分析报告.html`
 - `sources/automations/新兴产业/算力/2026-07-20-算力产业完整分析报告.md`
 - `sources/automations/新兴产业/算力/2026-07-20-算力产业完整分析报告.html`
 - `workbench/index.md`
@@ -18243,7 +18268,7 @@ automation / industry-routing / computing-system-cluster
 
 ### 操作说明
 
-按用户指定，将 `000938 紫光股份` 与 `000977 浪潮信息` 的机构级决策研报从 `workbench/targets/` 归位到 `sources/automations/新兴产业/算力/计算系统与集群/`。同步修正算力总报告与计算系统与集群报告中的本地研报链接，并将计算系统与集群报告中“新华三”公司映射补为“紫光股份 / 新华三”研报入口。因这两个文件已不再位于 Workbench，移除 `workbench/index.md` 中对应导航项，并同步更新 Workbench 边界校验清单。
+按用户指定，将 `000938 紫光股份` 与 `000977 浪潮信息` 的机构级决策研报从 `workbench/targets/` 归位到 `sources/automations/新兴产业/算力/中游-计算系统与集群/`。同步修正算力总报告与计算系统与集群报告中的本地研报链接，并将计算系统与集群报告中“新华三”公司映射补为“紫光股份 / 新华三”研报入口。因这两个文件已不再位于 Workbench，移除 `workbench/index.md` 中对应导航项，并同步更新 Workbench 边界校验清单。
 
 ## 2026-07-27
 
@@ -18608,7 +18633,7 @@ fund-flow-analysis / automation-snapshot / stock-monitoring
 ### 修改文件
 
 - `sources/webpages/2026-07-30-东阳光资金面数据快照.md`
-- `sources/automations/新兴产业/算力/算力基础设施与能源/2026-07-30-东阳光资金面分析.html`
+- `sources/automations/新兴产业/算力/中游-算力基础设施与能源/2026-07-30-东阳光资金面分析.html`
 - `log.md`
 
 ### 操作说明
@@ -19529,3 +19554,747 @@ ingest / topic-update
 ### 后续待办
 
 - 后续如继续补“谈风险”主题，可按风险定义、波动风险、流动性风险、情绪风险、风险转弱和仓位动作六个分区继续整理。
+
+## 2026-08-05
+
+### 操作类型
+
+automation / dividend-signal
+
+### 修改文件
+
+- `sources/automations/中证红利信号/最新信号.md`
+- `sources/automations/中证红利信号/中证红利每日信号.xlsx`
+- `log.md`
+
+### 操作说明
+
+运行 `.agents/skills/zzhl-dividend-signal/scripts/check_signal.py --output-dir "sources/automations/中证红利信号" --run-date 2026-08-05` 刷新中证红利股息率信号。AKShare 估值日期为 2026-08-04，股息率2 为 4.23%；理杏仁公开页面成功解析，估值日期为 2026-08-04，市值加权股息率为 4.28%，近10年股息率分位为 7.87%，近10年80%分位点为 6.11%；中国10年国债收益率为 1.7126%，股债利差为 2.5174 个百分点。雪球实时行情接口返回空响应，因此当天涨跌幅保留为待验证，未用于修正股息率。
+
+按 Query Page“中证红利什么时候买入收益率最高”的三种触发规则判断：历史分位点为 D（不买或少买），绝对股息率为 C（小额定投），相对债券收益率为 C（小额定投）；综合结论为“未进入加大买入区间”，未进入重点买入区间。
+
+### 后续待办
+
+- 下次运行继续观察雪球实时行情接口是否恢复；当前信号判断不依赖当天涨跌幅字段。
+
+## 2026-08-05
+
+### 操作类型
+
+research / workbench
+
+### 修改文件
+
+- `sources/webpages/2026-08-05-星网锐捷研究数据快照.md`
+- `workbench/targets/2026-08-05-1010-星网锐捷-机构级决策研报.md`
+- `sources/automations/新兴产业/算力/中游-数据中心网络/2026-08-05-1010-星网锐捷-机构级决策研报.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` 规则为星网锐捷（002396.SZ）生成机构级决策研报。优先使用本地 Tushare 结构化数据拉取证券身份、收盘行情、估值、资金分档、融资融券、财务报表和分红，并用公司投资者关系页与公开公告镜像复核 2026H1 业绩预告、2026Q1 和 2025 年报线索。结论为 `observe / 观望`：数据中心交换机高景气使基本面进入改善观察区，但现价位于 20—30 元综合估值区间中枢附近，高换手回撤、资金净流出和融资余额下降使风险方向判断为风险重新增强。已按分类将同名 HTML 阅读版放入 `sources/automations/新兴产业/算力/中游-数据中心网络/`。
+
+### 后续待办
+
+- 等 2026 年半年报正式披露后，复核扣非利润、经营现金流、毛利率、分部收入、数据中心交换机订单和少数股东权益穿透。
+- 补齐卖方目标价样本、ETF / 北向 / 机构持仓、龙虎榜、解禁减持和严格 Capex / ROIC 口径。
+
+## 2026-08-05
+
+### 操作类型
+
+dashboard / interaction-update
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求为温度计中“中证红利股息率走势”折线图增加鼠标滑过点位提示：每个历史数据点现在有独立命中区，悬停或键盘聚焦时显示日期和对应股息率；同时补充样式和构建测试，并将随数据滚动的股息率测试断言改为检查字段形态，避免最新信号刷新后误报。
+
+补充修复：hover 命中区被 `.dividend-yield-chart rect` 的黑色填充样式覆盖，导致折线被遮挡；已提高 hover 命中区和浮层样式优先级，使命中区保持透明。
+
+### 后续待办
+
+- 如后续需要更精细交互，可继续增加十字准线或固定选中点。
+
+## 2026-08-05
+
+### 操作类型
+
+dashboard / report-link-fix
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/scripts/build.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+修复每日跟踪中部分标的找不到研报的问题：为紫光股份、国药现代补充证券代码别名；构建研报映射时除三大产业目录外，额外扫描 `sources/automations` 下所有 HTML 机构级研报，使 `sources/automations/temp/2026-08-03-1128-国药现代-机构级决策研报.html` 也能被跟踪表识别。同时重新生成面板，确保东阳光、紫光股份的链接保留真实 `中游-...` 目录前缀。
+
+### 后续待办
+
+- 后续若临时研报确认归属产业，可再把 `temp` 下的国药现代研报移动到正式产业目录。
+
+## 2026-08-05
+
+### 操作类型
+
+dashboard / risk-data-debug
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+排查风险监控中美元指数未更新的问题：本地接口 `http://127.0.0.1:49888/api/us-dollar-index` 当前返回 `rows: []`、`latest: null`，说明页面已请求后端，但 Tushare `fx_daily` 经 `tushare-data` 未返回美元指数数据。将风险观察缺失状态从笼统的“等待数据”改为“数据源为空”，避免误判为页面仍在刷新。
+
+### 后续待办
+
+- 后续可为美元指数增加 Yahoo Finance 或其他公开行情备用源，避免 Tushare 外汇日线为空时缺失。
+
+## 2026-08-05
+
+### 操作类型
+
+dashboard / interaction-update
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求为富贵策略跟踪清单增加独立删除按钮：表格新增“操作”列，删除按钮从标的小字后移到最后一列，并改为更明显的红色描边按钮；原有删除逻辑继续复用。
+
+### 后续待办
+
+- 如后续希望避免误删，可为富贵策略删除动作增加二次确认弹窗。
+
+## 2026-08-05
+
+### 操作类型
+
+dashboard / table-metric-update
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求在富贵策略跟踪清单中新增 `5%价格`、`5.5%价格`、`6%价格` 三列，按当前股价和当前股息率倒推目标股息率对应价格：`目标价格 = 当前股价 × 当前股息率 ÷ 目标股息率`。为避免列数增加后挤压，表格保留横向滚动并增加最小宽度。
+
+### 后续待办
+
+- 后续如接入每股分红字段，可将目标价格计算改为直接使用 DPS ÷ 目标股息率。
+# 2026-08-05
+
+## 操作类型
+
+research / automation / equity_research
+
+## 修改文件
+
+- `sources/webpages/2026-08-05-东材科技行情资金与估值快照.md`
+- `workbench/targets/2026-07-17-1450-东材科技-机构级决策研报.md`
+- `sources/automations/新兴产业/算力/上游-PCB材料/2026-07-17-1450-东材科技-机构级决策研报.html`
+- `log.md`
+
+## 操作说明
+
+按 `bbxm-equity-research` 技能刷新东材科技机构级决策研报：补充 2026-08-04 最新可得行情、估值、资金分档、融资融券、分红与财务核心字段；更新三要素、风险方向和霍华德·马克斯逆向投资条件判断；生成同源 HTML 阅读版。
+
+## 后续待办
+
+- 2026 半年报正式披露后复核电子材料毛利率、扣非利润、现金流、眉山项目良率和估值区间。
+
+## 2026-08-05
+
+### 操作类型
+
+taxonomy / move / link
+
+### 修改文件
+
+- `sources/automations/新兴产业/算力/中游-数据中心网络/`
+- `sources/automations/新兴产业/算力/2026-07-20-算力产业完整分析报告.md`
+- `sources/automations/新兴产业/算力/2026-07-20-算力产业完整分析报告.html`
+- `workbench/targets/2026-08-05-1010-星网锐捷-机构级决策研报.md`
+- `log.md`
+
+### 操作说明
+
+将算力子产业原 `运载力` 目录更名为更直观的 `数据中心网络`，迁移星网锐捷 HTML 阅读版到该子目录，更新主算力报告、子产业报告、workbench 研报 frontmatter 和 HTML 反链路径。主算力报告中保留政策原词“网络运载力”作为来源口径，其余分类口径统一使用“数据中心网络”。
+
+### 后续待办
+
+- 后续同类网络设备、交换芯片、DPU、光互联和 DCI 标的统一归入 `数据中心网络` 子产业。
+
+## 2026-08-05
+
+### 操作类型
+
+taxonomy / move
+
+### 修改文件
+
+- `sources/automations/新兴产业/算力/`
+- `sources/automations/新兴产业/算力/2026-07-20-算力产业完整分析报告.md`
+- `sources/automations/新兴产业/算力/2026-07-20-算力产业完整分析报告.html`
+- `workbench/targets/2026-08-05-1010-星网锐捷-机构级决策研报.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求在算力子产业目录名中标注产业链位置：`上游-PCB材料`、`上游-芯片与基础软件`、`中游-计算系统与集群`、`中游-存储力`、`中游-数据中心网络`、`中游-算力基础设施与能源`、`下游-资源运营与调度`、`下游-模型与行业应用`。同步更新主算力报告、子产业报告、workbench 研报和日志中的路径引用。
+
+### 后续待办
+
+- 新增算力产业资料时，优先沿用“上游 / 中游 / 下游 + 子产业名”的目录命名方式。
+
+## 2026-08-05
+
+### 操作类型
+
+taxonomy / rename
+
+### 修改文件
+
+- `workbench/targets/2026-08-05-1010-星网锐捷-机构级决策研报.md`
+- `sources/automations/新兴产业/算力/中游-数据中心网络/2026-08-05-1010-星网锐捷-机构级决策研报.html`
+- `workbench/index.md`
+- `sources/automations/新兴产业/算力/2026-07-20-算力产业完整分析报告.html`
+- `sources/automations/新兴产业/算力/中游-数据中心网络/2026-07-22-数据中心网络产业完整分析报告.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求在星网锐捷研报文件名中补充产业链位置标识。星网锐捷通过锐捷网络的数据中心交换机、AIDC 智算网络和 RoCE / 无损网络方案归入 `数据中心网络` 子产业的中游设备 / 方案环节，因此文件名统一改为 `2026-08-05-1010-星网锐捷-机构级决策研报`，并同步 workbench 链接与产业 HTML 反链。
+
+### 后续待办
+
+- 后续新增标的文件名按 `日期-时间-上游/中游/下游-公司-机构级决策研报` 口径标注产业链位置。
+
+## 2026-08-05
+
+### 操作类型
+
+dashboard / filter-update
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求为富贵策略跟踪清单新增“全部 / 达标 / 未达标”筛选按钮，并将达标判断收窄为仅依靠股息率是否达到 `3 × 10年国债利率`；市值、性质、股价继续展示，但不再参与达标筛选。
+
+### 后续待办
+
+- 如后续需要，可把市值、性质、股价改为独立提示标签。
+
+## 2026-08-05
+
+### 操作类型
+
+dashboard / layout-update
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户确认的网格策略排版，将富贵策略跟踪清单从多列横排改为“基础信息 / 价值锚 / 技术锚”分组展示：基础信息展示市值、现价、当前股息率；价值锚展示 5%、5.5%、6% 股息率对应价格；技术锚预留周中、周下、日下三项布林轨线字段。未增加动作建议。
+
+### 后续待办
+
+- 后续接入布林轨线数据源后，将 `weeklyMiddle`、`weeklyLower`、`dailyLower` 字段写入富贵策略条目即可显示。
+
+## 2026-08-05
+
+### 操作类型
+
+dashboard / layout-update
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求去掉富贵策略跟踪清单技术锚中的“周中”展示项，列表中仅保留“周下 / 日下”。底层 `weeklyMiddle` 字段暂保留兼容，避免已有本地数据丢失。
+
+### 后续待办
+
+- 接入布林轨线数据时优先写入并展示 `weeklyLower` 与 `dailyLower`。
+
+## 2026-08-05
+
+### 操作类型
+
+dashboard / tracking-metric-update
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/scripts/local_proxy.py`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/tests/test_local_proxy.py`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求为跟踪清单新增“连跌”列。前端通过本地代理 `/api/stock-decline-streak` 按标的 `secid` 拉取最近日线，后端使用 `tushare-data` 的 Tushare `daily` 数据计算最新交易日起向前连续收跌天数；若最新交易日未收跌则显示 `0 天`。结果按标的缓存，并在刷新行情时同步刷新。
+
+### 后续待办
+
+- 如后续需要，可把连跌天数与“可加 / 可减”筛选联动。
+
+## 2026-08-06
+
+### 操作类型
+
+dashboard / daily-monitoring-artifact
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/data/000426-兴业银锡-每日监控-2026-08-06.md`
+- `log.md`
+
+### 操作说明
+
+按用户指定的 `portfolio-daily-monitoring` 技能，为持仓跟踪标的兴业银锡生成 2026-08-06 盘中每日监控 Markdown，并保存到 A 股大盘面板数据目录，便于后续面板链接。
+
+### 后续待办
+
+- 收盘后可补齐兴业银锡当日收盘价、资金分档、融资融券、银锡价格，以及子公司安全事故公告全文影响。
+
+## 2026-08-06
+
+### 操作类型
+
+dashboard / monitor-link-update
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/scripts/build.mjs`
+- `tools/a-share-market-dashboard/scripts/local_proxy.py`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/tests/test_local_proxy.py`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求将持仓每日监控数据目录 `tools/a-share-market-dashboard/data` 接入每日跟踪清单的“监控状态”列。构建时自动扫描 `*-每日监控-YYYY-MM-DD.md` 文件，按股票代码和名称生成链接映射；有匹配文件时该列显示每日监控状态并链接到对应 Markdown。同步开放本地代理 `/data/` 静态访问，并保留路径穿越拦截。
+
+### 后续待办
+
+- 若后续每日监控文件增加多个日期，当前逻辑会自动选择同一标的最新日期文件。
+
+## 2026-08-06
+
+### 操作类型
+
+dashboard / label-update
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求将每日跟踪清单表头中的“风险方向”改为“监控状态”，仅调整展示文案，不改变研报解析字段和已有记录内容。
+
+### 后续待办
+
+- 如后续需要，可再把录入表单中的“风险线”和复盘占位文案统一改成“监控状态”口径。
+
+## 2026-08-06
+
+### 操作类型
+
+dashboard / metric-update
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+修正富贵策略跟踪清单中“股息率”仍显示保存值的问题：现在先用保存时的价格与 Tushare `daily_basic.dv_ttm` 反推出每股分红，再结合实时行情价格估算当前股息率；若实时价格尚未读到，则回退显示保存时的股息率。5%、5.5%、6% 价值锚继续使用同一每股分红口径计算。
+
+### 后续待办
+
+- 如后续可直接获取最新 DPS 或最新 `daily_basic.dv_ttm`，可再改为批量刷新来源字段而不是前端估算。
+
+## 2026-08-06
+
+### 操作类型
+
+ingest / equity_research
+
+### 修改文件
+
+- `sources/manual/2026-08-06-中国核建公开数据快照.md`
+- `workbench/targets/2026-08-06-1129-中国核建-机构级决策研报.md`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` 技能为中国核建（601611.SH）新建机构级决策研报。公开行情和财务底稿来自 AKShare 转引新浪行情、同花顺财务及公开披露入口；Tushare MCP、资金分档、融资融券、卖方目标价和分部收入未获取到，已在来源矩阵和研究局限中标注。
+
+### 后续待办
+
+- 复核 2025 年报 PDF 的分部收入、订单和管理层讨论。
+- 复核 2026 半年报、定增进展、资金分档与融资余额后更新研报。
+
+## 2026-08-06
+
+### 操作类型
+
+dashboard / daily-monitoring-artifact
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/data/601208-东材科技-每日监控-2026-08-06.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求，将本轮东材科技持仓每日监控结果保存到 A 股大盘面板数据目录，便于后续在持仓跟踪面板中挂载链接。
+
+### 后续待办
+
+- 后续若需要面板自动展示每日监控入口，可在 `portfolio.json` 或前端跟踪项中增加对应链接字段。
+
+## 2026-08-06
+
+### 操作类型
+
+skill / create
+
+### 修改文件
+
+- `.agents/skills/financial-report-research/SKILL.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求新增项目内“财报研究”技能，定位为财报、年报、季报、招股书、业绩说明会和附注的专项研究流程。技能强调 A 股优先使用本地 `tushare-data` 工具建立结构化财务底稿，再回到交易所、巨潮资讯、公司公告和财报原文复核，并明确与 `bbxm-equity-research`、`fund-flow-analysis`、`portfolio-daily-monitoring` 的路由边界。
+
+### 后续待办
+
+- 如需进一步稳定触发效果，可为 `financial-report-research` 补充 2-3 个评测用例并运行 skill 评测流程。
+
+## 2026-08-06
+
+### 操作类型
+
+automation / html-reading
+
+### 修改文件
+
+- `sources/automations/新兴产业/商业航天/SpaceX财报分析.html`
+- `log.md`
+
+### 操作说明
+
+按用户提供的《SpaceX 上市后首份财报深度分析：附注中的隐藏财务风险》文本生成单文件 HTML 阅读版，放入商业航天目录。页面保留原文结构、表格、代码块、链接、来源声明、局限性与免责声明，并增加目录、阅读提示和重点风险摘要。本次未额外联网核验原文涉及的 SEC、媒体或行情数据。
+
+### 后续待办
+
+- 如需进入正式 Wiki，可另行基于该报告提炼商业航天财报风险、关联交易风险或 AI 资本开支风险的结构化知识页。
+
+## 2026-08-06
+
+### 操作类型
+
+skill / create
+
+### 修改文件
+
+- `.agents/skills/portfolio-daily-monitoring/SKILL.md`
+- `.agents/skills/portfolio-daily-monitoring/template.md`
+- `.agents/skills/portfolio-daily-monitoring/agents/openai.yaml`
+- `log.md`
+
+### 操作说明
+
+按用户提供的“持仓今日监控”草稿新增项目级 skill `portfolio-daily-monitoring`，用于按最新行情、公司公告、产业新闻、关键指标和原研报核心假设执行持仓每日监控，并输出异常变化、系统初判、人工复盘清单和研报更新建议。
+
+### 后续待办
+
+- 后续可根据真实持仓监控样例继续细化数据源调用顺序、落盘位置和自动化快照格式。
+
+## 2026-08-06
+
+### 操作类型
+
+dashboard / layout-data-update
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求去掉富贵策略跟踪清单中的“技术锚”列，并将基础信息里的“现价”改为优先读取本地代理 `/api/stock-quote` 实时行情；实时行情不可用时回退显示条目保存时的原始价格。价值锚 5%、5.5%、6% 仍按保存时股息率和价格推导，避免实时价格与旧股息率混用导致目标价漂移。
+
+### 后续待办
+
+- 后续若需要实时股息率，可在接入每股分红字段后用实时价重新计算当前股息率。
+
+## 2026-08-06
+
+### 操作类型
+
+dashboard / metric-update
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求将富贵策略跟踪清单中的股息率改为实时口径：用保存时的价格和股息率估算每股分红，再除以当前实时价得到当前股息率。达标筛选和“是否达标”状态同步使用实时股息率；若实时行情未读取到，则回退使用保存时股息率。
+
+### 后续待办
+
+- 后续若接入每股分红字段，可用真实 DPS 替代当前由保存价格和保存股息率反推的估算值。
+
+## 2026-08-06
+
+### 操作类型
+
+dashboard / metric-update
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户确认，将富贵策略跟踪清单中的股息率从“保存价格 × 保存股息率 ÷ 实时价”的估算实时口径改回数据源字段口径：展示和达标判断直接使用添加标的时保存的 `dividendYield`，在 Tushare 模式下该字段来自 `daily_basic.dv_ttm`。基础信息中的“现价”仍继续优先读取实时行情。
+
+### 后续待办
+
+- 如果后续需要每天刷新股息率，可新增批量刷新 `daily_basic.dv_ttm` 的按钮或定时流程。
+
+## 2026-08-05
+
+### 操作类型
+
+automation / bbxm-daily-brief
+
+### 修改文件
+
+- sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/*.md
+- sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/summary.md
+- sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/state.json
+- sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/task.log
+- sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/processing/extracted-posts.json
+- sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/processing/column-posts.json
+- sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/processing/risk-analysis.json
+- sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/processing/risk-write-status.json
+- 	ools/bbxm-risk-dashboard/data/冰冰小美风险提示.xlsx
+- log.md
+
+### 操作说明
+
+按 BBXM 每日汇总自动化要求，以北京时间 2026-08-05 为目标日期抓取冰冰小美雪球帖子。本轮详情候选 19 条，其中目标日期 8 条、非目标日期 11 条；8 条原帖已保存并补充标签。基于已保存原帖和库内冰冰小美框架页生成 summary.md 与风险分析文件，识别 6 条可写入风险/机会节点，并通过自动脚本幂等写入风险提示 Excel。
+
+### 后续待办
+
+- wiki/people/冰冰小美.md 当前存在乱码，后续需按编码修复流程处理。
+- 提示词要求的 体系三要素的运用、风险类型整理、减仓 三个精确路径未找到，本次使用现有三要素、风险定义、分仓、卖/减仓和风险转弱相关页面替代。
+- 本轮仅覆盖抓取时可见帖子；若 16:05 后有新增、隐藏或延迟展示帖子，需要同日重跑确认。
+
+## 2026-08-06
+
+### 操作类型
+
+automation / dividend-signal
+
+### 修改文件
+
+- `sources/automations/中证红利信号/最新信号.md`
+- `sources/automations/中证红利信号/中证红利每日信号.xlsx`
+- `log.md`
+
+### 操作说明
+
+运行 `.agents/skills/zzhl-dividend-signal/scripts/check_signal.py --output-dir "sources/automations/中证红利信号" --run-date 2026-08-06` 刷新中证红利股息率信号。记录日期为 2026-08-06；AKShare 指数估值日期为 2026-08-05，股息率2 为 4.24%；理杏仁公开页面成功解析，估值日期为 2026-08-05，市值加权股息率为 4.34%，近10年股息率分位为 10.34%，近10年80%分位点为 6.11%；中国10年国债收益率日期为 2026-08-05，收益率为 1.7137%，股债利差为 2.5263 个百分点。雪球实时行情接口返回空响应，因此当天涨跌幅保留为待验证，未用于修正股息率。
+
+按 Query Page“中证红利什么时候买入收益率最高”的三种触发规则判断：历史分位点为 D（不买或少买），绝对股息率为 C（小额定投），相对债券收益率为 C（小额定投）；综合结论为“未进入加大买入区间”，未进入重点买入区间。
+
+### 后续待办
+
+- 下次运行继续优先使用免费数据源；若雪球实时行情仍为空响应，只记录待验证，不修正股息率。
+
+## 2026-08-06
+
+### 操作类型
+
+repair / html-display
+
+### 修改文件
+
+- `sources/automations/新兴产业/商业航天/SpaceX财报分析.html`
+- `log.md`
+
+### 操作说明
+
+修复 SpaceX 财报分析 HTML 阅读版中因源 Markdown 表格断行导致的显示错位问题，重建财报基本背景、Q2 财务概况和资本开支表格，保留原报告内容口径。
+
+### 后续待办
+
+- 如需完全消除全文所有由原文断行造成的数学符号和表格残片，可进一步重跑更严格的表格清洗流程。
+
+## 2026-08-06
+
+### 操作类型
+
+repair / html-table-scan
+
+### 修改文件
+
+- `sources/automations/新兴产业/商业航天/SpaceX财报分析.html`
+- `log.md`
+
+### 操作说明
+
+按用户反馈扫描 SpaceX 财报分析 HTML 全文，集中修复由源 Markdown 断行造成的残缺表格。覆盖关联交易、分部业绩、AI算力合同、Lockup解禁、亏损轨迹、风险评级、XBRL租赁会计、债务到期、收入确认、收购会计和验证结论等表格。
+
+### 后续待办
+
+- 若源文本再次生成 HTML，建议在转换脚本中加入断行表格预清洗，避免同类问题复发。
+
+## 2026-08-06
+
+### 操作类型
+
+dashboard / fugui-layout-update
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求调整富贵策略跟踪清单排版：将基础信息中的市值和现价移动到“标的”列下方；新增独立的“TTM股息率”和“预期股息率”两列。TTM股息率继续使用保存的分红口径结合实时价格换算；预期股息率预留独立字段，旧数据无该字段时显示待接入，避免混用 TTM 口径。
+
+### 后续待办
+
+- 后续接入预期每股分红或手动录入预期股息率后，可填充 `expectedDividendYield` 字段并用于展示。
+
+## 2026-08-06
+
+### 操作类型
+
+dashboard / fugui-dividend-yield-source
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/scripts/local_proxy.py`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/tests/test_local_proxy.py`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求收紧富贵策略 TTM 股息率口径：新增 `/api/stock-dividend-yield` 本地接口，固定从 Tushare `daily_basic.dv_ttm` 读取最新值；前端列表不再根据保存分红和实时股价估算 TTM 股息率，读取失败时 TTM 单元格留空。
+
+### 后续待办
+
+- 如需“是否达标”也完全改用最新 Tushare `dv_ttm` 判断，可继续将达标过滤逻辑接入同一缓存。
+
+## 2026-08-06
+
+### 操作类型
+
+dashboard / fugui-table-interaction
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求微调富贵策略表格：去掉“预期股息率”单元格内的小字标签，只保留数值或待接入状态；将“TTM股息率”表头改为可点击排序按钮，支持按 TTM 股息率升序/降序切换，缺失 TTM 数据的标的排在后面。
+
+### 后续待办
+
+- 暂无。

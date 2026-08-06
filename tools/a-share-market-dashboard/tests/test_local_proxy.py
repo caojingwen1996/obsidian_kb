@@ -23,6 +23,8 @@ from scripts.local_proxy import (
     fetch_market_margin,
     fetch_market_snapshot,
     fetch_nasdaq100_snapshot,
+    fetch_stock_close_performance,
+    fetch_stock_dividend_yield,
     fetch_stock_quote,
     fetch_us_dollar_index,
     fetch_us_treasury_yield,
@@ -41,6 +43,7 @@ REPORT_PATH = "/sources/automations/支柱产业/电网/2026-07-17-十五五电�
 WEBPAGE_PATH = "/sources/webpages/2026-07-15-航天电子卖方评级与近期催化剂检索记录.md"
 PAPER_PATH = "/sources/papers/航天电子机构研报-2026-07-15/2025年年度报告.pdf"
 WORKBENCH_PATH = "/workbench/index.md"
+DAILY_MONITOR_PATH = "/data/601208-东材科技-每日监控-2026-08-06.md"
 
 
 def read_text(url):
@@ -322,6 +325,23 @@ class PayloadTests(unittest.TestCase):
         self.assertEqual(candidate["bond10yYield"], 1.73)
         self.assertIn([source for _, source in calls], ([], ["treasury"]))
 
+    def test_fetches_stock_dividend_yield_from_tushare_daily_basic(self):
+        testcase = self
+
+        class TushareStub:
+            def daily_basic(self, ts_code, fields):
+                testcase.assertEqual(ts_code, "601766.SH")
+                return DataFrameStub([
+                    {"ts_code": "601766.SH", "trade_date": "20260805", "dv_ttm": 5.19},
+                ])
+
+        payload = fetch_stock_dividend_yield("1.601766", tushare_provider=TushareStub())
+
+        self.assertEqual(payload["data"]["code"], "601766")
+        self.assertEqual(payload["data"]["dividendYieldTtm"], 5.19)
+        self.assertEqual(payload["data"]["tradeDate"], "2026-08-05")
+        self.assertEqual(payload["proxySource"], "Tushare daily_basic.dv_ttm")
+
     def test_reads_tushare_token_from_env_file(self):
         with TemporaryDirectory() as directory:
             env_path = Path(directory) / ".env"
@@ -525,12 +545,14 @@ class ServerTests(unittest.TestCase):
         with running_server(self.fake_fetch) as base:
             webpage = read_text(f"{base}{quote(WEBPAGE_PATH, safe='/')}")
             workbench = read_text(f"{base}{quote(WORKBENCH_PATH, safe='/')}")
+            daily_monitor = read_text(f"{base}{quote(DAILY_MONITOR_PATH, safe='/')}")
             with urlopen(f"{base}{quote(PAPER_PATH, safe='/')}", timeout=3) as response:
                 paper_type = response.headers.get_content_type()
                 paper_header = response.read(4)
 
         self.assertIn("航天电子卖方评级与近期催化剂检索记录", webpage)
         self.assertIn("Investment Workbench", workbench)
+        self.assertIn("持仓今日监控", daily_monitor)
         self.assertEqual(paper_type, "application/pdf")
         self.assertEqual(paper_header, b"%PDF")
 
@@ -543,6 +565,7 @@ class ServerTests(unittest.TestCase):
     def test_rejects_traversal_outside_sources_and_workbench_whitelists(self):
         with running_server(self.fake_fetch) as base:
             for path in (
+                "/data/%2e%2e/AGENTS.md",
                 "/sources/webpages/%2e%2e/%2e%2e/AGENTS.md",
                 "/workbench/%2e%2e/AGENTS.md",
             ):
@@ -610,6 +633,30 @@ class ServerTests(unittest.TestCase):
             "proxySource": "东方财富行情",
         })
         self.assertEqual(bad_request.exception.code, 400)
+
+    def test_stock_close_performance_returns_latest_close_and_week_change(self):
+        class ClientStub:
+            def daily(self, **kwargs):
+                self.kwargs = kwargs
+                return DataFrameStub([
+                    {"trade_date": "20260804", "close": 10.0, "pre_close": 10.3},
+                    {"trade_date": "20260803", "close": 10.3, "pre_close": 10.5},
+                    {"trade_date": "20260802", "close": 10.5, "pre_close": 10.4},
+                    {"trade_date": "20260801", "close": 10.4, "pre_close": 10.8},
+                    {"trade_date": "20260731", "close": 9.5, "pre_close": 9.7},
+                ])
+
+        client = ClientStub()
+        payload = fetch_stock_close_performance("1.600879", client=client)
+
+        self.assertEqual(client.kwargs["ts_code"], "600879.SH")
+        self.assertEqual(payload["data"]["secid"], "1.600879")
+        self.assertEqual(payload["data"]["tradeDate"], "20260804")
+        self.assertEqual(payload["data"]["latestClose"], 10.0)
+        self.assertEqual(payload["data"]["preClose"], 10.3)
+        self.assertEqual(payload["data"]["weekChangePercent"], 5.26)
+        self.assertEqual(payload["data"]["sampleDays"], 5)
+        self.assertEqual(payload["proxySource"], "Tushare daily via tushare-data")
 
     def test_portfolio_api_persists_valid_local_holdings(self):
         payload = {
