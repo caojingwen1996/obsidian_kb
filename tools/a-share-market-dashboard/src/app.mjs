@@ -538,6 +538,41 @@ function signalDataTime(signal) {
   return Number.isFinite(timestamp) ? timestamp : null;
 }
 
+function parseNumberFromText(value) {
+  const match = String(value ?? '').replaceAll(',', '').match(/-?\d+(?:\.\d+)?/);
+  return match ? Number(match[0]) : null;
+}
+
+function parseDividendSignalMarkdown(markdown) {
+  if (!markdown?.trim()) return null;
+  const pick = label => markdown.match(new RegExp(`^- ${label}：(.+)$`, 'mu'))?.[1].trim() ?? '';
+  const pickAny = labels => labels.map(pick).find(Boolean) ?? '';
+  const runTime = pick('运行时间');
+  const recordDate = runTime.match(/\d{4}-\d{2}-\d{2}/)?.[0] ?? '';
+  const signal = {
+    recordDate,
+    runTime,
+    indexDate: pickAny(['指数估值日期', 'AKShare 指数估值日期']),
+    bondDate: pick('10年国债收益率日期'),
+    dividendYield2: parseNumberFromText(pickAny(['中证红利股息率口径', 'AKShare 中证红利股息率2'])),
+    xueqiuChangePercent: pick('雪球当天涨跌幅'),
+    lixingerDate: pick('理杏仁估值日期'),
+    lixingerDividendYield: pick('理杏仁市值加权股息率'),
+    lixingerPercentile10y: pick('理杏仁近10年股息率分位'),
+    lixingerPercentile80Value: pick('理杏仁近10年80%分位点'),
+    bond10yYield: parseNumberFromText(pick('中国10年国债收益率')),
+    spread: parseNumberFromText(pickAny(['指数股息率口径 - 10年国债收益率', 'AKShare 股息率2 - 10年国债收益率'])),
+    percentileSignal: pick('历史分位点触发'),
+    absoluteSignal: pick('绝对股息率触发'),
+    spreadSignal: pick('相对债券收益率触发'),
+    headline: pick('综合结论'),
+    source: 'zzhl-dividend-signal 最新信号',
+    sourceNote: markdown.match(/^## 来源[\s\S]*?^- (.+)$/mu)?.[1].trim() ?? '',
+    status: recordDate ? 'latest' : 'snapshot',
+  };
+  return signal.recordDate || signal.indexDate ? signal : null;
+}
+
 function renderDividendSignalCard(signal) {
   if (!signal) {
     return `<button class="dividend-signal-card is-missing is-clickable-card" type="button" data-open-dividend-signal aria-label="查看红利信号详情">
@@ -553,11 +588,11 @@ function renderDividendSignalCard(signal) {
     <div class="dividend-signal-main">
       <span>中证红利股息率信号</span>
       <strong>${escapeHtml(isFocus ? '重点买入观察' : '未进重点买入')}</strong>
-      <p>${escapeHtml(displayDate)}</p>
+      <p>${escapeHtml(`数据日期：${displayDate}`)}</p>
     </div>
     <div class="dividend-signal-grid">
       <div><small>股息率2</small><strong>${formatNumber(signal.dividendYield2, 2)}%</strong><span>${escapeHtml(absolute.grade ? `${absolute.grade} ${absolute.label}` : signal.absoluteSignal ?? '待验证')}</span></div>
-      <div><small>10年国债</small><strong>${formatNumber(signal.bond10yYield, 2)}%</strong><span>${escapeHtml(signal.bondDate ?? '日期待确认')}</span></div>
+      <div><small>10年国债</small><strong>${formatNumber(signal.bond10yYield, 2)}%</strong></div>
       <div><small>股债利差</small><strong>${formatNumber(signal.spread, 2)}%</strong><span>${escapeHtml(spread.grade ? `${spread.grade} ${spread.label}` : signal.spreadSignal ?? '待验证')}</span></div>
       <div><small>历史分位</small><strong>${escapeHtml(percentile.grade || '待验证')}</strong><span>${escapeHtml(signal.percentileSignal ?? '待验证')}</span></div>
     </div>
@@ -612,16 +647,19 @@ function renderDividendSignalDetail(signal) {
   ];
   return `<div class="dividend-detail-layout">
     <article class="panel dividend-detail-hero">
-      <p class="eyebrow">CSI DIVIDEND SIGNAL</p>
-      <h3>${escapeHtml(signal.headline ?? '暂无综合结论')}</h3>
+      <div>
+        <p class="eyebrow">CSI DIVIDEND SIGNAL</p>
+        <h3>${escapeHtml(signal.headline ?? '暂无综合结论')}</h3>
+        <p class="dividend-detail-date">${escapeHtml(`数据日期：${signal.indexDate || signal.recordDate || signal.runTime?.match(/\d{4}-\d{2}-\d{2}/)?.[0] || '日期待确认'}`)}</p>
+      </div>
       <div class="dividend-detail-actions">
         <span class="status-badge ${signal.status === 'latest' ? 'is-latest' : ''}">${signal.status === 'latest' ? '最新' : '快照'}</span>
         <a class="button-secondary" href="${CSI_DIVIDEND_SIGNAL_SOURCE_URL}" target="_blank" rel="noopener noreferrer">打开信号源</a>
       </div>
     </article>
     <div class="dividend-detail-metrics" aria-label="红利信号核心指标">
-      <article><small>股息率2</small><strong>${formatNumber(signal.dividendYield2, 2)}%</strong><span>${escapeHtml(absolute.grade ? `${absolute.grade} ${absolute.label}` : signal.absoluteSignal ?? '待验证')}</span><span>${escapeHtml(signal.indexDate ?? signal.recordDate ?? '日期待确认')}</span></article>
-      <article><small>10年国债</small><strong>${formatNumber(signal.bond10yYield, 2)}%</strong><span>${escapeHtml(signal.bondDate ?? '日期待确认')}</span></article>
+      <article><small>股息率2</small><strong>${formatNumber(signal.dividendYield2, 2)}%</strong><span>${escapeHtml(absolute.grade ? `${absolute.grade} ${absolute.label}` : signal.absoluteSignal ?? '待验证')}</span></article>
+      <article><small>10年国债</small><strong>${formatNumber(signal.bond10yYield, 2)}%</strong></article>
       <article><small>股债利差</small><strong>${formatNumber(signal.spread, 2)}%</strong><span>${escapeHtml(spread.grade ? `${spread.grade} ${spread.label}` : signal.spreadSignal ?? '待验证')}</span></article>
       <article><small>历史分位</small><strong>${escapeHtml(percentile.grade || '待验证')}</strong><span>${escapeHtml(signal.percentileSignal ?? '待验证')}</span></article>
     </div>
@@ -1029,7 +1067,7 @@ function detailCard(metric) {
   </article>`;
 }
 
-function renderDerived(derived, officialTemperature = { status: 'loading' }, nasdaq100 = { status: 'loading' }) {
+function renderDerived(derived, officialTemperature = { status: 'loading' }, nasdaq100 = { status: 'loading' }, dividendSignal = CSI_DIVIDEND_SIGNAL) {
   const byId = id => document.getElementById(id);
   const scoreValue = derived.score.score;
   byId('conclusion-label').textContent = derived.conclusion.label;
@@ -1049,8 +1087,8 @@ function renderDerived(derived, officialTemperature = { status: 'loading' }, nas
     <p>${layer.description} · 层内覆盖 ${formatNumber(layer.coverage, 0)}%</p>
   </article>`).join('');
   byId('youzhiyouxing-temperature-card').innerHTML = renderYouzhiyouxingTemperatureCard(officialTemperature);
-  byId('dividend-signal-card').innerHTML = renderDividendSignalCard(CSI_DIVIDEND_SIGNAL);
-  byId('dividend-signal-detail').innerHTML = renderDividendSignalDetail(CSI_DIVIDEND_SIGNAL);
+  byId('dividend-signal-card').innerHTML = renderDividendSignalCard(dividendSignal);
+  byId('dividend-signal-detail').innerHTML = renderDividendSignalDetail(dividendSignal);
   byId('nasdaq100-card').innerHTML = renderNasdaq100Card(nasdaq100);
   if (byId('margin-balance-card')) {
     byId('margin-balance-card').innerHTML = renderMarginBalanceCard(derived.margin);
@@ -1073,8 +1111,8 @@ function renderDerived(derived, officialTemperature = { status: 'loading' }, nas
   }
   byId('rules-weights').innerHTML = derived.metrics.map(metric => `<div class="weight-row"><span>${escapeHtml(metric.label)}</span><strong>${metric.weight}%</strong></div>`).join('');
   const validCount = derived.metrics.filter(metric => Number.isFinite(metric.score)).length;
-  const dividendErrors = CSI_DIVIDEND_SIGNAL?.sourceNote
-    ? CSI_DIVIDEND_SIGNAL.sourceNote.split(';').map(item => item.trim()).filter(item => /失败|待验证|429|空响应/.test(item))
+  const dividendErrors = dividendSignal?.sourceNote
+    ? dividendSignal.sourceNote.split(';').map(item => item.trim()).filter(item => /失败|待验证|429|空响应/.test(item))
     : [];
   const temperatureError = officialTemperature.status === 'missing' && officialTemperature.error ? [officialTemperature.error] : [];
   const errors = [...new Set([...derived.metrics.flatMap(metric => metric.errors ?? []), ...dividendErrors, ...temperatureError])];
@@ -1086,9 +1124,9 @@ function renderDerived(derived, officialTemperature = { status: 'loading' }, nas
   byId('audit-errors').innerHTML = errors.length
     ? `<ul>${errors.map(error => `<li>${escapeHtml(error)}</li>`).join('')}</ul>`
     : '';
-  const dividendAuditRow = CSI_DIVIDEND_SIGNAL ? `<tr>
-    <td>中证红利股息率信号</td><td>${CSI_DIVIDEND_SIGNAL.status === 'latest' ? '最新' : '快照'}</td><td>${escapeHtml(CSI_DIVIDEND_SIGNAL.source ?? 'zzhl-dividend-signal 最新信号')}</td>
-    <td>${formatTime(signalDataTime(CSI_DIVIDEND_SIGNAL))}</td><td>观察项</td><td>—</td><td>—</td>
+  const dividendAuditRow = dividendSignal ? `<tr>
+    <td>中证红利股息率信号</td><td>${dividendSignal.status === 'latest' ? '最新' : '快照'}</td><td>${escapeHtml(dividendSignal.source ?? 'zzhl-dividend-signal 最新信号')}</td>
+    <td>${formatTime(signalDataTime(dividendSignal))}</td><td>观察项</td><td>—</td><td>—</td>
   </tr>` : `<tr class="is-missing">
     <td>中证红利股息率信号</td><td>缺失</td><td>本地最新信号</td><td>—</td><td>观察项</td><td>—</td><td>—</td>
   </tr>`;
@@ -1332,6 +1370,7 @@ function startApp() {
     busy: false,
     youzhiyouxingTemperature: { status: 'loading', sourceUrl: YOUZHIYOUXING_TEMPERATURE_URL },
     nasdaq100: { status: 'loading', sourceUrl: NASDAQ100_SOURCE_URL },
+    dividendSignal: CSI_DIVIDEND_SIGNAL,
     fuguiStrategy: { items: [] },
   };
   const storage = resolveStorage();
@@ -1356,6 +1395,7 @@ function startApp() {
   let trackingSortMode = 'updated';
   let fuguiStatusFilter = 'all';
   let fuguiTtmSortMode = 'none';
+  let dividendSignalLoadedAt = 0;
   const reportSummaryCache = new Map();
   const trackingQuoteCache = new Map();
   const trackingClosePerformanceCache = new Map();
@@ -2043,13 +2083,31 @@ function startApp() {
       if (trackingStatusFilter === 'reducible') return signal.reducible;
       return item.status === trackingStatusFilter;
     });
-    const visibleItems = trackingSortMode === 'near-left'
-      ? [...filteredItems].sort((left, right) =>
+    const visibleItems = (() => {
+      if (trackingSortMode === 'near-left') {
+        return [...filteredItems].sort((left, right) =>
           right.riskReward.sortValue - left.riskReward.sortValue
           || right.item.updatedAt - left.item.updatedAt
           || left.index - right.index
-        )
-      : filteredItems;
+        );
+      }
+      if (trackingSortMode === 'close-desc' || trackingSortMode === 'close-asc') {
+        const direction = trackingSortMode === 'close-asc' ? 1 : -1;
+        return [...filteredItems].sort((left, right) => {
+          const leftValue = Number.isFinite(left.closePerformanceEntry?.data?.weekChangePercent)
+            ? left.closePerformanceEntry.data.weekChangePercent
+            : null;
+          const rightValue = Number.isFinite(right.closePerformanceEntry?.data?.weekChangePercent)
+            ? right.closePerformanceEntry.data.weekChangePercent
+            : null;
+          if (leftValue === null && rightValue === null) return left.index - right.index;
+          if (leftValue === null) return 1;
+          if (rightValue === null) return -1;
+          return (leftValue - rightValue) * direction || left.index - right.index;
+        });
+      }
+      return filteredItems;
+    })();
     const hasAllocation = renderTrackingAllocation(summary.items);
     const closeDates = visibleItems
       .map(({ closePerformanceEntry }) => closePerformanceEntry?.data?.tradeDate)
@@ -2070,7 +2128,7 @@ function startApp() {
         ? riskReward.label
         : (quoteEntry?.status === 'loading' ? '读取行情…' : reportEntry?.status === 'loading' ? '读取研报…' : item.nextAction || '未获取到');
       const closePerformanceHtml = Number.isFinite(closePerformanceEntry?.data?.latestClose)
-        ? `<div class="tracking-close-performance"><strong>${formatNumber(closePerformanceEntry.data.latestClose, 2)} 元</strong><small>近一周 ${Number.isFinite(closePerformanceEntry.data.weekChangePercent) ? `${closePerformanceEntry.data.weekChangePercent >= 0 ? '+' : ''}${formatNumber(closePerformanceEntry.data.weekChangePercent, 2)}%` : '—'}</small></div>`
+        ? `<div class="tracking-close-performance"><small>近一周 ${Number.isFinite(closePerformanceEntry.data.weekChangePercent) ? `${closePerformanceEntry.data.weekChangePercent >= 0 ? '+' : ''}${formatNumber(closePerformanceEntry.data.weekChangePercent, 2)}%` : '—'}</small></div>`
         : escapeHtml(closePerformanceEntry?.status === 'loading' ? '读取中…' : '未获取到');
       const monitorLink = dailyMonitorLinkForTrackingItem(item, report);
       const monitorStatusText = report.riskDirection || item.riskLine || (reportEntry?.status === 'loading' ? '读取研报…' : '未获取到');
@@ -2106,6 +2164,13 @@ function startApp() {
     if (sortButton) {
       sortButton.classList.toggle('is-active', trackingSortMode === 'near-left');
       sortButton.setAttribute('aria-pressed', String(trackingSortMode === 'near-left'));
+    }
+    const closeSortButton = document.getElementById('tracking-sort-close-performance');
+    if (closeSortButton) {
+      closeSortButton.classList.toggle('is-active', trackingSortMode === 'close-desc' || trackingSortMode === 'close-asc');
+      closeSortButton.classList.toggle('is-desc', trackingSortMode === 'close-desc');
+      closeSortButton.classList.toggle('is-asc', trackingSortMode === 'close-asc');
+      closeSortButton.setAttribute('aria-pressed', String(trackingSortMode === 'close-desc' || trackingSortMode === 'close-asc'));
     }
     const allocationModeButton = document.getElementById('tracking-allocation-mode');
     if (allocationModeButton) {
@@ -2163,9 +2228,27 @@ function startApp() {
     renderTrackingItems();
   }
 
+  async function refreshDividendSignalFromSource() {
+    if (!isLocalProxyLocation()) return null;
+    if (Date.now() - dividendSignalLoadedAt < 15_000) return state.dividendSignal;
+    dividendSignalLoadedAt = Date.now();
+    try {
+      const response = await fetch(CSI_DIVIDEND_SIGNAL_SOURCE_URL, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const markdown = await response.text();
+      const signal = parseDividendSignalMarkdown(markdown);
+      if (!signal) throw new Error('Invalid dividend signal markdown');
+      state.dividendSignal = signal;
+      render();
+      return signal;
+    } catch {
+      return null;
+    }
+  }
+
   const render = () => {
     const derived = deriveDashboard(state.snapshot, state.windowYears);
-    renderDerived(derived, state.youzhiyouxingTemperature, state.nasdaq100);
+    renderDerived(derived, state.youzhiyouxingTemperature, state.nasdaq100, state.dividendSignal);
     document.querySelectorAll('[data-window]').forEach(button => button.setAttribute('aria-pressed', String(Number(button.dataset.window) === state.windowYears)));
   };
 
@@ -2365,6 +2448,7 @@ function startApp() {
     document.querySelectorAll('.view').forEach(view => view.classList.toggle('is-active', view.id === viewId));
     pageTitle.textContent = labelForView(button) || pageTitle.textContent;
     if (viewId === 'risk-monitor') refreshRiskMarginChart();
+    if (viewId === 'market-summary' || viewId === 'dividend-signal-view') refreshDividendSignalFromSource();
   };
 
   const setShell = (shell, viewId = null) => {
@@ -2625,6 +2709,10 @@ function startApp() {
     trackingSortMode = trackingSortMode === 'near-left' ? 'updated' : 'near-left';
     renderTrackingItems();
   });
+  document.getElementById('tracking-sort-close-performance')?.addEventListener('click', () => {
+    trackingSortMode = trackingSortMode === 'close-desc' ? 'close-asc' : 'close-desc';
+    renderTrackingItems();
+  });
   document.getElementById('tracking-allocation-mode')?.addEventListener('click', () => {
     trackingAllocationMode = !trackingAllocationMode;
     renderTrackingItems();
@@ -2711,6 +2799,7 @@ function startApp() {
   renderTrackingItems();
   refreshTrackingQuotes();
   loadProxyPortfolio();
+  refreshDividendSignalFromSource();
   loadYouzhiyouxingTemperature();
   loadNasdaq100();
   refreshLive();

@@ -250,7 +250,7 @@ test('sidebar exposes the personal position workspace as a first-level tree doma
   assert.match(readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8'), /\.fugui-form\.is-collapsed \.fugui-form-body/);
   assert.match(html, /<section class="view" id="topic-map" data-shell-content="thermometer" aria-labelledby="topic-map-heading">/);
   assert.match(html, /<h2[^>]*id="topic-map-heading"[^>]*>主题<\/h2>/);
-  assert.match(html, /<thead><tr><th>标的<\/th><th>动态价值区间<\/th><th>盘中实时<\/th><th>收盘表现<small id="tracking-close-date"><\/small><\/th><th><button class="table-sort-button" type="button" id="tracking-sort-intraday"[^>]*>盈亏比<\/button><\/th><th>监控状态（待实现）<\/th><th>数据来自研报<\/th><th>复盘<\/th><th>星级<\/th><\/tr><\/thead>/);
+  assert.match(html, /<thead><tr><th>标的<\/th><th>动态价值区间<\/th><th>盘中实时<\/th><th><button class="table-sort-button" type="button" id="tracking-sort-close-performance"[^>]*>收盘表现<\/button><small id="tracking-close-date"><\/small><\/th><th><button class="table-sort-button" type="button" id="tracking-sort-intraday"[^>]*>盈亏比<\/button><\/th><th>监控状态（待实现）<\/th><th>数据来自研报<\/th><th>复盘<\/th><th>星级<\/th><\/tr><\/thead>/);
   assert.match(html, /<tbody id="holding-tracker-list"><\/tbody>/);
   assert.match(appSource, /DAILY_MONITOR_LINKS/);
   assert.match(appSource, /dailyMonitorLinkForTrackingItem/);
@@ -307,7 +307,13 @@ test('market summary renders three overview cards and includes signal sources in
     '中证红利每日信号.xlsx',
     'dividend-yield-chart',
     '../../sources/automations/中证红利信号/最新信号.md',
+    'parseDividendSignalMarkdown',
+    'refreshDividendSignalFromSource',
+    'cache: \'no-store\'',
     '未进重点买入',
+    '"indexDate": "2026-08-06"',
+    '"bondDate": "2026-08-06"',
+    'dividend-detail-date',
     '股息率2',
     '10年国债收益率',
     'AKShare bond_zh_us_rate',
@@ -334,11 +340,17 @@ test('market summary renders three overview cards and includes signal sources in
   ]) {
     assert.match(artifact, new RegExp(marker));
   }
-  assert.doesNotMatch(artifact, /记录信息|dividend-record-list|运行时间|指数估值日期|国债收益率日期|理杏仁估值日期/);
+  assert.doesNotMatch(artifact, /记录信息|dividend-record-list/);
   assert.ok(artifact.includes('AKShare stock_zh_index_value_csindex(000922, 股息率2)'));
+  assert.ok(appSource.includes('数据日期：${displayDate}'));
+  assert.match(appSource, /state\.dividendSignal = signal/);
+  assert.match(appSource, /renderDerived\(derived, state\.youzhiyouxingTemperature, state\.nasdaq100, state\.dividendSignal\)/);
+  assert.match(appSource, /viewId === 'market-summary' \|\| viewId === 'dividend-signal-view'/);
   assert.match(appSource, /absolute\.grade \? `\$\{absolute\.grade\} \$\{absolute\.label\}`/);
   assert.match(appSource, /const displayDate = signal\.indexDate \|\| signal\.recordDate/);
-  assert.match(appSource, /<p>\$\{escapeHtml\(displayDate\)\}<\/p>/);
+  assert.match(appSource, /class="dividend-detail-date"/);
+  assert.doesNotMatch(appSource, /<div><small>10年国债<\/small><strong>\$\{formatNumber\(signal\.bond10yYield, 2\)\}%<\/strong><span>/);
+  assert.doesNotMatch(appSource, /<article><small>股息率2<\/small><strong>\$\{formatNumber\(signal\.dividendYield2, 2\)\}%<\/strong><span>[\s\S]*signal\.indexDate/);
   assert.match(appSource, /dividend-hover-point/);
   assert.match(appSource, /股息率 \$\{formatNumber\(point\.value, 2\)\}%/);
   assert.match(appSource, /aria-label="\$\{escapeHtml\(label\)\}"/);
@@ -795,6 +807,9 @@ test('tracking list refreshes intraday quotes directly from stock codes', () => 
     'refreshTrackingQuotes',
     '/api/stock-quote?secid=',
     '/api/stock-close-performance?secid=',
+    'tracking-sort-close-performance',
+    "trackingSortMode === 'close-desc' ? 'close-asc' : 'close-desc'",
+    "trackingSortMode === 'close-asc' ? 1 : -1",
     'tracking-close-performance',
     'latestClose',
     'tradeDate',
@@ -806,6 +821,7 @@ test('tracking list refreshes intraday quotes directly from stock codes', () => 
   }
   assert.doesNotMatch(appSource, /stock-decline-streak|trackingDeclineCache|declineStreakText/);
   assert.doesNotMatch(appSource, /closePerformanceEntry\.data\.tradeDate \? `\$\{closePerformanceEntry\.data\.tradeDate\}收盘`/);
+  assert.doesNotMatch(appSource, /formatNumber\(closePerformanceEntry\.data\.latestClose, 2\)} 元/);
   assert.match(appSource, /refreshTrackingQuotes\(\)/);
   assert.match(appSource, /60_000/);
 });

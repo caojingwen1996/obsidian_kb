@@ -198,6 +198,7 @@ h3 { font-size: 15px; }
 .dividend-detail-layout { display: grid; gap: 13px; }
 .dividend-detail-hero { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; border-left: 4px solid var(--green); }
 .dividend-detail-hero h3 { margin: 5px 0 0; font-size: clamp(22px, 3vw, 32px); line-height: 1.25; letter-spacing: 0; }
+.dividend-detail-date { margin: 8px 0 0; color: #4e5e69; font-size: 12px; line-height: 1.6; }
 .dividend-detail-actions { display: flex; align-items: center; gap: 9px; flex: 0 0 auto; }
 .dividend-detail-actions .button-secondary { text-decoration: none; }
 .dividend-detail-metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 13px; }
