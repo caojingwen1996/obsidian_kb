@@ -1,0 +1,681 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>多氟多机构级决策研报（002407.SZ）</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+.daily-tracking { margin: 0 0 42px; padding: 22px; border: 1px solid #cbdade; border-radius: 16px; background: linear-gradient(135deg, #f3f8f9 0%, #fffaf0 100%); box-shadow: 0 12px 30px rgba(23, 50, 71, .07); }
+.daily-tracking-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
+.daily-tracking-kicker { margin: 0 0 4px; color: var(--teal); font-size: 12px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+.daily-tracking h2 { margin: 0; padding: 0; border: 0; font-size: 27px; }
+.daily-tracking-time { margin: 4px 0 0; color: var(--muted); font-size: 12px; text-align: right; }
+.tracking-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.tracking-grid + .tracking-grid { margin-top: 12px; }
+.tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
+.tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
+.tracking-card[data-tracking-key="dynamic-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
+.range-breakdown { display: block; }
+.range-main { display: inline-flex; align-items: center; max-width: 100%; margin-bottom: 10px; padding: 3px 9px; border-radius: 999px; background: #e7f0f3; color: var(--navy); font-size: 20px; line-height: 1.3; font-weight: 800; }
+.range-points { display: grid; gap: 7px; margin-top: 1px; }
+.range-point { display: block; padding-left: 11px; border-left: 3px solid #bed2d8; color: #245068; font-size: 14px; line-height: 1.52; font-weight: 650; }
+.tracking-value.bad { color: var(--danger); }
+.tracking-detail { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; }
+.tracking-status { display: inline-flex; margin-top: 10px; padding: 3px 8px; border-radius: 999px; color: #526b77; background: #edf2f4; font-size: 12px; font-weight: 700; }
+.tracking-status.live { color: #17604e; background: #dff3eb; }
+.tracking-status.error { color: var(--danger); background: var(--danger-bg); }
+.tracking-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; margin-top: 14px; padding-top: 13px; border-top: 1px solid #d5e0e3; color: #536d78; font-size: 13px; }
+.tracking-footer a { font-weight: 700; }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+  .tracking-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+  .daily-tracking-head { display: block; }
+  .daily-tracking-time { text-align: left; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .daily-tracking, .tracking-card { border: 1px solid #aebbc2; color: #102f43; background: #fff; box-shadow: none; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · 002407.SZ</p>
+      <h1>多氟多机构级决策研报（002407.SZ）</h1>
+      <div class="hero-meta"><span>2026-08-12 17:21（Asia/Shanghai，收盘后）</span><span>报告生成时间未获取</span><span>市场与币种未获取</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 我为什么关注这家公司？</a>
+<a class="toc-link" href="#section-3">3. 公司与业务结构</a>
+<a class="toc-link" href="#section-4">4. 彼得·林奇分类与利润增长公式</a>
+<a class="toc-link" href="#section-5">5. 财务质量</a>
+<a class="toc-link" href="#section-6">6. 竞争格局与比较优势</a>
+<a class="toc-link" href="#section-7">7. 流动性辩证分析</a>
+<a class="toc-link" href="#section-8">8. 情绪位置</a>
+<a class="toc-link" href="#section-9">9. 风险识别</a>
+<a class="toc-link" href="#section-10">10. 估值</a>
+<a class="toc-link" href="#section-11">11. 买入、持有、卖出规则</a>
+<a class="toc-link" href="#section-12">12. 未来验证节点</a>
+<a class="toc-link" href="#section-13">13. 三要素总评</a>
+<a class="toc-link" href="#section-14">14. 中央汇金持仓核验</a>
+<a class="toc-link" href="#section-15">15. 最终投资判断</a>
+<a class="toc-link" href="#section-16">16. 来源与相关页面</a></div></aside>
+      <article class="content"><blockquote>
+<p>证券代码：002407.SZ<br>证券简称：多氟多<br>研究截止时间：2026-08-12 17:21（Asia/Shanghai，收盘后）<br>当前价格及时间：37.40 元，2026-08-12 收盘<br>综合估值区间：26—34 元；情绪溢价 35—47 元需连续验证<br>基本面状态：周期修复，但现金流未确认<br>资金状态：高换手分歧承接，大单偏流出<br>估值状态：偏高<br>风险方向：风险重新增强<br>冰冰小美动作：不追高；已有仓位以 34—35 元为减仓/风控分界，等 H1 验证<br>结论置信度：中等<br>每日跟踪时间：2026-08-12 收盘后</p>
+</blockquote>
+<!-- DAILY_TRACKING_START -->
+<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-08-12 17:21（Asia/Shanghai，收盘后）" data-value-low="26" data-value-high="34">
+  <div class="daily-tracking-head">
+    <div><p class="daily-tracking-kicker">Daily decision tracker</p><h2>每日跟踪面板</h2></div>
+    <p class="daily-tracking-time">更新：2026-08-12 17:21（Asia/Shanghai，收盘后）<br>下次：收盘后 / 重大公告后</p>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">周期修复，但现金流未确认</p><p class="tracking-detail">风险方向：风险重新增强。下一验证点与失效条件见第 11—13 章。</p></div>
+    <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value"><span class="range-breakdown"><span class="range-main">26—34 元</span><span class="range-points"><span class="range-point">乐观情绪区间 35—47 元</span></span></span></p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
+    <div class="tracking-card" data-tracking-key="risk-reward"><p class="tracking-label">盈亏比</p><p class="tracking-value bad" id="risk-reward-value">无正向盈亏比</p><p class="tracking-detail" id="risk-reward-detail">每日同步价 37.40 元；相对上沿空间 -9.1%，回落至下沿风险 +30.5%。价格已到或高于动态价值上沿，新增现金不具备正向盈亏比。</p></div>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="daily-quote"><p class="tracking-label">每日同步价</p><p class="tracking-value">37.40 元，2026-08-12 收盘</p><p class="tracking-detail">这是报告内嵌的正式跟踪基准，离线打开仍可使用。</p><span class="tracking-status">每日快照</span></div>
+    <div class="tracking-card" data-tracking-key="intraday-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">等待连接</p><p class="tracking-detail" id="intraday-detail">通过“大盘启动器”打开后获取盘中行情，每 60 秒刷新；直接打开 HTML 时不访问外部行情。</p><span class="tracking-status" id="intraday-status">未连接</span></div>
+    <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">不追高；已有仓位以 34—35 元为减仓/风控分界，等 H1 验证</p><p class="tracking-detail">估值：偏高 · 不追高；已有仓位以 34—35 元为减仓/风控分界，等 H1 验证；风险：风险重新增强；结论置信度：中等。</p><span class="tracking-status">偏高</span></div>
+  </div>
+  <div class="tracking-footer"><span>资金状态：<strong>高换手分歧承接，大单偏流出</strong> · 新增/已有动作：<strong>不追高；已有仓位以 34—35 元为减仓/风控分界，等 H1 验证</strong></span><span>资金面分析：未单独生成</span></div>
+</section>
+<!-- DAILY_TRACKING_END -->
+<h2 id="section-1">1. 决策摘要</h2>
+
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>一句话结论</td>
+<td>多氟多是“六氟磷酸锂 / 新能源材料周期修复 + 情绪溢价”的标的，不是稳态成长白马；当前价格已高于基础价值区间，赔率主要依赖后续业绩持续兑现。</td>
+</tr>
+<tr>
+<td>彼得·林奇分类</td>
+<td>主分类：周期型；副分类：困境反转候选。只有当 2026H1 / H2 连续证明价格、出货、现金流同步改善时，才可上调为“周期上行中的成长股”。</td>
+</tr>
+<tr>
+<td>核心增长来源</td>
+<td>六氟磷酸锂等新能源材料量价修复、新能源电池业务放量、成本 / 产能利用率改善。半导体材料和 AI 液冷叙事目前只能作为小权重期权。</td>
+</tr>
+<tr>
+<td>当前价格及时间</td>
+<td>37.40 元，2026-08-12 收盘</td>
+</tr>
+<tr>
+<td>综合估值区间</td>
+<td>26—34 元；乐观情绪区间 35—47 元</td>
+</tr>
+<tr>
+<td>估值状态</td>
+<td>偏高</td>
+</tr>
+<tr>
+<td>基本面状态</td>
+<td>周期修复，但现金流未确认</td>
+</tr>
+<tr>
+<td>资金状态</td>
+<td>高换手分歧承接，大单偏流出</td>
+</tr>
+<tr>
+<td>风险方向</td>
+<td>风险重新增强</td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td>不追高；已有仓位以 34—35 元为减仓/风控分界，等 H1 验证</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td>中等</td>
+</tr>
+</tbody></table>
+<h2 id="section-2">2. 我为什么关注这家公司？</h2>
+
+<p>多氟多的吸引力不在于“静态估值便宜”，而在于它处在一个典型的周期拐点观察窗口。</p>
+<p>第一，2021—2022 年公司曾经证明过新能源材料景气周期能把收入、毛利率和 ROE 快速拉高：2022 年收入 123.58 亿元、归母净利润 19.48 亿元、ROE 30.02%。第二，2023—2024 年价格下行与行业过剩把利润压回低位，2024 年归母净利润亏损 3.08 亿元。第三，2025 年归母净利润恢复到 2.13 亿元，2026Q1 又跳升到 3.76 亿元，利润表出现明显修复。</p>
+<p>这就形成了一个可研究的问题：这是短期涨价和情绪炒作，还是新能源材料周期真正重新向上？</p>
+<h2 id="section-3">3. 公司与业务结构</h2>
+
+<p>多氟多属于化工原料 / 新能源材料公司，业务结构已经从传统氟化工延伸到新能源材料、新能源电池和电子信息材料。按 2025 年收入看：</p>
+<table>
+<thead>
+<tr>
+<th>业务</th>
+<th align="right">2025 收入</th>
+<th align="right">占比</th>
+<th align="right">同比</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>氟基新材料</td>
+<td align="right">27.89 亿元</td>
+<td align="right">29.56%</td>
+<td align="right">-9.16%</td>
+</tr>
+<tr>
+<td>电子信息材料</td>
+<td align="right">4.09 亿元</td>
+<td align="right">4.33%</td>
+<td align="right">-33.04%</td>
+</tr>
+<tr>
+<td>新能源材料</td>
+<td align="right">31.34 亿元</td>
+<td align="right">33.21%</td>
+<td align="right">+20.86%</td>
+</tr>
+<tr>
+<td>新能源电池</td>
+<td align="right">28.50 亿元</td>
+<td align="right">30.21%</td>
+<td align="right">+76.84%</td>
+</tr>
+</tbody></table>
+<p>因此，这家公司不能简单看成“半导体材料股”。2026-07-02 异常波动公告里，公司已经提示半导体级氢氟酸销售额占比低于 2%，且没有六氟化钨生产线。报告中把半导体叙事降权，主要跟踪新能源材料和新能源电池的量价变化。</p>
+<h2 id="section-4">4. 彼得·林奇分类与利润增长公式</h2>
+
+<h3>分类</h3>
+<ul>
+<li>周期型：收入、毛利率、净利润和股价高度受行业价格周期影响，2021—2022 与 2023—2024 的差异很典型。</li>
+<li>困境反转候选：2024 年亏损后，2025 年转正、2026Q1 快速恢复，但能否跨过“利润表恢复”进入“现金流恢复”，仍待验证。</li>
+</ul>
+<h3>利润增长公式</h3>
+<p>未来几年利润增长来源可以拆成：</p>
+<pre><code class="language-text">归母净利润 =
+新能源材料销量 × 单吨价差
++ 新能源电池收入 × 净利率
++ 氟基新材料稳定贡献
++ 电子信息材料小权重期权
+- 扩产折旧 / 财务费用 / 存货跌价 / 价格回落损失
+</code></pre>
+<p>这意味着多氟多的研究重点不是看一两个概念词，而是看四个硬指标：</p>
+<ol>
+<li>六氟磷酸锂等核心材料价格是否继续维持；</li>
+<li>新能源材料收入是否继续增长；</li>
+<li>毛利率是否能留在 20% 以上；</li>
+<li>经营现金流是否从负转正。</li>
+</ol>
+<h2 id="section-5">5. 财务质量</h2>
+
+<table>
+<thead>
+<tr>
+<th>年度</th>
+<th align="right">收入</th>
+<th align="right">归母净利润</th>
+<th align="right">经营现金流</th>
+<th align="right">毛利率</th>
+<th align="right">ROE</th>
+<th align="right">资产负债率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td align="right">77.99 亿元</td>
+<td align="right">12.60 亿元</td>
+<td align="right">19.75 亿元</td>
+<td align="right">32.05%</td>
+<td align="right">24.81%</td>
+<td align="right">50.71%</td>
+</tr>
+<tr>
+<td>2022</td>
+<td align="right">123.58 亿元</td>
+<td align="right">19.48 亿元</td>
+<td align="right">17.53 亿元</td>
+<td align="right">30.52%</td>
+<td align="right">30.02%</td>
+<td align="right">56.17%</td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">119.37 亿元</td>
+<td align="right">5.10 亿元</td>
+<td align="right">3.30 亿元</td>
+<td align="right">16.25%</td>
+<td align="right">5.47%</td>
+<td align="right">48.38%</td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">82.07 亿元</td>
+<td align="right">-3.08 亿元</td>
+<td align="right">-3.12 亿元</td>
+<td align="right">8.81%</td>
+<td align="right">-3.62%</td>
+<td align="right">52.79%</td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">94.34 亿元</td>
+<td align="right">2.13 亿元</td>
+<td align="right">1.99 亿元</td>
+<td align="right">13.96%</td>
+<td align="right">2.53%</td>
+<td align="right">55.88%</td>
+</tr>
+<tr>
+<td>2026Q1</td>
+<td align="right">32.16 亿元</td>
+<td align="right">3.76 亿元</td>
+<td align="right">-6.88 亿元</td>
+<td align="right">27.61%</td>
+<td align="right">—</td>
+<td align="right">—</td>
+</tr>
+</tbody></table>
+<p>2026Q1 是一个“利润强、现金流弱”的组合。收入同比 +53.26%，归母净利润同比 +480.14%，毛利率恢复到 27.61%；但经营现金流净额为 -6.88 亿元，应收账款和存货较上年末分别增加 35.65% 和 25.32%。  </p>
+<p>这不是否定修复，而是提醒：周期股的利润高点如果没有现金流确认，市场容易先按乐观线定价，之后再用回款和库存数据修正。</p>
+<h2 id="section-6">6. 竞争格局与比较优势</h2>
+
+<p>多氟多的比较优势来自三个层面：</p>
+<ul>
+<li>产业链位置：它处在氟化工到新能源材料的连接处，上一轮景气证明过弹性。</li>
+<li>产品弹性：六氟磷酸锂等电解质材料对价格周期敏感，景气上行时利润弹性强。</li>
+<li>规模与资本开支：公司持续扩产，若需求和价格配合，产能利用率提升能放大利润。</li>
+</ul>
+<p>反证也很清楚：</p>
+<ul>
+<li>新能源材料行业不是强品牌行业，长期超额利润容易被供给扩张压缩。</li>
+<li>2026-07-10 公告显示“年产10万吨锂离子电池电解液关键材料项目”达到预定可使用状态日期由 2026-11-30 延期至 2027-11-30，扩产兑现速度低于原预期。</li>
+<li>半导体材料贡献低，公司自己提示半导体级氢氟酸收入占比不足 2%，没有六氟化钨生产线。</li>
+</ul>
+<p>结论：多氟多有周期弹性，但比较优势还不足以支撑“无视估值”的长期成长定价。</p>
+<h2 id="section-7">7. 流动性辩证分析</h2>
+
+<h3>宏观流动性</h3>
+<p>对多氟多最重要的宏观变量不是一般意义上的宽松，而是风险偏好、锂电产业链价格预期和成长股估值上限。若长端利率、美元或外部风险偏好压制成长股估值，周期修复故事容易被折价。</p>
+<h3>中观流动性</h3>
+<p>新能源材料方向需要看到两个层面的资金承接：</p>
+<ul>
+<li>产业资金：价格回升后，下游是否愿意补库存；</li>
+<li>二级市场资金：电池材料链是否从短炒扩散为机构重新配置。</li>
+</ul>
+<p>当前证据偏混合。基本面出现 Q1 利润修复，但二级市场已经提前交易一轮；7 月异常波动公告说明短期情绪已经很高。</p>
+<h3>微观流动性</h3>
+<table>
+<thead>
+<tr>
+<th>窗口</th>
+<th align="right">净流入代理</th>
+<th align="right">大单+特大单净额</th>
+<th align="right">正流入天数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>近 5 日</td>
+<td align="right">-2.27 亿元</td>
+<td align="right">-3.86 亿元</td>
+<td align="right">3 / 5</td>
+</tr>
+<tr>
+<td>近 10 日</td>
+<td align="right">+1.32 亿元</td>
+<td align="right">-6.16 亿元</td>
+<td align="right">6 / 10</td>
+</tr>
+<tr>
+<td>近 20 日</td>
+<td align="right">-8.27 亿元</td>
+<td align="right">-16.07 亿元</td>
+<td align="right">8 / 20</td>
+</tr>
+<tr>
+<td>近 60 日</td>
+<td align="right">-19.57 亿元</td>
+<td align="right">-85.79 亿元</td>
+<td align="right">22 / 60</td>
+</tr>
+</tbody></table>
+<p>融资余额最新 24.31 亿元，近 5 日增加 1.19 亿元，但近 20 日基本持平、近 60 日下降 0.71 亿元。  </p>
+<p>这说明资金不是“低位静悄悄吸筹”，而是高换手后的分歧承接。若后续大单仍持续偏流出，股价上涨更可能来自短线情绪和杠杆资金，而不是稳定机构配置。</p>
+<h2 id="section-8">8. 情绪位置</h2>
+
+<p>情绪位置已经不低。</p>
+<p>证据有三点：</p>
+<ol>
+<li>当前 37.40 元较 250 日低点 12.51 元上涨约 199%；</li>
+<li>2026-07-02 异常波动公告披露连续 10 个交易日累计涨幅 40.48%；</li>
+<li>当前 PB、PS、PE_TTM 均处自身五年较高分位。</li>
+</ol>
+<p>按照冰冰小美三要素框架，这不是“风险刚转弱时的左侧窗口”，而是“竞争格局有故事、利润表有验证，但情绪已经抢跑”的阶段。交易动作应从“寻找弹性”切换到“检查兑现和防止回撤”。</p>
+<h2 id="section-9">9. 风险识别</h2>
+
+<p>风险方向：风险重新增强。</p>
+<table>
+<thead>
+<tr>
+<th>风险源</th>
+<th>当前状态</th>
+<th>触发条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值风险</td>
+<td>已增强</td>
+<td>当前 PE_TTM 85.03、PB 5.08、PS_TTM 4.22，均高于自身五年中位数较多。</td>
+</tr>
+<tr>
+<td>现金流风险</td>
+<td>未释放</td>
+<td>2026Q1 经营现金流 -6.88 亿元，应收和存货上升。</td>
+</tr>
+<tr>
+<td>产业价格风险</td>
+<td>待验证</td>
+<td>若六氟磷酸锂价格回落或供给重新扩张，利润弹性会反向放大。</td>
+</tr>
+<tr>
+<td>叙事错配风险</td>
+<td>已提示</td>
+<td>半导体级氢氟酸占比低于 2%，无六氟化钨生产线，不能用半导体材料逻辑主导估值。</td>
+</tr>
+<tr>
+<td>项目延期风险</td>
+<td>已出现</td>
+<td>关键募投项目延期至 2027-11-30，扩产兑现慢于原计划。</td>
+</tr>
+</tbody></table>
+<p>风险不是来自公司“没有基本面”，而是来自当前价格已经把较多乐观预期提前折现。</p>
+<h2 id="section-10">10. 估值</h2>
+
+<h3>相对估值</h3>
+<table>
+<thead>
+<tr>
+<th>公司</th>
+<th align="right">PE_TTM</th>
+<th align="right">PB</th>
+<th align="right">PS_TTM</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>多氟多</td>
+<td align="right">85.03</td>
+<td align="right">5.08</td>
+<td align="right">4.22</td>
+</tr>
+<tr>
+<td>天赐材料</td>
+<td align="right">28.06</td>
+<td align="right">4.22</td>
+<td align="right">4.06</td>
+</tr>
+<tr>
+<td>新宙邦</td>
+<td align="right">37.22</td>
+<td align="right">4.57</td>
+<td align="right">4.56</td>
+</tr>
+<tr>
+<td>石大胜华</td>
+<td align="right">47.78</td>
+<td align="right">3.00</td>
+<td align="right">2.09</td>
+</tr>
+<tr>
+<td>永兴材料</td>
+<td align="right">27.12</td>
+<td align="right">1.97</td>
+<td align="right">3.23</td>
+</tr>
+</tbody></table>
+<p>多氟多的 PE_TTM 明显偏高。对周期股而言，低谷修复期 PE 会被低利润扭曲，所以不能只看 PE；但 PB 和 PS 同样处在自身五年 75% 分位附近，说明当前估值并不便宜。</p>
+<h3>正常化利润情形</h3>
+<ul>
+<li>悲观情形：2026 年归母净利润 6—8 亿元，合理市值 120—200 亿元，对应 10—17 元。</li>
+<li>基准情形：2026 年归母净利润 9—12 亿元，合理市值 225—384 亿元，对应 19—32 元。</li>
+<li>乐观情形：2026 年归母净利润 14—16 亿元，合理市值 420—560 亿元，对应 35—47 元。</li>
+</ul>
+<p>我给出的综合估值区间为 26—34 元，情绪溢价区间为 35—47 元。当前 37.40 元已经进入乐观情绪区间，要求后续业绩连续兑现。</p>
+<h2 id="section-11">11. 买入、持有、卖出规则</h2>
+
+<h3>可买条件</h3>
+<p>只有同时满足以下条件，才适合重新评估买入：</p>
+<ol>
+<li>股价回到 26—34 元基础价值区间；</li>
+<li>2026H1 继续证明收入、毛利率和归母净利润改善；</li>
+<li>经营现金流转正，或至少应收账款 / 存货不再继续恶化；</li>
+<li>大单 + 特大单资金由持续流出转为中性或流入。</li>
+</ol>
+<h3>持有条件</h3>
+<p>已有仓位可以继续观察，但应把“利润兑现”和“现金流修复”作为持有前提。若价格站在 35 元以上而 H1 未验证，仓位不宜加大。</p>
+<h3>卖出 / 减仓条件</h3>
+<ul>
+<li>股价跌破 34—35 元后无法快速收复，说明情绪溢价开始失效；</li>
+<li>2026H1 毛利率回落、现金流继续大幅为负；</li>
+<li>大单资金继续显著流出，融资余额却上升，说明短线杠杆接盘；</li>
+<li>半导体 / AI 液冷叙事继续升温但公司公告层面没有实质业务收入匹配。</li>
+</ul>
+<h2 id="section-12">12. 未来验证节点</h2>
+
+<table>
+<thead>
+<tr>
+<th>时间 / 事件</th>
+<th>要看什么</th>
+<th>对结论的影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026H1 报告</td>
+<td>收入、毛利率、归母净利润、经营现金流、应收和存货</td>
+<td>决定 Q1 是拐点还是一次性高弹性</td>
+</tr>
+<tr>
+<td>六氟磷酸锂价格</td>
+<td>价格能否维持，价差是否扩大</td>
+<td>决定利润弹性的持续性</td>
+</tr>
+<tr>
+<td>新能源电池业务</td>
+<td>放量是否伴随盈利改善</td>
+<td>防止收入增长但利润质量不足</td>
+</tr>
+<tr>
+<td>募投项目进度</td>
+<td>延期后是否再次变化</td>
+<td>决定扩产兑现节奏</td>
+</tr>
+<tr>
+<td>资金结构</td>
+<td>大单、融资、换手是否改善</td>
+<td>决定情绪溢价能否维持</td>
+</tr>
+</tbody></table>
+<h2 id="section-13">13. 三要素总评</h2>
+
+<table>
+<thead>
+<tr>
+<th>三要素</th>
+<th>状态</th>
+<th>判断</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>中性偏正</td>
+<td>行业周期修复，新能源材料有利润弹性；但供给扩张、项目延期和半导体叙事错配削弱确定性。</td>
+</tr>
+<tr>
+<td>流动性</td>
+<td>分歧</td>
+<td>高换手，短期杠杆回补，但大单 / 特大单偏流出，承接质量不足。</td>
+</tr>
+<tr>
+<td>情绪位置</td>
+<td>偏高</td>
+<td>股价从低位大幅修复，估值分位偏高，异常波动公告已经提示短线炒作风险。</td>
+</tr>
+</tbody></table>
+<p>三要素没有形成“低位共振”。更准确的状态是：竞争格局有修复线索，流动性和情绪位置已经提前反映乐观预期。</p>
+<h2 id="section-14">14. 中央汇金持仓核验</h2>
+
+<p>Tushare <code>check_central_huijin_holding</code> 查询结果显示：截至最新报告期 2026-03-31，多氟多前十大股东和前十大流通股东未匹配到“中央汇金”。历史查询范围内也未匹配。</p>
+<p>这个结论只代表定期报告前十大披露口径，不代表实时持仓，也不能排除中央汇金未进入前十的持仓。</p>
+<h2 id="section-15">15. 最终投资判断</h2>
+
+<p>多氟多值得跟踪，但当前不适合用“便宜”作为买入理由。</p>
+<p>它的机会在于：如果六氟磷酸锂和新能源材料周期继续修复，公司利润有可能从 2025 年的低位大幅上修；它的风险在于：股价已经提前交易了修复，现金流还没有确认，且大单资金结构并不好。</p>
+<p>因此当前动作是：</p>
+<ul>
+<li>新增资金：不追高，等 26—34 元区间或 H1 强验证后再看；</li>
+<li>已有仓位：可观察，但 34—35 元是情绪溢价失效线；</li>
+<li>研究重点：2026H1 现金流、毛利率、应收 / 存货，以及新能源材料价格。</li>
+</ul>
+<h2 id="section-16">16. 来源与相关页面</h2>
+
+<ul>
+<li><a href="../../webpages/2026-08-12-多氟多研究数据快照.md">2026-08-12 多氟多研究数据快照</a>：本报告数据底稿。</li>
+<li><a href="../../../reasoning/冰冰小美-多氟多氟化工需求周期推导.md">冰冰小美-多氟多氟化工需求周期推导</a>：已有需求周期背景。</li>
+<li><a href="../../../timelines/冰冰小美-标的-周期产业-多氟多.md">冰冰小美-标的-周期产业-多氟多</a>：已有标的时间线。</li>
+<li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12095675&stockid=002407">2025 年年度报告（新浪财经公告镜像）</a>。</li>
+<li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12159394&stockid=002407">2026 年第一季度报告（新浪财经公告镜像）</a>。</li>
+<li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12427135&stockid=002407">2026-07-02 股票交易异常波动公告（新浪财经公告镜像）</a>。</li>
+<li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12437567&stockid=002407">2026-07-10 部分募投项目延期公告（新浪财经公告镜像）</a>。</li>
+</ul>
+<h2>相关页面</h2>
+<ul>
+<li><a href="../../webpages/2026-08-12-多氟多研究数据快照.md">2026-08-12 多氟多研究数据快照</a>：数据快照与来源口径。</li>
+<li><a href="../../../reasoning/冰冰小美-多氟多氟化工需求周期推导.md">冰冰小美-多氟多氟化工需求周期推导</a>：将多氟多放入氟化工需求周期框架。</li>
+<li><a href="../../../timelines/冰冰小美-标的-周期产业-多氟多.md">冰冰小美-标的-周期产业-多氟多</a>：标的跟踪时间线。</li>
+<li><a href="../../../topics/冰冰小美-情绪体系认知篇.md">冰冰小美-情绪体系认知篇</a>：三要素分析总入口。</li>
+</ul>
+<script>
+(() => {
+  const endpoint = '/api/stock-quote?secid=0.002407';
+  const priceNode = document.getElementById('intraday-price');
+  const detailNode = document.getElementById('intraday-detail');
+  const statusNode = document.getElementById('intraday-status');
+  const riskRewardValue = document.getElementById('risk-reward-value');
+  const riskRewardDetail = document.getElementById('risk-reward-detail');
+  const tracker = document.getElementById('daily-tracking');
+  const snapshotPrice = 37.4;
+  const percent = value => `${value < 0 ? '-' : value > 0 ? '+' : ''}${Math.abs(value).toFixed(1)}%`;
+  function updateRiskReward(price) {
+    const low = Number(tracker.dataset.valueLow);
+    const high = Number(tracker.dataset.valueHigh);
+    if (!Number.isFinite(low) || !Number.isFinite(high) || low <= 0 || high <= low) return;
+    const upside = (high / price - 1) * 100;
+    const downside = (1 - low / price) * 100;
+    if (price <= low) {
+      riskRewardValue.textContent = '低于价值下沿';
+      riskRewardValue.classList.remove('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿潜在空间 ${percent(upside)}。价格已低于动态价值下沿，不能直接用下沿作为止损风险，需另设风控线。`;
+      return;
+    }
+    if (price >= high) {
+      riskRewardValue.textContent = '无正向盈亏比';
+      riskRewardValue.classList.add('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿空间 ${percent(upside)}，回落至下沿风险 ${percent(downside)}。价格已到或高于动态价值上沿，新增现金不具备正向盈亏比。`;
+      return;
+    }
+    const ratio = upside / downside;
+    riskRewardValue.textContent = `约 ${ratio.toFixed(1)}:1`;
+    riskRewardValue.classList.toggle('bad', ratio < 1);
+    riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；到上沿 ${high.toFixed(2)} 元的潜在上行 ${percent(upside)}，跌至下沿 ${low.toFixed(2)} 元的风险 ${percent(downside)}。盘中价格不改变价值区间本身。`;
+  }
+  async function refreshIntradayQuote() {
+    statusNode.textContent = '连接中'; statusNode.className = 'tracking-status';
+    try {
+      const response = await fetch(endpoint, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json(); const quote = payload && payload.data;
+      if (!quote || !Number.isFinite(quote.price) || !Number.isFinite(quote.prevClose) || !Number.isFinite(quote.changePercent) || !Number.isFinite(quote.quoteTimestamp)) throw new Error('invalid quote');
+      const quoteTime = new Date(quote.quoteTimestamp * 1000).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false });
+      priceNode.textContent = `${quote.price.toFixed(2)} 元 · ${percent(quote.changePercent)}`;
+      priceNode.classList.toggle('bad', quote.changePercent < 0);
+      detailNode.textContent = `行情时间：${quoteTime}；昨收 ${quote.prevClose.toFixed(2)} 元。来源：${payload.proxySource || '本地行情代理'}。`;
+      statusNode.textContent = '盘中实时 · 每 60 秒'; statusNode.className = 'tracking-status live'; updateRiskReward(quote.price);
+    } catch { priceNode.textContent = '实时行情暂不可用'; priceNode.classList.remove('bad'); detailNode.textContent = '每日同步值仍然有效；可重新双击“大盘启动器”后刷新本页。'; statusNode.textContent = '连接失败'; statusNode.className = 'tracking-status error'; }
+  }
+  if (location.protocol === 'http:' || location.protocol === 'https:') { refreshIntradayQuote(); window.setInterval(refreshIntradayQuote, 60000); }
+  else { priceNode.textContent = Number.isFinite(snapshotPrice) ? `${snapshotPrice.toFixed(2)} 元（每日值）` : '每日值未获取'; detailNode.textContent = '当前为直接打开模式；盘中实时需通过“大盘启动器”进入本地服务。'; statusNode.textContent = '每日同步 · 实时未连接'; }
+})();
+</script></article>
+    </div>
+  </main>
+</body>
+</html>

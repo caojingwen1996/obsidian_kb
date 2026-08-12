@@ -33,7 +33,7 @@ description: Use when the user explicitly requests 冰冰小美体系三要素 a
 
 必须先读取：
 
-- `wiki/topics/冰冰小美-情绪体系理论篇.md`
+- `wiki/topics/冰冰小美-情绪体系认知篇.md`
 - `wiki/concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势.md`
 - `wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md`
 - `wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化.md`
