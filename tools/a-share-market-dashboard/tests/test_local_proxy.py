@@ -26,6 +26,7 @@ from scripts.local_proxy import (
     fetch_stock_close_performance,
     fetch_stock_dividend_yield,
     fetch_stock_quote,
+    fetch_usd_jpy,
     fetch_us_dollar_index,
     fetch_us_treasury_yield,
     fetch_youzhiyouxing_temperature,
@@ -504,6 +505,35 @@ class PayloadTests(unittest.TestCase):
     def test_us_dollar_index_rejects_unknown_parameters(self):
         with self.assertRaises(RouteError):
             fetch_us_dollar_index({"market": ["US"]}, client=object(), us_dollar_tool=lambda client, args: {})
+
+    def test_fetches_usd_jpy_through_tushare_tool(self):
+        calls = []
+
+        def fake_tool(client, args):
+            calls.append((client, args))
+            return {
+                "dataset": "fx_daily",
+                "symbol": "USDJPY.FXCM",
+                "rows": [{"trade_date": "2026-07-30", "close": 160.2}],
+                "row_count": 1,
+                "latest": {"trade_date": "2026-07-30", "close": 160.2},
+                "risk_level": "high",
+                "is_yen_depreciation_risk": True,
+            }
+
+        payload = fetch_usd_jpy(
+            {"start_date": ["2026-07-01"], "end_date": ["2026-07-30"], "risk_threshold": ["160"]},
+            client=object(),
+            usd_jpy_tool=fake_tool,
+        )
+
+        self.assertEqual(calls[0][1], {"start_date": "2026-07-01", "end_date": "2026-07-30", "risk_threshold": "160"})
+        self.assertEqual(payload["latest"], {"trade_date": "2026-07-30", "close": 160.2})
+        self.assertEqual(payload["proxySource"], "Tushare USDJPY fx_daily via tushare-data")
+
+    def test_usd_jpy_rejects_unknown_parameters(self):
+        with self.assertRaises(RouteError):
+            fetch_usd_jpy({"market": ["US"]}, client=object(), usd_jpy_tool=lambda client, args: {})
 
     def test_market_margin_rejects_legacy_market_parameter(self):
         with self.assertRaises(RouteError):

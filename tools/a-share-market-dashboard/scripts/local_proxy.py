@@ -43,6 +43,7 @@ SOURCE_NAMES = {
     "/api/margin": "margin",
     "/api/us-treasury-yield": "us-treasury-yield",
     "/api/us-dollar-index": "us-dollar-index",
+    "/api/usd-jpy": "usd-jpy",
     "/api/stock-quote": "stock-quote",
     "/api/stock-close-performance": "stock-close-performance",
     "/api/stock-dividend-yield": "stock-dividend-yield",
@@ -1256,6 +1257,37 @@ def fetch_us_dollar_index(query=None, client=None, us_dollar_tool=None):
     }
 
 
+def fetch_usd_jpy(query=None, client=None, usd_jpy_tool=None):
+    from mcp_server import get_usd_jpy_exchange_rate
+    from tushare_client import TushareClient, TushareClientError
+
+    args = {}
+    query = query or {}
+    allowed = {"ts_code", "trade_date", "start_date", "end_date", "risk_threshold", "limit", "_"}
+    unknown = {key for key, value in query.items() if key not in allowed and any(str(item).strip() for item in value)}
+    if unknown:
+        raise RouteError("invalid usd jpy query")
+    for key in ("ts_code", "trade_date", "start_date", "end_date", "risk_threshold", "limit"):
+        value = _one(query, key, "")
+        if value:
+            args[key] = value
+    if "trade_date" not in args and not any(key in args for key in ("start_date", "end_date")):
+        today = datetime.now(timezone(timedelta(hours=8))).date()
+        args["start_date"] = (today - timedelta(days=120)).isoformat()
+        args["end_date"] = today.isoformat()
+    try:
+        payload = (usd_jpy_tool or get_usd_jpy_exchange_rate)(
+            client or TushareClient(logger=write_proxy_log),
+            args,
+        )
+    except TushareClientError as error:
+        raise UpstreamError(getattr(error, "source", "tushare-fx-daily")) from error
+    return {
+        **payload,
+        "proxySource": "Tushare USDJPY fx_daily via tushare-data",
+    }
+
+
 def _finite_non_negative_number(value):
     number = float(value)
     if not math.isfinite(number) or number < 0:
@@ -1982,6 +2014,8 @@ def create_server(
                     payload = fetch_us_treasury_yield(query)
                 elif parsed.path == "/api/us-dollar-index":
                     payload = fetch_us_dollar_index(query)
+                elif parsed.path == "/api/usd-jpy":
+                    payload = fetch_usd_jpy(query)
                 elif parsed.path == "/api/youzhiyouxing-temperature":
                     payload = fetch_youzhiyouxing_temperature(
                         fetch_upstream_text if fetcher is fetch_upstream else fetcher

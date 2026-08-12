@@ -93,7 +93,7 @@ function describeRiskReward(price, low, high, label = '每日同步价') {
     return { value: '未获取到', detail: '价格或动态价值区间无法解析，未计算盈亏比。', isBad: false };
   }
   const upside = (high / price - 1) * 100;
-  const downside = (price / low - 1) * 100;
+  const downside = (1 - low / price) * 100;
   if (price <= low) {
     return {
       value: '低于价值下沿',
@@ -140,7 +140,7 @@ function fundReportSortKey(filename) {
   return `${match[1]}-${match[2] || '0000'}-${filename}`;
 }
 
-function latestSiblingFundReport(outputPath) {
+function latestSiblingFundReport(outputPath, securityName = '') {
   const outputDir = path.dirname(outputPath);
   const outputName = path.basename(outputPath);
   let names = [];
@@ -154,6 +154,7 @@ function latestSiblingFundReport(outputPath) {
     .filter((name) => name !== outputName)
     .filter((name) => /^[^<>:"/\\|?*]+\.html$/i.test(name))
     .filter((name) => name.includes('资金面分析'))
+    .filter((name) => !securityName || name.includes(securityName))
     .map((name) => ({ name, key: fundReportSortKey(name) }))
     .filter((item) => item.key)
     .sort((a, b) => b.key.localeCompare(a.key, 'zh-CN'));
@@ -176,7 +177,7 @@ function renderValueRange(value) {
   return `<span class="range-breakdown"><span class="range-main">${escapeHtml(main)}</span>${pointHtml}</span>`;
 }
 
-function renderDailyTracking(decisions, metadata, code, outputPath) {
+function renderDailyTracking(decisions, metadata, code, outputPath, title) {
   const priceText = cleanInline(decisions['当前价格及时间']) || '未获取到';
   const fairValue = cleanInline(decisions['综合估值区间']) || '未获取到';
   const action = cleanInline(decisions['冰冰小美动作'] || decisions['操作建议']) || '未获取到';
@@ -187,9 +188,10 @@ function renderDailyTracking(decisions, metadata, code, outputPath) {
   const riskDirection = cleanInline(decisions['风险方向']) || '未获取到';
   const updatedAt = cleanInline(decisions['每日跟踪时间'] || metadata['研究截止时间']) || '未获取到';
   const candidateFundReport = safeSiblingHtml(decisions['资金面分析链接']);
+  const securityName = cleanInline(title).replace(/机构级决策研报.*$/, '').trim();
   const fundReport = candidateFundReport && fs.existsSync(path.join(path.dirname(outputPath), candidateFundReport))
     ? candidateFundReport
-    : latestSiblingFundReport(outputPath);
+    : latestSiblingFundReport(outputPath, securityName);
   const price = extractNumbers(priceText)[0];
   const [low, high] = extractNumbers(fairValue);
   const riskReward = describeRiskReward(price, low, high);
@@ -240,7 +242,7 @@ function renderLiveQuoteScript(code, decisions) {
     const high = Number(tracker.dataset.valueHigh);
     if (!Number.isFinite(low) || !Number.isFinite(high) || low <= 0 || high <= low) return;
     const upside = (high / price - 1) * 100;
-    const downside = (price / low - 1) * 100;
+    const downside = (1 - low / price) * 100;
     if (price <= low) {
       riskRewardValue.textContent = '低于价值下沿';
       riskRewardValue.classList.remove('bad');
@@ -335,7 +337,7 @@ function main() {
   const fairValue = cleanInline(decisions['综合估值区间']) || '未获取';
   const confidence = cleanInline(decisions['结论置信度']) || '未获取';
   const toc = sectioned.sections.map(({ id, label }) => `<a class="toc-link" href="#${id}">${escapeHtml(label)}</a>`).join('\n');
-  const tracking = renderDailyTracking(decisions, metadata, code, outputPath);
+  const tracking = renderDailyTracking(decisions, metadata, code, outputPath, title);
   const liveQuoteScript = renderLiveQuoteScript(code, decisions);
   const bodyWithTracking = body.includes('</blockquote>') ? body.replace('</blockquote>', `</blockquote>\n${tracking}`) : `${tracking}\n${body}`;
 

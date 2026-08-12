@@ -1,0 +1,1771 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>华润江中机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+.daily-tracking { margin: 0 0 42px; padding: 22px; border: 1px solid #cbdade; border-radius: 16px; background: linear-gradient(135deg, #f3f8f9 0%, #fffaf0 100%); box-shadow: 0 12px 30px rgba(23, 50, 71, .07); }
+.daily-tracking-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
+.daily-tracking-kicker { margin: 0 0 4px; color: var(--teal); font-size: 12px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+.daily-tracking h2 { margin: 0; padding: 0; border: 0; font-size: 27px; }
+.daily-tracking-time { margin: 4px 0 0; color: var(--muted); font-size: 12px; text-align: right; }
+.tracking-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.tracking-grid + .tracking-grid { margin-top: 12px; }
+.tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
+.tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
+.tracking-card[data-tracking-key="dynamic-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
+.range-breakdown { display: block; }
+.range-main { display: inline-flex; align-items: center; max-width: 100%; margin-bottom: 10px; padding: 3px 9px; border-radius: 999px; background: #e7f0f3; color: var(--navy); font-size: 20px; line-height: 1.3; font-weight: 800; }
+.range-points { display: grid; gap: 7px; margin-top: 1px; }
+.range-point { display: block; padding-left: 11px; border-left: 3px solid #bed2d8; color: #245068; font-size: 14px; line-height: 1.52; font-weight: 650; }
+.tracking-value.bad { color: var(--danger); }
+.tracking-detail { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; }
+.tracking-status { display: inline-flex; margin-top: 10px; padding: 3px 8px; border-radius: 999px; color: #526b77; background: #edf2f4; font-size: 12px; font-weight: 700; }
+.tracking-status.live { color: #17604e; background: #dff3eb; }
+.tracking-status.error { color: var(--danger); background: var(--danger-bg); }
+.tracking-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; margin-top: 14px; padding-top: 13px; border-top: 1px solid #d5e0e3; color: #536d78; font-size: 13px; }
+.tracking-footer a { font-weight: 700; }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+  .tracking-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+  .daily-tracking-head { display: block; }
+  .daily-tracking-time { text-align: left; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .daily-tracking, .tracking-card { border: 1px solid #aebbc2; color: #102f43; background: #fff; box-shadow: none; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · 600750.SH</p>
+      <h1>华润江中机构级决策研报</h1>
+      <div class="hero-meta"><span>2026-08-11 18:03（Asia/Shanghai，收盘后）</span><span>2026-08-11 18:03</span><span>上海证券交易所主板 / 人民币</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
+<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
+<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
+<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
+<a class="toc-link" href="#section-6">6. 五年财务历史</a>
+<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
+<a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
+<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
+<a class="toc-link" href="#section-10">10. 估值</a>
+<a class="toc-link" href="#section-11">11. 冰冰小美框架判断</a>
+<a class="toc-link" href="#section-12">12. 最终结论</a>
+<a class="toc-link" href="#section-13">13. 后续监控指标</a>
+<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
+<a class="toc-link" href="#section-15">15. 来源清单</a>
+<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
+      <article class="content"><blockquote>
+<p>证券代码：600750.SH<br>交易所 / 币种：上海证券交易所主板 / 人民币<br>研究截止时间：2026-08-11 18:03（Asia/Shanghai，收盘后）<br>报告生成时间：2026-08-11 18:03<br>核心数据快照：<a href="../../../../webpages/2026-08-11-华润江中研究数据快照.md">2026-08-11 华润江中研究数据快照</a></p>
+</blockquote>
+<!-- DAILY_TRACKING_START -->
+<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-08-11 18:03（Asia/Shanghai，收盘后）" data-value-low="22" data-value-high="31">
+  <div class="daily-tracking-head">
+    <div><p class="daily-tracking-kicker">Daily decision tracker</p><h2>每日跟踪面板</h2></div>
+    <p class="daily-tracking-time">更新：2026-08-11 18:03（Asia/Shanghai，收盘后）<br>下次：收盘后 / 重大公告后</p>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">品牌、利润率、现金和分红强；收入与终端动销弱。2025 年收入 -4.87%、归母净利 +15.03%，2026Q1 收入 -12.49%、归母净利 +1.10%</p><p class="tracking-detail">风险方向：风险重新增强：经营端收入降幅扩大；估值与资产负债表风险仍低，未演化为系统性风险。下一验证点与失效条件见第 11—13 章。</p></div>
+    <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value"><span class="range-breakdown"><span class="range-main">22—31 元</span><span class="range-points"><span class="range-point">22 元附近是悲观 PE / 股息底</span><span class="range-point">27—29 元是基准价值区</span><span class="range-point">31 元需要收入恢复和 2026E 利润兑现</span></span></span></p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
+    <div class="tracking-card" data-tracking-key="risk-reward"><p class="tracking-label">盈亏比</p><p class="tracking-value" id="risk-reward-value">约 2.4:1</p><p class="tracking-detail" id="risk-reward-detail">每日同步价 24.64 元；到上沿 31.00 元的潜在上行 +25.8%，跌至下沿 22.00 元的风险 +10.7%。价格不改变价值区间本身。</p></div>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="daily-quote"><p class="tracking-label">每日同步价</p><p class="tracking-value">24.64 元，2026-08-11 收盘</p><p class="tracking-detail">这是报告内嵌的正式跟踪基准，离线打开仍可使用。</p><span class="tracking-status">每日快照</span></div>
+    <div class="tracking-card" data-tracking-key="intraday-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">等待连接</p><p class="tracking-detail" id="intraday-detail">通过“大盘启动器”打开后获取盘中行情，每 60 秒刷新；直接打开 HTML 时不访问外部行情。</p><span class="tracking-status" id="intraday-status">未连接</span></div>
+    <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">wait</p><p class="tracking-detail">估值：合理偏低，但尚未形成厚安全边际。现价 24.64 元对应 PE_TTM 17.21 倍、2026E PE 约 15.8 倍、TTM 股息率 5.60% · wait；风险：风险重新增强：经营端收入降幅扩大；估值与资产负债表风险仍低，未演化为系统性风险；结论置信度：中等。财务、分部和分红证据充分，但渠道库存、终端动销与 2026H1 数据尚未披露。</p><span class="tracking-status">合理偏低，但尚未形成厚安全边际。现价 24.64 元对应 PE_TTM 17.21 倍、2026E PE 约 15.8 倍、TTM 股息率 5.60%</span></div>
+  </div>
+  <div class="tracking-footer"><span>资金状态：<strong>中性偏分歧。近 20 日总资金代理为正，但大单与特大单代理净流出约 0.79 亿元；60 日融资余额下降约 0.44 亿元</strong> · 新增/已有动作：<strong>wait</strong></span><span>资金面分析：未单独生成</span></div>
+</section>
+<!-- DAILY_TRACKING_END -->
+<h2 id="section-1">1. 决策摘要</h2>
+
+<h3>1.1 基本面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值状态</td>
+<td>合理偏低，但尚未形成厚安全边际。现价 24.64 元对应 PE_TTM 17.21 倍、2026E PE 约 15.8 倍、TTM 股息率 5.60%</td>
+</tr>
+<tr>
+<td>综合估值区间</td>
+<td>22—31 元；22 元附近是悲观 PE / 股息底，27—29 元是基准价值区，31 元需要收入恢复和 2026E 利润兑现</td>
+</tr>
+<tr>
+<td>基准公允价值</td>
+<td>28 元；相对现价约 +13.6%价差，叠加股息后有正预期收益，但不够覆盖半年报前的经营不确定性</td>
+</tr>
+<tr>
+<td>基本面状态</td>
+<td>品牌、利润率、现金和分红强；收入与终端动销弱。2025 年收入 -4.87%、归母净利 +15.03%，2026Q1 收入 -12.49%、归母净利 +1.10%</td>
+</tr>
+<tr>
+<td>主导矛盾</td>
+<td>费用压降和产品结构优化能否继续抵消 OTC、处方药及健康消费品收入收缩；收入恢复比单季利润增长更重要</td>
+</tr>
+<tr>
+<td>彼得·林奇分类</td>
+<td>主分类为稳健增长型，次级风险是滑向缓慢增长型；不是快速增长股，也不应按高成长估值</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td>中等。财务、分部和分红证据充分，但渠道库存、终端动销与 2026H1 数据尚未披露</td>
+</tr>
+</tbody></table>
+<h3>1.2 资金面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>操作建议</td>
+<td>等待 / 已持有可收息持有，新增资金不追；22—23 元再进入分批观察区</td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td>wait</td>
+</tr>
+<tr>
+<td>当前价格及时间</td>
+<td>24.64 元，2026-08-11 收盘</td>
+</tr>
+<tr>
+<td>风险方向</td>
+<td>风险重新增强：经营端收入降幅扩大；估值与资产负债表风险仍低，未演化为系统性风险</td>
+</tr>
+<tr>
+<td>资金状态</td>
+<td>中性偏分歧。近 20 日总资金代理为正，但大单与特大单代理净流出约 0.79 亿元；60 日融资余额下降约 0.44 亿元</td>
+</tr>
+<tr>
+<td>下一验证点</td>
+<td>2026 年半年报计划于 2026-08-22 披露，重点看收入、经营现金流、渠道秩序及中期分红</td>
+</tr>
+<tr>
+<td>资金面分析链接</td>
+<td><a href="../../../../webpages/2026-08-11-华润江中研究数据快照.md#%E8%B5%84%E9%87%91%E9%9D%A2%E4%B8%8E%E7%AD%B9%E7%A0%81">资金面与筹码快照</a></td>
+</tr>
+</tbody></table>
+<h3>如果今天这是一笔现金，我会买它吗</h3>
+<ul>
+<li>回答：<strong>现价不会主动买入，会等待半年报；若回到 22—23 元且经营假设未恶化，再分批建仓。</strong></li>
+<li>理由：24.64 元并不贵，但基准价值 28 元只提供约 13.6%价格空间，且 2026Q1 三类业务收入全部下滑。距离半年报仅约 11 天，没有必要为了有限价差承担信息发布风险。</li>
+<li>已持有者：在没有杠杆、仓位适中且以股息为目标的前提下，可以持有；31 元以上若收入仍未恢复，应减仓而非继续给估值溢价。</li>
+<li>改变结论的条件：H1 收入降幅明显收窄、经营现金流恢复、OTC 渠道库存可验证地健康，或价格跌入 22 元附近而上述假设没有继续恶化。</li>
+</ul>
+<h2 id="section-2">2. 证券身份与来源矩阵</h2>
+
+<h3>2.1 证券身份</h3>
+<ul>
+<li>公司名称：华润江中药业股份有限公司。</li>
+<li>证券代码：600750.SH。</li>
+<li>上市地：上海证券交易所主板。</li>
+<li>所属行业：中成药；投资属性更接近 OTC 品牌消费健康。</li>
+<li>上市日期：1996-09-23。</li>
+<li>证券简称变化：2026 年 1 月由“江中药业”变更为“华润江中”，证券代码不变。</li>
+<li>控股股东：华润江中制药集团有限责任公司，2026Q1 持股 43.09%。</li>
+<li>同名歧义：本报告仅指 A 股上市公司 600750.SH，不与控股股东、华润医药或华润三九混用。</li>
+</ul>
+<h3>2.2 来源矩阵</h3>
+<table>
+<thead>
+<tr>
+<th>数据项目</th>
+<th>目标来源</th>
+<th>实际来源</th>
+<th>时间 / 口径</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>证券身份</td>
+<td>本地 Tushare</td>
+<td><code>stock_basic</code></td>
+<td>2026-08-11</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>价格、区间、成交</td>
+<td>本地 Tushare</td>
+<td><code>daily</code>，不复权</td>
+<td>截至 2026-08-11</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>PE、PB、市值、股息率</td>
+<td>本地 Tushare</td>
+<td><code>daily_basic</code></td>
+<td>2026-08-11</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>年度与季度财务</td>
+<td>公司公告 / 本地 Tushare</td>
+<td>2025 年报、2026Q1、<code>income</code>、<code>cashflow</code>、<code>balancesheet</code>、<code>fina_indicator</code></td>
+<td>2019—2026Q1</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>分部与产品产销</td>
+<td>公司年报</td>
+<td><a href="https://cniis.aastocks.com/CNSESH_STOCK/2026/2026-3/2026-03-20/12003922.pdf">2025年年度报告</a></td>
+<td>2025 年</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>最新季度</td>
+<td>公司公告</td>
+<td><a href="https://static.cninfo.com.cn/finalpage/2026-04-25/1225176557.PDF">2026年第一季度报告</a></td>
+<td>2026Q1</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>管理层指引</td>
+<td>公司投资者关系记录</td>
+<td><a href="https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12013951&stockid=600750">2026-03-23</a>、<a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12245570&stockid=600750">2026-04-27</a></td>
+<td>2026-03/04</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>分红历史</td>
+<td>本地 Tushare / 公司公告</td>
+<td><code>dividend</code>、年度分红公告</td>
+<td>2021—2026</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>订单分档资金</td>
+<td>本地 Tushare</td>
+<td><code>moneyflow</code>；不识别账户身份</td>
+<td>至 2026-08-11</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>融资融券</td>
+<td>本地 Tushare</td>
+<td><code>margin_detail</code></td>
+<td>至 2026-08-10</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>卖方一致预期</td>
+<td>第三方汇总</td>
+<td><a href="https://basic.10jqka.com.cn/600750/worth.html">同花顺盈利预测与评级</a></td>
+<td>截至 2026-07-29</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>行业需求代理</td>
+<td>国家统计局</td>
+<td><a href="https://www.stats.gov.cn/sj/zxfbhjd/202607/t20260715_1964127.html">2026年上半年社零数据</a></td>
+<td>2026H1</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>第三方公允价值 / 护城河 / 星级</td>
+<td>独立评级平台</td>
+<td>未取得可复现字段</td>
+<td>2026-08-11</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>实时渠道库存与终端动销</td>
+<td>公司 / 第三方渠道调研</td>
+<td>公司仅定性称“整体可控”</td>
+<td>2026Q1</td>
+<td>部分获取</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 行情与市场预期</h2>
+
+<h3>3.1 行情快照（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">数值</th>
+<th>来源</th>
+<th>时间 / 口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前价格</td>
+<td align="right">24.64 元</td>
+<td>Tushare <code>daily</code></td>
+<td>2026-08-11 收盘</td>
+</tr>
+<tr>
+<td>总市值</td>
+<td align="right">156.61 亿元</td>
+<td>Tushare <code>daily_basic</code></td>
+<td>2026-08-11</td>
+</tr>
+<tr>
+<td>PE / PE_TTM</td>
+<td align="right">17.27 / 17.21 倍</td>
+<td>Tushare <code>daily_basic</code></td>
+<td>2026-08-11</td>
+</tr>
+<tr>
+<td>PB / PS_TTM</td>
+<td align="right">3.63 / 3.85 倍</td>
+<td>Tushare <code>daily_basic</code></td>
+<td>2026-08-11</td>
+</tr>
+<tr>
+<td>TTM 股息率</td>
+<td align="right">5.60%</td>
+<td>Tushare <code>dv_ttm</code></td>
+<td>2026-08-11</td>
+</tr>
+<tr>
+<td>250 日高 / 低</td>
+<td align="right">27.83 / 21.05 元</td>
+<td>Tushare <code>daily</code></td>
+<td>不复权</td>
+</tr>
+<tr>
+<td>距 250 日高点</td>
+<td align="right">-11.46%</td>
+<td>计算</td>
+<td>以 24.64 元计</td>
+</tr>
+<tr>
+<td>年初至今</td>
+<td align="right">+6.34%</td>
+<td>计算</td>
+<td>2025-12-31 收盘为基准</td>
+</tr>
+<tr>
+<td>20 日表现</td>
+<td align="right">-3.11%</td>
+<td>计算</td>
+<td>20 个交易日</td>
+</tr>
+<tr>
+<td>60 日表现</td>
+<td align="right">+8.07%</td>
+<td>计算</td>
+<td>60 个交易日</td>
+</tr>
+</tbody></table>
+<p>市场没有把公司定价为高成长股：现价位于五年 PE_TTM 的 34.8%分位、PB 的 55.2%分位。估值不高，但也不是历史极端低位。</p>
+<h3>3.2 第三方公允价值与评级（事实）</h3>
+<ul>
+<li>第三方公允价值：未获取到。</li>
+<li>护城河评级：未获取到。</li>
+<li>星级：未获取到。</li>
+<li>处理方式：不使用不可复现的评级字段替代自主估值；以公司公告、现金流、可比估值、DCF 与股息折现交叉验证。</li>
+</ul>
+<h3>3.3 卖方评级与目标价分布（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>数值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026E EPS</td>
+<td>14 家机构，1.48—1.59 元，均值 1.56 元</td>
+</tr>
+<tr>
+<td>2027E EPS</td>
+<td>14 家机构，均值 1.73 元</td>
+</tr>
+<tr>
+<td>2028E EPS</td>
+<td>13 家机构，均值 1.92 元</td>
+</tr>
+<tr>
+<td>2026E 归母净利润</td>
+<td>均值 9.92 亿元</td>
+</tr>
+<tr>
+<td>近 6 个月评级</td>
+<td>买入 8、增持 2、中性 / 减持 / 卖出 0</td>
+</tr>
+<tr>
+<td>代表性目标价</td>
+<td>31.27、31.34、31.87 元，主要基于 2026E 20 倍 PE</td>
+</tr>
+</tbody></table>
+<p>卖方预期非常集中：2026E EPS 极差仅 0.11 元，评级也没有负面样本。这意味着 31 元附近不是保守价值，而是收入恢复与利润目标兑现后的乐观定价。</p>
+<h2 id="section-4">4. 商业模式与竞争格局</h2>
+
+<h3>4.1 事实</h3>
+<ul>
+<li>公司围绕“做强 OTC、发展健康消费品、做大 / 布局处方药”三类业务展开。</li>
+<li>OTC 是利润核心：2025 年收入 29.92 亿元、毛利率 75.14%，约占主营收入 71%。</li>
+<li>产品梯队：健胃消食片为 10 亿元级第一梯队；乳酸菌素片和贝飞达为 5 亿元级第二梯队；多维元素片、复方草珊瑚含片等构成第三梯队。</li>
+<li>渠道：健胃消食片等核心 OTC 主要覆盖零售药店及线上；贝飞达兼具院内和院外渠道；健康消费品加强自营电商与兴趣电商。</li>
+<li>品牌商业模式具有消费品属性：高毛利依赖消费者认知、终端覆盖、媒介投放效率和渠道秩序，而非单纯依赖专利独占。</li>
+<li>公司 2025 年前五大客户销售额占 53.40%，第一大客户占 24.36%；关联方销售占总收入 9.85%，客户集中度需要持续观察。</li>
+<li>公司在 2025 年完成精诚徽药并购，补充六味地黄口服液、脑力静糖浆等品种；2026 年仍计划围绕中药、微生态制剂、特医食品推进外延。</li>
+</ul>
+<h4>多产业位置景气度排序（事实与判断分列）</h4>
+<table>
+<thead>
+<tr>
+<th>业务位置</th>
+<th>事实</th>
+<th>当前景气判断</th>
+<th>核心变量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>品牌 OTC</td>
+<td>2025 收入 -8.39%，2026Q1 -12.51%；毛利率 76.24%</td>
+<td>低位承压，但竞争优势仍在</td>
+<td>药店客流、终端动销、品牌年轻化、线上转化</td>
+</tr>
+<tr>
+<td>健康消费品</td>
+<td>2025 收入 +43.19%，2026Q1 -2.21%</td>
+<td>从恢复性高增长回到验证期</td>
+<td>自营电商、复购、投放效率、产品矩阵</td>
+</tr>
+<tr>
+<td>处方药</td>
+<td>2025 收入 -9.15%，2026Q1 -19.29%，Q1 毛利率下降 9.57pct</td>
+<td>三者中最弱</td>
+<td>集采、院内外拓展、贝飞达产能与中标价格</td>
+</tr>
+<tr>
+<td>中药饮片 / 代煎</td>
+<td>公司布局智慧代煎和饮片集采</td>
+<td>规模与盈利贡献尚不清晰</td>
+<td>集采价格、客户拓展、产能利用率</td>
+</tr>
+</tbody></table>
+<h3>4.2 我的判断</h3>
+<ul>
+<li>护城河属于“品牌心智 + 胃肠品类占位 + 终端网络 + 华润体系治理”的组合，不是不可替代的专利壁垒。</li>
+<li>最强比较优势在健胃消食片的全民认知和肠胃品类矩阵；最弱环节是第二、第三梯队的持续放量能力。</li>
+<li>2025 年利润增长主要由毛利改善和销售费用率下降驱动，不是收入增长驱动。费用效率可以改善，但不能无限压降；长期价值必须回到销量、价格、复购和新品成功率。</li>
+<li>华润体系带来治理、渠道和并购资源，同时也带来关联交易、存款安排和集团内同类业务边界需要持续审视。</li>
+</ul>
+<h3>4.3 彼得·林奇公司分类与投资故事</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>判断</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主分类</td>
+<td>稳健增长型（Stalwart）</td>
+</tr>
+<tr>
+<td>次分类</td>
+<td>若核心 OTC 长期零增长，则向缓慢增长型滑落</td>
+</tr>
+<tr>
+<td>不是哪一类</td>
+<td>不是快速增长型；也不是周期型或资产重组型</td>
+</tr>
+<tr>
+<td>分类依据</td>
+<td>2019—2025 收入 CAGR 9.49%、净利润 CAGR 11.83%；品牌成熟、现金流强、分红高，但近两年收入停滞</td>
+</tr>
+<tr>
+<td>投资故事</td>
+<td>用健胃消食片和肠道品类守住高毛利基本盘，以健康消费品、贝飞达、并购品种和线上渠道提供低双位数利润增长，同时维持高分红</td>
+</tr>
+<tr>
+<td>故事检查点</td>
+<td>核心产品销量、广告 / 销售费用效率、健康消费品复购、渠道库存、并购回报、分红率</td>
+</tr>
+<tr>
+<td>故事失效</td>
+<td>连续两期收入双位数下滑、费用率无法再降、核心 OTC 毛利率下降、现金回款弱化或并购消耗净现金却不增厚利润</td>
+</tr>
+</tbody></table>
+<p>按 2026E EPS 1.56 元、现价 24.64 元计算，前瞻 PE 约 15.8 倍。若只用约 9%—10%的利润增长，PEG 约 1.6—1.8，并不便宜；把 5.6%股息率加入股东回报后，股息调整后的 PEG 约 1.0，才体现吸引力。因此这是一只“收益率 + 稳健增长”标的，不是纯成长标的。</p>
+<h2 id="section-5">5. 分部收入与盈利拆解</h2>
+
+<table>
+<thead>
+<tr>
+<th>分部</th>
+<th align="right">2025 收入</th>
+<th align="right">收入占比</th>
+<th align="right">同比</th>
+<th align="right">毛利率</th>
+<th>判断</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>OTC</td>
+<td align="right">29.92 亿元</td>
+<td align="right">约 71.1%</td>
+<td align="right">-8.39%</td>
+<td align="right">75.14%</td>
+<td>利润池与品牌核心，收入下滑是最大风险</td>
+</tr>
+<tr>
+<td>处方药</td>
+<td align="right">7.20 亿元</td>
+<td align="right">约 17.1%</td>
+<td align="right">-9.15%</td>
+<td align="right">41.97%</td>
+<td>增长和盈利均偏弱，集采与拓展压力较大</td>
+</tr>
+<tr>
+<td>健康消费品及其他</td>
+<td align="right">4.94 亿元</td>
+<td align="right">约 11.7%</td>
+<td align="right">+43.19%</td>
+<td align="right">41.46%</td>
+<td>2025 恢复显著，但 2026Q1 已转为小幅下滑</td>
+</tr>
+</tbody></table>
+<p>产品层面出现明显分化：健胃消食片销量 -2.36%、贝飞达 +5.18%，基本盘尚稳；乳酸菌素片销量 -8.02%且库存 +254.43%，需要验证主动备货还是动销放缓；多维元素片和复方草珊瑚销量分别 -26.64%、-48.85%，第三梯队承压。</p>
+<p>盈利拆解：2025 年收入减少约 2.16 亿元，但归母净利润增加约 1.18 亿元。毛利率提高 1.85pct、销售费用减少 1.93 亿元是主要解释。若收入继续收缩，而销售费用率已从 33.70%降至 30.84%，利润弹性将越来越依赖真实产品结构而非费用削减。</p>
+<h2 id="section-6">6. 五年财务历史</h2>
+
+<table>
+<thead>
+<tr>
+<th>年度</th>
+<th align="right">收入（亿元）</th>
+<th align="right">归母净利（亿元）</th>
+<th align="right">OCF（亿元）</th>
+<th align="right">OCF-资本开支（亿元）</th>
+<th align="right">毛利率</th>
+<th align="right">净利率</th>
+<th align="right">ROE</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td align="right">28.74</td>
+<td align="right">5.06</td>
+<td align="right">9.17</td>
+<td align="right">7.29</td>
+<td align="right">64.34%</td>
+<td align="right">18.47%</td>
+<td align="right">12.52%</td>
+</tr>
+<tr>
+<td>2022</td>
+<td align="right">38.12</td>
+<td align="right">5.96</td>
+<td align="right">10.16</td>
+<td align="right">6.70</td>
+<td align="right">64.84%</td>
+<td align="right">16.90%</td>
+<td align="right">14.53%</td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">43.90</td>
+<td align="right">7.08</td>
+<td align="right">10.36</td>
+<td align="right">8.27</td>
+<td align="right">65.31%</td>
+<td align="right">17.46%</td>
+<td align="right">17.75%</td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">44.35</td>
+<td align="right">7.88</td>
+<td align="right">7.86</td>
+<td align="right">4.95</td>
+<td align="right">63.52%</td>
+<td align="right">19.40%</td>
+<td align="right">19.58%</td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">42.20</td>
+<td align="right">9.07</td>
+<td align="right">9.71</td>
+<td align="right">6.90</td>
+<td align="right">65.37%</td>
+<td align="right">23.40%</td>
+<td align="right">22.75%</td>
+</tr>
+</tbody></table>
+<ul>
+<li>现金转换：2021—2025 年经营现金流均高于归母净利润或接近，整体质量较好。</li>
+<li>资本强度：资本开支代理 1.9—3.5 亿元，低于经营现金流；品牌 OTC 仍有轻资产属性，但智能制造、产能和并购会增加资本需求。</li>
+<li>资产负债表：2025 年末及 2026Q1 均未列示短期 / 长期借款；2026Q1 广义现金、定期存款与金融资产约 28 亿元。</li>
+<li>ROE 提升：从 2021 年 12.52%升至 2025 年 22.75%，既来自盈利能力改善，也受高分红压低权益基数影响，不能全部视作经营效率提升。</li>
+</ul>
+<h3>6.1 林奇框架增长质量检查</h3>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>结论</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>收入是否增长</td>
+<td>长周期增长、近两年停滞</td>
+<td>2019—2025 CAGR 9.49%，2024 +1.03%，2025 -4.87%</td>
+</tr>
+<tr>
+<td>EPS / 利润是否增长</td>
+<td>是，但近期依赖利润率</td>
+<td>2019—2025净利 CAGR 11.83%，2025 +15.03%</td>
+</tr>
+<tr>
+<td>现金流是否跟上</td>
+<td>长期跟上，Q1 待验证</td>
+<td>2025 OCF / 归母净利约 1.07；2026Q1 OCF -81.94%</td>
+</tr>
+<tr>
+<td>存货是否异常</td>
+<td>总存货可控，单品分化</td>
+<td>2026Q1总存货较年初下降；乳酸菌素片 2025 库存同比 +254.43%</td>
+</tr>
+<tr>
+<td>债务是否过高</td>
+<td>否</td>
+<td>无短期与长期借款，广义净现金充足</td>
+</tr>
+<tr>
+<td>管理层是否稀释股东</td>
+<td>轻微</td>
+<td>股权激励导致小额股本变化，规模不构成主要风险</td>
+</tr>
+<tr>
+<td>回购 / 分红是否真实</td>
+<td>分红非常强</td>
+<td>2025 DPS 1.38 元、分红率 96.71%</td>
+</tr>
+<tr>
+<td>故事是否简洁</td>
+<td>是</td>
+<td>胃肠 OTC 基本盘 + 健康消费品 / 贝飞达 / 并购品种 + 高分红</td>
+</tr>
+</tbody></table>
+<h2 id="section-7">7. 最新季度与管理层指引</h2>
+
+<h3>7.1 最新季度（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">2026Q1</th>
+<th align="right">同比</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营业收入</td>
+<td align="right">10.36 亿元</td>
+<td align="right">-12.49%</td>
+</tr>
+<tr>
+<td>归母净利润</td>
+<td align="right">2.88 亿元</td>
+<td align="right">+1.10%</td>
+</tr>
+<tr>
+<td>扣非归母净利润</td>
+<td align="right">2.82 亿元</td>
+<td align="right">+8.09%</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">0.32 亿元</td>
+<td align="right">-81.94%</td>
+</tr>
+<tr>
+<td>OTC 收入</td>
+<td align="right">7.75 亿元</td>
+<td align="right">-12.51%</td>
+</tr>
+<tr>
+<td>处方药收入</td>
+<td align="right">1.51 亿元</td>
+<td align="right">-19.29%</td>
+</tr>
+<tr>
+<td>健康消费品及其他</td>
+<td align="right">1.08 亿元</td>
+<td align="right">-2.21%</td>
+</tr>
+</tbody></table>
+<p>Q1 利润韧性来自销售费用同比减少约 1.11 亿元和总体毛利率维持高位。处方药毛利率同比下降 9.57pct，是分部中最明显的盈利风险。应收账款较年初增加约 20.4%，而现金回款显著下滑，需要半年报检查季节性解释是否成立。</p>
+<h3>7.2 管理层指引（事实）</h3>
+<ul>
+<li>2026 年目标表述为“力争实现收入、利润持续稳健增长”，未给出明确收入或利润数值承诺。</li>
+<li>管理层称 Q1 渠道库存整体可控，将通过品牌传播、终端赋能、连锁共建和线上渠道拉动动销。</li>
+<li>2026 年费用投入预计整体平稳，盈利能力保持较好水平。</li>
+<li>外延方向聚焦中药及类中药、微生态制剂和特医食品。</li>
+<li>贝飞达产能通过工艺优化稳中有升，仍计划推动金匠产业园项目解决产能瓶颈。</li>
+<li>“十五五”规划尚未最终确定；前瞻性表述不构成业绩承诺。</li>
+</ul>
+<h3>7.3 我的判断</h3>
+<ul>
+<li>“收入、利润稳健增长”与 Q1 收入 -12.49%之间已经产生验证压力。若 H1 仍为双位数收入下滑，全年收入正增长需要下半年明显加速。</li>
+<li>渠道库存“整体可控”只有定性表述，尚缺核心单品终端动销、库存周转和批发发货差异，置信度不能给高。</li>
+<li>费用整体平稳意味着 2025 年大幅降费的利润贡献难以重复；2026 年利润增长更需要收入、毛利结构或并购增厚。</li>
+</ul>
+<h2 id="section-8">8. 近三个月新闻与催化剂</h2>
+
+<table>
+<thead>
+<tr>
+<th>日期</th>
+<th>事件</th>
+<th>影响判断</th>
+<th>是否已计价</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-05-16</td>
+<td>董事会审议回购注销限制性股票、关联交易、年度股东会等</td>
+<td>常规治理；股本影响小</td>
+<td>基本计价</td>
+</tr>
+<tr>
+<td>2026-06-05</td>
+<td>年度股东会通过 2025 年分红及 2026 年中期分红授权</td>
+<td>强化高分红预期</td>
+<td>部分计价</td>
+</tr>
+<tr>
+<td>2026-06-22</td>
+<td>每股 0.88 元年度分红实施</td>
+<td>现金回报已兑现，不应重复加入目标价</td>
+<td>已计价</td>
+</tr>
+<tr>
+<td>2026-07-14</td>
+<td>限制性股票回购注销实施</td>
+<td>小额减少股本，影响不显著</td>
+<td>已计价</td>
+</tr>
+<tr>
+<td>2026-08-22</td>
+<td>计划披露 2026H1</td>
+<td>近期最大催化 / 风险节点</td>
+<td>未计价完整</td>
+</tr>
+<tr>
+<td>2026H2 待定</td>
+<td>“十五五”规划可能确定</td>
+<td>若给出可量化经营目标，有助预期重估</td>
+<td>未计价</td>
+</tr>
+<tr>
+<td>2026H2 待定</td>
+<td>2026 年中期分红方案</td>
+<td>有助股息确定性，但需先看 H1 利润和资本开支</td>
+<td>部分计价</td>
+</tr>
+</tbody></table>
+<h2 id="section-9">9. 多头与空头论据</h2>
+
+<h3>9.1 多头论据</h3>
+<ol>
+<li>健胃消食片的品牌心智和胃肠品类占位仍强，OTC 毛利率超过 75%。</li>
+<li>2025 年归母净利润 +15.03%、ROE 22.75%，经营现金流覆盖利润，盈利质量总体较好。</li>
+<li>无有息借款、约 28 亿元广义现金和定期存款，为分红、并购与经营波动提供缓冲。</li>
+<li>2025 年分红率 96.71%，现价 TTM 股息率 5.60%，对红利低波和保险资金具备吸引力。</li>
+<li>现价 2026E PE 约 15.8 倍，低于卖方常用的 20 倍目标估值，反向 DCF 隐含 FCF 增速仅约 1.6%。</li>
+<li>健康消费品、贝飞达、精诚徽药和外延并购提供核心 OTC 之外的可选增长。</li>
+</ol>
+<h3>9.2 空头论据</h3>
+<ol>
+<li>2025 年收入下降，2026Q1 降幅扩大，且 OTC、处方药、健康消费品三类业务全部下滑。</li>
+<li>2025 年利润增长高度依赖降费与毛利改善，销售费用率继续下降的空间有限。</li>
+<li>乳酸菌素片库存同比大幅增加，第三梯队产品销量显著下滑，产品矩阵仍未证明全面成功。</li>
+<li>Q1 经营现金流下降 81.94%、应收账款较年初上升，需要防止渠道压货或回款弱化；公司解释尚待 H1 验证。</li>
+<li>前五大客户集中度 53.40%，渠道议价与发货节奏可能放大季度波动。</li>
+<li>卖方评级和 EPS 预测过度集中，一旦 H1 低于预期，估值与盈利预测可能同步下修。</li>
+<li>集采对零售核心品种当前影响可控，但处方药、贝飞达、饮片及其他品种仍面临降价与毛利压力。</li>
+</ol>
+<h2 id="section-10">10. 估值</h2>
+
+<h3>10.1 相对估值</h3>
+<table>
+<thead>
+<tr>
+<th>公司</th>
+<th align="right">PE_TTM</th>
+<th align="right">PB</th>
+<th align="right">TTM股息率</th>
+<th align="right">2026Q1收入同比</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>华润江中</td>
+<td align="right">17.21</td>
+<td align="right">3.63</td>
+<td align="right">5.60%</td>
+<td align="right">-12.49%</td>
+</tr>
+<tr>
+<td>华润三九</td>
+<td align="right">12.97</td>
+<td align="right">1.80</td>
+<td align="right">4.14%</td>
+<td align="right">+18.62%</td>
+</tr>
+<tr>
+<td>云南白药</td>
+<td align="right">17.25</td>
+<td align="right">2.15</td>
+<td align="right">5.12%</td>
+<td align="right">+7.02%</td>
+</tr>
+<tr>
+<td>同仁堂</td>
+<td align="right">31.66</td>
+<td align="right">2.42</td>
+<td align="right">2.01%</td>
+<td align="right">-11.59%</td>
+</tr>
+<tr>
+<td>东阿阿胶</td>
+<td align="right">19.39</td>
+<td align="right">3.18</td>
+<td align="right">5.07%</td>
+<td align="right">+5.52%</td>
+</tr>
+<tr>
+<td>片仔癀</td>
+<td align="right">44.02</td>
+<td align="right">5.51</td>
+<td align="right">2.14%</td>
+<td align="right">-12.74%</td>
+</tr>
+</tbody></table>
+<p>可比公司差异大，不能直接取算术平均。华润江中的品牌强度优于普通中药企业，但稀缺性弱于片仔癀和东阿阿胶；当前收入趋势又弱于华润三九、云南白药。因此合理 2026E PE 取 17—19 倍，而不是无条件采用卖方 20 倍。</p>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">2026E EPS</th>
+<th align="right">目标 PE</th>
+<th align="right">每股价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观</td>
+<td align="right">1.48 元</td>
+<td align="right">15 倍</td>
+<td align="right">22.20 元</td>
+</tr>
+<tr>
+<td>基准下沿</td>
+<td align="right">1.56 元</td>
+<td align="right">17 倍</td>
+<td align="right">26.52 元</td>
+</tr>
+<tr>
+<td>基准中枢</td>
+<td align="right">1.56 元</td>
+<td align="right">18 倍</td>
+<td align="right">28.08 元</td>
+</tr>
+<tr>
+<td>基准上沿</td>
+<td align="right">1.56 元</td>
+<td align="right">19 倍</td>
+<td align="right">29.64 元</td>
+</tr>
+<tr>
+<td>乐观 / 卖方</td>
+<td align="right">1.56 元</td>
+<td align="right">20 倍</td>
+<td align="right">31.20 元</td>
+</tr>
+</tbody></table>
+<h3>10.2 DCF</h3>
+<h4>关键假设</h4>
+<ul>
+<li>基准 FCF：7.2 亿元，参考 2021—2025 年 <code>经营现金流-资本开支</code>的正常化水平。</li>
+<li>总股本：约 6.356 亿股。</li>
+<li>广义净现金：约 28.1 亿元；纳入货币资金、定期存款和部分金融资产，未把所有资产按面值加回。</li>
+<li>基准五年 FCF 增长：7% / 6% / 5% / 4% / 3%。</li>
+<li>基准 WACC：8.0%；永续增长率：2.5%。</li>
+<li>由于公司无有息借款，WACC 主要由权益资本成本决定；高分红降低财务风险，但业务仍受消费、渠道和政策影响。</li>
+</ul>
+<h4>估值结果</h4>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">起始 FCF</th>
+<th>五年增长</th>
+<th align="right">WACC</th>
+<th align="right">永续增长</th>
+<th align="right">每股价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观</td>
+<td align="right">6.5 亿元</td>
+<td>0%—3%</td>
+<td align="right">9.0%</td>
+<td align="right">2.0%</td>
+<td align="right">19.39 元</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">7.2 亿元</td>
+<td>7%降至3%</td>
+<td align="right">8.0%</td>
+<td align="right">2.5%</td>
+<td align="right">28.06 元</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">7.6 亿元</td>
+<td>10%降至5%</td>
+<td align="right">7.5%</td>
+<td align="right">3.0%</td>
+<td align="right">38.04 元</td>
+</tr>
+</tbody></table>
+<p>悲观与乐观区间很宽，说明终值、资本成本和正常化 FCF 对结果影响大。实际决策不使用 38 元作为买入依据。</p>
+<h4>敏感性分析</h4>
+<p>单位：元 / 股。</p>
+<table>
+<thead>
+<tr>
+<th>WACC \ 永续增长</th>
+<th align="right">2.0%</th>
+<th align="right">2.5%</th>
+<th align="right">3.0%</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>7.5%</td>
+<td align="right">28.47</td>
+<td align="right">30.44</td>
+<td align="right">32.84</td>
+</tr>
+<tr>
+<td>8.0%</td>
+<td align="right">26.45</td>
+<td align="right">28.06</td>
+<td align="right">29.99</td>
+</tr>
+<tr>
+<td>8.5%</td>
+<td align="right">24.74</td>
+<td align="right">26.08</td>
+<td align="right">27.66</td>
+</tr>
+<tr>
+<td>9.0%</td>
+<td align="right">23.28</td>
+<td align="right">24.40</td>
+<td align="right">25.71</td>
+</tr>
+</tbody></table>
+<h4>反向 DCF</h4>
+<p>在基准 FCF 7.2 亿元、WACC 8.0%、永续增长 2.5%、广义净现金 28.1 亿元下，现价 24.64 元隐含未来五年 FCF 年均增长约 1.6%。市场对现金流增长的要求不高，但前提是 7.2 亿元正常化 FCF 可以维持；若 2026H1 现金回款未恢复，该基线需要下调。</p>
+<h3>10.3 行业特定估值</h3>
+<p>成熟 OTC 品牌公司适合用股息折现作为保守锚。取可持续 DPS 1.20 元、前五年增长 4%、权益成本 8.5%、永续增长 2.5%，两阶段 DDM 得到约 21.88 元 / 股。</p>
+<p>这一结果低于现价，表示现价除了高分红，还支付了品牌、增长和超额现金的价值。2025 年实际 DPS 1.38 元对应现价现金收益率 5.60%，但 96.71%的分红率不能同时与大规模并购、产能投入和高增长永久共存，故不用 1.38 元直接永久化。</p>
+<h3>10.4 估值交叉验证</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>区间 / 中枢</th>
+<th>权重判断</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观相对估值</td>
+<td>22.2 元</td>
+<td>作为等待 / 买入下沿</td>
+</tr>
+<tr>
+<td>基准相对估值</td>
+<td>26.5—29.6 元</td>
+<td>主要定价方法</td>
+</tr>
+<tr>
+<td>基准 DCF</td>
+<td>28.1 元</td>
+<td>与相对估值中枢一致</td>
+</tr>
+<tr>
+<td>DDM</td>
+<td>21.9 元</td>
+<td>高分红保守底，不代表完整价值</td>
+</tr>
+<tr>
+<td>卖方目标价</td>
+<td>31.3—31.9 元</td>
+<td>收入恢复后的乐观上沿</td>
+</tr>
+</tbody></table>
+<p>综合动态价值区间为 <strong>22—31 元</strong>，基准价值约 <strong>28 元</strong>。以现价 24.64 元计，相对 22 元下沿的初始风险约 10.7%，相对 28 元中枢的潜在价格空间约 13.6%，盈亏比约 1.27；相对 31 元上沿约 25.8%，但上沿依赖乐观条件。当前不是高胜率重仓位置。</p>
+<h3>10.5 林奇分类与估值匹配</h3>
+<ul>
+<li>稳健增长型通常应以合理 PE、可持续增长和股息共同定价，不追求快速增长股的估值扩张。</li>
+<li>17—19 倍 2026E PE 与约 9%—12%利润增长、5%上下股息率相匹配。</li>
+<li>若收入连续下滑、公司滑向缓慢增长型，估值应压至 14—16 倍；若健康消费品和第二梯队放量并恢复 10%以上收入增长，才有理由稳定在 20 倍或更高。</li>
+</ul>
+<h2 id="section-11">11. 冰冰小美框架判断</h2>
+
+<h3>11.1 三要素状态总表</h3>
+<table>
+<thead>
+<tr>
+<th>要素</th>
+<th>当前状态</th>
+<th>方向</th>
+<th>关键证据</th>
+<th>动作含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>有利但非绝对</td>
+<td>持平偏弱</td>
+<td>健胃消食片品牌和 OTC 高毛利强；核心业务收入连续下滑</td>
+<td>可长期观察，不因品牌强忽视动销</td>
+</tr>
+<tr>
+<td>流动性</td>
+<td>中性分歧</td>
+<td>短期转弱</td>
+<td>20 日总资金代理为正，但大单代理流出；60 日融资余额下降</td>
+<td>没有抢筹，不支持追价</td>
+</tr>
+<tr>
+<td>情绪位置</td>
+<td>中性</td>
+<td>由修复转分歧</td>
+<td>年初至今 +6.34%，距高点仅 -11.46%，非恐慌区</td>
+<td>等回撤或等基本面验证</td>
+</tr>
+<tr>
+<td>风险方向</td>
+<td>重新增强</td>
+<td>经营端主导</td>
+<td>Q1 收入降幅扩大、现金流显著下降；估值与资产负债表有缓冲</td>
+<td>wait</td>
+</tr>
+</tbody></table>
+<h4>前六步证据映射</h4>
+<table>
+<thead>
+<tr>
+<th>前文步骤</th>
+<th>已确认事实</th>
+<th>对三要素的贡献</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>证券身份与来源</td>
+<td>华润控股、主板、OTC / 中成药</td>
+<td>确认治理与业务边界</td>
+</tr>
+<tr>
+<td>行情与预期</td>
+<td>PE 17.21、股息率 5.60%、卖方单边乐观</td>
+<td>情绪不极端，预期差风险存在</td>
+</tr>
+<tr>
+<td>商业模式</td>
+<td>品牌 OTC 高毛利、渠道和广告驱动</td>
+<td>竞争优势存在但可被动销削弱</td>
+</tr>
+<tr>
+<td>分部拆解</td>
+<td>OTC / 处方药下滑，健康消费品恢复后再承压</td>
+<td>识别经营风险源</td>
+</tr>
+<tr>
+<td>财务历史</td>
+<td>净现金、高分红、现金流长期强</td>
+<td>提供风险缓冲与退出承接</td>
+</tr>
+<tr>
+<td>最新季度</td>
+<td>收入 -12.49%、扣非利润 +8.09%、OCF -81.94%</td>
+<td>风险由利润表上游向现金回款传导</td>
+</tr>
+</tbody></table>
+<h3>11.2 竞争格局与比较优势</h3>
+<h4>前文证据引用</h4>
+<ul>
+<li>参见第 4 章商业模式、第 5 章分部和第 7 章最新季度。</li>
+<li>核心比较对象为华润三九、云南白药、东阿阿胶、同仁堂和片仔癀，但各自品类、渠道和品牌稀缺性不同。</li>
+</ul>
+<p>公司的比较优势不是“所有中药都受益”，而是胃肠 OTC 的明确品类心智、高毛利、终端覆盖和华润体系资源。比较劣势是品类宽度与多大单品复制能力弱于华润三九，品牌稀缺性弱于片仔癀 / 东阿阿胶，处方药业务又面临更强政策和渠道压力。</p>
+<h4>证据</h4>
+<ul>
+<li>健胃消食片仍是 10 亿元级单品，销量仅同比 -2.36%，明显好于第三梯队产品。</li>
+<li>OTC 毛利率 75.14%，2026Q1 仍为 76.24%，说明品牌和产品结构尚未被价格战击穿。</li>
+<li>2025 年健康消费品收入 +43.19%，证明品牌可向邻近健康品类延伸。</li>
+<li>无债务与高现金使公司有能力在行业低位继续投放、并购和维护渠道。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>2026Q1 OTC 收入 -12.51%，说明品牌强并不等于终端需求免疫。</li>
+<li>乳酸菌素片库存显著增加，多维元素片与草珊瑚销量大幅下滑，第二 / 第三梯队复制尚不稳定。</li>
+<li>处方药收入 -19.29%、毛利率下降 9.57pct，表明跨渠道扩张存在执行和政策约束。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>健胃消食片或乳酸菌素片连续两个报告期销量 / 收入双位数下降。</li>
+<li>OTC 毛利率跌破 72%且销售费用率无法同步下降。</li>
+<li>健康消费品连续两个季度负增长，证明 2025 年只是低基数恢复。</li>
+<li>并购后商誉、现金消耗上升，但新增利润和现金流未兑现。</li>
+</ul>
+<h3>11.3 流动性辩证分析</h3>
+<h4>宏观流动性</h4>
+<ul>
+<li>2026 年 6 月 M2 同比 +8.0%、M1 +4.0%，货币数量不紧，但 M2-M1 剪刀差仍为 4.0pct，企业与居民交易活性传导不足。</li>
+<li>2026 年 7 月 CPI +0.5%，通胀对宽松空间的约束较低；但消费价格和信心也不强。</li>
+<li>对华润江中而言，宏观流动性不是主要瓶颈，消费与渠道传导才是主要矛盾。</li>
+</ul>
+<h4>中观流动性</h4>
+<ul>
+<li>2026H1 中西药品类零售额同比 +3.3%，好于社会消费品零售总额 +1.3%，但公司 Q1 收入显著跑输行业代理，问题更偏公司 / 渠道结构，而非总量需求完全消失。</li>
+<li>红利低波 ETF、保险和中央汇金在 2026Q1 前十大股东中出现，为高股息资产提供结构性承接；这是季度时点事实，不代表实时持续买入。</li>
+</ul>
+<h4>微观流动性</h4>
+<ul>
+<li>近 20 日 <code>net_mf_amount</code> 代理合计 +1.50 亿元，但大单与特大单代理 -0.79 亿元；价格近 20 日 -3.11%，呈现分歧而非合力。</li>
+<li>近 60 日融资余额从约 1.89 亿元降至 1.46 亿元，杠杆资金没有追随反弹扩张。</li>
+<li>日均成交额近 20 日约 1.34 亿元、换手率约 0.5%—1.3%，流动性足以退出，但不是活跃主线。</li>
+</ul>
+<h4>资金来源分类</h4>
+<table>
+<thead>
+<tr>
+<th>资金来源</th>
+<th>可见证据</th>
+<th>判断边界</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>红利 ETF</td>
+<td>2026Q1 两只红利低波 ETF 合计持股约 5.78%</td>
+<td>定期报告时点，非实时申赎</td>
+</tr>
+<tr>
+<td>保险资金</td>
+<td>阳光人寿持股 1.83%</td>
+<td>仅单一账户时点</td>
+</tr>
+<tr>
+<td>国家队</td>
+<td>中央汇金持股 2.45%</td>
+<td>未确认报告期后变化</td>
+</tr>
+<tr>
+<td>北向 / 外资</td>
+<td>香港中央结算 1.56%</td>
+<td>不能等同全部外资主动买入</td>
+</tr>
+<tr>
+<td>杠杆资金</td>
+<td>融资余额 60 日下降约 0.44 亿元</td>
+<td>说明去杠杆，不代表看空主体身份</td>
+</tr>
+<tr>
+<td>订单规模分档</td>
+<td>总资金与大单方向分歧</td>
+<td>只能作为订单规模代理，不能命名机构 / 散户</td>
+</tr>
+</tbody></table>
+<h4>供给与抛压</h4>
+<ul>
+<li>控股股东持股稳定，未见近三个月重大减持计划。</li>
+<li>股权激励解锁与回购注销规模较小，不构成显著供给冲击。</li>
+<li>高比例分红形成长期持有吸引力，但除息会造成不复权价格机械下调，不能误判为基本面下跌。</li>
+<li>最大潜在抛压来自半年报低于一致预期后，红利 / 稳健增长资金对盈利预测和分红可持续性的再评估。</li>
+</ul>
+<h4>最低数据检查</h4>
+<table>
+<thead>
+<tr>
+<th>数据</th>
+<th>状态</th>
+<th>最新时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>价格与成交</td>
+<td>已获取</td>
+<td>2026-08-11</td>
+</tr>
+<tr>
+<td>估值与股息率</td>
+<td>已获取</td>
+<td>2026-08-11</td>
+</tr>
+<tr>
+<td>订单规模资金</td>
+<td>已获取</td>
+<td>2026-08-11</td>
+</tr>
+<tr>
+<td>融资融券</td>
+<td>已获取</td>
+<td>2026-08-10</td>
+</tr>
+<tr>
+<td>前十大股东</td>
+<td>已获取</td>
+<td>2026-03-31</td>
+</tr>
+<tr>
+<td>ETF 实时申赎</td>
+<td>未获取到</td>
+<td>—</td>
+</tr>
+<tr>
+<td>北向实时持仓变化</td>
+<td>未获取到</td>
+<td>—</td>
+</tr>
+<tr>
+<td>龙虎榜</td>
+<td>近阶段无关键样本</td>
+<td>—</td>
+</tr>
+</tbody></table>
+<h4>证据</h4>
+<ul>
+<li>高股息、净现金和红利资金持仓构成中长期承接。</li>
+<li>近期融资未拥挤，市场不存在明显杠杆爆破风险。</li>
+<li>近 60 日价格 +8.07%，说明低位有承接而非持续失血。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>近 5 日资金代理净流出，近 20 日大单与特大单代理为负。</li>
+<li>价格距 250 日高点仅 -11.46%，并非被迫抛售后的极端折价。</li>
+<li>实时 ETF、北向和机构持仓缺失，不能把季度股东结构外推为当前增量资金。</li>
+</ul>
+<h4>退出路径</h4>
+<ul>
+<li>正常退出：日均成交额约 1 亿元以上，对普通个人仓位有流动性。</li>
+<li>估值退出：价格达到 31 元而收入未恢复，分批减仓。</li>
+<li>基本面退出：半年报确认收入与现金流继续恶化，先降低仓位，不等待股息补偿。</li>
+<li>风控退出：跌破 21 元且伴随盈利预测下修、OTC 毛利率下降或分红政策改变，说明不是单纯情绪波动。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>20 日大单 / 特大单资金由负转正且融资余额温和增加，同时半年报收入恢复，可把流动性从中性上调。</li>
+<li>若融资余额快速上升、股价冲高而大单持续流出，则拥挤与派发风险增强。</li>
+<li>若成交持续萎缩且价格跌破 21 元，需要重新评估红利资金承接是否失效。</li>
+</ul>
+<h3>11.4 情绪位置变化</h3>
+<p>当前情绪是“红利属性提供底部认同，但经营弱化压制上沿”。股价年初至今上涨 6.34%，距 250 日高点仅回撤 11.46%，不属于冰点；近 20 日回落 3.11%，又说明上涨合力开始分歧。</p>
+<h4>证据</h4>
+<ul>
+<li>当前 PE 接近五年中位数下方、股息率位于五年 62%分位，估值情绪不热。</li>
+<li>片仔癀、同仁堂等部分可比公司 120—250 日跌幅更大，中药板块整体风险偏好仍低。</li>
+<li>公司卖方评级单边乐观而股价未触及目标价，说明市场对经营恢复仍保持折价。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>华润江中自身 250 日回撤仅约 11%，没有极端恐慌或被迫卖出证据。</li>
+<li>红利资金持仓、高股息和国企属性容易形成防守抱团，低波动不等于低风险。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>若半年报收入恢复、现金流修复并推动放量突破 28 元，情绪可从中性转向积极。</li>
+<li>若半年报低于预期并跌破 21—22 元，情绪可能进入恐慌，但必须先判断风险是否可逆，不能机械抄底。</li>
+</ul>
+<h3>11.5 综合状态与主导矛盾</h3>
+<p>三要素并未共振：竞争格局仍有利，流动性中性分歧，情绪不高也不冰。当前主导矛盾是<strong>收入端风险重新增强，而利润、现金和分红仍在提供缓冲</strong>。</p>
+<p>这不是“坏公司”，也不是“明显错杀”。以 24.64 元买入，主要赚取 5%—6%股息和利润稳健增长；若收入不能恢复，估值扩张空间有限。等待半年报的期权价值高于提前下注。</p>
+<h3>11.6 三要素行动映射</h3>
+<table>
+<thead>
+<tr>
+<th>状态组合</th>
+<th>当前是否满足</th>
+<th>动作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争优势强 + 流动性改善 + 情绪低位</td>
+<td>否，后两项不满足</td>
+<td>不追价</td>
+</tr>
+<tr>
+<td>基本面风险可控 + 价格跌入价值下沿</td>
+<td>尚未，现价高于 22 元下沿</td>
+<td>等待 22—23 元</td>
+</tr>
+<tr>
+<td>半年报验证收入 / 现金流恢复 + 资金转强</td>
+<td>待验证</td>
+<td>可由 wait 升为 observe / buy</td>
+</tr>
+<tr>
+<td>收入继续双位数下滑 + 大单流出 + 跌破 21 元</td>
+<td>未发生</td>
+<td>降级 / 退出，不机械补仓</td>
+</tr>
+</tbody></table>
+<h3>11.7 三要素数据缺口与来源</h3>
+<table>
+<thead>
+<tr>
+<th>缺口</th>
+<th>影响</th>
+<th>后续来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>核心单品终端动销与渠道库存天数</td>
+<td>无法判断发货与真实消费差异</td>
+<td>2026H1 业绩会、渠道调研</td>
+</tr>
+<tr>
+<td>分品牌收入与利润</td>
+<td>难以量化健胃消食片、乳酸菌素片、贝飞达利润贡献</td>
+<td>年报 / 管理层交流</td>
+</tr>
+<tr>
+<td>ETF 实时申赎与持仓变化</td>
+<td>无法确认红利资金是否仍是增量</td>
+<td>基金定期报告 / ETF 份额</td>
+</tr>
+<tr>
+<td>北向、机构实时持仓</td>
+<td>无法确认大单代理身份</td>
+<td>沪股通 / 基金持仓</td>
+</tr>
+<tr>
+<td>2026中期分红具体金额</td>
+<td>股息预期仍有区间</td>
+<td>半年报后董事会公告</td>
+</tr>
+<tr>
+<td>“十五五”量化目标</td>
+<td>不能验证增长故事的管理层锚</td>
+<td>2026H2 战略发布</td>
+</tr>
+</tbody></table>
+<h3>11.8 风险方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>风险来源</th>
+<th>当前证据</th>
+<th>方向</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>需求 / 收入</td>
+<td>2025收入 -4.87%，2026Q1 -12.49%</td>
+<td>增强</td>
+</tr>
+<tr>
+<td>毛利 / 费用</td>
+<td>2025毛利率提高、销售费率下降；Q1总体毛利稳定</td>
+<td>减弱</td>
+</tr>
+<tr>
+<td>现金回款</td>
+<td>Q1 OCF -81.94%、应收上升</td>
+<td>候选增强，待H1确认</td>
+</tr>
+<tr>
+<td>资产负债表</td>
+<td>无有息借款、广义现金约28亿元</td>
+<td>低风险、稳定</td>
+</tr>
+<tr>
+<td>政策 / 集采</td>
+<td>处方药毛利下滑，核心零售 OTC 直接影响暂有限</td>
+<td>持平偏增强</td>
+</tr>
+<tr>
+<td>市场流动性</td>
+<td>大单代理偏流出、融资不拥挤</td>
+<td>短期偏弱但非失速</td>
+</tr>
+<tr>
+<td>估值</td>
+<td>PE 处五年约35%分位、股息率较高</td>
+<td>风险较低</td>
+</tr>
+</tbody></table>
+<h3>11.9 风险传导链</h3>
+<pre><code class="language-text">终端需求与药店渠道调整
+→ OTC / 处方药发货和动销下降
+→ 公司以降费、产品结构和原料成本对冲
+→ 短期利润仍增长，但费用压降边际递减
+→ 若收入继续收缩，应收和现金回款承压
+→ 2026E EPS 与高分红预期下修
+→ 红利 / 稳健增长资金降低估值容忍度
+→ 股价从 17—18 倍 PE 向 14—16 倍 PE 重估
+</code></pre>
+<p>缓冲链：</p>
+<pre><code class="language-text">高毛利核心品牌 + 无债务 + 广义净现金 + 高分红
+→ 维持经营和股东回报能力
+→ 降低财务危机与被迫融资概率
+→ 为 22 元附近提供估值承接
+</code></pre>
+<h3>11.10 风险方向结论</h3>
+<p>结论为 <strong>风险重新增强</strong>，置信度中等。</p>
+<p>“重新”来自时间顺序：2025 年在收入承压时，毛利与费用优化使利润风险减弱；2026Q1 收入降幅进一步扩大、现金流显著下降，经营风险再次抬头。但净现金、高分红和合理估值使风险尚未扩散为资产负债表风险或市场流动性危机。</p>
+<h3>11.11 四层方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>证据</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>风险源层</td>
+<td>三类业务 Q1 收入全部下滑，处方药最弱</td>
+<td>风险源已出现</td>
+</tr>
+<tr>
+<td>传导层</td>
+<td>销售费用下降暂时托住利润，OCF 和应收开始出现压力</td>
+<td>传导到现金流，但仍可能季节性</td>
+</tr>
+<tr>
+<td>市场反应层</td>
+<td>20 日股价回落、大单代理偏流出，但融资未拥挤</td>
+<td>市场在降温，未恐慌</td>
+</tr>
+<tr>
+<td>缓冲 / 确认层</td>
+<td>净现金、高分红、OTC 高毛利仍在；H1 尚未披露</td>
+<td>风险可控，最终确认待 8 月 22 日</td>
+</tr>
+</tbody></table>
+<h3>11.12 最终动作与约束</h3>
+<ul>
+<li>最终动作：<code>wait</code>。</li>
+<li>新增买入区：22—23 元，前提是半年报没有证明核心假设失效；建议分三次，不一次性满仓。</li>
+<li>观察升级条件：H1 收入降幅收窄至个位数、经营现金流恢复到可覆盖利润的合理水平、OTC 毛利率稳定、渠道库存解释可验证。</li>
+<li>减仓区：31 元以上而收入仍未恢复；估值已支付 20 倍前瞻 PE。</li>
+<li>退出条件：连续两期收入双位数下降、核心 OTC 毛利率跌破 72%、分红政策明显收缩、并购导致净现金大幅下降且利润未增厚，或价格跌破 21 元同时盈利预测被系统性下修。</li>
+<li>仓位约束：单一标的不超过权益仓位的 5%；在半年报前不使用杠杆，不以高股息替代止损与基本面复核。</li>
+</ul>
+<h2 id="section-12">12. 最终结论</h2>
+
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>公司质量</td>
+<td>中上：品牌强、利润率高、现金与分红优秀</td>
+</tr>
+<tr>
+<td>成长质量</td>
+<td>中性：长周期稳健，近两年收入停滞并在 Q1 恶化</td>
+</tr>
+<tr>
+<td>估值</td>
+<td>合理偏低：22—31 元，基准 28 元</td>
+</tr>
+<tr>
+<td>安全边际</td>
+<td>一般：现价相对基准价值有空间，但相对悲观下沿仍有约 10.7%风险</td>
+</tr>
+<tr>
+<td>三要素</td>
+<td>竞争格局有利、流动性分歧、情绪中性，未共振</td>
+</tr>
+<tr>
+<td>风险方向</td>
+<td>重新增强，但受净现金、高分红和低杠杆缓冲</td>
+</tr>
+<tr>
+<td>最终评级</td>
+<td><strong>等待（wait）</strong>；已持有可收息持有，新增资金等半年报或 22—23 元</td>
+</tr>
+</tbody></table>
+<p>华润江中的好处很清楚：它不是靠高杠杆或一次性题材赚钱，而是靠胃肠 OTC 品牌、费用效率、现金回收和持续分红。问题也很清楚：2025 年已经收入下滑，2026Q1 降幅进一步扩大，而市场和卖方仍在预期全年利润接近 10 亿元。</p>
+<p>现价不贵，却也没有便宜到可以忽视收入风险。最优策略不是争论它是不是好公司，而是让 2026H1 回答“降费能否转化为可持续增长”。在答案出来前，等待比追价更有优势。</p>
+<h2 id="section-13">13. 后续监控指标</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">当前基线</th>
+<th align="right">改善阈值</th>
+<th align="right">恶化阈值</th>
+<th>频率 / 来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营业收入同比</td>
+<td align="right">2026Q1 -12.49%</td>
+<td align="right">收窄至 -5%以上或转正</td>
+<td align="right">连续两期低于 -10%</td>
+<td>季报</td>
+</tr>
+<tr>
+<td>OTC 收入同比</td>
+<td align="right">2026Q1 -12.51%</td>
+<td align="right">收窄至个位数</td>
+<td align="right">持续低于 -10%</td>
+<td>季报 / 业绩会</td>
+</tr>
+<tr>
+<td>处方药毛利率</td>
+<td align="right">2026Q1 39.72%</td>
+<td align="right">回到 42%以上</td>
+<td align="right">低于 38%</td>
+<td>季报</td>
+</tr>
+<tr>
+<td>经营现金流 / 归母净利</td>
+<td align="right">Q1 0.11</td>
+<td align="right">H1 回到 0.8以上</td>
+<td align="right">H1 仍低于 0.5</td>
+<td>现金流量表</td>
+</tr>
+<tr>
+<td>应收账款</td>
+<td align="right">Q1 4.88亿元</td>
+<td align="right">增速低于收入增速</td>
+<td align="right">持续上升且收入下降</td>
+<td>资产负债表</td>
+</tr>
+<tr>
+<td>OTC 毛利率</td>
+<td align="right">Q1 76.24%</td>
+<td align="right">维持 75%以上</td>
+<td align="right">低于 72%</td>
+<td>季报</td>
+</tr>
+<tr>
+<td>销售费用率</td>
+<td align="right">Q1 27.95%</td>
+<td align="right">与收入恢复匹配</td>
+<td align="right">费用反弹但收入不增</td>
+<td>季报</td>
+</tr>
+<tr>
+<td>乳酸菌素片库存</td>
+<td align="right">2025 +254.43%</td>
+<td align="right">产销与库存恢复平衡</td>
+<td align="right">库存继续高增</td>
+<td>半年报 / 年报</td>
+</tr>
+<tr>
+<td>2026E EPS 一致预期</td>
+<td align="right">1.56元</td>
+<td align="right">上调至 1.60元以上</td>
+<td align="right">下调至 1.48元以下</td>
+<td>卖方汇总</td>
+</tr>
+<tr>
+<td>PE_TTM</td>
+<td align="right">17.21倍</td>
+<td align="right">基本面改善下 18—20倍</td>
+<td align="right">基本面恶化下仍高于18倍</td>
+<td>每日</td>
+</tr>
+<tr>
+<td>融资余额</td>
+<td align="right">1.46亿元</td>
+<td align="right">温和增加且价格放量</td>
+<td align="right">快速增加后价格不涨</td>
+<td>每周</td>
+</tr>
+<tr>
+<td>大单资金代理</td>
+<td align="right">20日 -0.79亿元</td>
+<td align="right">转正且持续</td>
+<td align="right">继续流出并破位</td>
+<td>每周</td>
+</tr>
+<tr>
+<td>中期 DPS</td>
+<td align="right">未披露</td>
+<td align="right">不低于可持续年度 1.2元路径</td>
+<td align="right">分红显著低于预期</td>
+<td>半年报后公告</td>
+</tr>
+</tbody></table>
+<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
+
+<ol>
+<li>未获取可复现的第三方公允价值、护城河和星级字段。</li>
+<li>未获取核心单品的收入、毛利和真实终端动销，只能用公司产销量与分部数据代理。</li>
+<li>管理层称渠道库存“整体可控”，但未披露库存周转天数或渠道进销存，无法独立验证。</li>
+<li>订单规模资金只是成交代理，不能识别机构、散户或主力身份。</li>
+<li>北向实时持仓、ETF 实时申赎与基金 2026Q2 完整持仓未取得，资金来源判断置信度有限。</li>
+<li>DCF 使用 <code>经营现金流-资本开支</code>作为简化 FCF，受营运资本、承兑汇票、定期存款和并购现金流影响。</li>
+<li>2026H1 尚未披露；本报告距离计划披露日较近，结论应在 2026-08-22 后更新。</li>
+<li>可比公司横跨 OTC、品牌中药、医药商业与稀缺品种，估值只适合区间参考。</li>
+</ol>
+<h2 id="section-15">15. 来源清单</h2>
+
+<ol>
+<li><a href="../../../../webpages/2026-08-11-华润江中研究数据快照.md">2026-08-11 华润江中研究数据快照</a>。</li>
+<li><a href="https://cniis.aastocks.com/CNSESH_STOCK/2026/2026-3/2026-03-20/12003922.pdf">华润江中2025年年度报告</a>。</li>
+<li><a href="https://static.cninfo.com.cn/finalpage/2026-04-25/1225176557.PDF">华润江中2026年第一季度报告</a>。</li>
+<li><a href="https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12013951&stockid=600750">2026年3月23日投资者关系活动记录</a>。</li>
+<li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12245570&stockid=600750">2026年4月27日投资者关系活动记录</a>。</li>
+<li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12003937&stockid=600750">2025年年度利润分配及2026年中期分红授权</a>。</li>
+<li><a href="https://basic.10jqka.com.cn/600750/worth.html">华润江中卖方盈利预测与评级汇总</a>。</li>
+<li><a href="https://www.stats.gov.cn/sj/zxfbhjd/202607/t20260715_1964127.html">国家统计局：2026年上半年社会消费品零售总额</a>。</li>
+<li>本地 <code>tools/tushare-data</code>：<code>stock_basic</code>、<code>daily</code>、<code>daily_basic</code>、<code>moneyflow</code>、<code>margin_detail</code>、<code>income</code>、<code>cashflow</code>、<code>balancesheet</code>、<code>fina_indicator</code>、<code>dividend</code>。</li>
+<li><a href="../../../../../冰冰小美-情绪体系认知篇.md">冰冰小美-体系三要素</a>、<a href="../../../../../concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势.md">竞争格局的比较优势</a>、<a href="../../../../../concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md">流动性辩证分析</a>、<a href="../../../../../concepts/冰冰小美-concept-体系三要素之情绪位置的变化.md">情绪位置的变化</a>。</li>
+</ol>
+<h2 id="section-16">16. 声明</h2>
+
+<p>本报告基于公开信息、公司公告、本地结构化数据及明确假设形成，事实、管理层观点和研究判断已尽量分列。估值对现金流、资本成本、永续增长和盈利预测高度敏感；资金分档不代表账户身份。报告不构成证券买卖建议，也不替代个人风险承受能力、仓位限制与独立核验。</p>
+<script>
+(() => {
+  const endpoint = '/api/stock-quote?secid=1.600750';
+  const priceNode = document.getElementById('intraday-price');
+  const detailNode = document.getElementById('intraday-detail');
+  const statusNode = document.getElementById('intraday-status');
+  const riskRewardValue = document.getElementById('risk-reward-value');
+  const riskRewardDetail = document.getElementById('risk-reward-detail');
+  const tracker = document.getElementById('daily-tracking');
+  const snapshotPrice = 24.64;
+  const percent = value => `${value < 0 ? '-' : value > 0 ? '+' : ''}${Math.abs(value).toFixed(1)}%`;
+  function updateRiskReward(price) {
+    const low = Number(tracker.dataset.valueLow);
+    const high = Number(tracker.dataset.valueHigh);
+    if (!Number.isFinite(low) || !Number.isFinite(high) || low <= 0 || high <= low) return;
+    const upside = (high / price - 1) * 100;
+    const downside = (1 - low / price) * 100;
+    if (price <= low) {
+      riskRewardValue.textContent = '低于价值下沿';
+      riskRewardValue.classList.remove('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿潜在空间 ${percent(upside)}。价格已低于动态价值下沿，不能直接用下沿作为止损风险，需另设风控线。`;
+      return;
+    }
+    if (price >= high) {
+      riskRewardValue.textContent = '无正向盈亏比';
+      riskRewardValue.classList.add('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿空间 ${percent(upside)}，回落至下沿风险 ${percent(downside)}。价格已到或高于动态价值上沿，新增现金不具备正向盈亏比。`;
+      return;
+    }
+    const ratio = upside / downside;
+    riskRewardValue.textContent = `约 ${ratio.toFixed(1)}:1`;
+    riskRewardValue.classList.toggle('bad', ratio < 1);
+    riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；到上沿 ${high.toFixed(2)} 元的潜在上行 ${percent(upside)}，跌至下沿 ${low.toFixed(2)} 元的风险 ${percent(downside)}。盘中价格不改变价值区间本身。`;
+  }
+  async function refreshIntradayQuote() {
+    statusNode.textContent = '连接中'; statusNode.className = 'tracking-status';
+    try {
+      const response = await fetch(endpoint, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json(); const quote = payload && payload.data;
+      if (!quote || !Number.isFinite(quote.price) || !Number.isFinite(quote.prevClose) || !Number.isFinite(quote.changePercent) || !Number.isFinite(quote.quoteTimestamp)) throw new Error('invalid quote');
+      const quoteTime = new Date(quote.quoteTimestamp * 1000).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false });
+      priceNode.textContent = `${quote.price.toFixed(2)} 元 · ${percent(quote.changePercent)}`;
+      priceNode.classList.toggle('bad', quote.changePercent < 0);
+      detailNode.textContent = `行情时间：${quoteTime}；昨收 ${quote.prevClose.toFixed(2)} 元。来源：${payload.proxySource || '本地行情代理'}。`;
+      statusNode.textContent = '盘中实时 · 每 60 秒'; statusNode.className = 'tracking-status live'; updateRiskReward(quote.price);
+    } catch { priceNode.textContent = '实时行情暂不可用'; priceNode.classList.remove('bad'); detailNode.textContent = '每日同步值仍然有效；可重新双击“大盘启动器”后刷新本页。'; statusNode.textContent = '连接失败'; statusNode.className = 'tracking-status error'; }
+  }
+  if (location.protocol === 'http:' || location.protocol === 'https:') { refreshIntradayQuote(); window.setInterval(refreshIntradayQuote, 60000); }
+  else { priceNode.textContent = Number.isFinite(snapshotPrice) ? `${snapshotPrice.toFixed(2)} 元（每日值）` : '每日值未获取'; detailNode.textContent = '当前为直接打开模式；盘中实时需通过“大盘启动器”进入本地服务。'; statusNode.textContent = '每日同步 · 实时未连接'; }
+})();
+</script></article>
+    </div>
+  </main>
+</body>
+</html>

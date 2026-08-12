@@ -52,7 +52,7 @@ datasets:
     fields: [date, m1, m2, m3, m6, y1, y2, y3, y5, y7, y10, y20, y30]
   fx_daily:
     api: fx_daily
-    purpose: 外汇日线行情，默认美元指数
+    purpose: 外汇日线行情，用于美元指数、美元兑日元等外汇风险观察
     cache_ttl_seconds: 300
     required_params: [ts_code]
     allowed_params: [ts_code, trade_date, start_date, end_date, fields]
@@ -81,6 +81,20 @@ datasets:
     cache_ttl_seconds: 300
     required_params: [ts_code]
     allowed_params: [ts_code, ann_date, record_date, ex_date, imp_ann_date, fields]
+  top10_holders:
+    api: top10_holders
+    purpose: A股前十大股东披露名单，用于核验重要股东是否出现在定期报告口径中
+    cache_ttl_seconds: 300
+    required_params: [ts_code]
+    allowed_params: [ts_code, period, ann_date, start_date, end_date, fields]
+    fields: [ts_code, ann_date, end_date, holder_name, hold_amount, hold_ratio, hold_float_ratio, hold_change, holder_type]
+  top10_floatholders:
+    api: top10_floatholders
+    purpose: A股前十大流通股东披露名单，用于核验重要流通股东是否出现在定期报告口径中
+    cache_ttl_seconds: 300
+    required_params: [ts_code]
+    allowed_params: [ts_code, period, ann_date, start_date, end_date, fields]
+    fields: [ts_code, ann_date, end_date, holder_name, hold_amount, hold_ratio, hold_float_ratio, hold_change, holder_type]
   index_weight:
     api: index_weight
     purpose: 指数历史成分股和权重

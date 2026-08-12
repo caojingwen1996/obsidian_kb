@@ -163,6 +163,30 @@ DATASETS = {
         },
         "date_fields": {"end_date", "ann_date", "record_date", "ex_date", "pay_date", "imp_ann_date"},
     },
+    "top10_holders": {
+        "fields": (
+            "ts_code", "ann_date", "end_date", "holder_name", "hold_amount",
+            "hold_ratio", "hold_float_ratio", "hold_change", "holder_type",
+        ),
+        "allowed_params": {"ts_code", "period", "ann_date", "start_date", "end_date", "fields"},
+        "required_params": {"ts_code"},
+        "defaults": {
+            "fields": "ts_code,ann_date,end_date,holder_name,hold_amount,hold_ratio,hold_float_ratio,hold_change,holder_type"
+        },
+        "date_fields": {"ann_date", "end_date"},
+    },
+    "top10_floatholders": {
+        "fields": (
+            "ts_code", "ann_date", "end_date", "holder_name", "hold_amount",
+            "hold_ratio", "hold_float_ratio", "hold_change", "holder_type",
+        ),
+        "allowed_params": {"ts_code", "period", "ann_date", "start_date", "end_date", "fields"},
+        "required_params": {"ts_code"},
+        "defaults": {
+            "fields": "ts_code,ann_date,end_date,holder_name,hold_amount,hold_ratio,hold_float_ratio,hold_change,holder_type"
+        },
+        "date_fields": {"ann_date", "end_date"},
+    },
     "index_weight": {
         "fields": ("index_code", "con_code", "trade_date", "weight"),
         "allowed_params": {"index_code", "trade_date", "start_date", "end_date", "fields"},

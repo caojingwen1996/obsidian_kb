@@ -15,8 +15,11 @@ const inputAutoSecid = path.join(tempDir, '西部矿业机构级决策研报.md'
 const outputAutoSecid = path.join(tempDir, '西部矿业机构级决策研报.html');
 const inputAutoFundReport = path.join(tempDir, '自动资金面机构级决策研报.md');
 const outputAutoFundReport = path.join(tempDir, '自动资金面机构级决策研报.html');
+const inputInRange = path.join(tempDir, '区间内价格机构级决策研报.md');
+const outputInRange = path.join(tempDir, '区间内价格机构级决策研报.html');
 fs.writeFileSync(path.join(tempDir, '2026-07-21-航天电子资金面分析.html'), '<!doctype html><title>资金面</title>', 'utf8');
 fs.writeFileSync(path.join(tempDir, '2026-07-30-航天电子资金面分析.html'), '<!doctype html><title>最新资金面</title>', 'utf8');
+fs.writeFileSync(path.join(tempDir, '2026-08-01-西部矿业资金面分析.html'), '<!doctype html><title>其他公司资金面</title>', 'utf8');
 
 const sections = [
   '决策摘要',
@@ -202,6 +205,21 @@ assert.match(html, /供给与抛压/);
 assert.match(html, /退出路径/);
 assert.match(html, /三要素数据缺口与来源/);
 
+fs.writeFileSync(
+  inputInRange,
+  fs.readFileSync(input, 'utf8')
+    .replace('15.14 CNY，2026-07-21 收盘', '6.07 CNY，2026-07-21 收盘')
+    .replace('7.5—11.5 CNY', '3.4—7.2 CNY'),
+  'utf8',
+);
+const inRangeResult = spawnSync(process.execPath, [renderer, '--input', inputInRange, '--output', outputInRange, '--vault-root', tempDir], {
+  encoding: 'utf8',
+});
+assert.equal(inRangeResult.status, 0, `in-range renderer failed:\n${inRangeResult.stderr || inRangeResult.stdout}`);
+const inRangeHtml = fs.readFileSync(outputInRange, 'utf8');
+assert.match(inRangeHtml, /约 0\.4:1/);
+assert.match(inRangeHtml, /跌至下沿 3\.40 元的风险 \+44\.0%/);
+
 fs.writeFileSync(inputAutoSecid, fs.readFileSync(input, 'utf8').replaceAll('600879.SH', '601168.SH').replaceAll('航天电子', '西部矿业'), 'utf8');
 const autoSecidResult = spawnSync(process.execPath, [renderer, '--input', inputAutoSecid, '--output', outputAutoSecid, '--vault-root', tempDir], {
   encoding: 'utf8',
@@ -219,6 +237,7 @@ const autoFundResult = spawnSync(process.execPath, [renderer, '--input', inputAu
 assert.equal(autoFundResult.status, 0, `auto fund renderer failed:\n${autoFundResult.stderr || autoFundResult.stdout}`);
 const autoFundHtml = fs.readFileSync(outputAutoFundReport, 'utf8');
 assert.match(autoFundHtml, /2026-07-30-航天电子资金面分析\.html/);
+assert.doesNotMatch(autoFundHtml, /2026-08-01-西部矿业资金面分析\.html/);
 assert.doesNotMatch(autoFundHtml, /资金面分析：未单独生成/);
 assert.match(skillContract, /自动匹配[^。\n]*资金面分析/);
 assert.match(reportTemplate, /自动挂最新日期/);

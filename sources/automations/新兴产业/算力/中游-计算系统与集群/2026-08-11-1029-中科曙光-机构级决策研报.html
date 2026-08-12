@@ -1,0 +1,1864 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>中科曙光机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+.daily-tracking { margin: 0 0 42px; padding: 22px; border: 1px solid #cbdade; border-radius: 16px; background: linear-gradient(135deg, #f3f8f9 0%, #fffaf0 100%); box-shadow: 0 12px 30px rgba(23, 50, 71, .07); }
+.daily-tracking-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
+.daily-tracking-kicker { margin: 0 0 4px; color: var(--teal); font-size: 12px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+.daily-tracking h2 { margin: 0; padding: 0; border: 0; font-size: 27px; }
+.daily-tracking-time { margin: 4px 0 0; color: var(--muted); font-size: 12px; text-align: right; }
+.tracking-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.tracking-grid + .tracking-grid { margin-top: 12px; }
+.tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
+.tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
+.tracking-card[data-tracking-key="dynamic-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
+.range-breakdown { display: block; }
+.range-main { display: inline-flex; align-items: center; max-width: 100%; margin-bottom: 10px; padding: 3px 9px; border-radius: 999px; background: #e7f0f3; color: var(--navy); font-size: 20px; line-height: 1.3; font-weight: 800; }
+.range-points { display: grid; gap: 7px; margin-top: 1px; }
+.range-point { display: block; padding-left: 11px; border-left: 3px solid #bed2d8; color: #245068; font-size: 14px; line-height: 1.52; font-weight: 650; }
+.tracking-value.bad { color: var(--danger); }
+.tracking-detail { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; }
+.tracking-status { display: inline-flex; margin-top: 10px; padding: 3px 8px; border-radius: 999px; color: #526b77; background: #edf2f4; font-size: 12px; font-weight: 700; }
+.tracking-status.live { color: #17604e; background: #dff3eb; }
+.tracking-status.error { color: var(--danger); background: var(--danger-bg); }
+.tracking-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; margin-top: 14px; padding-top: 13px; border-top: 1px solid #d5e0e3; color: #536d78; font-size: 13px; }
+.tracking-footer a { font-weight: 700; }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+  .tracking-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+  .daily-tracking-head { display: block; }
+  .daily-tracking-time { text-align: left; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .daily-tracking, .tracking-card { border: 1px solid #aebbc2; color: #102f43; background: #fff; box-shadow: none; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · 603019.SH</p>
+      <h1>中科曙光机构级决策研报</h1>
+      <div class="hero-meta"><span>2026-08-11 10:20（Asia/Shanghai，盘中）</span><span>2026-08-11</span><span>上海证券交易所主板 / 人民币</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
+<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
+<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
+<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
+<a class="toc-link" href="#section-6">6. 五年财务历史</a>
+<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
+<a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
+<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
+<a class="toc-link" href="#section-10">10. 估值</a>
+<a class="toc-link" href="#section-11">11. 冰冰小美框架判断</a>
+<a class="toc-link" href="#section-12">12. 最终结论</a>
+<a class="toc-link" href="#section-13">13. 后续监控指标</a>
+<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
+<a class="toc-link" href="#section-15">15. 来源清单</a>
+<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
+      <article class="content"><blockquote>
+<p>证券代码：603019.SH<br>
+交易所 / 币种：上海证券交易所主板 / 人民币<br>
+研究截止时间：2026-08-11 10:20（Asia/Shanghai，盘中）<br>
+报告生成时间：2026-08-11<br>
+数据口径：盘中价格采用腾讯行情；历史行情、估值、财务、资金流和融资融券优先采用本地 <code>tushare-data</code>；法定事实以上交所、公司年报、季报与可转债文件复核。中科曙光主业价值与海光信息股权价值分开估算，避免重复计算投资收益。<br></p>
+</blockquote>
+<!-- DAILY_TRACKING_START -->
+<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-08-11 10:20（Asia/Shanghai，盘中）" data-value-low="78" data-value-high="103">
+  <div class="daily-tracking-head">
+    <div><p class="daily-tracking-kicker">Daily decision tracker</p><h2>每日跟踪面板</h2></div>
+    <p class="daily-tracking-time">更新：2026-08-11 10:20（Asia/Shanghai，盘中）<br>下次：收盘后 / 重大公告后</p>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">改善。 2026Q1 收入同比 +23.71%、归母净利润 +22.19%、扣非净利润 +53.30%；但单季经营现金流为 -13.91 亿元，存货较年末上升 22.7%。</p><p class="tracking-detail">风险方向：风险增强后趋缓，但尚未转为风险减弱。 20日价格回撤18.7%、资金流出和高融资存量构成压制；8月10日融资净买入提供短线反证。。下一验证点与失效条件见第 11—13 章。</p></div>
+    <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value"><span class="range-breakdown"><span class="range-main">78—103 元 / 股，中枢约 94 元。 下沿对应海光股权只认可约 40%可实现价值、主业给予保守估值</span><span class="range-points"><span class="range-point">中枢对应约 50%可实现价值</span><span class="range-point">上沿需要海光折价收敛、2026 年盈利约 29 亿元兑现及新项目按期转化。完全乐观的资产期权上沿约 112 元</span><span class="range-point">不纳入主决策区间。</span></span></span></p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
+    <div class="tracking-card" data-tracking-key="risk-reward"><p class="tracking-label">盈亏比</p><p class="tracking-value" id="risk-reward-value">约 1.7:1</p><p class="tracking-detail" id="risk-reward-detail">每日同步价 86.63 元；到上沿 103.00 元的潜在上行 +18.9%，跌至下沿 78.00 元的风险 +11.1%。价格不改变价值区间本身。</p></div>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="daily-quote"><p class="tracking-label">每日同步价</p><p class="tracking-value">86.63 元，2026-08-11 10:20:13，盘中 +0.45%</p><p class="tracking-detail">这是报告内嵌的正式跟踪基准，离线打开仍可使用。</p><span class="tracking-status">每日快照</span></div>
+    <div class="tracking-card" data-tracking-key="intraday-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">等待连接</p><p class="tracking-detail" id="intraday-detail">通过“大盘启动器”打开后获取盘中行情，每 60 秒刷新；直接打开 HTML 时不访问外部行情。</p><span class="tracking-status" id="intraday-status">未连接</span></div>
+    <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">新增现金 wait；已有持仓 review / wait</p><p class="tracking-detail">估值：合理偏低，但未进入高安全边际区。 86.63 元低于卖方目标价中枢和本报告 94 元基准价值，但上行空间不足以覆盖资产折价、可转债项目回报和高波动风险。 · 新增现金 wait；已有持仓 review / wait；风险：风险增强后趋缓，但尚未转为风险减弱。 20日价格回撤18.7%、资金流出和高融资存量构成压制；8月10日融资净买入提供短线反证。；结论置信度：中。 财报与股权数量充分，主业订单、募投回报、海光折价收敛路径和半年报数据仍待验证。。</p><span class="tracking-status">合理偏低，但未进入高安全边际区。 86.63 元低于卖方目标价中枢和本报告 94 元基准价值，但上行空间不足以覆盖资产折价、可转债项目回报和高波动风险。</span></div>
+  </div>
+  <div class="tracking-footer"><span>资金状态：<strong>结构性流出。 近5 / 10 / 20日订单规模资金净额约 -6.18 / -35.48 / -40.34亿元；融资余额由7月1日104.38亿元降至89.60亿元，去杠杆仍在继续。</strong> · 新增/已有动作：<strong>新增现金 wait；已有持仓 review / wait</strong></span><span>资金面分析：未单独生成</span></div>
+</section>
+<!-- DAILY_TRACKING_END -->
+<h2 id="section-1">1. 决策摘要</h2>
+
+<h3>1.1 基本面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值状态</td>
+<td><strong>合理偏低，但未进入高安全边际区。</strong> 86.63 元低于卖方目标价中枢和本报告 94 元基准价值，但上行空间不足以覆盖资产折价、可转债项目回报和高波动风险。</td>
+</tr>
+<tr>
+<td>综合估值区间</td>
+<td><strong>78—103 元 / 股，中枢约 94 元。</strong> 下沿对应海光股权只认可约 40%可实现价值、主业给予保守估值；中枢对应约 50%可实现价值；上沿需要海光折价收敛、2026 年盈利约 29 亿元兑现及新项目按期转化。完全乐观的资产期权上沿约 112 元，不纳入主决策区间。</td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>相对 86.63 元为 <strong>-10.0% 至 +18.9%</strong>；中枢上行约 <strong>8.5%</strong>。</td>
+</tr>
+<tr>
+<td>基本面状态</td>
+<td><strong>改善。</strong> 2026Q1 收入同比 +23.71%、归母净利润 +22.19%、扣非净利润 +53.30%；但单季经营现金流为 -13.91 亿元，存货较年末上升 22.7%。</td>
+</tr>
+<tr>
+<td>关键经营变化</td>
+<td>软件、系统集成及技术服务收入占比从 2024 年 10.65%升至 2025 年 16.36%；曙光8000十万卡系统落地；80亿元可转债发行完成，研发和产业化投入加速。</td>
+</tr>
+<tr>
+<td>彼得·林奇公司分类</td>
+<td><strong>主分类：资产隐蔽型；次分类：稳健增长型。</strong> 海光信息27.96%股权的未折价市值显著高于公司自身市值，但变现路径、控制权和持股折价限制兑现；主业收入五年复合增速约7.5%，不属于纯快速增长型。</td>
+</tr>
+<tr>
+<td>一句话投资故事</td>
+<td>中科曙光依靠高端计算、存储、网络、液冷和算力服务赚取系统价值，并通过海光信息股权分享国产芯片利润；未来2—4年的增量来自十万卡集群、训推一体机和高毛利服务占比提升，但只有当订单转为利润与现金、海光折价有兑现路径时，隐藏资产才会转化为股东回报。</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td><strong>中。</strong> 财报与股权数量充分，主业订单、募投回报、海光折价收敛路径和半年报数据仍待验证。</td>
+</tr>
+</tbody></table>
+<h3>1.2 资金面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>操作建议</td>
+<td><strong>观望</strong>；已有低成本持仓可继续持有并设置复核条件</td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td>新增现金 <strong>wait</strong>；已有持仓 <strong>review / wait</strong></td>
+</tr>
+<tr>
+<td>当前价格及时间</td>
+<td><strong>86.63 元，2026-08-11 10:20:13，盘中 +0.45%</strong></td>
+</tr>
+<tr>
+<td>资金状态</td>
+<td><strong>结构性流出。</strong> 近5 / 10 / 20日订单规模资金净额约 -6.18 / -35.48 / -40.34亿元；融资余额由7月1日104.38亿元降至89.60亿元，去杠杆仍在继续。</td>
+</tr>
+<tr>
+<td>风险方向</td>
+<td><strong>风险增强后趋缓，但尚未转为风险减弱。</strong> 20日价格回撤18.7%、资金流出和高融资存量构成压制；8月10日融资净买入提供短线反证。</td>
+</tr>
+<tr>
+<td>每日跟踪时间</td>
+<td>2026-08-11 10:20（Asia/Shanghai，盘中）</td>
+</tr>
+<tr>
+<td>资金面分析链接</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<h3>如果今天这是一笔现金，我会买它吗</h3>
+<ul>
+<li>回答：<strong>不会立即买；只在特定条件下会。</strong></li>
+<li>我的判断：86.63 元的赔率不差，但中枢上行仅约 8.5%，而近20日仍是缩量、去杠杆与资金净流出。资产隐蔽型公司最怕“账面便宜、兑现遥远”，不能把海光信息股权市值100%当现金。</li>
+<li>改变结论的条件：一是价格进入 <strong>78—82 元</strong>且资金净流出收敛；二是半年报确认收入、扣非利润和合同负债继续改善，存货与现金流不恶化；三是海光持股折价出现明确收敛或股东回报路径。</li>
+</ul>
+<h2 id="section-2">2. 证券身份与来源矩阵</h2>
+
+<h3>2.1 证券身份</h3>
+<ul>
+<li>公司全称：曙光信息产业股份有限公司</li>
+<li>证券代码：603019.SH</li>
+<li>上市地：上海证券交易所主板</li>
+<li>报告准则：中国企业会计准则</li>
+<li>法定披露体系：A股交易所与公司公告</li>
+<li>同名或跨市场歧义：无；“中科曙光”不等于其参股公司海光信息或中科星图。</li>
+</ul>
+<h3>2.2 来源矩阵</h3>
+<table>
+<thead>
+<tr>
+<th>数据项目</th>
+<th>目标来源</th>
+<th>实际来源</th>
+<th>数据时间</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Tushare MCP 调用清单（A股适用）</td>
+<td><code>tushare-data</code></td>
+<td><code>get_stock_basic</code>、<code>get_stock_daily</code>、<code>get_stock_valuation</code>、<code>get_stock_moneyflow</code>、<code>get_margin_detail</code>、<code>get_market_margin</code>、<code>get_financial_statements</code>、<code>get_dividend_history</code>、<code>get_index_constituents</code>、<code>get_us_treasury_yield</code></td>
+<td>截至 2026-08-10 / 2026Q1</td>
+<td>已获取；美元指数接口无返回</td>
+</tr>
+<tr>
+<td>证券身份与上市状态</td>
+<td><code>get_stock_basic</code>；交易所</td>
+<td>本地 Tushare、2025年报</td>
+<td>2026-08-11查询</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>实时价格、52周高低、今年以来表现</td>
+<td>行情平台 / Tushare</td>
+<td>腾讯行情、本地 Tushare</td>
+<td>2026-08-11 10:20 / 2026-08-10</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>估值、市值、股息率和换手率</td>
+<td><code>get_stock_valuation</code></td>
+<td>本地 Tushare</td>
+<td>2026-08-10</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>资金分档 / 大单资金代理</td>
+<td><code>get_stock_moneyflow</code></td>
+<td>本地 Tushare</td>
+<td>截至 2026-08-10</td>
+<td>已获取；仅订单规模代理</td>
+</tr>
+<tr>
+<td>融资融券代理</td>
+<td><code>get_margin_detail</code></td>
+<td>本地 Tushare</td>
+<td>2026-07-01—2026-08-10</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>第三方公允价值、护城河、星级</td>
+<td>Morningstar等</td>
+<td>Morningstar公开检索</td>
+<td>2026-08-11</td>
+<td>未获取到个股覆盖数据</td>
+</tr>
+<tr>
+<td>最新季报与管理层指引</td>
+<td>上交所 / 公司公告</td>
+<td>2026Q1、可转债募集说明书</td>
+<td>截至 2026-07-23</td>
+<td>已获取；无正式年度量化指引</td>
+</tr>
+<tr>
+<td>分部收入</td>
+<td>年报 / 募集说明书</td>
+<td>2025年报、可转债募集说明书</td>
+<td>2025A</td>
+<td>已获取到两大产品口径</td>
+</tr>
+<tr>
+<td>卖方评级与目标价</td>
+<td>研报平台</td>
+<td>东方财富、同花顺、富途、公开研报摘要</td>
+<td>2026-07-26前后</td>
+<td>已获取；样本口径不完全一致</td>
+</tr>
+<tr>
+<td>近三个月新闻与催化剂</td>
+<td>公司公告 / 权威媒体</td>
+<td>可转债公告、新华网、科技日报</td>
+<td>2026-05-28—2026-07-23</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>五年财务历史</td>
+<td><code>get_financial_statements</code>；公司年报</td>
+<td>本地 Tushare、2021—2025年报</td>
+<td>2021A—2025A</td>
+<td>已获取；资本开支额外调用财务字段并由年报复核</td>
+</tr>
+<tr>
+<td>分红历史</td>
+<td><code>get_dividend_history</code></td>
+<td>本地 Tushare、2025年报</td>
+<td>2021—2025年度</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>指数成分与权重（如适用）</td>
+<td><code>get_index_constituents</code></td>
+<td>本地 Tushare</td>
+<td>2026-07-31</td>
+<td>已获取；沪深300权重0.469%</td>
+</tr>
+</tbody></table>
+<p>本轮原始数据已保存为 <a href="../../../../webpages/2026-08-11-中科曙光-研究数据快照.md">中科曙光研究数据快照</a>。关键法定底稿为<a href="https://static.sse.com.cn/stock/disclosure/announcement/c/202604/603019_20260424_18V1.pdf">2025年报与可转债募集说明书</a>，产业催化由<a href="https://www1.xinhuanet.com/20260710/ff61c2df2cf94fdda1306513f82bf8b7/c.html">新华网</a>和<a href="https://www.digitalchina.gov.cn/2026/xwzx/szkx/202607/t20260713_5345699.htm">数字中国建设峰会转载科技日报</a>交叉验证。</p>
+<h2 id="section-3">3. 行情与市场预期</h2>
+
+<h3>3.1 行情快照（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">数值</th>
+<th>来源</th>
+<th>时间 / 口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前价格</td>
+<td align="right">86.63 元</td>
+<td>腾讯行情</td>
+<td>2026-08-11 10:20:13，盘中</td>
+</tr>
+<tr>
+<td>52周最高</td>
+<td align="right">128.12 元</td>
+<td>本地 Tushare日线</td>
+<td>2025-08-01—2026-08-10盘中最高</td>
+</tr>
+<tr>
+<td>52周最低</td>
+<td align="right">67.71 元</td>
+<td>本地 Tushare日线</td>
+<td>同上盘中最低</td>
+</tr>
+<tr>
+<td>今年以来表现</td>
+<td align="right">+0.70%</td>
+<td>本地 Tushare</td>
+<td>截至 2026-08-10收盘</td>
+</tr>
+<tr>
+<td>总市值</td>
+<td align="right">约 1,267.4 亿元</td>
+<td>盘中价格 × 14.631亿股</td>
+<td>2026-08-11盘中估算</td>
+</tr>
+<tr>
+<td>PE / PB / EV</td>
+<td align="right">PE TTM 56.90倍 / PB 5.59倍 / EV约1,216亿元</td>
+<td>Tushare、2025年末净现金代理与可转债净额</td>
+<td>PE、PB为8月10日；EV为按市值减净现金的粗略估计，不含参股资产重估</td>
+</tr>
+</tbody></table>
+<p>20 / 60 / 120 日收益分别约 -18.74% / -8.70% / -0.63%。股价较52周高点回撤约32.4%，但仍高于52周低点约27.9%，情绪处于高位退潮后的中间位置。</p>
+<h3>3.2 第三方公允价值与评级（事实）</h3>
+<ul>
+<li>公允价值：未获取到 Morningstar 对 603019.SH 的公开公允价值。</li>
+<li>护城河评级：未获取到。</li>
+<li>星级：未获取到。</li>
+<li>来源与时间：Morningstar公开检索，2026-08-11。</li>
+<li>未获取到的字段及已检查来源：未发现可核验的Morningstar个股覆盖页；证券之星仅提供“行业相对比较”定性标签，不替代标准化公允价值和星级。</li>
+</ul>
+<h3>3.3 卖方评级与目标价分布（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>机构</th>
+<th>日期</th>
+<th>评级</th>
+<th align="right">目标价</th>
+<th>预测期</th>
+<th>关键假设</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>中金公司</td>
+<td>2026-04-27</td>
+<td>跑赢行业</td>
+<td align="right">99.00 元</td>
+<td>12个月</td>
+<td>2026 / 2027归母净利润28.9 / 35.4亿元，约50倍2026 PE</td>
+</tr>
+<tr>
+<td>安信证券等公开研报样本</td>
+<td>2026-07</td>
+<td>买入-A</td>
+<td align="right">100.82 元</td>
+<td>6个月</td>
+<td>2026净利润约29.23亿元，约50倍PE</td>
+</tr>
+<tr>
+<td>华创证券公开摘要</td>
+<td>2026-04</td>
+<td>强推</td>
+<td align="right">102.51 元</td>
+<td>2026年</td>
+<td>2026 EPS约1.86元，给予55倍PE</td>
+</tr>
+<tr>
+<td>富途汇总</td>
+<td>2026-07-26页面</td>
+<td>未完整披露</td>
+<td align="right">平均106.84元</td>
+<td>12个月</td>
+<td>区间98—133.91元，样本构成不完整</td>
+</tr>
+</tbody></table>
+<ul>
+<li>目标价区间 / 中位数：较可核验公开研报集中在 <strong>98—102.51元</strong>；富途汇总均值106.84元但样本信息不足。</li>
+<li>样本数量与完整性：东方财富披露18家机构2026年平均归母净利润29.12亿元；同花顺披露近六个月19家机构覆盖。目标价并非所有样本均公开。</li>
+<li>来源冲突及采信理由：决策采用98—102.51元的可核验密集区，不采用133.91元单一高值。参见<a href="https://emweb.securities.eastmoney.com/PC_HSF10/ProfitForecast/Index?code=SH603019&type=web">东方财富盈利预测</a>、<a href="https://basic.10jqka.com.cn/603019/worth.html">同花顺盈利预测</a>与<a href="https://www.futunn.com/stock/603019-SH/forecast">富途汇总</a>。</li>
+</ul>
+<h2 id="section-4">4. 商业模式与竞争格局</h2>
+
+<h3>4.1 事实</h3>
+<ul>
+<li>收入来源：2025年IT设备收入125.03亿元、占83.64%；软件开发、系统集成及技术服务收入24.46亿元、占16.36%。</li>
+<li>客户与定价权：公共事业客户占51.59%，企业客户占48.41%，直销占95.44%；政府、科研、教育和大型企业项目具有认证与交付壁垒，但项目制验收使收入季节性和回款波动较大。</li>
+<li>成本结构：IT设备毛利率27.31%，服务类毛利率47.25%；研发费用16.71亿元、占收入11.17%，高于浪潮信息和紫光股份的可转债文件可比口径。</li>
+<li>资本强度：2023—2025年资本开支代理21.67 / 8.60 / 9.17亿元；80亿元可转债进一步投向算力集群、训推一体机和存储研发。</li>
+<li>竞争者：浪潮信息、新华三、工业富联、神州数码、华为、超聚变等；在芯片端与海光信息高度协同，在系统端又面临整机、超节点和云厂商自研竞争。</li>
+<li>监管约束：实体清单与高端部件获取风险长期存在；公共事业客户的预算、验收和采购节奏影响订单兑现。</li>
+</ul>
+<h4>多产业位置景气度排序（事实与判断分列）</h4>
+<table>
+<thead>
+<tr>
+<th align="right">排名</th>
+<th>产业位置</th>
+<th>位置识别依据（事实）</th>
+<th>公司业务 / 资产暴露（事实）</th>
+<th>当前景气度</th>
+<th>趋势</th>
+<th>景气证据与时间</th>
+<th>财务传导</th>
+<th>验证指标 / 失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">1</td>
+<td>国产AI芯片资产</td>
+<td>持海光信息6.499亿股、27.96%</td>
+<td>权益法投资收益与资产价值</td>
+<td>高</td>
+<td>上行</td>
+<td>海光市值和盈利预期处高位，2026-08-10</td>
+<td>投资收益、净资产、估值折价</td>
+<td>海光盈利增速、股价与持股政策；芯片景气反转则失效</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td>十万卡AI集群与超节点</td>
+<td>曙光8000投入使用、第二套启动</td>
+<td>系统、网络、存储、液冷与服务全链条</td>
+<td>较高</td>
+<td>上行</td>
+<td>2026-07-10十万卡系统落地</td>
+<td>订单、IT设备与服务收入、合同负债</td>
+<td>必须披露订单、收入和回款；只有技术展示无商业复制则失效</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td>软件集成与算力服务</td>
+<td>2025收入占比升至16.36%</td>
+<td>高毛利服务收入</td>
+<td>较高</td>
+<td>上行</td>
+<td>收入同比+75.3%，毛利率47.25%</td>
+<td>毛利率与现金回报改善</td>
+<td>服务收入占比、毛利和经营现金流同步验证</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td>通用服务器与IT设备</td>
+<td>2025收入占83.64%</td>
+<td>主体收入和毛利来源</td>
+<td>中</td>
+<td>持平</td>
+<td>2025收入+6.8%、毛利率持平</td>
+<td>规模与产品结构</td>
+<td>价格竞争、国产部件供给与客户预算</td>
+</tr>
+</tbody></table>
+<ul>
+<li>位置间交叉与去重说明：海光既是上游供应协同方也是权益法投资，不把海光市值、投资收益和主业利润重复相加；曙光8000包含服务器、网络、存储和液冷，只按一个集群系统位置计量。</li>
+<li>排名第一的位置能否进入公司利润和现金流：投资收益已进入利润，但海光股价上涨不会直接进入当期利润；股权市值变现需要减持、分红、重组或其他资本安排。</li>
+<li>弱关联 / 待验证位置：第二套十万卡系统是产业验证，不等于已确认订单和收入。</li>
+</ul>
+<h3>4.2 我的判断</h3>
+<ul>
+<li>我的判断：竞争优势及依据：中科曙光的优势不在单台服务器，而在国产CPU / DCU适配、超大规模调度、RDMA网络、ParaStor存储、液冷和运营服务的系统组合；十万卡系统是技术集成能力的强证据。</li>
+<li>我的判断：商业模式最脆弱的环节及依据：项目制收入、公共事业预算和重资产研发会造成验收、回款与现金流错配；芯片和系统之间的关联交易与股权投资又降低了估值透明度。</li>
+<li>证伪条件：十万卡系统无法复制成外部订单，服务收入占比回落，IT设备毛利率跌破24%，或核心国产芯片供给与生态明显落后。</li>
+</ul>
+<h3>4.3 彼得·林奇公司分类与投资故事</h3>
+<ul>
+<li>主分类：<strong>资产隐蔽型</strong></li>
+<li>次分类：<strong>稳健增长型</strong>；分类依据：2021—2025年收入复合增速约7.5%、EPS复合增速约16.8%，增长稳定但不构成纯高成长；海光股权的市场价值是定价主矛盾。</li>
+<li>为什么关注这家公司：以不完全变现的海光资产折价获得国产算力系统主业与十万卡复制期权。</li>
+<li>一句话投资故事：公司通过系统集成与国产芯片协同获取国家算力基础设施订单，同时高毛利服务占比提升；当海光资产折价收敛且系统项目转为现金时，估值可以抬升，反之则长期停留在控股折价。</li>
+<li>利润增长等式：<code>IT设备收入 × 产品毛利率 + 服务收入 × 服务毛利率 + 权益法投资收益 - 研发与管理费用</code>。</li>
+<li>核心增长来源及持续时间：2026—2029年先进算力集群、训推一体机、国产存储和服务占比提升。</li>
+<li>市场目前可能低估的因素：海光股权的资产价值、十万卡系统化能力、服务业务毛利贡献。</li>
+<li>市场目前可能高估的因素：把海光股权按100%市值变现，把技术发布等同于订单，把80亿元募集资金等同于即时利润。</li>
+<li>林奇式积极信号：EPS四年复合增速高于收入、服务占比提升、毛利率三年上行、合同负债增加。</li>
+<li>林奇式危险信号：投资收益占净利润约31%、自由现金流波动大、可转债带来资本回报和潜在稀释压力、融资余额偏高。</li>
+<li>投资逻辑证伪条件：海光股权折价长期扩大、2026年归母净利润低于26亿元、主业毛利和现金流同时恶化。</li>
+</ul>
+<h2 id="section-5">5. 分部收入与盈利拆解</h2>
+
+<table>
+<thead>
+<tr>
+<th>分部</th>
+<th align="right">收入</th>
+<th align="right">同比</th>
+<th align="right">收入占比</th>
+<th align="right">毛利率</th>
+<th align="right">毛利率变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>IT设备</td>
+<td align="right">125.03亿元</td>
+<td align="right">+6.81%</td>
+<td align="right">83.64%</td>
+<td align="right">27.31%</td>
+<td align="right">-0.03pct</td>
+<td>可转债募集说明书，2025A</td>
+</tr>
+<tr>
+<td>软件开发、系统集成及技术服务</td>
+<td align="right">24.46亿元</td>
+<td align="right">+75.35%</td>
+<td align="right">16.36%</td>
+<td align="right">47.25%</td>
+<td align="right">+3.54pct</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>合计主营业务</td>
+<td align="right">149.50亿元</td>
+<td align="right">+14.11%</td>
+<td align="right">100%</td>
+<td align="right">30.57%</td>
+<td align="right">+1.48pct</td>
+<td>同上</td>
+</tr>
+</tbody></table>
+<ul>
+<li>披露口径变化：年报只按IT设备与软件 / 集成 / 服务两大类披露，未单列服务器、存储、液冷、算力服务和曙光8000收入。</li>
+<li>来源冲突：Tushare营业收入149.64亿元与主营业务149.50亿元不同，差额为其他业务收入。</li>
+<li>采信理由：分部采用上交所可转债募集说明书经审计口径，总收入采用年报口径。</li>
+<li>我的判断：增长质量及依据：服务类收入成为2025年最强增量并抬升毛利率，是积极变化；但其项目构成、复购率与现金回款未拆分，尚不足以给予纯软件估值。</li>
+</ul>
+<h2 id="section-6">6. 五年财务历史</h2>
+
+<table>
+<thead>
+<tr>
+<th>财年</th>
+<th align="right">营收</th>
+<th align="right">毛利率</th>
+<th align="right">经营现金流</th>
+<th align="right">资本开支</th>
+<th align="right">自由现金流</th>
+<th align="right">ROIC / 代理值</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td align="right">112.00亿元</td>
+<td align="right">23.74%</td>
+<td align="right">-4.95亿元</td>
+<td align="right">16.28亿元</td>
+<td align="right">-21.23亿元</td>
+<td align="right">期末ROE代理9.1%</td>
+<td>Tushare / 年报</td>
+</tr>
+<tr>
+<td>2022</td>
+<td align="right">130.08亿元</td>
+<td align="right">26.26%</td>
+<td align="right">11.25亿元</td>
+<td align="right">26.85亿元</td>
+<td align="right">-15.60亿元</td>
+<td align="right">平均权益ROE代理10.4%</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">143.53亿元</td>
+<td align="right">26.26%</td>
+<td align="right">35.10亿元</td>
+<td align="right">21.67亿元</td>
+<td align="right">13.43亿元</td>
+<td align="right">10.3%</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">131.48亿元</td>
+<td align="right">29.16%</td>
+<td align="right">27.22亿元</td>
+<td align="right">8.60亿元</td>
+<td align="right">18.62亿元</td>
+<td align="right">9.8%</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">149.64亿元</td>
+<td align="right">30.58%</td>
+<td align="right">13.13亿元</td>
+<td align="right">9.17亿元</td>
+<td align="right">3.96亿元</td>
+<td align="right">10.2%</td>
+<td>同上 / 可转债募集说明书</td>
+</tr>
+</tbody></table>
+<ul>
+<li>自由现金流口径：经营现金流减购建固定资产、无形资产和其他长期资产支付的现金，不是标准FCFF。</li>
+<li>ROIC口径：因参股资产和委托开发项目显著，采用归母净利润 / 平均归母权益的ROE代理；不与纯制造公司ROIC直接比较。</li>
+<li>一次性项目和会计变化：2025年投资收益6.83亿元；政府补助等其他收益3.03亿元。公司解释现金流受委托开发项目和定期存款资金管理影响。</li>
+<li>我的判断：毛利率和EPS趋势改善，但现金转化不稳定，资产投资收益放大归母利润。用单一年份FCF做DCF会失真，必须采用正常化区间。</li>
+</ul>
+<h3>6.1 林奇框架增长质量检查</h3>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>3—5年趋势 / 当前变化</th>
+<th>与营收或 EPS 的匹配关系</th>
+<th>质量判断</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>EPS</td>
+<td>0.80元升至1.49元，四年CAGR约16.8%</td>
+<td>快于收入CAGR约7.5%</td>
+<td>毛利率与投资收益共同驱动</td>
+<td>2021—2025年报</td>
+</tr>
+<tr>
+<td>经营现金流 / 净利润现金含量</td>
+<td>波动于负值至35.10亿元；2025为0.60倍</td>
+<td>未稳定跟随EPS</td>
+<td>中性偏弱</td>
+<td>2021—2025年报</td>
+</tr>
+<tr>
+<td>库存</td>
+<td>2025年35.33亿元；2026Q1升至43.36亿元</td>
+<td>Q1库存增速快于收入</td>
+<td>待验证，可能为备货或交付前置</td>
+<td>Tushare，2026Q1</td>
+</tr>
+<tr>
+<td>应收账款</td>
+<td>2025年27.55亿元；Q1降至20.21亿元</td>
+<td>未快于收入</td>
+<td>改善，但季节性影响大</td>
+<td>Tushare，2026Q1</td>
+</tr>
+<tr>
+<td>有息负债 / 利息覆盖</td>
+<td>2025年短借8.46亿元，利息收入高于利息费用；7月发行80亿元可转债</td>
+<td>短期偿债压力低，未来回报要求高</td>
+<td>流动性充足、资本纪律待验证</td>
+<td>募集说明书 / 2026-07</td>
+</tr>
+<tr>
+<td>回购与股本变化</td>
+<td>2025年回购注销8.8万股；可转债潜在新增约7,347万股</td>
+<td>回购贡献可忽略，潜在稀释约5%</td>
+<td>中性偏弱</td>
+<td>年报 / 转债文件</td>
+</tr>
+<tr>
+<td>非经常性收益</td>
+<td>2025非经常性损益3.39亿元；投资收益6.83亿元多数为持续性权益法收益</td>
+<td>主营扣非增长快，但归母仍依赖参股资产</td>
+<td>中性</td>
+<td>2025年报</td>
+</tr>
+</tbody></table>
+<ul>
+<li>主营业务驱动的持续增长占比：2025扣非归母净利润同比+33.97%，验证主业改善，但投资收益仍占归母净利润约31%。</li>
+<li>财务杠杆、周期涨价、回购或一次性收益的贡献：回购贡献极小；利润增量主要来自毛利结构和权益法收益，而非财务杠杆。</li>
+<li>我的判断：报表部分验证“服务占比提升 + 国产算力需求”的故事，但现金流和存货尚未完成验证。</li>
+</ul>
+<h2 id="section-7">7. 最新季度与管理层指引</h2>
+
+<h3>7.1 最新季度（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">本期</th>
+<th align="right">同比 / 变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营收</td>
+<td align="right">31.99亿元</td>
+<td align="right">+23.71%</td>
+<td>2026Q1</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">26.56%</td>
+<td align="right">+0.49pct</td>
+<td>2026Q1</td>
+</tr>
+<tr>
+<td>净利润</td>
+<td align="right">2.28亿元</td>
+<td align="right">+22.19%</td>
+<td>2026Q1</td>
+</tr>
+<tr>
+<td>调整后利润</td>
+<td align="right">扣非1.64亿元</td>
+<td align="right">+53.30%</td>
+<td>2026Q1</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">-13.91亿元</td>
+<td align="right">同比多流出约2.73亿元</td>
+<td>2026Q1</td>
+</tr>
+<tr>
+<td>订单 / 储备</td>
+<td align="right">未披露金额；2025年末合同负债12.79亿元</td>
+<td align="right">较2024年末+34.58%</td>
+<td>募集说明书 / 2025年末</td>
+</tr>
+</tbody></table>
+<h3>7.2 管理层指引（事实）</h3>
+<ul>
+<li>正式量化指引：未获取到2026全年收入或利润量化指引。</li>
+<li>定性展望：向“硬件 + 平台 + 服务 + 运营”一体化高附加值模式升级；80亿元募投项目建设期3—4年。</li>
+<li>未获取到：曙光8000已签订单金额、2026分部收入目标、半年经营现金流目标、可转债上市日期。</li>
+</ul>
+<h3>7.3 我的判断</h3>
+<ul>
+<li>我的判断：边际变化及依据：Q1收入和扣非利润明显加速，基本面方向改善；存货和现金流恶化说明增长仍在投入期。</li>
+<li>我的判断：指引可信度及依据：产业方向可信，财务兑现缺少量化指引，因此只给中等置信度。</li>
+<li>下一验证节点：2026半年报、可转债上市公告、第二套十万卡系统合同与交付进度。</li>
+</ul>
+<h2 id="section-8">8. 近三个月新闻与催化剂</h2>
+
+<table>
+<thead>
+<tr>
+<th>发生日</th>
+<th>事件</th>
+<th>影响变量</th>
+<th>财务传导</th>
+<th>是否已反映</th>
+<th>验证节点</th>
+<th>失效条件</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-05-28</td>
+<td>上交所上市审核委员会通过可转债申请</td>
+<td>融资能力</td>
+<td>研发投入与未来稀释</td>
+<td>已部分反映</td>
+<td>注册与发行结果</td>
+<td>发行中止</td>
+<td>公司公告</td>
+</tr>
+<tr>
+<td>2026-06-30</td>
+<td>证监会同意可转债注册</td>
+<td>融资确定性</td>
+<td>80亿元资金可落地</td>
+<td>已反映</td>
+<td>发行与募投进度</td>
+<td>资金闲置或回报不足</td>
+<td><a href="https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?CompanyCode=80381301&gather=1&id=12419584">公告摘要</a></td>
+</tr>
+<tr>
+<td>2026-07-10</td>
+<td>曙光8000十万卡AI超集群投入使用</td>
+<td>技术、订单、品牌</td>
+<td>系统与服务收入</td>
+<td>事件反映，财务未反映</td>
+<td>第二套系统、订单和收入</td>
+<td>无外部商业复制</td>
+<td><a href="https://www1.xinhuanet.com/20260710/ff61c2df2cf94fdda1306513f82bf8b7/c.html">新华网</a></td>
+</tr>
+<tr>
+<td>2026-07-15—17</td>
+<td>80亿元曙26转债发行完成</td>
+<td>资本供给、潜在稀释</td>
+<td>现金增加、利息、未来转股</td>
+<td>已部分反映</td>
+<td>上市、募投、2027转股</td>
+<td>项目ROIC低于资本成本</td>
+<td><a href="https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?CompanyCode=80381301&gather=1&id=12455191">发行结果</a></td>
+</tr>
+<tr>
+<td>2026-07-18</td>
+<td>曙光8000上线首周满载运行报道</td>
+<td>利用率</td>
+<td>算力服务收入期权</td>
+<td>证据有限</td>
+<td>公司正式运营数据</td>
+<td>媒体口径无法复核</td>
+<td>公开媒体，未作为核心估值依据</td>
+</tr>
+</tbody></table>
+<h2 id="section-9">9. 多头与空头论据</h2>
+
+<h3>9.1 多头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>隐藏资产提供下行缓冲</td>
+<td>海光股权未折价市值约1,887.5亿元，高于中科曙光市值</td>
+<td>海光盈利、股价、持股政策</td>
+<td>海光估值大幅回落或折价长期扩大</td>
+</tr>
+<tr>
+<td>主业质量改善</td>
+<td>2025服务收入+75.35%，毛利率47.25%；Q1扣非+53.3%</td>
+<td>服务占比、毛利率、现金回款</td>
+<td>服务增速回落且毛利率下行</td>
+</tr>
+<tr>
+<td>十万卡系统构成稀缺能力</td>
+<td>曙光8000全国产、十万卡、全链路系统</td>
+<td>第二套系统、外部订单、利用率</td>
+<td>仅示范无商业复制</td>
+</tr>
+<tr>
+<td>资金充足支持研发</td>
+<td>80亿元可转债发行完成</td>
+<td>募投里程碑和ROIC</td>
+<td>资本化投入增加但收入不兑现</td>
+</tr>
+</tbody></table>
+<h3>9.2 空头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>海光资产折价可能是结构性</td>
+<td>合并已于2025年12月终止，股权变现路径不明确</td>
+<td>分红、减持、重组或回购安排</td>
+<td>明确且股东友好的兑现方案</td>
+</tr>
+<tr>
+<td>TTM估值仍高</td>
+<td>56.9倍PE、5.59倍PB，2026一致预期PE约43.5倍</td>
+<td>盈利上修和现金流</td>
+<td>2026净利润显著超过32亿元</td>
+</tr>
+<tr>
+<td>现金流与库存压力</td>
+<td>Q1经营现金流-13.91亿元，库存较年末+22.7%</td>
+<td>半年经营现金流、库存周转</td>
+<td>半年现金流转正且库存周转改善</td>
+</tr>
+<tr>
+<td>杠杆资金仍高</td>
+<td>融资余额89.60亿元，占流通市值约7.1%</td>
+<td>融资余额、20日资金净额</td>
+<td>融资下降且价格企稳</td>
+</tr>
+<tr>
+<td>可转债潜在稀释与回报风险</td>
+<td>初始转股价108.89元，完全转股约稀释5%</td>
+<td>募投ROIC、转股进度</td>
+<td>项目利润增量超过稀释</td>
+</tr>
+</tbody></table>
+<h2 id="section-10">10. 估值</h2>
+
+<h3>10.1 相对估值</h3>
+<table>
+<thead>
+<tr>
+<th>公司</th>
+<th>业务可比性</th>
+<th align="right">增长</th>
+<th align="right">利润率</th>
+<th align="right">PE</th>
+<th align="right">PB</th>
+<th align="right">EV/EBITDA</th>
+<th>数据时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>中科曙光</td>
+<td>高端计算、存储、服务和参股芯片</td>
+<td align="right">2026Q1收入+23.7%</td>
+<td align="right">2025毛利率30.6%</td>
+<td align="right">56.9倍TTM</td>
+<td align="right">5.59倍</td>
+<td align="right">未获取到统一口径</td>
+<td>2026-08-10</td>
+</tr>
+<tr>
+<td>浪潮信息</td>
+<td>服务器整机，高可比</td>
+<td align="right">证据未统一</td>
+<td align="right">毛利低于中科曙光</td>
+<td align="right">44.1倍TTM</td>
+<td align="right">5.05倍</td>
+<td align="right">未获取到</td>
+<td>2026-08-10</td>
+</tr>
+<tr>
+<td>紫光股份</td>
+<td>ICT设备、新华三，高可比</td>
+<td align="right">证据未统一</td>
+<td align="right">业务口径更宽</td>
+<td align="right">50.6倍TTM</td>
+<td align="right">6.93倍</td>
+<td align="right">未获取到</td>
+<td>2026-08-10</td>
+</tr>
+<tr>
+<td>工业富联</td>
+<td>AI服务器制造，中等可比</td>
+<td align="right">证据未统一</td>
+<td align="right">规模大、制造属性强</td>
+<td align="right">33.8倍TTM</td>
+<td align="right">7.79倍</td>
+<td align="right">未获取到</td>
+<td>2026-08-10</td>
+</tr>
+<tr>
+<td>神州数码</td>
+<td>分销和集成，低至中可比</td>
+<td align="right">证据未统一</td>
+<td align="right">低毛利</td>
+<td align="right">45.8倍TTM</td>
+<td align="right">2.21倍</td>
+<td align="right">未获取到</td>
+<td>2026-08-10</td>
+</tr>
+</tbody></table>
+<ul>
+<li>选取理由：覆盖服务器、ICT集成和AI硬件，但中科曙光的海光权益法收益使PE不可直接横比。</li>
+<li>正常化调整：以2026一致预期EPS约1.99元，给予40—50倍PE，对应 <strong>80—100元</strong>。</li>
+<li>对应每股价值区间：80—100元。</li>
+<li>我的判断：相对估值显示当前并不昂贵到需要规避，但也不是显著低估；50倍以上需要兑现十万卡系统和服务增量。</li>
+</ul>
+<h3>10.2 DCF</h3>
+<h4>关键假设</h4>
+<blockquote>
+<p>DCF只估算主业正常化现金流，不含海光和中科星图股权的市场重估；参股资产在第10.3节单独处理。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>假设</th>
+<th align="right">悲观</th>
+<th align="right">基准</th>
+<th align="right">乐观</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>收入增长</td>
+<td align="right">5%—8%</td>
+<td align="right">10%—14%</td>
+<td align="right">14%—18%</td>
+<td>历史收入CAGR约7.5%，Q1增长23.7%</td>
+</tr>
+<tr>
+<td>经营利润率</td>
+<td align="right">8%—9%</td>
+<td align="right">9%—11%</td>
+<td align="right">11%—13%</td>
+<td>服务占比提升与研发投入并存</td>
+</tr>
+<tr>
+<td>税率</td>
+<td align="right">12%</td>
+<td align="right">12%</td>
+<td align="right">11%</td>
+<td>历史高新技术企业税收口径代理</td>
+</tr>
+<tr>
+<td>折旧摊销</td>
+<td align="right">收入6%</td>
+<td align="right">收入6.5%</td>
+<td align="right">收入7%</td>
+<td>无形资产和算力基础设施较重</td>
+</tr>
+<tr>
+<td>资本开支</td>
+<td align="right">年均12—15亿元</td>
+<td align="right">年均14—18亿元</td>
+<td align="right">年均18—22亿元</td>
+<td>80亿元募投建设期3—4年</td>
+</tr>
+<tr>
+<td>营运资本变化</td>
+<td align="right">占增量收入4%</td>
+<td align="right">3%</td>
+<td align="right">2%</td>
+<td>项目制和公共事业回款风险</td>
+</tr>
+<tr>
+<td>WACC</td>
+<td align="right">10.5%</td>
+<td align="right">9.5%</td>
+<td align="right">8.5%</td>
+<td>A股成长股与高久期风险</td>
+</tr>
+<tr>
+<td>永续增长率</td>
+<td align="right">2.5%</td>
+<td align="right">3.0%</td>
+<td align="right">3.5%</td>
+<td>不超过长期名义增长约束</td>
+</tr>
+</tbody></table>
+<h4>估值结果</h4>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">企业价值</th>
+<th align="right">净债务</th>
+<th align="right">股权价值</th>
+<th align="right">每股价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观</td>
+<td align="right">106.97亿元</td>
+<td align="right">-51.40亿元</td>
+<td align="right">158.37亿元</td>
+<td align="right">10.82元</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">237.49亿元</td>
+<td align="right">-51.40亿元</td>
+<td align="right">288.89亿元</td>
+<td align="right">19.74元</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">407.24亿元</td>
+<td align="right">-51.40亿元</td>
+<td align="right">458.64亿元</td>
+<td align="right">31.35元</td>
+</tr>
+</tbody></table>
+<p>净债务采用2025年末货币资金减主要有息负债的保守代理；7月可转债募集资金与新增债务在发行时净额近似相抵。该DCF不是公司整体价值，必须与参股资产价值相加。</p>
+<h4>敏感性分析</h4>
+<table>
+<thead>
+<tr>
+<th>WACC \ 永续增长率</th>
+<th align="right">2.5%</th>
+<th align="right">3.0%</th>
+<th align="right">3.5%</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>8.5%</td>
+<td align="right">21.5元</td>
+<td align="right">22.8元</td>
+<td align="right">24.5元</td>
+</tr>
+<tr>
+<td>9.5%</td>
+<td align="right">18.8元</td>
+<td align="right">19.7元</td>
+<td align="right">20.9元</td>
+</tr>
+<tr>
+<td>10.5%</td>
+<td align="right">16.8元</td>
+<td align="right">17.5元</td>
+<td align="right">18.3元</td>
+</tr>
+</tbody></table>
+<h4>反向 DCF</h4>
+<ul>
+<li>当前价格隐含的收入增长 / 终值利润率：若主业按基准DCF约19.7元、中科星图按账面约4.3元，则86.63元中约62.6元来自海光股权，相当于认可其每股129元未折价价值的约48.5%。</li>
+<li>与历史和行业相比是否可实现：当前价格并未要求主业超高速增长，而是要求海光折价维持在约50%附近；风险核心是资产折价而非单纯收入增长。</li>
+<li>我的判断：反向估值比传统反向DCF更适合本公司。若海光价值认可率跌至40%，合理价接近76—80元；升至60%，可接近110元以上。</li>
+</ul>
+<h3>10.3 行业特定估值</h3>
+<ul>
+<li>方法：<strong>分部加总 / NAV（SOTP）</strong>。</li>
+<li>适用理由：海光信息27.96%股权是可观察的上市资产，且投资收益已进入合并利润；必须与主业分开。</li>
+<li>关键假设：海光2026-08-10市值6,750.81亿元，中科曙光持股27.96%，未折价价值1,887.53亿元；分别按40% / 50% / 60%可实现价值计入；主业扣除2025投资收益后的归母利润代理14.94亿元，分别给予20 / 25 / 30倍；中科星图只按2025年末账面63.56亿元。</li>
+<li>对应每股价值区间：悲观 <strong>76.37元</strong>、基准 <strong>94.38元</strong>、乐观 <strong>112.38元</strong>。</li>
+<li>局限性：持有海光并非现金，减持、税费、国资与治理、控制权、市场冲击和关联交易都会造成折价；以投资收益直接扣除归母利润仅为简化代理。</li>
+</ul>
+<h3>10.4 估值交叉验证</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="right">每股价值区间</th>
+<th align="right">权重</th>
+<th>采信理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>相对估值</td>
+<td align="right">80—100元</td>
+<td align="right">30%</td>
+<td>市场实际采用的2026 PE框架，但包含参股收益</td>
+</tr>
+<tr>
+<td>DCF</td>
+<td align="right">11—31元主业价值</td>
+<td align="right">20%</td>
+<td>只做主业价值下限与现金流约束，不单独作为整体目标价</td>
+</tr>
+<tr>
+<td>行业特定估值</td>
+<td align="right">76—112元</td>
+<td align="right">50%</td>
+<td>能显式处理海光股权和持股折价，是主锚</td>
+</tr>
+</tbody></table>
+<ul>
+<li>综合估值区间：<strong>78—103元，中枢约94元</strong>。</li>
+<li>相对现价上行 / 下行空间：-10.0%至+18.9%，中枢+8.5%。</li>
+<li>为什么不机械平均：DCF只估主业，SOTP已包含主业与参股资产，机械平均会重复或漏算；最终以SOTP为主，卖方密集目标价做上沿约束。</li>
+</ul>
+<h3>10.5 林奇分类与估值匹配</h3>
+<ul>
+<li>主分类与估值锚：资产隐蔽型以折价后NAV为主，稳健增长型以正常化PE为辅。</li>
+<li>PEG：2026一致预期盈利增速约33.8%，盘中2026 PE约43.5倍，PEG约 <strong>1.29</strong>；但权益法投资收益较大，PEG只作辅助。</li>
+<li>周期型正常化利润（适用时）：不作为主锚。</li>
+<li>困境反转型生存、债务与现金流约束（适用时）：不适用。</li>
+<li>资产隐蔽型扣除负债、税费和变现折价后的净资产价值：海光价值认可率按40%—60%，而非100%；中科星图只按账面价值。</li>
+<li>当前价格已经反映的增长、利润率、周期或资产兑现预期：已反映2026盈利增长约30%和海光股权约一半的可实现价值。</li>
+<li>类型化估值与三类估值是否相互印证：基本印证；当前价接近SOTP基准下方、卖方目标价下方，但未达到足够安全边际。</li>
+</ul>
+<h2 id="section-11">11. 冰冰小美框架判断</h2>
+
+<h3>11.1 三要素状态总表</h3>
+<ul>
+<li>三要素结论来源：<code>bbxm-three-factor-analysis</code></li>
+<li>分析对象与层级：中科曙光个股；国产算力系统与上市参股资产双重暴露</li>
+<li>分析截止时间：2026-08-11 10:20（Asia/Shanghai）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>状态</th>
+<th>核心证据</th>
+<th>核心反证</th>
+<th>失效条件</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>有利</td>
+<td>十万卡系统落地、服务占比与毛利上升、国产全链条能力</td>
+<td>主业规模小于浪潮 / 紫光，项目订单未披露</td>
+<td>外部订单不复制或毛利率跌破24%</td>
+<td>中高</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>不利</td>
+<td>20日资金净流出40.34亿元、融资去杠杆、成交缩量</td>
+<td>8月10日融资净买入，融资余额已下降</td>
+<td>20日资金转正且融资 / 价格形成正反馈</td>
+<td>高</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>不利</td>
+<td>20日跌18.7%，曙光8000与转债发行后价格走弱</td>
+<td>较52周低点仍高约28%，未到冰点</td>
+<td>放量站回100元或缩量止跌并形成修复</td>
+<td>中高</td>
+</tr>
+</tbody></table>
+<h4>前六步证据映射</h4>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>前六步证据来源</th>
+<th>已验证证据</th>
+<th>反证与缺口</th>
+<th>分析状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>第4—7章；来源矩阵</td>
+<td>分部收入、毛利、研发、十万卡系统</td>
+<td>订单金额和市占率缺失</td>
+<td>已分析</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>交易数据；第8—9章</td>
+<td>5 / 10 / 20日资金、融资和成交</td>
+<td>北向实时、ETF申赎缺失</td>
+<td>已分析，置信度下调一级</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>第3、8、9章</td>
+<td>收益窗口、催化后反馈、估值位置</td>
+<td>板块高频相对强弱缺失</td>
+<td>已分析</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Step 6 估值约束：估值不强行归入三要素；第11.6节将78—82元承接区作为动作约束。</li>
+<li>补采证据回填：交易、融资、可转债和曙光8000证据已回填第2、3、7、8章。</li>
+</ul>
+<h3>11.2 竞争格局与比较优势</h3>
+<h4>前文证据引用</h4>
+<ul>
+<li><p>商业模式与竞争底稿：第4章。</p>
+</li>
+<li><p>分部与资本回报证据：第5—7章。</p>
+</li>
+<li><p>相关来源状态：第2章来源矩阵。</p>
+</li>
+<li><p>分析对象与竞争层级：国产AI基础设施系统级竞争，不是单台服务器价格竞争。</p>
+</li>
+<li><p>当前状态：<strong>有利</strong>。</p>
+</li>
+<li><p>证据充分性：<strong>较充分</strong>；技术、分部和研发证据完整，订单与份额仍缺。</p>
+</li>
+<li><p>多产业位置景气度排序：海光芯片资产第一、十万卡系统第二、服务第三；变化最快的是服务占比和十万卡系统。</p>
+</li>
+<li><p>产业链位置与利润池：上游海光通过投资收益和资产价值贡献；中游系统、网络、存储和液冷贡献产品毛利；下游服务贡献更高毛利。海光收益不与主业重复计算。</p>
+</li>
+<li><p>核心比较优势：芯片适配、超大规模调度、国产RDMA、ParaStor、液冷和运营服务的一体化。</p>
+</li>
+<li><p>竞争对手与替代方案：浪潮、新华三、华为、超聚变和云厂商自研系统。</p>
+</li>
+<li><p>份额、定价权、客户黏性与进入壁垒：技术和认证壁垒较高，份额与订单金额未获取到；服务毛利率47.25%提供定价权代理。</p>
+</li>
+<li><p>竞争优势转化为订单、利润和现金回报的情况：已转为毛利率和扣非利润改善，尚未稳定转为自由现金流。</p>
+</li>
+<li><p>当前决策含义：可长期跟踪，但竞争优势尚不能抵消当前交易面不利。</p>
+</li>
+</ul>
+<h4>证据</h4>
+<ul>
+<li>2025服务收入同比+75.35%、毛利率47.25%；Q1扣非利润同比+53.30%。</li>
+<li>曙光8000支持十万卡规模、全精度与国产全链条，并启动第二套系统研制。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>2025主业收入149.64亿元，规模显著小于浪潮和紫光；订单 / 市占率未披露。</li>
+<li>2025自由现金流代理仅3.96亿元，竞争优势的现金兑现不充分。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>服务收入增速低于15%、IT设备毛利率跌破24%、十万卡系统在未来12个月无外部复制。</li>
+</ul>
+<h3>11.3 流动性辩证分析</h3>
+<ul>
+<li>当前状态：<strong>不利</strong>。</li>
+<li>证据充分性：<strong>较充分</strong>；个股连续窗口和全市场融资可得，ETF / 北向实时缺失。</li>
+</ul>
+<h4>宏观流动性</h4>
+<ul>
+<li>总量环境与边际变化：8月10日全市场融资余额约2.637万亿元，较7月中旬回落；美国10年期国债收益率4.72%，对高久期科技估值不友好。</li>
+<li>对本标的的传导：高PE、融资高占比个股对折现率和风险偏好更敏感。</li>
+</ul>
+<h4>中观流动性</h4>
+<ul>
+<li>行业 / 主题 / ETF / 机构配置变化：沪深300权重0.469%，存在被动配置底盘；算力主题仍有产业催化，但ETF申赎未获取到。</li>
+<li>对本标的的传导：长期配置提供承接，主题资金在催化兑现后退潮。</li>
+</ul>
+<h4>微观流动性</h4>
+<ul>
+<li>成交额、换手率、量价结构、融资和大单：5日平均成交44.37亿元、换手3.47%，低于20日68.91亿元和5.05%；20日资金净流出40.34亿元；融资余额较7月1日下降14.79亿元。</li>
+<li>连续窗口与相对强弱：5日流出缩小但未转正，价格20日仍明显弱势。</li>
+</ul>
+<h4>资金来源分类</h4>
+<table>
+<thead>
+<tr>
+<th>资金来源</th>
+<th>当前状态</th>
+<th>连续窗口证据</th>
+<th>对价格的含义</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>长期配置资金</td>
+<td>平衡偏弱</td>
+<td>沪深300权重0.469%；中央汇金未进入2026Q1前十披露口径</td>
+<td>有被动承接，无明确增配证据</td>
+<td>中</td>
+</tr>
+<tr>
+<td>趋势 / 交易资金</td>
+<td>流出</td>
+<td>5 / 10 / 20日净额均为负，价格20日-18.7%</td>
+<td>反弹易遇抛压</td>
+<td>高</td>
+</tr>
+<tr>
+<td>产业资本 / 内部人</td>
+<td>证据不足</td>
+<td>未获取近三个月增减持；可转债完成融资</td>
+<td>融资增加供给，非产业资本买入</td>
+<td>低</td>
+</tr>
+</tbody></table>
+<h4>供给与抛压</h4>
+<table>
+<thead>
+<tr>
+<th>供给来源</th>
+<th>当前状态</th>
+<th>时间窗口</th>
+<th>影响</th>
+<th>验证方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>解禁 / 减持</td>
+<td>未获取重大新增供给</td>
+<td>近3个月</td>
+<td>中性</td>
+<td>公司公告与股东变动</td>
+</tr>
+<tr>
+<td>再融资 / 可转债</td>
+<td>80亿元已发行，2027-01-21起可转股</td>
+<td>6年期</td>
+<td>初始价108.89元，潜在稀释约5%</td>
+<td>上市、转股与募投公告</td>
+</tr>
+<tr>
+<td>获利盘 / 套牢盘</td>
+<td>100—110元区间套牢压力较大</td>
+<td>近20—60日</td>
+<td>反弹阻力</td>
+<td>成交密集区与量价</td>
+</tr>
+</tbody></table>
+<h4>最低数据检查</h4>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>当前窗口</th>
+<th>对比窗口</th>
+<th>结论</th>
+<th>数据源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>成交额与换手率</td>
+<td>5日44.37亿元 / 3.47%</td>
+<td>20日68.91亿元 / 5.05%</td>
+<td>缩量退潮</td>
+<td>Tushare</td>
+</tr>
+<tr>
+<td>融资余额与融资买入</td>
+<td>89.60亿元；8月10日净买入1.26亿元</td>
+<td>7月1日104.38亿元</td>
+<td>去杠杆，短线有回补</td>
+<td>Tushare</td>
+</tr>
+<tr>
+<td>主力 / 大单资金</td>
+<td>5日-6.18亿元</td>
+<td>20日-40.34亿元</td>
+<td>流出收窄但未反转</td>
+<td>Tushare订单规模代理</td>
+</tr>
+<tr>
+<td>ETF / 北向 / 机构代理指标</td>
+<td>沪深300权重0.469%</td>
+<td>北向 / ETF未获取</td>
+<td>配置底盘存在，增量证据不足</td>
+<td>Tushare / 数据缺口</td>
+</tr>
+</tbody></table>
+<h4>证据</h4>
+<ul>
+<li>20日量价、资金和融资余额同步下行，流动性状态不利。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>8月10日融资净买入1.26亿元；5日资金流出明显小于10日，边际恶化速度放缓。</li>
+</ul>
+<h4>退出路径</h4>
+<ul>
+<li>资金流入如何退出：短线资金可能在100元附近卖方目标价和前期成交密集区退出；可转债未来在转股价附近形成潜在供给。</li>
+<li>持续性被证伪的信号：20日资金转正、价格站回100元且成交放大、融资余额不再依赖拉升增加。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>资金状态由不利转中性：连续10日资金净额转正，融资余额稳定，价格收复100元或在78—82元形成缩量底。</li>
+</ul>
+<h3>11.4 情绪位置变化</h3>
+<ul>
+<li>当前状态：<strong>不利</strong>。</li>
+<li>证据充分性：<strong>充分</strong>；催化、价格和资金反馈可验证。</li>
+<li>当前所处阶段：<strong>退潮</strong>。</li>
+<li>个股相对板块与指数的强弱：个股20日下跌18.7%，显著弱于年初以来近乎持平的自身中期表现；板块统一指数未获取到，结论不做精确超额收益陈述。</li>
+<li>催化兑现后的价格反馈：7月十万卡系统和可转债发行完成后，股价未持续上行，属于“利好兑现、资金退出”特征。</li>
+</ul>
+<h4>证据</h4>
+<ul>
+<li>近20日价格、成交、换手和订单规模资金均下行。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>股价仍高于52周低点约28%，并非冰点；8月11日盘中小幅反弹。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>站回100元并伴随20日资金净额转正，或在78—82元完成缩量止跌并出现基本面新催化。</li>
+</ul>
+<h3>11.5 综合状态与主导矛盾</h3>
+<ul>
+<li>三要素综合判断：<strong>尚未形成有利共振</strong>。</li>
+<li>主导要素：竞争格局有利。</li>
+<li>拖累要素：流动性与情绪均不利。</li>
+<li>主导矛盾：产业与资产质量较好，但价格尚未给出足够安全边际，增量资金又在撤退。</li>
+<li>下一验证节点：半年报、可转债上市、20日资金与融资余额、十万卡外部订单。</li>
+<li>状态切换条件：基本面继续改善 + 价格进入承接区或资金转正，二者至少满足其一且另一项不恶化。</li>
+</ul>
+<h3>11.6 三要素行动映射</h3>
+<table>
+<thead>
+<tr>
+<th>资金属性</th>
+<th>当前动作</th>
+<th>允许升级的条件</th>
+<th>降级 / 退出条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>新增现金</td>
+<td>wait</td>
+<td>78—82元且资金流出收敛；或站回100元并由半年报上修价值中枢</td>
+<td>跌破76元且海光 / 主业逻辑恶化</td>
+</tr>
+<tr>
+<td>已有持仓</td>
+<td>review / wait</td>
+<td>半年报确认扣非、服务与现金流改善</td>
+<td>超过103—112元但盈利未上修；或主业证伪</td>
+</tr>
+</tbody></table>
+<h3>11.7 三要素数据缺口与来源</h3>
+<table>
+<thead>
+<tr>
+<th>数据缺口</th>
+<th>已检查来源</th>
+<th>对哪一要素有影响</th>
+<th>对结论的影响</th>
+<th>补齐方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>十万卡系统订单金额</td>
+<td>公司公告、权威媒体</td>
+<td>竞争格局</td>
+<td>无法把技术优势量化为收入</td>
+<td>后续合同与半年报</td>
+</tr>
+<tr>
+<td>ETF申赎与北向实时持仓</td>
+<td>Tushare当前工具、公开检索</td>
+<td>流动性</td>
+<td>长期资金结论降置信度</td>
+<td>ETF份额 / 沪股通专业数据</td>
+</tr>
+<tr>
+<td>曙26转债上市日期</td>
+<td>上交所、巨潮</td>
+<td>流动性 / 供给</td>
+<td>不影响发行事实，影响交易节奏</td>
+<td>后续上市公告</td>
+</tr>
+<tr>
+<td>2026分部指引</td>
+<td>年报、季报、路演摘要</td>
+<td>竞争 / 情绪</td>
+<td>估值区间保持较宽</td>
+<td>半年报和业绩会</td>
+</tr>
+</tbody></table>
+<ul>
+<li>分析口径与截止时间：2026-08-11 10:20，盘中；资金窗口截至8月10日收盘。</li>
+<li>主要数据来源：本地Tushare、上交所公告、公司年报、权威媒体。</li>
+<li>数据缺口导致的置信度调整：综合结论为中等，不升级为买入。</li>
+</ul>
+<h3>11.8 风险方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>风险类型</th>
+<th>前一窗口</th>
+<th>当前窗口</th>
+<th>方向证据</th>
+<th>反证</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本面风险</td>
+<td>2025增长与毛利改善</td>
+<td>Q1增长延续但现金流 / 库存恶化</td>
+<td>风险持平</td>
+<td>扣非利润+53.3%</td>
+</tr>
+<tr>
+<td>估值风险</td>
+<td>催化期高估值</td>
+<td>股价回落、2026PE约43.5倍</td>
+<td>风险减弱</td>
+<td>海光折价仍可能扩大</td>
+</tr>
+<tr>
+<td>情绪风险</td>
+<td>曙光8000催化扩散</td>
+<td>20日-18.7%、退潮</td>
+<td>风险增强</td>
+<td>5日流出收窄</td>
+</tr>
+<tr>
+<td>流动性风险</td>
+<td>高融资、高成交</td>
+<td>去杠杆与资金流出</td>
+<td>风险增强后趋缓</td>
+<td>融资余额已下降14.79亿元</td>
+</tr>
+</tbody></table>
+<h3>11.9 风险传导链</h3>
+<ul>
+<li>信息源头：催化兑现后盈利尚未即时上修、80亿元再融资完成、宏观折现率偏高。</li>
+<li>核心变量：海光持股折价、2026盈利兑现、融资余额与资金流。</li>
+<li>传导机制：目标价空间收窄 → 趋势资金退出 → 融资去杠杆 → 估值折价扩大。</li>
+<li>影响对象：高成本持仓、杠杆资金和短期主题资金。</li>
+<li>市场行为变化：缩量下跌、反弹受阻、融资偿还增加。</li>
+<li>风险方向：<strong>风险增强后趋缓</strong>。</li>
+<li>验证指标：20日资金净额、融资余额、78—82元承接、半年报现金流。</li>
+<li>失效条件：资金连续转正且半年报上修主业价值。</li>
+</ul>
+<h3>11.10 风险方向结论</h3>
+<ul>
+<li>风险方向结论：<strong>风险重新增强后趋于持平</strong>。</li>
+<li>判断依据：产业风险没有恶化，但情绪和流动性风险在7月下旬增强；最近5日流出收窄，尚不足以判定风险减弱。</li>
+<li>反证：Q1扣非利润高增、融资余额显著下降、海光资产提供估值缓冲。</li>
+<li>未获取到：ETF申赎、北向实时持仓、半年报。</li>
+<li>置信度：<strong>中高</strong>。</li>
+</ul>
+<h3>11.11 四层方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>边际改善 / 无明显变化 / 边际恶化 / 未获取到</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观</td>
+<td>边际恶化</td>
+<td>美国10年期国债收益率4.72%，全市场融资较7月中旬回落</td>
+</tr>
+<tr>
+<td>中观</td>
+<td>边际改善</td>
+<td>十万卡国产集群落地，AI基础设施景气仍强</td>
+</tr>
+<tr>
+<td>微观</td>
+<td>边际改善但现金流承压</td>
+<td>Q1收入和扣非高增，库存上升、经营现金流为负</td>
+</tr>
+<tr>
+<td>交易</td>
+<td>边际恶化后趋缓</td>
+<td>20日资金大幅流出，5日流出收窄</td>
+</tr>
+</tbody></table>
+<h3>11.12 最终动作与约束</h3>
+<ul>
+<li>主动作：<strong>wait</strong></li>
+<li>新增现金：不追涨；78—82元分批观察，必须同时看到资金流出收敛。</li>
+<li>已有持仓：低成本仓位可持有；接近103—112元且盈利未上修时减仓复核。</li>
+<li>承接条件：价格安全边际、半年报基本面、资金状态三者至少两项有利。</li>
+<li>退出条件：跌破76元同时海光股价 / 主业盈利恶化，或半年报显示扣非增长失速、现金流和库存继续恶化。</li>
+<li>下一复核节点：2026半年报、曙26转债上市、第二套十万卡系统订单。</li>
+<li>我的判断：方向不能直接转化为买点，因为竞争优势有利而流动性、情绪不利，且当前到基准价值只有个位数百分比空间。</li>
+</ul>
+<h2 id="section-12">12. 最终结论</h2>
+
+<ul>
+<li>彼得·林奇公司分类：<strong>资产隐蔽型；次分类稳健增长型</strong>。</li>
+<li>一句话投资故事：用折价价格获得国产算力全栈主业、海光股权与十万卡复制期权，但收益兑现依赖资产折价收敛和主业现金回报。</li>
+<li>利润增长等式与可持续时间：<code>设备收入 × 毛利率 + 服务收入 × 高毛利率 + 权益法投资收益 - 研发费用</code>；预计2026—2029年为主要验证期。</li>
+<li>估值结论：<strong>合理偏低</strong>。</li>
+<li>操作结论：<strong>观望</strong>。</li>
+<li>综合估值区间：<strong>78—103元 / 股，中枢约94元</strong>。</li>
+<li>相对现价空间：<strong>-10.0%至+18.9%，中枢+8.5%</strong>。</li>
+<li>如果今天这是一笔现金，我会买它吗：<strong>不会立即买；只在78—82元且资金改善，或半年报上修价值中枢时买。</strong></li>
+<li>我的判断：好公司、好资产不等于当前就是好买点。当前价格大致承认海光股权一半价值，折价不算极端，交易面又未完成出清。</li>
+<li>结论失效条件：海光信息市值、持股比例或变现约束发生重大变化；半年报使2026盈利显著偏离26—32亿元区间；可转债项目回报或股本稀释超预期。</li>
+<li>林奇框架卖出条件：当前最适用项为<strong>估值严重透支</strong>与<strong>投资逻辑破坏</strong>。超过112元而盈利和资产兑现路径未上修时属于透支；服务增长、十万卡复制或海光资产逻辑被破坏时应退出。</li>
+</ul>
+<h2 id="section-13">13. 后续监控指标</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">当前值</th>
+<th>触发阈值 / 方向</th>
+<th>数据源</th>
+<th>复核频率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>价格与估值</td>
+<td align="right">86.63元；TTM PE56.9倍</td>
+<td>78—82元承接；103—112元减仓复核</td>
+<td>行情 / Tushare</td>
+<td>每日</td>
+</tr>
+<tr>
+<td>20日订单规模资金净额</td>
+<td align="right">-40.34亿元</td>
+<td>转正且价格企稳</td>
+<td>Tushare</td>
+<td>每日</td>
+</tr>
+<tr>
+<td>融资余额</td>
+<td align="right">89.60亿元</td>
+<td>降至80亿元以下且不伴随破位；或稳定后价格回升</td>
+<td>Tushare</td>
+<td>每日</td>
+</tr>
+<tr>
+<td>2026归母净利润预期</td>
+<td align="right">约29.12亿元</td>
+<td>低于26亿元降级；高于32亿元上修</td>
+<td>东方财富 / 财报</td>
+<td>月度 / 财报</td>
+</tr>
+<tr>
+<td>服务收入占比 / 毛利率</td>
+<td align="right">16.36% / 47.25%</td>
+<td>占比继续升、毛利率不低于42%</td>
+<td>半年报 / 年报</td>
+<td>半年</td>
+</tr>
+<tr>
+<td>经营现金流与库存</td>
+<td align="right">Q1 -13.91亿元；库存43.36亿元</td>
+<td>半年现金流改善、库存增速低于收入</td>
+<td>财报</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>海光价值认可率</td>
+<td align="right">当前隐含约48.5%</td>
+<td>低于40%进入深折价；高于60%需兑现支撑</td>
+<td>两股市值 / SOTP</td>
+<td>每周</td>
+</tr>
+<tr>
+<td>曙26转债</td>
+<td align="right">80亿元、转股价108.89元</td>
+<td>上市、募投里程碑、2027转股</td>
+<td>上交所公告</td>
+<td>事件驱动</td>
+</tr>
+</tbody></table>
+<ul>
+<li>投资故事持续性：<strong>仍成立，但买点证据不足</strong>。</li>
+<li>下一次财报需复核的林奇框架变量：EPS、扣非利润、现金流、库存、应收、服务收入占比、合同负债、投资收益、募投资本化和股本稀释。</li>
+</ul>
+<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
+
+<ul>
+<li>未获取到：Morningstar公允价值 / 护城河 / 星级；曙光8000订单金额；2026正式量化指引；ETF申赎与北向实时持仓；统一口径EV/EBITDA；可转债上市日期。</li>
+<li>已检查来源：Morningstar公开检索、上交所与公司公告、Tushare当前工具、东方财富、同花顺、富途、权威媒体。</li>
+<li>对结论的影响：竞争优势和长期资金结论降低置信度；估值使用更宽区间，操作不升级为买入。</li>
+</ul>
+<h2 id="section-15">15. 来源清单</h2>
+
+<ol>
+<li>《曙光信息产业股份有限公司向不特定对象发行可转换公司债券募集说明书》，中科曙光 / 上海证券交易所，2026-04-24，<a href="https://static.sse.com.cn/stock/disclosure/announcement/c/202604/603019_20260424_18V1.pdf">链接</a>，访问于2026-08-11。</li>
+<li>《中科曙光2025年年度报告》，中科曙光，2026-04-15，<a href="https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12090806&stockid=603019">链接</a>，访问于2026-08-11。</li>
+<li>《海光信息2025年年度报告》，海光信息，2026-04，<a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12066610&stockid=688041">链接</a>，访问于2026-08-11。</li>
+<li>《我国全国产十万卡AI超集群落成》，新华网，2026-07-10，<a href="https://www1.xinhuanet.com/20260710/ff61c2df2cf94fdda1306513f82bf8b7/c.html">链接</a>，访问于2026-08-11。</li>
+<li>《国内首个十万卡AI超集群“曙光8000”来了》，科技日报 / 数字中国建设峰会，2026-07-13，<a href="https://www.digitalchina.gov.cn/2026/xwzx/szkx/202607/t20260713_5345699.htm">链接</a>，访问于2026-08-11。</li>
+<li>《向不特定对象发行可转换公司债券发行结果公告》，中科曙光，2026-07，<a href="https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?CompanyCode=80381301&gather=1&id=12455191">链接</a>，访问于2026-08-11。</li>
+<li>中科曙光盈利预测，东方财富，<a href="https://emweb.securities.eastmoney.com/PC_HSF10/ProfitForecast/Index?code=SH603019&type=web">链接</a>，访问于2026-08-11。</li>
+<li>中科曙光盈利预测，同花顺F10，<a href="https://basic.10jqka.com.cn/603019/worth.html">链接</a>，访问于2026-08-11。</li>
+<li>中科曙光分析师预测，富途，<a href="https://www.futunn.com/stock/603019-SH/forecast">链接</a>，页面更新2026-07-26，访问于2026-08-11。</li>
+<li>本地 <code>tushare-data</code>：证券身份、日线、估值、资金分档、融资融券、财务报表、分红、沪深300权重和美国国债收益率，查询于2026-08-11。</li>
+<li><a href="../../../../webpages/2026-08-11-中科曙光-研究数据快照.md">中科曙光研究数据快照</a>，2026-08-11。</li>
+</ol>
+<h2 id="section-16">16. 声明</h2>
+
+<p>本报告基于截至研究截止时间可取得的公开信息，不构成收益保证或个性化投资建议。真实交易前应重新核验价格、公告、海光信息市值、可转债安排、流动性和个人风险承受能力。</p>
+<script>
+(() => {
+  const endpoint = '/api/stock-quote?secid=1.603019';
+  const priceNode = document.getElementById('intraday-price');
+  const detailNode = document.getElementById('intraday-detail');
+  const statusNode = document.getElementById('intraday-status');
+  const riskRewardValue = document.getElementById('risk-reward-value');
+  const riskRewardDetail = document.getElementById('risk-reward-detail');
+  const tracker = document.getElementById('daily-tracking');
+  const snapshotPrice = 86.63;
+  const percent = value => `${value < 0 ? '-' : value > 0 ? '+' : ''}${Math.abs(value).toFixed(1)}%`;
+  function updateRiskReward(price) {
+    const low = Number(tracker.dataset.valueLow);
+    const high = Number(tracker.dataset.valueHigh);
+    if (!Number.isFinite(low) || !Number.isFinite(high) || low <= 0 || high <= low) return;
+    const upside = (high / price - 1) * 100;
+    const downside = (price / low - 1) * 100;
+    if (price <= low) {
+      riskRewardValue.textContent = '低于价值下沿';
+      riskRewardValue.classList.remove('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿潜在空间 ${percent(upside)}。价格已低于动态价值下沿，不能直接用下沿作为止损风险，需另设风控线。`;
+      return;
+    }
+    if (price >= high) {
+      riskRewardValue.textContent = '无正向盈亏比';
+      riskRewardValue.classList.add('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿空间 ${percent(upside)}，回落至下沿风险 ${percent(downside)}。价格已到或高于动态价值上沿，新增现金不具备正向盈亏比。`;
+      return;
+    }
+    const ratio = upside / downside;
+    riskRewardValue.textContent = `约 ${ratio.toFixed(1)}:1`;
+    riskRewardValue.classList.toggle('bad', ratio < 1);
+    riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；到上沿 ${high.toFixed(2)} 元的潜在上行 ${percent(upside)}，跌至下沿 ${low.toFixed(2)} 元的风险 ${percent(downside)}。盘中价格不改变价值区间本身。`;
+  }
+  async function refreshIntradayQuote() {
+    statusNode.textContent = '连接中'; statusNode.className = 'tracking-status';
+    try {
+      const response = await fetch(endpoint, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json(); const quote = payload && payload.data;
+      if (!quote || !Number.isFinite(quote.price) || !Number.isFinite(quote.prevClose) || !Number.isFinite(quote.changePercent) || !Number.isFinite(quote.quoteTimestamp)) throw new Error('invalid quote');
+      const quoteTime = new Date(quote.quoteTimestamp * 1000).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false });
+      priceNode.textContent = `${quote.price.toFixed(2)} 元 · ${percent(quote.changePercent)}`;
+      priceNode.classList.toggle('bad', quote.changePercent < 0);
+      detailNode.textContent = `行情时间：${quoteTime}；昨收 ${quote.prevClose.toFixed(2)} 元。来源：${payload.proxySource || '本地行情代理'}。`;
+      statusNode.textContent = '盘中实时 · 每 60 秒'; statusNode.className = 'tracking-status live'; updateRiskReward(quote.price);
+    } catch { priceNode.textContent = '实时行情暂不可用'; priceNode.classList.remove('bad'); detailNode.textContent = '每日同步值仍然有效；可重新双击“大盘启动器”后刷新本页。'; statusNode.textContent = '连接失败'; statusNode.className = 'tracking-status error'; }
+  }
+  if (location.protocol === 'http:' || location.protocol === 'https:') { refreshIntradayQuote(); window.setInterval(refreshIntradayQuote, 60000); }
+  else { priceNode.textContent = Number.isFinite(snapshotPrice) ? `${snapshotPrice.toFixed(2)} 元（每日值）` : '每日值未获取'; detailNode.textContent = '当前为直接打开模式；盘中实时需通过“大盘启动器”进入本地服务。'; statusNode.textContent = '每日同步 · 实时未连接'; }
+})();
+</script></article>
+    </div>
+  </main>
+</body>
+</html>

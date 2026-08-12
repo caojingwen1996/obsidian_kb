@@ -1,0 +1,1849 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>江钨装备机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+.daily-tracking { margin: 0 0 42px; padding: 22px; border: 1px solid #cbdade; border-radius: 16px; background: linear-gradient(135deg, #f3f8f9 0%, #fffaf0 100%); box-shadow: 0 12px 30px rgba(23, 50, 71, .07); }
+.daily-tracking-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
+.daily-tracking-kicker { margin: 0 0 4px; color: var(--teal); font-size: 12px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+.daily-tracking h2 { margin: 0; padding: 0; border: 0; font-size: 27px; }
+.daily-tracking-time { margin: 4px 0 0; color: var(--muted); font-size: 12px; text-align: right; }
+.tracking-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.tracking-grid + .tracking-grid { margin-top: 12px; }
+.tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
+.tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
+.tracking-card[data-tracking-key="dynamic-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
+.range-breakdown { display: block; }
+.range-main { display: inline-flex; align-items: center; max-width: 100%; margin-bottom: 10px; padding: 3px 9px; border-radius: 999px; background: #e7f0f3; color: var(--navy); font-size: 20px; line-height: 1.3; font-weight: 800; }
+.range-points { display: grid; gap: 7px; margin-top: 1px; }
+.range-point { display: block; padding-left: 11px; border-left: 3px solid #bed2d8; color: #245068; font-size: 14px; line-height: 1.52; font-weight: 650; }
+.tracking-value.bad { color: var(--danger); }
+.tracking-detail { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; }
+.tracking-status { display: inline-flex; margin-top: 10px; padding: 3px 8px; border-radius: 999px; color: #526b77; background: #edf2f4; font-size: 12px; font-weight: 700; }
+.tracking-status.live { color: #17604e; background: #dff3eb; }
+.tracking-status.error { color: var(--danger); background: var(--danger-bg); }
+.tracking-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; margin-top: 14px; padding-top: 13px; border-top: 1px solid #d5e0e3; color: #536d78; font-size: 13px; }
+.tracking-footer a { font-weight: 700; }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+  .tracking-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+  .daily-tracking-head { display: block; }
+  .daily-tracking-time { text-align: left; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .daily-tracking, .tracking-card { border: 1px solid #aebbc2; color: #102f43; background: #fff; box-shadow: none; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · 600397.SH</p>
+      <h1>江钨装备机构级决策研报</h1>
+      <div class="hero-meta"><span>2026-08-12 10:19（Asia/Shanghai，盘中；价格采用 2026-08-11 最新完整收盘）</span><span>2026-08-12 10:19</span><span>上海证券交易所主板 / 人民币</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
+<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
+<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
+<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
+<a class="toc-link" href="#section-6">6. 五年财务历史</a>
+<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
+<a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
+<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
+<a class="toc-link" href="#section-10">10. 估值</a>
+<a class="toc-link" href="#section-11">11. 冰冰小美框架判断</a>
+<a class="toc-link" href="#section-12">12. 最终结论</a>
+<a class="toc-link" href="#section-13">13. 后续监控指标</a>
+<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
+<a class="toc-link" href="#section-15">15. 来源清单</a>
+<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
+      <article class="content"><blockquote>
+<p>证券代码：600397.SH<br>交易所 / 币种：上海证券交易所主板 / 人民币<br>研究截止时间：2026-08-12 10:19（Asia/Shanghai，盘中；价格采用 2026-08-11 最新完整收盘）<br>报告生成时间：2026-08-12 10:19<br>数据口径：2025 年资产置换已完成；2026 年拟收购三项资产尚未完成，现状与备考情景分列<br>核心数据快照：<a href="../../../../webpages/2026-08-12-江钨装备研究数据快照.md">2026-08-12 江钨装备研究数据快照</a></p>
+</blockquote>
+<!-- DAILY_TRACKING_START -->
+<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-08-12 10:19（Asia/Shanghai，盘中；行情截止 2026-08-11 收盘）" data-value-low="2" data-value-high="5">
+  <div class="daily-tracking-head">
+    <div><p class="daily-tracking-kicker">Daily decision tracker</p><h2>每日跟踪面板</h2></div>
+    <p class="daily-tracking-time">更新：2026-08-12 10:19（Asia/Shanghai，盘中；行情截止 2026-08-11 收盘）<br>下次：收盘后 / 重大公告后</p>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">改善但远未兑现。退出亏损煤炭后，2026Q1 扭亏；但 H1 预告中值仅 118.5 万元，反推 Q2 单季归母净利润略为负，当前磁选装备底盘盈利很薄</p><p class="tracking-detail">风险方向：风险持平（高位）。价格较高点回撤释放部分估值风险，但 H1 盈利弱、业绩承诺未达标和最大发行 30%的供给压力没有改善。下一验证点与失效条件见第 11—13 章。</p></div>
+    <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value"><span class="range-breakdown"><span class="range-main">2—5 元。下沿约 2 元代表交易完成但利润只接近 2025 年静态水平</span><span class="range-points"><span class="range-point">中枢约 3.3 元代表归母利润 1.7 亿元、25 倍 PE</span><span class="range-point">上沿 5 元要求利润升至约 2.2 亿元且给予 30 倍 PE</span><span class="range-point">高于 5 元需要未披露的后续资产注入或更强盈利兑现支撑</span></span></span></p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
+    <div class="tracking-card" data-tracking-key="risk-reward"><p class="tracking-label">盈亏比</p><p class="tracking-value bad" id="risk-reward-value">无正向盈亏比</p><p class="tracking-detail" id="risk-reward-detail">每日同步价 17.04 元；相对上沿空间 -70.7%，回落至下沿风险 +88.3%。价格已到或高于动态价值上沿，新增现金不具备正向盈亏比。</p></div>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="daily-quote"><p class="tracking-label">每日同步价</p><p class="tracking-value">17.04 元，2026-08-11 收盘；2026-08-12 盘中研究未使用未完成日线</p><p class="tracking-detail">这是报告内嵌的正式跟踪基准，离线打开仍可使用。</p><span class="tracking-status">每日快照</span></div>
+    <div class="tracking-card" data-tracking-key="intraday-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">等待连接</p><p class="tracking-detail" id="intraday-detail">通过“大盘启动器”打开后获取盘中行情，每 60 秒刷新；直接打开 HTML 时不访问外部行情。</p><span class="tracking-status" id="intraday-status">未连接</span></div>
+    <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">reduce</p><p class="tracking-detail">估值：严重高估。17.04 元对应发行前市值 168.69 亿元；若按最大发行数量摊薄，市值约 219.29 亿元，而已披露四块资产 2025 年静态可归属利润合计约 1.61 亿元，隐含 PE 约 136.5 倍 · reduce；风险：风险持平（高位）。价格较高点回撤释放部分估值风险，但 H1 盈利弱、业绩承诺未达标和最大发行 30%的供给压力没有改善；结论置信度：中等。交易价格、标的财务、现价和摊薄上限可核验；发行价、最终股数、交割时点、协同利润和未来再注入资产尚不确定。</p><span class="tracking-status">严重高估。17.04 元对应发行前市值 168.69 亿元；若按最大发行数量摊薄，市值约 219.29 亿元，而已披露四块资产 2025 年静态可归属利润合计约 1.61 亿元，隐含 PE 约 136.5 倍</span></div>
+  </div>
+  <div class="tracking-footer"><span>资金状态：<strong>结构性流出且高分歧。近 20 / 60 日总净流入代理约 -8.61 / -31.57 亿元，但特大单代理为正，说明高换手承接与兑现并存，不等于长期资金吸筹</strong> · 新增/已有动作：<strong>reduce</strong></span><span>资金面分析：未单独生成</span></div>
+</section>
+<!-- DAILY_TRACKING_END -->
+<h2 id="section-1">1. 决策摘要</h2>
+
+<h3>1.1 基本面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值状态</td>
+<td><strong>严重高估</strong>。17.04 元对应发行前市值 168.69 亿元；若按最大发行数量摊薄，市值约 219.29 亿元，而已披露四块资产 2025 年静态可归属利润合计约 1.61 亿元，隐含 PE 约 136.5 倍</td>
+</tr>
+<tr>
+<td>综合估值区间</td>
+<td><strong>2—5 元</strong>。下沿约 2 元代表交易完成但利润只接近 2025 年静态水平；中枢约 3.3 元代表归母利润 1.7 亿元、25 倍 PE；上沿 5 元要求利润升至约 2.2 亿元且给予 30 倍 PE；高于 5 元需要未披露的后续资产注入或更强盈利兑现支撑</td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>相对 17.04 元，下沿 / 中枢 / 上沿分别约 -88% / -81% / -71%；这不是短期目标价，而是交易完成后的最大摊薄价值约束</td>
+</tr>
+<tr>
+<td>基本面状态</td>
+<td><strong>改善但远未兑现</strong>。退出亏损煤炭后，2026Q1 扭亏；但 H1 预告中值仅 118.5 万元，反推 Q2 单季归母净利润略为负，当前磁选装备底盘盈利很薄</td>
+</tr>
+<tr>
+<td>关键经营变化</td>
+<td>金环磁选 2025 年扣非利润仅完成承诺的 83.04%；公司拟募资 19.07 亿元收购钨材料、硬质合金和钽铌资产，但审批、发行、交割、整合与最大 30%股本摊薄均未落地</td>
+</tr>
+<tr>
+<td>彼得·林奇公司分类</td>
+<td>主分类为<strong>困境反转型</strong>，次分类为<strong>周期型</strong>。反转来自煤炭资产置出与稀贵金属资产注入；利润又高度受设备验收、钨与钽铌价格和加工价差影响</td>
+</tr>
+<tr>
+<td>一句话投资故事</td>
+<td>公司用磁选装备作为上市底盘，再收购钨材料、硬质合金及钽铌资产形成“资源加工—材料—装备”组合；但当前价格要求披露资产利润再增长 3—5 倍，或继续注入更多优质资产，故事兑现之前每股价值会先被增发摊薄</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td><strong>中等</strong>。交易价格、标的财务、现价和摊薄上限可核验；发行价、最终股数、交割时点、协同利润和未来再注入资产尚不确定</td>
+</tr>
+</tbody></table>
+<h3>1.2 资金面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>操作建议</td>
+<td><strong>规避新增；已有持仓逢反弹减仓</strong>。不因较 31.79 元高点回撤就认定便宜</td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td>reduce</td>
+</tr>
+<tr>
+<td>当前价格及时间</td>
+<td>17.04 元，2026-08-11 收盘；2026-08-12 盘中研究未使用未完成日线</td>
+</tr>
+<tr>
+<td>资金状态</td>
+<td><strong>结构性流出且高分歧</strong>。近 20 / 60 日总净流入代理约 -8.61 / -31.57 亿元，但特大单代理为正，说明高换手承接与兑现并存，不等于长期资金吸筹</td>
+</tr>
+<tr>
+<td>风险方向</td>
+<td><strong>风险持平（高位）</strong>。价格较高点回撤释放部分估值风险，但 H1 盈利弱、业绩承诺未达标和最大发行 30%的供给压力没有改善</td>
+</tr>
+<tr>
+<td>每日跟踪时间</td>
+<td>2026-08-12 10:19（Asia/Shanghai，盘中；行情截止 2026-08-11 收盘）</td>
+</tr>
+<tr>
+<td>资金面分析链接</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<h3>如果今天这是一笔现金，我会买它吗</h3>
+<ul>
+<li>回答：<strong>不会。</strong></li>
+<li>我的判断：现价买入不是在购买已披露资产的现金流，而是在为“交易一定完成、利润显著跃迁、协同顺利、后续继续注入”同时付费。即使按最乐观的已披露资产情景，本报告上沿 5 元仍显著低于现价。</li>
+<li>已有持仓：在没有税务、锁定期或组合约束的前提下，优先逢流动性反弹减仓；不以 31.79 元历史高点作为锚。</li>
+<li>改变结论的条件：交易完成后可归属年化利润接近 5.5—7.3 亿元，或价格降至 5 元以下且金环磁选恢复履约、三项资产现金流质量得到验证。</li>
+</ul>
+<h2 id="section-2">2. 证券身份与来源矩阵</h2>
+
+<h3>2.1 证券身份</h3>
+<ul>
+<li>公司全称：江西江钨稀贵装备股份有限公司。</li>
+<li>证券代码：600397.SH。</li>
+<li>上市地：上海证券交易所主板；上市日期 2002-07-02。</li>
+<li>报告准则：中国企业会计准则。</li>
+<li>法定披露体系：A 股交易所与巨潮资讯。</li>
+<li>证券简称变更：原“安源煤业”，2025 年重大资产置换后更名为“江钨装备”。</li>
+<li>当前控制关系：江西钨业控股集团有限公司为直接控股股东，江西省国资委为实际控制人。</li>
+<li>同名或跨市场歧义：无；本报告不把控股股东江钨控股、江钨发展或拟收购标的公司财务直接当作上市公司已实现业绩。</li>
+</ul>
+<h3>2.2 来源矩阵</h3>
+<table>
+<thead>
+<tr>
+<th>数据项目</th>
+<th>目标来源</th>
+<th>实际来源</th>
+<th>数据时间</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Tushare MCP 调用清单（A股适用）</td>
+<td><code>tushare-data</code> MCP 已暴露工具</td>
+<td><code>stock_basic</code>、<code>daily</code>、<code>daily_basic</code>、<code>moneyflow</code>、<code>margin</code>、<code>income</code>、<code>cashflow</code>、<code>balancesheet</code>、<code>dividend</code>、美债收益率</td>
+<td>截至 2026-08-11</td>
+<td>已获取；个股融资明细为空</td>
+</tr>
+<tr>
+<td>证券身份与上市状态</td>
+<td>本地 Tushare；交易所复核</td>
+<td>Tushare、<a href="https://big5.sse.com.cn/site/cht/www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-04-20/600397_20260420_D9ZM.pdf">2025年年度报告</a></td>
+<td>2026-04 / 08</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>实时价格、52周高低、今年以来表现</td>
+<td>本地 Tushare</td>
+<td>不复权 <code>daily</code></td>
+<td>2026-08-11</td>
+<td>已获取最新完整交易日；盘中实时未采用</td>
+</tr>
+<tr>
+<td>估值、市值、股息率和换手率</td>
+<td>本地 Tushare</td>
+<td><code>daily_basic</code></td>
+<td>2026-08-11</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>资金分档 / 大单资金代理</td>
+<td>本地 Tushare</td>
+<td><code>moneyflow</code></td>
+<td>5 / 20 / 60 日</td>
+<td>已获取；只识别订单规模</td>
+</tr>
+<tr>
+<td>融资融券代理</td>
+<td>本地 Tushare</td>
+<td>个股 <code>margin_detail</code></td>
+<td>2026-08-11</td>
+<td>未获取到；市场两融总量已取得</td>
+</tr>
+<tr>
+<td>第三方公允价值、护城河、星级</td>
+<td>独立评级平台</td>
+<td>未取得可复现字段</td>
+<td>2026-08-12</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>最新季报与管理层指引</td>
+<td>公司公告</td>
+<td><a href="https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12157935&stockid=600397">2026年第一季度报告</a>、H1业绩预告</td>
+<td>2026Q1 / H1</td>
+<td>已获取；无正式全年量化指引</td>
+</tr>
+<tr>
+<td>分部收入</td>
+<td>公司年报</td>
+<td>2025 年报磁选装备分部</td>
+<td>2025</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>卖方评级与目标价</td>
+<td>券商研报 / 汇总页</td>
+<td>中邮证券、同花顺与东方财富汇总</td>
+<td>2026-06/08</td>
+<td>部分获取；未取得可靠目标价分布</td>
+</tr>
+<tr>
+<td>近三个月新闻与催化剂</td>
+<td>公司公告</td>
+<td><a href="https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12391694&stockid=600397">向特定对象发行预案修订稿</a></td>
+<td>2026-06-13</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>五年财务历史</td>
+<td>本地 Tushare；年报复核</td>
+<td>2021—2025 财务报表</td>
+<td>2021—2025</td>
+<td>已获取；存在主业断点</td>
+</tr>
+<tr>
+<td>分红历史</td>
+<td>本地 Tushare / 公司公告</td>
+<td><code>dividend</code>、年度利润分配</td>
+<td>截至 2025</td>
+<td>已获取；2025 年不分红</td>
+</tr>
+<tr>
+<td>指数成分与权重（如适用）</td>
+<td>中证 / 基金公告</td>
+<td>非核心估值输入</td>
+<td>2026Q1</td>
+<td>部分获取，不适用于主体判断</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 行情与市场预期</h2>
+
+<h3>3.1 行情快照（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">数值</th>
+<th>来源</th>
+<th>时间 / 口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前价格</td>
+<td align="right">17.04 元</td>
+<td>Tushare <code>daily</code></td>
+<td>2026-08-11 收盘</td>
+</tr>
+<tr>
+<td>250 日最高</td>
+<td align="right">31.79 元</td>
+<td>Tushare <code>daily</code></td>
+<td>不复权近 250 个交易日</td>
+</tr>
+<tr>
+<td>250 日最低</td>
+<td align="right">6.04 元</td>
+<td>Tushare <code>daily</code></td>
+<td>不复权近 250 个交易日</td>
+</tr>
+<tr>
+<td>今年以来表现</td>
+<td align="right">+124.2%</td>
+<td>计算</td>
+<td>相对 2025-12-31 收盘 7.60 元</td>
+</tr>
+<tr>
+<td>总市值</td>
+<td align="right">168.69 亿元</td>
+<td>Tushare <code>daily_basic</code></td>
+<td>发行前</td>
+</tr>
+<tr>
+<td>PE / PB / PS_TTM</td>
+<td align="right">PE 不适用 / 87.38 / 9.65 倍</td>
+<td>Tushare <code>daily_basic</code></td>
+<td>2026-08-11</td>
+</tr>
+<tr>
+<td>换手率 / 成交额</td>
+<td align="right">12.76% / 21.74 亿元</td>
+<td>Tushare</td>
+<td>2026-08-11</td>
+</tr>
+<tr>
+<td>最大摊薄后市值</td>
+<td align="right">219.29 亿元</td>
+<td>本报告计算</td>
+<td>现价 × 12.8695 亿股</td>
+</tr>
+</tbody></table>
+<h3>3.2 第三方公允价值与评级（事实）</h3>
+<ul>
+<li>公允价值：未获取到独立、可复现的第三方公允价值。</li>
+<li>护城河评级：未获取到。</li>
+<li>星级：未获取到。</li>
+<li>来源与时间：检查公开估值汇总、券商研报和公司公告，截至 2026-08-12。</li>
+<li>影响：不影响交易作价、摊薄与反向估值的计算，但降低“市场共识目标价”交叉验证的置信度。</li>
+</ul>
+<h3>3.3 卖方评级与目标价分布（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>机构</th>
+<th>日期</th>
+<th>评级</th>
+<th align="right">目标价</th>
+<th>预测期</th>
+<th>关键假设</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>中邮证券</td>
+<td>2026-06-29</td>
+<td>买入</td>
+<td align="right">未披露 / 未取得</td>
+<td>2026—2028</td>
+<td>预测现有口径归母净利润约 0.72 / 0.87 / 1.03 亿元，核心逻辑含资产注入</td>
+</tr>
+<tr>
+<td>东方财富一致预期</td>
+<td>2026-08-12 检查</td>
+<td>样本极少</td>
+<td align="right">未取得</td>
+<td>2026—2028</td>
+<td>约 0.75 / 0.89 / 1.02 亿元，样本不具代表性</td>
+</tr>
+</tbody></table>
+<ul>
+<li>目标价区间 / 中位数：未获取到。</li>
+<li>样本数量与完整性：公开汇总显示仅约 1—2 家机构覆盖，不能视为稳定共识。</li>
+<li>来源冲突及采信理由：券商盈利预测显著高于 2026H1 预告年化水平，但仍远低于现价在 30—40 倍 PE 下要求的 5.5—7.3 亿元利润；因此只作为乐观参照，不用作价值锚。</li>
+</ul>
+<h2 id="section-4">4. 商业模式与竞争格局</h2>
+
+<h3>4.1 事实</h3>
+<ul>
+<li>收入来源：当前已并表业务是金环磁选的磁选装备研发、生产和销售；拟收购江硬公司、华茂公司、九冶公司后，业务将扩至硬质合金、钨粉 / 碳化钨粉及钽铌制品。</li>
+<li>客户与定价权：金环磁选设备用于黑色、有色、非金属矿选矿，具备 200 余种产品、累计 4,000 余台套应用的装机基础；但设备收入受项目交付验收影响，2025 年延期验收直接导致承诺未完成。</li>
+<li>成本结构：设备业务以材料、制造和项目交付成本为主；钨、钽铌加工资产利润取决于原料采购价、产品售价和加工价差，周期属性强。</li>
+<li>资本强度：装备制造和冶炼加工均需存货、应收与设备投入。2026Q1 上市公司存货 3.93 亿元，占总资产约 46%，营运资本占用高。</li>
+<li>竞争者：磁选装备面对国内外矿山装备厂商和其他分选技术；硬质合金与钨材料面对中钨高新、厦门钨业、章源钨业及区域加工企业；钽铌业务面对国内外专业冶炼加工企业。</li>
+<li>监管约束：交易为关联交易和重大资产重组，需国资审批、股东会、上交所审核及证监会注册；钨产业同时受矿产资源、环保、安全生产和出口政策影响。</li>
+</ul>
+<h4>多产业位置景气度排序（事实与判断分列）</h4>
+<table>
+<thead>
+<tr>
+<th align="right">排名</th>
+<th>产业位置</th>
+<th>位置识别依据（事实）</th>
+<th>公司业务 / 资产暴露（事实）</th>
+<th>当前景气度</th>
+<th>趋势</th>
+<th>景气证据与时间</th>
+<th>财务传导</th>
+<th>验证指标 / 失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">1</td>
+<td>钨材料与硬质合金</td>
+<td>拟收购华茂、江硬，覆盖钨粉至硬质合金</td>
+<td>尚未并表；2025 年收入 39.45 亿元、净利润 0.96 亿元</td>
+<td>较高</td>
+<td>上行但高波动</td>
+<td>2026H1 有色冶炼利润同比高增；交易预案亦提示近两年处于周期高位</td>
+<td>钨价与加工价差进入毛利，最终还需发行和交割</td>
+<td>标的月度价差、现金流；钨价回落且加工费压缩则失效</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td>钽铌材料</td>
+<td>九冶生产钽铌氧化物、碳化物及合金制品</td>
+<td>尚未并表；2025 年收入 6.54 亿元、净利润 0.36 亿元</td>
+<td>较高</td>
+<td>持平 / 证据不足</td>
+<td>战略金属主题强，但预案明确产品周期和原料波动风险</td>
+<td>原料—产品价差影响利润</td>
+<td>九冶毛利、存货跌价；原料涨价不能传导则失效</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td>磁选装备</td>
+<td>金环磁选为当前唯一已并表主业</td>
+<td>上市公司持股 57%；2025 年收入 4.33 亿元、净利润 0.51 亿元</td>
+<td>中</td>
+<td>修复待验证</td>
+<td>2026H1 采矿业投资 +5.9%，但金环 2025 收入下降并未完成承诺</td>
+<td>采矿资本开支→订单→验收→收入和现金流</td>
+<td>新签 / 在手订单、验收、回款；继续低于承诺则失效</td>
+</tr>
+</tbody></table>
+<ul>
+<li>位置间交叉与去重说明：华茂钨粉可能成为江硬硬质合金的上游，但在交易完成前按独立标的利润统计，不额外计入协同；磁选装备与金属材料共同服务矿业，但收入和客户合同不同。</li>
+<li>排名第一的位置能否进入公司利润和现金流：<strong>当前不能</strong>。只有审批、发行、支付对价、股权交割完成后，三项标的利润才进入上市公司报表。</li>
+<li>弱关联 / 待验证位置：战略金属资源稀缺不等于上市公司拥有矿山资源；三项标的主要是加工制造资产，资源品上涨可能同时抬高原料成本。</li>
+</ul>
+<h3>4.2 我的判断</h3>
+<ul>
+<li>我的判断：金环磁选具备技术、装机和行业案例壁垒，竞争格局为<strong>中性偏有利</strong>；但 2025 年收入下降、毛利率下滑和承诺未完成说明优势尚未稳定转成股东现金回报。</li>
+<li>我的判断：最脆弱环节是“题材—盈利—每股价值”之间存在两道断层：尚未交割的资产不能算现有利润；即使完成，最大 30%增发也会摊薄每股收益。</li>
+<li>证伪条件：三项交易按更低发行数量完成、2027 年合并归母净利润超过 5.5 亿元、FCF同步为正，并且金环磁选连续完成业绩承诺，则本报告对价值兑现速度的悲观判断失效。</li>
+</ul>
+<h3>4.3 彼得·林奇公司分类与投资故事</h3>
+<ul>
+<li>主分类：<strong>困境反转型</strong>。</li>
+<li>次分类：<strong>周期型</strong>；分类依据：公司从连续亏损煤炭资产切换至磁选装备，并计划注入钨、硬质合金和钽铌加工资产；新利润取决于周期价格、价差和设备验收。</li>
+<li>为什么关注这家公司：国资主导的连续资产重组确实改变了生存质量，且拟注入资产体量远大于当前底盘。</li>
+<li>一句话投资故事：金环磁选依靠设备销量、单价和毛利率赚钱；拟注入资产依靠钨 / 钽铌产品销量与加工价差赚钱。增长可以持续到采矿资本开支、战略金属景气和资产整合结束，但一旦交易延期、价差收窄、设备验收推迟或股本扩张快于利润，故事即失效。</li>
+<li>利润增长等式：<code>磁选设备销量 × 单价 × 毛利率 + 钨/钽铌产品销量 × 加工价差 − 期间费用 − 少数股东损益</code>；每股收益还要除以增发后的扩大股本。</li>
+<li>核心增长来源及持续时间：近 1—2 年主要来自资产交割的报表跃迁，而非内生增长；3 年以后取决于订单、价差和协同。</li>
+<li>市场目前可能低估的因素：国资补偿机制、磁选装备海外业务较高毛利、钨材料和硬质合金内部协同的可能性。</li>
+<li>市场目前可能高估的因素：把江钨集团资源禀赋全部映射为上市公司资产；忽略加工环节周期、交易失败概率和 30%股本摊薄。</li>
+<li>林奇式积极信号：主业彻底更换、控制股东参与认购、拟注入资产有正利润、金环未达承诺存在现金补偿。</li>
+<li>林奇式危险信号：盈利历史断裂、业绩承诺首年即未完成、H1利润近乎零、PB 约 87 倍、无股息且散户户数快速上升。</li>
+<li>投资逻辑证伪条件：见第 4.2 节；相反，交易终止或 2026 年金环再次未完成承诺将证伪多头逻辑。</li>
+</ul>
+<h2 id="section-5">5. 分部收入与盈利拆解</h2>
+
+<table>
+<thead>
+<tr>
+<th>分部</th>
+<th align="right">收入</th>
+<th align="right">同比</th>
+<th align="right">收入占比</th>
+<th align="right">毛利率</th>
+<th align="right">毛利率变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>磁选装备</td>
+<td align="right">4.07 亿元</td>
+<td align="right">-11.73%</td>
+<td align="right">15.8%（含置出煤炭口径）</td>
+<td align="right">24.86%</td>
+<td align="right">-2.59pct</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>置出煤炭工业</td>
+<td align="right">5.87 亿元</td>
+<td align="right">-61.27%</td>
+<td align="right">22.8%</td>
+<td align="right">-21.51%</td>
+<td align="right">-21.15pct</td>
+<td>2025 年报；已置出</td>
+</tr>
+<tr>
+<td>置出煤炭及物资流通</td>
+<td align="right">14.99 亿元</td>
+<td align="right">-60.12%</td>
+<td align="right">58.2%</td>
+<td align="right">1.95%</td>
+<td align="right">-0.31pct</td>
+<td>2025 年报；已置出</td>
+</tr>
+<tr>
+<td>拟注入江硬</td>
+<td align="right">7.55 亿元</td>
+<td align="right">+55.83%</td>
+<td align="right">不适用</td>
+<td align="right">未完整取得</td>
+<td align="right">未获取</td>
+<td>发行预案，2025</td>
+</tr>
+<tr>
+<td>拟注入华茂</td>
+<td align="right">31.90 亿元</td>
+<td align="right">+192.45%</td>
+<td align="right">不适用</td>
+<td align="right">未完整取得</td>
+<td align="right">未获取</td>
+<td>发行预案，2025</td>
+</tr>
+<tr>
+<td>拟注入九冶</td>
+<td align="right">6.54 亿元</td>
+<td align="right">+13.68%</td>
+<td align="right">不适用</td>
+<td align="right">未完整取得</td>
+<td align="right">未获取</td>
+<td>发行预案，2025</td>
+</tr>
+</tbody></table>
+<ul>
+<li>披露口径变化：2025 年报同时含已置出煤炭业务和置入磁选装备，2026Q1 才接近新主业口径；三项拟收购标的尚未并表。</li>
+<li>来源冲突：2025 年上市公司营收 25.75 亿元不代表当前年化主业体量；金环磁选单体收入 4.33 亿元与上市公司分部收入 4.07 亿元存在合并与口径差异。</li>
+<li>采信理由：现状估值以金环单体和上市公司 Q1 / H1为底，备考估值才加入三项标的，不使用 2025 年上市公司混合收入外推。</li>
+<li>我的判断：2025 年三项标的收入增长很快，但很大程度受金属价格和低基数影响；利润合计仅 1.32 亿元，收入规模不能替代利润与现金流质量。</li>
+</ul>
+<h2 id="section-6">6. 五年财务历史</h2>
+
+<table>
+<thead>
+<tr>
+<th>财年</th>
+<th align="right">营收</th>
+<th align="right">毛利率</th>
+<th align="right">经营现金流</th>
+<th align="right">资本开支</th>
+<th align="right">自由现金流</th>
+<th align="right">ROIC / 代理值</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td align="right">93.84 亿元</td>
+<td align="right">原煤炭口径</td>
+<td align="right">1.98 亿元</td>
+<td align="right">未统一取得</td>
+<td align="right">未计算</td>
+<td align="right">不适用</td>
+<td>Tushare</td>
+</tr>
+<tr>
+<td>2022</td>
+<td align="right">89.16 亿元</td>
+<td align="right">原煤炭口径</td>
+<td align="right">2.02 亿元</td>
+<td align="right">未统一取得</td>
+<td align="right">未计算</td>
+<td align="right">不适用</td>
+<td>Tushare</td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">68.71 亿元</td>
+<td align="right">原煤炭口径</td>
+<td align="right">0.62 亿元</td>
+<td align="right">未统一取得</td>
+<td align="right">未计算</td>
+<td align="right">不适用</td>
+<td>Tushare</td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">58.88 亿元</td>
+<td align="right">原煤炭口径</td>
+<td align="right">3.89 亿元</td>
+<td align="right">未统一取得</td>
+<td align="right">未计算</td>
+<td align="right">不适用</td>
+<td>2025年报追溯调整</td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">25.75 亿元</td>
+<td align="right">混合口径</td>
+<td align="right">-0.93 亿元</td>
+<td align="right">0.49 亿元</td>
+<td align="right">-1.41 亿元</td>
+<td align="right">为负</td>
+<td>2025年报 / Tushare</td>
+</tr>
+</tbody></table>
+<ul>
+<li>自由现金流口径：2025 年采用经营现金流减资本开支代理；前四年主业已置出，不构造虚假的连续 FCF。</li>
+<li>ROIC 口径：历史资产与当前主业完全不同，连续 ROIC 不适用；2025 年为负。</li>
+<li>一次性项目和会计变化：2025 年同一控制下资产置换并追溯调整比较报表；年内置出煤炭并置入金环磁选，存在重大会计断点。</li>
+<li>我的判断：从生存质量看，置出亏损煤炭是明确改善；从可预测性看，只有 2026Q1 一个新口径季度，不能把反转等同于成熟盈利模型。</li>
+</ul>
+<h3>6.1 林奇框架增长质量检查</h3>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>3—5 年趋势 / 当前变化</th>
+<th>与营收或 EPS 的匹配关系</th>
+<th>质量判断</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>EPS</td>
+<td>2021 小幅盈利，2022—2025 连续亏损；2026Q1 约为零</td>
+<td>反转来自资产置换，不是原业务内生增长</td>
+<td>低可比性</td>
+<td>年报 / Q1</td>
+</tr>
+<tr>
+<td>经营现金流 / 净利润现金含量</td>
+<td>2025 OCF -0.93 亿元；2026Q1 +0.13 亿元</td>
+<td>单季改善但样本太短</td>
+<td>待验证</td>
+<td>年报 / Q1</td>
+</tr>
+<tr>
+<td>库存</td>
+<td>2025末 3.54 亿元，2026Q1 3.93 亿元</td>
+<td>Q1库存 +11%，收入仅 0.65 亿元</td>
+<td>偏弱，需看交付验收</td>
+<td>Tushare</td>
+</tr>
+<tr>
+<td>应收账款</td>
+<td>2025末 0.71 亿元，2026Q1 0.57 亿元</td>
+<td>下降有利，但订单和合同负债缺失</td>
+<td>中性偏好</td>
+<td>Tushare</td>
+</tr>
+<tr>
+<td>有息负债 / 利息覆盖</td>
+<td>2026Q1 总负债 4.59 亿元；有息债务明细未完整重构</td>
+<td>Q1利润很薄，覆盖能力不能乐观推断</td>
+<td>证据不足</td>
+<td>Q1</td>
+</tr>
+<tr>
+<td>回购与股本变化</td>
+<td>无回购支撑；拟增发不超过 30%</td>
+<td>明确摊薄 EPS</td>
+<td>不利</td>
+<td>发行预案</td>
+</tr>
+<tr>
+<td>非经常性收益</td>
+<td>2025 承诺补偿 0.2055 亿元待收</td>
+<td>可改善现金但不代表持续经营利润</td>
+<td>一次性</td>
+<td>业绩承诺公告</td>
+</tr>
+</tbody></table>
+<ul>
+<li>主营业务驱动的持续增长占比：无法从历史序列可靠计算；2026Q1—H1只能证明扭亏，不能证明高增长。</li>
+<li>财务杠杆、周期涨价、回购或一次性收益的贡献：拟注入资产 2025 年业绩受周期景气影响；没有回购，反而面临增发摊薄；补偿款是一次性。</li>
+<li>我的判断：财务报表只验证“煤炭退出后生存改善”，尚未验证“稀贵金属平台能产生与 200 亿元级市值匹配的现金流”。</li>
+</ul>
+<h2 id="section-7">7. 最新季度与管理层指引</h2>
+
+<h3>7.1 最新季度（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">本期</th>
+<th align="right">同比 / 变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营收</td>
+<td align="right">0.6456 亿元</td>
+<td align="right">-92.76%；比较期仍含煤炭，失真</td>
+<td>2026Q1</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">未单独披露为稳定口径</td>
+<td align="right">不可比</td>
+<td>2026Q1</td>
+</tr>
+<tr>
+<td>净利润</td>
+<td align="right">133.31 万元</td>
+<td align="right">上年同期亏损，扭亏</td>
+<td>2026Q1</td>
+</tr>
+<tr>
+<td>调整后利润</td>
+<td align="right">扣非 125.91 万元</td>
+<td align="right">扭亏</td>
+<td>2026Q1</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">1,306.85 万元</td>
+<td align="right">由负转正</td>
+<td>2026Q1</td>
+</tr>
+<tr>
+<td>订单 / 储备</td>
+<td align="right">未取得量化在手订单</td>
+<td align="right">未获取到</td>
+<td>截至 2026-08-12</td>
+</tr>
+</tbody></table>
+<h3>7.2 管理层指引（事实）</h3>
+<ul>
+<li>正式量化指引：2026H1 归母净利润预计 108—129 万元，扣非 98—117 万元。</li>
+<li>定性展望：通过资产注入形成稀有金属、装备制造和新材料业务组合；公司同时提示审批、摊薄、周期、原料价格、关联交易和整合风险。</li>
+<li>未获取到：2026 全年收入、利润、订单、毛利率和现金流量化指引。</li>
+</ul>
+<h3>7.3 我的判断</h3>
+<ul>
+<li>我的判断：边际变化是“亏损煤炭退出后账面扭亏”，不是“新主业进入高增长”。H1 中值低于 Q1，反推 Q2 略亏，经营修复弱于题材定价。</li>
+<li>我的判断：管理层对交易路径披露充分，但对全年经营没有量化承诺；金环 2025 年承诺首年未完成，故指引可信度中低。</li>
+<li>下一验证节点：2026 年半年报、金环 2026 年订单验收与承诺进度、再融资审核问询与注册进展。</li>
+</ul>
+<h2 id="section-8">8. 近三个月新闻与催化剂</h2>
+
+<table>
+<thead>
+<tr>
+<th>发生日</th>
+<th>事件</th>
+<th>影响变量</th>
+<th>财务传导</th>
+<th>是否已反映</th>
+<th>验证节点</th>
+<th>失效条件</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-06-13</td>
+<td>修订向特定对象发行预案，拟募资不超 19.07 亿元收购三项资产</td>
+<td>资产体量、利润、股本</td>
+<td>交易完成后收入和利润跃迁，同时最多摊薄 30%</td>
+<td>高度反映</td>
+<td>审核、注册、发行价、交割</td>
+<td>审核终止或募资不足</td>
+<td><a href="https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12391694&stockid=600397">发行预案</a></td>
+</tr>
+<tr>
+<td>2026-07-14</td>
+<td>H1 预计归母净利润 108—129 万元</td>
+<td>现有主业盈利</td>
+<td>Q2 盈利近零，降低底盘价值</td>
+<td>部分反映</td>
+<td>正式半年报</td>
+<td>H1正式利润显著超预告上限</td>
+<td><a href="https://finance.eastmoney.com/a/202607143805976546.html">业绩预告摘要</a></td>
+</tr>
+<tr>
+<td>2026-07-15</td>
+<td>H1采矿业投资同比 +5.9%</td>
+<td>磁选设备需求</td>
+<td>采矿资本开支→订单→验收</td>
+<td>部分反映</td>
+<td>新签订单 / 收入</td>
+<td>采矿投资回落或订单不转化</td>
+<td><a href="https://www.stats.gov.cn/sj/zxfbhjd/202607/t20260715_1964124.html">国家统计局</a></td>
+</tr>
+<tr>
+<td>2026-07-27</td>
+<td>H1有色冶炼利润同比高增</td>
+<td>钨、钽铌价差</td>
+<td>抬升标的利润，也增加高基期风险</td>
+<td>主题已反映</td>
+<td>标的现金流与毛利</td>
+<td>产品涨价不及原料</td>
+<td><a href="https://www.stats.gov.cn/sj/zxfbhjd/202607/t20260727_1964194.html">国家统计局</a></td>
+</tr>
+</tbody></table>
+<h2 id="section-9">9. 多头与空头论据</h2>
+
+<h3>9.1 多头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>资产置换改善生存质量</td>
+<td>亏损煤炭已置出，Q1扭亏</td>
+<td>连续季度净利润和 OCF 为正</td>
+<td>新主业再次持续亏损</td>
+</tr>
+<tr>
+<td>拟注入资产体量大</td>
+<td>2025 年三项标的收入 45.99 亿元、净利润 1.32 亿元</td>
+<td>交易完成与合并报表</td>
+<td>审批失败、募资不足或交割延期</td>
+</tr>
+<tr>
+<td>磁选装备有技术与装机壁垒</td>
+<td>200余种产品、4,000余台套应用</td>
+<td>订单、海外收入、毛利率</td>
+<td>订单下滑、毛利率继续降</td>
+</tr>
+<tr>
+<td>周期和政策有利</td>
+<td>采矿投资与有色利润增长</td>
+<td>钨 / 钽铌加工价差、回款</td>
+<td>周期反转或原料挤压利润</td>
+</tr>
+</tbody></table>
+<h3>9.2 空头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值远超披露利润</td>
+<td>摊薄后约 219.29 亿元市值，对静态利润约 136.5 倍 PE</td>
+<td>合并归母利润</td>
+<td>年化利润升至 5.5—7.3 亿元</td>
+</tr>
+<tr>
+<td>当前底盘盈利弱</td>
+<td>2026H1中值仅 118.5 万元</td>
+<td>H2利润、OCF</td>
+<td>H2出现可持续高增长</td>
+</tr>
+<tr>
+<td>承诺首年未完成</td>
+<td>金环2025扣非利润完成率83.04%</td>
+<td>2026承诺完成度</td>
+<td>2026超额完成并补回缺口</td>
+</tr>
+<tr>
+<td>股本显著摊薄</td>
+<td>最大发行数量为现股本30%</td>
+<td>最终发行价与股数</td>
+<td>高发行价使实际股数显著低于上限</td>
+</tr>
+<tr>
+<td>加工资产不是矿权</td>
+<td>拟注入资产主要为粉末、硬质合金、钽铌加工</td>
+<td>单吨毛利、原料锁价</td>
+<td>证明资源端低成本和强定价权</td>
+</tr>
+<tr>
+<td>交易拥挤</td>
+<td>YTD +124%、单日换手12%—22%</td>
+<td>换手、资金分档、股东户数</td>
+<td>价格回到价值区且筹码充分出清</td>
+</tr>
+</tbody></table>
+<h2 id="section-10">10. 估值</h2>
+
+<h3>10.1 相对估值</h3>
+<table>
+<thead>
+<tr>
+<th>公司 / 情景</th>
+<th>业务可比性</th>
+<th align="right">增长</th>
+<th align="right">利润率</th>
+<th align="right">PE</th>
+<th align="right">PB</th>
+<th align="right">EV/EBITDA</th>
+<th>数据时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>江钨装备现状</td>
+<td>仅57%金环磁选</td>
+<td align="right">H1近零利润</td>
+<td align="right">薄</td>
+<td align="right">不适用</td>
+<td align="right">87.38</td>
+<td align="right">未获取</td>
+<td>2026-08-11</td>
+</tr>
+<tr>
+<td>江钨装备备考静态</td>
+<td>金环+三项拟注入资产</td>
+<td align="right">交易驱动</td>
+<td align="right">静态利润1.61亿元</td>
+<td align="right">约136.5倍</td>
+<td align="right">未形成合并口径</td>
+<td align="right">未获取</td>
+<td>现价 / 最大摊薄</td>
+</tr>
+<tr>
+<td>合理悲观情景</td>
+<td>同上</td>
+<td align="right">低增长</td>
+<td align="right">归母1.4亿元</td>
+<td align="right">20倍</td>
+<td align="right">不适用</td>
+<td align="right">不适用</td>
+<td>本报告</td>
+</tr>
+<tr>
+<td>合理基准情景</td>
+<td>同上</td>
+<td align="right">中个位数</td>
+<td align="right">归母1.7亿元</td>
+<td align="right">25倍</td>
+<td align="right">不适用</td>
+<td align="right">不适用</td>
+<td>本报告</td>
+</tr>
+<tr>
+<td>合理乐观情景</td>
+<td>同上</td>
+<td align="right">双位数</td>
+<td align="right">归母2.2亿元</td>
+<td align="right">30倍</td>
+<td align="right">不适用</td>
+<td align="right">不适用</td>
+<td>本报告</td>
+</tr>
+</tbody></table>
+<ul>
+<li>选取理由：业务组合独特、交易未完成且缺少纯可比公司；使用归一化利润倍数比机械套同业 PE 更透明。</li>
+<li>正常化调整：将三项标的 2025 净利润 1.316 亿元与金环可归属约 0.290 亿元相加，再考虑上市公司费用、周期回落或协同增长，形成 1.4—2.2 亿元区间。</li>
+<li>对应每股价值区间：按最大摊薄后股本，20倍×1.4亿元为2.18元；25倍×1.7亿元为3.30元；30倍×2.2亿元为5.13元。</li>
+<li>我的判断：当前价格不是合理倍数争论，而是利润基数数量级不匹配。</li>
+</ul>
+<h3>10.2 DCF</h3>
+<blockquote>
+<p>交易尚未完成，完整备考净债务与最终股数未知。为避免伪精确，本节采用归一化股权自由现金流 FCFE 折现；不另做企业价值—净债务桥。</p>
+</blockquote>
+<h4>关键假设</h4>
+<table>
+<thead>
+<tr>
+<th>假设</th>
+<th align="right">悲观</th>
+<th align="right">基准</th>
+<th align="right">乐观</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>首年 FCFE</td>
+<td align="right">1.0 亿元</td>
+<td align="right">1.4 亿元</td>
+<td align="right">1.8 亿元</td>
+<td>静态利润、营运资本和资本开支折价</td>
+</tr>
+<tr>
+<td>前五年增长</td>
+<td align="right">3%</td>
+<td align="right">8%→4%</td>
+<td align="right">12%→5%</td>
+<td>周期、协同和规模情景</td>
+</tr>
+<tr>
+<td>稳态净现金转化</td>
+<td align="right">低</td>
+<td align="right">中</td>
+<td align="right">较高</td>
+<td>装备验收及材料库存占用</td>
+</tr>
+<tr>
+<td>股权成本</td>
+<td align="right">10.0%</td>
+<td align="right">9.5%</td>
+<td align="right">9.0%</td>
+<td>小市值、交易与周期风险溢价</td>
+</tr>
+<tr>
+<td>永续增长率</td>
+<td align="right">1.5%</td>
+<td align="right">2.0%</td>
+<td align="right">2.5%</td>
+<td>不高于长期名义增长约束</td>
+</tr>
+<tr>
+<td>最大摊薄后股本</td>
+<td align="right">12.8695亿股</td>
+<td align="right">12.8695亿股</td>
+<td align="right">12.8695亿股</td>
+<td>发行数量上限</td>
+</tr>
+</tbody></table>
+<h4>估值结果</h4>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">企业价值</th>
+<th align="right">净债务</th>
+<th align="right">股权价值</th>
+<th align="right">每股价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观</td>
+<td align="right">不适用（FCFE）</td>
+<td align="right">已在FCFE内反映</td>
+<td align="right">12.7亿元</td>
+<td align="right">0.99元</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">不适用（FCFE）</td>
+<td align="right">已在FCFE内反映</td>
+<td align="right">22.7亿元</td>
+<td align="right">1.76元</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">不适用（FCFE）</td>
+<td align="right">已在FCFE内反映</td>
+<td align="right">36.4亿元</td>
+<td align="right">2.83元</td>
+</tr>
+</tbody></table>
+<h4>敏感性分析</h4>
+<table>
+<thead>
+<tr>
+<th>股权成本 \ 永续增长率</th>
+<th align="right">1.5%</th>
+<th align="right">2.0%</th>
+<th align="right">2.5%</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>9.0%</td>
+<td align="right">1.86元</td>
+<td align="right">2.01元</td>
+<td align="right">2.17元</td>
+</tr>
+<tr>
+<td>9.5%</td>
+<td align="right">1.64元</td>
+<td align="right">1.76元</td>
+<td align="right">1.90元</td>
+</tr>
+<tr>
+<td>10.0%</td>
+<td align="right">1.49元</td>
+<td align="right">1.59元</td>
+<td align="right">1.70元</td>
+</tr>
+</tbody></table>
+<h4>反向 DCF</h4>
+<ul>
+<li>当前价格隐含的收入增长 / 终值利润率：以 PE 更直观反推，17.04 元与最大摊薄股本对应 219.29 亿元市值；30倍 PE 要求稳态归母净利润约7.31亿元，40倍 PE仍要求5.48亿元。</li>
+<li>与历史和行业相比是否可实现：上述利润是四块已披露资产2025静态可归属利润1.61亿元的约3.4—4.6倍，且尚未扣除上市公司费用，不能由已披露经营趋势支持。</li>
+<li>我的判断：现价隐含的不是一般协同，而是多轮资产注入或利润率结构性跃迁。</li>
+</ul>
+<h3>10.3 行业特定估值</h3>
+<ul>
+<li>方法：资产基础法 / 交易 NAV。</li>
+<li>适用理由：三项标的交易本身采用资产基础法；交易预案明确认为钨、钽铌利润受周期影响，收益法不确定性较大。</li>
+<li>关键假设：三项拟收购资产作价19.07亿元，加已置入金环57%股权作价3.69亿元，合计22.75亿元；给予0.8—1.5倍资产价值系数。</li>
+<li>对应每股价值区间：按最大摊薄股本约1.41—2.65元。</li>
+<li>局限性：交易作价不代表二级市场必然价格；未计未来新资产，也未扣整合折价、税费与周期回落。</li>
+</ul>
+<h3>10.4 估值交叉验证</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="right">每股价值区间</th>
+<th align="right">权重</th>
+<th>采信理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>相对估值 / 归一化利润</td>
+<td align="right">2.18—5.13元</td>
+<td align="right">50%</td>
+<td>直接反映交易完成后的可归属利润与摊薄</td>
+</tr>
+<tr>
+<td>FCFE DCF</td>
+<td align="right">0.99—2.83元</td>
+<td align="right">20%</td>
+<td>现金流证据弱，给予较低权重</td>
+</tr>
+<tr>
+<td>交易 NAV</td>
+<td align="right">1.41—2.65元</td>
+<td align="right">30%</td>
+<td>与标的资产实际评估方法一致，提供下沿锚</td>
+</tr>
+</tbody></table>
+<ul>
+<li>综合估值区间：<strong>2—5元</strong>，基准中枢约3.3元。</li>
+<li>相对现价上行 / 下行空间：相对17.04元约 -88%至-71%。</li>
+<li>为什么不机械平均：DCF受交割、净债务和FCFE假设影响大；上沿保留协同与周期溢价，但不把未披露资产注入写进基准价值。</li>
+</ul>
+<h3>10.5 林奇分类与估值匹配</h3>
+<ul>
+<li>主分类与估值锚：困境反转型应看生存质量、正常化利润与稀释后每股价值，而不是用历史亏损 PE 或集团资源想象定价。</li>
+<li>PEG：不适用；盈利序列断裂且增长主要来自并购。</li>
+<li>周期型正常化利润：三项标的2025合计净利润1.32亿元可能位于有色周期较好年份，基准只取合并归母1.7亿元，不外推2025收入增速。</li>
+<li>困境反转型生存、债务与现金流约束：煤炭退出改善生存，但2025 OCF为负、H1利润近零；再融资成功是交易前提。</li>
+<li>资产隐蔽型扣除负债、税费和变现折价后的净资产价值：交易NAV约1.77元/摊薄股，远低于现价；并无未被市场发现的低价矿权证据。</li>
+<li>当前价格已经反映的增长、利润率、周期或资产兑现预期：隐含稳态利润至少5.5—7.3亿元，或后续继续注入大量优质资产。</li>
+<li>类型化估值与三类估值是否相互印证：相互印证现价显著透支；区别只在合理价值是2元还是5元，而不是17元是否便宜。</li>
+</ul>
+<h2 id="section-11">11. 冰冰小美框架判断</h2>
+
+<h3>11.1 三要素状态总表</h3>
+<ul>
+<li>三要素结论来源：<code>bbxm-three-factor-analysis</code>。</li>
+<li>分析对象与层级：江钨装备个股；竞争看业务，流动性与情绪看证券。</li>
+<li>分析截止时间：2026-08-12 10:19，行情截止2026-08-11收盘。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>状态</th>
+<th>核心证据</th>
+<th>核心反证</th>
+<th>失效条件</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>有利</td>
+<td>金环有技术与装机基础；拟注入资产覆盖钨材料—硬质合金—钽铌</td>
+<td>金环收入、毛利率和承诺完成度均下降</td>
+<td>订单持续下降或整合不产生现金回报</td>
+<td>中</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>不利</td>
+<td>20/60日总资金代理净流出，高换手；最多30%再融资供给</td>
+<td>特大单代理为正，市场两融总量充裕</td>
+<td>总资金连续转正且发行规模明显低于上限</td>
+<td>中</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>不利</td>
+<td>YTD +124%、单日换手12%—22%，价格远高于价值上沿</td>
+<td>较31.79元高点已回撤46%</td>
+<td>价格回到价值区且换手出清、盈利上修</td>
+<td>中高</td>
+</tr>
+</tbody></table>
+<h4>前六步证据映射</h4>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>前六步证据来源</th>
+<th>已验证证据</th>
+<th>反证与缺口</th>
+<th>分析状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>第4—7章；来源矩阵</td>
+<td>装机、产品、分部、承诺与拟注入资产财务</td>
+<td>份额、订单、单吨价差缺失</td>
+<td>可分析，中等置信</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>第3、8—9章；Tushare</td>
+<td>量价、换手、资金分档、发行供给</td>
+<td>个股融资和ETF资金缺失</td>
+<td>可分析，中等置信</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>第3、8—9章</td>
+<td>YTD、区间高低、成交额和催化反馈</td>
+<td>板块精确相对收益缺失</td>
+<td>可分析，中高置信</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Step 6 估值约束：估值不强行归入三要素；第11.6节直接作为行动价格约束。</li>
+<li>补采证据回填：所有补采已写入第2、3、7、8章及数据快照。</li>
+</ul>
+<h3>11.2 竞争格局与比较优势</h3>
+<h4>前文证据引用</h4>
+<ul>
+<li><p>商业模式与竞争底稿：第4章。</p>
+</li>
+<li><p>分部与资本回报证据：第5—7章。</p>
+</li>
+<li><p>相关来源状态：第2章来源矩阵。</p>
+</li>
+<li><p>分析对象与竞争层级：金环磁选的矿物分选设备；交易完成后扩展到钨材料、硬质合金和钽铌加工。</p>
+</li>
+<li><p>当前状态：<strong>有利</strong>，但尚未完成价值转化。</p>
+</li>
+<li><p>证据充分性：部分充分；产品、装机和财务可核验，市场份额、在手订单和客户集中度不足。</p>
+</li>
+<li><p>多产业位置景气度排序：钨材料 / 硬质合金第一，钽铌第二，磁选装备第三；前两者变化更快但尚未并表。</p>
+</li>
+<li><p>产业链位置与利润池：华茂获取粉末加工价差，江硬获取硬质合金加工和产品溢价，九冶获取钽铌加工价差，金环获取设备技术和项目交付利润；协同尚未验证，不重复计入。</p>
+</li>
+<li><p>核心比较优势：国资资源整合能力、金环高梯度磁选技术和装机案例、拟注入资产的产业链覆盖。</p>
+</li>
+<li><p>竞争对手与替代方案：同业钨产业公司、专业钽铌加工企业、其他磁选 / 浮选 / 重选技术提供商。</p>
+</li>
+<li><p>份额、定价权、客户黏性与进入壁垒：设备有案例壁垒，但验收权在客户；材料加工受商品价差制约，未证明强定价权。</p>
+</li>
+<li><p>竞争优势转化为订单、利润和现金回报的情况：2025 年未完成承诺、H1利润很薄，转化不足。</p>
+</li>
+<li><p>当前决策含义：竞争格局可以支持观察，不足以支持现价买入。</p>
+</li>
+</ul>
+<h4>证据</h4>
+<ul>
+<li>金环磁选累计应用4,000余台套、产品超过200种，2025年净利润0.51亿元。</li>
+<li>三项标的2025年合计收入45.99亿元、净利润1.32亿元，均为正资产。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>金环2025收入下降、毛利率下降，扣非承诺完成率仅83.04%。</li>
+<li>拟注入资产由同一控制方出售给上市公司，关联交易与同业竞争仍需持续治理。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>交易失败；金环连续两年未完成承诺；材料价差收缩导致拟注入资产利润下降30%以上。</li>
+</ul>
+<h3>11.3 流动性辩证分析</h3>
+<ul>
+<li>当前状态：<strong>不利</strong>。</li>
+<li>证据充分性：部分充分；个股量价与订单分档完整，但个股融资、ETF和账户身份未获取。</li>
+</ul>
+<h4>宏观流动性</h4>
+<ul>
+<li>总量环境与边际变化：2026H1国内广义流动性仍宽，市场两融余额处于高位；但美国10年国债收益率截至8月11日约4.70%，较5月初约4.39%上行。</li>
+<li>对本标的的传导：国内风险偏好可支撑重组题材成交，外部折现率上升不利于长久期、远期利润型估值。</li>
+</ul>
+<h4>中观流动性</h4>
+<ul>
+<li>行业 / 主题 / ETF / 机构配置变化：战略金属、资产注入和江西国资整合主题活跃；未取得专属ETF申赎与机构配置连续数据。</li>
+<li>对本标的的传导：主题资金能抬升短期价格，但交易落地前缺少基本面容量承接。</li>
+</ul>
+<h4>微观流动性</h4>
+<ul>
+<li>成交额、换手率、量价结构、融资和大单：8月7—11日三日成交额约38.80、37.69、21.74亿元，换手率21.77%、21.47%、12.76%；价格先涨停附近后连续回落。</li>
+<li>连续窗口与相对强弱：近5日约+11%、20日-3%、60日+24%；20/60日总资金代理为-8.61/-31.57亿元，价格与资金出现背离。</li>
+</ul>
+<h4>资金来源分类</h4>
+<table>
+<thead>
+<tr>
+<th>资金来源</th>
+<th>当前状态</th>
+<th>连续窗口证据</th>
+<th>对价格的含义</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>长期配置资金</td>
+<td>证据不足</td>
+<td>未见中央汇金进入前十大股东；机构账户身份不可识别</td>
+<td>不能把特大单等同长期配置</td>
+<td>低</td>
+</tr>
+<tr>
+<td>趋势 / 交易资金</td>
+<td>活跃且分歧</td>
+<td>高换手、YTD+124%、特大单正而总资金负</td>
+<td>高弹性也意味着退出冲击大</td>
+<td>高</td>
+</tr>
+<tr>
+<td>产业资本 / 内部人</td>
+<td>有条件支持</td>
+<td>控股股东拟认购发行量20%—40%</td>
+<td>稳定控制权，但仍摊薄公众股东</td>
+<td>中高</td>
+</tr>
+</tbody></table>
+<h4>供给与抛压</h4>
+<table>
+<thead>
+<tr>
+<th>供给来源</th>
+<th>当前状态</th>
+<th>时间窗口</th>
+<th>影响</th>
+<th>验证方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>解禁 / 减持</td>
+<td>未取得重大新增证据</td>
+<td>未来12个月</td>
+<td>次要</td>
+<td>交易所公告</td>
+</tr>
+<tr>
+<td>再融资 / 可转债</td>
+<td>明确存在</td>
+<td>审核至发行</td>
+<td>最多新增现股本30%，核心供给</td>
+<td>注册结果、发行价、实际股数</td>
+</tr>
+<tr>
+<td>获利盘 / 套牢盘</td>
+<td>同时很重</td>
+<td>6.04—31.79元区间</td>
+<td>上方套牢与低位获利盘共同增加波动</td>
+<td>成交密集区、换手</td>
+</tr>
+</tbody></table>
+<h4>最低数据检查</h4>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>当前窗口</th>
+<th>对比窗口</th>
+<th>结论</th>
+<th>数据源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>成交额与换手率</td>
+<td>8/11 21.74亿元、12.76%</td>
+<td>8/7—10约38亿元、21%</td>
+<td>高位活跃后回落</td>
+<td>Tushare</td>
+</tr>
+<tr>
+<td>融资余额与融资买入</td>
+<td>未获取个股</td>
+<td>市场两融约2.63万亿元</td>
+<td>个股证据不足</td>
+<td>Tushare</td>
+</tr>
+<tr>
+<td>主力 / 大单资金</td>
+<td>20日总资金-8.61亿元、特大单+4.68亿元</td>
+<td>60日总资金-31.57亿元、特大单+12.26亿元</td>
+<td>结构分歧，不确认身份</td>
+<td>Tushare</td>
+</tr>
+<tr>
+<td>ETF / 北向 / 机构代理指标</td>
+<td>未获取到</td>
+<td>未获取到</td>
+<td>不纳入结论</td>
+<td>已检查公开与本地接口</td>
+</tr>
+</tbody></table>
+<h4>证据</h4>
+<ul>
+<li>高成交、高换手、总资金代理连续为负，以及明确的增发供给。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>特大单代理为正，控股股东计划参与认购；宏观市场流动性并未紧缩。</li>
+</ul>
+<h4>退出路径</h4>
+<ul>
+<li>资金流入如何退出：交易型资金主要依靠催化和二级市场流动性退出；发行后限售解禁形成后续供给。</li>
+<li>持续性被证伪的信号：成交缩量下跌、特大单转负、审核延迟、利好公告后高开低走。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>连续20日总资金代理转正、换手降至健康水平、实际发行股数明显低于上限且合并利润上修。</li>
+</ul>
+<h3>11.4 情绪位置变化</h3>
+<ul>
+<li>当前状态：<strong>不利</strong>。</li>
+<li>证据充分性：充分；价格、涨幅、区间和换手可核验。</li>
+<li>当前所处阶段：<strong>退潮后的高波动反复</strong>，不是冰点。</li>
+<li>个股相对板块与指数的强弱：个股YTD+124%，显著强于一般市场表现；精确板块相对收益未取得。</li>
+<li>催化兑现后的价格反馈：重组预案后估值高度扩张；8月7日大涨后两日回落，显示边际资金分歧。</li>
+</ul>
+<h4>证据</h4>
+<ul>
+<li>17.04元虽较31.79元高点回撤约46%，仍是年初7.60元的2.24倍，且远高于2—5元价值区。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>高点回撤和20日收益转负说明情绪已有降温，不再是单边拥挤顶峰。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>价格跌入价值区、换手显著下降并伴随盈利上修；或利润兑现使价值上沿上移至现价附近。</li>
+</ul>
+<h3>11.5 综合状态与主导矛盾</h3>
+<ul>
+<li>三要素综合判断：<strong>尚未形成有利共振</strong>。</li>
+<li>主导要素：竞争格局和国资资产整合预期提供正面支撑。</li>
+<li>拖累要素：流动性供给、交易情绪和估值约束。</li>
+<li>主导矛盾：资产注入能改善公司，但改善幅度远不足以解释当前每股价格。</li>
+<li>下一验证节点：半年报、再融资审核 / 注册、发行价与实际股数、2026年金环业绩承诺。</li>
+<li>状态切换条件：盈利上修到5.5亿元以上或价格回到5元附近，同时交易落地和现金流转正。</li>
+</ul>
+<h3>11.6 三要素行动映射</h3>
+<table>
+<thead>
+<tr>
+<th>资金属性</th>
+<th>当前动作</th>
+<th>允许升级的条件</th>
+<th>降级 / 退出条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>新增现金</td>
+<td>observe</td>
+<td>5元以下、交易完成、合并利润和FCF达标</td>
+<td>审核失败、承诺再度未完成、价差回落</td>
+</tr>
+<tr>
+<td>已有持仓</td>
+<td>reduce</td>
+<td>仅当利润预测大幅上修可改为wait</td>
+<td>利好不涨、资金转负、跌破交易密集区则继续降低暴露</td>
+</tr>
+</tbody></table>
+<h3>11.7 三要素数据缺口与来源</h3>
+<table>
+<thead>
+<tr>
+<th>数据缺口</th>
+<th>已检查来源</th>
+<th>对哪一要素有影响</th>
+<th>对结论的影响</th>
+<th>补齐方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>个股融资融券</td>
+<td>本地Tushare</td>
+<td>流动性</td>
+<td>降低杠杆资金判断置信度</td>
+<td>交易所 / 券商终端</td>
+</tr>
+<tr>
+<td>在手订单和验收计划</td>
+<td>年报、Q1、公告</td>
+<td>竞争 / 基本面</td>
+<td>无法量化H2收入</td>
+<td>半年报、调研纪要</td>
+</tr>
+<tr>
+<td>三项标的FCF与净债务</td>
+<td>发行预案</td>
+<td>估值 / 风险</td>
+<td>DCF采用FCFE并降权</td>
+<td>审核问询、备考财务</td>
+</tr>
+<tr>
+<td>ETF和机构账户身份</td>
+<td>公开数据 / 资金分档</td>
+<td>流动性</td>
+<td>不把大单称为机构</td>
+<td>基金季报、股东名册</td>
+</tr>
+</tbody></table>
+<ul>
+<li>分析口径与截止时间：见报告封面。</li>
+<li>主要数据来源：公司公告、上交所、国家统计局和本地Tushare。</li>
+<li>数据缺口导致的置信度调整：综合置信度从中高降至中等。</li>
+</ul>
+<h3>11.8 风险方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>风险类型</th>
+<th>前一窗口</th>
+<th>当前窗口</th>
+<th>方向证据</th>
+<th>反证</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本面风险</td>
+<td>交易预案提供利润增量预期</td>
+<td>H1利润近零、金环承诺缺口仍在</td>
+<td>高位持平</td>
+<td>煤炭已退出，三项标的为正利润</td>
+</tr>
+<tr>
+<td>估值风险</td>
+<td>预案后估值扩张</td>
+<td>价格较高点回撤但仍远超价值区</td>
+<td>高位略释放</td>
+<td>回撤46%减少部分泡沫</td>
+</tr>
+<tr>
+<td>情绪风险</td>
+<td>重组与战略金属扩散</td>
+<td>高换手、冲高回落</td>
+<td>高位持平</td>
+<td>20日收益已转负</td>
+</tr>
+<tr>
+<td>流动性风险</td>
+<td>宏观宽松</td>
+<td>个股总资金流出、增发供给</td>
+<td>边际不利</td>
+<td>特大单正、控股股东认购</td>
+</tr>
+</tbody></table>
+<h3>11.9 风险传导链</h3>
+<ul>
+<li>信息源头：再融资进度、金环履约、半年报、钨和钽铌产品价差。</li>
+<li>核心变量：最终发行股数、合并归母利润、FCF、估值倍数。</li>
+<li>传导机制：审批 / 价差 / 验收不及预期 → 利润低于预期或摊薄高于预期 → 每股价值下修 → 交易资金撤出 → 高换手下价格快速调整。</li>
+<li>影响对象：二级市场股东，尤其是高位、杠杆和短持有期资金。</li>
+<li>市场行为变化：利好不涨、缩量阴跌或放量跌破交易密集区。</li>
+<li>风险方向：高位持平，流动性分项边际不利。</li>
+<li>验证指标：实际发行股数、20日资金净额、金环扣非利润、合并FCF。</li>
+<li>失效条件：利润上修与低摊薄同时发生，估值差迅速收敛。</li>
+</ul>
+<h3>11.10 风险方向结论</h3>
+<ul>
+<li>风险方向结论：<strong>风险持平</strong>。</li>
+<li>判断依据：价格回撤释放部分估值风险，但现价仍远超已披露资产价值；H1弱盈利、承诺未完成和发行供给均未改善。</li>
+<li>反证：采矿与有色周期数据偏强，控股股东参与认购，交易若顺利可显著改善报表。</li>
+<li>未获取到：个股融资、实时订单、最终发行价和股数。</li>
+<li>置信度：<strong>中</strong>。</li>
+</ul>
+<h3>11.11 四层方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>边际改善 / 无明显变化 / 边际恶化 / 未获取到</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观</td>
+<td>无明显变化</td>
+<td>国内市场流动性宽，但外部利率上行</td>
+</tr>
+<tr>
+<td>中观</td>
+<td>边际改善</td>
+<td>采矿投资与有色利润较强，但周期高位风险增加</td>
+</tr>
+<tr>
+<td>微观</td>
+<td>无明显变化</td>
+<td>Q1扭亏，H1利润仍近零；交易未完成</td>
+</tr>
+<tr>
+<td>交易</td>
+<td>边际恶化</td>
+<td>高换手冲高回落，20/60日总资金代理为负</td>
+</tr>
+</tbody></table>
+<h3>11.12 最终动作与约束</h3>
+<ul>
+<li>主动作：<strong>reduce</strong>。</li>
+<li>新增现金：observe，不追逐重组催化。</li>
+<li>已有持仓：逢流动性反弹减仓，不用31.79元高点锚定“回本价”。</li>
+<li>承接条件：价格5元以下；交易完成；合并年化利润至少2.2亿元且FCF为正；若价格仍在17元附近，则利润需接近5.5—7.3亿元。</li>
+<li>退出条件：交易延期 / 终止、金环2026再次未达承诺、材料价差收窄、20日资金继续流出。</li>
+<li>下一复核节点：2026年半年报、再融资审核问询与注册、发行结果、2026年报业绩承诺完成情况。</li>
+<li>我的判断：方向改善不能转化为买点，因为价格已经提前兑现远超披露资产的利润；“公司变好”与“股票值得买”是两件事。</li>
+<li>霍华德·马克斯式逆向等级：<strong>D：仅是价格下跌，不构成逆向机会</strong>。虽较高点回撤，但价格仍大幅高于保守价值，未见被迫抛售或低估。</li>
+</ul>
+<h2 id="section-12">12. 最终结论</h2>
+
+<ul>
+<li>彼得·林奇公司分类：困境反转型，次分类周期型。</li>
+<li>一句话投资故事：退出亏损煤炭后，公司以磁选装备为底盘，拟注入钨材料、硬质合金和钽铌资产；反转是真的，但现价把交易成功、协同、周期和未来继续注入一次性全部计价。</li>
+<li>利润增长等式与可持续时间：<code>设备销量×单价×毛利率 + 材料销量×加工价差 − 费用 − 少数股东损益</code>；未来1—2年主要是并购跃迁，3年后取决于内生订单和价差。</li>
+<li>估值结论：<strong>严重高估</strong>。</li>
+<li>操作结论：<strong>规避新增；已有持仓减仓</strong>。</li>
+<li>综合估值区间：<strong>2—5元</strong>，基准中枢约3.3元。</li>
+<li>相对现价空间：约 -88%至-71%。</li>
+<li>如果今天这是一笔现金，我会买它吗：不会。</li>
+<li>我的判断：最重要的不是猜下一次资产注入，而是先问“现价需要多少利润”。答案是30倍PE下约7.31亿元、40倍PE下约5.48亿元，远高于已披露资产静态利润。</li>
+<li>结论失效条件：交易完成、摊薄低于预期，合并年化归母利润接近5.5—7.3亿元且FCF同步兑现；或出现可核验的新资产注入使每股价值上沿超过12元。</li>
+<li>林奇框架卖出条件：当前适用项为<strong>估值严重透支</strong>；若交易失败、金环再次未达承诺，则进一步升级为<strong>投资逻辑破坏</strong>。</li>
+</ul>
+<h2 id="section-13">13. 后续监控指标</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">当前值</th>
+<th>触发阈值 / 方向</th>
+<th>数据源</th>
+<th>复核频率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>向特定对象发行状态</td>
+<td align="right">待审批 / 注册 / 发行</td>
+<td>注册通过、最终股数低于2亿股为改善；终止为恶化</td>
+<td>公司公告</td>
+<td>事件驱动</td>
+</tr>
+<tr>
+<td>最大摊薄后稳态归母利润</td>
+<td align="right">静态约1.61亿元（未扣总部费用）</td>
+<td>≥2.2亿元支持价值上沿；≥5.5亿元才开始接近现价约束</td>
+<td>财报 / 备考报表</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>金环业绩承诺完成率</td>
+<td align="right">2025年83.04%</td>
+<td>2026年≥100%改善；再次低于90%恶化</td>
+<td>专项审核</td>
+<td>年度 / 半年度</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">2026Q1 0.13亿元</td>
+<td>连续两季为正且匹配利润</td>
+<td>财报</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>存货</td>
+<td align="right">2026Q1 3.93亿元</td>
+<td>增速持续高于收入为恶化</td>
+<td>财报</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>20日总资金代理</td>
+<td align="right">-8.61亿元</td>
+<td>连续转正且换手下降为改善</td>
+<td>Tushare</td>
+<td>每日 / 每周</td>
+</tr>
+<tr>
+<td>估值价格带</td>
+<td align="right">17.04元</td>
+<td>≤5元进入基本面复核；&gt;8元维持规避</td>
+<td>行情 / 本报告</td>
+<td>每日</td>
+</tr>
+</tbody></table>
+<ul>
+<li>投资故事持续性：<strong>部分成立</strong>。资产整合方向成立，盈利和每股价值兑现尚未成立。</li>
+<li>下一次财报需复核的林奇框架变量：EPS、经营现金流、存货、应收、金环承诺、三项标的价差、最终股本与交易后增长空间。</li>
+</ul>
+<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
+
+<ul>
+<li>未获取到：2026年半年报正式数据、量化在手订单、三项标的完整备考现金流与净债务、最终发行价与股数、个股融资融券连续数据、ETF / 机构账户资金、独立第三方公允价值和完整卖方目标价分布。</li>
+<li>已检查来源：公司公告、上交所、巨潮资讯镜像、国家统计局、本地Tushare、公开券商研报与盈利预测汇总。</li>
+<li>对结论的影响：DCF置信度低于交易NAV和利润倍数；因此价值区间保留较宽上沿，但不会将未经披露的未来资产注入计入基准价值。</li>
+<li>主业断点：2021—2025财务主要反映已置出煤炭业务，不能用于推导当前主业的五年CAGR。</li>
+<li>情景边界：若最终发行数量明显低于2.97亿股，每股价值会提高；若募资不足由公司举债补足，股本摊薄下降但财务风险上升，不能只看每股数。</li>
+</ul>
+<h2 id="section-15">15. 来源清单</h2>
+
+<ol>
+<li><a href="https://big5.sse.com.cn/site/cht/www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-04-20/600397_20260420_D9ZM.pdf">《江钨装备2025年年度报告》</a>，江西江钨稀贵装备股份有限公司 / 上海证券交易所，2026-04-20，访问时间2026-08-12。</li>
+<li><a href="https://static.cninfo.com.cn/finalpage/2026-04-20/1225124128.PDF">《关于重大资产置换之2025年度业绩承诺完成情况的公告》</a>，江钨装备，2026-04-20，访问时间2026-08-12。</li>
+<li><a href="https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12157935&stockid=600397">《2026年第一季度报告》</a>，江钨装备，2026-04-24，访问时间2026-08-12。</li>
+<li><a href="https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12391694&stockid=600397">《2026年度向特定对象发行A股股票预案（修订稿）》</a>，江钨装备，2026-06-13，访问时间2026-08-12。</li>
+<li><a href="https://finance.eastmoney.com/a/202607143805976546.html">《2026年半年度业绩预告》摘要</a>，江钨装备 / 东方财富，2026-07-14，访问时间2026-08-12。</li>
+<li><a href="https://www.stats.gov.cn/sj/zxfbhjd/202607/t20260715_1964124.html">《2026年1—6月份全国固定资产投资基本情况》</a>，国家统计局，2026-07-15，访问时间2026-08-12。</li>
+<li><a href="https://www.stats.gov.cn/sj/zxfbhjd/202607/t20260727_1964194.html">《2026年1—6月份全国规模以上工业企业利润增长18.7%》</a>，国家统计局，2026-07-27，访问时间2026-08-12。</li>
+<li><a href="https://pdf.dfcfw.com/pdf/H3_AP202606291826546811_1.pdf?1782759914000.pdf=">中邮证券《江钨装备：稀贵金属全产业链布局加速》</a>，中邮证券，2026-06-29，访问时间2026-08-12。</li>
+<li>本地 Tushare：证券身份、日线、估值、资金分档、财务报表、分红、市场两融和美债收益率；数据截止2026-08-11。</li>
+<li><a href="../../../../webpages/2026-08-12-江钨装备研究数据快照.md">2026-08-12 江钨装备研究数据快照</a>，本报告结构化研究底稿。</li>
+</ol>
+<h2 id="section-16">16. 声明</h2>
+
+<p>本报告基于截至研究截止时间可取得的公开信息，不构成收益保证或个性化投资建议。重大资产重组存在审批、发行、交割、整合和摊薄不确定性；真实交易前应重新核验价格、公告、流动性、仓位和个人风险承受能力。</p>
+<script>
+(() => {
+  const endpoint = '/api/stock-quote?secid=1.600397';
+  const priceNode = document.getElementById('intraday-price');
+  const detailNode = document.getElementById('intraday-detail');
+  const statusNode = document.getElementById('intraday-status');
+  const riskRewardValue = document.getElementById('risk-reward-value');
+  const riskRewardDetail = document.getElementById('risk-reward-detail');
+  const tracker = document.getElementById('daily-tracking');
+  const snapshotPrice = 17.04;
+  const percent = value => `${value < 0 ? '-' : value > 0 ? '+' : ''}${Math.abs(value).toFixed(1)}%`;
+  function updateRiskReward(price) {
+    const low = Number(tracker.dataset.valueLow);
+    const high = Number(tracker.dataset.valueHigh);
+    if (!Number.isFinite(low) || !Number.isFinite(high) || low <= 0 || high <= low) return;
+    const upside = (high / price - 1) * 100;
+    const downside = (1 - low / price) * 100;
+    if (price <= low) {
+      riskRewardValue.textContent = '低于价值下沿';
+      riskRewardValue.classList.remove('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿潜在空间 ${percent(upside)}。价格已低于动态价值下沿，不能直接用下沿作为止损风险，需另设风控线。`;
+      return;
+    }
+    if (price >= high) {
+      riskRewardValue.textContent = '无正向盈亏比';
+      riskRewardValue.classList.add('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿空间 ${percent(upside)}，回落至下沿风险 ${percent(downside)}。价格已到或高于动态价值上沿，新增现金不具备正向盈亏比。`;
+      return;
+    }
+    const ratio = upside / downside;
+    riskRewardValue.textContent = `约 ${ratio.toFixed(1)}:1`;
+    riskRewardValue.classList.toggle('bad', ratio < 1);
+    riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；到上沿 ${high.toFixed(2)} 元的潜在上行 ${percent(upside)}，跌至下沿 ${low.toFixed(2)} 元的风险 ${percent(downside)}。盘中价格不改变价值区间本身。`;
+  }
+  async function refreshIntradayQuote() {
+    statusNode.textContent = '连接中'; statusNode.className = 'tracking-status';
+    try {
+      const response = await fetch(endpoint, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json(); const quote = payload && payload.data;
+      if (!quote || !Number.isFinite(quote.price) || !Number.isFinite(quote.prevClose) || !Number.isFinite(quote.changePercent) || !Number.isFinite(quote.quoteTimestamp)) throw new Error('invalid quote');
+      const quoteTime = new Date(quote.quoteTimestamp * 1000).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false });
+      priceNode.textContent = `${quote.price.toFixed(2)} 元 · ${percent(quote.changePercent)}`;
+      priceNode.classList.toggle('bad', quote.changePercent < 0);
+      detailNode.textContent = `行情时间：${quoteTime}；昨收 ${quote.prevClose.toFixed(2)} 元。来源：${payload.proxySource || '本地行情代理'}。`;
+      statusNode.textContent = '盘中实时 · 每 60 秒'; statusNode.className = 'tracking-status live'; updateRiskReward(quote.price);
+    } catch { priceNode.textContent = '实时行情暂不可用'; priceNode.classList.remove('bad'); detailNode.textContent = '每日同步值仍然有效；可重新双击“大盘启动器”后刷新本页。'; statusNode.textContent = '连接失败'; statusNode.className = 'tracking-status error'; }
+  }
+  if (location.protocol === 'http:' || location.protocol === 'https:') { refreshIntradayQuote(); window.setInterval(refreshIntradayQuote, 60000); }
+  else { priceNode.textContent = Number.isFinite(snapshotPrice) ? `${snapshotPrice.toFixed(2)} 元（每日值）` : '每日值未获取'; detailNode.textContent = '当前为直接打开模式；盘中实时需通过“大盘启动器”进入本地服务。'; statusNode.textContent = '每日同步 · 实时未连接'; }
+})();
+</script></article>
+    </div>
+  </main>
+</body>
+</html>

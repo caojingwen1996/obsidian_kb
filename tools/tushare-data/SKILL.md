@@ -20,8 +20,10 @@ python E:\caojingwen\obsidian\llmwiki\tools\tushare-data\scripts\mcp_server.py
 - `get_market_margin`：获取沪深市场融资融券交易汇总，用于观察全市场融资余额、融资买入、融资偿还和融资融券余额变化。
 - `get_us_treasury_yield`：获取美国国债收益率曲线，默认返回 10 年期 `y10`。
 - `get_us_dollar_index`：获取美元指数日线，默认 `USDOLLAR.FXCM`。
+- `get_usd_jpy_exchange_rate`：获取美元兑日元日线，默认 `USDJPY.FXCM`；当 USDJPY >= 160 时提示日元贬值风险。
 - `get_financial_statements`：获取利润表、资产负债表和现金流量表核心科目。
 - `get_dividend_history`：获取历史分红方案及实施记录。
+- `check_central_huijin_holding`：判断前十大股东 / 前十大流通股东披露中是否出现中央汇金相关主体；只代表定期报告披露口径，不代表实时持仓。
 - `get_index_constituents`：获取指数历史成分股和权重。
 
 ## Python 调用

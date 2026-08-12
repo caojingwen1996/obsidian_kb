@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 import { createExampleSnapshot } from '../src/data-service.mjs';
-import { parseUsDollarIndex, parseUsTreasuryYield } from '../src/adapters.mjs';
+import { parseUsdJpy, parseUsDollarIndex, parseUsTreasuryYield } from '../src/adapters.mjs';
 import {
   deriveDashboard,
   allocationCategoryForReport,
@@ -49,6 +49,16 @@ function countFeedReports(directoryName) {
     && !entry.name.includes('完整分析报告')
   ).length;
 }
+
+test('generated dashboard contains one document and a parseable runtime', () => {
+  const html = readFileSync(artifactPath, 'utf8');
+  const documents = html.match(/<!doctype html>/gi) ?? [];
+  const script = html.match(/<script type="module">([\s\S]*?)<\/script>/i)?.[1];
+
+  assert.equal(documents.length, 1);
+  assert.ok(script, 'generated dashboard must contain its inline runtime');
+  assert.doesNotThrow(() => new Function(script));
+});
 
 test('dashboard shell exposes every approved navigation and rendering target', () => {
   const html = readFileSync(sourcePath, 'utf8');
@@ -311,8 +321,6 @@ test('market summary renders three overview cards and includes signal sources in
     'refreshDividendSignalFromSource',
     'cache: \'no-store\'',
     '未进重点买入',
-    '"indexDate": "2026-08-06"',
-    '"bondDate": "2026-08-06"',
     'dividend-detail-date',
     '股息率2',
     '10年国债收益率',
@@ -340,6 +348,8 @@ test('market summary renders three overview cards and includes signal sources in
   ]) {
     assert.match(artifact, new RegExp(marker));
   }
+  assert.match(artifact, /"indexDate": "\d{4}-\d{2}-\d{2}"/);
+  assert.match(artifact, /"bondDate": "\d{4}-\d{2}-\d{2}"/);
   assert.doesNotMatch(artifact, /记录信息|dividend-record-list/);
   assert.ok(artifact.includes('AKShare stock_zh_index_value_csindex(000922, 股息率2)'));
   assert.ok(appSource.includes('数据日期：${displayDate}'));
@@ -524,20 +534,33 @@ test('featured digest replaces book list and reads BBXM daily summaries', () => 
   assert.match(appSource, /截至某个交易日收盘，投资者尚未偿还的融资负债总额。/);
   assert.match(source, /美债10年/);
   assert.match(source, /美元指数/);
+  assert.match(source, /美元兑日元/);
   assert.match(appSource, /usTreasury10y/);
   assert.match(appSource, /usDollarIndex/);
+  assert.match(appSource, /usdJpy/);
   assert.match(appSource, /> 4\.5/);
   assert.match(appSource, /> 100/);
+  assert.match(appSource, />= 160/);
+  assert.match(appSource, /日元贬值风险线/);
   assert.match(appSource, /riskWatchMissingLabel/);
-  assert.match(appSource, /数据源为空/);
+  assert.match(appSource, /riskWatchValueLabel/);
+  assert.match(appSource, /datedRiskLabel/);
+  assert.match(appSource, /日线/);
+  assert.match(appSource, /当前显示内置示例数据/);
+  assert.match(appSource, /entry\?\.status === 'example'/);
+  assert.match(appSource, /上游返回空/);
+  assert.doesNotMatch(appSource, /layerWatchLabel/);
+  assert.doesNotMatch(appSource, /\.\.\.layers\.map/);
   assert.match(appSource, /高风险/);
   assert.match(styles, /margin-hover-tooltip/);
   assert.match(styles, /risk-watch-list li\.is-high-risk/);
   assert.match(styles, /cursor: crosshair/);
   assert.match(readFileSync(new URL('../src/adapters.mjs', import.meta.url), 'utf8'), /\/api\/us-treasury-yield/);
   assert.match(readFileSync(new URL('../src/adapters.mjs', import.meta.url), 'utf8'), /\/api\/us-dollar-index/);
+  assert.match(readFileSync(new URL('../src/adapters.mjs', import.meta.url), 'utf8'), /\/api\/usd-jpy/);
   assert.match(readFileSync(new URL('../scripts/local_proxy.py', import.meta.url), 'utf8'), /fetch_us_treasury_yield/);
   assert.match(readFileSync(new URL('../scripts/local_proxy.py', import.meta.url), 'utf8'), /fetch_us_dollar_index/);
+  assert.match(readFileSync(new URL('../scripts/local_proxy.py', import.meta.url), 'utf8'), /fetch_usd_jpy/);
   assert.match(source, /BBXM_FEATURED_DIGEST/);
   assert.doesNotMatch(source, /READING LIST|书单入口|book-list/);
   assert.match(buildSource, /BBXM每日汇总/);
@@ -607,7 +630,7 @@ test('topic map reads wiki topic pages into the thermometer navigation', () => {
     'data-topic-filter="bbxm"',
     'data-topic-filter="bishi"',
     'obsidian://open?path=',
-    encodeURIComponent(join(repoRoot, 'wiki', 'topics', '冰冰小美-知识地图.md')),
+    encodeURIComponent(join(repoRoot, 'wiki', 'topics', '冰冰小美-月报地图.md')),
     encodeURIComponent(join(repoRoot, 'wiki', 'topics', '碧树西风-投资系统建模.md')),
   ]) {
     assert.ok(html.includes(marker), marker);
@@ -748,10 +771,9 @@ test('tracking intraday sort distance measures closeness to dynamic value left e
   assert.equal(leftEdgeFromValueRange('16.5—20.5 元'), 16.5);
   const nearLeft = trackingLeftEdgeDistance({ valueRange: '16.5—20.5 元', livePrice: 16.8 });
   const farFromLeft = trackingLeftEdgeDistance({ valueRange: '16.5—20.5 元', livePrice: 19.58 });
-  const parsedQuote = trackingLeftEdgeDistance({ valueRange: '7.5—11.5 元/股', reportQuote: '14.62 元 · -4.76%' });
 
   assert.ok(nearLeft < farFromLeft);
-  assert.equal(Number.isFinite(parsedQuote), true);
+  assert.equal(trackingLeftEdgeDistance({ valueRange: '7.5—11.5 元/股', reportQuote: '14.62 元 · -4.76%' }), Number.POSITIVE_INFINITY);
   assert.equal(trackingLeftEdgeDistance({ valueRange: '未获取到', livePrice: 12 }), Number.POSITIVE_INFINITY);
 });
 
@@ -771,6 +793,7 @@ test('tracking addable and reducible filters derive signals from dynamic value r
   assert.equal(trackingRiskRewardForQuote({ valueRange: '16.5—20.5 元', livePrice: 21 }).label, '无正向盈亏比');
   assert.equal(trackingRiskRewardForQuote({ valueRange: '16.5—20.5 元', livePrice: 16 }).label, '低于下沿');
   assert.equal(trackingRiskRewardForQuote({ valueRange: '16.5—20.5 元', reportQuote: '18.00 元' }).label, '等待实时');
+  assert.deepEqual(trackingSignalForQuote({ valueRange: '16.5—20.5 元', reportQuote: '18.00 元' }), { addStars: 0, reducible: false });
   assert.match(appSource, /trackingStatusFilter === 'addable'/);
   assert.match(appSource, /trackingStatusFilter === 'reducible'/);
   assert.match(appSource, /trackingAllocationMode/);
@@ -785,7 +808,10 @@ test('tracking risk-reward display hides quote change percentage', () => {
   assert.equal(trackingQuotePriceOnly('14.62 元 · -4.76%'), '14.62 元');
   assert.equal(trackingQuotePriceOnly('未获取到'), '未获取到');
   assert.match(appSource, /`\$\{liveQuote\.price\.toFixed\(2\)\} 元`/);
+  assert.match(appSource, /const intraday = liveQuote[\s\S]*: '';/);
+  assert.match(appSource, /const riskRewardText = riskReward\.label !== '等待实时'[\s\S]*: '';/);
   assert.doesNotMatch(appSource, /`\$\{liveQuote\.price\.toFixed\(2\)\} 元\$\{signalLabel\}`/);
+  assert.doesNotMatch(appSource, /report\.reportQuote \? trackingQuotePriceOnly\(report\.reportQuote\)/);
   assert.match(appSource, /riskRewardText/);
   assert.match(appSource, /盈亏比|riskReward/);
   assert.doesNotMatch(appSource, /riskReward\.detail/);
@@ -815,10 +841,10 @@ test('tracking list refreshes intraday quotes directly from stock codes', () => 
     'tradeDate',
     'tracking-close-date',
     '收盘',
-    '读取行情…',
   ]) {
     assert.match(appSource, new RegExp(marker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   }
+  assert.doesNotMatch(appSource, /读取行情…/);
   assert.doesNotMatch(appSource, /stock-decline-streak|trackingDeclineCache|declineStreakText/);
   assert.doesNotMatch(appSource, /closePerformanceEntry\.data\.tradeDate \? `\$\{closePerformanceEntry\.data\.tradeDate\}收盘`/);
   assert.doesNotMatch(appSource, /formatNumber\(closePerformanceEntry\.data\.latestClose, 2\)} 元/);
@@ -866,6 +892,7 @@ test('example state produces a complete auditable score', () => {
   assert.ok(Number.isFinite(derived.score.score));
   assert.ok(Number.isFinite(derived.usTreasury10y.data.at(-1).value));
   assert.ok(Number.isFinite(derived.usDollarIndex.data.at(-1).value));
+  assert.ok(Number.isFinite(derived.usdJpy.data.at(-1).value));
 });
 
 test('us treasury yield parser keeps 10 year rate sorted by date', () => {
@@ -895,6 +922,21 @@ test('us dollar index parser keeps close values sorted by date', () => {
   assert.deepEqual(rows, [
     { date: '2026-07-29', value: 99.8 },
     { date: '2026-07-30', value: 100.2 },
+  ]);
+});
+
+test('usd jpy parser keeps close values sorted by date', () => {
+  const rows = parseUsdJpy({
+    rows: [
+      { trade_date: '20260730', close: '160.2' },
+      { trade_date: '2026-07-29', bid_close: '159.8' },
+      { trade_date: '2026-07-28', bid_close: null },
+    ],
+  });
+
+  assert.deepEqual(rows, [
+    { date: '2026-07-29', value: 159.8 },
+    { date: '2026-07-30', value: 160.2 },
   ]);
 });
 

@@ -6,6 +6,7 @@ export const SOURCES = Object.freeze({
   tushareMargin: { name: 'Tushare融资融券汇总', url: '/api/margin' },
   tushareUsTreasury: { name: 'Tushare美国国债收益率', url: '/api/us-treasury-yield' },
   tushareUsDollarIndex: { name: 'Tushare美元指数', url: '/api/us-dollar-index' },
+  tushareUsdJpy: { name: 'Tushare美元兑日元', url: '/api/usd-jpy' },
 });
 
 export const INDEX_IDS = Object.freeze({
@@ -204,6 +205,10 @@ export function parseUsDollarIndex(payload) {
   }).sort((left, right) => left.date.localeCompare(right.date));
 }
 
+export function parseUsdJpy(payload) {
+  return parseUsDollarIndex(payload);
+}
+
 export function jsonp(url, callbackParam = 'cb', timeoutMs = 12000) {
   if (typeof document === 'undefined') return Promise.reject(new Error('JSONP requires a browser document'));
   return new Promise((resolve, reject) => {
@@ -303,4 +308,9 @@ export async function loadUsTreasury10yHistory() {
 export async function loadUsDollarIndexHistory() {
   if (!isLocalProxyLocation()) throw new Error('local proxy is unavailable');
   return parseUsDollarIndex(await fetchJson(buildLocalProxyUrl('/api/us-dollar-index'), requestTimeout()));
+}
+
+export async function loadUsdJpyHistory() {
+  if (!isLocalProxyLocation()) throw new Error('local proxy is unavailable');
+  return parseUsdJpy(await fetchJson(buildLocalProxyUrl('/api/usd-jpy'), requestTimeout()));
 }

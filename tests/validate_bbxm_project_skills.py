@@ -19,6 +19,7 @@ EXPECTED_FILES = {
     "bbxm-equity-research": (
         "SKILL.md",
         "template.md",
+        "references/peter-lynch-equity-research-framework.md",
         "agents/openai.yaml",
     ),
     "bbxm-information-filter-flow": (
@@ -212,11 +213,19 @@ def main() -> None:
     equity_template = (SKILLS_ROOT / "bbxm-equity-research" / "template.md").read_text(
         encoding="utf-8-sig"
     )
+    equity_lynch_reference = (
+        SKILLS_ROOT
+        / "bbxm-equity-research"
+        / "references"
+        / "peter-lynch-equity-research-framework.md"
+    ).read_text(encoding="utf-8-sig")
     for marker in (
         "bbxm-three-factor-analysis",
         "bbxm-risk-identification",
         "两个技能互不调用",
         "不得在本技能中复制其检查清单",
+        "Step 4.5：彼得·林奇公司分类与投资故事",
+        "references/peter-lynch-equity-research-framework.md",
     ):
         require(marker in equity_skill, f"bbxm-equity-research integration is missing: {marker}")
 
@@ -227,8 +236,24 @@ def main() -> None:
         "主动作",
         "承接条件",
         "退出条件",
+        "彼得·林奇公司分类与投资故事",
+        "一句话投资故事",
+        "利润增长等式",
+        "林奇框架卖出条件",
     ):
         require(marker in equity_template, f"bbxm-equity-research template is missing: {marker}")
+
+    for marker in (
+        "缓慢增长型 Slow Grower",
+        "稳健增长型 Stalwart",
+        "快速增长型 Fast Grower",
+        "周期型 Cyclical",
+        "困境反转型 Turnaround",
+        "资产隐蔽型 Asset Play",
+        "PEG = PE ÷ 盈利增长率",
+        "投资逻辑证伪条件",
+    ):
+        require(marker in equity_lynch_reference, f"Peter Lynch reference is missing: {marker}")
 
     retired_risk_contract = (
         "风险累积 / 风险暴露 / 风险释放 / 风险转弱 / 风险重新转强",

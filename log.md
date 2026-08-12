@@ -19912,6 +19912,48 @@ dashboard / tracking-metric-update
 
 - 如后续需要，可把连跌天数与“可加 / 可减”筛选联动。
 
+## 2026-08-12
+
+### 操作类型
+
+dashboard / tracking-intraday
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求调整跟踪清单“盘中实时”口径：只有本地实时行情接口返回有效价格时才显示盘中价格；未读取到实时行情时显示为空，不再回退展示研报内嵌的每日同步价或前一交易日收盘价。同步使盈亏比、可加/可减星级和左沿排序只基于真实实时价计算，避免旧收盘价误导盘中判断。
+
+### 后续待办
+
+- 若需要盘中失败原因，可另加一个鼠标悬浮提示或数据审计入口，而不是直接占用价格单元格。
+
+## 2026-08-11
+
+### 操作类型
+
+dashboard / risk-monitor
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+修正风险监控大屏在内置示例数据状态下的显示逻辑：示例快照不再按真实“日线”日期展示，也不再触发高风险颜色，统一显示“示例数据”并提示等待联网刷新或点击刷新数据，避免将示例尾部日期 `2026-06-15` 误读为实时数据源日期。
+
+### 后续待办
+
+- 若刷新后仍停留在示例数据，继续检查本地代理是否启动到新版文件以及外部接口是否返回有效数据。
+
 ## 2026-08-06
 
 ### 操作类型
@@ -20437,6 +20479,750 @@ link / source-table
 ### 后续待办
 
 - 暂无。
+
+## 2026-08-10
+
+### 操作类型
+
+automation / bbxm-daily-brief
+
+### 修改文件
+
+- `sources/automations/BBXM每日汇总/2026-08-10/冰冰小美/processing/extracted-posts.json`
+- `sources/automations/BBXM每日汇总/2026-08-10/冰冰小美/processing/risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026-08-10/冰冰小美/processing/risk-write-status.json`
+- `sources/automations/BBXM每日汇总/2026-08-10/冰冰小美/task.log`
+- `sources/automations/BBXM每日汇总/2026-08-10/冰冰小美/summary.md`
+- `log.md`
+
+### 操作说明
+
+按 `.agents/automations/bbxm_daliy_brief.md` 执行 2026-08-10 BBXM 每日汇总。通过雪球主页详情提取到 20 条可见候选，保存脚本按目标日期过滤后，2026-08-10 目标日期原帖为 0 条，保存失败为 0。生成 `risk-analysis.json`，覆盖为 saved/analyzed/unresolved = 0/0/0 且 `analysis_complete=true`；Excel 更新器返回 `no_risk`，未修改风险提示工作簿。生成 `summary.md`，明确本轮仅覆盖运行时可见主页详情候选，不覆盖后续新增、删除、隐藏或平台未展示帖子。
+
+### 后续待办
+
+- 若 2026-08-10 后续出现新帖，按同日重跑补抓。
+- 修复或对齐 `wiki/people/冰冰小美.md` 乱码，以及提示词要求但当前缺失的 `wiki/concepts/冰冰小美-rule-体系三要素的运用.md`、`wiki/concepts/冰冰小美-concept-风险类型整理.md`、`wiki/concepts/冰冰小美-rule-减仓.md`。
+
+## 2026-08-10
+
+### 操作类型
+
+automation / dividend-signal
+
+### 修改文件
+
+- `sources/automations/中证红利信号/最新信号.md`
+- `sources/automations/中证红利信号/中证红利每日信号.xlsx`
+- `log.md`
+
+### 操作说明
+
+运行 `python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py --output-dir "sources/automations/中证红利信号" --run-date 2026-08-10`，刷新中证红利股息率信号每日记录。AKShare 取到 2026-08-07 指数估值与国债收益率：股息率2 为 4.20%，中国10年国债收益率为 1.7114%，股债利差为 2.4886 个百分点。理杏仁公开页面返回 HTTP 403，雪球实时行情为空响应，因此历史分位点与当天涨跌幅保持待验证；三类规则结果为历史分位点待验证、绝对股息率 C、相对债券收益率 C，综合结论为“历史分位点待验证，暂不判定加大买入区间”，未进入重点买入区间。
+
+### 后续待办
+
+- 若后续理杏仁公开页面恢复，应补充核验近10年股息率分位。
+
+## 2026-08-10
+
+### 操作类型
+
+repair / dashboard
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/scripts/build.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+修复面板构建器将内联 JavaScript 作为普通替换字符串插入 HTML 时，把“美元符号紧跟反引号”的字符组合误解释为替换模式并重复注入整份页面的问题；改用函数式替换，重新生成面板，并增加单文档与运行时语法回归测试。同步将每日变化的中证红利数据日期断言改为日期格式校验。
+
+### 后续待办
+
+- 暂无。
+
+## 2026-08-10
+
+### 操作类型
+
+skill / improve
+
+### 修改文件
+
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `.agents/skills/bbxm-equity-research/template.md`
+- `.agents/skills/bbxm-equity-research/references/peter-lynch-equity-research-framework.md`
+- `tests/validate_bbxm_project_skills.py`
+- `log.md`
+
+### 操作说明
+
+按用户提供的《彼得·林奇个股研究框架》将 `bbxm-equity-research` 升级至 v1.3.0。新增六类公司分类、2—5 句话投资故事、利润增长等式、增长质量检查、类型化估值、市场预期偏差、积极 / 危险信号以及持仓 / 卖出条件，并映射进既有 16 章模板；完整框架独立保存于技能 `references/`，避免主入口膨胀和重复维护。
+
+### 后续待办
+
+- 若需衡量新增框架对真实研报质量的提升，可另行设计快速增长型、周期型和困境反转型三个对照评测案例。
+
+## 2026-08-10
+
+### 操作类型
+
+automation / dividend-signal
+
+### 修改文件
+
+- `sources/automations/中证红利信号/最新信号.md`
+- `sources/automations/中证红利信号/中证红利每日信号.xlsx`
+- `log.md`
+
+### 操作说明
+
+按 `zzhl-dividend-signal` 技能重新运行 `python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py --output-dir "sources/automations/中证红利信号" --run-date 2026-08-10`，刷新中证红利股息率信号每日记录。AKShare 取到 2026-08-07 指数估值和国债收益率：股息率2 为 4.20%，中国10年国债收益率为 1.7114%，股债利差为 2.4886 个百分点。理杏仁公开页面返回 HTTP 403，雪球实时行情为空响应，因此历史分位点、理杏仁市值加权股息率和当天涨跌幅保持待验证；三类规则结果为历史分位点待验证、绝对股息率 C、相对债券收益率 C，综合结论为“历史分位点待验证，暂不判定加大买入区间”，未进入重点买入区间。
+
+### 后续待办
+
+- 若理杏仁公开页面或其他可核验免费来源恢复，再补充分位点数据。
+
+## 2026-08-11
+
+### 操作类型
+
+research / equity-research
+
+### 修改文件
+
+- `sources/webpages/2026-08-11-华润江中研究数据快照.md`
+- `workbench/targets/2026-08-11-1803-华润江中-机构级决策研报.md`
+- `sources/automations/支柱产业/消费/医药健康/2026-08-11-1803-华润江中-机构级决策研报.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` 技能完成华润江中（600750.SH）机构级研究：核对 2025 年报、2026 年一季报、近三个月公告、管理层交流、五年财务、分部产品、分红、资金分档、融资融券、可比公司与卖方一致预期；采用相对估值、DCF 和股息折现三种方法交叉验证，给出 22—31 元动态价值区间、28 元基准价值及 `wait` 动作。三要素判断为竞争格局有利、流动性分歧、情绪中性，风险方向为“重新增强”，下一验证节点为 2026-08-22 半年报。
+
+### 后续待办
+
+- 2026 年半年报披露后复核收入降幅、经营现金流、OTC 渠道库存及中期分红方案。
+
+## 2026-08-11
+
+### 操作类型
+
+research / equity-research / html-automation
+
+### 修改文件
+
+- `sources/webpages/2026-08-11-华东重机研究数据快照.md`
+- `workbench/targets/2026-08-11-1523-华东重机-机构级决策研报.md`
+- `sources/automations/支柱产业/高端制造/2026-08-11-1523-华东重机-机构级决策研报.html`
+- `.agents/skills/bbxm-equity-research/scripts/render-report-html.cjs`
+- `.agents/skills/bbxm-equity-research/scripts/test-render-report-html.cjs`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` 完成华东重机（002685.SZ）首次机构级研究，核验 2025 年报、2026 年一季报与半年度业绩预告、港机重大合同、启东基地定增计划、锐信图芯业绩承诺及最新行情资金。报告将公司归类为“困境反转型＋周期型”，对港机主业、GPU/MEMS 期权分别估值，给出 3.4—7.2 元综合区间与 `observe` 动作；同步生成高端制造分类 HTML 阅读版，不更新正式 Wiki 索引。验收时修正统一 HTML 渲染器在价格位于价值区间内时使用错误分母计算下跌风险的问题，并新增回归测试。
+
+### 后续待办
+
+- 2026 年半年报披露后，复核收入、汇兑损失、经营现金流与订单交付，并更新同一权威研报。
+
+## 2026-08-11
+
+### 操作类型
+
+research / equity / valuation
+
+### 修改文件
+
+- `sources/webpages/2026-08-11-华辰装备研究数据快照.md`
+- `workbench/targets/2026-08-11-1502-华辰装备-机构级决策研报.md`
+- `sources/automations/支柱产业/高端制造/2026-08-11-1502-华辰装备-机构级决策研报.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research`、三要素和风险识别流程完成华辰装备（300809.SZ）首次机构级决策研究。以 Tushare MCP、2025 年报、2026 年一季报、业绩说明会和 2026-08-11 收盘行情为底稿，拆分轧辊磨床主业、净金融资产及机器人/半导体新品期权，完成相对估值、DCF、反向 DCF、SOTP、林奇分类、三要素与风险方向判断。结论为高估 / 观望，综合价值区间 10—20 元；由最终 Markdown 统一渲染 HTML，16 个正文锚点、每日跟踪面板、UTF-8 中文与双链转换验证通过。高端制造目录内无产业研报，按技能规则保留个股 HTML，未建立产业反向链接；同步记录技能情绪理论页实际文件名与指定路径存在低影响差异。
+
+### 后续待办
+
+- 2026 半年报披露后复核 100 台订单的交付、验收、收入确认，以及扣非利润和毛利率。
+
+## 2026-08-10
+
+### 操作类型
+
+tool / tushare-data
+
+### 修改文件
+
+- `tools/tushare-data/scripts/tushare_client.py`
+- `tools/tushare-data/scripts/mcp_server.py`
+- `tools/tushare-data/config/datasets.yaml`
+- `tools/tushare-data/tests/test_tushare_mcp.py`
+- `tools/tushare-data/SKILL.md`
+- `log.md`
+
+### 操作说明
+
+为本地 `tushare-data` 增加中央汇金持仓判断接口。新增 `top10_holders` 与 `top10_floatholders` 股东披露数据集配置，并暴露 `check_central_huijin_holding` MCP 工具，用于在前十大股东 / 前十大流通股东披露中匹配“中央汇金”相关主体，返回最新报告期判断结果、命中股东名称、持股数量 / 比例和披露口径说明。
+
+### 后续待办
+
+- 若后续需要识别更广义“国家队”主体，可在接口外层增加可配置关键词组或单独国家队持仓判断接口。
+
+## 2026-08-11
+
+### 操作类型
+
+tool / risk-monitor
+
+### 修改文件
+
+- `tools/tushare-data/scripts/mcp_server.py`
+- `tools/tushare-data/config/datasets.yaml`
+- `tools/tushare-data/tests/test_tushare_mcp.py`
+- `tools/tushare-data/SKILL.md`
+- `tools/a-share-market-dashboard/scripts/local_proxy.py`
+- `tools/a-share-market-dashboard/src/adapters.mjs`
+- `tools/a-share-market-dashboard/src/data-service.mjs`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/tests/test_local_proxy.py`
+- `tools/a-share-market-dashboard/tests/data-service.test.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+检查风险监控大屏“美元指数”显示数据源为空的问题：本地代理日志显示 2026-08-04 至 2026-08-11 多次调用 `Tushare fx_daily ts_code=USDOLLAR.FXCM` 均返回 `rows=0`，因此为空的直接原因是当前 Tushare 外汇数据源对该美元指数代码没有返回数据，而不是前端渲染错误。同步为 `tushare-data` 新增 `get_usd_jpy_exchange_rate`，默认读取 `USDJPY.FXCM`，并在 USDJPY >= 160 时标记日元贬值高风险；大屏新增 `/api/usd-jpy` 本地代理、`usdJpy` 数据域和“美元兑日元”风险观察项，重建 HTML。
+
+### 后续待办
+
+- 若仍需要美元指数本身，可另行寻找 Tushare 可用代码或接入其他稳定美元指数数据源作为备援。
+
+## 2026-08-11
+
+### 操作类型
+
+ui / risk-monitor
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+统一风险监控右侧观察列表的数据时间展示格式。美债10年、美元指数、美元兑日元等外部日线指标改为“数值 · YYYY-MM-DD日线 · 风险状态”；位置、估值、情绪等综合层指标改为“分数 · YYYY-MM-DD数据日”，避免把综合层分数误标成单一日线，同时让用户能直接看到指标对应的数据日期。
+
+### 后续待办
+
+- 若后续新增实时汇率源，可将美元兑日元由“日线”切换为“实时”或并列展示实时 / 日线双口径。
+
+## 2026-08-11
+
+### 操作类型
+
+ui / risk-monitor
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户截图要求，从风险监控右侧“风险观察”列表移除“位置层 / 估值层 / 情绪层”三个综合层分数卡片，只保留美债10年、美元指数、美元兑日元等外部风险观察项；同步更新初始 HTML、运行时渲染逻辑和构建测试，并重建面板 HTML。
+
+### 后续待办
+
+- 暂无。
+
+## 2026-08-10
+
+### 操作类型
+
+automation / BBXM每日汇总
+
+### 修改文件
+
+- `sources/automations/BBXM每日汇总/2026-08-10/冰冰小美/processing/extracted-posts-rerun-20260810.json`
+- `sources/automations/BBXM每日汇总/2026-08-10/冰冰小美/processing/risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026-08-10/冰冰小美/processing/risk-write-status.json`
+- `sources/automations/BBXM每日汇总/2026-08-10/冰冰小美/summary.md`
+- `sources/automations/BBXM每日汇总/2026-08-10/冰冰小美/task.log`
+- `log.md`
+
+### 操作说明
+
+按 `.agents/automations/bbxm_daliy_brief.md` 对 2026-08-10 执行冰冰小美每日汇总同日重跑。自动化 Chrome/CDP 启动后抓取雪球主页可见详情 30 条，保存脚本按目标日期过滤后目标日期帖子数为 0，原始帖子保存数为 0，失败数为 0；候选日期分布为 2026-08-05 x8、2026-08-04 x1、2026-08-02 x1、2026-08-01 x2、2026-07-31 x7、2026-07-30 x9、2026-07-28 x1、2024-05-19 x1。风险分析完整覆盖 0/0/0，Excel 更新器返回 `no_risk`，未修改风险提示工作簿。
+
+### 后续待办
+
+- 若 2026-08-10 晚间出现新增、隐藏后恢复或平台后续展示的帖子，需要同日重跑补抓。
+- `wiki/people/冰冰小美.md` 仍是独立的乱码修复项。
+## 2026-08-10
+
+### 操作类型
+
+link / topic-organization
+
+### 修改文件
+
+- `wiki/topics/冰冰小美-情绪体系认知篇.md`
+- `log.md`
+
+### 操作说明
+
+将 `wiki/topics/冰冰小美-宏观战略-竞争格局分析.md` 中“重要资料”章节的 28 篇文章链接同步归入“冰冰小美-情绪体系认知篇”的“体系之竞争格局分析案例”章节，并保留原中美产业竞争主题页及其文章清单作为独立主题入口。
+
+### 后续待办
+
+- 无
+
+## 2026-08-10
+
+### 操作类型
+
+link / topic-organization
+
+### 修改文件
+
+- `wiki/topics/冰冰小美-情绪体系认知篇.md`
+- `log.md`
+
+### 操作说明
+
+将 `wiki/topics/冰冰小美-AI产业趋势.md` 中“重要资料”章节的 18 篇文章归入“冰冰小美-情绪体系认知篇”的“体系之竞争格局分析案例”章节。与已有中美产业竞争案例按来源主题分组；其中 10 篇重合文章沿用原链接，新增 8 篇未重复文章。原 AI 产业趋势主题页及其资料清单保持不变。
+
+### 后续待办
+
+- 无
+
+## 2026-08-10
+
+### 操作类型
+
+refactor / topic-organization
+
+### 修改文件
+
+- `wiki/topics/冰冰小美-情绪体系认知篇.md`
+- `log.md`
+
+### 操作说明
+
+将“体系之竞争格局分析案例”中的 36 篇文章由来源主题分组改为分析层级分组：宏观国家方向收录 29 篇，聚焦国运、国家战略、国际格局、货币金融、经济周期和全市场风险；中观产业方向收录 7 篇，聚焦 AI、商业航天、传统产业升级、技术路线、资本开支、供需结构和产业链映射。跨层文章按主要分析对象只保留一处。
+
+### 后续待办
+
+- 无
+
+## 2026-08-10
+
+### 操作类型
+
+sort / topic-organization
+
+### 修改文件
+
+- `wiki/topics/冰冰小美-情绪体系认知篇.md`
+- `log.md`
+
+### 操作说明
+
+将“体系之竞争格局分析案例”中的宏观国家方向 29 篇文章和中观产业方向 7 篇文章分别按发布日期从早到晚排序，分组归属、文章数量和链接保持不变。
+
+### 后续待办
+
+- 无
+
+## 2026-08-11
+
+### 操作类型
+
+link / table-fix
+
+### 修改文件
+
+- `wiki/topics/冰冰小美-月报地图.md`
+- `log.md`
+
+### 操作说明
+
+修复“冰冰小美-月报地图”中“月报总览”表格的 Obsidian 双链显示问题：将表格内来源页、View Page 和 Reasoning Page 双链的别名分隔符由 `|` 改为 `\|`，防止 Markdown 表格误把链接拆成额外列，使文章标题和已拆页面恢复为可点击链接。
+
+### 后续待办
+
+- 无
+
+## 2026-08-11
+
+### 操作类型
+
+link / topic-update
+
+### 修改文件
+
+- `wiki/topics/冰冰小美-月报地图.md`
+- `index.md`
+- `log.md`
+
+### 操作说明
+
+将 `sources/automations/BBXM每日汇总/2026-08-01/冰冰小美/085100_2026年7月月报_一_40321386.md` 与 `sources/automations/BBXM每日汇总/2026-08-01/冰冰小美/112500_2026年7月月报_二_40322474.md` 链接到“冰冰小美-月报地图”：更新 frontmatter 来源、月报总览表格、阶段演化、重要资料和待补充问题，并将两篇 7 月月报标记为待拆 View / Reasoning。
+
+### 后续待办
+
+- 后续可将两篇 7 月月报拆成独立 View / Reasoning，并按需补入月度时间线。
+
+## 2026-08-11
+
+### 操作类型
+
+edit / display-label
+
+### 修改文件
+
+- `wiki/topics/冰冰小美-月报地图.md`
+- `index.md`
+- `log.md`
+
+### 操作说明
+
+将“冰冰小美-月报地图”中 2026 年 7 月月报来源的显示名、阶段标题、主线说明和索引描述统一补上年份，避免后续跨年份月报混淆。
+
+### 后续待办
+
+- 无
+
+## 2026-08-11
+
+### 操作类型
+
+research / update / render / link
+
+### 修改文件
+
+- `workbench/targets/2026-07-17-信维通信-机构级决策研报.md`
+- `sources/webpages/2026-07-14-信维通信-股权收购及增资意向公告.md`
+- `sources/webpages/2026-07-31-信维通信-媒体报道澄清公告.md`
+- `sources/webpages/2026-08-11-信维通信-研究数据快照.md`
+- `sources/automations/新兴产业/商业航天/2026-07-17-信维通信-机构级决策研报.html`
+- `sources/automations/新兴产业/商业航天/商业航天产业完整分析报告.html`
+- `.agents/skills/bbxm-equity-research/scripts/render-report-html.cjs`
+- `.agents/skills/bbxm-equity-research/scripts/test-render-report-html.cjs`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research`、`bbxm-three-factor-analysis` 与 `bbxm-risk-identification` 更新信维通信既有权威研报：补充 2026 年 7 月 MLCC 收购意向、媒体澄清、8 月 11 日盘中行情、资金流与融资融券窗口、最新卖方预期；重做彼得·林奇分类、三套估值、反向 DCF、三要素与风险方向，并加入霍华德·马克斯逆向条件判断。基于 Markdown 母稿重新生成 HTML 阅读版，并保持商业航天产业报告的公司研报回链。修正 HTML 渲染器在同一产业目录误挂其他公司资金面报告的问题：自动匹配增加同公司名约束，并补充回归测试。`workbench/index.md` 已存在同一路径入口，因此未重复修改；根 `index.md` 按 Workbench 路由规则不改。
+
+### 后续待办
+
+- 2026-08-28 半年报披露后，复核收入、扣非净利润、经营现金流、存货、应收账款、商业卫星进展和估值区间。
+- 定增发行结果或 MLCC 正式交易方案披露后，按实际股数、现金和标的财务重新估值。
+
+## 2026-08-11
+
+### 操作类型
+
+edit / table-format
+
+### 修改文件
+
+- `wiki/topics/冰冰小美-月报地图.md`
+- `log.md`
+
+### 操作说明
+
+按用户截图要求调整“冰冰小美-月报地图”的“月报总览”表格：去掉单独的“时间”字段，将来源列中的 14 个来源显示名统一补成年份格式，保留原有时间顺序、整理状态、已拆页面和主线说明。
+
+### 后续待办
+
+- 无
+
+## 2026-08-11
+
+### 操作类型
+
+refactor / topic-grouping
+
+### 修改文件
+
+- `wiki/topics/冰冰小美-情绪体系认知篇.md`
+- `log.md`
+
+### 操作说明
+
+按文章的主要论证对象，将“体系之竞争格局分析”中宏观国家方向的 29 篇案例重新划分为“国际博弈”和“国运”两组：国际博弈收录国家间竞争、美元体系、地缘关系与全球秩序主题，国运收录中国发展路径、国内经济循环、国家资本与长期产业转型主题；两组均按发布时间升序排列。
+
+### 后续待办
+
+- 无
+
+## 2026-08-11
+
+### 操作类型
+
+research / create / render / link
+
+### 修改文件
+
+- `workbench/targets/2026-08-11-1029-中科曙光-机构级决策研报.md`
+- `sources/webpages/2026-08-11-中科曙光-研究数据快照.md`
+- `sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-11-1029-中科曙光-机构级决策研报.html`
+- `sources/automations/新兴产业/算力/中游-计算系统与集群/2026-07-22-计算系统与集群产业完整分析报告.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research`、`bbxm-three-factor-analysis` 与 `bbxm-risk-identification` 首次建立中科曙光权威研报。研究优先使用本地 `tushare-data` 获取证券身份、行情、估值、资金流、融资融券、财务、分红、指数权重和宏观利率，并以上交所年报、可转债募集说明书、海光信息年报与权威媒体复核。估值将主业 DCF、相对估值和海光信息股权折价后的 SOTP 分开，避免把权益法投资收益与上市股权价值重复计算；同时完成三要素、风险方向、操作约束和后续监控。生成 HTML 阅读版并把“计算系统与集群”产业报告中的中科曙光公司名链接至该研报。根 `index.md` 按 Workbench 路由规则不改。
+
+### 后续待办
+
+- 2026 年半年报披露后，复核扣非净利润、服务收入占比、经营现金流、存货、合同负债和 2026 盈利区间。
+- 曙26转债上市、募投里程碑或第二套十万卡系统订单披露后，更新潜在稀释、资本回报和估值区间。
+
+## 2026-08-11
+
+### 操作类型
+
+refactor / topic-grouping
+
+### 修改文件
+
+- `wiki/topics/冰冰小美-风险体系.md`
+- `log.md`
+
+### 操作说明
+
+将“宏观风险关键词文章整理清单”的 34 篇去重文章统一纳入“风险体系”页面的“风险提示汇总”层级：保留月度风险概览，并将已整理核心文章、外部索引帖和风险提示文章列表设为同级子栏目；文章列表继续按全球局势、石油危机、恶性通胀和军事冲突分组，避免重复复制同一来源。
+
+### 后续待办
+
+- 无
+
+## 2026-08-11
+
+### 操作类型
+
+research / update / correct / render / link
+
+### 修改文件
+
+- `workbench/targets/2026-08-05-1010-星网锐捷-机构级决策研报.md`
+- `sources/webpages/2026-08-11-星网锐捷研究数据快照.md`
+- `sources/automations/新兴产业/算力/中游-数据中心网络/2026-08-05-1010-星网锐捷-机构级决策研报.html`
+- `sources/automations/新兴产业/算力/中游-数据中心网络/2026-07-22-数据中心网络产业完整分析报告.html`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research`、`bbxm-three-factor-analysis` 与 `bbxm-risk-identification` 原地更新星网锐捷唯一权威研报。刷新 2026-08-11 盘中行情、估值、连续资金分档、融资余额、市场融资和美国长端利率；补齐五年严格资本开支、自由现金流与 ROIC 代理；用 2026-07-03 法定业绩预告纠正旧数据快照中的公告日期及归母、扣非区间；引入 7 月 30 日调研披露的锐捷网络持股比例、约 75% 收入利润贡献、800G 趋势与白盒毛利约束。估值改为相对估值、严格 FCF DCF 与锐捷网络折价 NAV 三类交叉，并加入彼得·林奇资产隐蔽型分类、霍华德·马克斯逆向闸门、三要素和风险方向。使用既有路径重渲染 HTML，并保持数据中心网络产业研报回链；`workbench/index.md` 已有同一路径入口，未重复修改，根 `index.md` 按 Workbench 路由规则不改。
+
+### 后续待办
+
+- 2026-08-15 半年报披露后，复核扣非净利润、经营现金流、存货、分部收入、锐捷网络利润穿透和 H2 订单指引。
+- 如锐捷网络市值波动超过 30% 或星网锐捷连续资金分档转正，重算折价 NAV、三要素与 23—37 元估值区间。
+
+## 2026-08-11
+
+### 操作类型
+
+refactor / chronological-index
+
+### 修改文件
+
+- `wiki/topics/冰冰小美-风险体系.md`
+- `index.md`
+- `log.md`
+
+### 操作说明
+
+按用户确认的“时间为主、风险类型为辅”结构，重排风险提示汇总中的 34 篇宏观风险关键词文章：取消按风险主题展开的四张长表，改按 2022、2024、2025、2026 年分组，各年份内部按日期升序排列；统一使用“日期、文章、风险类型、核心提示、正式承接页”五列，同一来源只保留一次。原“宏观风险关键词文章整理清单”页面已在当前工作区中删除，本次未恢复该并发删除，并同步清理风险体系页和总索引中的失效导航，改为直接引用库内原始索引 source。
+
+### 后续待办
+
+- 无
+
+## 2026-08-11
+
+### 操作类型
+
+refactor / chronological-index
+
+### 修改文件
+
+- `wiki/topics/冰冰小美-风险体系.md`
+- `log.md`
+
+### 操作说明
+
+将“已整理核心文章”的 8 篇来源同步改为“时间为主、风险类型为辅”的结构：按 2025 年和 2026 年分组，各年份内部按日期升序排列，并统一为“日期、文章、风险类型、结构化页面、当前状态”五列；文章显示名不再重复日期。
+
+### 后续待办
+
+- 无
+
+## 2026-08-11
+
+### 操作类型
+
+refactor / summary-table
+
+### 修改文件
+
+- `wiki/topics/冰冰小美-风险体系.md`
+- `log.md`
+
+### 操作说明
+
+精简“月度风险概览”：将原五列表格压缩为“月份、风险阶段、主要风险、一句话判断”四列，删除重复的主要依据链接和过长月度说明；详细来源与结构化页面继续由下方核心文章及时间序列承接。
+
+### 后续待办
+
+- 无
+
+## 2026-08-11
+
+### 操作类型
+
+refactor / chronological-index
+
+### 修改文件
+
+- `wiki/topics/冰冰小美-风险体系.md`
+- `log.md`
+
+### 操作说明
+
+按用户最终确认取消“风险节点与时间窗口、历史危机与泡沫警示、流动性挤压与金融系统风险、宏观风险敞口”等专题分类。已在上方时间区出现的页面不重复保留；其余结构化页面统一汇入“补充结构化页面时间索引”，按主要来源时间、风险窗口时间或跨期问题页建页日期升序排列。
+
+### 后续待办
+
+- 无
+
+## 2026-08-11
+
+### 操作类型
+
+automation / dividend-signal
+
+### 修改文件
+
+- `sources/automations/中证红利信号/最新信号.md`
+- `sources/automations/中证红利信号/中证红利每日信号.xlsx`
+- `log.md`
+
+### 操作说明
+
+按 `zzhl-dividend-signal` 技能运行 `python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py --output-dir "sources/automations/中证红利信号" --run-date 2026-08-11`，刷新中证红利股息率信号每日记录。当前记录日期为 `2026-08-11`，AKShare 最新指数估值日期为 `2026-08-10`，中证红利 `股息率2` 为 `4.16%`；中国10年国债收益率日期为 `2026-08-10`，收益率为 `1.7074%`，股债利差为 `2.4526` 个百分点。理杏仁公开页面返回 `HTTP Error 403: Forbidden`，雪球实时行情接口返回空响应，因此历史分位点、理杏仁市值加权股息率和当天涨跌幅保持待验证，未编造数值。按 Query Page“中证红利什么时候买入收益率最高”的三种触发规则判断：历史分位点 `待验证`，绝对股息率 `C（小额定投）`，相对债券收益率 `C（小额定投）`；综合结论为“历史分位点待验证，暂不判定加大买入区间”，未进入重点买入区间。
+
+### 后续待办
+
+- 若理杏仁公开页面或其他可核验免费来源恢复，再补充分位点数据。
+## 2026-08-12
+
+### 操作类型
+
+research / equity-research / html
+
+### 修改文件
+
+- `sources/webpages/2026-08-12-江钨装备研究数据快照.md`
+- `workbench/targets/2026-08-12-1019-江钨装备-机构级决策研报.md`
+- `sources/automations/支柱产业/高端制造/矿山装备与战略金属/2026-08-12-1019-江钨装备-机构级决策研报.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` 技能完成江钨装备（600397.SH）机构级研究，区分2025年已完成资产置换与2026年尚未完成的三项资产收购；使用本地Tushare、公司公告、交易预案和国家统计局数据重构现有底盘、最大摊薄备考利润、资金结构、三要素与风险方向。综合公允价值区间为2—5元，现价17.04元对应严重透支，动作结论为新增资金规避、已有持仓减仓。HTML由最终Markdown统一渲染。
+
+### 后续待办
+
+- 2026年半年报披露后复核Q2利润、经营现金流、存货与金环磁选订单验收。
+- 跟踪向特定对象发行的审核、注册、发行价、实际发行数量与三项资产交割。
+- 同目录暂无产业研报时不建立反向链接，后续若新增产业报告再补链。
+
+## 2026-08-12
+
+### 操作类型
+
+automation / dividend-signal
+
+### 修改文件
+
+- `sources/automations/中证红利信号/最新信号.md`
+- `sources/automations/中证红利信号/中证红利每日信号.xlsx`
+- `log.md`
+
+### 操作说明
+
+按 `zzhl-dividend-signal` 技能运行 `python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py --output-dir "sources/automations/中证红利信号" --run-date 2026-08-12`，刷新中证红利股息率信号每日记录。当前记录日期为 `2026-08-12`，AKShare 最新指数估值日期为 `2026-08-11`，中证红利 `股息率2` 为 `4.18%`；理杏仁公开页面成功解析，估值日期为 `2026-08-11`，市值加权股息率为 `4.26%`，近10年股息率分位为 `7.04%`，近10年80%分位点为 `6.11%`；中国10年国债收益率日期为 `2026-08-11`，收益率为 `1.7161%`，股债利差为 `2.4639` 个百分点。雪球实时行情接口返回空响应，因此当天涨跌幅保留为待验证，未用于修正股息率。
+
+按 Query Page“中证红利什么时候买入收益率最高”的三种触发规则判断：历史分位点 `D（不买或少买）`，绝对股息率 `C（小额定投）`，相对债券收益率 `C（小额定投）`；综合结论为“未进入加大买入区间”，未进入重点买入区间。
+
+### 后续待办
+
+- 继续观察理杏仁公开页面是否稳定恢复；雪球实时行情仍需等待接口恢复或更换免费行情源。
+
+## 2026-08-12
+
+### 操作类型
+
+create / concept-placeholder
+
+### 修改文件
+
+- `wiki/concepts/冰冰小美-宏观-国运.md`
+- `index.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求新建空白 Concept Page `冰冰小美-宏观-国运`，仅保留规范 frontmatter 与 Concept Page 章节骨架，未填入观点、来源、标签或相关页面；同步登记知识库索引。
+
+### 后续待办
+
+- 待用户后续补充或指定资料后，再完善概念定义、来源、核心内涵、边界和相关双链。
+
+## 2026-08-12
+
+### 操作类型
+
+link / source-index
+
+### 修改文件
+
+- `wiki/concepts/冰冰小美-宏观-国运.md`
+- `index.md`
+- `log.md`
+
+### 操作说明
+
+扫描 `sources/` 内包含“国运”的 Markdown 原始资料，共发现 166 个文件命中。按正文相关性筛选并去除评论区偶然命中、AI 合集简介、目录页、自动化解读及同文重复归档后，将 35 篇直接讨论国运定义、国情与国运、货币信用、宏观位置、投资交易和产业应用的来源链接到 `冰冰小美-宏观-国运` Concept Page；同步更新 frontmatter `sources`、页面来源索引和总索引描述，未提炼概念正文。
+
+### 后续待办
+
+- 后续可基于这 35 篇来源提炼国运的定义、关键变量、判断边界和观察信号。
+- [2026-08-12T16:13:39+08:00] QUERY query="霍华德如何定义投资" result_pages=2 mode=normal escalated=false
 
 ## 2026-08-12
 

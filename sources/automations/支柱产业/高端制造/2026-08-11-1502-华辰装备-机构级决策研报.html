@@ -1,0 +1,1814 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>华辰装备机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+.daily-tracking { margin: 0 0 42px; padding: 22px; border: 1px solid #cbdade; border-radius: 16px; background: linear-gradient(135deg, #f3f8f9 0%, #fffaf0 100%); box-shadow: 0 12px 30px rgba(23, 50, 71, .07); }
+.daily-tracking-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
+.daily-tracking-kicker { margin: 0 0 4px; color: var(--teal); font-size: 12px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+.daily-tracking h2 { margin: 0; padding: 0; border: 0; font-size: 27px; }
+.daily-tracking-time { margin: 4px 0 0; color: var(--muted); font-size: 12px; text-align: right; }
+.tracking-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.tracking-grid + .tracking-grid { margin-top: 12px; }
+.tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
+.tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
+.tracking-card[data-tracking-key="dynamic-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
+.range-breakdown { display: block; }
+.range-main { display: inline-flex; align-items: center; max-width: 100%; margin-bottom: 10px; padding: 3px 9px; border-radius: 999px; background: #e7f0f3; color: var(--navy); font-size: 20px; line-height: 1.3; font-weight: 800; }
+.range-points { display: grid; gap: 7px; margin-top: 1px; }
+.range-point { display: block; padding-left: 11px; border-left: 3px solid #bed2d8; color: #245068; font-size: 14px; line-height: 1.52; font-weight: 650; }
+.tracking-value.bad { color: var(--danger); }
+.tracking-detail { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; }
+.tracking-status { display: inline-flex; margin-top: 10px; padding: 3px 8px; border-radius: 999px; color: #526b77; background: #edf2f4; font-size: 12px; font-weight: 700; }
+.tracking-status.live { color: #17604e; background: #dff3eb; }
+.tracking-status.error { color: var(--danger); background: var(--danger-bg); }
+.tracking-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; margin-top: 14px; padding-top: 13px; border-top: 1px solid #d5e0e3; color: #536d78; font-size: 13px; }
+.tracking-footer a { font-weight: 700; }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+  .tracking-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+  .daily-tracking-head { display: block; }
+  .daily-tracking-time { text-align: left; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .daily-tracking, .tracking-card { border: 1px solid #aebbc2; color: #102f43; background: #fff; box-shadow: none; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · 300809.SZ</p>
+      <h1>华辰装备机构级决策研报</h1>
+      <div class="hero-meta"><span>2026-08-11 15:02（Asia/Shanghai，收盘）</span><span>2026-08-11 15:02</span><span>深圳证券交易所创业板 / 人民币</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
+<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
+<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
+<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
+<a class="toc-link" href="#section-6">6. 五年财务历史</a>
+<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
+<a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
+<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
+<a class="toc-link" href="#section-10">10. 估值</a>
+<a class="toc-link" href="#section-11">11. 冰冰小美框架判断</a>
+<a class="toc-link" href="#section-12">12. 最终结论</a>
+<a class="toc-link" href="#section-13">13. 后续监控指标</a>
+<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
+<a class="toc-link" href="#section-15">15. 来源清单</a>
+<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
+      <article class="content"><blockquote>
+<p>证券代码：300809.SZ<br>交易所 / 币种：深圳证券交易所创业板 / 人民币<br>研究截止时间：2026-08-11 15:02（Asia/Shanghai，收盘）<br>报告生成时间：2026-08-11 15:02<br>数据口径：法定报告优先；行情与资金以腾讯公开行情、Tushare MCP 为主；金额除特别说明外均为人民币  </p>
+</blockquote>
+<!-- DAILY_TRACKING_START -->
+<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-08-11 15:02（Asia/Shanghai，收盘）" data-value-low="10" data-value-high="20">
+  <div class="daily-tracking-head">
+    <div><p class="daily-tracking-kicker">Daily decision tracker</p><h2>每日跟踪面板</h2></div>
+    <p class="daily-tracking-time">更新：2026-08-11 15:02（Asia/Shanghai，收盘）<br>下次：收盘后 / 重大公告后</p>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value bad">恶化（季度）：2026Q1 营收 -17.15%、毛利率 -6.16pct、扣非净利润 -23.24%，现金流改善不足以抵消利润端走弱</p><p class="tracking-detail">风险方向：风险减弱：相较 6—7 月快速杀估值，价格与成交已进入修复；但高估值与基本面风险未解除。下一验证点与失效条件见第 11—13 章。</p></div>
+    <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value"><span class="range-breakdown"><span class="range-main">10—20 元/股。下沿约 10 元只计已验证轧辊磨床、维修改造和折价金融资产</span><span class="range-points"><span class="range-point">中枢约 15 元对应正常化主业利润 0.7—0.9 亿元与有限新品溢价</span><span class="range-point">上沿约 20 元已计入机器人/半导体设备从小批量走向可见收入</span><span class="range-point">高于 20 元需交付验收、利润率修复或盈利上修支撑</span></span></span></p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
+    <div class="tracking-card" data-tracking-key="risk-reward"><p class="tracking-label">盈亏比</p><p class="tracking-value bad" id="risk-reward-value">无正向盈亏比</p><p class="tracking-detail" id="risk-reward-detail">每日同步价 25.54 元；相对上沿空间 -21.7%，回落至下沿风险 +155.4%。价格已到或高于动态价值上沿，新增现金不具备正向盈亏比。</p></div>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="daily-quote"><p class="tracking-label">每日同步价</p><p class="tracking-value">25.54 元，2026-08-11 15:00 收盘</p><p class="tracking-detail">这是报告内嵌的正式跟踪基准，离线打开仍可使用。</p><span class="tracking-status">每日快照</span></div>
+    <div class="tracking-card" data-tracking-key="intraday-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">等待连接</p><p class="tracking-detail" id="intraday-detail">通过“大盘启动器”打开后获取盘中行情，每 60 秒刷新；直接打开 HTML 时不访问外部行情。</p><span class="tracking-status" id="intraday-status">未连接</span></div>
+    <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">observe</p><p class="tracking-detail">估值：高估：表面 PE-TTM 33.84 倍受 2025 年公允价值收益美化；按 2025 年扣非利润计算约 203 倍 · observe；风险：风险减弱：相较 6—7 月快速杀估值，价格与成交已进入修复；但高估值与基本面风险未解除；结论置信度：中：财报与行情证据充分，但新品订单收入、个股两融与最新卖方预测不足。</p><span class="tracking-status">高估：表面 PE-TTM 33.84 倍受 2025 年公允价值收益美化；按 2025 年扣非利润计算约 203 倍</span></div>
+  </div>
+  <div class="tracking-footer"><span>资金状态：<strong>结构性流出：10 日价格 +15.03%，但 5/10/20 日资金分档净额均为负；60 日价格 -35.28%、净流出约 5.30 亿元</strong> · 新增/已有动作：<strong>observe</strong></span><span>资金面分析：未单独生成</span></div>
+</section>
+<!-- DAILY_TRACKING_END -->
+<h2 id="section-1">1. 决策摘要</h2>
+
+<h3>1.1 基本面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值状态</td>
+<td><strong>高估</strong>：表面 PE-TTM 33.84 倍受 2025 年公允价值收益美化；按 2025 年扣非利润计算约 203 倍</td>
+</tr>
+<tr>
+<td>综合估值区间</td>
+<td><strong>10—20 元/股</strong>。下沿约 10 元只计已验证轧辊磨床、维修改造和折价金融资产；中枢约 15 元对应正常化主业利润 0.7—0.9 亿元与有限新品溢价；上沿约 20 元已计入机器人/半导体设备从小批量走向可见收入；高于 20 元需交付验收、利润率修复或盈利上修支撑</td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>较 25.54 元为 <strong>-60.8% 至 -21.7%</strong>；中枢约 -41.3%</td>
+</tr>
+<tr>
+<td>基本面状态</td>
+<td><strong>恶化（季度）</strong>：2026Q1 营收 -17.15%、毛利率 -6.16pct、扣非净利润 -23.24%，现金流改善不足以抵消利润端走弱</td>
+</tr>
+<tr>
+<td>关键经营变化</td>
+<td>2025 年销量和收入增长，但归母利润主要来自公允价值收益；2026Q1 主营转弱。机器人丝杠、减速器与半导体磨床仍处“小批量/验证”，管理层未披露 100 台订单累计交付、验收和收入确认</td>
+</tr>
+<tr>
+<td>彼得·林奇公司分类</td>
+<td>主分类：<strong>周期型</strong>；次分类：快速增长型期权。传统利润受机床验收和下游资本开支影响，新品尚未形成可验证增长曲线</td>
+</tr>
+<tr>
+<td>一句话投资故事</td>
+<td>公司靠高端精密磨床销售、改造和备件赚钱，凭研发积累向机器人丝杠、减速器及半导体精密磨削扩张；只有新品订单持续转化为验收收入、毛利率和扣非利润，这条成长故事才成立</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td><strong>中</strong>：财报与行情证据充分，但新品订单收入、个股两融与最新卖方预测不足</td>
+</tr>
+</tbody></table>
+<h3>1.2 资金面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>操作建议</td>
+<td><strong>观望</strong></td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td><strong>observe</strong></td>
+</tr>
+<tr>
+<td>当前价格及时间</td>
+<td>25.54 元，2026-08-11 15:00 收盘</td>
+</tr>
+<tr>
+<td>资金状态</td>
+<td><strong>结构性流出</strong>：10 日价格 +15.03%，但 5/10/20 日资金分档净额均为负；60 日价格 -35.28%、净流出约 5.30 亿元</td>
+</tr>
+<tr>
+<td>风险方向</td>
+<td><strong>风险减弱</strong>：相较 6—7 月快速杀估值，价格与成交已进入修复；但高估值与基本面风险未解除</td>
+</tr>
+<tr>
+<td>每日跟踪时间</td>
+<td>2026-08-11 15:02（Asia/Shanghai，收盘）</td>
+</tr>
+<tr>
+<td>资金面分析链接</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<h3>如果今天这是一笔现金，我会买它吗</h3>
+<ul>
+<li>回答：<strong>不会；只在特定条件下会</strong>。</li>
+<li>我的判断：强资产负债表值得跟踪，但现价要求尚未披露的新业务贡献较多，赔率不足。</li>
+<li>改变结论的条件：价格进入 15—20 元且扣非利润未恶化，或福立旺等订单披露可核验交付/验收、年化扣非利润升至 1.2 亿元以上并维持约 30% 毛利率。</li>
+</ul>
+<h2 id="section-2">2. 证券身份与来源矩阵</h2>
+
+<h3>2.1 证券身份</h3>
+<ul>
+<li>公司全称：华辰精密装备（昆山）股份有限公司</li>
+<li>证券代码：300809.SZ</li>
+<li>上市地：深圳证券交易所创业板，2019-12-04 上市</li>
+<li>报告准则：中国企业会计准则</li>
+<li>法定披露体系：A 股交易所与巨潮资讯</li>
+<li>同名或跨市场歧义：无；已排除“江苏华辰”等同名简称干扰。</li>
+</ul>
+<h3>2.2 来源矩阵</h3>
+<table>
+<thead>
+<tr>
+<th>数据项目</th>
+<th>目标来源</th>
+<th>实际来源</th>
+<th>数据时间</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Tushare MCP 调用清单</td>
+<td>本地 <code>tushare-data</code></td>
+<td>stock_basic、daily、valuation、moneyflow、margin、financials、dividend、全市场 margin</td>
+<td>2021—2026-08-10</td>
+<td>已获取；个股 margin 为空</td>
+</tr>
+<tr>
+<td>证券身份与上市状态</td>
+<td>Tushare / 巨潮</td>
+<td>Tushare stock_basic</td>
+<td>2026-08-11</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>实时价格、52周高低、YTD</td>
+<td>公开行情</td>
+<td>腾讯行情＋Tushare 日线</td>
+<td>2026-08-11</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>估值、市值、股息率和换手率</td>
+<td>Tushare / 公开行情</td>
+<td>两者交叉核对</td>
+<td>2026-08-10/11</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>资金分档 / 大单代理</td>
+<td>Tushare</td>
+<td>moneyflow</td>
+<td>至 2026-08-10</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>融资融券代理</td>
+<td>Tushare</td>
+<td>个股返回 0 行；市场总量有数据</td>
+<td>至 2026-08-10</td>
+<td>个股未获取到</td>
+</tr>
+<tr>
+<td>第三方公允价值、护城河、星级</td>
+<td>Morningstar 等</td>
+<td>已检查公开检索，A 股无可靠覆盖</td>
+<td>2026-08-11</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>最新季报与管理层指引</td>
+<td>巨潮</td>
+<td>2026Q1、2026-05-08 业绩说明会</td>
+<td>2026-05-08</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>分部收入</td>
+<td>巨潮</td>
+<td>2025 年报</td>
+<td>2025-12-31</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>卖方评级与目标价</td>
+<td>券商报告</td>
+<td>2025 年旧报告与汇总页；无 2026 年目标价</td>
+<td>2026-08-11 检索</td>
+<td>不完整</td>
+</tr>
+<tr>
+<td>近三个月新闻与催化剂</td>
+<td>巨潮 / 公司活动记录</td>
+<td>业绩说明会、分红、行情</td>
+<td>至 2026-08-11</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>五年财务历史</td>
+<td>Tushare＋巨潮</td>
+<td>结构化数据并由年报复核</td>
+<td>2021—2025</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>分红历史</td>
+<td>Tushare＋公司公告</td>
+<td>2025 年度与前三季度分红</td>
+<td>2026-07-07</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>指数成分与权重</td>
+<td>中证 / Tushare</td>
+<td>非本次核心；未确认重要指数权重</td>
+<td>2026-08-11</td>
+<td>未获取到，不影响主结论</td>
+</tr>
+</tbody></table>
+<p>完整底稿：<a href="../../../webpages/2026-08-11-华辰装备研究数据快照.md">华辰装备研究数据快照</a>。</p>
+<h2 id="section-3">3. 行情与市场预期</h2>
+
+<h3>3.1 行情快照（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">数值</th>
+<th>来源</th>
+<th>时间 / 口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前价格</td>
+<td align="right">25.54 元</td>
+<td>腾讯公开行情</td>
+<td>2026-08-11 收盘</td>
+</tr>
+<tr>
+<td>52周最高</td>
+<td align="right">52.38 元</td>
+<td>腾讯公开行情</td>
+<td>近 52 周</td>
+</tr>
+<tr>
+<td>52周最低</td>
+<td align="right">20.79 元</td>
+<td>腾讯公开行情</td>
+<td>近 52 周</td>
+</tr>
+<tr>
+<td>今年以来表现</td>
+<td align="right">-34.41%</td>
+<td>腾讯公开行情</td>
+<td>不复权</td>
+</tr>
+<tr>
+<td>总市值</td>
+<td align="right">64.75 亿元</td>
+<td>腾讯公开行情</td>
+<td>总股本 2.535 亿股</td>
+</tr>
+<tr>
+<td>PE / PB / EV</td>
+<td align="right">PE-TTM 33.84 倍 / PB 3.59 倍；简化 EV 约 53.2 亿元</td>
+<td>腾讯行情＋2026Q1 资产负债表</td>
+<td>EV 扣除货币资金与交易性金融资产，未计其他非经营资产</td>
+</tr>
+</tbody></table>
+<h3>3.2 第三方公允价值与评级（事实）</h3>
+<ul>
+<li>公允价值、护城河评级、星级：未获取到可信且可审计的 A 股第三方覆盖。</li>
+<li>已检查来源：公开检索、行情与机构预测页面。</li>
+<li>处理：不以第三方星级替代自建 DCF、相对估值和分部加总。</li>
+</ul>
+<h3>3.3 卖方评级与目标价分布（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>机构</th>
+<th>日期</th>
+<th>评级</th>
+<th align="right">目标价</th>
+<th>预测期</th>
+<th>关键假设</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>东吴证券</td>
+<td>2025-08-25</td>
+<td>增持</td>
+<td align="right">未给出</td>
+<td>2025—2027 净利 0.99/1.44/2.19 亿元</td>
+<td>100 台磨床订单、半导体磨削拓展</td>
+</tr>
+<tr>
+<td>华西证券</td>
+<td>2025-10-28 汇总</td>
+<td>增持</td>
+<td align="right">未给出</td>
+<td>2026 净利约 1.96 亿元</td>
+<td>新产品放量；原文未完整取得</td>
+</tr>
+<tr>
+<td>华鑫证券</td>
+<td>2025-09-23 汇总</td>
+<td>买入</td>
+<td align="right">未给出</td>
+<td>2026 净利约 1.77 亿元</td>
+<td>原文未完整取得</td>
+</tr>
+<tr>
+<td>浙商证券</td>
+<td>2025-10-28 汇总</td>
+<td>买入</td>
+<td align="right">未给出</td>
+<td>2026 净利约 1.64 亿元</td>
+<td>原文未完整取得</td>
+</tr>
+</tbody></table>
+<ul>
+<li>目标价区间 / 中位数：未获取到。</li>
+<li>样本数量与完整性：4 个旧预测，均早于 2025 年报和 2026Q1；只能作为当时市场预期，不是当前一致预期。</li>
+<li>来源冲突及采信理由：旧预测对 2025 年利润判断已被 1.70 亿元非经常收益扰动；本报告不机械采用 2026 年 1.44—1.96 亿元预测。</li>
+</ul>
+<h2 id="section-4">4. 商业模式与竞争格局</h2>
+
+<h3>4.1 事实</h3>
+<ul>
+<li>收入来源：2025 年磨床设备、维修改造、备件收入占比 85.86%、10.75%、2.99%。</li>
+<li>客户与定价权：面向钢铁、有色等工业客户；前五大客户占比 26.81%，集中度可控，但定价权未直接披露。</li>
+<li>成本结构：直接材料约占主营成本 64.10%，毛利率受产品组合、验收节奏和采购成本影响。</li>
+<li>资本强度：设备制造本身中等资本强度；2023 年扩产使自由现金流转负，2024—2025 年资本开支回落。</li>
+<li>竞争者：国际高端磨削厂商、国内高端数控机床厂商及客户自有加工方案。可比公司包括科德数控、秦川机床、浙海德曼等。</li>
+<li>监管约束：产品安全、质量与出口合规；未发现足以改变持续经营的监管事项。</li>
+</ul>
+<h4>多产业位置景气度排序（事实与判断分列）</h4>
+<table>
+<thead>
+<tr>
+<th align="right">排名</th>
+<th>产业位置</th>
+<th>位置识别依据（事实）</th>
+<th>公司业务 / 资产暴露（事实）</th>
+<th>当前景气度</th>
+<th>趋势</th>
+<th>景气证据与时间</th>
+<th>财务传导</th>
+<th>验证指标 / 失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">1</td>
+<td>机器人丝杠 / 减速器磨削设备</td>
+<td>技术进入小批量应用，存在 100 台合作</td>
+<td>尚未单列收入</td>
+<td>较高</td>
+<td>上行但待验证</td>
+<td>2025 年报、2026-05-08 说明会</td>
+<td>交付验收→设备收入→毛利</td>
+<td>累计交付、验收、收入；延期或无复购则失效</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td>高端轧辊磨床及维修改造</td>
+<td>2025 年收入占 96.61%</td>
+<td>已验证核心利润池</td>
+<td>中</td>
+<td>持平</td>
+<td>设备收入 +23%，2026Q1 总收入 -17%</td>
+<td>下游资本开支→订单→验收</td>
+<td>合同负债、销量、毛利率</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td>半导体超精密磨削</td>
+<td>曲面磨床验证 / 小批量应用</td>
+<td>未单列收入</td>
+<td>证据不足</td>
+<td>上行候选</td>
+<td>年报定性披露</td>
+<td>验证通过→小批量→规模订单</td>
+<td>客户认证和收入披露</td>
+</tr>
+</tbody></table>
+<ul>
+<li>位置间交叉与去重说明：机器人与半导体设备都依赖同一精密磨削研发和制造平台，估值时只计一次公共研发能力。</li>
+<li>排名第一的位置能否进入公司利润和现金流：目前证据不足；有合同不等于已验收收入。</li>
+<li>弱关联 / 待验证位置：不把“人形机器人整机景气”直接等同为公司利润增长。</li>
+</ul>
+<h3>4.2 我的判断</h3>
+<ul>
+<li>我的判断：公司在高端精密磨削的技术积累、专利和客户验证形成进入壁垒，竞争状态偏有利；但优势是否能从轧辊磨床迁移到丝杠和半导体仍缺收入证据。</li>
+<li>最脆弱环节：长周期设备的验收收入与下游资本开支波动，以及新品从样机/小批量到复购的转化。</li>
+<li>证伪条件：核心设备毛利率持续低于 28%、新业务 12—18 个月仍无单列收入或复购、订单增加但现金流和应收同步恶化。</li>
+</ul>
+<h3>4.3 彼得·林奇公司分类与投资故事</h3>
+<ul>
+<li>主分类：<strong>周期型</strong>。</li>
+<li>次分类：<strong>快速增长型期权</strong>；传统收入波动显著，2022/2024 收入分别下降 17.9%/6.9%，机器人和半导体尚未形成稳定增长。</li>
+<li>为什么关注：精密磨削国产替代、强净现金资产和新品平台可能带来第二增长曲线。</li>
+<li>一句话投资故事：公司以轧辊磨床和改造服务获取现金流，再把研发能力迁移到机器人丝杠、减速器和半导体磨削。增长可持续性取决于新品客户验证、复购和毛利率，而非题材热度。</li>
+<li>利润增长等式：<strong>验收设备数量 × 单台价格 × 毛利率＋维修改造毛利－研发与销售管理费用</strong>。</li>
+<li>核心增长来源及持续时间：主业订单周期约 1—3 年；新品若验证成功可打开 3—5 年成长窗口。</li>
+<li>市场可能低估：无有息债务、11.53 亿元货币资金和交易性金融资产、维修改造收入增长。</li>
+<li>市场可能高估：把 100 台合作全部视作已确认收入，把“小批量应用”当成规模量产。</li>
+<li>林奇式积极信号：资产负债表稳健、研发投入高、管理层仍聚焦主业。</li>
+<li>林奇式危险信号：净利润由非经常收益主导、核心毛利率低于历史、新品叙事先于财务兑现。</li>
+<li>投资逻辑证伪条件：扣非利润不能随交付增长、研发费用增长但新品收入无进展、金融资产损益继续主导净利润。</li>
+</ul>
+<h2 id="section-5">5. 分部收入与盈利拆解</h2>
+
+<table>
+<thead>
+<tr>
+<th>分部</th>
+<th align="right">收入</th>
+<th align="right">同比</th>
+<th align="right">收入占比</th>
+<th align="right">毛利率</th>
+<th align="right">毛利率变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>磨床设备</td>
+<td align="right">4.665 亿元</td>
+<td align="right">+23.01%</td>
+<td align="right">85.86%</td>
+<td align="right">29.13%</td>
+<td align="right">+0.70pct</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>维修改造</td>
+<td align="right">0.584 亿元</td>
+<td align="right">+89.03%</td>
+<td align="right">10.75%</td>
+<td align="right">32.07%</td>
+<td align="right">-3.75pct</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>备件</td>
+<td align="right">0.162 亿元</td>
+<td align="right">-52.87%</td>
+<td align="right">2.99%</td>
+<td align="right">未单列</td>
+<td align="right">未单列</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>其他</td>
+<td align="right">0.022 亿元</td>
+<td align="right">—</td>
+<td align="right">0.40%</td>
+<td align="right">—</td>
+<td align="right">—</td>
+<td>2025 年报</td>
+</tr>
+</tbody></table>
+<ul>
+<li>披露口径变化：机器人、丝杠、减速器和半导体磨削尚未作为独立分部披露。</li>
+<li>来源冲突：无；“100 台合作”与“已确认收入”是不同口径。</li>
+<li>我的判断：增长主要来自设备验收与改造，质量中性；利润没有同步验证收入增长，且新品贡献不可见。</li>
+</ul>
+<h2 id="section-6">6. 五年财务历史</h2>
+
+<table>
+<thead>
+<tr>
+<th>财年</th>
+<th align="right">营收</th>
+<th align="right">毛利率</th>
+<th align="right">经营现金流</th>
+<th align="right">资本开支</th>
+<th align="right">自由现金流</th>
+<th align="right">ROIC / 代理值</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td align="right">4.095 亿</td>
+<td align="right">37.07%</td>
+<td align="right">0.445 亿</td>
+<td align="right">0.286 亿</td>
+<td align="right">0.160 亿</td>
+<td align="right">20.6%</td>
+<td>Tushare / 年报</td>
+</tr>
+<tr>
+<td>2022</td>
+<td align="right">3.363 亿</td>
+<td align="right">33.29%</td>
+<td align="right">0.612 亿</td>
+<td align="right">0.501 亿</td>
+<td align="right">0.111 亿</td>
+<td align="right">11.4%</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">4.792 亿</td>
+<td align="right">34.30%</td>
+<td align="right">0.241 亿</td>
+<td align="right">1.525 亿</td>
+<td align="right">-1.284 亿</td>
+<td align="right">20.9%</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">4.460 亿</td>
+<td align="right">28.54%</td>
+<td align="right">1.257 亿</td>
+<td align="right">0.456 亿</td>
+<td align="right">0.802 亿</td>
+<td align="right">7.9%</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">5.433 亿</td>
+<td align="right">29.89%</td>
+<td align="right">1.535 亿</td>
+<td align="right">0.239 亿</td>
+<td align="right">1.296 亿</td>
+<td align="right">报告 27.2%；调整约 4.4%</td>
+<td>同上</td>
+</tr>
+</tbody></table>
+<ul>
+<li>自由现金流口径：CFO－购建长期资产现金支出。</li>
+<li>ROIC 口径：税后营业利润 ÷ 平均（权益＋有息债务－货币资金－交易性金融资产）；金融资产很大使该代理对分类敏感。</li>
+<li>一次性项目：2025 年扣非净利仅 0.318 亿元，约 1.703 亿元非经常收益主要来自公允价值变动。</li>
+<li>我的判断：现金流近两年改善，但五年不稳定；2025 年“利润高增”不能代表经营回报改善。</li>
+</ul>
+<h3>6.1 林奇框架增长质量检查</h3>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>3—5 年趋势 / 当前变化</th>
+<th>与营收或 EPS 的匹配关系</th>
+<th>质量判断</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>EPS</td>
+<td>0.30→0.19→0.46→0.24→0.80 元附近</td>
+<td>与收入不同步，2025 被一次性收益放大</td>
+<td>较弱</td>
+<td>2021—2025</td>
+</tr>
+<tr>
+<td>CFO / 净利润</td>
+<td>2023 低、2024—2025 高</td>
+<td>2025 CFO 尚可，但利润不可持续</td>
+<td>中性</td>
+<td>年报</td>
+</tr>
+<tr>
+<td>库存</td>
+<td>2022 高增后降至 2.824 亿；2026Q1 +2.9%</td>
+<td>未快于近期收入长期累积</td>
+<td>中性</td>
+<td>2021—2026Q1</td>
+</tr>
+<tr>
+<td>应收账款</td>
+<td>约 1.19→1.37 亿；2026Q1 降至 1.07 亿</td>
+<td>慢于五年收入增长</td>
+<td>较好</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>有息负债 / 利息覆盖</td>
+<td>2022—2026Q1 未见借款</td>
+<td>无偿债压力</td>
+<td>好</td>
+<td>资产负债表</td>
+</tr>
+<tr>
+<td>回购与股本变化</td>
+<td>总股本约 2.535 亿股，未见显著回购增厚</td>
+<td>EPS 非回购驱动</td>
+<td>中性</td>
+<td>2025 年报</td>
+</tr>
+<tr>
+<td>非经常性收益</td>
+<td>2025 约 1.703 亿</td>
+<td>主导当年利润增长</td>
+<td>差</td>
+<td>2025 年报</td>
+</tr>
+</tbody></table>
+<ul>
+<li>主营业务驱动的持续增长占比：2025 归母利润中扣非仅约 15.7%，主营持续性远弱于表观增长。</li>
+<li>我的判断：财务报表只验证“有研发和订单机会”，没有验证“已进入快速增长”。</li>
+</ul>
+<h2 id="section-7">7. 最新季度与管理层指引</h2>
+
+<h3>7.1 最新季度（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">本期</th>
+<th align="right">同比 / 变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营收</td>
+<td align="right">1.042 亿元</td>
+<td align="right">-17.15%</td>
+<td>2026Q1</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">28.21%</td>
+<td align="right">-6.16pct</td>
+<td>2026Q1</td>
+</tr>
+<tr>
+<td>净利润</td>
+<td align="right">0.128 亿元</td>
+<td align="right">-45.76%</td>
+<td>2026Q1</td>
+</tr>
+<tr>
+<td>调整后利润</td>
+<td align="right">0.169 亿元</td>
+<td align="right">-23.24%</td>
+<td>扣非归母，2026Q1</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">0.299 亿元</td>
+<td align="right">+37.67%</td>
+<td>2026Q1</td>
+</tr>
+<tr>
+<td>订单 / 储备</td>
+<td align="right">未量化</td>
+<td align="right">100 台合作持续推进</td>
+<td>2026-05-08</td>
+</tr>
+</tbody></table>
+<h3>7.2 管理层指引（事实）</h3>
+<ul>
+<li>正式量化指引：未提供 2026 全年收入、利润或订单指引。</li>
+<li>定性展望：巩固轧辊磨床优势，加快机器人、半导体及新能源相关精密磨削产品市场化。</li>
+<li>未获取到：100 台订单累计交付、验收、收入确认、新客户订单及新业务毛利率。</li>
+</ul>
+<h3>7.3 我的判断</h3>
+<ul>
+<li>边际变化：利润率和扣非利润恶化，现金流和应收改善；整体为“盈利弱、现金尚稳”。</li>
+<li>指引可信度：主业方向可信，但新品商业化缺量化证据，置信度中低。</li>
+<li>下一验证节点：2026 半年报的磨床分部收入/毛利率、合同负债、扣非利润、100 台订单进度与研发费用率。</li>
+</ul>
+<h2 id="section-8">8. 近三个月新闻与催化剂</h2>
+
+<table>
+<thead>
+<tr>
+<th>发生日</th>
+<th>事件</th>
+<th>影响变量</th>
+<th>财务传导</th>
+<th>是否已反映</th>
+<th>验证节点</th>
+<th>失效条件</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-05-08</td>
+<td>业绩说明会确认新品持续推进但未给交付细节</td>
+<td>订单兑现率</td>
+<td>验收→收入→扣非利润</td>
+<td>部分反映</td>
+<td>半年报 / 新公告</td>
+<td>交付延期、无复购</td>
+<td>公司活动记录</td>
+</tr>
+<tr>
+<td>2026-06-29</td>
+<td>年度权益分派实施公告</td>
+<td>股东回报</td>
+<td>每股现金 0.10 元</td>
+<td>已反映</td>
+<td>后续分红政策</td>
+<td>盈利下降导致分红收缩</td>
+<td>公司公告</td>
+</tr>
+<tr>
+<td>2026-07-28—30</td>
+<td>股价先 +14.7% 后两日累计明显回吐</td>
+<td>情绪与交易拥挤</td>
+<td>无直接基本面传导</td>
+<td>已反映</td>
+<td>成交与资金窗口</td>
+<td>无公告支撑的反弹回落</td>
+<td>Tushare 日线</td>
+</tr>
+<tr>
+<td>未来一季</td>
+<td>2026 半年报</td>
+<td>核心利润与订单</td>
+<td>决定盈利上修或下修</td>
+<td>未反映完全</td>
+<td>法定披露</td>
+<td>数据不及预期</td>
+<td>待披露</td>
+</tr>
+</tbody></table>
+<h2 id="section-9">9. 多头与空头论据</h2>
+
+<h3>9.1 多头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>精密磨削技术壁垒</td>
+<td>超 100 项核心知识产权、百余研发人员</td>
+<td>新品客户、复购、毛利率</td>
+<td>专利不转化为订单</td>
+</tr>
+<tr>
+<td>强资产负债表</td>
+<td>11.53 亿元货币资金＋交易性金融资产，无借款</td>
+<td>净现金、现金流</td>
+<td>金融资产亏损或低效资本配置</td>
+</tr>
+<tr>
+<td>新品期权</td>
+<td>丝杠/减速器进入小批量，半导体设备验证</td>
+<td>单列收入、100 台交付</td>
+<td>延期或无法规模化</td>
+</tr>
+<tr>
+<td>服务收入改善</td>
+<td>2025 维修改造收入 +89%</td>
+<td>服务收入与毛利</td>
+<td>增长不可持续</td>
+</tr>
+</tbody></table>
+<h3>9.2 空头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主营利润弱</td>
+<td>2025 扣非仅 0.318 亿；2026Q1 扣非 -23%</td>
+<td>扣非净利、ROIC</td>
+<td>扣非快速修复至 1.2 亿以上</td>
+</tr>
+<tr>
+<td>估值透支</td>
+<td>现价按 2025 扣非约 203 倍 PE</td>
+<td>正常化利润、订单兑现</td>
+<td>盈利大幅上修</td>
+</tr>
+<tr>
+<td>新品披露不足</td>
+<td>未披露累计交付、验收和收入</td>
+<td>合同与财报分部</td>
+<td>量化披露出现</td>
+</tr>
+<tr>
+<td>情绪脆弱</td>
+<td>52 周高点回撤约 51%，60 日资金净流出</td>
+<td>量价、资金连续性</td>
+<td>价格放量突破且资金转正</td>
+</tr>
+</tbody></table>
+<h2 id="section-10">10. 估值</h2>
+
+<h3>10.1 相对估值</h3>
+<table>
+<thead>
+<tr>
+<th>公司</th>
+<th>业务可比性</th>
+<th align="right">增长</th>
+<th align="right">利润率</th>
+<th align="right">PE-TTM</th>
+<th align="right">PB</th>
+<th align="right">EV/EBITDA</th>
+<th>数据时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>华辰装备</td>
+<td>基准</td>
+<td align="right">2026Q1 收入 -17%</td>
+<td align="right">毛利率 28.2%</td>
+<td align="right">33.84；扣非约 203</td>
+<td align="right">3.59</td>
+<td align="right">未统一取得</td>
+<td>2026-08-11</td>
+</tr>
+<tr>
+<td>科德数控</td>
+<td>高端数控机床</td>
+<td align="right">成长型</td>
+<td align="right">—</td>
+<td align="right">96.48</td>
+<td align="right">4.62</td>
+<td align="right">未统一取得</td>
+<td>同日</td>
+</tr>
+<tr>
+<td>华中数控</td>
+<td>数控系统/机床</td>
+<td align="right">微利</td>
+<td align="right">—</td>
+<td align="right">负值失真</td>
+<td align="right">4.08</td>
+<td align="right">未统一取得</td>
+<td>同日</td>
+</tr>
+<tr>
+<td>秦川机床</td>
+<td>综合机床/零部件</td>
+<td align="right">周期型</td>
+<td align="right">—</td>
+<td align="right">224.10</td>
+<td align="right">2.26</td>
+<td align="right">未统一取得</td>
+<td>同日</td>
+</tr>
+<tr>
+<td>浙海德曼</td>
+<td>数控车床</td>
+<td align="right">成长型</td>
+<td align="right">—</td>
+<td align="right">105.24</td>
+<td align="right">6.84</td>
+<td align="right">未统一取得</td>
+<td>同日</td>
+</tr>
+</tbody></table>
+<ul>
+<li>选取理由：同属国产高端数控机床，但产品、规模和盈利周期不同，只用于估值边界。</li>
+<li>正常化调整：华辰 2025 报告 PE 不可直接比较；取 2026 正常化扣非净利 0.6—0.9 亿元、35—45 倍成长/周期混合 PE，再加折价 excess financial assets 约 10.4 亿元。</li>
+<li>对应每股价值区间：约 <strong>12—20 元</strong>。</li>
+<li>我的判断：同行高 PE 反映国产替代和成长稀缺性，但不能证明华辰当前合理；它必须先兑现新品收入。</li>
+</ul>
+<h3>10.2 DCF</h3>
+<h4>关键假设</h4>
+<table>
+<thead>
+<tr>
+<th>假设</th>
+<th align="right">悲观</th>
+<th align="right">基准</th>
+<th align="right">乐观</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>五年 FCFF</td>
+<td align="right">0.30→0.50 亿</td>
+<td align="right">0.60→1.40 亿</td>
+<td align="right">0.90→2.50 亿</td>
+<td>历史 FCF 波动、新品不同兑现率</td>
+</tr>
+<tr>
+<td>收入增长</td>
+<td align="right">0%—5%</td>
+<td align="right">12%—18%</td>
+<td align="right">25%—35%</td>
+<td>主业周期与新品期权</td>
+</tr>
+<tr>
+<td>经营利润率</td>
+<td align="right">8%—10%</td>
+<td align="right">12%—16%</td>
+<td align="right">18%—22%</td>
+<td>2025 扣非低基数、历史毛利率</td>
+</tr>
+<tr>
+<td>税率</td>
+<td align="right">15%</td>
+<td align="right">15%</td>
+<td align="right">15%</td>
+<td>高新技术企业近似</td>
+</tr>
+<tr>
+<td>折旧摊销</td>
+<td align="right">与维持性资本开支接近</td>
+<td align="right">同左</td>
+<td align="right">略低于扩张资本开支</td>
+<td>简化 FCFF 模型</td>
+</tr>
+<tr>
+<td>资本开支</td>
+<td align="right">维持性</td>
+<td align="right">适度扩产</td>
+<td align="right">新品扩产</td>
+<td>历史 capex</td>
+</tr>
+<tr>
+<td>营运资本变化</td>
+<td align="right">小幅占用</td>
+<td align="right">随收入增长</td>
+<td align="right">明显占用</td>
+<td>设备验收模式</td>
+</tr>
+<tr>
+<td>WACC</td>
+<td align="right">11.0%</td>
+<td align="right">9.5%</td>
+<td align="right">8.5%</td>
+<td>小市值、周期与成长不确定性</td>
+</tr>
+<tr>
+<td>永续增长率</td>
+<td align="right">1.5%</td>
+<td align="right">2.5%</td>
+<td align="right">3.0%</td>
+<td>长期名义增长边界</td>
+</tr>
+</tbody></table>
+<h4>估值结果</h4>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">企业价值</th>
+<th align="right">净债务</th>
+<th align="right">股权价值</th>
+<th align="right">每股价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观</td>
+<td align="right">4.61 亿</td>
+<td align="right">-9.22 亿</td>
+<td align="right">13.83 亿</td>
+<td align="right">5.45 元</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">16.72 亿</td>
+<td align="right">-10.37 亿</td>
+<td align="right">27.09 亿</td>
+<td align="right">10.69 元</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">37.46 亿</td>
+<td align="right">-11.53 亿</td>
+<td align="right">48.99 亿</td>
+<td align="right">19.32 元</td>
+</tr>
+</tbody></table>
+<p>注：所谓“净债务”为负，代表对货币资金和交易性金融资产分别按 20%、10%、0% 折价后的净金融资产；未把其他非经营资产计入。</p>
+<h4>敏感性分析（基准 FCFF，每股元）</h4>
+<table>
+<thead>
+<tr>
+<th>WACC \ 永续增长率</th>
+<th align="right">1.5%</th>
+<th align="right">2.5%</th>
+<th align="right">3.5%</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>8.5%</td>
+<td align="right">10.92</td>
+<td align="right">11.87</td>
+<td align="right">13.20</td>
+</tr>
+<tr>
+<td>9.5%</td>
+<td align="right">10.00</td>
+<td align="right">10.69</td>
+<td align="right">11.60</td>
+</tr>
+<tr>
+<td>10.5%</td>
+<td align="right">9.29</td>
+<td align="right">9.80</td>
+<td align="right">10.46</td>
+</tr>
+</tbody></table>
+<h4>反向 DCF</h4>
+<ul>
+<li>当前 64.75 亿元市值扣除约 10.37 亿元折价净金融资产，隐含经营价值约 54.4 亿元。</li>
+<li>若 WACC 9.5%、永续增长 2.5%、未来五年 FCFF 年增 25%，市场约要求第一年 FCFF 1.89 亿元、第五年 4.62 亿元。</li>
+<li>该隐含 FCFF 显著高于五年平均与正常化主业盈利，只有新品快速规模化才可能实现；可实现性偏低。</li>
+</ul>
+<h3>10.3 行业特定估值</h3>
+<ul>
+<li>方法：分部加总（SOTP）。</li>
+<li>适用理由：成熟轧辊磨床、新品成长和金融资产的风险属性明显不同。</li>
+<li>关键假设：核心主业正常化净利 0.6—0.9 亿元、25—32 倍；净金融资产折价后 9.2—11.5 亿元；机器人/半导体期权 0—15 亿元。</li>
+<li>对应每股价值区间：约 <strong>9.5—21.8 元</strong>，中枢约 14—16 元。</li>
+<li>局限性：新品没有单列收入，期权价值主观性高。</li>
+</ul>
+<h3>10.4 估值交叉验证</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="right">每股价值区间</th>
+<th align="right">权重</th>
+<th>采信理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>相对估值</td>
+<td align="right">12—20 元</td>
+<td align="right">30%</td>
+<td>反映国产机床稀缺溢价，但同行 PE 失真</td>
+</tr>
+<tr>
+<td>DCF</td>
+<td align="right">5.5—19.3 元</td>
+<td align="right">35%</td>
+<td>显示现金流兑现要求，保守性高</td>
+</tr>
+<tr>
+<td>SOTP</td>
+<td align="right">9.5—21.8 元</td>
+<td align="right">35%</td>
+<td>最能隔离主业、金融资产与新品期权</td>
+</tr>
+</tbody></table>
+<ul>
+<li>综合估值区间：<strong>10—20 元/股</strong>，中枢约 15 元。</li>
+<li>相对现价空间：-60.8% 至 -21.7%。</li>
+<li>为什么不机械平均：DCF 对终值敏感，SOTP 新品期权主观，采用交叉区间并将上沿留给已出现合同但未验收的新业务。</li>
+</ul>
+<h3>10.5 林奇分类与估值匹配</h3>
+<ul>
+<li>主分类与估值锚：周期型应看正常化利润与资产负债表，而非峰值净利润。</li>
+<li>PEG：不适用；盈利波动且 2025 含重大一次性收益。</li>
+<li>周期型正常化利润：0.6—0.9 亿元；现价对应约 72—108 倍正常化 PE（未单独扣除金融资产）。</li>
+<li>资产隐蔽型旁证：折价净金融资产约 9.2—11.5 亿元，即 3.64—4.55 元/股，但不是当前股价的充分安全边际。</li>
+<li>当前价格已经反映：机器人/半导体新品规模化、盈利显著上修和高估值持续。</li>
+<li>三类估值相互印证：现价高于 DCF 乐观值并接近 SOTP 极乐观上沿，结论为高估。</li>
+</ul>
+<h2 id="section-11">11. 冰冰小美框架判断</h2>
+
+<h3>11.1 三要素状态总表</h3>
+<ul>
+<li>三要素结论来源：<code>bbxm-three-factor-analysis</code></li>
+<li>分析对象与层级：华辰装备个股；主产业为高端精密磨削装备，新品期权为机器人与半导体磨削。</li>
+<li>分析截止时间：2026-08-11 15:02。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>状态</th>
+<th>核心证据</th>
+<th>核心反证</th>
+<th>失效条件</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>有利</td>
+<td>专利、研发和轧辊磨床积累；新品进入小批量</td>
+<td>新品收入未单列，毛利率较历史低</td>
+<td>新品长期无复购、核心毛利率持续下行</td>
+<td>中</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>不利</td>
+<td>60 日 -35.3%、资金净流出约 5.3 亿；短窗反弹仍净流出</td>
+<td>10 日价格 +15%、成交恢复</td>
+<td>20 日资金转正且突破关键套牢区</td>
+<td>中</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>中性</td>
+<td>从退潮进入修复，价格较 52 周高点仍低约 51%</td>
+<td>高换手与大幅震荡显示筹码未稳</td>
+<td>无基本面催化再度放量下跌</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h4>前六步证据映射</h4>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>前六步证据来源</th>
+<th>已验证证据</th>
+<th>反证与缺口</th>
+<th>分析状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>第 4—7 章</td>
+<td>主业分部、研发、专利、小批量应用</td>
+<td>无份额和新品收入</td>
+<td>可判断、降置信度</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>第 3、8—9 章</td>
+<td>多窗口量价和资金分档</td>
+<td>个股两融、ETF/北向未获取</td>
+<td>可判断、降置信度</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>第 3、8—9 章</td>
+<td>高点回撤、短期修复、事件反馈</td>
+<td>板块相对强弱未完整量化</td>
+<td>可判断</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Step 6 估值约束：估值不强行归入三要素；第 11.6 节单独约束动作。</li>
+<li>补采证据回填：已回填至第 2 章来源矩阵与数据快照。</li>
+</ul>
+<h3>11.2 竞争格局与比较优势</h3>
+<ul>
+<li>分析对象与竞争层级：国产高端精密磨削装备，不等同于机器人整机产业。</li>
+<li>当前状态：<strong>有利</strong>；证据充分性：中等。</li>
+<li>多产业位置排序：机器人磨削期权景气最高但财务暴露最弱；轧辊磨床景气中性、财务暴露最强；半导体磨削证据不足。</li>
+<li>利润池：核心仍在磨床整机和改造服务；机器人/半导体只计增量期权，公共研发去重。</li>
+<li>核心比较优势：专用磨削know-how、客户验证、研发投入和资产负债表。</li>
+<li>替代方案：进口设备、国内其他高端机床、客户自产或改造旧设备。</li>
+<li>份额、定价权、黏性：领先地位有定性证据，但未取得可核验市占率与涨价能力。</li>
+<li>转化情况：2025 设备收入增长，但扣非利润和 2026Q1 未同步，优势转化不充分。</li>
+<li>当前决策含义：可以给跟踪溢价，不能给规模量产估值。</li>
+<li>反证：毛利率仅约 29%，研发高增但利润承压。</li>
+<li>失效条件：核心毛利率连续两个报告期低于 28%，新品无复购或客户验证失败。</li>
+</ul>
+<h3>11.3 流动性辩证分析</h3>
+<ul>
+<li>当前状态：<strong>不利</strong>；证据充分性：中等，多窗口量价充分但账户身份和个股两融缺失。</li>
+</ul>
+<h4>宏观流动性</h4>
+<ul>
+<li>总量环境与边际变化：全市场两融余额较 7 月 20 日下降约 2.0%，7 月末后小幅恢复；美债 10 年收益率约 4.72%，全球无风险利率仍高。</li>
+<li>对本标的传导：高估值小市值成长标的折现率敏感，宏观环境不提供明显估值扩张支撑。</li>
+</ul>
+<h4>中观流动性</h4>
+<ul>
+<li>行业 / 主题：机器人题材仍有交易活跃度，但未取得对应 ETF 申赎和机构配置数据。</li>
+<li>传导：题材资金能抬升波动，不能替代订单与利润兑现。</li>
+</ul>
+<h4>微观流动性</h4>
+<ul>
+<li>5/10/20 日价格分别 +7.8%/+15.0%/+4.0%，资金分档净额却均为负；60 日价格 -35.3%、净流出约 5.30 亿元。</li>
+<li>2026-08-11 成交额 3.05 亿元、换手 7.90%，反弹活跃但筹码分歧大。</li>
+</ul>
+<h4>资金来源分类</h4>
+<table>
+<thead>
+<tr>
+<th>资金来源</th>
+<th>当前状态</th>
+<th>连续窗口证据</th>
+<th>对价格的含义</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>长期配置资金</td>
+<td>证据不足</td>
+<td>无机构持仓增量数据</td>
+<td>不能确认估值底</td>
+<td>低</td>
+</tr>
+<tr>
+<td>趋势 / 交易资金</td>
+<td>修复参与</td>
+<td>10 日涨 15%、高换手</td>
+<td>短期弹性大、持续性弱</td>
+<td>中</td>
+</tr>
+<tr>
+<td>产业资本 / 内部人</td>
+<td>中性</td>
+<td>实控人旧减持计划届满未减持</td>
+<td>暂无新增供给证据</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h4>供给与抛压</h4>
+<table>
+<thead>
+<tr>
+<th>供给来源</th>
+<th>当前状态</th>
+<th>时间窗口</th>
+<th>影响</th>
+<th>验证方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>解禁 / 减持</td>
+<td>暂无新增证据</td>
+<td>2026-04-20 后</td>
+<td>中性</td>
+<td>后续减持公告</td>
+</tr>
+<tr>
+<td>再融资 / 可转债</td>
+<td>未发现近期计划</td>
+<td>近三个月</td>
+<td>中性</td>
+<td>巨潮公告</td>
+</tr>
+<tr>
+<td>获利盘 / 套牢盘</td>
+<td>压力大</td>
+<td>25—43 元历史成交区</td>
+<td>反弹易遇抛压</td>
+<td>成交密集区与量价</td>
+</tr>
+</tbody></table>
+<h4>最低数据检查</h4>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>当前窗口</th>
+<th>对比窗口</th>
+<th>结论</th>
+<th>数据源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>成交额与换手率</td>
+<td>8/11：3.05 亿、7.90%</td>
+<td>60 日均 3.27 亿、6.78%</td>
+<td>活跃但非显著增量</td>
+<td>腾讯 / Tushare</td>
+</tr>
+<tr>
+<td>融资余额与融资买入</td>
+<td>个股未获取到</td>
+<td>市场两融较 7/20 -2.0%</td>
+<td>个股证据不足</td>
+<td>Tushare</td>
+</tr>
+<tr>
+<td>主力 / 大单资金</td>
+<td>20 日 -0.20 亿</td>
+<td>60 日 -5.30 亿</td>
+<td>流出收窄但未转正</td>
+<td>Tushare moneyflow</td>
+</tr>
+<tr>
+<td>ETF / 北向 / 机构代理</td>
+<td>未获取到</td>
+<td>未获取到</td>
+<td>降低置信度</td>
+<td>已检查公开与 Tushare</td>
+</tr>
+</tbody></table>
+<ul>
+<li>证据：长窗资金和价格共同下行，短窗价涨量活跃但资金仍负。</li>
+<li>反证：价格已从 20.79 元附近回升，流出速度减弱。</li>
+<li>退出路径：题材交易资金主要通过二级市场高换手退出；若无业绩催化，易形成冲高回落。</li>
+<li>失效条件：连续 20 日资金转正、成交温和放大且半年报盈利上修。</li>
+</ul>
+<h3>11.4 情绪位置变化</h3>
+<ul>
+<li>当前状态：<strong>中性</strong>；证据充分性：中等。</li>
+<li>当前阶段：<strong>修复</strong>，此前经历拥挤与退潮。</li>
+<li>个股相对板块与指数：未完整量化；自身 YTD -34.4%、距高点约 -51.2%，显著反映题材去估值。</li>
+<li>催化反馈：无新增量化订单公告的情况下，7 月末先大涨后快速回吐，说明情绪敏感且筹码不稳。</li>
+<li>反证：10 日上涨 15%，修复并非冰点。</li>
+<li>失效条件：放量跌破 20.79 元转为退潮；或量价与业绩共振突破 30 元转为扩散。</li>
+</ul>
+<h3>11.5 综合状态与主导矛盾</h3>
+<ul>
+<li>三要素综合判断：<strong>尚未形成有利共振</strong>。</li>
+<li>主导要素：竞争格局有利但兑现不足。</li>
+<li>拖累要素：流动性不利，情绪仅修复。</li>
+<li>主导矛盾：技术与订单叙事强，扣非利润与估值安全边际弱。</li>
+<li>下一验证节点：2026 半年报与 100 台订单量化进展。</li>
+<li>状态切换条件：订单验收＋扣非盈利上修＋20 日资金转正，才可能升级。</li>
+</ul>
+<h3>11.6 三要素行动映射</h3>
+<table>
+<thead>
+<tr>
+<th>资金属性</th>
+<th>当前动作</th>
+<th>允许升级的条件</th>
+<th>降级 / 退出条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>新增现金</td>
+<td>observe</td>
+<td>价格≤20 元并有利润支撑；或盈利上修使现价进入合理区间</td>
+<td>半年报继续下滑、跌破 20.79 元且风险重增</td>
+</tr>
+<tr>
+<td>已有持仓</td>
+<td>review / reduce</td>
+<td>验证订单与扣非利润后再持有</td>
+<td>无订单兑现、反弹接近 30 元仍无盈利上修</td>
+</tr>
+</tbody></table>
+<h3>11.7 三要素数据缺口与来源</h3>
+<table>
+<thead>
+<tr>
+<th>数据缺口</th>
+<th>已检查来源</th>
+<th>对哪一要素有影响</th>
+<th>对结论的影响</th>
+<th>补齐方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>个股两融</td>
+<td>Tushare margin detail</td>
+<td>流动性</td>
+<td>降置信度</td>
+<td>交易所或后续数据恢复</td>
+</tr>
+<tr>
+<td>新品收入与毛利</td>
+<td>年报、Q1、活动记录</td>
+<td>竞争</td>
+<td>上沿估值不确定</td>
+<td>半年报 / 公告</td>
+</tr>
+<tr>
+<td>ETF / 机构增量</td>
+<td>Tushare / 公开检索</td>
+<td>中观流动性</td>
+<td>无法识别长期资金</td>
+<td>基金季报、ETF 申赎</td>
+</tr>
+<tr>
+<td>最新卖方目标价</td>
+<td>公开检索</td>
+<td>市场预期</td>
+<td>不采用一致目标价</td>
+<td>新覆盖报告</td>
+</tr>
+</tbody></table>
+<ul>
+<li>分析口径与截止时间：2026-08-11 收盘。</li>
+<li>数据缺口导致的置信度调整：三要素综合由中高降为中。</li>
+</ul>
+<h3>11.8 风险方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>风险类型</th>
+<th>前一窗口</th>
+<th>当前窗口</th>
+<th>方向证据</th>
+<th>反证</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本面风险</td>
+<td>2026Q1 明显下滑</td>
+<td>无新增财报</td>
+<td>持平</td>
+<td>半年报可能改变</td>
+</tr>
+<tr>
+<td>估值风险</td>
+<td>5—6 月高价区</td>
+<td>价格回撤约一半</td>
+<td>减弱</td>
+<td>正常化估值仍高</td>
+</tr>
+<tr>
+<td>情绪风险</td>
+<td>退潮、高波动</td>
+<td>10 日修复</td>
+<td>减弱</td>
+<td>资金仍净流出</td>
+</tr>
+<tr>
+<td>流动性风险</td>
+<td>60 日明显流出</td>
+<td>5—20 日流出收窄</td>
+<td>减弱</td>
+<td>尚未转为流入</td>
+</tr>
+</tbody></table>
+<h3>11.9 风险传导链</h3>
+<ul>
+<li>信息源头：新品交付不透明、Q1 盈利下降、高估值。</li>
+<li>核心变量：订单验收、毛利率、扣非净利润、资金连续性。</li>
+<li>传导机制：交付低于预期→盈利预测下修→成长溢价压缩→高换手资金退出。</li>
+<li>影响对象：新增现金和高成本持仓者。</li>
+<li>市场行为变化：冲高回落、成交放大但资金分档净流出。</li>
+<li>风险方向：当前较前窗减弱，但未消失。</li>
+<li>验证指标：半年报扣非利润、20 日资金、20.79/30 元价格区。</li>
+<li>失效条件：量化订单和盈利上修同步出现。</li>
+</ul>
+<h3>11.10 风险方向结论</h3>
+<ul>
+<li>风险方向结论：<strong>风险减弱</strong>。</li>
+<li>判断依据：估值已从高位大幅压缩，短期价格修复、资金流出收窄，实控人旧减持计划未实施。</li>
+<li>反证：现价仍高于内部乐观价值，Q1 基本面未改善。</li>
+<li>未获取到：个股两融、机构持仓增量。</li>
+<li>置信度：中。</li>
+</ul>
+<h3>11.11 四层方向证据</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>边际状态</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观</td>
+<td>无明显变化</td>
+<td>高美债收益率与市场两融较 7 月 20 日下降</td>
+</tr>
+<tr>
+<td>中观</td>
+<td>未获取到</td>
+<td>机器人主题资金缺可审计 ETF / 机构数据</td>
+</tr>
+<tr>
+<td>微观</td>
+<td>边际改善</td>
+<td>60 日跌幅大，10 日价格修复，资金流出收窄</td>
+</tr>
+<tr>
+<td>交易</td>
+<td>边际改善但脆弱</td>
+<td>8/11 放量上涨，高换手；短窗资金仍负</td>
+</tr>
+</tbody></table>
+<h3>11.12 最终动作与约束</h3>
+<ul>
+<li>主动作：<strong>observe</strong>。</li>
+<li>新增现金：等待估值或盈利靠拢，不追反弹。</li>
+<li>已有持仓：结合成本与仓位 review；若反弹而基本面无上修，可 reduce。</li>
+<li>承接条件：15—20 元区间、扣非盈利稳定、订单量化三者至少满足两项。</li>
+<li>退出条件：跌破 20.79 元并伴随风险重新增强，或基本面证伪。</li>
+<li>下一复核节点：2026 半年报。</li>
+<li>我的判断：风险减弱只是“坏得慢了”，不是“便宜了”；方向不能直接转化为买点。</li>
+</ul>
+<h4>Howard Marks 逆向筛选（Step 7.5）</h4>
+<table>
+<thead>
+<tr>
+<th>条件</th>
+<th>判断</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>极端悲观</td>
+<td>部分满足</td>
+<td>高点回撤约 51%，但短期已反弹</td>
+</tr>
+<tr>
+<td>被迫卖出</td>
+<td>证据不足</td>
+<td>个股两融未获取，无被迫去杠杆证据</td>
+</tr>
+<tr>
+<td>价格低于保守价值</td>
+<td>不满足</td>
+<td>25.54 元高于 10—20 元价值区间</td>
+</tr>
+<tr>
+<td>基本面未永久损坏</td>
+<td>基本满足</td>
+<td>主业仍经营、资产负债表强</td>
+</tr>
+<tr>
+<td>风险补偿充分</td>
+<td>不满足</td>
+<td>乐观估值仍低于现价</td>
+</tr>
+<tr>
+<td>资本可以等待</td>
+<td>因人而异</td>
+<td>不替用户假设资金期限</td>
+</tr>
+</tbody></table>
+<ul>
+<li>逆向级别：<strong>C（普通下跌 / 周期与题材去估值）</strong>，不是 A/B 级逆向买点。</li>
+<li>价值陷阱风险：中等。金融资产提供缓冲，但低扣非 ROIC 和新品长期不兑现可能使“低 PB/净现金”成为静态幻觉。</li>
+</ul>
+<h2 id="section-12">12. 最终结论</h2>
+
+<ul>
+<li>彼得·林奇公司分类：周期型，附带快速增长型新品期权。</li>
+<li>一句话投资故事：用轧辊磨床和改造服务支撑现金流，以机器人丝杠、减速器和半导体磨削打开成长空间；价值取决于验收收入和扣非利润，而不是概念标签。</li>
+<li>利润增长等式与可持续时间：设备验收量 × 单价 × 毛利率＋服务毛利－期间费用；主业 1—3 年周期，新品成功可延长至 3—5 年。</li>
+<li>估值结论：<strong>高估</strong>。</li>
+<li>操作结论：<strong>观望</strong>。</li>
+<li>综合估值区间：<strong>10—20 元/股</strong>，中枢约 15 元。</li>
+<li>相对现价空间：-60.8% 至 -21.7%。</li>
+<li>如果今天这是一笔现金，我会买它吗：不会；等待价格、订单或利润三者至少两项改善。</li>
+<li>我的判断：这是一家“技术值得跟踪、价格尚未给安全边际”的公司。</li>
+<li>结论失效条件：新品收入和扣非利润显著超预期，或交易性金融资产发生重大损失、核心主业持续恶化。</li>
+<li>林奇框架卖出条件：当前适用 <strong>估值严重透支</strong>；若已持有，还应监控投资逻辑破坏与更高赔率机会。</li>
+</ul>
+<h2 id="section-13">13. 后续监控指标</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">当前值</th>
+<th>触发阈值 / 方向</th>
+<th>数据源</th>
+<th>复核频率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>扣非归母净利润</td>
+<td align="right">2026Q1 0.169 亿，-23.2%</td>
+<td>全年年化 ≥1.2 亿为上修；继续下降为证伪</td>
+<td>财报</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>综合毛利率</td>
+<td align="right">28.21%</td>
+<td>≥30% 修复；&lt;28% 连续两季恶化</td>
+<td>财报</td>
+<td>季度</td>
+</tr>
+<tr>
+<td>100 台合作进度</td>
+<td align="right">未量化</td>
+<td>披露累计交付、验收、收入和复购</td>
+<td>公告 / 调研</td>
+<td>月度</td>
+</tr>
+<tr>
+<td>20 日资金分档净额</td>
+<td align="right">-0.20 亿</td>
+<td>连续转正并与价格同向</td>
+<td>Tushare</td>
+<td>周度</td>
+</tr>
+<tr>
+<td>价格 / 估值</td>
+<td align="right">25.54 元</td>
+<td>≤20 元进入复核；&gt;30 元无盈利上修则降级</td>
+<td>行情</td>
+<td>日度</td>
+</tr>
+<tr>
+<td>净金融资产</td>
+<td align="right">11.53 亿</td>
+<td>明显下降或公允价值大亏需重估</td>
+<td>财报</td>
+<td>季度</td>
+</tr>
+</tbody></table>
+<ul>
+<li>投资故事持续性：<strong>部分成立</strong>。</li>
+<li>下一次财报需复核：EPS、扣非利润、现金流、库存、应收、负债、合同负债、新品收入和估值预期。</li>
+</ul>
+<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
+
+<ul>
+<li>未获取到：个股融资融券明细、DXY、最新机构持仓增量、2026 年内券商目标价、新品单列收入/毛利率、100 台订单累计验收。</li>
+<li>已检查来源：Tushare MCP、巨潮、公司活动记录、公开行情、券商报告与公开预测汇总。</li>
+<li>对结论影响：不影响“表观利润失真和现价缺安全边际”的方向，但使乐观上沿与资金身份判断置信度下降。</li>
+<li>路径说明：技能指定的情绪理论页路径在库内不存在；实际采用 <a href="../../../../wiki/topics/冰冰小美-情绪体系认知篇.md">情绪体系理论篇</a>（文件 H1 为理论篇），不影响框架内容。</li>
+</ul>
+<h2 id="section-15">15. 来源清单</h2>
+
+<ol>
+<li><a href="../../../webpages/2026-08-11-华辰装备研究数据快照.md">华辰装备研究数据快照</a>，本地研究底稿，2026-08-11。</li>
+<li><a href="https://static.cninfo.com.cn/finalpage/2026-04-25/1225179447.PDF">华辰装备 2025 年年度报告全文</a>，巨潮资讯，2026-04-25。</li>
+<li><a href="https://static.cninfo.com.cn/finalpage/2026-04-25/1225179458.PDF">华辰装备 2026 年第一季度报告</a>，巨潮资讯，2026-04-25。</li>
+<li><a href="https://pdf.dfcfw.com/pdf/H2_AN202605081822074975_1.pdf">华辰装备 2026-05-08 投资者关系活动记录表</a>，公司公告，2026-05-08。</li>
+<li><a href="https://pdf.dfcfw.com/pdf/H3_AP202508251733773164_1.pdf">东吴证券：2025 年半年报点评</a>，2025-08-25。</li>
+<li><a href="https://igu888.com/ylyc/300809.html">华辰装备公开盈利预测汇总</a>，访问 2026-08-11。</li>
+<li><a href="https://www.nbd.com.cn/articles/2026-04-20/4347117.html">实际控制人减持计划届满且未减持</a>，每日经济新闻转述公司公告，2026-04-20。</li>
+<li><a href="https://qt.gtimg.cn/q=sz300809">腾讯公开行情接口</a>，访问 2026-08-11 15:00。</li>
+</ol>
+<h2 id="section-16">16. 声明</h2>
+
+<p>本报告基于截至研究截止时间可取得的公开信息，不构成收益保证或个性化投资建议。真实交易前应重新核验价格、公告、流动性、税务影响与个人风险承受能力。</p>
+<script>
+(() => {
+  const endpoint = '/api/stock-quote?secid=0.300809';
+  const priceNode = document.getElementById('intraday-price');
+  const detailNode = document.getElementById('intraday-detail');
+  const statusNode = document.getElementById('intraday-status');
+  const riskRewardValue = document.getElementById('risk-reward-value');
+  const riskRewardDetail = document.getElementById('risk-reward-detail');
+  const tracker = document.getElementById('daily-tracking');
+  const snapshotPrice = 25.54;
+  const percent = value => `${value < 0 ? '-' : value > 0 ? '+' : ''}${Math.abs(value).toFixed(1)}%`;
+  function updateRiskReward(price) {
+    const low = Number(tracker.dataset.valueLow);
+    const high = Number(tracker.dataset.valueHigh);
+    if (!Number.isFinite(low) || !Number.isFinite(high) || low <= 0 || high <= low) return;
+    const upside = (high / price - 1) * 100;
+    const downside = (price / low - 1) * 100;
+    if (price <= low) {
+      riskRewardValue.textContent = '低于价值下沿';
+      riskRewardValue.classList.remove('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿潜在空间 ${percent(upside)}。价格已低于动态价值下沿，不能直接用下沿作为止损风险，需另设风控线。`;
+      return;
+    }
+    if (price >= high) {
+      riskRewardValue.textContent = '无正向盈亏比';
+      riskRewardValue.classList.add('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿空间 ${percent(upside)}，回落至下沿风险 ${percent(downside)}。价格已到或高于动态价值上沿，新增现金不具备正向盈亏比。`;
+      return;
+    }
+    const ratio = upside / downside;
+    riskRewardValue.textContent = `约 ${ratio.toFixed(1)}:1`;
+    riskRewardValue.classList.toggle('bad', ratio < 1);
+    riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；到上沿 ${high.toFixed(2)} 元的潜在上行 ${percent(upside)}，跌至下沿 ${low.toFixed(2)} 元的风险 ${percent(downside)}。盘中价格不改变价值区间本身。`;
+  }
+  async function refreshIntradayQuote() {
+    statusNode.textContent = '连接中'; statusNode.className = 'tracking-status';
+    try {
+      const response = await fetch(endpoint, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json(); const quote = payload && payload.data;
+      if (!quote || !Number.isFinite(quote.price) || !Number.isFinite(quote.prevClose) || !Number.isFinite(quote.changePercent) || !Number.isFinite(quote.quoteTimestamp)) throw new Error('invalid quote');
+      const quoteTime = new Date(quote.quoteTimestamp * 1000).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false });
+      priceNode.textContent = `${quote.price.toFixed(2)} 元 · ${percent(quote.changePercent)}`;
+      priceNode.classList.toggle('bad', quote.changePercent < 0);
+      detailNode.textContent = `行情时间：${quoteTime}；昨收 ${quote.prevClose.toFixed(2)} 元。来源：${payload.proxySource || '本地行情代理'}。`;
+      statusNode.textContent = '盘中实时 · 每 60 秒'; statusNode.className = 'tracking-status live'; updateRiskReward(quote.price);
+    } catch { priceNode.textContent = '实时行情暂不可用'; priceNode.classList.remove('bad'); detailNode.textContent = '每日同步值仍然有效；可重新双击“大盘启动器”后刷新本页。'; statusNode.textContent = '连接失败'; statusNode.className = 'tracking-status error'; }
+  }
+  if (location.protocol === 'http:' || location.protocol === 'https:') { refreshIntradayQuote(); window.setInterval(refreshIntradayQuote, 60000); }
+  else { priceNode.textContent = Number.isFinite(snapshotPrice) ? `${snapshotPrice.toFixed(2)} 元（每日值）` : '每日值未获取'; detailNode.textContent = '当前为直接打开模式；盘中实时需通过“大盘启动器”进入本地服务。'; statusNode.textContent = '每日同步 · 实时未连接'; }
+})();
+</script></article>
+    </div>
+  </main>
+</body>
+</html>

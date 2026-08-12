@@ -7,7 +7,9 @@ SCRIPT_DIR = Path(__file__).resolve().parents[1] / "scripts"
 sys.path.append(str(SCRIPT_DIR))
 
 from mcp_server import handle
+from mcp_server import get_central_huijin_holding
 from mcp_server import get_market_margin
+from mcp_server import get_usd_jpy_exchange_rate
 from mcp_server import get_us_dollar_index
 from mcp_server import get_us_treasury_yield
 from tushare_client import (
@@ -70,6 +72,21 @@ class TushareClientTests(unittest.TestCase):
         with self.assertRaises(TushareClientError):
             validate_params("fx_daily", {"ts_code": "600000"})
 
+    def test_usd_jpy_param_validation(self):
+        params = validate_params("fx_daily", {"ts_code": "USDJPY.FXCM", "start_date": "2026-07-01"})
+        self.assertEqual(params["ts_code"], "USDJPY.FXCM")
+        self.assertEqual(params["start_date"], "20260701")
+
+    def test_top10_holder_param_validation(self):
+        params = validate_params("top10_holders", {"ts_code": "600150", "period": "2025-12-31"})
+        self.assertEqual(params["ts_code"], "600150.SH")
+        self.assertEqual(params["period"], "20251231")
+
+    def test_top10_float_holder_param_validation(self):
+        params = validate_params("top10_floatholders", {"ts_code": "000001", "start_date": "2026-01-01"})
+        self.assertEqual(params["ts_code"], "000001.SZ")
+        self.assertEqual(params["start_date"], "20260101")
+
 
 class McpServerTests(unittest.TestCase):
     def test_initialize_response(self):
@@ -88,10 +105,60 @@ class McpServerTests(unittest.TestCase):
             "get_market_margin",
             "get_us_treasury_yield",
             "get_us_dollar_index",
+            "get_usd_jpy_exchange_rate",
             "get_financial_statements",
             "get_dividend_history",
+            "check_central_huijin_holding",
             "get_index_constituents",
         ])
+
+    def test_central_huijin_holding_detects_latest_disclosed_match(self):
+        class FakeClient:
+            def call_frame(self, dataset, use_cache=True, **params):
+                if dataset == "top10_holders":
+                    return [
+                        {"ts_code": "600150.SH", "end_date": "2025-12-31", "holder_name": "中央汇金资产管理有限责任公司", "hold_amount": 1000, "hold_ratio": 1.2},
+                        {"ts_code": "600150.SH", "end_date": "2025-12-31", "holder_name": "其他股东", "hold_amount": 900, "hold_ratio": 1.0},
+                    ]
+                if dataset == "top10_floatholders":
+                    return [
+                        {"ts_code": "600150.SH", "end_date": "2025-12-31", "holder_name": "香港中央结算有限公司", "hold_amount": 800, "hold_ratio": 0.9},
+                    ]
+                raise AssertionError(dataset)
+
+        payload = get_central_huijin_holding(FakeClient(), {"ts_code": "600150"})
+        self.assertTrue(payload["is_central_huijin_holding"])
+        self.assertEqual(payload["selected_report_period"], "2025-12-31")
+        self.assertEqual(payload["match_count"], 1)
+        self.assertEqual(payload["matches"][0]["holder_name"], "中央汇金资产管理有限责任公司")
+        self.assertEqual(payload["matches"][0]["source_dataset"], "top10_holders")
+
+    def test_central_huijin_holding_defaults_to_latest_period_only(self):
+        class FakeClient:
+            def call_frame(self, dataset, use_cache=True, **params):
+                if dataset == "top10_holders":
+                    return [
+                        {"ts_code": "600150.SH", "end_date": "2025-09-30", "holder_name": "中央汇金投资有限责任公司"},
+                        {"ts_code": "600150.SH", "end_date": "2025-12-31", "holder_name": "其他股东"},
+                    ]
+                if dataset == "top10_floatholders":
+                    return []
+                raise AssertionError(dataset)
+
+        latest_payload = get_central_huijin_holding(FakeClient(), {"ts_code": "600150"})
+        self.assertFalse(latest_payload["is_central_huijin_holding"])
+        self.assertEqual(latest_payload["selected_report_period"], "2025-12-31")
+
+        history_payload = get_central_huijin_holding(FakeClient(), {"ts_code": "600150", "latest_only": False})
+        self.assertTrue(history_payload["is_central_huijin_holding"])
+        self.assertIsNone(history_payload["selected_report_period"])
+
+    def test_central_huijin_holding_requires_a_holder_scope(self):
+        with self.assertRaises(TushareClientError):
+            get_central_huijin_holding(
+                object(),
+                {"ts_code": "600150", "include_top_holders": False, "include_float_holders": False},
+            )
 
     def test_market_margin_summary_uses_full_rows_when_limited(self):
         class FakeClient:
@@ -145,6 +212,33 @@ class McpServerTests(unittest.TestCase):
         self.assertEqual(payload["row_count"], 1)
         self.assertEqual(payload["rows"], [{"trade_date": "2026-07-29", "close": 99.8}])
         self.assertEqual(payload["latest"], {"trade_date": "2026-07-30", "close": 100.2})
+
+    def test_usd_jpy_exchange_rate_flags_yen_depreciation_risk(self):
+        class FakeClient:
+            def call_frame(self, dataset, use_cache=True, **params):
+                assert dataset == "fx_daily"
+                self.params = params
+                return [
+                    {"trade_date": "2026-07-29", "bid_close": "159.8"},
+                    {"trade_date": "2026-07-30", "bid_close": 160.2},
+                ]
+
+        payload = get_usd_jpy_exchange_rate(FakeClient(), {"limit": 1})
+        self.assertEqual(payload["symbol"], "USDJPY.FXCM")
+        self.assertEqual(payload["latest"], {"trade_date": "2026-07-30", "close": 160.2})
+        self.assertEqual(payload["rows"], [{"trade_date": "2026-07-29", "close": 159.8}])
+        self.assertEqual(payload["risk_level"], "high")
+        self.assertTrue(payload["is_yen_depreciation_risk"])
+
+    def test_usd_jpy_exchange_rate_keeps_normal_below_threshold(self):
+        class FakeClient:
+            def call_frame(self, dataset, use_cache=True, **params):
+                assert dataset == "fx_daily"
+                return [{"trade_date": "2026-07-30", "bid_close": 159.8}]
+
+        payload = get_usd_jpy_exchange_rate(FakeClient(), {})
+        self.assertEqual(payload["risk_level"], "normal")
+        self.assertFalse(payload["is_yen_depreciation_risk"])
 
 
 if __name__ == "__main__":

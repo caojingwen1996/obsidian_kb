@@ -36,12 +36,6 @@ body {
 .eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
 .hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
 .hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
-.verdict { display: inline-flex; margin-top: 24px; padding: 7px 13px; border-radius: 999px; color: var(--danger); background: var(--danger-bg); font-weight: 750; }
-.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 26px; }
-.kpi { min-height: 96px; padding: 17px 18px; border: 1px solid rgba(255,255,255,.22); border-radius: 14px; background: rgba(255,255,255,.09); }
-.kpi-value { display: block; font-size: 23px; line-height: 1.3; font-weight: 760; overflow-wrap: anywhere; }
-.kpi-label { display: block; margin-top: 10px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; opacity: .8; }
-
 .layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
 .toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
 .toc-inner { position: sticky; top: 18px; }
@@ -64,26 +58,50 @@ body {
 .content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
 .content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
 
+.daily-tracking { margin: 0 0 42px; padding: 22px; border: 1px solid #cbdade; border-radius: 16px; background: linear-gradient(135deg, #f3f8f9 0%, #fffaf0 100%); box-shadow: 0 12px 30px rgba(23, 50, 71, .07); }
+.daily-tracking-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
+.daily-tracking-kicker { margin: 0 0 4px; color: var(--teal); font-size: 12px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+.daily-tracking h2 { margin: 0; padding: 0; border: 0; font-size: 27px; }
+.daily-tracking-time { margin: 4px 0 0; color: var(--muted); font-size: 12px; text-align: right; }
+.tracking-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.tracking-grid + .tracking-grid { margin-top: 12px; }
+.tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
+.tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
+.tracking-card[data-tracking-key="dynamic-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
+.range-breakdown { display: block; }
+.range-main { display: inline-flex; align-items: center; max-width: 100%; margin-bottom: 10px; padding: 3px 9px; border-radius: 999px; background: #e7f0f3; color: var(--navy); font-size: 20px; line-height: 1.3; font-weight: 800; }
+.range-points { display: grid; gap: 7px; margin-top: 1px; }
+.range-point { display: block; padding-left: 11px; border-left: 3px solid #bed2d8; color: #245068; font-size: 14px; line-height: 1.52; font-weight: 650; }
+.tracking-value.bad { color: var(--danger); }
+.tracking-detail { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; }
+.tracking-status { display: inline-flex; margin-top: 10px; padding: 3px 8px; border-radius: 999px; color: #526b77; background: #edf2f4; font-size: 12px; font-weight: 700; }
+.tracking-status.live { color: #17604e; background: #dff3eb; }
+.tracking-status.error { color: var(--danger); background: var(--danger-bg); }
+.tracking-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; margin-top: 14px; padding-top: 13px; border-top: 1px solid #d5e0e3; color: #536d78; font-size: 13px; }
+.tracking-footer a { font-weight: 700; }
+
 @media (max-width: 980px) {
   .hero { padding: 40px 30px 34px; }
-  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .layout { grid-template-columns: 1fr; }
   .toc { border-right: 0; border-bottom: 1px solid var(--line); }
   .toc-inner { position: static; columns: 2; }
   .content { padding: 34px 30px 64px; }
+  .tracking-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 600px) {
-  .kpis { grid-template-columns: 1fr; }
   .toc-inner { columns: 1; }
   .content { padding: 28px 18px 54px; }
+  .daily-tracking-head { display: block; }
+  .daily-tracking-time { text-align: left; }
 }
 
 @media print {
   body { background: #fff; }
   .report-shell { max-width: none; }
   .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
-  .verdict, .kpi { border: 1px solid #aebbc2; color: #102f43; background: #fff; }
+  .daily-tracking, .tracking-card { border: 1px solid #aebbc2; color: #102f43; background: #fff; box-shadow: none; }
   .layout { display: block; }
   .toc { display: none; }
   .content { padding: 25px 36px; }
@@ -91,22 +109,13 @@ body {
   .content table { display: table; overflow: visible; break-inside: avoid; }
 }
 </style>
-  <meta name="stock-secid" content="0.300136">
-  <meta name="stock-quote-endpoint" content="/api/stock-quote?secid=0.300136">
 </head>
 <body>
   <main class="report-shell">
     <header class="hero">
       <p class="eyebrow">BBXM EQUITY RESEARCH · 300136.SZ</p>
       <h1>信维通信机构级决策研报</h1>
-      <div class="hero-meta"><span>2026-07-17</span><span>2026-07-17</span><span>深圳证券交易所创业板 / 人民币</span></div>
-      <div class="verdict">高估 · wait；已有高位持仓以 review / reduce 为主</div>
-      <div class="kpis">
-        <div class="kpi"><span class="kpi-value">79.05 元，2026-07-16 收盘</span><span class="kpi-label">当前价格</span></div>
-        <div class="kpi"><span class="kpi-value">32–48 元 / 股</span><span class="kpi-label">综合估值区间</span></div>
-        <div class="kpi"><span class="kpi-value">wait；已有高位持仓以 review / reduce 为主</span><span class="kpi-label">冰冰小美动作</span></div>
-        <div class="kpi"><span class="kpi-value">中高</span><span class="kpi-label">结论置信度</span></div>
-      </div>
+      <div class="hero-meta"><span>2026-08-11 09:50（Asia/Shanghai，盘中）</span><span>2026-08-11</span><span>深圳证券交易所创业板 / 人民币</span></div>
     </header>
     <div class="layout">
       <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
@@ -126,10 +135,34 @@ body {
 <a class="toc-link" href="#section-15">15. 来源清单</a>
 <a class="toc-link" href="#section-16">16. 声明</a></div></aside>
       <article class="content"><blockquote>
-<p>证券代码：300136.SZ<br>交易所 / 币种：深圳证券交易所创业板 / 人民币<br>研究截止时间：2026-07-17<br>报告生成时间：2026-07-17<br>数据口径：2025 年年度报告、2026 年一季报、公司公告与投资者关系记录；行情采用可核验的 2026-07-16 收盘价。金额若无特别说明均为人民币。</p>
+<p>证券代码：300136.SZ<br>
+交易所 / 币种：深圳证券交易所创业板 / 人民币<br>
+研究截止时间：2026-08-11 09:50（Asia/Shanghai，盘中）<br>
+报告生成时间：2026-08-11<br>
+数据口径：盘中价格采用腾讯行情；历史行情、估值、财务、资金流和融资融券优先采用本地 <code>tushare-data</code>；法定事实以深交所、巨潮资讯和公司公告复核。</p>
 </blockquote>
+<!-- DAILY_TRACKING_START -->
+<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-08-11 09:50（Asia/Shanghai，盘中）" data-value-low="32" data-value-high="48">
+  <div class="daily-tracking-head">
+    <div><p class="daily-tracking-kicker">Daily decision tracker</p><h2>每日跟踪面板</h2></div>
+    <p class="daily-tracking-time">更新：2026-08-11 09:50（Asia/Shanghai，盘中）<br>下次：收盘后 / 重大公告后</p>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">改善，但现金流质量待验证。2026Q1 收入同比 +14.31%、归母净利润 +35.35%，经营现金流却同比 -87.14%。</p><p class="tracking-detail">风险方向：风险减弱，但风险水平仍高。价格和杠杆由 7 月恐慌期修复，估值、定增和并购资本需求尚未解除。。下一验证点与失效条件见第 11—13 章。</p></div>
+    <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value"><span class="range-breakdown"><span class="range-main">32—48 元 / 股。下沿对应传统射频业务与保守现金流价值</span><span class="range-points"><span class="range-point">中枢对应 2026—2027 年盈利兑现</span><span class="range-point">上沿已计入商业卫星、散热与 MLCC 的成长性期权。高于上沿需要订单、分部收入、利润率和现金流同步超预期。</span></span></span></p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
+    <div class="tracking-card" data-tracking-key="risk-reward"><p class="tracking-label">盈亏比</p><p class="tracking-value bad" id="risk-reward-value">无正向盈亏比</p><p class="tracking-detail" id="risk-reward-detail">每日同步价 66.72 元；相对上沿空间 -28.1%，回落至下沿风险 +108.5%。价格已到或高于动态价值上沿，新增现金不具备正向盈亏比。</p></div>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="daily-quote"><p class="tracking-label">每日同步价</p><p class="tracking-value">66.72 元，2026-08-11 09:50:42，盘中 -2.40%</p><p class="tracking-detail">这是报告内嵌的正式跟踪基准，离线打开仍可使用。</p><span class="tracking-status">每日快照</span></div>
+    <div class="tracking-card" data-tracking-key="intraday-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">等待连接</p><p class="tracking-detail" id="intraday-detail">通过“大盘启动器”打开后获取盘中行情，每 60 秒刷新；直接打开 HTML 时不访问外部行情。</p><span class="tracking-status" id="intraday-status">未连接</span></div>
+    <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">observe；已有高仓位持仓为 review / reduce</p><p class="tracking-detail">估值：高估。66.72 元盘中价高于本报告 32—48 元综合估值区间上沿约 39%。 · observe；已有高仓位持仓为 review / reduce；风险：风险减弱，但风险水平仍高。价格和杠杆由 7 月恐慌期修复，估值、定增和并购资本需求尚未解除。；结论置信度：中。经营方向可验证，但应用分部收入、订单金额和 MLCC 标的财务数据缺失。。</p><span class="tracking-status">高估。66.72 元盘中价高于本报告 32—48 元综合估值区间上沿约 39%。</span></div>
+  </div>
+  <div class="tracking-footer"><span>资金状态：<strong>短线修复、20 日仍偏流出：5 日大单与特大单净额代理约 +7.04 亿元，20 日约 -39.81 亿元；融资余额较 7 月 14 日下降约 25.7%，最近自低位回补。</strong> · 新增/已有动作：<strong>observe；已有高仓位持仓为 review / reduce</strong></span><span>资金面分析：未单独生成</span></div>
+</section>
+<!-- DAILY_TRACKING_END -->
 <h2 id="section-1">1. 决策摘要</h2>
 
+<h3>1.1 基本面组</h3>
 <table>
 <thead>
 <tr>
@@ -139,49 +172,90 @@ body {
 </thead>
 <tbody><tr>
 <td>估值状态</td>
-<td>高估</td>
-</tr>
-<tr>
-<td>操作建议</td>
-<td>观望</td>
-</tr>
-<tr>
-<td>冰冰小美动作</td>
-<td>wait；已有高位持仓以 review / reduce 为主</td>
-</tr>
-<tr>
-<td>当前价格及时间</td>
-<td>79.05 元，2026-07-16 收盘</td>
+<td><strong>高估</strong>。66.72 元盘中价高于本报告 32—48 元综合估值区间上沿约 39%。</td>
 </tr>
 <tr>
 <td>综合估值区间</td>
-<td>32–48 元 / 股</td>
+<td><strong>32—48 元 / 股</strong>。下沿对应传统射频业务与保守现金流价值；中枢对应 2026—2027 年盈利兑现；上沿已计入商业卫星、散热与 MLCC 的成长性期权。高于上沿需要订单、分部收入、利润率和现金流同步超预期。</td>
 </tr>
 <tr>
 <td>相对现价空间</td>
-<td>-59.5% 至 -39.3%</td>
+<td>相对 66.72 元为 <strong>-52.0% 至 -28.1%</strong>。</td>
+</tr>
+<tr>
+<td>基本面状态</td>
+<td><strong>改善，但现金流质量待验证</strong>。2026Q1 收入同比 +14.31%、归母净利润 +35.35%，经营现金流却同比 -87.14%。</td>
+</tr>
+<tr>
+<td>关键经营变化</td>
+<td>商业卫星产品在越南规模生产并稳定交付，但 2025 年相关收入占比低于 10%；拟控股高端 MLCC 标的，交易价格、盈利和并表时间尚未确定。</td>
+</tr>
+<tr>
+<td>彼得·林奇公司分类</td>
+<td><strong>主分类：稳健增长型；次分类：快速增长型期权。</strong> 2021—2025 年收入复合增速不高、传统射频仍是主体；卫星、散热和 MLCC 提供潜在增速，但尚未成为可验证的主要利润来源。</td>
+</tr>
+<tr>
+<td>一句话投资故事</td>
+<td>传统消费电子射频业务提供客户和现金流底座，公司试图用商业卫星、AI 芯片散热、汽车射频和高端 MLCC 打开第二曲线；故事成立取决于新增产能在 2—4 年内转化为分部收入、利润和现金，而不是只转化为资本开支与股本稀释。</td>
 </tr>
 <tr>
 <td>结论置信度</td>
-<td>中高</td>
+<td><strong>中</strong>。经营方向可验证，但应用分部收入、订单金额和 MLCC 标的财务数据缺失。</td>
+</tr>
+</tbody></table>
+<h3>1.2 资金面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>操作建议</td>
+<td><strong>观望</strong></td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td><strong>observe</strong>；已有高仓位持仓为 <strong>review / reduce</strong></td>
+</tr>
+<tr>
+<td>当前价格及时间</td>
+<td><strong>66.72 元，2026-08-11 09:50:42，盘中 -2.40%</strong></td>
+</tr>
+<tr>
+<td>资金状态</td>
+<td><strong>短线修复、20 日仍偏流出</strong>：5 日大单与特大单净额代理约 +7.04 亿元，20 日约 -39.81 亿元；融资余额较 7 月 14 日下降约 25.7%，最近自低位回补。</td>
+</tr>
+<tr>
+<td>风险方向</td>
+<td><strong>风险减弱，但风险水平仍高</strong>。价格和杠杆由 7 月恐慌期修复，估值、定增和并购资本需求尚未解除。</td>
+</tr>
+<tr>
+<td>每日跟踪时间</td>
+<td>2026-08-11 09:50（Asia/Shanghai，盘中）</td>
+</tr>
+<tr>
+<td>资金面分析链接</td>
+<td>未生成独立资金面 HTML；本报告第 11.3 节为当前资金面底稿。</td>
 </tr>
 </tbody></table>
 <h3>如果今天这是一笔现金，我会买它吗</h3>
 <ul>
-<li>回答：不会；只在价格和业绩同时满足特定条件时会。</li>
-<li>我的判断：公司确实是商业卫星地面终端射频器件的重要受益者，但并非卫星制造商，商业航天收入尚未单列。现价已经提前计入定增项目大比例达产，而项目仍处建设、客户验证和扩产阶段。</li>
-<li>改变结论的条件：股价进入 35–45 元区间，且连续两个季度验证商业卫星业务收入、毛利率和经营现金流同步改善；或未来盈利显著超出本报告基准情景，使 2027 年正常化 PE 降至 30–35 倍以内。</li>
+<li>回答：<strong>不会。</strong></li>
+<li>我的判断：当前价格仍把第二曲线的乐观兑现提前计入，而 2026Q1 现金流、分部收入披露和新增资本投入尚不能提供足够安全边际。</li>
+<li>改变结论的条件：其一，价格进入 40—48 元且半年报未破坏盈利逻辑；其二，商业卫星与 MLCC 出现可复核的收入、利润和现金回报，使 2027 年 EPS 1.66 元附近的卖方中枢由预期变成事实。</li>
 </ul>
 <h2 id="section-2">2. 证券身份与来源矩阵</h2>
 
 <h3>2.1 证券身份</h3>
 <ul>
-<li>公司全称：深圳市信维通信股份有限公司。</li>
-<li>证券代码：300136.SZ。</li>
-<li>上市地：深圳证券交易所创业板。</li>
-<li>报告准则：中国企业会计准则。</li>
-<li>法定披露体系：A 股交易所与巨潮资讯。</li>
-<li>同名或跨市场歧义：无。报告对象不是卫星整机企业，而是射频电子与连接器供应商。</li>
+<li>公司全称：深圳市信维通信股份有限公司</li>
+<li>证券代码：300136.SZ</li>
+<li>上市地：深圳证券交易所创业板</li>
+<li>报告准则：中国企业会计准则</li>
+<li>法定披露体系：A 股交易所与巨潮资讯</li>
+<li>同名或跨市场歧义：无；本报告不涉及名称相近公司或境外证券。</li>
 </ul>
 <h3>2.2 来源矩阵</h3>
 <table>
@@ -195,55 +269,105 @@ body {
 </tr>
 </thead>
 <tbody><tr>
+<td>Tushare MCP 调用清单（A股适用）</td>
+<td><code>tushare-data</code></td>
+<td><code>get_stock_basic</code>、<code>get_stock_daily</code>、<code>get_stock_valuation</code>、<code>get_stock_moneyflow</code>、<code>get_margin_detail</code>、<code>get_market_margin</code>、<code>get_financial_statements</code>、<code>get_dividend_history</code>、<code>get_us_treasury_yield</code></td>
+<td>截至 2026-08-10 / 2026Q1</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>证券身份与上市状态</td>
+<td><code>get_stock_basic</code>；交易所 / 巨潮</td>
+<td>本地 Tushare</td>
+<td>2026-08-11 查询</td>
+<td>已获取</td>
+</tr>
+<tr>
 <td>实时价格、52周高低、今年以来表现</td>
-<td>交易所或行情终端</td>
-<td>Investing 历史行情与证券页</td>
-<td>2026-07-16</td>
-<td>已获取；实时盘中价未获取</td>
+<td>行情平台 / Tushare</td>
+<td>腾讯行情、本地 Tushare</td>
+<td>2026-08-11 09:50 / 2026-08-10</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>估值、市值、股息率和换手率</td>
+<td><code>get_stock_valuation</code></td>
+<td>本地 Tushare</td>
+<td>2026-08-10</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>资金分档 / 大单资金代理</td>
+<td><code>get_stock_moneyflow</code></td>
+<td>本地 Tushare</td>
+<td>截至 2026-08-10</td>
+<td>已获取；仅订单大小代理</td>
+</tr>
+<tr>
+<td>融资融券代理</td>
+<td><code>get_margin_detail</code></td>
+<td>本地 Tushare</td>
+<td>2026-07-14 至 2026-08-10</td>
+<td>已获取</td>
 </tr>
 <tr>
 <td>第三方公允价值、护城河、星级</td>
 <td>Morningstar 等</td>
-<td>未找到可验证公开覆盖</td>
-<td>截至 2026-07-17</td>
-<td>未获取到</td>
+<td>Morningstar 公开检索</td>
+<td>2026-08-11</td>
+<td>未获取到个股覆盖数据</td>
 </tr>
 <tr>
 <td>最新季报与管理层指引</td>
-<td>公司法定公告</td>
-<td>2026 年一季报、投资者关系记录</td>
-<td>2026-03-31 / 2026-04-22</td>
+<td>巨潮 / 深交所 / 公司公告</td>
+<td>2026Q1 报告、注册稿、澄清公告</td>
+<td>截至 2026-07-31</td>
 <td>已获取</td>
 </tr>
 <tr>
 <td>分部收入</td>
-<td>年报</td>
-<td>2025 年年度报告</td>
-<td>2025-12-31</td>
-<td>已获取，但只披露“射频零、部件”总口径</td>
+<td>年报 / 公司公告</td>
+<td>2025 年报、2026-07-31 澄清公告</td>
+<td>2025A</td>
+<td>部分获取；应用分部未拆分</td>
 </tr>
 <tr>
 <td>卖方评级与目标价</td>
-<td>券商研报或一致预期</td>
-<td>未获得可复核的完整目标价样本</td>
-<td>截至 2026-07-17</td>
-<td>未获取到</td>
+<td>研报平台</td>
+<td>同花顺 F10、Investing.com</td>
+<td>2026-08-11 页面</td>
+<td>已获取；样本较小、分歧极大</td>
 </tr>
 <tr>
 <td>近三个月新闻与催化剂</td>
-<td>公司公告、深交所</td>
-<td>定增问询回复、注册批复、投资者关系记录</td>
-<td>2026-04 至 2026-05</td>
+<td>公司公告 / 交易所</td>
+<td>证监会注册批复、专户、并购意向、澄清公告</td>
+<td>2026-05-27 至 2026-07-31</td>
 <td>已获取</td>
 </tr>
 <tr>
 <td>五年财务历史</td>
-<td>年报</td>
-<td>2021–2025 年年度报告</td>
-<td>2021–2025</td>
+<td><code>get_financial_statements</code>；公司年报</td>
+<td>本地 Tushare、2021—2025 年报</td>
+<td>2021A—2025A</td>
 <td>已获取</td>
 </tr>
+<tr>
+<td>分红历史</td>
+<td><code>get_dividend_history</code></td>
+<td>本地 Tushare</td>
+<td>2021—2025 年度方案</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>指数成分与权重（如适用）</td>
+<td>指数公司</td>
+<td>未单独核验</td>
+<td>—</td>
+<td>不适用；不影响公司价值判断</td>
+</tr>
 </tbody></table>
+<p>本轮新增原始资料已保存为 <a href="../../../webpages/2026-08-11-信维通信-研究数据快照.md">信维通信研究数据快照</a>、<a href="../../../webpages/2026-07-14-信维通信-股权收购及增资意向公告.md">股权收购及增资意向公告</a> 和 <a href="../../../webpages/2026-07-31-信维通信-媒体报道澄清公告.md">媒体报道澄清公告</a>。</p>
 <h2 id="section-3">3. 行情与市场预期</h2>
 
 <h3>3.1 行情快照（事实）</h3>
@@ -258,49 +382,49 @@ body {
 </thead>
 <tbody><tr>
 <td>当前价格</td>
-<td align="right">79.05 元</td>
-<td>Investing 历史行情</td>
-<td>2026-07-16 收盘</td>
+<td align="right">66.72 元</td>
+<td>腾讯行情</td>
+<td>2026-08-11 09:50:42，盘中</td>
 </tr>
 <tr>
 <td>52周最高</td>
 <td align="right">129.44 元</td>
-<td>Investing 证券页</td>
-<td>近 52 周</td>
+<td>本地 Tushare 日线</td>
+<td>2025-08-01—2026-08-10</td>
 </tr>
 <tr>
 <td>52周最低</td>
-<td align="right">21.81 元</td>
-<td>Investing 证券页</td>
-<td>近 52 周</td>
+<td align="right">23.54 元</td>
+<td>本地 Tushare 日线</td>
+<td>同上</td>
 </tr>
 <tr>
 <td>今年以来表现</td>
-<td align="right">未获取到可复核完整值；近一年约 +251.8%</td>
-<td>Investing 证券页</td>
-<td>截至 2026-07-16</td>
+<td align="right">+4.19%</td>
+<td>本地 Tushare</td>
+<td>截至 2026-08-10收盘</td>
 </tr>
 <tr>
 <td>总市值</td>
-<td align="right">约 764.9 亿元</td>
-<td>79.05 元 × 9.6757 亿股</td>
-<td>现有股本、未计潜在定增</td>
+<td align="right">约 645.56 亿元</td>
+<td>当前价格 × 9.6757 亿股</td>
+<td>盘中估算；8 月 10 日收盘口径为 661.43 亿元</td>
 </tr>
 <tr>
 <td>PE / PB / EV</td>
-<td align="right">约 108 倍 / 9.65 倍 / 775 亿元</td>
-<td>2025 归母净利润、净资产及净债务测算</td>
-<td>静态、现有股本</td>
+<td align="right">PE TTM 89.86 倍 / PB 8.24 倍 / EV 约 656 亿元</td>
+<td>Tushare 估值、约 10.5 亿元净债务代理</td>
+<td>PE、PB 为 2026-08-10收盘口径；EV 按盘中市值估算</td>
 </tr>
 </tbody></table>
-<p>股价较 52 周高点已回撤约 38.9%，但仍远高于 52 周低点，且近一年涨幅巨大。“已经下跌很多”并不等同于“估值已经便宜”。</p>
+<p>股价较 129.44 元高点回撤约 48.5%；5 / 20 / 60 日收益分别为 +20.99% / -20.80% / -31.37%。这是一轮深度回撤后的高波动修复，而不是已经确认的新上升趋势。</p>
 <h3>3.2 第三方公允价值与评级（事实）</h3>
 <ul>
-<li>公允价值：未获取到。</li>
+<li>公允价值：未获取到 Morningstar 对 300136.SZ 的公开个股公允价值。</li>
 <li>护城河评级：未获取到。</li>
 <li>星级：未获取到。</li>
-<li>来源与时间：截至 2026-07-17 检查公开行情页、公司公告及可访问研究信息。</li>
-<li>未获取到的字段及已检查来源：Morningstar 未发现可验证的 A 股该证券覆盖；因此不以第三方星级替代独立估值。</li>
+<li>来源与时间：Morningstar 公开检索，2026-08-11。</li>
+<li>未获取到的字段及已检查来源：Morningstar 搜索只返回评级方法说明和非该股材料，未发现可核验的信维通信分析师覆盖页；因此不以量化映射或其他平台的“公允价值模型”替代。</li>
 </ul>
 <h3>3.3 卖方评级与目标价分布（事实）</h3>
 <table>
@@ -315,156 +439,289 @@ body {
 </tr>
 </thead>
 <tbody><tr>
-<td>未获取到完整可复核样本</td>
-<td>—</td>
-<td>—</td>
-<td align="right">—</td>
-<td>—</td>
-<td>—</td>
+<td>野村 / Instinet</td>
+<td>2026-06-09</td>
+<td>买入</td>
+<td align="right">138 元</td>
+<td>12个月</td>
+<td>Investing.com 页面列示；研报全文和模型未获取到</td>
+</tr>
+<tr>
+<td>华鑫证券</td>
+<td>2026-06-29</td>
+<td>买入</td>
+<td align="right">未披露</td>
+<td>2026—2028</td>
+<td>EPS 1.07 / 1.64 / 2.51 元</td>
+</tr>
+<tr>
+<td>华创证券</td>
+<td>2026-04-22</td>
+<td>强推 / 买入</td>
+<td align="right">未披露</td>
+<td>2026—2028</td>
+<td>归母净利润 12.87 / 19.25 / 26.96 亿元</td>
+</tr>
+<tr>
+<td>Investing.com 汇总</td>
+<td>2026-08-11 页面</td>
+<td>3 买入、1 卖出</td>
+<td align="right">平均 88.75 元</td>
+<td>12个月</td>
+<td>区间 30—140 元，4 位分析师</td>
 </tr>
 </tbody></table>
 <ul>
-<li>目标价区间 / 中位数：未获取到。</li>
-<li>样本数量与完整性：不足，不能形成可靠一致预期。</li>
-<li>来源冲突及采信理由：本报告不引用搜索摘要中的零散目标价，估值改用公开财务数据和透明假设独立测算。</li>
+<li>目标价区间 / 中位数：区间 <strong>30—140 元</strong>，平均 88.75 元；中位数未获取到。</li>
+<li>样本数量与完整性：同花顺近六个月为 4 家机构；Investing.com 为过去三个月 4 位分析师。样本小，且部分研报未公开目标价与完整假设。</li>
+<li>来源冲突及采信理由：平台目标价远高于本报告现金流估值，且最高与最低相差 3.7 倍。本报告把卖方盈利预测作为情景输入，不把平台平均目标价直接视为内在价值。</li>
 </ul>
 <h2 id="section-4">4. 商业模式与竞争格局</h2>
 
 <h3>4.1 事实</h3>
 <ul>
-<li>收入来源：天线及模组、无线充电、EMI/EMC、高精密连接器、声学器件、汽车互联和被动元件等，应用于消费电子、商业卫星通信、智能汽车、物联网和智能家居。2025 年年报将全部营业收入归并披露为“射频零、部件”，收入 89.10 亿元。</li>
-<li>客户与定价权：以直销为主，2025 年直销占比 99.53%。公司披露低轨地面终端相控阵天线模组已批量出货，并与两家北美主要客户合作；具体客户名称、商业航天收入和单客户毛利率未披露。</li>
-<li>成本结构：2025 年毛利率 22.79%；研发投入 6.33 亿元，占收入 7.11%。材料、制造折旧、良率和客户年度降价是核心变量。</li>
-<li>资本强度：2025 年资本开支约 6.49 亿元；拟定增项目总投资 75.85 亿元、募集资金不超过 60 亿元，明显高于公司既有年度资本开支。</li>
-<li>竞争者：消费电子射频领域面对国内外天线、连接器和精密制造厂商；卫星地面终端领域面对具备相控阵天线、射频前端、高速连接及材料能力的专业厂商。公开材料不足以量化其市场份额。</li>
-<li>监管和产业位置：处于商业航天产业链中下游的地面终端关键射频电子环节，提供相控阵天线模组、高频高速线缆与连接器、精密结构件；不是卫星整星、火箭或卫星运营商。商业航天纯度为中低，但对地面终端放量具有较高弹性。</li>
+<li>收入来源：2025 年收入 89.10 亿元，年报按“射频零、部件”口径列示，未拆分消费电子、汽车、商业卫星、散热和 MLCC 的收入与利润。</li>
+<li>客户与定价权：2025 年前五大客户占比约 46.67%，较 2023 年约 59.88%下降；海外收入占比约 65.27%。北美商业卫星客户已形成量产，但客户名称、订单额和毛利率未披露。</li>
+<li>成本结构：材料、精密加工、人工、折旧和良率构成主要成本；2025 年毛利率 22.79%，尚未显示平台型高毛利特征。</li>
+<li>资本强度：定增项目总投资约 75.85 亿元，计划募集不超过 60 亿元；满产首年新增折旧约 4.82 亿元。拟收购 MLCC 55% 股权价格不超过 11 亿元，交割后各方还拟合计增资 10 亿元。</li>
+<li>定增项目：卫星通信产品项目拟投入 35.63 亿元、募集 28.5 亿元；射频零部件项目拟投入 28.53 亿元、募集 21.5 亿元；芯片散热项目拟投入 11.70 亿元、募集 10 亿元。</li>
 </ul>
+<h4>多产业位置景气度排序（事实与判断分列）</h4>
+<table>
+<thead>
+<tr>
+<th align="right">排名</th>
+<th>产业位置</th>
+<th>当前景气</th>
+<th>方向</th>
+<th>事实依据</th>
+<th>判断与置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">1</td>
+<td>商业卫星地面终端射频与连接器</td>
+<td>较高</td>
+<td>上行</td>
+<td>越南产线规模生产并稳定交付；2026Q1 已有在手及意向订单</td>
+<td>需求与交付均有证据，但 2025 收入占比低于 10%，置信度中高</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td>高端 MLCC</td>
+<td>较高</td>
+<td>上行</td>
+<td>标的已完成技术与客户验证，拟取得 70%控制权</td>
+<td>高端国产替代有空间，但交易和财务数据未落定，置信度中</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td>传统消费电子射频</td>
+<td>中</td>
+<td>持平</td>
+<td>仍是收入主体，2026Q1 总收入增长</td>
+<td>行业成熟、客户集中，定价权未见跃迁，置信度中高</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td>AI 芯片散热组件</td>
+<td>中</td>
+<td>上行</td>
+<td>定增项目规划，面向高算力芯片散热</td>
+<td>未披露独立收入和订单，置信度低</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td>汽车射频与互联</td>
+<td>证据不足</td>
+<td>上行候选</td>
+<td>公司长期布局汽车连接产品</td>
+<td>缺少近期分部收入、订单与盈利披露，置信度低</td>
+</tr>
+</tbody></table>
 <h3>4.2 我的判断</h3>
+<p>公司的真实比较优势是材料、器件、模组、精密制造与全球交付的组合能力，而不是“商业航天纯度”。海外产线降低部分贸易和人员限制风险，客户认证提高切换成本，但应用分部不披露使份额与定价权无法定量验证。市场把第二曲线按高成长平台估值，公司当前财务仍更接近资本密集型精密制造商。</p>
+<p>产业链利润池存在重复暴露：卫星、消费电子和汽车都可能复用射频材料、连接器和制造能力，不能把每条第二曲线的全部收入期权简单相加。真正能提高估值中枢的变量，是高附加值产品占比上升后毛利率、ROIC 和自由现金流同步改善。</p>
+<h3>4.3 彼得·林奇公司分类与投资故事</h3>
 <ul>
-<li>我的判断：竞争优势来自材料、器件、模组到规模制造的一体化能力，以及进入北美客户供应链后的验证壁垒。LCP 薄膜与柔性覆铜板自研自产，有助于缩短链条并改善产品协同。</li>
-<li>我的判断：商业模式最脆弱的环节是客户集中、消费电子周期性和大规模扩产。商业卫星收入未单列，市场难以判断“批量出货”对集团利润的真实贡献；定增项目若爬坡慢，将先产生折旧与摊薄。</li>
-<li>证伪条件：商业卫星收入连续披露并快速提升、相关毛利率稳定高于集团水平、客户明显多元化，同时新增产能利用率和现金回报达到可接受水平。</li>
+<li>主分类：<strong>稳健增长型</strong>。2021—2025 年收入从 75.81 亿元增至 89.10 亿元，复合增速约 4.1%；利润有波动但未呈持续高速增长。</li>
+<li>次分类：<strong>快速增长型期权</strong>。商业卫星、AI 散热和 MLCC 若从小基数放量，可改变 2026—2028 年增速，但目前仍以订单、产能和卖方预测为主。</li>
+<li>不归类为困境反转：主营盈利和现金流并未陷入亏损或重组状态；本轮股价下跌主要是估值、情绪和流动性重估。</li>
+<li>利润增长等式：<strong>利润 = 各应用销量 × 单价 × 毛利率 − 研发与销售费用 − 新增折旧 − 融资与整合成本</strong>。每股收益还要再除以定增后的摊薄股本。</li>
+<li>投资故事：传统射频现金流支持第二曲线扩产，新增客户和产品组合有望把收入增速提高到两位数；若 2026—2028 年收入与利润兑现，估值可由传统硬件向成长制造靠拢。故事在商业卫星收入停滞、MLCC 并购回报不足、毛利率不升或自由现金流长期落后利润时失效。</li>
 </ul>
 <h2 id="section-5">5. 分部收入与盈利拆解</h2>
 
 <table>
 <thead>
 <tr>
-<th>分部</th>
-<th align="right">收入</th>
-<th align="right">同比</th>
-<th align="right">收入占比</th>
+<th>分部 / 口径</th>
+<th align="right">2025 收入</th>
+<th align="right">占比</th>
 <th align="right">毛利率</th>
-<th align="right">毛利率变化</th>
-<th>来源 / 时间</th>
+<th>增长驱动</th>
+<th>风险</th>
+<th>数据状态</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>射频零、部件</td>
+<td>射频零、部件（法定披露口径）</td>
 <td align="right">89.10 亿元</td>
-<td align="right">+1.90%</td>
 <td align="right">100%</td>
 <td align="right">22.79%</td>
-<td align="right">+1.97 个百分点</td>
-<td>2025 年报</td>
+<td>消费电子复苏、卫星量产、汽车与散热增量</td>
+<td>客户、价格、良率与折旧</td>
+<td>已获取</td>
 </tr>
 <tr>
-<td>其中：商业卫星通信</td>
-<td align="right">未单列</td>
-<td align="right">未单列</td>
-<td align="right">未单列</td>
-<td align="right">未单列</td>
-<td align="right">未单列</td>
-<td>2025 年报及定增回复</td>
+<td>商业卫星通信</td>
+<td align="right">低于 8.91 亿元</td>
+<td align="right">低于 10%</td>
+<td align="right">未披露</td>
+<td>北美客户、越南规模交付</td>
+<td>客户集中、地缘与需求波动</td>
+<td>部分获取</td>
 </tr>
 <tr>
-<td>其中：消费电子、汽车等</td>
-<td align="right">未单列</td>
-<td align="right">未单列</td>
-<td align="right">未单列</td>
-<td align="right">未单列</td>
-<td align="right">未单列</td>
-<td>2025 年报</td>
+<td>传统消费电子 / 汽车 / 散热</td>
+<td align="right">未披露</td>
+<td align="right">未披露</td>
+<td align="right">未披露</td>
+<td>份额、单机价值量和新品</td>
+<td>成熟市场竞争、资本回报</td>
+<td>未获取到分部数据</td>
+</tr>
+<tr>
+<td>MLCC 标的</td>
+<td align="right">未并表</td>
+<td align="right">不适用</td>
+<td align="right">未披露</td>
+<td>高端国产替代与 AI 服务器需求</td>
+<td>交易、整合、关联交易和估值</td>
+<td>意向阶段</td>
 </tr>
 </tbody></table>
-<ul>
-<li>披露口径变化：2025 年产品口径高度聚合，不能与市场叙事中的“第二成长曲线”直接对应。</li>
-<li>来源冲突：公司披露相控阵天线模组实现批量交付，但没有给出集团内收入占比；“批量”不等于已形成主要利润来源。</li>
-<li>采信理由：收入与毛利率只采信审计年报；订单与客户进展采信公司问询回复和投资者关系记录，并标记为经营事实而非业绩承诺。</li>
-<li>我的判断：2025 年利润增速高于收入、毛利率改善，增长质量较 2024 年好；但商业航天贡献不可拆解，无法证明估值重估主要来自已实现利润。</li>
-</ul>
+<p>由于应用分部未拆分，本报告不对商业卫星、AI 散热和汽车业务分别赋予精确利润。2026Q1 注册材料披露相关项目产品在手和意向订单合计约 8,481.64 万件 / 套、项目相关产品收入约 3.47 亿元；该口径覆盖多个项目产品，不能全部视为商业卫星订单。</p>
 <h2 id="section-6">6. 五年财务历史</h2>
 
 <table>
 <thead>
 <tr>
-<th>财年</th>
-<th align="right">营收</th>
+<th>年度</th>
+<th align="right">收入</th>
+<th align="right">归母净利润</th>
+<th align="right">EPS</th>
 <th align="right">毛利率</th>
+<th align="right">ROE代理</th>
 <th align="right">经营现金流</th>
-<th align="right">资本开支</th>
-<th align="right">自由现金流</th>
-<th align="right">ROIC / 代理值</th>
-<th>来源</th>
+<th align="right">资本开支代理</th>
+<th align="right">自由现金流代理</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>2021</td>
 <td align="right">75.81 亿元</td>
+<td align="right">5.05 亿元</td>
+<td align="right">0.5229 元</td>
 <td align="right">19.17%</td>
+<td align="right">约 8.8%</td>
 <td align="right">13.22 亿元</td>
 <td align="right">13.05 亿元</td>
 <td align="right">0.17 亿元</td>
-<td align="right">ROE 约 8%–9%</td>
-<td>2021 年报</td>
 </tr>
 <tr>
 <td>2022</td>
 <td align="right">85.90 亿元</td>
+<td align="right">6.48 亿元</td>
+<td align="right">0.6701 元</td>
 <td align="right">21.81%</td>
+<td align="right">约 10.3%</td>
 <td align="right">11.93 亿元</td>
 <td align="right">7.12 亿元</td>
 <td align="right">4.81 亿元</td>
-<td align="right">ROE 约 10%</td>
-<td>2022 年报</td>
 </tr>
 <tr>
 <td>2023</td>
 <td align="right">75.48 亿元</td>
-<td align="right">约 20.3%</td>
+<td align="right">5.21 亿元</td>
+<td align="right">0.5389 元</td>
+<td align="right">22.07%</td>
+<td align="right">约 7.7%</td>
 <td align="right">18.18 亿元</td>
 <td align="right">5.90 亿元</td>
 <td align="right">12.29 亿元</td>
-<td align="right">ROE 7.66%</td>
-<td>2023 年报</td>
 </tr>
 <tr>
 <td>2024</td>
 <td align="right">87.44 亿元</td>
+<td align="right">6.62 亿元</td>
+<td align="right">0.6865 元</td>
 <td align="right">20.82%</td>
+<td align="right">约 9.2%</td>
 <td align="right">10.76 亿元</td>
 <td align="right">4.86 亿元</td>
 <td align="right">5.90 亿元</td>
-<td align="right">ROE 9.15%</td>
-<td>2024 年报</td>
 </tr>
 <tr>
 <td>2025</td>
 <td align="right">89.10 亿元</td>
+<td align="right">7.09 亿元</td>
+<td align="right">0.7441 元</td>
 <td align="right">22.79%</td>
+<td align="right">约 9.3%</td>
 <td align="right">16.89 亿元</td>
 <td align="right">6.49 亿元</td>
 <td align="right">10.41 亿元</td>
-<td align="right">ROE 9.32%</td>
-<td>2025 年报</td>
 </tr>
 </tbody></table>
-<ul>
-<li>自由现金流口径：经营活动现金流减“购建固定资产、无形资产和其他长期资产支付的现金”，未扣除并购及金融资产投资。</li>
-<li>ROIC 口径：公司未统一披露五年 ROIC，表内采用加权平均净资产收益率作为资本回报代理值；2021–2022 为约数，不用于精确估值。</li>
-<li>一次性项目和会计变化：2025 年归母净利润 7.09 亿元，扣非净利润 6.43 亿元；非经常性损益约 0.65 亿元，不是利润增长主体。</li>
-<li>我的判断：五年收入存在波动，长期复合增速不高；现金流总体优于利润但年度波动大。2025 年自由现金流良好，却尚不能覆盖未来 75.85 亿元项目投资，融资与资本效率将成为核心约束。</li>
-</ul>
+<p>注：ROE 为归母净利润除以平均归母权益的近似值；自由现金流代理为经营现金流减购建长期资产现金支出，不等同于标准 FCFF。五年财务呈现“利润缓慢增长、现金流波动较大、ROE 未突破 10%附近”的制造业特征。现价 PB 8.24 倍与约 9% ROE 并不匹配，除非第二曲线显著提高资本回报。</p>
+<h3>6.1 林奇框架增长质量检查</h3>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>结果</th>
+<th>证据</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>EPS 是否持续增长</td>
+<td>否</td>
+<td>2023 年 EPS 同比下降，2024—2025 恢复</td>
+<td>不能机械外推高增长</td>
+</tr>
+<tr>
+<td>收入与利润是否同步</td>
+<td>部分同步</td>
+<td>2025 收入 +1.9%，净利润约 +7.1%</td>
+<td>利润改善快于收入，但幅度有限</td>
+</tr>
+<tr>
+<td>现金流是否覆盖利润</td>
+<td>五年多数年度覆盖</td>
+<td>2025 CFO / 净利润约 2.38 倍</td>
+<td>传统业务具现金生成能力</td>
+</tr>
+<tr>
+<td>库存与应收是否异常</td>
+<td>2026Q1 边际上升</td>
+<td>存货较年末 +8.0%，应收 +1.8%</td>
+<td>需等待半年报验证回款与备货性质</td>
+</tr>
+<tr>
+<td>负债与摊薄</td>
+<td>上升风险</td>
+<td>Q1 总负债 61.12 亿元；定增最多约 2.90 亿股</td>
+<td>每股价值要看融资价格和回报</td>
+</tr>
+<tr>
+<td>资本回报</td>
+<td>偏低</td>
+<td>ROE代理长期约 8%—10%</td>
+<td>难以支撑长期高 PB，除非 ROIC抬升</td>
+</tr>
+</tbody></table>
 <h2 id="section-7">7. 最新季度与管理层指引</h2>
 
 <h3>7.1 最新季度（事实）</h3>
@@ -472,124 +729,116 @@ body {
 <thead>
 <tr>
 <th>指标</th>
-<th align="right">本期</th>
-<th align="right">同比 / 变化</th>
-<th>来源 / 时间</th>
+<th align="right">2026Q1</th>
+<th align="right">同比 / 环比</th>
+<th>判断</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>营收</td>
+<td>营业收入</td>
 <td align="right">19.92 亿元</td>
-<td align="right">+14.31%</td>
-<td>2026 年一季报</td>
+<td align="right">同比 +14.31%</td>
+<td>增长加快</td>
+</tr>
+<tr>
+<td>归母净利润</td>
+<td align="right">1.05 亿元</td>
+<td align="right">同比 +35.35%</td>
+<td>利润快于收入</td>
+</tr>
+<tr>
+<td>扣非净利润</td>
+<td align="right">约 1.05 亿元</td>
+<td align="right">同比 +104.04%</td>
+<td>低基数下改善</td>
 </tr>
 <tr>
 <td>毛利率</td>
 <td align="right">21.77%</td>
-<td align="right">同比改善约 2 个百分点，但低于 2025 全年</td>
-<td>2026 年一季报</td>
-</tr>
-<tr>
-<td>净利润</td>
-<td align="right">1.05 亿元</td>
-<td align="right">+35.35%</td>
-<td>2026 年一季报</td>
-</tr>
-<tr>
-<td>调整后利润</td>
-<td align="right">约 1.05 亿元</td>
-<td align="right">+104.04%</td>
-<td>2026 年一季报，扣非归母净利润</td>
+<td align="right">低于 2025 年 22.79%</td>
+<td>尚未出现结构性跃升</td>
 </tr>
 <tr>
 <td>经营现金流</td>
 <td align="right">0.81 亿元</td>
-<td align="right">-87.14%</td>
-<td>2026 年一季报</td>
+<td align="right">同比 -87.14%</td>
+<td>利润与现金明显背离</td>
 </tr>
 <tr>
-<td>订单 / 储备</td>
-<td align="right">相关产品在手及意向订单约 8,481.64 万件 / 套</td>
-<td align="right">不等于锁定收入</td>
-<td>2026-04 定增问询回复，口径截至 2026-03-31</td>
+<td>应收账款</td>
+<td align="right">24.91 亿元</td>
+<td align="right">较年末 +1.8%</td>
+<td>温和上升</td>
+</tr>
+<tr>
+<td>存货</td>
+<td align="right">15.24 亿元</td>
+<td align="right">较年末 +8.0%</td>
+<td>增幅快于同期收入节奏，需复核</td>
+</tr>
+<tr>
+<td>货币资金</td>
+<td align="right">17.99 亿元</td>
+<td align="right">期末值</td>
+<td>能支持部分投入，但不足以覆盖全部扩产与并购计划</td>
 </tr>
 </tbody></table>
 <h3>7.2 管理层指引（事实）</h3>
 <ul>
-<li>正式量化指引：未发布 2026 年收入或利润的法定量化指引。</li>
-<li>定性展望：公司将消费电子作为第一成长曲线，并推进商业卫星通信、智能汽车等第二成长曲线。2025 年下半年开始向一家新的北美商业卫星客户批量供应。</li>
-<li>未获取到：商业卫星业务单独收入、利润、客户数量变化、单价和确定性订单金额。</li>
+<li>公司未发布 2026 年中报业绩预告；半年报预约披露日为 2026-08-28。</li>
+<li>注册稿预计三个募投项目成熟年度合计收入约 196.71 亿元，但这是达产情景，不是 2026 年业绩指引。</li>
+<li>定增已于 2026-05-27 获中国证监会注册批复，有效期 12 个月；发行不超过约 2.90 亿股，发行价不低于定价基准日前 20 个交易日均价的 80%。</li>
+<li>公司于 2026-07-31 澄清，商业卫星产品生产、交付与研发正常，越南产线规模化交付；2025 年该业务收入占比低于 10%。</li>
+<li>MLCC 交易只是意向协议，最终价格、评估、审议和交割安排未确定。</li>
 </ul>
 <h3>7.3 我的判断</h3>
-<ul>
-<li>我的判断：一季度利润端改善快于收入，显示产品结构或经营效率改善；但经营现金流大幅下降，且应收账款由年末约 24.47 亿元升至约 24.91 亿元，现金转化需要后续季度验证。</li>
-<li>我的判断：管理层产业方向清晰，但没有量化年度指引。定增项目的满产测算属于可研假设，不应当作管理层盈利承诺。</li>
-<li>下一验证节点：2026 年半年报中的商业卫星收入披露、毛利率、经营现金流、应收账款，以及定增发行价格和实际募资额。</li>
-</ul>
+<p>Q1 验证了利润修复，但没有验证自由现金流和资本回报提升。注册稿的成熟收入容量不等于当前订单，也不能直接折现为市值；在产能爬坡、折旧、并购和定增同时发生时，收入增长必须明显高于历史并保持毛利率，才能让每股收益兑现卖方预测。</p>
 <h2 id="section-8">8. 近三个月新闻与催化剂</h2>
 
 <table>
 <thead>
 <tr>
-<th>发生日</th>
+<th>日期</th>
 <th>事件</th>
-<th>影响变量</th>
-<th>财务传导</th>
-<th>是否已反映</th>
-<th>验证节点</th>
-<th>失效条件</th>
-<th>来源</th>
+<th>事实</th>
+<th>对盈利 / 估值的含义</th>
+<th>后续验证</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>2026-04-18</td>
-<td>发布 2025 年报：毛利率、利润和现金流改善</td>
-<td>盈利质量</td>
-<td>毛利率上升推动利润增速高于收入</td>
-<td>大部分已反映</td>
-<td>2026 半年报</td>
-<td>毛利率回落、现金流恶化</td>
-<td>公司年报</td>
+<td>2026-05-27</td>
+<td>定增获证监会注册</td>
+<td>不超过 60 亿元、约 2.90 亿股</td>
+<td>资金能力上升，同时摊薄和供给风险进入可执行阶段</td>
+<td>发行价、股数、对象与投入节奏</td>
 </tr>
 <tr>
-<td>2026-04-22</td>
-<td>投资者关系记录更新第二成长曲线进展</td>
-<td>业务结构</td>
-<td>卫星通信和汽车业务可能提高成长斜率</td>
-<td>部分反映</td>
-<td>分部收入与客户扩张</td>
-<td>商业航天收入仍不可见</td>
-<td>公司投资者关系记录</td>
+<td>2026-07-07</td>
+<td>募集资金专户安排</td>
+<td>董事会审议开立专户</td>
+<td>实施准备度提高，不代表已发行</td>
+<td>发行公告与到账</td>
 </tr>
 <tr>
-<td>2026-04-24</td>
-<td>定增问询回复披露新北美卫星客户及项目数据</td>
-<td>客户、订单、产能</td>
-<td>新客户批量供货，扩产后收入上限提高</td>
-<td>高度反映</td>
-<td>实际定增、产能利用率</td>
-<td>订单转化慢、项目延期</td>
-<td>深交所披露文件</td>
+<td>2026-07-14</td>
+<td>MLCC 股权收购及增资意向</td>
+<td>拟收购 55%并取得 70%控制，交易价不超 11 亿元，后续各方拟增资 10 亿元</td>
+<td>增加高端被动元件期权，也增加现金、整合与关联交易风险</td>
+<td>审计评估、正式协议、标的盈利、并表时间</td>
 </tr>
 <tr>
-<td>2026-05-29</td>
-<td>定增注册获同意，拟募资不超过 60 亿元</td>
-<td>资本供给、稀释</td>
-<td>资金支持 75.85 亿元项目，同时增加股本和折旧</td>
-<td>部分反映</td>
-<td>发行价格与股数</td>
-<td>发行终止或大幅缩减</td>
-<td>公司公告 / 监管批复</td>
+<td>2026-07-31</td>
+<td>媒体报道澄清</td>
+<td>客户商务条款未变，越南稳定交付；2025 卫星收入占比低于 10%</td>
+<td>降低突发供应链中断担忧，同时下修“商业航天纯度”想象</td>
+<td>2026H1 / H2 分部收入、客户订单</td>
 </tr>
 <tr>
-<td>2026-07-15 至 07-16</td>
-<td>股价连续大跌，79.05 元收盘</td>
-<td>情绪、流动性</td>
-<td>估值压缩，提高融资和持仓波动风险</td>
-<td>正在反映</td>
-<td>77.90 元附近承接</td>
-<td>快速放量收复 90 元并有基本面催化</td>
-<td>Investing 行情</td>
+<td>2026-08-28</td>
+<td>半年报预约披露</td>
+<td>截至 8 月 11 日尚未披露正式中报或预告</td>
+<td>最近的硬验证节点</td>
+<td>收入、扣非、CFO、存货、应收、卫星进展</td>
 </tr>
 </tbody></table>
 <h2 id="section-9">9. 多头与空头论据</h2>
@@ -605,28 +854,34 @@ body {
 </tr>
 </thead>
 <tbody><tr>
-<td>低轨地面终端进入量产阶段</td>
-<td>相控阵天线模组已批量出货、连接器卫星通信应用扩大</td>
-<td>商业卫星收入和毛利率</td>
-<td>连续两个季度无增量披露</td>
+<td>商业卫星已从认证进入量产</td>
+<td>越南产线规模生产并稳定交付</td>
+<td>分部收入、订单、毛利率和回款</td>
+<td>连续两个季度无增量或客户削单</td>
 </tr>
 <tr>
-<td>北美客户突破形成认证壁垒</td>
-<td>与两家主要客户合作，2025 下半年新增客户批量供应</td>
-<td>客户数、单客户份额、订单转收入</td>
-<td>客户削单或集中度继续升高</td>
+<td>多技术平台可复用客户与制造能力</td>
+<td>材料、射频、连接器、模组和全球制造</td>
+<td>新品单机价值量、客户数、良率</td>
+<td>内制成本与交付不具优势</td>
 </tr>
 <tr>
-<td>材料至模组一体化</td>
-<td>LCP 薄膜、柔性覆铜板及器件模组能力</td>
-<td>良率、毛利率、份额</td>
-<td>内制成本不具优势</td>
+<td>传统业务现金流可提供转型底座</td>
+<td>2025 CFO 16.89 亿元、FCF代理 10.41 亿元</td>
+<td>CFO / 净利润、扩产后 FCF</td>
+<td>现金流持续弱于利润</td>
 </tr>
 <tr>
-<td>传统业务现金流可支持转型</td>
-<td>2025 年 CFO 16.89 亿元、FCF 10.41 亿元</td>
-<td>CFO / 净利润、资本开支回报</td>
-<td>应收上升、现金流持续弱于利润</td>
+<td>MLCC 增加 AI 服务器与国产替代暴露</td>
+<td>拟取得标的控制权，已有客户验证</td>
+<td>标的收入、利润、产能利用率</td>
+<td>交易终止、整合失败或回报率不足</td>
+</tr>
+<tr>
+<td>卖方预计 2026—2028 利润快速增长</td>
+<td>平均 EPS 1.14 / 1.66 / 2.32 元</td>
+<td>半年报与年度 EPS</td>
+<td>预测连续下修</td>
 </tr>
 </tbody></table>
 <h3>9.2 空头论据</h3>
@@ -640,34 +895,40 @@ body {
 </tr>
 </thead>
 <tbody><tr>
-<td>估值透支</td>
-<td>现价约 108 倍静态 PE、9.65 倍 PB</td>
-<td>未来两年利润增速与估值回落</td>
-<td>盈利连续超预期使 2027 PE 降至 30–35 倍</td>
+<td>估值仍透支</td>
+<td>PE TTM 89.86 倍、PB 8.24 倍，ROE代理约 9%</td>
+<td>2026—2027 EPS、ROIC和估值回落</td>
+<td>盈利超预期且估值降至可持续区间</td>
 </tr>
 <tr>
-<td>商业航天纯度难验证</td>
-<td>年报不单列该业务收入和利润</td>
+<td>商业航天纯度低于市场想象</td>
+<td>2025 卫星收入占比低于 10%</td>
 <td>分部披露</td>
-<td>公司开始持续披露且占比快速提升</td>
+<td>收入与利润占比快速提高并可复核</td>
 </tr>
 <tr>
-<td>定增稀释与扩产风险</td>
-<td>最多发行约 2.90 亿股、接近现股本 30%</td>
-<td>发行价、实际股数、产能利用率</td>
-<td>少量发行且项目快速达产</td>
+<td>定增和并购构成双重资本需求</td>
+<td>募资最多 60 亿元；MLCC 交易与增资合计资金需求较大</td>
+<td>发行价、实际股数、并购回报</td>
+<td>少量摊薄且项目快速产生高回报</td>
 </tr>
 <tr>
-<td>高位情绪退潮</td>
-<td>129.44 元回落至 79.05 元，近一年仍涨约 252%</td>
-<td>换手、成交、关键价位</td>
-<td>缩量企稳并由业绩接力</td>
+<td>Q1 现金流背离</td>
+<td>CFO 0.81 亿元，同比 -87.14%</td>
+<td>半年 CFO、应收和存货</td>
+<td>现金流快速修复并覆盖利润</td>
 </tr>
 <tr>
 <td>客户与海外风险</td>
-<td>商业卫星进展集中于北美客户</td>
-<td>客户结构、贸易限制</td>
-<td>客户和区域显著多元化</td>
+<td>前五客户 46.67%，卫星集中于北美客户</td>
+<td>客户结构、合同和地缘政策</td>
+<td>客户与区域显著多元化</td>
+</tr>
+<tr>
+<td>交易拥挤后的套牢盘</td>
+<td>高点 129.44 元，20 日仍跌 20.8%</td>
+<td>成交、换手和融资余额</td>
+<td>缩量企稳并由业绩接力</td>
 </tr>
 </tbody></table>
 <h2 id="section-10">10. 估值</h2>
@@ -678,108 +939,135 @@ body {
 <tr>
 <th>公司</th>
 <th>业务可比性</th>
-<th align="right">增长</th>
-<th align="right">利润率</th>
-<th align="right">PE</th>
+<th align="right">PE TTM</th>
 <th align="right">PB</th>
-<th align="right">EV/EBITDA</th>
+<th align="right">PS TTM</th>
 <th>数据时间</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>信维通信</td>
-<td>射频器件、连接器、地面终端</td>
-<td align="right">2026Q1 收入 +14.3%</td>
-<td align="right">2025 净利率约 8.0%</td>
-<td align="right">约 108x</td>
-<td align="right">约 9.65x</td>
-<td align="right">未获取到可靠口径</td>
-<td>2026-07-16 / 2025A</td>
+<td>射频、连接器、商业卫星地面终端</td>
+<td align="right">89.86x</td>
+<td align="right">8.24x</td>
+<td align="right">7.22x</td>
+<td>2026-08-10</td>
 </tr>
 <tr>
-<td>同业完整样本</td>
-<td>业务口径差异大</td>
-<td align="right">未统一</td>
-<td align="right">未统一</td>
-<td align="right">未获取到可复核同日数据</td>
-<td align="right">未获取到</td>
-<td align="right">未获取到</td>
-<td>—</td>
+<td>立讯精密</td>
+<td>消费电子精密制造、汽车互联</td>
+<td align="right">25.08x</td>
+<td align="right">4.89x</td>
+<td align="right">1.22x</td>
+<td>2026-08-10</td>
+</tr>
+<tr>
+<td>蓝思科技</td>
+<td>消费电子结构件与精密制造</td>
+<td align="right">53.55x</td>
+<td align="right">3.37x</td>
+<td align="right">2.58x</td>
+<td>2026-08-10</td>
+</tr>
+<tr>
+<td>电连技术</td>
+<td>射频连接器、汽车连接</td>
+<td align="right">74.37x</td>
+<td align="right">3.47x</td>
+<td align="right">3.21x</td>
+<td>2026-08-10</td>
+</tr>
+<tr>
+<td>三环集团</td>
+<td>电子陶瓷、被动元件</td>
+<td align="right">88.08x</td>
+<td align="right">11.31x</td>
+<td align="right">25.71x</td>
+<td>2026-08-10</td>
+</tr>
+<tr>
+<td>风华高科</td>
+<td>被动元件</td>
+<td align="right">232.31x</td>
+<td align="right">5.72x</td>
+<td align="right">11.90x</td>
+<td>2026-08-10</td>
 </tr>
 </tbody></table>
 <ul>
-<li>选取理由：公司同时横跨消费电子、汽车和卫星地面终端，单一“商业航天股”可比组会高估其业务纯度，因此以公司正常化盈利和成长匹配为主。</li>
-<li>正常化调整：假设 2027 年归母净利润 11–14 亿元，对应 EPS 约 1.14–1.45 元；给予 28–35 倍 PE，兼顾成长性与客户、扩产风险。</li>
-<li>对应每股价值区间：32–51 元。</li>
-<li>我的判断：当前 79.05 元相当于即使按上述 2027 年利润，也约 55–69 倍 PE，显著高于本报告可接受区间。</li>
+<li>选取理由：没有单一公司同时覆盖消费电子射频、商业卫星和 MLCC；可比组只用于识别硬件制造与被动元件估值边界。</li>
+<li>正常化调整：同花顺 2027 年 EPS 预测区间为 1.49—1.99 元；考虑高资本开支、客户集中和潜在摊薄，给予 28—35 倍 PE，并以 9.8%折现一年。</li>
+<li>对应每股价值区间：<strong>38—63 元</strong>；基准 EPS 1.66 元配 32—35 倍、折现后约 48—53 元。</li>
+<li>我的判断：现价对应 2026 / 2027 年卖方平均 EPS 约 58.5 / 40.2 倍 PE，只有 2027 年高增长按时兑现才接近可接受上沿。</li>
 </ul>
 <h3>10.2 DCF</h3>
+<p>DCF 以 2025 年收入 89.10 亿元为起点，显式预测 2026—2030 年。公式为 <code>FCFF = EBIT × (1−税率) + 折旧摊销 − 资本开支 − 营运资本增加</code>；采用约 10.5 亿元净债务代理和 9.6757 亿股现有股本，未把尚未发行的定增现金与新增股数直接加入。</p>
 <h4>关键假设</h4>
 <table>
 <thead>
 <tr>
 <th>假设</th>
-<th align="right">悲观</th>
-<th align="right">基准</th>
-<th align="right">乐观</th>
+<th>悲观</th>
+<th>基准</th>
+<th>乐观</th>
 <th>依据</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>收入增长</td>
-<td align="right">前两年 5%，随后降至 3%</td>
-<td align="right">15%、15%、12%，逐步降至 4%</td>
-<td align="right">25%、22%、18%，逐步降至 5%</td>
-<td>传统业务历史波动与卫星业务放量差异</td>
+<td>8%、10%、9%、7%、5%</td>
+<td>15%、18%、16%、13%、10%</td>
+<td>22%、25%、22%、18%、14%</td>
+<td>历史低个位数增长与第二曲线放量差异</td>
 </tr>
 <tr>
-<td>经营利润率</td>
-<td align="right">以企业自由现金流率 10%替代</td>
-<td align="right">FCF 率 12%升至 15%</td>
-<td align="right">FCF 率 13%升至 18%</td>
-<td>2025 FCF 率 11.7%，扩产后效率情景</td>
+<td>EBIT 利润率</td>
+<td>8.5%升至10.5%</td>
+<td>9.5%升至13.5%</td>
+<td>10%升至17%</td>
+<td>2025 毛利率22.79%；新业务结构改善情景</td>
 </tr>
 <tr>
-<td>税率</td>
-<td align="right">15%–20%</td>
-<td align="right">15%–20%</td>
-<td align="right">15%–20%</td>
-<td>高新技术企业及地区差异，未单列建模</td>
+<td>现金税率</td>
+<td>18%</td>
+<td>18%</td>
+<td>18%</td>
+<td>高新技术税率与不可抵扣差异的简化</td>
 </tr>
 <tr>
-<td>折旧摊销</td>
-<td align="right">纳入 FCF 率</td>
-<td align="right">纳入 FCF 率</td>
-<td align="right">纳入 FCF 率</td>
-<td>简化模型</td>
+<td>折旧摊销 / 收入</td>
+<td>6.5%</td>
+<td>7.0%</td>
+<td>7.0%</td>
+<td>大规模扩产提高折旧</td>
 </tr>
 <tr>
-<td>资本开支</td>
-<td align="right">高投入、低回报</td>
-<td align="right">定增项目分阶段投入</td>
-<td align="right">快速爬坡并形成规模效应</td>
-<td>项目投资 75.85 亿元</td>
+<td>资本开支 / 收入</td>
+<td>11%降至7%</td>
+<td>11%降至6%</td>
+<td>11%降至5%</td>
+<td>募投项目建设后逐步正常化</td>
 </tr>
 <tr>
-<td>营运资本变化</td>
-<td align="right">应收占用增加</td>
-<td align="right">随收入温和增加</td>
-<td align="right">周转改善</td>
-<td>2026Q1 CFO 下降与应收上升</td>
+<td>营运资本增加 / 增量收入</td>
+<td>8%</td>
+<td>8%</td>
+<td>6%</td>
+<td>Q1 应收与存货上升；乐观情景周转改善</td>
 </tr>
 <tr>
 <td>WACC</td>
-<td align="right">11.0%</td>
-<td align="right">9.5%</td>
-<td align="right">8.5%</td>
-<td>A 股成长制造企业风险溢价情景</td>
+<td>11.0%</td>
+<td>9.8%</td>
+<td>8.8%</td>
+<td>A 股成长制造、客户和项目风险溢价</td>
 </tr>
 <tr>
 <td>永续增长率</td>
-<td align="right">2.0%</td>
-<td align="right">2.5%</td>
-<td align="right">3.0%</td>
-<td>不高于长期名义经济增速假设</td>
+<td>2.0%</td>
+<td>2.5%</td>
+<td>3.0%</td>
+<td>不高于长期名义经济增长假设</td>
 </tr>
 </tbody></table>
 <h4>估值结果</h4>
@@ -787,36 +1075,41 @@ body {
 <thead>
 <tr>
 <th>情景</th>
+<th align="right">2030收入</th>
+<th align="right">2030 FCFF</th>
 <th align="right">企业价值</th>
-<th align="right">净债务</th>
 <th align="right">股权价值</th>
 <th align="right">每股价值</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>悲观</td>
-<td align="right">114 亿元</td>
-<td align="right">约 10.5 亿元</td>
-<td align="right">104 亿元</td>
-<td align="right">10.7 元</td>
+<td align="right">129.62 亿元</td>
+<td align="right">10.02 亿元</td>
+<td align="right">85.31 亿元</td>
+<td align="right">74.81 亿元</td>
+<td align="right">7.73 元</td>
 </tr>
 <tr>
 <td>基准</td>
-<td align="right">310 亿元</td>
-<td align="right">约 10.5 亿元</td>
-<td align="right">300 亿元</td>
-<td align="right">31.0 元</td>
+<td align="right">174.33 亿元</td>
+<td align="right">19.77 亿元</td>
+<td align="right">210.73 亿元</td>
+<td align="right">200.23 亿元</td>
+<td align="right">20.69 元</td>
 </tr>
 <tr>
 <td>乐观</td>
-<td align="right">650 亿元</td>
-<td align="right">约 10.5 亿元</td>
-<td align="right">640 亿元</td>
-<td align="right">66.1 元</td>
+<td align="right">222.99 亿元</td>
+<td align="right">33.90 亿元</td>
+<td align="right">459.81 亿元</td>
+<td align="right">449.31 亿元</td>
+<td align="right">46.44 元</td>
 </tr>
 </tbody></table>
-<p>注：以 2025 年收入 89.10 亿元为起点，现有股本 9.6757 亿股；未把尚未发行的定增股本与募集现金直接加入。若发行完成，应按实际发行价、股数和现金用途重算。</p>
+<p>DCF 对资本开支正常化高度敏感。基准值明显低于相对估值，说明市场主要在为尚未体现在现金流中的成长性期权付费；乐观值已要求收入 5 年约 2.5 倍、EBIT 利润率升至 17%。</p>
 <h4>敏感性分析</h4>
+<p>基于基准收入、利润率与现金流路径：</p>
 <table>
 <thead>
 <tr>
@@ -827,37 +1120,38 @@ body {
 </tr>
 </thead>
 <tbody><tr>
-<td>8.5%</td>
-<td align="right">34.9 元</td>
-<td align="right">36.8 元</td>
-<td align="right">39.1 元</td>
+<td>8.8%</td>
+<td align="right">23.0 元</td>
+<td align="right">24.7 元</td>
+<td align="right">26.7 元</td>
 </tr>
 <tr>
-<td>9.5%</td>
-<td align="right">29.6 元</td>
-<td align="right">31.0 元</td>
-<td align="right">32.5 元</td>
+<td>9.8%</td>
+<td align="right">19.5 元</td>
+<td align="right">20.7 元</td>
+<td align="right">22.1 元</td>
 </tr>
 <tr>
-<td>10.5%</td>
-<td align="right">25.6 元</td>
-<td align="right">26.6 元</td>
-<td align="right">27.6 元</td>
+<td>10.8%</td>
+<td align="right">16.8 元</td>
+<td align="right">17.7 元</td>
+<td align="right">18.7 元</td>
 </tr>
 </tbody></table>
 <h4>反向 DCF</h4>
 <ul>
-<li>当前价格隐含的收入增长 / 终值利润率：在基准收入增长路径和 9.5% WACC、2.5% 永续增长率下，现价约要求长期企业自由现金流率达到 36%左右，显著高于 2025 年约 11.7%。</li>
-<li>与历史和行业相比是否可实现：仅靠制造端效率改善难以达到，需要商业卫星业务远超基准增长并具有平台型高利润率，当前公开分部数据不足以支持。</li>
-<li>我的判断：市场定价接近把定增项目的乐观达产与高利润率提前资本化，安全边际不足。</li>
+<li>当前 66.72 元对应权益价值约 645.56 亿元，加回净债务代理后企业价值约 656.06 亿元。</li>
+<li>在基准收入路径、9.8% WACC 和 2.5%永续增长率下，现价大致要求 2030 年 FCFF 约 67.03 亿元，等于基准 2030 年收入的 <strong>38.4%</strong>，而模型基准 FCFF 率约 11.3%。</li>
+<li>即使把 2030 年 FCFF 率提高到 15%，也需要当年收入约 447 亿元，约为 2025 年的 5 倍。</li>
+<li>我的判断：当前价格仍隐含商业卫星、MLCC 和散热项目同时高增长、高利润率且资本开支快速正常化，公开数据不足以支持这一组合概率。</li>
 </ul>
 <h3>10.3 行业特定估值</h3>
 <ul>
-<li>方法：分部加总 / 项目期权法。</li>
-<li>适用理由：传统消费电子射频业务提供现有现金流，商业卫星、汽车与散热项目更像尚在兑现的成长性期权。</li>
-<li>关键假设：既有业务给予约 260–340 亿元股权价值；商业卫星及新项目期权给予约 80–140 亿元，并扣除净债务及执行折价。</li>
-<li>对应每股价值区间：35–49 元。</li>
-<li>局限性：公司未披露应用分部收入、利润与资本占用，期权价值对订单转化率和估值倍数高度敏感。</li>
+<li>方法：<strong>分部加总 / 项目期权法</strong>。</li>
+<li>适用理由：传统射频业务提供可验证利润，商业卫星、AI 散热和 MLCC 更适合作为尚待兑现的成长性期权，不能全部按成熟业务直接资本化。</li>
+<li>关键假设：传统业务按 2025 年 7.09 亿元利润的 30—35 倍折算约 213—248 亿元；卫星、散热和汽车期权给予约 100—180 亿元；MLCC 因交易未完成和标的盈利未披露，仅给予约 20—60 亿元期权价值；扣除约 10.5 亿元净债务及执行折价。</li>
+<li>对应每股价值区间：<strong>34—50 元</strong>。</li>
+<li>局限性：各应用收入、利润、资本占用和内部交易均未披露；期权价值与主业估值可能重复，已通过执行折价和区间上限约束。</li>
 </ul>
 <h3>10.4 估值交叉验证</h3>
 <table>
@@ -865,41 +1159,71 @@ body {
 <tr>
 <th>方法</th>
 <th align="right">每股价值区间</th>
-<th align="right">权重</th>
+<th align="right">参考权重</th>
 <th>采信理由</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>相对估值</td>
-<td align="right">32–51 元</td>
+<td align="right">38—63 元</td>
 <td align="right">35%</td>
-<td>与可实现的 2027 年利润和成长匹配</td>
+<td>反映卖方盈利路径，但易受主题估值和预测偏差影响</td>
 </tr>
 <tr>
 <td>DCF</td>
-<td align="right">26–39 元（基准敏感区间）</td>
+<td align="right">17—27 元（基准敏感区间）；乐观 46 元</td>
 <td align="right">40%</td>
-<td>现金流锚定，能反映高资本开支与风险溢价</td>
+<td>约束资本开支、营运资本和高估值幻想</td>
 </tr>
 <tr>
 <td>行业特定估值</td>
-<td align="right">35–49 元</td>
+<td align="right">34—50 元</td>
 <td align="right">25%</td>
-<td>保留商业卫星业务的成长性期权</td>
+<td>保留真实量产和并购期权，同时控制重复计算</td>
 </tr>
 </tbody></table>
 <ul>
-<li>综合估值区间：32–48 元 / 股。</li>
-<li>相对现价上行 / 下行空间：相对 79.05 元为 -59.5% 至 -39.3%。</li>
-<li>为什么不机械平均：商业航天分部数据缺失，DCF 和分部加总存在同源假设；综合区间向现金流估值倾斜，同时给真实量产进展保留期权价值。</li>
+<li>综合估值区间：<strong>32—48 元 / 股</strong>。</li>
+<li>相对现价上行 / 下行空间：相对 66.72 元为 <strong>-52.0% 至 -28.1%</strong>。</li>
+<li>为什么不机械平均：三种方法都依赖同一组增长假设；DCF 会在建设期压低价值，相对估值会放大题材溢价。综合区间把现金流作为底层约束，用相对估值和 SOTP 为已验证的量产与客户认证保留期权。</li>
 </ul>
+<h3>10.5 林奇分类与估值匹配</h3>
+<table>
+<thead>
+<tr>
+<th>林奇分类检查</th>
+<th>当前状态</th>
+<th>估值含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>稳健增长型主业</td>
+<td>五年收入 CAGR 约 4.1%、ROE约 9%</td>
+<td>合理 PE 应受增长与资本回报约束，难支撑长期 80—90 倍</td>
+</tr>
+<tr>
+<td>快速增长型期权</td>
+<td>卫星、散热、MLCC 有新增产能与客户</td>
+<td>只应按可验证订单和现金流分阶段加价</td>
+</tr>
+<tr>
+<td>PEG 补充</td>
+<td>现价 2026E PE约58.5倍；2026—2027 EPS增速约45.6%，PEG约1.28</td>
+<td>表面接近可接受，但单年高增、摊薄和预测分歧使其不能作为主估值锚</td>
+</tr>
+<tr>
+<td>周期 / 困境反转</td>
+<td>不适用</td>
+<td>不能因为价格腰斩就套用低谷盈利或反转估值</td>
+</tr>
+</tbody></table>
 <h2 id="section-11">11. 冰冰小美框架判断</h2>
 
-<h3>11.1 三要素结果引用</h3>
+<h3>11.1 三要素状态总表</h3>
 <ul>
-<li>三要素结论来源：<code>bbxm-three-factor-analysis</code>。</li>
-<li>分析对象与层级：信维通信个股；产业层级为商业航天地面终端射频电子，同时受消费电子与智能汽车周期影响。</li>
-<li>分析截止时间：2026-07-17，行情截至 2026-07-16 收盘。</li>
+<li>三要素结论来源：<code>bbxm-three-factor-analysis</code></li>
+<li>分析对象与层级：信维通信个股；商业卫星地面终端、高端 MLCC、消费电子射频等产业位置。</li>
+<li>分析截止时间：2026-08-11 09:58，行情为盘中与 2026-08-10收盘组合口径。</li>
 </ul>
 <table>
 <thead>
@@ -915,38 +1239,358 @@ body {
 <tbody><tr>
 <td>竞争格局</td>
 <td>有利</td>
-<td>批量进入低轨地面终端，两家北美客户，材料到模组一体化</td>
-<td>市占率、卫星收入和客户名称未披露</td>
-<td>客户削单或竞品导致毛利率下滑</td>
-<td>中高</td>
+<td>卫星量产与海外稳定交付；材料到模组能力；拟控股高端 MLCC</td>
+<td>分部收入、份额、价格和 ROIC 未披露</td>
+<td>订单停滞、毛利率下滑或并购回报不足</td>
+<td>中</td>
 </tr>
 <tr>
 <td>流动性辩证分析</td>
-<td>不利</td>
-<td>高位剧烈回撤、连续大跌，潜在定增增加股票供给</td>
-<td>高点回撤已释放部分风险</td>
-<td>缩量企稳且定增规模温和</td>
-<td>高</td>
+<td>中性</td>
+<td>5 日反弹、大单代理转正、融资自低位回补</td>
+<td>20 日仍大跌，大单 20 日净流出，市场广度弱</td>
+<td>融资和大单再度连续流出、跌破修复低点</td>
+<td>中高</td>
 </tr>
 <tr>
 <td>情绪位置变化</td>
-<td>不利</td>
-<td>近一年仍涨约 252%，129.44 元高点后快速退潮</td>
-<td>市场对卫星量产存在真实基本面依据</td>
-<td>业绩持续超预期接替题材驱动</td>
-<td>高</td>
+<td>中性</td>
+<td>高点回撤约48.5%，恐慌拥挤下降</td>
+<td>5日反弹21%后盘中转弱，估值仍高</td>
+<td>业绩接力并形成稳定承接，或再次放量退潮</td>
+<td>中高</td>
+</tr>
+</tbody></table>
+<h4>前六步证据映射</h4>
+<table>
+<thead>
+<tr>
+<th>体系要素</th>
+<th>前六步证据来源</th>
+<th>已验证证据</th>
+<th>反证与缺口</th>
+<th>分析状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>第4—7章、来源矩阵</td>
+<td>量产、海外产线、客户验证和募投方向</td>
+<td>缺分部收入、利润、份额和订单金额</td>
+<td>可判断方向，不足以精确估值</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>第3、8—9章、资金数据</td>
+<td>5 / 20日价格、成交、换手、融资和大单</td>
+<td>北向、ETF与账户身份未获取到</td>
+<td>可判断微观方向</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>第3、8—9章</td>
+<td>高点回撤、反弹幅度、催化反馈</td>
+<td>缺期权隐含波动和机构仓位</td>
+<td>可判断阶段</td>
 </tr>
 </tbody></table>
 <ul>
-<li>三要素综合判断：尚未形成有利共振。</li>
-<li>主导要素：竞争格局改善是中长期正向要素。</li>
-<li>拖累要素：估值、情绪与流动性，叠加潜在定增供给。</li>
-<li>数据缺口及影响：商业卫星收入、利润、客户集中度和确定订单金额缺失，使产业进展难以折算为合理市值。</li>
-<li>下一验证节点：2026 年半年报、定增发行方案与商业卫星分部披露。</li>
-<li>新增现金：wait；条件为价格进入 35–45 元且基本面继续验证，或盈利上修足以消化估值。</li>
-<li>已有持仓：review / reduce；若无法承受高波动，应控制仓位。只有在 77.90 元附近出现基本面支持的稳定承接才由 reduce 转为 wait。</li>
+<li>Step 6 估值约束：估值不强行归入三要素；在第 11.6 节作为行动价格约束。</li>
+<li>补采证据回填：资金、融资和市场广度已回填第 2—3 章及本节。</li>
 </ul>
-<h3>11.2 风险方向证据</h3>
+<h3>11.2 竞争格局与比较优势</h3>
+<h4>前文证据引用</h4>
+<ul>
+<li><p>商业模式与竞争底稿：见第 4 章。</p>
+</li>
+<li><p>分部与资本回报证据：见第 5—7 章。</p>
+</li>
+<li><p>相关来源状态：见第 2 章来源矩阵。</p>
+</li>
+<li><p>分析对象与竞争层级：商业卫星地面终端射频组件与连接器、高端 MLCC、消费电子和汽车射频组件。</p>
+</li>
+<li><p>当前状态：<strong>有利</strong>。</p>
+</li>
+<li><p>证据充分性：<strong>不充分</strong>；量产与客户认证明确，但收入、份额、定价权和资本回报缺失。</p>
+</li>
+<li><p>多产业位置景气度排序：首位是商业卫星地面终端，变化最快的是拟并购的高端 MLCC；AI 散热和汽车射频证据不足。</p>
+</li>
+<li><p>产业链位置与利润池：公司处于材料—器件—模组—制造交付环节，利润来自客户认证、材料内制、良率与规模；不同应用复用相同能力，已在估值中去重。</p>
+</li>
+<li><p>核心比较优势：射频材料与器件集成、精密制造、北美客户认证、越南海外交付。</p>
+</li>
+<li><p>竞争对手与替代方案：立讯精密、蓝思科技、电连技术等精密制造和连接器厂商；三环集团、风华高科等被动元件厂商；客户自研或其他海外供应商。</p>
+</li>
+<li><p>份额、定价权、客户黏性与进入壁垒：认证和规模交付提供黏性，未见份额和提价证据。</p>
+</li>
+<li><p>竞争优势转化为订单、利润和现金回报的情况：订单与量产已出现，利润和现金回报只得到部分验证。</p>
+</li>
+<li><p>当前决策含义：竞争位置支持长期观察，不足以覆盖当前估值溢价。</p>
+</li>
+</ul>
+<h4>证据</h4>
+<ul>
+<li>商业卫星产品已在越南规模化生产并稳定交付。</li>
+<li>2026Q1 收入和利润实现两位数增长。</li>
+<li>前五客户占比下降，客户集中度较 2023 年改善。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>商业卫星 2025 年收入占比低于 10%，并非当前主要利润池。</li>
+<li>毛利率没有因第二曲线出现明显抬升，ROE仍约 9%。</li>
+<li>MLCC 交易尚未完成，标的财务数据未披露。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>核心客户削单、海外交付受阻、毛利率连续下降，或募投项目产能利用率低于计划且自由现金流持续恶化。</li>
+</ul>
+<h3>11.3 流动性辩证分析</h3>
+<ul>
+<li>当前状态：<strong>中性</strong>。</li>
+<li>证据充分性：<strong>充分到可判断方向</strong>；具备成交、换手、融资、大单、市场融资和全市场广度，但缺账户身份与 ETF 精确流量。</li>
+</ul>
+<h4>宏观流动性</h4>
+<ul>
+<li>总量环境与边际变化：美国 10 年期国债收益率 4.72%，成长估值折现率仍高；A 股全市场融资余额较 7 月初下降约 12.3%，最近从低位回补。</li>
+<li>对本标的的传导：高久期成长定价受高利率压制；全市场去杠杆放大高换手题材股波动。</li>
+</ul>
+<h4>中观流动性</h4>
+<ul>
+<li>行业 / 主题 / ETF / 机构配置变化：未获取到商业航天或电子 ETF 的连续申赎；中证全指 20 / 60 日约 -2.18% / -7.58%，市场不是单边风险偏好扩张。</li>
+<li>对本标的的传导：个股 20 日跌幅显著弱于指数，说明此前题材拥挤和去杠杆是主要拖累。</li>
+</ul>
+<h4>微观流动性</h4>
+<ul>
+<li>成交额、换手率、量价结构、融资和大单：5 日平均成交额 46.15 亿元，低于此前 20 日 103.08 亿元；5 日平均换手 8.68%。融资余额 50.76 亿元，较 7 月 14 日下降 17.55 亿元；近 5 日大单与特大单代理净流入约 7.04 亿元，但 20 日仍净流出约 39.81 亿元。</li>
+<li>连续窗口与相对强弱：5 日 +20.99%是技术修复，20 / 60 日 -20.80% / -31.37%仍显示中期弱势。</li>
+</ul>
+<h4>资金来源分类</h4>
+<table>
+<thead>
+<tr>
+<th>资金来源</th>
+<th>当前状态</th>
+<th>连续窗口证据</th>
+<th>对价格的含义</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>长期配置资金</td>
+<td>证据不足</td>
+<td>未获取机构仓位、北向或 ETF 连续流量</td>
+<td>不能确认长期资金接力</td>
+<td>低</td>
+</tr>
+<tr>
+<td>趋势 / 交易资金</td>
+<td>短线回流</td>
+<td>5 日价格和大单代理转正，20 日仍流出</td>
+<td>修复但持续性未确认</td>
+<td>中高</td>
+</tr>
+<tr>
+<td>产业资本 / 内部人</td>
+<td>偏流出</td>
+<td>实控人 4 月减持约 1%，后续 3 个月无继续减持计划</td>
+<td>高位内部人减持形成负面参照</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h4>供给与抛压</h4>
+<table>
+<thead>
+<tr>
+<th>供给来源</th>
+<th>当前状态</th>
+<th>时间窗口</th>
+<th>影响</th>
+<th>验证方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>解禁 / 减持</td>
+<td>暂无新增计划证据</td>
+<td>截至 2026-08-11</td>
+<td>短期可见抛压下降</td>
+<td>新减持公告</td>
+</tr>
+<tr>
+<td>再融资 / 可转债</td>
+<td>定增可执行</td>
+<td>注册批复有效期至 2027-05附近</td>
+<td>最多约30%股本，压制每股价值与交易供给预期</td>
+<td>发行结果公告</td>
+</tr>
+<tr>
+<td>获利盘 / 套牢盘</td>
+<td>套牢盘较重</td>
+<td>129.44 元高点至今</td>
+<td>反弹易遇解套卖压</td>
+<td>成交密集区与缩量承接</td>
+</tr>
+</tbody></table>
+<h4>最低数据检查</h4>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>当前窗口</th>
+<th>对比窗口</th>
+<th>结论</th>
+<th>数据源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>成交额与换手率</td>
+<td>5 日 46.15亿元 / 8.68%</td>
+<td>此前20日 103.08亿元 / 11.94%</td>
+<td>波动降温，非放量主升</td>
+<td>Tushare</td>
+</tr>
+<tr>
+<td>融资余额与融资买入</td>
+<td>50.76亿元；8月10日净买入1.46亿元</td>
+<td>7月14日 68.30亿元</td>
+<td>大幅去杠杆后回补</td>
+<td>Tushare</td>
+</tr>
+<tr>
+<td>主力 / 大单资金</td>
+<td>5日 +7.04亿元</td>
+<td>20日 -39.81亿元</td>
+<td>短修复、中期仍流出</td>
+<td>Tushare订单大小代理</td>
+</tr>
+<tr>
+<td>ETF / 北向 / 机构代理指标</td>
+<td>未获取到</td>
+<td>未获取到</td>
+<td>不据此下结论</td>
+<td>已检查公开与本地数据</td>
+</tr>
+</tbody></table>
+<h4>证据</h4>
+<ul>
+<li>5 日价格、大单代理和融资净买入改善。</li>
+<li>成交额较前期拥挤阶段下降，杠杆已明显释放。</li>
+<li>8 月 11 日全市场上涨家数仅约 23.3%，当日风险偏好偏弱。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>20 日价格、大单和融资余额仍处于显著收缩区间。</li>
+<li>潜在定增形成可见供给，盘中股价再次转弱。</li>
+</ul>
+<h4>退出路径</h4>
+<ul>
+<li>资金流入如何退出：短线交易资金可能在半年报前后、前期成交密集区或定增落地时兑现。</li>
+<li>持续性被证伪的信号：5 日大单重新转负、融资余额跌破 7 月底低点、反弹放量滞涨。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>连续 10—20 日价格相对指数转强，成交温和放大且融资与大单同步流入；反向失效为重新跌破 56.5 元附近修复低点并伴随杠杆流出。</li>
+</ul>
+<h3>11.4 情绪位置变化</h3>
+<ul>
+<li>当前状态：<strong>中性</strong>。</li>
+<li>证据充分性：<strong>充分到可判断阶段</strong>；价格、成交、换手和催化反馈均可观察。</li>
+<li>当前所处阶段：<strong>修复</strong>，不是冰点，也未回到扩散或拥挤。</li>
+<li>个股相对板块与指数的强弱：个股 5 日显著强于中证全指，但 20 / 60 日显著弱于指数。</li>
+<li>催化兑现后的价格反馈：MLCC 意向和澄清公告未能阻止 7 月下跌；8 月初出现快速反弹，说明恐慌释放后有交易性承接，但尚未由财报确认。</li>
+</ul>
+<h4>证据</h4>
+<ul>
+<li>从 129.44 元回撤约 48.5%，拥挤度和杠杆明显下降。</li>
+<li>5 日反弹约 21%，显示不是单边恐慌。</li>
+</ul>
+<h4>反证</h4>
+<ul>
+<li>估值仍高、套牢盘重，8 月 11 日盘中下跌 2.40%。</li>
+<li>商业航天收入占比澄清降低了题材纯度，情绪修复缺少新硬业绩。</li>
+</ul>
+<h4>失效条件</h4>
+<ul>
+<li>半年报超预期且价格在放量后缩量稳住，状态可转为有利；反之若放量跌破 56.5 元，重新进入退潮。</li>
+</ul>
+<h3>11.5 综合状态与主导矛盾</h3>
+<ul>
+<li>三要素综合判断：<strong>部分有利，尚未形成有利共振</strong>。</li>
+<li>主导要素：竞争格局和第二曲线方向中期有利。</li>
+<li>拖累要素：流动性与情绪只处修复，定增供给和高估值仍约束行动。</li>
+<li>主导矛盾：真实量产与客户认证，能否在高资本投入和摊薄之前转化为足够的每股自由现金流。</li>
+<li>下一验证节点：2026-08-28 半年报；随后是定增发行结果与 MLCC 正式交易方案。</li>
+<li>状态切换条件：半年报收入、扣非利润和 CFO 同步改善，分部收入可验证，且价格不以估值再扩张为主要驱动。</li>
+</ul>
+<h3>11.6 三要素行动映射</h3>
+<table>
+<thead>
+<tr>
+<th>资金属性</th>
+<th>当前动作</th>
+<th>允许升级的条件</th>
+<th>降级 / 退出条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>新增现金</td>
+<td>observe</td>
+<td>价格进入40—48元且半年报验证现金流；或盈利上修使现价进入30—35倍2027E PE</td>
+<td>半年报低于预期、定增高摊薄、跌破修复低点伴随资金流出</td>
+</tr>
+<tr>
+<td>已有持仓</td>
+<td>review / reduce</td>
+<td>小仓位且成本低，可等待8月28日硬验证；结果超预期转 wait</td>
+<td>高仓位、无法承受30%以上波动，或投资逻辑依赖“卫星纯度”</td>
+</tr>
+</tbody></table>
+<h3>11.7 三要素数据缺口与来源</h3>
+<table>
+<thead>
+<tr>
+<th>数据缺口</th>
+<th>已检查来源</th>
+<th>对哪一要素有影响</th>
+<th>对结论的影响</th>
+<th>补齐方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>应用分部收入、利润与订单额</td>
+<td>年报、季报、注册稿、互动公告</td>
+<td>竞争格局</td>
+<td>下调置信度和期权价值</td>
+<td>半年报、调研纪要、定增文件</td>
+</tr>
+<tr>
+<td>MLCC 标的财务与估值</td>
+<td>意向公告</td>
+<td>竞争格局 / 风险</td>
+<td>无法判断并购增厚</td>
+<td>审计评估与正式交易公告</td>
+</tr>
+<tr>
+<td>ETF、北向和机构持仓连续数据</td>
+<td>本地与公开页面</td>
+<td>流动性</td>
+<td>不确认长期资金接力</td>
+<td>基金申赎、股东户数、机构持仓</td>
+</tr>
+<tr>
+<td>客户名称和价格条款</td>
+<td>法定公告</td>
+<td>竞争格局</td>
+<td>无法量化份额与定价权</td>
+<td>客户公告与公司分部披露</td>
+</tr>
+</tbody></table>
+<ul>
+<li>分析口径与截止时间：2026-08-11 09:58（Asia/Shanghai）。</li>
+<li>主要数据来源：本地 Tushare、腾讯行情、东方财富全市场快照、公司法定公告。</li>
+<li>数据缺口导致的置信度调整：综合结论由中高下调为中；不把行业空间直接等同公司利润。</li>
+</ul>
+<h3>11.8 风险方向证据</h3>
+<p>比较窗口：前一窗口为 2026-07-14—2026-07-31，当前窗口为 2026-08-01—2026-08-11。</p>
 <table>
 <thead>
 <tr>
@@ -959,53 +1603,53 @@ body {
 </thead>
 <tbody><tr>
 <td>基本面风险</td>
-<td>年报改善、卫星客户突破</td>
-<td>一季度利润改善但现金流下降</td>
-<td>应收上升、商业航天贡献仍不透明</td>
-<td>扣非利润增速快、量产继续</td>
+<td>并购新增不确定性、媒体传闻冲击</td>
+<td>澄清后经营正常，尚无新财报</td>
+<td>供应链突发风险下降</td>
+<td>Q1现金流弱、MLCC财务未知</td>
 </tr>
 <tr>
 <td>估值风险</td>
-<td>估值快速扩张</td>
-<td>高点回落但仍约 108 倍 PE</td>
-<td>现价仍要求极高长期盈利</td>
-<td>股价已较高点回撤 38.9%</td>
+<td>高位快速压缩</td>
+<td>价格较高点回撤48.5%，PE仍89.86倍</td>
+<td>价格下跌释放部分风险</td>
+<td>仍显著高于现金流价值</td>
 </tr>
 <tr>
 <td>情绪风险</td>
-<td>主题亢奋</td>
-<td>高位退潮</td>
-<td>7 月连续大跌、波动放大</td>
-<td>产业催化并非完全虚构</td>
+<td>退潮与恐慌</td>
+<td>5日反弹21%，进入修复</td>
+<td>恐慌和拥挤下降</td>
+<td>盘中转弱、套牢盘重</td>
 </tr>
 <tr>
 <td>流动性风险</td>
-<td>增量资金推动上涨</td>
-<td>承接减弱且定增供给临近</td>
-<td>大跌、潜在股本扩张近 30%</td>
-<td>募资现金可支持增长项目</td>
+<td>融资与大单快速流出</td>
+<td>融资自低位回补、5日大单转正</td>
+<td>短期承接改善</td>
+<td>20日大单和融资仍显著收缩，定增在前</td>
 </tr>
 </tbody></table>
-<h3>11.3 风险传导链</h3>
+<h3>11.9 风险传导链</h3>
 <ul>
-<li>信息源头：高估值叠加定增注册落地、商业航天分部数据缺失和高位价格回撤。</li>
-<li>核心变量：未来利润兑现速度、定增发行价格与股数、地面终端订单转化率、资金承接强度。</li>
-<li>传导机制：若业绩兑现低于隐含预期，则估值压缩；若定增发行量大，则每股盈利被稀释且二级市场供给上升；两者共同强化波动。</li>
-<li>影响对象：现有股东每股价值、融资参与者回报和高位交易资金。</li>
-<li>市场行为变化：从追逐商业航天题材转向检验订单、利润与现金流，资金对负面偏差更敏感。</li>
-<li>风险方向：风险重新增强。</li>
-<li>验证指标：股价是否守住 77.90 元附近、成交结构、定增折价、半年报商业卫星收入与 CFO。</li>
-<li>失效条件：业绩显著超预期、定增低稀释完成、商业卫星收入和利润连续可验证，同时价格形成稳定承接。</li>
+<li>信息源头：商业卫星收入占比低于 10%、MLCC 交易待定、定增可执行、Q1现金流背离。</li>
+<li>核心变量：2026H1利润与 CFO、卫星分部收入、定增发行价和股数、MLCC 收购回报。</li>
+<li>传导机制：若盈利不及预期或资本投入先于回报，则每股现金流下修；高估值下的预期差再通过融资去杠杆和套牢盘放大价格波动。</li>
+<li>影响对象：现有股东每股价值、融资交易者、定增参与者与并购后资本回报。</li>
+<li>市场行为变化：从追逐商业航天纯度转向检验收入占比、现金流和摊薄。</li>
+<li>风险方向：<strong>风险减弱</strong>，但风险水平仍高。</li>
+<li>验证指标：半年报 CFO / 净利润、应收和存货、融资余额、大单连续性、定增与并购条款。</li>
+<li>失效条件：风险重新增强为半年报低于预期、定增高摊薄或股价跌破修复低点并放量。</li>
 </ul>
-<h3>11.4 风险方向结论</h3>
+<h3>11.10 风险方向结论</h3>
 <ul>
-<li>风险方向结论：风险重新增强。</li>
-<li>判断依据：股价虽从高点回撤，但估值仍高；连续大跌显示交易承接转弱，潜在新增股票供给与业绩兑现期错配。</li>
-<li>反证：公司基本面没有出现明确恶化，2026Q1 收入与利润仍增长，低轨地面终端已形成真实批量供应。</li>
-<li>未获取到：盘中逐笔资金、融资融券最新变化、定增最终发行安排。</li>
-<li>置信度：中高。</li>
+<li>风险方向结论：<strong>风险减弱</strong>。</li>
+<li>判断依据：相较 7 月下半月，突发供应链传闻得到澄清，股价、融资和大单资金从恐慌状态修复。</li>
+<li>反证：估值仍高、20 日资金仍流出、潜在股本供给和并购资金需求没有消失。</li>
+<li>未获取到：应用分部订单和利润、MLCC 标的财务、机构账户级资金流。</li>
+<li>置信度：<strong>中</strong>。方向结论不等于低风险或买入信号。</li>
 </ul>
-<h3>11.5 四层方向证据</h3>
+<h3>11.11 四层方向证据</h3>
 <table>
 <thead>
 <tr>
@@ -1017,44 +1661,92 @@ body {
 <tbody><tr>
 <td>宏观</td>
 <td>无明显变化</td>
-<td>本报告未发现足以改变公司估值的新增宏观变量</td>
+<td>美国10年期收益率4.72%，A股市场融资仍低于7月初</td>
 </tr>
 <tr>
 <td>中观</td>
 <td>边际改善</td>
-<td>低轨卫星地面终端需求扩张、客户进入批量供应</td>
+<td>卫星交付正常、MLCC新增产业暴露；需求强度仍缺独立订单验证</td>
 </tr>
 <tr>
 <td>微观</td>
-<td>边际改善但现金流待验证</td>
-<td>Q1 收入和利润增长，CFO 同比大降、应收上升</td>
+<td>无明显变化</td>
+<td>Q1利润改善、现金流弱；8月尚无新财报</td>
 </tr>
 <tr>
 <td>交易</td>
-<td>边际恶化</td>
-<td>高位回撤、7 月 15–16 日连续下跌、估值仍高</td>
+<td>边际改善</td>
+<td>5日反弹、大单转正和融资回补，但20日仍弱</td>
 </tr>
 </tbody></table>
-<h3>11.6 动作与约束</h3>
+<h3>11.12 最终动作与约束</h3>
 <ul>
-<li>主动作：wait。</li>
-<li>新增现金：不追高；35–45 元为首个研究区，而非无条件买点。首次建仓不超过计划仓位 20%，须由半年报验证支撑。</li>
-<li>已有持仓：review / reduce；高位重仓应降低单一主题暴露，盈利持仓可用关键验证位与财报节点管理。</li>
-<li>承接条件：77.90 元附近止跌只能证明短期承接；转为 buy 还需估值进入区间或盈利上修。更强承接是放量收复 90 元后缩量回踩不破，但该条件解决的是交易结构，不解决估值。</li>
-<li>退出条件：商业卫星订单转化不及预期、毛利率回落、经营现金流持续弱于利润，或定增大比例发行而项目进度落后。</li>
-<li>下一复核节点：2026 年半年报和定增发行结果。</li>
-<li>我的判断：产业方向有利，但“方向正确”尚不能转化为“买点”，因为现价需要极高的盈利兑现，流动性与情绪处于退潮阶段。</li>
+<li>主动作：<strong>observe</strong>。</li>
+<li>新增现金：不追高，等待 40—48 元估值约束或 8 月 28 日硬业绩验证。</li>
+<li>已有持仓：review；若仓位过重或逻辑依赖商业航天高纯度，考虑 reduce。</li>
+<li>承接条件：成交额从高波动降温后价格稳定，融资与大单连续 10—20 日同向改善，且半年报现金流跟上利润。</li>
+<li>退出条件：商业卫星收入或订单不及预期、MLCC 交易回报低、定增大幅摊薄、毛利率与 CFO 同步恶化。</li>
+<li>下一复核节点：2026-08-28 半年报。</li>
+<li>我的判断：风险方向从“重新增强”转为“减弱”，只是因为恐慌与去杠杆缓和；价格仍高于价值上沿，因此不能转化为买点。</li>
+</ul>
+<h3>11.13 霍华德·马克斯逆向投资条件判断</h3>
+<table>
+<thead>
+<tr>
+<th>条件</th>
+<th>当前判断</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>价格是否经历极端下跌与恐惧</td>
+<td>部分满足</td>
+<td>高点回撤约48.5%，融资余额显著下降</td>
+</tr>
+<tr>
+<td>是否存在被迫卖出</td>
+<td>部分满足</td>
+<td>融资去杠杆可作为代理，但没有账户级强平证据</td>
+</tr>
+<tr>
+<td>基本面是否未被永久破坏</td>
+<td>基本满足</td>
+<td>Q1收入利润增长，卫星生产交付正常</td>
+</tr>
+<tr>
+<td>价格是否低于保守价值</td>
+<td><strong>不满足</strong></td>
+<td>66.72元仍高于32—48元估值上沿</td>
+</tr>
+<tr>
+<td>风险是否可逆且主要是暂时性</td>
+<td>部分满足</td>
+<td>媒体传闻已澄清；定增、资本开支和业务纯度是结构性约束</td>
+</tr>
+<tr>
+<td>投资者是否有足够期限与现金</td>
+<td>未获取到</td>
+<td>属于个人资金约束，不能代替用户判断</td>
+</tr>
+</tbody></table>
+<ul>
+<li>逆向投资等级：<strong>C级观察，不构成逆向买点</strong>。</li>
+<li>结论：这是“大幅下跌后的估值消化”，不是“价格已低于价值”的经典逆向机会。只有价格进入价值区间且基本面未坏，才可能升级为 B 级逆向观察。</li>
 </ul>
 <h2 id="section-12">12. 最终结论</h2>
 
 <ul>
-<li>估值结论：高估。</li>
-<li>操作结论：观望；高位已有持仓以复核和降风险为主。</li>
-<li>综合估值区间：32–48 元 / 股。</li>
-<li>相对现价空间：-59.5% 至 -39.3%。</li>
-<li>如果今天这是一笔现金，我会买它吗：不会；等待价格和业绩形成安全边际。</li>
-<li>我的判断：信维通信不是“伪商业航天”，其地面终端相控阵天线模组、高速连接器确有批量客户和扩产规划；但它也不是纯卫星公司，2025 年商业航天收入仍不可拆分。市场已把较远期的项目价值提前计入，而定增稀释、产能爬坡和现金流风险尚未被充分验证。</li>
-<li>结论失效条件：商业卫星业务收入、利润和现金流连续两个季度显著超越基准预测，使 2027 年盈利足以把现价 PE 降至 30–35 倍；或价格跌入估值区间且基本面没有恶化。</li>
+<li>彼得·林奇公司分类：稳健增长型主业 + 快速增长型期权。</li>
+<li>一句话投资故事：传统射频现金流为第二曲线提供底座，商业卫星、散热和 MLCC 有望提高增长，但高资本投入、客户集中和潜在摊薄决定了兑现必须落在每股自由现金流上。</li>
+<li>利润增长等式与可持续时间：销量 × 单价 × 毛利率减去费用、折旧和资本成本；若 2026—2028 年订单转收入并改善 ROIC，可持续 2—4 年，之后取决于竞争与产能利用率。</li>
+<li>估值结论：<strong>高估</strong>。</li>
+<li>操作结论：<strong>观望</strong>。</li>
+<li>综合估值区间：<strong>32—48 元 / 股</strong>。</li>
+<li>相对现价空间：<strong>-52.0% 至 -28.1%</strong>。</li>
+<li>如果今天这是一笔现金，我会买它吗：<strong>不会</strong>。</li>
+<li>我的判断：公司不是伪题材，商业卫星也确有量产；但“业务真实”与“价格便宜”是两件事。当前价格仍要求多个第二曲线同步高兑现，赔率不足。</li>
+<li>结论失效条件：半年报和后续分部数据证明 2027 年 EPS 显著高于 1.99 元且现金流同步，或价格回到价值区间；反向失效为订单、毛利率和现金流恶化。</li>
+<li>林奇框架卖出条件：当前适用项为<strong>估值严重透支</strong>与潜在<strong>投资逻辑破坏</strong>。若已有持仓，应重点检查商业卫星纯度假设、定增摊薄和现金流，而不是只看价格是否反弹。</li>
 </ul>
 <h2 id="section-13">13. 后续监控指标</h2>
 
@@ -1069,82 +1761,158 @@ body {
 </tr>
 </thead>
 <tbody><tr>
-<td>商业卫星收入占比</td>
+<td>2026H1收入与扣非利润</td>
 <td align="right">未披露</td>
-<td>单独披露且连续提升</td>
-<td>定期报告 / IR</td>
-<td>每季度</td>
+<td>收入维持两位数增长，扣非不低于卖方路径</td>
+<td>半年报</td>
+<td>2026-08-28</td>
 </tr>
 <tr>
-<td>集团毛利率</td>
-<td align="right">2025 年 22.79%；2026Q1 21.77%</td>
-<td>连续高于 23%为正向，低于 20%为警示</td>
-<td>定期报告</td>
-<td>每季度</td>
-</tr>
-<tr>
-<td>经营现金流 / 净利润</td>
-<td align="right">2025 年约 2.38 倍；2026Q1 约 0.77 倍</td>
-<td>滚动年度 ≥1 为正向</td>
+<td>CFO / 归母净利润</td>
+<td align="right">Q1约0.77倍</td>
+<td>半年累计恢复至1倍以上</td>
 <td>现金流量表</td>
-<td>每季度</td>
+<td>每季</td>
 </tr>
 <tr>
-<td>应收账款</td>
-<td align="right">2026Q1 约 24.91 亿元</td>
-<td>增速持续高于收入增速为警示</td>
-<td>资产负债表</td>
-<td>每季度</td>
+<td>商业卫星收入占比</td>
+<td align="right">2025低于10%</td>
+<td>持续提高且披露毛利或订单</td>
+<td>公司公告 / 调研</td>
+<td>每季</td>
 </tr>
 <tr>
-<td>定增稀释</td>
-<td align="right">上限约 2.90 亿股、募集 60 亿元</td>
-<td>实际发行接近上限且折价大为负向</td>
-<td>公司公告</td>
+<td>存货与应收</td>
+<td align="right">Q1 15.24 / 24.91亿元</td>
+<td>增速不持续高于收入，减值可控</td>
+<td>财报</td>
+<td>每季</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">Q1 21.77%</td>
+<td>回到23%以上并可持续</td>
+<td>财报</td>
+<td>每季</td>
+</tr>
+<tr>
+<td>定增摊薄</td>
+<td align="right">上限约30%</td>
+<td>实际摊薄显著低于上限、项目回报覆盖资本成本</td>
+<td>发行公告</td>
 <td>事件驱动</td>
 </tr>
 <tr>
-<td>估值</td>
-<td align="right">静态 PE 约 108 倍</td>
-<td>2027E PE ≤35 倍或股价 35–45 元进入研究区</td>
-<td>行情 + 盈利预测</td>
-<td>每周 / 财报后</td>
+<td>MLCC并购回报</td>
+<td align="right">财务数据未披露</td>
+<td>正式估值合理、并表后增厚且现金回收明确</td>
+<td>交易公告</td>
+<td>事件驱动</td>
 </tr>
 <tr>
-<td>交易承接</td>
-<td align="right">2026-07-16 低点 77.90 元</td>
-<td>跌破且放量为风险增强；收复 90 元并稳定为承接改善</td>
-<td>行情</td>
-<td>每日</td>
+<td>融资余额 / 大单</td>
+<td align="right">50.76亿元 / 5日+7.04亿元</td>
+<td>10—20日同向改善；反向为跌破7月底融资低点</td>
+<td>Tushare</td>
+<td>每日 / 每周</td>
+</tr>
+<tr>
+<td>估值</td>
+<td align="right">PE TTM 89.86倍</td>
+<td>2027E PE进入30—35倍或价格进入40—48元</td>
+<td>行情 + 盈利预测</td>
+<td>每周</td>
 </tr>
 </tbody></table>
+<ul>
+<li>投资故事持续性：<strong>部分成立</strong>。</li>
+<li>下一次财报需复核的林奇框架变量：EPS、现金流、库存、应收、负债、增长空间、分部收入、资本开支和摊薄后估值。</li>
+</ul>
 <h2 id="section-14">14. 未获取到的数据与研究局限</h2>
 
 <ul>
-<li>未获取到：2026-07-17 盘中实时价、完整卖方一致预期与目标价、Morningstar 公允价值 / 护城河 / 星级、商业卫星单独收入利润、具体客户与确定订单金额、同日可比公司完整估值、定增最终发行价和股数。</li>
-<li>已检查来源：公司 2021–2025 年报、2026 年一季报、投资者关系记录、深交所定增问询回复及监管披露、公开历史行情页。</li>
-<li>对结论的影响：分部透明度不足降低了估值精度，因此综合估值采用区间并给予中高而非高置信度。定增完成后，现金、股本和项目进度都会改变每股价值，必须重新测算。</li>
+<li>未获取到：应用分部收入、利润、毛利率与资本占用；商业卫星客户名称与确定订单金额；MLCC 标的审计财务和正式交易价格；最新机构持仓、北向与 ETF 连续资金；Morningstar 个股公允价值、护城河和星级；完整卖方模型和目标价中位数。</li>
+<li>已检查来源：本地 Tushare、深交所、巨潮资讯、公司公告、同花顺 F10、Investing.com、Morningstar 公开搜索。</li>
+<li>对结论的影响：降低竞争优势和估值的置信度；所有第二曲线均采用折价和区间法，不把行业空间直接当作公司收入。</li>
+<li>模型局限：DCF 对资本开支、折旧、营运资本和终值高度敏感；净债务采用年报口径代理，定增尚未完成，实际发行后必须重算股本和现金。</li>
 </ul>
 <h2 id="section-15">15. 来源清单</h2>
 
 <ol>
-<li><a href="https://disc.static.szse.cn/download/disc/disk03/finalpage/2026-04-18/f9b664b1-4414-49ea-ba99-35693eef9cb8.PDF">《2025 年年度报告摘要》</a>，信维通信 / 深圳证券交易所，2026-04-18，访问时间 2026-07-17。</li>
-<li><a href="https://static.cninfo.com.cn/finalpage/2026-04-18/1225121156.PDF">《2025 年年度报告》</a>，信维通信 / 巨潮资讯，2026-04-18，访问时间 2026-07-17。</li>
-<li><a href="https://static.cninfo.com.cn/finalpage/2026-04-18/1225121159.PDF">《2025 年度审计报告》</a>，信维通信 / 巨潮资讯，2026-04-18，访问时间 2026-07-17。</li>
-<li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12112812&stockid=300136">《2026 年第一季度报告》</a>，信维通信，2026-04，访问时间 2026-07-17。</li>
-<li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12147528&stockid=300136">《投资者关系活动记录表》</a>，信维通信，2026-04-22，访问时间 2026-07-17。</li>
-<li><a href="https://disc.static.szse.cn/disc/disk03/finalpage/2026-04-24/5ecd1393-6372-45b8-8aab-eda2add36f1b.PDF">《向特定对象发行股票申请文件审核问询函的回复》</a>，信维通信 / 深圳证券交易所，2026-04-24，访问时间 2026-07-17。</li>
-<li><a href="https://static.cninfo.com.cn/finalpage/2026-03-14/1225008953.PDF">《2026 年度向特定对象发行 A 股股票预案》</a>，信维通信，2026-03-14，访问时间 2026-07-17。</li>
-<li><a href="https://cn.investing.com/equities/shenzhen-sunway-communication-historical-data">信维通信历史行情</a>，Investing，行情截至 2026-07-16，访问时间 2026-07-17。</li>
-<li><a href="https://cn.investing.com/equities/shenzhen-sunway-communication">信维通信证券页</a>，Investing，访问时间 2026-07-17。</li>
-<li><a href="https://www.100est.com/res/financial-report/r2023/SZ300136_202404231631080284.pdf">《2023 年年度报告》</a>，信维通信，2024-04，访问时间 2026-07-17。</li>
-<li><a href="https://stockn.xueqiu.com/SZ300136/20220427282778.pdf">《2021 年年度报告》</a>，信维通信，2022-04，访问时间 2026-07-17。</li>
-<li><a href="https://pdf.dfcfw.com/pdf/H2_AN202504281664071052_1.pdf">《2024 年年度报告》</a>，信维通信，2025-04，访问时间 2026-07-17。</li>
+<li>《2025年年度报告》，深圳市信维通信股份有限公司，2026-04-18，<a href="https://static.cninfo.com.cn/finalpage/2026-04-18/1225121156.PDF%EF%BC%8C%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">https://static.cninfo.com.cn/finalpage/2026-04-18/1225121156.PDF，访问时间</a> 2026-08-11。</li>
+<li>《2026年第一季度报告》，深圳市信维通信股份有限公司，2026-04-18，<a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12112812&stockid=300136%EF%BC%8C%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12112812&amp;stockid=300136，访问时间</a> 2026-08-11。</li>
+<li>《2026年度向特定对象发行A股股票并在创业板上市募集说明书（注册稿）》，深圳市信维通信股份有限公司，2026-05-27，<a href="https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12358169&stockid=300136%EF%BC%8C%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12358169&amp;stockid=300136，访问时间</a> 2026-08-11。</li>
+<li>《关于向特定对象发行股票申请获得中国证监会注册批复的公告》，深圳市信维通信股份有限公司，2026-05-27，<a href="https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12358168&stockid=300136%EF%BC%8C%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12358168&amp;stockid=300136，访问时间</a> 2026-08-11。</li>
+<li>《关于签署〈股权收购及增资意向协议〉的公告》，深圳市信维通信股份有限公司，2026-07-14，<a href="https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12446956&stockid=300136%EF%BC%8C%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12446956&amp;stockid=300136，访问时间</a> 2026-08-11。</li>
+<li>《关于媒体报道的澄清公告》，深圳市信维通信股份有限公司，2026-07-31，<a href="https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12470837&stockid=300136%EF%BC%8C%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12470837&amp;stockid=300136，访问时间</a> 2026-08-11。</li>
+<li>“信维通信盈利预测”，同花顺 F10，<a href="https://basic.10jqka.com.cn/300136/worth.html%EF%BC%8C%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">https://basic.10jqka.com.cn/300136/worth.html，访问时间</a> 2026-08-11。</li>
+<li>“信维通信分析师一致预期”，Investing.com，<a href="https://cn.investing.com/equities/shenzhen-sunway-communication-consensus-estimates%EF%BC%8C%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4">https://cn.investing.com/equities/shenzhen-sunway-communication-consensus-estimates，访问时间</a> 2026-08-11。</li>
+<li>本地 <code>tushare-data</code>：证券身份、日线、估值、财务报表、资金流、融资融券、分红、市场融资和美国国债收益率，访问时间 2026-08-11。</li>
+<li>腾讯行情与东方财富 / 新浪全市场快照，访问时间 2026-08-11 09:50—09:58。</li>
 </ol>
 <h2 id="section-16">16. 声明</h2>
 
-<p>本报告基于截至研究截止时间可取得的公开信息，不构成收益保证。真实交易前应重新核验价格、公告、流动性和个人风险承受能力。</p>
-</article>
+<p>本报告基于截至研究截止时间可取得的公开信息，不构成收益保证或个性化投资建议。真实交易前应重新核验价格、公告、流动性、估值假设和个人风险承受能力。</p>
+<h2>相关页面</h2>
+<ul>
+<li><a href="../../../../workbench/index.md">Workbench Index</a>：具体标的研究入口。</li>
+<li><a href="../../../../wiki/topics/冰冰小美-情绪体系认知篇.md">冰冰小美-情绪体系理论篇</a>：三要素与风险方向的理论背景。</li>
+<li><a href="../../../../wiki/concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势.md">竞争格局的比较优势</a>：竞争位置判断规则。</li>
+<li><a href="../../../../wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md">流动性辩证分析</a>：资金与供给的判断规则。</li>
+<li><a href="../../../../wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化.md">情绪位置的变化</a>：情绪阶段与交易反馈规则。</li>
+</ul>
+<script>
+(() => {
+  const endpoint = '/api/stock-quote?secid=0.300136';
+  const priceNode = document.getElementById('intraday-price');
+  const detailNode = document.getElementById('intraday-detail');
+  const statusNode = document.getElementById('intraday-status');
+  const riskRewardValue = document.getElementById('risk-reward-value');
+  const riskRewardDetail = document.getElementById('risk-reward-detail');
+  const tracker = document.getElementById('daily-tracking');
+  const snapshotPrice = 66.72;
+  const percent = value => `${value < 0 ? '-' : value > 0 ? '+' : ''}${Math.abs(value).toFixed(1)}%`;
+  function updateRiskReward(price) {
+    const low = Number(tracker.dataset.valueLow);
+    const high = Number(tracker.dataset.valueHigh);
+    if (!Number.isFinite(low) || !Number.isFinite(high) || low <= 0 || high <= low) return;
+    const upside = (high / price - 1) * 100;
+    const downside = (price / low - 1) * 100;
+    if (price <= low) {
+      riskRewardValue.textContent = '低于价值下沿';
+      riskRewardValue.classList.remove('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿潜在空间 ${percent(upside)}。价格已低于动态价值下沿，不能直接用下沿作为止损风险，需另设风控线。`;
+      return;
+    }
+    if (price >= high) {
+      riskRewardValue.textContent = '无正向盈亏比';
+      riskRewardValue.classList.add('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿空间 ${percent(upside)}，回落至下沿风险 ${percent(downside)}。价格已到或高于动态价值上沿，新增现金不具备正向盈亏比。`;
+      return;
+    }
+    const ratio = upside / downside;
+    riskRewardValue.textContent = `约 ${ratio.toFixed(1)}:1`;
+    riskRewardValue.classList.toggle('bad', ratio < 1);
+    riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；到上沿 ${high.toFixed(2)} 元的潜在上行 ${percent(upside)}，跌至下沿 ${low.toFixed(2)} 元的风险 ${percent(downside)}。盘中价格不改变价值区间本身。`;
+  }
+  async function refreshIntradayQuote() {
+    statusNode.textContent = '连接中'; statusNode.className = 'tracking-status';
+    try {
+      const response = await fetch(endpoint, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json(); const quote = payload && payload.data;
+      if (!quote || !Number.isFinite(quote.price) || !Number.isFinite(quote.prevClose) || !Number.isFinite(quote.changePercent) || !Number.isFinite(quote.quoteTimestamp)) throw new Error('invalid quote');
+      const quoteTime = new Date(quote.quoteTimestamp * 1000).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false });
+      priceNode.textContent = `${quote.price.toFixed(2)} 元 · ${percent(quote.changePercent)}`;
+      priceNode.classList.toggle('bad', quote.changePercent < 0);
+      detailNode.textContent = `行情时间：${quoteTime}；昨收 ${quote.prevClose.toFixed(2)} 元。来源：${payload.proxySource || '本地行情代理'}。`;
+      statusNode.textContent = '盘中实时 · 每 60 秒'; statusNode.className = 'tracking-status live'; updateRiskReward(quote.price);
+    } catch { priceNode.textContent = '实时行情暂不可用'; priceNode.classList.remove('bad'); detailNode.textContent = '每日同步值仍然有效；可重新双击“大盘启动器”后刷新本页。'; statusNode.textContent = '连接失败'; statusNode.className = 'tracking-status error'; }
+  }
+  if (location.protocol === 'http:' || location.protocol === 'https:') { refreshIntradayQuote(); window.setInterval(refreshIntradayQuote, 60000); }
+  else { priceNode.textContent = Number.isFinite(snapshotPrice) ? `${snapshotPrice.toFixed(2)} 元（每日值）` : '每日值未获取'; detailNode.textContent = '当前为直接打开模式；盘中实时需通过“大盘启动器”进入本地服务。'; statusNode.textContent = '每日同步 · 实时未连接'; }
+})();
+</script></article>
     </div>
   </main>
 </body>

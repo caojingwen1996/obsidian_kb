@@ -9,6 +9,13 @@ from tushare_client import DATASETS, TushareClient, TushareClientError, tushare_
 
 SERVER_NAME = "tushare-data"
 SERVER_VERSION = "0.4.0"
+CENTRAL_HUIJIN_DEFAULT_KEYWORDS = ("中央汇金",)
+DEFAULT_USD_JPY_CODE = "USDJPY.FXCM"
+DEFAULT_USD_JPY_RISK_THRESHOLD = 160
+HOLDER_DATASETS = (
+    ("top10_holders", "前十大股东"),
+    ("top10_floatholders", "前十大流通股东"),
+)
 
 
 def stderr_logger(event, **fields):
@@ -170,6 +177,22 @@ def tools():
             },
         },
         {
+            "name": "get_usd_jpy_exchange_rate",
+            "description": "获取美元兑日元 USDJPY 日线，并判断是否触发日元贬值风险线；默认 USDJPY>=160 视为高风险。",
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "ts_code": {"type": "string", "default": DEFAULT_USD_JPY_CODE, "description": "外汇代码，默认 USDJPY.FXCM。"},
+                    "trade_date": {"type": "string", "description": "YYYYMMDD 或 YYYY-MM-DD。"},
+                    "start_date": {"type": "string", "description": "YYYYMMDD 或 YYYY-MM-DD。"},
+                    "end_date": {"type": "string", "description": "YYYYMMDD 或 YYYY-MM-DD。"},
+                    "risk_threshold": {"type": "number", "default": DEFAULT_USD_JPY_RISK_THRESHOLD, "description": "日元贬值风险线，默认 USDJPY>=160。"},
+                    **common_query_props(DATASETS["fx_daily"]["fields"]),
+                },
+                "additionalProperties": False,
+            },
+        },
+        {
             "name": "get_financial_statements",
             "description": "获取A股利润表、资产负债表和现金流量表核心科目，并保留报告期、公告日期、报表类型和合并口径信息。",
             "inputSchema": {
@@ -205,6 +228,32 @@ def tools():
                     "ex_date": {"type": "string"},
                     "implemented_only": {"type": "boolean", "default": False},
                     **common_query_props(DATASETS["dividend"]["fields"]),
+                },
+                "required": ["ts_code"],
+                "additionalProperties": False,
+            },
+        },
+        {
+            "name": "check_central_huijin_holding",
+            "description": "判断A股前十大股东或前十大流通股东披露中是否出现中央汇金相关主体。该接口只确认定期报告披露口径，不代表实时持仓。",
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "ts_code": {"type": "string", "description": "股票代码，例如 600150 或 600150.SH。"},
+                    "period": {"type": "string", "description": "可选，报告期 YYYYMMDD 或 YYYY-MM-DD，例如 20251231。"},
+                    "ann_date": {"type": "string", "description": "可选，公告日期 YYYYMMDD 或 YYYY-MM-DD。"},
+                    "start_date": {"type": "string", "description": "可选，公告开始日期。"},
+                    "end_date": {"type": "string", "description": "可选，公告结束日期或报告期。"},
+                    "holder_keywords": {
+                        "oneOf": [{"type": "string"}, {"type": "array", "items": {"type": "string"}}],
+                        "default": ["中央汇金"],
+                        "description": "可选，股东名称匹配关键词，默认匹配中央汇金。",
+                    },
+                    "include_top_holders": {"type": "boolean", "default": True},
+                    "include_float_holders": {"type": "boolean", "default": True},
+                    "latest_only": {"type": "boolean", "default": True, "description": "默认只按最新披露报告期判断；设为 false 可返回查询范围内全部历史命中。"},
+                    "use_cache": {"type": "boolean", "default": True},
+                    "limit": {"type": "integer", "minimum": 1, "maximum": 10000},
                 },
                 "required": ["ts_code"],
                 "additionalProperties": False,
@@ -270,6 +319,83 @@ def get_dividend_history(client, arguments):
         rows = [row for row in rows if "实施" in str(row.get("div_proc") or "")]
     rows = apply_limit(rows, limit)
     return rows
+
+
+def normalize_holder_keywords(value):
+    if not value:
+        return list(CENTRAL_HUIJIN_DEFAULT_KEYWORDS)
+    if isinstance(value, str):
+        items = [value]
+    else:
+        items = list(value)
+    keywords = [str(item).strip() for item in items if str(item).strip()]
+    return keywords or list(CENTRAL_HUIJIN_DEFAULT_KEYWORDS)
+
+
+def matched_holder_keywords(holder_name, keywords):
+    compact_name = "".join(str(holder_name or "").split())
+    return [keyword for keyword in keywords if "".join(keyword.split()) in compact_name]
+
+
+def latest_report_period(rows):
+    periods = sorted({str(row.get("end_date")) for row in rows if row.get("end_date")})
+    return periods[-1] if periods else None
+
+
+def get_central_huijin_holding(client, arguments):
+    args = dict(arguments or {})
+    keywords = normalize_holder_keywords(args.pop("holder_keywords", None))
+    include_top_holders = bool(args.pop("include_top_holders", True))
+    include_float_holders = bool(args.pop("include_float_holders", True))
+    latest_only = bool(args.pop("latest_only", True))
+    params, use_cache, limit = pop_common(args)
+
+    datasets = []
+    if include_top_holders:
+        datasets.append(HOLDER_DATASETS[0])
+    if include_float_holders:
+        datasets.append(HOLDER_DATASETS[1])
+    if not datasets:
+        raise TushareClientError("tushare-params", "at least one holder scope must be selected")
+
+    queried = []
+    all_rows = []
+    for dataset, dataset_label in datasets:
+        rows = client.call_frame(dataset, use_cache=use_cache, **params)
+        dataset_latest_period = latest_report_period(rows)
+        queried.append({
+            "dataset": dataset,
+            "label": dataset_label,
+            "row_count": len(rows),
+            "latest_report_period": dataset_latest_period,
+        })
+        for row in rows:
+            all_rows.append({**row, "source_dataset": dataset, "source_label": dataset_label})
+
+    selected_period = latest_report_period(all_rows) if latest_only else None
+    candidate_rows = [
+        row for row in all_rows
+        if not selected_period or row.get("end_date") == selected_period
+    ]
+    matches = []
+    for row in candidate_rows:
+        matched_keywords = matched_holder_keywords(row.get("holder_name"), keywords)
+        if matched_keywords:
+            matches.append({**row, "matched_keywords": matched_keywords})
+
+    visible_matches = apply_limit(matches, limit)
+    return {
+        "ts_code": params.get("ts_code"),
+        "is_central_huijin_holding": bool(matches),
+        "matched": bool(matches),
+        "holder_keywords": keywords,
+        "latest_only": latest_only,
+        "selected_report_period": selected_period,
+        "matches": visible_matches,
+        "match_count": len(matches),
+        "queried": queried,
+        "disclosure_scope": "仅核验前十大股东/前十大流通股东定期报告披露口径，不代表实时持仓，也不能排除未进入前十的持仓。",
+    }
 
 
 def get_index_constituents(client, arguments):
@@ -359,6 +485,47 @@ def get_us_dollar_index(client, arguments):
     return {"rows": visible_rows, "row_count": len(visible_rows), "latest": latest}
 
 
+def normalized_fx_close_rows(rows):
+    normalized = []
+    for row in rows:
+        trade_date = row.get("trade_date")
+        try:
+            close = float(row.get("bid_close") or row.get("close") or row.get("ask_close"))
+        except (TypeError, ValueError):
+            continue
+        if trade_date:
+            normalized.append({"trade_date": trade_date, "close": close})
+    normalized.sort(key=lambda row: row["trade_date"])
+    return normalized
+
+
+def get_usd_jpy_exchange_rate(client, arguments):
+    args, use_cache, limit = pop_common(arguments)
+    risk_threshold = float(args.pop("risk_threshold", DEFAULT_USD_JPY_RISK_THRESHOLD))
+    args.setdefault("ts_code", DEFAULT_USD_JPY_CODE)
+    args.setdefault("fields", "ts_code,trade_date,bid_close")
+    rows = client.call_frame("fx_daily", use_cache=use_cache, **args)
+    normalized = normalized_fx_close_rows(rows)
+    latest = normalized[-1] if normalized else None
+    latest_close = latest.get("close") if latest else None
+    high_risk = isinstance(latest_close, (int, float)) and latest_close >= risk_threshold
+    visible_rows = apply_limit(normalized, limit)
+    return {
+        "symbol": args.get("ts_code"),
+        "rows": visible_rows,
+        "row_count": len(visible_rows),
+        "latest": latest,
+        "risk_threshold": risk_threshold,
+        "risk_level": "high" if high_risk else "normal",
+        "is_yen_depreciation_risk": high_risk,
+        "risk_message": (
+            f"美元兑日元 {latest_close:.2f}，已达到 {risk_threshold:g} 日元贬值风险线。"
+            if high_risk
+            else "未触发日元贬值风险线。"
+        ),
+    }
+
+
 def call_tool(name, arguments):
     arguments = arguments or {}
     client = TushareClient(logger=stderr_logger)
@@ -387,12 +554,16 @@ def call_tool(name, arguments):
         return {"dataset": "us_tycr", "tenor": "y10", **get_us_treasury_yield(client, arguments)}
     if name == "get_us_dollar_index":
         return {"dataset": "fx_daily", "symbol": "USDOLLAR.FXCM", **get_us_dollar_index(client, arguments)}
+    if name == "get_usd_jpy_exchange_rate":
+        return {"dataset": "fx_daily", **get_usd_jpy_exchange_rate(client, arguments)}
     if name == "get_financial_statements":
         statements = get_financial_statements(client, arguments)
         return {"dataset": "financial_statements", "statements": statements}
     if name == "get_dividend_history":
         rows = get_dividend_history(client, arguments)
         return {"dataset": "dividend", "rows": rows, "row_count": len(rows)}
+    if name == "check_central_huijin_holding":
+        return {"dataset": "shareholders", **get_central_huijin_holding(client, arguments)}
     if name == "get_index_constituents":
         return {"dataset": "index_weight", **get_index_constituents(client, arguments)}
     raise TushareClientError("mcp-tool", f"unknown tool: {name}")

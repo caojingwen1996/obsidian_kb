@@ -780,7 +780,7 @@ const output = renderedTemplate
   .replace('            <!-- TOPIC_CARDS -->', renderTopicCards(topicPages))
   .replace('        <!-- CHANGELOG_ENTRIES -->', renderChangelog(changelog))
   .replace('<!-- DASHBOARD_STYLES -->', `<style>${styles.trim()}</style>`)
-  .replace('<!-- DASHBOARD_SCRIPT -->', `<script type="module">${bundle}</script>`);
+  .replace('<!-- DASHBOARD_SCRIPT -->', () => `<script type="module">${bundle}</script>`);
 
 if (output.includes('DASHBOARD_STYLES') || output.includes('DASHBOARD_SCRIPT') || /<!-- [A-Z_]+ -->/.test(output)) {
   throw new Error('Build placeholders were not fully replaced');

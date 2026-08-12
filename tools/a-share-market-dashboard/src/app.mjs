@@ -197,12 +197,17 @@ export function deriveDashboard(snapshot, windowYears = 5) {
   const scoreById = new Map(score.items.map(item => [item.id, item]));
   const enrichedMetrics = metrics.map(metric => ({ ...metric, ...scoreById.get(metric.id) }));
   const layers = Object.fromEntries(Object.entries(LAYER_META).map(([id, meta]) => {
-    const layerScore = calculateWeightedScore(metrics.filter(metric => metric.layer === id).map(metric => ({ id: metric.id, score: metric.score, weight: metric.weight })));
+    const layerMetrics = metrics.filter(metric => metric.layer === id);
+    const layerScore = calculateWeightedScore(layerMetrics.map(metric => ({ id: metric.id, score: metric.score, weight: metric.weight })));
+    const layerMeta = combineMeta(...layerMetrics);
     return [id, {
       id,
       ...meta,
       score: layerScore.score,
       coverage: meta.targetWeight ? clamp(layerScore.coverage / meta.targetWeight * 100) : 0,
+      dataAt: layerMeta.dataAt,
+      status: layerMeta.status,
+      errors: layerMeta.errors,
     }];
   }));
 
@@ -219,6 +224,7 @@ export function deriveDashboard(snapshot, windowYears = 5) {
     margin: domain(snapshot, 'margin'),
     usTreasury10y: domain(snapshot, 'usTreasury10y'),
     usDollarIndex: domain(snapshot, 'usDollarIndex'),
+    usdJpy: domain(snapshot, 'usdJpy'),
     conclusion: conclusionForScore(score.score, score.coverage),
   };
 }
@@ -415,20 +421,16 @@ export function valueRangePrices(value) {
   return { left, right, center: (left + right) / 2 };
 }
 
-export function trackingLeftEdgeDistance({ valueRange, livePrice, reportQuote } = {}) {
+export function trackingLeftEdgeDistance({ valueRange, livePrice } = {}) {
   const leftEdge = leftEdgeFromValueRange(valueRange);
-  const price = Number.isFinite(Number(livePrice))
-    ? Number(livePrice)
-    : Number(compactText(reportQuote).match(/(\d+(?:\.\d+)?)/)?.[1]);
+  const price = Number(livePrice);
   if (!leftEdge || !Number.isFinite(price) || price <= 0) return Number.POSITIVE_INFINITY;
   return Math.abs(price - leftEdge) / leftEdge;
 }
 
-export function trackingSignalForQuote({ valueRange, livePrice, reportQuote, riskRewardRatio } = {}) {
+export function trackingSignalForQuote({ valueRange, livePrice, riskRewardRatio } = {}) {
   const range = valueRangePrices(valueRange);
-  const price = Number.isFinite(Number(livePrice))
-    ? Number(livePrice)
-    : Number(compactText(reportQuote).match(/(\d+(?:\.\d+)?)/)?.[1]);
+  const price = Number(livePrice);
   if (!range || !Number.isFinite(price) || price <= 0) {
     return { addStars: 0, reducible: false };
   }
@@ -936,27 +938,36 @@ function renderMarginBalanceChart(points = []) {
 }
 
 function riskLevelForDashboard(derived) {
+  const isExampleMode = derived?.mode === 'example';
   const usTreasuryLatest = Array.isArray(derived?.usTreasury10y?.data)
     ? derived.usTreasury10y.data.at(-1)
     : null;
   const usTreasuryYield = Number(usTreasuryLatest?.value);
-  const rateRiskHigh = Number.isFinite(usTreasuryYield) && usTreasuryYield > 4.5;
+  const rateRiskHigh = !isExampleMode && Number.isFinite(usTreasuryYield) && usTreasuryYield > 4.5;
   const dollarLatest = Array.isArray(derived?.usDollarIndex?.data)
     ? derived.usDollarIndex.data.at(-1)
     : null;
   const dollarIndex = Number(dollarLatest?.value);
-  const dollarRiskHigh = Number.isFinite(dollarIndex) && dollarIndex > 100;
-  const highRisk = rateRiskHigh || dollarRiskHigh;
+  const dollarRiskHigh = !isExampleMode && Number.isFinite(dollarIndex) && dollarIndex > 100;
+  const usdJpyLatest = Array.isArray(derived?.usdJpy?.data)
+    ? derived.usdJpy.data.at(-1)
+    : null;
+  const usdJpy = Number(usdJpyLatest?.value);
+  const yenDepreciationRiskHigh = !isExampleMode && Number.isFinite(usdJpy) && usdJpy >= 160;
+  const highRisk = rateRiskHigh || dollarRiskHigh || yenDepreciationRiskHigh;
   const highRiskMessages = [
     rateRiskHigh ? `美国10年国债收益率 ${formatNumber(usTreasuryYield, 2)}%，已高于 4.5% 风险线。` : '',
     dollarRiskHigh ? `美元指数 ${formatNumber(dollarIndex, 2)}，已高于 100 风险线。` : '',
+    yenDepreciationRiskHigh ? `美元兑日元 ${formatNumber(usdJpy, 2)}，已触发 160 日元贬值风险线。` : '',
   ].filter(Boolean);
   return {
-    label: highRisk ? '高风险' : '暂空',
+    label: isExampleMode ? '示例' : highRisk ? '高风险' : '暂空',
     className: highRisk ? 'is-high' : 'is-unknown',
     riskScore: highRisk ? 80 : null,
     buyScore: Number(derived?.score?.score),
-    action: highRisk
+    action: isExampleMode
+      ? '当前显示内置示例数据；请等待联网刷新完成，或点击“刷新数据”切换到真实数据。'
+      : highRisk
       ? highRiskMessages.join(' ')
       : '风险等级计算暂未接入，当前页面先用于集中观察融资、温度计、美债利率和美元指数信号。',
     usTreasury10y: {
@@ -964,20 +975,50 @@ function riskLevelForDashboard(derived) {
       value: Number.isFinite(usTreasuryYield) ? usTreasuryYield : null,
       highRisk: rateRiskHigh,
       status: derived?.usTreasury10y?.status ?? 'missing',
+      errors: derived?.usTreasury10y?.errors ?? [],
     },
     usDollarIndex: {
       date: dollarLatest?.date ?? null,
       value: Number.isFinite(dollarIndex) ? dollarIndex : null,
       highRisk: dollarRiskHigh,
       status: derived?.usDollarIndex?.status ?? 'missing',
+      errors: derived?.usDollarIndex?.errors ?? [],
+    },
+    usdJpy: {
+      date: usdJpyLatest?.date ?? null,
+      value: Number.isFinite(usdJpy) ? usdJpy : null,
+      highRisk: yenDepreciationRiskHigh,
+      status: derived?.usdJpy?.status ?? 'missing',
+      errors: derived?.usdJpy?.errors ?? [],
     },
   };
 }
 
 function riskWatchMissingLabel(entry) {
+  if (entry?.status === 'example') return '示例数据';
+  if (entry?.status === 'missing' && (entry?.errors ?? []).some(error => /validation failed|row_count.*0|rows=0/i.test(error))) return '上游返回空';
   if (entry?.status === 'missing') return '数据源为空';
   if (entry?.status === 'expired') return '缓存过期';
   return '等待数据';
+}
+
+function dateStamp(value) {
+  if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}/.test(value)) return value.slice(0, 10);
+  const timestamp = Number(value);
+  return Number.isFinite(timestamp)
+    ? new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Shanghai' }).format(timestamp)
+    : '';
+}
+
+function datedRiskLabel(valueText, dateValue, statusText, cadence = '日线') {
+  const date = dateStamp(dateValue);
+  return [valueText, date ? `${date}${cadence}` : '', statusText].filter(Boolean).join(' · ');
+}
+
+function riskWatchValueLabel(entry, valueText) {
+  if (entry?.status === 'example') return '示例数据';
+  if (!Number.isFinite(entry?.value)) return riskWatchMissingLabel(entry);
+  return datedRiskLabel(valueText, entry.date, entry.highRisk ? '高风险' : '未触发');
 }
 
 function updateRiskMonitor(derived) {
@@ -1003,21 +1044,18 @@ function updateRiskMonitor(derived) {
   setText('risk-coverage', `${formatNumber(derived?.score?.coverage, 1)}%`);
   setText('risk-screen-summary', risk.action);
   setText('risk-monitor-updated', `统计窗口 ${derived?.windowYears ?? 5} 年 · ${formatTime(derived?.generatedAt)}`);
-  const layers = Object.values(derived?.layers ?? {});
   const watchList = document.getElementById('risk-watch-list');
   if (watchList) {
     const us = risk.usTreasury10y;
     const dollar = risk.usDollarIndex;
-    const usLabel = Number.isFinite(us.value)
-      ? `${formatNumber(us.value, 2)}% · ${us.highRisk ? '高风险' : '未触发'}`
-      : riskWatchMissingLabel(us);
-    const dollarLabel = Number.isFinite(dollar.value)
-      ? `${formatNumber(dollar.value, 2)} · ${dollar.highRisk ? '高风险' : '未触发'}`
-      : riskWatchMissingLabel(dollar);
+    const yen = risk.usdJpy;
+    const usLabel = riskWatchValueLabel(us, `${formatNumber(us.value, 2)}%`);
+    const dollarLabel = riskWatchValueLabel(dollar, formatNumber(dollar.value, 2));
+    const yenLabel = riskWatchValueLabel(yen, formatNumber(yen.value, 2));
     watchList.innerHTML = [
-      ...layers.map(layer => `<li><span>${escapeHtml(layer.label)}</span><strong>${formatNumber(layer.score, 1)}</strong></li>`),
       `<li class="${us.highRisk ? 'is-high-risk' : ''}"><span>美债10年</span><strong>${escapeHtml(usLabel)}</strong></li>`,
       `<li class="${dollar.highRisk ? 'is-high-risk' : ''}"><span>美元指数</span><strong>${escapeHtml(dollarLabel)}</strong></li>`,
+      `<li class="${yen.highRisk ? 'is-high-risk' : ''}"><span>美元兑日元</span><strong>${escapeHtml(yenLabel)}</strong></li>`,
     ].join('');
   }
 }
@@ -2056,7 +2094,6 @@ function startApp() {
       const signal = trackingSignalForQuote({
         valueRange: report.valueRange,
         livePrice: liveQuote?.price,
-        reportQuote: report.reportQuote,
         riskRewardRatio: riskReward.ratio,
       });
       return {
@@ -2073,7 +2110,6 @@ function startApp() {
         leftEdgeDistance: trackingLeftEdgeDistance({
           valueRange: report.valueRange,
           livePrice: liveQuote?.price,
-          reportQuote: report.reportQuote,
         }),
       };
     });
@@ -2123,10 +2159,10 @@ function startApp() {
         : signal.reducible ? '可减' : '—';
       const intraday = liveQuote
         ? `${liveQuote.price.toFixed(2)} 元`
-        : report.reportQuote ? trackingQuotePriceOnly(report.reportQuote) : (quoteEntry?.status === 'loading' ? '读取行情…' : reportEntry?.status === 'loading' ? '读取研报…' : item.nextAction || '未获取到');
+        : '';
       const riskRewardText = riskReward.label !== '等待实时'
         ? riskReward.label
-        : (quoteEntry?.status === 'loading' ? '读取行情…' : reportEntry?.status === 'loading' ? '读取研报…' : item.nextAction || '未获取到');
+        : '';
       const closePerformanceHtml = Number.isFinite(closePerformanceEntry?.data?.latestClose)
         ? `<div class="tracking-close-performance"><small>近一周 ${Number.isFinite(closePerformanceEntry.data.weekChangePercent) ? `${closePerformanceEntry.data.weekChangePercent >= 0 ? '+' : ''}${formatNumber(closePerformanceEntry.data.weekChangePercent, 2)}%` : '—'}</small></div>`
         : escapeHtml(closePerformanceEntry?.status === 'loading' ? '读取中…' : '未获取到');
