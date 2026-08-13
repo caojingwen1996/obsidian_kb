@@ -1431,6 +1431,7 @@ function startApp() {
   let trackingAllocationMode = false;
   let trackingAllocationCollapsed = false;
   let trackingSortMode = 'updated';
+  let reviewDiariesLoaded = false;
   let fuguiStatusFilter = 'all';
   let fuguiTtmSortMode = 'none';
   let dividendSignalLoadedAt = 0;
@@ -1824,10 +1825,61 @@ function startApp() {
       status.className = 'diary-status is-saved';
       status.textContent = `已保存到 ${payload.path}`;
       form.elements.content.value = '';
+      reviewDiariesLoaded = false;
+      refreshReviewDiaries();
       setTimeout(closeReviewDiary, 650);
     } catch (error) {
       status.className = 'diary-status is-error';
       status.textContent = `保存失败：${error instanceof Error ? error.message : String(error)}`;
+    }
+  };
+
+  const reviewDiaryHref = path => `/${String(path ?? '').split('/').map(encodeURIComponent).join('/')}`;
+
+  const renderReviewDiaries = items => {
+    const list = document.getElementById('review-diary-list');
+    const empty = document.getElementById('review-diary-empty');
+    list.innerHTML = items.map(item => `<article class="review-diary-card">
+      <div class="review-diary-card-head">
+        <div class="review-diary-card-title"><strong>${escapeHtml(item.name || '未命名标的')}</strong><small>${escapeHtml(item.code || '未填写代码')}</small></div>
+        <span class="review-diary-card-count">${Number(item.entryCount) || 0} 条</span>
+      </div>
+      <div class="review-diary-card-meta"><span>最近：<b>${escapeHtml([item.latestDate, item.latestTime].filter(Boolean).join(' '))}</b></span>${item.latestStatus ? `<span>状态：${escapeHtml(item.latestStatus)}</span>` : ''}</div>
+      <p class="review-diary-card-excerpt">${escapeHtml(item.excerpt || '暂无可显示的复盘正文。')}</p>
+      <a class="review-diary-card-link" href="${escapeHtml(reviewDiaryHref(item.path))}" target="_blank" rel="noopener noreferrer">打开完整日记</a>
+    </article>`).join('');
+    empty.hidden = items.length > 0;
+  };
+
+  const refreshReviewDiaries = async () => {
+    const status = document.getElementById('review-diary-page-status');
+    const refresh = document.getElementById('refresh-review-diaries');
+    if (!status || !refresh) return;
+    if (!isLocalProxyLocation()) {
+      status.className = 'review-diary-page-status is-error';
+      status.textContent = '请通过“启动面板.cmd”打开面板后查看本机复盘日记。';
+      renderReviewDiaries([]);
+      return;
+    }
+    refresh.disabled = true;
+    refresh.textContent = '读取中…';
+    status.className = 'review-diary-page-status';
+    status.textContent = '正在读取本机复盘日记…';
+    try {
+      const response = await fetch('/api/review-diaries', { cache: 'no-store' });
+      const payload = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(payload.error || `HTTP ${response.status}`);
+      const items = Array.isArray(payload.items) ? payload.items : [];
+      renderReviewDiaries(items);
+      reviewDiariesLoaded = true;
+      status.textContent = items.length ? `共 ${items.length} 个标的，按最近复盘时间排列。` : '尚未保存复盘日记。';
+    } catch (error) {
+      status.className = 'review-diary-page-status is-error';
+      status.textContent = `复盘日记读取失败：${error instanceof Error ? error.message : String(error)}。`;
+      renderReviewDiaries([]);
+    } finally {
+      refresh.disabled = false;
+      refresh.textContent = '刷新日记';
     }
   };
 
@@ -2484,6 +2536,7 @@ function startApp() {
     document.querySelectorAll('.view').forEach(view => view.classList.toggle('is-active', view.id === viewId));
     pageTitle.textContent = labelForView(button) || pageTitle.textContent;
     if (viewId === 'risk-monitor') refreshRiskMarginChart();
+    if (viewId === 'review-diary-view' && !reviewDiariesLoaded) refreshReviewDiaries();
     if (viewId === 'market-summary' || viewId === 'dividend-signal-view') refreshDividendSignalFromSource();
   };
 
@@ -2799,6 +2852,7 @@ function startApp() {
     const item = trackingItems.find(entry => entry.id === event.currentTarget.elements.trackingId.value);
     if (item) saveReviewDiary(item);
   });
+  document.getElementById('refresh-review-diaries').addEventListener('click', refreshReviewDiaries);
   document.getElementById('nav-toggle').addEventListener('click', event => {
     const open = document.getElementById('sidebar').classList.toggle('is-open');
     event.currentTarget.setAttribute('aria-expanded', String(open));

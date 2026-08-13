@@ -30,6 +30,7 @@ from scripts.local_proxy import (
     fetch_us_dollar_index,
     fetch_us_treasury_yield,
     fetch_youzhiyouxing_temperature,
+    list_review_diaries,
     normalize_nasdaq100_chart,
     normalize_review_diary_payload,
     parse_json_payload,
@@ -767,6 +768,43 @@ class ServerTests(unittest.TestCase):
         self.assertIn("记录时间：2026-07-29 10:30（Asia/Shanghai）", text)
         self.assertIn("今天检查风险方向和明日承接。", text)
 
+    def test_review_diary_list_returns_latest_entry_summary(self):
+        with TemporaryDirectory() as directory:
+            diary_dir = Path(directory) / "workbench" / "targets"
+            append_review_diary_entry(
+                {
+                    "trackingId": "tracking-1",
+                    "code": "600879",
+                    "name": "航天电子",
+                    "status": "观察",
+                    "content": "第一条复盘。",
+                },
+                diary_dir,
+                now=datetime(2026, 8, 12, 15, 5, tzinfo=timezone(timedelta(hours=8))),
+            )
+            append_review_diary_entry(
+                {
+                    "trackingId": "tracking-1",
+                    "code": "600879",
+                    "name": "航天电子",
+                    "status": "持有",
+                    "content": "第二条复盘，等待次日承接。",
+                },
+                diary_dir,
+                now=datetime(2026, 8, 13, 10, 30, tzinfo=timezone(timedelta(hours=8))),
+            )
+            payload = list_review_diaries(diary_dir)
+
+        self.assertEqual(payload["count"], 1)
+        self.assertEqual(payload["items"][0]["name"], "航天电子")
+        self.assertEqual(payload["items"][0]["code"], "600879")
+        self.assertEqual(payload["items"][0]["entryCount"], 2)
+        self.assertEqual(payload["items"][0]["latestDate"], "2026-08-13")
+        self.assertEqual(payload["items"][0]["latestTime"], "10:30")
+        self.assertEqual(payload["items"][0]["latestStatus"], "持有")
+        self.assertEqual(payload["items"][0]["excerpt"], "第二条复盘，等待次日承接。")
+        self.assertEqual(payload["items"][0]["path"], "workbench/targets/600879-航天电子-复盘日记.md")
+
     def test_review_diary_payload_rejects_invalid_code(self):
         with self.assertRaises(ValueError):
             normalize_review_diary_payload({
@@ -883,6 +921,29 @@ class ServerTests(unittest.TestCase):
                 saved = json.loads(response.read().decode("utf-8"))
 
         self.assertEqual(saved["path"], "workbench/targets/600879-航天电子-复盘日记.md")
+
+    def test_review_diary_api_lists_saved_diaries(self):
+        payload = {
+            "trackingId": "tracking-1",
+            "code": "600879",
+            "name": "航天电子",
+            "status": "持有",
+            "content": "从复盘日记菜单统一查看。",
+        }
+        with running_server(self.fake_fetch) as base:
+            request = Request(
+                f"{base}/api/review-diary",
+                data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+                headers={"Content-Type": "application/json"},
+                method="POST",
+            )
+            with urlopen(request, timeout=3):
+                pass
+            listed = read_json(f"{base}/api/review-diaries")
+
+        self.assertEqual(listed["count"], 1)
+        self.assertEqual(listed["items"][0]["name"], "航天电子")
+        self.assertIn("统一查看", listed["items"][0]["excerpt"])
 
     def test_api_rejects_bad_parameters_and_sanitizes_upstream_errors(self):
         with running_server(self.fake_fetch) as base:

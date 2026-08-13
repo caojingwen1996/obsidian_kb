@@ -595,6 +595,26 @@ h3 { font-size: 15px; }
 .tracker-row-actions button[data-action="delete-tracking"] { color: var(--red); }
 .review-diary-button { min-height: 30px; border: 1px solid rgba(15,102,114,.28); border-radius: 7px; background: #f6fbfc; color: #0f6672; padding: 6px 10px; font-size: 10px; font-weight: 800; white-space: nowrap; }
 .review-diary-button:hover { border-color: #0f6672; background: #eef8f9; }
+.review-diary-page-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; margin-bottom: 16px; }
+.review-diary-page-head h2 { margin-bottom: 8px; }
+.review-diary-page-head p:last-child { max-width: 680px; margin: 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+.review-diary-page-status { min-height: 20px; margin: 0 0 12px; color: var(--muted); font-size: 11px; }
+.review-diary-page-status.is-error { color: var(--red); }
+.review-diary-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 12px; }
+.review-diary-card { min-height: 210px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); box-shadow: var(--shadow); padding: 17px 18px; display: flex; flex-direction: column; }
+.review-diary-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.review-diary-card-title strong, .review-diary-card-title small { display: block; }
+.review-diary-card-title strong { color: var(--ink); font-size: 16px; }
+.review-diary-card-title small { margin-top: 4px; color: var(--muted); font-size: 10px; font-variant-numeric: tabular-nums; }
+.review-diary-card-count { border-radius: 99px; background: #e8f0fb; color: #275fae; padding: 5px 9px; font-size: 10px; font-weight: 800; white-space: nowrap; }
+.review-diary-card-meta { display: flex; flex-wrap: wrap; gap: 7px 13px; margin: 16px 0 10px; color: var(--muted); font-size: 10px; }
+.review-diary-card-meta b { color: #0f6672; }
+.review-diary-card-excerpt { margin: 0 0 17px; color: #526472; font-size: 12px; line-height: 1.75; }
+.review-diary-card-link { min-height: 38px; margin-top: auto; border: 1px solid rgba(15,102,114,.28); border-radius: 8px; color: #0f6672; display: inline-flex; align-items: center; justify-content: center; padding: 8px 12px; font-size: 11px; font-weight: 800; text-decoration: none; }
+.review-diary-card-link:hover { border-color: #0f6672; background: #eef8f9; }
+.review-diary-empty { display: grid; gap: 6px; }
+.review-diary-empty strong { color: var(--ink); }
+.review-diary-empty span { font-size: 11px; }
 .diary-modal[hidden] { display: none; }
 .diary-modal { position: fixed; inset: 0; z-index: 40; display: grid; place-items: center; padding: 18px; }
 .diary-modal-backdrop { position: absolute; inset: 0; background: rgba(6,18,30,.42); }
@@ -739,6 +759,8 @@ h3 { font-size: 15px; }
   .holding-note-field, .tracking-wide-field { grid-column: auto; }
   .tracker-filter { width: 100%; justify-content: flex-start; }
   .tracker-edit { grid-template-columns: 1fr; }
+  .review-diary-page-head { flex-direction: column; }
+  .review-diary-page-head .button-secondary { width: 100%; }
   .changelog-page { margin-top: 12px; }
   .changelog-hero { margin-bottom: 42px; }
   .changelog-day { margin-bottom: 48px; }

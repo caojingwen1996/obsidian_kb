@@ -51,6 +51,7 @@
             <div class="tree-children" id="tree-personal" hidden>
             <button class="nav-item" type="button" data-view="position-manager"><span>01</span>仓位管理</button>
             <button class="nav-item" type="button" data-view="holding-tracker"><span>02</span>持仓跟踪</button>
+            <button class="nav-item" type="button" data-view="review-diary-view"><span>03</span>复盘日记</button>
             </div>
           </section>
           <button class="tree-root tree-leaf" type="button" data-tree-domain="changelog" data-view="changelog-view"><span>更新日志</span></button>
@@ -392,6 +393,25 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
               </div>
               <p class="personal-empty tracker-empty" id="holding-tracker-empty">还没有跟踪标的。先在左侧新增一条观察记录。</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="review-diary-view" data-shell-content="personal" aria-labelledby="review-diary-view-heading">
+        <div class="personal-page review-diary-page">
+          <div class="review-diary-page-head">
+            <div>
+              <p class="eyebrow">REVIEW DIARY</p>
+              <h2 id="review-diary-view-heading">复盘日记</h2>
+              <p>集中查看从持仓跟踪中保存的复盘记录，按最新复盘时间排列。</p>
+            </div>
+            <button class="button-secondary" id="refresh-review-diaries" type="button">刷新日记</button>
+          </div>
+          <p class="review-diary-page-status" id="review-diary-page-status" role="status" aria-live="polite">进入页面后读取本机复盘日记。</p>
+          <div class="review-diary-list" id="review-diary-list" aria-label="复盘日记列表"></div>
+          <div class="personal-empty review-diary-empty" id="review-diary-empty" hidden>
+            <strong>还没有复盘日记</strong>
+            <span>先到“持仓跟踪”，点击标的右侧的“复盘日记”开始记录。</span>
           </div>
         </div>
       </section>

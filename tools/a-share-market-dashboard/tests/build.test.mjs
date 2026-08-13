@@ -196,6 +196,9 @@ test('sidebar exposes the personal position workspace as a first-level tree doma
   assert.match(html, /id="tree-thermometer"[\s\S]*<button class="nav-item" type="button" data-view="topic-map"><span>10<\/span>主题<\/button>/);
   assert.match(html, /id="tree-strategy"[\s\S]*<button class="nav-item" type="button" data-view="fugui-strategy"><span>01<\/span>富贵策略<\/button>\s*<button class="nav-item" type="button" data-view="xiaomei-strategy"><span>02<\/span>小美策略<\/button>/);
   const personalTree = html.match(/<div class="tree-children" id="tree-personal" hidden>[\s\S]*?<\/div>/)?.[0] ?? '';
+  assert.match(personalTree, /data-view="position-manager"><span>01<\/span>仓位管理<\/button>/);
+  assert.match(personalTree, /data-view="holding-tracker"><span>02<\/span>持仓跟踪<\/button>/);
+  assert.match(personalTree, /data-view="review-diary-view"><span>03<\/span>复盘日记<\/button>/);
   assert.doesNotMatch(personalTree, /data-view="featured-digest"/);
   assert.doesNotMatch(personalTree, /data-view="fugui-strategy"/);
   assert.doesNotMatch(personalTree, /data-view="topic-map"/);
@@ -270,6 +273,9 @@ test('sidebar exposes the personal position workspace as a first-level tree doma
   assert.match(artifact, /盘中监控，非收盘结论/);
   assert.match(html, /id="review-diary-modal"/);
   assert.match(html, /id="review-diary-form"/);
+  assert.match(html, /<section class="view" id="review-diary-view" data-shell-content="personal" aria-labelledby="review-diary-view-heading">/);
+  assert.match(html, /id="review-diary-list"/);
+  assert.match(appSource, /\/api\/review-diaries/);
   assert.match(appSource, /\/api\/review-diary/);
   assert.match(appSource, /\/api\/tracking-rerender-reports/);
   assert.match(appSource, /data-action="review-diary"[\s\S]*复盘日记/);

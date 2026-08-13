@@ -51,6 +51,7 @@ SOURCE_NAMES = {
     "/api/nasdaq100": "nasdaq100",
     "/api/fugui-candidate": "fugui-candidate",
     "/api/review-diary": "review-diary",
+    "/api/review-diaries": "review-diaries",
     "/api/tracking-rerender-reports": "tracking-rerender-reports",
     "/api/featured-post": "featured-post",
 }
@@ -1447,6 +1448,46 @@ def append_review_diary_entry(payload, diary_dir, now=None):
     }
 
 
+def list_review_diaries(diary_dir):
+    """Return a compact latest-entry summary for each local review diary."""
+    target_dir = Path(diary_dir).resolve()
+    if not target_dir.is_dir():
+        return {"count": 0, "items": []}
+    items = []
+    for diary_file in target_dir.glob("*-复盘日记.md"):
+        try:
+            diary_file.resolve().relative_to(target_dir)
+            text = diary_file.read_text(encoding="utf-8-sig")
+        except (OSError, UnicodeError, ValueError):
+            continue
+        title_match = re.search(r"^#\s+(.+?)(?:（([^）]+)）)?复盘日记\s*$", text, re.MULTILINE)
+        name = re.search(r"^- 标的：(.+)$", text, re.MULTILINE)
+        code = re.search(r"^- 代码：(.+)$", text, re.MULTILINE)
+        sections = list(re.finditer(r"^##\s+(\d{4}-\d{2}-\d{2})\s*$", text, re.MULTILINE))
+        if not sections:
+            continue
+        latest = sections[-1]
+        latest_body = text[latest.end():]
+        time_match = re.search(r"^- 记录时间：\d{4}-\d{2}-\d{2}\s+(\d{2}:\d{2})", latest_body, re.MULTILINE)
+        status_match = re.search(r"^- 跟踪状态：(.+)$", latest_body, re.MULTILINE)
+        content = re.sub(r"^- (?:记录时间|跟踪状态|来源)：.*$", "", latest_body, flags=re.MULTILINE).strip()
+        content = re.sub(r"\s+", " ", content)
+        item_name = name.group(1).strip() if name else (title_match.group(1).strip() if title_match else diary_file.stem.replace("-复盘日记", ""))
+        item_code = code.group(1).strip() if code and code.group(1).strip() != "未填写" else (title_match.group(2).strip() if title_match and title_match.group(2) else "")
+        items.append({
+            "name": item_name[:30],
+            "code": item_code[:12],
+            "entryCount": len(sections),
+            "latestDate": latest.group(1),
+            "latestTime": time_match.group(1) if time_match else "",
+            "latestStatus": status_match.group(1).strip()[:12] if status_match else "",
+            "excerpt": (content[:157] + "…") if len(content) > 158 else content,
+            "path": diary_file.relative_to(target_dir.parents[1]).as_posix(),
+        })
+    items.sort(key=lambda item: (item["latestDate"], item["latestTime"], item["name"]), reverse=True)
+    return {"count": len(items), "items": items}
+
+
 def _normalize_dashboard_href(value):
     href = unquote(str(value or "").strip()).replace("\\", "/")
     while href.startswith("../"):
@@ -1834,6 +1875,13 @@ def create_server(
                 return self.send_json(500, {"error": "portfolio data unavailable"})
             return self.send_json(200, payload)
 
+        def send_review_diaries(self):
+            try:
+                payload = list_review_diaries(review_diary_dir)
+            except OSError:
+                return self.send_json(500, {"error": "review diaries unavailable"})
+            return self.send_json(200, payload)
+
         def save_portfolio(self):
             try:
                 content_length = int(self.headers.get("Content-Length", "0"))
@@ -1982,6 +2030,8 @@ def create_server(
                 return self.send_dashboard()
             if parsed.path == "/api/portfolio":
                 return self.send_portfolio()
+            if parsed.path == "/api/review-diaries":
+                return self.send_review_diaries()
             if parsed.path.startswith("/data/") or parsed.path.startswith("/sources/") or parsed.path.startswith("/wiki/") or parsed.path.startswith("/workbench/"):
                 return self.send_whitelisted_file(parsed.path)
             if not parsed.path.startswith("/api/"):

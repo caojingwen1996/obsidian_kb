@@ -21203,6 +21203,27 @@ create / concept-placeholder
 
 - 待用户后续补充或指定资料后，再完善概念定义、来源、核心内涵、边界和相关双链。
 
+## 2026-08-13
+
+### 操作类型
+
+automation / dividend-signal
+
+### 修改文件
+
+- `sources/automations/中证红利信号/最新信号.md`
+- `sources/automations/中证红利信号/中证红利每日信号.xlsx`
+- `log.md`
+
+### 操作说明
+
+运行 `zzhl-dividend-signal` 脚本检查中证红利当前股息率信号，记录日期为 2026-08-13，AKShare 指数估值日期为 2026-08-12。AKShare `股息率2` 为 4.19%，中国 10 年国债收益率为 1.7141%，股息率口径 - 10 年国债收益率利差为 2.4759%。历史分位点因理杏仁公开页面返回 HTTP 429 暂为待验证；绝对股息率信号为 C（小额定投），相对债券收益率信号为 C（小额定投），综合结论为“历史分位点待验证，暂不判定加大买入区间”，未进入重点买入区间。
+
+### 后续待办
+
+- 若理杏仁公开页面恢复可访问，再补充分位点和 80% 分位点数据。
+- 雪球实时行情接口本次返回空响应，未使用当天涨跌幅修正股息率。
+
 ## 2026-08-12
 
 ### 操作类型
@@ -21284,3 +21305,107 @@ move / automation-artifact
 ### 后续待办
 
 - 后续若在 `sources/automations/新兴产业/新能源材料/` 下生成产业完整分析报告，可重新运行反向链接脚本，把多氟多个股研报挂入产业报告。
+
+## 2026-08-13
+
+### 操作类型
+
+feature / dashboard-navigation
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/scripts/local_proxy.py`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/tests/test_local_proxy.py`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `tools/a-share-market-dashboard/README.md`
+- `log.md`
+
+### 操作说明
+
+在面板“我的”分组中新增“03 复盘日记”菜单及统一查看页。页面通过本地白名单接口汇总 `workbench/targets/*-复盘日记.md`，按最新复盘时间展示标的、代码、记录数、跟踪状态和最近正文，并支持打开完整日记；直接打开单文件或没有日记时显示明确引导。保留持仓跟踪中逐只写入日记的既有入口。
+
+### 后续待办
+
+- 后续如需在统一页面直接新增复盘，可复用现有写入弹窗并增加标的选择器。
+
+## 2026-08-13
+
+### 操作类型
+
+create / concept
+
+### 修改文件
+
+- `wiki/concepts/冰冰小美-view-价值投资.md`
+- `index.md`
+- `log.md`
+
+### 操作说明
+
+按用户指定名称新建空内容 Concept Page 骨架，并在 frontmatter 中明确页面类型为 `concept`；同步加入知识库概念索引。
+
+### 后续待办
+
+- 待用户提供资料后补充概念定义、来源、核心内涵、边界和相关页面。
+- [2026-08-13T11:57:35+08:00] QUERY query="A股如何定位？这篇文章应该建立什么页面？" result_pages=3 mode=normal escalated=true
+
+## 2026-08-13
+
+### 操作类型
+
+create / index
+
+### 修改文件
+
+- `wiki/views/冰冰小美：A股制度定位、参与者立场与投资难度判断.md`
+- `index.md`
+
+### 操作说明
+
+按用户指定名称新建空内容 View Page 骨架，并在 frontmatter 中明确页面类型为 `view`；同步加入知识库观点索引。
+
+### 后续待办
+
+- 待用户要求后补充观点内容、来源、相关页面和不确定性。
+
+## 2026-08-13
+
+### 操作类型
+
+query / link
+
+### 修改文件
+
+- `wiki/views/冰冰小美：A股制度定位、参与者立场与投资难度判断.md`
+- `log.md`
+
+### 操作说明
+
+检索 `sources/` 中与 A 股、投资市场、一级与二级市场关系、融资功能、参与者结构、交易制度和流动性相关的原始文章；筛除仅偶然提及 A 股的材料后，将 9 篇高相关来源以 Obsidian 双链加入目标 View Page 的 frontmatter 与正文来源清单，并补充每篇材料的关联说明。
+
+- [2026-08-13T12:10:00+08:00] QUERY query="查找知识库原始文章中与A股、投资市场、二级市场相关的文章并链接到观点页" result_pages=9 mode=normal escalated=true
+
+## 2026-08-13
+
+### 操作类型
+
+create / concept-placeholder
+
+### 修改文件
+
+- `wiki/concepts/冰冰小美-macro-投资是国运红利分配史.md`
+- `index.md`
+- `log.md`
+
+### 操作说明
+
+按用户指定名称新建空内容 Concept Page 骨架，并在 frontmatter 中明确页面类型为 `concept`；同步加入知识库概念索引。
+
+### 后续待办
+
+- 待用户提供资料或提出整理要求后，再补充概念定义、来源、核心内涵、边界和相关页面。
