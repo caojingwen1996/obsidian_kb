@@ -74,6 +74,9 @@ const STOCK_CODE_ALIASES = Object.freeze({
 const STOCK_REPORT_LINKS = Object.freeze({
   // STOCK_REPORT_LINKS
 });
+const STOCK_THREE_FACTOR_REPORT_LINKS = Object.freeze({
+  // STOCK_THREE_FACTOR_REPORT_LINKS
+});
 const DAILY_MONITOR_LINKS = Object.freeze({
   // DAILY_MONITOR_LINKS
 });
@@ -277,19 +280,27 @@ function secidForTrackingItem(item = {}, report = {}) {
   return stockSecidFromCode(stockCodeForTrackingItem(item));
 }
 
-function reportLinkForTrackingItem(item) {
+function reportLinkForTrackingItemFromMap(item, links) {
   const candidates = [item.name, ...Object.entries(STOCK_CODE_ALIASES)
     .filter(([, code]) => code === item.code)
     .map(([name]) => name)]
     .map(normalizeStockName)
     .filter(Boolean);
   for (const candidate of candidates) {
-    if (STOCK_REPORT_LINKS[candidate]) return STOCK_REPORT_LINKS[candidate];
+    if (links[candidate]) return links[candidate];
   }
-  const partial = Object.entries(STOCK_REPORT_LINKS).find(([name]) =>
+  const partial = Object.entries(links).find(([name]) =>
     candidates.some(candidate => name.includes(candidate) || candidate.includes(name))
   );
   return partial?.[1] ?? '';
+}
+
+function reportLinkForTrackingItem(item) {
+  return reportLinkForTrackingItemFromMap(item, STOCK_REPORT_LINKS);
+}
+
+function threeFactorReportLinkForTrackingItem(item) {
+  return reportLinkForTrackingItemFromMap(item, STOCK_THREE_FACTOR_REPORT_LINKS);
 }
 
 function dailyMonitorLinkForTrackingItem(item = {}, report = {}) {
@@ -2118,6 +2129,7 @@ function startApp() {
     const summary = summarizeTrackingItems(trackingItems);
     const enrichedItems = summary.items.map((item, index) => {
       const reportHref = reportLinkForTrackingItem(item);
+      const threeFactorReportHref = threeFactorReportLinkForTrackingItem(item);
       let reportEntry = reportHref ? reportSummaryCache.get(reportHref) : null;
       if (reportHref && !reportEntry) {
         reportEntry = { status: 'loading' };
@@ -2152,6 +2164,7 @@ function startApp() {
         item,
         index,
         reportHref,
+        threeFactorReportHref,
         reportEntry,
         report,
         quoteEntry,
@@ -2205,7 +2218,7 @@ function startApp() {
     if (trackingCloseDate) {
       trackingCloseDate.textContent = closeDates.length ? `${closeDates.at(-1)}收盘` : '';
     }
-    const renderTrackingRow = ({ item, reportHref, reportEntry, report, quoteEntry, closePerformanceEntry, liveQuote, signal, riskReward }) => {
+    const renderTrackingRow = ({ item, reportHref, threeFactorReportHref, reportEntry, report, quoteEntry, closePerformanceEntry, liveQuote, signal, riskReward }) => {
       const signalLabel = signal.addStars > 0
         ? '★'.repeat(signal.addStars)
         : signal.reducible ? '可减' : '—';
@@ -2226,6 +2239,10 @@ function startApp() {
       const nameHtml = reportHref
         ? `<a href="${escapeHtml(reportHref)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.name)}</a>`
         : escapeHtml(item.name);
+      const reportLinksHtml = [
+        threeFactorReportHref ? `<a href="${escapeHtml(threeFactorReportHref)}" target="_blank" rel="noopener noreferrer">三要素研报</a>` : '',
+        reportHref ? `<a href="${escapeHtml(reportHref)}" target="_blank" rel="noopener noreferrer">个股研报</a>` : '',
+      ].filter(Boolean).join('');
       return `<tr data-tracking-id="${escapeHtml(item.id)}"${reportHref ? ` data-report-href="${escapeHtml(reportHref)}"` : ''}>
       <td class="tracking-target"><strong>${nameHtml}</strong><small>${escapeHtml(item.code || report.secid || '未填代码')}</small><span class="tracker-status">${escapeHtml(item.status)}</span></td>
       <td>${escapeHtml(report.valueRange || item.thesis || (reportEntry?.status === 'loading' ? '读取研报…' : '未获取到'))}</td>
@@ -2233,7 +2250,7 @@ function startApp() {
       <td>${closePerformanceHtml}</td>
       <td>${escapeHtml(riskRewardText)}</td>
       <td>${monitorStatusHtml}</td>
-      <td><div>${reportHref ? `<a href="${escapeHtml(reportHref)}" target="_blank" rel="noopener noreferrer">打开研报</a>` : escapeHtml(item.reviewCondition || '未关联研报')}</div><small class="tracking-updated">${escapeHtml(report.sourceUpdated ? `研报：${report.sourceUpdated}` : `记录：${new Date(item.updatedAt).toLocaleString('zh-CN', { hour12: false })}`)}</small><div class="tracker-row-actions"><button type="button" data-action="edit-tracking">编辑</button><button type="button" data-action="delete-tracking">删除</button></div></td>
+      <td><div class="tracking-report-links">${reportLinksHtml || escapeHtml(item.reviewCondition || '未关联研报')}</div><small class="tracking-updated">${escapeHtml(report.sourceUpdated ? `研报：${report.sourceUpdated}` : `记录：${new Date(item.updatedAt).toLocaleString('zh-CN', { hour12: false })}`)}</small><div class="tracker-row-actions"><button type="button" data-action="edit-tracking">编辑</button><button type="button" data-action="delete-tracking">删除</button></div></td>
       <td><button class="review-diary-button" type="button" data-action="review-diary">复盘日记</button></td>
       <td>${escapeHtml(signalLabel)}</td>
     </tr>`;

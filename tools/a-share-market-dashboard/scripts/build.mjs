@@ -485,6 +485,23 @@ function renderStockReportLinkMap(industries, automationReports = []) {
     .join('\n');
 }
 
+function renderStockThreeFactorReportLinkMap(automationReports = []) {
+  const links = new Map();
+  for (const report of automationReports) {
+    if (!/-三要素分析\.html$/u.test(report.filename)) continue;
+    const stockName = normalizeStockName(titleFromFilename(report.filename).replace(/[-_]?三要素分析$/u, ''));
+    if (!stockName) continue;
+    const previous = links.get(stockName);
+    if (!previous || report.filename.localeCompare(previous.filename, 'zh-CN') > 0) {
+      links.set(stockName, { filename: report.filename, href: reportHrefFromAutomations(report) });
+    }
+  }
+  return [...links.entries()]
+    .sort(([left], [right]) => left.localeCompare(right, 'zh-CN'))
+    .map(([name, report]) => `  ${JSON.stringify(name)}: ${JSON.stringify(report.href)},`)
+    .join('\n');
+}
+
 async function scanDailyMonitorLinks() {
   const entries = await readdir(dataDir, { withFileTypes: true }).catch(() => []);
   const links = new Map();
@@ -745,13 +762,16 @@ const eventCalendar = validateEventCalendar(JSON.parse(eventCalendarSource));
 const dividendSignal = parseDividendSignal(await readFile(dividendSignalPath, 'utf8').catch(() => ''));
 const dividendYieldHistory = parseDividendYieldHistoryFromWorkbook(await readFile(dividendHistoryWorkbookPath).catch(() => null));
 
-const stockReportLinks = renderStockReportLinkMap(industries, await walkHtmlFiles(automationsDir));
+const automationReports = await walkHtmlFiles(automationsDir);
+const stockReportLinks = renderStockReportLinkMap(industries, automationReports);
+const stockThreeFactorReportLinks = renderStockThreeFactorReportLinkMap(automationReports);
 const dailyMonitorLinks = await scanDailyMonitorLinks();
 const bundle = modules
   .map((source, index) => {
     const withGeneratedData = moduleOrder[index] === 'app.mjs'
       ? source
         .replace('  // STOCK_REPORT_LINKS', stockReportLinks)
+        .replace('  // STOCK_THREE_FACTOR_REPORT_LINKS', stockThreeFactorReportLinks)
         .replace('  // DAILY_MONITOR_LINKS', dailyMonitorLinks)
         .replace('  // EVENT_CALENDAR', JSON.stringify(eventCalendar, null, 2))
         .replace('  // CSI_DIVIDEND_SIGNAL', JSON.stringify(dividendSignal, null, 2))

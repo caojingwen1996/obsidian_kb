@@ -177,9 +177,14 @@ test('sidebar exposes the personal position workspace as a first-level tree doma
   assert.match(appSource, /已在跟踪清单中/);
   assert.match(appSource, /紫光股份: '000938'/);
   assert.match(appSource, /国药现代: '600420'/);
+  assert.match(appSource, /STOCK_THREE_FACTOR_REPORT_LINKS/);
+  assert.match(appSource, /threeFactorReportLinkForTrackingItem/);
+  assert.match(appSource, />三要素研报<\/a>/);
+  assert.match(appSource, />个股研报<\/a>/);
   assert.match(artifact, /"东阳光": "\.\.\/\.\.\/sources\/automations\/新兴产业\/算力\/中游-算力基础设施与能源\/2026-07-16-1138-东阳光-机构级决策研报\.html"/);
   assert.match(artifact, /"紫光股份": "\.\.\/\.\.\/sources\/automations\/新兴产业\/算力\/中游-计算系统与集群\/2026-08-03-1638-紫光股份-机构级决策研报\.html"/);
   assert.match(artifact, /"国药现代": "\.\.\/\.\.\/sources\/automations\/temp\/2026-08-03-1128-国药现代-机构级决策研报\.html"/);
+  assert.match(artifact, /"星网锐捷": "\.\.\/\.\.\/sources\/automations\/新兴产业\/算力\/中游-数据中心网络\/2026-08-17-1454-星网锐捷-三要素分析\.html"/);
   assert.match(html, /data-tree-domain="thermometer"[^>]+aria-expanded="true"[^>]+aria-controls="tree-thermometer"/);
   assert.match(html, /data-tree-domain="strategy"[^>]+aria-expanded="false"[^>]+aria-controls="tree-strategy"/);
   assert.match(html, /data-tree-domain="industry"[^>]+aria-expanded="false"[^>]+aria-controls="tree-industry"/);
@@ -269,6 +274,7 @@ test('sidebar exposes the personal position workspace as a first-level tree doma
   assert.match(appSource, /dailyMonitorLinkForTrackingItem/);
   assert.match(appSource, /tracking-monitor-link/);
   assert.match(readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8'), /\.tracking-monitor-link/);
+  assert.match(readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8'), /\.tracking-report-links \{ display: flex; flex-direction: column;/);
   assert.match(artifact, /601208-东材科技-每日监控-2026-08-06\.md/);
   assert.match(artifact, /盘中监控，非收盘结论/);
   assert.match(html, /id="review-diary-modal"/);
@@ -386,6 +392,7 @@ test('changelog renders the approved initial entries', () => {
   assert.match(html, /<p class="eyebrow">CHANGELOG<\/p>/);
   assert.match(html, /最近发生了什么——新功能、调整与修复，都写在这里。/);
   for (const title of [
+    '持仓跟踪增加三要素研报入口',
     '市场总览改为三张信号卡',
     '温度计新增富贵策略',
     '产业研报改为目录自动加载',
@@ -453,7 +460,7 @@ test('industry panels use the approved feed layout without the tracking card', (
     '../../sources/automations/支柱产业/电网/2026-07-15-1514-华明装备机构级决策研报.html',
     '神马电力机构级决策研报',
     '神马电力资金面分层分析',
-    '../../sources/automations/支柱产业/电网/2026-07-18-神马电力机构级决策研报.html',
+    '../../sources/automations/新兴产业/电网/2026-07-16-1021-神马电力-机构级决策研报.html',
     '../../sources/automations/支柱产业/电网/2026-07-18-神马电力资金面分层分析.html',
     '来源目录：sources/automations/支柱产业/电解铝',
     '来源目录：sources/automations/新兴产业/商业航天',
@@ -487,6 +494,7 @@ test('industry panels use the approved feed layout without the tracking card', (
   assert.equal(reportCards.some(card => card.includes('十五五电网投资与电网行业完整分析报告')), false);
   assert.match(html, /data-filters="电网"[\s\S]*华明装备机构级决策研报/);
   assert.match(html, /data-filters="电网"[\s\S]*神马电力机构级决策研报/);
+  assert.doesNotMatch(html, /sources\/automations\/支柱产业\/电网\/2026-07-16-1021-神马电力-机构级决策研报\.html/);
   assert.match(html, /<article class="industry-report" data-filters="">[\s\S]*中国中车机构级决策研报/);
   assert.match(readFileSync(new URL('../src/app.mjs', import.meta.url), 'utf8'), /querySelectorAll\('\.industry-research-item'\)/);
   const buildSource = readFileSync(new URL('../scripts/build.mjs', import.meta.url), 'utf8');

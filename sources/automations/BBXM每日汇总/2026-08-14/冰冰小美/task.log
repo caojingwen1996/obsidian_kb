@@ -1,0 +1,8 @@
+2026-08-14 16:20:01 +08:00 [info] BBXM每日汇总启动，目标日期=2026-08-14，作者=冰冰小美，主提示词=.agents/automations/bbxm_daliy_brief.md。
+2026-08-14 16:20:01 +08:00 [info] 输出目录=sources/automations/BBXM每日汇总/2026-08-14/冰冰小美。
+2026-08-14 16:20:01 +08:00 [warning] CDP 9333 初始不可用，已启动自动化 Edge/Chrome 访问 https://xueqiu.com/u/7143769715。
+2026-08-14 16:20:01 +08:00 [error] 第一次抓取进入雪球登录页，提示在自动化窗口内完成登录；等待登录恢复超时。
+2026-08-14 16:20:01 +08:00 [error] 重启为可见自动化浏览器后第二次抓取仍进入登录页；等待登录恢复再次超时。
+2026-08-14 16:20:01 +08:00 [blocked] 本轮未保存目标日期原帖，抓取覆盖不完整；不得报告为无新帖或零风险。
+2026-08-14 16:20:01 +08:00 [blocked] risk-analysis.json 已置 analysis_complete=false，Excel 写入应由更新器阻断。
+2026-08-14 16:20:01 +08:00 [blocked] risk-write-status.json 状态=blocked，message=analysis_complete=false，禁止更新 Excel。

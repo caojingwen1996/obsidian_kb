@@ -595,6 +595,8 @@ h3 { font-size: 15px; }
 .tracking-close-performance small { color: var(--muted); font-size: 10px; }
 .tracking-monitor-link { color: var(--blue); font-weight: 800; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
 .tracking-monitor-meta { display: block; margin-top: 5px; color: var(--muted); font-size: 10px; white-space: nowrap; }
+.tracking-report-links { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; }
+.tracking-report-links a { color: var(--blue); font-weight: 800; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
 .tracking-updated { display: block; margin-top: 6px; color: var(--muted); white-space: nowrap; }
 .tracker-row-actions { display: flex; gap: 9px; margin-top: 7px; white-space: nowrap; }
 .tracker-row-actions button { border: 0; background: transparent; color: var(--blue); padding: 0; font-size: 10px; }
@@ -1107,6 +1109,7 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
           </div>
           <nav class="industry-filter-tabs" aria-label="新兴产业细分方向">
             <button class="is-active" type="button" data-filter="all" aria-pressed="true">全部</button>
+            <button type="button" data-filter="电网" aria-pressed="false">电网</button>
             <button type="button" data-filter="机器人" aria-pressed="false">机器人</button>
             <button type="button" data-filter="商业航天" aria-pressed="false">商业航天</button>
             <button type="button" data-filter="算力" aria-pressed="false">算力</button>
@@ -1157,7 +1160,7 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
               </li>
             </ol>
           </section>
-          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 36条</span></div>
+          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 38条</span></div>
           <div class="industry-timeline">
             <div class="industry-feed">
               <article class="industry-report" data-filters="新能源材料">
@@ -1183,6 +1186,14 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                 <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
                 <div class="industry-tags">#算力 #目录自动读取 #研报</div>
                 <div class="industry-reason">来源目录：sources/automations/新兴产业/算力/中游-算力基础设施与能源</div>
+              </article>
+              <article class="industry-report" data-filters="算力">
+                <span class="industry-time">14:54</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 算力 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-数据中心网络/2026-08-17-1454-星网锐捷-三要素分析.html" target="_blank" rel="noopener noreferrer">星网锐捷-三要素分析</a></h3>
+                <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#算力 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/算力/中游-数据中心网络</div>
               </article>
               <article class="industry-report" data-filters="算力">
                 <span class="industry-time">10:10</span><span class="industry-dot"></span>
@@ -1432,6 +1443,14 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                 <div class="industry-tags">#机器人 #目录自动读取 #研报</div>
                 <div class="industry-reason">来源目录：sources/automations/新兴产业/机器人</div>
               </article>
+              <article class="industry-report" data-filters="电网">
+                <span class="industry-time">10:21</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 电网 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/电网/2026-07-16-1021-神马电力-机构级决策研报.html" target="_blank" rel="noopener noreferrer">神马电力-机构级决策研报</a></h3>
+                <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#电网 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/电网</div>
+              </article>
               <article class="industry-report" data-filters="">
                 <span class="industry-time">07-31</span><span class="industry-dot"></span>
                 <div class="industry-report-meta"><span>新兴产业 <b>资金面</b></span><span>自动</span></div>
@@ -1483,7 +1502,7 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
               </li>
             </ol>
           </section>
-          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 33条</span></div>
+          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 32条</span></div>
           <div class="industry-timeline">
             <div class="industry-feed">
               <article class="industry-report" data-filters="消费">
@@ -1583,6 +1602,14 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                 <div class="industry-reason">来源目录：sources/automations/支柱产业/高端制造</div>
               </article>
               <article class="industry-report" data-filters="电网">
+                <span class="industry-time">07-18</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>支柱产业 · 电网 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/支柱产业/电网/archive/2026-07-18-神马电力机构级决策研报.html" target="_blank" rel="noopener noreferrer">神马电力机构级决策研报</a></h3>
+                <p>从支柱产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#电网 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/支柱产业/电网/archive</div>
+              </article>
+              <article class="industry-report" data-filters="电网">
                 <span class="industry-time">07-30</span><span class="industry-dot"></span>
                 <div class="industry-report-meta"><span>支柱产业 · 电网 <b>资金面</b></span><span>自动</span></div>
                 <h3><a class="industry-report-link" href="../../sources/automations/支柱产业/电网/2026-07-30-华明装备资金面分析.html" target="_blank" rel="noopener noreferrer">华明装备资金面分析</a></h3>
@@ -1620,22 +1647,6 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                 <h3><a class="industry-report-link" href="../../sources/automations/支柱产业/电网/2026-07-18-神马电力资金面分层分析.html" target="_blank" rel="noopener noreferrer">神马电力资金面分层分析</a></h3>
                 <p>从支柱产业目录自动读取，点击标题打开对应 HTML 研报。</p>
                 <div class="industry-tags">#电网 #目录自动读取 #资金面</div>
-                <div class="industry-reason">来源目录：sources/automations/支柱产业/电网</div>
-              </article>
-              <article class="industry-report" data-filters="电网">
-                <span class="industry-time">07-18</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>支柱产业 · 电网 <b>研报</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="../../sources/automations/支柱产业/电网/2026-07-18-神马电力机构级决策研报.html" target="_blank" rel="noopener noreferrer">神马电力机构级决策研报</a></h3>
-                <p>从支柱产业目录自动读取，点击标题打开对应 HTML 研报。</p>
-                <div class="industry-tags">#电网 #目录自动读取 #研报</div>
-                <div class="industry-reason">来源目录：sources/automations/支柱产业/电网</div>
-              </article>
-              <article class="industry-report" data-filters="电网">
-                <span class="industry-time">10:21</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>支柱产业 · 电网 <b>研报</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="../../sources/automations/支柱产业/电网/2026-07-16-1021-神马电力-机构级决策研报.html" target="_blank" rel="noopener noreferrer">神马电力-机构级决策研报</a></h3>
-                <p>从支柱产业目录自动读取，点击标题打开对应 HTML 研报。</p>
-                <div class="industry-tags">#电网 #目录自动读取 #研报</div>
                 <div class="industry-reason">来源目录：sources/automations/支柱产业/电网</div>
               </article>
               <article class="industry-report" data-filters="电网">
@@ -3628,6 +3639,15 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
             <p>最近发生了什么——新功能、调整与修复，都写在这里。</p>
           </header>
         <section class="changelog-day">
+          <header><h3>2026 年 8 月 17 日</h3><span>星期一</span></header>
+          <div class="changelog-entries">
+            <article class="changelog-entry">
+              <div class="changelog-meta"><span><i aria-hidden="true"></i>新增</span></div>
+              <div class="changelog-copy"><h4>持仓跟踪增加三要素研报入口</h4><p>持仓跟踪表的研报列同时显示三要素研报和个股研报，并在构建时自动关联最新HTML。</p><ul><li>三要素研报入口显示在个股研报之前</li><li>按标的名称自动匹配三要素分析HTML</li><li>没有三要素研报的标的继续只显示个股研报</li></ul></div>
+            </article>
+          </div>
+        </section>
+        <section class="changelog-day">
           <header><h3>2026 年 8 月 13 日</h3><span>星期四</span></header>
           <div class="changelog-entries">
             <article class="changelog-entry">
@@ -4618,7 +4638,7 @@ const STOCK_REPORT_LINKS = Object.freeze({
   "三花智控": "../../sources/automations/新兴产业/机器人/2026-07-17-1134-三花智控-机构级决策研报.html",
   "三一重工": "../../sources/automations/支柱产业/高端制造/2026-07-24-0931-三一重工-机构级决策研报.html",
   "上海瀚讯": "../../sources/automations/新兴产业/商业航天/2026-07-17-上海瀚讯机构级决策研报.html",
-  "神马电力": "../../sources/automations/支柱产业/电网/2026-07-18-神马电力机构级决策研报.html",
+  "神马电力": "../../sources/automations/新兴产业/电网/2026-07-16-1021-神马电力-机构级决策研报.html",
   "斯瑞新材": "../../sources/automations/新兴产业/商业航天/2026-07-23-1600-斯瑞新材-机构级决策研报.html",
   "四维图新": "../../sources/automations/新兴产业/商业航天/2026-07-17-四维图新-机构级决策研报.html",
   "拓普集团": "../../sources/automations/新兴产业/机器人/2026-07-23-1602-拓普集团-机构级决策研报.html",
@@ -4644,6 +4664,9 @@ const STOCK_REPORT_LINKS = Object.freeze({
   "中科星图": "../../sources/automations/新兴产业/商业航天/2026-07-17-中科星图-机构级决策研报.html",
   "紫光股份": "../../sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-03-1638-紫光股份-机构级决策研报.html",
 });
+const STOCK_THREE_FACTOR_REPORT_LINKS = Object.freeze({
+  "星网锐捷": "../../sources/automations/新兴产业/算力/中游-数据中心网络/2026-08-17-1454-星网锐捷-三要素分析.html",
+});
 const DAILY_MONITOR_LINKS = Object.freeze({
   "000426": {"href":"data/000426-兴业银锡-每日监控-2026-08-06.md","title":"000426-兴业银锡-每日监控-2026-08-06","code":"000426","name":"兴业银锡","date":"2026-08-06","status":"盘中监控，非收盘结论"},
   "601208": {"href":"data/601208-东材科技-每日监控-2026-08-06.md","title":"601208-东材科技-每日监控-2026-08-06","code":"601208","name":"东材科技","date":"2026-08-06","status":"盘中监控，非收盘结论"},
@@ -4655,24 +4678,24 @@ const EVENT_CALENDAR = Object.freeze(
 );
 const CSI_DIVIDEND_SIGNAL = Object.freeze(
 {
-  "recordDate": "2026-08-13",
-  "runTime": "2026-08-13 09:47:54",
-  "indexDate": "2026-08-12",
-  "bondDate": "2026-08-12",
-  "dividendYield2": 4.19,
+  "recordDate": "2026-08-17",
+  "runTime": "2026-08-17 09:49:20",
+  "indexDate": "2026-08-14",
+  "bondDate": "2026-08-14",
+  "dividendYield2": 4.22,
   "xueqiuChangePercent": "待验证",
-  "lixingerDate": "待确认",
-  "lixingerDividendYield": "待验证",
-  "lixingerPercentile10y": "待验证",
-  "lixingerPercentile80Value": "待验证",
-  "bond10yYield": 1.71,
-  "spread": 2.48,
-  "percentileSignal": "待验证",
+  "lixingerDate": "2026-08-14",
+  "lixingerDividendYield": "4.30%",
+  "lixingerPercentile10y": "8.95%",
+  "lixingerPercentile80Value": "6.11%",
+  "bond10yYield": 1.7,
+  "spread": 2.52,
+  "percentileSignal": "D（不买或少买）",
   "absoluteSignal": "C（小额定投）",
   "spreadSignal": "C（小额定投）",
-  "headline": "历史分位点待验证，暂不判定加大买入区间",
+  "headline": "未进入加大买入区间",
   "source": "zzhl-dividend-signal 最新信号",
-  "sourceNote": "AKShare: stock_zh_index_value_csindex(000922, 股息率2); AKShare: bond_zh_us_rate; 雪球实时行情待验证: 雪球实时行情失败：雪球实时行情接口返回空响应; 理杏仁待验证: 公开页面失败：HTTP Error 429: Too Many Requests; 未提供大模型网页查询结果",
+  "sourceNote": "AKShare: stock_zh_index_value_csindex(000922, 股息率2); AKShare: bond_zh_us_rate; 雪球实时行情待验证: 雪球实时行情失败：雪球实时行情接口返回空响应; 理杏仁公开页面: https://www.lixinger.com/equity/index/detail/sh/000922/922/fundamental/valuation/dyr?metrics-type=mcw",
   "status": "latest"
 }
 );
@@ -4889,6 +4912,14 @@ const CSI_DIVIDEND_YIELD_HISTORY = Object.freeze(
   {
     "date": "2026-08-12",
     "value": 4.19
+  },
+  {
+    "date": "2026-08-13",
+    "value": 4.23
+  },
+  {
+    "date": "2026-08-14",
+    "value": 4.22
   }
 ]
 );
@@ -5083,19 +5114,27 @@ function secidForTrackingItem(item = {}, report = {}) {
   return stockSecidFromCode(stockCodeForTrackingItem(item));
 }
 
-function reportLinkForTrackingItem(item) {
+function reportLinkForTrackingItemFromMap(item, links) {
   const candidates = [item.name, ...Object.entries(STOCK_CODE_ALIASES)
     .filter(([, code]) => code === item.code)
     .map(([name]) => name)]
     .map(normalizeStockName)
     .filter(Boolean);
   for (const candidate of candidates) {
-    if (STOCK_REPORT_LINKS[candidate]) return STOCK_REPORT_LINKS[candidate];
+    if (links[candidate]) return links[candidate];
   }
-  const partial = Object.entries(STOCK_REPORT_LINKS).find(([name]) =>
+  const partial = Object.entries(links).find(([name]) =>
     candidates.some(candidate => name.includes(candidate) || candidate.includes(name))
   );
   return partial?.[1] ?? '';
+}
+
+function reportLinkForTrackingItem(item) {
+  return reportLinkForTrackingItemFromMap(item, STOCK_REPORT_LINKS);
+}
+
+function threeFactorReportLinkForTrackingItem(item) {
+  return reportLinkForTrackingItemFromMap(item, STOCK_THREE_FACTOR_REPORT_LINKS);
 }
 
 function dailyMonitorLinkForTrackingItem(item = {}, report = {}) {
@@ -6924,6 +6963,7 @@ function startApp() {
     const summary = summarizeTrackingItems(trackingItems);
     const enrichedItems = summary.items.map((item, index) => {
       const reportHref = reportLinkForTrackingItem(item);
+      const threeFactorReportHref = threeFactorReportLinkForTrackingItem(item);
       let reportEntry = reportHref ? reportSummaryCache.get(reportHref) : null;
       if (reportHref && !reportEntry) {
         reportEntry = { status: 'loading' };
@@ -6958,6 +6998,7 @@ function startApp() {
         item,
         index,
         reportHref,
+        threeFactorReportHref,
         reportEntry,
         report,
         quoteEntry,
@@ -7011,7 +7052,7 @@ function startApp() {
     if (trackingCloseDate) {
       trackingCloseDate.textContent = closeDates.length ? `${closeDates.at(-1)}收盘` : '';
     }
-    const renderTrackingRow = ({ item, reportHref, reportEntry, report, quoteEntry, closePerformanceEntry, liveQuote, signal, riskReward }) => {
+    const renderTrackingRow = ({ item, reportHref, threeFactorReportHref, reportEntry, report, quoteEntry, closePerformanceEntry, liveQuote, signal, riskReward }) => {
       const signalLabel = signal.addStars > 0
         ? '★'.repeat(signal.addStars)
         : signal.reducible ? '可减' : '—';
@@ -7032,6 +7073,10 @@ function startApp() {
       const nameHtml = reportHref
         ? `<a href="${escapeHtml(reportHref)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.name)}</a>`
         : escapeHtml(item.name);
+      const reportLinksHtml = [
+        threeFactorReportHref ? `<a href="${escapeHtml(threeFactorReportHref)}" target="_blank" rel="noopener noreferrer">三要素研报</a>` : '',
+        reportHref ? `<a href="${escapeHtml(reportHref)}" target="_blank" rel="noopener noreferrer">个股研报</a>` : '',
+      ].filter(Boolean).join('');
       return `<tr data-tracking-id="${escapeHtml(item.id)}"${reportHref ? ` data-report-href="${escapeHtml(reportHref)}"` : ''}>
       <td class="tracking-target"><strong>${nameHtml}</strong><small>${escapeHtml(item.code || report.secid || '未填代码')}</small><span class="tracker-status">${escapeHtml(item.status)}</span></td>
       <td>${escapeHtml(report.valueRange || item.thesis || (reportEntry?.status === 'loading' ? '读取研报…' : '未获取到'))}</td>
@@ -7039,7 +7084,7 @@ function startApp() {
       <td>${closePerformanceHtml}</td>
       <td>${escapeHtml(riskRewardText)}</td>
       <td>${monitorStatusHtml}</td>
-      <td><div>${reportHref ? `<a href="${escapeHtml(reportHref)}" target="_blank" rel="noopener noreferrer">打开研报</a>` : escapeHtml(item.reviewCondition || '未关联研报')}</div><small class="tracking-updated">${escapeHtml(report.sourceUpdated ? `研报：${report.sourceUpdated}` : `记录：${new Date(item.updatedAt).toLocaleString('zh-CN', { hour12: false })}`)}</small><div class="tracker-row-actions"><button type="button" data-action="edit-tracking">编辑</button><button type="button" data-action="delete-tracking">删除</button></div></td>
+      <td><div class="tracking-report-links">${reportLinksHtml || escapeHtml(item.reviewCondition || '未关联研报')}</div><small class="tracking-updated">${escapeHtml(report.sourceUpdated ? `研报：${report.sourceUpdated}` : `记录：${new Date(item.updatedAt).toLocaleString('zh-CN', { hour12: false })}`)}</small><div class="tracker-row-actions"><button type="button" data-action="edit-tracking">编辑</button><button type="button" data-action="delete-tracking">删除</button></div></td>
       <td><button class="review-diary-button" type="button" data-action="review-diary">复盘日记</button></td>
       <td>${escapeHtml(signalLabel)}</td>
     </tr>`;

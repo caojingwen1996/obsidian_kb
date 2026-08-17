@@ -1,4 +1,4 @@
 interface:
   display_name: "持仓每日监控"
-  short_description: "每日跟踪持仓量价异常公告产业新闻关键指标和研报假设变化"
-  default_prompt: "Use $portfolio-daily-monitoring to monitor daily portfolio changes and flag holdings that need manual review."
+  short_description: "每日扫描持仓与已生成研报标的，识别估值重算和人工复盘触发器"
+  default_prompt: "Use $portfolio-daily-monitoring to scan portfolio or covered research names, separate price-only changes from valuation-input changes, and assign the correct revaluation and manual-review status."

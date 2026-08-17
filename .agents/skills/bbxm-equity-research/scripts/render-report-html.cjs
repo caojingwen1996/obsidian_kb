@@ -320,8 +320,8 @@ function main() {
   markdown = markdown.replace(/^#\s+.+\r?\n/, '');
   markdown = normalizeObsidianLinks(markdown, outputPath, vaultRoot);
   const sectioned = sectionize(markdown);
-  if (sectioned.sections.length !== 16) {
-    throw new Error(`报告必须包含 16 个编号模块，当前为 ${sectioned.sections.length} 个。`);
+  if (sectioned.sections.length !== 15) {
+    throw new Error(`报告必须包含 15 个编号模块，当前为 ${sectioned.sections.length} 个。`);
   }
 
   const marked = loadMarked();

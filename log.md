@@ -1771,7 +1771,7 @@ topic / refactor / index
 
 ### 操作说明
 
-按用户要求继续扩展 [[topics/冰冰小美-观测指标|冰冰小美-观测指标]]，在“宏观全球指标”“中观央行指标”之后新增“微观企业指标”。该章节聚合产业位置、经营验证、竞争格局、成长质量、估值兑现和企业风险六类观察变量，并回链到 [[concepts/冰冰小美-framework-产业思维|产业思维]]、[[concepts/冰冰小美-framework-产业链财报旁证法|产业链财报旁证法]]、[[concepts/冰冰小美-framework-长线四大选股体系|长线四大选股体系]]、[[concepts/冰冰小美-成长股选择框架|成长股选择框架]] 等既有页面。同步更新总索引描述。
+按用户要求继续扩展 [[topics/冰冰小美-观测指标|冰冰小美-观测指标]]，在“宏观全球指标”“中观央行指标”之后新增“微观企业指标”。该章节聚合产业位置、经营验证、竞争格局、成长质量、估值兑现和企业风险六类观察变量，并回链到[[冰冰小美-fundamental -产业思维|产业思维]]]、[[concepts/冰冰小美-framework-产业链财报旁证法|产业链财报旁证法]]、[[concepts/冰冰小美-framework-长线四大选股体系|长线四大选股体系]]、[[concepts/冰冰小美-成长股选择框架|成长股选择框架]] 等既有页面。同步更新总索引描述。
 
 ### 后续待办
 
@@ -19954,6 +19954,110 @@ dashboard / risk-monitor
 
 - 若刷新后仍停留在示例数据，继续检查本地代理是否启动到新版文件以及外部接口是否返回有效数据。
 
+## 2026-08-14
+
+### 操作类型
+
+automation / signal-check
+
+### 修改文件
+
+- `sources/automations/中证红利信号/最新信号.md`
+- `sources/automations/中证红利信号/中证红利每日信号.xlsx`
+- `log.md`
+
+### 操作说明
+
+按 `zzhl-dividend-signal` skill 运行 `python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py --output-dir "sources/automations/中证红利信号" --run-date 2026-08-14`，刷新中证红利股息率信号每日记录。当前记录日期为 `2026-08-14`，AKShare 最新指数估值日期为 `2026-08-13`，中证红利 `股息率2` 为 `4.23%`；中国10年国债收益率日期为 `2026-08-13`，收益率为 `1.7032%`，股债利差为 `2.5268` 个百分点。理杏仁公开页面返回 `HTTP Error 429: Too Many Requests`，雪球实时行情接口返回空响应，因此历史分位点、理杏仁市值加权股息率和当天涨跌幅保持待验证，未编造数值。按 Query Page“中证红利什么时候买入收益率最高”的三种触发规则判断：历史分位点 `待验证`，绝对股息率 `C（小额定投）`，相对债券收益率 `C（小额定投）`；综合结论为“历史分位点待验证，暂不判定加大买入区间”，未进入重点买入区间。
+
+### 后续待办
+
+- 下次运行继续优先使用免费数据源；若理杏仁公开页仍 429，只保留待验证状态或用可核验网页结果通过脚本参数补录。
+
+## 2026-08-17
+
+### 操作类型
+
+skill / evidence-retrieval / three-factor-analysis
+
+### 修改文件
+
+- `.agents/skills/bbxm-three-factor-analysis/SKILL.md`
+- `.agents/skills/bbxm-three-factor-analysis/template.md`
+- `.agents/skills/bbxm-three-factor-analysis/evals/evals.json`
+- `log.md`
+
+### 操作说明
+
+将三要素技能升级至 v2.2.0，把竞争格局概念页设为动态取证契约。每次三层五问分析必须从最新版概念页提取各层比较维度和重点观察，建立内部检索清单并自主检索；国家层最低覆盖顶层会议/规划、政策落地文件及财政、信贷、产业资本、政府采购等资源配置，分别判断国策方向、政策落地、资源配置和企业受益。完成适用的最低检索前，不得仅因原数据快照缺项就直接判定证据不足。同步在模板中增加各层“已检索范围”，并新增政策证据自主检索测试场景。
+
+### 后续待办
+
+- 下次重新生成星网锐捷报告时，按 v2.2.0 主动补查国策、政策落地和资源配置证据后再重评竞争格局。
+
+## 2026-08-17
+
+### 操作类型
+
+research / three-factor-analysis / v2.1.0-regenerate
+
+### 修改文件
+
+- `workbench/targets/2026-08-17-1454-星网锐捷-三要素分析.md`
+- `sources/automations/新兴产业/算力/中游-数据中心网络/2026-08-17-1454-星网锐捷-三要素分析.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+使用三要素技能 v2.1.0 原地重新生成星网锐捷报告。内部保留“3层 × 5问”审计逻辑，成品第3章改为国家方向与资源配置、行业利润与产业链位置、企业具体同业优势三层结论，不再展示完整逐问表。数据截止时间仍为已核验的2026-08-17 14:54盘中快照；竞争格局与综合状态维持“证据不足”，新增现金维持 `observe`。
+
+### 后续待办
+
+- 补齐政策资源配置、行业份额与定价权、标准控制、800G产品能力、客户准入和主要竞争者同口径数据后，再评估竞争格局状态。
+
+## 2026-08-17
+
+### 操作类型
+
+skill / output-contract / three-factor-analysis
+
+### 修改文件
+
+- `.agents/skills/bbxm-three-factor-analysis/SKILL.md`
+- `.agents/skills/bbxm-three-factor-analysis/template.md`
+- `.agents/skills/bbxm-three-factor-analysis/evals/evals.json`
+- `log.md`
+
+### 操作说明
+
+将三要素技能升级至 v2.1.0，区分竞争格局的分析层与展示层：内部仍强制完成“3层 × 5问”，成品正文默认只展示国家方向与资源配置、行业利润与产业链位置、企业具体同业优势三层的结论、核心证据、反证、缺口、下一验证点和失效条件。完整五问表仅在用户明确要求审计底稿、逐问展开或方法复核时展示；同时更新模板和个股测试预期，避免把内部取证过程机械铺入阅读版。
+
+### 后续待办
+
+- 后续重新生成既有三要素报告时，按 v2.1.0 收敛第3章展示格式。
+
+## 2026-08-17
+
+### 操作类型
+
+research / three-factor-analysis / framework-refresh
+
+### 修改文件
+
+- `workbench/targets/2026-08-17-1454-星网锐捷-三要素分析.md`
+- `sources/automations/新兴产业/算力/中游-数据中心网络/2026-08-17-1454-星网锐捷-三要素分析.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按用户更新后的“竞争格局的比较优势”概念页重新生成星网锐捷三要素报告。重新执行国家层、产业/行业层、企业层的“3层 × 5问”，将取证口径收紧到国家政策与资源配置、产业链位置与控制力、企业技术壁垒与准入门槛。由于现有资料主要证明需求和经营增长，缺少同口径相对优势证据，竞争格局由“有利”调整为“证据不足”，综合状态调整为“证据不足”，新增现金动作由 `wait` 调整为 `observe`。
+
+### 后续待办
+
+- 补充政策资源配置、行业市场份额、定价权、标准控制、800G产品能力、客户认证与主要竞争者同口径经营数据后，再评估竞争格局能否上调。
+
 ## 2026-08-06
 
 ### 操作类型
@@ -21409,3 +21513,636 @@ create / concept-placeholder
 ### 后续待办
 
 - 待用户提供资料或提出整理要求后，再补充概念定义、来源、核心内涵、边界和相关页面。
+
+## 2026-08-14
+
+### 操作类型
+
+research / update / valuation / render
+
+### 修改文件
+
+- `sources/webpages/2026-08-14-徐工机械行情与研究更新快照.md`
+- `workbench/targets/2026-07-20-1737-徐工机械-机构级决策研报.md`
+- `workbench/index.md`
+- `sources/automations/支柱产业/高端制造/2026-07-20-1737-徐工机械-机构级决策研报.html`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` v1.3.0 原地更新徐工机械唯一权威研报。优先调用本地 Tushare MCP 复核身份、行情、估值、资金分档、个股与市场两融、财务、分红和宏观代理，补充 2026H1 工程机械销量与出口景气、彼得·林奇周期型分类和增长质量检查、三类估值、冰冰小美三要素、风险方向及霍华德·马克斯逆向条件判断。按 2026-08-14 10:01 盘中 8.01 元，将结论调整为“合理偏低、B级逆向观察区、条件化小仓”，并明确 2026-08-29 半年报为升级仓位的硬验证点。
+
+### 后续待办
+
+- 2026-08-29 半年报披露后，重算正常化利润、DCF、P/B-ROE和现金流质量。
+- 补齐工程机械 ETF 申赎、北向/主动机构持仓、市场广度与美元指数。
+- 持续监控 7.8/7.6 元承接、资金分档五日累计和融资余额是否停止逆价上升。
+
+## 2026-08-14
+
+### 操作类型
+
+query / link
+
+### 修改文件
+
+- `wiki/concepts/冰冰小美-fundamental -产业思维.md`
+- `log.md`
+
+### 操作说明
+
+检索 `sources/articles/` 中与产业结构、竞争格局、供需和产能周期、利润验证、资本市场作用及长期产业跟踪直接相关的原始文章；筛除仅偶然提及产业或行业的材料后，将 8 篇高相关来源以 Obsidian 双链补入“产业思维”概念页的 frontmatter 与正文“来源”章节，并为每篇补充关联说明。
+
+### 后续待办
+
+- 后续新增产业方法论原文时，继续按“可直接支撑框架模块”标准增补，避免将一般行业点评机械堆入概念来源。
+
+## 2026-08-14
+
+### 操作类型
+
+create / timeline-placeholder / index
+
+### 修改文件
+
+- `wiki/timelines/冰冰小美-体系案例-玻璃面板.md`
+- `index.md`
+- `log.md`
+
+### 操作说明
+
+按用户指定名称新建空内容 Timeline Page 骨架，保留时间线页面所需的 frontmatter 与章节入口；同步加入知识库时间线索引。
+
+### 后续待办
+
+- 待用户提供资料或提出整理要求后，再补充玻璃面板案例的时间节点、阶段变化、来源和相关页面。
+
+## 2026-08-14
+
+### 操作类型
+
+automation / blocked / capture
+
+### 修改文件
+
+- `sources/automations/BBXM每日汇总/2026-08-14/冰冰小美/summary.md`
+- `sources/automations/BBXM每日汇总/2026-08-14/冰冰小美/task.log`
+- `sources/automations/BBXM每日汇总/2026-08-14/冰冰小美/processing/risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026-08-14/冰冰小美/processing/risk-write-status.json`
+- `log.md`
+
+### 操作说明
+
+按 `.agents/automations/bbxm_daliy_brief.md` 执行 BBXM 每日汇总，目标日期为 2026-08-14。自动化浏览器两次进入雪球登录页并等待恢复超时，导致目标日期帖子覆盖不完整；本轮未保存原帖，`risk-analysis.json` 置为 `analysis_complete=false`，风险表更新器返回 `blocked`，未修改 Excel。
+
+### 后续待办
+
+- 在自动化 Chrome/Edge 窗口内完成雪球登录后，同日重跑 2026-08-14，补抓原帖、补标签、生成完整 summary 和风险分析。
+- 不得把本轮阻断结果解释为 2026-08-14 无新帖或零风险。
+
+## 2026-08-17
+
+### 操作类型
+
+automation / signal-check
+
+### 修改文件
+
+- `sources/automations/中证红利信号/最新信号.md`
+- `sources/automations/中证红利信号/中证红利每日信号.xlsx`
+- `log.md`
+
+### 操作说明
+
+运行 `.agents/skills/zzhl-dividend-signal/scripts/check_signal.py --output-dir "sources/automations/中证红利信号" --run-date 2026-08-17`，刷新中证红利股息率信号每日记录。AKShare 估值日期为 2026-08-14，`股息率2` 为 4.22%；中国 10 年国债收益率日期为 2026-08-14，收益率为 1.6964%，股息率与国债收益率利差为 2.5236 个百分点。历史分位点因理杏仁公开页面返回 HTTP 429 且未提供网页核验值而标记待验证；雪球实时行情接口返回空响应，未记录当天涨跌幅。绝对股息率触发 C（小额定投），相对债券收益率触发 C（小额定投），综合结论为“历史分位点待验证，暂不判定加大买入区间”，未进入重点买入区间。
+
+### 后续待办
+
+- 若需要严格判断历史分位点信号，需等待理杏仁公开页面恢复，或用可核验网页数据通过脚本参数补入分位数据。
+
+## 2026-08-17
+
+### 操作类型
+
+automation / signal-check / rerun
+
+### 修改文件
+
+- `sources/automations/中证红利信号/最新信号.md`
+- `sources/automations/中证红利信号/中证红利每日信号.xlsx`
+- `log.md`
+
+### 操作说明
+
+再次运行 `.agents/skills/zzhl-dividend-signal/scripts/check_signal.py --output-dir "sources/automations/中证红利信号" --run-date 2026-08-17`，刷新中证红利股息率信号每日记录。AKShare 估值日期为 2026-08-14，`股息率2` 为 4.22%；中国 10 年国债收益率日期为 2026-08-14，收益率为 1.6964%，股息率与国债收益率利差为 2.5236 个百分点。理杏仁公开页面本轮成功返回 2026-08-14 数据：市值加权股息率为 4.30%，近 10 年股息率分位为 8.95%，近 10 年 80% 分位点为 6.11%。雪球实时行情接口仍返回空响应，未记录当天涨跌幅。历史分位点触发 D（不买或少买），绝对股息率触发 C（小额定投），相对债券收益率触发 C（小额定投），综合结论为“未进入加大买入区间”，未进入重点买入区间。
+
+### 后续待办
+
+- 后续继续观察理杏仁公开页面是否稳定可用；雪球实时行情若持续为空，应保留“待验证”边界，不用当天涨跌幅修正股息率。
+
+## 2026-08-17
+
+### 操作类型
+
+research / update / valuation / html
+
+### 修改文件
+
+- `sources/assets/神马电力-2026年半年度报告.pdf`
+- `sources/webpages/2026-08-17-神马电力半年报行情资金公告快照.md`
+- `workbench/targets/2026-07-16-1021-神马电力-机构级决策研报.md`
+- `workbench/index.md`
+- `sources/automations/支柱产业/电网/2026-07-16-1021-神马电力-机构级决策研报.html`
+- `sources/automations/支柱产业/电网/archive/2026-07-18-神马电力机构级决策研报.html`
+- `sources/automations/支柱产业/电网/2026-07-17-十五五电网投资与电网行业完整分析报告.md`
+- `sources/automations/支柱产业/电网/2026-07-17-十五五电网投资与电网行业完整分析报告.html`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` v1.3.0 原地更新神马电力权威研报，纳入2026年半年报、截至2026-08-14的行情估值、资金分档、融资融券、近期公告和可比公司数据；重算十年期DCF、相对估值与订单/盈利交叉估值，补齐彼得·林奇分类、冰冰小美三要素、风险方向和现金买入问题。同步生成同名HTML、更新电网产业报告反链，并归档旧版重复HTML。
+
+### 后续待办
+
+- 三季报披露后复核海外框架项目转收入、综合毛利率、经营现金流/净利润和应收账款。
+- 补充ETF申赎、北向与机构持仓、最新卖方一致预期以及股东实际减持和期权实际行权数据。
+
+## 2026-08-17
+
+### 操作类型
+
+skill / template / migrate / html
+
+### 修改文件
+
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `.agents/skills/bbxm-equity-research/template.md`
+- `.agents/skills/bbxm-equity-research/references/peter-lynch-equity-research-framework.md`
+- `.agents/skills/bbxm-equity-research/scripts/render-report-html.cjs`
+- `.agents/skills/bbxm-equity-research/scripts/test-render-report-html.cjs`
+- `workbench/targets/2026-07-16-1021-神马电力-机构级决策研报.md`
+- `sources/automations/支柱产业/电网/2026-07-16-1021-神马电力-机构级决策研报.html`
+- `sources/automations/支柱产业/电网/2026-07-17-十五五电网投资与电网行业完整分析报告.html`
+- `log.md`
+
+### 操作说明
+
+将 `bbxm-equity-research` 升级为 v2.0.0，删除独立的“冰冰小美框架判断”章节，把完整研报结构由16章调整为15章；资金状态、风险方向和动作约束继续在决策摘要、事实章节、最终结论与监控指标中简明呈现。同步迁移神马电力Markdown母稿，重新生成HTML并更新电网产业报告反链。
+
+### 后续待办
+
+- 其他采用旧版16章结构的历史研报，在下次更新并重新生成HTML前需要按v2.0.0模板迁移为15章。
+
+## 2026-08-17
+
+### 操作类型
+
+skill / monitoring / valuation-trigger / test
+
+### 修改文件
+
+- `.agents/skills/portfolio-daily-monitoring/SKILL.md`
+- `.agents/skills/portfolio-daily-monitoring/template.md`
+- `.agents/skills/portfolio-daily-monitoring/agents/openai.yaml`
+- `.agents/skills/portfolio-daily-monitoring/test-skill-contract.cjs`
+- `log.md`
+
+### 操作说明
+
+将 `portfolio-daily-monitoring` 升级为v1.1.0：支持扫描已生成研报的活跃标的，按原研报估值基线监测盈利、利润率、现金流、订单、净债务、股本、可比估值、WACC和商业逻辑变化；增加默认重估阈值及 `NO_REVALUE / LIGHT_REVALUE / FULL_REVALUE / MANUAL_REVIEW` 四级估值处置状态。明确股价突破估值区间只更新安全边际并进入人工复盘，不能单独改写价值区间；四级估值处置与原有六类投资逻辑判断并行输出。
+
+### 后续待办
+
+- 首次运行新版每日监控时，检查各权威研报是否具备估值日期、关键模型输入和最近完整重估时间；缺失项按 `MANUAL_REVIEW` 处理。
+
+## 2026-08-17
+
+### 操作类型
+
+skill / template / quick-reading / test
+
+### 修改文件
+
+- `.agents/skills/portfolio-daily-monitoring/SKILL.md`
+- `.agents/skills/portfolio-daily-monitoring/template.md`
+- `.agents/skills/portfolio-daily-monitoring/test-skill-contract.cjs`
+- `log.md`
+
+### 操作说明
+
+将 `portfolio-daily-monitoring` 升级为 v1.2.0，在第二章“重点变化摘要”中固定增加“是否需要继续阅读后续章节”的快速结论。多标的扫描同时为每个标的标记是否需要深读；出现估值重算、人工复盘、逻辑削弱、逻辑失效或关键信息不足时，必须指明应继续查看的标的、章节和原因。
+
+### 后续待办
+
+- 下一次实际扫描时检查第二章能否独立完成快速筛选，并保留对 `NO_REVALUE` 但需要人工复盘情形的提示。
+
+## 2026-08-17
+
+### 操作类型
+
+skill / template / naming / test
+
+### 修改文件
+
+- `.agents/skills/portfolio-daily-monitoring/SKILL.md`
+- `.agents/skills/portfolio-daily-monitoring/template.md`
+- `.agents/skills/portfolio-daily-monitoring/test-skill-contract.cjs`
+- `log.md`
+
+### 操作说明
+
+将 `portfolio-daily-monitoring` 升级为 v1.2.1，把第三章标题由“逐标的监控”统一改为“八类监控项结果”，并同步清理模板中的旧称与增加契约测试，确保后续扫描采用新章节名称。
+
+### 后续待办
+
+- 无。
+
+## 2026-08-17
+
+### 操作类型
+
+create / concept / index
+
+### 修改文件
+
+- `wiki/concepts/冰冰小美-framework-估值判断.md`
+- `index.md`
+- `log.md`
+
+### 操作说明
+
+按 Concept Page 模板新建“冰冰小美-framework-估值判断”空白页面，仅保留标准 frontmatter、章节骨架和空检查表；同步登记总索引并更新页面总数。
+
+### 后续待办
+
+- 待补充概念定义、来源、核心要素、判断标准、体系位置和相关页面。
+
+## 2026-08-17
+
+### 操作类型
+
+query / link / concept-source
+
+### 修改文件
+
+- `wiki/concepts/冰冰小美-framework-估值判断.md`
+- `log.md`
+
+### 操作说明
+
+检索 `sources/articles/` 中与估值直接相关的冰冰小美原始资料，排除只在评论区或无关语境中偶然出现“估值”的文件，并去除同内容重复归档。将 36 篇包含可复用估值规则、估值影响变量或明确估值应用过程的文章，以 Obsidian 双链补入“冰冰小美-framework-估值判断”页面的 frontmatter 和正文“来源”章节；正文按估值基础规则与交易边界、宏观市场与产业定价、个股与产业案例三类组织，并为每篇补充关联说明。
+
+### 后续待办
+
+- 后续整理该框架正文时，可优先从估值锚、盈利与现金流、流动性、竞争格局、周期位置、远期线性外推和买入价格边界七个方向提炼。
+
+## 2026-08-17
+
+### 操作类型
+
+rule / template / concept
+
+### 修改文件
+
+- `AGENTS.md`
+- `schema.md`
+- `templates/concept-page-template.md`
+- `rules/concept-page-rules.md`
+- `wiki/concepts/冰冰小美-framework-估值判断.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求精简新建 Concept Page 的生成结构，移除“体系位置”“与其他概念的关系”“概念边界”“使用场景”“观察信号”“反面误用”“原子化笔记”“相关页面”八个一级章节。同步修改 Concept 模板、专项生成规则和全局双链规则：Concept Page 的核心关系继续保留在 frontmatter `related` 字段中，不再重复生成正文“相关页面”章节。并从新建的“冰冰小美-framework-估值判断”页面删除残留的空“相关页面”章节。
+
+### 后续待办
+
+- 无。
+
+- [2026-08-17T14:31:37+08:00] QUERY query="如何判断严重估值泡沫、合理估值" result_pages=15 mode=normal escalated=false
+- [2026-08-17T14:34:32+08:00] QUERY query="遥远预期大概是三年还是五年" result_pages=4 mode=normal escalated=false
+- [2026-08-17T14:48:23+08:00] QUERY query="拆分基本盘与未来故事是什么意思，这个结论的原文支撑是什么" result_pages=3 mode=normal escalated=false
+- [2026-08-17T15:01:27+08:00] QUERY query="详细介绍不同类型的企业的估值怎么计算，并给出原文支撑" result_pages=9 mode=normal escalated=false
+
+## 2026-08-17
+
+### 操作类型
+
+skill / template / output / html
+
+### 修改文件
+
+- `.agents/skills/bbxm-three-factor-analysis/SKILL.md`
+- `.agents/skills/bbxm-three-factor-analysis/template.md`
+- `.agents/skills/bbxm-three-factor-analysis/evals/evals.json`
+- `.agents/skills/bbxm-three-factor-analysis/assets/report.css`
+- `.agents/skills/bbxm-three-factor-analysis/scripts/render-three-factor-html.cjs`
+- `.agents/skills/bbxm-three-factor-analysis/scripts/test-render-three-factor-html.cjs`
+- `log.md`
+
+### 操作说明
+
+参照 `bbxm-equity-research` 将 `bbxm-three-factor-analysis` 升级为 v2.0.0：保留三要素专属 9 章结构，新增 Markdown 权威母稿与同源 HTML 阅读版的双产物契约，明确 `workbench/targets/` 与 `sources/automations/<分类>/` 的扁平目录、同对象原地更新及索引维护规则；增加独立 HTML 渲染器、三要素摘要卡、9 章左侧目录、移动端和打印样式，并将竞争格局的“3 层 × 5 问”写入执行与质量门。
+
+### 后续待办
+
+- 无。
+
+## 2026-08-17
+
+### 操作类型
+
+migrate / link / dashboard
+
+### 修改文件
+
+- `sources/automations/新兴产业/电网/2026-07-16-1021-神马电力-机构级决策研报.html`
+- `sources/automations/支柱产业/电网/2026-07-17-十五五电网投资与电网行业完整分析报告.md`
+- `sources/automations/支柱产业/电网/2026-07-17-十五五电网投资与电网行业完整分析报告.html`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求，将神马电力当前权威 HTML 研报从“支柱产业 / 电网”迁移到“新兴产业 / 电网”，保留 Workbench Markdown 母稿的统一存放位置不变。同步修正电网产业完整分析报告中的公司研报下钻链接，并更新、重建产业面板，使该研报自动显示在“产业 → 新兴 → 电网”目录下。神马电力资金面分层分析未纳入本次研报迁移。
+
+### 后续待办
+
+- 无。
+
+## 2026-08-17
+
+### 操作类型
+
+research / three-factor / source / html / index
+
+### 修改文件
+
+- `sources/assets/2026-08-15-星网锐捷-2026年半年度报告.pdf`
+- `sources/assets/2026-08-15-星网锐捷-收购广州芯德46%股权公告.pdf`
+- `sources/webpages/2026-08-17-星网锐捷三要素数据快照.md`
+- `workbench/targets/2026-08-17-1454-星网锐捷-三要素分析.md`
+- `sources/automations/新兴产业/算力/中游-数据中心网络/2026-08-17-1454-星网锐捷-三要素分析.html`
+- `.agents/skills/bbxm-three-factor-analysis/SKILL.md`
+- `.agents/skills/bbxm-three-factor-analysis/scripts/render-three-factor-html.cjs`
+- `.agents/skills/bbxm-three-factor-analysis/scripts/test-render-three-factor-html.cjs`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+使用 `bbxm-three-factor-analysis` v2.0.1 对星网锐捷完成三要素分析。竞争格局严格按国家层、产业 / 行业层、企业层的“3层 × 5问模型”展开；流动性按宏观、中观、微观及资金来源、供给抛压和退出路径分析；情绪识别为拥挤。综合判断为“尚未形成有利共振”，新增现金动作 `wait`，已有持仓动作 `review` 并给出条件化 `reduce` 触发器。保存公司法定披露原件与当前数据快照，生成同源HTML阅读版并更新Workbench索引。生成检查中发现摘要卡会把“尚未形成有利共振”误判为正向状态，已将技能升级为v2.0.1并修正映射与契约测试。
+
+### 后续待办
+
+- 跟踪2026Q3经营现金流、存货、应收账款和企业级网络设备毛利率；跟踪广州芯德交割、商誉及业绩承诺；跟踪通信ETF份额、融资余额与29.81—30.52元承接区。
+
+## 2026-08-17
+
+### 操作类型
+
+tool / dashboard / report-link
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/scripts/build.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/README.md`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户指定位置扩展持仓跟踪表“数据来自研报”列：构建时除个股机构级研报外，自动扫描 `sources/automations/` 中按标的命名的三要素分析HTML；同一单元格按“三要素研报、个股研报”的顺序显示独立入口。当前已自动关联星网锐捷三要素分析，未生成三要素研报的标的继续只显示个股研报。同步增加链接布局样式、构建契约测试、看板更新日志和README说明，并重建单文件面板。
+
+### 后续待办
+
+- 后续为其他标的生成三要素分析HTML后，重新构建面板即可自动出现对应入口，无需手工维护链接。
+
+## 2026-08-17
+
+### 操作类型
+
+refactor / concept / valuation / index
+
+### 修改文件
+
+- `wiki/concepts/冰冰小美-framework-估值判断.md`
+- `index.md`
+- `log.md`
+
+### 操作说明
+
+将稳定盈利、周期资源、重资产、成长和前沿科技企业的估值方法整理进“企业类型与估值”章节；补充正常化 EPS、自由现金流、股息率、中枢利润、调整后净资产、未来利润折现和融资期权等计算方式，并将公式明确标为整理者归纳，在各类型下保留对应原文双链与来源边界。同步更新总索引摘要。
+
+### 后续待办
+
+- 金融、保险、证券和房地产企业的专门估值方法尚缺少当前来源体系内的充分原文支撑，暂不扩写。
+
+- [2026-08-17T15:41:35+08:00] QUERY query="比较估值判断概念页与 bbxm-equity-research 技能的估值计算方法" result_pages=4 mode=normal escalated=false
+
+- [2026-08-17T15:53:23+08:00] QUERY query="如何把估值判断概念页的前沿科技估值方法融合进 bbxm-equity-research 技能" result_pages=3 mode=normal escalated=false
+
+## 2026-08-17
+
+### 操作类型
+
+skill / valuation / frontier-tech / template / test
+
+### 修改文件
+
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `.agents/skills/bbxm-equity-research/template.md`
+- `.agents/skills/bbxm-equity-research/references/frontier-tech-valuation.md`
+- `.agents/skills/bbxm-equity-research/evals/evals.json`
+- `.agents/skills/bbxm-equity-research/scripts/test-render-report-html.cjs`
+- `log.md`
+
+### 操作说明
+
+将 `bbxm-equity-research` 升级至 v2.1.0：新增分部级估值成熟度路由，把业务划分为已验证基本盘、商业化成长业务、前沿期权业务和失败或退出业务；对重大前沿科技业务采用“基本盘价值 + 里程碑概率加权期权价值 + 融资与稀释调整”的股东价值桥，并强制使用反推估值检查市场价格隐含的成功率。完整公司 DCF 在自由现金流转正过晚或终值占比过高时降为低权重校验项，同时保留成熟企业原有估值路线。补充模板、专项参考规则、合成评测用例和静态契约测试，并明确概率、折现率、融资现金消耗与股权稀释不得重复扣减；首批付费或试点订单只提高相应里程碑概率，不自动把业务升级为商业化成长业务。
+
+### 后续待办
+
+- 使用已长期跟踪的真实前沿科技样本继续校准“五年后才实现自由现金流转正”“终值占比超过 70%”等初始治理阈值，以及各类里程碑的条件成功率区间。
+
+## 2026-08-17
+
+### 操作类型
+
+research / valuation / equity / workbench
+
+### 修改文件
+
+- `sources/webpages/2026-08-17-星网锐捷机构级研究数据快照.md`
+- `workbench/targets/2026-08-05-1010-星网锐捷-机构级决策研报.md`
+- `workbench/index.md`
+- `sources/automations/新兴产业/算力/中游-数据中心网络/2026-08-05-1010-星网锐捷-机构级决策研报.html`
+- `log.md`
+
+### 操作说明
+
+使用 `bbxm-equity-research v2.1.0` 原地更新星网锐捷权威研报。纳入2026年半年报、8月17日收盘行情、锐捷网络最新估值和广州芯德交易定价；将数据中心交换机划为商业化成长业务，将缺少重复收入和单位经济性的元宇宙、脑机疗愈等项目划为前沿期权业务且不纳入估值中枢。完整公司DCF因基准终值占比约74%和现金流波动降为低权重约束，估值主锚改为正常化利润与折价SOTP，综合区间调整为26—40元、中枢32—34元，当前33.91元判断为合理偏高，新增现金维持 `observe`。删除旧研报的独立“冰冰小美框架判断”章节，按15章模板重排，并重生成HTML阅读版。
+
+### 后续待办
+
+- 2026Q3重点复核经营现金流、存货、应收、企业级网络设备毛利率和广州芯德交割后的商誉及并表利润。
+
+## 2026-08-17
+
+### 操作类型
+
+ingest / concept / valuation / bubble / link
+
+### 修改文件
+
+- `wiki/concepts/冰冰小美-framework-估值判断.md`
+- `index.md`
+- `hot.md`
+- `.manifest.json`
+- `log.md`
+
+### 操作说明
+
+重新读取冰冰小美原始文章，将“估值与泡沫”整理为可复用判断框架：区分经营验证形成的高估值与依赖远期叙事、流动性、杠杆和羊群效应的严重估值泡沫；补充泡沫形成链、现金流与盈利错配等五类破裂触发器、整体市场与局部泡沫分层、流动性与心理环境，并完成十项使用检查表。新增三篇直接相关来源与双链，补齐页面定义、摘要、关键变量、常见误解、来源边界和关系字段，同步更新总索引摘要。
+
+QMD 刷新未完成：本机 `C:\Users\lenovo\.qmd` 为指向不存在目标的目录联接；补回专用目标目录后，QMD 的集合配置已丢失，CLI 又把 Markdown 通配符错误展开为单个 `AGENTS.md`。已移除该错误集合，未把不完整索引保留为有效结果。
+
+### 后续待办
+
+- 各行业合理倍数、增长年限和泡沫阈值仍需结合具体公司财报、历史区间、行业可比与实时流动性逐案验证。
+
+- [2026-08-17T16:39:54+08:00] INGEST source="sources/articles/2023-10-17-冰冰小美：情绪体系交易篇交割单的认知.md" pages_updated=1 pages_created=0 mode=append
+- [2026-08-17T16:39:54+08:00] INGEST source="sources/articles/2024-06-13-冰冰小美：从体系三要素看纳指上涨.md" pages_updated=1 pages_created=0 mode=append
+- [2026-08-17T16:39:54+08:00] INGEST source="sources/articles/2025-12-28-冰冰小美：双路径推演 AI 泡沫破灭带动有色下跌.md" pages_updated=1 pages_created=0 mode=append
+
+## 2026-08-17
+
+### 操作类型
+
+research / three-factor / policy / competition / workbench
+
+### 修改文件
+
+- `sources/webpages/2026-08-17-星网锐捷竞争格局政策与行业证据快照.md`
+- `workbench/targets/2026-08-17-1454-星网锐捷-三要素分析.md`
+- `workbench/index.md`
+- `sources/automations/新兴产业/算力/中游-数据中心网络/2026-08-17-1454-星网锐捷-三要素分析.html`
+- `log.md`
+
+### 操作说明
+
+使用 `bbxm-three-factor-analysis v2.2.0` 原地重生成星网锐捷三要素报告。严格按最新竞争格局概念页的国家、产业和企业比较维度完成“3层 × 5问”内部推演，并自主检索中央政治局会议、中央经济工作会议、2026年政府工作报告、“十五五”规划、年度发展计划、国家发展改革委实施意见、工业和信息化部行动计划与“1+M+N”节点，以及政府采购、产业基金和信贷案例。确认算力网国策方向和政策落地成立，但政府购买算力服务不等同于星网锐捷订单；锐捷已获得高速交换机业务增长，但相对份额、定价权、标准控制和现金利润仍未闭环。因此竞争格局由“证据不足”调整为“中性”，综合状态改为“尚未形成有利共振”，新增现金维持 `observe`。
+
+### 后续待办
+
+- 跟踪算力节点设备中标、锐捷800G收入与毛利、同业份额与报价、2026Q3经营现金流和营运资本，以及核心芯片国产化与客户订单。
+
+## 2026-08-17
+
+### 操作类型
+
+skill / template / render / style / workbench
+
+### 修改文件
+
+- `.agents/skills/bbxm-three-factor-analysis/SKILL.md`
+- `.agents/skills/bbxm-three-factor-analysis/template.md`
+- `.agents/skills/bbxm-three-factor-analysis/scripts/render-three-factor-html.cjs`
+- `.agents/skills/bbxm-three-factor-analysis/scripts/test-render-three-factor-html.cjs`
+- `.agents/skills/bbxm-three-factor-analysis/assets/report.css`
+- `workbench/targets/2026-08-17-1454-星网锐捷-三要素分析.md`
+- `workbench/index.md`
+- `sources/automations/新兴产业/算力/中游-数据中心网络/2026-08-17-1454-星网锐捷-三要素分析.html`
+- `log.md`
+
+### 操作说明
+
+根据阅读层级反馈将 `bbxm-three-factor-analysis` 升级至 v2.2.1。第三章的结论、国策方向、政策落地、资源配置和跨层理由继续作为判断正文；核心证据、核心反证、已检索范围、数据缺口、下一验证点与失效条件统一写入“研究提示”Callout。HTML 渲染器将其转换为低强调的浅色提示卡，避免研究审计信息与正文判断争夺层级，并增加 Callout 转换、原始标记清除和模板数量契约测试。同步调整星网锐捷母稿并重生成 HTML。
+
+### 验证结果
+
+- 三要素 HTML 渲染测试通过。
+- 星网锐捷 HTML 含 4 个研究提示卡、9 个目录锚点；无原始 `[!note]`、未转换双链或 UTF-8 替换字符。
+
+## 2026-08-17
+
+### 操作类型
+
+research / valuation / update / workbench
+
+### 修改文件
+
+- `sources/webpages/2026-08-17-神马电力机构级研究收盘快照.md`
+- `workbench/targets/2026-07-16-1021-神马电力-机构级决策研报.md`
+- `workbench/index.md`
+- `sources/automations/新兴产业/电网/2026-07-16-1021-神马电力-机构级决策研报.html`
+- `log.md`
+
+### 操作说明
+
+使用 `bbxm-equity-research v2.1.0` 原地更新神马电力权威研报。纳入2026年半年报和8月17日收盘行情资金，按分部成熟度确认变电站复合绝缘与密封件为已验证基本盘、线路产品和海外框架为商业化成长业务；新设复合材料子公司缺少独立收入、重复订单、融资定价和单位经济性，暂不赋予期权价值。完整公司DCF终值占比49%—66%，继续作为正式估值方法。综合估值维持31—49元、中枢40—44元；51.82元高于乐观上沿，新增现金调整为 `avoid`，已有持仓为 `review`。
+
+### 后续待办
+
+- 跟踪海外框架转正式订单、2026Q3毛利率和现金转化、新材料子公司的独立商业里程碑，以及价格回到40—44元后的赔率变化。
+
+## 2026-08-17
+
+### 操作类型
+
+skill / template / render / style / workbench
+
+### 修改文件
+
+- `.agents/skills/bbxm-three-factor-analysis/SKILL.md`
+- `.agents/skills/bbxm-three-factor-analysis/template.md`
+- `.agents/skills/bbxm-three-factor-analysis/scripts/test-render-three-factor-html.cjs`
+- `workbench/targets/2026-08-17-1454-星网锐捷-三要素分析.md`
+- `workbench/index.md`
+- `sources/automations/新兴产业/算力/中游-数据中心网络/2026-08-17-1454-星网锐捷-三要素分析.html`
+- `log.md`
+
+### 操作说明
+
+根据进一步的正文层级反馈，将 `bbxm-three-factor-analysis` 升级至 v2.2.2：核心证据和核心反证直接决定判断是否成立，因此恢复为第三章正文；研究提示卡仅保留已检索范围、数据缺口、下一验证点和失效条件。同步修正模板、静态契约测试和星网锐捷母稿，并重新生成 HTML。
+
+### 验证结果
+
+- 三要素 HTML 渲染测试通过。
+- 星网锐捷 HTML 的 4 个研究提示卡内不再包含“核心证据”或“核心反证”，且无原始 Callout 标记。
+
+## 2026-08-17
+
+### 操作类型
+
+research / valuation / frontier-routing / update / workbench
+
+### 修改文件
+
+- `sources/webpages/2026-08-17-三花智控机构级研究收盘快照.md`
+- `sources/webpages/2026-08-17-东材科技机构级研究收盘快照.md`
+- `sources/webpages/2026-08-17-东阳光机构级研究收盘快照.md`
+- `workbench/targets/2026-07-17-1134-三花智控-机构级决策研报.md`
+- `workbench/targets/2026-07-17-1450-东材科技-机构级决策研报.md`
+- `workbench/targets/2026-07-16-1138-东阳光-机构级决策研报.md`
+- `workbench/index.md`
+- `sources/automations/新兴产业/机器人/2026-07-17-1134-三花智控-机构级决策研报.html`
+- `sources/automations/新兴产业/机器人/2026-07-23-机器人产业完整分析报告.html`
+- `sources/automations/新兴产业/算力/上游-PCB材料/2026-07-17-1450-东材科技-机构级决策研报.html`
+- `sources/automations/新兴产业/算力/中游-算力基础设施与能源/2026-07-16-1138-东阳光-机构级决策研报.html`
+- `log.md`
+
+### 操作说明
+
+逐一使用 `bbxm-equity-research v2.1.0` 原地更新三花智控、东材科技和东阳光权威研报，并删除旧版独立“冰冰小美框架判断”章节，统一为15章结构。三花智控将热管理划为已验证基本盘、机器人和液冷划为前沿期权，综合价值31—40元；东材科技确认高速电子树脂已属商业化成长业务，DCF降权、SOTP为主，综合价值24—40元；东阳光按传统基本盘、待交割商业资产、算力合同和前沿期权分层处理交易概率、摊薄与重复计价，综合价值24—34元。按8月17日收盘，三花智控39.02元为合理偏高，东材科技49.60元和东阳光37.57元均为高估。
+
+### 后续待办
+
+- 三花智控：跟踪机器人/液冷量产订单、复购、毛利与回购实施。
+- 东材科技：跟踪正式半年报、眉山项目良率/利用率、电子材料毛利和自由现金流。
+- 东阳光：跟踪重组问询与注册、最终摊薄、算力合同毛利/回款和服务器资本开支。

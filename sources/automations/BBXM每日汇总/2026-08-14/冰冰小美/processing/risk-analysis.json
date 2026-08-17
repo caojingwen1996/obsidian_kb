@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "target_date": "2026-08-14",
+  "author": "冰冰小美",
+  "generated_at": "2026-08-14T16:20:01+08:00",
+  "analysis_complete": false,
+  "coverage": {
+    "saved_post_count": 0,
+    "analyzed_post_count": 0,
+    "unresolved_post_count": 0,
+    "unresolved_reasons": [
+      "雪球登录未恢复，自动化浏览器两次等待登录均超时，目标日期覆盖不完整。"
+    ]
+  },
+  "qualified": [],
+  "not_written": []
+}

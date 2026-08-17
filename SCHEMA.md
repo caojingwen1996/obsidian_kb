@@ -122,7 +122,7 @@ llmwiki/
 不得把 `summary`、`comparison`、`output` 作为新的正式页面类型。
 若未来确需新增页面类型，必须先同步修改 `page-types.md`、`schema.md` 和 `AGENTS.md`，再迁移索引与日志规则。
 
-页面类型的详细语义、适用场景、选择规则和组合规则，以 `page-types.md` 为准。页面模板统一放在 `templates/` 目录下；创建新正式知识页时，应按对应模板补齐 frontmatter、来源、相关页面和不确定性。
+页面类型的详细语义、适用场景、选择规则和组合规则，以 `page-types.md` 为准。页面模板统一放在 `templates/` 目录下；创建新正式知识页时，应按对应模板补齐 frontmatter、来源、关系信息和不确定性。Concept Page 的关系信息只维护在 frontmatter 的 `related` 字段中，不生成“相关页面”正文章节。
 
 ---
 
@@ -243,7 +243,7 @@ summary: ""
 2. 已存在页面时，优先链接已有页面，不重复建页。
 3. 不为无意义词汇或一次性短语创建链接。
 4. 不制造大量空页面。
-5. 每个 `wiki/` 页面底部必须包含“相关页面”部分。
+5. 除 Concept Page 外，每个 `wiki/` 页面底部必须包含“相关页面”部分；Concept Page 使用 frontmatter 的 `related` 字段维护核心关系。
 6. 当链接目标使用路径时，正文和相关列表都应使用 `[[页面路径|显示名称]]`，避免直接把路径暴露给读者。
 7. 相关列表推荐写成 `- [[页面路径|显示名称]]：说明为什么相关。`
 
@@ -297,7 +297,7 @@ Agent 不得：
 4. 把 Topic Page 当成所有内容的默认归宿。
 5. 混用 View Page、Reasoning Page 和 Timeline Page。
 6. 使用旧页面类型新建 `summary`、`comparison` 或 `output` 页面。
-7. 省略来源、相关页面、不确定性和必要双链。
+7. 省略来源、关系信息、不确定性和必要双链。
 8. 修改与当前任务无关的大量文件。
 9. 在没有计划和确认的情况下做大规模重构。
 10. 让 `schema.md`、`page-types.md`、`AGENTS.md` 和实际目录结构长期不一致。
