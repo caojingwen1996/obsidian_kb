@@ -378,6 +378,7 @@ async function walkHtmlFiles(directory, pathParts = []) {
   const reports = [];
   for (const entry of entries) {
     if (entry.isDirectory()) {
+      if (entry.name.toLowerCase() === 'archive') continue;
       reports.push(...await walkHtmlFiles(join(directory, entry.name), [...pathParts, entry.name]));
     } else if (entry.isFile() && entry.name.endsWith('.html')) {
       reports.push({
@@ -395,7 +396,7 @@ async function scanIndustryReports(definition) {
   const directory = join(automationsDir, definition.directoryName);
   const entries = await readdir(directory, { withFileTypes: true });
   const filters = entries
-    .filter(entry => entry.isDirectory())
+    .filter(entry => entry.isDirectory() && entry.name.toLowerCase() !== 'archive')
     .map(entry => entry.name)
     .sort((left, right) => left.localeCompare(right, 'zh-CN'));
   const reports = (await walkHtmlFiles(directory))
@@ -502,39 +503,81 @@ function renderStockThreeFactorReportLinkMap(automationReports = []) {
     .join('\n');
 }
 
-async function scanDailyMonitorLinks() {
+function dailyMonitorDescriptor(filename) {
+  const single = filename.match(/^(\d{6}|待核实)-(.+)-每日监控-(\d{4}-\d{2}-\d{2})(?:-(\d{4}))?\.md$/u);
+  if (single) {
+    const [, code, name, date, time = '0000'] = single;
+    return { code, name, date, time, kind: 'single' };
+  }
+  const summary = filename.match(/^持仓今日监控汇总-(\d{4}-\d{2}-\d{2})(?:-(\d{4}))?\.md$/u);
+  if (summary) return { code: '', name: '', date: summary[1], time: summary[2] ?? '0000', kind: 'summary' };
+  const legacyPortfolio = filename.match(/^持仓今日监控-(\d{4}-\d{2}-\d{2})(?:-(\d{4}))?\.md$/u)
+    ?? filename.match(/^(\d{4}-\d{2}-\d{2})(?:-(\d{4}))?-持仓今日监控\.md$/u);
+  if (!legacyPortfolio) return null;
+  return { code: '', name: '', date: legacyPortfolio[1], time: legacyPortfolio[2] ?? '0000', kind: 'legacy-portfolio' };
+}
+
+function monitorValueFromMarkdown(markdown, descriptor, href, title) {
+  const valuationStatus = markdown.match(/估值处置状态[：:]\s*`?(NO_REVALUE|LIGHT_REVALUE|FULL_REVALUE|MANUAL_REVIEW)`?/u)?.[1] ?? '';
+  const valuationReason = markdown.match(/触发理由[：:]\s*([^\n]+)/u)?.[1]?.replaceAll('`', '').trim() ?? '';
+  const judgment = markdown.match(/当前判断[：:]\s*([^\n]+)/u)?.[1]?.trim() ?? '';
+  const monitorStatus = markdown.match(/监控状态[：:]\s*([^\n]+)/u)?.[1]?.trim() ?? '';
+  return {
+    href,
+    title,
+    code: descriptor.code,
+    name: descriptor.name,
+    date: descriptor.date,
+    status: judgment || monitorStatus || '打开监控',
+    valuationStatus,
+    valuationReason,
+  };
+}
+
+async function scanDailyMonitorData() {
   const entries = await readdir(dataDir, { withFileTypes: true }).catch(() => []);
   const links = new Map();
-  const addLink = (key, value) => {
+  const reports = [];
+  const addLink = (key, value, sortKey) => {
     const normalizedKey = normalizeStockName(key);
     if (!normalizedKey) return;
     const previous = links.get(normalizedKey);
-    if (!previous || String(value.date).localeCompare(String(previous.date), 'zh-CN') > 0) {
-      links.set(normalizedKey, value);
+    if (!previous || sortKey.localeCompare(previous.sortKey, 'zh-CN') > 0) {
+      links.set(normalizedKey, { value, sortKey });
     }
   };
   for (const entry of entries) {
     if (!entry.isFile()) continue;
-    const match = entry.name.match(/^(\d{6})-(.+)-每日监控-(\d{4}-\d{2}-\d{2})\.md$/u);
-    if (!match) continue;
-    const [, code, name, date] = match;
+    const descriptor = dailyMonitorDescriptor(entry.name);
+    if (!descriptor) continue;
+    const htmlFilename = entry.name.replace(/\.md$/iu, '.html');
+    if (!await readFile(join(dataDir, htmlFilename), 'utf8').catch(() => '')) continue;
     const markdown = await readFile(join(dataDir, entry.name), 'utf8').catch(() => '');
-    const status = markdown.match(/监控状态[：:]\s*([^\n]+)/u)?.[1]?.trim() || '打开监控';
-    const value = {
-      href: `data/${entry.name}`,
-      title: titleFromFilename(entry.name.replace(/\.md$/i, '.html')),
-      code,
-      name,
-      date,
-      status,
-    };
-    addLink(code, value);
-    addLink(name, value);
+    const href = `data/${htmlFilename}`;
+    const title = titleFromFilename(htmlFilename);
+    const sortKey = `${descriptor.date}-${descriptor.time}-${entry.name}`;
+    const values = descriptor.kind === 'single'
+      ? [monitorValueFromMarkdown(markdown, descriptor, href, title)]
+      : [];
+    for (const value of values) {
+      addLink(value.code, value, sortKey);
+      addLink(value.name, value, sortKey);
+    }
+    if (descriptor.kind === 'summary') reports.push({ href, title, date: descriptor.date, sortKey });
   }
-  return [...links.entries()]
+  const mapSource = [...links.entries()]
     .sort(([left], [right]) => left.localeCompare(right, 'zh-CN'))
-    .map(([key, value]) => `  ${JSON.stringify(key)}: ${JSON.stringify(value)},`)
+    .map(([key, entry]) => `  ${JSON.stringify(key)}: ${JSON.stringify(entry.value)},`)
     .join('\n');
+  const latestSummary = reports.sort((left, right) => right.sortKey.localeCompare(left.sortKey, 'zh-CN'))[0] ?? null;
+  return { mapSource, latestSummary };
+}
+
+function renderDailyMonitorButton(report) {
+  if (!report) {
+    return '<button class="button-secondary daily-monitor-button" id="open-daily-monitor" type="button" disabled title="尚未生成 HTML 每日监控汇总报告">每日监控</button>';
+  }
+  return `<a class="button-secondary daily-monitor-button" id="open-daily-monitor" href="${escapeHtml(report.href)}" target="_blank" rel="noopener noreferrer" title="打开 ${escapeHtml(report.date)} 持仓今日监控汇总报告">每日监控</a>`;
 }
 
 function numberFromText(value) {
@@ -765,14 +808,14 @@ const dividendYieldHistory = parseDividendYieldHistoryFromWorkbook(await readFil
 const automationReports = await walkHtmlFiles(automationsDir);
 const stockReportLinks = renderStockReportLinkMap(industries, automationReports);
 const stockThreeFactorReportLinks = renderStockThreeFactorReportLinkMap(automationReports);
-const dailyMonitorLinks = await scanDailyMonitorLinks();
+const dailyMonitorData = await scanDailyMonitorData();
 const bundle = modules
   .map((source, index) => {
     const withGeneratedData = moduleOrder[index] === 'app.mjs'
       ? source
         .replace('  // STOCK_REPORT_LINKS', stockReportLinks)
         .replace('  // STOCK_THREE_FACTOR_REPORT_LINKS', stockThreeFactorReportLinks)
-        .replace('  // DAILY_MONITOR_LINKS', dailyMonitorLinks)
+        .replace('  // DAILY_MONITOR_LINKS', dailyMonitorData.mapSource)
         .replace('  // EVENT_CALENDAR', JSON.stringify(eventCalendar, null, 2))
         .replace('  // CSI_DIVIDEND_SIGNAL', JSON.stringify(dividendSignal, null, 2))
         .replace('  // CSI_DIVIDEND_YIELD_HISTORY', JSON.stringify(dividendYieldHistory, null, 2))
@@ -795,6 +838,7 @@ for (const industry of industries) {
 }
 
 const output = renderedTemplate
+  .replace('            <!-- DAILY_MONITOR_BUTTON -->', renderDailyMonitorButton(dailyMonitorData.latestSummary))
   .replace('            <!-- BBXM_FEATURED_DIGEST -->', renderFeaturedDigest(bbxmDailyDigest))
   .replace('              <!-- TOPIC_FILTER_TABS -->', renderTopicFilterTabs(topicPages))
   .replace('            <!-- TOPIC_CARDS -->', renderTopicCards(topicPages))

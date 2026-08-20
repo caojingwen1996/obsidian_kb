@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "target_date": "2026-08-19",
+  "author": "冰冰小美",
+  "generated_at": "2026-08-19T16:12:45+08:00",
+  "analysis_complete": false,
+  "coverage": {
+    "saved_post_count": 0,
+    "analyzed_post_count": 0,
+    "unresolved_post_count": 0,
+    "unresolved_reasons": [
+      "雪球登录未在自动化 Chrome 窗口内恢复，抓取脚本等待超时；未完成 2026-08-19 目标日期帖子覆盖。"
+    ]
+  },
+  "qualified": [],
+  "not_written": []
+}

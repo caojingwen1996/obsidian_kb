@@ -14,6 +14,9 @@ import {
   leftEdgeFromValueRange,
   normalizeFuguiStrategyItems,
   normalizeTrackingItems,
+  pricingDeviationFromText,
+  pricingDeviationToneClass,
+  parseThreeFactorSummary,
   resolveStorage,
   stockSecidFromCode,
   summarizeHoldings,
@@ -22,6 +25,7 @@ import {
   trackingQuotePriceOnly,
   trackingRiskRewardForQuote,
   trackingSignalForQuote,
+  valuationDispositionPresentation,
   valueRangePrices,
 } from '../src/app.mjs';
 
@@ -37,6 +41,15 @@ const hangTianElectronicsReportPath = join(
   '新兴产业',
   '商业航天',
   '2026-07-23-1427-航天电子-机构级决策研报.html',
+);
+const xingWangRuijieThreeFactorReportPath = join(
+  repoRoot,
+  'sources',
+  'automations',
+  '新兴产业',
+  '算力',
+  '中游-数据中心网络',
+  '2026-08-17-1454-星网锐捷-三要素分析.html',
 );
 
 function countFeedReports(directoryName) {
@@ -159,7 +172,7 @@ test('sidebar exposes the personal position workspace as a first-level tree doma
   assert.match(html, /data-status-filter="addable"[^>]*>可加<\/button>/);
   assert.match(html, /data-status-filter="reducible"[^>]*>可减<\/button>/);
   assert.doesNotMatch(html, /data-status-filter="allocation"/);
-  assert.match(html, /id="open-tracking-form"[^>]*>新增跟踪<\/button>\s*<button class="button-secondary" id="refresh-tracking-reports"[^>]*>一键更新<\/button>\s*<button class="allocation-ribbon" id="tracking-allocation-mode"[^>]*>配比模式<\/button>/);
+  assert.match(html, /id="open-tracking-form"[^>]*>新增跟踪<\/button>\s*<button class="button-secondary" id="refresh-tracking-reports"[^>]*>一键更新<\/button>\s*<button class="allocation-ribbon" id="tracking-allocation-mode"[^>]*>配比模式<\/button>\s*<!-- DAILY_MONITOR_BUTTON -->/);
   assert.doesNotMatch(html, /data-status-filter="计划加仓"/);
   assert.doesNotMatch(html, /data-status-filter="计划减仓"/);
   assert.match(html, /id="tracking-allocation-view" hidden/);
@@ -268,15 +281,32 @@ test('sidebar exposes the personal position workspace as a first-level tree doma
   assert.match(readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8'), /\.fugui-form\.is-collapsed \.fugui-form-body/);
   assert.match(html, /<section class="view" id="topic-map" data-shell-content="thermometer" aria-labelledby="topic-map-heading">/);
   assert.match(html, /<h2[^>]*id="topic-map-heading"[^>]*>主题<\/h2>/);
-  assert.match(html, /<thead><tr><th>标的<\/th><th>动态价值区间<\/th><th>盘中实时<\/th><th><button class="table-sort-button" type="button" id="tracking-sort-close-performance"[^>]*>收盘表现<\/button><small id="tracking-close-date"><\/small><\/th><th><button class="table-sort-button" type="button" id="tracking-sort-intraday"[^>]*>盈亏比<\/button><\/th><th>监控状态（待实现）<\/th><th>数据来自研报<\/th><th>复盘<\/th><th>星级<\/th><\/tr><\/thead>/);
+  assert.match(html, /<thead><tr><th>标的<\/th><th>公允价值区间<\/th><th>交易定价偏离<\/th><th>盘中实时<\/th><th><button class="table-sort-button" type="button" id="tracking-sort-close-performance"[^>]*>收盘表现<\/button><small id="tracking-close-date"><\/small><\/th><th><button class="table-sort-button" type="button" id="tracking-sort-intraday"[^>]*>盈亏比<\/button><\/th><th>每日估值监控<\/th><th>三要素判断<\/th><th>数据来自研报<\/th><th>复盘<\/th><th>星级<\/th><\/tr><\/thead>/);
   assert.match(html, /<tbody id="holding-tracker-list"><\/tbody>/);
   assert.match(appSource, /DAILY_MONITOR_LINKS/);
   assert.match(appSource, /dailyMonitorLinkForTrackingItem/);
-  assert.match(appSource, /tracking-monitor-link/);
-  assert.match(readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8'), /\.tracking-monitor-link/);
+  assert.doesNotMatch(appSource, /tracking-monitor-link/);
   assert.match(readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8'), /\.tracking-report-links \{ display: flex; flex-direction: column;/);
-  assert.match(artifact, /601208-东材科技-每日监控-2026-08-06\.md/);
-  assert.match(artifact, /盘中监控，非收盘结论/);
+  assert.match(readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8'), /\.tracking-three-factor/);
+  assert.match(readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8'), /\.tracking-three-factor > a/);
+  assert.doesNotMatch(readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8'), /\.tracking-three-factor > strong/);
+  assert.match(appSource, /parseThreeFactorSummary/);
+  assert.match(appSource, /threeFactorSummaryCache/);
+  assert.doesNotMatch(appSource, /threeFactor\.overall/);
+  assert.match(artifact, /id="open-daily-monitor" href="data\/持仓今日监控汇总-\d{4}-\d{2}-\d{2}\.html"/);
+  assert.doesNotMatch(artifact, /id="open-daily-monitor"[^>]*disabled/);
+  assert.match(artifact, /"601208": \{"href":"data\/601208-东材科技-每日监控-\d{4}-\d{2}-\d{2}\.html"/);
+  assert.match(artifact, /"601208": \{"href":"data\/601208-东材科技-每日监控-\d{4}-\d{2}-\d{2}\.html"[^\n]+"valuationReason":"[^"]+"/);
+  assert.match(appSource, /valuationDispositionPresentation/);
+  assert.match(appSource, /trackingCardValue\(documentNode, 'fair-value-range'\)/);
+  assert.match(appSource, /data-tracking-key="pricing-deviation"/);
+  assert.match(appSource, /report\.pricingDeviation/);
+  assert.match(appSource, /colspan="11"/);
+  assert.match(appSource, /tracking-valuation-disposition/);
+  assert.match(appSource, /valuationStatusHtml = monitorLink[\s\S]*?<a class=/);
+  assert.match(readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8'), /\.tracking-valuation-disposition/);
+  assert.match(readFileSync(new URL('../scripts/build.mjs', import.meta.url), 'utf8'), /持仓今日监控汇总-/);
+  assert.match(readFileSync(new URL('../scripts/build.mjs', import.meta.url), 'utf8'), /descriptor\.kind === 'single'/);
   assert.match(html, /id="review-diary-modal"/);
   assert.match(html, /id="review-diary-form"/);
   assert.match(html, /<section class="view" id="review-diary-view" data-shell-content="personal" aria-labelledby="review-diary-view-heading">/);
@@ -286,6 +316,56 @@ test('sidebar exposes the personal position workspace as a first-level tree doma
   assert.match(appSource, /\/api\/tracking-rerender-reports/);
   assert.match(appSource, /data-action="review-diary"[\s\S]*复盘日记/);
   assert.doesNotMatch(html, /tracker-card/);
+});
+
+test('pricing deviation uses the concise judgement stored in the stock report', () => {
+  assert.equal(pricingDeviationFromText('当前判断：严重估值泡沫。'), '严重估值泡沫');
+  assert.equal(pricingDeviationFromText('普通高估，置信度中'), '普通高估');
+  assert.equal(pricingDeviationFromText('可解释估值溢价'), '估值溢价');
+  assert.equal(pricingDeviationFromText('当前判断：公允价值内；四级均未高亮。'), '公允价值内');
+  assert.equal(pricingDeviationFromText('没有相关判断'), '');
+  assert.equal(pricingDeviationToneClass('估值溢价'), 'is-premium');
+  assert.equal(pricingDeviationToneClass('普通高估'), 'is-overvalued');
+  assert.equal(pricingDeviationToneClass('估值泡沫'), 'is-bubble');
+  assert.equal(pricingDeviationToneClass('严重估值泡沫'), 'is-severe');
+  assert.equal(pricingDeviationToneClass('公允价值内'), 'is-neutral');
+  assert.equal(pricingDeviationToneClass('未获取到'), 'is-neutral');
+  const styles = readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8');
+  assert.match(styles, /\.tracking-pricing-deviation\.is-premium \{ color: #17604e; background: #dff3eb; \}/);
+  assert.match(styles, /\.tracking-pricing-deviation\.is-overvalued \{ color: #86610d; background: #fff0bd; \}/);
+  assert.match(styles, /\.tracking-pricing-deviation\.is-bubble \{ color: #9b4d10; background: #ffe3c9; \}/);
+  assert.match(styles, /\.tracking-pricing-deviation\.is-severe \{ color: #a82828; background: #ffe1df; \}/);
+});
+
+test('valuation disposition states have plain-language primary labels', () => {
+  assert.deepEqual(valuationDispositionPresentation('NO_REVALUE'), { label: '维持估值', tone: 'no-revalue' });
+  assert.deepEqual(valuationDispositionPresentation('LIGHT_REVALUE'), { label: '局部重算', tone: 'light-revalue' });
+  assert.deepEqual(valuationDispositionPresentation('FULL_REVALUE'), { label: '完整重估', tone: 'full-revalue' });
+  assert.deepEqual(valuationDispositionPresentation('MANUAL_REVIEW'), { label: '人工判断', tone: 'manual-review' });
+  assert.deepEqual(valuationDispositionPresentation(''), { label: '未提供', tone: 'missing' });
+});
+
+test('three-factor report summary exposes the overall and each factor judgement', () => {
+  const html = `<section class="factor-summary" aria-label="三要素摘要">
+    <div class="factor-card neutral"><p>综合状态</p><strong>尚未形成有利共振</strong></div>
+    <div class="factor-card positive"><p>竞争格局</p><strong>有利</strong></div>
+    <div class="factor-card neutral"><p>流动性</p><strong>中性</strong></div>
+    <div class="factor-card negative"><p>情绪位置</p><strong>不利</strong></div>
+  </section>`;
+
+  assert.deepEqual(parseThreeFactorSummary(html), {
+    overall: { value: '尚未形成有利共振', tone: 'neutral' },
+    competition: { value: '有利', tone: 'positive' },
+    liquidity: { value: '中性', tone: 'neutral' },
+    emotion: { value: '不利', tone: 'negative' },
+  });
+  assert.deepEqual(parseThreeFactorSummary('<p>没有摘要</p>'), {});
+  assert.deepEqual(parseThreeFactorSummary(readFileSync(xingWangRuijieThreeFactorReportPath, 'utf8')), {
+    overall: { value: '尚未形成有利共振', tone: 'neutral' },
+    competition: { value: '中性', tone: 'neutral' },
+    liquidity: { value: '中性', tone: 'neutral' },
+    emotion: { value: '不利', tone: 'negative' },
+  });
 });
 
 test('market summary renders three overview cards and includes signal sources in data audit', () => {
@@ -437,8 +517,8 @@ test('industry panels use the approved feed layout without the tracking card', (
     'industry-report',
     'industry-timeline',
     '产业研报',
-    '云铝股份机构级决策研报',
-    '../../sources/automations/支柱产业/电解铝/2026-07-15-1921-云铝股份机构级决策研报.html',
+    '云铝股份-机构级决策研报',
+    '../../sources/automations/支柱产业/电解铝/2026-07-23-1421-云铝股份-机构级决策研报.html',
     '云铝股份资金面分析',
     '../../sources/automations/支柱产业/电解铝/2026-07-20-云铝股份资金面分析.html',
     '商业航天产业完整分析报告',
@@ -458,7 +538,7 @@ test('industry panels use the approved feed layout without the tracking card', (
     '../../sources/automations/支柱产业/2026-07-18-中国船舶资金面分层分析.html',
     '华明装备机构级决策研报',
     '../../sources/automations/支柱产业/电网/2026-07-15-1514-华明装备机构级决策研报.html',
-    '神马电力机构级决策研报',
+    '神马电力-机构级决策研报',
     '神马电力资金面分层分析',
     '../../sources/automations/新兴产业/电网/2026-07-16-1021-神马电力-机构级决策研报.html',
     '../../sources/automations/支柱产业/电网/2026-07-18-神马电力资金面分层分析.html',
@@ -493,7 +573,7 @@ test('industry panels use the approved feed layout without the tracking card', (
   assert.match(html, /<li class="industry-research-item" data-filters="电网">[\s\S]*十五五电网投资与电网行业完整分析报告/);
   assert.equal(reportCards.some(card => card.includes('十五五电网投资与电网行业完整分析报告')), false);
   assert.match(html, /data-filters="电网"[\s\S]*华明装备机构级决策研报/);
-  assert.match(html, /data-filters="电网"[\s\S]*神马电力机构级决策研报/);
+  assert.match(html, /data-filters="电网"[\s\S]*神马电力-机构级决策研报/);
   assert.doesNotMatch(html, /sources\/automations\/支柱产业\/电网\/2026-07-16-1021-神马电力-机构级决策研报\.html/);
   assert.match(html, /<article class="industry-report" data-filters="">[\s\S]*中国中车机构级决策研报/);
   assert.match(readFileSync(new URL('../src/app.mjs', import.meta.url), 'utf8'), /querySelectorAll\('\.industry-research-item'\)/);
@@ -504,6 +584,8 @@ test('industry panels use the approved feed layout without the tracking card', (
   assert.doesNotMatch(buildSource, /commercialSpaceDir|electricGridDir|pillarFilters|strategicResourceFilters/);
   assert.doesNotMatch(html, /<!-- (?:STRATEGY|EMERGING|PILLAR)_(?:FILTER_TABS|RESEARCH_BOARDS|REPORTS|REPORT_COUNT) -->/);
   assert.doesNotMatch(html, /sources\/automations\/(?:商业航天|电网产业)\//);
+  assert.doesNotMatch(html, /sources\/automations\/[^"']*\/archive\//);
+  assert.match(html, /"云铝股份": "\.\.\/\.\.\/sources\/automations\/支柱产业\/电解铝\/2026-07-23-1421-云铝股份-机构级决策研报\.html"/);
 });
 
 test('industry report links open safely in a new tab', () => {

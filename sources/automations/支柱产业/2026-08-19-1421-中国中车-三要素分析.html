@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>中国中车冰冰小美体系三要素分析</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --positive: #17604e;
+  --positive-bg: #dff3eb;
+  --negative: #a82828;
+  --negative-bg: #ffe1df;
+  --neutral: #7b5b18;
+  --neutral-bg: #fff2cf;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; color: var(--ink); background: var(--paper); font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif; line-height: 1.7; }
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero { padding: 56px 76px 46px; color: #fff; background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%); }
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.research-note { margin: 16px 0 26px; padding: 14px 18px 13px; border: 1px solid #dce5e9; border-left: 4px solid #8ca6b1; border-radius: 8px; color: #526875; background: #f7fafb; }
+.research-note-title { margin: 0 0 7px; color: #58717d; font-size: 12px !important; font-weight: 700; letter-spacing: .08em; }
+.research-note ul { margin: 0; padding-left: 21px; }
+.research-note li { margin: 4px 0; font-size: 13.5px; line-height: 1.65; }
+.research-note li::marker { color: #8ca6b1; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.factor-summary { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin: 26px 0 42px; }
+.factor-card { min-width: 0; padding: 16px; border: 1px solid var(--line); border-radius: 12px; background: #f7f9fa; }
+.factor-card p { margin: 0 0 6px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .06em; }
+.factor-card strong { color: var(--navy); font-size: 18px; line-height: 1.35; }
+.factor-card.positive { background: var(--positive-bg); }
+.factor-card.positive strong { color: var(--positive); }
+.factor-card.negative { background: var(--negative-bg); }
+.factor-card.negative strong { color: var(--negative); }
+.factor-card.neutral { background: var(--neutral-bg); }
+.factor-card.neutral strong { color: var(--neutral); }
+
+@media (max-width: 1100px) { .factor-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 980px) { .hero { padding: 40px 30px 34px; } .layout { grid-template-columns: 1fr; } .toc { border-right: 0; border-bottom: 1px solid var(--line); } .toc-inner { position: static; columns: 2; } .content { padding: 34px 30px 64px; } }
+@media (max-width: 600px) { .toc-inner { columns: 1; } .content { padding: 28px 18px 54px; } .factor-summary { grid-template-columns: 1fr; } }
+@media print { body { background: #fff; } .report-shell { max-width: none; } .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; } .layout { display: block; } .toc { display: none; } .content { padding: 25px 36px; } .content h2 { break-after: avoid; } .content table { display: table; overflow: visible; break-inside: avoid; } .factor-card { border: 1px solid #aebbc2; background: #fff !important; } .research-note { break-inside: avoid; background: #fff; } }
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM THREE-FACTOR ANALYSIS</p>
+      <h1>中国中车冰冰小美体系三要素分析</h1>
+      <div class="hero-meta"><span>个股</span><span>上海证券交易所主板</span><span>2026-08-19 14:21 Asia/Shanghai；行情截至2026-08-18收盘</span><span>2026-08-19 14:21 Asia/Shanghai</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 一句话结论</a>
+<a class="toc-link" href="#section-2">2. 三要素状态总表</a>
+<a class="toc-link" href="#section-3">3. 竞争格局的比较优势</a>
+<a class="toc-link" href="#section-4">4. 流动性辩证分析</a>
+<a class="toc-link" href="#section-5">5. 情绪位置变化</a>
+<a class="toc-link" href="#section-6">6. 综合状态与主导矛盾</a>
+<a class="toc-link" href="#section-7">7. 行动映射</a>
+<a class="toc-link" href="#section-8">8. 数据缺口与置信度</a>
+<a class="toc-link" href="#section-9">9. 来源</a></div></aside>
+      <article class="content"><blockquote>
+<p>对象层级：个股</p>
+<p>市场：上海证券交易所主板</p>
+<p>分析截止时间：2026-08-19 14:21 Asia/Shanghai；行情截至2026-08-18收盘</p>
+<p>报告生成时间：2026-08-19 14:21 Asia/Shanghai</p>
+<p>核心问题：中国中车的国家与产业比较优势，是否已经获得可持续资金承接和合适情绪位置的共同确认？</p>
+</blockquote>
+<section class="factor-summary" aria-label="三要素摘要">
+    <div class="factor-card neutral"><p>综合状态</p><strong>部分有利。</strong></div>
+    <div class="factor-card positive"><p>竞争格局</p><strong>有利</strong></div>
+    <div class="factor-card neutral"><p>流动性</p><strong>中性</strong></div>
+    <div class="factor-card neutral"><p>情绪位置</p><strong>中性</strong></div>
+    <div class="factor-card neutral"><p>总体置信度</p><strong>中。国家政策、行业投资、企业订单和个股量价证据较强；全球同业同口径、资金身份、ETF和板块广度仍不完整。</strong></div>
+  </section>
+<h2 id="section-1">1. 一句话结论</h2>
+
+<ul>
+<li>综合状态：<strong>部分有利</strong>。</li>
+<li>主导要素：<strong>竞争格局</strong>。十五五铁路现代化、设备更新、铁路投资和实际订单共同确认方向资格，中国中车在整车、系统集成、维保与规模交付上具备比较优势。</li>
+<li>拖累要素：<strong>流动性与情绪位置均为中性</strong>。个股订单规模资金代理为正且融资去杠杆，但成交缩量、ETF与主动机构增量缺失；股价处于修复而未扩散阶段，半年报前没有形成交易共振。</li>
+</ul>
+<h2 id="section-2">2. 三要素状态总表</h2>
+
+<table>
+<thead>
+<tr>
+<th>要素</th>
+<th>状态</th>
+<th>核心证据</th>
+<th>核心反证</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>有利</td>
+<td>十五五高铁主通道、铁路现代化和设备更新政策明确；2025铁路投资9,015亿元创新高，2026H1仍+2.1%；中车2025铁路装备收入+11.90%、毛利率提升，4—6月重大合同516.4亿元</td>
+<td>城轨收入下降，新产业增收但毛利率下滑；应收、存货增速快于收入；Siemens Mobility与Alstom在海外订单、服务和项目执行上竞争强</td>
+<td>中</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>中性</td>
+<td>中车近20日订单规模代理净流入6.39亿元，股价+0.83%；融资余额20/60日下降7.75%/23.12%，价格未依赖杠杆加速</td>
+<td>近5日平均成交额低于20日；全市场融资短周期回升；ETF申赎、主动基金和保险持仓未获取到，场外长期增量未证实</td>
+<td>中</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>中性</td>
+<td>股价较52周低点回升约18%，60日+4.86%；近20日横盘且融资下降，未见拥挤</td>
+<td>合同、增持和分红后价格仍在6元附近，利好反应钝化；轨交板块广度缺失，尚无赚钱效应扩散证据</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 竞争格局的比较优势</h2>
+
+<blockquote>
+<p>已按最新版概念页完成“3层 × 5问”内部推演：分别确定比较对象、比较维度、相对优势、趋势和失效条件。正文只展示决策结论，完整取证范围见<a href="../../webpages/2026-08-19-中国中车三要素政策行业与市场证据快照.md">政策行业与市场证据快照</a>。</p>
+</blockquote>
+<h3>国家层：方向与资源配置</h3>
+<ul>
+<li>结论：<strong>有利</strong>。铁路是国家现代化综合交通体系的骨干，十五五继续建设高铁主通道、普速铁路升级和交通基础设施数智化改造；设备更新政策把老旧机车淘汰和新能源机车替代列入落地任务。方向、政策与资源配置均已成立，但这只能传导到轨交装备产业，不能自动推出中国中车获得全部利润。</li>
+<li>国策方向：十五五规划要求基本建成“八纵八横”高速铁路主通道，推进补网强链、普速铁路升级和交通基础设施更新；国家铁路局提出十五五铁路率先基本实现现代化，重点推进安全、数智、绿色与融合发展。</li>
+<li>政策落地：交通运输大规模设备更新行动明确老旧机车淘汰和新能源机车规模化替代；2026年设备更新政策继续支持交通运输领域项目；铁路设备监管体系继续强化许可、质量抽查和技术标准。</li>
+<li>资源配置：2025年全国铁路固定资产投资9,015亿元、同比+6.0%，创历史新高；2026H1完成3,632亿元、同比+2.1%；同期运输设备制造业投资+24.7%，说明财政、国企资本开支和产业资本已进入该方向。</li>
+<li>核心证据：规划、实施方案、监管标准和实际铁路投资构成“战略—落地—资金”的完整证据链；中车516.4亿元重大合同证明部分资源已传导到企业订单。</li>
+<li>核心反证：十五五强调“适度超前、不过度超前”和运营可持续性，铁路建设并非无约束扩张；公开预算和采购资料未披露直接流向中国中车的统一金额，订单利润率与回款仍需企业层验证。</li>
+</ul>
+<aside class="research-note" aria-label="研究提示"><p class="research-note-title">研究提示</p><ul>
+<li>已检索范围：已检查2026年政府工作报告、十五五规划纲要及交通运输部解读、国家铁路局年度工作会议和设备监督会议、交通运输设备更新行动、2026年两新政策、国家铁路固定资产投资、国家统计局制造业投资与产品产量。法律和全国统一政府采购金额未发现更直接的公司专项安排。</li>
+<li>数据缺口：财政、政策性信贷、产业基金和政府采购直接流向中国中车的统一金额；新能源机车更新的年度采购数量；国铁集团与地方轨交业主的完整招标计划。</li>
+<li>下一验证点：十五五铁路专项规划、2027年铁路投资预算、老旧机车更新采购、CR450批量招标和地方城轨设备更新落地。</li>
+<li>失效条件：铁路投资显著收缩、设备更新延后、行业采购转向低价竞争，或政策资源长期无法传导为中车订单和现金利润。</li>
+</ul>
+</aside>
+<h3>产业 / 行业层：利润流向与产业链位置</h3>
+<ul>
+<li>结论：<strong>有利但分化</strong>。当前利润主要流向动车组新造与高级修、货车更新、牵引控制和核心系统环节；中国中车同时覆盖整车集成、关键部件和维保入口，铁路装备位置强化。城轨和新产业的利润质量较弱，降低了集团整体比较优势的纯度。</li>
+<li>核心证据：2025年铁路装备收入1,236.08亿元、同比+11.90%，毛利率25.69%、同比+0.97个百分点；2026H1动车组产量同比+28.9%；中车4—6月合同中动车组新造、货车新造和动车组高级修分别约126.5、100.4和85.9亿元，利润向整车与后市场传导已经出现。</li>
+<li>核心证据：国内产业链中，中国通号聚焦控制系统、时代电气聚焦牵引和功率器件，中国中车掌握整车平台、系统集成、交付和维保入口；这使其能够承接多环节订单，但上游高价值部件利润并不全部留在上市公司母体。</li>
+<li>核心反证：2025年城轨与城市基础设施收入同比-7.37%；新产业收入+19.39%但毛利率下降1.06个百分点。全球方面，Siemens Mobility FY2025利润率8.8%、订单储备520亿欧元，Alstom FY2025/26订单储备1,044亿欧元，海外本地化、服务和项目执行仍是强竞争壁垒。</li>
+</ul>
+<aside class="research-note" aria-label="研究提示"><p class="research-note-title">研究提示</p><ul>
+<li>已检索范围：已检查铁路装备、城轨、新产业分部收入和毛利率，动车组产量、铁路固定资产投资、重大合同结构，国内中国通号和时代电气估值与价格表现，以及Siemens Mobility和Alstom最新订单、收入、利润率、服务和在手订单。</li>
+<li>数据缺口：中国和全球整车、维保、牵引、信号的同口径份额；动车组与高级修单车价格；国内招标价格变化；海外项目毛利、回款和本地化成本；产业资本在整车、系统、部件与服务之间的利润分配。</li>
+<li>下一验证点：2026H1铁路装备与城轨毛利率、重大合同交付、CR450批量订单、高级修收入、海外订单和回款、主要竞争者新订单及利润率。</li>
+<li>失效条件：行业订单增长但招标价格持续下降、铁路装备毛利率跌破约24.5%、城轨继续收缩，或海外竞争者在重点市场扩大份额而中车本地化回报恶化。</li>
+</ul>
+</aside>
+<h3>企业层：谁能获得利润</h3>
+<ul>
+<li>结论：<strong>有利，置信度中等</strong>。相对国内产业链公司，中国中车拥有整车谱系、系统集成、客户认证、规模制造和存量维保入口；相对全球整车企业，其国内客户与完整供应链优势突出。企业获得订单的能力已经证实，但把订单变成现金回报的能力仍弱于其规模优势。</li>
+<li>核心证据：2025年新签订单3,461亿元、期末在手订单3,571亿元；铁路装备毛利率提升；2026Q1收入和归母净利润均增长约10.6%；近期516.4亿元合同覆盖新造、修理、城轨、机车和新产业，说明产品与客户准入具有持续性。</li>
+<li>核心证据：中车20日股价+0.83%，同期中国通号-6.12%、时代电气+1.10%；估值PE(TTM)12.83倍、PB 0.99倍，未因行业地位支付高溢价，企业竞争优势与股票定价没有明显透支。</li>
+<li>核心反证：2021—2025应收账款和存货分别增长约60%和55%，快于收入约21%的增幅；2026Q1经营现金流-90.84亿元、同比扩大流出。规模、订单和央企信用尚未充分转化为高ROIC与稳定现金回报。</li>
+</ul>
+<aside class="research-note" aria-label="研究提示"><p class="research-note-title">研究提示</p><ul>
+<li>已检索范围：已检查产品谱系、订单与在手订单、分部毛利、客户与准入、收入利润、经营现金流、应收存货、估值和成长空间；国内参照中国通号、时代电气，全球参照Siemens Mobility和Alstom。</li>
+<li>数据缺口：同口径全球整车市占率、项目准时交付率、售后服务利润率、研发效率、海外项目ROIC、客户采购份额、招标价格和中车各核心子公司的现金利润。</li>
+<li>下一验证点：2026-08-20半年报的铁路装备毛利率、经营现金流、应收存货和新产业毛利率；控股股东后续增持；重大合同交付与回款。</li>
+<li>失效条件：订单无法转为收入利润、经营现金流持续恶化、应收存货继续显著快于收入、铁路装备毛利率下滑，或全球关键市场准入与份额持续丢失。</li>
+</ul>
+</aside>
+<h3>本要素判断</h3>
+<ul>
+<li>状态：<strong>有利</strong>。</li>
+<li>理由：国家层的方向、政策和资源配置均有一手证据；产业层的铁路装备与高级修利润池正在改善；企业层的订单、谱系、准入和交付规模支持相对优势。反证主要集中在现金转化、城轨、新产业利润率和海外本地化，不足以否定方向资格，但把置信度限制在中等。</li>
+</ul>
+<aside class="research-note" aria-label="研究提示"><p class="research-note-title">研究提示</p><ul>
+<li>主导证据：铁路投资、设备更新、动车组产量与中车合同共同形成“资源投入—行业产出—企业订单”传导链。</li>
+<li>核心缺口：全球与国内同口径份额、价格和服务利润；中车订单到现金利润的转化效率。</li>
+<li>下一验证点：2026年半年报和后续CR450、高级修与海外订单。</li>
+<li>失效条件：国家资源收缩且铁路装备利润率、份额与现金回报同步恶化时，下调为中性或不利。</li>
+</ul>
+</aside>
+<h2 id="section-4">4. 流动性辩证分析</h2>
+
+<blockquote>
+<p>核心边界：成交量只是结果。本节区分钱的来源、持续性、股票供给和退出承接，不把缩量横盘直接写成流动性有利。</p>
+</blockquote>
+<h3>宏观流动性</h3>
+<ul>
+<li>事实与时点：美联储2026-07-29将联邦基金利率维持在3.50%—3.75%，通胀仍高于目标；中国10年国债收益率2026-08-05约1.71%，国内长端利率仍低。</li>
+<li>对对象的影响：<strong>中性</strong>。美元资金成本仍约束全球风险偏好和海外项目融资，但中国中车是低估值、高股息央企，国内低利率对其相对估值构成一定支撑。美元指数、人民币即期汇率和钢材同窗口完整序列未取得，不能上调为有利。</li>
+</ul>
+<h3>中观流动性</h3>
+<ul>
+<li>事实与时点：中国2026年7月M2同比+7.7%、M1同比+4.0%，剪刀差-3.7个百分点；1年期和5年以上LPR分别3.0%和3.5%。2026H1铁路投资3,632亿元、同比+2.1%，运输设备制造业投资+24.7%。</li>
+<li>传导判断：货币存量和政策利率支持实体融资，但M1弱于M2，说明全社会交易活性并未同步扩张。铁路方向的财政与国企资本开支已经落地，属于产业资源配置，不等同于二级市场长期资金净流入。</li>
+<li>对对象的影响：<strong>中性偏支持</strong>。实体订单资金确定性高于股票市场资金确定性。</li>
+</ul>
+<h3>微观流动性</h3>
+<ul>
+<li>事实与时点：中国中车截至2026-08-18收于6.04元，5/20/60日分别+1.00%/+0.83%/+4.86%；5/20日平均成交额7.05/10.08亿元，换手率0.51%。近5/20日订单规模代理净流入0.38/6.39亿元；融资余额28.89亿元，20/60日-7.75%/-23.12%。</li>
+<li>迁移路径：价格横盘、订单流偏正且融资快速下降，说明承接更接近存量配置与控股股东小额增持，而不是杠杆追涨。同期中国通号20日-6.12%、时代电气+1.10%，轨交方向内部强弱分化，尚未形成板块扩散。</li>
+<li>对对象的影响：<strong>短期支持、中期中性</strong>。去杠杆而价格不跌是积极结构，但成交缩量、ETF与主动机构缺失，不能确认场外真实增量形成连续趋势。</li>
+</ul>
+<h3>资金来源分类</h3>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>是否存在</th>
+<th>渠道与证据</th>
+<th>持续性</th>
+<th>退出条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>场外真实增量</td>
+<td>是，但规模有限</td>
+<td>控股股东增持计划1.5亿—3亿元，首次已买入2,818.50万元</td>
+<td>低至中</td>
+<td>计划执行停滞、市场买入规模显著低于计划或增持期结束</td>
+</tr>
+<tr>
+<td>存量迁移</td>
+<td>是</td>
+<td>中车20日订单规模代理净流入6.39亿元，价格表现强于中国通号、接近时代电气</td>
+<td>低至中</td>
+<td>订单流连续转负、相对同业强度转弱或资金切换其他高股息方向</td>
+</tr>
+<tr>
+<td>减量报团</td>
+<td>证据不足</td>
+<td>中车低换手、融资去化，但缺少全市场和轨交板块广度、ETF份额与主动仓位</td>
+<td>低</td>
+<td>若市场广度收窄而中车独立上涨、ETF赎回，则需改判为减量报团</td>
+</tr>
+</tbody></table>
+<h3>供给与抛压</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>当前事实</th>
+<th>对流动性的影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>杠杆资金</td>
+<td>个股融资余额20/60日-7.75%/-23.12%；全市场融资余额5/20/60日+1.25%/-1.00%/-8.01%</td>
+<td>个股去杠杆快于市场，降低被动平仓风险；短周期市场杠杆回升仍需观察</td>
+</tr>
+<tr>
+<td>股票融资供给</td>
+<td>本次公告检索未发现正在执行的A股增发、配股或可转债</td>
+<td>未见明确新增股票供给，但不等于未来没有资本运作</td>
+</tr>
+<tr>
+<td>减持与解禁</td>
+<td>控股股东处于增持期；未来90日完整股东减持与解禁表未获取到</td>
+<td>已知控制股东方向偏承接，完整潜在卖压仍有缺口</td>
+</tr>
+<tr>
+<td>套牢盘与高位筹码</td>
+<td>当前较52周高点8.23元低26.6%，增持后阶段高点约6.33元</td>
+<td>6.3元以上至历史高位存在套牢盘，缩量上行会面临承接检验</td>
+</tr>
+</tbody></table>
+<h3>最低数据检查</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>已检查数据</th>
+<th>数据时点与窗口</th>
+<th>来源</th>
+<th>缺口及影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观</td>
+<td>美联储利率、中国10年国债、外部风险表述</td>
+<td>2026-07-29至08-18</td>
+<td>美联储、中国债券信息网</td>
+<td>美元指数、人民币即期、钢材价格完整窗口缺失，限制跨境与成本判断</td>
+</tr>
+<tr>
+<td>中观</td>
+<td>M2/M1、LPR、铁路与运输设备投资</td>
+<td>2026年7月及2026H1</td>
+<td>库内货币快照、央行授权报价、国家铁路局、国家统计局</td>
+<td>7月社融结构、央行逐日净投放和铁路信贷结构缺失</td>
+</tr>
+<tr>
+<td>微观</td>
+<td>价格、成交、换手、同业、订单流代理、个股与市场融资</td>
+<td>当日及5/10/20/60日</td>
+<td>本地Tushare</td>
+<td>ETF、主动基金、保险、外资、板块广度与账户身份缺失</td>
+</tr>
+<tr>
+<td>供给与抛压</td>
+<td>增持、融资、公告与52周价格</td>
+<td>当前及未来增持期</td>
+<td>公司公告快照、本地Tushare</td>
+<td>完整减持、解禁、筹码成本与做空回补缺失</td>
+</tr>
+</tbody></table>
+<h3>证据</h3>
+<ul>
+<li>个股融资余额60日下降23.12%，股价同期上涨4.86%，价格未依赖杠杆接力。</li>
+<li>近20日订单规模代理净流入6.39亿元，股价横盘偏强，存在结构性承接。</li>
+<li>控股股东增持已经实际成交，属于可识别但规模较小的场外资金来源。</li>
+</ul>
+<h3>反证</h3>
+<ul>
+<li>近5日成交额低于20日均值，增量承接没有通过活跃度扩张确认。</li>
+<li>全市场融资余额5日回升1.25%，短周期杠杆风险偏好正在回升；个股与市场方向分化需要持续观察。</li>
+<li>轨交ETF份额、主动基金和保险资金数据缺失，不能把订单流代理解释为长期机构配置。</li>
+</ul>
+<h3>退出路径</h3>
+<ul>
+<li>第一条路径是半年报不及预期后，6.0元附近存量承接撤退；第二条路径是价格上行至6.3元以上遇到套牢盘，而成交和ETF增量不足；第三条路径是全市场杠杆重新增加后出现风险偏好反转，带动高股息央企被动减仓。</li>
+<li>观察指标：6.00/5.70元承接、6.33元阶段高点、20日订单流、个股和全市场融资余额、控股股东增持执行、轨交或央企ETF份额。</li>
+</ul>
+<h3>失效条件</h3>
+<ul>
+<li>若半年报改善后，订单流连续20日为正、成交额回到20日均值以上、融资不加速且ETF出现连续净申购，则“流动性中性”失效，应上调为有利。</li>
+<li>若价格跌破5.70元，订单流连续转负、融资余额由去化转为高位加速或控股股东停止执行，则当前承接判断失效，应下调为不利。</li>
+</ul>
+<h2 id="section-5">5. 情绪位置变化</h2>
+
+<h3>证据</h3>
+<ul>
+<li>情绪阶段：<strong>修复，但尚未扩散</strong>。</li>
+<li>股价较52周低点5.12元回升约18%，60日+4.86%；近20日仅+0.83%，说明恐慌已缓解但没有进入趋势扩散。</li>
+<li>融资余额持续下降、换手率仅0.51%，未出现杠杆追涨、极端换手或大面积获利盘拥挤。</li>
+<li>20日内中国通号-6.12%、时代电气+1.10%、中国中车+0.83%，轨交产业链表现分化，没有形成全板块一致赚钱效应。</li>
+</ul>
+<h3>反证</h3>
+<ul>
+<li>重大合同、控股股东增持和分红实施后，价格从阶段高点约6.33元回到6.04元，利好边际反应偏弱。</li>
+<li>当前仍较52周高点低26.6%，6.3元以上存在套牢盘；半年报前资金更偏等待，不足以确认修复转为扩散。</li>
+<li>未取得板块涨跌广度、涨停扩散、ETF申赎和机构净买入，情绪阶段只能给中等置信度。</li>
+</ul>
+<h3>失效条件</h3>
+<ul>
+<li>若半年报后价格放量站稳6.33元，轨交同业20日多数上涨、订单流和ETF份额同步改善，则“修复未扩散”失效，可转为扩散并把情绪状态上调为有利。</li>
+<li>若跌破5.70元且同业、资金流和市场广度同步转弱，则修复失败并进入退潮，情绪状态下调为不利。</li>
+</ul>
+<h2 id="section-6">6. 综合状态与主导矛盾</h2>
+
+<ul>
+<li>综合状态：<strong>部分有利</strong>。</li>
+<li>主导矛盾：方向资格和企业承接能力已经得到政策、投资、产量和订单证实；但股票流动性仍是去杠杆后的存量平衡，情绪只处于修复早期。产业资源进入不等于二级市场新增资金进入，更不等于当前立即买入。</li>
+<li>下一验证点：2026-08-20半年报的经营现金流、铁路装备毛利率、新产业毛利率与应收存货；随后观察价格能否非杠杆化站稳6.33元、ETF与同业广度是否扩散。</li>
+<li>综合失效条件：若半年报和后续订单证明现金利润改善，且流动性和情绪同时上调为有利，则升级为同步有利；若铁路装备利润与现金转化恶化、价格跌破5.70元并出现资金撤退，则可能降为尚未形成有利共振或同步不利。</li>
+</ul>
+<h2 id="section-7">7. 行动映射</h2>
+
+<h3>新增现金（buy / wait / observe / review）</h3>
+<table>
+<thead>
+<tr>
+<th>行动</th>
+<th>条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>wait</td>
+<td>当前维持。竞争格局有利，但半年报次日披露，流动性与情绪均未形成有利共振；不在事件前用“国策、订单、低PB”代替现金流验证。半年报显示经营现金流明显收窄、铁路装备毛利率维持约25%、新产业毛利率止跌，且价格不高于6.1元时，再评估是否由wait升级。</td>
+</tr>
+</tbody></table>
+<h3>已有持仓（sell / reduce / wait / observe / review）</h3>
+<table>
+<thead>
+<tr>
+<th>行动</th>
+<th>条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>review</td>
+<td>当前维持。复核持仓成本、仓位与半年报现金流；竞争格局尚未恶化，不因缩量横盘机械卖出，也不因低PB机械加仓。</td>
+</tr>
+<tr>
+<td>reduce</td>
+<td>若半年报经营现金流继续同比恶化、铁路装备毛利率明显低于约24.5%，同时股价跌破5.70元且20日订单流转负，则比较优势向财务回报的传导失败，可条件化降低暴露。</td>
+</tr>
+</tbody></table>
+<h2 id="section-8">8. 数据缺口与置信度</h2>
+
+<ul>
+<li>数据缺口：国家层缺财政、信贷、产业资本和政府采购直接流向中国中车的统一金额；行业层缺国内外同口径整车、维保、信号和牵引份额、招标价格与服务利润；企业层缺项目交付率、海外ROIC和核心子公司现金利润。流动性与情绪层缺轨交/央企ETF申赎、主动公募、保险、外资和国家队连续持仓、全板块广度、未来90日完整减持解禁、筹码成本和做空回补。</li>
+<li>已检查范围：最新版三要素概念页；2026年政府工作报告、十五五规划、铁路与设备更新政策、铁路投资和国家统计数据；中国中车2025年报、2026Q1、重大合同、增持和分红；Siemens Mobility与Alstom最新公开结果；本地Tushare截至2026-08-18的中车、中国通号、时代电气行情、订单流和融资数据；美联储2026-07-29公告及中国货币数据快照。</li>
+<li>影响：可以确认轨交装备方向资格和中国中车订单承接优势，但不能确认其全球份额继续扩大，也不能确认二级市场已获得可持续场外增量。因此竞争格局为有利，流动性与情绪均只定中性。</li>
+<li>总体置信度：<strong>中</strong>。国家政策、行业投资、企业订单和个股量价证据较强；全球同业同口径、资金身份、ETF和板块广度仍不完整。</li>
+</ul>
+<h2 id="section-9">9. 来源</h2>
+
+<h3>Wiki依据</h3>
+<ul>
+<li><a href="../../../wiki/topics/冰冰小美-情绪体系认知篇.md">冰冰小美体系三要素总框架</a>。</li>
+<li><a href="../../../wiki/concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势.md">竞争格局的比较优势：3层 × 5问模型</a>。</li>
+<li><a href="../../../wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md">流动性辩证分析</a>。</li>
+<li><a href="../../../wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化.md">情绪位置的变化</a>。</li>
+</ul>
+<h3>当前数据</h3>
+<ul>
+<li><a href="../../webpages/2026-08-19-中国中车三要素政策行业与市场证据快照.md">中国中车三要素政策、行业与市场证据快照</a>：国家规划、政策落地、资源配置、行业位置、全球同业和市场资金证据。</li>
+<li><a href="../../webpages/2026-08-19-中国中车v3.0.2研报数据核验快照.md">中国中车v3.0.2研报数据核验快照</a>：公司行情、估值、资金、融资、财务和公告数据。</li>
+<li><a href="../../papers/中国中车机构研报-2026-07-16/中国中车2025年年度报告.pdf.md">中国中车2025年年度报告</a>：分部、订单、财务与经营信息。</li>
+<li><a href="../../papers/中国中车机构研报-2026-07-16/中国中车2026年第一季度报告.pdf.md">中国中车2026年第一季度报告</a>：最新季度财务与现金流。</li>
+<li><a href="../../../workbench/targets/2026-07-16-1334-中国中车机构级决策研报.md">中国中车机构级决策研报</a>：公司价值边界和估值结论。</li>
+<li><a href="https://www.mot.gov.cn/xinwen/jiaotongyaowen/202603/t20260316_4201890.html">十五五现代化综合交通运输体系部署</a>：高铁主通道、铁路升级与交通基础设施更新。</li>
+<li><a href="https://www.ndrc.gov.cn/xwdt/ztzl/tddgmsbgxhxfpyjhx/gzdt/202407/t20240718_1391800.html">交通运输大规模设备更新行动方案</a>：老旧机车更新与新能源机车替代。</li>
+<li><a href="https://source.nra.gov.cn/xwzx/xwxx/xwlb/202601/t20260115_350424.shtml">2025年全国铁路投资与运输指标</a>：铁路投资9,015亿元及客货运数据。</li>
+<li><a href="https://www.stats.gov.cn/xxgk/jd/sjjd2020/202607/t20260716_1964141.html">2026年上半年装备制造业运行</a>：运输设备增加值与动车组产量。</li>
+<li><a href="https://assets.new.siemens.com/siemens/assets/api/uuid%3A428ea18a-e7ab-4f93-a160-33908f1c3540/Siemens-Annual-Report-2025.pdf">Siemens Annual Report 2025</a>：Mobility订单、收入、利润率和在手订单。</li>
+<li><a href="https://www.alstom.com/press-releases-news/2026/5/alstoms-fiscal-year-202526-results">Alstom FY2025/26 Results</a>：订单、收入、利润率、现金流和在手订单。</li>
+<li><a href="https://www.federalreserve.gov/newsevents/pressreleases/monetary20260729a.htm">Federal Reserve FOMC statement, 2026-07-29</a>：美国政策利率与通胀表述。</li>
+</ul>
+</article>
+    </div>
+  </main>
+</body>
+</html>

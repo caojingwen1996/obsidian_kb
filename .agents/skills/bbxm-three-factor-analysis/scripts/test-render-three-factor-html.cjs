@@ -27,8 +27,11 @@ assert.match(skillContract, /workbench\/targets\//);
 assert.match(skillContract, /sources\/automations\/<分类>\//);
 assert.match(skillContract, /render-three-factor-html\.cjs/);
 assert.match(skillContract, /3 层 × 5 问模型/);
+assert.match(skillContract, /扩张 \/ 平衡 \/ 转弱 \/ 收缩 \/ 修复 \/ 证据不足/);
 assert.match(skillContract, /> \[!note\] 研究提示/);
 assert.match(reportTemplate, /artifact_type: three_factor_analysis/);
+assert.match(reportTemplate, /^### 流动性阶段判定$/m);
+assert.match(reportTemplate, /^- 当前状态：<扩张 \/ 平衡 \/ 转弱 \/ 收缩 \/ 修复 \/ 证据不足>$/m);
 assert.equal((reportTemplate.match(/^> \[!note\] 研究提示$/gm) || []).length, 4);
 assert.equal((reportTemplate.match(/^- 核心证据：/gm) || []).length, 3);
 assert.equal((reportTemplate.match(/^- 核心反证：/gm) || []).length, 3);
@@ -37,7 +40,7 @@ assert.doesNotMatch(reportTemplate, /^> - 核心反证：/m);
 assert.equal((reportTemplate.match(/^## \d+\./gm) || []).length, 9);
 
 const bodies = sections.map((name, index) => {
-  if (index === 0) return `## 1. ${name}\n\n- 综合状态：部分有利\n- 主导要素：竞争格局\n- 拖累要素：流动性`;
+  if (index === 0) return `## 1. ${name}\n\n- 综合状态：部分有利\n- 流动性阶段：修复\n- 主导要素：竞争格局\n- 拖累要素：流动性`;
   if (index === 1) return `## 2. ${name}\n\n| 要素 | 状态 | 核心证据 | 核心反证 | 置信度 |\n|---|---|---|---|---|\n| 竞争格局 | 有利 | 证据 | 反证 | 高 |\n| 流动性辩证分析 | 中性 | 证据 | 反证 | 中 |\n| 情绪位置变化 | 不利 | 证据 | 反证 | 中 |`;
   if (index === 7) return `## 8. ${name}\n\n- 数据缺口：无\n- 已检查范围：公开资料\n- 影响：有限\n- 总体置信度：中`;
   if (index === 8) return `## 9. ${name}\n\n- [[wiki/topics/冰冰小美-情绪体系认知篇|体系依据]]`;
@@ -57,6 +60,7 @@ assert.match(html, /部分有利/);
 assert.match(html, /factor-card neutral[^>]*><p>综合状态<\/p><strong>部分有利<\/strong>/);
 assert.match(html, /竞争格局/);
 assert.match(html, /流动性/);
+assert.match(html, /factor-card neutral[^>]*><p>流动性<\/p><strong>中性 \/ 修复<\/strong>/);
 assert.match(html, /情绪位置/);
 assert.match(html, /总体置信度/);
 assert.match(html, /class="research-note"/);

@@ -94,10 +94,13 @@ function statusClass(value) {
 }
 
 function renderSummaryCards(summary) {
+  const liquidityDirection = summary['流动性辩证分析'] || '未获取';
+  const liquidityStage = summary['流动性阶段'];
+  const liquiditySummary = liquidityStage ? `${liquidityDirection} / ${liquidityStage}` : liquidityDirection;
   const cards = [
     ['综合状态', summary['综合状态'] || '未获取'],
     ['竞争格局', summary['竞争格局'] || '未获取'],
-    ['流动性', summary['流动性辩证分析'] || '未获取'],
+    ['流动性', liquiditySummary],
     ['情绪位置', summary['情绪位置变化'] || '未获取'],
     ['总体置信度', summary['总体置信度'] || '未获取'],
   ];

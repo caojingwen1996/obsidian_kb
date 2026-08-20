@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>兴业银锡冰冰小美体系三要素分析</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --positive: #17604e;
+  --positive-bg: #dff3eb;
+  --negative: #a82828;
+  --negative-bg: #ffe1df;
+  --neutral: #7b5b18;
+  --neutral-bg: #fff2cf;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; color: var(--ink); background: var(--paper); font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif; line-height: 1.7; }
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero { padding: 56px 76px 46px; color: #fff; background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%); }
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.research-note { margin: 16px 0 26px; padding: 14px 18px 13px; border: 1px solid #dce5e9; border-left: 4px solid #8ca6b1; border-radius: 8px; color: #526875; background: #f7fafb; }
+.research-note-title { margin: 0 0 7px; color: #58717d; font-size: 12px !important; font-weight: 700; letter-spacing: .08em; }
+.research-note ul { margin: 0; padding-left: 21px; }
+.research-note li { margin: 4px 0; font-size: 13.5px; line-height: 1.65; }
+.research-note li::marker { color: #8ca6b1; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.factor-summary { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin: 26px 0 42px; }
+.factor-card { min-width: 0; padding: 16px; border: 1px solid var(--line); border-radius: 12px; background: #f7f9fa; }
+.factor-card p { margin: 0 0 6px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .06em; }
+.factor-card strong { color: var(--navy); font-size: 18px; line-height: 1.35; }
+.factor-card.positive { background: var(--positive-bg); }
+.factor-card.positive strong { color: var(--positive); }
+.factor-card.negative { background: var(--negative-bg); }
+.factor-card.negative strong { color: var(--negative); }
+.factor-card.neutral { background: var(--neutral-bg); }
+.factor-card.neutral strong { color: var(--neutral); }
+
+@media (max-width: 1100px) { .factor-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 980px) { .hero { padding: 40px 30px 34px; } .layout { grid-template-columns: 1fr; } .toc { border-right: 0; border-bottom: 1px solid var(--line); } .toc-inner { position: static; columns: 2; } .content { padding: 34px 30px 64px; } }
+@media (max-width: 600px) { .toc-inner { columns: 1; } .content { padding: 28px 18px 54px; } .factor-summary { grid-template-columns: 1fr; } }
+@media print { body { background: #fff; } .report-shell { max-width: none; } .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; } .layout { display: block; } .toc { display: none; } .content { padding: 25px 36px; } .content h2 { break-after: avoid; } .content table { display: table; overflow: visible; break-inside: avoid; } .factor-card { border: 1px solid #aebbc2; background: #fff !important; } .research-note { break-inside: avoid; background: #fff; } }
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM THREE-FACTOR ANALYSIS</p>
+      <h1>兴业银锡冰冰小美体系三要素分析</h1>
+      <div class="hero-meta"><span>个股</span><span>深圳证券交易所主板</span><span>2026-08-19 16:03 Asia/Shanghai；行情与订单分档截至8月19日，融资融券截至8月18日</span><span>2026-08-19 16:03 Asia/Shanghai</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 一句话结论</a>
+<a class="toc-link" href="#section-2">2. 三要素状态总表</a>
+<a class="toc-link" href="#section-3">3. 竞争格局的比较优势</a>
+<a class="toc-link" href="#section-4">4. 流动性辩证分析</a>
+<a class="toc-link" href="#section-5">5. 情绪位置变化</a>
+<a class="toc-link" href="#section-6">6. 综合状态与主导矛盾</a>
+<a class="toc-link" href="#section-7">7. 行动映射</a>
+<a class="toc-link" href="#section-8">8. 数据缺口与置信度</a>
+<a class="toc-link" href="#section-9">9. 来源</a></div></aside>
+      <article class="content"><blockquote>
+<p>对象层级：个股</p>
+<p>市场：深圳证券交易所主板</p>
+<p>分析截止时间：2026-08-19 16:03 Asia/Shanghai；行情与订单分档截至8月19日，融资融券截至8月18日</p>
+<p>报告生成时间：2026-08-19 16:03 Asia/Shanghai</p>
+<p>核心问题：银锡资源紧平衡和国家资源保障方向，能否在银漫矿业停产约束下继续转化为兴业银锡的相对利润优势；最新资金与情绪是否已经形成可持续确认？</p>
+</blockquote>
+<section class="factor-summary" aria-label="三要素摘要">
+    <div class="factor-card neutral"><p>综合状态</p><strong>尚未形成有利共振。</strong></div>
+    <div class="factor-card neutral"><p>竞争格局</p><strong>中性</strong></div>
+    <div class="factor-card negative"><p>流动性</p><strong>不利 / 转弱，上一可辨识状态为修复，转换为“修复 → 转弱”。</strong></div>
+    <div class="factor-card negative"><p>情绪位置</p><strong>不利</strong></div>
+    <div class="factor-card neutral"><p>总体置信度</p><strong>中。流动性证据为中高置信度；竞争和情绪受复产、半年报、同业成本及账户数据缺口限制，为中等置信度。</strong></div>
+  </section>
+<h2 id="section-1">1. 一句话结论</h2>
+
+<ul>
+<li>综合状态：<strong>尚未形成有利共振</strong>。</li>
+<li>流动性阶段：<strong>转弱</strong>，上一可辨识状态为修复，转换为“修复 → 转弱”。</li>
+<li>主导要素：<strong>竞争格局中性</strong>。银锡中长期供需、资源政策和公司高毛利资源禀赋偏有利，但银漫占2025年及2026Q1收入55.12%/45.15%，采矿、选矿尾矿系统停产且尚无可核验复产公告，企业“资源优势”暂未转化为“在产优势”。</li>
+<li>拖累要素：<strong>流动性与情绪均不利</strong>。股价20日仍修复13.33%，但5日跌10.35%、8月19日放量跌7.34%；大额订单在5/10/20/60日均净流出，短期融资回补没有形成有效承接，情绪已由修复后的分歧转入退潮。</li>
+</ul>
+<h2 id="section-2">2. 三要素状态总表</h2>
+
+<table>
+<thead>
+<tr>
+<th>要素</th>
+<th>状态</th>
+<th>核心证据</th>
+<th>核心反证</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>中性</td>
+<td>国家强化锡等战略矿产保障；银锡收入占2025年营收68.87%，毛利率58.71%/67.84%，经营现金流强</td>
+<td>核心银漫全面停产且复产时点未知；资源和利润高度集中；同业逐矿成本与在产率缺失</td>
+<td>中</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>不利</td>
+<td>20日股价+13.33%、全口径资金+11.02亿元，说明上一阶段确有修复</td>
+<td>5日股价-10.35%、8月19日-7.34%；大额订单5/10/20/60日全为净流出；融资短线回补未阻止下跌</td>
+<td>中高</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>不利</td>
+<td>银锡紧平衡、强业绩和扩产叙事仍有基本面支点，20日仍为正收益</td>
+<td>利好已充分可见，银漫复产缺席；短线快速回撤、60日-17.64%，资源内部资金从银锡转向黄金</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 竞争格局的比较优势</h2>
+
+<blockquote>
+<p>已按最新版概念页完成“3层 × 5问”内部推演。完整参照系、比较维度、优势变化与失效条件见<a href="../../../webpages/2026-08-19-兴业银锡三要素政策行业与市场证据快照.md">政策行业与市场证据快照</a>；正文只保留影响决策的证据与反证。</p>
+</blockquote>
+<h3>国家层：方向与资源配置</h3>
+<ul>
+<li>结论：<strong>方向有利，资源传导有资格但未形成公司级直接配置闭环</strong>。国家把锡等战略矿产的增储上产、矿权投放、伴生资源利用和绿色矿山列入稳增长与“十五五”找矿部署；兴业银锡的银锡资源与银漫扩建符合方向，但政策资格不能替代安全许可、复产和实际产量。</li>
+<li>国策方向：工信部《有色金属行业稳增长工作方案（2025—2026年）》要求加强国内找矿、锡矿权有序投放、低品位与伴生资源综合利用，并发展高纯金属和贵金属功能材料；自然资源系统2026年继续部署战略性矿产增储上产与资源基地动态管理。</li>
+<li>政策落地：资源安全通过矿权、项目许可、绿色矿山、技改和综合利用标准落地。银漫297万吨/年扩建项目已取得用地批复，计划2028年四季度带料试车，属于远期供给能力，不支持2026年当期盈利。</li>
+<li>资源配置：政策列示矿权“绿色通道”、技术改造、绿色融资及超长期特别国债等渠道；本次未取得财政、政策性信贷、政府采购或产业资本直接流向兴业银锡核心项目的统一金额。</li>
+<li>核心证据：国家层对国内优质银锡矿权的方向与许可价值有利，公司既有矿权和扩建资格能够承接资源安全政策。</li>
+<li>核心反证：矿山安全监管本身也是政策约束。银漫事故后全面停产说明，资源方向只有经过复产、产量和现金流才能转化为企业利润。</li>
+</ul>
+<aside class="research-note" aria-label="研究提示"><p class="research-note-title">研究提示</p><ul>
+<li>已检索范围：有色金属稳增长方案、自然资源系统“十五五”找矿部署、战略矿产资源基地、矿权与扩建许可、绿色矿山、技改与融资渠道。</li>
+<li>数据缺口：政策资金直接流向公司的金额、扩建安全与施工许可完整清单、银漫复产审批进度。</li>
+<li>下一验证点：银漫整改及复产公告、扩建开工许可、年度资源储量与资本开支更新。</li>
+<li>失效条件：国内资源保障政策转向，或公司因安全、环保、许可与融资约束不能把矿权转化为持续产量。</li>
+</ul>
+</aside>
+<h3>产业 / 行业层：利润流向与产业链位置</h3>
+<ul>
+<li>结论：<strong>利润仍偏向上游优质在产矿山，但银锡已从单边涨价转入高波动与供给分化</strong>。白银连续多年缺口、锡在电子与数字基础设施中的关键用途支撑上游位置；真正获利的是“低成本且持续在产”的矿山，不只是拥有资源量的企业。</li>
+<li>核心证据：工信部披露2026Q1国内锡均价同比上涨48.6%、白银上涨167%，有色采矿业利润同比增长95.6%；白银协会预计2026年连续第六年出现供需缺口，总供给仅增约1.5%、矿产银约增1%。</li>
+<li>核心证据：国际锡业协会预计电子、半导体、AI数据中心等需求推动锡消费到2030年增长约20%，并提示现有矿山供给能力在2028年前后可能不足。</li>
+<li>核心反证：白银协会预计2026年工业需求下降2%，光伏节银与替代持续；国际锡业协会指出年初锡价上涨含明显投机因素，小市场容易剧烈修正。PT Timah一季度产量同比增长81.9%，说明供给可以恢复。</li>
+<li>核心反证：银锡矿山缺少独立定价权，产品价格由全球商品市场决定；价格、汇率和下游替代可以快速改变利润流向。</li>
+</ul>
+<aside class="research-note" aria-label="研究提示"><p class="research-note-title">研究提示</p><ul>
+<li>已检索范围：银锡价格与采矿利润、白银供需缺口、光伏节银、实物投资、锡电子需求、海外供给恢复和价格投机性。</li>
+<li>数据缺口：全球银锡成本曲线、主要矿山停复产清单、国内实时库存、光伏单位耗银和再生供给连续序列。</li>
+<li>下一验证点：白银工业需求与投资需求、锡库存和印尼/缅甸供应、银锡价格对2025—2026中枢的回归幅度。</li>
+<li>失效条件：替代和供应恢复快于终端需求，银锡价格跌破成本曲线关键区间，使上游超额利润显著收缩。</li>
+</ul>
+</aside>
+<h3>企业层：谁能获得利润</h3>
+<ul>
+<li>结论：<strong>相对优势真实但当前被在产率约束，不能判为有利</strong>。公司资源结构、分部毛利率和现金转化优于一般低品位矿企；相对盛达、锡业、西部、山金和山东黄金，缺少逐矿成本、在产率和资源品位的统一口径，而核心银漫的全面停产使近期利润获取能力弱化。</li>
+<li>核心证据：2025年银、锡收入21.76/16.50亿元，合计占营收68.87%，毛利率58.71%/67.84%；全年经营现金流24.88亿元、自由现金流代理19.60亿元，证明高价阶段利润能够转为现金。</li>
+<li>核心证据：2026Q1营收21.30亿元、归母净利润13.38亿元、扣非8.91亿元，分别同比+85.32%/+257.32%/+137.89%；H1预告归母21.40—23.70亿元，说明涨价与资源并购曾有效兑现。</li>
+<li>核心反证：银漫2025年和2026Q1收入占公司55.12%/45.15%；7月30日披露采矿、选矿尾矿系统均停产，截至8月19日未取得可核验复产公告。停产直接打断从资源、产量到利润的链条。</li>
+<li>核心反证：2025年曾发生事故并停产，2026年重复发生一人死亡事故；Q1银、锡产量环比分别约下降11.6%/24.4%。公司扩建和并购抬升未来资源量，也提高资本开支、整合与借款成本。</li>
+<li>核心反证：8月19日PB 5.90倍高于多数列示同业，但估值只用于识别市场预期，不参与本要素评分；缺少同业逐矿现金成本和停复产后的正式盈利修订，无法证明当前仍有稳定的相对盈利优势。</li>
+</ul>
+<aside class="research-note" aria-label="研究提示"><p class="research-note-title">研究提示</p><ul>
+<li>已检索范围：2025年分部与现金流、2026Q1、H1预告、银漫事故与停产、扩建项目、并购与借款；盛达、锡业、西部、山金、山东黄金的行情和估值。</li>
+<li>数据缺口：银漫复产与日均损失、库存销售、整改成本；同业逐矿成本、品位、回收率、在产率和2026H1正式分部数据。</li>
+<li>下一验证点：复产公告、8月29日半年报、Q3银锡产量和现金流、融资成本、同业中报。</li>
+<li>失效条件：若复产延迟、产量与现金流下修、事故重复或成本上升，则中性可降为不利；若复产、成本和产量相对同业形成共同确认，则可上调为有利。</li>
+</ul>
+</aside>
+<h3>本要素判断</h3>
+<ul>
+<li>状态：<strong>中性</strong>。</li>
+<li>理由：国家层明确支持战略矿产保障，行业层银锡紧平衡把利润推向上游，公司层也有高毛利资源和强现金流历史；但比较优势要求“相对、可兑现、可持续”。银漫停产使公司失去近期在产率确认，且重复安全事故与同业成本缺口限制结论，因此既不能把资源禀赋直接判为有利，也不能因一次停产否定其全部资源价值。</li>
+</ul>
+<aside class="research-note" aria-label="研究提示"><p class="research-note-title">研究提示</p><ul>
+<li>主导证据：银锡高毛利和历史现金转化真实存在，但占收入近半至过半的银漫尚未提供复产确认。</li>
+<li>核心缺口：复产时点及产量损失、同业逐矿成本和在产率、2026H1正式经营现金流。</li>
+<li>下一验证点：银漫复产、8月29日半年报、Q3产销量、同业中报和银锡价格。</li>
+<li>失效条件：复产与现金利润确认可上调；停产延长、成本恶化或价格回落导致利润显著下修则下调。</li>
+</ul>
+</aside>
+<h2 id="section-4">4. 流动性辩证分析</h2>
+
+<blockquote>
+<p>核心边界：成交额、涨跌和估值都是结果或偏好。本节区分钱的来源、持续性、股票供给和退出路径；订单分档不等于机构身份。</p>
+</blockquote>
+<h3>宏观流动性</h3>
+<ul>
+<li>事实与时点：美联储H.15显示2026年8月美国长端无风险利率仍处高位；国内货币存量总体充裕，但本次未取得8月同日M1/M2、社融、美元指数和人民币汇率的完整可比序列。银价既受避险与投资需求支持，也受实际利率和美元约束。</li>
+<li>对对象的影响：<strong>中性偏约束</strong>。宏观环境可以支持贵金属配置，却不能证明资金必然进入银锡矿股；外部利率和商品高波动使高弹性资源股更易发生风险偏好收缩。</li>
+</ul>
+<h3>中观流动性</h3>
+<ul>
+<li>事实与时点：全市场融资余额截至2026-08-18为26,708.69亿元；5/10日+0.89%/+2.55%，20/60日-1.03%/-8.24%，融资净买入分别+330.19/+783.94/-269.75/-2,452.34亿元。</li>
+<li>传导判断：市场杠杆是短期回补、中期去化，属于存量再配置而非全面扩张。未取得银锡ETF、公募、保险、北向或产业资本同窗口持续净流入证据。</li>
+<li>对对象的影响：<strong>中性偏约束</strong>。银锡价格和业绩能够吸引事件资金，但没有板块级真实增量与长期资金扩散的闭环。</li>
+</ul>
+<h3>微观流动性</h3>
+<ul>
+<li>事实与时点：8月19日收盘35.96元，日跌7.34%，成交29.61亿元、换手4.55%；近5/10/20/60日收益-10.35%/-0.94%/+13.33%/-17.64%。5日均成交23.46亿元，低于20日均值27.38亿元，但8月19日下跌成交显著放大。</li>
+<li>事实与时点：近5/10/20/60日全口径订单分档净额-5.81/+1.62/+11.02/-22.81亿元；大单与特大单合计-8.32/-7.66/-3.93/-21.72亿元。20日上涨没有获得大额订单确认。</li>
+<li>事实与时点：个股融资余额截至8月18日为42.95亿元；5/10/20/60日余额+0.20%/+2.00%/-1.24%/-9.00%，融资净买入+0.58/+1.58/-0.95/-5.36亿元。短线融资回补未阻止8月19日放量下跌。</li>
+<li>迁移路径：资金先围绕银锡涨价和强业绩完成20日修复，随后在银漫复产缺席、价格高波动和资源板块分化中退出；8月19日山东黄金上涨6.50%，而兴业银锡、锡业股份、盛达资源分别下跌7.34%/7.04%/5.38%，更接近银锡向黄金的内部切换，不是所有贵金属同步撤退。</li>
+<li>对对象的影响：<strong>不利</strong>。大额订单持续退出、融资只做短线承接，价格已经由修复转向风险释放。</li>
+</ul>
+<h3>资金来源分类</h3>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>是否存在</th>
+<th>渠道与证据</th>
+<th>持续性</th>
+<th>退出条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>场外真实增量</td>
+<td>证据不足</td>
+<td>缺银锡ETF、公募、保险、北向和产业资本连续流量；全市场融资20/60日仍下降</td>
+<td>低</td>
+<td>ETF份额、长期机构持仓与板块广度连续改善后才确认</td>
+</tr>
+<tr>
+<td>存量迁移</td>
+<td>是</td>
+<td>20日价格+13.33%、全口径资金+11.02亿元，但大额订单-3.93亿元</td>
+<td>低至中</td>
+<td>银锡价格回落、复产不及预期或资金切换至黄金与其他资源方向</td>
+</tr>
+<tr>
+<td>减量报团</td>
+<td>证据不足</td>
+<td>中期市场融资去化而个股曾修复，但同业表现分化、当前已放量下跌</td>
+<td>低</td>
+<td>若市场继续去杠杆且资金再度集中于少数银锡股才可确认</td>
+</tr>
+</tbody></table>
+<h3>供给与抛压</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>当前事实</th>
+<th>对流动性的影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>杠杆资金</td>
+<td>融资余额42.95亿元；5/10日回升、20/60日下降</td>
+<td>短期提供承接，但下跌时可能放大止损与被动卖压</td>
+</tr>
+<tr>
+<td>股票融资供给</td>
+<td>本次未发现正在执行的大额增发、配股或可转债</td>
+<td>新增筹码有限，不能抵消存量退出压力</td>
+</tr>
+<tr>
+<td>减持与解禁</td>
+<td>未取得未来90日完整减持、解禁与质押清单</td>
+<td>证据缺口限制供给判断，需持续核验公告</td>
+</tr>
+<tr>
+<td>套牢盘与高位筹码</td>
+<td>35.96元较250日高点74.80元低51.9%，20日反弹后5日快速回撤</td>
+<td>中期套牢盘与近期追涨筹码共同提高承接压力</td>
+</tr>
+</tbody></table>
+<h3>最低数据检查</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>已检查数据</th>
+<th>数据时点与窗口</th>
+<th>来源</th>
+<th>缺口及影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观</td>
+<td>美国长端利率、国内货币环境、银锡商品风险偏好</td>
+<td>2026年6月至8月</td>
+<td>美联储H.15、公开宏观与行业数据</td>
+<td>美元/人民币、同日M1/M2和社融序列不完整，宏观层只作约束判断</td>
+</tr>
+<tr>
+<td>中观</td>
+<td>银锡供需、全市场融资、资源内部同业表现</td>
+<td>截至08-18/08-19</td>
+<td>行业协会、本地Tushare</td>
+<td>银锡ETF、公募、保险、北向、产业资本流量缺失</td>
+</tr>
+<tr>
+<td>微观</td>
+<td>价格、成交、换手、五家同业、订单分档、个股融资</td>
+<td>1/5/10/20/60日，截至08-19；融资08-18</td>
+<td>本地Tushare</td>
+<td>账户身份、筹码成本、做空回补缺失</td>
+</tr>
+<tr>
+<td>供给与抛压</td>
+<td>融资、再融资检索、价格区间</td>
+<td>当前及未来90日检索</td>
+<td>公司公告、本地Tushare</td>
+<td>完整减持解禁、质押和股东筹码缺失</td>
+</tr>
+</tbody></table>
+<h3>证据</h3>
+<ul>
+<li>20日股价+13.33%、全口径订单分档净额+11.02亿元，证明上一可辨识状态确实是修复，而非持续收缩。</li>
+<li>个股融资20/60日下降，全市场融资20/60日也下降，尚未看到个股杠杆中期逆势堆积。</li>
+<li>本次未发现显著新增股票融资供给，股票供给端不是当前主要矛盾。</li>
+</ul>
+<h3>反证</h3>
+<ul>
+<li>5日股价-10.35%、8月19日放量跌7.34%，最新短周期方向已经逆转。</li>
+<li>大额订单5/10/20/60日均净流出；20日价格和全口径资金为正，主要资金质量却未确认。</li>
+<li>融资5/10日回补而价格继续下跌，承接效率恶化；银锡同业同步下跌、黄金同业上涨，显示资金切换。</li>
+</ul>
+<h3>退出路径</h3>
+<ul>
+<li>第一条是银漫复产继续缺席或半年报暴露停产、产量和现金流影响，事件资金退出；第二条是银锡价格从高波动区间回落，周期资金切换至黄金或其他资源；第三条是融资短线回补遭遇反弹筹码和中期套牢盘，大额订单继续借承接退出。</li>
+<li>观察指标：复产公告、20日大额订单、个股与市场融资、银锡ETF份额、35—38元区间承接、银锡价格、8月29日半年报与Q3产量。</li>
+</ul>
+<h3>失效条件</h3>
+<ul>
+<li>若复产与半年报确认产量、扣非利润和经营现金流，20日大额订单转正、融资不加速且股价重新站稳38.8元，则“不利/转弱”失效，可进入修复并重评方向。</li>
+<li>若价格继续下跌、大额订单维持净流出且融资余额开始同步快速下降，或银锡价格与业绩预期下修，则转弱可能进入收缩。</li>
+</ul>
+<h3>流动性阶段判定</h3>
+<ul>
+<li>方向评价：<strong>不利</strong>。</li>
+<li>当前状态：<strong>转弱</strong>。</li>
+<li>上一可辨识状态或基准状态：<strong>修复</strong>。</li>
+<li>转换方向：<strong>修复 → 转弱</strong>。</li>
+<li>跨层依据：宏观层外部无风险利率和商品高波动构成约束；中观层市场融资短期回补而中期去化，缺少银锡长期增量；微观层20日修复后5日快速回撤，8月19日放量下跌，大额订单全窗口流出，融资短线承接无效。三个层级共同指向修复动能衰减。</li>
+<li>相邻状态排除理由：<strong>不是修复</strong>，因为最新5日、当日价格、大额订单与融资效率均已恶化；<strong>不是平衡</strong>，因为资金退出与价格下跌正在增强，非稳定均衡；<strong>不是收缩</strong>，因为20日价格和全口径资金仍为正，个股融资20/60日已去化但尚未出现加速平仓，价格—杠杆—被动卖出的自我强化链条尚未闭合。</li>
+<li>置信度：<strong>中高</strong>。价格、成交、订单分档、个股与市场融资的多窗口证据完整，且转折清晰；资金账户身份、ETF和筹码数据缺失，因此不判高置信度。</li>
+</ul>
+<h2 id="section-5">5. 情绪位置变化</h2>
+
+<h3>证据</h3>
+<ul>
+<li>状态：<strong>不利</strong>；阶段：<strong>退潮</strong>。</li>
+<li>银锡价格上涨、2026Q1与H1强利润、银漫扩建和资源并购均已公开，市场对“资源+涨价+扩产”的叙事已有充分认知；新的最关键事实反而是银漫停产尚未出现可核验复产节点。</li>
+<li>股价20日+13.33%，说明此前完成一轮预期修复；随后5日-10.35%、8月19日-7.34%，且60日-17.64%，表明修复后的多头一致性正在瓦解。</li>
+<li>8月19日银锡矿企普跌而黄金同业上涨，说明风险偏好并非简单离开全部贵金属，而是从高波动银锡向相对稳健黄金切换。</li>
+<li>PE(TTM)23.94倍、PB5.90倍以及此前机构级研报的估值判断只作为“市场已计入较多盈利预期”的情绪辅助，不参与竞争和流动性评分。</li>
+</ul>
+<h3>反证</h3>
+<ul>
+<li>20日收益仍为正、20日全口径资金净流入11.02亿元，情绪尚未跌入冰点。</li>
+<li>融资20/60日下降而非持续堆积，尚未看到拥挤杠杆集中踩踏；如果复产和半年报超预期，退潮可以快速转为分歧修复。</li>
+<li>未取得舆情热度、卖方盈利修订、ETF申赎和账户持仓，无法证明市场已形成全面悲观共识。</li>
+</ul>
+<h3>失效条件</h3>
+<ul>
+<li>若银漫复产、半年报利润质量与Q3产量共同超预期，股价重新站稳38.8元且20日大额订单转正，退潮判断失效，可上调为中性并进入修复。</li>
+<li>若价格跌破本轮修复起点、银锡价格下修、融资开始加速撤退并出现恐慌抛售，则当前不利状态延续，阶段可能从退潮走向冰点。</li>
+</ul>
+<h2 id="section-6">6. 综合状态与主导矛盾</h2>
+
+<ul>
+<li>综合状态：<strong>尚未形成有利共振</strong>。</li>
+<li>主导矛盾：国家与行业提供银锡资源的方向资格，公司也曾以高毛利和现金流证明资源价值；但核心矿山停产使企业承接能力降为中性，二级市场又从20日修复切换到放量转弱与情绪退潮。当前关键不是银锡长期有没有价值，而是银漫何时恢复可售产量，以及恢复前的利润预期由谁承接。</li>
+<li>下一验证点：银漫复产公告；8月29日半年报的扣非利润、经营现金流、分部产量和停产影响；20日大额订单、融资余额、银锡价格及Q3产销量。</li>
+<li>综合失效条件：若复产、半年报与资金共同确认，可升级为部分有利；若停产延长、利润与现金流下修，同时流动性进入收缩、情绪继续退潮，则可能降为同步不利。</li>
+</ul>
+<h2 id="section-7">7. 行动映射</h2>
+
+<h3>新增现金（buy / wait / observe / review）</h3>
+<table>
+<thead>
+<tr>
+<th>行动</th>
+<th>条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>wait</td>
+<td>当前维持。竞争格局只有中性，流动性不利且由修复转弱，情绪退潮；等待银漫复产或8月29日半年报至少形成一个基本面确认，并要求20日大额订单转正、融资不加速、价格重新站稳38.8元中的两项共同确认后再评估。</td>
+</tr>
+</tbody></table>
+<h3>已有持仓（sell / reduce / wait / observe / review）</h3>
+<table>
+<thead>
+<tr>
+<th>行动</th>
+<th>条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>review</td>
+<td>当前维持。复核持仓成本、仓位、银漫停产时长和银锡价格假设；20日仍处正收益且尚未进入流动性收缩，不把单日下跌机械等同于长期资源价值消失。</td>
+</tr>
+<tr>
+<td>reduce</td>
+<td>若银漫复产继续延迟，半年报或后续公告下修产量、扣非利润与现金流，同时20日大额订单持续净流出、融资开始加速撤退且价格跌破本轮修复起点，则基本面兑现与资金承接同时失效，可条件化降低暴露。</td>
+</tr>
+</tbody></table>
+<h2 id="section-8">8. 数据缺口与置信度</h2>
+
+<ul>
+<li>数据缺口：银漫复产审批、停产损失、库存销售、整改成本和Q3分矿产量；同业逐矿现金成本、品位、回收率与在产率；银锡ETF、公募、保险、北向、产业资本、账户身份、筹码成本和完整减持解禁；8月同日宏观序列。</li>
+<li>已检查范围：最新版三要素概念页；有色稳增长与战略矿产政策；白银和锡行业协会供需资料；公司2025年、2026Q1、H1预告、银漫停产和扩建；本地Tushare截至8月19日的量价、订单分档、同业相对表现，以及截至8月18日的个股与市场融资。</li>
+<li>影响：足以识别政策资格、行业利润流向、公司停产约束，以及“20日修复—5日转弱”的资金和情绪迁移；但不能精确量化停产盈利损失、逐矿相对成本或资金账户身份。</li>
+<li>总体置信度：<strong>中</strong>。流动性证据为中高置信度；竞争和情绪受复产、半年报、同业成本及账户数据缺口限制，为中等置信度。</li>
+</ul>
+<h2 id="section-9">9. 来源</h2>
+
+<h3>Wiki依据</h3>
+<ul>
+<li><a href="../../../../wiki/topics/冰冰小美-情绪体系认知篇.md">冰冰小美体系三要素总框架</a>。</li>
+<li><a href="../../../../wiki/concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势.md">竞争格局的比较优势：3层 × 5问模型</a>。</li>
+<li><a href="../../../../wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md">流动性辩证分析</a>。</li>
+<li><a href="../../../../wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化.md">情绪位置的变化</a>。</li>
+</ul>
+<h3>当前数据</h3>
+<ul>
+<li><a href="../../../webpages/2026-08-19-兴业银锡三要素政策行业与市场证据快照.md">兴业银锡三要素政策、行业与市场证据快照</a>：国家、行业、企业三层五问底稿，以及宏观、中观、微观流动性和情绪证据。</li>
+<li><a href="../../../webpages/2026-08-18-兴业银锡机构级研究更新快照.md">兴业银锡机构级研究更新快照</a>：财务、估值、公告、矿山和8月18日前行情资金复核。</li>
+<li><a href="../../../../workbench/targets/2026-07-23-1732-兴业银锡-机构级决策研报.md">兴业银锡机构级决策研报</a>：公司价值和估值边界；<strong>不参与本报告三要素评分</strong>。</li>
+<li><a href="https://www.miit.gov.cn/jgsj/ycls/ysjs/art/2025/art_1b4bc1c83c9f479ea38be24cfca7db46.html">工业和信息化部：有色金属行业稳增长工作方案（2025—2026年）</a>：战略矿产保障、矿权、综合利用和高端材料方向。</li>
+<li><a href="https://wap.miit.gov.cn/jgsj/ycls/ysjs/art/2026/art_e7f7db9f5d394eb98f27d9dbde0e6592.html">工业和信息化部：2026年一季度有色金属行业运行情况</a>：银锡价格、行业产量与采矿利润。</li>
+<li><a href="https://www.cgs.gov.cn/ywdt/ddyw/202606/t20260616_862702.html">中国地质调查局：“十五五”找矿突破战略行动部署</a>：战略性矿产增储上产与资源综合利用。</li>
+<li><a href="https://silverinstitute.org/global-silver-investment-to-remain-strong-in-2026-against-the-backdrop-of-a-sixth-consecutive-annual-market-deficit/">Silver Institute：2026年白银供需展望</a>：连续第六年缺口、供给、投资和工业需求。</li>
+<li><a href="https://silverinstitute.org/elevated-lease-rates-regional-liquidity-tightness-and-robust-investor-interest-resulted-in-record-silver-prices-in-2025/">Silver Institute：World Silver Survey 2026摘要</a>：价格波动、地区流动性与光伏替代。</li>
+<li><a href="https://www.internationaltin.org/tin-hits-nominal-all-time-high/">International Tin Association：2026年初锡价评述</a>：供给扰动、投机活动与小市场波动风险。</li>
+<li><a href="https://www.internationaltin.org/making-the-future-ita-chairman-addresses-the-international-tin-conference/">International Tin Association：2030年锡需求与供给展望</a>：电子与数字需求、现有供给能力约束。</li>
+<li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12131356&stockid=000426">兴业银锡2025年年度报告</a>：分部收入、毛利率、现金流和银漫经营占比。</li>
+<li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12276935&stockid=000426">兴业银锡2026年第一季度报告</a>：最新正式财务与银漫收入。</li>
+<li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12444524&stockid=000426">兴业银锡2026年半年度业绩预告</a>：归母、扣非与非经常性损益区间。</li>
+<li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12442420&stockid=000426">银漫矿业扩建用地批复公告</a>：297万吨/年扩建与2028年四季度计划。</li>
+<li><a href="https://finance.eastmoney.com/a/202607303826965697.html">银漫矿业采矿、选矿尾矿系统停产公开转载</a>：事故、停产范围与业绩影响不确定性。</li>
+<li><a href="https://www.federalreserve.gov/releases/h15/">Federal Reserve H.15</a>：美国利率环境。</li>
+</ul>
+</article>
+    </div>
+  </main>
+</body>
+</html>

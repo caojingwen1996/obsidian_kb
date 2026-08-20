@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="daily-monitor-date" content="2026-08-06">
+  <title>持仓今日监控</title>
+  <style>
+    :root { color-scheme: light; --ink:#10263a; --muted:#607284; --line:#dce4ea; --blue:#246fd0; --surface:#fff; --page:#f3f6f8; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--page); color:var(--ink); font:14px/1.72 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; }
+    main { width:min(1180px,calc(100% - 32px)); margin:28px auto 56px; padding:30px clamp(20px,4vw,54px); background:var(--surface); border:1px solid var(--line); border-radius:14px; box-shadow:0 16px 44px rgba(20,42,62,.08); }
+    h1 { margin:0 0 24px; font-size:clamp(26px,4vw,38px); line-height:1.25; }
+    h2 { margin:38px 0 16px; padding-bottom:9px; border-bottom:2px solid #d6e3f2; font-size:22px; }
+    h3 { margin:30px 0 12px; font-size:18px; }
+    h4 { margin:24px 0 10px; font-size:15px; }
+    p, li { max-width:88ch; }
+    blockquote { margin:14px 0; padding:10px 14px; border-left:4px solid var(--blue); background:#f3f7fc; color:#36526b; }
+    code { padding:2px 5px; border-radius:4px; background:#eef2f5; font-size:.92em; }
+    table { display:block; width:100%; overflow-x:auto; border-collapse:collapse; margin:12px 0 20px; font-size:12px; }
+    th,td { min-width:112px; padding:9px 10px; border:1px solid var(--line); text-align:left; vertical-align:top; }
+    th { background:#f4f7fa; color:#41576b; white-space:nowrap; }
+    a { color:var(--blue); text-underline-offset:3px; }
+    .report-meta { display:flex; flex-wrap:wrap; gap:8px; margin:-12px 0 26px; color:var(--muted); font-size:12px; }
+    .report-meta span { padding:5px 9px; border:1px solid var(--line); border-radius:999px; background:#f8fafb; }
+    .valuation-status { display:inline-flex; align-items:baseline; gap:6px; padding:3px 7px; border-radius:6px; font-size:12px; white-space:nowrap; }
+    .valuation-status small { font-size:9px; opacity:.72; }
+    .valuation-status--no_revalue { background:#edf5f2; color:#176c5c; }
+    .valuation-status--light_revalue { background:#fff6dc; color:#785b12; }
+    .valuation-status--full_revalue { background:#fff0e8; color:#a0441f; }
+    .valuation-status--manual_review { background:#f2ecfb; color:#634194; }
+    @media (max-width:640px) { main { width:100%; margin:0; padding:22px 16px 42px; border:0; border-radius:0; } h2 { font-size:19px; } }
+    @media print { body { background:#fff; } main { width:100%; margin:0; border:0; box-shadow:none; } }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="report-meta"><span>2026-08-06</span><span>HTML 阅读版</span><span>不构成买卖指令</span></div>
+    <h1 id="_1">持仓今日监控</h1>
+<h2 id="_2">一、监控概览</h2>
+<ul>
+<li>监控日期：2026-08-06</li>
+<li>数据截止时间：2026-08-06 14:35 左右，盘中</li>
+<li>监控状态：盘中监控，非收盘结论</li>
+<li>监控标的数量：1</li>
+<li>正常标的数量：0</li>
+<li>出现异常标的数量：1</li>
+<li>待人工复盘数量：1</li>
+<li>逻辑强化数量：0</li>
+<li>逻辑削弱数量：0</li>
+<li>逻辑失效数量：0</li>
+<li>数据缺失数量：3</li>
+<li>阈值说明：采用默认规则</li>
+</ul>
+<h2 id="_3">二、重点变化摘要</h2>
+<table>
+<thead>
+<tr>
+<th>标的</th>
+<th>变化类型</th>
+<th>核心变化</th>
+<th>影响判断</th>
+<th>关联假设</th>
+<th>是否待复盘</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>兴业银锡</td>
+<td>近5日强修复 / 估值上沿触及</td>
+<td>14:35 左右报 37.55 元，盘中 +3.44%；盘中最高 38.91 元，一度超过研报 28—38 元估值区间上沿；近5日约 +18.08%</td>
+<td>基本面暂无新增证伪，但价格已经重新接近乐观预期区，需要复核收盘承接、金属价格和安全事故影响</td>
+<td>H1 银锡价格、H2 产量释放、H4 估值上沿、H5 资金承接</td>
+<td>是</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_4">三、逐标的监控</h2>
+<h3 id="000426sz">兴业银锡（000426.SZ）</h3>
+<h4 id="1">1. 收盘表现</h4>
+<ul>
+<li>最新价格：37.55 元，盘中价</li>
+<li>当日涨跌幅：+3.44%</li>
+<li>本周涨跌幅：约 +19.93%，按 2026-08-03 收盘 31.31 元至当前价估算</li>
+<li>近5日涨跌幅：约 +18.08%，按 2026-07-31 收盘 31.80 元至当前价估算</li>
+<li>行业指数涨跌幅：未获取到；参考上证指数 +0.53%、深证成指 -0.28%、创业板指 -0.50%</li>
+<li>相对市场表现：明显跑赢深证成指约 3.72 个百分点</li>
+<li>成交额：约 46.25 亿元，盘中</li>
+<li>成交量较20日均值：约 1.80 倍，尚未达到默认 2 倍阈值，但接近放量异常</li>
+<li>换手率：约 6.86%</li>
+<li>动态估值区间：28—38 元 / 股</li>
+<li>当前估值位置：约 95.5%</li>
+<li>估值状态：合理偏高，接近区间上沿；盘中高点已高于区间上限</li>
+</ul>
+<h4 id="2">2. 异常波动</h4>
+<ul>
+<li>是否触发异常：是</li>
+<li>触发规则：近5日累计涨幅超过 10%；明显跑赢深证成指超过 3 个百分点；盘中最高价突破动态估值区间上限</li>
+<li>异常程度：中高</li>
+<li>已确认原因：可以确认价格与成交强修复；公告端未见 2026-08-06 盘中新重大公告</li>
+<li>未确认事项：今日资金分档、融资融券、龙虎榜、银价 / 锡价当日变化，以及 7 月末子公司安全事故的实际生产影响</li>
+<li>是否需要人工核实：是</li>
+</ul>
+<h4 id="3">3. 公司公告</h4>
+<table>
+<thead>
+<tr>
+<th>时间</th>
+<th>公告</th>
+<th>核心事实</th>
+<th>影响范围</th>
+<th>关联假设</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2026-08-01</td>
+<td>关于以场外要约收购方式收购 Far East Gold Limited 的进展公告</td>
+<td>海外资源收购继续推进，属于资源扩张期权</td>
+<td>远期资源增量 / 并购整合</td>
+<td>H3 / H6</td>
+<td>东方财富公告列表</td>
+</tr>
+<tr>
+<td>2026-07-31</td>
+<td>关于子公司发生安全事故的进展公告</td>
+<td>7 月末安全事故有进展公告，需核实停产、整改、赔偿或监管影响</td>
+<td>生产连续性 / 安全环保风险</td>
+<td>H2 / H7</td>
+<td>东方财富公告列表</td>
+</tr>
+<tr>
+<td>2026-07-30</td>
+<td>完成补选非独立董事、担保进展、临时股东会决议</td>
+<td>治理与担保事项更新，暂未直接改变主业判断</td>
+<td>治理 / 融资支持</td>
+<td>弱关联 H6</td>
+<td>东方财富公告列表</td>
+</tr>
+<tr>
+<td>2026-07-15</td>
+<td>2026 年半年度业绩预告</td>
+<td>预计 H1 归母净利润 21.40—23.70 亿元，同比 +168.95% 至 +197.86%；扣非 16.90—19.20 亿元，同比 +110.87% 至 +139.57%</td>
+<td>盈利验证</td>
+<td>H1 / H2</td>
+<td>本地研报与公告列表</td>
+</tr>
+</tbody>
+</table>
+<p>本次盘中未发现 2026-08-06 新增重大公告。</p>
+<h4 id="4">4. 产业新闻</h4>
+<table>
+<thead>
+<tr>
+<th>时间</th>
+<th>产业事件</th>
+<th>核心事实</th>
+<th>影响路径</th>
+<th>关联假设</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2026-07 至 8 月</td>
+<td>银锡资源景气仍是核心变量</td>
+<td>当前监控未取得 2026-08-06 当日银价、锡价权威收盘数据</td>
+<td>银 / 锡价格 → 收入与毛利 → 估值中枢</td>
+<td>H1 / H4</td>
+<td>数据缺口</td>
+</tr>
+<tr>
+<td>2026-07-14</td>
+<td>银漫矿业 297 万吨/年扩建工程项目取得建设用地批复</td>
+<td>项目远期扩建已推进，但预计 2028Q4 带料试车，不是当期利润</td>
+<td>远期产能期权 → 乐观估值上沿</td>
+<td>H3 / H4</td>
+<td>本地研报</td>
+</tr>
+</tbody>
+</table>
+<p>与今日盘中股价强修复相比，产业端没有取得足以单独上修核心判断的新事实。</p>
+<h4 id="5">5. 关键指标变化</h4>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th style="text-align: right;">最新值</th>
+<th style="text-align: right;">上期值</th>
+<th>变化方向</th>
+<th>是否异常</th>
+<th>数据日期</th>
+<th>关联假设</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>股价</td>
+<td style="text-align: right;">37.55 元</td>
+<td style="text-align: right;">36.30 元</td>
+<td>上行</td>
+<td>是</td>
+<td>2026-08-06 盘中</td>
+<td>H4 / H5</td>
+<td>腾讯行情</td>
+</tr>
+<tr>
+<td>当日涨跌幅</td>
+<td style="text-align: right;">+3.44%</td>
+<td style="text-align: right;">+8.81%（2026-08-05）</td>
+<td>连续修复</td>
+<td>否，单日未达 5%；但趋势强</td>
+<td>2026-08-06 盘中</td>
+<td>H5</td>
+<td>腾讯行情</td>
+</tr>
+<tr>
+<td>近5日涨跌幅</td>
+<td style="text-align: right;">+18.08%</td>
+<td style="text-align: right;">未单独记录</td>
+<td>上行</td>
+<td>是</td>
+<td>2026-08-06 盘中</td>
+<td>H4 / H5</td>
+<td>腾讯 K 线</td>
+</tr>
+<tr>
+<td>成交额</td>
+<td style="text-align: right;">46.25 亿元</td>
+<td style="text-align: right;">2026-08-05 成交量 97.37 万手</td>
+<td>放大</td>
+<td>接近异常</td>
+<td>2026-08-06 盘中</td>
+<td>H5</td>
+<td>腾讯行情 / K 线</td>
+</tr>
+<tr>
+<td>估值区间位置</td>
+<td style="text-align: right;">95.5%</td>
+<td style="text-align: right;">37.3%（2026-07-30 收盘 31.50 元）</td>
+<td>明显上移</td>
+<td>是</td>
+<td>2026-08-06 盘中</td>
+<td>H4</td>
+<td>本地研报估值区间</td>
+</tr>
+<tr>
+<td>融资余额</td>
+<td style="text-align: right;">未获取到</td>
+<td style="text-align: right;">2026-07-29 约 43.27 亿元</td>
+<td>待验证</td>
+<td>数据缺口</td>
+<td>截至本次监控</td>
+<td>H5</td>
+<td>本地资金快照</td>
+</tr>
+<tr>
+<td>子公司安全事故影响</td>
+<td style="text-align: right;">未获取到</td>
+<td style="text-align: right;">7 月底有进展公告</td>
+<td>待验证</td>
+<td>是</td>
+<td>截至本次监控</td>
+<td>H2 / H7</td>
+<td>公告列表</td>
+</tr>
+</tbody>
+</table>
+<h4 id="6">6. 系统初步影响判断</h4>
+<ul>
+<li>当前判断：无实质影响，但待人工复盘</li>
+<li>受影响假设：</li>
+<li>H1：银价 / 锡价高景气能继续支撑利润；</li>
+<li>H2：现有矿山和宇邦矿业产量释放能够持续兑现；</li>
+<li>H3：银漫扩建、海外资源收购等远期资源期权逐步推进；</li>
+<li>H4：28—38 元估值区间仍是价格约束；</li>
+<li>H5：资金承接能否从短线强修复变成持续承接；</li>
+<li>H7：安全生产和环保监管不对主业造成实质扰动。</li>
+<li>支持证据：股价近5日强修复，盘中成交活跃；H1 业绩预告仍是基本面改善的核心证据。</li>
+<li>反向证据：盘中最高 38.91 元已越过估值区间上沿；7 月底子公司安全事故进展公告需要核实实际生产影响；今日资金分档和融资融券未获取到。</li>
+<li>影响路径：价格强修复 → 估值接近乐观上沿 → 若银锡价格和 H1 正式报表继续验证，则可支撑高位；若资金承接转弱或安全事故影响生产，则高位估值容错下降。</li>
+<li>影响持续性：短期偏强，仍需收盘价、盘后公告和后续 3—5 日资金验证。</li>
+<li>判断置信度：中</li>
+<li>是否需要人工复盘：是</li>
+<li>是否建议更新研报：暂不覆盖原研报；建议增加今日盘中监控备注。</li>
+</ul>
+<h4 id="7">7. 待办事项</h4>
+<ul>
+<li>待核实事项：2026-08-06 收盘价、成交额、龙虎榜或资金分档；盘后是否有新增公告；子公司安全事故进展对生产是否有实质影响。</li>
+<li>建议补充数据：当日银价 / 锡价、融资融券、北向或大单资金、H1 正式报告。</li>
+<li>下一次复盘时间：2026-08-06 收盘后或 2026-08-07 盘前。</li>
+<li>建议复盘重点：38 元上方是否有基本面上修证据，还是银锡资源股情绪和资金驱动的估值重定价。</li>
+</ul>
+<h2 id="_5">四、待人工复盘清单</h2>
+<table>
+<thead>
+<tr>
+<th>优先级</th>
+<th>标的</th>
+<th>触发原因</th>
+<th>关联假设</th>
+<th>需要完成的复盘</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>兴业银锡</td>
+<td>近5日约 +18.08%，盘中高点突破估值区间上沿</td>
+<td>H4 / H5</td>
+<td>收盘后复核成交、资金、估值位置和是否需要调整风险预算</td>
+</tr>
+<tr>
+<td>2</td>
+<td>兴业银锡</td>
+<td>子公司安全事故有进展公告，但本轮未取得详细影响</td>
+<td>H2 / H7</td>
+<td>阅读公告全文，确认停产、整改、赔偿、监管和产量影响</td>
+</tr>
+<tr>
+<td>3</td>
+<td>兴业银锡</td>
+<td>资源并购与银漫扩建支撑远期空间，但不直接进入当期利润</td>
+<td>H3 / H4</td>
+<td>区分当期业绩兑现与远期资源期权，避免重复计入估值</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_6">五、研报更新建议</h2>
+<table>
+<thead>
+<tr>
+<th>标的</th>
+<th>是否建议更新</th>
+<th>建议修改章节</th>
+<th>修改原因</th>
+<th>所需数据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>兴业银锡</td>
+<td>暂不正式更新，先做监控备注</td>
+<td>每日跟踪面板 / 后续监控指标 / 风险章节</td>
+<td>今日主要是盘中强修复与估值上沿触及，尚不足以改变核心结论</td>
+<td>收盘行情、资金分档、融资融券、银锡价格、安全事故公告全文、H1 正式报告</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_7">六、来源与数据缺口</h2>
+<table>
+<thead>
+<tr>
+<th>标的</th>
+<th>数据项</th>
+<th>状态</th>
+<th>已检查来源</th>
+<th>缺口影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>兴业银锡</td>
+<td>盘中行情</td>
+<td>已获取</td>
+<td>腾讯行情接口</td>
+<td>可判断异常波动，但不能替代收盘结论</td>
+</tr>
+<tr>
+<td>兴业银锡</td>
+<td>近期公告</td>
+<td>已获取标题列表</td>
+<td>东方财富公告列表</td>
+<td>需要进一步阅读安全事故公告全文</td>
+</tr>
+<tr>
+<td>兴业银锡</td>
+<td>行业指数</td>
+<td>未获取到</td>
+<td>本次仅取上证、深成指、创业板指参考</td>
+<td>相对行业表现需收盘后补齐</td>
+</tr>
+<tr>
+<td>兴业银锡</td>
+<td>当日银价 / 锡价</td>
+<td>未获取到</td>
+<td>本轮未取得权威当日收盘</td>
+<td>无法确认商品价格是否同步支撑股价</td>
+</tr>
+<tr>
+<td>兴业银锡</td>
+<td>当日融资融券 / 资金分档</td>
+<td>未获取到</td>
+<td>本地最新为 2026-07-30 快照，资金明细截至 2026-07-29</td>
+<td>无法判断今日上涨由哪类资金主导</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_8">来源</h2>
+<ul>
+<li>本地研报：<code>workbench/targets/2026-07-23-1732-兴业银锡-机构级决策研报.md</code></li>
+<li>本地资金快照：<code>sources/webpages/2026-07-30-兴业银锡资金面数据快照.md</code></li>
+<li>腾讯行情接口：<code>https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sz000426,day,,,20,qfq</code></li>
+<li>腾讯指数行情接口：<code>https://qt.gtimg.cn/q=s_sh000001,s_sz399006,s_sz399001</code></li>
+<li>东方财富公告接口：<code>https://np-anotice-stock.eastmoney.com/api/security/ann?stock_list=000426</code></li>
+</ul>
+  </main>
+</body>
+</html>

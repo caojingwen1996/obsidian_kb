@@ -16641,6 +16641,7 @@ research / workbench / html-reading
 
 - `workbench/targets/2026-07-23-1421-云铝股份-机构级决策研报.md`
 - `sources/automations/支柱产业/电解铝/2026-07-23-1421-云铝股份-机构级决策研报.html`
+- `sources/automations/支柱产业/电解铝/archive/2026-07-15-1921-云铝股份机构级决策研报.html`
 - `sources/automations/支柱产业/电解铝/2026-07-22-电解铝产业完整分析报告.html`
 - `workbench/index.md`
 - `log.md`
@@ -20058,6 +20059,142 @@ research / three-factor-analysis / framework-refresh
 
 - 补充政策资源配置、行业市场份额、定价权、标准控制、800G产品能力、客户认证与主要竞争者同口径经营数据后，再评估竞争格局能否上调。
 
+## 2026-08-19
+
+### 操作类型
+
+research / three-factor-analysis / html-render
+
+### 修改文件
+
+- `sources/webpages/2026-08-19-云铝股份三要素政策行业与市场证据快照.md`
+- `workbench/targets/2026-08-19-1547-云铝股份-三要素分析.md`
+- `sources/automations/支柱产业/电解铝/2026-08-19-1547-云铝股份-三要素分析.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-three-factor-analysis v2.3.0` 生成云铝股份三要素权威 Markdown 与 HTML 阅读版。补充产能置换、全国碳市场、工业绿色低碳“十五五”规划、清洁能源与矿权资源配置证据，并以本地 Tushare 核验云铝及神火股份、天山铝业、中国铝业、南山铝业截至2026-08-18的5/10/20/60日量价、订单分档和融资结构。结论为竞争格局有利、流动性不利且由修复转弱、情绪位置中性，综合尚未形成有利共振；新增现金 `observe`、已有持仓 `review`。
+
+### 后续待办
+
+- 2026-08-28半年报披露后，更新经营现金流、应收账款、分部毛利、产量和吨铝成本，并复核20日大额订单与融资余额是否改善。
+
+## 2026-08-19
+
+### 操作类型
+
+research / three-factor-analysis / render
+
+### 修改文件
+
+- `sources/webpages/2026-08-19-兴业银锡三要素政策行业与市场证据快照.md`
+- `workbench/targets/2026-08-19-1603-兴业银锡-三要素分析.md`
+- `sources/automations/战略资源/银锡/2026-08-19-1603-兴业银锡-三要素分析.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-three-factor-analysis v2.3.0` 生成兴业银锡权威三要素母稿和同源 HTML 阅读版。动态核验战略矿产政策、银锡供需、银漫矿业停产与扩建、公司利润和现金流，以及截至 2026-08-19 的量价与订单分档、截至 2026-08-18 的融资数据。结论为竞争格局中性、流动性不利且由修复转弱、情绪不利并进入退潮，综合尚未形成有利共振。
+
+### 后续待办
+
+- 跟踪银漫矿业复产公告、2026-08-29 半年报、Q3 分矿产量、20 日大额订单与融资结构。
+
+## 2026-08-19
+
+### 操作类型
+
+research / three-factor-analysis / render
+
+### 修改文件
+
+- `sources/webpages/2026-08-19-西部矿业三要素政策行业与市场证据快照.md`
+- `workbench/targets/2026-08-19-1617-西部矿业-三要素分析.md`
+- `sources/automations/战略资源/铜/2026-08-19-1617-西部矿业-三要素分析.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-three-factor-analysis v2.3.0` 对西部矿业完成三要素分析。竞争格局判断为有利，流动性由扩张转弱，情绪处于拥挤后的退潮，综合状态为尚未形成有利共振；行动映射为新增现金 `wait`、已有持仓 `review`，并建立政策、行业组织、公司披露与本地行情资金数据的证据快照。
+
+### 后续待办
+
+- 跟踪玉龙三期 2026 年底基建完成度、45 Mt/a 扩产论证以及茶亭项目资源核实。
+- 跟踪大额订单净流出是否收敛、融资余额与价格能否重新形成正向验证。
+
+## 2026-08-19
+
+### 操作类型
+
+research / three-factor-analysis / render
+
+### 修改文件
+
+- `sources/webpages/2026-08-19-神马电力三要素政策行业与市场证据快照.md`
+- `workbench/targets/2026-08-19-1638-神马电力-三要素分析.md`
+- `sources/automations/新兴产业/电网/2026-08-19-1638-神马电力-三要素分析.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-three-factor-analysis v2.3.0` 对神马电力完成三要素分析。竞争格局判断为有利，流动性不利且由修复转弱，情绪位置中性并处于修复后的高位分歧，综合状态为尚未形成有利共振；行动映射为新增现金 `wait`、已有持仓 `review`。证据快照补齐新型电力系统“十五五”规划、国内外电网资源配置、National Grid客户技术验证、2026H1经营数据及8月19日市场广度和多窗口资金。
+
+### 后续待办
+
+- 跟踪英国National Grid与比利时Elia框架转正式订单、交付、毛利率和回款。
+- 跟踪市场广度、5/10日大额订单、融资去杠杆、股东减持及三季报经营现金流。
+
+## 2026-08-19
+
+### 操作类型
+
+research / three-factor-analysis / html
+
+### 修改文件
+
+- `sources/webpages/2026-08-19-东材科技三要素政策行业与市场证据快照.md`
+- `workbench/targets/2026-08-19-1710-东材科技-三要素分析.md`
+- `sources/automations/新兴产业/算力/上游-PCB材料/2026-08-19-1710-东材科技-三要素分析.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按用户点名的 `bbxm-three-factor-analysis v2.3.0` 生成东材科技三要素分析。核验“十五五”算力与新材料方向、2026年政府工作报告、电子信息制造业稳增长行动方案、公司2025年报与2026Q1、高速电子树脂收入、眉山2万吨项目、董事减持和截至8月19日收盘的材料链相对强弱、订单资金、融资与市场广度。公司产品商业化和毛利改善成立，但产品级政策资源、独立份额、直接同业、良率利用率及自由现金流尚未闭环，竞争格局判断为中性；流动性不利且由修复转弱，情绪位置不利并处于高位叙事回落后的二次修复退潮，综合为尚未形成有利共振。新增现金 `wait`、已有持仓 `review`，核心验证点为8月21日半年报的电子材料毛利、扣非利润、经营现金流和眉山项目进度。生成同源HTML并更新Workbench索引；未新增正式Wiki页面，因此不更新根 `index.md`。
+
+### 后续待办
+
+- 复核2026-08-21半年报的电子材料收入与毛利、CFO、应收、库存、资本开支和眉山项目进度。
+- 跟踪5/20日大额订单、融资去杠杆、董事高管减持、客户复购、项目良率利用率与直接同业价格产能。
+
+## 2026-08-19
+
+### 操作类型
+
+research / three-factor-analysis / render
+
+### 修改文件
+
+- `sources/webpages/2026-08-19-华明装备三要素政策行业与市场证据快照.md`
+- `workbench/targets/2026-08-19-1652-华明装备-三要素分析.md`
+- `sources/automations/支柱产业/电网/2026-08-19-1652-华明装备-三要素分析.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-three-factor-analysis v2.3.0` 对华明装备完成三要素分析。核验新型电力系统“十五五”规划、电网投资、分接开关行业壁垒、公司 2025 年报与 2026Q1、投资者关系记录及截至 8 月 19 日的多窗口行情、订单资金、融资和市场广度；竞争格局判断为有利，流动性不利且由修复转弱，情绪位置不利并处于修复后的退潮确认中，综合状态为尚未形成有利共振。行动映射为新增现金 `wait`、已有持仓 `review`；公司明确说明 AI 数据中心订单不会成为重大收入来源，报告据此把相关叙事降为间接需求背景。生成同源 HTML 并更新 Workbench 索引；未新增正式 Wiki 页面，因此不更新根 `index.md`。
+
+### 后续待办
+
+- 跟踪 8 月 29 日半年报的电力设备收入、扣非利润、海外毛利、应收账款与经营现金流。
+- 跟踪市场广度、5/10 日订单资金、融资承接、H 股发行条款及特高压和海外正式订单。
+
 ## 2026-08-06
 
 ### 操作类型
@@ -22146,3 +22283,941 @@ research / valuation / frontier-routing / update / workbench
 - 三花智控：跟踪机器人/液冷量产订单、复购、毛利与回购实施。
 - 东材科技：跟踪正式半年报、眉山项目良率/利用率、电子材料毛利和自由现金流。
 - 东阳光：跟踪重组问询与注册、最终摊薄、算力合同毛利/回款和服务器资本开支。
+
+## 2026-08-18
+
+### 操作类型
+
+automation / signal / update
+
+### 修改文件
+
+- `sources/automations/中证红利信号/中证红利每日信号.xlsx`
+- `sources/automations/中证红利信号/最新信号.md`
+- `log.md`
+
+### 操作说明
+
+运行 `zzhl-dividend-signal` 脚本检查中证红利股息率信号，并刷新每日记录。AKShare 返回 2026-08-17 指数估值和 10 年国债收益率：中证红利 `股息率2` 为 4.20%，中国 10 年国债收益率为 1.6924%，股债利差为 2.5076 个百分点。理杏仁公开页面返回 HTTP 429，雪球实时行情接口返回空响应，因此历史分位点与当天涨跌幅保持待验证，不补造数值。
+
+### 判断结果
+
+- 历史分位点触发：待验证
+- 绝对股息率触发：C（小额定投）
+- 相对债券收益率触发：C（小额定投）
+- 综合结论：历史分位点待验证，暂不判定加大买入区间；未进入重点买入区间。
+
+## 2026-08-18
+
+### 操作类型
+
+dashboard / feature / test
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/README.md`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+持仓跟踪表新增“三要素判断”列，读取已关联三要素分析 HTML 的综合状态、竞争格局、流动性和情绪位置；未关联、读取中或读取失败时显示明确占位。同步扩展表格宽度、更新看板说明与更新日志，并补充解析和页面结构测试。
+
+## 2026-08-18
+
+### 操作类型
+
+dashboard / refinement / test
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/README.md`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按界面反馈精简持仓跟踪：移除“三要素判断”列中的综合状态主标题，并从“数据来自研报”列移除“三要素研报”链接；保留竞争格局、流动性、情绪位置三个分项判断和个股研报入口。
+
+## 2026-08-18
+
+### 操作类型
+
+dashboard / automation / skill / feature / test
+
+### 修改文件
+
+- `.agents/skills/portfolio-daily-monitoring/SKILL.md`
+- `.agents/skills/portfolio-daily-monitoring/scripts/render_report_html.py`
+- `.agents/skills/portfolio-daily-monitoring/test-skill-contract.cjs`
+- `tools/a-share-market-dashboard/data/000426-兴业银锡-每日监控-2026-08-06.html`
+- `tools/a-share-market-dashboard/data/601208-东材科技-每日监控-2026-08-06.html`
+- `tools/a-share-market-dashboard/scripts/build.mjs`
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/README.md`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+持仓跟踪页在“配比模式”后新增“每日监控”入口，构建时自动选择最新的 HTML 监控报告。新增“估值处置状态”列，将中文处置标签作为主信息、触发或修改原因作为次要信息；英文状态保留为内部契约。持仓每日监控技能升级到 v1.3.0，要求每次运行同时保存 Markdown 母稿与同名 HTML 阅读版，并提供统一渲染脚本。两份历史 Markdown 监控报告已转换为 HTML，未提供估值处置字段的历史数据保持“未提供”，不做推断。
+
+### 验证结果
+
+- 看板构建成功。
+- Node 看板测试 71/71 通过。
+- 持仓每日监控技能契约测试通过。
+- HTML 模板关键章节、中文估值标签和 UTF-8 中文内容检查通过。
+
+## 2026-08-18
+
+### 操作类型
+
+dashboard / copy / test
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按界面反馈，将持仓跟踪表列标题“估值处置状态”改为“每日估值监控”；字段内容、状态映射和触发原因层级保持不变。
+
+## 2026-08-18
+
+### 操作类型
+
+dashboard / refinement / test
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/README.md`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按界面反馈移除持仓跟踪表“监控状态”整列，仅保留“每日估值监控”列及其中文状态和触发原因；同步调整分组跨列数与表格最小宽度。
+
+## 2026-08-18
+
+### 操作类型
+
+automation / dashboard / skill / output-contract / test
+
+### 修改文件
+
+- `D:/Users/lenovo/.codex/automations/automation-6/automation.toml`
+- `.agents/skills/portfolio-daily-monitoring/SKILL.md`
+- `.agents/skills/portfolio-daily-monitoring/summary-template.md`
+- `.agents/skills/portfolio-daily-monitoring/test-skill-contract.cjs`
+- `tools/a-share-market-dashboard/scripts/build.mjs`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/README.md`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+将持仓每日监控自动化改为“双层产物”：清单内每个标的分别生成 `<六位代码>-<名称>-每日监控-YYYY-MM-DD.md/.html` 完整报告，再生成 `持仓今日监控汇总-YYYY-MM-DD.md/.html` 组合汇总。看板顶部“每日监控”只识别并打开汇总 HTML；“每日估值监控”状态读取并链接各自逐标的 HTML。代码待核实时允许使用“待核实”文件名前缀，不猜测证券代码。
+
+- [2026-08-18T11:08:04+08:00] QUERY query="什么叫正确地估值锚？" result_pages=1 mode=normal escalated=false
+
+## 2026-08-18
+
+### 操作类型
+
+dashboard / link / test
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+在持仓跟踪表“三要素判断”列保留竞争格局、流动性和情绪位置标签，并为已关联三要素 HTML 的标的新增“三要素研报”链接；无报告时继续显示“未关联”。
+
+## 2026-08-18
+
+### 操作类型
+
+automation / report-template / deduplication / test
+
+### 修改文件
+
+- `.agents/skills/portfolio-daily-monitoring/SKILL.md`
+- `.agents/skills/portfolio-daily-monitoring/summary-template.md`
+- `.agents/skills/portfolio-daily-monitoring/scripts/generate_run_reports.py`
+- `.agents/skills/portfolio-daily-monitoring/test-skill-contract.cjs`
+- `tools/a-share-market-dashboard/data/持仓今日监控汇总-2026-08-18.md`
+- `tools/a-share-market-dashboard/data/持仓今日监控汇总-2026-08-18.html`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+将组合汇总的第三章固定为覆盖全部标的的索引，第六章改为只列确实需要更新研报的行动项，并移除重复的“是否建议更新”和“估值处置状态”字段；今日汇总由 15 行缩减为东阳光、兴业银锡、西部矿业 3 条研报更新建议。
+
+## 2026-08-18
+
+### 操作类型
+
+research / update / valuation / source-archive / render
+
+### 修改文件
+
+- `sources/webpages/2026-08-18-东阳光半年报与资本结构快照.md`
+- `sources/papers/东阳光机构研报-2026-07-24/东阳光2026年半年度报告.pdf`
+- `sources/papers/东阳光机构研报-2026-07-24/东阳光控股股东增持公司股份计划公告.pdf`
+- `sources/papers/东阳光机构研报-2026-07-24/东阳光回购股份报告书.pdf`
+- `sources/papers/东阳光机构研报-2026-07-24/东阳光控股子公司增资扩股并引入投资者公告.pdf`
+- `sources/papers/东阳光机构研报-2026-07-24/东阳光控股股东一致行动人股份质押公告.pdf`
+- `sources/papers/东阳光机构研报-2026-07-24/东阳光2026年第二季度对外担保进展公告.pdf`
+- `workbench/targets/2026-07-16-1138-东阳光-机构级决策研报.md`
+- `workbench/index.md`
+- `sources/automations/新兴产业/算力/中游-算力基础设施与能源/2026-07-16-1138-东阳光-机构级决策研报.html`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research` 对东阳光现有权威研报原地更新。纳入2026年半年报、盘中行情、氟树脂子公司外部增资估值锚、控股股东增持、公司回购、最新质押和担保公告；将AI业务从“合同验证”升级为“小体量商业化”，同时因自由现金流、担保、受限资产和质押风险上升，将综合价值区间由24—34元下修至20—30元，中枢23—26元，新增现金维持`avoid`。
+
+- [2026-08-18T14:45:05+08:00] QUERY query="查找与产业思维、产业分析及产业行业层竞争格局比较相关的原始文章，并链接到产业思维页面" result_pages=9 mode=normal escalated=true
+
+## 2026-08-18
+
+### 操作类型
+
+link / source-audit
+
+### 修改文件
+
+- `wiki/concepts/冰冰小美-fundamental -产业思维.md`
+- `log.md`
+
+### 操作说明
+
+核验知识库原始资料后，为“产业思维”概念页补充 9 篇直接讨论行业生意模式比较、产业革命、技术突破、泡沫出清、产能过剩、行业筛选、并购整合和跨产业比较的原文链接；同步更新 frontmatter `sources` 与正文“来源”章节，已存在的同文副本不重复加入。
+
+## 2026-08-18
+
+### 操作类型
+
+research / three-factor-analysis / source-archive / render
+
+### 修改文件
+
+- `sources/webpages/2026-08-18-东阳光三要素政策与市场证据快照.md`
+- `workbench/targets/2026-08-18-1440-东阳光-三要素分析.md`
+- `sources/automations/新兴产业/算力/中游-算力基础设施与能源/2026-08-18-1440-东阳光-三要素分析.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-three-factor-analysis v2.2.2` 生成东阳光三要素分析。自主核验国家算力政策、HFC配额、政府采购、2026年半年报、重组资本结构、宏观与微观流动性；结论为竞争格局中性、流动性中性、情绪位置不利，综合尚未形成有利共振。新增现金维持 `observe`，已有持仓维持 `review`；Markdown母稿与HTML阅读版保持同源。
+
+- [2026-08-18T14:54:05+08:00] QUERY query="公司总价值、公司估值与交易溢价应如何区分？" result_pages=1 mode=normal escalated=false
+- [2026-08-18T15:02:44+08:00] QUERY query="冰冰小美原文提到的是估值锚还是价值锚？" result_pages=1 mode=normal escalated=true
+
+## 2026-08-18
+
+### 操作类型
+
+skill / refactor / render-test
+
+### 修改文件
+
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `.agents/skills/bbxm-equity-research/template.md`
+- `.agents/skills/bbxm-equity-research/scripts/render-report-html.cjs`
+- `.agents/skills/bbxm-equity-research/scripts/test-render-report-html.cjs`
+- `.agents/skills/bbxm-equity-research/assets/report.css`
+- `.agents/skills/bbxm-equity-research/evals/evals.json`
+- `log.md`
+
+### 操作说明
+
+将 `bbxm-equity-research` 升级到 v2.2.0：第 10 章更名为“公允价值区间计算”，新报告统一使用“公允价值区间”；每日跟踪面板保持六卡布局，新增留空的“交易定价偏离”卡，合并每日同步价与盘中实时卡，并将盈亏比移动到原盘中实时位置。渲染器保留旧“综合估值区间”字段兼容，渲染与产业研报链接测试均通过。
+
+## 2026-08-18
+
+### 操作类型
+
+skill / cleanup
+
+### 修改文件
+
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求精简 `bbxm-equity-research` 的版本信息：`SKILL.md` 只保留当前版本 `2.2.0`，删除内嵌历史更新日志和追加更新日志的维护要求；项目级维护记录继续统一保存在根目录 `log.md`。
+
+- [2026-08-18T16:09:38+08:00] QUERY query="《短线情绪大周期》中‘业绩披露后的理性估值评估挤压假象泡沫’是什么意思？" result_pages=1 mode=normal escalated=false
+- [2026-08-18T16:17:33+08:00] QUERY query="知识库中冰冰小美对严重估值泡沫现象的描述" result_pages=8 mode=normal escalated=true
+- [2026-08-18T16:20:25+08:00] QUERY query="五类估值泡沫出清触发器是如何发现的，并附案例文章链接" result_pages=9 mode=normal escalated=true
+- [2026-08-18T16:51:55+08:00] QUERY query="《流动性辩证分析》提到的流动性平衡是什么" result_pages=2 mode=normal escalated=false
+
+## 2026-08-18
+
+### 操作类型
+
+skill / valuation-bubble / template / render-test
+
+### 修改文件
+
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `.agents/skills/bbxm-equity-research/template.md`
+- `.agents/skills/bbxm-equity-research/evals/evals.json`
+- `.agents/skills/bbxm-equity-research/scripts/test-render-report-html.cjs`
+- `log.md`
+
+### 操作说明
+
+将 `bbxm-equity-research` 升级到 v2.3.0，在公允价值区间计算之后新增市场价格分解与估值泡沫判断：计算现价相对公允价值中枢、上沿的偏离，通过七问审计、反向估值、三项核心门槛和融资 / 杠杆承接 / 叙事一致性放大器，区分公允价值内、可解释估值溢价、普通高估、估值泡沫、严重估值泡沫与证据不足；同时将泡沫程度和泡沫出清状态分开。每日跟踪面板的“交易定价偏离”卡继续保持内容留空。新增技能案例和模板合同断言，评估 JSON 校验与 HTML 渲染测试通过。
+
+## 2026-08-18
+
+### 操作类型
+
+skill / valuation-card / render-test
+
+### 修改文件
+
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `.agents/skills/bbxm-equity-research/scripts/render-report-html.cjs`
+- `.agents/skills/bbxm-equity-research/scripts/test-render-report-html.cjs`
+- `.agents/skills/bbxm-equity-research/assets/report.css`
+- `.agents/skills/bbxm-equity-research/evals/evals.json`
+- `log.md`
+
+### 操作说明
+
+将 `bbxm-equity-research` 升级到 v2.4.0：每日跟踪面板的“交易定价偏离”卡固定展示估值溢价、普通高估、估值泡沫、严重估值泡沫四级状态，并根据第 1 章“估值泡沫判断”只高亮当前一级；公允价值内、证据不足或字段缺失时四级均不高亮。新增四级卡片样式、严重泡沫与公允价值内回归场景以及 HTML 卡片评估案例；评估 JSON 和渲染测试通过。
+
+## 2026-08-18
+
+### 操作类型
+
+research / valuation-bubble / report-update / render
+
+### 修改文件
+
+- `workbench/targets/2026-07-16-1138-东阳光-机构级决策研报.md`
+- `sources/automations/新兴产业/算力/中游-算力基础设施与能源/2026-07-16-1138-东阳光-机构级决策研报.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research v2.4.0` 对东阳光（600673.SH）执行四级估值泡沫判断。以2026-08-18 14:26盘中36.54元和20—30元公允价值区间为基准，确认估值脱锚、经营验证缺口、正常化压力失败三项核心门槛成立，融资依赖和杠杆承接两个放大器显著，判断为“严重估值泡沫”，置信度中。半年报已揭示自由现金流与资本开支失配并引发盘中回落，但尚未出现持续资金净流出、融资偿还或承接逆转，因此只标记“出清观察”，不写“出清中”。新增现金维持 `avoid`，已有持仓维持 `review`；HTML四级估值卡已高亮“严重估值泡沫”，产业研报反向链接保持有效。
+
+## 2026-08-18
+
+### 操作类型
+
+skill / valuation-routing / cleanup / render-test
+
+### 修改文件
+
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `.agents/skills/bbxm-equity-research/template.md`
+- `.agents/skills/bbxm-equity-research/references/peter-lynch-equity-research-framework.md`（删除）
+- `.agents/skills/bbxm-equity-research/evals/evals.json`
+- `.agents/skills/bbxm-equity-research/scripts/test-render-report-html.cjs`
+- `tests/validate_bbxm_project_skills.py`
+- `log.md`
+
+### 操作说明
+
+按 `wiki/concepts/冰冰小美-framework-估值判断` 的“怎么计算公允价值”重构 `bbxm-equity-research v3.0.0`：删除彼得·林奇企业分类、投资故事、PEG 分类、卖出条件及专用参考文件；企业价值主类型统一限定为稳定盈利、周期资源、重资产、成长企业、前沿科技五类，多价值来源企业按分部映射，不另造混合型。估值流程改为先由企业类型确定主估值锚，再由分部成熟度决定证据权重和计入公允价值区间的位置；DCF 只在现金流可审计时使用，不再机械要求所有企业采用同一方法。新增相关评估案例和合同断言，针对性合同检查、评估 JSON 解析和 HTML 渲染测试通过；项目总校验仍被未在本次范围内的 `bbxm-industry-analysis` 既有乱码合同标记阻断。
+
+## 2026-08-18
+
+### 操作类型
+
+research / equity-research / valuation-routing / report-update / render
+
+### 修改文件
+
+- `workbench/targets/2026-07-23-1732-兴业银锡-机构级决策研报.md`
+- `sources/webpages/2026-08-18-兴业银锡机构级研究更新快照.md`
+- `sources/automations/战略资源/银锡/2026-07-23-1732-兴业银锡-机构级决策研报.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research v3.0.0` 原地更新兴业银锡权威研报。企业价值主类型判定为周期资源，以周期中枢归母利润 × 中枢 PE 为主估值锚，以 PB、调整后净资产、同业和反向利润为交叉验证；因金属价格、银漫复产、产能扩建和资本开支不可审计，完整公司 DCF 判定为不适用。公允价值区间为 20—33 元、中枢 24—26 元；以 2026-08-18 收盘价 38.81 元判断为普通高估、出清观察，新增现金 `wait`、已有持仓 `review`。同步保存结构化数据与公告来源快照，并更新 HTML 阅读版。
+
+## 2026-08-19
+
+### 操作类型
+
+automation / dividend-signal / data-refresh
+
+### 修改文件
+
+- `sources/automations/中证红利信号/最新信号.md`
+- `sources/automations/中证红利信号/中证红利每日信号.xlsx`
+- `log.md`
+
+### 操作说明
+
+运行 `zzhl-dividend-signal` 脚本检查 2026-08-19 中证红利股息率信号。AKShare 返回指数估值日期 2026-08-18，股息率2 为 4.17%；中国10年国债收益率日期 2026-08-18，收益率 1.6864%，股息率相对国债约 2.47 倍，利差 2.4836 个百分点。理杏仁公开页面失败：HTTP Error 403: Forbidden；雪球实时行情接口返回空响应，因此历史分位点与当天涨跌幅均保持待验证，不编造数值。三项规则结果为：历史分位点待验证、绝对股息率 C（小额定投）、相对债券收益率 C（小额定投）；综合结论为“历史分位点待验证，暂不判定加大买入区间”，未进入重点买入区间。
+
+## 2026-08-19
+
+### 操作类型
+
+research / equity-research / valuation-routing / report-update / render
+
+### 修改文件
+
+- `workbench/targets/2026-07-17-1450-东材科技-机构级决策研报.md`
+- `sources/webpages/2026-08-18-东材科技机构级研究更新快照.md`
+- `sources/automations/新兴产业/算力/上游-PCB材料/2026-07-17-1450-东材科技-机构级决策研报.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research v3.0.0` 原地更新东材科技权威研报。企业价值主类型改判为成长企业：传统膜材、绝缘和新能源材料构成稳定盈利基本盘，高速电子树脂及眉山项目属于商业化成长业务，M10验证产品暂不作为独立前沿期权计价。主估值锚改为2028年未来利润 × 届时合理PE后折现，SOTP、PB / ROIC、同业和反向估值交叉验证；因五年自由现金流连续为负且项目良率、利用率、营运资金和资本开支不可审计，完整公司DCF判定为不适用。公允价值区间为18—47元、中枢30—33元；以2026-08-18收盘价49.48元判断为普通高估、出清观察，新增现金 `wait`、已有持仓 `review`，下一验证节点为2026-08-21半年报。
+
+## 2026-08-19
+
+### 操作类型
+
+skill / report-structure / render-test
+
+### 修改文件
+
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `.agents/skills/bbxm-equity-research/template.md`
+- `.agents/skills/bbxm-equity-research/evals/evals.json`
+- `.agents/skills/bbxm-equity-research/scripts/render-report-html.cjs`
+- `.agents/skills/bbxm-equity-research/scripts/test-render-report-html.cjs`
+- `log.md`
+
+### 操作说明
+
+将 `bbxm-equity-research` 升级到 v3.0.1：把原第 10.6 节“市场价格分解与估值泡沫判断”提升为独立第 11 章；原第 10.7 节“企业类型与估值锚匹配”调整为第 10.6 节，原第 11—15 章顺延为第 12—16 章。同步把 HTML 一级目录校验和目录入口数量由 15 调整为 16，更新每日跟踪面板的证据章节指向及评估提示；HTML 渲染测试、评估 JSON 解析和差异格式检查通过。
+
+## 2026-08-19
+
+### 操作类型
+
+refactor / concept / valuation-framework
+
+### 修改文件
+
+- `wiki/concepts/冰冰小美-framework-估值判断.md`
+- `log.md`
+
+### 操作说明
+
+将“泡沫破裂的触发器”章节由重复的分项长文整理为三个“触发类型—观察项—有利状态—逆转信号—案例”五列表格，分别对应基本面触发、流动性触发和预期触发。各表以单个观察项为基础行，每项指标分别对应有利状态、逆转信号和案例文章。未新增页面，因此不更新 `index.md`。
+
+## 2026-08-19
+
+### 操作类型
+
+dashboard / portfolio-tracking / report-field
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/README.md`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+将持仓跟踪表的“动态价值区间”统一改为“公允价值区间”，优先读取新版个股研报的 `fair-value-range`，并兼容旧版 `dynamic-value-range`。在其后新增“交易定价偏离”列，读取个股研报 `pricing-deviation` 卡片中的当前判断；旧研报回退读取“估值泡沫判断”，缺失时显示“未获取到”，不根据盘中价格自行推断。交易定价偏离改为紧凑徽标，估值溢价、普通高估、估值泡沫、严重估值泡沫四级颜色与研报保持一致，其余状态使用研报的中性色。同步调整表格宽度、分组跨列、测试、说明和构建产物；未新增知识页，因此不更新 `index.md`。
+
+## 2026-08-19
+
+### 操作类型
+
+skill / valuation-bubble-scan / contract-test
+
+### 修改文件
+
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `.agents/skills/bbxm-equity-research/template.md`
+- `.agents/skills/bbxm-equity-research/references/valuation-bubble-trigger-scan.md`
+- `.agents/skills/bbxm-equity-research/evals/evals.json`
+- `.agents/skills/bbxm-equity-research/scripts/test-render-report-html.cjs`
+- `tests/validate_bbxm_project_skills.py`
+- `log.md`
+
+### 操作说明
+
+将 `bbxm-equity-research` 当前版本更新为 v3.0.2。Step 7 在七问审计和反向估值之后，强制逐项扫描基本面9项、流动性14项、预期9项；每项填写当前证据与时间、扫描状态及对估值状态的影响。估值状态不按逆转项数量机械打分，而按价格是否脱离公允价值、逆转是否击中主估值锚及三表间是否形成传导判断；严重估值泡沫要求三表关键逆转能够相互传导，泡沫程度与出清状态继续分开。同步更新报告模板、便携参考、评测用例和契约测试；未新增知识页，因此不更新 `index.md`。
+
+## 2026-08-19
+
+### 操作类型
+
+research / valuation / report-update / html
+
+### 修改文件
+
+- `sources/webpages/2026-08-19-中国中车v3.0.2研报数据核验快照.md`
+- `workbench/targets/2026-07-16-1334-中国中车机构级决策研报.md`
+- `sources/automations/支柱产业/2026-07-16-1334-中国中车机构级决策研报.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research v3.0.2` 原地更新中国中车权威研报。新增截至2026-08-18的行情、估值、资金流、融资余额、分红、同业估值和宏观数据核验快照；将报告迁移为16章结构，以重资产企业的调整后净资产/PB为主估值锚，正常化EPS、现金收益率和同业估值交叉验证，公允价值区间为5.7—7.8元。第11章完成市场价格分解、七问审计和基本面9项、流动性14项、预期9项触发器扫描：6.04元仍在公允价值内，现金转化与新产业毛利率构成验证缺口，但没有形成基本面—流动性—预期三表逆转传导。新增资金等待8月20日半年报，已有持仓复核。同步重建HTML阅读版并更新Workbench索引；未新增正式Wiki页面，因此不更新根 `index.md`。
+
+## 2026-08-19
+
+### 操作类型
+
+research / valuation / report-update / html
+
+### 修改文件
+
+- `sources/webpages/2026-08-19-华润江中机构级研究更新快照.md`
+- `workbench/targets/2026-08-11-1803-华润江中-机构级决策研报.md`
+- `sources/automations/支柱产业/消费/医药健康/2026-08-11-1803-华润江中-机构级决策研报.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research v3.0.2` 原地更新华润江中权威研报。新增 2026-08-19 行情、估值、资金分档、融资余额、分红和公告核验快照；将旧报告迁移为 16 章结构，以稳定盈利型的正常化 EPS × 合理 PE 为主估值锚，DCF、自由现金流和可持续股息交叉验证，维持 22—31 元公允价值区间。第 11 章独立完成市场价格分解、七问审计和 32 项泡沫触发器扫描：23.70 元仍在公允价值内，Q1 利润—现金流不一致构成出清观察但没有基本面—流动性—预期三表传导。同步重建 HTML 阅读版并更新 Workbench 索引；未新增正式 Wiki 页面，因此不更新根 `index.md`。
+
+## 2026-08-19
+
+### 操作类型
+
+query / source-link / concept
+
+### 修改文件
+
+- `wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md`
+- `log.md`
+
+### 操作说明
+
+检索知识库内冰冰小美关于流动性扩张、平衡、转弱、收缩和修复的原始材料。在目标 Concept Page 的“来源”章节补入五种状态各自最直接的原帖依据，并明确标注：库内未发现作者在单篇原文中把五者固定列为一套“五态”分类，现有五态表属于跨来源整理归纳。未新增页面，因此不更新 `index.md`。
+
+- [2026-08-19T11:04:43+08:00] QUERY query="查找冰冰小美对于流动性的五种状态的原始描述文章" result_pages=6 mode=normal escalated=true
+
+## 2026-08-19
+
+### 操作类型
+
+query / concept / synthesis
+
+### 修改文件
+
+- `wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md`
+- `log.md`
+
+### 操作说明
+
+根据已核验的六份冰冰小美原始材料，重写“流动性的五种状态”表格，并补充扩张、平衡、转弱、收缩、修复五段正式描述。重点区分转弱与收缩、修复与扩张，同时明确五态为跨来源整理归纳，并以 `^[inferred]` 标记综合推断。未新增页面，因此不更新 `index.md`。
+
+- [2026-08-19T14:19:03+08:00] QUERY query="根据已核验材料生成流动性的五种状态描述" result_pages=6 mode=normal escalated=false
+
+## 2026-08-19
+
+### 操作类型
+
+research / valuation / report-update / html
+
+### 修改文件
+
+- `sources/webpages/2026-08-19-徐工机械v3.0.2研报数据核验快照.md`
+- `sources/webpages/2026-08-19-三一重工v3.0.2研报数据核验快照.md`
+- `workbench/targets/2026-07-20-1737-徐工机械-机构级决策研报.md`
+- `workbench/targets/2026-07-24-0931-三一重工-机构级决策研报.md`
+- `sources/automations/支柱产业/高端制造/2026-07-20-1737-徐工机械-机构级决策研报.html`
+- `sources/automations/支柱产业/高端制造/2026-07-24-0931-三一重工-机构级决策研报.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research v3.0.2` 原地更新徐工机械与三一重工两份权威研报。新增截至2026-08-18的行情、估值、资金分档、融资余额、财务、回购、分红与行业数据核验快照；两份报告均迁移为16章结构，以周期制造的正常化EPS × 合理PE为主估值锚，PB-ROE、同业估值和正常化现金收益率交叉验证，完整DCF因自由现金流波动过大而不适用。徐工机械公允价值7.8—10.6元，现价8.04元处于下沿，但近20日股价-9.15%、融资余额+43.22%，风险重新增强；三一重工公允价值16.5—20.5元，现价18.97元处于中上部，基本面和预期反馈走弱但交易杠杆已去化，风险持平。两者新增现金动作均为 `observe`。第11章分别完成基本面9项、流动性14项、预期9项触发器扫描；同步重建HTML阅读版并更新Workbench索引。未新增正式Wiki页面，因此不更新根 `index.md`。
+
+## 2026-08-19
+
+### 操作类型
+
+research / three-factor-analysis / html
+
+### 修改文件
+
+- `sources/webpages/2026-08-19-中国中车三要素政策行业与市场证据快照.md`
+- `workbench/targets/2026-08-19-1421-中国中车-三要素分析.md`
+- `sources/automations/支柱产业/2026-08-19-1421-中国中车-三要素分析.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按用户点名的 `bbxm-three-factor-analysis v2.2.2` 生成中国中车三要素权威分析。依据最新版竞争格局概念页重新建立国家、产业和企业三层取证清单，自主核验2026年政府工作报告、十五五交通规划、铁路设备更新、铁路固定资产投资、运输设备制造业投资、动车组产量、中国中车订单与分部财务，以及Siemens Mobility和Alstom最新经营结果；严格区分国策方向、政策落地、资源配置和企业受益。结合截至2026-08-18的个股、同业、订单规模资金代理、个股与全市场融资数据，判断竞争格局有利、流动性中性、情绪位置中性，综合状态为部分有利；新增现金 `wait`、已有持仓 `review`，核心验证点为2026-08-20半年报的经营现金流、铁路装备毛利率和新产业利润率。生成同源HTML并更新Workbench索引；未新增正式Wiki页面，因此不更新根 `index.md`。
+
+- [2026-08-19T14:23:31+08:00] QUERY query="效率-公平周期属于什么类型的周期" result_pages=2 mode=normal escalated=true
+
+## 2026-08-19
+
+### 操作类型
+
+research / valuation / report-update / html
+
+### 修改文件
+
+- `sources/webpages/2026-08-19-云铝股份v3.0.2研报数据核验快照.md`
+- `workbench/targets/2026-07-23-1421-云铝股份-机构级决策研报.md`
+- `sources/automations/支柱产业/电解铝/2026-07-23-1421-云铝股份-机构级决策研报.html`
+- `sources/automations/支柱产业/电解铝/2026-07-22-电解铝产业完整分析报告.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research v3.0.2` 原地更新云铝股份权威研报。新增截至2026-08-19的行情、估值、资金分档、融资余额、财务、分红、行业供需与宏观流动性核验快照；将企业归类为周期资源，以85—110亿元正常化归母净利润乘8.0—8.8倍周期PE为主锚，PB/ROE、同业估值与正常化现金收益率交叉验证，完整DCF因商品周期和终值敏感度过高而不适用。公允价值20—28元、中枢24元，25.99元盘中价仍在公允价值内但处于上半部。第11章完成基本面9项、流动性14项、预期9项触发器扫描：基本面未出现主锚逆转，但60日融资余额增加42.33%、近20日大额订单代理净流出7.71亿元，风险重新增强；新增现金`observe`、已有持仓`review`。同步重建HTML阅读版、更新电解铝产业报告链接与Workbench索引，并将已被替代的2026-07-15旧HTML移动到`archive/`，避免同目录保留两份权威研报。未新增正式Wiki页面，因此不更新根`index.md`。
+
+## 2026-08-19
+
+### 操作类型
+
+research / three-factor-analysis / html
+
+### 修改文件
+
+- `sources/webpages/2026-08-19-三一重工三要素政策行业与市场证据快照.md`
+- `workbench/targets/2026-08-19-1453-三一重工-三要素分析.md`
+- `sources/automations/支柱产业/高端制造/2026-08-19-1453-三一重工-三要素分析.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按用户点名的 `bbxm-three-factor-analysis v2.2.2` 生成三一重工三要素分析。依据最新版竞争格局概念页建立国家、产业和企业三层取证清单，自主核验机械行业稳增长方案、2026年“两新”“两重”资金、固定资产投资、工程机械与挖机销量、三一海外与研发数据，以及Caterpillar和Komatsu最新经营结果；严格区分国策方向、项目资金、行业需求和企业利润。结合截至2026-08-18的三一、徐工、中联、柳工量价、订单规模资金代理、个股和全市场融资数据，判断竞争格局有利、流动性中性、情绪位置中性，综合为部分有利；新增现金 `observe`、已有持仓 `review`，核心验证点为2026-08-31半年报的海外毛利、扣非利润、财务费用和经营现金流。生成同源HTML并更新Workbench索引；未新增正式Wiki页面，因此不更新根 `index.md`。
+
+## 2026-08-19
+
+### 操作类型
+
+skill / enhancement / test
+
+### 修改文件
+
+- `.agents/skills/bbxm-three-factor-analysis/SKILL.md`
+- `.agents/skills/bbxm-three-factor-analysis/template.md`
+- `.agents/skills/bbxm-three-factor-analysis/scripts/render-three-factor-html.cjs`
+- `.agents/skills/bbxm-three-factor-analysis/scripts/test-render-three-factor-html.cjs`
+- `.agents/skills/bbxm-three-factor-analysis/evals/evals.json`
+- `log.md`
+
+### 操作说明
+
+将 `bbxm-three-factor-analysis` 升级至 v2.3.0。流动性辩证分析在保留“有利 / 中性 / 不利 / 证据不足”方向评价的同时，新增“扩张 / 平衡 / 转弱 / 收缩 / 修复 / 证据不足”阶段状态判定；要求完成宏观、中观、微观、资金来源、供给与抛压、反证和退出路径分析后再形成状态，并说明状态转换、相邻状态排除理由与置信度。同步更新报告模板、HTML 摘要卡、渲染契约测试和评测期望。静态结构、JSON 解析与差异格式检查通过；当前环境未发现 Node.js 运行时，因此未执行动态 HTML 渲染测试。
+
+## 2026-08-19
+
+### 操作类型
+
+research / three-factor-analysis / html
+
+### 修改文件
+
+- `sources/webpages/2026-08-19-华润江中三要素政策行业与市场证据快照.md`
+- `workbench/targets/2026-08-19-1510-华润江中-三要素分析.md`
+- `sources/automations/支柱产业/消费/医药健康/2026-08-19-1510-华润江中-三要素分析.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按用户点名的 `bbxm-three-factor-analysis v2.3.0` 生成华润江中三要素分析。核验中医药振兴发展“十五五”规划、国办发〔2025〕11号的质量、品牌、采购与资源方向，国家统计局中西药零售数据，华润江中2025年报与2026Q1产品、毛利、现金流，以及华润三九、云南白药、东阿阿胶等可比公司。结合截至2026-08-18的六家公司量价、华润江中订单规模资金代理、个股与全市场融资，判断竞争格局中性、流动性中性且阶段由平衡转弱、情绪位置不利，综合为尚未形成有利共振；新增现金 `observe`、已有持仓 `review`，核心验证点为2026-08-22半年报的收入、核心OTC动销、处方药毛利和经营现金流。生成同源HTML并更新Workbench索引；未新增正式Wiki页面，因此不更新根 `index.md`。
+
+## 2026-08-19
+
+### 操作类型
+
+automation / BBXM每日汇总 / blocked
+
+### 修改文件
+
+- `sources/automations/BBXM每日汇总/2026-08-19/冰冰小美/summary.md`
+- `sources/automations/BBXM每日汇总/2026-08-19/冰冰小美/task.log`
+- `sources/automations/BBXM每日汇总/2026-08-19/冰冰小美/processing/risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026-08-19/冰冰小美/processing/risk-write-status.json`
+- `log.md`
+
+### 操作说明
+
+按 `.agents/automations/bbxm_daliy_brief.md` 执行 2026-08-19 冰冰小美每日汇总。CDP 9333 初始不可用，提取脚本启动自动化 Chrome 后遇到雪球登录页，等待在同一自动化窗口内完成登录恢复超时。本轮未进入可靠帖子详情抓取阶段，原帖保存 0 条；该状态记录为抓取阻塞，不解释为“无新帖”。已生成 blocked 版 `summary.md` 与 `risk-analysis.json`，Excel 更新器返回 `blocked`，未修改风险提示工作簿。
+
+### 后续待办
+
+- 在自动化 Chrome 窗口内完成雪球登录后，同日重跑 2026-08-19。
+- 重跑后保存目标日期原帖、补写标签、重算风险分析，并重新调用 Excel 更新器。
+
+## 2026-08-19
+
+### 操作类型
+
+research / valuation / report-update / html
+
+### 修改文件
+
+- `sources/webpages/2026-08-19-兴业银锡v3.0.2研报数据核验快照.md`
+- `workbench/targets/2026-07-23-1732-兴业银锡-机构级决策研报.md`
+- `sources/automations/战略资源/银锡/2026-07-23-1732-兴业银锡-机构级决策研报.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research v3.0.2` 原地更新兴业银锡权威研报。新增截至2026-08-19收盘的行情、估值、资金分档、融资余额、财务、分红、银漫停产和威领控制权收购核验快照；主类型维持周期资源，以22—28亿元正常化归母净利润乘14—16倍周期PE为主锚，PB / 调整后净资产、同业与反向利润交叉验证，完整公司DCF不适用。威领股份因负净资产、连续亏损、退市风险和尚无具体扭亏方案，归入重资产困境重组 / 失败或退出业务，不计正价值，只用现金支出和整合风险约束中上沿；公允价值由20—33元下修至19—32元、中枢24—25元。35.96元收盘价高于上沿12.4%，32项触发器显示银漫停产、近一年自由现金流级别的收购支出、大额订单流出、融资去杠杆和放量下跌形成基本面—流动性—预期跨表传导，判断为普通高估、出清中；新增现金`wait`、已有持仓`review`。同步重建HTML阅读版并更新Workbench索引；同目录不存在产业研报，未建立反向链接。未新增正式Wiki页面，因此不更新根`index.md`。
+## 2026-08-19
+
+### 操作类型
+
+research / update / valuation / risk
+
+### 修改文件
+
+- `sources/webpages/2026-08-19-神马电力机构级研究收盘快照.md`
+- `workbench/targets/2026-07-16-1021-神马电力-机构级决策研报.md`
+- `workbench/index.md`
+- `sources/automations/新兴产业/电网/2026-07-16-1021-神马电力-机构级决策研报.html`
+
+### 操作说明
+
+按 `bbxm-equity-research v3.0.2` 原地更新神马电力权威研报，纳入2026-08-19收盘行情、估值、资金分档、融资余额、最新公告索引和电网产业信息；将主估值锚切换为成长企业未来利润折现，完成32项泡沫触发器扫描并生成HTML阅读版。
+
+### 后续待办
+
+- 获取2026-08-17投资者关系活动记录正文及海外框架正式订单、交付和回款数据。
+- 跟踪股东减持窗口、融资去杠杆和下一期财报现金流。
+
+## 2026-08-19
+
+### 操作类型
+
+research / three-factor-analysis / render
+
+### 修改文件
+
+- `sources/webpages/2026-08-19-神马电力三要素政策行业与市场证据快照.md`
+- `workbench/targets/2026-08-19-1638-神马电力-三要素分析.md`
+- `sources/automations/新兴产业/电网/2026-08-19-1638-神马电力-三要素分析.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-three-factor-analysis v2.3.0` 对神马电力完成三要素分析。竞争格局判断为有利，流动性不利且由修复转弱，情绪位置中性并处于修复后的高位分歧，综合状态为尚未形成有利共振；行动映射为新增现金 `wait`、已有持仓 `review`。证据快照补齐新型电力系统“十五五”规划、国内外电网资源配置、National Grid客户技术验证、2026H1经营数据及8月19日市场广度和多窗口资金。
+
+### 后续待办
+
+- 跟踪英国National Grid与比利时Elia框架转正式订单、交付、毛利率和回款。
+- 跟踪市场广度、5/10日大额订单、融资去杠杆、股东减持及三季报经营现金流。
+## 2026-08-19
+
+### 操作类型
+
+research / valuation / report-update / html
+
+### 修改文件
+
+- `sources/webpages/2026-08-19-华明装备v3.0.2研报数据核验快照.md`
+- `workbench/targets/2026-07-30-华明装备-机构级决策研报.md`
+- `sources/automations/支柱产业/电网/2026-07-30-华明装备-机构级决策研报.html`
+- `sources/automations/支柱产业/电网/2026-07-17-十五五电网投资与电网行业完整分析报告.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research v3.0.2` 原地更新华明装备权威研报。纳入2026-08-19收盘行情、估值、订单资金、融资余额、员工持股解锁、H股变量与最新卖方预期；将企业主类型确认为稳定盈利，以正常化EPS乘合理PE为主锚，FCF、可持续分红和反向利润交叉验证，完成32项泡沫触发器扫描并重建HTML阅读版。
+
+### 后续待办
+
+- 2026-08-29半年报后复核主业收入、扣非利润、海外毛利、应收账款和自由现金流。
+- 跟踪员工持股解锁后的实际处置及H股发行规模、定价与摊薄。
+
+## 2026-08-19
+
+### 操作类型
+
+research / three-factor-analysis / update / render
+
+### 修改文件
+
+- `sources/webpages/2026-08-19-星网锐捷三要素更新快照.md`
+- `workbench/targets/2026-08-17-1454-星网锐捷-三要素分析.md`
+- `sources/automations/新兴产业/算力/中游-数据中心网络/2026-08-17-1454-星网锐捷-三要素分析.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-three-factor-analysis v2.3.0` 原地更新星网锐捷唯一权威三要素报告。补入2026-08-19收盘行情、订单资金、融资余额、市场广度、同业相对强弱、最新算力网政策和公司公告核验；竞争格局判断为中性，流动性不利且由修复转弱，情绪处于拥挤后的退潮确认中，综合状态为尚未形成有利共振。行动映射为新增现金 `wait`、已有持仓 `review`。
+
+### 后续待办
+
+- 补验8月19日及后续融资去化，观察29.61—32.24元修复区和24.24元风险位。
+- 2026Q3复核经营现金流、存货、应收、800G收入与毛利、项目中标及广州芯德并表。
+
+## 2026-08-20
+
+### 操作类型
+
+research / financial-update / valuation / risk / render
+
+### 修改文件
+
+- `sources/papers/中国中车机构研报-2026-07-16/中国中车2026年半年度报告.pdf`
+- `sources/papers/中国中车机构研报-2026-07-16/中国中车2026年半年度利润分配方案公告.pdf`
+- `sources/webpages/2026-08-20-中国中车半年报与v3.0.2研报数据核验快照.md`
+- `workbench/targets/2026-07-16-1334-中国中车机构级决策研报.md`
+- `sources/automations/支柱产业/2026-07-16-1334-中国中车机构级决策研报.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research v3.0.2` 对中国中车唯一权威研报原地更新，并补入2026年半年度报告和中期利润分配公告的库内PDF。半年报显示收入、归母净利润和扣非利润分别增长9.96%、10.28%和11.22%，铁路装备收入与毛利率同步改善，但经营现金净流出扩大至161.39亿元、自由现金流代理约-191.73亿元。企业主类型维持重资产，以调整后NAV/PB为主锚，正常化EPS、分红、同业和反向估值交叉验证；公允价值由5.7—7.8元收敛为5.7—7.5元、中枢约6.5元。2026-08-20 10:04盘中价6.25元仍在公允价值内，但安全边际不足；风险增强、出清观察，新增现金`observe`、已有持仓`review`。完成32项触发器、HTML阅读版和渲染测试；同目录不存在产业研报，未建立反向链接。未新增正式Wiki页面，因此不更新根`index.md`。
+
+### 后续待办
+
+- 2026Q3复核经营现金流、应收账款、合同资产、存货和货币资金，确认H1现金缺口是否季节性回收。
+- 跟踪铁路装备与新产业毛利率、控股股东增持、半年报后卖方预测修订和盘中资金承接。
+
+## 2026-08-20
+
+### 操作类型
+
+research / three-factor-analysis / render
+
+### 修改文件
+
+- `sources/webpages/2026-08-20-徐工机械三要素政策行业与市场证据快照.md`
+- `workbench/targets/2026-08-20-1028-徐工机械-三要素分析.md`
+- `sources/automations/支柱产业/高端制造/工程机械/2026-08-20-1028-徐工机械-三要素分析.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-three-factor-analysis v2.3.0` 对徐工机械完成三要素分析。核验机械行业稳增长方案、2026年“两新”“两重”资金、固定资产投资、工程机械销量、徐工法定财务、国内外竞品、回购增持和截至2026-08-19的量价与市场广度。竞争格局判断为有利，流动性不利且由平衡转弱，情绪中性并处于退潮后的低位分歧，综合状态为尚未形成有利共振；新增现金 `observe`、已有持仓 `review`。完成Markdown母稿、HTML阅读版、9章目录、摘要状态、研究提示、双链和UTF-8编码验证。未新增正式Wiki页面，因此不更新根`index.md`。
+
+### 后续待办
+
+- 2026-08-29半年报后复核海外收入与毛利、扣非利润、财务费用、经营现金流、应收和存货。
+- 跟踪7.80元承接、8.67—9.99元回购区间、20日订单资金、融资20日增幅、工程机械ETF与行业广度。
+
+## 2026-08-20
+
+### 操作类型
+
+research / market-refresh / valuation / risk / render / link
+
+### 修改文件
+
+- `sources/webpages/2026-08-20-云铝股份v3.0.2研报数据核验快照.md`
+- `workbench/targets/2026-07-23-1421-云铝股份-机构级决策研报.md`
+- `sources/automations/支柱产业/电解铝/2026-07-23-1421-云铝股份-机构级决策研报.html`
+- `sources/automations/支柱产业/电解铝/2026-07-22-电解铝产业完整分析报告.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research v3.0.2` 对云铝股份权威研报原地刷新至2026-08-20 10:34。重新调用本地Tushare证券、日线、估值、资金分档、融资融券、财务和分红数据，并核对盘中行情、公告状态与SMM行业增量；截至核验时法定财务仍为2026Q1，H1仍为业绩预告，因此周期资源主类型、正常化利润 × 周期中枢PE主锚和20—28元公允价值区间不变。25.96元盘中价位于区间上半部；融资余额单日回落，但60日股价-18.08%、融资余额+37.89%，近20日大额订单代理净流出8.27亿元，风险仍为重新增强、出清观察。新增现金`observe`、已有持仓`review`，等待8月28日半年报验证利润向现金流的转化。完成32项触发器、HTML每日跟踪面板、统一渲染器测试和电解铝产业研报反向链接；未新增正式Wiki页面，因此不更新根`index.md`。
+
+### 后续待办
+
+- 2026-08-28半年报后复核收入、分部毛利率、经营现金流、应收账款、存货、分红方案和正常化利润中枢。
+- 跟踪铝—氧化铝价差、云南供电、铝锭库存、20日大额订单代理与60日融资去化。
+
+## 2026-08-20
+
+### 操作类型
+
+research / three-factor-analysis / render
+
+### 修改文件
+
+- `sources/webpages/2026-08-20-国药现代三要素政策行业与市场证据快照.md`
+- `workbench/targets/2026-08-20-1046-国药现代-三要素分析.md`
+- `sources/automations/temp/2026-08-20-1046-国药现代-三要素分析.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-three-factor-analysis v2.3.0` 对国药现代完成三要素分析。核验2026年健康优先与医保政策、第12批国家药品集采的采购和企业拟中选传导、抗生素原料药行业价格竞争、普洛药业与华海药业等同业韧性、公司H1业绩预告和2026-08-20盘中量价。竞争格局判断为不利；流动性中性且由转弱进入修复；情绪中性并处于退潮后的板块修复，综合状态为尚未形成有利共振。新增现金`observe`、已有持仓`review`，等待8月27日半年报、集采最终量价和相对中证医药的持续强弱。未新增正式Wiki页面，因此不更新根`index.md`。
+
+### 后续待办
+
+- 2026-08-27半年报后复核原料药/中间体毛利率、制剂收入、扣非净利、经营现金流和存货。
+- 跟踪第12批集采最终采购量、执行价与毛利，及9.20元、9.60元区域的非杠杆承接。
+
+## 2026-08-20
+
+### 操作类型
+
+fix / dashboard / build / test
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/scripts/build.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+修复持仓跟踪面板误选归档研报的问题。面板构建时不再扫描名为 `archive` 的目录，也不再把归档目录生成成产业筛选项；云铝股份现关联 `2026-07-23-1421-云铝股份-机构级决策研报.html`，可读取20—28元公允价值区间和“公允价值内”的交易定价偏离，不再显示旧归档页中的“Bing / Morningstar 关键词及状态”。同步更新当前有效研报文件名断言并重新生成单文件面板；未新增正式Wiki页面，因此不更新根 `index.md`。
+
+### 后续待办
+
+- 若浏览器仍保留旧面板内容，刷新页面或重新启动面板以加载新构建文件。

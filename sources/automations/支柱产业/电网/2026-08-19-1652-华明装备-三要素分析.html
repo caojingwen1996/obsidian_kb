@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>华明装备冰冰小美体系三要素分析</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --positive: #17604e;
+  --positive-bg: #dff3eb;
+  --negative: #a82828;
+  --negative-bg: #ffe1df;
+  --neutral: #7b5b18;
+  --neutral-bg: #fff2cf;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; color: var(--ink); background: var(--paper); font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif; line-height: 1.7; }
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero { padding: 56px 76px 46px; color: #fff; background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%); }
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.research-note { margin: 16px 0 26px; padding: 14px 18px 13px; border: 1px solid #dce5e9; border-left: 4px solid #8ca6b1; border-radius: 8px; color: #526875; background: #f7fafb; }
+.research-note-title { margin: 0 0 7px; color: #58717d; font-size: 12px !important; font-weight: 700; letter-spacing: .08em; }
+.research-note ul { margin: 0; padding-left: 21px; }
+.research-note li { margin: 4px 0; font-size: 13.5px; line-height: 1.65; }
+.research-note li::marker { color: #8ca6b1; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.factor-summary { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin: 26px 0 42px; }
+.factor-card { min-width: 0; padding: 16px; border: 1px solid var(--line); border-radius: 12px; background: #f7f9fa; }
+.factor-card p { margin: 0 0 6px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .06em; }
+.factor-card strong { color: var(--navy); font-size: 18px; line-height: 1.35; }
+.factor-card.positive { background: var(--positive-bg); }
+.factor-card.positive strong { color: var(--positive); }
+.factor-card.negative { background: var(--negative-bg); }
+.factor-card.negative strong { color: var(--negative); }
+.factor-card.neutral { background: var(--neutral-bg); }
+.factor-card.neutral strong { color: var(--neutral); }
+
+@media (max-width: 1100px) { .factor-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 980px) { .hero { padding: 40px 30px 34px; } .layout { grid-template-columns: 1fr; } .toc { border-right: 0; border-bottom: 1px solid var(--line); } .toc-inner { position: static; columns: 2; } .content { padding: 34px 30px 64px; } }
+@media (max-width: 600px) { .toc-inner { columns: 1; } .content { padding: 28px 18px 54px; } .factor-summary { grid-template-columns: 1fr; } }
+@media print { body { background: #fff; } .report-shell { max-width: none; } .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; } .layout { display: block; } .toc { display: none; } .content { padding: 25px 36px; } .content h2 { break-after: avoid; } .content table { display: table; overflow: visible; break-inside: avoid; } .factor-card { border: 1px solid #aebbc2; background: #fff !important; } .research-note { break-inside: avoid; background: #fff; } }
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM THREE-FACTOR ANALYSIS</p>
+      <h1>华明装备冰冰小美体系三要素分析</h1>
+      <div class="hero-meta"><span>个股</span><span>深圳证券交易所主板</span><span>2026-08-19 16:52 Asia/Shanghai；行情、广度与订单分档截至 8 月 19 日，融资融券截至 8 月 18 日</span><span>2026-08-19 16:52 Asia/Shanghai</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 一句话结论</a>
+<a class="toc-link" href="#section-2">2. 三要素状态总表</a>
+<a class="toc-link" href="#section-3">3. 竞争格局的比较优势</a>
+<a class="toc-link" href="#section-4">4. 流动性辩证分析</a>
+<a class="toc-link" href="#section-5">5. 情绪位置变化</a>
+<a class="toc-link" href="#section-6">6. 综合状态与主导矛盾</a>
+<a class="toc-link" href="#section-7">7. 行动映射</a>
+<a class="toc-link" href="#section-8">8. 数据缺口与置信度</a>
+<a class="toc-link" href="#section-9">9. 来源</a></div></aside>
+      <article class="content"><blockquote>
+<p>对象层级：个股</p>
+<p>市场：深圳证券交易所主板</p>
+<p>分析截止时间：2026-08-19 16:52 Asia/Shanghai；行情、广度与订单分档截至 8 月 19 日，融资融券截至 8 月 18 日</p>
+<p>报告生成时间：2026-08-19 16:52 Asia/Shanghai</p>
+<p>核心问题：华明装备的分接开关龙头地位、高端国产替代和海外扩张，是否已形成可持续的比较优势；这种优势能否抵消 2026Q1 盈利放缓、估值处于价值区间上部以及二级市场承接转弱？</p>
+</blockquote>
+<section class="factor-summary" aria-label="三要素摘要">
+    <div class="factor-card neutral"><p>综合状态</p><strong>尚未形成有利共振。</strong></div>
+    <div class="factor-card positive"><p>竞争格局</p><strong>有利</strong></div>
+    <div class="factor-card negative"><p>流动性</p><strong>不利 / 转弱，上一可辨识状态为修复，转换为“修复 → 转弱”。</strong></div>
+    <div class="factor-card negative"><p>情绪位置</p><strong>不利</strong></div>
+    <div class="factor-card positive"><p>总体置信度</p><strong>中。竞争格局有利的结构证据较强，流动性转弱有多窗口数据支持；半年报尚未披露、直接同业和资金身份缺失，使企业优势强度与情绪持续性仍需验证。</strong></div>
+  </section>
+<h2 id="section-1">1. 一句话结论</h2>
+
+<ul>
+<li>综合状态：<strong>尚未形成有利共振</strong>。</li>
+<li>流动性阶段：<strong>转弱</strong>，上一可辨识状态为修复，转换为“修复 → 转弱”。</li>
+<li>主导要素：<strong>竞争格局有利</strong>。新型电力系统资本开支、分接开关的认证与运行记录壁垒、公司在国内 500kV 以下的领先位置、特高压首次批量投运及接近 60% 的主业毛利率，共同证明方向和企业优势真实存在。</li>
+<li>拖累要素：<strong>流动性与情绪均不利</strong>。华明 5 / 10 日收益为 -4.51% / -6.51%，订单资金 5 / 10 日净流出 1.85 / 3.03 亿元，融资 5 / 10 日净偿还 0.25 / 0.41 亿元；8 月 19 日全 A 下跌 5,069 只，价格又仍处于既有 15—21 元价值区间上部，新增承接尚不足。</li>
+</ul>
+<h2 id="section-2">2. 三要素状态总表</h2>
+
+<table>
+<thead>
+<tr>
+<th>要素</th>
+<th>状态</th>
+<th>核心证据</th>
+<th>核心反证</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>有利</td>
+<td>国网“十五五”计划投资 4 万亿元；公司披露国内第一、全球第二，国内 500kV 以下领先；特高压产品首次批量投运；2025 年电力设备毛利率 59.61%</td>
+<td>份额主要为公司口径；500kV 以上仍以进口产品为主；2026Q1 电力设备收入 -1.28%、扣非利润 -9.51%；海外高增难长期维持</td>
+<td>中</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>不利</td>
+<td>全市场广度急剧恶化；目标订单资金 5 / 10 日持续净流出，融资持续净偿还；收盘跌破 MA5/10/20/60；美债利率上行</td>
+<td>目标 20 日仍 +12.46%，当日较广义同业均值抗跌；市场融资 5 / 10 日仍增加，单日普跌尚未形成完整收缩</td>
+<td>中</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>不利</td>
+<td>5 / 10 日跑输广义同业均值，股东户数阶段性增加约 16.2%，资金撤离早于单日普跌；AI 数据中心叙事强于公司订单表述</td>
+<td>20 日相对同业仍强，价格未跌破 7 月低点，分接开关主业与电网投资提供价值锚</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 竞争格局的比较优势</h2>
+
+<h3>国家层：方向与资源配置</h3>
+<ul>
+<li>结论：新型电力系统、跨区输电、安全韧性和配电网升级已获得顶层规划与央企资本开支支持，华明所在的变压器调压环节具备方向资格；但总投资需要经过变压器采购和分接开关配套才能传导为公司收入。</li>
+<li>国策方向：<a href="https://www.moe.gov.cn/jyb_xwfb/xw_zt/moe_357/2026/2026_zt03/yw/202603/t20260314_1430877.html">“十五五”规划纲要</a>明确构建新型电力系统、提升互补互济与安全韧性、优化跨区域输电通道、建设智能电网并完善城乡配电网。</li>
+<li>政策落地：国家发展改革委、国家能源局 2026 年 7 月印发<a href="https://www.nea.gov.cn/20260803/f90e2bdec3744f3c90898ca65e31e597/c.html">《新型电力系统建设“十五五”规划》</a>，提出到 2030 年西电东送规模超过 4.2 亿千瓦、省间互济能力 1.2 亿千瓦、配电网承载分布式新能源能力 9 亿千瓦。</li>
+<li>资源配置：<a href="https://www.sasac.gov.cn/n2588025/n2588124/c35325777/content.html">国家电网“十五五”计划投资 4 万亿元</a>，较“十四五”增长 40%；国家能源局转载的行业报告预计“十五五”全国电网固定资产投资超过 5 万亿元、新增投产约 15 回特高压直流通道。</li>
+<li>核心证据：方向、专项规划、央企五年资本开支与特高压实物工程形成连续证据；新建和更新变压器通常需要配套调压分接开关，华明具备直接受益资格。</li>
+<li>核心反证：电网投入覆盖主网、配网、调节、数智化、储能和服务等多种用途，不能把 4 万亿或 5 万亿元线性乘以华明份额；国网与变压器厂商仍拥有集中采购和议价能力。</li>
+</ul>
+<aside class="research-note" aria-label="研究提示"><p class="research-note-title">研究提示</p><ul>
+<li>已检索范围：已检查“十五五”规划纲要、新型能源体系与新型电力系统专项规划、国家电网五年投资和中电联行业投资预测；财政补贴不适用，政府采购以央企电网招标与资本开支代理，产品级政策信贷未取得。</li>
+<li>数据缺口：未取得 2026—2030 年分接开关单独投资、分电压等级招标量、中标价格和年度交付节奏。</li>
+<li>下一验证点：国家电网与南方电网后续变压器批次招标、特高压工程核准、主变交付和华明中标份额。</li>
+<li>失效条件：年度电网实物工作量显著低于规划，或变压器与分接开关招标价格持续下降并压缩行业利润。</li>
+</ul>
+</aside>
+<h3>产业 / 行业层：利润流向与产业链位置</h3>
+<ul>
+<li>结论：分接开关价值量不一定高，却承担机械动作、调压和长期可靠性责任；利润更可能流向拥有认证、历史运行记录、定制适配、全产业链质量控制和原厂检修能力的专业厂商。产业位置有利，但高端市场仍被进口品牌占据。</li>
+<li>核心证据：公司 2025 年报披露，35kV 以上电力变压器需安装调压分接开关；公司参与多项国标和行标，拥有 CNAS 认证实验室、约 80% 零件自主加工能力和原厂检修体系。这些能力共同提高进入与更换成本。</li>
+<li>核心证据：2025 年，公司 CHVT 型换流变分接开关在陇东—山东 ±800kV 特高压直流工程首次批量投运，证明国产替代由鉴定和试验进入实际运行；在线监测与检修业务又有机会把一次设备收入延伸为全生命周期服务。</li>
+<li>核心反证：500kV 超高压与特高压市场仍以进口产品为主，说明德国 MR 等海外品牌在高端可靠性、品牌和全球渠道上仍占优势；变压器厂商多供应商策略、集中采购压价和电力电子调压路线也会限制长期定价权。</li>
+</ul>
+<aside class="research-note" aria-label="研究提示"><p class="research-note-title">研究提示</p><ul>
+<li>已检索范围：已检查公司年报的行业规则、标准参与、制造能力、特高压投运和检修服务；比较直接海外品牌与广义输变电上市公司，但未把整机厂行情当作分接开关份额证据。</li>
+<li>数据缺口：缺全球分接开关市场规模、CR3/CR5、按电压等级份额、MR 同口径收入与毛利、招标价格和全生命周期服务渗透率。</li>
+<li>下一验证点：特高压从首批投运转持续批量采购、在线监测和检修收入、海外客户复购及高端进口替代份额。</li>
+<li>失效条件：国产特高压产品运行可靠性不达预期、海外品牌交付与价格反转、客户改用替代技术，或分接开关行业价格竞争显著加剧。</li>
+</ul>
+</aside>
+<h3>企业层：谁能获得利润</h3>
+<ul>
+<li>结论：华明的国内规模、标准参与、制造与试验能力、运行记录和原厂服务构成相对优势；2025 年高毛利与现金流证明能够获得利润，但 2026Q1 主业和扣非利润放缓，海外渠道与高端份额仍未达到无条件宽护城河。</li>
+<li>核心证据：<a href="../../../papers/华明装备机构研报-2026-07-15/2025年年度报告.pdf.md">2025 年报</a>称公司 2018 年并购国内最大竞争对手后巩固国内第一、全球第二，国内 500kV 以下领先；2025 年电力设备收入 21.02 亿元、毛利率 59.61%，占收入 86.63%，说明利润池聚焦且质量较高。</li>
+<li>核心证据：2025 年收入 24.27 亿元、归母净利润 7.10 亿元、经营现金流 6.04 亿元；海外地域收入 4.79 亿元、同比 +55.65%。印尼基地、新加坡中心和欧洲渠道有利于本地交付，特高压批量投运提高高端产品资格。</li>
+<li>核心反证：<a href="../../../papers/华明装备机构研报-2026-07-15/2026年第一季度报告.pdf.md">2026Q1</a>电力设备收入 -1.28%、扣非归母净利润 -9.51%，应收账款较年初 +53.29%；公司 4 月调研也明确海外行业长期增速为个位数、此前高增难持续，与海外竞争者在品牌和渠道上的距离仍较大。</li>
+<li>核心反证：<a href="https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?CompanyCode=80121960&gather=1&id=12082267">公司 2026-04-13 投资者关系记录</a>明确表示 AI 数据中心订单不会成为重大收入来源，也没有专门针对 AI 或数据中心开发的分接开关产品；因此“AI 供电龙头”只能作为间接电网需求背景，不能替代订单和利润证据。</li>
+</ul>
+<aside class="research-note" aria-label="研究提示"><p class="research-note-title">研究提示</p><ul>
+<li>已检索范围：已检查 2025 年报、2026Q1、4—5 月投资者关系记录、既有机构级研报和 8 月监控；比较思源电气、中国西电、平高电气、特变电工、金盘科技的交易数据，直接竞争者财务不可得。</li>
+<li>数据缺口：公司披露的国内第一、全球第二及约 18% 全球份额缺独立原始报告；缺直接竞争者同口径财务、2026H1 分产品订单、海外毛利、回款和客户集中度。</li>
+<li>下一验证点：8 月 29 日半年报的电力设备收入、扣非利润、海外毛利、应收账款和经营现金流；后续特高压订单和海外复购。</li>
+<li>失效条件：H1 主业收入继续负增长、扣非利润降幅扩大、海外毛利跌破 50%、滚动 CFO/归母低于 70%，或重大质量问题破坏客户认证和运行记录。</li>
+</ul>
+</aside>
+<h3>本要素判断</h3>
+<ul>
+<li>状态：<strong>有利</strong>。</li>
+<li>理由：国家资本开支提供方向资格，分接开关的高可靠性与认证要求使利润能够向专业厂商集中，华明又以国内领先、特高压投运、接近 60% 主业毛利率和长期正现金流证明受益。Q1 放缓、高端进口竞争和海外持续性降低置信度，但尚未推翻相对优势。</li>
+</ul>
+<aside class="research-note" aria-label="研究提示"><p class="research-note-title">研究提示</p><ul>
+<li>主导证据：特高压产品首次批量投运与 2025 年电力设备毛利率 59.61%，共同证明技术和市场地位已转为经营结果。</li>
+<li>核心缺口：独立份额、MR 同口径比较、2026H1 主业与海外经营质量。</li>
+<li>下一验证点：8 月 29 日半年报及后续特高压、海外订单和原厂服务收入。</li>
+<li>失效条件：主业增长、毛利率、现金回收和高端份额连续两个报告期同步恶化，或客户与认证壁垒不再带来利润优势。</li>
+</ul>
+</aside>
+<h2 id="section-4">4. 流动性辩证分析</h2>
+
+<blockquote>
+<p>核心边界：成交量只是结果。本节同时检查外部利率、国内货币活化、市场广度、目标资金、融资和筹码供给，不以单日放量或缩量直接定性。</p>
+</blockquote>
+<h3>宏观流动性</h3>
+<ul>
+<li>事实与时点：美联储 2026-07-29 维持联邦基金目标区间 3.50%—3.75%；美国 10 年期国债收益率由 7 月 1 日 4.48% 升至 8 月 17 日 4.72%。美元指数本轮未取得。</li>
+<li>对对象的影响：<strong>约束</strong>。华明 8 月 19 日 PE TTM 约 25.15 倍、PB 约 5.65 倍，价格已处于既有价值区间上部；外部长期利率上行提高估值折现约束，也可能增加海外电网项目融资成本。</li>
+</ul>
+<h3>中观流动性</h3>
+<ul>
+<li>事实与时点：2026 年 7 月 M2 同比 +7.7%、M1 同比 +4.0%，剪刀差 -3.7 个百分点；国网 4 万亿元规划和电网工程属于实体资源配置。</li>
+<li>传导判断：国内货币存量仍增长，电网资本开支为公司下游提供需求；但 M1 明显弱于 M2，资金活化不充分，实体投资不能直接转换为二级市场买盘。</li>
+<li>对对象的影响：<strong>中性偏约束</strong>。产业融资与订单环境偏有利，股票市场增量传导偏弱。</li>
+</ul>
+<h3>微观流动性</h3>
+<ul>
+<li>事实与时点：华明 8 月 19 日收 19.68 元、-3.81%，成交 4.34 亿元、换手 2.46%；5 / 10 / 20 日收益 -4.51% / -6.51% / +12.46%，收盘跌破 MA5/10/20/60。</li>
+<li>事实与时点：目标全口径订单资金 1 / 5 / 10 日为 -0.82 / -1.85 / -3.03 亿元；融资截至 8 月 18 日为 3.13 亿元，近 5 / 10 日净买入 -0.25 / -0.41 亿元。8 月 19 日全 A 上涨 449 只、下跌 5,069 只，沪深 300 / 创业板指 -2.90% / -6.26%。</li>
+<li>迁移路径：7 月低点后，资金曾向电网设备、出海和高质量盈利标的修复；8 月上旬华明冲至 21.20 元后，订单资金和融资先行转负，8 月 19 日市场普跌使存量迁移转为高位撤退与去杠杆。</li>
+<li>对对象的影响：<strong>约束</strong>。华明当日较广义同业均值略抗跌，但 5 / 10 日明显跑输且资金持续流出，不能据单日相对强度判断承接稳固。</li>
+</ul>
+<h3>资金来源分类</h3>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>是否存在</th>
+<th>渠道与证据</th>
+<th>持续性</th>
+<th>退出条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>场外真实增量</td>
+<td>证据不足</td>
+<td>未取得电网 ETF 净申购、机构新增持仓或北向账户证据；市场融资属于杠杆，不归入真实场外增量</td>
+<td>低</td>
+<td>ETF、机构持仓和市场广度不能连续确认</td>
+</tr>
+<tr>
+<td>存量迁移</td>
+<td>是</td>
+<td>华明 20 日 +12.46%、相对五家广义样本强约 6.6 个百分点，说明上一阶段有资金向电网设备和高质量龙头迁移</td>
+<td>低</td>
+<td>5 / 10 日相对收益和订单资金已转负；若延续则确认退出</td>
+</tr>
+<tr>
+<td>减量报团</td>
+<td>证据不足</td>
+<td>目标中期相对强，但全市场当日成交约 2.53 万亿元并非明显缩量，不能只因少数公司抗跌认定减量报团</td>
+<td>低</td>
+<td>若总成交和广度连续下降、资金进一步集中才确认</td>
+</tr>
+</tbody></table>
+<h3>供给与抛压</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>当前事实</th>
+<th>对流动性的影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>杠杆资金</td>
+<td>目标融资近 5 / 10 日净偿还约 0.25 / 0.41 亿元；全市场融资 5 / 10 日仍 +1.25% / +3.03%</td>
+<td>市场短期杠杆修复未流入目标，华明处于主动去杠杆或承接不足状态</td>
+</tr>
+<tr>
+<td>股票融资供给</td>
+<td>公司已递交 H 股发行上市申请，发行规模、定价和时间未取得</td>
+<td>潜在摊薄与折价不确定性，提高估值供给约束，但尚非已发生供给</td>
+</tr>
+<tr>
+<td>减持与解禁</td>
+<td>未发现截至 8 月 19 日新增重大减持或解禁证据；公告检索存在延迟</td>
+<td>暂无明确新增压力，不能据此排除未来卖压</td>
+</tr>
+<tr>
+<td>套牢盘与高位筹码</td>
+<td>股东户数 7 月 31 日较 7 月 20 日增加约 16.2%；19.68 元接近 15—21 元价值区间上部，5 月高点 24.15 元上方仍有套牢盘</td>
+<td>筹码分散、估值与解套盘共同提高反弹所需承接</td>
+</tr>
+</tbody></table>
+<h3>最低数据检查</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>已检查数据</th>
+<th>数据时点与窗口</th>
+<th>来源</th>
+<th>缺口及影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观</td>
+<td>美联储利率、美债 10 年期、海外需求背景</td>
+<td>7 月 1 日至 8 月 19 日</td>
+<td>美联储、本地 Tushare、公司调研</td>
+<td>美元指数为空，宏观完整度下降</td>
+</tr>
+<tr>
+<td>中观</td>
+<td>M2/M1、国网与全国电网投资</td>
+<td>2026 年 7 月、“十五五”</td>
+<td>库内货币快照、国务院国资委、国家能源局</td>
+<td>最新社融结构、公开市场操作和产品级信贷投向未完整取得</td>
+</tr>
+<tr>
+<td>微观</td>
+<td>价格、成交、换手、广度、可比样本、订单分档、融资</td>
+<td>当日、5/10/20 日</td>
+<td>本地 Tushare</td>
+<td>ETF 申赎、机构逐日持仓、北向身份和做空回补不可得</td>
+</tr>
+<tr>
+<td>供给与抛压</td>
+<td>H 股申请、股东户数、价值区间和历史高低点</td>
+<td>至 8 月 19 日</td>
+<td>公司公告、东方财富、既有机构级研报、Tushare</td>
+<td>H 股条款、最新完整减持解禁和筹码成本分布未取得</td>
+</tr>
+</tbody></table>
+<h3>证据</h3>
+<ul>
+<li>目标 5 / 10 日价格、订单资金和融资同时转负，且价格跌破 MA5/10/20/60，说明资金边际恶化不是单一成交量信号。</li>
+<li>8 月 19 日全市场广度从前一日 2,121 只上涨恶化至仅 449 只上涨，指数与目标同步下跌，系统性承接明显下降。</li>
+<li>股东户数阶段性增加约 16.2%、H 股融资不确定性与价值区间上部价格共同增加筹码供给约束。</li>
+</ul>
+<h3>反证</h3>
+<ul>
+<li>华明 20 日收益仍 +12.46%，较五家广义电网设备样本均值强约 6.6 个百分点；上一阶段修复尚未完全被价格抹去。</li>
+<li>8 月 19 日华明较五家样本当日均值强约 0.9 个百分点，全市场融资 5 / 10 日仍增加；因此尚不能写成全面流动性衰竭。</li>
+<li>Q1 经营现金流同比改善，基本面锚仍在；实体订单端与二级市场资金端必须分开判断。</li>
+</ul>
+<h3>退出路径</h3>
+<ul>
+<li>第一条：全市场普跌持续，电网设备相对强度失效，存量资金进一步迁回现金和低波资产。</li>
+<li>第二条：目标订单资金和融资由 5 / 10 日流出扩展到 20 日，价格跌破 7 月修复平台，套牢盘与去杠杆互相强化。</li>
+<li>第三条：半年报未证明 Q1 只是交付节奏，AI 数据中心叙事又缺订单兑现，估值敏感资金先退出。</li>
+<li>第四条：H 股发行出现明显折价或摊薄，叠加股东户数扩散和上方解套盘。</li>
+</ul>
+<h3>失效条件</h3>
+<ul>
+<li>若连续 5 个交易日市场上涨家数显著恢复，华明站回 20.32 元并保持 5 日订单资金净流入、融资止降，当前“不利/转弱”失效，转为平衡或修复复核。</li>
+<li>若市场普跌、目标订单资金和融资流出扩展到 20 日，价格有效跌破 17.50—17.23 元平台且没有承接，则“转弱”应下调为收缩复核。</li>
+</ul>
+<h3>流动性阶段判定</h3>
+<ul>
+<li>方向评价：<strong>不利</strong>。</li>
+<li>当前状态：<strong>转弱</strong>。</li>
+<li>上一可辨识状态或基准状态：<strong>修复</strong>。</li>
+<li>转换方向：<strong>修复 → 转弱</strong>。</li>
+<li>跨层依据：宏观层美债利率上行约束估值；中观层货币存量和电网实体投资仍在，但 M1 活化偏弱；微观层 20 日修复余温尚存，5 / 10 日价格、订单资金、融资与当日市场广度却同步转差，形成边际转弱。</li>
+<li>相邻状态排除理由：不是平衡，因为目标多窗口资金、融资和均线已明显偏向卖方；不是收缩，因为目标 20 日仍正收益、当日相对同业略抗跌、市场短期融资仍增加，持续卖压自我强化尚未完整确认。</li>
+<li>置信度：<strong>中</strong>。目标价格、资金、融资、筹码与市场广度多项一致；ETF、机构身份、H 股条款和美元指数缺失限制进一步上调。</li>
+</ul>
+<h2 id="section-5">5. 情绪位置变化</h2>
+
+<h3>证据</h3>
+<ul>
+<li>华明从 7 月 17 日盘中 17.23 元修复至 8 月 11 日 21.20 元，20 日收益仍 +12.46%，分接开关主业、特高压国产替代和电网投资形成价值锚。</li>
+<li>8 月 19 日收盘跌破 MA5/10/20/60，5 / 10 日收益 -4.51% / -6.51%，且分别较五家广义电网设备样本均值弱约 2.3 / 2.8 个百分点，修复行情已转为亏钱效应。</li>
+<li>订单资金 5 / 10 日净流出 1.85 / 3.03 亿元、融资连续净偿还，说明情绪走弱之前承接已开始下降，并非只有单日恐慌。</li>
+<li>截至 7 月 31 日股东户数较 7 月 20 日增加约 16.2%；价格上涨伴随筹码向更多账户扩散，使后续接力质量需要更强订单和业绩确认。</li>
+</ul>
+<h3>反证</h3>
+<ul>
+<li>华明当日 -3.81%，仍强于思源电气 -6.27%、中国西电 -4.55%和金盘科技 -8.15%；20 日相对收益也领先，尚未出现行业内全面失位。</li>
+<li>价格仍高于 7 月低点与既有价值区间下沿，2025 年主业高毛利和现金流没有被新事实推翻，当前不是无锚题材的纯粹崩塌。</li>
+<li>AI 数据中心叙事虽需要降权，但电网投资、变压器更新、特高压和海外替代仍是真实锚，不能把题材降温等同于公司长期逻辑失效。</li>
+</ul>
+<h3>失效条件</h3>
+<ul>
+<li><p>若市场广度修复、华明站回 20.32 元且 5 日订单资金与融资同步转正，半年报又确认主业和海外利润修复，当前“不利/退潮确认中”可上调为中性或有利。</p>
+</li>
+<li><p>若价格跌破 17.50—17.23 元平台，20 日相对强度转负、订单资金和融资继续流出，且半年报主业未修复，则应确认更深的情绪退潮。</p>
+</li>
+<li><p>状态：<strong>不利</strong>。</p>
+</li>
+<li><p>情绪位置：<strong>修复后的退潮确认中</strong>。不是冰点，因为 20 日仍有上涨和基本面锚；不是高位扩散，因为市场广度、目标多窗口收益、订单资金、融资和均线共同转差；也未确认极端退潮，因为价格尚未跌破 7 月修复平台且相对同业并未全面失位。</p>
+</li>
+</ul>
+<h2 id="section-6">6. 综合状态与主导矛盾</h2>
+
+<ul>
+<li>综合状态：<strong>尚未形成有利共振</strong>。</li>
+<li>主导矛盾：华明在分接开关细分赛道的壁垒真实，国家投资与特高压国产替代也提供长期方向；但市场曾把海外高增和 AI 数据中心叙事外推得快于公司自身判断。2026Q1 盈利没有加速、价格仍处于价值区间上部时，目标资金与融资先行撤退，竞争格局有利无法抵消流动性和情绪同步不利。</li>
+<li>下一验证点：市场广度能否连续修复；华明能否站回 20.32 元并恢复 5 / 10 日订单资金和融资承接；8 月 29 日半年报能否使电力设备收入、扣非利润、海外毛利、应收账款与现金流重新同向；H 股发行条款及特高压、海外正式订单。</li>
+<li>综合失效条件：若半年报确认主业和海外利润恢复、市场与目标资金共同转强，且价格没有透支盈利上修，可转为部分有利或同步有利复核；若竞争优势、资金承接和价值锚同时恶化，则下调为同步不利。</li>
+</ul>
+<h2 id="section-7">7. 行动映射</h2>
+
+<h3>新增现金（buy / wait / observe / review）</h3>
+<table>
+<thead>
+<tr>
+<th>行动</th>
+<th>条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>wait</td>
+<td>在流动性处于转弱、情绪处于退潮确认中、现价仍位于 15—21 元价值区间上部且半年报未验证主业修复时维持；只有价格回到更有安全边际的位置，或盈利上修提高价值区间，同时市场广度、5 / 10 日订单资金和融资恢复承接，才重新评估 <code>buy</code></td>
+</tr>
+</tbody></table>
+<h3>已有持仓（sell / reduce / wait / observe / review）</h3>
+<table>
+<thead>
+<tr>
+<th>行动</th>
+<th>条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>review</td>
+<td>每日核对 20.32 元附近承接、17.50—17.23 元结构平台、5 / 10 日订单资金、融资与市场广度；基本面未被半年报证伪前，不把单日市场普跌直接等同于长期逻辑失效</td>
+</tr>
+<tr>
+<td>reduce</td>
+<td>若价格有效跌破 17.50—17.23 元且 20 日订单资金与融资同步转负，或半年报显示主业收入继续下降、扣非利润降幅扩大、海外毛利跌破 50%、现金回收明显恶化，则按风险承受力降低敞口</td>
+</tr>
+</tbody></table>
+<h2 id="section-8">8. 数据缺口与置信度</h2>
+
+<ul>
+<li>数据缺口：MR 等直接竞争者同口径收入、毛利、交付和分区份额；公司独立审计份额；电网分接开关招标量、价格和中标份额；2026H1 分产品订单、海外毛利和回款；H 股发行条款；ETF 申赎、机构与北向账户身份、美元指数及完整筹码成本。</li>
+<li>已检查范围：本地 Wiki 框架、公司 2025 年报和 2026Q1、4—5 月投资者关系记录、既有机构级研报与每日监控、国家“十五五”纲要及新型电力系统专项规划、国网和全国电网投资、本地 Tushare 当日及 5/10/20 日行情资金和融资数据。</li>
+<li>影响：缺口不改变电网方向、分接开关可靠性壁垒、公司主业高毛利及当前资金转弱事实，但限制对精确全球定价权、海外增长持续性、资金身份与潜在摊薄的高置信度判断。</li>
+<li>总体置信度：<strong>中</strong>。竞争格局有利的结构证据较强，流动性转弱有多窗口数据支持；半年报尚未披露、直接同业和资金身份缺失，使企业优势强度与情绪持续性仍需验证。</li>
+</ul>
+<h2 id="section-9">9. 来源</h2>
+
+<h3>Wiki 依据</h3>
+<ul>
+<li><a href="../../../../wiki/topics/冰冰小美-情绪体系认知篇.md">冰冰小美体系三要素</a></li>
+<li><a href="../../../../wiki/concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势.md">竞争格局的比较优势</a></li>
+<li><a href="../../../../wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md">流动性辩证分析</a></li>
+<li><a href="../../../../wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化.md">情绪位置的变化</a></li>
+<li><a href="./2026-07-17-十五五电网投资与电网行业完整分析报告.html">十五五电网投资与电网行业完整分析报告</a></li>
+</ul>
+<h3>当前数据</h3>
+<ul>
+<li><a href="../../../webpages/2026-08-19-华明装备三要素政策行业与市场证据快照.md">华明装备三要素政策、行业与市场证据快照</a>：完整“3 层 × 5 问”审计底稿、政策、行业、公司、市场与资金数据。</li>
+<li><a href="../../../papers/华明装备机构研报-2026-07-15/2025年年度报告.pdf.md">华明装备 2025 年年度报告</a>：市场地位、标准、特高压、分部、财务和风险。</li>
+<li><a href="../../../papers/华明装备机构研报-2026-07-15/2026年第一季度报告.pdf.md">华明装备 2026 年第一季度报告</a>：Q1 收入、利润、现金流和资产负债。</li>
+<li><a href="../../../../workbench/targets/2026-07-30-华明装备-机构级决策研报.md">华明装备机构级决策研报</a>：15—21 元公允价值区间及长期经营质量交叉验证。</li>
+<li><a href="../../../../tools/a-share-market-dashboard/data/002270-华明装备-每日监控-2026-08-19.html">华明装备 8 月 19 日盘前监控</a>：8 月 18 日行情与公告检索基线。</li>
+<li><a href="https://www.nea.gov.cn/20260803/f90e2bdec3744f3c90898ca65e31e597/c.html">国家发展改革委、国家能源局《新型电力系统建设“十五五”规划》</a>：国家方向与指标。</li>
+<li><a href="https://www.sasac.gov.cn/n2588025/n2588124/c35325777/content.html">国家电网“十五五”4 万亿元投资计划</a>：产业资源配置。</li>
+<li><a href="https://xbj.nea.gov.cn/dtyw/hyxx/202607/t20260722_305231.html">国家能源局转载《中国电力行业年度发展报告 2026》</a>：全国电网投资和特高压通道预测。</li>
+<li><a href="https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?CompanyCode=80121960&gather=1&id=12082267">华明装备 2026-04-13 投资者关系记录</a>：海外增长边界与 AI 数据中心订单澄清。</li>
+<li><a href="https://data.eastmoney.com/stockcalendar/002270.html">东方财富华明装备个股日历</a>：半年报预约日与股东户数。</li>
+<li><a href="https://www.federalreserve.gov/newsevents/pressreleases/monetary20260729a.htm">美联储 2026-07-29 声明</a>：外部政策利率。</li>
+</ul>
+</article>
+    </div>
+  </main>
+</body>
+</html>

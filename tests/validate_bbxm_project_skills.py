@@ -19,8 +19,8 @@ EXPECTED_FILES = {
     "bbxm-equity-research": (
         "SKILL.md",
         "template.md",
-        "references/peter-lynch-equity-research-framework.md",
         "agents/openai.yaml",
+        "references/valuation-bubble-trigger-scan.md",
     ),
     "bbxm-information-filter-flow": (
         "SKILL.md",
@@ -213,19 +213,20 @@ def main() -> None:
     equity_template = (SKILLS_ROOT / "bbxm-equity-research" / "template.md").read_text(
         encoding="utf-8-sig"
     )
-    equity_lynch_reference = (
+    equity_bubble_reference = (
         SKILLS_ROOT
         / "bbxm-equity-research"
         / "references"
-        / "peter-lynch-equity-research-framework.md"
+        / "valuation-bubble-trigger-scan.md"
     ).read_text(encoding="utf-8-sig")
     for marker in (
         "bbxm-three-factor-analysis",
         "bbxm-risk-identification",
         "两个技能互不调用",
         "不得在本技能中复制其检查清单",
-        "Step 4.5：彼得·林奇公司分类与投资故事",
-        "references/peter-lynch-equity-research-framework.md",
+        "Step 4.4：判断企业价值类型与主估值锚",
+        "Step 4.5：建立分部级估值成熟度路由",
+        "稳定盈利、周期资源、重资产、成长企业、前沿科技",
     ):
         require(marker in equity_skill, f"bbxm-equity-research integration is missing: {marker}")
 
@@ -236,24 +237,21 @@ def main() -> None:
         "主动作",
         "承接条件",
         "退出条件",
-        "彼得·林奇公司分类与投资故事",
-        "一句话投资故事",
-        "利润增长等式",
-        "林奇框架卖出条件",
+        "企业价值类型与主估值锚",
+        "价值创造链",
+        "企业类型与估值锚匹配",
+        "估值锚失效后的退出条件",
     ):
         require(marker in equity_template, f"bbxm-equity-research template is missing: {marker}")
 
-    for marker in (
-        "缓慢增长型 Slow Grower",
-        "稳健增长型 Stalwart",
-        "快速增长型 Fast Grower",
-        "周期型 Cyclical",
-        "困境反转型 Turnaround",
-        "资产隐蔽型 Asset Play",
+    for retired_marker in (
+        "彼得·林奇",
+        "林奇框架",
+        "一句话投资故事",
         "PEG = PE ÷ 盈利增长率",
-        "投资逻辑证伪条件",
     ):
-        require(marker in equity_lynch_reference, f"Peter Lynch reference is missing: {marker}")
+        require(retired_marker not in equity_skill, f"equity skill still uses retired classification: {retired_marker}")
+        require(retired_marker not in equity_template, f"equity template still uses retired classification: {retired_marker}")
 
     retired_risk_contract = (
         "风险累积 / 风险暴露 / 风险释放 / 风险转弱 / 风险重新转强",
@@ -267,6 +265,49 @@ def main() -> None:
     require(
         "章节存在" in equity_skill and "不能证明" in equity_skill,
         "bbxm-equity-research must reject heading-only Step 7 validation",
+    )
+
+    for marker in (
+        "#### 三表逐项扫描",
+        "基本面触发表（9项）",
+        "流动性触发表（14项）",
+        "预期触发表（9项）",
+        "当前证据与时间",
+        "不允许按逆转项数量机械打分",
+        "基本面、流动性、预期三表均出现能够相互传导的关键逆转",
+    ):
+        require(marker in equity_skill, f"equity Step 7 three-table contract is missing: {marker}")
+
+    for marker in (
+        "#### 三表逐项扫描",
+        "##### 一、基本面触发",
+        "##### 二、流动性触发",
+        "##### 三、预期触发",
+        "##### 三表扫描汇总",
+        "资本开支规模",
+        "获利资金与回调承接",
+        "实际业绩与价格隐含预期",
+    ):
+        require(marker in equity_template, f"equity template three-table scan is missing: {marker}")
+
+    trigger_prefixes = (
+        "| 现金流断点 |",
+        "| 盈利不匹配 |",
+        "| 宏观：货币条件收缩 |",
+        "| 中观：政策与主线资金迁移 |",
+        "| 微观：杠杆和承接逆转 |",
+        "| 叙事耗尽 |",
+        "| 财报与真实经营接管定价 |",
+    )
+    trigger_rows = sum(
+        1
+        for line in equity_bubble_reference.splitlines()
+        if line.startswith(trigger_prefixes)
+    )
+    require(trigger_rows == 32, "equity bubble reference must retain all 32 observation rows")
+    require(
+        "逆转项数量用于检查完整性，不用于机械打分" in equity_bubble_reference,
+        "equity bubble reference must reject mechanical trigger counting",
     )
 
     equity_ui = (

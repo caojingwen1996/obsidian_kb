@@ -500,6 +500,9 @@ h3 { font-size: 15px; }
 .tracker-summary strong { margin: 0; font-size: 15px; letter-spacing: 0; }
 .tracker-actions { display: flex; justify-content: flex-end; align-items: center; gap: 8px; margin: -2px 0 10px; }
 .tracker-actions .button-secondary { min-height: 34px; padding: 8px 14px; }
+.daily-monitor-button { display: inline-flex; align-items: center; justify-content: center; color: var(--blue); text-decoration: none; white-space: nowrap; }
+.daily-monitor-button:hover { border-color: var(--blue); background: #f2f7fd; }
+.daily-monitor-button[disabled] { cursor: not-allowed; opacity: .48; }
 .allocation-ribbon { position: relative; min-height: 34px; border: 1px solid #c9d7e8; border-radius: 0 8px 8px 0; background: #f7fbff; color: #275fAE; padding: 8px 14px 8px 18px; font-size: 11px; font-weight: 800; }
 .allocation-ribbon::before { content: ""; position: absolute; left: -10px; top: -1px; width: 0; height: 0; border-top: 18px solid transparent; border-bottom: 18px solid transparent; border-right: 10px solid #c9d7e8; }
 .allocation-ribbon::after { content: ""; position: absolute; left: -8px; top: 0; width: 0; height: 0; border-top: 17px solid transparent; border-bottom: 17px solid transparent; border-right: 9px solid #f7fbff; }
@@ -567,7 +570,7 @@ h3 { font-size: 15px; }
 .allocation-targets em { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-style: normal; }
 .allocation-targets b { color: #506273; font-size: 12px; font-variant-numeric: tabular-nums; text-align: right; }
 .tracking-table-wrap { overflow-x: auto; }
-.tracking-table { width: 100%; min-width: 990px; border-collapse: collapse; font-size: 11px; }
+.tracking-table { width: 100%; min-width: 1280px; border-collapse: collapse; font-size: 11px; }
 .tracking-table th, .tracking-table td { padding: 12px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
 .tracking-table th { color: var(--muted); font-size: 9px; letter-spacing: .04em; white-space: nowrap; }
 .tracking-table th small { display: block; margin-top: 3px; color: var(--muted); font-size: 10px; font-weight: 500; letter-spacing: 0; }
@@ -590,11 +593,36 @@ h3 { font-size: 15px; }
 .tracking-target a { color: inherit; text-decoration: none; }
 .tracking-target a:hover { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; }
 .tracker-status { display: inline-flex; margin-top: 7px; border-radius: 99px; background: #e8f0fb; color: #275fAE; padding: 5px 9px; font-size: 10px; white-space: nowrap; }
+.tracking-pricing-deviation { display: inline-flex; align-items: center; border: 1px solid transparent; border-radius: 5px; padding: 3px 7px; font-size: 10px; line-height: 1.25; font-weight: 800; white-space: nowrap; }
+.tracking-pricing-deviation.is-premium { color: #17604e; background: #dff3eb; }
+.tracking-pricing-deviation.is-overvalued { color: #86610d; background: #fff0bd; }
+.tracking-pricing-deviation.is-bubble { color: #9b4d10; background: #ffe3c9; }
+.tracking-pricing-deviation.is-severe { color: #a82828; background: #ffe1df; }
+.tracking-pricing-deviation.is-neutral { border-color: #d5e0e3; color: #607580; background: #f4f7f8; }
 .tracking-close-performance { display: grid; gap: 4px; white-space: nowrap; }
 .tracking-close-performance strong { color: var(--ink); font-size: 11px; }
 .tracking-close-performance small { color: var(--muted); font-size: 10px; }
-.tracking-monitor-link { color: var(--blue); font-weight: 800; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
-.tracking-monitor-meta { display: block; margin-top: 5px; color: var(--muted); font-size: 10px; white-space: nowrap; }
+.tracking-valuation-disposition { display: grid; gap: 6px; min-width: 150px; max-width: 220px; }
+.tracking-valuation-disposition > a, .tracking-valuation-disposition > span { justify-self: start; border-radius: 5px; padding: 3px 7px; font-size: 10px; font-weight: 800; white-space: nowrap; }
+.tracking-valuation-disposition > a { text-decoration: none; }
+.tracking-valuation-disposition > a:hover { box-shadow: inset 0 0 0 1px currentColor; }
+.tracking-valuation-disposition > a:focus-visible { outline: 3px solid rgba(50,118,216,.35); outline-offset: 2px; }
+.tracking-valuation-disposition > small { color: var(--muted); font-size: 10px; line-height: 1.55; }
+.tracking-valuation-disposition .is-no-revalue { background: #edf5f2; color: #176c5c; }
+.tracking-valuation-disposition .is-light-revalue { background: #fff6dc; color: #785b12; }
+.tracking-valuation-disposition .is-full-revalue { background: #fff0e8; color: #a0441f; }
+.tracking-valuation-disposition .is-manual-review { background: #f2ecfb; color: #634194; }
+.tracking-valuation-disposition .is-missing { background: #f1f4f6; color: #607284; }
+.tracking-three-factor { display: grid; gap: 7px; min-width: 144px; }
+.tracking-three-factor > small { display: flex; flex-wrap: wrap; gap: 5px; }
+.tracking-three-factor > small span { display: inline-flex; gap: 3px; border-radius: 5px; background: #f3f5f7; padding: 3px 5px; font-size: 9px; white-space: nowrap; }
+.tracking-three-factor > small b { font-weight: 800; }
+.tracking-three-factor > a { justify-self: start; color: var(--blue); font-size: 10px; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+.tracking-three-factor > a:focus-visible { outline: 3px solid rgba(50,118,216,.35); outline-offset: 2px; }
+.tracking-three-factor-state { color: var(--muted); font-size: 10px; }
+.tracking-three-factor .is-positive { color: #147a64; }
+.tracking-three-factor .is-neutral { color: #6c5b22; }
+.tracking-three-factor .is-negative { color: #b04444; }
 .tracking-report-links { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; }
 .tracking-report-links a { color: var(--blue); font-weight: 800; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
 .tracking-updated { display: block; margin-top: 6px; color: var(--muted); white-space: nowrap; }
@@ -1049,9 +1077,17 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
               </li>
             </ol>
           </section>
-          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 5条</span></div>
+          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 7条</span></div>
           <div class="industry-timeline">
             <div class="industry-feed">
+              <article class="industry-report" data-filters="银锡">
+                <span class="industry-time">16:03</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>战略资源 · 银锡 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/战略资源/银锡/2026-08-19-1603-兴业银锡-三要素分析.html" target="_blank" rel="noopener noreferrer">兴业银锡-三要素分析</a></h3>
+                <p>从战略资源目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#银锡 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/战略资源/银锡</div>
+              </article>
               <article class="industry-report" data-filters="银锡">
                 <span class="industry-time">07-30</span><span class="industry-dot"></span>
                 <div class="industry-report-meta"><span>战略资源 · 银锡 <b>资金面</b></span><span>自动</span></div>
@@ -1075,6 +1111,14 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                 <p>从战略资源目录自动读取，点击标题打开对应 HTML 研报。</p>
                 <div class="industry-tags">#银锡 #目录自动读取 #研报</div>
                 <div class="industry-reason">来源目录：sources/automations/战略资源/银锡</div>
+              </article>
+              <article class="industry-report" data-filters="铜">
+                <span class="industry-time">16:17</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>战略资源 · 铜 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/战略资源/铜/2026-08-19-1617-西部矿业-三要素分析.html" target="_blank" rel="noopener noreferrer">西部矿业-三要素分析</a></h3>
+                <p>从战略资源目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#铜 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/战略资源/铜</div>
               </article>
               <article class="industry-report" data-filters="铜">
                 <span class="industry-time">17:26</span><span class="industry-dot"></span>
@@ -1160,7 +1204,7 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
               </li>
             </ol>
           </section>
-          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 38条</span></div>
+          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 41条</span></div>
           <div class="industry-timeline">
             <div class="industry-feed">
               <article class="industry-report" data-filters="新能源材料">
@@ -1170,6 +1214,14 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                 <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
                 <div class="industry-tags">#新能源材料 #目录自动读取 #研报</div>
                 <div class="industry-reason">来源目录：sources/automations/新兴产业/新能源材料</div>
+              </article>
+              <article class="industry-report" data-filters="算力">
+                <span class="industry-time">14:40</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 算力 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-算力基础设施与能源/2026-08-18-1440-东阳光-三要素分析.html" target="_blank" rel="noopener noreferrer">东阳光-三要素分析</a></h3>
+                <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#算力 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/算力/中游-算力基础设施与能源</div>
               </article>
               <article class="industry-report" data-filters="算力">
                 <span class="industry-time">07-30</span><span class="industry-dot"></span>
@@ -1218,6 +1270,14 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                 <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
                 <div class="industry-tags">#算力 #目录自动读取 #研报</div>
                 <div class="industry-reason">来源目录：sources/automations/新兴产业/算力/中游-计算系统与集群</div>
+              </article>
+              <article class="industry-report" data-filters="算力">
+                <span class="industry-time">17:10</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 算力 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/算力/上游-PCB材料/2026-08-19-1710-东材科技-三要素分析.html" target="_blank" rel="noopener noreferrer">东材科技-三要素分析</a></h3>
+                <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#算力 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/算力/上游-PCB材料</div>
               </article>
               <article class="industry-report" data-filters="算力">
                 <span class="industry-time">14:50</span><span class="industry-dot"></span>
@@ -1444,6 +1504,14 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                 <div class="industry-reason">来源目录：sources/automations/新兴产业/机器人</div>
               </article>
               <article class="industry-report" data-filters="电网">
+                <span class="industry-time">16:38</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>新兴产业 · 电网 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/电网/2026-08-19-1638-神马电力-三要素分析.html" target="_blank" rel="noopener noreferrer">神马电力-三要素分析</a></h3>
+                <p>从新兴产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#电网 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/新兴产业/电网</div>
+              </article>
+              <article class="industry-report" data-filters="电网">
                 <span class="industry-time">10:21</span><span class="industry-dot"></span>
                 <div class="industry-report-meta"><span>新兴产业 · 电网 <b>研报</b></span><span>自动</span></div>
                 <h3><a class="industry-report-link" href="../../sources/automations/新兴产业/电网/2026-07-16-1021-神马电力-机构级决策研报.html" target="_blank" rel="noopener noreferrer">神马电力-机构级决策研报</a></h3>
@@ -1502,9 +1570,17 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
               </li>
             </ol>
           </section>
-          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 32条</span></div>
+          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · 36条</span></div>
           <div class="industry-timeline">
             <div class="industry-feed">
+              <article class="industry-report" data-filters="消费">
+                <span class="industry-time">15:10</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>支柱产业 · 消费 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/支柱产业/消费/医药健康/2026-08-19-1510-华润江中-三要素分析.html" target="_blank" rel="noopener noreferrer">华润江中-三要素分析</a></h3>
+                <p>从支柱产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#消费 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/支柱产业/消费/医药健康</div>
+              </article>
               <article class="industry-report" data-filters="消费">
                 <span class="industry-time">18:03</span><span class="industry-dot"></span>
                 <div class="industry-report-meta"><span>支柱产业 · 消费 <b>研报</b></span><span>自动</span></div>
@@ -1538,12 +1614,28 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                 <div class="industry-reason">来源目录：sources/automations/支柱产业/高端制造/轨交装备</div>
               </article>
               <article class="industry-report" data-filters="高端制造">
+                <span class="industry-time">10:28</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>支柱产业 · 高端制造 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/支柱产业/高端制造/工程机械/2026-08-20-1028-徐工机械-三要素分析.html" target="_blank" rel="noopener noreferrer">徐工机械-三要素分析</a></h3>
+                <p>从支柱产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#高端制造 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/支柱产业/高端制造/工程机械</div>
+              </article>
+              <article class="industry-report" data-filters="高端制造">
                 <span class="industry-time">08-04</span><span class="industry-dot"></span>
                 <div class="industry-report-meta"><span>支柱产业 · 高端制造 <b>资金面</b></span><span>自动</span></div>
                 <h3><a class="industry-report-link" href="../../sources/automations/支柱产业/高端制造/工程机械/2026-08-04-徐工机械资金面分析.html" target="_blank" rel="noopener noreferrer">徐工机械资金面分析</a></h3>
                 <p>从支柱产业目录自动读取，点击标题打开对应 HTML 研报。</p>
                 <div class="industry-tags">#高端制造 #目录自动读取 #资金面</div>
                 <div class="industry-reason">来源目录：sources/automations/支柱产业/高端制造/工程机械</div>
+              </article>
+              <article class="industry-report" data-filters="高端制造">
+                <span class="industry-time">14:53</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>支柱产业 · 高端制造 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/支柱产业/高端制造/2026-08-19-1453-三一重工-三要素分析.html" target="_blank" rel="noopener noreferrer">三一重工-三要素分析</a></h3>
+                <p>从支柱产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#高端制造 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/支柱产业/高端制造</div>
               </article>
               <article class="industry-report" data-filters="高端制造">
                 <span class="industry-time">15:23</span><span class="industry-dot"></span>
@@ -1602,12 +1694,12 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                 <div class="industry-reason">来源目录：sources/automations/支柱产业/高端制造</div>
               </article>
               <article class="industry-report" data-filters="电网">
-                <span class="industry-time">07-18</span><span class="industry-dot"></span>
+                <span class="industry-time">16:52</span><span class="industry-dot"></span>
                 <div class="industry-report-meta"><span>支柱产业 · 电网 <b>研报</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="../../sources/automations/支柱产业/电网/archive/2026-07-18-神马电力机构级决策研报.html" target="_blank" rel="noopener noreferrer">神马电力机构级决策研报</a></h3>
+                <h3><a class="industry-report-link" href="../../sources/automations/支柱产业/电网/2026-08-19-1652-华明装备-三要素分析.html" target="_blank" rel="noopener noreferrer">华明装备-三要素分析</a></h3>
                 <p>从支柱产业目录自动读取，点击标题打开对应 HTML 研报。</p>
                 <div class="industry-tags">#电网 #目录自动读取 #研报</div>
-                <div class="industry-reason">来源目录：sources/automations/支柱产业/电网/archive</div>
+                <div class="industry-reason">来源目录：sources/automations/支柱产业/电网</div>
               </article>
               <article class="industry-report" data-filters="电网">
                 <span class="industry-time">07-30</span><span class="industry-dot"></span>
@@ -1658,6 +1750,14 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                 <div class="industry-reason">来源目录：sources/automations/支柱产业/电网</div>
               </article>
               <article class="industry-report" data-filters="电解铝">
+                <span class="industry-time">15:47</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>支柱产业 · 电解铝 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/支柱产业/电解铝/2026-08-19-1547-云铝股份-三要素分析.html" target="_blank" rel="noopener noreferrer">云铝股份-三要素分析</a></h3>
+                <p>从支柱产业目录自动读取，点击标题打开对应 HTML 研报。</p>
+                <div class="industry-tags">#电解铝 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/支柱产业/电解铝</div>
+              </article>
+              <article class="industry-report" data-filters="电解铝">
                 <span class="industry-time">14:21</span><span class="industry-dot"></span>
                 <div class="industry-report-meta"><span>支柱产业 · 电解铝 <b>研报</b></span><span>自动</span></div>
                 <h3><a class="industry-report-link" href="../../sources/automations/支柱产业/电解铝/2026-07-23-1421-云铝股份-机构级决策研报.html" target="_blank" rel="noopener noreferrer">云铝股份-机构级决策研报</a></h3>
@@ -1673,13 +1773,13 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                 <div class="industry-tags">#电解铝 #目录自动读取 #资金面</div>
                 <div class="industry-reason">来源目录：sources/automations/支柱产业/电解铝</div>
               </article>
-              <article class="industry-report" data-filters="电解铝">
-                <span class="industry-time">19:21</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>支柱产业 · 电解铝 <b>研报</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="../../sources/automations/支柱产业/电解铝/2026-07-15-1921-云铝股份机构级决策研报.html" target="_blank" rel="noopener noreferrer">云铝股份机构级决策研报</a></h3>
+              <article class="industry-report" data-filters="">
+                <span class="industry-time">14:21</span><span class="industry-dot"></span>
+                <div class="industry-report-meta"><span>支柱产业 <b>研报</b></span><span>自动</span></div>
+                <h3><a class="industry-report-link" href="../../sources/automations/支柱产业/2026-08-19-1421-中国中车-三要素分析.html" target="_blank" rel="noopener noreferrer">中国中车-三要素分析</a></h3>
                 <p>从支柱产业目录自动读取，点击标题打开对应 HTML 研报。</p>
-                <div class="industry-tags">#电解铝 #目录自动读取 #研报</div>
-                <div class="industry-reason">来源目录：sources/automations/支柱产业/电解铝</div>
+                <div class="industry-tags">#支柱产业 #目录自动读取 #研报</div>
+                <div class="industry-reason">来源目录：sources/automations/支柱产业</div>
               </article>
               <article class="industry-report" data-filters="">
                 <span class="industry-time">07-29</span><span class="industry-dot"></span>
@@ -1817,6 +1917,7 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
             <button class="button-secondary" id="open-tracking-form" type="button">新增跟踪</button>
             <button class="button-secondary" id="refresh-tracking-reports" type="button">一键更新</button>
             <button class="allocation-ribbon" id="tracking-allocation-mode" type="button" aria-pressed="false">配比模式</button>
+<a class="button-secondary daily-monitor-button" id="open-daily-monitor" href="data/持仓今日监控汇总-2026-08-20.html" target="_blank" rel="noopener noreferrer" title="打开 2026-08-20 持仓今日监控汇总报告">每日监控</a>
           </div>
           <div class="tracker-workspace">
             <form class="tracking-form panel" id="tracking-form" hidden>
@@ -1845,7 +1946,7 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
               </div>
               <div class="tracking-table-wrap">
                 <table class="tracking-table">
-                  <thead><tr><th>标的</th><th>动态价值区间</th><th>盘中实时</th><th><button class="table-sort-button" type="button" id="tracking-sort-close-performance" aria-pressed="false" aria-label="按近一周涨跌幅排序">收盘表现</button><small id="tracking-close-date"></small></th><th><button class="table-sort-button" type="button" id="tracking-sort-intraday" aria-pressed="false" aria-label="按盈亏比从高到低排序">盈亏比</button></th><th>监控状态（待实现）</th><th>数据来自研报</th><th>复盘</th><th>星级</th></tr></thead>
+                  <thead><tr><th>标的</th><th>公允价值区间</th><th>交易定价偏离</th><th>盘中实时</th><th><button class="table-sort-button" type="button" id="tracking-sort-close-performance" aria-pressed="false" aria-label="按近一周涨跌幅排序">收盘表现</button><small id="tracking-close-date"></small></th><th><button class="table-sort-button" type="button" id="tracking-sort-intraday" aria-pressed="false" aria-label="按盈亏比从高到低排序">盈亏比</button></th><th>每日估值监控</th><th>三要素判断</th><th>数据来自研报</th><th>复盘</th><th>星级</th></tr></thead>
                   <tbody id="holding-tracker-list"></tbody>
                 </table>
               </div>
@@ -3639,6 +3740,32 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
             <p>最近发生了什么——新功能、调整与修复，都写在这里。</p>
           </header>
         <section class="changelog-day">
+          <header><h3>2026 年 8 月 19 日</h3><span>星期三</span></header>
+          <div class="changelog-entries">
+            <article class="changelog-entry">
+              <div class="changelog-meta"><span><i aria-hidden="true"></i>优化</span></div>
+              <div class="changelog-copy"><h4>持仓跟踪展示公允价值与交易定价偏离</h4><p>持仓跟踪将动态价值区间统一为公允价值区间，并新增交易定价偏离列。</p><ul><li>公允价值区间优先读取新版个股研报字段，并兼容旧版动态价值区间</li><li>交易定价偏离以紧凑徽标展示，并与个股研报四级状态配色保持一致</li><li>交易定价偏离读取个股研报当前判断，不根据盘中价格自行推断</li><li>旧研报缺少相关字段时明确显示未获取到</li></ul></div>
+            </article>
+          </div>
+        </section>
+        <section class="changelog-day">
+          <header><h3>2026 年 8 月 18 日</h3><span>星期二</span></header>
+          <div class="changelog-entries">
+            <article class="changelog-entry">
+              <div class="changelog-meta"><span><i aria-hidden="true"></i>优化</span></div>
+              <div class="changelog-copy"><h4>三要素判断增加研报链接</h4><p>已关联三要素报告的标的在分项判断下方显示可点击研报入口。</p><ul><li>保留竞争格局、流动性和情绪位置三个判断标签</li><li>新增三要素研报链接并在新标签页打开</li><li>未关联报告的标的继续显示未关联</li></ul></div>
+            </article>
+            <article class="changelog-entry">
+              <div class="changelog-meta"><span><i aria-hidden="true"></i>新增</span></div>
+              <div class="changelog-copy"><h4>持仓跟踪接入每日监控 HTML</h4><p>新增每日监控入口，并在每日估值监控列按主次信息展示状态与触发原因。</p><ul><li>配比模式后新增每日监控按钮，只打开最新组合汇总 HTML</li><li>估值处置状态使用中文主标签，修改或触发原因作为次要信息</li><li>点击每日估值状态可打开对应逐标的 HTML，Markdown 继续作为审计底稿</li></ul></div>
+            </article>
+            <article class="changelog-entry">
+              <div class="changelog-meta"><span><i aria-hidden="true"></i>新增</span></div>
+              <div class="changelog-copy"><h4>持仓跟踪显示三要素判断</h4><p>持仓跟踪表新增三要素判断列，直接读取已关联三要素研报中的三个分项判断。</p><ul><li>竞争格局、流动性和情绪位置以紧凑标签显示</li><li>不重复显示综合状态和三要素研报链接</li><li>未关联或暂时无法读取时显示明确状态</li></ul></div>
+            </article>
+          </div>
+        </section>
+        <section class="changelog-day">
           <header><h3>2026 年 8 月 17 日</h3><span>星期一</span></header>
           <div class="changelog-entries">
             <article class="changelog-entry">
@@ -4665,37 +4792,74 @@ const STOCK_REPORT_LINKS = Object.freeze({
   "紫光股份": "../../sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-03-1638-紫光股份-机构级决策研报.html",
 });
 const STOCK_THREE_FACTOR_REPORT_LINKS = Object.freeze({
+  "东材科技": "../../sources/automations/新兴产业/算力/上游-PCB材料/2026-08-19-1710-东材科技-三要素分析.html",
+  "东阳光": "../../sources/automations/新兴产业/算力/中游-算力基础设施与能源/2026-08-18-1440-东阳光-三要素分析.html",
+  "华明装备": "../../sources/automations/支柱产业/电网/2026-08-19-1652-华明装备-三要素分析.html",
+  "华润江中": "../../sources/automations/支柱产业/消费/医药健康/2026-08-19-1510-华润江中-三要素分析.html",
+  "三一重工": "../../sources/automations/支柱产业/高端制造/2026-08-19-1453-三一重工-三要素分析.html",
+  "神马电力": "../../sources/automations/新兴产业/电网/2026-08-19-1638-神马电力-三要素分析.html",
+  "西部矿业": "../../sources/automations/战略资源/铜/2026-08-19-1617-西部矿业-三要素分析.html",
   "星网锐捷": "../../sources/automations/新兴产业/算力/中游-数据中心网络/2026-08-17-1454-星网锐捷-三要素分析.html",
+  "兴业银锡": "../../sources/automations/战略资源/银锡/2026-08-19-1603-兴业银锡-三要素分析.html",
+  "徐工机械": "../../sources/automations/支柱产业/高端制造/工程机械/2026-08-20-1028-徐工机械-三要素分析.html",
+  "云铝股份": "../../sources/automations/支柱产业/电解铝/2026-08-19-1547-云铝股份-三要素分析.html",
+  "中国中车": "../../sources/automations/支柱产业/2026-08-19-1421-中国中车-三要素分析.html",
 });
 const DAILY_MONITOR_LINKS = Object.freeze({
-  "000426": {"href":"data/000426-兴业银锡-每日监控-2026-08-06.md","title":"000426-兴业银锡-每日监控-2026-08-06","code":"000426","name":"兴业银锡","date":"2026-08-06","status":"盘中监控，非收盘结论"},
-  "601208": {"href":"data/601208-东材科技-每日监控-2026-08-06.md","title":"601208-东材科技-每日监控-2026-08-06","code":"601208","name":"东材科技","date":"2026-08-06","status":"盘中监控，非收盘结论"},
-  "东材科技": {"href":"data/601208-东材科技-每日监控-2026-08-06.md","title":"601208-东材科技-每日监控-2026-08-06","code":"601208","name":"东材科技","date":"2026-08-06","status":"盘中监控，非收盘结论"},
-  "兴业银锡": {"href":"data/000426-兴业银锡-每日监控-2026-08-06.md","title":"000426-兴业银锡-每日监控-2026-08-06","code":"000426","name":"兴业银锡","date":"2026-08-06","status":"盘中监控，非收盘结论"},
+  "000425": {"href":"data/000425-徐工机械-每日监控-2026-08-20.html","title":"000425-徐工机械-每日监控-2026-08-20","code":"000425","name":"徐工机械","date":"2026-08-20","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "000426": {"href":"data/000426-兴业银锡-每日监控-2026-08-20.html","title":"000426-兴业银锡-每日监控-2026-08-20","code":"000426","name":"兴业银锡","date":"2026-08-20","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"单日涨跌幅 -7.34% 的绝对值 ≥ 5%；近 5 日累计涨跌幅 -10.35% 的绝对值 ≥ 10%；价格 35.96 元高于动态估值区间上沿 32.00 元；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
+  "000528": {"href":"data/000528-柳工-每日监控-2026-08-20.html","title":"000528-柳工-每日监控-2026-08-20","code":"000528","name":"柳工","date":"2026-08-20","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "000807": {"href":"data/000807-云铝股份-每日监控-2026-08-20.html","title":"000807-云铝股份-每日监控-2026-08-20","code":"000807","name":"云铝股份","date":"2026-08-20","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "002050": {"href":"data/002050-三花智控-每日监控-2026-08-20.html","title":"002050-三花智控-每日监控-2026-08-20","code":"002050","name":"三花智控","date":"2026-08-20","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"单日涨跌幅 -7.10% 的绝对值 ≥ 5%；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
+  "002270": {"href":"data/002270-华明装备-每日监控-2026-08-20.html","title":"002270-华明装备-每日监控-2026-08-20","code":"002270","name":"华明装备","date":"2026-08-20","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "002396": {"href":"data/002396-星网锐捷-每日监控-2026-08-20.html","title":"002396-星网锐捷-每日监控-2026-08-20","code":"002396","name":"星网锐捷","date":"2026-08-20","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"单日涨跌幅 -10.01% 的绝对值 ≥ 5%；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
+  "600031": {"href":"data/600031-三一重工-每日监控-2026-08-20.html","title":"600031-三一重工-每日监控-2026-08-20","code":"600031","name":"三一重工","date":"2026-08-20","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "600150": {"href":"data/600150-中国船舶-每日监控-2026-08-20.html","title":"600150-中国船舶-每日监控-2026-08-20","code":"600150","name":"中国船舶","date":"2026-08-20","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "600673": {"href":"data/600673-东阳光-每日监控-2026-08-20.html","title":"600673-东阳光-每日监控-2026-08-20","code":"600673","name":"东阳光","date":"2026-08-20","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"单日涨跌幅 -5.01% 的绝对值 ≥ 5%；价格 34.86 元高于动态估值区间上沿 30.00 元；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
+  "600750": {"href":"data/600750-华润江中-每日监控-2026-08-20.html","title":"600750-华润江中-每日监控-2026-08-20","code":"600750","name":"华润江中","date":"2026-08-20","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "601168": {"href":"data/601168-西部矿业-每日监控-2026-08-20.html","title":"601168-西部矿业-每日监控-2026-08-20","code":"601168","name":"西部矿业","date":"2026-08-20","status":"强化","valuationStatus":"FULL_REVALUE","valuationReason":"2026H1 收入、归母净利润和经营现金流显著增长，但扩产使简化自由现金流承压；权威研报尚未完成半年报后的完整重估；估值模型仍未完成更新"},
+  "601208": {"href":"data/601208-东材科技-每日监控-2026-08-20.html","title":"601208-东材科技-每日监控-2026-08-20","code":"601208","name":"东材科技","date":"2026-08-20","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"单日涨跌幅 -8.93% 的绝对值 ≥ 5%；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
+  "601766": {"href":"data/601766-中国中车-每日监控-2026-08-20.html","title":"601766-中国中车-每日监控-2026-08-20","code":"601766","name":"中国中车","date":"2026-08-20","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "603530": {"href":"data/603530-神马电力-每日监控-2026-08-20.html","title":"603530-神马电力-每日监控-2026-08-20","code":"603530","name":"神马电力","date":"2026-08-20","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格 50.67 元高于动态估值区间上沿 49.00 元；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
+  "东材科技": {"href":"data/601208-东材科技-每日监控-2026-08-20.html","title":"601208-东材科技-每日监控-2026-08-20","code":"601208","name":"东材科技","date":"2026-08-20","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"单日涨跌幅 -8.93% 的绝对值 ≥ 5%；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
+  "东阳光": {"href":"data/600673-东阳光-每日监控-2026-08-20.html","title":"600673-东阳光-每日监控-2026-08-20","code":"600673","name":"东阳光","date":"2026-08-20","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"单日涨跌幅 -5.01% 的绝对值 ≥ 5%；价格 34.86 元高于动态估值区间上沿 30.00 元；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
+  "华明装备": {"href":"data/002270-华明装备-每日监控-2026-08-20.html","title":"002270-华明装备-每日监控-2026-08-20","code":"002270","name":"华明装备","date":"2026-08-20","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "华润江中": {"href":"data/600750-华润江中-每日监控-2026-08-20.html","title":"600750-华润江中-每日监控-2026-08-20","code":"600750","name":"华润江中","date":"2026-08-20","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "柳工": {"href":"data/000528-柳工-每日监控-2026-08-20.html","title":"000528-柳工-每日监控-2026-08-20","code":"000528","name":"柳工","date":"2026-08-20","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "三花智控": {"href":"data/002050-三花智控-每日监控-2026-08-20.html","title":"002050-三花智控-每日监控-2026-08-20","code":"002050","name":"三花智控","date":"2026-08-20","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"单日涨跌幅 -7.10% 的绝对值 ≥ 5%；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
+  "三一重工": {"href":"data/600031-三一重工-每日监控-2026-08-20.html","title":"600031-三一重工-每日监控-2026-08-20","code":"600031","name":"三一重工","date":"2026-08-20","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "神马电力": {"href":"data/603530-神马电力-每日监控-2026-08-20.html","title":"603530-神马电力-每日监控-2026-08-20","code":"603530","name":"神马电力","date":"2026-08-20","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格 50.67 元高于动态估值区间上沿 49.00 元；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
+  "西部矿业": {"href":"data/601168-西部矿业-每日监控-2026-08-20.html","title":"601168-西部矿业-每日监控-2026-08-20","code":"601168","name":"西部矿业","date":"2026-08-20","status":"强化","valuationStatus":"FULL_REVALUE","valuationReason":"2026H1 收入、归母净利润和经营现金流显著增长，但扩产使简化自由现金流承压；权威研报尚未完成半年报后的完整重估；估值模型仍未完成更新"},
+  "星网锐捷": {"href":"data/002396-星网锐捷-每日监控-2026-08-20.html","title":"002396-星网锐捷-每日监控-2026-08-20","code":"002396","name":"星网锐捷","date":"2026-08-20","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"单日涨跌幅 -10.01% 的绝对值 ≥ 5%；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
+  "兴业银锡": {"href":"data/000426-兴业银锡-每日监控-2026-08-20.html","title":"000426-兴业银锡-每日监控-2026-08-20","code":"000426","name":"兴业银锡","date":"2026-08-20","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"单日涨跌幅 -7.34% 的绝对值 ≥ 5%；近 5 日累计涨跌幅 -10.35% 的绝对值 ≥ 10%；价格 35.96 元高于动态估值区间上沿 32.00 元；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
+  "徐工机械": {"href":"data/000425-徐工机械-每日监控-2026-08-20.html","title":"000425-徐工机械-每日监控-2026-08-20","code":"000425","name":"徐工机械","date":"2026-08-20","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "云铝股份": {"href":"data/000807-云铝股份-每日监控-2026-08-20.html","title":"000807-云铝股份-每日监控-2026-08-20","code":"000807","name":"云铝股份","date":"2026-08-20","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "中国船舶": {"href":"data/600150-中国船舶-每日监控-2026-08-20.html","title":"600150-中国船舶-每日监控-2026-08-20","code":"600150","name":"中国船舶","date":"2026-08-20","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "中国中车": {"href":"data/601766-中国中车-每日监控-2026-08-20.html","title":"601766-中国中车-每日监控-2026-08-20","code":"601766","name":"中国中车","date":"2026-08-20","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
 });
 const EVENT_CALENDAR = Object.freeze(
 []
 );
 const CSI_DIVIDEND_SIGNAL = Object.freeze(
 {
-  "recordDate": "2026-08-17",
-  "runTime": "2026-08-17 09:49:20",
-  "indexDate": "2026-08-14",
-  "bondDate": "2026-08-14",
-  "dividendYield2": 4.22,
+  "recordDate": "2026-08-19",
+  "runTime": "2026-08-19 09:48:35",
+  "indexDate": "2026-08-18",
+  "bondDate": "2026-08-18",
+  "dividendYield2": 4.17,
   "xueqiuChangePercent": "待验证",
-  "lixingerDate": "2026-08-14",
-  "lixingerDividendYield": "4.30%",
-  "lixingerPercentile10y": "8.95%",
-  "lixingerPercentile80Value": "6.11%",
-  "bond10yYield": 1.7,
-  "spread": 2.52,
-  "percentileSignal": "D（不买或少买）",
+  "lixingerDate": "待确认",
+  "lixingerDividendYield": "待验证",
+  "lixingerPercentile10y": "待验证",
+  "lixingerPercentile80Value": "待验证",
+  "bond10yYield": 1.69,
+  "spread": 2.48,
+  "percentileSignal": "待验证",
   "absoluteSignal": "C（小额定投）",
   "spreadSignal": "C（小额定投）",
-  "headline": "未进入加大买入区间",
+  "headline": "历史分位点待验证，暂不判定加大买入区间",
   "source": "zzhl-dividend-signal 最新信号",
-  "sourceNote": "AKShare: stock_zh_index_value_csindex(000922, 股息率2); AKShare: bond_zh_us_rate; 雪球实时行情待验证: 雪球实时行情失败：雪球实时行情接口返回空响应; 理杏仁公开页面: https://www.lixinger.com/equity/index/detail/sh/000922/922/fundamental/valuation/dyr?metrics-type=mcw",
+  "sourceNote": "AKShare: stock_zh_index_value_csindex(000922, 股息率2); AKShare: bond_zh_us_rate; 雪球实时行情待验证: 雪球实时行情失败：雪球实时行情接口返回空响应; 理杏仁待验证: 公开页面失败：HTTP Error 403: Forbidden; 未提供大模型网页查询结果",
   "status": "latest"
 }
 );
@@ -4920,6 +5084,14 @@ const CSI_DIVIDEND_YIELD_HISTORY = Object.freeze(
   {
     "date": "2026-08-14",
     "value": 4.22
+  },
+  {
+    "date": "2026-08-17",
+    "value": 4.2
+  },
+  {
+    "date": "2026-08-18",
+    "value": 4.17
   }
 ]
 );
@@ -5158,6 +5330,15 @@ function dailyMonitorLinkForTrackingItem(item = {}, report = {}) {
   return partial?.[1] ?? null;
 }
 
+function valuationDispositionPresentation(status) {
+  return {
+    NO_REVALUE: { label: '维持估值', tone: 'no-revalue' },
+    LIGHT_REVALUE: { label: '局部重算', tone: 'light-revalue' },
+    FULL_REVALUE: { label: '完整重估', tone: 'full-revalue' },
+    MANUAL_REVIEW: { label: '人工判断', tone: 'manual-review' },
+  }[status] ?? { label: '未提供', tone: 'missing' };
+}
+
 function allocationCategoryForReport(reportHref) {
   const href = (() => {
     try { return decodeURIComponent(reportHref); }
@@ -5324,6 +5505,23 @@ function trackingQuotePriceOnly(value) {
   return price || text;
 }
 
+function pricingDeviationFromText(value) {
+  const text = compactText(value);
+  for (const label of ['严重估值泡沫', '估值泡沫', '普通高估', '可解释估值溢价', '估值溢价', '公允价值内', '证据不足']) {
+    if (text.includes(label)) return label === '可解释估值溢价' ? '估值溢价' : label;
+  }
+  return '';
+}
+
+function pricingDeviationToneClass(value) {
+  return {
+    估值溢价: 'is-premium',
+    普通高估: 'is-overvalued',
+    估值泡沫: 'is-bubble',
+    严重估值泡沫: 'is-severe',
+  }[value] ?? 'is-neutral';
+}
+
 function parseReportSummary(html) {
   if (typeof DOMParser === 'undefined') return {};
   const documentNode = new DOMParser().parseFromString(html, 'text/html');
@@ -5339,13 +5537,22 @@ function parseReportSummary(html) {
       /我的判断[：:]\s*([^。；]{8,120})/,
       /一句话[：:]\s*([^。；]{8,120})/,
     ]);
-  const valueRange = priceRangeOnly(trackingCardValue(documentNode, 'dynamic-value-range')
-    || tableValueByLabel(documentNode, ['综合估值区间', '公允价值', '估值区间'])
+  const valueRange = priceRangeOnly(trackingCardValue(documentNode, 'fair-value-range')
+    || trackingCardValue(documentNode, 'dynamic-value-range')
+    || tableValueByLabel(documentNode, ['公允价值区间', '综合公允价值', '综合估值区间', '公允价值', '估值区间'])
     || firstTextMatch(bodyText, [
       /综合公允价值(?:为|取)?\s*([0-9.]+[—\\-–至到][0-9.]+\s*元(?:\/股)?)/,
       /公允价值(?:为|取)?\s*([0-9.]+[—\\-–至到][0-9.]+\s*元(?:\/股)?)/,
       /综合估值区间\s*([0-9.]+[—\\-–至到][0-9.]+\s*元(?:\/股)?)/,
     ]));
+  const pricingDeviationCard = documentNode.querySelector('[data-tracking-key="pricing-deviation"]');
+  const pricingDeviation = pricingDeviationFromText(
+    nodeText(pricingDeviationCard?.querySelector('[aria-current="true"], .pricing-level.active'))
+    || firstTextMatch(nodeText(pricingDeviationCard?.querySelector('.tracking-detail')), [
+      /当前判断[：:]\s*([^。；]{2,30})/,
+    ])
+    || tableValueByLabel(documentNode, ['估值泡沫判断'])
+  );
   const reportQuote = trackingCardValue(documentNode, 'daily-quote')
     || tableValueByLabel(documentNode, ['当前价格及时间', '当前价格'])
     || firstTextMatch(bodyText, [/当前价格[：:]\s*([^。；]{3,80})/]);
@@ -5362,11 +5569,65 @@ function parseReportSummary(html) {
     secid,
     fundamental,
     valueRange,
+    pricingDeviation,
     reportQuote,
     riskDirection,
     sourceUpdated: documentNode.querySelector('#daily-tracking')?.getAttribute('data-updated-at')
       || firstTextMatch(bodyText, [/报告生成时间[：:]\s*([^。；]{6,50})/]),
   };
+}
+
+function textFromHtmlFragment(value) {
+  if (typeof DOMParser !== 'undefined') {
+    const documentNode = new DOMParser().parseFromString(String(value ?? ''), 'text/html');
+    return nodeText(documentNode.body);
+  }
+  return compactText(String(value ?? '')
+    .replace(/<[^>]*>/g, ' ')
+    .replaceAll('&nbsp;', ' ')
+    .replaceAll('&amp;', '&')
+    .replaceAll('&lt;', '<')
+    .replaceAll('&gt;', '>')
+    .replaceAll('&quot;', '"')
+    .replaceAll('&#39;', "'"));
+}
+
+function parseThreeFactorSummary(html) {
+  const source = String(html ?? '');
+  if (!source.trim()) return {};
+  const cards = [];
+  if (typeof DOMParser !== 'undefined') {
+    const documentNode = new DOMParser().parseFromString(source, 'text/html');
+    for (const card of documentNode.querySelectorAll('.factor-summary .factor-card')) {
+      cards.push({
+        label: nodeText(card.querySelector('p')),
+        value: nodeText(card.querySelector('strong')),
+        tone: ['positive', 'neutral', 'negative'].find(tone => card.classList.contains(tone)) ?? 'neutral',
+      });
+    }
+  } else {
+    const summaryHtml = source.match(/<section\b[^>]*class=["'][^"']*factor-summary[^"']*["'][^>]*>([\s\S]*?)<\/section>/i)?.[1] ?? '';
+    for (const match of summaryHtml.matchAll(/<div\b[^>]*class=["']([^"']*\bfactor-card\b[^"']*)["'][^>]*>([\s\S]*?)<\/div>/gi)) {
+      const label = textFromHtmlFragment(match[2].match(/<p\b[^>]*>([\s\S]*?)<\/p>/i)?.[1] ?? '');
+      const value = textFromHtmlFragment(match[2].match(/<strong\b[^>]*>([\s\S]*?)<\/strong>/i)?.[1] ?? '');
+      const tone = ['positive', 'neutral', 'negative'].find(candidate => new RegExp(`(?:^|\\s)${candidate}(?:\\s|$)`).test(match[1])) ?? 'neutral';
+      cards.push({ label, value, tone });
+    }
+  }
+  const summary = {};
+  for (const card of cards) {
+    const key = card.label.includes('综合') ? 'overall'
+      : card.label.includes('竞争') ? 'competition'
+      : card.label.includes('流动') ? 'liquidity'
+      : card.label.includes('情绪') ? 'emotion'
+      : '';
+    if (key && card.value) summary[key] = { value: card.value, tone: card.tone };
+  }
+  return summary;
+}
+
+function threeFactorToneClass(tone) {
+  return ['positive', 'neutral', 'negative'].includes(tone) ? `is-${tone}` : 'is-neutral';
 }
 
 function metricStatus(metric) {
@@ -6281,6 +6542,7 @@ function startApp() {
   let fuguiTtmSortMode = 'none';
   let dividendSignalLoadedAt = 0;
   const reportSummaryCache = new Map();
+  const threeFactorSummaryCache = new Map();
   const trackingQuoteCache = new Map();
   const trackingClosePerformanceCache = new Map();
   const fuguiDividendYieldCache = new Map();
@@ -6945,6 +7207,7 @@ function startApp() {
       const skippedCount = (Array.isArray(payload.skipped) ? payload.skipped.length : 0)
         + (Array.isArray(payload.failed) ? payload.failed.length : 0);
       reportSummaryCache.clear();
+      threeFactorSummaryCache.clear();
       renderTrackingItems();
       refreshTrackingQuotes();
       button.textContent = skippedCount ? `已更新 ${updatedCount} 份` : '已全部更新';
@@ -6969,6 +7232,12 @@ function startApp() {
         reportEntry = { status: 'loading' };
         reportSummaryCache.set(reportHref, reportEntry);
         loadReportSummary(reportHref);
+      }
+      let threeFactorEntry = threeFactorReportHref ? threeFactorSummaryCache.get(threeFactorReportHref) : null;
+      if (threeFactorReportHref && !threeFactorEntry) {
+        threeFactorEntry = { status: 'loading' };
+        threeFactorSummaryCache.set(threeFactorReportHref, threeFactorEntry);
+        loadThreeFactorSummary(threeFactorReportHref);
       }
       const report = reportEntry?.data ?? {};
       const secid = secidForTrackingItem(item, report);
@@ -6999,6 +7268,7 @@ function startApp() {
         index,
         reportHref,
         threeFactorReportHref,
+        threeFactorEntry,
         reportEntry,
         report,
         quoteEntry,
@@ -7052,7 +7322,7 @@ function startApp() {
     if (trackingCloseDate) {
       trackingCloseDate.textContent = closeDates.length ? `${closeDates.at(-1)}收盘` : '';
     }
-    const renderTrackingRow = ({ item, reportHref, threeFactorReportHref, reportEntry, report, quoteEntry, closePerformanceEntry, liveQuote, signal, riskReward }) => {
+    const renderTrackingRow = ({ item, reportHref, threeFactorReportHref, threeFactorEntry, reportEntry, report, quoteEntry, closePerformanceEntry, liveQuote, signal, riskReward }) => {
       const signalLabel = signal.addStars > 0
         ? '★'.repeat(signal.addStars)
         : signal.reducible ? '可减' : '—';
@@ -7066,24 +7336,44 @@ function startApp() {
         ? `<div class="tracking-close-performance"><small>近一周 ${Number.isFinite(closePerformanceEntry.data.weekChangePercent) ? `${closePerformanceEntry.data.weekChangePercent >= 0 ? '+' : ''}${formatNumber(closePerformanceEntry.data.weekChangePercent, 2)}%` : '—'}</small></div>`
         : escapeHtml(closePerformanceEntry?.status === 'loading' ? '读取中…' : '未获取到');
       const monitorLink = dailyMonitorLinkForTrackingItem(item, report);
-      const monitorStatusText = report.riskDirection || item.riskLine || (reportEntry?.status === 'loading' ? '读取研报…' : '未获取到');
-      const monitorStatusHtml = monitorLink
-        ? `<a class="tracking-monitor-link" href="${escapeHtml(monitorLink.href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(monitorLink.status || '打开监控')}</a><small class="tracking-monitor-meta">${escapeHtml(monitorLink.date ? `${monitorLink.date} · 每日监控` : '每日监控')}</small>`
-        : escapeHtml(monitorStatusText);
+      const valuationDisposition = valuationDispositionPresentation(monitorLink?.valuationStatus);
+      const valuationReason = monitorLink?.valuationReason
+        || (monitorLink ? '报告未提供修改原因' : '未获取到每日监控报告');
+      const valuationStatusTitle = monitorLink?.valuationStatus ? ` title="${escapeHtml(monitorLink.valuationStatus)}"` : '';
+      const valuationStatusHtml = monitorLink
+        ? `<a class="is-${valuationDisposition.tone}" href="${escapeHtml(monitorLink.href)}" target="_blank" rel="noopener noreferrer"${valuationStatusTitle}>${escapeHtml(valuationDisposition.label)}</a>`
+        : `<span class="is-${valuationDisposition.tone}">${escapeHtml(valuationDisposition.label)}</span>`;
+      const valuationDispositionHtml = `<div class="tracking-valuation-disposition">${valuationStatusHtml}<small>${escapeHtml(valuationReason)}</small></div>`;
       const nameHtml = reportHref
         ? `<a href="${escapeHtml(reportHref)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.name)}</a>`
         : escapeHtml(item.name);
-      const reportLinksHtml = [
-        threeFactorReportHref ? `<a href="${escapeHtml(threeFactorReportHref)}" target="_blank" rel="noopener noreferrer">三要素研报</a>` : '',
-        reportHref ? `<a href="${escapeHtml(reportHref)}" target="_blank" rel="noopener noreferrer">个股研报</a>` : '',
-      ].filter(Boolean).join('');
+      const reportLinksHtml = reportHref
+        ? `<a href="${escapeHtml(reportHref)}" target="_blank" rel="noopener noreferrer">个股研报</a>`
+        : '';
+      const threeFactor = threeFactorEntry?.data ?? {};
+      const factorItems = [
+        ['格局', threeFactor.competition],
+        ['流动性', threeFactor.liquidity],
+        ['情绪', threeFactor.emotion],
+      ].filter(([, factor]) => factor?.value);
+      const threeFactorSummaryHtml = factorItems.length
+        ? `<small>${factorItems.map(([label, factor]) => `<span class="${threeFactorToneClass(factor.tone)}"><b>${escapeHtml(label)}</b>${escapeHtml(factor.value)}</span>`).join('')}</small>`
+        : `<small class="tracking-three-factor-state">${escapeHtml(threeFactorEntry?.status === 'loading' ? '读取研报…' : '未获取到')}</small>`;
+      const threeFactorHtml = threeFactorReportHref
+        ? `<div class="tracking-three-factor">${threeFactorSummaryHtml}<a href="${escapeHtml(threeFactorReportHref)}" target="_blank" rel="noopener noreferrer">三要素研报</a></div>`
+        : '未关联';
+      const pricingDeviation = report.pricingDeviation
+        || (reportEntry?.status === 'loading' ? '读取研报…' : '未获取到');
+      const pricingDeviationHtml = `<span class="tracking-pricing-deviation ${pricingDeviationToneClass(pricingDeviation)}">${escapeHtml(pricingDeviation)}</span>`;
       return `<tr data-tracking-id="${escapeHtml(item.id)}"${reportHref ? ` data-report-href="${escapeHtml(reportHref)}"` : ''}>
       <td class="tracking-target"><strong>${nameHtml}</strong><small>${escapeHtml(item.code || report.secid || '未填代码')}</small><span class="tracker-status">${escapeHtml(item.status)}</span></td>
       <td>${escapeHtml(report.valueRange || item.thesis || (reportEntry?.status === 'loading' ? '读取研报…' : '未获取到'))}</td>
+      <td>${pricingDeviationHtml}</td>
       <td>${escapeHtml(intraday)}</td>
       <td>${closePerformanceHtml}</td>
       <td>${escapeHtml(riskRewardText)}</td>
-      <td>${monitorStatusHtml}</td>
+      <td>${valuationDispositionHtml}</td>
+      <td>${threeFactorHtml}</td>
       <td><div class="tracking-report-links">${reportLinksHtml || escapeHtml(item.reviewCondition || '未关联研报')}</div><small class="tracking-updated">${escapeHtml(report.sourceUpdated ? `研报：${report.sourceUpdated}` : `记录：${new Date(item.updatedAt).toLocaleString('zh-CN', { hour12: false })}`)}</small><div class="tracker-row-actions"><button type="button" data-action="edit-tracking">编辑</button><button type="button" data-action="delete-tracking">删除</button></div></td>
       <td><button class="review-diary-button" type="button" data-action="review-diary">复盘日记</button></td>
       <td>${escapeHtml(signalLabel)}</td>
@@ -7096,7 +7386,7 @@ function startApp() {
           (allocationCategoryForReport(reportHref) || UNCATEGORIZED_ALLOCATION_CATEGORY.key) === group.key
         );
         if (!groupItems.length) return '';
-        return `<tr class="tracking-group-row"><th colspan="9" style="--group-color:${group.color}"><div class="tracking-group-head"><span>${escapeHtml(group.label)}</span><small>${groupItems.length} 个标的</small></div></th></tr>${groupItems.map(renderTrackingRow).join('')}`;
+        return `<tr class="tracking-group-row"><th colspan="11" style="--group-color:${group.color}"><div class="tracking-group-head"><span>${escapeHtml(group.label)}</span><small>${groupItems.length} 个标的</small></div></th></tr>${groupItems.map(renderTrackingRow).join('')}`;
       }).join('');
     };
     const sortButton = document.getElementById('tracking-sort-intraday');
@@ -7163,6 +7453,18 @@ function startApp() {
       }
     } catch {
       reportSummaryCache.set(reportHref, { status: 'error', data: {} });
+    }
+    renderTrackingItems();
+  }
+
+  async function loadThreeFactorSummary(reportHref) {
+    try {
+      const response = await fetch(reportHref, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const data = parseThreeFactorSummary(await response.text());
+      threeFactorSummaryCache.set(reportHref, { status: 'loaded', data });
+    } catch {
+      threeFactorSummaryCache.set(reportHref, { status: 'error', data: {} });
     }
     renderTrackingItems();
   }

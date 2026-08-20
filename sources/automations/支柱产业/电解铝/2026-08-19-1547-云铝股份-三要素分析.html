@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>云铝股份冰冰小美体系三要素分析</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --positive: #17604e;
+  --positive-bg: #dff3eb;
+  --negative: #a82828;
+  --negative-bg: #ffe1df;
+  --neutral: #7b5b18;
+  --neutral-bg: #fff2cf;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; color: var(--ink); background: var(--paper); font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif; line-height: 1.7; }
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero { padding: 56px 76px 46px; color: #fff; background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%); }
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.research-note { margin: 16px 0 26px; padding: 14px 18px 13px; border: 1px solid #dce5e9; border-left: 4px solid #8ca6b1; border-radius: 8px; color: #526875; background: #f7fafb; }
+.research-note-title { margin: 0 0 7px; color: #58717d; font-size: 12px !important; font-weight: 700; letter-spacing: .08em; }
+.research-note ul { margin: 0; padding-left: 21px; }
+.research-note li { margin: 4px 0; font-size: 13.5px; line-height: 1.65; }
+.research-note li::marker { color: #8ca6b1; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.factor-summary { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin: 26px 0 42px; }
+.factor-card { min-width: 0; padding: 16px; border: 1px solid var(--line); border-radius: 12px; background: #f7f9fa; }
+.factor-card p { margin: 0 0 6px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .06em; }
+.factor-card strong { color: var(--navy); font-size: 18px; line-height: 1.35; }
+.factor-card.positive { background: var(--positive-bg); }
+.factor-card.positive strong { color: var(--positive); }
+.factor-card.negative { background: var(--negative-bg); }
+.factor-card.negative strong { color: var(--negative); }
+.factor-card.neutral { background: var(--neutral-bg); }
+.factor-card.neutral strong { color: var(--neutral); }
+
+@media (max-width: 1100px) { .factor-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 980px) { .hero { padding: 40px 30px 34px; } .layout { grid-template-columns: 1fr; } .toc { border-right: 0; border-bottom: 1px solid var(--line); } .toc-inner { position: static; columns: 2; } .content { padding: 34px 30px 64px; } }
+@media (max-width: 600px) { .toc-inner { columns: 1; } .content { padding: 28px 18px 54px; } .factor-summary { grid-template-columns: 1fr; } }
+@media print { body { background: #fff; } .report-shell { max-width: none; } .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; } .layout { display: block; } .toc { display: none; } .content { padding: 25px 36px; } .content h2 { break-after: avoid; } .content table { display: table; overflow: visible; break-inside: avoid; } .factor-card { border: 1px solid #aebbc2; background: #fff !important; } .research-note { break-inside: avoid; background: #fff; } }
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM THREE-FACTOR ANALYSIS</p>
+      <h1>云铝股份冰冰小美体系三要素分析</h1>
+      <div class="hero-meta"><span>个股</span><span>深圳证券交易所主板</span><span>2026-08-19 15:47 Asia/Shanghai；行情、订单分档与融资截至2026-08-18，8月19日盘中行情只作辅助</span><span>2026-08-19 15:47 Asia/Shanghai</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 一句话结论</a>
+<a class="toc-link" href="#section-2">2. 三要素状态总表</a>
+<a class="toc-link" href="#section-3">3. 竞争格局的比较优势</a>
+<a class="toc-link" href="#section-4">4. 流动性辩证分析</a>
+<a class="toc-link" href="#section-5">5. 情绪位置变化</a>
+<a class="toc-link" href="#section-6">6. 综合状态与主导矛盾</a>
+<a class="toc-link" href="#section-7">7. 行动映射</a>
+<a class="toc-link" href="#section-8">8. 数据缺口与置信度</a>
+<a class="toc-link" href="#section-9">9. 来源</a></div></aside>
+      <article class="content"><blockquote>
+<p>对象层级：个股</p>
+<p>市场：深圳证券交易所主板</p>
+<p>分析截止时间：2026-08-19 15:47 Asia/Shanghai；行情、订单分档与融资截至2026-08-18，8月19日盘中行情只作辅助</p>
+<p>报告生成时间：2026-08-19 15:47 Asia/Shanghai</p>
+<p>核心问题：产能置换、碳市场与绿色低碳政策，是否已经通过云铝的水电铝、一体化和低杠杆转化为相对同业优势；这种优势是否获得可持续资金与合适情绪位置的共同确认？</p>
+</blockquote>
+<section class="factor-summary" aria-label="三要素摘要">
+    <div class="factor-card neutral"><p>综合状态</p><strong>尚未形成有利共振。</strong></div>
+    <div class="factor-card positive"><p>竞争格局</p><strong>有利</strong></div>
+    <div class="factor-card negative"><p>流动性</p><strong>不利 / 转弱，上一可辨识状态为修复，当前转换为“修复 → 转弱”。</strong></div>
+    <div class="factor-card neutral"><p>情绪位置</p><strong>中性</strong></div>
+    <div class="factor-card neutral"><p>总体置信度</p><strong>中。政策、法定财务和量价资金证据较完整；半年报尚未披露，企业盈利质量和竞争优势幅度存在近端更新风险。</strong></div>
+  </section>
+<h2 id="section-1">1. 一句话结论</h2>
+
+<ul>
+<li>综合状态：<strong>尚未形成有利共振</strong>。</li>
+<li>流动性阶段：<strong>转弱</strong>，上一可辨识状态为修复，当前转换为“修复 → 转弱”。</li>
+<li>主导要素：<strong>竞争格局有利</strong>。政策正用产能置换、能效、碳市场和绿色认证抬高门槛；云铝约87.5%的清洁能源用能占比、一体化、低杠杆，以及2026Q1利润与现金流同步增长，构成可验证的相对优势。</li>
+<li>拖累要素：<strong>流动性不利</strong>。股价20日修复、60日仍下跌9.96%，融资余额60日逆势增加42.33%，而大额订单代理持续流出；强业绩没有形成可持续增量资金确认，情绪只处于修复后的分歧。</li>
+</ul>
+<h2 id="section-2">2. 三要素状态总表</h2>
+
+<table>
+<thead>
+<tr>
+<th>要素</th>
+<th>状态</th>
+<th>核心证据</th>
+<th>核心反证</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>有利</td>
+<td>产能置换与全国碳市场提高行业门槛；公司清洁能源用能约87.5%、低杠杆、一体化，Q1利润和经营现金流同步高增</td>
+<td>2026年计划产量不增；缺同业吨铝成本和确定绿铝溢价；云南来水、电价与铝价仍是外生变量</td>
+<td>中</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>不利</td>
+<td>20日股价+5.52%，60日相对多数冶炼同业更抗跌，未见显著新增股票供给</td>
+<td>5/10/20/60日订单分档全为净流出；融资60日+42.33%而价格-9.96%；全市场融资60日-8.24%</td>
+<td>中高</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>中性</td>
+<td>强业绩预告、铝价与价差叙事仍有效，20日价格修复且距52周高点约30%</td>
+<td>利好反馈钝化、5日回落、20日相对部分同业偏弱，PB溢价与融资形成局部拥挤</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 竞争格局的比较优势</h2>
+
+<blockquote>
+<p>已按最新版概念页完成“3层 × 5问”内部推演。完整比较对象、维度、趋势与失效条件见<a href="../../../webpages/2026-08-19-云铝股份三要素政策行业与市场证据快照.md">政策行业与市场证据快照</a>；本节保留能够影响决策的证据与反证。</p>
+</blockquote>
+<h3>国家层：方向与资源配置</h3>
+<ul>
+<li>结论：<strong>方向有利，资源传导对低碳存量产能有利，但不是直接补贴逻辑</strong>。铝产业政策继续约束无序扩产，同时把产能置换、能效、清洁能源、碳排放和绿色认证作为准入与改造条件；云铝的水电铝属性与一体化具备承接资格。</li>
+<li>国策方向：工信部等十部门《铝产业高质量发展实施方案（2025—2027年）》要求优化电解铝产能置换、推进能效与环保改造，目标是到2027年行业清洁能源使用比例30%以上。2026年工业绿色低碳“十五五”规划继续强调用能结构优化、重点行业节能降碳和人工智能赋能绿色制造。</li>
+<li>政策落地：2025年铝冶炼正式纳入全国碳排放权交易市场，2025年共有97家铝冶炼重点排放单位被纳入配额管理；绿色能源和排放差异开始进入制度化成本比较。</li>
+<li>资源配置：政策支持矿权投放、节能改造、绿电交易、绿证、绿色融资、再生铝和高端材料。公司取得昭通太阳坝铝土矿探矿权、入选碳足迹标识认证试点，与方向一致；但未取得财政、政策性信贷或政府采购直接流向云铝核心冶炼业务的统一金额。</li>
+<li>核心证据：公司披露清洁能源用能占比约87.5%，明显高于2027年行业30%的政策目标；碳排放配额履约率100%，绿色铝属性能够降低被能耗、碳和贸易规则边际约束的风险。</li>
+<li>核心反证：碳市场配额机制尚不能等同于公司获得确定碳收益；绿铝认证是否带来客户、价格或融资成本差异尚无量化证据。政策也推动再生铝和海外资源，长期可能分流原铝需求。</li>
+</ul>
+<aside class="research-note" aria-label="研究提示"><p class="research-note-title">研究提示</p><ul>
+<li>已检索范围：铝产业实施方案及解读、产能置换与能效条件、全国碳市场扩围、2025年碳市场运行、工业绿色低碳“十五五”规划、有色金属稳增长方案、矿权与绿色认证。</li>
+<li>数据缺口：政策资金直接流向云铝的金额、公司碳配额盈亏、绿铝认证带来的订单溢价与融资成本差异。</li>
+<li>下一验证点：碳配额分配与履约、绿铝产品认证和客户合同、太阳坝矿权勘查与投产、节能改造实际吨铝电耗。</li>
+<li>失效条件：水电与低碳属性不再带来准入、成本或订单差异，或再生铝、海外低成本产能更快获得政策与市场资源。</li>
+</ul>
+</aside>
+<h3>产业 / 行业层：利润流向与产业链位置</h3>
+<ul>
+<li>结论：<strong>当前利润向低成本电解铝冶炼集中，水电铝位置有利，但周期上沿受需求与海外供给约束</strong>。高铝价、氧化铝宽松和库存去化共同扩张冶炼价差；稳定满产、电价较低、氧化铝保障较强的企业更能获得利润。</li>
+<li>核心证据：2026H1国内铝现货均价24,124元/吨、同比+18.8%；6月国内电解铝产量374.4万吨、同比+2.2%，供给增加但没有失控。SMM和Mysteel不同口径均显示7月至8月铝锭库存总体去化，支持冶炼利润。</li>
+<li>核心证据：公司2026Q1解释利润与经营现金流增长主要来自铝价上升、氧化铝价格下降。氧化铝厂及港口库存较高，利润从上游原料向电解铝环节转移；电力、产能置换和碳排放又使低成本产能获得更高稀缺性。</li>
+<li>核心证据：产业升级方向从单纯扩产转向铝水直供、合金化、高端板带箔、再生铝和碳足迹。公司已参股新能源高精板带箔项目并建成5万吨再生铝示范线，具备延链选项。</li>
+<li>核心反证：SMM下游综合开工率约60.2%，需求并非全面扩张；海外复产与新增供应、铝材出口利润变化和高价对需求的抑制，限制铝价继续上行。公司2025年加工业务毛利率15.24%，高端化尚未形成清晰超额利润。</li>
+</ul>
+<aside class="research-note" aria-label="研究提示"><p class="research-note-title">研究提示</p><ul>
+<li>已检索范围：国内电解铝产量、清洁能源占比、铝现货均价、铝锭与铝棒库存、周度产量、下游开工、氧化铝库存、出口与海外供应、公司产业链延伸项目。</li>
+<li>数据缺口：全国有效运行产能实时口径、同业吨铝完全成本、出口订单连续序列、海外复产进度、再生铝对原铝需求的量化替代。</li>
+<li>下一验证点：8月至9月旺季库存与开工、铝—氧化铝价差、海外复产、板带箔项目进度和公司加工毛利率。</li>
+<li>失效条件：库存持续累积、下游开工和出口共同转弱，或铝价下跌快于氧化铝和电力成本，导致冶炼利润向上游或下游转移。</li>
+</ul>
+</aside>
+<h3>企业层：谁能获得利润</h3>
+<ul>
+<li>结论：<strong>相对一般铝冶炼企业具备成本、能源、资产负债表和现金转化优势；相对核心同业的精确成本领先幅度仍待验证</strong>。当前优势是“低碳低杠杆产能在高价差周期中更能兑现现金利润”，而不是公司拥有独立定价权。</li>
+<li>核心证据：2025年生产铝商品322.59万吨、氧化铝130.36万吨，规模和一体化已验证；收购少数股权提高权益产能15万吨以上，在不新增行业供给的情况下提高归母利润分享。</li>
+<li>核心证据：2025年经营现金流84.32亿元、自由现金流代理77.92亿元，ROIC代理约23.4%。2026Q1归母净利润36.00亿元、同比+269.45%，经营现金流33.97亿元、同比+95.24%，利润与现金流同向改善；H1预告归母75—78亿元，优势继续兑现。</li>
+<li>核心证据：2026Q1末资产负债率约17.74%、现金90.09亿元，低杠杆使公司在铝价、氧化铝和来水波动中具有更强的生存与分红能力。</li>
+<li>核心反证：2026年铝商品计划产量约319万吨，低于2025年实际；增长缺少物量驱动。公司没有产品定价权，利润仍高度敏感于铝价、电价、氧化铝和云南来水。</li>
+<li>核心反证：缺少与神火、天山、中国铝业、南山同口径的吨铝电力成本、氧化铝自给率和碳足迹数据；2026Q1应收账款较年末增长约277%，半年报需核验利润质量。PB相对核心同业溢价20%—32%，只说明市场已计入部分质量预期，不参与本要素评分。</li>
+</ul>
+<aside class="research-note" aria-label="研究提示"><p class="research-note-title">研究提示</p><ul>
+<li>已检索范围：公司2025年产量、分部毛利、清洁能源、矿权、权益产能、现金流、资本开支、负债、2026Q1与H1预告；可比神火、天山、中国铝业和南山的量价与估值。</li>
+<li>数据缺口：同业同口径吨铝现金成本、电价、氧化铝自给率、实际碳排放与绿色溢价；公司2026H1正式分部和现金流数据。</li>
+<li>下一验证点：8月28日半年报的收入、分部毛利、CFO、应收、产量与吨铝成本；云南来水、电价与同业半年报。</li>
+<li>失效条件：产量下修或电价上升，氧化铝反弹快于铝价，现金流与利润背离，或核心同业以更低成本和更高资本回报追平。</li>
+</ul>
+</aside>
+<h3>本要素判断</h3>
+<ul>
+<li>状态：<strong>有利</strong>。</li>
+<li>理由：国家层通过产能置换、能效、清洁能源和碳市场提高门槛；行业层当前价差与库存把利润推向低成本电解铝；企业层以约87.5%清洁能源、一体化、低杠杆、权益产能与利润—现金流同步增长证明承接能力。缺同业吨铝成本与绿铝溢价数据使置信度仅为中，但现有证据已超过“只有政策资格、没有企业兑现”的中性状态。</li>
+</ul>
+<aside class="research-note" aria-label="研究提示"><p class="research-note-title">研究提示</p><ul>
+<li>主导证据：政策门槛与能源结构同向，公司2026Q1及H1预告把高价差转化为归母利润，Q1经营现金流同步增长。</li>
+<li>核心缺口：同业吨铝成本与碳足迹、绿铝溢价、半年报正式现金流和分部利润。</li>
+<li>下一验证点：8月28日半年报与同业中报、旺季库存、铝—氧化铝价差、云南来水和电价。</li>
+<li>失效条件：利润增长不能转化为现金、吨铝成本优势消失、产量受限，或行业库存累积并使价差快速收缩。</li>
+</ul>
+</aside>
+<h2 id="section-4">4. 流动性辩证分析</h2>
+
+<blockquote>
+<p>核心边界：成交量和估值只是结果或偏好。本节区分钱的来源、持续性、股票供给和退出路径；订单分档不等于机构身份。</p>
+</blockquote>
+<h3>宏观流动性</h3>
+<ul>
+<li>事实与时点：美国10年期国债收益率由2026-07-01的4.48%升至2026-08-17的4.72%，外部无风险利率边际上升。国内2026年6月M2同比+8.0%、社会融资规模存量同比+7.4%，货币存量较充裕但信用扩张温和。</li>
+<li>对对象的影响：<strong>中性偏约束</strong>。国内货币存量和商品价格能支持周期资产比较，但外部利率上升、信用传导不强，不能解释为有色板块得到全面场外增量。</li>
+</ul>
+<h3>中观流动性</h3>
+<ul>
+<li>事实与时点：铝价高位、库存去化与氧化铝成本下降为有色资金提供迁入理由；全市场融资余额截至2026-08-18约2.6709万亿元，5/10日+0.89%/+2.55%，20/60日-1.03%/-8.24%。</li>
+<li>传导判断：市场杠杆短线回补、中期仍去化，属于存量再配置而非全面扩张。未取得有色金属ETF、主动基金、保险、北向或产业资本同窗口持续净流入证据。</li>
+<li>对对象的影响：<strong>中性偏约束</strong>。产业基本面能吸引结构性资金，但板块级真实增量与扩散广度没有闭环。</li>
+</ul>
+<h3>微观流动性</h3>
+<ul>
+<li>事实与时点：2026-08-18收盘26.57元，5/10/20/60日收益-2.42%/+2.11%/+5.52%/-9.96%；20日修复弱于神火、天山和南山，60日好于神火、天山和中国铝业、弱于南山。8月18日量比0.46，反弹没有持续放量。</li>
+<li>事实与时点：近5/10/20/60日订单分档净额-9.148/-14.954/-6.274/-33.309亿元；其中大单与特大单-3.662/-3.928/-8.266/-6.492亿元。20日价格上涨与大额订单流出背离。</li>
+<li>事实与时点：融资余额26.29亿元，5/10/20/60日分别+4.58%/+14.78%/+6.84%/+42.33%，融资净买入+1.78/+1.51/+1.34/+7.77亿元。融资承接没有推动60日价格上行。</li>
+<li>迁移路径：资金更像从有色周期修复中分化——部分融资资金押注利润与铝价，较大订单则利用反弹降低暴露；不是由全市场或板块场外资金持续扩散形成的共振。</li>
+<li>对对象的影响：<strong>不利</strong>。杠杆集中承担承接，而价格、订单和市场杠杆没有共同确认，潜在退出弹性大于继续扩张的证据。</li>
+</ul>
+<h3>资金来源分类</h3>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>是否存在</th>
+<th>渠道与证据</th>
+<th>持续性</th>
+<th>退出条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>场外真实增量</td>
+<td>证据不足</td>
+<td>未取得有色ETF、公募、保险、北向或产业资本同窗口净流入；全市场融资60日仍下降</td>
+<td>低</td>
+<td>若ETF份额、长期机构持仓和板块广度连续改善才可确认</td>
+</tr>
+<tr>
+<td>存量迁移</td>
+<td>是</td>
+<td>铝价与利润预告吸引周期资金，20日股价+5.52%；但大额订单20日-8.266亿元</td>
+<td>低至中</td>
+<td>铝价、库存或半年报低于预期，资金切换至其他周期或红利方向</td>
+</tr>
+<tr>
+<td>减量报团</td>
+<td>证据不足</td>
+<td>个股融资逆市场增加且基本面强，但可比公司也有修复，未形成云铝独立高换手上涨</td>
+<td>低</td>
+<td>若市场继续去杠杆而云铝融资、换手和相对强度集中上升，才可确认</td>
+</tr>
+</tbody></table>
+<h3>供给与抛压</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>当前事实</th>
+<th>对流动性的影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>杠杆资金</td>
+<td>融资余额26.29亿元；60日+42.33%，融资净买入7.77亿元</td>
+<td>提供承接但明显放大价格下跌时的退出风险</td>
+</tr>
+<tr>
+<td>股票融资供给</td>
+<td>本次未发现正在执行的大额增发、配股或可转债</td>
+<td>新增筹码压力有限，不能抵消杠杆与套牢盘压力</td>
+</tr>
+<tr>
+<td>减持与解禁</td>
+<td>未取得未来90日完整减持、解禁与质押清单</td>
+<td>证据缺口限制供给结论，需持续核验公告</td>
+</tr>
+<tr>
+<td>套牢盘与高位筹码</td>
+<td>当前距52周高点约30%；20日修复后5日转负</td>
+<td>反弹既面对中期套牢盘，也可能成为大额订单退出窗口</td>
+</tr>
+</tbody></table>
+<h3>最低数据检查</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>已检查数据</th>
+<th>数据时点与窗口</th>
+<th>来源</th>
+<th>缺口及影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观</td>
+<td>美国10年期国债、M2、社融、铝价与商品风险偏好</td>
+<td>2026-06至08-17</td>
+<td>本地Tushare、公开宏观与行业数据</td>
+<td>美元、人民币汇率同窗口序列不完整，限制跨境资金判断</td>
+</tr>
+<tr>
+<td>中观</td>
+<td>行业库存、产量、开工、全市场融资</td>
+<td>2026-06至08-18</td>
+<td>SMM、Mysteel、中国有色金属报、本地Tushare</td>
+<td>有色ETF、公募、保险、北向、产业资本连续流量缺失</td>
+</tr>
+<tr>
+<td>微观</td>
+<td>价格、成交、换手、五家同业、订单分档、个股融资</td>
+<td>1/5/10/20/60日，截至08-18</td>
+<td>本地Tushare</td>
+<td>账户身份、板块广度、做空回补与实时8月19收盘数据缺失</td>
+</tr>
+<tr>
+<td>供给与抛压</td>
+<td>融资、再融资检索、价格区间</td>
+<td>当前及历史</td>
+<td>公司公告、本地Tushare</td>
+<td>未来90日完整减持解禁、质押与筹码成本缺失</td>
+</tr>
+</tbody></table>
+<h3>证据</h3>
+<ul>
+<li>20日股价+5.52%，且60日相对神火、天山、中国铝业更抗跌，说明行业修复期仍有承接。</li>
+<li>本次未发现显著新增股票融资供给；公司基本面和强现金流为存量资金提供持有理由。</li>
+<li>个股融资5/10/20/60日均增加，证明市场中确有愿意承接的杠杆资金，而非完全无人买入。</li>
+</ul>
+<h3>反证</h3>
+<ul>
+<li>订单分档5/10/20/60日全部净流出，大额订单20日净流出8.266亿元；价格修复没有获得较大订单确认。</li>
+<li>融资余额60日+42.33%而股价-9.96%，融资承接效率低；全市场融资同期-8.24%，个股杠杆集中度上升。</li>
+<li>5日股价-2.42%，8月19日14:49盘中再跌2.18%，说明20日修复的边际动能已经减弱。</li>
+<li>20日涨幅弱于神火、天山与南山，强盈利并未转化为行业内最强相对表现。</li>
+</ul>
+<h3>退出路径</h3>
+<ul>
+<li>第一条路径是半年报现金流、应收或分部毛利低于强利润预告隐含的质量，融资资金先行止损；第二条路径是铝价回落、氧化铝反弹或库存累积，使周期资金从电解铝切换；第三条路径是反弹遇到中期套牢盘，而大额订单继续利用融资承接退出。</li>
+<li>观察指标：20日大额订单、个股融资余额与融资净买入、全市场融资、有色ETF份额、铝—氧化铝价差、95万吨附近库存变化、26—28元承接和8月28日半年报。</li>
+</ul>
+<h3>失效条件</h3>
+<ul>
+<li>若半年报确认利润、经营现金流、应收和分部毛利同步改善，20日大额订单和全口径资金连续转正，融资余额不再加速且股价放量站稳28元，则“不利/转弱”失效，可进入修复并评估上调方向。</li>
+<li>若股价继续下跌、20日订单流维持净流出且融资余额加速上升，或铝价与库存反转，则转弱可能进入收缩；此时杠杆承接会转化为潜在被动卖压。</li>
+</ul>
+<h3>流动性阶段判定</h3>
+<ul>
+<li>方向评价：<strong>不利</strong>。</li>
+<li>当前状态：<strong>转弱</strong>。</li>
+<li>上一可辨识状态或基准状态：<strong>修复</strong>。</li>
+<li>转换方向：<strong>修复 → 转弱</strong>。</li>
+<li>跨层依据：宏观层外部利率上升、国内信用传导温和；中观层全市场融资20/60日仍去化且缺少有色长期增量；微观层20日价格修复后5日转负，大额订单持续流出，融资逆市场显著增加。价格修复主要由脆弱的存量与杠杆承接维持，未形成可持续扩散。</li>
+<li>相邻状态排除理由：<strong>不是修复</strong>，因为最新短周期价格、大额订单和融资效率已经恶化；<strong>不是平衡</strong>，因为价格—订单—杠杆出现同向风险背离，不是多空稳定均衡；<strong>不是收缩</strong>，因为20日价格仍上涨、公司基本面强、融资尚在承接，尚未形成价格下跌—融资撤退—被动卖出的自我强化链条。</li>
+<li>置信度：<strong>中高</strong>。量价、订单分档、个股与市场融资的1/5/10/20/60日窗口完整且背离清晰；ETF、公募、保险、北向与筹码数据缺失，无法识别资金身份，因此不判高置信度。</li>
+</ul>
+<h2 id="section-5">5. 情绪位置变化</h2>
+
+<h3>证据</h3>
+<ul>
+<li>状态：<strong>中性</strong>；阶段：<strong>修复后的分歧</strong>。</li>
+<li>2026Q1归母净利润+269.45%、经营现金流+95.24%，H1预告归母75—78亿元，盈利叙事已经充分可见；股价20日+5.52%，说明预期仍有修复。</li>
+<li>当前较52周高点38.23元低约30%，量比0.46，PE(TTM)10.62倍与核心同业接近，不属于一致性亢奋或高估值泡沫。</li>
+<li>60日股价-9.96%，强业绩和高价差未推动中期趋势上行；20日又弱于神火、天山和南山，说明市场对盈利持续性、来水、铝价和估值溢价仍有分歧。</li>
+<li>PB 2.58倍较神火、天山和中国铝业高约21%—32%，融资余额60日+42.33%，局部多头信念已经偏高；但大额订单流出说明这种信念并非机构一致性。</li>
+</ul>
+<h3>反证</h3>
+<ul>
+<li>公司60日相对神火、天山和中国铝业更抗跌，且行业库存去化、氧化铝宽松，不能把短线转弱直接解释为基本面情绪崩溃。</li>
+<li>20日仍上涨、融资持续承接，尚未进入冰点；若半年报现金流超预期，分歧可能重新向修复倾斜。</li>
+<li>未取得舆情热度、分析师盈利修订、板块涨跌广度、ETF申赎与账户级持仓，无法确认情绪已从分歧转入一致性退潮。</li>
+</ul>
+<h3>失效条件</h3>
+<ul>
+<li>若半年报利润质量超预期、股价放量站稳28元、20日大额订单转正且同业广度扩散，则“修复后的分歧”失效，情绪可上调为有利并进入扩散。</li>
+<li>若半年报低于预期、铝价与库存反转，股价跌破近期修复起点且融资继续增加，则中性失效，情绪可能转为不利并进入退潮；若同时出现融资撤退与恐慌抛售，才考虑冰点。</li>
+</ul>
+<h2 id="section-6">6. 综合状态与主导矛盾</h2>
+
+<ul>
+<li>综合状态：<strong>尚未形成有利共振</strong>。</li>
+<li>主导矛盾：政策、能源结构、产业价差和公司现金利润共同证明竞争格局有利；但二级市场主要由融资承接，大额订单持续退出，强业绩只带来分歧式修复。核心不是云铝“有没有优势”，而是这种优势能否在半年报后继续兑现，并由长期资金而非杠杆资金定价。</li>
+<li>下一验证点：2026-08-28半年报的经营现金流、应收、分部毛利、产量与资本开支；20日订单分档、融资余额、有色ETF、铝—氧化铝价差和库存。</li>
+<li>综合失效条件：若半年报和同业比较确认成本与现金流优势，同时流动性进入修复、情绪扩散，可升级为部分有利或同步有利；若行业价差、产量和现金流转差，流动性进入收缩、情绪退潮，则可能降为同步不利。</li>
+</ul>
+<h2 id="section-7">7. 行动映射</h2>
+
+<h3>新增现金（buy / wait / observe / review）</h3>
+<table>
+<thead>
+<tr>
+<th>行动</th>
+<th>条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>observe</td>
+<td>当前维持。竞争优势已经成立，但流动性不利且从修复转弱；不因强业绩预告或低PE机械行动。等待8月28日半年报确认现金流与应收，同时观察20日大额订单转正、融资不再加速和价格重新站稳28元，三项至少形成共同确认后再重新评估。</td>
+</tr>
+</tbody></table>
+<h3>已有持仓（sell / reduce / wait / observe / review）</h3>
+<table>
+<thead>
+<tr>
+<th>行动</th>
+<th>条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>review</td>
+<td>当前维持。复核持仓成本、仓位和对铝—氧化铝价差、云南供电及半年报现金流的假设；竞争格局有利且尚未进入流动性收缩，不把短期分歧机械等同于基本面失效。</td>
+</tr>
+<tr>
+<td>reduce</td>
+<td>若半年报出现利润—现金流背离、应收继续异常增长、分部毛利或产量下修，同时20日订单持续净流出、融资逆势加速且价格跌破近期修复起点，则竞争兑现与资金承接同时失效，可条件化降低暴露。</td>
+</tr>
+</tbody></table>
+<h2 id="section-8">8. 数据缺口与置信度</h2>
+
+<ul>
+<li>数据缺口：同业吨铝电力成本、氧化铝自给率、碳足迹与绿铝溢价；云铝2026H1正式收入、分部毛利、CFO、应收、产量和资本开支；有色ETF、公募、保险、北向和产业资本连续流量；未来90日减持解禁、筹码成本和舆情热度。</li>
+<li>已检查范围：最新版三要素框架与动态概念页；铝产业实施方案、碳市场扩围及运行、工业绿色低碳“十五五”规划和有色稳增长政策；公司2025年、2026Q1及H1预告；行业产量、库存、开工与价格；本地Tushare截至2026-08-18的五家公司量价、云铝订单分档、个股与全市场融资。</li>
+<li>影响：足以判断政策资格、利润流向、企业兑现和量价—杠杆背离，但不能穿透资金账户身份，也不能精确量化云铝相对同业的吨铝成本领先。因此竞争与情绪为中等置信度，流动性为中高置信度。</li>
+<li>总体置信度：<strong>中</strong>。政策、法定财务和量价资金证据较完整；半年报尚未披露，企业盈利质量和竞争优势幅度存在近端更新风险。</li>
+</ul>
+<h2 id="section-9">9. 来源</h2>
+
+<h3>Wiki依据</h3>
+<ul>
+<li><a href="../../../../wiki/topics/冰冰小美-情绪体系认知篇.md">冰冰小美体系三要素总框架</a>。</li>
+<li><a href="../../../../wiki/concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势.md">竞争格局的比较优势：3层 × 5问模型</a>。</li>
+<li><a href="../../../../wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md">流动性辩证分析</a>。</li>
+<li><a href="../../../../wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化.md">情绪位置的变化</a>。</li>
+</ul>
+<h3>当前数据</h3>
+<ul>
+<li><a href="../../../webpages/2026-08-19-云铝股份三要素政策行业与市场证据快照.md">云铝股份三要素政策、行业与市场证据快照</a>：国家、行业、企业三层五问底稿，以及宏观、中观、微观流动性和情绪位置证据。</li>
+<li><a href="../../../webpages/2026-08-19-云铝股份v3.0.2研报数据核验快照.md">云铝股份v3.0.2研报数据核验快照</a>：行情、估值、资金、融资、财务、公告与行业数据复核。</li>
+<li><a href="../../../../workbench/targets/2026-07-23-1421-云铝股份-机构级决策研报.md">云铝股份机构级决策研报</a>：公司价值与估值边界；<strong>不参与本报告三要素评分</strong>。</li>
+<li><a href="https://www.miit.gov.cn/jgsj/ycls/wjfb/art/2025/art_cdb7a446343b43f5be9423efb84b73c0.html">工业和信息化部等十部门：铝产业高质量发展实施方案（2025—2027年）</a>：产能、能效、清洁能源与高端化政策。</li>
+<li><a href="https://www.miit.gov.cn/jgsj/ycls/ysjs/art/2025/art_1a7afa5fe2df40fdaa0d3240390e558a.html">工业和信息化部：实施方案解读</a>：2024年产业基数、2027年目标与绿色转型路径。</li>
+<li><a href="https://www.mee.gov.cn/xxgk2018/xxgk/xxgk03/202503/t20250326_1104736.html">生态环境部：全国碳市场覆盖铝冶炼行业工作方案</a>：铝冶炼纳入全国碳市场。</li>
+<li><a href="https://www.mee.gov.cn/ywgz/ydqhbh/wsqtkz/202601/t20260101_1139528.shtml">生态环境部：2025年全国碳市场运行情况</a>：铝冶炼重点排放单位与碳市场规模。</li>
+<li><a href="https://wap.miit.gov.cn/jgsj/jns/lszz/art/2026/art_6af45597bd144a0fb498f406fc408353.html">工业和信息化部：工业绿色低碳发展“十五五”规划解读</a>：最新绿色制造与用能结构方向。</li>
+<li><a href="https://disc.static.szse.cn/disc/disk03/finalpage/2026-03-28/80fb31a0-0133-4370-ae38-fe3223e7b7f7.PDF">云铝股份2025年度质量回报双提升行动方案进展公告</a>：产量、权益产能、矿权、绿色认证、财务与研发。</li>
+<li><a href="https://static.cninfo.com.cn/finalpage/2026-04-24/1225161365.PDF">云铝股份2026年第一季度报告</a>：利润、现金流、资产负债表与增长原因。</li>
+<li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12443550&stockid=000807">云铝股份2026年半年度业绩预告</a>：H1归母与扣非利润区间；正式半年报前仅作预告使用。</li>
+<li><a href="https://www.cnmn.com.cn/ShowNews1.aspx?id=472338">中国有色金属报：2026年6月电解铝运行情况</a>：产量、水电铝占比、铝价与出口。</li>
+<li><a href="https://www.smm.cn/mpdb/1704278785535_stock">SMM铝产业公开数据库</a>：库存、周度产量、下游开工与氧化铝库存。</li>
+<li><a href="https://youse.mysteel.com/a/26072317/B0FB02D0355AC7BF.html">Mysteel：电解铝周度产量与库存</a>：行业供给与社会库存交叉验证。</li>
+</ul>
+</article>
+    </div>
+  </main>
+</body>
+</html>

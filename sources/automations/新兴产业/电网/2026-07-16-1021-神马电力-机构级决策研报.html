@@ -68,13 +68,21 @@ body {
 .tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
 .tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
 .tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
-.tracking-card[data-tracking-key="dynamic-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
+.tracking-card[data-tracking-key="fair-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
+.pricing-levels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+.pricing-level { display: flex; align-items: center; justify-content: center; min-height: 34px; padding: 5px 7px; border: 1px solid #d5e0e3; border-radius: 8px; color: #607580; background: #f4f7f8; font-size: 12px; line-height: 1.25; font-weight: 750; text-align: center; }
+.pricing-level.active { border-color: transparent; box-shadow: 0 0 0 2px rgba(15,50,70,.08); }
+.pricing-level-premium.active { color: #17604e; background: #dff3eb; }
+.pricing-level-overvalued.active { color: #86610d; background: #fff0bd; }
+.pricing-level-bubble.active { color: #9b4d10; background: #ffe3c9; }
+.pricing-level-severe.active { color: var(--danger); background: var(--danger-bg); }
 .range-breakdown { display: block; }
 .range-main { display: inline-flex; align-items: center; max-width: 100%; margin-bottom: 10px; padding: 3px 9px; border-radius: 999px; background: #e7f0f3; color: var(--navy); font-size: 20px; line-height: 1.3; font-weight: 800; }
 .range-points { display: grid; gap: 7px; margin-top: 1px; }
 .range-point { display: block; padding-left: 11px; border-left: 3px solid #bed2d8; color: #245068; font-size: 14px; line-height: 1.52; font-weight: 650; }
 .tracking-value.bad { color: var(--danger); }
 .tracking-detail { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; }
+.tracking-snapshot { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; font-weight: 650; }
 .tracking-status { display: inline-flex; margin-top: 10px; padding: 3px 8px; border-radius: 999px; color: #526b77; background: #edf2f4; font-size: 12px; font-weight: 700; }
 .tracking-status.live { color: #17604e; background: #dff3eb; }
 .tracking-status.error { color: var(--danger); background: var(--danger-bg); }
@@ -115,7 +123,7 @@ body {
     <header class="hero">
       <p class="eyebrow">BBXM EQUITY RESEARCH · 603530.SH</p>
       <h1>神马电力机构级决策研报</h1>
-      <div class="hero-meta"><span>2026-08-17 收盘；公告更新至 2026-08-13</span><span>2026-08-17</span><span>上海证券交易所 / 人民币</span></div>
+      <div class="hero-meta"><span>2026-08-19 收盘；公告索引更新至 2026-08-17</span><span>2026-08-19</span><span>上海证券交易所 / 人民币</span></div>
     </header>
     <div class="layout">
       <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
@@ -127,36 +135,33 @@ body {
 <a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
 <a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
 <a class="toc-link" href="#section-9">9. 多头与空头论据</a>
-<a class="toc-link" href="#section-10">10. 估值</a>
-<a class="toc-link" href="#section-11">11. 最终结论</a>
-<a class="toc-link" href="#section-12">12. 后续监控指标</a>
-<a class="toc-link" href="#section-13">13. 未获取到的数据与研究局限</a>
-<a class="toc-link" href="#section-14">14. 来源清单</a>
-<a class="toc-link" href="#section-15">15. 声明</a></div></aside>
+<a class="toc-link" href="#section-10">10. 公允价值区间计算</a>
+<a class="toc-link" href="#section-11">11. 市场价格分解与估值泡沫判断</a>
+<a class="toc-link" href="#section-12">12. 最终结论</a>
+<a class="toc-link" href="#section-13">13. 后续监控指标</a>
+<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
+<a class="toc-link" href="#section-15">15. 来源清单</a>
+<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
       <article class="content"><blockquote>
-<p>证券代码：603530.SH
-交易所 / 币种：上海证券交易所 / 人民币
-研究截止时间：2026-08-17 收盘；公告更新至 2026-08-13
-报告生成时间：2026-08-17
-数据口径：A股企业会计准则；行情为未复权收盘价；资金分档为Tushare订单规模代理，不等同于机构真实持仓。</p>
+<p>证券代码：603530.SH<br>交易所 / 币种：上海证券交易所 / 人民币<br>研究截止时间：2026-08-19 收盘；公告索引更新至 2026-08-17<br>报告生成时间：2026-08-19<br>数据口径：A股企业会计准则；未复权收盘价；资金分档按订单规模划分，不等同于机构真实持仓。</p>
 </blockquote>
 <!-- DAILY_TRACKING_START -->
-<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-08-17 15:00（Asia/Shanghai，收盘）" data-value-low="31" data-value-high="49">
+<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-08-19 15:00（Asia/Shanghai，收盘）" data-value-low="31" data-value-high="49">
   <div class="daily-tracking-head">
     <div><p class="daily-tracking-kicker">Daily decision tracker</p><h2>每日跟踪面板</h2></div>
-    <p class="daily-tracking-time">更新：2026-08-17 15:00（Asia/Shanghai，收盘）<br>下次：收盘后 / 重大公告后</p>
+    <p class="daily-tracking-time">更新：2026-08-19 15:00（Asia/Shanghai，收盘）<br>下次：收盘后 / 重大公告后</p>
   </div>
   <div class="tracking-grid">
-    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">改善</p><p class="tracking-detail">风险方向：风险增强：基本面风险减弱，但价格突破乐观上沿、PE与PB抬升，短线交易与估值压缩风险主导。下一验证点与失效条件见第 11—13 章。</p></div>
-    <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value"><span class="range-breakdown"><span class="range-main">31—49元/股。31元附近=保守现金流和成长溢价回落，40—44元=2026年5.3—5.9亿元利润及海外增长的合理中枢，49元附近=海外订单、毛利率和现金流持续强势</span><span class="range-points"><span class="range-point">高于49元需2027盈利显著上修、海外框架转正式订单并保持高回报支撑</span></span></span></p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
-    <div class="tracking-card" data-tracking-key="risk-reward"><p class="tracking-label">盈亏比</p><p class="tracking-value bad" id="risk-reward-value">无正向盈亏比</p><p class="tracking-detail" id="risk-reward-detail">每日同步价 51.82 元；相对上沿空间 -5.4%，回落至下沿风险 +40.2%。价格已到或高于动态价值上沿，新增现金不具备正向盈亏比。</p></div>
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">改善</p><p class="tracking-detail">风险方向：风险重新增强：基本面未破坏，但估值靠近乐观极限、融资先扩后缩且当日资金转弱。下一验证点与失效条件见第 11—13 章。</p></div>
+    <div class="tracking-card" data-tracking-key="fair-value-range"><p class="tracking-label">公允价值区间</p><p class="tracking-value"><span class="range-breakdown"><span class="range-main">31—49元</span><span class="range-points"><span class="range-point">下沿=国内基本盘与增长降速</span><span class="range-point">中枢=订单正常兑现</span><span class="range-point">上沿=海外加速转订单且高毛利、现金流延续</span></span></span></p><p class="tracking-detail">公允价值区间来自估值方法交叉验证；行情刷新不会自动改变区间。</p></div>
+    <div class="tracking-card" data-tracking-key="pricing-deviation"><p class="tracking-label">交易定价偏离</p><p class="tracking-value pricing-levels"><span class="pricing-level pricing-level-premium" data-valuation-level="估值溢价">估值溢价</span><span class="pricing-level pricing-level-overvalued active" data-valuation-level="普通高估" aria-current="true">普通高估</span><span class="pricing-level pricing-level-bubble" data-valuation-level="估值泡沫">估值泡沫</span><span class="pricing-level pricing-level-severe" data-valuation-level="严重估值泡沫">严重估值泡沫</span></p><p class="tracking-detail">当前判断：普通高估。四级状态来自第 11 章估值泡沫证据门槛。</p></div>
   </div>
   <div class="tracking-grid">
-    <div class="tracking-card" data-tracking-key="daily-quote"><p class="tracking-label">每日同步价</p><p class="tracking-value">51.82元，2026-08-17收盘，+10.00%</p><p class="tracking-detail">这是报告内嵌的正式跟踪基准，离线打开仍可使用。</p><span class="tracking-status">每日快照</span></div>
-    <div class="tracking-card" data-tracking-key="intraday-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">等待连接</p><p class="tracking-detail" id="intraday-detail">通过“大盘启动器”打开后获取盘中行情，每 60 秒刷新；直接打开 HTML 时不访问外部行情。</p><span class="tracking-status" id="intraday-status">未连接</span></div>
-    <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">avoid（新增现金）/ review（已有持仓）</p><p class="tracking-detail">估值：高估：51.82元已经超过49元乐观上沿，盈利与订单虽强，但价格要求接近或超越DCF乐观路径 · avoid（新增现金）/ review（已有持仓）；风险：风险增强：基本面风险减弱，但价格突破乐观上沿、PE与PB抬升，短线交易与估值压缩风险主导；结论置信度：中高（基本面）/ 中（估值与资金）。</p><span class="tracking-status">高估：51.82元已经超过49元乐观上沿，盈利与订单虽强，但价格要求接近或超越DCF乐观路径</span></div>
+    <div class="tracking-card" data-tracking-key="market-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">等待连接</p><p class="tracking-detail" id="intraday-detail">通过“大盘启动器”打开后获取盘中行情，每 60 秒刷新；直接打开 HTML 时不访问外部行情。</p><p class="tracking-snapshot">每日同步价：50.67元，2026-08-19收盘，-2.33%</p><span class="tracking-status" id="intraday-status">未连接</span></div>
+    <div class="tracking-card" data-tracking-key="risk-reward"><p class="tracking-label">盈亏比</p><p class="tracking-value bad" id="risk-reward-value">无正向盈亏比</p><p class="tracking-detail" id="risk-reward-detail">每日同步价 50.67 元；相对上沿空间 -3.3%，回落至下沿风险 +38.8%。价格已到或高于公允价值上沿，新增现金不具备正向盈亏比。</p></div>
+    <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">wait（新增现金）/ review（已有持仓）</p><p class="tracking-detail">估值：高估：50.67元较41元中枢高23.6%，较49元乐观上沿高3.4% · wait（新增现金）/ review（已有持仓）；风险：风险重新增强：基本面未破坏，但估值靠近乐观极限、融资先扩后缩且当日资金转弱；结论置信度：中高（财务与估值）/ 中（海外订单与资金身份）。</p><span class="tracking-status">高估：50.67元较41元中枢高23.6%，较49元乐观上沿高3.4%</span></div>
   </div>
-  <div class="tracking-footer"><span>资金状态：<strong>短线流入并涨停：当日订单规模资金净额约+2444万元，六日合计约+3592万元；融资余额最新为1.13亿元，资金身份仍不可确认</strong> · 新增/已有动作：<strong>avoid（新增现金）/ review（已有持仓）</strong></span><span>资金面分析：未单独生成</span></div>
+  <div class="tracking-footer"><span>资金状态：<strong>高位分歧：5/20日大单加特大单净额+0.18/+0.47亿元，但当日-0.07亿元；20日融资+30.34%，近5日又-15.74%</strong> · 新增/已有动作：<strong>wait（新增现金）/ review（已有持仓）</strong></span><span>资金面分析：未单独生成</span></div>
 </section>
 <!-- DAILY_TRACKING_END -->
 <h2 id="section-1">1. 决策摘要</h2>
@@ -171,15 +176,23 @@ body {
 </thead>
 <tbody><tr>
 <td>估值状态</td>
-<td>高估：51.82元已经超过49元乐观上沿，盈利与订单虽强，但价格要求接近或超越DCF乐观路径</td>
+<td>高估：50.67元较41元中枢高23.6%，较49元乐观上沿高3.4%</td>
 </tr>
 <tr>
-<td>综合估值区间</td>
-<td>31—49元/股。31元附近=保守现金流和成长溢价回落，40—44元=2026年5.3—5.9亿元利润及海外增长的合理中枢，49元附近=海外订单、毛利率和现金流持续强势；高于49元需2027盈利显著上修、海外框架转正式订单并保持高回报支撑</td>
+<td>估值路线</td>
+<td>成长企业主锚：2027年未来利润 × 届时合理PE后折现；相对估值与DCF交叉验证</td>
+</tr>
+<tr>
+<td>公允价值区间</td>
+<td>31—49元；下沿=国内基本盘与增长降速，中枢=订单正常兑现，上沿=海外加速转订单且高毛利、现金流延续</td>
 </tr>
 <tr>
 <td>相对现价空间</td>
-<td>以51.82元计，下沿-40.2%，中枢约-22.8%至-15.1%，上沿-5.4%；当前区间内没有正向赔率</td>
+<td>至下沿-38.8%，至中枢-19.1%，至上沿-3.3%</td>
+</tr>
+<tr>
+<td>估值泡沫判断</td>
+<td>普通高估；现价只略超乐观上沿，未脱锚，但正常化压力失败、海外经营验证有缺口；置信度中高</td>
 </tr>
 <tr>
 <td>基本面状态</td>
@@ -187,23 +200,23 @@ body {
 </tr>
 <tr>
 <td>关键经营变化</td>
-<td>2026H1营收+26.98%、归母净利润+34.01%、毛利率同比+2.95个百分点、经营现金流由负转正至2.53亿元；已签未履行履约义务9.51亿元，并进入英国NG和比利时Elia框架采购</td>
+<td>2026H1营收+26.98%、归母净利润+34.01%、毛利率+2.95个百分点，经营现金流转正至2.53亿元；履约义务9.51亿元</td>
 </tr>
 <tr>
-<td>估值路线</td>
-<td>标准路线：变电站复合外绝缘和密封件属于已验证基本盘，线路复合外绝缘及海外框架属于商业化成长业务；新设复合新材料子公司缺独立收入与融资定价，不单独赋予前沿期权价值</td>
+<td>企业价值主类型</td>
+<td>成长企业</td>
 </tr>
 <tr>
-<td>彼得·林奇公司分类</td>
-<td>快速成长型：收入、利润和ROE连续提升，增长来自复合外绝缘渗透、海外客户扩张和产品组合改善；不是低估值稳健型</td>
+<td>主估值锚</td>
+<td>2027年净利润5.7 / 6.6 / 7.4亿元 × 26 / 30 / 32倍PE，再按12% / 11% / 10%折现一年</td>
 </tr>
 <tr>
-<td>一句话投资故事</td>
-<td>神马电力以材料配方、长期认证和全球客户渠道销售复合绝缘与密封产品，靠电网投资、复合材料替代和海外渗透推动利润增长；若订单不再转收入、毛利率跌破43%或现金流重新长期落后利润，故事失效</td>
+<td>价值创造链</td>
+<td>电网投资与材料替代→认证和渠道壁垒→国内份额与海外渗透→高毛利收入→利润和现金流；订单不转收入、毛利率跌破43%或现金流持续落后利润时失效</td>
 </tr>
 <tr>
 <td>结论置信度</td>
-<td>中高（基本面）/ 中（估值与资金）</td>
+<td>中高（财务与估值）/ 中（海外订单与资金身份）</td>
 </tr>
 </tbody></table>
 <h3>1.2 资金面组</h3>
@@ -216,49 +229,47 @@ body {
 </thead>
 <tbody><tr>
 <td>操作建议</td>
-<td>规避追涨；等待估值回到合理区间后再观察</td>
+<td>观望；规避新增追高</td>
 </tr>
 <tr>
 <td>冰冰小美动作</td>
-<td>avoid（新增现金）/ review（已有持仓）</td>
+<td>wait（新增现金）/ review（已有持仓）</td>
 </tr>
 <tr>
 <td>当前价格及时间</td>
-<td>51.82元，2026-08-17收盘，+10.00%</td>
+<td>50.67元，2026-08-19收盘，-2.33%</td>
 </tr>
 <tr>
 <td>资金状态</td>
-<td>短线流入并涨停：当日订单规模资金净额约+2444万元，六日合计约+3592万元；融资余额最新为1.13亿元，资金身份仍不可确认</td>
+<td>高位分歧：5/20日大单加特大单净额+0.18/+0.47亿元，但当日-0.07亿元；20日融资+30.34%，近5日又-15.74%</td>
 </tr>
 <tr>
 <td>风险方向</td>
-<td>风险增强：基本面风险减弱，但价格突破乐观上沿、PE与PB抬升，短线交易与估值压缩风险主导</td>
+<td>风险重新增强：基本面未破坏，但估值靠近乐观极限、融资先扩后缩且当日资金转弱</td>
 </tr>
 <tr>
 <td>每日跟踪时间</td>
-<td>2026-08-17 15:00（Asia/Shanghai，收盘）</td>
+<td>2026-08-19 15:00（Asia/Shanghai，收盘）</td>
 </tr>
 <tr>
 <td>资金面分析链接</td>
-<td>未单独生成</td>
+<td>未获取到</td>
 </tr>
 </tbody></table>
 <h3>如果今天这是一笔现金，我会买它吗</h3>
 <ul>
-<li>回答：不会。</li>
-<li>我的判断：半年报验证了公司质量，但51.82元已经高于本报告乐观上沿，也高于DCF乐观情景46.61元；现在买入是在支付尚未披露的2027盈利上修和海外框架全面兑现。</li>
-<li>改变结论的条件：价格回到40—44元且基本面未恶化；或连续两个报告期海外收入高增、毛利率不低于46%、经营现金流/净利润不低于0.8，并使2027盈利预测足以把前瞻PE降至30倍附近。</li>
+<li>回答：不会；只在特定条件下会。</li>
+<li>我的判断：公司质量已由半年报验证，但50.67元已支付接近2027年乐观利润路径，预期收益不足以覆盖海外订单、利润率和估值回落风险。</li>
+<li>改变结论的条件：价格回到40—44元且经营锚未恶化；或正式订单、交付和回款使2027年利润可审计上修至7亿元以上。</li>
 </ul>
 <h2 id="section-2">2. 证券身份与来源矩阵</h2>
 
 <h3>2.1 证券身份</h3>
 <ul>
 <li>公司全称：江苏神马电力股份有限公司。</li>
-<li>证券代码：603530.SH。</li>
-<li>上市地：上海证券交易所主板，2019-08-05上市。</li>
-<li>报告准则：中国企业会计准则。</li>
-<li>法定披露体系：A股交易所与公司公告。</li>
-<li>同名或跨市场歧义：无；不要与神马股份（600810.SH）混淆。</li>
+<li>证券代码：603530.SH；上海证券交易所主板，2019-08-05上市。</li>
+<li>报告准则：中国企业会计准则；法定披露体系为A股交易所与公司公告。</li>
+<li>同名歧义：不得与神马股份（600810.SH）混淆。</li>
 </ul>
 <h3>2.2 来源矩阵</h3>
 <table>
@@ -274,107 +285,100 @@ body {
 <tbody><tr>
 <td>Tushare MCP调用清单</td>
 <td>本地<code>tushare-data</code></td>
-<td>证券身份、日线、估值、资金分档、融资融券、财务报表、分红、全市场融资、美国国债收益率</td>
-<td>2026-08-17</td>
-<td>已获取；融资最新至08-14</td>
+<td>身份、日线、估值、资金分档、融资、财务、分红</td>
+<td>2026-08-19</td>
+<td>已获取</td>
 </tr>
 <tr>
 <td>证券身份与上市状态</td>
 <td>Tushare、上交所</td>
-<td>Tushare <code>stock_basic</code>、公司半年报</td>
-<td>2026-08-17核验</td>
+<td>Tushare、公司半年报</td>
+<td>2026-08-19</td>
 <td>已获取</td>
 </tr>
 <tr>
-<td>价格、52周高低、今年以来表现</td>
+<td>价格、52周高低、YTD</td>
 <td>Tushare</td>
-<td><code>daily</code></td>
-<td>2026-08-17</td>
+<td>日线</td>
+<td>2026-08-19</td>
 <td>已获取</td>
 </tr>
 <tr>
 <td>估值、市值、股息率、换手率</td>
 <td>Tushare</td>
 <td><code>daily_basic</code></td>
-<td>2026-08-17</td>
+<td>2026-08-19</td>
 <td>已获取</td>
 </tr>
 <tr>
 <td>资金分档 / 大单代理</td>
 <td>Tushare</td>
 <td><code>moneyflow</code></td>
-<td>2026-07-20至2026-08-17</td>
+<td>至2026-08-19</td>
 <td>已获取，代理口径</td>
 </tr>
 <tr>
 <td>融资融券代理</td>
 <td>Tushare</td>
-<td><code>margin_detail</code>、<code>margin</code></td>
-<td>2026-08-14</td>
+<td><code>margin_detail</code></td>
+<td>至2026-08-19</td>
 <td>已获取</td>
 </tr>
 <tr>
 <td>第三方公允价值、护城河、星级</td>
-<td>可复核第三方</td>
-<td>公开来源未取得稳定字段</td>
-<td>截至2026-08-17</td>
+<td>独立第三方</td>
+<td>未取得稳定可复核字段</td>
+<td>截至2026-08-19</td>
 <td>未获取到</td>
 </tr>
 <tr>
 <td>最新季报与管理层指引</td>
-<td>上交所、公司</td>
-<td>2026年半年报、投资者关系记录</td>
-<td>2026-08-13</td>
-<td>已获取；无正式量化全年指引</td>
+<td>公司法定公告</td>
+<td>2026年半年报；8月17日调研记录仅取得索引</td>
+<td>2026-08-17</td>
+<td>部分获取，无量化全年指引</td>
 </tr>
 <tr>
 <td>分部收入</td>
 <td>公司半年报</td>
-<td>产品收入、成本和毛利率表</td>
+<td>产品收入、成本与毛利率</td>
 <td>2026H1</td>
 <td>已获取</td>
 </tr>
 <tr>
+<td>前沿业务里程碑 / 融资</td>
+<td>公司公告</td>
+<td>新材料子公司无独立收入、融资定价或单位经济性</td>
+<td>截至2026-08-19</td>
+<td>未获取到，不单独估值</td>
+</tr>
+<tr>
 <td>卖方评级与目标价</td>
 <td>卖方原文</td>
-<td>东吴证券深度报告及公开摘要</td>
+<td>东吴证券深度报告</td>
 <td>2026-06</td>
 <td>部分获取</td>
 </tr>
 <tr>
 <td>近三个月新闻与催化剂</td>
-<td>上交所公告</td>
-<td>半年报、回购、期权、衍生品公告</td>
-<td>2026-05至2026-08</td>
+<td>公司、监管与产业官方来源</td>
+<td>半年报、回购、中标、减持、国网与Elia</td>
+<td>至2026-08-19</td>
 <td>已获取</td>
 </tr>
 <tr>
-<td>五年财务历史</td>
-<td>公司年报</td>
-<td>2022、2024、2025年报及比较数据</td>
+<td>五年财务历史 / 分红</td>
+<td>公司年报、Tushare</td>
+<td>年报比较数据、分红历史</td>
 <td>2021—2025</td>
-<td>已获取</td>
-</tr>
-<tr>
-<td>分红历史</td>
-<td>Tushare、公司公告</td>
-<td>分红历史、年度权益分派</td>
-<td>2022—2025</td>
 <td>已获取</td>
 </tr>
 <tr>
 <td>指数成分与权重</td>
 <td>指数公司</td>
-<td>本轮未获取</td>
-<td>截至2026-08-17</td>
-<td>未获取到，不影响公司主结论</td>
-</tr>
-<tr>
-<td>前沿科技分部里程碑</td>
-<td>分部收入、订单、融资与单位经济性</td>
-<td>新设复合新材料子公司仅有设立公告，未取得独立收入、融资和量产证据</td>
-<td>截至2026-08-17</td>
-<td>未获取到；不单独估值</td>
+<td>本轮未取得</td>
+<td>截至2026-08-19</td>
+<td>未获取到，不影响主结论</td>
 </tr>
 </tbody></table>
 <h2 id="section-3">3. 行情与市场预期</h2>
@@ -391,60 +395,51 @@ body {
 </thead>
 <tbody><tr>
 <td>当前价格</td>
-<td align="right">51.82元</td>
-<td>Tushare日线</td>
-<td>2026-08-17收盘，+10.00%</td>
+<td align="right">50.67元</td>
+<td><a href="../../../webpages/2026-08-19-神马电力机构级研究收盘快照.md">收盘快照</a></td>
+<td>8月19日收盘，-2.33%</td>
 </tr>
 <tr>
-<td>52周最高</td>
-<td align="right">73.93元</td>
-<td>Tushare日线</td>
-<td>截至2026-08-17</td>
-</tr>
-<tr>
-<td>52周最低</td>
-<td align="right">28.31元</td>
-<td>Tushare日线</td>
+<td>52周最高 / 最低</td>
+<td align="right">73.93 / 28.31元</td>
 <td>同上</td>
+<td>滚动52周</td>
 </tr>
 <tr>
 <td>今年以来表现</td>
-<td align="right">约+26.1%</td>
-<td>Tushare日线</td>
-<td>前一年度最后交易日收盘为基准</td>
+<td align="right">+23.34%</td>
+<td>同上</td>
+<td>YTD</td>
 </tr>
 <tr>
 <td>总市值</td>
-<td align="right">223.55亿元</td>
-<td>Tushare <code>daily_basic</code></td>
-<td>2026-08-17</td>
+<td align="right">218.59亿元</td>
+<td>同上</td>
+<td>收盘市值</td>
 </tr>
 <tr>
 <td>PE / PB / PS</td>
-<td align="right">45.98倍TTM / 12.32倍 / 11.70倍</td>
-<td>Tushare <code>daily_basic</code></td>
-<td>2026-08-17</td>
+<td align="right">44.96 / 12.04 / 11.44倍</td>
+<td>同上</td>
+<td>TTM</td>
 </tr>
 <tr>
-<td>股息率TTM</td>
-<td align="right">0.66%</td>
-<td>Tushare <code>daily_basic</code></td>
-<td>2026-08-17</td>
+<td>股息率 / 换手率</td>
+<td align="right">0.67% / 1.22%</td>
+<td>同上</td>
+<td>TTM / 当日</td>
 </tr>
 <tr>
-<td>5 / 10交易日涨跌</td>
-<td align="right">约+14.2% / +23.0%</td>
-<td>Tushare日线</td>
-<td>截至2026-08-17</td>
+<td>5 / 20 / 60日涨跌</td>
+<td align="right">+10.71% / +13.20% / -10.27%</td>
+<td>同上</td>
+<td>交易日窗口</td>
 </tr>
 </tbody></table>
 <h3>3.2 第三方公允价值与评级（事实）</h3>
 <ul>
-<li>公允价值：未获取到可复核且更新时间足够新的独立公允价值。</li>
-<li>护城河评级：未获取到标准化第三方评级。</li>
-<li>星级：未获取到。</li>
-<li>来源与时间：检查公司公告、公开行情页和已有卖方材料，截至2026-08-17。</li>
-<li>未获取到的字段及已检查来源：不使用不可复核网页自动估值替代正式证据。</li>
+<li>公允价值、护城河评级、星级：未获取到可复核且足够新的标准化字段。</li>
+<li>处理：不以网页自动估值替代本报告模型。</li>
 </ul>
 <h3>3.3 卖方评级与目标价分布（事实）</h3>
 <table>
@@ -461,364 +456,306 @@ body {
 <tbody><tr>
 <td>东吴证券</td>
 <td>2026-06-04</td>
-<td>买入类表述，具体评级以原文为准</td>
-<td align="right">未取得统一目标价</td>
-<td>2026—2028E</td>
-<td>复合外绝缘渗透、海外增长、盈利能力维持</td>
+<td>最新具体评级待原文复核</td>
+<td align="right">未获取到</td>
+<td>2026—2028</td>
+<td>海外拓展、复合外绝缘渗透</td>
 </tr>
 </tbody></table>
 <ul>
-<li>目标价区间 / 中位数：证据不足。</li>
-<li>样本数量与完整性：单一样本且目标价缺失，不能作为定价锚。</li>
-<li>来源冲突及采信理由：公司法定披露和可重算财务数据优先，卖方材料只用于检查增长逻辑。</li>
+<li>样本不足，不统计目标价中位数；卖方只校验产业逻辑，不替代法定财务。</li>
 </ul>
 <h2 id="section-4">4. 商业模式与竞争格局</h2>
 
 <h3>4.1 事实</h3>
 <ul>
-<li>公司向变电站、输配电线路和电气设备客户销售复合外绝缘、橡胶密封件等产品，收入主要在交付验收后确认。</li>
-<li>2026H1变电站复合外绝缘贡献73.26%收入，是最大利润池；橡胶密封件占16.95%，毛利率58.84%；线路复合外绝缘毛利率仅18.31%。</li>
-<li>客户进入通常需要材料、型式试验、长期运行记录和供应商认证，认证周期和失效成本形成壁垒。</li>
-<li>2025年新签订单19.48亿元，同比增长27.47%；海外订单10.12亿元，同比增长36.40%。2026H1剩余履约义务9.51亿元。</li>
-<li>英国NG、比利时Elia框架项目以及越南生产基地、新加坡全球公司，提供发达市场与本地化运营的新证据。</li>
+<li>收入来自变电站复合外绝缘、橡胶密封件、线路复合外绝缘；长认证周期、材料配方、可靠性记录和客户渠道构成壁垒。</li>
+<li>2026H1产品结构改善使毛利率升至47.35%。2025资本开支2.39亿元高于CFO 1.17亿元；2026H1 CFO 2.53亿元、资本开支0.68亿元，阶段性恢复自我造血。</li>
+<li>可比公司包括思源电气、金盘科技、平高电气、中国西电、宏发股份，但产品结构并不完全一致。</li>
 </ul>
-<h4>多产业位置景气度排序</h4>
+<h4>多产业位置景气度排序（事实与判断分列）</h4>
 <table>
 <thead>
 <tr>
+<th align="right">排名</th>
 <th>产业位置</th>
-<th>景气度</th>
-<th>趋势</th>
 <th>公司暴露</th>
-<th>利润池质量</th>
-<th>证据与边界</th>
+<th>当前景气度</th>
+<th>趋势</th>
+<th>景气证据</th>
+<th>财务传导</th>
+<th>失效条件</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>变电站复合外绝缘</td>
+<td align="right">1</td>
+<td>国内电网复合外绝缘</td>
+<td>变电站产品占H1收入73.26%</td>
 <td>高</td>
 <td>上行</td>
-<td>核心</td>
-<td>高毛利、认证壁垒较强</td>
-<td>H1收入6.55亿元、毛利率47.33%</td>
+<td>国网H1投资超3100亿元、+12.6%</td>
+<td>招标与履约转收入</td>
+<td>新订单放缓、毛利率下降</td>
 </tr>
 <tr>
-<td>橡胶密封件</td>
+<td align="right">2</td>
+<td>海外输变电复合材料</td>
+<td>海外订单与长期增长来源</td>
 <td>较高</td>
 <td>上行</td>
-<td>重要</td>
-<td>毛利率最高但规模较小</td>
-<td>H1收入1.52亿元、毛利率58.84%</td>
+<td>欧洲电网投资推进，框架金额未披露</td>
+<td>认证→订单→交付→回款</td>
+<td>框架不转正式订单</td>
 </tr>
 <tr>
+<td align="right">3</td>
+<td>设备密封件</td>
+<td>H1收入16.95%、毛利58.84%</td>
+<td>中</td>
+<td>持平</td>
+<td>半年报分部数据</td>
+<td>高毛利利润贡献</td>
+<td>收入与毛利下滑</td>
+</tr>
+<tr>
+<td align="right">4</td>
 <td>线路复合外绝缘</td>
+<td>H1收入8.10%、毛利18.31%</td>
 <td>中</td>
 <td>上行</td>
-<td>培育</td>
-<td>当前毛利率偏低</td>
-<td>H1毛利率18.31%，需要规模和海外项目验证</td>
-</tr>
-<tr>
-<td>海外本地化与发达市场认证</td>
-<td>较高</td>
-<td>上行</td>
-<td>快速增加</td>
-<td>可能抬升规模与客户质量</td>
-<td>NG、Elia框架中标；收入兑现节奏未完整披露</td>
+<td>藏粤中标</td>
+<td>放量后需改善盈利</td>
+<td>低毛利扩张</td>
 </tr>
 </tbody></table>
-<h3>4.2 我的判断</h3>
 <ul>
-<li>我的判断：公司的比较优势不只是“电网投资景气”，而是材料技术、长期运行记录、客户认证和全球销售网络共同构成的转换成本。</li>
-<li>我的判断：最值得跟踪的增量来自海外框架客户转化和线路产品毛利改善；二者若只增加收入而不能改善回款和利润，估值溢价应回收。</li>
-<li>竞争格局边界：精确全球份额、分国家价格和竞争对手中标数据未获取到，不能把“入围框架”直接等同于永久份额。</li>
+<li>去重：国内与海外按客户区域拆分；线路产品只在其收入利润内估值。新材料子公司属待验证位置。</li>
 </ul>
-<h3>4.3 彼得·林奇公司分类与投资故事</h3>
-<ul>
-<li>主分类：快速成长型。</li>
-<li>必要次分类：无；公司增长由既有产品渗透、海外客户扩张和产品组合改善驱动，不属于困境反转或资产隐蔽型。</li>
-<li>一句话投资故事：神马电力凭借材料配方、长期运行记录和全球客户认证销售复合外绝缘与密封产品，电网投资、复合材料替代和海外渗透推动未来2—3年收入利润增长。</li>
-<li>利润增长等式：<code>利润 = 国内电网需求 × 复合材料渗透率 × 海外客户扩张 × 产品组合和定价 - 材料、汇率、扩产与营运资本成本</code>。</li>
-<li>市场可能低估：英国NG、比利时Elia等框架向正式订单转化，以及线路产品规模化后的毛利改善。</li>
-<li>市场可能高估：框架项目全部按计划转化、47%以上毛利率长期不降，以及新设子公司快速产生利润。</li>
-<li>投资逻辑证伪：订单增速降至10%以下、综合毛利率跌破43%、CFO/归母连续两期低于0.5，或海外框架未转正式订单。</li>
-</ul>
+<h3>4.2 判断</h3>
+<p>公司是以材料、认证与渠道壁垒获得较高毛利的成长制造商。国内护城河已验证，海外框架是上行期权而非已兑现利润；核心争议是高毛利、订单转化与现金回收能否延续到2027年后。</p>
 <h2 id="section-5">5. 分部收入与盈利拆解</h2>
 
 <table>
 <thead>
 <tr>
-<th>产品</th>
+<th>业务分部</th>
 <th align="right">2026H1收入</th>
-<th align="right">收入占比</th>
+<th align="right">占比</th>
 <th align="right">毛利率</th>
-<th>经营含义</th>
+<th>成熟度</th>
+<th>估值处理</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>变电站复合外绝缘</td>
-<td align="right">6.55亿元</td>
+<td align="right">6.5534亿元</td>
 <td align="right">73.26%</td>
 <td align="right">47.33%</td>
-<td>核心收入与利润来源</td>
+<td>已验证基本盘</td>
+<td>全区间</td>
 </tr>
 <tr>
 <td>橡胶密封件</td>
-<td align="right">1.52亿元</td>
+<td align="right">1.5161亿元</td>
 <td align="right">16.95%</td>
 <td align="right">58.84%</td>
-<td>高毛利、提升组合质量</td>
+<td>已验证基本盘</td>
+<td>全区间</td>
 </tr>
 <tr>
-<td>输配电线路复合外绝缘</td>
-<td align="right">0.72亿元</td>
+<td>线路复合外绝缘</td>
+<td align="right">0.7244亿元</td>
 <td align="right">8.10%</td>
 <td align="right">18.31%</td>
-<td>增量空间大但当前盈利偏低</td>
+<td>商业化成长</td>
+<td>中枢有限计入，上沿计入改善</td>
 </tr>
 <tr>
 <td>其他</td>
-<td align="right">0.15亿元</td>
+<td align="right">0.1513亿元</td>
 <td align="right">1.69%</td>
 <td align="right">72.27%</td>
-<td>体量小，不作为主估值锚</td>
+<td>规模较小</td>
+<td>不外推高毛利</td>
 </tr>
 <tr>
-<td>合计</td>
-<td align="right">8.95亿元</td>
-<td align="right">100%</td>
-<td align="right">47.35%</td>
-<td>综合毛利率同比提升2.95个百分点</td>
+<td>新材料子公司</td>
+<td align="right">未披露</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td>前沿期权</td>
+<td>不赋值</td>
 </tr>
 </tbody></table>
 <ul>
-<li>收入集中度：前两类产品贡献90.21%收入；变电站产品决定利润中枢。</li>
-<li>区域拆分：本轮未从半年报取得完整境内外收入、毛利率表；2025订单数据表明海外新单已超过国内。</li>
-<li>利润率驱动：规模、产品组合、材料成本、海外定价、汇率和交付区域共同决定。</li>
-<li>我的判断：H1利润增长快于收入主要由毛利率改善推动；这比单纯扩量质量更高，但持续性仍需H2验证。</li>
+<li>2025新订单19.48亿元、+27.47%；国内9.36亿元、海外10.12亿元。框架协议与正式订单需分开。</li>
 </ul>
 <h2 id="section-6">6. 五年财务历史</h2>
 
 <table>
 <thead>
 <tr>
-<th>财年</th>
+<th>年度</th>
 <th align="right">营收</th>
 <th align="right">归母净利润</th>
 <th align="right">毛利率</th>
-<th align="right">经营现金流</th>
+<th align="right">CFO</th>
 <th align="right">资本开支</th>
-<th align="right">自由现金流代理</th>
-<th align="right">ROIC / 代理值</th>
+<th align="right">FCF代理</th>
+<th align="right">ROE</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>2021</td>
-<td align="right">7.31亿元</td>
-<td align="right">1.01亿元</td>
+<td align="right">7.31</td>
+<td align="right">1.01</td>
 <td align="right">34.94%</td>
-<td align="right">0.45亿元</td>
-<td align="right">0.63亿元</td>
-<td align="right">-0.18亿元</td>
-<td align="right">ROE 7.80%</td>
+<td align="right">0.45</td>
+<td align="right">0.63</td>
+<td align="right">-0.18</td>
+<td align="right">7.80%</td>
 </tr>
 <tr>
 <td>2022</td>
-<td align="right">7.37亿元</td>
-<td align="right">0.49亿元</td>
+<td align="right">7.37</td>
+<td align="right">0.49</td>
 <td align="right">24.89%</td>
-<td align="right">-0.57亿元</td>
-<td align="right">0.61亿元</td>
-<td align="right">-1.17亿元</td>
-<td align="right">ROE 3.10%</td>
+<td align="right">-0.57</td>
+<td align="right">0.61</td>
+<td align="right">-1.17</td>
+<td align="right">3.10%</td>
 </tr>
 <tr>
 <td>2023</td>
-<td align="right">9.59亿元</td>
-<td align="right">1.58亿元</td>
+<td align="right">9.59</td>
+<td align="right">1.58</td>
 <td align="right">40.09%</td>
-<td align="right">1.04亿元</td>
-<td align="right">0.45亿元</td>
-<td align="right">0.59亿元</td>
-<td align="right">ROE 9.57%</td>
+<td align="right">1.04</td>
+<td align="right">0.45</td>
+<td align="right">0.59</td>
+<td align="right">9.57%</td>
 </tr>
 <tr>
 <td>2024</td>
-<td align="right">13.45亿元</td>
-<td align="right">3.11亿元</td>
+<td align="right">13.45</td>
+<td align="right">3.11</td>
 <td align="right">43.62%</td>
-<td align="right">1.60亿元</td>
-<td align="right">0.95亿元</td>
-<td align="right">0.65亿元</td>
-<td align="right">ROE 18.63%</td>
+<td align="right">1.60</td>
+<td align="right">0.95</td>
+<td align="right">0.65</td>
+<td align="right">18.63%</td>
 </tr>
 <tr>
 <td>2025</td>
-<td align="right">17.21亿元</td>
-<td align="right">4.32亿元</td>
+<td align="right">17.21</td>
+<td align="right">4.32</td>
 <td align="right">46.18%</td>
-<td align="right">1.17亿元</td>
-<td align="right">2.39亿元</td>
-<td align="right">-1.21亿元</td>
-<td align="right">ROE 24.28%</td>
+<td align="right">1.17</td>
+<td align="right">2.39</td>
+<td align="right">-1.21</td>
+<td align="right">24.28%</td>
 </tr>
 </tbody></table>
-<ul>
-<li>自由现金流口径：经营活动现金流减购建固定资产、无形资产和其他长期资产支付的现金；不等同于严格FCFF。</li>
-<li>ROIC口径：以年报加权平均ROE作为资本回报代理，不等同于投入资本回报率。</li>
-<li>关键趋势：2022年材料备库和成本压力构成低点；2023—2025收入、毛利率、利润和ROE连续改善。</li>
-<li>现金流质量：五年自由现金流代理波动较大；2025年资本开支扩张导致转负，说明高增长需要持续投入。</li>
-<li>我的判断：利润质量在改善，但不能只用净利润外推估值；营运资本和扩产现金需求必须保留折价。</li>
-</ul>
+<blockquote>
+<p>单位：亿元，ROE除外。2025资本开支与营运资金使FCF转负；2025分红0.35元/股，当前股息率仅0.67%，不是主锚。</p>
+</blockquote>
 <h2 id="section-7">7. 最新季度与管理层指引</h2>
 
-<h3>7.1 最新报告期（事实）</h3>
 <table>
 <thead>
 <tr>
 <th>指标</th>
 <th align="right">2026H1</th>
-<th align="right">同比 / 变化</th>
-<th>来源 / 时间</th>
+<th align="right">变化</th>
+<th>研究含义</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>营收</td>
-<td align="right">8.95亿元</td>
+<td>营业收入</td>
+<td align="right">8.9452亿元</td>
 <td align="right">+26.98%</td>
-<td>2026年半年报</td>
+<td>需求兑现</td>
+</tr>
+<tr>
+<td>归母 / 扣非净利润</td>
+<td align="right">2.1479 / 2.0935亿元</td>
+<td align="right">+34.01% / +32.24%</td>
+<td>盈利质量较好</td>
 </tr>
 <tr>
 <td>毛利率</td>
 <td align="right">47.35%</td>
 <td align="right">+2.95个百分点</td>
-<td>2026年半年报</td>
+<td>产品结构改善</td>
 </tr>
 <tr>
-<td>归母净利润</td>
-<td align="right">2.15亿元</td>
-<td align="right">+34.01%</td>
-<td>2026年半年报</td>
+<td>经营现金流 / FCF代理</td>
+<td align="right">2.5255 / 1.8417亿元</td>
+<td align="right">显著改善</td>
+<td>支持内生扩张</td>
 </tr>
 <tr>
-<td>扣非归母净利润</td>
-<td align="right">2.09亿元</td>
-<td align="right">+32.24%</td>
-<td>2026年半年报</td>
-</tr>
-<tr>
-<td>经营现金流</td>
-<td align="right">2.53亿元</td>
-<td align="right">上年同期-0.51亿元</td>
-<td>2026年半年报</td>
-</tr>
-<tr>
-<td>自由现金流代理</td>
-<td align="right">1.84亿元</td>
-<td align="right">明显转正</td>
-<td>CFO减资本开支现金</td>
+<td>应收 / 存货</td>
+<td align="right">8.6141 / 4.0705亿元</td>
+<td align="right">+5.25% / +1.64%</td>
+<td>暂未异常堆积</td>
 </tr>
 <tr>
 <td>剩余履约义务</td>
-<td align="right">9.51亿元</td>
-<td align="right">其中7.48亿元预计2026年确认</td>
-<td>2026年半年报</td>
-</tr>
-<tr>
-<td>应收账款净额</td>
-<td align="right">8.61亿元</td>
-<td align="right">较年初+5.25%</td>
-<td>2026年半年报</td>
+<td align="right">9.5112亿元</td>
+<td align="right">7.4830亿元预计2026履行</td>
+<td>收入可见度，不等同利润保证</td>
 </tr>
 </tbody></table>
-<h3>7.2 管理层指引（事实）</h3>
 <ul>
-<li>正式量化指引：未获取到公司对2026全年收入、利润和新签订单的明确数值指引。</li>
-<li>定性展望：继续推进复合外绝缘替代、海外市场拓展、本地化供应与战略客户覆盖。</li>
-<li>现金流解释：公司称上年同期战略备库导致比较基数偏低，当期销售回款增加推动经营现金流改善。</li>
-<li>风险管理：公司公告拟开展金融衍生品交易；H1财务费用0.16亿元，而上年同期为负，汇兑损失仍会扰动利润。</li>
-</ul>
-<h3>7.3 我的判断</h3>
-<ul>
-<li>我的判断：H1同时验证增长、毛利率与现金流，基本面证据比上一版显著增强。</li>
-<li>我的判断：应收账款只增5.25%、低于收入增幅，暂未显示信用风险恶化；但应收绝对额仍接近半年收入，不能忽视。</li>
-<li>全年推演：若H2保持20%—30%利润增长，2026E归母净利润约5.3—5.9亿元、EPS约1.23—1.37元；这是研究情景，不是公司指引。</li>
-<li>下一验证节点：2026年三季报、半年报业绩说明会答复以及海外框架项目订单转化。</li>
+<li>管理层未给出量化全年指引。8月17日调研记录仅取得公告索引，正文未获取到，不调整预测。</li>
 </ul>
 <h2 id="section-8">8. 近三个月新闻与催化剂</h2>
 
 <table>
 <thead>
 <tr>
-<th>发生日</th>
+<th>日期</th>
 <th>事件</th>
-<th>影响变量</th>
-<th>财务传导</th>
-<th>是否已反映</th>
-<th>验证节点</th>
-<th>失效条件</th>
-<th>来源</th>
+<th>事实 / 状态</th>
+<th>估值影响</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>2026-06-13</td>
+<td>05-22</td>
+<td>股东减持计划</td>
+<td>陈小琴拟于6月12日至9月11日减持不超过3%</td>
+<td>高位供给压力</td>
+</tr>
+<tr>
+<td>06-13</td>
 <td>藏粤工程中标</td>
-<td>国内主网交付</td>
-<td>收入、产能利用率</td>
-<td>部分反映</td>
-<td>H2交付与回款</td>
-<td>延期或毛利显著低于主业</td>
-<td>公司公告</td>
+<td>公司正式公告</td>
+<td>验证国内订单</td>
 </tr>
 <tr>
-<td>2026-07-30</td>
-<td>完成股份回购</td>
-<td>股权激励、股份供给</td>
-<td>3.01亿元现金支出；未来激励</td>
-<td>已反映</td>
-<td>股份授予与费用</td>
-<td>激励未带来业绩增长</td>
-<td>公司公告</td>
+<td>07-29</td>
+<td>国网投资更新</td>
+<td>H1固定资产投资超3100亿元、+12.6%</td>
+<td>行业需求有利</td>
 </tr>
 <tr>
-<td>2026-08-05</td>
-<td>期权预留部分第二次授予结果</td>
-<td>人才绑定、股份支付</td>
-<td>中长期激励与稀释</td>
-<td>部分反映</td>
-<td>行权与业绩条件</td>
-<td>业绩未达标或费用高于收益</td>
-<td>公司公告</td>
+<td>07-30</td>
+<td>回购完成</td>
+<td>910.91万股、2.1115%，支付3.0066亿元</td>
+<td>已完成，不再构成持续买盘</td>
 </tr>
 <tr>
-<td>2026-08-13</td>
-<td>H1收入利润现金流同步改善</td>
-<td>盈利预期</td>
-<td>利润与估值中枢</td>
-<td>公告后仍在定价</td>
-<td>三季报</td>
-<td>毛利率、现金流回落</td>
+<td>08-13</td>
 <td>半年报</td>
+<td>收入、利润、毛利率、现金流改善</td>
+<td>上修基本面置信度</td>
 </tr>
 <tr>
-<td>2026-08-13</td>
-<td>首次授予期权第一行权期条件成就</td>
-<td>潜在稀释与激励兑现</td>
-<td>股本、股份支付</td>
-<td>部分反映</td>
-<td>实际行权数量</td>
-<td>业绩兑现不足</td>
-<td>公司公告</td>
-</tr>
-<tr>
-<td>2026-08-13</td>
-<td>拟开展金融衍生品交易</td>
-<td>汇率风险管理</td>
-<td>降低汇兑波动，也引入执行风险</td>
-<td>未充分验证</td>
-<td>衍生品损益与套保口径</td>
-<td>投机性敞口扩大</td>
-<td>公司公告</td>
+<td>08-17</td>
+<td>调研记录（2026-011）</td>
+<td>仅取得索引，正文未获取到</td>
+<td>不调整预测</td>
 </tr>
 </tbody></table>
 <h2 id="section-9">9. 多头与空头论据</h2>
@@ -834,34 +771,28 @@ body {
 </tr>
 </thead>
 <tbody><tr>
-<td>增长质量改善</td>
-<td>H1营收+26.98%、利润+34.01%、毛利率+2.95个百分点</td>
-<td>收入、扣非利润、毛利率</td>
-<td>利润增速持续低于收入</td>
+<td>电网投资上行</td>
+<td>国网投资+12.6%、履约义务9.51亿元</td>
+<td>新订单、收入转化</td>
+<td>招标放缓</td>
 </tr>
 <tr>
-<td>海外认证进入新阶段</td>
-<td>英国NG、比利时Elia框架中标</td>
-<td>海外订单、收入、回款</td>
-<td>框架不转订单或毛利低</td>
+<td>盈利质量改善</td>
+<td>H1利润+34.01%、CFO 2.53亿元</td>
+<td>CFO/利润、FCF</td>
+<td>现金流落后利润</td>
 </tr>
 <tr>
-<td>订单可见度较高</td>
-<td>剩余履约义务9.51亿元</td>
-<td>新签订单、交付计划</td>
-<td>订单下降或延期</td>
+<td>海外客户扩张</td>
+<td>英国NG、比利时Elia框架</td>
+<td>正式订单、海外收入和回款</td>
+<td>框架不转订单</td>
 </tr>
 <tr>
-<td>现金流显著修复</td>
-<td>H1 CFO 2.53亿元、自由现金流代理1.84亿元</td>
-<td>CFO/净利润、应收周转</td>
-<td>连续两个季度回落</td>
-</tr>
-<tr>
-<td>资本回报上升</td>
-<td>ROE由2022年3.10%升至2025年24.28%</td>
-<td>ROE、ROIC代理</td>
-<td>扩产后回报率下降</td>
+<td>产品壁垒</td>
+<td>变电站毛利47.33%、密封件58.84%</td>
+<td>毛利率、ROE</td>
+<td>毛利率跌破43%</td>
 </tr>
 </tbody></table>
 <h3>9.2 空头论据</h3>
@@ -875,161 +806,134 @@ body {
 </tr>
 </thead>
 <tbody><tr>
-<td>现价透支乐观预期</td>
-<td>45.98倍TTM PE、12.32倍PB，现价已高于DCF乐观情景</td>
-<td>盈利上修、WACC、利润率</td>
-<td>2026—2028利润显著超预期</td>
+<td>已支付乐观路径</td>
+<td>PE44.96倍、PB12.04倍、价格超上沿3.4%</td>
+<td>前瞻PE、盈利上修</td>
+<td>2027利润≥7亿元</td>
 </tr>
 <tr>
-<td>现金流历史波动</td>
-<td>2021—2025自由现金流代理两年为负，2025为-1.21亿元</td>
-<td>CFO、资本开支、营运资本</td>
-<td>连续两年稳定正自由现金流</td>
+<td>海外证据不完整</td>
+<td>框架金额、交付、回款未完整披露</td>
+<td>正式订单与回款</td>
+<td>连续两个报告期验证</td>
 </tr>
 <tr>
-<td>应收绝对额较高</td>
-<td>H1应收净额8.61亿元</td>
-<td>回款天数、减值、客户集中</td>
-<td>收入增长同时应收下降</td>
+<td>高毛利正常化</td>
+<td>H1毛利率处历史高位</td>
+<td>分部毛利率</td>
+<td>产品结构继续改善</td>
 </tr>
 <tr>
-<td>汇率与海外执行风险</td>
-<td>H1财务费用由负转正，外币金融资产较多</td>
-<td>汇兑损益、套保有效性</td>
-<td>套保稳定且利润波动下降</td>
+<td>高位资金分歧</td>
+<td>20日融资+30.34%，近5日-15.74%</td>
+<td>融资与承接</td>
+<td>去杠杆后价格稳定</td>
 </tr>
 <tr>
-<td>杠杆交易升温</td>
-<td>融资余额5日+39.96%、20日+37.53%</td>
-<td>融资余额、股价、成交额</td>
-<td>价格稳定且融资逐步消化</td>
-</tr>
-<tr>
-<td>股东减持与期权稀释</td>
-<td>股东减持窗口仍在，期权进入行权期</td>
-<td>实际减持与行权数量</td>
-<td>供给低于预期且业绩同步增长</td>
+<td>股东减持窗口</td>
+<td>计划最高3%至9月11日</td>
+<td>实际减持</td>
+<td>减持结束或取消</td>
 </tr>
 </tbody></table>
-<h2 id="section-10">10. 估值</h2>
+<h2 id="section-10">10. 公允价值区间计算</h2>
 
-<h3>10.0 分部估值成熟度与路线</h3>
+<h3>10.0 企业类型、分部成熟度与估值路线</h3>
 <table>
 <thead>
 <tr>
-<th>分部 / 业务</th>
+<th>业务分部</th>
+<th>企业价值类型</th>
 <th>成熟度</th>
-<th>证据</th>
-<th>估值处理</th>
+<th>判断依据</th>
+<th>主要估值锚</th>
+<th>进入区间</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>变电站复合绝缘子</td>
+<td>变电站复合外绝缘、密封件</td>
+<td>成长企业</td>
 <td>已验证基本盘</td>
-<td>已形成规模收入、利润、订单和现金流，是公司核心盈利来源</td>
-<td>纳入完整公司DCF、PE与行业特定估值</td>
+<td>有收入、利润、现金流与客户认证</td>
+<td>未来利润折现</td>
+<td>下沿/中枢/上沿</td>
 </tr>
 <tr>
-<td>橡胶密封件</td>
-<td>已验证基本盘</td>
-<td>已商业化并持续贡献收入，客户认证与替代壁垒可追踪</td>
-<td>纳入完整公司DCF与正常化盈利</td>
+<td>线路复合外绝缘、海外框架</td>
+<td>成长企业</td>
+<td>商业化成长</td>
+<td>已中标/入框，利润率与金额不完整</td>
+<td>情景未来利润</td>
+<td>中枢有限、上沿充分</td>
 </tr>
 <tr>
-<td>输电线路复合绝缘子</td>
-<td>商业化成长业务</td>
-<td>已形成收入，但规模和利润率仍在爬坡</td>
-<td>在DCF中按分阶段增速和利润率计入，不另加期权价值</td>
-</tr>
-<tr>
-<td>NG、Elia等海外框架业务</td>
-<td>商业化成长业务</td>
-<td>客户验证已有进展，但正式订单金额、交付节奏和回款披露仍不完整</td>
-<td>通过收入增速、订单兑现与情景DCF体现，不重复计作“海外期权”</td>
-</tr>
-<tr>
-<td>新设复合材料子公司</td>
-<td>非实质性前沿期权</td>
-<td>尚未取得独立收入、重复订单、外部融资定价和单位经济性证据</td>
-<td>单独期权价值暂取0；达到可验证里程碑后再重估</td>
+<td>新材料子公司</td>
+<td>前沿科技</td>
+<td>前沿期权</td>
+<td>无独立收入、融资、量产和单位经济性</td>
+<td>里程碑概率</td>
+<td>暂不计入</td>
 </tr>
 </tbody></table>
 <ul>
-<li>估值路线：标准路线。公司整体已盈利且自由现金流能够审计，完整公司DCF仍适用；终值占企业价值约49%—66%，低于70%的降权治理阈值。</li>
-<li>我的判断：v2.1.0在本标的上的作用不是抬高估值，而是防止把“新材料”“海外框架”等叙事重复计价。只有形成独立、可追踪的商业证据，才允许进入概率加权价值桥。</li>
+<li>企业价值主类型：成长企业；2027利润已包含全部经营分部，不再叠加海外故事价值。</li>
+<li>路线：未来利润×合理PE后折现为主，相对估值、DCF和订单可见度交叉验证。</li>
 </ul>
 <h3>10.1 相对估值</h3>
 <table>
 <thead>
 <tr>
 <th>公司</th>
-<th>业务可比性</th>
-<th>增长 / 利润率</th>
 <th align="right">PE TTM</th>
 <th align="right">PB</th>
-<th align="right">EV/EBITDA</th>
 <th>数据时间</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>神马电力</td>
-<td>目标公司，复合绝缘与密封</td>
-<td>高增长、高毛利</td>
-<td align="right">45.98</td>
-<td align="right">12.32</td>
-<td align="right">未获取到</td>
-<td>2026-08-17</td>
+<td align="right">44.96</td>
+<td align="right">12.04</td>
+<td>2026-08-19</td>
 </tr>
 <tr>
 <td>思源电气</td>
-<td>电网一次设备、海外</td>
-<td>高质量成长</td>
-<td align="right">43.16</td>
-<td align="right">8.71</td>
-<td align="right">未获取到</td>
-<td>2026-08-17</td>
+<td align="right">28.16</td>
+<td align="right">2.85</td>
+<td>同上</td>
 </tr>
 <tr>
 <td>金盘科技</td>
-<td>变压器与新能源电气</td>
-<td>成长、利润率较低</td>
-<td align="right">51.03</td>
-<td align="right">6.56</td>
-<td align="right">未获取到</td>
-<td>2026-08-17</td>
+<td align="right">46.95</td>
+<td align="right">6.04</td>
+<td>同上</td>
 </tr>
 <tr>
 <td>平高电气</td>
-<td>高压开关、央企</td>
-<td>稳健、低估值</td>
-<td align="right">23.15</td>
-<td align="right">2.33</td>
-<td align="right">未获取到</td>
-<td>2026-08-17</td>
+<td align="right">22.60</td>
+<td align="right">2.28</td>
+<td>同上</td>
 </tr>
 <tr>
 <td>中国西电</td>
-<td>输变电设备、央企</td>
-<td>主题弹性、利润率较低</td>
-<td align="right">54.11</td>
-<td align="right">3.06</td>
-<td align="right">未获取到</td>
-<td>2026-08-17</td>
+<td align="right">50.43</td>
+<td align="right">2.85</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>宏发股份</td>
+<td align="right">27.95</td>
+<td align="right">4.12</td>
+<td>同上</td>
 </tr>
 </tbody></table>
 <ul>
-<li>选取理由：覆盖电网一次设备、海外扩张和输变电资本开支，但没有业务完全同质的上市公司。</li>
-<li>正常化调整：神马电力规模更小、毛利率更高、客户认证壁垒更强，但PB显著高于同业；采用2026E净利润5.3—5.9亿元和32—38倍前瞻PE。</li>
-<li>对应每股价值区间：约39—52元。</li>
-<li>我的判断：51.82元已到相对估值乐观端，市场不只计入2026年增长，还提前要求2027年盈利上修。</li>
+<li>可比PE中位数约28.16倍；考虑神马增长与毛利，给予30—36倍前瞻PE。2026E利润5.3—5.9亿元、4.315亿股，对应EPS 1.23—1.37元。</li>
+<li>对应价值约37—49元。当前PE可由成长部分解释，但PB显著高于可比公司，安全边际不足。</li>
 </ul>
 <h3>10.2 DCF</h3>
-<h4>DCF适用性</h4>
 <ul>
-<li>适用对象：已验证基本盘与商业化成长业务，合计构成公司的主要收入、利润和现金流。</li>
-<li>现金流可审计性：2026H1经营现金流2.53亿元，自由现金流代理1.84亿元，未出现“未来五年后才转正”的结构性问题。</li>
-<li>终值约束：悲观、基准、乐观情景的终值占企业价值约49%—66%，低于70%的低权重阈值，因此DCF可作为正式估值方法，而不只是约束项。</li>
-<li>局限：海外框架订单金额、线路产品稳态利润率与长期资本开支仍需后续披露验证。</li>
+<li>适用性：交叉验证；现金流已转正，但海外订单与长期资本开支使终值敏感。</li>
+<li>预计FCF转正年份：已在2026H1转正，全年待验证；终值占企业价值约49%—66%。</li>
 </ul>
 <h4>关键假设</h4>
 <table>
@@ -1039,71 +943,49 @@ body {
 <th align="right">悲观</th>
 <th align="right">基准</th>
 <th align="right">乐观</th>
-<th>依据</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>2026—2030收入复合增长</td>
+<td>2026—2030收入CAGR</td>
 <td align="right">11.9%</td>
 <td align="right">19.6%</td>
 <td align="right">24.6%</td>
-<td>H1增速、订单与海外渗透，之后逐步放缓</td>
-</tr>
-<tr>
-<td>2031—2035收入复合增长</td>
-<td align="right">4.3%</td>
-<td align="right">7.6%</td>
-<td align="right">9.0%</td>
-<td>成熟期增长递减</td>
 </tr>
 <tr>
 <td>经营利润率</td>
 <td align="right">27.0%</td>
 <td align="right">29.5%</td>
 <td align="right">31.0%</td>
-<td>2025营业利润率约29.4%，H1毛利率提升</td>
 </tr>
 <tr>
 <td>税率</td>
 <td align="right">15.0%</td>
 <td align="right">15.0%</td>
 <td align="right">15.0%</td>
-<td>高新技术企业税率代理</td>
 </tr>
 <tr>
-<td>折旧摊销 / 收入</td>
-<td align="right">4.5%</td>
-<td align="right">4.7%</td>
-<td align="right">5.0%</td>
-<td>2025折旧摊销与扩产趋势</td>
-</tr>
-<tr>
-<td>资本开支 / 收入</td>
+<td>资本开支/收入</td>
 <td align="right">8.0%</td>
 <td align="right">7.0%</td>
 <td align="right">6.5%</td>
-<td>2025资本开支较高，成熟后下降</td>
 </tr>
 <tr>
-<td>营运资本变化 / 增量收入</td>
+<td>营运资本变化/增量收入</td>
 <td align="right">30%</td>
 <td align="right">25%</td>
 <td align="right">20%</td>
-<td>应收与库存占用</td>
 </tr>
 <tr>
 <td>WACC</td>
 <td align="right">11.0%</td>
 <td align="right">10.0%</td>
 <td align="right">9.0%</td>
-<td>小市值、无风险利率与海外执行风险</td>
 </tr>
 <tr>
 <td>永续增长率</td>
 <td align="right">2.0%</td>
 <td align="right">2.5%</td>
 <td align="right">3.0%</td>
-<td>长期名义增长约束</td>
 </tr>
 </tbody></table>
 <h4>估值结果</h4>
@@ -1139,15 +1021,11 @@ body {
 <td align="right">46.61元</td>
 </tr>
 </tbody></table>
-<ul>
-<li>净债务口径：短期借款+长期借款+租赁负债，减货币资金和交易性金融资产；约2.35亿元。</li>
-<li>模型期限：2026—2035逐年预测，之后进入永续期；终值占企业价值约49%—66%。</li>
-</ul>
-<h4>敏感性分析（基准经营假设，元/股）</h4>
+<h4>敏感性分析（元/股）</h4>
 <table>
 <thead>
 <tr>
-<th>WACC \ 永续增长率</th>
+<th>WACC \ g</th>
 <th align="right">2.0%</th>
 <th align="right">2.5%</th>
 <th align="right">3.0%</th>
@@ -1172,28 +1050,18 @@ body {
 <td align="right">24.00</td>
 </tr>
 </tbody></table>
-<h4>反向DCF</h4>
+<h4>反向 DCF</h4>
 <ul>
-<li>当前价格隐含的收入增长 / 终值利润率：51.82元已经高于乐观情景46.61元。要支撑现价，需要2026—2030收入复合增速高于24.6%、经营利润率高于31%、WACC低于9%，或多项乐观条件同时发生。</li>
-<li>与历史和行业相比是否可实现：并非绝对不可能，但已经超出当前法定披露能够审计的边界；它要求海外扩张、毛利率和现金转化在更长时间内持续超预期。</li>
-<li>我的判断：DCF在本公司是完整适用的方法，其高估警告不能因为“新材料期权”而被忽略。</li>
+<li>50.67元高于DCF乐观值46.61元，要求2026—2030收入CAGR高于24.6%、利润率高于31%、WACC低于9%，或多项乐观条件同时成立；尚超出法定披露可审计边界。</li>
 </ul>
 <h3>10.3 行业特定估值</h3>
 <ul>
-<li>方法：2026E盈利倍数 + 剩余履约义务与订单兑现交叉验证。</li>
-<li>适用理由：电网设备收入存在项目交付周期，单纯TTM PE容易忽略订单可见度；但订单不能替代利润和现金流。</li>
-<li>关键假设：2026E归母净利润5.3—5.9亿元，合理PE 30—36倍；剩余履约义务9.51亿元按计划交付，毛利率维持45%以上。</li>
-<li>对应每股价值区间：约37—49元。</li>
-<li>局限性：剩余履约义务不等于全部新签订单；海外订单的价格、交期和回款未完整披露。</li>
+<li>方法：订单储备、分部毛利率与2026E利润可见度约束。</li>
+<li>履约义务9.51亿元提供收入可见度，但订单不等于利润和现金；对应价值约37—49元。</li>
+<li>局限：海外框架金额、交付、费用与回款未完整披露。</li>
 </ul>
 <h3>10.4 前沿科技价值桥（适用时）</h3>
-<ul>
-<li>是否实质适用：整体不适用。公司核心业务已经商业化并盈利，不属于“尚未盈利、长期负现金流”的前沿科技企业。</li>
-<li>新设复合材料子公司：因未获取到独立收入、重复订单、外部融资 / 交易定价、单位经济性和明确现金消耗计划，概率加权期权价值的下沿、中枢和上沿暂均取0。</li>
-<li>海外框架业务：已通过客户验证，属于商业化成长业务，其价值已经进入收入增长、利润率和订单情景，不再重复追加“海外期权”。</li>
-<li>融资与投入：扩产投入已进入资本开支与净债务假设；未发现需要单列外部股权融资稀释的证据，避免把同一投入同时从现金流和股权保留比例中重复扣除。</li>
-<li>反向约束：若把51.82元高于DCF乐观值和行业估值上沿的部分解释为前沿期权，实际上是在为尚未验证的未来支付溢价，不能作为合理估值中枢。</li>
-</ul>
+<p>不适用：新材料子公司尚无独立收入、融资定价、量产里程碑和单位经济性，不用市场空间直接赋值。</p>
 <h3>10.5 估值交叉验证</h3>
 <table>
 <thead>
@@ -1205,55 +1073,542 @@ body {
 </tr>
 </thead>
 <tbody><tr>
+<td>2027未来利润折现</td>
+<td align="right">31—50元</td>
+<td align="right">55%</td>
+<td>匹配成长类型、近端最可审计</td>
+</tr>
+<tr>
 <td>相对估值</td>
-<td align="right">39—52元</td>
-<td align="right">35%</td>
-<td>反映当前电网设备风险偏好，但同业差异大</td>
+<td align="right">37—49元</td>
+<td align="right">20%</td>
+<td>反映同业与质量溢价</td>
 </tr>
 <tr>
 <td>DCF</td>
 <td align="right">12—47元</td>
-<td align="right">30%</td>
-<td>约束长期现金流预期，区间受增长与WACC影响大</td>
+<td align="right">15%</td>
+<td>约束长期现金流，参数敏感</td>
 </tr>
 <tr>
-<td>行业特定估值</td>
+<td>订单特定估值</td>
 <td align="right">37—49元</td>
-<td align="right">35%</td>
-<td>连接2026盈利、订单和交付，可解释当前定价</td>
+<td align="right">10%</td>
+<td>验证可见度，不等于股权价值</td>
 </tr>
 </tbody></table>
 <ul>
-<li>综合估值区间：31—49元；中枢约40—44元。</li>
-<li>相对现价上行 / 下行空间：以51.82元计，下沿-40.2%，中枢-22.8%至-15.1%，上沿-5.4%。</li>
-<li>为什么不机械平均：DCF下沿代表增长快速回落的尾部情景，相对估值上沿又可能包含主题溢价；用31元作为保守价值、40—44元作为主要决策区、49元作为乐观上沿更符合证据强弱。</li>
+<li>公允价值区间31—49元，中枢41元；现价至下沿-38.8%、中枢-19.1%、上沿-3.3%。</li>
+<li>不机械平均：DCF悲观值对长期参数敏感，相对估值又可能带入行业拥挤溢价。区间以未来利润折现为主。</li>
 </ul>
-<h3>10.6 林奇分类与估值匹配</h3>
+<h3>10.6 企业类型与估值锚匹配</h3>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">2027净利润</th>
+<th align="right">届时PE</th>
+<th align="right">一年要求回报率</th>
+<th align="right">今日每股价值</th>
+<th align="right">概率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>悲观</td>
+<td align="right">5.7亿元</td>
+<td align="right">26倍</td>
+<td align="right">12%</td>
+<td align="right">30.66元</td>
+<td align="right">25%</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">6.6亿元</td>
+<td align="right">30倍</td>
+<td align="right">11%</td>
+<td align="right">41.34元</td>
+<td align="right">50%</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">7.4亿元</td>
+<td align="right">32倍</td>
+<td align="right">10%</td>
+<td align="right">49.89元</td>
+<td align="right">25%</td>
+</tr>
+</tbody></table>
 <ul>
-<li>主分类与估值锚：快速成长型；应以可持续EPS增长、PEG和现金转化为核心，不应以PB低估为由买入。</li>
-<li>PEG：按45.98倍TTM PE与2026E利润增长23%—37%估算，PEG约1.24—2.00；已经进入偏贵区间。</li>
-<li>周期型正常化利润：不作为主锚；电网资本开支有周期，但公司增长更多来自渗透和海外扩张。</li>
-<li>困境反转型：不适用，公司不存在生存危机。</li>
-<li>资产隐蔽型：不适用，PB 12.32倍且价值来自盈利能力而非资产折价。</li>
-<li>当前价格已经反映的预期：海外订单持续高增、毛利率保持高位、现金流不再重复2022和2025年的弱表现，并需要2027年盈利继续上修。</li>
-<li>类型化估值与三类估值是否相互印证：相互印证为“基本面优质但估值高估”；相对估值已处乐观端，行业特定估值上沿低于现价，DCF显示安全边际不足。</li>
+<li>概率加权值约40.8元。当前50.67元约等于不折现支付2027年6.8亿元利润和32倍PE。</li>
+<li>企业类型、分部成熟度与方法相互印证；新材料故事未重复计价。</li>
 </ul>
-<h2 id="section-11">11. 最终结论</h2>
+<h2 id="section-11">11. 市场价格分解与估值泡沫判断</h2>
+
+<pre><code class="language-text">市场价格 = 公允价值 + 可解释的估值溢价 + 交易定价偏离
+</code></pre>
+<h4>市场价格偏离</h4>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th align="right">结果</th>
+<th>口径 / 证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前价格及时间</td>
+<td align="right">50.67元</td>
+<td>8月19日收盘</td>
+</tr>
+<tr>
+<td>公允价值中枢 / 上沿</td>
+<td align="right">41 / 49元</td>
+<td>未来利润折现</td>
+</tr>
+<tr>
+<td>相对中枢 / 上沿偏离率</td>
+<td align="right">+23.59% / +3.41%</td>
+<td>现价除以估值锚-1</td>
+</tr>
+<tr>
+<td>上沿外价格</td>
+<td align="right">1.67元</td>
+<td>每股偏离</td>
+</tr>
+<tr>
+<td>可解释估值溢价</td>
+<td align="right">已主要计入49元上沿</td>
+<td>认证、高毛利、国网投资和海外渗透不重复相加</td>
+</tr>
+<tr>
+<td>交易定价偏离</td>
+<td align="right">精确拆分证据不足</td>
+<td>融资扩张、短期上涨可解释部分，不凑数</td>
+</tr>
+</tbody></table>
+<h4>七问审计</h4>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>结论</th>
+<th>关键证据 / 反证</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前价格比中枢和上沿高多少？</td>
+<td>+23.6% / +3.4%</td>
+<td>50.67对41/49元</td>
+<td>成立</td>
+</tr>
+<tr>
+<td>高出部分隐含多少增长？</td>
+<td>预付约1—2年高增长</td>
+<td>约等于2027年6.8亿元×32倍且不折现</td>
+<td>成立</td>
+</tr>
+<tr>
+<td>订单、收入、利润和FCF能否验证？</td>
+<td>近端能，远端仅部分</td>
+<td>H1改善；海外金额回款不完整</td>
+<td>不成立</td>
+</tr>
+<tr>
+<td>是否扣除投入、稀释、折现和失败概率？</td>
+<td>本报告已扣，市场接近未折现乐观值</td>
+<td>新材料不赋值</td>
+<td>不成立</td>
+</tr>
+<tr>
+<td>流动性和倍数正常化后能否成立？</td>
+<td>难成立</td>
+<td>可比PE中位数28.16倍</td>
+<td>不成立</td>
+</tr>
+<tr>
+<td>增长和利润率正常化后能否成立？</td>
+<td>难成立</td>
+<td>毛利或利润低于基准则回归</td>
+<td>不成立</td>
+</tr>
+<tr>
+<td>市场是否仍定价失败情景？</td>
+<td>仍有一定定价</td>
+<td>回落、去杠杆、减持窗口</td>
+<td>成立</td>
+</tr>
+</tbody></table>
+<h4>三表逐项扫描</h4>
+<h5>一、基本面触发</h5>
+<table>
+<thead>
+<tr>
+<th>触发类型</th>
+<th>观察项</th>
+<th>当前证据与时间</th>
+<th>扫描状态</th>
+<th>对估值状态的影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>现金流断点</td>
+<td>资本开支规模</td>
+<td>H1资本开支0.68亿元&lt;CFO 2.53亿元</td>
+<td>有利</td>
+<td>2025缺口阶段修复</td>
+</tr>
+<tr>
+<td>现金流断点</td>
+<td>经营现金流</td>
+<td>H1由-0.51转+2.53亿元</td>
+<td>有利</td>
+<td>支持利润质量</td>
+</tr>
+<tr>
+<td>现金流断点</td>
+<td>自由现金流</td>
+<td>H1代理+1.84亿元</td>
+<td>有利</td>
+<td>支持内生增长</td>
+</tr>
+<tr>
+<td>现金流断点</td>
+<td>投资资金来源</td>
+<td>经营现金覆盖主要投入，净债务约2.35亿元</td>
+<td>有利</td>
+<td>融资非必要条件</td>
+</tr>
+<tr>
+<td>现金流断点</td>
+<td>融资停止后的可持续性</td>
+<td>基本盘盈利且现金转正</td>
+<td>有利</td>
+<td>核心经营可持续</td>
+</tr>
+<tr>
+<td>盈利不匹配</td>
+<td>原材料与中间品成本</td>
+<td>毛利率同比+2.95个百分点</td>
+<td>有利</td>
+<td>未见成本吞噬</td>
+</tr>
+<tr>
+<td>盈利不匹配</td>
+<td>定价权与成本转嫁</td>
+<td>核心分部毛利47.33%/58.84%</td>
+<td>有利</td>
+<td>壁垒形成缓冲</td>
+</tr>
+<tr>
+<td>盈利不匹配</td>
+<td>营收向利润的转化</td>
+<td>收入+26.98%、利润+34.01%</td>
+<td>有利</td>
+<td>利润快于收入</td>
+</tr>
+<tr>
+<td>盈利不匹配</td>
+<td>利润向自由现金流的转化</td>
+<td>FCF/净利润约86%</td>
+<td>有利</td>
+<td>现金转化良好</td>
+</tr>
+</tbody></table>
+<h5>二、流动性触发</h5>
+<table>
+<thead>
+<tr>
+<th>触发类型</th>
+<th>观察项</th>
+<th>当前证据与时间</th>
+<th>扫描状态</th>
+<th>对估值状态的影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观：货币条件收缩</td>
+<td>通胀</td>
+<td>国内通胀可控</td>
+<td>有利</td>
+<td>不压制国内主锚</td>
+</tr>
+<tr>
+<td>宏观：货币条件收缩</td>
+<td>政策利率与债券收益率</td>
+<td>国内稳定，全球长端利率约束成长估值</td>
+<td>逆转</td>
+<td>提高折现率、压制上沿</td>
+</tr>
+<tr>
+<td>宏观：货币条件收缩</td>
+<td>信用与融资条件</td>
+<td>国内信用供给总体稳定</td>
+<td>有利</td>
+<td>融资环境未恶化</td>
+</tr>
+<tr>
+<td>宏观：货币条件收缩</td>
+<td>高投资项目对低成本资金的依赖</td>
+<td>H1 FCF正、净债务不高</td>
+<td>有利</td>
+<td>不依赖超低利率</td>
+</tr>
+<tr>
+<td>中观：政策与主线资金迁移</td>
+<td>监管与产业政策</td>
+<td>国网H1投资+12.6%</td>
+<td>有利</td>
+<td>支持需求</td>
+</tr>
+<tr>
+<td>中观：政策与主线资金迁移</td>
+<td>ETF申赎</td>
+<td>未取得对应ETF数据</td>
+<td>证据不足</td>
+<td>无法判断被动承接</td>
+</tr>
+<tr>
+<td>中观：政策与主线资金迁移</td>
+<td>基金仓位</td>
+<td>未取得统一仓位与集中度</td>
+<td>证据不足</td>
+<td>无法确认拥挤度</td>
+</tr>
+<tr>
+<td>中观：政策与主线资金迁移</td>
+<td>主线增量资金</td>
+<td>5/20日大单正、60日大单-1.24亿元</td>
+<td>证据不足</td>
+<td>窗口冲突</td>
+</tr>
+<tr>
+<td>微观：杠杆和承接逆转</td>
+<td>融资余额增速</td>
+<td>20日+30.34%，近5日-15.74%</td>
+<td>逆转</td>
+<td>先加杠杆后去杠杆</td>
+</tr>
+<tr>
+<td>微观：杠杆和承接逆转</td>
+<td>新增融资集中度</td>
+<td>未取得行业集中度</td>
+<td>证据不足</td>
+<td>无法证明集中</td>
+</tr>
+<tr>
+<td>微观：杠杆和承接逆转</td>
+<td>股价对杠杆资金的依赖</td>
+<td>5日股价+10.71%而融资-15.74%</td>
+<td>有利</td>
+<td>非单一杠杆驱动</td>
+</tr>
+<tr>
+<td>微观：杠杆和承接逆转</td>
+<td>龙头表现</td>
+<td>当日-2.33%、5日仍强</td>
+<td>证据不足</td>
+<td>单日不足确认</td>
+</tr>
+<tr>
+<td>微观：杠杆和承接逆转</td>
+<td>市场广度</td>
+<td>可比公司当日普跌，缺多日全样本</td>
+<td>证据不足</td>
+<td>仅观察信号</td>
+</tr>
+<tr>
+<td>微观：杠杆和承接逆转</td>
+<td>获利资金与回调承接</td>
+<td>当日大单-0.07亿元、价格回落</td>
+<td>逆转</td>
+<td>初现获利回吐</td>
+</tr>
+</tbody></table>
+<h5>三、预期触发</h5>
+<table>
+<thead>
+<tr>
+<th>触发类型</th>
+<th>观察项</th>
+<th>当前证据与时间</th>
+<th>扫描状态</th>
+<th>对估值状态的影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>叙事耗尽</td>
+<td>价格隐含的增长年限</td>
+<td>现价约等于2027基准偏乐观利润×32倍且不折现</td>
+<td>逆转</td>
+<td>击中安全边际</td>
+</tr>
+<tr>
+<td>叙事耗尽</td>
+<td>产业进度与远期预期的距离</td>
+<td>国内成熟、海外入框但金额待披露</td>
+<td>有利</td>
+<td>非纯概念</td>
+</tr>
+<tr>
+<td>叙事耗尽</td>
+<td>新信息对盈利预测的推动</td>
+<td>H1收入利润现金推动近端上修</td>
+<td>有利</td>
+<td>经营接棒定价</td>
+</tr>
+<tr>
+<td>叙事耗尽</td>
+<td>同类利好的边际反应</td>
+<td>半年报后强涨，单日回吐未成趋势</td>
+<td>有利</td>
+<td>未确认耗尽</td>
+</tr>
+<tr>
+<td>财报与真实经营接管定价</td>
+<td>财报披露节点</td>
+<td>半年报按期且同比强</td>
+<td>有利</td>
+<td>财报验证</td>
+</tr>
+<tr>
+<td>财报与真实经营接管定价</td>
+<td>订单、收入与利润的一致性</td>
+<td>履约义务、收入、利润同步</td>
+<td>有利</td>
+<td>支持主锚</td>
+</tr>
+<tr>
+<td>财报与真实经营接管定价</td>
+<td>利润与现金流的一致性</td>
+<td>CFO高于净利润、FCF正</td>
+<td>有利</td>
+<td>支持质量</td>
+</tr>
+<tr>
+<td>财报与真实经营接管定价</td>
+<td>真实应用与产品验证</td>
+<td>产品长期应用并重复收入</td>
+<td>有利</td>
+<td>非测试概念</td>
+</tr>
+<tr>
+<td>财报与真实经营接管定价</td>
+<td>实际业绩与价格隐含预期</td>
+<td>H1不足以独证2027乐观利润</td>
+<td>证据不足</td>
+<td>待订单和财报</td>
+</tr>
+</tbody></table>
+<h5>三表扫描汇总</h5>
+<table>
+<thead>
+<tr>
+<th>扫描表</th>
+<th align="right">有利项</th>
+<th align="right">逆转项</th>
+<th align="right">证据不足项</th>
+<th align="right">不适用项</th>
+<th>关键约束</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本面触发</td>
+<td align="right">9</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td>全面改善，是泡沫判断反证</td>
+</tr>
+<tr>
+<td>流动性触发</td>
+<td align="right">5</td>
+<td align="right">3</td>
+<td align="right">6</td>
+<td align="right">0</td>
+<td>折现率、融资扩张与获利回吐</td>
+</tr>
+<tr>
+<td>预期触发</td>
+<td align="right">7</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td>现价预付2027增长</td>
+</tr>
+</tbody></table>
+<ul>
+<li>击中主估值锚的关键逆转：是，“价格隐含的增长年限”使安全边际消失，但未推翻未来利润。</li>
+<li>跨表传导链：否；基本面无逆转，只有流动性与预期的早期压力。</li>
+</ul>
+<h4>泡沫证据门槛</h4>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>判断项</th>
+<th>状态</th>
+<th>证据 / 反证</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>核心门槛</td>
+<td>估值脱锚</td>
+<td>不成立</td>
+<td>现价仅高于上沿3.4%，仍可由乐观2027利润解释</td>
+</tr>
+<tr>
+<td>核心门槛</td>
+<td>经营验证缺口</td>
+<td>成立</td>
+<td>海外金额、交付、回款和稳态利润率不完整；H1是反证</td>
+</tr>
+<tr>
+<td>核心门槛</td>
+<td>正常化压力失败</td>
+<td>成立</td>
+<td>PE、毛利率或增长正常化后现价难维持</td>
+</tr>
+<tr>
+<td>放大器</td>
+<td>融资依赖</td>
+<td>不显著</td>
+<td>H1 FCF为正、净债务低</td>
+</tr>
+<tr>
+<td>放大器</td>
+<td>杠杆与承接</td>
+<td>不显著</td>
+<td>20日扩张但5日下降，价格未立即失速</td>
+</tr>
+<tr>
+<td>放大器</td>
+<td>叙事一致性</td>
+<td>显著</td>
+<td>海外框架和高毛利延续被赋较高权重</td>
+</tr>
+</tbody></table>
+<ul>
+<li>估值泡沫判断：普通高估；两个核心门槛成立但估值脱锚不成立，且基本面9项均有利。</li>
+<li>判断置信度：中高；泡沫出清状态：出清观察。</li>
+<li>出清触发：20日融资+30.34%后5日-15.74%，8月19日大单转负、股价-2.33%；无基本面逆转或持续踩踏，不能判定出清中。</li>
+</ul>
+<h2 id="section-12">12. 最终结论</h2>
 
 <ul>
-<li>彼得·林奇公司分类：快速成长型。</li>
-<li>一句话投资故事：以复合绝缘材料、认证和全球渠道服务电网与设备客户，靠替代渗透、海外扩张和产品组合改善增长；订单、毛利与现金流任一长期失速都会破坏故事。</li>
-<li>利润增长等式与可持续时间：电网需求 × 复合材料渗透率 × 海外客户扩张 × 产品组合 / 定价 − 材料、汇率、营运资本与股权激励成本；未来2—3年可见度较高，更长期需订单和现金流续证。</li>
-<li>估值结论：高估。</li>
-<li>操作结论：新增现金规避（avoid）；已有持仓复核（review），不因单日涨停机械卖出。</li>
-<li>综合估值区间：31—49元/股，中枢40—44元。</li>
-<li>相对现价空间：下沿-40.2%，中枢-22.8%至-15.1%，上沿-5.4%。</li>
-<li>如果今天这是一笔现金，我会买它吗：不会；只在特定条件下会。</li>
-<li>我的判断：H1把公司基本面从“待验证”提升为“已验证改善”，但51.82元已高于49元乐观上沿，新增现金没有正向区间赔率；已有持仓应复核成本、仓位和税费后处理，不能把“公司很好”直接等同于“价格合理”。</li>
-<li>结论失效条件：海外订单和现金流持续大幅超预期，使2027盈利预测显著上修，并把51.82元对应的前瞻PE降至约30倍；或基本面恶化使31—49元区间整体下移。</li>
-<li>林奇框架卖出条件：当前已触发“估值严重透支”的警示，尚未触发“投资逻辑破坏”；因此新增资金为avoid，已有持仓为review而非无条件sell。</li>
+<li>企业价值主类型：成长企业。</li>
+<li>分部类型映射：国内变电站与密封件=已验证基本盘；线路与海外框架=商业化成长；新材料子公司=未赋值前沿期权。</li>
+<li>主估值锚：2027年未来利润 × 届时合理PE后折现。</li>
+<li>价值创造链及可持续时间：国网投资、材料替代和海外渗透可支持未来2—3年增长；更长期需由订单、毛利率、现金流和资本回报续证。</li>
+<li>估值结论：高估，属于普通高估而非严格泡沫。</li>
+<li>操作结论：观望；新增现金<code>wait</code>，已有持仓<code>review</code>。</li>
+<li>公允价值区间：31—49元/股，中枢41元。</li>
+<li>相对现价空间：至下沿-38.8%，中枢-19.1%，上沿-3.3%。</li>
+<li>如果今天这是一笔现金，我会买它吗：不会；40—44元且经营锚不破坏时再观察。</li>
+<li>结论失效条件：正式订单与盈利上修使2027利润达到或超过7亿元且现金流同步，或价格明显回落进入中枢区间。</li>
+<li>估值锚失效后的退出条件：订单不转收入、毛利率连续跌破43%、CFO/净利润连续两个报告期低于0.7，或2027利润路径降至5.7亿元以下时，应重估并评估<code>reduce/sell</code>。</li>
 </ul>
-<h2 id="section-12">12. 后续监控指标</h2>
+<h2 id="section-13">13. 后续监控指标</h2>
 
 <table>
 <thead>
@@ -1266,97 +1621,82 @@ body {
 </tr>
 </thead>
 <tbody><tr>
-<td>新签订单与剩余履约义务</td>
-<td align="right">履约义务9.51亿元</td>
-<td>订单增速&lt;10%为负面；&gt;25%为正面</td>
-<td>定期报告、公司公告</td>
+<td>2027净利润路径</td>
+<td align="right">基准6.6亿元</td>
+<td>≥7.0亿元支持现价；&lt;5.7亿元击穿锚</td>
+<td>财报、订单</td>
 <td>季度</td>
 </tr>
 <tr>
 <td>综合毛利率</td>
 <td align="right">47.35%</td>
-<td>&lt;43%逻辑弱化；≥46%维持强势</td>
-<td>财报</td>
+<td>连续跌破43%为逆转</td>
+<td>定期报告</td>
 <td>季度</td>
 </tr>
 <tr>
-<td>CFO / 归母净利润</td>
-<td align="right">2026H1为1.18倍</td>
-<td>连续两期&lt;0.5为负面；≥0.8为正面</td>
-<td>财报</td>
+<td>CFO / 净利润</td>
+<td align="right">H1约1.18倍</td>
+<td>连续两期&lt;0.7为逆转</td>
+<td>现金流量表</td>
 <td>季度</td>
 </tr>
 <tr>
-<td>应收账款 / 收入</td>
-<td align="right">应收8.61亿元</td>
-<td>增速持续高于收入或减值上升为负面</td>
-<td>财报</td>
-<td>季度</td>
-</tr>
-<tr>
-<td>海外客户与收入</td>
-<td align="right">NG、Elia框架中标</td>
-<td>框架转正式订单并回款为正面</td>
-<td>公告、调研</td>
-<td>月度 / 事件</td>
-</tr>
-<tr>
-<td>订单流与融资余额</td>
-<td align="right">8月17日净流入2444万元，近6日累计净流入3592万元；融资约1.13亿元</td>
-<td>资金继续流入但融资增速降温为健康；价格上涨而订单流转弱为负面</td>
-<td>Tushare</td>
-<td>每周</td>
-</tr>
-<tr>
-<td>估值与价格</td>
-<td align="right">51.82元、45.98倍TTM PE</td>
-<td>≤44元进入观察 / 重估区；≤40元赔率改善；&gt;49元必须由盈利上修支撑</td>
-<td>Tushare</td>
-<td>每日</td>
-</tr>
-<tr>
-<td>股东减持与期权行权</td>
-<td align="right">窗口进行中</td>
-<td>实际供给明显增加为负面</td>
+<td>海外框架转正式订单</td>
+<td align="right">金额未完整披露</td>
+<td>披露订单、交付与回款</td>
 <td>公司公告</td>
 <td>事件驱动</td>
 </tr>
+<tr>
+<td>剩余履约义务</td>
+<td align="right">9.51亿元</td>
+<td>按期转收入且利润同步</td>
+<td>定期报告</td>
+<td>半年</td>
+</tr>
+<tr>
+<td>融资余额</td>
+<td align="right">1.09亿元</td>
+<td>高估值下再扩张且承接转弱</td>
+<td>Tushare/交易所</td>
+<td>每日</td>
+</tr>
+<tr>
+<td>价格区间</td>
+<td align="right">50.67元</td>
+<td>40—44元观察；&gt;49元需上修；&lt;31元复核基本面</td>
+<td>行情</td>
+<td>每日</td>
+</tr>
 </tbody></table>
 <ul>
-<li>投资故事持续性：仍成立，但当前价格已提高验证标准。</li>
-<li>下一次财报需复核的林奇框架变量：EPS、现金流、库存、应收、负债、海外增长空间和估值预期。</li>
+<li>价值创造链状态：仍成立，但估值安全边际不足。</li>
+<li>下一财报复核：未来利润、毛利率、资本开支、应收存货、FCF、海外收入及订单转化。</li>
 </ul>
-<h2 id="section-13">13. 未获取到的数据与研究局限</h2>
+<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
 
 <ul>
-<li>未获取到：最新完整卖方一致预期与目标价、全球细分市场份额、分国家订单与毛利、ETF申赎、北向和机构逐日持仓、美元指数、实际减持进度、期权实际行权数量。</li>
-<li>已检查来源：公司定期报告、上交所公告、投资者关系记录、已有卖方报告、Tushare结构化数据和公开公告索引。</li>
-<li>对结论的影响：不改变“基本面改善、现价高于乐观上沿、新增现金规避”的主结论；使资金来源、相对估值和海外竞争强度的置信度降至中等。</li>
-<li>模型局限：DCF高度依赖十年增长、WACC、营运资本和终值；相对估值受行业主题风险偏好影响；订单估值不能替代现金流。</li>
-<li>前沿业务局限：新设复合材料子公司尚无足够独立证据，暂不给期权价值；未来若披露可重复订单、收入、单位经济性或第三方融资定价，应重做分部价值桥。</li>
+<li>未获取到：8月17日调研记录正文；英国NG与比利时Elia框架完整金额、交付与回款；最新机构集中度、ETF申赎；标准化第三方公允价值和完整卖方目标价。</li>
+<li>已检查来源：公司公告索引、法定报告、卖方材料、公开行情、国资委与Elia官方更新。</li>
+<li>影响：降低海外上沿和资金身份置信度，因此不把海外框架或新材料子公司单独叠加估值；不改变H1改善和普通高估结论。</li>
 </ul>
-<h2 id="section-14">14. 来源清单</h2>
+<h2 id="section-15">15. 来源清单</h2>
 
 <ol>
-<li><a href="../../../webpages/2026-08-17-神马电力机构级研究收盘快照.md">《神马电力机构级研究收盘快照》</a>，Tushare结构化数据与公司法定披露整理，2026-08-17。</li>
-<li><a href="../../../assets/神马电力-2026年半年度报告.pdf.md">《神马电力2026年半年度报告》</a>，江苏神马电力股份有限公司，2026-08-13。</li>
-<li><a href="../../../webpages/2026-08-17-神马电力半年报行情资金公告快照.md">《神马电力半年报、行情、资金与公告快照》</a>，上交所公告与Tushare数据整理，2026-08-17。</li>
-<li><a href="../../../assets/神马电力-2025年年度报告.pdf.md">《神马电力2025年年度报告》</a>，江苏神马电力股份有限公司，2026-04。</li>
-<li><a href="../../../assets/神马电力-2024年年度报告.pdf.md">《神马电力2024年年度报告》</a>，江苏神马电力股份有限公司，2025年。</li>
-<li><a href="../../../assets/神马电力-2022年年度报告.pdf.md">《神马电力2022年年度报告》</a>，江苏神马电力股份有限公司，2023年。</li>
-<li><a href="../../../assets/神马电力-2026年第一季度报告.pdf.md">《神马电力2026年第一季度报告》</a>，江苏神马电力股份有限公司，2026年。</li>
-<li><a href="../../../assets/神马电力-2026-05-08投资者关系活动记录.pdf.md">《神马电力投资者关系活动记录》</a>，江苏神马电力股份有限公司，2026-05-08。</li>
-<li><a href="../../../assets/东吴证券-2026-06-04神马电力深度报告.pdf.md">《神马电力深度报告》</a>，东吴证券，2026-06-04。</li>
-<li><a href="https://static.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-08-13/603530_20260813_YAUZ.pdf">上交所神马电力2026年半年度报告</a>，访问时间2026-08-17。</li>
-<li><a href="https://money.finance.sina.com.cn/corp/go.php/vCB_AllBulletin/stockid/603530.phtml?ftype=lsgg">神马电力公告索引</a>，新浪财经转引上交所公告，访问时间2026-08-17。</li>
+<li><a href="../../../assets/神马电力-2026年半年度报告.pdf.md">《神马电力2026年半年度报告》</a>，公司，2026-08-13。</li>
+<li><a href="../../../assets/神马电力-2025年年度报告.pdf.md">《神马电力2025年年度报告》</a>，公司，2026年。</li>
+<li><a href="../../../webpages/2026-08-19-神马电力机构级研究收盘快照.md">《神马电力机构级研究收盘快照》</a>，Tushare与公开来源汇总，2026-08-19。</li>
+<li><a href="https://wap.sasac.gov.cn/n2588025/n2588124/c35693703/content.html">《国家电网上半年固定资产投资超3100亿元》</a>，国务院国资委，2026-07-29，访问于2026-08-19。</li>
+<li><a href="https://investor.eliagroup.eu/en/newsroom/2026/07/20260729_q2-2026">Elia Group Q2 2026 update</a>，Elia Group，2026-07-29，访问于2026-08-19。</li>
+<li><a href="https://money.finance.sina.com.cn/corp/go.php/vCB_AllBulletin/stockid/603530.phtml">神马电力公司公告索引</a>，访问于2026-08-19；仅定位公告日期，关键财务以法定报告为准。</li>
+<li><a href="../../../assets/神马电力-2026-06-13藏粤工程中标公告.pdf.md">《神马电力藏粤工程中标公告》</a>，公司，2026-06-13。</li>
+<li><a href="../../../assets/东吴证券-2026-06-04神马电力深度报告.pdf.md">《东吴证券神马电力深度报告》</a>，东吴证券，2026-06-04。</li>
+<li><a href="../../../../wiki/concepts/冰冰小美-framework-估值判断.md">《冰冰小美估值判断框架》</a>，访问于2026-08-19。</li>
 </ol>
-<h3>相关页面</h3>
-<ul>
-<li><a href="../../../../冰冰小美-fundamental -产业思维.md">产业思维</a>：用于检验产业位置、利润池与资本市场预期。</li>
-</ul>
-<h2 id="section-15">15. 声明</h2>
+<h2 id="section-16">16. 声明</h2>
 
-<p>本报告基于截至研究截止时间可取得的公开信息，不构成收益保证。真实交易前应重新核验价格、公告、流动性和个人风险承受能力。</p>
+<p>本报告基于截至研究截止时间可取得的公开信息，不构成收益保证或个性化投资建议。真实交易前应重新核验价格、公告、流动性、持仓成本、投资期限与个人风险承受能力。</p>
 <script>
 (() => {
   const endpoint = '/api/stock-quote?secid=1.603530';
@@ -1366,7 +1706,7 @@ body {
   const riskRewardValue = document.getElementById('risk-reward-value');
   const riskRewardDetail = document.getElementById('risk-reward-detail');
   const tracker = document.getElementById('daily-tracking');
-  const snapshotPrice = 51.82;
+  const snapshotPrice = 50.67;
   const percent = value => `${value < 0 ? '-' : value > 0 ? '+' : ''}${Math.abs(value).toFixed(1)}%`;
   function updateRiskReward(price) {
     const low = Number(tracker.dataset.valueLow);
@@ -1377,13 +1717,13 @@ body {
     if (price <= low) {
       riskRewardValue.textContent = '低于价值下沿';
       riskRewardValue.classList.remove('bad');
-      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿潜在空间 ${percent(upside)}。价格已低于动态价值下沿，不能直接用下沿作为止损风险，需另设风控线。`;
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿潜在空间 ${percent(upside)}。价格已低于公允价值下沿，不能直接用下沿作为止损风险，需另设风控线。`;
       return;
     }
     if (price >= high) {
       riskRewardValue.textContent = '无正向盈亏比';
       riskRewardValue.classList.add('bad');
-      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿空间 ${percent(upside)}，回落至下沿风险 ${percent(downside)}。价格已到或高于动态价值上沿，新增现金不具备正向盈亏比。`;
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿空间 ${percent(upside)}，回落至下沿风险 ${percent(downside)}。价格已到或高于公允价值上沿，新增现金不具备正向盈亏比。`;
       return;
     }
     const ratio = upside / downside;

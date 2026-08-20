@@ -90,21 +90,21 @@ function formatPercent(value) {
 
 function describeRiskReward(price, low, high, label = '每日同步价') {
   if (![price, low, high].every(Number.isFinite) || low <= 0 || high <= low) {
-    return { value: '未获取到', detail: '价格或动态价值区间无法解析，未计算盈亏比。', isBad: false };
+    return { value: '未获取到', detail: '价格或公允价值区间无法解析，未计算盈亏比。', isBad: false };
   }
   const upside = (high / price - 1) * 100;
   const downside = (1 - low / price) * 100;
   if (price <= low) {
     return {
       value: '低于价值下沿',
-      detail: `${label} ${price.toFixed(2)} 元；相对上沿潜在空间 ${formatPercent(upside)}。价格已低于动态价值下沿，不能直接用下沿作为止损风险，需另设风控线。`,
+      detail: `${label} ${price.toFixed(2)} 元；相对上沿潜在空间 ${formatPercent(upside)}。价格已低于公允价值下沿，不能直接用下沿作为止损风险，需另设风控线。`,
       isBad: false,
     };
   }
   if (price >= high) {
     return {
       value: '无正向盈亏比',
-      detail: `${label} ${price.toFixed(2)} 元；相对上沿空间 ${formatPercent(upside)}，回落至下沿风险 ${formatPercent(downside)}。价格已到或高于动态价值上沿，新增现金不具备正向盈亏比。`,
+      detail: `${label} ${price.toFixed(2)} 元；相对上沿空间 ${formatPercent(upside)}，回落至下沿风险 ${formatPercent(downside)}。价格已到或高于公允价值上沿，新增现金不具备正向盈亏比。`,
       isBad: true,
     };
   }
@@ -177,11 +177,32 @@ function renderValueRange(value) {
   return `<span class="range-breakdown"><span class="range-main">${escapeHtml(main)}</span>${pointHtml}</span>`;
 }
 
+function renderValuationBubbleLevels(value) {
+  const cleaned = cleanInline(value || '证据不足');
+  const levels = [
+    { key: 'premium', label: '估值溢价', pattern: /可解释估值溢价|估值溢价/ },
+    { key: 'overvalued', label: '普通高估', pattern: /普通高估/ },
+    { key: 'bubble', label: '估值泡沫', pattern: /估值泡沫/ },
+    { key: 'severe', label: '严重估值泡沫', pattern: /严重估值泡沫/ },
+  ];
+  const active = levels.slice().reverse().find((level) => level.pattern.test(cleaned));
+  const html = levels.map((level) => {
+    const isActive = active?.key === level.key;
+    return `<span class="pricing-level pricing-level-${level.key}${isActive ? ' active' : ''}" data-valuation-level="${escapeHtml(level.label)}"${isActive ? ' aria-current="true"' : ''}>${escapeHtml(level.label)}</span>`;
+  }).join('');
+  const current = active ? active.label : cleaned;
+  const detail = active
+    ? `当前判断：${current}。四级状态来自第 11 章估值泡沫证据门槛。`
+    : `当前判断：${current}；四级估值偏离均未高亮。`;
+  return { html, detail };
+}
+
 function renderDailyTracking(decisions, metadata, code, outputPath, title) {
   const priceText = cleanInline(decisions['当前价格及时间']) || '未获取到';
-  const fairValue = cleanInline(decisions['综合估值区间']) || '未获取到';
+  const fairValue = cleanInline(decisions['公允价值区间'] || decisions['综合估值区间']) || '未获取到';
   const action = cleanInline(decisions['冰冰小美动作'] || decisions['操作建议']) || '未获取到';
   const valuation = cleanInline(decisions['估值状态']) || '未获取到';
+  const valuationBubble = renderValuationBubbleLevels(decisions['估值泡沫判断']);
   const confidence = cleanInline(decisions['结论置信度']) || '未获取到';
   const fundamental = cleanInline(decisions['基本面状态']) || '未获取到';
   const fundStatus = cleanInline(decisions['资金状态']) || '未获取到';
@@ -209,12 +230,12 @@ function renderDailyTracking(decisions, metadata, code, outputPath, title) {
   </div>
   <div class="tracking-grid">
     <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value${badFundamental ? ' bad' : ''}">${escapeHtml(fundamental)}</p><p class="tracking-detail">风险方向：${escapeHtml(riskDirection)}。下一验证点与失效条件见第 11—13 章。</p></div>
-    <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value">${renderValueRange(fairValue)}</p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
-    <div class="tracking-card" data-tracking-key="risk-reward"><p class="tracking-label">盈亏比</p><p class="tracking-value${riskReward.isBad ? ' bad' : ''}" id="risk-reward-value">${escapeHtml(riskReward.value)}</p><p class="tracking-detail" id="risk-reward-detail">${escapeHtml(riskReward.detail)}</p></div>
+    <div class="tracking-card" data-tracking-key="fair-value-range"><p class="tracking-label">公允价值区间</p><p class="tracking-value">${renderValueRange(fairValue)}</p><p class="tracking-detail">公允价值区间来自估值方法交叉验证；行情刷新不会自动改变区间。</p></div>
+    <div class="tracking-card" data-tracking-key="pricing-deviation"><p class="tracking-label">交易定价偏离</p><p class="tracking-value pricing-levels">${valuationBubble.html}</p><p class="tracking-detail">${escapeHtml(valuationBubble.detail)}</p></div>
   </div>
   <div class="tracking-grid">
-    <div class="tracking-card" data-tracking-key="daily-quote"><p class="tracking-label">每日同步价</p><p class="tracking-value">${escapeHtml(priceText)}</p><p class="tracking-detail">这是报告内嵌的正式跟踪基准，离线打开仍可使用。</p><span class="tracking-status">每日快照</span></div>
-    <div class="tracking-card" data-tracking-key="intraday-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">${escapeHtml(liveValue)}</p><p class="tracking-detail" id="intraday-detail">${escapeHtml(liveDetail)}</p><span class="tracking-status" id="intraday-status">${secid ? '未连接' : '未配置'}</span></div>
+    <div class="tracking-card" data-tracking-key="market-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">${escapeHtml(liveValue)}</p><p class="tracking-detail" id="intraday-detail">${escapeHtml(liveDetail)}</p><p class="tracking-snapshot">每日同步价：${escapeHtml(priceText)}</p><span class="tracking-status" id="intraday-status">${secid ? '未连接' : '未配置'}</span></div>
+    <div class="tracking-card" data-tracking-key="risk-reward"><p class="tracking-label">盈亏比</p><p class="tracking-value${riskReward.isBad ? ' bad' : ''}" id="risk-reward-value">${escapeHtml(riskReward.value)}</p><p class="tracking-detail" id="risk-reward-detail">${escapeHtml(riskReward.detail)}</p></div>
     <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">${escapeHtml(action)}</p><p class="tracking-detail">估值：${escapeHtml(valuation)} · ${escapeHtml(action)}；风险：${escapeHtml(riskDirection)}；结论置信度：${escapeHtml(confidence)}。</p><span class="tracking-status${valuation === '高估' ? ' error' : ''}">${escapeHtml(valuation)}</span></div>
   </div>
   <div class="tracking-footer"><span>资金状态：<strong>${escapeHtml(fundStatus)}</strong> · 新增/已有动作：<strong>${escapeHtml(action)}</strong></span>${link}</div>
@@ -246,13 +267,13 @@ function renderLiveQuoteScript(code, decisions) {
     if (price <= low) {
       riskRewardValue.textContent = '低于价值下沿';
       riskRewardValue.classList.remove('bad');
-      riskRewardDetail.textContent = \`盘中价 ${'${price.toFixed(2)}'} 元；相对上沿潜在空间 ${'${percent(upside)}'}。价格已低于动态价值下沿，不能直接用下沿作为止损风险，需另设风控线。\`;
+      riskRewardDetail.textContent = \`盘中价 ${'${price.toFixed(2)}'} 元；相对上沿潜在空间 ${'${percent(upside)}'}。价格已低于公允价值下沿，不能直接用下沿作为止损风险，需另设风控线。\`;
       return;
     }
     if (price >= high) {
       riskRewardValue.textContent = '无正向盈亏比';
       riskRewardValue.classList.add('bad');
-      riskRewardDetail.textContent = \`盘中价 ${'${price.toFixed(2)}'} 元；相对上沿空间 ${'${percent(upside)}'}，回落至下沿风险 ${'${percent(downside)}'}。价格已到或高于动态价值上沿，新增现金不具备正向盈亏比。\`;
+      riskRewardDetail.textContent = \`盘中价 ${'${price.toFixed(2)}'} 元；相对上沿空间 ${'${percent(upside)}'}，回落至下沿风险 ${'${percent(downside)}'}。价格已到或高于公允价值上沿，新增现金不具备正向盈亏比。\`;
       return;
     }
     const ratio = upside / downside;
@@ -320,8 +341,8 @@ function main() {
   markdown = markdown.replace(/^#\s+.+\r?\n/, '');
   markdown = normalizeObsidianLinks(markdown, outputPath, vaultRoot);
   const sectioned = sectionize(markdown);
-  if (sectioned.sections.length !== 15) {
-    throw new Error(`报告必须包含 15 个编号模块，当前为 ${sectioned.sections.length} 个。`);
+  if (sectioned.sections.length !== 16) {
+    throw new Error(`报告必须包含 16 个编号模块，当前为 ${sectioned.sections.length} 个。`);
   }
 
   const marked = loadMarked();
@@ -334,7 +355,7 @@ function main() {
   const valuation = cleanInline(decisions['估值状态']) || '估值状态未获取';
   const action = cleanInline(decisions['冰冰小美动作'] || decisions['操作建议']) || '动作未获取';
   const price = cleanInline(decisions['当前价格及时间']) || '未获取';
-  const fairValue = cleanInline(decisions['综合估值区间']) || '未获取';
+  const fairValue = cleanInline(decisions['公允价值区间'] || decisions['综合估值区间']) || '未获取';
   const confidence = cleanInline(decisions['结论置信度']) || '未获取';
   const toc = sectioned.sections.map(({ id, label }) => `<a class="toc-link" href="#${id}">${escapeHtml(label)}</a>`).join('\n');
   const tracking = renderDailyTracking(decisions, metadata, code, outputPath, title);

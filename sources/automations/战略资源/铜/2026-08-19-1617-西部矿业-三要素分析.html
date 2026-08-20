@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>西部矿业冰冰小美体系三要素分析</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --positive: #17604e;
+  --positive-bg: #dff3eb;
+  --negative: #a82828;
+  --negative-bg: #ffe1df;
+  --neutral: #7b5b18;
+  --neutral-bg: #fff2cf;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; color: var(--ink); background: var(--paper); font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif; line-height: 1.7; }
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero { padding: 56px 76px 46px; color: #fff; background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%); }
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.research-note { margin: 16px 0 26px; padding: 14px 18px 13px; border: 1px solid #dce5e9; border-left: 4px solid #8ca6b1; border-radius: 8px; color: #526875; background: #f7fafb; }
+.research-note-title { margin: 0 0 7px; color: #58717d; font-size: 12px !important; font-weight: 700; letter-spacing: .08em; }
+.research-note ul { margin: 0; padding-left: 21px; }
+.research-note li { margin: 4px 0; font-size: 13.5px; line-height: 1.65; }
+.research-note li::marker { color: #8ca6b1; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.factor-summary { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin: 26px 0 42px; }
+.factor-card { min-width: 0; padding: 16px; border: 1px solid var(--line); border-radius: 12px; background: #f7f9fa; }
+.factor-card p { margin: 0 0 6px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .06em; }
+.factor-card strong { color: var(--navy); font-size: 18px; line-height: 1.35; }
+.factor-card.positive { background: var(--positive-bg); }
+.factor-card.positive strong { color: var(--positive); }
+.factor-card.negative { background: var(--negative-bg); }
+.factor-card.negative strong { color: var(--negative); }
+.factor-card.neutral { background: var(--neutral-bg); }
+.factor-card.neutral strong { color: var(--neutral); }
+
+@media (max-width: 1100px) { .factor-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 980px) { .hero { padding: 40px 30px 34px; } .layout { grid-template-columns: 1fr; } .toc { border-right: 0; border-bottom: 1px solid var(--line); } .toc-inner { position: static; columns: 2; } .content { padding: 34px 30px 64px; } }
+@media (max-width: 600px) { .toc-inner { columns: 1; } .content { padding: 28px 18px 54px; } .factor-summary { grid-template-columns: 1fr; } }
+@media print { body { background: #fff; } .report-shell { max-width: none; } .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; } .layout { display: block; } .toc { display: none; } .content { padding: 25px 36px; } .content h2 { break-after: avoid; } .content table { display: table; overflow: visible; break-inside: avoid; } .factor-card { border: 1px solid #aebbc2; background: #fff !important; } .research-note { break-inside: avoid; background: #fff; } }
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM THREE-FACTOR ANALYSIS</p>
+      <h1>西部矿业冰冰小美体系三要素分析</h1>
+      <div class="hero-meta"><span>个股</span><span>上海证券交易所主板</span><span>2026-08-19 16:17 Asia/Shanghai；行情与订单分档截至8月19日，融资融券截至8月18日</span><span>2026-08-19 16:17 Asia/Shanghai</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 一句话结论</a>
+<a class="toc-link" href="#section-2">2. 三要素状态总表</a>
+<a class="toc-link" href="#section-3">3. 竞争格局的比较优势</a>
+<a class="toc-link" href="#section-4">4. 流动性辩证分析</a>
+<a class="toc-link" href="#section-5">5. 情绪位置变化</a>
+<a class="toc-link" href="#section-6">6. 综合状态与主导矛盾</a>
+<a class="toc-link" href="#section-7">7. 行动映射</a>
+<a class="toc-link" href="#section-8">8. 数据缺口与置信度</a>
+<a class="toc-link" href="#section-9">9. 来源</a></div></aside>
+      <article class="content"><blockquote>
+<p>对象层级：个股</p>
+<p>市场：上海证券交易所主板</p>
+<p>分析截止时间：2026-08-19 16:17 Asia/Shanghai；行情与订单分档截至8月19日，融资融券截至8月18日</p>
+<p>报告生成时间：2026-08-19 16:17 Asia/Shanghai</p>
+<p>核心问题：铜资源安全、矿端紧张和玉龙扩产是否已经转化为西部矿业相对同业的利润优势；这种优势能否抵消扩张行情后资金转弱与情绪退潮？</p>
+</blockquote>
+<section class="factor-summary" aria-label="三要素摘要">
+    <div class="factor-card neutral"><p>综合状态</p><strong>尚未形成有利共振。</strong></div>
+    <div class="factor-card positive"><p>竞争格局</p><strong>有利</strong></div>
+    <div class="factor-card negative"><p>流动性</p><strong>不利 / 转弱，上一可辨识状态为扩张，转换为“扩张 → 转弱”。</strong></div>
+    <div class="factor-card negative"><p>情绪位置</p><strong>不利</strong></div>
+    <div class="factor-card neutral"><p>总体置信度</p><strong>中。竞争与情绪为中等置信度，流动性为中高置信度；Q3产量、铜价与同业成本仍可能改变结论幅度。</strong></div>
+  </section>
+<h2 id="section-1">1. 一句话结论</h2>
+
+<ul>
+<li>综合状态：<strong>尚未形成有利共振</strong>。</li>
+<li>流动性阶段：<strong>转弱</strong>，上一可辨识状态为扩张，转换为“扩张 → 转弱”。</li>
+<li>主导要素：<strong>竞争格局有利</strong>。国家补强铜资源安全，铜精矿加工费降至零强化矿端位置；公司H1矿产铜超计划、归母净利润41.69亿元、经营现金流83.49亿元，玉龙资源与高海拔运营能力已经转化为真实利润。</li>
+<li>拖累要素：<strong>流动性与情绪均不利</strong>。股价由7月9日至8月7日上涨约48.6%后转入高波动，10/20日收益-7.30%/-2.67%；大额订单在5/10/20/60日均净流出，融资10/20日增加18.10%/21.48%却未形成价格承接，情绪处于拥挤后的退潮。</li>
+</ul>
+<h2 id="section-2">2. 三要素状态总表</h2>
+
+<table>
+<thead>
+<tr>
+<th>要素</th>
+<th>状态</th>
+<th>核心证据</th>
+<th>核心反证</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>有利</td>
+<td>铜矿端相对冶炼端议价强化；H1矿产铜完成计划106%，玉龙净利润50.59亿元，集团利润与现金流同步高增</td>
+<td>公司仅持玉龙58%；逐矿成本缺少同业统一口径；冶炼扭亏含周期性副产品贡献，扩建资本开支高</td>
+<td>中</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>不利</td>
+<td>控股股东一致行动人H1增持1.63%，60日股价+14.41%，证明上一阶段有真实承接</td>
+<td>8月19日-5.44%；大额订单全窗口净流出；融资10/20日扩张而价格下跌，5日已开始去杠杆</td>
+<td>中高</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>不利</td>
+<td>强业绩、资源增储和扩建具备价值锚，60日相对同业仍强</td>
+<td>近一个月先涨约48.6%再多次单日跌逾5%，利好充分交易、价格波动和亏钱效应扩散</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 竞争格局的比较优势</h2>
+
+<blockquote>
+<p>已按最新版概念页完成“3层 × 5问”内部推演。完整参照系、比较维度、优势变化和失效条件见<a href="../../../webpages/2026-08-19-西部矿业三要素政策行业与市场证据快照.md">政策行业与市场证据快照</a>；正文只展示影响决策的证据与反证。</p>
+</blockquote>
+<h3>国家层：方向与资源配置</h3>
+<ul>
+<li>结论：<strong>国策方向与政策落地有利，资源配置主要通过矿权、项目、绿色智能改造和国有资本传导，不是直接补贴逻辑</strong>。中国冶炼加工和终端需求体系完整，但铜精矿保障能力不足；政策将比较优势补强点放在国内资源开发与综合利用，西部矿业具备承接资格。</li>
+<li>国策方向：工信部《铜产业高质量发展实施方案（2025—2027年）》要求提高国内铜资源保障、推进低品位资源利用、再生铜、绿色矿山和智能化；有色稳增长方案提出铜等国内资源开发取得积极进展。自然资源部2026年“十五五”找矿部署继续要求战略性矿产增储上产。</li>
+<li>政策落地：矿权、找矿、绿色矿山、低品位提铜、智能矿山和资源综合利用已有实施路径。公司H1矿产铜超计划，玉龙新增资源、茶亭探矿权和智慧矿山建设与政策方向一致。</li>
+<li>资源配置：国家方案列示财税、金融、投资与进出口协同，但未取得中央财政或政府采购直接流向公司核心矿山的重大金额。公司H1获得科技项目财政补助640万元，不足以解释利润；控股股东一致行动人使用专项贷款和自有资金增持1.63%，属于公司级国有资本支持。</li>
+<li>核心证据：国家从“冶炼规模”转向“资源保障、绿色智能和综合利用”的政策重点，与公司国内矿权、高海拔采选和扩产项目形成直接匹配。</li>
+<li>核心反证：资源开发同时受安全、生态、矿权、投资回报和项目周期约束；政策资格不能保证4,500万吨扩建和茶亭铜矿按期投产。</li>
+</ul>
+<aside class="research-note" aria-label="研究提示"><p class="research-note-title">研究提示</p><ul>
+<li>已检索范围：中央经济工作方向、有色稳增长方案、铜产业实施方案、自然资源部“十五五”找矿部署、矿权与项目、财税金融投资渠道、政府采购和公司实际补助。</li>
+<li>数据缺口：政策性信贷直接流向核心矿山的余额、4,500万吨扩建完整审批清单、地方专项资金与矿权资源配置的统一金额。</li>
+<li>下一验证点：玉龙三期基建、4,500万吨开采方案与可研、茶亭储量核实、下一轮矿权和绿色智能项目支持。</li>
+<li>失效条件：国内资源保障权重下降，或安全环保、许可和资本回报约束使矿权不能转化为持续产量。</li>
+</ul>
+</aside>
+<h3>产业 / 行业层：利润流向与产业链位置</h3>
+<ul>
+<li>结论：<strong>利润池仍向优质在产铜矿集中，矿端位置升级；短期精炼铜小幅过剩和高价格抑制需求构成反证</strong>。西部矿业同时暴露于采选和冶炼，受益核心来自玉龙等矿山，不是铜类收入总量。</li>
+<li>核心证据：IEA指出2026年年度铜精矿TC/RC基准降至0美元/吨，现货加工费自2024年以来为负；中国冶炼产能增长显著快于精矿产量，矿山议价位置强于单纯冶炼企业。</li>
+<li>核心证据：IEA中长期项目管线预计2035年矿产铜供给可能低于需求约30%，电网、电气化、AI、交通和工业设备扩张需求，而品位下降、项目成本和发现不足限制新矿。</li>
+<li>核心证据：公司H1玉龙铜业营收84.78亿元、净利润50.59亿元；冶炼板块整体盈利约5.95亿元，其中西部铜材仍亏损0.51亿元，利润池差异已经在公司内部得到验证。</li>
+<li>核心反证：ICSG预计2026年精炼铜小幅过剩9.6万吨、2027年37.7万吨，短期并非绝对短缺；公司冶炼扭亏还受硫酸、硫磺、铟等副产品涨价影响，持续性不确定。</li>
+</ul>
+<aside class="research-note" aria-label="研究提示"><p class="research-note-title">研究提示</p><ul>
+<li>已检索范围：IEA铜矿与冶炼评论、ICSG供需预测、铜产业方案、公司H1铜价、矿产铜、冶炼利润和扩产项目。</li>
+<li>数据缺口：8月即时SHFE/LME铜价与库存、全球成本曲线、主要矿山扰动、再生铜和下游开工连续序列。</li>
+<li>下一验证点：铜精矿TC/RC、ICSG十月预测、SHFE/LME库存、电网与AI资本开支、玉龙三期投产与产量爬坡。</li>
+<li>失效条件：终端需求和库存共同转弱，新矿与再生铜供给快于需求，铜价跌破关键成本区间，矿端利润明显收缩。</li>
+</ul>
+</aside>
+<h3>企业层：谁能获得利润</h3>
+<ul>
+<li>结论：<strong>相对冶炼型企业和海外高地缘暴露矿企具备国内资源、矿山利润、高海拔运营和现金转化优势；相对紫金、洛钼等全球龙头，规模、多区域分散和权益比例并不占优</strong>。</li>
+<li>核心证据：H1矿产铜89,708吨，完成计划106%；归母净利润41.69亿元、扣非42.11亿元、经营现金流83.49亿元，分别同比+123%/+130%/+67%，利润与现金流同步兑现。</li>
+<li>核心证据：玉龙铜业H1净利润50.59亿元、经营现金流56.75亿元；公司已形成国内高海拔铜矿采选经验，2026年新增玉龙铜金属资源131.42万吨，茶亭查明铜金属量174万吨仍待核实。</li>
+<li>核心证据：玉龙三期计划2026年底完成基建，总资本开支约48亿元；公司预计未来几年每年固定资产建设资本开支40—50亿元，并以当前经营现金流覆盖，扩产具备现实承接能力。</li>
+<li>核心反证：公司持玉龙58%，42%利润归少数股东；利润高度集中于玉龙与铜价。4,500万吨扩建仍在前期论证、茶亭目标2030年末完成基建，远期资源不能当作近期产量。</li>
+<li>核心反证：缺少与紫金、洛钼、江西铜业同口径逐矿现金成本、品位、回收率与ROIC；西部铜材仍亏损，铁精粉H1只完成计划72%，业务组合不是全面领先。</li>
+</ul>
+<aside class="research-note" aria-label="研究提示"><p class="research-note-title">研究提示</p><ul>
+<li>已检索范围：H1法定财务、产量、玉龙与主要子公司利润、资源增储、三期/四期/茶亭进度、资本开支；紫金、洛钼、江西铜业、云南铜业、铜陵有色行情和估值。</li>
+<li>数据缺口：同业逐矿成本、品位、回收率、矿山寿命和资本回报；玉龙三期投产后的单位成本、4,500万吨扩建总投资与审批。</li>
+<li>下一验证点：2026Q3矿产铜、玉龙三期年底基建、经营现金流和资本开支、同业中报的矿山成本与增量。</li>
+<li>失效条件：矿产铜、品位、回收率或现金流下修，项目延期超支、铜价回落，或核心同业以更低成本和更大权益增量追平。</li>
+</ul>
+</aside>
+<h3>本要素判断</h3>
+<ul>
+<li>状态：<strong>有利</strong>。</li>
+<li>理由：国家层把资源保障、绿色智能和综合利用作为铜产业补强方向；行业层零TC/RC与长期项目缺口使利润向在产矿山集中；企业层用H1超计划矿产铜、玉龙高利润和83.49亿元经营现金流证明承接能力。相对全球龙头的规模和逐矿成本证据不完整，使置信度为中，但已超过只有资源叙事、没有利润兑现的中性状态。</li>
+</ul>
+<aside class="research-note" aria-label="研究提示"><p class="research-note-title">研究提示</p><ul>
+<li>主导证据：矿端相对冶炼端的议价强化，与公司矿产铜超计划、玉龙高利润和集团现金流同步出现。</li>
+<li>核心缺口：同业逐矿成本和权益产量、玉龙三期单位经济性、4,500万吨扩建可研。</li>
+<li>下一验证点：Q3产量和现金流、玉龙三期年底基建、铜价与TC/RC、同业成本比较。</li>
+<li>失效条件：矿端利润向冶炼或下游回流，公司产量与现金流落后同业，或项目资本回报显著低于预期。</li>
+</ul>
+</aside>
+<h2 id="section-4">4. 流动性辩证分析</h2>
+
+<blockquote>
+<p>核心边界：成交额和涨跌只是结果。本节区分资金来源、持续性、筹码供给和退出路径；订单分档不识别账户身份。</p>
+</blockquote>
+<h3>宏观流动性</h3>
+<ul>
+<li>事实与时点：美国10年期国债收益率由7月1日4.48%升至8月17日4.72%，外部无风险利率边际上升。美元指数同窗口数据未取得；铜价同时受工业需求、供给、美元和风险偏好影响。</li>
+<li>对对象的影响：<strong>中性偏约束</strong>。铜的资源逻辑仍可支撑配置，但利率上升压缩高波动资源股估值继续扩张的空间。</li>
+</ul>
+<h3>中观流动性</h3>
+<ul>
+<li>事实与时点：全市场融资余额截至8月18日为26,708.69亿元；5/10日+0.89%/+2.55%，20/60日-1.03%/-8.24%。公司控股股东一致行动人H1实际增持1.63%，是可识别的真实增量。</li>
+<li>传导判断：市场杠杆短期回补、中期去化；大股东增持提供个股托底，但主要发生在上半年，且剩余计划空间有限，不能自动转化为8月持续扩散。</li>
+<li>对对象的影响：<strong>中性</strong>。存在长期国有资本承接，但缺少铜ETF、公募、保险、北向和产业资本在最新窗口的共同净流入证据。</li>
+</ul>
+<h3>微观流动性</h3>
+<ul>
+<li>事实与时点：8月19日收盘36.83元，日跌5.44%，成交19.44亿元、换手2.18%；5/10/20/60日收益+1.46%/-7.30%/-2.67%/+14.41%。股价由7月9日28.99元升至8月7日43.07元，随后多次单日跌逾5%。</li>
+<li>事实与时点：近5/10/20/60日全口径订单分档净额-5.82/-8.91/-1.81/+11.06亿元；大单与特大单-3.40/-6.43/-6.99/-9.24亿元。60日上涨和大额订单流出背离。</li>
+<li>事实与时点：融资余额22.98亿元；5/10/20/60日-4.11%/+18.10%/+21.48%/+5.55%，融资净买入-0.97/+4.44/+3.41/+0.85亿元。10/20日融资扩张时价格下跌，5日开始去杠杆。</li>
+<li>迁移路径：7月强业绩和铜资源叙事吸引杠杆与存量资金扩张，8月初创新高后，大额订单持续退出、融资资金先承接后减量；8月19日铜资源同业普跌，属于板块转弱而非公司独立利空。</li>
+<li>对对象的影响：<strong>不利</strong>。真实增持和强基本面尚能阻断全面收缩，但最新价格、大额订单和杠杆效率已经从扩张转弱。</li>
+</ul>
+<h3>资金来源分类</h3>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>是否存在</th>
+<th>渠道与证据</th>
+<th>持续性</th>
+<th>退出条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>场外真实增量</td>
+<td>是</td>
+<td>控股股东一致行动人H1增持1.63%；但最新ETF和长期机构流量缺失</td>
+<td>中</td>
+<td>增持计划完成、长期机构不再增配或基本面失效</td>
+</tr>
+<tr>
+<td>存量迁移</td>
+<td>是</td>
+<td>7月9日至8月7日股价约+48.6%，60日收益强于列示铜同业；大额订单却持续流出</td>
+<td>低至中</td>
+<td>铜价回落、资金回流成长或切换至其他资源</td>
+</tr>
+<tr>
+<td>减量报团</td>
+<td>证据不足</td>
+<td>市场融资20/60日下降、公司60日相对强，但铜同业并非只有西部矿业上涨</td>
+<td>低</td>
+<td>若市场继续去杠杆且资金只集中于少数铜矿股才确认</td>
+</tr>
+</tbody></table>
+<h3>供给与抛压</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>当前事实</th>
+<th>对流动性的影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>杠杆资金</td>
+<td>融资余额22.98亿元；10/20日+18.10%/+21.48%，5日-4.11%</td>
+<td>前期扩张后承接效率下降，去杠杆可能放大回撤</td>
+</tr>
+<tr>
+<td>股票融资供给</td>
+<td>H1股本未变化，未发现正在执行的大额增发、配股或可转债</td>
+<td>新增股票供给有限</td>
+</tr>
+<tr>
+<td>减持与解禁</td>
+<td>未取得未来90日完整减持、解禁与质押清单；大股东处于增持计划内</td>
+<td>明示增持偏正面，但供给结论仍有数据缺口</td>
+</tr>
+<tr>
+<td>套牢盘与高位筹码</td>
+<td>当前较120日高点43.29元低约14.9%，仍显著高于7月突破前价格</td>
+<td>近期追涨和融资筹码松动，中期套牢盘较少但短线抛压较大</td>
+</tr>
+</tbody></table>
+<h3>最低数据检查</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>已检查数据</th>
+<th>数据时点与窗口</th>
+<th>来源</th>
+<th>缺口及影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观</td>
+<td>美国10年期国债、铜商品环境、外部风险偏好</td>
+<td>07-01至08-17/19</td>
+<td>本地Tushare、IEA、公司半年报</td>
+<td>美元指数和即时铜价缺失，限制宏观资金归因</td>
+</tr>
+<tr>
+<td>中观</td>
+<td>全市场融资、股东增持、铜产业资本</td>
+<td>截至08-18；H1</td>
+<td>本地Tushare、公司半年报</td>
+<td>铜ETF、公募、保险、北向连续流量缺失</td>
+</tr>
+<tr>
+<td>微观</td>
+<td>价格、成交、换手、同业、订单分档、个股融资</td>
+<td>1/5/10/20/60日，截至08-19；融资08-18</td>
+<td>本地Tushare</td>
+<td>账户身份、筹码成本、做空回补缺失</td>
+</tr>
+<tr>
+<td>供给与抛压</td>
+<td>股本、增持、再融资检索、价格区间</td>
+<td>H1至当前</td>
+<td>公司公告、本地Tushare</td>
+<td>未来90日完整减持解禁和质押清单缺失</td>
+</tr>
+</tbody></table>
+<h3>证据</h3>
+<ul>
+<li>控股股东一致行动人H1增持1.63%，构成可识别真实增量；60日股价+14.41%，上一阶段确有扩张与相对强势。</li>
+<li>公司H1利润、现金流和矿产铜共同增长，为资金提供持续价值锚，尚未出现基本面承接消失。</li>
+<li>未发现显著新增股票融资供给，股本供给不是当前主要矛盾。</li>
+</ul>
+<h3>反证</h3>
+<ul>
+<li>10/20日股价-7.30%/-2.67%，8月19日跌5.44%，扩张后的短中期价格已转弱。</li>
+<li>大额订单5/10/20/60日全部净流出；融资10/20日显著增加但价格下跌，承接效率偏低。</li>
+<li>5日融资余额下降4.11%，大额订单继续流出，说明前期杠杆接力已开始撤退。</li>
+</ul>
+<h3>退出路径</h3>
+<ul>
+<li>第一条是铜价与精炼平衡下修，周期资金从铜矿切换；第二条是玉龙三期进度、Q3产量或现金流低于高预期，业绩资金退出；第三条是融资追涨筹码在大额订单持续卖出时去杠杆。</li>
+<li>观察指标：20日大额订单、融资余额、控股股东增持完成度、铜ETF、铜价与TC/RC、36元及7月突破区间承接、Q3矿产铜和现金流。</li>
+</ul>
+<h3>失效条件</h3>
+<ul>
+<li>若20日大额订单转正、融资不再与价格背离，股价重新站稳40—43元且铜ETF和板块广度扩散，则“不利/转弱”失效，可进入修复或扩张。</li>
+<li>若股价跌破7月突破区间、大额订单继续流出且融资加速下降，同时铜价或公司产量下修，则转弱可能进入收缩。</li>
+</ul>
+<h3>流动性阶段判定</h3>
+<ul>
+<li>方向评价：<strong>不利</strong>。</li>
+<li>当前状态：<strong>转弱</strong>。</li>
+<li>上一可辨识状态或基准状态：<strong>扩张</strong>。</li>
+<li>转换方向：<strong>扩张 → 转弱</strong>。</li>
+<li>跨层依据：宏观层外部无风险利率上升约束估值；中观层市场融资中期去化、个股真实增持仍能托底；微观层7月约48.6%的上涨扩张后，10/20日价格转负，大额订单全窗口流出，融资先扩张后5日去化。原有承接边际下降，但价值锚尚未消失。</li>
+<li>相邻状态排除理由：<strong>不是扩张</strong>，因为最新价格、订单和杠杆效率均未扩散；<strong>不是平衡</strong>，因为高位筹码松动与大额订单退出已形成方向性压力；<strong>不是收缩</strong>，因为60日仍上涨14.41%、5日仍为正，控股股东增持和强现金流继续托底，尚未形成价格—杠杆—恐慌卖出的持续自我强化。</li>
+<li>置信度：<strong>中高</strong>。量价、订单分档、融资和股东增持的多窗口证据完整；ETF、账户身份和即时商品数据缺失，不能判高置信度。</li>
+</ul>
+<h2 id="section-5">5. 情绪位置变化</h2>
+
+<h3>证据</h3>
+<ul>
+<li>状态：<strong>不利</strong>；阶段：<strong>拥挤后的退潮</strong>。</li>
+<li>H1归母净利润+123%、经营现金流+67%、矿产铜超计划、玉龙增储和扩建均已公开；股价7月9日至8月7日上涨约48.6%，价值锚已经被快速交易为一致性预期。</li>
+<li>8月11日、13日和19日分别下跌7.63%、5.37%和5.44%，中间8月17日又上涨5.92%；高波动、接力不稳和多次大跌说明赚钱效应转为反复亏钱效应。</li>
+<li>西部矿业60日收益仍强于列示铜同业，但8月19日跌幅居前；相对强势标的成为板块转弱时的高弹性风险释放口。</li>
+<li>PE(TTM)14.77倍、PB3.91倍只作为情绪拥挤辅助，不参与竞争与流动性评分。</li>
+</ul>
+<h3>反证</h3>
+<ul>
+<li>60日仍+14.41%、5日仍+1.46%，股价没有回到7月突破起点；强现金流和控股股东增持提供价值锚，尚非冰点。</li>
+<li>8月17日反弹5.92%，说明市场仍愿意围绕铜矿逻辑试错；若资金质量改善，退潮可以转入修复。</li>
+<li>未取得舆情热度、卖方盈利修订、ETF申赎和账户持仓，不能确认所有参与者已形成一致悲观。</li>
+</ul>
+<h3>失效条件</h3>
+<ul>
+<li>若股价重新站稳40—43元，20日大额订单转正、融资不加速且铜同业广度扩散，则退潮失效，可上调为中性并进入修复。</li>
+<li>若跌破7月突破区间、融资加速撤退、铜价和Q3产量同时下修，当前不利状态延续并可能接近冰点；只有恐慌和普遍亏钱效应闭合后才判冰点。</li>
+</ul>
+<h2 id="section-6">6. 综合状态与主导矛盾</h2>
+
+<ul>
+<li>综合状态：<strong>尚未形成有利共振</strong>。</li>
+<li>主导矛盾：国内铜资源、矿端利润和公司H1现金业绩共同证明竞争格局有利；但市场在一个月内快速重估后，增量资金没有继续扩散，较大订单退出、融资承接效率下降、情绪由拥挤转为退潮。核心不是公司有没有铜矿优势，而是当前价格还能否由非杠杆长期资金持续承接。</li>
+<li>下一验证点：20日大额订单和融资结构、控股股东增持完成度、铜价与TC/RC、2026Q3矿产铜和现金流、玉龙三期年底基建。</li>
+<li>综合失效条件：若竞争兑现延续且流动性修复、情绪重新扩散，可升级为部分有利或同步有利；若铜价、产量和现金流转差，流动性进入收缩，则可能降为同步不利。</li>
+</ul>
+<h2 id="section-7">7. 行动映射</h2>
+
+<h3>新增现金（buy / wait / observe / review）</h3>
+<table>
+<thead>
+<tr>
+<th>行动</th>
+<th>条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>wait</td>
+<td>当前维持。竞争格局有利，但流动性由扩张转弱、情绪退潮；等待20日大额订单转正、融资不再与价格背离、股价重新站稳40元、铜ETF与同业广度扩散中至少两项确认，再重新评估。</td>
+</tr>
+</tbody></table>
+<h3>已有持仓（sell / reduce / wait / observe / review）</h3>
+<table>
+<thead>
+<tr>
+<th>行动</th>
+<th>条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>review</td>
+<td>当前维持。复核持仓成本、仓位、铜价和玉龙产量假设；强现金流与大股东增持仍在，尚未进入流动性收缩，不把单日回撤机械等同于竞争优势失效。</td>
+</tr>
+<tr>
+<td>reduce</td>
+<td>若价格跌破7月突破区间，20日大额订单继续流出、融资加速撤退，同时铜价、Q3矿产铜、现金流或玉龙三期进度至少一项显著下修，则竞争兑现与资金承接同时恶化，可条件化降低暴露。</td>
+</tr>
+</tbody></table>
+<h2 id="section-8">8. 数据缺口与置信度</h2>
+
+<ul>
+<li>数据缺口：同业逐矿现金成本、品位、回收率和ROIC；8月即时铜价与库存、美元指数；铜ETF、公募、保险、北向和产业资本连续流量；账户身份、筹码成本、完整减持解禁；玉龙扩建完整可研与单位经济性。</li>
+<li>已检查范围：最新版三要素概念页；铜产业方案、有色稳增长和“十五五”找矿部署；IEA、ICSG铜供需；公司2026H1与8月调研；本地Tushare截至8月19日六家铜企量价、订单分档和截至8月18日融资数据。</li>
+<li>影响：足以判断国家方向、矿端利润、公司H1兑现和二级市场从扩张到转弱的迁移；不能精确量化公司相对全球龙头的单位成本领先，也不能识别资金账户身份。</li>
+<li>总体置信度：<strong>中</strong>。竞争与情绪为中等置信度，流动性为中高置信度；Q3产量、铜价与同业成本仍可能改变结论幅度。</li>
+</ul>
+<h2 id="section-9">9. 来源</h2>
+
+<h3>Wiki依据</h3>
+<ul>
+<li><a href="../../../../wiki/topics/冰冰小美-情绪体系认知篇.md">冰冰小美体系三要素总框架</a>。</li>
+<li><a href="../../../../wiki/concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势.md">竞争格局的比较优势：3层 × 5问模型</a>。</li>
+<li><a href="../../../../wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md">流动性辩证分析</a>。</li>
+<li><a href="../../../../wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化.md">情绪位置的变化</a>。</li>
+<li><a href="../../../../wiki/reasoning/冰冰小美-对铜的分析.md">冰冰小美对铜与西部矿业的推导</a>：只作为体系观点与历史逻辑来源，当前数据已独立核验。</li>
+</ul>
+<h3>当前数据</h3>
+<ul>
+<li><a href="../../../webpages/2026-08-19-西部矿业三要素政策行业与市场证据快照.md">西部矿业三要素政策、行业与市场证据快照</a>：三层五问底稿、政策、铜供需、H1经营、流动性和情绪证据。</li>
+<li><a href="../../../webpages/2026-07-23-西部矿业机构级研究资料快照.md">西部矿业机构级研究资料快照</a>：公司历史财务、旧行情和铜产业资料。</li>
+<li><a href="../../../../workbench/targets/2026-07-23-1726-西部矿业-机构级决策研报.md">西部矿业机构级决策研报</a>：公司估值边界；<strong>不参与本报告三要素评分</strong>。</li>
+<li><a href="https://wap.miit.gov.cn/cms_files/filemanager/1226211233/attach/202410/fe71a151cd0845e0b317b2e9b073209d.pdf">工业和信息化部：铜产业高质量发展实施方案（2025—2027年）</a>：资源保障、绿色智能、综合利用与政策协同。</li>
+<li><a href="https://www.miit.gov.cn/jgsj/ycls/ysjs/art/2025/art_1b4bc1c83c9f479ea38be24cfca7db46.html">工业和信息化部：有色金属行业稳增长工作方案（2025—2026年）解读</a>：铜资源开发与行业目标。</li>
+<li><a href="https://www.cgs.gov.cn/ywdt/ddyw/202606/t20260616_862702.html">中国地质调查局：自然资源部部署“十五五”找矿突破战略行动</a>：战略性矿产增储上产和绿色矿山。</li>
+<li><a href="https://www.iea.org/commentaries/copper-prices-have-hit-record-highs-but-smelters-face-mounting-strategic-pressures">IEA：Copper prices have hit record highs, but smelters face mounting strategic pressures</a>：矿端与冶炼端位置、TC/RC和供应链风险。</li>
+<li><a href="https://icsg.org/download/2026-04-23-press-release-icsg-copper-market-forecast-2026-2027/?filename=2026-04-23-ICSG-Forecast-Press-Release.pdf&ind=69ea529460d24&refresh=9a8e40d5&wpdmdl=9245">ICSG：Copper Market Forecast 2026/2027</a>：精炼铜供需预测与口径边界。</li>
+<li><a href="https://www.iea.org/reports/global-critical-minerals-outlook-2025/overview-of-outlook-for-key-minerals">IEA：Global Critical Minerals Outlook 2025—Copper</a>：电气化需求、项目管线和长期供给缺口。</li>
+<li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12467474&stockid=601168">西部矿业2026年半年度报告</a>：H1财务、产量、子公司、项目、股东和风险。</li>
+<li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12478302&stockid=601168">西部矿业2026年8月3日调研记录</a>：玉龙三期、4,500万吨扩建、茶亭、资本开支和冶炼利润。</li>
+</ul>
+</article>
+    </div>
+  </main>
+</body>
+</html>

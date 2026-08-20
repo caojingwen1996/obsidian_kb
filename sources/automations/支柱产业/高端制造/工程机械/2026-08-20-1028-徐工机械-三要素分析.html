@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>徐工机械冰冰小美体系三要素分析</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --positive: #17604e;
+  --positive-bg: #dff3eb;
+  --negative: #a82828;
+  --negative-bg: #ffe1df;
+  --neutral: #7b5b18;
+  --neutral-bg: #fff2cf;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; color: var(--ink); background: var(--paper); font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif; line-height: 1.7; }
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero { padding: 56px 76px 46px; color: #fff; background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%); }
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.research-note { margin: 16px 0 26px; padding: 14px 18px 13px; border: 1px solid #dce5e9; border-left: 4px solid #8ca6b1; border-radius: 8px; color: #526875; background: #f7fafb; }
+.research-note-title { margin: 0 0 7px; color: #58717d; font-size: 12px !important; font-weight: 700; letter-spacing: .08em; }
+.research-note ul { margin: 0; padding-left: 21px; }
+.research-note li { margin: 4px 0; font-size: 13.5px; line-height: 1.65; }
+.research-note li::marker { color: #8ca6b1; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.factor-summary { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin: 26px 0 42px; }
+.factor-card { min-width: 0; padding: 16px; border: 1px solid var(--line); border-radius: 12px; background: #f7f9fa; }
+.factor-card p { margin: 0 0 6px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .06em; }
+.factor-card strong { color: var(--navy); font-size: 18px; line-height: 1.35; }
+.factor-card.positive { background: var(--positive-bg); }
+.factor-card.positive strong { color: var(--positive); }
+.factor-card.negative { background: var(--negative-bg); }
+.factor-card.negative strong { color: var(--negative); }
+.factor-card.neutral { background: var(--neutral-bg); }
+.factor-card.neutral strong { color: var(--neutral); }
+
+@media (max-width: 1100px) { .factor-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 980px) { .hero { padding: 40px 30px 34px; } .layout { grid-template-columns: 1fr; } .toc { border-right: 0; border-bottom: 1px solid var(--line); } .toc-inner { position: static; columns: 2; } .content { padding: 34px 30px 64px; } }
+@media (max-width: 600px) { .toc-inner { columns: 1; } .content { padding: 28px 18px 54px; } .factor-summary { grid-template-columns: 1fr; } }
+@media print { body { background: #fff; } .report-shell { max-width: none; } .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; } .layout { display: block; } .toc { display: none; } .content { padding: 25px 36px; } .content h2 { break-after: avoid; } .content table { display: table; overflow: visible; break-inside: avoid; } .factor-card { border: 1px solid #aebbc2; background: #fff !important; } .research-note { break-inside: avoid; background: #fff; } }
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM THREE-FACTOR ANALYSIS</p>
+      <h1>徐工机械冰冰小美体系三要素分析</h1>
+      <div class="hero-meta"><span>个股</span><span>深圳证券交易所 / A股</span><span>2026-08-20 10:28 Asia/Shanghai；行情截至8月19日收盘，订单分档与融资融券截至8月18日</span><span>2026-08-20 10:28 Asia/Shanghai</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 一句话结论</a>
+<a class="toc-link" href="#section-2">2. 三要素状态总表</a>
+<a class="toc-link" href="#section-3">3. 竞争格局的比较优势</a>
+<a class="toc-link" href="#section-4">4. 流动性辩证分析</a>
+<a class="toc-link" href="#section-5">5. 情绪位置变化</a>
+<a class="toc-link" href="#section-6">6. 综合状态与主导矛盾</a>
+<a class="toc-link" href="#section-7">7. 行动映射</a>
+<a class="toc-link" href="#section-8">8. 数据缺口与置信度</a>
+<a class="toc-link" href="#section-9">9. 来源</a></div></aside>
+      <article class="content"><blockquote>
+<p>对象层级：个股
+市场：深圳证券交易所 / A股
+分析截止时间：2026-08-20 10:28 Asia/Shanghai；行情截至8月19日收盘，订单分档与融资融券截至8月18日
+报告生成时间：2026-08-20 10:28 Asia/Shanghai
+核心问题：徐工机械当前三要素是否形成有利共振，以及新增资金与已有持仓分别应采取什么动作。</p>
+</blockquote>
+<section class="factor-summary" aria-label="三要素摘要">
+    <div class="factor-card neutral"><p>综合状态</p><strong>尚未形成有利共振。</strong></div>
+    <div class="factor-card positive"><p>竞争格局</p><strong>有利</strong></div>
+    <div class="factor-card negative"><p>流动性</p><strong>不利 / 转弱。</strong></div>
+    <div class="factor-card neutral"><p>情绪位置</p><strong>中性</strong></div>
+    <div class="factor-card neutral"><p>总体置信度</p><strong>中。政策项目、行业销量、公司法定财务、回购增持与多窗口交易证据较强；全球同业同口径、资金身份、ETF、板块连续广度和半年报仍不完整。</strong></div>
+  </section>
+<h2 id="section-1">1. 一句话结论</h2>
+
+<ul>
+<li>综合状态：<strong>尚未形成有利共振</strong>。</li>
+<li>流动性阶段：<strong>转弱</strong>。</li>
+<li>主导要素：<strong>竞争格局有利</strong>。机械装备属于国策和项目资金支持方向，工程机械销量、出口和徐工海外收入已经验证需求与企业承接能力。</li>
+<li>拖累要素：<strong>流动性不利</strong>。近20日价格下跌、订单资金净流出与融资余额逆势增加形成脆弱结构；情绪仅处于退潮后的低位分歧，尚未转成试错扩散。</li>
+</ul>
+<h2 id="section-2">2. 三要素状态总表</h2>
+
+<table>
+<thead>
+<tr>
+<th>要素</th>
+<th>状态</th>
+<th>核心证据</th>
+<th>核心反证</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>有利</td>
+<td>机械行业政策、1,851亿元设备更新资金和8,000亿元“两重”项目提供方向与场景；2026H1工程机械销量+18.3%；徐工2025海外收入485.99亿元、+16.58%，经营现金流141.42亿元</td>
+<td>固定资产投资、基建和专用设备投资仍弱；徐工海外占比与毛利低于三一；2026Q1收入+9.26%而扣非利润仅+0.80%，财务费用明显上升</td>
+<td>中</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>不利</td>
+<td>截至8月18日近20日股价-9.15%、订单代理净流出17.97亿元，融资余额却+43.22%；8月19日全市场仅449只上涨</td>
+<td>8月19日徐工逆势+0.25%；注销式回购已执行3.4183亿元，现价低于回购区间；全市场融资20/60日仍在去化</td>
+<td>中高</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>中性</td>
+<td>现价接近52周低点，8月19日普跌中抗跌，估值处于既有公允价值区间下沿，未见高位拥挤</td>
+<td>5日-2.30%，截至8月18日20/60日-9.15%/-17.62%；行业四家样本近20日全跌，利好没有形成赚钱效应</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 竞争格局的比较优势</h2>
+
+<blockquote>
+<p>“3 层 × 5 问”已在<a href="../../../../webpages/2026-08-20-徐工机械三要素政策行业与市场证据快照.md">徐工机械三要素证据快照</a>中完成。本节只展示各层结论、证据、反证与研究审计信息。</p>
+</blockquote>
+<h3>国家层：方向与资源配置</h3>
+<ul>
+<li>结论：<strong>方向有利、项目资金已落地，但向徐工收入与利润的传导仍属间接证据</strong>。国家把机械装备、设备更新和重大工程列入产业发展与资源配置方向，徐工具有承接资格；国内投资总量下行说明并非无差别景气扩张。</li>
+<li>国策方向：<a href="https://www.miit.gov.cn/jgsj/zbys/jxgy/art/2025/art_3ec1c7ebbeef44e0a29e6d14ffa9f815.html">工信部机械行业稳增长方案解读</a>把机械行业定位为基础性、战略性和引领性行业，要求扩大有效需求、发展智能装备、强化产业链韧性、标准和品牌。</li>
+<li>政策落地：方案明确以基础设施、新上及更新改造设备投资为主要需求来源，并配置税收、金融、设备更新和地方配套支持；政策已经进入实施期，不是单纯顶层表态。</li>
+<li>资源配置：<a href="https://www.ndrc.gov.cn/fggz/202604/t20260430_1405007_ext.html">国家发改委</a>披露2026年“两新”设备更新资金累计安排1,851亿元，覆盖16个领域超过6,700个项目；<a href="https://www.ndrc.gov.cn/fggz/202607/t20260707_1406332.html">“两重”项目</a>安排8,000亿元支持1,417个重大项目，覆盖交通、地下管网、水利和西部陆海新通道等施工场景。</li>
+<li>核心证据：2026H1设备工器具购置投资+8.1%，工程机械十二类产品销量+18.3%，说明政策方向已部分传导为设备需求；徐工2025收入和海外业务增长证明企业具备承接能力。</li>
+<li>核心反证：<a href="https://www.stats.gov.cn/sj/zxfbhjd/202607/t20260715_1964124.html">国家统计局</a>披露2026H1固定资产投资-5.7%、基建投资-2.4%、专用设备制造业投资-8.6%、道路运输业投资-7.7%，传统需求没有全面扩张；公开资料未披露徐工获得的专项采购金额。</li>
+</ul>
+<aside class="research-note" aria-label="研究提示"><p class="research-note-title">研究提示</p><ul>
+<li>已检索范围：已检查机械行业稳增长方案、2026年“两新”设备更新资金、“两重”项目清单、固定资产投资分项、徐工回购与控股股东增持；宽泛国家制度和地缘叙事不作为直接证据。</li>
+<li>数据缺口：财政、政策性信贷、产业基金和政府采购直接流向徐工的金额；重大工程采购清单、徐工品牌份额和实际开工率。</li>
+<li>下一验证点：设备更新项目支付和工程机械招标、重大工程实物工作量、国五排放与存量替换、徐工国内订单和现金回收。</li>
+<li>失效条件：重大工程和设备更新不能形成设备需求，国内需求继续下降且出口环境同时恶化。</li>
+</ul>
+</aside>
+<h3>产业 / 行业层：利润流向与产业链位置</h3>
+<ul>
+<li>结论：<strong>有利但分化</strong>。利润机会主要流向挖机、装载机、矿机、出口、本地化服务和电动化产品；头部整机厂掌握产品集成、品牌、渠道和售后入口，徐工处于高价值位置。地产相关起重品类、行业价格竞争和全球龙头同步扩张，使复苏不是无差别红利。</li>
+<li>核心证据：2026H1十二类工程机械销量+18.3%，挖机销量+26.4%，其中国内+20.4%、出口+33.5%；7月挖机出口仍+21.2%。徐工2025土方机械收入+25.49%、矿业机械+23.83%，与行业利润池方向一致。</li>
+<li>核心证据：徐工具备土方、起重、矿机、高空、桩工、道路等全品类平台，并掌握大型矿山成套、整机集成、经销服务和大客户入口；海外收入占比48.20%、毛利率25.80%，高于国内毛利率19.64%。</li>
+<li>核心反证：2026H1塔式起重机销量-14.4%，7月国内挖机增速降至4.13%；行业涨价执行率尚未在徐工毛利率中验证。Caterpillar与Komatsu最新经营仍强，全球品牌、渠道、金融和数字施工竞争没有减弱。</li>
+</ul>
+<aside class="research-note" aria-label="研究提示"><p class="research-note-title">研究提示</p><ul>
+<li>已检索范围：已检查十二类工程机械、挖机国内与出口销量，徐工产品分部、海外和现金流，国内三一、中联、柳工的市场定价与表现，以及Caterpillar、Komatsu最新结果。</li>
+<li>数据缺口：各品类国内外同口径份额、成交价格、经销库存、服务利润率、涨价执行率、全球同业资本开支与渠道回报。</li>
+<li>下一验证点：月度挖机与起重机销量、出口、价格与原材料传导、主要厂商份额和利润率。</li>
+<li>失效条件：销量增长依赖降价、成本无法转嫁、海外贸易壁垒提高，或国内外竞争者持续扩大徐工核心市场份额。</li>
+</ul>
+</aside>
+<h3>企业层：谁能获得利润</h3>
+<ul>
+<li>结论：<strong>有利但兑现质量低于规模优势，置信度中等</strong>。相对中联和柳工，徐工的规模、全品类、矿山成套、全球制造与供应链能力更强；相对三一，海外占比、海外毛利与市场质量溢价偏弱；相对Caterpillar和Komatsu，成本与中国供应链有优势，品牌、金融、数字施工和高端矿山服务仍需追赶。</li>
+<li>核心证据：2025收入1,008.23亿元、+8.37%，扣非利润+13.68%，经营现金流141.42亿元；海外收入485.99亿元、+16.58%，占48.20%。土方与矿机是已验证的收入增长环节，2026Q1经营现金流仍同比+153.12%。</li>
+<li>核心证据：<a href="https://static.cninfo.com.cn/finalpage/2026-08-04/1225453676.PDF">回购公告</a>显示截至7月31日已用3.4183亿元回购并用于注销，成交8.67—9.99元；<a href="https://disc.static.szse.cn/disc/disk03/finalpage/2026-06-26/9f082481-2726-4419-83d0-da80499f89f9.PDF">控股股东增持公告</a>显示增持约0.999亿元、均价10.91元，资本动作对现价提供价值反证。</li>
+<li>核心反证：2026Q1收入+9.26%时归母和扣非利润仅+0.86%/+0.80%，财务费用由-1.07亿元转为6.91亿元，应收账款由2025年末408.03亿元升至444.72亿元。徐工PE(TTM)14.29倍虽低于三一20.72倍，但高于柳工10.57倍、接近中联13.83倍，市场并未给出无条件低估。</li>
+</ul>
+<aside class="research-note" aria-label="研究提示"><p class="research-note-title">研究提示</p><ul>
+<li>已检索范围：已检查徐工产品、海外区域、分部收入与毛利、利润、现金流、应收、财务费用、回购和增持；国内对比三一、中联、柳工，全球对比Caterpillar、Komatsu。</li>
+<li>数据缺口：同口径全球份额、地区订单与价格、海外ROIC、服务利润、核心零部件自制率、新能源独立利润和2026H1。</li>
+<li>下一验证点：8月29日半年报的海外收入与毛利、扣非利润、财务费用、经营现金流、应收和存货。</li>
+<li>失效条件：海外毛利下降、收入继续增长但扣非利润与现金流持续弱化、融资费用高位化，或核心市场份额和价格同时丢失。</li>
+</ul>
+</aside>
+<h3>本要素判断</h3>
+<ul>
+<li>状态：<strong>有利</strong>。</li>
+<li>理由：国家层方向和项目资金、产业层销量与出口、企业层全品类、矿机、海外收入与现金创造共同确认徐工具有参与资格和获得利润的能力。反证集中在国内投资总量、全球强敌和2026Q1利润转化断点，尚未否定比较优势，但限制置信度。</li>
+</ul>
+<aside class="research-note" aria-label="研究提示"><p class="research-note-title">研究提示</p><ul>
+<li>主导证据：政策项目形成应用场景，行业销量与出口确认需求，徐工海外收入、矿机和经营现金流确认企业承接能力。</li>
+<li>核心缺口：政策资金到徐工订单的直接映射、全球同口径份额、海外利润与现金回报。</li>
+<li>下一验证点：8月29日半年报、后续月度销量、价格、海外订单和现金流。</li>
+<li>失效条件：行业销量、徐工份额、海外毛利和现金利润同步恶化时，下调为中性或不利。</li>
+</ul>
+</aside>
+<h2 id="section-4">4. 流动性辩证分析</h2>
+
+<blockquote>
+<p>核心边界：成交量只是结果。本节同时检查钱从哪里来、是否持续、流向哪里、需要承接多少筹码，以及撤退时谁来承接。</p>
+</blockquote>
+<h3>宏观流动性</h3>
+<ul>
+<li>事实与时点：美联储2026-07-29维持联邦基金利率3.50%—3.75%；美国10年期国债收益率由7月初4.48%升至8月17日4.72%。中国2026年7月M2同比+7.7%、M1同比+4.0%，CPI同比+0.5%，制造业PMI为49.2%。</li>
+<li>对对象的影响：<strong>中性偏约束</strong>。国内货币存量和温和通胀对低估值制造业并不苛刻，但M1弱于M2、PMI低于荣枯线，说明资金活化与需求不足；美元利率和长债收益率约束海外融资与全球估值。</li>
+</ul>
+<h3>中观流动性</h3>
+<ul>
+<li>事实与时点：设备更新资金累计1,851亿元，“两重”项目8,000亿元；2026H1设备购置投资+8.1%、工程机械销量+18.3%，但固定资产投资-5.7%、基建投资-2.4%。全市场融资余额截至8月18日约2.6709万亿元，5/10/20/60日+1.25%/+3.03%/-1.00%/-8.01%。</li>
+<li>传导判断：产业项目资金已进入应用场景并形成部分销量，属于实体支持；二级市场杠杆短期回补、中期仍去化，不能把项目资金等同于徐工股票增量。</li>
+<li>对对象的影响：<strong>实体偏支持、股票偏约束</strong>。</li>
+</ul>
+<h3>微观流动性</h3>
+<ul>
+<li>事实与时点：8月19日徐工收8.06元、+0.25%，成交8.49亿元、为20日均值0.84倍，换手1.17%，近5日-2.30%。截至8月18日，20/60日-9.15%/-17.62%，近5/20日订单代理净额-4.29/-17.97亿元；融资余额10.87亿元，5/20/60日+4.48%/+43.22%/+1.54%。</li>
+<li>迁移路径：资金没有从同业持续迁入徐工；价格和订单流下降时，融资账户逆势承接，说明主要新增渠道更接近杠杆抄底而非长期场外资金。8月19日普跌中抗跌属于卖压缓和或低估值防御的反证，但缩量不足以证明增量合力。</li>
+<li>对对象的影响：<strong>不利</strong>。</li>
+</ul>
+<h3>资金来源分类</h3>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>是否存在</th>
+<th>渠道与证据</th>
+<th>持续性</th>
+<th>退出条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>场外真实增量</td>
+<td>部分存在</td>
+<td>公司注销式回购已执行3.4183亿元；控股股东完成约0.999亿元增持</td>
+<td>低至中</td>
+<td>回购执行放缓、半年报削弱价值锚，或市场卖压超过公司承接</td>
+</tr>
+<tr>
+<td>存量迁移</td>
+<td>否 / 证据不足</td>
+<td>徐工20/60日弱于主要同业，近20日订单代理净流出</td>
+<td>低</td>
+<td>相对强度、20日订单流和非杠杆承接转正后才确认迁入</td>
+</tr>
+<tr>
+<td>减量报团</td>
+<td>否 / 证据不足</td>
+<td>价格接近低位且单日抗跌，但缺工程机械ETF、机构持仓和板块集中度</td>
+<td>低</td>
+<td>若市场广度继续收窄而徐工连续独立走强，才复核低估值报团</td>
+</tr>
+</tbody></table>
+<h3>供给与抛压</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>当前事实</th>
+<th>对流动性的影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>杠杆资金</td>
+<td>个股融资20日+43.22%，同期价格-9.15%</td>
+<td>提供短期承接但未扭转趋势；一旦跌破低点，可能放大偿还卖压</td>
+</tr>
+<tr>
+<td>股票融资供给</td>
+<td>本次未发现正在执行的新A股增发、配股或可转债</td>
+<td>当前新增融资供给未确认</td>
+</tr>
+<tr>
+<td>减持与解禁</td>
+<td>截止检索未发现新增重大减持；未来90日完整解禁表未取得</td>
+<td>不能确认无供给压力，置信度受限</td>
+</tr>
+<tr>
+<td>回购与增持</td>
+<td>注销式回购成交8.67—9.99元；控股股东增持均价10.91元</td>
+<td>减少股份并提供价值信号，但金额不足以替代盈利和市场增量</td>
+</tr>
+<tr>
+<td>套牢盘与高位筹码</td>
+<td>现价低于回购区间且较52周高点低约37.5%</td>
+<td>8.67元以上至前高存在多层解套供给，反弹需成交和利润承接</td>
+</tr>
+</tbody></table>
+<h3>最低数据检查</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>已检查数据</th>
+<th>数据时点与窗口</th>
+<th>来源</th>
+<th>缺口及影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观</td>
+<td>美联储利率、美债收益率、M2/M1、CPI、PMI</td>
+<td>2026年7月至08-20</td>
+<td>美联储、央行口径库内快照、国家统计局</td>
+<td>美元指数、人民币汇率和主要原材料完整同窗口序列缺失，限制跨境和成本判断</td>
+</tr>
+<tr>
+<td>中观</td>
+<td>两新、两重、固定资产投资、行业销量、全市场融资</td>
+<td>2026H1至08-18</td>
+<td>发改委、统计局、行业协会转引、本地Tushare</td>
+<td>工程机械专项信贷、产业基金、ETF和公募资金缺失</td>
+</tr>
+<tr>
+<td>微观</td>
+<td>价格、成交、换手、同业、订单分档、个股融资、市场广度</td>
+<td>当日及5/20/60日</td>
+<td>本地Tushare、库内监控与证据快照</td>
+<td>8月19日订单分档和融资尚不可得；账户身份、外资、公募与做空回补缺失</td>
+</tr>
+<tr>
+<td>供给与抛压</td>
+<td>回购、增持、融资、52周价格、公告索引</td>
+<td>当前及历史</td>
+<td>公司公告、交易所、库内快照</td>
+<td>未来90日完整解禁、筹码成本和潜在减持意向缺失</td>
+</tr>
+</tbody></table>
+<h3>证据</h3>
+<ul>
+<li>价格20日-9.15%、订单代理净流出17.97亿元、融资余额却+43.22%，形成“价格弱—资金撤—杠杆接”的不利组合。</li>
+<li>徐工20/60日弱于三一、中联和柳工主要样本，没有证据证明存量资金向徐工迁移。</li>
+<li>8月19日市场上涨家数由前一日2,121只降至449只，指数与高弹性资产同步下跌，系统承接明显下降。</li>
+</ul>
+<h3>反证</h3>
+<ul>
+<li>8月19日徐工在全市场普跌中逆势+0.25%，说明低位卖压没有继续同步扩散。</li>
+<li>注销式回购和控股股东增持属于可确认的真实资金；当前价格低于回购成交区间和增持均价。</li>
+<li>现价处于<a href="../../../../../workbench/targets/2026-07-20-1737-徐工机械-机构级决策研报.md">徐工机械机构级决策研报</a>7.8—10.6元公允价值区间下沿，估值本身不是主要流动性压力。</li>
+</ul>
+<h3>退出路径</h3>
+<ul>
+<li>第一条：半年报利润转化继续弱于预期，价值型存量资金撤退。</li>
+<li>第二条：价格跌破7.80元，逆势增加的融资账户开始偿还，杠杆把下跌放大。</li>
+<li>第三条：反弹至8.67—9.99元回购区间后，解套盘增加而订单流、ETF和长期机构不跟随。</li>
+<li>观察指标：7.80元承接、8.67—9.99元回购区间、20日订单流、个股与全市场融资、实际回购、工程机械同业广度与ETF份额。</li>
+</ul>
+<h3>失效条件</h3>
+<ul>
+<li>若半年报确认扣非利润、现金流和海外毛利改善，价格重新站稳8.67—9.00元，20日订单流转正、融资20日增幅降至10%以内且市场广度修复，则“不利/转弱”失效，可上调为中性或修复。</li>
+<li>若跌破7.80元，订单流连续转负、融资继续加速或回购停止，则转弱可能升级为收缩。</li>
+</ul>
+<h3>流动性阶段判定</h3>
+<ul>
+<li>方向评价：<strong>不利</strong>。</li>
+<li>当前状态：<strong>转弱</strong>。</li>
+<li>上一可辨识状态或基准状态：<strong>平衡</strong>。</li>
+<li>转换方向：<strong>平衡 → 转弱</strong>。</li>
+<li>跨层依据：宏观层国内货币存量尚可但活化不足、美元利率形成约束；中观层实体项目资金支持行业、二级市场中期融资仍去化；微观层徐工价格与订单流下降、融资逆势增加，8月19日市场广度又急剧恶化。回购与单日抗跌阻止其直接判为收缩，但无法维持平衡。</li>
+<li>相邻状态排除理由：不是平衡，因为多窗口价格和订单资金已持续转差；不是收缩，因为单日相对抗跌、注销式回购和低估值仍提供承接，尚未出现价格、卖压、杠杆偿还和恐慌的全面自我强化；不是修复，因为资金、成交和行业广度没有连续改善。</li>
+<li>置信度：<strong>中高</strong>。目标量价、订单分档、融资、同业和市场广度相互支持；8月19日订单与融资、ETF和资金身份缺失限制进一步上调。</li>
+</ul>
+<h2 id="section-5">5. 情绪位置变化</h2>
+
+<h3>证据</h3>
+<ul>
+<li>情绪位置：<strong>退潮后的低位分歧，出现单日抗跌但尚未形成试错扩散</strong>。</li>
+<li>8.06元接近52周低点7.80元，较高点12.90元低约37.5%；市场没有按高位拥挤定价，估值处于既有公允价值区间下沿。</li>
+<li>8月19日全市场仅449只上涨时徐工+0.25%，说明恐慌卖压阶段性减弱，可能出现低估值防御或底部试错。</li>
+<li>注销式回购、控股股东增持和行业销量增长提供实体与价值锚，使情绪并非无锚博弈。</li>
+</ul>
+<h3>反证</h3>
+<ul>
+<li>5日-2.30%，截至8月18日20/60日-9.15%/-17.62%；价格仍未形成趋势修复。</li>
+<li>徐工现价低于8.67—9.99元回购区间和10.91元控股股东增持均价，说明正面资本动作没有转化为持续赚钱效应。</li>
+<li>三一、徐工、中联和柳工近20日全部下跌，行业情绪没有扩散；徐工的20/60日相对位置偏弱。</li>
+<li>8月19日抗跌发生在缩量背景，缺ETF净申购、20日订单流转正和板块广度改善，不能确认从低位分歧进入试错或扩散。</li>
+</ul>
+<h3>失效条件</h3>
+<ul>
+<li>若价格放量站稳8.67—9.00元、工程机械同业20日多数转正、订单流与ETF份额同步改善，则“低位分歧”失效，可进入试错或扩散，情绪方向上调为有利。</li>
+<li>若跌破7.80元，融资加速偿还、订单流和行业广度同步转弱，则低位分歧转为退潮延续，情绪方向下调为不利。</li>
+</ul>
+<h2 id="section-6">6. 综合状态与主导矛盾</h2>
+
+<ul>
+<li>综合状态：<strong>尚未形成有利共振</strong>。</li>
+<li>主导矛盾：徐工的方向资格和全球化承接能力已经由政策、项目资金、行业销量、海外收入与现金流证实；但2026Q1收入没有转化为同幅度利润，二级市场又出现订单资金退出和融资逆势增加。竞争格局有利不能机械抵消流动性不利，低估值与回购只能提供反证，尚不能定义新的买入共振。</li>
+<li>下一验证点：8月29日半年报的海外收入与毛利、扣非利润、财务费用、经营现金流、应收和存货；随后观察价格能否非杠杆化站稳8.67—9.00元、融资20日增幅是否降至10%以内、20日订单流和行业广度是否转正。</li>
+<li>综合失效条件：若半年报证明利润和现金流重新跟上收入，且流动性与情绪同步改善，则可升级为部分有利或同步有利；若海外毛利、扣非利润和现金流恶化，价格跌破7.80元并出现融资偿还与订单撤退，则可能降为同步不利。</li>
+</ul>
+<h2 id="section-7">7. 行动映射</h2>
+
+<h3>新增现金（buy / wait / observe / review）</h3>
+<table>
+<thead>
+<tr>
+<th>行动</th>
+<th>条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>observe</td>
+<td>当前维持。现价接近价值区间下沿且竞争格局有利，但流动性转弱、融资20日+43.22%和半年报尚未验证利润转化，不用杠杆抄底。若半年报扣非利润增速回到收入增速的一半以上、经营现金流保持正向、海外毛利稳定，同时融资20日增幅降至10%以内、20日订单流转正、价格站稳8.67—9.00元，再评估是否升级为 <code>buy</code>。</td>
+</tr>
+<tr>
+<td>wait</td>
+<td>若价格有效跌破7.80元，或半年报扣非利润负增长、财务费用继续上升，同时订单流持续为负与融资继续加速，则从 <code>observe</code> 降为 <code>wait</code>，等待去杠杆和价值锚重估。</td>
+</tr>
+</tbody></table>
+<h3>已有持仓（sell / reduce / wait / observe / review）</h3>
+<table>
+<thead>
+<tr>
+<th>行动</th>
+<th>条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>review</td>
+<td>当前维持。复核持仓成本、仓位和8月29日半年报；竞争格局尚未失效，不因单日市场普跌机械卖出，也不因低估值和回购机械加仓。</td>
+</tr>
+<tr>
+<td>reduce</td>
+<td>若半年报扣非利润负增长、经营现金流转弱或海外毛利显著下滑，同时价格跌破7.80元、20日订单流继续净流出且融资由增加转为加速偿还，说明利润与承接同时失效，可条件化降低暴露。</td>
+</tr>
+</tbody></table>
+<h2 id="section-8">8. 数据缺口与置信度</h2>
+
+<ul>
+<li>数据缺口：国家层缺财政、信贷、产业基金和采购直接流向徐工的统一金额；行业层缺国内外同口径份额、价格、经销库存、服务利润和涨价执行率；企业层缺2026H1、地区订单、海外ROIC、新能源独立利润和核心零部件自制率。流动性与情绪层缺工程机械ETF申赎、主动公募、保险、外资、国家队连续持仓、8月19日个股融资与订单分档、未来90日完整解禁、筹码成本与卖空回补。</li>
+<li>已检查范围：最新版三要素概念页；机械行业稳增长方案、2026年“两新”“两重”资金、固定资产投资、PMI与CPI；工程机械和挖机销量；徐工2025年报、2026Q1、分部、海外、回购、增持和公告索引；三一、中联、柳工市场对比；Caterpillar、Komatsu最新结果；本地Tushare当日及5/20/60日行情、订单分档、融资和市场广度。</li>
+<li>影响：可以确认徐工的方向资格和国内头部能力，也能确认当前二级市场结构不利；但不能确认全球份额继续扩大，也不能确认8月19日抗跌由长期机构增量驱动。因此竞争格局定为有利、流动性定为不利、情绪仅定为中性。</li>
+<li>总体置信度：<strong>中</strong>。政策项目、行业销量、公司法定财务、回购增持与多窗口交易证据较强；全球同业同口径、资金身份、ETF、板块连续广度和半年报仍不完整。</li>
+</ul>
+<h2 id="section-9">9. 来源</h2>
+
+<h3>Wiki 依据</h3>
+<ul>
+<li><a href="../../../../../wiki/topics/冰冰小美-情绪体系认知篇.md">冰冰小美体系三要素总框架</a>。</li>
+<li><a href="../../../../../wiki/concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势.md">竞争格局的比较优势：3层 × 5问模型</a>。</li>
+<li><a href="../../../../../wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md">流动性辩证分析</a>。</li>
+<li><a href="../../../../../wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化.md">情绪位置的变化</a>。</li>
+</ul>
+<h3>当前数据</h3>
+<ul>
+<li><a href="../../../../webpages/2026-08-20-徐工机械三要素政策行业与市场证据快照.md">徐工机械三要素政策、行业与市场证据快照</a>：政策、资源配置、行业、竞品、宏观、资金、融资、市场广度和情绪证据。</li>
+<li><a href="../../../../webpages/2026-08-19-徐工机械v3.0.2研报数据核验快照.md">徐工机械v3.0.2研报数据核验快照</a>：行情、估值、订单资金、融资、财务、回购和行业数据。</li>
+<li><a href="../../../../papers/徐工机械机构研报-2026-07-20/徐工机械2025年年度报告.pdf.md">徐工机械2025年年度报告</a>：分部、海外、财务、现金流与经营信息。</li>
+<li><a href="../../../../papers/徐工机械机构研报-2026-07-20/徐工机械2026年第一季度报告.pdf.md">徐工机械2026年第一季度报告</a>：最新季度利润、现金流、应收和财务费用。</li>
+<li><a href="../../../../../workbench/targets/2026-07-20-1737-徐工机械-机构级决策研报.md">徐工机械机构级决策研报</a>：公司价值边界和估值结论；不参与本报告三要素评分。</li>
+<li><a href="https://www.miit.gov.cn/jgsj/zbys/jxgy/art/2025/art_3ec1c7ebbeef44e0a29e6d14ffa9f815.html">机械行业稳增长工作方案（2025—2026年）解读</a>：机械行业定位、需求来源和供给升级任务。</li>
+<li><a href="https://www.ndrc.gov.cn/fggz/202604/t20260430_1405007_ext.html">2026年设备更新资金安排</a>：设备更新项目、资金和带动投资。</li>
+<li><a href="https://www.ndrc.gov.cn/fggz/202607/t20260707_1406332.html">2026年“两重”建设项目</a>：重大项目资金和施工应用场景。</li>
+<li><a href="https://www.stats.gov.cn/sj/zxfbhjd/202607/t20260715_1964124.html">2026年上半年固定资产投资</a>：设备购置、基建和专用设备投资分化。</li>
+<li><a href="https://static.cninfo.com.cn/finalpage/2026-08-04/1225453676.PDF">徐工机械回购进展公告</a>：注销式回购金额、数量与成交区间。</li>
+<li><a href="https://disc.static.szse.cn/disc/disk03/finalpage/2026-06-26/9f082481-2726-4419-83d0-da80499f89f9.PDF">徐工机械控股股东增持完成公告</a>：增持金额、数量和均价。</li>
+<li><a href="https://www.federalreserve.gov/newsevents/pressreleases/monetary20260729a.htm">Federal Reserve FOMC statement, 2026-07-29</a>：美国政策利率与通胀表述。</li>
+</ul>
+</article>
+    </div>
+  </main>
+</body>
+</html>

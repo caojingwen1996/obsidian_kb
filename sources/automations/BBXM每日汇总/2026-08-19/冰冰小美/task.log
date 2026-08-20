@@ -1,0 +1,7 @@
+[2026-08-19T16:07:00+08:00] START BBXM每日汇总 target_date=2026-08-19 author=冰冰小美 mode=new-day
+[2026-08-19T16:07:00+08:00] PROMPT .agents/automations/bbxm_daliy_brief.md read as sole task and output-format source
+[2026-08-19T16:07:00+08:00] PRECHECK CDP 9333 unavailable; extractor launched automation Chrome with configured profile
+[2026-08-19T16:07:00+08:00] CAPTURE extraction command started with request_pacing=auto verification_mode=auto-then-manual
+[2026-08-19T16:07:01+08:00] BLOCKED Xueqiu requested login in the automation Chrome window
+[2026-08-19T16:11:34+08:00] FAILED Timed out waiting for Xueqiu login to complete in the automation Chrome window
+[2026-08-19T16:12:45+08:00] SUMMARY wrote blocked summary; raw_post_count=0; do not interpret as no new posts

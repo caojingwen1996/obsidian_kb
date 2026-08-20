@@ -324,6 +324,15 @@ function dailyMonitorLinkForTrackingItem(item = {}, report = {}) {
   return partial?.[1] ?? null;
 }
 
+export function valuationDispositionPresentation(status) {
+  return {
+    NO_REVALUE: { label: '维持估值', tone: 'no-revalue' },
+    LIGHT_REVALUE: { label: '局部重算', tone: 'light-revalue' },
+    FULL_REVALUE: { label: '完整重估', tone: 'full-revalue' },
+    MANUAL_REVIEW: { label: '人工判断', tone: 'manual-review' },
+  }[status] ?? { label: '未提供', tone: 'missing' };
+}
+
 export function allocationCategoryForReport(reportHref) {
   const href = (() => {
     try { return decodeURIComponent(reportHref); }
@@ -490,6 +499,23 @@ export function trackingQuotePriceOnly(value) {
   return price || text;
 }
 
+export function pricingDeviationFromText(value) {
+  const text = compactText(value);
+  for (const label of ['严重估值泡沫', '估值泡沫', '普通高估', '可解释估值溢价', '估值溢价', '公允价值内', '证据不足']) {
+    if (text.includes(label)) return label === '可解释估值溢价' ? '估值溢价' : label;
+  }
+  return '';
+}
+
+export function pricingDeviationToneClass(value) {
+  return {
+    估值溢价: 'is-premium',
+    普通高估: 'is-overvalued',
+    估值泡沫: 'is-bubble',
+    严重估值泡沫: 'is-severe',
+  }[value] ?? 'is-neutral';
+}
+
 export function parseReportSummary(html) {
   if (typeof DOMParser === 'undefined') return {};
   const documentNode = new DOMParser().parseFromString(html, 'text/html');
@@ -505,13 +531,22 @@ export function parseReportSummary(html) {
       /我的判断[：:]\s*([^。；]{8,120})/,
       /一句话[：:]\s*([^。；]{8,120})/,
     ]);
-  const valueRange = priceRangeOnly(trackingCardValue(documentNode, 'dynamic-value-range')
-    || tableValueByLabel(documentNode, ['综合估值区间', '公允价值', '估值区间'])
+  const valueRange = priceRangeOnly(trackingCardValue(documentNode, 'fair-value-range')
+    || trackingCardValue(documentNode, 'dynamic-value-range')
+    || tableValueByLabel(documentNode, ['公允价值区间', '综合公允价值', '综合估值区间', '公允价值', '估值区间'])
     || firstTextMatch(bodyText, [
       /综合公允价值(?:为|取)?\s*([0-9.]+[—\\-–至到][0-9.]+\s*元(?:\/股)?)/,
       /公允价值(?:为|取)?\s*([0-9.]+[—\\-–至到][0-9.]+\s*元(?:\/股)?)/,
       /综合估值区间\s*([0-9.]+[—\\-–至到][0-9.]+\s*元(?:\/股)?)/,
     ]));
+  const pricingDeviationCard = documentNode.querySelector('[data-tracking-key="pricing-deviation"]');
+  const pricingDeviation = pricingDeviationFromText(
+    nodeText(pricingDeviationCard?.querySelector('[aria-current="true"], .pricing-level.active'))
+    || firstTextMatch(nodeText(pricingDeviationCard?.querySelector('.tracking-detail')), [
+      /当前判断[：:]\s*([^。；]{2,30})/,
+    ])
+    || tableValueByLabel(documentNode, ['估值泡沫判断'])
+  );
   const reportQuote = trackingCardValue(documentNode, 'daily-quote')
     || tableValueByLabel(documentNode, ['当前价格及时间', '当前价格'])
     || firstTextMatch(bodyText, [/当前价格[：:]\s*([^。；]{3,80})/]);
@@ -528,11 +563,65 @@ export function parseReportSummary(html) {
     secid,
     fundamental,
     valueRange,
+    pricingDeviation,
     reportQuote,
     riskDirection,
     sourceUpdated: documentNode.querySelector('#daily-tracking')?.getAttribute('data-updated-at')
       || firstTextMatch(bodyText, [/报告生成时间[：:]\s*([^。；]{6,50})/]),
   };
+}
+
+function textFromHtmlFragment(value) {
+  if (typeof DOMParser !== 'undefined') {
+    const documentNode = new DOMParser().parseFromString(String(value ?? ''), 'text/html');
+    return nodeText(documentNode.body);
+  }
+  return compactText(String(value ?? '')
+    .replace(/<[^>]*>/g, ' ')
+    .replaceAll('&nbsp;', ' ')
+    .replaceAll('&amp;', '&')
+    .replaceAll('&lt;', '<')
+    .replaceAll('&gt;', '>')
+    .replaceAll('&quot;', '"')
+    .replaceAll('&#39;', "'"));
+}
+
+export function parseThreeFactorSummary(html) {
+  const source = String(html ?? '');
+  if (!source.trim()) return {};
+  const cards = [];
+  if (typeof DOMParser !== 'undefined') {
+    const documentNode = new DOMParser().parseFromString(source, 'text/html');
+    for (const card of documentNode.querySelectorAll('.factor-summary .factor-card')) {
+      cards.push({
+        label: nodeText(card.querySelector('p')),
+        value: nodeText(card.querySelector('strong')),
+        tone: ['positive', 'neutral', 'negative'].find(tone => card.classList.contains(tone)) ?? 'neutral',
+      });
+    }
+  } else {
+    const summaryHtml = source.match(/<section\b[^>]*class=["'][^"']*factor-summary[^"']*["'][^>]*>([\s\S]*?)<\/section>/i)?.[1] ?? '';
+    for (const match of summaryHtml.matchAll(/<div\b[^>]*class=["']([^"']*\bfactor-card\b[^"']*)["'][^>]*>([\s\S]*?)<\/div>/gi)) {
+      const label = textFromHtmlFragment(match[2].match(/<p\b[^>]*>([\s\S]*?)<\/p>/i)?.[1] ?? '');
+      const value = textFromHtmlFragment(match[2].match(/<strong\b[^>]*>([\s\S]*?)<\/strong>/i)?.[1] ?? '');
+      const tone = ['positive', 'neutral', 'negative'].find(candidate => new RegExp(`(?:^|\\s)${candidate}(?:\\s|$)`).test(match[1])) ?? 'neutral';
+      cards.push({ label, value, tone });
+    }
+  }
+  const summary = {};
+  for (const card of cards) {
+    const key = card.label.includes('综合') ? 'overall'
+      : card.label.includes('竞争') ? 'competition'
+      : card.label.includes('流动') ? 'liquidity'
+      : card.label.includes('情绪') ? 'emotion'
+      : '';
+    if (key && card.value) summary[key] = { value: card.value, tone: card.tone };
+  }
+  return summary;
+}
+
+function threeFactorToneClass(tone) {
+  return ['positive', 'neutral', 'negative'].includes(tone) ? `is-${tone}` : 'is-neutral';
 }
 
 function metricStatus(metric) {
@@ -1447,6 +1536,7 @@ function startApp() {
   let fuguiTtmSortMode = 'none';
   let dividendSignalLoadedAt = 0;
   const reportSummaryCache = new Map();
+  const threeFactorSummaryCache = new Map();
   const trackingQuoteCache = new Map();
   const trackingClosePerformanceCache = new Map();
   const fuguiDividendYieldCache = new Map();
@@ -2111,6 +2201,7 @@ function startApp() {
       const skippedCount = (Array.isArray(payload.skipped) ? payload.skipped.length : 0)
         + (Array.isArray(payload.failed) ? payload.failed.length : 0);
       reportSummaryCache.clear();
+      threeFactorSummaryCache.clear();
       renderTrackingItems();
       refreshTrackingQuotes();
       button.textContent = skippedCount ? `已更新 ${updatedCount} 份` : '已全部更新';
@@ -2135,6 +2226,12 @@ function startApp() {
         reportEntry = { status: 'loading' };
         reportSummaryCache.set(reportHref, reportEntry);
         loadReportSummary(reportHref);
+      }
+      let threeFactorEntry = threeFactorReportHref ? threeFactorSummaryCache.get(threeFactorReportHref) : null;
+      if (threeFactorReportHref && !threeFactorEntry) {
+        threeFactorEntry = { status: 'loading' };
+        threeFactorSummaryCache.set(threeFactorReportHref, threeFactorEntry);
+        loadThreeFactorSummary(threeFactorReportHref);
       }
       const report = reportEntry?.data ?? {};
       const secid = secidForTrackingItem(item, report);
@@ -2165,6 +2262,7 @@ function startApp() {
         index,
         reportHref,
         threeFactorReportHref,
+        threeFactorEntry,
         reportEntry,
         report,
         quoteEntry,
@@ -2218,7 +2316,7 @@ function startApp() {
     if (trackingCloseDate) {
       trackingCloseDate.textContent = closeDates.length ? `${closeDates.at(-1)}收盘` : '';
     }
-    const renderTrackingRow = ({ item, reportHref, threeFactorReportHref, reportEntry, report, quoteEntry, closePerformanceEntry, liveQuote, signal, riskReward }) => {
+    const renderTrackingRow = ({ item, reportHref, threeFactorReportHref, threeFactorEntry, reportEntry, report, quoteEntry, closePerformanceEntry, liveQuote, signal, riskReward }) => {
       const signalLabel = signal.addStars > 0
         ? '★'.repeat(signal.addStars)
         : signal.reducible ? '可减' : '—';
@@ -2232,24 +2330,44 @@ function startApp() {
         ? `<div class="tracking-close-performance"><small>近一周 ${Number.isFinite(closePerformanceEntry.data.weekChangePercent) ? `${closePerformanceEntry.data.weekChangePercent >= 0 ? '+' : ''}${formatNumber(closePerformanceEntry.data.weekChangePercent, 2)}%` : '—'}</small></div>`
         : escapeHtml(closePerformanceEntry?.status === 'loading' ? '读取中…' : '未获取到');
       const monitorLink = dailyMonitorLinkForTrackingItem(item, report);
-      const monitorStatusText = report.riskDirection || item.riskLine || (reportEntry?.status === 'loading' ? '读取研报…' : '未获取到');
-      const monitorStatusHtml = monitorLink
-        ? `<a class="tracking-monitor-link" href="${escapeHtml(monitorLink.href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(monitorLink.status || '打开监控')}</a><small class="tracking-monitor-meta">${escapeHtml(monitorLink.date ? `${monitorLink.date} · 每日监控` : '每日监控')}</small>`
-        : escapeHtml(monitorStatusText);
+      const valuationDisposition = valuationDispositionPresentation(monitorLink?.valuationStatus);
+      const valuationReason = monitorLink?.valuationReason
+        || (monitorLink ? '报告未提供修改原因' : '未获取到每日监控报告');
+      const valuationStatusTitle = monitorLink?.valuationStatus ? ` title="${escapeHtml(monitorLink.valuationStatus)}"` : '';
+      const valuationStatusHtml = monitorLink
+        ? `<a class="is-${valuationDisposition.tone}" href="${escapeHtml(monitorLink.href)}" target="_blank" rel="noopener noreferrer"${valuationStatusTitle}>${escapeHtml(valuationDisposition.label)}</a>`
+        : `<span class="is-${valuationDisposition.tone}">${escapeHtml(valuationDisposition.label)}</span>`;
+      const valuationDispositionHtml = `<div class="tracking-valuation-disposition">${valuationStatusHtml}<small>${escapeHtml(valuationReason)}</small></div>`;
       const nameHtml = reportHref
         ? `<a href="${escapeHtml(reportHref)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.name)}</a>`
         : escapeHtml(item.name);
-      const reportLinksHtml = [
-        threeFactorReportHref ? `<a href="${escapeHtml(threeFactorReportHref)}" target="_blank" rel="noopener noreferrer">三要素研报</a>` : '',
-        reportHref ? `<a href="${escapeHtml(reportHref)}" target="_blank" rel="noopener noreferrer">个股研报</a>` : '',
-      ].filter(Boolean).join('');
+      const reportLinksHtml = reportHref
+        ? `<a href="${escapeHtml(reportHref)}" target="_blank" rel="noopener noreferrer">个股研报</a>`
+        : '';
+      const threeFactor = threeFactorEntry?.data ?? {};
+      const factorItems = [
+        ['格局', threeFactor.competition],
+        ['流动性', threeFactor.liquidity],
+        ['情绪', threeFactor.emotion],
+      ].filter(([, factor]) => factor?.value);
+      const threeFactorSummaryHtml = factorItems.length
+        ? `<small>${factorItems.map(([label, factor]) => `<span class="${threeFactorToneClass(factor.tone)}"><b>${escapeHtml(label)}</b>${escapeHtml(factor.value)}</span>`).join('')}</small>`
+        : `<small class="tracking-three-factor-state">${escapeHtml(threeFactorEntry?.status === 'loading' ? '读取研报…' : '未获取到')}</small>`;
+      const threeFactorHtml = threeFactorReportHref
+        ? `<div class="tracking-three-factor">${threeFactorSummaryHtml}<a href="${escapeHtml(threeFactorReportHref)}" target="_blank" rel="noopener noreferrer">三要素研报</a></div>`
+        : '未关联';
+      const pricingDeviation = report.pricingDeviation
+        || (reportEntry?.status === 'loading' ? '读取研报…' : '未获取到');
+      const pricingDeviationHtml = `<span class="tracking-pricing-deviation ${pricingDeviationToneClass(pricingDeviation)}">${escapeHtml(pricingDeviation)}</span>`;
       return `<tr data-tracking-id="${escapeHtml(item.id)}"${reportHref ? ` data-report-href="${escapeHtml(reportHref)}"` : ''}>
       <td class="tracking-target"><strong>${nameHtml}</strong><small>${escapeHtml(item.code || report.secid || '未填代码')}</small><span class="tracker-status">${escapeHtml(item.status)}</span></td>
       <td>${escapeHtml(report.valueRange || item.thesis || (reportEntry?.status === 'loading' ? '读取研报…' : '未获取到'))}</td>
+      <td>${pricingDeviationHtml}</td>
       <td>${escapeHtml(intraday)}</td>
       <td>${closePerformanceHtml}</td>
       <td>${escapeHtml(riskRewardText)}</td>
-      <td>${monitorStatusHtml}</td>
+      <td>${valuationDispositionHtml}</td>
+      <td>${threeFactorHtml}</td>
       <td><div class="tracking-report-links">${reportLinksHtml || escapeHtml(item.reviewCondition || '未关联研报')}</div><small class="tracking-updated">${escapeHtml(report.sourceUpdated ? `研报：${report.sourceUpdated}` : `记录：${new Date(item.updatedAt).toLocaleString('zh-CN', { hour12: false })}`)}</small><div class="tracker-row-actions"><button type="button" data-action="edit-tracking">编辑</button><button type="button" data-action="delete-tracking">删除</button></div></td>
       <td><button class="review-diary-button" type="button" data-action="review-diary">复盘日记</button></td>
       <td>${escapeHtml(signalLabel)}</td>
@@ -2262,7 +2380,7 @@ function startApp() {
           (allocationCategoryForReport(reportHref) || UNCATEGORIZED_ALLOCATION_CATEGORY.key) === group.key
         );
         if (!groupItems.length) return '';
-        return `<tr class="tracking-group-row"><th colspan="9" style="--group-color:${group.color}"><div class="tracking-group-head"><span>${escapeHtml(group.label)}</span><small>${groupItems.length} 个标的</small></div></th></tr>${groupItems.map(renderTrackingRow).join('')}`;
+        return `<tr class="tracking-group-row"><th colspan="11" style="--group-color:${group.color}"><div class="tracking-group-head"><span>${escapeHtml(group.label)}</span><small>${groupItems.length} 个标的</small></div></th></tr>${groupItems.map(renderTrackingRow).join('')}`;
       }).join('');
     };
     const sortButton = document.getElementById('tracking-sort-intraday');
@@ -2329,6 +2447,18 @@ function startApp() {
       }
     } catch {
       reportSummaryCache.set(reportHref, { status: 'error', data: {} });
+    }
+    renderTrackingItems();
+  }
+
+  async function loadThreeFactorSummary(reportHref) {
+    try {
+      const response = await fetch(reportHref, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const data = parseThreeFactorSummary(await response.text());
+      threeFactorSummaryCache.set(reportHref, { status: 'loaded', data });
+    } catch {
+      threeFactorSummaryCache.set(reportHref, { status: 'error', data: {} });
     }
     renderTrackingItems();
   }
