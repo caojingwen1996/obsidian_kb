@@ -1,0 +1,2042 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>东方通信（600776.SH）机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+.daily-tracking { margin: 0 0 42px; padding: 22px; border: 1px solid #cbdade; border-radius: 16px; background: linear-gradient(135deg, #f3f8f9 0%, #fffaf0 100%); box-shadow: 0 12px 30px rgba(23, 50, 71, .07); }
+.daily-tracking-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
+.daily-tracking-kicker { margin: 0 0 4px; color: var(--teal); font-size: 12px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+.daily-tracking h2 { margin: 0; padding: 0; border: 0; font-size: 27px; }
+.daily-tracking-time { margin: 4px 0 0; color: var(--muted); font-size: 12px; text-align: right; }
+.tracking-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.tracking-grid + .tracking-grid { margin-top: 12px; }
+.tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
+.tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
+.tracking-card[data-tracking-key="fair-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
+.pricing-levels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+.pricing-level { display: flex; align-items: center; justify-content: center; min-height: 34px; padding: 5px 7px; border: 1px solid #d5e0e3; border-radius: 8px; color: #607580; background: #f4f7f8; font-size: 12px; line-height: 1.25; font-weight: 750; text-align: center; }
+.pricing-level.active { border-color: transparent; box-shadow: 0 0 0 2px rgba(15,50,70,.08); }
+.pricing-level-premium.active { color: #17604e; background: #dff3eb; }
+.pricing-level-overvalued.active { color: #86610d; background: #fff0bd; }
+.pricing-level-bubble.active { color: #9b4d10; background: #ffe3c9; }
+.pricing-level-severe.active { color: var(--danger); background: var(--danger-bg); }
+.range-breakdown { display: block; }
+.range-main { display: inline-flex; align-items: center; max-width: 100%; margin-bottom: 10px; padding: 3px 9px; border-radius: 999px; background: #e7f0f3; color: var(--navy); font-size: 20px; line-height: 1.3; font-weight: 800; }
+.range-points { display: grid; gap: 7px; margin-top: 1px; }
+.range-point { display: block; padding-left: 11px; border-left: 3px solid #bed2d8; color: #245068; font-size: 14px; line-height: 1.52; font-weight: 650; }
+.tracking-value.bad { color: var(--danger); }
+.tracking-detail { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; }
+.tracking-snapshot { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; font-weight: 650; }
+.tracking-status { display: inline-flex; margin-top: 10px; padding: 3px 8px; border-radius: 999px; color: #526b77; background: #edf2f4; font-size: 12px; font-weight: 700; }
+.tracking-status.live { color: #17604e; background: #dff3eb; }
+.tracking-status.error { color: var(--danger); background: var(--danger-bg); }
+.tracking-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; margin-top: 14px; padding-top: 13px; border-top: 1px solid #d5e0e3; color: #536d78; font-size: 13px; }
+.tracking-footer a { font-weight: 700; }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+  .tracking-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+  .daily-tracking-head { display: block; }
+  .daily-tracking-time { text-align: left; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .daily-tracking, .tracking-card { border: 1px solid #aebbc2; color: #102f43; background: #fff; box-shadow: none; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · 600776.SH（不混用东信B股900941）</p>
+      <h1>东方通信（600776.SH）机构级决策研报</h1>
+      <div class="hero-meta"><span>2026-08-20收盘（Asia/Shanghai）</span><span>2026-08-21 11:22（Asia/Shanghai）</span><span>上海证券交易所主板 / 人民币</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
+<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
+<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
+<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
+<a class="toc-link" href="#section-6">6. 五年财务历史</a>
+<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
+<a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
+<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
+<a class="toc-link" href="#section-10">10. 公允价值区间计算</a>
+<a class="toc-link" href="#section-11">11. 市场价格分解与估值泡沫判断</a>
+<a class="toc-link" href="#section-12">12. 最终结论</a>
+<a class="toc-link" href="#section-13">13. 后续监控指标</a>
+<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
+<a class="toc-link" href="#section-15">15. 来源清单</a>
+<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
+      <article class="content"><blockquote>
+<p>证券代码：600776.SH（不混用东信B股900941）<br>
+交易所 / 币种：上海证券交易所主板 / 人民币<br>
+研究截止时间：2026-08-20收盘（Asia/Shanghai）<br>
+报告生成时间：2026-08-21 11:22（Asia/Shanghai）<br>
+数据口径：法定财务截至2026Q1，2026H1仅使用未经审计的业绩预告；行情、估值、资金与融资截至2026-08-20。Tushare日线为不复权。<br>
+结论有效期：2026年半年度报告、核心业务盈利与现金流发生重大变化、长芯博创剩余持股处置、卫星业务取得可审计订单四者中最早发生者。</p>
+</blockquote>
+<!-- DAILY_TRACKING_START -->
+<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-08-21 11:22（Asia/Shanghai，使用08-20收盘数据）" data-value-low="2.8" data-value-high="4.8">
+  <div class="daily-tracking-head">
+    <div><p class="daily-tracking-kicker">Daily decision tracker</p><h2>每日跟踪面板</h2></div>
+    <p class="daily-tracking-time">更新：2026-08-21 11:22（Asia/Shanghai，使用08-20收盘数据）<br>下次：收盘后 / 重大公告后</p>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">低基数改善，但主营修复尚未验证</p><p class="tracking-detail">风险方向：估值兑现风险和反弹承接风险重新增强；杠杆风险继续减弱：现价仍高出公允价值上沿157.9%，主营扣非与现金流尚不能验证估值；近20日股价一度反弹3.43%，但近10日转为-6.21%、20日大额与特大额订单规模代理净流出1.02亿元，表明反弹承接转弱。与此同时，60日融资余额下降27.49%，说明杠杆风险正在释放，而非继续增强。当前属于估值泡沫出清中，不是基本面风险已经解除。。下一验证点与失效条件见第 11—13 章。</p></div>
+    <div class="tracking-card" data-tracking-key="fair-value-range"><p class="tracking-label">公允价值区间</p><p class="tracking-value"><span class="range-breakdown"><span class="range-main">2.8—4.8元，中枢3.5元。2.8元=对应收、存货和物业折价后的保守NAV</span><span class="range-points"><span class="range-point">3.5元=约1.15倍一季度账面净资产</span><span class="range-point">承认零负债与国资平台价值</span><span class="range-point">4.8元=1.5倍账面净资产并额外计入约0.19元卫星期权。高于4.8元需扣非ROE、现金流和新业务订单持续兑现</span><span class="range-point">不能只靠资产处置。</span></span></span></p><p class="tracking-detail">公允价值区间来自估值方法交叉验证；行情刷新不会自动改变区间。</p></div>
+    <div class="tracking-card" data-tracking-key="pricing-deviation"><p class="tracking-label">交易定价偏离</p><p class="tracking-value pricing-levels"><span class="pricing-level pricing-level-premium" data-valuation-level="估值溢价">估值溢价</span><span class="pricing-level pricing-level-overvalued" data-valuation-level="普通高估">普通高估</span><span class="pricing-level pricing-level-bubble" data-valuation-level="估值泡沫">估值泡沫</span><span class="pricing-level pricing-level-severe active" data-valuation-level="严重估值泡沫" aria-current="true">严重估值泡沫</span></p><p class="tracking-detail">当前判断：严重估值泡沫。四级状态来自第 11 章估值泡沫证据门槛。</p></div>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="market-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">等待连接</p><p class="tracking-detail" id="intraday-detail">通过“大盘启动器”打开后获取盘中行情，每 60 秒刷新；直接打开 HTML 时不访问外部行情。</p><p class="tracking-snapshot">每日同步价：12.38元，2026-08-20收盘</p><span class="tracking-status" id="intraday-status">未连接</span></div>
+    <div class="tracking-card" data-tracking-key="risk-reward"><p class="tracking-label">盈亏比</p><p class="tracking-value bad" id="risk-reward-value">无正向盈亏比</p><p class="tracking-detail" id="risk-reward-detail">每日同步价 12.38 元；相对上沿空间 -61.2%，回落至下沿风险 +77.4%。价格已到或高于公允价值上沿，新增现金不具备正向盈亏比。</p></div>
+    <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">新增现金 avoid；已有持仓 reduce / review</p><p class="tracking-detail">估值：严重高估，现价不具备基本面安全边际 · 新增现金 avoid；已有持仓 reduce / review；风险：估值兑现风险和反弹承接风险重新增强；杠杆风险继续减弱：现价仍高出公允价值上沿157.9%，主营扣非与现金流尚不能验证估值；近20日股价一度反弹3.43%，但近10日转为-6.21%、20日大额与特大额订单规模代理净流出1.02亿元，表明反弹承接转弱。与此同时，60日融资余额下降27.49%，说明杠杆风险正在释放，而非继续增强。当前属于估值泡沫出清中，不是基本面风险已经解除。；结论置信度：中高。</p><span class="tracking-status">严重高估，现价不具备基本面安全边际</span></div>
+  </div>
+  <div class="tracking-footer"><span>资金状态：<strong>结构性流出：近20日大额与特大额订单规模代理-1.02亿元，60日全订单规模净额-7.08亿元；该口径不识别机构账户。</strong> · 新增/已有动作：<strong>新增现金 avoid；已有持仓 reduce / review</strong></span><span>资金面分析：未单独生成</span></div>
+</section>
+<!-- DAILY_TRACKING_END -->
+<h2 id="section-1">1. 决策摘要</h2>
+
+<h3>1.1 基本面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值状态</td>
+<td><strong>严重高估，现价不具备基本面安全边际</strong></td>
+</tr>
+<tr>
+<td>估值路线</td>
+<td><strong>重资产 / 可变现资产路线</strong>：调整后净资产×合理PB为主，正常化扣非利润＋净流动资产、P/B—ROE反推和同业估值交叉验证；卫星互联网只作为上沿期权。完整DCF不适用。</td>
+</tr>
+<tr>
+<td>公允价值区间</td>
+<td><strong>2.8—4.8元，中枢3.5元</strong>。2.8元=对应收、存货和物业折价后的保守NAV；3.5元=约1.15倍一季度账面净资产，承认零负债与国资平台价值；4.8元=1.5倍账面净资产并额外计入约0.19元卫星期权。高于4.8元需扣非ROE、现金流和新业务订单持续兑现，不能只靠资产处置。</td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>以12.38元计：下沿-77.4%、中枢-71.7%、上沿-61.2%；现价是中枢的3.54倍、上沿的2.58倍。</td>
+</tr>
+<tr>
+<td>估值泡沫判断</td>
+<td><strong>严重估值泡沫，置信度中高，出清中</strong>。三个核心门槛均成立：PB 4.07倍对应约31.5%可持续ROE，而2025年含一次性收益ROE仅9.86%、扣非ROE为-2.95%；卫星业务收入不足1%；正常化扣非利润无法支撑现价。反证是无有息负债、H1扣非预告转正且股价已较高点回撤54.3%。</td>
+</tr>
+<tr>
+<td>基本面状态</td>
+<td><strong>低基数改善，但主营修复尚未验证</strong></td>
+</tr>
+<tr>
+<td>关键经营变化</td>
+<td>2025营收-14.4%、扣非亏损1.07亿元；2026Q1营收+21.2%、归母扭亏，但CFO降至-2.40亿元。H1预告归母3.20亿元中约2.97亿元为非经常性贡献，扣非仅0.23亿元；管理层强调经营利润增加，但未给收入、毛利和现金流量化指引。</td>
+</tr>
+<tr>
+<td>企业价值主类型</td>
+<td><strong>重资产</strong>。信息通信、智能制造与金融科技是已验证但低回报基本盘；金融资产与物业决定可变现资产底；卫星互联网是前沿期权，AI+与边缘智能仅为规划、不单独计值。</td>
+</tr>
+<tr>
+<td>主估值锚</td>
+<td><strong>2026Q1每股净资产约3.04元 × 0.92—1.50倍调整后PB，卫星期权仅给上沿约0.19元。</strong></td>
+</tr>
+<tr>
+<td>价值创造链</td>
+<td>企业网与信息安全、智能制造交付、金融科技设备和园区服务→分部毛利→扣非经营利润→现金回收；金融资产处置只能释放账面价值，不能替代可持续经营回报。</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td><strong>中高</strong></td>
+</tr>
+</tbody></table>
+<h3>1.2 资金面组</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>操作建议</td>
+<td><strong>新增现金规避；已有持仓减仓并复核，不因高位腰斩自动抄底</strong></td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td>新增现金 <strong>avoid</strong>；已有持仓 <strong>reduce / review</strong></td>
+</tr>
+<tr>
+<td>当前价格及时间</td>
+<td><strong>12.38元，2026-08-20收盘</strong></td>
+</tr>
+<tr>
+<td>资金状态</td>
+<td><strong>结构性流出</strong>：近20日大额与特大额订单规模代理-1.02亿元，60日全订单规模净额-7.08亿元；该口径不识别机构账户。</td>
+</tr>
+<tr>
+<td>风险方向</td>
+<td><strong>估值兑现风险和反弹承接风险重新增强；杠杆风险继续减弱</strong>：现价仍高出公允价值上沿157.9%，主营扣非与现金流尚不能验证估值；近20日股价一度反弹3.43%，但近10日转为-6.21%、20日大额与特大额订单规模代理净流出1.02亿元，表明反弹承接转弱。与此同时，60日融资余额下降27.49%，说明杠杆风险正在释放，而非继续增强。当前属于<strong>估值泡沫出清中</strong>，不是基本面风险已经解除。</td>
+</tr>
+<tr>
+<td>每日跟踪时间</td>
+<td>2026-08-21 11:22（Asia/Shanghai，使用08-20收盘数据）</td>
+</tr>
+<tr>
+<td>资金面分析链接</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<h3>如果今天这是一笔现金，我会买它吗</h3>
+<ul>
+<li>回答：<strong>不会。</strong></li>
+<li>我的判断：现价支付的是商业航天与经营反转能够同时成功的价格，但公司已明确卫星业务收入不足1%，H1利润增长又主要来自金融资产处置和公允价值变动。即使股价较高点回撤54%，也没有进入基本面估值区间。</li>
+<li>改变结论的条件：价格进入<strong>4.8元以下</strong>且主营扣非利润、经营现金流不继续恶化；或连续两个报告期扣非ROE和自由现金流显著改善，使公允价值上沿被可审计地提高。单次资产出售、概念公告或无利润订单不改变结论。</li>
+</ul>
+<h2 id="section-2">2. 证券身份与来源矩阵</h2>
+
+<h3>2.1 证券身份</h3>
+<ul>
+<li>公司全称：东方通信股份有限公司；英文名Eastern Communications Co., Ltd.。</li>
+<li>证券代码：600776.SH；上海证券交易所主板；上市日1996-11-26；人民币A股。</li>
+<li>报告准则：中国企业会计准则；法定披露体系为上交所、指定信息披露媒体和公司公告。</li>
+<li>同名或跨市场歧义：公司另有B股“东信B股”900941.SH，本报告行情和估值只使用A股600776.SH。</li>
+<li>控股股东：中电科东方通信集团有限公司，2025年末持股43.44%；实际控制人为中国电子科技集团有限公司。</li>
+</ul>
+<h3>2.2 来源矩阵</h3>
+<table>
+<thead>
+<tr>
+<th>数据项目</th>
+<th>目标来源</th>
+<th>实际来源</th>
+<th>数据时间</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Tushare MCP调用清单</td>
+<td>本地<code>tushare-data</code></td>
+<td><code>get_stock_basic/daily/valuation/moneyflow/margin/financial_statements/dividend_history</code></td>
+<td>08-21调用</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>证券身份与上市状态</td>
+<td>Tushare＋法定文件</td>
+<td>证券主表、2025年报</td>
+<td>截止日</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>价格、52周高低、YTD</td>
+<td>Tushare</td>
+<td>不复权日线</td>
+<td>08-20收盘</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>估值、市值、股息和换手</td>
+<td>Tushare</td>
+<td>每日指标</td>
+<td>08-20</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>大额订单规模代理</td>
+<td>Tushare</td>
+<td>大单＋特大单、全订单净额</td>
+<td>截至08-20</td>
+<td>已获取；不代表机构身份</td>
+</tr>
+<tr>
+<td>融资融券代理</td>
+<td>Tushare</td>
+<td>融资余额、买入与偿还</td>
+<td>截至08-20</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>第三方公允价值、护城河、星级</td>
+<td>独立第三方</td>
+<td>免费可审计字段</td>
+<td>截止日</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>最新季报与管理层指引</td>
+<td>法定披露</td>
+<td>2026Q1、H1业绩预告</td>
+<td>04-28 / 07-16</td>
+<td>已获取；H1未经审计</td>
+</tr>
+<tr>
+<td>分部收入与成本</td>
+<td>公司年报</td>
+<td>2025年报</td>
+<td>04-28</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>前沿业务里程碑</td>
+<td>公司公告 / 客户验证</td>
+<td>风险提示、年报战略</td>
+<td>截止日</td>
+<td>仅取得收入不足1%反证</td>
+</tr>
+<tr>
+<td>前沿业务融资与稀释</td>
+<td>法定公告</td>
+<td>未见独立融资条款</td>
+<td>截止日</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>卖方评级与目标价</td>
+<td>卖方报告 / 聚合</td>
+<td>无完整、当前、可复核样本</td>
+<td>截止日</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>近三个月新闻与催化剂</td>
+<td>公司公告</td>
+<td>出售金融资产、H1预告、分红</td>
+<td>05-21—08-20窗口</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>五年财务历史</td>
+<td>Tushare＋年报</td>
+<td>2021—2025法定口径</td>
+<td>2021—2025</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>分红历史</td>
+<td>Tushare＋公司公告</td>
+<td>2025年度10派0.55元</td>
+<td>07-30除权</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>指数成分与权重</td>
+<td>中证 / Tushare</td>
+<td>本次不以指数权重为估值依据</td>
+<td>截止日</td>
+<td>不适用</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 行情与市场预期</h2>
+
+<h3>3.1 行情快照（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">数值</th>
+<th>来源</th>
+<th>时间 / 口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>收盘 / 涨跌幅</td>
+<td align="right">12.38元 / +1.89%</td>
+<td>Tushare</td>
+<td>2026-08-20，不复权</td>
+</tr>
+<tr>
+<td>开 / 高 / 低 / 成交额</td>
+<td align="right">12.28 / 12.51 / 12.18元 / 1.27亿元</td>
+<td>Tushare</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>换手 / 自由流通换手</td>
+<td align="right">1.08% / 2.51%</td>
+<td>Tushare</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>52周高 / 低</td>
+<td align="right">27.09 / 10.87元</td>
+<td>Tushare</td>
+<td>2025-08-01—2026-08-20</td>
+</tr>
+<tr>
+<td>距52周高点</td>
+<td align="right">-54.30%</td>
+<td>本报告计算</td>
+<td>不复权收盘</td>
+</tr>
+<tr>
+<td>年初至今</td>
+<td align="right">-24.97%</td>
+<td>本报告计算</td>
+<td>以2025-12-31收盘16.50元为基准</td>
+</tr>
+<tr>
+<td>5 / 10 / 20 / 60 / 120日</td>
+<td align="right">-3.51% / -6.21% / +3.43% / -18.45% / -32.02%</td>
+<td>本报告计算</td>
+<td>不复权</td>
+</tr>
+<tr>
+<td>总市值 / 流通市值</td>
+<td align="right">155.49 / 118.35亿元</td>
+<td>Tushare</td>
+<td>08-20</td>
+</tr>
+<tr>
+<td>PE TTM / PB / PS TTM</td>
+<td align="right">34.00 / 4.07 / 6.04倍</td>
+<td>Tushare</td>
+<td>08-20；PE受一次性收益污染</td>
+</tr>
+<tr>
+<td>股息率TTM</td>
+<td align="right">0.44%</td>
+<td>Tushare</td>
+<td>08-20</td>
+</tr>
+</tbody></table>
+<h3>3.2 第三方公允价值与评级（事实）</h3>
+<ul>
+<li>公允价值、护城河评级、星级：<strong>未获取到</strong>可免费复核且有当前日期的独立字段。</li>
+<li>已检查来源：公开公告、公司年报、主流行情与研报聚合页面；搜索摘要不作为评级证据。</li>
+<li>对结论影响：不影响以法定财务建立的NAV主锚，但降低与外部机构观点比较的完整性。</li>
+</ul>
+<h3>3.3 卖方评级与目标价分布（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>机构</th>
+<th>日期</th>
+<th>评级</th>
+<th align="right">目标价</th>
+<th>预测期</th>
+<th>关键假设</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>未获取到</td>
+<td>—</td>
+<td>—</td>
+<td align="right">—</td>
+<td>—</td>
+<td>未取得可审计的当前完整样本</td>
+</tr>
+</tbody></table>
+<ul>
+<li>目标价区间 / 中位数：未获取到。</li>
+<li>样本数量与完整性：0个可纳入样本；不使用转载标题或搜索摘要补造。</li>
+<li>我的判断：市场更像在定价“国资通信平台＋商业航天期权＋金融资产收益”，而不是定价2025年扣非经营利润。</li>
+</ul>
+<h2 id="section-4">4. 商业模式与竞争格局</h2>
+
+<h3>4.1 事实</h3>
+<ul>
+<li>收入来源：2025年信息通信10.04亿元、智能制造12.70亿元、金融科技1.22亿元、其他0.78亿元；智能制造收入最大但毛利率仅2.69%。</li>
+<li>客户与定价权：前五大客户收入占59.95%，客户集中较高；信息通信包括企业网、信息安全和通信技术服务，智能制造主要为电子制造与系统产品，金融科技为现金和非现金自助设备。</li>
+<li>成本结构：信息通信成本以人工为主（71.67%），智能制造成本以原材料为主（88.84%）；2025综合毛利率只有9.02%。</li>
+<li>资本强度：固定资产与Capex不重，价值消耗主要来自研发、存货、应收和低毛利周转；2025研发2.04亿元、全部费用化。</li>
+<li>竞争者与替代：企业通信面对华为、中兴通讯、海能达及其他专网厂商；智能制造面对大型EMS与客户自建；金融设备面对广电运通、恒银科技和银行网点数字化替代。</li>
+<li>监管约束：国资与通信安全有客户准入优势，同时需遵循上交所信息披露、数据安全、网络安全和招投标规则。</li>
+</ul>
+<h4>多产业位置景气度排序（事实与判断分列）</h4>
+<table>
+<thead>
+<tr>
+<th align="right">排名</th>
+<th>产业位置</th>
+<th>位置识别依据（事实）</th>
+<th>公司业务 / 资产暴露（事实）</th>
+<th>当前景气度</th>
+<th>趋势</th>
+<th>景气证据与时间</th>
+<th>财务传导</th>
+<th>验证指标 / 失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">1</td>
+<td>企业网、信息安全与通信技术服务</td>
+<td>2025收入10.04亿元、毛利17.58%</td>
+<td>最大毛利来源，研发主要投向此分部</td>
+<td>中</td>
+<td>持平</td>
+<td>收入-11.70%，毛利率+0.09pct</td>
+<td>政企需求→订单→收入→毛利→回款</td>
+<td>分部收入恢复、毛利稳定、应收回收；持续双位数下滑失效</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td>电子智能制造 / EMS</td>
+<td>2025收入12.70亿元、毛利2.69%</td>
+<td>最大收入来源、利润暴露弱</td>
+<td>较低</td>
+<td>下行</td>
+<td>终端销量-33%，收入-12.68%</td>
+<td>客户产量→加工收入→薄利周转→现金</td>
+<td>产销量、毛利、库存；量价齐跌或库存减值失效</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td>金融科技设备</td>
+<td>2025收入1.22亿元、毛利-11.86%</td>
+<td>规模小且亏损</td>
+<td>低</td>
+<td>下行</td>
+<td>收入-42.62%，现金/非现金机具销量-38%/-34%</td>
+<td>银行更新→设备收入→毛利</td>
+<td>收入止跌、毛利转正；继续收缩则只计残值</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td>园区物业与资产运营</td>
+<td>投资性房地产约3.93亿元</td>
+<td>提供资产底与部分租赁收益</td>
+<td>中</td>
+<td>持平</td>
+<td>资产由自用转出租，未见高增长</td>
+<td>出租率→租金→现金回报</td>
+<td>出租率、租金、处置折价；空置或减值失效</td>
+</tr>
+</tbody></table>
+<ul>
+<li>位置间交叉与去重：分部利润已经进入合并净资产与正常化利润，不再将同一收入以“通信设备”“国资平台”重复估值；长芯博创持股属于金融资产，不是东方通信主营收入。</li>
+<li>排名第一的位置能否进入公司利润和现金流：有真实收入与毛利，但2025整体扣非亏损、Q1现金流转负，尚未形成稳定股东回报。</li>
+<li>弱关联 / 待验证位置：<strong>卫星互联网行业景气向上，但公司仅提供地面站网络维护，收入占比不足1%、利润贡献较小；AI+和边缘智能只是2026年战略方向。三者不进入基本盘。</strong></li>
+</ul>
+<h3>4.2 我的判断</h3>
+<ul>
+<li>我的判断：公司有国资客户入口、研发团队、现金和物业资产，但没有用ROIC、扣非利润或自由现金流证明可持续竞争优势；竞争格局评为<strong>中性偏弱</strong>。</li>
+<li>我的判断：最脆弱环节是低毛利智能制造与萎缩的金融科技拖累，而高估值又由尚未商业化的卫星叙事承担。</li>
+<li>证伪条件：信息通信连续两个报告期收入增长、毛利率≥18%、合并扣非ROE≥6%且自由现金流为正；届时可上调基本盘质量和合理PB。</li>
+</ul>
+<h3>4.3 企业价值类型与主估值锚</h3>
+<ul>
+<li>企业价值主类型：<strong>重资产</strong>，核心不是厂房规模，而是净资产、现金、债权投资、交易性金融资产和物业提供价值底。</li>
+<li>分部类型映射：信息通信=稳定盈利候选但当前未验证；智能制造=低回报基本盘；金融科技=失败/收缩业务；卫星互联网=前沿科技期权。</li>
+<li>主估值锚：2026Q1每股净资产3.04元×0.92—1.50倍调整后PB，卫星期权只进入上沿。</li>
+<li>必做交叉验证：正常化扣非利润＋净流动资产、同业PB、P/B—ROE反向估值、自由现金流与股息率。</li>
+<li>价值创造链：主业交付形成毛利与回款；金融资产和物业只提供资产释放，不应把公允价值变动年年资本化。</li>
+<li>核心驱动：信息通信毛利、扣非利润、应收库存周转与资产处置纪律；持续时间取决于2026H2能否完成经营修复。</li>
+<li>市场可能低估：无短长期借款、现金与金融资产充足、Q1/H1扣非由亏转盈。</li>
+<li>市场可能高估：将长芯博创处置收益当经营成长、将不足1%的卫星业务线性外推、忽略4.07倍PB所需的ROE跃升。</li>
+<li>价值链证伪条件：若扣非利润继续依赖非经营收益、CFO持续为负或资产折价扩大，NAV也应下修。</li>
+</ul>
+<h2 id="section-5">5. 分部收入与盈利拆解</h2>
+
+<table>
+<thead>
+<tr>
+<th>分部</th>
+<th align="right">收入</th>
+<th align="right">同比</th>
+<th align="right">收入占比</th>
+<th align="right">毛利率</th>
+<th align="right">毛利率变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>信息通信</td>
+<td align="right">10.04亿元</td>
+<td align="right">-11.70%</td>
+<td align="right">40.57%</td>
+<td align="right">17.58%</td>
+<td align="right">+0.09pct</td>
+<td>2025年报</td>
+</tr>
+<tr>
+<td>智能制造</td>
+<td align="right">12.70亿元</td>
+<td align="right">-12.68%</td>
+<td align="right">51.33%</td>
+<td align="right">2.69%</td>
+<td align="right">+2.10pct</td>
+<td>2025年报</td>
+</tr>
+<tr>
+<td>金融科技</td>
+<td align="right">1.22亿元</td>
+<td align="right">-42.62%</td>
+<td align="right">4.93%</td>
+<td align="right">-11.86%</td>
+<td align="right">-16.58pct</td>
+<td>2025年报</td>
+</tr>
+<tr>
+<td>其他产业</td>
+<td align="right">0.78亿元</td>
+<td align="right">-9.83%</td>
+<td align="right">3.17%</td>
+<td align="right">32.45%</td>
+<td align="right">-26.63pct</td>
+<td>2025年报</td>
+</tr>
+<tr>
+<td>主营合计</td>
+<td align="right">24.75亿元</td>
+<td align="right">-14.41%</td>
+<td align="right">100%</td>
+<td align="right">8.96%</td>
+<td align="right">-0.34pct</td>
+<td>2025年报</td>
+</tr>
+</tbody></table>
+<ul>
+<li>披露口径变化：未见重大分部口径变化；Tushare合并营收24.77亿元与年报主营收入24.75亿元存在其他业务小额差异。</li>
+<li>来源冲突：无实质冲突；年报分部表优先于第三方聚合。</li>
+<li>我的判断：信息通信仍是唯一能提供中等毛利的主业，智能制造只贡献规模，金融科技已破坏利润；2025收入全面下降，不能用归母利润增长代表经营增长。</li>
+</ul>
+<h2 id="section-6">6. 五年财务历史</h2>
+
+<table>
+<thead>
+<tr>
+<th>财年</th>
+<th align="right">营收</th>
+<th align="right">毛利率</th>
+<th align="right">经营现金流</th>
+<th align="right">资本开支</th>
+<th align="right">自由现金流</th>
+<th align="right">ROIC / 代理值</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td align="right">30.37亿元</td>
+<td align="right">12.67%</td>
+<td align="right">1.09亿元</td>
+<td align="right">0.30亿元</td>
+<td align="right">0.79亿元</td>
+<td align="right">2.93%</td>
+<td>Tushare / 年报</td>
+</tr>
+<tr>
+<td>2022</td>
+<td align="right">32.30亿元</td>
+<td align="right">11.07%</td>
+<td align="right">2.71亿元</td>
+<td align="right">0.92亿元</td>
+<td align="right">1.79亿元</td>
+<td align="right">3.09%</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">29.40亿元</td>
+<td align="right">11.48%</td>
+<td align="right">1.16亿元</td>
+<td align="right">1.37亿元</td>
+<td align="right">-0.21亿元</td>
+<td align="right">3.73%</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">28.94亿元</td>
+<td align="right">9.31%</td>
+<td align="right">0.39亿元</td>
+<td align="right">0.88亿元</td>
+<td align="right">-0.49亿元</td>
+<td align="right">3.87%</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">24.77亿元</td>
+<td align="right">9.02%</td>
+<td align="right">1.18亿元</td>
+<td align="right">0.22亿元</td>
+<td align="right">0.96亿元</td>
+<td align="right">9.33%</td>
+<td>同上</td>
+</tr>
+</tbody></table>
+<ul>
+<li>自由现金流口径：经营现金流减购建固定资产、无形资产和其他长期资产支付的现金；不使用Tushare <code>fcff</code>派生字段。</li>
+<li>ROIC口径：Tushare财务指标；2025受投资收益和公允价值变动抬升，不代表主营资本回报。</li>
+<li>一次性项目：2023/2024/2025非经常性损益约1.51/2.83/4.65亿元；同期扣非归母约0.02/-1.32/-1.07亿元。</li>
+<li>我的判断：五年营收没有增长、毛利率下降、FCF两年为负；2025利润跃升几乎完全由金融资产贡献，价值创造质量弱。</li>
+</ul>
+<h3>6.1 盈利、现金流与资产质量检查</h3>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>3—5年趋势 / 当前变化</th>
+<th>与营收或EPS的匹配关系</th>
+<th>质量判断</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>EPS</td>
+<td>2021—2024约0.09—0.12元，2025升至0.285元</td>
+<td>营收下降而EPS上升</td>
+<td>一次性收益驱动</td>
+<td>年报</td>
+</tr>
+<tr>
+<td>经营现金流 / 净利润现金含量</td>
+<td>2025 CFO1.18亿元；2026Q1 -2.40亿元</td>
+<td>Q1净利润0.43亿元但现金流大幅为负</td>
+<td>当前逆转</td>
+<td>Tushare / Q1</td>
+</tr>
+<tr>
+<td>库存</td>
+<td>2025年末5.05亿元、+33.62%；Q1升至5.99亿元、+18.77%</td>
+<td>快于收入增长</td>
+<td>备货与减值风险上升</td>
+<td>年报 / Q1</td>
+</tr>
+<tr>
+<td>应收账款</td>
+<td>2025年末净额8.74亿元；Q1 8.48亿元、-2.97%</td>
+<td>年报毛额10.22亿元、坏账1.48亿元</td>
+<td>高占用但Q1略改善</td>
+<td>年报 / Q1</td>
+</tr>
+<tr>
+<td>有息负债 / 利息覆盖</td>
+<td>未见短期或长期借款</td>
+<td>不靠财务杠杆推升EPS</td>
+<td>有利</td>
+<td>Q1资产负债表</td>
+</tr>
+<tr>
+<td>回购与股本变化</td>
+<td>2025总股本未变化，未见回购驱动</td>
+<td>EPS增长不是股本收缩</td>
+<td>中性</td>
+<td>年报</td>
+</tr>
+<tr>
+<td>非经常性收益</td>
+<td>2025为4.65亿元，超过归母3.58亿元</td>
+<td>贡献超过100%</td>
+<td>核心风险</td>
+<td>年报</td>
+</tr>
+</tbody></table>
+<ul>
+<li>主营业务驱动的持续增长占比：2025为负；2026H1预告扣非0.23亿元，只占预告归母3.20亿元约7.2%。</li>
+<li>财务杠杆、回购贡献：均不显著；一次性收益是利润增长的决定性来源。</li>
+<li>我的判断：报表验证公司更接近资产价值平台而非高质量成长企业，因此PB/NAV应替代PE成为主锚。</li>
+</ul>
+<h2 id="section-7">7. 最新季度与管理层指引</h2>
+
+<h3>7.1 最新季度（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">2026Q1</th>
+<th align="right">同比 / 变化</th>
+<th>来源 / 时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营收</td>
+<td align="right">5.46亿元</td>
+<td align="right">+21.17%</td>
+<td>Tushare / 2026Q1</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">11.55%</td>
+<td align="right">未获取到可复核同比拆分</td>
+<td>Tushare / 2026Q1</td>
+</tr>
+<tr>
+<td>归母净利润</td>
+<td align="right">0.43亿元</td>
+<td align="right">由2025Q1亏损0.56亿元转盈</td>
+<td>Tushare / Q1、年报</td>
+</tr>
+<tr>
+<td>调整后利润</td>
+<td align="right">Q1未获取到；H1预告扣非0.23亿元</td>
+<td align="right">H1同比+786%，低基数</td>
+<td>公司预告07-16</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">-2.40亿元</td>
+<td align="right">2025Q1为-0.04亿元</td>
+<td>Tushare / 年报</td>
+</tr>
+<tr>
+<td>订单 / 储备</td>
+<td align="right">未获取到</td>
+<td align="right">公司2025年报未披露重大合同</td>
+<td>年报</td>
+</tr>
+</tbody></table>
+<h3>7.2 管理层指引（事实）</h3>
+<ul>
+<li>正式量化指引：未发布全年收入、毛利、扣非利润或现金流指引。</li>
+<li>H1业绩预告：归母约3.20亿元、扣非约0.23亿元；归母增长主要来自处置及持有交易性金融资产的收益，经营利润亦有所增加。</li>
+<li>定性展望：2026年探索卫星互联网、边缘智能和AI+第二增长曲线；未披露独立收入、订单、毛利、客户复购或资本预算。</li>
+<li>未获取到：H1分部收入、毛利、经营现金流、订单和卫星业务财务明细，待08-27正式半年报。</li>
+</ul>
+<h3>7.3 我的判断</h3>
+<ul>
+<li>我的判断：主营从亏损转为小幅盈利是边际改善，但绝对规模远不能支撑155亿元市值；头部归母利润仍由资产出售主导。</li>
+<li>我的判断：业绩预告可信度只覆盖利润总额方向，不能替代现金流和分部验证；对经营反转只给中低置信度。</li>
+<li>下一验证节点：2026-08-27半年报，重点核验H1扣非0.23亿元、分部毛利、CFO、存货、应收及剩余长芯博创持股。</li>
+</ul>
+<h2 id="section-8">8. 近三个月新闻与催化剂</h2>
+
+<table>
+<thead>
+<tr>
+<th>发生日</th>
+<th>事件</th>
+<th>影响变量</th>
+<th>财务传导</th>
+<th>是否已反映</th>
+<th>验证节点</th>
+<th>失效条件</th>
+<th>来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-07-09</td>
+<td>长芯博创减持计划结束，累计卖出222.60万股，剩余91.60万股</td>
+<td>投资收益、现金、剩余资产</td>
+<td>出售→一次性利润与现金</td>
+<td>已大部分反映</td>
+<td>H1正式收益与剩余持股</td>
+<td>把处置收益误当主营增长</td>
+<td>公司07-10公告</td>
+</tr>
+<tr>
+<td>2026-07-16</td>
+<td>H1业绩预告归母3.20亿元、扣非0.23亿元</td>
+<td>利润结构</td>
+<td>资产处置＋经营改善→利润</td>
+<td>已反映</td>
+<td>08-27半年报</td>
+<td>扣非或现金流低于预期</td>
+<td>公司公告</td>
+</tr>
+<tr>
+<td>2026-07-30</td>
+<td>2025年度每股派现0.055元除权</td>
+<td>现金回报</td>
+<td>现金分红→股东回报</td>
+<td>已反映</td>
+<td>下一年度分红</td>
+<td>经营亏损压缩分红能力</td>
+<td>分红公告 / Tushare</td>
+</tr>
+<tr>
+<td>2026-08-27</td>
+<td>计划披露2026H1正式报告</td>
+<td>分部、现金、资产质量</td>
+<td>真实经营接管叙事</td>
+<td>尚未反映完整</td>
+<td>披露当日</td>
+<td>延期或关键字段缺失</td>
+<td>公告日历</td>
+</tr>
+</tbody></table>
+<h2 id="section-9">9. 多头与空头论据</h2>
+
+<h3>9.1 多头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>资产负债表稳健</td>
+<td>Q1现金11.79亿元、交易性金融资产4.81亿元，无短长期借款</td>
+<td>净现金、资产处置折价、分红</td>
+<td>现金消耗、资产减值或新增大额负债</td>
+</tr>
+<tr>
+<td>主营边际改善</td>
+<td>Q1营收+21.2%并扭亏；H1扣非预告0.23亿元</td>
+<td>H1/Q3扣非、信息通信毛利、CFO</td>
+<td>扣非再亏或现金流不修复</td>
+</tr>
+<tr>
+<td>国资通信平台与研发基础</td>
+<td>控股股东为中电科体系；研发2.04亿元、416人</td>
+<td>客户订单、产品收入、研发转化</td>
+<td>只有投入没有毛利和回款</td>
+</tr>
+<tr>
+<td>卫星业务存在真实服务场景</td>
+<td>为卫星地面站提供网络维护</td>
+<td>独立订单、收入、毛利、复购</td>
+<td>收入继续不足1%且无利润贡献</td>
+</tr>
+</tbody></table>
+<h3>9.2 空头论据</h3>
+<table>
+<thead>
+<tr>
+<th>论据</th>
+<th>事实依据</th>
+<th>验证指标</th>
+<th>失效条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值与回报率严重脱锚</td>
+<td>PB4.07倍，反推可持续ROE约31.5%</td>
+<td>扣非ROE、ROIC、PB</td>
+<td>扣非ROE连续升至15%以上并有现金流</td>
+</tr>
+<tr>
+<td>利润依赖一次性收益</td>
+<td>2025非经常4.65亿元、扣非亏1.07亿元；H1扣非仅占归母约7.2%</td>
+<td>扣非占比、投资收益</td>
+<td>主营利润取代金融资产收益</td>
+</tr>
+<tr>
+<td>产业叙事与收入脱节</td>
+<td>公司明确卫星维护收入不足1%</td>
+<td>新客户、订单、收入、毛利</td>
+<td>占比和盈利跨越式提高</td>
+</tr>
+<tr>
+<td>主业质量弱</td>
+<td>2025营收-14.4%、毛利率9.02%、金融科技毛利为负</td>
+<td>分部增长、毛利、客户集中度</td>
+<td>信息通信与制造同时修复</td>
+</tr>
+<tr>
+<td>现金与库存压力</td>
+<td>Q1 CFO-2.40亿元，存货较年初+18.77%</td>
+<td>H1/Q3 CFO、库存周转、减值</td>
+<td>现金流转正且库存回落</td>
+</tr>
+<tr>
+<td>资金仍在出清</td>
+<td>60日股价-18.45%、融资-27.49%、全订单规模-7.08亿元</td>
+<td>5/20日非杠杆承接</td>
+<td>资金持续转正且不靠融资</td>
+</tr>
+</tbody></table>
+<h2 id="section-10">10. 公允价值区间计算</h2>
+
+<h3>10.0 企业类型、分部成熟度与估值路线</h3>
+<table>
+<thead>
+<tr>
+<th>业务分部</th>
+<th>企业价值类型</th>
+<th>成熟度</th>
+<th>判断依据</th>
+<th>主要估值锚</th>
+<th>区间位置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>信息通信</td>
+<td>稳定盈利候选</td>
+<td>已验证基本盘</td>
+<td>有收入和17.58%毛利，增长与ROE未验证</td>
+<td>NAV内含＋正常化利润</td>
+<td>下沿 / 中枢</td>
+</tr>
+<tr>
+<td>智能制造</td>
+<td>重资产 / 低回报</td>
+<td>已验证基本盘</td>
+<td>收入大、毛利2.69%</td>
+<td>调整后净资产</td>
+<td>下沿 / 中枢</td>
+</tr>
+<tr>
+<td>金融科技</td>
+<td>重资产</td>
+<td>失败或退出业务</td>
+<td>收入-42.62%、毛利-11.86%</td>
+<td>残值 / 折价NAV</td>
+<td>下沿</td>
+</tr>
+<tr>
+<td>物业与金融资产</td>
+<td>重资产</td>
+<td>已验证资产</td>
+<td>有现金、债权、金融资产和物业</td>
+<td>调整后NAV</td>
+<td>全区间</td>
+</tr>
+<tr>
+<td>卫星互联网维护</td>
+<td>前沿科技</td>
+<td>前沿期权业务</td>
+<td>收入不足1%、无独立利润</td>
+<td>里程碑概率价值</td>
+<td>仅上沿</td>
+</tr>
+<tr>
+<td>AI+、边缘智能</td>
+<td>前沿科技</td>
+<td>前沿期权业务</td>
+<td>只有战略表述</td>
+<td>当前计0</td>
+<td>不进入区间</td>
+</tr>
+</tbody></table>
+<ul>
+<li>企业价值主类型：重资产。</li>
+<li>估值路线：调整后NAV主锚＋正常化利润/净流动资产＋相对PB＋反向ROE；前沿期权只进入上沿。</li>
+<li>去重：现金、金融资产、物业和经营资产已在净资产中，不再重复相加；长芯博创公允价值与处置利润不能同时资本化。</li>
+</ul>
+<h3>10.1 相对估值</h3>
+<table>
+<thead>
+<tr>
+<th>公司</th>
+<th>业务可比性</th>
+<th>增长</th>
+<th>利润率</th>
+<th align="right">PE TTM</th>
+<th align="right">PB</th>
+<th align="right">PS TTM</th>
+<th>数据时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>东方通信</td>
+<td>基准</td>
+<td>主业低基数改善</td>
+<td>2025毛利9.02%、扣非亏损</td>
+<td align="right">34.00*</td>
+<td align="right">4.07</td>
+<td align="right">6.04</td>
+<td>2026-08-20</td>
+</tr>
+<tr>
+<td>海能达</td>
+<td>专网通信、亏损样本</td>
+<td>未取统一口径</td>
+<td>亏损</td>
+<td align="right">不适用</td>
+<td align="right">7.16</td>
+<td align="right">2.43</td>
+<td>同日</td>
+</tr>
+<tr>
+<td>佳讯飞鸿</td>
+<td>行业通信、亏损样本</td>
+<td>未取统一口径</td>
+<td>亏损</td>
+<td align="right">不适用</td>
+<td align="right">1.81</td>
+<td align="right">4.24</td>
+<td>同日</td>
+</tr>
+<tr>
+<td>广哈通信</td>
+<td>指挥调度通信</td>
+<td>未取统一口径</td>
+<td>盈利</td>
+<td align="right">60.70</td>
+<td align="right">3.10</td>
+<td align="right">6.24</td>
+<td>同日</td>
+</tr>
+<tr>
+<td>星网锐捷</td>
+<td>企业网络、业务更优</td>
+<td>成长较强</td>
+<td>盈利</td>
+<td align="right">40.25</td>
+<td align="right">3.17</td>
+<td align="right">1.09</td>
+<td>同日</td>
+</tr>
+</tbody></table>
+<ul>
+<li><code>*</code>东方通信PE被投资收益抬高，不能与经营PE直接比较。</li>
+<li>选取理由：覆盖专网通信、调度通信和企业网络；但业务质量、规模与所有权差异大。</li>
+<li>正常化调整：四个对照PB中位数约3.14倍，但两家亏损、两家成长性高于东方通信，不能把主题溢价当作公允价值证据。</li>
+<li>对应每股价值：若机械用1.8—3.2倍PB约5.5—9.7元；因其与扣非ROE不匹配，本方法仅作市场情绪上限观察，不进入公允价值上沿。</li>
+<li>我的判断：相对估值证明通信概念可长期获得高PB，不证明东方通信能创造相应ROE。</li>
+</ul>
+<h3>10.2 DCF</h3>
+<ul>
+<li>适用性：<strong>不适用作正式估值。</strong></li>
+<li>预计自由现金流转正年份：历史已正负交替，2025为正、2026Q1再转负，不能建立稳定起点。</li>
+<li>终值占企业价值比例：未计算；若强行使用，终值将主导结果。</li>
+<li>不适用理由：五年营收收缩、主营扣非波动、利润由金融资产处置主导、营运资本现金流不稳定；现金与金融资产更适合直接进入NAV。</li>
+</ul>
+<h4>关键假设、估值结果与敏感性</h4>
+<p>未建立完整DCF，因此收入增长、经营利润率、WACC、永续增长率和三情景估值均标记为<strong>不适用</strong>，避免用高终值伪造精确公允价值。</p>
+<h4>反向 DCF / 反向ROE</h4>
+<ul>
+<li>使用P/B—ROE稳定增长关系交叉验证：在股权回报要求10%、长期增长3%下，4.07倍PB隐含可持续ROE约<code>4.07×(10%-3%)+3%=31.5%</code>。</li>
+<li>2025报告ROE9.86%已被一次性收益抬高，扣非ROE-2.95%；现价隐含回报率明显超出历史与当前经营证据。</li>
+<li>我的判断：反向估值失败，支持严重高估而非“高质量溢价”。</li>
+</ul>
+<h3>10.3 行业特定估值</h3>
+<ul>
+<li>方法：<strong>调整后NAV × 合理PB</strong>。</li>
+<li>适用理由：2026Q1归母权益38.19亿元、每股净资产约3.04元；利润来自经营、金融资产和物业等多重来源，正常PE失真。</li>
+<li>悲观：对应收8.48亿元、存货5.99亿元和物业等施加折价，调整后权益约35亿元，对应2.8元/股。</li>
+<li>基准：账面净资产×约1.15倍，承认无借款、国资客户入口和资产流动性，对应约3.5元/股。</li>
+<li>乐观：账面净资产×1.50倍约4.56元/股，再加卫星期权约0.19元，取整4.8元/股。</li>
+<li>局限性：应收与物业可变现价值没有独立评估；正式H1资产负债表尚未披露。</li>
+</ul>
+<h3>10.4 前沿科技价值桥（适用）</h3>
+<h4>已验证基本盘</h4>
+<table>
+<thead>
+<tr>
+<th>分部</th>
+<th>估值方法</th>
+<th>关键输入</th>
+<th align="right">股权价值</th>
+<th>证据与时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>合并基本盘与可变现资产</td>
+<td>调整后NAV</td>
+<td>Q1权益38.19亿元、资产质量折价、0.92—1.50倍PB</td>
+<td align="right">35.0—57.3亿元</td>
+<td>2026Q1</td>
+</tr>
+</tbody></table>
+<h4>前沿业务里程碑与情景概率</h4>
+<table>
+<thead>
+<tr>
+<th>未来业务</th>
+<th>关键里程碑</th>
+<th>已验证证据 / 反证</th>
+<th>情景</th>
+<th align="right">概率</th>
+<th align="right">情景价值</th>
+<th align="right">时间折现</th>
+<th align="right">概率加权价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>卫星互联网维护</td>
+<td>独立订单、收入≥5%、正毛利与复购</td>
+<td>当前收入不足1%、利润贡献小</td>
+<td>失败</td>
+<td align="right">40%</td>
+<td align="right">0亿元</td>
+<td align="right">0.80</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td>同上</td>
+<td>同上</td>
+<td>同上</td>
+<td>延期</td>
+<td align="right">35%</td>
+<td align="right">2亿元</td>
+<td align="right">0.80</td>
+<td align="right">0.56亿元</td>
+</tr>
+<tr>
+<td>同上</td>
+<td>同上</td>
+<td>同上</td>
+<td>有限商业化</td>
+<td align="right">20%</td>
+<td align="right">8亿元</td>
+<td align="right">0.80</td>
+<td align="right">1.28亿元</td>
+</tr>
+<tr>
+<td>同上</td>
+<td>同上</td>
+<td>同上</td>
+<td>基准成功</td>
+<td align="right">5%</td>
+<td align="right">15亿元</td>
+<td align="right">0.80</td>
+<td align="right">0.60亿元</td>
+</tr>
+<tr>
+<td>同上</td>
+<td>同上</td>
+<td>同上</td>
+<td>突破成功</td>
+<td align="right">0%</td>
+<td align="right">未计</td>
+<td align="right">—</td>
+<td align="right">0</td>
+</tr>
+</tbody></table>
+<ul>
+<li>同一未来业务各情景概率合计：100%。</li>
+<li>概率依据：已有真实服务场景，但公司自身给出收入不足1%的强反证；没有订单、毛利和客户复购数据，因此突破情景不给概率。</li>
+<li>下一验证节点：H1/年报独立披露、重大合同、客户或监管验证。</li>
+<li>AI+、边缘智能：只有战略规划，当前计0；不因TAM或政策热度进入上沿。</li>
+</ul>
+<h4>融资、稀释与股东保留比例</h4>
+<table>
+<thead>
+<tr>
+<th>未来业务</th>
+<th>融资方式</th>
+<th align="right">公司自有资金投入</th>
+<th align="right">外部股权融资</th>
+<th align="right">新增债务</th>
+<th align="right">当前股东保留比例 / 稀释后股本</th>
+<th>条款调整依据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>卫星互联网维护</td>
+<td>未披露</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">未获取到</td>
+<td align="right">暂按现有12.56亿股；只因价值很小且仅进上沿</td>
+<td>公司公告未披露独立方案</td>
+</tr>
+</tbody></table>
+<ul>
+<li>公司尚未计入分部价值的未来投入：未获取到，不按有利处理。</li>
+<li>是否存在“投入＋稀释”重复扣除：否；本报告未另扣未知融资，只通过低概率和上沿路由约束。</li>
+<li>是否使用同一风险同时下调概率和提高折现率：否；0.80仅作时间折现，失败风险主要进入情景概率。</li>
+</ul>
+<h4>当前股东价值桥</h4>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th align="right">价值</th>
+<th>口径 / 说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>已验证基本盘</td>
+<td align="right">35.0—57.3亿元</td>
+<td>调整后NAV</td>
+</tr>
+<tr>
+<td>概率加权未来业务</td>
+<td align="right">2.44亿元</td>
+<td>仅加入上沿</td>
+</tr>
+<tr>
+<td>非经营性现金</td>
+<td align="right">0</td>
+<td>已在NAV中，禁止重复相加</td>
+</tr>
+<tr>
+<td>有息负债</td>
+<td align="right">约0</td>
+<td>Q1未见短长期借款</td>
+</tr>
+<tr>
+<td>未计入分部价值的未来投入</td>
+<td align="right">未获取到</td>
+<td>不构造伪精确值</td>
+</tr>
+<tr>
+<td>当前股东股权价值</td>
+<td align="right">35.0—59.7亿元</td>
+<td>区间上沿含期权</td>
+</tr>
+<tr>
+<td>稀释后总股本</td>
+<td align="right">12.56亿股</td>
+<td>现有股本</td>
+</tr>
+<tr>
+<td>每股价值</td>
+<td align="right">2.8—4.8元</td>
+<td>取整后区间</td>
+</tr>
+</tbody></table>
+<h4>反向估值</h4>
+<ul>
+<li>当前市值扣除乐观基本盘与期权上沿后，仍多支付约95.8亿元；折合每股约7.63元。</li>
+<li>现价隐含：基本盘长期维持31.5%左右ROE，或卫星/AI等未来业务在短期创造近百亿元额外股权价值；现有订单、利润和现金流均不能验证。</li>
+<li>首个可能击穿估值中枢的节点：08-27半年报若扣非和现金流低于预告、或未披露卫星财务里程碑。</li>
+</ul>
+<h3>10.5 估值交叉验证</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="right">每股价值区间</th>
+<th align="right">权重</th>
+<th>采信理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>调整后NAV / P/B</td>
+<td align="right">2.8—4.8元</td>
+<td align="right">主锚</td>
+<td>与资产结构和低ROIC匹配</td>
+</tr>
+<tr>
+<td>正常化利润＋净流动资产</td>
+<td align="right">约1.5—2.5元</td>
+<td align="right">下沿验证</td>
+<td>0.3—0.8亿元正常化利润×15—20倍，加净流动资产；不重复加物业</td>
+</tr>
+<tr>
+<td>同业相对PB</td>
+<td align="right">5.5—9.7元</td>
+<td align="right">低权重观察</td>
+<td>同业亏损或成长差异大，只解释主题估值</td>
+</tr>
+<tr>
+<td>完整DCF</td>
+<td align="right">不适用</td>
+<td align="right">0</td>
+<td>起点和终值不可审计</td>
+</tr>
+<tr>
+<td>卫星期权价值桥</td>
+<td align="right">约0.19元</td>
+<td align="right">仅上沿</td>
+<td>里程碑弱，概率加权</td>
+</tr>
+<tr>
+<td>P/B—ROE反向估值</td>
+<td align="right">现价要求ROE约31.5%</td>
+<td align="right">否决性验证</td>
+<td>与扣非ROE严重不匹配</td>
+</tr>
+</tbody></table>
+<ul>
+<li>公允价值区间：<strong>2.8—4.8元，中枢3.5元。</strong></li>
+<li>相对现价空间：-77.4%至-61.2%，中枢-71.7%。</li>
+<li>为什么不机械平均：同业PB包含亏损壳、主题和成长溢价，不能覆盖公司自身扣非ROE；DCF又不适用，主锚必须服从资产和回报率。</li>
+<li>区间含义：下沿=资产折价；中枢=账面净资产＋有限质量溢价；上沿=1.5倍PB＋卫星期权；高于上沿=必须出现持续扣非利润、现金流和前沿订单。</li>
+</ul>
+<h3>10.6 企业类型与估值锚匹配</h3>
+<ul>
+<li>企业价值主类型：重资产。</li>
+<li>分部类型映射：信息通信与智能制造进入NAV，金融科技折价，金融资产/物业按可变现价值，卫星按前沿期权。</li>
+<li>重资产计算：调整后NAV×合理PB；ROIC、应收存货折价、资产处置和流动性均已交叉验证。</li>
+<li>稳定盈利计算：不作为主锚，因2024—2025扣非亏损、正常化EPS不稳定。</li>
+<li>前沿科技计算：基本盘＋里程碑概率价值，只有卫星期权约0.19元进入上沿。</li>
+<li>当前价格已反映：显著高于1.5倍PB、要求扣非ROE从负值跃迁至约31.5%，或为未来业务支付约96亿元额外价值。</li>
+<li>匹配结论：企业类型、分部成熟度和NAV主锚相互印证；当前PE和概念同业倍数不匹配利润来源。</li>
+</ul>
+<h2 id="section-11">11. 市场价格分解与估值泡沫判断</h2>
+
+<pre><code class="language-text">市场价格 = 公允价值 + 可解释的估值溢价 + 交易定价偏离
+</code></pre>
+<h4>市场价格偏离</h4>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th align="right">结果</th>
+<th>口径 / 证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前价格及时间</td>
+<td align="right">12.38元</td>
+<td>2026-08-20收盘</td>
+</tr>
+<tr>
+<td>公允价值中枢</td>
+<td align="right">3.50元</td>
+<td>约1.15倍Q1每股净资产</td>
+</tr>
+<tr>
+<td>公允价值上沿</td>
+<td align="right">4.80元</td>
+<td>1.50倍PB＋0.19元卫星期权</td>
+</tr>
+<tr>
+<td>相对中枢偏离率</td>
+<td align="right">+253.7%</td>
+<td>12.38÷3.50-1</td>
+</tr>
+<tr>
+<td>相对上沿偏离率</td>
+<td align="right">+157.9%</td>
+<td>12.38÷4.80-1</td>
+</tr>
+<tr>
+<td>上沿外价格</td>
+<td align="right">7.58元</td>
+<td>对应约95.2亿元市值</td>
+</tr>
+<tr>
+<td>可解释估值溢价</td>
+<td align="right">0—0.3元</td>
+<td>无债务、国资平台与通信客户入口；已通过1.15—1.50倍PB计入，不再相加</td>
+</tr>
+<tr>
+<td>交易定价偏离</td>
+<td align="right">无法精确拆分，至少7.58元位于乐观上沿外</td>
+<td>卫星叙事、风险偏好与历史壳溢价；不为凑平现价倒算</td>
+</tr>
+</tbody></table>
+<h4>七问审计</h4>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>结论</th>
+<th>关键证据 / 反证</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前价格比中枢和上沿高多少？</td>
+<td>高253.7% / 157.9%</td>
+<td>12.38元对3.5/4.8元</td>
+<td>成立</td>
+</tr>
+<tr>
+<td>高出部分隐含什么？</td>
+<td>约31.5%可持续ROE或约96亿元未来业务价值</td>
+<td>历史扣非ROE不支持</td>
+<td>成立</td>
+</tr>
+<tr>
+<td>订单、收入、利润和FCF能否验证？</td>
+<td>不能</td>
+<td>2025营收下降、扣非亏损；卫星不足1%；Q1 FCF为负</td>
+<td>不成立</td>
+</tr>
+<tr>
+<td>是否扣除投入、稀释、现金消耗、时间和失败？</td>
+<td>仅公允价值已约束；市场价格未见充分计价</td>
+<td>未来投入/融资未披露，期权只进上沿</td>
+<td>不成立</td>
+</tr>
+<tr>
+<td>流动性和估值正常化后现价能否成立？</td>
+<td>不能</td>
+<td>融资60日-27.49%，股价仍高于上沿158%</td>
+<td>不成立</td>
+</tr>
+<tr>
+<td>增长、利润率或成功率正常化后能否成立？</td>
+<td>不能</td>
+<td>正常化主营利润0.3—0.8亿元远不足</td>
+<td>不成立</td>
+</tr>
+<tr>
+<td>市场是否认真定价失败风险？</td>
+<td>不充分</td>
+<td>公司风险提示后仍为4.07倍PB；反证是已回撤54%</td>
+<td>不成立</td>
+</tr>
+</tbody></table>
+<h4>三表逐项扫描</h4>
+<h5>一、基本面触发</h5>
+<table>
+<thead>
+<tr>
+<th>触发类型</th>
+<th>观察项</th>
+<th>当前证据与时间</th>
+<th>扫描状态</th>
+<th>对估值状态的影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>现金流断点</td>
+<td>资本开支规模</td>
+<td>2025 Capex0.22亿元、Q1 0.10亿元，规模可控</td>
+<td>有利</td>
+<td>不构成现金消耗放大器</td>
+</tr>
+<tr>
+<td>现金流断点</td>
+<td>经营现金流</td>
+<td>2026Q1 -2.40亿元，较上年同期明显恶化</td>
+<td>逆转</td>
+<td>击中经营价值验证</td>
+</tr>
+<tr>
+<td>现金流断点</td>
+<td>自由现金流</td>
+<td>Q1约-2.51亿元；2023—2024亦为负</td>
+<td>逆转</td>
+<td>削弱主营与PB溢价</td>
+</tr>
+<tr>
+<td>现金流断点</td>
+<td>投资资金来源</td>
+<td>Q1现金11.79亿元、交易金融资产4.81亿元，无借款</td>
+<td>有利</td>
+<td>降低融资断裂风险</td>
+</tr>
+<tr>
+<td>现金流断点</td>
+<td>融资停止后的可持续性</td>
+<td>无短长期借款，短期经营可由自有资金覆盖</td>
+<td>有利</td>
+<td>主要反证，但不证明高估值</td>
+</tr>
+<tr>
+<td>盈利不匹配</td>
+<td>原材料与中间品成本</td>
+<td>H1分部成本尚未披露；2025结构差异大</td>
+<td>证据不足</td>
+<td>不能按有利处理</td>
+</tr>
+<tr>
+<td>盈利不匹配</td>
+<td>定价权与成本转嫁</td>
+<td>2025整体毛利9.02%，金融科技毛利-11.86%</td>
+<td>逆转</td>
+<td>低定价权压制合理PB</td>
+</tr>
+<tr>
+<td>盈利不匹配</td>
+<td>营收向利润的转化</td>
+<td>2025营收-14.4%、扣非亏1.07亿元</td>
+<td>逆转</td>
+<td>直接击中主估值锚</td>
+</tr>
+<tr>
+<td>盈利不匹配</td>
+<td>利润向自由现金流的转化</td>
+<td>Q1归母0.43亿元而FCF-2.51亿元</td>
+<td>逆转</td>
+<td>利润质量反证</td>
+</tr>
+</tbody></table>
+<h5>二、流动性触发</h5>
+<table>
+<thead>
+<tr>
+<th>触发类型</th>
+<th>观察项</th>
+<th>当前证据与时间</th>
+<th>扫描状态</th>
+<th>对估值状态的影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观：货币条件收缩</td>
+<td>通胀</td>
+<td>未取得截止日可审计宏观快照</td>
+<td>证据不足</td>
+<td>不按有利处理</td>
+</tr>
+<tr>
+<td>宏观：货币条件收缩</td>
+<td>政策利率与债券收益率</td>
+<td>未取得与估值日一致的权威快照</td>
+<td>证据不足</td>
+<td>不按有利处理</td>
+</tr>
+<tr>
+<td>宏观：货币条件收缩</td>
+<td>信用与融资条件</td>
+<td>未取得通信板块统一信用数据</td>
+<td>证据不足</td>
+<td>公司无借款仅是个体反证</td>
+</tr>
+<tr>
+<td>宏观：货币条件收缩</td>
+<td>高投资项目对低成本资金的依赖</td>
+<td>公司未披露需要持续巨额融资的前沿项目</td>
+<td>不适用</td>
+<td>不构成放大器</td>
+</tr>
+<tr>
+<td>中观：政策与主线资金迁移</td>
+<td>监管与产业政策</td>
+<td>商业航天与数字化方向有政策支持，但收入传导弱</td>
+<td>有利</td>
+<td>只支持观察期权，不支持现价</td>
+</tr>
+<tr>
+<td>中观：政策与主线资金迁移</td>
+<td>ETF申赎</td>
+<td>未获取到公司相关ETF连续申赎</td>
+<td>证据不足</td>
+<td>不按有利处理</td>
+</tr>
+<tr>
+<td>中观：政策与主线资金迁移</td>
+<td>基金仓位</td>
+<td>未获取到实时基金仓位与变化</td>
+<td>证据不足</td>
+<td>不按有利处理</td>
+</tr>
+<tr>
+<td>中观：政策与主线资金迁移</td>
+<td>主线增量资金</td>
+<td>无行业级可审计连续数据</td>
+<td>证据不足</td>
+<td>个股资金流出不能替代板块结论</td>
+</tr>
+<tr>
+<td>微观：杠杆和承接逆转</td>
+<td>融资余额增速</td>
+<td>5/20/60日-1.21%/-7.10%/-27.49%</td>
+<td>逆转</td>
+<td>杠杆出清，价格风险释放中</td>
+</tr>
+<tr>
+<td>微观：杠杆和承接逆转</td>
+<td>新增融资集中度</td>
+<td>无账户级集中度数据</td>
+<td>证据不足</td>
+<td>不按有利处理</td>
+</tr>
+<tr>
+<td>微观：杠杆和承接逆转</td>
+<td>股价对杠杆资金的依赖</td>
+<td>60日股价-18.45%且融资-27.49%，同向收缩</td>
+<td>逆转</td>
+<td>支持过去定价含杠杆成分</td>
+</tr>
+<tr>
+<td>微观：杠杆和承接逆转</td>
+<td>龙头表现</td>
+<td>公司从52周高点回撤54.30%，弱于自身高位</td>
+<td>逆转</td>
+<td>叙事龙头溢价正在压缩</td>
+</tr>
+<tr>
+<td>微观：杠杆和承接逆转</td>
+<td>市场广度</td>
+<td>未获取到同日通信板块上涨家数与成交扩散</td>
+<td>证据不足</td>
+<td>不按有利处理</td>
+</tr>
+<tr>
+<td>微观：杠杆和承接逆转</td>
+<td>获利资金与回调承接</td>
+<td>60日全订单规模净额-7.08亿元、成交额均值下行</td>
+<td>逆转</td>
+<td>承接减弱，出清未完成</td>
+</tr>
+</tbody></table>
+<h5>三、预期触发</h5>
+<table>
+<thead>
+<tr>
+<th>触发类型</th>
+<th>观察项</th>
+<th>当前证据与时间</th>
+<th>扫描状态</th>
+<th>对估值状态的影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>叙事耗尽</td>
+<td>价格隐含的增长年限</td>
+<td>4.07倍PB隐含约31.5%长期ROE</td>
+<td>逆转</td>
+<td>远超历史与扣非证据</td>
+</tr>
+<tr>
+<td>叙事耗尽</td>
+<td>产业进度与远期预期的距离</td>
+<td>卫星维护收入不足1%、利润贡献小</td>
+<td>逆转</td>
+<td>直接击中前沿期权</td>
+</tr>
+<tr>
+<td>叙事耗尽</td>
+<td>新信息对盈利预测的推动</td>
+<td>H1归母上修主要来自金融资产，扣非仅0.23亿元</td>
+<td>逆转</td>
+<td>不能支撑经营估值上修</td>
+</tr>
+<tr>
+<td>叙事耗尽</td>
+<td>同类利好的边际反应</td>
+<td>未完成政策/订单事件的可比事件研究</td>
+<td>证据不足</td>
+<td>不按有利处理</td>
+</tr>
+<tr>
+<td>财报与真实经营接管定价</td>
+<td>财报披露节点</td>
+<td>08-27半年报尚未披露完整分部和现金流</td>
+<td>证据不足</td>
+<td>节点临近但结果未知</td>
+</tr>
+<tr>
+<td>财报与真实经营接管定价</td>
+<td>订单、收入与利润的一致性</td>
+<td>未披露重大合同；2025收入下降且扣非亏损</td>
+<td>逆转</td>
+<td>叙事未被订单利润验证</td>
+</tr>
+<tr>
+<td>财报与真实经营接管定价</td>
+<td>利润与现金流的一致性</td>
+<td>Q1净利润转正、CFO大幅为负</td>
+<td>逆转</td>
+<td>盈利质量反证</td>
+</tr>
+<tr>
+<td>财报与真实经营接管定价</td>
+<td>真实应用与产品验证</td>
+<td>主业有产品；卫星仅小额维护且无独立利润</td>
+<td>逆转</td>
+<td>主题价值未验证</td>
+</tr>
+<tr>
+<td>财报与真实经营接管定价</td>
+<td>实际业绩与价格隐含预期</td>
+<td>扣非ROE为负/低个位数，现价隐含31.5%</td>
+<td>逆转</td>
+<td>核心估值脱锚</td>
+</tr>
+</tbody></table>
+<h5>三表扫描汇总</h5>
+<table>
+<thead>
+<tr>
+<th>扫描表</th>
+<th align="right">有利项</th>
+<th align="right">逆转项</th>
+<th align="right">证据不足项</th>
+<th align="right">不适用项</th>
+<th>关键逆转 / 主要反证 / 跨表传导</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本面触发</td>
+<td align="right">3</td>
+<td align="right">5</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td>CFO、FCF、利润转化逆转；无债务与低Capex是反证</td>
+</tr>
+<tr>
+<td>流动性触发</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">8</td>
+<td align="right">1</td>
+<td>融资与价格同向去化、承接减弱；政策方向有利但未传导</td>
+</tr>
+<tr>
+<td>预期触发</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td>卫星进度、实际业绩和隐含ROE严重不一致</td>
+</tr>
+</tbody></table>
+<ul>
+<li>是否存在击中主估值锚的关键逆转：<strong>是</strong>。扣非亏损、Q1负现金流与4.07倍PB直接冲突。</li>
+<li>是否形成跨表传导链：<strong>是</strong>。主营利润/现金流弱→远期卫星叙事承担估值→融资与股价同步收缩→高PB正常化；这是一条正在运行的出清链。</li>
+<li>主要反证：低Capex、无借款、H1扣非转正和54%回撤降低破产及短期杠杆风险，但没有把现价拉回公允价值内。</li>
+</ul>
+<h4>泡沫证据门槛</h4>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>判断项</th>
+<th>状态</th>
+<th>证据 / 反证</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>核心门槛</td>
+<td>估值脱锚</td>
+<td>成立</td>
+<td>现价高于乐观上沿157.9%，反推ROE约31.5%</td>
+</tr>
+<tr>
+<td>核心门槛</td>
+<td>经营验证缺口</td>
+<td>成立</td>
+<td>2025扣非亏损、卫星收入不足1%、无独立订单利润</td>
+</tr>
+<tr>
+<td>核心门槛</td>
+<td>正常化压力失败</td>
+<td>成立</td>
+<td>剔除资产收益、流动性和主题溢价后现价不能成立</td>
+</tr>
+<tr>
+<td>放大器</td>
+<td>融资依赖</td>
+<td>不显著</td>
+<td>公司无有息借款，也未披露前沿项目融资</td>
+</tr>
+<tr>
+<td>放大器</td>
+<td>杠杆与承接</td>
+<td>显著</td>
+<td>融资与股价60日同步收缩、资金承接弱；融资占市值仅2.57%是反证</td>
+</tr>
+<tr>
+<td>放大器</td>
+<td>叙事一致性</td>
+<td>显著</td>
+<td>商业航天远期叙事与不足1%收入被线性连接</td>
+</tr>
+</tbody></table>
+<ul>
+<li>估值泡沫判断：<strong>严重估值泡沫</strong>。</li>
+<li>判断依据：三个核心门槛同时成立，且叙事一致性和杠杆承接至少一个放大器显著；三表已有基本面—预期—流动性传导。</li>
+<li>主要反证与缺失证据：无负债、H1扣非改善、价格已腰斩；缺少正式H1、行业资金、ETF与基金仓位。</li>
+<li>判断置信度：<strong>中高</strong>。</li>
+<li>泡沫出清状态：<strong>出清中</strong>。</li>
+<li>出清触发证据：52周高点回撤54.3%、60日融资余额-27.49%、60日全订单规模净额-7.08亿元；但现价仍在上沿外，不能判定出清完成。</li>
+</ul>
+<h2 id="section-12">12. 最终结论</h2>
+
+<ul>
+<li>企业价值主类型：<strong>重资产</strong>。</li>
+<li>分部类型映射：信息通信/智能制造为基本盘，金融科技折价，物业与金融资产提供NAV底，卫星为前沿期权。</li>
+<li>主估值锚：2026Q1每股净资产约3.04元×0.92—1.50倍PB，卫星期权仅进上沿。</li>
+<li>价值创造链及可持续时间：主营交付、毛利和回款必须在2026H2—2027年恢复；金融资产处置不具持续性。</li>
+<li>估值结论：<strong>严重高估</strong>。</li>
+<li>操作结论：<strong>规避；已有持仓减仓并复核</strong>。</li>
+<li>公允价值区间：<strong>2.8—4.8元，中枢3.5元</strong>。</li>
+<li>相对现价空间：<strong>-77.4%至-61.2%，中枢-71.7%</strong>。</li>
+<li>如果今天这是一笔现金，我会买它吗：<strong>不会。</strong></li>
+<li>我的判断：这是“价格跌了很多，但价值没有同步上来”的典型题材陷阱候选；54%回撤不是安全边际，4.07倍PB和不足1%的卫星收入才是当前决策核心。</li>
+<li>结论失效条件：正式H1/Q3显示扣非利润、ROE和FCF跃升并持续，卫星业务获得可审计订单、收入占比与正毛利，使每股公允价值上沿被提高至现价附近。</li>
+<li>估值锚失效后的退出条件：若调整后NAV低于2.8元、应收库存发生重大减值，或正常化扣非利润再次转负，应进一步下修并继续退出；若现价始终高于4.8元且无新证据，不因下跌幅度加仓。</li>
+</ul>
+<h2 id="section-13">13. 后续监控指标</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">当前值</th>
+<th>触发阈值 / 方向</th>
+<th>数据源</th>
+<th>复核频率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>H1扣非归母</td>
+<td align="right">预告0.23亿元</td>
+<td>≥0.23亿元且H2继续增长；低于预告为负面</td>
+<td>公司半年报</td>
+<td>08-27</td>
+</tr>
+<tr>
+<td>经营现金流 / FCF</td>
+<td align="right">Q1 -2.40/-2.51亿元</td>
+<td>H1/Q3转正；继续大额为负则下修</td>
+<td>定期报告</td>
+<td>每季</td>
+</tr>
+<tr>
+<td>信息通信收入 / 毛利</td>
+<td align="right">2025 10.04亿元 / 17.58%</td>
+<td>收入恢复正增长、毛利≥18%</td>
+<td>年报 / 半年报</td>
+<td>每半年</td>
+</tr>
+<tr>
+<td>存货 / 应收</td>
+<td align="right">Q1 5.99/8.48亿元</td>
+<td>存货环比下降、应收不快于收入</td>
+<td>定期报告</td>
+<td>每季</td>
+</tr>
+<tr>
+<td>扣非ROE</td>
+<td align="right">2025 -2.95%</td>
+<td>连续两期年化≥6%；≥10%才支持更高PB</td>
+<td>定期报告</td>
+<td>每半年</td>
+</tr>
+<tr>
+<td>卫星业务</td>
+<td align="right">收入不足1%</td>
+<td>独立收入≥5%、正毛利、重复订单</td>
+<td>公司/客户/监管</td>
+<td>事件驱动</td>
+</tr>
+<tr>
+<td>估值边界</td>
+<td align="right">现价12.38元；上沿4.8元</td>
+<td>进入4.8元以下才重做买点评估</td>
+<td>Tushare</td>
+<td>每日</td>
+</tr>
+<tr>
+<td>融资与资金</td>
+<td align="right">余额4.00亿元；60日-27.49%</td>
+<td>融资企稳但非杠杆资金持续流入</td>
+<td>Tushare</td>
+<td>每日/每周</td>
+</tr>
+</tbody></table>
+<ul>
+<li>价值创造链状态：<strong>部分成立但回报率未验证</strong>。</li>
+<li>下一次财报需复核：调整后NAV、扣非利润、ROIC、CFO、自由现金流、库存、应收、分部毛利、分红与卫星里程碑。</li>
+</ul>
+<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
+
+<ul>
+<li>未获取到：2026H1正式报表与分部、完整卖方一致预期和目标价、独立第三方公允价值/护城河/星级、ETF申赎、基金实时仓位、通信板块资金广度、卫星业务独立订单/毛利/客户复购、前沿项目资本预算与融资条款。</li>
+<li>已检查来源：Tushare本地MCP、公司年报/季报/业绩预告/交易风险提示/金融资产处置公告、公开行情与研报聚合页面。</li>
+<li>对结论影响：上述缺口使短期经营改善与资金传导置信度下降；但不会消除“现价高于NAV上沿158%、主营扣非弱、卫星不足1%”三项核心证据。</li>
+<li>行情限制：收益率为不复权口径；区间内没有重大送转，但现金分红会产生小额差异。</li>
+<li>个人化限制：用户未提供持仓成本、仓位、期限和风险预算；已有持仓只给通用<code>reduce / review</code>，不替代个人交易计划。</li>
+</ul>
+<h2 id="section-15">15. 来源清单</h2>
+
+<ol>
+<li><a href="../../webpages/2026-08-21-东方通信研报数据核验快照.md">东方通信研报数据核验快照</a>，本地结构化核验，2026-08-21。</li>
+<li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12213830&stockid=600776">东方通信2025年年度报告</a>，东方通信，2026-04-28披露。</li>
+<li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12445312&stockid=600776">东方通信2026年半年度业绩预告</a>，东方通信，2026-07-16。</li>
+<li><a href="https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12438235&stockid=600776">关于择机出售交易性金融资产的进展公告</a>，东方通信，2026-07-10。</li>
+<li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11913268&stockid=600776">东方通信股票交易风险提示公告</a>，东方通信，2026-01-14。</li>
+<li>Tushare本地MCP：证券身份、日线、每日估值、资金分档、融资融券、财务报表与分红，抓取日2026-08-21，数据截至2026-08-20。</li>
+<li><a href="../../../wiki/concepts/冰冰小美-framework-估值判断.md">冰冰小美估值判断框架</a>，泡沫破裂触发器与估值类型口径，读取日2026-08-21。</li>
+</ol>
+<h2 id="section-16">16. 声明</h2>
+
+<p>本报告基于截至研究截止时间可取得的公开信息，不构成收益保证或个性化投资建议。真实交易前应重新核验价格、2026年半年报、公告、流动性和个人风险承受能力。</p>
+<script>
+(() => {
+  const endpoint = '/api/stock-quote?secid=1.600776';
+  const priceNode = document.getElementById('intraday-price');
+  const detailNode = document.getElementById('intraday-detail');
+  const statusNode = document.getElementById('intraday-status');
+  const riskRewardValue = document.getElementById('risk-reward-value');
+  const riskRewardDetail = document.getElementById('risk-reward-detail');
+  const tracker = document.getElementById('daily-tracking');
+  const snapshotPrice = 12.38;
+  const percent = value => `${value < 0 ? '-' : value > 0 ? '+' : ''}${Math.abs(value).toFixed(1)}%`;
+  function updateRiskReward(price) {
+    const low = Number(tracker.dataset.valueLow);
+    const high = Number(tracker.dataset.valueHigh);
+    if (!Number.isFinite(low) || !Number.isFinite(high) || low <= 0 || high <= low) return;
+    const upside = (high / price - 1) * 100;
+    const downside = (1 - low / price) * 100;
+    if (price <= low) {
+      riskRewardValue.textContent = '低于价值下沿';
+      riskRewardValue.classList.remove('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿潜在空间 ${percent(upside)}。价格已低于公允价值下沿，不能直接用下沿作为止损风险，需另设风控线。`;
+      return;
+    }
+    if (price >= high) {
+      riskRewardValue.textContent = '无正向盈亏比';
+      riskRewardValue.classList.add('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿空间 ${percent(upside)}，回落至下沿风险 ${percent(downside)}。价格已到或高于公允价值上沿，新增现金不具备正向盈亏比。`;
+      return;
+    }
+    const ratio = upside / downside;
+    riskRewardValue.textContent = `约 ${ratio.toFixed(1)}:1`;
+    riskRewardValue.classList.toggle('bad', ratio < 1);
+    riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；到上沿 ${high.toFixed(2)} 元的潜在上行 ${percent(upside)}，跌至下沿 ${low.toFixed(2)} 元的风险 ${percent(downside)}。盘中价格不改变价值区间本身。`;
+  }
+  async function refreshIntradayQuote() {
+    statusNode.textContent = '连接中'; statusNode.className = 'tracking-status';
+    try {
+      const response = await fetch(endpoint, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json(); const quote = payload && payload.data;
+      if (!quote || !Number.isFinite(quote.price) || !Number.isFinite(quote.prevClose) || !Number.isFinite(quote.changePercent) || !Number.isFinite(quote.quoteTimestamp)) throw new Error('invalid quote');
+      const quoteTime = new Date(quote.quoteTimestamp * 1000).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false });
+      priceNode.textContent = `${quote.price.toFixed(2)} 元 · ${percent(quote.changePercent)}`;
+      priceNode.classList.toggle('bad', quote.changePercent < 0);
+      detailNode.textContent = `行情时间：${quoteTime}；昨收 ${quote.prevClose.toFixed(2)} 元。来源：${payload.proxySource || '本地行情代理'}。`;
+      statusNode.textContent = '盘中实时 · 每 60 秒'; statusNode.className = 'tracking-status live'; updateRiskReward(quote.price);
+    } catch { priceNode.textContent = '实时行情暂不可用'; priceNode.classList.remove('bad'); detailNode.textContent = '每日同步值仍然有效；可重新双击“大盘启动器”后刷新本页。'; statusNode.textContent = '连接失败'; statusNode.className = 'tracking-status error'; }
+  }
+  if (location.protocol === 'http:' || location.protocol === 'https:') { refreshIntradayQuote(); window.setInterval(refreshIntradayQuote, 60000); }
+  else { priceNode.textContent = Number.isFinite(snapshotPrice) ? `${snapshotPrice.toFixed(2)} 元（每日值）` : '每日值未获取'; detailNode.textContent = '当前为直接打开模式；盘中实时需通过“大盘启动器”进入本地服务。'; statusNode.textContent = '每日同步 · 实时未连接'; }
+})();
+</script></article>
+    </div>
+  </main>
+</body>
+</html>

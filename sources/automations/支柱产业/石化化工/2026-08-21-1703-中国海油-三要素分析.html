@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>中国海洋石油冰冰小美体系三要素分析</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --positive: #17604e;
+  --positive-bg: #dff3eb;
+  --negative: #a82828;
+  --negative-bg: #ffe1df;
+  --neutral: #7b5b18;
+  --neutral-bg: #fff2cf;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; color: var(--ink); background: var(--paper); font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif; line-height: 1.7; }
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero { padding: 56px 76px 46px; color: #fff; background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%); }
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.research-note { margin: 16px 0 26px; padding: 14px 18px 13px; border: 1px solid #dce5e9; border-left: 4px solid #8ca6b1; border-radius: 8px; color: #526875; background: #f7fafb; }
+.research-note-title { margin: 0 0 7px; color: #58717d; font-size: 12px !important; font-weight: 700; letter-spacing: .08em; }
+.research-note ul { margin: 0; padding-left: 21px; }
+.research-note li { margin: 4px 0; font-size: 13.5px; line-height: 1.65; }
+.research-note li::marker { color: #8ca6b1; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.factor-summary { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin: 26px 0 42px; }
+.factor-card { min-width: 0; padding: 16px; border: 1px solid var(--line); border-radius: 12px; background: #f7f9fa; }
+.factor-card p { margin: 0 0 6px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .06em; }
+.factor-card strong { color: var(--navy); font-size: 18px; line-height: 1.35; }
+.factor-card.positive { background: var(--positive-bg); }
+.factor-card.positive strong { color: var(--positive); }
+.factor-card.negative { background: var(--negative-bg); }
+.factor-card.negative strong { color: var(--negative); }
+.factor-card.neutral { background: var(--neutral-bg); }
+.factor-card.neutral strong { color: var(--neutral); }
+
+@media (max-width: 1100px) { .factor-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 980px) { .hero { padding: 40px 30px 34px; } .layout { grid-template-columns: 1fr; } .toc { border-right: 0; border-bottom: 1px solid var(--line); } .toc-inner { position: static; columns: 2; } .content { padding: 34px 30px 64px; } }
+@media (max-width: 600px) { .toc-inner { columns: 1; } .content { padding: 28px 18px 54px; } .factor-summary { grid-template-columns: 1fr; } }
+@media print { body { background: #fff; } .report-shell { max-width: none; } .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; } .layout { display: block; } .toc { display: none; } .content { padding: 25px 36px; } .content h2 { break-after: avoid; } .content table { display: table; overflow: visible; break-inside: avoid; } .factor-card { border: 1px solid #aebbc2; background: #fff !important; } .research-note { break-inside: avoid; background: #fff; } }
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM THREE-FACTOR ANALYSIS</p>
+      <h1>中国海洋石油冰冰小美体系三要素分析</h1>
+      <div class="hero-meta"><span>个股</span><span>上海证券交易所 / 香港联合交易所</span><span>2026-08-21 17:03 Asia/Shanghai；财务截至2026年第一季度，行情截至2026-08-21收盘</span><span>2026-08-21 17:03 Asia/Shanghai</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 一句话结论</a>
+<a class="toc-link" href="#section-2">2. 三要素状态总表</a>
+<a class="toc-link" href="#section-3">3. 竞争格局的比较优势</a>
+<a class="toc-link" href="#section-4">4. 流动性辩证分析</a>
+<a class="toc-link" href="#section-5">5. 情绪位置变化</a>
+<a class="toc-link" href="#section-6">6. 综合状态与主导矛盾</a>
+<a class="toc-link" href="#section-7">7. 行动映射</a>
+<a class="toc-link" href="#section-8">8. 数据缺口与置信度</a>
+<a class="toc-link" href="#section-9">9. 来源</a></div></aside>
+      <article class="content"><blockquote>
+<p>对象层级：个股<br>市场：上海证券交易所 / 香港联合交易所<br>分析截止时间：2026-08-21 17:03 Asia/Shanghai；财务截至2026年第一季度，行情截至2026-08-21收盘<br>报告生成时间：2026-08-21 17:03 Asia/Shanghai<br>核心问题：中国海洋石油在油价高位、A/H同步上涨和中期业绩披露前，三要素是否形成有利共振；同一公司在A股与H股不同价格位置下应如何行动。</p>
+</blockquote>
+<section class="factor-summary" aria-label="三要素摘要">
+    <div class="factor-card positive"><p>综合状态</p><strong>同步有利。</strong></div>
+    <div class="factor-card positive"><p>竞争格局</p><strong>有利</strong></div>
+    <div class="factor-card positive"><p>流动性</p><strong>有利 / 修复。</strong></div>
+    <div class="factor-card positive"><p>情绪位置</p><strong>有利</strong></div>
+    <div class="factor-card neutral"><p>总体置信度</p><strong>中。经营与价格事实可靠、跨市场方向一致；资金来源和未来油价的不确定性较高，且中期业绩尚未披露。</strong></div>
+  </section>
+<h2 id="section-1">1. 一句话结论</h2>
+
+<ul>
+<li>综合状态：<strong>同步有利</strong>。</li>
+<li>流动性阶段：<strong>修复</strong>。</li>
+<li>主导要素：<strong>竞争格局有利</strong>。国家增储上产方向、海上油气资源准入、低桶油成本以及连续的产量和储量增长，共同支持公司在国内上游油气中的相对位置；2026Q1产量、销售和利润继续增长，优势尚在兑现。</li>
+<li>拖累要素：<strong>没有方向性不利要素，但流动性和情绪的持续性弱于经营优势</strong>。A/H股5日和20日同步上涨、石油ETF与中国石油共振，说明修复已扩散到上游板块；但A/H股60日收益仍为负，近5日均量低于20日均量，最近审计季度的石油ETF份额下降约56%，且A股相对H股折算价溢价约57%。因此“同步有利”表示三要素当前同向，不表示当前位置可以无条件追价。</li>
+</ul>
+<h2 id="section-2">2. 三要素状态总表</h2>
+
+<table>
+<thead>
+<tr>
+<th>要素</th>
+<th>状态</th>
+<th>核心证据</th>
+<th>核心反证</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>有利</td>
+<td>2025年净产量7.773亿桶油当量、同比+7.0%，证实储量77.7亿桶油当量、同比+6.9%，桶油全成本27.90美元；2026Q1净产量+8.6%、归母净利润+7.1%</td>
+<td>2025年实现油价下降13.4%，即使产量增长，归母净利润仍下降11.5%；油价、重大项目执行和海外地缘风险会快速改变利润</td>
+<td>中高</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>有利</td>
+<td>A/H股5日分别+3.64%/+5.71%、20日分别+6.11%/+6.88%，石油ETF当日+1.84%，均跑赢主要宽基；A/H股同向说明不是单一市场孤立异动</td>
+<td>A/H股60日仍-0.36%/-4.33%，5日均量仅为20日均量0.83/0.87倍；石油ETF二季度份额环比-56.0%，场外真实增量未确认</td>
+<td>中</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>有利</td>
+<td>中海油A/H、中国石油和石油ETF短中期同步走强，修复已由个股向上游板块扩散；布伦特约92.93美元/桶提供可观测盈利锚</td>
+<td>A股相对H股折算溢价约56.96%，融资余额短期上升；价格尚未收复60日趋势，且高油价本身包含供给冲击和需求回落风险</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 竞争格局的比较优势</h2>
+
+<blockquote>
+<p>“3层 × 5问”已在<a href="../../../webpages/2026-08-21-中国海洋石油三要素证据快照.md">证据快照</a>中完成：国家层比较中国海上油气供给与进口及其他资源国供给，行业层比较上游勘探开发与炼化销售等利润环节，企业层比较中国海油、中国石油、中国石化和埃克森美孚。本节只展示结论、证据、反证和审计信息。</p>
+</blockquote>
+<h3>国家层：方向与资源配置</h3>
+<ul>
+<li>结论：<strong>方向和制度性资源配置有利，但不能把国家能源安全目标等同于上市公司获得直接财政补贴</strong>。国内油气增储上产是明确的国家计划方向，公司通过控股股东的中国海上合作石油合同专营安排承接海域资源开发权利，具备高准入门槛。</li>
+<li>国策方向：<a href="https://www.npc.gov.cn/c2/c30834/202603/t20260316_453271.html">2026年国民经济和社会发展计划报告</a>明确要求加大国内油气勘探开发和增储上产力度，保障油气进口，完善基础设施、公平接入、调度和应急机制。</li>
+<li>政策落地：<a href="https://www.nea.gov.cn/20251205/cb2645a42a1e4b45bc0c7c5d6f18e97a/c.html">国家能源局总结</a>显示，国内原油产量稳定在2亿吨水平、天然气连续多年实现百亿立方米级增量；<a href="https://www.stats.gov.cn/sj/zxfbhjd/202606/t20260604_1963892.html">国家统计局</a>确认2025年天然气产量达到2,621亿立方米，增储上产已经进入实际产量。</li>
+<li>资源配置：<a href="https://www.cnoocltd.com/english/aboutus/keyoperatingareas/">公司核心作业区域说明</a>披露，中国海油集团拥有与外国合作方签订中国海上石油合同的专营权，并将相应权利义务转让给上市公司。公司2026年资本开支预算1,120亿—1,220亿元，表明企业产业资本持续投向勘探、开发和生产；未取得中央财政、政策性信贷或政府采购直接进入上市公司的统一金额。</li>
+<li>核心证据：2025年中国区域产量5.369亿桶油当量、同比增长9.0%，公司国内独立作业油田占国内储量90.0%、占国内产量87.8%，国家方向已由文件传导为海上项目和产量。</li>
+<li>核心反证：上游油气仍接受市场油价、资源禀赋、生态安全和碳约束；国家保障供应可能要求逆周期资本开支，并不保证每个项目都有高资本回报。</li>
+</ul>
+<aside class="research-note" aria-label="研究提示"><p class="research-note-title">研究提示</p><ul>
+<li>已检索范围：2026年国民经济和社会发展计划、能源安全、油气增储上产、国内产量、海上合作石油合同准入、公司资本开支；政府采购对上游资源开发不适用。</li>
+<li>数据缺口：财政、政策性信贷、税收优惠和地方配套资金直接进入上市公司的金额；海域资源配置的项目级经济条件。</li>
+<li>下一验证点：2026年国内新增储量与产量、重大海上项目投产、2027年资本开支预算和“十五五”能源规划实施细则。</li>
+<li>失效条件：国家增储上产方向下调、海上资源准入制度发生不利变化，或公司国内发现和开发成本连续显著上升。</li>
+</ul>
+</aside>
+<h3>产业 / 行业层：利润流向与产业链位置</h3>
+<ul>
+<li>结论：<strong>高油价阶段利润优先流向低成本上游，中海油位于国内海上油气核心环节；当前利润池有利，但属于商品周期优势，不是脱离油价的永久定价权</strong>。</li>
+<li>核心证据：2026年8月21日布伦特原油约92.93美元/桶，显著高于公司2025年27.90美元/桶的全成本。2026Q1实现油价75.92美元/桶、同比+4.5%，净产量+8.6%，推动油气销售收入和利润同步增长。</li>
+<li>核心证据：公司2025年净产量7.773亿桶油当量，近五年产量复合增速约8%；证实储量增长6.9%，说明行业位置不仅来自现有高油价，也有储量接续和项目执行支撑。2025年16个新项目投产、80多个项目在建，海上工程和项目组合形成持续供给能力。</li>
+<li>核心反证：高油价会刺激OPEC+、美国页岩油和其他资源国增产，也可能压制全球需求并推高通胀。中国石化当日下跌0.78%，说明高油价对炼化一体化公司的传导与纯上游不同，不能把整个石油产业链视为同步受益。</li>
+</ul>
+<aside class="research-note" aria-label="研究提示"><p class="research-note-title">研究提示</p><ul>
+<li>已检索范围：布伦特与WTI、公司实现油价和桶油成本、国内外产量、储量、在建项目、OPEC+及页岩油替代逻辑；炼化环节仅作传导对照。</li>
+<li>数据缺口：全球海上油气、页岩油和OPEC+项目完全同口径的边际成本曲线，授权油价预期和各新项目盈亏平衡价。</li>
+<li>下一验证点：布伦特远期曲线、OPEC+产量、美国页岩油钻机和库存、公司H1实现油价与桶油成本、新项目达产率。</li>
+<li>失效条件：布伦特持续跌破公司新增项目经济性中枢，或行业供给增长长期快于需求、公司储量替代率和项目交付明显转弱。</li>
+</ul>
+</aside>
+<h3>企业层：谁能获得利润</h3>
+<ul>
+<li>结论：<strong>中国海油相对国内综合油企具备纯上游、低成本和更快产量增长优势；相对国际巨头规模较小、资产更集中，优势是增长和成本效率，不是绝对规模和风险分散</strong>。</li>
+<li>核心证据：<a href="https://www.cnoocltd.com/english/presscenter/pressreleases/2026/202603/t20260326_120621.html">2025年业绩公告</a>显示，净产量7.773亿桶油当量、同比+7.0%，证实储量77.7亿桶油当量、同比+6.9%，归母净利润1,221亿元；<a href="https://www.cnoocltd.com/english/investorrelations/reports/annualreport/material/e00883-2025AnnualResults-en.pdf">年报</a>显示经营现金流2,090亿元、桶油全成本27.90美元。低成本和现金流使公司能够在油价下行时继续增产和分红。</li>
+<li>核心证据：<a href="https://www.cnoocltd.com/english/presscenter/pressreleases/2026/202604/t20260428_121081.html">2026Q1业绩</a>显示净产量2.051亿桶油当量、同比+8.6%，归母净利润391.4亿元、同比+7.1%，桶油全成本28.41美元；2026年产量目标7.80亿—8.00亿桶油当量，仍保留增长。</li>
+<li>核心证据：<a href="https://www.petrochina.com.cn/ptr/lytj/202603/6fedafd19a734edf9886743171d7d680/files/574a5e52909f44fb852200091cf6efa0.pdf">中国石油2025年业绩材料</a>显示其2026年油气当量产量目标仅同比增长约0.6%，而中海油目标中枢相对2025年约增长1.6%；中海油的增量速度更快。中国石油总产量和利润绝对规模更大，<a href="https://corporate.exxonmobil.com/news/news-releases/2026/0130-exxonmobil-announces-2025-results">埃克森美孚</a>也拥有更大、更分散的全球资产组合，不能把中海油定义为绝对规模领先。</li>
+<li>核心反证：2025年实现油价下降13.4%，即使销售量增长6.4%，营业收入仍下降5.3%、归母净利润下降11.5%，证明公司没有脱离油价的定价权。海外产量占比30.9%，项目执行、汇率、税制、制裁和地缘风险均会影响现金流；2026年资本开支预算较大，自由现金流对油价敏感。</li>
+</ul>
+<aside class="research-note" aria-label="研究提示"><p class="research-note-title">研究提示</p><ul>
+<li>已检索范围：中国海油2025年报、2026Q1、产量储量、成本、现金流、分红与资本开支；对比中国石油的产量、利润、实现油价和资本开支，以及埃克森美孚的上游规模和资产组合。</li>
+<li>数据缺口：全球可比公司同口径储量寿命、桶油自由现金流、ROIC、项目盈亏平衡价和碳成本；中国石化纯上游分部最新同口径数据。</li>
+<li>下一验证点：8月26日2026H1业绩与中期股息、桶油成本、经营现金流、储量替代率、2026产量目标完成度和重大项目进度。</li>
+<li>失效条件：产储增长连续低于同业、桶油成本明显抬升、自由现金流和分红覆盖恶化，或重大海外项目出现不可逆损失。</li>
+</ul>
+</aside>
+<h3>本要素判断</h3>
+<ul>
+<li>状态：<strong>有利</strong>。</li>
+<li>理由：国家层确认能源安全和增储上产资格，并有海上资源准入这一制度性配置；行业层确认高油价下利润向低成本上游集中；企业层用更快的产量和储量增长、低桶油成本和强经营现金流证明能够获得利润。商品价格依赖、重资本和海外风险是强反证，但尚未推翻公司相对国内综合油企的纯上游和增长优势。</li>
+</ul>
+<aside class="research-note" aria-label="研究提示"><p class="research-note-title">研究提示</p><ul>
+<li>主导证据：2025年产量+7.0%、储量+6.9%、桶油全成本27.90美元，2026Q1产量+8.6%、归母净利润+7.1%。</li>
+<li>核心缺口：可比公司项目级成本、储量寿命和自由现金流同口径数据不足，企业层置信度不定为高。</li>
+<li>下一验证点：8月26日中期业绩、成本与股息；随后验证全年产量7.80亿—8.00亿桶油当量和资本开支执行。</li>
+<li>失效条件：油价、产量、成本和储量替代率中至少两项同时持续恶化，且相对同业优势消失。</li>
+</ul>
+</aside>
+<h2 id="section-4">4. 流动性辩证分析</h2>
+
+<blockquote>
+<p>核心边界：成交量只是结果。当前“有利”来自A/H价格、行业相对收益和油价的跨市场共振；成交量不足、ETF份额下降和融资上升决定阶段只能定为修复，不能定为扩张。</p>
+</blockquote>
+<h3>宏观流动性</h3>
+<ul>
+<li>事实与时点：<a href="https://www.federalreserve.gov/newsevents/pressreleases/monetary20260729a.htm">美联储2026年7月声明</a>维持联邦基金目标利率3.50%—3.75%，同时指出能源供给冲击推升通胀；8月21日布伦特约92.93美元/桶，WTI约85.95美元/桶。</li>
+<li>对对象的影响：<strong>对经营支持、对估值中性偏约束</strong>。高油价直接改善上游利润预期，但高全球利率和能源通胀提高折现率，也增加需求回落和政策压价风险。</li>
+</ul>
+<h3>中观流动性</h3>
+<ul>
+<li>事实与时点：<a href="https://paper.people.com.cn/rmrbhwb/pc/content/202608/15/content_30175003.html">2026年7月金融数据</a>显示，M2余额同比增长7.7%，社会融资规模存量同比增长7.4%，政府债券余额同比增长14.1%；国内货币总量继续增长，但信用结构更多由政府债券支撑。</li>
+<li>传导判断：总量流动性保持合理，但不能由M2和社融直接证明资金进入石油板块。石油上游的直接经营资金主要来自公司经营现金流和资本预算，二级市场资金仍需用ETF、融资和相对收益验证。</li>
+<li>对对象的影响：<strong>中性偏支持</strong>。国内流动性没有构成系统性收缩，但行业定向增量证据主要来自存量迁移而非货币总量。</li>
+</ul>
+<h3>微观流动性</h3>
+<ul>
+<li>事实与时点：<a href="https://qt.gtimg.cn/q=sh600938,hk00883,sh601857,sh600028,sh000300,hkHSI,sh561360,hf_OIL">8月21日行情</a>显示，中海油A股33.86元、+1.68%、成交15.16亿元，H股25.18港元、+2.11%、成交17.51亿港元；石油ETF+1.84%、中国石油A股+1.91%，沪深300+0.57%、恒生指数+1.21%。</li>
+<li>事实与时点：A股5/20/60日收益+3.64%/+6.11%/-0.36%，H股+5.71%/+6.88%/-4.33%；A/H股5日平均成交量分别仅为20日均量的0.83倍和0.87倍。短中期相对强度成立，中周期趋势和量能连续性尚未确认。</li>
+<li>迁移路径：资金更像从宽基和非资源方向切换到高油价受益的上游龙头，而不是全市场资金同步扩张。A/H和石油ETF共振支持“板块迁移”；中国石化逆势下跌说明迁移集中于纯上游和资源属性，而不是无差别买入石油产业链。</li>
+<li>对对象的影响：<strong>支持</strong>，但仅支持“转弱后的修复”，不能支持“整体扩张”。</li>
+</ul>
+<h3>资金来源分类</h3>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>是否存在</th>
+<th>渠道与证据</th>
+<th>持续性</th>
+<th>退出条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>场外真实增量</td>
+<td>证据不足</td>
+<td>石油ETF 2026Q2份额13.24148亿份，较Q1的30.12148亿份下降约56.0%；未取得8月实时申赎和A/H账户级机构净流入</td>
+<td>低</td>
+<td>若后续ETF份额、非杠杆机构持仓和成交额连续上升，才可改判为存在</td>
+</tr>
+<tr>
+<td>存量迁移</td>
+<td>是</td>
+<td>A/H股、石油ETF和中国石油同步跑赢主要宽基，且上游强于炼化，符合资金向油价受益环节切换</td>
+<td>中</td>
+<td>油价回落、相对收益连续转负，或资金重新流向成长与消费主线</td>
+</tr>
+<tr>
+<td>减量报团</td>
+<td>证据不足</td>
+<td>A/H成交量低于20日均量、A股高溢价存在集中迹象，但宽基并非明显流动性收缩，不能确认整体减量</td>
+<td>低</td>
+<td>市场总成交扩张则排除；若总成交收缩而少数能源龙头继续吸金则确认</td>
+</tr>
+</tbody></table>
+<h3>供给与抛压</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>当前事实</th>
+<th>对流动性的影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>杠杆资金</td>
+<td>A股融资余额由8月7日约23.25亿元升至8月12日约26.64亿元</td>
+<td>支持短期弹性，但价格反转时会放大抛压；公开数据不能识别账户身份</td>
+</tr>
+<tr>
+<td>股票融资供给</td>
+<td>已检查公司年报、Q1和近期董事会公告，未识别当前窗口的A/H配股、增发或可转债计划；未完成交易所全量未来事项穷举</td>
+<td>当前未见明确新增筹码压力，但证据不足以定为长期不存在</td>
+</tr>
+<tr>
+<td>减持与解禁</td>
+<td>控股股东持股稳定；未从已检查公告识别当前窗口的大额减持。A股约29.9亿股，相对总股本约475.7亿股较少</td>
+<td>A股可交易筹码较少有助价格弹性，也是A/H溢价和波动放大的结构性来源</td>
+</tr>
+<tr>
+<td>套牢盘与高位筹码</td>
+<td>A/H现价较52周高点分别约低23%和17%；A/H股60日收益仍为负</td>
+<td>上方历史筹码仍可能在半年报或油价回落时兑现，限制修复向扩张转换</td>
+</tr>
+</tbody></table>
+<h3>最低数据检查</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>已检查数据</th>
+<th>数据时点与窗口</th>
+<th>来源</th>
+<th>缺口及影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观</td>
+<td>美联储利率、布伦特、WTI、能源通胀</td>
+<td>2026-07-29至2026-08-21</td>
+<td>美联储、腾讯商品行情</td>
+<td>缺美元指数和完整远期曲线，不影响“油价支持、利率约束”方向判断</td>
+</tr>
+<tr>
+<td>中观</td>
+<td>M2、社融存量及结构</td>
+<td>2026年7月末</td>
+<td>人民银行数据的人民日报转述</td>
+<td>无法证明资金定向进入油气，故只判中性偏支持</td>
+</tr>
+<tr>
+<td>微观</td>
+<td>A/H价格成交、5/20/60日收益、ETF、同行、宽基、融资</td>
+<td>行情至8月21日；融资至8月12日；ETF至6月30日</td>
+<td>腾讯行情、基金定期报告、融资公开汇总</td>
+<td>缺A/H账户级机构、港股卖空和8月ETF实时份额，限制资金身份判断</td>
+</tr>
+<tr>
+<td>供给与抛压</td>
+<td>股本、融资安排、减持、历史高位</td>
+<td>年报及近期公告</td>
+<td>公司年报、港交所公告</td>
+<td>未完成全量未来解禁和大宗交易审计，供给判断置信度中低</td>
+</tr>
+</tbody></table>
+<h3>证据</h3>
+<ul>
+<li>A/H两个市场5日和20日均上涨，并与中国石油、石油ETF同步，说明修复不是单一盘口或单一市场噪声。</li>
+<li>A/H当日和短中期均跑赢沪深300、恒生指数，资金存在向上游能源迁移的相对证据。</li>
+<li>布伦特维持高位，为资金选择纯上游龙头提供可验证的盈利传导锚。</li>
+</ul>
+<h3>反证</h3>
+<ul>
+<li>A/H股60日收益仍为负，近5日平均成交量低于20日均量，趋势和承接没有达到扩张标准。</li>
+<li>石油ETF最近审计季度份额环比下降约56%，不支持把价格上涨解释为持续场外新资金。</li>
+<li>融资余额上升、A股相对H股溢价约57%，意味着部分修复可能由杠杆和稀缺筹码放大。</li>
+</ul>
+<h3>退出路径</h3>
+<ul>
+<li>第一条路径是油价回落：上游盈利锚转弱，资金从能源切回成长或消费，A/H相对收益转负。</li>
+<li>第二条路径是事件兑现：8月26日中期业绩、股息或成本不及预期，短期融资和获利盘同时退出。</li>
+<li>第三条路径是A/H分化：A股溢价继续扩大而H股不跟随，表明A股稀缺筹码或杠杆主导，修复质量下降。</li>
+</ul>
+<h3>失效条件</h3>
+<ul>
+<li>A/H股同时转为5日、20日相对宽基负收益，石油ETF失守修复趋势，且布伦特连续跌破80美元/桶；或融资余额继续上升而价格下跌，均会使“流动性有利”失效。</li>
+</ul>
+<h3>流动性阶段判定</h3>
+<ul>
+<li>方向评价：<strong>有利</strong>。</li>
+<li>当前状态：<strong>修复</strong>。</li>
+<li>上一可辨识状态或基准状态：<strong>转弱</strong>。</li>
+<li>转换方向：<strong>转弱 → 修复</strong>。</li>
+<li>跨层依据：宏观层高油价支持上游经营、全球利率约束估值；中观层国内货币总量保持增长但没有行业定向增量证明；微观层A/H和石油ETF短中期同步跑赢宽基，确认存量资金迁移。三层合并支持修复，而非单纯反弹噪声。</li>
+<li>相邻状态排除理由：不是“扩张”，因为A/H股60日仍为负、成交量低于20日均量、ETF最近审计季度大幅赎回且账户级真实增量缺失；也不是“平衡”，因为A/H和行业相对收益已经由弱转强，方向性迁移明显。</li>
+<li>置信度：<strong>中</strong>。价格和跨市场证据完整，资金身份、实时ETF份额、港股卖空与最新融资数据不完整。</li>
+</ul>
+<h2 id="section-5">5. 情绪位置变化</h2>
+
+<h3>证据</h3>
+<ul>
+<li>状态：<strong>有利，处于上游板块的修复向扩散</strong>。8月21日中海油A/H、中国石油A股和石油ETF同步上涨；5日、20日窗口内中海油A/H均为正收益，而主要宽基同期偏弱，赚钱效应已从单一标的扩展到上游资源方向。</li>
+<li>价值锚并非纯叙事：布伦特约92.93美元/桶，2026Q1实现油价75.92美元/桶时公司已实现归母净利润391.4亿元；高油价能够通过实现价格传导到经营利润。</li>
+<li>H股25.18港元对应公开行情约8.85倍PE、5.08%股息率，H股仍有现金回报锚；A股33.86元约12.91倍PE、1.98倍PB，估值和筹码结构明显更贵，但未达到无盈利锚的纯题材状态。</li>
+</ul>
+<h3>反证</h3>
+<ul>
+<li>A股相对H股折算价溢价约56.96%，说明A股情绪和稀缺筹码定价明显更高；两地同一经营主体的收益预期并不相同。</li>
+<li>A/H现价较52周高点仍低约23%和17%，60日收益仍为负，说明修复尚未完成中周期趋势反转；上方套牢筹码可能在半年报附近兑现。</li>
+<li>石油ETF季度份额大幅下降、融资余额上升，赚钱效应的资金质量弱于价格表象；当前不定义为“拥挤”，也不能排除事件驱动的快速退潮。</li>
+</ul>
+<h3>失效条件</h3>
+<ul>
+<li>若A/H股在中期业绩后同时跌破修复结构、5日和20日相对收益转负，石油ETF与中国石油不再跟随，或A股溢价继续扩大而H股下跌，则情绪“有利”失效并转为中性或不利。</li>
+</ul>
+<h2 id="section-6">6. 综合状态与主导矛盾</h2>
+
+<ul>
+<li>综合状态：<strong>同步有利</strong>。</li>
+<li>主导矛盾：<strong>公司和行业的结构性优势，与高油价、高A/H溢价和资金持续性不足之间的矛盾</strong>。竞争格局是最强要素；流动性和情绪已由转弱进入修复并同向，但更多来自存量资金向上游迁移，尚未获得场外真实增量确认。</li>
+<li>下一验证点：8月26日2026H1业绩与中期股息；H1实现油价、净产量、桶油成本、经营现金流；布伦特能否维持、A/H股能否收复60日趋势、ETF份额和非杠杆资金能否连续增加。</li>
+<li>综合失效条件：布伦特持续跌破80美元/桶且公司产量或成本不及预期，同时A/H短中期相对收益转负、融资余额逆势上升；三要素中至少两项转为不利时，“同步有利”失效。</li>
+</ul>
+<h2 id="section-7">7. 行动映射</h2>
+
+<h3>新增现金（buy / wait / observe / review）</h3>
+<table>
+<thead>
+<tr>
+<th>行动</th>
+<th>条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>wait（A股）</td>
+<td>当前A股相对H股折算溢价约57%，且8月26日中期业绩在即；不因“三要素同步有利”追价。等待业绩后桶油成本、现金流、股息兑现，并要求A/H价格和成交连续性继续改善。</td>
+</tr>
+<tr>
+<td>observe（H股）</td>
+<td>H股估值与股息锚优于A股，但仍暴露于同一油价和地缘事件。观察中期业绩后的股息覆盖、布伦特趋势及H股能否维持20日相对强势；在用户风险预算、税费和账户约束未知时不直接映射为buy。</td>
+</tr>
+</tbody></table>
+<h3>已有持仓（sell / reduce / wait / observe / review）</h3>
+<table>
+<thead>
+<tr>
+<th>行动</th>
+<th>条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>review</td>
+<td>默认动作。按A/H市场、持仓成本、仓位和税费分别复核；持有逻辑应以产量、成本、油价和股息为锚，而不是只看当日板块上涨。</td>
+</tr>
+<tr>
+<td>reduce</td>
+<td>仅在布伦特连续跌破80美元/桶、A/H股同步转为5日和20日相对宽基负收益，或中期业绩显示桶油成本和现金流明显恶化时触发；单日震荡不触发。</td>
+</tr>
+</tbody></table>
+<h2 id="section-8">8. 数据缺口与置信度</h2>
+
+<ul>
+<li>数据缺口：缺少全球可比公司的同口径项目盈亏平衡价、储量寿命、桶油自由现金流和ROIC；缺少A/H账户级机构净流向、港股卖空回补、8月ETF实时份额和8月12日后的融资余额；未穷尽未来解禁、大宗交易和所有股权融资事项。</li>
+<li>已检查范围：国家计划与能源主管部门文件；公司2025年报、2026Q1、作业区域、资本开支、产量储量、股息和8月董事会公告；中国石油与埃克森美孚公开业绩；A/H、同业、宽基、石油ETF、布伦特和汇率；基金Q1/Q2报告及融资公开汇总。</li>
+<li>影响：竞争格局的方向较稳，但无法把置信度定为高；流动性和情绪能判断“修复与扩散”，不能识别完整买方身份，也不能证明已进入全面扩张。</li>
+<li>总体置信度：<strong>中</strong>。经营与价格事实可靠、跨市场方向一致；资金来源和未来油价的不确定性较高，且中期业绩尚未披露。</li>
+</ul>
+<h2 id="section-9">9. 来源</h2>
+
+<h3>Wiki 依据</h3>
+<ul>
+<li><a href="../../../../wiki/topics/冰冰小美-情绪体系认知篇.md">冰冰小美-情绪体系认知篇</a>：三要素组合和行动映射的总框架。</li>
+<li><a href="../../../../wiki/concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势.md">冰冰小美-concept-体系三要素之竞争格局的比较优势</a>：国家、行业、企业“3层 × 5问”及相对优势边界。</li>
+<li><a href="../../../../wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md">冰冰小美-concept-体系三要素之流动性辩证分析</a>：宏观—中观—微观、资金来源和流动性状态转换。</li>
+<li><a href="../../../../wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化.md">冰冰小美-concept-体系三要素之情绪位置的变化</a>：盈利效应、拥挤度、价值锚和情绪阶段判断。</li>
+<li><a href="../../../../wiki/topics/冰冰小美-地缘重估与资源-货币秩序.md">冰冰小美-地缘重估与资源-货币秩序</a>：能源、地缘和货币秩序的传导边界。</li>
+<li><a href="../../../../wiki/reasoning/冰冰小美-中东石油危机如何传导为石油美元压力与股市风险敞口.md">冰冰小美-中东石油危机如何传导为石油美元压力与股市风险敞口</a>：油价冲击向通胀、利率与权益风险敞口的推导。</li>
+<li><a href="../../../webpages/2026-08-21-中国海洋石油三要素证据快照.md">2026-08-21-中国海洋石油三要素证据快照</a>：本次政策、公司、同行、行情、资金与“3层 × 5问”审计底稿。</li>
+</ul>
+<h3>当前数据</h3>
+<ul>
+<li><a href="https://www.npc.gov.cn/c2/c30834/202603/t20260316_453271.html">2026年国民经济和社会发展计划报告</a>，2026-03-16。</li>
+<li><a href="https://www.nea.gov.cn/20251205/cb2645a42a1e4b45bc0c7c5d6f18e97a/c.html">国家能源局“十四五”能源成绩总结</a>，2025-12-05。</li>
+<li><a href="https://www.cnoocltd.com/english/presscenter/pressreleases/2026/202603/t20260326_120621.html">中国海油2025年业绩公告</a>、<a href="https://www.cnoocltd.com/english/investorrelations/reports/annualreport/material/e00883-2025AnnualResults-en.pdf">2025年年报</a>、<a href="https://www.cnoocltd.com/english/presscenter/pressreleases/2026/202604/t20260428_121081.html">2026Q1业绩</a>及<a href="https://www.cnoocltd.com/english/aboutus/keyoperatingareas/">核心作业区域</a>。</li>
+<li><a href="https://www.hkexnews.hk/listedco/listconews/sehk/2026/0812/2026081200730.pdf">港交所董事会会议公告</a>，2026-08-12。</li>
+<li><a href="https://www.petrochina.com.cn/ptr/ndbg/202605/c734755cc9764eb5ba8628aac4e3230c/files/c7e4f2a5e9aa4c9eacafb02ff2367d78.pdf">中国石油2025年年报</a>、<a href="https://www.petrochina.com.cn/ptr/lytj/202603/6fedafd19a734edf9886743171d7d680/files/574a5e52909f44fb852200091cf6efa0.pdf">业绩演示材料</a>及<a href="https://corporate.exxonmobil.com/news/news-releases/2026/0130-exxonmobil-announces-2025-results">埃克森美孚2025年业绩</a>。</li>
+<li><a href="https://www.sse.com.cn/disclosure/fund/announcement/c/new/2026-04-22/561360_20260422_G03M.pdf">石油ETF 2026Q1报告</a>与<a href="https://stockmc.xueqiu.com/202607/561360_20260721_YZQR.pdf">2026Q2报告</a>；份额变动按报告期末份额计算。</li>
+<li><a href="https://qt.gtimg.cn/q=sh600938,hk00883,sh601857,sh600028,sh000300,hkHSI,sh561360,hf_OIL">腾讯A/H、同行、宽基、ETF与布伦特组合行情</a>及<a href="https://qt.gtimg.cn/q=whHKDCNY">港元兑人民币</a>，截至2026-08-21收盘；区间收益由前复权日线计算。</li>
+<li><a href="https://paper.people.com.cn/rmrbhwb/pc/content/202608/15/content_30175003.html">2026年7月金融数据</a>、<a href="https://www.federalreserve.gov/newsevents/pressreleases/monetary20260729a.htm">美联储2026年7月声明</a>及<a href="https://quote.cfi.cn/rzrq/154420/600938.html">融资余额公开汇总</a>。</li>
+</ul>
+</article>
+    </div>
+  </main>
+</body>
+</html>

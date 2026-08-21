@@ -19,12 +19,14 @@ python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py
 
 1. 获取中证红利 `000922` 指数估值数据，并得到用于规则判断的股息率口径。
    - 当前使用 AKShare `stock_zh_index_value_csindex` 的 `股息率2`。
-2. 通过雪球实时行情接口获取中证红利 `SH000922` 的当天涨跌幅；该涨跌幅日期默认等于记录日期。
-3. 通过 AKShare `bond_zh_us_rate` 获取 10 年期中国国债收益率。
-4. 优先解析理杏仁公开页面获取中证红利近10年股息率分位和80%分位点；若公开页面失败，由 Codex/大模型通过网页查询核对数值后，用脚本参数传入。
-5. 按 `wiki/queries/中证红利什么时候买入收益率最高.md` 中的三种触发规则判断当前信号。
-6. 将每日结果写入 `sources/automations/中证红利信号/中证红利每日信号.xlsx`。
-7. 将最近一次结果写入 `sources/automations/中证红利信号/最新信号.md`。
+2. 获取中证红利日收盘价，计算本年度首个交易日至指数估值日期的全年收益率和年内最大回撤，并生成指数成立以来的逐年历史。
+3. 通过雪球实时行情接口获取中证红利 `SH000922` 的当天涨跌幅；该涨跌幅日期默认等于记录日期。
+4. 通过 AKShare `bond_zh_us_rate` 获取 10 年期中国国债收益率。
+5. 优先解析理杏仁公开页面获取中证红利近10年股息率分位和80%分位点；若公开页面失败，由 Codex/大模型通过网页查询核对数值后，用脚本参数传入。
+6. 按 `wiki/queries/中证红利什么时候买入收益率最高.md` 中的三种触发规则判断当前信号。
+7. 将每日结果写入 `sources/automations/中证红利信号/中证红利每日信号.xlsx`。
+8. 将最近一次结果写入 `sources/automations/中证红利信号/最新信号.md`。
+9. 将指数成立以来每一年的收益率和年内最大回撤写入 `sources/automations/中证红利信号/中证红利年度表现.json`。
 
 ## 数据源优先级
 
@@ -39,6 +41,7 @@ python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py
 | 数据 | 优先接口 | 回退接口 | 脚本用途 |
 |---|---|---|---|
 | 中证红利指数估值数据 | AKShare `stock_zh_index_value_csindex(symbol="000922")` | 无自动回退 | 使用 AKShare `股息率2` 作为绝对股息率和股债利差口径 |
+| 中证红利指数日收盘价 | 中证指数官网 `index-perf(000922)` | AKShare `stock_zh_index_daily_tx(symbol="sh000922")`，再回退 `stock_zh_index_daily` | 官网日线从发布日期 `2008-05-26` 起计算逐年收益率和最大回撤；AKShare 只在官网失败时回退 |
 | 中证红利当天行情 | 雪球实时行情 `https://stock.xueqiu.com/v5/stock/realtime/quotec.json?symbol=SH000922` | 无自动回退 | 获取当天涨跌幅；日期默认等于记录日期，只记录，不修正股息率 |
 | 中国10年国债收益率 | AKShare `bond_zh_us_rate(...)` | 无自动回退 | 获取中国10年国债收益率，用于计算股债利差 |
 | 理杏仁指数估值分位 | 理杏仁公开页面 `https://www.lixinger.com/equity/index/detail/sh/000922/922/fundamental/valuation/dyr?metrics-type=mcw` | Codex/大模型网页核验后用参数传入 | 获取中证红利近10年股息率分位和80%分位点 |
@@ -51,6 +54,8 @@ python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py
 - 每天下午运行时，指数估值日期通常仍是上一个交易日；脚本会保留该估值日期和 `股息率2`，并额外记录雪球当天涨跌幅。雪球当天涨跌幅的日期默认等于同一行的记录日期，不单独写入行情日期列；不用当天涨跌幅修正股息率。
 - 当前 AKShare 指数估值接口可能只返回最近一段数据，不一定足以直接计算真正的“近10年股息率分位”。若要严格执行历史分位点规则，应接入完整历史股息率数据源后再计算分位。
 - 近10年历史分位点不使用 AKShare 短窗口计算，而使用理杏仁分位数据。
+- 年度收益率按每个自然年首个可用交易日收盘价至末个可用交易日收盘价计算；2008年标记为“成立首年”，当前年度标记为“年内”，其余标记为“完整年度”。
+- 年内最大回撤按每个自然年内日收盘价相对此前峰值的最大跌幅计算，不跨年延续峰值。
 - 不再调用理杏仁 Open API。公开页面失败时，不要编造数值；应由 Codex/大模型通过网页搜索或浏览器查询到可核验数值后，使用以下参数传入脚本：
 
 ```powershell

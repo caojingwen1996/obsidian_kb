@@ -1,0 +1,399 @@
+const fs = require('node:fs');
+const path = require('node:path');
+
+function loadMarked() {
+  try {
+    return require('marked').marked;
+  } catch (firstError) {
+    const bundled = path.resolve(path.dirname(process.execPath), '..', 'node_modules', 'marked');
+    try {
+      return require(bundled).marked;
+    } catch {
+      throw new Error(`未找到 marked。请安装 marked 或使用 Codex 工作区 Node 运行时。原始错误：${firstError.message}`);
+    }
+  }
+}
+
+function parseArgs(argv) {
+  const args = {};
+  for (let i = 2; i < argv.length; i += 2) {
+    const key = argv[i];
+    const value = argv[i + 1];
+    if (!key?.startsWith('--') || !value) throw new Error('参数格式错误。');
+    args[key.slice(2)] = value;
+  }
+  for (const required of ['input', 'output', 'vault-root']) {
+    if (!args[required]) throw new Error(`缺少 --${required} 参数。`);
+  }
+  return args;
+}
+
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
+function stripFrontmatter(markdown) {
+  return markdown.replace(/^---\s*\r?\n[\s\S]*?\r?\n---\s*\r?\n/, '');
+}
+
+function extractMetadata(markdown) {
+  const fields = {};
+  for (const line of markdown.split(/\r?\n/)) {
+    const match = line.match(/^>\s*([^：:]+)[：:]\s*(.*?)\s{0,2}$/);
+    if (match) fields[match[1].trim()] = match[2].trim();
+  }
+  return fields;
+}
+
+function extractSecurityCode(source, markdown, metadata, title) {
+  const candidates = [
+    metadata['证券代码'],
+    source.match(/^security_code:\s*["']?([^"'\r\n]+)["']?\s*$/m)?.[1],
+    source.match(/^stock_code:\s*["']?([^"'\r\n]+)["']?\s*$/m)?.[1],
+    title.match(/（([^）]+)）/)?.[1],
+    markdown.match(/证券代码\s*[|：:]\s*([^|\r\n]+)/)?.[1],
+    markdown.match(/\b(?:SH|SZ)?\d{6}(?:\.(?:SH|SZ))?\b/i)?.[0],
+  ];
+  const code = candidates.map(cleanInline).find(Boolean);
+  return code || 'SECURITY';
+}
+
+function extractDecisionRows(markdown) {
+  const section = markdown.match(/^## 1\. 决策摘要\s*$([\s\S]*?)(?=^## 2\.|\Z)/m)?.[1] ?? '';
+  const rows = {};
+  for (const line of section.split(/\r?\n/)) {
+    const cells = line.split('|').slice(1, -1).map((cell) => cell.trim());
+    if (cells.length === 2 && cells[0] && !/^[-:]+$/.test(cells[0]) && cells[0] !== '项目') {
+      rows[cells[0]] = cells[1];
+    }
+  }
+  return rows;
+}
+
+function cleanInline(value) {
+  return String(value ?? '').replace(/<br\s*\/?\s*>/gi, '').replace(/\*\*/g, '').replace(/`/g, '').trim();
+}
+
+function extractNumbers(value) {
+  return (String(value ?? '').match(/-?\d+(?:\.\d+)?/g) || []).map(Number).filter(Number.isFinite);
+}
+
+function formatPercent(value) {
+  const sign = value < 0 ? '-' : value > 0 ? '+' : '';
+  return `${sign}${Math.abs(value).toFixed(1)}%`;
+}
+
+function describeRiskReward(price, low, high, label = '每日同步价') {
+  if (![price, low, high].every(Number.isFinite) || low <= 0 || high <= low) {
+    return { value: '未获取到', detail: '价格或公允价值区间无法解析，未计算盈亏比。', isBad: false };
+  }
+  const upside = (high / price - 1) * 100;
+  const downside = (1 - low / price) * 100;
+  if (price <= low) {
+    return {
+      value: '低于价值下沿',
+      detail: `${label} ${price.toFixed(2)} 元；相对上沿潜在空间 ${formatPercent(upside)}。价格已低于公允价值下沿，不能直接用下沿作为止损风险，需另设风控线。`,
+      isBad: false,
+    };
+  }
+  if (price >= high) {
+    return {
+      value: '无正向盈亏比',
+      detail: `${label} ${price.toFixed(2)} 元；相对上沿空间 ${formatPercent(upside)}，回落至下沿风险 ${formatPercent(downside)}。价格已到或高于公允价值上沿，新增现金不具备正向盈亏比。`,
+      isBad: true,
+    };
+  }
+  const ratio = upside / downside;
+  return {
+    value: `约 ${ratio.toFixed(1)}:1`,
+    detail: `${label} ${price.toFixed(2)} 元；到上沿 ${high.toFixed(2)} 元的潜在上行 ${formatPercent(upside)}，跌至下沿 ${low.toFixed(2)} 元的风险 ${formatPercent(downside)}。价格不改变价值区间本身。`,
+    isBad: ratio < 1,
+  };
+}
+
+function liveQuoteSecid(code) {
+  const normalized = String(code ?? '').toUpperCase().replace(/\s/g, '');
+  const match = normalized.match(/(?:^|[^A-Z0-9])(?:SH|SZ)?(\d{6})(?:\.(SH|SZ))?|^(?:SH|SZ)?(\d{6})(?:\.(SH|SZ))?/);
+  if (!match) return '';
+
+  const digits = match[1] || match[3];
+  const suffix = match[2] || match[4] || '';
+  if (suffix === 'SH' || normalized.startsWith('SH') || digits.startsWith('6')) return `1.${digits}`;
+  if (suffix === 'SZ' || normalized.startsWith('SZ') || /^[023]/.test(digits)) return `0.${digits}`;
+  return '';
+}
+
+function safeSiblingHtml(value) {
+  const cleaned = cleanInline(value);
+  if (!cleaned || path.basename(cleaned) !== cleaned || !/^[^<>:"/\\|?*]+\.html$/i.test(cleaned)) return '';
+  return cleaned;
+}
+
+function fundReportSortKey(filename) {
+  const match = filename.match(/(\d{4}-\d{2}-\d{2})(?:-(\d{4}))?/);
+  if (!match) return '';
+  return `${match[1]}-${match[2] || '0000'}-${filename}`;
+}
+
+function latestSiblingFundReport(outputPath, securityName = '') {
+  const outputDir = path.dirname(outputPath);
+  const outputName = path.basename(outputPath);
+  let names = [];
+  try {
+    names = fs.readdirSync(outputDir);
+  } catch {
+    return '';
+  }
+
+  const candidates = names
+    .filter((name) => name !== outputName)
+    .filter((name) => /^[^<>:"/\\|?*]+\.html$/i.test(name))
+    .filter((name) => name.includes('资金面分析'))
+    .filter((name) => !securityName || name.includes(securityName))
+    .map((name) => ({ name, key: fundReportSortKey(name) }))
+    .filter((item) => item.key)
+    .sort((a, b) => b.key.localeCompare(a.key, 'zh-CN'));
+
+  return candidates[0]?.name || '';
+}
+
+function renderValueRange(value) {
+  const cleaned = cleanInline(value || '未获取到');
+  const parts = cleaned.split(/[；;]/).map((part) => part.trim()).filter(Boolean);
+  const main = parts[0] || cleaned;
+  const detailText = parts.slice(1).join('；');
+  const points = detailText
+    ? detailText.split(/[，,；;]/).map((part) => part.trim()).filter(Boolean)
+    : [];
+
+  if (cleaned === '未获取到') return escapeHtml(cleaned);
+
+  const pointHtml = points.length ? `<span class="range-points">${points.map((point) => `<span class="range-point">${escapeHtml(point)}</span>`).join('')}</span>` : '';
+  return `<span class="range-breakdown"><span class="range-main">${escapeHtml(main)}</span>${pointHtml}</span>`;
+}
+
+function renderValuationBubbleLevels(value) {
+  const cleaned = cleanInline(value || '证据不足');
+  const levels = [
+    { key: 'premium', label: '估值溢价', pattern: /可解释估值溢价|估值溢价/ },
+    { key: 'overvalued', label: '普通高估', pattern: /普通高估/ },
+    { key: 'bubble', label: '估值泡沫', pattern: /估值泡沫/ },
+    { key: 'severe', label: '严重估值泡沫', pattern: /严重估值泡沫/ },
+  ];
+  const active = levels.slice().reverse().find((level) => level.pattern.test(cleaned));
+  const html = levels.map((level) => {
+    const isActive = active?.key === level.key;
+    return `<span class="pricing-level pricing-level-${level.key}${isActive ? ' active' : ''}" data-valuation-level="${escapeHtml(level.label)}"${isActive ? ' aria-current="true"' : ''}>${escapeHtml(level.label)}</span>`;
+  }).join('');
+  const current = active ? active.label : cleaned;
+  const detail = active
+    ? `当前判断：${current}。四级状态来自第 11 章估值泡沫证据门槛。`
+    : `当前判断：${current}；四级估值偏离均未高亮。`;
+  return { html, detail };
+}
+
+function renderDailyTracking(decisions, metadata, code, outputPath, title) {
+  const priceText = cleanInline(decisions['当前价格及时间']) || '未获取到';
+  const fairValue = cleanInline(decisions['公允价值区间'] || decisions['综合估值区间']) || '未获取到';
+  const action = cleanInline(decisions['冰冰小美动作'] || decisions['操作建议']) || '未获取到';
+  const valuation = cleanInline(decisions['估值状态']) || '未获取到';
+  const valuationBubble = renderValuationBubbleLevels(decisions['估值泡沫判断']);
+  const confidence = cleanInline(decisions['结论置信度']) || '未获取到';
+  const fundamental = cleanInline(decisions['基本面状态']) || '未获取到';
+  const fundStatus = cleanInline(decisions['资金状态']) || '未获取到';
+  const riskDirection = cleanInline(decisions['风险方向']) || '未获取到';
+  const updatedAt = cleanInline(decisions['每日跟踪时间'] || metadata['研究截止时间']) || '未获取到';
+  const candidateFundReport = safeSiblingHtml(decisions['资金面分析链接']);
+  const securityName = cleanInline(title).replace(/机构级决策研报.*$/, '').trim();
+  const fundReport = candidateFundReport && fs.existsSync(path.join(path.dirname(outputPath), candidateFundReport))
+    ? candidateFundReport
+    : latestSiblingFundReport(outputPath, securityName);
+  const price = extractNumbers(priceText)[0];
+  const [low, high] = extractNumbers(fairValue);
+  const riskReward = describeRiskReward(price, low, high);
+  const secid = liveQuoteSecid(code);
+  const liveValue = secid ? '等待连接' : '未配置实时行情';
+  const liveDetail = secid ? '通过“大盘启动器”打开后获取盘中行情，每 60 秒刷新；直接打开 HTML 时不访问外部行情。' : '当前证券未配置本地行情白名单，继续使用每日正式快照。';
+  const link = fundReport ? `<a href="./${escapeHtml(fundReport)}">查看完整资金面分析 →</a>` : '<span>资金面分析：未单独生成</span>';
+  const badFundamental = /恶化|不利|增强/.test(fundamental);
+
+  return `<!-- DAILY_TRACKING_START -->
+<section class="daily-tracking" id="daily-tracking" data-updated-at="${escapeHtml(updatedAt)}" data-value-low="${Number.isFinite(low) ? low : ''}" data-value-high="${Number.isFinite(high) ? high : ''}">
+  <div class="daily-tracking-head">
+    <div><p class="daily-tracking-kicker">Daily decision tracker</p><h2>每日跟踪面板</h2></div>
+    <p class="daily-tracking-time">更新：${escapeHtml(updatedAt)}<br>下次：收盘后 / 重大公告后</p>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value${badFundamental ? ' bad' : ''}">${escapeHtml(fundamental)}</p><p class="tracking-detail">风险方向：${escapeHtml(riskDirection)}。下一验证点与失效条件见第 11—13 章。</p></div>
+    <div class="tracking-card" data-tracking-key="fair-value-range"><p class="tracking-label">公允价值区间</p><p class="tracking-value">${renderValueRange(fairValue)}</p><p class="tracking-detail">公允价值区间来自估值方法交叉验证；行情刷新不会自动改变区间。</p></div>
+    <div class="tracking-card" data-tracking-key="pricing-deviation"><p class="tracking-label">交易定价偏离</p><p class="tracking-value pricing-levels">${valuationBubble.html}</p><p class="tracking-detail">${escapeHtml(valuationBubble.detail)}</p></div>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="market-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">${escapeHtml(liveValue)}</p><p class="tracking-detail" id="intraday-detail">${escapeHtml(liveDetail)}</p><p class="tracking-snapshot">每日同步价：${escapeHtml(priceText)}</p><span class="tracking-status" id="intraday-status">${secid ? '未连接' : '未配置'}</span></div>
+    <div class="tracking-card" data-tracking-key="risk-reward"><p class="tracking-label">盈亏比</p><p class="tracking-value${riskReward.isBad ? ' bad' : ''}" id="risk-reward-value">${escapeHtml(riskReward.value)}</p><p class="tracking-detail" id="risk-reward-detail">${escapeHtml(riskReward.detail)}</p></div>
+    <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">${escapeHtml(action)}</p><p class="tracking-detail">估值：${escapeHtml(valuation)} · ${escapeHtml(action)}；风险：${escapeHtml(riskDirection)}；结论置信度：${escapeHtml(confidence)}。</p><span class="tracking-status${valuation === '高估' ? ' error' : ''}">${escapeHtml(valuation)}</span></div>
+  </div>
+  <div class="tracking-footer"><span>资金状态：<strong>${escapeHtml(fundStatus)}</strong> · 新增/已有动作：<strong>${escapeHtml(action)}</strong></span>${link}</div>
+</section>
+<!-- DAILY_TRACKING_END -->`;
+}
+
+function renderLiveQuoteScript(code, decisions) {
+  const secid = liveQuoteSecid(code);
+  if (!secid) return '';
+  const snapshotPrice = extractNumbers(cleanInline(decisions['当前价格及时间']))[0];
+  return `<script>
+(() => {
+  const endpoint = '/api/stock-quote?secid=${secid}';
+  const priceNode = document.getElementById('intraday-price');
+  const detailNode = document.getElementById('intraday-detail');
+  const statusNode = document.getElementById('intraday-status');
+  const riskRewardValue = document.getElementById('risk-reward-value');
+  const riskRewardDetail = document.getElementById('risk-reward-detail');
+  const tracker = document.getElementById('daily-tracking');
+  const snapshotPrice = ${Number.isFinite(snapshotPrice) ? snapshotPrice : 'null'};
+  const percent = value => \`${'${value < 0 ? \'-\' : value > 0 ? \'+\' : \'\'}${Math.abs(value).toFixed(1)}'}%\`;
+  function updateRiskReward(price) {
+    const low = Number(tracker.dataset.valueLow);
+    const high = Number(tracker.dataset.valueHigh);
+    if (!Number.isFinite(low) || !Number.isFinite(high) || low <= 0 || high <= low) return;
+    const upside = (high / price - 1) * 100;
+    const downside = (1 - low / price) * 100;
+    if (price <= low) {
+      riskRewardValue.textContent = '低于价值下沿';
+      riskRewardValue.classList.remove('bad');
+      riskRewardDetail.textContent = \`盘中价 ${'${price.toFixed(2)}'} 元；相对上沿潜在空间 ${'${percent(upside)}'}。价格已低于公允价值下沿，不能直接用下沿作为止损风险，需另设风控线。\`;
+      return;
+    }
+    if (price >= high) {
+      riskRewardValue.textContent = '无正向盈亏比';
+      riskRewardValue.classList.add('bad');
+      riskRewardDetail.textContent = \`盘中价 ${'${price.toFixed(2)}'} 元；相对上沿空间 ${'${percent(upside)}'}，回落至下沿风险 ${'${percent(downside)}'}。价格已到或高于公允价值上沿，新增现金不具备正向盈亏比。\`;
+      return;
+    }
+    const ratio = upside / downside;
+    riskRewardValue.textContent = \`约 ${'${ratio.toFixed(1)}'}:1\`;
+    riskRewardValue.classList.toggle('bad', ratio < 1);
+    riskRewardDetail.textContent = \`盘中价 ${'${price.toFixed(2)}'} 元；到上沿 ${'${high.toFixed(2)}'} 元的潜在上行 ${'${percent(upside)}'}，跌至下沿 ${'${low.toFixed(2)}'} 元的风险 ${'${percent(downside)}'}。盘中价格不改变价值区间本身。\`;
+  }
+  async function refreshIntradayQuote() {
+    statusNode.textContent = '连接中'; statusNode.className = 'tracking-status';
+    try {
+      const response = await fetch(endpoint, { cache: 'no-store' });
+      if (!response.ok) throw new Error(\`HTTP ${'${response.status}'}\`);
+      const payload = await response.json(); const quote = payload && payload.data;
+      if (!quote || !Number.isFinite(quote.price) || !Number.isFinite(quote.prevClose) || !Number.isFinite(quote.changePercent) || !Number.isFinite(quote.quoteTimestamp)) throw new Error('invalid quote');
+      const quoteTime = new Date(quote.quoteTimestamp * 1000).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false });
+      priceNode.textContent = \`${'${quote.price.toFixed(2)}'} 元 · ${'${percent(quote.changePercent)}'}\`;
+      priceNode.classList.toggle('bad', quote.changePercent < 0);
+      detailNode.textContent = \`行情时间：${'${quoteTime}'}；昨收 ${'${quote.prevClose.toFixed(2)}'} 元。来源：${'${payload.proxySource || \'本地行情代理\'}'}。\`;
+      statusNode.textContent = '盘中实时 · 每 60 秒'; statusNode.className = 'tracking-status live'; updateRiskReward(quote.price);
+    } catch { priceNode.textContent = '实时行情暂不可用'; priceNode.classList.remove('bad'); detailNode.textContent = '每日同步值仍然有效；可重新双击“大盘启动器”后刷新本页。'; statusNode.textContent = '连接失败'; statusNode.className = 'tracking-status error'; }
+  }
+  if (location.protocol === 'http:' || location.protocol === 'https:') { refreshIntradayQuote(); window.setInterval(refreshIntradayQuote, 60000); }
+  else { priceNode.textContent = Number.isFinite(snapshotPrice) ? \`${'${snapshotPrice.toFixed(2)}'} 元（每日值）\` : '每日值未获取'; detailNode.textContent = '当前为直接打开模式；盘中实时需通过“大盘启动器”进入本地服务。'; statusNode.textContent = '每日同步 · 实时未连接'; }
+})();
+</script>`;
+}
+
+function normalizeObsidianLinks(markdown, outputPath, vaultRoot) {
+  return markdown.replace(/!?(\[\[)([^\]|#]+)(?:#([^\]|]+))?(?:\|([^\]]+))?\]\]/g, (full, _open, target, anchor, label) => {
+    if (full.startsWith('!')) return escapeHtml(label || target);
+    const normalizedTarget = target.trim().replace(/\\/g, '/');
+    const sourcePath = path.resolve(vaultRoot, normalizedTarget.endsWith('.md') ? normalizedTarget : `${normalizedTarget}.md`);
+    const htmlTarget = sourcePath.replace(/\.md$/i, '.html');
+    const linkTarget = fs.existsSync(htmlTarget) ? htmlTarget : sourcePath;
+    let relative = path.relative(path.dirname(outputPath), linkTarget).replace(/\\/g, '/');
+    if (!relative.startsWith('.')) relative = `./${relative}`;
+    if (anchor) relative += `#${encodeURIComponent(anchor.trim())}`;
+    return `<a href="${escapeHtml(relative)}">${escapeHtml((label || path.basename(normalizedTarget)).trim())}</a>`;
+  });
+}
+
+function sectionize(markdown) {
+  const sections = [];
+  const converted = markdown.replace(/^##\s+(\d+)\.\s+(.+)$/gm, (_full, number, title) => {
+    const id = `section-${number}`;
+    sections.push({ id, label: `${number}. ${title.trim()}` });
+    return `<h2 id="${id}">${escapeHtml(number)}. ${escapeHtml(title.trim())}</h2>`;
+  });
+  return { markdown: converted, sections };
+}
+
+function main() {
+  const args = parseArgs(process.argv);
+  const inputPath = path.resolve(args.input);
+  const outputPath = path.resolve(args.output);
+  const vaultRoot = path.resolve(args['vault-root']);
+  const cssPath = path.resolve(__dirname, '..', 'assets', 'report.css');
+  const source = fs.readFileSync(inputPath, 'utf8');
+  if (source.includes('\uFFFD')) throw new Error('输入 Markdown 含替换字符 �，停止导出。');
+
+  let markdown = stripFrontmatter(source);
+  const title = markdown.match(/^#\s+(.+)$/m)?.[1]?.trim() || path.basename(inputPath, '.md');
+  const metadata = extractMetadata(markdown);
+  const decisions = extractDecisionRows(markdown);
+  markdown = markdown.replace(/^#\s+.+\r?\n/, '');
+  markdown = normalizeObsidianLinks(markdown, outputPath, vaultRoot);
+  const sectioned = sectionize(markdown);
+  if (sectioned.sections.length !== 16) {
+    throw new Error(`报告必须包含 16 个编号模块，当前为 ${sectioned.sections.length} 个。`);
+  }
+
+  const marked = loadMarked();
+  const body = marked.parse(sectioned.markdown, { gfm: true, breaks: false });
+  const css = fs.readFileSync(cssPath, 'utf8');
+  const code = extractSecurityCode(source, markdown, metadata, title);
+  const market = cleanInline(metadata['交易所 / 币种']) || '市场与币种未获取';
+  const cutoff = cleanInline(metadata['研究截止时间']) || '研究截止时间未获取';
+  const generated = cleanInline(metadata['报告生成时间']) || '报告生成时间未获取';
+  const valuation = cleanInline(decisions['估值状态']) || '估值状态未获取';
+  const action = cleanInline(decisions['冰冰小美动作'] || decisions['操作建议']) || '动作未获取';
+  const price = cleanInline(decisions['当前价格及时间']) || '未获取';
+  const fairValue = cleanInline(decisions['公允价值区间'] || decisions['综合估值区间']) || '未获取';
+  const confidence = cleanInline(decisions['结论置信度']) || '未获取';
+  const toc = sectioned.sections.map(({ id, label }) => `<a class="toc-link" href="#${id}">${escapeHtml(label)}</a>`).join('\n');
+  const tracking = renderDailyTracking(decisions, metadata, code, outputPath, title);
+  const liveQuoteScript = renderLiveQuoteScript(code, decisions);
+  const bodyWithTracking = body.includes('</blockquote>') ? body.replace('</blockquote>', `</blockquote>\n${tracking}`) : `${tracking}\n${body}`;
+
+  const html = `<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${escapeHtml(title)}</title>
+  <style>${css}</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · ${escapeHtml(code)}</p>
+      <h1>${escapeHtml(title)}</h1>
+      <div class="hero-meta"><span>${escapeHtml(cutoff)}</span><span>${escapeHtml(generated)}</span><span>${escapeHtml(market)}</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p>${toc}</div></aside>
+      <article class="content">${bodyWithTracking}${liveQuoteScript}</article>
+    </div>
+  </main>
+</body>
+</html>\n`;
+
+  if (/\[\[|\uFFFD|12\?24|\?\?/.test(html)) throw new Error('HTML 编码或双链转换检查失败。');
+  fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+  fs.writeFileSync(outputPath, html, 'utf8');
+  console.log(`Generated ${outputPath}`);
+}
+
+try {
+  main();
+} catch (error) {
+  console.error(error.message);
+  process.exitCode = 1;
+}

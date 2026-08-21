@@ -10,14 +10,17 @@ import html
 import json
 import re
 import sys
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass, field
 from datetime import datetime
 from pathlib import Path
 from typing import Iterable
-from urllib import request
+from urllib import parse, request
 
 
 INDEX_CODE = "000922"
+INDEX_DAILY_SYMBOL = "sh000922"
+INDEX_INCEPTION_DATE = "20080526"
+CSINDEX_PERFORMANCE_URL = "https://www.csindex.com.cn/csindex-home/perf/index-perf"
 LIXINGER_INDEX_PATH = "sh/000922/922"
 LIXINGER_PUBLIC_URL = (
     "https://www.lixinger.com/equity/index/detail/"
@@ -57,6 +60,26 @@ class IndexValuation:
 
 
 @dataclass
+class IndexPerformance:
+    date: str
+    start_date: str
+    ytd_return: float
+    ytd_max_drawdown: float
+    source: str
+    note: str
+
+
+@dataclass
+class AnnualPerformance:
+    year: int
+    start_date: str
+    end_date: str
+    annual_return: float
+    max_drawdown: float
+    status: str
+
+
+@dataclass
 class BondYield:
     date: str
     yield_10y: float
@@ -71,6 +94,8 @@ class Signal:
     index_date: str
     bond_date: str
     akshare_dividend_yield_2: float
+    ytd_return: float
+    ytd_max_drawdown: float
     xueqiu_quote_date: str
     xueqiu_change_percent: str
     lixinger_date: str
@@ -85,6 +110,8 @@ class Signal:
     spread_signal: str
     headline_signal: str
     source_note: str
+    annual_performance: list[AnnualPerformance] = field(default_factory=list)
+    annual_performance_source: str = ""
 
 
 CSV_HEADER_LABELS = {
@@ -99,6 +126,8 @@ CSV_CHINESE_LABELS = {
     "run_date": "记录日期",
     "index_date": "指数估值日期",
     "akshare_dividend_yield_2": "指数股息率口径(%)",
+    "ytd_return": "全年收益率(%)",
+    "ytd_max_drawdown": "年内最大回撤(%)",
     "xueqiu_change_percent": "雪球当天涨跌幅(%)",
     "bond_date": "中国10年国债收益率日期",
     "bond_10y_yield": "中国10年国债收益率(%)",
@@ -118,6 +147,8 @@ CSV_FIELD_ORDER = [
     "run_date",
     "index_date",
     "akshare_dividend_yield_2",
+    "ytd_return",
+    "ytd_max_drawdown",
     "xueqiu_change_percent",
     "bond_date",
     "bond_10y_yield",
@@ -504,6 +535,156 @@ def fetch_index_valuation(ak, run_date: datetime) -> IndexValuation:
     )
 
 
+def fetch_akshare_index_history(ak):
+    daily = None
+    source_method = "stock_zh_index_daily"
+    fetch_tencent_daily = getattr(ak, "stock_zh_index_daily_tx", None)
+    if callable(fetch_tencent_daily):
+        try:
+            daily = fetch_tencent_daily(symbol=INDEX_DAILY_SYMBOL)
+            source_method = "stock_zh_index_daily_tx"
+        except Exception:
+            daily = None
+    if daily is None or daily.empty:
+        daily = ak.stock_zh_index_daily(symbol=INDEX_DAILY_SYMBOL)
+    if daily.empty:
+        raise RuntimeError(f"AKShare did not return daily data for {INDEX_DAILY_SYMBOL}")
+    return daily, source_method
+
+
+def calculate_annual_performance(
+    daily,
+    date_col: str,
+    close_col: str,
+    target_date: datetime,
+) -> list[AnnualPerformance]:
+    daily = daily.copy()
+    daily["_date"] = daily[date_col].apply(
+        lambda value: datetime.fromisoformat(str(value)[:10])
+    )
+    daily["_close"] = daily[close_col].apply(to_float)
+    daily = daily[daily["_date"] <= target_date].dropna(subset=["_close"])
+    daily = daily.sort_values("_date")
+    if daily.empty:
+        raise RuntimeError(f"No index rows on or before {target_date:%Y-%m-%d}")
+
+    first_year = int(daily.iloc[0]["_date"].year)
+    annual: list[AnnualPerformance] = []
+    for year, group in daily.groupby(daily["_date"].apply(lambda value: value.year)):
+        group = group.sort_values("_date")
+        first_close = float(group.iloc[0]["_close"])
+        latest_close = float(group.iloc[-1]["_close"])
+        if first_close <= 0:
+            raise RuntimeError(f"First close must be positive for {year}")
+        drawdowns = group["_close"] / group["_close"].cummax() - 1
+        status = (
+            "成立首年"
+            if int(year) == first_year
+            else "年内"
+            if int(year) == target_date.year
+            else "完整年度"
+        )
+        annual.append(
+            AnnualPerformance(
+                year=int(year),
+                start_date=group.iloc[0]["_date"].strftime("%Y-%m-%d"),
+                end_date=group.iloc[-1]["_date"].strftime("%Y-%m-%d"),
+                annual_return=(latest_close / first_close - 1) * 100,
+                max_drawdown=float(drawdowns.min()) * 100,
+                status=status,
+            )
+        )
+    return annual
+
+
+def build_index_performance(
+    daily,
+    date_col: str,
+    close_col: str,
+    target_date: datetime,
+    source: str,
+    note: str,
+) -> tuple[IndexPerformance, list[AnnualPerformance]]:
+    annual = calculate_annual_performance(daily, date_col, close_col, target_date)
+    current = next(
+        (row for row in reversed(annual) if row.year == target_date.year),
+        None,
+    )
+    if current is None:
+        raise RuntimeError(f"No index rows in calendar year {target_date.year}")
+    return (
+        IndexPerformance(
+            date=current.end_date,
+            start_date=current.start_date,
+            ytd_return=current.annual_return,
+            ytd_max_drawdown=current.max_drawdown,
+            source=source,
+            note=note,
+        ),
+        annual,
+    )
+
+
+def fetch_csindex_index_history(target_date: datetime):
+    query = parse.urlencode(
+        {
+            "indexCode": INDEX_CODE,
+            "startDate": INDEX_INCEPTION_DATE,
+            "endDate": target_date.strftime("%Y%m%d"),
+        }
+    )
+    req = request.Request(
+        f"{CSINDEX_PERFORMANCE_URL}?{query}",
+        headers={
+            "User-Agent": "Mozilla/5.0",
+            "Referer": "https://www.csindex.com.cn/",
+            "Accept": "application/json",
+            "Accept-Encoding": "gzip",
+        },
+    )
+    with request.urlopen(req, timeout=60) as response:
+        raw = response.read()
+        if response.headers.get("Content-Encoding") == "gzip":
+            raw = gzip.decompress(raw)
+    payload = json.loads(raw.decode("utf-8", errors="replace"))
+    rows = payload.get("data") if isinstance(payload, dict) else None
+    if not isinstance(rows, list) or not rows:
+        raise RuntimeError("中证指数官网未返回中证红利日线")
+    import pandas as pd
+
+    daily = pd.DataFrame(
+        [
+            {
+                "date": datetime.strptime(str(row.get("tradeDate")), "%Y%m%d").strftime(
+                    "%Y-%m-%d"
+                ),
+                "close": row.get("close"),
+            }
+            for row in rows
+            if row.get("tradeDate") and row.get("close") is not None
+        ]
+    )
+    if daily.empty:
+        raise RuntimeError("中证指数官网日线缺少日期或收盘价")
+    return daily
+
+
+def fetch_index_performance(ak, target_date: datetime) -> IndexPerformance:
+    daily, source_method = fetch_akshare_index_history(ak)
+
+    date_col = first_existing(daily.columns, ["日期", "date"])
+    close_col = first_existing(daily.columns, ["收盘", "close"])
+    performance, _ = build_index_performance(
+        daily,
+        date_col,
+        close_col,
+        target_date,
+        source=f"AKShare {source_method}",
+        note=f"AKShare: {source_method}({INDEX_DAILY_SYMBOL}, {close_col})",
+    )
+    return performance
+
+
 def fetch_bond_yield(ak, target_date: datetime) -> BondYield:
     bond = ak.bond_zh_us_rate(
         start_date=target_date.replace(year=target_date.year - 10).strftime("%Y%m%d")
@@ -532,6 +713,30 @@ def fetch_signal(
     index_valuation = fetch_index_valuation(ak, run_date)
     latest_date = datetime.fromisoformat(index_valuation.date)
     dividend_yield_2 = index_valuation.dividend_yield
+    try:
+        index_history = fetch_csindex_index_history(latest_date)
+        index_performance, annual_performance = build_index_performance(
+            index_history,
+            "date",
+            "close",
+            latest_date,
+            source="中证指数官网 index-perf",
+            note="中证指数官网: index-perf(000922)",
+        )
+        annual_performance_source = "中证指数官网 index-perf(000922)"
+    except Exception:
+        fallback_history, fallback_method = fetch_akshare_index_history(ak)
+        fallback_date_col = first_existing(fallback_history.columns, ["日期", "date"])
+        fallback_close_col = first_existing(fallback_history.columns, ["收盘", "close"])
+        index_performance, annual_performance = build_index_performance(
+            fallback_history,
+            fallback_date_col,
+            fallback_close_col,
+            latest_date,
+            source=f"AKShare {fallback_method}",
+            note=f"AKShare: {fallback_method}({INDEX_DAILY_SYMBOL}, {fallback_close_col})",
+        )
+        annual_performance_source = f"AKShare {fallback_method}({INDEX_DAILY_SYMBOL})"
     xueqiu_quote = get_xueqiu_realtime_quote()
 
     bond_yield = fetch_bond_yield(ak, latest_date)
@@ -550,6 +755,8 @@ def fetch_signal(
         index_date=index_valuation.date,
         bond_date=bond_yield.date,
         akshare_dividend_yield_2=dividend_yield_2,
+        ytd_return=index_performance.ytd_return,
+        ytd_max_drawdown=index_performance.ytd_max_drawdown,
         xueqiu_quote_date=xueqiu_quote.date,
         xueqiu_change_percent=(
             ""
@@ -576,10 +783,12 @@ def fetch_signal(
         spread_signal=spread_signal,
         headline_signal=headline,
         source_note=(
-            f"{index_valuation.note}; {bond_yield.note}; "
+            f"{index_valuation.note}; {index_performance.note}; {bond_yield.note}; "
             f"{xueqiu_quote.source}: {xueqiu_quote.note}; "
             f"{lixinger.source}: {lixinger.note}"
         ),
+        annual_performance=annual_performance,
+        annual_performance_source=annual_performance_source,
     )
 
 
@@ -721,6 +930,8 @@ def write_xlsx(
 
     numeric_formats = {
         "akshare_dividend_yield_2": "0.00",
+        "ytd_return": "0.00",
+        "ytd_max_drawdown": "0.00",
         "xueqiu_change_percent": "0.00",
         "bond_10y_yield": "0.0000",
         "spread": "0.0000",
@@ -775,6 +986,8 @@ def write_markdown(signal: Signal, md_path: Path) -> None:
 - 理杏仁估值日期：{signal.lixinger_date or "待确认"}
 - 10年国债收益率日期：{signal.bond_date}
 - 中证红利股息率口径：{signal.akshare_dividend_yield_2:.2f}%
+- 全年收益率：{signal.ytd_return:.2f}%
+- 年内最大回撤：{signal.ytd_max_drawdown:.2f}%
 - 雪球当天涨跌幅：{signal.xueqiu_change_percent + "%" if signal.xueqiu_change_percent else "待验证"}
 - 理杏仁市值加权股息率：{signal.lixinger_dividend_yield + "%" if signal.lixinger_dividend_yield else "待验证"}
 - 理杏仁近10年股息率分位：{percentile_text}
@@ -797,10 +1010,34 @@ def write_markdown(signal: Signal, md_path: Path) -> None:
 
 - 本记录只是按既定规则生成的观察信号，不构成投资建议。
 - 指数股息率口径用于绝对股息率、股债利差记录和相对国债收益率倍数评级；当前使用 AKShare `股息率2`。
+- 全年收益率和年内最大回撤均按本年度首个交易日至指数估值日期的日收盘价计算。
 - 理杏仁市值加权股息率用于近10年历史分位判断。
 - 若数据源字段、接口或口径变化，需要重新核对脚本。
 """
     md_path.write_text(text, encoding="utf-8")
+
+
+def write_annual_performance_json(
+    annual: list[AnnualPerformance],
+    path: Path,
+    source: str,
+) -> None:
+    if not annual:
+        raise RuntimeError("No annual performance rows to write")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "indexCode": INDEX_CODE,
+        "source": source,
+        "firstDate": annual[0].start_date,
+        "lastDate": annual[-1].end_date,
+        "returnConvention": "每年首个可用交易日收盘价至末个可用交易日收盘价",
+        "drawdownConvention": "每个自然年内日收盘价相对此前峰值的最大跌幅",
+        "rows": [asdict(row) for row in annual],
+    }
+    path.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
 
 
 def main() -> int:
@@ -835,6 +1072,11 @@ def main() -> int:
         legacy_csv_path=output_dir / "中证红利每日信号.csv",
     )
     write_markdown(signal, output_dir / "最新信号.md")
+    write_annual_performance_json(
+        signal.annual_performance,
+        output_dir / "中证红利年度表现.json",
+        signal.annual_performance_source,
+    )
     percentile_print = (
         f"{signal.lixinger_percentile_10y}%"
         if signal.lixinger_percentile_10y

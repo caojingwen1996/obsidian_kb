@@ -1,6 +1,7 @@
 import sys
 import tempfile
 import unittest
+import json
 from datetime import datetime
 from pathlib import Path
 from unittest.mock import patch
@@ -125,6 +126,96 @@ class AkshareDataSourceTest(unittest.TestCase):
         self.assertIn("AKShare", valuation.source)
         self.assertNotIn("Tushare MCP", valuation.note)
 
+    def test_calculates_calendar_year_return_and_max_drawdown(self):
+        class AkStub:
+            def stock_zh_index_daily(self, symbol):
+                self.symbol = symbol
+                return pd.DataFrame(
+                    {
+                        "date": [
+                            "2025-12-31",
+                            "2026-01-05",
+                            "2026-01-06",
+                            "2026-01-07",
+                            "2026-01-08",
+                        ],
+                        "close": [98, 100, 110, 88, 105],
+                    }
+                )
+
+        performance = check_signal.fetch_index_performance(
+            AkStub(),
+            datetime(2026, 1, 8),
+        )
+
+        self.assertEqual(performance.date, "2026-01-08")
+        self.assertEqual(performance.start_date, "2026-01-05")
+        self.assertAlmostEqual(performance.ytd_return, 5.0)
+        self.assertAlmostEqual(performance.ytd_max_drawdown, -20.0)
+        self.assertIn("stock_zh_index_daily", performance.note)
+
+    def test_calculates_each_year_from_index_inception_to_current_year(self):
+        frame = pd.DataFrame(
+            {
+                "date": [
+                    "2008-05-26",
+                    "2008-06-02",
+                    "2008-12-31",
+                    "2009-01-05",
+                    "2009-06-01",
+                    "2009-09-01",
+                    "2009-12-31",
+                    "2026-01-05",
+                    "2026-01-06",
+                    "2026-01-07",
+                ],
+                "close": [100, 80, 120, 100, 150, 90, 120, 100, 110, 99],
+            }
+        )
+
+        annual = check_signal.calculate_annual_performance(
+            frame,
+            "date",
+            "close",
+            datetime(2026, 1, 7),
+        )
+
+        self.assertEqual([row.year for row in annual], [2008, 2009, 2026])
+        self.assertEqual(annual[0].status, "成立首年")
+        self.assertAlmostEqual(annual[0].annual_return, 20.0)
+        self.assertAlmostEqual(annual[0].max_drawdown, -20.0)
+        self.assertEqual(annual[1].status, "完整年度")
+        self.assertAlmostEqual(annual[1].annual_return, 20.0)
+        self.assertAlmostEqual(annual[1].max_drawdown, -40.0)
+        self.assertEqual(annual[2].status, "年内")
+        self.assertAlmostEqual(annual[2].annual_return, -1.0)
+        self.assertAlmostEqual(annual[2].max_drawdown, -10.0)
+
+    def test_writes_annual_performance_json(self):
+        annual = [
+            check_signal.AnnualPerformance(
+                year=2026,
+                start_date="2026-01-05",
+                end_date="2026-08-19",
+                annual_return=0.51,
+                max_drawdown=-15.96,
+                status="年内",
+            )
+        ]
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = Path(tmpdir) / "annual.json"
+            check_signal.write_annual_performance_json(
+                annual,
+                path,
+                source="中证指数官网 index-perf(000922)",
+            )
+            payload = json.loads(path.read_text(encoding="utf-8"))
+
+        self.assertEqual(payload["indexCode"], "000922")
+        self.assertEqual(payload["firstDate"], "2026-01-05")
+        self.assertEqual(payload["lastDate"], "2026-08-19")
+        self.assertEqual(payload["rows"][0]["status"], "年内")
+
     def test_uses_akshare_bond_yield(self):
         class AkStub:
             def bond_zh_us_rate(self, start_date):
@@ -171,6 +262,8 @@ class CsvHeaderLabelTest(unittest.TestCase):
             index_date="2026-07-03",
             bond_date="2026-07-03",
             akshare_dividend_yield_2=4.67,
+            ytd_return=5.25,
+            ytd_max_drawdown=-8.40,
             xueqiu_quote_date="2026-07-06",
             xueqiu_change_percent="-0.73",
             lixinger_date="2026-07-03",
@@ -207,6 +300,8 @@ class CsvHeaderLabelTest(unittest.TestCase):
                 "run_date__record_date",
                 "index_date__index_valuation_date",
                 "akshare_dividend_yield_2",
+                "ytd_return",
+                "ytd_max_drawdown",
                 "xueqiu_change_percent",
                 "bond_date__china_10y_yield_date",
                 "bond_10y_yield",
@@ -228,6 +323,8 @@ class CsvHeaderLabelTest(unittest.TestCase):
                 "记录日期",
                 "指数估值日期",
                 "指数股息率口径(%)",
+                "全年收益率(%)",
+                "年内最大回撤(%)",
                 "雪球当天涨跌幅(%)",
                 "中国10年国债收益率日期",
                 "中国10年国债收益率(%)",

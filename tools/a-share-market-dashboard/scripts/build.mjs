@@ -13,6 +13,7 @@ const automationsDir = join(repoRoot, 'sources', 'automations');
 const topicsDir = join(repoRoot, 'wiki', 'topics');
 const dividendSignalPath = join(automationsDir, '中证红利信号', '最新信号.md');
 const dividendHistoryWorkbookPath = join(automationsDir, '中证红利信号', '中证红利每日信号.xlsx');
+const dividendAnnualPerformancePath = join(automationsDir, '中证红利信号', '中证红利年度表现.json');
 const bbxmDailyDigestDir = join(automationsDir, 'BBXM每日汇总');
 const industryDefinitions = [
   { key: 'STRATEGY', directoryName: '战略资源' },
@@ -72,6 +73,38 @@ function stockNameFromReportTitle(title) {
     .replace(/[-_]?目录帖子逻辑研报$/u, '')
     .replace(/[-_]?阅读版$/u, '')
     .replace(/[-_]+$/u, ''));
+}
+
+function stockNameFromFeedTitle(title) {
+  return stockNameFromReportTitle(String(title)
+    .replace(/[-_]?三要素分析$/u, '')
+    .replace(/[-_]?资金面(?:分层)?分析$/u, '')
+    .replace(/[-_]?交易方画像[-_]?跟踪$/u, '')
+    .replace(/[-_]?财报分析$/u, ''));
+}
+
+function feedReportKind(report) {
+  const title = titleFromFilename(report.filename);
+  if (title.includes('三要素分析')) return 'threeFactor';
+  if (title.includes('资金面')) return 'fundFlow';
+  if (/(?:机构级(?:决策|研究)?研报|机构级(?:决策|研究)?报告|目录帖子逻辑研报|阅读版)/u.test(title)) return 'equity';
+  return 'other';
+}
+
+function groupFeedReportsByStock(reports) {
+  const targets = new Map();
+  for (const report of reports) {
+    const title = titleFromFilename(report.filename);
+    const name = stockNameFromFeedTitle(title);
+    if (!name) continue;
+    if (!targets.has(name)) targets.set(name, { name, filters: new Set() });
+    const target = targets.get(name);
+    if (report.filter) target.filters.add(report.filter);
+    const kind = feedReportKind(report);
+    if (!target[kind] || report.filename.localeCompare(target[kind].filename, 'zh-CN') > 0) target[kind] = report;
+    if (!target.latest || report.filename.localeCompare(target.latest.filename, 'zh-CN') > 0) target.latest = report;
+  }
+  return [...targets.values()];
 }
 
 function timeFromFilename(filename) {
@@ -401,13 +434,15 @@ async function scanIndustryReports(definition) {
     .sort((left, right) => left.localeCompare(right, 'zh-CN'));
   const reports = (await walkHtmlFiles(directory))
     .sort((left, right) => right.relativePath.localeCompare(left.relativePath, 'zh-CN'));
+  const feedReports = reports.filter(report => !report.filename.includes('完整分析报告'));
   return {
     ...definition,
     filters,
     researchReports: reports
       .filter(report => report.filename.includes('完整分析报告'))
       .sort(compareResearchReports),
-    feedReports: reports.filter(report => !report.filename.includes('完整分析报告')),
+    feedReports,
+    reportTargets: groupFeedReportsByStock(feedReports),
   };
 }
 
@@ -427,19 +462,32 @@ function renderFilterTabs(industry) {
   ).join('\n');
 }
 
-function renderReportCards(industry) {
-  return industry.feedReports.map(report => {
-    const title = titleFromFilename(report.filename);
-    const type = title.includes('资金面') ? '资金面' : '研报';
-    const label = report.filter ? `${industry.directoryName} · ${report.filter}` : industry.directoryName;
-    return `              <article class="industry-report" data-filters="${escapeHtml(report.filter)}">
-                <span class="industry-time">${escapeHtml(timeFromFilename(report.filename))}</span><span class="industry-dot"></span>
-                <div class="industry-report-meta"><span>${escapeHtml(label)} <b>${escapeHtml(type)}</b></span><span>自动</span></div>
-                <h3><a class="industry-report-link" href="${escapeHtml(reportHref(industry, report))}" target="_blank" rel="noopener noreferrer">${escapeHtml(title)}</a></h3>
-                <p>从${escapeHtml(industry.directoryName)}目录自动读取，点击标题打开对应 HTML 研报。</p>
-                <div class="industry-tags">#${escapeHtml(report.filter || industry.directoryName)} #目录自动读取 #${escapeHtml(type)}</div>
-                <div class="industry-reason">来源目录：${escapeHtml(sourceDirectoryLabel(industry, report))}</div>
-              </article>`;
+function renderReportRows(industry) {
+  return industry.reportTargets.map(target => {
+    const primary = target.equity || target.other || target.threeFactor || target.fundFlow || target.latest;
+    const title = titleFromFilename(primary.filename);
+    const label = primary.filter ? `${industry.directoryName} · ${primary.filter}` : industry.directoryName;
+    const href = reportHref(industry, primary);
+    const equityHref = target.equity ? reportHref(industry, target.equity) : '';
+    const threeFactorHref = target.threeFactor ? reportHref(industry, target.threeFactor) : '';
+    const fundFlowHref = target.fundFlow ? reportHref(industry, target.fundFlow) : '';
+    const fundFlowLink = fundFlowHref
+      ? `<a class="industry-report-link" href="${escapeHtml(fundFlowHref)}" target="_blank" rel="noopener noreferrer">资金面分析</a>`
+      : '<span class="tracking-three-factor-state">未关联</span>';
+    const equityLink = equityHref
+      ? `<a class="industry-report-link" href="${escapeHtml(equityHref)}" target="_blank" rel="noopener noreferrer">个股研报</a>`
+      : '<span class="tracking-three-factor-state">未关联</span>';
+    return `                <tr class="industry-report" data-filters="${escapeHtml([...target.filters].join(','))}" data-report-href="${escapeHtml(href)}" data-equity-report-href="${escapeHtml(equityHref)}" data-three-factor-href="${escapeHtml(threeFactorHref)}" data-fund-flow-href="${escapeHtml(fundFlowHref)}" data-report-title="${escapeHtml(title)}" data-stock-name="${escapeHtml(target.name)}" data-report-label="${escapeHtml(label)}" data-report-time="${escapeHtml(timeFromFilename(primary.filename))}" data-source-directory="${escapeHtml(sourceDirectoryLabel(industry, primary))}">
+                  <td class="tracking-target"><strong><a class="industry-report-link" href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(target.name)}</a></strong><small>${escapeHtml(title)}</small></td>
+                  <td>读取研报…</td>
+                  <td><span class="tracking-pricing-deviation is-neutral">读取研报…</span></td>
+                  <td>读取中…</td>
+                  <td>读取中…</td>
+                  <td>读取研报…</td>
+                  <td><div class="tracking-report-links">${fundFlowLink}</div></td>
+                  <td><div class="tracking-fundamental-status"><span>读取研报…</span>${equityLink}</div><small class="tracking-updated">${escapeHtml(label)} · ${escapeHtml(timeFromFilename(primary.filename))}<br>来源目录：${escapeHtml(sourceDirectoryLabel(industry, primary))}</small></td>
+                  <td>—</td>
+                </tr>`;
   }).join('\n');
 }
 
@@ -690,6 +738,8 @@ function parseDividendSignal(markdown) {
     indexDate: pickAny(['指数估值日期', 'AKShare 指数估值日期']),
     bondDate: pick('10年国债收益率日期'),
     dividendYield2: numberFromText(pickAny(['中证红利股息率口径', 'AKShare 中证红利股息率2'])),
+    ytdReturn: numberFromText(pickAny(['全年收益率', '年内收益率'])),
+    ytdMaxDrawdown: numberFromText(pickAny(['年内最大回撤', '全年最大回撤'])),
     xueqiuChangePercent: pick('雪球当天涨跌幅'),
     lixingerDate: pick('理杏仁估值日期'),
     lixingerDividendYield: pick('理杏仁市值加权股息率'),
@@ -706,6 +756,37 @@ function parseDividendSignal(markdown) {
     status: recordDate ? 'latest' : 'snapshot',
   };
   return signal.recordDate || signal.indexDate ? signal : null;
+}
+
+function parseDividendAnnualPerformance(source) {
+  if (!source?.trim()) return { rows: [] };
+  const payload = JSON.parse(source);
+  const rows = Array.isArray(payload?.rows) ? payload.rows : [];
+  return {
+    indexCode: String(payload?.indexCode ?? ''),
+    source: String(payload?.source ?? ''),
+    firstDate: String(payload?.firstDate ?? ''),
+    lastDate: String(payload?.lastDate ?? ''),
+    returnConvention: String(payload?.returnConvention ?? ''),
+    drawdownConvention: String(payload?.drawdownConvention ?? ''),
+    rows: rows.flatMap(row => {
+      const year = Number(row?.year);
+      const annualReturn = Number(row?.annual_return);
+      const maxDrawdown = Number(row?.max_drawdown);
+      const startDate = String(row?.start_date ?? '');
+      const endDate = String(row?.end_date ?? '');
+      if (!Number.isInteger(year) || !Number.isFinite(annualReturn) || !Number.isFinite(maxDrawdown)) return [];
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(startDate) || !/^\d{4}-\d{2}-\d{2}$/.test(endDate)) return [];
+      return [{
+        year,
+        startDate,
+        endDate,
+        annualReturn,
+        maxDrawdown,
+        status: String(row?.status ?? ''),
+      }];
+    }).sort((left, right) => left.year - right.year),
+  };
 }
 
 function validateChangelog(entries) {
@@ -804,6 +885,7 @@ const changelog = validateChangelog(JSON.parse(changelogSource));
 const eventCalendar = validateEventCalendar(JSON.parse(eventCalendarSource));
 const dividendSignal = parseDividendSignal(await readFile(dividendSignalPath, 'utf8').catch(() => ''));
 const dividendYieldHistory = parseDividendYieldHistoryFromWorkbook(await readFile(dividendHistoryWorkbookPath).catch(() => null));
+const dividendAnnualPerformance = parseDividendAnnualPerformance(await readFile(dividendAnnualPerformancePath, 'utf8').catch(() => ''));
 
 const automationReports = await walkHtmlFiles(automationsDir);
 const stockReportLinks = renderStockReportLinkMap(industries, automationReports);
@@ -819,6 +901,7 @@ const bundle = modules
         .replace('  // EVENT_CALENDAR', JSON.stringify(eventCalendar, null, 2))
         .replace('  // CSI_DIVIDEND_SIGNAL', JSON.stringify(dividendSignal, null, 2))
         .replace('  // CSI_DIVIDEND_YIELD_HISTORY', JSON.stringify(dividendYieldHistory, null, 2))
+        .replace('  // CSI_DIVIDEND_ANNUAL_PERFORMANCE', JSON.stringify(dividendAnnualPerformance, null, 2))
       : source;
     return stripModuleSyntax(withGeneratedData, moduleOrder[index]);
   })
@@ -833,8 +916,8 @@ for (const industry of industries) {
   renderedTemplate = renderedTemplate
     .replace(`            <!-- ${industry.key}_FILTER_TABS -->`, renderFilterTabs(industry))
     .replace(`          <!-- ${industry.key}_RESEARCH_BOARDS -->`, renderResearchBoards(industry))
-    .replace(`              <!-- ${industry.key}_REPORTS -->`, renderReportCards(industry))
-    .replace(`<!-- ${industry.key}_REPORT_COUNT -->`, String(industry.feedReports.length));
+    .replace(`                <!-- ${industry.key}_REPORTS -->`, renderReportRows(industry))
+    .replace(`<!-- ${industry.key}_REPORT_COUNT -->`, String(industry.reportTargets.length));
 }
 
 const output = renderedTemplate

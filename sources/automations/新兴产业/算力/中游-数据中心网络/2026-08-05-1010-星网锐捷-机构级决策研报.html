@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>星网锐捷机构级决策研报</title>
+  <title>星网锐捷（002396.SZ）机构级决策研报</title>
   <style>:root {
   --ink: #173247;
   --muted: #657786;
@@ -68,13 +68,21 @@ body {
 .tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
 .tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
 .tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
-.tracking-card[data-tracking-key="dynamic-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
+.tracking-card[data-tracking-key="fair-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
+.pricing-levels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+.pricing-level { display: flex; align-items: center; justify-content: center; min-height: 34px; padding: 5px 7px; border: 1px solid #d5e0e3; border-radius: 8px; color: #607580; background: #f4f7f8; font-size: 12px; line-height: 1.25; font-weight: 750; text-align: center; }
+.pricing-level.active { border-color: transparent; box-shadow: 0 0 0 2px rgba(15,50,70,.08); }
+.pricing-level-premium.active { color: #17604e; background: #dff3eb; }
+.pricing-level-overvalued.active { color: #86610d; background: #fff0bd; }
+.pricing-level-bubble.active { color: #9b4d10; background: #ffe3c9; }
+.pricing-level-severe.active { color: var(--danger); background: var(--danger-bg); }
 .range-breakdown { display: block; }
 .range-main { display: inline-flex; align-items: center; max-width: 100%; margin-bottom: 10px; padding: 3px 9px; border-radius: 999px; background: #e7f0f3; color: var(--navy); font-size: 20px; line-height: 1.3; font-weight: 800; }
 .range-points { display: grid; gap: 7px; margin-top: 1px; }
 .range-point { display: block; padding-left: 11px; border-left: 3px solid #bed2d8; color: #245068; font-size: 14px; line-height: 1.52; font-weight: 650; }
 .tracking-value.bad { color: var(--danger); }
 .tracking-detail { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; }
+.tracking-snapshot { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; font-weight: 650; }
 .tracking-status { display: inline-flex; margin-top: 10px; padding: 3px 8px; border-radius: 999px; color: #526b77; background: #edf2f4; font-size: 12px; font-weight: 700; }
 .tracking-status.live { color: #17604e; background: #dff3eb; }
 .tracking-status.error { color: var(--danger); background: var(--danger-bg); }
@@ -114,8 +122,8 @@ body {
   <main class="report-shell">
     <header class="hero">
       <p class="eyebrow">BBXM EQUITY RESEARCH · 002396.SZ</p>
-      <h1>星网锐捷机构级决策研报</h1>
-      <div class="hero-meta"><span>2026-08-17 15:00（Asia/Shanghai，收盘）</span><span>2026-08-17</span><span>深圳证券交易所主板 / 人民币</span></div>
+      <h1>星网锐捷（002396.SZ）机构级决策研报</h1>
+      <div class="hero-meta"><span>2026-08-20收盘；报告更新于2026-08-21（Asia/Shanghai）</span><span>报告生成时间未获取</span><span>深圳证券交易所主板 / 人民币</span></div>
     </header>
     <div class="layout">
       <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
@@ -127,36 +135,37 @@ body {
 <a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
 <a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
 <a class="toc-link" href="#section-9">9. 多头与空头论据</a>
-<a class="toc-link" href="#section-10">10. 估值</a>
-<a class="toc-link" href="#section-11">11. 最终结论</a>
-<a class="toc-link" href="#section-12">12. 后续监控指标</a>
-<a class="toc-link" href="#section-13">13. 未获取到的数据与研究局限</a>
-<a class="toc-link" href="#section-14">14. 来源清单</a>
-<a class="toc-link" href="#section-15">15. 声明</a></div></aside>
+<a class="toc-link" href="#section-10">10. 公允价值区间计算</a>
+<a class="toc-link" href="#section-11">11. 市场价格分解与估值泡沫判断</a>
+<a class="toc-link" href="#section-12">12. 最终结论</a>
+<a class="toc-link" href="#section-13">13. 后续监控指标</a>
+<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
+<a class="toc-link" href="#section-15">15. 来源清单</a>
+<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
       <article class="content"><blockquote>
 <p>证券代码：002396.SZ<br>
 交易所 / 币种：深圳证券交易所主板 / 人民币<br>
-研究截止时间：2026-08-17 15:00（Asia/Shanghai，收盘）<br>
-报告生成时间：2026-08-17<br>
-数据口径：行情、估值、资金、融资和财务优先使用本地 <code>tushare-data</code>；2026H1经营事实以公司半年度报告和收购公告复核。按 <code>bbxm-equity-research v2.1.0</code> 对成熟基本盘、商业化成长业务与前沿期权业务分别路由，避免把锐捷网络利润、上市股权和未来业务重复计价。</p>
+研究截止时间：2026-08-20收盘；报告更新于2026-08-21（Asia/Shanghai）<br>
+数据口径：法定财务截至2026H1；行情、估值、资金与融资截至2026-08-20。跨2026-05-25除权窗口的收益率使用前复权口径。<br>
+结论有效期：2026Q3财报、800G/数据中心订单与毛利出现重大变化、广州芯德交割、股价突破估值边界四者中最早发生者。</p>
 </blockquote>
 <!-- DAILY_TRACKING_START -->
-<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-08-17 15:00（Asia/Shanghai，收盘）" data-value-low="26" data-value-high="40">
+<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-08-21 10:30（Asia/Shanghai，使用08-20收盘数据）" data-value-low="24" data-value-high="36">
   <div class="daily-tracking-head">
     <div><p class="daily-tracking-kicker">Daily decision tracker</p><h2>每日跟踪面板</h2></div>
-    <p class="daily-tracking-time">更新：2026-08-17 15:00（Asia/Shanghai，收盘）<br>下次：收盘后 / 重大公告后</p>
+    <p class="daily-tracking-time">更新：2026-08-21 10:30（Asia/Shanghai，使用08-20收盘数据）<br>下次：收盘后 / 重大公告后</p>
   </div>
   <div class="tracking-grid">
-    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">利润加速但质量分化：H1收入、归母和扣非利润分别增长20.73%、75.86%和45.91%，经营现金流-35.66亿元，存货与应收显著增加</p><p class="tracking-detail">风险方向：风险重新增强：盈利已兑现，但10日涨幅约35.8%、换手16.51%、融资增加且现金流恶化，新增现金赔率下降。下一验证点与失效条件见第 11—13 章。</p></div>
-    <div class="tracking-card" data-tracking-key="dynamic-value-range"><p class="tracking-label">动态价值区间</p><p class="tracking-value"><span class="range-breakdown"><span class="range-main">26—40元</span><span class="range-points"><span class="range-point">26元附近=保守正常化利润和低折价资产价值</span><span class="range-point">32—34元=2026年约8.5亿元利润及锐捷网络持股约35%价值认可</span><span class="range-point">38—40元=H2高速交换机延续、现金流修复、广州芯德兑现承诺</span><span class="range-point">高于40元需毛利率、现金流、订单及早期AI业务重复收入形成新增证据</span></span></span></p><p class="tracking-detail">价值区间来自三类估值交叉验证；行情刷新不会自动改变区间。</p></div>
-    <div class="tracking-card" data-tracking-key="risk-reward"><p class="tracking-label">盈亏比</p><p class="tracking-value bad" id="risk-reward-value">约 0.8:1</p><p class="tracking-detail" id="risk-reward-detail">每日同步价 33.91 元；到上沿 40.00 元的潜在上行 +18.0%，跌至下沿 26.00 元的风险 +23.3%。价格不改变价值区间本身。</p></div>
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value bad">利润改善、现金质量恶化</p><p class="tracking-detail">风险方向：风险重新增强：8月19日跌停后融资余额两日约-12.3%，但近5日仍+22.05%、60日+21.27%；去杠杆开始但未完成。。下一验证点与失效条件见第 11—13 章。</p></div>
+    <div class="tracking-card" data-tracking-key="fair-value-range"><p class="tracking-label">公允价值区间</p><p class="tracking-value"><span class="range-breakdown"><span class="range-main">24—36元，中枢30元。24元附近=2027归母10.5亿元、20倍PE并折现</span><span class="range-points"><span class="range-point">30元附近=11.8亿元、22倍PE</span><span class="range-point">36元附近=13亿元、24.5倍PE并要求现金流修复</span><span class="range-point">高于36元需2027利润超过13亿元、800G毛利与现金回款共同上修的新证据。</span></span></span></p><p class="tracking-detail">公允价值区间来自估值方法交叉验证；行情刷新不会自动改变区间。</p></div>
+    <div class="tracking-card" data-tracking-key="pricing-deviation"><p class="tracking-label">交易定价偏离</p><p class="tracking-value pricing-levels"><span class="pricing-level pricing-level-premium" data-valuation-level="估值溢价">估值溢价</span><span class="pricing-level pricing-level-overvalued" data-valuation-level="普通高估">普通高估</span><span class="pricing-level pricing-level-bubble" data-valuation-level="估值泡沫">估值泡沫</span><span class="pricing-level pricing-level-severe" data-valuation-level="严重估值泡沫">严重估值泡沫</span></p><p class="tracking-detail">当前判断：公允价值内，置信度中。现价反推2027归母约11.88亿元，与少量卖方预测中枢接近；不是无法审计的远期故事定价。；四级估值偏离均未高亮。</p></div>
   </div>
   <div class="tracking-grid">
-    <div class="tracking-card" data-tracking-key="daily-quote"><p class="tracking-label">每日同步价</p><p class="tracking-value">33.91元，2026-08-17收盘，+3.80%</p><p class="tracking-detail">这是报告内嵌的正式跟踪基准，离线打开仍可使用。</p><span class="tracking-status">每日快照</span></div>
-    <div class="tracking-card" data-tracking-key="intraday-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">等待连接</p><p class="tracking-detail" id="intraday-detail">通过“大盘启动器”打开后获取盘中行情，每 60 秒刷新；直接打开 HTML 时不访问外部行情。</p><span class="tracking-status" id="intraday-status">未连接</span></div>
-    <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">observe</p><p class="tracking-detail">估值：合理偏高：33.91元位于26—40元区间的中上部，盈利兑现已被部分计价，现金流和竞争优势仍需验证 · observe；风险：风险重新增强：盈利已兑现，但10日涨幅约35.8%、换手16.51%、融资增加且现金流恶化，新增现金赔率下降；结论置信度：中：半年报、行情、财务和交易定价已取得；分部现金流、订单、广州芯德交割后报表及半年报后完整卖方一致预期仍缺失。</p><span class="tracking-status">合理偏高：33.91元位于26—40元区间的中上部，盈利兑现已被部分计价，现金流和竞争优势仍需验证</span></div>
+    <div class="tracking-card" data-tracking-key="market-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">等待连接</p><p class="tracking-detail" id="intraday-detail">通过“大盘启动器”打开后获取盘中行情，每 60 秒刷新；直接打开 HTML 时不访问外部行情。</p><p class="tracking-snapshot">每日同步价：30.15元，2026-08-20收盘</p><span class="tracking-status" id="intraday-status">未连接</span></div>
+    <div class="tracking-card" data-tracking-key="risk-reward"><p class="tracking-label">盈亏比</p><p class="tracking-value bad" id="risk-reward-value">约 1.0:1</p><p class="tracking-detail" id="risk-reward-detail">每日同步价 30.15 元；到上沿 36.00 元的潜在上行 +19.4%，跌至下沿 24.00 元的风险 +20.4%。价格不改变价值区间本身。</p></div>
+    <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">新增现金 wait；已有持仓 review</p><p class="tracking-detail">估值：合理，位于公允价值中枢附近，但没有足够安全边际 · 新增现金 wait；已有持仓 review；风险：风险重新增强：8月19日跌停后融资余额两日约-12.3%，但近5日仍+22.05%、60日+21.27%；去杠杆开始但未完成。；结论置信度：中。</p><span class="tracking-status">合理，位于公允价值中枢附近，但没有足够安全边际</span></div>
   </div>
-  <div class="tracking-footer"><span>资金状态：<strong>短线承接强但资金口径冲突：融资余额单日+11.09%，Tushare六日订单规模净额约-7.23亿元，WeStock相近窗口约+8.13亿元，不能确认长期机构增量</strong> · 新增/已有动作：<strong>observe</strong></span><a href="./2026-08-17-1454-星网锐捷-三要素分析.html">查看完整资金面分析 →</a></div>
+  <div class="tracking-footer"><span>资金状态：<strong>短线结构性流出：近5日大额代理-2.15亿元、全订单规模-9.70亿元；20日大额+0.88亿元与全口径-29.69亿元冲突，不能确认长期机构增量。</strong> · 新增/已有动作：<strong>新增现金 wait；已有持仓 review</strong></span><span>资金面分析：未单独生成</span></div>
 </section>
 <!-- DAILY_TRACKING_END -->
 <h2 id="section-1">1. 决策摘要</h2>
@@ -171,39 +180,47 @@ body {
 </thead>
 <tbody><tr>
 <td>估值状态</td>
-<td>合理偏高：33.91元位于26—40元区间的中上部，盈利兑现已被部分计价，现金流和竞争优势仍需验证</td>
-</tr>
-<tr>
-<td>综合估值区间</td>
-<td>26—40元；26元附近=保守正常化利润和低折价资产价值，32—34元=2026年约8.5亿元利润及锐捷网络持股约35%价值认可，38—40元=H2高速交换机延续、现金流修复、广州芯德兑现承诺；高于40元需毛利率、现金流、订单及早期AI业务重复收入形成新增证据</td>
-</tr>
-<tr>
-<td>相对现价空间</td>
-<td>以33.91元计，下沿-23.3%，上沿+18.0%；潜在收益 / 下行风险约0.77，不具备高赔率</td>
-</tr>
-<tr>
-<td>基本面状态</td>
-<td>利润加速但质量分化：H1收入、归母和扣非利润分别增长20.73%、75.86%和45.91%，经营现金流-35.66亿元，存货与应收显著增加</td>
-</tr>
-<tr>
-<td>关键经营变化</td>
-<td>半年报确认数据中心交换机驱动盈利，企业级网络设备收入+36.41%；同时毛利率下降、净债务代理升至31.37亿元。广州芯德交易提供独立定价，但3.956亿元现金投入尚未反映在H1净债务中</td>
+<td><strong>合理，位于公允价值中枢附近，但没有足够安全边际</strong></td>
 </tr>
 <tr>
 <td>估值路线</td>
-<td>混合路线：成熟业务与已商业化数据中心网络使用正常化利润、DCF和折价SOTP；广州芯德使用交易定价；元宇宙、脑机疗愈等缺乏重复收入证据的项目不进入中枢</td>
+<td><strong>成长企业标准路线</strong>：2027年利润 × 届时合理PE后折现为主；2026正常化PE、折价SOTP、现金流与同业估值交叉验证。完整DCF因H1负现金流和终值占比过高而降为低权重。</td>
 </tr>
 <tr>
-<td>彼得·林奇公司分类</td>
-<td>主分类为资产隐蔽型，辅以盈利恢复型特征；44.88%锐捷网络股权构成资产锚，但子公司175.63倍PE和控股不可自由变现限制折价收敛</td>
+<td>公允价值区间</td>
+<td><strong>24—36元，中枢30元</strong>。24元附近=2027归母10.5亿元、20倍PE并折现；30元附近=11.8亿元、22倍PE；36元附近=13亿元、24.5倍PE并要求现金流修复；高于36元需2027利润超过13亿元、800G毛利与现金回款共同上修的新证据。</td>
 </tr>
 <tr>
-<td>一句话投资故事</td>
-<td>AI数据中心网络升级推动锐捷网络收入和利润增长，星网锐捷以控股股权分享收益；只有收入进一步转化为自由现金流，母公司控股折价才有持续收窄基础</td>
+<td>相对现价空间</td>
+<td>以30.15元计：下沿-20.4%，中枢-0.5%，上沿+19.4%；盈亏比约1:1，不满足高赔率买点。</td>
+</tr>
+<tr>
+<td>估值泡沫判断</td>
+<td><strong>公允价值内</strong>，置信度中。现价反推2027归母约11.88亿元，与少量卖方预测中枢接近；不是无法审计的远期故事定价。</td>
+</tr>
+<tr>
+<td>基本面状态</td>
+<td><strong>利润改善、现金质量恶化</strong></td>
+</tr>
+<tr>
+<td>关键经营变化</td>
+<td>H1收入107.29亿元、归母3.73亿元、扣非2.74亿元，分别+20.73%、+75.86%、+45.91%；但CFO-35.66亿元、存货+69.44%、应收+35.62%、货币资金-57.40%，企业级网络毛利率下降2.37个百分点。</td>
+</tr>
+<tr>
+<td>企业价值主类型</td>
+<td><strong>成长企业</strong>。数据中心网络是商业化成长业务；其他ICT是已验证基本盘；广州芯德待交割；元宇宙、脑机疗愈等只作为前沿期权，当前计0。</td>
+</tr>
+<tr>
+<td>主估值锚</td>
+<td><strong>2027年归母净利润10.5—13.0亿元 × 20—24.5倍届时PE，以11%折现率折现约1.25年</strong>。</td>
+</tr>
+<tr>
+<td>价值创造链</td>
+<td>CSP与政企算力投入 → 400G/800G交换机收入增长 → 规模利润与母公司权益利润增加 → 存货应收回收 → 自由现金流与净债务改善。毛利下降、客户资本开支收缩或回款失败时失效。</td>
 </tr>
 <tr>
 <td>结论置信度</td>
-<td>中：半年报、行情、财务和交易定价已取得；分部现金流、订单、广州芯德交割后报表及半年报后完整卖方一致预期仍缺失</td>
+<td><strong>中</strong></td>
 </tr>
 </tbody></table>
 <h3>1.2 资金面组</h3>
@@ -216,49 +233,47 @@ body {
 </thead>
 <tbody><tr>
 <td>操作建议</td>
-<td>观望；新增现金不在33—35元拥挤区追涨，等待29.8—30.5元附近承接或Q3现金流修复</td>
+<td><strong>观望，不把跌停后的反弹直接当成买点</strong></td>
 </tr>
 <tr>
 <td>冰冰小美动作</td>
-<td>observe</td>
+<td>新增现金 <strong>wait</strong>；已有持仓 <strong>review</strong></td>
 </tr>
 <tr>
 <td>当前价格及时间</td>
-<td>33.91元，2026-08-17收盘，+3.80%</td>
+<td><strong>30.15元，2026-08-20收盘</strong></td>
 </tr>
 <tr>
 <td>资金状态</td>
-<td>短线承接强但资金口径冲突：融资余额单日+11.09%，Tushare六日订单规模净额约-7.23亿元，WeStock相近窗口约+8.13亿元，不能确认长期机构增量</td>
+<td><strong>短线结构性流出</strong>：近5日大额代理-2.15亿元、全订单规模-9.70亿元；20日大额+0.88亿元与全口径-29.69亿元冲突，不能确认长期机构增量。</td>
 </tr>
 <tr>
 <td>风险方向</td>
-<td>风险重新增强：盈利已兑现，但10日涨幅约35.8%、换手16.51%、融资增加且现金流恶化，新增现金赔率下降</td>
+<td><strong>风险重新增强</strong>：8月19日跌停后融资余额两日约-12.3%，但近5日仍+22.05%、60日+21.27%；去杠杆开始但未完成。</td>
 </tr>
 <tr>
 <td>每日跟踪时间</td>
-<td>2026-08-17 15:00（Asia/Shanghai，收盘）</td>
+<td>2026-08-21 10:30（Asia/Shanghai，使用08-20收盘数据）</td>
 </tr>
 <tr>
 <td>资金面分析链接</td>
-<td>2026-08-17-1454-星网锐捷-三要素分析.html</td>
+<td>未获取到</td>
 </tr>
 </tbody></table>
 <h3>如果今天这是一笔现金，我会买它吗</h3>
 <ul>
-<li>回答：不会立即买入，维持观察。</li>
-<li>我的判断：33.91元已经大致认可2026年8.5亿元利润的30倍左右估值，并认可锐捷网络持股毛值约36%。当前需要用H2利润、毛利率和现金流证明增长质量，而不是继续为已发生的收入增长支付更高倍数。</li>
-<li>改变结论的条件：股价回到29.8—30.5元并出现非杠杆承接；或Q3经营现金流、存货和应收明显改善，同时高速交换机收入及扣非利润延续。</li>
+<li>回答：<strong>不会立即买，只在特定条件下会。</strong></li>
+<li>我的判断：30.15元已回到价值中枢，但基本面触发器中现金流、自由现金流、融资持续性和利润转现同时逆转；市场端又处于跌停后的去杠杆阶段，价格便宜了一些，经营证据没有同步变好。</li>
+<li>改变结论的条件：股价回到<strong>25—27元</strong>并缩量稳定、融资继续去化且Q3累计CFO明显收窄；或右侧放量站稳<strong>32.5—33.5元</strong>、连续5日大额资金转正且融资余额不再快速上升。跌破24元并伴随Q3现金流继续恶化时转为<code>reduce / avoid</code>。</li>
 </ul>
 <h2 id="section-2">2. 证券身份与来源矩阵</h2>
 
 <h3>2.1 证券身份</h3>
 <ul>
-<li>公司全称：福建星网锐捷通讯股份有限公司。</li>
-<li>证券代码：002396.SZ。</li>
-<li>上市地：深圳证券交易所主板。</li>
-<li>报告准则：中国企业会计准则。</li>
-<li>法定披露体系：深交所、巨潮资讯和公司法定公告。</li>
-<li>身份边界：必须区分母公司星网锐捷与控股子公司锐捷网络（301165.SZ），不能把锐捷网络全部利润或市值归属于母公司股东。</li>
+<li>用户输入“星网捷锐”未匹配到A股证券；经Tushare证券主表和库内权威研报核验，本报告对象为<strong>福建星网锐捷通讯股份有限公司</strong>。</li>
+<li>证券代码：002396.SZ；深交所主板；上市日期2010-06-23；截至核验日正常上市。</li>
+<li>报告准则：中国企业会计准则；法定披露体系为深交所、巨潮资讯及公司公告；SEC文件不适用。</li>
+<li>身份边界：星网锐捷持有锐捷网络44.88%，但锐捷网络是独立上市公司，不能把其全部利润或市值归属于母公司股东。</li>
 </ul>
 <h3>2.2 来源矩阵</h3>
 <table>
@@ -272,91 +287,104 @@ body {
 </tr>
 </thead>
 <tbody><tr>
-<td>Tushare调用</td>
-<td>本地 <code>tushare-data</code></td>
-<td>基础资料、日线、估值、资金、融资、三表、分红</td>
-<td>2026-08-17</td>
+<td>Tushare MCP调用</td>
+<td>本地<code>tushare-data</code></td>
+<td>身份、日线、估值、资金、融资、财务、分红</td>
+<td>08-21调用</td>
 <td>已获取</td>
 </tr>
 <tr>
-<td>收盘价与52周区间</td>
-<td>Tushare / 行情平台</td>
-<td>Tushare、WeStock</td>
-<td>2026-08-17</td>
-<td>已获取</td>
-</tr>
-<tr>
-<td>估值、市值、换手率</td>
+<td>价格、收益与52周区间</td>
 <td>Tushare</td>
-<td>Tushare日度估值</td>
-<td>2026-08-17</td>
+<td>日线+复权因子</td>
+<td>截至08-20</td>
 <td>已获取</td>
 </tr>
 <tr>
-<td>订单规模资金代理</td>
-<td>Tushare / WeStock</td>
-<td>两者方向相反</td>
-<td>2026-08-10至08-17</td>
+<td>市值、PE、PB、换手和股息率</td>
+<td>Tushare</td>
+<td>每日指标</td>
+<td>08-20</td>
+<td>已获取</td>
+</tr>
+<tr>
+<td>大额订单规模代理</td>
+<td>Tushare</td>
+<td>大单+特大单及全订单净额</td>
+<td>截至08-20</td>
 <td>口径冲突待解释</td>
 </tr>
 <tr>
 <td>融资融券</td>
 <td>Tushare</td>
-<td>融资余额、买入和偿还</td>
-<td>至2026-08-14</td>
+<td>融资余额、买入与偿还</td>
+<td>截至08-20</td>
 <td>已获取</td>
 </tr>
 <tr>
-<td>2026H1财务</td>
-<td>公司法定文件</td>
-<td>半年报＋Tushare结构化字段</td>
-<td>2026-08-15</td>
+<td>2026H1财务与分部</td>
+<td>法定披露</td>
+<td>公司半年报、本地PDF与公告全文</td>
+<td>08-15</td>
 <td>已获取</td>
 </tr>
 <tr>
-<td>分部收入和毛利</td>
-<td>半年报</td>
-<td>企业级网络设备分部；其他分部绝对利润不足</td>
-<td>2026H1</td>
-<td>已获取但不完整</td>
+<td>锐捷网络经营与持股</td>
+<td>法定披露</td>
+<td>锐捷网络H1报告</td>
+<td>08-15</td>
+<td>已获取</td>
 </tr>
 <tr>
 <td>广州芯德交易</td>
 <td>公司公告</td>
 <td>46%股权收购公告</td>
-<td>2026-08-15</td>
+<td>08-15</td>
 <td>已获取</td>
 </tr>
 <tr>
-<td>卖方评级与目标价</td>
-<td>可审计卖方材料</td>
-<td>半年报前2家盈利预测；半年报后完整样本未取得</td>
-<td>截至2026-08-17</td>
+<td>卖方预测与目标价</td>
+<td>研报 / 聚合</td>
+<td>中邮、华泰、同花顺少量样本</td>
+<td>截至08-13</td>
 <td>未获取到完整样本</td>
 </tr>
 <tr>
-<td>第三方公允价值 / 护城河 / 星级</td>
-<td>专业平台</td>
-<td>未接入可审计字段</td>
-<td>2026-08-17</td>
+<td>第三方公允价值、护城河、星级</td>
+<td>独立第三方</td>
+<td>无可复核免费字段</td>
+<td>截止日</td>
 <td>未获取到</td>
 </tr>
 <tr>
 <td>五年财务历史</td>
 <td>年报 / Tushare</td>
-<td>2021—2025年报字段</td>
+<td>2021—2025法定口径</td>
 <td>2021—2025</td>
 <td>已获取</td>
 </tr>
 <tr>
-<td>前沿业务里程碑</td>
-<td>分部披露、订单、融资</td>
-<td>产品与场景信息可见，独立重复收入和融资定价缺失</td>
-<td>2026-08-17</td>
+<td>800G订单、市占率与客户集中度</td>
+<td>公司 / 第三方</td>
+<td>仅取得定性描述</td>
+<td>截止日</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>ETF、机构和北向穿透资金</td>
+<td>基金 / 交易数据</td>
+<td>未取得可审计连续数据</td>
+<td>截止日</td>
+<td>未获取到</td>
+</tr>
+<tr>
+<td>前沿项目收入、毛利、复购和融资</td>
+<td>公司 / 第三方</td>
+<td>元宇宙、脑机疗愈无独立披露</td>
+<td>截止日</td>
 <td>未获取到</td>
 </tr>
 </tbody></table>
-<p>来源冲突说明：Tushare与WeStock的订单规模资金分类方法不同，六日窗口分别给出约-7.23亿元和+8.13亿元，本报告不据此推断机构或散户身份。半年报前业绩预告已由2026-08-15正式财务数据替代。</p>
 <h2 id="section-3">3. 行情与市场预期</h2>
 
 <h3>3.1 行情快照（事实）</h3>
@@ -365,70 +393,66 @@ body {
 <tr>
 <th>指标</th>
 <th align="right">数值</th>
-<th>来源</th>
 <th>时间 / 口径</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>收盘价</td>
-<td align="right">33.91元</td>
-<td>Tushare</td>
-<td>2026-08-17，不复权</td>
+<td>收盘 / 涨跌幅</td>
+<td align="right">30.15元 / +2.27%</td>
+<td>2026-08-20</td>
 </tr>
 <tr>
-<td>当日涨跌</td>
-<td align="right">+3.80%</td>
+<td>开 / 高 / 低 / 成交额</td>
+<td align="right">29.97 / 31.66 / 29.40元 / 21.72亿元</td>
 <td>Tushare</td>
-<td>2026-08-17</td>
 </tr>
 <tr>
-<td>52周最高 / 最低</td>
-<td align="right">36.98元 / 16.88元</td>
-<td>WeStock</td>
-<td>截至2026-08-17</td>
+<td>换手 / 自由流通换手 / 量比</td>
+<td align="right">9.48% / 12.90% / 0.65</td>
+<td>Tushare</td>
+</tr>
+<tr>
+<td>总市值 / 总股本</td>
+<td align="right">229.31亿元 / 7.6055亿股</td>
+<td>Tushare / 本报告计算</td>
+</tr>
+<tr>
+<td>PE TTM / PB / PS TTM</td>
+<td align="right">40.25 / 3.17 / 1.09倍</td>
+<td>Tushare</td>
+</tr>
+<tr>
+<td>股息率TTM</td>
+<td align="right">0.64%</td>
+<td>Tushare</td>
+</tr>
+<tr>
+<td>52周高 / 低 / 最大回撤</td>
+<td align="right">36.98 / 16.88元 / -36.16%</td>
+<td>前复权</td>
 </tr>
 <tr>
 <td>年初至今</td>
-<td align="right">约+46.5%</td>
-<td>WeStock</td>
-<td>截至2026-08-17</td>
+<td align="right">+30.26%</td>
+<td>前复权</td>
 </tr>
 <tr>
-<td>总市值</td>
-<td align="right">257.90亿元</td>
-<td>Tushare</td>
-<td>2026-08-17</td>
-</tr>
-<tr>
-<td>PE_TTM / PB / PS_TTM</td>
-<td align="right">45.27 / 3.57 / 1.23倍</td>
-<td>Tushare</td>
-<td>2026-08-17</td>
-</tr>
-<tr>
-<td>换手率</td>
-<td align="right">16.51%</td>
-<td>Tushare</td>
-<td>2026-08-17</td>
+<td>5 / 10 / 20 / 60日</td>
+<td align="right">-6.89% / +3.89% / -11.14% / +28.03%</td>
+<td>前复权</td>
 </tr>
 </tbody></table>
-<h3>3.2 第三方公允价值与评级（事实）</h3>
-<ul>
-<li>公允价值：未获取到。</li>
-<li>护城河评级：未获取到。</li>
-<li>星级：未获取到。</li>
-<li>已检查来源：本地Tushare、公司材料和公开行情页面；未使用搜索摘要补全付费平台字段。</li>
-</ul>
-<h3>3.3 卖方评级与目标价分布（事实）</h3>
+<h3>3.2 市场预期与卖方样本</h3>
+<p>当前价格主要在定价“2027年约12亿元利润能否实现”，而不只是“AI网络收入会不会增长”。</p>
 <table>
 <thead>
 <tr>
-<th>机构</th>
+<th>机构 / 样本</th>
 <th>日期</th>
 <th>评级</th>
 <th align="right">目标价</th>
-<th>预测期</th>
-<th>关键假设</th>
+<th align="right">2026 / 2027 / 2028归母</th>
+<th>限制</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -436,122 +460,114 @@ body {
 <td>2026-07-29</td>
 <td>买入</td>
 <td align="right">未获取到</td>
-<td>2026—2028</td>
-<td>归母7.60/11.98/15.97亿元</td>
+<td align="right">7.60 / 11.98 / 15.97亿元</td>
+<td>半年报前样本</td>
 </tr>
 <tr>
 <td>华泰证券</td>
 <td>2026-04-23</td>
 <td>买入</td>
-<td align="right">转增前34.82元；机械除权约26.78元</td>
-<td>2026—2028</td>
-<td>归母8.87/12.33/15.72亿元，可比公司2026年23倍PE</td>
+<td align="right">除权后约26.78元</td>
+<td align="right">8.87 / 12.33 / 15.72亿元</td>
+<td>目标价已过时</td>
+</tr>
+<tr>
+<td>同花顺两家均值</td>
+<td>截至08-13</td>
+<td>买入倾向</td>
+<td align="right">样本不足</td>
+<td align="right">2026约8.23亿元</td>
+<td>半年报后未完整更新</td>
 </tr>
 </tbody></table>
 <ul>
-<li>2026年归母预测区间：7.60—8.87亿元；半年报后完整一致预期未获取到，因此只作为正常化利润的外部锚，不直接采用目标价。</li>
-<li>我的判断：33.91元对应上述盈利区间约29.1—33.9倍2026年PE，已进入合理偏上区域。</li>
+<li>第三方公允价值、护城河、星级：未获取到，不用搜索摘要补造。</li>
+<li>我的判断：现价对应2026基准利润8.5亿元约27倍PE，或反推2027利润11.88亿元；预期不离谱，但要求现金流在H2明显修复。</li>
 </ul>
 <h2 id="section-4">4. 商业模式与竞争格局</h2>
 
-<h3>4.1 事实</h3>
+<h3>4.1 商业模式事实</h3>
 <ul>
-<li>收入来源：公司以“ICT基础设施＋AI应用方案”为架构，锐捷网络是主要收入与利润来源；2026H1企业级网络设备收入88.11亿元，占合并收入约82%。</li>
-<li>客户与定价权：数据中心网络客户包括互联网CSP和大型政企。高速交换机需求强，但企业级网络设备毛利率同比下降2.37个百分点，尚不能证明定价权同步增强。</li>
-<li>成本与资本：H1合并毛利率约29.84%，研发投入12.04亿元；经营现金流-35.66亿元，营运资本占用显著高于固定资产投入。</li>
-<li>竞争者：华为、新华三、紫光股份、中兴通讯、Cisco、Arista及白盒交换机方案。</li>
-<li>控股结构：星网锐捷持有锐捷网络44.88%，少数股东分享大部分子公司利润；上市股权是长期控制性资产，不等同于现金。</li>
+<li>公司围绕“ICT基础设施+AI应用方案”，核心利润来自控股子公司锐捷网络的数据中心与企业级网络设备。</li>
+<li>客户覆盖互联网CSP、运营商、政府、金融、教育、医疗与企业；高速交换机受CSP资本开支驱动，客户集中、芯片采购和价格竞争影响毛利。</li>
+<li>资本强度主要不在固定资产，而在研发、存货、应收和供应链资金；H1负现金流证明营运资本比Capex更重要。</li>
+<li>主要竞争者包括华为、新华三、紫光股份、中兴通讯、Cisco、Arista及白盒交换机方案。</li>
 </ul>
-<h4>多产业位置景气度排序</h4>
+<h3>4.2 多产业位置景气度排序</h3>
 <table>
 <thead>
 <tr>
 <th align="right">排名</th>
 <th>产业位置</th>
-<th>当前景气度</th>
-<th>趋势</th>
-<th>公司暴露与核心证据</th>
+<th>景气度 / 趋势</th>
+<th>公司暴露与证据</th>
 <th>财务传导</th>
-<th>验证 / 失效条件</th>
+<th>验证与失效条件</th>
 </tr>
 </thead>
 <tbody><tr>
 <td align="right">1</td>
 <td>数据中心交换机 / AI网络</td>
-<td>高</td>
-<td>上行</td>
-<td>企业级网络设备收入+36.41%，锐捷网络H1收入88.32亿元</td>
-<td>CSP资本开支→高速端口收入→规模利润→母公司权益</td>
-<td>H2订单、800G收入、毛利和现金流；CSP降Capex或价格战失效</td>
+<td>高 / 上行</td>
+<td>企业级网络收入88.11亿元、+36.41%</td>
+<td>CSP投资→高速端口收入→利润→母公司权益</td>
+<td>800G收入、毛利、订单、回款；CSP降Capex或价格战失效</td>
 </tr>
 <tr>
 <td align="right">2</td>
 <td>海外网络设备</td>
-<td>较高</td>
-<td>上行</td>
-<td>海外收入25.49亿元、同比+27.68%</td>
+<td>较高 / 上行</td>
+<td>海外收入25.49亿元、+27.68%</td>
 <td>海外客户扩张→收入和费用摊薄</td>
-<td>区域收入、回款、汇率与贸易限制</td>
+<td>区域收入、毛利、回款、贸易限制</td>
 </tr>
 <tr>
 <td align="right">3</td>
-<td>光通信、全光网络与金融信创</td>
-<td>中</td>
-<td>持平</td>
-<td>有产品和存量客户，独立收入利润披露不足</td>
-<td>行业需求→项目交付→毛利与回款</td>
-<td>分部收入、毛利、应收；持续低增或回款恶化失效</td>
+<td>光通信、全光网络与行业信创</td>
+<td>中 / 持平</td>
+<td>有产品与存量客户，独立利润不足</td>
+<td>项目交付→毛利和回款</td>
+<td>分部收入、应收；持续低增或坏账失效</td>
 </tr>
 <tr>
 <td align="right">4</td>
-<td>广州芯德协同业务</td>
+<td>广州芯德协同</td>
 <td>证据不足</td>
-<td>证据不足</td>
-<td>有独立交易定价和利润承诺，交割与并表效果待验证</td>
-<td>技术协同→产品导入→利润承诺→母公司利润</td>
-<td>交割、2026—2027累计扣非1.55亿元、商誉减值</td>
+<td>交易定价与业绩承诺已取得，尚待交割</td>
+<td>并表利润与产品协同→母公司利润</td>
+<td>交割、承诺、商誉减值</td>
 </tr>
 <tr>
 <td align="right">5</td>
 <td>元宇宙、脑机疗愈等AI应用</td>
 <td>证据不足</td>
-<td>证据不足</td>
-<td>有产品与场景信息，无可审计重复收入和单位经济性</td>
-<td>需先完成付费客户、复购和规模交付</td>
-<td>独立收入、毛利、订单与融资；只有展示或试点不升级</td>
+<td>有产品场景，无重复收入和单位经济性</td>
+<td>需先形成付费、复购和规模毛利</td>
+<td>无独立披露则继续计0</td>
 </tr>
 </tbody></table>
 <ul>
-<li>去重说明：数据中心交换机利润已进入锐捷网络和星网锐捷合并利润，不能同时按PE、子公司市值和“800G期权”完整叠加。</li>
+<li>去重：数据中心网络利润已进入锐捷网络与星网锐捷合并利润，不能再把锐捷网络市值、800G期权和同一利润完整叠加。</li>
+<li>全球与国内可比：锐捷网络PE TTM 146.32倍、PB25.73倍，远高于紫光股份和中兴通讯；这既是资产锚，也是高估值风险源。</li>
 </ul>
-<h3>4.2 我的判断</h3>
+<h3>4.3 我的判断</h3>
 <ul>
-<li>我的判断：数据中心网络已经是商业化成长业务，不是遥远前沿期权；其价值应进入利润和SOTP中枢，但毛利率下降与现金流恶化要求折价。</li>
-<li>我的判断：公司比较优势有客户、产品迭代和规模交付线索，但截至本报告仍缺同口径市占率、定价权、标准控制及客户切换成本证据，不能仅凭收入增长判定优势扩大。</li>
-<li>证伪条件：H2数据中心业务明显放缓、企业级网络毛利率继续下降、全年扣非低于6亿元、Q3现金流和存货不改善，或锐捷网络估值大幅压缩。</li>
-</ul>
-<h3>4.3 彼得·林奇公司分类与投资故事</h3>
-<ul>
-<li>主分类：资产隐蔽型。</li>
-<li>次分类：盈利恢复型特征；尚不归入稳定快速增长型，因为五年EPS和现金流缺乏稳定轨迹。</li>
-<li>一句话投资故事：星网锐捷通过44.88%锐捷网络股权分享AI数据中心网络升级，盈利增长已经兑现；若现金流修复并证明竞争优势，控股折价可能收窄。</li>
-<li>利润增长等式：<code>母公司归母利润 = 锐捷网络收入 × 净利率 × 44.88% + 其他业务利润 + 投资收益 - 平台成本</code>。</li>
-<li>市场可能低估：高速网络持续性、海外扩张、控股资产折价、广州芯德协同。</li>
-<li>市场可能高估：锐捷网络175倍PE的持续性、白盒产品盈利能力、控股折价必然消失、早期AI项目快速商业化。</li>
-<li>证伪条件：锐捷网络利润不能穿透母公司现金流，或控股股权价值随子公司估值下修而快速缩水。</li>
+<li>数据中心网络是<strong>商业化成长业务</strong>，不是遥远期权；收入和利润已验证，但毛利与现金回款未验证。</li>
+<li>公司具有客户准入、产品迭代和规模交付能力；独立份额、定价权、标准控制力和客户切换成本证据不足，因此竞争格局只评为中性偏有利，不能给无限溢价。</li>
+<li>证伪条件：H2数据中心收入明显放缓、企业级网络毛利继续下降、Q3累计CFO仍大额为负、存货应收继续快于收入或锐捷网络估值压缩30%以上。</li>
 </ul>
 <h2 id="section-5">5. 分部收入与盈利拆解</h2>
 
 <table>
 <thead>
 <tr>
-<th>分部</th>
+<th>分部 / 口径</th>
 <th align="right">2026H1收入</th>
 <th align="right">同比</th>
 <th align="right">收入占比</th>
 <th align="right">毛利率</th>
 <th align="right">变化</th>
-<th>来源</th>
+<th>成熟度</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -561,25 +577,25 @@ body {
 <td align="right">约82.1%</td>
 <td align="right">31.68%</td>
 <td align="right">-2.37pct</td>
-<td>半年报</td>
+<td>商业化成长</td>
 </tr>
 <tr>
-<td>海外业务（跨分部口径）</td>
+<td>海外业务（跨分部）</td>
 <td align="right">25.49亿元</td>
 <td align="right">+27.68%</td>
 <td align="right">约23.8%</td>
 <td align="right">未单列</td>
 <td align="right">未获取到</td>
-<td>半年报</td>
+<td>商业化成长</td>
 </tr>
 <tr>
 <td>其他ICT与AI应用</td>
 <td align="right">未完整单列</td>
 <td align="right">未获取到</td>
-<td align="right">约17.9%残余口径</td>
+<td align="right">残余口径</td>
 <td align="right">未获取到</td>
 <td align="right">未获取到</td>
-<td>半年报披露不足</td>
+<td>基本盘+期权混合，期权计0</td>
 </tr>
 <tr>
 <td>合并公司</td>
@@ -587,13 +603,13 @@ body {
 <td align="right">+20.73%</td>
 <td align="right">100%</td>
 <td align="right">约29.84%</td>
-<td align="right">毛利承压</td>
-<td>半年报 / Tushare</td>
+<td align="right">低于2025全年</td>
+<td>整体</td>
 </tr>
 </tbody></table>
 <ul>
-<li>锐捷网络自身H1收入88.32亿元、归母净利润6.94亿元；按44.88%持股计算的利润权益约3.12亿元，与星网锐捷H1归母3.73亿元接近。</li>
-<li>我的判断：利润池高度集中于锐捷网络，其他业务的独立盈利能力与现金流仍是估值最大数据缺口。</li>
+<li>锐捷网络H1收入88.32亿元、归母净利润6.94亿元；按44.88%持股计算的权益利润约3.12亿元，与母公司H1归母3.73亿元接近，利润池集中度高。</li>
+<li>广州芯德整体交易估值8.62亿元，公司收购46%需现金3.956亿元；交割后持股67%，SOTP按5.78亿元参考值计入，不给予额外协同溢价。</li>
 </ul>
 <h2 id="section-6">6. 五年财务历史</h2>
 
@@ -618,7 +634,7 @@ body {
 <td align="right">4.18亿元</td>
 <td align="right">0.32亿元</td>
 <td align="right">14.0%</td>
-<td>Tushare / 年报</td>
+<td>年报 / Tushare</td>
 </tr>
 <tr>
 <td>2022</td>
@@ -628,7 +644,7 @@ body {
 <td align="right">4.36亿元</td>
 <td align="right">1.07亿元</td>
 <td align="right">14.4%</td>
-<td>Tushare / 年报</td>
+<td>同上</td>
 </tr>
 <tr>
 <td>2023</td>
@@ -638,7 +654,7 @@ body {
 <td align="right">4.34亿元</td>
 <td align="right">9.36亿元</td>
 <td align="right">7.1%</td>
-<td>Tushare / 年报</td>
+<td>同上</td>
 </tr>
 <tr>
 <td>2024</td>
@@ -648,7 +664,7 @@ body {
 <td align="right">6.70亿元</td>
 <td align="right">-3.40亿元</td>
 <td align="right">6.7%</td>
-<td>Tushare / 年报</td>
+<td>同上</td>
 </tr>
 <tr>
 <td>2025</td>
@@ -658,118 +674,75 @@ body {
 <td align="right">3.27亿元</td>
 <td align="right">17.64亿元</td>
 <td align="right">10.2%</td>
-<td>Tushare / 年报</td>
+<td>同上</td>
 </tr>
 </tbody></table>
 <ul>
-<li>自由现金流口径：经营现金流减购建长期资产支付现金；五年均值约5.00亿元，2023—2025均值约7.87亿元，波动显著。</li>
-<li>2026H1严格自由现金流代理为-37.34亿元，属于半年口径且存在季节性，但足以否定“收入增长已经稳定转成现金”的判断。</li>
-</ul>
-<h3>6.1 林奇框架增长质量检查</h3>
-<table>
-<thead>
-<tr>
-<th>利润增长来源</th>
-<th>当前证据</th>
-<th>可持续性</th>
-<th>风险</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>数据中心交换机数量与速率升级</td>
-<td>企业级网络收入+36.41%</td>
-<td>中高，需H2订单验证</td>
-<td>CSP资本开支与价格竞争</td>
-</tr>
-<tr>
-<td>规模与费用效率</td>
-<td>锐捷网络净利润增长</td>
-<td>中</td>
-<td>毛利率下降可能抵消规模效应</td>
-</tr>
-<tr>
-<td>非经常性收益</td>
-<td>H1归母高于扣非0.99亿元</td>
-<td>低</td>
-<td>不应外推到2027—2028</td>
-</tr>
-<tr>
-<td>营运资本融资</td>
-<td>短期借款48.80亿元、现金下降</td>
-<td>不属于利润增长</td>
-<td>现金流、利息与再融资压力</td>
-</tr>
-</tbody></table>
-<ul>
-<li>我的判断：利润增长真实，但质量只完成“收入与扣非利润”验证，尚未完成毛利率、库存、应收和现金流验证。</li>
+<li>自由现金流口径：经营现金流减购建长期资产现金支出；五年均值约5.00亿元、2023—2025均值约7.87亿元。</li>
+<li>H1自由现金流代理-37.34亿元，显著偏离历史；季节性可以解释一部分，不能在Q3回款前假定全部可逆。</li>
+<li>毛利率从2022年36.58%降至H1约29.84%，增长含金量必须和规模利润一起审视。</li>
 </ul>
 <h2 id="section-7">7. 最新季度与管理层指引</h2>
 
-<h3>7.1 最新季度（事实）</h3>
+<h3>7.1 2026H1（事实）</h3>
 <table>
 <thead>
 <tr>
 <th>指标</th>
-<th align="right">2026H1</th>
+<th align="right">数值</th>
 <th align="right">同比 / 年初变化</th>
-<th>来源</th>
+<th>判断边界</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>营业收入</td>
 <td align="right">107.29亿元</td>
 <td align="right">+20.73%</td>
-<td>半年报</td>
+<td>增长已验证</td>
 </tr>
 <tr>
-<td>归母净利润</td>
-<td align="right">3.73亿元</td>
-<td align="right">+75.86%</td>
-<td>半年报</td>
+<td>归母 / 扣非净利润</td>
+<td align="right">3.73 / 2.74亿元</td>
+<td align="right">+75.86% / +45.91%</td>
+<td>非经常收益约0.99亿元</td>
 </tr>
 <tr>
-<td>扣非归母净利润</td>
-<td align="right">2.74亿元</td>
-<td align="right">+45.91%</td>
-<td>半年报</td>
-</tr>
-<tr>
-<td>毛利率</td>
+<td>综合毛利率</td>
 <td align="right">约29.84%</td>
 <td align="right">低于2025全年32.24%</td>
-<td>Tushare计算</td>
+<td>定价与结构承压</td>
 </tr>
 <tr>
 <td>经营现金流</td>
 <td align="right">-35.66亿元</td>
 <td align="right">同比多流出30.88亿元</td>
-<td>半年报</td>
+<td>核心反证</td>
 </tr>
 <tr>
 <td>存货 / 应收</td>
 <td align="right">68.15 / 44.12亿元</td>
-<td align="right">较年初+69.44% / +35.62%</td>
-<td>半年报</td>
+<td align="right">+69.44% / +35.62%</td>
+<td>快于收入</td>
 </tr>
 <tr>
-<td>货币资金 / 净债务代理</td>
-<td align="right">18.00 / 31.37亿元</td>
-<td align="right">现金较年初-57.40%</td>
-<td>半年报 / Tushare</td>
+<td>货币资金 / 短期借款</td>
+<td align="right">18.00 / 48.80亿元</td>
+<td align="right">现金-57.40%</td>
+<td>融资压力增加</td>
+</tr>
+<tr>
+<td>净债务代理</td>
+<td align="right">31.37亿元</td>
+<td align="right">由净现金转为净债务特征</td>
+<td>估值需扣除</td>
 </tr>
 </tbody></table>
-<h3>7.2 管理层指引（事实）</h3>
+<h3>7.2 指引与判断</h3>
 <ul>
-<li>正式量化指引：未取得2026全年收入或利润指引。</li>
-<li>经营表述：公司称国内云厂商资本开支持续加码，面向互联网客户的数据中心交换机业务大幅增长。</li>
-<li>广州芯德承诺：2026—2027年累计扣非归母净利润不低于1.55亿元；这是交易对手承诺，不等同于星网锐捷全年指引。</li>
-<li>未获取到：H2订单、800G绝对收入、分部现金流、交割后商誉和融资安排。</li>
-</ul>
-<h3>7.3 我的判断</h3>
-<ul>
-<li>我的判断：半年报验证了盈利加速，却把主导矛盾从“利润能否增长”转为“利润能否变成现金”。</li>
-<li>我的判断：短期借款上升和收购现金支出意味着净债务需要重新纳入估值，旧研报使用Q1净现金代理已失效。</li>
-<li>下一验证节点：2026Q3经营现金流、存货、应收、企业级网络毛利率，以及广州芯德交割和并表口径。</li>
+<li>正式全年收入、利润、800G收入、订单和毛利指引：未获取到。</li>
+<li>管理层称国内云厂商资本开支持续增加，互联网客户数据中心交换机业务增长；该定性表述已被H1收入验证，尚未被现金流验证。</li>
+<li>广州芯德2026—2027累计扣非利润承诺不低于1.55亿元，这是交易对手承诺，不是母公司全年指引。</li>
+<li>我的判断：主导矛盾已从“利润能否增长”转为“利润能否转成现金”；Q3现金回收比单季收入更重要。</li>
 </ul>
 <h2 id="section-8">8. 近三个月新闻与催化剂</h2>
 
@@ -787,50 +760,50 @@ body {
 <tbody><tr>
 <td>2026-06-13</td>
 <td>锐捷网络获批不超过20亿元无追索权保理</td>
-<td>加速应收回收但产生费用</td>
+<td>加速回款但增加费用</td>
 <td>部分反映</td>
-<td>H2现金流与保理规模</td>
-<td>保理增加而现金流仍恶化</td>
-</tr>
-<tr>
-<td>2026-07-03</td>
-<td>H1业绩预告</td>
-<td>数据中心增长与非经常收益</td>
-<td>已由半年报确认</td>
-<td>正式半年报</td>
-<td>已完成验证</td>
+<td>H2保理与CFO</td>
+<td>保理增加而现金仍恶化</td>
 </tr>
 <tr>
 <td>2026-07-30</td>
-<td>调研披露锐捷网络贡献和800G趋势</td>
-<td>提高高速网络盈利预期</td>
-<td>已交易</td>
-<td>H2订单与毛利</td>
-<td>收入延续但毛利继续下降</td>
+<td>调研披露高速交换机与800G趋势</td>
+<td>推升未来收入预期</td>
+<td>已大部分交易</td>
+<td>H2绝对收入和毛利</td>
+<td>收入增、毛利继续降</td>
 </tr>
 <tr>
 <td>2026-08-15</td>
-<td>披露2026半年报</td>
-<td>利润兑现，现金流和库存恶化</td>
-<td>当日后股价继续走强</td>
+<td>披露半年报</td>
+<td>利润兑现，现金与存货恶化</td>
+<td>已反映</td>
 <td>Q3财报</td>
-<td>现金流不修复</td>
+<td>营运资本不修复</td>
 </tr>
 <tr>
 <td>2026-08-15</td>
-<td>拟收购广州芯德46%股权</td>
-<td>现金支出3.956亿元、并表利润与商誉变化</td>
+<td>收购广州芯德46%股权</td>
+<td>现金支出、并表利润、商誉</td>
 <td>部分反映</td>
-<td>交割及业绩承诺</td>
-<td>承诺不达标或商誉减值</td>
+<td>交割与承诺</td>
+<td>承诺落空、商誉减值</td>
 </tr>
 <tr>
-<td>2026-08-15</td>
-<td>计提减值0.931亿元</td>
-<td>归母利润影响-0.410亿元</td>
-<td>已披露</td>
-<td>Q3存货和应收质量</td>
-<td>减值继续扩大</td>
+<td>2026-08-19</td>
+<td>股价跌停、全市场风险释放</td>
+<td>杠杆与拥挤筹码出清</td>
+<td>正在反映</td>
+<td>融资去化、价格修复</td>
+<td>无量反弹后再破位</td>
+</tr>
+<tr>
+<td>2026-08-20</td>
+<td>股价+2.27%、融资净偿还0.66亿元</td>
+<td>出清开始但承接不强</td>
+<td>正在反映</td>
+<td>连续5日资金与融资</td>
+<td>融资再升、价格不涨</td>
 </tr>
 </tbody></table>
 <h2 id="section-9">9. 多头与空头论据</h2>
@@ -846,27 +819,33 @@ body {
 </tr>
 </thead>
 <tbody><tr>
-<td>高速网络需求进入收入和利润</td>
-<td>企业级网络收入+36.41%，锐捷网络净利6.94亿元</td>
-<td>H2收入、订单和扣非</td>
+<td>AI网络进入规模收入</td>
+<td>企业网络收入88.11亿元、+36.41%</td>
+<td>800G收入、订单、扣非</td>
 <td>CSP资本开支放缓</td>
 </tr>
 <tr>
-<td>控股股权提供资产锚</td>
-<td>44.88%锐捷网络股权毛值约739.75亿元</td>
-<td>子公司利润、估值和母公司折价</td>
-<td>锐捷网络估值大幅压缩</td>
+<td>锐捷网络提供控制性资产锚</td>
+<td>44.88%持股毛值约616.25亿元</td>
+<td>子公司盈利和估值</td>
+<td>市值下跌30%以上</td>
 </tr>
 <tr>
-<td>海外业务增长</td>
+<td>海外业务保持增长</td>
 <td>海外收入25.49亿元、+27.68%</td>
-<td>海外收入、毛利和回款</td>
-<td>贸易限制或回款恶化</td>
+<td>海外毛利、回款</td>
+<td>贸易限制、坏账</td>
 </tr>
 <tr>
-<td>广州芯德有独立交易定价</td>
-<td>整体估值8.62亿元、利润承诺1.55亿元</td>
-<td>交割与承诺完成率</td>
+<td>现价已回到估值中枢</td>
+<td>30.15元约等于30元中枢</td>
+<td>Q3现金与利润</td>
+<td>现金流继续恶化</td>
+</tr>
+<tr>
+<td>广州芯德有交易与承诺</td>
+<td>整体估值8.62亿元、承诺1.55亿元</td>
+<td>交割、承诺完成率</td>
 <td>商誉减值或承诺落空</td>
 </tr>
 </tbody></table>
@@ -881,466 +860,583 @@ body {
 </tr>
 </thead>
 <tbody><tr>
-<td>现金转化显著恶化</td>
-<td>H1经营现金流-35.66亿元、存货+69.44%</td>
-<td>Q3现金流、存货、应收</td>
-<td>H2快速回款并去库存</td>
+<td>利润没有转成现金</td>
+<td>H1 CFO-35.66亿元</td>
+<td>Q3累计CFO</td>
+<td>H2快速回款</td>
 </tr>
 <tr>
-<td>毛利率下降</td>
-<td>企业级网络毛利率-2.37pct</td>
-<td>分部毛利与净利率</td>
-<td>规模效应超过毛利下降</td>
+<td>库存与应收扩张</td>
+<td>较年初+69.44% / +35.62%</td>
+<td>周转、减值</td>
+<td>增速降至收入以下</td>
 </tr>
 <tr>
-<td>资产锚高度依赖高估值子公司</td>
-<td>锐捷网络PE_TTM 175.63倍</td>
-<td>子公司盈利与估值</td>
-<td>盈利快速兑现降低前瞻PE</td>
+<td>毛利率持续下降</td>
+<td>企业网络毛利-2.37pct，综合低于2025</td>
+<td>分部毛利</td>
+<td>规模效应反转趋势</td>
 </tr>
 <tr>
-<td>交易位置拥挤</td>
-<td>10日涨幅约35.8%、换手16.51%、融资增加</td>
-<td>换手、融资、板块相对强弱</td>
-<td>横盘降温且基本面继续上修</td>
+<td>资产锚依赖高估值子公司</td>
+<td>锐捷网络PE TTM 146.32倍</td>
+<td>前瞻利润、估值</td>
+<td>盈利快速降低PE</td>
 </tr>
 <tr>
-<td>早期AI叙事缺乏估值证据</td>
-<td>无独立重复收入和单位经济性</td>
-<td>付费订单、复购、毛利</td>
-<td>形成可审计商业化里程碑</td>
+<td>杠杆和情绪尚未出清</td>
+<td>近5日融资+22.05%，5日大额-2.15亿元</td>
+<td>融资、资金、价格</td>
+<td>去杠杆后价格稳定</td>
 </tr>
 </tbody></table>
-<h2 id="section-10">10. 估值</h2>
+<h2 id="section-10">10. 公允价值区间计算</h2>
 
-<h3>10.0 分部估值成熟度与路线</h3>
+<h3>10.1 主方法：2027利润 × 届时PE后折现</h3>
+<p>总股本约7.6055亿股；折现率11%，距2027年利润实现按1.25年处理。中邮与华泰2027预测约11.98—12.33亿元，基准11.8亿元略偏谨慎。</p>
 <table>
 <thead>
 <tr>
-<th>分部 / 业务</th>
-<th>成熟度</th>
-<th>核心证据</th>
-<th>主要估值方法</th>
-<th>是否进入中枢</th>
+<th>情景</th>
+<th align="right">2027归母净利润</th>
+<th align="right">届时PE</th>
+<th align="right">折现股权价值</th>
+<th align="right">每股价值</th>
+<th>假设</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>锐捷网络数据中心与企业网络</td>
-<td>商业化成长业务</td>
-<td>H1收入88.32亿元、净利润6.94亿元、重复客户与规模交付</td>
-<td>正常化PE、分阶段DCF、折价SOTP</td>
-<td>是</td>
+<td>保守</td>
+<td align="right">10.5亿元</td>
+<td align="right">20倍</td>
+<td align="right">184.32亿元</td>
+<td align="right">24.23元</td>
+<td>增长放缓、控股折价扩大</td>
 </tr>
 <tr>
-<td>其他存量ICT、光通信和行业数字化</td>
-<td>已验证基本盘但披露不足</td>
-<td>历史收入、客户与合并利润</td>
-<td>正常化利润、保守资产价值</td>
-<td>是，低权重</td>
+<td>基准</td>
+<td align="right">11.8亿元</td>
+<td align="right">22倍</td>
+<td align="right">227.85亿元</td>
+<td align="right">29.96元</td>
+<td>高速网络延续、H2回款正常化</td>
 </tr>
 <tr>
-<td>广州芯德</td>
-<td>商业化成长业务 / 待交割</td>
-<td>独立交易估值8.62亿元、利润承诺</td>
-<td>交易定价，交割后再校准</td>
-<td>是，按交易价且不加溢价</td>
-</tr>
-<tr>
-<td>元宇宙、脑机疗愈等早期AI项目</td>
-<td>前沿期权业务</td>
-<td>有产品场景，缺重复收入、融资和单位经济性</td>
-<td>里程碑观察</td>
-<td>否</td>
-</tr>
-<tr>
-<td>德明通讯已出售部分</td>
-<td>退出业务</td>
-<td>股权转让完成</td>
-<td>已实现投资收益，不重复计期权</td>
-<td>否</td>
+<td>乐观</td>
+<td align="right">13.0亿元</td>
+<td align="right">24.5倍</td>
+<td align="right">279.55亿元</td>
+<td align="right">36.76元</td>
+<td>800G量利齐升、现金与毛利修复</td>
 </tr>
 </tbody></table>
+<p>主估值得到<strong>24—37元</strong>；为避免假精度，综合区间取<strong>24—36元，中枢30元</strong>。</p>
+<h3>10.2 2026利润、同业与DCF验证</h3>
 <ul>
-<li>估值路线：采用混合路线。完整公司DCF保留，但因终值占比和现金流波动降权；主锚为2026年正常化利润和锐捷网络折价SOTP。</li>
+<li>2026归母7.6—9.0亿元 × 24—28倍PE，对应每股约24.0—33.1元。</li>
 </ul>
-<h3>10.1 相对估值</h3>
 <table>
 <thead>
 <tr>
 <th>公司</th>
-<th align="right">PE_TTM</th>
+<th align="right">PE TTM</th>
 <th align="right">PB</th>
-<th>业务可比性</th>
-<th>数据时间</th>
+<th align="right">PS TTM</th>
+<th>可比性</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>星网锐捷</td>
-<td align="right">45.27</td>
-<td align="right">3.57</td>
-<td>母公司＋控股网络设备资产</td>
-<td>2026-08-17</td>
-</tr>
-<tr>
-<td>紫光股份</td>
-<td align="right">55.23</td>
-<td align="right">7.56</td>
-<td>网络与算力基础设施</td>
-<td>2026-08-17</td>
-</tr>
-<tr>
-<td>中兴通讯</td>
-<td align="right">38.50</td>
-<td align="right">2.25</td>
-<td>成熟通信设备龙头</td>
-<td>2026-08-17</td>
-</tr>
-<tr>
-<td>中科曙光</td>
-<td align="right">59.75</td>
-<td align="right">5.87</td>
-<td>算力基础设施</td>
-<td>2026-08-17</td>
+<td align="right">40.25</td>
+<td align="right">3.17</td>
+<td align="right">1.09</td>
+<td>母公司+控股网络资产</td>
 </tr>
 <tr>
 <td>锐捷网络</td>
-<td align="right">175.63</td>
-<td align="right">30.89</td>
-<td>核心子公司，仅作资产与业务参照</td>
-<td>2026-08-17</td>
+<td align="right">146.32</td>
+<td align="right">25.73</td>
+<td align="right">8.32</td>
+<td>核心子公司，高估值风险源</td>
+</tr>
+<tr>
+<td>紫光股份</td>
+<td align="right">48.00</td>
+<td align="right">6.57</td>
+<td align="right">0.98</td>
+<td>网络与算力基础设施</td>
+</tr>
+<tr>
+<td>中兴通讯</td>
+<td align="right">36.17</td>
+<td align="right">2.11</td>
+<td align="right">1.19</td>
+<td>成熟通信设备龙头</td>
 </tr>
 </tbody></table>
+<ul>
+<li>星网锐捷2026前瞻PE约27倍，处于成熟通信设备与高估值网络成长资产之间；合理，但不便宜。</li>
+<li>既有DCF基准敏感性16—26元、极端情景6—44元；H1现金流为负、基准终值占比约74%，只作为低权重下沿约束。</li>
+</ul>
+<h3>10.3 折价SOTP</h3>
+<p>锐捷网络当前市值约1373.11亿元；44.88%持股毛值约616.25亿元、折合81.03元/股。控制性资产无出售计划且PE极高，不能按毛值计入。</p>
 <table>
 <thead>
 <tr>
 <th>情景</th>
-<th align="right">2026E归母</th>
-<th align="right">估值倍数</th>
-<th align="right">股权价值</th>
+<th align="right">持股毛值认可</th>
+<th align="right">其他业务</th>
+<th align="right">广州芯德67%</th>
+<th align="right">收购现金 / 净债务</th>
 <th align="right">每股价值</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>悲观</td>
-<td align="right">7.60亿元</td>
-<td align="right">25倍</td>
-<td align="right">190亿元</td>
-<td align="right">24.98元</td>
-</tr>
-<tr>
-<td>基准</td>
-<td align="right">8.50亿元</td>
-<td align="right">28倍</td>
-<td align="right">238亿元</td>
-<td align="right">31.29元</td>
-</tr>
-<tr>
-<td>乐观</td>
-<td align="right">9.50亿元</td>
-<td align="right">31倍</td>
-<td align="right">294.5亿元</td>
-<td align="right">38.72元</td>
-</tr>
-</tbody></table>
-<ul>
-<li>我的判断：相对估值区间约25—39元。当前33.91元要求全年利润接近基准上方，并维持约30倍前瞻PE。</li>
-</ul>
-<h3>10.2 DCF</h3>
-<h4>DCF适用性</h4>
-<ul>
-<li>适用对象：合并成熟业务与商业化成长业务的现金流交叉验证。</li>
-<li>自由现金流预计转正年份：若H2营运资本正常化，2026全年可恢复为正；尚未取得法定全年证据。</li>
-<li>终值占比：悲观67.7%、基准74.0%、乐观79.8%。基准与乐观超过70%，按v2.1.0规则降为低权重约束。</li>
-<li>口径局限：模型使用历史经营现金流减Capex形成的正常化FCFF代理；未取得完整利息加回和分部无杠杆现金流，可能低估企业价值。</li>
-</ul>
-<h4>关键假设</h4>
-<table>
-<thead>
-<tr>
-<th>假设</th>
-<th align="right">悲观</th>
-<th align="right">基准</th>
-<th align="right">乐观</th>
-<th>依据</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>起始正常化FCFF代理</td>
-<td align="right">6亿元</td>
-<td align="right">9亿元</td>
-<td align="right">12亿元</td>
-<td>五年均值5.0亿元、三年均值7.87亿元、2025年17.64亿元</td>
-</tr>
-<tr>
-<td>五年增长</td>
-<td align="right">5%/5%/4%/3%/3%</td>
-<td align="right">15%/12%/10%/8%/6%</td>
-<td align="right">20%/18%/15%/12%/8%</td>
-<td>高速网络增长与成熟业务折中</td>
-</tr>
-<tr>
-<td>WACC</td>
-<td align="right">10.5%</td>
-<td align="right">9.5%</td>
-<td align="right">8.5%</td>
-<td>A股ICT、净债务和控股结构风险</td>
-</tr>
-<tr>
-<td>永续增长率</td>
-<td align="right">2.0%</td>
-<td align="right">2.5%</td>
-<td align="right">3.0%</td>
-<td>长期名义增长</td>
-</tr>
-<tr>
-<td>净债务代理</td>
-<td align="right">31.37亿元</td>
-<td align="right">31.37亿元</td>
-<td align="right">31.37亿元</td>
-<td>H1短借＋一年内到期负债－现金</td>
-</tr>
-</tbody></table>
-<h4>估值结果</h4>
-<table>
-<thead>
-<tr>
-<th>情景</th>
-<th align="right">企业价值</th>
-<th align="right">终值占比</th>
-<th align="right">股权价值</th>
-<th align="right">每股价值</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>悲观</td>
-<td align="right">78.56亿元</td>
-<td align="right">67.7%</td>
-<td align="right">47.19亿元</td>
-<td align="right">6.21元</td>
-</tr>
-<tr>
-<td>基准</td>
-<td align="right">183.46亿元</td>
-<td align="right">74.0%</td>
-<td align="right">152.09亿元</td>
-<td align="right">20.00元</td>
-</tr>
-<tr>
-<td>乐观</td>
-<td align="right">368.90亿元</td>
-<td align="right">79.8%</td>
-<td align="right">337.53亿元</td>
-<td align="right">44.38元</td>
-</tr>
-</tbody></table>
-<h4>敏感性分析（基准现金流路径，每股）</h4>
-<table>
-<thead>
-<tr>
-<th>WACC \ 永续增长率</th>
-<th align="right">2.0%</th>
-<th align="right">2.5%</th>
-<th align="right">3.0%</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>8.5%</td>
-<td align="right">22.35元</td>
-<td align="right">24.13元</td>
-<td align="right">26.22元</td>
-</tr>
-<tr>
-<td>9.5%</td>
-<td align="right">18.73元</td>
-<td align="right">20.00元</td>
-<td align="right">21.46元</td>
-</tr>
-<tr>
-<td>10.5%</td>
-<td align="right">15.96元</td>
-<td align="right">16.90元</td>
-<td align="right">17.98元</td>
-</tr>
-</tbody></table>
-<h4>反向DCF</h4>
-<ul>
-<li>当前市值257.90亿元加净债务代理31.37亿元，对应企业价值约289.27亿元。</li>
-<li>在9.5% WACC、2.5%永续增长率和基准增长路径下，当前价格要求起始正常化FCFF代理约14.2亿元，明显高于五年均值5.0亿元和三年均值7.87亿元。</li>
-<li>我的判断：市场已经假设H1营运资本占用大部分可逆，且高速网络利润能够持续转化为现金；该假设尚未得到财报验证。</li>
-</ul>
-<h3>10.3 行业特定估值</h3>
-<ul>
-<li>方法：锐捷网络控股股权折价SOTP，加其他存量业务和广州芯德交易价值，再扣净债务及尚未支付的收购现金。</li>
-<li>锐捷网络持股毛值：1,648.18亿元 × 44.88% = 739.75亿元，约97.26元/星网锐捷股份。</li>
-<li>广州芯德：67%股权交易参考价值约5.78亿元；收购46%尚需公司现金约3.956亿元。两项分别列示，避免把收购投入和股权价值混为一项。</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>情景</th>
-<th align="right">锐捷持股认可比例</th>
-<th align="right">其他业务价值（不含广州芯德）</th>
-<th align="right">广州芯德67%参考值</th>
-<th align="right">未来收购投入</th>
-<th align="right">净债务</th>
-<th align="right">每股价值</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>悲观</td>
+<td>保守</td>
 <td align="right">25%</td>
 <td align="right">15亿元</td>
 <td align="right">5.78亿元</td>
-<td align="right">-3.956亿元</td>
-<td align="right">-31.37亿元</td>
-<td align="right">22.40元</td>
+<td align="right">-3.956 / -31.37亿元</td>
+<td align="right">18.34元</td>
 </tr>
 <tr>
 <td>基准</td>
 <td align="right">35%</td>
 <td align="right">20亿元</td>
 <td align="right">5.78亿元</td>
-<td align="right">-3.956亿元</td>
-<td align="right">-31.37亿元</td>
-<td align="right">32.79元</td>
+<td align="right">同上</td>
+<td align="right">27.10元</td>
 </tr>
 <tr>
 <td>乐观</td>
-<td align="right">42%</td>
+<td align="right">45%</td>
 <td align="right">25亿元</td>
 <td align="right">5.78亿元</td>
-<td align="right">-3.956亿元</td>
-<td align="right">-31.37亿元</td>
-<td align="right">40.25元</td>
+<td align="right">同上</td>
+<td align="right">35.86元</td>
 </tr>
 </tbody></table>
 <ul>
-<li>局限：锐捷网络175.63倍PE使持股毛值高度敏感；控制性股权无出售计划，折价可能长期存在。广州芯德交易含业绩承诺和潜在商誉，交易价不是无风险现金价值。</li>
+<li>SOTP给出18—36元，基准27.1元；它约束上沿，不取代合并利润主锚。</li>
 </ul>
-<h3>10.4 前沿科技价值桥（适用时）</h3>
-<h4>已验证基本盘</h4>
+<h3>10.4 反向估值与综合结论</h3>
+<ul>
+<li>30.15元对应229.31亿元市值；按2026利润8.5亿元计约27.0倍PE。</li>
+<li>按2027利润、22倍PE和11%折现率反推，现价要求2027归母约11.88亿元，与少量卖方预测接近。</li>
+<li>在其他业务20亿元、广州芯德5.78亿元、净债务31.37亿元和待支付3.956亿元条件下，现价约认可锐捷持股毛值的38.8%，高于SOTP基准35%、低于乐观45%。</li>
+<li>综合公允价值：<strong>24—36元，中枢30元</strong>。现金流决定下沿，2027利润和折价SOTP决定中枢与上沿。</li>
+</ul>
+<h2 id="section-11">11. 市场价格分解与估值泡沫判断</h2>
+
+<h3>11.1 价格偏离与七问</h3>
 <table>
 <thead>
 <tr>
-<th>分部</th>
-<th>方法</th>
-<th>价值处理</th>
+<th>项目</th>
+<th align="right">结果</th>
+<th>证据</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>锐捷网络已商业化业务</td>
-<td>正常化利润＋折价SOTP</td>
-<td>已进入10.1和10.3，不再另加“800G期权”</td>
+<td>当前价格 / 中枢 / 上沿</td>
+<td align="right">30.15 / 30.00 / 36.00元</td>
+<td>08-20收盘 / 本报告</td>
 </tr>
 <tr>
-<td>其他存量ICT业务</td>
-<td>保守正常化利润 / 资产价值</td>
-<td>进入SOTP其他业务价值</td>
+<td>相对中枢 / 上沿</td>
+<td align="right">+0.5% / -16.3%</td>
+<td>当前价÷锚-1</td>
 </tr>
 <tr>
-<td>广州芯德</td>
-<td>独立交易定价</td>
-<td>只按交易参考价值，并扣除尚未支付的公司现金投入</td>
+<td>上沿外价格</td>
+<td align="right">0元</td>
+<td>未超过上沿</td>
+</tr>
+<tr>
+<td>可解释质量溢价</td>
+<td align="right">已计入</td>
+<td>2027增长、锐捷控制权和高速网络商业化</td>
+</tr>
+<tr>
+<td>交易定价偏离</td>
+<td align="right">证据不足</td>
+<td>杠杆与情绪解释波动，不能精确拆价</td>
 </tr>
 </tbody></table>
-<h4>前沿业务里程碑与情景</h4>
 <table>
 <thead>
 <tr>
-<th>前沿业务</th>
+<th>七问</th>
+<th>结论</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>价格是否高于中枢和上沿？</td>
+<td>略高于中枢0.5%，低于上沿16.3%</td>
+<td>核心门槛不成立</td>
+</tr>
+<tr>
+<td>高出部分隐含什么？</td>
+<td>无上沿外价格；现价隐含2027利润11.88亿元</td>
+<td>可审计</td>
+</tr>
+<tr>
+<td>收入、利润、FCF能否验证？</td>
+<td>收入利润可以，FCF不能</td>
+<td>部分成立</td>
+</tr>
+<tr>
+<td>是否扣除投入、稀释和时间？</td>
+<td>已扣净债务、收购现金与折现</td>
+<td>成立</td>
+</tr>
+<tr>
+<td>流动性与倍数正常化后能否成立？</td>
+<td>22倍2027PE可以，20倍时偏高</td>
+<td>勉强成立</td>
+</tr>
+<tr>
+<td>成长正常化后能否成立？</td>
+<td>需2027利润接近12亿元</td>
+<td>成立但需验证</td>
+</tr>
+<tr>
+<td>市场是否仍定价风险？</td>
+<td>是；近期高点回撤18.47%、融资去化</td>
+<td>成立</td>
+</tr>
+</tbody></table>
+<h3>11.2 基本面触发器（9项）</h3>
+<table>
+<thead>
+<tr>
+<th>观察项</th>
 <th>当前证据</th>
-<th>当前处理</th>
-<th>进入上沿所需证据</th>
+<th>扫描状态</th>
+<th>影响</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>元宇宙、脑机疗愈等早期AI应用</td>
-<td>产品、场景、公司新闻</td>
-<td>下沿与中枢计0；不使用TAM估值</td>
-<td>独立付费订单、复购、收入、毛利和单位经济性</td>
+<td>资本开支规模</td>
+<td>H1购建长期资产1.68亿元，固定投入不高</td>
+<td>有利</td>
+<td>非主要现金压力</td>
 </tr>
 <tr>
-<td>其他未单列研发项目</td>
-<td>未获取到独立融资、认证或收入</td>
-<td>不计价</td>
-<td>第三方融资、客户认证、量产和现金消耗披露</td>
+<td>经营现金流</td>
+<td>H1 -35.66亿元，同比多流出30.88亿元</td>
+<td>逆转</td>
+<td>击中成长质量</td>
+</tr>
+<tr>
+<td>自由现金流</td>
+<td>H1代理-37.34亿元</td>
+<td>逆转</td>
+<td>DCF降权</td>
+</tr>
+<tr>
+<td>投资资金来源</td>
+<td>现金18亿元、短借48.8亿元，另需收购现金3.956亿元</td>
+<td>逆转</td>
+<td>净债务上升</td>
+</tr>
+<tr>
+<td>融资停止后的可持续性</td>
+<td>H1增长依赖短债与营运资本扩张</td>
+<td>逆转</td>
+<td>尚未形成自融资闭环</td>
+</tr>
+<tr>
+<td>原材料与中间品成本</td>
+<td>芯片、光模块和供应链成本拆分未获取到</td>
+<td>证据不足</td>
+<td>不判断成本趋势</td>
+</tr>
+<tr>
+<td>定价权与成本转嫁</td>
+<td>企业网络毛利率同比-2.37pct</td>
+<td>逆转</td>
+<td>价格竞争或结构承压</td>
+</tr>
+<tr>
+<td>营收向利润的转化</td>
+<td>收入+20.73%、扣非+45.91%</td>
+<td>有利</td>
+<td>利润转化成立</td>
+</tr>
+<tr>
+<td>利润向自由现金流的转化</td>
+<td>归母3.73亿元、CFO-35.66亿元</td>
+<td>逆转</td>
+<td>核心验证缺口</td>
 </tr>
 </tbody></table>
-<h4>融资、现金消耗与当前股东保留比例</h4>
-<ul>
-<li>广州芯德收购使用公司自有资金3.956亿元：在价值桥中作为未来投入扣除；公告未披露外部股权融资，因此当前股东保留比例按100%处理，不再增加稀释扣减。</li>
-<li>若交割后新增借款，进入净债务；不得同时作为未来投入与稀释重复扣除。</li>
-<li>早期AI项目未取得独立融资和现金消耗数据，因此不能给予融资定价或实物期权溢价。</li>
-</ul>
-<h4>当前股东价值桥与反向估值</h4>
-<ul>
-<li>当前股东价值 = 折价后的锐捷网络持股价值＋其他存量业务＋广州芯德交易参考价值－H1净债务代理－尚未支付收购现金＋已验证前沿期权价值。</li>
-<li>当前257.90亿元市值反推：在其他业务20亿元、广州芯德5.78亿元、净债务31.37亿元和未来收购投入3.956亿元条件下，市场约认可锐捷网络持股毛值的36.2%，略高于本报告35%的基准认可比例。</li>
-<li>当前价格没有要求元宇宙或脑机疗愈完全成功，但已要求高速网络盈利延续及控股折价不再扩大。</li>
-</ul>
-<h3>10.5 估值交叉验证</h3>
+<h3>11.3 流动性触发器（14项）</h3>
 <table>
 <thead>
 <tr>
-<th>方法</th>
-<th align="right">每股价值区间</th>
-<th align="right">权重</th>
-<th>采信理由</th>
+<th>观察项</th>
+<th>当前证据</th>
+<th>扫描状态</th>
+<th>影响</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>相对估值</td>
-<td align="right">25—39元</td>
-<td align="right">45%</td>
-<td>H1盈利已验证，全年利润仍需估计</td>
+<td>通胀</td>
+<td>对公司芯片、汇率和融资的综合方向未取得</td>
+<td>证据不足</td>
+<td>不作强结论</td>
 </tr>
 <tr>
-<td>DCF敏感性</td>
-<td align="right">16—26元；极端情景6—44元</td>
-<td align="right">15%</td>
-<td>基准终值占比74%，现金流与净债务波动大，按规则降权</td>
+<td>政策利率与债券收益率</td>
+<td>美联储维持3.50%—3.75%，美债利率偏高</td>
+<td>逆转</td>
+<td>压制成长倍数</td>
 </tr>
 <tr>
-<td>折价SOTP</td>
-<td align="right">22—40元</td>
-<td align="right">40%</td>
-<td>资产锚明确，但子公司估值和控股折价高度敏感</td>
+<td>信用与融资条件</td>
+<td>国内银行融资可得，公司短借增加</td>
+<td>有利</td>
+<td>可融资但成本与依赖上升</td>
 </tr>
 <tr>
-<td>广州芯德交易</td>
-<td align="right">已含于SOTP</td>
-<td align="right">不单列权重</td>
-<td>防止交易价值、利润和未来期权重复计价</td>
+<td>高投资项目对低成本资金的依赖</td>
+<td>营运资本和并购占用现金，短借48.8亿元</td>
+<td>逆转</td>
+<td>财务弹性下降</td>
+</tr>
+<tr>
+<td>监管与产业政策</td>
+<td>一体化算力网与“人工智能+”支持网络需求</td>
+<td>有利</td>
+<td>中观方向有利</td>
+</tr>
+<tr>
+<td>ETF申赎</td>
+<td>未取得通信/算力ETF连续申赎</td>
+<td>证据不足</td>
+<td>不判断被动增量</td>
+</tr>
+<tr>
+<td>基金仓位</td>
+<td>未取得最新公募、保险与北向穿透持仓</td>
+<td>证据不足</td>
+<td>不判断拥挤主体</td>
+</tr>
+<tr>
+<td>主线增量资金</td>
+<td>近5日大额-2.15亿元、全口径-9.70亿元</td>
+<td>逆转</td>
+<td>短线承接转弱</td>
+</tr>
+<tr>
+<td>融资余额增速</td>
+<td>近5日+22.05%、60日+21.27%</td>
+<td>逆转</td>
+<td>杠杆尚未出清</td>
+</tr>
+<tr>
+<td>新增融资集中度</td>
+<td>无账户级融资集中度</td>
+<td>证据不足</td>
+<td>无法判断踩踏集中度</td>
+</tr>
+<tr>
+<td>股价对杠杆资金的依赖</td>
+<td>8月18日前融资拥挤，跌停后两日去化约12.3%</td>
+<td>逆转</td>
+<td>杠杆反向放大</td>
+</tr>
+<tr>
+<td>龙头表现</td>
+<td>5/20日-6.89%/-11.14%，从36.98元回撤</td>
+<td>逆转</td>
+<td>相对强度转弱</td>
+</tr>
+<tr>
+<td>市场广度</td>
+<td>8月19日上涨449只、下跌5069只</td>
+<td>逆转</td>
+<td>系统性风险释放</td>
+</tr>
+<tr>
+<td>获利资金与回调承接</td>
+<td>8月20反弹量比0.65，资金仍净流出</td>
+<td>逆转</td>
+<td>修复强度不足</td>
+</tr>
+</tbody></table>
+<h3>11.4 预期触发器（9项）</h3>
+<table>
+<thead>
+<tr>
+<th>观察项</th>
+<th>当前证据</th>
+<th>扫描状态</th>
+<th>影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>价格隐含的增长年限</td>
+<td>现价约27倍2026PE、22倍折现前2027PE</td>
+<td>有利</td>
+<td>未要求多年极端增长</td>
+</tr>
+<tr>
+<td>产业进度与远期预期距离</td>
+<td>高速交换机已形成88亿元级收入</td>
+<td>有利</td>
+<td>非纯概念</td>
+</tr>
+<tr>
+<td>新信息对盈利预测推动</td>
+<td>H1收入利润超历史增速</td>
+<td>有利</td>
+<td>支持2027利润锚</td>
+</tr>
+<tr>
+<td>同类利好的边际反应</td>
+<td>半年报与并购后冲高，随后跌停</td>
+<td>逆转</td>
+<td>利好钝化</td>
+</tr>
+<tr>
+<td>财报披露节点</td>
+<td>H1正式报告已披露</td>
+<td>有利</td>
+<td>事实已落地</td>
+</tr>
+<tr>
+<td>订单、收入与利润一致性</td>
+<td>收入利润增长，H2订单绝对值未披露</td>
+<td>证据不足</td>
+<td>订单可见度不足</td>
+</tr>
+<tr>
+<td>利润与现金流一致性</td>
+<td>利润增长、CFO大幅为负</td>
+<td>逆转</td>
+<td>击中主锚质量</td>
+</tr>
+<tr>
+<td>真实应用与产品验证</td>
+<td>数据中心交换机已规模交付</td>
+<td>有利</td>
+<td>无技术落地风险</td>
+</tr>
+<tr>
+<td>实际业绩与隐含预期</td>
+<td>利润支持现价，但毛利和现金低于完整预期</td>
+<td>逆转</td>
+<td>预期只完成一半</td>
+</tr>
+</tbody></table>
+<h3>11.5 扫描汇总与泡沫门槛</h3>
+<table>
+<thead>
+<tr>
+<th>扫描表</th>
+<th align="right">有利</th>
+<th align="right">逆转</th>
+<th align="right">证据不足</th>
+<th align="right">不适用</th>
+<th>关键结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本面</td>
+<td align="right">2</td>
+<td align="right">6</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td>利润增长成立，现金、融资与毛利同时逆转</td>
+</tr>
+<tr>
+<td>流动性</td>
+<td align="right">2</td>
+<td align="right">7</td>
+<td align="right">5</td>
+<td align="right">0</td>
+<td>杠杆去化开始，承接与广度仍弱</td>
+</tr>
+<tr>
+<td>预期</td>
+<td align="right">5</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td>产品与利润落地，但利好钝化、现金不一致</td>
 </tr>
 </tbody></table>
 <ul>
-<li>综合估值区间：26—40元，中枢32—34元。</li>
-<li>为什么不机械平均：DCF受营运资本与终值支配，不能压过已验证利润和上市股权；SOTP又不能按锐捷网络高估值毛值全额计价。最终区间以正常化利润确定下沿和中枢，以折价资产价值约束上沿。</li>
+<li>击中主估值锚的关键逆转：<strong>是</strong>。成长企业主锚依赖利润转现金，H1 CFO、FCF和融资持续性同时逆转。</li>
+<li>跨表传导链：<strong>已形成早期三表链</strong>——利润未转现金 → 短债与融资依赖上升 → 杠杆拥挤后价格破位 → 半年报利好钝化。反证是现价仍在公允价值内、融资已开始净偿还。</li>
 </ul>
-<h3>10.6 林奇分类与估值匹配</h3>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>判断项</th>
+<th>状态</th>
+<th>证据 / 反证</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>核心门槛</td>
+<td>估值脱锚</td>
+<td>不成立</td>
+<td>现价低于36元上沿，隐含利润可审计</td>
+</tr>
+<tr>
+<td>核心门槛</td>
+<td>经营验证缺口</td>
+<td>成立</td>
+<td>现金流、毛利和营运资本未闭环</td>
+</tr>
+<tr>
+<td>核心门槛</td>
+<td>正常化压力失败</td>
+<td>不成立</td>
+<td>2027利润约11.9亿元可解释现价</td>
+</tr>
+<tr>
+<td>放大器</td>
+<td>融资依赖</td>
+<td>显著</td>
+<td>短借48.8亿元、净债务代理31.37亿元</td>
+</tr>
+<tr>
+<td>放大器</td>
+<td>杠杆与承接</td>
+<td>显著</td>
+<td>融资近5日+22.05%，跌停后才开始去化</td>
+</tr>
+<tr>
+<td>放大器</td>
+<td>叙事一致性</td>
+<td>中等</td>
+<td>高速网络收入真实，但现金与毛利形成反证</td>
+</tr>
+</tbody></table>
 <ul>
-<li>资产隐蔽型锚：锐捷网络股权毛值只认可25%—42%，并扣净债务和收购现金。</li>
-<li>盈利恢复型锚：使用2026年7.60—9.50亿元情景利润，不把2027—2028高增长直接外推至终值。</li>
-<li>PEG：不适用，利润历史与现金流不稳定，2026增长又含低基数和非经常性收益。</li>
-<li>当前价格反映：约30倍2026基准利润，或锐捷网络持股毛值约36%的认可比例。</li>
-<li>类型化结论：好资产与高景气已经部分计价，当前缺少安全边际；只有现金流与毛利率补足，33元以上才从“交易估值”转成“经营价值”。</li>
+<li>估值泡沫判断：<strong>公允价值内</strong>，置信度中；三项核心门槛仅经营验证缺口成立，不满足普通高估或泡沫门槛。</li>
+<li>泡沫出清状态：<strong>出清观察</strong>。8月19日跌停、融资两日去化约12.3%和反弹缩量说明出清开始；近5日融资仍高、60日价格仍+28.03%，不足以确认出清完成。</li>
 </ul>
-<h2 id="section-11">11. 最终结论</h2>
+<h2 id="section-12">12. 最终结论</h2>
 
 <ul>
-<li>彼得·林奇公司分类：资产隐蔽型，辅以盈利恢复型特征。</li>
-<li>一句话投资故事：高速数据中心网络推动锐捷网络盈利，母公司通过控股权益分享增长；现金流修复和控股折价收窄决定股东最终回报。</li>
-<li>估值结论：合理偏高。</li>
-<li>操作结论：新增现金维持 <code>observe</code>，不追涨；已有持仓依据成本和仓位管理，不在缺少用户成本信息时给出无条件卖出。</li>
-<li>综合估值区间：26—40元，中枢32—34元。</li>
-<li>相对现价空间：33.91元对应下沿-23.3%、上沿+18.0%，赔率约0.77。</li>
-<li>如果今天这是一笔现金，我会买它吗：不会立即买入；等待29.8—30.5元附近的非杠杆承接，或Q3现金流修复使中枢上移。</li>
-<li>我的判断：新版估值没有因H1负现金流把公司简单压到DCF的20元附近，也没有把800G和早期AI叙事按完全成功计价。合理做法是承认已商业化网络业务与控股资产价值，同时对现金转换、净债务和子公司高估值保留折价。</li>
-<li>逆向投资闸门：当前不是逆向机会。价格接近52周高位、融资增加且情绪拥挤，不满足极端悲观和价格显著低于保守价值。</li>
-<li>投资逻辑证伪：Q3现金流继续大额为负、存货和应收继续快于收入、企业网络毛利率继续下降、锐捷网络估值下跌30%以上或广州芯德承诺不达标。</li>
-<li>林奇框架卖出 / 降低暴露条件：高于40元而全年盈利和现金流不再上修；或核心高速网络增长、控股资产价值、现金流三者中两项同时转弱。</li>
+<li>企业价值主类型：<strong>成长企业</strong>。</li>
+<li>分部成熟度：数据中心网络为商业化成长；其他ICT为基本盘；广州芯德待交割；早期AI应用为前沿期权、当前计0。</li>
+<li>主估值锚：2027归母10.5—13.0亿元 × 20—24.5倍PE，再以11%折现率折现约1.25年。</li>
+<li>估值结论：<strong>合理、位于中枢附近</strong>；公允价值<strong>24—36元，中枢30元</strong>。</li>
+<li>操作结论：<strong>观望</strong>；新增现金<code>wait</code>，已有持仓<code>review</code>。</li>
+<li>相对现价空间：下沿-20.4%、中枢-0.5%、上沿+19.4%，没有足够赔率。</li>
+<li>如果今天这是一笔现金，我会买它吗：<strong>不会立即买</strong>。</li>
+<li>结论失效条件：Q3累计CFO明显收窄、毛利企稳、存货应收增速降到收入以下，可上调中枢或动作；反之现金继续恶化、跌破24元或锐捷网络估值压缩30%以上时下修。</li>
+<li>估值锚退出条件：2027利润预期降至10.5亿元以下、合理PE降至20倍以下或增长不能转成现金时，下沿不再有效；高于36元而2027利润未超过13亿元时复核减仓。</li>
 </ul>
-<h2 id="section-12">12. 后续监控指标</h2>
+<h2 id="section-13">13. 后续监控指标</h2>
 
 <table>
 <thead>
@@ -1353,81 +1449,111 @@ body {
 </tr>
 </thead>
 <tbody><tr>
-<td>经营现金流</td>
+<td>Q3累计经营现金流</td>
 <td align="right">H1 -35.66亿元</td>
-<td>Q3累计流出显著收窄</td>
-<td>继续恶化</td>
+<td>流出显著收窄</td>
+<td>继续大额流出</td>
 <td>季度</td>
 </tr>
 <tr>
 <td>存货 / 应收</td>
 <td align="right">68.15 / 44.12亿元</td>
 <td>增速低于收入</td>
-<td>继续快于收入增长</td>
+<td>继续快于收入</td>
 <td>季度</td>
 </tr>
 <tr>
-<td>企业级网络毛利率</td>
+<td>企业网络毛利率</td>
 <td align="right">31.68%</td>
 <td>企稳或回升</td>
-<td>再降2pct以上</td>
-<td>半年 / 季度线索</td>
+<td>再降2pct</td>
+<td>季度线索 / 半年</td>
 </tr>
 <tr>
-<td>2026全年归母 / 扣非</td>
-<td align="right">外部锚7.60—8.87亿元 / 未完整取得</td>
-<td>归母9亿元附近且扣非延续</td>
-<td>归母低于7.6亿元</td>
-<td>年报 / 预告</td>
+<td>2026全年归母</td>
+<td align="right">外部锚7.6—8.87亿元</td>
+<td>≥9亿元且扣非同步</td>
+<td>&lt;7.6亿元</td>
+<td>业绩预告 / 年报</td>
 </tr>
 <tr>
-<td>锐捷网络市值与PE</td>
-<td align="right">1,648.18亿元 / 175.63倍</td>
-<td>盈利增长使前瞻PE下降</td>
+<td>800G与H2订单</td>
+<td align="right">未披露绝对值</td>
+<td>可审计收入、订单和毛利</td>
+<td>只有定性表述</td>
+<td>公告 / 调研</td>
+</tr>
+<tr>
+<td>锐捷网络市值 / PE</td>
+<td align="right">1373.11亿元 / 146.32倍</td>
+<td>盈利增长降低前瞻PE</td>
 <td>市值跌30%以上</td>
 <td>每周</td>
 </tr>
 <tr>
-<td>融资与价格承接</td>
-<td align="right">融资5.78亿元；收盘33.91元</td>
-<td>融资降温、30元附近承接</td>
-<td>杠杆继续激增后跌破29.8元</td>
-<td>每周</td>
+<td>融资余额</td>
+<td align="right">6.35亿元</td>
+<td>继续去化、价格稳定</td>
+<td>再升而价格不涨</td>
+<td>每日</td>
+</tr>
+<tr>
+<td>5日大额代理</td>
+<td align="right">-2.15亿元</td>
+<td>连续转正</td>
+<td>继续流出</td>
+<td>每日</td>
+</tr>
+<tr>
+<td>估值边界</td>
+<td align="right">30.15元；24—36元</td>
+<td>25—27元缩量承接</td>
+<td>&lt;24元或&gt;36元无上修</td>
+<td>每日</td>
+</tr>
+<tr>
+<td>右侧确认</td>
+<td align="right">32.5—33.5元</td>
+<td>放量站稳且非杠杆承接</td>
+<td>无量反弹失败</td>
+<td>每日</td>
 </tr>
 <tr>
 <td>广州芯德</td>
-<td align="right">待交割；承诺累计1.55亿元</td>
-<td>按期交割并兑现利润</td>
+<td align="right">待交割</td>
+<td>按期交割并兑现承诺</td>
 <td>商誉减值或承诺落空</td>
-<td>公告 / 半年</td>
+<td>公告</td>
 </tr>
 </tbody></table>
-<ul>
-<li>投资故事持续性：收入与利润部分成立，现金流尚未成立。</li>
-<li>下一次财报重点：现金流、库存、应收、短债、企业级网络毛利率、广州芯德商誉与分部利润。</li>
-</ul>
-<h2 id="section-13">13. 未获取到的数据与研究局限</h2>
-
-<ul>
-<li>未获取到：半年报后完整卖方一致预期和目标价分布；其他存量业务绝对利润与分部现金流；H2订单及800G绝对收入；广州芯德交割后商誉、融资与并表数据；元宇宙、脑机疗愈等早期项目的独立收入、复购、单位经济性和第三方融资。</li>
-<li>DCF限制：FCFF使用历史现金流代理，完整利息加回和分部无杠杆现金流未取得；基准终值占比74%，只作为低权重约束。</li>
-<li>SOTP限制：锐捷网络二级市场估值很高，持股毛值不能等同于可变现净资产；25%—42%认可比例属于情景假设，不是公司承诺。</li>
-<li>资金限制：Tushare与WeStock订单规模资金方向冲突，不能据此确认长期机构资金。</li>
-<li>对结论影响：估值区间保持较宽，动作采用观察而非精确目标价驱动的买入。</li>
-</ul>
-<h2 id="section-14">14. 来源清单</h2>
+<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
 
 <ol>
-<li><a href="../../../../webpages/2026-08-17-星网锐捷机构级研究数据快照.md">2026-08-17 星网锐捷机构级研究数据快照</a>：收盘行情、估值、融资、财务、净债务、可比公司和计算口径。</li>
-<li><a href="../../../../webpages/2026-08-17-星网锐捷三要素数据快照.md">2026-08-17 星网锐捷三要素数据快照</a>：盘中板块、ETF、筹码、宏观与法定披露速览。</li>
-<li><a href="../../../../assets/2026-08-15-星网锐捷-2026年半年度报告.pdf.md">星网锐捷2026年半年度报告</a>，公告日2026-08-15。</li>
-<li><a href="../../../../assets/2026-08-15-星网锐捷-收购广州芯德46%股权公告.pdf.md">收购广州芯德46%股权公告</a>，公告日2026-08-15。</li>
-<li><a href="https://www.star-net.cn/investor.php">星网锐捷投资者关系页</a>，访问时间2026-08-17。</li>
-<li><a href="https://static.cninfo.com.cn/finalpage/2026-07-03/1225407247.PDF">星网锐捷2026年半年度业绩预告</a>，公告日2026-07-03；已由正式半年报替代为主口径。</li>
+<li>半年报后完整卖方一致预期、目标价分布和逐日修订未获取到；现有样本仅两家且时间较早。</li>
+<li>H2订单、800G绝对收入与毛利、客户集中度、独立市占率、核心芯片国产化率未获取到。</li>
+<li>其他ICT业务的独立利润与分部现金流、广州芯德交割后商誉和融资安排未获取到。</li>
+<li>元宇宙、脑机疗愈等早期项目无独立收入、复购、毛利、单位经济性和融资定价，当前估值计0。</li>
+<li>ETF申赎、公募保险北向穿透持仓、融资账户集中度、完整解禁表与交易账户身份未获取到。</li>
+<li>资金分档全口径与大额口径方向冲突，不能用于确认机构或散户身份。</li>
+<li>DCF使用正常化现金流代理且终值占比高，只作低权重约束；SOTP认可比例是情景假设，不是可立即变现价值。</li>
+<li>用户未提供持仓成本、期限、仓位和风险预算，因此不提供个性化仓位比例。</li>
 </ol>
-<h2 id="section-15">15. 声明</h2>
+<h2 id="section-15">15. 来源清单</h2>
 
-<p>本报告基于截至2026-08-17收盘可取得的公开信息与情景假设，不构成收益保证或个性化投资建议。真实交易前应重新核验价格、Q3现金流、锐捷网络估值、广州芯德交割进度以及个人持仓成本、期限与风险预算。</p>
+<ol>
+<li><a href="../../../../webpages/2026-08-21-星网锐捷v3.0.2研报数据核验快照.md">2026-08-21星网锐捷v3.0.2研报数据核验快照</a>：身份、行情、估值、资金、融资、财务、业务与估值底稿。</li>
+<li><a href="../../../../webpages/2026-08-19-星网锐捷三要素更新快照.md">2026-08-19星网锐捷三要素更新快照</a>：跌停、市场广度、同业与政策证据。</li>
+<li><a href="../../../../assets/2026-08-15-星网锐捷-2026年半年度报告.pdf.md">星网锐捷2026年半年度报告</a>；公告全文同步页：<a href="https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12496408&stockid=002396">https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12496408&amp;stockid=002396</a>。</li>
+<li><a href="../../../../assets/2026-08-15-星网锐捷-收购广州芯德46%股权公告.pdf.md">收购广州芯德46%股权公告</a>；公开同步页：<a href="https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12496406&stockid=002396">https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12496406&amp;stockid=002396</a>。</li>
+<li>锐捷网络2026年半年度报告摘要：<a href="https://static.cninfo.com.cn/finalpage/2026-08-15/1225473450.PDF">https://static.cninfo.com.cn/finalpage/2026-08-15/1225473450.PDF</a>。</li>
+<li>星网锐捷2025年年度报告（深交所）：<a href="https://disc.static.szse.cn/disc/disk03/finalpage/2026-03-28/5e57bf46-d306-46fa-a8ec-7ba2445b9e81.PDF">https://disc.static.szse.cn/disc/disk03/finalpage/2026-03-28/5e57bf46-d306-46fa-a8ec-7ba2445b9e81.PDF</a>。</li>
+<li>同花顺盈利预测：<a href="https://basic.10jqka.com.cn/002396/worth.html">https://basic.10jqka.com.cn/002396/worth.html</a>；样本少，仅作外部锚。</li>
+<li>国家发展改革委“人工智能+”：<a href="https://www.ndrc.gov.cn/wsdwhfz/202607/t20260727_1406699.html">https://www.ndrc.gov.cn/wsdwhfz/202607/t20260727_1406699.html</a>；中央网信办一体化算力网：<a href="https://www.cac.gov.cn/2026-07/15/c_1785861481530197.htm">https://www.cac.gov.cn/2026-07/15/c_1785861481530197.htm</a>。</li>
+<li><a href="../../../../../wiki/concepts/冰冰小美-framework-估值判断.md">冰冰小美估值判断框架</a>：32项触发器与估值泡沫门槛。</li>
+</ol>
+<h2 id="section-16">16. 声明</h2>
+
+<p>本报告基于截至研究截止时间可取得的公开信息，仅用于知识库研究、估值方法演示与风险审计，不构成证券推荐、收益承诺或个性化投资建议。市场价格和公司信息会变化；实际决策应重新核验价格、财报、流动性，并结合持仓成本、期限、仓位、流动性需求和可承受损失独立判断。</p>
 <script>
 (() => {
   const endpoint = '/api/stock-quote?secid=0.002396';
@@ -1437,7 +1563,7 @@ body {
   const riskRewardValue = document.getElementById('risk-reward-value');
   const riskRewardDetail = document.getElementById('risk-reward-detail');
   const tracker = document.getElementById('daily-tracking');
-  const snapshotPrice = 33.91;
+  const snapshotPrice = 30.15;
   const percent = value => `${value < 0 ? '-' : value > 0 ? '+' : ''}${Math.abs(value).toFixed(1)}%`;
   function updateRiskReward(price) {
     const low = Number(tracker.dataset.valueLow);
@@ -1448,13 +1574,13 @@ body {
     if (price <= low) {
       riskRewardValue.textContent = '低于价值下沿';
       riskRewardValue.classList.remove('bad');
-      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿潜在空间 ${percent(upside)}。价格已低于动态价值下沿，不能直接用下沿作为止损风险，需另设风控线。`;
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿潜在空间 ${percent(upside)}。价格已低于公允价值下沿，不能直接用下沿作为止损风险，需另设风控线。`;
       return;
     }
     if (price >= high) {
       riskRewardValue.textContent = '无正向盈亏比';
       riskRewardValue.classList.add('bad');
-      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿空间 ${percent(upside)}，回落至下沿风险 ${percent(downside)}。价格已到或高于动态价值上沿，新增现金不具备正向盈亏比。`;
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿空间 ${percent(upside)}，回落至下沿风险 ${percent(downside)}。价格已到或高于公允价值上沿，新增现金不具备正向盈亏比。`;
       return;
     }
     const ratio = upside / downside;

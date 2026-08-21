@@ -281,7 +281,7 @@ test('sidebar exposes the personal position workspace as a first-level tree doma
   assert.match(readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8'), /\.fugui-form\.is-collapsed \.fugui-form-body/);
   assert.match(html, /<section class="view" id="topic-map" data-shell-content="thermometer" aria-labelledby="topic-map-heading">/);
   assert.match(html, /<h2[^>]*id="topic-map-heading"[^>]*>主题<\/h2>/);
-  assert.match(html, /<thead><tr><th>标的<\/th><th>公允价值区间<\/th><th>交易定价偏离<\/th><th>盘中实时<\/th><th><button class="table-sort-button" type="button" id="tracking-sort-close-performance"[^>]*>收盘表现<\/button><small id="tracking-close-date"><\/small><\/th><th><button class="table-sort-button" type="button" id="tracking-sort-intraday"[^>]*>盈亏比<\/button><\/th><th>每日估值监控<\/th><th>三要素判断<\/th><th>数据来自研报<\/th><th>复盘<\/th><th>星级<\/th><\/tr><\/thead>/);
+  assert.match(html, /<thead><tr><th>标的<\/th><th>公允价值区间<\/th><th>交易定价偏离<\/th><th>盘中实时<\/th><th><button class="table-sort-button" type="button" id="tracking-sort-close-performance"[^>]*>收盘表现<\/button><small id="tracking-close-date"><\/small><\/th><th><button class="table-sort-button" type="button" id="tracking-sort-intraday"[^>]*>盈亏比<\/button><\/th><th>每日估值监控<\/th><th>三要素判断<\/th><th>基本面状态<\/th><th>复盘<\/th><th>星级<\/th><th>操作<\/th><\/tr><\/thead>/);
   assert.match(html, /<tbody id="holding-tracker-list"><\/tbody>/);
   assert.match(appSource, /DAILY_MONITOR_LINKS/);
   assert.match(appSource, /dailyMonitorLinkForTrackingItem/);
@@ -301,7 +301,11 @@ test('sidebar exposes the personal position workspace as a first-level tree doma
   assert.match(appSource, /trackingCardValue\(documentNode, 'fair-value-range'\)/);
   assert.match(appSource, /data-tracking-key="pricing-deviation"/);
   assert.match(appSource, /report\.pricingDeviation/);
-  assert.match(appSource, /colspan="11"/);
+  assert.match(appSource, /report\.fundamental/);
+  assert.match(appSource, /tracking-fundamental-status/);
+  assert.match(appSource, /colspan="12"/);
+  assert.match(appSource, /<td><div class="tracker-row-actions">[\s\S]*data-action="edit-tracking"[\s\S]*data-action="delete-tracking"/);
+  assert.match(readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8'), /\.tracker-row-actions button \{ min-height: 30px; border: 1px solid/);
   assert.match(appSource, /tracking-valuation-disposition/);
   assert.match(appSource, /valuationStatusHtml = monitorLink[\s\S]*?<a class=/);
   assert.match(readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8'), /\.tracking-valuation-disposition/);
@@ -415,6 +419,13 @@ test('market summary renders three overview cards and includes signal sources in
     '未进重点买入',
     'dividend-detail-date',
     '股息率2',
+    '全年收益率',
+    '年内最大回撤',
+    '年度收益与最大回撤',
+    '成立首年',
+    '完整年度',
+    '2008-05-26',
+    '中证红利年度表现.json',
     '10年国债收益率',
     'AKShare bond_zh_us_rate',
     'C（小额定投）',
@@ -460,6 +471,11 @@ test('market summary renders three overview cards and includes signal sources in
   assert.doesNotMatch(artifact, /CSI_DIVIDEND_SIGNAL\s*=\s*Object\.freeze\(\s*\/\/ CSI_DIVIDEND_SIGNAL/);
   assert.doesNotMatch(artifact, /CSI_DIVIDEND_YIELD_HISTORY\s*=\s*Object\.freeze\(\s*\/\/ CSI_DIVIDEND_YIELD_HISTORY/);
   assert.match(artifact, /"dividendYield2": \d+(?:\.\d+)?/);
+  assert.match(artifact, /"ytdReturn": -?\d+(?:\.\d+)?/);
+  assert.match(artifact, /"ytdMaxDrawdown": -?\d+(?:\.\d+)?/);
+  assert.match(artifact, /"firstDate": "2008-05-26"/);
+  assert.match(artifact, /"year": 2008[\s\S]*"status": "成立首年"/);
+  assert.match(artifact, /"year": 2026[\s\S]*"status": "年内"/);
   assert.match(artifact, /"spread": \d+(?:\.\d+)?/);
   assert.match(artifact, /"spreadSignal": "C（小额定投）"/);
   assert.match(artifact, /"date": "2026-06-02"[\s\S]*"value": 4\.83/);
@@ -504,7 +520,7 @@ test('industry panels use Ice Ice Xiaomei three-industry classification', () => 
   assert.doesNotMatch(html, /半导体设备|银行 \/ 保险|食品饮料|电力 \/ 水务/);
 });
 
-test('industry panels use the approved feed layout without the tracking card', () => {
+test('industry report panels use the holdings-list table layout', () => {
   const html = readFileSync(artifactPath, 'utf8');
   for (const marker of [
     'industry-workbench',
@@ -512,10 +528,11 @@ test('industry panels use the approved feed layout without the tracking card', (
     'industry-research-list',
     'industry-research-item',
     'industry-research-rank',
-    'industry-date-row',
-    'industry-feed',
+    'industry-report-panel',
+    'industry-report-table',
     'industry-report',
-    'industry-timeline',
+    '标的研报',
+
     '产业研报',
     '云铝股份-机构级决策研报',
     '../../sources/automations/支柱产业/电解铝/2026-07-23-1421-云铝股份-机构级决策研报.html',
@@ -531,13 +548,13 @@ test('industry panels use the approved feed layout without the tracking card', (
     '十五五电网投资与电网行业完整分析报告',
     '../../sources/automations/支柱产业/电网/2026-07-17-十五五电网投资与电网行业完整分析报告.html',
     '中国中车机构级决策研报',
-    '中国中车资金面分层分析',
+    '中国中车资金面分析',
     '中国船舶资金面分层分析',
     '../../sources/automations/支柱产业/2026-07-16-1334-中国中车机构级决策研报.html',
-    '../../sources/automations/支柱产业/2026-07-18-中国中车资金面分层分析.html',
+    '../../sources/automations/支柱产业/高端制造/轨交装备/2026-08-04-中国中车资金面分析.html',
     '../../sources/automations/支柱产业/2026-07-18-中国船舶资金面分层分析.html',
-    '华明装备机构级决策研报',
-    '../../sources/automations/支柱产业/电网/2026-07-15-1514-华明装备机构级决策研报.html',
+    '华明装备-机构级决策研报',
+    '../../sources/automations/支柱产业/电网/2026-07-30-华明装备-机构级决策研报.html',
     '神马电力-机构级决策研报',
     '神马电力资金面分层分析',
     '../../sources/automations/新兴产业/电网/2026-07-16-1021-神马电力-机构级决策研报.html',
@@ -556,7 +573,12 @@ test('industry panels use the approved feed layout without the tracking card', (
   assert.doesNotMatch(html, /<button type="button" data-filter="电力设备" aria-pressed="false">电力设备<\/button>/);
   assert.doesNotMatch(html, /集成电路产业链缩圈|生物医药、新型储能与智能机器人观察/);
   assert.doesNotMatch(html, /战略资源：资源安全与硬资产重估|铜与关键矿产供需周期跟踪|黄金与能源的宏观变量观察/);
-  assert.match(html, /<div class="industry-date-row"><strong>\d+月\d+日<\/strong><span>星期[一二三四五六日] · \d+条<\/span><\/div>/);
+  assert.match(html, /<section class="industry-report-panel holdings-panel panel"[^>]*>[\s\S]*<table class="industry-report-table tracking-table">/);
+  assert.match(html, /<thead><tr><th>标的<\/th><th>公允价值区间<\/th><th>交易定价偏离<\/th><th>盘中实时<\/th><th>收盘表现<\/th><th>三要素判断<\/th><th>资金面分析<\/th><th>基本面状态<\/th><th>星级<\/th><\/tr><\/thead>/);
+  assert.match(html, /<tr class="industry-report"[^>]*data-report-href="[^"]+"[^>]*data-stock-name="[^"]+"/);
+  assert.match(html, /data-equity-report-href="[^"]*"/);
+  assert.match(html, /data-three-factor-href="[^"]*"/);
+  assert.match(html, /data-fund-flow-href="[^"]*"/);
   assert.match(html, /<section class="industry-research-list"[^>]*>[\s\S]*商业航天产业完整分析报告/);
   assert.match(html, /<li class="industry-research-item" data-filters="商业航天">[\s\S]*商业航天产业完整分析报告/);
   assert.match(html, /<li class="industry-research-item" data-filters="算力">[\s\S]*算力产业完整分析报告/);
@@ -566,21 +588,39 @@ test('industry panels use the approved feed layout without the tracking card', (
     'parent industry report should render before subdivision reports',
   );
   assert.match(html, /<span class="industry-research-rank">1<\/span>/);
-  const reportCards = [...html.matchAll(/<article class="industry-report"[\s\S]*?<\/article>/g)].map(match => match[0]);
-  assert.equal(reportCards.some(card => card.includes('商业航天产业完整分析报告')), false);
-  assert.equal(reportCards.some(card => card.includes('算力产业完整分析报告')), false);
+  const reportRows = [...html.matchAll(/<tr class="industry-report"[\s\S]*?<\/tr>/g)].map(match => match[0]);
+  const reportPanels = [...html.matchAll(/<section class="industry-report-panel holdings-panel panel"[\s\S]*?<\/section>/g)].map(match => match[0]);
+  for (const panel of reportPanels) {
+    const tableHeader = panel.match(/<thead>[\s\S]*?<\/thead>/)?.[0] ?? '';
+    assert.doesNotMatch(tableHeader, /盈亏比|每日估值监控|复盘/);
+    const stockNames = [...panel.matchAll(/data-stock-name="([^"]+)"/g)].map(match => match[1]);
+    assert.equal(new Set(stockNames).size, stockNames.length, 'each industry panel should render one row per stock');
+  }
+  assert.equal(reportRows.filter(row => row.includes('data-stock-name="兴业银锡"')).length, 1);
+  assert.match(reportRows.find(row => row.includes('data-stock-name="兴业银锡"')) ?? '', /data-fund-flow-href="[^"]*2026-07-30-兴业银锡资金面分析\.html"/);
+  assert.equal(reportRows.some(row => row.includes('商业航天产业完整分析报告')), false);
+  assert.equal(reportRows.some(row => row.includes('算力产业完整分析报告')), false);
   assert.match(html, /<section class="industry-research-list"[^>]*>[\s\S]*十五五电网投资与电网行业完整分析报告/);
   assert.match(html, /<li class="industry-research-item" data-filters="电网">[\s\S]*十五五电网投资与电网行业完整分析报告/);
-  assert.equal(reportCards.some(card => card.includes('十五五电网投资与电网行业完整分析报告')), false);
-  assert.match(html, /data-filters="电网"[\s\S]*华明装备机构级决策研报/);
+  assert.equal(reportRows.some(row => row.includes('十五五电网投资与电网行业完整分析报告')), false);
+  assert.match(html, /data-filters="电网"[\s\S]*华明装备-机构级决策研报/);
   assert.match(html, /data-filters="电网"[\s\S]*神马电力-机构级决策研报/);
   assert.doesNotMatch(html, /sources\/automations\/支柱产业\/电网\/2026-07-16-1021-神马电力-机构级决策研报\.html/);
-  assert.match(html, /<article class="industry-report" data-filters="">[\s\S]*中国中车机构级决策研报/);
-  assert.match(readFileSync(new URL('../src/app.mjs', import.meta.url), 'utf8'), /querySelectorAll\('\.industry-research-item'\)/);
+  assert.match(html, /<tr class="industry-report"[^>]*data-filters=""[^>]*>[\s\S]*中国中车机构级决策研报/);
+  const appSource = readFileSync(new URL('../src/app.mjs', import.meta.url), 'utf8');
+  assert.match(appSource, /querySelectorAll\('\.industry-research-item'\)/);
+  assert.match(appSource, /querySelectorAll\('\.industry-report-panel'\)/);
+  assert.match(appSource, /panel\.hidden = visibleReportCount === 0/);
+  assert.match(appSource, /function hydrateIndustryReportRows/);
+  assert.match(appSource, /trackingRiskRewardForQuote/);
+  assert.match(appSource, /dailyMonitorLinkForTrackingItem/);
+  assert.match(appSource, /threeFactorReportLinkForTrackingItem/);
+  assert.match(appSource, /const fundFlowHtml = fundFlowHref/);
   const buildSource = readFileSync(new URL('../scripts/build.mjs', import.meta.url), 'utf8');
   assert.match(buildSource, /scanIndustryReports/);
   assert.match(buildSource, /renderFilterTabs/);
   assert.match(buildSource, /renderResearchBoards/);
+  assert.match(buildSource, /groupFeedReportsByStock/);
   assert.doesNotMatch(buildSource, /commercialSpaceDir|electricGridDir|pillarFilters|strategicResourceFilters/);
   assert.doesNotMatch(html, /<!-- (?:STRATEGY|EMERGING|PILLAR)_(?:FILTER_TABS|RESEARCH_BOARDS|REPORTS|REPORT_COUNT) -->/);
   assert.doesNotMatch(html, /sources\/automations\/(?:商业航天|电网产业)\//);

@@ -1,0 +1,1154 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>徐工机械（000425.SZ）机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+.daily-tracking { margin: 0 0 42px; padding: 22px; border: 1px solid #cbdade; border-radius: 16px; background: linear-gradient(135deg, #f3f8f9 0%, #fffaf0 100%); box-shadow: 0 12px 30px rgba(23, 50, 71, .07); }
+.daily-tracking-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
+.daily-tracking-kicker { margin: 0 0 4px; color: var(--teal); font-size: 12px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+.daily-tracking h2 { margin: 0; padding: 0; border: 0; font-size: 27px; }
+.daily-tracking-time { margin: 4px 0 0; color: var(--muted); font-size: 12px; text-align: right; }
+.tracking-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.tracking-grid + .tracking-grid { margin-top: 12px; }
+.tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
+.tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
+.tracking-card[data-tracking-key="fair-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
+.pricing-levels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+.pricing-level { display: flex; align-items: center; justify-content: center; min-height: 34px; padding: 5px 7px; border: 1px solid #d5e0e3; border-radius: 8px; color: #607580; background: #f4f7f8; font-size: 12px; line-height: 1.25; font-weight: 750; text-align: center; }
+.pricing-level.active { border-color: transparent; box-shadow: 0 0 0 2px rgba(15,50,70,.08); }
+.pricing-level-premium.active { color: #17604e; background: #dff3eb; }
+.pricing-level-overvalued.active { color: #86610d; background: #fff0bd; }
+.pricing-level-bubble.active { color: #9b4d10; background: #ffe3c9; }
+.pricing-level-severe.active { color: var(--danger); background: var(--danger-bg); }
+.range-breakdown { display: block; }
+.range-main { display: inline-flex; align-items: center; max-width: 100%; margin-bottom: 10px; padding: 3px 9px; border-radius: 999px; background: #e7f0f3; color: var(--navy); font-size: 20px; line-height: 1.3; font-weight: 800; }
+.range-points { display: grid; gap: 7px; margin-top: 1px; }
+.range-point { display: block; padding-left: 11px; border-left: 3px solid #bed2d8; color: #245068; font-size: 14px; line-height: 1.52; font-weight: 650; }
+.tracking-value.bad { color: var(--danger); }
+.tracking-detail { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; }
+.tracking-snapshot { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; font-weight: 650; }
+.tracking-status { display: inline-flex; margin-top: 10px; padding: 3px 8px; border-radius: 999px; color: #526b77; background: #edf2f4; font-size: 12px; font-weight: 700; }
+.tracking-status.live { color: #17604e; background: #dff3eb; }
+.tracking-status.error { color: var(--danger); background: var(--danger-bg); }
+.tracking-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; margin-top: 14px; padding-top: 13px; border-top: 1px solid #d5e0e3; color: #536d78; font-size: 13px; }
+.tracking-footer a { font-weight: 700; }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+  .tracking-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+  .daily-tracking-head { display: block; }
+  .daily-tracking-time { text-align: left; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .daily-tracking, .tracking-card { border: 1px solid #aebbc2; color: #102f43; background: #fff; box-shadow: none; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY RESEARCH · 000425.SZ</p>
+      <h1>徐工机械（000425.SZ）机构级决策研报</h1>
+      <div class="hero-meta"><span>研究截止时间未获取</span><span>报告生成时间未获取</span><span>市场与币种未获取</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
+<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
+<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
+<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
+<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
+<a class="toc-link" href="#section-6">6. 五年财务历史</a>
+<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
+<a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
+<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
+<a class="toc-link" href="#section-10">10. 公允价值区间计算</a>
+<a class="toc-link" href="#section-11">11. 市场价格分解与估值泡沫判断</a>
+<a class="toc-link" href="#section-12">12. 最终结论</a>
+<a class="toc-link" href="#section-13">13. 后续监控指标</a>
+<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
+<a class="toc-link" href="#section-15">15. 来源清单</a>
+<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
+      <article class="content"><blockquote>
+<p>证券代码：000425.SZ</p>
+<p>研究截止：2026-08-18 15:00（Asia/Shanghai，收盘）</p>
+<p>生成框架：<code>bbxm-equity-research v3.0.2</code></p>
+<p>当前结论：价值进入可观察区，但交易结构尚未给出加仓确认。</p>
+</blockquote>
+<!-- DAILY_TRACKING_START -->
+<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-08-19；下一硬节点为2026-08-29半年报。" data-value-low="7.8" data-value-high="10.6">
+  <div class="daily-tracking-head">
+    <div><p class="daily-tracking-kicker">Daily decision tracker</p><h2>每日跟踪面板</h2></div>
+    <p class="daily-tracking-time">更新：2026-08-19；下一硬节点为2026-08-29半年报。<br>下次：收盘后 / 重大公告后</p>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">改善，但改善主要来自收入、海外与现金流，利润弹性尚未确认。</p><p class="tracking-detail">关键经营变化：2025收入、利润、现金流同步增长；2026Q1收入同比+9.26%，归母净利润仅+0.86%，财务费用由负转正。行业销量仍增长，公司回购已实际执行，但市场价格继续走弱。</p></div>
+    <div class="tracking-card" data-tracking-key="fair-value-range"><p class="tracking-label">公允价值区间</p><p class="tracking-value"><span class="range-breakdown"><span class="range-main">7.8—10.6元/股，中枢9.2元。低于7.8元进入基本面未恶化前提下的高赔率区</span><span class="range-points"><span class="range-point">7.8—9.2元为偏低至中性区</span><span class="range-point">9.2—10.6元需要利润增速重新贴近收入增速</span><span class="range-point">高于10.6元则需更强海外利润或周期上修证据。</span></span></span></p><p class="tracking-detail">公允价值区间来自估值方法交叉验证；行情刷新不会自动改变区间。</p></div>
+    <div class="tracking-card" data-tracking-key="pricing-deviation"><p class="tracking-label">交易定价偏离</p><p class="tracking-value pricing-levels"><span class="pricing-level pricing-level-premium" data-valuation-level="估值溢价">估值溢价</span><span class="pricing-level pricing-level-overvalued" data-valuation-level="普通高估">普通高估</span><span class="pricing-level pricing-level-bubble" data-valuation-level="估值泡沫">估值泡沫</span><span class="pricing-level pricing-level-severe" data-valuation-level="严重估值泡沫">严重估值泡沫</span></p><p class="tracking-detail">当前判断：公允价值内。PE(TTM)14.29倍、PB 1.50倍，价格未脱离周期中枢；关键反证是利润转化走弱与杠杆资金逆势增加。置信度：中等。；四级估值偏离均未高亮。</p></div>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="market-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">等待连接</p><p class="tracking-detail" id="intraday-detail">通过“大盘启动器”打开后获取盘中行情，每 60 秒刷新；直接打开 HTML 时不访问外部行情。</p><p class="tracking-snapshot">每日同步价：8.04元，2026-08-18 15:00收盘。</p><span class="tracking-status" id="intraday-status">未连接</span></div>
+    <div class="tracking-card" data-tracking-key="risk-reward"><p class="tracking-label">盈亏比</p><p class="tracking-value" id="risk-reward-value">约 10.7:1</p><p class="tracking-detail" id="risk-reward-detail">每日同步价 8.04 元；到上沿 10.60 元的潜在上行 +31.8%，跌至下沿 7.80 元的风险 +3.0%。价格不改变价值区间本身。</p></div>
+    <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">observe；已有持仓 review / hold-small。</p><p class="tracking-detail">估值：合理；现价处于公允价值区间下沿，但并非显著低估。 · observe；已有持仓 review / hold-small。；风险：风险重新增强；价格走弱、资金净流出和融资逆势扩张形成同向风险链。；结论置信度：中等；法定财务与交易数据充分，但2026H1尚未披露，卖方一致预期和账户级资金身份未获取到。。</p><span class="tracking-status">合理；现价处于公允价值区间下沿，但并非显著低估。</span></div>
+  </div>
+  <div class="tracking-footer"><span>资金状态：<strong>偏弱且杠杆背离：近5/20日订单规模代理净额为-4.29/-17.97亿元；同期20日融资余额增长43.22%。</strong> · 新增/已有动作：<strong>observe；已有持仓 review / hold-small。</strong></span><span>资金面分析：未单独生成</span></div>
+</section>
+<!-- DAILY_TRACKING_END -->
+<h2 id="section-1">1. 决策摘要</h2>
+
+<h3>1.1 基本面组</h3>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值状态</td>
+<td>合理；现价处于公允价值区间下沿，但并非显著低估。</td>
+</tr>
+<tr>
+<td>公允价值区间</td>
+<td><strong>7.8—10.6元/股，中枢9.2元</strong>。低于7.8元进入基本面未恶化前提下的高赔率区；7.8—9.2元为偏低至中性区；9.2—10.6元需要利润增速重新贴近收入增速；高于10.6元则需更强海外利润或周期上修证据。</td>
+</tr>
+<tr>
+<td>相对现价空间</td>
+<td>以8.04元计，至中枢约 <strong>+14.4%</strong>，至上沿约 <strong>+31.8%</strong>，至下沿约 <strong>-3.0%</strong>；表面赔率较好，但需用半年报与融资结构过滤。</td>
+</tr>
+<tr>
+<td>估值泡沫判断</td>
+<td><strong>公允价值内</strong>。PE(TTM)14.29倍、PB 1.50倍，价格未脱离周期中枢；关键反证是利润转化走弱与杠杆资金逆势增加。置信度：中等。</td>
+</tr>
+<tr>
+<td>基本面状态</td>
+<td>改善，但改善主要来自收入、海外与现金流，利润弹性尚未确认。</td>
+</tr>
+<tr>
+<td>关键经营变化</td>
+<td>2025收入、利润、现金流同步增长；2026Q1收入同比+9.26%，归母净利润仅+0.86%，财务费用由负转正。行业销量仍增长，公司回购已实际执行，但市场价格继续走弱。</td>
+</tr>
+<tr>
+<td>企业价值主类型</td>
+<td>周期资源型中的周期制造；不按稳定复利或纯重资产清算估值。</td>
+</tr>
+<tr>
+<td>主估值锚</td>
+<td>正常化EPS × 周期中枢PE；PB-ROE、同业估值与正常化现金收益率交叉验证。</td>
+</tr>
+<tr>
+<td>价值创造链</td>
+<td>国内更新与出口增长 → 收入扩张 → 产品结构和定价消化成本 → 利润增长 → 现金回收覆盖资本开支 → 股东回报。当前断点在收入向利润的转化。</td>
+</tr>
+<tr>
+<td>结论置信度</td>
+<td>中等；法定财务与交易数据充分，但2026H1尚未披露，卖方一致预期和账户级资金身份未获取到。</td>
+</tr>
+</tbody></table>
+<h3>1.2 资金面组</h3>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>操作建议</td>
+<td>观望；不追跌、不用融资抄底，等半年报和融资余额至少一项确认。</td>
+</tr>
+<tr>
+<td>冰冰小美动作</td>
+<td><code>observe</code>；已有持仓 <code>review / hold-small</code>。</td>
+</tr>
+<tr>
+<td>当前价格及时间</td>
+<td>8.04元，2026-08-18 15:00收盘。</td>
+</tr>
+<tr>
+<td>资金状态</td>
+<td>偏弱且杠杆背离：近5/20日订单规模代理净额为-4.29/-17.97亿元；同期20日融资余额增长43.22%。</td>
+</tr>
+<tr>
+<td>风险方向</td>
+<td><strong>风险重新增强</strong>；价格走弱、资金净流出和融资逆势扩张形成同向风险链。</td>
+</tr>
+<tr>
+<td>每日跟踪时间</td>
+<td>2026-08-19；下一硬节点为2026-08-29半年报。</td>
+</tr>
+<tr>
+<td>资金面分析链接</td>
+<td>未获取到</td>
+</tr>
+</tbody></table>
+<h3>如果今天这是一笔现金，我会买它吗</h3>
+<p>我的判断：<strong>不会立即建立标准仓位</strong>。8.04元已经靠近价值区间下沿，但下行空间只有约3%才到估值下沿，而融资余额在20日内增长43.22%，说明价格下跌尚未伴随充分去杠杆。若必须参与，仅允许不超过计划仓位四分之一的观察仓，并以半年报利润转化改善或融资余额显著回落作为升级条件。</p>
+<h2 id="section-2">2. 证券身份与来源矩阵</h2>
+
+<h3>2.1 证券身份</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>信息</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>公司</td>
+<td>徐工集团工程机械股份有限公司</td>
+</tr>
+<tr>
+<td>A股代码</td>
+<td>000425.SZ</td>
+</tr>
+<tr>
+<td>上市地 / 币种</td>
+<td>深圳证券交易所 / 人民币</td>
+</tr>
+<tr>
+<td>总市值</td>
+<td>941.58亿元</td>
+</tr>
+<tr>
+<td>当前总股本估算</td>
+<td>约117.11亿股</td>
+</tr>
+<tr>
+<td>主要业务</td>
+<td>土方、起重、矿业、高空作业、桩工、道路等工程机械及相关服务</td>
+</tr>
+</tbody></table>
+<h3>2.2 来源矩阵</h3>
+<table>
+<thead>
+<tr>
+<th>数据类别</th>
+<th>主来源</th>
+<th>交叉来源</th>
+<th>状态与边界</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2025年度财务</td>
+<td>公司年度报告</td>
+<td>本地Tushare</td>
+<td>法定报告优先；2021—2022重组期采用追溯可比口径</td>
+</tr>
+<tr>
+<td>2026Q1财务</td>
+<td>公司季度报告</td>
+<td>本地Tushare</td>
+<td>已核验</td>
+</tr>
+<tr>
+<td>行情、估值、资金、融资</td>
+<td>本地Tushare</td>
+<td>历史研报快照</td>
+<td>截至2026-08-18；订单分档不识别账户身份</td>
+</tr>
+<tr>
+<td>回购与增持</td>
+<td>公司公告</td>
+<td>公告聚合页</td>
+<td>回购金额与成交区间已核验；增持沿用既有公告快照</td>
+</tr>
+<tr>
+<td>行业销量</td>
+<td>行业协会数据转引</td>
+<td>多家财经媒体</td>
+<td>属行业层证据，不能直接替代公司订单</td>
+</tr>
+<tr>
+<td>卖方一致预期</td>
+<td>未获取到</td>
+<td>—</td>
+<td>不以旧目标价冒充当前一致预期</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 行情与市场预期</h2>
+
+<h3>3.1 行情快照（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">数据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>收盘价 / 当日区间</td>
+<td align="right">8.04元 / 7.86—8.06元</td>
+</tr>
+<tr>
+<td>当日成交额</td>
+<td align="right">8.75亿元</td>
+</tr>
+<tr>
+<td>PE / PE(TTM)</td>
+<td align="right">14.33 / 14.29倍</td>
+</tr>
+<tr>
+<td>PB / PS(TTM)</td>
+<td align="right">1.50 / 0.91倍</td>
+</tr>
+<tr>
+<td>TTM股息率</td>
+<td align="right">2.47%</td>
+</tr>
+<tr>
+<td>52周高低</td>
+<td align="right">12.90 / 7.80元</td>
+</tr>
+<tr>
+<td>年初至今</td>
+<td align="right">-30.57%</td>
+</tr>
+<tr>
+<td>5 / 20 / 60日</td>
+<td align="right">-1.11% / -9.15% / -17.62%</td>
+</tr>
+</tbody></table>
+<h3>3.2 市场隐含预期</h3>
+<p>我的判断：现价按13—15倍周期中枢PE反推，隐含正常化EPS约0.54—0.62元。这个要求不高，接近2025年约0.57元的实际水平；市场已经压低增长预期，但尚未计入严重盈利衰退。</p>
+<h3>3.3 同业定价</h3>
+<table>
+<thead>
+<tr>
+<th>公司</th>
+<th align="right">PE(TTM)</th>
+<th align="right">PB</th>
+<th align="right">PS(TTM)</th>
+<th align="right">TTM股息率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>徐工机械</td>
+<td align="right">14.29</td>
+<td align="right">1.50</td>
+<td align="right">0.91</td>
+<td align="right">2.47%</td>
+</tr>
+<tr>
+<td>三一重工</td>
+<td align="right">20.72</td>
+<td align="right">1.93</td>
+<td align="right">1.89</td>
+<td align="right">2.57%</td>
+</tr>
+<tr>
+<td>中联重科</td>
+<td align="right">13.83</td>
+<td align="right">1.03</td>
+<td align="right">1.13</td>
+<td align="right">5.77%</td>
+</tr>
+<tr>
+<td>柳工</td>
+<td align="right">10.57</td>
+<td align="right">0.87</td>
+<td align="right">0.48</td>
+<td align="right">3.91%</td>
+</tr>
+</tbody></table>
+<p>我的判断：徐工相对三一折价明显，相对中联与柳工并不便宜。折价反映了财务费用、利润转化和杠杆交易结构，不能仅以龙头身份消除。</p>
+<h2 id="section-4">4. 商业模式与竞争格局</h2>
+
+<h3>4.1 商业模式</h3>
+<p>徐工通过多品类工程机械研发制造、全球经销与服务网络获得设备销售、零部件和后市场收入。需求受基建、地产、矿业资本开支、设备更新和海外基础设施周期影响，收入具有明显周期性；现金回收还受应收、存货与渠道库存影响。</p>
+<h3>4.2 多产业位置景气度排序</h3>
+<table>
+<thead>
+<tr>
+<th align="right">排序</th>
+<th>产业位置</th>
+<th>事实证据</th>
+<th>方向</th>
+<th>我的判断</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">1</td>
+<td>海外工程机械</td>
+<td>2025海外收入485.99亿元，+16.58%，占48.20%，毛利率25.80%</td>
+<td>上行</td>
+<td>全球化是最主要结构增量，也是估值中枢能否抬升的核心。</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td>国内土方更新</td>
+<td>土方收入301.31亿元，+25.49%；2026年1—7月挖机行业销量+24.8%</td>
+<td>上行</td>
+<td>更新周期已兑现到收入，但需验证利润。</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td>矿业机械</td>
+<td>2025收入93.77亿元，+23.83%</td>
+<td>上行</td>
+<td>矿山大客户和成套化有利于订单稳定，但项目回款需跟踪。</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td>起重与道路</td>
+<td>起重收入209.83亿元，+11.03%；道路收入42.10亿元，+3.62%</td>
+<td>温和上行</td>
+<td>不是主要重估来源。</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td>高空作业与桩工</td>
+<td>收入分别-17.23%和-6.31%</td>
+<td>下行</td>
+<td>仍暴露地产和高基数压力。</td>
+</tr>
+</tbody></table>
+<h3>4.3 竞争优势与边界</h3>
+<ul>
+<li>优势：全品类、供应链规模、渠道服务、全球制造与矿山成套能力。</li>
+<li>边界：国内价格竞争、海外本地化成本、资产负债表占用和融资成本会稀释规模优势。</li>
+<li>我的判断：竞争格局仍偏有利，但公司是否把规模转成每股利润，是2026年的主要矛盾。</li>
+</ul>
+<h2 id="section-5">5. 分部收入与盈利拆解</h2>
+
+<table>
+<thead>
+<tr>
+<th>2025分部</th>
+<th align="right">收入（亿元）</th>
+<th align="right">同比</th>
+<th align="right">收入占比</th>
+<th align="right">毛利率 / 变化</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>土方机械</td>
+<td align="right">301.31</td>
+<td align="right">+25.49%</td>
+<td align="right">29.88%</td>
+<td align="right">26.23% / +0.03pct</td>
+</tr>
+<tr>
+<td>起重机械</td>
+<td align="right">209.83</td>
+<td align="right">+11.03%</td>
+<td align="right">20.81%</td>
+<td align="right">22.54% / +0.19pct</td>
+</tr>
+<tr>
+<td>矿业机械</td>
+<td align="right">93.77</td>
+<td align="right">+23.83%</td>
+<td align="right">9.30%</td>
+<td align="right">未单列</td>
+</tr>
+<tr>
+<td>高空作业机械</td>
+<td align="right">71.83</td>
+<td align="right">-17.23%</td>
+<td align="right">7.12%</td>
+<td align="right">未单列</td>
+</tr>
+<tr>
+<td>桩工机械</td>
+<td align="right">47.06</td>
+<td align="right">-6.31%</td>
+<td align="right">4.67%</td>
+<td align="right">未单列</td>
+</tr>
+<tr>
+<td>道路机械</td>
+<td align="right">42.10</td>
+<td align="right">+3.62%</td>
+<td align="right">4.18%</td>
+<td align="right">未单列</td>
+</tr>
+<tr>
+<td>其他</td>
+<td align="right">242.33</td>
+<td align="right">-2.25%</td>
+<td align="right">24.04%</td>
+<td align="right">15.57% / -1.88pct</td>
+</tr>
+</tbody></table>
+<p>我的判断：土方与矿机解释主要收入增量，海外高毛利率改善组合；但“其他”占比高且毛利率下降，降低了分部模型的可见度。</p>
+<h2 id="section-6">6. 五年财务历史</h2>
+
+<table>
+<thead>
+<tr>
+<th>年度</th>
+<th align="right">营收（亿元）</th>
+<th align="right">毛利率</th>
+<th align="right">经营现金流（亿元）</th>
+<th align="right">资本开支（亿元）</th>
+<th align="right">简单FCF（亿元）</th>
+<th align="right">ROIC代理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2021</td>
+<td align="right">1,167.96</td>
+<td align="right">21.46%</td>
+<td align="right">114.23</td>
+<td align="right">69.47</td>
+<td align="right">44.77</td>
+<td align="right">17.9%*</td>
+</tr>
+<tr>
+<td>2022</td>
+<td align="right">938.17</td>
+<td align="right">20.20%</td>
+<td align="right">15.83</td>
+<td align="right">79.86</td>
+<td align="right">-64.03</td>
+<td align="right">6.7%*</td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">928.48</td>
+<td align="right">20.80%</td>
+<td align="right">35.71</td>
+<td align="right">59.67</td>
+<td align="right">-23.96</td>
+<td align="right">6.3%</td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">930.37</td>
+<td align="right">22.57%</td>
+<td align="right">56.93</td>
+<td align="right">29.38</td>
+<td align="right">27.54</td>
+<td align="right">6.9%</td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">1,008.23</td>
+<td align="right">22.61%</td>
+<td align="right">141.42</td>
+<td align="right">41.37</td>
+<td align="right">100.06</td>
+<td align="right">7.4%</td>
+</tr>
+</tbody></table>
+<p>* 2021—2022受重大资产重组与追溯调整影响，可比性低于后续年度。</p>
+<p>我的判断：2025现金流拐点真实存在，但三年自由现金流由负转大额正值，周期波动过大，不宜把100亿元直接资本化为永续现金流。</p>
+<h2 id="section-7">7. 最新季度与管理层指引</h2>
+
+<h3>7.1 2026Q1（事实）</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">数值</th>
+<th align="right">同比</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营业收入</td>
+<td align="right">297.91亿元</td>
+<td align="right">+9.26%</td>
+</tr>
+<tr>
+<td>归母净利润</td>
+<td align="right">20.56亿元</td>
+<td align="right">+0.86%</td>
+</tr>
+<tr>
+<td>扣非归母净利润</td>
+<td align="right">20.24亿元</td>
+<td align="right">+0.80%</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td align="right">21.52亿元</td>
+<td align="right">+153.12%</td>
+</tr>
+<tr>
+<td>资本开支</td>
+<td align="right">10.31亿元</td>
+<td align="right">—</td>
+</tr>
+<tr>
+<td>财务费用</td>
+<td align="right">6.91亿元</td>
+<td align="right">上年同期-1.07亿元</td>
+</tr>
+</tbody></table>
+<h3>7.2 管理层态度与资本动作</h3>
+<ul>
+<li>回购计划3—6亿元，用途为注销；截至2026年7月末已回购3.4183亿元，成交区间8.67—9.99元。</li>
+<li>控股股东此前完成约0.999亿元增持，既有公告快照记录均价约10.91元。</li>
+<li>半年报预约于2026-08-29披露，未提供可量化全年利润指引。</li>
+</ul>
+<h3>7.3 经营拐点判断</h3>
+<p>我的判断：经营指标出现“收入和现金流改善、利润弹性收缩”的分叉。回购与增持说明资本配置态度积极，但不能替代盈利验证；半年报若扣非利润增速继续显著落后收入，正常化EPS上沿应下调。</p>
+<h2 id="section-8">8. 近三个月新闻与催化剂</h2>
+
+<table>
+<thead>
+<tr>
+<th>日期</th>
+<th>事件</th>
+<th>属性</th>
+<th>影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2026-06-25</td>
+<td>控股股东完成约0.999亿元增持</td>
+<td>公司资本动作</td>
+<td>中性偏利多；金额有限</td>
+</tr>
+<tr>
+<td>2026-07-24</td>
+<td>上半年工程机械12类产品销量同比+18.3%</td>
+<td>行业</td>
+<td>验证周期回升，但品类分化</td>
+</tr>
+<tr>
+<td>2026-08-04</td>
+<td>回购进度达3.4183亿元</td>
+<td>公司公告</td>
+<td>提供承接，不等于价格底</td>
+</tr>
+<tr>
+<td>2026-08-07</td>
+<td>7月挖机出口同比+21.2%</td>
+<td>行业</td>
+<td>有利海外需求</td>
+</tr>
+<tr>
+<td>2026-08-29</td>
+<td>预约披露半年报</td>
+<td>待发生</td>
+<td>关键利润与现金流验证点</td>
+</tr>
+</tbody></table>
+<h2 id="section-9">9. 多头与空头论据</h2>
+
+<h3>9.1 多头论据</h3>
+<ol>
+<li>海外收入接近一半且增速、毛利率均高于国内，增长结构优于上一轮单一内需周期。</li>
+<li>2025经营现金流141.42亿元，足以覆盖资本开支与回购。</li>
+<li>挖机销量、出口和矿机收入延续增长，周期并未转入衰退。</li>
+<li>现价PE(TTM)14.29倍，反向隐含EPS接近2025实际水平，增长假设不激进。</li>
+</ol>
+<h3>9.2 空头论据</h3>
+<ol>
+<li>2026Q1收入+9.26%而扣非利润仅+0.80%，财务费用恶化是明确断点。</li>
+<li>应收账款从2025年末408.03亿元升至2026Q1的444.72亿元，营运资本仍重。</li>
+<li>近20日资金代理净流出17.97亿元，融资余额却增长43.22%，交易结构脆弱。</li>
+<li>高空作业、桩工及其他业务仍承压，行业涨价能否转成毛利率尚未验证。</li>
+</ol>
+<h2 id="section-10">10. 公允价值区间计算</h2>
+
+<h3>10.1 估值路线与主锚</h3>
+<ul>
+<li>企业价值主类型：周期制造。</li>
+<li>主估值锚：正常化EPS × 周期中枢PE。</li>
+<li>正常化EPS：0.60—0.74元；以2025实际、2026Q1利润转化和当前周期位置校准。</li>
+<li>合理PE：13—15倍；同业核心样本中位数约13.83倍，对徐工海外结构给予有限溢价。</li>
+<li>主锚结果：约7.8—11.1元。</li>
+</ul>
+<h3>10.2 DCF适用性</h3>
+<p>我的判断：<strong>不适用作主估值</strong>。2022—2025简单自由现金流从-64.03亿元波动至100.06亿元，营运资本和融资费用又在季度间显著变化，远期终值将主导结果。为避免伪精确，本版不输出DCF点值。</p>
+<h3>10.3 交叉验证</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>假设</th>
+<th align="right">结果</th>
+<th>权重</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>周期中枢EPS×PE</td>
+<td>EPS 0.60—0.74元，PE 13—15倍</td>
+<td align="right">7.8—11.1元</td>
+<td>高</td>
+</tr>
+<tr>
+<td>PB-ROE</td>
+<td>BVPS约5.35元，PB 1.4—1.8倍</td>
+<td align="right">7.5—9.6元</td>
+<td>中</td>
+</tr>
+<tr>
+<td>正常化现金收益率</td>
+<td>FCF 60—80亿元，股权现金收益率7%—9%</td>
+<td align="right">5.7—9.7元</td>
+<td>低</td>
+</tr>
+<tr>
+<td>同业比较</td>
+<td>核心同业PE中位数约13.83倍</td>
+<td align="right">支持主锚中低段</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h3>10.4 前沿技术与期权价值</h3>
+<p>不适用。电动化、智能化与矿山成套已嵌入现有产品收入，尚无可独立核验的新增利润池，不单独给予期权估值，避免重复计价。</p>
+<h3>10.5 综合区间与反向估值</h3>
+<p>我的判断：综合公允价值区间为 <strong>7.8—10.6元/股</strong>，中枢9.2元。现价8.04元按13—15倍PE反推EPS为0.54—0.62元，只要求2026盈利大致持平至温和增长；若半年报显示扣非利润持续下滑或融资成本继续上升，下沿将失守。</p>
+<h2 id="section-11">11. 市场价格分解与估值泡沫判断</h2>
+
+<h3>11.1 Step 1—3：价格、叙事与竞争优势</h3>
+<ul>
+<li>价格区间：8.04元处于7.8—10.6元公允价值区间下沿。</li>
+<li>价格叙事：市场计价“国内更新+出口增长”，同时对利润转化、应收和融资费用打折。</li>
+<li>竞争优势：全品类、全球渠道和矿山成套能力真实存在；优势边界是价格竞争与资产负债表占用。</li>
+</ul>
+<h3>11.2 Step 4：基本面传导链触发器（9项）</h3>
+<table>
+<thead>
+<tr>
+<th>触发项</th>
+<th>状态</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>资本开支规模</td>
+<td>有利</td>
+<td>2025资本开支41.37亿元，明显低于经营现金流141.42亿元</td>
+</tr>
+<tr>
+<td>经营现金流</td>
+<td>有利</td>
+<td>2025及2026Q1均改善</td>
+</tr>
+<tr>
+<td>自由现金流</td>
+<td>有利</td>
+<td>2025简单FCF约100.06亿元，Q1仍为正</td>
+</tr>
+<tr>
+<td>投资资金来源</td>
+<td>有利</td>
+<td>经营现金流能够覆盖当前资本开支</td>
+</tr>
+<tr>
+<td>融资停止后的可持续性</td>
+<td>逆转</td>
+<td>短期借款与财务费用使每股利润对融资条件更敏感</td>
+</tr>
+<tr>
+<td>原材料与中间品成本</td>
+<td>逆转</td>
+<td>行业涨价资料反映成本压力重新出现</td>
+</tr>
+<tr>
+<td>定价权与成本转嫁</td>
+<td>证据不足</td>
+<td>3%—5%行业涨价尚未在公司毛利率中验证</td>
+</tr>
+<tr>
+<td>营收向利润的转化</td>
+<td>逆转</td>
+<td>Q1收入+9.26%，扣非利润仅+0.80%</td>
+</tr>
+<tr>
+<td>利润向自由现金流的转化</td>
+<td>有利</td>
+<td>Q1经营现金流21.52亿元，高于同期净利润规模</td>
+</tr>
+</tbody></table>
+<p>汇总：有利5项，逆转3项，证据不足1项。我的判断：现金侧有利，利润转化与融资成本是主断点。</p>
+<h3>11.3 Step 5：流动性与交易结构触发器（14项）</h3>
+<table>
+<thead>
+<tr>
+<th>触发项</th>
+<th>状态</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>通胀</td>
+<td>有利</td>
+<td>2026年6月CPI同比+1.0%，未形成剧烈紧缩冲击</td>
+</tr>
+<tr>
+<td>政策利率与债券收益率</td>
+<td>有利</td>
+<td>1年/5年以上LPR为3.0%/3.5%，利率环境温和</td>
+</tr>
+<tr>
+<td>信用与融资条件</td>
+<td>有利</td>
+<td>总量信用未见明显收紧证据</td>
+</tr>
+<tr>
+<td>高投资项目对低成本资金的依赖</td>
+<td>逆转</td>
+<td>财务费用由负转正，融资敏感性上升</td>
+</tr>
+<tr>
+<td>监管与产业政策</td>
+<td>有利</td>
+<td>设备更新与基建政策仍支持行业需求</td>
+</tr>
+<tr>
+<td>ETF申赎</td>
+<td>证据不足</td>
+<td>未取得工程机械主题ETF逐日申赎</td>
+</tr>
+<tr>
+<td>基金仓位</td>
+<td>证据不足</td>
+<td>未取得最新公募持仓穿透数据</td>
+</tr>
+<tr>
+<td>主线增量资金</td>
+<td>证据不足</td>
+<td>个股订单分档不能替代板块增量资金</td>
+</tr>
+<tr>
+<td>融资余额增速</td>
+<td>逆转</td>
+<td>20日融资余额+43.22%</td>
+</tr>
+<tr>
+<td>新增融资集中度</td>
+<td>证据不足</td>
+<td>无账户级集中度</td>
+</tr>
+<tr>
+<td>股价对杠杆资金的依赖</td>
+<td>逆转</td>
+<td>股价20日-9.15%但融资大增，杠杆承接未带来趋势确认</td>
+</tr>
+<tr>
+<td>龙头表现</td>
+<td>证据不足</td>
+<td>未取得统一口径板块超额收益序列</td>
+</tr>
+<tr>
+<td>市场广度</td>
+<td>证据不足</td>
+<td>未取得工程机械成分股涨跌家数序列</td>
+</tr>
+<tr>
+<td>获利资金与回调承接</td>
+<td>逆转</td>
+<td>20日订单规模代理净流出17.97亿元，回购未扭转价格趋势</td>
+</tr>
+</tbody></table>
+<p>汇总：有利4项，逆转4项，证据不足6项。我的判断：宏观不构成主要风险，风险集中在微观杠杆与承接。</p>
+<h3>11.4 Step 6：预期反馈触发器（9项）</h3>
+<table>
+<thead>
+<tr>
+<th>触发项</th>
+<th>状态</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>价格隐含的增长年限</td>
+<td>有利</td>
+<td>反推EPS仅要求持平至温和增长</td>
+</tr>
+<tr>
+<td>产业进度与远期预期的距离</td>
+<td>有利</td>
+<td>行业销量已增长，不只停留在远期叙事</td>
+</tr>
+<tr>
+<td>新信息对盈利预测的推动</td>
+<td>证据不足</td>
+<td>未取得最新一致预期修订序列</td>
+</tr>
+<tr>
+<td>同类利好的边际反应</td>
+<td>逆转</td>
+<td>行业销量与回购利好下，20日股价仍下跌9.15%</td>
+</tr>
+<tr>
+<td>财报披露节点</td>
+<td>证据不足</td>
+<td>半年报尚未披露</td>
+</tr>
+<tr>
+<td>订单、收入与利润的一致性</td>
+<td>逆转</td>
+<td>收入增长未转成同幅度利润增长</td>
+</tr>
+<tr>
+<td>利润与现金流的一致性</td>
+<td>有利</td>
+<td>Q1经营现金流强于利润表现</td>
+</tr>
+<tr>
+<td>真实应用与产品验证</td>
+<td>有利</td>
+<td>工程机械产品已规模商业化，出口与矿机有收入验证</td>
+</tr>
+<tr>
+<td>实际业绩与价格隐含预期</td>
+<td>有利</td>
+<td>当前低增长隐含要求未超过已实现利润水平</td>
+</tr>
+</tbody></table>
+<p>汇总：有利5项，逆转2项，证据不足2项。</p>
+<h3>11.5 Step 7：泡沫压力测试</h3>
+<table>
+<thead>
+<tr>
+<th>压力门</th>
+<th>结论</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>估值脱离度门</td>
+<td>不显著</td>
+<td>PE与PB未脱离核心同业和周期中枢</td>
+</tr>
+<tr>
+<td>经营兑现缺口门</td>
+<td>显著</td>
+<td>Q1利润增速大幅落后收入</td>
+</tr>
+<tr>
+<td>正常化失败门</td>
+<td>不显著</td>
+<td>当前隐含EPS接近2025实际水平</td>
+</tr>
+<tr>
+<td>融资依赖门</td>
+<td>不显著</td>
+<td>经营现金流覆盖资本开支，但融资费用需观察</td>
+</tr>
+<tr>
+<td>杠杆与承接门</td>
+<td>显著</td>
+<td>融资大增、价格下跌、订单分档净流出</td>
+</tr>
+<tr>
+<td>叙事透支门</td>
+<td>不显著</td>
+<td>海外与矿机已有收入，不是纯故事</td>
+</tr>
+</tbody></table>
+<p>我的判断：互斥结论为 <strong>公允价值内</strong>，置信度中等。两道压力门显著，说明交易风险上升，但价格尚未形成估值泡沫。</p>
+<h3>11.6 Step 8—9：出清识别与最终动作</h3>
+<ul>
+<li>出清状态：<strong>出清观察</strong>。基本面利润转化、流动性杠杆与利好反馈形成连续逆转链，但这更像交易结构调整，不代表高估值泡沫已完成出清。</li>
+<li>风险传导链：融资余额快速增加 → 下跌中杠杆承接 → 若半年报利润弱于预期 → 被动降杠杆与估值下修共振。</li>
+<li>最终动作：<code>observe</code>；已有持仓仅保留小仓复核，不在融资余额加速阶段加仓。</li>
+<li>升级条件：半年报扣非利润增速回到收入增速的二分之一以上，或融资余额20日增幅回落至10%以内且价格重新站稳9.0元。</li>
+<li>降级条件：半年报扣非利润负增长、经营现金流转弱，或有效跌破7.8元且融资继续上升。</li>
+</ul>
+<h2 id="section-12">12. 最终结论</h2>
+
+<p>我的判断：徐工机械是有全球化增量的周期龙头，不是衰退资产；但当前最重要的不是行业销量，而是收入能否转成每股利润。8.04元已进入公允价值下沿，估值不贵，却伴随显著杠杆背离。因此结论不是“越跌越买”，而是 <strong>合理、观察、等待硬验证</strong>。</p>
+<h2 id="section-13">13. 后续监控指标</h2>
+
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">当前基线</th>
+<th>正向触发</th>
+<th>负向触发</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>半年报扣非利润增速</td>
+<td align="right">Q1 +0.80%</td>
+<td>接近或超过收入增速一半</td>
+<td>转负或显著低于收入</td>
+</tr>
+<tr>
+<td>财务费用</td>
+<td align="right">Q1 6.91亿元</td>
+<td>同比改善</td>
+<td>继续大幅增加</td>
+</tr>
+<tr>
+<td>海外收入与毛利率</td>
+<td align="right">2025 +16.58% / 25.80%</td>
+<td>增速和毛利率双稳</td>
+<td>增速降至个位数且毛利率下滑</td>
+</tr>
+<tr>
+<td>应收账款</td>
+<td align="right">Q1 444.72亿元</td>
+<td>增速低于收入</td>
+<td>增速继续明显高于收入</td>
+</tr>
+<tr>
+<td>20日融资余额变化</td>
+<td align="right">+43.22%</td>
+<td>回落至10%以内</td>
+<td>继续快速增加</td>
+</tr>
+<tr>
+<td>20日订单规模代理净额</td>
+<td align="right">-17.97亿元</td>
+<td>转正并有价格确认</td>
+<td>持续净流出</td>
+</tr>
+<tr>
+<td>回购</td>
+<td align="right">已回购3.4183亿元</td>
+<td>接近计划上限且不透支现金</td>
+<td>仅回购而经营恶化</td>
+</tr>
+</tbody></table>
+<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
+
+<ol>
+<li>未取得2026年半年报、公司可量化全年盈利指引与最新卖方一致预期修订序列。</li>
+<li>未取得账户级机构、北向、公募持仓和工程机械主题ETF逐日申赎；订单分档只能作为成交结构代理。</li>
+<li>行业涨价来自二手研究摘要，尚未由公司披露验证毛利率结果。</li>
+<li>2021—2022年重大资产重组导致历史口径复杂，已优先采用法定报告可比口径。</li>
+<li>公允价值是情景区间，不是确定价格；周期拐点会使正常化EPS和估值倍数同时变化。</li>
+</ol>
+<h2 id="section-15">15. 来源清单</h2>
+
+<ol>
+<li><a href="../sources/papers/徐工机械机构研报-2026-07-20/徐工机械2025年年度报告.pdf.md">徐工机械2025年年度报告</a>。</li>
+<li><a href="../sources/papers/徐工机械机构研报-2026-07-20/徐工机械2026年第一季度报告.pdf.md">徐工机械2026年第一季度报告</a>。</li>
+<li><a href="../sources/papers/徐工机械机构研报-2026-08-03/徐工机械2026-07-21回购进展公告.pdf.md">徐工机械回购进展公告</a>。</li>
+<li><a href="../sources/webpages/2026-08-19-徐工机械v3.0.2研报数据核验快照.md">徐工机械v3.0.2研报数据核验快照</a>。</li>
+<li>本地Tushare：日线、每日估值、资金分档、融资融券、财务指标与分红数据，最新交易日2026-08-18。</li>
+<li>中国工程机械工业协会数据的公开转引，链接与边界见核验快照。</li>
+<li><a href="../wiki/concepts/冰冰小美-framework-估值判断.md">冰冰小美估值判断框架</a>。</li>
+</ol>
+<h2 id="section-16">16. 声明</h2>
+
+<p>本报告仅用于研究与决策流程记录，不构成证券买卖建议、收益承诺或适当性意见。文中估值依赖正常化盈利、周期位置和资金结构假设；当新财报、公告或市场数据改变关键假设时，应重新评估。</p>
+<script>
+(() => {
+  const endpoint = '/api/stock-quote?secid=0.000425';
+  const priceNode = document.getElementById('intraday-price');
+  const detailNode = document.getElementById('intraday-detail');
+  const statusNode = document.getElementById('intraday-status');
+  const riskRewardValue = document.getElementById('risk-reward-value');
+  const riskRewardDetail = document.getElementById('risk-reward-detail');
+  const tracker = document.getElementById('daily-tracking');
+  const snapshotPrice = 8.04;
+  const percent = value => `${value < 0 ? '-' : value > 0 ? '+' : ''}${Math.abs(value).toFixed(1)}%`;
+  function updateRiskReward(price) {
+    const low = Number(tracker.dataset.valueLow);
+    const high = Number(tracker.dataset.valueHigh);
+    if (!Number.isFinite(low) || !Number.isFinite(high) || low <= 0 || high <= low) return;
+    const upside = (high / price - 1) * 100;
+    const downside = (1 - low / price) * 100;
+    if (price <= low) {
+      riskRewardValue.textContent = '低于价值下沿';
+      riskRewardValue.classList.remove('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿潜在空间 ${percent(upside)}。价格已低于公允价值下沿，不能直接用下沿作为止损风险，需另设风控线。`;
+      return;
+    }
+    if (price >= high) {
+      riskRewardValue.textContent = '无正向盈亏比';
+      riskRewardValue.classList.add('bad');
+      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿空间 ${percent(upside)}，回落至下沿风险 ${percent(downside)}。价格已到或高于公允价值上沿，新增现金不具备正向盈亏比。`;
+      return;
+    }
+    const ratio = upside / downside;
+    riskRewardValue.textContent = `约 ${ratio.toFixed(1)}:1`;
+    riskRewardValue.classList.toggle('bad', ratio < 1);
+    riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；到上沿 ${high.toFixed(2)} 元的潜在上行 ${percent(upside)}，跌至下沿 ${low.toFixed(2)} 元的风险 ${percent(downside)}。盘中价格不改变价值区间本身。`;
+  }
+  async function refreshIntradayQuote() {
+    statusNode.textContent = '连接中'; statusNode.className = 'tracking-status';
+    try {
+      const response = await fetch(endpoint, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json(); const quote = payload && payload.data;
+      if (!quote || !Number.isFinite(quote.price) || !Number.isFinite(quote.prevClose) || !Number.isFinite(quote.changePercent) || !Number.isFinite(quote.quoteTimestamp)) throw new Error('invalid quote');
+      const quoteTime = new Date(quote.quoteTimestamp * 1000).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false });
+      priceNode.textContent = `${quote.price.toFixed(2)} 元 · ${percent(quote.changePercent)}`;
+      priceNode.classList.toggle('bad', quote.changePercent < 0);
+      detailNode.textContent = `行情时间：${quoteTime}；昨收 ${quote.prevClose.toFixed(2)} 元。来源：${payload.proxySource || '本地行情代理'}。`;
+      statusNode.textContent = '盘中实时 · 每 60 秒'; statusNode.className = 'tracking-status live'; updateRiskReward(quote.price);
+    } catch { priceNode.textContent = '实时行情暂不可用'; priceNode.classList.remove('bad'); detailNode.textContent = '每日同步值仍然有效；可重新双击“大盘启动器”后刷新本页。'; statusNode.textContent = '连接失败'; statusNode.className = 'tracking-status error'; }
+  }
+  if (location.protocol === 'http:' || location.protocol === 'https:') { refreshIntradayQuote(); window.setInterval(refreshIntradayQuote, 60000); }
+  else { priceNode.textContent = Number.isFinite(snapshotPrice) ? `${snapshotPrice.toFixed(2)} 元（每日值）` : '每日值未获取'; detailNode.textContent = '当前为直接打开模式；盘中实时需通过“大盘启动器”进入本地服务。'; statusNode.textContent = '每日同步 · 实时未连接'; }
+})();
+</script></article>
+    </div>
+  </main>
+</body>
+</html>

@@ -5,7 +5,7 @@ aliases:
   - 宏观分析的框架
   - 宏观风险敞口框架
 created: 2026-05-29
-updated: 2026-07-02
+updated: 2026-08-21
 type: concept
 status: active
 tags:
@@ -26,6 +26,7 @@ sources:
   - "[[sources/articles/2025-11-21-冰冰小美：信息归纳|2025-11-21《信息归纳》]]"
 related:
   - "[[people/冰冰小美|冰冰小美]]"
+  - "[[concepts/冰冰小美-macro-通胀|冰冰小美-macro-通胀]]"
   - "[[冰冰小美-风险体系|冰冰小美-谈风险]]"
   - "[[topics/冰冰小美-宏观经济|宏观经济]]"
   - "[[concepts/冰冰小美-concept-时间窗口|时间窗口]]"

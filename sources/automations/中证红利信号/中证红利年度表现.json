@@ -1,0 +1,162 @@
+{
+  "indexCode": "000922",
+  "source": "中证指数官网 index-perf(000922)",
+  "firstDate": "2008-05-26",
+  "lastDate": "2026-08-20",
+  "returnConvention": "每年首个可用交易日收盘价至末个可用交易日收盘价",
+  "drawdownConvention": "每个自然年内日收盘价相对此前峰值的最大跌幅",
+  "rows": [
+    {
+      "year": 2008,
+      "start_date": "2008-05-26",
+      "end_date": "2008-12-31",
+      "annual_return": -53.85772921194992,
+      "max_drawdown": -58.79084941567703,
+      "status": "成立首年"
+    },
+    {
+      "year": 2009,
+      "start_date": "2009-01-05",
+      "end_date": "2009-12-31",
+      "annual_return": 100.78939219053518,
+      "max_drawdown": -27.953367400659513,
+      "status": "完整年度"
+    },
+    {
+      "year": 2010,
+      "start_date": "2010-01-04",
+      "end_date": "2010-12-31",
+      "annual_return": -12.445749261793615,
+      "max_drawdown": -31.17750045520119,
+      "status": "完整年度"
+    },
+    {
+      "year": 2011,
+      "start_date": "2011-01-04",
+      "end_date": "2011-12-30",
+      "annual_return": -24.87804257942725,
+      "max_drawdown": -31.241745091376483,
+      "status": "完整年度"
+    },
+    {
+      "year": 2012,
+      "start_date": "2012-01-04",
+      "end_date": "2012-12-31",
+      "annual_return": 8.983789557098309,
+      "max_drawdown": -21.77478657842379,
+      "status": "完整年度"
+    },
+    {
+      "year": 2013,
+      "start_date": "2013-01-04",
+      "end_date": "2013-12-31",
+      "annual_return": -10.268836724706787,
+      "max_drawdown": -25.376408240620506,
+      "status": "完整年度"
+    },
+    {
+      "year": 2014,
+      "start_date": "2014-01-02",
+      "end_date": "2014-12-31",
+      "annual_return": 51.916571227204656,
+      "max_drawdown": -8.924518848182972,
+      "status": "完整年度"
+    },
+    {
+      "year": 2015,
+      "start_date": "2015-01-05",
+      "end_date": "2015-12-31",
+      "annual_return": 22.13264625339515,
+      "max_drawdown": -44.88068968396979,
+      "status": "完整年度"
+    },
+    {
+      "year": 2016,
+      "start_date": "2016-01-04",
+      "end_date": "2016-12-30",
+      "annual_return": -0.6087842026033852,
+      "max_drawdown": -20.33871550241684,
+      "status": "完整年度"
+    },
+    {
+      "year": 2017,
+      "start_date": "2017-01-03",
+      "end_date": "2017-12-29",
+      "annual_return": 16.389583027095878,
+      "max_drawdown": -6.803546472176913,
+      "status": "完整年度"
+    },
+    {
+      "year": 2018,
+      "start_date": "2018-01-02",
+      "end_date": "2018-12-28",
+      "annual_return": -20.661568873964043,
+      "max_drawdown": -29.655375711183762,
+      "status": "完整年度"
+    },
+    {
+      "year": 2019,
+      "start_date": "2019-01-02",
+      "end_date": "2019-12-31",
+      "annual_return": 17.49923926705035,
+      "max_drawdown": -19.463482228267072,
+      "status": "完整年度"
+    },
+    {
+      "year": 2020,
+      "start_date": "2020-01-02",
+      "end_date": "2020-12-31",
+      "annual_return": 2.0541450426262875,
+      "max_drawdown": -14.92994746059544,
+      "status": "完整年度"
+    },
+    {
+      "year": 2021,
+      "start_date": "2021-01-04",
+      "end_date": "2021-12-31",
+      "annual_return": 12.980909980027345,
+      "max_drawdown": -15.427604283058848,
+      "status": "完整年度"
+    },
+    {
+      "year": 2022,
+      "start_date": "2022-01-04",
+      "end_date": "2022-12-30",
+      "annual_return": -6.5790970952594225,
+      "max_drawdown": -16.25931344384951,
+      "status": "完整年度"
+    },
+    {
+      "year": 2023,
+      "start_date": "2023-01-03",
+      "end_date": "2023-12-29",
+      "annual_return": 0.23982508300086636,
+      "max_drawdown": -13.043670540119345,
+      "status": "完整年度"
+    },
+    {
+      "year": 2024,
+      "start_date": "2024-01-02",
+      "end_date": "2024-12-31",
+      "annual_return": 11.163336314153183,
+      "max_drawdown": -18.420120131595873,
+      "status": "完整年度"
+    },
+    {
+      "year": 2025,
+      "start_date": "2025-01-02",
+      "end_date": "2025-12-31",
+      "annual_return": 0.617711633416751,
+      "max_drawdown": -6.6933501911995315,
+      "status": "完整年度"
+    },
+    {
+      "year": 2026,
+      "start_date": "2026-01-05",
+      "end_date": "2026-08-20",
+      "annual_return": 1.0855872813622325,
+      "max_drawdown": -15.96361099166238,
+      "status": "年内"
+    }
+  ]
+}

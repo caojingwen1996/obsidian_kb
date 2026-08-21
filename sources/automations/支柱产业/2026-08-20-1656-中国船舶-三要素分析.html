@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>中国船舶冰冰小美体系三要素分析</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --positive: #17604e;
+  --positive-bg: #dff3eb;
+  --negative: #a82828;
+  --negative-bg: #ffe1df;
+  --neutral: #7b5b18;
+  --neutral-bg: #fff2cf;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; color: var(--ink); background: var(--paper); font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif; line-height: 1.7; }
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero { padding: 56px 76px 46px; color: #fff; background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%); }
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.research-note { margin: 16px 0 26px; padding: 14px 18px 13px; border: 1px solid #dce5e9; border-left: 4px solid #8ca6b1; border-radius: 8px; color: #526875; background: #f7fafb; }
+.research-note-title { margin: 0 0 7px; color: #58717d; font-size: 12px !important; font-weight: 700; letter-spacing: .08em; }
+.research-note ul { margin: 0; padding-left: 21px; }
+.research-note li { margin: 4px 0; font-size: 13.5px; line-height: 1.65; }
+.research-note li::marker { color: #8ca6b1; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.factor-summary { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin: 26px 0 42px; }
+.factor-card { min-width: 0; padding: 16px; border: 1px solid var(--line); border-radius: 12px; background: #f7f9fa; }
+.factor-card p { margin: 0 0 6px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .06em; }
+.factor-card strong { color: var(--navy); font-size: 18px; line-height: 1.35; }
+.factor-card.positive { background: var(--positive-bg); }
+.factor-card.positive strong { color: var(--positive); }
+.factor-card.negative { background: var(--negative-bg); }
+.factor-card.negative strong { color: var(--negative); }
+.factor-card.neutral { background: var(--neutral-bg); }
+.factor-card.neutral strong { color: var(--neutral); }
+
+@media (max-width: 1100px) { .factor-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 980px) { .hero { padding: 40px 30px 34px; } .layout { grid-template-columns: 1fr; } .toc { border-right: 0; border-bottom: 1px solid var(--line); } .toc-inner { position: static; columns: 2; } .content { padding: 34px 30px 64px; } }
+@media (max-width: 600px) { .toc-inner { columns: 1; } .content { padding: 28px 18px 54px; } .factor-summary { grid-template-columns: 1fr; } }
+@media print { body { background: #fff; } .report-shell { max-width: none; } .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; } .layout { display: block; } .toc { display: none; } .content { padding: 25px 36px; } .content h2 { break-after: avoid; } .content table { display: table; overflow: visible; break-inside: avoid; } .factor-card { border: 1px solid #aebbc2; background: #fff !important; } .research-note { break-inside: avoid; background: #fff; } }
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM THREE-FACTOR ANALYSIS</p>
+      <h1>中国船舶冰冰小美体系三要素分析</h1>
+      <div class="hero-meta"><span>个股</span><span>上海证券交易所</span><span>2026-08-20 16:14 Asia/Shanghai；财务截至2026Q1，2026H1采用业绩预增区间</span><span>2026-08-20 16:56 Asia/Shanghai</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 一句话结论</a>
+<a class="toc-link" href="#section-2">2. 三要素状态总表</a>
+<a class="toc-link" href="#section-3">3. 竞争格局的比较优势</a>
+<a class="toc-link" href="#section-4">4. 流动性辩证分析</a>
+<a class="toc-link" href="#section-5">5. 情绪位置变化</a>
+<a class="toc-link" href="#section-6">6. 综合状态与主导矛盾</a>
+<a class="toc-link" href="#section-7">7. 行动映射</a>
+<a class="toc-link" href="#section-8">8. 数据缺口与置信度</a>
+<a class="toc-link" href="#section-9">9. 来源</a></div></aside>
+      <article class="content"><blockquote>
+<p>对象层级：个股<br>市场：上海证券交易所<br>分析截止时间：2026-08-20 16:14 Asia/Shanghai；财务截至2026Q1，2026H1采用业绩预增区间<br>报告生成时间：2026-08-20 16:56 Asia/Shanghai<br>核心问题：吸收合并后的全球造船平台优势和高价订单兑现，能否抵消造船周期下行预期，并得到资金与情绪同步确认。</p>
+</blockquote>
+<section class="factor-summary" aria-label="三要素摘要">
+    <div class="factor-card neutral"><p>综合状态</p><strong>部分有利。</strong></div>
+    <div class="factor-card positive"><p>竞争格局</p><strong>有利</strong></div>
+    <div class="factor-card neutral"><p>流动性</p><strong>中性 / 转弱。</strong></div>
+    <div class="factor-card neutral"><p>情绪位置</p><strong>中性</strong></div>
+    <div class="factor-card neutral"><p>总体置信度</p><strong>中。国家、行业、公司和价格证据较强；半年报、同业同口径效率和资金身份仍不完整。</strong></div>
+  </section>
+<h2 id="section-1">1. 一句话结论</h2>
+
+<ul>
+<li>综合状态：<strong>部分有利</strong>。</li>
+<li>流动性阶段：<strong>转弱</strong>。</li>
+<li>主导要素：<strong>竞争格局有利</strong>。国家把海洋强国、高技术船舶和海工装备写入“十五五”，中国造船份额、订单和新船价格维持高位；中国船舶完成央企核心资产整合，Q1毛利率、利润、现金流及10艘VLCC订单共同验证高价订单兑现。</li>
+<li>拖累要素：<strong>流动性和情绪均只到中性</strong>。股价10日-5.85%、60日-13.53%，8月20日市场反弹时仍下跌，5日量仅为20日均量0.77倍；融资先去杠杆后局部回补但最新身份数据缺失。利润利好已被市场熟知，情绪处在扩散后的退潮，而非新一轮共振。</li>
+</ul>
+<h2 id="section-2">2. 三要素状态总表</h2>
+
+<table>
+<thead>
+<tr>
+<th>要素</th>
+<th>状态</th>
+<th>核心证据</th>
+<th>核心反证</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>竞争格局</td>
+<td>有利</td>
+<td>“十五五”明确海洋装备方向；2026H1中国新接订单全球份额约82.3%；公司Q1毛利率17.48%、H1归母净利预告92亿—110亿元、10艘VLCC订单80亿—90亿元</td>
+<td>并表造成增速断点；扬子江船业H1船舶建造毛利率约37.1%，韩华海洋利润也高增；民营船企扩产削弱长期稀缺性</td>
+<td>中高</td>
+</tr>
+<tr>
+<td>流动性辩证分析</td>
+<td>中性</td>
+<td>60/120日表现仍强于国防ETF，年内收益+0.74%；32—33元接近既有估值支持区，分红是真实现金回报</td>
+<td>10日-5.85%、60日-13.53%，市场反弹日相对走弱，缩量未见主动增量；最新ETF、机构和融资明细缺失</td>
+<td>中</td>
+</tr>
+<tr>
+<td>情绪位置变化</td>
+<td>中性</td>
+<td>动态PE约21.96倍、PB约1.69倍，按H1预告简单年化PE约11.3—13.5倍；未出现高估值、爆量和融资同步膨胀</td>
+<td>H1高增长与订单饱满已成为共识，10日回撤和利好钝化显示扩散退潮；中国动力近端显著跑赢</td>
+<td>中</td>
+</tr>
+</tbody></table>
+<h2 id="section-3">3. 竞争格局的比较优势</h2>
+
+<blockquote>
+<p>“3 层 × 5 问”已在<a href="../../webpages/2026-08-20-中国船舶三要素政策行业与市场证据快照.md">中国船舶三要素证据快照</a>中完成。本节只展示跨层结论、核心证据、核心反证和研究审计信息。</p>
+</blockquote>
+<h3>国家层：方向与资源配置</h3>
+<ul>
+<li>结论：<strong>方向、实施和产业资本配置均有利，公司具备核心承接资格；财政、信贷和军品采购直接传导仍待量化</strong>。</li>
+<li>国策方向：<a href="https://www.npc.gov.cn/npc/c2/c30834/202603/t20260316_453274.html">“十五五”规划纲要</a>提出建设海洋强国、巩固提升海洋装备制造优势，发展高技术船舶及海工装备。</li>
+<li>政策落地：<a href="https://big5.www.gov.cn/gate/big5/www.gov.cn/yaowen/liebiao/202606/content_7071738.htm">中国政府网深海与极地重大工程信息</a>显示方向已进入重大工程、关键装备与核心部件实施层；公司行动方案同步推进邮轮、绿色船型、国产化和智能制造。</li>
+<li>资源配置：2025年换股吸收合并中国重工于9月完成股份登记，原中国重工从Q3纳入合并，是国有产业资本和核心船厂向上市平台集中。公开信息未给出财政、政策性信贷、军品采购和重大项目直接流向公司的统一金额。</li>
+<li>核心证据：合并后公司覆盖江南造船、外高桥造船、大连造船等核心总装平台，民船、军船、海工和关键配套谱系完整，具备承接国家高端装备方向的资质、船台和人才。</li>
+<li>核心反证：国家目标首先服务产业安全与国防能力，不保证上市公司利润率或ROIC；军品审价、出口限制、汇率与绿色改造资本开支可能稀释资源收益。</li>
+</ul>
+<aside class="research-note" aria-label="研究提示"><p class="research-note-title">研究提示</p><ul>
+<li>已检索范围：“十五五”规划、海洋强国、深海与极地重大工程、绿色高端船舶、央企重组、公司提质增效行动；宽泛国防叙事未当作直接盈利证据。</li>
+<li>数据缺口：财政、政策性信贷、政府采购、军品订单和重大工程直接进入上市公司的金额。</li>
+<li>下一验证点：军民品分部、资本开支、研发转化、重大工程订单和政策性资金披露。</li>
+<li>失效条件：国家资源转向其他技术路线，或公司核心项目无法形成订单、交付和现金回报。</li>
+</ul>
+</aside>
+<h3>产业 / 行业层：利润流向与产业链位置</h3>
+<ul>
+<li>结论：<strong>利润继续向稀缺船台、高端绿色船型、交付效率和关键配套集中；当前行业有利，但民营扩产与全球周期是中期反证</strong>。</li>
+<li>核心证据：<a href="https://www.miit.gov.cn/gxsj/tjfx/zbgy/mycb/art/2026/art_fc5e4ed1d3f5421885e6c3afff91cbbc.html">工信部2025年数据</a>显示中国完工、新接和手持订单全球份额分别56.1%、69.0%、66.8%；2026H1完工、新接和手持订单同比继续增长，全球份额约62.2%、82.3%、71.2%。<a href="https://en.portnews.ru/news/395396/">Clarksons数据转引</a>显示2026年7月新船价格指数185.49，仍在高位。</li>
+<li>核心证据：公司2025年末民品及海工手持订单4,674.51亿元、排期至2030年；2026年3月再签10艘VLCC，金额80亿—90亿元。长排期、高船价和高端船型把行业优势锁定到后续交付。</li>
+<li>核心反证：<a href="https://www.cnfin.com/gs-lb/detail/20260701/4434366_1.html">恒力重工</a>H1新接207艘并扩张产能；扬子江、韩华海洋等同业同步高增。行业高景气吸引新资本，未来产能、人工和供应链瓶颈可能从稀缺溢价转为成本或价格竞争。</li>
+</ul>
+<aside class="research-note" aria-label="研究提示"><p class="research-note-title">研究提示</p><ul>
+<li>已检索范围：全球和中国完工、新接、手持订单；新船价格；绿色船型；民营扩产；全球同业业绩；公司订单与交期。</li>
+<li>数据缺口：全球分船型供需、取消率、实际船台利用率、钢材与人工成本、在手订单毛利曲线。</li>
+<li>下一验证点：Clarksons新船价格指数、分船型订单、交付延期、恒力等新增产能爬坡和头部船厂毛利率。</li>
+<li>失效条件：新船价格连续下行、订单取消或推迟增加、有效产能快速释放并导致行业毛利率同步回落。</li>
+</ul>
+</aside>
+<h3>企业层：谁能获得利润</h3>
+<ul>
+<li>结论：<strong>有利，规模、船台、军民品资质、产品谱系和长订单可见度支持公司获得利润；单项效率和资本回报并非全球最优</strong>。</li>
+<li>核心证据：<a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12442205&stockid=600150">半年度预增公告</a>预计H1归母净利润92亿—110亿元；2026Q1收入433.12亿元、毛利率17.48%、归母净利润48.32亿元、经营现金流81.52亿元，利润和现金同时兑现。</li>
+<li>核心证据：<a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12037356&stockid=600150">10艘VLCC合同</a>金额80亿—90亿元、2028—2030年交付；<a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12282255&stockid=600150">公司2026年行动方案</a>显示研发、邮轮和国产化继续投入，综合平台优势不仅来自单一船型。</li>
+<li>核心反证：<a href="https://links.sgx.com/1.0.0/corporate-announcements/LYJB2HHS6J2D06AP/7d1e108fdc6d13424429b4cb6d84cd6efa26c07ecfa5a056ae424181ec5cb0f4">扬子江船业2026H1</a>船舶建造毛利率约37.1%，显著高于公司Q1综合毛利率17.48%；<a href="https://en.yna.co.kr/view/AEN20260727005800320">韩华海洋Q2</a>利润也大幅增长。中国船舶的优势是综合规模和战略地位，不是全部财务效率领先。</li>
+</ul>
+<aside class="research-note" aria-label="研究提示"><p class="research-note-title">研究提示</p><ul>
+<li>已检索范围：2025年报、2026Q1、H1预增、订单、现金、合同负债、研发、邮轮、分红；同业检查扬子江、韩华海洋和HII。</li>
+<li>数据缺口：2026H1正式分部毛利、单位工时、单位船台产出、订单毛利、汇率敏感性、军品回款和严格ROIC。</li>
+<li>下一验证点：8月31日半年报的毛利率、CFO/净利润、合同负债、分部利润、新接订单和资本开支。</li>
+<li>失效条件：公司利润率、现金流和交付效率连续弱于主要同业，高价订单无法转成自由现金流。</li>
+</ul>
+</aside>
+<h3>本要素判断</h3>
+<ul>
+<li>状态：<strong>有利</strong>。</li>
+<li>理由：国家层有明确方向和央企资产集中，行业层有全球份额、订单和高船价，企业层有毛利、利润、现金流与重大订单验证。并表断点、同业高毛利和民营扩产限制置信度，但未推翻公司在中国造船核心平台中的相对位置。</li>
+</ul>
+<aside class="research-note" aria-label="研究提示"><p class="research-note-title">研究提示</p><ul>
+<li>主导证据：2026Q1毛利率17.48%、H1利润预增92亿—110亿元和10艘VLCC订单，把政策与行业优势传到公司利润和后续订单。</li>
+<li>核心缺口：合并后的同口径历史、在手订单毛利、严格ROIC和同业单位效率。</li>
+<li>下一验证点：8月31日半年报与Q3订单、交付、现金流和新船价格。</li>
+<li>失效条件：行业船价与订单转弱，同时公司毛利率、CFO和新接高端订单低于同业。</li>
+</ul>
+</aside>
+<h2 id="section-4">4. 流动性辩证分析</h2>
+
+<blockquote>
+<p>核心边界：成交量只是结果。本节同时检查资金来源、持续性、迁移、筹码供给和撤退承接。</p>
+</blockquote>
+<h3>宏观流动性</h3>
+<ul>
+<li>事实与时点：<a href="https://www.federalreserve.gov/newsevents/pressreleases/monetary20260729a.htm">美联储</a>2026-07-29维持联邦基金利率3.50%—3.75%；中国2026年7月M2同比+7.7%、M1同比+4.0%。</li>
+<li>对对象的影响：<strong>中性偏约束</strong>。国内货币存量仍增长，但M1活化偏弱；美元利率高位抬升全球周期资产折现率、美元合同与贸易融资成本，不能确认全球流动性扩张。</li>
+</ul>
+<h3>中观流动性</h3>
+<ul>
+<li>事实与时点：国家资源持续进入高端船舶、海工、深海和央企整合；行业订单与新船价高位，实体现金流向造船产业。8月19日A股上涨449只、下跌5,069只、成交约2.53万亿元，风险偏好急降；8月20日主要指数盘中修复。</li>
+<li>传导判断：实体订单和预收款支持船厂生产，但订单资金首先对应未来履约，不等于股票市场买盘。市场风险偏好修复时，中国船舶没有同步上涨，说明产业景气尚未转成板块增量。</li>
+<li>对对象的影响：<strong>实体支持、股票中性偏约束</strong>。</li>
+</ul>
+<h3>微观流动性</h3>
+<ul>
+<li>事实与时点：8月20日16:14盘中32.99元、-0.45%，成交约19.15亿元、换手0.77%；截至8月19日，5/10/20/60日收益为-2.21%/-5.85%/+0.36%/-13.53%，5日量为20日均量0.77倍。</li>
+<li>迁移路径：60/120日仍跑赢国防ETF，说明大型央企和造船主线此前有相对承接；近10日显著跑输中国动力，融资余额从7月24日70.81亿元降至8月5日69.56亿元后又出现连续回补线索，资金更像板块内轮动和短期杠杆试错，而不是稳定场外增量。</li>
+<li>对对象的影响：<strong>中性偏约束</strong>。价格接近32—33元支持区且缩量未恐慌，但未出现非杠杆资金身份、放量企稳或相对强度确认。</li>
+</ul>
+<h3>资金来源分类</h3>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>是否存在</th>
+<th>渠道与证据</th>
+<th>持续性</th>
+<th>退出条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>场外真实增量</td>
+<td>证据不足</td>
+<td>2025年度现金分红27.47亿元，2026年中期拟保持不低于35%的分红比例；未取得ETF、主动机构、保险或产业资本增持</td>
+<td>低</td>
+<td>分红实施低于承诺、现金流恶化，或公司未出现长期机构承接</td>
+</tr>
+<tr>
+<td>存量迁移</td>
+<td>部分存在但在撤退</td>
+<td>60/120日跑赢国防ETF，但10日跑输中国动力并在指数修复日走弱</td>
+<td>低至中</td>
+<td>资金继续切换至动力、军工电子或其他周期方向，且公司失守32元</td>
+</tr>
+<tr>
+<td>减量报团</td>
+<td>未确认</td>
+<td>央企、低估值、高订单具防御叙事</td>
+<td>低</td>
+<td>市场广度恢复而公司仍弱，或行业价格与订单转弱</td>
+</tr>
+</tbody></table>
+<h3>供给与抛压</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>当前事实</th>
+<th>对流动性的影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>杠杆资金</td>
+<td>7月24日融资余额70.81亿元，8月5日69.56亿元，8月上旬出现连续回补线索；8月19日完整明细缺失</td>
+<td>没有形成稳定增量；若价格走弱而融资继续升，套牢和强平风险增加</td>
+</tr>
+<tr>
+<td>股票融资供给</td>
+<td>未发现正在实施的增发、配股或可转债</td>
+<td>当前新增融资筹码压力未确认</td>
+</tr>
+<tr>
+<td>合并新增股份</td>
+<td>2025年吸收合并扩大股本并形成历史口径断点，2026年3月出现股份性质变更</td>
+<td>已大部分转为存量筹码；35—36元附近历史套牢更复杂</td>
+</tr>
+<tr>
+<td>减持与解禁</td>
+<td>未发现最新重大股东减持；未来90日完整解禁表未取得</td>
+<td>不能据此断言无潜在卖压</td>
+</tr>
+<tr>
+<td>套牢盘与高位筹码</td>
+<td>52周区间约29.83—36.45元，现价32.99元；60日-13.53%</td>
+<td>32—33元有估值承接预期，35—36元存在套牢盘压力</td>
+</tr>
+</tbody></table>
+<h3>最低数据检查</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>已检查数据</th>
+<th>数据时点与窗口</th>
+<th>来源</th>
+<th>缺口及影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观</td>
+<td>美联储利率、M2/M1、外部折现率</td>
+<td>2026年7月至08-20</td>
+<td>美联储、库内宏观快照</td>
+<td>美债、美元和人民币汇率同窗口完整序列缺失，限制汇率与出口订单判断</td>
+</tr>
+<tr>
+<td>中观</td>
+<td>海洋装备政策、行业订单、新船价、市场广度</td>
+<td>2026H1至08-20</td>
+<td>国家规划、工信部、Clarksons转引、本地市场快照</td>
+<td>船舶ETF、公募和保险资金缺失</td>
+</tr>
+<tr>
+<td>微观</td>
+<td>盘中行情、5/10/20/60/120日价格、成交量、融资线索</td>
+<td>当日及多窗口</td>
+<td>腾讯、融资融券网页</td>
+<td>8月19日融资、ETF、机构和大额订单身份缺失</td>
+</tr>
+<tr>
+<td>供给与抛压</td>
+<td>股本变化、再融资、减持检索、52周区间</td>
+<td>当前与历史</td>
+<td>公司公告、行情与日历</td>
+<td>未来90日完整解禁、筹码成本和主要股东意向缺失</td>
+</tr>
+</tbody></table>
+<h3>证据</h3>
+<ul>
+<li>60/120日相对国防ETF有韧性，年内收益仍为正，32—33元接近既有机构研报估值支持区。</li>
+<li>2025年度现金分红和2026年中期分红安排属于真实资本回报，行业订单、合同负债和经营现金流为实体流动性提供底盘。</li>
+<li>下跌过程量能收缩，没有出现恐慌式放量出逃。</li>
+</ul>
+<h3>反证</h3>
+<ul>
+<li>10日下跌5.85%、60日下跌13.53%，8月20日主要指数反弹而公司仍下跌，微观承接正在减弱。</li>
+<li>5日量仅为20日均量0.77倍，既不能确认出清，也不能确认新资金主动进入。</li>
+<li>缺ETF、机构、北向和大额订单身份；融资先降后回补，若回补发生在价格下跌中，可能形成新增套牢盘。</li>
+</ul>
+<h3>退出路径</h3>
+<ul>
+<li>第一条：8月31日半年报毛利率、现金流或新接订单低于预增叙事，基本面资金下修利润中枢。</li>
+<li>第二条：行业新船价与订单连续回落，民营扩产加快，造船周期资金撤出高位订单逻辑。</li>
+<li>第三条：价格有效跌破32元、融资余额反而上升后再被动偿还，杠杆套牢转为放大卖压。</li>
+<li>观察指标：32元、35—36元套牢区、融资余额、成交量、船舶板块广度、Clarksons新船价和半年报CFO/净利润。</li>
+</ul>
+<h3>失效条件</h3>
+<ul>
+<li>若半年报确认综合毛利率不低于Q1附近、CFO/净利润不低于1，新增高端订单和分红同步落地，价格放量站稳35—36元且出现可识别的非杠杆增量，则“中性/转弱”失效，可上调为有利/修复或扩张。</li>
+<li>若价格放量跌破32元、融资加速偿还，半年报现金流与毛利率明显低于预期，新船价转弱，则下调为不利/收缩。</li>
+</ul>
+<h3>流动性阶段判定</h3>
+<ul>
+<li>方向评价：<strong>中性</strong>。</li>
+<li>当前状态：<strong>转弱</strong>。</li>
+<li>上一可辨识状态或基准状态：<strong>修复</strong>。</li>
+<li>转换方向：<strong>修复 → 转弱</strong>。</li>
+<li>跨层依据：宏观层国内货币存量尚可但外部利率高位；中观层实体订单强、股票市场风险偏好弱；微观层20日横盘转为10日下跌、市场反弹日走弱并缩量。跨层没有全面收缩，但修复动能已经减弱。</li>
+<li>相邻状态排除理由：不是收缩，因为年内收益仍正、60/120日相对国防ETF有韧性、下跌未放量且行业基本面资金仍强；不是平衡，因为10日跌幅、相对弱势和量能下降已经表现出明确方向；不是修复，因为价格尚未收复35—36元套牢区，也没有非杠杆增量确认。</li>
+<li>置信度：<strong>中</strong>。价格和成交窗口一致支持转弱；8月19日融资、ETF和机构身份缺失，限制方向评价下调为不利。</li>
+</ul>
+<h2 id="section-5">5. 情绪位置变化</h2>
+
+<h3>证据</h3>
+<ul>
+<li>情绪位置：<strong>扩散后的退潮，方向中性</strong>。</li>
+<li>吸收合并、高价订单、H1利润大增和订单排至2030年已成为市场共识；当前新增信息更多是确认，不再是首次预期差。</li>
+<li>截至8月19日10日-5.85%、60日-13.53%，8月20日市场反弹时仍-0.45%，显示利好钝化和板块内资金分化。</li>
+<li>5日量为20日均量0.77倍，未出现恐慌出清；动态PE约21.96倍、PB约1.69倍，按H1预告简单年化PE约11.3—13.5倍，也没有估值、换手和融资同步膨胀的拥挤结构。</li>
+<li>中国动力10/20日+11.77%/+7.62%，而中国船舶-5.85%/+0.36%，资金在船舶军工内部更偏向高弹性分支，中国船舶不是当前情绪中心。</li>
+</ul>
+<h3>反证</h3>
+<ul>
+<li>年内收益仍+0.74%，60/120日明显跑赢国防ETF，长期平台叙事尚未破坏。</li>
+<li>32—33元接近既有估值支持区，若半年报将毛利、现金流、新订单和中期分红同时确认，退潮可能转为再试错。</li>
+<li>缺船舶板块涨跌广度、ETF份额、讨论热度、机构调研和公募持仓连续序列，无法精确判断退潮深度。</li>
+</ul>
+<h3>失效条件</h3>
+<ul>
+<li>若8月31日半年报超预期、价格放量站稳35—36元、船舶板块广度与非杠杆资金同步扩散，则“退潮/中性”失效，可上调为试错或扩散、有利。</li>
+<li>若价格放量跌破29.83元附近52周低点、融资加速偿还、行业船价和订单转弱，则退潮向恐慌或冰点演变，情绪下调为不利。</li>
+</ul>
+<h2 id="section-6">6. 综合状态与主导矛盾</h2>
+
+<ul>
+<li>综合状态：<strong>部分有利</strong>。</li>
+<li>主导矛盾：中国船舶的国家方向、央企整合、全球份额、高价订单和利润兑现已经证明竞争格局有利；但二级市场正在交易更远期的造船周期、同业扩产与利润可持续性，短线资金和情绪没有跟随基本面继续扩张。当前是“产业利润兑现、股票预期退潮”，不是三要素同步有利。</li>
+<li>下一验证点：2026-08-31半年报的综合与分部毛利率、CFO/净利润、合同负债、新接订单、资本开支和中期分红；32元承接、35—36元套牢区；融资余额与船舶板块广度；Clarksons新船价格指数。</li>
+<li>综合失效条件：若半年报、行业价格和非杠杆增量同步改善，可升级为同步有利；若毛利率、现金流、新船价和订单同时转弱，价格有效跌破32元并进入放量收缩，则降为尚未形成有利共振或同步不利。</li>
+</ul>
+<h2 id="section-7">7. 行动映射</h2>
+
+<h3>新增现金（buy / wait / observe / review）</h3>
+<table>
+<thead>
+<tr>
+<th>行动</th>
+<th>条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>wait</td>
+<td>当前维持。竞争格局有利但流动性转弱、情绪退潮，32—33元虽接近估值支持区，尚无非杠杆资金或半年报正式数据确认；不因预增、订单或低年化PE机械抄底。</td>
+</tr>
+<tr>
+<td>observe</td>
+<td>若32—33元缩量企稳，8月31日半年报确认毛利率、CFO/净利润和订单质量，中期分红进入实施，同时融资不扩张、板块广度改善，可进入小仓观察。</td>
+</tr>
+<tr>
+<td>buy</td>
+<td>仅作为条件升级：半年报后盈利与现金流上修，价格放量站稳35—36元套牢区，且ETF、机构或连续非杠杆资金可识别时，再评估分批买入。</td>
+</tr>
+</tbody></table>
+<h3>已有持仓（sell / reduce / wait / observe / review）</h3>
+<table>
+<thead>
+<tr>
+<th>行动</th>
+<th>条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>review</td>
+<td>当前维持。复核持仓成本、仓位和周期暴露；竞争格局尚未失效，不因10日回撤机械卖出，也不因订单排至2030年机械加仓。</td>
+</tr>
+<tr>
+<td>reduce</td>
+<td>若半年报毛利率明显低于Q1、CFO/净利润显著低于1，行业新船价与订单转弱，价格有效跌破32元且融资加速偿还，则基本面和承接同时弱化，可条件化降低暴露。</td>
+</tr>
+</tbody></table>
+<h2 id="section-8">8. 数据缺口与置信度</h2>
+
+<ul>
+<li>数据缺口：国家层缺财政、政策性信贷、军品采购和重大工程直接流向公司的金额；行业层缺分船型全球供需、取消率、有效船台产能和在手订单毛利曲线；企业层缺2026H1正式分部、单位效率、严格ROIC和同业同口径现金流。流动性与情绪层缺8月19日融资明细、ETF申赎、主动公募、保险、北向、大额订单、板块连续广度、未来90日完整解禁和筹码成本。</li>
+<li>已检查范围：最新版三要素概念页；“十五五”海洋装备、深海与极地工程、央企整合；工信部、自然资源部和Clarksons行业数据；公司2025年报、2026Q1、H1预增、重大订单、分红和提质增效方案；扬子江、韩华海洋、HII；腾讯盘中与历史行情、融资融券网页和财报日历。</li>
+<li>影响：可以确认公司相对竞争力和流动性由修复转弱，但不能把最新买卖盘归属到长期机构，也不能确认高价订单的完整自由现金回报。因此竞争格局定为有利，流动性与情绪保持中性。</li>
+<li>总体置信度：<strong>中</strong>。国家、行业、公司和价格证据较强；半年报、同业同口径效率和资金身份仍不完整。</li>
+</ul>
+<h2 id="section-9">9. 来源</h2>
+
+<h3>Wiki 依据</h3>
+<ul>
+<li><a href="../../../wiki/topics/冰冰小美-情绪体系认知篇.md">冰冰小美体系三要素总框架</a>。</li>
+<li><a href="../../../wiki/concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势.md">竞争格局的比较优势：3层 × 5问模型</a>。</li>
+<li><a href="../../../wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md">流动性辩证分析</a>。</li>
+<li><a href="../../../wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化.md">情绪位置的变化</a>。</li>
+<li><a href="../../../workbench/targets/2026-07-17-1133-中国船舶机构级决策研报.md">中国船舶机构级决策研报</a>：财务、估值、订单和既有资金判断的基准。</li>
+</ul>
+<h3>当前数据</h3>
+<ul>
+<li><a href="../../webpages/2026-08-20-中国船舶三要素政策行业与市场证据快照.md">中国船舶三要素政策、行业与市场证据快照</a>：完整“3层 × 5问”底稿、政策、行业、公司、同业、行情、融资、供给与情绪证据。</li>
+<li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12442205&stockid=600150">中国船舶2026H1业绩预增公告</a>：利润区间、并表口径、订单与产品结构说明。</li>
+<li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12037356&stockid=600150">中国船舶10艘VLCC重大合同公告</a>：金额、交期、船型与履约风险。</li>
+<li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12282255&stockid=600150">中国船舶2026年行动方案</a>与<a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12282262&stockid=600150">中期分红安排</a>：研发、邮轮、国产化、效率和股东回报。</li>
+<li><a href="https://www.npc.gov.cn/npc/c2/c30834/202603/t20260316_453274.html">“十五五”规划纲要</a>与<a href="https://big5.www.gov.cn/gate/big5/www.gov.cn/yaowen/liebiao/202606/content_7071738.htm">深海、极地重大工程</a>：国家方向和实施资源。</li>
+<li><a href="https://www.miit.gov.cn/gxsj/tjfx/zbgy/mycb/art/2026/art_fc5e4ed1d3f5421885e6c3afff91cbbc.html">工信部2025年船舶工业数据</a>、<a href="https://price.mofcom.gov.cn/article/yjzx/hyzx/hy/202608/65033.html">2026H1行业数据</a>与<a href="https://www.news.cn/20260803/2d41fcbd655a4960acac36dabf252536/c.html">新华社海洋经济数据</a>：中国全球份额、订单和交付。</li>
+<li><a href="https://en.portnews.ru/news/395396/">Clarksons 2026年7月市场数据转引</a>与<a href="https://prod.clarksons.com/media/e3les54a/interim-results-presentation-2026.pdf">Clarksons 2026中期演示</a>：全球订单与新船价格。</li>
+<li><a href="https://links.sgx.com/1.0.0/corporate-announcements/LYJB2HHS6J2D06AP/7d1e108fdc6d13424429b4cb6d84cd6efa26c07ecfa5a056ae424181ec5cb0f4">扬子江船业2026H1</a>、<a href="https://en.yna.co.kr/view/AEN20260727005800320">韩华海洋2026Q2</a>与<a href="https://www.globenewswire.com/news-release/2026/07/30/3335901/14858/en/hii-reports-second-quarter-2026-results.html">HII 2026Q2</a>：全球同业效率、盈利和现金流反证。</li>
+<li><a href="https://www.federalreserve.gov/newsevents/pressreleases/monetary20260729a.htm">美联储2026-07-29声明</a>、<a href="https://qt.gtimg.cn/q=sh600150">腾讯行情</a>、<a href="https://quote.cfi.cn/rzrq/983/600150.html">融资融券历史页</a>与<a href="https://data.eastmoney.com/stockcalendar/600150.html">公司财报日历</a>：宏观、行情、融资和下一披露节点。</li>
+</ul>
+</article>
+    </div>
+  </main>
+</body>
+</html>

@@ -251,12 +251,17 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
             <!-- STRATEGY_FILTER_TABS -->
           </nav>
           <!-- STRATEGY_RESEARCH_BOARDS -->
-          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · <!-- STRATEGY_REPORT_COUNT -->条</span></div>
-          <div class="industry-timeline">
-            <div class="industry-feed">
-              <!-- STRATEGY_REPORTS -->
+          <section class="industry-report-panel holdings-panel panel" aria-label="战略资源标的研报">
+            <div class="holding-form-title"><div><p class="eyebrow">RESEARCH REPORTS</p><h3>标的研报</h3></div><span><!-- STRATEGY_REPORT_COUNT -->项</span></div>
+            <div class="industry-report-table-wrap holdings-table-wrap">
+              <table class="industry-report-table tracking-table">
+                <thead><tr><th>标的</th><th>公允价值区间</th><th>交易定价偏离</th><th>盘中实时</th><th>收盘表现</th><th>三要素判断</th><th>资金面分析</th><th>基本面状态</th><th>星级</th></tr></thead>
+                <tbody>
+                <!-- STRATEGY_REPORTS -->
+                </tbody>
+              </table>
             </div>
-          </div>
+          </section>
           <p class="industry-empty-results" hidden>没有匹配的研报项。</p>
         </div>
       </section>
@@ -275,12 +280,17 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
             <!-- EMERGING_FILTER_TABS -->
           </nav>
           <!-- EMERGING_RESEARCH_BOARDS -->
-          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · <!-- EMERGING_REPORT_COUNT -->条</span></div>
-          <div class="industry-timeline">
-            <div class="industry-feed">
-              <!-- EMERGING_REPORTS -->
+          <section class="industry-report-panel holdings-panel panel" aria-label="新兴产业标的研报">
+            <div class="holding-form-title"><div><p class="eyebrow">RESEARCH REPORTS</p><h3>标的研报</h3></div><span><!-- EMERGING_REPORT_COUNT -->项</span></div>
+            <div class="industry-report-table-wrap holdings-table-wrap">
+              <table class="industry-report-table tracking-table">
+                <thead><tr><th>标的</th><th>公允价值区间</th><th>交易定价偏离</th><th>盘中实时</th><th>收盘表现</th><th>三要素判断</th><th>资金面分析</th><th>基本面状态</th><th>星级</th></tr></thead>
+                <tbody>
+                <!-- EMERGING_REPORTS -->
+                </tbody>
+              </table>
             </div>
-          </div>
+          </section>
           <p class="industry-empty-results" hidden>没有匹配的研报项。</p>
         </div>
       </section>
@@ -299,12 +309,17 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
             <!-- PILLAR_FILTER_TABS -->
           </nav>
           <!-- PILLAR_RESEARCH_BOARDS -->
-          <div class="industry-date-row"><strong>7月20日</strong><span>星期一 · <!-- PILLAR_REPORT_COUNT -->条</span></div>
-          <div class="industry-timeline">
-            <div class="industry-feed">
-              <!-- PILLAR_REPORTS -->
+          <section class="industry-report-panel holdings-panel panel" aria-label="支柱产业标的研报">
+            <div class="holding-form-title"><div><p class="eyebrow">RESEARCH REPORTS</p><h3>标的研报</h3></div><span><!-- PILLAR_REPORT_COUNT -->项</span></div>
+            <div class="industry-report-table-wrap holdings-table-wrap">
+              <table class="industry-report-table tracking-table">
+                <thead><tr><th>标的</th><th>公允价值区间</th><th>交易定价偏离</th><th>盘中实时</th><th>收盘表现</th><th>三要素判断</th><th>资金面分析</th><th>基本面状态</th><th>星级</th></tr></thead>
+                <tbody>
+                <!-- PILLAR_REPORTS -->
+                </tbody>
+              </table>
             </div>
-          </div>
+          </section>
           <p class="industry-empty-results" hidden>没有匹配的研报项。</p>
         </div>
       </section>
@@ -388,7 +403,7 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
               </div>
               <div class="tracking-table-wrap">
                 <table class="tracking-table">
-                  <thead><tr><th>标的</th><th>公允价值区间</th><th>交易定价偏离</th><th>盘中实时</th><th><button class="table-sort-button" type="button" id="tracking-sort-close-performance" aria-pressed="false" aria-label="按近一周涨跌幅排序">收盘表现</button><small id="tracking-close-date"></small></th><th><button class="table-sort-button" type="button" id="tracking-sort-intraday" aria-pressed="false" aria-label="按盈亏比从高到低排序">盈亏比</button></th><th>每日估值监控</th><th>三要素判断</th><th>数据来自研报</th><th>复盘</th><th>星级</th></tr></thead>
+                  <thead><tr><th>标的</th><th>公允价值区间</th><th>交易定价偏离</th><th>盘中实时</th><th><button class="table-sort-button" type="button" id="tracking-sort-close-performance" aria-pressed="false" aria-label="按近一周涨跌幅排序">收盘表现</button><small id="tracking-close-date"></small></th><th><button class="table-sort-button" type="button" id="tracking-sort-intraday" aria-pressed="false" aria-label="按盈亏比从高到低排序">盈亏比</button></th><th>每日估值监控</th><th>三要素判断</th><th>基本面状态</th><th>复盘</th><th>星级</th><th>操作</th></tr></thead>
                   <tbody id="holding-tracker-list"></tbody>
                 </table>
               </div>

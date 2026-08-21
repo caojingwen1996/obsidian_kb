@@ -44,6 +44,7 @@ const FUGUI_STRATEGY_RULES = Object.freeze({
 const YOUZHIYOUXING_TEMPERATURE_URL = 'https://youzhiyouxing.cn/data';
 const NASDAQ100_SOURCE_URL = 'https://finance.yahoo.com/quote/%5ENDX/';
 const CSI_DIVIDEND_SIGNAL_SOURCE_URL = '../../sources/automations/中证红利信号/最新信号.md';
+const CSI_DIVIDEND_ANNUAL_SOURCE_URL = '../../sources/automations/中证红利信号/中证红利年度表现.json';
 const HOLDING_STATUSES = new Set(['持有', '观察', '计划加仓', '计划减仓']);
 const ALLOCATION_CATEGORIES = Object.freeze([
   { key: 'strategy', label: '战略资源', color: '#26a68f' },
@@ -88,6 +89,9 @@ const CSI_DIVIDEND_SIGNAL = Object.freeze(
 );
 const CSI_DIVIDEND_YIELD_HISTORY = Object.freeze(
   // CSI_DIVIDEND_YIELD_HISTORY
+);
+const CSI_DIVIDEND_ANNUAL_PERFORMANCE = Object.freeze(
+  // CSI_DIVIDEND_ANNUAL_PERFORMANCE
 );
 
 function domain(snapshot, id) {
@@ -249,6 +253,11 @@ function formatValue(metric) {
 function formatTime(value) {
   const timestamp = Number(value);
   return Number.isFinite(timestamp) ? new Intl.DateTimeFormat('zh-CN', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Shanghai' }).format(timestamp) : '—';
+}
+
+function formatSignedPercent(value) {
+  if (!Number.isFinite(value)) return '—';
+  return `${value > 0 ? '+' : ''}${formatNumber(value, 2)}%`;
 }
 
 function normalizeStockName(value) {
@@ -523,6 +532,7 @@ export function parseReportSummary(html) {
   const secid = documentNode.querySelector('meta[name="stock-secid"]')?.getAttribute('content')
     || firstTextMatch(html, [/stock-quote\?secid=([01]\.\d{6})/]);
   const fundamental = trackingCardValue(documentNode, 'fundamental-status')
+    || tableValueByLabel(documentNode, ['基本面状态', '基本面判断'])
     || [
       tableValueByLabel(documentNode, ['估值状态']),
       tableValueByLabel(documentNode, ['操作建议']),
@@ -657,6 +667,8 @@ function parseDividendSignalMarkdown(markdown) {
     indexDate: pickAny(['指数估值日期', 'AKShare 指数估值日期']),
     bondDate: pick('10年国债收益率日期'),
     dividendYield2: parseNumberFromText(pickAny(['中证红利股息率口径', 'AKShare 中证红利股息率2'])),
+    ytdReturn: parseNumberFromText(pickAny(['全年收益率', '年内收益率'])),
+    ytdMaxDrawdown: parseNumberFromText(pickAny(['年内最大回撤', '全年最大回撤'])),
     xueqiuChangePercent: pick('雪球当天涨跌幅'),
     lixingerDate: pick('理杏仁估值日期'),
     lixingerDividendYield: pick('理杏仁市值加权股息率'),
@@ -697,8 +709,38 @@ function renderDividendSignalCard(signal) {
       <div><small>10年国债</small><strong>${formatNumber(signal.bond10yYield, 2)}%</strong></div>
       <div><small>股债利差</small><strong>${formatNumber(signal.spread, 2)}%</strong><span>${escapeHtml(spread.grade ? `${spread.grade} ${spread.label}` : signal.spreadSignal ?? '待验证')}</span></div>
       <div><small>历史分位</small><strong>${escapeHtml(percentile.grade || '待验证')}</strong><span>${escapeHtml(signal.percentileSignal ?? '待验证')}</span></div>
+      <div><small>全年收益率</small><strong>${formatNumber(signal.ytdReturn, 2)}%</strong><span>年初至信号日</span></div>
+      <div><small>年内最大回撤</small><strong>${formatNumber(signal.ytdMaxDrawdown, 2)}%</strong><span>日收盘价口径</span></div>
     </div>
   </button>`;
+}
+
+function renderDividendAnnualPerformance(history) {
+  const rows = Array.isArray(history?.rows) ? [...history.rows].sort((left, right) => right.year - left.year) : [];
+  if (!rows.length) {
+    return `<article class="panel dividend-annual-panel"><h3>年度收益与最大回撤</h3><p class="dividend-annual-empty">年度历史数据暂未生成。</p></article>`;
+  }
+  const period = [history.firstDate, history.lastDate].filter(Boolean).join(' 至 ');
+  const toneClass = value => value > 0 ? 'is-gain' : value < 0 ? 'is-loss' : 'is-flat';
+  return `<article class="panel dividend-annual-panel">
+    <div class="dividend-annual-head">
+      <div><p class="eyebrow">ANNUAL PERFORMANCE</p><h3>年度收益与最大回撤</h3><p>${escapeHtml(`${period} · ${rows.length}个年度`)}</p></div>
+      <a class="button-secondary" href="${CSI_DIVIDEND_ANNUAL_SOURCE_URL}" target="_blank" rel="noopener noreferrer">打开年度数据</a>
+    </div>
+    <div class="dividend-annual-table-wrap">
+      <table class="dividend-annual-table">
+        <thead><tr><th>年份</th><th>统计区间</th><th>全年收益率</th><th>年内最大回撤</th><th>状态</th></tr></thead>
+        <tbody>${rows.map(row => `<tr${row.status === '年内' ? ' class="is-current"' : ''}>
+          <td><strong>${escapeHtml(row.year)}</strong></td>
+          <td>${escapeHtml(`${row.startDate} — ${row.endDate}`)}</td>
+          <td class="${toneClass(row.annualReturn)}">${escapeHtml(formatSignedPercent(row.annualReturn))}</td>
+          <td class="${toneClass(row.maxDrawdown)}">${escapeHtml(formatSignedPercent(row.maxDrawdown))}</td>
+          <td><span class="dividend-annual-status">${escapeHtml(row.status || '完整年度')}</span></td>
+        </tr>`).join('')}</tbody>
+      </table>
+    </div>
+    <p class="dividend-annual-note">${escapeHtml(history.returnConvention || '收益率按每年首个交易日至末个交易日收盘价计算')}；${escapeHtml(history.drawdownConvention || '最大回撤按年内日收盘价计算')}。来源：${escapeHtml(history.source || '中证指数官网')}。</p>
+  </article>`;
 }
 
 function renderDividendSignalDetail(signal) {
@@ -735,6 +777,18 @@ function renderDividendSignalDetail(signal) {
       note: '由上面两个指标计算，不是独立抓取字段。',
     },
     {
+      metric: '全年收益率',
+      source: 'AKShare 指数日线（腾讯主源）',
+      date: signal.indexDate || signal.recordDate || '待确认',
+      note: sourceBoundary(/stock_zh_index_daily/) || '按本年度首个交易日至信号日期的日收盘价计算。',
+    },
+    {
+      metric: '年内最大回撤',
+      source: 'AKShare 指数日线（腾讯主源）',
+      date: signal.indexDate || signal.recordDate || '待确认',
+      note: sourceBoundary(/stock_zh_index_daily/) || '按本年度日收盘价相对此前峰值的最大跌幅计算。',
+    },
+    {
       metric: '历史分位',
       source: '理杏仁公开页面',
       date: signal.lixingerDate || '待确认',
@@ -764,7 +818,10 @@ function renderDividendSignalDetail(signal) {
       <article><small>10年国债</small><strong>${formatNumber(signal.bond10yYield, 2)}%</strong></article>
       <article><small>股债利差</small><strong>${formatNumber(signal.spread, 2)}%</strong><span>${escapeHtml(spread.grade ? `${spread.grade} ${spread.label}` : signal.spreadSignal ?? '待验证')}</span></article>
       <article><small>历史分位</small><strong>${escapeHtml(percentile.grade || '待验证')}</strong><span>${escapeHtml(signal.percentileSignal ?? '待验证')}</span></article>
+      <article><small>全年收益率</small><strong>${formatNumber(signal.ytdReturn, 2)}%</strong><span>本年度首个交易日至信号日期</span></article>
+      <article><small>年内最大回撤</small><strong>${formatNumber(signal.ytdMaxDrawdown, 2)}%</strong><span>按日收盘价相对此前峰值计算</span></article>
     </div>
+    ${renderDividendAnnualPerformance(CSI_DIVIDEND_ANNUAL_PERFORMANCE)}
     ${renderDividendYieldChart(CSI_DIVIDEND_YIELD_HISTORY)}
     <article class="panel dividend-detail-panel">
       <h3>历史分位点</h3>
@@ -2002,6 +2059,7 @@ function startApp() {
       storage.setItem(PORTFOLIO_STORAGE_KEY, JSON.stringify({ holdings, trackingItems }));
       renderHoldings();
       renderTrackingItems();
+      hydrateIndustryReportRows();
     } catch {
       // Browser storage remains the explicit fallback when the local file endpoint is unavailable.
     }
@@ -2216,6 +2274,94 @@ function startApp() {
     }
   }
 
+  function hydrateIndustryReportRows(section = null) {
+    const root = section ?? document.querySelector('.view[data-shell-content="industry"].is-active');
+    if (!root) return;
+    root.querySelectorAll('.industry-report').forEach(row => {
+      const sourceHref = row.dataset.reportHref ?? '';
+      const sourceTitle = row.dataset.reportTitle ?? '';
+      const sourceLabel = row.dataset.reportLabel ?? '';
+      const sourceTime = row.dataset.reportTime ?? '';
+      const sourceDirectory = row.dataset.sourceDirectory ?? '';
+      const equityReportHref = row.dataset.equityReportHref ?? '';
+      const fundFlowHref = row.dataset.fundFlowHref ?? '';
+      const name = row.dataset.stockName || sourceTitle;
+      const lookupItem = { name, code: stockCodeForTrackingItem({ name }) };
+      const primaryReportHref = equityReportHref || reportLinkForTrackingItem(lookupItem) || sourceHref;
+      const threeFactorReportHref = row.dataset.threeFactorHref || threeFactorReportLinkForTrackingItem(lookupItem);
+      let reportEntry = primaryReportHref ? reportSummaryCache.get(primaryReportHref) : null;
+      if (primaryReportHref && !reportEntry) {
+        reportEntry = { status: 'loading' };
+        reportSummaryCache.set(primaryReportHref, reportEntry);
+        loadReportSummary(primaryReportHref);
+      }
+      let threeFactorEntry = threeFactorReportHref ? threeFactorSummaryCache.get(threeFactorReportHref) : null;
+      if (threeFactorReportHref && !threeFactorEntry) {
+        threeFactorEntry = { status: 'loading' };
+        threeFactorSummaryCache.set(threeFactorReportHref, threeFactorEntry);
+        loadThreeFactorSummary(threeFactorReportHref);
+      }
+      const report = reportEntry?.data ?? {};
+      const secid = secidForTrackingItem(lookupItem, report);
+      let quoteEntry = secid ? trackingQuoteCache.get(secid) : null;
+      if (secid && isLocalProxyLocation() && !quoteEntry) {
+        quoteEntry = { status: 'loading' };
+        trackingQuoteCache.set(secid, quoteEntry);
+        loadTrackingQuote(secid).then(() => hydrateIndustryReportRows(root));
+      }
+      let closePerformanceEntry = secid ? trackingClosePerformanceCache.get(secid) : null;
+      if (secid && isLocalProxyLocation() && !closePerformanceEntry) {
+        closePerformanceEntry = { status: 'loading' };
+        trackingClosePerformanceCache.set(secid, closePerformanceEntry);
+        loadTrackingClosePerformance(secid).then(() => hydrateIndustryReportRows(root));
+      }
+      const liveQuote = quoteEntry?.quote ?? reportEntry?.quote;
+      const riskReward = trackingRiskRewardForQuote({ valueRange: report.valueRange, livePrice: liveQuote?.price });
+      const signal = trackingSignalForQuote({
+        valueRange: report.valueRange,
+        livePrice: liveQuote?.price,
+        riskRewardRatio: riskReward.ratio,
+      });
+      const signalLabel = signal.addStars > 0 ? '★'.repeat(signal.addStars) : signal.reducible ? '可减' : '—';
+      const intraday = liveQuote
+        ? `${liveQuote.price.toFixed(2)} 元`
+        : quoteEntry?.status === 'loading' ? '读取中…' : isLocalProxyLocation() ? '未获取到' : '需启动面板';
+      const closePerformanceHtml = Number.isFinite(closePerformanceEntry?.data?.latestClose)
+        ? `<div class="tracking-close-performance"><small>近一周 ${Number.isFinite(closePerformanceEntry.data.weekChangePercent) ? `${closePerformanceEntry.data.weekChangePercent >= 0 ? '+' : ''}${formatNumber(closePerformanceEntry.data.weekChangePercent, 2)}%` : '—'}</small></div>`
+        : escapeHtml(closePerformanceEntry?.status === 'loading' ? '读取中…' : isLocalProxyLocation() ? '未获取到' : '需启动面板');
+      const factorItems = [
+        ['格局', threeFactorEntry?.data?.competition],
+        ['流动性', threeFactorEntry?.data?.liquidity],
+        ['情绪', threeFactorEntry?.data?.emotion],
+      ].filter(([, factor]) => factor?.value);
+      const threeFactorSummaryHtml = factorItems.length
+        ? `<small>${factorItems.map(([label, factor]) => `<span class="${threeFactorToneClass(factor.tone)}"><b>${escapeHtml(label)}</b>${escapeHtml(factor.value)}</span>`).join('')}</small>`
+        : `<small class="tracking-three-factor-state">${escapeHtml(threeFactorEntry?.status === 'loading' ? '读取研报…' : '未获取到')}</small>`;
+      const threeFactorHtml = threeFactorReportHref
+        ? `<div class="tracking-three-factor">${threeFactorSummaryHtml}<a href="${escapeHtml(threeFactorReportHref)}" target="_blank" rel="noopener noreferrer">三要素研报</a></div>`
+        : '未关联';
+      const pricingDeviation = report.pricingDeviation
+        || (reportEntry?.status === 'loading' ? '读取研报…' : '未获取到');
+      const fundFlowHtml = fundFlowHref
+        ? `<div class="tracking-report-links"><a class="industry-report-link" href="${escapeHtml(fundFlowHref)}" target="_blank" rel="noopener noreferrer">资金面分析</a></div>`
+        : '<span class="tracking-three-factor-state">未关联</span>';
+      const fundamentalText = report.fundamental
+        || (reportEntry?.status === 'loading' ? '读取研报…' : primaryReportHref ? '研报未提供基本面状态' : '未关联研报');
+      const fundamentalHtml = `<div class="tracking-fundamental-status"><span>${escapeHtml(fundamentalText)}</span>${primaryReportHref ? `<a class="industry-report-link" href="${escapeHtml(primaryReportHref)}" target="_blank" rel="noopener noreferrer">个股研报</a>` : ''}</div>`;
+      row.innerHTML = `
+        <td class="tracking-target"><strong><a class="industry-report-link" href="${escapeHtml(primaryReportHref || sourceHref)}" target="_blank" rel="noopener noreferrer">${escapeHtml(name)}</a></strong><small>${escapeHtml(sourceTitle)}</small></td>
+        <td>${escapeHtml(report.valueRange || (reportEntry?.status === 'loading' ? '读取研报…' : '未获取到'))}</td>
+        <td><span class="tracking-pricing-deviation ${pricingDeviationToneClass(pricingDeviation)}">${escapeHtml(pricingDeviation)}</span></td>
+        <td>${escapeHtml(intraday)}</td>
+        <td>${closePerformanceHtml}</td>
+        <td>${threeFactorHtml}</td>
+        <td>${fundFlowHtml}</td>
+        <td>${fundamentalHtml}<small class="tracking-updated">${escapeHtml(report.sourceUpdated ? `研报：${report.sourceUpdated}` : `${sourceLabel} · ${sourceTime}`)}<br>${escapeHtml(`来源目录：${sourceDirectory}`)}</small></td>
+        <td>${escapeHtml(signalLabel)}</td>`;
+    });
+    applyIndustryFilter(root);
+  }
+
   const renderTrackingItems = () => {
     const summary = summarizeTrackingItems(trackingItems);
     const enrichedItems = summary.items.map((item, index) => {
@@ -2359,6 +2505,9 @@ function startApp() {
       const pricingDeviation = report.pricingDeviation
         || (reportEntry?.status === 'loading' ? '读取研报…' : '未获取到');
       const pricingDeviationHtml = `<span class="tracking-pricing-deviation ${pricingDeviationToneClass(pricingDeviation)}">${escapeHtml(pricingDeviation)}</span>`;
+      const fundamentalText = report.fundamental
+        || (reportEntry?.status === 'loading' ? '读取研报…' : reportHref ? '研报未提供基本面状态' : '未关联研报');
+      const fundamentalHtml = `<div class="tracking-fundamental-status"><span>${escapeHtml(fundamentalText)}</span>${reportLinksHtml}</div>`;
       return `<tr data-tracking-id="${escapeHtml(item.id)}"${reportHref ? ` data-report-href="${escapeHtml(reportHref)}"` : ''}>
       <td class="tracking-target"><strong>${nameHtml}</strong><small>${escapeHtml(item.code || report.secid || '未填代码')}</small><span class="tracker-status">${escapeHtml(item.status)}</span></td>
       <td>${escapeHtml(report.valueRange || item.thesis || (reportEntry?.status === 'loading' ? '读取研报…' : '未获取到'))}</td>
@@ -2368,9 +2517,10 @@ function startApp() {
       <td>${escapeHtml(riskRewardText)}</td>
       <td>${valuationDispositionHtml}</td>
       <td>${threeFactorHtml}</td>
-      <td><div class="tracking-report-links">${reportLinksHtml || escapeHtml(item.reviewCondition || '未关联研报')}</div><small class="tracking-updated">${escapeHtml(report.sourceUpdated ? `研报：${report.sourceUpdated}` : `记录：${new Date(item.updatedAt).toLocaleString('zh-CN', { hour12: false })}`)}</small><div class="tracker-row-actions"><button type="button" data-action="edit-tracking">编辑</button><button type="button" data-action="delete-tracking">删除</button></div></td>
+      <td>${fundamentalHtml}<small class="tracking-updated">${escapeHtml(report.sourceUpdated ? `研报：${report.sourceUpdated}` : `记录：${new Date(item.updatedAt).toLocaleString('zh-CN', { hour12: false })}`)}</small></td>
       <td><button class="review-diary-button" type="button" data-action="review-diary">复盘日记</button></td>
       <td>${escapeHtml(signalLabel)}</td>
+      <td><div class="tracker-row-actions"><button type="button" data-action="edit-tracking" aria-label="编辑 ${escapeHtml(item.name)}">编辑</button><button type="button" data-action="delete-tracking" aria-label="删除 ${escapeHtml(item.name)}">删除</button></div></td>
     </tr>`;
     };
     const groupedRows = () => {
@@ -2380,7 +2530,7 @@ function startApp() {
           (allocationCategoryForReport(reportHref) || UNCATEGORIZED_ALLOCATION_CATEGORY.key) === group.key
         );
         if (!groupItems.length) return '';
-        return `<tr class="tracking-group-row"><th colspan="11" style="--group-color:${group.color}"><div class="tracking-group-head"><span>${escapeHtml(group.label)}</span><small>${groupItems.length} 个标的</small></div></th></tr>${groupItems.map(renderTrackingRow).join('')}`;
+        return `<tr class="tracking-group-row"><th colspan="12" style="--group-color:${group.color}"><div class="tracking-group-head"><span>${escapeHtml(group.label)}</span><small>${groupItems.length} 个标的</small></div></th></tr>${groupItems.map(renderTrackingRow).join('')}`;
       }).join('');
     };
     const sortButton = document.getElementById('tracking-sort-intraday');
@@ -2449,6 +2599,7 @@ function startApp() {
       reportSummaryCache.set(reportHref, { status: 'error', data: {} });
     }
     renderTrackingItems();
+    hydrateIndustryReportRows();
   }
 
   async function loadThreeFactorSummary(reportHref) {
@@ -2461,6 +2612,7 @@ function startApp() {
       threeFactorSummaryCache.set(reportHref, { status: 'error', data: {} });
     }
     renderTrackingItems();
+    hydrateIndustryReportRows();
   }
 
   async function refreshDividendSignalFromSource() {
@@ -2619,13 +2771,18 @@ function startApp() {
       list.hidden = visibleBoardCount === 0;
       visibleCount += visibleBoardCount;
     });
-    section.querySelectorAll('.industry-report').forEach(card => {
-      const filters = (card.dataset.filters ?? '').split(',').map(item => item.trim()).filter(Boolean);
-      const matchesFilter = activeFilter === 'all' || filters.includes(activeFilter);
-      const matchesQuery = !query || card.textContent.toLocaleLowerCase('zh-CN').includes(query);
-      const visible = matchesFilter && matchesQuery;
-      card.hidden = !visible;
-      if (visible) visibleCount += 1;
+    section.querySelectorAll('.industry-report-panel').forEach(panel => {
+      let visibleReportCount = 0;
+      panel.querySelectorAll('.industry-report').forEach(row => {
+        const filters = (row.dataset.filters ?? '').split(',').map(item => item.trim()).filter(Boolean);
+        const matchesFilter = activeFilter === 'all' || filters.includes(activeFilter);
+        const matchesQuery = !query || row.textContent.toLocaleLowerCase('zh-CN').includes(query);
+        const visible = matchesFilter && matchesQuery;
+        row.hidden = !visible;
+        if (visible) visibleReportCount += 1;
+      });
+      panel.hidden = visibleReportCount === 0;
+      visibleCount += visibleReportCount;
     });
     const empty = section.querySelector('.industry-empty-results');
     if (empty) empty.hidden = visibleCount > 0;
@@ -2685,6 +2842,7 @@ function startApp() {
     if (viewId === 'risk-monitor') refreshRiskMarginChart();
     if (viewId === 'review-diary-view' && !reviewDiariesLoaded) refreshReviewDiaries();
     if (viewId === 'market-summary' || viewId === 'dividend-signal-view') refreshDividendSignalFromSource();
+    if (viewId.startsWith('industry-')) hydrateIndustryReportRows(document.getElementById(viewId));
   };
 
   const setShell = (shell, viewId = null) => {
@@ -2736,6 +2894,12 @@ function startApp() {
     });
     form.querySelector('input')?.addEventListener('input', () => applyIndustryFilter(section));
   });
+  document.querySelectorAll('.industry-report-panel').forEach(panel => panel.addEventListener('click', event => {
+    const button = event.target.closest('button[data-action="review-diary"]');
+    if (!button) return;
+    const item = trackingItems.find(entry => entry.id === button.dataset.trackingId);
+    if (item) openReviewDiary(item);
+  }));
   document.querySelectorAll('.featured-filter-tabs button').forEach(button => button.addEventListener('click', event => {
     document.querySelectorAll('.featured-filter-tabs button').forEach(item => {
       const active = item === event.currentTarget;

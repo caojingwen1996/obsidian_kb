@@ -233,7 +233,7 @@ def summary_report(run: dict, items: list[dict]) -> str:
     queue = [i for i in items if i["revalue"] != "NO_REVALUE"]
     queue_rows = "\n".join(
         f"| {i.get('review_priority','—')} | {i['name']} | {i['revalue']} | {i['reason']} | {i['method']} | {i['report_date']} | {i['missing']} | {i['next_step']} |" for i in queue
-    )
+    ) or "> 本次监控没有标的进入估值重算队列；股价变化只更新安全边际，不改变原价值区间。"
     report_updates = [i for i in items if i["update_report"]]
     update_rows = "\n".join(
         f"| {i.get('review_priority','—')} | {i['name']} | {i['update_section']} | {i['reason']} | {i['missing']} | {i['next_step']} |" for i in report_updates
@@ -251,7 +251,7 @@ def summary_report(run: dict, items: list[dict]) -> str:
         quick_parts.append(f"{counts['LIGHT_REVALUE']} 个进入局部重算")
     if counts["MANUAL_REVIEW"]:
         quick_parts.append(f"{counts['MANUAL_REVIEW']} 个进入人工判断")
-    quick_parts.append(f"其余 {counts['NO_REVALUE']} 个维持原估值区间并仅更新价格和安全边际")
+    quick_parts.append(f"其中 {counts['NO_REVALUE']} 个为 NO_REVALUE，维持原估值区间并仅更新价格和安全边际")
     quick_conclusion = "；".join(quick_parts) + "。"
     continue_reading = bool(focus)
     return f"""# 持仓今日监控汇总
