@@ -81,6 +81,13 @@ datasets:
     cache_ttl_seconds: 300
     required_params: [ts_code]
     allowed_params: [ts_code, ann_date, record_date, ex_date, imp_ann_date, fields]
+  stk_holdernumber:
+    api: stk_holdernumber
+    purpose: A股股东户数历史披露及相邻披露期变化
+    cache_ttl_seconds: 300
+    required_params: [ts_code]
+    allowed_params: [ts_code, ann_date, enddate, start_date, end_date, fields]
+    fields: [ts_code, ann_date, end_date, holder_num]
   top10_holders:
     api: top10_holders
     purpose: A股前十大股东披露名单，用于核验重要股东是否出现在定期报告口径中

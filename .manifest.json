@@ -1,11 +1,43 @@
 {
   "version": 1,
   "stats": {
-    "total_sources_ingested": 218,
-    "total_pages": 456,
-    "source_count": 259
+    "total_sources_ingested": 220,
+    "total_pages": 457,
+    "source_count": 261
   },
   "sources": {
+    "sources/manual/2026-08-26-冰冰小美：《两次全球大危机的比较研究》推荐理由补充.md": {
+      "ingested_at": "2026-08-26T16:21:09+08:00",
+      "size_bytes": 1334,
+      "modified_at": "2026-08-26T16:20:57+08:00",
+      "content_hash": "sha256:816f6c68b402cd45bd2f68ffa9766b3148197c926ada456b0c04e09785d97514",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [],
+      "pages_updated": [
+        "wiki/topics/冰冰小美的书单.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
+    "sources/manual/2026-08-26-冰冰小美：书单与阅读方向补充.md": {
+      "ingested_at": "2026-08-26T16:13:48+08:00",
+      "size_bytes": 1778,
+      "modified_at": "2026-08-26T16:13:31+08:00",
+      "content_hash": "sha256:caae845eff6e6a5564f2b45675d82f18381cc92f117bd671c4948d816a1c48b3",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "wiki/topics/冰冰小美的书单.md"
+      ],
+      "pages_updated": [
+        "index.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
     "E:/caojingwen/obsidian/llmwiki/sources/articles/2023-06-20-冰冰小美：常见亏钱认知第十期会卖的是师傅，会买的是徒弟.md": {
       "ingested_at": "2026-07-10T18:04:35+08:00",
       "size_bytes": 8255,
@@ -6073,5 +6105,5 @@
       ]
     }
   ],
-  "updated_at": "2026-08-04T15:31:05+08:00"
+  "updated_at": "2026-08-26T16:21:09+08:00"
 }

@@ -1,0 +1,37 @@
+2026-08-26 16:05:11 +08:00 [info] BBXM每日汇总 started for target_date=2026-08-26 author=冰冰小美 official_dir=sources/automations/BBXM每日汇总/2026-08-26/冰冰小美
+2026-08-26 16:05:11 +08:00 [info] Read .agents/automations/bbxm_daliy_brief.md and cjw-xueqiu-daily-monitor EXTEND.md; using official hyphenated automation directory.
+2026-08-26 16:05:11 +08:00 [info] CDP 9333 was unavailable in sandbox; extractor rerun with browser/Xueqiu access approval.
+2026-08-26 16:10:59 +08:00 [error] Capture blocked: Xueqiu login required in the automation Chrome window and timed out before recovery.
+2026-08-26 16:11:32 +08:00 [warning] No extracted-posts.json, raw Markdown posts, or state.json were produced. This is incomplete capture, not evidence of no target-date posts.
+2026-08-26 16:11:32 +08:00 [info] Wrote blocked summary.md and risk-analysis.json with analysis_complete=false.
+2026-08-26 16:12:03 +08:00 [info] Excel updater wrote risk-write-status.json with status=blocked, count=0; workbook was not modified.
+2026-08-27 09:50:27 +08:00 [warning] Rerun login check stopped immediately after extractor reported Xueqiu login required; no manual wait window was used and no new extracted JSON was produced.
+2026-08-27 09:55:11 +08:00 [info] Opened a visible Edge automation window with the Xueqiu profile at https://xueqiu.com/u/7143769715 and activated it for manual login; capture is paused until the user confirms login is complete.
+
+# merged from temporary 20260826 content_task run
+2026-08-27 10:07:50,901 [INFO] 开始处理已提取帖子 input_file=sources\automations\BBXM每日汇总\2026-08-26\冰冰小美\processing\extracted-posts-rerun-20260826-afterlogin.json author=冰冰小美 target_date=2026-08-26
+2026-08-27 10:07:50,905 [INFO] 保存成功: E:\caojingwen\obsidian\llmwiki\sources\automations\BBXM每日汇总\20260826\冰冰小美\120300_关于周期股的难度_特别是与_大宗商品_相关的_我觉得_很多人看期货买个股_通常会亏钱_原因很多的_40667607.md
+2026-08-27 10:07:50,909 [INFO] 保存成功: E:\caojingwen\obsidian\llmwiki\sources\automations\BBXM每日汇总\20260826\冰冰小美\114800_做科普不容易的_会被人认为只会吹票_其实股票就是一个载体_你自己选择的个股不一定比我差_我只是通_40667404.md
+2026-08-27 10:07:50,915 [INFO] 保存成功: E:\caojingwen\obsidian\llmwiki\sources\automations\BBXM每日汇总\20260826\冰冰小美\113700_挣钱容易还是发帖容易_挣钱很多人都会呀_但是发帖_不见得_没经历过_说不出一二三_实践是检验真理_40667185.md
+2026-08-27 10:07:50,919 [INFO] 保存成功: E:\caojingwen\obsidian\llmwiki\sources\automations\BBXM每日汇总\20260826\冰冰小美\112700_谈美元稳定币或者比特币_并不是推荐买卖_是如何观察全球金融资产波动的一种观察视角_比特币在我国是_40666975.md
+2026-08-27 10:07:50,924 [INFO] 保存成功: E:\caojingwen\obsidian\llmwiki\sources\automations\BBXM每日汇总\20260826\冰冰小美\111500_石油美元霸权_美元与石油绑定_发展工业就需要美元_因此_我国发展积累了大量美元外汇_这其实就是石_40666697.md
+2026-08-27 10:07:50,936 [INFO] 保存成功: E:\caojingwen\obsidian\llmwiki\sources\automations\BBXM每日汇总\20260826\冰冰小美\110700_为什么要了解比特币_现在叫做美元稳定币_如今比特币立法越来越多_监管越来越多_这是走正规渠道的路_40666497.md
+2026-08-27 10:07:50,940 [INFO] 保存成功: E:\caojingwen\obsidian\llmwiki\sources\automations\BBXM每日汇总\20260826\冰冰小美\105500_我不看盘了呀_已经做T完毕的_-_雪球_40666166.md
+2026-08-27 10:07:50,946 [INFO] 保存成功: E:\caojingwen\obsidian\llmwiki\sources\automations\BBXM每日汇总\20260826\冰冰小美\104500_作为美元稳定币-美债代表_比特币活跃_美债购买力加强_购买力加强_可能就会引发美债利率下跌_实际_40665892.md
+2026-08-27 10:07:50,954 [INFO] 保存成功: E:\caojingwen\obsidian\llmwiki\sources\automations\BBXM每日汇总\20260826\冰冰小美\104000_创业板_继续围绕十字星波动_今天第一个小时放量的_行情会比较好_盘面_有色金属_与流动性宽松相关_40665736.md
+2026-08-27 10:07:50,960 [INFO] 保存成功: E:\caojingwen\obsidian\llmwiki\sources\automations\BBXM每日汇总\20260826\冰冰小美\103000_有人估计关注到自选股的_楚天龙_四板_昨日比特币在长期压力位82000附近止步_空头反扑剧烈_博_40665389.md
+2026-08-27 10:07:50,966 [INFO] 保存成功: E:\caojingwen\obsidian\llmwiki\sources\automations\BBXM每日汇总\20260826\冰冰小美\101000_事出反常必有妖_好多天都是_晚上期货涨_白天期货跌_但是期货总体涨_然后股票价格连续三天_期货每_40664708.md
+2026-08-27 10:07:50,971 [INFO] 保存成功: E:\caojingwen\obsidian\llmwiki\sources\automations\BBXM每日汇总\20260826\冰冰小美\095100_雪球-聪明的投资者都在这里_40663992.md
+2026-08-27 10:07:50,973 [INFO] 跳过非目标日期内容: 帖子不属于目标日期: 2026-08-25
+2026-08-27 10:07:50,973 [INFO] 跳过非目标日期内容: 帖子不属于目标日期: 2026-08-24
+2026-08-27 10:07:50,973 [INFO] 跳过非目标日期内容: 帖子不属于目标日期: 2026-08-24
+2026-08-27 10:07:50,973 [INFO] 跳过非目标日期内容: 帖子不属于目标日期: 2026-08-24
+2026-08-27 10:07:50,974 [INFO] 跳过非目标日期内容: 帖子不属于目标日期: 2026-08-24
+2026-08-27 10:21:28 +08:00 [info] Login-confirmed rerun completed: extractor captured 20 detail records, content task saved 12 target-date raw posts and skipped 8 non-target-date records.
+2026-08-27 10:21:28 +08:00 [info] Added missing labels to 12 raw posts and regenerated summary.md with the cross-post section "解析今天文章的观点".
+2026-08-27 10:21:28 +08:00 [warning] 09:51 post https://xueqiu.com/7143769715/406639929 has URL, timestamp and label but no extractable stable author main body; risk-analysis.json set analysis_complete=false.
+2026-08-27 10:21:28 +08:00 [info] Generated 操作.md for the explicit 10:30 sell-point signal limited to A-share digital-currency / 楚天龙 short-term sentiment.
+2026-08-27 10:21:28 +08:00 [info] Excel updater returned status=blocked count=0; workbook was not modified because analysis_complete=false.
+2026-08-27 10:07:50,974 [INFO] 跳过非目标日期内容: 帖子不属于目标日期: 2026-08-24
+2026-08-27 10:07:50,974 [INFO] 跳过非目标日期内容: 帖子不属于目标日期: 2026-08-24
+2026-08-27 10:07:50,974 [INFO] 跳过非目标日期内容: 帖子不属于目标日期: 2026-08-24

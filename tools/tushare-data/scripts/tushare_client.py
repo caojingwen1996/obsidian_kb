@@ -163,6 +163,13 @@ DATASETS = {
         },
         "date_fields": {"end_date", "ann_date", "record_date", "ex_date", "pay_date", "imp_ann_date"},
     },
+    "stk_holdernumber": {
+        "fields": ("ts_code", "ann_date", "end_date", "holder_num"),
+        "allowed_params": {"ts_code", "ann_date", "enddate", "start_date", "end_date", "fields"},
+        "required_params": {"ts_code"},
+        "defaults": {"fields": "ts_code,ann_date,end_date,holder_num"},
+        "date_fields": {"ann_date", "end_date"},
+    },
     "top10_holders": {
         "fields": (
             "ts_code", "ann_date", "end_date", "holder_name", "hold_amount",
@@ -441,7 +448,7 @@ def validate_params(method, params):
         merged["ts_code"] = normalize_fx_code(merged["ts_code"]) if method == "fx_daily" else a_share_ts_code(merged["ts_code"])
     if "index_code" in merged:
         merged["index_code"] = normalize_index_code(merged["index_code"])
-    for key in ("trade_date", "start_date", "end_date", "date"):
+    for key in ("trade_date", "start_date", "end_date", "enddate", "date"):
         if key in merged and merged[key]:
             merged[key] = tushare_date(merged[key])
     for key in ("ann_date", "period", "record_date", "ex_date", "imp_ann_date"):

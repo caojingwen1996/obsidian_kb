@@ -63,31 +63,11 @@ body {
 .daily-tracking-kicker { margin: 0 0 4px; color: var(--teal); font-size: 12px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
 .daily-tracking h2 { margin: 0; padding: 0; border: 0; font-size: 27px; }
 .daily-tracking-time { margin: 4px 0 0; color: var(--muted); font-size: 12px; text-align: right; }
-.tracking-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-.tracking-grid + .tracking-grid { margin-top: 12px; }
+.tracking-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 .tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
 .tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
 .tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
-.tracking-card[data-tracking-key="fair-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
-.pricing-levels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
-.pricing-level { display: flex; align-items: center; justify-content: center; min-height: 34px; padding: 5px 7px; border: 1px solid #d5e0e3; border-radius: 8px; color: #607580; background: #f4f7f8; font-size: 12px; line-height: 1.25; font-weight: 750; text-align: center; }
-.pricing-level.active { border-color: transparent; box-shadow: 0 0 0 2px rgba(15,50,70,.08); }
-.pricing-level-premium.active { color: #17604e; background: #dff3eb; }
-.pricing-level-overvalued.active { color: #86610d; background: #fff0bd; }
-.pricing-level-bubble.active { color: #9b4d10; background: #ffe3c9; }
-.pricing-level-severe.active { color: var(--danger); background: var(--danger-bg); }
-.range-breakdown { display: block; }
-.range-main { display: inline-flex; align-items: center; max-width: 100%; margin-bottom: 10px; padding: 3px 9px; border-radius: 999px; background: #e7f0f3; color: var(--navy); font-size: 20px; line-height: 1.3; font-weight: 800; }
-.range-points { display: grid; gap: 7px; margin-top: 1px; }
-.range-point { display: block; padding-left: 11px; border-left: 3px solid #bed2d8; color: #245068; font-size: 14px; line-height: 1.52; font-weight: 650; }
 .tracking-value.bad { color: var(--danger); }
-.tracking-detail { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; }
-.tracking-snapshot { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; font-weight: 650; }
-.tracking-status { display: inline-flex; margin-top: 10px; padding: 3px 8px; border-radius: 999px; color: #526b77; background: #edf2f4; font-size: 12px; font-weight: 700; }
-.tracking-status.live { color: #17604e; background: #dff3eb; }
-.tracking-status.error { color: var(--danger); background: var(--danger-bg); }
-.tracking-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; margin-top: 14px; padding-top: 13px; border-top: 1px solid #d5e0e3; color: #536d78; font-size: 13px; }
-.tracking-footer a { font-weight: 700; }
 
 @media (max-width: 980px) {
   .hero { padding: 40px 30px 34px; }
@@ -123,7 +103,7 @@ body {
     <header class="hero">
       <p class="eyebrow">BBXM EQUITY RESEARCH · 002050.SZ；H股02050.HK仅用于身份和融资核对</p>
       <h1>三花智控机构级决策研报</h1>
-      <div class="hero-meta"><span>2026-08-20 15:00（Asia/Shanghai，收盘）</span><span>2026-08-21</span><span>深圳证券交易所 / 人民币</span></div>
+      <div class="hero-meta"><span>2026-08-26 15:00（Asia/Shanghai，最近完成交易日）</span><span>2026-08-27</span><span>深圳证券交易所 / 人民币</span></div>
     </header>
     <div class="layout">
       <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
@@ -145,27 +125,20 @@ body {
       <article class="content"><blockquote>
 <p>证券代码：002050.SZ；H股02050.HK仅用于身份和融资核对
 交易所 / 币种：深圳证券交易所 / 人民币
-研究截止时间：2026-08-20 15:00（Asia/Shanghai，收盘）
-报告生成时间：2026-08-21
+研究截止时间：2026-08-26 15:00（Asia/Shanghai，最近完成交易日）
+报告生成时间：2026-08-27
 数据口径：中国企业会计准则；A股行情为Tushare不复权收盘；金额除特别说明外为人民币</p>
 </blockquote>
 <!-- DAILY_TRACKING_START -->
-<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-08-20 15:00（Asia/Shanghai，收盘）" data-value-low="28" data-value-high="40">
+<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-08-26 15:00（Asia/Shanghai，收盘）">
   <div class="daily-tracking-head">
     <div><p class="daily-tracking-kicker">Daily decision tracker</p><h2>每日跟踪面板</h2></div>
-    <p class="daily-tracking-time">更新：2026-08-20 15:00（Asia/Shanghai，收盘）<br>下次：收盘后 / 重大公告后</p>
+    <p class="daily-tracking-time">更新：2026-08-26 15:00（Asia/Shanghai，收盘）<br>下次：收盘后 / 重大公告后</p>
   </div>
   <div class="tracking-grid">
-    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">持平：2025盈利和现金流改善，2026Q1收入仅+1.36%，扣非利润+15.52%、经营现金流+136.50%；半年报尚未披露</p><p class="tracking-detail">风险方向：风险增强：基本面未明显恶化，但价格、杠杆和承接同步收缩，情绪仍处退潮。下一验证点与失效条件见第 11—13 章。</p></div>
-    <div class="tracking-card" data-tracking-key="fair-value-range"><p class="tracking-label">公允价值区间</p><p class="tracking-value"><span class="range-breakdown"><span class="range-main">28—40元</span><span class="range-points"><span class="range-point">28元附近=保守热管理基本盘加极少期权</span><span class="range-point">34元附近=主业合理质量溢价＋约2元/股概率期权</span><span class="range-point">40元附近=主业乐观兑现＋下一阶段商业化里程碑</span><span class="range-point">40元以上需机器人/液冷量产订单、独立收入毛利或2027—2028年盈利上修支撑</span></span></span></p><p class="tracking-detail">公允价值区间来自估值方法交叉验证；行情刷新不会自动改变区间。</p></div>
-    <div class="tracking-card" data-tracking-key="pricing-deviation"><p class="tracking-label">交易定价偏离</p><p class="tracking-value pricing-levels"><span class="pricing-level pricing-level-premium" data-valuation-level="估值溢价">估值溢价</span><span class="pricing-level pricing-level-overvalued" data-valuation-level="普通高估">普通高估</span><span class="pricing-level pricing-level-bubble" data-valuation-level="估值泡沫">估值泡沫</span><span class="pricing-level pricing-level-severe" data-valuation-level="严重估值泡沫">严重估值泡沫</span></p><p class="tracking-detail">当前判断：公允价值内，置信度中高；现价未超过乐观上沿，核心经营和现金流仍是反证。历史溢价处于出清中：60日价格-29.2%、融资余额-29.3%，机器人/液冷财务验证仍缺失；四级估值偏离均未高亮。</p></div>
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">轻微强化：H1收入+3.92%、归母-3.12%、扣非+6.82%、OCF+95.98%；基本盘现金质量改善但收入增速与前沿业务证据仍弱</p></div>
+    <div class="tracking-card" data-tracking-key="risk-status"><p class="tracking-label">风险状态</p><p class="tracking-value">混合：现金流风险减弱，但期权兑现风险持平，资金仍去杠杆</p></div>
   </div>
-  <div class="tracking-grid">
-    <div class="tracking-card" data-tracking-key="market-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">等待连接</p><p class="tracking-detail" id="intraday-detail">通过“大盘启动器”打开后获取盘中行情，每 60 秒刷新；直接打开 HTML 时不访问外部行情。</p><p class="tracking-snapshot">每日同步价：36.14元，2026-08-20收盘，-1.77%</p><span class="tracking-status" id="intraday-status">未连接</span></div>
-    <div class="tracking-card" data-tracking-key="risk-reward"><p class="tracking-label">盈亏比</p><p class="tracking-value bad" id="risk-reward-value">约 0.5:1</p><p class="tracking-detail" id="risk-reward-detail">每日同步价 36.14 元；到上沿 40.00 元的潜在上行 +10.7%，跌至下沿 28.00 元的风险 +22.5%。价格不改变价值区间本身。</p></div>
-    <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">新增现金 observe；已有持仓 review，不因40%回撤机械补仓</p><p class="tracking-detail">估值：合理偏高：36.14元已回到公允价值区间内，但仍高于34元中枢，安全边际不足 · 新增现金 observe；已有持仓 review，不因40%回撤机械补仓；风险：风险增强：基本面未明显恶化，但价格、杠杆和承接同步收缩，情绪仍处退潮；结论置信度：中高。</p><span class="tracking-status">合理偏高：36.14元已回到公允价值区间内，但仍高于34元中枢，安全边际不足</span></div>
-  </div>
-  <div class="tracking-footer"><span>资金状态：<strong>结构性流出：大单＋特大单近5/20/60日净额约-7.83/-15.86/-94.59亿元；融资余额20/60日约-7.35%/-29.34%</strong> · 新增/已有动作：<strong>新增现金 observe；已有持仓 review，不因40%回撤机械补仓</strong></span><span>资金面分析：未单独生成</span></div>
 </section>
 <!-- DAILY_TRACKING_END -->
 <h2 id="section-1">1. 决策摘要</h2>
@@ -180,7 +153,7 @@ body {
 </thead>
 <tbody><tr>
 <td>估值状态</td>
-<td>合理偏高：36.14元已回到公允价值区间内，但仍高于34元中枢，安全边际不足</td>
+<td>公允价值内偏上：36.14元高于35元中枢，安全边际仍不足</td>
 </tr>
 <tr>
 <td>估值路线</td>
@@ -188,19 +161,19 @@ body {
 </tr>
 <tr>
 <td>公允价值区间</td>
-<td>28—40元；28元附近=保守热管理基本盘加极少期权，34元附近=主业合理质量溢价＋约2元/股概率期权，40元附近=主业乐观兑现＋下一阶段商业化里程碑；40元以上需机器人/液冷量产订单、独立收入毛利或2027—2028年盈利上修支撑</td>
+<td><strong>29—41元，中枢35元</strong>；H1现金质量改善令旧区间整体上移1元，41元以上仍需机器人/液冷量产订单、独立收入毛利或盈利上修</td>
 </tr>
 <tr>
 <td>相对现价空间</td>
-<td>以36.14元计：下沿-22.5%，中枢-5.9%，上沿+10.7%；盈亏并不对称</td>
+<td>以36.14元计：下沿-19.8%，中枢-3.2%，上沿+13.4%；盈亏仍不对称</td>
 </tr>
 <tr>
 <td>估值泡沫判断</td>
-<td><strong>公允价值内</strong>，置信度中高；现价未超过乐观上沿，核心经营和现金流仍是反证。历史溢价处于出清中：60日价格-29.2%、融资余额-29.3%，机器人/液冷财务验证仍缺失</td>
+<td><strong>公允价值内</strong>，置信度中高；现价未超过乐观上沿，H1经营现金流是强反证。历史溢价仍在出清：融资余额60日-25.22%，机器人/液冷财务验证仍缺失</td>
 </tr>
 <tr>
 <td>基本面状态</td>
-<td>持平：2025盈利和现金流改善，2026Q1收入仅+1.36%，扣非利润+15.52%、经营现金流+136.50%；半年报尚未披露</td>
+<td><strong>轻微强化</strong>：H1收入+3.92%、归母-3.12%、扣非+6.82%、OCF+95.98%；基本盘现金质量改善但收入增速与前沿业务证据仍弱</td>
 </tr>
 <tr>
 <td>关键经营变化</td>
@@ -241,19 +214,19 @@ body {
 </tr>
 <tr>
 <td>当前价格及时间</td>
-<td>36.14元，2026-08-20收盘，-1.77%</td>
+<td>36.14元，2026-08-26收盘，+0.53%</td>
 </tr>
 <tr>
 <td>资金状态</td>
-<td>结构性流出：大单＋特大单近5/20/60日净额约-7.83/-15.86/-94.59亿元；融资余额20/60日约-7.35%/-29.34%</td>
+<td>结构性流出：大单＋特大单近5/20/60日约-2.60/-12.71/-67.13亿元；融资余额5/20/60日约-2.02%/-4.82%/-25.22%</td>
 </tr>
 <tr>
 <td>风险方向</td>
-<td>风险增强：基本面未明显恶化，但价格、杠杆和承接同步收缩，情绪仍处退潮</td>
+<td>混合：现金流风险减弱，但期权兑现风险持平，资金仍去杠杆</td>
 </tr>
 <tr>
 <td>每日跟踪时间</td>
-<td>2026-08-20 15:00（Asia/Shanghai，收盘）</td>
+<td>2026-08-26 15:00（Asia/Shanghai，收盘）</td>
 </tr>
 <tr>
 <td>资金面分析链接</td>
@@ -263,8 +236,8 @@ body {
 <h3>如果今天这是一笔现金，我会买它吗</h3>
 <ul>
 <li>回答：不会；只在特定条件下会。</li>
-<li>我的判断：36.14元已不再是明显高估，但离28元下沿的潜在下行大于到40元上沿的潜在上行；用户此前披露单票亏损约23%、机器人主题总仓位约12%，组合风险约束比“摊低成本”更重要。</li>
-<li>改变结论的条件：价格回到31—32元且主业毛利、现金流未恶化；或8月27日半年报及后续公告给出机器人/液冷可审计量产、订单、收入、毛利并带动盈利预测上修，同时资金由持续流出转为非杠杆承接。</li>
+<li>我的判断：36.14元仍高于35元中枢，向下到29元的空间大于向上到41元；H1现金流修复改善质量，却不足以单独覆盖期权估值。</li>
+<li>改变结论的条件：价格回到31—32元且H1改善得到延续；或机器人/液冷出现可审计订单、收入、毛利并带动盈利预测上修，同时资金转为非杠杆承接。</li>
 </ul>
 <h2 id="section-2">2. 证券身份与来源矩阵</h2>
 
@@ -289,45 +262,45 @@ body {
 </tr>
 </thead>
 <tbody><tr>
-<td>Tushare MCP调用清单</td>
+<td>Tushare调用清单</td>
 <td>本地<code>tushare-data</code></td>
-<td>stock_basic、daily、daily_basic、moneyflow、margin_detail、financial_statements、dividend</td>
-<td>截至2026-08-20</td>
+<td>daily、daily_basic、moneyflow、margin_detail、income、balance、cashflow、dividend</td>
+<td>截至2026-08-26</td>
 <td>已获取</td>
 </tr>
 <tr>
 <td>证券身份与上市状态</td>
-<td><code>get_stock_basic</code>、法定公告</td>
-<td>Tushare、公司公告</td>
-<td>2026-08-21核验</td>
+<td>法定公告、Tushare</td>
+<td>同一A+H公司身份</td>
+<td>2026-08-27核验</td>
 <td>已获取</td>
 </tr>
 <tr>
 <td>价格、52周与YTD</td>
-<td><code>get_stock_daily</code></td>
-<td>Tushare不复权日线</td>
-<td>2026-08-20</td>
+<td>Tushare daily</td>
+<td>不复权日线</td>
+<td>2026-08-26</td>
 <td>已获取</td>
 </tr>
 <tr>
 <td>估值、市值、股息率和换手</td>
-<td><code>get_stock_valuation</code></td>
 <td>Tushare daily_basic</td>
-<td>2026-08-20</td>
+<td>日度估值</td>
+<td>2026-08-26</td>
 <td>已获取</td>
 </tr>
 <tr>
 <td>资金分档 / 大单代理</td>
-<td><code>get_stock_moneyflow</code></td>
 <td>Tushare moneyflow</td>
-<td>至2026-08-20</td>
+<td>交易分档代理</td>
+<td>至2026-08-26</td>
 <td>已获取；不能识别账户</td>
 </tr>
 <tr>
 <td>融资融券代理</td>
-<td><code>get_margin_detail</code></td>
 <td>Tushare margin_detail</td>
-<td>至2026-08-20</td>
+<td>融资余额</td>
+<td>至2026-08-26</td>
 <td>已获取</td>
 </tr>
 <tr>
@@ -338,11 +311,11 @@ body {
 <td>未获取到可核验Morningstar字段</td>
 </tr>
 <tr>
-<td>最新季报与管理层指引</td>
+<td>最新财报与管理层指引</td>
 <td>法定报告、IR</td>
-<td>2026Q1、2025年报、投资者关系记录</td>
-<td>2026-04-30至07-06</td>
-<td>已获取；无量化指引</td>
+<td><a href="../../../papers/三花智控机构研报-2026-07-17/三花智控2026年半年度报告.pdf.md">2026年半年度报告</a></td>
+<td>披露2026-08-27</td>
+<td>已获取；无量化全年指引</td>
 </tr>
 <tr>
 <td>分部收入</td>
@@ -353,10 +326,10 @@ body {
 </tr>
 <tr>
 <td>前沿业务里程碑</td>
-<td>公司公告、年报、IR</td>
-<td>研发、试制、迭代、送样；液冷产品矩阵与合作口径</td>
-<td>截至2026-08-21</td>
-<td>定性证据已获取；量产财务证据未获取到</td>
+<td>法定半年报</td>
+<td>机器人批量交付与产线爬坡定性表述；液冷产品覆盖扩大</td>
+<td>截至2026-08-27</td>
+<td>定性证据强化；独立财务证据未获取到</td>
 </tr>
 <tr>
 <td>前沿业务融资与稀释</td>
@@ -417,13 +390,13 @@ body {
 <td>当前价格</td>
 <td align="right">36.14元</td>
 <td>Tushare daily</td>
-<td>2026-08-20收盘</td>
+<td>2026-08-26收盘</td>
 </tr>
 <tr>
 <td>52周最高 / 最低</td>
-<td align="right">60.77 / 26.05元</td>
+<td align="right">60.77 / 29.18元</td>
 <td>Tushare daily</td>
-<td>不复权，截至2026-08-20</td>
+<td>不复权，截至2026-08-26</td>
 </tr>
 <tr>
 <td>距52周最高</td>
@@ -447,26 +420,26 @@ body {
 <td>总市值</td>
 <td align="right">1,520.78亿元</td>
 <td>Tushare daily_basic</td>
-<td>总股本口径，2026-08-20</td>
+<td>总股本口径，2026-08-26</td>
 </tr>
 <tr>
-<td>PE_TTM / PB / PS_TTM</td>
-<td align="right">37.21 / 4.66 / 4.89倍</td>
+<td>PE_TTM / PB</td>
+<td align="right">37.21 / 4.66倍</td>
 <td>Tushare daily_basic</td>
-<td>2026-08-20</td>
+<td>2026-08-26</td>
 </tr>
 <tr>
-<td>换手率 / 股息率TTM</td>
-<td align="right">1.29% / 1.10%</td>
+<td>股息率TTM</td>
+<td align="right">1.10%</td>
 <td>Tushare daily_basic</td>
-<td>2026-08-20</td>
+<td>2026-08-26</td>
 </tr>
 </tbody></table>
 <h3>3.2 第三方公允价值与评级（事实）</h3>
 <ul>
 <li>Morningstar公允价值、护城河评级与星级：未获取到可核验字段，不从搜索摘要猜测。</li>
 <li>证券之星2026-07-21旧相对估值区间：33.28—36.78元；该模型已过时，只作低权重旁证。</li>
-<li>我的判断：36.14元已进入这一旧区间，也进入本报告28—40元区间；第三方旧模型不构成买入理由。</li>
+<li>我的判断：36.14元进入本报告29—41元区间；第三方旧模型不构成买入理由。</li>
 </ul>
 <h3>3.3 卖方评级与目标价分布（事实）</h3>
 <table>
@@ -555,46 +528,46 @@ body {
 <tbody><tr>
 <td align="right">1</td>
 <td>制冷空调电器零部件</td>
-<td>2025收入占比59.93%、毛利率28.77%</td>
+<td>H1收入104.45亿元、毛利率28.37%</td>
 <td>阀、泵、换热器、控制器</td>
 <td>较高</td>
 <td>持平</td>
-<td>2025收入+12.22%、毛利率+1.42pct；Q1行业需求承压</td>
+<td>H1收入+0.54%、毛利率+0.16pct</td>
 <td>份额与结构进入利润和现金流</td>
 <td>收入持续低增长且毛利低于27%</td>
 </tr>
 <tr>
 <td align="right">2</td>
 <td>汽车热管理零部件</td>
-<td>2025收入占比40.07%、毛利率28.79%</td>
+<td>H1收入64.55亿元、毛利率27.56%</td>
 <td>新能源与传统汽车热管理</td>
 <td>中</td>
-<td>持平</td>
-<td>2025收入+9.14%、毛利率+1.15pct；Q1终端承压</td>
+<td>上行</td>
+<td>H1收入+9.89%、毛利率-0.40pct</td>
 <td>单车价值、份额、海外本地化</td>
 <td>客户销量、份额和毛利同步下滑</td>
 </tr>
 <tr>
 <td align="right">3</td>
 <td>数据中心液冷</td>
-<td>产品矩阵覆盖泵阀、换热器、传感与控制</td>
+<td>产品覆盖一次侧、CDU与服务器机柜</td>
 <td>未单列收入、订单和毛利</td>
 <td>证据不足</td>
-<td>上行预期未验证</td>
-<td>公司组建专项团队并与集成商合作</td>
+<td>定性强化</td>
+<td>H1法定报告披露产品覆盖扩大</td>
 <td>订单→收入→毛利→现金流</td>
 <td>可重复订单、复购和独立毛利</td>
 </tr>
 <tr>
 <td align="right">4</td>
 <td>人形机器人机电执行器</td>
-<td>公司披露研发、试制、迭代与送样</td>
-<td>未单列量产收入和单位经济性</td>
+<td>H1披露批量交付与产线爬坡</td>
+<td>未单列收入、客户、良率和单位经济性</td>
 <td>证据不足</td>
-<td>上行预期未验证</td>
-<td>生产基地与海外能力推进</td>
+<td>定性强化</td>
+<td>法定报告表述强于旧送样阶段</td>
 <td>定点→量产→良率→利润</td>
-<td>订单、复购、良率和毛利</td>
+<td>独立收入、复购、良率和毛利</td>
 </tr>
 </tbody></table>
 <ul>
@@ -608,7 +581,14 @@ body {
 <li>最脆弱环节是新业务承载估值弹性，却尚未提供独立订单、收入、毛利和自由现金流；量产延期会先压缩倍数。</li>
 <li>证伪条件：核心分部毛利率连续两个季度低于27%；自由现金流转负且并非可回收扩产；客户份额下降；新业务长期停留在送样。</li>
 </ul>
-<h3>4.3 企业价值类型与主估值锚</h3>
+<h3>4.3 宏观通胀、利率与流动性环境</h3>
+<ul>
+<li>铜、铝等原材料价格影响泵阀和换热器成本；H1综合毛利率28.06%、同比仅-0.06个百分点，显示当前成本转嫁总体有效。</li>
+<li>成长股估值对无风险利率和风险偏好更敏感；当前资金与融资余额持续回落，倍数扩张缺少流动性支持。</li>
+<li>公司H股融资后净现金充足，前沿项目短期不依赖外部低成本融资，宏观流动性主要影响估值而非生存。</li>
+<li>最新完整中美通胀、政策利率和债券收益率分解未获取到，宏观方向不替代法定经营证据。</li>
+</ul>
+<h3>4.4 企业价值类型与主估值锚</h3>
 <ul>
 <li>企业价值主类型：<strong>成长企业</strong>。</li>
 <li>分类依据：2021—2025收入复合增长约18%，利润与现金流总体上行；核心资产已商业化，不属于纯前沿科技，价值取决于持续增长而非清算资产或周期价格。</li>
@@ -637,21 +617,21 @@ body {
 </thead>
 <tbody><tr>
 <td>制冷空调电器零部件</td>
-<td align="right">185.85亿元</td>
-<td align="right">+12.22%</td>
-<td align="right">59.93%</td>
-<td align="right">28.77%</td>
-<td align="right">+1.42pct</td>
-<td>2025年报</td>
+<td align="right">104.45亿元</td>
+<td align="right">+0.54%</td>
+<td align="right">61.80%</td>
+<td align="right">28.37%</td>
+<td align="right">+0.16pct</td>
+<td>2026H1</td>
 </tr>
 <tr>
 <td>汽车零部件</td>
-<td align="right">124.27亿元</td>
-<td align="right">+9.14%</td>
-<td align="right">40.07%</td>
-<td align="right">28.79%</td>
-<td align="right">+1.15pct</td>
-<td>2025年报</td>
+<td align="right">64.55亿元</td>
+<td align="right">+9.89%</td>
+<td align="right">38.20%</td>
+<td align="right">27.56%</td>
+<td align="right">-0.40pct</td>
+<td>2026H1</td>
 </tr>
 <tr>
 <td>机器人执行器 / 液冷</td>
@@ -660,14 +640,14 @@ body {
 <td align="right">未获取到</td>
 <td align="right">未获取到</td>
 <td align="right">未获取到</td>
-<td>2025年报、2026Q1</td>
+<td>2026H1</td>
 </tr>
 </tbody></table>
 <ul>
 <li>披露口径变化：机器人与液冷没有成为独立财务分部。</li>
 <li>来源冲突：外部研报称其为增长极，公司法定报告仅给定性进展；财务数据以法定报告为准。</li>
 <li>采信理由：基本盘按公司分部数据；期权按已验证里程碑，不按TAM或客户传闻。</li>
-<li>我的判断：2025增长质量较好，但2026Q1收入仅+1.36%，尚未证明新业务财务放量。</li>
+<li>我的判断：汽车热管理和现金流改善，制冷收入低增长；新业务定性里程碑前移，但仍未证明独立财务放量。</li>
 </ul>
 <h2 id="section-6">6. 五年财务历史</h2>
 
@@ -755,38 +735,38 @@ body {
 </thead>
 <tbody><tr>
 <td>EPS</td>
-<td>2026Q1基本EPS 0.22元，同比-8.33%</td>
-<td>低于归母利润+2.68%，主要因H股发行摊薄</td>
-<td>经营未恶化，但每股价值被稀释</td>
-<td>2026Q1</td>
+<td>2026H1基本EPS 0.49元</td>
+<td>受H股发行扩大总股本影响</td>
+<td>经营改善未完全转化为每股利润</td>
+<td>2026H1</td>
 </tr>
 <tr>
 <td>OCF / 净利润现金含量</td>
-<td>2025 OCF 50.91亿元，高于归母净利40.63亿元</td>
-<td>现金含量约125%；Q1 OCF同比+136.5%</td>
+<td>H1 OCF 25.00亿元，高于归母净利20.44亿元</td>
+<td>现金含量约122%，同比+95.98%</td>
 <td>有利</td>
-<td>2025FY、2026Q1</td>
+<td>2026H1</td>
 </tr>
 <tr>
 <td>库存</td>
-<td>Q1 58.79亿元，较年末+4.2%</td>
-<td>快于Q1低个位数收入增速，需核对去化</td>
-<td>中性偏谨慎</td>
-<td>2026Q1</td>
+<td>H1 57.62亿元，较年末+2.17%</td>
+<td>慢于收入增长</td>
+<td>有利</td>
+<td>2026H1</td>
 </tr>
 <tr>
 <td>应收账款</td>
-<td>Q1 70.11亿元，较年末下降</td>
-<td>未快于收入增长</td>
-<td>有利</td>
-<td>2026Q1</td>
+<td>H1 86.82亿元，较年末+17.81%</td>
+<td>快于收入增长，需跟踪回款</td>
+<td>中性偏谨慎</td>
+<td>2026H1</td>
 </tr>
 <tr>
 <td>有息负债 / 利息覆盖</td>
-<td>Q1现金143.36亿元，旧口径净现金约103亿元</td>
-<td>财务费用主要受汇兑而非利息</td>
+<td>H1现金148.16亿元，短借13.70亿元、长借9.05亿元</td>
+<td>净现金充足</td>
 <td>稳健</td>
-<td>2026Q1</td>
+<td>2026H1</td>
 </tr>
 <tr>
 <td>回购与股本变化</td>
@@ -822,53 +802,59 @@ body {
 </thead>
 <tbody><tr>
 <td>营收</td>
-<td align="right">77.74亿元</td>
-<td align="right">+1.36%</td>
-<td>2026Q1，2026-04-30</td>
+<td align="right">169.00亿元</td>
+<td align="right">+3.92%</td>
+<td>2026H1，披露2026-08-27</td>
 </tr>
 <tr>
 <td>毛利率</td>
-<td align="right">27.80%</td>
-<td align="right">约+0.98pct</td>
-<td>法定报表计算</td>
+<td align="right">28.06%</td>
+<td align="right">-0.06pct</td>
+<td>半年报计算</td>
 </tr>
 <tr>
 <td>归母净利润</td>
-<td align="right">9.28亿元</td>
-<td align="right">+2.68%</td>
-<td>2026Q1</td>
+<td align="right">20.44亿元</td>
+<td align="right">-3.12%</td>
+<td>2026H1</td>
 </tr>
 <tr>
 <td>扣非归母净利润</td>
-<td align="right">9.86亿元</td>
-<td align="right">+15.52%</td>
-<td>2026Q1</td>
+<td align="right">21.47亿元</td>
+<td align="right">+6.82%</td>
+<td>2026H1</td>
 </tr>
 <tr>
 <td>经营现金流</td>
-<td align="right">11.06亿元</td>
-<td align="right">+136.50%</td>
-<td>2026Q1</td>
+<td align="right">25.00亿元</td>
+<td align="right">+95.98%</td>
+<td>2026H1</td>
+</tr>
+<tr>
+<td>FCF代理</td>
+<td align="right">11.32亿元</td>
+<td align="right">上年同期约-3.21亿元</td>
+<td>OCF减购建长期资产现金</td>
 </tr>
 <tr>
 <td>订单 / 储备</td>
 <td align="right">未获取到</td>
-<td align="right">未量化机器人 / 液冷订单</td>
-<td>年报、季报、IR</td>
+<td align="right">机器人“批量交付与产线爬坡”但未量化</td>
+<td>2026H1</td>
 </tr>
 </tbody></table>
 <h3>7.2 管理层指引（事实）</h3>
 <ul>
 <li>正式量化指引：未获取到。</li>
-<li>定性展望：巩固制冷与汽车热管理，推进数据中心液冷；机器人继续研发、试制、迭代、送样和海外生产能力建设。</li>
+<li>定性展望：巩固制冷与汽车热管理；机器人核心产品推进批量交付和产线爬坡；液冷产品覆盖一次侧、CDU和服务器机柜。</li>
 <li>态度变化：战略方向未变；7月开始实施回购，愿在35.05—36.09元投入约1亿元，但这不是新业务商业化证明。</li>
 <li>未获取到：2026收入利润指引、机器人量产客户、液冷订单金额、独立毛利和单位经济性。</li>
 </ul>
 <h3>7.3 我的判断</h3>
 <ul>
-<li>Q1扣非利润和现金流好于收入，但收入低增长与20家机构全年净利+16.77%的预期存在缺口，需要Q2加速或非经常损失回拨。</li>
+<li>H1扣非利润和现金流显著好于收入，验证核心基本盘质量；归母净利受非经常因素影响仍同比下降，全年增速预期存在缺口。</li>
 <li>基本盘指引可信度中高，前沿业务中低；送样到量产仍有客户、良率、成本和需求风险。</li>
-<li>下一验证节点：2026-08-27半年报；新业务是否出现独立订单、收入、毛利；回购是否继续执行。</li>
+<li>下一验证节点：2026Q3收入能否加速；机器人/液冷是否出现独立订单、收入、毛利；回购是否继续执行。</li>
 </ul>
 <h2 id="section-8">8. 近三个月新闻与催化剂</h2>
 
@@ -912,7 +898,7 @@ body {
 <td>高预期倍数收缩</td>
 <td>正在反映</td>
 <td>融资与订单流转正</td>
-<td>放量收复40元并有非杠杆承接</td>
+<td>放量收复41元并有非杠杆承接</td>
 <td>Tushare</td>
 </tr>
 <tr>
@@ -926,14 +912,14 @@ body {
 <td>公司公告</td>
 </tr>
 <tr>
-<td>2026-08-13</td>
-<td>公告8月27日审议半年报</td>
-<td>财报验证</td>
-<td>主业与期权回归报表</td>
-<td>尚未完整反映</td>
 <td>2026-08-27</td>
-<td>信息不足</td>
-<td>公司公告</td>
+<td>披露2026年半年报</td>
+<td>财报验证</td>
+<td>扣非、OCF和FCF改善；期权仍未单列</td>
+<td>本报告已重估</td>
+<td>2026Q3</td>
+<td>现金流回落或新业务停滞</td>
+<td>公司半年报</td>
 </tr>
 </tbody></table>
 <h2 id="section-9">9. 多头与空头论据</h2>
@@ -985,15 +971,15 @@ body {
 </thead>
 <tbody><tr>
 <td>现价无安全边际</td>
-<td>36.14元高于34元中枢，到下沿跌幅大于上沿涨幅</td>
+<td>36.14元高于35元中枢，到下沿跌幅大于上沿涨幅</td>
 <td>盈利上修、公允价值重估</td>
 <td>新业务兑现抬高上沿</td>
 </tr>
 <tr>
 <td>收入低于预期</td>
-<td>Q1收入+1.36%，机构预期全年净利+16.77%</td>
-<td>H1收入、扣非、现金流</td>
-<td>Q2显著加速</td>
+<td>H1收入仅+3.92%，归母净利-3.12%</td>
+<td>Q3收入、扣非、现金流</td>
+<td>下半年显著加速</td>
 </tr>
 <tr>
 <td>新业务未财务验证</td>
@@ -1003,9 +989,9 @@ body {
 </tr>
 <tr>
 <td>资金仍去杠杆</td>
-<td>20日大单-15.86亿元、融资余额-7.35%</td>
+<td>20日大单-12.71亿元、融资余额-4.82%</td>
 <td>订单流、融资、换手</td>
-<td>非杠杆资金承接并收复40元</td>
+<td>非杠杆资金承接并收复41元</td>
 </tr>
 <tr>
 <td>用户主题暴露偏高</td>
@@ -1084,12 +1070,12 @@ body {
 <tbody><tr>
 <td>三花智控</td>
 <td>热管理＋期权</td>
-<td align="right">净利+16.77%</td>
-<td align="right">2025净利率13.10%</td>
+<td align="right">H1扣非+6.82%</td>
+<td align="right">H1净利率12.10%</td>
 <td align="right">37.21</td>
 <td align="right">4.66</td>
-<td align="right">4.89</td>
-<td>2026-08-20</td>
+<td align="right">未获取到</td>
+<td>2026-08-26</td>
 </tr>
 <tr>
 <td>汇川技术</td>
@@ -1124,8 +1110,8 @@ body {
 </tbody></table>
 <ul>
 <li>选取理由：覆盖热管理、汽车零部件和机器人能力映射，不用纯主题高波动公司作主可比。</li>
-<li>正常化调整：2026E EPS 1.13元×28—33倍，对应31.6—37.3元；高于33倍需要更强增长证据。</li>
-<li>对应每股价值区间：32—37元。</li>
+<li>正常化调整：半年报后以归母净利40—46亿元、约42.08亿股估算EPS 0.95—1.09元，合理31—35倍，对应29.5—38.2元；高于35倍需要更强增长证据。</li>
+<li>对应每股价值区间：30—38元。</li>
 <li>我的判断：质量溢价合理但已计入，不能再次加总。</li>
 </ul>
 <h3>10.2 DCF</h3>
@@ -1263,15 +1249,15 @@ body {
 </tr>
 </tbody></table>
 <ul>
-<li>反向DCF：36.14元要求核心自由现金流率明显高于2025约6.25%，或资本开支更快降至收入6%附近，否则需期权补足。</li>
+<li>反向DCF：36.14元仍要求核心自由现金流率接近乐观端；H1 FCF代理11.32亿元改善了可实现性，但单期改善不足以确认长期稳态。</li>
 <li>我的判断：现价接近DCF乐观端，不能由基准现金流轻松解释。</li>
 </ul>
 <h3>10.3 行业特定估值</h3>
 <ul>
 <li>方法：2027年未来利润×届时合理PE后折现。</li>
 <li>适用理由：与成长企业类型匹配。</li>
-<li>关键假设：2027净利润51.5 / 56.5 / 58.5亿元，PE 24 / 27 / 29倍，折现率11% / 10% / 9%，折现16个月。</li>
-<li>对应核心每股价值：25.6 / 31.9 / 35.9元。</li>
+<li>关键假设：2027净利润52 / 57 / 60亿元，PE 24 / 27 / 29倍，折现率11% / 10% / 9%，折现16个月。</li>
+<li>对应核心每股价值：25.9 / 32.2 / 36.9元。</li>
 <li>局限性：一致预期可能少量包含新业务；价值桥只计未进入利润预测的里程碑增量。</li>
 </ul>
 <h3>10.4 前沿科技价值桥</h3>
@@ -1289,9 +1275,9 @@ body {
 <tbody><tr>
 <td>制冷＋汽车热管理</td>
 <td>2027利润×PE折现</td>
-<td>净利56.5亿元、27倍、10%折现16个月</td>
-<td align="right">约1,344亿元</td>
-<td>2025年报、Q1、一致预期</td>
+<td>净利57亿元、27倍、10%折现16个月</td>
+<td align="right">约1,356亿元</td>
+<td>2025年报、2026H1与研究情景</td>
 </tr>
 </tbody></table>
 <h4>前沿业务里程碑与情景概率</h4>
@@ -1311,12 +1297,12 @@ body {
 <tbody><tr>
 <td>机器人执行器</td>
 <td>订单、复购、良率、毛利</td>
-<td>已送样；无量产财务数据</td>
+<td>H1称批量交付与产线爬坡；仍无独立财务数据</td>
 <td>失败/延期/有限/基准/突破</td>
-<td align="right">20%/35%/25%/15%/5%</td>
+<td align="right">15%/30%/30%/20%/5%</td>
 <td align="right">0/20/70/150/300亿元</td>
 <td align="right">80%</td>
-<td align="right">49.6亿元</td>
+<td align="right">57.6亿元</td>
 </tr>
 <tr>
 <td>数据中心液冷</td>
@@ -1332,7 +1318,7 @@ body {
 <ul>
 <li>两项业务各自概率合计100%；均为研究情景。</li>
 <li>依据：送样和产品能力高于零价值，但量产、复购、良率、毛利均未验证。</li>
-<li>下一节点：半年报、客户定点、量产线投用、独立收入与毛利。</li>
+<li>下一节点：可审计客户定点、复购、产线良率、独立收入与毛利。</li>
 <li>只进入上沿：机器人突破成功和液冷快速扩张。</li>
 </ul>
 <h4>融资、稀释与股东保留比例</h4>
@@ -1384,13 +1370,13 @@ body {
 </thead>
 <tbody><tr>
 <td>已验证基本盘</td>
-<td align="right">约1,344亿元</td>
+<td align="right">约1,356亿元</td>
 <td>2027基准利润折现股权价值，已含资产负债表</td>
 </tr>
 <tr>
 <td>概率加权未来业务</td>
-<td align="right">约82.8亿元</td>
-<td>机器人49.6＋液冷33.2亿元</td>
+<td align="right">约90.8亿元</td>
+<td>机器人57.6＋液冷33.2亿元</td>
 </tr>
 <tr>
 <td>非经营性现金 / 有息负债</td>
@@ -1404,7 +1390,7 @@ body {
 </tr>
 <tr>
 <td>当前股东股权价值</td>
-<td align="right">约1,427亿元</td>
+<td align="right">约1,447亿元</td>
 <td>基准价值桥</td>
 </tr>
 <tr>
@@ -1414,15 +1400,15 @@ body {
 </tr>
 <tr>
 <td>每股价值</td>
-<td align="right">约33.9元</td>
-<td>对应34元中枢</td>
+<td align="right">约34.4元</td>
+<td>与35元取整中枢相符</td>
 </tr>
 </tbody></table>
 <h4>反向估值</h4>
 <ul>
-<li>当前市值1,520.78亿元扣除基准基本盘约1,344亿元后，为未来业务与更高质量支付约177亿元，即约4.2元/股；高于期权中枢约2元/股。</li>
+<li>当前市值1,520.78亿元扣除基准基本盘约1,356亿元后，为未来业务与更高质量支付约165亿元，即约3.9元/股；高于概率期权约2.2元/股。</li>
 <li>现价隐含：2027净利接近基准偏乐观、届时PE不低于27倍，且机器人或液冷至少一项跨过有限商业化。</li>
-<li>首个击穿中枢的节点：8月27日半年报仍无新业务财务披露且主业收入、库存或现金流转弱；其次是12月项目继续延期。</li>
+<li>首个击穿中枢的节点：Q3收入与现金流同时转弱，或机器人“批量交付”长期不出现独立收入、良率和毛利；其次是12月项目继续延期。</li>
 </ul>
 <h3>10.5 估值交叉验证</h3>
 <table>
@@ -1436,7 +1422,7 @@ body {
 </thead>
 <tbody><tr>
 <td>相对估值</td>
-<td align="right">32—37元</td>
+<td align="right">30—38元</td>
 <td align="right">25%</td>
 <td>反映龙头质量，但会吸收主题情绪</td>
 </tr>
@@ -1448,7 +1434,7 @@ body {
 </tr>
 <tr>
 <td>未来利润折现</td>
-<td align="right">26—36元</td>
+<td align="right">26—37元</td>
 <td align="right">35%</td>
 <td>与企业类型匹配，主锚</td>
 </tr>
@@ -1460,10 +1446,10 @@ body {
 </tr>
 </tbody></table>
 <ul>
-<li>公允价值区间：28—40元；中枢34元。</li>
-<li>相对现价：下沿-22.5%，中枢-5.9%，上沿+10.7%。</li>
+<li>公允价值区间：<strong>29—41元；中枢35元</strong>。</li>
+<li>相对现价：下沿-19.8%，中枢-3.2%，上沿+13.4%。</li>
 <li>不机械平均：DCF低端受资本开支和终值敏感性压制；相对估值会吸收主题溢价；以未来利润和价值桥为主。</li>
-<li>区间含义：28元=保守主业＋极少期权；34元=主业合理质量＋约2元期权；40元=主业乐观＋下一里程碑；高于40元需量产、复购、独立毛利或盈利上修。</li>
+<li>区间含义：29元=保守主业＋极少期权；35元=主业合理质量＋概率期权；41元=主业乐观＋下一里程碑；高于41元需量产、复购、独立毛利或盈利上修。</li>
 </ul>
 <h3>10.6 企业类型与估值锚匹配</h3>
 <ul>
@@ -1490,16 +1476,16 @@ body {
 <tbody><tr>
 <td>当前价格及时间</td>
 <td align="right">36.14元</td>
-<td>2026-08-20收盘</td>
+<td>2026-08-26收盘</td>
 </tr>
 <tr>
 <td>公允价值中枢 / 上沿</td>
-<td align="right">34.00 / 40.00元</td>
+<td align="right">35.00 / 41.00元</td>
 <td>主业基准＋概率期权 / 乐观里程碑</td>
 </tr>
 <tr>
 <td>相对中枢 / 上沿偏离率</td>
-<td align="right">+6.29% / -9.65%</td>
+<td align="right">+3.26% / -11.85%</td>
 <td>现价除以中枢或上沿减1</td>
 </tr>
 <tr>
@@ -1530,14 +1516,14 @@ body {
 </thead>
 <tbody><tr>
 <td>当前价格比中枢和上沿高多少？</td>
-<td>高于中枢6.29%，低于上沿9.65%</td>
+<td>高于中枢3.26%，低于上沿11.85%</td>
 <td>无上沿外价格</td>
 <td>不成立</td>
 </tr>
 <tr>
 <td>高出部分隐含多少增长或成功概率？</td>
-<td>约支付4.2元/股质量与期权溢价</td>
-<td>高于2元期权中枢，未超乐观情景</td>
+<td>约支付3.9元/股质量与期权溢价</td>
+<td>高于概率期权中枢，未超乐观情景</td>
 <td>不成立</td>
 </tr>
 <tr>
@@ -1593,14 +1579,14 @@ body {
 <tr>
 <td>现金流断点</td>
 <td>经营现金流</td>
-<td>2025 OCF 50.91亿元；Q1同比+136.5%</td>
+<td>H1 OCF 25.00亿元、同比+95.98%</td>
 <td>有利</td>
 <td>支持基本盘</td>
 </tr>
 <tr>
 <td>现金流断点</td>
 <td>自由现金流</td>
-<td>2023—2025连续为正，2025约19.38亿元</td>
+<td>H1代理11.32亿元，上年同期约-3.21亿元</td>
 <td>有利</td>
 <td>反对泡沫升级</td>
 </tr>
@@ -1614,35 +1600,35 @@ body {
 <tr>
 <td>现金流断点</td>
 <td>融资停止后的可持续性</td>
-<td>Q1现金143.36亿元，旧口径净现金约103亿元</td>
+<td>H1现金148.16亿元，短债13.70亿元、长债9.05亿元</td>
 <td>有利</td>
 <td>可持续性较强</td>
 </tr>
 <tr>
 <td>盈利不匹配</td>
 <td>原材料与中间品成本</td>
-<td>Q1铜铝成本与行业需求构成压力</td>
-<td>逆转</td>
-<td>早期压力，未击中主锚</td>
+<td>H1综合毛利率同比仅-0.06pct</td>
+<td>有利</td>
+<td>成本压力可控</td>
 </tr>
 <tr>
 <td>盈利不匹配</td>
 <td>定价权与成本转嫁</td>
-<td>Q1毛利率同比约+0.98pct</td>
+<td>制冷毛利+0.16pct、汽车-0.40pct</td>
 <td>有利</td>
-<td>转嫁仍有效</td>
+<td>整体稳定</td>
 </tr>
 <tr>
 <td>盈利不匹配</td>
 <td>营收向利润的转化</td>
-<td>Q1收入+1.36%，扣非+15.52%</td>
+<td>H1收入+3.92%，扣非+6.82%</td>
 <td>有利</td>
 <td>效率改善</td>
 </tr>
 <tr>
 <td>盈利不匹配</td>
 <td>利润向自由现金流的转化</td>
-<td>2025 FCF约为归母净利48%，OCF高于净利</td>
+<td>H1 FCF代理11.32亿元</td>
 <td>有利</td>
 <td>有现金支撑</td>
 </tr>
@@ -1710,14 +1696,14 @@ body {
 <tr>
 <td>中观：政策与主线资金迁移</td>
 <td>主线增量资金</td>
-<td>大单近20/60日净流出15.86/94.59亿元</td>
+<td>大单近20/60日净流出12.71/67.13亿元</td>
 <td>逆转</td>
 <td>承接减弱</td>
 </tr>
 <tr>
 <td>微观：杠杆和承接逆转</td>
 <td>融资余额增速</td>
-<td>20/60日约-7.35%/-29.34%</td>
+<td>20/60日约-4.82%/-25.22%</td>
 <td>逆转</td>
 <td>去杠杆确认</td>
 </tr>
@@ -1731,7 +1717,7 @@ body {
 <tr>
 <td>微观：杠杆和承接逆转</td>
 <td>股价对杠杆资金的依赖</td>
-<td>60日价格与融资余额均约-29%</td>
+<td>融资60日-25.22%，股价YTD-34.66%</td>
 <td>逆转</td>
 <td>杠杆退出与价格共振</td>
 </tr>
@@ -1752,7 +1738,7 @@ body {
 <tr>
 <td>微观：杠杆和承接逆转</td>
 <td>获利资金与回调承接</td>
-<td>回购区间附近5日大单仍-7.83亿元</td>
+<td>回购区间附近5日大单仍-2.60亿元</td>
 <td>逆转</td>
 <td>承接未稳</td>
 </tr>
@@ -1771,7 +1757,7 @@ body {
 <tbody><tr>
 <td>叙事耗尽</td>
 <td>价格隐含的增长年限</td>
-<td>约32倍2026E PE，未超40元上沿</td>
+<td>约32倍旧2026E PE，未超41元上沿</td>
 <td>有利</td>
 <td>当前未严格脱锚</td>
 </tr>
@@ -1799,9 +1785,9 @@ body {
 <tr>
 <td>财报与真实经营接管定价</td>
 <td>财报披露节点</td>
-<td>半年报8月27日披露，结果未知</td>
-<td>证据不足</td>
-<td>验证窗口临近</td>
+<td>H1已披露并完成全量重估</td>
+<td>有利</td>
+<td>现金质量获验证</td>
 </tr>
 <tr>
 <td>财报与真实经营接管定价</td>
@@ -1813,7 +1799,7 @@ body {
 <tr>
 <td>财报与真实经营接管定价</td>
 <td>利润与现金流的一致性</td>
-<td>2025 OCF高于净利，Q1大幅改善</td>
+<td>H1 OCF高于归母净利、FCF转正</td>
 <td>有利</td>
 <td>核心经营反证</td>
 </tr>
@@ -1827,9 +1813,9 @@ body {
 <tr>
 <td>财报与真实经营接管定价</td>
 <td>实际业绩与价格隐含预期</td>
-<td>Q1收入+1.36%，慢于全年净利+16.77%预期</td>
+<td>H1收入+3.92%、归母-3.12%，慢于旧全年预期</td>
 <td>逆转</td>
-<td>需H1加速</td>
+<td>需下半年加速</td>
 </tr>
 </tbody></table>
 <h5>三表扫描汇总</h5>
@@ -1846,11 +1832,11 @@ body {
 </thead>
 <tbody><tr>
 <td>基本面触发</td>
-<td align="right">8</td>
-<td align="right">1</td>
+<td align="right">9</td>
 <td align="right">0</td>
 <td align="right">0</td>
-<td>原料压力为早期逆转；OCF、FCF、毛利为强反证</td>
+<td align="right">0</td>
+<td>H1 OCF、FCF与毛利为强反证；应收增长另列资产质量风险</td>
 </tr>
 <tr>
 <td>流动性触发</td>
@@ -1888,7 +1874,7 @@ body {
 <td>核心门槛</td>
 <td>估值脱锚</td>
 <td>不成立</td>
-<td>36.14元低于40元乐观上沿</td>
+<td>36.14元低于41元乐观上沿</td>
 </tr>
 <tr>
 <td>核心门槛</td>
@@ -1927,7 +1913,7 @@ body {
 <li>反证与缺失：主业现金流、毛利和净现金反对升级；ETF申赎、基金仓位、市场广度和H1未获取。</li>
 <li>判断置信度：中高。</li>
 <li>泡沫出清状态：<strong>出清中</strong>，指历史溢价而非当前仍是泡沫。</li>
-<li>出清证据：新业务财务验证缺失与利好边际减弱进入预期表，随后大单流出、融资收缩和60日价格-29.17%形成传导；核心基本面尚未逆转。</li>
+<li>出清证据：新业务财务验证缺失与利好边际减弱进入预期表，随后大单流出、融资60日-25.22%和年内价格回撤形成传导；核心基本面尚未逆转。</li>
 </ul>
 <h4>大幅回撤后的逆向投资闸门</h4>
 <table>
@@ -1950,7 +1936,7 @@ body {
 </tr>
 <tr>
 <td>恐慌或被迫卖出</td>
-<td>部分满足：融资60日-29.34%、订单流流出</td>
+<td>部分满足：融资60日-25.22%、订单流流出</td>
 <td>提供观察价值，不构成买点</td>
 </tr>
 <tr>
@@ -1973,10 +1959,10 @@ body {
 <li>价值创造链及可持续时间：客户认证、产品矩阵与规模制造形成份额、毛利和现金流，核心按3—5年审计；前沿业务按量产里程碑审计。</li>
 <li>估值结论：合理偏高，位于公允价值内但高于中枢。</li>
 <li>操作结论：观望；新增现金<code>observe</code>，已有持仓<code>review</code>。</li>
-<li>公允价值区间：28—40元，中枢34元。</li>
-<li>相对现价空间：下沿-22.5%，中枢-5.9%，上沿+10.7%。</li>
+<li>公允价值区间：29—41元，中枢35元。</li>
+<li>相对现价空间：下沿-19.8%，中枢-3.2%，上沿+13.4%。</li>
 <li>如果今天这是一笔现金，我会买它吗：不会；等待31—32元且基本盘不坏，或等待新业务量产与盈利上修。</li>
-<li>我的判断：市场低估主业现金流和客户粘性，但仍可能高估新业务速度；36.14元不是泡沫价格，也不是风险补偿充足的买点。</li>
+<li>我的判断：H1现金流修复与客户粘性支持上调区间，但市场仍可能高估新业务速度；36.14元不是泡沫价格，也不是风险补偿充足的买点。</li>
 <li>结论失效条件：H1及后续出现核心毛利、份额和FCF持续恶化；或新业务量产收入、毛利和复购显著超预期并上修2027—2028利润。</li>
 <li>估值锚失效后的退出条件：2027利润中枢连续下修、合理PE因ROIC与现金流恶化降至24倍以下，或前沿业务长期不跨量产里程碑；已有持仓应从<code>review</code>转为<code>reduce/sell</code>，而不是等待成本回归。</li>
 </ul>
@@ -1994,22 +1980,22 @@ body {
 </thead>
 <tbody><tr>
 <td>A股价格与估值</td>
-<td align="right">36.14元；37.21倍TTM、31.98倍2026E</td>
-<td>≤31—32元且基本盘稳可重评；&gt;40元需盈利上修</td>
-<td>Tushare、一致预期</td>
+<td align="right">36.14元；37.21倍TTM</td>
+<td>≤31—32元且基本盘稳可重评；&gt;41元需盈利上修</td>
+<td>Tushare</td>
 <td>日/周</td>
 </tr>
 <tr>
 <td>核心毛利与收入</td>
-<td align="right">Q1毛利27.80%、收入+1.36%</td>
-<td>毛利连续低于27%或H1不加速为负面</td>
+<td align="right">H1毛利28.06%、收入+3.92%</td>
+<td>毛利连续低于27%或收入继续低增长为负面</td>
 <td>财报</td>
 <td>季度</td>
 </tr>
 <tr>
-<td>FCF与库存</td>
-<td align="right">2025 FCF 19.38亿元；Q1库存58.79亿元</td>
-<td>FCF转负、库存快于收入且应收反弹为负面</td>
+<td>FCF与资产质量</td>
+<td align="right">H1 FCF代理11.32亿元；应收较年末+17.81%</td>
+<td>FCF转负、应收持续快于收入为负面</td>
 <td>财报</td>
 <td>季度</td>
 </tr>
@@ -2022,8 +2008,8 @@ body {
 </tr>
 <tr>
 <td>大单与融资</td>
-<td align="right">20日大单-15.86亿元；融资-7.35%</td>
-<td>非杠杆资金连续转正且收复40元为风险减弱</td>
+<td align="right">20日大单-12.71亿元；融资-4.82%</td>
+<td>非杠杆资金连续转正且收复41元为风险减弱</td>
 <td>Tushare</td>
 <td>周度</td>
 </tr>
@@ -2049,15 +2035,15 @@ body {
 <h2 id="section-14">14. 未获取到的数据与研究局限</h2>
 
 <ul>
-<li>未获取到：Morningstar专有字段；机器人/液冷独立订单、收入、毛利、良率、单位经济性和融资定价；ETF申赎、基金仓位、北向逐日账户、市场广度；2026H1结果。</li>
-<li>已检查来源：本地Tushare、2025年报、2026Q1、公告列表、回购公告、IR材料、同花顺盈利预测和既有快照。</li>
+<li>未获取到：Morningstar专有字段；机器人/液冷独立订单、收入、毛利、良率、单位经济性和融资定价；ETF申赎、基金仓位、北向逐日账户、市场广度。</li>
+<li>已检查来源：本地Tushare、2025年报、2026H1法定报告、公告列表、回购公告、IR材料和既有快照。</li>
 <li>对结论的影响：前沿业务只能给概率区间；资金身份和中观配置登记缺口；H1后需重算未来利润与触发表。</li>
 </ul>
 <h2 id="section-15">15. 来源清单</h2>
 
 <ol>
-<li><a href="../../../webpages/2026-08-21-三花智控机构级研究数据快照.md">三花智控机构级研究数据快照</a>：本次行情、估值、资金、财务与一致预期底稿。</li>
-<li><a href="../../../webpages/2026-08-20-三花智控三要素政策行业与市场证据快照.md">三花智控三要素政策行业与市场证据快照</a>：政策、行业、流动性与情绪旁证。</li>
+<li><a href="../../../papers/三花智控机构研报-2026-07-17/三花智控2026年半年度报告.pdf.md">三花智控2026年半年度报告</a>：H1经营、分部、财务与前沿业务定性里程碑。</li>
+<li>本地Tushare：截至2026-08-26的行情、估值、资金、融资、财务与分红底稿。</li>
 <li><a href="../../../webpages/2026-08-17-三花智控机构级研究收盘快照.md">三花智控机构级研究收盘快照</a>：上一版底稿。</li>
 <li><a href="../../../webpages/2026-07-17-三花智控机构级研究资料快照.md">三花智控机构级研究资料快照（2026-07-17）</a>：五年财务、分部与旧模型来源。</li>
 <li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12012988&stockid=002050">三花智控2025年年度报告</a>，公告日期2026-03-24。</li>
@@ -2077,58 +2063,7 @@ body {
 <li><a href="../../../../timelines/冰冰小美-产业-新兴-机器人.md">冰冰小美-产业-新兴-机器人</a>：跟踪机器人产业链里程碑。</li>
 <li><a href="../../../../concepts/冰冰小美-framework-估值判断.md">估值判断</a>：市场价格分解与32项触发扫描框架。</li>
 </ul>
-<script>
-(() => {
-  const endpoint = '/api/stock-quote?secid=0.002050';
-  const priceNode = document.getElementById('intraday-price');
-  const detailNode = document.getElementById('intraday-detail');
-  const statusNode = document.getElementById('intraday-status');
-  const riskRewardValue = document.getElementById('risk-reward-value');
-  const riskRewardDetail = document.getElementById('risk-reward-detail');
-  const tracker = document.getElementById('daily-tracking');
-  const snapshotPrice = 36.14;
-  const percent = value => `${value < 0 ? '-' : value > 0 ? '+' : ''}${Math.abs(value).toFixed(1)}%`;
-  function updateRiskReward(price) {
-    const low = Number(tracker.dataset.valueLow);
-    const high = Number(tracker.dataset.valueHigh);
-    if (!Number.isFinite(low) || !Number.isFinite(high) || low <= 0 || high <= low) return;
-    const upside = (high / price - 1) * 100;
-    const downside = (1 - low / price) * 100;
-    if (price <= low) {
-      riskRewardValue.textContent = '低于价值下沿';
-      riskRewardValue.classList.remove('bad');
-      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿潜在空间 ${percent(upside)}。价格已低于公允价值下沿，不能直接用下沿作为止损风险，需另设风控线。`;
-      return;
-    }
-    if (price >= high) {
-      riskRewardValue.textContent = '无正向盈亏比';
-      riskRewardValue.classList.add('bad');
-      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿空间 ${percent(upside)}，回落至下沿风险 ${percent(downside)}。价格已到或高于公允价值上沿，新增现金不具备正向盈亏比。`;
-      return;
-    }
-    const ratio = upside / downside;
-    riskRewardValue.textContent = `约 ${ratio.toFixed(1)}:1`;
-    riskRewardValue.classList.toggle('bad', ratio < 1);
-    riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；到上沿 ${high.toFixed(2)} 元的潜在上行 ${percent(upside)}，跌至下沿 ${low.toFixed(2)} 元的风险 ${percent(downside)}。盘中价格不改变价值区间本身。`;
-  }
-  async function refreshIntradayQuote() {
-    statusNode.textContent = '连接中'; statusNode.className = 'tracking-status';
-    try {
-      const response = await fetch(endpoint, { cache: 'no-store' });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const payload = await response.json(); const quote = payload && payload.data;
-      if (!quote || !Number.isFinite(quote.price) || !Number.isFinite(quote.prevClose) || !Number.isFinite(quote.changePercent) || !Number.isFinite(quote.quoteTimestamp)) throw new Error('invalid quote');
-      const quoteTime = new Date(quote.quoteTimestamp * 1000).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false });
-      priceNode.textContent = `${quote.price.toFixed(2)} 元 · ${percent(quote.changePercent)}`;
-      priceNode.classList.toggle('bad', quote.changePercent < 0);
-      detailNode.textContent = `行情时间：${quoteTime}；昨收 ${quote.prevClose.toFixed(2)} 元。来源：${payload.proxySource || '本地行情代理'}。`;
-      statusNode.textContent = '盘中实时 · 每 60 秒'; statusNode.className = 'tracking-status live'; updateRiskReward(quote.price);
-    } catch { priceNode.textContent = '实时行情暂不可用'; priceNode.classList.remove('bad'); detailNode.textContent = '每日同步值仍然有效；可重新双击“大盘启动器”后刷新本页。'; statusNode.textContent = '连接失败'; statusNode.className = 'tracking-status error'; }
-  }
-  if (location.protocol === 'http:' || location.protocol === 'https:') { refreshIntradayQuote(); window.setInterval(refreshIntradayQuote, 60000); }
-  else { priceNode.textContent = Number.isFinite(snapshotPrice) ? `${snapshotPrice.toFixed(2)} 元（每日值）` : '每日值未获取'; detailNode.textContent = '当前为直接打开模式；盘中实时需通过“大盘启动器”进入本地服务。'; statusNode.textContent = '每日同步 · 实时未连接'; }
-})();
-</script></article>
+</article>
     </div>
   </main>
 </body>

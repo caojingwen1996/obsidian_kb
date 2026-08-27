@@ -9,6 +9,7 @@ sys.path.append(str(SCRIPT_DIR))
 from mcp_server import handle
 from mcp_server import get_central_huijin_holding
 from mcp_server import get_market_margin
+from mcp_server import get_shareholder_count
 from mcp_server import get_usd_jpy_exchange_rate
 from mcp_server import get_us_dollar_index
 from mcp_server import get_us_treasury_yield
@@ -87,6 +88,21 @@ class TushareClientTests(unittest.TestCase):
         self.assertEqual(params["ts_code"], "000001.SZ")
         self.assertEqual(params["start_date"], "20260101")
 
+    def test_shareholder_count_param_validation(self):
+        params = validate_params(
+            "stk_holdernumber",
+            {
+                "ts_code": "600150",
+                "enddate": "2026-06-30",
+                "start_date": "2026-01-01",
+                "end_date": "2026-07-31",
+            },
+        )
+        self.assertEqual(params["ts_code"], "600150.SH")
+        self.assertEqual(params["enddate"], "20260630")
+        self.assertEqual(params["start_date"], "20260101")
+        self.assertEqual(params["end_date"], "20260731")
+
 
 class McpServerTests(unittest.TestCase):
     def test_initialize_response(self):
@@ -108,9 +124,37 @@ class McpServerTests(unittest.TestCase):
             "get_usd_jpy_exchange_rate",
             "get_financial_statements",
             "get_dividend_history",
+            "get_shareholder_count",
             "check_central_huijin_holding",
             "get_index_constituents",
         ])
+
+    def test_shareholder_count_calculates_changes_by_distinct_period(self):
+        class FakeClient:
+            def call_frame(self, dataset, use_cache=True, **params):
+                self.dataset = dataset
+                self.params = params
+                return [
+                    {"ts_code": "600150.SH", "ann_date": "2026-04-30", "end_date": "2026-03-31", "holder_num": 10000},
+                    {"ts_code": "600150.SH", "ann_date": "2026-07-20", "end_date": "2026-06-30", "holder_num": 9100},
+                    {"ts_code": "600150.SH", "ann_date": "2026-03-30", "end_date": "2025-12-31", "holder_num": 8000},
+                    {"ts_code": "600150.SH", "ann_date": "2026-07-30", "end_date": "2026-06-30", "holder_num": 9000},
+                ]
+
+        payload = get_shareholder_count(FakeClient(), {"ts_code": "600150", "limit": 2})
+
+        self.assertEqual(payload["total_period_count"], 3)
+        self.assertEqual(payload["row_count"], 2)
+        self.assertEqual(payload["latest"]["end_date"], "2026-06-30")
+        self.assertEqual(payload["latest"]["ann_date"], "2026-07-30")
+        self.assertEqual(payload["latest"]["holder_num"], 9000)
+        self.assertEqual(payload["latest"]["previous_holder_num"], 10000)
+        self.assertEqual(payload["latest"]["holder_num_change"], -1000)
+        self.assertEqual(payload["latest"]["holder_num_change_pct"], -10.0)
+        self.assertEqual(payload["latest"]["change_direction"], "减少")
+        self.assertEqual(payload["rows"][1]["holder_num_change"], 2000)
+        self.assertEqual(payload["rows"][1]["holder_num_change_pct"], 25.0)
+        self.assertEqual(payload["rows"][1]["change_direction"], "增加")
 
     def test_central_huijin_holding_detects_latest_disclosed_match(self):
         class FakeClient:

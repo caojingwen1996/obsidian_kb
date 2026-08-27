@@ -33,6 +33,7 @@ const here = dirname(fileURLToPath(import.meta.url));
 const sourcePath = join(here, '..', 'src', 'index.html');
 const artifactPath = join(here, '..', 'a-share-market-dashboard.html');
 const launcherPath = join(here, '..', '启动面板.cmd');
+const todoWorkbookPath = join(here, '..', 'data', 'todo.xlsx');
 const repoRoot = join(here, '..', '..', '..');
 const hangTianElectronicsReportPath = join(
   repoRoot,
@@ -126,10 +127,12 @@ test('window controls use native buttons with the four approved values', () => {
   }
 });
 
-test('sidebar exposes the personal position workspace as a first-level tree domain', () => {
+test('sidebar exposes the personal workspace as a first-level tree domain', () => {
   const html = readFileSync(sourcePath, 'utf8');
   const artifact = readFileSync(artifactPath, 'utf8');
   const appSource = readFileSync(new URL('../src/app.mjs', import.meta.url), 'utf8');
+  const buildSource = readFileSync(new URL('../scripts/build.mjs', import.meta.url), 'utf8');
+  const styles = readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8');
   for (const domain of ['thermometer', 'strategy', 'industry', 'personal', 'changelog']) {
     assert.match(html, new RegExp(`<button[^>]+data-tree-domain="${domain}"`));
   }
@@ -150,14 +153,15 @@ test('sidebar exposes the personal position workspace as a first-level tree doma
     'xiaomei-strategy',
     'xiaomei-strategy-heading',
     'topic-map',
-    'holding-form',
+    'todo-summary',
+    'todo-board',
+    'todo-matrix',
     'tracking-form',
     'tracking-count',
     'tracking-filter',
     'tracking-allocation-mode',
     'tracking-allocation-collapse',
     'tracking-allocation-body',
-    'holdings-table-body',
     'holding-tracker-list',
     'holding-tracker-empty',
   ]) {
@@ -214,12 +218,48 @@ test('sidebar exposes the personal position workspace as a first-level tree doma
   assert.match(html, /id="tree-thermometer"[\s\S]*<button class="nav-item" type="button" data-view="topic-map"><span>10<\/span>主题<\/button>/);
   assert.match(html, /id="tree-strategy"[\s\S]*<button class="nav-item" type="button" data-view="fugui-strategy"><span>01<\/span>富贵策略<\/button>\s*<button class="nav-item" type="button" data-view="xiaomei-strategy"><span>02<\/span>小美策略<\/button>/);
   const personalTree = html.match(/<div class="tree-children" id="tree-personal" hidden>[\s\S]*?<\/div>/)?.[0] ?? '';
-  assert.match(personalTree, /data-view="position-manager"><span>01<\/span>仓位管理<\/button>/);
+  assert.match(personalTree, /data-view="position-manager"><span>01<\/span>需求清单<\/button>/);
   assert.match(personalTree, /data-view="holding-tracker"><span>02<\/span>持仓跟踪<\/button>/);
   assert.match(personalTree, /data-view="review-diary-view"><span>03<\/span>复盘日记<\/button>/);
   assert.doesNotMatch(personalTree, /data-view="featured-digest"/);
   assert.doesNotMatch(personalTree, /data-view="fugui-strategy"/);
   assert.doesNotMatch(personalTree, /data-view="topic-map"/);
+  assert.ok(existsSync(todoWorkbookPath));
+  assert.doesNotMatch(html, /id="holding-form"/);
+  assert.doesNotMatch(html, /id="holdings-table-body"/);
+  assert.match(html, /<h2 class="visually-hidden" id="position-manager-heading">需求清单<\/h2>/);
+  assert.match(buildSource, /todoWorkbookPath/);
+  assert.match(buildSource, /parseTodoListFromWorkbook/);
+  assert.match(buildSource, /todoQuadrantFromFlags/);
+  assert.match(buildSource, /renderTodoMatrix/);
+  assert.match(buildSource, /data-action="move-todo"/);
+  assert.match(buildSource, /data-action="delete-todo"/);
+  assert.match(appSource, /document\.getElementById\('holding-form'\)\?\./);
+  assert.match(appSource, /\/api\/todo-item/);
+  assert.match(appSource, /globalThis\.location\.reload\(\)/);
+  assert.match(styles, /\.todo-item-actions/);
+  assert.match(artifact, /href="data\/todo\.xlsx"[^>]*>打开 todo\.xlsx<\/a>/);
+  assert.match(artifact, /class="todo-item-actions"/);
+  assert.match(artifact, /data-action="move-todo"/);
+  assert.match(artifact, /data-action="delete-todo"/);
+  for (const marker of [
+    'TODO-001',
+    'TODO-002',
+    'TODO-003',
+    'TODO-004',
+    'TODO-005',
+    'TODO-006',
+    'TODO-007',
+    '阅读《两次全球大危机的比较研究》',
+    '整理知识库-产业思维',
+    '产业思维与竞争格局的比较优势如何联合',
+    '重要且紧急',
+    '重要不紧急',
+    '紧急不重要',
+    '不重要且不紧急',
+  ]) {
+    assert.match(artifact, new RegExp(marker));
+  }
   assert.match(html, /<section class="view" id="featured-digest" data-shell-content="thermometer" aria-labelledby="featured-digest-heading">/);
   assert.match(html, /<h2 class="visually-hidden" id="featured-digest-heading">每日跟踪<\/h2>/);
   assert.match(html, /<section class="view" id="risk-monitor" data-shell-content="thermometer" aria-labelledby="risk-monitor-heading">/);
@@ -703,6 +743,12 @@ test('featured digest replaces book list and reads BBXM daily summaries', () => 
   assert.match(buildSource, /scanBbxmDailyDigest/);
   assert.match(buildSource, /metadataValue\(markdown, '标签'\)/);
   assert.match(buildSource, /digestFiltersFromPost\(markdown\)/);
+  assert.match(buildSource, /file\.name === '操作\.md'/);
+  assert.match(buildSource, /markdownSection\(summary, '总观点'\)/);
+  assert.match(buildSource, /markdownSection\(summary, '解析今天文章的观点'\)/);
+  assert.match(buildSource, /obsidianOpenPathHref\(summaryPath\)/);
+  assert.match(buildSource, /featured-summary-card/);
+  assert.match(styles, /featured-summary-card/);
   assert.match(buildSource, /digestOriginalText\(markdown, title\)/);
   assert.match(buildSource, /originalTextEncoded/);
   assert.match(buildSource, /featured-original-toggle/);
@@ -729,18 +775,22 @@ test('featured digest replaces book list and reads BBXM daily summaries', () => 
     '每日跟踪',
     '当前热点',
     '来源目录：sources/automations/BBXM每日汇总',
-    '投机周期',
-    '../../sources/automations/BBXM每日汇总/2026-07-25/冰冰小美/135900_投机周期_40209002.md',
     '打开雪球原帖',
+    '打开 summary.md',
+    '当日汇总',
     '显示原文',
     '删除',
     'featured-original',
+    'featured-summary-card',
     'featured-filter-tabs',
     'featured-card',
+    'data-featured-filters="macro,market,industry,trade"',
     'data-featured-filter="macro"',
   ]) {
     assert.match(html, new RegExp(marker));
   }
+  assert.match(html, /obsidian:\/\/open\?path=[^"]+summary\.md/);
+  assert.doesNotMatch(html, /\/操作\.md/);
   assert.doesNotMatch(html, /READING LIST|这里先作为你的投资阅读书单入口|<!-- BBXM_FEATURED_DIGEST -->/);
 });
 

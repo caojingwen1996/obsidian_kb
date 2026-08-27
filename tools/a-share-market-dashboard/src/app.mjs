@@ -46,6 +46,7 @@ const NASDAQ100_SOURCE_URL = 'https://finance.yahoo.com/quote/%5ENDX/';
 const CSI_DIVIDEND_SIGNAL_SOURCE_URL = '../../sources/automations/中证红利信号/最新信号.md';
 const CSI_DIVIDEND_ANNUAL_SOURCE_URL = '../../sources/automations/中证红利信号/中证红利年度表现.json';
 const HOLDING_STATUSES = new Set(['持有', '观察', '计划加仓', '计划减仓']);
+const TODO_QUADRANTS = Object.freeze(['重要且紧急', '重要不紧急', '紧急不重要', '不重要且不紧急']);
 const ALLOCATION_CATEGORIES = Object.freeze([
   { key: 'strategy', label: '战略资源', color: '#26a68f' },
   { key: 'emerging', label: '新兴', color: '#f3b42b' },
@@ -2067,6 +2068,7 @@ function startApp() {
 
   const resetHoldingForm = () => {
     const form = document.getElementById('holding-form');
+    if (!form) return;
     form.reset();
     form.elements.id.value = '';
     form.elements.status.value = '持有';
@@ -2095,6 +2097,8 @@ function startApp() {
   };
 
   const renderHoldings = () => {
+    const tableBody = document.getElementById('holdings-table-body');
+    if (!tableBody) return;
     const summary = summarizeHoldings(holdings);
     document.getElementById('holding-count').textContent = String(summary.items.length);
     document.getElementById('portfolio-cost').textContent = formatMoney(summary.costValue);
@@ -2109,7 +2113,7 @@ function startApp() {
       ? `最近记录 ${new Date(Math.max(...summary.items.map(item => item.updatedAt))).toLocaleString('zh-CN', { hour12: false })}`
       : '尚未记录';
 
-    document.getElementById('holdings-table-body').innerHTML = summary.items.map(item => `<tr>
+    tableBody.innerHTML = summary.items.map(item => `<tr>
       <td class="holding-name"><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(item.code)}</small></td>
       <td>${item.quantity.toLocaleString('zh-CN')}</td>
       <td>${formatMoney(item.cost)} / ${formatMoney(item.price)}</td>
@@ -2567,7 +2571,7 @@ function startApp() {
     document.querySelector('#holding-tracker .tracking-table-wrap').hidden = false;
     const empty = document.getElementById('holding-tracker-empty');
     empty.textContent = trackingAllocationMode && !hasAllocation && !visibleItems.length
-      ? '还没有可计算的持有配比。先在仓位管理里记录持有数量和现价，或把跟踪项设为持有。'
+      ? '还没有可计算的持有配比。先把跟踪项设为持有，或保留本机持仓数据。'
       : '还没有跟踪标的。先在左侧新增一条观察记录。';
     empty.hidden = visibleItems.length > 0;
     document.getElementById('holding-tracker-list').innerHTML = trackingAllocationMode
@@ -2815,6 +2819,72 @@ function startApp() {
     }
   };
 
+  const setTodoItemBusy = (card, busy) => {
+    card?.querySelectorAll('.todo-action-button, .todo-move-select').forEach(control => {
+      control.disabled = busy;
+    });
+  };
+
+  const resetTodoButton = button => {
+    if (!button) return;
+    button.disabled = false;
+    button.textContent = button.dataset.originalText ?? button.textContent;
+  };
+
+  const handleTodoAction = button => {
+    const card = button.closest('.todo-item');
+    const todoId = card?.dataset.todoId ?? button.dataset.todoId ?? '';
+    const title = card?.querySelector('.todo-item-head strong')?.textContent?.trim() || '这条待办';
+    if (!todoId) return;
+    if (!isLocalProxyLocation()) {
+      globalThis.alert('移动或删除待办需要通过“启动面板.cmd”打开看板。');
+      return;
+    }
+
+    const action = button.dataset.action;
+    const payload = { id: todoId };
+    const request = { method: 'POST', busyText: '移动中...' };
+    if (action === 'move-todo') {
+      const targetQuadrant = card.querySelector('.todo-move-select')?.value ?? '';
+      if (!TODO_QUADRANTS.includes(targetQuadrant)) return;
+      if (targetQuadrant === card.dataset.todoQuadrant) {
+        globalThis.alert('这条待办已经在当前象限。');
+        return;
+      }
+      payload.action = 'move';
+      payload.quadrant = targetQuadrant;
+    } else if (action === 'delete-todo') {
+      if (!globalThis.confirm(`确认删除「${title}」？`)) return;
+      payload.action = 'delete';
+      request.method = 'DELETE';
+      request.busyText = '删除中...';
+    } else {
+      return;
+    }
+
+    button.dataset.originalText = button.dataset.originalText || button.textContent;
+    button.textContent = request.busyText;
+    setTodoItemBusy(card, true);
+    fetch('/api/todo-item', {
+      method: request.method,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    }).then(response => {
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      return response.json();
+    }).then(payload => {
+      if (payload?.rebuilt === false) {
+        globalThis.alert('已写入 todo.xlsx，但看板自动重建失败。请重新双击“启动面板.cmd”。');
+        return;
+      }
+      globalThis.location.reload();
+    }).catch(() => {
+      globalThis.alert('操作失败：请确认通过“启动面板.cmd”打开看板，并且 todo.xlsx 没有被 Excel 占用。');
+      setTodoItemBusy(card, false);
+      resetTodoButton(button);
+    });
+  };
+
   const applyTopicFilter = () => {
     const activeFilter = document.querySelector('.topic-filter-tabs button.is-active')?.dataset.topicFilter ?? 'all';
     let visibleCount = 0;
@@ -2863,7 +2933,7 @@ function startApp() {
       thermometer: 'MARKET VALUATION MONITOR',
       strategy: 'STRATEGY MENU',
       industry: 'INDUSTRY MAP',
-      personal: 'MY PORTFOLIO',
+      personal: 'MY WORKSPACE',
       changelog: 'CHANGELOG',
     }[targetShell];
     setActiveView(navigation.viewId);
@@ -2949,6 +3019,11 @@ function startApp() {
       deleteButton.textContent = '删除';
     });
   }));
+  document.getElementById('todo-matrix')?.addEventListener('click', event => {
+    const button = event.target.closest('button[data-action="move-todo"], button[data-action="delete-todo"]');
+    if (!button) return;
+    handleTodoAction(button);
+  });
   document.querySelectorAll('.topic-filter-tabs button').forEach(button => button.addEventListener('click', event => {
     document.querySelectorAll('.topic-filter-tabs button').forEach(item => {
       const active = item === event.currentTarget;
@@ -3012,7 +3087,7 @@ function startApp() {
   document.querySelectorAll('[data-tree-domain]').forEach(button => button.addEventListener('click', () => {
     setShell(button.dataset.treeDomain, button.dataset.view ?? null);
   }));
-  document.getElementById('holding-form').addEventListener('submit', event => {
+  document.getElementById('holding-form')?.addEventListener('submit', event => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const id = String(data.get('id') ?? '') || `${Date.now()}-${Math.random().toString(16).slice(2)}`;
@@ -3034,8 +3109,8 @@ function startApp() {
     renderHoldings();
     resetHoldingForm();
   });
-  document.getElementById('cancel-holding-edit').addEventListener('click', resetHoldingForm);
-  document.getElementById('holdings-table-body').addEventListener('click', event => {
+  document.getElementById('cancel-holding-edit')?.addEventListener('click', resetHoldingForm);
+  document.getElementById('holdings-table-body')?.addEventListener('click', event => {
     const button = event.target.closest('button[data-action]');
     if (!button) return;
     const holding = holdings.find(item => item.id === button.dataset.id);

@@ -15,6 +15,14 @@ const dividendSignalPath = join(automationsDir, '中证红利信号', '最新信
 const dividendHistoryWorkbookPath = join(automationsDir, '中证红利信号', '中证红利每日信号.xlsx');
 const dividendAnnualPerformancePath = join(automationsDir, '中证红利信号', '中证红利年度表现.json');
 const bbxmDailyDigestDir = join(automationsDir, 'BBXM每日汇总');
+const todoWorkbookPath = join(dataDir, 'todo.xlsx');
+const todoWorkbookHref = 'data/todo.xlsx';
+const todoQuadrants = [
+  { key: 'important-urgent', label: '重要且紧急', shortLabel: 'Q1', description: '立即处理', className: 'is-important-urgent' },
+  { key: 'important-not-urgent', label: '重要不紧急', shortLabel: 'Q2', description: '排入计划', className: 'is-important-not-urgent' },
+  { key: 'urgent-not-important', label: '紧急不重要', shortLabel: 'Q3', description: '压缩或委托', className: 'is-urgent-not-important' },
+  { key: 'not-important-not-urgent', label: '不重要且不紧急', shortLabel: 'Q4', description: '延后或删除', className: 'is-not-important-not-urgent' },
+];
 const industryDefinitions = [
   { key: 'STRATEGY', directoryName: '战略资源' },
   { key: 'EMERGING', directoryName: '新兴产业' },
@@ -156,6 +164,11 @@ function markdownSummary(markdown) {
   return truncateText(body || '主题页暂无可提取摘要。', 118);
 }
 
+function markdownSection(markdown, heading) {
+  const escapedHeading = String(heading).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return String(markdown ?? '').match(new RegExp(`^##\\s+${escapedHeading}\\s+([\\s\\S]*?)(?:\\n##\\s+|\\n$)`, 'mu'))?.[1]?.trim() ?? '';
+}
+
 function topicCategory(title) {
   if (title.startsWith('冰冰小美')) return 'bbxm';
   if (title.startsWith('碧树西风')) return 'bishi';
@@ -260,7 +273,7 @@ async function scanBbxmDailyDigest() {
     const files = await readdir(dayDir, { withFileTypes: true }).catch(() => []);
     const entries = [];
     for (const file of files) {
-      if (!file.isFile() || !file.name.endsWith('.md') || file.name === 'summary.md' || file.name.includes('_解读')) continue;
+      if (!file.isFile() || !file.name.endsWith('.md') || file.name === 'summary.md' || file.name === '操作.md' || file.name.includes('_解读')) continue;
       const markdown = await readFile(join(dayDir, file.name), 'utf8');
       const title = frontmatterValue(markdown, '标题') || digestTitleFromFilename(file.name);
       const publishedAt = frontmatterValue(markdown, '发布时间') || `${dateEntry.name} ${timeFromFilename(file.name)}`;
@@ -278,13 +291,16 @@ async function scanBbxmDailyDigest() {
     }
     const summaryPath = join(dayDir, 'summary.md');
     const summary = await readFile(summaryPath, 'utf8').catch(() => '');
-    const summaryHeadline = summary.match(/^## 总观点\s+([\s\S]*?)(?:\n## |\n$)/u)?.[1]?.trim() ?? '';
+    const summaryHeadline = markdownSection(summary, '总观点');
+    const summaryAnalysis = markdownSection(summary, '解析今天文章的观点');
     dayGroups.push({
       date: dateEntry.name,
       weekday: weekdayFromDate(dateEntry.name),
       entries: entries.sort((left, right) => right.time.localeCompare(left.time)),
       summary: truncateText(summaryHeadline, 138),
-      summaryHref: summary ? `../../sources/automations/BBXM每日汇总/${dateEntry.name}/冰冰小美/summary.md` : '',
+      summaryDetail: truncateText(summaryHeadline, 360),
+      summaryAnalysis: truncateText(summaryAnalysis, 360),
+      summaryHref: summary ? obsidianOpenPathHref(summaryPath) : '',
     });
   }
   return dayGroups
@@ -335,6 +351,21 @@ function renderFeaturedDigest(groups) {
               ${hotItems ? `<ol>\n${hotItems}\n              </ol>` : `<p>${escapeHtml(latestGroup.summary || '最新日期暂无目标日期原帖。')}</p>`}
             </section>`;
   const dayBlocks = groups.map(group => {
+    const summaryCard = group.summaryHref && (group.summaryDetail || group.summaryAnalysis)
+      ? `                <article class="featured-card featured-summary-card" data-featured-id="${escapeHtml(group.summaryHref)}" data-featured-filters="macro,market,industry,trade">
+                  <span class="featured-time">汇总</span><span class="featured-dot"></span>
+                  <div class="featured-card-inner">
+                    <div class="featured-meta"><span>summary.md · 自动化摘要</span><b>汇总</b></div>
+                    <h3><a href="${escapeHtml(group.summaryHref)}" target="_blank" rel="noopener noreferrer">${escapeHtml(displayDigestDate(group.date))} 当日汇总</a></h3>
+                    ${group.summaryDetail ? `<p><strong>总观点：</strong>${escapeHtml(group.summaryDetail)}</p>` : ''}
+                    ${group.summaryAnalysis ? `<p><strong>解析：</strong>${escapeHtml(group.summaryAnalysis)}</p>` : ''}
+                    <div class="featured-tags">#宏观 #市场 #产业 #交易</div>
+                    <div class="featured-actions">
+                      <a class="featured-source" href="${escapeHtml(group.summaryHref)}" target="_blank" rel="noopener noreferrer">打开 summary.md</a>
+                    </div>
+                  </div>
+                </article>`
+      : '';
     const cards = group.entries.map(entry =>
       `                <article class="featured-card" data-featured-id="${escapeHtml(entry.href)}" data-featured-filters="${escapeHtml(entry.filters.join(','))}">
                   <span class="featured-time">${escapeHtml(entry.time)}</span><span class="featured-dot"></span>
@@ -354,7 +385,7 @@ function renderFeaturedDigest(groups) {
                   </div>
                 </article>`
     ).join('\n');
-    const summary = group.summary && !group.entries.length
+    const summary = group.summary && !group.entries.length && !summaryCard
       ? `              <article class="featured-card is-summary" data-featured-filters="market">
                 <span class="featured-time">—</span><span class="featured-dot"></span>
                 <div class="featured-card-inner">
@@ -369,6 +400,7 @@ function renderFeaturedDigest(groups) {
               <summary class="featured-date-row"><strong>${escapeHtml(displayDigestDate(group.date))}</strong><span>${escapeHtml(group.weekday)} · ${group.entries.length} 条</span></summary>
               <div class="featured-timeline">
                 <div class="featured-feed">
+${summaryCard}
 ${cards || summary}
                 </div>
               </div>
@@ -404,6 +436,51 @@ function renderTopicCards(topics) {
 ${cards}
             </div>
             <p class="topic-empty-results" hidden>没有匹配的主题页。</p>`;
+}
+
+function renderTodoSummaryCards(todoList) {
+  return todoQuadrants.map(quadrant => {
+    const count = todoList.items.filter(item => item.quadrant === quadrant.label).length;
+    return `            <article class="todo-summary-card ${escapeHtml(quadrant.className)}">
+              <small>${escapeHtml(quadrant.shortLabel)}</small>
+              <strong>${count}</strong>
+              <span>${escapeHtml(quadrant.label)}</span>
+            </article>`;
+  }).join('\n');
+}
+
+function renderTodoItem(item) {
+  const due = item.dueDate ? `<span>截止 ${escapeHtml(item.dueDate)}</span>` : '<span>无截止日期</span>';
+  const owner = item.owner ? `<span>负责人 ${escapeHtml(item.owner)}</span>` : '';
+  const flags = [item.important ? `重要 ${item.important}` : '', item.urgent ? `紧急 ${item.urgent}` : ''].filter(Boolean);
+  const moveOptions = todoQuadrants.map(quadrant => `<option value="${escapeHtml(quadrant.label)}"${quadrant.label === item.quadrant ? ' selected' : ''}>${escapeHtml(quadrant.label)}</option>`).join('');
+  return `                <article class="todo-item" data-todo-id="${escapeHtml(item.id)}" data-todo-quadrant="${escapeHtml(item.quadrant)}">
+                  <div class="todo-item-head"><strong>${escapeHtml(item.title)}</strong><span>${escapeHtml(item.status)}</span></div>
+                  ${item.detail ? `<p>${escapeHtml(item.detail)}</p>` : ''}
+                  <div class="todo-item-meta">${due}${owner}${flags.map(flag => `<span>${escapeHtml(flag)}</span>`).join('')}</div>
+                  ${item.source ? `<small>${escapeHtml(item.source)}</small>` : ''}
+                  <div class="todo-item-actions">
+                    <select class="todo-move-select" data-todo-move-target="${escapeHtml(item.id)}" aria-label="移动 ${escapeHtml(item.title)} 到">
+${moveOptions}
+                    </select>
+                    <button class="todo-action-button" type="button" data-action="move-todo" data-todo-id="${escapeHtml(item.id)}">移动</button>
+                    <button class="todo-action-button is-danger" type="button" data-action="delete-todo" data-todo-id="${escapeHtml(item.id)}">删除</button>
+                  </div>
+                </article>`;
+}
+
+function renderTodoMatrix(todoList) {
+  return todoQuadrants.map(quadrant => {
+    const items = todoList.items.filter(item => item.quadrant === quadrant.label);
+    const body = items.length
+      ? items.map(renderTodoItem).join('\n')
+      : '                <p class="todo-empty">暂无事项</p>';
+    return `              <section class="todo-quadrant ${escapeHtml(quadrant.className)}" data-todo-quadrant="${escapeHtml(quadrant.label)}">
+                <header><div><span>${escapeHtml(quadrant.shortLabel)}</span><h3>${escapeHtml(quadrant.label)}</h3></div><strong>${items.length}项</strong></header>
+                <p class="todo-quadrant-guide">${escapeHtml(quadrant.description)}</p>
+${body}
+              </section>`;
+  }).join('\n');
 }
 
 async function walkHtmlFiles(directory, pathParts = []) {
@@ -682,22 +759,22 @@ function readZipEntries(buffer) {
 
 function parseXlsxSharedStrings(xml) {
   if (!xml) return [];
-  return [...xml.matchAll(/<si\b[\s\S]*?<\/si>/g)].map(match => (
-    [...match[0].matchAll(/<t\b[^>]*>([\s\S]*?)<\/t>/g)].map(text => decodeXml(text[1])).join('')
+  return [...xml.matchAll(/<(?:\w+:)?si\b[\s\S]*?<\/(?:\w+:)?si>/g)].map(match => (
+    [...match[0].matchAll(/<(?:\w+:)?t\b[^>]*>([\s\S]*?)<\/(?:\w+:)?t>/g)].map(text => decodeXml(text[1])).join('')
   ));
 }
 
 function cellValue(cellXml, sharedStrings) {
   const type = cellXml.match(/\bt="([^"]+)"/)?.[1] ?? '';
-  const rawValue = cellXml.match(/<v>([\s\S]*?)<\/v>/)?.[1] ?? cellXml.match(/<t\b[^>]*>([\s\S]*?)<\/t>/)?.[1] ?? '';
+  const rawValue = cellXml.match(/<(?:\w+:)?v>([\s\S]*?)<\/(?:\w+:)?v>/)?.[1] ?? cellXml.match(/<(?:\w+:)?t\b[^>]*>([\s\S]*?)<\/(?:\w+:)?t>/)?.[1] ?? '';
   if (type === 's') return sharedStrings[Number(rawValue)] ?? '';
   return decodeXml(rawValue);
 }
 
 function parseXlsxSheetRows(sheetXml, sharedStrings) {
-  return [...sheetXml.matchAll(/<row\b[^>]*>([\s\S]*?)<\/row>/g)].map(rowMatch => {
+  return [...sheetXml.matchAll(/<(?:\w+:)?row\b[^>]*>([\s\S]*?)<\/(?:\w+:)?row>/g)].map(rowMatch => {
     const row = [];
-    for (const cellMatch of rowMatch[1].matchAll(/<c\b([^>]*)>([\s\S]*?)<\/c>/g)) {
+    for (const cellMatch of rowMatch[1].matchAll(/<(?:\w+:)?c\b([^>]*)>([\s\S]*?)<\/(?:\w+:)?c>/g)) {
       const index = columnIndexFromCellRef(cellMatch[1].match(/\br="([^"]+)"/)?.[1]);
       if (index >= 0) row[index] = cellValue(cellMatch[0], sharedStrings);
     }
@@ -724,6 +801,104 @@ function parseDividendYieldHistoryFromWorkbook(buffer) {
       ? { date: date.replace(/^(\d{4})-(\d{1,2})-(\d{1,2})$/, (_, year, month, day) => `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`), value }
       : null;
   }).filter(Boolean);
+}
+
+function normalizeTodoFlag(value) {
+  const text = String(value ?? '').trim().toLocaleLowerCase('zh-CN');
+  if (['是', 'yes', 'y', 'true', '1', '重要', '紧急'].includes(text)) return true;
+  if (['否', 'no', 'n', 'false', '0', '不重要', '不紧急'].includes(text)) return false;
+  return null;
+}
+
+function canonicalTodoQuadrant(value) {
+  const text = String(value ?? '').replace(/\s+/g, '').trim();
+  return todoQuadrants.find(quadrant => quadrant.label === text)?.label ?? '';
+}
+
+function todoQuadrantFromFlags(important, urgent) {
+  if (important === true && urgent === true) return '重要且紧急';
+  if (important === true && urgent !== true) return '重要不紧急';
+  if (important !== true && urgent === true) return '紧急不重要';
+  return '不重要且不紧急';
+}
+
+function normalizeTodoDate(value) {
+  const text = String(value ?? '').trim();
+  if (!text) return '';
+  const isoDate = text.match(/^(\d{4})[-/](\d{1,2})[-/](\d{1,2})/);
+  if (isoDate) {
+    const [, year, month, day] = isoDate;
+    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+  }
+  const serial = Number(text);
+  if (Number.isFinite(serial) && serial > 20000 && serial < 80000) {
+    return new Date(Date.UTC(1899, 11, 30) + Math.round(serial) * 86400000).toISOString().slice(0, 10);
+  }
+  return text.slice(0, 20);
+}
+
+function todoHeaderIndex(header, candidates) {
+  return candidates
+    .map(candidate => header.findIndex(value => String(value ?? '').trim() === candidate))
+    .find(index => index >= 0) ?? -1;
+}
+
+function parseTodoListFromWorkbook(buffer) {
+  if (!buffer?.length) {
+    return { items: [], sourceHref: todoWorkbookHref, sourceNote: '未找到 data/todo.xlsx', status: 'missing' };
+  }
+  const entries = readZipEntries(buffer);
+  const sharedStrings = parseXlsxSharedStrings(entries.get('xl/sharedStrings.xml'));
+  const sheetXml = entries.get('xl/worksheets/sheet1.xml') ?? [...entries.entries()].find(([name]) => /^xl\/worksheets\/sheet\d+\.xml$/.test(name))?.[1] ?? '';
+  const rows = parseXlsxSheetRows(sheetXml, sharedStrings).filter(row => row.some(value => String(value ?? '').trim()));
+  const header = rows[0] ?? [];
+  const idIndex = todoHeaderIndex(header, ['需求编号', '编号', 'ID']);
+  const titleIndex = todoHeaderIndex(header, ['需求事项', '待办事项', '事项', '标题']);
+  const detailIndex = todoHeaderIndex(header, ['说明', '描述', '备注']);
+  const dueIndex = todoHeaderIndex(header, ['截止日期', '到期日期', '日期']);
+  const ownerIndex = todoHeaderIndex(header, ['负责人', '责任人']);
+  const importantIndex = todoHeaderIndex(header, ['重要性', '重要']);
+  const urgentIndex = todoHeaderIndex(header, ['紧急性', '紧急']);
+  const quadrantIndex = todoHeaderIndex(header, ['四象限标签', '标签', '象限']);
+  const statusIndex = todoHeaderIndex(header, ['状态', '进度']);
+  const sourceIndex = todoHeaderIndex(header, ['来源/备注', '来源', '备注']);
+  const updatedIndex = todoHeaderIndex(header, ['更新时间', '更新日期']);
+  if (titleIndex < 0) return { items: [], sourceHref: todoWorkbookHref, sourceNote: 'todo.xlsx 缺少“需求事项”列', status: 'invalid' };
+  const items = rows.slice(1).flatMap((row, rowIndex) => {
+    const title = String(row[titleIndex] ?? '').trim();
+    if (!title) return [];
+    const important = normalizeTodoFlag(row[importantIndex]);
+    const urgent = normalizeTodoFlag(row[urgentIndex]);
+    const quadrant = canonicalTodoQuadrant(row[quadrantIndex]) || todoQuadrantFromFlags(important, urgent);
+    const dueDate = normalizeTodoDate(row[dueIndex]);
+    const updatedAt = normalizeTodoDate(row[updatedIndex]);
+    return [{
+      id: String(row[idIndex] ?? `TODO-${String(rowIndex + 1).padStart(3, '0')}`).trim(),
+      title: truncateText(title, 72),
+      detail: truncateText(String(row[detailIndex] ?? '').trim(), 150),
+      dueDate,
+      owner: truncateText(String(row[ownerIndex] ?? '').trim(), 18),
+      important: important === true ? '是' : important === false ? '否' : '',
+      urgent: urgent === true ? '是' : urgent === false ? '否' : '',
+      quadrant,
+      status: truncateText(String(row[statusIndex] ?? '').trim() || '未开始', 16),
+      source: truncateText(String(row[sourceIndex] ?? '').trim(), 56),
+      updatedAt,
+    }];
+  }).sort((left, right) => {
+    const leftOrder = todoQuadrants.findIndex(quadrant => quadrant.label === left.quadrant);
+    const rightOrder = todoQuadrants.findIndex(quadrant => quadrant.label === right.quadrant);
+    if (leftOrder !== rightOrder) return leftOrder - rightOrder;
+    return (left.dueDate || '9999-99-99').localeCompare(right.dueDate || '9999-99-99')
+      || left.title.localeCompare(right.title, 'zh-CN');
+  });
+  const latestUpdate = items.map(item => item.updatedAt).filter(Boolean).sort().at(-1) ?? '';
+  return {
+    items,
+    sourceHref: todoWorkbookHref,
+    sourceNote: latestUpdate ? `来源：data/todo.xlsx · 更新：${latestUpdate}` : '来源：data/todo.xlsx',
+    status: 'loaded',
+  };
 }
 
 function parseDividendSignal(markdown) {
@@ -886,6 +1061,7 @@ const eventCalendar = validateEventCalendar(JSON.parse(eventCalendarSource));
 const dividendSignal = parseDividendSignal(await readFile(dividendSignalPath, 'utf8').catch(() => ''));
 const dividendYieldHistory = parseDividendYieldHistoryFromWorkbook(await readFile(dividendHistoryWorkbookPath).catch(() => null));
 const dividendAnnualPerformance = parseDividendAnnualPerformance(await readFile(dividendAnnualPerformancePath, 'utf8').catch(() => ''));
+const todoList = parseTodoListFromWorkbook(await readFile(todoWorkbookPath).catch(() => null));
 
 const automationReports = await walkHtmlFiles(automationsDir);
 const stockReportLinks = renderStockReportLinkMap(industries, automationReports);
@@ -923,6 +1099,10 @@ for (const industry of industries) {
 const output = renderedTemplate
   .replace('            <!-- DAILY_MONITOR_BUTTON -->', renderDailyMonitorButton(dailyMonitorData.latestSummary))
   .replace('            <!-- BBXM_FEATURED_DIGEST -->', renderFeaturedDigest(bbxmDailyDigest))
+  .replace('            <!-- TODO_SUMMARY_CARDS -->', renderTodoSummaryCards(todoList))
+  .replace('<!-- TODO_SOURCE_NOTE -->', escapeHtml(todoList.sourceNote))
+  .replace('<!-- TODO_COUNT -->', String(todoList.items.length))
+  .replace('              <!-- TODO_MATRIX -->', renderTodoMatrix(todoList))
   .replace('              <!-- TOPIC_FILTER_TABS -->', renderTopicFilterTabs(topicPages))
   .replace('            <!-- TOPIC_CARDS -->', renderTopicCards(topicPages))
   .replace('        <!-- CHANGELOG_ENTRIES -->', renderChangelog(changelog))

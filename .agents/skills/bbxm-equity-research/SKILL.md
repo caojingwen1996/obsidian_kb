@@ -1,14 +1,14 @@
 ---
 name: bbxm-equity-research
-description: Use when the user asks for institutional-grade equity research, company deep dives, fair value, DCF, target prices, valuation ranges, valuation-bubble judgments, HTML research reports, or a decision on whether a listed stock is worth buying. For A-share research, prefer local tushare-data MCP tools for stock identity, daily prices, valuation, moneyflow, margin, financial statements, dividends, and index constituents before falling back to AKShare or public pages.
-version: 3.0.5
+description: Use when the user asks for institutional-grade equity research, company deep dives, fair value, DCF, target prices, valuation ranges, valuation-bubble judgments, HTML research reports, or a decision on whether a listed stock is worth buying. For A-share research, prefer local tushare-data MCP tools for stock identity, daily prices, valuation, moneyflow, margin, financial statements, dividends, shareholder counts, and index constituents before falling back to AKShare or public pages.
+version: 3.0.6
 ---
 
 # 机构级个股研究
 
 ## 0. 当前版本
 
-当前版本：`3.0.5`
+当前版本：`3.0.6`
 
 ---
 
@@ -77,9 +77,12 @@ version: 3.0.5
 | 融资融券余额、融资买入、偿还、融券变化 | `get_margin_detail` | 第 1 章资金面组与第 9 章交易风险论据 | 融资买入会进入订单流，不能与资金分档机械相加 |
 | 利润表、资产负债表、现金流核心科目 | `get_financial_statements` | 第 6—7 章财务历史和最新季度的结构化初稿 | A 股财务结论仍需交易所 / 巨潮 / 公司法定报告复核；不得只凭 MCP 自动字段完成五年历史 |
 | 历史分红方案与实施 | `get_dividend_history` | 分红、股息率和股东回报旁证 | 分红是股东回报证据，不等于资金流入证据 |
+| 股东户数及历史变化 | `get_shareholder_count` | Step 2 / 第 3 章股东人数变化与第 13 章监控 | 不定期披露且存在公告滞后；股东户数减少不等于机构增持，户数增加也不等于必然利空 |
 | 指数成分股及权重 | `get_index_constituents` | 指数 / ETF 覆盖和中观配置背景 | 不能确认 ETF 申购者或国家队身份 |
 
-当前 `tushare-data` MCP 不覆盖或不直接支持的项目继续走其他来源，并在来源矩阵中保留缺口：卖方一致预期、目标价分布、第三方公允价值 / 护城河 / 星级、公司公告全文、业绩会纪要、订单明细、分部收入、可比公司估值、DCF 假设、ETF 份额与估算申赎、北向 / 陆股通持仓、龙虎榜、回购、增减持、股东户数、质押、解禁和大宗交易。
+当前 `tushare-data` MCP 不覆盖或不直接支持的项目继续走其他来源，并在来源矩阵中保留缺口：卖方一致预期、目标价分布、第三方公允价值 / 护城河 / 星级、公司公告全文、业绩会纪要、订单明细、分部收入、可比公司估值、DCF 假设、ETF 份额与估算申赎、北向 / 陆股通持仓、龙虎榜、回购、增减持、质押、解禁和大宗交易。
+
+A 股研报应尽量获取最近至少 4 个不同截止期的股东户数，逐期列出截止日期、公告日期、股东户数、较上期增减额和增减率。比较前先检查送转股、增发、合并等重大股本变化；该指标只作为持股分散度的低频代理，不能据此识别机构、散户或任何账户身份。
 
 MCP 是结构化数据入口，不改变法定披露优先原则。行情、估值、资金和财务字段可以提高采集效率，但关键财务、分部、指引、风险事件和估值假设必须回到法定公告、交易所文件、公司材料或可审计来源确认。
 
@@ -103,6 +106,7 @@ MCP 是结构化数据入口，不改变法定披露优先原则。行情、估�
 - A 股标的的 `tushare-data` MCP 调用清单、返回状态、数据时间、缺失字段和回退原因；
 - 实时价格、52 周高低、今年以来表现；
 - 第三方公允价值、护城河评级、星级；
+- 最近至少 4 个可得披露期的股东户数、环比变化及重大股本变动口径；
 - 最新季报、分部收入、管理层指引；
 - 卖方评级、目标价分布；
 - 近三个月新闻与催化剂；
@@ -119,6 +123,8 @@ MCP 是结构化数据入口，不改变法定披露优先原则。行情、估�
 按用户指定来源获取实时价格、52 周高低和年初至今表现；未指定且目标为 A 股时，先用 `tushare-data` MCP 的 `get_stock_daily` 和 `get_stock_valuation` 获取收盘价格、成交、换手、估值、市值和股息率，再用交易所、行情平台或本地行情代理补盘中价格。记录是否复权、盘中或收盘、当地时区。非 A 股仍优先使用交易所或可靠行情平台。
 
 同步收集可取得的连续交易证据：至少两个可比窗口的价格、成交额、换手率、相对行业强弱，以及融资、ETF / 机构代理或大单资金。A 股优先用 `get_stock_moneyflow` 获取大单 / 资金分档代理，用 `get_margin_detail` 获取融资融券代理；MCP 未覆盖的 ETF、北向、龙虎榜、机构持仓等继续回退公开来源。无法取得的字段登记到来源矩阵并说明缺口，不得在形成决策时无记录地另起一套数据口径。
+
+A 股同步调用 `get_shareholder_count`，默认整理最近至少 4 个不同截止期；接口无权限或无数据时回退公司公告、互动易或法定报告，并保留“未获取到”记录。报告必须同时显示截止日期和公告日期，变化率按相邻截止期计算，不得把披露日变化写成实时账户行为。
 
 第三方公允价值、护城河和星级只能在实际取得页面字段后填入。付费墙或登录限制下写“未获取到”，不得从搜索摘要猜测。
 
@@ -468,6 +474,7 @@ node .agents/skills/bbxm-equity-research/scripts/link-report-to-industry.cjs --e
 - [ ] 标的身份、市场、币种和截止时间明确；
 - [ ] 关键数字均有来源、时间和口径；
 - [ ] A 股标的已优先检查 `tushare-data` MCP 可覆盖项目，并在第 2 章来源矩阵写明 MCP 返回状态、缺失字段和回退原因；
+- [ ] A 股已将最近可得股东户数及相邻披露期变化写入第 3 章；截止日期与公告日期已分开，重大股本变动和账户身份推断边界已说明；
 - [ ] 五年历史与最新季度来自适用的法定披露；
 - [ ] “事实”“我的判断”“未获取到”使用正确；
 - [ ] 已识别全部有实质关联的产业位置，并按当前景气度、趋势、公司暴露依次排序；证据不足项已单列；

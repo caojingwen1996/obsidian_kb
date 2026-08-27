@@ -217,8 +217,13 @@ def target_report(run: dict, item: dict) -> str:
 
 
 def summary_report(run: dict, items: list[dict]) -> str:
+    priority_order = {"P0": 0, "P1": 1, "P2": 2, "P3": 3, "—": 9}
+    revalue_order = {"FULL_REVALUE": 0, "LIGHT_REVALUE": 1, "MANUAL_REVIEW": 2}
     abnormal = [i for i in items if i["triggers"]]
-    review = [i for i in items if i["needs_review"]]
+    review = sorted(
+        (i for i in items if i["needs_review"]),
+        key=lambda i: (priority_order.get(i.get("review_priority", "—"), 9), i["name"]),
+    )
     counts = {s: sum(i["revalue"] == s for i in items) for s in ("NO_REVALUE", "LIGHT_REVALUE", "FULL_REVALUE", "MANUAL_REVIEW")}
     focus = [i for i in items if i["triggers"] or i["needs_review"] or i["revalue"] != "NO_REVALUE"]
     focus_rows = "\n".join(
@@ -230,11 +235,17 @@ def summary_report(run: dict, items: list[dict]) -> str:
     review_rows = "\n".join(
         f"| {i.get('review_priority','—')} | {i['name']} | {i['reason']} | {i['hypothesis']} | {i['review_task']} | [打开报告]({i['code']}-{i['name']}-每日监控-{run['date']}.html) |" for i in review
     ) or "本次无待人工复盘标的。"
-    queue = [i for i in items if i["revalue"] != "NO_REVALUE"]
+    queue = sorted(
+        (i for i in items if i["revalue"] != "NO_REVALUE"),
+        key=lambda i: (revalue_order.get(i["revalue"], 9), priority_order.get(i.get("review_priority", "—"), 9), i["name"]),
+    )
     queue_rows = "\n".join(
         f"| {i.get('review_priority','—')} | {i['name']} | {i['revalue']} | {i['reason']} | {i['method']} | {i['report_date']} | {i['missing']} | {i['next_step']} |" for i in queue
     ) or "> 本次监控没有标的进入估值重算队列；股价变化只更新安全边际，不改变原价值区间。"
-    report_updates = [i for i in items if i["update_report"]]
+    report_updates = sorted(
+        (i for i in items if i["update_report"]),
+        key=lambda i: (priority_order.get(i.get("review_priority", "—"), 9), i["name"]),
+    )
     update_rows = "\n".join(
         f"| {i.get('review_priority','—')} | {i['name']} | {i['update_section']} | {i['reason']} | {i['missing']} | {i['next_step']} |" for i in report_updates
     ) or "> 本次监控没有需要更新研报的标的；全部变化继续保留在逐标的监控记录中。"

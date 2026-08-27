@@ -8,7 +8,7 @@ from tushare_client import DATASETS, TushareClient, TushareClientError, tushare_
 
 
 SERVER_NAME = "tushare-data"
-SERVER_VERSION = "0.4.0"
+SERVER_VERSION = "0.5.0"
 CENTRAL_HUIJIN_DEFAULT_KEYWORDS = ("中央汇金",)
 DEFAULT_USD_JPY_CODE = "USDJPY.FXCM"
 DEFAULT_USD_JPY_RISK_THRESHOLD = 160
@@ -234,6 +234,24 @@ def tools():
             },
         },
         {
+            "name": "get_shareholder_count",
+            "description": "获取A股股东户数历史披露，并按不同截止日期计算较上期增减。数据为不定期公告口径，不代表实时持股账户变化。",
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "ts_code": {"type": "string", "description": "股票代码，例如 600150 或 600150.SH。"},
+                    "ann_date": {"type": "string", "description": "可选，公告日期 YYYYMMDD 或 YYYY-MM-DD。"},
+                    "enddate": {"type": "string", "description": "可选，股东户数截止日期 YYYYMMDD 或 YYYY-MM-DD。"},
+                    "start_date": {"type": "string", "description": "可选，公告开始日期。"},
+                    "end_date": {"type": "string", "description": "可选，公告结束日期。"},
+                    "use_cache": {"type": "boolean", "default": True},
+                    "limit": {"type": "integer", "minimum": 1, "maximum": 3000},
+                },
+                "required": ["ts_code"],
+                "additionalProperties": False,
+            },
+        },
+        {
             "name": "check_central_huijin_holding",
             "description": "判断A股前十大股东或前十大流通股东披露中是否出现中央汇金相关主体。该接口只确认定期报告披露口径，不代表实时持仓。",
             "inputSchema": {
@@ -319,6 +337,62 @@ def get_dividend_history(client, arguments):
         rows = [row for row in rows if "实施" in str(row.get("div_proc") or "")]
     rows = apply_limit(rows, limit)
     return rows
+
+
+def get_shareholder_count(client, arguments):
+    args, use_cache, limit = pop_common(arguments)
+    rows = client.call_frame("stk_holdernumber", use_cache=use_cache, **args)
+    rows = sorted(
+        rows,
+        key=lambda row: (str(row.get("end_date") or ""), str(row.get("ann_date") or "")),
+        reverse=True,
+    )
+
+    periods = []
+    seen_periods = set()
+    for row in rows:
+        end_date = row.get("end_date")
+        try:
+            holder_num = float(row.get("holder_num"))
+            holder_num = int(holder_num) if holder_num.is_integer() else holder_num
+        except (TypeError, ValueError):
+            holder_num = None
+        if not end_date or holder_num is None or end_date in seen_periods:
+            continue
+        seen_periods.add(end_date)
+        periods.append({**row, "holder_num": holder_num})
+
+    for index, row in enumerate(periods):
+        previous = periods[index + 1] if index + 1 < len(periods) else None
+        previous_holder_num = previous.get("holder_num") if previous else None
+        change = row["holder_num"] - previous_holder_num if previous_holder_num is not None else None
+        change_pct = (
+            round(change / previous_holder_num * 100, 4)
+            if change is not None and previous_holder_num
+            else None
+        )
+        row.update({
+            "previous_end_date": previous.get("end_date") if previous else None,
+            "previous_holder_num": previous_holder_num,
+            "holder_num_change": change,
+            "holder_num_change_pct": change_pct,
+            "change_direction": (
+                "增加" if change is not None and change > 0
+                else "减少" if change is not None and change < 0
+                else "持平" if change == 0
+                else "无法比较"
+            ),
+        })
+
+    visible_rows = apply_limit(periods, limit)
+    return {
+        "ts_code": args.get("ts_code"),
+        "rows": visible_rows,
+        "row_count": len(visible_rows),
+        "total_period_count": len(periods),
+        "latest": periods[0] if periods else None,
+        "disclosure_scope": "股东户数为不定期披露且存在公告滞后；户数减少不等于机构增持，户数增加也不等于必然利空。",
+    }
 
 
 def normalize_holder_keywords(value):
@@ -562,6 +636,8 @@ def call_tool(name, arguments):
     if name == "get_dividend_history":
         rows = get_dividend_history(client, arguments)
         return {"dataset": "dividend", "rows": rows, "row_count": len(rows)}
+    if name == "get_shareholder_count":
+        return {"dataset": "stk_holdernumber", **get_shareholder_count(client, arguments)}
     if name == "check_central_huijin_holding":
         return {"dataset": "shareholders", **get_central_huijin_holding(client, arguments)}
     if name == "get_index_constituents":

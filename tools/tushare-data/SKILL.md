@@ -23,6 +23,7 @@ python E:\caojingwen\obsidian\llmwiki\tools\tushare-data\scripts\mcp_server.py
 - `get_usd_jpy_exchange_rate`：获取美元兑日元日线，默认 `USDJPY.FXCM`；当 USDJPY >= 160 时提示日元贬值风险。
 - `get_financial_statements`：获取利润表、资产负债表和现金流量表核心科目。
 - `get_dividend_history`：获取历史分红方案及实施记录。
+- `get_shareholder_count`：获取股东户数历史披露，并按不同截止日期计算较上期增减额、增减率和方向；该数据为不定期公告口径，不代表实时账户变化。
 - `check_central_huijin_holding`：判断前十大股东 / 前十大流通股东披露中是否出现中央汇金相关主体；只代表定期报告披露口径，不代表实时持仓。
 - `get_index_constituents`：获取指数历史成分股和权重。
 

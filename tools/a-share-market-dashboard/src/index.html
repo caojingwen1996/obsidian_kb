@@ -49,7 +49,7 @@
           <section class="tree-group" data-tree-group="personal">
             <button class="tree-root" type="button" data-tree-domain="personal" aria-expanded="false" aria-controls="tree-personal"><span>我的</span><span class="tree-chevron" aria-hidden="true"></span></button>
             <div class="tree-children" id="tree-personal" hidden>
-            <button class="nav-item" type="button" data-view="position-manager"><span>01</span>仓位管理</button>
+            <button class="nav-item" type="button" data-view="position-manager"><span>01</span>需求清单</button>
             <button class="nav-item" type="button" data-view="holding-tracker"><span>02</span>持仓跟踪</button>
             <button class="nav-item" type="button" data-view="review-diary-view"><span>03</span>复盘日记</button>
             </div>
@@ -325,39 +325,22 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
       </section>
 
       <section class="view" id="position-manager" data-shell-content="personal" aria-labelledby="position-manager-heading">
-        <div class="personal-page">
-          <h2 class="visually-hidden" id="position-manager-heading">仓位管理</h2>
-          <div class="portfolio-summary" aria-label="仓位摘要">
-            <article><small>持仓标的</small><strong id="holding-count">0</strong><span>只</span></article>
-            <article><small>持仓成本</small><strong id="portfolio-cost">¥0.00</strong><span>累计投入</span></article>
-            <article><small>当前市值</small><strong id="portfolio-market-value">¥0.00</strong><span>按记录现价</span></article>
-            <article id="portfolio-profit-card"><small>浮动盈亏</small><strong id="portfolio-profit">¥0.00</strong><span id="portfolio-profit-rate">0.00%</span></article>
+        <div class="personal-page todo-page">
+          <h2 class="visually-hidden" id="position-manager-heading">需求清单</h2>
+          <div class="todo-summary" id="todo-summary" aria-label="需求清单摘要">
+            <!-- TODO_SUMMARY_CARDS -->
           </div>
 
-          <div class="position-layout">
-            <form class="holding-form panel" id="holding-form">
-              <input id="holding-id" name="id" type="hidden">
-              <div class="holding-form-title"><div><p class="eyebrow">POSITION RECORD</p><h3 id="holding-form-title">新增持仓</h3></div><button class="text-button" id="cancel-holding-edit" type="button" hidden>取消编辑</button></div>
-              <div class="holding-form-grid">
-                <label><span>证券代码</span><input name="code" required maxlength="12" placeholder="例如 600879"></label>
-                <label><span>标的名称</span><input name="name" required maxlength="30" placeholder="例如 航天电子"></label>
-                <label><span>持有数量</span><input name="quantity" type="number" required min="0" step="any" placeholder="0"></label>
-                <label><span>持仓成本价</span><input name="cost" type="number" required min="0" step="0.001" placeholder="0.000"></label>
-                <label><span>记录现价</span><input name="price" type="number" required min="0" step="0.001" placeholder="0.000"></label>
-                <label><span>跟踪状态</span><select name="status"><option>持有</option><option>观察</option><option>计划加仓</option><option>计划减仓</option></select></label>
-                <label class="holding-note-field"><span>关注要点</span><textarea name="note" rows="3" maxlength="240" placeholder="记录持有逻辑、风险线或下一次复核条件"></textarea></label>
-              </div>
-              <button class="button-primary" type="submit">保存持仓</button>
-            </form>
-
-            <div class="holdings-panel panel">
-              <div class="holding-form-title"><div><p class="eyebrow">POSITIONS</p><h3>当前持仓</h3></div><span id="holdings-updated">尚未记录</span></div>
-              <div class="holdings-table-wrap">
-                <table class="holdings-table"><thead><tr><th>标的</th><th>数量</th><th>成本 / 现价</th><th>市值</th><th>盈亏</th><th>仓位</th><th>操作</th></tr></thead><tbody id="holdings-table-body"></tbody></table>
-              </div>
-              <p class="personal-empty" id="holdings-empty">还没有持仓。先在左侧录入第一只标的。</p>
+          <section class="todo-board panel" id="todo-board" aria-label="需求清单四象限">
+            <div class="holding-form-title">
+              <div><p class="eyebrow">TODO MATRIX</p><h3>需求清单</h3></div>
+              <a class="button-secondary todo-source-link" href="data/todo.xlsx" target="_blank" rel="noopener noreferrer">打开 todo.xlsx</a>
             </div>
-          </div>
+            <div class="todo-source-note"><span><!-- TODO_SOURCE_NOTE --></span><strong><!-- TODO_COUNT -->项</strong></div>
+            <div class="todo-matrix" id="todo-matrix">
+              <!-- TODO_MATRIX -->
+            </div>
+          </section>
         </div>
       </section>
 

@@ -2,6 +2,7 @@ from contextlib import contextmanager
 from datetime import date, datetime, timedelta, timezone
 import json
 from pathlib import Path
+import shutil
 import sys
 from tempfile import TemporaryDirectory
 from threading import Thread
@@ -14,6 +15,7 @@ from scripts.local_proxy import (
     DEFAULT_PORT,
     RouteError,
     UpstreamError,
+    apply_todo_workbook_action,
     append_review_diary_entry,
     build_upstream_url,
     create_server,
@@ -844,6 +846,34 @@ class ServerTests(unittest.TestCase):
             summary_exists = summary.exists()
 
         self.assertTrue(summary_exists)
+
+    def test_todo_item_move_and_delete_update_workbook(self):
+        with TemporaryDirectory() as directory:
+            workbook = Path(directory) / "todo.xlsx"
+            shutil.copyfile(DASHBOARD.parent / "data" / "todo.xlsx", workbook)
+
+            moved = apply_todo_workbook_action(
+                {"id": "TODO-007", "action": "move", "quadrant": "重要不紧急"},
+                workbook,
+                "move",
+                now=datetime(2026, 8, 27, 9, 0, tzinfo=timezone(timedelta(hours=8))),
+            )
+            deleted = apply_todo_workbook_action(
+                {"id": "TODO-007", "action": "delete"},
+                workbook,
+                "delete",
+                now=datetime(2026, 8, 27, 9, 5, tzinfo=timezone(timedelta(hours=8))),
+            )
+
+        self.assertEqual(moved["action"], "moved")
+        self.assertEqual(moved["quadrant"], "重要不紧急")
+        self.assertEqual(moved["counts"]["重要且紧急"], 3)
+        self.assertEqual(moved["counts"]["重要不紧急"], 3)
+        self.assertEqual(moved["total"], 7)
+        self.assertEqual(deleted["action"], "deleted")
+        self.assertEqual(deleted["counts"]["重要且紧急"], 3)
+        self.assertEqual(deleted["counts"]["重要不紧急"], 2)
+        self.assertEqual(deleted["total"], 6)
 
     def test_tracking_report_rerender_overwrites_existing_html(self):
         with TemporaryDirectory() as directory:

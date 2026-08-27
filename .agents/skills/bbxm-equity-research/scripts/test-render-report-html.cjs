@@ -50,6 +50,8 @@ assert.doesNotMatch(reportTemplate, /冰冰小美框架判断|三要素状态总
 assert.match(skillContract, /不设置独立的“冰冰小美框架判断”章节/);
 assert.match(skillContract, /16 个编号模块/);
 assert.match(skillContract, /Step 4\.5：建立分部级估值成熟度路由/);
+assert.match(skillContract, /`get_shareholder_count`/);
+assert.match(skillContract, /股东户数减少不等于机构增持/);
 assert.match(skillContract, /Step 4\.4：判断企业价值类型与主估值锚/);
 assert.match(skillContract, /Step 4\.3：筛查通胀暴露并建立经营传导/);
 assert.match(skillContract, /高暴露 \/ 中等暴露 \/ 低暴露 \/ 证据不足/);
@@ -63,6 +65,8 @@ assert.match(skillContract, /当前股东保留比例/);
 assert.match(skillContract, /不得把同一笔资金同时作为未来投入和融资稀释重复扣除/);
 assert.match(skillContract, /终值占企业价值超过 70%/);
 assert.match(reportTemplate, /### 4\.3 宏观价格环境与通胀传导/);
+assert.match(reportTemplate, /### 3\.4 股东人数变化（A股适用）/);
+assert.match(reportTemplate, /\| 截止日期 \| 公告日期 \| 股东户数 \| 较上期变化 \| 较上期变化率 \| 方向 \| 来源 \|/);
 assert.match(reportTemplate, /### 4\.4 企业价值类型与主估值锚/);
 assert.match(reportTemplate, /\| 宏观价格环境 \| 通胀暴露/);
 assert.match(reportTemplate, /### 6\.1 盈利、现金流与资产质量检查/);

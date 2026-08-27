@@ -1814,7 +1814,7 @@ topic / refactor / index
 
 ### 操作说明
 
-按用户要求继续扩展 [[topics/冰冰小美-观测指标|冰冰小美-观测指标]]，在“宏观全球指标”“中观央行指标”之后新增“微观企业指标”。该章节聚合产业位置、经营验证、竞争格局、成长质量、估值兑现和企业风险六类观察变量，并回链到[[冰冰小美-fundamental -产业思维|产业思维]]]、[[concepts/冰冰小美-framework-产业链财报旁证法|产业链财报旁证法]]、[[concepts/冰冰小美-framework-长线四大选股体系|长线四大选股体系]]、[[concepts/冰冰小美-成长股选择框架|成长股选择框架]] 等既有页面。同步更新总索引描述。
+按用户要求继续扩展 [[topics/冰冰小美-观测指标|冰冰小美-观测指标]]，在“宏观全球指标”“中观央行指标”之后新增“微观企业指标”。该章节聚合产业位置、经营验证、竞争格局、成长质量、估值兑现和企业风险六类观察变量，并回链[[冰冰小美-fundamental-产业思维|产业思维]]]]、[[concepts/冰冰小美-framework-产业链财报旁证法|产业链财报旁证法]]、[[concepts/冰冰小美-framework-长线四大选股体系|长线四大选股体系]]、[[concepts/冰冰小美-成长股选择框架|成长股选择框架]] 等既有页面。同步更新总索引描述。
 
 ### 后续待办
 
@@ -23949,3 +23949,621 @@ skill / template / render
 ### 后续待办
 
 - 后续生成或更新个股研报时使用“风险状态”新字段；既有报告可在更新时逐步迁移，无需一次性批量改写。
+
+## 2026-08-24
+
+### 操作类型
+
+automation / signal / update
+
+### 修改文件
+
+- `sources/automations/中证红利信号/中证红利每日信号.xlsx`
+- `sources/automations/中证红利信号/最新信号.md`
+- `sources/automations/中证红利信号/中证红利年度表现.json`
+- `log.md`
+
+### 操作说明
+
+运行 `zzhl-dividend-signal` 脚本检查 2026-08-24 中证红利股息率信号，并刷新每日记录。AKShare 返回指数估值日期 2026-08-21，`股息率2` 为 4.14%；中国 10 年国债收益率日期为 2026-08-21，收益率 1.6839%，股息率与 10 年国债收益率利差为 2.4561 个百分点，2026 年内收益率为 0.98%，年内最大回撤为 -15.96%。理杏仁公开页面失败：HTTP Error 403: Forbidden；雪球实时行情接口返回空响应，因此历史分位点与当天涨跌幅均保持待验证，不编造数值。三类规则结果为：历史分位点待验证、绝对股息率 C（小额定投）、相对债券收益率 C（小额定投）；综合结论为“历史分位点待验证，暂不判定加大买入区间”，未进入重点买入区间。
+
+### 后续待办
+
+- 若后续理杏仁公开页恢复访问，可重跑脚本或通过可核验网页数值补入近 10 年股息率分位。
+
+## 2026-08-24
+
+### 操作类型
+
+automation / xueqiu / risk-update
+
+### 修改文件
+
+- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/095800_请问你对这种市场有啥看法_量化割韭菜_都没反应过来_崩了_-_雪球_40627623.md`
+- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/100600_银行_煤炭_黄金拉升_量化因子读到了吗_不分青红皂白_反向全砸_人家_南方铜业_8_我们这边高开_40627943.md`
+- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/state.json`
+- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/task.log`
+- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/processing/extracted-posts.json`
+- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/processing/column-posts.json`
+- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/processing/risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/processing/risk-write-status.json`
+- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/summary.md`
+- `tools/bbxm-risk-dashboard/data/冰冰小美风险提示.xlsx`
+- `log.md`
+
+### 操作说明
+
+按 `.agents/automations/bbxm_daliy_brief.md` 运行 2026-08-24 BBXM 每日汇总。雪球抓取阶段识别 19 条详情记录，其中 2 条属于目标日期、17 条为 2026-08-21 和 2026-08-19 旧帖并已过滤；2 篇目标日期原帖保存到 `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美`，并补写 `标签：市场，交易`。生成 `summary.md`，新增“解析今天文章的观点”章节；风险分析覆盖 saved/analyzed/unresolved=2/2/0，写入 2 条 R1 自动风险提示，Excel 更新器返回 `written`。
+
+### 后续待办
+
+- 本轮仅覆盖运行时可见的雪球详情记录；若 2026-08-24 后续出现新增、隐藏恢复或晚间帖子，需要同日重跑并复用本目录。
+
+## 2026-08-24
+
+### 操作类型
+
+automation / portfolio-monitor / dashboard-build
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/data/monitor-run-2026-08-24.json`
+- `tools/a-share-market-dashboard/data/*-每日监控-2026-08-24.md`
+- `tools/a-share-market-dashboard/data/*-每日监控-2026-08-24.html`
+- `tools/a-share-market-dashboard/data/持仓今日监控汇总-2026-08-24.md`
+- `tools/a-share-market-dashboard/data/持仓今日监控汇总-2026-08-24.html`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `.agents/skills/portfolio-daily-monitoring/scripts/generate_run_reports.py`
+- `log.md`
+
+### 操作说明
+
+动态读取 `portfolio.json` 中 14 个“持有 / 观察”标的，按盘前口径采用最近完成交易日 2026-08-21 的行情和量价数据，公告与新闻检索截至 2026-08-24 10:10 CST。生成 14 份逐标的 Markdown/HTML 和一份当日汇总 Markdown/HTML。兴业银锡、神马电力、星网锐捷触发默认量价或估值区间异常；东材科技、华润江中因新披露 2026 年半年报进入 `FULL_REVALUE`，保留旧估值区间等待人工完整重估。同步修正汇总生成器的人工复盘、估值重算和研报更新队列优先级排序，并完成看板重建、全量链接和乱码校验。
+
+### 后续待办
+
+- 完整重估东材科技与华润江中，复核半年报分部、现金流、资本开支和 2026—2028 盈利预测后，再决定是否更新权威研报估值区间。
+- 继续核对兴业银锡、神马电力和星网锐捷异常波动的可审计行业相对表现及后续正式公告。
+
+## 2026-08-24
+
+### 操作类型
+
+automation / xueqiu / risk-audit
+
+### 修改文件
+
+- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/*.md`
+- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/state.json`
+- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/task.log`
+- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/summary.md`
+- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/processing/extracted-posts.json`
+- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/processing/extracted-posts-rerun-20260824.json`
+- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/processing/column-posts.json`
+- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/processing/risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/processing/risk-write-status.json`
+- `log.md`
+
+### 操作说明
+
+按 `.agents/automations/bbxm_daliy_brief.md` 对 2026-08-24 BBXM 每日汇总执行同日重跑。通过雪球 CDP 抓取识别 21 条详情记录，其中 20 条为目标日期、1 条旧帖已过滤；正式目录由早间 2 篇扩展为 20 篇，18 篇净新增，并确认 20 篇均带 `标签：` 元数据。重写 `summary.md`，补全当天 20 篇内容和“解析今天文章的观点”。风险分析覆盖 saved/analyzed/unresolved=20/19/1，形成 13 条风险节点候选（R1 6 条、R2 6 条、W1 1 条）；因 11:05 帖主帖正文为空或未成功提取，`analysis_complete=false`，Excel 更新器按规则阻断写入并将状态记录为 `blocked`。
+
+### 后续待办
+
+- 人工复核或补抓 11:05 帖 `xueqiu:406299328` 的主帖正文；正文补齐后再重跑风险分析和 Excel 写入。
+- 若晚间雪球继续新增 2026-08-24 帖子，应复用本目录再次同日重跑，避免漏收。
+
+## 2026-08-25
+
+### 操作类型
+
+automation / dividend-signal / daily-record
+
+### 修改文件
+
+- `sources/automations/中证红利信号/中证红利每日信号.xlsx`
+- `sources/automations/中证红利信号/最新信号.md`
+- `sources/automations/中证红利信号/中证红利年度表现.json`
+- `log.md`
+
+### 操作说明
+
+按 `zzhl-dividend-signal` skill 运行 `python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py --output-dir "sources/automations/中证红利信号" --run-date 2026-08-25`，刷新中证红利股息率信号每日记录。记录日期为 `2026-08-25`；AKShare 指数估值日期为 `2026-08-24`，中证红利 `股息率2` 为 `4.09%`；中国 10 年国债收益率日期为 `2026-08-24`，收益率为 `1.6794%`，股息率口径 - 10 年国债收益率利差为 `2.4106` 个百分点。2026 年内收益率为 `2.32%`，年内最大回撤为 `-15.96%`。理杏仁公开页面失败：`HTTP Error 403: Forbidden`；雪球实时行情接口返回空响应，因此历史分位点、理杏仁市值加权股息率和当天涨跌幅保持待验证，未编造数值。三类规则结果为：历史分位点待验证、绝对股息率 `C（小额定投）`、相对债券收益率 `C（小额定投）`；综合结论为“历史分位点待验证，暂不判定加大买入区间”，未进入重点买入区间。
+
+### 后续待办
+
+- 若理杏仁公开页恢复访问，重跑脚本或通过可核验网页数值补入近 10 年股息率分位。
+
+## 2026-08-27
+
+### 操作类型
+
+tool / skill-update / report-template
+
+### 修改文件
+
+- `tools/tushare-data/scripts/tushare_client.py`
+- `tools/tushare-data/scripts/mcp_server.py`
+- `tools/tushare-data/config/datasets.yaml`
+- `tools/tushare-data/tests/test_tushare_mcp.py`
+- `tools/tushare-data/SKILL.md`
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `.agents/skills/bbxm-equity-research/template.md`
+- `.agents/skills/bbxm-equity-research/scripts/test-render-report-html.cjs`
+- `.agents/skills/financial-report-research/SKILL.md`
+- `log.md`
+
+### 操作说明
+
+为本地 `tushare-data` MCP 新增 `get_shareholder_count` 工具，接入 Tushare `stk_holdernumber` 数据集。接口按股东户数截止日期降序整理，重复截止期保留较晚公告，返回最近披露、较上期增减额、增减率和方向，并明确不定期披露、公告滞后及不能据此识别账户身份的边界。同步将股东人数变化加入机构级个股研报的来源矩阵、第 3 章固定表格、后续监控和完成前质量门，并纳入财报专项研究的股本分析流程。历史存量研报不批量回填，后续新生成或更新研报时按新模板执行。
+
+### 验证
+
+- `python -m unittest tools/tushare-data/tests/test_tushare_mcp.py`：25 项通过；
+- `node .agents/skills/bbxm-equity-research/scripts/test-render-report-html.cjs`：通过；
+- Python 语法编译、目标文件差异检查和中文乱码扫描：通过。
+
+## 2026-08-27
+
+### 操作类型
+
+automation / source-archive / daily-summary / risk-analysis
+
+### 修改文件
+
+- `sources/automations/BBXM每日汇总/2026-08-26/冰冰小美/*.md`
+- `sources/automations/BBXM每日汇总/2026-08-26/冰冰小美/summary.md`
+- `sources/automations/BBXM每日汇总/2026-08-26/冰冰小美/操作.md`
+- `sources/automations/BBXM每日汇总/2026-08-26/冰冰小美/processing/risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026-08-26/冰冰小美/processing/risk-write-status.json`
+- `sources/automations/BBXM每日汇总/2026-08-26/冰冰小美/task.log`
+- `log.md`
+
+### 操作说明
+
+按 `.agents/automations/bbxm_daliy_brief.md` 对 `2026-08-26` 的 BBXM 每日汇总进行登录后补跑。抓取器取得 20 条详情记录，其中 12 条属于目标日期并保存为原帖，8 条为非目标日期并跳过；已为 12 条原帖补写 `标签：` 元数据。重新生成 `summary.md`，补入“解析今天文章的观点”章节，并根据 10:30 原帖“今日情绪亢奋是卖点”生成范围限定的 `操作.md`。风险分析覆盖 12 条已保存原帖中的 11 条，09:51 原帖虽有 URL、发布时间和标签，但未提取到稳定作者主帖正文，因此 `risk-analysis.json` 设置 `analysis_complete=false`，Excel 更新器返回 `blocked`，未修改 `tools/bbxm-risk-dashboard/data/冰冰小美风险提示.xlsx`。
+
+### 后续待办
+
+- 人工打开或重新抓取 09:51 原帖正文；若确认正文后，按同日重跑重新生成完整风险分析并补写 Excel。
+
+## 2026-08-27
+
+### 操作类型
+
+automation / portfolio-monitoring / equity-research / dashboard-build
+
+### 修改文件
+
+- `sources/papers/柳工机构研报-2026-07-30/柳工2026年半年度报告.pdf`
+- `sources/papers/三花智控机构研报-2026-07-17/三花智控2026年半年度报告.pdf`
+- `workbench/targets/2026-07-30-1012-柳工-机构级决策研报.md`
+- `workbench/targets/2026-07-17-1134-三花智控-机构级决策研报.md`
+- `sources/automations/支柱产业/高端制造/2026-07-30-1012-柳工-机构级决策研报.html`
+- `sources/automations/新兴产业/机器人/2026-07-17-1134-三花智控-机构级决策研报.html`
+- `workbench/index.md`
+- `tools/a-share-market-dashboard/data/*-每日监控-2026-08-27.md`
+- `tools/a-share-market-dashboard/data/*-每日监控-2026-08-27.html`
+- `tools/a-share-market-dashboard/data/持仓今日监控汇总-2026-08-27.md`
+- `tools/a-share-market-dashboard/data/持仓今日监控汇总-2026-08-27.html`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按 `portfolio-daily-monitoring` 技能动态读取 `portfolio.json`，对14个“持有/观察”标的执行2026-08-27盘前监控，行情统一使用最近完成交易日2026-08-26收盘，公告检索至2026-08-27 09:42:34。采用默认异常规则：兴业银锡触发近5日+11.90%及高于估值上沿，西部矿业触发单日+7.62%；两者均因无新增可审计基本面输入而保持 `NO_REVALUE`，仅进入人工复盘。
+
+柳工、三花智控因2026年半年报法定披露强制进入 `FULL_REVALUE`。按 `bbxm-equity-research v3.0.5` 读取正式半年报并使用本地Tushare行情、估值、资金和财务数据，原地全量更新唯一权威研报及统一HTML。柳工收入与海外增长强化，但利润、现金转换、应收和杠杆削弱，公允价值由8—11元下修至7.5—10.0元、中枢8.6元；三花智控扣非、OCF和FCF改善，机器人与液冷仅有定性里程碑，公允价值由28—40元调整至29—41元、中枢35元。两份研报均保留16章、32项触发扫描及明确数据缺口；三花智控HTML已链接机器人产业报告，柳工所在目录未找到可链接的产业报告。
+
+生成14份逐标的Markdown和同名HTML、1份汇总Markdown和HTML；校验逐标的数量与清单一致、汇总14个链接全部存在、固定字段齐全且UTF-8未发现替换字符。重新构建A股看板，顶部“每日监控”已指向当日汇总，柳工和三花智控列表链接已指向当日逐标的HTML。技能契约、两类研报渲染与产业链接测试通过；看板72项测试中71项通过，唯一失败仍为既有“三要素报告摘要”预期值与当前样本不一致，与本次文件无直接关系。
+
+### 后续待办
+
+- 人工复核柳工Q3现金转换、应收周转和国内外毛利；复核三花智控Q3增长、应收回款及机器人/液冷独立收入、毛利和良率。
+- 持仓成本、仓位、行业指数映射、ETF申赎、基金仓位与逐账户资金身份仍未提供或未获取到。
+- 柳工高端制造目录缺少可供研报HTML回链的产业报告；看板三要素摘要测试的既有样本断言待独立修复。
+
+## 2026-08-26
+
+### 操作类型
+
+ingest / topic / source-archive / link
+
+### 修改文件
+
+- `sources/manual/2026-08-26-冰冰小美：书单与阅读方向补充.md`
+- `wiki/topics/冰冰小美的书单.md`
+- `index.md`
+- `hot.md`
+- `.manifest.json`
+- `log.md`
+
+### 操作说明
+
+将用户提供的冰冰小美书单片段保存为库内 source，新建 Topic Page `冰冰小美的书单`。页面按“人性与交易认识、价值发展与守护、经济周期与主导经济”三条主线整理十项核心书籍与文件，并聚合现有“推荐书目1—9”和《带着问题去阅读》来源；推荐书目1缺书名、推荐书目4缺正文，以及用户片段缺发布时间、原始链接和部分书籍版本等信息均明确标为待核验，未猜测补全。
+
+### 后续待办
+
+- 回查推荐书目1的原帖图片或其他归档，核验书名。
+- 重新抓取推荐书目4正文。
+- 后续发现冰冰小美明确推荐的书籍、年鉴或官方报告时，继续补入该 Topic Page。
+
+## 2026-08-26
+
+### 操作类型
+
+automation / BBXM每日汇总 / xueqiu-capture / risk-dashboard
+
+### 修改文件
+
+- `sources/automations/BBXM每日汇总/2026-08-26/冰冰小美/processing/risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026-08-26/冰冰小美/processing/risk-write-status.json`
+- `sources/automations/BBXM每日汇总/2026-08-26/冰冰小美/task.log`
+- `sources/automations/BBXM每日汇总/2026-08-26/冰冰小美/summary.md`
+- `log.md`
+
+### 操作说明
+
+按 `.agents/automations/bbxm_daliy_brief.md` 执行 2026-08-26 BBXM 每日汇总，目标作者限定为冰冰小美。自动化 Chrome/CDP 启动后，雪球要求在自动化窗口内重新登录；提取器等待登录恢复超时，未生成 `processing/extracted-posts.json`，未保存目标日期原帖，也未生成 `state.json`。本轮写入阻断版 `summary.md`、`risk-analysis.json` 与 `risk-write-status.json`；Excel 更新器返回 `blocked`，未修改风险提示工作簿。该结果明确表示抓取不完整，不是当日无帖。
+
+### 后续待办
+
+- 在自动化 Chrome 窗口完成雪球登录后，同日重跑 2026-08-26 BBXM 每日汇总并复用本目录。
+- 重跑后补抓原帖、补标签、重新生成 `summary.md`、完整风险分析，并在 `analysis_complete=true` 后再允许更新风险提示工作簿。
+
+## 2026-08-26
+
+### 操作类型
+
+automation / portfolio-daily-monitoring / dashboard-build
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/data/monitor-run-2026-08-26.json`
+- `tools/a-share-market-dashboard/data/*-每日监控-2026-08-26.md`
+- `tools/a-share-market-dashboard/data/*-每日监控-2026-08-26.html`
+- `tools/a-share-market-dashboard/data/持仓今日监控汇总-2026-08-26.md`
+- `tools/a-share-market-dashboard/data/持仓今日监控汇总-2026-08-26.html`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+动态读取 `portfolio.json`，按盘前口径监控 14 个“持有 / 观察”标的；行情与量价采用最近已完成交易日 2026-08-25，公告与产业信息检索至 2026-08-26 09:54 CST。生成 14 份逐标的 Markdown、14 份同名 HTML 及当日汇总 Markdown / HTML。兴业银锡因单日 -6.60% 且仍高于旧估值上沿、东材科技因近 5 日 -10.47% 进入人工复盘；全部标的均为 `NO_REVALUE`。补充三一重工员工持股计划完成 0.25% 回购股份过户、华润江中投资者关系活动记录表，均未形成新增估值重算触发。看板构建成功，顶部入口与 14 个逐标的链接已校验。
+
+### 后续待办
+
+- 复核兴业银锡、东材科技异常持续性和可审计行业相对表现。
+- 跟踪华润江中 2026-08-28 业绩说明会，以及三一重工员工持股计划费用确认。
+- Tushare `anns_d` 无权限，公告索引仍有延迟风险；组合成本、仓位和行业指数映射继续缺失。
+
+## 2026-08-25
+
+### 操作类型
+
+automation / portfolio-daily-monitoring / dashboard-build
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/data/*-每日监控-2026-08-25.md`
+- `tools/a-share-market-dashboard/data/*-每日监控-2026-08-25.html`
+- `tools/a-share-market-dashboard/data/持仓今日监控汇总-2026-08-25.md`
+- `tools/a-share-market-dashboard/data/持仓今日监控汇总-2026-08-25.html`
+- `tools/a-share-market-dashboard/data/monitor-run-2026-08-25.json`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+动态读取 `portfolio.json`，盘前监控 14 个持有或观察标的；行情和量价采用最近已完成交易日 2026-08-24，公告与新闻检索至 2026-08-25 11:17:06 CST。生成并校验 14 份逐标的 Markdown、14 份同名 HTML 及 1 份汇总 Markdown/HTML。默认异常规则触发兴业银锡、神马电力、东材科技、华润江中；估值处置为 12 个 `NO_REVALUE`、2 个 `FULL_REVALUE`（东材科技、华润江中）。看板重新构建，顶部汇总入口与 14 个逐标的链接均指向当日文件；技能契约和产物完整性校验通过。Node 全量测试 71/72，唯一失败为既有三要素摘要测试的旧文本断言，与本次每日监控产物无关。
+
+### 后续待办
+
+- 完整重估东材科技与华润江中，并在人工复核后决定是否更新权威研报估值区间。
+- 继续复核兴业银锡放量且高于旧估值上沿、神马电力单日显著下跌的可审计原因。
+- 补充组合成本、仓位和行业指数映射；`anns_d` 权限不足导致的公告索引延迟风险继续保留为数据缺口。
+
+## 2026-08-25
+
+### 操作类型
+
+equity-research / full-revaluation / source-ingest / html-render
+
+### 修改文件
+
+- `sources/webpages/2026-08-25-华润江中机构级研究中报更新快照.md`
+- `workbench/targets/2026-08-11-1803-华润江中-机构级决策研报.md`
+- `sources/automations/支柱产业/消费/医药健康/2026-08-11-1803-华润江中-机构级决策研报.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research v3.0.5` 对华润江中执行 2026 年中报完整重估，并原地更新唯一权威研报。法定披露确认 H1 营收、归母净利分别同比下降 9.75%和 5.92%，处方药毛利率下降 7.53 个百分点；同时经营现金流同比增长 6.80%、自由现金流代理同比增长约 9.29%，修复一季报现金转化反证。结合 2026-08-24 收盘价 22.52 元、估值、资金分档和融资余额，将正常化 EPS 调整为 1.45—1.55 元、合理 PE 调整为 15—19 倍，公允价值由 22—31 元 / 中枢 28 元下调至 22—30 元 / 中枢 26 元。新增宏观价格环境与通胀传导，完成 32 项泡沫触发器扫描；结论为公允价值内、经营预期溢价出清中、风险增强但未形成杠杆放大链，动作维持 `observe`。
+
+### 后续待办
+
+- 2026-08-28 半年度业绩说明会后复核渠道库存、合同负债下降原因、全年正常化 EPS 与资本开支安排。
+- 2026Q3 重点验证 OTC 收入降幅、经营现金流 / 净利润、合同负债、处方药毛利率和 21 元附近价格承接。
+
+## 2026-08-25
+
+### 操作类型
+
+equity-research / full-revaluation / source-ingest / html-render
+
+### 修改文件
+
+- `sources/webpages/2026-08-25-东材科技机构级研究半年报更新快照.md`
+- `workbench/targets/2026-07-17-1450-东材科技-机构级决策研报.md`
+- `sources/automations/新兴产业/算力/上游-PCB材料/2026-07-17-1450-东材科技-机构级决策研报.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research v3.0.5` 对东材科技执行 2026 年半年报完整重估，并原地更新唯一权威研报。法定披露确认 H1 营收、扣非归母分别同比增长 27.29%、40.86%，电子材料收入 12.04 亿元、毛利率 25.33%，经营现金流由负转正；同时自由现金流代理仍为 -0.34 亿元、短期借款较年初增长 32.32%，传统材料毛利受原料涨价和转固压力。结合 2026-08-24 收盘价 43.72 元、108.56 倍 PE TTM、资金分档持续流出及融资余额反向增加，公允价值维持 18—47 元，中枢由 30—33 元调整为 31—33 元。新增宏观价格环境与通胀传导，完成 32 项泡沫触发器扫描；结论为普通高估、估值与交易溢价出清中、风险重新增强并形成早期杠杆放大链，新增现金 `wait`、已有持仓 `review`。
+
+### 后续待办
+
+- 2026Q3 复核电子材料收入、ASP、毛利率，确认 H2 能否覆盖全年一致预期。
+- 跟踪眉山 2 万吨项目正式投产、良率、利用率、订单和稳态利润率，以及 1.8 万吨偏光片保护基膜项目的投资节奏。
+- 持续监控自由现金流、应收与存货、净有息负债、融资余额和 5 / 10 日资金承接；原产业目录无独立产业报告，因此未执行产业报告反向链接。
+
+## 2026-08-25
+
+### 操作类型
+
+automation / BBXM每日汇总 / xueqiu-capture / risk-dashboard
+
+### 修改文件
+
+- `sources/automations/BBXM每日汇总/2026-08-25/冰冰小美/processing/extracted-posts.json`
+- `sources/automations/BBXM每日汇总/2026-08-25/冰冰小美/processing/risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026-08-25/冰冰小美/processing/risk-write-status.json`
+- `sources/automations/BBXM每日汇总/2026-08-25/冰冰小美/task.log`
+- `sources/automations/BBXM每日汇总/2026-08-25/冰冰小美/summary.md`
+- `log.md`
+
+### 操作说明
+
+按 `.agents/automations/bbxm_daliy_brief.md` 执行 2026-08-25 BBXM 每日汇总，目标作者限定为冰冰小美。通过自动化 Chrome/CDP 抓取雪球主页，脚本完成候选发现并返回 `candidates=0`，保存流程未生成目标日期原帖或 `state.json`；临时 `20260825` 目录中的 `task.log` 已合并到官方 `2026-08-25` 目录，空临时目录已清理。生成 `summary.md`、`risk-analysis.json` 与 `risk-write-status.json`；风险分析为完整零集合，Excel 更新器返回 `no_risk`，未修改风险提示工作簿。
+
+### 后续待办
+
+- 若 2026-08-25 运行后出现新增、隐藏恢复或平台后续展示的冰冰小美帖子，需要同日重跑并复用本目录。
+
+## 2026-08-26
+
+### 操作类型
+
+automation / dividend-signal / daily-record
+
+### 修改文件
+
+- `sources/automations/中证红利信号/中证红利每日信号.xlsx`
+- `sources/automations/中证红利信号/最新信号.md`
+- `sources/automations/中证红利信号/中证红利年度表现.json`
+- `log.md`
+
+### 操作说明
+
+按 `zzhl-dividend-signal` skill 运行 `python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py --output-dir "sources/automations/中证红利信号" --run-date 2026-08-26`，刷新中证红利股息率信号每日记录。记录日期为 `2026-08-26`；AKShare 指数估值日期为 `2026-08-25`，中证红利 `股息率2` 为 `4.11%`；中国 10 年国债收益率日期为 `2026-08-25`，收益率为 `1.6815%`，股息率口径 - 10 年国债收益率利差为 `2.4285` 个百分点。2026 年内收益率为 `1.70%`，年内最大回撤为 `-15.96%`。理杏仁公开页面失败：`HTTP Error 403: Forbidden`；雪球实时行情接口返回空响应，因此历史分位点、理杏仁市值加权股息率和当天涨跌幅保持待验证，未编造数值。三类规则结果为：历史分位点待验证、绝对股息率 `C（小额定投）`、相对债券收益率 `C（小额定投）`；综合结论为“历史分位点待验证，暂不判定加大买入区间”，未进入重点买入区间。
+
+### 后续待办
+
+- 若理杏仁公开页恢复访问，重跑脚本或通过可核验网页数值补入近 10 年股息率分位。
+
+## 2026-08-26
+
+### 操作类型
+
+ingest / topic-update / source-archive
+
+### 修改文件
+
+- `sources/manual/2026-08-26-冰冰小美：《两次全球大危机的比较研究》推荐理由补充.md`
+- `wiki/topics/冰冰小美的书单.md`
+- `hot.md`
+- `.manifest.json`
+- `log.md`
+
+### 操作说明
+
+将用户提供的《两次全球大危机的比较研究》推荐理由保存为库内 source，并补入 Topic Page `冰冰小美的书单`。新增内容从三个层次整理阅读价值：观察美国危机后的处理方式与中国获得的发展机会；建立“危机—技术革命—新生”的历史模型；通过比较两个历史样本寻找共同结构，再用历史理解现实。页面同时链接既有的“美国历史路径如何传导为滞胀与新兴产业突围”推导页，并将该连接标注为推导性关联。
+
+### 后续待办
+
+- 原始发布时间、链接及书籍版本信息仍待核验。
+
+## 2026-08-26
+
+### 操作类型
+
+refactor / topic-structure / reading-map
+
+### 修改文件
+
+- `wiki/topics/冰冰小美的书单.md`
+- `hot.md`
+- `log.md`
+
+### 操作说明
+
+按用户指定结构重整 Topic Page `冰冰小美的书单`：移除独立的核心书单表，将 20 项已知书籍与长期资料按主要阅读目的归入“阅读地图”的人性与交易认识、价值发展与守护、经济周期与主导经济三个章节；每项统一设置“推荐理由”位置，已有来源依据的直接填入，现有来源未展开的明确标为待补充。将“已归档推荐书目1—9”调整为页面最后一个一级章节，并保留书名缺失、正文缺失和版本待核验状态。
+
+### 后续待办
+
+- 后续获得新的书籍推荐理由时，直接补入对应书目下的“推荐理由”，无需另建重复清单。
+
+## 2026-08-27
+
+### 操作类型
+
+automation / dividend-signal / daily-record
+
+### 修改文件
+
+- `sources/automations/中证红利信号/中证红利每日信号.xlsx`
+- `sources/automations/中证红利信号/最新信号.md`
+- `sources/automations/中证红利信号/中证红利年度表现.json`
+- `log.md`
+
+### 操作说明
+
+按 `zzhl-dividend-signal` skill 运行 `python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py --output-dir "sources/automations/中证红利信号" --run-date 2026-08-27`，刷新中证红利股息率信号每日记录。记录日期为 `2026-08-27`；AKShare 指数估值日期为 `2026-08-26`，中证红利 `股息率2` 为 `4.08%`；中国 10 年国债收益率日期为 `2026-08-26`，收益率为 `1.6887%`，股息率口径 - 10 年国债收益率利差为 `2.3913` 个百分点。2026 年内收益率为 `2.42%`，年内最大回撤为 `-15.96%`。理杏仁公开页面失败：`HTTP Error 403: Forbidden`；雪球实时行情接口返回空响应，因此历史分位点、理杏仁市值加权股息率和当天涨跌幅保持待验证，未编造数值。三类规则结果为：历史分位点待验证、绝对股息率 `C（小额定投）`、相对债券收益率 `C（小额定投）`；综合结论为“历史分位点待验证，暂不判定加大买入区间”，未进入重点买入区间。
+
+### 后续待办
+
+- 若理杏仁公开页恢复访问，重跑脚本或通过可核验网页数值补入近 10 年股息率分位。
+
+## 2026-08-27
+
+### 操作类型
+
+tool-ui / dashboard / daily-digest
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/scripts/build.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+温度计看板的“每日跟踪”页新增每日 `summary.md` 汇总卡：每个日期的时间线顶部展示当日“总观点”和“解析今天文章的观点”摘要，并提供打开 `summary.md` 的入口。汇总卡同时参与宏观、市场、产业、交易四类筛选。原帖列表继续保留打开雪球原帖、显示原文和删除功能，并排除 `summary.md` 与 `操作.md`，避免把汇总或操作记录当作普通帖子。
+
+### 后续待办
+
+- 全量看板测试中仍有一项既有三要素报告摘要断言与当前报告内容不一致，需单独校准对应报告或测试预期。
+
+## 2026-08-27
+
+### 操作类型
+
+tool-ui / dashboard / todo-list / spreadsheet
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/data/todo.xlsx`
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/scripts/build.mjs`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+在温度计看板数据目录新增 `todo.xlsx`，字段包含需求编号、需求事项、说明、截止日期、负责人、重要性、紧急性、四象限标签、状态、来源备注和更新时间；四象限标签由 Excel 公式根据重要性与紧急性生成。将“我的”菜单下原“仓位管理”入口替换为“需求清单”，页面从 `data/todo.xlsx` 读取待办事项，并按时间管理四象限展示为重要且紧急、重要不紧急、紧急不重要、不重要且不紧急四组。保留持仓跟踪、复盘日记及底层持仓数据兼容逻辑。
+
+### 后续待办
+
+- 修改 `todo.xlsx` 后需要重新构建或重新打开启动面板，才能把 Excel 新内容写入静态看板。
+- 全量看板测试仍有一项既有三要素报告摘要断言与当前报告内容不一致，需独立校准。
+
+## 2026-08-27
+
+### 操作类型
+
+tool-ui / dashboard / obsidian-link
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/scripts/build.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+将温度计看板“每日跟踪”中当日汇总卡的 `summary.md` 标题链接和“打开 summary.md”按钮改为 `obsidian://open` 链接，点击后直接在 Obsidian 中打开对应 Markdown 文件。普通原帖卡片仍保留原相对路径，避免影响删除原帖所需的本地路径识别；雪球原帖继续按外部网页打开。
+
+### 后续待办
+
+- 若后续希望普通原帖 Markdown 标题也直接在 Obsidian 中打开，需要同时调整删除原帖的数据识别字段，避免把打开链接和删除路径混用。
+
+## 2026-08-27
+
+### 操作类型
+
+spreadsheet / dashboard / todo-list
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/data/todo.xlsx`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户补充的四象限标签，在 `todo.xlsx` 追加两项需求：`TODO-005` 为“阅读《两次全球大危机的比较研究》”，标记为重要不紧急；`TODO-006` 为“整理知识库-产业思维”，标记为重要且紧急。两项均保留未开始状态、未填写截止日期，并通过原有 Excel 公式生成四象限标签。随后重建温度计看板，使“我的 / 需求清单”显示 6 项待办。
+
+### 后续待办
+
+- 后续如需为两项任务排具体完成日，再补充 `todo.xlsx` 中的截止日期字段并重建看板。
+
+## 2026-08-27
+
+### 操作类型
+
+spreadsheet / dashboard / todo-list
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/data/todo.xlsx`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户补充的待办事项，在 `todo.xlsx` 追加 `TODO-007`：“产业思维与竞争格局的比较优势如何联合”，标记为重要且紧急、未开始、来源备注为用户补充，未填写截止日期。Excel 四象限汇总同步变为 7 项待办，其中重要且紧急 4 项。随后重建温度计看板，使“我的 / 需求清单”显示新增待办。
+
+### 后续待办
+
+- 如需给该任务排期，再补充截止日期字段并重建看板。
+
+## 2026-08-27
+
+### 操作类型
+
+refactor / concept-structure / source-index
+
+### 修改文件
+
+- `wiki/concepts/冰冰小美-fundamental-产业思维.md`
+- `log.md`
+
+### 操作说明
+
+整理 Concept Page `产业思维` 的“来源”章节，将原先平铺的 33 条来源按主要用途归入七组：综合框架与方法论、时代与国运、产业结构与天花板、产业周期、竞争格局与壁垒、资本市场与投资验证、产业案例与框架应用。所有来源各保留一次，正文来源集合与 frontmatter `sources` 保持一致；未改写来源材料，也未改变页面主体框架。
+
+## 2026-08-27
+
+### 操作类型
+
+query / link / source-index
+
+### 修改文件
+
+- `wiki/concepts/冰冰小美-fundamental-产业思维.md`
+- `log.md`
+
+### 操作说明
+
+全库检索产业思维的直接原文及其正式承接页，沿 Concept、View、Reasoning、Timeline 和 Topic 页反查 `sources/`。在排除同一雪球链接的重复副本、二次研报和仅顺带提及产业的材料后，为“产业思维”补入 16 篇原文，来源总数由 33 篇增至 49 篇；新增材料分别归入综合方法、时代与产业更替、竞争格局、资本与企业验证、产业案例等既有分组，并同步更新 frontmatter `sources`。
+
+- [2026-08-27] QUERY query="在整个知识库查找产业思维相关的原文，放入来源章节" result_pages=16 mode=normal escalated=true
+
+### 检索说明
+
+- QMD 语义检索和索引刷新均因本机 `C:\Users\lenovo\.qmd` 路径冲突无法启动，本次按检索技能要求降级为全库关键词、双链反查和来源 URL 去重。
+- 未修改任何 `sources/` 原文，未新增正式页面，因此不更新 `index.md`。

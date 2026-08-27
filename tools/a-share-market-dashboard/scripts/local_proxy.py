@@ -1,7 +1,7 @@
 """Local same-origin data proxy for the A-share market dashboard."""
 
 from concurrent.futures import ThreadPoolExecutor
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 from http.client import RemoteDisconnected
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import html
@@ -18,6 +18,8 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import parse_qs, quote, unquote, urlencode, urlparse
 from urllib.request import Request, urlopen
 import webbrowser
+import xml.etree.ElementTree as ET
+import zipfile
 
 
 VENDOR_PYTHON_PATH = Path(__file__).resolve().parents[1] / "vendor" / "python"
@@ -54,10 +56,22 @@ SOURCE_NAMES = {
     "/api/review-diaries": "review-diaries",
     "/api/tracking-rerender-reports": "tracking-rerender-reports",
     "/api/featured-post": "featured-post",
+    "/api/todo-item": "todo-item",
 }
 YOUZHIYOUXING_TEMPERATURE_URL = "https://youzhiyouxing.cn/data"
 NASDAQ100_CHART_URL = "https://query1.finance.yahoo.com/v8/finance/chart/%5ENDX?range=max&interval=1d"
 PORTFOLIO_STATUSES = {"持有", "观察", "计划加仓", "计划减仓"}
+TODO_QUADRANT_FLAGS = {
+    "重要且紧急": ("是", "是"),
+    "重要不紧急": ("是", "否"),
+    "紧急不重要": ("否", "是"),
+    "不重要且不紧急": ("否", "否"),
+}
+TODO_QUADRANTS = tuple(TODO_QUADRANT_FLAGS)
+TODO_COLUMNS = tuple("ABCDEFGHIJK")
+XLSX_MAIN_NS = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
+XLSX_TAG = f"{{{XLSX_MAIN_NS}}}"
+ET.register_namespace("x", XLSX_MAIN_NS)
 DEFAULT_PORT = 49888
 FUGUI_DATA_PROVIDERS = {"akshare", "tushare"}
 AKSHARE_CODE_NAME_CACHE_TTL_SECONDS = 600
@@ -1528,6 +1542,334 @@ def delete_bbxm_featured_post(payload, vault_root):
     return {"deleted": True, "path": target_file.relative_to(Path(vault_root).resolve()).as_posix()}
 
 
+def _excel_serial_date(value):
+    current = value or datetime.now(timezone(timedelta(hours=8)))
+    if isinstance(current, datetime):
+        current = current.astimezone(timezone(timedelta(hours=8))).date()
+    if not isinstance(current, date):
+        raise ValueError
+    return (current - date(1899, 12, 30)).days
+
+
+def _xlsx_column_index(column):
+    index = 0
+    for char in column:
+        index = index * 26 + ord(char) - ord("A") + 1
+    return index
+
+
+def _xlsx_cell_column(reference):
+    match = re.match(r"^([A-Z]+)", str(reference or ""))
+    return match.group(1) if match else ""
+
+
+def _xlsx_child(parent, name):
+    return parent.find(f"{XLSX_TAG}{name}")
+
+
+def _xlsx_children(parent, name):
+    return parent.findall(f"{XLSX_TAG}{name}")
+
+
+def _xlsx_shared_strings(xml_bytes):
+    if not xml_bytes:
+        return []
+    root = ET.fromstring(xml_bytes)
+    values = []
+    for item in _xlsx_children(root, "si"):
+        text = "".join(node.text or "" for node in item.iter(f"{XLSX_TAG}t"))
+        values.append(text)
+    return values
+
+
+def _xlsx_cell_text(cell, shared_strings):
+    if cell is None:
+        return ""
+    cell_type = cell.attrib.get("t", "")
+    if cell_type == "inlineStr":
+        inline = _xlsx_child(cell, "is")
+        return "".join(node.text or "" for node in inline.iter(f"{XLSX_TAG}t")) if inline is not None else ""
+    value = _xlsx_child(cell, "v")
+    if value is None or value.text is None:
+        return ""
+    if cell_type == "s":
+        try:
+            return shared_strings[int(value.text)]
+        except (IndexError, TypeError, ValueError):
+            return ""
+    return value.text
+
+
+def _xlsx_row_number(row):
+    try:
+        return int(row.attrib.get("r", "0"))
+    except ValueError:
+        return 0
+
+
+def _xlsx_rows_by_number(sheet_root):
+    sheet_data = _xlsx_child(sheet_root, "sheetData")
+    if sheet_data is None:
+        raise ValueError
+    return sheet_data, {_xlsx_row_number(row): row for row in _xlsx_children(sheet_data, "row")}
+
+
+def _ensure_xlsx_row(sheet_data, rows_by_number, row_number):
+    row = rows_by_number.get(row_number)
+    if row is not None:
+        return row
+    row = ET.Element(f"{XLSX_TAG}row", {"r": str(row_number)})
+    inserted = False
+    for index, existing in enumerate(list(sheet_data)):
+        if _xlsx_row_number(existing) > row_number:
+            sheet_data.insert(index, row)
+            inserted = True
+            break
+    if not inserted:
+        sheet_data.append(row)
+    rows_by_number[row_number] = row
+    return row
+
+
+def _ensure_xlsx_cell(row, column):
+    row_number = row.attrib.get("r", "")
+    reference = f"{column}{row_number}"
+    for cell in _xlsx_children(row, "c"):
+        if cell.attrib.get("r") == reference:
+            return cell
+    cell = ET.Element(f"{XLSX_TAG}c", {"r": reference})
+    target_index = _xlsx_column_index(column)
+    inserted = False
+    for index, existing in enumerate(_xlsx_children(row, "c")):
+        if _xlsx_column_index(_xlsx_cell_column(existing.attrib.get("r", ""))) > target_index:
+            row.insert(index, cell)
+            inserted = True
+            break
+    if not inserted:
+        row.append(cell)
+    return cell
+
+
+def _remove_xlsx_cell_payload(cell):
+    for child in list(cell):
+        if child.tag in {f"{XLSX_TAG}f", f"{XLSX_TAG}v", f"{XLSX_TAG}is"}:
+            cell.remove(child)
+
+
+def _set_empty_xlsx_cell(cell):
+    _remove_xlsx_cell_payload(cell)
+    cell.attrib.pop("t", None)
+
+
+def _set_string_xlsx_cell(cell, value):
+    _remove_xlsx_cell_payload(cell)
+    if value is None or value == "":
+        cell.attrib.pop("t", None)
+        return
+    cell.set("t", "str")
+    node = ET.SubElement(cell, f"{XLSX_TAG}v")
+    node.text = str(value)
+
+
+def _set_number_xlsx_cell(cell, value):
+    _remove_xlsx_cell_payload(cell)
+    cell.attrib.pop("t", None)
+    node = ET.SubElement(cell, f"{XLSX_TAG}v")
+    node.text = str(int(value))
+
+
+def _set_formula_cached_string(cell, formula, cached_value):
+    _remove_xlsx_cell_payload(cell)
+    cell.set("t", "str")
+    formula_node = ET.SubElement(cell, f"{XLSX_TAG}f")
+    formula_node.text = formula[1:] if formula.startswith("=") else formula
+    if cached_value:
+        value_node = ET.SubElement(cell, f"{XLSX_TAG}v")
+        value_node.text = str(cached_value)
+
+
+def _set_formula_cached_number(cell, value):
+    formula_node = _xlsx_child(cell, "f")
+    if formula_node is None:
+        return _set_number_xlsx_cell(cell, value)
+    for child in list(cell):
+        if child.tag in {f"{XLSX_TAG}v", f"{XLSX_TAG}is"}:
+            cell.remove(child)
+    cell.set("t", "n")
+    value_node = ET.SubElement(cell, f"{XLSX_TAG}v")
+    value_node.text = str(int(value))
+    return None
+
+
+def _todo_row_formula(row_number):
+    return (
+        f'=IF(B{row_number}="","",IF(AND(F{row_number}="是",G{row_number}="是"),'
+        f'"重要且紧急",IF(AND(F{row_number}="是",G{row_number}="否"),"重要不紧急",'
+        f'IF(AND(F{row_number}="否",G{row_number}="是"),"紧急不重要","不重要且不紧急"))))'
+    )
+
+
+def _todo_quadrant_from_flags(important, urgent):
+    if important == "是" and urgent == "是":
+        return "重要且紧急"
+    if important == "是" and urgent != "是":
+        return "重要不紧急"
+    if important != "是" and urgent == "是":
+        return "紧急不重要"
+    return "不重要且不紧急"
+
+
+def _todo_counts(sheet_root, shared_strings):
+    _, rows_by_number = _xlsx_rows_by_number(sheet_root)
+    counts = {quadrant: 0 for quadrant in TODO_QUADRANTS}
+    for row_number in range(2, 201):
+        row = rows_by_number.get(row_number)
+        if row is None:
+            continue
+        title = _xlsx_cell_text(_ensure_xlsx_cell(row, "B"), shared_strings).strip()
+        if not title:
+            continue
+        important = _xlsx_cell_text(_ensure_xlsx_cell(row, "F"), shared_strings).strip()
+        urgent = _xlsx_cell_text(_ensure_xlsx_cell(row, "G"), shared_strings).strip()
+        quadrant = _xlsx_cell_text(_ensure_xlsx_cell(row, "H"), shared_strings).strip()
+        quadrant = quadrant if quadrant in counts else _todo_quadrant_from_flags(important, urgent)
+        counts[quadrant] += 1
+    return counts
+
+
+def _update_todo_summary_sheet(sheet_root, counts):
+    sheet_data, rows_by_number = _xlsx_rows_by_number(sheet_root)
+    for row_number, quadrant in zip(range(4, 8), TODO_QUADRANTS):
+        row = _ensure_xlsx_row(sheet_data, rows_by_number, row_number)
+        _set_formula_cached_number(_ensure_xlsx_cell(row, "B"), counts[quadrant])
+
+
+def _normalize_todo_action_payload(payload, expected_action):
+    if not isinstance(payload, dict):
+        raise ValueError
+    action = str(payload.get("action", expected_action)).strip()
+    if action != expected_action:
+        raise ValueError
+    todo_id = str(payload.get("id", "")).strip()
+    if not re.fullmatch(r"TODO-\d{3,}", todo_id):
+        raise ValueError
+    normalized = {"id": todo_id, "action": action}
+    if expected_action == "move":
+        quadrant = str(payload.get("quadrant", "")).strip()
+        if quadrant not in TODO_QUADRANT_FLAGS:
+            raise ValueError
+        normalized["quadrant"] = quadrant
+    return normalized
+
+
+def _find_todo_row(rows_by_number, shared_strings, todo_id):
+    for row_number in range(2, 201):
+        row = rows_by_number.get(row_number)
+        if row is None:
+            continue
+        cell = _ensure_xlsx_cell(row, "A")
+        if _xlsx_cell_text(cell, shared_strings).strip() == todo_id:
+            return row_number, row
+    raise FileNotFoundError
+
+
+def apply_todo_workbook_action(payload, workbook_path, expected_action, now=None):
+    """Move or delete one row in the dashboard todo workbook."""
+    normalized = _normalize_todo_action_payload(payload, expected_action)
+    workbook_path = Path(workbook_path).resolve()
+    if not workbook_path.is_file():
+        raise FileNotFoundError
+    serial_today = _excel_serial_date(now)
+    with zipfile.ZipFile(workbook_path, "r") as source:
+        entries = {info.filename: source.read(info.filename) for info in source.infolist()}
+        infos = source.infolist()
+    sheet1_name = "xl/worksheets/sheet1.xml"
+    sheet2_name = "xl/worksheets/sheet2.xml"
+    if sheet1_name not in entries or sheet2_name not in entries:
+        raise ValueError
+    shared_strings = _xlsx_shared_strings(entries.get("xl/sharedStrings.xml", b""))
+    todo_root = ET.fromstring(entries[sheet1_name])
+    summary_root = ET.fromstring(entries[sheet2_name])
+    sheet_data, rows_by_number = _xlsx_rows_by_number(todo_root)
+    row_number, row = _find_todo_row(rows_by_number, shared_strings, normalized["id"])
+    title = _xlsx_cell_text(_ensure_xlsx_cell(row, "B"), shared_strings).strip()
+    if not title:
+        raise FileNotFoundError
+
+    if expected_action == "delete":
+        for column in TODO_COLUMNS:
+            cell = _ensure_xlsx_cell(row, column)
+            if column == "H":
+                _set_formula_cached_string(cell, _todo_row_formula(row_number), "")
+            else:
+                _set_empty_xlsx_cell(cell)
+        result_action = "deleted"
+        quadrant = ""
+    else:
+        quadrant = normalized["quadrant"]
+        important, urgent = TODO_QUADRANT_FLAGS[quadrant]
+        _set_string_xlsx_cell(_ensure_xlsx_cell(row, "F"), important)
+        _set_string_xlsx_cell(_ensure_xlsx_cell(row, "G"), urgent)
+        _set_formula_cached_string(_ensure_xlsx_cell(row, "H"), _todo_row_formula(row_number), quadrant)
+        _set_number_xlsx_cell(_ensure_xlsx_cell(row, "K"), serial_today)
+        result_action = "moved"
+
+    counts = _todo_counts(todo_root, shared_strings)
+    _update_todo_summary_sheet(summary_root, counts)
+    entries[sheet1_name] = ET.tostring(todo_root, encoding="utf-8", xml_declaration=True)
+    entries[sheet2_name] = ET.tostring(summary_root, encoding="utf-8", xml_declaration=True)
+
+    temporary_path = workbook_path.with_name(f".{workbook_path.name}.tmp")
+    try:
+        with zipfile.ZipFile(temporary_path, "w", compression=zipfile.ZIP_DEFLATED) as target:
+            for info in infos:
+                target.writestr(info, entries[info.filename])
+        temporary_path.replace(workbook_path)
+    except Exception:
+        try:
+            temporary_path.unlink()
+        except OSError:
+            pass
+        raise
+    return {
+        "id": normalized["id"],
+        "title": title,
+        "action": result_action,
+        "quadrant": quadrant,
+        "counts": counts,
+        "total": sum(counts.values()),
+        "updatedAt": datetime.fromordinal(date(1899, 12, 30).toordinal() + serial_today).strftime("%Y-%m-%d"),
+    }
+
+
+def rebuild_dashboard_artifact(artifact, node_executable=None, timeout_seconds=30, logger=None):
+    """Rebuild the static dashboard after local editable data changes."""
+    artifact = Path(artifact).resolve()
+    build_script = (artifact.parent / "scripts" / "build.mjs").resolve()
+    if not build_script.is_file():
+        raise RuntimeError("dashboard builder unavailable")
+    node = resolve_node_executable(node_executable)
+    if logger:
+        logger("DASHBOARD_REBUILD_START", builder=build_script)
+    result = subprocess.run(
+        [node, str(build_script)],
+        cwd=str(artifact.parent),
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        timeout=timeout_seconds,
+    )
+    if result.returncode != 0:
+        error_text = (result.stderr or result.stdout or "build failed")[-500:]
+        if logger:
+            logger("DASHBOARD_REBUILD_FAIL", error=error_text)
+        raise RuntimeError(error_text)
+    if logger:
+        logger("DASHBOARD_REBUILD_OK")
+    return {"rebuilt": True}
+
+
 def _tracking_items_for_rerender(portfolio_file):
     try:
         payload = json.loads(Path(portfolio_file).read_text(encoding="utf-8"))
@@ -1807,6 +2149,7 @@ def create_server(
     portfolio_file = Path(
         portfolio_path or artifact.parent / "data" / "portfolio.json"
     ).resolve()
+    todo_workbook_file = (artifact.parent / "data" / "todo.xlsx").resolve()
     vault_root = artifact.parents[2]
     review_diary_dir = Path(
         review_diary_dir or vault_root / "workbench" / "targets"
@@ -1968,6 +2311,31 @@ def create_server(
                 return self.send_json(400, {"error": "invalid featured post payload"})
             return self.send_json(200, deleted)
 
+        def mutate_todo_item(self, expected_action):
+            try:
+                content_length = int(self.headers.get("Content-Length", "0"))
+            except ValueError:
+                return self.send_json(400, {"error": "invalid content length"})
+            if content_length <= 0 or content_length > 16_384:
+                return self.send_json(400, {"error": "invalid todo item payload"})
+            try:
+                result = apply_todo_workbook_action(
+                    json.loads(self.rfile.read(content_length).decode("utf-8")),
+                    todo_workbook_file,
+                    expected_action,
+                )
+            except FileNotFoundError:
+                return self.send_json(404, {"error": "todo item not found"})
+            except (TypeError, ValueError, json.JSONDecodeError, ET.ParseError, zipfile.BadZipFile):
+                return self.send_json(400, {"error": "invalid todo item payload"})
+            except OSError:
+                return self.send_json(500, {"error": "todo workbook update failed"})
+            try:
+                result.update(rebuild_dashboard_artifact(artifact, node_executable=node_executable, logger=write_proxy_log))
+            except (OSError, RuntimeError, subprocess.TimeoutExpired):
+                result["rebuilt"] = False
+            return self.send_json(200, result)
+
         def send_whitelisted_file(self, request_path):
             decoded_path = unquote(request_path)
             match = next(
@@ -2102,12 +2470,16 @@ def create_server(
                 return self.save_review_diary()
             if parsed.path == "/api/tracking-rerender-reports":
                 return self.rerender_tracking_reports()
+            if parsed.path == "/api/todo-item":
+                return self.mutate_todo_item("move")
             return self.send_json(404, {"error": "not found"})
 
         def do_DELETE(self):
             parsed = urlparse(self.path)
             if parsed.path == "/api/featured-post":
                 return self.delete_featured_post()
+            if parsed.path == "/api/todo-item":
+                return self.mutate_todo_item("delete")
             return self.send_json(404, {"error": "not found"})
 
         def log_message(self, message_format, *args):
