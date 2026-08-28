@@ -12,14 +12,12 @@ import re
 import shutil
 import subprocess
 import sys
-from threading import Thread
+from threading import Lock, Thread
 from time import monotonic
 from urllib.error import HTTPError, URLError
 from urllib.parse import parse_qs, quote, unquote, urlencode, urlparse
 from urllib.request import Request, urlopen
 import webbrowser
-import xml.etree.ElementTree as ET
-import zipfile
 
 
 VENDOR_PYTHON_PATH = Path(__file__).resolve().parents[1] / "vendor" / "python"
@@ -28,6 +26,8 @@ if VENDOR_PYTHON_PATH.exists():
 TUSHARE_CLIENT_PATH = Path(__file__).resolve().parents[2] / "tushare-data" / "scripts"
 if TUSHARE_CLIENT_PATH.exists() and str(TUSHARE_CLIENT_PATH) not in sys.path:
     sys.path.append(str(TUSHARE_CLIENT_PATH))
+
+TODO_DATA_LOCK = Lock()
 
 ALLOWED_SECIDS = {"1.000001", "1.000300", "1.000985"}
 ALLOWED_INDEX_CODES = {"000300", "000985"}
@@ -68,11 +68,10 @@ TODO_QUADRANT_FLAGS = {
     "不重要且不紧急": ("否", "否"),
 }
 TODO_QUADRANTS = tuple(TODO_QUADRANT_FLAGS)
-TODO_COLUMNS = tuple("ABCDEFGHIJK")
-XLSX_MAIN_NS = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
-XLSX_TAG = f"{{{XLSX_MAIN_NS}}}"
-ET.register_namespace("x", XLSX_MAIN_NS)
+TODO_STATUSES = ("未开始", "进行中", "已完成")
+TODO_CREATE_SOURCE = "看板新增"
 DEFAULT_PORT = 49888
+TODO_ACTION_PORT = 49889
 FUGUI_DATA_PROVIDERS = {"akshare", "tushare"}
 AKSHARE_CODE_NAME_CACHE_TTL_SECONDS = 600
 AKSHARE_SPOT_CACHE_TTL_SECONDS = 120
@@ -1542,173 +1541,6 @@ def delete_bbxm_featured_post(payload, vault_root):
     return {"deleted": True, "path": target_file.relative_to(Path(vault_root).resolve()).as_posix()}
 
 
-def _excel_serial_date(value):
-    current = value or datetime.now(timezone(timedelta(hours=8)))
-    if isinstance(current, datetime):
-        current = current.astimezone(timezone(timedelta(hours=8))).date()
-    if not isinstance(current, date):
-        raise ValueError
-    return (current - date(1899, 12, 30)).days
-
-
-def _xlsx_column_index(column):
-    index = 0
-    for char in column:
-        index = index * 26 + ord(char) - ord("A") + 1
-    return index
-
-
-def _xlsx_cell_column(reference):
-    match = re.match(r"^([A-Z]+)", str(reference or ""))
-    return match.group(1) if match else ""
-
-
-def _xlsx_child(parent, name):
-    return parent.find(f"{XLSX_TAG}{name}")
-
-
-def _xlsx_children(parent, name):
-    return parent.findall(f"{XLSX_TAG}{name}")
-
-
-def _xlsx_shared_strings(xml_bytes):
-    if not xml_bytes:
-        return []
-    root = ET.fromstring(xml_bytes)
-    values = []
-    for item in _xlsx_children(root, "si"):
-        text = "".join(node.text or "" for node in item.iter(f"{XLSX_TAG}t"))
-        values.append(text)
-    return values
-
-
-def _xlsx_cell_text(cell, shared_strings):
-    if cell is None:
-        return ""
-    cell_type = cell.attrib.get("t", "")
-    if cell_type == "inlineStr":
-        inline = _xlsx_child(cell, "is")
-        return "".join(node.text or "" for node in inline.iter(f"{XLSX_TAG}t")) if inline is not None else ""
-    value = _xlsx_child(cell, "v")
-    if value is None or value.text is None:
-        return ""
-    if cell_type == "s":
-        try:
-            return shared_strings[int(value.text)]
-        except (IndexError, TypeError, ValueError):
-            return ""
-    return value.text
-
-
-def _xlsx_row_number(row):
-    try:
-        return int(row.attrib.get("r", "0"))
-    except ValueError:
-        return 0
-
-
-def _xlsx_rows_by_number(sheet_root):
-    sheet_data = _xlsx_child(sheet_root, "sheetData")
-    if sheet_data is None:
-        raise ValueError
-    return sheet_data, {_xlsx_row_number(row): row for row in _xlsx_children(sheet_data, "row")}
-
-
-def _ensure_xlsx_row(sheet_data, rows_by_number, row_number):
-    row = rows_by_number.get(row_number)
-    if row is not None:
-        return row
-    row = ET.Element(f"{XLSX_TAG}row", {"r": str(row_number)})
-    inserted = False
-    for index, existing in enumerate(list(sheet_data)):
-        if _xlsx_row_number(existing) > row_number:
-            sheet_data.insert(index, row)
-            inserted = True
-            break
-    if not inserted:
-        sheet_data.append(row)
-    rows_by_number[row_number] = row
-    return row
-
-
-def _ensure_xlsx_cell(row, column):
-    row_number = row.attrib.get("r", "")
-    reference = f"{column}{row_number}"
-    for cell in _xlsx_children(row, "c"):
-        if cell.attrib.get("r") == reference:
-            return cell
-    cell = ET.Element(f"{XLSX_TAG}c", {"r": reference})
-    target_index = _xlsx_column_index(column)
-    inserted = False
-    for index, existing in enumerate(_xlsx_children(row, "c")):
-        if _xlsx_column_index(_xlsx_cell_column(existing.attrib.get("r", ""))) > target_index:
-            row.insert(index, cell)
-            inserted = True
-            break
-    if not inserted:
-        row.append(cell)
-    return cell
-
-
-def _remove_xlsx_cell_payload(cell):
-    for child in list(cell):
-        if child.tag in {f"{XLSX_TAG}f", f"{XLSX_TAG}v", f"{XLSX_TAG}is"}:
-            cell.remove(child)
-
-
-def _set_empty_xlsx_cell(cell):
-    _remove_xlsx_cell_payload(cell)
-    cell.attrib.pop("t", None)
-
-
-def _set_string_xlsx_cell(cell, value):
-    _remove_xlsx_cell_payload(cell)
-    if value is None or value == "":
-        cell.attrib.pop("t", None)
-        return
-    cell.set("t", "str")
-    node = ET.SubElement(cell, f"{XLSX_TAG}v")
-    node.text = str(value)
-
-
-def _set_number_xlsx_cell(cell, value):
-    _remove_xlsx_cell_payload(cell)
-    cell.attrib.pop("t", None)
-    node = ET.SubElement(cell, f"{XLSX_TAG}v")
-    node.text = str(int(value))
-
-
-def _set_formula_cached_string(cell, formula, cached_value):
-    _remove_xlsx_cell_payload(cell)
-    cell.set("t", "str")
-    formula_node = ET.SubElement(cell, f"{XLSX_TAG}f")
-    formula_node.text = formula[1:] if formula.startswith("=") else formula
-    if cached_value:
-        value_node = ET.SubElement(cell, f"{XLSX_TAG}v")
-        value_node.text = str(cached_value)
-
-
-def _set_formula_cached_number(cell, value):
-    formula_node = _xlsx_child(cell, "f")
-    if formula_node is None:
-        return _set_number_xlsx_cell(cell, value)
-    for child in list(cell):
-        if child.tag in {f"{XLSX_TAG}v", f"{XLSX_TAG}is"}:
-            cell.remove(child)
-    cell.set("t", "n")
-    value_node = ET.SubElement(cell, f"{XLSX_TAG}v")
-    value_node.text = str(int(value))
-    return None
-
-
-def _todo_row_formula(row_number):
-    return (
-        f'=IF(B{row_number}="","",IF(AND(F{row_number}="是",G{row_number}="是"),'
-        f'"重要且紧急",IF(AND(F{row_number}="是",G{row_number}="否"),"重要不紧急",'
-        f'IF(AND(F{row_number}="否",G{row_number}="是"),"紧急不重要","不重要且不紧急"))))'
-    )
-
-
 def _todo_quadrant_from_flags(important, urgent):
     if important == "是" and urgent == "是":
         return "重要且紧急"
@@ -1719,29 +1551,8 @@ def _todo_quadrant_from_flags(important, urgent):
     return "不重要且不紧急"
 
 
-def _todo_counts(sheet_root, shared_strings):
-    _, rows_by_number = _xlsx_rows_by_number(sheet_root)
-    counts = {quadrant: 0 for quadrant in TODO_QUADRANTS}
-    for row_number in range(2, 201):
-        row = rows_by_number.get(row_number)
-        if row is None:
-            continue
-        title = _xlsx_cell_text(_ensure_xlsx_cell(row, "B"), shared_strings).strip()
-        if not title:
-            continue
-        important = _xlsx_cell_text(_ensure_xlsx_cell(row, "F"), shared_strings).strip()
-        urgent = _xlsx_cell_text(_ensure_xlsx_cell(row, "G"), shared_strings).strip()
-        quadrant = _xlsx_cell_text(_ensure_xlsx_cell(row, "H"), shared_strings).strip()
-        quadrant = quadrant if quadrant in counts else _todo_quadrant_from_flags(important, urgent)
-        counts[quadrant] += 1
-    return counts
-
-
-def _update_todo_summary_sheet(sheet_root, counts):
-    sheet_data, rows_by_number = _xlsx_rows_by_number(sheet_root)
-    for row_number, quadrant in zip(range(4, 8), TODO_QUADRANTS):
-        row = _ensure_xlsx_row(sheet_data, rows_by_number, row_number)
-        _set_formula_cached_number(_ensure_xlsx_cell(row, "B"), counts[quadrant])
+def _normalize_todo_text(value, max_length):
+    return re.sub(r"\s+", " ", str(value or "")).strip()[:max_length]
 
 
 def _normalize_todo_action_payload(payload, expected_action):
@@ -1750,6 +1561,23 @@ def _normalize_todo_action_payload(payload, expected_action):
     action = str(payload.get("action", expected_action)).strip()
     if action != expected_action:
         raise ValueError
+    if expected_action == "create":
+        title = _normalize_todo_text(payload.get("title", ""), 72)
+        if not title:
+            raise ValueError
+        quadrant = str(payload.get("quadrant", "")).strip() or TODO_QUADRANTS[0]
+        if quadrant not in TODO_QUADRANT_FLAGS:
+            raise ValueError
+        status = str(payload.get("status", "")).strip() or TODO_STATUSES[0]
+        if status not in TODO_STATUSES:
+            raise ValueError
+        return {
+            "action": action,
+            "title": title,
+            "detail": _normalize_todo_text(payload.get("detail", ""), 150),
+            "quadrant": quadrant,
+            "status": status,
+        }
     todo_id = str(payload.get("id", "")).strip()
     if not re.fullmatch(r"TODO-\d{3,}", todo_id):
         raise ValueError
@@ -1759,115 +1587,231 @@ def _normalize_todo_action_payload(payload, expected_action):
         if quadrant not in TODO_QUADRANT_FLAGS:
             raise ValueError
         normalized["quadrant"] = quadrant
+    if expected_action == "status":
+        status = str(payload.get("status", "")).strip()
+        if status not in TODO_STATUSES:
+            raise ValueError
+        normalized["status"] = status
     return normalized
 
 
-def _find_todo_row(rows_by_number, shared_strings, todo_id):
-    for row_number in range(2, 201):
-        row = rows_by_number.get(row_number)
-        if row is None:
-            continue
-        cell = _ensure_xlsx_cell(row, "A")
-        if _xlsx_cell_text(cell, shared_strings).strip() == todo_id:
-            return row_number, row
-    raise FileNotFoundError
+def _todo_today_string(now=None):
+    if isinstance(now, datetime):
+        value = now if now.tzinfo else now.replace(tzinfo=timezone(timedelta(hours=8)))
+        return value.astimezone(timezone(timedelta(hours=8))).strftime("%Y-%m-%d")
+    if isinstance(now, date):
+        return now.strftime("%Y-%m-%d")
+    return datetime.now(timezone(timedelta(hours=8))).strftime("%Y-%m-%d")
 
 
-def apply_todo_workbook_action(payload, workbook_path, expected_action, now=None):
-    """Move or delete one row in the dashboard todo workbook."""
-    normalized = _normalize_todo_action_payload(payload, expected_action)
-    workbook_path = Path(workbook_path).resolve()
-    if not workbook_path.is_file():
-        raise FileNotFoundError
-    serial_today = _excel_serial_date(now)
-    with zipfile.ZipFile(workbook_path, "r") as source:
-        entries = {info.filename: source.read(info.filename) for info in source.infolist()}
-        infos = source.infolist()
-    sheet1_name = "xl/worksheets/sheet1.xml"
-    sheet2_name = "xl/worksheets/sheet2.xml"
-    if sheet1_name not in entries or sheet2_name not in entries:
-        raise ValueError
-    shared_strings = _xlsx_shared_strings(entries.get("xl/sharedStrings.xml", b""))
-    todo_root = ET.fromstring(entries[sheet1_name])
-    summary_root = ET.fromstring(entries[sheet2_name])
-    sheet_data, rows_by_number = _xlsx_rows_by_number(todo_root)
-    row_number, row = _find_todo_row(rows_by_number, shared_strings, normalized["id"])
-    title = _xlsx_cell_text(_ensure_xlsx_cell(row, "B"), shared_strings).strip()
+def _normalize_todo_date_text(value):
+    text = str(value or "").strip()
+    match = re.match(r"^(\d{4})[-/](\d{1,2})[-/](\d{1,2})", text)
+    if not match:
+        return ""
+    year, month, day = match.groups()
+    return f"{int(year):04d}-{int(month):02d}-{int(day):02d}"
+
+
+def _normalize_todo_json_item(item, index):
+    if not isinstance(item, dict):
+        return None
+    title = _normalize_todo_text(item.get("title", item.get("需求事项", "")), 72)
     if not title:
-        raise FileNotFoundError
+        return None
+    todo_id = str(item.get("id", item.get("需求编号", ""))).strip()
+    if not re.fullmatch(r"TODO-\d{3,}", todo_id):
+        todo_id = f"TODO-{index + 1:03d}"
+    quadrant = str(item.get("quadrant", item.get("四象限标签", ""))).strip()
+    if quadrant not in TODO_QUADRANT_FLAGS:
+        important = str(item.get("important", item.get("重要性", ""))).strip()
+        urgent = str(item.get("urgent", item.get("紧急性", ""))).strip()
+        quadrant = _todo_quadrant_from_flags(important, urgent)
+    status = str(item.get("status", item.get("状态", ""))).strip()
+    if status not in TODO_STATUSES:
+        status = TODO_STATUSES[0]
+    normalized = {
+        "id": todo_id,
+        "title": title,
+        "detail": _normalize_todo_text(item.get("detail", item.get("说明", "")), 150),
+        "quadrant": quadrant,
+        "status": status,
+        "source": _normalize_todo_text(item.get("source", item.get("来源/备注", "")), 56),
+        "createdAt": _normalize_todo_date_text(item.get("createdAt", item.get("创建时间", item.get("updatedAt", "")))),
+        "updatedAt": _normalize_todo_date_text(item.get("updatedAt", item.get("更新时间", ""))),
+    }
+    due_date = _normalize_todo_date_text(item.get("dueDate", item.get("截止日期", "")))
+    if due_date:
+        normalized["dueDate"] = due_date
+    owner = _normalize_todo_text(item.get("owner", item.get("负责人", "")), 18)
+    if owner:
+        normalized["owner"] = owner
+    for key in ("completedAt", "archivedAt"):
+        archived_date = _normalize_todo_date_text(item.get(key, ""))
+        if archived_date:
+            normalized[key] = archived_date
+    archive_reason = _normalize_todo_text(item.get("archiveReason", ""), 40)
+    if archive_reason:
+        normalized["archiveReason"] = archive_reason
+    return normalized
 
-    if expected_action == "delete":
-        for column in TODO_COLUMNS:
-            cell = _ensure_xlsx_cell(row, column)
-            if column == "H":
-                _set_formula_cached_string(cell, _todo_row_formula(row_number), "")
+
+def _load_todo_json(todo_data_path):
+    if not todo_data_path.is_file():
+        return {"version": 1, "updatedAt": "", "items": [], "archive": []}
+    payload = json.loads(todo_data_path.read_text(encoding="utf-8"))
+    raw_items = payload if isinstance(payload, list) else payload.get("items", []) if isinstance(payload, dict) else []
+    raw_archive = payload.get("archive", payload.get("archivedItems", [])) if isinstance(payload, dict) else []
+    if not isinstance(raw_items, list):
+        raise ValueError
+    if not isinstance(raw_archive, list):
+        raw_archive = []
+    items = []
+    archive = []
+    for index, item in enumerate(raw_items):
+        normalized = _normalize_todo_json_item(item, index)
+        if normalized:
+            if normalized.get("status") == "已完成":
+                archived = dict(normalized)
+                archived.setdefault("completedAt", archived.get("updatedAt") or archived.get("createdAt"))
+                archived.setdefault("archivedAt", archived.get("completedAt", ""))
+                archived.setdefault("archiveReason", "status-completed")
+                archive.append(archived)
             else:
-                _set_empty_xlsx_cell(cell)
-        result_action = "deleted"
-        quadrant = ""
-    else:
-        quadrant = normalized["quadrant"]
-        important, urgent = TODO_QUADRANT_FLAGS[quadrant]
-        _set_string_xlsx_cell(_ensure_xlsx_cell(row, "F"), important)
-        _set_string_xlsx_cell(_ensure_xlsx_cell(row, "G"), urgent)
-        _set_formula_cached_string(_ensure_xlsx_cell(row, "H"), _todo_row_formula(row_number), quadrant)
-        _set_number_xlsx_cell(_ensure_xlsx_cell(row, "K"), serial_today)
-        result_action = "moved"
+                items.append(normalized)
+    for index, item in enumerate(raw_archive):
+        normalized = _normalize_todo_json_item(item, len(items) + index)
+        if normalized:
+            normalized["status"] = "已完成"
+            normalized.setdefault("completedAt", normalized.get("updatedAt") or normalized.get("createdAt"))
+            normalized.setdefault("archivedAt", normalized.get("completedAt", ""))
+            normalized.setdefault("archiveReason", "status-completed")
+            archive.append(normalized)
+    return {
+        "version": 1,
+        "updatedAt": _normalize_todo_date_text(payload.get("updatedAt", "")) if isinstance(payload, dict) else "",
+        "items": items,
+        "archive": archive,
+    }
 
-    counts = _todo_counts(todo_root, shared_strings)
-    _update_todo_summary_sheet(summary_root, counts)
-    entries[sheet1_name] = ET.tostring(todo_root, encoding="utf-8", xml_declaration=True)
-    entries[sheet2_name] = ET.tostring(summary_root, encoding="utf-8", xml_declaration=True)
 
-    temporary_path = workbook_path.with_name(f".{workbook_path.name}.tmp")
+def _save_todo_json(todo_data_path, payload):
+    todo_data_path.parent.mkdir(parents=True, exist_ok=True)
+    temporary_path = todo_data_path.with_name(f".{todo_data_path.name}.tmp")
     try:
-        with zipfile.ZipFile(temporary_path, "w", compression=zipfile.ZIP_DEFLATED) as target:
-            for info in infos:
-                target.writestr(info, entries[info.filename])
-        temporary_path.replace(workbook_path)
+        temporary_path.write_text(
+            json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
+        temporary_path.replace(todo_data_path)
     except Exception:
         try:
             temporary_path.unlink()
         except OSError:
             pass
         raise
+
+
+def _todo_counts_from_items(items):
+    counts = {quadrant: 0 for quadrant in TODO_QUADRANTS}
+    for item in items:
+        quadrant = item.get("quadrant", "")
+        if quadrant in counts and item.get("title"):
+            counts[quadrant] += 1
+    return counts
+
+
+def _next_todo_json_id(items):
+    maximum = 0
+    for item in items:
+        match = re.fullmatch(r"TODO-(\d+)", str(item.get("id", "")))
+        if match:
+            maximum = max(maximum, int(match.group(1)))
+    return f"TODO-{maximum + 1:03d}"
+
+
+def _find_todo_json_item(items, todo_id):
+    for index, item in enumerate(items):
+        if item.get("id") == todo_id:
+            return index, item
+    raise FileNotFoundError
+
+
+def apply_todo_json_action(payload, todo_data_path, expected_action, now=None):
+    """Create, move, update status, or delete one dashboard todo item in JSON."""
+    normalized = _normalize_todo_action_payload(payload, expected_action)
+    todo_data_path = Path(todo_data_path).resolve()
+    today = _todo_today_string(now)
+    with TODO_DATA_LOCK:
+        data = _load_todo_json(todo_data_path)
+        items = data["items"]
+        archive = data.get("archive", [])
+
+        if expected_action == "create":
+            item = {
+                "id": _next_todo_json_id([*items, *archive]),
+                "title": normalized["title"],
+                "detail": normalized["detail"],
+                "quadrant": normalized["quadrant"],
+                "status": normalized["status"],
+                "source": TODO_CREATE_SOURCE,
+                "createdAt": today,
+                "updatedAt": today,
+            }
+            if normalized["status"] == "已完成":
+                item["completedAt"] = today
+                item["archivedAt"] = today
+                item["archiveReason"] = "status-completed"
+                archive.append(item)
+                result_action = "archived"
+            else:
+                items.append(item)
+                result_action = "created"
+        else:
+            item_index, item = _find_todo_json_item(items, normalized["id"])
+            if expected_action == "delete":
+                item = items.pop(item_index)
+                result_action = "deleted"
+            elif expected_action == "status":
+                item["status"] = normalized["status"]
+                item["updatedAt"] = today
+                if normalized["status"] == "已完成":
+                    item = items.pop(item_index)
+                    item["completedAt"] = today
+                    item["archivedAt"] = today
+                    item["archiveReason"] = "status-completed"
+                    archive.append(item)
+                    result_action = "archived"
+                else:
+                    result_action = "status-updated"
+            elif expected_action == "move":
+                item["quadrant"] = normalized["quadrant"]
+                item["updatedAt"] = today
+                result_action = "moved"
+            else:
+                raise ValueError
+
+        data["items"] = items
+        data["archive"] = archive
+        data["updatedAt"] = today
+        _save_todo_json(todo_data_path, data)
+        counts = _todo_counts_from_items(items)
+
     return {
-        "id": normalized["id"],
-        "title": title,
+        "id": item["id"],
+        "title": item["title"],
         "action": result_action,
-        "quadrant": quadrant,
+        "quadrant": item.get("quadrant", ""),
+        "status": item.get("status", ""),
+        "archived": result_action == "archived",
+        "completedAt": item.get("completedAt", ""),
+        "archivedAt": item.get("archivedAt", ""),
+        "item": dict(item) if result_action == "archived" else None,
         "counts": counts,
         "total": sum(counts.values()),
-        "updatedAt": datetime.fromordinal(date(1899, 12, 30).toordinal() + serial_today).strftime("%Y-%m-%d"),
+        "archiveTotal": len(archive),
+        "updatedAt": today,
     }
-
-
-def rebuild_dashboard_artifact(artifact, node_executable=None, timeout_seconds=30, logger=None):
-    """Rebuild the static dashboard after local editable data changes."""
-    artifact = Path(artifact).resolve()
-    build_script = (artifact.parent / "scripts" / "build.mjs").resolve()
-    if not build_script.is_file():
-        raise RuntimeError("dashboard builder unavailable")
-    node = resolve_node_executable(node_executable)
-    if logger:
-        logger("DASHBOARD_REBUILD_START", builder=build_script)
-    result = subprocess.run(
-        [node, str(build_script)],
-        cwd=str(artifact.parent),
-        capture_output=True,
-        text=True,
-        encoding="utf-8",
-        errors="replace",
-        timeout=timeout_seconds,
-    )
-    if result.returncode != 0:
-        error_text = (result.stderr or result.stdout or "build failed")[-500:]
-        if logger:
-            logger("DASHBOARD_REBUILD_FAIL", error=error_text)
-        raise RuntimeError(error_text)
-    if logger:
-        logger("DASHBOARD_REBUILD_OK")
-    return {"rebuilt": True}
 
 
 def _tracking_items_for_rerender(portfolio_file):
@@ -2149,7 +2093,7 @@ def create_server(
     portfolio_file = Path(
         portfolio_path or artifact.parent / "data" / "portfolio.json"
     ).resolve()
-    todo_workbook_file = (artifact.parent / "data" / "todo.xlsx").resolve()
+    todo_data_file = (artifact.parent / "data" / "todo.json").resolve()
     vault_root = artifact.parents[2]
     review_diary_dir = Path(
         review_diary_dir or vault_root / "workbench" / "targets"
@@ -2186,8 +2130,13 @@ def create_server(
                 self.send_header("Content-Length", str(len(body)))
                 self.send_header("Cache-Control", "no-store")
                 self.send_header("X-Content-Type-Options", "nosniff")
+                origin = self.headers.get("Origin", "")
+                if origin in {"http://127.0.0.1:49888", "http://localhost:49888"}:
+                    self.send_header("Access-Control-Allow-Origin", origin)
+                    self.send_header("Vary", "Origin")
                 self.end_headers()
-                self.wfile.write(body)
+                if body:
+                    self.wfile.write(body)
             except (BrokenPipeError, ConnectionAbortedError, ConnectionResetError) as error:
                 write_proxy_log(
                     "CLIENT_DISCONNECT",
@@ -2311,30 +2260,39 @@ def create_server(
                 return self.send_json(400, {"error": "invalid featured post payload"})
             return self.send_json(200, deleted)
 
-        def mutate_todo_item(self, expected_action):
+        def read_todo_item_payload(self):
             try:
                 content_length = int(self.headers.get("Content-Length", "0"))
             except ValueError:
-                return self.send_json(400, {"error": "invalid content length"})
+                raise ValueError
             if content_length <= 0 or content_length > 16_384:
-                return self.send_json(400, {"error": "invalid todo item payload"})
+                raise ValueError
+            return json.loads(self.rfile.read(content_length).decode("utf-8"))
+
+        def mutate_todo_item(self, expected_action, payload=None):
             try:
-                result = apply_todo_workbook_action(
-                    json.loads(self.rfile.read(content_length).decode("utf-8")),
-                    todo_workbook_file,
+                if payload is None:
+                    payload = self.read_todo_item_payload()
+                result = apply_todo_json_action(
+                    payload,
+                    todo_data_file,
                     expected_action,
                 )
             except FileNotFoundError:
                 return self.send_json(404, {"error": "todo item not found"})
-            except (TypeError, ValueError, json.JSONDecodeError, ET.ParseError, zipfile.BadZipFile):
+            except (TypeError, ValueError, json.JSONDecodeError, UnicodeDecodeError):
                 return self.send_json(400, {"error": "invalid todo item payload"})
             except OSError:
-                return self.send_json(500, {"error": "todo workbook update failed"})
-            try:
-                result.update(rebuild_dashboard_artifact(artifact, node_executable=node_executable, logger=write_proxy_log))
-            except (OSError, RuntimeError, subprocess.TimeoutExpired):
-                result["rebuilt"] = False
+                return self.send_json(500, {"error": "todo data update failed"})
             return self.send_json(200, result)
+
+        def send_todo_items(self):
+            try:
+                with TODO_DATA_LOCK:
+                    payload = _load_todo_json(todo_data_file)
+            except (OSError, ValueError, json.JSONDecodeError, UnicodeDecodeError):
+                return self.send_json(500, {"error": "todo data read failed"})
+            return self.send_json(200, payload)
 
         def send_whitelisted_file(self, request_path):
             decoded_path = unquote(request_path)
@@ -2398,6 +2356,8 @@ def create_server(
                 return self.send_dashboard()
             if parsed.path == "/api/portfolio":
                 return self.send_portfolio()
+            if parsed.path == "/api/todos":
+                return self.send_todo_items()
             if parsed.path == "/api/review-diaries":
                 return self.send_review_diaries()
             if parsed.path.startswith("/data/") or parsed.path.startswith("/sources/") or parsed.path.startswith("/wiki/") or parsed.path.startswith("/workbench/"):
@@ -2458,6 +2418,22 @@ def create_server(
                 write_proxy_log("INTERNAL_FAIL", route=parsed.path, source=source, error=type(error).__name__)
                 return self.send_json(500, {"error": "internal proxy error", "source": source})
 
+        def do_OPTIONS(self):
+            parsed = urlparse(self.path)
+            origin = self.headers.get("Origin", "")
+            if parsed.path not in {"/api/todos", "/api/todo-item"} or origin not in {
+                "http://127.0.0.1:49888",
+                "http://localhost:49888",
+            }:
+                return self.send_json(404, {"error": "not found"})
+            self.send_response(204)
+            self.send_header("Access-Control-Allow-Origin", origin)
+            self.send_header("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS")
+            self.send_header("Access-Control-Allow-Headers", "Content-Type")
+            self.send_header("Access-Control-Max-Age", "600")
+            self.send_header("Vary", "Origin")
+            self.end_headers()
+
         def do_PUT(self):
             parsed = urlparse(self.path)
             if parsed.path != "/api/portfolio":
@@ -2471,7 +2447,19 @@ def create_server(
             if parsed.path == "/api/tracking-rerender-reports":
                 return self.rerender_tracking_reports()
             if parsed.path == "/api/todo-item":
-                return self.mutate_todo_item("move")
+                try:
+                    payload = self.read_todo_item_payload()
+                except (ValueError, json.JSONDecodeError, UnicodeDecodeError):
+                    return self.send_json(400, {"error": "invalid todo item payload"})
+                action = str(payload.get("action", "move")).strip() if isinstance(payload, dict) else ""
+                expected_action = "create" if action == "create" else "move"
+                return self.mutate_todo_item(expected_action, payload)
+            return self.send_json(404, {"error": "not found"})
+
+        def do_PATCH(self):
+            parsed = urlparse(self.path)
+            if parsed.path == "/api/todo-item":
+                return self.mutate_todo_item("status")
             return self.send_json(404, {"error": "not found"})
 
         def do_DELETE(self):
@@ -2491,21 +2479,30 @@ def create_server(
 def main():
     try:
         server = create_server()
+        todo_action_server = create_server(port=TODO_ACTION_PORT)
     except OSError as error:
-        print(f"固定端口 {DEFAULT_PORT} 启动失败：{error}")
-        print("请关闭旧的大盘面板启动窗口，或结束占用该端口的本地程序后重试。")
+        print(f"本地端口 {DEFAULT_PORT} / {TODO_ACTION_PORT} 启动失败：{error}")
+        print("请关闭旧的大盘面板启动窗口，或结束占用这些端口的本地程序后重试。")
+        try:
+            server.server_close()
+        except (NameError, OSError):
+            pass
         return
     host, port = server.server_address
     url = f"http://{host}:{port}/"
     print(f"A 股大盘面板已启动：{url}")
+    print(f"需求清单轻量服务已启动：http://{host}:{TODO_ACTION_PORT}/")
     print("关闭此窗口或按 Ctrl+C 可停止本地数据服务。")
     Thread(target=prewarm_fugui_reference_data, daemon=True).start()
+    Thread(target=todo_action_server.serve_forever, daemon=True).start()
     webbrowser.open(url)
     try:
         server.serve_forever()
     except KeyboardInterrupt:
         print("\n正在停止本地数据服务……")
     finally:
+        todo_action_server.shutdown()
+        todo_action_server.server_close()
         server.server_close()
 
 

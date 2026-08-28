@@ -1,8 +1,8 @@
 ---
-name: industry-analysis-model
-title: 产业分析模型
+name: 产业分析
+title: 产业分析
 description: 动态读取知识库中的最新产业分析框架，完成证据搜集、模块分析、周期判断、交叉验证和结构化输出，并在每次分析结束后保存完整 Markdown 母稿、生成 HTML 阅读版放入对应产业目录。
-version: 2.2.1
+version: 2.2.2
 language: zh-CN
 
 knowledge_sources:
@@ -17,7 +17,7 @@ runtime_policy:
   allow_cached_framework_summary: false
 ---
 
-# 产业分析模型 Skill
+# 产业分析 Skill
 
 ## 1. Skill 定位
 

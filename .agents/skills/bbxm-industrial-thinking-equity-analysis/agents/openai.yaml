@@ -1,0 +1,7 @@
+interface:
+  display_name: "个股产业思维分析"
+  short_description: "从产业周期、利润池和公司兑现判断个股的长期候选资格"
+  default_prompt: "Use $bbxm-industrial-thinking-equity-analysis to 重新读取知识库当前产业思维框架，从产业方向、行业周期、产业链位置、公司兑现和市场预期分析这只股票。"
+policy:
+  allow_implicit_invocation: true
+

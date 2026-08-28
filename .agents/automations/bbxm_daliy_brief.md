@@ -3,13 +3,15 @@
 使用 `cjw-xueqiu-daily-monitor` skill，抓取并整理 `{DATE}` 当天「冰冰小美」的雪球帖子。
 
 - 目标日期：`{DATE}`
+- 目标年份：`{YEAR}`
+- 目标月份：`{MONTH}`
 - 目标作者：`冰冰小美`
-- 输出位置：按 skill 的 `EXTEND.md` 配置读取输出根目录；若当前自动化约定已同步到 `sources/automations/BBXM每日汇总/{DATE}/冰冰小美`，则使用该目录。
+- 输出位置：按 skill 的 `EXTEND.md` 配置读取输出根目录，并固定使用 `sources/automations/BBXM每日汇总/{YEAR}/{MONTH}/{DATE}`。`{YEAR}` 为四位年份，`{MONTH}` 为两位月份，`{DATE}` 为 `YYYY-MM-DD`；不得在日期目录下再创建“冰冰小美”子目录。
 
 ## 二、抓取与重跑规则
 
 1. 先读取 `cjw-xueqiu-daily-monitor` skill 的 `EXTEND.md`，确认账号、目标日期、输出根目录、同日重跑规则和浏览器环境要求。
-2. 如果 `{DATE}` 当天已经存在作者输出目录，必须按同日重跑处理：
+2. 如果 `{DATE}` 当天已经存在日期输出目录，必须按同日重跑处理：
    - 复用已有 `state.json`、原始帖子文件、`task.log` 和 `processing/` 中间状态；
    - 只补抓新增帖子；
    - 不覆盖已有原始文件；
@@ -86,7 +88,7 @@ HHMMSS_核心观点.md
 把逐帖结果写入：
 
 ```text
-sources/automations/BBXM每日汇总/{DATE}/冰冰小美/processing/risk-analysis.json
+sources/automations/BBXM每日汇总/{YEAR}/{MONTH}/{DATE}/processing/risk-analysis.json
 ```
 
 文件必须包含：
@@ -125,7 +127,7 @@ sources/automations/BBXM每日汇总/{DATE}/冰冰小美/processing/risk-analysi
 生成分析文件后执行：
 
 ```powershell
-python tools/bbxm-risk-dashboard/scripts/upsert_automated_risk.py --analysis-file "sources/automations/BBXM每日汇总/{DATE}/冰冰小美/processing/risk-analysis.json" --workbook "tools/bbxm-risk-dashboard/data/冰冰小美风险提示.xlsx" --status-file "sources/automations/BBXM每日汇总/{DATE}/冰冰小美/processing/risk-write-status.json"
+python tools/bbxm-risk-dashboard/scripts/upsert_automated_risk.py --analysis-file "sources/automations/BBXM每日汇总/{YEAR}/{MONTH}/{DATE}/processing/risk-analysis.json" --workbook "tools/bbxm-risk-dashboard/data/冰冰小美风险提示.xlsx" --status-file "sources/automations/BBXM每日汇总/{YEAR}/{MONTH}/{DATE}/processing/risk-write-status.json"
 ```
 
 更新器只允许修改目标日期、风险原因以 `[自动分析｜冰冰小美每日任务]` 开头的自动行；不得修改同日人工行或其他日期记录。完整分析后没有 R1/R2/R3/W1/W2/W3 可写入节点时，由更新器删除旧自动行，不新增零次数行。
@@ -142,7 +144,7 @@ python tools/bbxm-risk-dashboard/scripts/upsert_automated_risk.py --analysis-fil
 
 ## 五、summary.md 输出要求
 
-在作者目录生成或更新 `summary.md`。
+在日期目录生成或更新 `summary.md`。
 
 生成 `summary.md` 时必须先区分来源类型：
 
@@ -236,14 +238,14 @@ python tools/bbxm-risk-dashboard/scripts/upsert_automated_risk.py --analysis-fil
 2. `解析今天文章的观点` 负责跨帖综合；`当日内容汇总` 负责逐帖留痕，两者不得相互替代。
 3. 不得把观点写成事实，不得把推测写成结论，不得把方向偏好写成买入信号。
 4. 不得省略未验证边界；抓取不完整时必须说明。
-5. 中间分析产物只能放入作者目录下的 `processing/`，不要混放在 `summary.md` 同级作为最终读物。
+5. 中间分析产物只能放入日期目录下的 `processing/`，不要混放在 `summary.md` 同级作为最终读物。
 
 ## 八、任务收尾报告
 
 每次运行结束必须明确报告：
 
 1. 目标日期；
-2. 作者输出目录；
+2. 日期输出目录；
 3. 原始帖保存状态和帖子数量；
 4. summary.md 路径；
 5. 风险分析覆盖：已保存、已分析、未解决数量；

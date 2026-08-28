@@ -35,6 +35,9 @@ const FUGUI_PANEL_COLLAPSED_STORAGE_KEY = 'a-share-market-dashboard:fugui-panel-
 const FUGUI_PROVIDER_STORAGE_KEY = 'a-share-market-dashboard:fugui-provider:v1';
 const MARGIN_BALANCE_CACHE_STORAGE_KEY = 'a-share-market-dashboard:margin-balance:one-year:v1';
 const FEATURED_DELETED_STORAGE_KEY = 'a-share-market-dashboard:featured-deleted:v1';
+const ACTIVE_VIEW_STORAGE_KEY = 'a-share-market-dashboard:active-view:v1';
+const TODO_ACTION_TIMEOUT_MS = 12_000;
+const TODO_ACTION_ORIGIN = 'http://127.0.0.1:49889';
 const MARGIN_BALANCE_CACHE_MAX_AGE_MS = 24 * 60 * 60 * 1000;
 const FUGUI_STRATEGY_RULES = Object.freeze({
   allowedOwnership: new Set(['央企', '国企']),
@@ -46,7 +49,14 @@ const NASDAQ100_SOURCE_URL = 'https://finance.yahoo.com/quote/%5ENDX/';
 const CSI_DIVIDEND_SIGNAL_SOURCE_URL = '../../sources/automations/中证红利信号/最新信号.md';
 const CSI_DIVIDEND_ANNUAL_SOURCE_URL = '../../sources/automations/中证红利信号/中证红利年度表现.json';
 const HOLDING_STATUSES = new Set(['持有', '观察', '计划加仓', '计划减仓']);
-const TODO_QUADRANTS = Object.freeze(['重要且紧急', '重要不紧急', '紧急不重要', '不重要且不紧急']);
+const TODO_QUADRANT_DEFINITIONS = Object.freeze([
+  { label: '重要且紧急', shortLabel: 'Q1', description: '立即处理', className: 'is-important-urgent' },
+  { label: '重要不紧急', shortLabel: 'Q2', description: '排入计划', className: 'is-important-not-urgent' },
+  { label: '紧急不重要', shortLabel: 'Q3', description: '压缩或委托', className: 'is-urgent-not-important' },
+  { label: '不重要且不紧急', shortLabel: 'Q4', description: '延后或删除', className: 'is-not-important-not-urgent' },
+]);
+const TODO_QUADRANTS = Object.freeze(TODO_QUADRANT_DEFINITIONS.map(quadrant => quadrant.label));
+const TODO_STATUSES = Object.freeze(['未开始', '进行中', '已完成']);
 const ALLOCATION_CATEGORIES = Object.freeze([
   { key: 'strategy', label: '战略资源', color: '#26a68f' },
   { key: 'emerging', label: '新兴', color: '#f3b42b' },
@@ -259,6 +269,30 @@ function formatTime(value) {
 function formatSignedPercent(value) {
   if (!Number.isFinite(value)) return '—';
   return `${value > 0 ? '+' : ''}${formatNumber(value, 2)}%`;
+}
+
+export function parseTodoActionResponse(response) {
+  return response.json().catch(() => ({})).then(payload => {
+    if (!response.ok) {
+      throw new Error(payload?.error ? `HTTP ${response.status}: ${payload.error}` : `HTTP ${response.status}`);
+    }
+    return payload;
+  });
+}
+
+export async function fetchTodoAction(url, options = {}, fetcher = globalThis.fetch, timeoutMs = TODO_ACTION_TIMEOUT_MS) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const response = await fetcher(url, { ...options, signal: controller.signal });
+    return await parseTodoActionResponse(response);
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+export function todoActionUrl(path, location = globalThis.location) {
+  return isLocalProxyLocation(location) ? `${TODO_ACTION_ORIGIN}${path}` : path;
 }
 
 function normalizeStockName(value) {
@@ -1586,10 +1620,11 @@ function startApp() {
     featuredDeletedIds = new Set();
   }
   let trackingStatusFilter = 'all';
-  let trackingAllocationMode = false;
+  let trackingAllocationMode = true;
   let trackingAllocationCollapsed = false;
   let trackingSortMode = 'updated';
   let reviewDiariesLoaded = false;
+  let todoLoadVersion = 0;
   let fuguiStatusFilter = 'all';
   let fuguiTtmSortMode = 'none';
   let dividendSignalLoadedAt = 0;
@@ -2758,6 +2793,14 @@ function startApp() {
 
   const labelForView = button => button?.textContent.replace(/^\d+/, '').trim() ?? '';
 
+  const readStoredActiveView = () => {
+    const [domain, viewId] = String(storage.getItem(ACTIVE_VIEW_STORAGE_KEY) ?? '').split(':');
+    if (!domain || !viewId) return null;
+    const button = [...document.querySelectorAll('[data-view]')].find(item => item.dataset.view === viewId);
+    if (!button) return null;
+    return { domain: shellForButton(button), viewId };
+  };
+
   const applyIndustryFilter = section => {
     const activeFilter = section.querySelector('.industry-filter-tabs button.is-active')?.dataset.filter ?? 'all';
     const query = section.querySelector('.industry-search input')?.value.trim().toLocaleLowerCase('zh-CN') ?? '';
@@ -2820,7 +2863,9 @@ function startApp() {
   };
 
   const setTodoItemBusy = (card, busy) => {
-    card?.querySelectorAll('.todo-action-button, .todo-move-select').forEach(control => {
+    card?.classList.toggle('is-busy', busy);
+    if (card) card.draggable = !busy;
+    card?.querySelectorAll('.todo-action-button, .todo-status-button').forEach(control => {
       control.disabled = busy;
     });
   };
@@ -2831,57 +2876,494 @@ function startApp() {
     button.textContent = button.dataset.originalText ?? button.textContent;
   };
 
-  const handleTodoAction = button => {
+  const todoActionErrorMessage = (actionLabel, error) => {
+    if (error?.name === 'AbortError') {
+      return `${actionLabel}超时：本地面板服务没有响应，页面状态已恢复。请关闭旧面板后重新双击“启动面板.cmd”。`;
+    }
+    const message = error instanceof Error ? error.message : String(error);
+    if (/HTTP 404/.test(message) && /todo item not found/.test(message)) {
+      return `${actionLabel}失败：这条待办已不存在，请刷新页面。`;
+    }
+    if (/HTTP 404/.test(message)) {
+      return `${actionLabel}失败：本地面板服务版本过旧，请关闭旧面板后重新双击“启动面板.cmd”。`;
+    }
+    if (/HTTP 500/.test(message)) {
+      return `${actionLabel}失败：todo.json 写入失败，请稍后重试或检查本地面板服务。`;
+    }
+    return `${actionLabel}失败：${message || '请确认通过“启动面板.cmd”打开看板。'}`;
+  };
+
+  const todoItemChildren = quadrant => [...(quadrant?.children ?? [])].filter(child => child.classList.contains('todo-item'));
+
+  const findTodoQuadrantElement = quadrantLabel => (
+    [...document.querySelectorAll('#todo-matrix .todo-quadrant')]
+      .find(quadrant => quadrant.dataset.todoQuadrant === quadrantLabel)
+  );
+
+  const setTodoQuadrantCollapsed = (quadrant, collapsed) => {
+    if (!quadrant) return;
+    quadrant.classList.toggle('is-collapsed', collapsed);
+    const button = quadrant.querySelector('[data-action="toggle-todo-quadrant"]');
+    if (!button) return;
+    button.setAttribute('aria-expanded', String(!collapsed));
+    button.textContent = collapsed ? '展开' : '收起';
+  };
+
+  const toggleTodoQuadrant = button => {
+    const quadrant = button?.closest('.todo-quadrant');
+    if (!quadrant) return;
+    setTodoQuadrantCollapsed(quadrant, !quadrant.classList.contains('is-collapsed'));
+  };
+
+  const todoDateInBeijing = () => new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Shanghai' }).format(new Date());
+
+  const todoStatusButtonLabel = status => `状态 · ${status}`;
+
+  const todoArchiveSortKey = item => item.archivedAt || item.completedAt || item.updatedAt || item.createdAt || '';
+
+  const renderTodoCardHtml = item => {
+    const title = String(item.title ?? '').trim();
+    const status = TODO_STATUSES.includes(item.status) ? item.status : TODO_STATUSES[0];
+    const detail = String(item.detail ?? '').trim();
+    const createdAt = item.createdAt || item.updatedAt || '';
+    const createdAtText = createdAt ? `创建 ${createdAt}` : '创建时间未记录';
+    return `<article class="todo-item" draggable="true" data-todo-id="${escapeHtml(item.id)}" data-todo-quadrant="${escapeHtml(item.quadrant)}" aria-label="拖动 ${escapeHtml(title)} 到其他象限">
+      <div class="todo-item-kicker"><span>${escapeHtml(item.id)}</span><span class="todo-item-time">${escapeHtml(createdAtText)}</span></div>
+      <div class="todo-item-head"><strong>${escapeHtml(title)}</strong></div>
+      ${detail && detail !== 'User' ? `<p>${escapeHtml(detail)}</p>` : ''}
+      <div class="todo-item-actions">
+        <button class="todo-action-button is-status todo-status-button" type="button" data-action="cycle-todo-status" data-todo-id="${escapeHtml(item.id)}" data-todo-status="${escapeHtml(status)}" aria-label="修改 ${escapeHtml(title)} 状态">${escapeHtml(todoStatusButtonLabel(status))}</button>
+        <button class="todo-action-button is-danger" type="button" data-action="delete-todo" data-todo-id="${escapeHtml(item.id)}">删除</button>
+      </div>
+    </article>`;
+  };
+
+  const todoItemsFromPayload = payload => {
+    if (!Array.isArray(payload?.items)) return [];
+    return payload.items.flatMap(item => {
+      const id = String(item?.id ?? '').trim();
+      const title = String(item?.title ?? '').trim();
+      const quadrant = String(item?.quadrant ?? '').trim();
+      if (!id || !title || !TODO_QUADRANTS.includes(quadrant)) return [];
+      const status = TODO_STATUSES.includes(item.status) ? item.status : TODO_STATUSES[0];
+      if (status === '已完成') return [];
+      return [{
+        id,
+        title,
+        detail: String(item.detail ?? '').trim(),
+        quadrant,
+        status,
+        createdAt: String(item.createdAt ?? '').trim(),
+        updatedAt: String(item.updatedAt ?? '').trim(),
+      }];
+    }).sort((left, right) => {
+      const dateOrder = (right.createdAt || right.updatedAt).localeCompare(left.createdAt || left.updatedAt);
+      return dateOrder || right.id.localeCompare(left.id, 'en', { numeric: true });
+    });
+  };
+
+  const todoArchiveItemsFromPayload = payload => {
+    const rawArchive = Array.isArray(payload?.archive) ? payload.archive : Array.isArray(payload?.archivedItems) ? payload.archivedItems : [];
+    return rawArchive.flatMap(item => {
+      const id = String(item?.id ?? '').trim();
+      const title = String(item?.title ?? '').trim();
+      if (!id || !title) return [];
+      const quadrant = TODO_QUADRANTS.includes(item.quadrant) ? item.quadrant : '';
+      return [{
+        id,
+        title,
+        detail: String(item.detail ?? '').trim(),
+        quadrant,
+        status: '已完成',
+        createdAt: String(item.createdAt ?? '').trim(),
+        updatedAt: String(item.updatedAt ?? '').trim(),
+        completedAt: String(item.completedAt ?? item.updatedAt ?? '').trim(),
+        archivedAt: String(item.archivedAt ?? item.completedAt ?? item.updatedAt ?? '').trim(),
+      }];
+    }).sort((left, right) => {
+      const dateOrder = todoArchiveSortKey(right).localeCompare(todoArchiveSortKey(left));
+      return dateOrder || right.id.localeCompare(left.id, 'en', { numeric: true });
+    });
+  };
+
+  const renderTodoArchiveItemHtml = item => {
+    const detail = String(item.detail ?? '').trim();
+    const completedAt = item.completedAt ? `完成 ${item.completedAt}` : '完成时间未记录';
+    const archivedAt = item.archivedAt ? `归档 ${item.archivedAt}` : '归档时间未记录';
+    return `<article class="todo-archive-item" data-todo-archive-id="${escapeHtml(item.id)}">
+      <div class="todo-item-kicker"><span>${escapeHtml(item.id)}</span><span class="todo-item-time">${escapeHtml(archivedAt)}</span></div>
+      <div class="todo-item-head"><strong>${escapeHtml(item.title)}</strong></div>
+      ${detail && detail !== 'User' ? `<p>${escapeHtml(detail)}</p>` : ''}
+      <div class="todo-archive-meta"><span>${escapeHtml(completedAt)}</span>${item.quadrant ? `<span>${escapeHtml(item.quadrant)}</span>` : ''}</div>
+    </article>`;
+  };
+
+  const renderTodoArchiveList = payload => {
+    const list = document.getElementById('todo-archive-list');
+    const toggle = document.getElementById('todo-archive-toggle');
+    if (!list) return;
+    const archiveItems = todoArchiveItemsFromPayload(payload);
+    list.innerHTML = archiveItems.length
+      ? archiveItems.map(renderTodoArchiveItemHtml).join('')
+      : '<p class="todo-empty">暂无归档任务</p>';
+    if (toggle) toggle.textContent = archiveItems.length ? `已归档 ${archiveItems.length}` : '已归档';
+  };
+
+  const renderTodoList = payload => {
+    const matrix = document.getElementById('todo-matrix');
+    const summary = document.getElementById('todo-summary');
+    if (!matrix || !summary) return;
+    const items = todoItemsFromPayload(payload);
+    const collapsedQuadrants = new Set(
+      [...matrix.querySelectorAll('.todo-quadrant.is-collapsed')].map(quadrant => quadrant.dataset.todoQuadrant),
+    );
+    summary.innerHTML = TODO_QUADRANT_DEFINITIONS.map(quadrant => {
+      const count = items.filter(item => item.quadrant === quadrant.label).length;
+      return `<article class="todo-summary-card ${quadrant.className}" data-todo-summary-quadrant="${escapeHtml(quadrant.label)}">
+        <small>${quadrant.shortLabel}</small><strong>${count}</strong><span>${escapeHtml(quadrant.label)}</span>
+      </article>`;
+    }).join('');
+    matrix.innerHTML = TODO_QUADRANT_DEFINITIONS.map(quadrant => {
+      const quadrantItems = items.filter(item => item.quadrant === quadrant.label);
+      const body = quadrantItems.length
+        ? quadrantItems.map(renderTodoCardHtml).join('')
+        : '<p class="todo-empty">暂无事项</p>';
+      return `<section class="todo-quadrant ${quadrant.className}" data-todo-quadrant="${escapeHtml(quadrant.label)}" tabindex="0" aria-label="${escapeHtml(quadrant.label)}，${quadrantItems.length}项任务，可滚动查看">
+        <header class="todo-quadrant-header">
+          <div class="todo-quadrant-heading"><span class="todo-quadrant-index">${quadrant.shortLabel}</span><div><h3>${escapeHtml(quadrant.label)}</h3><p class="todo-quadrant-guide">${escapeHtml(quadrant.description)}</p></div></div>
+          <div class="todo-quadrant-meta"><strong>${quadrantItems.length}项</strong><button class="todo-quadrant-toggle" type="button" data-action="toggle-todo-quadrant" aria-expanded="true">收起</button></div>
+        </header>${body}
+      </section>`;
+    }).join('');
+    collapsedQuadrants.forEach(label => setTodoQuadrantCollapsed(findTodoQuadrantElement(label), true));
+    updateTodoCounts();
+    const sourceStatus = document.getElementById('todo-source-status');
+    if (sourceStatus) {
+      const updatedAt = String(payload.updatedAt ?? '').trim();
+      const archive = Array.isArray(payload.archive) ? payload.archive : Array.isArray(payload.archivedItems) ? payload.archivedItems : [];
+      const archiveCount = archive.length;
+      sourceStatus.textContent = `${updatedAt ? `来源：data/todo.json · 更新：${updatedAt}` : '来源：data/todo.json'}${archiveCount ? ` · 已归档${archiveCount}项` : ''}`;
+    }
+    renderTodoArchiveList(payload);
+  };
+
+  const setTodoArchiveCountText = count => {
+    const toggle = document.getElementById('todo-archive-toggle');
+    if (toggle) toggle.textContent = count ? `已归档 ${count}` : '已归档';
+    const sourceStatus = document.getElementById('todo-source-status');
+    if (!sourceStatus) return;
+    const baseText = sourceStatus.textContent.replace(/\s*·\s*已归档\d+项$/, '');
+    sourceStatus.textContent = `${baseText}${count ? ` · 已归档${count}项` : ''}`;
+  };
+
+  const insertTodoArchiveItem = (item, archiveTotal = null) => {
+    const list = document.getElementById('todo-archive-list');
+    if (!list || !item?.id || !item?.title) return;
+    list.querySelector('.todo-empty')?.remove();
+    const existing = [...list.querySelectorAll('.todo-archive-item')]
+      .find(node => node.dataset.todoArchiveId === item.id);
+    existing?.remove();
+    const archiveItems = [
+      item,
+      ...[...list.querySelectorAll('.todo-archive-item')].map(node => ({
+        id: node.dataset.todoArchiveId ?? '',
+        title: node.querySelector('.todo-item-head strong')?.textContent?.trim() ?? '',
+        detail: node.querySelector('p')?.textContent?.trim() ?? '',
+        archivedAt: node.querySelector('.todo-item-time')?.textContent?.replace(/^归档\s*/, '').trim() ?? '',
+        completedAt: node.querySelector('.todo-archive-meta span')?.textContent?.replace(/^完成\s*/, '').trim() ?? '',
+        quadrant: node.querySelector('.todo-archive-meta span:last-child')?.textContent?.trim() ?? '',
+      })),
+    ].sort((left, right) => {
+      const dateOrder = todoArchiveSortKey(right).localeCompare(todoArchiveSortKey(left));
+      return dateOrder || right.id.localeCompare(left.id, 'en', { numeric: true });
+    });
+    list.innerHTML = archiveItems.map(renderTodoArchiveItemHtml).join('');
+    const count = Number.isFinite(Number(archiveTotal)) ? Number(archiveTotal) : archiveItems.length;
+    setTodoArchiveCountText(count);
+  };
+
+  const refreshTodoList = async () => {
+    if (!isLocalProxyLocation()) return;
+    const requestVersion = ++todoLoadVersion;
+    const matrix = document.getElementById('todo-matrix');
+    const sourceStatus = document.getElementById('todo-source-status');
+    matrix?.setAttribute('aria-busy', 'true');
+    if (sourceStatus) sourceStatus.textContent = '正在读取 data/todo.json...';
+    try {
+      const payload = await fetchTodoAction(todoActionUrl('/api/todos'));
+      if (requestVersion !== todoLoadVersion) return;
+      if (!Array.isArray(payload?.items)) throw new Error('todo data invalid');
+      renderTodoList(payload);
+    } catch {
+      if (requestVersion === todoLoadVersion && sourceStatus) {
+        sourceStatus.textContent = '实时读取失败，当前显示上次生成的快照';
+      }
+    } finally {
+      if (requestVersion === todoLoadVersion) matrix?.removeAttribute('aria-busy');
+    }
+  };
+
+  const createTodoCard = item => {
+    const template = document.createElement('template');
+    template.innerHTML = renderTodoCardHtml(item).trim();
+    return template.content.firstElementChild;
+  };
+
+  const setTodoCardId = (card, todoId) => {
+    if (!card || !todoId) return;
+    card.dataset.todoId = todoId;
+    card.querySelectorAll('[data-todo-id]').forEach(node => {
+      node.dataset.todoId = todoId;
+    });
+  };
+
+  const updateTodoCounts = () => {
+    const counts = new Map();
+    let total = 0;
+    document.querySelectorAll('#todo-matrix .todo-quadrant').forEach(quadrant => {
+      const count = todoItemChildren(quadrant).length;
+      const quadrantLabel = quadrant.dataset.todoQuadrant ?? '';
+      counts.set(quadrantLabel, count);
+      total += count;
+      const countNode = quadrant.querySelector('header strong');
+      if (countNode) countNode.textContent = `${count}项`;
+      quadrant.setAttribute('aria-label', `${quadrantLabel}，${count}项任务，可滚动查看`);
+      const empty = quadrant.querySelector('.todo-empty');
+      if (count > 0) empty?.remove();
+      else if (!empty) quadrant.insertAdjacentHTML('beforeend', '<p class="todo-empty">暂无事项</p>');
+    });
+    document.querySelectorAll('.todo-summary-card[data-todo-summary-quadrant]').forEach(card => {
+      const count = counts.get(card.dataset.todoSummaryQuadrant ?? '');
+      const countNode = card.querySelector('strong');
+      if (Number.isFinite(count) && countNode) countNode.textContent = String(count);
+    });
+    const totalCount = document.getElementById('todo-total-count');
+    if (totalCount) totalCount.textContent = `${total}项`;
+  };
+
+  const insertTodoCard = (card, quadrantLabel) => {
+    const target = findTodoQuadrantElement(quadrantLabel);
+    if (!card || !target) return false;
+    setTodoQuadrantCollapsed(target, false);
+    target.querySelector('.todo-empty')?.remove();
+    target.insertBefore(card, todoItemChildren(target)[0] ?? null);
+    card.dataset.todoQuadrant = quadrantLabel;
+    updateTodoCounts();
+    return true;
+  };
+
+  const snapshotTodoCardPlacement = card => ({
+    quadrant: card?.closest('.todo-quadrant') ?? null,
+    nextElement: card?.nextElementSibling ?? null,
+    quadrantLabel: card?.dataset.todoQuadrant ?? '',
+  });
+
+  const restoreTodoCardPlacement = (card, placement) => {
+    const quadrant = placement?.quadrant;
+    if (!card || !quadrant) return;
+    quadrant.querySelector('.todo-empty')?.remove();
+    if (placement.nextElement?.parentElement === quadrant) {
+      quadrant.insertBefore(card, placement.nextElement);
+    } else {
+      quadrant.appendChild(card);
+    }
+    card.dataset.todoQuadrant = placement.quadrantLabel;
+    updateTodoCounts();
+  };
+
+  const moveTodoCardImmediately = (card, targetQuadrant) => {
+    const target = findTodoQuadrantElement(targetQuadrant);
+    if (!card || !target || target === card.closest('.todo-quadrant')) return null;
+    const placement = snapshotTodoCardPlacement(card);
+    setTodoQuadrantCollapsed(target, false);
+    target.querySelector('.todo-empty')?.remove();
+    target.insertBefore(card, todoItemChildren(target)[0] ?? null);
+    card.dataset.todoQuadrant = targetQuadrant;
+    updateTodoCounts();
+    return placement;
+  };
+
+  const moveTodoCard = (card, targetQuadrant) => {
+    const todoId = card?.dataset.todoId ?? '';
+    if (!todoId || !TODO_QUADRANTS.includes(targetQuadrant)) return;
+    if (!isLocalProxyLocation()) {
+      globalThis.alert('拖动移动待办需要通过“启动面板.cmd”打开看板。');
+      return;
+    }
+    if (targetQuadrant === card.dataset.todoQuadrant) return;
+
+    const previousPlacement = moveTodoCardImmediately(card, targetQuadrant);
+    if (!previousPlacement) return;
+    todoLoadVersion += 1;
+    setTodoItemBusy(card, true);
+    fetchTodoAction(todoActionUrl('/api/todo-item'), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: todoId, action: 'move', quadrant: targetQuadrant }),
+    }).then(payload => {
+      if (TODO_QUADRANTS.includes(payload?.quadrant)) card.dataset.todoQuadrant = payload.quadrant;
+      setTodoItemBusy(card, false);
+    }).catch(error => {
+      restoreTodoCardPlacement(card, previousPlacement);
+      setTodoItemBusy(card, false);
+      globalThis.alert(todoActionErrorMessage('移动', error));
+    });
+  };
+
+  const nextTodoStatus = currentStatus => {
+    const index = TODO_STATUSES.indexOf(currentStatus);
+    return TODO_STATUSES[(index + 1) % TODO_STATUSES.length] ?? TODO_STATUSES[0];
+  };
+
+  const setTodoCardStatus = (card, status) => {
+    const button = card?.querySelector('.todo-status-button');
+    if (!button) return '';
+    const previousStatus = button.dataset.todoStatus || button.textContent.trim();
+    button.dataset.todoStatus = status;
+    button.textContent = todoStatusButtonLabel(status);
+    button.setAttribute('aria-label', `${status}，点击切换状态`);
+    return previousStatus;
+  };
+
+  const updateTodoStatus = button => {
+    const card = button.closest('.todo-item');
+    const todoId = card?.dataset.todoId ?? button.dataset.todoId ?? '';
+    if (!todoId) return;
+    if (!isLocalProxyLocation()) {
+      globalThis.alert('修改待办状态需要通过“启动面板.cmd”打开看板。');
+      return;
+    }
+
+    const currentStatus = button.dataset.todoStatus || button.textContent.trim() || TODO_STATUSES[0];
+    const status = nextTodoStatus(currentStatus);
+    const previousStatus = setTodoCardStatus(card, status);
+    todoLoadVersion += 1;
+    setTodoItemBusy(card, true);
+    fetchTodoAction(todoActionUrl('/api/todo-item'), {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: todoId, action: 'status', status }),
+    }).then(payload => {
+      if (payload?.archived) {
+        card?.remove();
+        updateTodoCounts();
+        insertTodoArchiveItem(payload.item ?? payload, payload.archiveTotal);
+      } else if (TODO_STATUSES.includes(payload?.status)) {
+        setTodoCardStatus(card, payload.status);
+      }
+      setTodoItemBusy(card, false);
+    }).catch(error => {
+      setTodoCardStatus(card, previousStatus || currentStatus);
+      setTodoItemBusy(card, false);
+      globalThis.alert(todoActionErrorMessage('状态修改', error));
+    });
+  };
+
+  const setTodoCreateFormBusy = (form, busy) => {
+    form?.querySelectorAll('input, select, textarea, button').forEach(control => {
+      control.disabled = busy;
+    });
+  };
+
+  const setTodoCreateStatus = (message, isError = false) => {
+    const status = document.getElementById('todo-create-status');
+    if (!status) return;
+    status.textContent = message;
+    status.classList.toggle('is-error', isError);
+  };
+
+  const setTodoCreateFormOpen = open => {
+    const form = document.getElementById('todo-create-form');
+    if (!form) return;
+    form.hidden = !open;
+    setTodoCreateStatus('');
+    if (open) form.elements.title?.focus();
+  };
+
+  const handleTodoCreate = form => {
+    if (!isLocalProxyLocation()) {
+      globalThis.alert('新增需求需要通过“启动面板.cmd”打开看板。');
+      return;
+    }
+    const data = new FormData(form);
+    const title = String(data.get('title') ?? '').trim();
+    if (!title) {
+      setTodoCreateStatus('请填写需求事项。', true);
+      form.elements.title?.focus();
+      return;
+    }
+    const quadrantValue = String(data.get('quadrant') ?? '').trim();
+    const statusValue = String(data.get('status') ?? '').trim();
+    const quadrant = TODO_QUADRANTS.includes(quadrantValue) ? quadrantValue : TODO_QUADRANTS[0];
+    const status = TODO_STATUSES.includes(statusValue) ? statusValue : TODO_STATUSES[0];
+    const detail = String(data.get('detail') ?? '').trim().slice(0, 150);
+    const pendingId = `TODO-PENDING-${Date.now()}`;
+    const card = createTodoCard({ id: pendingId, title, detail, quadrant, status, createdAt: todoDateInBeijing() });
+    if (!insertTodoCard(card, quadrant)) {
+      setTodoCreateStatus('新增失败：未找到目标象限。', true);
+      return;
+    }
+
+    setTodoItemBusy(card, true);
+    setTodoCreateFormBusy(form, true);
+    setTodoCreateStatus('保存中...');
+    todoLoadVersion += 1;
+    fetchTodoAction(todoActionUrl('/api/todo-item'), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'create', title, detail, quadrant, status }),
+    }).then(payload => {
+      setTodoCardId(card, payload.id || pendingId);
+      if (payload?.archived) {
+        card.remove();
+        updateTodoCounts();
+        insertTodoArchiveItem(payload.item ?? payload, payload.archiveTotal);
+      } else {
+        if (TODO_STATUSES.includes(payload?.status)) setTodoCardStatus(card, payload.status);
+        if (TODO_QUADRANTS.includes(payload?.quadrant)) card.dataset.todoQuadrant = payload.quadrant;
+        const timeNode = card.querySelector('.todo-item-time');
+        if (timeNode && payload.updatedAt) timeNode.textContent = `创建 ${payload.updatedAt}`;
+      }
+      setTodoItemBusy(card, false);
+      setTodoCreateFormBusy(form, false);
+      form.reset();
+      setTodoCreateFormOpen(false);
+    }).catch(error => {
+      card.remove();
+      updateTodoCounts();
+      setTodoCreateFormBusy(form, false);
+      setTodoCreateStatus(todoActionErrorMessage('新增', error), true);
+      globalThis.alert(todoActionErrorMessage('新增', error));
+    });
+  };
+
+  const handleTodoDelete = button => {
     const card = button.closest('.todo-item');
     const todoId = card?.dataset.todoId ?? button.dataset.todoId ?? '';
     const title = card?.querySelector('.todo-item-head strong')?.textContent?.trim() || '这条待办';
     if (!todoId) return;
     if (!isLocalProxyLocation()) {
-      globalThis.alert('移动或删除待办需要通过“启动面板.cmd”打开看板。');
+      globalThis.alert('删除待办需要通过“启动面板.cmd”打开看板。');
       return;
     }
-
-    const action = button.dataset.action;
-    const payload = { id: todoId };
-    const request = { method: 'POST', busyText: '移动中...' };
-    if (action === 'move-todo') {
-      const targetQuadrant = card.querySelector('.todo-move-select')?.value ?? '';
-      if (!TODO_QUADRANTS.includes(targetQuadrant)) return;
-      if (targetQuadrant === card.dataset.todoQuadrant) {
-        globalThis.alert('这条待办已经在当前象限。');
-        return;
-      }
-      payload.action = 'move';
-      payload.quadrant = targetQuadrant;
-    } else if (action === 'delete-todo') {
-      if (!globalThis.confirm(`确认删除「${title}」？`)) return;
-      payload.action = 'delete';
-      request.method = 'DELETE';
-      request.busyText = '删除中...';
-    } else {
-      return;
-    }
+    if (!globalThis.confirm(`确认删除「${title}」？`)) return;
 
     button.dataset.originalText = button.dataset.originalText || button.textContent;
-    button.textContent = request.busyText;
+    button.textContent = '删除中...';
+    const previousPlacement = snapshotTodoCardPlacement(card);
     setTodoItemBusy(card, true);
-    fetch('/api/todo-item', {
-      method: request.method,
+    card.remove();
+    updateTodoCounts();
+    todoLoadVersion += 1;
+    fetchTodoAction(todoActionUrl('/api/todo-item'), {
+      method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    }).then(response => {
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      return response.json();
-    }).then(payload => {
-      if (payload?.rebuilt === false) {
-        globalThis.alert('已写入 todo.xlsx，但看板自动重建失败。请重新双击“启动面板.cmd”。');
-        return;
-      }
-      globalThis.location.reload();
-    }).catch(() => {
-      globalThis.alert('操作失败：请确认通过“启动面板.cmd”打开看板，并且 todo.xlsx 没有被 Excel 占用。');
+      body: JSON.stringify({ id: todoId, action: 'delete' }),
+    }).catch(error => {
+      restoreTodoCardPlacement(card, previousPlacement);
       setTodoItemBusy(card, false);
       resetTodoButton(button);
+      globalThis.alert(todoActionErrorMessage('删除', error));
     });
   };
 
@@ -2901,6 +3383,7 @@ function startApp() {
     const button = [...document.querySelectorAll('[data-view]')].find(item => item.dataset.view === viewId);
     const shell = button ? shellForButton(button) : 'thermometer';
     activeViewByShell[shell] = viewId;
+    if (button) storage.setItem(ACTIVE_VIEW_STORAGE_KEY, `${shell}:${viewId}`);
     document.querySelectorAll('[data-view]').forEach(item => {
       const active = item === button;
       item.classList.toggle('is-active', active);
@@ -2911,6 +3394,7 @@ function startApp() {
     pageTitle.textContent = labelForView(button) || pageTitle.textContent;
     if (viewId === 'risk-monitor') refreshRiskMarginChart();
     if (viewId === 'review-diary-view' && !reviewDiariesLoaded) refreshReviewDiaries();
+    if (viewId === 'position-manager') refreshTodoList();
     if (viewId === 'market-summary' || viewId === 'dividend-signal-view') refreshDividendSignalFromSource();
     if (viewId.startsWith('industry-')) hydrateIndustryReportRows(document.getElementById(viewId));
   };
@@ -3019,11 +3503,108 @@ function startApp() {
       deleteButton.textContent = '删除';
     });
   }));
-  document.getElementById('todo-matrix')?.addEventListener('click', event => {
-    const button = event.target.closest('button[data-action="move-todo"], button[data-action="delete-todo"]');
-    if (!button) return;
-    handleTodoAction(button);
+  const todoMatrix = document.getElementById('todo-matrix');
+  const todoCreateForm = document.getElementById('todo-create-form');
+  document.getElementById('todo-create-open')?.addEventListener('click', () => setTodoCreateFormOpen(true));
+  document.getElementById('todo-archive-toggle')?.addEventListener('click', event => {
+    const panel = document.getElementById('todo-archive-panel');
+    if (!panel) return;
+    const expanded = event.currentTarget.getAttribute('aria-expanded') === 'true';
+    panel.hidden = expanded;
+    event.currentTarget.setAttribute('aria-expanded', String(!expanded));
   });
+  document.getElementById('todo-create-cancel')?.addEventListener('click', () => {
+    todoCreateForm?.reset();
+    setTodoCreateFormOpen(false);
+  });
+  todoCreateForm?.addEventListener('submit', event => {
+    event.preventDefault();
+    handleTodoCreate(event.currentTarget);
+  });
+  if (todoMatrix) {
+    let draggedTodoCard = null;
+    const clearTodoDropTargets = () => {
+      todoMatrix.querySelectorAll('.todo-quadrant.is-drop-target').forEach(quadrant => {
+        quadrant.classList.remove('is-drop-target');
+      });
+    };
+
+    todoMatrix.addEventListener('click', event => {
+      const quadrantToggle = event.target.closest('button[data-action="toggle-todo-quadrant"]');
+      if (quadrantToggle) {
+        toggleTodoQuadrant(quadrantToggle);
+        return;
+      }
+      const statusButton = event.target.closest('button[data-action="cycle-todo-status"]');
+      if (statusButton) {
+        updateTodoStatus(statusButton);
+        return;
+      }
+      const button = event.target.closest('button[data-action="delete-todo"]');
+      if (!button) return;
+      handleTodoDelete(button);
+    });
+    todoMatrix.addEventListener('dragstart', event => {
+      const card = event.target.closest('.todo-item');
+      if (!card?.dataset.todoId) return;
+      if (event.target.closest('button')) {
+        event.preventDefault();
+        return;
+      }
+      if (!isLocalProxyLocation()) {
+        event.preventDefault();
+        globalThis.alert('拖动移动待办需要通过“启动面板.cmd”打开看板。');
+        return;
+      }
+      draggedTodoCard = card;
+      card.classList.add('is-dragging');
+      event.dataTransfer.effectAllowed = 'move';
+      event.dataTransfer.setData('application/x-todo-id', card.dataset.todoId);
+      event.dataTransfer.setData('text/plain', '');
+    });
+    document.addEventListener('dragover', event => {
+      if (!draggedTodoCard) return;
+      event.preventDefault();
+    });
+    document.addEventListener('drop', event => {
+      if (!draggedTodoCard) return;
+      event.preventDefault();
+    });
+    todoMatrix.addEventListener('dragover', event => {
+      const quadrant = event.target.closest('.todo-quadrant');
+      if (!quadrant || !draggedTodoCard) return;
+      const targetQuadrant = quadrant.dataset.todoQuadrant ?? '';
+      if (!TODO_QUADRANTS.includes(targetQuadrant)) return;
+      event.preventDefault();
+      event.dataTransfer.dropEffect = 'move';
+      clearTodoDropTargets();
+      if (targetQuadrant !== draggedTodoCard.dataset.todoQuadrant) {
+        quadrant.classList.add('is-drop-target');
+      }
+    });
+    todoMatrix.addEventListener('dragleave', event => {
+      const quadrant = event.target.closest('.todo-quadrant');
+      if (quadrant && !quadrant.contains(event.relatedTarget)) {
+        quadrant.classList.remove('is-drop-target');
+      }
+    });
+    todoMatrix.addEventListener('drop', event => {
+      const quadrant = event.target.closest('.todo-quadrant');
+      if (!quadrant || !draggedTodoCard) return;
+      event.preventDefault();
+      event.stopPropagation();
+      const card = draggedTodoCard;
+      draggedTodoCard = null;
+      card.classList.remove('is-dragging');
+      clearTodoDropTargets();
+      moveTodoCard(card, quadrant.dataset.todoQuadrant ?? '');
+    });
+    todoMatrix.addEventListener('dragend', () => {
+      draggedTodoCard?.classList.remove('is-dragging');
+      draggedTodoCard = null;
+      clearTodoDropTargets();
+    });
+  }
   document.querySelectorAll('.topic-filter-tabs button').forEach(button => button.addEventListener('click', event => {
     document.querySelectorAll('.topic-filter-tabs button').forEach(item => {
       const active = item === event.currentTarget;
@@ -3266,7 +3847,8 @@ function startApp() {
     fuguiStrategyStatus.textContent = `富贵策略数据源已切换为 ${fuguiDataProvider === 'akshare' ? 'AKShare' : 'Tushare'}。`;
   });
 
-  setShell('thermometer', 'market-summary');
+  const initialView = readStoredActiveView() ?? { domain: 'thermometer', viewId: 'market-summary' };
+  setShell(initialView.domain, initialView.viewId);
   renderFuguiProviderToggle();
   setFuguiPanelCollapsed(storage.getItem(FUGUI_PANEL_COLLAPSED_STORAGE_KEY) === '1');
   render();

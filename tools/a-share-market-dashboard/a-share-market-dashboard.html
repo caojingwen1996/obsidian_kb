@@ -510,42 +510,74 @@ h3 { font-size: 15px; }
 .todo-summary-card small { color: var(--muted); font-size: 10px; font-weight: 800; }
 .todo-summary-card strong { margin: 10px 0 4px; font-size: 26px; font-variant-numeric: tabular-nums; }
 .todo-summary-card span { color: #394b59; font-size: 11px; font-weight: 800; }
-.todo-summary-card.is-important-urgent strong, .todo-quadrant.is-important-urgent header span { color: #bc3a2a; }
-.todo-summary-card.is-important-not-urgent strong, .todo-quadrant.is-important-not-urgent header span { color: #24745f; }
-.todo-summary-card.is-urgent-not-important strong, .todo-quadrant.is-urgent-not-important header span { color: #9a6a10; }
-.todo-summary-card.is-not-important-not-urgent strong, .todo-quadrant.is-not-important-not-urgent header span { color: #66717b; }
+.todo-summary-card.is-important-urgent strong, .todo-quadrant.is-important-urgent .todo-quadrant-index { color: #bc3a2a; }
+.todo-summary-card.is-important-not-urgent strong, .todo-quadrant.is-important-not-urgent .todo-quadrant-index { color: #24745f; }
+.todo-summary-card.is-urgent-not-important strong, .todo-quadrant.is-urgent-not-important .todo-quadrant-index { color: #9a6a10; }
+.todo-summary-card.is-not-important-not-urgent strong, .todo-quadrant.is-not-important-not-urgent .todo-quadrant-index { color: #66717b; }
 .todo-board { display: grid; gap: 12px; }
+.todo-board-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
 .todo-source-link { text-decoration: none; }
 .todo-source-note { display: flex; justify-content: space-between; align-items: center; gap: 12px; color: var(--muted); font-size: 11px; }
 .todo-source-note strong { color: #071a2d; font-size: 12px; white-space: nowrap; }
-.todo-matrix { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; align-items: stretch; }
-.todo-quadrant { min-width: 0; border: 1px solid var(--line); border-radius: 8px; background: #fbfcfc; padding: 14px; }
-.todo-quadrant.is-important-urgent { border-top: 3px solid #bc3a2a; }
-.todo-quadrant.is-important-not-urgent { border-top: 3px solid #24745f; }
-.todo-quadrant.is-urgent-not-important { border-top: 3px solid #d49a23; }
-.todo-quadrant.is-not-important-not-urgent { border-top: 3px solid #85919b; }
-.todo-quadrant header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
-.todo-quadrant header div { display: grid; gap: 2px; }
-.todo-quadrant header span { font-size: 10px; font-weight: 900; }
-.todo-quadrant header h3 { margin: 0; font-size: 15px; line-height: 1.35; }
-.todo-quadrant header strong { color: var(--muted); font-size: 11px; white-space: nowrap; }
-.todo-quadrant-guide { margin: 8px 0 0; color: var(--muted); font-size: 11px; }
-.todo-item { margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--line); }
-.todo-item-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
-.todo-item-head strong { color: #071a2d; font-size: 13px; line-height: 1.45; }
-.todo-item-head span { flex: 0 0 auto; border-radius: 5px; background: #edf3f5; color: #246170; padding: 2px 7px; font-size: 10px; font-weight: 800; }
-.todo-item p { margin: 7px 0 8px; color: #566674; font-size: 12px; line-height: 1.65; }
-.todo-item-meta { display: flex; flex-wrap: wrap; gap: 6px; }
-.todo-item-meta span { border-radius: 5px; background: #eef3f5; color: #435464; padding: 2px 6px; font-size: 10px; }
-.todo-item small { display: block; margin-top: 7px; color: var(--muted); font-size: 10px; line-height: 1.55; }
-.todo-item-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 10px; }
-.todo-move-select { min-height: 30px; min-width: 150px; max-width: 100%; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: #071a2d; padding: 4px 8px; font-size: 11px; font-weight: 700; }
-.todo-action-button { min-height: 30px; border: 1px solid rgba(36,97,112,.24); border-radius: 6px; background: #f5fafb; color: #246170; padding: 5px 10px; font-size: 11px; font-weight: 800; cursor: pointer; white-space: nowrap; }
+.todo-create-form { display: grid; grid-template-columns: minmax(220px, 1.4fr) minmax(150px, .8fr) minmax(120px, .7fr); gap: 10px; margin: -3px 0 2px; padding: 12px 0 14px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.todo-create-form label { display: grid; gap: 6px; color: var(--muted); font-size: 10px; }
+.todo-create-form input, .todo-create-form select, .todo-create-form textarea { width: 100%; border: 1px solid var(--line); border-radius: 8px; background: #fbfcfc; color: var(--ink); padding: 9px 10px; }
+.todo-create-form input, .todo-create-form select { min-height: 38px; }
+.todo-create-form textarea { min-height: 38px; resize: vertical; line-height: 1.55; }
+.todo-create-detail, .todo-create-status { grid-column: 1 / -1; }
+.todo-create-controls { grid-column: 1 / -1; display: flex; justify-content: flex-end; gap: 8px; }
+.todo-create-submit { min-height: 38px; border: 0; border-radius: 8px; background: var(--blue); color: white; padding: 8px 16px; font-weight: 800; }
+.todo-create-submit:hover { background: #2868c3; }
+.todo-create-submit:disabled { cursor: wait; opacity: .62; }
+.todo-create-status { min-height: 18px; margin: -5px 0 0; color: var(--muted); font-size: 11px; line-height: 1.6; }
+.todo-create-status.is-error { color: #b33b2f; }
+.todo-archive-panel { border: 1px solid var(--line); border-radius: 9px; background: #fbfcfc; padding: 12px; }
+.todo-archive-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 10px; }
+.todo-archive-head strong { color: #071a2d; font-size: 13px; }
+.todo-archive-head span { color: var(--muted); font-size: 11px; }
+.todo-archive-list { display: grid; max-height: min(48vh, 420px); overflow-y: auto; gap: 10px; padding-right: 4px; scrollbar-gutter: stable; }
+.todo-archive-item { border: 1px solid rgba(82,104,122,.16); border-radius: 8px; background: var(--card); padding: 12px; }
+.todo-archive-item p { margin: 7px 0 0; color: #566674; font-size: 12px; line-height: 1.65; }
+.todo-archive-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; padding-top: 9px; border-top: 1px solid rgba(82,104,122,.12); color: #62717e; font-size: 11px; font-weight: 800; }
+.todo-matrix { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; align-items: start; }
+.todo-quadrant { --todo-accent: #85919b; --todo-accent-soft: #f3f5f6; min-width: 0; max-height: min(68vh, 620px); overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; border: 1px solid var(--line); border-top: 3px solid var(--todo-accent); border-radius: 10px; background: #f5f7f8; padding: 0 12px 12px; scroll-padding-top: 88px; }
+.todo-quadrant:focus-visible { outline: 3px solid rgba(47,126,230,.22); outline-offset: 2px; }
+.todo-quadrant.is-important-urgent { --todo-accent: #bc3a2a; --todo-accent-soft: #fff2ef; }
+.todo-quadrant.is-important-not-urgent { --todo-accent: #24745f; --todo-accent-soft: #edf8f4; }
+.todo-quadrant.is-urgent-not-important { --todo-accent: #d49a23; --todo-accent-soft: #fff8e9; }
+.todo-quadrant.is-not-important-not-urgent { --todo-accent: #85919b; --todo-accent-soft: #f3f5f6; }
+.todo-quadrant.is-drop-target { border-color: #24745f; background: #f2faf7; box-shadow: inset 0 0 0 2px rgba(36,116,95,.14); }
+.todo-quadrant-header { position: sticky; top: 0; z-index: 2; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin: 0 -12px 10px; border-bottom: 1px solid rgba(26,44,61,.08); background: linear-gradient(180deg, var(--todo-accent-soft) 0%, #fbfcfc 100%); padding: 12px; }
+.todo-quadrant-heading { display: flex; align-items: flex-start; gap: 10px; min-width: 0; }
+.todo-quadrant-heading > div { display: grid; gap: 2px; min-width: 0; }
+.todo-quadrant-index { display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center; min-width: 30px; min-height: 24px; border: 1px solid currentColor; border-radius: 999px; background: rgba(255,255,255,.76); font-size: 10px; font-weight: 900; letter-spacing: .04em; }
+.todo-quadrant-header h3 { margin: 0; color: #071a2d; font-size: 15px; line-height: 1.35; }
+.todo-quadrant-guide { margin: 2px 0 0; color: #62717e; font-size: 11px; line-height: 1.45; }
+.todo-quadrant-meta { display: flex; flex: 0 0 auto; align-items: center; gap: 6px; }
+.todo-quadrant-meta strong { color: #425260; font-size: 11px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.todo-quadrant-toggle { min-height: 30px; border: 1px solid rgba(66,82,96,.2); border-radius: 7px; background: rgba(255,255,255,.82); color: #425260; padding: 5px 9px; font-size: 11px; font-weight: 800; cursor: pointer; }
+.todo-quadrant-toggle:hover { border-color: #667786; background: #fff; }
+.todo-quadrant.is-collapsed { max-height: none; overflow: hidden; padding-bottom: 0; }
+.todo-quadrant.is-collapsed > .todo-item, .todo-quadrant.is-collapsed > .todo-empty { display: none; }
+.todo-quadrant.is-collapsed .todo-quadrant-header { margin-bottom: 0; border-bottom: 0; }
+.todo-item { margin-top: 10px; border: 1px solid rgba(82,104,122,.18); border-radius: 9px; background: var(--card); box-shadow: 0 3px 10px rgba(20,40,60,.055); padding: 12px; cursor: grab; }
+.todo-item:hover { border-color: rgba(36,97,112,.34); box-shadow: 0 5px 16px rgba(20,40,60,.08); }
+.todo-item.is-dragging { opacity: .55; }
+.todo-item.is-busy { opacity: .7; cursor: wait; }
+.todo-item-kicker { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 7px; color: #74828e; font-size: 10px; font-weight: 800; letter-spacing: .02em; }
+.todo-item-time { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.todo-item-head strong { color: #071a2d; font-size: 13px; line-height: 1.55; }
+.todo-item p { margin: 7px 0 0; color: #566674; font-size: 12px; line-height: 1.65; }
+.todo-item-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(82,104,122,.12); }
+.todo-action-button { min-height: 34px; border: 1px solid rgba(36,97,112,.24); border-radius: 7px; background: #f5fafb; color: #246170; padding: 6px 11px; font-size: 11px; font-weight: 800; cursor: pointer; white-space: nowrap; transition: background-color .18s ease, border-color .18s ease, color .18s ease; }
 .todo-action-button:hover { border-color: #246170; background: #eaf5f7; }
+.todo-action-button.is-status { background: #edf5f6; }
 .todo-action-button.is-danger { border-color: rgba(212,94,77,.32); background: #fff7f6; color: var(--red); }
 .todo-action-button.is-danger:hover { border-color: var(--red); background: #ffefed; }
-.todo-action-button:disabled, .todo-move-select:disabled { cursor: wait; opacity: .62; }
-.todo-empty { margin: 12px 0 0; color: var(--muted); font-size: 12px; }
+.todo-action-button.is-danger { margin-left: auto; }
+.todo-action-button:focus-visible, .todo-quadrant-toggle:focus-visible { outline: 3px solid rgba(47,126,230,.22); outline-offset: 2px; }
+.todo-action-button:disabled, .todo-status-button:disabled, .todo-quadrant-toggle:disabled { cursor: wait; opacity: .62; }
+.todo-empty { margin: 12px 2px 2px; border: 1px dashed rgba(82,104,122,.24); border-radius: 8px; color: var(--muted); padding: 18px 12px; text-align: center; font-size: 12px; }
 .tracker-summary { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
 .tracker-summary article { min-height: 0; width: auto; border: 1px solid var(--line); border-radius: 8px; box-shadow: none; padding: 7px 10px; flex-direction: row; align-items: center; gap: 6px; }
 .tracker-summary small, .tracker-summary span { font-size: 10px; }
@@ -802,6 +834,7 @@ h3 { font-size: 15px; }
   .risk-screen-grid { grid-template-columns: 1fr; }
   .risk-panel-main, .risk-panel-side, .risk-panel-secondary { min-height: 0; }
   .allocation-donut { width: min(360px, 76vw); }
+  .todo-create-form { grid-template-columns: 1fr; }
   .tracking-form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .tracking-wide-field { grid-column: span 1; }
 }
@@ -851,7 +884,11 @@ h3 { font-size: 15px; }
   .risk-score-orb strong { font-size: 48px; }
   .portfolio-summary, .tracker-summary, .holding-form-grid, .tracking-form-grid { grid-template-columns: 1fr; }
   .todo-summary { grid-template-columns: 1fr; }
+  .todo-board-actions, .todo-create-controls { justify-content: flex-start; }
   .todo-source-note { align-items: flex-start; flex-direction: column; }
+  .todo-quadrant { max-height: min(70vh, 560px); }
+  .todo-action-button, .todo-quadrant-toggle { min-height: 44px; }
+  .todo-action-button { padding-inline: 13px; }
   .dividend-detail-metrics { grid-template-columns: 1fr; }
   .dividend-yield-chart-stats { grid-template-columns: 1fr; }
   .holding-note-field, .tracking-wide-field { grid-column: auto; }
@@ -874,6 +911,10 @@ h3 { font-size: 15px; }
   .metric-value { grid-column: 2; grid-row: 1; }
   .metric-score { display: none; }
   .audit-summary { grid-template-columns: repeat(2,1fr); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .todo-action-button { transition: none; }
 }
 
 @media print {
@@ -1213,32 +1254,36 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
               </li>
               <li class="industry-research-item" data-filters="算力">
                 <span class="industry-research-rank">5</span>
-                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-计算系统与集群/2026-07-22-计算系统与集群产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-中游-计算系统与集群产业完整分析报告</a>
+                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-28-计算系统与集群产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-中游-计算系统与集群产业完整分析报告</a>
               </li>
               <li class="industry-research-item" data-filters="算力">
                 <span class="industry-research-rank">6</span>
-                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/下游-模型与行业应用/2026-07-22-模型与行业应用产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-下游-模型与行业应用产业完整分析报告</a>
+                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-计算系统与集群/2026-07-22-计算系统与集群产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-中游-计算系统与集群产业完整分析报告</a>
               </li>
               <li class="industry-research-item" data-filters="算力">
                 <span class="industry-research-rank">7</span>
-                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-数据中心网络/2026-07-22-数据中心网络产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-中游-数据中心网络产业完整分析报告</a>
+                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/下游-模型与行业应用/2026-07-22-模型与行业应用产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-下游-模型与行业应用产业完整分析报告</a>
               </li>
               <li class="industry-research-item" data-filters="算力">
                 <span class="industry-research-rank">8</span>
-                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-算力基础设施与能源/2026-07-22-算力基础设施与能源产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-中游-算力基础设施与能源产业完整分析报告</a>
+                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-数据中心网络/2026-07-22-数据中心网络产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-中游-数据中心网络产业完整分析报告</a>
               </li>
               <li class="industry-research-item" data-filters="算力">
                 <span class="industry-research-rank">9</span>
-                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/上游-芯片与基础软件/2026-07-22-芯片与基础软件产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-上游-芯片与基础软件产业完整分析报告</a>
+                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-算力基础设施与能源/2026-07-22-算力基础设施与能源产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-中游-算力基础设施与能源产业完整分析报告</a>
               </li>
               <li class="industry-research-item" data-filters="算力">
                 <span class="industry-research-rank">10</span>
+                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/上游-芯片与基础软件/2026-07-22-芯片与基础软件产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-上游-芯片与基础软件产业完整分析报告</a>
+              </li>
+              <li class="industry-research-item" data-filters="算力">
+                <span class="industry-research-rank">11</span>
                 <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/下游-资源运营与调度/2026-07-22-资源运营与调度产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-下游-资源运营与调度产业完整分析报告</a>
               </li>
             </ol>
           </section>
           <section class="industry-report-panel holdings-panel panel" aria-label="新兴产业标的研报">
-            <div class="holding-form-title"><div><p class="eyebrow">RESEARCH REPORTS</p><h3>标的研报</h3></div><span>33项</span></div>
+            <div class="holding-form-title"><div><p class="eyebrow">RESEARCH REPORTS</p><h3>标的研报</h3></div><span>34项</span></div>
             <div class="industry-report-table-wrap holdings-table-wrap">
               <table class="industry-report-table tracking-table">
                 <thead><tr><th>标的</th><th>公允价值区间</th><th>交易定价偏离</th><th>盘中实时</th><th>收盘表现</th><th>三要素判断</th><th>资金面分析</th><th>基本面状态</th><th>星级</th></tr></thead>
@@ -1276,6 +1321,28 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                   <td><div class="tracking-fundamental-status"><span>读取研报…</span><a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-数据中心网络/2026-08-05-1010-星网锐捷-机构级决策研报.html" target="_blank" rel="noopener noreferrer">个股研报</a></div><small class="tracking-updated">新兴产业 · 算力 · 10:10<br>来源目录：sources/automations/新兴产业/算力/中游-数据中心网络</small></td>
                   <td>—</td>
                 </tr>
+                <tr class="industry-report" data-filters="算力" data-report-href="../../sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-28-1553-紫光股份-产业思维分析.html" data-equity-report-href="" data-three-factor-href="" data-fund-flow-href="" data-report-title="紫光股份-产业思维分析" data-stock-name="紫光股份-产业思维分析" data-report-label="新兴产业 · 算力" data-report-time="15:53" data-source-directory="sources/automations/新兴产业/算力/中游-计算系统与集群">
+                  <td class="tracking-target"><strong><a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-28-1553-紫光股份-产业思维分析.html" target="_blank" rel="noopener noreferrer">紫光股份-产业思维分析</a></strong><small>紫光股份-产业思维分析</small></td>
+                  <td>读取研报…</td>
+                  <td><span class="tracking-pricing-deviation is-neutral">读取研报…</span></td>
+                  <td>读取中…</td>
+                  <td>读取中…</td>
+                  <td>读取研报…</td>
+                  <td><div class="tracking-report-links"><span class="tracking-three-factor-state">未关联</span></div></td>
+                  <td><div class="tracking-fundamental-status"><span>读取研报…</span><span class="tracking-three-factor-state">未关联</span></div><small class="tracking-updated">新兴产业 · 算力 · 15:53<br>来源目录：sources/automations/新兴产业/算力/中游-计算系统与集群</small></td>
+                  <td>—</td>
+                </tr>
+                <tr class="industry-report" data-filters="算力" data-report-href="../../sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-03-1638-紫光股份-机构级决策研报.html" data-equity-report-href="../../sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-03-1638-紫光股份-机构级决策研报.html" data-three-factor-href="../../sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-28-1004-紫光股份-三要素分析.html" data-fund-flow-href="" data-report-title="紫光股份-机构级决策研报" data-stock-name="紫光股份" data-report-label="新兴产业 · 算力" data-report-time="16:38" data-source-directory="sources/automations/新兴产业/算力/中游-计算系统与集群">
+                  <td class="tracking-target"><strong><a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-03-1638-紫光股份-机构级决策研报.html" target="_blank" rel="noopener noreferrer">紫光股份</a></strong><small>紫光股份-机构级决策研报</small></td>
+                  <td>读取研报…</td>
+                  <td><span class="tracking-pricing-deviation is-neutral">读取研报…</span></td>
+                  <td>读取中…</td>
+                  <td>读取中…</td>
+                  <td>读取研报…</td>
+                  <td><div class="tracking-report-links"><span class="tracking-three-factor-state">未关联</span></div></td>
+                  <td><div class="tracking-fundamental-status"><span>读取研报…</span><a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-03-1638-紫光股份-机构级决策研报.html" target="_blank" rel="noopener noreferrer">个股研报</a></div><small class="tracking-updated">新兴产业 · 算力 · 16:38<br>来源目录：sources/automations/新兴产业/算力/中游-计算系统与集群</small></td>
+                  <td>—</td>
+                </tr>
                 <tr class="industry-report" data-filters="算力" data-report-href="../../sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-11-1029-中科曙光-机构级决策研报.html" data-equity-report-href="../../sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-11-1029-中科曙光-机构级决策研报.html" data-three-factor-href="" data-fund-flow-href="" data-report-title="中科曙光-机构级决策研报" data-stock-name="中科曙光" data-report-label="新兴产业 · 算力" data-report-time="10:29" data-source-directory="sources/automations/新兴产业/算力/中游-计算系统与集群">
                   <td class="tracking-target"><strong><a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-11-1029-中科曙光-机构级决策研报.html" target="_blank" rel="noopener noreferrer">中科曙光</a></strong><small>中科曙光-机构级决策研报</small></td>
                   <td>读取研报…</td>
@@ -1285,17 +1352,6 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                   <td>读取研报…</td>
                   <td><div class="tracking-report-links"><span class="tracking-three-factor-state">未关联</span></div></td>
                   <td><div class="tracking-fundamental-status"><span>读取研报…</span><a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-11-1029-中科曙光-机构级决策研报.html" target="_blank" rel="noopener noreferrer">个股研报</a></div><small class="tracking-updated">新兴产业 · 算力 · 10:29<br>来源目录：sources/automations/新兴产业/算力/中游-计算系统与集群</small></td>
-                  <td>—</td>
-                </tr>
-                <tr class="industry-report" data-filters="算力" data-report-href="../../sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-03-1638-紫光股份-机构级决策研报.html" data-equity-report-href="../../sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-03-1638-紫光股份-机构级决策研报.html" data-three-factor-href="" data-fund-flow-href="" data-report-title="紫光股份-机构级决策研报" data-stock-name="紫光股份" data-report-label="新兴产业 · 算力" data-report-time="16:38" data-source-directory="sources/automations/新兴产业/算力/中游-计算系统与集群">
-                  <td class="tracking-target"><strong><a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-03-1638-紫光股份-机构级决策研报.html" target="_blank" rel="noopener noreferrer">紫光股份</a></strong><small>紫光股份-机构级决策研报</small></td>
-                  <td>读取研报…</td>
-                  <td><span class="tracking-pricing-deviation is-neutral">读取研报…</span></td>
-                  <td>读取中…</td>
-                  <td>读取中…</td>
-                  <td>读取研报…</td>
-                  <td><div class="tracking-report-links"><span class="tracking-three-factor-state">未关联</span></div></td>
-                  <td><div class="tracking-fundamental-status"><span>读取研报…</span><a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-03-1638-紫光股份-机构级决策研报.html" target="_blank" rel="noopener noreferrer">个股研报</a></div><small class="tracking-updated">新兴产业 · 算力 · 16:38<br>来源目录：sources/automations/新兴产业/算力/中游-计算系统与集群</small></td>
                   <td>—</td>
                 </tr>
                 <tr class="industry-report" data-filters="算力" data-report-href="../../sources/automations/新兴产业/算力/上游-PCB材料/2026-07-17-1450-东材科技-机构级决策研报.html" data-equity-report-href="../../sources/automations/新兴产业/算力/上游-PCB材料/2026-07-17-1450-东材科技-机构级决策研报.html" data-three-factor-href="../../sources/automations/新兴产业/算力/上游-PCB材料/2026-08-19-1710-东材科技-三要素分析.html" data-fund-flow-href="" data-report-title="东材科技-机构级决策研报" data-stock-name="东材科技" data-report-label="新兴产业 · 算力" data-report-time="14:50" data-source-directory="sources/automations/新兴产业/算力/上游-PCB材料">
@@ -1882,22 +1938,22 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
         <div class="personal-page todo-page">
           <h2 class="visually-hidden" id="position-manager-heading">需求清单</h2>
           <div class="todo-summary" id="todo-summary" aria-label="需求清单摘要">
-            <article class="todo-summary-card is-important-urgent">
+            <article class="todo-summary-card is-important-urgent" data-todo-summary-quadrant="重要且紧急">
               <small>Q1</small>
-              <strong>4</strong>
+              <strong>3</strong>
               <span>重要且紧急</span>
             </article>
-            <article class="todo-summary-card is-important-not-urgent">
+            <article class="todo-summary-card is-important-not-urgent" data-todo-summary-quadrant="重要不紧急">
               <small>Q2</small>
               <strong>2</strong>
               <span>重要不紧急</span>
             </article>
-            <article class="todo-summary-card is-urgent-not-important">
+            <article class="todo-summary-card is-urgent-not-important" data-todo-summary-quadrant="紧急不重要">
               <small>Q3</small>
               <strong>0</strong>
               <span>紧急不重要</span>
             </article>
-            <article class="todo-summary-card is-not-important-not-urgent">
+            <article class="todo-summary-card is-not-important-not-urgent" data-todo-summary-quadrant="不重要且不紧急">
               <small>Q4</small>
               <strong>1</strong>
               <span>不重要且不紧急</span>
@@ -1907,114 +1963,111 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
           <section class="todo-board panel" id="todo-board" aria-label="需求清单四象限">
             <div class="holding-form-title">
               <div><p class="eyebrow">TODO MATRIX</p><h3>需求清单</h3></div>
-              <a class="button-secondary todo-source-link" href="data/todo.xlsx" target="_blank" rel="noopener noreferrer">打开 todo.xlsx</a>
+              <div class="todo-board-actions">
+                <button class="button-secondary" type="button" id="todo-archive-toggle" aria-expanded="false" aria-controls="todo-archive-panel">已归档</button>
+                <button class="button-secondary" type="button" id="todo-create-open">新增需求</button>
+                <a class="button-secondary todo-source-link" href="data/todo.json" target="_blank" rel="noopener noreferrer">打开 todo.json</a>
+              </div>
             </div>
-            <div class="todo-source-note"><span>来源：data/todo.xlsx · 更新：2026-08-27</span><strong>7项</strong></div>
+            <form class="todo-create-form" id="todo-create-form" hidden>
+              <label>需求事项<input type="text" name="title" maxlength="72" required placeholder="输入待办事项"></label>
+              <label>四象限<select name="quadrant">
+                <option value="重要且紧急">重要且紧急</option>
+                <option value="重要不紧急">重要不紧急</option>
+                <option value="紧急不重要">紧急不重要</option>
+                <option value="不重要且不紧急">不重要且不紧急</option>
+              </select></label>
+              <label>状态<select name="status">
+                <option value="未开始">未开始</option>
+                <option value="进行中">进行中</option>
+                <option value="已完成">已完成</option>
+              </select></label>
+              <label class="todo-create-detail">说明<textarea name="detail" maxlength="150" rows="2" placeholder="可留空"></textarea></label>
+              <div class="todo-create-controls">
+                <button class="button-secondary" type="button" id="todo-create-cancel">取消</button>
+                <button class="todo-create-submit" type="submit">保存</button>
+              </div>
+              <p class="todo-create-status" id="todo-create-status" role="status"></p>
+            </form>
+            <div class="todo-source-note"><span id="todo-source-status">来源：data/todo.json · 更新：2026-08-28</span><strong id="todo-total-count">6项</strong></div>
+            <section class="todo-archive-panel" id="todo-archive-panel" aria-label="已归档任务" hidden>
+              <div class="todo-archive-head"><strong>已归档任务</strong><span>按归档时间倒序</span></div>
+              <div class="todo-archive-list" id="todo-archive-list">
+                <p class="todo-empty">暂无归档任务</p>
+              </div>
+            </section>
             <div class="todo-matrix" id="todo-matrix">
-              <section class="todo-quadrant is-important-urgent" data-todo-quadrant="重要且紧急">
-                <header><div><span>Q1</span><h3>重要且紧急</h3></div><strong>4项</strong></header>
-                <p class="todo-quadrant-guide">立即处理</p>
-                <article class="todo-item" data-todo-id="TODO-002" data-todo-quadrant="重要且紧急">
-                  <div class="todo-item-head"><strong>补抓 BBXM 09:51 原帖正文</strong><span>未开始</span></div>
-                  <p>2026-08-26 自动化汇总中 09:51 原帖正文未稳定提取，风险分析仍被阻断。</p>
-                  <div class="todo-item-meta"><span>截止 2026-08-27</span><span>负责人 User</span><span>重要 是</span><span>紧急 是</span></div>
-                  <small>BBXM 每日汇总后续待办</small>
+              <section class="todo-quadrant is-important-urgent" data-todo-quadrant="重要且紧急" tabindex="0" aria-label="重要且紧急，3项任务，可滚动查看">
+                <header class="todo-quadrant-header">
+                  <div class="todo-quadrant-heading"><span class="todo-quadrant-index">Q1</span><div><h3>重要且紧急</h3><p class="todo-quadrant-guide">立即处理</p></div></div>
+                  <div class="todo-quadrant-meta"><strong>3项</strong><button class="todo-quadrant-toggle" type="button" data-action="toggle-todo-quadrant" aria-expanded="true">收起</button></div>
+                </header>
+                <article class="todo-item" draggable="true" data-todo-id="TODO-008" data-todo-quadrant="重要且紧急" aria-label="拖动 信息金融意义重新整理 到其他象限">
+                  <div class="todo-item-kicker"><span>TODO-008</span><span class="todo-item-time">创建 2026-08-28</span></div>
+                  <div class="todo-item-head"><strong>信息金融意义重新整理</strong></div>
                   <div class="todo-item-actions">
-                    <select class="todo-move-select" data-todo-move-target="TODO-002" aria-label="移动 补抓 BBXM 09:51 原帖正文 到">
-<option value="重要且紧急" selected>重要且紧急</option><option value="重要不紧急">重要不紧急</option><option value="紧急不重要">紧急不重要</option><option value="不重要且不紧急">不重要且不紧急</option>
-                    </select>
-                    <button class="todo-action-button" type="button" data-action="move-todo" data-todo-id="TODO-002">移动</button>
-                    <button class="todo-action-button is-danger" type="button" data-action="delete-todo" data-todo-id="TODO-002">删除</button>
+                    <button class="todo-action-button is-status todo-status-button" type="button" data-action="cycle-todo-status" data-todo-id="TODO-008" data-todo-status="未开始" aria-label="修改 信息金融意义重新整理 状态">状态 · 未开始</button>
+                    <button class="todo-action-button is-danger" type="button" data-action="delete-todo" data-todo-id="TODO-008">删除</button>
                   </div>
                 </article>
-                <article class="todo-item" data-todo-id="TODO-001" data-todo-quadrant="重要且紧急">
-                  <div class="todo-item-head"><strong>看板接入需求清单</strong><span>进行中</span></div>
-                  <p>把“仓位管理”替换为从 todo.xlsx 读取的需求清单页。</p>
-                  <div class="todo-item-meta"><span>截止 2026-08-27</span><span>负责人 User</span><span>重要 是</span><span>紧急 是</span></div>
-                  <small>本次看板改造</small>
+                <article class="todo-item" draggable="true" data-todo-id="TODO-007" data-todo-quadrant="重要且紧急" aria-label="拖动 产业思维与竞争格局的比较优势如何联合 到其他象限">
+                  <div class="todo-item-kicker"><span>TODO-007</span><span class="todo-item-time">创建 2026-08-27</span></div>
+                  <div class="todo-item-head"><strong>产业思维与竞争格局的比较优势如何联合</strong></div>
                   <div class="todo-item-actions">
-                    <select class="todo-move-select" data-todo-move-target="TODO-001" aria-label="移动 看板接入需求清单 到">
-<option value="重要且紧急" selected>重要且紧急</option><option value="重要不紧急">重要不紧急</option><option value="紧急不重要">紧急不重要</option><option value="不重要且不紧急">不重要且不紧急</option>
-                    </select>
-                    <button class="todo-action-button" type="button" data-action="move-todo" data-todo-id="TODO-001">移动</button>
-                    <button class="todo-action-button is-danger" type="button" data-action="delete-todo" data-todo-id="TODO-001">删除</button>
-                  </div>
-                </article>
-                <article class="todo-item" data-todo-id="TODO-007" data-todo-quadrant="重要且紧急">
-                  <div class="todo-item-head"><strong>产业思维与竞争格局的比较优势如何联合</strong><span>未开始</span></div>
-                  <p>User</p>
-                  <div class="todo-item-meta"><span>无截止日期</span><span>重要 是</span><span>紧急 是</span></div>
-                  <small>用户补充</small>
-                  <div class="todo-item-actions">
-                    <select class="todo-move-select" data-todo-move-target="TODO-007" aria-label="移动 产业思维与竞争格局的比较优势如何联合 到">
-<option value="重要且紧急" selected>重要且紧急</option><option value="重要不紧急">重要不紧急</option><option value="紧急不重要">紧急不重要</option><option value="不重要且不紧急">不重要且不紧急</option>
-                    </select>
-                    <button class="todo-action-button" type="button" data-action="move-todo" data-todo-id="TODO-007">移动</button>
+                    <button class="todo-action-button is-status todo-status-button" type="button" data-action="cycle-todo-status" data-todo-id="TODO-007" data-todo-status="进行中" aria-label="修改 产业思维与竞争格局的比较优势如何联合 状态">状态 · 进行中</button>
                     <button class="todo-action-button is-danger" type="button" data-action="delete-todo" data-todo-id="TODO-007">删除</button>
                   </div>
                 </article>
-                <article class="todo-item" data-todo-id="TODO-006" data-todo-quadrant="重要且紧急">
-                  <div class="todo-item-head"><strong>整理知识库-产业思维</strong><span>未开始</span></div>
-                  <p>User</p>
-                  <div class="todo-item-meta"><span>无截止日期</span><span>重要 是</span><span>紧急 是</span></div>
-                  <small>用户补充</small>
+                <article class="todo-item" draggable="true" data-todo-id="TODO-006" data-todo-quadrant="重要且紧急" aria-label="拖动 整理知识库-产业思维 到其他象限">
+                  <div class="todo-item-kicker"><span>TODO-006</span><span class="todo-item-time">创建 2026-08-27</span></div>
+                  <div class="todo-item-head"><strong>整理知识库-产业思维</strong></div>
                   <div class="todo-item-actions">
-                    <select class="todo-move-select" data-todo-move-target="TODO-006" aria-label="移动 整理知识库-产业思维 到">
-<option value="重要且紧急" selected>重要且紧急</option><option value="重要不紧急">重要不紧急</option><option value="紧急不重要">紧急不重要</option><option value="不重要且不紧急">不重要且不紧急</option>
-                    </select>
-                    <button class="todo-action-button" type="button" data-action="move-todo" data-todo-id="TODO-006">移动</button>
+                    <button class="todo-action-button is-status todo-status-button" type="button" data-action="cycle-todo-status" data-todo-id="TODO-006" data-todo-status="进行中" aria-label="修改 整理知识库-产业思维 状态">状态 · 进行中</button>
                     <button class="todo-action-button is-danger" type="button" data-action="delete-todo" data-todo-id="TODO-006">删除</button>
                   </div>
                 </article>
               </section>
-              <section class="todo-quadrant is-important-not-urgent" data-todo-quadrant="重要不紧急">
-                <header><div><span>Q2</span><h3>重要不紧急</h3></div><strong>2项</strong></header>
-                <p class="todo-quadrant-guide">排入计划</p>
-                <article class="todo-item" data-todo-id="TODO-003" data-todo-quadrant="重要不紧急">
-                  <div class="todo-item-head"><strong>校准三要素摘要测试样本</strong><span>未开始</span></div>
-                  <p>全量看板测试中现有三要素报告摘要断言与当前报告内容不一致。</p>
-                  <div class="todo-item-meta"><span>截止 2026-08-30</span><span>负责人 User</span><span>重要 是</span><span>紧急 否</span></div>
-                  <small>看板测试后续待办</small>
+              <section class="todo-quadrant is-important-not-urgent" data-todo-quadrant="重要不紧急" tabindex="0" aria-label="重要不紧急，2项任务，可滚动查看">
+                <header class="todo-quadrant-header">
+                  <div class="todo-quadrant-heading"><span class="todo-quadrant-index">Q2</span><div><h3>重要不紧急</h3><p class="todo-quadrant-guide">排入计划</p></div></div>
+                  <div class="todo-quadrant-meta"><strong>2项</strong><button class="todo-quadrant-toggle" type="button" data-action="toggle-todo-quadrant" aria-expanded="true">收起</button></div>
+                </header>
+                <article class="todo-item" draggable="true" data-todo-id="TODO-005" data-todo-quadrant="重要不紧急" aria-label="拖动 阅读《两次全球大危机的比较研究》 到其他象限">
+                  <div class="todo-item-kicker"><span>TODO-005</span><span class="todo-item-time">创建 2026-08-27</span></div>
+                  <div class="todo-item-head"><strong>阅读《两次全球大危机的比较研究》</strong></div>
                   <div class="todo-item-actions">
-                    <select class="todo-move-select" data-todo-move-target="TODO-003" aria-label="移动 校准三要素摘要测试样本 到">
-<option value="重要且紧急">重要且紧急</option><option value="重要不紧急" selected>重要不紧急</option><option value="紧急不重要">紧急不重要</option><option value="不重要且不紧急">不重要且不紧急</option>
-                    </select>
-                    <button class="todo-action-button" type="button" data-action="move-todo" data-todo-id="TODO-003">移动</button>
-                    <button class="todo-action-button is-danger" type="button" data-action="delete-todo" data-todo-id="TODO-003">删除</button>
-                  </div>
-                </article>
-                <article class="todo-item" data-todo-id="TODO-005" data-todo-quadrant="重要不紧急">
-                  <div class="todo-item-head"><strong>阅读《两次全球大危机的比较研究》</strong><span>未开始</span></div>
-                  <p>User</p>
-                  <div class="todo-item-meta"><span>无截止日期</span><span>重要 是</span><span>紧急 否</span></div>
-                  <small>用户补充</small>
-                  <div class="todo-item-actions">
-                    <select class="todo-move-select" data-todo-move-target="TODO-005" aria-label="移动 阅读《两次全球大危机的比较研究》 到">
-<option value="重要且紧急">重要且紧急</option><option value="重要不紧急" selected>重要不紧急</option><option value="紧急不重要">紧急不重要</option><option value="不重要且不紧急">不重要且不紧急</option>
-                    </select>
-                    <button class="todo-action-button" type="button" data-action="move-todo" data-todo-id="TODO-005">移动</button>
+                    <button class="todo-action-button is-status todo-status-button" type="button" data-action="cycle-todo-status" data-todo-id="TODO-005" data-todo-status="未开始" aria-label="修改 阅读《两次全球大危机的比较研究》 状态">状态 · 未开始</button>
                     <button class="todo-action-button is-danger" type="button" data-action="delete-todo" data-todo-id="TODO-005">删除</button>
                   </div>
                 </article>
+                <article class="todo-item" draggable="true" data-todo-id="TODO-003" data-todo-quadrant="重要不紧急" aria-label="拖动 校准三要素摘要测试样本 到其他象限">
+                  <div class="todo-item-kicker"><span>TODO-003</span><span class="todo-item-time">创建 2026-08-27</span></div>
+                  <div class="todo-item-head"><strong>校准三要素摘要测试样本</strong></div>
+                  <p>全量看板测试中现有三要素报告摘要断言与当前报告内容不一致。</p>
+                  <div class="todo-item-actions">
+                    <button class="todo-action-button is-status todo-status-button" type="button" data-action="cycle-todo-status" data-todo-id="TODO-003" data-todo-status="未开始" aria-label="修改 校准三要素摘要测试样本 状态">状态 · 未开始</button>
+                    <button class="todo-action-button is-danger" type="button" data-action="delete-todo" data-todo-id="TODO-003">删除</button>
+                  </div>
+                </article>
               </section>
-              <section class="todo-quadrant is-urgent-not-important" data-todo-quadrant="紧急不重要">
-                <header><div><span>Q3</span><h3>紧急不重要</h3></div><strong>0项</strong></header>
-                <p class="todo-quadrant-guide">压缩或委托</p>
+              <section class="todo-quadrant is-urgent-not-important" data-todo-quadrant="紧急不重要" tabindex="0" aria-label="紧急不重要，0项任务，可滚动查看">
+                <header class="todo-quadrant-header">
+                  <div class="todo-quadrant-heading"><span class="todo-quadrant-index">Q3</span><div><h3>紧急不重要</h3><p class="todo-quadrant-guide">压缩或委托</p></div></div>
+                  <div class="todo-quadrant-meta"><strong>0项</strong><button class="todo-quadrant-toggle" type="button" data-action="toggle-todo-quadrant" aria-expanded="true">收起</button></div>
+                </header>
                 <p class="todo-empty">暂无事项</p>
               </section>
-              <section class="todo-quadrant is-not-important-not-urgent" data-todo-quadrant="不重要且不紧急">
-                <header><div><span>Q4</span><h3>不重要且不紧急</h3></div><strong>1项</strong></header>
-                <p class="todo-quadrant-guide">延后或删除</p>
-                <article class="todo-item" data-todo-id="TODO-004" data-todo-quadrant="不重要且不紧急">
-                  <div class="todo-item-head"><strong>整理后续需求入口</strong><span>未开始</span></div>
+              <section class="todo-quadrant is-not-important-not-urgent" data-todo-quadrant="不重要且不紧急" tabindex="0" aria-label="不重要且不紧急，1项任务，可滚动查看">
+                <header class="todo-quadrant-header">
+                  <div class="todo-quadrant-heading"><span class="todo-quadrant-index">Q4</span><div><h3>不重要且不紧急</h3><p class="todo-quadrant-guide">延后或删除</p></div></div>
+                  <div class="todo-quadrant-meta"><strong>1项</strong><button class="todo-quadrant-toggle" type="button" data-action="toggle-todo-quadrant" aria-expanded="true">收起</button></div>
+                </header>
+                <article class="todo-item" draggable="true" data-todo-id="TODO-004" data-todo-quadrant="不重要且不紧急" aria-label="拖动 整理后续需求入口 到其他象限">
+                  <div class="todo-item-kicker"><span>TODO-004</span><span class="todo-item-time">创建 2026-08-27</span></div>
+                  <div class="todo-item-head"><strong>整理后续需求入口</strong></div>
                   <p>把零散界面与自动化改造事项统一放入需求清单维护。</p>
-                  <div class="todo-item-meta"><span>截止 2026-09-05</span><span>负责人 User</span><span>重要 否</span><span>紧急 否</span></div>
-                  <small>需求池维护</small>
                   <div class="todo-item-actions">
-                    <select class="todo-move-select" data-todo-move-target="TODO-004" aria-label="移动 整理后续需求入口 到">
-<option value="重要且紧急">重要且紧急</option><option value="重要不紧急">重要不紧急</option><option value="紧急不重要">紧急不重要</option><option value="不重要且不紧急" selected>不重要且不紧急</option>
-                    </select>
-                    <button class="todo-action-button" type="button" data-action="move-todo" data-todo-id="TODO-004">移动</button>
+                    <button class="todo-action-button is-status todo-status-button" type="button" data-action="cycle-todo-status" data-todo-id="TODO-004" data-todo-status="未开始" aria-label="修改 整理后续需求入口 状态">状态 · 未开始</button>
                     <button class="todo-action-button is-danger" type="button" data-action="delete-todo" data-todo-id="TODO-004">删除</button>
                   </div>
                 </article>
@@ -2036,8 +2089,8 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
           <div class="tracker-actions">
             <button class="button-secondary" id="open-tracking-form" type="button">新增跟踪</button>
             <button class="button-secondary" id="refresh-tracking-reports" type="button">一键更新</button>
-            <button class="allocation-ribbon" id="tracking-allocation-mode" type="button" aria-pressed="false">配比模式</button>
-<a class="button-secondary daily-monitor-button" id="open-daily-monitor" href="data/持仓今日监控汇总-2026-08-27.html" target="_blank" rel="noopener noreferrer" title="打开 2026-08-27 持仓今日监控汇总报告">每日监控</a>
+            <button class="allocation-ribbon is-active" id="tracking-allocation-mode" type="button" aria-pressed="true">配比模式</button>
+<a class="button-secondary daily-monitor-button" id="open-daily-monitor" href="data/持仓今日监控汇总-2026-08-28.html" target="_blank" rel="noopener noreferrer" title="打开 2026-08-28 持仓今日监控汇总报告">每日监控</a>
           </div>
           <div class="tracker-workspace">
             <form class="tracking-form panel" id="tracking-form" hidden>
@@ -2057,7 +2110,7 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
             </form>
             <div class="tracker-list-panel panel">
               <div class="holding-form-title"><div><p class="eyebrow">WATCHLIST</p><h3>跟踪清单</h3></div><div class="tracker-filter" id="tracking-filter" aria-label="跟踪状态筛选"><button class="is-active" type="button" data-status-filter="all" aria-pressed="true">全部</button><button type="button" data-status-filter="持有" aria-pressed="false">持有</button><button type="button" data-status-filter="观察" aria-pressed="false">观察</button><button type="button" data-status-filter="addable" aria-pressed="false">可加</button><button type="button" data-status-filter="reducible" aria-pressed="false">可减</button></div></div>
-              <div class="allocation-view" id="tracking-allocation-view" hidden>
+              <div class="allocation-view" id="tracking-allocation-view">
                 <button class="allocation-collapse" id="tracking-allocation-collapse" type="button" aria-controls="tracking-allocation-body" aria-expanded="true"><span>资产配比</span><small id="tracking-allocation-collapse-label">收起</small></button>
                 <div class="allocation-view-body" id="tracking-allocation-body">
                   <div class="allocation-donut" id="tracking-allocation-chart" aria-label="资产配比饼图"></div>
@@ -3579,9 +3632,9 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                 <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E7%A2%A7%E6%A0%91%E8%A5%BF%E9%A3%8E%E7%9A%84%E7%AD%96%E7%95%A5.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="bbxm">
-                <div class="topic-card-meta"><span>冰冰小美</span><span>2026-07-03</span></div>
+                <div class="topic-card-meta"><span>冰冰小美</span><span>2026-08-27</span></div>
                 <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E4%BA%A7%E4%B8%9A%E6%80%9D%E7%BB%B4%E4%B8%8B%E6%A1%88%E4%BE%8B%E9%9B%86%E5%90%88.md" target="_blank" rel="noopener noreferrer">冰冰小美-产业思维下案例集合</a></h3>
-                <p>聚合冰冰小美产业思维下的案例样本，用来观察不同产业如何从时代主线、资本市场作用、技术应用和利润验证进入长期跟踪。</p>
+                <p>按产业和具体标的分类汇总知识库中已经归档的冰冰小美原始分析文章，只承担原文导航，不混入观点页、推导页、事件记录、研报或交易片段。</p>
                 <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E4%BA%A7%E4%B8%9A%E6%80%9D%E7%BB%B4%E4%B8%8B%E6%A1%88%E4%BE%8B%E9%9B%86%E5%90%88.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="bbxm">
@@ -3681,15 +3734,80 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
             <p>最近发生了什么——新功能、调整与修复，都写在这里。</p>
           </header>
         <section class="changelog-day">
+          <header><h3>2026 年 8 月 28 日</h3><span>星期五</span></header>
+          <div class="changelog-entries">
+            <article class="changelog-entry">
+              <div class="changelog-meta"><span><i aria-hidden="true"></i>新增</span></div>
+              <div class="changelog-copy"><h4>需求清单可查看已归档任务</h4><p>需求清单顶部新增“已归档”按钮，可展开查看已完成后归档的任务列表，列表按归档时间倒序展示。</p><ul><li>已归档列表展示需求编号、标题、说明、完成时间、归档时间和原四象限</li><li>实时读取 todo.json 时同步刷新归档列表</li><li>刚切换为已完成的任务会立即进入归档列表</li></ul></div>
+            </article>
+            <article class="changelog-entry">
+              <div class="changelog-meta"><span><i aria-hidden="true"></i>新增</span></div>
+              <div class="changelog-copy"><h4>需求完成后自动归档</h4><p>需求清单状态切换到已完成时自动移出四象限，并保存到 todo.json 的归档区，便于后续生成周报和月报。</p><ul><li>归档记录保留原需求、四象限、完成日期和归档日期</li><li>四象限只展示未完成事项，数量统计不再包含已完成需求</li><li>实时读取提示显示已归档数量</li></ul></div>
+            </article>
+            <article class="changelog-entry">
+              <div class="changelog-meta"><span><i aria-hidden="true"></i>优化</span></div>
+              <div class="changelog-copy"><h4>持仓跟踪默认进入配比模式</h4><p>打开持仓跟踪时默认展示资产配比和分组清单，仍可通过配比模式按钮切回普通列表。</p><ul><li>配比模式按钮首次进入即为激活状态</li><li>资产配比区域默认展开</li><li>普通列表模式继续保留并可随时切换</li></ul></div>
+            </article>
+            <article class="changelog-entry">
+              <div class="changelog-meta"><span><i aria-hidden="true"></i>优化</span></div>
+              <div class="changelog-copy"><h4>需求清单改为局部读取与更新</h4><p>需求清单通过独立接口读取 todo.json，新增、状态修改、拖拽和删除不再触发整个面板重新生成。</p><ul><li>打开需求清单时只刷新四象限区域和数量摘要</li><li>需求读写使用独立轻量通道，不再被行情请求排队阻塞</li><li>直接双击 HTML 时继续显示最近一次静态快照</li></ul></div>
+            </article>
+            <article class="changelog-entry">
+              <div class="changelog-meta"><span><i aria-hidden="true"></i>修复</span></div>
+              <div class="changelog-copy"><h4>需求清单操作不再卡住</h4><p>需求清单新增、拖拽、状态修改和删除请求增加超时兜底，避免临时卡片或灰色按钮一直停在等待状态。</p><ul><li>本地面板服务无响应时会恢复页面状态并提示重启启动面板</li><li>新增需求失败或超时时会移除 TODO-PENDING 临时卡片</li><li>状态修改成功后按服务返回值重新校准卡片状态</li></ul></div>
+            </article>
+          </div>
+        </section>
+        <section class="changelog-day">
           <header><h3>2026 年 8 月 27 日</h3><span>星期四</span></header>
           <div class="changelog-entries">
+            <article class="changelog-entry">
+              <div class="changelog-meta"><span><i aria-hidden="true"></i>优化</span></div>
+              <div class="changelog-copy"><h4>需求清单升级为分层四象限看板</h4><p>重新区分四象限分组与需求卡片层级，统一状态和删除操作，并为大量需求增加分栏滚动与折叠交互。</p><ul><li>象限列头集中显示 Q 编号、名称、处理建议、数量和收起按钮</li><li>需求卡片独立显示 TODO 编号、创建日期、标题、说明和统一操作栏</li><li>每个象限限制可视高度并独立滚动，窄屏改为单列且操作按钮保持 44 像素触控高度</li></ul></div>
+            </article>
+            <article class="changelog-entry">
+              <div class="changelog-meta"><span><i aria-hidden="true"></i>修复</span></div>
+              <div class="changelog-copy"><h4>需求清单切换为 JSON 数据源</h4><p>需求清单改为读取和写回 data/todo.json，新增、拖拽、状态修改和删除都直接操作 JSON。</p><ul><li>保留现有待办编号和四象限归类</li><li>新增需求使用 JSON 文件结构</li><li>页面来源链接改为打开 todo.json</li></ul></div>
+            </article>
+            <article class="changelog-entry">
+              <div class="changelog-meta"><span><i aria-hidden="true"></i>新增</span></div>
+              <div class="changelog-copy"><h4>需求清单支持面板新增</h4><p>需求清单面板新增“新增需求”按钮，可直接填写需求事项、四象限和状态并写回 todo.json。</p><ul><li>新增后卡片立即出现在对应象限</li><li>后台写回成功后替换为真实 TODO 编号</li><li>写回失败时自动移除临时卡片</li></ul></div>
+            </article>
+            <article class="changelog-entry">
+              <div class="changelog-meta"><span><i aria-hidden="true"></i>新增</span></div>
+              <div class="changelog-copy"><h4>需求清单支持修改状态</h4><p>待办卡片右上角状态变为可点击按钮，点击后在未开始、进行中、已完成之间切换并写回 todo.json。</p><ul><li>状态先在页面立即变化</li><li>后台同步失败时恢复原状态</li><li>状态写回走异步重建路径</li><li>无说明待办不再显示负责人占位</li></ul></div>
+            </article>
+            <article class="changelog-entry">
+              <div class="changelog-meta"><span><i aria-hidden="true"></i>修复</span></div>
+              <div class="changelog-copy"><h4>需求清单移动后保持当前页面</h4><p>修复拖拽移动待办后页面回到市场总览的问题，当前菜单和视图会被记住并在重载后恢复。</p><ul><li>记录当前一级菜单和当前视图</li><li>拖放待办时阻止浏览器默认导航</li><li>后台异步重建不再打断当前页面位置</li></ul></div>
+            </article>
+            <article class="changelog-entry">
+              <div class="changelog-meta"><span><i aria-hidden="true"></i>优化</span></div>
+              <div class="changelog-copy"><h4>需求清单拖拽响应提速</h4><p>拖动待办到新象限时先立即更新页面，再在后台写回 todo.json 并异步重建看板。</p><ul><li>拖放后卡片和数量立即变化</li><li>后台同步失败时自动放回原位并提示原因</li><li>不再等待整页重建后刷新</li></ul></div>
+            </article>
+            <article class="changelog-entry">
+              <div class="changelog-meta"><span><i aria-hidden="true"></i>修复</span></div>
+              <div class="changelog-copy"><h4>需求清单移动失败提示更准确</h4><p>拖拽移动遇到旧本地面板服务时，改为提示重启启动面板，不再误报数据文件被占用。</p><ul><li>404 会识别为后台版本过旧</li><li>500 才提示检查本地数据写入状态</li><li>待办不存在时提示刷新页面</li></ul></div>
+            </article>
+            <article class="changelog-entry">
+              <div class="changelog-meta"><span><i aria-hidden="true"></i>优化</span></div>
+              <div class="changelog-copy"><h4>需求清单改为拖拽移动</h4><p>需求清单不再通过下拉移动，待办卡片可直接拖到四个象限看板，拖放后写回 todo.json 并自动重建页面。</p><ul><li>删除按钮保留在卡片底部</li><li>拖到当前象限不会重复写入</li><li>直接打开 HTML 时会提示改用启动面板</li></ul></div>
+            </article>
+            <article class="changelog-entry">
+              <div class="changelog-meta"><span><i aria-hidden="true"></i>优化</span></div>
+              <div class="changelog-copy"><h4>需求清单显示创建时间</h4><p>需求清单卡片改为显示创建时间，并按时间排序，隐藏负责人、截止日期、重要/紧急和来源备注等辅助字段。</p><ul><li>创建时间沿用 todo.json 的创建时间字段</li><li>同一象限内按创建时间倒序排列</li><li>删除按钮继续保留，移动改为拖拽</li></ul></div>
+            </article>
+            <article class="changelog-entry">
+              <div class="changelog-meta"><span><i aria-hidden="true"></i>新增</span></div>
+              <div class="changelog-copy"><h4>需求清单支持移动和删除</h4><p>需求清单每条待办接入移动写回与删除能力，可通过启动面板写回 todo.json 并自动重建看板。</p><ul><li>移动写回可将待办切换到四个时间管理象限</li><li>删除按钮会从 todo.json 移除对应待办</li><li>直接打开 HTML 时会提示改用启动面板</li></ul></div>
+            </article>
             <article class="changelog-entry">
               <div class="changelog-meta"><span><i aria-hidden="true"></i>优化</span></div>
               <div class="changelog-copy"><h4>summary.md 直接打开 Obsidian</h4><p>每日跟踪的当日汇总卡将 summary.md 标题和按钮链接改为 Obsidian 打开方式。</p><ul><li>点击当日汇总标题或打开 summary.md 会调用 obsidian://open</li><li>普通原帖卡片的删除识别路径保持不变</li><li>雪球原帖链接仍按外部网页打开</li></ul></div>
             </article>
             <article class="changelog-entry">
               <div class="changelog-meta"><span><i aria-hidden="true"></i>新增</span></div>
-              <div class="changelog-copy"><h4>我的菜单接入需求清单</h4><p>“我的”下将仓位管理替换为需求清单，读取 data/todo.xlsx 并按时间管理四象限展示待办事项。</p><ul><li>Excel 中通过重要性和紧急性生成四象限标签</li><li>看板按重要且紧急、重要不紧急、紧急不重要、不重要且不紧急分组</li><li>持仓跟踪与复盘日记入口保持不变</li></ul></div>
+              <div class="changelog-copy"><h4>我的菜单接入需求清单</h4><p>“我的”下将仓位管理替换为需求清单，读取 data/todo.json 并按时间管理四象限展示待办事项。</p><ul><li>JSON 中通过四象限字段生成看板分组</li><li>看板按重要且紧急、重要不紧急、紧急不重要、不重要且不紧急分组</li><li>持仓跟踪与复盘日记入口保持不变</li></ul></div>
             </article>
             <article class="changelog-entry">
               <div class="changelog-meta"><span><i aria-hidden="true"></i>优化</span></div>
@@ -4667,6 +4785,9 @@ const FUGUI_PANEL_COLLAPSED_STORAGE_KEY = 'a-share-market-dashboard:fugui-panel-
 const FUGUI_PROVIDER_STORAGE_KEY = 'a-share-market-dashboard:fugui-provider:v1';
 const MARGIN_BALANCE_CACHE_STORAGE_KEY = 'a-share-market-dashboard:margin-balance:one-year:v1';
 const FEATURED_DELETED_STORAGE_KEY = 'a-share-market-dashboard:featured-deleted:v1';
+const ACTIVE_VIEW_STORAGE_KEY = 'a-share-market-dashboard:active-view:v1';
+const TODO_ACTION_TIMEOUT_MS = 12_000;
+const TODO_ACTION_ORIGIN = 'http://127.0.0.1:49889';
 const MARGIN_BALANCE_CACHE_MAX_AGE_MS = 24 * 60 * 60 * 1000;
 const FUGUI_STRATEGY_RULES = Object.freeze({
   allowedOwnership: new Set(['央企', '国企']),
@@ -4678,7 +4799,14 @@ const NASDAQ100_SOURCE_URL = 'https://finance.yahoo.com/quote/%5ENDX/';
 const CSI_DIVIDEND_SIGNAL_SOURCE_URL = '../../sources/automations/中证红利信号/最新信号.md';
 const CSI_DIVIDEND_ANNUAL_SOURCE_URL = '../../sources/automations/中证红利信号/中证红利年度表现.json';
 const HOLDING_STATUSES = new Set(['持有', '观察', '计划加仓', '计划减仓']);
-const TODO_QUADRANTS = Object.freeze(['重要且紧急', '重要不紧急', '紧急不重要', '不重要且不紧急']);
+const TODO_QUADRANT_DEFINITIONS = Object.freeze([
+  { label: '重要且紧急', shortLabel: 'Q1', description: '立即处理', className: 'is-important-urgent' },
+  { label: '重要不紧急', shortLabel: 'Q2', description: '排入计划', className: 'is-important-not-urgent' },
+  { label: '紧急不重要', shortLabel: 'Q3', description: '压缩或委托', className: 'is-urgent-not-important' },
+  { label: '不重要且不紧急', shortLabel: 'Q4', description: '延后或删除', className: 'is-not-important-not-urgent' },
+]);
+const TODO_QUADRANTS = Object.freeze(TODO_QUADRANT_DEFINITIONS.map(quadrant => quadrant.label));
+const TODO_STATUSES = Object.freeze(['未开始', '进行中', '已完成']);
 const ALLOCATION_CATEGORIES = Object.freeze([
   { key: 'strategy', label: '战略资源', color: '#26a68f' },
   { key: 'emerging', label: '新兴', color: '#f3b42b' },
@@ -4781,58 +4909,61 @@ const STOCK_THREE_FACTOR_REPORT_LINKS = Object.freeze({
   "中国海油": "../../sources/automations/支柱产业/石化化工/2026-08-21-1703-中国海油-三要素分析.html",
   "中国中车": "../../sources/automations/支柱产业/2026-08-19-1421-中国中车-三要素分析.html",
   "中远海控": "../../sources/automations/temp/2026-08-20-1625-中远海控-三要素分析.html",
+  "紫光股份": "../../sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-28-1004-紫光股份-三要素分析.html",
 });
 const DAILY_MONITOR_LINKS = Object.freeze({
-  "000425": {"href":"data/000425-徐工机械-每日监控-2026-08-27.html","title":"000425-徐工机械-每日监控-2026-08-27","code":"000425","name":"徐工机械","date":"2026-08-27","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
-  "000426": {"href":"data/000426-兴业银锡-每日监控-2026-08-27.html","title":"000426-兴业银锡-每日监控-2026-08-27","code":"000426","name":"兴业银锡","date":"2026-08-27","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"近 5 日累计涨跌幅 +11.90% 的绝对值 ≥ 10%；价格 40.24 元高于动态估值区间上沿 32.00 元；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
-  "000528": {"href":"data/000528-柳工-每日监控-2026-08-27.html","title":"000528-柳工-每日监控-2026-08-27","code":"000528","name":"柳工","date":"2026-08-27","status":"轻微削弱","valuationStatus":"FULL_REVALUE","valuationReason":"2026H1收入+13.71%、海外收入+22.66%，但归母净利-13.55%、扣非-18.44%、经营现金流-78.59%、应收较年末+30.70%；已完成权威研报全量重估"},
-  "000807": {"href":"data/000807-云铝股份-每日监控-2026-08-27.html","title":"000807-云铝股份-每日监控-2026-08-27","code":"000807","name":"云铝股份","date":"2026-08-27","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
-  "002050": {"href":"data/002050-三花智控-每日监控-2026-08-27.html","title":"002050-三花智控-每日监控-2026-08-27","code":"002050","name":"三花智控","date":"2026-08-27","status":"轻微强化","valuationStatus":"FULL_REVALUE","valuationReason":"2026H1收入+3.92%、扣非+6.82%、OCF+95.98%、FCF代理转正；机器人披露批量交付与产线爬坡但无独立收入毛利；已完成权威研报全量重估"},
-  "002270": {"href":"data/002270-华明装备-每日监控-2026-08-27.html","title":"002270-华明装备-每日监控-2026-08-27","code":"002270","name":"华明装备","date":"2026-08-27","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
-  "002396": {"href":"data/002396-星网锐捷-每日监控-2026-08-27.html","title":"002396-星网锐捷-每日监控-2026-08-27","code":"002396","name":"星网锐捷","date":"2026-08-27","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
-  "600031": {"href":"data/600031-三一重工-每日监控-2026-08-27.html","title":"600031-三一重工-每日监控-2026-08-27","code":"600031","name":"三一重工","date":"2026-08-27","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
-  "600150": {"href":"data/600150-中国船舶-每日监控-2026-08-27.html","title":"600150-中国船舶-每日监控-2026-08-27","code":"600150","name":"中国船舶","date":"2026-08-27","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "000425": {"href":"data/000425-徐工机械-每日监控-2026-08-28.html","title":"000425-徐工机械-每日监控-2026-08-28","code":"000425","name":"徐工机械","date":"2026-08-28","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "000426": {"href":"data/000426-兴业银锡-每日监控-2026-08-28.html","title":"000426-兴业银锡-每日监控-2026-08-28","code":"000426","name":"兴业银锡","date":"2026-08-28","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格 40.69 元高于动态估值区间上沿 32.00 元；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
+  "000528": {"href":"data/000528-柳工-每日监控-2026-08-28.html","title":"000528-柳工-每日监控-2026-08-28","code":"000528","name":"柳工","date":"2026-08-28","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"成交额为近 20 日均值 2.43 倍 ≥ 2 倍；换手率为近 20 日均值 2.53 倍 ≥ 2 倍；2026H1已于2026-08-27完成权威研报全量重估，今日未新增模型输入"},
+  "000807": {"href":"data/000807-云铝股份-每日监控-2026-08-28.html","title":"000807-云铝股份-每日监控-2026-08-28","code":"000807","name":"云铝股份","date":"2026-08-28","status":"强化","valuationStatus":"FULL_REVALUE","valuationReason":"2026H1收入+20.30%、归母净利+177.61%、CFO+125.00%，CFO/归母净利约109%，FCF代理81.71亿元；分部毛利率显著上升，应收较年末+278.5%；权威研报已完成全量重估"},
+  "000938": {"href":"data/000938-紫光股份-每日监控-2026-08-28.html","title":"000938-紫光股份-每日监控-2026-08-28","code":"000938","name":"紫光股份","date":"2026-08-28","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"运行中动态加入观察清单；2026-08-28权威研报已吸收定增审核推进，正式半年报预约2026-08-29披露，今日未形成新的模型输入"},
+  "002050": {"href":"data/002050-三花智控-每日监控-2026-08-28.html","title":"002050-三花智控-每日监控-2026-08-28","code":"002050","name":"三花智控","date":"2026-08-28","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "002270": {"href":"data/002270-华明装备-每日监控-2026-08-28.html","title":"002270-华明装备-每日监控-2026-08-28","code":"002270","name":"华明装备","date":"2026-08-28","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "002396": {"href":"data/002396-星网锐捷-每日监控-2026-08-28.html","title":"002396-星网锐捷-每日监控-2026-08-28","code":"002396","name":"星网锐捷","date":"2026-08-28","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"单日涨跌幅 +9.99% 的绝对值 ≥ 5%；近 5 日累计涨跌幅 +10.61% 的绝对值 ≥ 10%；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
+  "600031": {"href":"data/600031-三一重工-每日监控-2026-08-28.html","title":"600031-三一重工-每日监控-2026-08-28","code":"600031","name":"三一重工","date":"2026-08-28","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "600150": {"href":"data/600150-中国船舶-每日监控-2026-08-28.html","title":"600150-中国船舶-每日监控-2026-08-28","code":"600150","name":"中国船舶","date":"2026-08-28","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
   "600673": {"href":"data/600673-东阳光-每日监控-2026-08-21.html","title":"600673-东阳光-每日监控-2026-08-21","code":"600673","name":"东阳光","date":"2026-08-21","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格 33.68 元高于动态估值区间上沿 30.00 元；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
-  "600750": {"href":"data/600750-华润江中-每日监控-2026-08-27.html","title":"600750-华润江中-每日监控-2026-08-27","code":"600750","name":"华润江中","date":"2026-08-27","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
-  "601168": {"href":"data/601168-西部矿业-每日监控-2026-08-27.html","title":"601168-西部矿业-每日监控-2026-08-27","code":"601168","name":"西部矿业","date":"2026-08-27","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"单日涨跌幅 +7.62% 的绝对值 ≥ 5%；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
-  "601208": {"href":"data/601208-东材科技-每日监控-2026-08-27.html","title":"601208-东材科技-每日监控-2026-08-27","code":"601208","name":"东材科技","date":"2026-08-27","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
-  "601766": {"href":"data/601766-中国中车-每日监控-2026-08-27.html","title":"601766-中国中车-每日监控-2026-08-27","code":"601766","name":"中国中车","date":"2026-08-27","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
-  "603530": {"href":"data/603530-神马电力-每日监控-2026-08-27.html","title":"603530-神马电力-每日监控-2026-08-27","code":"603530","name":"神马电力","date":"2026-08-27","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
-  "东材科技": {"href":"data/601208-东材科技-每日监控-2026-08-27.html","title":"601208-东材科技-每日监控-2026-08-27","code":"601208","name":"东材科技","date":"2026-08-27","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "600750": {"href":"data/600750-华润江中-每日监控-2026-08-28.html","title":"600750-华润江中-每日监控-2026-08-28","code":"600750","name":"华润江中","date":"2026-08-28","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "601168": {"href":"data/601168-西部矿业-每日监控-2026-08-28.html","title":"601168-西部矿业-每日监控-2026-08-28","code":"601168","name":"西部矿业","date":"2026-08-28","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "601208": {"href":"data/601208-东材科技-每日监控-2026-08-28.html","title":"601208-东材科技-每日监控-2026-08-28","code":"601208","name":"东材科技","date":"2026-08-28","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"单日涨跌幅 +9.99% 的绝对值 ≥ 5%；价格 49.10 元高于动态估值区间上沿 47.00 元；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
+  "601766": {"href":"data/601766-中国中车-每日监控-2026-08-28.html","title":"601766-中国中车-每日监控-2026-08-28","code":"601766","name":"中国中车","date":"2026-08-28","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "603530": {"href":"data/603530-神马电力-每日监控-2026-08-28.html","title":"603530-神马电力-每日监控-2026-08-28","code":"603530","name":"神马电力","date":"2026-08-28","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "东材科技": {"href":"data/601208-东材科技-每日监控-2026-08-28.html","title":"601208-东材科技-每日监控-2026-08-28","code":"601208","name":"东材科技","date":"2026-08-28","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"单日涨跌幅 +9.99% 的绝对值 ≥ 5%；价格 49.10 元高于动态估值区间上沿 47.00 元；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
   "东阳光": {"href":"data/600673-东阳光-每日监控-2026-08-21.html","title":"600673-东阳光-每日监控-2026-08-21","code":"600673","name":"东阳光","date":"2026-08-21","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格 33.68 元高于动态估值区间上沿 30.00 元；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
-  "华明装备": {"href":"data/002270-华明装备-每日监控-2026-08-27.html","title":"002270-华明装备-每日监控-2026-08-27","code":"002270","name":"华明装备","date":"2026-08-27","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
-  "华润江中": {"href":"data/600750-华润江中-每日监控-2026-08-27.html","title":"600750-华润江中-每日监控-2026-08-27","code":"600750","name":"华润江中","date":"2026-08-27","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
-  "柳工": {"href":"data/000528-柳工-每日监控-2026-08-27.html","title":"000528-柳工-每日监控-2026-08-27","code":"000528","name":"柳工","date":"2026-08-27","status":"轻微削弱","valuationStatus":"FULL_REVALUE","valuationReason":"2026H1收入+13.71%、海外收入+22.66%，但归母净利-13.55%、扣非-18.44%、经营现金流-78.59%、应收较年末+30.70%；已完成权威研报全量重估"},
-  "三花智控": {"href":"data/002050-三花智控-每日监控-2026-08-27.html","title":"002050-三花智控-每日监控-2026-08-27","code":"002050","name":"三花智控","date":"2026-08-27","status":"轻微强化","valuationStatus":"FULL_REVALUE","valuationReason":"2026H1收入+3.92%、扣非+6.82%、OCF+95.98%、FCF代理转正；机器人披露批量交付与产线爬坡但无独立收入毛利；已完成权威研报全量重估"},
-  "三一重工": {"href":"data/600031-三一重工-每日监控-2026-08-27.html","title":"600031-三一重工-每日监控-2026-08-27","code":"600031","name":"三一重工","date":"2026-08-27","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
-  "神马电力": {"href":"data/603530-神马电力-每日监控-2026-08-27.html","title":"603530-神马电力-每日监控-2026-08-27","code":"603530","name":"神马电力","date":"2026-08-27","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
-  "西部矿业": {"href":"data/601168-西部矿业-每日监控-2026-08-27.html","title":"601168-西部矿业-每日监控-2026-08-27","code":"601168","name":"西部矿业","date":"2026-08-27","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"单日涨跌幅 +7.62% 的绝对值 ≥ 5%；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
-  "星网锐捷": {"href":"data/002396-星网锐捷-每日监控-2026-08-27.html","title":"002396-星网锐捷-每日监控-2026-08-27","code":"002396","name":"星网锐捷","date":"2026-08-27","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
-  "兴业银锡": {"href":"data/000426-兴业银锡-每日监控-2026-08-27.html","title":"000426-兴业银锡-每日监控-2026-08-27","code":"000426","name":"兴业银锡","date":"2026-08-27","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"近 5 日累计涨跌幅 +11.90% 的绝对值 ≥ 10%；价格 40.24 元高于动态估值区间上沿 32.00 元；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
-  "徐工机械": {"href":"data/000425-徐工机械-每日监控-2026-08-27.html","title":"000425-徐工机械-每日监控-2026-08-27","code":"000425","name":"徐工机械","date":"2026-08-27","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
-  "云铝股份": {"href":"data/000807-云铝股份-每日监控-2026-08-27.html","title":"000807-云铝股份-每日监控-2026-08-27","code":"000807","name":"云铝股份","date":"2026-08-27","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
-  "中国船舶": {"href":"data/600150-中国船舶-每日监控-2026-08-27.html","title":"600150-中国船舶-每日监控-2026-08-27","code":"600150","name":"中国船舶","date":"2026-08-27","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
-  "中国中车": {"href":"data/601766-中国中车-每日监控-2026-08-27.html","title":"601766-中国中车-每日监控-2026-08-27","code":"601766","name":"中国中车","date":"2026-08-27","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "华明装备": {"href":"data/002270-华明装备-每日监控-2026-08-28.html","title":"002270-华明装备-每日监控-2026-08-28","code":"002270","name":"华明装备","date":"2026-08-28","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "华润江中": {"href":"data/600750-华润江中-每日监控-2026-08-28.html","title":"600750-华润江中-每日监控-2026-08-28","code":"600750","name":"华润江中","date":"2026-08-28","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "柳工": {"href":"data/000528-柳工-每日监控-2026-08-28.html","title":"000528-柳工-每日监控-2026-08-28","code":"000528","name":"柳工","date":"2026-08-28","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"成交额为近 20 日均值 2.43 倍 ≥ 2 倍；换手率为近 20 日均值 2.53 倍 ≥ 2 倍；2026H1已于2026-08-27完成权威研报全量重估，今日未新增模型输入"},
+  "三花智控": {"href":"data/002050-三花智控-每日监控-2026-08-28.html","title":"002050-三花智控-每日监控-2026-08-28","code":"002050","name":"三花智控","date":"2026-08-28","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "三一重工": {"href":"data/600031-三一重工-每日监控-2026-08-28.html","title":"600031-三一重工-每日监控-2026-08-28","code":"600031","name":"三一重工","date":"2026-08-28","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "神马电力": {"href":"data/603530-神马电力-每日监控-2026-08-28.html","title":"603530-神马电力-每日监控-2026-08-28","code":"603530","name":"神马电力","date":"2026-08-28","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "西部矿业": {"href":"data/601168-西部矿业-每日监控-2026-08-28.html","title":"601168-西部矿业-每日监控-2026-08-28","code":"601168","name":"西部矿业","date":"2026-08-28","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "星网锐捷": {"href":"data/002396-星网锐捷-每日监控-2026-08-28.html","title":"002396-星网锐捷-每日监控-2026-08-28","code":"002396","name":"星网锐捷","date":"2026-08-28","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"单日涨跌幅 +9.99% 的绝对值 ≥ 5%；近 5 日累计涨跌幅 +10.61% 的绝对值 ≥ 10%；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
+  "兴业银锡": {"href":"data/000426-兴业银锡-每日监控-2026-08-28.html","title":"000426-兴业银锡-每日监控-2026-08-28","code":"000426","name":"兴业银锡","date":"2026-08-28","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格 40.69 元高于动态估值区间上沿 32.00 元；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
+  "徐工机械": {"href":"data/000425-徐工机械-每日监控-2026-08-28.html","title":"000425-徐工机械-每日监控-2026-08-28","code":"000425","name":"徐工机械","date":"2026-08-28","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "云铝股份": {"href":"data/000807-云铝股份-每日监控-2026-08-28.html","title":"000807-云铝股份-每日监控-2026-08-28","code":"000807","name":"云铝股份","date":"2026-08-28","status":"强化","valuationStatus":"FULL_REVALUE","valuationReason":"2026H1收入+20.30%、归母净利+177.61%、CFO+125.00%，CFO/归母净利约109%，FCF代理81.71亿元；分部毛利率显著上升，应收较年末+278.5%；权威研报已完成全量重估"},
+  "中国船舶": {"href":"data/600150-中国船舶-每日监控-2026-08-28.html","title":"600150-中国船舶-每日监控-2026-08-28","code":"600150","name":"中国船舶","date":"2026-08-28","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "中国中车": {"href":"data/601766-中国中车-每日监控-2026-08-28.html","title":"601766-中国中车-每日监控-2026-08-28","code":"601766","name":"中国中车","date":"2026-08-28","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入，维持原估值区间"},
+  "紫光股份": {"href":"data/000938-紫光股份-每日监控-2026-08-28.html","title":"000938-紫光股份-每日监控-2026-08-28","code":"000938","name":"紫光股份","date":"2026-08-28","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"运行中动态加入观察清单；2026-08-28权威研报已吸收定增审核推进，正式半年报预约2026-08-29披露，今日未形成新的模型输入"},
 });
 const EVENT_CALENDAR = Object.freeze(
 []
 );
 const CSI_DIVIDEND_SIGNAL = Object.freeze(
 {
-  "recordDate": "2026-08-27",
-  "runTime": "2026-08-27 09:49:51",
-  "indexDate": "2026-08-26",
-  "bondDate": "2026-08-26",
-  "dividendYield2": 4.08,
-  "ytdReturn": 2.42,
+  "recordDate": "2026-08-28",
+  "runTime": "2026-08-28 09:48:09",
+  "indexDate": "2026-08-27",
+  "bondDate": "2026-08-27",
+  "dividendYield2": 4.07,
+  "ytdReturn": 2.73,
   "ytdMaxDrawdown": -15.96,
   "xueqiuChangePercent": "待验证",
   "lixingerDate": "待确认",
   "lixingerDividendYield": "待验证",
   "lixingerPercentile10y": "待验证",
   "lixingerPercentile80Value": "待验证",
-  "bond10yYield": 1.69,
-  "spread": 2.39,
+  "bond10yYield": 1.7,
+  "spread": 2.37,
   "percentileSignal": "待验证",
   "absoluteSignal": "C（小额定投）",
   "spreadSignal": "C（小额定投）",
@@ -5095,6 +5226,10 @@ const CSI_DIVIDEND_YIELD_HISTORY = Object.freeze(
   {
     "date": "2026-08-26",
     "value": 4.08
+  },
+  {
+    "date": "2026-08-27",
+    "value": 4.07
   }
 ]
 );
@@ -5103,7 +5238,7 @@ const CSI_DIVIDEND_ANNUAL_PERFORMANCE = Object.freeze(
   "indexCode": "000922",
   "source": "中证指数官网 index-perf(000922)",
   "firstDate": "2008-05-26",
-  "lastDate": "2026-08-26",
+  "lastDate": "2026-08-27",
   "returnConvention": "每年首个可用交易日收盘价至末个可用交易日收盘价",
   "drawdownConvention": "每个自然年内日收盘价相对此前峰值的最大跌幅",
   "rows": [
@@ -5254,8 +5389,8 @@ const CSI_DIVIDEND_ANNUAL_PERFORMANCE = Object.freeze(
     {
       "year": 2026,
       "startDate": "2026-01-05",
-      "endDate": "2026-08-26",
-      "annualReturn": 2.4225718174446964,
+      "endDate": "2026-08-27",
+      "annualReturn": 2.731705374724891,
       "maxDrawdown": -15.96361099166238,
       "status": "年内"
     }
@@ -5427,6 +5562,30 @@ function formatTime(value) {
 function formatSignedPercent(value) {
   if (!Number.isFinite(value)) return '—';
   return `${value > 0 ? '+' : ''}${formatNumber(value, 2)}%`;
+}
+
+function parseTodoActionResponse(response) {
+  return response.json().catch(() => ({})).then(payload => {
+    if (!response.ok) {
+      throw new Error(payload?.error ? `HTTP ${response.status}: ${payload.error}` : `HTTP ${response.status}`);
+    }
+    return payload;
+  });
+}
+
+async function fetchTodoAction(url, options = {}, fetcher = globalThis.fetch, timeoutMs = TODO_ACTION_TIMEOUT_MS) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const response = await fetcher(url, { ...options, signal: controller.signal });
+    return await parseTodoActionResponse(response);
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+function todoActionUrl(path, location = globalThis.location) {
+  return isLocalProxyLocation(location) ? `${TODO_ACTION_ORIGIN}${path}` : path;
 }
 
 function normalizeStockName(value) {
@@ -6754,10 +6913,11 @@ function startApp() {
     featuredDeletedIds = new Set();
   }
   let trackingStatusFilter = 'all';
-  let trackingAllocationMode = false;
+  let trackingAllocationMode = true;
   let trackingAllocationCollapsed = false;
   let trackingSortMode = 'updated';
   let reviewDiariesLoaded = false;
+  let todoLoadVersion = 0;
   let fuguiStatusFilter = 'all';
   let fuguiTtmSortMode = 'none';
   let dividendSignalLoadedAt = 0;
@@ -7926,6 +8086,14 @@ function startApp() {
 
   const labelForView = button => button?.textContent.replace(/^\d+/, '').trim() ?? '';
 
+  const readStoredActiveView = () => {
+    const [domain, viewId] = String(storage.getItem(ACTIVE_VIEW_STORAGE_KEY) ?? '').split(':');
+    if (!domain || !viewId) return null;
+    const button = [...document.querySelectorAll('[data-view]')].find(item => item.dataset.view === viewId);
+    if (!button) return null;
+    return { domain: shellForButton(button), viewId };
+  };
+
   const applyIndustryFilter = section => {
     const activeFilter = section.querySelector('.industry-filter-tabs button.is-active')?.dataset.filter ?? 'all';
     const query = section.querySelector('.industry-search input')?.value.trim().toLocaleLowerCase('zh-CN') ?? '';
@@ -7988,7 +8156,9 @@ function startApp() {
   };
 
   const setTodoItemBusy = (card, busy) => {
-    card?.querySelectorAll('.todo-action-button, .todo-move-select').forEach(control => {
+    card?.classList.toggle('is-busy', busy);
+    if (card) card.draggable = !busy;
+    card?.querySelectorAll('.todo-action-button, .todo-status-button').forEach(control => {
       control.disabled = busy;
     });
   };
@@ -7999,57 +8169,494 @@ function startApp() {
     button.textContent = button.dataset.originalText ?? button.textContent;
   };
 
-  const handleTodoAction = button => {
+  const todoActionErrorMessage = (actionLabel, error) => {
+    if (error?.name === 'AbortError') {
+      return `${actionLabel}超时：本地面板服务没有响应，页面状态已恢复。请关闭旧面板后重新双击“启动面板.cmd”。`;
+    }
+    const message = error instanceof Error ? error.message : String(error);
+    if (/HTTP 404/.test(message) && /todo item not found/.test(message)) {
+      return `${actionLabel}失败：这条待办已不存在，请刷新页面。`;
+    }
+    if (/HTTP 404/.test(message)) {
+      return `${actionLabel}失败：本地面板服务版本过旧，请关闭旧面板后重新双击“启动面板.cmd”。`;
+    }
+    if (/HTTP 500/.test(message)) {
+      return `${actionLabel}失败：todo.json 写入失败，请稍后重试或检查本地面板服务。`;
+    }
+    return `${actionLabel}失败：${message || '请确认通过“启动面板.cmd”打开看板。'}`;
+  };
+
+  const todoItemChildren = quadrant => [...(quadrant?.children ?? [])].filter(child => child.classList.contains('todo-item'));
+
+  const findTodoQuadrantElement = quadrantLabel => (
+    [...document.querySelectorAll('#todo-matrix .todo-quadrant')]
+      .find(quadrant => quadrant.dataset.todoQuadrant === quadrantLabel)
+  );
+
+  const setTodoQuadrantCollapsed = (quadrant, collapsed) => {
+    if (!quadrant) return;
+    quadrant.classList.toggle('is-collapsed', collapsed);
+    const button = quadrant.querySelector('[data-action="toggle-todo-quadrant"]');
+    if (!button) return;
+    button.setAttribute('aria-expanded', String(!collapsed));
+    button.textContent = collapsed ? '展开' : '收起';
+  };
+
+  const toggleTodoQuadrant = button => {
+    const quadrant = button?.closest('.todo-quadrant');
+    if (!quadrant) return;
+    setTodoQuadrantCollapsed(quadrant, !quadrant.classList.contains('is-collapsed'));
+  };
+
+  const todoDateInBeijing = () => new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Shanghai' }).format(new Date());
+
+  const todoStatusButtonLabel = status => `状态 · ${status}`;
+
+  const todoArchiveSortKey = item => item.archivedAt || item.completedAt || item.updatedAt || item.createdAt || '';
+
+  const renderTodoCardHtml = item => {
+    const title = String(item.title ?? '').trim();
+    const status = TODO_STATUSES.includes(item.status) ? item.status : TODO_STATUSES[0];
+    const detail = String(item.detail ?? '').trim();
+    const createdAt = item.createdAt || item.updatedAt || '';
+    const createdAtText = createdAt ? `创建 ${createdAt}` : '创建时间未记录';
+    return `<article class="todo-item" draggable="true" data-todo-id="${escapeHtml(item.id)}" data-todo-quadrant="${escapeHtml(item.quadrant)}" aria-label="拖动 ${escapeHtml(title)} 到其他象限">
+      <div class="todo-item-kicker"><span>${escapeHtml(item.id)}</span><span class="todo-item-time">${escapeHtml(createdAtText)}</span></div>
+      <div class="todo-item-head"><strong>${escapeHtml(title)}</strong></div>
+      ${detail && detail !== 'User' ? `<p>${escapeHtml(detail)}</p>` : ''}
+      <div class="todo-item-actions">
+        <button class="todo-action-button is-status todo-status-button" type="button" data-action="cycle-todo-status" data-todo-id="${escapeHtml(item.id)}" data-todo-status="${escapeHtml(status)}" aria-label="修改 ${escapeHtml(title)} 状态">${escapeHtml(todoStatusButtonLabel(status))}</button>
+        <button class="todo-action-button is-danger" type="button" data-action="delete-todo" data-todo-id="${escapeHtml(item.id)}">删除</button>
+      </div>
+    </article>`;
+  };
+
+  const todoItemsFromPayload = payload => {
+    if (!Array.isArray(payload?.items)) return [];
+    return payload.items.flatMap(item => {
+      const id = String(item?.id ?? '').trim();
+      const title = String(item?.title ?? '').trim();
+      const quadrant = String(item?.quadrant ?? '').trim();
+      if (!id || !title || !TODO_QUADRANTS.includes(quadrant)) return [];
+      const status = TODO_STATUSES.includes(item.status) ? item.status : TODO_STATUSES[0];
+      if (status === '已完成') return [];
+      return [{
+        id,
+        title,
+        detail: String(item.detail ?? '').trim(),
+        quadrant,
+        status,
+        createdAt: String(item.createdAt ?? '').trim(),
+        updatedAt: String(item.updatedAt ?? '').trim(),
+      }];
+    }).sort((left, right) => {
+      const dateOrder = (right.createdAt || right.updatedAt).localeCompare(left.createdAt || left.updatedAt);
+      return dateOrder || right.id.localeCompare(left.id, 'en', { numeric: true });
+    });
+  };
+
+  const todoArchiveItemsFromPayload = payload => {
+    const rawArchive = Array.isArray(payload?.archive) ? payload.archive : Array.isArray(payload?.archivedItems) ? payload.archivedItems : [];
+    return rawArchive.flatMap(item => {
+      const id = String(item?.id ?? '').trim();
+      const title = String(item?.title ?? '').trim();
+      if (!id || !title) return [];
+      const quadrant = TODO_QUADRANTS.includes(item.quadrant) ? item.quadrant : '';
+      return [{
+        id,
+        title,
+        detail: String(item.detail ?? '').trim(),
+        quadrant,
+        status: '已完成',
+        createdAt: String(item.createdAt ?? '').trim(),
+        updatedAt: String(item.updatedAt ?? '').trim(),
+        completedAt: String(item.completedAt ?? item.updatedAt ?? '').trim(),
+        archivedAt: String(item.archivedAt ?? item.completedAt ?? item.updatedAt ?? '').trim(),
+      }];
+    }).sort((left, right) => {
+      const dateOrder = todoArchiveSortKey(right).localeCompare(todoArchiveSortKey(left));
+      return dateOrder || right.id.localeCompare(left.id, 'en', { numeric: true });
+    });
+  };
+
+  const renderTodoArchiveItemHtml = item => {
+    const detail = String(item.detail ?? '').trim();
+    const completedAt = item.completedAt ? `完成 ${item.completedAt}` : '完成时间未记录';
+    const archivedAt = item.archivedAt ? `归档 ${item.archivedAt}` : '归档时间未记录';
+    return `<article class="todo-archive-item" data-todo-archive-id="${escapeHtml(item.id)}">
+      <div class="todo-item-kicker"><span>${escapeHtml(item.id)}</span><span class="todo-item-time">${escapeHtml(archivedAt)}</span></div>
+      <div class="todo-item-head"><strong>${escapeHtml(item.title)}</strong></div>
+      ${detail && detail !== 'User' ? `<p>${escapeHtml(detail)}</p>` : ''}
+      <div class="todo-archive-meta"><span>${escapeHtml(completedAt)}</span>${item.quadrant ? `<span>${escapeHtml(item.quadrant)}</span>` : ''}</div>
+    </article>`;
+  };
+
+  const renderTodoArchiveList = payload => {
+    const list = document.getElementById('todo-archive-list');
+    const toggle = document.getElementById('todo-archive-toggle');
+    if (!list) return;
+    const archiveItems = todoArchiveItemsFromPayload(payload);
+    list.innerHTML = archiveItems.length
+      ? archiveItems.map(renderTodoArchiveItemHtml).join('')
+      : '<p class="todo-empty">暂无归档任务</p>';
+    if (toggle) toggle.textContent = archiveItems.length ? `已归档 ${archiveItems.length}` : '已归档';
+  };
+
+  const renderTodoList = payload => {
+    const matrix = document.getElementById('todo-matrix');
+    const summary = document.getElementById('todo-summary');
+    if (!matrix || !summary) return;
+    const items = todoItemsFromPayload(payload);
+    const collapsedQuadrants = new Set(
+      [...matrix.querySelectorAll('.todo-quadrant.is-collapsed')].map(quadrant => quadrant.dataset.todoQuadrant),
+    );
+    summary.innerHTML = TODO_QUADRANT_DEFINITIONS.map(quadrant => {
+      const count = items.filter(item => item.quadrant === quadrant.label).length;
+      return `<article class="todo-summary-card ${quadrant.className}" data-todo-summary-quadrant="${escapeHtml(quadrant.label)}">
+        <small>${quadrant.shortLabel}</small><strong>${count}</strong><span>${escapeHtml(quadrant.label)}</span>
+      </article>`;
+    }).join('');
+    matrix.innerHTML = TODO_QUADRANT_DEFINITIONS.map(quadrant => {
+      const quadrantItems = items.filter(item => item.quadrant === quadrant.label);
+      const body = quadrantItems.length
+        ? quadrantItems.map(renderTodoCardHtml).join('')
+        : '<p class="todo-empty">暂无事项</p>';
+      return `<section class="todo-quadrant ${quadrant.className}" data-todo-quadrant="${escapeHtml(quadrant.label)}" tabindex="0" aria-label="${escapeHtml(quadrant.label)}，${quadrantItems.length}项任务，可滚动查看">
+        <header class="todo-quadrant-header">
+          <div class="todo-quadrant-heading"><span class="todo-quadrant-index">${quadrant.shortLabel}</span><div><h3>${escapeHtml(quadrant.label)}</h3><p class="todo-quadrant-guide">${escapeHtml(quadrant.description)}</p></div></div>
+          <div class="todo-quadrant-meta"><strong>${quadrantItems.length}项</strong><button class="todo-quadrant-toggle" type="button" data-action="toggle-todo-quadrant" aria-expanded="true">收起</button></div>
+        </header>${body}
+      </section>`;
+    }).join('');
+    collapsedQuadrants.forEach(label => setTodoQuadrantCollapsed(findTodoQuadrantElement(label), true));
+    updateTodoCounts();
+    const sourceStatus = document.getElementById('todo-source-status');
+    if (sourceStatus) {
+      const updatedAt = String(payload.updatedAt ?? '').trim();
+      const archive = Array.isArray(payload.archive) ? payload.archive : Array.isArray(payload.archivedItems) ? payload.archivedItems : [];
+      const archiveCount = archive.length;
+      sourceStatus.textContent = `${updatedAt ? `来源：data/todo.json · 更新：${updatedAt}` : '来源：data/todo.json'}${archiveCount ? ` · 已归档${archiveCount}项` : ''}`;
+    }
+    renderTodoArchiveList(payload);
+  };
+
+  const setTodoArchiveCountText = count => {
+    const toggle = document.getElementById('todo-archive-toggle');
+    if (toggle) toggle.textContent = count ? `已归档 ${count}` : '已归档';
+    const sourceStatus = document.getElementById('todo-source-status');
+    if (!sourceStatus) return;
+    const baseText = sourceStatus.textContent.replace(/\s*·\s*已归档\d+项$/, '');
+    sourceStatus.textContent = `${baseText}${count ? ` · 已归档${count}项` : ''}`;
+  };
+
+  const insertTodoArchiveItem = (item, archiveTotal = null) => {
+    const list = document.getElementById('todo-archive-list');
+    if (!list || !item?.id || !item?.title) return;
+    list.querySelector('.todo-empty')?.remove();
+    const existing = [...list.querySelectorAll('.todo-archive-item')]
+      .find(node => node.dataset.todoArchiveId === item.id);
+    existing?.remove();
+    const archiveItems = [
+      item,
+      ...[...list.querySelectorAll('.todo-archive-item')].map(node => ({
+        id: node.dataset.todoArchiveId ?? '',
+        title: node.querySelector('.todo-item-head strong')?.textContent?.trim() ?? '',
+        detail: node.querySelector('p')?.textContent?.trim() ?? '',
+        archivedAt: node.querySelector('.todo-item-time')?.textContent?.replace(/^归档\s*/, '').trim() ?? '',
+        completedAt: node.querySelector('.todo-archive-meta span')?.textContent?.replace(/^完成\s*/, '').trim() ?? '',
+        quadrant: node.querySelector('.todo-archive-meta span:last-child')?.textContent?.trim() ?? '',
+      })),
+    ].sort((left, right) => {
+      const dateOrder = todoArchiveSortKey(right).localeCompare(todoArchiveSortKey(left));
+      return dateOrder || right.id.localeCompare(left.id, 'en', { numeric: true });
+    });
+    list.innerHTML = archiveItems.map(renderTodoArchiveItemHtml).join('');
+    const count = Number.isFinite(Number(archiveTotal)) ? Number(archiveTotal) : archiveItems.length;
+    setTodoArchiveCountText(count);
+  };
+
+  const refreshTodoList = async () => {
+    if (!isLocalProxyLocation()) return;
+    const requestVersion = ++todoLoadVersion;
+    const matrix = document.getElementById('todo-matrix');
+    const sourceStatus = document.getElementById('todo-source-status');
+    matrix?.setAttribute('aria-busy', 'true');
+    if (sourceStatus) sourceStatus.textContent = '正在读取 data/todo.json...';
+    try {
+      const payload = await fetchTodoAction(todoActionUrl('/api/todos'));
+      if (requestVersion !== todoLoadVersion) return;
+      if (!Array.isArray(payload?.items)) throw new Error('todo data invalid');
+      renderTodoList(payload);
+    } catch {
+      if (requestVersion === todoLoadVersion && sourceStatus) {
+        sourceStatus.textContent = '实时读取失败，当前显示上次生成的快照';
+      }
+    } finally {
+      if (requestVersion === todoLoadVersion) matrix?.removeAttribute('aria-busy');
+    }
+  };
+
+  const createTodoCard = item => {
+    const template = document.createElement('template');
+    template.innerHTML = renderTodoCardHtml(item).trim();
+    return template.content.firstElementChild;
+  };
+
+  const setTodoCardId = (card, todoId) => {
+    if (!card || !todoId) return;
+    card.dataset.todoId = todoId;
+    card.querySelectorAll('[data-todo-id]').forEach(node => {
+      node.dataset.todoId = todoId;
+    });
+  };
+
+  const updateTodoCounts = () => {
+    const counts = new Map();
+    let total = 0;
+    document.querySelectorAll('#todo-matrix .todo-quadrant').forEach(quadrant => {
+      const count = todoItemChildren(quadrant).length;
+      const quadrantLabel = quadrant.dataset.todoQuadrant ?? '';
+      counts.set(quadrantLabel, count);
+      total += count;
+      const countNode = quadrant.querySelector('header strong');
+      if (countNode) countNode.textContent = `${count}项`;
+      quadrant.setAttribute('aria-label', `${quadrantLabel}，${count}项任务，可滚动查看`);
+      const empty = quadrant.querySelector('.todo-empty');
+      if (count > 0) empty?.remove();
+      else if (!empty) quadrant.insertAdjacentHTML('beforeend', '<p class="todo-empty">暂无事项</p>');
+    });
+    document.querySelectorAll('.todo-summary-card[data-todo-summary-quadrant]').forEach(card => {
+      const count = counts.get(card.dataset.todoSummaryQuadrant ?? '');
+      const countNode = card.querySelector('strong');
+      if (Number.isFinite(count) && countNode) countNode.textContent = String(count);
+    });
+    const totalCount = document.getElementById('todo-total-count');
+    if (totalCount) totalCount.textContent = `${total}项`;
+  };
+
+  const insertTodoCard = (card, quadrantLabel) => {
+    const target = findTodoQuadrantElement(quadrantLabel);
+    if (!card || !target) return false;
+    setTodoQuadrantCollapsed(target, false);
+    target.querySelector('.todo-empty')?.remove();
+    target.insertBefore(card, todoItemChildren(target)[0] ?? null);
+    card.dataset.todoQuadrant = quadrantLabel;
+    updateTodoCounts();
+    return true;
+  };
+
+  const snapshotTodoCardPlacement = card => ({
+    quadrant: card?.closest('.todo-quadrant') ?? null,
+    nextElement: card?.nextElementSibling ?? null,
+    quadrantLabel: card?.dataset.todoQuadrant ?? '',
+  });
+
+  const restoreTodoCardPlacement = (card, placement) => {
+    const quadrant = placement?.quadrant;
+    if (!card || !quadrant) return;
+    quadrant.querySelector('.todo-empty')?.remove();
+    if (placement.nextElement?.parentElement === quadrant) {
+      quadrant.insertBefore(card, placement.nextElement);
+    } else {
+      quadrant.appendChild(card);
+    }
+    card.dataset.todoQuadrant = placement.quadrantLabel;
+    updateTodoCounts();
+  };
+
+  const moveTodoCardImmediately = (card, targetQuadrant) => {
+    const target = findTodoQuadrantElement(targetQuadrant);
+    if (!card || !target || target === card.closest('.todo-quadrant')) return null;
+    const placement = snapshotTodoCardPlacement(card);
+    setTodoQuadrantCollapsed(target, false);
+    target.querySelector('.todo-empty')?.remove();
+    target.insertBefore(card, todoItemChildren(target)[0] ?? null);
+    card.dataset.todoQuadrant = targetQuadrant;
+    updateTodoCounts();
+    return placement;
+  };
+
+  const moveTodoCard = (card, targetQuadrant) => {
+    const todoId = card?.dataset.todoId ?? '';
+    if (!todoId || !TODO_QUADRANTS.includes(targetQuadrant)) return;
+    if (!isLocalProxyLocation()) {
+      globalThis.alert('拖动移动待办需要通过“启动面板.cmd”打开看板。');
+      return;
+    }
+    if (targetQuadrant === card.dataset.todoQuadrant) return;
+
+    const previousPlacement = moveTodoCardImmediately(card, targetQuadrant);
+    if (!previousPlacement) return;
+    todoLoadVersion += 1;
+    setTodoItemBusy(card, true);
+    fetchTodoAction(todoActionUrl('/api/todo-item'), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: todoId, action: 'move', quadrant: targetQuadrant }),
+    }).then(payload => {
+      if (TODO_QUADRANTS.includes(payload?.quadrant)) card.dataset.todoQuadrant = payload.quadrant;
+      setTodoItemBusy(card, false);
+    }).catch(error => {
+      restoreTodoCardPlacement(card, previousPlacement);
+      setTodoItemBusy(card, false);
+      globalThis.alert(todoActionErrorMessage('移动', error));
+    });
+  };
+
+  const nextTodoStatus = currentStatus => {
+    const index = TODO_STATUSES.indexOf(currentStatus);
+    return TODO_STATUSES[(index + 1) % TODO_STATUSES.length] ?? TODO_STATUSES[0];
+  };
+
+  const setTodoCardStatus = (card, status) => {
+    const button = card?.querySelector('.todo-status-button');
+    if (!button) return '';
+    const previousStatus = button.dataset.todoStatus || button.textContent.trim();
+    button.dataset.todoStatus = status;
+    button.textContent = todoStatusButtonLabel(status);
+    button.setAttribute('aria-label', `${status}，点击切换状态`);
+    return previousStatus;
+  };
+
+  const updateTodoStatus = button => {
+    const card = button.closest('.todo-item');
+    const todoId = card?.dataset.todoId ?? button.dataset.todoId ?? '';
+    if (!todoId) return;
+    if (!isLocalProxyLocation()) {
+      globalThis.alert('修改待办状态需要通过“启动面板.cmd”打开看板。');
+      return;
+    }
+
+    const currentStatus = button.dataset.todoStatus || button.textContent.trim() || TODO_STATUSES[0];
+    const status = nextTodoStatus(currentStatus);
+    const previousStatus = setTodoCardStatus(card, status);
+    todoLoadVersion += 1;
+    setTodoItemBusy(card, true);
+    fetchTodoAction(todoActionUrl('/api/todo-item'), {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: todoId, action: 'status', status }),
+    }).then(payload => {
+      if (payload?.archived) {
+        card?.remove();
+        updateTodoCounts();
+        insertTodoArchiveItem(payload.item ?? payload, payload.archiveTotal);
+      } else if (TODO_STATUSES.includes(payload?.status)) {
+        setTodoCardStatus(card, payload.status);
+      }
+      setTodoItemBusy(card, false);
+    }).catch(error => {
+      setTodoCardStatus(card, previousStatus || currentStatus);
+      setTodoItemBusy(card, false);
+      globalThis.alert(todoActionErrorMessage('状态修改', error));
+    });
+  };
+
+  const setTodoCreateFormBusy = (form, busy) => {
+    form?.querySelectorAll('input, select, textarea, button').forEach(control => {
+      control.disabled = busy;
+    });
+  };
+
+  const setTodoCreateStatus = (message, isError = false) => {
+    const status = document.getElementById('todo-create-status');
+    if (!status) return;
+    status.textContent = message;
+    status.classList.toggle('is-error', isError);
+  };
+
+  const setTodoCreateFormOpen = open => {
+    const form = document.getElementById('todo-create-form');
+    if (!form) return;
+    form.hidden = !open;
+    setTodoCreateStatus('');
+    if (open) form.elements.title?.focus();
+  };
+
+  const handleTodoCreate = form => {
+    if (!isLocalProxyLocation()) {
+      globalThis.alert('新增需求需要通过“启动面板.cmd”打开看板。');
+      return;
+    }
+    const data = new FormData(form);
+    const title = String(data.get('title') ?? '').trim();
+    if (!title) {
+      setTodoCreateStatus('请填写需求事项。', true);
+      form.elements.title?.focus();
+      return;
+    }
+    const quadrantValue = String(data.get('quadrant') ?? '').trim();
+    const statusValue = String(data.get('status') ?? '').trim();
+    const quadrant = TODO_QUADRANTS.includes(quadrantValue) ? quadrantValue : TODO_QUADRANTS[0];
+    const status = TODO_STATUSES.includes(statusValue) ? statusValue : TODO_STATUSES[0];
+    const detail = String(data.get('detail') ?? '').trim().slice(0, 150);
+    const pendingId = `TODO-PENDING-${Date.now()}`;
+    const card = createTodoCard({ id: pendingId, title, detail, quadrant, status, createdAt: todoDateInBeijing() });
+    if (!insertTodoCard(card, quadrant)) {
+      setTodoCreateStatus('新增失败：未找到目标象限。', true);
+      return;
+    }
+
+    setTodoItemBusy(card, true);
+    setTodoCreateFormBusy(form, true);
+    setTodoCreateStatus('保存中...');
+    todoLoadVersion += 1;
+    fetchTodoAction(todoActionUrl('/api/todo-item'), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'create', title, detail, quadrant, status }),
+    }).then(payload => {
+      setTodoCardId(card, payload.id || pendingId);
+      if (payload?.archived) {
+        card.remove();
+        updateTodoCounts();
+        insertTodoArchiveItem(payload.item ?? payload, payload.archiveTotal);
+      } else {
+        if (TODO_STATUSES.includes(payload?.status)) setTodoCardStatus(card, payload.status);
+        if (TODO_QUADRANTS.includes(payload?.quadrant)) card.dataset.todoQuadrant = payload.quadrant;
+        const timeNode = card.querySelector('.todo-item-time');
+        if (timeNode && payload.updatedAt) timeNode.textContent = `创建 ${payload.updatedAt}`;
+      }
+      setTodoItemBusy(card, false);
+      setTodoCreateFormBusy(form, false);
+      form.reset();
+      setTodoCreateFormOpen(false);
+    }).catch(error => {
+      card.remove();
+      updateTodoCounts();
+      setTodoCreateFormBusy(form, false);
+      setTodoCreateStatus(todoActionErrorMessage('新增', error), true);
+      globalThis.alert(todoActionErrorMessage('新增', error));
+    });
+  };
+
+  const handleTodoDelete = button => {
     const card = button.closest('.todo-item');
     const todoId = card?.dataset.todoId ?? button.dataset.todoId ?? '';
     const title = card?.querySelector('.todo-item-head strong')?.textContent?.trim() || '这条待办';
     if (!todoId) return;
     if (!isLocalProxyLocation()) {
-      globalThis.alert('移动或删除待办需要通过“启动面板.cmd”打开看板。');
+      globalThis.alert('删除待办需要通过“启动面板.cmd”打开看板。');
       return;
     }
-
-    const action = button.dataset.action;
-    const payload = { id: todoId };
-    const request = { method: 'POST', busyText: '移动中...' };
-    if (action === 'move-todo') {
-      const targetQuadrant = card.querySelector('.todo-move-select')?.value ?? '';
-      if (!TODO_QUADRANTS.includes(targetQuadrant)) return;
-      if (targetQuadrant === card.dataset.todoQuadrant) {
-        globalThis.alert('这条待办已经在当前象限。');
-        return;
-      }
-      payload.action = 'move';
-      payload.quadrant = targetQuadrant;
-    } else if (action === 'delete-todo') {
-      if (!globalThis.confirm(`确认删除「${title}」？`)) return;
-      payload.action = 'delete';
-      request.method = 'DELETE';
-      request.busyText = '删除中...';
-    } else {
-      return;
-    }
+    if (!globalThis.confirm(`确认删除「${title}」？`)) return;
 
     button.dataset.originalText = button.dataset.originalText || button.textContent;
-    button.textContent = request.busyText;
+    button.textContent = '删除中...';
+    const previousPlacement = snapshotTodoCardPlacement(card);
     setTodoItemBusy(card, true);
-    fetch('/api/todo-item', {
-      method: request.method,
+    card.remove();
+    updateTodoCounts();
+    todoLoadVersion += 1;
+    fetchTodoAction(todoActionUrl('/api/todo-item'), {
+      method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    }).then(response => {
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      return response.json();
-    }).then(payload => {
-      if (payload?.rebuilt === false) {
-        globalThis.alert('已写入 todo.xlsx，但看板自动重建失败。请重新双击“启动面板.cmd”。');
-        return;
-      }
-      globalThis.location.reload();
-    }).catch(() => {
-      globalThis.alert('操作失败：请确认通过“启动面板.cmd”打开看板，并且 todo.xlsx 没有被 Excel 占用。');
+      body: JSON.stringify({ id: todoId, action: 'delete' }),
+    }).catch(error => {
+      restoreTodoCardPlacement(card, previousPlacement);
       setTodoItemBusy(card, false);
       resetTodoButton(button);
+      globalThis.alert(todoActionErrorMessage('删除', error));
     });
   };
 
@@ -8069,6 +8676,7 @@ function startApp() {
     const button = [...document.querySelectorAll('[data-view]')].find(item => item.dataset.view === viewId);
     const shell = button ? shellForButton(button) : 'thermometer';
     activeViewByShell[shell] = viewId;
+    if (button) storage.setItem(ACTIVE_VIEW_STORAGE_KEY, `${shell}:${viewId}`);
     document.querySelectorAll('[data-view]').forEach(item => {
       const active = item === button;
       item.classList.toggle('is-active', active);
@@ -8079,6 +8687,7 @@ function startApp() {
     pageTitle.textContent = labelForView(button) || pageTitle.textContent;
     if (viewId === 'risk-monitor') refreshRiskMarginChart();
     if (viewId === 'review-diary-view' && !reviewDiariesLoaded) refreshReviewDiaries();
+    if (viewId === 'position-manager') refreshTodoList();
     if (viewId === 'market-summary' || viewId === 'dividend-signal-view') refreshDividendSignalFromSource();
     if (viewId.startsWith('industry-')) hydrateIndustryReportRows(document.getElementById(viewId));
   };
@@ -8187,11 +8796,108 @@ function startApp() {
       deleteButton.textContent = '删除';
     });
   }));
-  document.getElementById('todo-matrix')?.addEventListener('click', event => {
-    const button = event.target.closest('button[data-action="move-todo"], button[data-action="delete-todo"]');
-    if (!button) return;
-    handleTodoAction(button);
+  const todoMatrix = document.getElementById('todo-matrix');
+  const todoCreateForm = document.getElementById('todo-create-form');
+  document.getElementById('todo-create-open')?.addEventListener('click', () => setTodoCreateFormOpen(true));
+  document.getElementById('todo-archive-toggle')?.addEventListener('click', event => {
+    const panel = document.getElementById('todo-archive-panel');
+    if (!panel) return;
+    const expanded = event.currentTarget.getAttribute('aria-expanded') === 'true';
+    panel.hidden = expanded;
+    event.currentTarget.setAttribute('aria-expanded', String(!expanded));
   });
+  document.getElementById('todo-create-cancel')?.addEventListener('click', () => {
+    todoCreateForm?.reset();
+    setTodoCreateFormOpen(false);
+  });
+  todoCreateForm?.addEventListener('submit', event => {
+    event.preventDefault();
+    handleTodoCreate(event.currentTarget);
+  });
+  if (todoMatrix) {
+    let draggedTodoCard = null;
+    const clearTodoDropTargets = () => {
+      todoMatrix.querySelectorAll('.todo-quadrant.is-drop-target').forEach(quadrant => {
+        quadrant.classList.remove('is-drop-target');
+      });
+    };
+
+    todoMatrix.addEventListener('click', event => {
+      const quadrantToggle = event.target.closest('button[data-action="toggle-todo-quadrant"]');
+      if (quadrantToggle) {
+        toggleTodoQuadrant(quadrantToggle);
+        return;
+      }
+      const statusButton = event.target.closest('button[data-action="cycle-todo-status"]');
+      if (statusButton) {
+        updateTodoStatus(statusButton);
+        return;
+      }
+      const button = event.target.closest('button[data-action="delete-todo"]');
+      if (!button) return;
+      handleTodoDelete(button);
+    });
+    todoMatrix.addEventListener('dragstart', event => {
+      const card = event.target.closest('.todo-item');
+      if (!card?.dataset.todoId) return;
+      if (event.target.closest('button')) {
+        event.preventDefault();
+        return;
+      }
+      if (!isLocalProxyLocation()) {
+        event.preventDefault();
+        globalThis.alert('拖动移动待办需要通过“启动面板.cmd”打开看板。');
+        return;
+      }
+      draggedTodoCard = card;
+      card.classList.add('is-dragging');
+      event.dataTransfer.effectAllowed = 'move';
+      event.dataTransfer.setData('application/x-todo-id', card.dataset.todoId);
+      event.dataTransfer.setData('text/plain', '');
+    });
+    document.addEventListener('dragover', event => {
+      if (!draggedTodoCard) return;
+      event.preventDefault();
+    });
+    document.addEventListener('drop', event => {
+      if (!draggedTodoCard) return;
+      event.preventDefault();
+    });
+    todoMatrix.addEventListener('dragover', event => {
+      const quadrant = event.target.closest('.todo-quadrant');
+      if (!quadrant || !draggedTodoCard) return;
+      const targetQuadrant = quadrant.dataset.todoQuadrant ?? '';
+      if (!TODO_QUADRANTS.includes(targetQuadrant)) return;
+      event.preventDefault();
+      event.dataTransfer.dropEffect = 'move';
+      clearTodoDropTargets();
+      if (targetQuadrant !== draggedTodoCard.dataset.todoQuadrant) {
+        quadrant.classList.add('is-drop-target');
+      }
+    });
+    todoMatrix.addEventListener('dragleave', event => {
+      const quadrant = event.target.closest('.todo-quadrant');
+      if (quadrant && !quadrant.contains(event.relatedTarget)) {
+        quadrant.classList.remove('is-drop-target');
+      }
+    });
+    todoMatrix.addEventListener('drop', event => {
+      const quadrant = event.target.closest('.todo-quadrant');
+      if (!quadrant || !draggedTodoCard) return;
+      event.preventDefault();
+      event.stopPropagation();
+      const card = draggedTodoCard;
+      draggedTodoCard = null;
+      card.classList.remove('is-dragging');
+      clearTodoDropTargets();
+      moveTodoCard(card, quadrant.dataset.todoQuadrant ?? '');
+    });
+    todoMatrix.addEventListener('dragend', () => {
+      draggedTodoCard?.classList.remove('is-dragging');
+      draggedTodoCard = null;
+      clearTodoDropTargets();
+    });
+  }
   document.querySelectorAll('.topic-filter-tabs button').forEach(button => button.addEventListener('click', event => {
     document.querySelectorAll('.topic-filter-tabs button').forEach(item => {
       const active = item === event.currentTarget;
@@ -8434,7 +9140,8 @@ function startApp() {
     fuguiStrategyStatus.textContent = `富贵策略数据源已切换为 ${fuguiDataProvider === 'akshare' ? 'AKShare' : 'Tushare'}。`;
   });
 
-  setShell('thermometer', 'market-summary');
+  const initialView = readStoredActiveView() ?? { domain: 'thermometer', viewId: 'market-summary' };
+  setShell(initialView.domain, initialView.viewId);
   renderFuguiProviderToggle();
   setFuguiPanelCollapsed(storage.getItem(FUGUI_PANEL_COLLAPSED_STORAGE_KEY) === '1');
   render();

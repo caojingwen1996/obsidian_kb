@@ -1,10 +1,10 @@
 ---
-name: bbxm-equity-research
+name: 个股估值计算
 description: Use when the user asks for institutional-grade equity research, company deep dives, fair value, DCF, target prices, valuation ranges, valuation-bubble judgments, HTML research reports, or a decision on whether a listed stock is worth buying. For A-share research, prefer local tushare-data MCP tools for stock identity, daily prices, valuation, moneyflow, margin, financial statements, dividends, shareholder counts, and index constituents before falling back to AKShare or public pages.
 version: 3.0.6
 ---
 
-# 机构级个股研究
+# 个股估值计算
 
 ## 0. 当前版本
 

@@ -10,6 +10,7 @@ import {
   deriveDashboard,
   allocationCategoryForReport,
   evaluateFuguiStrategyCandidate,
+  fetchTodoAction,
   findDuplicateTrackingItem,
   leftEdgeFromValueRange,
   normalizeFuguiStrategyItems,
@@ -21,6 +22,7 @@ import {
   stockSecidFromCode,
   summarizeHoldings,
   summarizeTrackingItems,
+  todoActionUrl,
   trackingLeftEdgeDistance,
   trackingQuotePriceOnly,
   trackingRiskRewardForQuote,
@@ -33,7 +35,7 @@ const here = dirname(fileURLToPath(import.meta.url));
 const sourcePath = join(here, '..', 'src', 'index.html');
 const artifactPath = join(here, '..', 'a-share-market-dashboard.html');
 const launcherPath = join(here, '..', '启动面板.cmd');
-const todoWorkbookPath = join(here, '..', 'data', 'todo.xlsx');
+const todoDataPath = join(here, '..', 'data', 'todo.json');
 const repoRoot = join(here, '..', '..', '..');
 const hangTianElectronicsReportPath = join(
   repoRoot,
@@ -176,10 +178,12 @@ test('sidebar exposes the personal workspace as a first-level tree domain', () =
   assert.match(html, /data-status-filter="addable"[^>]*>可加<\/button>/);
   assert.match(html, /data-status-filter="reducible"[^>]*>可减<\/button>/);
   assert.doesNotMatch(html, /data-status-filter="allocation"/);
-  assert.match(html, /id="open-tracking-form"[^>]*>新增跟踪<\/button>\s*<button class="button-secondary" id="refresh-tracking-reports"[^>]*>一键更新<\/button>\s*<button class="allocation-ribbon" id="tracking-allocation-mode"[^>]*>配比模式<\/button>\s*<!-- DAILY_MONITOR_BUTTON -->/);
+  assert.match(html, /id="open-tracking-form"[^>]*>新增跟踪<\/button>\s*<button class="button-secondary" id="refresh-tracking-reports"[^>]*>一键更新<\/button>\s*<button class="allocation-ribbon is-active" id="tracking-allocation-mode"[^>]*>配比模式<\/button>\s*<!-- DAILY_MONITOR_BUTTON -->/);
   assert.doesNotMatch(html, /data-status-filter="计划加仓"/);
   assert.doesNotMatch(html, /data-status-filter="计划减仓"/);
-  assert.match(html, /id="tracking-allocation-view" hidden/);
+  assert.match(html, /class="allocation-ribbon is-active" id="tracking-allocation-mode"[^>]*aria-pressed="true"/);
+  assert.match(html, /<div class="allocation-view" id="tracking-allocation-view">/);
+  assert.match(appSource, /let trackingAllocationMode = true;/);
   assert.match(html, /id="tracking-allocation-collapse"[^>]*aria-controls="tracking-allocation-body"[^>]*aria-expanded="true"/);
   assert.match(html, /id="tracking-allocation-chart"/);
   assert.match(html, /id="tracking-allocation-legend"/);
@@ -224,27 +228,101 @@ test('sidebar exposes the personal workspace as a first-level tree domain', () =
   assert.doesNotMatch(personalTree, /data-view="featured-digest"/);
   assert.doesNotMatch(personalTree, /data-view="fugui-strategy"/);
   assert.doesNotMatch(personalTree, /data-view="topic-map"/);
-  assert.ok(existsSync(todoWorkbookPath));
+  assert.ok(existsSync(todoDataPath));
   assert.doesNotMatch(html, /id="holding-form"/);
   assert.doesNotMatch(html, /id="holdings-table-body"/);
   assert.match(html, /<h2 class="visually-hidden" id="position-manager-heading">需求清单<\/h2>/);
-  assert.match(buildSource, /todoWorkbookPath/);
-  assert.match(buildSource, /parseTodoListFromWorkbook/);
+  assert.match(buildSource, /todoDataPath/);
+  assert.match(buildSource, /parseTodoListFromJson/);
   assert.match(buildSource, /todoQuadrantFromFlags/);
   assert.match(buildSource, /renderTodoMatrix/);
-  assert.match(buildSource, /data-action="move-todo"/);
+  assert.match(buildSource, /createdAt/);
+  assert.match(buildSource, /draggable="true"/);
+  assert.match(buildSource, /data-action="cycle-todo-status"/);
   assert.match(buildSource, /data-action="delete-todo"/);
   assert.match(appSource, /document\.getElementById\('holding-form'\)\?\./);
+  assert.match(appSource, /handleTodoCreate/);
+  assert.match(appSource, /insertTodoCard/);
+  assert.match(appSource, /moveTodoCard/);
+  assert.match(appSource, /moveTodoCardImmediately/);
+  assert.match(appSource, /updateTodoCounts/);
+  assert.match(appSource, /TODO_STATUSES/);
+  assert.match(appSource, /updateTodoStatus/);
+  assert.match(appSource, /payload\?\.archived/);
+  assert.match(appSource, /已归档/);
+  assert.match(appSource, /todoArchiveItemsFromPayload/);
+  assert.match(appSource, /renderTodoArchiveList/);
+  assert.match(appSource, /insertTodoArchiveItem/);
+  assert.match(appSource, /method: 'PATCH'/);
+  assert.match(appSource, /refreshTodoList/);
+  assert.match(appSource, /fetchTodoAction\(todoActionUrl\('\/api\/todos'\)\)/);
+  assert.match(appSource, /renderTodoList/);
+  assert.doesNotMatch(appSource, /deferRebuild/);
+  assert.match(appSource, /ACTIVE_VIEW_STORAGE_KEY/);
+  assert.match(appSource, /readStoredActiveView/);
+  assert.match(appSource, /setShell\(initialView\.domain, initialView\.viewId\)/);
+  assert.match(appSource, /application\/x-todo-id/);
+  assert.match(appSource, /document\.addEventListener\('drop'/);
+  assert.match(appSource, /dragstart/);
+  assert.match(appSource, /dragover/);
+  assert.match(appSource, /drop/);
+  assert.match(appSource, /toggleTodoQuadrant/);
+  assert.match(appSource, /parseTodoActionResponse/);
+  assert.match(appSource, /fetchTodoAction\(todoActionUrl\('\/api\/todo-item'\)/);
+  assert.match(appSource, /AbortError/);
+  assert.match(appSource, /本地面板服务版本过旧/);
   assert.match(appSource, /\/api\/todo-item/);
-  assert.match(appSource, /globalThis\.location\.reload\(\)/);
+  assert.doesNotMatch(appSource, /globalThis\.location\.reload\(\)/);
   assert.match(styles, /\.todo-item-actions/);
-  assert.match(artifact, /href="data\/todo\.xlsx"[^>]*>打开 todo\.xlsx<\/a>/);
+  assert.match(styles, /\.todo-create-form/);
+  assert.match(styles, /\.todo-status-button/);
+  assert.match(styles, /\.todo-quadrant\.is-drop-target/);
+  assert.match(styles, /\.todo-item\.is-dragging/);
+  assert.match(styles, /\.todo-quadrant\s*\{[^}]*max-height:[^}]*overflow-y:\s*auto/s);
+  assert.match(styles, /\.todo-quadrant-header\s*\{[^}]*position:\s*sticky/s);
+  assert.match(styles, /\.todo-item\s*\{[^}]*border:\s*1px solid[^}]*background:\s*var\(--card\)/s);
+  assert.doesNotMatch(styles, /todo-move-select/);
+  assert.match(artifact, /href="data\/todo\.json"[^>]*>打开 todo\.json<\/a>/);
+  assert.match(artifact, /id="todo-source-status"/);
+  assert.match(artifact, /id="todo-archive-toggle"[^>]*aria-controls="todo-archive-panel"[^>]*>已归档<\/button>/);
+  assert.match(artifact, /id="todo-archive-panel"[^>]*hidden/);
+  assert.match(artifact, /id="todo-archive-list"/);
+  assert.match(artifact, /按归档时间倒序/);
+  assert.match(artifact, /id="todo-create-open"[^>]*>新增需求<\/button>/);
+  assert.match(artifact, /<form class="todo-create-form" id="todo-create-form" hidden>/);
+  assert.match(artifact, /name="title"[^>]*placeholder="输入待办事项"/);
+  const renderedTodoIds = [...new Set([...artifact.matchAll(/<article class="todo-item"[^>]*data-todo-id="(TODO-\d+)"/g)].map(match => match[1]))];
+  const todoTotalCount = artifact.match(/id="todo-total-count">(\d+)项<\/strong>/);
+  assert.ok(todoTotalCount);
+  assert.equal(Number(todoTotalCount[1]), renderedTodoIds.length);
+  assert.ok(renderedTodoIds.length > 0);
+  assert.match(artifact, /data-todo-summary-quadrant="重要且紧急"/);
+  assert.match(artifact, /class="todo-item" draggable="true"/);
+  assert.match(artifact, /class="todo-quadrant-header"/);
+  assert.match(artifact, /class="todo-quadrant-toggle"[^>]*data-action="toggle-todo-quadrant"[^>]*aria-expanded="true"/);
+  assert.match(artifact, /class="todo-quadrant[^>]*tabindex="0"/);
+  assert.match(artifact, /class="todo-item-kicker"[^>]*>\s*<span>TODO-\d+<\/span>/);
+  assert.match(artifact, /class="todo-action-button is-status todo-status-button"[^>]*data-action="cycle-todo-status"[^>]*>状态 · 未开始<\/button>/);
   assert.match(artifact, /class="todo-item-actions"/);
-  assert.match(artifact, /data-action="move-todo"/);
+  assert.match(artifact, /class="todo-item-time">创建 2026-08-27<\/span>/);
+  assert.doesNotMatch(artifact, /class="todo-item-meta"/);
+  assert.doesNotMatch(artifact, /<span>无截止日期<\/span>/);
+  assert.doesNotMatch(artifact, /负责人 User/);
+  assert.doesNotMatch(artifact, /<p>User<\/p>/);
+  assert.doesNotMatch(artifact, /重要 是/);
+  assert.doesNotMatch(artifact, /紧急 是/);
+  assert.doesNotMatch(artifact, /<small>用户补充<\/small>/);
+  assert.doesNotMatch(artifact, /class="todo-move-select"/);
+  assert.doesNotMatch(artifact, /data-action="move-todo"/);
   assert.match(artifact, /data-action="delete-todo"/);
+  assert.doesNotMatch(artifact, /data-todo-status="已完成"/);
+  const q1TodoOrder = [
+    artifact.indexOf('data-todo-id="TODO-007"'),
+    artifact.indexOf('data-todo-id="TODO-006"'),
+  ];
+  assert.ok(q1TodoOrder.every(index => index >= 0));
+  assert.deepStrictEqual([...q1TodoOrder].sort((left, right) => left - right), q1TodoOrder);
   for (const marker of [
-    'TODO-001',
-    'TODO-002',
     'TODO-003',
     'TODO-004',
     'TODO-005',
@@ -528,6 +606,7 @@ test('changelog renders the approved initial entries', () => {
   assert.match(html, /<p class="eyebrow">CHANGELOG<\/p>/);
   assert.match(html, /最近发生了什么——新功能、调整与修复，都写在这里。/);
   for (const title of [
+    '需求清单升级为分层四象限看板',
     '持仓跟踪增加三要素研报入口',
     '市场总览改为三张信号卡',
     '温度计新增富贵策略',
@@ -1157,4 +1236,23 @@ test('file-protocol storage restrictions fall back to an in-memory cache', () =>
   const storage = resolveStorage(() => { throw new Error('SecurityError'); });
   storage.setItem('key', 'value');
   assert.equal(storage.getItem('key'), 'value');
+});
+
+test('todo action requests abort instead of leaving the UI busy forever', async () => {
+  let aborted = false;
+  await assert.rejects(
+    fetchTodoAction('/api/todo-item', { method: 'PATCH' }, (_url, options) => new Promise((resolve, reject) => {
+      options.signal.addEventListener('abort', () => {
+        aborted = true;
+        reject(Object.assign(new Error('aborted'), { name: 'AbortError' }));
+      });
+    }), 5),
+    error => error.name === 'AbortError',
+  );
+  assert.equal(aborted, true);
+});
+
+test('todo actions use the independent local service origin', () => {
+  assert.equal(todoActionUrl('/api/todos', { protocol: 'http:', hostname: '127.0.0.1' }), 'http://127.0.0.1:49889/api/todos');
+  assert.equal(todoActionUrl('/api/todos', { protocol: 'file:', hostname: '' }), '/api/todos');
 });

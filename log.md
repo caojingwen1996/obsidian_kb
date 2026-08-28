@@ -1814,7 +1814,7 @@ topic / refactor / index
 
 ### 操作说明
 
-按用户要求继续扩展 [[topics/冰冰小美-观测指标|冰冰小美-观测指标]]，在“宏观全球指标”“中观央行指标”之后新增“微观企业指标”。该章节聚合产业位置、经营验证、竞争格局、成长质量、估值兑现和企业风险六类观察变量，并回链[[冰冰小美-fundamental-产业思维|产业思维]]]]、[[concepts/冰冰小美-framework-产业链财报旁证法|产业链财报旁证法]]、[[concepts/冰冰小美-framework-长线四大选股体系|长线四大选股体系]]、[[concepts/冰冰小美-成长股选择框架|成长股选择框架]] 等既有页面。同步更新总索引描述。
+按用户要求继续扩展 [[topics/冰冰小美-观测指标|冰冰小美-观测指标]]，在“宏观全球指标”“中观央行指标”之后新增“微观企业指标”。该章节聚合产业位置、经营验证、竞争格局、成长质量、估值兑现和企业风险六类观察变量，并回[[冰冰小美-framework-产业思维|产业思维]]]]]、[[concepts/冰冰小美-framework-产业链财报旁证法|产业链财报旁证法]]、[[concepts/冰冰小美-framework-长线四大选股体系|长线四大选股体系]]、[[concepts/冰冰小美-成长股选择框架|成长股选择框架]] 等既有页面。同步更新总索引描述。
 
 ### 后续待办
 
@@ -20261,6 +20261,79 @@ research / three-factor-analysis / render
 - 跟踪 8 月 29 日半年报的电力设备收入、扣非利润、海外毛利、应收账款与经营现金流。
 - 跟踪市场广度、5/10 日订单资金、融资承接、H 股发行条款及特高压和海外正式订单。
 
+## 2026-08-28
+
+### 操作类型
+
+update / equity_research
+
+### 修改文件
+
+- `sources/manual/2026-08-28-紫光股份研究数据快照.md`
+- `workbench/targets/2026-08-03-1638-紫光股份-机构级决策研报.md`
+- `workbench/index.md`
+- `sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-03-1638-紫光股份-机构级决策研报.html`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-equity-research v3.0.6` 原地更新紫光股份权威研报，补入截至 2026-08-27 收盘的行情、估值、资金分档、融资余额、股东户数、2025 年报与 2026Q1 财务数据，并以 2026-08-29 半年度报告预约披露作为下一验证点。结论为 30—40 元公允价值区间、现价位于区间上半部，新增现金 `wait / observe`、已有持仓 `review`。
+
+### 后续待办
+
+- 2026-08-29 半年度报告正式披露后，复核收入质量、毛利率、经营现金流、新华三利润增厚与定增摊薄。
+
+## 2026-08-28
+
+### 操作类型
+
+dashboard / todo-archive
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/scripts/local_proxy.py`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/scripts/build.mjs`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/tests/test_local_proxy.py`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求为需求清单新增完成归档功能：当待办状态切换到“已完成”时，本地接口自动从活动 `items` 移入 `todo.json` 的 `archive` 数组，并记录 `completedAt`、`archivedAt` 和归档原因。前端收到归档结果后从四象限移除卡片、刷新数量，并在来源状态中显示已归档数量；静态构建也不再展示完成项。
+
+### 后续待办
+
+- 后续生成周报、月报时优先读取 `tools/a-share-market-dashboard/data/todo.json` 的 `archive` 数组。
+
+## 2026-08-28
+
+### 操作类型
+
+dashboard / todo-archive-view
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/scripts/build.mjs`
+- `tools/a-share-market-dashboard/scripts/local_proxy.py`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求在需求清单顶部新增“已归档”按钮，展开后按归档时间倒序展示已完成归档任务。前端实时读取 `todo.json` 时同步刷新归档列表，状态切到已完成后会立即把该任务插入归档列表，并保留原四象限、完成时间和归档时间，便于后续生成周报、月报等工作报告。
+
+### 后续待办
+
+- 如后续需要，可继续基于归档列表生成周报和月报摘要。
+
 ## 2026-08-06
 
 ### 操作类型
@@ -24535,6 +24608,32 @@ spreadsheet / dashboard / todo-list
 
 ### 操作类型
 
+tool-ui / dashboard / todo-list
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/scripts/build.mjs`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/scripts/local_proxy.py`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/tests/test_local_proxy.py`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+为温度计看板“我的 / 需求清单”中的每条待办新增移动和删除操作。移动操作通过象限选择框与“移动”按钮更新 `todo.xlsx` 中的“重要性”和“紧急性”，删除操作清空对应待办行并保留 Excel 表格公式；两类操作都需要通过 `启动面板.cmd` 打开看板，成功后由本地代理自动重建静态 HTML 并刷新页面。同步补充看板更新日志和前后端测试。
+
+### 后续待办
+
+- 若后续希望直接在看板新增待办，可复用同一 `/api/todo-item` 路径扩展新增接口。
+
+## 2026-08-27
+
+### 操作类型
+
 refactor / concept-structure / source-index
 
 ### 修改文件
@@ -24567,3 +24666,668 @@ query / link / source-index
 
 - QMD 语义检索和索引刷新均因本机 `C:\Users\lenovo\.qmd` 路径冲突无法启动，本次按检索技能要求降级为全库关键词、双链反查和来源 URL 去重。
 - 未修改任何 `sources/` 原文，未新增正式页面，因此不更新 `index.md`。
+
+- [2026-08-27T17:06:18+08:00] QUERY query="还有哪些文章提到周期的路径演绎" result_pages=4 mode=normal escalated=true
+
+- [2026-08-27T17:09:55+08:00] QUERY query="周期的路径演绎是什么意思" result_pages=3 mode=normal escalated=false
+
+## 2026-08-27
+
+### 操作类型
+
+automation / path-structure
+
+### 修改文件
+
+- `.agents/automations/bbxm_daliy_brief.md`
+- `log.md`
+
+### 操作说明
+
+调整“BBXM每日汇总”自动化的输出目录约定：新目录固定为 `sources/automations/BBXM每日汇总/{YEAR}/{MONTH}/{DATE}`，其中年份为四位、月份为两位、日期为 `YYYY-MM-DD`；取消日期目录下额外的“冰冰小美”子目录，并同步修改风险分析、风险写入状态、`summary.md` 与 `processing/` 的路径说明。既有历史目录不迁移、不删除。
+
+## 2026-08-27
+
+### 操作类型
+
+tool-ui / dashboard / todo-list
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/scripts/build.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+调整温度计看板“我的 / 需求清单”的待办卡片展示：卡片改为显示“创建 YYYY-MM-DD”，创建时间暂沿用 `todo.xlsx` 现有“更新时间”字段；同一四象限内按创建时间倒序排列，同日条目按需求编号倒序排列。隐藏卡片中的负责人、截止日期、重要/紧急标记和来源备注等辅助字段，移动与删除按钮保持可用。同步重建静态 HTML、补充看板更新日志和测试断言。
+
+### 后续待办
+
+- 若后续需要精确到时分秒的创建时间，可在 `todo.xlsx` 增加独立“创建时间”列，再改为读取该字段。
+
+## 2026-08-27
+
+### 操作类型
+
+tool-ui / dashboard / todo-list
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/scripts/build.mjs`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+将温度计看板“我的 / 需求清单”的移动方式从“下拉选择 + 移动按钮”改为拖拽看板：每张待办卡片可直接拖到四个时间管理象限中的目标看板，释放后通过既有 `/api/todo-item` 写回 `todo.xlsx`，成功后自动重建并刷新页面。删除按钮保留，旧移动按钮和移动下拉框已从生成页面中移除；拖动时目标象限增加高亮反馈。
+
+### 后续待办
+
+- 触屏设备如需更顺手的移动体验，可后续补充长按拖动或移动菜单。
+
+## 2026-08-27
+
+### 操作类型
+
+tool-ui / dashboard / todo-list / troubleshooting
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+排查“需求清单”拖拽移动失败弹窗。确认当前浏览器已打开本地地址，但 49888 端口上的旧本地面板进程对 `/api/todo-item` 返回 404，导致前端误报为 `todo.xlsx` 占用。已重启本地面板后台，接口验证返回 200 且 `rebuilt=true`；同时优化前端待办写回错误提示：404 识别为本地面板服务版本过旧，500 才提示检查 Excel 占用，待办不存在时提示刷新页面。
+
+### 后续待办
+
+- 若再次出现“版本过旧”，关闭旧面板窗口后重新双击 `启动面板.cmd` 即可刷新后台服务。
+
+## 2026-08-27
+
+### 操作类型
+
+tool-ui / dashboard / todo-list / performance
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/scripts/build.mjs`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/scripts/local_proxy.py`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/tests/test_local_proxy.py`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+优化温度计看板“我的 / 需求清单”的交互响应速度。拖拽移动待办时，前端先立即把卡片移动到目标象限并同步更新象限数量、顶部摘要数量和总数，再通过 `/api/todo-item` 后台写回 `todo.xlsx`；若后台同步失败，则自动把卡片恢复到原象限和原位置。删除待办同样改为先从页面移除、失败再恢复。本地代理新增 `deferRebuild` 支持，写回成功后立即返回 `rebuilt=queued`，静态 HTML 重建改为后台线程排队执行，避免等待重建完成后再响应页面。
+
+### 后续待办
+
+- 若以后需要多人或多窗口同时编辑待办，可再增加同步状态提示和冲突刷新机制。
+
+## 2026-08-27
+
+### 操作类型
+
+tool-ui / dashboard / todo-list / navigation
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+修复“需求清单”拖拽移动待办后页面回到首页的问题。前端新增当前视图记忆，将当前一级菜单和当前视图保存到本地存储，页面重新加载时优先恢复上次视图，不再固定初始化到“温度计 / 市场总览”。同时为待办拖拽增加全局 `dragover` / `drop` 默认行为拦截，避免浏览器把拖放内容当作导航处理。
+
+### 后续待办
+
+- 若需要跨浏览器或隐私模式保留当前视图，可改为在 URL hash 中同步当前视图。
+
+## 2026-08-27
+
+### 操作类型
+
+tool-ui / dashboard / todo-list / status
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/scripts/build.mjs`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/scripts/local_proxy.py`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/tests/test_local_proxy.py`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+为温度计看板“我的 / 需求清单”新增状态修改按钮。待办卡片右上角原状态标识改为可点击按钮，点击后在“未开始 / 进行中 / 已完成”之间循环切换，页面先即时更新，再通过本地代理把状态写回 `todo.xlsx` 的“状态”列；同步失败时恢复原状态并提示原因。本地代理新增 `PATCH /api/todo-item` 状态更新路径，并继续使用异步重建以保持交互响应速度。同时过滤无说明待办中的负责人占位，避免卡片正文只显示 `User`。
+
+### 后续待办
+
+- 如后续需要更多状态，可扩展 `TODO_STATUSES` 并同步约束 Excel 状态列。
+
+## 2026-08-27
+
+### 操作类型
+
+tool-ui / dashboard / todo-list / create
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/scripts/local_proxy.py`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/tests/test_local_proxy.py`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+为温度计看板“我的 / 需求清单”增加“新增需求”入口。面板顶部新增按钮和内嵌表单，支持直接填写需求事项、说明、四象限和状态；提交后页面先即时插入临时卡片，再通过本地代理写回 `todo.xlsx`，成功后替换为真实 `TODO-编号`，失败时自动移除临时卡片。本地代理扩展 `POST /api/todo-item`，按 `action=create` 创建新待办行，并沿用异步重建。
+
+### 后续待办
+
+- 若后续需要在面板维护截止日期和负责人，可在新增表单中继续补充对应字段。
+
+## 2026-08-27
+
+### 操作类型
+
+ingest / concept / link
+
+### 修改文件
+
+- `wiki/views/冰冰小美：长期主义通过路径演绎连接宏观与微观交易的判断框架.md`
+- `wiki/reasoning/冰冰小美-宏观周期路径如何传导为微观事件与短期变通.md`
+- `index.md`
+- `hot.md`
+- `.manifest.json`
+- `log.md`
+
+### 新增文件
+
+- `wiki/concepts/冰冰小美-framework-周期路径演绎.md`
+
+### 操作说明
+
+基于库内来源 `sources/articles/2025-10-02-冰冰小美：长期主义与变通.md`，新建“周期路径演绎”概念页，整理其定义、核心传导链、使用方法、判断标准和常见误解。概念页把周期路径演绎概括为“宏观与产业周期 → 产业约束与供需 → 企业经营变量 → 事件显性化 → 共识与资金 → 分阶段定价 → 根据验证、估值和流动性调整行动”，并与已有观点页、推导链页建立双向链接；同步更新总索引、最近活动和来源登记。
+
+- [2026-08-27T17:16:45+08:00] INGEST source="sources/articles/2025-10-02-冰冰小美：长期主义与变通.md" pages_updated=6 pages_created=1 mode=append
+
+### 后续待办
+
+- 当前内容主要来自冰冰小美的框架性观点；其中涉及 AI、铜等现实案例的具体事实，引用时仍需结合外部数据单独验证。
+- QMD 索引刷新失败：本机 `C:\Users\lenovo\.qmd` 已被同名文件占用，导致工具无法创建数据库目录；Markdown 知识库修改已保留。
+
+## 2026-08-27
+
+### 操作类型
+
+tool-ui / dashboard / todo-list / json-storage
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/data/todo.json`
+- `tools/a-share-market-dashboard/scripts/build.mjs`
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/scripts/local_proxy.py`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/tests/test_local_proxy.py`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户要求将温度计看板“我的 / 需求清单”从 `todo.xlsx` 切换为 `data/todo.json`。构建脚本改为读取 JSON，面板来源链接改为 `todo.json`，新增、拖拽移动、状态修改和删除接口全部改为直接写 JSON；保留现有待办及编号，后续新增按最大 `TODO-编号` 递增。旧 `todo.xlsx` 暂留在数据目录但不再被看板读取或写入。
+
+### 后续待办
+
+- 若确认不再需要 Excel，可人工删除旧 `todo.xlsx` 或另行导出备份。
+
+## 2026-08-27
+
+### 操作类型
+
+refactor / topic / link
+
+### 修改文件
+
+- `wiki/topics/冰冰小美-产业思维下案例集合.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求重构“冰冰小美-产业思维下案例集合”Topic Page：移除“案例索引”和“待进一步正式整理的 source 线索”中的 Markdown 表格，将内容统一改为按产业逻辑分组的案例条目；每个已整理案例固定使用“来源、正式承接页、框架作用、验证状态”四项，待整理线索固定使用“来源、暂列待整理的原因、下一步”三项。全页双链统一为 `[[目录/页面|显示名称]]` 格式，补齐省略的目录前缀，并移除一个没有实际页面承接的 AI 观点页链接。
+
+### 后续待办
+
+- QMD 索引刷新失败：本机 `C:\Users\lenovo\.qmd` 已被同名文件占用，导致工具无法创建数据库目录；Markdown 页面修改已保留。
+
+- [2026-08-27T18:02:19+08:00] QUERY query="冰冰小美经常提到的演绎是什么意思？" result_pages=5 mode=normal escalated=false
+
+## 2026-08-27
+
+### 操作类型
+
+tool-ui / dashboard / todo-list / responsive
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/scripts/build.mjs`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+参考成熟任务看板的“分组列头、独立任务卡、统一操作栏、可滚动列与可折叠分组”模式，重构“我的 / 需求清单”。四象限列头现在集中展示 Q 编号、象限名称、处理建议、任务数量和收起/展开按钮；需求项改为独立白色卡片，显示 TODO 编号、创建日期、标题和说明，状态与删除统一为相同尺寸和交互状态的操作按钮。每个象限设置最大可视高度和独立纵向滚动，窄屏切换为单列布局并把操作控件提升到 44 像素触控高度。
+
+### 验证
+
+- 需求清单 UI 回归断言通过，生成页面可正常解析。
+- 本地代理 50 项测试全部通过。
+- 1366×900 与 375×812 视口完成实际页面检查；窄屏无横向溢出，象限折叠/展开状态和卡片可见性正确。
+- 全量前端测试仍有 1 项既有三要素摘要断言与当前研报内容不一致，本次未修改该无关断言。
+
+## 2026-08-27
+
+### 操作类型
+
+refactor / topic / source-index
+
+### 修改文件
+
+- `wiki/topics/冰冰小美-产业思维下案例集合.md`
+- `log.md`
+
+### 操作说明
+
+根据用户进一步明确的页面边界，将“冰冰小美-产业思维下案例集合”改为纯原始文章分类索引。删除正式 View、Reasoning、Event、Timeline、Query 页面、验证状态、建页建议和“待进一步正式整理的 source 线索”等内容，仅保留知识库 `sources/` 内关于具体产业、行业结构和具体标的的完整原始文章；按十个产业组和四个标的组重新归类，并明确排除自动研报、行情快照、截图、单条评论、交易记录和事件片段。经全库补查，纳入 83 篇不重复原文。
+
+- [2026-08-27T18:18:02+08:00] QUERY query="仅整理原始文章，将知识库关于具体产业和具体标的的分析文章全部分类整理到该页面" result_pages=83 mode=normal escalated=true
+
+### 后续待办
+
+- 东材科技、长电科技和医疗器械等方向当前只有观点、事件、交易片段或自动研报；待完整原文进入 `sources/` 后再归入本页。
+- QMD 当前受本机 `C:\Users\lenovo\.qmd` 同名文件冲突影响，无法创建索引数据库目录；Markdown 原文索引不受影响。
+
+## 2026-08-28
+
+### 操作类型
+
+analysis / three-factor / workbench
+
+### 修改文件
+
+- `sources/webpages/2026-08-28-紫光股份三要素数据核验快照.md`
+- `workbench/targets/2026-08-28-1004-紫光股份-三要素分析.md`
+- `sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-28-1004-紫光股份-三要素分析.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-three-factor-analysis v2.3.0` 对紫光股份（000938.SZ）生成三要素分析。先读取根规则、workbench 规则、三要素模板与竞争格局、流动性、情绪位置概念页，再用旧机构级研报、库内算力产业报告、冰冰小美相关帖子、8 月本地 Tushare 行情 / 资金 / 融资融券数据，以及 2026-08-28 定增问询回复和 2026-08-29 中报预披露信息完成核验。结论为竞争格局有利，流动性中性且阶段由转弱进入修复，情绪位置中性并处于退潮后的修复，综合状态为部分有利；新增现金 `observe`，已有持仓 `review`。
+
+### 后续待办
+
+- 2026-08-29 半年度报告披露后，复核 ICT 基础设施及服务毛利率、新华三利润、经营现金流、应收存货和定增摊薄。
+
+## 2026-08-28
+
+### 操作类型
+
+automation / signal-check
+
+### 修改文件
+
+- `sources/automations/中证红利信号/中证红利每日信号.xlsx`
+- `sources/automations/中证红利信号/最新信号.md`
+- `sources/automations/中证红利信号/中证红利年度表现.json`
+- `log.md`
+
+### 操作说明
+
+按 `zzhl-dividend-signal` skill 运行 `python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py --output-dir "sources/automations/中证红利信号" --run-date 2026-08-28`，刷新中证红利股息率信号每日记录。记录日期为 `2026-08-28`；AKShare 指数估值日期为 `2026-08-27`，中证红利 `股息率2` 为 `4.07%`；中国 10 年国债收益率日期为 `2026-08-27`，收益率为 `1.6988%`，股息率口径 - 10 年国债收益率利差为 `2.3712` 个百分点。2026 年内收益率为 `2.73%`，年内最大回撤为 `-15.96%`。理杏仁公开页面失败：`HTTP Error 403: Forbidden`；雪球实时行情接口返回空响应，因此历史分位点、理杏仁市值加权股息率和当天涨跌幅保持待验证，未编造数值。三类规则结果为：历史分位点待验证、绝对股息率 `C（小额定投）`、相对债券收益率 `C（小额定投）`；综合结论为“历史分位点待验证，暂不判定加大买入区间”，未进入重点买入区间。
+
+### 后续待办
+
+- 下次运行继续优先使用免费数据源；若理杏仁公开页仍返回 403，只保留待验证状态，除非获得可核验网页结果并通过脚本参数补录。
+
+## 2026-08-28
+
+### 操作类型
+
+tool-ui / dashboard / todo-list / repair
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+修复“我的 / 需求清单”新增、拖拽、状态修改和删除在本地面板服务无响应时可能一直停留在等待态的问题。待办写入请求统一增加超时兜底；超时或失败时恢复卡片位置、状态和按钮可用状态；新增需求超时时会移除 `TODO-PENDING` 临时卡片；状态修改成功后使用服务返回的规范化状态重新同步前端。
+
+### 验证
+
+- 单文件面板已重建成功。
+- 需求清单相关前端回归测试通过。
+- 本地代理 50 项测试全部通过。
+- 全量前端测试仍有 1 项既有三要素摘要断言与当前研报内容不一致，本次未修改该无关断言。
+
+## 2026-08-28
+
+### 操作类型
+
+update / workbench / three-factor-analysis
+
+### 修改文件
+
+- `sources/webpages/2026-08-28-西部矿业三要素更新数据快照.md`
+- `workbench/targets/2026-08-19-1617-西部矿业-三要素分析.md`
+- `sources/automations/战略资源/铜/2026-08-19-1617-西部矿业-三要素分析.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-three-factor-analysis v2.3.0` 对西部矿业（601168.SH）既有三要素分析原地刷新至 2026-08-27 收盘：新增 2026-08-28 行情与监控证据快照，将流动性阶段从“转弱”更新为“转弱 → 修复”，但因价格仍接近 28-40 元公允价值区间上沿、8 月 26 日反弹未形成连续扩张，综合结论仍为“尚未形成有利共振”；新增现金维持 `wait`，已有持仓维持 `review`。
+
+### 后续待办
+
+- 跟踪 20 日大额订单、融资余额、铜 ETF / 机构流入、股价是否有效站稳 40 元，以及 2026Q3 矿产铜、经营现金流和玉龙三期基建进展。
+
+## 2026-08-28
+
+### 操作类型
+
+tool-ui / dashboard / todo-list / optimize
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/scripts/local_proxy.py`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/tests/test_local_proxy.py`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+将“我的 / 需求清单”从整页静态重建改为独立局部渲染。本地服务新增 `GET /api/todos`，打开需求清单时单独读取 `data/todo.json` 并替换四象限和摘要区域；新增、状态修改、拖拽和删除仅写入 JSON 并返回结果，不再启动 `build.mjs`。针对浏览器实测发现的行情请求占满连接问题，需求读写改走同一进程的独立轻量端口。直接双击单文件面板时继续显示构建时快照。清理了重复占用面板端口的旧服务，并启动唯一的新服务进程。
+
+### 验证
+
+- 单文件面板已重建成功。
+- 需求清单相关自动回归通过。
+- 本地代理 51 项测试全部通过，覆盖独立读取、跨端口访问、写入后重新读取及不触发整页重建。
+- 实际浏览器在行情加载期间进入需求清单约 342 毫秒，状态切换约 344 毫秒；测试后已恢复原状态与更新时间，控制台无错误。
+- 当前仅有一个本地服务进程，分别监听面板端口和需求轻量端口。
+- 全量前端测试 74 项中 73 项通过；仍有 1 项既有三要素摘要样本断言与当前研报内容不一致，本次未修改该无关断言。
+
+## 2026-08-28
+
+### 操作类型
+
+monitor / portfolio / equity-research / valuation / dashboard
+
+### 修改文件
+
+- `sources/webpages/2026-08-28-云铝股份H1与估值重估快照.md`
+- `workbench/targets/2026-07-23-1421-云铝股份-机构级决策研报.md`
+- `sources/automations/支柱产业/电解铝/2026-07-23-1421-云铝股份-机构级决策研报.html`
+- `workbench/index.md`
+- `tools/a-share-market-dashboard/data/monitor-run-2026-08-28.json`
+- `tools/a-share-market-dashboard/data/*-每日监控-2026-08-28.md`
+- `tools/a-share-market-dashboard/data/*-每日监控-2026-08-28.html`
+- `tools/a-share-market-dashboard/data/持仓今日监控汇总-2026-08-28.md`
+- `tools/a-share-market-dashboard/data/持仓今日监控汇总-2026-08-28.html`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按 `portfolio-daily-monitoring v1.4.1` 动态读取 `portfolio.json`，对6个“持有”和9个“观察”标的生成2026-08-28盘前逐标的与汇总 Markdown/HTML，行情统一使用最近已完成交易日2026-08-27。紫光股份在运行中加入观察清单，已动态补抓并纳入15标的最终汇总。默认异常规则命中5个标的：云铝股份的法定半年报、兴业银锡的估值越界、柳工的成交额/换手率异常、星网锐捷的单日与5日涨幅异常、东材科技的单日涨幅与估值越界。柳工昨日已完成H1重估，今日只做量价复盘，不重复入队。
+
+云铝股份因2026H1法定披露触发 `FULL_REVALUE`，按 `bbxm-equity-research v3.0.6` 对唯一权威研报原地全量更新：H1收入+20.30%、归母净利+177.61%、CFO+125.00%，FCF代理81.71亿元；将正常化归母净利调整为90—120亿元，公允价值由20—28元上调为22—31元、中枢26.5元。应收较年末+278.5%、商品价差均值回归和现金在集团财务公司的集中度为下一验证点。权威研报HTML已用统一渲染器重生，并重建A股市场跟踪面板。
+
+### 后续待办
+
+- 下一交易日复核兴业银锡、柳工、星网锐捷和东材科技的异常持续性。
+- 云铝股份跟踪2026Q3铝—氧化铝价差、应收回款、经营现金流、产量与中铝财务公司存款集中度。
+- 继续缺少全组合成本、仓位和可审计行业指数映射；本次不因数据缺口强行解释股价。
+
+## 2026-08-28
+
+### 操作类型
+
+tool-ui / dashboard / holding-tracker / allocation
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+将“我的 / 持仓跟踪”的默认展示切换为配比模式。首次进入页面时，资产配比区域直接显示，配比按钮保持激活状态，跟踪清单按资产类别分组；用户仍可点击“配比模式”切回普通清单。
+
+### 验证
+
+- 单文件面板已重建成功。
+- 页面结构、默认激活状态和运行时默认值相关回归共 2 项，全部通过。
+
+- [2026-08-28T14:57:37+08:00] QUERY query="冰冰小美 产业思维 与 竞争格局的比较优势 的关系" result_pages=4 mode=normal escalated=false
+## 2026-08-28
+
+### skill / create
+
+- 新增 `.agents/skills/bbxm-industrial-thinking-equity-analysis/SKILL.md`：基于当前 `wiki/concepts/冰冰小美-framework-产业思维.md` 建立面向单家上市公司的产业思维执行流程，区分产业投资生命周期、行业经营周期、公司兑现和市场定价。
+- 新增 `.agents/skills/bbxm-industrial-thinking-equity-analysis/template.md`：提供 `0—7` 章完整个股产业思维报告模板。
+- 新增 `.agents/skills/bbxm-industrial-thinking-equity-analysis/evals/evals.json` 与 `agents/openai.yaml`：覆盖直接触发、概念与真实受益辨别、相邻技能路由和证据缺口边界。
+- 更新 `.agents/skills/bbxm-expert/SKILL.md`：新增“个股产业思维”分流，并明确与产业分析、机构级个股研究和三要素分析的边界。
+- 资料来源：`wiki/concepts/冰冰小美-framework-产业思维.md`。
+
+## 2026-08-28
+
+### 操作类型
+
+research / industrial-thinking-equity-analysis / html-export
+
+### 修改文件
+
+- `workbench/targets/2026-08-28-1553-紫光股份-产业思维分析.md`
+- `sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-28-1553-紫光股份-产业思维分析.html`
+- `tools/render-industrial-thinking-report-html.cjs`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-industrial-thinking-equity-analysis v1.0.0` 对紫光股份完成首次正式个股产业思维分析。报告动态读取产业思维框架，区分算力产业投资生命周期、行业经营周期、公司兑现阶段与市场定价阶段，并以产业方向、订单与份额、收入、利润、经营现金流逐层核验真实受益。结论为产业跟踪资格通过、公司筛选资格有条件通过、当前投资资格部分有利、候选池保留；核心断点是毛利率下行、经营现金流波动、第二增长曲线缺少独立财务证据以及定增摊薄尚未确定。
+
+同步新增通用个股产业思维报告渲染器，生成与 Markdown 母稿同源、带目录和移动端适配的 HTML 阅读版。定增参数按 2026-08-18 二次修订稿及 2026-08-28 问询回复更新为募资上限 54.10 亿元、最高发行 4.30 亿股，事项仍待深交所审核和证监会注册。
+
+### 后续待办
+
+- 2026-08-29 半年度报告披露后复核分部毛利率、经营现金流、存货应收和核心经营利润。
+- 跟踪定增最终发行价格、股数、摊薄及新华三少数股权增厚的净效果。
+- 等待高端数据中心网络、GPU服务器、超节点及服务业务披露独立订单、收入和毛利率证据。
+
+## 2026-08-28
+
+### 操作类型
+
+industry-analysis / update / html-export
+
+### 修改文件
+
+- `sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-28-计算系统与集群产业完整分析报告.md`
+- `sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-28-计算系统与集群产业完整分析报告.html`
+- `log.md`
+
+### 操作说明
+
+按 `industry-analysis-model v2.2.1` 将用户输入“紫光股份”路由为以紫光股份/新华三为重点企业旁证的“中国计算系统与集群产业”完整分析，而非单家公司研报。重新读取2026-08-27更新的产业思维框架，更新产业周期、利润传导、资本市场作用、产业链公司映射和最值得跟踪环节；新增紫光股份2026Q1、2026H1业绩预告、新华三持股提升、54.10亿元定增以及2026-08-28估值旁证。
+
+报告判断计算系统与集群处于S2资本引导期、景气扩张与标准产品供给释放并存，利润周期停留在收入兑现和分化阶段，尚未进入行业性现金流兑现。紫光股份用于证明需求和收入真实存在，也用于反证宽口径收入、一次性利润与现金流不能混同。
+
+### 验证
+
+- Markdown与HTML均完整包含0—7章、产业链公司映射、业务占比或纯度、证据状态和通用风险附录。
+- HTML目录40个锚点完整，7个本地公司研报链接全部存在，未残留Obsidian双链、Unicode替换字符或典型中文乱码。
+- 产业报告通用回归被既有商业航天样例缺失 `sources/automations/商业航天每日跟踪/2026-07-17-电科蓝天机构级决策研报.html` 阻断；本次报告定向检查通过，未改动该无关旧样例。
+
+### 后续待办
+
+- 紫光股份2026-08-29半年报披露后复核新华三服务器/网络收入纯度、毛利率、存货应收与经营现金流。
+- 持续补充AI服务器、整机柜和超节点同口径市场规模、CR3/CR5、有效利用率及独立运维收入。
+
+## 2026-08-28
+
+### skill / rename
+
+- 将 `.agents/skills/bbxm-industry-analysis/SKILL.md` 的可调用名称由 `industry-analysis-model` 改为 `产业分析`，标题同步调整，版本由 `2.2.1` 升级为 `2.2.2`。
+- 更新 `agents/openai.yaml` 的展示名称和默认调用词为 `$产业分析`。
+- 同步更新 `bbxm-expert`、`bbxm-industrial-thinking-equity-analysis`、`industry-competitive-advantage-analysis` 及相关评测中的路由名称。
+- 保留目录 `.agents/skills/bbxm-industry-analysis/` 与脚本路径不变，避免影响产业报告渲染和既有文件引用。
+
+## 2026-08-28
+
+### 操作类型
+
+skill / create / competitive-advantage-analysis
+
+### 修改文件
+
+- `.agents/skills/industry-competitive-advantage-analysis/SKILL.md`
+- `.agents/skills/industry-competitive-advantage-analysis/references/full-framework.md`
+- `.agents/skills/industry-competitive-advantage-analysis/evals/evals.json`
+- `log.md`
+
+### 操作说明
+
+根据用户提供的《产业竞争格局与比较优势分析》草案，生成项目级“竞争格局比较优势分析”技能。主入口聚焦单一标的的同行比较、产业链利润池、优势兑现、持续性和市场定价，并明确与产业全景、个股产业思维、三要素分析及完整估值技能的路由边界；附件完整方法论作为按需读取的参考文件保留，另新增 5 个正向触发与边界测试用例。
+
+### 验证
+
+- 技能快速结构校验通过。
+- 主入口 221 行，完整参考框架 771 行，测试用例 5 项。
+- 中文文件按 UTF-8 复核，未发现典型乱码字符。
+
+## 2026-08-28
+
+### 操作类型
+
+industrial-thinking-equity-analysis / refresh / html-export
+
+### 修改文件
+
+- `sources/manual/2026-08-28-紫光股份收盘与公告状态快照.md`
+- `workbench/targets/2026-08-28-1707-紫光股份-产业思维分析.md`
+- `sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-28-1707-紫光股份-产业思维分析.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按 `bbxm-industrial-thinking-equity-analysis v1.0.0` 重新分析紫光股份，完整读取最新产业思维框架与0—7章模板，并将行情和估值推进至2026-08-28收盘。新增收盘与公告状态快照，记录35.89元收盘价、-1.4823%日涨跌、48.31倍PE TTM、6.61倍PB、0.99倍PS TTM和约1,026.48亿元总市值；同时确认定增已回复审核问询但仍待深交所审核及证监会注册，2026H1正式报告仍待8月29日披露。
+
+报告采用最新计算系统与集群产业研究的阶段口径，将当前定位为S2资本引导期，并注明框架结构图称“S2资本扩张期”。8月28日单日回落只小幅释放估值压力，没有改变资格判断：产业跟踪资格通过、公司筛选资格有条件通过、当前投资资格部分有利、候选池动作保留。
+
+### 验证
+
+- Markdown完整包含0—7章，产业跟踪资格、公司筛选资格、当前投资资格和候选池动作四项决策字段在Markdown与HTML中均存在。
+- 本地双链缺失数为0；HTML大小51,839字节，未残留Obsidian双链、Unicode替换字符、私用区字符或典型中文乱码。
+- HTML渲染脚本语法检查与相关文件`git diff --check`通过。
+
+### 后续待办
+
+- 2026-08-29半年报披露后立即复核分部毛利率、经营现金流、存货应收、新华三归母增厚及定增摊薄。
+
+## 2026-08-28
+
+### 操作类型
+
+topic / source-link
+
+### 修改文件
+
+- `wiki/topics/冰冰小美-信息的金融意义系列.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求更新 `wiki/topics/冰冰小美-信息的金融意义系列.md` 的“分篇索引”，新增“原文链接”列，将一至十五篇分别链接到 `sources/articles/` 中对应的库内原文副本；同步更新页面 `updated` 日期，并补齐原表格中空缺的核心问题字段。
+
+### 验证
+
+- 已检查 15 个原文链接均指向现有 `sources/articles/` 文件。
+- 已检查页面未出现典型中文乱码或 Unicode 替换字符。
+- QMD 索引刷新失败：本机 `C:\Users\lenovo\.qmd` 已是文件，QMD 无法创建同名数据库目录；Markdown 修改已保留。
+
+### 后续待办
+
+- 如后续需要，可继续为每篇原文补充外部原始 URL 或抓取来源信息。
+
+## 2026-08-28
+
+### 操作类型
+
+topic / source-link-display
+
+### 修改文件
+
+- `wiki/topics/冰冰小美-信息的金融意义系列.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求调整“分篇索引”的“原文链接”列，将链接显示文字从统一的“原文”改为对应原始文章标题，保留原有 `sources/articles/` 链接目标和表格内 wikilink 转义格式。
+
+### 验证
+
+- 已检查 15 个原文链接显示为对应文章标题。
+- 已检查链接目标仍为库内 `sources/articles/` 原文副本。
+- QMD 索引刷新仍失败：本机 `C:\Users\lenovo\.qmd` 已是文件，QMD 无法创建同名数据库目录；Markdown 修改已保留。

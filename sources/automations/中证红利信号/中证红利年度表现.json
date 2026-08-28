@@ -2,7 +2,7 @@
   "indexCode": "000922",
   "source": "中证指数官网 index-perf(000922)",
   "firstDate": "2008-05-26",
-  "lastDate": "2026-08-26",
+  "lastDate": "2026-08-27",
   "returnConvention": "每年首个可用交易日收盘价至末个可用交易日收盘价",
   "drawdownConvention": "每个自然年内日收盘价相对此前峰值的最大跌幅",
   "rows": [
@@ -153,8 +153,8 @@
     {
       "year": 2026,
       "start_date": "2026-01-05",
-      "end_date": "2026-08-26",
-      "annual_return": 2.4225718174446964,
+      "end_date": "2026-08-27",
+      "annual_return": 2.731705374724891,
       "max_drawdown": -15.96361099166238,
       "status": "年内"
     }

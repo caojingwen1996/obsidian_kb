@@ -15,8 +15,8 @@ const dividendSignalPath = join(automationsDir, '中证红利信号', '最新信
 const dividendHistoryWorkbookPath = join(automationsDir, '中证红利信号', '中证红利每日信号.xlsx');
 const dividendAnnualPerformancePath = join(automationsDir, '中证红利信号', '中证红利年度表现.json');
 const bbxmDailyDigestDir = join(automationsDir, 'BBXM每日汇总');
-const todoWorkbookPath = join(dataDir, 'todo.xlsx');
-const todoWorkbookHref = 'data/todo.xlsx';
+const todoDataPath = join(dataDir, 'todo.json');
+const todoDataHref = 'data/todo.json';
 const todoQuadrants = [
   { key: 'important-urgent', label: '重要且紧急', shortLabel: 'Q1', description: '立即处理', className: 'is-important-urgent' },
   { key: 'important-not-urgent', label: '重要不紧急', shortLabel: 'Q2', description: '排入计划', className: 'is-important-not-urgent' },
@@ -441,7 +441,7 @@ ${cards}
 function renderTodoSummaryCards(todoList) {
   return todoQuadrants.map(quadrant => {
     const count = todoList.items.filter(item => item.quadrant === quadrant.label).length;
-    return `            <article class="todo-summary-card ${escapeHtml(quadrant.className)}">
+    return `            <article class="todo-summary-card ${escapeHtml(quadrant.className)}" data-todo-summary-quadrant="${escapeHtml(quadrant.label)}">
               <small>${escapeHtml(quadrant.shortLabel)}</small>
               <strong>${count}</strong>
               <span>${escapeHtml(quadrant.label)}</span>
@@ -450,23 +450,72 @@ function renderTodoSummaryCards(todoList) {
 }
 
 function renderTodoItem(item) {
-  const due = item.dueDate ? `<span>截止 ${escapeHtml(item.dueDate)}</span>` : '<span>无截止日期</span>';
-  const owner = item.owner ? `<span>负责人 ${escapeHtml(item.owner)}</span>` : '';
-  const flags = [item.important ? `重要 ${item.important}` : '', item.urgent ? `紧急 ${item.urgent}` : ''].filter(Boolean);
-  const moveOptions = todoQuadrants.map(quadrant => `<option value="${escapeHtml(quadrant.label)}"${quadrant.label === item.quadrant ? ' selected' : ''}>${escapeHtml(quadrant.label)}</option>`).join('');
-  return `                <article class="todo-item" data-todo-id="${escapeHtml(item.id)}" data-todo-quadrant="${escapeHtml(item.quadrant)}">
-                  <div class="todo-item-head"><strong>${escapeHtml(item.title)}</strong><span>${escapeHtml(item.status)}</span></div>
-                  ${item.detail ? `<p>${escapeHtml(item.detail)}</p>` : ''}
-                  <div class="todo-item-meta">${due}${owner}${flags.map(flag => `<span>${escapeHtml(flag)}</span>`).join('')}</div>
-                  ${item.source ? `<small>${escapeHtml(item.source)}</small>` : ''}
-                  <div class="todo-item-actions">
-                    <select class="todo-move-select" data-todo-move-target="${escapeHtml(item.id)}" aria-label="移动 ${escapeHtml(item.title)} 到">
-${moveOptions}
-                    </select>
-                    <button class="todo-action-button" type="button" data-action="move-todo" data-todo-id="${escapeHtml(item.id)}">移动</button>
+  const createdAt = item.createdAt || item.updatedAt || '';
+  const createdAtText = createdAt ? `创建 ${createdAt}` : '创建时间未记录';
+  const status = item.status || '未开始';
+  const detail = item.detail && item.detail !== item.owner && item.detail !== 'User' ? item.detail : '';
+  const detailLine = detail ? `                  <p>${escapeHtml(detail)}</p>\n` : '';
+  return `                <article class="todo-item" draggable="true" data-todo-id="${escapeHtml(item.id)}" data-todo-quadrant="${escapeHtml(item.quadrant)}" aria-label="拖动 ${escapeHtml(item.title)} 到其他象限">
+                  <div class="todo-item-kicker"><span>${escapeHtml(item.id)}</span><span class="todo-item-time">${escapeHtml(createdAtText)}</span></div>
+                  <div class="todo-item-head"><strong>${escapeHtml(item.title)}</strong></div>
+${detailLine}                  <div class="todo-item-actions">
+                    <button class="todo-action-button is-status todo-status-button" type="button" data-action="cycle-todo-status" data-todo-id="${escapeHtml(item.id)}" data-todo-status="${escapeHtml(status)}" aria-label="修改 ${escapeHtml(item.title)} 状态">状态 · ${escapeHtml(status)}</button>
                     <button class="todo-action-button is-danger" type="button" data-action="delete-todo" data-todo-id="${escapeHtml(item.id)}">删除</button>
                   </div>
                 </article>`;
+}
+
+function todoArchiveSortKey(item) {
+  return item.archivedAt || item.completedAt || item.updatedAt || item.createdAt || '';
+}
+
+function normalizeTodoArchiveItems(rawArchive) {
+  return rawArchive.flatMap((item, rowIndex) => {
+    if (!item || typeof item !== 'object') return [];
+    const title = String(item.title ?? item['需求事项'] ?? '').trim();
+    if (!title) return [];
+    const important = normalizeTodoFlag(item.important ?? item['重要性']);
+    const urgent = normalizeTodoFlag(item.urgent ?? item['紧急性']);
+    const quadrant = canonicalTodoQuadrant(item.quadrant ?? item['四象限标签']) || todoQuadrantFromFlags(important, urgent);
+    const createdAt = normalizeTodoDate(item.createdAt ?? item['创建时间'] ?? item.updatedAt ?? item['更新时间']);
+    const updatedAt = normalizeTodoDate(item.updatedAt ?? item['更新时间'] ?? createdAt);
+    const completedAt = normalizeTodoDate(item.completedAt ?? item['完成时间'] ?? updatedAt);
+    const archivedAt = normalizeTodoDate(item.archivedAt ?? item['归档时间'] ?? completedAt);
+    return [{
+      id: String(item.id ?? item['需求编号'] ?? `TODO-${String(rowIndex + 1).padStart(3, '0')}`).trim(),
+      title: truncateText(title, 72),
+      detail: truncateText(String(item.detail ?? item['说明'] ?? '').trim(), 150),
+      quadrant,
+      status: '已完成',
+      source: truncateText(String(item.source ?? item['来源/备注'] ?? item['来源'] ?? '').trim(), 56),
+      createdAt,
+      updatedAt,
+      completedAt,
+      archivedAt,
+    }];
+  }).sort((left, right) => {
+    const dateOrder = todoArchiveSortKey(right).localeCompare(todoArchiveSortKey(left));
+    return dateOrder || right.id.localeCompare(left.id, 'zh-CN', { numeric: true });
+  });
+}
+
+function renderTodoArchiveItem(item) {
+  const detail = item.detail && item.detail !== 'User' ? item.detail : '';
+  const completedAt = item.completedAt ? `完成 ${item.completedAt}` : '完成时间未记录';
+  const archivedAt = item.archivedAt ? `归档 ${item.archivedAt}` : '归档时间未记录';
+  return `                <article class="todo-archive-item" data-todo-archive-id="${escapeHtml(item.id)}">
+                  <div class="todo-item-kicker"><span>${escapeHtml(item.id)}</span><span class="todo-item-time">${escapeHtml(archivedAt)}</span></div>
+                  <div class="todo-item-head"><strong>${escapeHtml(item.title)}</strong></div>
+                  ${detail ? `<p>${escapeHtml(detail)}</p>` : ''}
+                  <div class="todo-archive-meta"><span>${escapeHtml(completedAt)}</span><span>${escapeHtml(item.quadrant)}</span></div>
+                </article>`;
+}
+
+function renderTodoArchiveList(todoList) {
+  const archive = todoList.archive ?? [];
+  return archive.length
+    ? archive.map(renderTodoArchiveItem).join('\n')
+    : '                <p class="todo-empty">暂无归档任务</p>';
 }
 
 function renderTodoMatrix(todoList) {
@@ -475,9 +524,11 @@ function renderTodoMatrix(todoList) {
     const body = items.length
       ? items.map(renderTodoItem).join('\n')
       : '                <p class="todo-empty">暂无事项</p>';
-    return `              <section class="todo-quadrant ${escapeHtml(quadrant.className)}" data-todo-quadrant="${escapeHtml(quadrant.label)}">
-                <header><div><span>${escapeHtml(quadrant.shortLabel)}</span><h3>${escapeHtml(quadrant.label)}</h3></div><strong>${items.length}项</strong></header>
-                <p class="todo-quadrant-guide">${escapeHtml(quadrant.description)}</p>
+    return `              <section class="todo-quadrant ${escapeHtml(quadrant.className)}" data-todo-quadrant="${escapeHtml(quadrant.label)}" tabindex="0" aria-label="${escapeHtml(quadrant.label)}，${items.length}项任务，可滚动查看">
+                <header class="todo-quadrant-header">
+                  <div class="todo-quadrant-heading"><span class="todo-quadrant-index">${escapeHtml(quadrant.shortLabel)}</span><div><h3>${escapeHtml(quadrant.label)}</h3><p class="todo-quadrant-guide">${escapeHtml(quadrant.description)}</p></div></div>
+                  <div class="todo-quadrant-meta"><strong>${items.length}项</strong><button class="todo-quadrant-toggle" type="button" data-action="toggle-todo-quadrant" aria-expanded="true">收起</button></div>
+                </header>
 ${body}
               </section>`;
   }).join('\n');
@@ -837,66 +888,60 @@ function normalizeTodoDate(value) {
   return text.slice(0, 20);
 }
 
-function todoHeaderIndex(header, candidates) {
-  return candidates
-    .map(candidate => header.findIndex(value => String(value ?? '').trim() === candidate))
-    .find(index => index >= 0) ?? -1;
-}
-
-function parseTodoListFromWorkbook(buffer) {
-  if (!buffer?.length) {
-    return { items: [], sourceHref: todoWorkbookHref, sourceNote: '未找到 data/todo.xlsx', status: 'missing' };
+function parseTodoListFromJson(text) {
+  if (!text?.trim()) {
+    return { items: [], sourceHref: todoDataHref, sourceNote: '未找到 data/todo.json', status: 'missing' };
   }
-  const entries = readZipEntries(buffer);
-  const sharedStrings = parseXlsxSharedStrings(entries.get('xl/sharedStrings.xml'));
-  const sheetXml = entries.get('xl/worksheets/sheet1.xml') ?? [...entries.entries()].find(([name]) => /^xl\/worksheets\/sheet\d+\.xml$/.test(name))?.[1] ?? '';
-  const rows = parseXlsxSheetRows(sheetXml, sharedStrings).filter(row => row.some(value => String(value ?? '').trim()));
-  const header = rows[0] ?? [];
-  const idIndex = todoHeaderIndex(header, ['需求编号', '编号', 'ID']);
-  const titleIndex = todoHeaderIndex(header, ['需求事项', '待办事项', '事项', '标题']);
-  const detailIndex = todoHeaderIndex(header, ['说明', '描述', '备注']);
-  const dueIndex = todoHeaderIndex(header, ['截止日期', '到期日期', '日期']);
-  const ownerIndex = todoHeaderIndex(header, ['负责人', '责任人']);
-  const importantIndex = todoHeaderIndex(header, ['重要性', '重要']);
-  const urgentIndex = todoHeaderIndex(header, ['紧急性', '紧急']);
-  const quadrantIndex = todoHeaderIndex(header, ['四象限标签', '标签', '象限']);
-  const statusIndex = todoHeaderIndex(header, ['状态', '进度']);
-  const sourceIndex = todoHeaderIndex(header, ['来源/备注', '来源', '备注']);
-  const updatedIndex = todoHeaderIndex(header, ['更新时间', '更新日期']);
-  if (titleIndex < 0) return { items: [], sourceHref: todoWorkbookHref, sourceNote: 'todo.xlsx 缺少“需求事项”列', status: 'invalid' };
-  const items = rows.slice(1).flatMap((row, rowIndex) => {
-    const title = String(row[titleIndex] ?? '').trim();
+  let payload;
+  try {
+    payload = JSON.parse(text);
+  } catch {
+    return { items: [], sourceHref: todoDataHref, sourceNote: 'todo.json 格式无效', status: 'invalid' };
+  }
+  const rawItems = Array.isArray(payload) ? payload : Array.isArray(payload.items) ? payload.items : [];
+  const rawArchive = Array.isArray(payload?.archive) ? payload.archive : Array.isArray(payload?.archivedItems) ? payload.archivedItems : [];
+  const items = rawItems.flatMap((item, rowIndex) => {
+    if (!item || typeof item !== 'object') return [];
+    const title = String(item.title ?? item['需求事项'] ?? '').trim();
     if (!title) return [];
-    const important = normalizeTodoFlag(row[importantIndex]);
-    const urgent = normalizeTodoFlag(row[urgentIndex]);
-    const quadrant = canonicalTodoQuadrant(row[quadrantIndex]) || todoQuadrantFromFlags(important, urgent);
-    const dueDate = normalizeTodoDate(row[dueIndex]);
-    const updatedAt = normalizeTodoDate(row[updatedIndex]);
+    const important = normalizeTodoFlag(item.important ?? item['重要性']);
+    const urgent = normalizeTodoFlag(item.urgent ?? item['紧急性']);
+    const quadrant = canonicalTodoQuadrant(item.quadrant ?? item['四象限标签']) || todoQuadrantFromFlags(important, urgent);
+    const dueDate = normalizeTodoDate(item.dueDate ?? item['截止日期']);
+    const createdAt = normalizeTodoDate(item.createdAt ?? item['创建时间'] ?? item.updatedAt ?? item['更新时间']);
+    const updatedAt = normalizeTodoDate(item.updatedAt ?? item['更新时间'] ?? createdAt);
     return [{
-      id: String(row[idIndex] ?? `TODO-${String(rowIndex + 1).padStart(3, '0')}`).trim(),
+      id: String(item.id ?? item['需求编号'] ?? `TODO-${String(rowIndex + 1).padStart(3, '0')}`).trim(),
       title: truncateText(title, 72),
-      detail: truncateText(String(row[detailIndex] ?? '').trim(), 150),
+      detail: truncateText(String(item.detail ?? item['说明'] ?? '').trim(), 150),
       dueDate,
-      owner: truncateText(String(row[ownerIndex] ?? '').trim(), 18),
+      owner: truncateText(String(item.owner ?? item['负责人'] ?? '').trim(), 18),
       important: important === true ? '是' : important === false ? '否' : '',
       urgent: urgent === true ? '是' : urgent === false ? '否' : '',
       quadrant,
-      status: truncateText(String(row[statusIndex] ?? '').trim() || '未开始', 16),
-      source: truncateText(String(row[sourceIndex] ?? '').trim(), 56),
+      status: truncateText(String(item.status ?? item['状态'] ?? '').trim() || '未开始', 16),
+      source: truncateText(String(item.source ?? item['来源/备注'] ?? item['来源'] ?? '').trim(), 56),
+      createdAt,
       updatedAt,
     }];
-  }).sort((left, right) => {
+  }).filter(item => item.status !== '已完成').sort((left, right) => {
     const leftOrder = todoQuadrants.findIndex(quadrant => quadrant.label === left.quadrant);
     const rightOrder = todoQuadrants.findIndex(quadrant => quadrant.label === right.quadrant);
     if (leftOrder !== rightOrder) return leftOrder - rightOrder;
-    return (left.dueDate || '9999-99-99').localeCompare(right.dueDate || '9999-99-99')
+    const leftCreatedAt = left.createdAt || left.updatedAt || '';
+    const rightCreatedAt = right.createdAt || right.updatedAt || '';
+    const createdAtOrder = (rightCreatedAt || '0000-00-00').localeCompare(leftCreatedAt || '0000-00-00');
+    if (createdAtOrder) return createdAtOrder;
+    return right.id.localeCompare(left.id, 'zh-CN', { numeric: true })
       || left.title.localeCompare(right.title, 'zh-CN');
   });
-  const latestUpdate = items.map(item => item.updatedAt).filter(Boolean).sort().at(-1) ?? '';
+  const payloadUpdate = normalizeTodoDate(payload?.updatedAt);
+  const latestUpdate = payloadUpdate || items.map(item => item.updatedAt).filter(Boolean).sort().at(-1) || '';
   return {
     items,
-    sourceHref: todoWorkbookHref,
-    sourceNote: latestUpdate ? `来源：data/todo.xlsx · 更新：${latestUpdate}` : '来源：data/todo.xlsx',
+    archive: normalizeTodoArchiveItems(rawArchive),
+    sourceHref: todoDataHref,
+    sourceNote: `${latestUpdate ? `来源：data/todo.json · 更新：${latestUpdate}` : '来源：data/todo.json'}${rawArchive.length ? ` · 已归档${rawArchive.length}项` : ''}`,
     status: 'loaded',
   };
 }
@@ -1061,7 +1106,7 @@ const eventCalendar = validateEventCalendar(JSON.parse(eventCalendarSource));
 const dividendSignal = parseDividendSignal(await readFile(dividendSignalPath, 'utf8').catch(() => ''));
 const dividendYieldHistory = parseDividendYieldHistoryFromWorkbook(await readFile(dividendHistoryWorkbookPath).catch(() => null));
 const dividendAnnualPerformance = parseDividendAnnualPerformance(await readFile(dividendAnnualPerformancePath, 'utf8').catch(() => ''));
-const todoList = parseTodoListFromWorkbook(await readFile(todoWorkbookPath).catch(() => null));
+const todoList = parseTodoListFromJson(await readFile(todoDataPath, 'utf8').catch(() => ''));
 
 const automationReports = await walkHtmlFiles(automationsDir);
 const stockReportLinks = renderStockReportLinkMap(industries, automationReports);
@@ -1102,6 +1147,7 @@ const output = renderedTemplate
   .replace('            <!-- TODO_SUMMARY_CARDS -->', renderTodoSummaryCards(todoList))
   .replace('<!-- TODO_SOURCE_NOTE -->', escapeHtml(todoList.sourceNote))
   .replace('<!-- TODO_COUNT -->', String(todoList.items.length))
+  .replace('                <!-- TODO_ARCHIVE_LIST -->', renderTodoArchiveList(todoList))
   .replace('              <!-- TODO_MATRIX -->', renderTodoMatrix(todoList))
   .replace('              <!-- TOPIC_FILTER_TABS -->', renderTopicFilterTabs(topicPages))
   .replace('            <!-- TOPIC_CARDS -->', renderTopicCards(topicPages))

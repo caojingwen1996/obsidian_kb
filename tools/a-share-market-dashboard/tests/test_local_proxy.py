@@ -15,7 +15,7 @@ from scripts.local_proxy import (
     DEFAULT_PORT,
     RouteError,
     UpstreamError,
-    apply_todo_workbook_action,
+    apply_todo_json_action,
     append_review_diary_entry,
     build_upstream_url,
     create_server,
@@ -847,33 +847,216 @@ class ServerTests(unittest.TestCase):
 
         self.assertTrue(summary_exists)
 
-    def test_todo_item_move_and_delete_update_workbook(self):
+    def test_todo_item_create_move_status_and_delete_update_json(self):
         with TemporaryDirectory() as directory:
-            workbook = Path(directory) / "todo.xlsx"
-            shutil.copyfile(DASHBOARD.parent / "data" / "todo.xlsx", workbook)
+            todo_data = Path(directory) / "todo.json"
+            shutil.copyfile(DASHBOARD.parent / "data" / "todo.json", todo_data)
 
-            moved = apply_todo_workbook_action(
-                {"id": "TODO-007", "action": "move", "quadrant": "重要不紧急"},
-                workbook,
+            created = apply_todo_json_action(
+                {
+                    "action": "create",
+                    "title": "面板新增需求测试",
+                    "detail": "确认新增写回 JSON",
+                    "quadrant": "重要且紧急",
+                    "status": "进行中",
+                },
+                todo_data,
+                "create",
+                now=datetime(2026, 8, 27, 8, 55, tzinfo=timezone(timedelta(hours=8))),
+            )
+            moved = apply_todo_json_action(
+                {"id": created["id"], "action": "move", "quadrant": "重要不紧急"},
+                todo_data,
                 "move",
                 now=datetime(2026, 8, 27, 9, 0, tzinfo=timezone(timedelta(hours=8))),
             )
-            deleted = apply_todo_workbook_action(
-                {"id": "TODO-007", "action": "delete"},
-                workbook,
+            updated = apply_todo_json_action(
+                {"id": created["id"], "action": "status", "status": "未开始"},
+                todo_data,
+                "status",
+                now=datetime(2026, 8, 27, 9, 3, tzinfo=timezone(timedelta(hours=8))),
+            )
+            deleted = apply_todo_json_action(
+                {"id": created["id"], "action": "delete"},
+                todo_data,
                 "delete",
                 now=datetime(2026, 8, 27, 9, 5, tzinfo=timezone(timedelta(hours=8))),
             )
 
+        self.assertEqual(created["action"], "created")
+        self.assertRegex(created["id"], r"^TODO-\d{3,}$")
+        self.assertEqual(created["title"], "面板新增需求测试")
+        self.assertEqual(created["quadrant"], "重要且紧急")
+        self.assertEqual(created["status"], "进行中")
         self.assertEqual(moved["action"], "moved")
         self.assertEqual(moved["quadrant"], "重要不紧急")
-        self.assertEqual(moved["counts"]["重要且紧急"], 3)
-        self.assertEqual(moved["counts"]["重要不紧急"], 3)
-        self.assertEqual(moved["total"], 7)
+        self.assertGreater(moved["total"], 0)
+        self.assertEqual(updated["action"], "status-updated")
+        self.assertEqual(updated["quadrant"], "重要不紧急")
+        self.assertEqual(updated["status"], "未开始")
+        self.assertEqual(updated["counts"], moved["counts"])
+        self.assertEqual(updated["total"], moved["total"])
         self.assertEqual(deleted["action"], "deleted")
-        self.assertEqual(deleted["counts"]["重要且紧急"], 3)
-        self.assertEqual(deleted["counts"]["重要不紧急"], 2)
-        self.assertEqual(deleted["total"], 6)
+        self.assertEqual(deleted["counts"]["重要不紧急"], moved["counts"]["重要不紧急"] - 1)
+        self.assertEqual(deleted["total"], moved["total"] - 1)
+
+    def test_todo_completed_status_archives_item_for_reports(self):
+        with TemporaryDirectory() as directory:
+            todo_data = Path(directory) / "todo.json"
+            todo_data.write_text(
+                json.dumps({
+                    "version": 1,
+                    "updatedAt": "2026-08-27",
+                    "items": [{
+                        "id": "TODO-001",
+                        "title": "完成后归档测试",
+                        "detail": "用于周报月报",
+                        "quadrant": "重要且紧急",
+                        "status": "进行中",
+                        "source": "测试",
+                        "createdAt": "2026-08-27",
+                        "updatedAt": "2026-08-27",
+                    }],
+                    "archive": [],
+                }, ensure_ascii=False),
+                encoding="utf-8",
+            )
+
+            result = apply_todo_json_action(
+                {"id": "TODO-001", "action": "status", "status": "已完成"},
+                todo_data,
+                "status",
+                now=datetime(2026, 8, 28, 10, 15, tzinfo=timezone(timedelta(hours=8))),
+            )
+            saved = json.loads(todo_data.read_text(encoding="utf-8"))
+
+        self.assertEqual(result["action"], "archived")
+        self.assertEqual(result["status"], "已完成")
+        self.assertEqual(result["archived"], True)
+        self.assertEqual(result["completedAt"], "2026-08-28")
+        self.assertEqual(result["archivedAt"], "2026-08-28")
+        self.assertEqual(result["total"], 0)
+        self.assertEqual(result["archiveTotal"], 1)
+        self.assertEqual(saved["items"], [])
+        self.assertEqual(saved["archive"][0]["id"], "TODO-001")
+        self.assertEqual(saved["archive"][0]["quadrant"], "重要且紧急")
+        self.assertEqual(saved["archive"][0]["completedAt"], "2026-08-28")
+        self.assertEqual(saved["archive"][0]["archiveReason"], "status-completed")
+
+    def test_todo_item_api_reads_latest_json_without_rebuilding_dashboard(self):
+        with TemporaryDirectory() as directory:
+            dashboard_dir = Path(directory) / "tools" / "a-share-market-dashboard"
+            data_dir = dashboard_dir / "data"
+            scripts_dir = dashboard_dir / "scripts"
+            data_dir.mkdir(parents=True)
+            scripts_dir.mkdir()
+            dashboard = dashboard_dir / "a-share-market-dashboard.html"
+            dashboard.write_text("<!doctype html>", encoding="utf-8")
+            shutil.copyfile(DASHBOARD.parent / "data" / "todo.json", data_dir / "todo.json")
+            (scripts_dir / "build.mjs").write_text(
+                "from pathlib import Path\nPath('rebuilt-marker.txt').write_text('ok', encoding='utf-8')\n",
+                encoding="utf-8",
+            )
+            server = create_server(
+                port=0,
+                fetcher=self.fake_fetch,
+                dashboard_path=dashboard,
+                portfolio_path=Path(directory) / "portfolio.json",
+                review_diary_dir=Path(directory) / "workbench" / "targets",
+                node_executable=sys.executable,
+            )
+            thread = Thread(target=server.serve_forever, daemon=True)
+            thread.start()
+            host, port = server.server_address
+            try:
+                initial = read_json(f"http://{host}:{port}/api/todos")
+                create_request = Request(
+                    f"http://{host}:{port}/api/todo-item",
+                    data=json.dumps({
+                        "action": "create",
+                        "title": "接口新增需求测试",
+                        "detail": "确认 POST 分派新增",
+                        "quadrant": "重要不紧急",
+                        "status": "未开始",
+                    }, ensure_ascii=False).encode("utf-8"),
+                    headers={"Content-Type": "application/json"},
+                    method="POST",
+                )
+                with urlopen(create_request, timeout=3) as response:
+                    create_result = json.loads(response.read().decode("utf-8"))
+                after_create = read_json(f"http://{host}:{port}/api/todos")
+                status_request = Request(
+                    f"http://{host}:{port}/api/todo-item",
+                    data=json.dumps({
+                        "id": create_result["id"],
+                        "action": "status",
+                        "status": "进行中",
+                    }, ensure_ascii=False).encode("utf-8"),
+                    headers={"Content-Type": "application/json"},
+                    method="PATCH",
+                )
+                with urlopen(status_request, timeout=3) as response:
+                    status_result = json.loads(response.read().decode("utf-8"))
+                after_status = read_json(f"http://{host}:{port}/api/todos")
+                archive_request = Request(
+                    f"http://{host}:{port}/api/todo-item",
+                    data=json.dumps({
+                        "id": create_result["id"],
+                        "action": "status",
+                        "status": "已完成",
+                    }, ensure_ascii=False).encode("utf-8"),
+                    headers={"Content-Type": "application/json"},
+                    method="PATCH",
+                )
+                with urlopen(archive_request, timeout=3) as response:
+                    archive_result = json.loads(response.read().decode("utf-8"))
+                after_archive = read_json(f"http://{host}:{port}/api/todos")
+                rebuilt_marker_exists = (dashboard_dir / "rebuilt-marker.txt").exists()
+            finally:
+                server.shutdown()
+                server.server_close()
+                thread.join(timeout=3)
+
+        self.assertGreater(len(initial["items"]), 0)
+        self.assertEqual(create_result["action"], "created")
+        self.assertRegex(create_result["id"], r"^TODO-\d{3,}$")
+        self.assertNotIn("rebuilt", create_result)
+        self.assertTrue(any(item["id"] == create_result["id"] for item in after_create["items"]))
+        self.assertEqual(status_result["action"], "status-updated")
+        self.assertEqual(status_result["status"], "进行中")
+        self.assertNotIn("rebuilt", status_result)
+        updated_item = next(item for item in after_status["items"] if item["id"] == create_result["id"])
+        self.assertEqual(updated_item["status"], "进行中")
+        self.assertEqual(archive_result["action"], "archived")
+        self.assertEqual(archive_result["archived"], True)
+        self.assertFalse(any(item["id"] == create_result["id"] for item in after_archive["items"]))
+        self.assertTrue(any(item["id"] == create_result["id"] for item in after_archive["archive"]))
+        self.assertFalse(rebuilt_marker_exists)
+
+    def test_todo_api_allows_local_dashboard_cross_origin_requests(self):
+        with running_server(self.fake_fetch) as base:
+            origin = "http://127.0.0.1:49888"
+            get_request = Request(f"{base}/api/todos", headers={"Origin": origin})
+            with urlopen(get_request, timeout=3) as response:
+                payload = json.loads(response.read().decode("utf-8"))
+                allowed_origin = response.headers.get("Access-Control-Allow-Origin")
+            options_request = Request(
+                f"{base}/api/todo-item",
+                headers={
+                    "Origin": origin,
+                    "Access-Control-Request-Method": "PATCH",
+                    "Access-Control-Request-Headers": "content-type",
+                },
+                method="OPTIONS",
+            )
+            with urlopen(options_request, timeout=3) as response:
+                options_status = response.status
+                allowed_methods = response.headers.get("Access-Control-Allow-Methods")
+
+        self.assertGreater(len(payload["items"]), 0)
+        self.assertEqual(allowed_origin, origin)
+        self.assertEqual(options_status, 204)
+        self.assertIn("PATCH", allowed_methods)
 
     def test_tracking_report_rerender_overwrites_existing_html(self):
         with TemporaryDirectory() as directory:

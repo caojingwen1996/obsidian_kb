@@ -1,11 +1,30 @@
 {
   "version": 1,
   "stats": {
-    "total_sources_ingested": 220,
-    "total_pages": 457,
-    "source_count": 261
+    "total_sources_ingested": 221,
+    "total_pages": 458,
+    "source_count": 262
   },
   "sources": {
+    "sources/articles/2025-10-02-冰冰小美：长期主义与变通.md": {
+      "ingested_at": "2026-08-27T17:16:45+08:00",
+      "size_bytes": 7218,
+      "modified_at": "2026-08-27T17:21:24+08:00",
+      "content_hash": "sha256:93edf679bb4d36a29d4879b66d786149cde55565d5d6f99e0d141188d2136656",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "wiki/concepts/冰冰小美-framework-周期路径演绎.md"
+      ],
+      "pages_updated": [
+        "wiki/views/冰冰小美：长期主义通过路径演绎连接宏观与微观交易的判断框架.md",
+        "wiki/reasoning/冰冰小美-宏观周期路径如何传导为微观事件与短期变通.md",
+        "index.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json"
+      ]
+    },
     "sources/manual/2026-08-26-冰冰小美：《两次全球大危机的比较研究》推荐理由补充.md": {
       "ingested_at": "2026-08-26T16:21:09+08:00",
       "size_bytes": 1334,

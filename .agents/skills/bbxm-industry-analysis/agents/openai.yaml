@@ -1,4 +1,4 @@
 interface:
-  display_name: "产业思维分析模型"
+  display_name: "产业分析"
   short_description: "按知识库当前产业思维框架分析产业、行业或产业链"
-  default_prompt: "Use $bbxm-industry-analysis to 先读取知识库当前版本的产业思维概念页，再严格按其中现行框架分析一个产业。"
+  default_prompt: "Use $产业分析 to 先读取知识库当前版本的产业思维概念页，再严格按其中现行框架分析一个产业。"
