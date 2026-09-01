@@ -1,6 +1,6 @@
 # 估值泡沫三表逐项扫描
 
-本文件是 `个股估值计算` Step 7 在 llmwiki 之外使用的便携参考。llmwiki 内以 `wiki/concepts/冰冰小美-framework-估值判断.md` 的“泡沫破裂的触发器”当前版本为准；两者冲突时，以 Wiki 当前版本为准。
+本文件是 `个股估值计算` Step 5 在 llmwiki 之外使用的便携参考。llmwiki 内以 `wiki/concepts/冰冰小美-framework-估值判断.md` 的“泡沫破裂的触发器”当前版本为准；两者冲突时，以 Wiki 当前版本为准。
 
 ## 使用规则
 

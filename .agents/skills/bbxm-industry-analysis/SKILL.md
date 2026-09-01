@@ -835,7 +835,7 @@ YYYY-MM-DD-<产业名称>产业完整分析报告.html
 node .agents/skills/bbxm-industry-analysis/scripts/render-industry-report-html.cjs --input <产业报告.md> --output <产业报告.html> --vault-root <知识库根目录>
 ```
 
-不得调用要求个股 16 模块的 `bbxm-equity-research` 渲染器，也不得绕过 Markdown 母稿直接手写 HTML。
+不得调用面向个股估值报告的 `个股估值计算` 渲染器，也不得绕过 Markdown 母稿直接手写 HTML。
 
 ## 13.4 验证产物
 

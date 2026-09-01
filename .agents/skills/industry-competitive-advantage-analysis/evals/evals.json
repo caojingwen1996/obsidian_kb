@@ -28,7 +28,7 @@
     {
       "id": "valuation-boundary",
       "prompt": "完整研究宁德时代，做五年财务历史、DCF、公允价值区间和目标价，并回答今天是否值得买。",
-      "expected_output": "路由到 bbxm-equity-research；本技能只可提供竞争格局与比较优势模块，不能替代完整估值和买卖结论。",
+      "expected_output": "路由到 个股估值计算；本技能只可提供竞争格局与比较优势输入，不能替代完整估值和买卖结论。",
       "files": []
     }
   ]

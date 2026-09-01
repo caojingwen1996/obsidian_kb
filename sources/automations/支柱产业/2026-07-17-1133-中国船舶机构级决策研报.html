@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>中国船舶（600150.SH）机构级决策研报</title>
+  <title>中国船舶机构级决策研报</title>
   <style>:root {
   --ink: #173247;
   --muted: #657786;
@@ -63,31 +63,11 @@ body {
 .daily-tracking-kicker { margin: 0 0 4px; color: var(--teal); font-size: 12px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
 .daily-tracking h2 { margin: 0; padding: 0; border: 0; font-size: 27px; }
 .daily-tracking-time { margin: 4px 0 0; color: var(--muted); font-size: 12px; text-align: right; }
-.tracking-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-.tracking-grid + .tracking-grid { margin-top: 12px; }
+.tracking-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 .tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
 .tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
 .tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
-.tracking-card[data-tracking-key="fair-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
-.pricing-levels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
-.pricing-level { display: flex; align-items: center; justify-content: center; min-height: 34px; padding: 5px 7px; border: 1px solid #d5e0e3; border-radius: 8px; color: #607580; background: #f4f7f8; font-size: 12px; line-height: 1.25; font-weight: 750; text-align: center; }
-.pricing-level.active { border-color: transparent; box-shadow: 0 0 0 2px rgba(15,50,70,.08); }
-.pricing-level-premium.active { color: #17604e; background: #dff3eb; }
-.pricing-level-overvalued.active { color: #86610d; background: #fff0bd; }
-.pricing-level-bubble.active { color: #9b4d10; background: #ffe3c9; }
-.pricing-level-severe.active { color: var(--danger); background: var(--danger-bg); }
-.range-breakdown { display: block; }
-.range-main { display: inline-flex; align-items: center; max-width: 100%; margin-bottom: 10px; padding: 3px 9px; border-radius: 999px; background: #e7f0f3; color: var(--navy); font-size: 20px; line-height: 1.3; font-weight: 800; }
-.range-points { display: grid; gap: 7px; margin-top: 1px; }
-.range-point { display: block; padding-left: 11px; border-left: 3px solid #bed2d8; color: #245068; font-size: 14px; line-height: 1.52; font-weight: 650; }
 .tracking-value.bad { color: var(--danger); }
-.tracking-detail { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; }
-.tracking-snapshot { margin: 9px 0 0; color: #4f6674; font-size: 13px; line-height: 1.55; font-weight: 650; }
-.tracking-status { display: inline-flex; margin-top: 10px; padding: 3px 8px; border-radius: 999px; color: #526b77; background: #edf2f4; font-size: 12px; font-weight: 700; }
-.tracking-status.live { color: #17604e; background: #dff3eb; }
-.tracking-status.error { color: var(--danger); background: var(--danger-bg); }
-.tracking-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; margin-top: 14px; padding-top: 13px; border-top: 1px solid #d5e0e3; color: #536d78; font-size: 13px; }
-.tracking-footer a { font-weight: 700; }
 
 @media (max-width: 980px) {
   .hero { padding: 40px 30px 34px; }
@@ -121,56 +101,36 @@ body {
 <body>
   <main class="report-shell">
     <header class="hero">
-      <p class="eyebrow">BBXM EQUITY RESEARCH · 600150.SH</p>
-      <h1>中国船舶（600150.SH）机构级决策研报</h1>
-      <div class="hero-meta"><span>2026-08-20 19:30（Asia/Shanghai）</span><span>报告生成时间未获取</span><span>上海证券交易所 / 人民币</span></div>
+      <p class="eyebrow">BBXM EQUITY VALUATION · 600150.SH</p>
+      <h1>中国船舶机构级决策研报</h1>
+      <div class="hero-meta"><span>2026-08-31 10:28（Asia/Shanghai）</span><span>2026-08-31</span><span>上海证券交易所 / 人民币</span></div>
     </header>
     <div class="layout">
-      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
-<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
-<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
-<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
-<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
-<a class="toc-link" href="#section-6">6. 五年财务历史</a>
-<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
-<a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
-<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
-<a class="toc-link" href="#section-10">10. 公允价值区间计算</a>
-<a class="toc-link" href="#section-11">11. 市场价格分解与估值泡沫判断</a>
-<a class="toc-link" href="#section-12">12. 最终结论</a>
-<a class="toc-link" href="#section-13">13. 后续监控指标</a>
-<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
-<a class="toc-link" href="#section-15">15. 来源清单</a>
-<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 估值摘要</a>
+<a class="toc-link" href="#section-2">2. 估值基础</a>
+<a class="toc-link" href="#section-3">3. 估值方法与假设</a>
+<a class="toc-link" href="#section-4">4. 估值结果与交易溢价</a>
+<a class="toc-link" href="#section-5">5. 风险与结论</a></div></aside>
       <article class="content"><blockquote>
-<p>证券代码：600150.SH<br>
-交易所 / 币种：上海证券交易所 / 人民币<br>
-研究截止时间：2026-08-20 19:30（Asia/Shanghai）<br>
-数据口径：法定财报截至2026Q1，2026H1为未经审计业绩预告；行情、估值与资金截至2026-08-20收盘，融资截至2026-08-19。<br>
-结论有效期：2026年半年报披露、新船价格显著反转、订单取消或延期增加、股价突破估值边界四者中最早发生者。</p>
+<p>证券代码：600150.SH<br>交易所 / 币种：上海证券交易所 / 人民币<br>研究截止时间：2026-08-31 10:28（Asia/Shanghai）<br>报告生成时间：2026-08-31<br>估值基准日：2026-08-31；行情价格为2026-08-28收盘<br>产业思维报告：未获取到同标的产业思维分析；读取 <a href="../../../workbench/targets/2026-08-20-1656-中国船舶-三要素分析.md">三要素分析</a> 与原研报行业底稿。高价订单交付、行业份额与效率提升仍是主前提。<br>数据口径：本地Tushare结构化三表、财务指标、行情、资金和股东户数；2026H1法定披露公告日已核对。直接PDF链接未获取到，关键数字以法定披露结构化数据为准。</p>
 </blockquote>
 <!-- DAILY_TRACKING_START -->
-<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-08-20 19:30（Asia/Shanghai，收盘后）" data-value-low="29" data-value-high="40">
+<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-08-31 10:28（Asia/Shanghai，重大公告后；行情为最近完成交易日收盘）">
   <div class="daily-tracking-head">
-    <div><p class="daily-tracking-kicker">Daily decision tracker</p><h2>每日跟踪面板</h2></div>
-    <p class="daily-tracking-time">更新：2026-08-20 19:30（Asia/Shanghai，收盘后）<br>下次：收盘后 / 重大公告后</p>
+    <div><p class="daily-tracking-kicker">Daily valuation tracker</p><h2>每日跟踪面板</h2></div>
+    <p class="daily-tracking-time">更新：2026-08-31 10:28（Asia/Shanghai，重大公告后；行情为最近完成交易日收盘）<br>下次：收盘后 / 财报或重大公告后</p>
   </div>
   <div class="tracking-grid">
-    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">改善</p><p class="tracking-detail">风险方向：风险重新增强：融资余额60日+20.22%，同期股价约-14.34%；7月31日后融资+6.24%、价格下跌，杠杆与价格背离。。下一验证点与失效条件见第 11—13 章。</p></div>
-    <div class="tracking-card" data-tracking-key="fair-value-range"><p class="tracking-label">公允价值区间</p><p class="tracking-value"><span class="range-breakdown"><span class="range-main">29—40元，中枢34.5元。29元附近=182亿元正常化利润与12倍PE</span><span class="range-points"><span class="range-point">34.5元附近=200亿元利润与13倍PE</span><span class="range-point">40元附近=215亿元利润与14倍PE</span><span class="range-point">高于40元需正常化利润可靠超过215亿元、现金转化持续强或行业中枢进一步上移的新证据。</span></span></span></p><p class="tracking-detail">公允价值区间来自估值方法交叉验证；行情刷新不会自动改变区间。</p></div>
-    <div class="tracking-card" data-tracking-key="pricing-deviation"><p class="tracking-label">交易定价偏离</p><p class="tracking-value pricing-levels"><span class="pricing-level pricing-level-premium" data-valuation-level="估值溢价">估值溢价</span><span class="pricing-level pricing-level-overvalued" data-valuation-level="普通高估">普通高估</span><span class="pricing-level pricing-level-bubble" data-valuation-level="估值泡沫">估值泡沫</span><span class="pricing-level pricing-level-severe" data-valuation-level="严重估值泡沫">严重估值泡沫</span></p><p class="tracking-detail">当前判断：公允价值内，置信度中。现价按13倍PE反推正常化归母净利润约191亿元，与2026机构一致预期接近，不构成无法审计的远期叙事。；四级估值偏离均未高亮。</p></div>
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">明显改善；H1收入、扣非、毛利率、CFO与FCF同向强化，高价订单正在兑现。</p></div>
+    <div class="tracking-card" data-tracking-key="fair-value-range"><p class="tracking-label">公允价值范围</p><p class="tracking-value">31—44元；中枢37.5元；估值基准日2026-08-31。</p></div>
+    <div class="tracking-card" data-tracking-key="trading-premium"><p class="tracking-label">交易溢价</p><p class="tracking-value">34.78元，2026-08-28收盘；相对中枢-7.3%，相对上限-21.0%；公允价值内。</p></div>
+    <div class="tracking-card" data-tracking-key="capital-and-holders"><p class="tracking-label">资金与筹码</p><p class="tracking-value">8月1—28日资金分档净额合计约-18.16亿元；股东户数由2025年末81.45万户降至2026年6月末61.39万户，但并表和股本变化影响可比性。基本面强、资金偏弱，溢价持续性仅中等。</p></div>
   </div>
-  <div class="tracking-grid">
-    <div class="tracking-card" data-tracking-key="market-quote"><p class="tracking-label">盘中实时</p><p class="tracking-value" id="intraday-price">等待连接</p><p class="tracking-detail" id="intraday-detail">通过“大盘启动器”打开后获取盘中行情，每 60 秒刷新；直接打开 HTML 时不访问外部行情。</p><p class="tracking-snapshot">每日同步价：32.99元，2026-08-20收盘</p><span class="tracking-status" id="intraday-status">未连接</span></div>
-    <div class="tracking-card" data-tracking-key="risk-reward"><p class="tracking-label">盈亏比</p><p class="tracking-value" id="risk-reward-value">约 1.8:1</p><p class="tracking-detail" id="risk-reward-detail">每日同步价 32.99 元；到上沿 40.00 元的潜在上行 +21.2%，跌至下沿 29.00 元的风险 +12.1%。价格不改变价值区间本身。</p></div>
-    <div class="tracking-card" data-tracking-key="action-confidence"><p class="tracking-label">动作与置信度</p><p class="tracking-value">新增现金 wait；已有持仓 review</p><p class="tracking-detail">估值：合理，处于公允价值区间中部偏下 · 新增现金 wait；已有持仓 review；风险：风险重新增强：融资余额60日+20.22%，同期股价约-14.34%；7月31日后融资+6.24%、价格下跌，杠杆与价格背离。；结论置信度：中。</p><span class="tracking-status">合理，处于公允价值区间中部偏下</span></div>
-  </div>
-  <div class="tracking-footer"><span>资金状态：<strong>结构性流出：近5日、20日大额与特大额成交代理分别-6.72亿元、-24.25亿元；单日+0.19亿元只是反证，未扭转中期方向。</strong> · 新增/已有动作：<strong>新增现金 wait；已有持仓 review</strong></span><a href="./2026-07-18-中国船舶资金面分层分析.html">查看完整资金面分析 →</a></div>
 </section>
 <!-- DAILY_TRACKING_END -->
-<h2 id="section-1">1. 决策摘要</h2>
+<h2 id="section-1">1. 估值摘要</h2>
 
-<h3>1.1 基本面组</h3>
+<h3>1.1 每日跟踪字段</h3>
 <table>
 <thead>
 <tr>
@@ -179,1374 +139,749 @@ body {
 </tr>
 </thead>
 <tbody><tr>
-<td>估值状态</td>
-<td><strong>合理，处于公允价值区间中部偏下</strong></td>
-</tr>
-<tr>
-<td>估值路线</td>
-<td><strong>周期资源标准路线</strong>：正常化归母净利润 × 周期中枢PE为主；PB/ROE、同业与反向估值交叉验证。完整DCF因并表断点、合同负债和交付节奏造成的现金流波动而不适用。</td>
-</tr>
-<tr>
-<td>公允价值区间</td>
-<td><strong>29—40元，中枢34.5元</strong>。29元附近=182亿元正常化利润与12倍PE；34.5元附近=200亿元利润与13倍PE；40元附近=215亿元利润与14倍PE；高于40元需正常化利润可靠超过215亿元、现金转化持续强或行业中枢进一步上移的新证据。</td>
-</tr>
-<tr>
-<td>相对现价空间</td>
-<td>以32.99元计：下沿-12.1%，中枢+4.6%，上沿+21.2%；有一定向上空间，但下沿保护不足以覆盖半年报和周期验证风险。</td>
-</tr>
-<tr>
-<td>估值泡沫判断</td>
-<td><strong>公允价值内</strong>，置信度中。现价按13倍PE反推正常化归母净利润约191亿元，与2026机构一致预期接近，不构成无法审计的远期叙事。</td>
-</tr>
-<tr>
 <td>基本面状态</td>
-<td><strong>改善</strong></td>
+<td>明显改善；H1收入、扣非、毛利率、CFO与FCF同向强化，高价订单正在兑现。</td>
 </tr>
 <tr>
-<td>关键经营变化</td>
-<td>2026Q1收入433.12亿元、毛利率17.48%、归母净利润48.32亿元、经营现金流81.52亿元；H1归母净利润预告92—110亿元。高价船交付和效率提升已进利润表，但H1现金流、分部毛利和应收仍待正式报告。</td>
+<td>公允价值范围</td>
+<td>31—44元；中枢37.5元；估值基准日2026-08-31。</td>
 </tr>
 <tr>
-<td>企业价值主类型</td>
-<td><strong>周期资源</strong>；兼具重资产和净现金特征。船舶总装、修船、海工及配套均属于已验证基本盘，不单列前沿科技期权。</td>
+<td>交易溢价</td>
+<td>34.78元，2026-08-28收盘；相对中枢-7.3%，相对上限-21.0%；公允价值内。</td>
 </tr>
 <tr>
-<td>主估值锚</td>
-<td><strong>182—215亿元正常化归母净利润 × 12—14倍周期PE</strong>；不把H1利润上沿简单年化，也不把2030年前订单一次性资本化。</td>
-</tr>
-<tr>
-<td>价值创造链</td>
-<td>高价、高端船型订单交付 → 船台利用率与效率提升 → 毛利率和利润上升 → 经营现金流覆盖资本开支 → 净现金与分红增加。新船价下行、成本上升、延期交付或现金转化恶化时失效。</td>
-</tr>
-<tr>
-<td>结论置信度</td>
-<td><strong>中</strong></td>
-</tr>
-</tbody></table>
-<h3>1.2 资金面组</h3>
-<table>
-<thead>
-<tr>
-<th>项目</th>
-<th>结论</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>操作建议</td>
-<td><strong>观望，不因业绩预告追买</strong></td>
-</tr>
-<tr>
-<td>冰冰小美动作</td>
-<td>新增现金 <strong>wait</strong>；已有持仓 <strong>review</strong></td>
-</tr>
-<tr>
-<td>当前价格及时间</td>
-<td><strong>32.99元，2026-08-20收盘</strong></td>
-</tr>
-<tr>
-<td>资金状态</td>
-<td><strong>结构性流出</strong>：近5日、20日大额与特大额成交代理分别-6.72亿元、-24.25亿元；单日+0.19亿元只是反证，未扭转中期方向。</td>
-</tr>
-<tr>
-<td>风险方向</td>
-<td><strong>风险重新增强</strong>：融资余额60日+20.22%，同期股价约-14.34%；7月31日后融资+6.24%、价格下跌，杠杆与价格背离。</td>
+<td>资金与筹码</td>
+<td>8月1—28日资金分档净额合计约-18.16亿元；股东户数由2025年末81.45万户降至2026年6月末61.39万户，但并表和股本变化影响可比性。基本面强、资金偏弱，溢价持续性仅中等。</td>
 </tr>
 <tr>
 <td>每日跟踪时间</td>
-<td>2026-08-20 19:30（Asia/Shanghai，收盘后）</td>
-</tr>
-<tr>
-<td>资金面分析链接</td>
-<td>2026-07-18-中国船舶资金面分层分析.html</td>
+<td>2026-08-31 10:28（Asia/Shanghai，重大公告后；行情为最近完成交易日收盘）</td>
 </tr>
 </tbody></table>
-<h3>如果今天这是一笔现金，我会买它吗</h3>
-<ul>
-<li>回答：<strong>不会立即买，只在特定条件下会。</strong></li>
-<li>我的判断：32.99元低于34.5元中枢，但安全边际不厚；利润兑现已被市场充分讨论，近20日大额成交持续流出、杠杆回补没有带来价格上行，说明新增现金的赔率和承接尚未同时成立。</li>
-<li>改变结论的条件：股价回到<strong>30—31.5元</strong>且半年报确认综合毛利率不低于16%、CFO/归母净利润不低于0.8；或放量站稳<strong>35.5—36元</strong>且融资不再成为主要增量来源。反之，跌破29元并伴随订单、毛利或现金流证伪时转为<code>reduce / avoid</code>。</li>
-</ul>
-<h2 id="section-2">2. 证券身份与来源矩阵</h2>
-
-<h3>2.1 证券身份</h3>
-<ul>
-<li>公司全称：中国船舶工业股份有限公司。</li>
-<li>证券代码：600150.SH；上市日期1998-05-20；截至核验日正常上市。</li>
-<li>上市地 / 币种：上海证券交易所 / 人民币。</li>
-<li>报告准则：中国企业会计准则；法定披露体系为上交所与公司公告，SEC文件不适用。</li>
-<li>口径断点：2025年换股吸收合并中国船舶重工后，2024—2025重述口径与2021—2023原上市平台口径不可机械同比。</li>
-</ul>
-<h3>2.2 来源矩阵</h3>
+<h3>1.2 估值结论</h3>
 <table>
 <thead>
 <tr>
-<th>数据项目</th>
-<th>目标来源</th>
-<th>实际来源</th>
-<th>数据时间</th>
-<th>状态</th>
+<th>项目</th>
+<th>结论</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>Tushare MCP调用清单</td>
-<td>本地<code>tushare-data</code></td>
-<td>证券、日线、估值、资金、融资、财务、分红</td>
-<td>2026-08-20重取</td>
-<td>已获取</td>
+<td>企业价值主类型</td>
+<td>周期制造 / 多业务集团</td>
 </tr>
 <tr>
-<td>证券身份与上市状态</td>
-<td>Tushare / 上交所</td>
-<td>Tushare证券主表、公司公告</td>
-<td>最新</td>
-<td>已获取</td>
+<td>主估值锚</td>
+<td>正常化归母净利润 × 周期PE；PB/ROE、现金收益率和反向估值交叉验证</td>
 </tr>
 <tr>
-<td>价格、52周高低、收益率</td>
-<td>可靠行情</td>
-<td>Tushare不复权日线</td>
-<td>截至08-20</td>
-<td>已获取</td>
+<td>公允价值下限</td>
+<td>31元；保守经营、现金质量与周期回归。</td>
 </tr>
 <tr>
-<td>市值、PE、PB、股息率</td>
-<td>Tushare</td>
-<td>Tushare每日指标</td>
-<td>08-20</td>
-<td>已获取</td>
+<td>公允价值中枢</td>
+<td>37.5元；最可能经营路径。</td>
 </tr>
 <tr>
-<td>大额订单规模代理</td>
-<td>Tushare</td>
-<td>大单+特大单买卖额</td>
-<td>截至08-20</td>
-<td>已获取；非身份识别</td>
+<td>公允价值上限</td>
+<td>44元；合理乐观经营与已验证质量。</td>
 </tr>
 <tr>
-<td>融资融券代理</td>
-<td>Tushare</td>
-<td>融资融券日度明细</td>
-<td>截至08-19</td>
-<td>已获取</td>
+<td>当前价格及时间</td>
+<td>34.78元，人民币，2026-08-28收盘。</td>
 </tr>
 <tr>
-<td>第三方公允价值、护城河、星级</td>
-<td>独立第三方</td>
-<td>无可复核免费字段</td>
-<td>截止日</td>
-<td>未获取到</td>
+<td>保守安全边际</td>
+<td>-12.2%</td>
 </tr>
 <tr>
-<td>最新季报与指引</td>
-<td>上交所 / 公司</td>
-<td>2026Q1、2026H1预增公告</td>
-<td>04-30 / 07-14</td>
-<td>已获取</td>
+<td>中枢潜在回报</td>
+<td>+7.8%</td>
 </tr>
 <tr>
-<td>分部收入、订单和合同负债</td>
-<td>公司年报</td>
-<td>2025年报及既有法定底稿</td>
-<td>2026-04-30</td>
-<td>已获取</td>
+<td>估值状态</td>
+<td>公允价值内</td>
 </tr>
 <tr>
-<td>卖方评级与目标价</td>
-<td>研报 / 聚合</td>
-<td>中金、浙商、东方财富一致预期</td>
-<td>07-14至08-20</td>
-<td>已获取但非完整原件</td>
+<td>当前动作</td>
+<td>observe；半年报已完成重估，但不把单日价格变动写成基本面。</td>
 </tr>
 <tr>
-<td>行业与全球同业</td>
-<td>官方 / 公司</td>
-<td>工信部、商务部、Clarksons、同业披露</td>
-<td>截至08-20</td>
-<td>已获取</td>
-</tr>
-<tr>
-<td>五年财务历史</td>
-<td>年报 / Tushare</td>
-<td>法定披露与结构化数据交叉核验</td>
-<td>2021—2025</td>
-<td>已获取；存在并表断点</td>
-</tr>
-<tr>
-<td>前沿业务技术、融资与稀释</td>
-<td>公司 / 第三方</td>
-<td>成熟船舶制造业务</td>
-<td>截止日</td>
-<td>不适用</td>
-</tr>
-<tr>
-<td>指数成分与权重</td>
-<td>指数公司</td>
-<td>本次价值判断不依赖指数权重</td>
-<td>截止日</td>
-<td>不适用</td>
+<td>结论置信度</td>
+<td>中高；分部数据、完整卖方一致预期和账户级资金仍有缺口。</td>
 </tr>
 </tbody></table>
-<h2 id="section-3">3. 行情与市场预期</h2>
+<h3>1.3 一句话判断</h3>
+<blockquote>
+<p>船舶总装把订单、船价与交付转化为收入利润，配套与修造提供协同。长周期订单、合同负债与现金预收支撑可见度，钢材人工、交付节奏、汇率与并表口径造成波动。 本次完整重估得到31—44元、中枢37.5元；现价34.78元对应公允价值内，下一次结论变化取决于第5章触发器。</p>
+</blockquote>
+<h2 id="section-2">2. 估值基础</h2>
 
-<h3>3.1 行情快照（事实）</h3>
+<h3>2.1 产业思维前置输入</h3>
 <table>
 <thead>
 <tr>
-<th>指标</th>
-<th align="right">数值</th>
-<th>时间 / 口径</th>
+<th>前置项</th>
+<th>上游结论</th>
+<th>对估值的影响</th>
+<th>是否需要复核</th>
+<th>来源 / 截止时间</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>收盘 / 涨跌幅</td>
-<td align="right">32.99元 / -0.45%</td>
-<td>2026-08-20</td>
+<td>产业趋势与生命周期</td>
+<td>船舶总装把订单、船价与交付转化为收入利润，配套与修造提供协同。长周期订单、合同负债与现金预收支撑可见度，钢材人工、交付节奏、汇率与并表口径造成波动。</td>
+<td>决定增长期与周期位置</td>
+<td>是</td>
+<td>原权威研报、三要素分析；2026-08-31</td>
 </tr>
 <tr>
-<td>开 / 高 / 低 / 成交额</td>
-<td align="right">33.13 / 33.80 / 32.93元 / 19.15亿元</td>
-<td>Tushare日线</td>
+<td>产业链位置与利润池</td>
+<td>见2.2分部</td>
+<td>决定收入、利润率和议价权</td>
+<td>是</td>
+<td>历史法定报告与H1结构化数据</td>
 </tr>
 <tr>
-<td>总市值 / 总股本</td>
-<td align="right">2482.70亿元 / 75.2562亿股</td>
-<td>Tushare</td>
+<td>比较优势及持续性</td>
+<td>原研报优势未被半年报推翻，但需现金与利润验证</td>
+<td>决定合理倍数</td>
+<td>是</td>
+<td>原研报 / 2026H1</td>
 </tr>
 <tr>
-<td>PE TTM / PB / PS TTM</td>
-<td align="right">21.96 / 1.66 / 1.48倍</td>
-<td>Tushare</td>
+<td>分部成熟度</td>
+<td>成熟基本盘与成长/周期分部并存</td>
+<td>决定整体PE与交叉验证</td>
+<td>是</td>
+<td>原研报</td>
 </tr>
 <tr>
-<td>股息率TTM</td>
-<td align="right">1.11%</td>
-<td>Tushare</td>
+<td>第二增长曲线</td>
+<td>缺少独立财务时不单独赋值</td>
+<td>只解释上沿，不重复加价</td>
+<td>是</td>
+<td>数据缺口</td>
 </tr>
 <tr>
-<td>52周高 / 低 / 最大回撤</td>
-<td align="right">43.42 / 30.00元 / -22.68%</td>
-<td>最近一年日线</td>
-</tr>
-<tr>
-<td>年初至今</td>
-<td align="right">-0.81%</td>
-<td>2025-12-31至08-20，不复权</td>
-</tr>
-<tr>
-<td>5 / 10 / 20 / 60日</td>
-<td align="right">-2.34% / -5.47% / -2.28% / -13.23%</td>
-<td>不复权收盘价</td>
+<td>产业约束与失效条件</td>
+<td>见第5章</td>
+<td>压低上沿并设重估触发器</td>
+<td>是</td>
+<td>2026H1与原研报</td>
 </tr>
 </tbody></table>
-<h3>3.2 市场预期与卖方分布</h3>
-<p>市场已不再讨论“利润会不会增长”，而是在定价“2026年约190—210亿元利润能否成为可持续中枢”。</p>
+<h3>2.2 价值创造链与分部</h3>
 <table>
 <thead>
 <tr>
-<th>机构 / 样本</th>
-<th>日期</th>
-<th>评级</th>
-<th align="right">目标价</th>
-<th align="right">2026 / 2027净利润</th>
-<th>关键假设</th>
+<th>业务分部</th>
+<th>收入 / 利润贡献</th>
+<th>价值创造方式</th>
+<th>成熟度</th>
+<th>主估值锚</th>
+<th>关键约束</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>中金公司</td>
-<td>2026-07-14</td>
-<td>跑赢行业</td>
-<td align="right">50元</td>
-<td align="right">208 / 284亿元</td>
-<td>高价船交付、效率提升、行业估值中枢</td>
+<td>船舶总装</td>
+<td>绝对主利润池</td>
+<td>高价订单交付与规模效率</td>
+<td>周期上行</td>
+<td>正常化利润×PE</td>
+<td>船价、交付、成本</td>
 </tr>
 <tr>
-<td>浙商证券</td>
-<td>2026-07-20</td>
-<td>买入</td>
-<td align="right">未取得</td>
-<td align="right">公开摘要未完整披露</td>
-<td>H1预告符合预期、龙头势起</td>
+<td>动力配套与修造</td>
+<td>协同分部</td>
+<td>内部配套与外部订单</td>
+<td>成熟</td>
+<td>利润贡献</td>
+<td>毛利与订单</td>
 </tr>
 <tr>
-<td>东方财富13家一致预期</td>
-<td>截至08-20</td>
-<td>买入倾向</td>
-<td align="right">不适用</td>
-<td align="right">184.7 / 254.3亿元</td>
-<td>2026 EPS约2.45元</td>
+<td>邮轮与新业务</td>
+<td>仍需验证</td>
+<td>国产替代与长期运营</td>
+<td>商业化早期</td>
+<td>上沿少量计入</td>
+<td>投入、交付与盈利</td>
 </tr>
 </tbody></table>
-<ul>
-<li>我的判断：50元目标价隐含约18倍2026PE，高于本报告12—14倍周期中枢；可以作为乐观预期样本，不能替代公允价值。</li>
-<li>第三方公允价值、护城河、星级：未获取到，不以搜索摘要补造。</li>
-</ul>
-<h2 id="section-4">4. 商业模式与竞争格局</h2>
-
-<h3>4.1 事实</h3>
-<ul>
-<li>收入来源：船舶总装、修船、海洋工程、船舶配套、机电设备及相关服务；2025年船舶造修及海工占主体。</li>
-<li>客户与定价：军民品客户并存。民船合同价格由全球供需、船型、交期、币种和技术规格共同决定；公司具备船台、规模与高端船型优势，但不拥有商品式单边定价权。</li>
-<li>成本结构：钢材、人工、关键配套、汇率、设计变更和建造效率是主要变量；收入确认与交船节点高度相关。</li>
-<li>资本强度：重资产、长周期、预收款和合同负债高；账面现金首先服务未来履约，不等同可分配净现金。</li>
-<li>竞争者：国内大型船厂、韩国大型造船集团，以及军船领域的海外专门承包商。</li>
-</ul>
-<h3>4.2 多产业位置与全球效率</h3>
+<p>2026H1收入915.30亿元（同比+126.98%）、归母99.54亿元（+237.87%）、扣非97.42亿元、CFO 109.18亿元（+363.69%）、FCF代理92.62亿元；毛利率17.37%（+5.16pct）。合并重组使股本和历史口径不可机械同比。</p>
+<h3>2.3 三至五年财务与最新期</h3>
 <table>
 <thead>
 <tr>
-<th align="right">排名</th>
-<th>产业位置</th>
-<th>公司暴露</th>
-<th>景气 / 趋势</th>
-<th>财务传导</th>
-<th>验证与失效条件</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="right">1</td>
-<td>高端民船总装与交付</td>
-<td>核心船厂、652艘手持订单</td>
-<td>高 / 上行</td>
-<td>高价船交付提升毛利和现金利润</td>
-<td>新船价、交付、毛利；延期和取消上升时失效</td>
-</tr>
-<tr>
-<td align="right">2</td>
-<td>海军装备与央企整合平台</td>
-<td>军船、军工配套、合并资产</td>
-<td>较高 / 稳定</td>
-<td>稳定订单和协同，不直接给予无限溢价</td>
-<td>军品交付、分部回款、协同成本</td>
-</tr>
-<tr>
-<td align="right">3</td>
-<td>船舶配套与机电设备</td>
-<td>柴油机、动力与机电业务</td>
-<td>中高 / 改善</td>
-<td>内部配套、国产替代和效率提升</td>
-<td>外部收入、分部毛利、关联抵销</td>
-</tr>
-<tr>
-<td align="right">4</td>
-<td>豪华邮轮与绿色船型</td>
-<td>第二艘国产大型邮轮、高端绿色订单</td>
-<td>中高 / 商业化</td>
-<td>产品结构升级；仅计入正常利润上沿</td>
-<td>交付、国产化、盈利，不单列技术期权</td>
-</tr>
-<tr>
-<td align="right">5</td>
-<td>海洋工程装备</td>
-<td>海工订单与平台</td>
-<td>证据不足</td>
-<td>提供周期弹性</td>
-<td>独立订单和毛利披露前不加价</td>
-</tr>
-</tbody></table>
-<ul>
-<li>工信部数据显示，2025年中国造船完工、新接、手持订单全球份额为56.1%、69.0%、66.8%；2026H1相应份额升至62.2%、82.3%、71.2%。</li>
-<li>Clarksons口径下2026年1—7月中国取得全球约75%的新船订单，新船价格指数185.49点，价格中枢仍高。</li>
-<li>效率反证：扬子江船业2026H1船舶制造毛利率约37.1%，显著高于中国船舶2026Q1综合17.48%。船型和会计口径不同，不能机械比较，但说明规模优势仍需转成更高效率。</li>
-<li>位置间去重：船舶总装、配套、绿色船型和邮轮共享船厂、供应链及订单，不重复计算同一利润；海工缺细分验证，不给予额外估值。</li>
-</ul>
-<h3>4.3 我的判断</h3>
-<ul>
-<li>竞争格局<strong>有利</strong>：供给集中、船台稀缺、高端船型和央企整合共同支持订单质量，H1预告证明优势已进入利润表。</li>
-<li>最脆弱环节是周期滞后与现金归属：当前交付利润主要来自此前高价订单；若新船价转弱，影响会在未来年份而非当季显现。</li>
-<li>证伪条件：新船价持续下行、订单取消/延期增加、半年报综合毛利率低于15%、CFO/归母利润低于0.6或配套协同长期不兑现。</li>
-</ul>
-<h2 id="section-5">5. 分部收入与盈利拆解</h2>
-
-<table>
-<thead>
-<tr>
-<th>分部</th>
-<th align="right">2025收入</th>
-<th align="right">收入占比</th>
-<th align="right">最新毛利率</th>
-<th>状态</th>
-<th>来源 / 限制</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>船舶造修及海洋工程</td>
-<td align="right">约1312.79亿元</td>
-<td align="right">约86.4%</td>
-<td align="right">未取得合并后完整可比值</td>
-<td>已验证基本盘</td>
-<td>2025年报底稿；含内部与抵销差异</td>
-</tr>
-<tr>
-<td>船舶配套、机电及其他</td>
-<td align="right">约186.17亿元</td>
-<td align="right">约12.2%</td>
-<td align="right">未取得合并后完整可比值</td>
-<td>已验证基本盘</td>
-<td>2025年报底稿</td>
-</tr>
-<tr>
-<td>抵销与口径差异</td>
-<td align="right">约20.82亿元</td>
-<td align="right">约1.4%</td>
-<td align="right">不适用</td>
-<td>会计项</td>
-<td>合计与总收入差额</td>
-</tr>
-</tbody></table>
-<ul>
-<li>H1预告没有分部收入、毛利和现金流，不能把利润增长全部归因于某一船型。</li>
-<li>10艘VLCC合同80—90亿元，2028—2030年交付，对当前利润不重大；它验证高端接单能力，不应计入2026利润。</li>
-<li>我的判断：船舶总装仍是绝对主锚，配套协同和邮轮商业化只通过正常化利润体现，不单独做SOTP溢价。</li>
-</ul>
-<h2 id="section-6">6. 五年财务历史</h2>
-
-<p>单位：亿元；2021—2023为原上市平台口径，2024—2025为吸收合并后的重述 / 并表口径。</p>
-<table>
-<thead>
-<tr>
-<th>财年</th>
-<th align="right">营收</th>
-<th align="right">毛利率</th>
+<th>期间</th>
+<th align="right">营业收入</th>
+<th align="right">归母净利润</th>
+<th align="right">扣非归母净利润</th>
 <th align="right">经营现金流</th>
-<th align="right">资本开支</th>
-<th align="right">自由现金流</th>
-<th align="right">ROIC代理</th>
-<th>来源</th>
+<th align="right">自由现金流代理</th>
+<th align="right">毛利率</th>
+<th align="right">ROE</th>
+<th align="right">净债务 / 净现金</th>
+<th align="right">总股本</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>2021</td>
-<td align="right">597.40</td>
-<td align="right">10.60%</td>
-<td align="right">20.24</td>
-<td align="right">11.80</td>
-<td align="right">8.44</td>
-<td align="right">0.14%</td>
-<td>法定财务底稿</td>
-</tr>
-<tr>
 <td>2022</td>
-<td align="right">594.85</td>
-<td align="right">7.68%</td>
-<td align="right">-0.37</td>
-<td align="right">14.36</td>
-<td align="right">-14.73</td>
-<td align="right">0.22%</td>
-<td>同上</td>
+<td align="right">595.58</td>
+<td align="right">1.72</td>
+<td align="right">未获取到</td>
+<td align="right">-0.41</td>
+<td align="right">-14.70</td>
+<td align="right">7.60%</td>
+<td align="right">0.37%</td>
+<td align="right">净现金约369.03</td>
+<td align="right">44.7243</td>
 </tr>
 <tr>
 <td>2023</td>
 <td align="right">748.39</td>
-<td align="right">9.75%</td>
+<td align="right">29.57</td>
+<td align="right">未获取到</td>
 <td align="right">182.13</td>
-<td align="right">24.22</td>
 <td align="right">157.91</td>
-<td align="right">1.50%</td>
-<td>同上</td>
+<td align="right">10.57%</td>
+<td align="right">6.27%</td>
+<td align="right">净现金约488.99</td>
+<td align="right">44.7243</td>
 </tr>
 <tr>
 <td>2024</td>
-<td align="right">1333.51</td>
-<td align="right">10.48%</td>
-<td align="right">147.27</td>
-<td align="right">69.79</td>
-<td align="right">77.48</td>
-<td align="right">1.16%</td>
-<td>合并重述口径</td>
+<td align="right">785.84</td>
+<td align="right">36.14</td>
+<td align="right">未获取到</td>
+<td align="right">52.35</td>
+<td align="right">35.93</td>
+<td align="right">10.20%</td>
+<td align="right">7.28%</td>
+<td align="right">净现金约515.15</td>
+<td align="right">44.7243</td>
 </tr>
 <tr>
 <td>2025</td>
 <td align="right">1519.78</td>
-<td align="right">12.58%</td>
+<td align="right">78.48</td>
+<td align="right">未获取到</td>
 <td align="right">77.67</td>
-<td align="right">34.45</td>
 <td align="right">43.22</td>
-<td align="right">2.25%</td>
-<td>2025年报</td>
+<td align="right">12.58%</td>
+<td align="right">8.08%</td>
+<td align="right">净现金约1241.14</td>
+<td align="right">75.2562</td>
+</tr>
+<tr>
+<td>2026H1</td>
+<td align="right">915.30</td>
+<td align="right">99.54</td>
+<td align="right">97.42</td>
+<td align="right">109.18</td>
+<td align="right">92.62</td>
+<td align="right">17.37%</td>
+<td align="right">6.73%</td>
+<td align="right">净现金约1253.51</td>
+<td align="right">75.2562</td>
 </tr>
 </tbody></table>
-<ul>
-<li>自由现金流口径：经营现金流减购建固定资产、无形资产和其他长期资产支付的现金。</li>
-<li>ROIC代理：营业利润 ×（1-15%标准化税率）/ 平均总资产，不等同严格投入资本ROIC。</li>
-<li>2025 CFO/归母净利润约0.99，现金转化合格；但五年现金流波动大，支持以正常化利润而非单年DCF估值。</li>
-<li>2025每股分红0.365元、合计27.47亿元，约占归母净利润35%；TTM股息率1.11%，分红不是当前主要估值锚。</li>
-</ul>
-<h2 id="section-7">7. 最新季度与管理层指引</h2>
-
-<h3>7.1 最新季度与预告（事实）</h3>
+<blockquote>
+<p>单位：亿元，股本为亿股；自由现金流代理=CFO－购建固定资产等现金支出。年度与半年度不可直接相加；并购重组或股本变化时优先使用法定可比口径。</p>
+</blockquote>
+<h3>2.4 正常化调整</h3>
+<p>H1实际值位于此前预告区间并由现金流与毛利率确认。考虑交付节奏、并表和周期均值，正常化归母净利润由182—215亿元上调为195—225亿元，EPS约2.59—2.99元。</p>
 <table>
 <thead>
 <tr>
-<th>指标</th>
-<th align="right">本期</th>
-<th align="right">同比 / 变化</th>
-<th>来源</th>
+<th>调整项</th>
+<th align="right">报告值</th>
+<th align="right">调整后值</th>
+<th>调整原因</th>
+<th>来源 / 时间</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>2026Q1营收</td>
-<td align="right">433.12亿元</td>
-<td align="right">+54.90%</td>
-<td>一季报</td>
+<td>非经常损益</td>
+<td align="right">归母与扣非差额</td>
+<td align="right">主锚优先扣非与正常化利润</td>
+<td>不把一次性收益永久外推</td>
+<td>Tushare fina_indicator / 2026H1</td>
 </tr>
 <tr>
-<td>2026Q1毛利率</td>
-<td align="right">17.48%</td>
-<td align="right">+4.57个百分点</td>
-<td>一季报</td>
+<td>周期高低点</td>
+<td align="right">H1实际值</td>
+<td align="right">使用悲观/基准/乐观情景</td>
+<td>防止线性年化</td>
+<td>2026H1与历史财务</td>
 </tr>
 <tr>
-<td>2026Q1归母 / 扣非净利润</td>
-<td align="right">48.32 / 47.67亿元</td>
-<td align="right">+251.64% / +326.69%</td>
-<td>一季报</td>
+<td>资本开支</td>
+<td align="right">H1购建资产现金支出</td>
+<td align="right">进入FCF代理</td>
+<td>现金流约束上沿</td>
+<td>Tushare cashflow</td>
 </tr>
 <tr>
-<td>2026Q1经营现金流</td>
-<td align="right">81.52亿元</td>
-<td align="right">上年同期为负；CFO/归母利润1.69</td>
-<td>一季报</td>
-</tr>
-<tr>
-<td>2026Q1现金 / 存货 / 应收</td>
-<td align="right">1445.94 / 700.50 / 102.58亿元</td>
-<td align="right">较年末-1.53% / -6.50% / +19.30%</td>
-<td>Tushare财务</td>
-</tr>
-<tr>
-<td>2026H1归母净利润预告</td>
-<td align="right">92—110亿元</td>
-<td align="right">重述口径+143.56%—191.21%</td>
-<td>07-14公告</td>
-</tr>
-<tr>
-<td>2026H1扣非净利润预告</td>
-<td align="right">90—108亿元</td>
-<td align="right">大幅增长</td>
-<td>07-14公告</td>
-</tr>
-<tr>
-<td>2026Q2归母利润倒算</td>
-<td align="right">43.68—61.68亿元</td>
-<td align="right">非Q1单季脉冲</td>
-<td>本报告计算</td>
+<td>少数股东与股本</td>
+<td align="right">2026H1法定股本</td>
+<td align="right">使用当前稀释后股本</td>
+<td>防止每股价值口径漂移</td>
+<td>Tushare balancesheet</td>
 </tr>
 </tbody></table>
-<h3>7.2 管理层指引与判断</h3>
-<ul>
-<li>正式量化指引仅到H1利润区间；全年收入、利润、现金流、分部毛利率未提供。</li>
-<li>公司称手持订单充足、生产任务饱满，中高端船型占比和单船平均价格同比增加，生产与交付提速。</li>
-<li>2026年中期分红在满足条件时拟不低于H1归母净利润的35%，对应潜在分红32.2—38.5亿元、每股约0.43—0.51元，仍需董事会和股东会程序。</li>
-<li>下一验证节点：2026-08-31半年报，重点看综合/分部毛利、CFO、合同负债、存货、应收、新接订单和中期分红。</li>
-</ul>
-<h2 id="section-8">8. 近三个月新闻与催化剂</h2>
+<h2 id="section-3">3. 估值方法与假设</h2>
 
+<h3>3.1 方法路由</h3>
 <table>
 <thead>
 <tr>
-<th>发生日</th>
-<th>事件</th>
-<th>财务传导</th>
-<th>是否已反映</th>
-<th>验证节点</th>
+<th>分部 / 整体</th>
+<th>价值类型</th>
+<th>主方法</th>
+<th>交叉验证</th>
+<th>不采用其他方法的原因</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>整体</td>
+<td>周期制造 / 多业务集团</td>
+<td>正常化归母净利润 × 周期PE；PB/ROE、现金收益率和反向估值交叉验证</td>
+<td>PB/ROE、FCF和反向估值</td>
+<td>现金流或分部口径波动时不机械使用单一DCF</td>
+</tr>
+</tbody></table>
+<h3>3.2 核心假设</h3>
+<table>
+<thead>
+<tr>
+<th>假设</th>
+<th align="right">悲观</th>
+<th align="right">基准</th>
+<th align="right">乐观</th>
+<th>历史 / 产业依据</th>
 <th>失效条件</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>2026-07-14</td>
-<td>H1预告92—110亿元</td>
-<td>高价订单与效率进入利润</td>
-<td>大部分已交易</td>
-<td>08-31半年报</td>
-<td>正式值靠近下沿且现金差</td>
+<td>正常化归母净利润</td>
+<td align="right">185亿元</td>
+<td align="right">210亿元</td>
+<td align="right">230亿元</td>
+<td>H1实际、订单与现金流</td>
+<td>低于185亿元或交付下滑</td>
 </tr>
 <tr>
-<td>2026-07-20</td>
-<td>2025年度分红0.365元/股实施</td>
-<td>股东回报，不改变主业价值</td>
-<td>已反映</td>
-<td>中期分红方案</td>
-<td>支付率下降或现金受限</td>
+<td>周期PE</td>
+<td align="right">12.5倍</td>
+<td align="right">13.5倍</td>
+<td align="right">14.5倍</td>
+<td>周期位置与效率</td>
+<td>船价或订单持续下行</td>
 </tr>
 <tr>
-<td>2026-07-29</td>
-<td>美联储维持3.50%—3.75%</td>
-<td>美元融资与折现率仍偏高</td>
-<td>部分反映</td>
-<td>后续降息与汇率</td>
-<td>利率再上行、人民币急变</td>
+<td>CFO/归母净利润</td>
+<td align="right">0.7倍</td>
+<td align="right">0.9倍</td>
+<td align="right">1.1倍</td>
+<td>H1 1.10倍</td>
+<td>连续低于0.6</td>
 </tr>
 <tr>
-<td>2026-08-03</td>
-<td>2026H1中国造船份额继续提升</td>
-<td>支持订单与产业地位</td>
-<td>已知逻辑强化</td>
-<td>月度订单 / 船价</td>
-<td>全球订单转弱、份额回落</td>
-</tr>
-<tr>
-<td>2026-08-20</td>
-<td>近20日大额代理-24.25亿元</td>
-<td>利好后的承接转弱</td>
-<td>正在反映</td>
-<td>半年报后价格反馈</td>
-<td>资金转正且站稳36元</td>
-</tr>
-<tr>
-<td>2026-08-31</td>
-<td>预约披露半年报</td>
-<td>验证收入、毛利、现金与分部</td>
-<td>尚未发生</td>
-<td>披露日</td>
-<td>延期或关键数据不及预期</td>
+<td>稀释后股本</td>
+<td align="right">75.26亿股</td>
+<td align="right">75.26亿股</td>
+<td align="right">75.26亿股</td>
+<td>2026H1股本</td>
+<td>新增重大股本变化</td>
 </tr>
 </tbody></table>
-<h2 id="section-9">9. 多头与空头论据</h2>
-
-<h3>9.1 多头论据</h3>
+<h3>3.3 主模型</h3>
+<h4>相对估值与现金流交叉验证</h4>
 <table>
 <thead>
 <tr>
-<th>论据</th>
-<th>事实依据</th>
-<th>验证指标</th>
-<th>失效条件</th>
+<th>方法</th>
+<th align="right">悲观值</th>
+<th align="right">基准值</th>
+<th align="right">乐观值</th>
+<th align="right">权重</th>
+<th>采用理由</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>高价订单进入兑现期</td>
-<td>Q1毛利17.48%，H1利润92—110亿元</td>
-<td>H1毛利、CFO、交付</td>
-<td>利润高但现金弱、毛利下滑</td>
+<td>正常化利润×周期PE</td>
+<td align="right">31</td>
+<td align="right">37.5</td>
+<td align="right">44</td>
+<td align="right">65%</td>
+<td>主锚</td>
 </tr>
 <tr>
-<td>全球供给集中且船价仍高</td>
-<td>中国H1新接订单份额82.3%，Clarksons指数185.49</td>
-<td>新船价、订单份额</td>
-<td>订单与船价连续下行</td>
+<td>PB/ROE</td>
+<td align="right">30</td>
+<td align="right">36</td>
+<td align="right">42</td>
+<td align="right">20%</td>
+<td>资产与ROE交叉验证</td>
 </tr>
 <tr>
-<td>合并后平台规模和品类更完整</td>
-<td>船舶总装、配套、动力、军民品平台</td>
-<td>分部协同、ROE</td>
-<td>整合费用高、效率不升</td>
-</tr>
-<tr>
-<td>现价未脱离正常化利润</td>
-<td>32.99元反推约191亿元利润</td>
-<td>正式H1与一致预期</td>
-<td>正常化利润低于180亿元</td>
-</tr>
-<tr>
-<td>现金和预收提供韧性</td>
-<td>Q1货币资金1445.94亿元</td>
-<td>履约后剩余现金、分红</td>
-<td>合同负债消耗现金、资本开支上升</td>
+<td>现金收益率 / 反向估值</td>
+<td align="right">32</td>
+<td align="right">39</td>
+<td align="right">45</td>
+<td align="right">15%</td>
+<td>现金质量支持中上沿</td>
 </tr>
 </tbody></table>
-<h3>9.2 空头论据</h3>
+<blockquote>
+<p>未取得同日完整可比公司组的统一预测口径，不填伪精确可比倍数；模型倍数以公司历史、价值类型、ROE/现金质量和原研报区间交叉约束。</p>
+</blockquote>
+<h3>3.4 反向估值</h3>
+<p>34.78元对应约2,617亿元市值；按13倍PE反推约201亿元正常化利润，位于新基准区间内。现价没有要求多年高速增长。</p>
 <table>
 <thead>
 <tr>
-<th>论据</th>
-<th>事实依据</th>
-<th>验证指标</th>
-<th>失效条件</th>
+<th>现价隐含变量</th>
+<th align="right">隐含值</th>
+<th align="right">历史 / 产业合理区间</th>
+<th>是否可实现</th>
+<th>关键证据与反证</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>周期利润被线性外推</td>
-<td>机构2027利润明显高于2026</td>
-<td>新船价、2028后订单</td>
-<td>新单价格和利润持续上修</td>
+<td>正常化利润</td>
+<td align="right">见上文反推</td>
+<td align="right">见3.2</td>
+<td>条件化</td>
+<td>H1实际值支持；周期、现金和股本构成反证</td>
 </tr>
 <tr>
-<td>现金不全属于股东</td>
-<td>2025合同负债约1523.60亿元</td>
-<td>营运资本、可用净现金</td>
-<td>履约后持续产生剩余现金</td>
+<td>利润率 / 周期位置</td>
+<td align="right">接近基准或乐观情景</td>
+<td align="right">历史与H1区间</td>
+<td>需持续验证</td>
+<td>单期高点不永久外推</td>
 </tr>
 <tr>
-<td>效率仍有追赶空间</td>
-<td>扬子江船业H1造船毛利约37.1%</td>
-<td>分船厂效率和毛利</td>
-<td>中国船舶毛利继续快速上升</td>
-</tr>
-<tr>
-<td>资金与价格背离</td>
-<td>60日融资+20.22%、股价约-14.34%</td>
-<td>融资、资金分档、价格</td>
-<td>去杠杆后非融资资金接力</td>
-</tr>
-<tr>
-<td>利好反应钝化</td>
-<td>近10日-5.47%、近20日大额代理-24.25亿元</td>
-<td>半年报后反应</td>
-<td>放量站稳35.5—36元</td>
+<td>融资与稀释</td>
+<td align="right">当前股本已纳入</td>
+<td align="right">新增稀释&lt;3%</td>
+<td>待确认</td>
+<td>新融资条款触发局部重算</td>
 </tr>
 </tbody></table>
-<h2 id="section-10">10. 公允价值区间计算</h2>
+<h2 id="section-4">4. 估值结果与交易溢价</h2>
 
-<h3>10.1 主方法：正常化利润 × 周期中枢PE</h3>
-<p>总股本约75.2562亿股。H1预告简单年化为184—220亿元，但造船确认节奏、交付结构和并表断点使线性外推不可靠。本报告以182—215亿元作为可审计正常化区间。</p>
+<h3>4.1 模型结果与权重</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="right">悲观值</th>
+<th align="right">基准值</th>
+<th align="right">乐观值</th>
+<th align="right">权重</th>
+<th>采用理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>正常化利润×周期PE</td>
+<td align="right">31</td>
+<td align="right">37.5</td>
+<td align="right">44</td>
+<td align="right">65%</td>
+<td>主锚</td>
+</tr>
+<tr>
+<td>PB/ROE</td>
+<td align="right">30</td>
+<td align="right">36</td>
+<td align="right">42</td>
+<td align="right">20%</td>
+<td>资产与ROE交叉验证</td>
+</tr>
+<tr>
+<td>现金收益率 / 反向估值</td>
+<td align="right">32</td>
+<td align="right">39</td>
+<td align="right">45</td>
+<td align="right">15%</td>
+<td>现金质量支持中上沿</td>
+</tr>
+<tr>
+<td>综合每股价值</td>
+<td align="right">31元</td>
+<td align="right">37.5元</td>
+<td align="right">44元</td>
+<td align="right">100%</td>
+<td>依据数据质量与商业模式赋权，不机械平均。</td>
+</tr>
+</tbody></table>
+<h3>4.2 情景与敏感性</h3>
 <table>
 <thead>
 <tr>
 <th>情景</th>
-<th align="right">正常化归母净利润</th>
-<th align="right">周期PE</th>
-<th align="right">股权价值</th>
+<th>关键经营路径</th>
 <th align="right">每股价值</th>
-<th>假设</th>
+<th align="right">相对现价空间</th>
+<th>触发条件</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>保守</td>
-<td align="right">182亿元</td>
-<td align="right">12.0倍</td>
-<td align="right">2184亿元</td>
-<td align="right">29.02元</td>
-<td>利润靠近一致预期下沿，周期折价</td>
+<td>悲观</td>
+<td>盈利/现金位于悲观假设，倍数收缩</td>
+<td align="right">31元</td>
+<td align="right">-10.9%</td>
+<td>第5章负向触发</td>
 </tr>
 <tr>
 <td>基准</td>
-<td align="right">200亿元</td>
-<td align="right">13.0倍</td>
-<td align="right">2600亿元</td>
-<td align="right">34.55元</td>
-<td>高价船兑现、现金转化正常</td>
+<td>H1趋势部分延续，周期与现金正常化</td>
+<td align="right">37.5元</td>
+<td align="right">+7.8%</td>
+<td>核心指标符合基准</td>
 </tr>
 <tr>
 <td>乐观</td>
-<td align="right">215亿元</td>
-<td align="right">14.0倍</td>
-<td align="right">3010亿元</td>
-<td align="right">39.99元</td>
-<td>高端船型和效率持续，船价中枢稳定</td>
+<td>盈利、现金与产业验证同向</td>
+<td align="right">44元</td>
+<td align="right">+26.5%</td>
+<td>第5章正向验证</td>
 </tr>
 </tbody></table>
-<p>主估值得到<strong>29—40元</strong>，中枢<strong>34.5元</strong>。</p>
-<h3>10.2 PB、同业与现金收益率验证</h3>
-<ul>
-<li>Q1归母权益1495.47亿元，对应BVPS约19.87元；1.45 / 1.70 / 1.95倍PB对应28.81 / 33.78 / 38.75元，与主区间一致。</li>
-</ul>
 <table>
 <thead>
 <tr>
-<th>公司</th>
-<th align="right">PE TTM</th>
-<th align="right">PB</th>
-<th align="right">股息率TTM</th>
-<th>说明</th>
+<th>利润情景 \ 合理倍数</th>
+<th align="right">低</th>
+<th align="right">中</th>
+<th align="right">高</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>中国船舶</td>
-<td align="right">21.96</td>
-<td align="right">1.66</td>
-<td align="right">1.11%</td>
-<td>利润处于快速兑现期</td>
+<td>低</td>
+<td align="right">31元</td>
+<td align="right">34.3元</td>
+<td align="right">37.5元</td>
 </tr>
 <tr>
-<td>中船防务</td>
-<td align="right">29.30</td>
-<td align="right">1.96</td>
-<td align="right">0.85%</td>
-<td>利润基数更低、不能机械给溢价</td>
+<td>中</td>
+<td align="right">34.3元</td>
+<td align="right">37.5元</td>
+<td align="right">40.8元</td>
 </tr>
 <tr>
-<td>中国动力</td>
-<td align="right">47.56</td>
-<td align="right">1.74</td>
-<td align="right">0.91%</td>
-<td>配套业务与利润结构不同</td>
+<td>高</td>
+<td align="right">37.5元</td>
+<td align="right">40.8元</td>
+<td align="right">44元</td>
 </tr>
 </tbody></table>
-<ul>
-<li>中国船舶PB低于两家A股同业，但PE比较受利润基数影响；PB/ROE更适合作重资产交叉验证。</li>
-<li>2025自由现金流43.22亿元，对当前市值现金收益率仅1.74%；单年FCF受营运资本波动，不足以支持高目标价，也不适合建立完整DCF。</li>
-</ul>
-<h3>10.3 反向估值与边界</h3>
-<ul>
-<li>32.99元对应2482.70亿元市值；按13倍PE反推正常化归母净利润约190.98亿元、EPS约2.54元。</li>
-<li>该要求接近13家机构2026一致预期184.7亿元，低于H1预告简单年化上沿，属于偏积极但可审计的预期。</li>
-<li>若正常化利润回落至160亿元、周期PE回到11倍，对应每股约23.4元；这不是主情景，却是需要正视的下行压力测试。</li>
-<li>若利润215亿元且市场给予14倍以上PE，40元上沿可成立；高于40元需新增现金流或行业中枢证据。</li>
-</ul>
-<h2 id="section-11">11. 市场价格分解与估值泡沫判断</h2>
-
-<h3>11.1 价格偏离与七问</h3>
+<h3>4.3 现价与交易溢价</h3>
 <table>
 <thead>
 <tr>
 <th>项目</th>
-<th align="right">结果</th>
+<th align="right">数值</th>
+<th>公式 / 含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前价格</td>
+<td align="right">34.78元</td>
+<td>2026-08-28收盘</td>
+</tr>
+<tr>
+<td>公允价值下限</td>
+<td align="right">31元</td>
+<td>保守经营与可验证资产</td>
+</tr>
+<tr>
+<td>公允价值中枢</td>
+<td align="right">37.5元</td>
+<td>最可能经营路径</td>
+</tr>
+<tr>
+<td>公允价值上限</td>
+<td align="right">44元</td>
+<td>合理乐观情景</td>
+</tr>
+<tr>
+<td>相对中枢溢价率</td>
+<td align="right">-7.3%</td>
+<td>当前价格÷中枢－1</td>
+</tr>
+<tr>
+<td>相对上限偏离率</td>
+<td align="right">-21.0%</td>
+<td>当前价格÷上限－1</td>
+</tr>
+<tr>
+<td>中枢潜在回报</td>
+<td align="right">+7.8%</td>
+<td>中枢÷当前价格－1</td>
+</tr>
+<tr>
+<td>保守安全边际</td>
+<td align="right">-12.2%</td>
+<td>1－当前价格÷下限</td>
+</tr>
+<tr>
+<td>交易溢价状态</td>
+<td align="right">公允价值内</td>
+<td>基本面价值与交易偏离分开判断</td>
+</tr>
+</tbody></table>
+<p>质量、成长和周期已经进入正常化利润、倍数和情景，不再另加“质量溢价”。资金流只用于判断交易溢价持续性，不改变内在价值。</p>
+<h3>4.4 资金、筹码与交易方画像</h3>
+<p>8月1—28日资金分档净额合计约-18.16亿元；股东户数由2025年末81.45万户降至2026年6月末61.39万户，但并表和股本变化影响可比性。基本面强、资金偏弱，溢价持续性仅中等。</p>
+<table>
+<thead>
+<tr>
 <th>证据</th>
+<th>当前状态</th>
+<th>变化窗口</th>
+<th>对交易溢价的含义</th>
+<th>来源 / 时间</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>当前价格 / 中枢 / 上沿</td>
-<td align="right">32.99 / 34.50 / 40.00元</td>
-<td>08-20收盘 / 本报告估值</td>
+<td>大额资金分档</td>
+<td>见上文</td>
+<td>2026-08-01至08-28</td>
+<td>仅作交易结构代理</td>
+<td>Tushare moneyflow</td>
 </tr>
 <tr>
-<td>相对中枢 / 上沿</td>
-<td align="right">-4.4% / -17.5%</td>
-<td>当前价÷锚-1</td>
+<td>换手与成交</td>
+<td>已获取最近交易日</td>
+<td>日/20日</td>
+<td>判断拥挤，不证明基本面</td>
+<td>Tushare daily_basic</td>
 </tr>
 <tr>
-<td>上沿外价格</td>
-<td align="right">0元</td>
-<td>未超过上沿</td>
+<td>股东人数</td>
+<td>见上文</td>
+<td>连续披露期</td>
+<td>集中/分散趋势，不能识别机构</td>
+<td>Tushare stk_holdernumber</td>
 </tr>
 <tr>
-<td>可解释质量溢价</td>
-<td align="right">已计入</td>
-<td>份额、订单、整合与高端船型已进入12—14倍PE</td>
-</tr>
-<tr>
-<td>交易定价偏离</td>
-<td align="right">证据不足</td>
-<td>杠杆背离解释风险，不能精确拆成金额</td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th>七问</th>
-<th>结论</th>
-<th>状态</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>价格是否高于中枢和上沿？</td>
-<td>低于中枢4.4%、低于上沿17.5%</td>
-<td>不成立</td>
-</tr>
-<tr>
-<td>高出部分隐含什么？</td>
-<td>无上沿外价格；现价隐含约191亿元正常化利润</td>
-<td>可审计</td>
-</tr>
-<tr>
-<td>收入、利润、FCF能否验证？</td>
-<td>Q1可以，H1利润为预告、现金流未披露</td>
-<td>部分成立</td>
-</tr>
-<tr>
-<td>是否扣除投入、稀释和时间？</td>
-<td>已用正常化利润；合并股本和履约现金约束已考虑</td>
-<td>成立</td>
-</tr>
-<tr>
-<td>流动性与倍数正常化后能否成立？</td>
-<td>12—13倍下可以，11倍压力情景明显下修</td>
-<td>勉强成立</td>
-</tr>
-<tr>
-<td>周期正常化后能否成立？</td>
-<td>需利润不低于约182亿元</td>
-<td>成立但需复核</td>
-</tr>
-<tr>
-<td>市场是否仍定价风险？</td>
-<td>是；较52周高点回撤约24%，资金流出</td>
-<td>成立</td>
-</tr>
-</tbody></table>
-<h3>11.2 基本面触发器（9项）</h3>
-<table>
-<thead>
-<tr>
-<th>观察项</th>
-<th>当前证据</th>
-<th>扫描状态</th>
-<th>影响</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>资本开支规模</td>
-<td>2025资本开支34.45亿元，低于CFO77.67亿元</td>
-<td>有利</td>
-<td>未击中主锚</td>
-</tr>
-<tr>
-<td>经营现金流</td>
-<td>2025为77.67亿元；Q1为81.52亿元</td>
-<td>有利</td>
-<td>支持盈利质量</td>
-</tr>
-<tr>
-<td>自由现金流</td>
-<td>2025约43.22亿元</td>
-<td>有利</td>
-<td>正向但波动大</td>
-</tr>
-<tr>
-<td>投资资金来源</td>
-<td>Q1货币资金1445.94亿元、经营现金流为正</td>
-<td>有利</td>
-<td>外部融资依赖低</td>
-</tr>
-<tr>
-<td>融资停止后的可持续性</td>
-<td>经营现金流可覆盖资本开支</td>
-<td>有利</td>
-<td>未击中主锚</td>
-</tr>
-<tr>
-<td>原材料与中间品成本</td>
-<td>最新钢材、配套、人工和汇率成本曲线未完整取得</td>
-<td>证据不足</td>
-<td>不上调中枢</td>
-</tr>
-<tr>
-<td>定价权与成本转嫁</td>
-<td>高价船、单船均价和Q1毛利提升</td>
-<td>有利</td>
-<td>订单定价已进利润</td>
-</tr>
-<tr>
-<td>营收向利润的转化</td>
-<td>Q1收入+54.90%、利润+251.64%</td>
-<td>有利</td>
-<td>效率与结构改善</td>
-</tr>
-<tr>
-<td>利润向自由现金流的转化</td>
-<td>2025 CFO/净利0.99、Q1为1.69</td>
-<td>有利</td>
-<td>H1仍待验证</td>
-</tr>
-</tbody></table>
-<h3>11.3 流动性触发器（14项）</h3>
-<table>
-<thead>
-<tr>
-<th>观察项</th>
-<th>当前证据</th>
-<th>扫描状态</th>
-<th>影响</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>通胀</td>
-<td>全球航运、钢材与汇率组合影响未形成单一方向</td>
-<td>证据不足</td>
-<td>不作宏观强结论</td>
-</tr>
-<tr>
-<td>政策利率与债券收益率</td>
-<td>美联储7月维持3.50%—3.75%</td>
-<td>逆转</td>
-<td>美元折现率仍偏高</td>
-</tr>
-<tr>
-<td>信用与融资条件</td>
-<td>国内融资环境未见公司级收缩</td>
-<td>有利</td>
-<td>非当前约束</td>
-</tr>
-<tr>
-<td>高投资项目对低成本资金的依赖</td>
-<td>净现金与预收款支持生产</td>
-<td>有利</td>
-<td>但预收款对应履约</td>
-</tr>
-<tr>
-<td>监管与产业政策</td>
-<td>海洋装备、绿色船舶与央企整合方向明确</td>
-<td>有利</td>
-<td>支持供给和订单</td>
-</tr>
-<tr>
-<td>ETF申赎</td>
-<td>未取得船舶/国防ETF逐日申赎</td>
-<td>证据不足</td>
-<td>不判断被动增量</td>
-</tr>
-<tr>
-<td>基金仓位</td>
-<td>未取得最新公募、保险和北向穿透持仓</td>
-<td>证据不足</td>
-<td>不判断拥挤度</td>
-</tr>
-<tr>
-<td>主线增量资金</td>
-<td>近20日大额与特大额代理-24.25亿元</td>
-<td>逆转</td>
-<td>承接转弱</td>
-</tr>
-<tr>
-<td>融资余额增速</td>
-<td>60日+20.22%、价格约-14.34%</td>
-<td>逆转</td>
-<td>杠杆背离</td>
-</tr>
-<tr>
-<td>新增融资集中度</td>
-<td>无账户级数据</td>
-<td>证据不足</td>
-<td>无法判断集中踩踏</td>
-</tr>
-<tr>
-<td>股价对杠杆资金的依赖</td>
-<td>7月31日后融资+6.24%、价格下跌</td>
-<td>逆转</td>
-<td>套牢风险上升</td>
-</tr>
-<tr>
-<td>龙头表现</td>
-<td>10/60日-5.47%/-13.23%，市场修复日仍下跌</td>
-<td>逆转</td>
-<td>龙头相对强度转弱</td>
-</tr>
-<tr>
-<td>市场广度</td>
-<td>8月19日A股上涨449只、下跌5069只</td>
-<td>逆转</td>
-<td>风险偏好收缩</td>
-</tr>
-<tr>
-<td>获利资金与回调承接</td>
-<td>近5日大额代理-6.72亿元、股价-2.34%</td>
-<td>逆转</td>
-<td>进入出清观察</td>
-</tr>
-</tbody></table>
-<h3>11.4 预期触发器（9项）</h3>
-<table>
-<thead>
-<tr>
-<th>观察项</th>
-<th>当前证据</th>
-<th>扫描状态</th>
-<th>影响</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>价格隐含的增长年限</td>
-<td>反推191亿元正常化利润，不要求多年高速增长</td>
-<td>有利</td>
-<td>无远期泡沫</td>
-</tr>
-<tr>
-<td>产业进度与远期预期距离</td>
-<td>订单、交付、利润均已落地</td>
-<td>有利</td>
-<td>非纯故事定价</td>
-</tr>
-<tr>
-<td>新信息对盈利预测推动</td>
-<td>H1预告后中金上调2026/2027预测</td>
-<td>有利</td>
-<td>有基本面支撑</td>
-</tr>
-<tr>
-<td>同类利好的边际反应</td>
-<td>预告和行业份额强化后近10日仍-5.47%</td>
-<td>逆转</td>
-<td>利好钝化</td>
-</tr>
-<tr>
-<td>财报披露节点</td>
-<td>8月31日正式半年报尚未披露</td>
-<td>证据不足</td>
-<td>核心硬节点</td>
-</tr>
-<tr>
-<td>订单、收入与利润一致性</td>
-<td>订单饱满、Q1收入和H1利润同步增长</td>
-<td>有利</td>
-<td>已初步闭环</td>
-</tr>
-<tr>
-<td>利润与现金流一致性</td>
-<td>2025及Q1一致，H1待披露</td>
-<td>有利</td>
-<td>尚未击中主锚</td>
-</tr>
-<tr>
-<td>真实应用与产品验证</td>
-<td>船舶、配套、邮轮均规模商业化</td>
-<td>有利</td>
-<td>无技术落地风险</td>
-</tr>
-<tr>
-<td>实际业绩与隐含预期</td>
-<td>H1支持约191亿元隐含利润，但价格反应偏弱</td>
-<td>逆转</td>
-<td>预期已较充分</td>
-</tr>
-</tbody></table>
-<h3>11.5 扫描汇总与泡沫门槛</h3>
-<table>
-<thead>
-<tr>
-<th>扫描表</th>
-<th align="right">有利</th>
-<th align="right">逆转</th>
-<th align="right">证据不足</th>
-<th align="right">不适用</th>
-<th>关键结论</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>基本面</td>
-<td align="right">8</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td>盈利和现金转化有利，成本曲线缺口待补</td>
-</tr>
-<tr>
-<td>流动性</td>
-<td align="right">3</td>
-<td align="right">6</td>
-<td align="right">5</td>
-<td align="right">0</td>
-<td>大额流出、杠杆背离、相对强度与广度转弱</td>
-</tr>
-<tr>
-<td>预期</td>
-<td align="right">6</td>
-<td align="right">2</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td>业绩可验证，但利好边际反应钝化</td>
+<td>融资、ETF与账户身份</td>
+<td>未完整获取</td>
+<td>—</td>
+<td>溢价持续性置信度下降</td>
+<td>数据缺口</td>
 </tr>
 </tbody></table>
 <ul>
-<li>击中主估值锚的关键逆转：<strong>否</strong>；正常化利润182—215亿元尚未被财务或订单证伪。</li>
-<li>跨表传导链：目前是“融资回补但价格不涨 → 大额成交流出 → 利好钝化”的流动性—预期两表链，尚未传导到基本面表。</li>
+<li>主要交易方画像：混合 / 证据不足。</li>
+<li>溢价持续性：中等或证据不足。</li>
+<li>主要反证：资金与价格可能在基本面不变时快速反转。</li>
 </ul>
-<table>
-<thead>
-<tr>
-<th>类型</th>
-<th>判断项</th>
-<th>状态</th>
-<th>证据 / 反证</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>核心门槛</td>
-<td>估值脱锚</td>
-<td>不成立</td>
-<td>现价低于40元上沿，隐含利润可审计</td>
-</tr>
-<tr>
-<td>核心门槛</td>
-<td>经营验证缺口</td>
-<td>成立</td>
-<td>H1收入、分部、现金流和应收未披露</td>
-</tr>
-<tr>
-<td>核心门槛</td>
-<td>正常化压力失败</td>
-<td>不成立</td>
-<td>基准与保守情景仍能覆盖主要价格区间</td>
-</tr>
-<tr>
-<td>放大器</td>
-<td>融资依赖</td>
-<td>不显著</td>
-<td>公司经营不依赖持续股权融资</td>
-</tr>
-<tr>
-<td>放大器</td>
-<td>杠杆与承接</td>
-<td>显著</td>
-<td>60日融资+20.22%、价格约-14.34%、大额流出</td>
-</tr>
-<tr>
-<td>放大器</td>
-<td>叙事一致性</td>
-<td>不显著</td>
-<td>市场仍在定价周期、现金和效率风险</td>
-</tr>
-</tbody></table>
-<ul>
-<li>估值泡沫判断：<strong>公允价值内</strong>，置信度中。</li>
-<li>泡沫出清状态：<strong>出清观察</strong>；这是交易风险状态，不代表基本面泡沫已经破裂。</li>
-<li>出清证据：52周最大回撤-22.68%、近20日大额代理-24.25亿元、融资与价格背离、利好反应钝化；反证是单日大额代理+0.19亿元且现价低于估值中枢。</li>
-</ul>
-<h2 id="section-12">12. 最终结论</h2>
+<h2 id="section-5">5. 风险与结论</h2>
 
+<h3>5.1 估值风险与失效条件</h3>
+<table>
+<thead>
+<tr>
+<th>风险 / 失效条件</th>
+<th>影响的估值变量</th>
+<th>当前状态</th>
+<th>触发阈值或事实</th>
+<th>处置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>船价与新接订单回落</td>
+<td>正常化利润 / PE</td>
+<td>观察</td>
+<td>连续三月下行或取消增加</td>
+<td>完整重估</td>
+</tr>
+<tr>
+<td>交付与现金转化</td>
+<td>收入 / CFO</td>
+<td>未触发</td>
+<td>CFO/利润&lt;0.6或交付延期</td>
+<td>完整重估</td>
+</tr>
+<tr>
+<td>并表口径与应收</td>
+<td>股本 / 营运资本</td>
+<td>观察</td>
+<td>应收143.08亿元显著上升</td>
+<td>局部重算</td>
+</tr>
+</tbody></table>
+<h3>5.2 最终结论</h3>
 <ul>
-<li>企业价值主类型：<strong>周期资源</strong>；各分部均为已验证基本盘，无单列前沿科技期权。</li>
-<li>主估值锚：正常化归母净利润182—215亿元 × 12—14倍周期PE。</li>
-<li>价值创造链：高价高端船订单经交付转为毛利和现金利润，船台效率、成本和营运资本决定最终股东回报。</li>
-<li>估值结论：<strong>合理、区间中部偏下</strong>；公允价值<strong>29—40元，中枢34.5元</strong>。</li>
-<li>操作结论：<strong>观望</strong>；新增现金<code>wait</code>，已有持仓<code>review</code>。</li>
-<li>相对现价空间：相对下沿-12.1%、中枢+4.6%、上沿+21.2%；向上有空间，确定性不足。</li>
-<li>如果今天这是一笔现金，我会买它吗：<strong>不会立即买</strong>。</li>
-<li>结论失效条件：半年报现金流、毛利、订单或应收显著差于预期；或相反，正式H1强现金验证并站稳35.5—36元，可上调动作。</li>
-<li>估值锚退出条件：连续两个季度年化正常化利润低于182亿元、CFO/净利润低于0.6或新船价持续下行时下修；股价高于40元而利润中枢未超过215亿元时复核减仓。</li>
+<li>企业价值主类型与主估值锚：周期制造 / 多业务集团；正常化归母净利润 × 周期PE；PB/ROE、现金收益率和反向估值交叉验证。</li>
+<li>公允价值范围及区间含义：31—44元，中枢37.5元；下限对应保守经营，上限要求合理乐观证据。</li>
+<li>当前交易溢价及来源：公允价值内；相对中枢-7.3%，主要由基本面兑现与交易预期共同形成。</li>
+<li>资金与筹码对溢价的支持度：中等 / 证据不足，不抬高内在价值。</li>
+<li>产业前提是否仍成立：未被H1推翻，但按第5.1节继续验证。</li>
+<li>当前动作：<code>observe</code>。</li>
+<li>结论置信度：中高。</li>
+<li>下一次重估触发器：新季报、核心利润或FCF变化≥10%、利润率偏离≥2pct、股本稀释≥3%，或商业逻辑发生实质变化。</li>
 </ul>
-<h2 id="section-13">13. 后续监控指标</h2>
-
+<h3>5.3 最少监控指标</h3>
 <table>
 <thead>
 <tr>
 <th>指标</th>
-<th align="right">当前值</th>
-<th>触发阈值 / 方向</th>
-<th>数据源</th>
-<th>频率</th>
+<th align="right">当前基线</th>
+<th>更新频率</th>
+<th>触发条件</th>
+<th>触发后的估值动作</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>H1归母净利润</td>
-<td align="right">预告92—110亿元</td>
-<td>正式值低于92亿元为负向</td>
-<td>半年报</td>
-<td>08-31</td>
-</tr>
-<tr>
-<td>H1综合 / 分部毛利率</td>
-<td align="right">未披露</td>
-<td>综合≥16%正向；&lt;15%复盘</td>
-<td>半年报</td>
-<td>披露时</td>
-</tr>
-<tr>
-<td>H1 CFO / 归母净利润</td>
-<td align="right">未披露</td>
-<td>≥0.8正向；&lt;0.6负向</td>
-<td>半年报</td>
-<td>披露时</td>
-</tr>
-<tr>
-<td>应收账款 / 收入</td>
-<td align="right">Q1应收102.58亿元</td>
-<td>应收增速持续快于收入为负向</td>
-<td>财报</td>
+<td>归母 / 扣非利润</td>
+<td align="right">2026H1收入915.30亿元（同比+126.98%）、归母99.54亿元（+237.87%）、扣非97.42亿元、CFO 109.18亿元（+363.69%）、FCF代理92.62亿元；毛利率17.37%（+5.16pct）。合并重组使股本和历史口径不可机械同比。</td>
 <td>季度</td>
+<td>相对模型偏离≥10%</td>
+<td>完整重估</td>
 </tr>
 <tr>
-<td>合同负债与存货</td>
-<td align="right">2025合同负债1523.60亿元；Q1存货700.50亿元</td>
-<td>订单与预收同步下降需复核</td>
-<td>财报</td>
+<td>毛利率与CFO</td>
+<td align="right">见2.3</td>
 <td>季度</td>
+<td>毛利率偏离≥2pct或CFO显著恶化</td>
+<td>局部/完整重估</td>
 </tr>
 <tr>
-<td>新船价格与新接订单</td>
-<td align="right">指数185.49；订单饱满</td>
-<td>连续三月下行或取消增加为负向</td>
-<td>Clarksons / 公司</td>
-<td>月度</td>
+<td>公允价值关键参数</td>
+<td align="right">31—44元</td>
+<td>事件触发</td>
+<td>正常化利润、倍数或股本变动</td>
+<td>局部重算</td>
 </tr>
 <tr>
-<td>20日大额订单代理</td>
-<td align="right">-24.25亿元</td>
-<td>转正且价格确认才改善</td>
-<td>Tushare</td>
-<td>每日</td>
-</tr>
-<tr>
-<td>20 / 60日融资余额</td>
-<td align="right">-3.25% / +20.22%</td>
-<td>60日显著去化且非融资资金接力</td>
-<td>Tushare</td>
-<td>每日</td>
-</tr>
-<tr>
-<td>估值边界</td>
-<td align="right">32.99元；29—40元</td>
-<td>30—31.5元评估买点；&gt;40元需上修</td>
-<td>行情 / 本报告</td>
-<td>每日</td>
-</tr>
-<tr>
-<td>技术确认位</td>
-<td align="right">35.5—36元</td>
-<td>放量站稳且资金转正为右侧确认</td>
-<td>行情</td>
-<td>每日</td>
+<td>资金与筹码</td>
+<td align="right">见4.4</td>
+<td>日 / 披露期</td>
+<td>只改变溢价持续性</td>
+<td>更新交易溢价 / 人工复核</td>
 </tr>
 </tbody></table>
-<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
-
+<p><strong>未获取到的数据与研究局限</strong></p>
+<ul>
+<li>未获取到：2026H1法定PDF库内副本与直接公告链接、完整分部数据、同日可比公司一致预期、账户级机构/北向/ETF资金、完整融资与大宗/龙虎榜穿透、用户持仓成本与仓位。</li>
+<li>本次先以本地Tushare的法定披露结构化数据交叉核验三张报表和财务指标；无法确认的事项未写成事实。</li>
+</ul>
+<p><strong>来源清单</strong></p>
 <ol>
-<li>半年报尚未披露；H1收入、分部毛利、CFO、应收、合同负债、新接订单和中期分红待法定报告。</li>
-<li>未取得完整卖方研报原件、一致预期逐日修订、独立第三方公允价值、Morningstar护城河与星级。</li>
-<li>未取得账户级公募、保险、北向、ETF申赎、融资集中度和未来90日完整解禁穿透；资金分档只是订单规模代理。</li>
-<li>并表重述使2021—2025历史不可完全比较；Tushare原始旧平台数据与公司重述数存在口径差异，以法定重述口径优先。</li>
-<li>同业船型、军民品比例和会计确认差异大，毛利率和PE只能作方向验证，不能机械套用。</li>
-<li>正常化利润对新船价、交付、钢材、人工、关键配套、汇率和合同取消敏感；估值是区间，不是确定价格。</li>
-<li>用户未提供持仓成本、期限、仓位和风险预算，因此不提供个性化仓位比例。</li>
+<li>本地Tushare：income、balancesheet、cashflow、fina_indicator、daily、daily_basic、moneyflow、stk_holdernumber；财报期2026-06-30，公告日见法定披露字段；行情日2026-08-28。</li>
+<li><a href="../../webpages/2026-08-20-中国船舶v3.0.2研报数据核验快照.md">历史核验快照</a>；<a href="https://money.finance.sina.com.cn/corp/go.php/vCB_AllBulletin/stockid/600150.phtml">公司公告索引</a>；<a href="https://www.miit.gov.cn/gxsj/tjfx/zbgy/mycb/art/2026/art_fc5e4ed1d3f5421885e6c3afff91cbbc.html">工信部造船数据</a>。</li>
+<li>原权威研报及其来源清单；本次原地迁移为bbxm-equity-research v4.0五章结构。</li>
 </ol>
-<h2 id="section-15">15. 来源清单</h2>
-
-<ol>
-<li><a href="../../webpages/2026-08-20-中国船舶v3.0.2研报数据核验快照.md">2026-08-20中国船舶v3.0.2研报数据核验快照</a>：行情、估值、资金、融资、财务、行业、卖方和估值底稿。</li>
-<li><a href="../../webpages/2026-08-20-中国船舶三要素政策行业与市场证据快照.md">中国船舶三要素政策行业与市场证据快照</a>：国家方向、行业、同业与市场广度。</li>
-<li>中国船舶2026H1业绩预增公告：<a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12442205&stockid=600150">https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12442205&amp;stockid=600150</a>。</li>
-<li>中国船舶2026年10艘VLCC重大合同公告：<a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12037356&stockid=600150">https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12037356&amp;stockid=600150</a>。</li>
-<li>中国船舶2026年中期分红安排：<a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12282262&stockid=600150">https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12282262&amp;stockid=600150</a>。</li>
-<li>工信部2025年造船数据：<a href="https://www.miit.gov.cn/gxsj/tjfx/zbgy/mycb/art/2026/art_fc5e4ed1d3f5421885e6c3afff91cbbc.html">https://www.miit.gov.cn/gxsj/tjfx/zbgy/mycb/art/2026/art_fc5e4ed1d3f5421885e6c3afff91cbbc.html</a>；2026H1行业数据：<a href="https://price.mofcom.gov.cn/article/yjzx/hyzx/hy/202608/65033.html">https://price.mofcom.gov.cn/article/yjzx/hyzx/hy/202608/65033.html</a>。</li>
-<li>Clarksons市场数据公开摘要：<a href="https://en.portnews.ru/news/395396/">https://en.portnews.ru/news/395396/</a>；Clarksons 2026中期材料：<a href="https://prod.clarksons.com/media/e3les54a/interim-results-presentation-2026.pdf">https://prod.clarksons.com/media/e3les54a/interim-results-presentation-2026.pdf</a>。</li>
-<li>中金公司H1预告点评公开摘要：<a href="https://vip.stock.finance.sina.com.cn/q/go.php/vReport_Show/kind/lastest/rptid/837356572572/index.phtml">https://vip.stock.finance.sina.com.cn/q/go.php/vReport_Show/kind/lastest/rptid/837356572572/index.phtml</a>；东方财富一致预期：<a href="https://emweb.eastmoney.com/PC_HSF10/ProfitForecast/index?code=SH600150&color=w&type=web">https://emweb.eastmoney.com/PC_HSF10/ProfitForecast/index?code=SH600150&amp;color=w&amp;type=web</a>。</li>
-<li>扬子江船业2026H1公告：<a href="https://links.sgx.com/1.0.0/corporate-announcements/LYJB2HHS6J2D06AP/7d1e108fdc6d13424429b4cb6d84cd6efa26c07ecfa5a056ae424181ec5cb0f4">https://links.sgx.com/1.0.0/corporate-announcements/LYJB2HHS6J2D06AP/7d1e108fdc6d13424429b4cb6d84cd6efa26c07ecfa5a056ae424181ec5cb0f4</a>。</li>
-<li><a href="../../../wiki/concepts/冰冰小美-framework-估值判断.md">冰冰小美估值判断框架</a>：32项触发器扫描与泡沫门槛。</li>
-</ol>
-<h2 id="section-16">16. 声明</h2>
-
-<p>本报告基于截至研究截止时间可取得的公开信息，仅用于知识库研究、估值方法演示与风险审计，不构成证券推荐、收益承诺或个性化投资建议。市场价格与公司信息会变化；实际决策应重新核验价格、公告、流动性，并结合持仓成本、仓位、期限、流动性需求和可承受损失独立判断。</p>
-<script>
-(() => {
-  const endpoint = '/api/stock-quote?secid=1.600150';
-  const priceNode = document.getElementById('intraday-price');
-  const detailNode = document.getElementById('intraday-detail');
-  const statusNode = document.getElementById('intraday-status');
-  const riskRewardValue = document.getElementById('risk-reward-value');
-  const riskRewardDetail = document.getElementById('risk-reward-detail');
-  const tracker = document.getElementById('daily-tracking');
-  const snapshotPrice = 32.99;
-  const percent = value => `${value < 0 ? '-' : value > 0 ? '+' : ''}${Math.abs(value).toFixed(1)}%`;
-  function updateRiskReward(price) {
-    const low = Number(tracker.dataset.valueLow);
-    const high = Number(tracker.dataset.valueHigh);
-    if (!Number.isFinite(low) || !Number.isFinite(high) || low <= 0 || high <= low) return;
-    const upside = (high / price - 1) * 100;
-    const downside = (1 - low / price) * 100;
-    if (price <= low) {
-      riskRewardValue.textContent = '低于价值下沿';
-      riskRewardValue.classList.remove('bad');
-      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿潜在空间 ${percent(upside)}。价格已低于公允价值下沿，不能直接用下沿作为止损风险，需另设风控线。`;
-      return;
-    }
-    if (price >= high) {
-      riskRewardValue.textContent = '无正向盈亏比';
-      riskRewardValue.classList.add('bad');
-      riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；相对上沿空间 ${percent(upside)}，回落至下沿风险 ${percent(downside)}。价格已到或高于公允价值上沿，新增现金不具备正向盈亏比。`;
-      return;
-    }
-    const ratio = upside / downside;
-    riskRewardValue.textContent = `约 ${ratio.toFixed(1)}:1`;
-    riskRewardValue.classList.toggle('bad', ratio < 1);
-    riskRewardDetail.textContent = `盘中价 ${price.toFixed(2)} 元；到上沿 ${high.toFixed(2)} 元的潜在上行 ${percent(upside)}，跌至下沿 ${low.toFixed(2)} 元的风险 ${percent(downside)}。盘中价格不改变价值区间本身。`;
-  }
-  async function refreshIntradayQuote() {
-    statusNode.textContent = '连接中'; statusNode.className = 'tracking-status';
-    try {
-      const response = await fetch(endpoint, { cache: 'no-store' });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const payload = await response.json(); const quote = payload && payload.data;
-      if (!quote || !Number.isFinite(quote.price) || !Number.isFinite(quote.prevClose) || !Number.isFinite(quote.changePercent) || !Number.isFinite(quote.quoteTimestamp)) throw new Error('invalid quote');
-      const quoteTime = new Date(quote.quoteTimestamp * 1000).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false });
-      priceNode.textContent = `${quote.price.toFixed(2)} 元 · ${percent(quote.changePercent)}`;
-      priceNode.classList.toggle('bad', quote.changePercent < 0);
-      detailNode.textContent = `行情时间：${quoteTime}；昨收 ${quote.prevClose.toFixed(2)} 元。来源：${payload.proxySource || '本地行情代理'}。`;
-      statusNode.textContent = '盘中实时 · 每 60 秒'; statusNode.className = 'tracking-status live'; updateRiskReward(quote.price);
-    } catch { priceNode.textContent = '实时行情暂不可用'; priceNode.classList.remove('bad'); detailNode.textContent = '每日同步值仍然有效；可重新双击“大盘启动器”后刷新本页。'; statusNode.textContent = '连接失败'; statusNode.className = 'tracking-status error'; }
-  }
-  if (location.protocol === 'http:' || location.protocol === 'https:') { refreshIntradayQuote(); window.setInterval(refreshIntradayQuote, 60000); }
-  else { priceNode.textContent = Number.isFinite(snapshotPrice) ? `${snapshotPrice.toFixed(2)} 元（每日值）` : '每日值未获取'; detailNode.textContent = '当前为直接打开模式；盘中实时需通过“大盘启动器”进入本地服务。'; statusNode.textContent = '每日同步 · 实时未连接'; }
-})();
-</script></article>
+<p><strong>声明</strong></p>
+<p>本报告基于指定截止时间前可获取的信息，公允价值是条件化区间而非确定价格；交易溢价可能在基本面不变时快速变化。本报告不构成收益承诺或替代个人风险判断。</p>
+</article>
     </div>
   </main>
 </body>

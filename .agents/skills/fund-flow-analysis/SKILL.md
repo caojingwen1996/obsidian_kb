@@ -17,7 +17,7 @@ description: Use when 用户要求分析市场、指数、板块或个股的资�
 - 用户要求竞争格局、流动性和情绪位置组成的完整三要素分析：使用 `bbxm-three-factor-analysis`；本技能结果可以作为其流动性输入。
 - 用户只要求风险增强、持平、减弱或重新增强：使用 `bbxm-risk-identification`。
 - 用户要求过滤一条新闻、政策、公告或研报：使用 `bbxm-information-filter-flow`。
-- 用户要求完整公司研究、十年财务、DCF、公允价值或目标价：使用 `bbxm-equity-research`；资金面只作为其中一个输入。
+- 用户要求十年财务或完整财报研究：使用 `financial-report-research`；用户要求DCF、公允价值、目标价或交易溢价：使用 `个股估值计算`，资金面只作为交易溢价的一个输入。
 - 用户提供交割单或买卖记录要求复盘：使用 `bbxm-trade-ticket-review`。
 
 ## 唯一输出契约

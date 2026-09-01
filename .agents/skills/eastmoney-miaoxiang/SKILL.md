@@ -48,7 +48,7 @@ description: Use when the user asks to use 东方财富妙想, 妙想 Skills, Mi
 ## llmwiki 落盘规则
 
 - 原始响应、截图转写、导出的表格或问答结果放入 `sources/webpages/`、`sources/manual/` 或更合适的 `sources/` 子目录。
-- 个股完整研报优先交给 `bbxm-equity-research`，妙想只提供行情、数据和资讯补充。
+- 个股DCF、公允价值、目标价和交易溢价优先交给 `个股估值计算`，妙想只提供行情、数据和资讯补充。
 - 产业链、三要素、风险方向、资金流等专项分析，优先使用当前项目已有 BBXM skill，妙想结果作为证据输入。
 - 正式页面引用妙想材料时，使用 Obsidian 双链指向库内 source 副本。
 

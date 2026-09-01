@@ -1,27 +1,7 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-28",
+  "updatedAt": "2026-09-01",
   "items": [
-    {
-      "id": "TODO-003",
-      "title": "校准三要素摘要测试样本",
-      "detail": "全量看板测试中现有三要素报告摘要断言与当前报告内容不一致。",
-      "quadrant": "重要不紧急",
-      "status": "未开始",
-      "source": "看板测试后续待办",
-      "createdAt": "2026-08-27",
-      "updatedAt": "2026-08-27"
-    },
-    {
-      "id": "TODO-004",
-      "title": "整理后续需求入口",
-      "detail": "把零散界面与自动化改造事项统一放入需求清单维护。",
-      "quadrant": "不重要且不紧急",
-      "status": "未开始",
-      "source": "需求池维护",
-      "createdAt": "2026-08-27",
-      "updatedAt": "2026-08-27"
-    },
     {
       "id": "TODO-005",
       "title": "阅读《两次全球大危机的比较研究》",
@@ -33,26 +13,6 @@
       "updatedAt": "2026-08-27"
     },
     {
-      "id": "TODO-006",
-      "title": "整理知识库-产业思维",
-      "detail": "",
-      "quadrant": "重要且紧急",
-      "status": "进行中",
-      "source": "用户补充",
-      "createdAt": "2026-08-27",
-      "updatedAt": "2026-08-28"
-    },
-    {
-      "id": "TODO-007",
-      "title": "产业思维与竞争格局的比较优势如何联合",
-      "detail": "",
-      "quadrant": "重要且紧急",
-      "status": "进行中",
-      "source": "用户补充",
-      "createdAt": "2026-08-27",
-      "updatedAt": "2026-08-28"
-    },
-    {
       "id": "TODO-008",
       "title": "信息金融意义重新整理",
       "detail": "",
@@ -61,6 +21,74 @@
       "source": "看板新增",
       "createdAt": "2026-08-28",
       "updatedAt": "2026-08-28"
+    },
+    {
+      "id": "TODO-009",
+      "title": "个股研报skill怎么与产业思维选股分析skill融合？",
+      "detail": "",
+      "quadrant": "重要且紧急",
+      "status": "未开始",
+      "source": "看板新增",
+      "createdAt": "2026-08-28",
+      "updatedAt": "2026-08-28"
+    },
+    {
+      "id": "TODO-010",
+      "title": "风险库整理",
+      "detail": "",
+      "quadrant": "重要且紧急",
+      "status": "未开始",
+      "source": "看板新增",
+      "createdAt": "2026-08-31",
+      "updatedAt": "2026-08-31"
+    },
+    {
+      "id": "TODO-011",
+      "title": "风险监控体系构建（根据信息的金融意义）",
+      "detail": "",
+      "quadrant": "重要且紧急",
+      "status": "未开始",
+      "source": "看板新增",
+      "createdAt": "2026-09-01",
+      "updatedAt": "2026-09-01"
+    },
+    {
+      "id": "TODO-012",
+      "title": "看不懂金融信息系列，先补充一下宏观经济学",
+      "detail": "",
+      "quadrant": "重要且紧急",
+      "status": "未开始",
+      "source": "看板新增",
+      "createdAt": "2026-09-01",
+      "updatedAt": "2026-09-01"
+    }
+  ],
+  "archive": [
+    {
+      "id": "TODO-006",
+      "title": "整理知识库-产业思维",
+      "detail": "",
+      "quadrant": "重要且紧急",
+      "status": "已完成",
+      "source": "用户补充",
+      "createdAt": "2026-08-27",
+      "updatedAt": "2026-08-31",
+      "completedAt": "2026-08-31",
+      "archivedAt": "2026-08-31",
+      "archiveReason": "status-completed"
+    },
+    {
+      "id": "TODO-007",
+      "title": "产业思维与竞争格局的比较优势如何联合",
+      "detail": "",
+      "quadrant": "重要且紧急",
+      "status": "已完成",
+      "source": "用户补充",
+      "createdAt": "2026-08-27",
+      "updatedAt": "2026-08-28",
+      "completedAt": "2026-08-28",
+      "archivedAt": "2026-08-28",
+      "archiveReason": "status-completed"
     }
   ]
 }

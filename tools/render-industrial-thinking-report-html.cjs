@@ -77,9 +77,32 @@ function sectionize(markdown) {
 }
 
 function validateStructure(markdown) {
-  const numbered = [...markdown.matchAll(/^##\s+([0-7])\.\s+/gm)].map((match) => Number(match[1]));
-  if (numbered.length !== 8 || numbered.some((value, index) => value !== index)) {
-    throw new Error(`个股产业思维报告必须依次包含0—7章，当前识别为：${numbered.join(', ') || '无'}。`);
+  const expectedH2 = ['1. 产业研究', '2. 行业研究', '3. 公司研究', '4. 投资价值'];
+  const expectedH3 = [
+    '1.1 产业战略地位',
+    '1.2 长期成长空间',
+    '1.3 产业投资生命周期',
+    '2.1 行业景气周期',
+    '2.2 行业竞争格局',
+    '2.3 核心矛盾与边际变化',
+    '3.1 竞争地位',
+    '3.2 核心竞争壁垒',
+    '3.3 市场份额',
+    '3.4 盈利能力',
+    '3.5 业绩兑现',
+    '3.6 第二增长曲线',
+    '4.1 估值',
+    '4.2 市场预期',
+    '4.3 预期差',
+    '4.4 风险收益比',
+  ];
+  const actualH2 = [...markdown.matchAll(/^##\s+(.+)$/gm)].map((match) => match[1].trim());
+  const actualH3 = [...markdown.matchAll(/^###\s+(.+)$/gm)].map((match) => match[1].trim());
+  if (JSON.stringify(actualH2) !== JSON.stringify(expectedH2)) {
+    throw new Error(`一级目录必须严格对应产业思维框架，当前识别为：${actualH2.join(' / ') || '无'}。`);
+  }
+  if (JSON.stringify(actualH3) !== JSON.stringify(expectedH3)) {
+    throw new Error(`二级目录必须严格对应产业思维框架，当前识别为：${actualH3.join(' / ') || '无'}。`);
   }
   for (const marker of ['产业跟踪资格', '公司筛选资格', '当前投资资格', '候选池动作']) {
     if (!markdown.includes(marker)) throw new Error(`报告缺少最终决策字段：${marker}`);

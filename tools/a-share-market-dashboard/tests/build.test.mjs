@@ -218,7 +218,7 @@ test('sidebar exposes the personal workspace as a first-level tree domain', () =
   assert.match(html, /id="tree-thermometer"[\s\S]*data-view="market-summary"[^>]*aria-current="page"><span>01<\/span>市场总览<\/button>\s*<button class="nav-item" type="button" data-view="dividend-signal-view"><span>02<\/span>红利信号<\/button>/);
   assert.match(html, /id="tree-thermometer"[\s\S]*<button class="nav-item" type="button" data-view="featured-digest"><span>08<\/span>每日跟踪<\/button>/);
   assert.doesNotMatch(html.match(/<div class="tree-children" id="tree-thermometer">[\s\S]*?<\/div>/)?.[0] ?? '', /data-view="fugui-strategy"/);
-  assert.match(html, /id="tree-thermometer"[\s\S]*<button class="nav-item" type="button" data-view="risk-monitor"><span>09<\/span>风险监控<\/button>/);
+  assert.match(html, /id="tree-thermometer"[\s\S]*<button class="nav-item" type="button" data-view="risk-monitor"><span>09<\/span>风险发现系统<\/button>/);
   assert.match(html, /id="tree-thermometer"[\s\S]*<button class="nav-item" type="button" data-view="topic-map"><span>10<\/span>主题<\/button>/);
   assert.match(html, /id="tree-strategy"[\s\S]*<button class="nav-item" type="button" data-view="fugui-strategy"><span>01<\/span>富贵策略<\/button>\s*<button class="nav-item" type="button" data-view="xiaomei-strategy"><span>02<\/span>小美策略<\/button>/);
   const personalTree = html.match(/<div class="tree-children" id="tree-personal" hidden>[\s\S]*?<\/div>/)?.[0] ?? '';
@@ -317,17 +317,20 @@ test('sidebar exposes the personal workspace as a first-level tree domain', () =
   assert.match(artifact, /data-action="delete-todo"/);
   assert.doesNotMatch(artifact, /data-todo-status="已完成"/);
   const q1TodoOrder = [
-    artifact.indexOf('data-todo-id="TODO-007"'),
-    artifact.indexOf('data-todo-id="TODO-006"'),
+    artifact.indexOf('data-todo-id="TODO-009"'),
+    artifact.indexOf('data-todo-id="TODO-008"'),
   ];
   assert.ok(q1TodoOrder.every(index => index >= 0));
   assert.deepStrictEqual([...q1TodoOrder].sort((left, right) => left - right), q1TodoOrder);
+  assert.doesNotMatch(artifact, /data-todo-id="TODO-00[67]"/);
+  assert.match(artifact, /data-todo-archive-id="TODO-006"/);
+  assert.match(artifact, /data-todo-archive-id="TODO-007"/);
   for (const marker of [
-    'TODO-003',
-    'TODO-004',
     'TODO-005',
     'TODO-006',
     'TODO-007',
+    'TODO-008',
+    'TODO-009',
     '阅读《两次全球大危机的比较研究》',
     '整理知识库-产业思维',
     '产业思维与竞争格局的比较优势如何联合',
@@ -341,7 +344,7 @@ test('sidebar exposes the personal workspace as a first-level tree domain', () =
   assert.match(html, /<section class="view" id="featured-digest" data-shell-content="thermometer" aria-labelledby="featured-digest-heading">/);
   assert.match(html, /<h2 class="visually-hidden" id="featured-digest-heading">每日跟踪<\/h2>/);
   assert.match(html, /<section class="view" id="risk-monitor" data-shell-content="thermometer" aria-labelledby="risk-monitor-heading">/);
-  assert.match(html, /<h2 class="visually-hidden" id="risk-monitor-heading">风险监控<\/h2>/);
+  assert.match(html, /<h2 class="visually-hidden" id="risk-monitor-heading">风险发现系统<\/h2>/);
   assert.match(html, /<section class="view" id="fugui-strategy" data-shell-content="strategy" aria-labelledby="fugui-strategy-heading">/);
   assert.match(html, /<h2 class="visually-hidden" id="fugui-strategy-heading">富贵策略<\/h2>/);
   assert.match(html, /<section class="view" id="xiaomei-strategy" data-shell-content="strategy" aria-labelledby="xiaomei-strategy-heading">/);
@@ -399,7 +402,7 @@ test('sidebar exposes the personal workspace as a first-level tree domain', () =
   assert.match(readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8'), /\.fugui-form\.is-collapsed \.fugui-form-body/);
   assert.match(html, /<section class="view" id="topic-map" data-shell-content="thermometer" aria-labelledby="topic-map-heading">/);
   assert.match(html, /<h2[^>]*id="topic-map-heading"[^>]*>主题<\/h2>/);
-  assert.match(html, /<thead><tr><th>标的<\/th><th>公允价值区间<\/th><th>交易定价偏离<\/th><th>盘中实时<\/th><th><button class="table-sort-button" type="button" id="tracking-sort-close-performance"[^>]*>收盘表现<\/button><small id="tracking-close-date"><\/small><\/th><th><button class="table-sort-button" type="button" id="tracking-sort-intraday"[^>]*>盈亏比<\/button><\/th><th>每日估值监控<\/th><th>三要素判断<\/th><th>基本面状态<\/th><th>复盘<\/th><th>星级<\/th><th>操作<\/th><\/tr><\/thead>/);
+  assert.match(html, /<thead><tr><th>标的<\/th><th>公允价值区间<\/th><th>交易定价偏离<small>盘中实时<\/small><\/th><th><button class="table-sort-button" type="button" id="tracking-sort-close-performance"[^>]*>收盘表现<\/button><small id="tracking-close-date"><\/small><\/th><th>每日估值监控<\/th><th>三要素判断<\/th><th>基本面状态<\/th><th>复盘<\/th><th>星级<\/th><th>操作<\/th><\/tr><\/thead>/);
   assert.match(html, /<tbody id="holding-tracker-list"><\/tbody>/);
   assert.match(appSource, /DAILY_MONITOR_LINKS/);
   assert.match(appSource, /dailyMonitorLinkForTrackingItem/);
@@ -421,7 +424,8 @@ test('sidebar exposes the personal workspace as a first-level tree domain', () =
   assert.match(appSource, /report\.pricingDeviation/);
   assert.match(appSource, /report\.fundamental/);
   assert.match(appSource, /tracking-fundamental-status/);
-  assert.match(appSource, /colspan="12"/);
+  assert.match(appSource, /<td><div class="tracking-pricing-summary">\$\{pricingDeviationHtml\}<strong>\$\{escapeHtml\(intraday\)\}<\/strong><\/div><\/td>/);
+  assert.match(appSource, /colspan="10"/);
   assert.match(appSource, /<td><div class="tracker-row-actions">[\s\S]*data-action="edit-tracking"[\s\S]*data-action="delete-tracking"/);
   assert.match(readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8'), /\.tracker-row-actions button \{ min-height: 30px; border: 1px solid/);
   assert.match(appSource, /tracking-valuation-disposition/);
@@ -444,6 +448,10 @@ test('pricing deviation uses the concise judgement stored in the stock report', 
   assert.equal(pricingDeviationFromText('当前判断：严重估值泡沫。'), '严重估值泡沫');
   assert.equal(pricingDeviationFromText('普通高估，置信度中'), '普通高估');
   assert.equal(pricingDeviationFromText('可解释估值溢价'), '估值溢价');
+  assert.equal(pricingDeviationFromText('合理溢价'), '估值溢价');
+  assert.equal(pricingDeviationFromText('高溢价'), '普通高估');
+  assert.equal(pricingDeviationFromText('价格脱锚'), '估值泡沫');
+  assert.equal(pricingDeviationFromText('当前判断：折价。'), '折价');
   assert.equal(pricingDeviationFromText('当前判断：公允价值内；四级均未高亮。'), '公允价值内');
   assert.equal(pricingDeviationFromText('没有相关判断'), '');
   assert.equal(pricingDeviationToneClass('估值溢价'), 'is-premium');
@@ -508,7 +516,7 @@ test('market summary renders three overview cards and includes signal sources in
   assert.match(source, /id="risk-monitor-card"/);
   assert.match(source, /id="risk-level-value"/);
   assert.match(source, /风险等级/);
-  assert.match(source, /进入风险监控/);
+  assert.match(source, /进入风险发现系统/);
   assert.equal((source.match(/class="summary-shortcut-card/g) ?? []).length, 4);
   assert.equal((source.match(/summary-shortcut-card-empty/g) ?? []).length, 2);
   assert.match(source, /id="open-featured-digest"[^>]*>进入每日跟踪<\/button>/);
@@ -1067,18 +1075,19 @@ test('tracking addable and reducible filters derive signals from dynamic value r
   assert.match(appSource, /'★'\.repeat\(signal\.addStars\)/);
 });
 
-test('tracking risk-reward display hides quote change percentage', () => {
+test('tracking list omits risk-reward display and keeps live price concise', () => {
   const appSource = readFileSync(new URL('../src/app.mjs', import.meta.url), 'utf8');
+  const html = readFileSync(new URL('../src/index.html', import.meta.url), 'utf8');
 
   assert.equal(trackingQuotePriceOnly('14.62 元 · -4.76%'), '14.62 元');
   assert.equal(trackingQuotePriceOnly('未获取到'), '未获取到');
   assert.match(appSource, /`\$\{liveQuote\.price\.toFixed\(2\)\} 元`/);
   assert.match(appSource, /const intraday = liveQuote[\s\S]*: '';/);
-  assert.match(appSource, /const riskRewardText = riskReward\.label !== '等待实时'[\s\S]*: '';/);
   assert.doesNotMatch(appSource, /`\$\{liveQuote\.price\.toFixed\(2\)\} 元\$\{signalLabel\}`/);
   assert.doesNotMatch(appSource, /report\.reportQuote \? trackingQuotePriceOnly\(report\.reportQuote\)/);
-  assert.match(appSource, /riskRewardText/);
-  assert.match(appSource, /盈亏比|riskReward/);
+  assert.doesNotMatch(html, /tracking-sort-intraday|>盈亏比<\/button>/);
+  assert.doesNotMatch(appSource, /riskRewardText|tracking-sort-intraday/);
+  assert.match(appSource, /trackingRiskRewardForQuote/);
   assert.doesNotMatch(appSource, /riskReward\.detail/);
   assert.doesNotMatch(appSource, /liveQuote\.changePercent >= 0 \? '\+' : ''/);
 });

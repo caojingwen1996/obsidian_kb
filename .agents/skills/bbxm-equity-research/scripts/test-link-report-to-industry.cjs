@@ -44,5 +44,5 @@ console.log('PASS: equity HTML links into an existing industry report and remain
 
 const skill = fs.readFileSync(path.join(__dirname, '..', 'SKILL.md'), 'utf8');
 assert.match(skill, /link-report-to-industry\.cjs/);
-assert.match(skill, /产业研报不存在/);
-assert.match(skill, /产业研报已包含个股 HTML 链接/);
+assert.match(skill, /优先读取同一标的由 `个股产业思维筛选` 生成的最新权威 Markdown 报告/);
+assert.match(skill, /若同目录产业报告需要补回个股估值链接/);

@@ -1,13 +1,13 @@
 ---
-name: bbxm-industrial-thinking-equity-analysis
+name: 个股产业思维筛选
 description: Use when the user asks to analyze a listed company or stock through 冰冰小美产业思维, 产业趋势投资模型, 产业链位置, 产业生命周期, 行业景气传导, 利润池, 产业约束, 第二增长曲线, or asks whether a company is a genuine beneficiary rather than a concept stock. This skill maps industry direction and cycles into company-level competitive position, earnings validation, expectations, and candidate-pool action. Do not use for a pure industry report, a full DCF or target-price report, direct three-factor analysis, pure fund-flow analysis, or filtering one news item.
 compatibility: Requires access to the llmwiki vault, current public market information, company filings, and the report template bundled with this skill.
 metadata:
-  version: "1.0.0"
+  version: "1.1.1"
   language: zh-CN
 ---
 
-# 个股产业思维分析
+# 个股产业思维筛选
 
 ## 1. 定位
 
@@ -18,7 +18,7 @@ metadata:
 3. 公司是否位于约束、价值量和利润池真正流向的环节；
 4. 产业逻辑是否已经转化为订单、收入、利润、现金流和合理预期。
 
-产业思维负责发现方向、建立候选池和判断公司受益质量，不单独决定短线买卖点。若用户需要完整财务建模、DCF、公允价值或目标价，转入 `bbxm-equity-research`；若用户需要竞争格局、流动性、情绪位置和买卖时点，转入或联合使用 `bbxm-three-factor-analysis`。
+产业思维负责发现方向、建立候选池和判断公司受益质量，不单独决定短线买卖点。若用户需要DCF、公允价值、目标价或交易溢价，完成本报告后转入 `个股估值计算`；若用户需要竞争格局、流动性、情绪位置和买卖时点，转入或联合使用 `bbxm-three-factor-analysis`。
 
 ## 2. 权威框架
 
@@ -57,14 +57,14 @@ metadata:
 | 用户主动作 | 使用技能 |
 |---|---|
 | 分析整个产业、行业、赛道或产业链 | `产业分析` |
-| 完整公司研究、DCF、公允价值、目标价、是否值得买 | `bbxm-equity-research` |
+| DCF、公允价值、目标价、安全边际、交易溢价、什么价格值得买 | `个股估值计算` |
 | 直接分析竞争格局、流动性和情绪位置 | `bbxm-three-factor-analysis` |
 | 专门研究财报、利润质量和现金流 | `financial-report-research` |
 | 分析资金流、交易方和增量资金 | `fund-flow-analysis` |
 | 判断一条新闻或公告有没有金融意义 | `bbxm-information-filter-flow` |
 | 判断风险增强、减弱或重新增强 | `bbxm-risk-identification` |
 
-若用户同时要求产业思维和完整估值，以 `bbxm-equity-research` 为主，并把本技能的产业结论作为输入模块；若同时要求产业思维和三要素，分别完成两个判断后再汇总，不得互相代替。
+若用户同时要求产业思维和完整估值，先完成本技能并保存权威报告，再由 `个股估值计算` 读取产业结论作为前置输入；若同时要求产业思维和三要素，分别完成两个判断后再汇总，不得互相代替。
 
 ## 4. 输入契约
 
@@ -171,7 +171,7 @@ A 股财务数据优先使用本地结构化数据和公司法定披露交叉验
 
 比较当前估值、历史区间、可比公司和市场隐含预期，判断市场在定价基本盘、产业景气还是远期第二曲线，检查隐含增长是否被订单、利润和现金流验证，并识别产业阶段、公司兑现阶段和市场定价阶段的错位。
 
-本技能只做估值观察和预期审计，不单独搭建 DCF 或给目标价。用户要求精确公允价值时转入 `bbxm-equity-research`。
+本技能只做估值观察和预期审计，不单独搭建 DCF 或给目标价。用户要求精确公允价值时转入 `个股估值计算`。
 
 ### 步骤 8：形成结论
 
@@ -187,7 +187,32 @@ A 股财务数据优先使用本地结构化数据和公司法定披露交叉验
 
 ## 8. 输出契约
 
-完整读取同目录 `template.md`，严格按 `0—7` 章输出。即使数据不足也保留章节并写明缺口。
+完整读取同目录 `template.md`。报告目录必须直接复刻权威框架页“分析框架”的四层主干，不再使用额外的 `0—7` 章套壳：
+
+```text
+1. 产业研究
+   1.1 产业战略地位
+   1.2 长期成长空间
+   1.3 产业投资生命周期
+2. 行业研究
+   2.1 行业景气周期
+   2.2 行业竞争格局
+   2.3 核心矛盾与边际变化
+3. 公司研究
+   3.1 竞争地位
+   3.2 核心竞争壁垒
+   3.3 市场份额
+   3.4 盈利能力
+   3.5 业绩兑现
+   3.6 第二增长曲线
+4. 投资价值
+   4.1 估值
+   4.2 市场预期
+   4.3 预期差
+   4.4 风险收益比
+```
+
+只允许上述 `##` 和 `###` 标题进入目录，顺序和名称保持一致。基本信息、执行摘要、业务地图、资格与动作、同行旁证、资本配置、情景、跟踪项、研究局限、来源和声明用加粗正文标签或表格承载，不再新增目录层级。即使数据不足也保留对应框架节点并写明缺口。
 
 在当前 llmwiki 项目中：
 
@@ -198,7 +223,7 @@ A 股财务数据优先使用本地结构化数据和公司法定披露交叉验
 5. 在 `log.md` 记录本次分析与产物；
 6. 不因个股分析自动修改正式 `wiki/` 页面。
 
-HTML 必须与 Markdown 同源，包含目录、移动端适配和完整来源。可复用项目中现有的 Markdown 转 HTML 能力；复用前确认其结构校验与本模板兼容，不兼容时生成同源的简洁 HTML，不得删减报告内容。
+HTML 必须与 Markdown 同源，目录仅显示上述4个一级模块及16个二级节点，并保留移动端适配和完整来源。可复用项目中现有的 Markdown 转 HTML 能力；复用前确认其结构校验与本模板兼容，不兼容时生成同源的简洁 HTML，不得删减报告内容。
 
 若不在 llmwiki 项目中，直接在对话中按模板交付，不擅自创建知识库目录。
 
@@ -207,6 +232,7 @@ HTML 必须与 Markdown 同源，包含目录、移动端适配和完整来源�
 交付前逐项检查：
 
 - 已重新读取当前产业思维概念页；
+- Markdown与HTML目录严格对应框架页四个一级模块和16个二级节点，没有额外标题层级；
 - 先判断产业，再判断公司，没有从股价倒推产业逻辑；
 - 长期生命周期、行业经营周期、公司兑现和市场定价已分开；
 - 已识别第一约束、利润池和公司真实产业链位置；

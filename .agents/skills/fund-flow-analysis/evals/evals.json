@@ -80,10 +80,10 @@
     {
       "id": "equity-research-near-miss",
       "prompt": "完整研究贵州茅台，分析十年财务、治理、竞争格局，搭建DCF并给出公允价值和目标价。",
-      "expected_output": "不使用资金面分析Skill，路由到bbxm-equity-research；资金面结果只能作为其中一个输入。",
+      "expected_output": "不使用资金面分析Skill完成估值，路由到个股估值计算；资金面结果只能作为交易溢价的一个输入。",
       "assertions": [
         "不把完整公司研究降级为资金面报告",
-        "路由到bbxm-equity-research"
+        "路由到个股估值计算"
       ],
       "files": []
     },

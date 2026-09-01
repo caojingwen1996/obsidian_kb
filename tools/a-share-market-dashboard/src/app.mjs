@@ -545,10 +545,20 @@ export function trackingQuotePriceOnly(value) {
 
 export function pricingDeviationFromText(value) {
   const text = compactText(value);
-  for (const label of ['严重估值泡沫', '估值泡沫', '普通高估', '可解释估值溢价', '估值溢价', '公允价值内', '证据不足']) {
-    if (text.includes(label)) return label === '可解释估值溢价' ? '估值溢价' : label;
-  }
-  return '';
+  const mappings = [
+    ['严重估值泡沫', '严重估值泡沫'],
+    ['估值泡沫', '估值泡沫'],
+    ['价格脱锚', '估值泡沫'],
+    ['普通高估', '普通高估'],
+    ['高溢价', '普通高估'],
+    ['可解释估值溢价', '估值溢价'],
+    ['合理溢价', '估值溢价'],
+    ['估值溢价', '估值溢价'],
+    ['公允价值内', '公允价值内'],
+    ['折价', '折价'],
+    ['证据不足', '证据不足'],
+  ];
+  return mappings.find(([needle]) => text.includes(needle))?.[1] || '';
 }
 
 export function pricingDeviationToneClass(value) {
@@ -584,13 +594,15 @@ export function parseReportSummary(html) {
       /公允价值(?:为|取)?\s*([0-9.]+[—\\-–至到][0-9.]+\s*元(?:\/股)?)/,
       /综合估值区间\s*([0-9.]+[—\\-–至到][0-9.]+\s*元(?:\/股)?)/,
     ]));
-  const pricingDeviationCard = documentNode.querySelector('[data-tracking-key="pricing-deviation"]');
+  const pricingDeviationCard = documentNode.querySelector('[data-tracking-key="pricing-deviation"]')
+    || documentNode.querySelector('[data-tracking-key="trading-premium"]');
   const pricingDeviation = pricingDeviationFromText(
     nodeText(pricingDeviationCard?.querySelector('[aria-current="true"], .pricing-level.active'))
     || firstTextMatch(nodeText(pricingDeviationCard?.querySelector('.tracking-detail')), [
       /当前判断[：:]\s*([^。；]{2,30})/,
     ])
-    || tableValueByLabel(documentNode, ['估值泡沫判断'])
+    || nodeText(pricingDeviationCard?.querySelector('.tracking-value'))
+    || tableValueByLabel(documentNode, ['交易定价偏离', '交易定价偏离状态', '交易溢价状态', '估值泡沫判断', '估值状态'])
   );
   const reportQuote = trackingCardValue(documentNode, 'daily-quote')
     || tableValueByLabel(documentNode, ['当前价格及时间', '当前价格'])
@@ -2508,9 +2520,6 @@ function startApp() {
       const intraday = liveQuote
         ? `${liveQuote.price.toFixed(2)} 元`
         : '';
-      const riskRewardText = riskReward.label !== '等待实时'
-        ? riskReward.label
-        : '';
       const closePerformanceHtml = Number.isFinite(closePerformanceEntry?.data?.latestClose)
         ? `<div class="tracking-close-performance"><small>近一周 ${Number.isFinite(closePerformanceEntry.data.weekChangePercent) ? `${closePerformanceEntry.data.weekChangePercent >= 0 ? '+' : ''}${formatNumber(closePerformanceEntry.data.weekChangePercent, 2)}%` : '—'}</small></div>`
         : escapeHtml(closePerformanceEntry?.status === 'loading' ? '读取中…' : '未获取到');
@@ -2550,10 +2559,8 @@ function startApp() {
       return `<tr data-tracking-id="${escapeHtml(item.id)}"${reportHref ? ` data-report-href="${escapeHtml(reportHref)}"` : ''}>
       <td class="tracking-target"><strong>${nameHtml}</strong><small>${escapeHtml(item.code || report.secid || '未填代码')}</small><span class="tracker-status">${escapeHtml(item.status)}</span></td>
       <td>${escapeHtml(report.valueRange || item.thesis || (reportEntry?.status === 'loading' ? '读取研报…' : '未获取到'))}</td>
-      <td>${pricingDeviationHtml}</td>
-      <td>${escapeHtml(intraday)}</td>
+      <td><div class="tracking-pricing-summary">${pricingDeviationHtml}<strong>${escapeHtml(intraday)}</strong></div></td>
       <td>${closePerformanceHtml}</td>
-      <td>${escapeHtml(riskRewardText)}</td>
       <td>${valuationDispositionHtml}</td>
       <td>${threeFactorHtml}</td>
       <td>${fundamentalHtml}<small class="tracking-updated">${escapeHtml(report.sourceUpdated ? `研报：${report.sourceUpdated}` : `记录：${new Date(item.updatedAt).toLocaleString('zh-CN', { hour12: false })}`)}</small></td>
@@ -2569,14 +2576,9 @@ function startApp() {
           (allocationCategoryForReport(reportHref) || UNCATEGORIZED_ALLOCATION_CATEGORY.key) === group.key
         );
         if (!groupItems.length) return '';
-        return `<tr class="tracking-group-row"><th colspan="12" style="--group-color:${group.color}"><div class="tracking-group-head"><span>${escapeHtml(group.label)}</span><small>${groupItems.length} 个标的</small></div></th></tr>${groupItems.map(renderTrackingRow).join('')}`;
+        return `<tr class="tracking-group-row"><th colspan="10" style="--group-color:${group.color}"><div class="tracking-group-head"><span>${escapeHtml(group.label)}</span><small>${groupItems.length} 个标的</small></div></th></tr>${groupItems.map(renderTrackingRow).join('')}`;
       }).join('');
     };
-    const sortButton = document.getElementById('tracking-sort-intraday');
-    if (sortButton) {
-      sortButton.classList.toggle('is-active', trackingSortMode === 'near-left');
-      sortButton.setAttribute('aria-pressed', String(trackingSortMode === 'near-left'));
-    }
     const closeSortButton = document.getElementById('tracking-sort-close-performance');
     if (closeSortButton) {
       closeSortButton.classList.toggle('is-active', trackingSortMode === 'close-desc' || trackingSortMode === 'close-asc');
@@ -3759,10 +3761,6 @@ function startApp() {
       item.classList.toggle('is-active', active);
       item.setAttribute('aria-pressed', String(active));
     });
-    renderTrackingItems();
-  });
-  document.getElementById('tracking-sort-intraday')?.addEventListener('click', () => {
-    trackingSortMode = trackingSortMode === 'near-left' ? 'updated' : 'near-left';
     renderTrackingItems();
   });
   document.getElementById('tracking-sort-close-performance')?.addEventListener('click', () => {

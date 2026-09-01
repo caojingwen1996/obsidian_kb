@@ -1,4 +1,4 @@
-﻿## 2026-08-06
+## 2026-08-06
 
 ### 操作类型
 
@@ -20334,6 +20334,54 @@ dashboard / todo-archive-view
 
 - 如后续需要，可继续基于归档列表生成周报和月报摘要。
 
+## 2026-08-31
+
+### 操作类型
+
+automation / xueqiu-capture
+
+### 修改文件
+
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-30/130100_2026年8月月报_一_40728433.md`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-30/133400_2026年8月月报_二_40728573.md`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-30/state.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-30/task.log`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-30/processing/extracted-posts.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-30/processing/column-posts.json`
+- `log.md`
+
+### 操作说明
+
+按用户要求抓取昨天（北京时间 2026-08-30）冰冰小美的雪球帖子。提取器完成一轮可见详情抓取，候选 18 条，其中目标日期 2 条，非目标日期 16 条；已保存两篇 2026 年 8 月月报原帖，并补充 `标签：` 元数据。本轮只执行原帖抓取保存，未生成 `summary.md`、风险分析或 Excel 写入。
+
+### 后续待办
+
+- 如需完整 BBXM 每日汇总，可基于已保存两篇原帖继续生成 `summary.md`、`risk-analysis.json` 并执行 Excel 更新器。
+
+## 2026-08-31
+
+### 操作类型
+
+automation / BBXM每日汇总
+
+### 修改文件
+
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-31/task.log`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-31/summary.md`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-31/processing/extracted-posts.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-31/processing/risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-31/processing/risk-write-status.json`
+- `log.md`
+
+### 操作说明
+
+按 `.agents/automations/bbxm_daliy_brief.md` 执行 2026-08-31 BBXM 每日汇总，只处理冰冰小美。雪球抓取完成且未触发登录或验证阻断；本轮可见详情 18 条，发布日期为 2026-08-26、2026-08-25 和 2026-08-24，目标日期 2026-08-31 原帖为 0。已生成空覆盖风险分析，Excel 更新器返回 `no_risk`，未修改风险提示工作簿。
+
+### 后续待办
+
+- 如 2026-08-31 晚些时候出现新增、隐藏后恢复或非可见范围帖子，需要按同日目录重跑。
+- `wiki/people/冰冰小美.md` 仍存在历史乱码，`wiki/concepts/冰冰小美-rule-体系三要素的运用.md` 精确路径缺失，本次未修复。
+
 ## 2026-08-06
 
 ### 操作类型
@@ -25290,6 +25338,65 @@ industrial-thinking-equity-analysis / refresh / html-export
 
 ### 操作类型
 
+skill / report-structure / html-export
+
+### 修改文件
+
+- `.agents/skills/bbxm-industrial-thinking-equity-analysis/SKILL.md`
+- `.agents/skills/bbxm-industrial-thinking-equity-analysis/template.md`
+- `.agents/skills/bbxm-industrial-thinking-equity-analysis/evals/evals.json`
+- `tools/render-industrial-thinking-report-html.cjs`
+- `workbench/targets/2026-08-28-1707-紫光股份-产业思维分析.md`
+- `sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-28-1707-紫光股份-产业思维分析.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按用户反馈简化个股产业思维报告目录。技能升级至v1.1.0，取消额外的0—7章套壳，Markdown与HTML目录直接复刻权威框架页的分析树：产业研究、行业研究、公司研究、投资价值4个一级模块，以及产业战略地位、长期成长空间、产业生命周期、行业景气、竞争格局、核心矛盾、公司竞争与兑现、估值预期和风险收益等16个二级节点。
+
+基本信息、执行摘要、业务地图、资格结论、同行旁证、资本配置、情景、跟踪项、研究局限、来源和声明均保留，但改为正文标签或表格，不再占用目录层级。同步按新结构重排紫光股份报告并更新HTML结构校验。
+
+### 验证
+
+- 模板与紫光股份Markdown均严格识别为4个一级目录、16个二级目录，名称和顺序完全一致。
+- HTML侧边目录共20项，仅包含上述4个一级模块和16个框架节点；四项决策字段完整，阅读版大小44,366字节。
+- 本地双链缺失数为0；Markdown与HTML未残留Obsidian双链、Unicode替换字符、私用区字符或典型中文乱码。
+- 评测JSON可正常解析，HTML渲染脚本语法检查和相关文件`git diff --check`通过。
+
+## 2026-08-28
+
+### 操作类型
+
+skill / rename
+
+### 修改文件
+
+- `.agents/skills/bbxm-industrial-thinking-equity-analysis/SKILL.md`
+- `.agents/skills/bbxm-industrial-thinking-equity-analysis/template.md`
+- `.agents/skills/bbxm-industrial-thinking-equity-analysis/agents/openai.yaml`
+- `.agents/skills/bbxm-industrial-thinking-equity-analysis/evals/evals.json`
+- `.agents/skills/bbxm-expert/SKILL.md`
+- `.agents/skills/industry-competitive-advantage-analysis/SKILL.md`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+按用户要求，将技能可调用名称和展示名称由 `bbxm-industrial-thinking-equity-analysis` / “个股产业思维分析”统一改为“个股产业思维筛选”，版本由1.1.0升级为1.1.1。同步更新模板名称、评测标识、`bbxm-expert`路由和竞争格局比较优势技能的相邻技能引用。
+
+技能目录继续保留 `.agents/skills/bbxm-industrial-thinking-equity-analysis/`，避免已有路径、报告和脚本引用失效；新的调用方式为 `$个股产业思维筛选`。
+
+### 验证
+
+- 技能frontmatter名称、模板名称、展示名称、默认调用词和评测`skill_name`均已统一为“个股产业思维筛选”，版本为1.1.1。
+- `bbxm-expert`与竞争格局比较优势技能的有效路由均已切换到新名称；排除历史日志和历史报告后，旧有效名称残留数为0。
+- 评测JSON解析通过，相关中文文件未发现Unicode替换字符、私用区字符或典型乱码，`git diff --check`通过。
+
+## 2026-08-28
+
+### 操作类型
+
 topic / source-link
 
 ### 修改文件
@@ -25331,3 +25438,611 @@ topic / source-link-display
 - 已检查 15 个原文链接显示为对应文章标题。
 - 已检查链接目标仍为库内 `sources/articles/` 原文副本。
 - QMD 索引刷新仍失败：本机 `C:\Users\lenovo\.qmd` 已是文件，QMD 无法创建同名数据库目录；Markdown 修改已保留。
+
+## 2026-08-28
+
+### 操作类型
+
+workbench / equity-research-refresh
+
+### 修改文件
+
+- `sources/manual/2026-08-28-紫光股份研究数据快照.md`
+- `workbench/targets/2026-08-03-1638-紫光股份-机构级决策研报.md`
+- `workbench/index.md`
+- `sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-03-1638-紫光股份-机构级决策研报.html`
+- `sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-28-计算系统与集群产业完整分析报告.html`
+- `log.md`
+
+### 操作说明
+
+按用户调用 `$个股估值计算` 刷新紫光股份权威研报，补入 2026-08-28 收盘行情、估值和资金分档：收盘 35.89 元，PE_TTM 48.31，PB 6.61，近 5 / 10 / 20 日资金分档约 -6.27 / -21.97 / -48.98 亿元；融资融券明细仍最新至 2026-08-27。结论维持 30—40 元公允价值区间、合理偏高 / 普通高估，新增现金动作由 `wait / observe` 收紧为 `wait`，等待 2026-08-29 半年报验证现金流、毛利率、定增摊薄和新华三增厚。
+
+### 验证
+
+- 已使用技能内 HTML 渲染器重建紫光股份阅读版。
+- HTML 每日跟踪面板边界各 1 个，正文 16 个章节锚点，未发现未转换 Obsidian 双链、Unicode 替换字符、私用区字符、`??` 或 `12?24`。
+- 已将紫光股份个股研报链接写入新版 `2026-08-28-计算系统与集群产业完整分析报告.html`；旧版产业研报因存在多候选未写入。
+- 本次修改文件未发现新增中文编码异常；`log.md` 中的乱码命中来自历史修复记录中的示例文本。
+
+## 2026-08-28
+
+### 操作类型
+
+skill / refactor / routing / test
+
+### 修改文件
+
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `.agents/skills/bbxm-equity-research/template.md`
+- `.agents/skills/bbxm-equity-research/agents/openai.yaml`
+- `.agents/skills/bbxm-equity-research/evals/evals.json`
+- `.agents/skills/bbxm-equity-research/references/inflation-transmission.md`
+- `.agents/skills/bbxm-equity-research/scripts/render-report-html.cjs`
+- `.agents/skills/bbxm-equity-research/scripts/test-render-report-html.cjs`
+- `.agents/skills/bbxm-equity-research/scripts/test-link-report-to-industry.cjs`
+- `.agents/skills/bbxm-expert/SKILL.md`
+- `.agents/skills/bbxm-industrial-thinking-equity-analysis/SKILL.md`
+- `.agents/skills/bbxm-industrial-thinking-equity-analysis/evals/evals.json`
+- `.agents/skills/industry-competitive-advantage-analysis/SKILL.md`
+- `.agents/skills/industry-competitive-advantage-analysis/evals/evals.json`
+- `.agents/skills/financial-report-research/SKILL.md`
+- `.agents/skills/fund-flow-analysis/SKILL.md`
+- `.agents/skills/fund-flow-analysis/evals/evals.json`
+- `.agents/skills/bbxm-three-factor-analysis/SKILL.md`
+- `.agents/skills/bbxm-three-factor-analysis/evals/evals.json`
+- `.agents/skills/eastmoney-miaoxiang/SKILL.md`
+- `.agents/skills/bbxm-industry-analysis/SKILL.md`
+- `log.md`
+
+### 操作说明
+
+按用户确认的边界，将“个股估值计算”从16章全能研报收敛为5章估值报告：估值摘要、估值基础、估值方法与假设、估值结果与交易溢价、风险与结论。估值前优先读取同一标的由“个股产业思维筛选”生成的最新报告；缺失时允许完成最低限度产业核验并下调置信度，不把产业报告设置为不可绕过的硬依赖。
+
+每日跟踪面板继续保留，并由两张卡片调整为“基本面状态、公允价值范围、交易溢价、资金与筹码”四张卡片。资金流、融资、股东人数、大宗交易和交易方画像继续作为交易溢价持续性的证据，但不得替代内在价值或直接外推基本面变化。为兼容持仓每日监控和既有产业反向链接，继续沿用“机构级决策研报”文件名与 `artifact_type: equity_research`。
+
+同步更新HTML渲染器、测试、评测、展示信息和相邻技能路由；完整公司研究不再默认进入估值技能，产业与财报研究按主问题组合，公允价值、DCF、目标价、安全边际和交易溢价才进入“个股估值计算”。
+
+### 验证
+
+- HTML渲染测试通过：正文目录5项、每日跟踪面板4张卡片、面板边界唯一、Obsidian双链完成转换。
+- 产业报告反向链接测试通过，重复执行保持幂等。
+- 持仓每日监控技能契约测试通过，既有权威研报发现规则未被破坏。
+- 相关评测JSON均可解析；模板实渲染成功，未发现Unicode替换字符或未转换双链。
+- `quick_validate.py`可读取并解析技能，但因项目按用户要求使用中文技能名“个股估值计算”，触发其仅允许英文hyphen-case名称的通用命名限制；未改回英文名称。
+
+## 2026-08-29
+
+### 操作类型
+
+workbench / equity-research-full-revalue
+
+### 修改文件
+
+- `sources/papers/紫光股份机构研报-2026-08-29/紫光股份2026年半年度报告.pdf`
+- `sources/papers/紫光股份机构研报-2026-08-29/紫光股份2026年半年度报告-来源说明.md`
+- `sources/manual/2026-08-28-紫光股份研究数据快照.md`
+- `workbench/targets/2026-08-03-1638-紫光股份-机构级决策研报.md`
+- `workbench/index.md`
+- `sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-03-1638-紫光股份-机构级决策研报.html`
+- `sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-28-计算系统与集群产业完整分析报告.html`
+- `log.md`
+
+### 操作说明
+
+按用户反馈“半年报已经出了”重新执行紫光股份完整估值计算。通过巨潮资讯公告接口确认紫光股份《2026年半年度报告》公告日为 2026-08-29，公告 PDF 已保存至库内 `sources/papers/`；同时用本地 Tushare 读取 2026-06-30 三张表。半年报确认 H1 营收 635.16 亿元（+33.93%）、归母净利润 21.67 亿元（+108.18%）、扣非归母净利润 18.74 亿元（+67.59%），新华三收入 499.75 亿元、净利润 23.88 亿元；但经营现金流 -42.09 亿元、综合毛利率 13.41%且同比下降、应收账款 197.75 亿元、存货 510.56 亿元，现金流与营运资本仍是主要反证。综合将公允价值区间由 30—40 元上修至 32—43 元，中枢约 37 元；新增现金动作由 `wait` 放宽为 `observe`，已有持仓维持 `review`。
+
+### 验证
+
+- 已使用技能内 HTML 渲染器重建紫光股份五章结构阅读版，正文目录锚点为 5 个，每日跟踪面板边界各 1 个，未发现未转换 Obsidian 双链、`??`、`12?24`、Unicode 替换字符或新增典型中文乱码。
+- 已将新版紫光股份个股研报链接重新写入 `2026-08-28-计算系统与集群产业完整分析报告.html`，链接计数为 1。
+- 当前报告、数据快照、workbench 索引和来源说明页未命中“正式半年报未出”“仍只能使用业绩预告”等旧口径残留；旧日志中的历史判断保留用于追踪前后演化。
+- 下一验证点为 2026Q3 现金流、毛利率、应收 / 存货周转、定增发行价和摊薄后 EPS。
+
+## 2026-08-31
+
+### 操作类型
+
+automation / signal-check
+
+### 修改文件
+
+- `sources/automations/中证红利信号/中证红利每日信号.xlsx`
+- `sources/automations/中证红利信号/最新信号.md`
+- `sources/automations/中证红利信号/中证红利年度表现.json`
+- `log.md`
+
+### 操作说明
+
+按 `zzhl-dividend-signal` skill 运行 `python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py --output-dir "sources/automations/中证红利信号" --run-date 2026-08-31`，刷新中证红利股息率信号每日记录。记录日期为 `2026-08-31`；AKShare 指数估值日期为 `2026-08-28`，中证红利 `股息率2` 为 `4.06%`；中国 10 年国债收益率日期为 `2026-08-28`，收益率为 `1.6949%`，股息率口径 - 10 年国债收益率利差为 `2.3651` 个百分点。2026 年内收益率为 `3.01%`，年内最大回撤为 `-15.96%`。理杏仁公开页面失败：`HTTP Error 403: Forbidden`；雪球实时行情接口返回空响应，因此历史分位点、理杏仁市值加权股息率和当天涨跌幅保持待验证，未编造数值。
+
+### 验证
+
+- 已核对 `最新信号.md`、Excel 最后一行和年度表现 JSON，记录日为 `2026-08-31`，数据最新估值日为 `2026-08-28`。
+- 三类规则结果为：历史分位点待验证、绝对股息率 `C（小额定投）`、相对债券收益率 `C（小额定投）`；综合结论为“历史分位点待验证，暂不判定加大买入区间”，未进入重点买入区间。
+- Excel 中文字段经 Unicode 转义核验为有效 UTF-8 内容；终端中的中文乱码为显示编码问题。
+
+## 2026-08-31
+
+### 操作类型
+
+workbench / equity-research-full-revalue / automation
+
+### 修改文件
+
+- `workbench/targets/2026-07-30-华明装备-机构级决策研报.md`
+- `workbench/targets/2026-07-23-1732-兴业银锡-机构级决策研报.md`
+- `workbench/targets/2026-07-24-0931-三一重工-机构级决策研报.md`
+- `workbench/targets/2026-07-20-1737-徐工机械-机构级决策研报.md`
+- `workbench/targets/2026-07-17-1133-中国船舶机构级决策研报.md`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+持仓每日监控发现五家公司在上一权威研报之后披露2026年半年报，按 `bbxm-equity-research v4.0.0` 对五份唯一权威研报原地完成全量重估并迁移为五章结构。华明装备公允价值维持15—22元；兴业银锡由19—32元上修至24—39元；三一重工调整为16—21.5元；徐工机械由7.5—10.2元下修至7—9.5元；中国船舶由29—40元上修至31—44元。关键输入来自本地Tushare的2026H1法定披露结构化三表、财务指标、行情、资金与股东户数；直接法定PDF链接未获取到，已作为数据缺口保留。
+
+### 后续待办
+
+- 复核五家公司2026Q3利润、现金流、资本开支、营运资本与股本变化。
+- 兴业银锡继续跟踪银漫复产、金属价格与威领投入；中国船舶继续跟踪订单、船价和交付现金转化。
+
+## 2026-08-31
+
+### 操作类型
+
+automation / portfolio-daily-monitoring
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/data/monitor-run-2026-08-31.json`
+- `tools/a-share-market-dashboard/data/*-每日监控-2026-08-31.md`
+- `tools/a-share-market-dashboard/data/*-每日监控-2026-08-31.html`
+- `tools/a-share-market-dashboard/data/持仓今日监控汇总-2026-08-31.md`
+- `tools/a-share-market-dashboard/data/持仓今日监控汇总-2026-08-31.html`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+动态读取 `portfolio.json`，按2026-08-31周日休市盘前口径覆盖15个持有/观察标的；行情与量价统一使用最近完成交易日2026-08-28收盘。五个法定半年报触发项均已完成权威研报全量重估并回填监控：华明装备、兴业银锡、三一重工、徐工机械、中国船舶。组合最终为10个 `NO_REVALUE`、5个 `FULL_REVALUE`；待人工复盘7个，除五个半年报项目外还包括星网锐捷和东材科技的量价/区间异常。已生成15份逐标的Markdown与HTML及一份汇总Markdown与HTML，并重建持仓看板。
+
+### 验证
+
+- 逐标的Markdown/HTML数量与动态清单均为15，汇总15个链接全部存在；固定估值字段、UTF-8编码和看板入口检查通过。
+- 五份权威研报均为5个规定章节，HTML均为5个目录锚点、1组每日跟踪面板、无未转换双链。
+- `portfolio-daily-monitoring` 技能契约通过；持仓看板测试74项中72项通过。两项失败为既有的个人空间待办顺序断言和三要素摘要旧样本断言，与本次每日监控产物无关。
+
+## 2026-08-31
+
+### 操作类型
+
+refactor / taxonomy
+
+### 修改文件
+
+- `wiki/topics/冰冰小美-宏观经济.md`
+- `log.md`
+
+### 操作说明
+
+按用户指定口径，重新整理“冰冰小美-宏观经济”主题页的文章分类。新增“宏观基本面”“宏观政策”“金融条件与全球资本流动”“大宗商品与资产价格传导”四个一级分类，并按文章的主要矛盾将 frontmatter `sources` 中的 63 项来源各归入一个主类。同步更新主题页 `summary`、`topic_scope`、`key_questions` 和 `updated` 日期；按用户后续确认，删除旧“关键观察轴 / 分类说明与主题推导”整段，仅保留本次对话确定的四分类标准。同时将“竞争格局的比较优势”的既存裸文件名链接修正为库内 `sources/articles/` 路径。现有主题页未新增或改名，因此未更新 `index.md`。
+
+### 验证
+
+- frontmatter `sources` 共 63 项，文章分类共 63 项、唯一项 63 项，无漏项、无重复归类、无分类外新增链接。
+- 四个一级分类名称和顺序与用户给定口径一致。
+- 页面已不再包含旧“分类说明与主题推导”标题及其八个观察轴。
+- 中文内容按 UTF-8 读取并写入，未引入 Unicode 替换字符或典型新增乱码。
+
+## 2026-08-31
+
+### 操作类型
+
+workbench / industrial-thinking-equity-analysis / automation
+
+### 修改文件
+
+- `sources/webpages/2026-08-31-中国海油产业思维证据快照.md`
+- `workbench/targets/2026-08-31-1443-中国海油-产业思维分析.md`
+- `workbench/index.md`
+- `sources/automations/战略资源/油气/上游-海上勘探开发/2026-08-31-1443-中国海油-产业思维分析.html`
+- `log.md`
+
+### 操作说明
+
+按 `个股产业思维筛选 v1.1.1` 对中国海洋石油有限公司（600938.SH / 00883.HK）完成产业思维筛选。重新读取2026-08-27更新的产业思维权威框架，纳入公司2026年中期业绩、IEA与EIA 2026年8月供需展望、国家统计局能源数据及本地Tushare法定披露。中国海上油气被判断为成熟产业中的S4问题解决与二次成长，当前经营周期则为供应冲击驱动的繁荣/峰值附近，形成长期再成长、短期高景气与市场部分定价之间的阶段错位。公司2026H1净产量同比+3.7%、归母净利润+23.4%、经营现金流+29.7%，产业逻辑已穿透至现金流；但桶油主要成本同比约+10.2%，且行业年底可能重回过剩。最终产业跟踪资格通过、公司筛选资格通过、当前投资资格部分有利、候选池动作保留。
+
+### 验证
+
+- Markdown目录严格采用4个一级模块和16个二级节点；未创建正式Wiki页面，也未更新根`index.md`。
+- 当前估值以2026-08-28 A股收盘为主；H股最新价格和A/H折算溢价列为数据缺口，未沿用8月21日旧值冒充当前口径。
+- HTML由产业思维专用渲染器从Markdown同源生成，保留完整来源、移动端适配和框架目录。
+
+## 2026-08-31
+
+### 操作类型
+
+skill / compatibility
+
+### 修改文件
+
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `.agents/skills/bbxm-equity-research/template.md`
+- `.agents/skills/bbxm-equity-research/scripts/render-report-html.cjs`
+- `tools/a-share-market-dashboard/src/app.mjs`
+
+### 操作说明
+
+个股估值计算 v4.1：市场价格分解与估值泡沫判断。新增 Step 6，按 `wiki/concepts/冰冰小美-framework-估值判断.md` 分解公允价值、可解释估值溢价和交易定价偏离；统一泡沫状态，并兼容历史“交易溢价”字段，避免仪表盘显示“未获取到”。
+
+### 后续待办
+
+- 后续重估报告按新模板重跑即可生成新的交易定价偏离卡片；历史报告由仪表盘兼容解析。
+
+## 2026-08-31
+
+### 操作类型
+
+skill / cleanup
+
+### 修改文件
+
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `.agents/skills/bbxm-equity-research/scripts/test-render-report-html.cjs`
+
+### 操作说明
+
+个股估值计算 v4.1.1：删除重复价格位置步骤。原 Step 5 的价格位置与安全边际公式并入新的 Step 5“市场价格分解与估值泡沫判断”，原 Step 7 顺延为 Step 6，流程缩减为六步。
+
+### 验证
+
+- HTML 渲染器测试通过；确认不存在旧的 Step 5 标题和 Step 7。
+
+## 2026-08-31
+
+### 操作类型
+
+skill / valuation-audit
+
+### 修改文件
+
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `.agents/skills/bbxm-equity-research/template.md`
+- `.agents/skills/bbxm-equity-research/references/valuation-bubble-trigger-scan.md`
+- `.agents/skills/bbxm-equity-research/scripts/test-render-report-html.cjs`
+- `.agents/skills/bbxm-equity-research/evals/evals.json`
+- `.agents/skills/bbxm-equity-research/agents/openai.yaml`
+
+### 操作说明
+
+个股估值计算 v4.2：默认执行32项估值泡沫扫描。基本面9项、流动性14项、预期9项必须逐项给出有利、逆转、证据不足或不适用，并汇总关键逆转、跨表传导链和泡沫出清状态。
+
+### 验证
+
+- reference 与模板均为32项且逐项顺序一致；渲染测试、JavaScript语法和 eval JSON 校验通过。
+
+## 2026-08-31
+
+### 操作类型
+
+fix / dashboard
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/data/todo.json`
+- `tools/a-share-market-dashboard/scripts/build.mjs`
+- `tools/a-share-market-dashboard/src/changelog.json`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+
+### 操作说明
+
+修复需求清单切换为“已完成”后未自动归档的问题。将遗留在活动区的 TODO-006、TODO-007 迁入归档区，清理同时监听面板端口的两个旧服务，并从当前代码启动单一服务实例。
+
+### 验证
+
+- 实时接口返回 3 条活动事项、2 条归档事项，活动区无“已完成”事项。
+- 后端 52 项测试全部通过；需求清单前端回归测试通过。
+- 全量前端测试剩余 1 项与本次修改无关的三要素摘要样本差异。
+
+## 2026-08-31
+
+### 操作类型
+
+topic / create
+
+### 修改文件
+
+- `wiki/topics/冰冰小美-风险库.md`
+- `index.md`
+- `log.md`
+
+### 操作说明
+
+新建空白 Topic Page“冰冰小美-风险库”，仅保留标准 frontmatter 和页面标题，并在主题索引中增加入口。
+
+## 2026-08-31
+
+### 操作类型
+
+skill / documentation
+
+### 修改文件
+
+- `.agents/skills/bbxm-equity-research/SKILL.md`
+- `.agents/skills/bbxm-equity-research/scripts/test-render-report-html.cjs`
+
+### 操作说明
+
+个股估值计算 v4.2.1：新增 References 文件作用表，明确前沿科技估值、32项泡沫扫描和通胀传导三个 reference 的用途、读取时机及报告落点；统一所有标的先做通胀暴露筛查。
+
+### 验证
+
+- 渲染测试和测试脚本语法通过；三个 reference 的作用说明均有测试覆盖。
+
+## 2026-08-31
+
+### 操作类型
+
+research / valuation
+
+### 修改文件
+
+- `sources/webpages/2026-08-31-中国海油估值证据快照.md`
+- `workbench/targets/2026-08-31-1530-中国海油-机构级决策研报.md`
+- `sources/automations/战略资源/油气/上游-海上勘探开发/2026-08-31-1530-中国海油-机构级决策研报.html`
+- `workbench/index.md`
+- `log.md`
+
+### 操作说明
+
+使用 `bbxm-equity-research v4.2.1` 读取当日中国海油产业思维报告，并以2026年中期业绩、A/H股价格、融资和宏观数据完成周期正常化估值。主锚为正常化归母净利润×周期PE，PB/ROE与可持续股东回报交叉验证；公允价值17—33元、中枢24.5元，A股34.19元判断为普通高估。默认32项泡沫扫描全部执行，形成成本上升、增量资金不足与高油价隐含预期的早期传导链。
+
+### 验证
+
+- HTML渲染成功，渲染器测试通过。
+- Markdown严格包含五个一级章节；32项扫描完整，状态汇总为21项有利、6项逆转、4项证据不足、1项不适用。
+- HTML包含每日跟踪字段、公允价值区间和32项扫描；未发现典型中文乱码标记，`git diff --check`通过。
+
+## 2026-08-31
+
+### 操作类型
+
+fix / dashboard
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+继续扩展持仓跟踪页的桌面端内容区和表格横向宽度，并为右侧“复盘、星级、操作”三列保留独立空间，避免内容密集时右侧按钮和文字被挤压遮挡；较窄窗口仍通过表格容器横向滚动查看完整列。
+
+### 验证
+
+- 单文件面板重新构建成功，`git diff --check`通过。
+- 1524px桌面窗口下，表格完整宽度为1760px、容器可视宽度为1158px，横向滚动有效；2200px宽屏截图中“复盘、星级、操作”三列及按钮均完整显示。
+- 前端回归测试74项中73项通过；唯一失败为既有的三要素摘要样本与当前研报文字差异，与本次样式修改无关。
+
+## 2026-08-31
+
+### 操作类型
+
+fix / dashboard
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+将持仓跟踪清单的“交易定价偏离”和“盘中实时”合并为一列：表头以交易定价偏离为主标题、盘中实时为副标题，行内上方显示估值状态标签、下方显示实时价格；同步将分组行跨列数从12调整为11，并修正右侧复盘、星级和操作列的宽度定位。产业研报表保持原结构不变。
+
+### 验证
+
+- 合并结构的针对性测试通过，单文件面板重新构建成功。
+- 实际页面表头和数据行均为11列；2200px宽屏截图中合并列和右侧复盘、星级、操作列完整显示。
+- 前端回归测试74项中73项通过；唯一失败仍为既有的三要素摘要样本与当前研报文字差异，与本次列合并无关。
+
+## 2026-08-31
+
+### 操作类型
+
+create / index
+
+### 修改文件
+
+- `wiki/concepts/冰冰小美-framework-信息归纳框架.md`
+- `index.md`
+- `log.md`
+
+### 操作说明
+
+按 Concept Page 模板新建“冰冰小美-framework-信息归纳框架”结构化空页，并加入概念索引；概念内容、来源和关系字段均保留为空，等待后续补充。
+
+### 验证
+
+- 页面路径、frontmatter、一级标题和模板章节符合当前 Concept Page 契约。
+- 同名页面检查无重复。
+
+## 2026-08-31
+
+### 操作类型
+
+fix / dashboard
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/src/app.mjs`
+- `tools/a-share-market-dashboard/src/styles.css`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+去掉持仓跟踪清单中“盈亏比”列的可见显示，包括表头按钮、行内单元格和对应排序入口；表格结构从11列调整为10列，并同步修正分组行跨列数和右侧“复盘、星级、操作”列宽定位。保留内部盈亏比计算，继续用于可加、可减和星级信号判断。
+
+### 验证
+
+- 针对性测试通过，确认持仓跟踪表不再显示“盈亏比”列，同时保留内部盈亏比函数。
+- 单文件面板重新构建成功。
+- 浏览器核验显示表头为10列：标的、公允价值区间、交易定价偏离/盘中实时、收盘表现、每日估值监控、三要素判断、基本面状态、复盘、星级、操作；2200px宽屏截图中右侧列完整显示。
+- 前端回归测试74项中73项通过；唯一失败仍为既有的三要素摘要样本与当前研报文字差异，与本次删列无关。
+
+## 2026-08-31
+
+### 操作类型
+
+fix / dashboard
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+将大盘面板中可见的“风险监控”文案统一改为“风险信息系统”，覆盖左侧导航、首页入口按钮、页面无障碍标题、大屏标题和融资余额空状态提示；保留原有 `risk-monitor` 路由标识，避免影响页面跳转和数据加载逻辑。
+
+### 验证
+
+- 相关构建测试通过，单文件面板重新构建成功。
+- 源码、测试和构建产物中已无“风险监控”旧文案，均更新为“风险信息系统”。
+
+## 2026-08-31
+
+### 操作类型
+
+fix / dashboard
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/src/index.html`
+- `tools/a-share-market-dashboard/tests/build.test.mjs`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+按用户最新命名要求，将大盘面板中可见的“风险信息系统”统一改为“风险发现系统”，覆盖左侧导航、首页入口按钮、页面无障碍标题、大屏标题和融资余额空状态提示；内部仍保留 `risk-monitor` 路由标识，避免影响原有跳转和数据加载逻辑。
+
+### 验证
+
+- 相关构建测试通过，单文件面板重新构建成功。
+- 源码、测试和构建产物中已无“风险信息系统”和“风险监控”旧可见文案，均更新为“风险发现系统”。
+
+## 2026-08-31
+
+### 操作类型
+
+ingest / automation / risk-write
+
+### 修改文件
+
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-31/`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-31/summary.md`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-31/processing/risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-31/processing/risk-write-status.json`
+- `tools/bbxm-risk-dashboard/data/冰冰小美风险提示.xlsx`
+- `log.md`
+
+### 操作说明
+
+按 BBXM 每日汇总主提示词对 2026-08-31 执行同日重跑：本轮可见详情 18 条，其中目标日期原帖 7 条、非目标日期旧帖 11 条；将临时 `20260831/冰冰小美` 输出合并到官方日期目录，未在日期目录下保留作者子目录。已为 7 篇原帖补写标签，重写 `summary.md`，并按完整当日集合生成风险分析。
+
+### 验证
+
+- `risk-analysis.json` 覆盖 7 / 7，未解决 0；风险等级分布为 R2 × 2、W1 × 2。
+- Excel 更新器返回 `written`，已写入 4 条自动风险提示。
+- `summary.md` 包含总观点、解析今天文章的观点、当日内容汇总和风险提示判定；未生成 `操作.md`，因为当天没有明确买入、卖出、加仓或减仓信号。
+
+## 2026-09-01
+
+### 操作类型
+
+ingest / automation / dividend-signal
+
+### 修改文件
+
+- `sources/automations/中证红利信号/中证红利每日信号.xlsx`
+- `sources/automations/中证红利信号/最新信号.md`
+- `sources/automations/中证红利信号/中证红利年度表现.json`
+- `log.md`
+
+### 操作说明
+
+按 `zzhl-dividend-signal` skill 运行 `python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py --output-dir "sources/automations/中证红利信号" --run-date 2026-09-01`，刷新中证红利股息率信号每日记录。记录日期为 `2026-09-01`；AKShare 指数估值日期为 `2026-08-31`，中证红利 `股息率2` 为 `4.07%`；中国 10 年国债收益率日期为 `2026-08-31`，收益率为 `1.6883%`，股息率口径 - 10 年国债收益率利差为 `2.3817` 个百分点。2026 年内收益率为 `3.50%`，年内最大回撤为 `-15.96%`。理杏仁公开页面失败：`HTTP Error 403: Forbidden`；雪球实时行情接口返回空响应，因此历史分位点、理杏仁市值加权股息率和当天涨跌幅保持待验证，未编造数值。
+
+### 验证
+
+- `最新信号.md` 为正常 UTF-8，未发现新增乱码痕迹。
+- Excel 最后一行记录日期为 `2026-09-01`，三类规则结果为：历史分位点待验证、绝对股息率 `C（小额定投）`、相对债券收益率 `C（小额定投）`。
+- 综合结论为“历史分位点待验证，暂不判定加大买入区间”，未进入重点买入区间。
+
+## 2026-09-01
+
+### 操作类型
+
+monitor / automation / dashboard
+
+### 修改文件
+
+- `tools/a-share-market-dashboard/data/monitor-run-2026-09-01.json`
+- `tools/a-share-market-dashboard/data/*-每日监控-2026-09-01.md`
+- `tools/a-share-market-dashboard/data/*-每日监控-2026-09-01.html`
+- `tools/a-share-market-dashboard/data/持仓今日监控汇总-2026-09-01.md`
+- `tools/a-share-market-dashboard/data/持仓今日监控汇总-2026-09-01.html`
+- `tools/a-share-market-dashboard/a-share-market-dashboard.html`
+- `log.md`
+
+### 操作说明
+
+动态读取持仓跟踪清单，对 16 个“持有 / 观察”标的执行盘前监控，行情与量价统一采用最近完成交易日 2026-08-31。复核上交所、深交所正式公告后，记录兴业银锡续聘审计机构、徐工机械回购注销与控股股东增持、星网锐捷异常波动核查等新增事实；上轮 5 份半年报触发的权威研报已于 2026-08-31 完成全量重估，本次不重复入队。最终 16 个标的均为 `NO_REVALUE`，7 个标的进入人工复盘。
+
+### 验证
+
+- 已生成 16 份逐标的 Markdown、16 份同名 HTML 和 1 份组合汇总 Markdown / HTML。
+- 汇总索引覆盖 16 个标的，所有逐标的链接存在；固定估值字段、UTF-8 编码和必需章节已检查。
+- 估值重算与研报更新队列为空；价格与量价异常仅更新安全边际，不覆盖权威研报结论。
+
+- [2026-09-01T10:46:46+08:00] QUERY query="冰冰小美如何理解通胀风险" result_pages=9 mode=normal escalated=true
+
+## 2026-09-01
+
+### 操作类型
+
+ingest / automation / risk-write
+
+### 修改文件
+
+- `sources/automations/BBXM每日汇总/2026/09/2026-09-01/`
+- `sources/automations/BBXM每日汇总/2026/09/2026-09-01/summary.md`
+- `sources/automations/BBXM每日汇总/2026/09/2026-09-01/processing/risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026/09/2026-09-01/processing/risk-write-status.json`
+- `tools/bbxm-risk-dashboard/data/冰冰小美风险提示.xlsx`
+- `log.md`
+
+### 操作说明
+
+按 BBXM 每日汇总主提示词对 2026-09-01 执行当日抓取：本轮可见候选 40 条，自动降频后成功提取 39 条详情，其中目标日期原帖 7 条、非目标日期旧帖 32 条；旧帖 `https://xueqiu.com/7143769715/406647081` 详情提取异常，未发现影响目标日期覆盖。已将临时 `20260901/冰冰小美` 输出合并到官方日期目录，未在日期目录下保留作者子目录；7 篇原帖均补写标签，未生成 `操作.md`。
+
+### 验证
+
+- `summary.md` 包含总观点、解析今天文章的观点、当日内容汇总和风险提示判定。
+- `risk-analysis.json` 覆盖 7 / 7，未解决 0；风险等级分布为 R1 × 1、R2 × 2、R3 × 1、W1 × 1。
+- Excel 更新器返回 `written`，已写入 5 条自动风险提示。
+- 日期目录下只有 `processing` 子目录；新 summary / risk JSON / status JSON 未发现 mojibake 哨兵字符。
+
+- [2026-09-01T17:10:15+08:00] QUERY query="冰冰小美提到的宏观风险有哪些？" result_pages=6 mode=normal escalated=true

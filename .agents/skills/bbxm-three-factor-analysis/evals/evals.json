@@ -22,7 +22,7 @@
     {
       "id": "bbxm-equity-research-near-miss",
       "prompt": "完整研究贵州茅台，搭建 DCF，给出公允价值区间、目标价和买入结论。",
-      "expected_output": "不使用本技能，路由到 bbxm-equity-research；如研究需要，可把另行生成的三要素结果作为输入。",
+      "expected_output": "不使用本技能完成估值，路由到 个股估值计算；如研究需要，可把另行生成的三要素结果作为输入。",
       "files": []
     },
     {

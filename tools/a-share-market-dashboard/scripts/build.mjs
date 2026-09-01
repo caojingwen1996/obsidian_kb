@@ -501,12 +501,12 @@ function normalizeTodoArchiveItems(rawArchive) {
 
 function renderTodoArchiveItem(item) {
   const detail = item.detail && item.detail !== 'User' ? item.detail : '';
+  const detailLine = detail ? `\n                  <p>${escapeHtml(detail)}</p>` : '';
   const completedAt = item.completedAt ? `完成 ${item.completedAt}` : '完成时间未记录';
   const archivedAt = item.archivedAt ? `归档 ${item.archivedAt}` : '归档时间未记录';
   return `                <article class="todo-archive-item" data-todo-archive-id="${escapeHtml(item.id)}">
                   <div class="todo-item-kicker"><span>${escapeHtml(item.id)}</span><span class="todo-item-time">${escapeHtml(archivedAt)}</span></div>
-                  <div class="todo-item-head"><strong>${escapeHtml(item.title)}</strong></div>
-                  ${detail ? `<p>${escapeHtml(detail)}</p>` : ''}
+                  <div class="todo-item-head"><strong>${escapeHtml(item.title)}</strong></div>${detailLine}
                   <div class="todo-archive-meta"><span>${escapeHtml(completedAt)}</span><span>${escapeHtml(item.quadrant)}</span></div>
                 </article>`;
 }

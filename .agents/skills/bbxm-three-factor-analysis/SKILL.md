@@ -45,7 +45,7 @@ version: 2.3.0
 
 #### 2026-08-17｜v2.0.0
 
-- 参照 `bbxm-equity-research` 建立 Markdown 权威母稿与同源 HTML 阅读版的双产物契约。
+- 参照 `个股估值计算` 建立 Markdown 权威母稿与同源 HTML 阅读版的双产物契约。
 - 明确 llmwiki 中的文件命名、扁平目录、同对象原地更新、索引与日志维护规则。
 - 增加技能内统一 HTML 渲染器，生成三要素摘要卡、9 章左侧目录和打印版式。
 
@@ -67,7 +67,7 @@ version: 2.3.0
 - 用户要求风险增强、风险持平、风险减弱或风险重新增强：使用 `bbxm-risk-identification`。
 - 用户要求过滤单条信息并判断其金融意义：使用 `bbxm-information-filter-flow`。
 - 用户提供交割单或交易记录：使用 `bbxm-trade-ticket-review`；它可以消费本技能的分析结果。
-- 用户要求完整公司研究、估值或 DCF：使用 `bbxm-equity-research`；它可以消费本技能的分析结果。
+- 用户要求估值、DCF、目标价或交易溢价：使用 `个股估值计算`；它可以消费本技能的分析结果。
 
 ## 输入
 

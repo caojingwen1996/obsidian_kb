@@ -32,8 +32,8 @@ metadata:
 |---|---|
 | 单一标的竞争格局、同行比较、比较优势 | 使用本技能 |
 | 整个产业、行业或赛道的全景研究 | `产业分析` |
-| 按产业生命周期、利润池、第二曲线筛选单家公司 | `bbxm-industrial-thinking-equity-analysis` |
-| 完整公司研究、DCF、公允价值或目标价 | `bbxm-equity-research` |
+| 按产业生命周期、利润池、第二曲线筛选单家公司 | `个股产业思维筛选` |
+| DCF、公允价值、目标价、安全边际或交易溢价 | `个股估值计算` |
 | 竞争格局、流动性、情绪位置及三要素共振 | `bbxm-three-factor-analysis` |
 | 专门研究财报、利润质量和现金流 | `financial-report-research` |
 | 资金流、交易方画像和增量资金 | `fund-flow-analysis` |
