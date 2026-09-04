@@ -505,9 +505,12 @@ function renderTodoArchiveItem(item) {
   const completedAt = item.completedAt ? `完成 ${item.completedAt}` : '完成时间未记录';
   const archivedAt = item.archivedAt ? `归档 ${item.archivedAt}` : '归档时间未记录';
   return `                <article class="todo-archive-item" data-todo-archive-id="${escapeHtml(item.id)}">
-                  <div class="todo-item-kicker"><span>${escapeHtml(item.id)}</span><span class="todo-item-time">${escapeHtml(archivedAt)}</span></div>
-                  <div class="todo-item-head"><strong>${escapeHtml(item.title)}</strong></div>${detailLine}
-                  <div class="todo-archive-meta"><span>${escapeHtml(completedAt)}</span><span>${escapeHtml(item.quadrant)}</span></div>
+                  <div class="todo-archive-row">
+                    <span class="todo-archive-id">${escapeHtml(item.id)}</span>
+                    <div class="todo-item-head todo-archive-title"><strong>${escapeHtml(item.title)}</strong></div>
+                    <div class="todo-archive-meta"><span class="todo-archive-completed">${escapeHtml(completedAt)}</span>${item.quadrant ? `<span class="todo-archive-quadrant">${escapeHtml(item.quadrant)}</span>` : ''}</div>
+                    <span class="todo-item-time">${escapeHtml(archivedAt)}</span>
+                  </div>${detailLine}
                 </article>`;
 }
 
@@ -1004,6 +1007,7 @@ function parseDividendAnnualPerformance(source) {
         annualReturn,
         maxDrawdown,
         status: String(row?.status ?? ''),
+        monthlyReturns: Array.isArray(row?.monthly_returns) ? row.monthly_returns : [],
       }];
     }).sort((left, right) => left.year - right.year),
   };

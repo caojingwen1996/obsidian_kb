@@ -133,6 +133,7 @@ h3 { font-size: 15px; }
 .overview-placeholder .overview-card-head strong { display: block; margin-top: 10px; text-align: left; }
 .overview-placeholder p { margin: 0; }
 .nasdaq-card { min-height: 284px; display: flex; flex-direction: column; border-left: 4px solid #2f7de1; }
+button.nasdaq-card { width: 100%; border-top: 0; border-right: 0; border-bottom: 0; color: inherit; text-align: left; }
 .nasdaq-card .overview-card-head strong { font-size: 18px; }
 .nasdaq-main { margin: 20px 0 16px; }
 .nasdaq-main small, .nasdaq-drawdown small { display: block; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .08em; }
@@ -143,7 +144,42 @@ h3 { font-size: 15px; }
 .nasdaq-drawdown.is-deep strong { color: var(--red); }
 .nasdaq-drawdown span { display: block; margin-top: 6px; color: var(--muted); font-size: 11px; }
 .nasdaq-empty { margin: auto 0 0; color: #516170; font-size: 12px; line-height: 1.7; }
-.summary-shortcut-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; margin: -16px 0 16px; }
+.nasdaq-grid-page { max-width: 1380px; }
+.nasdaq-grid-back { margin: 0; border: 0; background: transparent; color: var(--blue); padding: 4px 0; font-size: 12px; font-weight: 800; }
+.nasdaq-grid-back:hover { text-decoration: underline; text-underline-offset: 3px; }
+.nasdaq-grid-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 20px; }
+.nasdaq-grid-header .button-secondary { flex: 0 0 auto; text-decoration: none; }
+.nasdaq-grid-controls { display: grid; grid-template-columns: minmax(280px, 1fr) auto 190px auto; gap: 12px; align-items: center; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 17px 0; }
+.nasdaq-grid-controls h3 { margin: 0 0 5px; }
+.nasdaq-grid-controls p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.6; }
+.nasdaq-grid-controls label { color: var(--muted); font-size: 11px; font-weight: 800; }
+.nasdaq-grid-money-input { height: 40px; display: grid; grid-template-columns: 34px minmax(0, 1fr); align-items: center; overflow: hidden; border: 1px solid #cbd5dc; border-radius: 8px; background: var(--card); }
+.nasdaq-grid-money-input span { display: grid; height: 100%; place-items: center; border-right: 1px solid var(--line); color: var(--muted); }
+.nasdaq-grid-money-input input { width: 100%; height: 100%; border: 0; background: transparent; color: var(--ink); padding: 0 10px; font-variant-numeric: tabular-nums; }
+.nasdaq-grid-money-input input:focus-visible { outline: 0; }
+.nasdaq-grid-form-status { grid-column: 2 / -1; min-height: 16px; color: var(--muted); font-size: 10px; text-align: right; }
+.nasdaq-grid-summary { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 20px 0; }
+.nasdaq-grid-summary article { min-height: 118px; border: 1px solid var(--line); border-top: 3px solid var(--blue); border-radius: 8px; background: var(--card); padding: 16px; }
+.nasdaq-grid-summary small, .nasdaq-grid-summary strong, .nasdaq-grid-summary span { display: block; }
+.nasdaq-grid-summary small { color: var(--muted); font-size: 10px; font-weight: 800; }
+.nasdaq-grid-summary strong { margin: 10px 0 7px; font-size: 20px; font-variant-numeric: tabular-nums; }
+.nasdaq-grid-summary span { color: var(--muted); font-size: 10px; line-height: 1.5; }
+.nasdaq-grid-plan { margin-bottom: 36px; }
+.nasdaq-grid-reference { color: var(--muted); font-size: 12px; line-height: 1.7; overflow-wrap: anywhere; }
+.nasdaq-grid-plan-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 12px; }
+.nasdaq-grid-plan-head h3 { margin: 0; font-size: 17px; }
+.nasdaq-grid-plan-head > p { max-width: 560px; margin: 0; color: var(--muted); font-size: 11px; line-height: 1.6; text-align: right; }
+.nasdaq-grid-table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--card); }
+.nasdaq-grid-table { width: 100%; min-width: 820px; border-collapse: collapse; font-size: 12px; }
+.nasdaq-grid-table th, .nasdaq-grid-table td { padding: 15px 16px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.nasdaq-grid-table th { background: #f7f9fa; color: var(--muted); font-size: 10px; }
+.nasdaq-grid-table tbody tr:last-child td { border-bottom: 0; }
+.nasdaq-grid-table tbody tr.is-triggered { background: #eef7f3; }
+.nasdaq-grid-table tbody tr.is-next { background: #f2f6fc; }
+.nasdaq-grid-status { display: inline-block; min-width: 54px; border-radius: 6px; background: #edf1f3; color: var(--muted); padding: 5px 8px; text-align: center; font-size: 10px; font-weight: 800; }
+.nasdaq-grid-status.is-triggered { background: #dcefe8; color: #126e58; }
+.nasdaq-grid-status.is-next { background: #e4eefb; color: #245fae; }
+.summary-shortcut-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: -16px 0 16px; }
 .summary-shortcut-card { min-height: 128px; border-left: 4px solid #0f6672; background: var(--card); padding: 20px; display: flex; flex-direction: column; justify-content: space-between; gap: 18px; }
 .summary-shortcut-card[role="button"] { cursor: pointer; }
 .summary-shortcut-card[role="button"]:focus-visible { outline: 3px solid rgba(47,126,230,.35); outline-offset: 3px; }
@@ -164,6 +200,18 @@ h3 { font-size: 15px; }
 .risk-shortcut-main strong.is-unknown { color: #536673; }
 .risk-shortcut-main span { display: block; margin-top: 7px; color: var(--muted); font-size: 11px; line-height: 1.55; }
 .summary-shortcut-card-empty { border-left-color: #d5dde4; box-shadow: none; background: #fbfcfc; }
+.turnover-card { min-width: 0; min-height: 411px; gap: 10px; justify-content: flex-start; border-left-color: #0f8a78; }
+.turnover-card h2 { margin: 0 0 5px; font-size: 18px; }
+.turnover-card small { display: block; color: var(--muted); font-size: 10px; line-height: 1.6; overflow-wrap: anywhere; }
+.turnover-current strong { display: block; margin: 3px 0; font-size: 23px; font-variant-numeric: tabular-nums; }
+.turnover-chart { margin: 0; min-width: 0; }
+.turnover-chart svg { display: block; width: 100%; height: 88px; }
+.turnover-chart figcaption { display: flex; justify-content: space-between; gap: 6px; color: var(--muted); font-size: 9px; }
+.turnover-chart input { display: block; width: 100%; height: 18px; margin: 4px 0; padding: 0; accent-color: #0f8a78; }
+.turnover-chart output { display: block; min-height: 16px; font-size: 10px; font-variant-numeric: tabular-nums; }
+.turnover-extrema { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; border-top: 1px solid var(--line); padding-top: 8px; }
+.turnover-extrema strong { display: block; font-size: 16px; font-variant-numeric: tabular-nums; }
+.turnover-source { margin-top: auto; }
 .event-calendar { margin: 0 0 36px; padding: 18px 20px; }
 .event-calendar-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 12px; }
 .event-calendar-head h2 { margin: 4px 0 0; font-size: 18px; }
@@ -230,6 +278,30 @@ h3 { font-size: 15px; }
 .dividend-annual-table th, .dividend-annual-table td { padding: 12px 20px; border-top: 1px solid var(--line); text-align: left; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .dividend-annual-table th { color: var(--muted); background: #fbfcfc; font-size: 10px; letter-spacing: .04em; }
 .dividend-annual-table tr.is-current { background: #f2f8f6; }
+.dividend-annual-table tr[data-dividend-year] { cursor: pointer; }
+.dividend-annual-table tr[data-dividend-year]:hover { background: #eef4f8; }
+.dividend-year-button { border: 0; background: transparent; padding: 4px 0; font: inherit; font-weight: 800; color: inherit; cursor: pointer; }
+.dividend-year-button span { margin-left: 8px; color: var(--muted); }
+.dividend-year-button:focus-visible { outline: 2px solid var(--blue); outline-offset: 4px; }
+.dividend-monthly-dialog { box-sizing: border-box; width: min(900px, calc(100% - 32px)); max-height: 85vh; padding: 24px; border: 1px solid var(--line); border-radius: 8px; background: var(--card); color: var(--ink); overflow-y: auto; }
+.dividend-monthly-dialog::backdrop { background: rgb(15 25 32 / 45%); }
+.dividend-monthly-dialog header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.dividend-monthly-dialog h2 { font-size: 20px; margin: 0; }
+.dividend-monthly-dialog header button { width: 36px; height: 36px; padding: 0; font-size: 24px; border: 1px solid var(--line); border-radius: 6px; background: transparent; color: inherit; cursor: pointer; }
+#dividend-monthly-status, .dividend-monthly-note { font-size: 12px; line-height: 1.6; color: var(--muted); }
+.dividend-monthly-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.dividend-month-card { min-width: 0; min-height: 116px; border: 1px solid var(--line); border-radius: 6px; padding: 14px; }
+.dividend-month-card h3 { margin: 0 0 10px; font-size: 13px; }
+.dividend-month-card strong { display: block; font-size: 23px; font-variant-numeric: tabular-nums; }
+.dividend-month-card small { display: block; margin-top: 8px; color: var(--muted); font-size: 11px; }
+.dividend-month-card.is-gain strong { color: #c7463c; }
+.dividend-month-card.is-loss strong { color: #118062; }
+.dividend-month-card.is-flat strong { color: var(--muted); }
+@media (max-width: 600px) {
+  .dividend-monthly-dialog { padding: 16px; }
+  .dividend-monthly-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .dividend-month-card { padding: 10px; }
+}
 .dividend-annual-table td.is-gain { color: #c7463c; font-weight: 800; }
 .dividend-annual-table td.is-loss { color: #118062; font-weight: 800; }
 .dividend-annual-table td.is-flat { color: var(--muted); font-weight: 800; }
@@ -538,9 +610,13 @@ h3 { font-size: 15px; }
 .todo-archive-head span { color: var(--muted); font-size: 11px; }
 .todo-archive-list { display: grid; max-height: min(48vh, 420px); overflow-y: auto; gap: 10px; padding-right: 4px; scrollbar-gutter: stable; }
 .todo-archive-item { border: 1px solid rgba(82,104,122,.16); border-radius: 8px; background: var(--card); padding: 12px; }
+.todo-archive-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.todo-archive-id { flex: 0 0 auto; min-width: 72px; color: #52677b; font-size: 10px; font-weight: 900; letter-spacing: .02em; }
+.todo-archive-title { flex: 1 1 280px; min-width: 180px; }
 .todo-archive-item p { margin: 7px 0 0; color: #566674; font-size: 12px; line-height: 1.65; }
-.todo-archive-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; padding-top: 9px; border-top: 1px solid rgba(82,104,122,.12); color: #62717e; font-size: 11px; font-weight: 800; }
-.todo-matrix { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; align-items: start; }
+.todo-archive-meta { display: flex; flex: 0 1 auto; flex-wrap: wrap; gap: 8px; margin-left: auto; color: #62717e; font-size: 11px; font-weight: 800; }
+.todo-archive-row .todo-item-time { color: #52677b; font-size: 11px; font-weight: 800; }
+.todo-matrix { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; align-items: stretch; }
 .todo-quadrant { --todo-accent: #85919b; --todo-accent-soft: #f3f5f6; min-width: 0; max-height: min(68vh, 620px); overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; border: 1px solid var(--line); border-top: 3px solid var(--todo-accent); border-radius: 10px; background: #f5f7f8; padding: 0 12px 12px; scroll-padding-top: 88px; }
 .todo-quadrant:focus-visible { outline: 3px solid rgba(47,126,230,.22); outline-offset: 2px; }
 .todo-quadrant.is-important-urgent { --todo-accent: #bc3a2a; --todo-accent-soft: #fff2ef; }
@@ -561,7 +637,9 @@ h3 { font-size: 15px; }
 .todo-quadrant.is-collapsed { max-height: none; overflow: hidden; padding-bottom: 0; }
 .todo-quadrant.is-collapsed > .todo-item, .todo-quadrant.is-collapsed > .todo-empty { display: none; }
 .todo-quadrant.is-collapsed .todo-quadrant-header { margin-bottom: 0; border-bottom: 0; }
-.todo-item { margin-top: 10px; border: 1px solid rgba(82,104,122,.18); border-radius: 9px; background: var(--card); box-shadow: 0 3px 10px rgba(20,40,60,.055); padding: 12px; cursor: grab; }
+.todo-item { position: relative; isolation: isolate; overflow: hidden; margin-top: 10px; border: 1px solid rgba(82,104,122,.18); border-radius: 9px; background: var(--card); box-shadow: 0 3px 10px rgba(20,40,60,.055); padding: 12px; cursor: grab; }
+.todo-item::before { content: ""; position: absolute; inset: 0 auto 0 0; z-index: -1; width: 0; background: var(--todo-accent); opacity: .3; pointer-events: none; }
+.todo-item:has(.todo-status-button[data-todo-status="进行中"])::before { width: 50%; }
 .todo-item:hover { border-color: rgba(36,97,112,.34); box-shadow: 0 5px 16px rgba(20,40,60,.08); }
 .todo-item.is-dragging { opacity: .55; }
 .todo-item.is-busy { opacity: .7; cursor: wait; }
@@ -727,23 +805,39 @@ h3 { font-size: 15px; }
 .tracker-row-actions button[data-action="delete-tracking"]:hover { border-color: var(--red); background: #ffefed; }
 .review-diary-button { min-height: 30px; border: 1px solid rgba(15,102,114,.28); border-radius: 7px; background: #f6fbfc; color: #0f6672; padding: 6px 10px; font-size: 10px; font-weight: 800; white-space: nowrap; }
 .review-diary-button:hover { border-color: #0f6672; background: #eef8f9; }
-.review-diary-page-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; margin-bottom: 16px; }
+.review-diary-page-head { display: flex; align-items: flex-start; justify-content: flex-end; gap: 24px; margin-bottom: 16px; }
+.review-diary-page-actions { display: flex; justify-content: flex-end; gap: 8px; }
 .review-diary-page-head h2 { margin-bottom: 8px; }
 .review-diary-page-head p:last-child { max-width: 680px; margin: 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
 .review-diary-page-status { min-height: 20px; margin: 0 0 12px; color: var(--muted); font-size: 11px; }
 .review-diary-page-status.is-error { color: var(--red); }
-.review-diary-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 12px; }
-.review-diary-card { min-height: 210px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); box-shadow: var(--shadow); padding: 17px 18px; display: flex; flex-direction: column; }
-.review-diary-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
-.review-diary-card-title strong, .review-diary-card-title small { display: block; }
-.review-diary-card-title strong { color: var(--ink); font-size: 16px; }
-.review-diary-card-title small { margin-top: 4px; color: var(--muted); font-size: 10px; font-variant-numeric: tabular-nums; }
-.review-diary-card-count { border-radius: 99px; background: #e8f0fb; color: #275fae; padding: 5px 9px; font-size: 10px; font-weight: 800; white-space: nowrap; }
-.review-diary-card-meta { display: flex; flex-wrap: wrap; gap: 7px 13px; margin: 16px 0 10px; color: var(--muted); font-size: 10px; }
-.review-diary-card-meta b { color: #0f6672; }
-.review-diary-card-excerpt { margin: 0 0 17px; color: #526472; font-size: 12px; line-height: 1.75; }
-.review-diary-card-link { min-height: 38px; margin-top: auto; border: 1px solid rgba(15,102,114,.28); border-radius: 8px; color: #0f6672; display: inline-flex; align-items: center; justify-content: center; padding: 8px 12px; font-size: 11px; font-weight: 800; text-decoration: none; }
-.review-diary-card-link:hover { border-color: #0f6672; background: #eef8f9; }
+.review-diary-calendar-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 12px; }
+.review-diary-calendar-title { display: grid; gap: 4px; }
+.review-diary-calendar-title strong { color: var(--ink); font-size: 24px; line-height: 1.2; }
+.review-diary-calendar-title span { color: var(--muted); font-size: 11px; }
+.review-diary-calendar-nav { display: flex; align-items: center; gap: 6px; }
+.review-diary-calendar-nav .button-secondary { min-width: 44px; min-height: 38px; padding-inline: 12px; }
+.review-diary-calendar-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--card); box-shadow: var(--shadow); }
+.review-diary-calendar { min-width: 920px; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.review-diary-weekday { min-height: 38px; border-right: 1px solid var(--line); background: #f7f9fb; color: #526472; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; }
+.review-diary-weekday:nth-child(7n) { border-right: 0; }
+.review-diary-day { min-height: 126px; border-top: 1px solid var(--line); border-right: 1px solid var(--line); background: #fff; padding: 10px; overflow: hidden; }
+.review-diary-day:nth-child(7n) { border-right: 0; }
+.review-diary-day.is-other-month { background: #f8fafb; color: #8a98a6; }
+.review-diary-day.has-entries { background: #fbfdfe; }
+.review-diary-day-top { min-height: 24px; display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+.review-diary-day-number { width: 24px; height: 24px; border-radius: 99px; display: inline-flex; align-items: center; justify-content: center; color: #526472; font-size: 12px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.review-diary-day.is-today .review-diary-day-number { background: var(--blue); color: #fff; }
+.review-diary-day-count { border-radius: 99px; background: #e8f0fb; color: #275fae; padding: 4px 7px; font-size: 10px; font-weight: 800; white-space: nowrap; }
+.review-diary-calendar-entry { display: grid; gap: 2px; margin-top: 8px; border-left: 3px solid #0f6672; border-radius: 7px; background: #eef8f9; color: var(--ink); padding: 7px 8px; text-decoration: none; }
+.review-diary-calendar-entry:hover { background: #e3f2f4; }
+.review-diary-calendar-entry-head { min-width: 0; display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+.review-diary-calendar-entry strong { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 11px; }
+.review-diary-calendar-entry em { flex: 0 0 auto; border-radius: 99px; background: #d9edf0; color: #0f6672; padding: 2px 6px; font-size: 10px; font-style: normal; font-weight: 800; }
+.review-diary-calendar-entry span { color: #526472; font-size: 10px; font-variant-numeric: tabular-nums; }
+.review-diary-calendar-entry-head strong { color: var(--ink); }
+.review-diary-calendar-entry small { color: var(--muted); font-size: 10px; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.review-diary-calendar-more { display: inline-flex; margin-top: 7px; color: #526472; font-size: 10px; font-weight: 700; }
 .review-diary-empty { display: grid; gap: 6px; }
 .review-diary-empty strong { color: var(--ink); }
 .review-diary-empty span { font-size: 11px; }
@@ -755,7 +849,9 @@ h3 { font-size: 15px; }
 .diary-dialog-head { display: flex; justify-content: space-between; align-items: start; gap: 16px; margin-bottom: 14px; }
 .diary-dialog-head h3 { margin: 3px 0 0; font-size: 18px; }
 .diary-field { display: grid; gap: 8px; color: var(--muted); font-size: 11px; }
-.diary-field textarea { width: 100%; min-height: 180px; border: 1px solid var(--line); border-radius: 8px; background: #fbfcfc; color: var(--ink); padding: 10px 12px; line-height: 1.6; resize: vertical; }
+.diary-field select, .diary-field textarea { width: 100%; border: 1px solid var(--line); border-radius: 8px; background: #fbfcfc; color: var(--ink); padding: 10px 12px; line-height: 1.6; }
+.diary-field textarea { min-height: 180px; resize: vertical; }
+.diary-target-field { margin-bottom: 12px; }
 .diary-status { min-height: 20px; margin: 10px 0 0; color: var(--muted); font-size: 11px; }
 .diary-status.is-error { color: var(--red); }
 .diary-status.is-saved { color: #0f6672; font-weight: 700; }
@@ -825,12 +921,20 @@ h3 { font-size: 15px; }
 .changelog-copy li { padding-left: 4px; }
 .changelog-empty { padding: 32px 0; border-top: 1px solid var(--line); color: var(--muted); }
 
+@media (max-width: 1280px) {
+  .summary-shortcut-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
 @media (max-width: 920px) {
   .app-shell { grid-template-columns: 184px minmax(0,1fr); }
   .metric-row { grid-template-columns: 1fr 1fr 65px; }
   .metric-score { display: none; }
   .detail-grid { grid-template-columns: 1fr; }
   .overview-grid { grid-template-columns: 1fr; }
+  .nasdaq-grid-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .nasdaq-grid-controls { grid-template-columns: 1fr 170px auto; }
+  .nasdaq-grid-controls > div:first-child { grid-column: 1 / -1; }
+  .nasdaq-grid-form-status { grid-column: 1 / -1; }
   .summary-shortcut-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .portfolio-summary, .tracker-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .todo-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -855,6 +959,12 @@ h3 { font-size: 15px; }
   .sidebar-footer { display: none; }
   .main-content { padding: 20px 15px 42px; }
   .topbar, .summary-heading, .section-header { align-items: flex-start; flex-direction: column; }
+  .nasdaq-grid-header, .nasdaq-grid-plan-head { align-items: flex-start; flex-direction: column; }
+  .nasdaq-grid-plan-head > p { text-align: left; }
+  .nasdaq-grid-controls { grid-template-columns: 1fr; }
+  .nasdaq-grid-controls > div:first-child, .nasdaq-grid-form-status { grid-column: auto; }
+  .nasdaq-grid-form-status { text-align: left; }
+  .nasdaq-grid-summary { grid-template-columns: 1fr; }
   .top-actions { width: 100%; justify-content: space-between; }
   .summary-heading { margin-top: 23px; }
   .section-header > p { text-align: left; }
@@ -901,7 +1011,12 @@ h3 { font-size: 15px; }
   .tracker-filter { width: 100%; justify-content: flex-start; }
   .tracker-edit { grid-template-columns: 1fr; }
   .review-diary-page-head { flex-direction: column; }
-  .review-diary-page-head .button-secondary { width: 100%; }
+  .review-diary-page-actions { width: 100%; }
+  .review-diary-page-actions .button-secondary { flex: 1 1 0; }
+  .review-diary-calendar-head { align-items: flex-start; flex-direction: column; }
+  .review-diary-calendar-nav { width: 100%; }
+  .review-diary-calendar-nav .button-secondary { flex: 1 1 0; }
+  .review-diary-calendar { min-width: 760px; }
   .changelog-page { margin-top: 12px; }
   .changelog-hero { margin-bottom: 42px; }
   .changelog-day { margin-bottom: 48px; }
@@ -1047,7 +1162,7 @@ h3 { font-size: 15px; }
             </div>
             <button class="button-secondary" type="button" data-open-risk-monitor>进入风险发现系统</button>
           </article>
-          <article class="summary-shortcut-card summary-shortcut-card-empty panel" aria-hidden="true"></article>
+          <article class="summary-shortcut-card turnover-card panel" id="market-turnover-card" aria-labelledby="market-turnover-heading"></article>
           <article class="summary-shortcut-card summary-shortcut-card-empty panel" aria-hidden="true"></article>
         </div>
 
@@ -1075,6 +1190,41 @@ h3 { font-size: 15px; }
         </div>
         <div class="layer-grid is-render-target" id="layer-scores" aria-label="三层评分" hidden></div>
         <div class="metric-list is-render-target" id="metric-list" hidden></div>
+      </section>
+
+      <section class="view" id="nasdaq-grid-view" data-shell-content="thermometer" aria-label="广发纳指ETF网格策略">
+        <div class="nasdaq-grid-page">
+          <header class="nasdaq-grid-header">
+            <button class="nasdaq-grid-back" id="nasdaq-grid-back" type="button" aria-label="返回市场总览">← 返回市场总览</button>
+            <a class="button-secondary" id="nasdaq-grid-source-link" href="https://finance.yahoo.com/quote/%5ENDX/" target="_blank" rel="noopener noreferrer">查看指数行情</a>
+          </header>
+
+          <section class="nasdaq-grid-controls" aria-labelledby="nasdaq-grid-settings-heading">
+            <div>
+              <h3 id="nasdaq-grid-settings-heading">金额设置</h3>
+              <p>一份金额会乘以各档加仓倍数，修改后立即重算并保存在当前浏览器。</p>
+            </div>
+            <label for="nasdaq-grid-unit-amount">一份金额</label>
+            <div class="nasdaq-grid-money-input"><span>¥</span><input id="nasdaq-grid-unit-amount" type="number" min="1" step="100" inputmode="decimal" value="10000"></div>
+            <button class="button-secondary" id="nasdaq-grid-reset" type="button">重置为1万元</button>
+            <span class="nasdaq-grid-form-status" id="nasdaq-grid-form-status" role="status"></span>
+          </section>
+
+          <div class="nasdaq-grid-summary" id="nasdaq-grid-summary" aria-live="polite"></div>
+          <p class="nasdaq-grid-reference" id="nasdaq-grid-reference" role="status"></p>
+
+          <section class="nasdaq-grid-plan" aria-labelledby="nasdaq-grid-plan-heading">
+            <div class="nasdaq-grid-plan-head">
+              <div><p class="eyebrow">SEVEN LEVELS</p><h3 id="nasdaq-grid-plan-heading">七档加仓计划</h3></div>
+            </div>
+            <div class="nasdaq-grid-table-wrap">
+              <table class="nasdaq-grid-table">
+                <thead><tr><th>档位</th><th>相对前高跌幅</th><th>买入参考价（元）</th><th>加仓倍数</th><th>本档金额</th><th>累计投入</th><th>状态</th></tr></thead>
+                <tbody id="nasdaq-grid-table-body"></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
       </section>
 
       <section class="view" id="position-view" data-shell-content="thermometer" aria-labelledby="position-heading">
@@ -1273,40 +1423,48 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                 <span class="industry-research-rank">2</span>
                 <a class="industry-report-link" href="../../sources/automations/新兴产业/商业航天/商业航天产业完整分析报告.html" target="_blank" rel="noopener noreferrer">商业航天产业完整分析报告</a>
               </li>
-              <li class="industry-research-item" data-filters="算力">
+              <li class="industry-research-item" data-filters="商业航天">
                 <span class="industry-research-rank">3</span>
-                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/2026-07-20-算力产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力产业完整分析报告</a>
+                <a class="industry-report-link" href="../../sources/automations/新兴产业/商业航天/2026-09-03-商业航天产业完整分析报告.html" target="_blank" rel="noopener noreferrer">商业航天产业完整分析报告</a>
               </li>
-              <li class="industry-research-item" data-filters="算力">
+              <li class="industry-research-item" data-filters="商业航天">
                 <span class="industry-research-rank">4</span>
-                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-存储力/2026-07-22-存储力产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-中游-存储力产业完整分析报告</a>
+                <a class="industry-report-link" href="../../sources/automations/新兴产业/商业航天/2026-09-02-商业航天产业完整分析报告.html" target="_blank" rel="noopener noreferrer">商业航天产业完整分析报告</a>
               </li>
               <li class="industry-research-item" data-filters="算力">
                 <span class="industry-research-rank">5</span>
-                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-28-计算系统与集群产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-中游-计算系统与集群产业完整分析报告</a>
+                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/2026-07-20-算力产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力产业完整分析报告</a>
               </li>
               <li class="industry-research-item" data-filters="算力">
                 <span class="industry-research-rank">6</span>
-                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-计算系统与集群/2026-07-22-计算系统与集群产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-中游-计算系统与集群产业完整分析报告</a>
+                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-存储力/2026-07-22-存储力产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-中游-存储力产业完整分析报告</a>
               </li>
               <li class="industry-research-item" data-filters="算力">
                 <span class="industry-research-rank">7</span>
-                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/下游-模型与行业应用/2026-07-22-模型与行业应用产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-下游-模型与行业应用产业完整分析报告</a>
+                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-28-计算系统与集群产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-中游-计算系统与集群产业完整分析报告</a>
               </li>
               <li class="industry-research-item" data-filters="算力">
                 <span class="industry-research-rank">8</span>
-                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-数据中心网络/2026-07-22-数据中心网络产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-中游-数据中心网络产业完整分析报告</a>
+                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-计算系统与集群/2026-07-22-计算系统与集群产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-中游-计算系统与集群产业完整分析报告</a>
               </li>
               <li class="industry-research-item" data-filters="算力">
                 <span class="industry-research-rank">9</span>
-                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-算力基础设施与能源/2026-07-22-算力基础设施与能源产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-中游-算力基础设施与能源产业完整分析报告</a>
+                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/下游-模型与行业应用/2026-07-22-模型与行业应用产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-下游-模型与行业应用产业完整分析报告</a>
               </li>
               <li class="industry-research-item" data-filters="算力">
                 <span class="industry-research-rank">10</span>
-                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/上游-芯片与基础软件/2026-07-22-芯片与基础软件产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-上游-芯片与基础软件产业完整分析报告</a>
+                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-数据中心网络/2026-07-22-数据中心网络产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-中游-数据中心网络产业完整分析报告</a>
               </li>
               <li class="industry-research-item" data-filters="算力">
                 <span class="industry-research-rank">11</span>
+                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/中游-算力基础设施与能源/2026-07-22-算力基础设施与能源产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-中游-算力基础设施与能源产业完整分析报告</a>
+              </li>
+              <li class="industry-research-item" data-filters="算力">
+                <span class="industry-research-rank">12</span>
+                <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/上游-芯片与基础软件/2026-07-22-芯片与基础软件产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-上游-芯片与基础软件产业完整分析报告</a>
+              </li>
+              <li class="industry-research-item" data-filters="算力">
+                <span class="industry-research-rank">13</span>
                 <a class="industry-report-link" href="../../sources/automations/新兴产业/算力/下游-资源运营与调度/2026-07-22-资源运营与调度产业完整分析报告.html" target="_blank" rel="noopener noreferrer">算力-下游-资源运营与调度产业完整分析报告</a>
               </li>
             </ol>
@@ -1712,6 +1870,7 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
             <button class="is-active" type="button" data-filter="all" aria-pressed="true">全部</button>
             <button type="button" data-filter="电解铝" aria-pressed="false">电解铝</button>
             <button type="button" data-filter="电网" aria-pressed="false">电网</button>
+            <button type="button" data-filter="动力电池" aria-pressed="false">动力电池</button>
             <button type="button" data-filter="高端制造" aria-pressed="false">高端制造</button>
             <button type="button" data-filter="石化化工" aria-pressed="false">石化化工</button>
             <button type="button" data-filter="消费" aria-pressed="false">消费</button>
@@ -1730,7 +1889,7 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
             </ol>
           </section>
           <section class="industry-report-panel holdings-panel panel" aria-label="支柱产业标的研报">
-            <div class="holding-form-title"><div><p class="eyebrow">RESEARCH REPORTS</p><h3>标的研报</h3></div><span>20项</span></div>
+            <div class="holding-form-title"><div><p class="eyebrow">RESEARCH REPORTS</p><h3>标的研报</h3></div><span>22项</span></div>
             <div class="industry-report-table-wrap holdings-table-wrap">
               <table class="industry-report-table tracking-table">
                 <thead><tr><th>标的</th><th>公允价值区间</th><th>交易定价偏离</th><th>盘中实时</th><th>收盘表现</th><th>三要素判断</th><th>资金面分析</th><th>基本面状态</th><th>星级</th></tr></thead>
@@ -1878,6 +2037,17 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                   <td><div class="tracking-fundamental-status"><span>读取研报…</span><a class="industry-report-link" href="../../sources/automations/支柱产业/高端制造/2026-07-30-1011-江淮汽车-机构级决策研报.html" target="_blank" rel="noopener noreferrer">个股研报</a></div><small class="tracking-updated">支柱产业 · 高端制造 · 10:11<br>来源目录：sources/automations/支柱产业/高端制造</small></td>
                   <td>—</td>
                 </tr>
+                <tr class="industry-report" data-filters="动力电池" data-report-href="../../sources/automations/支柱产业/动力电池/2026-09-04-动力电池产业分析报告.html" data-equity-report-href="" data-three-factor-href="" data-fund-flow-href="" data-report-title="动力电池产业分析报告" data-stock-name="动力电池产业分析报告" data-report-label="支柱产业 · 动力电池" data-report-time="09-04" data-source-directory="sources/automations/支柱产业/动力电池">
+                  <td class="tracking-target"><strong><a class="industry-report-link" href="../../sources/automations/支柱产业/动力电池/2026-09-04-动力电池产业分析报告.html" target="_blank" rel="noopener noreferrer">动力电池产业分析报告</a></strong><small>动力电池产业分析报告</small></td>
+                  <td>读取研报…</td>
+                  <td><span class="tracking-pricing-deviation is-neutral">读取研报…</span></td>
+                  <td>读取中…</td>
+                  <td>读取中…</td>
+                  <td>读取研报…</td>
+                  <td><div class="tracking-report-links"><span class="tracking-three-factor-state">未关联</span></div></td>
+                  <td><div class="tracking-fundamental-status"><span>读取研报…</span><span class="tracking-three-factor-state">未关联</span></div><small class="tracking-updated">支柱产业 · 动力电池 · 09-04<br>来源目录：sources/automations/支柱产业/动力电池</small></td>
+                  <td>—</td>
+                </tr>
                 <tr class="industry-report" data-filters="电网" data-report-href="../../sources/automations/支柱产业/电网/2026-08-21-1100-四方股份-机构级决策研报.html" data-equity-report-href="../../sources/automations/支柱产业/电网/2026-08-21-1100-四方股份-机构级决策研报.html" data-three-factor-href="" data-fund-flow-href="" data-report-title="四方股份-机构级决策研报" data-stock-name="四方股份" data-report-label="支柱产业 · 电网" data-report-time="11:00" data-source-directory="sources/automations/支柱产业/电网">
                   <td class="tracking-target"><strong><a class="industry-report-link" href="../../sources/automations/支柱产业/电网/2026-08-21-1100-四方股份-机构级决策研报.html" target="_blank" rel="noopener noreferrer">四方股份</a></strong><small>四方股份-机构级决策研报</small></td>
                   <td>读取研报…</td>
@@ -1920,6 +2090,17 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                   <td>读取研报…</td>
                   <td><div class="tracking-report-links"><a class="industry-report-link" href="../../sources/automations/支柱产业/电网/2026-07-18-神马电力资金面分层分析.html" target="_blank" rel="noopener noreferrer">资金面分析</a></div></td>
                   <td><div class="tracking-fundamental-status"><span>读取研报…</span><span class="tracking-three-factor-state">未关联</span></div><small class="tracking-updated">支柱产业 · 电网 · 07-18<br>来源目录：sources/automations/支柱产业/电网</small></td>
+                  <td>—</td>
+                </tr>
+                <tr class="industry-report" data-filters="电解铝" data-report-href="../../sources/automations/支柱产业/电解铝/2026-09-03-1631-云铝股份-产业思维分析.html" data-equity-report-href="" data-three-factor-href="" data-fund-flow-href="" data-report-title="云铝股份-产业思维分析" data-stock-name="云铝股份-产业思维分析" data-report-label="支柱产业 · 电解铝" data-report-time="16:31" data-source-directory="sources/automations/支柱产业/电解铝">
+                  <td class="tracking-target"><strong><a class="industry-report-link" href="../../sources/automations/支柱产业/电解铝/2026-09-03-1631-云铝股份-产业思维分析.html" target="_blank" rel="noopener noreferrer">云铝股份-产业思维分析</a></strong><small>云铝股份-产业思维分析</small></td>
+                  <td>读取研报…</td>
+                  <td><span class="tracking-pricing-deviation is-neutral">读取研报…</span></td>
+                  <td>读取中…</td>
+                  <td>读取中…</td>
+                  <td>读取研报…</td>
+                  <td><div class="tracking-report-links"><span class="tracking-three-factor-state">未关联</span></div></td>
+                  <td><div class="tracking-fundamental-status"><span>读取研报…</span><span class="tracking-three-factor-state">未关联</span></div><small class="tracking-updated">支柱产业 · 电解铝 · 16:31<br>来源目录：sources/automations/支柱产业/电解铝</small></td>
                   <td>—</td>
                 </tr>
                 <tr class="industry-report" data-filters="电解铝" data-report-href="../../sources/automations/支柱产业/电解铝/2026-07-23-1421-云铝股份-机构级决策研报.html" data-equity-report-href="../../sources/automations/支柱产业/电解铝/2026-07-23-1421-云铝股份-机构级决策研报.html" data-three-factor-href="../../sources/automations/支柱产业/电解铝/2026-08-19-1547-云铝股份-三要素分析.html" data-fund-flow-href="../../sources/automations/支柱产业/电解铝/2026-07-20-云铝股份资金面分析.html" data-report-title="云铝股份-机构级决策研报" data-stock-name="云铝股份" data-report-label="支柱产业 · 电解铝" data-report-time="14:21" data-source-directory="sources/automations/支柱产业/电解铝">
@@ -1974,7 +2155,7 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
             </article>
             <article class="todo-summary-card is-important-not-urgent" data-todo-summary-quadrant="重要不紧急">
               <small>Q2</small>
-              <strong>1</strong>
+              <strong>6</strong>
               <span>重要不紧急</span>
             </article>
             <article class="todo-summary-card is-urgent-not-important" data-todo-summary-quadrant="紧急不重要">
@@ -2018,19 +2199,25 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
               </div>
               <p class="todo-create-status" id="todo-create-status" role="status"></p>
             </form>
-            <div class="todo-source-note"><span id="todo-source-status">来源：data/todo.json · 更新：2026-08-31 · 已归档2项</span><strong id="todo-total-count">5项</strong></div>
+            <div class="todo-source-note"><span id="todo-source-status">来源：data/todo.json · 更新：2026-09-04 · 已归档2项</span><strong id="todo-total-count">10项</strong></div>
             <section class="todo-archive-panel" id="todo-archive-panel" aria-label="已归档任务" hidden>
               <div class="todo-archive-head"><strong>已归档任务</strong><span>按归档时间倒序</span></div>
               <div class="todo-archive-list" id="todo-archive-list">
                 <article class="todo-archive-item" data-todo-archive-id="TODO-006">
-                  <div class="todo-item-kicker"><span>TODO-006</span><span class="todo-item-time">归档 2026-08-31</span></div>
-                  <div class="todo-item-head"><strong>整理知识库-产业思维</strong></div>
-                  <div class="todo-archive-meta"><span>完成 2026-08-31</span><span>重要且紧急</span></div>
+                  <div class="todo-archive-row">
+                    <span class="todo-archive-id">TODO-006</span>
+                    <div class="todo-item-head todo-archive-title"><strong>整理知识库-产业思维</strong></div>
+                    <div class="todo-archive-meta"><span class="todo-archive-completed">完成 2026-08-31</span><span class="todo-archive-quadrant">重要且紧急</span></div>
+                    <span class="todo-item-time">归档 2026-08-31</span>
+                  </div>
                 </article>
                 <article class="todo-archive-item" data-todo-archive-id="TODO-007">
-                  <div class="todo-item-kicker"><span>TODO-007</span><span class="todo-item-time">归档 2026-08-28</span></div>
-                  <div class="todo-item-head"><strong>产业思维与竞争格局的比较优势如何联合</strong></div>
-                  <div class="todo-archive-meta"><span>完成 2026-08-28</span><span>重要且紧急</span></div>
+                  <div class="todo-archive-row">
+                    <span class="todo-archive-id">TODO-007</span>
+                    <div class="todo-item-head todo-archive-title"><strong>产业思维与竞争格局的比较优势如何联合</strong></div>
+                    <div class="todo-archive-meta"><span class="todo-archive-completed">完成 2026-08-28</span><span class="todo-archive-quadrant">重要且紧急</span></div>
+                    <span class="todo-item-time">归档 2026-08-28</span>
+                  </div>
                 </article>
               </div>
             </section>
@@ -2040,11 +2227,19 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                   <div class="todo-quadrant-heading"><span class="todo-quadrant-index">Q1</span><div><h3>重要且紧急</h3><p class="todo-quadrant-guide">立即处理</p></div></div>
                   <div class="todo-quadrant-meta"><strong>4项</strong><button class="todo-quadrant-toggle" type="button" data-action="toggle-todo-quadrant" aria-expanded="true">收起</button></div>
                 </header>
-                <article class="todo-item" draggable="true" data-todo-id="TODO-011" data-todo-quadrant="重要且紧急" aria-label="拖动 风险发现系统构建 到其他象限">
-                  <div class="todo-item-kicker"><span>TODO-011</span><span class="todo-item-time">创建 2026-08-31</span></div>
-                  <div class="todo-item-head"><strong>风险发现系统构建</strong></div>
+                <article class="todo-item" draggable="true" data-todo-id="TODO-015" data-todo-quadrant="重要且紧急" aria-label="拖动 继续测试产业思维skill 到其他象限">
+                  <div class="todo-item-kicker"><span>TODO-015</span><span class="todo-item-time">创建 2026-09-04</span></div>
+                  <div class="todo-item-head"><strong>继续测试产业思维skill</strong></div>
                   <div class="todo-item-actions">
-                    <button class="todo-action-button is-status todo-status-button" type="button" data-action="cycle-todo-status" data-todo-id="TODO-011" data-todo-status="未开始" aria-label="修改 风险发现系统构建 状态">状态 · 未开始</button>
+                    <button class="todo-action-button is-status todo-status-button" type="button" data-action="cycle-todo-status" data-todo-id="TODO-015" data-todo-status="进行中" aria-label="修改 继续测试产业思维skill 状态">状态 · 进行中</button>
+                    <button class="todo-action-button is-danger" type="button" data-action="delete-todo" data-todo-id="TODO-015">删除</button>
+                  </div>
+                </article>
+                <article class="todo-item" draggable="true" data-todo-id="TODO-011" data-todo-quadrant="重要且紧急" aria-label="拖动 风险监控体系构建（根据信息的金融意义） 到其他象限">
+                  <div class="todo-item-kicker"><span>TODO-011</span><span class="todo-item-time">创建 2026-09-01</span></div>
+                  <div class="todo-item-head"><strong>风险监控体系构建（根据信息的金融意义）</strong></div>
+                  <div class="todo-item-actions">
+                    <button class="todo-action-button is-status todo-status-button" type="button" data-action="cycle-todo-status" data-todo-id="TODO-011" data-todo-status="未开始" aria-label="修改 风险监控体系构建（根据信息的金融意义） 状态">状态 · 未开始</button>
                     <button class="todo-action-button is-danger" type="button" data-action="delete-todo" data-todo-id="TODO-011">删除</button>
                   </div>
                 </article>
@@ -2052,11 +2247,57 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                   <div class="todo-item-kicker"><span>TODO-010</span><span class="todo-item-time">创建 2026-08-31</span></div>
                   <div class="todo-item-head"><strong>风险库整理</strong></div>
                   <div class="todo-item-actions">
-                    <button class="todo-action-button is-status todo-status-button" type="button" data-action="cycle-todo-status" data-todo-id="TODO-010" data-todo-status="未开始" aria-label="修改 风险库整理 状态">状态 · 未开始</button>
+                    <button class="todo-action-button is-status todo-status-button" type="button" data-action="cycle-todo-status" data-todo-id="TODO-010" data-todo-status="进行中" aria-label="修改 风险库整理 状态">状态 · 进行中</button>
                     <button class="todo-action-button is-danger" type="button" data-action="delete-todo" data-todo-id="TODO-010">删除</button>
                   </div>
                 </article>
-                <article class="todo-item" draggable="true" data-todo-id="TODO-009" data-todo-quadrant="重要且紧急" aria-label="拖动 个股研报skill怎么与产业思维选股分析skill融合？ 到其他象限">
+                <article class="todo-item" draggable="true" data-todo-id="TODO-008" data-todo-quadrant="重要且紧急" aria-label="拖动 信息金融意义重新整理 到其他象限">
+                  <div class="todo-item-kicker"><span>TODO-008</span><span class="todo-item-time">创建 2026-08-28</span></div>
+                  <div class="todo-item-head"><strong>信息金融意义重新整理</strong></div>
+                  <div class="todo-item-actions">
+                    <button class="todo-action-button is-status todo-status-button" type="button" data-action="cycle-todo-status" data-todo-id="TODO-008" data-todo-status="进行中" aria-label="修改 信息金融意义重新整理 状态">状态 · 进行中</button>
+                    <button class="todo-action-button is-danger" type="button" data-action="delete-todo" data-todo-id="TODO-008">删除</button>
+                  </div>
+                </article>
+              </section>
+              <section class="todo-quadrant is-important-not-urgent" data-todo-quadrant="重要不紧急" tabindex="0" aria-label="重要不紧急，6项任务，可滚动查看">
+                <header class="todo-quadrant-header">
+                  <div class="todo-quadrant-heading"><span class="todo-quadrant-index">Q2</span><div><h3>重要不紧急</h3><p class="todo-quadrant-guide">排入计划</p></div></div>
+                  <div class="todo-quadrant-meta"><strong>6项</strong><button class="todo-quadrant-toggle" type="button" data-action="toggle-todo-quadrant" aria-expanded="true">收起</button></div>
+                </header>
+                <article class="todo-item" draggable="true" data-todo-id="TODO-016" data-todo-quadrant="重要不紧急" aria-label="拖动 每日跟踪改成跟踪多人版本 到其他象限">
+                  <div class="todo-item-kicker"><span>TODO-016</span><span class="todo-item-time">创建 2026-09-04</span></div>
+                  <div class="todo-item-head"><strong>每日跟踪改成跟踪多人版本</strong></div>
+                  <div class="todo-item-actions">
+                    <button class="todo-action-button is-status todo-status-button" type="button" data-action="cycle-todo-status" data-todo-id="TODO-016" data-todo-status="未开始" aria-label="修改 每日跟踪改成跟踪多人版本 状态">状态 · 未开始</button>
+                    <button class="todo-action-button is-danger" type="button" data-action="delete-todo" data-todo-id="TODO-016">删除</button>
+                  </div>
+                </article>
+                <article class="todo-item" draggable="true" data-todo-id="TODO-014" data-todo-quadrant="重要不紧急" aria-label="拖动 《全球两次大危机的比较研究》分层阅读第1层：事件层，发生了什么？ 到其他象限">
+                  <div class="todo-item-kicker"><span>TODO-014</span><span class="todo-item-time">创建 2026-09-02</span></div>
+                  <div class="todo-item-head"><strong>《全球两次大危机的比较研究》分层阅读第1层：事件层，发生了什么？</strong></div>
+                  <div class="todo-item-actions">
+                    <button class="todo-action-button is-status todo-status-button" type="button" data-action="cycle-todo-status" data-todo-id="TODO-014" data-todo-status="进行中" aria-label="修改 《全球两次大危机的比较研究》分层阅读第1层：事件层，发生了什么？ 状态">状态 · 进行中</button>
+                    <button class="todo-action-button is-danger" type="button" data-action="delete-todo" data-todo-id="TODO-014">删除</button>
+                  </div>
+                </article>
+                <article class="todo-item" draggable="true" data-todo-id="TODO-013" data-todo-quadrant="重要不紧急" aria-label="拖动 复盘日记页面完善成日历型 到其他象限">
+                  <div class="todo-item-kicker"><span>TODO-013</span><span class="todo-item-time">创建 2026-09-02</span></div>
+                  <div class="todo-item-head"><strong>复盘日记页面完善成日历型</strong></div>
+                  <div class="todo-item-actions">
+                    <button class="todo-action-button is-status todo-status-button" type="button" data-action="cycle-todo-status" data-todo-id="TODO-013" data-todo-status="未开始" aria-label="修改 复盘日记页面完善成日历型 状态">状态 · 未开始</button>
+                    <button class="todo-action-button is-danger" type="button" data-action="delete-todo" data-todo-id="TODO-013">删除</button>
+                  </div>
+                </article>
+                <article class="todo-item" draggable="true" data-todo-id="TODO-012" data-todo-quadrant="重要不紧急" aria-label="拖动 看不懂金融信息系列，先补充一下宏观经济学 到其他象限">
+                  <div class="todo-item-kicker"><span>TODO-012</span><span class="todo-item-time">创建 2026-09-01</span></div>
+                  <div class="todo-item-head"><strong>看不懂金融信息系列，先补充一下宏观经济学</strong></div>
+                  <div class="todo-item-actions">
+                    <button class="todo-action-button is-status todo-status-button" type="button" data-action="cycle-todo-status" data-todo-id="TODO-012" data-todo-status="未开始" aria-label="修改 看不懂金融信息系列，先补充一下宏观经济学 状态">状态 · 未开始</button>
+                    <button class="todo-action-button is-danger" type="button" data-action="delete-todo" data-todo-id="TODO-012">删除</button>
+                  </div>
+                </article>
+                <article class="todo-item" draggable="true" data-todo-id="TODO-009" data-todo-quadrant="重要不紧急" aria-label="拖动 个股研报skill怎么与产业思维选股分析skill融合？ 到其他象限">
                   <div class="todo-item-kicker"><span>TODO-009</span><span class="todo-item-time">创建 2026-08-28</span></div>
                   <div class="todo-item-head"><strong>个股研报skill怎么与产业思维选股分析skill融合？</strong></div>
                   <div class="todo-item-actions">
@@ -2064,25 +2305,11 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                     <button class="todo-action-button is-danger" type="button" data-action="delete-todo" data-todo-id="TODO-009">删除</button>
                   </div>
                 </article>
-                <article class="todo-item" draggable="true" data-todo-id="TODO-008" data-todo-quadrant="重要且紧急" aria-label="拖动 信息金融意义重新整理 到其他象限">
-                  <div class="todo-item-kicker"><span>TODO-008</span><span class="todo-item-time">创建 2026-08-28</span></div>
-                  <div class="todo-item-head"><strong>信息金融意义重新整理</strong></div>
-                  <div class="todo-item-actions">
-                    <button class="todo-action-button is-status todo-status-button" type="button" data-action="cycle-todo-status" data-todo-id="TODO-008" data-todo-status="未开始" aria-label="修改 信息金融意义重新整理 状态">状态 · 未开始</button>
-                    <button class="todo-action-button is-danger" type="button" data-action="delete-todo" data-todo-id="TODO-008">删除</button>
-                  </div>
-                </article>
-              </section>
-              <section class="todo-quadrant is-important-not-urgent" data-todo-quadrant="重要不紧急" tabindex="0" aria-label="重要不紧急，1项任务，可滚动查看">
-                <header class="todo-quadrant-header">
-                  <div class="todo-quadrant-heading"><span class="todo-quadrant-index">Q2</span><div><h3>重要不紧急</h3><p class="todo-quadrant-guide">排入计划</p></div></div>
-                  <div class="todo-quadrant-meta"><strong>1项</strong><button class="todo-quadrant-toggle" type="button" data-action="toggle-todo-quadrant" aria-expanded="true">收起</button></div>
-                </header>
                 <article class="todo-item" draggable="true" data-todo-id="TODO-005" data-todo-quadrant="重要不紧急" aria-label="拖动 阅读《两次全球大危机的比较研究》 到其他象限">
                   <div class="todo-item-kicker"><span>TODO-005</span><span class="todo-item-time">创建 2026-08-27</span></div>
                   <div class="todo-item-head"><strong>阅读《两次全球大危机的比较研究》</strong></div>
                   <div class="todo-item-actions">
-                    <button class="todo-action-button is-status todo-status-button" type="button" data-action="cycle-todo-status" data-todo-id="TODO-005" data-todo-status="未开始" aria-label="修改 阅读《两次全球大危机的比较研究》 状态">状态 · 未开始</button>
+                    <button class="todo-action-button is-status todo-status-button" type="button" data-action="cycle-todo-status" data-todo-id="TODO-005" data-todo-status="进行中" aria-label="修改 阅读《两次全球大危机的比较研究》 状态">状态 · 进行中</button>
                     <button class="todo-action-button is-danger" type="button" data-action="delete-todo" data-todo-id="TODO-005">删除</button>
                   </div>
                 </article>
@@ -2119,7 +2346,7 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
             <button class="button-secondary" id="open-tracking-form" type="button">新增跟踪</button>
             <button class="button-secondary" id="refresh-tracking-reports" type="button">一键更新</button>
             <button class="allocation-ribbon is-active" id="tracking-allocation-mode" type="button" aria-pressed="true">配比模式</button>
-<a class="button-secondary daily-monitor-button" id="open-daily-monitor" href="data/持仓今日监控汇总-2026-09-01.html" target="_blank" rel="noopener noreferrer" title="打开 2026-09-01 持仓今日监控汇总报告">每日监控</a>
+<a class="button-secondary daily-monitor-button" id="open-daily-monitor" href="data/持仓今日监控汇总-2026-09-04.html" target="_blank" rel="noopener noreferrer" title="打开 2026-09-04 持仓今日监控汇总报告">每日监控</a>
           </div>
           <div class="tracker-workspace">
             <form class="tracking-form panel" id="tracking-form" hidden>
@@ -2161,15 +2388,27 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
       <section class="view" id="review-diary-view" data-shell-content="personal" aria-labelledby="review-diary-view-heading">
         <div class="personal-page review-diary-page">
           <div class="review-diary-page-head">
-            <div>
-              <p class="eyebrow">REVIEW DIARY</p>
-              <h2 id="review-diary-view-heading">复盘日记</h2>
-              <p>集中查看从持仓跟踪中保存的复盘记录，按最新复盘时间排列。</p>
+            <h2 class="visually-hidden" id="review-diary-view-heading">复盘日记</h2>
+            <div class="review-diary-page-actions" aria-label="复盘日记操作">
+              <button class="button-secondary" id="create-review-diary" type="button">新增日记</button>
+              <button class="button-secondary" id="refresh-review-diaries" type="button">刷新日记</button>
             </div>
-            <button class="button-secondary" id="refresh-review-diaries" type="button">刷新日记</button>
           </div>
           <p class="review-diary-page-status" id="review-diary-page-status" role="status" aria-live="polite">进入页面后读取本机复盘日记。</p>
-          <div class="review-diary-list" id="review-diary-list" aria-label="复盘日记列表"></div>
+          <div class="review-diary-calendar-head">
+            <div class="review-diary-calendar-title">
+              <strong id="review-diary-calendar-title">本月</strong>
+              <span id="review-diary-calendar-count">本月 0 条复盘</span>
+            </div>
+            <div class="review-diary-calendar-nav" aria-label="切换复盘月份">
+              <button class="button-secondary" id="review-diary-prev-month" type="button" aria-label="上个月">‹</button>
+              <button class="button-secondary" id="review-diary-current-month" type="button">本月</button>
+              <button class="button-secondary" id="review-diary-next-month" type="button" aria-label="下个月">›</button>
+            </div>
+          </div>
+          <div class="review-diary-calendar-wrap">
+            <div class="review-diary-calendar" id="review-diary-list" aria-label="复盘日记月历"></div>
+          </div>
           <div class="personal-empty review-diary-empty" id="review-diary-empty" hidden>
             <strong>还没有复盘日记</strong>
             <span>先到“持仓跟踪”，点击标的右侧的“复盘日记”开始记录。</span>
@@ -2188,6 +2427,10 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
             </div>
             <button class="text-button" type="button" data-action="close-review-diary">关闭</button>
           </div>
+          <label class="diary-field diary-target-field" id="review-diary-target-field" hidden>
+            <span>复盘标的</span>
+            <select name="trackingTarget"></select>
+          </label>
           <label class="diary-field">
             <span>今天的复盘</span>
             <textarea name="content" rows="8" maxlength="3000" required placeholder="记录今日持有理由是否变化、风险方向、明日谁来接、加减仓想法或需要验证的条件。"></textarea>
@@ -3669,7 +3912,7 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
               <article class="topic-card" data-topic-category="bbxm">
                 <div class="topic-card-meta"><span>冰冰小美</span><span>2026-08-31</span></div>
                 <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E9%A3%8E%E9%99%A9%E5%BA%93.md" target="_blank" rel="noopener noreferrer">冰冰小美-风险库</a></h3>
-                <p>美国财政与主权信用风险 观察维度 问题 财政收支 赤字是不是越来越严重 债务规模 债务增长速度如何 偿债压力 利息负担是否越来越重 国债供给 市场需要承接多少新债 国债需求 有没有足够买家 市场定价 市场是否要求更高风险补偿 流动性风…</p>
+                <p>宏观 美国财政与主权信用风险 观察维度 问题 财政收支 赤字是不是越来越严重 债务规模 债务增长速度如何 偿债压力 利息负担是否越来越重 国债供给 市场需要承接多少新债 国债需求 有没有足够买家 市场定价 市场是否要求更高风险补偿 流…</p>
                 <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E9%A3%8E%E9%99%A9%E5%BA%93.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="bbxm">
@@ -4023,6 +4266,12 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
       </section>
     </main>
   </div>
+  <dialog id="dividend-monthly-dialog" class="dividend-monthly-dialog" aria-labelledby="dividend-monthly-title" aria-describedby="dividend-monthly-status">
+    <header><h2 id="dividend-monthly-title">月收益率</h2><form method="dialog"><button aria-label="关闭月收益率" title="关闭" autofocus>&times;</button></form></header>
+    <p id="dividend-monthly-status" role="status" aria-live="polite"></p>
+    <div id="dividend-monthly-grid" class="dividend-monthly-grid"></div>
+    <p class="dividend-monthly-note">月末收盘价相对上月末计算；首个统计月沿用年度首个交易日基准，与年度表一致。价格收益不含分红再投资。</p>
+  </dialog>
   <script type="module">
 // ---- core.mjs ----
 function clamp(value, min = 0, max = 100) { return Math.min(max, Math.max(min, value)); }
@@ -4830,8 +5079,11 @@ const FUGUI_PROVIDER_STORAGE_KEY = 'a-share-market-dashboard:fugui-provider:v1';
 const MARGIN_BALANCE_CACHE_STORAGE_KEY = 'a-share-market-dashboard:margin-balance:one-year:v1';
 const FEATURED_DELETED_STORAGE_KEY = 'a-share-market-dashboard:featured-deleted:v1';
 const ACTIVE_VIEW_STORAGE_KEY = 'a-share-market-dashboard:active-view:v1';
+const NASDAQ_GRID_UNIT_AMOUNT_STORAGE_KEY = 'a-share-market-dashboard:nasdaq-grid-unit-amount:v1';
+const OBSIDIAN_VAULT_NAME = 'llmwiki';
 const TODO_ACTION_TIMEOUT_MS = 12_000;
 const TODO_ACTION_ORIGIN = 'http://127.0.0.1:49889';
+const REVIEW_DIARY_SAVE_TIMEOUT_MS = 12_000;
 const MARGIN_BALANCE_CACHE_MAX_AGE_MS = 24 * 60 * 60 * 1000;
 const FUGUI_STRATEGY_RULES = Object.freeze({
   allowedOwnership: new Set(['央企', '国企']),
@@ -4840,9 +5092,72 @@ const FUGUI_STRATEGY_RULES = Object.freeze({
 });
 const YOUZHIYOUXING_TEMPERATURE_URL = 'https://youzhiyouxing.cn/data';
 const NASDAQ100_SOURCE_URL = 'https://finance.yahoo.com/quote/%5ENDX/';
+const NASDAQ_GRID_LEVELS = Object.freeze([
+  Object.freeze({ level: 1, drawdownPercent: -9, assumedPrice: 91, multiplier: 1 }),
+  Object.freeze({ level: 2, drawdownPercent: -12.5, assumedPrice: 87.5, multiplier: 1 }),
+  Object.freeze({ level: 3, drawdownPercent: -16, assumedPrice: 84, multiplier: 1.5 }),
+  Object.freeze({ level: 4, drawdownPercent: -19.5, assumedPrice: 80.5, multiplier: 1.5 }),
+  Object.freeze({ level: 5, drawdownPercent: -23, assumedPrice: 77, multiplier: 2 }),
+  Object.freeze({ level: 6, drawdownPercent: -26.5, assumedPrice: 73.5, multiplier: 2 }),
+  Object.freeze({ level: 7, drawdownPercent: -30, assumedPrice: 70, multiplier: 3 }),
+]);
+function parseMarketTurnover(payload) {
+  const validDate = value => /^\d{4}-\d{2}-\d{2}$/.test(value ?? '')
+    && Number.isFinite(Date.parse(value)) && new Date(value).toISOString().slice(0, 10) === value;
+  if (payload?.unit !== '亿元' || payload?.scope !== '沪深股票'
+      || !validDate(payload.today) || !validDate(payload.startDate)) throw new Error('成交额口径或日期无效');
+  const byDate = new Map();
+  for (const point of payload.points ?? []) {
+    if (validDate(point?.date) && point.date >= payload.startDate && point.date <= payload.today
+        && typeof point.amount === 'number' && Number.isFinite(point.amount) && point.amount > 0) {
+      byDate.set(point.date, point);
+    }
+  }
+  const points = [...byDate.values()].sort((a, b) => a.date.localeCompare(b.date));
+  if (!points.length) throw new Error('暂无有效的沪深合计数据');
+  return { ...payload, points };
+}
+
+function renderMarketTurnoverCard(entry = { status: 'loading' }, today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Shanghai' }).format(new Date())) {
+  const heading = '<div><h2 id="market-turnover-heading">每日成交额</h2><small>沪深两市 · 含 A/B 股 · 亿元</small></div>';
+  if (!entry.data) return `${heading}<p role="status">${entry.status === 'loading' ? '正在加载近一年数据…' : '成交额待验证'}</p><small>${escapeHtml(entry.error ?? '')}</small>`;
+  const { points, incompleteDays = 0 } = entry.data;
+  const latest = points.at(-1);
+  const current = points.find(point => point.date === today);
+  const high = points.reduce((a, b) => a.amount >= b.amount ? a : b);
+  const low = points.reduce((a, b) => a.amount <= b.amount ? a : b);
+  const ceiling = high.amount * 1.05;
+  const x = index => 4 + index / Math.max(1, points.length - 1) * 292;
+  const y = amount => 82 - amount / ceiling * 74;
+  const path = points.map((point, index) => `${index ? 'L' : 'M'}${x(index).toFixed(2)},${y(point.amount).toFixed(2)}`).join(' ');
+  return `${heading}
+    <div class="turnover-current"><small>今日成交额 · ${escapeHtml(today)}</small><strong>${current ? formatNumber(current.amount, 2) : '待更新'}</strong><small>${current ? '已发布日度统计' : `日度数据尚未发布 · 最近 ${latest.date}：${formatNumber(latest.amount, 2)}`}</small></div>
+    <figure class="turnover-chart">
+      <svg viewBox="0 0 300 88" role="img" aria-label="近一年沪深股票成交额曲线，单位亿元，纵轴从零开始">
+        <title>近一年成交额：${points[0].date} 至 ${latest.date}，${points.length} 个交易日</title>
+        <path d="M4,82 H296" stroke="#d5dde4"/>
+        <path d="${path}" fill="none" stroke="#0f8a78" stroke-width="1.6"/>
+        <circle id="turnover-selected-point" cx="${x(points.length - 1)}" cy="${y(latest.amount)}" r="3" fill="#d18a20"/>
+      </svg>
+      <figcaption><span>${points[0].date}</span><span>${latest.date}</span></figcaption>
+      <input id="turnover-date-slider" type="range" min="0" max="${points.length - 1}" value="${points.length - 1}" step="1" aria-label="查看每日成交额" aria-valuetext="${latest.date}，${formatNumber(latest.amount, 2)}亿元">
+      <output id="turnover-selected-value" for="turnover-date-slider">${latest.date} · ${formatNumber(latest.amount, 2)} 亿元</output>
+    </figure>
+    <div class="turnover-extrema"><div><small>近一年最高</small><strong>${formatNumber(high.amount, 2)}</strong><small>${high.date}</small></div><div><small>近一年最低</small><strong>${formatNumber(low.amount, 2)}</strong><small>${low.date}</small></div></div>
+    <small class="turnover-source"><a href="https://tushare.pro/document/2?doc_id=215" target="_blank" rel="noopener noreferrer">Tushare · 日度统计</a> · ${points.length} 日${incompleteDays ? ` · ${incompleteDays} 日缺少单边数据，已排除` : ''}${entry.status === 'missing' ? ` · 刷新失败，保留上次结果：${escapeHtml(entry.error)}` : ''}</small>`;
+}
+
 const CSI_DIVIDEND_SIGNAL_SOURCE_URL = '../../sources/automations/中证红利信号/最新信号.md';
 const CSI_DIVIDEND_ANNUAL_SOURCE_URL = '../../sources/automations/中证红利信号/中证红利年度表现.json';
 const HOLDING_STATUSES = new Set(['持有', '观察', '计划加仓', '计划减仓']);
+const REVIEW_DIARY_MARKET_TARGET = Object.freeze({
+  id: 'review-diary-market-index',
+  code: 'market-index',
+  name: '大盘指数',
+  status: '观察',
+});
+const REVIEW_DIARY_WEEKDAYS = Object.freeze(['周一', '周二', '周三', '周四', '周五', '周六', '周日']);
+const REVIEW_DIARY_MONTH_LABELS = Object.freeze(['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']);
 const TODO_QUADRANT_DEFINITIONS = Object.freeze([
   { label: '重要且紧急', shortLabel: 'Q1', description: '立即处理', className: 'is-important-urgent' },
   { label: '重要不紧急', shortLabel: 'Q2', description: '排入计划', className: 'is-important-not-urgent' },
@@ -4957,60 +5272,60 @@ const STOCK_THREE_FACTOR_REPORT_LINKS = Object.freeze({
   "紫光股份": "../../sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-28-1004-紫光股份-三要素分析.html",
 });
 const DAILY_MONITOR_LINKS = Object.freeze({
-  "000425": {"href":"data/000425-徐工机械-每日监控-2026-09-01.html","title":"000425-徐工机械-每日监控-2026-09-01","code":"000425","name":"徐工机械","date":"2026-09-01","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"2026-08-31 半年报全量重估已完成，公允价值 7—9.5 元；新增回购与控股股东增持未达到股本 3% 重估阈值"},
-  "000426": {"href":"data/000426-兴业银锡-每日监控-2026-09-01.html","title":"000426-兴业银锡-每日监控-2026-09-01","code":"000426","name":"兴业银锡","date":"2026-09-01","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"2026-08-31 半年报全量重估已完成，公允价值 24—39 元；现价 39.85 元高于新区间上沿，仅触发安全边际复盘"},
-  "000528": {"href":"data/000528-柳工-每日监控-2026-09-01.html","title":"000528-柳工-每日监控-2026-09-01","code":"000528","name":"柳工","date":"2026-09-01","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入；维持最新权威研报区间"},
-  "000807": {"href":"data/000807-云铝股份-每日监控-2026-09-01.html","title":"000807-云铝股份-每日监控-2026-09-01","code":"000807","name":"云铝股份","date":"2026-09-01","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入；维持最新权威研报区间"},
-  "000938": {"href":"data/000938-紫光股份-每日监控-2026-09-01.html","title":"000938-紫光股份-每日监控-2026-09-01","code":"000938","name":"紫光股份","date":"2026-09-01","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"单日涨跌幅 +8.53% 的绝对值 ≥ 5%；近 5 日累计涨跌幅 +12.93% 的绝对值 ≥ 10%；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
-  "002050": {"href":"data/002050-三花智控-每日监控-2026-09-01.html","title":"002050-三花智控-每日监控-2026-09-01","code":"002050","name":"三花智控","date":"2026-09-01","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入；维持最新权威研报区间"},
-  "002270": {"href":"data/002270-华明装备-每日监控-2026-09-01.html","title":"002270-华明装备-每日监控-2026-09-01","code":"002270","name":"华明装备","date":"2026-09-01","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"2026-08-31 半年报全量重估已完成，公允价值 15—22 元；本次无新增模型输入"},
-  "002396": {"href":"data/002396-星网锐捷-每日监控-2026-09-01.html","title":"002396-星网锐捷-每日监控-2026-09-01","code":"002396","name":"星网锐捷","date":"2026-09-01","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"单日涨跌幅 +10.00% 的绝对值 ≥ 5%；近 5 日累计涨跌幅 +25.81% 的绝对值 ≥ 10%；价格 40.36 元高于动态估值区间上沿 36.00 元；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
-  "600031": {"href":"data/600031-三一重工-每日监控-2026-09-01.html","title":"600031-三一重工-每日监控-2026-09-01","code":"600031","name":"三一重工","date":"2026-09-01","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"2026-08-31 半年报全量重估已完成，公允价值 16—21.5 元；本次成交额和换手率均超过 20 日均值 2 倍，仅触发量价复盘"},
-  "600150": {"href":"data/600150-中国船舶-每日监控-2026-09-01.html","title":"600150-中国船舶-每日监控-2026-09-01","code":"600150","name":"中国船舶","date":"2026-09-01","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"2026-08-31 半年报全量重估已完成，公允价值 31—44 元；本次无新增模型输入"},
+  "000425": {"href":"data/000425-徐工机械-每日监控-2026-09-04.html","title":"000425-徐工机械-每日监控-2026-09-04","code":"000425","name":"徐工机械","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"在已取得证据内未确认新增估值输入达到阈值，维持权威研报区间"},
+  "000426": {"href":"data/000426-兴业银锡-每日监控-2026-09-04.html","title":"000426-兴业银锡-每日监控-2026-09-04","code":"000426","name":"兴业银锡","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格 39.27 元高于动态估值区间上沿 39.00 元；在已取得证据内未确认新增估值输入达到阈值，维持权威研报区间；9月3日事件重估已完成，不重复入队"},
+  "000528": {"href":"data/000528-柳工-每日监控-2026-09-04.html","title":"000528-柳工-每日监控-2026-09-04","code":"000528","name":"柳工","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"在已取得证据内未确认新增估值输入达到阈值，维持权威研报区间"},
+  "000807": {"href":"data/000807-云铝股份-每日监控-2026-09-04.html","title":"000807-云铝股份-每日监控-2026-09-04","code":"000807","name":"云铝股份","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"用户已确认最新研报为唯一权威基线；本次仅版本清理，不改变现有估值区间"},
+  "000938": {"href":"data/000938-紫光股份-每日监控-2026-09-04.html","title":"000938-紫光股份-每日监控-2026-09-04","code":"000938","name":"紫光股份","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"在已取得证据内未确认新增估值输入达到阈值，维持权威研报区间"},
+  "002050": {"href":"data/002050-三花智控-每日监控-2026-09-04.html","title":"002050-三花智控-每日监控-2026-09-04","code":"002050","name":"三花智控","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"新增回购137.6万股、约4897万元；相对总股本约0.033%，未触发3%股本或5%股权价值桥接阈值"},
+  "002270": {"href":"data/002270-华明装备-每日监控-2026-09-04.html","title":"002270-华明装备-每日监控-2026-09-04","code":"002270","name":"华明装备","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"用户已确认最新研报为唯一权威基线；本次仅版本清理，不改变现有估值区间"},
+  "002396": {"href":"data/002396-星网锐捷-每日监控-2026-09-04.html","title":"002396-星网锐捷-每日监控-2026-09-04","code":"002396","name":"星网锐捷","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"近 5 日累计涨跌幅 +18.89% 的绝对值 ≥ 10%；价格 39.65 元高于动态估值区间上沿 36.00 元；在已取得证据内未确认新增估值输入达到阈值，维持权威研报区间"},
+  "600031": {"href":"data/600031-三一重工-每日监控-2026-09-04.html","title":"600031-三一重工-每日监控-2026-09-04","code":"600031","name":"三一重工","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"8月月报表确认总股本91.95亿股不变；库存股过户为已知事件，无新增摊薄重算"},
+  "600150": {"href":"data/600150-中国船舶-每日监控-2026-09-04.html","title":"600150-中国船舶-每日监控-2026-09-04","code":"600150","name":"中国船舶","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"在已取得证据内未确认新增估值输入达到阈值，维持权威研报区间；9月3日事件重估已完成，不重复入队"},
   "600673": {"href":"data/600673-东阳光-每日监控-2026-08-21.html","title":"600673-东阳光-每日监控-2026-08-21","code":"600673","name":"东阳光","date":"2026-08-21","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格 33.68 元高于动态估值区间上沿 30.00 元；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
-  "600750": {"href":"data/600750-华润江中-每日监控-2026-09-01.html","title":"600750-华润江中-每日监控-2026-09-01","code":"600750","name":"华润江中","date":"2026-09-01","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入；维持最新权威研报区间"},
-  "600938": {"href":"data/600938-中国海油-每日监控-2026-09-01.html","title":"600938-中国海油-每日监控-2026-09-01","code":"600938","name":"中国海油","date":"2026-09-01","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格 34.71 元高于动态估值区间上沿 33.00 元；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
-  "601168": {"href":"data/601168-西部矿业-每日监控-2026-09-01.html","title":"601168-西部矿业-每日监控-2026-09-01","code":"601168","name":"西部矿业","date":"2026-09-01","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入；维持最新权威研报区间"},
-  "601208": {"href":"data/601208-东材科技-每日监控-2026-09-01.html","title":"601208-东材科技-每日监控-2026-09-01","code":"601208","name":"东材科技","date":"2026-09-01","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"近 5 日累计涨跌幅 +19.37% 的绝对值 ≥ 10%；价格 52.19 元高于动态估值区间上沿 47.00 元；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
-  "601766": {"href":"data/601766-中国中车-每日监控-2026-09-01.html","title":"601766-中国中车-每日监控-2026-09-01","code":"601766","name":"中国中车","date":"2026-09-01","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入；维持最新权威研报区间"},
-  "603530": {"href":"data/603530-神马电力-每日监控-2026-09-01.html","title":"603530-神马电力-每日监控-2026-09-01","code":"603530","name":"神马电力","date":"2026-09-01","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入；维持最新权威研报区间"},
-  "东材科技": {"href":"data/601208-东材科技-每日监控-2026-09-01.html","title":"601208-东材科技-每日监控-2026-09-01","code":"601208","name":"东材科技","date":"2026-09-01","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"近 5 日累计涨跌幅 +19.37% 的绝对值 ≥ 10%；价格 52.19 元高于动态估值区间上沿 47.00 元；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
+  "600750": {"href":"data/600750-华润江中-每日监控-2026-09-04.html","title":"600750-华润江中-每日监控-2026-09-04","code":"600750","name":"华润江中","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"在已取得证据内未确认新增估值输入达到阈值，维持权威研报区间"},
+  "600938": {"href":"data/600938-中国海油-每日监控-2026-09-04.html","title":"600938-中国海油-每日监控-2026-09-04","code":"600938","name":"中国海油","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格 33.43 元高于动态估值区间上沿 33.00 元；在已取得证据内未确认新增估值输入达到阈值，维持权威研报区间"},
+  "601168": {"href":"data/601168-西部矿业-每日监控-2026-09-04.html","title":"601168-西部矿业-每日监控-2026-09-04","code":"601168","name":"西部矿业","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"在已取得证据内未确认新增估值输入达到阈值，维持权威研报区间"},
+  "601208": {"href":"data/601208-东材科技-每日监控-2026-09-04.html","title":"601208-东材科技-每日监控-2026-09-04","code":"601208","name":"东材科技","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"在已取得证据内未确认新增估值输入达到阈值，维持权威研报区间"},
+  "601766": {"href":"data/601766-中国中车-每日监控-2026-09-04.html","title":"601766-中国中车-每日监控-2026-09-04","code":"601766","name":"中国中车","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"在已取得证据内未确认新增估值输入达到阈值，维持权威研报区间"},
+  "603530": {"href":"data/603530-神马电力-每日监控-2026-09-04.html","title":"603530-神马电力-每日监控-2026-09-04","code":"603530","name":"神马电力","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格 49.17 元高于动态估值区间上沿 49.00 元；在已取得证据内未确认新增估值输入达到阈值，维持权威研报区间"},
+  "东材科技": {"href":"data/601208-东材科技-每日监控-2026-09-04.html","title":"601208-东材科技-每日监控-2026-09-04","code":"601208","name":"东材科技","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"在已取得证据内未确认新增估值输入达到阈值，维持权威研报区间"},
   "东阳光": {"href":"data/600673-东阳光-每日监控-2026-08-21.html","title":"600673-东阳光-每日监控-2026-08-21","code":"600673","name":"东阳光","date":"2026-08-21","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格 33.68 元高于动态估值区间上沿 30.00 元；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
-  "华明装备": {"href":"data/002270-华明装备-每日监控-2026-09-01.html","title":"002270-华明装备-每日监控-2026-09-01","code":"002270","name":"华明装备","date":"2026-09-01","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"2026-08-31 半年报全量重估已完成，公允价值 15—22 元；本次无新增模型输入"},
-  "华润江中": {"href":"data/600750-华润江中-每日监控-2026-09-01.html","title":"600750-华润江中-每日监控-2026-09-01","code":"600750","name":"华润江中","date":"2026-09-01","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入；维持最新权威研报区间"},
-  "柳工": {"href":"data/000528-柳工-每日监控-2026-09-01.html","title":"000528-柳工-每日监控-2026-09-01","code":"000528","name":"柳工","date":"2026-09-01","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入；维持最新权威研报区间"},
-  "三花智控": {"href":"data/002050-三花智控-每日监控-2026-09-01.html","title":"002050-三花智控-每日监控-2026-09-01","code":"002050","name":"三花智控","date":"2026-09-01","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入；维持最新权威研报区间"},
-  "三一重工": {"href":"data/600031-三一重工-每日监控-2026-09-01.html","title":"600031-三一重工-每日监控-2026-09-01","code":"600031","name":"三一重工","date":"2026-09-01","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"2026-08-31 半年报全量重估已完成，公允价值 16—21.5 元；本次成交额和换手率均超过 20 日均值 2 倍，仅触发量价复盘"},
-  "神马电力": {"href":"data/603530-神马电力-每日监控-2026-09-01.html","title":"603530-神马电力-每日监控-2026-09-01","code":"603530","name":"神马电力","date":"2026-09-01","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入；维持最新权威研报区间"},
-  "西部矿业": {"href":"data/601168-西部矿业-每日监控-2026-09-01.html","title":"601168-西部矿业-每日监控-2026-09-01","code":"601168","name":"西部矿业","date":"2026-09-01","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入；维持最新权威研报区间"},
-  "星网锐捷": {"href":"data/002396-星网锐捷-每日监控-2026-09-01.html","title":"002396-星网锐捷-每日监控-2026-09-01","code":"002396","name":"星网锐捷","date":"2026-09-01","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"单日涨跌幅 +10.00% 的绝对值 ≥ 5%；近 5 日累计涨跌幅 +25.81% 的绝对值 ≥ 10%；价格 40.36 元高于动态估值区间上沿 36.00 元；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
-  "兴业银锡": {"href":"data/000426-兴业银锡-每日监控-2026-09-01.html","title":"000426-兴业银锡-每日监控-2026-09-01","code":"000426","name":"兴业银锡","date":"2026-09-01","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"2026-08-31 半年报全量重估已完成，公允价值 24—39 元；现价 39.85 元高于新区间上沿，仅触发安全边际复盘"},
-  "徐工机械": {"href":"data/000425-徐工机械-每日监控-2026-09-01.html","title":"000425-徐工机械-每日监控-2026-09-01","code":"000425","name":"徐工机械","date":"2026-09-01","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"2026-08-31 半年报全量重估已完成，公允价值 7—9.5 元；新增回购与控股股东增持未达到股本 3% 重估阈值"},
-  "云铝股份": {"href":"data/000807-云铝股份-每日监控-2026-09-01.html","title":"000807-云铝股份-每日监控-2026-09-01","code":"000807","name":"云铝股份","date":"2026-09-01","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入；维持最新权威研报区间"},
-  "中国船舶": {"href":"data/600150-中国船舶-每日监控-2026-09-01.html","title":"600150-中国船舶-每日监控-2026-09-01","code":"600150","name":"中国船舶","date":"2026-09-01","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"2026-08-31 半年报全量重估已完成，公允价值 31—44 元；本次无新增模型输入"},
-  "中国海油": {"href":"data/600938-中国海油-每日监控-2026-09-01.html","title":"600938-中国海油-每日监控-2026-09-01","code":"600938","name":"中国海油","date":"2026-09-01","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格 34.71 元高于动态估值区间上沿 33.00 元；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
-  "中国中车": {"href":"data/601766-中国中车-每日监控-2026-09-01.html","title":"601766-中国中车-每日监控-2026-09-01","code":"601766","name":"中国中车","date":"2026-09-01","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未发现达到默认阈值的新增估值输入；维持最新权威研报区间"},
-  "紫光股份": {"href":"data/000938-紫光股份-每日监控-2026-09-01.html","title":"000938-紫光股份-每日监控-2026-09-01","code":"000938","name":"紫光股份","date":"2026-09-01","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"单日涨跌幅 +8.53% 的绝对值 ≥ 5%；近 5 日累计涨跌幅 +12.93% 的绝对值 ≥ 10%；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
+  "华明装备": {"href":"data/002270-华明装备-每日监控-2026-09-04.html","title":"002270-华明装备-每日监控-2026-09-04","code":"002270","name":"华明装备","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"用户已确认最新研报为唯一权威基线；本次仅版本清理，不改变现有估值区间"},
+  "华润江中": {"href":"data/600750-华润江中-每日监控-2026-09-04.html","title":"600750-华润江中-每日监控-2026-09-04","code":"600750","name":"华润江中","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"在已取得证据内未确认新增估值输入达到阈值，维持权威研报区间"},
+  "柳工": {"href":"data/000528-柳工-每日监控-2026-09-04.html","title":"000528-柳工-每日监控-2026-09-04","code":"000528","name":"柳工","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"在已取得证据内未确认新增估值输入达到阈值，维持权威研报区间"},
+  "三花智控": {"href":"data/002050-三花智控-每日监控-2026-09-04.html","title":"002050-三花智控-每日监控-2026-09-04","code":"002050","name":"三花智控","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"新增回购137.6万股、约4897万元；相对总股本约0.033%，未触发3%股本或5%股权价值桥接阈值"},
+  "三一重工": {"href":"data/600031-三一重工-每日监控-2026-09-04.html","title":"600031-三一重工-每日监控-2026-09-04","code":"600031","name":"三一重工","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"8月月报表确认总股本91.95亿股不变；库存股过户为已知事件，无新增摊薄重算"},
+  "神马电力": {"href":"data/603530-神马电力-每日监控-2026-09-04.html","title":"603530-神马电力-每日监控-2026-09-04","code":"603530","name":"神马电力","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格 49.17 元高于动态估值区间上沿 49.00 元；在已取得证据内未确认新增估值输入达到阈值，维持权威研报区间"},
+  "西部矿业": {"href":"data/601168-西部矿业-每日监控-2026-09-04.html","title":"601168-西部矿业-每日监控-2026-09-04","code":"601168","name":"西部矿业","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"在已取得证据内未确认新增估值输入达到阈值，维持权威研报区间"},
+  "星网锐捷": {"href":"data/002396-星网锐捷-每日监控-2026-09-04.html","title":"002396-星网锐捷-每日监控-2026-09-04","code":"002396","name":"星网锐捷","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"近 5 日累计涨跌幅 +18.89% 的绝对值 ≥ 10%；价格 39.65 元高于动态估值区间上沿 36.00 元；在已取得证据内未确认新增估值输入达到阈值，维持权威研报区间"},
+  "兴业银锡": {"href":"data/000426-兴业银锡-每日监控-2026-09-04.html","title":"000426-兴业银锡-每日监控-2026-09-04","code":"000426","name":"兴业银锡","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格 39.27 元高于动态估值区间上沿 39.00 元；在已取得证据内未确认新增估值输入达到阈值，维持权威研报区间；9月3日事件重估已完成，不重复入队"},
+  "徐工机械": {"href":"data/000425-徐工机械-每日监控-2026-09-04.html","title":"000425-徐工机械-每日监控-2026-09-04","code":"000425","name":"徐工机械","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"在已取得证据内未确认新增估值输入达到阈值，维持权威研报区间"},
+  "云铝股份": {"href":"data/000807-云铝股份-每日监控-2026-09-04.html","title":"000807-云铝股份-每日监控-2026-09-04","code":"000807","name":"云铝股份","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"用户已确认最新研报为唯一权威基线；本次仅版本清理，不改变现有估值区间"},
+  "中国船舶": {"href":"data/600150-中国船舶-每日监控-2026-09-04.html","title":"600150-中国船舶-每日监控-2026-09-04","code":"600150","name":"中国船舶","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"在已取得证据内未确认新增估值输入达到阈值，维持权威研报区间；9月3日事件重估已完成，不重复入队"},
+  "中国海油": {"href":"data/600938-中国海油-每日监控-2026-09-04.html","title":"600938-中国海油-每日监控-2026-09-04","code":"600938","name":"中国海油","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格 33.43 元高于动态估值区间上沿 33.00 元；在已取得证据内未确认新增估值输入达到阈值，维持权威研报区间"},
+  "中国中车": {"href":"data/601766-中国中车-每日监控-2026-09-04.html","title":"601766-中国中车-每日监控-2026-09-04","code":"601766","name":"中国中车","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"在已取得证据内未确认新增估值输入达到阈值，维持权威研报区间"},
+  "紫光股份": {"href":"data/000938-紫光股份-每日监控-2026-09-04.html","title":"000938-紫光股份-每日监控-2026-09-04","code":"000938","name":"紫光股份","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"在已取得证据内未确认新增估值输入达到阈值，维持权威研报区间"},
 });
 const EVENT_CALENDAR = Object.freeze(
 []
 );
 const CSI_DIVIDEND_SIGNAL = Object.freeze(
 {
-  "recordDate": "2026-09-01",
-  "runTime": "2026-09-01 09:47:42",
-  "indexDate": "2026-08-31",
-  "bondDate": "2026-08-31",
-  "dividendYield2": 4.07,
-  "ytdReturn": 3.5,
+  "recordDate": "2026-09-04",
+  "runTime": "2026-09-04 09:45:57",
+  "indexDate": "2026-09-03",
+  "bondDate": "2026-09-03",
+  "dividendYield2": 4.13,
+  "ytdReturn": 1.99,
   "ytdMaxDrawdown": -15.96,
   "xueqiuChangePercent": "待验证",
   "lixingerDate": "待确认",
   "lixingerDividendYield": "待验证",
   "lixingerPercentile10y": "待验证",
   "lixingerPercentile80Value": "待验证",
-  "bond10yYield": 1.69,
-  "spread": 2.38,
+  "bond10yYield": 1.68,
+  "spread": 2.45,
   "percentileSignal": "待验证",
   "absoluteSignal": "C（小额定投）",
   "spreadSignal": "C（小额定投）",
@@ -5285,6 +5600,18 @@ const CSI_DIVIDEND_YIELD_HISTORY = Object.freeze(
   {
     "date": "2026-08-31",
     "value": 4.07
+  },
+  {
+    "date": "2026-09-01",
+    "value": 4.07
+  },
+  {
+    "date": "2026-09-02",
+    "value": 4.13
+  },
+  {
+    "date": "2026-09-03",
+    "value": 4.13
   }
 ]
 );
@@ -5293,7 +5620,7 @@ const CSI_DIVIDEND_ANNUAL_PERFORMANCE = Object.freeze(
   "indexCode": "000922",
   "source": "中证指数官网 index-perf(000922)",
   "firstDate": "2008-05-26",
-  "lastDate": "2026-08-31",
+  "lastDate": "2026-09-03",
   "returnConvention": "每年首个可用交易日收盘价至末个可用交易日收盘价",
   "drawdownConvention": "每个自然年内日收盘价相对此前峰值的最大跌幅",
   "rows": [
@@ -5303,7 +5630,85 @@ const CSI_DIVIDEND_ANNUAL_PERFORMANCE = Object.freeze(
       "endDate": "2008-12-31",
       "annualReturn": -53.85772921194992,
       "maxDrawdown": -58.79084941567703,
-      "status": "成立首年"
+      "status": "成立首年",
+      "monthlyReturns": [
+        {
+          "month": 1,
+          "value": null,
+          "status": "数据不足"
+        },
+        {
+          "month": 2,
+          "value": null,
+          "status": "数据不足"
+        },
+        {
+          "month": 3,
+          "value": null,
+          "status": "数据不足"
+        },
+        {
+          "month": 4,
+          "value": null,
+          "status": "数据不足"
+        },
+        {
+          "month": 5,
+          "value": 0.697384672639112,
+          "startDate": "2008-05-26",
+          "endDate": "2008-05-30",
+          "status": "已统计"
+        },
+        {
+          "month": 6,
+          "value": -25.126138189609005,
+          "startDate": "2008-05-30",
+          "endDate": "2008-06-30",
+          "status": "已统计"
+        },
+        {
+          "month": 7,
+          "value": -0.43923184502411283,
+          "startDate": "2008-06-30",
+          "endDate": "2008-07-31",
+          "status": "已统计"
+        },
+        {
+          "month": 8,
+          "value": -19.76748781215084,
+          "startDate": "2008-07-31",
+          "endDate": "2008-08-29",
+          "status": "已统计"
+        },
+        {
+          "month": 9,
+          "value": -1.3540621865596902,
+          "startDate": "2008-08-29",
+          "endDate": "2008-09-26",
+          "status": "已统计"
+        },
+        {
+          "month": 10,
+          "value": -26.666787711525895,
+          "startDate": "2008-09-26",
+          "endDate": "2008-10-31",
+          "status": "已统计"
+        },
+        {
+          "month": 11,
+          "value": 11.319913837926165,
+          "startDate": "2008-10-31",
+          "endDate": "2008-11-28",
+          "status": "已统计"
+        },
+        {
+          "month": 12,
+          "value": -4.860879428838327,
+          "startDate": "2008-11-28",
+          "endDate": "2008-12-31",
+          "status": "已统计"
+        }
+      ]
     },
     {
       "year": 2009,
@@ -5311,7 +5716,93 @@ const CSI_DIVIDEND_ANNUAL_PERFORMANCE = Object.freeze(
       "endDate": "2009-12-31",
       "annualReturn": 100.78939219053518,
       "maxDrawdown": -27.953367400659513,
-      "status": "完整年度"
+      "status": "完整年度",
+      "monthlyReturns": [
+        {
+          "month": 1,
+          "value": 8.03693589707497,
+          "startDate": "2009-01-05",
+          "endDate": "2009-01-23",
+          "status": "已统计"
+        },
+        {
+          "month": 2,
+          "value": 6.225277388354122,
+          "startDate": "2009-01-23",
+          "endDate": "2009-02-27",
+          "status": "已统计"
+        },
+        {
+          "month": 3,
+          "value": 18.106798021822755,
+          "startDate": "2009-02-27",
+          "endDate": "2009-03-31",
+          "status": "已统计"
+        },
+        {
+          "month": 4,
+          "value": 4.4049349894072165,
+          "startDate": "2009-03-31",
+          "endDate": "2009-04-30",
+          "status": "已统计"
+        },
+        {
+          "month": 5,
+          "value": 5.713910573181491,
+          "startDate": "2009-04-30",
+          "endDate": "2009-05-27",
+          "status": "已统计"
+        },
+        {
+          "month": 6,
+          "value": 8.674608103276316,
+          "startDate": "2009-05-27",
+          "endDate": "2009-06-30",
+          "status": "已统计"
+        },
+        {
+          "month": 7,
+          "value": 25.30312423158312,
+          "startDate": "2009-06-30",
+          "endDate": "2009-07-31",
+          "status": "已统计"
+        },
+        {
+          "month": 8,
+          "value": -23.22334744778941,
+          "startDate": "2009-07-31",
+          "endDate": "2009-08-31",
+          "status": "已统计"
+        },
+        {
+          "month": 9,
+          "value": 1.7704594626702264,
+          "startDate": "2009-08-31",
+          "endDate": "2009-09-30",
+          "status": "已统计"
+        },
+        {
+          "month": 10,
+          "value": 10.774003445360636,
+          "startDate": "2009-09-30",
+          "endDate": "2009-10-30",
+          "status": "已统计"
+        },
+        {
+          "month": 11,
+          "value": 12.41070772807249,
+          "startDate": "2009-10-30",
+          "endDate": "2009-11-30",
+          "status": "已统计"
+        },
+        {
+          "month": 12,
+          "value": 1.3038957792410821,
+          "startDate": "2009-11-30",
+          "endDate": "2009-12-31",
+          "status": "已统计"
+        }
+      ]
     },
     {
       "year": 2010,
@@ -5319,7 +5810,93 @@ const CSI_DIVIDEND_ANNUAL_PERFORMANCE = Object.freeze(
       "endDate": "2010-12-31",
       "annualReturn": -12.445749261793615,
       "maxDrawdown": -31.17750045520119,
-      "status": "完整年度"
+      "status": "完整年度",
+      "monthlyReturns": [
+        {
+          "month": 1,
+          "value": -9.470274983650473,
+          "startDate": "2010-01-04",
+          "endDate": "2010-01-29",
+          "status": "已统计"
+        },
+        {
+          "month": 2,
+          "value": 2.2719454607999623,
+          "startDate": "2010-01-29",
+          "endDate": "2010-02-26",
+          "status": "已统计"
+        },
+        {
+          "month": 3,
+          "value": 0.6399926613359419,
+          "startDate": "2010-02-26",
+          "endDate": "2010-03-31",
+          "status": "已统计"
+        },
+        {
+          "month": 4,
+          "value": -8.002053912155771,
+          "startDate": "2010-03-31",
+          "endDate": "2010-04-30",
+          "status": "已统计"
+        },
+        {
+          "month": 5,
+          "value": -8.581827068836256,
+          "startDate": "2010-04-30",
+          "endDate": "2010-05-31",
+          "status": "已统计"
+        },
+        {
+          "month": 6,
+          "value": -9.390692398286172,
+          "startDate": "2010-05-31",
+          "endDate": "2010-06-30",
+          "status": "已统计"
+        },
+        {
+          "month": 7,
+          "value": 11.534535827631863,
+          "startDate": "2010-06-30",
+          "endDate": "2010-07-30",
+          "status": "已统计"
+        },
+        {
+          "month": 8,
+          "value": 1.5442800866512618,
+          "startDate": "2010-07-30",
+          "endDate": "2010-08-31",
+          "status": "已统计"
+        },
+        {
+          "month": 9,
+          "value": 0.07850398856588114,
+          "startDate": "2010-08-31",
+          "endDate": "2010-09-30",
+          "status": "已统计"
+        },
+        {
+          "month": 10,
+          "value": 14.324709358566224,
+          "startDate": "2010-09-30",
+          "endDate": "2010-10-29",
+          "status": "已统计"
+        },
+        {
+          "month": 11,
+          "value": -6.44137990449466,
+          "startDate": "2010-10-29",
+          "endDate": "2010-11-30",
+          "status": "已统计"
+        },
+        {
+          "month": 12,
+          "value": 1.7058403738575922,
+          "startDate": "2010-11-30",
+          "endDate": "2010-12-31",
+          "status": "已统计"
+        }
+      ]
     },
     {
       "year": 2011,
@@ -5327,7 +5904,93 @@ const CSI_DIVIDEND_ANNUAL_PERFORMANCE = Object.freeze(
       "endDate": "2011-12-30",
       "annualReturn": -24.87804257942725,
       "maxDrawdown": -31.241745091376483,
-      "status": "完整年度"
+      "status": "完整年度",
+      "monthlyReturns": [
+        {
+          "month": 1,
+          "value": -3.2689355778795504,
+          "startDate": "2011-01-04",
+          "endDate": "2011-01-31",
+          "status": "已统计"
+        },
+        {
+          "month": 2,
+          "value": 5.98936173707918,
+          "startDate": "2011-01-31",
+          "endDate": "2011-02-28",
+          "status": "已统计"
+        },
+        {
+          "month": 3,
+          "value": 0.25046264293884235,
+          "startDate": "2011-02-28",
+          "endDate": "2011-03-31",
+          "status": "已统计"
+        },
+        {
+          "month": 4,
+          "value": -0.7034392769571851,
+          "startDate": "2011-03-31",
+          "endDate": "2011-04-29",
+          "status": "已统计"
+        },
+        {
+          "month": 5,
+          "value": -6.060672113995325,
+          "startDate": "2011-04-29",
+          "endDate": "2011-05-31",
+          "status": "已统计"
+        },
+        {
+          "month": 6,
+          "value": 0.36529619820135917,
+          "startDate": "2011-05-31",
+          "endDate": "2011-06-30",
+          "status": "已统计"
+        },
+        {
+          "month": 7,
+          "value": -2.5206836759970375,
+          "startDate": "2011-06-30",
+          "endDate": "2011-07-29",
+          "status": "已统计"
+        },
+        {
+          "month": 8,
+          "value": -5.129377962546966,
+          "startDate": "2011-07-29",
+          "endDate": "2011-08-31",
+          "status": "已统计"
+        },
+        {
+          "month": 9,
+          "value": -7.32275253210668,
+          "startDate": "2011-08-31",
+          "endDate": "2011-09-30",
+          "status": "已统计"
+        },
+        {
+          "month": 10,
+          "value": 3.0262042389210153,
+          "startDate": "2011-09-30",
+          "endDate": "2011-10-31",
+          "status": "已统计"
+        },
+        {
+          "month": 11,
+          "value": -5.4972265132614995,
+          "startDate": "2011-10-31",
+          "endDate": "2011-11-30",
+          "status": "已统计"
+        },
+        {
+          "month": 12,
+          "value": -6.442752200620594,
+          "startDate": "2011-11-30",
+          "endDate": "2011-12-30",
+          "status": "已统计"
+        }
+      ]
     },
     {
       "year": 2012,
@@ -5335,7 +5998,93 @@ const CSI_DIVIDEND_ANNUAL_PERFORMANCE = Object.freeze(
       "endDate": "2012-12-31",
       "annualReturn": 8.983789557098309,
       "maxDrawdown": -21.77478657842379,
-      "status": "完整年度"
+      "status": "完整年度",
+      "monthlyReturns": [
+        {
+          "month": 1,
+          "value": 7.250340229805841,
+          "startDate": "2012-01-04",
+          "endDate": "2012-01-31",
+          "status": "已统计"
+        },
+        {
+          "month": 2,
+          "value": 5.440286550670392,
+          "startDate": "2012-01-31",
+          "endDate": "2012-02-29",
+          "status": "已统计"
+        },
+        {
+          "month": 3,
+          "value": -6.164240095361784,
+          "startDate": "2012-02-29",
+          "endDate": "2012-03-30",
+          "status": "已统计"
+        },
+        {
+          "month": 4,
+          "value": 5.713636345188378,
+          "startDate": "2012-03-30",
+          "endDate": "2012-04-27",
+          "status": "已统计"
+        },
+        {
+          "month": 5,
+          "value": -0.9106580003148235,
+          "startDate": "2012-04-27",
+          "endDate": "2012-05-31",
+          "status": "已统计"
+        },
+        {
+          "month": 6,
+          "value": -7.241019918713354,
+          "startDate": "2012-05-31",
+          "endDate": "2012-06-29",
+          "status": "已统计"
+        },
+        {
+          "month": 7,
+          "value": -5.126769976191459,
+          "startDate": "2012-06-29",
+          "endDate": "2012-07-31",
+          "status": "已统计"
+        },
+        {
+          "month": 8,
+          "value": -4.538690476190488,
+          "startDate": "2012-07-31",
+          "endDate": "2012-08-31",
+          "status": "已统计"
+        },
+        {
+          "month": 9,
+          "value": 3.4432981132423546,
+          "startDate": "2012-08-31",
+          "endDate": "2012-09-28",
+          "status": "已统计"
+        },
+        {
+          "month": 10,
+          "value": -1.3192565082280616,
+          "startDate": "2012-09-28",
+          "endDate": "2012-10-31",
+          "status": "已统计"
+        },
+        {
+          "month": 11,
+          "value": -4.098782834991477,
+          "startDate": "2012-10-31",
+          "endDate": "2012-11-30",
+          "status": "已统计"
+        },
+        {
+          "month": 12,
+          "value": 19.218701416174344,
+          "startDate": "2012-11-30",
+          "endDate": "2012-12-31",
+          "status": "已统计"
+        }
+      ]
     },
     {
       "year": 2013,
@@ -5343,7 +6092,93 @@ const CSI_DIVIDEND_ANNUAL_PERFORMANCE = Object.freeze(
       "endDate": "2013-12-31",
       "annualReturn": -10.268836724706787,
       "maxDrawdown": -25.376408240620506,
-      "status": "完整年度"
+      "status": "完整年度",
+      "monthlyReturns": [
+        {
+          "month": 1,
+          "value": 8.432127804000178,
+          "startDate": "2013-01-04",
+          "endDate": "2013-01-31",
+          "status": "已统计"
+        },
+        {
+          "month": 2,
+          "value": -1.2844217008669556,
+          "startDate": "2013-01-31",
+          "endDate": "2013-02-28",
+          "status": "已统计"
+        },
+        {
+          "month": 3,
+          "value": -7.00377915015209,
+          "startDate": "2013-02-28",
+          "endDate": "2013-03-29",
+          "status": "已统计"
+        },
+        {
+          "month": 4,
+          "value": -1.8947067942227114,
+          "startDate": "2013-03-29",
+          "endDate": "2013-04-26",
+          "status": "已统计"
+        },
+        {
+          "month": 5,
+          "value": 5.598706809456444,
+          "startDate": "2013-04-26",
+          "endDate": "2013-05-31",
+          "status": "已统计"
+        },
+        {
+          "month": 6,
+          "value": -16.458224902795205,
+          "startDate": "2013-05-31",
+          "endDate": "2013-06-28",
+          "status": "已统计"
+        },
+        {
+          "month": 7,
+          "value": -1.3321239773154137,
+          "startDate": "2013-06-28",
+          "endDate": "2013-07-31",
+          "status": "已统计"
+        },
+        {
+          "month": 8,
+          "value": 5.4501137471563155,
+          "startDate": "2013-07-31",
+          "endDate": "2013-08-30",
+          "status": "已统计"
+        },
+        {
+          "month": 9,
+          "value": 4.281707751982355,
+          "startDate": "2013-08-30",
+          "endDate": "2013-09-30",
+          "status": "已统计"
+        },
+        {
+          "month": 10,
+          "value": -1.0677463754042549,
+          "startDate": "2013-09-30",
+          "endDate": "2013-10-31",
+          "status": "已统计"
+        },
+        {
+          "month": 11,
+          "value": 1.5354742345033534,
+          "startDate": "2013-10-31",
+          "endDate": "2013-11-29",
+          "status": "已统计"
+        },
+        {
+          "month": 12,
+          "value": -4.43630922609416,
+          "startDate": "2013-11-29",
+          "endDate": "2013-12-31",
+          "status": "已统计"
+        }
+      ]
     },
     {
       "year": 2014,
@@ -5351,7 +6186,93 @@ const CSI_DIVIDEND_ANNUAL_PERFORMANCE = Object.freeze(
       "endDate": "2014-12-31",
       "annualReturn": 51.916571227204656,
       "maxDrawdown": -8.924518848182972,
-      "status": "完整年度"
+      "status": "完整年度",
+      "monthlyReturns": [
+        {
+          "month": 1,
+          "value": -2.72751299444981,
+          "startDate": "2014-01-02",
+          "endDate": "2014-01-30",
+          "status": "已统计"
+        },
+        {
+          "month": 2,
+          "value": 3.1078486423822937,
+          "startDate": "2014-01-30",
+          "endDate": "2014-02-28",
+          "status": "已统计"
+        },
+        {
+          "month": 3,
+          "value": -1.4313257880197106,
+          "startDate": "2014-02-28",
+          "endDate": "2014-03-31",
+          "status": "已统计"
+        },
+        {
+          "month": 4,
+          "value": -1.301953375632725,
+          "startDate": "2014-03-31",
+          "endDate": "2014-04-30",
+          "status": "已统计"
+        },
+        {
+          "month": 5,
+          "value": -0.4609272719064639,
+          "startDate": "2014-04-30",
+          "endDate": "2014-05-30",
+          "status": "已统计"
+        },
+        {
+          "month": 6,
+          "value": 1.2331680945534718,
+          "startDate": "2014-05-30",
+          "endDate": "2014-06-30",
+          "status": "已统计"
+        },
+        {
+          "month": 7,
+          "value": 9.785491559442328,
+          "startDate": "2014-06-30",
+          "endDate": "2014-07-31",
+          "status": "已统计"
+        },
+        {
+          "month": 8,
+          "value": 0.5056110997755603,
+          "startDate": "2014-07-31",
+          "endDate": "2014-08-29",
+          "status": "已统计"
+        },
+        {
+          "month": 9,
+          "value": 6.747763805935314,
+          "startDate": "2014-08-29",
+          "endDate": "2014-09-30",
+          "status": "已统计"
+        },
+        {
+          "month": 10,
+          "value": 2.3776378048595115,
+          "startDate": "2014-09-30",
+          "endDate": "2014-10-31",
+          "status": "已统计"
+        },
+        {
+          "month": 11,
+          "value": 8.621298191775107,
+          "startDate": "2014-10-31",
+          "endDate": "2014-11-28",
+          "status": "已统计"
+        },
+        {
+          "month": 12,
+          "value": 17.962881886962823,
+          "startDate": "2014-11-28",
+          "endDate": "2014-12-31",
+          "status": "已统计"
+        }
+      ]
     },
     {
       "year": 2015,
@@ -5359,7 +6280,93 @@ const CSI_DIVIDEND_ANNUAL_PERFORMANCE = Object.freeze(
       "endDate": "2015-12-31",
       "annualReturn": 22.13264625339515,
       "maxDrawdown": -44.88068968396979,
-      "status": "完整年度"
+      "status": "完整年度",
+      "monthlyReturns": [
+        {
+          "month": 1,
+          "value": -3.613869263129099,
+          "startDate": "2015-01-05",
+          "endDate": "2015-01-30",
+          "status": "已统计"
+        },
+        {
+          "month": 2,
+          "value": 2.0163053709254752,
+          "startDate": "2015-01-30",
+          "endDate": "2015-02-27",
+          "status": "已统计"
+        },
+        {
+          "month": 3,
+          "value": 18.308175797096936,
+          "startDate": "2015-02-27",
+          "endDate": "2015-03-31",
+          "status": "已统计"
+        },
+        {
+          "month": 4,
+          "value": 18.920566208424017,
+          "startDate": "2015-03-31",
+          "endDate": "2015-04-30",
+          "status": "已统计"
+        },
+        {
+          "month": 5,
+          "value": 8.34204356055257,
+          "startDate": "2015-04-30",
+          "endDate": "2015-05-29",
+          "status": "已统计"
+        },
+        {
+          "month": 6,
+          "value": -4.6762321950056585,
+          "startDate": "2015-05-29",
+          "endDate": "2015-06-30",
+          "status": "已统计"
+        },
+        {
+          "month": 7,
+          "value": -15.075026376460466,
+          "startDate": "2015-06-30",
+          "endDate": "2015-07-31",
+          "status": "已统计"
+        },
+        {
+          "month": 8,
+          "value": -12.942440465372018,
+          "startDate": "2015-07-31",
+          "endDate": "2015-08-31",
+          "status": "已统计"
+        },
+        {
+          "month": 9,
+          "value": -5.088172258969836,
+          "startDate": "2015-08-31",
+          "endDate": "2015-09-30",
+          "status": "已统计"
+        },
+        {
+          "month": 10,
+          "value": 11.82782825146942,
+          "startDate": "2015-09-30",
+          "endDate": "2015-10-30",
+          "status": "已统计"
+        },
+        {
+          "month": 11,
+          "value": 5.3785421018691215,
+          "startDate": "2015-10-30",
+          "endDate": "2015-11-30",
+          "status": "已统计"
+        },
+        {
+          "month": 12,
+          "value": 3.3744846243812576,
+          "startDate": "2015-11-30",
+          "endDate": "2015-12-31",
+          "status": "已统计"
+        }
+      ]
     },
     {
       "year": 2016,
@@ -5367,7 +6374,93 @@ const CSI_DIVIDEND_ANNUAL_PERFORMANCE = Object.freeze(
       "endDate": "2016-12-30",
       "annualReturn": -0.6087842026033852,
       "maxDrawdown": -20.33871550241684,
-      "status": "完整年度"
+      "status": "完整年度",
+      "monthlyReturns": [
+        {
+          "month": 1,
+          "value": -15.609718901581115,
+          "startDate": "2016-01-04",
+          "endDate": "2016-01-29",
+          "status": "已统计"
+        },
+        {
+          "month": 2,
+          "value": -1.0449244652231071,
+          "startDate": "2016-01-29",
+          "endDate": "2016-02-29",
+          "status": "已统计"
+        },
+        {
+          "month": 3,
+          "value": 11.731595101059789,
+          "startDate": "2016-02-29",
+          "endDate": "2016-03-31",
+          "status": "已统计"
+        },
+        {
+          "month": 4,
+          "value": -1.1085305445639793,
+          "startDate": "2016-03-31",
+          "endDate": "2016-04-29",
+          "status": "已统计"
+        },
+        {
+          "month": 5,
+          "value": -0.8263889999626794,
+          "startDate": "2016-04-29",
+          "endDate": "2016-05-31",
+          "status": "已统计"
+        },
+        {
+          "month": 6,
+          "value": -0.45050614741980466,
+          "startDate": "2016-05-31",
+          "endDate": "2016-06-30",
+          "status": "已统计"
+        },
+        {
+          "month": 7,
+          "value": 3.70028351559335,
+          "startDate": "2016-06-30",
+          "endDate": "2016-07-29",
+          "status": "已统计"
+        },
+        {
+          "month": 8,
+          "value": 3.8002468402880796,
+          "startDate": "2016-07-29",
+          "endDate": "2016-08-31",
+          "status": "已统计"
+        },
+        {
+          "month": 9,
+          "value": -1.5374427127623491,
+          "startDate": "2016-08-31",
+          "endDate": "2016-09-30",
+          "status": "已统计"
+        },
+        {
+          "month": 10,
+          "value": 2.7078874961785404,
+          "startDate": "2016-09-30",
+          "endDate": "2016-10-31",
+          "status": "已统计"
+        },
+        {
+          "month": 11,
+          "value": 5.426281598118821,
+          "startDate": "2016-10-31",
+          "endDate": "2016-11-30",
+          "status": "已统计"
+        },
+        {
+          "month": 12,
+          "value": -4.929592376919,
+          "startDate": "2016-11-30",
+          "endDate": "2016-12-30",
+          "status": "已统计"
+        }
+      ]
     },
     {
       "year": 2017,
@@ -5375,7 +6468,93 @@ const CSI_DIVIDEND_ANNUAL_PERFORMANCE = Object.freeze(
       "endDate": "2017-12-29",
       "annualReturn": 16.389583027095878,
       "maxDrawdown": -6.803546472176913,
-      "status": "完整年度"
+      "status": "完整年度",
+      "monthlyReturns": [
+        {
+          "month": 1,
+          "value": 1.8636385908177733,
+          "startDate": "2017-01-03",
+          "endDate": "2017-01-26",
+          "status": "已统计"
+        },
+        {
+          "month": 2,
+          "value": 2.8274092263586903,
+          "startDate": "2017-01-26",
+          "endDate": "2017-02-28",
+          "status": "已统计"
+        },
+        {
+          "month": 3,
+          "value": 1.1350905055163896,
+          "startDate": "2017-02-28",
+          "endDate": "2017-03-31",
+          "status": "已统计"
+        },
+        {
+          "month": 4,
+          "value": -0.48844115116698505,
+          "startDate": "2017-03-31",
+          "endDate": "2017-04-28",
+          "status": "已统计"
+        },
+        {
+          "month": 5,
+          "value": 0.824339273596042,
+          "startDate": "2017-04-28",
+          "endDate": "2017-05-31",
+          "status": "已统计"
+        },
+        {
+          "month": 6,
+          "value": 4.354921616942997,
+          "startDate": "2017-05-31",
+          "endDate": "2017-06-30",
+          "status": "已统计"
+        },
+        {
+          "month": 7,
+          "value": 1.6047304759633008,
+          "startDate": "2017-06-30",
+          "endDate": "2017-07-31",
+          "status": "已统计"
+        },
+        {
+          "month": 8,
+          "value": 1.1622017048233735,
+          "startDate": "2017-07-31",
+          "endDate": "2017-08-31",
+          "status": "已统计"
+        },
+        {
+          "month": 9,
+          "value": 0.4061590037284901,
+          "startDate": "2017-08-31",
+          "endDate": "2017-09-29",
+          "status": "已统计"
+        },
+        {
+          "month": 10,
+          "value": 2.039702498796081,
+          "startDate": "2017-09-29",
+          "endDate": "2017-10-31",
+          "status": "已统计"
+        },
+        {
+          "month": 11,
+          "value": -0.8761313462889886,
+          "startDate": "2017-10-31",
+          "endDate": "2017-11-30",
+          "status": "已统计"
+        },
+        {
+          "month": 12,
+          "value": 0.5292248052173543,
+          "startDate": "2017-11-30",
+          "endDate": "2017-12-29",
+          "status": "已统计"
+        }
+      ]
     },
     {
       "year": 2018,
@@ -5383,7 +6562,93 @@ const CSI_DIVIDEND_ANNUAL_PERFORMANCE = Object.freeze(
       "endDate": "2018-12-28",
       "annualReturn": -20.661568873964043,
       "maxDrawdown": -29.655375711183762,
-      "status": "完整年度"
+      "status": "完整年度",
+      "monthlyReturns": [
+        {
+          "month": 1,
+          "value": 4.874402408562317,
+          "startDate": "2018-01-02",
+          "endDate": "2018-01-31",
+          "status": "已统计"
+        },
+        {
+          "month": 2,
+          "value": -5.560736699521485,
+          "startDate": "2018-01-31",
+          "endDate": "2018-02-28",
+          "status": "已统计"
+        },
+        {
+          "month": 3,
+          "value": -3.9231446955810045,
+          "startDate": "2018-02-28",
+          "endDate": "2018-03-30",
+          "status": "已统计"
+        },
+        {
+          "month": 4,
+          "value": -3.497925843189842,
+          "startDate": "2018-03-30",
+          "endDate": "2018-04-27",
+          "status": "已统计"
+        },
+        {
+          "month": 5,
+          "value": 2.6733319822558554,
+          "startDate": "2018-04-27",
+          "endDate": "2018-05-31",
+          "status": "已统计"
+        },
+        {
+          "month": 6,
+          "value": -8.171733609379716,
+          "startDate": "2018-05-31",
+          "endDate": "2018-06-29",
+          "status": "已统计"
+        },
+        {
+          "month": 7,
+          "value": 0.4958180280963287,
+          "startDate": "2018-06-29",
+          "endDate": "2018-07-31",
+          "status": "已统计"
+        },
+        {
+          "month": 8,
+          "value": -5.638602778662383,
+          "startDate": "2018-07-31",
+          "endDate": "2018-08-31",
+          "status": "已统计"
+        },
+        {
+          "month": 9,
+          "value": 3.480904264428819,
+          "startDate": "2018-08-31",
+          "endDate": "2018-09-28",
+          "status": "已统计"
+        },
+        {
+          "month": 10,
+          "value": -7.309314557052904,
+          "startDate": "2018-09-28",
+          "endDate": "2018-10-31",
+          "status": "已统计"
+        },
+        {
+          "month": 11,
+          "value": 1.011970874984569,
+          "startDate": "2018-10-31",
+          "endDate": "2018-11-30",
+          "status": "已统计"
+        },
+        {
+          "month": 12,
+          "value": -0.26202576066753913,
+          "startDate": "2018-11-30",
+          "endDate": "2018-12-28",
+          "status": "已统计"
+        }
+      ]
     },
     {
       "year": 2019,
@@ -5391,7 +6656,93 @@ const CSI_DIVIDEND_ANNUAL_PERFORMANCE = Object.freeze(
       "endDate": "2019-12-31",
       "annualReturn": 17.49923926705035,
       "maxDrawdown": -19.463482228267072,
-      "status": "完整年度"
+      "status": "完整年度",
+      "monthlyReturns": [
+        {
+          "month": 1,
+          "value": 6.160481577032484,
+          "startDate": "2019-01-02",
+          "endDate": "2019-01-31",
+          "status": "已统计"
+        },
+        {
+          "month": 2,
+          "value": 10.687749715234274,
+          "startDate": "2019-01-31",
+          "endDate": "2019-02-28",
+          "status": "已统计"
+        },
+        {
+          "month": 3,
+          "value": 6.802495907333483,
+          "startDate": "2019-02-28",
+          "endDate": "2019-03-29",
+          "status": "已统计"
+        },
+        {
+          "month": 4,
+          "value": -0.1522256143842715,
+          "startDate": "2019-03-29",
+          "endDate": "2019-04-30",
+          "status": "已统计"
+        },
+        {
+          "month": 5,
+          "value": -5.621719097754518,
+          "startDate": "2019-04-30",
+          "endDate": "2019-05-31",
+          "status": "已统计"
+        },
+        {
+          "month": 6,
+          "value": -1.4006009607317238,
+          "startDate": "2019-05-31",
+          "endDate": "2019-06-28",
+          "status": "已统计"
+        },
+        {
+          "month": 7,
+          "value": -1.2698239809753376,
+          "startDate": "2019-06-28",
+          "endDate": "2019-07-31",
+          "status": "已统计"
+        },
+        {
+          "month": 8,
+          "value": -3.543593927762889,
+          "startDate": "2019-07-31",
+          "endDate": "2019-08-30",
+          "status": "已统计"
+        },
+        {
+          "month": 9,
+          "value": -0.06862420385200796,
+          "startDate": "2019-08-30",
+          "endDate": "2019-09-30",
+          "status": "已统计"
+        },
+        {
+          "month": 10,
+          "value": 0.627818087741927,
+          "startDate": "2019-09-30",
+          "endDate": "2019-10-31",
+          "status": "已统计"
+        },
+        {
+          "month": 11,
+          "value": -0.8722294098412076,
+          "startDate": "2019-10-31",
+          "endDate": "2019-11-29",
+          "status": "已统计"
+        },
+        {
+          "month": 12,
+          "value": 6.147616418185176,
+          "startDate": "2019-11-29",
+          "endDate": "2019-12-31",
+          "status": "已统计"
+        }
+      ]
     },
     {
       "year": 2020,
@@ -5399,7 +6750,93 @@ const CSI_DIVIDEND_ANNUAL_PERFORMANCE = Object.freeze(
       "endDate": "2020-12-31",
       "annualReturn": 2.0541450426262875,
       "maxDrawdown": -14.92994746059544,
-      "status": "完整年度"
+      "status": "完整年度",
+      "monthlyReturns": [
+        {
+          "month": 1,
+          "value": -4.109400433924259,
+          "startDate": "2020-01-02",
+          "endDate": "2020-01-23",
+          "status": "已统计"
+        },
+        {
+          "month": 2,
+          "value": -2.978897833276206,
+          "startDate": "2020-01-23",
+          "endDate": "2020-02-28",
+          "status": "已统计"
+        },
+        {
+          "month": 3,
+          "value": -5.114562671115985,
+          "startDate": "2020-02-28",
+          "endDate": "2020-03-31",
+          "status": "已统计"
+        },
+        {
+          "month": 4,
+          "value": 2.8924767429574727,
+          "startDate": "2020-03-31",
+          "endDate": "2020-04-30",
+          "status": "已统计"
+        },
+        {
+          "month": 5,
+          "value": -2.15005916696821,
+          "startDate": "2020-04-30",
+          "endDate": "2020-05-29",
+          "status": "已统计"
+        },
+        {
+          "month": 6,
+          "value": 2.182810368349264,
+          "startDate": "2020-05-29",
+          "endDate": "2020-06-30",
+          "status": "已统计"
+        },
+        {
+          "month": 7,
+          "value": 9.276348929219424,
+          "startDate": "2020-06-30",
+          "endDate": "2020-07-31",
+          "status": "已统计"
+        },
+        {
+          "month": 8,
+          "value": 3.1779632571773853,
+          "startDate": "2020-07-31",
+          "endDate": "2020-08-31",
+          "status": "已统计"
+        },
+        {
+          "month": 9,
+          "value": -4.66653075741934,
+          "startDate": "2020-08-31",
+          "endDate": "2020-09-30",
+          "status": "已统计"
+        },
+        {
+          "month": 10,
+          "value": 0.8649263493146986,
+          "startDate": "2020-09-30",
+          "endDate": "2020-10-30",
+          "status": "已统计"
+        },
+        {
+          "month": 11,
+          "value": 8.661928787465278,
+          "startDate": "2020-10-30",
+          "endDate": "2020-11-30",
+          "status": "已统计"
+        },
+        {
+          "month": 12,
+          "value": -4.6126671399097425,
+          "startDate": "2020-11-30",
+          "endDate": "2020-12-31",
+          "status": "已统计"
+        }
+      ]
     },
     {
       "year": 2021,
@@ -5407,7 +6844,93 @@ const CSI_DIVIDEND_ANNUAL_PERFORMANCE = Object.freeze(
       "endDate": "2021-12-31",
       "annualReturn": 12.980909980027345,
       "maxDrawdown": -15.427604283058848,
-      "status": "完整年度"
+      "status": "完整年度",
+      "monthlyReturns": [
+        {
+          "month": 1,
+          "value": -3.896723490721732,
+          "startDate": "2021-01-04",
+          "endDate": "2021-01-29",
+          "status": "已统计"
+        },
+        {
+          "month": 2,
+          "value": 6.182840586512373,
+          "startDate": "2021-01-29",
+          "endDate": "2021-02-26",
+          "status": "已统计"
+        },
+        {
+          "month": 3,
+          "value": 2.5837190423366074,
+          "startDate": "2021-02-26",
+          "endDate": "2021-03-31",
+          "status": "已统计"
+        },
+        {
+          "month": 4,
+          "value": 2.6785714285714413,
+          "startDate": "2021-03-31",
+          "endDate": "2021-04-30",
+          "status": "已统计"
+        },
+        {
+          "month": 5,
+          "value": 5.008171088469671,
+          "startDate": "2021-04-30",
+          "endDate": "2021-05-31",
+          "status": "已统计"
+        },
+        {
+          "month": 6,
+          "value": -0.9862183052723128,
+          "startDate": "2021-05-31",
+          "endDate": "2021-06-30",
+          "status": "已统计"
+        },
+        {
+          "month": 7,
+          "value": -5.723794000077609,
+          "startDate": "2021-06-30",
+          "endDate": "2021-07-30",
+          "status": "已统计"
+        },
+        {
+          "month": 8,
+          "value": 10.858446041210822,
+          "startDate": "2021-07-30",
+          "endDate": "2021-08-31",
+          "status": "已统计"
+        },
+        {
+          "month": 9,
+          "value": -2.611038288296641,
+          "startDate": "2021-08-31",
+          "endDate": "2021-09-30",
+          "status": "已统计"
+        },
+        {
+          "month": 10,
+          "value": -5.35102519374303,
+          "startDate": "2021-09-30",
+          "endDate": "2021-10-29",
+          "status": "已统计"
+        },
+        {
+          "month": 11,
+          "value": 1.600307774736276,
+          "startDate": "2021-10-29",
+          "endDate": "2021-11-30",
+          "status": "已统计"
+        },
+        {
+          "month": 12,
+          "value": 3.286599049982941,
+          "startDate": "2021-11-30",
+          "endDate": "2021-12-31",
+          "status": "已统计"
+        }
+      ]
     },
     {
       "year": 2022,
@@ -5415,7 +6938,93 @@ const CSI_DIVIDEND_ANNUAL_PERFORMANCE = Object.freeze(
       "endDate": "2022-12-30",
       "annualReturn": -6.5790970952594225,
       "maxDrawdown": -16.25931344384951,
-      "status": "完整年度"
+      "status": "完整年度",
+      "monthlyReturns": [
+        {
+          "month": 1,
+          "value": -4.988279383093497,
+          "startDate": "2022-01-04",
+          "endDate": "2022-01-28",
+          "status": "已统计"
+        },
+        {
+          "month": 2,
+          "value": 4.1800572484799625,
+          "startDate": "2022-01-28",
+          "endDate": "2022-02-28",
+          "status": "已统计"
+        },
+        {
+          "month": 3,
+          "value": 1.6119483057585926,
+          "startDate": "2022-02-28",
+          "endDate": "2022-03-31",
+          "status": "已统计"
+        },
+        {
+          "month": 4,
+          "value": -5.356119231871603,
+          "startDate": "2022-03-31",
+          "endDate": "2022-04-29",
+          "status": "已统计"
+        },
+        {
+          "month": 5,
+          "value": 1.0220691221561884,
+          "startDate": "2022-04-29",
+          "endDate": "2022-05-31",
+          "status": "已统计"
+        },
+        {
+          "month": 6,
+          "value": 0.7088016440096157,
+          "startDate": "2022-05-31",
+          "endDate": "2022-06-30",
+          "status": "已统计"
+        },
+        {
+          "month": 7,
+          "value": -3.6179591772790176,
+          "startDate": "2022-06-30",
+          "endDate": "2022-07-29",
+          "status": "已统计"
+        },
+        {
+          "month": 8,
+          "value": 1.7859610055021236,
+          "startDate": "2022-07-29",
+          "endDate": "2022-08-31",
+          "status": "已统计"
+        },
+        {
+          "month": 9,
+          "value": -2.7872373553283536,
+          "startDate": "2022-08-31",
+          "endDate": "2022-09-30",
+          "status": "已统计"
+        },
+        {
+          "month": 10,
+          "value": -6.3242429655912975,
+          "startDate": "2022-09-30",
+          "endDate": "2022-10-31",
+          "status": "已统计"
+        },
+        {
+          "month": 11,
+          "value": 12.232573432704964,
+          "startDate": "2022-10-31",
+          "endDate": "2022-11-30",
+          "status": "已统计"
+        },
+        {
+          "month": 12,
+          "value": -3.792736399058616,
+          "startDate": "2022-11-30",
+          "endDate": "2022-12-30",
+          "status": "已统计"
+        }
+      ]
     },
     {
       "year": 2023,
@@ -5423,7 +7032,93 @@ const CSI_DIVIDEND_ANNUAL_PERFORMANCE = Object.freeze(
       "endDate": "2023-12-29",
       "annualReturn": 0.23982508300086636,
       "maxDrawdown": -13.043670540119345,
-      "status": "完整年度"
+      "status": "完整年度",
+      "monthlyReturns": [
+        {
+          "month": 1,
+          "value": 2.862773257385376,
+          "startDate": "2023-01-03",
+          "endDate": "2023-01-31",
+          "status": "已统计"
+        },
+        {
+          "month": 2,
+          "value": 2.867417951216833,
+          "startDate": "2023-01-31",
+          "endDate": "2023-02-28",
+          "status": "已统计"
+        },
+        {
+          "month": 3,
+          "value": -1.335318360484472,
+          "startDate": "2023-02-28",
+          "endDate": "2023-03-31",
+          "status": "已统计"
+        },
+        {
+          "month": 4,
+          "value": 4.618722577179946,
+          "startDate": "2023-03-31",
+          "endDate": "2023-04-28",
+          "status": "已统计"
+        },
+        {
+          "month": 5,
+          "value": -3.7071441102872527,
+          "startDate": "2023-04-28",
+          "endDate": "2023-05-31",
+          "status": "已统计"
+        },
+        {
+          "month": 6,
+          "value": -2.7168065728077617,
+          "startDate": "2023-05-31",
+          "endDate": "2023-06-30",
+          "status": "已统计"
+        },
+        {
+          "month": 7,
+          "value": 4.063242353451413,
+          "startDate": "2023-06-30",
+          "endDate": "2023-07-31",
+          "status": "已统计"
+        },
+        {
+          "month": 8,
+          "value": -4.125289372681706,
+          "startDate": "2023-07-31",
+          "endDate": "2023-08-31",
+          "status": "已统计"
+        },
+        {
+          "month": 9,
+          "value": 1.9804777806319063,
+          "startDate": "2023-08-31",
+          "endDate": "2023-09-28",
+          "status": "已统计"
+        },
+        {
+          "month": 10,
+          "value": -3.1434976448955876,
+          "startDate": "2023-09-28",
+          "endDate": "2023-10-31",
+          "status": "已统计"
+        },
+        {
+          "month": 11,
+          "value": 0.19444316638292936,
+          "startDate": "2023-10-31",
+          "endDate": "2023-11-30",
+          "status": "已统计"
+        },
+        {
+          "month": 12,
+          "value": -0.7774612117932844,
+          "startDate": "2023-11-30",
+          "endDate": "2023-12-29",
+          "status": "已统计"
+        }
+      ]
     },
     {
       "year": 2024,
@@ -5431,7 +7126,93 @@ const CSI_DIVIDEND_ANNUAL_PERFORMANCE = Object.freeze(
       "endDate": "2024-12-31",
       "annualReturn": 11.163336314153183,
       "maxDrawdown": -18.420120131595873,
-      "status": "完整年度"
+      "status": "完整年度",
+      "monthlyReturns": [
+        {
+          "month": 1,
+          "value": 1.1621214143027636,
+          "startDate": "2024-01-02",
+          "endDate": "2024-01-31",
+          "status": "已统计"
+        },
+        {
+          "month": 2,
+          "value": 6.589045033409868,
+          "startDate": "2024-01-31",
+          "endDate": "2024-02-29",
+          "status": "已统计"
+        },
+        {
+          "month": 3,
+          "value": -0.6148850576835896,
+          "startDate": "2024-02-29",
+          "endDate": "2024-03-29",
+          "status": "已统计"
+        },
+        {
+          "month": 4,
+          "value": 2.2102948856381976,
+          "startDate": "2024-03-29",
+          "endDate": "2024-04-30",
+          "status": "已统计"
+        },
+        {
+          "month": 5,
+          "value": 3.088009076924747,
+          "startDate": "2024-04-30",
+          "endDate": "2024-05-31",
+          "status": "已统计"
+        },
+        {
+          "month": 6,
+          "value": -5.550058294485039,
+          "startDate": "2024-05-31",
+          "endDate": "2024-06-28",
+          "status": "已统计"
+        },
+        {
+          "month": 7,
+          "value": -4.481374758862566,
+          "startDate": "2024-06-28",
+          "endDate": "2024-07-31",
+          "status": "已统计"
+        },
+        {
+          "month": 8,
+          "value": -3.2994060443491957,
+          "startDate": "2024-07-31",
+          "endDate": "2024-08-30",
+          "status": "已统计"
+        },
+        {
+          "month": 9,
+          "value": 15.227957380562462,
+          "startDate": "2024-08-30",
+          "endDate": "2024-09-30",
+          "status": "已统计"
+        },
+        {
+          "month": 10,
+          "value": -6.665391654048136,
+          "startDate": "2024-09-30",
+          "endDate": "2024-10-31",
+          "status": "已统计"
+        },
+        {
+          "month": 11,
+          "value": 1.3691368027657136,
+          "startDate": "2024-10-31",
+          "endDate": "2024-11-29",
+          "status": "已统计"
+        },
+        {
+          "month": 12,
+          "value": 3.5098586116345087,
+          "startDate": "2024-11-29",
+          "endDate": "2024-12-31",
+          "status": "已统计"
+        }
+      ]
     },
     {
       "year": 2025,
@@ -5439,15 +7220,181 @@ const CSI_DIVIDEND_ANNUAL_PERFORMANCE = Object.freeze(
       "endDate": "2025-12-31",
       "annualReturn": 0.617711633416751,
       "maxDrawdown": -6.6933501911995315,
-      "status": "完整年度"
+      "status": "完整年度",
+      "monthlyReturns": [
+        {
+          "month": 1,
+          "value": -1.3226231629979823,
+          "startDate": "2025-01-02",
+          "endDate": "2025-01-27",
+          "status": "已统计"
+        },
+        {
+          "month": 2,
+          "value": -1.596749811035536,
+          "startDate": "2025-01-27",
+          "endDate": "2025-02-28",
+          "status": "已统计"
+        },
+        {
+          "month": 3,
+          "value": 1.8137490233731457,
+          "startDate": "2025-02-28",
+          "endDate": "2025-03-31",
+          "status": "已统计"
+        },
+        {
+          "month": 4,
+          "value": -1.2244845127302284,
+          "startDate": "2025-03-31",
+          "endDate": "2025-04-30",
+          "status": "已统计"
+        },
+        {
+          "month": 5,
+          "value": 1.9474818271846273,
+          "startDate": "2025-04-30",
+          "endDate": "2025-05-30",
+          "status": "已统计"
+        },
+        {
+          "month": 6,
+          "value": -0.652613022880022,
+          "startDate": "2025-05-30",
+          "endDate": "2025-06-30",
+          "status": "已统计"
+        },
+        {
+          "month": 7,
+          "value": 1.376089134348435,
+          "startDate": "2025-06-30",
+          "endDate": "2025-07-31",
+          "status": "已统计"
+        },
+        {
+          "month": 8,
+          "value": 0.9723394673556207,
+          "startDate": "2025-07-31",
+          "endDate": "2025-08-29",
+          "status": "已统计"
+        },
+        {
+          "month": 9,
+          "value": -1.3896613242230127,
+          "startDate": "2025-08-29",
+          "endDate": "2025-09-30",
+          "status": "已统计"
+        },
+        {
+          "month": 10,
+          "value": 3.050495506383366,
+          "startDate": "2025-09-30",
+          "endDate": "2025-10-31",
+          "status": "已统计"
+        },
+        {
+          "month": 11,
+          "value": -1.4540653591983865,
+          "startDate": "2025-10-31",
+          "endDate": "2025-11-28",
+          "status": "已统计"
+        },
+        {
+          "month": 12,
+          "value": -0.7547999942299155,
+          "startDate": "2025-11-28",
+          "endDate": "2025-12-31",
+          "status": "已统计"
+        }
+      ]
     },
     {
       "year": 2026,
       "startDate": "2026-01-05",
-      "endDate": "2026-08-31",
-      "annualReturn": 3.498566546970938,
+      "endDate": "2026-09-03",
+      "annualReturn": 1.9898210355612234,
       "maxDrawdown": -15.96361099166238,
-      "status": "年内"
+      "status": "年内",
+      "monthlyReturns": [
+        {
+          "month": 1,
+          "value": 3.1653611143287463,
+          "startDate": "2026-01-05",
+          "endDate": "2026-01-30",
+          "status": "已统计"
+        },
+        {
+          "month": 2,
+          "value": 2.2228031178892715,
+          "startDate": "2026-01-30",
+          "endDate": "2026-02-27",
+          "status": "已统计"
+        },
+        {
+          "month": 3,
+          "value": -1.6966693039468184,
+          "startDate": "2026-02-27",
+          "endDate": "2026-03-31",
+          "status": "已统计"
+        },
+        {
+          "month": 4,
+          "value": 2.395663294255246,
+          "startDate": "2026-03-31",
+          "endDate": "2026-04-30",
+          "status": "已统计"
+        },
+        {
+          "month": 5,
+          "value": -4.882806172816356,
+          "startDate": "2026-04-30",
+          "endDate": "2026-05-29",
+          "status": "已统计"
+        },
+        {
+          "month": 6,
+          "value": -9.970620342768633,
+          "startDate": "2026-05-29",
+          "endDate": "2026-06-30",
+          "status": "已统计"
+        },
+        {
+          "month": 7,
+          "value": 10.890081752766578,
+          "startDate": "2026-06-30",
+          "endDate": "2026-07-31",
+          "status": "已统计"
+        },
+        {
+          "month": 8,
+          "value": 2.6755078186019743,
+          "startDate": "2026-07-31",
+          "endDate": "2026-08-31",
+          "status": "已统计"
+        },
+        {
+          "month": 9,
+          "value": -1.4577453212600622,
+          "startDate": "2026-08-31",
+          "endDate": "2026-09-03",
+          "status": "月内累计"
+        },
+        {
+          "month": 10,
+          "value": null,
+          "status": "未开始"
+        },
+        {
+          "month": 11,
+          "value": null,
+          "status": "未开始"
+        },
+        {
+          "month": 12,
+          "value": null,
+          "status": "未开始"
+        }
+      ]
     }
   ]
 }
@@ -5617,6 +7564,61 @@ function formatTime(value) {
 function formatSignedPercent(value) {
   if (!Number.isFinite(value)) return '—';
   return `${value > 0 ? '+' : ''}${formatNumber(value, 2)}%`;
+}
+
+function normalizeNasdaqGridUnitAmount(value, fallback = 10_000) {
+  const amount = Number(value);
+  return Number.isFinite(amount) && amount > 0 ? Math.round(amount * 100) / 100 : fallback;
+}
+
+function parseNasdaqEtfHistory(payload) {
+  const rows = payload?.data?.klines;
+  if (!Array.isArray(rows) || !rows.length) throw new Error('ETF 历史行情为空');
+  const points = rows.map(row => {
+    const [date, , close, high] = String(row).split(',');
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !(Number(close) > 0) || !Number.isFinite(Number(high)) || Number(high) < Number(close)) {
+      throw new Error('ETF 历史行情不完整，无法确定前高');
+    }
+    return { date, close: Number(close), high: Number(high) };
+  }).sort((a, b) => a.date.localeCompare(b.date));
+  const peak = points.reduce((best, point) => point.high >= best.high ? point : best);
+  const latest = points.at(-1);
+  return {
+    highPrice: peak.high,
+    highDate: peak.date,
+    close: latest.close,
+    date: latest.date,
+    startDate: points[0].date,
+    drawdownPercent: (latest.close / peak.high - 1) * 100,
+    source: payload.proxySource || '东方财富',
+  };
+}
+
+function calculateNasdaqGridPlan(unitAmount = 10_000, drawdownPercent = null, highPrice = null) {
+  const amount = normalizeNasdaqGridUnitAmount(unitAmount);
+  const hasDrawdown = Number.isFinite(drawdownPercent);
+  let cumulativeAmount = 0;
+  const levels = NASDAQ_GRID_LEVELS.map(rule => {
+    const levelAmount = amount * rule.multiplier;
+    cumulativeAmount += levelAmount;
+    return {
+      ...rule,
+      buyPrice: Number.isFinite(highPrice) && highPrice > 0
+        ? Math.floor((highPrice * (1 + rule.drawdownPercent / 100) + 1e-10) * 1000) / 1000
+        : null,
+      levelAmount,
+      cumulativeAmount,
+      triggered: hasDrawdown ? drawdownPercent <= rule.drawdownPercent : null,
+    };
+  });
+  const triggeredLevels = levels.filter(level => level.triggered === true);
+  return {
+    unitAmount: amount,
+    levels,
+    totalAmount: cumulativeAmount,
+    triggeredAmount: triggeredLevels.at(-1)?.cumulativeAmount ?? 0,
+    nextLevel: levels.find(level => level.triggered !== true) ?? null,
+  };
 }
 
 function parseTodoActionResponse(response) {
@@ -6110,6 +8112,54 @@ function renderDividendSignalCard(signal) {
   </button>`;
 }
 
+function calculateDividendMonthlyReturns(points, annual) {
+  const byDate = new Map();
+  for (const point of points) {
+    if (/^\d{4}-\d{2}-\d{2}$/.test(point.date) && Number.isFinite(Date.parse(point.date))
+        && new Date(point.date).toISOString().slice(0, 10) === point.date
+        && point.date >= annual.startDate && point.date <= annual.endDate
+        && typeof point.close === 'number' && Number.isFinite(point.close) && point.close > 0) byDate.set(point.date, point);
+  }
+  const rows = [...byDate.values()].sort((a, b) => a.date.localeCompare(b.date));
+  if (!rows.length || rows[0].date !== annual.startDate || rows.at(-1).date !== annual.endDate) {
+    throw new Error('日线未覆盖年度统计起止日期，月收益待验证');
+  }
+  if (Math.abs((rows.at(-1).close / rows[0].close - 1) * 100 - annual.annualReturn) > 0.02) {
+    throw new Error('日线收益与年度表不一致，月收益待验证');
+  }
+  return Array.from({ length: 12 }, (_, index) => {
+    const month = `${annual.year}-${String(index + 1).padStart(2, '0')}`;
+    const monthly = rows.filter(row => row.date.startsWith(month));
+    const base = index === Number(rows[0].date.slice(5, 7)) - 1
+      ? rows[0] : rows.filter(row => row.date.startsWith(`${annual.year}-${String(index).padStart(2, '0')}`)).at(-1);
+    if (!monthly.length || !base) return { month: index + 1, value: null, status: month > annual.endDate.slice(0, 7) ? '未开始' : '数据不足' };
+    return { month: index + 1, value: (monthly.at(-1).close / base.close - 1) * 100,
+      startDate: base.date, endDate: monthly.at(-1).date,
+      status: annual.status === '年内' && month === annual.endDate.slice(0, 7) ? '月内累计' : '已统计' };
+  });
+}
+
+function storedDividendMonthlyReturns(annual) {
+  const months = annual.monthlyReturns;
+  if (!Array.isArray(months) || months.length !== 12) return null;
+  if (months.some((row, index) => row?.month !== index + 1
+      || (row.value !== null && (typeof row.value !== 'number' || !Number.isFinite(row.value)
+        || !String(row.endDate).startsWith(`${annual.year}-${String(row.month).padStart(2, '0')}-`)
+        || row.endDate > annual.endDate)))) return null;
+  const active = months.slice(Number(annual.startDate.slice(5, 7)) - 1, Number(annual.endDate.slice(5, 7)));
+  if (active.some(row => row.value === null) || active[0]?.startDate !== annual.startDate
+      || active.at(-1)?.endDate !== annual.endDate) return null;
+  const compounded = (active.reduce((value, row) => value * (1 + row.value / 100), 1) - 1) * 100;
+  return Math.abs(compounded - annual.annualReturn) <= 0.02 ? months : null;
+}
+
+function renderDividendMonthlyCards(months) {
+  return months.map(month => `<article class="dividend-month-card ${month.value > 0 ? 'is-gain' : month.value < 0 ? 'is-loss' : 'is-flat'}">
+    <h3>${month.month}月</h3><strong>${month.value === null ? '—' : formatSignedPercent(month.value)}</strong>
+    <small>${escapeHtml(month.value === null ? month.status : `${month.status} · 截至 ${month.endDate.slice(5)}`)}</small>
+  </article>`).join('');
+}
+
 function renderDividendAnnualPerformance(history) {
   const rows = Array.isArray(history?.rows) ? [...history.rows].sort((left, right) => right.year - left.year) : [];
   if (!rows.length) {
@@ -6125,8 +8175,8 @@ function renderDividendAnnualPerformance(history) {
     <div class="dividend-annual-table-wrap">
       <table class="dividend-annual-table">
         <thead><tr><th>年份</th><th>统计区间</th><th>全年收益率</th><th>年内最大回撤</th><th>状态</th></tr></thead>
-        <tbody>${rows.map(row => `<tr${row.status === '年内' ? ' class="is-current"' : ''}>
-          <td><strong>${escapeHtml(row.year)}</strong></td>
+        <tbody>${rows.map(row => `<tr data-dividend-year="${row.year}"${row.status === '年内' ? ' class="is-current"' : ''}>
+          <td><button class="dividend-year-button" data-dividend-year="${row.year}" aria-haspopup="dialog" aria-label="查看${row.year}年月收益率">${escapeHtml(row.year)} <span aria-hidden="true">›</span></button></td>
           <td>${escapeHtml(`${row.startDate} — ${row.endDate}`)}</td>
           <td class="${toneClass(row.annualReturn)}">${escapeHtml(formatSignedPercent(row.annualReturn))}</td>
           <td class="${toneClass(row.maxDrawdown)}">${escapeHtml(formatSignedPercent(row.maxDrawdown))}</td>
@@ -6354,7 +8404,7 @@ function renderNasdaq100Card(envelope) {
     const drawdown = Number.isFinite(data.drawdownPercent) ? data.drawdownPercent : null;
     const drawdownText = drawdown === null ? '待验证' : `${drawdown.toFixed(2)}%`;
     const updatedText = data.updatedText || formatTime(data.updatedAt);
-    return `<a class="overview-card nasdaq-card is-clickable-card" href="${NASDAQ100_SOURCE_URL}" target="_blank" rel="noopener noreferrer" aria-label="打开纳斯达克100指数行情">
+    return `<button class="overview-card nasdaq-card is-clickable-card" type="button" data-open-nasdaq-grid aria-label="打开纳斯达克网格策略">
       <div class="overview-card-head"><span>纳斯达克100指数</span><strong>NASDAQ 100</strong></div>
       <div class="nasdaq-main">
         <small>当前点位</small>
@@ -6366,15 +8416,55 @@ function renderNasdaq100Card(envelope) {
         <strong>${drawdownText}</strong>
         <span>最高点 ${formatNumber(data.highPoint, 2)}</span>
       </div>
-    </a>`;
+      <span class="source-link">查看网格策略 →</span>
+    </button>`;
   }
   const copy = envelope?.status === 'loading'
     ? '正在读取纳斯达克100指数行情。'
     : envelope?.error || '启动本地代理后读取纳斯达克100指数。';
-  return `<a class="overview-card nasdaq-card is-pending is-clickable-card" href="${NASDAQ100_SOURCE_URL}" target="_blank" rel="noopener noreferrer" aria-label="打开纳斯达克100指数行情">
+  return `<button class="overview-card nasdaq-card is-pending is-clickable-card" type="button" data-open-nasdaq-grid aria-label="打开纳斯达克网格策略">
     <div class="overview-card-head"><span>纳斯达克100指数</span><strong>待连接</strong></div>
     <p class="nasdaq-empty">${escapeHtml(copy)}</p>
-  </a>`;
+    <span class="source-link">查看网格策略 →</span>
+  </button>`;
+}
+
+function renderNasdaqGridStrategy(envelope, unitAmount) {
+  const data = envelope?.data;
+  const drawdown = envelope?.status === 'latest' && Number.isFinite(data?.drawdownPercent)
+    ? data.drawdownPercent
+    : null;
+  const highPrice = envelope?.status === 'latest' ? data?.highPrice : null;
+  const plan = calculateNasdaqGridPlan(unitAmount, drawdown, highPrice);
+  const formatGridMoney = value => `¥${formatNumber(value, 2)}`;
+  const nextText = drawdown === null
+    ? '等待 ETF 数据'
+    : plan.nextLevel
+      ? `第${plan.nextLevel.level}档 · ${plan.nextLevel.drawdownPercent}%`
+      : '七档已全部触发';
+  const updatedText = `${escapeHtml(data?.date)} 收盘 ¥${data?.close?.toFixed(3) ?? '—'}`;
+  return {
+    referenceText: highPrice > 0
+      ? `广发纳指100ETF（159941） · 区间前高 ¥${highPrice.toFixed(3)}（${data.highDate}） · ${data.source}前复权日线，日内最高价；样本 ${data.startDate} 至 ${data.date}。买入参考价向下取至 0.001 元，触发状态按 ETF 最新日线收盘价判断，非实时成交信号。`
+      : `广发纳指100ETF（159941） · ${envelope?.status === 'loading' ? '正在读取 ETF 前高与日线行情…' : envelope?.error || 'ETF 前高待验证'}，买入参考价待验证。`,
+    summaryHtml: `<article><small>ETF 收盘回撤</small><strong>${drawdown === null ? '待验证' : `${drawdown.toFixed(2)}%`}</strong><span>${drawdown === null ? '尚未取得 ETF 行情' : updatedText}</span></article>
+      <article><small>下一档</small><strong>${nextText}</strong><span>${plan.nextLevel ? `本档计划 ${formatGridMoney(plan.nextLevel.levelAmount)}` : '等待新策略条件'}</span></article>
+      <article><small>已触发计划金额</small><strong>${drawdown === null ? '待判断' : formatGridMoney(plan.triggeredAmount)}</strong><span>仅表示计划触发，不代表已成交</span></article>
+      <article><small>七档总计划</small><strong>${formatGridMoney(plan.totalAmount)}</strong><span>合计 12 份</span></article>`,
+    rowsHtml: plan.levels.map(level => {
+      const status = level.triggered === null ? '待判断' : level.triggered ? '已触发' : level === plan.nextLevel ? '下一档' : '未触发';
+      const tone = level.triggered === true ? 'is-triggered' : drawdown !== null && level === plan.nextLevel ? 'is-next' : '';
+      return `<tr class="${tone}">
+        <td><strong>第${level.level}档</strong></td>
+        <td>${level.drawdownPercent}%</td>
+        <td>${level.buyPrice === null ? '待验证' : level.buyPrice.toFixed(3)}</td>
+        <td>${formatNumber(level.multiplier, 1)} 倍</td>
+        <td>${formatGridMoney(level.levelAmount)}</td>
+        <td>${formatGridMoney(level.cumulativeAmount)}</td>
+        <td><span class="nasdaq-grid-status ${tone}">${status}</span></td>
+      </tr>`;
+    }).join(''),
+  };
 }
 
 function renderMarginBalanceCard(envelope) {
@@ -6954,16 +9044,65 @@ function shouldApplyPortfolioLoad(requestVersion, currentVersion) {
 }
 
 function startApp() {
+  const monthlyDialog = document.getElementById('dividend-monthly-dialog');
+  const monthlyBody = document.getElementById('dividend-monthly-grid');
+  const monthlyStatus = document.getElementById('dividend-monthly-status');
+  const monthlyCache = new Map();
+  let monthlyYear = null;
+  let monthlyRequest = 0;
+  document.getElementById('dividend-signal-detail').addEventListener('click', async event => {
+    const target = event.target.closest('[data-dividend-year]');
+    if (!target) return;
+    const annual = CSI_DIVIDEND_ANNUAL_PERFORMANCE.rows.find(row => row.year === Number(target.dataset.dividendYear));
+    if (!annual) return;
+    monthlyYear = annual.year;
+    const request = ++monthlyRequest;
+    const cacheKey = `${annual.year}:${annual.endDate}`;
+    document.getElementById('dividend-monthly-title').textContent = `${annual.year}年月收益率`;
+    const saved = storedDividendMonthlyReturns(annual) ?? monthlyCache.get(cacheKey);
+    if (saved) {
+      monthlyBody.innerHTML = renderDividendMonthlyCards(saved);
+      monthlyStatus.textContent = `中证红利（000922） · ${annual.startDate} 至 ${annual.endDate} · ${CSI_DIVIDEND_ANNUAL_PERFORMANCE.source}`;
+      monthlyDialog.showModal();
+      return;
+    }
+    monthlyBody.innerHTML = '';
+    monthlyStatus.textContent = '正在读取中证红利日线…';
+    monthlyDialog.showModal();
+    try {
+      let months = monthlyCache.get(cacheKey);
+      if (!months) {
+        if (!isLocalProxyLocation()) throw new Error('请通过本地看板服务读取月度数据');
+        const payload = await fetchJson(buildLocalProxyUrl('/api/csindex-performance', {
+          indexCode: '000922', startDate: annual.startDate.replaceAll('-', ''), endDate: annual.endDate.replaceAll('-', ''),
+        }), requestTimeout());
+        months = calculateDividendMonthlyReturns(parseCsindexPerformance(payload), annual);
+        monthlyCache.set(cacheKey, months);
+      }
+      if (request !== monthlyRequest || !monthlyDialog.open) return;
+      monthlyBody.innerHTML = renderDividendMonthlyCards(months);
+      monthlyStatus.textContent = `中证红利（000922） · ${annual.startDate} 至 ${annual.endDate} · 中证指数官网`;
+    } catch (error) {
+      if (request !== monthlyRequest || !monthlyDialog.open) return;
+      monthlyStatus.textContent = `读取失败：${error instanceof Error ? error.message : String(error)}。关闭后可重新点击年份重试。`;
+    }
+  });
+  monthlyDialog.addEventListener('close', () => {
+    monthlyRequest += 1;
+    document.querySelector(`button[data-dividend-year="${monthlyYear}"]`)?.focus();
+  });
   const state = {
     snapshot: EXAMPLE_SNAPSHOT,
     windowYears: 5,
     busy: false,
     youzhiyouxingTemperature: { status: 'loading', sourceUrl: YOUZHIYOUXING_TEMPERATURE_URL },
     nasdaq100: { status: 'loading', sourceUrl: NASDAQ100_SOURCE_URL },
+    nasdaqEtf: { status: 'loading' },
     dividendSignal: CSI_DIVIDEND_SIGNAL,
     fuguiStrategy: { items: [] },
   };
   const storage = resolveStorage();
+  let nasdaqGridUnitAmount = normalizeNasdaqGridUnitAmount(storage.getItem(NASDAQ_GRID_UNIT_AMOUNT_STORAGE_KEY));
   let { holdings, trackingItems } = loadPortfolio(storage);
   let portfolioVersion = 0;
   let fuguiStrategyItems = [];
@@ -6983,7 +9122,10 @@ function startApp() {
   let trackingAllocationMode = true;
   let trackingAllocationCollapsed = false;
   let trackingSortMode = 'updated';
+  let reviewDiaryItems = [];
+  let reviewDiaryCalendarMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
   let reviewDiariesLoaded = false;
+  let reviewDiarySaving = false;
   let todoLoadVersion = 0;
   let fuguiStatusFilter = 'all';
   let fuguiTtmSortMode = 'none';
@@ -7240,6 +9382,8 @@ function startApp() {
     modal.hidden = true;
     form.reset();
     form.elements.trackingId.value = '';
+    form.elements.trackingTarget.innerHTML = '';
+    document.getElementById('review-diary-target-field').hidden = true;
     const status = document.getElementById('review-diary-status');
     status.className = 'diary-status';
     status.textContent = '提交后会自动写入今天日期，并按标的保存为独立文件。';
@@ -7337,7 +9481,9 @@ function startApp() {
     const modal = document.getElementById('review-diary-modal');
     const form = document.getElementById('review-diary-form');
     form.reset();
+    form.elements.trackingTarget.innerHTML = '';
     form.elements.trackingId.value = item.id;
+    document.getElementById('review-diary-target-field').hidden = true;
     document.getElementById('review-diary-title').textContent = `复盘日记：${item.name}`;
     const status = document.getElementById('review-diary-status');
     status.className = 'diary-status';
@@ -7346,9 +9492,32 @@ function startApp() {
     form.elements.content.focus();
   };
 
+  const reviewDiaryTargets = () => [REVIEW_DIARY_MARKET_TARGET, ...trackingItems];
+
+  const openNewReviewDiary = () => {
+    const modal = document.getElementById('review-diary-modal');
+    const form = document.getElementById('review-diary-form');
+    const targetField = document.getElementById('review-diary-target-field');
+    const targets = reviewDiaryTargets();
+    form.reset();
+    form.elements.trackingTarget.innerHTML = targets.map(item => (
+      `<option value="${escapeHtml(item.id)}">${escapeHtml(item.name || '未命名标的')}${item.code ? `（${escapeHtml(item.code)}）` : ''}</option>`
+    )).join('');
+    form.elements.trackingId.value = form.elements.trackingTarget.value;
+    targetField.hidden = false;
+    document.getElementById('review-diary-title').textContent = '新增复盘日记';
+    const diaryStatus = document.getElementById('review-diary-status');
+    diaryStatus.className = 'diary-status';
+    diaryStatus.textContent = '提交后会自动写入今天日期，并按标的保存为独立文件。';
+    modal.hidden = false;
+    form.elements.trackingTarget.focus();
+  };
+
   const saveReviewDiary = async item => {
+    if (reviewDiarySaving) return;
     const form = document.getElementById('review-diary-form');
     const status = document.getElementById('review-diary-status');
+    const submitButton = form.querySelector('button[type="submit"]');
     const content = form.elements.content.value.trim();
     if (!content) {
       status.className = 'diary-status is-error';
@@ -7360,12 +9529,20 @@ function startApp() {
       status.textContent = '请通过“启动面板.cmd”打开本地面板后保存，直接打开 HTML 不能写入文件。';
       return;
     }
+    const controller = new AbortController();
+    const timeoutId = globalThis.setTimeout(() => controller.abort(), REVIEW_DIARY_SAVE_TIMEOUT_MS);
+    reviewDiarySaving = true;
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = '正在保存';
+    }
     status.className = 'diary-status';
     status.textContent = '正在保存…';
     try {
       const response = await fetch('/api/review-diary', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        signal: controller.signal,
         body: JSON.stringify({
           trackingId: item.id,
           code: item.code,
@@ -7380,29 +9557,142 @@ function startApp() {
       status.textContent = `已保存到 ${payload.path}`;
       form.elements.content.value = '';
       reviewDiariesLoaded = false;
+      reviewDiaryCalendarMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
       refreshReviewDiaries();
       setTimeout(closeReviewDiary, 650);
     } catch (error) {
       status.className = 'diary-status is-error';
-      status.textContent = `保存失败：${error instanceof Error ? error.message : String(error)}`;
+      status.textContent = error?.name === 'AbortError'
+        ? '保存超时：请确认本地面板服务仍在运行，然后再试一次。'
+        : `保存失败：${error instanceof Error ? error.message : String(error)}`;
+    } finally {
+      globalThis.clearTimeout(timeoutId);
+      reviewDiarySaving = false;
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = '保存日记';
+      }
     }
   };
 
-  const reviewDiaryHref = path => `/${String(path ?? '').split('/').map(encodeURIComponent).join('/')}`;
+  const reviewDiaryHref = item => {
+    const path = String(item.path ?? '')
+      .replace(/^\/+/, '')
+      .replace(/^workbench\/targets\/(.+-复盘日记\.md)$/u, 'workbench/journal/$1');
+    return path
+      ? `obsidian://open?vault=${encodeURIComponent(OBSIDIAN_VAULT_NAME)}&file=${encodeURIComponent(path)}`
+      : item.obsidianUrl || '#';
+  };
 
-  const renderReviewDiaries = items => {
+  const reviewDiaryDateKey = date => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  const reviewDiaryEntryItems = items => items.flatMap(item => {
+    if (Array.isArray(item.entries) && item.entries.length) {
+      return item.entries.map(entry => ({
+        ...entry,
+        name: entry.name || item.name,
+        code: entry.code || item.code,
+        path: entry.path || item.path,
+        obsidianUrl: entry.obsidianUrl || item.obsidianUrl,
+        entryCount: item.entryCount,
+      }));
+    }
+    return item.latestDate ? [{
+      name: item.name,
+      code: item.code,
+      date: item.latestDate,
+      time: item.latestTime,
+      status: item.latestStatus,
+      excerpt: item.excerpt,
+      path: item.path,
+      obsidianUrl: item.obsidianUrl,
+      entryCount: item.entryCount,
+    }] : [];
+  }).sort((left, right) => `${right.date || ''} ${right.time || ''} ${right.name || ''}`.localeCompare(`${left.date || ''} ${left.time || ''} ${left.name || ''}`, 'zh-Hans-CN'));
+
+  const reviewDiaryCalendarItems = entries => {
+    const groups = new Map();
+    for (const entry of entries) {
+      const key = [entry.date || '', entry.path || '', entry.code || '', entry.name || ''].join('\u0001');
+      const existing = groups.get(key);
+      if (existing) {
+        existing.dailyEntryCount += 1;
+        continue;
+      }
+      groups.set(key, { ...entry, dailyEntryCount: 1 });
+    }
+    return [...groups.values()];
+  };
+
+  const renderReviewDiaries = (items = reviewDiaryItems) => {
+    reviewDiaryItems = Array.isArray(items) ? items : [];
     const list = document.getElementById('review-diary-list');
     const empty = document.getElementById('review-diary-empty');
-    list.innerHTML = items.map(item => `<article class="review-diary-card">
-      <div class="review-diary-card-head">
-        <div class="review-diary-card-title"><strong>${escapeHtml(item.name || '未命名标的')}</strong><small>${escapeHtml(item.code || '未填写代码')}</small></div>
-        <span class="review-diary-card-count">${Number(item.entryCount) || 0} 条</span>
-      </div>
-      <div class="review-diary-card-meta"><span>最近：<b>${escapeHtml([item.latestDate, item.latestTime].filter(Boolean).join(' '))}</b></span>${item.latestStatus ? `<span>状态：${escapeHtml(item.latestStatus)}</span>` : ''}</div>
-      <p class="review-diary-card-excerpt">${escapeHtml(item.excerpt || '暂无可显示的复盘正文。')}</p>
-      <a class="review-diary-card-link" href="${escapeHtml(reviewDiaryHref(item.path))}" target="_blank" rel="noopener noreferrer">打开完整日记</a>
-    </article>`).join('');
-    empty.hidden = items.length > 0;
+    const title = document.getElementById('review-diary-calendar-title');
+    const count = document.getElementById('review-diary-calendar-count');
+    if (!list || !empty) return;
+    const firstOfMonth = new Date(reviewDiaryCalendarMonth.getFullYear(), reviewDiaryCalendarMonth.getMonth(), 1);
+    const monthStart = reviewDiaryDateKey(firstOfMonth);
+    const monthEnd = reviewDiaryDateKey(new Date(firstOfMonth.getFullYear(), firstOfMonth.getMonth() + 1, 0));
+    const entries = reviewDiaryEntryItems(reviewDiaryItems);
+    const monthEntries = entries.filter(entry => entry.date && entry.date >= monthStart && entry.date <= monthEnd);
+    const monthCalendarItems = reviewDiaryCalendarItems(monthEntries);
+    const entriesByDate = new Map();
+    const entryCountByDate = new Map();
+    for (const entry of monthEntries) {
+      entryCountByDate.set(entry.date, (entryCountByDate.get(entry.date) ?? 0) + 1);
+    }
+    for (const entry of monthCalendarItems) {
+      if (!entriesByDate.has(entry.date)) entriesByDate.set(entry.date, []);
+      entriesByDate.get(entry.date).push(entry);
+    }
+    const gridStart = new Date(firstOfMonth);
+    gridStart.setDate(firstOfMonth.getDate() - ((firstOfMonth.getDay() + 6) % 7));
+    const todayKey = reviewDiaryDateKey(new Date());
+    const weekdayHtml = REVIEW_DIARY_WEEKDAYS.map(day => `<div class="review-diary-weekday">${escapeHtml(day)}</div>`).join('');
+    const dayHtml = Array.from({ length: 42 }, (_, index) => {
+      const cellDate = new Date(gridStart);
+      cellDate.setDate(gridStart.getDate() + index);
+      const dateKey = reviewDiaryDateKey(cellDate);
+      const dayEntries = entriesByDate.get(dateKey) ?? [];
+      const dayEntryCount = entryCountByDate.get(dateKey) ?? 0;
+      const className = [
+        'review-diary-day',
+        cellDate.getMonth() === firstOfMonth.getMonth() ? '' : 'is-other-month',
+        dateKey === todayKey ? 'is-today' : '',
+        dayEntries.length ? 'has-entries' : '',
+      ].filter(Boolean).join(' ');
+      const entryHtml = dayEntries.slice(0, 3).map(entry => {
+        const meta = [entry.time, entry.status].filter(Boolean).join(' · ');
+        const label = `打开日记：${entry.name || '未命名标的'} ${entry.date}${entry.dailyEntryCount > 1 ? `，共 ${entry.dailyEntryCount} 条复盘` : ''}`;
+        return `<a class="review-diary-calendar-entry" href="${escapeHtml(reviewDiaryHref(entry))}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(label)}">
+          <span class="review-diary-calendar-entry-head">
+            <strong>${escapeHtml(entry.name || '未命名标的')}</strong>
+            ${entry.dailyEntryCount > 1 ? `<em>${entry.dailyEntryCount} 条</em>` : ''}
+          </span>
+          ${meta ? `<span>${escapeHtml(meta)}</span>` : ''}
+          <small>${escapeHtml(entry.excerpt || '打开日记查看全文')}</small>
+        </a>`;
+      }).join('');
+      const overflow = dayEntries.length > 3 ? `<span class="review-diary-calendar-more">另有 ${dayEntries.length - 3} 条</span>` : '';
+      return `<div class="${className}">
+        <div class="review-diary-day-top">
+          <span class="review-diary-day-number">${cellDate.getDate()}</span>
+          ${dayEntryCount ? `<span class="review-diary-day-count">${dayEntryCount} 条</span>` : ''}
+        </div>
+        ${entryHtml}${overflow}
+      </div>`;
+    }).join('');
+    list.innerHTML = `${weekdayHtml}${dayHtml}`;
+    if (title) title.textContent = `${REVIEW_DIARY_MONTH_LABELS[firstOfMonth.getMonth()]} ${firstOfMonth.getFullYear()}`;
+    if (count) count.textContent = `本月 ${monthEntries.length} 条复盘`;
+    empty.hidden = entries.length > 0;
+    return { totalEntries: entries.length, monthEntries: monthEntries.length };
   };
 
   const refreshReviewDiaries = async () => {
@@ -7424,9 +9714,10 @@ function startApp() {
       const payload = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(payload.error || `HTTP ${response.status}`);
       const items = Array.isArray(payload.items) ? payload.items : [];
-      renderReviewDiaries(items);
+      const summary = renderReviewDiaries(items);
       reviewDiariesLoaded = true;
-      status.textContent = items.length ? `共 ${items.length} 个标的，按最近复盘时间排列。` : '尚未保存复盘日记。';
+      const entryCount = Number(payload.entryCount) || summary?.totalEntries || 0;
+      status.textContent = entryCount ? `共 ${entryCount} 条复盘，覆盖 ${items.length} 个标的，按月历展示。` : '尚未保存复盘日记。';
     } catch (error) {
       status.className = 'review-diary-page-status is-error';
       status.textContent = `复盘日记读取失败：${error instanceof Error ? error.message : String(error)}。`;
@@ -8025,6 +10316,12 @@ function startApp() {
   const render = () => {
     const derived = deriveDashboard(state.snapshot, state.windowYears);
     renderDerived(derived, state.youzhiyouxingTemperature, state.nasdaq100, state.dividendSignal);
+    const grid = renderNasdaqGridStrategy(state.nasdaqEtf, nasdaqGridUnitAmount);
+    document.getElementById('nasdaq-grid-reference').textContent = grid.referenceText;
+    const gridSummary = document.getElementById('nasdaq-grid-summary');
+    const gridBody = document.getElementById('nasdaq-grid-table-body');
+    if (gridSummary) gridSummary.innerHTML = grid.summaryHtml;
+    if (gridBody) gridBody.innerHTML = grid.rowsHtml;
     document.querySelectorAll('[data-window]').forEach(button => button.setAttribute('aria-pressed', String(Number(button.dataset.window) === state.windowYears)));
   };
 
@@ -8092,6 +10389,58 @@ function startApp() {
     render();
   };
 
+  let marketTurnoverLoading = false;
+  let marketTurnoverData = null;
+  const turnoverCard = document.getElementById('market-turnover-card');
+  const loadMarketTurnover = async () => {
+    if (marketTurnoverLoading) return;
+    marketTurnoverLoading = true;
+    turnoverCard.innerHTML = renderMarketTurnoverCard({ status: 'loading', data: marketTurnoverData });
+    try {
+      if (!isLocalProxyLocation()) throw new Error('请通过本地看板服务读取');
+      const response = await fetch(buildLocalProxyUrl('/api/market-turnover'), { cache: 'no-store', signal: AbortSignal.timeout(60_000) });
+      const payload = await response.json();
+      if (!response.ok) throw new Error(`${payload.source ?? '数据源'}：HTTP ${response.status}`);
+      marketTurnoverData = parseMarketTurnover(payload);
+      turnoverCard.innerHTML = renderMarketTurnoverCard({ status: 'latest', data: marketTurnoverData });
+    } catch (error) {
+      turnoverCard.innerHTML = renderMarketTurnoverCard({ status: 'missing', data: marketTurnoverData, error: error instanceof Error ? error.message : String(error) });
+    } finally {
+      marketTurnoverLoading = false;
+    }
+  };
+  turnoverCard.addEventListener('input', event => {
+    if (event.target.id !== 'turnover-date-slider' || !marketTurnoverData) return;
+    const { points } = marketTurnoverData;
+    const index = Number(event.target.value);
+    const point = points[index];
+    if (!point) return;
+    const value = `${point.date} · ${formatNumber(point.amount, 2)} 亿元`;
+    document.getElementById('turnover-selected-value').textContent = value;
+    event.target.setAttribute('aria-valuetext', value);
+    const marker = document.getElementById('turnover-selected-point');
+    marker.setAttribute('cx', String(4 + index / Math.max(1, points.length - 1) * 292));
+    marker.setAttribute('cy', String(82 - point.amount / (Math.max(...points.map(row => row.amount)) * 1.05) * 74));
+  });
+
+  let nasdaqEtfLoading = false;
+  const loadNasdaqEtf = async () => {
+    if (nasdaqEtfLoading) return;
+    nasdaqEtfLoading = true;
+    state.nasdaqEtf = { status: 'loading' };
+    render();
+    try {
+      if (!isLocalProxyLocation()) throw new Error('请通过本地看板服务读取 ETF 行情');
+      const payload = await fetchJson(buildLocalProxyUrl('/api/eastmoney-kline', { secid: '0.159941', limit: 4000 }), requestTimeout());
+      state.nasdaqEtf = { status: 'latest', data: parseNasdaqEtfHistory(payload) };
+    } catch (error) {
+      state.nasdaqEtf = { status: 'missing', error: `ETF 行情读取失败：${error instanceof Error ? error.message : String(error)}` };
+    } finally {
+      nasdaqEtfLoading = false;
+      render();
+    }
+  };
+
   const refreshLive = async (domainIds = null) => {
     if (state.busy) return;
     state.busy = true;
@@ -8147,8 +10496,8 @@ function startApp() {
     const [domain, viewId] = String(storage.getItem(ACTIVE_VIEW_STORAGE_KEY) ?? '').split(':');
     if (!domain || !viewId) return null;
     const button = [...document.querySelectorAll('[data-view]')].find(item => item.dataset.view === viewId);
-    if (!button) return null;
-    return { domain: shellForButton(button), viewId };
+    if (!button && viewId !== 'nasdaq-grid-view') return null;
+    return { domain: button ? shellForButton(button) : 'thermometer', viewId };
   };
 
   const applyIndustryFilter = section => {
@@ -8341,10 +10690,13 @@ function startApp() {
     const completedAt = item.completedAt ? `完成 ${item.completedAt}` : '完成时间未记录';
     const archivedAt = item.archivedAt ? `归档 ${item.archivedAt}` : '归档时间未记录';
     return `<article class="todo-archive-item" data-todo-archive-id="${escapeHtml(item.id)}">
-      <div class="todo-item-kicker"><span>${escapeHtml(item.id)}</span><span class="todo-item-time">${escapeHtml(archivedAt)}</span></div>
-      <div class="todo-item-head"><strong>${escapeHtml(item.title)}</strong></div>
+      <div class="todo-archive-row">
+        <span class="todo-archive-id">${escapeHtml(item.id)}</span>
+        <div class="todo-item-head todo-archive-title"><strong>${escapeHtml(item.title)}</strong></div>
+        <div class="todo-archive-meta"><span class="todo-archive-completed">${escapeHtml(completedAt)}</span>${item.quadrant ? `<span class="todo-archive-quadrant">${escapeHtml(item.quadrant)}</span>` : ''}</div>
+        <span class="todo-item-time">${escapeHtml(archivedAt)}</span>
+      </div>
       ${detail && detail !== 'User' ? `<p>${escapeHtml(detail)}</p>` : ''}
-      <div class="todo-archive-meta"><span>${escapeHtml(completedAt)}</span>${item.quadrant ? `<span>${escapeHtml(item.quadrant)}</span>` : ''}</div>
     </article>`;
   };
 
@@ -8420,8 +10772,8 @@ function startApp() {
         title: node.querySelector('.todo-item-head strong')?.textContent?.trim() ?? '',
         detail: node.querySelector('p')?.textContent?.trim() ?? '',
         archivedAt: node.querySelector('.todo-item-time')?.textContent?.replace(/^归档\s*/, '').trim() ?? '',
-        completedAt: node.querySelector('.todo-archive-meta span')?.textContent?.replace(/^完成\s*/, '').trim() ?? '',
-        quadrant: node.querySelector('.todo-archive-meta span:last-child')?.textContent?.trim() ?? '',
+        completedAt: node.querySelector('.todo-archive-completed')?.textContent?.replace(/^完成\s*/, '').trim() ?? '',
+        quadrant: node.querySelector('.todo-archive-quadrant')?.textContent?.trim() ?? '',
       })),
     ].sort((left, right) => {
       const dateOrder = todoArchiveSortKey(right).localeCompare(todoArchiveSortKey(left));
@@ -8537,7 +10889,7 @@ function startApp() {
     const todoId = card?.dataset.todoId ?? '';
     if (!todoId || !TODO_QUADRANTS.includes(targetQuadrant)) return;
     if (!isLocalProxyLocation()) {
-      globalThis.alert('拖动移动待办需要通过“启动面板.cmd”打开看板。');
+      globalThis.alert('移动待办需要通过“启动面板.cmd”打开看板。');
       return;
     }
     if (targetQuadrant === card.dataset.todoQuadrant) return;
@@ -8733,7 +11085,7 @@ function startApp() {
     const button = [...document.querySelectorAll('[data-view]')].find(item => item.dataset.view === viewId);
     const shell = button ? shellForButton(button) : 'thermometer';
     activeViewByShell[shell] = viewId;
-    if (button) storage.setItem(ACTIVE_VIEW_STORAGE_KEY, `${shell}:${viewId}`);
+    if (button || viewId === 'nasdaq-grid-view') storage.setItem(ACTIVE_VIEW_STORAGE_KEY, `${shell}:${viewId}`);
     document.querySelectorAll('[data-view]').forEach(item => {
       const active = item === button;
       item.classList.toggle('is-active', active);
@@ -8741,8 +11093,9 @@ function startApp() {
       else item.removeAttribute('aria-current');
     });
     document.querySelectorAll('.view').forEach(view => view.classList.toggle('is-active', view.id === viewId));
-    pageTitle.textContent = labelForView(button) || pageTitle.textContent;
+    pageTitle.textContent = labelForView(button) || (viewId === 'nasdaq-grid-view' ? '纳斯达克网格策略' : pageTitle.textContent);
     if (viewId === 'risk-monitor') refreshRiskMarginChart();
+    if (viewId === 'nasdaq-grid-view' && state.nasdaqEtf.status !== 'latest') loadNasdaqEtf();
     if (viewId === 'review-diary-view' && !reviewDiariesLoaded) refreshReviewDiaries();
     if (viewId === 'position-manager') refreshTodoList();
     if (viewId === 'market-summary' || viewId === 'dividend-signal-view') refreshDividendSignalFromSource();
@@ -8978,6 +11331,33 @@ function startApp() {
   document.getElementById('dividend-signal-card')?.addEventListener('click', event => {
     if (event.target.closest('[data-open-dividend-signal]')) setShell('thermometer', 'dividend-signal-view');
   });
+  document.getElementById('nasdaq100-card')?.addEventListener('click', event => {
+    if (event.target.closest('[data-open-nasdaq-grid]')) setShell('thermometer', 'nasdaq-grid-view');
+  });
+  document.getElementById('nasdaq-grid-back')?.addEventListener('click', () => {
+    setShell('thermometer', 'market-summary');
+  });
+  document.getElementById('nasdaq-grid-unit-amount')?.addEventListener('input', event => {
+    const amount = Number(event.currentTarget.value);
+    const status = document.getElementById('nasdaq-grid-form-status');
+    if (!Number.isFinite(amount) || amount <= 0) {
+      if (status) status.textContent = '请输入大于 0 的金额。';
+      return;
+    }
+    nasdaqGridUnitAmount = normalizeNasdaqGridUnitAmount(amount);
+    storage.setItem(NASDAQ_GRID_UNIT_AMOUNT_STORAGE_KEY, String(nasdaqGridUnitAmount));
+    if (status) status.textContent = '金额已更新。';
+    render();
+  });
+  document.getElementById('nasdaq-grid-reset')?.addEventListener('click', () => {
+    nasdaqGridUnitAmount = 10_000;
+    storage.setItem(NASDAQ_GRID_UNIT_AMOUNT_STORAGE_KEY, String(nasdaqGridUnitAmount));
+    const input = document.getElementById('nasdaq-grid-unit-amount');
+    if (input) input.value = String(nasdaqGridUnitAmount);
+    const status = document.getElementById('nasdaq-grid-form-status');
+    if (status) status.textContent = '已恢复为 1 万元。';
+    render();
+  });
   document.getElementById('margin-balance-card')?.addEventListener('click', openMarginBalanceModal);
   document.getElementById('margin-balance-card')?.addEventListener('keydown', event => {
     if (event.key === 'Enter' || event.key === ' ') {
@@ -9162,10 +11542,26 @@ function startApp() {
   });
   document.getElementById('review-diary-form').addEventListener('submit', event => {
     event.preventDefault();
-    const item = trackingItems.find(entry => entry.id === event.currentTarget.elements.trackingId.value);
+    const item = reviewDiaryTargets().find(entry => entry.id === event.currentTarget.elements.trackingId.value);
     if (item) saveReviewDiary(item);
   });
+  document.getElementById('review-diary-form').elements.trackingTarget.addEventListener('change', event => {
+    document.getElementById('review-diary-form').elements.trackingId.value = event.currentTarget.value;
+  });
+  document.getElementById('create-review-diary').addEventListener('click', openNewReviewDiary);
   document.getElementById('refresh-review-diaries').addEventListener('click', refreshReviewDiaries);
+  document.getElementById('review-diary-prev-month').addEventListener('click', () => {
+    reviewDiaryCalendarMonth = new Date(reviewDiaryCalendarMonth.getFullYear(), reviewDiaryCalendarMonth.getMonth() - 1, 1);
+    renderReviewDiaries();
+  });
+  document.getElementById('review-diary-current-month').addEventListener('click', () => {
+    reviewDiaryCalendarMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+    renderReviewDiaries();
+  });
+  document.getElementById('review-diary-next-month').addEventListener('click', () => {
+    reviewDiaryCalendarMonth = new Date(reviewDiaryCalendarMonth.getFullYear(), reviewDiaryCalendarMonth.getMonth() + 1, 1);
+    renderReviewDiaries();
+  });
   document.getElementById('nav-toggle').addEventListener('click', event => {
     const open = document.getElementById('sidebar').classList.toggle('is-open');
     event.currentTarget.setAttribute('aria-expanded', String(open));
@@ -9184,7 +11580,9 @@ function startApp() {
     refreshLive();
     loadYouzhiyouxingTemperature();
     loadNasdaq100();
+    loadNasdaqEtf();
     refreshTrackingQuotes();
+    loadMarketTurnover();
   });
   fuguiProviderToggle?.addEventListener('click', () => {
     fuguiDataProvider = fuguiDataProvider === 'akshare' ? 'tushare' : 'akshare';
@@ -9194,6 +11592,8 @@ function startApp() {
   });
 
   const initialView = readStoredActiveView() ?? { domain: 'thermometer', viewId: 'market-summary' };
+  const nasdaqGridAmountInput = document.getElementById('nasdaq-grid-unit-amount');
+  if (nasdaqGridAmountInput) nasdaqGridAmountInput.value = String(nasdaqGridUnitAmount);
   setShell(initialView.domain, initialView.viewId);
   renderFuguiProviderToggle();
   setFuguiPanelCollapsed(storage.getItem(FUGUI_PANEL_COLLAPSED_STORAGE_KEY) === '1');
@@ -9207,6 +11607,8 @@ function startApp() {
   loadYouzhiyouxingTemperature();
   loadNasdaq100();
   refreshLive();
+  loadMarketTurnover();
+  setInterval(loadMarketTurnover, 300_000);
   setInterval(() => {
     if (isTradingSession() && state.snapshot.mode === 'live') {
       refreshLive(['shanghaiHistory', 'csi300History', 'csiAllHistory']);

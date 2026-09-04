@@ -29,9 +29,10 @@ if TUSHARE_CLIENT_PATH.exists() and str(TUSHARE_CLIENT_PATH) not in sys.path:
 
 TODO_DATA_LOCK = Lock()
 
-ALLOWED_SECIDS = {"1.000001", "1.000300", "1.000985"}
-ALLOWED_INDEX_CODES = {"000300", "000985"}
+ALLOWED_SECIDS = {"1.000001", "1.000300", "1.000985", "0.159941"}
+ALLOWED_INDEX_CODES = {"000300", "000985", "000922"}
 TENCENT_SYMBOLS = {
+    "0.159941": "sz159941",
     "1.000001": "sh000001",
     "1.000300": "sh000300",
     "1.000985": "sh000985",
@@ -43,6 +44,7 @@ SOURCE_NAMES = {
     "/api/treasury": "treasury",
     "/api/market": "market",
     "/api/margin": "margin",
+    "/api/market-turnover": "market-turnover",
     "/api/us-treasury-yield": "us-treasury-yield",
     "/api/us-dollar-index": "us-dollar-index",
     "/api/usd-jpy": "usd-jpy",
@@ -1053,7 +1055,8 @@ def fetch_index_history(secid, limit=3000, fetcher=fetch_upstream):
     upstream_url = build_upstream_url("/api/eastmoney-kline", query)
     try:
         payload = fetcher(upstream_url, "eastmoney-kline")
-        rows = payload.get("data", {}).get("klines", []) if isinstance(payload, dict) else []
+        data = payload.get("data") if isinstance(payload, dict) else None
+        rows = data.get("klines", []) if isinstance(data, dict) else []
         if isinstance(rows, list) and rows:
             return payload
     except UpstreamError:
@@ -1067,7 +1070,7 @@ def fetch_index_history(secid, limit=3000, fetcher=fetch_upstream):
     end_date = ""
     while len(rows_by_date) < requested:
         remaining = requested - len(rows_by_date)
-        count = min(2000, remaining)
+        count = min(640 if secid == "0.159941" else 2000, remaining)
         payload = fetcher(_build_tencent_kline_url(symbol, count, end_date), "tencent-kline")
         rows = _tencent_rows(payload, symbol)
         if not rows:
@@ -1176,6 +1179,47 @@ def fetch_market_snapshot(fetcher=fetch_upstream, workers=8):
         return _fetch_eastmoney_market_snapshot(fetcher, workers)
     except UpstreamError:
         return _fetch_sina_market_snapshot(fetcher, workers)
+
+
+def fetch_market_turnover(client=None, now=None):
+    from tushare_client import TushareClient, TushareClientError
+
+    now = now or datetime.now(timezone(timedelta(hours=8)))
+    today = now.date()
+    start = today.replace(year=today.year - 1, day=min(today.day, 28)) if today.month == 2 else today.replace(year=today.year - 1)
+    client = client or TushareClient(logger=write_proxy_log)
+    markets = {}
+    try:
+        for code in ("SH_MARKET", "SZ_MARKET"):
+            rows = client.call("daily_info", ts_code=code, start_date=start.isoformat(), end_date=today.isoformat())
+            dates = {}
+            for row in rows:
+                if row.get("ts_code") != code:
+                    continue
+                try:
+                    day = datetime.strptime(str(row.get("trade_date")).replace("-", ""), "%Y%m%d").date()
+                    amount = float(row.get("amount"))
+                except (TypeError, ValueError):
+                    continue
+                if start <= day <= today and math.isfinite(amount) and amount > 0:
+                    # Only completed daily statistics belong in historical extrema.
+                    if day == today and (now.hour, now.minute) < (15, 30):
+                        continue
+                    dates[day.isoformat()] = amount
+            markets[code] = dates
+    except TushareClientError as error:
+        raise UpstreamError(getattr(error, "source", "tushare")) from error
+    shared = markets["SH_MARKET"].keys() & markets["SZ_MARKET"].keys()
+    if not shared:
+        raise UpstreamError("market-turnover-empty")
+    return {
+        "points": [{"date": day, "amount": round(markets["SH_MARKET"][day] + markets["SZ_MARKET"][day], 2)} for day in sorted(shared)],
+        "today": today.isoformat(), "startDate": start.isoformat(),
+        "incompleteDays": len(markets["SH_MARKET"].keys() ^ markets["SZ_MARKET"].keys()),
+        "unit": "亿元", "scope": "沪深股票",
+        "source": "Tushare daily_info · SH_MARKET + SZ_MARKET",
+        "sourceUrl": "https://tushare.pro/document/2?doc_id=215",
+    }
 
 
 def fetch_market_margin(query=None, client=None, market_margin_tool=None):
@@ -1458,15 +1502,22 @@ def append_review_diary_entry(payload, diary_dir, now=None):
     return {
         "date": date_text,
         "path": target_file.relative_to(target_dir.parents[1]).as_posix(),
+        "obsidianUrl": obsidian_open_url(target_file),
     }
 
 
+def obsidian_open_url(path):
+    """Build an Obsidian URI for opening a local vault file."""
+    return f"obsidian://open?path={quote(str(Path(path).resolve()), safe='')}"
+
+
 def list_review_diaries(diary_dir):
-    """Return a compact latest-entry summary for each local review diary."""
+    """Return local review diary summaries with individual dated entries."""
     target_dir = Path(diary_dir).resolve()
     if not target_dir.is_dir():
-        return {"count": 0, "items": []}
+        return {"count": 0, "entryCount": 0, "items": []}
     items = []
+    total_entries = 0
     for diary_file in target_dir.glob("*-复盘日记.md"):
         try:
             diary_file.resolve().relative_to(target_dir)
@@ -1479,26 +1530,45 @@ def list_review_diaries(diary_dir):
         sections = list(re.finditer(r"^##\s+(\d{4}-\d{2}-\d{2})\s*$", text, re.MULTILINE))
         if not sections:
             continue
-        latest = sections[-1]
-        latest_body = text[latest.end():]
-        time_match = re.search(r"^- 记录时间：\d{4}-\d{2}-\d{2}\s+(\d{2}:\d{2})", latest_body, re.MULTILINE)
-        status_match = re.search(r"^- 跟踪状态：(.+)$", latest_body, re.MULTILINE)
-        content = re.sub(r"^- (?:记录时间|跟踪状态|来源)：.*$", "", latest_body, flags=re.MULTILINE).strip()
-        content = re.sub(r"\s+", " ", content)
         item_name = name.group(1).strip() if name else (title_match.group(1).strip() if title_match else diary_file.stem.replace("-复盘日记", ""))
         item_code = code.group(1).strip() if code and code.group(1).strip() != "未填写" else (title_match.group(2).strip() if title_match and title_match.group(2) else "")
+        relative_path = diary_file.relative_to(target_dir.parents[1]).as_posix()
+        obsidian_url = obsidian_open_url(diary_file)
+        entries = []
+        for index, section in enumerate(sections):
+            body_end = sections[index + 1].start() if index + 1 < len(sections) else len(text)
+            section_body = text[section.end():body_end]
+            time_match = re.search(r"^- 记录时间：\d{4}-\d{2}-\d{2}\s+(\d{2}:\d{2})", section_body, re.MULTILINE)
+            status_match = re.search(r"^- 跟踪状态：(.+)$", section_body, re.MULTILINE)
+            content = re.sub(r"^- (?:记录时间|跟踪状态|来源)：.*$", "", section_body, flags=re.MULTILINE).strip()
+            content = re.sub(r"\s+", " ", content)
+            entries.append({
+                "date": section.group(1),
+                "time": time_match.group(1) if time_match else "",
+                "status": status_match.group(1).strip()[:12] if status_match else "",
+                "excerpt": (content[:117] + "…") if len(content) > 118 else content,
+                "name": item_name[:30],
+                "code": item_code[:12],
+                "path": relative_path,
+                "obsidianUrl": obsidian_url,
+            })
+        entries.sort(key=lambda entry: (entry["date"], entry["time"], entry["name"]), reverse=True)
+        latest_entry = entries[0]
+        total_entries += len(entries)
         items.append({
             "name": item_name[:30],
             "code": item_code[:12],
             "entryCount": len(sections),
-            "latestDate": latest.group(1),
-            "latestTime": time_match.group(1) if time_match else "",
-            "latestStatus": status_match.group(1).strip()[:12] if status_match else "",
-            "excerpt": (content[:157] + "…") if len(content) > 158 else content,
-            "path": diary_file.relative_to(target_dir.parents[1]).as_posix(),
+            "latestDate": latest_entry["date"],
+            "latestTime": latest_entry["time"],
+            "latestStatus": latest_entry["status"],
+            "excerpt": latest_entry["excerpt"],
+            "path": relative_path,
+            "obsidianUrl": obsidian_url,
+            "entries": entries,
         })
     items.sort(key=lambda item: (item["latestDate"], item["latestTime"], item["name"]), reverse=True)
-    return {"count": len(items), "items": items}
+    return {"count": len(items), "entryCount": total_entries, "items": items}
 
 
 def _normalize_dashboard_href(value):
@@ -2096,7 +2166,7 @@ def create_server(
     todo_data_file = (artifact.parent / "data" / "todo.json").resolve()
     vault_root = artifact.parents[2]
     review_diary_dir = Path(
-        review_diary_dir or vault_root / "workbench" / "targets"
+        review_diary_dir or vault_root / "workbench" / "journal"
     ).resolve()
     file_roots = {
         "/data/": (artifact.parent / "data").resolve(),
@@ -2386,6 +2456,10 @@ def create_server(
                 elif parsed.path == "/api/market":
                     build_upstream_url(parsed.path, query)
                     payload = fetch_market_snapshot(fetcher)
+                elif parsed.path == "/api/market-turnover":
+                    if set(query) - {"_"}:
+                        raise RouteError("invalid market turnover query")
+                    payload = fetch_market_turnover()
                 elif parsed.path == "/api/margin":
                     payload = fetch_market_margin(query)
                 elif parsed.path == "/api/us-treasury-yield":

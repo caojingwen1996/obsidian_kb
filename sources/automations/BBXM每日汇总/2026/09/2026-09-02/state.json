@@ -1,0 +1,62 @@
+{
+  "account": "冰冰小美",
+  "account_url": "https://xueqiu.com/u/7143769715",
+  "task_date": "20260902",
+  "start_time": "2026-09-02 16:14:31",
+  "end_time": null,
+  "scan_round": 1,
+  "success_count": 3,
+  "failure_count": 0,
+  "log_file": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-02\\task.log",
+  "result_dir": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-02",
+  "state_file": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-02\\state.json",
+  "processed_items": {
+    "407684336": {
+      "source_id": "407684336",
+      "title": "停更了。如果散户能做空盈利，还敢这么嚣张吗。 - 雪球",
+      "published_at": "2026-09-02 09:49:00",
+      "url": "https://xueqiu.com/7143769715/407684336",
+      "platform": "xueqiu",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-02\\094900_停更了_如果散户能做空盈利_还敢这么嚣张吗_-_雪球_40768433.md",
+      "saved_at": "2026-09-02 16:14:31"
+    },
+    "407683356": {
+      "source_id": "407683356",
+      "title": "所以投机反而一往无前。砸一波， 贵州燃气 封板。这不是2018年熊市的投机开路先锋。机构不是不懂，不砸通胀，跷跷板的科技... - 雪球",
+      "published_at": "2026-09-02 09:46:00",
+      "url": "https://xueqiu.com/7143769715/407683356",
+      "platform": "xueqiu",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-02\\094600_所以投机反而一往无前_砸一波_贵州燃气_封板_这不是2018年熊市的投机开路先锋_机构不是不懂__40768335.md",
+      "saved_at": "2026-09-02 16:14:31"
+    },
+    "407680501": {
+      "source_id": "407680501",
+      "title": "请问对这种市场有何评论？泥沙俱下，管你利好利空。纯粹筹码博弈。哪怕你站在宏观正确的一面，A股也不会让盈利变得轻松。所以，... - 雪球",
+      "published_at": "2026-09-02 09:37:00",
+      "url": "https://xueqiu.com/7143769715/407680501",
+      "platform": "xueqiu",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-02\\093700_请问对这种市场有何评论_泥沙俱下_管你利好利空_纯粹筹码博弈_哪怕你站在宏观正确的一面_A股也不_40768050.md",
+      "saved_at": "2026-09-02 16:14:31"
+    }
+  },
+  "events": [
+    {
+      "type": "item_saved",
+      "time": "2026-09-02 16:14:31",
+      "item_key": "407684336",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-02\\094900_停更了_如果散户能做空盈利_还敢这么嚣张吗_-_雪球_40768433.md"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-09-02 16:14:31",
+      "item_key": "407683356",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-02\\094600_所以投机反而一往无前_砸一波_贵州燃气_封板_这不是2018年熊市的投机开路先锋_机构不是不懂__40768335.md"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-09-02 16:14:31",
+      "item_key": "407680501",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-02\\093700_请问对这种市场有何评论_泥沙俱下_管你利好利空_纯粹筹码博弈_哪怕你站在宏观正确的一面_A股也不_40768050.md"
+    }
+  ]
+}

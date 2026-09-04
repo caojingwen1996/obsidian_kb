@@ -1,0 +1,75 @@
+{
+  "task_scope": {
+    "industry": "电解铝",
+    "included_segments": ["S1中国原铝冶炼", "S2中国冶金级氧化铝", "S3中国商用预焙阳极", "S4中国再生铸造铝合金"],
+    "excluded_segments": ["独立公司筛选", "估值与交易", "锂电负极概念关联", "铝加工各细分行业的完整经营比较"],
+    "geography": "中国为主；海外仅作为贸易、资源与供给约束",
+    "long_term_horizon": "2027政策节点及2030方向观察，远期不强行量化",
+    "observation_window": "2026H1、2026年1—7月、2026年8月及9月3日周度数据分别观察",
+    "comparison_window": "2025H1、2025年1—7月、前一月/前一旬/前一周分别比较",
+    "comparison_basis": "同指标同比或环比，不拼接成统一加速度",
+    "seasonal_adjustments": "未做统计季调；周度去库与上年同期库存分开，节假日及铝水比例影响保留",
+    "data_cutoff": "2026-09-04；最新可核验周度2026-09-03",
+    "research_question": "电解铝的供给约束和需求结构如何影响利润留存，哪些直接关联行业已高景气或低位改善"
+  },
+  "framework_snapshot": {
+    "framework_name": "产业思维",
+    "framework_version": "未声明",
+    "framework_updated_at": "2026-09-04",
+    "source_path": "wiki/concepts/冰冰小美-framework-产业思维.md",
+    "source_sha256": "87E44C2B6F5F115A0274F146D1F81A5CCAD2C8CFDB080EC949F32AB6F4758D5F",
+    "parsed_at": "2026-09-04",
+    "parsing_method": "本次完整读取，根据正文推导；生命周期逐行读取详细定义表",
+    "scope": "industry-and-sector-research",
+    "stage_boundaries": {
+      "investment_lifecycle": "产业、资本与应用的整体演化，不规定必经顺序或统一时长",
+      "chain_transmission": "需求和约束改变哪个采购环节，不规定股价轮动",
+      "sector_prosperity": "具体产品地域的供需、库存、价差、利润与现金经营状态"
+    },
+    "evidence_boundaries": ["事实、作者观点、整理者推断、假设、待验证分开", "转载不算独立证据", "知识页操作表是整理工具，不冒充作者原文", "公司样本不外推全行业", "政策目标不当当前规模"],
+    "industry_modules": [
+      {"order": 1, "name": "产业战略地位", "objective": "长期跟踪资格", "required_questions": ["谁需要", "谁付费", "第一约束"], "required_evidence": ["政策", "预算融资", "资本开支", "真实应用"], "quality_rules": ["规划与兑现分别核验"]},
+      {"order": 2, "name": "长期成长空间", "objective": "可实现空间而非概念TAM", "required_questions": ["数量单价", "分子分母", "价值分配", "天花板"], "required_evidence": ["产量", "应用", "产业链", "新旧需求", "约束"], "quality_rules": ["不加总上下游收入", "缺量化依据用定性情景"]},
+      {"order": 3, "name": "产业投资生命周期", "objective": "各阶段对照后再定位", "required_questions": ["旧问题是否解决", "订单利润现金是否持续"], "required_evidence": ["详细表四阶段逐项", "正反证"], "quality_rules": ["最多一个当前", "证据不足可不定位"]}
+    ],
+    "industry_space": {
+      "tam": "中国原铝实物产量作已实现规模，不冒充消费TAM",
+      "penetration": "清洁电力用量/总用电；再生总量目标不等于铸造细分份额",
+      "application_scenarios": "汽车、电网、建筑、包装等的采购和付费路径",
+      "industry_structure": "矿石、氧化铝、阳极、电力、原铝、再生、加工分列",
+      "new_and_old_demand": "新能源替代燃油车，不能将整车增速等同铝增量",
+      "regional_differences": "国内容量约束与海外扩张、进口原料风险分别分析",
+      "scenarios": "谨慎、基准、乐观均标假设，不编远期吨数",
+      "double_counting_checks": "原铝、氧化铝和铝材收入不相加；再生替代不算全部新增",
+      "constraints": ["资金", "技术", "资源", "牌照", "标准", "场景", "成本", "库存", "定价权", "组织能力"],
+      "ceiling": "需求支付、资源能源、许可、成本及供给能力共同约束"
+    },
+    "investment_lifecycle": {
+      "source_section": "#### 产业投资生命周期",
+      "stages": [
+        {"order": 1, "name": "第一阶段：关注启动期", "focus": "国家战略能否推动产业进入社会视野", "core_features": "战略明确、讨论增加，市场关注先行", "indicators": "政策与产业规划、市场关注变化；另查实际项目和商业化进度"},
+        {"order": 2, "name": "第二阶段：资本引导期", "focus": "金融资本能否转成产业投资并形成经营成果", "core_features": "基金与产业资本进入，融资、扩产和技术发展推进", "indicators": "基金与产业资本→企业融资→资本开支→配套建设→收入利润与份额验证；各环节分别核验"},
+        {"order": 3, "name": "第三阶段：泡沫与瓶颈期", "focus": "扩张后出现了什么供给、需求或技术问题", "core_features": "扩产过快、创新不足、应用单一，库存和盈利承压", "indicators": "供需增速差、有效产能、库存、价格与利润；同时核对估值是否透支"},
+        {"order": 4, "name": "第四阶段：问题解决与二次成长", "focus": "新技术、新需求或新制度是否解决旧问题", "core_features": "应用扩展、技术升级或商业模式改善，第二增长曲线开始验证", "indicators": "旧瓶颈解除、新订单与销量、盈利和现金流的持续兑现"}
+      ],
+      "tree_name_differences": [],
+      "transition_features_policy": "单独记录特征，不由阶段序号反推过去；缺连续兑现证据时主阶段待验证"
+    },
+    "sector_modules": [
+      {"order": 1, "name": "行业划分与候选清单", "required_evidence": ["产品客户地域", "采购传导", "初筛失效条件"], "quality_rules": ["独立标识贯穿全文"]},
+      {"order": 2, "name": "行业景气周期", "required_evidence": ["需求", "供给", "库存", "价格与成本", "资本开支", "融资", "技术与应用", "外部约束", "盈利与现金流"], "quality_rules": ["观察比较窗口", "水平与方向分开", "不以价格代替盈利"]},
+      {"order": 3, "name": "行业竞争格局", "required_evidence": ["同口径份额", "进入退出", "壁垒替代", "议价利润", "格局变化"], "quality_rules": ["集中度不等于有利竞争", "样本不外推"]},
+      {"order": 4, "name": "核心矛盾与行业比较", "required_evidence": ["主约束", "边际变化", "持续条件", "反证"], "quality_rules": ["所有候选对应", "无统一分数", "允许降级"]}
+    ],
+    "sector_outputs": {"candidates": "重点研究、观察、排除", "prosperity_level_and_direction": "偏低/中性/偏高/待验证与改善/持平/转弱/待验证分开", "competition_and_profit_distribution": "按产品解释利润留存", "core_contradictions": "约束→变化→经营→反证", "comparison_and_research_priority": "已高景气与低位改善分别列示"},
+    "industry_outputs": {"chain_full_table": true, "major_changes": true, "handoff_questions": "继续完成行业验证", "tracking_and_invalidation": "披露节奏与核心变量相匹配"},
+    "excluded_layers": ["公司研究", "投资价值"]
+  },
+  "evidence_plan": [
+    {"module": "战略", "question": "制度如何形成有效约束", "required_facts": ["产能管理", "绿色政策"], "required_indicators": ["目标与当前分开", "预算与项目落实"], "preferred_sources": ["工信部"], "freshness": "现行政策", "fallback_sources": ["官方解读"], "missing_data_handling": "不把专项预算缺口写成零投入"},
+    {"module": "空间", "question": "增量在哪里且是否重复", "required_facts": ["原铝产量", "新旧用途", "再生替代"], "required_indicators": ["吨数", "清洁能源比例", "付费路径"], "preferred_sources": ["统计局", "协会"], "freshness": "2025全年和2026最新月度", "fallback_sources": ["公司披露"], "missing_data_handling": "消费TAM、单耗与远期预测保留缺口"},
+    {"module": "生命周期四阶段", "question": "新制度新需求是否形成持续经营兑现", "required_facts": ["政策应用", "融资扩产", "瓶颈", "现金利润"], "required_indicators": ["各阶段逐项对照", "连续性", "反证"], "preferred_sources": ["政策", "公司公告", "协会"], "freshness": "最新半年并对照历史", "fallback_sources": [], "missing_data_handling": "不反推历史，不强行定位"},
+    {"module": "S1—S4九维经营", "question": "需求受益能否成为利润现金受益", "required_facts": ["每候选九维", "主导变量", "样本局限"], "required_indicators": ["同口径产销", "有效产能", "库存", "价差", "资本开支", "融资", "技术采用", "外部约束", "利润现金"], "preferred_sources": ["统计局", "协会", "正式半年报", "SMM原始调查"], "freshness": "H1同比与最近周度分别", "fallback_sources": ["公告正文镜像"], "missing_data_handling": "逐格标明不可推断内容，不由样本下结论"},
+    {"module": "竞争比较跟踪", "question": "哪个环节留住利润", "required_facts": ["份额", "退出", "成本转嫁", "壁垒"], "required_indicators": ["CR3/CR5", "高景气", "低位改善", "失效条件"], "preferred_sources": ["协会", "企业披露"], "freshness": "同产品同地域同期间", "fallback_sources": [], "missing_data_handling": "不生成缺失份额与统一分数，不强行选低位改善行业"}
+  ]
+}

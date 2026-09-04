@@ -1,46 +1,46 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-01",
+  "updatedAt": "2026-09-04",
   "items": [
     {
       "id": "TODO-005",
       "title": "阅读《两次全球大危机的比较研究》",
       "detail": "",
       "quadrant": "重要不紧急",
-      "status": "未开始",
+      "status": "进行中",
       "source": "用户补充",
       "createdAt": "2026-08-27",
-      "updatedAt": "2026-08-27"
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "TODO-008",
       "title": "信息金融意义重新整理",
       "detail": "",
       "quadrant": "重要且紧急",
-      "status": "未开始",
+      "status": "进行中",
       "source": "看板新增",
       "createdAt": "2026-08-28",
-      "updatedAt": "2026-08-28"
+      "updatedAt": "2026-09-04"
     },
     {
       "id": "TODO-009",
       "title": "个股研报skill怎么与产业思维选股分析skill融合？",
       "detail": "",
-      "quadrant": "重要且紧急",
+      "quadrant": "重要不紧急",
       "status": "未开始",
       "source": "看板新增",
       "createdAt": "2026-08-28",
-      "updatedAt": "2026-08-28"
+      "updatedAt": "2026-09-04"
     },
     {
       "id": "TODO-010",
       "title": "风险库整理",
       "detail": "",
       "quadrant": "重要且紧急",
-      "status": "未开始",
+      "status": "进行中",
       "source": "看板新增",
       "createdAt": "2026-08-31",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-04"
     },
     {
       "id": "TODO-011",
@@ -56,11 +56,51 @@
       "id": "TODO-012",
       "title": "看不懂金融信息系列，先补充一下宏观经济学",
       "detail": "",
-      "quadrant": "重要且紧急",
+      "quadrant": "重要不紧急",
       "status": "未开始",
       "source": "看板新增",
       "createdAt": "2026-09-01",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-04"
+    },
+    {
+      "id": "TODO-013",
+      "title": "复盘日记页面完善成日历型",
+      "detail": "",
+      "quadrant": "重要不紧急",
+      "status": "未开始",
+      "source": "看板新增",
+      "createdAt": "2026-09-02",
+      "updatedAt": "2026-09-04"
+    },
+    {
+      "id": "TODO-014",
+      "title": "《全球两次大危机的比较研究》分层阅读第1层：事件层，发生了什么？",
+      "detail": "",
+      "quadrant": "重要不紧急",
+      "status": "进行中",
+      "source": "看板新增",
+      "createdAt": "2026-09-02",
+      "updatedAt": "2026-09-02"
+    },
+    {
+      "id": "TODO-015",
+      "title": "继续测试产业思维skill",
+      "detail": "",
+      "quadrant": "重要且紧急",
+      "status": "进行中",
+      "source": "看板新增",
+      "createdAt": "2026-09-04",
+      "updatedAt": "2026-09-04"
+    },
+    {
+      "id": "TODO-016",
+      "title": "每日跟踪改成跟踪多人版本",
+      "detail": "",
+      "quadrant": "重要不紧急",
+      "status": "未开始",
+      "source": "看板新增",
+      "createdAt": "2026-09-04",
+      "updatedAt": "2026-09-04"
     }
   ],
   "archive": [

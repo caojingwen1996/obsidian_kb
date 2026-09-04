@@ -32,6 +32,13 @@ for vendor_path in VENDOR_PATHS:
 
 
 DATASETS = {
+    "daily_info": {
+        "fields": ("trade_date", "ts_code", "amount"),
+        "allowed_params": {"ts_code", "trade_date", "start_date", "end_date", "fields"},
+        "required_params": {"ts_code"},
+        "defaults": {"fields": "trade_date,ts_code,amount"},
+        "date_fields": {"trade_date", "start_date", "end_date"},
+    },
     "stock_basic": {
         "fields": ("ts_code", "symbol", "name", "area", "industry", "market", "exchange", "list_date", "list_status"),
         "allowed_params": {"ts_code", "name", "exchange", "list_status", "fields"},
@@ -444,7 +451,10 @@ def validate_params(method, params):
         raise TushareClientError("tushare-params", "missing required parameter", {"missing": missing})
     if "fields" in merged:
         merged["fields"] = _fields_to_text(merged["fields"])
-    if "ts_code" in merged:
+    if method == "daily_info":
+        if merged["ts_code"] not in {"SH_MARKET", "SZ_MARKET"}:
+            raise TushareClientError("tushare-params", "unsupported stock market code")
+    elif "ts_code" in merged:
         merged["ts_code"] = normalize_fx_code(merged["ts_code"]) if method == "fx_daily" else a_share_ts_code(merged["ts_code"])
     if "index_code" in merged:
         merged["index_code"] = normalize_index_code(merged["index_code"])

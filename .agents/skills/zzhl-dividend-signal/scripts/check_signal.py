@@ -77,6 +77,7 @@ class AnnualPerformance:
     annual_return: float
     max_drawdown: float
     status: str
+    monthly_returns: list[dict] = field(default_factory=list)
 
 
 @dataclass
@@ -584,6 +585,24 @@ def calculate_annual_performance(
             if int(year) == target_date.year
             else "完整年度"
         )
+        monthly_returns = []
+        first_month = int(group.iloc[0]['_date'].month)
+        last_month = int(group.iloc[-1]['_date'].month)
+        for month in range(1, 13):
+            current_month = group[group['_date'].dt.month == month]
+            previous_month = group[group['_date'].dt.month == month - 1]
+            base = group.iloc[0] if month == first_month else previous_month.iloc[-1] if not previous_month.empty else None
+            if current_month.empty or base is None:
+                monthly_returns.append({'month': month, 'value': None, 'status': '未开始' if month > last_month else '数据不足'})
+                continue
+            end = current_month.iloc[-1]
+            monthly_returns.append({
+                'month': month,
+                'value': (float(end['_close']) / float(base['_close']) - 1) * 100,
+                'startDate': base['_date'].strftime('%Y-%m-%d'),
+                'endDate': end['_date'].strftime('%Y-%m-%d'),
+                'status': '月内累计' if int(year) == target_date.year and month == last_month else '已统计',
+            })
         annual.append(
             AnnualPerformance(
                 year=int(year),
@@ -592,6 +611,7 @@ def calculate_annual_performance(
                 annual_return=(latest_close / first_close - 1) * 100,
                 max_drawdown=float(drawdowns.min()) * 100,
                 status=status,
+                monthly_returns=monthly_returns,
             )
         )
     return annual

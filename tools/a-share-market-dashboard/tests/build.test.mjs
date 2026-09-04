@@ -7,12 +7,17 @@ import { dirname, join } from 'node:path';
 import { createExampleSnapshot } from '../src/data-service.mjs';
 import { parseUsdJpy, parseUsDollarIndex, parseUsTreasuryYield } from '../src/adapters.mjs';
 import {
+  calculateNasdaqGridPlan,
+  parseNasdaqEtfHistory,
+  renderNasdaqGridStrategy,
   deriveDashboard,
   allocationCategoryForReport,
   evaluateFuguiStrategyCandidate,
   fetchTodoAction,
   findDuplicateTrackingItem,
   leftEdgeFromValueRange,
+  NASDAQ_GRID_LEVELS,
+  normalizeNasdaqGridUnitAmount,
   normalizeFuguiStrategyItems,
   normalizeTrackingItems,
   pricingDeviationFromText,
@@ -281,6 +286,7 @@ test('sidebar exposes the personal workspace as a first-level tree domain', () =
   assert.match(styles, /\.todo-quadrant\s*\{[^}]*max-height:[^}]*overflow-y:\s*auto/s);
   assert.match(styles, /\.todo-quadrant-header\s*\{[^}]*position:\s*sticky/s);
   assert.match(styles, /\.todo-item\s*\{[^}]*border:\s*1px solid[^}]*background:\s*var\(--card\)/s);
+  assert.match(styles, /\.todo-matrix\s*\{[^}]*align-items:\s*stretch/s);
   assert.doesNotMatch(styles, /todo-move-select/);
   assert.match(artifact, /href="data\/todo\.json"[^>]*>打开 todo\.json<\/a>/);
   assert.match(artifact, /id="todo-source-status"/);
@@ -325,6 +331,9 @@ test('sidebar exposes the personal workspace as a first-level tree domain', () =
   assert.doesNotMatch(artifact, /data-todo-id="TODO-00[67]"/);
   assert.match(artifact, /data-todo-archive-id="TODO-006"/);
   assert.match(artifact, /data-todo-archive-id="TODO-007"/);
+  assert.match(artifact, /<div class="todo-archive-row">\s*<span class="todo-archive-id">TODO-006<\/span>\s*<div class="todo-item-head todo-archive-title"><strong>整理知识库-产业思维<\/strong><\/div>[\s\S]*class="todo-archive-completed"/);
+  assert.match(styles, /\.todo-archive-row\s*\{[^}]*display:\s*flex[^}]*flex-wrap:\s*wrap/s);
+  assert.doesNotMatch(artifact, /<div class="todo-item-kicker"><span>TODO-006<\/span>/);
   for (const marker of [
     'TODO-005',
     'TODO-006',
@@ -436,11 +445,48 @@ test('sidebar exposes the personal workspace as a first-level tree domain', () =
   assert.match(html, /id="review-diary-modal"/);
   assert.match(html, /id="review-diary-form"/);
   assert.match(html, /<section class="view" id="review-diary-view" data-shell-content="personal" aria-labelledby="review-diary-view-heading">/);
+  const reviewDiarySection = html.match(/<section class="view" id="review-diary-view"[\s\S]*?<\/section>/)?.[0] ?? '';
+  assert.match(reviewDiarySection, /<h2 class="visually-hidden" id="review-diary-view-heading">复盘日记<\/h2>/);
+  assert.match(reviewDiarySection, /id="create-review-diary"[^>]*>新增日记<\/button>/);
+  assert.doesNotMatch(reviewDiarySection, /<p class="eyebrow">REVIEW DIARY<\/p>\s*<h2/);
   assert.match(html, /id="review-diary-list"/);
+  assert.match(reviewDiarySection, /id="review-diary-calendar-title"/);
+  assert.match(reviewDiarySection, /id="review-diary-prev-month"/);
+  assert.match(reviewDiarySection, /id="review-diary-current-month"[^>]*>本月<\/button>/);
+  assert.match(reviewDiarySection, /id="review-diary-next-month"/);
+  assert.match(reviewDiarySection, /aria-label="复盘日记月历"/);
+  assert.match(html, /name="trackingTarget"/);
+  assert.match(appSource, /REVIEW_DIARY_MARKET_TARGET/);
+  assert.match(appSource, /REVIEW_DIARY_WEEKDAYS/);
+  assert.match(appSource, /REVIEW_DIARY_SAVE_TIMEOUT_MS/);
+  assert.match(appSource, /reviewDiaryCalendarMonth/);
+  assert.match(appSource, /reviewDiarySaving/);
+  assert.match(appSource, /reviewDiaryEntryItems/);
+  assert.match(appSource, /reviewDiaryCalendarItems/);
+  assert.match(appSource, /dailyEntryCount/);
+  assert.match(appSource, /code:\s*'market-index'/);
+  assert.match(appSource, /name:\s*'大盘指数'/);
+  assert.match(appSource, /openNewReviewDiary/);
+  assert.match(appSource, /\[REVIEW_DIARY_MARKET_TARGET,\s*...trackingItems\]/);
+  assert.match(appSource, /obsidianUrl/);
+  assert.match(appSource, /OBSIDIAN_VAULT_NAME/);
+  assert.match(appSource, /obsidian:\/\/open\?vault=/);
+  assert.ok(appSource.includes('workbench\\/targets\\/'));
+  assert.ok(appSource.includes('workbench/journal/$1'));
+  assert.match(appSource, /review-diary-calendar-entry/);
+  assert.match(appSource, /review-diary-calendar-entry-head/);
+  assert.match(appSource, /controller\.abort\(\)/);
+  assert.match(appSource, /保存超时/);
+  assert.match(appSource, /打开日记/);
+  assert.doesNotMatch(appSource, /`\/\$\{String\(item\.path/);
   assert.match(appSource, /\/api\/review-diaries/);
   assert.match(appSource, /\/api\/review-diary/);
   assert.match(appSource, /\/api\/tracking-rerender-reports/);
   assert.match(appSource, /data-action="review-diary"[\s\S]*复盘日记/);
+  const reviewDiaryStyles = readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8');
+  assert.match(reviewDiaryStyles, /\.review-diary-calendar/);
+  assert.match(reviewDiaryStyles, /\.review-diary-weekday/);
+  assert.match(reviewDiaryStyles, /\.review-diary-day/);
   assert.doesNotMatch(html, /tracker-card/);
 });
 
@@ -518,7 +564,8 @@ test('market summary renders three overview cards and includes signal sources in
   assert.match(source, /风险等级/);
   assert.match(source, /进入风险发现系统/);
   assert.equal((source.match(/class="summary-shortcut-card/g) ?? []).length, 4);
-  assert.equal((source.match(/summary-shortcut-card-empty/g) ?? []).length, 2);
+  assert.equal((source.match(/summary-shortcut-card-empty/g) ?? []).length, 1);
+  assert.match(source, /id="market-turnover-card"/);
   assert.match(source, /id="open-featured-digest"[^>]*>进入每日跟踪<\/button>/);
   assert.match(source, /id="event-calendar-list"/);
   assert.doesNotMatch(source, /预留模块/);
@@ -607,6 +654,67 @@ test('market summary renders three overview cards and includes signal sources in
   assert.match(artifact, /"date": "2026-06-02"[\s\S]*"value": 4\.83/);
   assert.doesNotMatch(artifact, /<circle class="is-(?:high|low)"/);
   assert.match(readFileSync(new URL('../scripts/build.mjs', import.meta.url), 'utf8'), /中证红利每日信号\.xlsx/);
+});
+
+test('Nasdaq grid strategy keeps the approved seven levels and amount math', () => {
+  assert.deepEqual(
+    NASDAQ_GRID_LEVELS.map(level => [level.drawdownPercent, level.assumedPrice, level.multiplier]),
+    [[-9, 91, 1], [-12.5, 87.5, 1], [-16, 84, 1.5], [-19.5, 80.5, 1.5], [-23, 77, 2], [-26.5, 73.5, 2], [-30, 70, 3]],
+  );
+  const plan = calculateNasdaqGridPlan(10_000, -17);
+  assert.equal(plan.totalAmount, 120_000);
+  assert.equal(plan.triggeredAmount, 35_000);
+  assert.equal(plan.nextLevel.level, 4);
+  assert.deepEqual(plan.levels.map(level => level.levelAmount), [10_000, 10_000, 15_000, 15_000, 20_000, 20_000, 30_000]);
+  assert.equal(normalizeNasdaqGridUnitAmount(0), 10_000);
+});
+
+test('Nasdaq ETF buy prices use the ETF high and three-decimal price steps', () => {
+  const data = parseNasdaqEtfHistory({ data: { klines: [
+    '2026-09-03,4.8,4.7,4.9,4.6,100',
+    '2026-08-01,5.1,5.2,5.637,5,100',
+  ] }, proxySource: '测试行情' });
+  assert.equal(data.highPrice, 5.637);
+  assert.equal(data.highDate, '2026-08-01');
+  assert.equal(data.date, '2026-09-03');
+  assert.equal(data.close, 4.7);
+  const plan = calculateNasdaqGridPlan(10_000, data.drawdownPercent, data.highPrice);
+  assert.deepEqual(plan.levels.map(level => level.buyPrice), [5.129, 4.932, 4.735, 4.537, 4.340, 4.143, 3.945]);
+  assert.equal(plan.nextLevel.level, 4);
+  assert.equal(plan.totalAmount, 120_000);
+  const view = renderNasdaqGridStrategy({ status: 'latest', data }, 10_000);
+  assert.match(view.referenceText, /159941/);
+  assert.match(view.referenceText, /5\.637（2026-08-01）/);
+  assert.match(view.rowsHtml, /<td>4\.340<\/td>/);
+  assert.equal((view.rowsHtml.match(/<td>/g) || []).length, 49);
+});
+
+test('Nasdaq ETF missing or invalid history never produces invented buy prices', () => {
+  assert.throws(() => parseNasdaqEtfHistory({ data: { klines: [] } }));
+  assert.throws(() => parseNasdaqEtfHistory({ data: { klines: ['2026-09-03,4,4,-,3,100'] } }));
+  assert.throws(() => parseNasdaqEtfHistory({ data: { klines: ['2026-09-03,4,5,4,3,100'] } }));
+  for (const high of [null, 0, -1, NaN, Infinity]) {
+    assert.ok(calculateNasdaqGridPlan(10_000, null, high).levels.every(level => level.buyPrice === null));
+  }
+  const view = renderNasdaqGridStrategy({ status: 'missing', error: 'HTTP 400' }, 10_000);
+  assert.match(view.referenceText, /HTTP 400/);
+  assert.doesNotMatch(view.rowsHtml, /is-triggered|is-next/);
+});
+
+test('Nasdaq overview card opens the internal grid strategy view', () => {
+  const source = readFileSync(sourcePath, 'utf8');
+  const appSource = readFileSync(new URL('../src/app.mjs', import.meta.url), 'utf8');
+  assert.doesNotMatch(source, /假设价格/);
+  assert.doesNotMatch(source, /NASDAQ GRID STRATEGY|id="nasdaq-grid-heading"|分批规划加仓金额/);
+  assert.match(source, /id="nasdaq-grid-view"[^>]*aria-label="广发纳指ETF网格策略"/);
+  assert.doesNotMatch(appSource, /<td>\$\{formatNumber\(level\.assumedPrice/);
+  assert.match(source, /<th>档位<\/th><th>相对前高跌幅<\/th><th>买入参考价（元）<\/th><th>加仓倍数<\/th><th>本档金额<\/th><th>累计投入<\/th><th>状态<\/th>/);
+  for (const id of ['nasdaq-grid-view', 'nasdaq-grid-unit-amount', 'nasdaq-grid-summary', 'nasdaq-grid-table-body']) {
+    assert.match(source, new RegExp(`id="${id}"`));
+  }
+  assert.match(appSource, /data-open-nasdaq-grid/);
+  assert.match(appSource, /setShell\('thermometer', 'nasdaq-grid-view'\)/);
+  assert.doesNotMatch(appSource, /<a class="overview-card nasdaq-card/);
 });
 
 test('changelog renders the approved initial entries', () => {
@@ -916,6 +1024,8 @@ test('local proxy allows wiki markdown links generated by topic cards', () => {
 
   assert.match(proxySource, /"\/wiki\/": \(vault_root \/ "wiki"\)\.resolve\(\)/);
   assert.match(proxySource, /parsed\.path\.startswith\("\/sources\/"\) or parsed\.path\.startswith\("\/wiki\/"\) or parsed\.path\.startswith\("\/workbench\/"\)/);
+  assert.match(proxySource, /vault_root \/ "workbench" \/ "journal"/);
+  assert.match(proxySource, /obsidian:\/\/open\?path=/);
 });
 
 test('position summary calculates market value, profit and portfolio weights', () => {

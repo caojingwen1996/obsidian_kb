@@ -1,0 +1,362 @@
+{
+  "task_scope": {
+    "industry": "动力电池",
+    "included_segments": [
+      "道路车辆BEV、PHEV（含增程式）的动力蓄电池",
+      "乘用车、轻型商用车、客车、中重型货车",
+      "道路电动二/三轮车仅保留在IEA总量原口径，不单独放大",
+      "车用锂离子电池及替代化学体系、材料、装备、系统、回收配套"
+    ],
+    "excluded_segments": [
+      "固定式储能",
+      "消费电子电池",
+      "铅酸启动电池",
+      "燃料电池电堆",
+      "船舶与航空实验性应用的量化TAM",
+      "公司研究与个股估值"
+    ],
+    "geography": "中国为重点，全球为参照",
+    "long_term_horizon": "2026—2036；可靠量化情景止于2035；历史回溯2012起",
+    "data_cutoff": "2026-09-04",
+    "research_question": "是否值得长期跟踪，空间来自哪里，当前产业投资生命周期及转换条件是什么"
+  },
+  "framework_snapshot": {
+    "framework_name": "产业思维",
+    "framework_version": "未声明",
+    "framework_updated_at": "2026-08-27",
+    "framework_status": "active",
+    "source_path": "wiki/concepts/冰冰小美-framework-产业思维.md",
+    "parsed_at": "2026-09-04",
+    "scope": "industry-layer-only",
+    "industry_modules": [
+      {
+        "order": 1,
+        "name": "产业战略地位",
+        "objective": "国家和时代为什么需要这个产业",
+        "required_questions": [
+          "战略需求是否持续",
+          "战略如何变成付费应用"
+        ],
+        "required_evidence": [
+          "正式规划",
+          "安全和循环制度",
+          "实际应用"
+        ],
+        "quality_rules": [
+          "政策目标不等于有效需求"
+        ]
+      },
+      {
+        "order": 2,
+        "name": "长期成长空间",
+        "objective": "产业空间和有效天花板",
+        "required_questions": [
+          "TAM边界",
+          "渗透率分母",
+          "场景付款者",
+          "产业链约束和价值分配"
+        ],
+        "required_evidence": [
+          "同口径装车电量",
+          "新车与保有量分别统计",
+          "技术商业化证据"
+        ],
+        "quality_rules": [
+          "事实与预测分开",
+          "不叠加储能、回收与整车营收",
+          "缺数据留空"
+        ]
+      },
+      {
+        "order": 3,
+        "name": "产业投资生命周期",
+        "objective": "约十年产业演化定位",
+        "required_questions": [
+          "四阶段逐项匹配",
+          "矛盾是否被解决",
+          "新曲线是否形成"
+        ],
+        "required_evidence": [
+          "详细定义表各阶段指标",
+          "扩张和治理事实",
+          "新需求、技术和商业模式验证"
+        ],
+        "quality_rules": [
+          "最多一个当前阶段",
+          "阶段名称取详细表",
+          "承认反证和缺口"
+        ]
+      }
+    ],
+    "industry_space": {
+      "tam": "已实现需求、当前可服务市场、可扩展情景与理论市场分别记录；以TWh/年为物理量基准",
+      "penetration": "区分车种、地域、新销量与保有量；写清分子分母",
+      "application_scenarios": "用户、付款者、付费方式及交付验证",
+      "industry_structure": "按材料、制造、系统、应用、服务拆解",
+      "constraints": [
+        "资金",
+        "技术",
+        "资源",
+        "牌照",
+        "标准",
+        "场景",
+        "成本",
+        "库存",
+        "定价权",
+        "组织能力"
+      ],
+      "ceiling": [
+        "需求",
+        "支付",
+        "技术成本",
+        "资源许可",
+        "供给组织"
+      ]
+    },
+    "investment_lifecycle": {
+      "source_section": "#### 产业投资生命周期 下详细定义表",
+      "stages": [
+        {
+          "order": 1,
+          "name": "第一阶段：关注启动期",
+          "focus": "看注意力：国家战略能否推动产业进入社会视野",
+          "core_features": "国家战略明确<br>→ <br>龙头突然大涨<br>→ <br>市场开始讨论 <br>→ <br>社会关注度快速提高",
+          "indicators": "龙头涨幅、成交额、媒体热度、政策密度"
+        },
+        {
+          "order": 2,
+          "name": "第二阶段：资本引导期",
+          "focus": "看资本：金融资本能否转化成产业投资，并最终形成企业利润。",
+          "core_features": "主题基金发行、<br>产业资本进入、<br>企业融资扩张、<br>利润快速增长",
+          "indicators": "金融资本：ETF/基金发行<br>→ <br>产业资本：产业基金<br>→ <br>企业融资：定增、IPO<br>→ <br>CAPEX:扩产、新建产能<br>→ <br>产业链配套完善<br>→ <br>企业收入利润增长<br>→ <br>龙头市占率提高"
+        },
+        {
+          "order": 3,
+          "name": "第三阶段：泡沫与瓶颈期",
+          "focus": "看矛盾：高速发展以后，产能、需求、技术出现了什么瓶颈。",
+          "core_features": "资本过度涌入、产能扩张过快、技术创新放缓、需求接近瓶颈",
+          "indicators": "产能过剩：看产能增速与利用率<br>→ <br>渗透率：超过40%<br>→<br>技术创新速度下降<br>、库存、价格、、估值"
+        },
+        {
+          "order": 4,
+          "name": "第四阶段：问题解决与二次成长",
+          "focus": "看解决方案：新的技术、新的需求、新的制度能否解决旧问题并创造第二增长曲线。",
+          "core_features": "新技术<br><br>- 新需求<br>- 政策改革  <br>    → 打开第二增长曲线  <br>    → 龙头重新成长",
+          "indicators": "新需求 + 新技术 + 新商业模式<br>→<br>第二增长曲线<br>→"
+        }
+      ],
+      "tree_name_differences": [
+        {
+          "order": 1,
+          "tree": "S1 关注启动期",
+          "detail": "第一阶段：关注启动期",
+          "difference": "树省略阶段序号中文前缀"
+        },
+        {
+          "order": 2,
+          "tree": "S2 资本扩张期",
+          "detail": "第二阶段：资本引导期"
+        },
+        {
+          "order": 3,
+          "tree": "S3 过热调整期",
+          "detail": "第三阶段：泡沫与瓶颈期"
+        },
+        {
+          "order": 4,
+          "tree": "S4 再成长阶段",
+          "detail": "第四阶段：问题解决与二次成长"
+        }
+      ]
+    },
+    "excluded_layers": [
+      "行业研究",
+      "公司研究",
+      "投资价值"
+    ]
+  },
+  "evidence_plan": [
+    {
+      "module": "产业战略地位",
+      "question": "战略需求与现实应用是否匹配",
+      "required_facts": [
+        "2012与2020规划",
+        "2025实际部署",
+        "2026安全标准、回收办法和欧盟护照"
+      ],
+      "required_indicators": [
+        "政策时间",
+        "已实施与未来义务区分",
+        "实际应用规模"
+      ],
+      "preferred_sources": [
+        "国务院",
+        "工信部",
+        "国家标准全文公开系统",
+        "欧盟委员会",
+        "IEA"
+      ],
+      "freshness": "法规核验到2026-09-04，历史政策仅作历史锚点",
+      "fallback_sources": [
+        "政府转载"
+      ],
+      "missing_data_handling": "没有实际执行结果则只认制度事实"
+    },
+    {
+      "module": "长期成长空间",
+      "question": "物理量空间与边界",
+      "required_facts": [
+        "2025 EV电池部署",
+        "2030/2035同机构情景"
+      ],
+      "required_indicators": [
+        "TWh/年",
+        "销量分车型",
+        "BEV/PHEV混合带电量"
+      ],
+      "preferred_sources": [
+        "IEA Global EV Outlook 2026"
+      ],
+      "freshness": "最新完整年度2025及2026版情景",
+      "fallback_sources": [
+        "公开行业协会统计"
+      ],
+      "missing_data_handling": "不拼接总锂电产能与EV部署，不虚构人民币TAM"
+    },
+    {
+      "module": "长期成长空间",
+      "question": "渗透率与场景付款",
+      "required_facts": [
+        "全球电动乘用车销售和存量占比",
+        "中国NEV厂家销量占比",
+        "中重卡电动渗透"
+      ],
+      "required_indicators": [
+        "分子",
+        "分母",
+        "地域",
+        "期间",
+        "实际付费规模"
+      ],
+      "preferred_sources": [
+        "工信部转中汽协",
+        "IEA"
+      ],
+      "freshness": "2025可比基准，2026已核实半年信息另列",
+      "fallback_sources": [
+        "新华社"
+      ],
+      "missing_data_handling": "缺分母不报渗透率，不将半年外推全年"
+    },
+    {
+      "module": "长期成长空间",
+      "question": "产业链、约束、天花板",
+      "required_facts": [
+        "材料与工艺位置",
+        "补能并网",
+        "供应安全",
+        "安全与回收准入"
+      ],
+      "required_indicators": [
+        "资金",
+        "技术",
+        "资源",
+        "牌照",
+        "标准",
+        "场景",
+        "成本",
+        "库存",
+        "定价权",
+        "组织能力"
+      ],
+      "preferred_sources": [
+        "部委",
+        "IEA关键矿产及充电章节",
+        "企业技术披露"
+      ],
+      "freshness": "制度和技术核验到2026-09-04",
+      "fallback_sources": [],
+      "missing_data_handling": "价值分配只做机制推断；不填虚构利润份额"
+    },
+    {
+      "module": "产业投资生命周期",
+      "question": "第一阶段：关注启动期逐项比较",
+      "required_facts": [
+        "看注意力：国家战略能否推动产业进入社会视野",
+        "国家战略明确<br>→ <br>龙头突然大涨<br>→ <br>市场开始讨论 <br>→ <br>社会关注度快速提高"
+      ],
+      "required_indicators": [
+        "龙头涨幅、成交额、媒体热度、政策密度"
+      ],
+      "preferred_sources": [
+        "国家规划",
+        "主管部门治理文件",
+        "IEA历史与当前数据",
+        "企业公开技术公告"
+      ],
+      "freshness": "历史节点与2026可核实事实区分",
+      "fallback_sources": [],
+      "missing_data_handling": "涨幅、成交额、基金、融资、利润、利用率等未核验不评分；不为满足阶段填补个股或景气分析"
+    },
+    {
+      "module": "产业投资生命周期",
+      "question": "第二阶段：资本引导期逐项比较",
+      "required_facts": [
+        "看资本：金融资本能否转化成产业投资，并最终形成企业利润。",
+        "主题基金发行、<br>产业资本进入、<br>企业融资扩张、<br>利润快速增长"
+      ],
+      "required_indicators": [
+        "金融资本：ETF/基金发行<br>→ <br>产业资本：产业基金<br>→ <br>企业融资：定增、IPO<br>→ <br>CAPEX:扩产、新建产能<br>→ <br>产业链配套完善<br>→ <br>企业收入利润增长<br>→ <br>龙头市占率提高"
+      ],
+      "preferred_sources": [
+        "国家规划",
+        "主管部门治理文件",
+        "IEA历史与当前数据",
+        "企业公开技术公告"
+      ],
+      "freshness": "历史节点与2026可核实事实区分",
+      "fallback_sources": [],
+      "missing_data_handling": "涨幅、成交额、基金、融资、利润、利用率等未核验不评分；不为满足阶段填补个股或景气分析"
+    },
+    {
+      "module": "产业投资生命周期",
+      "question": "第三阶段：泡沫与瓶颈期逐项比较",
+      "required_facts": [
+        "看矛盾：高速发展以后，产能、需求、技术出现了什么瓶颈。",
+        "资本过度涌入、产能扩张过快、技术创新放缓、需求接近瓶颈"
+      ],
+      "required_indicators": [
+        "产能过剩：看产能增速与利用率<br>→ <br>渗透率：超过40%<br>→<br>技术创新速度下降<br>、库存、价格、、估值"
+      ],
+      "preferred_sources": [
+        "国家规划",
+        "主管部门治理文件",
+        "IEA历史与当前数据",
+        "企业公开技术公告"
+      ],
+      "freshness": "历史节点与2026可核实事实区分",
+      "fallback_sources": [],
+      "missing_data_handling": "涨幅、成交额、基金、融资、利润、利用率等未核验不评分；不为满足阶段填补个股或景气分析"
+    },
+    {
+      "module": "产业投资生命周期",
+      "question": "第四阶段：问题解决与二次成长逐项比较",
+      "required_facts": [
+        "看解决方案：新的技术、新的需求、新的制度能否解决旧问题并创造第二增长曲线。",
+        "新技术<br><br>- 新需求<br>- 政策改革  <br>    → 打开第二增长曲线  <br>    → 龙头重新成长"
+      ],
+      "required_indicators": [
+        "新需求 + 新技术 + 新商业模式<br>→<br>第二增长曲线<br>→"
+      ],
+      "preferred_sources": [
+        "国家规划",
+        "主管部门治理文件",
+        "IEA历史与当前数据",
+        "企业公开技术公告"
+      ],
+      "freshness": "历史节点与2026可核实事实区分",
+      "fallback_sources": [],
+      "missing_data_handling": "涨幅、成交额、基金、融资、利润、利用率等未核验不评分；不为满足阶段填补个股或景气分析"
+    }
+  ]
+}

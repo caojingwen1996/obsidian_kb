@@ -78,7 +78,7 @@ def running_server(fetcher):
             fetcher=fetcher,
             dashboard_path=DASHBOARD,
             portfolio_path=portfolio_path,
-            review_diary_dir=Path(temporary_directory) / "workbench" / "targets",
+            review_diary_dir=Path(temporary_directory) / "workbench" / "journal",
         )
         thread = Thread(target=server.serve_forever, daemon=True)
         thread.start()
@@ -114,6 +114,46 @@ class RouteTests(unittest.TestCase):
                 "/api/eastmoney-kline",
                 {"secid": ["https://example.com"], "limit": ["3000"]},
             )
+
+    def test_nasdaq_etf_history_is_allowlisted_with_forward_adjustment(self):
+        url = build_upstream_url('/api/eastmoney-kline', {'secid': ['0.159941'], 'limit': ['4000']})
+        query = parse_qs(urlparse(url).query)
+        self.assertEqual(query['secid'], ['0.159941'])
+        self.assertEqual(query['fqt'], ['1'])
+        self.assertEqual(query['lmt'], ['4000'])
+
+    def test_nasdaq_etf_history_uses_tencent_fallback(self):
+        rows = [[(date(2025, 1, 1) + timedelta(days=i)).isoformat(), '4', '4.2', '4.3', '3.9', '100'] for i in range(250)]
+
+        def fake_fetch(url, source):
+            if 'push2his.eastmoney.com' in url:
+                return {'data': None}
+            self.assertIn('sz159941', url)
+            return {'data': {'sz159941': {'qfqday': rows}}}
+
+        payload = fetch_index_history('0.159941', 250, fetcher=fake_fetch)
+        self.assertEqual(len(payload['data']['klines']), 250)
+        self.assertEqual(payload['proxySource'], '腾讯行情')
+
+    def test_nasdaq_etf_history_paginates_beyond_tencent_640_row_limit(self):
+        rows = [[(date(2024, 1, 1) + timedelta(days=i)).isoformat(), '4', '4.2', '4.3', '3.9', '100'] for i in range(700)]
+        calls = []
+
+        def fake_fetch(url, source):
+            if 'push2his.eastmoney.com' in url:
+                return {'data': None}
+            parameter = parse_qs(urlparse(url).query)['param'][0].split(',')
+            end, count = parameter[3], int(parameter[4])
+            self.assertLessEqual(count, 640)
+            calls.append(end)
+            page = [row for row in rows if not end or row[0] <= end][-count:]
+            return {'data': {'sz159941': {'qfqday': page}}}
+
+        payload = fetch_index_history('0.159941', 4000, fetcher=fake_fetch)
+        self.assertEqual(len(calls), 2)
+        self.assertEqual(len(payload['data']['klines']), 700)
+        self.assertTrue(payload['data']['klines'][0].startswith(rows[0][0]))
+        self.assertTrue(payload['data']['klines'][-1].startswith(rows[-1][0]))
 
     def test_builds_stock_quote_url_for_valid_a_share_secids(self):
         for secid in (
@@ -757,14 +797,18 @@ class ServerTests(unittest.TestCase):
                     "status": "持有",
                     "content": "今天检查风险方向和明日承接。",
                 },
-                Path(directory) / "workbench" / "targets",
+                Path(directory) / "workbench" / "journal",
                 now=datetime(2026, 7, 29, 10, 30, tzinfo=timezone(timedelta(hours=8))),
             )
             target = Path(directory) / saved["path"]
             text = target.read_text(encoding="utf-8")
 
         self.assertEqual(saved["date"], "2026-07-29")
-        self.assertEqual(saved["path"], "workbench/targets/600879-航天电子-复盘日记.md")
+        self.assertEqual(saved["path"], "workbench/journal/600879-航天电子-复盘日记.md")
+        self.assertEqual(
+            saved["obsidianUrl"],
+            f"obsidian://open?path={quote(str((Path(directory) / saved['path']).resolve()), safe='')}",
+        )
         self.assertIn("# 航天电子（600879）复盘日记", text)
         self.assertIn("## 2026-07-29", text)
         self.assertIn("记录时间：2026-07-29 10:30（Asia/Shanghai）", text)
@@ -772,7 +816,7 @@ class ServerTests(unittest.TestCase):
 
     def test_review_diary_list_returns_latest_entry_summary(self):
         with TemporaryDirectory() as directory:
-            diary_dir = Path(directory) / "workbench" / "targets"
+            diary_dir = Path(directory) / "workbench" / "journal"
             append_review_diary_entry(
                 {
                     "trackingId": "tracking-1",
@@ -798,6 +842,7 @@ class ServerTests(unittest.TestCase):
             payload = list_review_diaries(diary_dir)
 
         self.assertEqual(payload["count"], 1)
+        self.assertEqual(payload["entryCount"], 2)
         self.assertEqual(payload["items"][0]["name"], "航天电子")
         self.assertEqual(payload["items"][0]["code"], "600879")
         self.assertEqual(payload["items"][0]["entryCount"], 2)
@@ -805,7 +850,15 @@ class ServerTests(unittest.TestCase):
         self.assertEqual(payload["items"][0]["latestTime"], "10:30")
         self.assertEqual(payload["items"][0]["latestStatus"], "持有")
         self.assertEqual(payload["items"][0]["excerpt"], "第二条复盘，等待次日承接。")
-        self.assertEqual(payload["items"][0]["path"], "workbench/targets/600879-航天电子-复盘日记.md")
+        self.assertEqual(payload["items"][0]["path"], "workbench/journal/600879-航天电子-复盘日记.md")
+        self.assertTrue(payload["items"][0]["obsidianUrl"].startswith("obsidian://open?path="))
+        self.assertEqual(len(payload["items"][0]["entries"]), 2)
+        self.assertEqual(payload["items"][0]["entries"][0]["date"], "2026-08-13")
+        self.assertEqual(payload["items"][0]["entries"][0]["time"], "10:30")
+        self.assertEqual(payload["items"][0]["entries"][0]["status"], "持有")
+        self.assertEqual(payload["items"][0]["entries"][0]["excerpt"], "第二条复盘，等待次日承接。")
+        self.assertEqual(payload["items"][0]["entries"][1]["date"], "2026-08-12")
+        self.assertEqual(payload["items"][0]["entries"][1]["excerpt"], "第一条复盘。")
 
     def test_review_diary_payload_rejects_invalid_code(self):
         with self.assertRaises(ValueError):
@@ -962,7 +1015,7 @@ class ServerTests(unittest.TestCase):
                 fetcher=self.fake_fetch,
                 dashboard_path=dashboard,
                 portfolio_path=Path(directory) / "portfolio.json",
-                review_diary_dir=Path(directory) / "workbench" / "targets",
+                review_diary_dir=Path(directory) / "workbench" / "journal",
                 node_executable=sys.executable,
             )
             thread = Thread(target=server.serve_forever, daemon=True)
@@ -1133,7 +1186,29 @@ class ServerTests(unittest.TestCase):
             with urlopen(request, timeout=3) as response:
                 saved = json.loads(response.read().decode("utf-8"))
 
-        self.assertEqual(saved["path"], "workbench/targets/600879-航天电子-复盘日记.md")
+        self.assertEqual(saved["path"], "workbench/journal/600879-航天电子-复盘日记.md")
+        self.assertTrue(saved["obsidianUrl"].startswith("obsidian://open?path="))
+
+    def test_review_diary_api_writes_market_index_file(self):
+        payload = {
+            "trackingId": "review-diary-market-index",
+            "code": "market-index",
+            "name": "大盘指数",
+            "status": "观察",
+            "content": "大盘指数复盘记录。",
+        }
+        with running_server(self.fake_fetch) as base:
+            request = Request(
+                f"{base}/api/review-diary",
+                data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+                headers={"Content-Type": "application/json"},
+                method="POST",
+            )
+            with urlopen(request, timeout=3) as response:
+                saved = json.loads(response.read().decode("utf-8"))
+
+        self.assertEqual(saved["path"], "workbench/journal/market-index-大盘指数-复盘日记.md")
+        self.assertTrue(saved["obsidianUrl"].startswith("obsidian://open?path="))
 
     def test_review_diary_api_lists_saved_diaries(self):
         payload = {

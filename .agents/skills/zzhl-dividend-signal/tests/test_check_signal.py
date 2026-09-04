@@ -368,5 +368,40 @@ class CsvHeaderLabelTest(unittest.TestCase):
         self.assertGreater(sheet.column_dimensions["A"].width, 9)
 
 
+class MonthlyPerformanceTest(unittest.TestCase):
+    def test_monthly_returns_are_persisted_and_compound_to_annual(self):
+        daily = pd.DataFrame({
+            'date': ['2026-01-05', '2026-01-30', '2026-02-27', '2026-03-03'],
+            'close': [100, 110, 99, 132],
+        })
+        annual = check_signal.calculate_annual_performance(daily, 'date', 'close', datetime(2026, 3, 3))
+        months = annual[0].monthly_returns
+        self.assertEqual(len(months), 12)
+        self.assertAlmostEqual(months[0]['value'], 10)
+        self.assertAlmostEqual(months[1]['value'], -10)
+        compounded = 1
+        for month in months[:3]:
+            compounded *= 1 + month['value'] / 100
+        self.assertAlmostEqual((compounded - 1) * 100, annual[0].annual_return)
+        self.assertEqual(months[2]['status'], '月内累计')
+        self.assertEqual(months[2]['startDate'], '2026-02-27')
+        self.assertIsNone(months[3]['value'])
+        self.assertEqual(months[3]['status'], '未开始')
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'annual.json'
+            check_signal.write_annual_performance_json(annual, path, 'test')
+            payload = json.loads(path.read_text(encoding='utf-8'))
+        self.assertEqual(payload['rows'][0]['monthly_returns'], months)
+
+    def test_missing_month_does_not_become_a_multi_month_return(self):
+        daily = pd.DataFrame({'date': ['2008-05-26', '2008-05-30', '2008-07-31'], 'close': [100, 90, 120]})
+        months = check_signal.calculate_annual_performance(daily, 'date', 'close', datetime(2026, 9, 3))[0].monthly_returns
+        self.assertIsNone(months[0]['value'])
+        self.assertAlmostEqual(months[4]['value'], -10)
+        self.assertIsNone(months[5]['value'])
+        self.assertIsNone(months[6]['value'])
+        self.assertEqual(months[6]['status'], '数据不足')
+
+
 if __name__ == "__main__":
     unittest.main()

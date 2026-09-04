@@ -69,6 +69,16 @@ body {
 .tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
 .tracking-value.bad { color: var(--danger); }
 
+.tracking-card[data-tracking-key="fair-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
+.pricing-levels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+.pricing-level { display: flex; align-items: center; justify-content: center; min-height: 34px; padding: 5px 7px; border: 1px solid #d5e0e3; border-radius: 8px; color: #607580; background: #f4f7f8; font-size: 12px; line-height: 1.25; font-weight: 750; text-align: center; }
+.pricing-level.active { border-color: transparent; box-shadow: 0 0 0 2px rgba(15, 50, 70, .08); }
+.pricing-level-premium.active { color: #17604e; background: #dff3eb; }
+.pricing-level-overvalued.active { color: #86610d; background: #fff0bd; }
+.pricing-level-bubble.active { color: #9b4d10; background: #ffe3c9; }
+.pricing-level-severe.active { color: var(--danger); background: var(--danger-bg); }
+.tracking-detail { margin: 11px 0 0; color: var(--ink-soft); font-size: 13px; line-height: 1.65; }
+
 @media (max-width: 980px) {
   .hero { padding: 40px 30px 34px; }
   .layout { grid-template-columns: 1fr; }
@@ -103,7 +113,7 @@ body {
     <header class="hero">
       <p class="eyebrow">BBXM EQUITY VALUATION · 000426.SZ</p>
       <h1>兴业银锡机构级决策研报</h1>
-      <div class="hero-meta"><span>2026-08-31 10:28（Asia/Shanghai）</span><span>2026-08-31</span><span>深圳证券交易所 / 人民币</span></div>
+      <div class="hero-meta"><span>2026-09-03 09:51（Asia/Shanghai）</span><span>2026-09-03</span><span>深圳证券交易所 / 人民币</span></div>
     </header>
     <div class="layout">
       <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 估值摘要</a>
@@ -112,19 +122,22 @@ body {
 <a class="toc-link" href="#section-4">4. 估值结果与交易溢价</a>
 <a class="toc-link" href="#section-5">5. 风险与结论</a></div></aside>
       <article class="content"><blockquote>
-<p>证券代码：000426.SZ<br>交易所 / 币种：深圳证券交易所 / 人民币<br>研究截止时间：2026-08-31 10:28（Asia/Shanghai）<br>报告生成时间：2026-08-31<br>估值基准日：2026-08-31；行情价格为2026-08-28收盘<br>产业思维报告：未获取到同标的产业思维分析；读取 <a href="../../../../workbench/targets/2026-08-19-1603-兴业银锡-三要素分析.md">三要素分析</a> 与原研报产业底稿。公司对银锡价格为高暴露，已按通胀传导参考将商品价格、产量、利润率与现金流分别进入情景。<br>数据口径：本地Tushare结构化三表、财务指标、行情、资金和股东户数；2026H1法定披露公告日已核对。直接PDF链接未获取到，关键数字以法定披露结构化数据为准。</p>
+<p>证券代码：000426.SZ<br>交易所 / 币种：深圳证券交易所 / 人民币<br>研究截止时间：2026-09-03 09:51（Asia/Shanghai）
+报告生成时间：2026-09-03
+估值基准日：2026-09-03；行情价格为2026-09-02收盘
+产业思维报告：未获取到同标的产业思维分析；读取 <a href="../../../../workbench/targets/2026-08-19-1603-兴业银锡-三要素分析.md">三要素分析</a> 与原研报产业底稿。公司对银锡价格为高暴露，已按通胀传导参考将商品价格、产量、利润率与现金流分别进入情景。<br>数据口径：本地Tushare结构化三表、财务指标、行情、资金和股东户数；2026H1法定披露与2026-09-03银漫选矿尾矿系统复产公告已核对。选矿尾矿系统复产不等于采区复产，缺失的产量和整改成本未作假设填充。</p>
 </blockquote>
 <!-- DAILY_TRACKING_START -->
-<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-08-31 10:28（Asia/Shanghai，重大公告后；行情为最近完成交易日收盘）">
+<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-09-03 09:51（Asia/Shanghai，重大公告后；行情为2026-09-02收盘）">
   <div class="daily-tracking-head">
     <div><p class="daily-tracking-kicker">Daily valuation tracker</p><h2>每日跟踪面板</h2></div>
-    <p class="daily-tracking-time">更新：2026-08-31 10:28（Asia/Shanghai，重大公告后；行情为最近完成交易日收盘）<br>下次：收盘后 / 财报或重大公告后</p>
+    <p class="daily-tracking-time">更新：2026-09-03 09:51（Asia/Shanghai，重大公告后；行情为2026-09-02收盘）<br>下次：收盘后 / 财报或重大公告后</p>
   </div>
   <div class="tracking-grid">
-    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">改善但周期与事件风险高；H1利润、毛利与现金流显著增强，银漫停复产和威领投入仍约束上沿。</p></div>
-    <div class="tracking-card" data-tracking-key="fair-value-range"><p class="tracking-label">公允价值范围</p><p class="tracking-value">24—39元；中枢31.5元；估值基准日2026-08-31。</p></div>
-    <div class="tracking-card" data-tracking-key="trading-premium"><p class="tracking-label">交易溢价</p><p class="tracking-value bad">41.58元，2026-08-28收盘；相对中枢+32.0%，相对上限+6.6%；高溢价。</p></div>
-    <div class="tracking-card" data-tracking-key="capital-and-holders"><p class="tracking-label">资金与筹码</p><p class="tracking-value">8月1—28日资金分档净额合计约+18.09亿元；股东户数6月末22.25万户、7月31日21.34万户，筹码略集中。价格、资金与业绩同向，但不能替代周期正常化。</p></div>
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">改善但待确认；H1利润、毛利与现金流显著增强，2026-09-03选矿尾矿系统复产释放部分停产风险，但采区仍未复产。</p></div>
+    <div class="tracking-card" data-tracking-key="fair-value-range"><p class="tracking-label">公允价值范围</p><p class="tracking-value">24—39元；中枢31.5元；估值基准日2026-09-03。</p></div>
+    <div class="tracking-card" data-tracking-key="pricing-deviation"><p class="tracking-label">交易定价偏离</p><div class="pricing-levels"><span class="pricing-level pricing-level-premium">估值溢价</span><span class="pricing-level pricing-level-overvalued">普通高估</span><span class="pricing-level pricing-level-bubble">估值泡沫</span><span class="pricing-level pricing-level-severe">严重估值泡沫</span></div><p class="tracking-detail">当前判断：公允价值内（靠近上沿）；38.02元，2026-09-02收盘；相对中枢+20.7%，相对上限-2.5%；质量与周期已在正常化利润和倍数中计入，未单列额外溢价。</p></div>
+    <div class="tracking-card" data-tracking-key="capital-and-holders"><p class="tracking-label">资金与筹码</p><p class="tracking-value">近5/20日大单与特大单净额约-7.76/-2.99亿元；融资余额46.43亿元，近20日+10.13%；股东人数最新可比序列未新增。杠杆与大额资金方向分歧，不能替代周期正常化。</p></div>
   </div>
 </section>
 <!-- DAILY_TRACKING_END -->
@@ -140,23 +153,23 @@ body {
 </thead>
 <tbody><tr>
 <td>基本面状态</td>
-<td>改善但周期与事件风险高；H1利润、毛利与现金流显著增强，银漫停复产和威领投入仍约束上沿。</td>
+<td>改善但待确认；H1利润、毛利与现金流显著增强，2026-09-03选矿尾矿系统复产释放部分停产风险，但采区仍未复产。</td>
 </tr>
 <tr>
 <td>公允价值范围</td>
-<td>24—39元；中枢31.5元；估值基准日2026-08-31。</td>
+<td>24—39元；中枢31.5元；估值基准日2026-09-03。</td>
 </tr>
 <tr>
-<td>交易溢价</td>
-<td>41.58元，2026-08-28收盘；相对中枢+32.0%，相对上限+6.6%；高溢价。</td>
+<td>交易定价偏离</td>
+<td>当前判断：公允价值内（靠近上沿）；38.02元，2026-09-02收盘；相对中枢+20.7%，相对上限-2.5%；质量与周期已在正常化利润和倍数中计入，未单列额外溢价。</td>
 </tr>
 <tr>
 <td>资金与筹码</td>
-<td>8月1—28日资金分档净额合计约+18.09亿元；股东户数6月末22.25万户、7月31日21.34万户，筹码略集中。价格、资金与业绩同向，但不能替代周期正常化。</td>
+<td>近5/20日大单与特大单净额约-7.76/-2.99亿元；融资余额46.43亿元，近20日+10.13%；股东人数最新可比序列未新增。杠杆与大额资金方向分歧，不能替代周期正常化。</td>
 </tr>
 <tr>
 <td>每日跟踪时间</td>
-<td>2026-08-31 10:28（Asia/Shanghai，重大公告后；行情为最近完成交易日收盘）</td>
+<td>2026-09-03 09:51（Asia/Shanghai，重大公告后；行情为2026-09-02收盘）</td>
 </tr>
 </tbody></table>
 <h3>1.2 估值结论</h3>
@@ -189,23 +202,23 @@ body {
 </tr>
 <tr>
 <td>当前价格及时间</td>
-<td>41.58元，人民币，2026-08-28收盘。</td>
+<td>38.02元，人民币，2026-09-02收盘。</td>
 </tr>
 <tr>
 <td>保守安全边际</td>
-<td>-73.3%</td>
+<td>-58.4%</td>
 </tr>
 <tr>
 <td>中枢潜在回报</td>
-<td>-24.2%</td>
+<td>-17.1%</td>
 </tr>
 <tr>
 <td>估值状态</td>
-<td>高溢价</td>
+<td>公允价值内（靠近上沿）</td>
 </tr>
 <tr>
 <td>当前动作</td>
-<td>review；半年报已完成重估，但不把单日价格变动写成基本面。</td>
+<td>review；已完成复产公告触发的全量重估，等待采区复产、Q3产量与整改成本，不把部分系统复产外推为全面恢复。</td>
 </tr>
 <tr>
 <td>结论置信度</td>
@@ -214,7 +227,7 @@ body {
 </tbody></table>
 <h3>1.3 一句话判断</h3>
 <blockquote>
-<p>银、锡、锌等矿山资源和金属价格共同决定利润。价格与产量上升会放大利润，安全事故停产、扩建资本开支和并购支出会放大现金波动。输入性/供给冲击对上游收入有利，但高点不得永久外推。 本次完整重估得到24—39元、中枢31.5元；现价41.58元对应高溢价，下一次结论变化取决于第5章触发器。</p>
+<p>银、锡、锌价格与可售产量共同决定利润；选矿尾矿系统复产只释放部分停产风险，采区尚未复产。全量复核后维持24—39元、中枢31.5元；38.02元位于区间内靠近上沿，下一次结论变化取决于采区复产、Q3产销量、金属价格和威领投入。</p>
 </blockquote>
 <h2 id="section-2">2. 估值基础</h2>
 
@@ -266,10 +279,10 @@ body {
 </tr>
 <tr>
 <td>产业约束与失效条件</td>
-<td>见第5章</td>
+<td>选矿尾矿系统已复产，采区仍在整改；见第5章</td>
 <td>压低上沿并设重估触发器</td>
 <td>是</td>
-<td>2026H1与原研报</td>
+<td>2026H1与2026-09-03公司公告</td>
 </tr>
 </tbody></table>
 <h3>2.2 价值创造链与分部</h3>
@@ -309,7 +322,7 @@ body {
 <td>扭亏、债务与后续注资</td>
 </tr>
 </tbody></table>
-<p>2026H1收入42.82亿元（同比+73.13%）、归母22.63亿元（+184.44%）、扣非18.16亿元（+126.60%）、CFO 21.13亿元（+28.45%）、FCF代理17.09亿元；毛利率68.75%（+11.86pct）。</p>
+<p>2026H1收入42.82亿元（同比+73.13%）、归母22.63亿元（+184.44%）、扣非18.16亿元（+126.60%）、CFO 21.13亿元（+28.45%）、FCF代理17.09亿元；毛利率68.75%（+11.86pct）。2026-09-03选矿尾矿系统复产，但采区继续整改，尚不能确认新增可售产量。</p>
 <h3>2.3 三至五年财务与最新期</h3>
 <table>
 <thead>
@@ -391,7 +404,7 @@ body {
 <p>单位：亿元，股本为亿股；自由现金流代理=CFO－购建固定资产等现金支出。年度与半年度不可直接相加；并购重组或股本变化时优先使用法定可比口径。</p>
 </blockquote>
 <h3>2.4 正常化调整</h3>
-<p>H1受高金属价格和产能利用率影响，不简单年化。正常化归母净利润由旧22—28亿元上调为30—38亿元；乐观情景要求银漫复产、金属价格维持和威领不形成新增拖累。</p>
+<p>H1受高金属价格和产能利用率影响，不简单年化。正常化归母净利润维持30—38亿元；乐观情景仍要求银漫采区复产、金属价格维持和威领不形成新增拖累。选矿尾矿系统复产降低停产尾端约束，但因采区仍停产且产量、库存矿与整改成本未披露，不上调正常化利润。</p>
 <table>
 <thead>
 <tr>
@@ -539,7 +552,7 @@ body {
 <p>未取得同日完整可比公司组的统一预测口径，不填伪精确可比倍数；模型倍数以公司历史、价值类型、ROE/现金质量和原研报区间交叉约束。</p>
 </blockquote>
 <h3>3.4 反向估值</h3>
-<p>41.58元对应约738亿元市值；按15—16倍PE反推46—49亿元正常化利润，明显高于30—38亿元基准区间，现价要求高金属价格、较快复产与并购不拖累同时成立。</p>
+<p>38.02元对应约675亿元市值；按15—16倍PE反推约42—45亿元正常化利润，仍高于30—38亿元正常化区间。现价接近上沿，要求银漫采区较快复产、金属价格维持与并购不拖累共同成立。</p>
 <table>
 <thead>
 <tr>
@@ -634,21 +647,21 @@ body {
 <td>悲观</td>
 <td>盈利/现金位于悲观假设，倍数收缩</td>
 <td align="right">24元</td>
-<td align="right">-42.3%</td>
+<td align="right">-36.9%</td>
 <td>第5章负向触发</td>
 </tr>
 <tr>
 <td>基准</td>
 <td>H1趋势部分延续，周期与现金正常化</td>
 <td align="right">31.5元</td>
-<td align="right">-24.2%</td>
+<td align="right">-17.1%</td>
 <td>核心指标符合基准</td>
 </tr>
 <tr>
 <td>乐观</td>
-<td>盈利、现金与产业验证同向</td>
+<td>采区复产、盈利、现金与产业验证同向</td>
 <td align="right">39元</td>
-<td align="right">-6.2%</td>
+<td align="right">+2.6%</td>
 <td>第5章正向验证</td>
 </tr>
 </tbody></table>
@@ -680,7 +693,7 @@ body {
 <td align="right">39元</td>
 </tr>
 </tbody></table>
-<h3>4.3 现价与交易溢价</h3>
+<h3>4.3 市场价格分解与估值泡沫判断</h3>
 <table>
 <thead>
 <tr>
@@ -691,8 +704,8 @@ body {
 </thead>
 <tbody><tr>
 <td>当前价格</td>
-<td align="right">41.58元</td>
-<td>2026-08-28收盘</td>
+<td align="right">38.02元</td>
+<td>2026-09-02收盘</td>
 </tr>
 <tr>
 <td>公允价值下限</td>
@@ -711,33 +724,88 @@ body {
 </tr>
 <tr>
 <td>相对中枢溢价率</td>
-<td align="right">+32.0%</td>
+<td align="right">+20.7%</td>
 <td>当前价格÷中枢－1</td>
 </tr>
 <tr>
 <td>相对上限偏离率</td>
-<td align="right">+6.6%</td>
+<td align="right">-2.5%</td>
 <td>当前价格÷上限－1</td>
 </tr>
 <tr>
+<td>上沿外偏离金额</td>
+<td align="right">0元</td>
+<td>max(0，当前价格－上限)</td>
+</tr>
+<tr>
 <td>中枢潜在回报</td>
-<td align="right">-24.2%</td>
+<td align="right">-17.1%</td>
 <td>中枢÷当前价格－1</td>
 </tr>
 <tr>
 <td>保守安全边际</td>
-<td align="right">-73.3%</td>
+<td align="right">-58.4%</td>
 <td>1－当前价格÷下限</td>
 </tr>
 <tr>
-<td>交易溢价状态</td>
-<td align="right">高溢价</td>
-<td>基本面价值与交易偏离分开判断</td>
+<td>可解释估值溢价</td>
+<td align="right">未单独量化</td>
+<td>H1质量与周期景气已进入正常化利润和周期PE，避免重复计价</td>
+</tr>
+<tr>
+<td>交易定价偏离估算</td>
+<td align="right">证据不足</td>
+<td>区间内接近上沿；缺少可独立量化的额外质量溢价与账户级交易证据</td>
+</tr>
+<tr>
+<td>交易定价偏离状态</td>
+<td align="right">公允价值内（靠近上沿）</td>
+<td>反向估值仍偏乐观，但未越过合理乐观上沿</td>
 </tr>
 </tbody></table>
 <p>质量、成长和周期已经进入正常化利润、倍数和情景，不再另加“质量溢价”。资金流只用于判断交易溢价持续性，不改变内在价值。</p>
+<table>
+<thead>
+<tr>
+<th>判断层</th>
+<th>结论</th>
+<th>支持证据</th>
+<th>反证 / 缺口</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>价格位置</td>
+<td>公允价值内、靠近上沿</td>
+<td>38.02元低于39元上沿</td>
+<td>相对31.5元中枢仍溢价20.7%</td>
+</tr>
+<tr>
+<td>反向估值可实现性</td>
+<td>偏乐观但存在路径</td>
+<td>隐含约42—45亿元正常化利润，H1强盈利与部分系统复产提供支点</td>
+<td>高于30—38亿元区间，仍依赖采区复产和高商品价</td>
+</tr>
+<tr>
+<td>经营兑现</td>
+<td>基本盘已验证、Q3待确认</td>
+<td>H1利润、毛利与现金流同向改善</td>
+<td>采区复产、产量和整改成本未披露</td>
+</tr>
+<tr>
+<td>交易驱动</td>
+<td>承接偏弱</td>
+<td>价格仍在区间内</td>
+<td>近5日大额资金流出、20日融资增长快于价格</td>
+</tr>
+<tr>
+<td>正常化压力测试</td>
+<td>区间仍可用</td>
+<td>悲观情景24元、基准31.5元已纳入周期回归</td>
+<td>若采区长期停产或正常化利润低于27亿元需下修</td>
+</tr>
+</tbody></table>
 <h3>4.4 资金、筹码与交易方画像</h3>
-<p>8月1—28日资金分档净额合计约+18.09亿元；股东户数6月末22.25万户、7月31日21.34万户，筹码略集中。价格、资金与业绩同向，但不能替代周期正常化。</p>
+<p>截至2026-09-02，近5/10/20/60日全口径资金净额约-0.22/+0.13/+1.75/-9.43亿元，大单与特大单净额约-7.76/+4.67/-2.99/-5.40亿元；融资余额46.43亿元，近20日+10.13%、同期股价+4.74%。短线大额资金流出与杠杆上升方向分歧，不能替代周期正常化。</p>
 <table>
 <thead>
 <tr>
@@ -750,10 +818,17 @@ body {
 </thead>
 <tbody><tr>
 <td>大额资金分档</td>
-<td>见上文</td>
-<td>2026-08-01至08-28</td>
-<td>仅作交易结构代理</td>
+<td>近5/20日大单与特大单净额约-7.76/-2.99亿元</td>
+<td>截至2026-09-02</td>
+<td>短线承接偏弱，只作交易结构代理</td>
 <td>Tushare moneyflow</td>
+</tr>
+<tr>
+<td>融资余额与杠杆</td>
+<td>46.43亿元；20日+10.13%</td>
+<td>截至2026-09-02</td>
+<td>杠杆增速快于同期股价，增加高位承接脆弱性</td>
+<td>Tushare margin_detail</td>
 </tr>
 <tr>
 <td>换手与成交</td>
@@ -782,6 +857,296 @@ body {
 <li>溢价持续性：中等或证据不足。</li>
 <li>主要反证：资金与价格可能在基本面不变时快速反转。</li>
 </ul>
+<h3>4.5 估值泡沫32项触发扫描</h3>
+<table>
+<thead>
+<tr>
+<th>触发类型</th>
+<th>观察项</th>
+<th>状态</th>
+<th>当前证据与时间</th>
+<th>对主估值锚 / 传导链的影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>现金流断点</td>
+<td>资本开支规模</td>
+<td>有利</td>
+<td>2026H1资本开支代理约4.04亿元，低于CFO 21.13亿元</td>
+<td>当前内部造血覆盖主要投入</td>
+</tr>
+<tr>
+<td>现金流断点</td>
+<td>经营现金流</td>
+<td>有利</td>
+<td>2026H1 CFO 21.13亿元，同比+28.45%</td>
+<td>支持正常化利润质量</td>
+</tr>
+<tr>
+<td>现金流断点</td>
+<td>自由现金流</td>
+<td>有利</td>
+<td>2026H1 FCF代理17.09亿元</td>
+<td>未形成现金流断点</td>
+</tr>
+<tr>
+<td>现金流断点</td>
+<td>投资资金来源</td>
+<td>证据不足</td>
+<td>威领控制权与扩建投入的最终资金组合未披露</td>
+<td>上沿仍需融资与现金占用复核</td>
+</tr>
+<tr>
+<td>现金流断点</td>
+<td>融资停止后的可持续性</td>
+<td>证据不足</td>
+<td>核心矿山具造血能力，但威领和扩建的独立融资依赖未拆分</td>
+<td>不下调基本盘，限制并购增量估值</td>
+</tr>
+<tr>
+<td>盈利不匹配</td>
+<td>原材料与中间品成本</td>
+<td>证据不足</td>
+<td>未取得Q3逐矿能源、药剂和采选成本</td>
+<td>无法确认复产后的单位成本</td>
+</tr>
+<tr>
+<td>盈利不匹配</td>
+<td>定价权与成本转嫁</td>
+<td>不适用</td>
+<td>银锡锌为市场定价商品，公司不是终端提价型企业</td>
+<td>以商品价格和成本曲线替代提价判断</td>
+</tr>
+<tr>
+<td>盈利不匹配</td>
+<td>营收向利润的转化</td>
+<td>有利</td>
+<td>2026H1收入+73.13%、扣非利润+126.60%</td>
+<td>H1利润转化支持主锚</td>
+</tr>
+<tr>
+<td>盈利不匹配</td>
+<td>利润向自由现金流的转化</td>
+<td>有利</td>
+<td>2026H1归母22.63亿元、FCF代理17.09亿元</td>
+<td>现金转换仍为正向验证</td>
+</tr>
+<tr>
+<td>宏观：货币条件收缩</td>
+<td>通胀</td>
+<td>证据不足</td>
+<td>公司为资源上游高暴露；截至本次未取得同日完整通胀窗口</td>
+<td>商品受益与金融收紧不能互相替代</td>
+</tr>
+<tr>
+<td>宏观：货币条件收缩</td>
+<td>政策利率与债券收益率</td>
+<td>证据不足</td>
+<td>未取得与估值基准日一致的完整利率序列</td>
+<td>不据此调整周期PE</td>
+</tr>
+<tr>
+<td>宏观：货币条件收缩</td>
+<td>信用与融资条件</td>
+<td>证据不足</td>
+<td>未取得公司新增借款成本与信用利差</td>
+<td>限制并购和扩建资金判断</td>
+</tr>
+<tr>
+<td>宏观：货币条件收缩</td>
+<td>高投资项目对低成本资金的依赖</td>
+<td>证据不足</td>
+<td>扩建与威领投入存在，但项目级资金成本未披露</td>
+<td>不把低成本融资假设写入上沿</td>
+</tr>
+<tr>
+<td>中观：政策与主线资金迁移</td>
+<td>监管与产业政策</td>
+<td>逆转</td>
+<td>2026-09-03仅选矿尾矿系统复产，采区仍受安全整改约束</td>
+<td>直接约束可售产量，击中正常化利润主锚</td>
+</tr>
+<tr>
+<td>中观：政策与主线资金迁移</td>
+<td>ETF申赎</td>
+<td>证据不足</td>
+<td>未取得银锡相关ETF同窗口申赎</td>
+<td>不能确认板块增量资金</td>
+</tr>
+<tr>
+<td>中观：政策与主线资金迁移</td>
+<td>基金仓位</td>
+<td>证据不足</td>
+<td>未取得主动基金最新仓位</td>
+<td>不能识别长期配置资金</td>
+</tr>
+<tr>
+<td>中观：政策与主线资金迁移</td>
+<td>主线增量资金</td>
+<td>证据不足</td>
+<td>20日全口径净额+1.75亿元，但大额净额-2.99亿元</td>
+<td>资金质量未形成同向确认</td>
+</tr>
+<tr>
+<td>微观：杠杆和承接逆转</td>
+<td>融资余额增速</td>
+<td>逆转</td>
+<td>融资余额46.43亿元，近20日+10.13%，同期股价+4.74%</td>
+<td>杠杆增速快于价格，承接脆弱性上升</td>
+</tr>
+<tr>
+<td>微观：杠杆和承接逆转</td>
+<td>新增融资集中度</td>
+<td>证据不足</td>
+<td>缺行业和账户层新增融资分布</td>
+<td>不能确认是否拥挤集中</td>
+</tr>
+<tr>
+<td>微观：杠杆和承接逆转</td>
+<td>股价对杠杆资金的依赖</td>
+<td>证据不足</td>
+<td>杠杆上升与大额资金流出并存，但因果身份不可识别</td>
+<td>只作为风险放大器观察</td>
+</tr>
+<tr>
+<td>微观：杠杆和承接逆转</td>
+<td>龙头表现</td>
+<td>证据不足</td>
+<td>缺银锡龙头同口径连续相对强弱</td>
+<td>不用单股价格替代行业龙头证据</td>
+</tr>
+<tr>
+<td>微观：杠杆和承接逆转</td>
+<td>市场广度</td>
+<td>证据不足</td>
+<td>未取得银锡板块连续广度</td>
+<td>无法判断扩散或收缩</td>
+</tr>
+<tr>
+<td>微观：杠杆和承接逆转</td>
+<td>获利资金与回调承接</td>
+<td>逆转</td>
+<td>近5日股价-5.52%，大单与特大单净流出7.76亿元</td>
+<td>短线获利盘退出、承接转弱</td>
+</tr>
+<tr>
+<td>叙事耗尽</td>
+<td>价格隐含的增长年限</td>
+<td>有利</td>
+<td>38.02元仍在24—39元区间内</td>
+<td>未按多年极端增长一次性定价</td>
+</tr>
+<tr>
+<td>叙事耗尽</td>
+<td>产业进度与远期预期的距离</td>
+<td>逆转</td>
+<td>价格靠近乐观上沿，但采区仍未复产</td>
+<td>现实产量落后于乐观情景要求</td>
+</tr>
+<tr>
+<td>叙事耗尽</td>
+<td>新信息对盈利预测的推动</td>
+<td>逆转</td>
+<td>选矿尾矿系统复产，缺采区复产与产量数据，无法上修利润</td>
+<td>利好尚未推动可审计预测上修</td>
+</tr>
+<tr>
+<td>叙事耗尽</td>
+<td>同类利好的边际反应</td>
+<td>证据不足</td>
+<td>公告披露于盘后，尚无完整交易日反应</td>
+<td>等待下一交易日验证</td>
+</tr>
+<tr>
+<td>财报与真实经营接管定价</td>
+<td>财报披露节点</td>
+<td>有利</td>
+<td>2026H1收入、扣非、CFO与毛利率同向改善</td>
+<td>财报支持基本盘</td>
+</tr>
+<tr>
+<td>财报与真实经营接管定价</td>
+<td>订单、收入与利润的一致性</td>
+<td>证据不足</td>
+<td>Q3采区停产对产销量与利润的影响未披露</td>
+<td>等待Q3分矿产量和收入</td>
+</tr>
+<tr>
+<td>财报与真实经营接管定价</td>
+<td>利润与现金流的一致性</td>
+<td>有利</td>
+<td>2026H1归母22.63亿元、CFO21.13亿元</td>
+<td>利润现金匹配</td>
+</tr>
+<tr>
+<td>财报与真实经营接管定价</td>
+<td>真实应用与产品验证</td>
+<td>不适用</td>
+<td>成熟矿山采选业务，不存在产品应用商业化验证</td>
+<td>以复产、产量和回收率替代</td>
+</tr>
+<tr>
+<td>财报与真实经营接管定价</td>
+<td>实际业绩与价格隐含预期</td>
+<td>逆转</td>
+<td>现价按15—16倍PE隐含约42—45亿元正常化利润，高于30—38亿元区间</td>
+<td>靠近上沿需要采区复产和高商品价共同验证</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>扫描维度</th>
+<th align="right">项目数</th>
+<th align="right">有利</th>
+<th align="right">逆转</th>
+<th align="right">证据不足</th>
+<th align="right">不适用</th>
+<th>击中主估值锚的关键逆转</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本面触发</td>
+<td align="right">9</td>
+<td align="right">5</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td>无；H1现金流仍支持基本盘</td>
+</tr>
+<tr>
+<td>流动性触发</td>
+<td align="right">14</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">11</td>
+<td align="right">0</td>
+<td>采区安全整改直接约束产量；融资和回调承接为放大器</td>
+</tr>
+<tr>
+<td>预期触发</td>
+<td align="right">9</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td>乐观价格位置与未复产采区之间存在缺口</td>
+</tr>
+<tr>
+<td>合计</td>
+<td align="right">32</td>
+<td align="right">8</td>
+<td align="right">6</td>
+<td align="right">16</td>
+<td align="right">2</td>
+<td>采区复产与正常化利润验证仍是主矛盾</td>
+</tr>
+</tbody></table>
+<ul>
+<li>跨表传导链：早期信号；采区未复产压制产量验证，价格仍靠近上沿，同时融资20日上升、短线大额资金流出，已形成“基本面待确认—预期偏乐观—承接转弱”的早期链条，但尚未由季度利润下修确认。</li>
+<li>泡沫出清状态：出清观察。</li>
+<li>扫描结论：公允价值区间仍有效，现价未越过上沿，不能判定估值泡沫；采区未复产、杠杆与承接逆转要求继续观察。</li>
+</ul>
 <h2 id="section-5">5. 风险与结论</h2>
 
 <h3>5.1 估值风险与失效条件</h3>
@@ -798,9 +1163,9 @@ body {
 <tbody><tr>
 <td>银漫停复产不确定</td>
 <td>产量 / 利润</td>
-<td>已触发观察</td>
-<td>正式复产与整改成本未获取到</td>
-<td>完整重估</td>
+<td>部分释放、继续观察</td>
+<td>选矿尾矿系统2026-09-03复产；采区复产、产量损失与整改成本未获取到</td>
+<td>本次完整重估已完成；采区复产后再复核</td>
 </tr>
 <tr>
 <td>银锡价格均值回归</td>
@@ -820,9 +1185,9 @@ body {
 <h3>5.2 最终结论</h3>
 <ul>
 <li>企业价值主类型与主估值锚：周期资源；正常化归母净利润 × 周期PE；PB/NAV、现金收益率和反向估值交叉验证。</li>
-<li>公允价值范围及区间含义：24—39元，中枢31.5元；下限对应保守经营，上限要求合理乐观证据。</li>
-<li>当前交易溢价及来源：高溢价；相对中枢+32.0%，主要由基本面兑现与交易预期共同形成。</li>
-<li>资金与筹码对溢价的支持度：中等 / 证据不足，不抬高内在价值。</li>
+<li>公允价值范围及区间含义：24—39元，中枢31.5元；2026-09-03全量重估维持不变，下限对应保守经营，上限要求采区复产和合理乐观证据。</li>
+<li>当前市场价格分解、交易定价偏离及泡沫状态：38.02元位于区间内靠近上沿；质量与周期已计入模型，额外溢价未单独量化；交易定价偏离证据不足，不构成泡沫结论。</li>
+<li>资金与筹码对溢价的支持度：偏弱 / 证据不足；短线大额资金流出而融资上升，不抬高内在价值。</li>
 <li>产业前提是否仍成立：未被H1推翻，但按第5.1节继续验证。</li>
 <li>当前动作：<code>review</code>。</li>
 <li>结论置信度：中。</li>
@@ -876,8 +1241,9 @@ body {
 <p><strong>来源清单</strong></p>
 <ol>
 <li>本地Tushare：income、balancesheet、cashflow、fina_indicator、daily、daily_basic、moneyflow、stk_holdernumber；财报期2026-06-30，公告日见法定披露字段；行情日2026-08-28。</li>
+<li><a href="../../../webpages/2026-09-03-持仓监控新增公告与重估证据快照.md">2026-09-03新增公告与重估证据快照</a>；<a href="https://np-cnotice-stock.eastmoney.com/api/content/ann?art_code=AN202609021828933225&client_source=web">银漫选矿尾矿系统复产公告</a>。</li>
 <li><a href="../../../webpages/2026-08-19-兴业银锡v3.0.2研报数据核验快照.md">历史核验快照</a>；<a href="https://money.finance.sina.com.cn/corp/go.php/vCB_AllBulletin/stockid/000426.phtml">公司公告索引</a>；<a href="https://news.smm.cn/live/detail/104034285">银漫停产公开报道</a>。</li>
-<li>原权威研报及其来源清单；本次原地迁移为bbxm-equity-research v4.0五章结构。</li>
+<li>原权威研报及其来源清单；本次按bbxm-equity-research v4.2.1完成全量重估与32项扫描。</li>
 </ol>
 <p><strong>声明</strong></p>
 <p>本报告基于指定截止时间前可获取的信息，公允价值是条件化区间而非确定价格；交易溢价可能在基本面不变时快速变化。本报告不构成收益承诺或替代个人风险判断。</p>

@@ -13,6 +13,7 @@ import {
   fetchJson,
   isLocalProxyLocation,
   requestTimeout,
+  parseCsindexPerformance,
 } from './adapters.mjs';
 import {
   EXAMPLE_SNAPSHOT,
@@ -36,8 +37,11 @@ const FUGUI_PROVIDER_STORAGE_KEY = 'a-share-market-dashboard:fugui-provider:v1';
 const MARGIN_BALANCE_CACHE_STORAGE_KEY = 'a-share-market-dashboard:margin-balance:one-year:v1';
 const FEATURED_DELETED_STORAGE_KEY = 'a-share-market-dashboard:featured-deleted:v1';
 const ACTIVE_VIEW_STORAGE_KEY = 'a-share-market-dashboard:active-view:v1';
+const NASDAQ_GRID_UNIT_AMOUNT_STORAGE_KEY = 'a-share-market-dashboard:nasdaq-grid-unit-amount:v1';
+const OBSIDIAN_VAULT_NAME = 'llmwiki';
 const TODO_ACTION_TIMEOUT_MS = 12_000;
 const TODO_ACTION_ORIGIN = 'http://127.0.0.1:49889';
+const REVIEW_DIARY_SAVE_TIMEOUT_MS = 12_000;
 const MARGIN_BALANCE_CACHE_MAX_AGE_MS = 24 * 60 * 60 * 1000;
 const FUGUI_STRATEGY_RULES = Object.freeze({
   allowedOwnership: new Set(['央企', '国企']),
@@ -46,9 +50,72 @@ const FUGUI_STRATEGY_RULES = Object.freeze({
 });
 const YOUZHIYOUXING_TEMPERATURE_URL = 'https://youzhiyouxing.cn/data';
 const NASDAQ100_SOURCE_URL = 'https://finance.yahoo.com/quote/%5ENDX/';
+export const NASDAQ_GRID_LEVELS = Object.freeze([
+  Object.freeze({ level: 1, drawdownPercent: -9, assumedPrice: 91, multiplier: 1 }),
+  Object.freeze({ level: 2, drawdownPercent: -12.5, assumedPrice: 87.5, multiplier: 1 }),
+  Object.freeze({ level: 3, drawdownPercent: -16, assumedPrice: 84, multiplier: 1.5 }),
+  Object.freeze({ level: 4, drawdownPercent: -19.5, assumedPrice: 80.5, multiplier: 1.5 }),
+  Object.freeze({ level: 5, drawdownPercent: -23, assumedPrice: 77, multiplier: 2 }),
+  Object.freeze({ level: 6, drawdownPercent: -26.5, assumedPrice: 73.5, multiplier: 2 }),
+  Object.freeze({ level: 7, drawdownPercent: -30, assumedPrice: 70, multiplier: 3 }),
+]);
+export function parseMarketTurnover(payload) {
+  const validDate = value => /^\d{4}-\d{2}-\d{2}$/.test(value ?? '')
+    && Number.isFinite(Date.parse(value)) && new Date(value).toISOString().slice(0, 10) === value;
+  if (payload?.unit !== '亿元' || payload?.scope !== '沪深股票'
+      || !validDate(payload.today) || !validDate(payload.startDate)) throw new Error('成交额口径或日期无效');
+  const byDate = new Map();
+  for (const point of payload.points ?? []) {
+    if (validDate(point?.date) && point.date >= payload.startDate && point.date <= payload.today
+        && typeof point.amount === 'number' && Number.isFinite(point.amount) && point.amount > 0) {
+      byDate.set(point.date, point);
+    }
+  }
+  const points = [...byDate.values()].sort((a, b) => a.date.localeCompare(b.date));
+  if (!points.length) throw new Error('暂无有效的沪深合计数据');
+  return { ...payload, points };
+}
+
+export function renderMarketTurnoverCard(entry = { status: 'loading' }, today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Shanghai' }).format(new Date())) {
+  const heading = '<div><h2 id="market-turnover-heading">每日成交额</h2><small>沪深两市 · 含 A/B 股 · 亿元</small></div>';
+  if (!entry.data) return `${heading}<p role="status">${entry.status === 'loading' ? '正在加载近一年数据…' : '成交额待验证'}</p><small>${escapeHtml(entry.error ?? '')}</small>`;
+  const { points, incompleteDays = 0 } = entry.data;
+  const latest = points.at(-1);
+  const current = points.find(point => point.date === today);
+  const high = points.reduce((a, b) => a.amount >= b.amount ? a : b);
+  const low = points.reduce((a, b) => a.amount <= b.amount ? a : b);
+  const ceiling = high.amount * 1.05;
+  const x = index => 4 + index / Math.max(1, points.length - 1) * 292;
+  const y = amount => 82 - amount / ceiling * 74;
+  const path = points.map((point, index) => `${index ? 'L' : 'M'}${x(index).toFixed(2)},${y(point.amount).toFixed(2)}`).join(' ');
+  return `${heading}
+    <div class="turnover-current"><small>今日成交额 · ${escapeHtml(today)}</small><strong>${current ? formatNumber(current.amount, 2) : '待更新'}</strong><small>${current ? '已发布日度统计' : `日度数据尚未发布 · 最近 ${latest.date}：${formatNumber(latest.amount, 2)}`}</small></div>
+    <figure class="turnover-chart">
+      <svg viewBox="0 0 300 88" role="img" aria-label="近一年沪深股票成交额曲线，单位亿元，纵轴从零开始">
+        <title>近一年成交额：${points[0].date} 至 ${latest.date}，${points.length} 个交易日</title>
+        <path d="M4,82 H296" stroke="#d5dde4"/>
+        <path d="${path}" fill="none" stroke="#0f8a78" stroke-width="1.6"/>
+        <circle id="turnover-selected-point" cx="${x(points.length - 1)}" cy="${y(latest.amount)}" r="3" fill="#d18a20"/>
+      </svg>
+      <figcaption><span>${points[0].date}</span><span>${latest.date}</span></figcaption>
+      <input id="turnover-date-slider" type="range" min="0" max="${points.length - 1}" value="${points.length - 1}" step="1" aria-label="查看每日成交额" aria-valuetext="${latest.date}，${formatNumber(latest.amount, 2)}亿元">
+      <output id="turnover-selected-value" for="turnover-date-slider">${latest.date} · ${formatNumber(latest.amount, 2)} 亿元</output>
+    </figure>
+    <div class="turnover-extrema"><div><small>近一年最高</small><strong>${formatNumber(high.amount, 2)}</strong><small>${high.date}</small></div><div><small>近一年最低</small><strong>${formatNumber(low.amount, 2)}</strong><small>${low.date}</small></div></div>
+    <small class="turnover-source"><a href="https://tushare.pro/document/2?doc_id=215" target="_blank" rel="noopener noreferrer">Tushare · 日度统计</a> · ${points.length} 日${incompleteDays ? ` · ${incompleteDays} 日缺少单边数据，已排除` : ''}${entry.status === 'missing' ? ` · 刷新失败，保留上次结果：${escapeHtml(entry.error)}` : ''}</small>`;
+}
+
 const CSI_DIVIDEND_SIGNAL_SOURCE_URL = '../../sources/automations/中证红利信号/最新信号.md';
 const CSI_DIVIDEND_ANNUAL_SOURCE_URL = '../../sources/automations/中证红利信号/中证红利年度表现.json';
 const HOLDING_STATUSES = new Set(['持有', '观察', '计划加仓', '计划减仓']);
+const REVIEW_DIARY_MARKET_TARGET = Object.freeze({
+  id: 'review-diary-market-index',
+  code: 'market-index',
+  name: '大盘指数',
+  status: '观察',
+});
+const REVIEW_DIARY_WEEKDAYS = Object.freeze(['周一', '周二', '周三', '周四', '周五', '周六', '周日']);
+const REVIEW_DIARY_MONTH_LABELS = Object.freeze(['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']);
 const TODO_QUADRANT_DEFINITIONS = Object.freeze([
   { label: '重要且紧急', shortLabel: 'Q1', description: '立即处理', className: 'is-important-urgent' },
   { label: '重要不紧急', shortLabel: 'Q2', description: '排入计划', className: 'is-important-not-urgent' },
@@ -269,6 +336,61 @@ function formatTime(value) {
 function formatSignedPercent(value) {
   if (!Number.isFinite(value)) return '—';
   return `${value > 0 ? '+' : ''}${formatNumber(value, 2)}%`;
+}
+
+export function normalizeNasdaqGridUnitAmount(value, fallback = 10_000) {
+  const amount = Number(value);
+  return Number.isFinite(amount) && amount > 0 ? Math.round(amount * 100) / 100 : fallback;
+}
+
+export function parseNasdaqEtfHistory(payload) {
+  const rows = payload?.data?.klines;
+  if (!Array.isArray(rows) || !rows.length) throw new Error('ETF 历史行情为空');
+  const points = rows.map(row => {
+    const [date, , close, high] = String(row).split(',');
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !(Number(close) > 0) || !Number.isFinite(Number(high)) || Number(high) < Number(close)) {
+      throw new Error('ETF 历史行情不完整，无法确定前高');
+    }
+    return { date, close: Number(close), high: Number(high) };
+  }).sort((a, b) => a.date.localeCompare(b.date));
+  const peak = points.reduce((best, point) => point.high >= best.high ? point : best);
+  const latest = points.at(-1);
+  return {
+    highPrice: peak.high,
+    highDate: peak.date,
+    close: latest.close,
+    date: latest.date,
+    startDate: points[0].date,
+    drawdownPercent: (latest.close / peak.high - 1) * 100,
+    source: payload.proxySource || '东方财富',
+  };
+}
+
+export function calculateNasdaqGridPlan(unitAmount = 10_000, drawdownPercent = null, highPrice = null) {
+  const amount = normalizeNasdaqGridUnitAmount(unitAmount);
+  const hasDrawdown = Number.isFinite(drawdownPercent);
+  let cumulativeAmount = 0;
+  const levels = NASDAQ_GRID_LEVELS.map(rule => {
+    const levelAmount = amount * rule.multiplier;
+    cumulativeAmount += levelAmount;
+    return {
+      ...rule,
+      buyPrice: Number.isFinite(highPrice) && highPrice > 0
+        ? Math.floor((highPrice * (1 + rule.drawdownPercent / 100) + 1e-10) * 1000) / 1000
+        : null,
+      levelAmount,
+      cumulativeAmount,
+      triggered: hasDrawdown ? drawdownPercent <= rule.drawdownPercent : null,
+    };
+  });
+  const triggeredLevels = levels.filter(level => level.triggered === true);
+  return {
+    unitAmount: amount,
+    levels,
+    totalAmount: cumulativeAmount,
+    triggeredAmount: triggeredLevels.at(-1)?.cumulativeAmount ?? 0,
+    nextLevel: levels.find(level => level.triggered !== true) ?? null,
+  };
 }
 
 export function parseTodoActionResponse(response) {
@@ -762,7 +884,55 @@ function renderDividendSignalCard(signal) {
   </button>`;
 }
 
-function renderDividendAnnualPerformance(history) {
+export function calculateDividendMonthlyReturns(points, annual) {
+  const byDate = new Map();
+  for (const point of points) {
+    if (/^\d{4}-\d{2}-\d{2}$/.test(point.date) && Number.isFinite(Date.parse(point.date))
+        && new Date(point.date).toISOString().slice(0, 10) === point.date
+        && point.date >= annual.startDate && point.date <= annual.endDate
+        && typeof point.close === 'number' && Number.isFinite(point.close) && point.close > 0) byDate.set(point.date, point);
+  }
+  const rows = [...byDate.values()].sort((a, b) => a.date.localeCompare(b.date));
+  if (!rows.length || rows[0].date !== annual.startDate || rows.at(-1).date !== annual.endDate) {
+    throw new Error('日线未覆盖年度统计起止日期，月收益待验证');
+  }
+  if (Math.abs((rows.at(-1).close / rows[0].close - 1) * 100 - annual.annualReturn) > 0.02) {
+    throw new Error('日线收益与年度表不一致，月收益待验证');
+  }
+  return Array.from({ length: 12 }, (_, index) => {
+    const month = `${annual.year}-${String(index + 1).padStart(2, '0')}`;
+    const monthly = rows.filter(row => row.date.startsWith(month));
+    const base = index === Number(rows[0].date.slice(5, 7)) - 1
+      ? rows[0] : rows.filter(row => row.date.startsWith(`${annual.year}-${String(index).padStart(2, '0')}`)).at(-1);
+    if (!monthly.length || !base) return { month: index + 1, value: null, status: month > annual.endDate.slice(0, 7) ? '未开始' : '数据不足' };
+    return { month: index + 1, value: (monthly.at(-1).close / base.close - 1) * 100,
+      startDate: base.date, endDate: monthly.at(-1).date,
+      status: annual.status === '年内' && month === annual.endDate.slice(0, 7) ? '月内累计' : '已统计' };
+  });
+}
+
+export function storedDividendMonthlyReturns(annual) {
+  const months = annual.monthlyReturns;
+  if (!Array.isArray(months) || months.length !== 12) return null;
+  if (months.some((row, index) => row?.month !== index + 1
+      || (row.value !== null && (typeof row.value !== 'number' || !Number.isFinite(row.value)
+        || !String(row.endDate).startsWith(`${annual.year}-${String(row.month).padStart(2, '0')}-`)
+        || row.endDate > annual.endDate)))) return null;
+  const active = months.slice(Number(annual.startDate.slice(5, 7)) - 1, Number(annual.endDate.slice(5, 7)));
+  if (active.some(row => row.value === null) || active[0]?.startDate !== annual.startDate
+      || active.at(-1)?.endDate !== annual.endDate) return null;
+  const compounded = (active.reduce((value, row) => value * (1 + row.value / 100), 1) - 1) * 100;
+  return Math.abs(compounded - annual.annualReturn) <= 0.02 ? months : null;
+}
+
+export function renderDividendMonthlyCards(months) {
+  return months.map(month => `<article class="dividend-month-card ${month.value > 0 ? 'is-gain' : month.value < 0 ? 'is-loss' : 'is-flat'}">
+    <h3>${month.month}月</h3><strong>${month.value === null ? '—' : formatSignedPercent(month.value)}</strong>
+    <small>${escapeHtml(month.value === null ? month.status : `${month.status} · 截至 ${month.endDate.slice(5)}`)}</small>
+  </article>`).join('');
+}
+
+export function renderDividendAnnualPerformance(history) {
   const rows = Array.isArray(history?.rows) ? [...history.rows].sort((left, right) => right.year - left.year) : [];
   if (!rows.length) {
     return `<article class="panel dividend-annual-panel"><h3>年度收益与最大回撤</h3><p class="dividend-annual-empty">年度历史数据暂未生成。</p></article>`;
@@ -777,8 +947,8 @@ function renderDividendAnnualPerformance(history) {
     <div class="dividend-annual-table-wrap">
       <table class="dividend-annual-table">
         <thead><tr><th>年份</th><th>统计区间</th><th>全年收益率</th><th>年内最大回撤</th><th>状态</th></tr></thead>
-        <tbody>${rows.map(row => `<tr${row.status === '年内' ? ' class="is-current"' : ''}>
-          <td><strong>${escapeHtml(row.year)}</strong></td>
+        <tbody>${rows.map(row => `<tr data-dividend-year="${row.year}"${row.status === '年内' ? ' class="is-current"' : ''}>
+          <td><button class="dividend-year-button" data-dividend-year="${row.year}" aria-haspopup="dialog" aria-label="查看${row.year}年月收益率">${escapeHtml(row.year)} <span aria-hidden="true">›</span></button></td>
           <td>${escapeHtml(`${row.startDate} — ${row.endDate}`)}</td>
           <td class="${toneClass(row.annualReturn)}">${escapeHtml(formatSignedPercent(row.annualReturn))}</td>
           <td class="${toneClass(row.maxDrawdown)}">${escapeHtml(formatSignedPercent(row.maxDrawdown))}</td>
@@ -1006,7 +1176,7 @@ function renderNasdaq100Card(envelope) {
     const drawdown = Number.isFinite(data.drawdownPercent) ? data.drawdownPercent : null;
     const drawdownText = drawdown === null ? '待验证' : `${drawdown.toFixed(2)}%`;
     const updatedText = data.updatedText || formatTime(data.updatedAt);
-    return `<a class="overview-card nasdaq-card is-clickable-card" href="${NASDAQ100_SOURCE_URL}" target="_blank" rel="noopener noreferrer" aria-label="打开纳斯达克100指数行情">
+    return `<button class="overview-card nasdaq-card is-clickable-card" type="button" data-open-nasdaq-grid aria-label="打开纳斯达克网格策略">
       <div class="overview-card-head"><span>纳斯达克100指数</span><strong>NASDAQ 100</strong></div>
       <div class="nasdaq-main">
         <small>当前点位</small>
@@ -1018,15 +1188,55 @@ function renderNasdaq100Card(envelope) {
         <strong>${drawdownText}</strong>
         <span>最高点 ${formatNumber(data.highPoint, 2)}</span>
       </div>
-    </a>`;
+      <span class="source-link">查看网格策略 →</span>
+    </button>`;
   }
   const copy = envelope?.status === 'loading'
     ? '正在读取纳斯达克100指数行情。'
     : envelope?.error || '启动本地代理后读取纳斯达克100指数。';
-  return `<a class="overview-card nasdaq-card is-pending is-clickable-card" href="${NASDAQ100_SOURCE_URL}" target="_blank" rel="noopener noreferrer" aria-label="打开纳斯达克100指数行情">
+  return `<button class="overview-card nasdaq-card is-pending is-clickable-card" type="button" data-open-nasdaq-grid aria-label="打开纳斯达克网格策略">
     <div class="overview-card-head"><span>纳斯达克100指数</span><strong>待连接</strong></div>
     <p class="nasdaq-empty">${escapeHtml(copy)}</p>
-  </a>`;
+    <span class="source-link">查看网格策略 →</span>
+  </button>`;
+}
+
+export function renderNasdaqGridStrategy(envelope, unitAmount) {
+  const data = envelope?.data;
+  const drawdown = envelope?.status === 'latest' && Number.isFinite(data?.drawdownPercent)
+    ? data.drawdownPercent
+    : null;
+  const highPrice = envelope?.status === 'latest' ? data?.highPrice : null;
+  const plan = calculateNasdaqGridPlan(unitAmount, drawdown, highPrice);
+  const formatGridMoney = value => `¥${formatNumber(value, 2)}`;
+  const nextText = drawdown === null
+    ? '等待 ETF 数据'
+    : plan.nextLevel
+      ? `第${plan.nextLevel.level}档 · ${plan.nextLevel.drawdownPercent}%`
+      : '七档已全部触发';
+  const updatedText = `${escapeHtml(data?.date)} 收盘 ¥${data?.close?.toFixed(3) ?? '—'}`;
+  return {
+    referenceText: highPrice > 0
+      ? `广发纳指100ETF（159941） · 区间前高 ¥${highPrice.toFixed(3)}（${data.highDate}） · ${data.source}前复权日线，日内最高价；样本 ${data.startDate} 至 ${data.date}。买入参考价向下取至 0.001 元，触发状态按 ETF 最新日线收盘价判断，非实时成交信号。`
+      : `广发纳指100ETF（159941） · ${envelope?.status === 'loading' ? '正在读取 ETF 前高与日线行情…' : envelope?.error || 'ETF 前高待验证'}，买入参考价待验证。`,
+    summaryHtml: `<article><small>ETF 收盘回撤</small><strong>${drawdown === null ? '待验证' : `${drawdown.toFixed(2)}%`}</strong><span>${drawdown === null ? '尚未取得 ETF 行情' : updatedText}</span></article>
+      <article><small>下一档</small><strong>${nextText}</strong><span>${plan.nextLevel ? `本档计划 ${formatGridMoney(plan.nextLevel.levelAmount)}` : '等待新策略条件'}</span></article>
+      <article><small>已触发计划金额</small><strong>${drawdown === null ? '待判断' : formatGridMoney(plan.triggeredAmount)}</strong><span>仅表示计划触发，不代表已成交</span></article>
+      <article><small>七档总计划</small><strong>${formatGridMoney(plan.totalAmount)}</strong><span>合计 12 份</span></article>`,
+    rowsHtml: plan.levels.map(level => {
+      const status = level.triggered === null ? '待判断' : level.triggered ? '已触发' : level === plan.nextLevel ? '下一档' : '未触发';
+      const tone = level.triggered === true ? 'is-triggered' : drawdown !== null && level === plan.nextLevel ? 'is-next' : '';
+      return `<tr class="${tone}">
+        <td><strong>第${level.level}档</strong></td>
+        <td>${level.drawdownPercent}%</td>
+        <td>${level.buyPrice === null ? '待验证' : level.buyPrice.toFixed(3)}</td>
+        <td>${formatNumber(level.multiplier, 1)} 倍</td>
+        <td>${formatGridMoney(level.levelAmount)}</td>
+        <td>${formatGridMoney(level.cumulativeAmount)}</td>
+        <td><span class="nasdaq-grid-status ${tone}">${status}</span></td>
+      </tr>`;
+    }).join(''),
+  };
 }
 
 function renderMarginBalanceCard(envelope) {
@@ -1606,16 +1816,65 @@ export function shouldApplyPortfolioLoad(requestVersion, currentVersion) {
 }
 
 function startApp() {
+  const monthlyDialog = document.getElementById('dividend-monthly-dialog');
+  const monthlyBody = document.getElementById('dividend-monthly-grid');
+  const monthlyStatus = document.getElementById('dividend-monthly-status');
+  const monthlyCache = new Map();
+  let monthlyYear = null;
+  let monthlyRequest = 0;
+  document.getElementById('dividend-signal-detail').addEventListener('click', async event => {
+    const target = event.target.closest('[data-dividend-year]');
+    if (!target) return;
+    const annual = CSI_DIVIDEND_ANNUAL_PERFORMANCE.rows.find(row => row.year === Number(target.dataset.dividendYear));
+    if (!annual) return;
+    monthlyYear = annual.year;
+    const request = ++monthlyRequest;
+    const cacheKey = `${annual.year}:${annual.endDate}`;
+    document.getElementById('dividend-monthly-title').textContent = `${annual.year}年月收益率`;
+    const saved = storedDividendMonthlyReturns(annual) ?? monthlyCache.get(cacheKey);
+    if (saved) {
+      monthlyBody.innerHTML = renderDividendMonthlyCards(saved);
+      monthlyStatus.textContent = `中证红利（000922） · ${annual.startDate} 至 ${annual.endDate} · ${CSI_DIVIDEND_ANNUAL_PERFORMANCE.source}`;
+      monthlyDialog.showModal();
+      return;
+    }
+    monthlyBody.innerHTML = '';
+    monthlyStatus.textContent = '正在读取中证红利日线…';
+    monthlyDialog.showModal();
+    try {
+      let months = monthlyCache.get(cacheKey);
+      if (!months) {
+        if (!isLocalProxyLocation()) throw new Error('请通过本地看板服务读取月度数据');
+        const payload = await fetchJson(buildLocalProxyUrl('/api/csindex-performance', {
+          indexCode: '000922', startDate: annual.startDate.replaceAll('-', ''), endDate: annual.endDate.replaceAll('-', ''),
+        }), requestTimeout());
+        months = calculateDividendMonthlyReturns(parseCsindexPerformance(payload), annual);
+        monthlyCache.set(cacheKey, months);
+      }
+      if (request !== monthlyRequest || !monthlyDialog.open) return;
+      monthlyBody.innerHTML = renderDividendMonthlyCards(months);
+      monthlyStatus.textContent = `中证红利（000922） · ${annual.startDate} 至 ${annual.endDate} · 中证指数官网`;
+    } catch (error) {
+      if (request !== monthlyRequest || !monthlyDialog.open) return;
+      monthlyStatus.textContent = `读取失败：${error instanceof Error ? error.message : String(error)}。关闭后可重新点击年份重试。`;
+    }
+  });
+  monthlyDialog.addEventListener('close', () => {
+    monthlyRequest += 1;
+    document.querySelector(`button[data-dividend-year="${monthlyYear}"]`)?.focus();
+  });
   const state = {
     snapshot: EXAMPLE_SNAPSHOT,
     windowYears: 5,
     busy: false,
     youzhiyouxingTemperature: { status: 'loading', sourceUrl: YOUZHIYOUXING_TEMPERATURE_URL },
     nasdaq100: { status: 'loading', sourceUrl: NASDAQ100_SOURCE_URL },
+    nasdaqEtf: { status: 'loading' },
     dividendSignal: CSI_DIVIDEND_SIGNAL,
     fuguiStrategy: { items: [] },
   };
   const storage = resolveStorage();
+  let nasdaqGridUnitAmount = normalizeNasdaqGridUnitAmount(storage.getItem(NASDAQ_GRID_UNIT_AMOUNT_STORAGE_KEY));
   let { holdings, trackingItems } = loadPortfolio(storage);
   let portfolioVersion = 0;
   let fuguiStrategyItems = [];
@@ -1635,7 +1894,10 @@ function startApp() {
   let trackingAllocationMode = true;
   let trackingAllocationCollapsed = false;
   let trackingSortMode = 'updated';
+  let reviewDiaryItems = [];
+  let reviewDiaryCalendarMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
   let reviewDiariesLoaded = false;
+  let reviewDiarySaving = false;
   let todoLoadVersion = 0;
   let fuguiStatusFilter = 'all';
   let fuguiTtmSortMode = 'none';
@@ -1892,6 +2154,8 @@ function startApp() {
     modal.hidden = true;
     form.reset();
     form.elements.trackingId.value = '';
+    form.elements.trackingTarget.innerHTML = '';
+    document.getElementById('review-diary-target-field').hidden = true;
     const status = document.getElementById('review-diary-status');
     status.className = 'diary-status';
     status.textContent = '提交后会自动写入今天日期，并按标的保存为独立文件。';
@@ -1989,7 +2253,9 @@ function startApp() {
     const modal = document.getElementById('review-diary-modal');
     const form = document.getElementById('review-diary-form');
     form.reset();
+    form.elements.trackingTarget.innerHTML = '';
     form.elements.trackingId.value = item.id;
+    document.getElementById('review-diary-target-field').hidden = true;
     document.getElementById('review-diary-title').textContent = `复盘日记：${item.name}`;
     const status = document.getElementById('review-diary-status');
     status.className = 'diary-status';
@@ -1998,9 +2264,32 @@ function startApp() {
     form.elements.content.focus();
   };
 
+  const reviewDiaryTargets = () => [REVIEW_DIARY_MARKET_TARGET, ...trackingItems];
+
+  const openNewReviewDiary = () => {
+    const modal = document.getElementById('review-diary-modal');
+    const form = document.getElementById('review-diary-form');
+    const targetField = document.getElementById('review-diary-target-field');
+    const targets = reviewDiaryTargets();
+    form.reset();
+    form.elements.trackingTarget.innerHTML = targets.map(item => (
+      `<option value="${escapeHtml(item.id)}">${escapeHtml(item.name || '未命名标的')}${item.code ? `（${escapeHtml(item.code)}）` : ''}</option>`
+    )).join('');
+    form.elements.trackingId.value = form.elements.trackingTarget.value;
+    targetField.hidden = false;
+    document.getElementById('review-diary-title').textContent = '新增复盘日记';
+    const diaryStatus = document.getElementById('review-diary-status');
+    diaryStatus.className = 'diary-status';
+    diaryStatus.textContent = '提交后会自动写入今天日期，并按标的保存为独立文件。';
+    modal.hidden = false;
+    form.elements.trackingTarget.focus();
+  };
+
   const saveReviewDiary = async item => {
+    if (reviewDiarySaving) return;
     const form = document.getElementById('review-diary-form');
     const status = document.getElementById('review-diary-status');
+    const submitButton = form.querySelector('button[type="submit"]');
     const content = form.elements.content.value.trim();
     if (!content) {
       status.className = 'diary-status is-error';
@@ -2012,12 +2301,20 @@ function startApp() {
       status.textContent = '请通过“启动面板.cmd”打开本地面板后保存，直接打开 HTML 不能写入文件。';
       return;
     }
+    const controller = new AbortController();
+    const timeoutId = globalThis.setTimeout(() => controller.abort(), REVIEW_DIARY_SAVE_TIMEOUT_MS);
+    reviewDiarySaving = true;
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = '正在保存';
+    }
     status.className = 'diary-status';
     status.textContent = '正在保存…';
     try {
       const response = await fetch('/api/review-diary', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        signal: controller.signal,
         body: JSON.stringify({
           trackingId: item.id,
           code: item.code,
@@ -2032,29 +2329,142 @@ function startApp() {
       status.textContent = `已保存到 ${payload.path}`;
       form.elements.content.value = '';
       reviewDiariesLoaded = false;
+      reviewDiaryCalendarMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
       refreshReviewDiaries();
       setTimeout(closeReviewDiary, 650);
     } catch (error) {
       status.className = 'diary-status is-error';
-      status.textContent = `保存失败：${error instanceof Error ? error.message : String(error)}`;
+      status.textContent = error?.name === 'AbortError'
+        ? '保存超时：请确认本地面板服务仍在运行，然后再试一次。'
+        : `保存失败：${error instanceof Error ? error.message : String(error)}`;
+    } finally {
+      globalThis.clearTimeout(timeoutId);
+      reviewDiarySaving = false;
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = '保存日记';
+      }
     }
   };
 
-  const reviewDiaryHref = path => `/${String(path ?? '').split('/').map(encodeURIComponent).join('/')}`;
+  const reviewDiaryHref = item => {
+    const path = String(item.path ?? '')
+      .replace(/^\/+/, '')
+      .replace(/^workbench\/targets\/(.+-复盘日记\.md)$/u, 'workbench/journal/$1');
+    return path
+      ? `obsidian://open?vault=${encodeURIComponent(OBSIDIAN_VAULT_NAME)}&file=${encodeURIComponent(path)}`
+      : item.obsidianUrl || '#';
+  };
 
-  const renderReviewDiaries = items => {
+  const reviewDiaryDateKey = date => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  const reviewDiaryEntryItems = items => items.flatMap(item => {
+    if (Array.isArray(item.entries) && item.entries.length) {
+      return item.entries.map(entry => ({
+        ...entry,
+        name: entry.name || item.name,
+        code: entry.code || item.code,
+        path: entry.path || item.path,
+        obsidianUrl: entry.obsidianUrl || item.obsidianUrl,
+        entryCount: item.entryCount,
+      }));
+    }
+    return item.latestDate ? [{
+      name: item.name,
+      code: item.code,
+      date: item.latestDate,
+      time: item.latestTime,
+      status: item.latestStatus,
+      excerpt: item.excerpt,
+      path: item.path,
+      obsidianUrl: item.obsidianUrl,
+      entryCount: item.entryCount,
+    }] : [];
+  }).sort((left, right) => `${right.date || ''} ${right.time || ''} ${right.name || ''}`.localeCompare(`${left.date || ''} ${left.time || ''} ${left.name || ''}`, 'zh-Hans-CN'));
+
+  const reviewDiaryCalendarItems = entries => {
+    const groups = new Map();
+    for (const entry of entries) {
+      const key = [entry.date || '', entry.path || '', entry.code || '', entry.name || ''].join('\u0001');
+      const existing = groups.get(key);
+      if (existing) {
+        existing.dailyEntryCount += 1;
+        continue;
+      }
+      groups.set(key, { ...entry, dailyEntryCount: 1 });
+    }
+    return [...groups.values()];
+  };
+
+  const renderReviewDiaries = (items = reviewDiaryItems) => {
+    reviewDiaryItems = Array.isArray(items) ? items : [];
     const list = document.getElementById('review-diary-list');
     const empty = document.getElementById('review-diary-empty');
-    list.innerHTML = items.map(item => `<article class="review-diary-card">
-      <div class="review-diary-card-head">
-        <div class="review-diary-card-title"><strong>${escapeHtml(item.name || '未命名标的')}</strong><small>${escapeHtml(item.code || '未填写代码')}</small></div>
-        <span class="review-diary-card-count">${Number(item.entryCount) || 0} 条</span>
-      </div>
-      <div class="review-diary-card-meta"><span>最近：<b>${escapeHtml([item.latestDate, item.latestTime].filter(Boolean).join(' '))}</b></span>${item.latestStatus ? `<span>状态：${escapeHtml(item.latestStatus)}</span>` : ''}</div>
-      <p class="review-diary-card-excerpt">${escapeHtml(item.excerpt || '暂无可显示的复盘正文。')}</p>
-      <a class="review-diary-card-link" href="${escapeHtml(reviewDiaryHref(item.path))}" target="_blank" rel="noopener noreferrer">打开完整日记</a>
-    </article>`).join('');
-    empty.hidden = items.length > 0;
+    const title = document.getElementById('review-diary-calendar-title');
+    const count = document.getElementById('review-diary-calendar-count');
+    if (!list || !empty) return;
+    const firstOfMonth = new Date(reviewDiaryCalendarMonth.getFullYear(), reviewDiaryCalendarMonth.getMonth(), 1);
+    const monthStart = reviewDiaryDateKey(firstOfMonth);
+    const monthEnd = reviewDiaryDateKey(new Date(firstOfMonth.getFullYear(), firstOfMonth.getMonth() + 1, 0));
+    const entries = reviewDiaryEntryItems(reviewDiaryItems);
+    const monthEntries = entries.filter(entry => entry.date && entry.date >= monthStart && entry.date <= monthEnd);
+    const monthCalendarItems = reviewDiaryCalendarItems(monthEntries);
+    const entriesByDate = new Map();
+    const entryCountByDate = new Map();
+    for (const entry of monthEntries) {
+      entryCountByDate.set(entry.date, (entryCountByDate.get(entry.date) ?? 0) + 1);
+    }
+    for (const entry of monthCalendarItems) {
+      if (!entriesByDate.has(entry.date)) entriesByDate.set(entry.date, []);
+      entriesByDate.get(entry.date).push(entry);
+    }
+    const gridStart = new Date(firstOfMonth);
+    gridStart.setDate(firstOfMonth.getDate() - ((firstOfMonth.getDay() + 6) % 7));
+    const todayKey = reviewDiaryDateKey(new Date());
+    const weekdayHtml = REVIEW_DIARY_WEEKDAYS.map(day => `<div class="review-diary-weekday">${escapeHtml(day)}</div>`).join('');
+    const dayHtml = Array.from({ length: 42 }, (_, index) => {
+      const cellDate = new Date(gridStart);
+      cellDate.setDate(gridStart.getDate() + index);
+      const dateKey = reviewDiaryDateKey(cellDate);
+      const dayEntries = entriesByDate.get(dateKey) ?? [];
+      const dayEntryCount = entryCountByDate.get(dateKey) ?? 0;
+      const className = [
+        'review-diary-day',
+        cellDate.getMonth() === firstOfMonth.getMonth() ? '' : 'is-other-month',
+        dateKey === todayKey ? 'is-today' : '',
+        dayEntries.length ? 'has-entries' : '',
+      ].filter(Boolean).join(' ');
+      const entryHtml = dayEntries.slice(0, 3).map(entry => {
+        const meta = [entry.time, entry.status].filter(Boolean).join(' · ');
+        const label = `打开日记：${entry.name || '未命名标的'} ${entry.date}${entry.dailyEntryCount > 1 ? `，共 ${entry.dailyEntryCount} 条复盘` : ''}`;
+        return `<a class="review-diary-calendar-entry" href="${escapeHtml(reviewDiaryHref(entry))}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(label)}">
+          <span class="review-diary-calendar-entry-head">
+            <strong>${escapeHtml(entry.name || '未命名标的')}</strong>
+            ${entry.dailyEntryCount > 1 ? `<em>${entry.dailyEntryCount} 条</em>` : ''}
+          </span>
+          ${meta ? `<span>${escapeHtml(meta)}</span>` : ''}
+          <small>${escapeHtml(entry.excerpt || '打开日记查看全文')}</small>
+        </a>`;
+      }).join('');
+      const overflow = dayEntries.length > 3 ? `<span class="review-diary-calendar-more">另有 ${dayEntries.length - 3} 条</span>` : '';
+      return `<div class="${className}">
+        <div class="review-diary-day-top">
+          <span class="review-diary-day-number">${cellDate.getDate()}</span>
+          ${dayEntryCount ? `<span class="review-diary-day-count">${dayEntryCount} 条</span>` : ''}
+        </div>
+        ${entryHtml}${overflow}
+      </div>`;
+    }).join('');
+    list.innerHTML = `${weekdayHtml}${dayHtml}`;
+    if (title) title.textContent = `${REVIEW_DIARY_MONTH_LABELS[firstOfMonth.getMonth()]} ${firstOfMonth.getFullYear()}`;
+    if (count) count.textContent = `本月 ${monthEntries.length} 条复盘`;
+    empty.hidden = entries.length > 0;
+    return { totalEntries: entries.length, monthEntries: monthEntries.length };
   };
 
   const refreshReviewDiaries = async () => {
@@ -2076,9 +2486,10 @@ function startApp() {
       const payload = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(payload.error || `HTTP ${response.status}`);
       const items = Array.isArray(payload.items) ? payload.items : [];
-      renderReviewDiaries(items);
+      const summary = renderReviewDiaries(items);
       reviewDiariesLoaded = true;
-      status.textContent = items.length ? `共 ${items.length} 个标的，按最近复盘时间排列。` : '尚未保存复盘日记。';
+      const entryCount = Number(payload.entryCount) || summary?.totalEntries || 0;
+      status.textContent = entryCount ? `共 ${entryCount} 条复盘，覆盖 ${items.length} 个标的，按月历展示。` : '尚未保存复盘日记。';
     } catch (error) {
       status.className = 'review-diary-page-status is-error';
       status.textContent = `复盘日记读取失败：${error instanceof Error ? error.message : String(error)}。`;
@@ -2677,6 +3088,12 @@ function startApp() {
   const render = () => {
     const derived = deriveDashboard(state.snapshot, state.windowYears);
     renderDerived(derived, state.youzhiyouxingTemperature, state.nasdaq100, state.dividendSignal);
+    const grid = renderNasdaqGridStrategy(state.nasdaqEtf, nasdaqGridUnitAmount);
+    document.getElementById('nasdaq-grid-reference').textContent = grid.referenceText;
+    const gridSummary = document.getElementById('nasdaq-grid-summary');
+    const gridBody = document.getElementById('nasdaq-grid-table-body');
+    if (gridSummary) gridSummary.innerHTML = grid.summaryHtml;
+    if (gridBody) gridBody.innerHTML = grid.rowsHtml;
     document.querySelectorAll('[data-window]').forEach(button => button.setAttribute('aria-pressed', String(Number(button.dataset.window) === state.windowYears)));
   };
 
@@ -2744,6 +3161,58 @@ function startApp() {
     render();
   };
 
+  let marketTurnoverLoading = false;
+  let marketTurnoverData = null;
+  const turnoverCard = document.getElementById('market-turnover-card');
+  const loadMarketTurnover = async () => {
+    if (marketTurnoverLoading) return;
+    marketTurnoverLoading = true;
+    turnoverCard.innerHTML = renderMarketTurnoverCard({ status: 'loading', data: marketTurnoverData });
+    try {
+      if (!isLocalProxyLocation()) throw new Error('请通过本地看板服务读取');
+      const response = await fetch(buildLocalProxyUrl('/api/market-turnover'), { cache: 'no-store', signal: AbortSignal.timeout(60_000) });
+      const payload = await response.json();
+      if (!response.ok) throw new Error(`${payload.source ?? '数据源'}：HTTP ${response.status}`);
+      marketTurnoverData = parseMarketTurnover(payload);
+      turnoverCard.innerHTML = renderMarketTurnoverCard({ status: 'latest', data: marketTurnoverData });
+    } catch (error) {
+      turnoverCard.innerHTML = renderMarketTurnoverCard({ status: 'missing', data: marketTurnoverData, error: error instanceof Error ? error.message : String(error) });
+    } finally {
+      marketTurnoverLoading = false;
+    }
+  };
+  turnoverCard.addEventListener('input', event => {
+    if (event.target.id !== 'turnover-date-slider' || !marketTurnoverData) return;
+    const { points } = marketTurnoverData;
+    const index = Number(event.target.value);
+    const point = points[index];
+    if (!point) return;
+    const value = `${point.date} · ${formatNumber(point.amount, 2)} 亿元`;
+    document.getElementById('turnover-selected-value').textContent = value;
+    event.target.setAttribute('aria-valuetext', value);
+    const marker = document.getElementById('turnover-selected-point');
+    marker.setAttribute('cx', String(4 + index / Math.max(1, points.length - 1) * 292));
+    marker.setAttribute('cy', String(82 - point.amount / (Math.max(...points.map(row => row.amount)) * 1.05) * 74));
+  });
+
+  let nasdaqEtfLoading = false;
+  const loadNasdaqEtf = async () => {
+    if (nasdaqEtfLoading) return;
+    nasdaqEtfLoading = true;
+    state.nasdaqEtf = { status: 'loading' };
+    render();
+    try {
+      if (!isLocalProxyLocation()) throw new Error('请通过本地看板服务读取 ETF 行情');
+      const payload = await fetchJson(buildLocalProxyUrl('/api/eastmoney-kline', { secid: '0.159941', limit: 4000 }), requestTimeout());
+      state.nasdaqEtf = { status: 'latest', data: parseNasdaqEtfHistory(payload) };
+    } catch (error) {
+      state.nasdaqEtf = { status: 'missing', error: `ETF 行情读取失败：${error instanceof Error ? error.message : String(error)}` };
+    } finally {
+      nasdaqEtfLoading = false;
+      render();
+    }
+  };
+
   const refreshLive = async (domainIds = null) => {
     if (state.busy) return;
     state.busy = true;
@@ -2799,8 +3268,8 @@ function startApp() {
     const [domain, viewId] = String(storage.getItem(ACTIVE_VIEW_STORAGE_KEY) ?? '').split(':');
     if (!domain || !viewId) return null;
     const button = [...document.querySelectorAll('[data-view]')].find(item => item.dataset.view === viewId);
-    if (!button) return null;
-    return { domain: shellForButton(button), viewId };
+    if (!button && viewId !== 'nasdaq-grid-view') return null;
+    return { domain: button ? shellForButton(button) : 'thermometer', viewId };
   };
 
   const applyIndustryFilter = section => {
@@ -2993,10 +3462,13 @@ function startApp() {
     const completedAt = item.completedAt ? `完成 ${item.completedAt}` : '完成时间未记录';
     const archivedAt = item.archivedAt ? `归档 ${item.archivedAt}` : '归档时间未记录';
     return `<article class="todo-archive-item" data-todo-archive-id="${escapeHtml(item.id)}">
-      <div class="todo-item-kicker"><span>${escapeHtml(item.id)}</span><span class="todo-item-time">${escapeHtml(archivedAt)}</span></div>
-      <div class="todo-item-head"><strong>${escapeHtml(item.title)}</strong></div>
+      <div class="todo-archive-row">
+        <span class="todo-archive-id">${escapeHtml(item.id)}</span>
+        <div class="todo-item-head todo-archive-title"><strong>${escapeHtml(item.title)}</strong></div>
+        <div class="todo-archive-meta"><span class="todo-archive-completed">${escapeHtml(completedAt)}</span>${item.quadrant ? `<span class="todo-archive-quadrant">${escapeHtml(item.quadrant)}</span>` : ''}</div>
+        <span class="todo-item-time">${escapeHtml(archivedAt)}</span>
+      </div>
       ${detail && detail !== 'User' ? `<p>${escapeHtml(detail)}</p>` : ''}
-      <div class="todo-archive-meta"><span>${escapeHtml(completedAt)}</span>${item.quadrant ? `<span>${escapeHtml(item.quadrant)}</span>` : ''}</div>
     </article>`;
   };
 
@@ -3072,8 +3544,8 @@ function startApp() {
         title: node.querySelector('.todo-item-head strong')?.textContent?.trim() ?? '',
         detail: node.querySelector('p')?.textContent?.trim() ?? '',
         archivedAt: node.querySelector('.todo-item-time')?.textContent?.replace(/^归档\s*/, '').trim() ?? '',
-        completedAt: node.querySelector('.todo-archive-meta span')?.textContent?.replace(/^完成\s*/, '').trim() ?? '',
-        quadrant: node.querySelector('.todo-archive-meta span:last-child')?.textContent?.trim() ?? '',
+        completedAt: node.querySelector('.todo-archive-completed')?.textContent?.replace(/^完成\s*/, '').trim() ?? '',
+        quadrant: node.querySelector('.todo-archive-quadrant')?.textContent?.trim() ?? '',
       })),
     ].sort((left, right) => {
       const dateOrder = todoArchiveSortKey(right).localeCompare(todoArchiveSortKey(left));
@@ -3189,7 +3661,7 @@ function startApp() {
     const todoId = card?.dataset.todoId ?? '';
     if (!todoId || !TODO_QUADRANTS.includes(targetQuadrant)) return;
     if (!isLocalProxyLocation()) {
-      globalThis.alert('拖动移动待办需要通过“启动面板.cmd”打开看板。');
+      globalThis.alert('移动待办需要通过“启动面板.cmd”打开看板。');
       return;
     }
     if (targetQuadrant === card.dataset.todoQuadrant) return;
@@ -3385,7 +3857,7 @@ function startApp() {
     const button = [...document.querySelectorAll('[data-view]')].find(item => item.dataset.view === viewId);
     const shell = button ? shellForButton(button) : 'thermometer';
     activeViewByShell[shell] = viewId;
-    if (button) storage.setItem(ACTIVE_VIEW_STORAGE_KEY, `${shell}:${viewId}`);
+    if (button || viewId === 'nasdaq-grid-view') storage.setItem(ACTIVE_VIEW_STORAGE_KEY, `${shell}:${viewId}`);
     document.querySelectorAll('[data-view]').forEach(item => {
       const active = item === button;
       item.classList.toggle('is-active', active);
@@ -3393,8 +3865,9 @@ function startApp() {
       else item.removeAttribute('aria-current');
     });
     document.querySelectorAll('.view').forEach(view => view.classList.toggle('is-active', view.id === viewId));
-    pageTitle.textContent = labelForView(button) || pageTitle.textContent;
+    pageTitle.textContent = labelForView(button) || (viewId === 'nasdaq-grid-view' ? '纳斯达克网格策略' : pageTitle.textContent);
     if (viewId === 'risk-monitor') refreshRiskMarginChart();
+    if (viewId === 'nasdaq-grid-view' && state.nasdaqEtf.status !== 'latest') loadNasdaqEtf();
     if (viewId === 'review-diary-view' && !reviewDiariesLoaded) refreshReviewDiaries();
     if (viewId === 'position-manager') refreshTodoList();
     if (viewId === 'market-summary' || viewId === 'dividend-signal-view') refreshDividendSignalFromSource();
@@ -3630,6 +4103,33 @@ function startApp() {
   document.getElementById('dividend-signal-card')?.addEventListener('click', event => {
     if (event.target.closest('[data-open-dividend-signal]')) setShell('thermometer', 'dividend-signal-view');
   });
+  document.getElementById('nasdaq100-card')?.addEventListener('click', event => {
+    if (event.target.closest('[data-open-nasdaq-grid]')) setShell('thermometer', 'nasdaq-grid-view');
+  });
+  document.getElementById('nasdaq-grid-back')?.addEventListener('click', () => {
+    setShell('thermometer', 'market-summary');
+  });
+  document.getElementById('nasdaq-grid-unit-amount')?.addEventListener('input', event => {
+    const amount = Number(event.currentTarget.value);
+    const status = document.getElementById('nasdaq-grid-form-status');
+    if (!Number.isFinite(amount) || amount <= 0) {
+      if (status) status.textContent = '请输入大于 0 的金额。';
+      return;
+    }
+    nasdaqGridUnitAmount = normalizeNasdaqGridUnitAmount(amount);
+    storage.setItem(NASDAQ_GRID_UNIT_AMOUNT_STORAGE_KEY, String(nasdaqGridUnitAmount));
+    if (status) status.textContent = '金额已更新。';
+    render();
+  });
+  document.getElementById('nasdaq-grid-reset')?.addEventListener('click', () => {
+    nasdaqGridUnitAmount = 10_000;
+    storage.setItem(NASDAQ_GRID_UNIT_AMOUNT_STORAGE_KEY, String(nasdaqGridUnitAmount));
+    const input = document.getElementById('nasdaq-grid-unit-amount');
+    if (input) input.value = String(nasdaqGridUnitAmount);
+    const status = document.getElementById('nasdaq-grid-form-status');
+    if (status) status.textContent = '已恢复为 1 万元。';
+    render();
+  });
   document.getElementById('margin-balance-card')?.addEventListener('click', openMarginBalanceModal);
   document.getElementById('margin-balance-card')?.addEventListener('keydown', event => {
     if (event.key === 'Enter' || event.key === ' ') {
@@ -3814,10 +4314,26 @@ function startApp() {
   });
   document.getElementById('review-diary-form').addEventListener('submit', event => {
     event.preventDefault();
-    const item = trackingItems.find(entry => entry.id === event.currentTarget.elements.trackingId.value);
+    const item = reviewDiaryTargets().find(entry => entry.id === event.currentTarget.elements.trackingId.value);
     if (item) saveReviewDiary(item);
   });
+  document.getElementById('review-diary-form').elements.trackingTarget.addEventListener('change', event => {
+    document.getElementById('review-diary-form').elements.trackingId.value = event.currentTarget.value;
+  });
+  document.getElementById('create-review-diary').addEventListener('click', openNewReviewDiary);
   document.getElementById('refresh-review-diaries').addEventListener('click', refreshReviewDiaries);
+  document.getElementById('review-diary-prev-month').addEventListener('click', () => {
+    reviewDiaryCalendarMonth = new Date(reviewDiaryCalendarMonth.getFullYear(), reviewDiaryCalendarMonth.getMonth() - 1, 1);
+    renderReviewDiaries();
+  });
+  document.getElementById('review-diary-current-month').addEventListener('click', () => {
+    reviewDiaryCalendarMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+    renderReviewDiaries();
+  });
+  document.getElementById('review-diary-next-month').addEventListener('click', () => {
+    reviewDiaryCalendarMonth = new Date(reviewDiaryCalendarMonth.getFullYear(), reviewDiaryCalendarMonth.getMonth() + 1, 1);
+    renderReviewDiaries();
+  });
   document.getElementById('nav-toggle').addEventListener('click', event => {
     const open = document.getElementById('sidebar').classList.toggle('is-open');
     event.currentTarget.setAttribute('aria-expanded', String(open));
@@ -3836,7 +4352,9 @@ function startApp() {
     refreshLive();
     loadYouzhiyouxingTemperature();
     loadNasdaq100();
+    loadNasdaqEtf();
     refreshTrackingQuotes();
+    loadMarketTurnover();
   });
   fuguiProviderToggle?.addEventListener('click', () => {
     fuguiDataProvider = fuguiDataProvider === 'akshare' ? 'tushare' : 'akshare';
@@ -3846,6 +4364,8 @@ function startApp() {
   });
 
   const initialView = readStoredActiveView() ?? { domain: 'thermometer', viewId: 'market-summary' };
+  const nasdaqGridAmountInput = document.getElementById('nasdaq-grid-unit-amount');
+  if (nasdaqGridAmountInput) nasdaqGridAmountInput.value = String(nasdaqGridUnitAmount);
   setShell(initialView.domain, initialView.viewId);
   renderFuguiProviderToggle();
   setFuguiPanelCollapsed(storage.getItem(FUGUI_PANEL_COLLAPSED_STORAGE_KEY) === '1');
@@ -3859,6 +4379,8 @@ function startApp() {
   loadYouzhiyouxingTemperature();
   loadNasdaq100();
   refreshLive();
+  loadMarketTurnover();
+  setInterval(loadMarketTurnover, 300_000);
   setInterval(() => {
     if (isTradingSession() && state.snapshot.mode === 'live') {
       refreshLive(['shanghaiHistory', 'csi300History', 'csiAllHistory']);
