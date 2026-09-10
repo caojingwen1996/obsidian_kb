@@ -1,0 +1,32 @@
+[
+  {
+    "month": "202607",
+    "nt_val": 100.5,
+    "nt_yoy": 0.5,
+    "nt_mom": -0.1,
+    "nt_accu": 0.9,
+    "town_val": 100.5,
+    "town_yoy": 0.5,
+    "town_mom": -0.1,
+    "town_accu": 101.0,
+    "cnt_val": 100.4,
+    "cnt_yoy": 0.4,
+    "cnt_mom": -0.2,
+    "cnt_accu": 100.7
+  },
+  {
+    "month": "202606",
+    "nt_val": 101.0,
+    "nt_yoy": 1.0,
+    "nt_mom": -0.3,
+    "nt_accu": 1.0,
+    "town_val": 101.0,
+    "town_yoy": 1.0,
+    "town_mom": -0.4,
+    "town_accu": 101.0,
+    "cnt_val": 100.8,
+    "cnt_yoy": 0.8,
+    "cnt_mom": -0.3,
+    "cnt_accu": 100.8
+  }
+]

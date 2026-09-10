@@ -1,0 +1,29 @@
+{
+  "retrieved": "2026-09-09T16:35:57.895003",
+  "params": {
+    "ts_code": "600511.SH",
+    "trade_date": "20260909"
+  },
+  "rows": [
+    {
+      "ts_code": "600511.SH",
+      "trade_date": "20260909",
+      "close": 26.89,
+      "turnover_rate": 0.3457,
+      "turnover_rate_f": 0.633,
+      "volume_ratio": null,
+      "pe": 10.1616,
+      "pe_ttm": 10.5241,
+      "pb": 1.0786,
+      "ps": 0.3867,
+      "ps_ttm": 0.3788,
+      "dv_ratio": 2.9751,
+      "dv_ttm": 2.9751,
+      "total_share": 75450.2998,
+      "float_share": 55334.6424,
+      "free_share": 30215.7901,
+      "total_mv": 2028858.567,
+      "circ_mv": 1487948.4696
+    }
+  ]
+}

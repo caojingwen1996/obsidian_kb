@@ -162,3 +162,8 @@ Staging queue: K files remaining
 - Patch files use a human-readable diff format: lines starting with `+` are additions, lines starting with `-` are deletions
 - `index.md` and `log.md` are always updated immediately on ingest (they are low-risk tracking files) — only category pages go through staging
 - The `_staging/` directory is not tracked by Obsidian's graph view — pages only appear in the wiki after promotion
+
+
+## 技能变更记录
+
+修改本技能的说明、模板、references、脚本或其他随附文件后，在同目录 [log.md](log.md) 追加记录，写明日期、版本（或未设版本号）、修改原因、涉及文件、具体变更和验证结果。保留已有记录；未经核实不补写历史，不把技能运行生成的业务报告当作技能变更。若调整版本号，记录旧版本 → 新版本；未调整时明确写“版本号不变”。

@@ -48,6 +48,7 @@ SOURCE_NAMES = {
     "/api/us-treasury-yield": "us-treasury-yield",
     "/api/us-dollar-index": "us-dollar-index",
     "/api/usd-jpy": "usd-jpy",
+    "/api/stock-lookup": "tushare-stock-basic",
     "/api/stock-quote": "stock-quote",
     "/api/stock-close-performance": "stock-close-performance",
     "/api/stock-dividend-yield": "stock-dividend-yield",
@@ -499,6 +500,36 @@ def _fugui_candidate_from_akshare_code_name(rows, query):
     if not candidates:
         raise UpstreamError("akshare-code-name")
     return sorted(candidates, key=lambda item: (item[0], item[1]))[0][2]
+
+
+def fetch_stock_lookup(name, client=None):
+    """Resolve an exact A-share name; partial names are suggestions only."""
+    from tushare_client import TushareClient, TushareClientError
+
+    query = str(name or "").strip()
+    if not query or len(query) > 30:
+        raise RouteError("invalid stock name")
+    if client is None:
+        client = TushareClient(
+            extra_env_paths=(Path(__file__).resolve().parents[1] / ".env",),
+            logger=write_proxy_log,
+        )
+    try:
+        rows = client.stock_basic_rows()
+    except TushareClientError as error:
+        raise UpstreamError(error.source) from error
+    candidates = {}
+    for row in rows:
+        code = str(row.get("symbol") or str(row.get("ts_code", "")).split(".")[0]).strip()
+        stock_name = str(row.get("name") or "").strip()
+        if re.fullmatch(r"\d{6}", code) and stock_name and (query in stock_name or query == code):
+            candidates[code] = {"name": stock_name, "code": code}
+    exact = [item for item in candidates.values() if query in (item["name"], item["code"])]
+    return {
+        "data": {"match": exact[0] if len(exact) == 1 else None,
+                 "candidates": (exact or list(candidates.values()))[:10]},
+        "proxySource": "Tushare stock_basic",
+    }
 
 
 def _fugui_candidate_from_tushare_stock_basic(rows, query):
@@ -2444,6 +2475,8 @@ def create_server(
                         _bounded_int(_one(query, "limit", "3000"), 250, 4000),
                         fetcher,
                     )
+                elif parsed.path == "/api/stock-lookup":
+                    payload = fetch_stock_lookup(_one(query, "name"))
                 elif parsed.path == "/api/stock-quote":
                     secid = _one(query, "secid")
                     payload = fetch_stock_quote(secid, fetcher)

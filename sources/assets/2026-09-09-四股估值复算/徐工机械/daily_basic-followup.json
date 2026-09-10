@@ -1,0 +1,29 @@
+{
+  "retrieved": "2026-09-09T16:35:55.507816",
+  "params": {
+    "ts_code": "000425.SZ",
+    "trade_date": "20260909"
+  },
+  "rows": [
+    {
+      "ts_code": "000425.SZ",
+      "trade_date": "20260909",
+      "close": 8.38,
+      "turnover_rate": 0.8576,
+      "turnover_rate_f": 0.944,
+      "volume_ratio": null,
+      "pe": 14.9325,
+      "pe_ttm": 15.891,
+      "pb": 1.5202,
+      "ps": 0.9734,
+      "ps_ttm": 0.915,
+      "dv_ratio": 2.0956,
+      "dv_ttm": 2.3734,
+      "total_share": 1171121.0449,
+      "float_share": 899808.4894,
+      "free_share": 817449.8395,
+      "total_mv": 9813994.399,
+      "circ_mv": 7540395.1462
+    }
+  ]
+}

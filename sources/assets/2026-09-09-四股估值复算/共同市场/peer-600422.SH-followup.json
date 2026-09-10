@@ -1,0 +1,29 @@
+{
+  "retrieved": "2026-09-09T16:35:58.641716",
+  "params": {
+    "ts_code": "600422.SH",
+    "trade_date": "20260908"
+  },
+  "rows": [
+    {
+      "ts_code": "600422.SH",
+      "trade_date": "20260908",
+      "close": 8.63,
+      "turnover_rate": 0.8543,
+      "turnover_rate_f": 1.3561,
+      "volume_ratio": 1.53,
+      "pe": 18.668,
+      "pe_ttm": null,
+      "pb": 1.3431,
+      "ps": 0.9935,
+      "ps_ttm": 1.3423,
+      "dv_ratio": 3.4762,
+      "dv_ttm": 2.0857,
+      "total_share": 75697.5757,
+      "float_share": 75697.5757,
+      "free_share": 47687.1675,
+      "total_mv": 653270.1154,
+      "circ_mv": 653270.1154
+    }
+  ]
+}

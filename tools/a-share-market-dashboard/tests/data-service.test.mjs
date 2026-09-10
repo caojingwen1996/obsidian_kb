@@ -169,6 +169,34 @@ test('live domain definitions include turnover history and an explicit missing f
   assert.equal(definitions.find(definition => definition.id === 'forwardPe').providers.length, 0);
 });
 
+test('refreshDomains publishes fast results before a blocked domain times out', async () => {
+  const progress = [];
+  let publishFast;
+  const fastPublished = new Promise(resolve => { publishFast = resolve; });
+  const storage = createMemoryStorage();
+  const refresh = refreshDomains([
+    { id: 'slow', providers: [{ name: 'slow', load: () => new Promise(() => {}) }] },
+    { id: 'fast', providers: [{ name: 'fast', load: async () => [1] }] },
+  ], {
+    storage,
+    providerTimeoutMs: 30,
+    onProgress: update => {
+      progress.push(update);
+      if (update.id === 'fast') publishFast();
+    },
+  });
+  await fastPublished;
+  assert.deepEqual(progress.map(update => update.id), ['fast']);
+  assert.equal(progress[0].completed, 1);
+  assert.equal(progress[0].total, 2);
+  assert.equal(progress[0].result.status, 'latest');
+  const results = await refresh;
+  assert.equal(results.slow.status, 'missing');
+  assert.match(results.slow.errors[0], /timed out/);
+  assert.equal(progress[1].completed, 2);
+  assert.equal(storage.getItem('a-share-dashboard:slow'), null);
+});
+
 test('live domain definitions identify local proxy sources', () => {
   const definitions = createDefaultDomainDefinitions(
     new Date('2026-07-17T00:00:00Z'),

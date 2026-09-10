@@ -39,6 +39,14 @@ assert.match(visual, /class="profitability-visual"/);
 assert.match(visual, /营业收入柱状图与毛利率折线图/);
 assert.match(visual, /经营现金流、自由现金流柱状图与资本开支折线图/);
 assert.doesNotMatch(visual, /\| 期间 \| 营业收入/);
+const currentProfitability = profitability.replace('3.4 盈利能力', '3.5 盈利能力').replace('3.5 业绩兑现', '3.6 业绩兑现').replace('83.77 | 2.06 | 81.71', '-42.09 | 3.75 | -45.84');
+const negativeVisual = transformProfitabilityTable(currentProfitability);
+assert.match(negativeVisual, /class="profitability-visual"/);
+assert.match(negativeVisual, /-42\.1/);
+assert.doesNotMatch(negativeVisual, /height="-/);
+for (const match of negativeVisual.matchAll(/<rect [^>]*y="([\d.]+)"[^>]*height="([\d.]+)"/g)) {
+  assert.ok(Number(match[1]) + Number(match[2]) <= 310, '财务柱形不得越出画布');
+}
 assert.equal(transformProfitabilityTable('### 3.4 盈利能力\n\n无表格\n\n### 3.5 业绩兑现'), '### 3.4 盈利能力\n\n无表格\n\n### 3.5 业绩兑现');
 
 console.log('render-industrial-thinking-report freshness audit tests passed');

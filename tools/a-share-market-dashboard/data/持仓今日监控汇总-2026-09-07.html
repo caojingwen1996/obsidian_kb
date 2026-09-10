@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="daily-monitor-date" content="2026-09-07">
+  <title>持仓今日监控汇总</title>
+  <style>
+    :root { color-scheme: light; --ink:#10263a; --muted:#607284; --line:#dce4ea; --blue:#246fd0; --surface:#fff; --page:#f3f6f8; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--page); color:var(--ink); font:14px/1.72 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; }
+    main { width:min(1180px,calc(100% - 32px)); margin:28px auto 56px; padding:30px clamp(20px,4vw,54px); background:var(--surface); border:1px solid var(--line); border-radius:14px; box-shadow:0 16px 44px rgba(20,42,62,.08); }
+    h1 { margin:0 0 24px; font-size:clamp(26px,4vw,38px); line-height:1.25; }
+    h2 { margin:38px 0 16px; padding-bottom:9px; border-bottom:2px solid #d6e3f2; font-size:22px; }
+    h3 { margin:30px 0 12px; font-size:18px; }
+    h4 { margin:24px 0 10px; font-size:15px; }
+    p, li { max-width:88ch; }
+    blockquote { margin:14px 0; padding:10px 14px; border-left:4px solid var(--blue); background:#f3f7fc; color:#36526b; }
+    code { padding:2px 5px; border-radius:4px; background:#eef2f5; font-size:.92em; }
+    table { display:block; width:100%; overflow-x:auto; border-collapse:collapse; margin:12px 0 20px; font-size:12px; }
+    th,td { min-width:112px; padding:9px 10px; border:1px solid var(--line); text-align:left; vertical-align:top; }
+    th { background:#f4f7fa; color:#41576b; white-space:nowrap; }
+    a { color:var(--blue); text-underline-offset:3px; }
+    .report-meta { display:flex; flex-wrap:wrap; gap:8px; margin:-12px 0 26px; color:var(--muted); font-size:12px; }
+    .report-meta span { padding:5px 9px; border:1px solid var(--line); border-radius:999px; background:#f8fafb; }
+    .valuation-status { display:inline-flex; align-items:baseline; gap:6px; padding:3px 7px; border-radius:6px; font-size:12px; white-space:nowrap; }
+    .valuation-status small { font-size:9px; opacity:.72; }
+    .valuation-status--no_revalue { background:#edf5f2; color:#176c5c; }
+    .valuation-status--light_revalue { background:#fff6dc; color:#785b12; }
+    .valuation-status--full_revalue { background:#fff0e8; color:#a0441f; }
+    .valuation-status--manual_review { background:#f2ecfb; color:#634194; }
+    @media (max-width:640px) { main { width:100%; margin:0; padding:22px 16px 42px; border:0; border-radius:0; } h2 { font-size:19px; } }
+    @media print { body { background:#fff; } main { width:100%; margin:0; border:0; box-shadow:none; } }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="report-meta"><span>2026-09-07</span><span>HTML 阅读版</span><span>不构成买卖指令</span></div>
+    <h1 id="_1">持仓今日监控汇总</h1>
+<h2 id="_2">一、监控概览</h2>
+<ul>
+<li>监控日期：2026-09-07</li>
+<li>数据截止时间：行情与量价截至 2026-09-04 收盘；公告、新闻检索截至 2026-09-07 10:00:52 CST（中国标准时间）</li>
+<li>监控状态：盘前口径监控；2026-09-07为交易日（Tushare trade_cal）；实际检索至2026-09-07 10:00:52 CST；行情仅使用最近已完成交易日2026-09-04收盘，不混用当日盘中数据</li>
+<li>监控标的数量：15</li>
+<li>正常标的数量：10</li>
+<li>出现异常标的数量：5</li>
+<li>待人工复盘数量：6</li>
+<li>数据缺失数量：15（均缺成本、仓位或行业指数映射中的至少一项）</li>
+<li>阈值说明：采用默认规则</li>
+<li>估值触发规则：采用默认估值触发规则</li>
+<li>NO_REVALUE数量：15</li>
+<li>LIGHT_REVALUE数量：0</li>
+<li>FULL_REVALUE数量：0</li>
+<li>MANUAL_REVIEW数量：0</li>
+</ul>
+<h2 id="_3">二、重点变化摘要</h2>
+<table>
+<thead>
+<tr>
+<th>标的</th>
+<th>核心变化</th>
+<th>投资逻辑判断</th>
+<th>估值处置状态</th>
+<th>是否待复盘</th>
+<th>是否需继续阅读</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>华明装备</td>
+<td>正式调研确认海外需求与直接出口增长，并重申分红政策；经营目标未变、订单能见度有限且无新模型输入，维持15—22元</td>
+<td>强化</td>
+<td><span class="valuation-status valuation-status--no_revalue" title="NO_REVALUE"><strong>维持估值</strong><small>NO_REVALUE</small></span></td>
+<td>否</td>
+<td>是</td>
+</tr>
+<tr>
+<td>云铝股份</td>
+<td>9月4日铝价与行业成本差、去库对H1正常化利润提供短期支持，但原铝供给仍增长且无公司Q3输入，维持22—31元</td>
+<td>强化</td>
+<td><span class="valuation-status valuation-status--no_revalue" title="NO_REVALUE"><strong>维持估值</strong><small>NO_REVALUE</small></span></td>
+<td>否</td>
+<td>是</td>
+</tr>
+<tr>
+<td>三一重工</td>
+<td>业绩交流补充海外毛利、关税与应收管理，主要财务数值已纳入8月31日完整重估；本次不重复入队</td>
+<td>无实质影响</td>
+<td><span class="valuation-status valuation-status--no_revalue" title="NO_REVALUE"><strong>维持估值</strong><small>NO_REVALUE</small></span></td>
+<td>否</td>
+<td>是</td>
+</tr>
+<tr>
+<td>神马电力</td>
+<td>实控人及一致行动人合计持股降至76.39%，累计减持占总股本1.8120%；控制权未变、无新增稀释，海外项目仍在认证阶段，维持31—49元并人工复盘承接</td>
+<td>无实质影响</td>
+<td><span class="valuation-status valuation-status--no_revalue" title="NO_REVALUE"><strong>维持估值</strong><small>NO_REVALUE</small></span></td>
+<td>是</td>
+<td>是</td>
+</tr>
+<tr>
+<td>徐工机械</td>
+<td>业绩说明会补充海外收入309亿元及汇兑应对；H1核心数值已纳入8月31日完整重估，前瞻表述不作为已实现输入</td>
+<td>无实质影响</td>
+<td><span class="valuation-status valuation-status--no_revalue" title="NO_REVALUE"><strong>维持估值</strong><small>NO_REVALUE</small></span></td>
+<td>否</td>
+<td>是</td>
+</tr>
+<tr>
+<td>星网锐捷</td>
+<td>单日涨跌幅 -6.66% 的绝对值 ≥ 5%；价格 37.01 元高于动态估值区间上沿 36.00 元；未确认新增盈利、现金流或商业事实输入达到默认阈值，价格只更新安全边际</td>
+<td>无实质影响</td>
+<td><span class="valuation-status valuation-status--no_revalue" title="NO_REVALUE"><strong>维持估值</strong><small>NO_REVALUE</small></span></td>
+<td>是</td>
+<td>是</td>
+</tr>
+<tr>
+<td>中国船舶</td>
+<td>单日涨跌幅 +9.18% 的绝对值 ≥ 5%；成交额为近 20 日均值 4.32 倍 ≥ 2 倍；换手率为近 20 日均值 4.07 倍 ≥ 2 倍；未确认新增盈利、现金流或商业事实输入达到默认阈值，价格只更新安全边际</td>
+<td>无实质影响</td>
+<td><span class="valuation-status valuation-status--no_revalue" title="NO_REVALUE"><strong>维持估值</strong><small>NO_REVALUE</small></span></td>
+<td>是</td>
+<td>是</td>
+</tr>
+<tr>
+<td>东材科技</td>
+<td>近 5 日累计涨跌幅 -10.04% 的绝对值 ≥ 10%；未确认新增盈利、现金流或商业事实输入达到默认阈值，价格只更新安全边际</td>
+<td>无实质影响</td>
+<td><span class="valuation-status valuation-status--no_revalue" title="NO_REVALUE"><strong>维持估值</strong><small>NO_REVALUE</small></span></td>
+<td>是</td>
+<td>是</td>
+</tr>
+<tr>
+<td>紫光股份</td>
+<td>单日涨跌幅 -7.50% 的绝对值 ≥ 5%；未确认新增盈利、现金流或商业事实输入达到默认阈值，价格只更新安全边际</td>
+<td>无实质影响</td>
+<td><span class="valuation-status valuation-status--no_revalue" title="NO_REVALUE"><strong>维持估值</strong><small>NO_REVALUE</small></span></td>
+<td>是</td>
+<td>是</td>
+</tr>
+<tr>
+<td>中国海油</td>
+<td>价格 33.41 元高于动态估值区间上沿 33.00 元；未确认新增盈利、现金流或商业事实输入达到默认阈值，价格只更新安全边际</td>
+<td>无实质影响</td>
+<td><span class="valuation-status valuation-status--no_revalue" title="NO_REVALUE"><strong>维持估值</strong><small>NO_REVALUE</small></span></td>
+<td>是</td>
+<td>是</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_4">快速阅读结论</h3>
+<ul>
+<li>是否需要继续阅读逐标的报告：是</li>
+<li>快速结论：5 个标的触发默认量价或区间异常；另有神马电力股东减持进入人工复盘；15 个均为 <span class="valuation-status valuation-status--no_revalue" title="NO_REVALUE"><strong>维持估值</strong><small>NO_REVALUE</small></span>。</li>
+<li>优先阅读标的及原因：神马电力、星网锐捷、中国船舶、东材科技、紫光股份、中国海油；分别涉及区间边界、显著量价波动或股东减持跟踪。</li>
+</ul>
+<h2 id="_5">三、逐标的监控索引</h2>
+<table>
+<thead>
+<tr>
+<th>标的</th>
+<th>代码</th>
+<th>持有 / 观察</th>
+<th>估值处置状态</th>
+<th>触发或修改原因</th>
+<th>投资逻辑判断</th>
+<th>逐标的报告</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>华明装备</td>
+<td>002270</td>
+<td>持有</td>
+<td><span class="valuation-status valuation-status--no_revalue" title="NO_REVALUE"><strong>维持估值</strong><small>NO_REVALUE</small></span></td>
+<td>正式调研确认海外需求与直接出口增长，并重申分红政策；经营目标未变、订单能见度有限且无新模型输入，维持15—22元</td>
+<td>强化</td>
+<td><a href="002270-华明装备-每日监控-2026-09-07.html">打开报告</a></td>
+</tr>
+<tr>
+<td>云铝股份</td>
+<td>000807</td>
+<td>持有</td>
+<td><span class="valuation-status valuation-status--no_revalue" title="NO_REVALUE"><strong>维持估值</strong><small>NO_REVALUE</small></span></td>
+<td>9月4日铝价与行业成本差、去库对H1正常化利润提供短期支持，但原铝供给仍增长且无公司Q3输入，维持22—31元</td>
+<td>强化</td>
+<td><a href="000807-云铝股份-每日监控-2026-09-07.html">打开报告</a></td>
+</tr>
+<tr>
+<td>中国中车</td>
+<td>601766</td>
+<td>持有</td>
+<td><span class="valuation-status valuation-status--no_revalue" title="NO_REVALUE"><strong>维持估值</strong><small>NO_REVALUE</small></span></td>
+<td>未确认新增估值输入达到默认阈值，维持权威研报区间</td>
+<td>无实质影响</td>
+<td><a href="601766-中国中车-每日监控-2026-09-07.html">打开报告</a></td>
+</tr>
+<tr>
+<td>兴业银锡</td>
+<td>000426</td>
+<td>观察</td>
+<td><span class="valuation-status valuation-status--no_revalue" title="NO_REVALUE"><strong>维持估值</strong><small>NO_REVALUE</small></span></td>
+<td>未确认新增估值输入达到默认阈值，维持权威研报区间</td>
+<td>无实质影响</td>
+<td><a href="000426-兴业银锡-每日监控-2026-09-07.html">打开报告</a></td>
+</tr>
+<tr>
+<td>三一重工</td>
+<td>600031</td>
+<td>观察</td>
+<td><span class="valuation-status valuation-status--no_revalue" title="NO_REVALUE"><strong>维持估值</strong><small>NO_REVALUE</small></span></td>
+<td>业绩交流补充海外毛利、关税与应收管理，主要财务数值已纳入8月31日完整重估；本次不重复入队</td>
+<td>无实质影响</td>
+<td><a href="600031-三一重工-每日监控-2026-09-07.html">打开报告</a></td>
+</tr>
+<tr>
+<td>西部矿业</td>
+<td>601168</td>
+<td>观察</td>
+<td><span class="valuation-status valuation-status--no_revalue" title="NO_REVALUE"><strong>维持估值</strong><small>NO_REVALUE</small></span></td>
+<td>未确认新增估值输入达到默认阈值，维持权威研报区间</td>
+<td>无实质影响</td>
+<td><a href="601168-西部矿业-每日监控-2026-09-07.html">打开报告</a></td>
+</tr>
+<tr>
+<td>神马电力</td>
+<td>603530</td>
+<td>观察</td>
+<td><span class="valuation-status valuation-status--no_revalue" title="NO_REVALUE"><strong>维持估值</strong><small>NO_REVALUE</small></span></td>
+<td>实控人及一致行动人合计持股降至76.39%，累计减持占总股本1.8120%；控制权未变、无新增稀释，海外项目仍在认证阶段，维持31—49元并人工复盘承接</td>
+<td>无实质影响</td>
+<td><a href="603530-神马电力-每日监控-2026-09-07.html">打开报告</a></td>
+</tr>
+<tr>
+<td>徐工机械</td>
+<td>000425</td>
+<td>持有</td>
+<td><span class="valuation-status valuation-status--no_revalue" title="NO_REVALUE"><strong>维持估值</strong><small>NO_REVALUE</small></span></td>
+<td>业绩说明会补充海外收入309亿元及汇兑应对；H1核心数值已纳入8月31日完整重估，前瞻表述不作为已实现输入</td>
+<td>无实质影响</td>
+<td><a href="000425-徐工机械-每日监控-2026-09-07.html">打开报告</a></td>
+</tr>
+<tr>
+<td>星网锐捷</td>
+<td>002396</td>
+<td>观察</td>
+<td><span class="valuation-status valuation-status--no_revalue" title="NO_REVALUE"><strong>维持估值</strong><small>NO_REVALUE</small></span></td>
+<td>单日涨跌幅 -6.66% 的绝对值 ≥ 5%；价格 37.01 元高于动态估值区间上沿 36.00 元；未确认新增盈利、现金流或商业事实输入达到默认阈值，价格只更新安全边际</td>
+<td>无实质影响</td>
+<td><a href="002396-星网锐捷-每日监控-2026-09-07.html">打开报告</a></td>
+</tr>
+<tr>
+<td>中国船舶</td>
+<td>600150</td>
+<td>观察</td>
+<td><span class="valuation-status valuation-status--no_revalue" title="NO_REVALUE"><strong>维持估值</strong><small>NO_REVALUE</small></span></td>
+<td>单日涨跌幅 +9.18% 的绝对值 ≥ 5%；成交额为近 20 日均值 4.32 倍 ≥ 2 倍；换手率为近 20 日均值 4.07 倍 ≥ 2 倍；未确认新增盈利、现金流或商业事实输入达到默认阈值，价格只更新安全边际</td>
+<td>无实质影响</td>
+<td><a href="600150-中国船舶-每日监控-2026-09-07.html">打开报告</a></td>
+</tr>
+<tr>
+<td>东材科技</td>
+<td>601208</td>
+<td>观察</td>
+<td><span class="valuation-status valuation-status--no_revalue" title="NO_REVALUE"><strong>维持估值</strong><small>NO_REVALUE</small></span></td>
+<td>近 5 日累计涨跌幅 -10.04% 的绝对值 ≥ 10%；未确认新增盈利、现金流或商业事实输入达到默认阈值，价格只更新安全边际</td>
+<td>无实质影响</td>
+<td><a href="601208-东材科技-每日监控-2026-09-07.html">打开报告</a></td>
+</tr>
+<tr>
+<td>三花智控</td>
+<td>002050</td>
+<td>观察</td>
+<td><span class="valuation-status valuation-status--no_revalue" title="NO_REVALUE"><strong>维持估值</strong><small>NO_REVALUE</small></span></td>
+<td>未确认新增估值输入达到默认阈值，维持权威研报区间</td>
+<td>无实质影响</td>
+<td><a href="002050-三花智控-每日监控-2026-09-07.html">打开报告</a></td>
+</tr>
+<tr>
+<td>华润江中</td>
+<td>600750</td>
+<td>持有</td>
+<td><span class="valuation-status valuation-status--no_revalue" title="NO_REVALUE"><strong>维持估值</strong><small>NO_REVALUE</small></span></td>
+<td>未确认新增估值输入达到默认阈值，维持权威研报区间</td>
+<td>无实质影响</td>
+<td><a href="600750-华润江中-每日监控-2026-09-07.html">打开报告</a></td>
+</tr>
+<tr>
+<td>紫光股份</td>
+<td>000938</td>
+<td>观察</td>
+<td><span class="valuation-status valuation-status--no_revalue" title="NO_REVALUE"><strong>维持估值</strong><small>NO_REVALUE</small></span></td>
+<td>单日涨跌幅 -7.50% 的绝对值 ≥ 5%；未确认新增盈利、现金流或商业事实输入达到默认阈值，价格只更新安全边际</td>
+<td>无实质影响</td>
+<td><a href="000938-紫光股份-每日监控-2026-09-07.html">打开报告</a></td>
+</tr>
+<tr>
+<td>中国海油</td>
+<td>600938</td>
+<td>观察</td>
+<td><span class="valuation-status valuation-status--no_revalue" title="NO_REVALUE"><strong>维持估值</strong><small>NO_REVALUE</small></span></td>
+<td>价格 33.41 元高于动态估值区间上沿 33.00 元；未确认新增盈利、现金流或商业事实输入达到默认阈值，价格只更新安全边际</td>
+<td>无实质影响</td>
+<td><a href="600938-中国海油-每日监控-2026-09-07.html">打开报告</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_6">四、待人工复盘清单</h2>
+<table>
+<thead>
+<tr>
+<th>优先级</th>
+<th>标的</th>
+<th>触发原因</th>
+<th>关联假设</th>
+<th>需要完成的复盘</th>
+<th>逐标的报告</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P2</td>
+<td>东材科技</td>
+<td>近 5 日累计涨跌幅 -10.04% 的绝对值 ≥ 10%；未确认新增盈利、现金流或商业事实输入达到默认阈值，价格只更新安全边际</td>
+<td>H1 高频高速电子树脂项目兑现收入与利润；H2 项目资本开支后现金流和良率改善；H3 2028年EPS兑现而非题材支撑估值</td>
+<td>高频高速电子树脂项目兑现收入与利润；项目资本开支后现金流和良率改善；2028年EPS兑现而非题材支撑估值；无正式证据不作股价归因</td>
+<td><a href="601208-东材科技-每日监控-2026-09-07.html">打开报告</a></td>
+</tr>
+<tr>
+<td>P2</td>
+<td>中国海油</td>
+<td>价格 33.41 元高于动态估值区间上沿 33.00 元；未确认新增盈利、现金流或商业事实输入达到默认阈值，价格只更新安全边际</td>
+<td>H1 正常化油价和净产量支持利润；H2 桶油成本与资本开支受控；H3 自由现金流支持不低于45%的派息承诺</td>
+<td>正常化油价和净产量支持利润；桶油成本与资本开支受控；自由现金流支持不低于45%的派息承诺；无正式证据不作股价归因</td>
+<td><a href="600938-中国海油-每日监控-2026-09-07.html">打开报告</a></td>
+</tr>
+<tr>
+<td>P2</td>
+<td>中国船舶</td>
+<td>单日涨跌幅 +9.18% 的绝对值 ≥ 5%；成交额为近 20 日均值 4.32 倍 ≥ 2 倍；换手率为近 20 日均值 4.07 倍 ≥ 2 倍；未确认新增盈利、现金流或商业事实输入达到默认阈值，价格只更新安全边际</td>
+<td>H1 高价船舶订单按期交付并兑现利润；H2 预付款与成本锁定支持现金转化；H3 周期正常化利润不包含一次性仲裁收益</td>
+<td>高价船舶订单按期交付并兑现利润；预付款与成本锁定支持现金转化；周期正常化利润不包含一次性仲裁收益；无正式证据不作股价归因</td>
+<td><a href="600150-中国船舶-每日监控-2026-09-07.html">打开报告</a></td>
+</tr>
+<tr>
+<td>P2</td>
+<td>星网锐捷</td>
+<td>单日涨跌幅 -6.66% 的绝对值 ≥ 5%；价格 37.01 元高于动态估值区间上沿 36.00 元；未确认新增盈利、现金流或商业事实输入达到默认阈值，价格只更新安全边际</td>
+<td>H1 数据中心交换机订单转化为权益利润；H2 应收存货回收改善负经营现金流；H3 2027年利润和现金质量支撑成长估值</td>
+<td>数据中心交换机订单转化为权益利润；应收存货回收改善负经营现金流；2027年利润和现金质量支撑成长估值；无正式证据不作股价归因</td>
+<td><a href="002396-星网锐捷-每日监控-2026-09-07.html">打开报告</a></td>
+</tr>
+<tr>
+<td>P2</td>
+<td>神马电力</td>
+<td>实控人及一致行动人合计持股降至76.39%，累计减持占总股本1.8120%；控制权未变、无新增稀释，海外项目仍在认证阶段，维持31—49元并人工复盘承接</td>
+<td>H1 海外认证订单转化为收入；H2 高毛利和回款可持续；H3 未来利润折现能支撑成长估值</td>
+<td>跟踪剩余减持计划、大宗交易承接、北美样件认证与批量订单；不把调研表述当成利润</td>
+<td><a href="603530-神马电力-每日监控-2026-09-07.html">打开报告</a></td>
+</tr>
+<tr>
+<td>P2</td>
+<td>紫光股份</td>
+<td>单日涨跌幅 -7.50% 的绝对值 ≥ 5%；未确认新增盈利、现金流或商业事实输入达到默认阈值，价格只更新安全边际</td>
+<td>H1 新华三算力网络需求转为权益利润；H2 毛利企稳和应收回款改善CFO；H3 定增摊薄不超过权益增厚</td>
+<td>新华三算力网络需求转为权益利润；毛利企稳和应收回款改善CFO；定增摊薄不超过权益增厚；无正式证据不作股价归因</td>
+<td><a href="000938-紫光股份-每日监控-2026-09-07.html">打开报告</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_7">五、估值重算队列</h2>
+<table>
+<thead>
+<tr>
+<th>优先级</th>
+<th>标的</th>
+<th>估值处置状态</th>
+<th>触发输入或事件</th>
+<th>受影响方法</th>
+<th>原估值日期</th>
+<th>所需数据</th>
+<th>下一步</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&gt; 本次监控没有标的进入估值重算队列；股价变化只更新安全边际，不改变原价值区间。</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_8">六、研报更新建议</h2>
+<table>
+<thead>
+<tr>
+<th>优先级</th>
+<th>标的</th>
+<th>建议修改章节</th>
+<th>修改原因</th>
+<th>所需数据</th>
+<th>下一步</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&gt; 本次监控没有需要更新研报的标的；全部变化继续保留在逐标的监控记录中。</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_9">研报更新执行结果</h3>
+<p>本次15个标的均为 <span class="valuation-status valuation-status--no_revalue" title="NO_REVALUE"><strong>维持估值</strong><small>NO_REVALUE</small></span>，研报更新队列为空。华明装备与云铝股份的旧版冲突已按用户在2026-09-04的明确指令解除，当前各只有一份权威研报；本次不因已解决的历史冲突或模板版本重复重估。三一重工、徐工机械交流材料的核心H1数值已进入既有完整重估；神马电力股东减持和认证进度进入人工复盘，但未改变总股本、控制权或已验证盈利。</p>
+<h2 id="_10">七、来源与数据缺口</h2>
+<table>
+<thead>
+<tr>
+<th>标的</th>
+<th>数据项</th>
+<th>状态</th>
+<th>已检查来源</th>
+<th>缺口影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>华明装备</td>
+<td>成本、仓位、行业指数映射</td>
+<td>未提供 / 未获取到</td>
+<td>portfolio.json、库内资料、Tushare</td>
+<td>不影响价格异常判断；影响持仓盈亏与行业相对表现</td>
+</tr>
+<tr>
+<td>云铝股份</td>
+<td>成本、仓位、行业指数映射</td>
+<td>未提供 / 未获取到</td>
+<td>portfolio.json、库内资料、Tushare</td>
+<td>不影响价格异常判断；影响持仓盈亏与行业相对表现</td>
+</tr>
+<tr>
+<td>中国中车</td>
+<td>成本、仓位、行业指数映射</td>
+<td>未提供 / 未获取到</td>
+<td>portfolio.json、库内资料、Tushare</td>
+<td>不影响价格异常判断；影响持仓盈亏与行业相对表现</td>
+</tr>
+<tr>
+<td>兴业银锡</td>
+<td>成本、仓位、行业指数映射</td>
+<td>未提供 / 未获取到</td>
+<td>portfolio.json、库内资料、Tushare</td>
+<td>不影响价格异常判断；影响持仓盈亏与行业相对表现</td>
+</tr>
+<tr>
+<td>三一重工</td>
+<td>成本、仓位、行业指数映射</td>
+<td>未提供 / 未获取到</td>
+<td>portfolio.json、库内资料、Tushare</td>
+<td>不影响价格异常判断；影响持仓盈亏与行业相对表现</td>
+</tr>
+<tr>
+<td>西部矿业</td>
+<td>成本、仓位、行业指数映射</td>
+<td>未提供 / 未获取到</td>
+<td>portfolio.json、库内资料、Tushare</td>
+<td>不影响价格异常判断；影响持仓盈亏与行业相对表现</td>
+</tr>
+<tr>
+<td>神马电力</td>
+<td>成本、仓位、行业指数映射</td>
+<td>未提供 / 未获取到</td>
+<td>portfolio.json、库内资料、Tushare</td>
+<td>不影响价格异常判断；影响持仓盈亏与行业相对表现</td>
+</tr>
+<tr>
+<td>徐工机械</td>
+<td>成本、仓位、行业指数映射</td>
+<td>未提供 / 未获取到</td>
+<td>portfolio.json、库内资料、Tushare</td>
+<td>不影响价格异常判断；影响持仓盈亏与行业相对表现</td>
+</tr>
+<tr>
+<td>星网锐捷</td>
+<td>成本、仓位、行业指数映射</td>
+<td>未提供 / 未获取到</td>
+<td>portfolio.json、库内资料、Tushare</td>
+<td>不影响价格异常判断；影响持仓盈亏与行业相对表现</td>
+</tr>
+<tr>
+<td>中国船舶</td>
+<td>成本、仓位、行业指数映射</td>
+<td>未提供 / 未获取到</td>
+<td>portfolio.json、库内资料、Tushare</td>
+<td>不影响价格异常判断；影响持仓盈亏与行业相对表现</td>
+</tr>
+<tr>
+<td>东材科技</td>
+<td>成本、仓位、行业指数映射</td>
+<td>未提供 / 未获取到</td>
+<td>portfolio.json、库内资料、Tushare</td>
+<td>不影响价格异常判断；影响持仓盈亏与行业相对表现</td>
+</tr>
+<tr>
+<td>三花智控</td>
+<td>成本、仓位、行业指数映射</td>
+<td>未提供 / 未获取到</td>
+<td>portfolio.json、库内资料、Tushare</td>
+<td>不影响价格异常判断；影响持仓盈亏与行业相对表现</td>
+</tr>
+<tr>
+<td>华润江中</td>
+<td>成本、仓位、行业指数映射</td>
+<td>未提供 / 未获取到</td>
+<td>portfolio.json、库内资料、Tushare</td>
+<td>不影响价格异常判断；影响持仓盈亏与行业相对表现</td>
+</tr>
+<tr>
+<td>紫光股份</td>
+<td>成本、仓位、行业指数映射</td>
+<td>未提供 / 未获取到</td>
+<td>portfolio.json、库内资料、Tushare</td>
+<td>不影响价格异常判断；影响持仓盈亏与行业相对表现</td>
+</tr>
+<tr>
+<td>中国海油</td>
+<td>成本、仓位、行业指数映射</td>
+<td>未提供 / 未获取到</td>
+<td>portfolio.json、库内资料、Tushare</td>
+<td>不影响价格异常判断；影响持仓盈亏与行业相对表现</td>
+</tr>
+<tr>
+<td>全组合</td>
+<td>公告与新闻索引</td>
+<td>部分获取</td>
+<td>交易所、巨潮、公司官网与公开公告索引</td>
+<td>已逐一核对15个标的公开公告索引，并取得华明装备、三一重工、神马电力、徐工机械的正式投资者关系材料及神马电力股东权益变动公告。周末新增公开索引仍可能延迟；行业指数统一映射、可比组持续估值、WACC当日变化、ETF申赎、基金穿透仓位和账户身份未完整取得。</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>来源口径：行情与 PE/PB 来自本地 Tushare 数据工具，日期为 2026-09-04；代码通过 Tushare stock_basic 核验；公告优先检查交易所、巨潮与公司正式披露；估值基线来自 workbench/targets 最新相关研报。检索失败或无可审计映射的部分均明确列为数据缺口。本报告不构成买卖指令，也不自动覆盖原研报结论。</p>
+</blockquote>
+<p><a href="monitor-evidence-2026-09-07.md">来源与核验记录</a></p>
+  </main>
+</body>
+</html>

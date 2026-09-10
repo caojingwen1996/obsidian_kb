@@ -1,0 +1,38 @@
+[
+  {
+    "name": "中国中车",
+    "six_sections": true,
+    "scan": 32,
+    "kelly_scenarios": 5,
+    "local_links_exist": true,
+    "unique_authoritative_report": true,
+    "html_size": 32567
+  },
+  {
+    "name": "徐工机械",
+    "six_sections": true,
+    "scan": 32,
+    "kelly_scenarios": 5,
+    "local_links_exist": true,
+    "unique_authoritative_report": true,
+    "html_size": 34176
+  },
+  {
+    "name": "华润江中",
+    "six_sections": true,
+    "scan": 32,
+    "kelly_scenarios": 5,
+    "local_links_exist": true,
+    "unique_authoritative_report": true,
+    "html_size": 33311
+  },
+  {
+    "name": "国药股份",
+    "six_sections": true,
+    "scan": 32,
+    "kelly_scenarios": 5,
+    "local_links_exist": true,
+    "unique_authoritative_report": true,
+    "html_size": 36276
+  }
+]

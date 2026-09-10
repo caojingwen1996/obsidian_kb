@@ -1,0 +1,730 @@
+[
+  {
+    "company": "中国中车",
+    "api": "stock_basic",
+    "params": {
+      "ts_code": "601766.SH"
+    },
+    "retrieved": "2026-09-09T16:31:36.936106",
+    "rows": 1
+  },
+  {
+    "company": "中国中车",
+    "api": "daily",
+    "params": {
+      "ts_code": "601766.SH",
+      "start_date": "20260601",
+      "end_date": "20260908"
+    },
+    "retrieved": "2026-09-09T16:31:36.936106",
+    "rows": 71
+  },
+  {
+    "company": "中国中车",
+    "api": "daily_basic",
+    "params": {
+      "ts_code": "601766.SH",
+      "start_date": "20260601",
+      "end_date": "20260908"
+    },
+    "retrieved": "2026-09-09T16:31:36.938104",
+    "rows": 71
+  },
+  {
+    "company": "中国中车",
+    "api": "adj_factor",
+    "params": {
+      "ts_code": "601766.SH",
+      "start_date": "20260601",
+      "end_date": "20260908"
+    },
+    "retrieved": "2026-09-09T16:31:36.938104",
+    "rows": 71
+  },
+  {
+    "company": "中国中车",
+    "api": "moneyflow",
+    "params": {
+      "ts_code": "601766.SH",
+      "start_date": "20260601",
+      "end_date": "20260908"
+    },
+    "retrieved": "2026-09-09T16:31:37.917098",
+    "rows": 71
+  },
+  {
+    "company": "中国中车",
+    "api": "margin_detail",
+    "params": {
+      "ts_code": "601766.SH",
+      "start_date": "20260601",
+      "end_date": "20260908"
+    },
+    "retrieved": "2026-09-09T16:31:37.918098",
+    "rows": 71
+  },
+  {
+    "company": "中国中车",
+    "api": "stk_holdernumber",
+    "params": {
+      "ts_code": "601766.SH",
+      "start_date": "20250101",
+      "end_date": "20260909"
+    },
+    "retrieved": "2026-09-09T16:31:37.918098",
+    "rows": 10
+  },
+  {
+    "company": "中国中车",
+    "api": "income",
+    "params": {
+      "ts_code": "601766.SH",
+      "start_date": "20220101",
+      "end_date": "20260909"
+    },
+    "retrieved": "2026-09-09T16:31:37.935017",
+    "rows": 23
+  },
+  {
+    "company": "中国中车",
+    "api": "balancesheet",
+    "params": {
+      "ts_code": "601766.SH",
+      "start_date": "20220101",
+      "end_date": "20260909"
+    },
+    "retrieved": "2026-09-09T16:31:38.866781",
+    "rows": 30
+  },
+  {
+    "company": "中国中车",
+    "api": "cashflow",
+    "params": {
+      "ts_code": "601766.SH",
+      "start_date": "20220101",
+      "end_date": "20260909",
+      "fields": "ts_code,ann_date,f_ann_date,end_date,report_type,n_cashflow_act,c_pay_acq_const_fiolta,c_cash_equ_end,n_cashflow_inv_act,n_cash_flows_fnc_act,free_cashflow"
+    },
+    "retrieved": "2026-09-09T16:31:38.888746",
+    "rows": 27
+  },
+  {
+    "company": "中国中车",
+    "api": "fina_indicator",
+    "params": {
+      "ts_code": "601766.SH",
+      "start_date": "20220101",
+      "end_date": "20260909"
+    },
+    "retrieved": "2026-09-09T16:31:38.972678",
+    "rows": 25
+  },
+  {
+    "company": "中国中车",
+    "api": "dividend",
+    "params": {
+      "ts_code": "601766.SH"
+    },
+    "retrieved": "2026-09-09T16:31:39.269082",
+    "rows": 62
+  },
+  {
+    "company": "中国中车",
+    "api": "repurchase",
+    "params": {
+      "ts_code": "601766.SH",
+      "start_date": "20250101",
+      "end_date": "20260909"
+    },
+    "retrieved": "2026-09-09T16:31:40.097964",
+    "rows": 0
+  },
+  {
+    "company": "中国中车",
+    "api": "stk_holdertrade",
+    "params": {
+      "ts_code": "601766.SH",
+      "start_date": "20250101",
+      "end_date": "20260909"
+    },
+    "retrieved": "2026-09-09T16:31:40.124215",
+    "rows": 3
+  },
+  {
+    "company": "中国中车",
+    "api": "block_trade",
+    "params": {
+      "ts_code": "601766.SH",
+      "start_date": "20250101",
+      "end_date": "20260909"
+    },
+    "retrieved": "2026-09-09T16:31:40.124215",
+    "rows": 2
+  },
+  {
+    "company": "徐工机械",
+    "api": "stock_basic",
+    "params": {
+      "ts_code": "000425.SZ"
+    },
+    "retrieved": "2026-09-09T16:31:40.458525",
+    "rows": 1
+  },
+  {
+    "company": "徐工机械",
+    "api": "daily",
+    "params": {
+      "ts_code": "000425.SZ",
+      "start_date": "20260601",
+      "end_date": "20260908"
+    },
+    "retrieved": "2026-09-09T16:31:41.860471",
+    "rows": 71
+  },
+  {
+    "company": "徐工机械",
+    "api": "daily_basic",
+    "params": {
+      "ts_code": "000425.SZ",
+      "start_date": "20260601",
+      "end_date": "20260908"
+    },
+    "retrieved": "2026-09-09T16:31:41.861472",
+    "rows": 71
+  },
+  {
+    "company": "徐工机械",
+    "api": "adj_factor",
+    "params": {
+      "ts_code": "000425.SZ",
+      "start_date": "20260601",
+      "end_date": "20260908"
+    },
+    "retrieved": "2026-09-09T16:31:42.615369",
+    "rows": 71
+  },
+  {
+    "company": "徐工机械",
+    "api": "moneyflow",
+    "params": {
+      "ts_code": "000425.SZ",
+      "start_date": "20260601",
+      "end_date": "20260908"
+    },
+    "retrieved": "2026-09-09T16:31:42.615369",
+    "rows": 71
+  },
+  {
+    "company": "徐工机械",
+    "api": "margin_detail",
+    "params": {
+      "ts_code": "000425.SZ",
+      "start_date": "20260601",
+      "end_date": "20260908"
+    },
+    "retrieved": "2026-09-09T16:31:43.760767",
+    "rows": 71
+  },
+  {
+    "company": "徐工机械",
+    "api": "stk_holdernumber",
+    "params": {
+      "ts_code": "000425.SZ",
+      "start_date": "20250101",
+      "end_date": "20260909"
+    },
+    "retrieved": "2026-09-09T16:31:43.788834",
+    "rows": 7
+  },
+  {
+    "company": "徐工机械",
+    "api": "income",
+    "params": {
+      "ts_code": "000425.SZ",
+      "start_date": "20220101",
+      "end_date": "20260909"
+    },
+    "retrieved": "2026-09-09T16:31:44.161915",
+    "rows": 24
+  },
+  {
+    "company": "徐工机械",
+    "api": "balancesheet",
+    "params": {
+      "ts_code": "000425.SZ",
+      "start_date": "20220101",
+      "end_date": "20260909"
+    },
+    "retrieved": "2026-09-09T16:31:44.161915",
+    "rows": 25
+  },
+  {
+    "company": "徐工机械",
+    "api": "cashflow",
+    "params": {
+      "ts_code": "000425.SZ",
+      "start_date": "20220101",
+      "end_date": "20260909",
+      "fields": "ts_code,ann_date,f_ann_date,end_date,report_type,n_cashflow_act,c_pay_acq_const_fiolta,c_cash_equ_end,n_cashflow_inv_act,n_cash_flows_fnc_act,free_cashflow"
+    },
+    "retrieved": "2026-09-09T16:31:45.158091",
+    "rows": 31
+  },
+  {
+    "company": "徐工机械",
+    "api": "fina_indicator",
+    "params": {
+      "ts_code": "000425.SZ",
+      "start_date": "20220101",
+      "end_date": "20260909"
+    },
+    "retrieved": "2026-09-09T16:31:45.289877",
+    "rows": 24
+  },
+  {
+    "company": "徐工机械",
+    "api": "dividend",
+    "params": {
+      "ts_code": "000425.SZ"
+    },
+    "retrieved": "2026-09-09T16:31:45.532002",
+    "rows": 85
+  },
+  {
+    "company": "徐工机械",
+    "api": "repurchase",
+    "params": {
+      "ts_code": "000425.SZ",
+      "start_date": "20250101",
+      "end_date": "20260909"
+    },
+    "retrieved": "2026-09-09T16:31:46.096793",
+    "rows": 27
+  },
+  {
+    "company": "徐工机械",
+    "api": "stk_holdertrade",
+    "params": {
+      "ts_code": "000425.SZ",
+      "start_date": "20250101",
+      "end_date": "20260909"
+    },
+    "retrieved": "2026-09-09T16:31:46.408374",
+    "rows": 14
+  },
+  {
+    "company": "徐工机械",
+    "api": "block_trade",
+    "params": {
+      "ts_code": "000425.SZ",
+      "start_date": "20250101",
+      "end_date": "20260909"
+    },
+    "retrieved": "2026-09-09T16:31:47.590364",
+    "rows": 22
+  },
+  {
+    "company": "华润江中",
+    "api": "stock_basic",
+    "params": {
+      "ts_code": "600750.SH"
+    },
+    "retrieved": "2026-09-09T16:31:47.693475",
+    "rows": 1
+  },
+  {
+    "company": "华润江中",
+    "api": "daily",
+    "params": {
+      "ts_code": "600750.SH",
+      "start_date": "20260601",
+      "end_date": "20260908"
+    },
+    "retrieved": "2026-09-09T16:31:48.487414",
+    "rows": 71
+  },
+  {
+    "company": "华润江中",
+    "api": "daily_basic",
+    "params": {
+      "ts_code": "600750.SH",
+      "start_date": "20260601",
+      "end_date": "20260908"
+    },
+    "retrieved": "2026-09-09T16:31:48.896759",
+    "rows": 71
+  },
+  {
+    "company": "华润江中",
+    "api": "adj_factor",
+    "params": {
+      "ts_code": "600750.SH",
+      "start_date": "20260601",
+      "end_date": "20260908"
+    },
+    "retrieved": "2026-09-09T16:31:49.367515",
+    "rows": 71
+  },
+  {
+    "company": "华润江中",
+    "api": "moneyflow",
+    "params": {
+      "ts_code": "600750.SH",
+      "start_date": "20260601",
+      "end_date": "20260908"
+    },
+    "retrieved": "2026-09-09T16:31:49.468493",
+    "rows": 71
+  },
+  {
+    "company": "华润江中",
+    "api": "margin_detail",
+    "params": {
+      "ts_code": "600750.SH",
+      "start_date": "20260601",
+      "end_date": "20260908"
+    },
+    "retrieved": "2026-09-09T16:31:49.901200",
+    "rows": 71
+  },
+  {
+    "company": "华润江中",
+    "api": "stk_holdernumber",
+    "params": {
+      "ts_code": "600750.SH",
+      "start_date": "20250101",
+      "end_date": "20260909"
+    },
+    "retrieved": "2026-09-09T16:31:50.086356",
+    "rows": 9
+  },
+  {
+    "company": "华润江中",
+    "api": "income",
+    "params": {
+      "ts_code": "600750.SH",
+      "start_date": "20220101",
+      "end_date": "20260909"
+    },
+    "retrieved": "2026-09-09T16:31:50.186545",
+    "rows": 27
+  },
+  {
+    "company": "华润江中",
+    "api": "balancesheet",
+    "params": {
+      "ts_code": "600750.SH",
+      "start_date": "20220101",
+      "end_date": "20260909"
+    },
+    "retrieved": "2026-09-09T16:31:51.121204",
+    "rows": 23
+  },
+  {
+    "company": "华润江中",
+    "api": "cashflow",
+    "params": {
+      "ts_code": "600750.SH",
+      "start_date": "20220101",
+      "end_date": "20260909",
+      "fields": "ts_code,ann_date,f_ann_date,end_date,report_type,n_cashflow_act,c_pay_acq_const_fiolta,c_cash_equ_end,n_cashflow_inv_act,n_cash_flows_fnc_act,free_cashflow"
+    },
+    "retrieved": "2026-09-09T16:31:51.251431",
+    "rows": 30
+  },
+  {
+    "company": "华润江中",
+    "api": "fina_indicator",
+    "params": {
+      "ts_code": "600750.SH",
+      "start_date": "20220101",
+      "end_date": "20260909"
+    },
+    "retrieved": "2026-09-09T16:31:51.251822",
+    "rows": 26
+  },
+  {
+    "company": "华润江中",
+    "api": "dividend",
+    "params": {
+      "ts_code": "600750.SH"
+    },
+    "retrieved": "2026-09-09T16:31:51.252329",
+    "rows": 99
+  },
+  {
+    "company": "华润江中",
+    "api": "repurchase",
+    "params": {
+      "ts_code": "600750.SH",
+      "start_date": "20250101",
+      "end_date": "20260909"
+    },
+    "retrieved": "2026-09-09T16:31:52.331219",
+    "rows": 6
+  },
+  {
+    "company": "华润江中",
+    "api": "stk_holdertrade",
+    "params": {
+      "ts_code": "600750.SH",
+      "start_date": "20250101",
+      "end_date": "20260909"
+    },
+    "retrieved": "2026-09-09T16:31:52.331219",
+    "rows": 7
+  },
+  {
+    "company": "华润江中",
+    "api": "block_trade",
+    "params": {
+      "ts_code": "600750.SH",
+      "start_date": "20250101",
+      "end_date": "20260909"
+    },
+    "retrieved": "2026-09-09T16:31:52.530372",
+    "rows": 0
+  },
+  {
+    "company": "国药股份",
+    "api": "stock_basic",
+    "params": {
+      "ts_code": "600511.SH"
+    },
+    "retrieved": "2026-09-09T16:31:55.411781",
+    "rows": 1
+  },
+  {
+    "company": "国药股份",
+    "api": "daily",
+    "params": {
+      "ts_code": "600511.SH",
+      "start_date": "20260601",
+      "end_date": "20260908"
+    },
+    "retrieved": "2026-09-09T16:31:55.500521",
+    "rows": 71
+  },
+  {
+    "company": "国药股份",
+    "api": "daily_basic",
+    "params": {
+      "ts_code": "600511.SH",
+      "start_date": "20260601",
+      "end_date": "20260908"
+    },
+    "retrieved": "2026-09-09T16:31:55.708342",
+    "rows": 71
+  },
+  {
+    "company": "国药股份",
+    "api": "adj_factor",
+    "params": {
+      "ts_code": "600511.SH",
+      "start_date": "20260601",
+      "end_date": "20260908"
+    },
+    "retrieved": "2026-09-09T16:31:55.814161",
+    "rows": 71
+  },
+  {
+    "company": "国药股份",
+    "api": "moneyflow",
+    "params": {
+      "ts_code": "600511.SH",
+      "start_date": "20260601",
+      "end_date": "20260908"
+    },
+    "retrieved": "2026-09-09T16:31:56.812422",
+    "rows": 71
+  },
+  {
+    "company": "国药股份",
+    "api": "margin_detail",
+    "params": {
+      "ts_code": "600511.SH",
+      "start_date": "20260601",
+      "end_date": "20260908"
+    },
+    "retrieved": "2026-09-09T16:31:56.895491",
+    "rows": 71
+  },
+  {
+    "company": "国药股份",
+    "api": "stk_holdernumber",
+    "params": {
+      "ts_code": "600511.SH",
+      "start_date": "20250101",
+      "end_date": "20260909"
+    },
+    "retrieved": "2026-09-09T16:31:56.895491",
+    "rows": 9
+  },
+  {
+    "company": "国药股份",
+    "api": "income",
+    "params": {
+      "ts_code": "600511.SH",
+      "start_date": "20220101",
+      "end_date": "20260909"
+    },
+    "retrieved": "2026-09-09T16:31:57.274883",
+    "rows": 23
+  },
+  {
+    "company": "国药股份",
+    "api": "balancesheet",
+    "params": {
+      "ts_code": "600511.SH",
+      "start_date": "20220101",
+      "end_date": "20260909"
+    },
+    "retrieved": "2026-09-09T16:31:58.118508",
+    "rows": 23
+  },
+  {
+    "company": "国药股份",
+    "api": "cashflow",
+    "params": {
+      "ts_code": "600511.SH",
+      "start_date": "20220101",
+      "end_date": "20260909",
+      "fields": "ts_code,ann_date,f_ann_date,end_date,report_type,n_cashflow_act,c_pay_acq_const_fiolta,c_cash_equ_end,n_cashflow_inv_act,n_cash_flows_fnc_act,free_cashflow"
+    },
+    "retrieved": "2026-09-09T16:31:58.295715",
+    "rows": 29
+  },
+  {
+    "company": "国药股份",
+    "api": "fina_indicator",
+    "params": {
+      "ts_code": "600511.SH",
+      "start_date": "20220101",
+      "end_date": "20260909"
+    },
+    "retrieved": "2026-09-09T16:31:59.192736",
+    "rows": 25
+  },
+  {
+    "company": "国药股份",
+    "api": "dividend",
+    "params": {
+      "ts_code": "600511.SH"
+    },
+    "retrieved": "2026-09-09T16:31:59.798442",
+    "rows": 73
+  },
+  {
+    "company": "国药股份",
+    "api": "repurchase",
+    "params": {
+      "ts_code": "600511.SH",
+      "start_date": "20250101",
+      "end_date": "20260909"
+    },
+    "retrieved": "2026-09-09T16:32:00.046065",
+    "rows": 0
+  },
+  {
+    "company": "国药股份",
+    "api": "stk_holdertrade",
+    "params": {
+      "ts_code": "600511.SH",
+      "start_date": "20250101",
+      "end_date": "20260909"
+    },
+    "retrieved": "2026-09-09T16:32:00.401605",
+    "rows": 0
+  },
+  {
+    "company": "国药股份",
+    "api": "block_trade",
+    "params": {
+      "ts_code": "600511.SH",
+      "start_date": "20250101",
+      "end_date": "20260909"
+    },
+    "retrieved": "2026-09-09T16:32:01.118822",
+    "rows": 1
+  },
+  {
+    "company": "共同市场",
+    "api": "cn_cpi",
+    "params": {
+      "start_m": "202606",
+      "end_m": "202608"
+    },
+    "retrieved": "2026-09-09T16:32:01.489494",
+    "rows": 2
+  },
+  {
+    "company": "共同市场",
+    "api": "cn_ppi",
+    "params": {
+      "start_m": "202606",
+      "end_m": "202608"
+    },
+    "retrieved": "2026-09-09T16:32:01.490496",
+    "rows": 2
+  },
+  {
+    "company": "共同市场",
+    "api": "shibor",
+    "params": {
+      "start_date": "20260801",
+      "end_date": "20260909"
+    },
+    "retrieved": "2026-09-09T16:32:02.410256",
+    "rows": 28
+  },
+  {
+    "company": "共同市场",
+    "api": "cn_m",
+    "params": {
+      "start_m": "202606",
+      "end_m": "202608"
+    },
+    "retrieved": "2026-09-09T16:32:02.538326",
+    "rows": 2
+  },
+  {
+    "company": "共同市场",
+    "api": "shibor_lpr",
+    "params": {
+      "start_date": "20260701",
+      "end_date": "20260909"
+    },
+    "retrieved": "2026-09-09T16:32:02.947304",
+    "rows": 1
+  },
+  {
+    "company": "共同市场",
+    "api": "yc_cb",
+    "params": {
+      "start_date": "20260801",
+      "end_date": "20260909",
+      "curve_type": "0",
+      "curve_term": 10
+    },
+    "retrieved": "2026-09-09T16:32:03.707933",
+    "error": "抱歉，您没有接口(yc_cb)访问权限，权限的具体详情访问：https://tushare.pro/document/1?doc_id=108。"
+  },
+  {
+    "company": "共同市场",
+    "api": "daily",
+    "params": {
+      "trade_date": "20260908"
+    },
+    "retrieved": "2026-09-09T16:32:03.760610",
+    "rows": 5549
+  },
+  {
+    "company": "共同市场",
+    "api": "daily",
+    "params": {
+      "trade_date": "20260901"
+    },
+    "retrieved": "2026-09-09T16:32:03.951614",
+    "rows": 5546
+  }
+]

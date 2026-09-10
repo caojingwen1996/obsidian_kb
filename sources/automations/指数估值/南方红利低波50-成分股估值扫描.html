@@ -1,0 +1,2263 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>南方红利低波50成分股估值扫描</title>
+<style>
+:root { --ink:#20252b; --muted:#66707b; --line:#d9dee3; --paper:#f7f8f9; --panel:#fff; --green:#176b4d; --red:#a33a2b; --amber:#8a6115; --blue:#285f8f; }
+* { box-sizing:border-box; }
+body { margin:0; color:var(--ink); background:var(--paper); font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif; line-height:1.65; letter-spacing:0; }
+header { background:#172026; color:#fff; border-bottom:5px solid #d7b24a; }
+header .inner { max-width:1480px; margin:auto; padding:24px 28px 20px; }
+header h1 { margin:0; font-size:28px; font-weight:700; }
+header p { margin:6px 0 0; color:#d7dde1; font-size:14px; }
+.summary { max-width:1480px; margin:18px auto 0; padding:0 28px; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; }
+.metric { background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:14px 16px; min-height:96px; }
+.metric strong { display:block; font-size:13px; color:var(--muted); margin-bottom:6px; }
+.metric span { display:block; font-size:16px; font-weight:700; }
+main { max-width:1480px; margin:18px auto 48px; padding:0 28px; }
+article { background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:24px 28px 40px; overflow:hidden; }
+h1 { font-size:26px; margin:0 0 18px; } h2 { font-size:21px; margin:34px 0 12px; padding-top:8px; border-top:2px solid #25323b; } h3 { font-size:17px; margin:24px 0 10px; color:#25323b; }
+p,li { font-size:14px; } blockquote { margin:16px 0; padding:10px 14px; border-left:4px solid #d7b24a; background:#fbfaf4; color:#4e5358; }
+.table-wrap { overflow-x:auto; margin:12px 0 18px; border:1px solid var(--line); }
+table { border-collapse:collapse; min-width:980px; width:100%; font-size:12px; background:#fff; }
+th,td { padding:8px 9px; border-bottom:1px solid var(--line); border-right:1px solid #eef0f2; text-align:left; vertical-align:top; white-space:nowrap; }
+th { position:sticky; top:0; background:#edf1f3; color:#28333c; font-weight:700; } tr:nth-child(even) td { background:#fafbfb; }
+code { background:#eef1f3; padding:2px 5px; border-radius:3px; } a { color:var(--blue); text-decoration:none; } a:hover { text-decoration:underline; }
+ul,ol { padding-left:22px; }
+@media (max-width:900px) { .summary { grid-template-columns:1fr 1fr; } article { padding:18px 16px 30px; } header .inner, main, .summary { padding-left:14px; padding-right:14px; } }
+@media (max-width:520px) { .summary { grid-template-columns:1fr; } header h1 { font-size:22px; } }
+</style>
+</head>
+<body>
+<header><div class="inner"><h1>南方红利低波50成分股估值扫描</h1><p>数据截至 2026-09-09 · 批量初筛，不替代逐公司深研</p></div></header>
+<section class="summary">
+  <div class="metric"><strong>基本面</strong><span>六项固定顺序核验</span>负债 → 净现金 → 现金流 → 开销 → 真实利润 → 扣商誉净资产</div>
+  <div class="metric"><strong>心理面</strong><span>50只逐股公允价值区间</span>银行PB/ROE，周期正常化利润，成熟公司合理PE</div>
+  <div class="metric"><strong>情绪面</strong><span>价格偏离与32项触发</span>每只32项，共1600条证据/缺口</div>
+  <div class="metric"><strong>资金面</strong><span>ETF份额、融资与资金分档</span>主体身份不由单一代理推断</div>
+</section>
+<main><article><h1 id="50">南方红利低波50成分股估值扫描</h1>
+<blockquote>
+<p>这是使用个股估值计算 skill 的批量初筛，不替代50份逐公司产业、财报和公告深研。申赎清单确认了当前成分身份，但没有提供可靠的指数权重；所有排名均为逐股、等权比较，不汇总成基金公允价值。</p>
+<p>2026-09-10修订：修正比较期净现金为负时变化方向反转的问题；估值基准日、行情和财务数据截止期不变。</p>
+</blockquote>
+<h2 id="1">1. 估值摘要</h2>
+<ul>
+<li>产品：南方标普中国A股大盘红利低波50ETF（515450）；成分口径为2026-09-09申赎清单，共50只。</li>
+<li>估值分布：公允价值内25只、折价1只、普通高估3只、证据不足21只。这只是模型位置分布，不是推荐数量。</li>
+<li>新增资金：折价且证据质量为中的标的仅进入 <code>observe</code>，其余多为 <code>wait/observe</code>；没有一只因批量模型直接生成 <code>buy</code>。</li>
+<li>已有持仓：统一为 <code>review</code>。用户未提供持仓、成本和仓位，不能把批量估值直接转成减持比例。</li>
+<li>市场环境：202608 CPI同比0.8%、PPI同比3.8%；2026-09-09全A上涨家数占比32.3%，单日广度偏弱。</li>
+<li>主要证据边界：银行缺资本充足率/不良率/拨备/净息差；非金融公司未逐一重建分部价格、销量、单位成本、订单和产业里程碑；因此批量结果最多作为后续单股深研优先级。</li>
+</ul>
+<h3 id="11">1.1 通过最低证据门槛、相对估值靠前的标的</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">排名</th>
+<th>代码</th>
+<th>名称</th>
+<th>类型</th>
+<th style="text-align: right;">现价</th>
+<th style="text-align: right;">公允价值</th>
+<th style="text-align: right;">现价/中枢</th>
+<th>状态</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1</td>
+<td>600642</td>
+<td>申能股份</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">8.67</td>
+<td style="text-align: right;">7.41—25.26（中枢14.51）</td>
+<td style="text-align: right;">59.7%</td>
+<td>公允价值内</td>
+<td>中</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td>000999</td>
+<td>华润三九</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">24.70</td>
+<td style="text-align: right;">20.56—67.84（中枢40.86）</td>
+<td style="text-align: right;">60.5%</td>
+<td>公允价值内</td>
+<td>中</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td>000651</td>
+<td>格力电器</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">38.87</td>
+<td style="text-align: right;">41.95—90.14（中枢62.15）</td>
+<td style="text-align: right;">62.5%</td>
+<td>折价</td>
+<td>中</td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td>600887</td>
+<td>伊利股份</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">26.45</td>
+<td style="text-align: right;">17.01—60.34（中枢36.41）</td>
+<td style="text-align: right;">72.6%</td>
+<td>公允价值内</td>
+<td>中</td>
+</tr>
+<tr>
+<td style="text-align: right;">5</td>
+<td>000333</td>
+<td>美的集团</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">86.02</td>
+<td style="text-align: right;">53.99—190.10（中枢113.52）</td>
+<td style="text-align: right;">75.8%</td>
+<td>公允价值内</td>
+<td>中</td>
+</tr>
+<tr>
+<td style="text-align: right;">6</td>
+<td>600886</td>
+<td>国投电力</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">14.37</td>
+<td style="text-align: right;">8.84—28.45（中枢17.14）</td>
+<td style="text-align: right;">83.8%</td>
+<td>公允价值内</td>
+<td>中</td>
+</tr>
+<tr>
+<td style="text-align: right;">7</td>
+<td>000858</td>
+<td>五粮液</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">71.16</td>
+<td style="text-align: right;">54.10—107.69（中枢78.83）</td>
+<td style="text-align: right;">90.3%</td>
+<td>公允价值内</td>
+<td>中</td>
+</tr>
+<tr>
+<td style="text-align: right;">8</td>
+<td>600600</td>
+<td>青岛啤酒</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">51.38</td>
+<td style="text-align: right;">30.68—90.86（中枢55.25）</td>
+<td style="text-align: right;">93.0%</td>
+<td>公允价值内</td>
+<td>中</td>
+</tr>
+<tr>
+<td style="text-align: right;">9</td>
+<td>601766</td>
+<td>中国中车</td>
+<td>周期资源/重资产</td>
+<td style="text-align: right;">6.16</td>
+<td style="text-align: right;">5.66—7.38（中枢6.49）</td>
+<td style="text-align: right;">94.9%</td>
+<td>公允价值内</td>
+<td>中</td>
+</tr>
+<tr>
+<td style="text-align: right;">10</td>
+<td>600519</td>
+<td>贵州茅台</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">1,290.88</td>
+<td style="text-align: right;">703.56—2,224.69（中枢1,340.98）</td>
+<td style="text-align: right;">96.3%</td>
+<td>公允价值内</td>
+<td>中</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>排名靠前不等于可买。这里排除了状态为“证据不足”或估值置信度低的标的；银行和周期锚受损公司仍保留在50只总表。</p>
+</blockquote>
+<h3 id="12">1.2 通过最低证据门槛、相对估值靠后的标的</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">排名</th>
+<th>代码</th>
+<th>名称</th>
+<th>类型</th>
+<th style="text-align: right;">现价</th>
+<th style="text-align: right;">公允价值</th>
+<th style="text-align: right;">现价/中枢</th>
+<th>状态</th>
+<th>置信度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1</td>
+<td>600350</td>
+<td>山东高速</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">9.96</td>
+<td style="text-align: right;">4.68—8.34（中枢6.17）</td>
+<td style="text-align: right;">161.5%</td>
+<td>普通高估</td>
+<td>中</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td>001965</td>
+<td>招商公路</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">9.56</td>
+<td style="text-align: right;">5.16—10.37（中枢6.36）</td>
+<td style="text-align: right;">150.2%</td>
+<td>公允价值内</td>
+<td>中</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td>603658</td>
+<td>安图生物</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">32.06</td>
+<td style="text-align: right;">16.04—34.82（中枢23.49）</td>
+<td style="text-align: right;">136.5%</td>
+<td>公允价值内</td>
+<td>中</td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td>000895</td>
+<td>双汇发展</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">23.89</td>
+<td style="text-align: right;">11.74—24.67（中枢17.63）</td>
+<td style="text-align: right;">135.5%</td>
+<td>公允价值内</td>
+<td>中</td>
+</tr>
+<tr>
+<td style="text-align: right;">5</td>
+<td>600028</td>
+<td>中国石化</td>
+<td>周期资源/重资产</td>
+<td style="text-align: right;">5.61</td>
+<td style="text-align: right;">2.85—5.91（中枢4.41）</td>
+<td style="text-align: right;">127.2%</td>
+<td>公允价值内</td>
+<td>中</td>
+</tr>
+<tr>
+<td style="text-align: right;">6</td>
+<td>600019</td>
+<td>宝钢股份</td>
+<td>周期资源/重资产</td>
+<td style="text-align: right;">5.90</td>
+<td style="text-align: right;">3.13—5.79（中枢4.64）</td>
+<td style="text-align: right;">127.2%</td>
+<td>普通高估</td>
+<td>中</td>
+</tr>
+<tr>
+<td style="text-align: right;">7</td>
+<td>603195</td>
+<td>公牛集团</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">38.79</td>
+<td style="text-align: right;">21.00—54.23（中枢35.18）</td>
+<td style="text-align: right;">110.3%</td>
+<td>公允价值内</td>
+<td>中</td>
+</tr>
+<tr>
+<td style="text-align: right;">8</td>
+<td>600900</td>
+<td>长江电力</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">28.05</td>
+<td style="text-align: right;">12.94—43.43（中枢26.54）</td>
+<td style="text-align: right;">105.7%</td>
+<td>公允价值内</td>
+<td>中</td>
+</tr>
+<tr>
+<td style="text-align: right;">9</td>
+<td>600377</td>
+<td>宁沪高速</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">12.49</td>
+<td style="text-align: right;">7.43—18.48（中枢12.12）</td>
+<td style="text-align: right;">103.0%</td>
+<td>公允价值内</td>
+<td>中</td>
+</tr>
+<tr>
+<td style="text-align: right;">10</td>
+<td>601000</td>
+<td>唐山港</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">4.57</td>
+<td style="text-align: right;">2.81—6.68（中枢4.56）</td>
+<td style="text-align: right;">100.3%</td>
+<td>公允价值内</td>
+<td>中</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2">2. 估值基础</h2>
+<h3 id="21">2.1 成分和数据口径</h3>
+<ul>
+<li>成分：2026-09-09 ETF申赎清单。PCF中的现金替代数量不等于指数权重，本报告不据此做加权基金估值。</li>
+<li>行情：Tushare 2026-09-09收盘价、PE TTM、PB、股息率；融资余额最近可得日为2026-09-08或更早。</li>
+<li>财务：2021—2025年报、2025H1和2026H1合并报表数据；当前余额与2025年末比较，利润和现金流与2025H1比较。</li>
+<li>共同宏观：CPI/PPI、M2和LPR取各接口截至2026-09-09最近可得值。10年国债收益率接口无权限，未虚构替代。</li>
+<li>完整数据见<a href="../../../sources/webpages/2026-09-09-南方红利低波50估值证据快照.md">证据快照</a>、<a href="../../../sources/assets/2026-09-09-南方红利低波50估值/financial-evidence.csv">财务证据CSV</a>和<a href="../../../sources/assets/2026-09-09-南方红利低波50估值/valuation-model.json">模型JSON</a>。</li>
+<li>中国中车采用<a href="../../../workbench/targets/中国中车-机构级决策研报.md">2026-09-09单股权威研报</a>区间；五粮液采用<a href="../../../workbench/targets/2026-08-03-1727-五粮液-机构级决策研报.md">2026-09-08单股权威研报</a>区间。两者不被批量模型覆盖。</li>
+</ul>
+<h3 id="22">2.2 六项基本面核验（固定权重顺序）</h3>
+<blockquote>
+<p>下表只展示方向；每项数值、比较期和缺口在模型JSON与财务证据CSV中。银行一般企业净现金、经营现金流和费用率口径不适用，必须补资本充足率、资产质量、净息差和成本收入比。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>代码</th>
+<th>名称</th>
+<th>1.负债</th>
+<th>2.净现金</th>
+<th>3.现金流</th>
+<th>4.开销合理性</th>
+<th>5.真实利润</th>
+<th>6.扣商誉净资产</th>
+<th>综合</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>603658</td>
+<td>安图生物</td>
+<td>持平</td>
+<td>改善</td>
+<td>CFO 恶化 / FCF 恶化</td>
+<td>恶化</td>
+<td>恶化</td>
+<td>恶化</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>603195</td>
+<td>公牛集团</td>
+<td>恶化</td>
+<td>改善</td>
+<td>CFO 恶化 / FCF 持平</td>
+<td>改善</td>
+<td>改善</td>
+<td>恶化</td>
+<td>走弱</td>
+</tr>
+<tr>
+<td>601988</td>
+<td>中国银行</td>
+<td>待验证</td>
+<td>不适用</td>
+<td>不适用</td>
+<td>待验证</td>
+<td>待验证</td>
+<td>持平</td>
+<td>数据不足，无法判断</td>
+</tr>
+<tr>
+<td>601939</td>
+<td>建设银行</td>
+<td>待验证</td>
+<td>不适用</td>
+<td>不适用</td>
+<td>待验证</td>
+<td>待验证</td>
+<td>改善</td>
+<td>数据不足，无法判断</td>
+</tr>
+<tr>
+<td>601916</td>
+<td>浙商银行</td>
+<td>待验证</td>
+<td>不适用</td>
+<td>不适用</td>
+<td>待验证</td>
+<td>持平</td>
+<td>改善</td>
+<td>数据不足，无法判断</td>
+</tr>
+<tr>
+<td>601838</td>
+<td>成都银行</td>
+<td>待验证</td>
+<td>不适用</td>
+<td>不适用</td>
+<td>待验证</td>
+<td>改善</td>
+<td>改善</td>
+<td>数据不足，无法判断</td>
+</tr>
+<tr>
+<td>601825</td>
+<td>沪农商行</td>
+<td>待验证</td>
+<td>不适用</td>
+<td>不适用</td>
+<td>待验证</td>
+<td>恶化</td>
+<td>改善</td>
+<td>数据不足，无法判断</td>
+</tr>
+<tr>
+<td>601818</td>
+<td>光大银行</td>
+<td>待验证</td>
+<td>不适用</td>
+<td>不适用</td>
+<td>待验证</td>
+<td>恶化</td>
+<td>持平</td>
+<td>数据不足，无法判断</td>
+</tr>
+<tr>
+<td>601766</td>
+<td>中国中车</td>
+<td>持平</td>
+<td>恶化</td>
+<td>CFO 恶化 / FCF 恶化</td>
+<td>持平</td>
+<td>改善</td>
+<td>改善</td>
+<td>走弱</td>
+</tr>
+<tr>
+<td>601728</td>
+<td>中国电信</td>
+<td>恶化</td>
+<td>恶化</td>
+<td>CFO 改善 / FCF 改善</td>
+<td>持平</td>
+<td>恶化</td>
+<td>改善</td>
+<td>走弱</td>
+</tr>
+<tr>
+<td>601668</td>
+<td>中国建筑</td>
+<td>持平</td>
+<td>恶化</td>
+<td>CFO 改善 / FCF 改善</td>
+<td>持平</td>
+<td>待验证</td>
+<td>改善</td>
+<td>走弱</td>
+</tr>
+<tr>
+<td>601658</td>
+<td>邮储银行</td>
+<td>待验证</td>
+<td>不适用</td>
+<td>不适用</td>
+<td>待验证</td>
+<td>待验证</td>
+<td>改善</td>
+<td>数据不足，无法判断</td>
+</tr>
+<tr>
+<td>601398</td>
+<td>工商银行</td>
+<td>待验证</td>
+<td>不适用</td>
+<td>不适用</td>
+<td>待验证</td>
+<td>待验证</td>
+<td>改善</td>
+<td>数据不足，无法判断</td>
+</tr>
+<tr>
+<td>601328</td>
+<td>交通银行</td>
+<td>待验证</td>
+<td>不适用</td>
+<td>不适用</td>
+<td>待验证</td>
+<td>待验证</td>
+<td>改善</td>
+<td>数据不足，无法判断</td>
+</tr>
+<tr>
+<td>601298</td>
+<td>青岛港</td>
+<td>恶化</td>
+<td>改善</td>
+<td>CFO 改善 / FCF 恶化</td>
+<td>持平</td>
+<td>持平</td>
+<td>改善</td>
+<td>走弱</td>
+</tr>
+<tr>
+<td>601288</td>
+<td>农业银行</td>
+<td>待验证</td>
+<td>不适用</td>
+<td>不适用</td>
+<td>待验证</td>
+<td>待验证</td>
+<td>改善</td>
+<td>数据不足，无法判断</td>
+</tr>
+<tr>
+<td>601229</td>
+<td>上海银行</td>
+<td>待验证</td>
+<td>不适用</td>
+<td>不适用</td>
+<td>待验证</td>
+<td>持平</td>
+<td>改善</td>
+<td>数据不足，无法判断</td>
+</tr>
+<tr>
+<td>601186</td>
+<td>中国铁建</td>
+<td>恶化</td>
+<td>恶化</td>
+<td>CFO 持平 / FCF 恶化</td>
+<td>持平</td>
+<td>恶化</td>
+<td>改善</td>
+<td>走弱</td>
+</tr>
+<tr>
+<td>601169</td>
+<td>北京银行</td>
+<td>待验证</td>
+<td>不适用</td>
+<td>不适用</td>
+<td>待验证</td>
+<td>改善</td>
+<td>改善</td>
+<td>数据不足，无法判断</td>
+</tr>
+<tr>
+<td>601166</td>
+<td>兴业银行</td>
+<td>待验证</td>
+<td>不适用</td>
+<td>不适用</td>
+<td>待验证</td>
+<td>恶化</td>
+<td>改善</td>
+<td>数据不足，无法判断</td>
+</tr>
+<tr>
+<td>601009</td>
+<td>南京银行</td>
+<td>待验证</td>
+<td>不适用</td>
+<td>不适用</td>
+<td>待验证</td>
+<td>改善</td>
+<td>改善</td>
+<td>数据不足，无法判断</td>
+</tr>
+<tr>
+<td>601006</td>
+<td>大秦铁路</td>
+<td>持平</td>
+<td>恶化</td>
+<td>CFO 改善 / FCF 改善</td>
+<td>持平</td>
+<td>待验证</td>
+<td>持平</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>601000</td>
+<td>唐山港</td>
+<td>恶化</td>
+<td>持平</td>
+<td>CFO 改善 / FCF 改善</td>
+<td>持平</td>
+<td>待验证</td>
+<td>持平</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>600941</td>
+<td>中国移动</td>
+<td>恶化</td>
+<td>改善</td>
+<td>CFO 改善 / FCF 改善</td>
+<td>持平</td>
+<td>恶化</td>
+<td>改善</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>600919</td>
+<td>江苏银行</td>
+<td>待验证</td>
+<td>不适用</td>
+<td>不适用</td>
+<td>待验证</td>
+<td>改善</td>
+<td>改善</td>
+<td>数据不足，无法判断</td>
+</tr>
+<tr>
+<td>600900</td>
+<td>长江电力</td>
+<td>持平</td>
+<td>改善</td>
+<td>CFO 持平 / FCF 改善</td>
+<td>持平</td>
+<td>改善</td>
+<td>恶化</td>
+<td>改善</td>
+</tr>
+<tr>
+<td>600887</td>
+<td>伊利股份</td>
+<td>恶化</td>
+<td>恶化</td>
+<td>CFO 改善 / FCF 改善</td>
+<td>改善</td>
+<td>恶化</td>
+<td>持平</td>
+<td>走弱</td>
+</tr>
+<tr>
+<td>600886</td>
+<td>国投电力</td>
+<td>持平</td>
+<td>持平</td>
+<td>CFO 恶化 / FCF 恶化</td>
+<td>持平</td>
+<td>待验证</td>
+<td>持平</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>600642</td>
+<td>申能股份</td>
+<td>持平</td>
+<td>改善</td>
+<td>CFO 恶化 / FCF 持平</td>
+<td>持平</td>
+<td>持平</td>
+<td>持平</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>600600</td>
+<td>青岛啤酒</td>
+<td>改善</td>
+<td>恶化</td>
+<td>CFO 改善 / FCF 改善</td>
+<td>改善</td>
+<td>持平</td>
+<td>改善</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>600519</td>
+<td>贵州茅台</td>
+<td>恶化</td>
+<td>改善</td>
+<td>CFO 改善 / FCF 改善</td>
+<td>持平</td>
+<td>持平</td>
+<td>改善</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>600377</td>
+<td>宁沪高速</td>
+<td>恶化</td>
+<td>恶化</td>
+<td>CFO 改善 / FCF 改善</td>
+<td>持平</td>
+<td>待验证</td>
+<td>持平</td>
+<td>走弱</td>
+</tr>
+<tr>
+<td>600350</td>
+<td>山东高速</td>
+<td>恶化</td>
+<td>持平</td>
+<td>CFO 持平 / FCF 改善</td>
+<td>持平</td>
+<td>恶化</td>
+<td>改善</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>600177</td>
+<td>雅戈尔</td>
+<td>持平</td>
+<td>恶化</td>
+<td>CFO 持平 / FCF 持平</td>
+<td>恶化</td>
+<td>待验证</td>
+<td>持平</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>600132</td>
+<td>重庆啤酒</td>
+<td>恶化</td>
+<td>改善</td>
+<td>CFO 持平 / FCF 持平</td>
+<td>恶化</td>
+<td>恶化</td>
+<td>改善</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>600036</td>
+<td>招商银行</td>
+<td>待验证</td>
+<td>不适用</td>
+<td>不适用</td>
+<td>待验证</td>
+<td>待验证</td>
+<td>改善</td>
+<td>数据不足，无法判断</td>
+</tr>
+<tr>
+<td>600028</td>
+<td>中国石化</td>
+<td>恶化</td>
+<td>持平</td>
+<td>CFO 持平 / FCF 恶化</td>
+<td>持平</td>
+<td>待验证</td>
+<td>改善</td>
+<td>走弱</td>
+</tr>
+<tr>
+<td>600019</td>
+<td>宝钢股份</td>
+<td>改善</td>
+<td>改善</td>
+<td>CFO 恶化 / FCF 恶化</td>
+<td>持平</td>
+<td>恶化</td>
+<td>持平</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>600016</td>
+<td>民生银行</td>
+<td>待验证</td>
+<td>不适用</td>
+<td>不适用</td>
+<td>待验证</td>
+<td>待验证</td>
+<td>改善</td>
+<td>数据不足，无法判断</td>
+</tr>
+<tr>
+<td>600015</td>
+<td>华夏银行</td>
+<td>待验证</td>
+<td>不适用</td>
+<td>不适用</td>
+<td>待验证</td>
+<td>待验证</td>
+<td>持平</td>
+<td>数据不足，无法判断</td>
+</tr>
+<tr>
+<td>002032</td>
+<td>苏泊尔</td>
+<td>恶化</td>
+<td>恶化</td>
+<td>CFO 恶化 / FCF 恶化</td>
+<td>恶化</td>
+<td>恶化</td>
+<td>恶化</td>
+<td>走弱</td>
+</tr>
+<tr>
+<td>002007</td>
+<td>华兰生物</td>
+<td>改善</td>
+<td>改善</td>
+<td>CFO 改善 / FCF 改善</td>
+<td>持平</td>
+<td>恶化</td>
+<td>恶化</td>
+<td>改善</td>
+</tr>
+<tr>
+<td>001965</td>
+<td>招商公路</td>
+<td>改善</td>
+<td>改善</td>
+<td>CFO 恶化 / FCF 恶化</td>
+<td>改善</td>
+<td>改善</td>
+<td>改善</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>000999</td>
+<td>华润三九</td>
+<td>改善</td>
+<td>改善</td>
+<td>CFO 恶化 / FCF 恶化</td>
+<td>恶化</td>
+<td>恶化</td>
+<td>改善</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>000895</td>
+<td>双汇发展</td>
+<td>恶化</td>
+<td>恶化</td>
+<td>CFO 恶化 / FCF 恶化</td>
+<td>恶化</td>
+<td>改善</td>
+<td>恶化</td>
+<td>走弱</td>
+</tr>
+<tr>
+<td>000858</td>
+<td>五粮液</td>
+<td>改善</td>
+<td>恶化</td>
+<td>CFO 恶化 / FCF 恶化</td>
+<td>恶化</td>
+<td>恶化</td>
+<td>持平</td>
+<td>走弱</td>
+</tr>
+<tr>
+<td>000651</td>
+<td>格力电器</td>
+<td>持平</td>
+<td>改善</td>
+<td>CFO 恶化 / FCF 恶化</td>
+<td>改善</td>
+<td>恶化</td>
+<td>改善</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>000423</td>
+<td>东阿阿胶</td>
+<td>恶化</td>
+<td>恶化</td>
+<td>CFO 恶化 / FCF 恶化</td>
+<td>恶化</td>
+<td>改善</td>
+<td>恶化</td>
+<td>走弱</td>
+</tr>
+<tr>
+<td>000333</td>
+<td>美的集团</td>
+<td>恶化</td>
+<td>恶化</td>
+<td>CFO 持平 / FCF 持平</td>
+<td>改善</td>
+<td>恶化</td>
+<td>恶化</td>
+<td>走弱</td>
+</tr>
+<tr>
+<td>000001</td>
+<td>平安银行</td>
+<td>待验证</td>
+<td>不适用</td>
+<td>不适用</td>
+<td>待验证</td>
+<td>持平</td>
+<td>持平</td>
+<td>数据不足，无法判断</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3">3. 估值方法与假设</h2>
+<table>
+<thead>
+<tr>
+<th>企业类型</th>
+<th>主估值锚</th>
+<th>三情景</th>
+<th>交叉验证</th>
+<th>关键限制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>金融</td>
+<td>PB/ROE剩余收益近似</td>
+<td>正常化ROE取75%/90%/100%，长期增长1%/2%/3%，股权成本11%/10%/9%</td>
+<td>TTM股息/要求股息率</td>
+<td>缺资本充足率、不良率、拨备和净息差，置信度低</td>
+</tr>
+<tr>
+<td>周期资源/重资产</td>
+<td>正常化盈利估值（2021—2025归母利润×周期PE）</td>
+<td>利润25分位/中位/75分位，PE约7/9/11倍并受现金流、杠杆和波动约束</td>
+<td>PB、TTM股息率</td>
+<td>未重建产品价格、销量、成本和周期位置，只能初筛</td>
+</tr>
+<tr>
+<td>稳定盈利</td>
+<td>正常化盈利估值（2023—2025归母利润×合理PE）</td>
+<td>利润分位+最新年加权，PE由资本成本、受限增长、ROE、现金转化和杠杆约束</td>
+<td>TTM股息/要求股息率</td>
+<td>未逐公司完成产业、竞争优势和分部现金流深研</td>
+</tr>
+<tr>
+<td>多业务/资产</td>
+<td>扣商誉净资产/PB</td>
+<td>0.55/0.75/1.00倍PB</td>
+<td>TTM股息率</td>
+<td>未逐项重估投资资产和潜在税负，不是完整SOTP</td>
+</tr>
+</tbody>
+</table>
+<p>质量、成长、现金和债务只在上述模型中计入一次；采用PE或PB时不再额外加现金、扣债务，避免重复价值桥。TTM股息率只是交叉验证，不参与机械平均。</p>
+<h2 id="4">4. 估值结果与交易溢价</h2>
+<h3 id="41-50">4.1 50只成分股逐股结果</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">排名</th>
+<th>代码</th>
+<th>名称</th>
+<th>类型</th>
+<th style="text-align: right;">现价</th>
+<th>PE/PB</th>
+<th style="text-align: right;">股息率</th>
+<th style="text-align: right;">公允价值下限—上限</th>
+<th style="text-align: right;">中枢</th>
+<th style="text-align: right;">相对中枢</th>
+<th style="text-align: right;">相对上限</th>
+<th>估值状态</th>
+<th>新增资金</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1</td>
+<td>600015</td>
+<td>华夏银行</td>
+<td>金融</td>
+<td style="text-align: right;">6.35</td>
+<td>PB 0.32</td>
+<td style="text-align: right;">6.61%</td>
+<td style="text-align: right;">12.83—21.52</td>
+<td style="text-align: right;">16.73</td>
+<td style="text-align: right;">-62.0%</td>
+<td style="text-align: right;">-70.5%</td>
+<td>证据不足（低）</td>
+<td><code>wait</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td>601668</td>
+<td>中国建筑</td>
+<td>周期资源/重资产</td>
+<td style="text-align: right;">4.39</td>
+<td>PE 5.73</td>
+<td style="text-align: right;">6.19%</td>
+<td style="text-align: right;">7.20—12.59</td>
+<td style="text-align: right;">10.21</td>
+<td style="text-align: right;">-57.0%</td>
+<td style="text-align: right;">-65.1%</td>
+<td>证据不足（低）</td>
+<td><code>wait</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td>601169</td>
+<td>北京银行</td>
+<td>金融</td>
+<td style="text-align: right;">5.53</td>
+<td>PB 0.41</td>
+<td style="text-align: right;">5.03%</td>
+<td style="text-align: right;">9.00—14.64</td>
+<td style="text-align: right;">11.57</td>
+<td style="text-align: right;">-52.2%</td>
+<td style="text-align: right;">-62.2%</td>
+<td>证据不足（低）</td>
+<td><code>wait</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td>601186</td>
+<td>中国铁建</td>
+<td>周期资源/重资产</td>
+<td style="text-align: right;">6.14</td>
+<td>PE 5.10</td>
+<td style="text-align: right;">4.89%</td>
+<td style="text-align: right;">9.00—16.49</td>
+<td style="text-align: right;">12.76</td>
+<td style="text-align: right;">-51.9%</td>
+<td style="text-align: right;">-62.8%</td>
+<td>证据不足（低）</td>
+<td><code>wait</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">5</td>
+<td>600016</td>
+<td>民生银行</td>
+<td>金融</td>
+<td style="text-align: right;">3.64</td>
+<td>PB 0.27</td>
+<td style="text-align: right;">5.19%</td>
+<td style="text-align: right;">5.63—8.85</td>
+<td style="text-align: right;">7.24</td>
+<td style="text-align: right;">-49.8%</td>
+<td style="text-align: right;">-58.9%</td>
+<td>证据不足（低）</td>
+<td><code>wait</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">6</td>
+<td>601818</td>
+<td>光大银行</td>
+<td>金融</td>
+<td style="text-align: right;">3.03</td>
+<td>PB 0.35</td>
+<td style="text-align: right;">5.78%</td>
+<td style="text-align: right;">4.65—7.45</td>
+<td style="text-align: right;">5.94</td>
+<td style="text-align: right;">-49.0%</td>
+<td style="text-align: right;">-59.4%</td>
+<td>证据不足（低）</td>
+<td><code>wait</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">7</td>
+<td>601166</td>
+<td>兴业银行</td>
+<td>金融</td>
+<td style="text-align: right;">18.11</td>
+<td>PB 0.46</td>
+<td style="text-align: right;">5.89%</td>
+<td style="text-align: right;">26.46—46.34</td>
+<td style="text-align: right;">35.20</td>
+<td style="text-align: right;">-48.6%</td>
+<td style="text-align: right;">-60.9%</td>
+<td>证据不足（低）</td>
+<td><code>wait</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">8</td>
+<td>000001</td>
+<td>平安银行</td>
+<td>金融</td>
+<td style="text-align: right;">11.70</td>
+<td>PB 0.48</td>
+<td style="text-align: right;">5.09%</td>
+<td style="text-align: right;">16.68—29.21</td>
+<td style="text-align: right;">22.19</td>
+<td style="text-align: right;">-47.3%</td>
+<td style="text-align: right;">-59.9%</td>
+<td>证据不足（低）</td>
+<td><code>wait</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">9</td>
+<td>600642</td>
+<td>申能股份</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">8.67</td>
+<td>PE 11.72</td>
+<td style="text-align: right;">5.31%</td>
+<td style="text-align: right;">7.41—25.26</td>
+<td style="text-align: right;">14.51</td>
+<td style="text-align: right;">-40.3%</td>
+<td style="text-align: right;">-65.7%</td>
+<td>公允价值内（中）</td>
+<td><code>observe</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">10</td>
+<td>000999</td>
+<td>华润三九</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">24.70</td>
+<td>PE 12.55</td>
+<td style="text-align: right;">4.21%</td>
+<td style="text-align: right;">20.56—67.84</td>
+<td style="text-align: right;">40.86</td>
+<td style="text-align: right;">-39.5%</td>
+<td style="text-align: right;">-63.6%</td>
+<td>公允价值内（中）</td>
+<td><code>observe</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">11</td>
+<td>601229</td>
+<td>上海银行</td>
+<td>金融</td>
+<td style="text-align: right;">9.59</td>
+<td>PB 0.53</td>
+<td style="text-align: right;">5.42%</td>
+<td style="text-align: right;">11.62—20.59</td>
+<td style="text-align: right;">15.54</td>
+<td style="text-align: right;">-38.3%</td>
+<td style="text-align: right;">-53.4%</td>
+<td>证据不足（低）</td>
+<td><code>wait</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">12</td>
+<td>600919</td>
+<td>江苏银行</td>
+<td>金融</td>
+<td style="text-align: right;">12.33</td>
+<td>PB 0.83</td>
+<td style="text-align: right;">4.57%</td>
+<td style="text-align: right;">14.59—27.11</td>
+<td style="text-align: right;">19.97</td>
+<td style="text-align: right;">-38.3%</td>
+<td style="text-align: right;">-54.5%</td>
+<td>证据不足（低）</td>
+<td><code>wait</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">13</td>
+<td>601916</td>
+<td>浙商银行</td>
+<td>金融</td>
+<td style="text-align: right;">2.96</td>
+<td>PB 0.45</td>
+<td style="text-align: right;">4.43%</td>
+<td style="text-align: right;">3.70—6.13</td>
+<td style="text-align: right;">4.79</td>
+<td style="text-align: right;">-38.3%</td>
+<td style="text-align: right;">-51.7%</td>
+<td>证据不足（低）</td>
+<td><code>wait</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">14</td>
+<td>000651</td>
+<td>格力电器</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">38.87</td>
+<td>PE 7.81</td>
+<td style="text-align: right;">7.71%</td>
+<td style="text-align: right;">41.95—90.14</td>
+<td style="text-align: right;">62.15</td>
+<td style="text-align: right;">-37.5%</td>
+<td style="text-align: right;">-56.9%</td>
+<td>折价（中）</td>
+<td><code>observe</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">15</td>
+<td>600036</td>
+<td>招商银行</td>
+<td>金融</td>
+<td style="text-align: right;">41.00</td>
+<td>PB 0.90</td>
+<td style="text-align: right;">4.92%</td>
+<td style="text-align: right;">46.23—80.00</td>
+<td style="text-align: right;">64.00</td>
+<td style="text-align: right;">-35.9%</td>
+<td style="text-align: right;">-48.7%</td>
+<td>证据不足（低）</td>
+<td><code>wait</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">16</td>
+<td>601009</td>
+<td>南京银行</td>
+<td>金融</td>
+<td style="text-align: right;">12.02</td>
+<td>PB 0.77</td>
+<td style="text-align: right;">4.40%</td>
+<td style="text-align: right;">13.15—24.32</td>
+<td style="text-align: right;">17.96</td>
+<td style="text-align: right;">-33.1%</td>
+<td style="text-align: right;">-50.6%</td>
+<td>证据不足（低）</td>
+<td><code>wait</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">17</td>
+<td>601838</td>
+<td>成都银行</td>
+<td>金融</td>
+<td style="text-align: right;">19.86</td>
+<td>PB 0.91</td>
+<td style="text-align: right;">4.64%</td>
+<td style="text-align: right;">23.14—36.53</td>
+<td style="text-align: right;">29.22</td>
+<td style="text-align: right;">-32.0%</td>
+<td style="text-align: right;">-45.6%</td>
+<td>证据不足（低）</td>
+<td><code>wait</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">18</td>
+<td>601298</td>
+<td>青岛港</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">9.46</td>
+<td>PE 11.83</td>
+<td style="text-align: right;">3.65%</td>
+<td style="text-align: right;">7.73—21.72</td>
+<td style="text-align: right;">13.65</td>
+<td style="text-align: right;">-30.7%</td>
+<td style="text-align: right;">-56.4%</td>
+<td>公允价值内（低）</td>
+<td><code>wait</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">19</td>
+<td>601825</td>
+<td>沪农商行</td>
+<td>金融</td>
+<td style="text-align: right;">8.96</td>
+<td>PB 0.65</td>
+<td style="text-align: right;">4.85%</td>
+<td style="text-align: right;">9.39—17.03</td>
+<td style="text-align: right;">12.70</td>
+<td style="text-align: right;">-29.4%</td>
+<td style="text-align: right;">-47.4%</td>
+<td>证据不足（低）</td>
+<td><code>wait</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">20</td>
+<td>601328</td>
+<td>交通银行</td>
+<td>金融</td>
+<td style="text-align: right;">7.29</td>
+<td>PB 0.55</td>
+<td style="text-align: right;">4.45%</td>
+<td style="text-align: right;">7.74—13.13</td>
+<td style="text-align: right;">10.14</td>
+<td style="text-align: right;">-28.1%</td>
+<td style="text-align: right;">-44.5%</td>
+<td>证据不足（低）</td>
+<td><code>wait</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">21</td>
+<td>600887</td>
+<td>伊利股份</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">26.45</td>
+<td>PE 16.53</td>
+<td style="text-align: right;">5.22%</td>
+<td style="text-align: right;">17.01—60.34</td>
+<td style="text-align: right;">36.41</td>
+<td style="text-align: right;">-27.4%</td>
+<td style="text-align: right;">-56.2%</td>
+<td>公允价值内（中）</td>
+<td><code>observe</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">22</td>
+<td>601658</td>
+<td>邮储银行</td>
+<td>金融</td>
+<td style="text-align: right;">5.40</td>
+<td>PB 0.62</td>
+<td style="text-align: right;">4.04%</td>
+<td style="text-align: right;">5.52—9.49</td>
+<td style="text-align: right;">7.28</td>
+<td style="text-align: right;">-25.8%</td>
+<td style="text-align: right;">-43.1%</td>
+<td>证据不足（低）</td>
+<td><code>wait</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">23</td>
+<td>000333</td>
+<td>美的集团</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">86.02</td>
+<td>PE 14.79</td>
+<td style="text-align: right;">4.89%</td>
+<td style="text-align: right;">53.99—190.10</td>
+<td style="text-align: right;">113.52</td>
+<td style="text-align: right;">-24.2%</td>
+<td style="text-align: right;">-54.7%</td>
+<td>公允价值内（中）</td>
+<td><code>observe</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">24</td>
+<td>601398</td>
+<td>工商银行</td>
+<td>金融</td>
+<td style="text-align: right;">8.00</td>
+<td>PB 0.72</td>
+<td style="text-align: right;">3.88%</td>
+<td style="text-align: right;">7.41—13.09</td>
+<td style="text-align: right;">9.90</td>
+<td style="text-align: right;">-19.2%</td>
+<td style="text-align: right;">-38.9%</td>
+<td>证据不足（低）</td>
+<td><code>wait</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">25</td>
+<td>601939</td>
+<td>建设银行</td>
+<td>金融</td>
+<td style="text-align: right;">10.82</td>
+<td>PB 0.79</td>
+<td style="text-align: right;">1.88%</td>
+<td style="text-align: right;">9.87—17.89</td>
+<td style="text-align: right;">13.35</td>
+<td style="text-align: right;">-19.0%</td>
+<td style="text-align: right;">-39.5%</td>
+<td>证据不足（低）</td>
+<td><code>wait</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">26</td>
+<td>600886</td>
+<td>国投电力</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">14.37</td>
+<td>PE 16.12</td>
+<td style="text-align: right;">3.54%</td>
+<td style="text-align: right;">8.84—28.45</td>
+<td style="text-align: right;">17.14</td>
+<td style="text-align: right;">-16.2%</td>
+<td style="text-align: right;">-49.5%</td>
+<td>公允价值内（中）</td>
+<td><code>observe</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">27</td>
+<td>601288</td>
+<td>农业银行</td>
+<td>金融</td>
+<td style="text-align: right;">6.81</td>
+<td>PB 0.83</td>
+<td style="text-align: right;">3.66%</td>
+<td style="text-align: right;">5.78—10.20</td>
+<td style="text-align: right;">7.72</td>
+<td style="text-align: right;">-11.7%</td>
+<td style="text-align: right;">-33.2%</td>
+<td>证据不足（低）</td>
+<td><code>wait</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">28</td>
+<td>000858</td>
+<td>五粮液</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">71.16</td>
+<td>PE 21.11</td>
+<td style="text-align: right;">7.25%</td>
+<td style="text-align: right;">54.10—107.69</td>
+<td style="text-align: right;">78.83</td>
+<td style="text-align: right;">-9.7%</td>
+<td style="text-align: right;">-33.9%</td>
+<td>公允价值内（中）</td>
+<td><code>observe</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">29</td>
+<td>601988</td>
+<td>中国银行</td>
+<td>金融</td>
+<td style="text-align: right;">6.43</td>
+<td>PB 0.75</td>
+<td style="text-align: right;">3.52%</td>
+<td style="text-align: right;">5.34—9.20</td>
+<td style="text-align: right;">7.05</td>
+<td style="text-align: right;">-8.8%</td>
+<td style="text-align: right;">-30.1%</td>
+<td>证据不足（低）</td>
+<td><code>wait</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">30</td>
+<td>601728</td>
+<td>中国电信</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">6.28</td>
+<td>PE 19.31</td>
+<td style="text-align: right;">1.45%</td>
+<td style="text-align: right;">3.64—11.17</td>
+<td style="text-align: right;">6.85</td>
+<td style="text-align: right;">-8.3%</td>
+<td style="text-align: right;">-43.8%</td>
+<td>公允价值内（低）</td>
+<td><code>wait</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">31</td>
+<td>600600</td>
+<td>青岛啤酒</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">51.38</td>
+<td>PE 15.23</td>
+<td style="text-align: right;">4.57%</td>
+<td style="text-align: right;">30.68—90.86</td>
+<td style="text-align: right;">55.25</td>
+<td style="text-align: right;">-7.0%</td>
+<td style="text-align: right;">-43.5%</td>
+<td>公允价值内（中）</td>
+<td><code>observe</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">32</td>
+<td>601766</td>
+<td>中国中车</td>
+<td>周期资源/重资产</td>
+<td style="text-align: right;">6.16</td>
+<td>PE 12.69</td>
+<td style="text-align: right;">3.73%</td>
+<td style="text-align: right;">5.66—7.38</td>
+<td style="text-align: right;">6.49</td>
+<td style="text-align: right;">-5.1%</td>
+<td style="text-align: right;">-16.5%</td>
+<td>公允价值内（中）</td>
+<td><code>observe</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">33</td>
+<td>600519</td>
+<td>贵州茅台</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">1,290.88</td>
+<td>PE 19.82</td>
+<td style="text-align: right;">4.03%</td>
+<td style="text-align: right;">703.56—2,224.69</td>
+<td style="text-align: right;">1,340.98</td>
+<td style="text-align: right;">-3.7%</td>
+<td style="text-align: right;">-42.0%</td>
+<td>公允价值内（中）</td>
+<td><code>observe</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">34</td>
+<td>000423</td>
+<td>东阿阿胶</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">46.71</td>
+<td>PE 16.74</td>
+<td style="text-align: right;">5.96%</td>
+<td style="text-align: right;">21.58—87.12</td>
+<td style="text-align: right;">48.29</td>
+<td style="text-align: right;">-3.3%</td>
+<td style="text-align: right;">-46.4%</td>
+<td>公允价值内（中）</td>
+<td><code>observe</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">35</td>
+<td>601000</td>
+<td>唐山港</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">4.57</td>
+<td>PE 12.76</td>
+<td style="text-align: right;">4.38%</td>
+<td style="text-align: right;">2.81—6.68</td>
+<td style="text-align: right;">4.56</td>
+<td style="text-align: right;">0.3%</td>
+<td style="text-align: right;">-31.6%</td>
+<td>公允价值内（中）</td>
+<td><code>observe</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">36</td>
+<td>600377</td>
+<td>宁沪高速</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">12.49</td>
+<td>PE 13.46</td>
+<td style="text-align: right;">3.92%</td>
+<td style="text-align: right;">7.43—18.48</td>
+<td style="text-align: right;">12.12</td>
+<td style="text-align: right;">3.0%</td>
+<td style="text-align: right;">-32.4%</td>
+<td>公允价值内（中）</td>
+<td><code>observe</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">37</td>
+<td>600900</td>
+<td>长江电力</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">28.05</td>
+<td>PE 18.96</td>
+<td style="text-align: right;">3.57%</td>
+<td style="text-align: right;">12.94—43.43</td>
+<td style="text-align: right;">26.54</td>
+<td style="text-align: right;">5.7%</td>
+<td style="text-align: right;">-35.4%</td>
+<td>公允价值内（中）</td>
+<td><code>observe</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">38</td>
+<td>603195</td>
+<td>公牛集团</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">38.79</td>
+<td>PE 16.81</td>
+<td style="text-align: right;">4.91%</td>
+<td style="text-align: right;">21.00—54.23</td>
+<td style="text-align: right;">35.18</td>
+<td style="text-align: right;">10.3%</td>
+<td style="text-align: right;">-28.5%</td>
+<td>公允价值内（中）</td>
+<td><code>observe</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">39</td>
+<td>600941</td>
+<td>中国移动</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">97.11</td>
+<td>PE 15.98</td>
+<td style="text-align: right;">2.27%</td>
+<td style="text-align: right;">53.36—128.10</td>
+<td style="text-align: right;">86.93</td>
+<td style="text-align: right;">11.7%</td>
+<td style="text-align: right;">-24.2%</td>
+<td>公允价值内（低）</td>
+<td><code>wait</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">40</td>
+<td>002032</td>
+<td>苏泊尔</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">39.11</td>
+<td>PE 15.45</td>
+<td style="text-align: right;">6.70%</td>
+<td style="text-align: right;">21.65—45.63</td>
+<td style="text-align: right;">31.95</td>
+<td style="text-align: right;">22.4%</td>
+<td style="text-align: right;">-14.3%</td>
+<td>公允价值内（低）</td>
+<td><code>wait</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">41</td>
+<td>600177</td>
+<td>雅戈尔</td>
+<td>多业务/资产</td>
+<td style="text-align: right;">8.32</td>
+<td>PB 0.91</td>
+<td style="text-align: right;">5.25%</td>
+<td style="text-align: right;">4.94—8.98</td>
+<td style="text-align: right;">6.73</td>
+<td style="text-align: right;">23.6%</td>
+<td style="text-align: right;">-7.3%</td>
+<td>公允价值内（低）</td>
+<td><code>wait</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">42</td>
+<td>600019</td>
+<td>宝钢股份</td>
+<td>周期资源/重资产</td>
+<td style="text-align: right;">5.90</td>
+<td>PE 12.80</td>
+<td style="text-align: right;">5.04%</td>
+<td style="text-align: right;">3.13—5.79</td>
+<td style="text-align: right;">4.64</td>
+<td style="text-align: right;">27.2%</td>
+<td style="text-align: right;">2.0%</td>
+<td>普通高估（中）</td>
+<td><code>wait</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">43</td>
+<td>600028</td>
+<td>中国石化</td>
+<td>周期资源/重资产</td>
+<td style="text-align: right;">5.61</td>
+<td>PE 18.87</td>
+<td style="text-align: right;">3.57%</td>
+<td style="text-align: right;">2.85—5.91</td>
+<td style="text-align: right;">4.41</td>
+<td style="text-align: right;">27.2%</td>
+<td style="text-align: right;">-5.1%</td>
+<td>公允价值内（中）</td>
+<td><code>observe</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">44</td>
+<td>600132</td>
+<td>重庆啤酒</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">39.71</td>
+<td>PE 16.54</td>
+<td style="text-align: right;">6.30%</td>
+<td style="text-align: right;">19.63—43.77</td>
+<td style="text-align: right;">30.52</td>
+<td style="text-align: right;">30.1%</td>
+<td style="text-align: right;">-9.3%</td>
+<td>公允价值内（低）</td>
+<td><code>wait</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">45</td>
+<td>000895</td>
+<td>双汇发展</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">23.89</td>
+<td>PE 16.27</td>
+<td style="text-align: right;">3.35%</td>
+<td style="text-align: right;">11.74—24.67</td>
+<td style="text-align: right;">17.63</td>
+<td style="text-align: right;">35.5%</td>
+<td style="text-align: right;">-3.2%</td>
+<td>公允价值内（中）</td>
+<td><code>observe</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">46</td>
+<td>603658</td>
+<td>安图生物</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">32.06</td>
+<td>PE 18.43</td>
+<td style="text-align: right;">4.09%</td>
+<td style="text-align: right;">16.04—34.82</td>
+<td style="text-align: right;">23.49</td>
+<td style="text-align: right;">36.5%</td>
+<td style="text-align: right;">-7.9%</td>
+<td>公允价值内（中）</td>
+<td><code>observe</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">47</td>
+<td>001965</td>
+<td>招商公路</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">9.56</td>
+<td>PE 13.79</td>
+<td style="text-align: right;">3.90%</td>
+<td style="text-align: right;">5.16—10.37</td>
+<td style="text-align: right;">6.36</td>
+<td style="text-align: right;">50.2%</td>
+<td style="text-align: right;">-7.8%</td>
+<td>公允价值内（中）</td>
+<td><code>observe</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">48</td>
+<td>600350</td>
+<td>山东高速</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">9.96</td>
+<td>PE 15.60</td>
+<td style="text-align: right;">4.22%</td>
+<td style="text-align: right;">4.68—8.34</td>
+<td style="text-align: right;">6.17</td>
+<td style="text-align: right;">61.5%</td>
+<td style="text-align: right;">19.4%</td>
+<td>普通高估（中）</td>
+<td><code>wait</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">49</td>
+<td>601006</td>
+<td>大秦铁路</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">4.82</td>
+<td>PE 15.85</td>
+<td style="text-align: right;">4.62%</td>
+<td style="text-align: right;">2.41—5.81</td>
+<td style="text-align: right;">2.88</td>
+<td style="text-align: right;">67.2%</td>
+<td style="text-align: right;">-17.0%</td>
+<td>公允价值内（低）</td>
+<td><code>wait</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">50</td>
+<td>002007</td>
+<td>华兰生物</td>
+<td>稳定盈利</td>
+<td style="text-align: right;">13.33</td>
+<td>PE 30.12</td>
+<td style="text-align: right;">7.51%</td>
+<td style="text-align: right;">4.50—11.61</td>
+<td style="text-align: right;">6.57</td>
+<td style="text-align: right;">102.9%</td>
+<td style="text-align: right;">14.8%</td>
+<td>普通高估（低）</td>
+<td><code>wait</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="42">4.2 市场价格分解</h3>
+<p>逐股均按 <code>市场价格 = 公允价值 + 可解释估值溢价 + 交易定价偏离</code> 检查。批量模型已经把受限成长、质量、ROE和现金转化纳入合理PE/PB，因此不再单列质量溢价；可解释估值溢价无法独立量化。表中的相对中枢和相对上限只描述价格位置，不自动等于泡沫。</p>
+<h3 id="43-32">4.3 32项触发扫描汇总</h3>
+<blockquote>
+<p>每只股票均逐项执行基本面9项、流动性14项、预期9项。下表只给五类状态计数；1600条逐项证据和缺口见<a href="../../../sources/assets/2026-09-09-南方红利低波50估值/trigger-scan-32x50.csv">32项扫描CSV</a>。计数用于完整性检查，不用于机械打分。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>代码</th>
+<th>名称</th>
+<th style="text-align: right;">有利</th>
+<th style="text-align: right;">当期恶化</th>
+<th style="text-align: right;">不利信号</th>
+<th style="text-align: right;">证据不足</th>
+<th style="text-align: right;">不适用</th>
+<th>出清状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>603658</td>
+<td>安图生物</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0</td>
+<td>出清观察</td>
+</tr>
+<tr>
+<td>603195</td>
+<td>公牛集团</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0</td>
+<td>未见出清触发</td>
+</tr>
+<tr>
+<td>601988</td>
+<td>中国银行</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">8</td>
+<td>未见出清触发</td>
+</tr>
+<tr>
+<td>601939</td>
+<td>建设银行</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">8</td>
+<td>未见出清触发</td>
+</tr>
+<tr>
+<td>601916</td>
+<td>浙商银行</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">8</td>
+<td>出清观察</td>
+</tr>
+<tr>
+<td>601838</td>
+<td>成都银行</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">8</td>
+<td>未见出清触发</td>
+</tr>
+<tr>
+<td>601825</td>
+<td>沪农商行</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">8</td>
+<td>出清观察</td>
+</tr>
+<tr>
+<td>601818</td>
+<td>光大银行</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">8</td>
+<td>出清观察</td>
+</tr>
+<tr>
+<td>601766</td>
+<td>中国中车</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0</td>
+<td>出清中</td>
+</tr>
+<tr>
+<td>601728</td>
+<td>中国电信</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0</td>
+<td>未见出清触发</td>
+</tr>
+<tr>
+<td>601668</td>
+<td>中国建筑</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">0</td>
+<td>出清中</td>
+</tr>
+<tr>
+<td>601658</td>
+<td>邮储银行</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">8</td>
+<td>未见出清触发</td>
+</tr>
+<tr>
+<td>601398</td>
+<td>工商银行</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">8</td>
+<td>未见出清触发</td>
+</tr>
+<tr>
+<td>601328</td>
+<td>交通银行</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">8</td>
+<td>未见出清触发</td>
+</tr>
+<tr>
+<td>601298</td>
+<td>青岛港</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0</td>
+<td>未见出清触发</td>
+</tr>
+<tr>
+<td>601288</td>
+<td>农业银行</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">8</td>
+<td>未见出清触发</td>
+</tr>
+<tr>
+<td>601229</td>
+<td>上海银行</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">8</td>
+<td>未见出清触发</td>
+</tr>
+<tr>
+<td>601186</td>
+<td>中国铁建</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0</td>
+<td>出清中</td>
+</tr>
+<tr>
+<td>601169</td>
+<td>北京银行</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">8</td>
+<td>未见出清触发</td>
+</tr>
+<tr>
+<td>601166</td>
+<td>兴业银行</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">8</td>
+<td>未见出清触发</td>
+</tr>
+<tr>
+<td>601009</td>
+<td>南京银行</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">8</td>
+<td>未见出清触发</td>
+</tr>
+<tr>
+<td>601006</td>
+<td>大秦铁路</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">0</td>
+<td>未见出清触发</td>
+</tr>
+<tr>
+<td>601000</td>
+<td>唐山港</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">0</td>
+<td>未见出清触发</td>
+</tr>
+<tr>
+<td>600941</td>
+<td>中国移动</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0</td>
+<td>出清观察</td>
+</tr>
+<tr>
+<td>600919</td>
+<td>江苏银行</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">8</td>
+<td>未见出清触发</td>
+</tr>
+<tr>
+<td>600900</td>
+<td>长江电力</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0</td>
+<td>未见出清触发</td>
+</tr>
+<tr>
+<td>600887</td>
+<td>伊利股份</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0</td>
+<td>出清观察</td>
+</tr>
+<tr>
+<td>600886</td>
+<td>国投电力</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">0</td>
+<td>出清观察</td>
+</tr>
+<tr>
+<td>600642</td>
+<td>申能股份</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0</td>
+<td>出清观察</td>
+</tr>
+<tr>
+<td>600600</td>
+<td>青岛啤酒</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0</td>
+<td>未见出清触发</td>
+</tr>
+<tr>
+<td>600519</td>
+<td>贵州茅台</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0</td>
+<td>出清观察</td>
+</tr>
+<tr>
+<td>600377</td>
+<td>宁沪高速</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0</td>
+<td>出清中</td>
+</tr>
+<tr>
+<td>600350</td>
+<td>山东高速</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0</td>
+<td>出清中</td>
+</tr>
+<tr>
+<td>600177</td>
+<td>雅戈尔</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">0</td>
+<td>未见出清触发</td>
+</tr>
+<tr>
+<td>600132</td>
+<td>重庆啤酒</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0</td>
+<td>未见出清触发</td>
+</tr>
+<tr>
+<td>600036</td>
+<td>招商银行</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">8</td>
+<td>未见出清触发</td>
+</tr>
+<tr>
+<td>600028</td>
+<td>中国石化</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">0</td>
+<td>证据不足</td>
+</tr>
+<tr>
+<td>600019</td>
+<td>宝钢股份</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">0</td>
+<td>出清中</td>
+</tr>
+<tr>
+<td>600016</td>
+<td>民生银行</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">8</td>
+<td>未见出清触发</td>
+</tr>
+<tr>
+<td>600015</td>
+<td>华夏银行</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">8</td>
+<td>未见出清触发</td>
+</tr>
+<tr>
+<td>002032</td>
+<td>苏泊尔</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0</td>
+<td>出清观察</td>
+</tr>
+<tr>
+<td>002007</td>
+<td>华兰生物</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0</td>
+<td>出清观察</td>
+</tr>
+<tr>
+<td>001965</td>
+<td>招商公路</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0</td>
+<td>出清观察</td>
+</tr>
+<tr>
+<td>000999</td>
+<td>华润三九</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0</td>
+<td>出清观察</td>
+</tr>
+<tr>
+<td>000895</td>
+<td>双汇发展</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0</td>
+<td>出清观察</td>
+</tr>
+<tr>
+<td>000858</td>
+<td>五粮液</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0</td>
+<td>出清中</td>
+</tr>
+<tr>
+<td>000651</td>
+<td>格力电器</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0</td>
+<td>出清观察</td>
+</tr>
+<tr>
+<td>000423</td>
+<td>东阿阿胶</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0</td>
+<td>出清观察</td>
+</tr>
+<tr>
+<td>000333</td>
+<td>美的集团</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0</td>
+<td>出清观察</td>
+</tr>
+<tr>
+<td>000001</td>
+<td>平安银行</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">8</td>
+<td>未见出清触发</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5">5. 仓位测算与网格交易</h2>
+<h3 id="51">5.1 凯利敏感性</h3>
+<p>凯利只对现价落在公允价值区间内、同时存在正上行和正下行幅度的股票计算。胜率没有外部证据，模型保存50%—90%五档假设，真实概率待验证；现价高于上限或低于下限时不强行套公式。逐股数据见模型JSON和估值结果CSV。</p>
+<h3 id="52">5.2 网格适用性</h3>
+<p>本批不生成可执行网格。用户未提供资金规模、现有仓位、交易成本、最大回撤和备用现金；同时公允价值区间不是交易区间，不能直接拿上下限当网格边界。</p>
+<h3 id="53">5.3 执行边界</h3>
+<ul>
+<li><code>observe</code>表示进入单股深研队列，不等于买入。</li>
+<li><code>wait</code>表示当前价格位置或证据质量不支持新增资金。</li>
+<li>已有持仓统一<code>review</code>，需补成本、仓位、税费和组合相关性后再决定。</li>
+</ul>
+<h2 id="6">6. 风险与结论</h2>
+<ol>
+<li>结果优先用于选择深研顺序，不用于直接构建50只组合。银行缺失关键资产质量数据，周期股缺失产品中枢和供需位置，是两类最大的模型风险。</li>
+<li>任何季度出现融资债务、净现金、CFO/FCF和扣非利润的同向恶化，应触发完整重估；重大分红、增发、并购、资产注入、政策变化或成分调整也应重算。</li>
+<li>当前PCF只确认成分身份。没有可靠当前权重，不能由逐股中枢推导ETF公允净值，也不能把现金替代比例当成权重。</li>
+<li>相对估值靠前标的仍需先补六项基本面中的证据缺口、产业/竞争优势和法定财报附注；未完成前不升级为<code>buy</code>。</li>
+</ol>
+<p><strong>来源与附件</strong></p>
+<ul>
+<li><a href="../../../sources/webpages/2026-09-09-南方红利低波50估值证据快照.md">估值证据快照</a></li>
+<li><a href="../../../sources/assets/2026-09-09-南方红利低波50估值/constituents.csv">2026-09-09成分清单</a></li>
+<li><a href="../../../sources/assets/2026-09-09-南方红利低波50估值/valuation-results.csv">逐股估值结果</a></li>
+<li><a href="../../../sources/assets/2026-09-09-南方红利低波50估值/financial-evidence.csv">六项基本面数值证据</a></li>
+<li><a href="../../../sources/assets/2026-09-09-南方红利低波50估值/trigger-scan-32x50.csv">1600条触发扫描</a></li>
+<li><a href="../../../sources/assets/2026-09-09-南方红利低波50估值/valuation-model.json">完整模型、假设与凯利敏感性</a></li>
+</ul>
+<p><strong>声明</strong>：本报告是研究工具输出，不构成投资建议。公允价值是有条件区间；数据缺失处已保留“证据不足/不适用”，没有用市场价格倒推财务事实。</p></article></main>
+<script>document.querySelectorAll('table').forEach(t=>{const w=document.createElement('div');w.className='table-wrap';t.parentNode.insertBefore(w,t);w.appendChild(t);});</script>
+</body>
+</html>

@@ -312,3 +312,8 @@ In filtered mode, append a line showing what was excluded:
 - **Broken wikilinks are skipped** — only edges to pages that exist in the vault are exported
 - **The `wiki-export/` directory should be gitignored** if the vault is version-controlled — these are derived artifacts
 - **`graph.json` is the primary format** — the others are derived from it. If a future tool supports graph queries natively, point it at `graph.json`
+
+
+## 技能变更记录
+
+修改本技能的说明、模板、references、脚本或其他随附文件后，在同目录 [log.md](log.md) 追加记录，写明日期、版本（或未设版本号）、修改原因、涉及文件、具体变更和验证结果。保留已有记录；未经核实不补写历史，不把技能运行生成的业务报告当作技能变更。若调整版本号，记录旧版本 → 新版本；未调整时明确写“版本号不变”。

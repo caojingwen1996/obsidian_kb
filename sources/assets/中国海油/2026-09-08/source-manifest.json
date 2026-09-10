@@ -1,0 +1,33 @@
+[
+  {
+    "file": "2026H1-presentation.pdf",
+    "url": "https://www.cnoocltd.com/tzzgx/yjhtjcl/yj/material/2026Mid-yearReviewCN.pdf",
+    "bytes": 3564934,
+    "sha256": "8db0a58ad216258efd094c0537b010f8a9664511297ba1cf64d3cb22f46bee96",
+    "fetched_at": "2026-09-08T10:03:34.679120"
+  },
+  {
+    "file": "2025-annual.pdf",
+    "url": "https://www.cnoocltd.com/english/investorrelations/reports/annualreport/material/e00883-2025AnnualResults-en.pdf",
+    "bytes": 12500276,
+    "sha256": "c8d481b6f5aaaa73128acef9dfe397f6c733afef1a560e9301dac7b7ed7871fc",
+    "fetched_at": "2026-09-08T10:03:40.363903"
+  },
+  {
+    "file": "iea-august.html",
+    "url": "https://www.iea.org/reports/oil-market-report-august-2026",
+    "bytes": 311204,
+    "sha256": "768af28c22ad60130528c7e65e3e8b69ce11f6598b22fed2bb16aeb2db3ab849",
+    "fetched_at": "2026-09-08T10:03:28.204981"
+  },
+  {
+    "file": "lpr-august.html",
+    "url": "https://dfjrjgj.hlj.gov.cn/hljjrjd/c113136/202608/c00_31968692.shtml",
+    "error": "HTTPSConnectionPool(host='dfjrjgj.hlj.gov.cn', port=443): Max retries exceeded with url: /hljjrjd/c113136/202608/c00_31968692.shtml (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)')))"
+  },
+  {
+    "file": "2026H1-report.pdf",
+    "url": "https://file.finance.sina.com.cn/211.154.219.97:9494/MRGG/CNSESH_STOCK/2026/2026-8/2026-08-27/12551598.PDF",
+    "sha256": "e35a5295ce38fa93a0576a56767770fc308d8ebfa84f412379d0d3224dd8ab52"
+  }
+]

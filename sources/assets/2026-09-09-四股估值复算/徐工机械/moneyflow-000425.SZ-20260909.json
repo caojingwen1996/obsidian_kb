@@ -1,0 +1,31 @@
+{
+  "retrieved": "2026-09-09T16:36:52.114185",
+  "params": {
+    "ts_code": "000425.SZ",
+    "trade_date": "20260909"
+  },
+  "rows": [
+    {
+      "ts_code": "000425.SZ",
+      "trade_date": "20260909",
+      "buy_sm_vol": 238319,
+      "buy_sm_amount": 19844.32,
+      "sell_sm_vol": 186014,
+      "sell_sm_amount": 15494.04,
+      "buy_md_vol": 226539,
+      "buy_md_amount": 18857.9,
+      "sell_md_vol": 296098,
+      "sell_md_amount": 24657.08,
+      "buy_lg_vol": 212811,
+      "buy_lg_amount": 17718.5,
+      "sell_lg_vol": 235022,
+      "sell_lg_amount": 19575.26,
+      "buy_elg_vol": 94006,
+      "buy_elg_amount": 7838.15,
+      "sell_elg_vol": 54541,
+      "sell_elg_amount": 4532.48,
+      "net_mf_vol": -79822,
+      "net_mf_amount": -6573.48
+    }
+  ]
+}

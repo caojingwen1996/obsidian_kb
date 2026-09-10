@@ -667,6 +667,7 @@ export function trackingQuotePriceOnly(value) {
 
 export function pricingDeviationFromText(value) {
   const text = compactText(value);
+  const judgement = text.match(/当前判断[：:]\s*([^。；;]+)/)?.[1] || text;
   const mappings = [
     ['严重估值泡沫', '严重估值泡沫'],
     ['估值泡沫', '估值泡沫'],
@@ -680,7 +681,7 @@ export function pricingDeviationFromText(value) {
     ['折价', '折价'],
     ['证据不足', '证据不足'],
   ];
-  return mappings.find(([needle]) => text.includes(needle))?.[1] || '';
+  return mappings.find(([needle]) => judgement.startsWith(needle))?.[1] || '';
 }
 
 export function pricingDeviationToneClass(value) {
@@ -692,12 +693,61 @@ export function pricingDeviationToneClass(value) {
   }[value] ?? 'is-neutral';
 }
 
+export function parseValuationListDetails(valueText, kellyText) {
+  const value = compactText(valueText);
+  const kelly = compactText(kellyText);
+  const percent = '(\\d+(?:\\.\\d+)?%)';
+  return {
+    midpoint: firstTextMatch(value, [/中枢(?:价格)?\s*[：:]?\s*(?:约\s*)?(\d+(?:\.\d+)?)\s*元/]),
+    kellyUpside: firstTextMatch(kelly, [new RegExp(`上涨(?:空间|幅度)?\\s*[：:]?\\s*${percent}`)]),
+    kellyDownside: firstTextMatch(kelly, [new RegExp(`下跌(?:空间|幅度)?\\s*[：:]?\\s*${percent}`)]),
+    kellyBreakEven: firstTextMatch(kelly, [new RegExp(`盈亏平衡概率\\s*[：:]?\\s*${percent}`)]),
+    kellyUnavailable: /不适用/.test(kelly),
+    kellyPrice: firstTextMatch(kelly, [/现价\s*[：:]?\s*(\d+(?:\.\d+)?\s*元(?:（[^）]+）)?)/]),
+  };
+}
+
+export function renderValuationListCell(report = {}, fallback = '未获取到') {
+  const lines = [escapeHtml(report.valueRange || fallback), `<strong>中枢：${escapeHtml(report.midpoint ? `${report.midpoint}元` : '未获取到')}</strong>`];
+  if (report.kellyUnavailable) {
+    lines.push('<small>凯利：不适用（详见研报）</small>');
+  } else if (report.kellyUpside || report.kellyDownside || report.kellyBreakEven) {
+    const upside = Number.parseFloat(report.kellyUpside);
+    const downside = Number.parseFloat(report.kellyDownside);
+    const payoffRatio = Number.isFinite(upside) && upside >= 0 && Number.isFinite(downside) && downside > 0
+      ? `${(upside / downside).toFixed(2)}:1` : '未获取到';
+    lines.push(`<small title="研报上涨空间 ÷ 下跌空间">盈亏比：${payoffRatio}</small>`);
+    lines.push(`<small>盈亏平衡概率：${escapeHtml(report.kellyBreakEven || '未获取到')}</small>`);
+  } else {
+    lines.push('<small>凯利：未获取到</small>');
+  }
+  if (report.kellyPrice) lines.push(`<small class="valuation-reference">研报价：${escapeHtml(report.kellyPrice)}</small>`);
+  return `<div class="valuation-list-details">${lines.join('')}</div>`;
+}
+
+export function trackingPriceToMidpoint(price, midpoint) {
+  const value = Number(midpoint);
+  return Number.isFinite(price) && price > 0 && Number.isFinite(value) && value > 0
+    ? price / value : null;
+}
+
+export function fundamentalStatusToneClass(value) {
+  const text = compactText(value);
+  // Prefer the explicit overall conclusion over individual metric descriptions.
+  const overall = text.match(/综合(?:状态|判断)?\s*[：:]\s*([^；;。\n]+)/)?.[1]
+    || text.replace(/^基本面(?:状态|判断)?\s*[：:]\s*/, '').split(/[；;。]/)[0];
+  const status = overall.match(/^(改善|稳定|走弱|待确认|待验证|证据不足)/)?.[1];
+  if (!status || /待确认|待验证|证据不足/.test(overall)) return 'is-pending';
+  return { 改善: 'is-improving', 稳定: 'is-stable', 走弱: 'is-weakening' }[status] || 'is-pending';
+}
+
 export function parseReportSummary(html) {
   if (typeof DOMParser === 'undefined') return {};
   const documentNode = new DOMParser().parseFromString(html, 'text/html');
   const bodyText = nodeText(documentNode.body);
   const secid = documentNode.querySelector('meta[name="stock-secid"]')?.getAttribute('content')
-    || firstTextMatch(html, [/stock-quote\?secid=([01]\.\d{6})/]);
+    || firstTextMatch(html, [/stock-quote\?secid=([01]\.\d{6})/])
+    || stockSecidFromCode(firstTextMatch(bodyText, [/证券代码[：:]\s*(\d{6})(?:\.(?:SH|SZ|BJ))?/i]));
   const fundamental = trackingCardValue(documentNode, 'fundamental-status')
     || tableValueByLabel(documentNode, ['基本面状态', '基本面判断'])
     || [
@@ -708,21 +758,26 @@ export function parseReportSummary(html) {
       /我的判断[：:]\s*([^。；]{8,120})/,
       /一句话[：:]\s*([^。；]{8,120})/,
     ]);
-  const valueRange = priceRangeOnly(trackingCardValue(documentNode, 'fair-value-range')
+  const valueText = trackingCardValue(documentNode, 'fair-value-range')
     || trackingCardValue(documentNode, 'dynamic-value-range')
     || tableValueByLabel(documentNode, ['公允价值区间', '综合公允价值', '综合估值区间', '公允价值', '估值区间'])
     || firstTextMatch(bodyText, [
       /综合公允价值(?:为|取)?\s*([0-9.]+[—\\-–至到][0-9.]+\s*元(?:\/股)?)/,
       /公允价值(?:为|取)?\s*([0-9.]+[—\\-–至到][0-9.]+\s*元(?:\/股)?)/,
       /综合估值区间\s*([0-9.]+[—\\-–至到][0-9.]+\s*元(?:\/股)?)/,
-    ]));
+    ]);
+  const valueRange = priceRangeOnly(valueText);
+  const valuationDetails = parseValuationListDetails(
+    `${valueText}；中枢：${tableValueByLabel(documentNode, ['公允价值中枢'])}`,
+    nodeText(documentNode.querySelector('.kelly-summary')) || tableValueByLabel(documentNode, ['凯利测算'])
+  );
   const pricingDeviationCard = documentNode.querySelector('[data-tracking-key="pricing-deviation"]')
     || documentNode.querySelector('[data-tracking-key="trading-premium"]');
   const pricingDeviation = pricingDeviationFromText(
-    nodeText(pricingDeviationCard?.querySelector('[aria-current="true"], .pricing-level.active'))
-    || firstTextMatch(nodeText(pricingDeviationCard?.querySelector('.tracking-detail')), [
+    firstTextMatch(nodeText(pricingDeviationCard?.querySelector('.tracking-detail')), [
       /当前判断[：:]\s*([^。；]{2,30})/,
     ])
+    || nodeText(pricingDeviationCard?.querySelector('[aria-current="true"], .pricing-level.active'))
     || nodeText(pricingDeviationCard?.querySelector('.tracking-value'))
     || tableValueByLabel(documentNode, ['交易定价偏离', '交易定价偏离状态', '交易溢价状态', '估值泡沫判断', '估值状态'])
   );
@@ -742,6 +797,7 @@ export function parseReportSummary(html) {
     secid,
     fundamental,
     valueRange,
+    ...valuationDetails,
     pricingDeviation,
     reportQuote,
     riskDirection,
@@ -2122,17 +2178,57 @@ function startApp() {
     const exactMatch = [...holdings, ...trackingItems].find(item => item.name === normalizedName && item.code);
     if (exactMatch) return exactMatch.code;
     if (STOCK_CODE_ALIASES[normalizedName]) return STOCK_CODE_ALIASES[normalizedName];
-    const partialMatch = Object.entries(STOCK_CODE_ALIASES).find(([alias]) =>
-      alias.includes(normalizedName) || normalizedName.includes(alias)
-    );
-    return partialMatch?.[1] ?? '';
+    const reportHref = STOCK_REPORT_LINKS[normalizeStockName(normalizedName)];
+    const secid = reportSummaryCache.get(reportHref)?.data?.secid;
+    return /^[01]\.\d{6}$/.test(secid ?? '') ? secid.slice(2) : '';
   };
 
-  const fillTrackingCodeFromName = (force = false) => {
+  const trackingCodeRequests = new Map();
+  const fillTrackingCodeFromName = async (force = false) => {
     const form = document.getElementById('tracking-form');
     const codeInput = form.elements.code;
+    const name = form.elements.name.value.trim();
     if (!force && codeInput.value.trim()) return;
-    codeInput.value = findStockCodeByName(form.elements.name.value);
+    const status = document.getElementById('tracking-form-status');
+    codeInput.value = findStockCodeByName(name);
+    status.textContent = '';
+    if (codeInput.value || !name) return;
+    if (!isLocalProxyLocation()) {
+      status.textContent = '股票名称查询需要通过“启动面板.cmd”打开看板，或手动填写代码。';
+      return;
+    }
+    status.textContent = '正在查询股票基础信息…';
+    if (!trackingCodeRequests.has(name)) {
+      const request = (async () => {
+        try {
+          const response = await fetch(todoActionUrl(`/api/stock-lookup?name=${encodeURIComponent(name)}`), {
+            cache: 'no-store', signal: AbortSignal.timeout(15000),
+          });
+          const payload = await response.json();
+          if (!response.ok) throw new Error(payload.source || `HTTP ${response.status}`);
+          return { data: payload.data };
+        } catch (error) {
+          return { error: error.name === 'TimeoutError' ? '查询超时' : error.message };
+        } finally {
+          trackingCodeRequests.delete(name);
+        }
+      })();
+      trackingCodeRequests.set(name, request);
+    }
+    const result = await trackingCodeRequests.get(name);
+    if (form.elements.name.value.trim() !== name || codeInput.value.trim()) return;
+    const match = result.data?.match;
+    if (match?.name === name && /^\d{6}$/.test(match.code)) {
+      codeInput.value = match.code;
+      status.textContent = `已匹配：${match.name}（${match.code}）。`;
+    } else if (result.error) {
+      status.textContent = `代码查询失败：${result.error}。可手动填写或稍后重试。`;
+    } else {
+      const candidates = result.data?.candidates ?? [];
+      status.textContent = candidates.length
+        ? `请填写完整名称：${candidates.map(item => `${item.name}（${item.code}）`).join('、')}。`
+        : '未找到对应的 A 股公司，请核对完整名称或手动填写代码。';
+    }
   };
 
   const savePortfolio = () => {
@@ -2809,10 +2905,10 @@ function startApp() {
         : '<span class="tracking-three-factor-state">未关联</span>';
       const fundamentalText = report.fundamental
         || (reportEntry?.status === 'loading' ? '读取研报…' : primaryReportHref ? '研报未提供基本面状态' : '未关联研报');
-      const fundamentalHtml = `<div class="tracking-fundamental-status"><span>${escapeHtml(fundamentalText)}</span>${primaryReportHref ? `<a class="industry-report-link" href="${escapeHtml(primaryReportHref)}" target="_blank" rel="noopener noreferrer">个股研报</a>` : ''}</div>`;
+      const fundamentalHtml = `<div class="tracking-fundamental-status ${fundamentalStatusToneClass(fundamentalText)}"><span>${escapeHtml(fundamentalText)}</span>${primaryReportHref ? `<a class="industry-report-link" href="${escapeHtml(primaryReportHref)}" target="_blank" rel="noopener noreferrer">个股研报</a>` : ''}</div>`;
       row.innerHTML = `
         <td class="tracking-target"><strong><a class="industry-report-link" href="${escapeHtml(primaryReportHref || sourceHref)}" target="_blank" rel="noopener noreferrer">${escapeHtml(name)}</a></strong><small>${escapeHtml(sourceTitle)}</small></td>
-        <td>${escapeHtml(report.valueRange || (reportEntry?.status === 'loading' ? '读取研报…' : '未获取到'))}</td>
+        <td>${renderValuationListCell(report, reportEntry?.status === 'loading' ? '读取研报…' : '未获取到')}</td>
         <td><span class="tracking-pricing-deviation ${pricingDeviationToneClass(pricingDeviation)}">${escapeHtml(pricingDeviation)}</span></td>
         <td>${escapeHtml(intraday)}</td>
         <td>${closePerformanceHtml}</td>
@@ -2898,13 +2994,16 @@ function startApp() {
           || left.index - right.index
         );
       }
-      if (trackingSortMode === 'close-desc' || trackingSortMode === 'close-asc') {
-        const direction = trackingSortMode === 'close-asc' ? 1 : -1;
+      if (['close-desc', 'close-asc', 'midpoint-desc', 'midpoint-asc'].includes(trackingSortMode)) {
+        const direction = trackingSortMode.endsWith('-asc') ? 1 : -1;
+        const sortByMidpoint = trackingSortMode.startsWith('midpoint-');
         return [...filteredItems].sort((left, right) => {
-          const leftValue = Number.isFinite(left.closePerformanceEntry?.data?.weekChangePercent)
+          const leftValue = sortByMidpoint ? trackingPriceToMidpoint(left.liveQuote?.price, left.report.midpoint)
+            : Number.isFinite(left.closePerformanceEntry?.data?.weekChangePercent)
             ? left.closePerformanceEntry.data.weekChangePercent
             : null;
-          const rightValue = Number.isFinite(right.closePerformanceEntry?.data?.weekChangePercent)
+          const rightValue = sortByMidpoint ? trackingPriceToMidpoint(right.liveQuote?.price, right.report.midpoint)
+            : Number.isFinite(right.closePerformanceEntry?.data?.weekChangePercent)
             ? right.closePerformanceEntry.data.weekChangePercent
             : null;
           if (leftValue === null && rightValue === null) return left.index - right.index;
@@ -2934,15 +3033,6 @@ function startApp() {
       const closePerformanceHtml = Number.isFinite(closePerformanceEntry?.data?.latestClose)
         ? `<div class="tracking-close-performance"><small>近一周 ${Number.isFinite(closePerformanceEntry.data.weekChangePercent) ? `${closePerformanceEntry.data.weekChangePercent >= 0 ? '+' : ''}${formatNumber(closePerformanceEntry.data.weekChangePercent, 2)}%` : '—'}</small></div>`
         : escapeHtml(closePerformanceEntry?.status === 'loading' ? '读取中…' : '未获取到');
-      const monitorLink = dailyMonitorLinkForTrackingItem(item, report);
-      const valuationDisposition = valuationDispositionPresentation(monitorLink?.valuationStatus);
-      const valuationReason = monitorLink?.valuationReason
-        || (monitorLink ? '报告未提供修改原因' : '未获取到每日监控报告');
-      const valuationStatusTitle = monitorLink?.valuationStatus ? ` title="${escapeHtml(monitorLink.valuationStatus)}"` : '';
-      const valuationStatusHtml = monitorLink
-        ? `<a class="is-${valuationDisposition.tone}" href="${escapeHtml(monitorLink.href)}" target="_blank" rel="noopener noreferrer"${valuationStatusTitle}>${escapeHtml(valuationDisposition.label)}</a>`
-        : `<span class="is-${valuationDisposition.tone}">${escapeHtml(valuationDisposition.label)}</span>`;
-      const valuationDispositionHtml = `<div class="tracking-valuation-disposition">${valuationStatusHtml}<small>${escapeHtml(valuationReason)}</small></div>`;
       const nameHtml = reportHref
         ? `<a href="${escapeHtml(reportHref)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.name)}</a>`
         : escapeHtml(item.name);
@@ -2964,20 +3054,23 @@ function startApp() {
       const pricingDeviation = report.pricingDeviation
         || (reportEntry?.status === 'loading' ? '读取研报…' : '未获取到');
       const pricingDeviationHtml = `<span class="tracking-pricing-deviation ${pricingDeviationToneClass(pricingDeviation)}">${escapeHtml(pricingDeviation)}</span>`;
+      const midpointRatio = trackingPriceToMidpoint(liveQuote?.price, report.midpoint);
+      const priceToMidpoint = midpointRatio !== null
+        ? `${(midpointRatio * 100).toFixed(1)}%`
+        : '—';
       const fundamentalText = report.fundamental
         || (reportEntry?.status === 'loading' ? '读取研报…' : reportHref ? '研报未提供基本面状态' : '未关联研报');
-      const fundamentalHtml = `<div class="tracking-fundamental-status"><span>${escapeHtml(fundamentalText)}</span>${reportLinksHtml}</div>`;
+      const fundamentalHtml = `<div class="tracking-fundamental-status ${fundamentalStatusToneClass(fundamentalText)}"><span>${escapeHtml(fundamentalText)}</span>${reportLinksHtml}</div>`;
       return `<tr data-tracking-id="${escapeHtml(item.id)}"${reportHref ? ` data-report-href="${escapeHtml(reportHref)}"` : ''}>
-      <td class="tracking-target"><strong>${nameHtml}</strong><small>${escapeHtml(item.code || report.secid || '未填代码')}</small><span class="tracker-status">${escapeHtml(item.status)}</span></td>
-      <td>${escapeHtml(report.valueRange || item.thesis || (reportEntry?.status === 'loading' ? '读取研报…' : '未获取到'))}</td>
+      <td class="tracking-target"><strong>${nameHtml}</strong><small>${escapeHtml(item.code || report.secid || '未填代码')}</small><span class="tracker-status">${escapeHtml(item.status)}</span><div class="tracker-row-actions"><button type="button" data-action="edit-tracking" aria-label="编辑 ${escapeHtml(item.name)}">编辑</button><button type="button" data-action="delete-tracking" aria-label="删除 ${escapeHtml(item.name)}">删除</button></div></td>
+      <td>${renderValuationListCell(report, item.thesis || (reportEntry?.status === 'loading' ? '读取研报…' : '未获取到'))}</td>
       <td><div class="tracking-pricing-summary">${pricingDeviationHtml}<strong>${escapeHtml(intraday)}</strong></div></td>
+      <td class="tracking-price-to-midpoint">${priceToMidpoint}</td>
       <td>${closePerformanceHtml}</td>
-      <td>${valuationDispositionHtml}</td>
       <td>${threeFactorHtml}</td>
       <td>${fundamentalHtml}<small class="tracking-updated">${escapeHtml(report.sourceUpdated ? `研报：${report.sourceUpdated}` : `记录：${new Date(item.updatedAt).toLocaleString('zh-CN', { hour12: false })}`)}</small></td>
       <td><button class="review-diary-button" type="button" data-action="review-diary">复盘日记</button></td>
       <td>${escapeHtml(signalLabel)}</td>
-      <td><div class="tracker-row-actions"><button type="button" data-action="edit-tracking" aria-label="编辑 ${escapeHtml(item.name)}">编辑</button><button type="button" data-action="delete-tracking" aria-label="删除 ${escapeHtml(item.name)}">删除</button></div></td>
     </tr>`;
     };
     const groupedRows = () => {
@@ -2987,10 +3080,17 @@ function startApp() {
           (allocationCategoryForReport(reportHref) || UNCATEGORIZED_ALLOCATION_CATEGORY.key) === group.key
         );
         if (!groupItems.length) return '';
-        return `<tr class="tracking-group-row"><th colspan="10" style="--group-color:${group.color}"><div class="tracking-group-head"><span>${escapeHtml(group.label)}</span><small>${groupItems.length} 个标的</small></div></th></tr>${groupItems.map(renderTrackingRow).join('')}`;
+        return `<tr class="tracking-group-row"><th colspan="9" style="--group-color:${group.color}"><div class="tracking-group-head"><span>${escapeHtml(group.label)}</span><small>${groupItems.length} 个标的</small></div></th></tr>${groupItems.map(renderTrackingRow).join('')}`;
       }).join('');
     };
     const closeSortButton = document.getElementById('tracking-sort-close-performance');
+    const midpointSortButton = document.getElementById('tracking-sort-price-to-midpoint');
+    if (midpointSortButton) {
+      midpointSortButton.classList.toggle('is-active', trackingSortMode.startsWith('midpoint-'));
+      midpointSortButton.classList.toggle('is-desc', trackingSortMode === 'midpoint-desc');
+      midpointSortButton.classList.toggle('is-asc', trackingSortMode === 'midpoint-asc');
+      midpointSortButton.setAttribute('aria-pressed', String(trackingSortMode.startsWith('midpoint-')));
+    }
     if (closeSortButton) {
       closeSortButton.classList.toggle('is-active', trackingSortMode === 'close-desc' || trackingSortMode === 'close-asc');
       closeSortButton.classList.toggle('is-desc', trackingSortMode === 'close-desc');
@@ -3222,26 +3322,49 @@ function startApp() {
     notice.textContent = `正在独立刷新行情、估值、国债、成交额与融资数据；失败项不会阻塞其他指标。${launcherHint}`;
     try {
       const definitions = createDefaultDomainDefinitions().filter(definition => !domainIds || domainIds.includes(definition.id));
+      const labels = {
+        shanghaiHistory: '上证指数', csi300History: '沪深300', csiAllHistory: '中证全指',
+        csi300Stats: '估值', turnoverHistory: '成交额历史', forwardPe: '预测市盈率',
+        treasury: '中国国债', usTreasury10y: '美国国债', usDollarIndex: '美元指数',
+        usdJpy: '美元兑日元', market: '全市场行情', margin: '融资余额',
+      };
+      const pending = new Set(definitions.map(definition => definition.id));
+      const issues = [];
+      const domains = state.snapshot.mode === 'live' ? { ...state.snapshot.domains } : {};
+      for (const { id } of definitions) {
+        domains[id] = { id, status: 'loading', data: null, errors: [] };
+      }
+      refreshButton.textContent = `刷新中 0/${definitions.length}`;
       const refreshed = await refreshDomains(definitions, {
         storage,
         now: Date.now,
         concurrency: definitions.length,
+        onProgress: ({ id, result, completed, total }) => {
+          pending.delete(id);
+          domains[id] = result;
+          const timedOut = result.errors.some(error => /timed out|timeout|aborted/i.test(error));
+          if (timedOut || !['latest', 'snapshot'].includes(result.status)) {
+            issues.push(`${labels[id] ?? id}（${timedOut ? '超时' : result.status === 'expired' ? '缓存过期' : '待验证'}）`);
+          }
+          state.snapshot = { mode: 'live', generatedAt: new Date().toISOString(), domains: { ...domains } };
+          exampleToggle.checked = false;
+          render();
+          refreshButton.textContent = `刷新中 ${completed}/${total}`;
+          notice.textContent = `已完成 ${completed}/${total}，结果已逐项更新。${pending.size ? `等待：${[...pending].map(key => labels[key] ?? key).join('、')}。` : ''}${issues.length ? `异常：${issues.join('、')}。` : ''}${launcherHint}`;
+        },
       });
-      const domains = state.snapshot.mode === 'live' && domainIds
-        ? { ...state.snapshot.domains, ...refreshed }
-        : refreshed;
+      Object.assign(domains, refreshed);
       const usableCount = Object.values(domains).filter(entry => ['latest', 'snapshot'].includes(entry.status)).length;
+      state.snapshot = { mode: 'live', generatedAt: new Date().toISOString(), domains };
+      exampleToggle.checked = false;
       if (!usableCount) {
-        exampleToggle.checked = true;
         notice.className = 'notice is-error';
-        notice.textContent = `公开接口均不可用，继续显示初始化数据；没有把初始化值写入真实缓存。${launcherHint}`;
+        notice.textContent = `刷新结束：暂无可用市场数据，缺失项保留待验证。${issues.join('、')}。${launcherHint}`;
       } else {
-        state.snapshot = { mode: 'live', generatedAt: new Date().toISOString(), domains };
-        exampleToggle.checked = false;
         notice.className = usableCount === Object.keys(domains).length ? 'notice is-live' : 'notice';
-        notice.textContent = `联网刷新完成：${usableCount} / ${Object.keys(domains).length} 个数据域可用。缺失项已退出评分并重算有效权重。${launcherHint}`;
-        render();
+        notice.textContent = `联网刷新完成：${usableCount} / ${Object.keys(domains).length} 个数据域可用。缺失项已退出评分并重算有效权重。${issues.length ? `异常：${issues.join('、')}。` : ''}${launcherHint}`;
       }
+      render();
     } catch (error) {
       notice.className = 'notice is-error';
       notice.textContent = `刷新失败：${error instanceof Error ? error.message : String(error)}。当前显示保持不变。${launcherHint}`;
@@ -4219,10 +4342,11 @@ function startApp() {
     document.querySelector('#tracking-form [name="name"]').focus();
   });
   document.getElementById('refresh-tracking-reports')?.addEventListener('click', refreshTrackingReports);
-  document.getElementById('tracking-form').addEventListener('submit', event => {
+  document.getElementById('tracking-form').addEventListener('submit', async event => {
     event.preventDefault();
-    fillTrackingCodeFromName(false);
-    const data = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    await fillTrackingCodeFromName(false);
+    const data = new FormData(form);
     const id = String(data.get('id') ?? '') || `${Date.now()}-${Math.random().toString(16).slice(2)}`;
     const next = {
       id,
@@ -4265,6 +4389,10 @@ function startApp() {
   });
   document.getElementById('tracking-sort-close-performance')?.addEventListener('click', () => {
     trackingSortMode = trackingSortMode === 'close-desc' ? 'close-asc' : 'close-desc';
+    renderTrackingItems();
+  });
+  document.getElementById('tracking-sort-price-to-midpoint')?.addEventListener('click', () => {
+    trackingSortMode = trackingSortMode === 'midpoint-asc' ? 'midpoint-desc' : 'midpoint-asc';
     renderTrackingItems();
   });
   document.getElementById('tracking-allocation-mode')?.addEventListener('click', () => {

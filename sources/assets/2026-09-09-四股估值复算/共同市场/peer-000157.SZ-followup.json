@@ -1,0 +1,29 @@
+{
+  "retrieved": "2026-09-09T16:35:58.093161",
+  "params": {
+    "ts_code": "000157.SZ",
+    "trade_date": "20260908"
+  },
+  "rows": [
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260908",
+      "close": 6.68,
+      "turnover_rate": 0.5181,
+      "turnover_rate_f": 0.7138,
+      "volume_ratio": 0.98,
+      "pe": 11.891,
+      "pe_ttm": 13.7687,
+      "pb": 1.0029,
+      "ps": 1.1087,
+      "ps_ttm": 1.0622,
+      "dv_ratio": 4.491,
+      "dv_ttm": 5.988,
+      "total_share": 864853.5236,
+      "float_share": 707041.7363,
+      "free_share": 513187.8453,
+      "total_mv": 5777221.5136,
+      "circ_mv": 4723038.8232
+    }
+  ]
+}

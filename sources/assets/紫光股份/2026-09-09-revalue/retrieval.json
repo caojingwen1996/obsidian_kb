@@ -1,0 +1,193 @@
+[
+  {
+    "api": "stock_basic",
+    "params": {
+      "ts_code": "000938.SZ"
+    },
+    "rows": 1,
+    "retrieved": "2026-09-09T11:05:47.692026"
+  },
+  {
+    "api": "daily",
+    "params": {
+      "ts_code": "000938.SZ",
+      "start_date": "20250801",
+      "end_date": "20260909"
+    },
+    "rows": 269,
+    "retrieved": "2026-09-09T11:05:46.439072"
+  },
+  {
+    "api": "daily_basic",
+    "params": {
+      "ts_code": "000938.SZ",
+      "start_date": "20250801",
+      "end_date": "20260909",
+      "fields": "ts_code,trade_date,close,pe_ttm,pb,total_share,float_share,total_mv,turnover_rate,dv_ttm"
+    },
+    "rows": 269,
+    "retrieved": "2026-09-09T11:05:47.806379"
+  },
+  {
+    "api": "moneyflow",
+    "params": {
+      "ts_code": "000938.SZ",
+      "start_date": "20260701",
+      "end_date": "20260909"
+    },
+    "rows": 50,
+    "retrieved": "2026-09-09T11:05:52.722030"
+  },
+  {
+    "api": "margin_detail",
+    "params": {
+      "ts_code": "000938.SZ",
+      "start_date": "20260701",
+      "end_date": "20260909"
+    },
+    "rows": 50,
+    "retrieved": "2026-09-09T11:05:52.448370"
+  },
+  {
+    "api": "stk_holdernumber",
+    "params": {
+      "ts_code": "000938.SZ",
+      "start_date": "20250101",
+      "end_date": "20260909"
+    },
+    "rows": 59,
+    "retrieved": "2026-09-09T11:05:53.737420"
+  },
+  {
+    "api": "dividend",
+    "params": {
+      "ts_code": "000938.SZ"
+    },
+    "rows": 78,
+    "retrieved": "2026-09-09T11:05:48.657999"
+  },
+  {
+    "api": "income",
+    "params": {
+      "ts_code": "000938.SZ",
+      "start_date": "20220101",
+      "end_date": "20260909"
+    },
+    "rows": 24,
+    "retrieved": "2026-09-09T11:05:49.575045"
+  },
+  {
+    "api": "balancesheet",
+    "params": {
+      "ts_code": "000938.SZ",
+      "start_date": "20220101",
+      "end_date": "20260909"
+    },
+    "rows": 26,
+    "retrieved": "2026-09-09T11:05:50.438540"
+  },
+  {
+    "api": "cashflow",
+    "params": {
+      "ts_code": "000938.SZ",
+      "start_date": "20220101",
+      "end_date": "20260909"
+    },
+    "rows": 0,
+    "retrieved": "2026-09-09T11:06:17.477365"
+  },
+  {
+    "api": "fina_indicator",
+    "params": {
+      "ts_code": "000938.SZ",
+      "start_date": "20220101",
+      "end_date": "20260909"
+    },
+    "rows": 25,
+    "retrieved": "2026-09-09T11:05:56.317887"
+  },
+  {
+    "api": "top10_holders",
+    "params": {
+      "ts_code": "000938.SZ",
+      "period": "20260630"
+    },
+    "rows": 11,
+    "retrieved": "2026-09-09T11:05:53.531614"
+  },
+  {
+    "api": "top10_floatholders",
+    "params": {
+      "ts_code": "000938.SZ",
+      "period": "20260630"
+    },
+    "rows": 10,
+    "retrieved": "2026-09-09T11:06:05.740738"
+  },
+  {
+    "api": "block_trade",
+    "params": {
+      "ts_code": "000938.SZ",
+      "start_date": "20260801",
+      "end_date": "20260909"
+    },
+    "rows": 2,
+    "retrieved": "2026-09-09T11:05:55.715943"
+  },
+  {
+    "api": "stk_holdertrade",
+    "params": {
+      "ts_code": "000938.SZ",
+      "start_date": "20260101",
+      "end_date": "20260909"
+    },
+    "rows": 11,
+    "retrieved": "2026-09-09T11:06:09.018972"
+  },
+  {
+    "api": "repurchase",
+    "params": {
+      "ts_code": "000938.SZ",
+      "start_date": "20260101",
+      "end_date": "20260909"
+    },
+    "rows": 0,
+    "retrieved": "2026-09-09T11:05:57.117349"
+  },
+  {
+    "api": "shibor",
+    "params": {
+      "start_date": "20260801",
+      "end_date": "20260909"
+    },
+    "rows": 27,
+    "retrieved": "2026-09-09T11:05:58.865669"
+  },
+  {
+    "api": "cn_cpi",
+    "params": {
+      "start_m": "202606",
+      "end_m": "202608"
+    },
+    "rows": 2,
+    "retrieved": "2026-09-09T11:06:00.862488"
+  },
+  {
+    "api": "cn_ppi",
+    "params": {
+      "start_m": "202606",
+      "end_m": "202608"
+    },
+    "rows": 2,
+    "retrieved": "2026-09-09T11:06:03.372343"
+  },
+  {
+    "api": "cn_m",
+    "params": {
+      "start_m": "202606",
+      "end_m": "202608"
+    },
+    "rows": 2,
+    "retrieved": "2026-09-09T11:06:05.231106"
+  }
+]

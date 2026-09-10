@@ -14,4 +14,4 @@ framework_refs: []
 ---
 ```
 
-目标路径：`workbench/targets/YYYY-MM-DD-HHmm-<标的>-机构级决策研报.md`。
+目标路径：`workbench/targets/<公司名称>-机构级决策研报.md`，不加日期或时间前缀。HTML使用相同文件名主体；创建、更新及研究截止日期分别维护在 `created`、`updated`、`as_of`，并在报告顶部显示更新日期与数据截止期。已有带日期的权威报告按 `workbench/AGENTS.md` 迁移并同步引用。

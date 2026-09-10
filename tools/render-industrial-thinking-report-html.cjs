@@ -85,10 +85,10 @@ function parseTableCells(line) {
   return line.trim().replace(/^\|/, '').replace(/\|$/, '').split('|').map((cell) => cell.trim());
 }
 
-function chartGrid({ left, top, width, height, max, suffix = '' }) {
+function chartGrid({ left, top, width, height, max, min = 0, suffix = '' }) {
   return [0, 0.25, 0.5, 0.75, 1].map((ratio) => {
     const y = top + height - height * ratio;
-    const value = max * ratio;
+    const value = min + (max - min) * ratio;
     return `<line x1="${left}" y1="${y}" x2="${left + width}" y2="${y}" class="chart-grid"/><text x="${left - 8}" y="${y + 4}" text-anchor="end" class="chart-axis-label">${value.toFixed(value >= 100 ? 0 : 1)}${suffix}</text>`;
   }).join('');
 }
@@ -107,13 +107,15 @@ function buildProfitabilityVisual(rows) {
   const grossValues = rows.map((row) => row.grossMargin);
   const grossMin = Math.max(0, Math.min(...grossValues) - 3);
   const grossMax = Math.max(...grossValues) + 3;
-  const cashMax = Math.max(...rows.flatMap((row) => [row.operatingCashFlow, row.freeCashFlow])) * 1.2;
+  const cashValues = rows.flatMap((row) => [row.operatingCashFlow, row.freeCashFlow]);
+  const cashMax = Math.max(0, ...cashValues) * 1.2 || 1;
+  const cashMin = Math.min(0, ...cashValues) * 1.2;
   const capexMax = Math.max(...rows.map((row) => row.capex)) * 1.2;
 
   const xAt = (index) => left + groupWidth * index + groupWidth / 2;
   const yRevenue = (value) => top + plotHeight - (value / revenueMax) * plotHeight;
   const yGross = (value) => top + plotHeight - ((value - grossMin) / (grossMax - grossMin || 1)) * plotHeight;
-  const yCash = (value) => top + plotHeight - (value / cashMax) * plotHeight;
+  const yCash = (value) => top + plotHeight - ((value - cashMin) / (cashMax - cashMin)) * plotHeight;
   const yCapex = (value) => top + plotHeight - (value / capexMax) * plotHeight;
 
   const periodLabels = rows.map((row, index) => `<text x="${xAt(index)}" y="${top + plotHeight + 25}" text-anchor="middle" class="chart-period">${escapeHtml(row.period)}</text>`).join('');
@@ -129,20 +131,20 @@ function buildProfitabilityVisual(rows) {
     const center = xAt(index);
     const cfoY = yCash(row.operatingCashFlow);
     const fcfY = yCash(row.freeCashFlow);
-    return `<rect x="${center - 24}" y="${cfoY}" width="20" height="${top + plotHeight - cfoY}" rx="2" class="chart-bar-cfo"/><rect x="${center + 4}" y="${fcfY}" width="20" height="${top + plotHeight - fcfY}" rx="2" class="chart-bar-fcf"/><text x="${center - 14}" y="${Math.max(top + 12, cfoY - 7)}" text-anchor="middle" class="chart-value">${row.operatingCashFlow.toFixed(1)}</text><text x="${center + 14}" y="${Math.max(top + 12, fcfY - 7)}" text-anchor="middle" class="chart-value">${row.freeCashFlow.toFixed(1)}</text>`;
+    return `<rect x="${center - 24}" y="${Math.min(cfoY, yCash(0))}" width="20" height="${Math.abs(yCash(0) - cfoY)}" rx="2" class="chart-bar-cfo"/><rect x="${center + 4}" y="${Math.min(fcfY, yCash(0))}" width="20" height="${Math.abs(yCash(0) - fcfY)}" rx="2" class="chart-bar-fcf"/><text x="${center - 14}" y="${Math.max(top + 12, cfoY - 7)}" text-anchor="middle" class="chart-value">${row.operatingCashFlow.toFixed(1)}</text><text x="${center + 14}" y="${Math.max(top + 12, fcfY - 7)}" text-anchor="middle" class="chart-value">${row.freeCashFlow.toFixed(1)}</text>`;
   }).join('');
   const capexPoints = rows.map((row, index) => `${xAt(index)},${yCapex(row.capex)}`).join(' ');
   const capexLine = `<polyline points="${capexPoints}" class="chart-line-capex"/>${rows.map((row, index) => `<circle cx="${xAt(index)}" cy="${yCapex(row.capex)}" r="4" class="chart-dot-capex"/><text x="${xAt(index)}" y="${Math.max(top + 10, yCapex(row.capex) - 9)}" text-anchor="middle" class="chart-value chart-value-capex">${row.capex.toFixed(1)}</text>`).join('')}`;
 
   return `<div class="profitability-visual" aria-label="盈利能力趋势图">
 <section class="profitability-chart"><div class="chart-heading"><strong>营收与毛利率</strong><span>亿元 / %</span></div><div class="chart-legend"><span><i class="legend-revenue"></i>营业收入</span><span><i class="legend-gross"></i>毛利率</span></div><svg viewBox="0 0 ${width} ${height}" role="img" aria-label="营业收入柱状图与毛利率折线图">${chartGrid({ left, top, width: plotWidth, height: plotHeight, max: revenueMax })}${revenueBars}${grossLine}${periodLabels}<text x="${width - 4}" y="${top + 4}" text-anchor="end" class="chart-axis-label">毛利率 ${grossMin.toFixed(0)}%–${grossMax.toFixed(0)}%</text></svg></section>
-<section class="profitability-chart"><div class="chart-heading"><strong>现金创造与再投资</strong><span>亿元</span></div><div class="chart-legend"><span><i class="legend-cfo"></i>经营现金流</span><span><i class="legend-fcf"></i>自由现金流</span><span><i class="legend-capex"></i>资本开支</span></div><svg viewBox="0 0 ${width} ${height}" role="img" aria-label="经营现金流、自由现金流柱状图与资本开支折线图">${chartGrid({ left, top, width: plotWidth, height: plotHeight, max: cashMax })}${cashBars}${capexLine}${periodLabels}<text x="${width - 4}" y="${top + 4}" text-anchor="end" class="chart-axis-label">资本开支 0–${capexMax.toFixed(1)}</text></svg></section>
+<section class="profitability-chart"><div class="chart-heading"><strong>现金创造与再投资</strong><span>亿元</span></div><div class="chart-legend"><span><i class="legend-cfo"></i>经营现金流</span><span><i class="legend-fcf"></i>自由现金流</span><span><i class="legend-capex"></i>资本开支</span></div><svg viewBox="0 0 ${width} ${height}" role="img" aria-label="经营现金流、自由现金流柱状图与资本开支折线图">${chartGrid({ left, top, width: plotWidth, height: plotHeight, max: cashMax, min: cashMin })}${cashBars}${capexLine}${periodLabels}<text x="${width - 4}" y="${top + 4}" text-anchor="end" class="chart-axis-label">资本开支 0–${capexMax.toFixed(1)}</text></svg></section>
 <p class="chart-note">注：2026H1 为半年度数据，不与完整年度线性比较；自由现金流和资本开支为报告口径近似值。</p>
 </div>`;
 }
 
 function transformProfitabilityTable(markdown) {
-  const sectionMatch = markdown.match(/(^### 3\.4 盈利能力\s*$)([\s\S]*?)(?=^### 3\.5 业绩兑现\s*$)/m);
+  const sectionMatch = markdown.match(/(^### 3\.[45] 盈利能力\s*$)([\s\S]*?)(?=^### 3\.[56] 业绩兑现\s*$)/m);
   if (!sectionMatch) return markdown;
 
   const lines = sectionMatch[2].split(/\r?\n/);
@@ -200,6 +202,12 @@ function validateStructure(markdown) {
   ];
   const actualH2 = [...markdown.matchAll(/^##\s+(.+)$/gm)].map((match) => match[1].trim());
   const actualH3 = [...markdown.matchAll(/^###\s+(.+)$/gm)].map((match) => match[1].trim());
+  if (actualH3.includes('3.1 第一且唯一判断')) {
+    for (let index = 6; index < 12; index += 1) {
+      expectedH3[index] = expectedH3[index].replace(/^3\.(\d)/, (_, number) => `3.${Number(number) + 1}`);
+    }
+    expectedH3.splice(6, 0, '3.1 第一且唯一判断');
+  }
   if (JSON.stringify(actualH2) !== JSON.stringify(expectedH2)) {
     throw new Error(`一级目录必须严格对应产业思维框架，当前识别为：${actualH2.join(' / ') || '无'}。`);
   }

@@ -1,0 +1,57 @@
+[
+  {
+    "name": "miit-monthly",
+    "url": "https://wap.miit.gov.cn/jgsj/yxj/xxfb/art/2026/art_c1fadec4526040f881b364001d3b24e1.html",
+    "error": "HTTPSConnectionPool(host='wap.miit.gov.cn', port=443): Max retries exceeded with url: /jgsj/yxj/xxfb/art/2026/art_c1fadec4526040f881b364001d3b24e1.html (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)')))"
+  },
+  {
+    "name": "miit-index",
+    "url": "https://wap.miit.gov.cn/gxsj/",
+    "error": "403 Client Error: Forbidden for url: https://wap.miit.gov.cn/gxsj/"
+  },
+  {
+    "name": "idc-network",
+    "url": "https://www.idc.com/resource-center/blog/nvidia-becomes-1-in-datacenter-ethernet-switching-as-1q26-market-surges-39-8-to-15-4-billion/",
+    "status": 200,
+    "bytes": 138733,
+    "accessed": "2026-09-09"
+  },
+  {
+    "name": "ruijie-h1",
+    "url": "https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12494616&stockid=301165",
+    "status": 200,
+    "bytes": 695704,
+    "accessed": "2026-09-09"
+  },
+  {
+    "name": "unis-h1",
+    "url": "https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12565854&stockid=000938",
+    "status": 200,
+    "bytes": 1727913,
+    "accessed": "2026-09-09"
+  },
+  {
+    "name": "announcements",
+    "url": "https://money.finance.sina.com.cn/corp/go.php/vCB_AllBulletin/stockid/000938.phtml?ftype=lsgg",
+    "status": 200,
+    "bytes": 55880,
+    "accessed": "2026-09-09"
+  },
+  {
+    "name": "policy",
+    "url": "https://fjca.miit.gov.cn/zwgk/zcwj/wjfb/art/2025/art_25eea57dd6f840e680184fffb086883d.html",
+    "error": "403 Client Error: Forbidden for url: https://fjca.miit.gov.cn/zwgk/zcwj/wjfb/art/2025/art_25eea57dd6f840e680184fffb086883d.html"
+  },
+  {
+    "name": "capacity",
+    "url": "https://zjic.zj.gov.cn/ywdh/shjs/202607/t20260721_24162707.shtml",
+    "error": "403 Client Error: Forbidden for url: https://zjic.zj.gov.cn/ywdh/shjs/202607/t20260721_24162707.shtml"
+  },
+  {
+    "name": "huawei-alternative",
+    "url": "https://e.huawei.com/eu/news/2026/solutions/enterprise-optical-network/pol-market-iftto-solution",
+    "status": 200,
+    "bytes": 226515,
+    "accessed": "2026-09-09"
+  }
+]

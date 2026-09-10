@@ -202,3 +202,7 @@ Record one of:
 - `QMD skipped: QMD_WIKI_COLLECTION unset`
 - `QMD skipped: qmd CLI unavailable`
 - `QMD failed: <short error summary>`
+
+## 技能变更记录
+
+修改本技能的说明、模板、references、脚本或其他随附文件后，在同目录 [log.md](log.md) 追加记录，写明日期、版本（或未设版本号）、修改原因、涉及文件、具体变更和验证结果。保留已有记录；未经核实不补写历史，不把技能运行生成的业务报告当作技能变更。若调整版本号，记录旧版本 → 新版本；未调整时明确写“版本号不变”。

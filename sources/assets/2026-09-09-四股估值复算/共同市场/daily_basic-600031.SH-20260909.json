@@ -1,0 +1,29 @@
+{
+  "retrieved": "2026-09-09T16:36:56.161970",
+  "params": {
+    "ts_code": "600031.SH",
+    "trade_date": "20260909"
+  },
+  "rows": [
+    {
+      "ts_code": "600031.SH",
+      "trade_date": "20260909",
+      "close": 20.22,
+      "turnover_rate": 0.805,
+      "turnover_rate_f": 1.1037,
+      "volume_ratio": null,
+      "pe": 22.1125,
+      "pe_ttm": 20.9274,
+      "pb": 2.0191,
+      "ps": 2.0836,
+      "ps_ttm": 1.8971,
+      "dv_ratio": 3.2936,
+      "dv_ttm": 2.4111,
+      "total_share": 919500.4437,
+      "float_share": 847439.0037,
+      "free_share": 618108.9205,
+      "total_mv": 18592298.8968,
+      "circ_mv": 17135216.58
+    }
+  ]
+}

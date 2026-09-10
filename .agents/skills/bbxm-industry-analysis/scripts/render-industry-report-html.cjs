@@ -142,7 +142,11 @@ function extractBoldField(markdown, label, fallback) {
 }
 
 function usesExtendedEvidence(markdown) {
-  return markdown.includes('<!-- industry-research:v2.1 -->') || markdown.includes('<!-- industry-research:v3.0 -->');
+  return markdown.includes('<!-- industry-research:v2.1 -->') || isIndustrySectorReport(markdown);
+}
+
+function isIndustrySectorReport(markdown) {
+  return /<!-- industry-research:v3\.[0123] -->/.test(markdown);
 }
 
 function normalizeObsidianLinks(markdown, outputPath, vaultRoot) {
@@ -170,11 +174,13 @@ function normalizeObsidianLinks(markdown, outputPath, vaultRoot) {
 function sectionize(markdown) {
   const toc = [];
   let sequence = 0;
-  const converted = markdown.replace(/^(##|###)\s+(.+)$/gm, (_full, hashes, rawTitle) => {
-    sequence += 1;
-    const id = `section-${sequence}`;
+  const showConclusion = /<!-- industry-research:v3\.[23] -->/.test(markdown);
+  const converted = markdown.replace(/^(##|###|####)\s+(.+)$/gm, (full, hashes, rawTitle) => {
     const title = rawTitle.trim();
     const level = hashes.length;
+    if (level === 4 && (!showConclusion || !/^6\.1\.[12] /.test(title))) return full;
+    // Keep existing chapter anchors stable when adding conclusion subheadings.
+    const id = level === 4 ? `section-${sequence}-${title.split(' ')[0].split('.').pop()}` : `section-${++sequence}`;
     toc.push({ id, title, level });
     return `<h${level} id="${id}">${escapeHtml(title)}<a class="anchor" href="#${id}" aria-label="链接到本节">#</a></h${level}>`;
   });
@@ -183,13 +189,24 @@ function sectionize(markdown) {
 
 function validateStructure(markdown) {
   const numbered = [...markdown.matchAll(/^##\s+(\d+)\.\s+/gm)].map((match) => Number(match[1]));
-  if (markdown.includes('<!-- industry-research:v3.0 -->')) {
+  if (isIndustrySectorReport(markdown)) {
+    const version = markdown.match(/<!-- industry-research:(v3\.[0123]) -->/)[1];
     const expected = [0, 1, 2, 3, 4, 5, 6];
     if (numbered.length !== expected.length || numbered.some((value, index) => value !== expected[index])) {
       throw new Error(`产业与行业研究报告必须依次包含0—6章，当前识别为：${numbered.join(', ') || '无'}。`);
     }
-    for (const marker of ['## 1. 产业战略地位', '## 2. 长期成长空间', '### 2.1 产业边界与 TAM', '### 2.7 新旧需求变化与情景', '## 3. 产业投资生命周期', '### 3.1 阶段轨道与当前定位', '## 4. 产业维度结论', '## 5. 行业研究', '### 5.1 行业划分与候选清单', '### 5.2 需求传导与景气证据', '### 5.3 行业景气判断', '### 5.4 行业竞争格局', '### 5.5 核心矛盾与边际变化', '## 6. 综合判断与持续跟踪', '### 6.1 行业比较与研究优先级', '### 6.2 进入公司研究的条件', '### 6.3 持续跟踪与重估条件', '# 证据与边界附录', '**观察窗口：**', '**比较窗口：**', '**原文与归纳边界：**', '<!-- industry-chain:start -->', '<!-- industry-chain:end -->', '<!-- industry-lifecycle:start -->', '<!-- industry-lifecycle:end -->']) {
-      if (!markdown.includes(marker)) throw new Error(`产业与行业研究报告缺少 v3.0 模板契约：${marker}`);
+    const requiredMarkers = ['## 1. 产业战略地位', '## 2. 长期成长空间', '### 2.1 产业边界与 TAM', '### 2.7 新旧需求变化与情景', '## 3. 产业投资生命周期', '### 3.1 阶段轨道与当前定位', '## 4. 产业维度结论', '## 5. 行业研究', '### 5.1 行业划分与候选清单', '### 5.2 需求传导与景气证据', '### 5.3 行业景气判断', '### 5.4 行业竞争格局', '### 5.5 核心矛盾与边际变化', '## 6. 综合判断与持续跟踪', '### 6.1 行业比较与研究优先级', '### 6.2 进入公司研究的条件', '### 6.3 持续跟踪与重估条件', '# 证据与边界附录', '**观察窗口：**', '**比较窗口：**', '**原文与归纳边界：**', '<!-- industry-chain:start -->', '<!-- industry-chain:end -->', '<!-- industry-lifecycle:start -->', '<!-- industry-lifecycle:end -->'];
+    if (version === 'v3.3') requiredMarkers.push('### 1.1 全球环境与中国国情', '### 1.2 国家战略形成与政策落地', '### 1.3 资源配置与国家比较优势', '### 1.4 战略地位结论', '**战略证据链最高确认环节：**', '**证据链首个断点：**', '**是否属于未来重点发展的产业方向：**');
+    for (const marker of requiredMarkers) {
+      const expectedMarker = ['v3.2', 'v3.3'].includes(version) && marker === '### 6.2 进入公司研究的条件' ? '### 6.2 后续公司研究清单' : marker;
+      if (!markdown.includes(expectedMarker)) throw new Error(`产业与行业研究报告缺少 ${version} 模板契约：${expectedMarker}`);
+    }
+    if (version === 'v3.3') {
+      const strategicHeadings = ['### 1.1 全球环境与中国国情', '### 1.2 国家战略形成与政策落地', '### 1.3 资源配置与国家比较优势', '### 1.4 战略地位结论'];
+      const positions = strategicHeadings.map(heading => markdown.indexOf(heading));
+      if (positions.some((position, index) => index && position < positions[index - 1])) {
+        throw new Error('产业战略地位必须按全球环境与中国国情、国家战略与政策、资源配置与比较优势、战略结论的顺序展开。');
+      }
     }
     const companyOrInvestmentSection = /^#{2,4}\s+(?:\d+(?:\.\d+)*[.、]?\s+)?(?:公司研究|公司竞争优势|个股估值|估值与投资建议|最新估值观察|买卖建议|产业链公司映射)(?:\s|$)/m;
     if (companyOrInvestmentSection.test(markdown)) throw new Error('产业与行业研究报告包含公司或投资价值层的越界章节。');
@@ -242,14 +259,68 @@ function findTable(tokens, requiredHeaders) {
 }
 
 function validateSectorTables(markdown, marked) {
-  if (!markdown.includes('<!-- industry-research:v3.0 -->')) return;
+  if (!isIndustrySectorReport(markdown)) return;
   const tokens = marked.lexer(markdown, { gfm: true });
-  for (const headers of [
-    ['行业／产品与地域', '产品与客户', '本轮变化及传导路径', '已有证据与日期', '待验证项／失效条件', '初筛'],
+  const candidateHeaders = ['行业／产品与地域', '产品与客户', '本轮变化及传导路径', '已有证据与日期', '待验证项／失效条件', '初筛'];
+  const requiredTables = [
+    candidateHeaders,
     ['行业／产品与地域', '景气水平', '变化方向', '主导原因', '持续条件', '反证', '证据与缺口', '置信度'],
-    ['行业／产品与地域', '景气水平', '变化方向', '竞争与利润留存', '持续性与反证', '证据质量／缺口', '研究优先级与理由'],
-  ]) {
+  ];
+  const hasRelativeComparison = /<!-- industry-research:v3\.[123] -->/.test(markdown);
+  if (!hasRelativeComparison) requiredTables.push(['行业／产品与地域', '景气水平', '变化方向', '竞争与利润留存', '持续性与反证', '证据质量／缺口', '研究优先级与理由']);
+  for (const headers of requiredTables) {
     if (!findTable(tokens, headers)) throw new Error(`行业研究缺少候选、景气或比较表的必填字段：${headers.join('、')}`);
+  }
+  if (markdown.includes('<!-- industry-research:v3.3 -->')) {
+    const strategicSection = extractLevelThreeSection(markdown, /^### 1\.1 全球环境与中国国情\s*$/m)
+      + extractLevelThreeSection(markdown, /^### 1\.2 国家战略形成与政策落地\s*$/m)
+      + extractLevelThreeSection(markdown, /^### 1\.3 资源配置与国家比较优势\s*$/m);
+    const strategicTokens = marked.lexer(strategicSection, { gfm: true });
+    const strategicTables = [
+      { headers: ['分析层级', '当前事实与核心矛盾', '与本产业的直接关系', '关键指标与统计口径', '数据时间／第一信息源', '证据性质'], rows: ['全球环境', '中国国情'] },
+      { headers: ['证据层级', '当前状态／最高确认环节', '核心证据与正式程度', '政策工具、作用对象与执行主体', '对本产业的直接作用', '数据时间／第一信息源', '尚未打通的下一环节'], rows: ['战略酝酿', '国家战略形成', '政策落地', '产业政策落地'] },
+      { headers: ['资源配置类型', '当前状态／实际配置', '核心证据与金额、项目或要素口径', '作用对象与本产业归属', '数据时间／第一信息源', '尚未落实部分／边界'], rows: ['财政', '金融', '产业资本', '生产要素'] },
+      { headers: ['比较优势维度', '中国已证实的优势', '主要短板与外部依赖', '全球比较口径与证据', '能否承接及条件', '优势失效条件'] },
+    ];
+    for (const definition of strategicTables) {
+      const table = findTable(strategicTokens, definition.headers);
+      if (!table) throw new Error(`产业战略地位缺少必填证据表：${definition.headers.join('、')}`);
+      if (definition.rows) {
+        const labels = table.rows.map(row => tableCellText(row[0]));
+        if (definition.rows.some(row => !labels.includes(row))) throw new Error(`产业战略地位证据链缺少固定层级：${definition.rows.join('、')}`);
+      }
+    }
+  }
+  if (!hasRelativeComparison) return;
+  const comparisonSection = extractLevelThreeSection(markdown, /^### 6\.1 行业比较与研究优先级\s*$/m);
+  const comparisonTokens = marked.lexer(comparisonSection, { gfm: true });
+  const comparisonHeaders = ['比较编号', '比较对象与研究问题', '可比边界与窗口', '决定性差异及证据', '相对选择与代价', '置信度与限制', '选择逆转条件'];
+  const arrangementHeaders = ['行业／产品与地域', '对应比较或不比较原因', '研究任务类型', '最终安排', '相对理由与初筛调整', '下一关键证据'];
+  for (const headers of [comparisonHeaders, arrangementHeaders]) {
+    if (!findTable(comparisonTokens, headers)) throw new Error(`6.1 缺少横向比较或研究安排表的必填字段：${headers.join('、')}`);
+  }
+  const candidates = tableRecords(findTable(tokens, candidateHeaders)).map(row => row['行业／产品与地域']);
+  const arrangements = tableRecords(findTable(comparisonTokens, arrangementHeaders)).map(row => row['行业／产品与地域']);
+  if (candidates.length !== arrangements.length || new Set(arrangements).size !== arrangements.length || candidates.some(candidate => !arrangements.includes(candidate))) {
+    throw new Error('6.1 研究安排必须与 5.1 全部初筛候选逐项对应，不能遗漏、重复或新增候选。');
+  }
+  if (!/<!-- industry-research:v3\.[23] -->/.test(markdown)) return;
+  if (!/^#### 6\.1\.2 最终结论：行业选择与研究安排\s*$/m.test(comparisonSection)) {
+    throw new Error('6.1.2 缺少最终结论标题：最终结论：行业选择与研究安排');
+  }
+  const handoffSection = extractLevelThreeSection(markdown, /^### 6\.2 后续公司研究清单\s*$/m);
+  const handoffHeaders = ['承接的行业方向', '具体公司的验证问题', '需要的公司级证据', '继续研究或暂缓条件'];
+  const handoffTable = findTable(marked.lexer(handoffSection, { gfm: true }), handoffHeaders);
+  const eligible = tableRecords(findTable(comparisonTokens, arrangementHeaders))
+    .filter(row => row['研究任务类型'].includes('经营候选深入')).map(row => row['行业／产品与地域']);
+  if (!handoffTable) {
+    if (!eligible.length && handoffSection.includes('当前无公司研究交接项')) return;
+    throw new Error('6.2 缺少公司级研究清单；无交接项时须明确说明，且与 6.1.2 安排一致。');
+  }
+  const handoffRows = tableRecords(handoffTable);
+  const directions = handoffRows.map(row => row['承接的行业方向']);
+  if (!directions.length || new Set(directions).size !== directions.length || directions.length !== eligible.length || eligible.some(item => !directions.includes(item)) || handoffRows.some(row => handoffHeaders.some(header => !row[header]))) {
+    throw new Error('6.2 仅逐项承接 6.1.2 经营候选深入方向，并填写公司问题、公司证据和研究条件，不重列行业缺口或观察清单。');
   }
 }
 
@@ -504,7 +575,7 @@ function main() {
   const tocHtml = toc.map(({ id, title: heading, level }) =>
     `<a class="toc-l${level}" href="#${id}">${escapeHtml(heading)}</a>`).join('\n');
 
-  const css = `:root{--ink:#18212b;--muted:#667085;--line:#d9e0e7;--paper:#fff;--wash:#f4f7f9;--navy:#173b57;--blue:#256b91;--gold:#b78231;--shadow:0 12px 34px rgba(23,59,87,.10)}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--wash);color:var(--ink);font-family:"Noto Sans SC","Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.72}.hero{background:linear-gradient(125deg,#102f47,#1f5879 68%,#a6752a);color:#fff;padding:54px 7vw 48px}.hero-inner{max-width:1180px;margin:auto}.eyebrow{font-size:13px;letter-spacing:.18em;opacity:.78}.hero h1{margin:10px 0 14px;font-family:"Noto Serif SC","Songti SC",serif;font-size:clamp(34px,5vw,64px);line-height:1.15}.meta{display:flex;gap:18px;flex-wrap:wrap;font-size:14px;opacity:.86}.layout{display:grid;grid-template-columns:260px minmax(0,880px);gap:34px;max-width:1230px;margin:32px auto;padding:0 24px 70px}.toc{position:sticky;top:20px;align-self:start;max-height:calc(100vh - 40px);overflow:auto;background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow)}.toc-title{font-weight:700;color:var(--navy);margin-bottom:10px}.toc a{display:block;color:#425466;text-decoration:none;border-left:2px solid transparent;padding:5px 8px;font-size:13px}.toc a:hover{color:var(--blue);border-color:var(--blue);background:#f2f7fa}.toc-l3{margin-left:12px;opacity:.88}.report{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:42px 48px;box-shadow:var(--shadow);min-width:0}h2{font-family:"Noto Serif SC","Songti SC",serif;color:var(--navy);font-size:30px;margin:54px 0 22px;padding-bottom:10px;border-bottom:2px solid #bed0dc}h2:first-of-type{margin-top:0}h3{color:#214e69;font-size:21px;margin:36px 0 16px}h4{color:#324a5b;font-size:17px}.anchor{opacity:0;margin-left:8px;text-decoration:none;color:var(--blue);font-weight:400}h2:hover .anchor,h3:hover .anchor{opacity:.55}p{margin:10px 0 16px}strong{color:#142f43}blockquote{margin:22px 0;padding:16px 20px;border-left:4px solid var(--gold);background:#fbf7ee;color:#374151;border-radius:0 8px 8px 0}table{width:100%;border-collapse:collapse;margin:20px 0 28px;font-size:14px;display:block;overflow-x:auto}thead{background:#eaf1f5;color:#173b57}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;min-width:100px}tbody tr:nth-child(even){background:#fafcfd}tbody tr:hover{background:#f2f7fa}code{font-family:"Cascadia Code",Consolas,monospace;background:#eef2f5;border-radius:4px;padding:.12em .35em;font-size:.9em}pre{background:#142733;color:#e8f1f5;padding:18px 20px;border-radius:10px;overflow:auto;line-height:1.55}pre code{background:transparent;padding:0;color:inherit}a{color:#176b96;text-underline-offset:3px}hr{border:0;border-top:1px solid var(--line);margin:36px 0}ul,ol{padding-left:1.45em}li{margin:5px 0}.footer{color:var(--muted);text-align:center;font-size:13px;padding:22px}@media(max-width:900px){.layout{grid-template-columns:1fr;padding:0 12px 50px}.toc{position:relative;top:0;max-height:none}.report{padding:28px 20px}.hero{padding:42px 24px}h2{font-size:25px}}@media print{body{background:#fff}.hero{padding:24px 0;background:#fff;color:#111;border-bottom:2px solid #333}.layout{display:block;margin:0;padding:0}.toc{display:none}.report{box-shadow:none;border:0;padding:20px 0}a{color:inherit;text-decoration:none}table{display:table;font-size:10px}h2{break-before:page}h2:first-of-type{break-before:auto}.footer{display:none}}`;
+  const css = `:root{--ink:#18212b;--muted:#667085;--line:#d9e0e7;--paper:#fff;--wash:#f4f7f9;--navy:#173b57;--blue:#256b91;--gold:#b78231;--shadow:0 12px 34px rgba(23,59,87,.10)}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--wash);color:var(--ink);font-family:"Noto Sans SC","Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.72}.hero{background:linear-gradient(125deg,#102f47,#1f5879 68%,#a6752a);color:#fff;padding:54px 7vw 48px}.hero-inner{max-width:1180px;margin:auto}.eyebrow{font-size:13px;letter-spacing:.18em;opacity:.78}.hero h1{margin:10px 0 14px;font-family:"Noto Serif SC","Songti SC",serif;font-size:clamp(34px,5vw,64px);line-height:1.15}.meta{display:flex;gap:18px;flex-wrap:wrap;font-size:14px;opacity:.86}.layout{display:grid;grid-template-columns:260px minmax(0,880px);gap:34px;max-width:1230px;margin:32px auto;padding:0 24px 70px}.toc{position:sticky;top:20px;align-self:start;max-height:calc(100vh - 40px);overflow:auto;background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow)}.toc-title{font-weight:700;color:var(--navy);margin-bottom:10px}.toc a{display:block;color:#425466;text-decoration:none;border-left:2px solid transparent;padding:5px 8px;font-size:13px}.toc a:hover{color:var(--blue);border-color:var(--blue);background:#f2f7fa}.toc-l3{margin-left:12px;opacity:.88}.toc-l4{margin-left:24px;font-weight:600}.report{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:42px 48px;box-shadow:var(--shadow);min-width:0}h2{font-family:"Noto Serif SC","Songti SC",serif;color:var(--navy);font-size:30px;margin:54px 0 22px;padding-bottom:10px;border-bottom:2px solid #bed0dc}h2:first-of-type{margin-top:0}h3{color:#214e69;font-size:21px;margin:36px 0 16px}h4{color:#324a5b;font-size:17px}.anchor{opacity:0;margin-left:8px;text-decoration:none;color:var(--blue);font-weight:400}h2:hover .anchor,h3:hover .anchor,h4:hover .anchor{opacity:.55}p{margin:10px 0 16px}strong{color:#142f43}blockquote{margin:22px 0;padding:16px 20px;border-left:4px solid var(--gold);background:#fbf7ee;color:#374151;border-radius:0 8px 8px 0}table{width:100%;border-collapse:collapse;margin:20px 0 28px;font-size:14px;display:block;overflow-x:auto}thead{background:#eaf1f5;color:#173b57}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;min-width:100px}tbody tr:nth-child(even){background:#fafcfd}tbody tr:hover{background:#f2f7fa}code{font-family:"Cascadia Code",Consolas,monospace;background:#eef2f5;border-radius:4px;padding:.12em .35em;font-size:.9em}pre{background:#142733;color:#e8f1f5;padding:18px 20px;border-radius:10px;overflow:auto;line-height:1.55}pre code{background:transparent;padding:0;color:inherit}a{color:#176b96;text-underline-offset:3px}hr{border:0;border-top:1px solid var(--line);margin:36px 0}ul,ol{padding-left:1.45em}li{margin:5px 0}.footer{color:var(--muted);text-align:center;font-size:13px;padding:22px}@media(max-width:900px){.layout{grid-template-columns:1fr;padding:0 12px 50px}.toc{position:relative;top:0;max-height:none}.report{padding:28px 20px}.hero{padding:42px 24px}h2{font-size:25px}}@media print{body{background:#fff}.hero{padding:24px 0;background:#fff;color:#111;border-bottom:2px solid #333}.layout{display:block;margin:0;padding:0}.toc{display:none}.report{box-shadow:none;border:0;padding:20px 0}a{color:inherit;text-decoration:none}table{display:table;font-size:10px}h2{break-before:page}h2:first-of-type{break-before:auto}.footer{display:none}}`;
 
   const html = `<!doctype html>\n<html lang="zh-CN">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<meta name="description" content="${escapeHtml(title)}，数据截止${escapeHtml(cutoff)}">\n<title>${escapeHtml(title)}</title>\n<style>${css}</style>\n</head>\n<body>\n<header class="hero"><div class="hero-inner"><div class="eyebrow">INDUSTRY RESEARCH · 产业思维</div><h1>${escapeHtml(title)}</h1><div class="meta"><span>分析日期：${escapeHtml(analysisDate)}</span><span>数据截止：${escapeHtml(cutoff)}</span><span>${escapeHtml(region)}</span></div></div></header>\n<div class="layout"><nav class="toc" aria-label="报告目录"><div class="toc-title">报告目录</div>${tocHtml}</nav><main class="report">${body}</main></div>\n<footer class="footer">基于公开资料整理，不构成投资建议。</footer>\n</body>\n</html>\n`;
 

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-04",
+  "updatedAt": "2026-09-10",
   "items": [
     {
       "id": "TODO-005",
@@ -101,6 +101,56 @@
       "source": "看板新增",
       "createdAt": "2026-09-04",
       "updatedAt": "2026-09-04"
+    },
+    {
+      "id": "TODO-017",
+      "title": "赛斯·卡拉曼，他的《安全边际》",
+      "detail": "",
+      "quadrant": "重要不紧急",
+      "status": "未开始",
+      "source": "看板新增",
+      "createdAt": "2026-09-08",
+      "updatedAt": "2026-09-08"
+    },
+    {
+      "id": "TODO-019",
+      "title": "倒金字塔加仓法应用到个股中",
+      "detail": "",
+      "quadrant": "重要且紧急",
+      "status": "未开始",
+      "source": "看板新增",
+      "createdAt": "2026-09-09",
+      "updatedAt": "2026-09-09"
+    },
+    {
+      "id": "TODO-020",
+      "title": "个股估值skill 需要增加个股风险监测部分",
+      "detail": "",
+      "quadrant": "重要且紧急",
+      "status": "未开始",
+      "source": "看板新增",
+      "createdAt": "2026-09-09",
+      "updatedAt": "2026-09-09"
+    },
+    {
+      "id": "TODO-021",
+      "title": "参考workbuddy的html-report-style.md 优化 html输出",
+      "detail": "",
+      "quadrant": "重要且紧急",
+      "status": "未开始",
+      "source": "看板新增",
+      "createdAt": "2026-09-10",
+      "updatedAt": "2026-09-10"
+    },
+    {
+      "id": "TODO-022",
+      "title": "一一校验风险监测表中的指标",
+      "detail": "",
+      "quadrant": "重要且紧急",
+      "status": "未开始",
+      "source": "看板新增",
+      "createdAt": "2026-09-10",
+      "updatedAt": "2026-09-10"
     }
   ],
   "archive": [
@@ -128,6 +178,19 @@
       "updatedAt": "2026-08-28",
       "completedAt": "2026-08-28",
       "archivedAt": "2026-08-28",
+      "archiveReason": "status-completed"
+    },
+    {
+      "id": "TODO-018",
+      "title": "优化估值skill，增加基本面分析和凯利公式测算",
+      "detail": "",
+      "quadrant": "重要且紧急",
+      "status": "已完成",
+      "source": "看板新增",
+      "createdAt": "2026-09-08",
+      "updatedAt": "2026-09-08",
+      "completedAt": "2026-09-08",
+      "archivedAt": "2026-09-08",
       "archiveReason": "status-completed"
     }
   ]

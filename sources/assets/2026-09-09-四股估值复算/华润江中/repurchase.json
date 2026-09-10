@@ -1,0 +1,68 @@
+[
+  {
+    "ts_code": "600750.SH",
+    "ann_date": "20260714",
+    "end_date": "20260716",
+    "proc": "完成",
+    "exp_date": null,
+    "vol": 25000.0,
+    "amount": 342500.0,
+    "high_limit": 13.7,
+    "low_limit": 13.7
+  },
+  {
+    "ts_code": "600750.SH",
+    "ann_date": "20260516",
+    "end_date": null,
+    "proc": "预案",
+    "exp_date": null,
+    "vol": null,
+    "amount": 342500.0,
+    "high_limit": 13.7,
+    "low_limit": 13.7
+  },
+  {
+    "ts_code": "600750.SH",
+    "ann_date": "20251028",
+    "end_date": "20251030",
+    "proc": "完成",
+    "exp_date": null,
+    "vol": 42733.0,
+    "amount": 89730.75,
+    "high_limit": 2.0998,
+    "low_limit": 2.0998
+  },
+  {
+    "ts_code": "600750.SH",
+    "ann_date": "20250822",
+    "end_date": null,
+    "proc": "预案",
+    "exp_date": null,
+    "vol": null,
+    "amount": 89730.75,
+    "high_limit": 2.0998,
+    "low_limit": 2.0998
+  },
+  {
+    "ts_code": "600750.SH",
+    "ann_date": "20250521",
+    "end_date": "20250523",
+    "proc": "完成",
+    "exp_date": null,
+    "vol": 149602.0,
+    "amount": 463738.88,
+    "high_limit": 4.02,
+    "low_limit": 2.7998
+  },
+  {
+    "ts_code": "600750.SH",
+    "ann_date": "20250320",
+    "end_date": null,
+    "proc": "预案",
+    "exp_date": null,
+    "vol": null,
+    "amount": 463738.88,
+    "high_limit": 4.02,
+    "low_limit": 2.7998
+  }
+]

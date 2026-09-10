@@ -1,0 +1,22 @@
+{
+  "retrieved": "2026-09-09T16:35:56.113619",
+  "params": {
+    "ts_code": "600750.SH",
+    "trade_date": "20260909"
+  },
+  "rows": [
+    {
+      "ts_code": "600750.SH",
+      "trade_date": "20260909",
+      "open": 23.2,
+      "high": 23.27,
+      "low": 23.0,
+      "close": 23.12,
+      "pre_close": 23.27,
+      "change": -0.15,
+      "pct_chg": -0.6446,
+      "vol": 72226.02,
+      "amount": 166857.241
+    }
+  ]
+}

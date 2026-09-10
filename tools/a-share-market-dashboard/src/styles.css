@@ -747,6 +747,10 @@ button.nasdaq-card { width: 100%; border-top: 0; border-right: 0; border-bottom:
 .tracking-table tbody tr[data-report-href] { cursor: pointer; }
 .tracking-target strong, .tracking-target small { display: block; white-space: nowrap; }
 .tracking-target small { margin-top: 3px; color: var(--muted); }
+.valuation-list-details { display: grid; gap: 5px; min-width: 150px; line-height: 1.4; }
+.valuation-list-details strong { color: var(--blue); }
+.valuation-list-details small { display: block; white-space: nowrap; }
+.valuation-list-details .valuation-reference { color: var(--muted); font-size: 10px; }
 .tracking-target a { color: inherit; text-decoration: none; }
 .tracking-target a:hover { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; }
 .tracker-status { display: inline-flex; margin-top: 7px; border-radius: 99px; background: #e8f0fb; color: #275fAE; padding: 5px 9px; font-size: 10px; white-space: nowrap; }
@@ -785,14 +789,18 @@ button.nasdaq-card { width: 100%; border-top: 0; border-right: 0; border-bottom:
 .tracking-report-links { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; }
 .tracking-report-links a { color: var(--blue); font-weight: 800; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
 .tracking-updated { display: block; margin-top: 6px; color: var(--muted); white-space: nowrap; }
-.tracking-fundamental-status { display: flex; min-width: 240px; max-width: 360px; flex-direction: column; align-items: flex-start; gap: 6px; line-height: 1.6; }
+.tracking-fundamental-status { display: flex; min-width: 240px; max-width: 360px; flex-direction: column; align-items: flex-start; gap: 6px; line-height: 1.6; padding: 10px 12px; border-radius: 6px; }
+.tracking-fundamental-status.is-improving { background: #e3f3e9; }
+.tracking-fundamental-status.is-stable { background: #e8f0fb; }
+.tracking-fundamental-status.is-weakening { background: #fbe7e7; }
+.tracking-fundamental-status.is-pending { background: #fff3d6; }
 .tracking-fundamental-status > span { color: #34495d; white-space: normal; }
 .tracking-fundamental-status > a { color: var(--blue); font-weight: 800; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
-.tracker-list-panel .tracking-table { min-width: 1760px; }
+.tracker-list-panel .tracking-table { min-width: 1600px; }
+.tracker-list-panel .tracking-table .tracking-price-to-midpoint { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .tracker-list-panel .tracking-table th:nth-child(8), .tracker-list-panel .tracking-table td:nth-child(8) { min-width: 92px; }
 .tracker-list-panel .tracking-table th:nth-child(9), .tracker-list-panel .tracking-table td:nth-child(9) { min-width: 52px; }
-.tracker-list-panel .tracking-table th:nth-child(10), .tracker-list-panel .tracking-table td:nth-child(10) { min-width: 112px; }
-.tracker-row-actions { display: flex; gap: 6px; white-space: nowrap; }
+.tracker-row-actions { display: flex; gap: 6px; margin-top: 8px; white-space: nowrap; }
 .tracker-row-actions button { min-height: 30px; border: 1px solid rgba(37,95,174,.28); border-radius: 7px; background: #f5f8fd; color: var(--blue); padding: 6px 10px; font-size: 10px; font-weight: 800; }
 .tracker-row-actions button:hover { border-color: var(--blue); background: #eaf1fb; }
 .tracker-row-actions button[data-action="delete-tracking"] { border-color: rgba(178,67,67,.25); background: #fff7f6; color: var(--red); }

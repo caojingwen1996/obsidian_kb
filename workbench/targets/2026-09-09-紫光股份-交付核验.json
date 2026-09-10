@@ -1,0 +1,49 @@
+{
+  "checks": "passed",
+  "scan_count": 32,
+  "counts": [
+    [
+      "基本面",
+      9,
+      2,
+      4,
+      2,
+      1,
+      0
+    ],
+    [
+      "流动性",
+      14,
+      0,
+      1,
+      0,
+      13,
+      0
+    ],
+    [
+      "预期",
+      9,
+      3,
+      2,
+      0,
+      4,
+      0
+    ],
+    [
+      "合计",
+      32,
+      5,
+      7,
+      2,
+      18,
+      0
+    ]
+  ],
+  "price_breaks": [],
+  "files": {
+    "workbench\\targets\\2026-08-03-1638-紫光股份-机构级决策研报.md": "0df0dbfde1fd950db12717e08faf4d2ee673e4209807da4b4602613cf3e1ae7d",
+    "sources\\automations\\新兴产业\\算力\\中游-计算系统与集群\\2026-08-03-1638-紫光股份-机构级决策研报.html": "d320bd83aa7bc1bad7479412bf08a227e325211c0ce9fd3053c9945801ef6f41"
+  },
+  "limitations": "valuation remains conditional; final status evidence insufficient",
+  "presentation_check": "Chapter 3 overview plus 3.1-3.4 conclusion-first; result headings verified; five chapters and four cards unchanged"
+}

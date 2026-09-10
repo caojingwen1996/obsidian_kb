@@ -1,0 +1,31 @@
+{
+  "retrieved": "2026-09-09T16:36:53.839132",
+  "params": {
+    "ts_code": "600511.SH",
+    "trade_date": "20260909"
+  },
+  "rows": [
+    {
+      "ts_code": "600511.SH",
+      "trade_date": "20260909",
+      "buy_sm_vol": 8034,
+      "buy_sm_amount": 2156.99,
+      "sell_sm_vol": 9390,
+      "sell_sm_amount": 2521.31,
+      "buy_md_vol": 7177,
+      "buy_md_amount": 1927.25,
+      "sell_md_vol": 6099,
+      "sell_md_amount": 1637.53,
+      "buy_lg_vol": 3916,
+      "buy_lg_amount": 1051.71,
+      "sell_lg_vol": 3638,
+      "sell_lg_amount": 977.11,
+      "buy_elg_vol": 0,
+      "buy_elg_amount": 0.0,
+      "sell_elg_vol": 0,
+      "sell_elg_amount": 0.0,
+      "net_mf_vol": -852,
+      "net_mf_amount": -227.66
+    }
+  ]
+}

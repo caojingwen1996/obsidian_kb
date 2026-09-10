@@ -60,8 +60,11 @@ body {
 .tracking-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 .tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
 .tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.tracking-title { margin: 0 0 14px; color: var(--navy); font-size: 18px; font-weight: 750; }
 .tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
 .tracking-value.bad { color: var(--danger); }
+.fundamental-metric, .kelly-metric { margin: 0 0 7px; color: var(--navy); font-size: 14px; line-height: 1.55; font-weight: 650; }
+.kelly-summary { margin-top: 18px; padding-top: 15px; border-top: 1px solid var(--line); }
 
 .tracking-card[data-tracking-key="fair-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
 .pricing-levels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }

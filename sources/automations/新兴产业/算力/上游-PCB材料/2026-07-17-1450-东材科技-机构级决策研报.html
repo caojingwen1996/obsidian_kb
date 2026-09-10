@@ -68,6 +68,18 @@ body {
 .tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
 .tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
 .tracking-value.bad { color: var(--danger); }
+.fundamental-metric, .kelly-metric { margin: 0 0 7px; color: var(--navy); font-size: 14px; line-height: 1.55; font-weight: 650; }
+.kelly-summary { margin-top: 18px; padding-top: 15px; border-top: 1px solid var(--line); }
+
+.tracking-card[data-tracking-key="fair-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
+.pricing-levels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+.pricing-level { display: flex; align-items: center; justify-content: center; min-height: 34px; padding: 5px 7px; border: 1px solid #d5e0e3; border-radius: 8px; color: #607580; background: #f4f7f8; font-size: 12px; line-height: 1.25; font-weight: 750; text-align: center; }
+.pricing-level.active { border-color: transparent; box-shadow: 0 0 0 2px rgba(15, 50, 70, .08); }
+.pricing-level-premium.active { color: #17604e; background: #dff3eb; }
+.pricing-level-overvalued.active { color: #86610d; background: #fff0bd; }
+.pricing-level-bubble.active { color: #9b4d10; background: #ffe3c9; }
+.pricing-level-severe.active { color: var(--danger); background: var(--danger-bg); }
+.tracking-detail { margin: 11px 0 0; color: var(--ink-soft); font-size: 13px; line-height: 1.65; }
 
 @media (max-width: 980px) {
   .hero { padding: 40px 30px 34px; }
@@ -101,45 +113,38 @@ body {
 <body>
   <main class="report-shell">
     <header class="hero">
-      <p class="eyebrow">BBXM EQUITY RESEARCH · 601208.SH</p>
+      <p class="eyebrow">BBXM EQUITY VALUATION · 601208.SH</p>
       <h1>东材科技机构级决策研报</h1>
-      <div class="hero-meta"><span>2026-08-25 15:00（Asia/Shanghai；行情截至 2026-08-24 收盘）</span><span>2026-08-25</span><span>上海证券交易所主板 / 人民币</span></div>
+      <div class="hero-meta"><span>研究截止时间未获取</span><span>报告生成时间未获取</span><span>市场与币种未获取</span></div>
     </header>
     <div class="layout">
-      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 决策摘要</a>
-<a class="toc-link" href="#section-2">2. 证券身份与来源矩阵</a>
-<a class="toc-link" href="#section-3">3. 行情与市场预期</a>
-<a class="toc-link" href="#section-4">4. 商业模式与竞争格局</a>
-<a class="toc-link" href="#section-5">5. 分部收入与盈利拆解</a>
-<a class="toc-link" href="#section-6">6. 五年财务历史</a>
-<a class="toc-link" href="#section-7">7. 最新季度与管理层指引</a>
-<a class="toc-link" href="#section-8">8. 近三个月新闻与催化剂</a>
-<a class="toc-link" href="#section-9">9. 多头与空头论据</a>
-<a class="toc-link" href="#section-10">10. 公允价值区间计算</a>
-<a class="toc-link" href="#section-11">11. 市场价格分解与估值泡沫判断</a>
-<a class="toc-link" href="#section-12">12. 最终结论</a>
-<a class="toc-link" href="#section-13">13. 后续监控指标</a>
-<a class="toc-link" href="#section-14">14. 未获取到的数据与研究局限</a>
-<a class="toc-link" href="#section-15">15. 来源清单</a>
-<a class="toc-link" href="#section-16">16. 声明</a></div></aside>
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 估值摘要</a>
+<a class="toc-link" href="#section-2">2. 估值基础</a>
+<a class="toc-link" href="#section-3">3. 估值方法与假设</a>
+<a class="toc-link" href="#section-4">4. 估值结果与交易溢价</a>
+<a class="toc-link" href="#section-5">5. 风险与结论</a></div></aside>
       <article class="content"><blockquote>
-<p>证券代码：601208.SH<br>交易所 / 币种：上海证券交易所主板 / 人民币<br>研究截止时间：2026-08-25 15:00（Asia/Shanghai；行情截至 2026-08-24 收盘）<br>报告生成时间：2026-08-25<br>数据口径：法定财务截至 2026H1；行情、估值、资金分档与融资余额为本地 Tushare 最新可得日。半年报增量底稿见<a href="../../../../webpages/2026-08-25-东材科技机构级研究半年报更新快照.md">2026-08-25 半年报更新快照</a>。</p>
+<p>证券601208.SH；人民币/股。估值及证据核验2026-09-08 15:00（Asia/Shanghai）；完整日线截至2026-09-07。财务2026H1；流量比2025H1、存量比2025年末。金额除每股外均为亿元。
+上游：<a href="../../../../../workbench/targets/2026-08-19-1710-东材科技-三要素分析.md">既有产业研究</a>；历史产业判断只作基线，本次最新财报与公告优先。独立产业报告缺失或未全量重跑时，以最低产业前提执行，置信度中等，不声称完成独立产业筛选。
+框架：<a href="../../../../../wiki/concepts/冰冰小美-framework-估值判断.md">估值判断</a>。本次按六项权重顺序、完整32项、通胀传导与凯利规则重估；预测与倍数为条件假设。</p>
 </blockquote>
 <!-- DAILY_TRACKING_START -->
-<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-08-25 15:00（Asia/Shanghai；行情为前收盘）">
+<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-09-08 15:00（Asia/Shanghai；行情9月7日，财报2026H1，公告截至本次核验）">
   <div class="daily-tracking-head">
-    <div><p class="daily-tracking-kicker">Daily decision tracker</p><h2>每日跟踪面板</h2></div>
-    <p class="daily-tracking-time">更新：2026-08-25 15:00（Asia/Shanghai；行情为前收盘）<br>下次：收盘后 / 重大公告后</p>
+    <div><p class="daily-tracking-kicker">Daily valuation tracker</p><h2>每日跟踪面板</h2></div>
+    <p class="daily-tracking-time">更新：2026-09-08 15:00（Asia/Shanghai；行情9月7日，财报2026H1，公告截至本次核验）<br>下次：收盘后 / 财报或重大公告后</p>
   </div>
   <div class="tracking-grid">
-    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value">改善。H1 营收 +27.29%、扣非归母 +40.86%、毛利率约 +0.31pct、经营现金流由负转正；但自由现金流代理仍为 -0.34 亿元、短借 +32.32%，Q2 归母环比 -33%</p></div>
-    <div class="tracking-card" data-tracking-key="risk-status"><p class="tracking-label">风险状态</p><p class="tracking-value bad">估值兑现与资金承接风险重新增强，已形成早期杠杆放大链。近 5 日股价 -11.85%，融资余额近 5 个观测值 +8.68%，价格下跌与融资增加同向发生；经营改善是主要缓冲</p></div>
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="fundamental-metric">负债：融资及长期付款义务32.46亿元，年末30.30亿元</p><p class="fundamental-metric">净现金：严格扩展口径-25.68亿元，年末-22.80亿元</p><p class="fundamental-metric">现金流：经营1.05亿元；FCF代理-0.34亿元，同比改善</p><p class="fundamental-metric">开销合理性：销/管/研费率0.93%/2.07%/3.63%，详见六项核验</p><p class="fundamental-metric">真实利润：扣非2.24亿元，同比+40.86%</p><p class="fundamental-metric">扣除商誉的净资产：合并62.35亿元，年末61.37亿元</p><p class="tracking-detail">综合：待确认；存量比2025年末、流量比2025H1，不外推9月经营状态</p></div>
+    <div class="tracking-card" data-tracking-key="fair-value-range"><p class="tracking-label">公允价值范围</p><p class="tracking-value">13.88—47.51元；中枢31.02元；2026-09-08重估</p><div class="kelly-summary"><p class="tracking-label">凯利测算</p><p class="kelly-metric">现价49.18元（9月7日）</p><p class="kelly-metric">到上限回报-3.40%；到下限回报-71.78%；盈亏平衡概率不适用</p><p class="kelly-metric">假设概率→全凯利/半凯利：50%→不适用/不适用；60%→不适用/不适用；70%→不适用/不适用；80%→不适用/不适用；90%→不适用/不适用</p><p class="kelly-metric">真实上涨概率待验证，见4.6</p></div></div>
+    <div class="tracking-card" data-tracking-key="pricing-deviation"><p class="tracking-label">交易定价偏离</p><div class="pricing-levels"><span class="pricing-level pricing-level-premium">估值溢价</span><span class="pricing-level pricing-level-overvalued active" aria-current="true">普通高估</span><span class="pricing-level pricing-level-bubble">估值泡沫</span><span class="pricing-level pricing-level-severe">严重估值泡沫</span></div><p class="tracking-detail">当前判断：普通高估；相对中枢+58.57%；上沿外1.67元；置信度中等</p></div>
+    <div class="tracking-card" data-tracking-key="capital-and-holders"><p class="tracking-label">资金与筹码</p><p class="tracking-value">截至9月7日，5/10/20日价格-5.77%/+12.49%/+8.37%；大单及特大单净额代理-2.47/+10.65/+6.83亿元；融资余额36.50亿元，5/10/20日变化-5.07%/+16.89%/+34.95%。分档资金不代表特定机构身份</p></div>
   </div>
 </section>
 <!-- DAILY_TRACKING_END -->
-<h2 id="section-1">1. 决策摘要</h2>
+<h2 id="section-1">1. 估值摘要</h2>
 
-<h3>1.1 基本面组</h3>
+<h3>1.1 每日跟踪字段</h3>
 <table>
 <thead>
 <tr>
@@ -148,1872 +153,779 @@ body {
 </tr>
 </thead>
 <tbody><tr>
-<td>估值状态</td>
-<td>普通高估。43.72 元已回到 18—47 元公允价值区间内，但位于区间上部，相对 32 元中枢仍高 36.6%，安全边际不足</td>
-</tr>
-<tr>
-<td>估值路线</td>
-<td>成长企业：2028 年未来利润 × 届时合理 PE 后折现为主；SOTP、PB / ROIC、同业与反向利润交叉验证；完整公司 DCF 不适用</td>
-</tr>
-<tr>
-<td>公允价值区间</td>
-<td>18—47 元，中枢 31—33 元；下沿计保守基本盘和弱成长，中枢计 2028 一致预期，上沿计华泰乐观盈利与较顺利项目爬坡；高于 47 元需眉山项目、现金流与盈利预测共同上修</td>
-</tr>
-<tr>
-<td>相对现价空间</td>
-<td>至下沿 -58.8%，至中枢约 -26.8%，至上沿 +7.5%；宽区间反映项目兑现和正常化倍数不确定性，不代表任意价格都合理</td>
-</tr>
-<tr>
-<td>估值泡沫判断</td>
-<td>普通高估，置信度中。严格估值脱锚不成立：现价低于上沿，隐含 2028 净利仍落在可审计乐观预测附近；但正常化压力、杠杆承接与叙事一致性已逆转</td>
-</tr>
-<tr>
 <td>基本面状态</td>
-<td>改善。H1 营收 +27.29%、扣非归母 +40.86%、毛利率约 +0.31pct、经营现金流由负转正；但自由现金流代理仍为 -0.34 亿元、短借 +32.32%，Q2 归母环比 -33%</td>
+<td>负债：融资及长期付款义务32.46亿元，年末30.30亿元<br>净现金：严格扩展口径-25.68亿元，年末-22.80亿元<br>现金流：经营1.05亿元；FCF代理-0.34亿元，同比改善<br>开销合理性：销/管/研费率0.93%/2.07%/3.63%，详见六项核验<br>真实利润：扣非2.24亿元，同比+40.86%<br>扣除商誉的净资产：合并62.35亿元，年末61.37亿元<br>综合：待确认；存量比2025年末、流量比2025H1，不外推9月经营状态</td>
 </tr>
 <tr>
-<td>宏观价格环境</td>
-<td>高暴露、混合状态。工业品与主要原料价格上升，高价值电子材料靠量价和结构覆盖成本；光学膜、绝缘、阻燃等传统分部毛利率下降，合并净影响中性偏正</td>
+<td>公允价值范围</td>
+<td>13.88—47.51元；中枢31.02元；2026-09-08重估</td>
 </tr>
 <tr>
-<td>关键经营变化</td>
-<td>电子材料收入 12.04 亿元、同比 +74.95%、毛利率 25.33%；高速电子材料收入 5.55 亿元、同比 +127.97%。5,200 吨高频高速树脂项目 H1 效益 2.66 亿元，但眉山 2 万吨项目良率、利用率和稳态利润仍未披露</td>
-</tr>
-<tr>
-<td>企业价值主类型</td>
-<td>成长企业；传统膜材、绝缘和新能源材料为已验证基本盘，高速电子树脂为商业化成长业务，M10 与未验证新品不独立计价</td>
-</tr>
-<tr>
-<td>主估值锚</td>
-<td>2028 EPS 0.82 / 1.44 / 1.93 元 × 22 / 28 / 32 倍 PE，并以 12%要求回报折现；概率加权约 31.6 元</td>
-</tr>
-<tr>
-<td>价值创造链</td>
-<td>客户认证与真实供货 → 高速树脂量价增长 → 产品结构和毛利改善 → 扣非利润 → 经营现金流与自由现金流；项目放量不及预期或 FCF 持续为负时失效</td>
-</tr>
-<tr>
-<td>结论置信度</td>
-<td>中</td>
-</tr>
-</tbody></table>
-<h3>1.2 资金面组</h3>
-<table>
-<thead>
-<tr>
-<th>项目</th>
-<th>结论</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>操作建议</td>
-<td>观望；新增现金不追，已有持仓复核盈利兑现、融资余额与 43 元附近承接</td>
-</tr>
-<tr>
-<td>冰冰小美动作</td>
-<td>wait（新增现金） / review（已有持仓）</td>
-</tr>
-<tr>
-<td>当前价格及时间</td>
-<td>43.72 元，2026-08-24 收盘</td>
-</tr>
-<tr>
-<td>资金状态</td>
-<td>流出。近 5 / 10 / 20 / 60 日全口径资金分档代理累计 -12.86 / -14.02 / -22.15 / -46.28 亿元；近 5 日大单与特大单代理 -9.08 亿元</td>
-</tr>
-<tr>
-<td>风险状态</td>
-<td>估值兑现与资金承接风险重新增强，已形成早期杠杆放大链。近 5 日股价 -11.85%，融资余额近 5 个观测值 +8.68%，价格下跌与融资增加同向发生；经营改善是主要缓冲</td>
-</tr>
-<tr>
-<td>每日跟踪时间</td>
-<td>2026-08-25 15:00（Asia/Shanghai；行情为前收盘）</td>
-</tr>
-<tr>
-<td>资金面分析链接</td>
-<td>2026-07-17-1450-东材科技-机构级决策研报.html</td>
-</tr>
-</tbody></table>
-<h3>如果今天这是一笔现金，我会买它吗</h3>
-<ul>
-<li>回答：不会。</li>
-<li>我的判断：半年报证明电子材料不是纯叙事，但 43.72 元已要求 2028 年利润接近乐观情景，而 H1 自由现金流仍为负、眉山项目稳态数据未披露，报告后价格承接偏弱且融资反向增加。当前赔率不足以补偿项目、倍数和杠杆风险。</li>
-<li>霍华德·马克斯大跌闸门：近期跌幅已足以触发逆向检查，但“价格低于价值中枢”尚未成立；基本价值没有被半年报破坏，卖压也未形成融资收缩式被迫去杠杆，故只能观察，不能因跌幅直接买入。</li>
-<li>改变结论的条件：价格进入 30—33 元中枢附近且电子材料毛利与现金流未恶化，或在现价附近出现 2028 EPS 普遍上修至约 1.9 元以上、眉山项目良率 / 利用率披露且 FCF 连续转正，才重新评估分批买入。</li>
-</ul>
-<h2 id="section-2">2. 证券身份与来源矩阵</h2>
-
-<h3>2.1 证券身份</h3>
-<ul>
-<li>公司全称：四川东材科技集团股份有限公司。</li>
-<li>证券代码：601208.SH。</li>
-<li>上市地：上海证券交易所主板。</li>
-<li>报告准则：中国企业会计准则。</li>
-<li>法定披露体系：A 股交易所公告与定期报告。</li>
-<li>同名或跨市场歧义：无；本报告仅指 A 股 601208.SH。</li>
-</ul>
-<h3>2.2 来源矩阵</h3>
-<table>
-<thead>
-<tr>
-<th>数据项目</th>
-<th>目标来源</th>
-<th>实际来源</th>
-<th>数据时间</th>
-<th>状态</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Tushare MCP 调用清单（A股适用）</td>
-<td><code>tushare-data</code> MCP</td>
-<td><code>get_stock_basic</code>、<code>get_stock_daily</code>、<code>get_stock_valuation</code>、<code>get_stock_moneyflow</code>、<code>get_margin_detail</code>、三大财务报表工具</td>
-<td>2026-08-25 调用</td>
-<td>已获取</td>
-</tr>
-<tr>
-<td>证券身份与上市状态</td>
-<td>Tushare；交易所</td>
-<td>本地 Tushare、法定公告</td>
-<td>最新基础资料</td>
-<td>已获取</td>
-</tr>
-<tr>
-<td>价格、52周高低、年初至今表现</td>
-<td>Tushare</td>
-<td>本地 Tushare 日线</td>
-<td>2026-08-24</td>
-<td>已获取；不复权收盘</td>
-</tr>
-<tr>
-<td>估值、市值、股息率和换手率</td>
-<td>Tushare</td>
-<td>本地 Tushare 每日指标</td>
-<td>2026-08-24</td>
-<td>已获取</td>
-</tr>
-<tr>
-<td>资金分档 / 大单资金代理</td>
-<td>Tushare</td>
-<td>本地 Tushare 订单金额分档</td>
-<td>截至 2026-08-24</td>
-<td>已获取；非账户身份</td>
-</tr>
-<tr>
-<td>融资融券代理</td>
-<td>Tushare</td>
-<td>本地 Tushare 融资融券明细</td>
-<td>2026-08-24</td>
-<td>已获取</td>
-</tr>
-<tr>
-<td>第三方公允价值、护城河、星级</td>
-<td>第三方公开页</td>
-<td>未取得可审计字段</td>
-<td>截至研究日</td>
-<td>未获取到</td>
-</tr>
-<tr>
-<td>最新季报与经营情况</td>
-<td>交易所 / 公司公告</td>
-<td>2026 年半年度报告、Q2 经营数据、募集资金公告</td>
-<td>2026-08-21</td>
-<td>已获取；未经审计半年报</td>
-</tr>
-<tr>
-<td>分部收入、成本和毛利</td>
-<td>公司法定披露</td>
-<td>2026 年半年度报告；公开卖方分部对比</td>
-<td>2026H1</td>
-<td>已获取</td>
-</tr>
-<tr>
-<td>宏观价格环境与通胀传导</td>
-<td>国家统计局、公司证据</td>
-<td>7 月 CPI / PPI、Q2 主要原料采购价、分部 ASP 与毛利</td>
-<td>2026H1 / 2026-07</td>
-<td>已获取</td>
-</tr>
-<tr>
-<td>项目技术、客户与量产里程碑</td>
-<td>公司公告与业绩会</td>
-<td>项目进度、募投效益、互动口径</td>
-<td>截至 2026-08-25</td>
-<td>部分获取；良率 / 利用率缺失</td>
-</tr>
-<tr>
-<td>卖方评级与目标价</td>
-<td>完整研报 / 聚合页</td>
-<td>同花顺公开聚合、华泰半年报点评</td>
-<td>截至 2026-08-24</td>
-<td>已获取；样本不完整</td>
-</tr>
-<tr>
-<td>可比公司估值</td>
-<td>Tushare</td>
-<td>本地 Tushare 每日指标</td>
-<td>2026-08-24</td>
-<td>已获取；盈利口径差异大</td>
-</tr>
-<tr>
-<td>ETF申赎、基金仓位、行业广度</td>
-<td>公开基金与市场数据</td>
-<td>未取得同日完整口径</td>
-<td>截至研究日</td>
-<td>未获取到</td>
-</tr>
-<tr>
-<td>行业研究报告反向链接</td>
-<td>同产业目录 HTML</td>
-<td>原目录仅有本报告与三要素分析，无独立产业报告</td>
-<td>2026-08-25</td>
-<td>不适用；未修改正式 Wiki</td>
-</tr>
-</tbody></table>
-<h2 id="section-3">3. 行情与市场预期</h2>
-
-<h3>3.1 行情快照（事实）</h3>
-<table>
-<thead>
-<tr>
-<th>指标</th>
-<th align="right">数值</th>
-<th>时间 / 口径</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>当前价格</td>
-<td align="right">43.72 元</td>
-<td>2026-08-24 收盘</td>
-</tr>
-<tr>
-<td>单日涨跌</td>
-<td align="right">-4.40%</td>
-<td>2026-08-24</td>
-</tr>
-<tr>
-<td>52 周最高 / 最低</td>
-<td align="right">80.46 / 16.15 元</td>
-<td>最近 250 个交易日代理</td>
-</tr>
-<tr>
-<td>距高点回撤</td>
-<td align="right">-45.67%</td>
-<td>43.72 ÷ 80.46 - 1</td>
-</tr>
-<tr>
-<td>年初至今</td>
-<td align="right">+58.52%</td>
-<td>不复权收盘</td>
-</tr>
-<tr>
-<td>近 5 / 20 / 60 日</td>
-<td align="right">-11.85% / +0.92% / -12.56%</td>
-<td>窗口首尾收盘</td>
-</tr>
-<tr>
-<td>总市值</td>
-<td align="right">441.65 亿元</td>
-<td>2026-08-24</td>
-</tr>
-<tr>
-<td>PE TTM / PB / PS TTM</td>
-<td align="right">108.56 / 7.10 / 7.56 倍</td>
-<td>2026-08-24</td>
-</tr>
-<tr>
-<td>TTM 股息率</td>
-<td align="right">0.343%</td>
-<td>Tushare <code>dv_ttm</code></td>
-</tr>
-<tr>
-<td>成交额 / 换手率</td>
-<td align="right">23.29 亿元 / 5.26%</td>
-<td>2026-08-24</td>
-</tr>
-</tbody></table>
-<ul>
-<li>事实：股价已较 6 月高点大幅回撤，但年内涨幅仍高，估值仍显著高于成熟树脂企业。</li>
-<li>我的判断：价格完成了一轮显著估值压缩，但尚未回到中枢；不能把“从 80 元跌到 44 元”自动等同于便宜。</li>
-</ul>
-<h3>3.2 第三方公允价值与评级（事实）</h3>
-<table>
-<thead>
-<tr>
-<th>项目</th>
-<th>结果</th>
-<th>数据时间</th>
-<th>处理</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>第三方公允价值区间</td>
-<td>未获取到可审计字段</td>
-<td>2026-08-25</td>
-<td>不纳入主结论</td>
-</tr>
-<tr>
-<td>护城河 / 星级</td>
-<td>未获取到</td>
-<td>2026-08-25</td>
-<td>登记缺口</td>
-</tr>
-<tr>
-<td>公开评级统计</td>
-<td>最近 6 个月买入 7、增持 3、无中性 / 减持 / 卖出样本</td>
-<td>2026-08-24 聚合页</td>
-<td>仅说明卖方倾向，不代表公允价值</td>
-</tr>
-</tbody></table>
-<h3>3.3 卖方评级与目标价分布（事实）</h3>
-<table>
-<thead>
-<tr>
-<th>机构 / 日期</th>
-<th align="right">2026E EPS</th>
-<th align="right">2027E EPS</th>
-<th align="right">2028E EPS</th>
-<th>目标价 / 评级</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>华泰 / 2026-08-23</td>
-<td align="right">0.72</td>
-<td align="right">1.42</td>
-<td align="right">1.93</td>
-<td>53.96 元 / 买入</td>
-</tr>
-<tr>
-<td>东北 / 2026-08-11</td>
-<td align="right">0.72</td>
-<td align="right">0.99</td>
-<td align="right">1.35</td>
-<td>买入；目标价未获取</td>
-</tr>
-<tr>
-<td>华鑫 / 2026-08-03</td>
-<td align="right">0.66</td>
-<td align="right">0.97</td>
-<td align="right">1.33</td>
-<td>买入；目标价未获取</td>
-</tr>
-<tr>
-<td>长城 / 2026-06-24</td>
-<td align="right">0.70</td>
-<td align="right">1.00</td>
-<td align="right">1.36</td>
-<td>买入；目标价未获取</td>
-</tr>
-<tr>
-<td>12 家均值</td>
-<td align="right">0.71</td>
-<td align="right">1.07</td>
-<td align="right">1.44</td>
-<td>目标价分布不完整</td>
-</tr>
-</tbody></table>
-<ul>
-<li>华泰半年报后没有上修 2026—2028 盈利，而把 2027E 估值由 30 倍提高到 38 倍，目标价由 42.60 元上调至 53.96 元；该上调主要来自倍数扩张。</li>
-<li>2026 一致预期归母净利润 7.19 亿元；H1 已实现 3.12 亿元，H2 仍需约 4.07 亿元。</li>
-<li>我的判断：盈利分歧很大，华泰乐观情景可作为上沿证据，不能作为中枢的唯一依据；目标价上修而盈利不变，是叙事一致性的重要风险信号。</li>
-</ul>
-<h2 id="section-4">4. 商业模式与竞争格局</h2>
-
-<h3>4.1 事实</h3>
-<ul>
-<li>公司产品覆盖电子材料、光学膜、新能源材料、电工绝缘材料和环保阻燃材料。</li>
-<li>电子材料包括双马来酰亚胺、活性酯、碳氢、聚苯醚、苯并噁嗪和特种环氧等电子级树脂，经覆铜板厂商进入服务器和高速通信材料链。</li>
-<li>公司并非终端算力客户的直接供应商；终端映射主要通过覆铜板客户，不能把终端需求全部视为公司订单。</li>
-<li>5,200 吨高频高速 PCB 特种树脂项目已形成显著效益；2 万吨高速通信基板用电子材料项目仍处建设和设备调试阶段。</li>
-<li>客户认证、配方适配和稳定供货构成进入壁垒，但国内外树脂厂商扩产、替代材料和下游压价仍构成竞争。</li>
-</ul>
-<h4>多产业位置景气度排序（事实与判断分列）</h4>
-<table>
-<thead>
-<tr>
-<th>产业位置</th>
-<th>事实</th>
-<th>景气判断</th>
-<th>估值含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>AI 服务器 / 高速 PCB 电子树脂</td>
-<td>H1 收入 +74.95%，高速电子材料 +127.97%，板块毛利率 +5.4pct</td>
-<td>高景气</td>
-<td>进入中枢和上沿，但需现金流与项目验证</td>
-</tr>
-<tr>
-<td>光学膜</td>
-<td>H1 收入 +21.95%，毛利率 -5.5pct；新产线转固</td>
-<td>量增利弱</td>
-<td>只给基本盘或有限成长倍数</td>
-</tr>
-<tr>
-<td>新能源材料</td>
-<td>H1 销量约 -9%、收入约 -8%、毛利率 -1.3pct</td>
-<td>承压</td>
-<td>正常化低增长估值</td>
-</tr>
-<tr>
-<td>电工绝缘材料</td>
-<td>H1 收入约 +25%，毛利率 -3.5pct</td>
-<td>需求尚可、成本挤压</td>
-<td>稳定盈利基本盘</td>
-</tr>
-<tr>
-<td>环保阻燃材料</td>
-<td>H1 收入约 -2%、毛利率 -3.9pct</td>
-<td>弱</td>
-<td>保守计值</td>
-</tr>
-</tbody></table>
-<h3>4.2 我的判断</h3>
-<ul>
-<li>比较优势：电子树脂已从认证叙事进入量价和毛利验证，5,200 吨项目效益说明部分商业化路径跑通。</li>
-<li>核心约束：集团仍有大体量低毛利业务，新产线转固和原料涨价可吞噬电子材料增量；不能对全部收入使用 AI 材料倍数。</li>
-<li>行业位置：电子材料具备细分产品与客户卡位，但独立市场份额、客户集中度、良率和产能利用率未披露，竞争格局只能评为局部有利、整体中性偏有利。</li>
-</ul>
-<h3>4.3 宏观价格环境与通胀传导</h3>
-<ul>
-<li>通胀适用性：高暴露。主要原料、产品提价、库存、应收和融资均足以改变利润与现金流。</li>
-<li>当前类型：混合状态。2026 年 7 月 CPI 同比 +0.5%，PPI 同比 +3.5%、购进价格同比 +5.5%；Q2 主要原料采购均价同比上升约 22%—37%。</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>分部</th>
-<th>需求影响</th>
-<th>成本影响</th>
-<th>定价权与时滞</th>
-<th>利润与现金流</th>
-<th>验证指标 / 失效条件</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>电子材料</td>
-<td>AI 算力与高速 PCB 需求强</td>
-<td>苯酚、甲醇等上涨</td>
-<td>ASP 同比约 +47%，高价值占比提升</td>
-<td>毛利率升至 25.33%，净受益</td>
-<td>ASP、销量、毛利；降价或认证停滞失效</td>
-</tr>
-<tr>
-<td>光学膜</td>
-<td>销量 +18%</td>
-<td>聚酯切片、PTA 大涨并叠加转固</td>
-<td>ASP 仅约 +3%</td>
-<td>毛利率降至 7.25%</td>
-<td>单线效益、单位成本、现金回收</td>
-</tr>
-<tr>
-<td>新能源材料</td>
-<td>下游需求和竞争承压</td>
-<td>原料上涨</td>
-<td>ASP 约 +1%，转嫁弱</td>
-<td>收入和毛利率下降</td>
-<td>销量、产销率、毛利</td>
-</tr>
-<tr>
-<td>绝缘 / 阻燃</td>
-<td>绝缘需求尚可、阻燃销量降</td>
-<td>原料上涨</td>
-<td>提价低于成本压力</td>
-<td>毛利率均降</td>
-<td>原料—售价价差</td>
-</tr>
-<tr>
-<td>融资层</td>
-<td>项目扩张持续</td>
-<td>PPI 与利率变化影响资金成本</td>
-<td>当前综合利率 2.41%</td>
-<td>低成本债务暂缓冲，净债务约 22.04 亿元</td>
-<td>利率、短债、FCF、授信使用</td>
-</tr>
-</tbody></table>
-<ul>
-<li>经营净影响：中性偏正。电子材料的产品结构和提价覆盖了合并成本冲击，但传统分部出现明确毛利挤压。</li>
-<li>估值落点：悲观情景用较低 EPS 和 22 倍 PE吸收传统业务成本压力；乐观情景只有在电子材料价差和项目效益持续时成立，不重复提高 WACC 惩罚同一风险。</li>
-</ul>
-<h3>4.4 企业价值类型与主估值锚</h3>
-<ul>
-<li>企业价值主类型：成长企业。</li>
-<li>分部映射：传统膜材、绝缘、新能源和阻燃为已验证基本盘；已量产高速树脂为商业化成长业务；眉山项目为待进一步验证的商业化成长业务；M10 为不独立计价的产品里程碑。</li>
-<li>主估值锚：未来利润 × 届时合理 PE 后折现。</li>
-<li>交叉验证：SOTP、PB / ROIC、自由现金流、同业和反向利润。</li>
-<li>去重：M9、M10、AI PCB、5,200 吨项目与眉山项目统一通过电子材料未来利润反映，不重复加期权价值。</li>
-</ul>
-<h2 id="section-5">5. 分部收入与盈利拆解</h2>
-
-<table>
-<thead>
-<tr>
-<th>分部</th>
-<th align="right">2026H1 收入</th>
-<th align="right">同比</th>
-<th align="right">收入占比</th>
-<th align="right">毛利率</th>
-<th align="right">毛利率变化</th>
-<th>判断</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>电子材料</td>
-<td align="right">12.04 亿元</td>
-<td align="right">+74.95%</td>
-<td align="right">38.9%</td>
-<td align="right">25.33%</td>
-<td align="right">+5.4pct</td>
-<td>核心增量</td>
-</tr>
-<tr>
-<td>光学膜材料</td>
-<td align="right">7.78 亿元</td>
-<td align="right">+21.95%</td>
-<td align="right">25.1%</td>
-<td align="right">7.25%</td>
-<td align="right">-5.5pct</td>
-<td>增收不增质</td>
-</tr>
-<tr>
-<td>新能源材料</td>
-<td align="right">6.13 亿元</td>
-<td align="right">约 -8%</td>
-<td align="right">19.8%</td>
-<td align="right">18.37%</td>
-<td align="right">-1.3pct</td>
-<td>承压</td>
-</tr>
-<tr>
-<td>电工绝缘材料</td>
-<td align="right">2.77 亿元</td>
-<td align="right">约 +25%</td>
-<td align="right">9.0%</td>
-<td align="right">9.78%</td>
-<td align="right">-3.5pct</td>
-<td>成本挤压</td>
-</tr>
-<tr>
-<td>环保阻燃材料</td>
-<td align="right">0.73 亿元</td>
-<td align="right">约 -2%</td>
-<td align="right">2.4%</td>
-<td align="right">9.75%</td>
-<td align="right">-3.9pct</td>
-<td>弱</td>
-</tr>
-<tr>
-<td>其他主营</td>
-<td align="right">1.09 亿元</td>
-<td align="right">—</td>
-<td align="right">3.5%</td>
-<td align="right">3.56%</td>
-<td align="right">—</td>
-<td>低毛利</td>
-</tr>
-</tbody></table>
-<ul>
-<li>电子材料毛利约 3.05 亿元，占合并毛利约 58.6%；高速电子材料收入 5.55 亿元、同比 +127.97%。</li>
-<li>电子材料销量约 4.1 万吨、同比 +19%，均价约 3 万元 / 吨、同比 +47%；增长由量、价和产品结构共同驱动，不是单纯涨价。</li>
-<li>光学膜和传统材料显示转固、原料与竞争压力。分部利润差异要求使用 SOTP 和正常化倍数，而不是对合并收入统一赋予高增长倍数。</li>
-</ul>
-<h2 id="section-6">6. 五年财务历史</h2>
-
-<p>单位：亿元；自由现金流为经营现金流减购建长期资产现金支出。</p>
-<table>
-<thead>
-<tr>
-<th>财年</th>
-<th align="right">营收</th>
-<th align="right">毛利率</th>
-<th align="right">经营现金流</th>
-<th align="right">资本开支</th>
-<th align="right">自由现金流</th>
-<th align="right">ROIC代理</th>
-<th>来源</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>2021</td>
-<td align="right">32.48</td>
-<td align="right">23.41%</td>
-<td align="right">-0.59</td>
-<td align="right">3.31</td>
-<td align="right">-3.89</td>
-<td align="right">约 7.7%</td>
-<td>年报</td>
-</tr>
-<tr>
-<td>2022</td>
-<td align="right">36.40</td>
-<td align="right">20.67%</td>
-<td align="right">-6.37</td>
-<td align="right">5.67</td>
-<td align="right">-12.03</td>
-<td align="right">约 8.3%</td>
-<td>年报</td>
-</tr>
-<tr>
-<td>2023</td>
-<td align="right">37.37</td>
-<td align="right">19.01%</td>
-<td align="right">1.81</td>
-<td align="right">9.06</td>
-<td align="right">-7.24</td>
-<td align="right">约 5.9%</td>
-<td>年报</td>
-</tr>
-<tr>
-<td>2024</td>
-<td align="right">44.70</td>
-<td align="right">13.92%</td>
-<td align="right">0.91</td>
-<td align="right">5.45</td>
-<td align="right">-4.54</td>
-<td align="right">约 3.3%</td>
-<td>年报</td>
-</tr>
-<tr>
-<td>2025</td>
-<td align="right">51.81</td>
-<td align="right">15.71%</td>
-<td align="right">0.80</td>
-<td align="right">2.11</td>
-<td align="right">-1.30</td>
-<td align="right">约 4.1%</td>
-<td>年报</td>
-</tr>
-<tr>
-<td>2026H1</td>
-<td align="right">30.95</td>
-<td align="right">16.81%</td>
-<td align="right">1.05</td>
-<td align="right">1.39</td>
-<td align="right">-0.34</td>
-<td align="right">半年 ROE 5.05%</td>
-<td>半年报</td>
-</tr>
-</tbody></table>
-<ul>
-<li>H1 自由现金流相较上年同期约 -3.50 亿元显著改善，但连续五个完整年度与本期仍为负。</li>
-<li>H1 投资收益约 0.87 亿元，非经常性损益约 0.88 亿元；正常化盈利以扣非为主。</li>
-<li>我的判断：盈利拐点已验证，现金回报拐点正在靠近但尚未闭环；完整公司 DCF 仍会被终值和项目假设主导。</li>
-</ul>
-<h3>6.1 盈利、现金流与资产质量检查</h3>
-<table>
-<thead>
-<tr>
-<th>检查项</th>
-<th>2026H1 变化</th>
-<th>匹配关系</th>
-<th>质量判断</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>EPS / 扣非</td>
-<td>EPS 0.31 元；扣非 2.24 亿元、+40.86%</td>
-<td>主营真实改善</td>
-<td>中高</td>
-</tr>
-<tr>
-<td>CFO / 归母</td>
-<td>1.05 / 3.12 亿元，约 0.34 倍</td>
-<td>由负转正但低于利润</td>
-<td>改善、未闭环</td>
-</tr>
-<tr>
-<td>FCF / 归母</td>
-<td>-0.34 / 3.12 亿元</td>
-<td>资本开支仍吞噬现金</td>
-<td>弱但大幅改善</td>
-</tr>
-<tr>
-<td>应收账款</td>
-<td>12.69 亿元，较年初 +28.84%</td>
-<td>略快于收入增速</td>
-<td>需跟踪回款</td>
-</tr>
-<tr>
-<td>存货</td>
-<td>5.94 亿元，较年初 +27.42%；原料 +65.6%</td>
-<td>与收入同步，原料备货偏快</td>
-<td>通胀与营运资金风险</td>
-</tr>
-<tr>
-<td>合同负债</td>
-<td>0.286 亿元，较年初 +69.16%</td>
-<td>前瞻信号改善但绝对额小</td>
-<td>有利但低权重</td>
-</tr>
-<tr>
-<td>净有息负债</td>
-<td>融资本息 32.46 亿元减货币资金 10.42 亿元，约 22.04 亿元</td>
-<td>扩张仍依赖债务</td>
-<td>杠杆约束</td>
-</tr>
-<tr>
-<td>短期偿债</td>
-<td>流动比率约 1.15、速动比率约 0.98</td>
-<td>尚可但缓冲不厚</td>
-<td>中性</td>
-</tr>
-<tr>
-<td>担保</td>
-<td>对子公司 9.53 亿元，占净资产 19.02%</td>
-<td>集团内部扩张风险</td>
-<td>观察</td>
-</tr>
-</tbody></table>
-<h2 id="section-7">7. 最新季度与管理层指引</h2>
-
-<h3>7.1 最新季度（事实）</h3>
-<table>
-<thead>
-<tr>
-<th>指标</th>
-<th align="right">2026Q2 / H1</th>
-<th align="right">同比 / 环比</th>
-<th>来源</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Q2 营收</td>
-<td align="right">约 16.51 亿元</td>
-<td align="right">同比 +27%、环比 +14%</td>
-<td>半年报 / 卖方拆分</td>
-</tr>
-<tr>
-<td>Q2 归母净利润</td>
-<td align="right">约 1.25 亿元</td>
-<td align="right">同比 +27%、环比 -33%</td>
-<td>半年报 / 卖方拆分</td>
-</tr>
-<tr>
-<td>H1 扣非归母</td>
-<td align="right">2.24 亿元</td>
-<td align="right">+40.86%</td>
-<td>半年报</td>
-</tr>
-<tr>
-<td>H1 经营现金流</td>
-<td align="right">1.05 亿元</td>
-<td align="right">上年同期 -2.61 亿元</td>
-<td>半年报</td>
-</tr>
-<tr>
-<td>H1 自由现金流代理</td>
-<td align="right">-0.34 亿元</td>
-<td align="right">上年同期约 -3.50 亿元</td>
-<td>现金流量表计算</td>
-</tr>
-<tr>
-<td>电子材料收入 / 毛利率</td>
-<td align="right">12.04 亿元 / 25.33%</td>
-<td align="right">+74.95% / +5.4pct</td>
-<td>半年报 / 卖方分部对比</td>
-</tr>
-<tr>
-<td>高速电子材料收入</td>
-<td align="right">5.55 亿元</td>
-<td align="right">+127.97%</td>
-<td>公司经营数据</td>
-</tr>
-</tbody></table>
-<h3>7.2 管理层指引（事实）</h3>
-<ul>
-<li>公司未给出全年量化收入、利润或自由现金流指引。</li>
-<li>2 万吨高速通信基板用电子材料项目主体工程与设备调试推进；法定披露仍为建设中。</li>
-<li>M9 类产品已经批量，M10 仍处下游验证；未披露独立订单、收入、良率和客户认证完成率。</li>
-<li>公司拟投入总投资约 4.05 亿元建设 1.8 万吨偏光片保护基膜项目，其中使用节余募集资金约 1.06 亿元。</li>
-<li>中期利润分配预案为每 10 股派 1 元，预计现金分红约 1.01 亿元。</li>
-</ul>
-<h3>7.3 我的判断</h3>
-<ul>
-<li>主营改善比旧版预告更扎实：电子材料收入、毛利和项目效益均已法定确认，经营现金流也由负转正。</li>
-<li>但 Q2 归母环比下降且低于华泰前瞻，转固和原料上涨已开始侵蚀利润；H2 达到一致预期仍需约 4.07 亿元归母利润。</li>
-<li>眉山项目从“是否建设”转向“何时形成稳定良率、利用率和现金回报”的验证阶段。下一重估节点为 2026Q3，而非继续重复试车叙事。</li>
-</ul>
-<h2 id="section-8">8. 近三个月新闻与催化剂</h2>
-
-<table>
-<thead>
-<tr>
-<th>发生日</th>
-<th>事件</th>
-<th>财务传导</th>
-<th>是否已反映</th>
-<th>验证节点 / 失效条件</th>
-<th>来源</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>2026-05-28</td>
-<td>M9 批量、M10 验证</td>
-<td>产品升级与毛利</td>
-<td>高度反映</td>
-<td>M10 正式认证、收入和毛利</td>
-<td>业绩说明会</td>
-</tr>
-<tr>
-<td>2026-06-05</td>
-<td>董事长减持计划</td>
-<td>增加筹码供给和治理折价</td>
-<td>部分反映</td>
-<td>完成 / 终止公告</td>
-<td>公司公告</td>
-</tr>
-<tr>
-<td>2026-06-22</td>
-<td>股价触及 80.46 元</td>
-<td>远期成长提前资本化</td>
-<td>已过度交易</td>
-<td>业绩和现金流接管</td>
-<td>行情</td>
-</tr>
-<tr>
-<td>2026-07-09</td>
-<td>H1 业绩预增</td>
-<td>扣非利润改善</td>
-<td>已反映</td>
-<td>正式半年报已验证</td>
-<td>公司公告</td>
-</tr>
-<tr>
-<td>2026-08-07 / 08</td>
-<td>异常波动与风险提示</td>
-<td>提醒估值和交易波动</td>
-<td>已反映部分</td>
-<td>融资、资金和价格承接</td>
-<td>上交所公告</td>
-</tr>
-<tr>
-<td>2026-08-21</td>
-<td>披露半年报和 Q2 经营数据</td>
-<td>电子材料量价与毛利验证；FCF仍负</td>
-<td>正在反映</td>
-<td>Q3 分部、现金流与项目</td>
-<td>公司公告</td>
-</tr>
-<tr>
-<td>2026-08-21</td>
-<td>新增 1.8 万吨偏光片保护基膜项目</td>
-<td>新增长期收入，也增加投资需求</td>
-<td>部分反映</td>
-<td>投资、投产、效益</td>
-<td>公司公告</td>
-</tr>
-<tr>
-<td>2026-08-23</td>
-<td>华泰目标价上调至 53.96 元、盈利不变</td>
-<td>倍数扩张，不是利润上修</td>
-<td>市场未正向确认</td>
-<td>预测上修或目标倍数回落</td>
-<td>同花顺聚合</td>
-</tr>
-<tr>
-<td>2026-08-24</td>
-<td>股价 -4.40%、融资余额升至 31.23 亿元</td>
-<td>承接与杠杆风险</td>
-<td>正在反映</td>
-<td>5—10 日去杠杆 / 资金修复</td>
-<td>Tushare</td>
-</tr>
-</tbody></table>
-<h2 id="section-9">9. 多头与空头论据</h2>
-
-<h3>9.1 多头论据</h3>
-<table>
-<thead>
-<tr>
-<th>论据</th>
-<th>事实依据</th>
-<th>验证指标</th>
-<th>失效条件</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>电子树脂商业化验证</td>
-<td>H1 电子材料 +74.95%，毛利率 +5.4pct</td>
-<td>单季销量、ASP、毛利</td>
-<td>降价换量、毛利回落</td>
-</tr>
-<tr>
-<td>高速产品贡献明确</td>
-<td>高速电子材料 5.55 亿元、+127.97%</td>
-<td>分产品收入和客户复购</td>
-<td>增速失速或认证停滞</td>
-</tr>
-<tr>
-<td>已有项目产生效益</td>
-<td>5,200 吨项目 H1 效益 2.66 亿元</td>
-<td>募投效益、产销率</td>
-<td>效益不可持续</td>
-</tr>
-<tr>
-<td>经营现金流改善</td>
-<td>H1 CFO 1.05 亿元，上年同期为负</td>
-<td>CFO / 净利润、FCF</td>
-<td>回款恶化或 FCF 缺口扩大</td>
-</tr>
-<tr>
-<td>眉山项目提供上沿</td>
-<td>2 万吨项目在建、设备调试推进</td>
-<td>良率、利用率、订单</td>
-<td>延期、低利用率或低毛利</td>
-</tr>
-</tbody></table>
-<h3>9.2 空头论据</h3>
-<table>
-<thead>
-<tr>
-<th>论据</th>
-<th>事实依据</th>
-<th>验证指标</th>
-<th>失效条件</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>现价预付乐观情景</td>
-<td>108.56 倍 TTM PE、7.10 倍 PB</td>
-<td>2027—2028 EPS</td>
-<td>盈利普遍上修并兑现</td>
-</tr>
-<tr>
-<td>自由现金流未闭环</td>
-<td>H1 FCF 代理 -0.34 亿元，五年连续为负</td>
-<td>FCF、ROIC、营运资金</td>
-<td>连续两期 FCF 转正</td>
-</tr>
-<tr>
-<td>项目质量分化</td>
-<td>6 万吨特种环氧项目累计亏损约 2.56 亿元，新光学线效益低</td>
-<td>单项目效益</td>
-<td>亏损项目扭亏</td>
-</tr>
-<tr>
-<td>成本与转固压力</td>
-<td>Q2 原料 +22%—37%，光学等毛利率下降</td>
-<td>原料—ASP价差</td>
-<td>全分部毛利修复</td>
-</tr>
-<tr>
-<td>杠杆承接反向</td>
-<td>近 5 日价格 -11.85%、融资 +8.68%、资金流 -12.86 亿元</td>
-<td>融资与大单资金</td>
-<td>非杠杆资金持续承接</td>
-</tr>
-<tr>
-<td>目标价上修靠倍数</td>
-<td>华泰盈利不变，2027E PE 从 30 倍升至 38 倍</td>
-<td>盈利预测与目标倍数</td>
-<td>盈利同步上修</td>
-</tr>
-<tr>
-<td>治理与筹码扰动</td>
-<td>实控人曾被留置后解除，多名高管减持</td>
-<td>法定公告</td>
-<td>风险事项完全消除</td>
-</tr>
-</tbody></table>
-<h3>9.3 霍华德·马克斯逆向投资闸门（大跌后）</h3>
-<table>
-<thead>
-<tr>
-<th>问题</th>
-<th>判断</th>
-<th>证据</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>价格是否显著低于价值？</td>
-<td>否</td>
-<td>43.72 元仍高于 31—33 元中枢，仅低于 47 元上沿</td>
-</tr>
-<tr>
-<td>基本价值是否被破坏？</td>
-<td>否，但现金流未闭环</td>
-<td>电子材料增强，传统分部和 FCF 承压</td>
-</tr>
-<tr>
-<td>是否有非基本面被迫卖压？</td>
-<td>未证实</td>
-<td>融资余额反而增加，没有去杠杆收缩证据</td>
-</tr>
-<tr>
-<td>赔率是否足够？</td>
-<td>否</td>
-<td>至上沿仅约 7.5%，至中枢仍有约 27%回撤空间</td>
-</tr>
-<tr>
-<td>结论</td>
-<td>不触发买入</td>
-<td>大跌只触发复核，不替代价值折价</td>
-</tr>
-</tbody></table>
-<h2 id="section-10">10. 公允价值区间计算</h2>
-
-<h3>10.0 企业类型、分部成熟度与估值路线</h3>
-<table>
-<thead>
-<tr>
-<th>业务分部</th>
-<th>企业价值类型</th>
-<th>成熟度</th>
-<th>判断依据</th>
-<th>主要估值锚</th>
-<th>区间位置</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>传统膜材、绝缘、新能源、阻燃</td>
-<td>稳定盈利</td>
-<td>已验证基本盘</td>
-<td>有长期收入和资产，但增速与毛利偏低</td>
-<td>正常化利润 × PE；PB</td>
-<td>下沿、中枢</td>
-</tr>
-<tr>
-<td>已量产高速电子树脂</td>
-<td>成长企业</td>
-<td>商业化成长业务</td>
-<td>有重复收入、毛利和募投效益</td>
-<td>未来利润 × PE折现</td>
-<td>中枢、上沿</td>
-</tr>
-<tr>
-<td>眉山 2 万吨项目</td>
-<td>成长企业</td>
-<td>商业化成长业务待验证</td>
-<td>工程与调试推进，良率利用率未披露</td>
-<td>分阶段未来利润</td>
-<td>上沿为主</td>
-</tr>
-<tr>
-<td>M10 与新品</td>
-<td>前沿产品里程碑</td>
-<td>证据不足</td>
-<td>尚无独立收入、利润和认证完成率</td>
-<td>独立价值暂取 0</td>
-<td>不单列</td>
-</tr>
-</tbody></table>
-<ul>
-<li>主路线：2028 年未来利润 × 届时合理 PE 后折现。</li>
-<li>去重：电子树脂各项目和产品全部进入未来 EPS，不再按产能或 TAM 额外加值。</li>
-<li>风险处理：项目失败主要进入情景和 EPS，时间等待进入 12%折现率；不再用异常高折现率重复惩罚。</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>情景</th>
-<th align="right">2028 EPS</th>
-<th align="right">届时 PE</th>
-<th align="right">距估值日</th>
-<th align="right">要求回报</th>
-<th align="right">折现后每股价值</th>
-<th align="right">概率</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>悲观</td>
-<td align="right">0.82 元</td>
-<td align="right">22 倍</td>
-<td align="right">约 2.35 年</td>
-<td align="right">12%</td>
-<td align="right">约 13.8 元</td>
-<td align="right">20%</td>
-</tr>
-<tr>
-<td>基准</td>
-<td align="right">1.44 元</td>
-<td align="right">28 倍</td>
-<td align="right">约 2.35 年</td>
-<td align="right">12%</td>
-<td align="right">约 30.9 元</td>
-<td align="right">55%</td>
-</tr>
-<tr>
-<td>乐观</td>
-<td align="right">1.93 元</td>
-<td align="right">32 倍</td>
-<td align="right">约 2.35 年</td>
-<td align="right">12%</td>
-<td align="right">约 47.4 元</td>
-<td align="right">25%</td>
-</tr>
-</tbody></table>
-<ul>
-<li>概率合计 100%，概率加权价值约 31.6 元。悲观情景对应开源低预测与传统分部承压；基准对应一致预期；乐观对应华泰预测、眉山项目顺利爬坡和电子材料价差维持。</li>
-</ul>
-<h3>10.1 相对估值</h3>
-<table>
-<thead>
-<tr>
-<th>公司</th>
-<th>业务可比性</th>
-<th align="right">PE TTM</th>
-<th align="right">PB</th>
-<th align="right">PS TTM</th>
-<th>数据时间</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>东材科技</td>
-<td>高速树脂＋传统材料</td>
-<td align="right">108.56</td>
-<td align="right">7.10</td>
-<td align="right">7.56</td>
-<td>2026-08-24</td>
-</tr>
-<tr>
-<td>圣泉集团</td>
-<td>合成树脂参照</td>
-<td align="right">33.32</td>
-<td align="right">2.94</td>
-<td align="right">2.72</td>
-<td>2026-08-24</td>
-</tr>
-<tr>
-<td>华正新材</td>
-<td>高频高速 PCB 链参照</td>
-<td align="right">89.60</td>
-<td align="right">11.07</td>
-<td align="right">5.67</td>
-<td>2026-08-24</td>
-</tr>
-<tr>
-<td>宏昌电子</td>
-<td>环氧树脂、低利润基数</td>
-<td align="right">303.96</td>
-<td align="right">5.11</td>
-<td align="right">4.51</td>
-<td>2026-08-24</td>
-</tr>
-<tr>
-<td>金安国纪</td>
-<td>覆铜板产业链参照</td>
-<td align="right">91.86</td>
-<td align="right">11.54</td>
-<td align="right">9.21</td>
-<td>2026-08-24</td>
-</tr>
-</tbody></table>
-<ul>
-<li>正常化调整：不采用材料链极端 TTM PE；成长业务届时 PE 使用 22—32 倍，传统基本盘使用 15—18 倍。</li>
-<li>我的判断：同行估值本身拥挤，只能约束区间，不能证明东材科技的高倍数合理。</li>
-</ul>
-<h3>10.2 DCF</h3>
-<ul>
-<li>适用性：不适用完整公司 DCF；保留未来利润折现和反向利润。</li>
-<li>理由：2021—2025 及 2026H1 自由现金流均为负，眉山项目良率、利用率、营运资金、后续资本开支和稳态利润率不能形成可审计长期预测。</li>
-<li>自由现金流转正年份：未能可靠确定；H1 缺口缩至 -0.34 亿元但尚未转正。</li>
-<li>终值占比：未计算，避免使用无法审计的终值制造精确值。</li>
-</ul>
-<h4>关键假设</h4>
-<table>
-<thead>
-<tr>
-<th>假设</th>
-<th align="right">悲观</th>
-<th align="right">基准</th>
-<th align="right">乐观</th>
-<th>依据</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>完整 DCF 收入、利润率、资本开支、WACC、永续增长</td>
-<td align="right">不适用</td>
-<td align="right">不适用</td>
-<td align="right">不适用</td>
-<td>长期输入不可审计</td>
-</tr>
-</tbody></table>
-<h4>估值结果</h4>
-<table>
-<thead>
-<tr>
-<th>情景</th>
-<th align="right">企业价值</th>
-<th align="right">净债务</th>
-<th align="right">股权价值</th>
-<th align="right">每股价值</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>悲观 / 基准 / 乐观</td>
-<td align="right">不适用</td>
-<td align="right">不适用</td>
-<td align="right">不适用</td>
-<td align="right">不适用</td>
-</tr>
-</tbody></table>
-<h4>敏感性分析</h4>
-<p>不适用：不使用终值主导的完整公司 DCF。未来利润法的主要敏感项为 2028 EPS、届时 PE 与 12%要求回报，已在情景表明示。</p>
-<h4>反向 DCF</h4>
-<ul>
-<li>改用反向未来利润：43.72 元若按 2028 年末 30—35 倍 PE并要求 12%年回报，隐含 2028 EPS 约 1.63—1.91 元、归母净利润约 16.5—19.3 亿元。</li>
-<li>该要求高于 12 家机构均值约 14.55 亿元，接近华泰 19.51 亿元乐观预测；严格估值脱锚不成立，普通高估成立。</li>
-<li>首个击穿中枢的节点：眉山项目延期 / 低利用率、电子材料毛利率回落，或 2027—2028 EPS 预测向 1.0—1.35 元区间收敛。</li>
-</ul>
-<h3>10.3 行业特定估值</h3>
-<ul>
-<li>方法：成长企业 SOTP 与 PB / ROIC约束。</li>
-<li>传统基本盘：正常化利润约 3—4 亿元 × 15—18 倍，价值约 45—72 亿元。</li>
-<li>高速树脂：2028 年利润约 5.5—15.5 亿元 × 25—32 倍并折现，覆盖有限爬坡到乐观放量。</li>
-<li>净有息负债：以融资本息 32.46 亿元减货币资金 10.42 亿元，研究值约 22.04 亿元。</li>
-<li>SOTP：约 13—44 元 / 股；分部净利润与项目回报数据不足使区间较宽。</li>
-<li>H1 每股净资产约 6.16 元，3—5 倍 PB对应 18.5—30.8 元，只验证下沿和中枢，不替代成长利润法。</li>
-</ul>
-<h3>10.4 前沿科技价值桥（适用时）</h3>
-<p>不适用：公司没有需要独立概率加权的重大未商业化分部。M10 和新配方属于电子材料产品升级里程碑，未形成独立收入前取零单列价值；眉山项目已纳入未来 EPS 情景，避免重复计价。</p>
-<h3>10.5 估值交叉验证</h3>
-<table>
-<thead>
-<tr>
-<th>方法</th>
-<th align="right">每股价值区间</th>
-<th align="right">权重</th>
-<th>采信理由</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>2028 未来利润 × PE折现</td>
-<td align="right">13.8—47.4 元；概率加权约 31.6 元</td>
-<td align="right">高</td>
-<td>与成长企业主类型直接匹配</td>
-</tr>
-<tr>
-<td>分部加总</td>
-<td align="right">13—44 元</td>
-<td align="right">中</td>
-<td>区分基本盘与成长业务并扣净债务</td>
-</tr>
-<tr>
-<td>PB / ROIC约束</td>
-<td align="right">18.5—30.8 元</td>
-<td align="right">中低</td>
-<td>验证资产回报和下沿</td>
-</tr>
-<tr>
-<td>同业相对估值</td>
-<td align="right">约 25—44 元</td>
-<td align="right">低</td>
-<td>产业链估值自身拥挤</td>
-</tr>
-<tr>
-<td>完整公司 DCF</td>
-<td align="right">不适用</td>
-<td align="right">0</td>
-<td>FCF 与项目输入不可审计</td>
-</tr>
-</tbody></table>
-<ul>
-<li>公允价值区间：18—47 元，中枢 31—33 元。</li>
-<li>相对现价空间：至下沿 -58.8%，至中枢约 -26.8%，至上沿 +7.5%。</li>
-<li>为什么不机械平均：未来利润法与 SOTP 共享电子材料盈利假设，PB 只给资产回报约束；机械平均会重复计权。</li>
-<li>区间含义：下沿计保守基本盘和弱成长；中枢计 2028 一致预期；上沿计华泰乐观盈利与较顺利项目爬坡；高于上沿要求盈利预测、项目良率 / 利用率和 FCF 同时上修。</li>
-</ul>
-<h3>10.6 企业类型与估值锚匹配</h3>
-<ul>
-<li>企业价值主类型：成长企业。</li>
-<li>稳定盈利分部：传统材料正常化利润 × 15—18 倍。</li>
-<li>成长分部：2028 电子材料与项目利润 × 22—32 倍后折现。</li>
-<li>周期资源 / 重资产：不作为公司主类型；固定资产和净债务只进入 SOTP 与 PB约束。</li>
-<li>前沿科技：M10 不独立计价，不使用 TAM 直接估值。</li>
-<li>当前价格反映：接近 2028 EPS 1.63—1.91 元和 30—35 倍届时 PE的组合，显著高于一致预期中枢。</li>
-<li>匹配结论：H1 强化成长业务证据，但 FCF、传统分部和项目质量分化阻止估值上移。</li>
-</ul>
-<h2 id="section-11">11. 市场价格分解与估值泡沫判断</h2>
-
-<pre><code class="language-text">市场价格 = 公允价值 + 可解释的估值溢价 + 交易定价偏离
-</code></pre>
-<h4>市场价格偏离</h4>
-<table>
-<thead>
-<tr>
-<th>项目</th>
-<th align="right">结果</th>
-<th>口径 / 证据</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>当前价格及时间</td>
-<td align="right">43.72 元</td>
-<td>2026-08-24 收盘</td>
-</tr>
-<tr>
-<td>公允价值中枢 / 上沿</td>
-<td align="right">32.00 / 47.00 元</td>
-<td>31—33 元取中；乐观情景</td>
-</tr>
-<tr>
-<td>相对中枢 / 上沿</td>
-<td align="right">+36.63% / -6.98%</td>
-<td>当前价 ÷ 估值 - 1</td>
-</tr>
-<tr>
-<td>上沿外价格</td>
-<td align="right">0 元</td>
-<td>max（0，43.72 - 47）</td>
-</tr>
-<tr>
-<td>可解释估值溢价</td>
-<td align="right">已含在上沿</td>
-<td>认证、稀缺性和成长不重复相加</td>
+<td>凯利测算</td>
+<td>现价49.18元（9月7日）<br>到上限回报-3.40%；到下限回报-71.78%；盈亏平衡概率不适用<br>假设概率→全凯利/半凯利：50%→不适用/不适用；60%→不适用/不适用；70%→不适用/不适用；80%→不适用/不适用；90%→不适用/不适用<br>真实上涨概率待验证，见4.6</td>
 </tr>
 <tr>
 <td>交易定价偏离</td>
-<td align="right">无法精确拆分</td>
-<td>资金与融资影响不能倒算为单点金额</td>
+<td>当前判断：普通高估；相对中枢+58.57%；上沿外1.67元；置信度中等</td>
+</tr>
+<tr>
+<td>资金与筹码</td>
+<td>截至9月7日，5/10/20日价格-5.77%/+12.49%/+8.37%；大单及特大单净额代理-2.47/+10.65/+6.83亿元；融资余额36.50亿元，5/10/20日变化-5.07%/+16.89%/+34.95%。分档资金不代表特定机构身份</td>
+</tr>
+<tr>
+<td>每日跟踪时间</td>
+<td>2026-09-08 15:00（Asia/Shanghai；行情9月7日，财报2026H1，公告截至本次核验）</td>
 </tr>
 </tbody></table>
-<h4>七问审计</h4>
+<h3>1.2 核心结论</h3>
+<p><strong>普通高估；基本面待确认。</strong> 主价值范围13.88—47.51元，中枢31.02元；现价49.18元。先看融资及净现金，再看经营兑现；区间内不等于具有安全边际。新增资金<code>wait</code>，已有持仓<code>review</code>，本次观察列表不代表用户已有持仓。</p>
+<p>最新股本10.10182943亿股；市值496.81亿元；接口PE TTM122.12、PB7.99；滚动股息率0.30%不代表未来保证。保守安全边际<code>1−P/L</code>=-254.40%。沿用旧稿2028年EPS0.82/1.44/1.93与PE22/28/32，统一12%及实际天数折现；旧汇总18—47元下限与明细约13.8元不一致，本次以下限明细公式为准。旧机构预测仅为历史假设来源，未称为9月最新一致预期；不使用无依据情景概率加权，中枢取基准。</p>
+<h2 id="section-2">2. 估值基础</h2>
+
+<h3>2.1 产业与利润池</h3>
+<p>高端电子材料、树脂与传统绝缘/新能源材料并存。高速树脂与电子材料增长较快，但低盈利旧业务、原料成本和扩产回款共同影响合并利润。产品验证、客户稳定采购及可持续毛利比规划产能更重要。 原有产业研究见<a href="../../../../../workbench/targets/2026-08-19-1710-东材科技-三要素分析.md">既有产业研究</a>，财报事实见<a href="../../../../assets/东材科技/2026-09-08/2026H1.pdf.md">2026年半年报</a>。</p>
+<h3>2.2 成熟度与新增业务</h3>
+<p>基本盘已形成营收和归母利润，采用整体归母模型；新产能、新产品、收购或远期订单只在有证据的情景中体现，不另加未验证期权。未能量化成功概率、后续投入或股东保留比例的部分，增量价值取0，而非给未经证实的成功率。</p>
+<h3>2.3 最新事实与口径</h3>
+<p>H1高速树脂与电子材料收入增长分别127.97%和74.95%，不能将不同产品重叠加总为整体增量。9月7日股东会、9月8日披露批准结余募集资金新项目及每股0.10元中期分红；批准不等于分红已经到账。总股本10.10182943亿股已反映回购注销。 来源：<a href="../../../../assets/东材科技/2026-09-08/2026H1.pdf.md">2026年半年报</a>；<a href="../../../持仓每日监控/2026-09-08/东材科技-2026年第三次临时股东会决议公告.pdf.md">东材科技-2026年第三次临时股东会决议公告</a>；<a href="../../../../webpages/2026-09-08-东材科技估值证据快照.md">本次证据快照</a>。</p>
+<h3>2.4 历史财务</h3>
 <table>
 <thead>
 <tr>
-<th>问题</th>
-<th>结论</th>
-<th>关键证据 / 反证</th>
-<th>状态</th>
+<th>期间</th>
+<th>收入</th>
+<th>归母</th>
+<th>扣非归母</th>
+<th>CFO</th>
+<th>现金购建</th>
+<th>FCF代理</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>当前价格比中枢和上沿高多少？</td>
-<td>比中枢高 36.63%，未高出上沿</td>
-<td>43.72 对 32 / 47 元</td>
-<td>中枢偏离成立、上沿偏离不成立</td>
+<td>2022</td>
+<td>36.40</td>
+<td>4.15</td>
+<td>2.49</td>
+<td>-6.37</td>
+<td>5.67</td>
+<td>-12.03</td>
 </tr>
 <tr>
-<td>高出中枢部分隐含怎样的盈利？</td>
-<td>2028 净利约 16.5—19.3 亿元</td>
-<td>30—35 倍 PE、12%折现</td>
-<td>成立</td>
+<td>2023</td>
+<td>37.37</td>
+<td>3.29</td>
+<td>2.17</td>
+<td>1.81</td>
+<td>9.06</td>
+<td>-7.24</td>
 </tr>
 <tr>
-<td>订单、收入、利润和 FCF能否验证？</td>
-<td>收入和扣非部分验证，FCF与项目稳态未验证</td>
-<td>H1 电子材料强、FCF负</td>
-<td>部分成立</td>
+<td>2024</td>
+<td>44.70</td>
+<td>1.81</td>
+<td>1.24</td>
+<td>0.91</td>
+<td>5.45</td>
+<td>-4.54</td>
 </tr>
 <tr>
-<td>是否扣除投入、融资、时间和失败概率？</td>
-<td>情景和折现已计，但上沿仍依赖项目成功</td>
-<td>净债务约 22.04 亿元、良率缺失</td>
-<td>部分成立</td>
+<td>2025</td>
+<td>51.81</td>
+<td>2.85</td>
+<td>2.32</td>
+<td>0.80</td>
+<td>2.11</td>
+<td>-1.30</td>
 </tr>
 <tr>
-<td>流动性和倍数正常化后能否成立？</td>
-<td>难</td>
-<td>28 倍与一致预期只支持约 31 元</td>
-<td>不成立</td>
+<td>2025H1</td>
+<td>24.31</td>
+<td>1.90</td>
+<td>1.59</td>
+<td>-2.61</td>
+<td>0.89</td>
+<td>-3.50</td>
 </tr>
 <tr>
-<td>增长和利润率正常化后能否成立？</td>
-<td>仅乐观情景可成立</td>
-<td>华泰 1.93 元，其他预测多为 1.33—1.36 元</td>
-<td>不成立</td>
-</tr>
-<tr>
-<td>市场是否定价失败情景？</td>
-<td>部分</td>
-<td>距高点回撤 45.7%，但年内仍 +58.5%且融资上升</td>
-<td>部分成立</td>
+<td>2026H1</td>
+<td>30.95</td>
+<td>3.12</td>
+<td>2.24</td>
+<td>1.05</td>
+<td>1.39</td>
+<td>-0.34</td>
 </tr>
 </tbody></table>
-<h4>三表逐项扫描</h4>
-<h5>一、基本面触发</h5>
+<p>FCF代理=CFO−购建长期资产现金，未完整调整租赁本金、非现金投资和融资变动，不等于FCFE。年度与半年分别比较，不能用全年与半年计算增长率。 原始接口见<a href="../../../../webpages/2026-09-08-东材科技估值证据快照.md">本次证据快照</a>，遇合并口径冲突法定财报优先。</p>
+<h3>2.5 基本面判断：六项核验</h3>
+<p>顺序代表重要性递减，不能调整。当前为2026H1/6月末，流量比2025H1、存量比2025年末。</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>当前值</th>
+<th>比较期</th>
+<th>事实、原因与缺口</th>
+<th>对估值的影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>负债</td>
+<td>总负债52.55；融资及长期付款义务32.46</td>
+<td>总负债51.80；融资及长期付款义务30.30</td>
+<td>非流动长期应付款0.4042/1.0215亿元为融资租赁款，当前到期部分已包含在一年内到期负债。当前货币资金10.4155亿元减不属现金等价物3.6354亿元后为6.7800亿元，主要排除保证金。商誉期初0.0206亿元，当前因合并范围变化转出为零，不把空值未经核验当零。</td>
+<td>第一权重；先核验偿债与项目延续，不用利润增长抵消融资风险</td>
+</tr>
+<tr>
+<td>净现金</td>
+<td>6.7800−32.4628＝-25.6827</td>
+<td>7.5050−30.3007＝-22.7957</td>
+<td>取现金等价物，排除不能即期使用的资金；扩展义务含借款、租赁与已披露融资付款</td>
+<td>仅作安全约束；归母PE不重复加现金或扣债</td>
+</tr>
+<tr>
+<td>现金流</td>
+<td>CFO1.05；购建1.39；FCF代理-0.34</td>
+<td>CFO-2.61；购建0.89；FCF代理-3.50</td>
+<td>应收12.69/9.85，存货5.94/4.66（当前/年末）</td>
+<td>盈利必须兑现为现金；代理并非完整FCFE</td>
+</tr>
+<tr>
+<td>开销合理性</td>
+<td>销售/管理/研发及财务费用见下表</td>
+<td>同口径同比，合并追溯例外注明</td>
+<td>研发投入用于材料认证和技术迭代；销售管理费用率受产品增长摊薄，但原料采购与产能建设仍消耗资金，费用率低不等于全部项目高回报。</td>
+<td>保留持续竞争与维持性投入，不能全部加回</td>
+</tr>
+<tr>
+<td>真实利润</td>
+<td>归母3.12→扣非2.24；差额0.88</td>
+<td>归母1.90→扣非1.59</td>
+<td>归母3.12亿元、扣非2.24亿元，差额0.88亿元；投资收益等不能永久化。CFO已同比转正，但现金购建后仍小幅为负，不与账面利润混淆。</td>
+<td>预测为条件假设，不将半年乘二直接当正常化</td>
+</tr>
+<tr>
+<td>扣除商誉的净资产</td>
+<td>合并62.3504−商誉0.0000＝62.3504；归母62.1841</td>
+<td>合并61.3869−0.0206＝61.3663；归母60.4231</td>
+<td>合并商誉只减合并权益；应收、存货、矿权及订单资产另有减值风险</td>
+<td>账面权益不是清算底价；PB仍以归母口径计算</td>
+</tr>
+</tbody></table>
+<p>综合：<strong>待确认</strong>。融资及付款义务30.30→32.46亿元，严格扩展净现金-22.80→-25.68亿元优先定约束；再判断经营现金-2.61→1.05亿元、费用与扣非兑现，不将后序改善直接抵消前序风险。</p>
+<table>
+<thead>
+<tr>
+<th>融资及长期付款义务对账</th>
+<th>2026-06-30</th>
+<th>2025-12-31</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>短期借款（含已列报供应商融资）</td>
+<td>10.29</td>
+<td>7.78</td>
+</tr>
+<tr>
+<td>非流动长期借款</td>
+<td>11.40</td>
+<td>12.22</td>
+</tr>
+<tr>
+<td>非流动应付债券</td>
+<td>0.00</td>
+<td>0.00</td>
+</tr>
+<tr>
+<td>一年内到期非流动负债</td>
+<td>10.36</td>
+<td>9.24</td>
+</tr>
+<tr>
+<td>非流动租赁负债</td>
+<td>0.00</td>
+<td>0.04</td>
+</tr>
+<tr>
+<td>非流动融资租赁应付款</td>
+<td>0.40</td>
+<td>1.02</td>
+</tr>
+<tr>
+<td>合计</td>
+<td>32.46</td>
+<td>30.30</td>
+</tr>
+<tr>
+<td>现金等价物</td>
+<td>6.78</td>
+<td>7.50</td>
+</tr>
+<tr>
+<td>严格扩展净现金</td>
+<td>-25.68</td>
+<td>-22.80</td>
+</tr>
+</tbody></table>
+<p>该口径包含已识别融资相关付款，不等同纯银行债务；未纳入普通贸易应付和专项拨款。非流动长期应付款0.4042/1.0215亿元为融资租赁款，当前到期部分已包含在一年内到期负债。当前货币资金10.4155亿元减不属现金等价物3.6354亿元后为6.7800亿元，主要排除保证金。商誉期初0.0206亿元，当前因合并范围变化转出为零，不把空值未经核验当零。</p>
+<table>
+<thead>
+<tr>
+<th>费用</th>
+<th>2026H1金额</th>
+<th>占营收</th>
+<th>2025H1金额</th>
+<th>占营收</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>销售</td>
+<td>0.29</td>
+<td>0.93%</td>
+<td>0.29</td>
+<td>1.19%</td>
+</tr>
+<tr>
+<td>管理</td>
+<td>0.64</td>
+<td>2.07%</td>
+<td>0.47</td>
+<td>1.93%</td>
+</tr>
+<tr>
+<td>研发</td>
+<td>1.12</td>
+<td>3.63%</td>
+<td>0.91</td>
+<td>3.75%</td>
+</tr>
+<tr>
+<td>财务</td>
+<td>0.39</td>
+<td>1.26%</td>
+<td>0.54</td>
+<td>2.23%</td>
+</tr>
+</tbody></table>
+<h3>2.6 通胀传导</h3>
+<p>高暴露：化工原料价格影响树脂与膜材料成本，高速材料定价与传统材料竞争强度不同。营收增长及毛利改善不能替代采购价和提价能力证据。 原料/售价→毛利→营运资金与CFO→盈利及估值承受力。宏观金融层单列于4.5，避免重复折价。7月CPI同比+0.5%、核心+0.9%，PPI同比+3.5%但涨幅较6月收窄0.6个百分点、环比−0.7%；8月通胀未披露，不外推9月方向。8月20日1年/5年以上LPR3.0%/3.5%与7月相同；接口LPR只返回到7月，8月数采用中国货币网公告。9月8日Shibor隔夜1.371%、1周1.380%，8月3日1.413%/1.431%。银行间短端未显示收紧，但不替代长端国债、公司信用利差或实际可用授信。 来源：<a href="../../../../webpages/2026-09-08-观察列表共同市场证据.md">共同市场证据</a>。</p>
+<h2 id="section-3">3. 估值方法与假设</h2>
+
+<h3>3.1 主方法</h3>
+<p>主模型权重100%：归母利润×PE÷最新股数÷(1+折现率)^实际年数。目标2028-12-31，估值日至目标845天，按实际天数/365。 PE直接得到股东价值，已含利息的利润不重复加现金扣债。倍数为研究者的情景回报选择，同行仅作对照，不冒充统计均值或公司指引。</p>
+<p>沿用旧稿2028年EPS0.82/1.44/1.93与PE22/28/32，统一12%及实际天数折现；旧汇总18—47元下限与明细约13.8元不一致，本次以下限明细公式为准。旧机构预测仅为历史假设来源，未称为9月最新一致预期；不使用无依据情景概率加权，中枢取基准。</p>
+<h3>3.2 情景与经营条件</h3>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th>归母利润假设</th>
+<th>PE</th>
+<th>折现</th>
+<th>当前价值</th>
+<th>成立条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>保守</td>
+<td>8.28</td>
+<td>22</td>
+<td>12% / 2.3151年</td>
+<td>13.88</td>
+<td>新材料增长不足抵消旧业务及成本，2028EPS0.82</td>
+</tr>
+<tr>
+<td>基准</td>
+<td>14.55</td>
+<td>28</td>
+<td>12% / 2.3151年</td>
+<td>31.02</td>
+<td>高端材料客户验证和规模兑现，2028EPS1.44</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td>19.50</td>
+<td>32</td>
+<td>12% / 2.3151年</td>
+<td>47.51</td>
+<td>高速材料放量且利润率保持，2028EPS1.93</td>
+</tr>
+</tbody></table>
+<p>东材科技利润由2028年EPS0.82/1.44/1.93乘当前股数换算，仅用于与其他公司统一展示。 中枢取基准情景，端点不是统计置信区间；不赋无来源情景概率。</p>
+<h3>3.3 交叉核验与同行</h3>
+<p>主模型对应归母账面PB为2.25/5.04/7.72倍；利润假设除以当前归母净资产的回报约束为13.32%/23.39%/31.35%，不是公司披露的加权ROE。此检查与PE代数相关，不冒充独立估值。另用65%利润可转为可持续股东现金的压力假设，情景价值对应现金收益率3.84%/3.02%/2.64%；转换率仅为压力参数，负FCF公司尚未达到。以基准现金9.46亿元及6%无增长现金收益率计，压力价值15.60元；用于提示增长和再投资兑现要求，不与主模型加权。</p>
+<table>
+<thead>
+<tr>
+<th>同业代码</th>
+<th>收盘价</th>
+<th>PE TTM</th>
+<th>PB</th>
+<th>口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>688019.SH</td>
+<td>219.65</td>
+<td>53.37</td>
+<td>10.36</td>
+<td>9月7日；业务/周期/权益结构不完全可比</td>
+</tr>
+<tr>
+<td>600183.SH</td>
+<td>148.15</td>
+<td>69.28</td>
+<td>19.45</td>
+<td>9月7日；业务/周期/权益结构不完全可比</td>
+</tr>
+<tr>
+<td>002636.SZ</td>
+<td>68.05</td>
+<td>49.73</td>
+<td>11.56</td>
+<td>9月7日；业务/周期/权益结构不完全可比</td>
+</tr>
+</tbody></table>
+<p>同期行情见<a href="../../../../webpages/2026-09-08-观察列表共同市场证据.md">共同市场证据</a>。不同成长阶段、产品结构、周期与控股权益不能直接平均倍数。DCF缺逐年投入和营运资金路径，不保留旧稿不能复算的点值；因此主锚置信度中等。</p>
+<h3>3.4 敏感性、反向估值与融资</h3>
+<table>
+<thead>
+<tr>
+<th>归母利润 / PE</th>
+<th>22</th>
+<th>28</th>
+<th>32</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>8.28</td>
+<td>13.88</td>
+<td>17.66</td>
+<td>20.18</td>
+</tr>
+<tr>
+<td>14.55</td>
+<td>24.37</td>
+<td>31.02</td>
+<td>35.45</td>
+</tr>
+<tr>
+<td>19.50</td>
+<td>32.66</td>
+<td>41.57</td>
+<td>47.51</td>
+</tr>
+</tbody></table>
+<p>现价按基准PE及折现要求归母<strong>23.07亿元</strong>，比基准14.55亿元+58.57%；这是价格要求，不是公司预测。H1扣非2.24亿元不能直接乘二作为已兑现正常化能力。纯股数增加10%、股东总价值不变的压力中枢28.20元；这不是已知发行。正式融资须同时考虑资金用途、节息、新盈利、费用和股数。</p>
+<p>折现率提高2个百分点，基准降至29.77元。</p>
+<h2 id="section-4">4. 估值结果与交易溢价</h2>
+
+<h3>4.1 价值区间与价格位置</h3>
+<p>公允价值<strong>13.88—47.51元，中枢31.02元</strong>；现价49.18元。到中枢潜在回报-36.93%，相对中枢溢价+58.57%，相对上限+3.52%。</p>
+<h3>4.2 三层价格分解</h3>
+<p>市场价格=公允价值+可解释估值溢价+交易定价偏离。品质与成长已反映在利润与PE，本次模型额外质量溢价0元。记账桥为<strong>49.18=31.02+0+18.16元</strong>；残差随公允情景为1.67—35.30元，不是已观测的纯情绪价值。上沿外1.67元只是超出本次乐观区间，不把所有中枢差额当泡沫。</p>
+<h3>4.3 资金与筹码</h3>
+<p>截至9月7日，5/10/20日价格-5.77%/+12.49%/+8.37%；大单及特大单净额代理-2.47/+10.65/+6.83亿元；融资余额36.50亿元，5/10/20日变化-5.07%/+16.89%/+34.95%。</p>
+<table>
+<thead>
+<tr>
+<th>窗口</th>
+<th>起点收盘</th>
+<th>终点收盘</th>
+<th>价格变化</th>
+<th>大额净额（亿元）</th>
+<th>融资余额变化</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>5</td>
+<td>2026-08-31</td>
+<td>2026-09-07</td>
+<td>-5.77%</td>
+<td>-2.47</td>
+<td>-5.07%</td>
+</tr>
+<tr>
+<td>10</td>
+<td>2026-08-24</td>
+<td>2026-09-07</td>
+<td>+12.49%</td>
+<td>10.65</td>
+<td>+16.89%</td>
+</tr>
+<tr>
+<td>20</td>
+<td>2026-08-10</td>
+<td>2026-09-07</td>
+<td>+8.37%</td>
+<td>6.83</td>
+<td>+34.95%</td>
+</tr>
+</tbody></table>
+<p>股东户数：2026-06-30：204679户；2026-03-31：88006户；2025-12-31：83661户；2025-09-30：52306户。资金窗口为起点后至终点，大额资金为大单+特大单分档，万元转亿元；不称机构净流入，不用户数推断买方身份。未复权跨除权价格窗口保留局限；近月若新增除权需改用复权序列。基金仓位、ETF全样本和交易者身份尚缺，不能构造全景画像。</p>
+<h3>4.4 估值与出清状态</h3>
+<p><strong>普通高估，出清观察，置信度中等。</strong> 高于上沿，但上沿本身受盈利和倍数假设影响；尚未确认估值脱锚及跨表放大器形成足够强的泡沫链。 基本面证据见六项及扫描，资金只能解释偏离持续性，不能提高企业内在价值。不得按不利项数机械升级泡沫等级。</p>
+<h3>4.5 估值泡沫32项触发扫描</h3>
+<p>状态区分当前事实与持续性；每项互斥计数。原始材料见<a href="../../../../assets/东材科技/2026-09-08/2026H1.pdf.md">2026年半年报</a>、<a href="../../../../webpages/2026-09-08-东材科技估值证据快照.md">本次证据快照</a>、<a href="../../../../webpages/2026-09-08-观察列表共同市场证据.md">共同市场证据</a>。当期恶化不等于长期断点；有利也不等于便宜。</p>
+<p><strong>基本面9项</strong></p>
 <table>
 <thead>
 <tr>
 <th>触发类型</th>
 <th>观察项</th>
-<th>当前证据与时间</th>
-<th>扫描状态</th>
-<th>对估值状态的影响</th>
+<th>状态</th>
+<th>证据及时间</th>
+<th>传导/缺口</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>现金流断点</td>
 <td>资本开支规模</td>
-<td>H1 资本开支 1.39 亿元高于 OCF 1.05 亿元，且新增 4.05 亿元项目</td>
-<td>逆转</td>
-<td>投入仍超过内部现金增量</td>
+<td>当期恶化，持续性待确认</td>
+<td>现金购建1.39亿元较上年0.89亿元增加，超过CFO1.05亿元</td>
+<td>缺口0.34亿元已发生，但小于上年；后续扩产支出持续性待确认</td>
 </tr>
 <tr>
 <td>现金流断点</td>
 <td>经营现金流</td>
-<td>H1 1.05 亿元，上年同期 -2.61 亿元</td>
 <td>有利</td>
-<td>利润开始形成经营现金</td>
+<td>H1 CFO1.05亿元，上年同期-2.61亿元</td>
+<td>本期变化已确认；如恶化，连续现金断点还需H2及季节性验证</td>
 </tr>
 <tr>
 <td>现金流断点</td>
 <td>自由现金流</td>
-<td>H1 -0.34 亿元，较上年同期约 -3.50 亿元大幅收窄</td>
 <td>有利</td>
-<td>趋稳但尚未转正</td>
+<td>H1 FCF代理-0.34亿元，上年同期-3.50亿元</td>
+<td>代理不等于FCFE；仍负但缺口缩小，方向改善与未转正并存，不能称当期恶化</td>
 </tr>
 <tr>
 <td>现金流断点</td>
 <td>投资资金来源</td>
-<td>短借 +32.32%，净有息负债约 22.04 亿元，项目持续</td>
-<td>逆转</td>
-<td>债务仍是扩张必要补充</td>
+<td>当期恶化，持续性待确认</td>
+<td>本期现金购建仍略超CFO，融资债务和净负债较年末增加</td>
+<td>缺口扩大与否须分经营营运资金及资本投入，不直接认定永久停融风险</td>
 </tr>
 <tr>
 <td>现金流断点</td>
 <td>融资停止后的可持续性</td>
-<td>未用授信 37.63 亿元，但眉山与新增项目尚需投入</td>
-<td>证据不足</td>
-<td>无法验证停止融资后项目节奏</td>
+<td>当期恶化，持续性待确认</td>
+<td>严格现金6.78亿元低于一年内到期债务与短借，缓冲较年末走弱</td>
+<td>未用授信及新项目预算未完整核实，不能据此断言即将违约</td>
 </tr>
 <tr>
 <td>盈利不匹配</td>
 <td>原材料与中间品成本</td>
-<td>Q2 主要原料同比 +22%—37%，传统分部毛利率下降</td>
-<td>逆转</td>
-<td>成本冲击击中非电子分部</td>
+<td>证据不足</td>
+<td>高速材料增长同时面临化工原料上涨，公司产品结构分化</td>
+<td>完整同窗原料采购价与存货结转成本尚缺</td>
 </tr>
 <tr>
 <td>盈利不匹配</td>
 <td>定价权与成本转嫁</td>
-<td>电子材料 ASP +47%、毛利率 +5.4pct</td>
-<td>有利</td>
-<td>核心成长业务具备转嫁与结构能力</td>
+<td>证据不足</td>
+<td>合并毛利16.81%，增长未证明旧业务有足够提价能力</td>
+<td>需分部提价与单位成本桥</td>
 </tr>
 <tr>
 <td>盈利不匹配</td>
 <td>营收向利润的转化</td>
-<td>收入 +27.29%、毛利 +29.76%、扣非 +40.86%</td>
 <td>有利</td>
-<td>主营盈利转化有效</td>
+<td>H1收入30.95亿元、同比+27.29%；扣非2.24亿元、同比+40.86%</td>
+<td>判断收入向扣非兑现，不把并购权益变化全当有机增长</td>
 </tr>
 <tr>
 <td>盈利不匹配</td>
 <td>利润向自由现金流的转化</td>
-<td>归母 3.12 亿元但 FCF仍 -0.34 亿元，应收和库存约 +28%</td>
-<td>逆转</td>
-<td>现金价值链尚未闭环</td>
+<td>有利</td>
+<td>H1归母3.12亿元、CFO1.05亿元、FCF代理-0.34亿元</td>
+<td>现金未随利润兑现的本期事实，与持续现金断点定义分开；资本投入时点不等于利润造假</td>
 </tr>
 </tbody></table>
-<h5>二、流动性触发</h5>
+<p><strong>流动性14项</strong></p>
 <table>
 <thead>
 <tr>
 <th>触发类型</th>
 <th>观察项</th>
-<th>当前证据与时间</th>
-<th>扫描状态</th>
-<th>对估值状态的影响</th>
+<th>状态</th>
+<th>证据及时间</th>
+<th>传导/缺口</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>宏观：货币条件收缩</td>
 <td>通胀</td>
-<td>7 月 CPI +0.5%、PPI +3.5%，信号分化</td>
-<td>证据不足</td>
-<td>不能单独确认货币收紧</td>
+<td>有利</td>
+<td>7月PPI同比涨幅较6月收窄0.6个百分点至3.5%、环比−0.7%；CPI+0.5%</td>
+<td>已披露窗口未见通胀继续恶化迫使收紧；8月尚未披露，届时再验，不外推9月</td>
 </tr>
 <tr>
 <td>宏观：货币条件收缩</td>
 <td>政策利率与债券收益率</td>
-<td>同日可比利率与收益率未获取到</td>
 <td>证据不足</td>
-<td>不据此调整折现率</td>
+<td>8月LPR3.0%/3.5%与7月持平；9月8日Shibor短端低于8月3日</td>
+<td>短端有利反证明确；尚缺同窗长端债券收益率，不能替代完整折现条件</td>
 </tr>
 <tr>
 <td>宏观：货币条件收缩</td>
 <td>信用与融资条件</td>
-<td>公司综合利率 2.41%、授信充足，市场信用利差缺失</td>
 <td>证据不足</td>
-<td>公司融资暂畅通，系统条件不明</td>
+<td>LPR稳定，Shibor短端未收紧；公司债务见2.5</td>
+<td>银行间利率不等于公司信用利差，未用授信及实际新增融资条款待核</td>
 </tr>
 <tr>
 <td>宏观：货币条件收缩</td>
 <td>高投资项目对低成本资金的依赖</td>
-<td>FCF为负、净债务约 22.04 亿元，部分项目累计亏损</td>
-<td>逆转</td>
-<td>项目回报对低成本资金敏感</td>
+<td>证据不足</td>
+<td>已核验存量融资和经营现金，主估值折现/PE见第3章</td>
+<td>尚缺各在建项目IRR与正常融资成本压力表，不能断言依赖超低利率</td>
 </tr>
 <tr>
 <td>中观：政策与主线资金迁移</td>
 <td>监管与产业政策</td>
-<td>AI算力和高端材料方向未见限制性政策</td>
 <td>有利</td>
-<td>未出现政策压缩盈利条件</td>
+<td>9月股东会通过结余募集资金项目安排，未见该决议压缩既有业务</td>
+<td>仅判断已核验的决议，不替代全部产业政策</td>
 </tr>
 <tr>
 <td>中观：政策与主线资金迁移</td>
 <td>ETF申赎</td>
-<td>标的相关 ETF申赎未获取到</td>
 <td>证据不足</td>
-<td>无法判断被动资金迁移</td>
+<td>本次取得个股成交、融资和市场日线</td>
+<td>行业ETF份额申赎全样本未取得，成交额不能冒充净申购</td>
 </tr>
 <tr>
 <td>中观：政策与主线资金迁移</td>
 <td>基金仓位</td>
-<td>H1 前十股东有新进 ETF，但完整基金仓位缺失</td>
 <td>证据不足</td>
-<td>无法判断拥挤和减仓</td>
+<td>股东户数按已披露日期列于4.3</td>
+<td>基金仓位及新增配置全景缺失，户数不能替代机构持仓</td>
 </tr>
 <tr>
 <td>中观：政策与主线资金迁移</td>
 <td>主线增量资金</td>
-<td>5 / 10 / 20 / 60 日全口径代理均为负</td>
-<td>逆转</td>
-<td>新增资金停止并外流</td>
+<td>证据不足</td>
+<td>个股大额成交与融资方向见4.3</td>
+<td>板块新增资金总量和跨主线迁移未完整取得</td>
 </tr>
 <tr>
 <td>微观：杠杆和承接逆转</td>
 <td>融资余额增速</td>
-<td>近 5 / 20 / 60 观测值 +8.68% / +3.38% / +16.73%</td>
-<td>逆转</td>
-<td>下跌中反向加杠杆</td>
+<td>当期恶化，持续性待确认</td>
+<td>20日融资余额变化+34.95%，同期价格+8.37%</td>
+<td>快速杠杆扩张为拥挤提示；缺盈利与成交增速匹配时不声称已证明上涨依赖融资</td>
 </tr>
 <tr>
 <td>微观：杠杆和承接逆转</td>
 <td>新增融资集中度</td>
-<td>无账户或行业集中度数据</td>
 <td>证据不足</td>
-<td>无法确认融资集中来源</td>
+<td>市场融资余额总表已取得，与个股同窗比较</td>
+<td>总量不能判定新增融资是否集中在少数行业，缺全市场行业分布</td>
 </tr>
 <tr>
 <td>微观：杠杆和承接逆转</td>
 <td>股价对杠杆资金的依赖</td>
-<td>融资融券约市值 7.09%，价格跌而融资升</td>
-<td>逆转</td>
-<td>杠杆成为显著承接变量</td>
+<td>证据不足</td>
+<td>个股价格和融资同窗见4.3</td>
+<td>相关性不能证明杠杆是边际定价者，需融资撤出后的承接及买方结构</td>
 </tr>
 <tr>
 <td>微观：杠杆和承接逆转</td>
 <td>龙头表现</td>
-<td>近 5 日 -11.85%，报告后首日 -4.40%</td>
-<td>逆转</td>
-<td>利好后承接转弱</td>
+<td>证据不足</td>
+<td>688019.SH近20日-13.21%；600183.SH近20日+6.91%；002636.SZ近20日+1.90%</td>
+<td>已补同业价格，但未完成公司利好和盈利修订同步验证，不由单个收益率判断龙头结构失效</td>
 </tr>
 <tr>
 <td>微观：杠杆和承接逆转</td>
 <td>市场广度</td>
-<td>同行业同日上涨家数与扩散度未获取到</td>
-<td>证据不足</td>
-<td>无法区分个股与板块影响</td>
+<td>当期恶化，持续性待确认</td>
+<td>截至9月7日最近5日平均上涨占比44.65%，前5日60.46%；5日仅2天上涨家数多于下跌家数</td>
+<td>短期广度已走弱；9月7日上涨3167、下跌2196，尚非持续单向收缩，指数背离待确认</td>
 </tr>
 <tr>
 <td>微观：杠杆和承接逆转</td>
 <td>获利资金与回调承接</td>
-<td>近 5 日净流额 -12.86 亿元、大单代理 -9.08 亿元</td>
-<td>逆转</td>
-<td>回调承接明显恶化</td>
+<td>证据不足</td>
+<td>截至9月7日，5/10/20日价格-5.77%/+12.49%/+8.37%；大单及特大单净额代理-2.47/+10.65/+6.83亿元；融资余额36.50亿元，5/10/20日变化-5.07%/+16.89%/+34.95%。</td>
+<td>三窗资金及价格仅为承接代理；“每次反弹遭卖盘”尚需逐日反弹结构，负净额不直接等于踩踏</td>
 </tr>
 </tbody></table>
-<h5>三、预期触发</h5>
+<p><strong>预期9项</strong></p>
 <table>
 <thead>
 <tr>
 <th>触发类型</th>
 <th>观察项</th>
-<th>当前证据与时间</th>
-<th>扫描状态</th>
-<th>对估值状态的影响</th>
+<th>状态</th>
+<th>证据及时间</th>
+<th>传导/缺口</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>叙事耗尽</td>
 <td>价格隐含的增长年限</td>
-<td>现价要求 2028 净利约 16.5—19.3 亿元，接近乐观预测</td>
-<td>逆转</td>
-<td>多年成功被高概率计入</td>
+<td>证据不足</td>
+<td>现价按基准PE及折现隐含归母23.07亿元，基准14.55亿元</td>
+<td>价格要求明确，但不是已证实成功概率；需要验证远期业绩连续兑现</td>
 </tr>
 <tr>
 <td>叙事耗尽</td>
 <td>产业进度与远期预期的距离</td>
-<td>5,200 吨项目已验证，但 2 万吨项目仍建设、稳态数据缺失</td>
-<td>逆转</td>
-<td>价格先于新增产能现金回报</td>
+<td>证据不足</td>
+<td>电子材料已有收入，远期高端产量和利润仍待持续客户验证</td>
+<td>2028乐观EPS不能当当前成熟盈利</td>
 </tr>
 <tr>
 <td>叙事耗尽</td>
 <td>新信息对盈利预测的推动</td>
-<td>华泰 H1 后盈利不变，目标价仅因 PE从 30 倍升至 38 倍</td>
-<td>逆转</td>
-<td>利好未推动可审计盈利上修</td>
+<td>证据不足</td>
+<td>股东会通过项目和分红，没有可审计新增利润指引</td>
+<td>不因批准项目而提高未来EPS</td>
 </tr>
 <tr>
 <td>叙事耗尽</td>
 <td>同类利好的边际反应</td>
-<td>强半年报与目标价上调后，8 月 24 日股价 -4.40%</td>
-<td>逆转</td>
-<td>利好边际反应转弱</td>
+<td>证据不足</td>
+<td>财报与最新公告时间已核验，价格窗口已采集</td>
+<td>缺同类事件控制市场因素后的反应对照，单次异动不等于利好失效</td>
 </tr>
 <tr>
 <td>财报与真实经营接管定价</td>
 <td>财报披露节点</td>
-<td>Q2 归母环比 -33%、低于华泰前瞻，FCF仍负</td>
-<td>逆转</td>
-<td>真实经营开始约束叙事</td>
+<td>有利</td>
+<td>H1财报归母3.12、扣非2.24、CFO1.05亿元</td>
+<td>披露后的经营缺口已列，市场是否由情绪转向业绩定价不能只凭一天涨跌确认</td>
 </tr>
 <tr>
 <td>财报与真实经营接管定价</td>
 <td>订单、收入与利润的一致性</td>
-<td>无订单口径；销量、收入、毛利和扣非同步增长</td>
 <td>有利</td>
-<td>主营并非虚增</td>
+<td>H1收入30.95亿元、同比+27.29%；扣非2.24亿元、同比+40.86%</td>
+<td>判断收入向扣非兑现，不把并购权益变化全当有机增长</td>
 </tr>
 <tr>
 <td>财报与真实经营接管定价</td>
 <td>利润与现金流的一致性</td>
-<td>CFO回正但 FCF仍负，应收和库存同步上升</td>
-<td>逆转</td>
-<td>盈利质量未完全接管估值</td>
+<td>证据不足</td>
+<td>CFO-2.61→1.05亿元；归母1.90→3.12亿元</td>
+<td>一次半年度恶化和持续现金流出区分；FCF与营运资金见2.5</td>
 </tr>
 <tr>
 <td>财报与真实经营接管定价</td>
 <td>真实应用与产品验证</td>
-<td>高速树脂形成重复收入、毛利和募投效益</td>
 <td>有利</td>
-<td>不是纯概念估值</td>
+<td>核心产品或矿山已形成收入与利润；分部及前沿约束见2.1—2.3</td>
+<td>不将待验证新业务、规划产能和未交付订单当已实现利润</td>
 </tr>
 <tr>
 <td>财报与真实经营接管定价</td>
 <td>实际业绩与价格隐含预期</td>
-<td>H1改善但 H2需 4.07 亿元才能达一致预期，现价更接近乐观 2028</td>
-<td>逆转</td>
-<td>当前业绩尚未覆盖隐含预期</td>
+<td>证据不足</td>
+<td>H1扣非2.24亿元；现价要求正常化或目标归母23.07亿元</td>
+<td>未来路径未到验证期，不能用半年乘二机械判定达标；H2及后续年度核验</td>
 </tr>
 </tbody></table>
-<h5>三表扫描汇总</h5>
 <table>
 <thead>
 <tr>
-<th>扫描表</th>
-<th align="right">有利项</th>
-<th align="right">逆转项</th>
-<th align="right">证据不足项</th>
-<th align="right">不适用项</th>
-<th>关键逆转 / 主要反证 / 跨表传导</th>
+<th>类别</th>
+<th>总数</th>
+<th>有利</th>
+<th>当期恶化</th>
+<th>不利信号出现</th>
+<th>证据不足</th>
+<th>不适用</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>基本面触发</td>
-<td align="right">4</td>
-<td align="right">4</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td>电子材料与 CFO改善；资本开支、债务、成本和 FCF仍压制主锚</td>
+<td>基本面</td>
+<td>9</td>
+<td>4</td>
+<td>3</td>
+<td>0</td>
+<td>2</td>
+<td>0</td>
 </tr>
 <tr>
-<td>流动性触发</td>
-<td align="right">1</td>
-<td align="right">6</td>
-<td align="right">7</td>
-<td align="right">0</td>
-<td>资金流出、融资反向增加、龙头和回调承接转弱；政策未逆转</td>
+<td>流动性</td>
+<td>14</td>
+<td>2</td>
+<td>2</td>
+<td>0</td>
+<td>10</td>
+<td>0</td>
 </tr>
 <tr>
-<td>预期触发</td>
-<td align="right">2</td>
-<td align="right">7</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td>盈利不变而倍数扩张、财报后弱反应；真实产品是主要反证</td>
+<td>预期</td>
+<td>9</td>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+<td>6</td>
+<td>0</td>
 </tr>
 </tbody></table>
-<ul>
-<li>完整性：三表合计 32 项，状态合计 7 项有利、17 项逆转、8 项证据不足、0 项不适用。</li>
-<li>是否存在击中主估值锚的关键逆转：是；FCF仍负、眉山稳态未验证、盈利预测未上修，均击中未来利润折现的项目成功与正常化倍数。</li>
-<li>是否形成跨表传导链：是。高资本开支与 FCF缺口 → 强半年报仍未推动盈利预测上修 → 价格与资金承接转弱，同时融资余额增加，形成早期杠杆放大链。</li>
-<li>约束：电子材料真实收入、毛利和项目效益是强反证，故不能升级为严格估值泡沫或基本面破坏。</li>
-</ul>
-<h4>泡沫证据门槛</h4>
+<p>合计32项：有利9项；当期恶化，持续性待确认5项；不利信号出现0项；证据不足18项；不适用0项。经营造血构成反证；资本投入、生产约束及融资条件分别核验，不直接拼成持续现金断点。 因此保持出清观察，出现新传导证据再更新。</p>
+<h3>4.6 凯利情景</h3>
+<p>到上限回报-3.40%；到下限回报-71.78%；盈亏平衡概率不适用。盈亏平衡概率表示“至少需要多高的上涨胜率才不亏”，不是实际上涨概率。当前不满足L&lt;P&lt;H，二项一涨一跌结构不成立，五档均不适用，不能写成上涨概率0%。</p>
 <table>
 <thead>
 <tr>
-<th>类型</th>
-<th>判断项</th>
-<th>状态</th>
-<th>证据 / 反证</th>
+<th>假设到达上限概率</th>
+<th>理论凯利</th>
+<th>全凯利</th>
+<th>半凯利</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>核心门槛</td>
-<td>估值脱锚</td>
-<td>不成立</td>
-<td>现价低于 47 元上沿，隐含利润仍接近华泰可审计乐观预测</td>
+<td>50%</td>
+<td>不适用</td>
+<td>不适用</td>
+<td>不适用</td>
 </tr>
 <tr>
-<td>核心门槛</td>
-<td>经营验证缺口</td>
-<td>成立</td>
-<td>FCF负、眉山良率利用率和分部现金流缺失，传统项目质量分化</td>
+<td>60%</td>
+<td>不适用</td>
+<td>不适用</td>
+<td>不适用</td>
 </tr>
 <tr>
-<td>核心门槛</td>
-<td>正常化压力失败</td>
-<td>成立</td>
-<td>28 倍届时 PE与一致预期仅支持约 31 元，现价要求乐观利润或高倍数</td>
+<td>70%</td>
+<td>不适用</td>
+<td>不适用</td>
+<td>不适用</td>
 </tr>
 <tr>
-<td>放大器</td>
-<td>融资依赖</td>
-<td>显著但未失控</td>
-<td>净有息负债约 22.04 亿元、短借上升、FCF负；授信仍充足且利率低</td>
+<td>80%</td>
+<td>不适用</td>
+<td>不适用</td>
+<td>不适用</td>
 </tr>
 <tr>
-<td>放大器</td>
-<td>杠杆与承接</td>
-<td>显著</td>
-<td>融资约市值 7.09%，价格下跌而融资增加、资金流出</td>
-</tr>
-<tr>
-<td>放大器</td>
-<td>叙事一致性</td>
-<td>显著</td>
-<td>H1后盈利不变，目标价上修来自 PE从 30 倍升至 38 倍</td>
+<td>90%</td>
+<td>不适用</td>
+<td>不适用</td>
+<td>不适用</td>
 </tr>
 </tbody></table>
+<p>L&lt;P&lt;H时，u=H/P−1，d=1−L/P；p₀=d/(u+d)；f*=p/d−(1−p)/u。全凯利=min(1,max(0,f*))，半凯利=全凯利/2；百分比为模型资金占比，不是上涨概率。五档p=50%—90%只是假设，不能从价格位置反推真实胜率。价值下限并非最大损失。</p>
+<p>价值先统一到2026-09-08，此处只是下一次复核的静态重定价情景；持有期未指定，分红、成本均暂取0，不能解释成远期全年总回报仓位。实际投资须补终值分布与组合风险，模型结果不能替代动作判断。</p>
+<h2 id="section-5">5. 风险与结论</h2>
+
+<h3>5.1 重估条件</h3>
+<p>高端材料验证和放量延后、原料涨价难转嫁、资本支出和借款增加、投资收益回落；上修须核心扣非利润、订单及经营现金同步提升。 固定核验顺序仍为负债→净现金→现金流→开销合理性→真实利润→扣除商誉的净资产。不得用后序指标改善抵消已发生的融资约束。</p>
+<h3>5.2 新增资金与已有持仓</h3>
+<p>本次13.88—47.51元、中枢31.02元，普通高估。新增资金<code>wait</code>：高于保守价值且需要经营/融资兑现；已有持仓<code>review</code>：依据实际成本、集中度和下行承受力复核，用户未提供持仓资料，不生成确定卖出数量或执行交易。观察列表标记保持观察。</p>
+<h3>5.3 来源、缺口与本次变更</h3>
 <ul>
-<li>估值泡沫判断：普通高估。</li>
-<li>判断依据：安全边际不足、两个经营 / 正常化门槛与三个放大器成立，但严格估值脱锚不成立；不能因逆转项数量多机械升级为泡沫。</li>
-<li>主要反证：电子材料已形成真实量价、毛利和项目效益；H1 经营现金流回正，当前价格也低于乐观上沿。</li>
-<li>判断置信度：中。</li>
-<li>泡沫出清状态：出清中。</li>
-<li>出清触发证据：基本面现金缺口与预期未上修、报告后价格和资金承接转弱、融资余额反向上升，已形成至少两表传导并由价格确认；出清的是估值与交易溢价，尚未完成。</li>
+<li><a href="../../../../assets/东材科技/2026-09-08/2026H1.pdf.md">2026年半年报</a>；<a href="../../../../webpages/2026-09-08-东材科技估值证据快照.md">本次证据快照</a>；<a href="../../../../webpages/2026-09-08-观察列表共同市场证据.md">共同市场证据</a>；<a href="../../../../../workbench/targets/2026-08-19-1710-东材科技-三要素分析.md">既有产业研究</a>。</li>
+<li><a href="../../../持仓每日监控/2026-09-08/东材科技-2026年第三次临时股东会决议公告.pdf.md">东材科技-2026年第三次临时股东会决议公告</a>。</li>
+<li><a href="../../../../assets/东材科技/2026-09-08/valuation-model.json.md">模型输入、全精度价值、凯利及扫描</a>；<a href="../../../../assets/东材科技/2026-09-08/previous-report.md">重估前报告副本</a>。</li>
+<li>沿用旧稿2028年EPS0.82/1.44/1.93与PE22/28/32，统一12%及实际天数折现；旧汇总18—47元下限与明细约13.8元不一致，本次以下限明细公式为准。旧机构预测仅为历史假设来源，未称为9月最新一致预期；不使用无依据情景概率加权，中枢取基准。 缺长端收益率、行业资金全景、持续项目现金流与真实胜率，不能补为确定结论。已获得的短端利率、连续市场广度、同业行情与公司资金明确展示，不再笼统写未采集。</li>
 </ul>
-<h2 id="section-12">12. 最终结论</h2>
-
-<ul>
-<li>企业价值主类型：成长企业。</li>
-<li>分部类型映射：传统材料为稳定盈利基本盘；已量产高速树脂为商业化成长业务；眉山项目为待稳态验证的成长业务；M10 不独立计价。</li>
-<li>主估值锚：2028 EPS × 22—32 倍届时 PE 后按 12%折现；SOTP、PB / ROIC、同业与反向利润交叉验证。</li>
-<li>价值创造链及可持续时间：认证和供货推动电子材料量价与毛利，进而转为扣非利润和现金；未来 2—3 年可持续性取决于眉山项目、产品价差和 FCF。</li>
-<li>市场可能低估：电子材料商业化质量、5,200 吨项目效益、经营现金流修复及国产替代持续性。</li>
-<li>市场可能高估：眉山项目满产速度、H2 / 2027—2028 盈利兑现、38 倍 2027E PE的可持续性，以及传统分部能否消化原料和转固压力。</li>
-<li>估值结论：普通高估；现价在区间上部但未形成严格估值脱锚。</li>
-<li>操作结论：新增现金观望，已有持仓复核。</li>
-<li>公允价值区间：18—47 元，中枢 31—33 元。</li>
-<li>当前价格：43.72 元，2026-08-24 收盘。</li>
-<li>当前相对价值：相对中枢高约 36.6%，相对上沿低约 7.0%。</li>
-<li>风险状态：估值兑现与承接风险重新增强，已形成早期杠杆放大链；基本面改善防止升级为严重风险。</li>
-<li>资金状态：流出。</li>
-<li>估值泡沫判断：普通高估。</li>
-<li>泡沫出清状态：出清中。</li>
-<li>新增现金动作：<code>wait</code>。</li>
-<li>已有持仓动作：<code>review</code>；若融资继续上升、价格跌破 40 元且电子材料毛利 / FCF转弱，再评估 <code>reduce</code>，不能只因跌破技术位机械减仓。</li>
-</ul>
-<h2 id="section-13">13. 后续监控指标</h2>
-
-<table>
-<thead>
-<tr>
-<th>指标</th>
-<th>当前值 / 状态</th>
-<th>更新频率</th>
-<th>改变结论的阈值</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>电子材料收入增速 / 毛利率</td>
-<td>+74.95% / 25.33%</td>
-<td>季度</td>
-<td>收入增速持续低于 30%或毛利率低于 22%，下修中枢</td>
-</tr>
-<tr>
-<td>高速电子材料收入</td>
-<td>5.55 亿元、+127.97%</td>
-<td>季度</td>
-<td>单季增速显著失速且无新品接力</td>
-</tr>
-<tr>
-<td>眉山项目</td>
-<td>建设与调试推进</td>
-<td>公告 / 月度</td>
-<td>正式投产、良率和利用率披露可上修；延期或低利用率下修</td>
-</tr>
-<tr>
-<td>经营现金流 / 归母</td>
-<td>0.34 倍</td>
-<td>季度</td>
-<td>连续两期高于 0.8 倍，改善置信度</td>
-</tr>
-<tr>
-<td>自由现金流</td>
-<td>H1 -0.34 亿元</td>
-<td>季度</td>
-<td>连续两期转正，解除主要反证</td>
-</tr>
-<tr>
-<td>应收 / 存货增速</td>
-<td>+28.84% / +27.42%</td>
-<td>季度</td>
-<td>持续显著快于收入，风险升级</td>
-</tr>
-<tr>
-<td>净有息负债 / 短借</td>
-<td>约 22.04 / 10.29 亿元</td>
-<td>季度</td>
-<td>净债务下降且 FCF转正有利；继续扩张下修 SOTP</td>
-</tr>
-<tr>
-<td>2028 EPS一致预期</td>
-<td>1.44 元</td>
-<td>月度</td>
-<td>普遍上修至约 1.9 元以上，现价可重新解释</td>
-</tr>
-<tr>
-<td>华泰目标倍数</td>
-<td>38 倍 2027E PE</td>
-<td>研报更新</td>
-<td>盈利不升而倍数回落，将压缩上沿外溢价</td>
-</tr>
-<tr>
-<td>融资余额</td>
-<td>31.23 亿元，约市值 7.09%</td>
-<td>每日</td>
-<td>回落至 28 亿元以下且非杠杆资金承接，风险缓和</td>
-</tr>
-<tr>
-<td>资金分档</td>
-<td>5 日 -12.86 亿元</td>
-<td>每日</td>
-<td>5 / 10 日连续转正且大单同步转正，承接修复</td>
-</tr>
-<tr>
-<td>价格位置</td>
-<td>43.72 元</td>
-<td>每日</td>
-<td>30—33 元附近且基本面未坏，进入观察买区；高于 47 元需新证据</td>
-</tr>
-</tbody></table>
-<h2 id="section-14">14. 未获取到的数据与研究局限</h2>
-
-<ul>
-<li>未获取眉山 2 万吨项目的全品类正式投产、良率、利用率、产销率、订单、客户集中度和稳态毛利。</li>
-<li>未获取逐分部净利润、资本占用和自由现金流；SOTP 因此使用宽区间。</li>
-<li>卖方目标价分布不完整；公开聚合页可能存在发布时间和摘录口径差异。</li>
-<li>未获取 ETF申赎、完整基金仓位、账户级融资集中度、同日行业广度和可识别长期资金流。</li>
-<li>Tushare 资金分档只能识别订单金额方向，不能确认机构、散户或杠杆账户身份。</li>
-<li>半年报未经审计；2026 一致预期分歧大，最大值和目标价均不得作为确定事实。</li>
-<li>完整公司 DCF 不适用；18—47 元宽区间诚实反映现金流、项目和正常化倍数的不确定性。</li>
-</ul>
-<h2 id="section-15">15. 来源清单</h2>
-
-<ol>
-<li><a href="../../../../webpages/2026-08-25-东材科技机构级研究半年报更新快照.md">2026-08-25 东材科技机构级研究半年报更新快照</a>。</li>
-<li><a href="../../../../webpages/2026-08-18-东材科技机构级研究更新快照.md">2026-08-18 东材科技机构级研究更新快照</a>。</li>
-<li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12511057&stockid=601208">东材科技 2026 年半年度报告</a>，公告日 2026-08-21。</li>
-<li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12511053&stockid=601208">东材科技 2026 年第二季度主要经营数据公告</a>，公告日 2026-08-21。</li>
-<li><a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12511058&stockid=601208">东材科技半年报摘要</a>，公告日 2026-08-21。</li>
-<li><a href="https://q.stock.sohu.com/cn/601208/bw.shtml">上交所公告索引：半年报、经营数据、分红与新增募投项目</a>，访问 2026-08-25。</li>
-<li><a href="https://basic.10jqka.com.cn/601208/worth.html">同花顺盈利预测与华泰半年报点评</a>，访问 2026-08-25。</li>
-<li><a href="https://www.stats.gov.cn/sj/zxfbhjd/202608/t20260809_1965008.html">国家统计局：2026 年 7 月 CPI</a>，发布 2026-08-09。</li>
-<li><a href="https://www.stats.gov.cn/sj/zxfbhjd/202608/t20260809_1965007.html">国家统计局：2026 年 7 月 PPI</a>，发布 2026-08-09。</li>
-<li>本地 <code>tushare-data</code> MCP：证券身份、日线、估值、资金分档、融资融券与三大财务报表，调用时间 2026-08-25。</li>
-<li><a href="../../../../../wiki/events/冰冰小美-标的-东材科技-建仓事件.md">东材科技建仓事件</a>。</li>
-<li><a href="../../../../../wiki/events/冰冰小美-标的-东材科技800亿市值达到后清仓.md">东材科技 800 亿市值达到后清仓事件</a>。</li>
-<li><a href="../../../../../wiki/timelines/冰冰小美-标的-PCB树脂-东材科技.md">PCB 树脂与东材科技时间线</a>。</li>
-<li><a href="../../../../../workbench/targets/2026-08-19-1710-东材科技-三要素分析.md">东材科技三要素分析</a>。</li>
-</ol>
-<h2 id="section-16">16. 声明</h2>
-
-<p>本报告用于研究与知识管理，不构成任何投资建议、收益承诺或交易指令。公允价值依赖盈利、项目、现金流、折现率和估值倍数假设；任何单项假设变化都可能显著改变区间。投资者应结合自身风险承受能力独立判断。</p>
+<p>事实为带日期的报表/行情，正常化利润、远期EPS、倍数、折现和现金转换率均为条件假设。</p>
 </article>
     </div>
   </main>

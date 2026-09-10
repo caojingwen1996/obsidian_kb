@@ -1,0 +1,1435 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>中远海控机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+.daily-tracking { margin: 0 0 42px; padding: 22px; border: 1px solid #cbdade; border-radius: 16px; background: linear-gradient(135deg, #f3f8f9 0%, #fffaf0 100%); box-shadow: 0 12px 30px rgba(23, 50, 71, .07); }
+.daily-tracking-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
+.daily-tracking-kicker { margin: 0 0 4px; color: var(--teal); font-size: 12px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+.daily-tracking h2 { margin: 0; padding: 0; border: 0; font-size: 27px; }
+.daily-tracking-time { margin: 4px 0 0; color: var(--muted); font-size: 12px; text-align: right; }
+.tracking-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
+.tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
+.tracking-value.bad { color: var(--danger); }
+.fundamental-metric, .kelly-metric { margin: 0 0 7px; color: var(--navy); font-size: 14px; line-height: 1.55; font-weight: 650; }
+.kelly-summary { margin-top: 18px; padding-top: 15px; border-top: 1px solid var(--line); }
+
+.tracking-card[data-tracking-key="fair-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
+.pricing-levels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+.pricing-level { display: flex; align-items: center; justify-content: center; min-height: 34px; padding: 5px 7px; border: 1px solid #d5e0e3; border-radius: 8px; color: #607580; background: #f4f7f8; font-size: 12px; line-height: 1.25; font-weight: 750; text-align: center; }
+.pricing-level.active { border-color: transparent; box-shadow: 0 0 0 2px rgba(15, 50, 70, .08); }
+.pricing-level-premium.active { color: #17604e; background: #dff3eb; }
+.pricing-level-overvalued.active { color: #86610d; background: #fff0bd; }
+.pricing-level-bubble.active { color: #9b4d10; background: #ffe3c9; }
+.pricing-level-severe.active { color: var(--danger); background: var(--danger-bg); }
+.tracking-detail { margin: 11px 0 0; color: var(--ink-soft); font-size: 13px; line-height: 1.65; }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+  .tracking-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+  .daily-tracking-head { display: block; }
+  .daily-tracking-time { text-align: left; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .daily-tracking, .tracking-card { border: 1px solid #aebbc2; color: #102f43; background: #fff; box-shadow: none; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY VALUATION · 601919.SH</p>
+      <h1>中远海控机构级决策研报</h1>
+      <div class="hero-meta"><span>研究截止时间未获取</span><span>报告生成时间未获取</span><span>市场与币种未获取</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 估值摘要</a>
+<a class="toc-link" href="#section-2">2. 估值基础</a>
+<a class="toc-link" href="#section-3">3. 估值方法与假设</a>
+<a class="toc-link" href="#section-4">4. 估值结果与交易溢价</a>
+<a class="toc-link" href="#section-5">5. 风险与结论</a></div></aside>
+      <article class="content"><blockquote>
+<p>A股601919.SH；人民币每股价值。H股01919.HK仅共用财务与总股本，不给H股交易结论。估值基准2026-09-08，现价当日收盘16.14元，财务2026H1；融资最新取得9月7日。已读取同日16:15产业报告并复查其后公开事项，未检出改变主估值锚的新披露。不确定参数均为研究假设。</p>
+</blockquote>
+<!-- DAILY_TRACKING_START -->
+<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-09-08 17:15（Asia/Shanghai；9月8日收盘后，融资数据9月7日）">
+  <div class="daily-tracking-head">
+    <div><p class="daily-tracking-kicker">Daily valuation tracker</p><h2>每日跟踪面板</h2></div>
+    <p class="daily-tracking-time">更新：2026-09-08 17:15（Asia/Shanghai；9月8日收盘后，融资数据9月7日）<br>下次：收盘后 / 财报或重大公告后</p>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="fundamental-metric">负债：借款及租赁等715.67亿元/年末765.60亿元，融资负担较年末改善</p><p class="fundamental-metric">净现金：严格692.71亿元/年末743.22亿元，现金缓冲较年末恶化</p><p class="fundamental-metric">现金流：CFO233.30/257.77亿元、FCF代理91.94/160.26亿元，均同比恶化；再扣筹资租赁付款余18.97亿元</p><p class="fundamental-metric">开销合理性：销售率0.356%/0.370%改善，管理率3.490%/3.332%、研发率0.471%/0.463%上升，同比分化</p><p class="fundamental-metric">真实利润：扣非归母133.87/174.65亿元，同比恶化23.35%</p><p class="fundamental-metric">扣除商誉的净资产：合并2791.67/2770.47亿元，账面规模较年末改善，非资产质量结论</p><p class="tracking-detail">综合：走弱；余额较2025年末，利润和现金流较2025H1；债务下降未抵消现金缓冲与现金转化走弱</p></div>
+    <div class="tracking-card" data-tracking-key="fair-value-range"><p class="tracking-label">公允价值范围</p><p class="tracking-value">条件公允价值9.43—19.65元；中枢14.15元；基准2026-09-08，未含独立新业务期权</p><div class="kelly-summary"><p class="tracking-label">凯利测算</p><p class="kelly-metric">现价16.14元（9月8日收盘）；上涨21.74% / 下跌41.56%</p><p class="kelly-metric">盈亏平衡概率65.66%</p><p class="kelly-metric">50%假设：0.00% / 0.00%；60%假设：0.00% / 0.00%；70%假设：30.41% / 15.21%；80%假设：100.00% / 50.00%；90%假设：100.00% / 50.00%</p><p class="kelly-metric">以上为全/半凯利；真实概率与持有期待验证，不是建议仓位</p></div></div>
+    <div class="tracking-card" data-tracking-key="pricing-deviation"><p class="tracking-label">交易定价偏离</p><div class="pricing-levels"><span class="pricing-level pricing-level-premium">估值溢价</span><span class="pricing-level pricing-level-overvalued">普通高估</span><span class="pricing-level pricing-level-bubble">估值泡沫</span><span class="pricing-level pricing-level-severe">严重估值泡沫</span></div><p class="tracking-detail">当前判断：公允价值内、位于中枢上方；相对中枢+14.09%，相对上限-17.86%；16.14=14.15+未单独量化溢价+未可靠拆分残差，中枢差额1.99元不能全部归因交易资金</p></div>
+    <div class="tracking-card" data-tracking-key="capital-and-holders"><p class="tracking-label">资金与筹码</p><p class="tracking-value bad">融资9月1—7日33.81→35.91亿元；股东2024末35.22万→2025末37.52万→2026H1末43.06万，趋于分散；公司回购是真实买盘，完整大单、ETF申赎及交易方归因不足</p></div>
+  </div>
+</section>
+<!-- DAILY_TRACKING_END -->
+<h2 id="section-1">1. 估值摘要</h2>
+
+<h3>1.1 每日跟踪字段</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本面状态</td>
+<td>负债：借款及租赁等715.67亿元/年末765.60亿元，融资负担较年末改善<br>净现金：严格692.71亿元/年末743.22亿元，现金缓冲较年末恶化<br>现金流：CFO233.30/257.77亿元、FCF代理91.94/160.26亿元，均同比恶化；再扣筹资租赁付款余18.97亿元<br>开销合理性：销售率0.356%/0.370%改善，管理率3.490%/3.332%、研发率0.471%/0.463%上升，同比分化<br>真实利润：扣非归母133.87/174.65亿元，同比恶化23.35%<br>扣除商誉的净资产：合并2791.67/2770.47亿元，账面规模较年末改善，非资产质量结论<br>综合：走弱；余额较2025年末，利润和现金流较2025H1；债务下降未抵消现金缓冲与现金转化走弱</td>
+</tr>
+<tr>
+<td>公允价值范围</td>
+<td>条件公允价值9.43—19.65元；中枢14.15元；基准2026-09-08，未含独立新业务期权</td>
+</tr>
+<tr>
+<td>凯利测算</td>
+<td>现价16.14元（9月8日收盘）；上涨21.74% / 下跌41.56%<br>盈亏平衡概率65.66%<br>50%假设：0.00% / 0.00%；60%假设：0.00% / 0.00%；70%假设：30.41% / 15.21%；80%假设：100.00% / 50.00%；90%假设：100.00% / 50.00%<br>以上为全/半凯利；真实概率与持有期待验证，不是建议仓位</td>
+</tr>
+<tr>
+<td>交易定价偏离</td>
+<td>当前判断：公允价值内、位于中枢上方；相对中枢+14.09%，相对上限-17.86%；16.14=14.15+未单独量化溢价+未可靠拆分残差，中枢差额1.99元不能全部归因交易资金</td>
+</tr>
+<tr>
+<td>资金与筹码</td>
+<td>融资9月1—7日33.81→35.91亿元；股东2024末35.22万→2025末37.52万→2026H1末43.06万，趋于分散；公司回购是真实买盘，完整大单、ETF申赎及交易方归因不足</td>
+</tr>
+<tr>
+<td>每日跟踪时间</td>
+<td>2026-09-08 17:15（Asia/Shanghai；9月8日收盘后，融资数据9月7日）</td>
+</tr>
+</tbody></table>
+<h3>1.2 估值结论</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>企业价值主类型</td>
+<td>周期运输＋重资产；班轮主导，港口和投资收益辅助</td>
+</tr>
+<tr>
+<td>主估值锚</td>
+<td>正常化归母利润180/240/300亿元×8/9/10倍PE；以可持续股东回报和PB/ROE检验，不沿用景气高点利润</td>
+</tr>
+<tr>
+<td>下限 / 中枢 / 上限</td>
+<td>9.43 / 14.15 / 19.65元；均为条件估计，下限不是清算底或最大损失</td>
+</tr>
+<tr>
+<td>当前价格</td>
+<td>16.14元，2026-09-08收盘；腾讯与新浪同价</td>
+</tr>
+<tr>
+<td>保守安全边际</td>
+<td>-71.13%；现价高于保守价值</td>
+</tr>
+<tr>
+<td>中枢潜在回报</td>
+<td>-12.35%；现价需盈利高于基准路径支持</td>
+</tr>
+<tr>
+<td>估值与出清状态</td>
+<td>公允价值内；出清观察。尚未证明估值泡沫，资金放大链证据不足</td>
+</tr>
+<tr>
+<td>当前动作</td>
+<td>新增资金observe；已有持仓review；价格处区间不自动构成买点</td>
+</tr>
+<tr>
+<td>置信度</td>
+<td>中低；财务事实较强，正常周期利润、现金分配和倍数区间依赖假设，历史同业估值序列不足</td>
+</tr>
+</tbody></table>
+<h3>1.3 一句话判断</h3>
+<blockquote>
+<p>网络、货量和现金储备支持经营价值，但租赁付款与扩船资本支出显著削弱当期可分配现金；16.14元需要约274亿元可持续归母利润（9倍PE）支持，比本研究240亿元中枢偏乐观，尚无需极端远期故事，却也没有保守安全边际。</p>
+</blockquote>
+<h2 id="section-2">2. 估值基础</h2>
+
+<h3>2.1 产业思维前置输入</h3>
+<p>上游为<a href="../../../workbench/targets/2026-09-08-1615-中远海控-产业思维分析.md">同日产业思维报告</a>，截止16:15。其四层结论用于方法选择，不作为独立价格判断。最新<a href="../../../wiki/concepts/冰冰小美-framework-估值判断.md">估值判断框架</a>本次重新读取；框架原文与技能旧模板存在20/32项文字差异，本次执行技能完整9+14+9项，状态使用新版五类。</p>
+<table>
+<thead>
+<tr>
+<th>前置项</th>
+<th>上游结论及本次复核</th>
+<th>估值影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>生命周期</td>
+<td>成熟运输，长期主阶段待验证，绿色/数字为局部升级</td>
+<td>不给永续高增长，正常化周期利润</td>
+</tr>
+<tr>
+<td>利润池</td>
+<td>运价扣燃油、租船、港费、折旧；通道扰动有时限</td>
+<td>价差与单位利润率主导，而非BDI</td>
+</tr>
+<tr>
+<td>比较优势</td>
+<td>双品牌、港航网络与现金，第一且唯一不成立</td>
+<td>8—10倍假设中已含网络持续性，不再追加品牌溢价</td>
+</tr>
+<tr>
+<td>分部成熟度</td>
+<td>班轮、港口已成熟</td>
+<td>班轮为主，港口及联营收益嵌入整体归母模型</td>
+</tr>
+<tr>
+<td>第二曲线</td>
+<td>非海运供应链收入增长但独立利润不足</td>
+<td>基本盘内计入，不重复叠加240.90亿元收入的价值；AI期权本次不计</td>
+</tr>
+<tr>
+<td>失效条件</td>
+<td>航路恢复释放有效供给、新船集中交付、成本无法转嫁</td>
+<td>保守利润180亿元及更低尾部情景；资本现金约束降低倍数</td>
+</tr>
+</tbody></table>
+<h3>2.2 价值创造链与分部</h3>
+<table>
+<thead>
+<tr>
+<th>分部</th>
+<th>最新数据（2026H1）</th>
+<th>成熟度 / 价值归属</th>
+<th>约束</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>集装箱运输</td>
+<td>收入1072.98亿元，毛利率17.19%，EBIT率14.15%；货量1427.95万TEU</td>
+<td>成熟周期基本盘，含非海运供应链240.90亿元子集</td>
+<td>单箱人民币收入约6827元、同比降6.2%，燃料和租赁成本</td>
+</tr>
+<tr>
+<td>码头</td>
+<td>收入63.27亿元、毛利率27.63%</td>
+<td>成熟；合并收入含少数股东权益</td>
+<td>不将整个子公司价值全归母公司</td>
+</tr>
+<tr>
+<td>联营及现金收益</td>
+<td>合并投资收益H1约30.02亿元，含权益法收益；利息收入19.00亿元</td>
+<td>已进入归母利润，不另加联营股权与全部现金</td>
+<td>正常化利率及被投企业盈利</td>
+</tr>
+<tr>
+<td>数字化、绿色船</td>
+<td>运营与订造均有进度；独立利润未披露</td>
+<td>效率和竞争投入；未满足独立概率价值证据</td>
+<td>未来投入、失败概率、外融条件不足，不给科技平台倍数</td>
+</tr>
+</tbody></table>
+<p>通胀暴露为<strong>高暴露，地区和阶段混合、含供给冲击</strong>。价格证据为燃料成本与运价分化；需求证据为H1货量增长、7月港口吞吐微降；利润证据为半年毛利率下降。不能据此断言全球进入滞胀或货币已经收紧。</p>
+<table>
+<thead>
+<tr>
+<th>分部</th>
+<th>需求 / 成本</th>
+<th>定价权与时滞</th>
+<th>二阶影响 / 缓冲</th>
+<th>对模型影响与验证</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>班轮</td>
+<td>抢运与贸易变化影响货量；燃油、租船和新船造价上升</td>
+<td>即期价快，长约和附加费有时滞</td>
+<td>美元收入与成本部分自然匹配，不能只写人民币贬值利好</td>
+<td>压低净利率保守情景；看单箱利润、租赁后现金</td>
+</tr>
+<tr>
+<td>港口</td>
+<td>贸易量与人工能源成本</td>
+<td>合约费率较稳定，但非无限转嫁</td>
+<td>枢纽位置缓冲、扩建资本投入形成现金约束</td>
+<td>不额外加港口成长溢价；看权益回报</td>
+</tr>
+<tr>
+<td>现金与投资</td>
+<td>利息收入随资金与利率变化</td>
+<td>公司无法决定市场利率</td>
+<td>厚现金缓冲但少数股东及投入限制归属</td>
+<td>净利已含收益，不另加现金；利率上升金融效应另在流动性表审查</td>
+</tr>
+</tbody></table>
+<h3>2.3 三至五年财务与最新期</h3>
+<p>单位亿元，ROE/毛利率为%；2023取后续重述可比口径。H1仅与H1比较，不按半年线性推全年。S1—S3。</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="right">2023</th>
+<th align="right">2024</th>
+<th align="right">2025</th>
+<th align="right">2025H1</th>
+<th align="right">2026H1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>营业收入</td>
+<td align="right">1754.53</td>
+<td align="right">2338.59</td>
+<td align="right">2195.04</td>
+<td align="right">1090.99</td>
+<td align="right">1119.22</td>
+</tr>
+<tr>
+<td>归母净利</td>
+<td align="right">238.60</td>
+<td align="right">491.00</td>
+<td align="right">308.68</td>
+<td align="right">175.36</td>
+<td align="right">134.19</td>
+</tr>
+<tr>
+<td>扣非归母</td>
+<td align="right">237.52</td>
+<td align="right">490.17</td>
+<td align="right">307.27</td>
+<td align="right">174.65</td>
+<td align="right">133.87</td>
+</tr>
+<tr>
+<td>CFO</td>
+<td align="right">225.84</td>
+<td align="right">693.13</td>
+<td align="right">455.46</td>
+<td align="right">257.77</td>
+<td align="right">233.30</td>
+</tr>
+<tr>
+<td>购建长期资产现金支出</td>
+<td align="right">153.23</td>
+<td align="right">259.99</td>
+<td align="right">250.16</td>
+<td align="right">97.51</td>
+<td align="right">141.37</td>
+</tr>
+<tr>
+<td>FCF代理=CFO−上述支出</td>
+<td align="right">72.61</td>
+<td align="right">433.14</td>
+<td align="right">205.30</td>
+<td align="right">160.26</td>
+<td align="right">91.94</td>
+</tr>
+<tr>
+<td>毛利率</td>
+<td align="right">16.36</td>
+<td align="right">29.54</td>
+<td align="right">20.05</td>
+<td align="right">21.14</td>
+<td align="right">18.34</td>
+</tr>
+<tr>
+<td>加权ROE</td>
+<td align="right">11.80</td>
+<td align="right">22.60</td>
+<td align="right">13.17</td>
+<td align="right">待补同口径</td>
+<td align="right">5.70（半年）</td>
+</tr>
+</tbody></table>
+<p>年度严格净现金未全部重建，最新与2025年末见2.5，不编造五年序列。2025末股本154.8988亿股，最新152.6812亿股；历史EPS受回购注销影响，正常化每股价值统一用最新股本，不混历史加权平均股数。</p>
+<h3>2.4 正常化调整</h3>
+<table>
+<thead>
+<tr>
+<th>调整</th>
+<th>事实 / 计算</th>
+<th>模型处理与边界</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>归母→扣非</td>
+<td>H1归母134.1892−非经常0.3219=133.8674亿元</td>
+<td>非经常损益小；扣非不等于周期正常化</td>
+</tr>
+<tr>
+<td>非经常明细</td>
+<td>资产处置0.5942亿、非经常补助0.1521亿、公允价值等−0.1053亿，另扣税与少数股东</td>
+<td>采用披露净额，不再二次扣同项；经常补助亦需未来复核</td>
+</tr>
+<tr>
+<td>TTM</td>
+<td>308.6815−175.3609+134.1892=267.5098亿元</td>
+<td>当前盈利观察；不视作必然稳态</td>
+</tr>
+<tr>
+<td>周期调整</td>
+<td>2023—2025归母均值346.10亿元，被2024强景气抬高</td>
+<td>正常化180/240/300亿元均低于该均值，基准近2023；非统计估计、非券商一致预期</td>
+</tr>
+<tr>
+<td>研发</td>
+<td>H1费用化5.2770亿，资本化0.0061亿</td>
+<td>资本化金额小，不构成重大调整；研发费用增长不能直接称效率改善</td>
+</tr>
+<tr>
+<td>租赁</td>
+<td>H1筹资活动支付租赁负债72.9649亿，同期69.7440亿</td>
+<td>CFO代理再扣这笔付款后18.97/90.51亿；不再扣已经进入CFO的短租成本，不能用总租赁现金152.33亿重复全扣</td>
+</tr>
+<tr>
+<td>少数股东</td>
+<td>H1合并利润157.00亿、归母134.19亿；少数权益515.49亿</td>
+<td>主方法已经用归母利润，不再扣少数权益；现金代理仍为合并口径</td>
+</tr>
+<tr>
+<td>股本与融资</td>
+<td>最新总股本152.6812亿；H1注销及回购已按实际处理</td>
+<td>不假设未来回购注销提高EPS；未取得会改变主模型的已确定新增股权融资，尾部另做5%稀释敏感性</td>
+</tr>
+</tbody></table>
+<p><strong>现金桥边界：</strong> 18.97亿元仍不是完整FCFE，未扣其他融资利息、其他资本投入、少数股东分配等，也未加投资资产分红和净借款。只能证明“91.94亿元全部可分配”的说法不成立；不能把这个半年余量简单年化为永久分红。</p>
+<h3>2.5 基本面判断：六项核验</h3>
+<p>六项按框架权重从高到低，比较余额为2025年末、损益及流量为2025H1；法定披露S1，8月29日发布、本次9月8日复核。</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>当前值 / 报告期</th>
+<th>比较值 / 比较期</th>
+<th>判断及原因</th>
+<th>模型影响</th>
+<th>来源与缺口</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>负债</td>
+<td>总负债1983.19亿；流动1179.68亿；借款、股东借款及租赁715.67亿</td>
+<td>总负债2003.52亿；流动1150.43亿；融资765.60亿</td>
+<td>融资负担改善但流动负债增加；H1利息费用13.79/14.91亿下降</td>
+<td>保持正常融资假设，8—10倍限制资本周期风险</td>
+<td>S1；新船融资安排和分年期限待验证</td>
+</tr>
+<tr>
+<td>净现金</td>
+<td>现金等价物1408.37−融资715.67=严格692.71亿；加可交易资产0.6544亿为693.36亿扩展值</td>
+<td>1508.82−765.60=743.22亿；加0.7826为744.00亿</td>
+<td>严格现金缓冲恶化约50.51亿；资金减少含分红、资本投入及汇兑，不等于经营资金全流失</td>
+<td>不把全部合并现金加到PE价值</td>
+<td>S1附注1/2/43/45/47/48/79；股票基金不等同现金，归母可分配部分待验证</td>
+</tr>
+<tr>
+<td>现金流</td>
+<td>CFO233.30亿，资本141.37亿，FCF代理91.94亿，扣筹资租赁后18.97亿</td>
+<td>257.77、97.51、160.26、90.51亿</td>
+<td>CFO与两层现金代理均恶化；应收111.18/80.59亿，存货84.57/63.08亿增加</td>
+<td>要求中长期再投资后现金恢复，否则下调利润倍数与分配验证</td>
+<td>S1；维护/扩张开支拆分、其他完整FCFE项不足</td>
+</tr>
+<tr>
+<td>开销合理性</td>
+<td>销售3.9845亿/收入0.356%；管理39.0594亿/3.490%；研发5.2770亿/0.471%</td>
+<td>4.0379亿/0.370%；36.3568亿/3.332%；5.0459亿/0.463%</td>
+<td>同比分化：销售率改善，管理和研发费用率上升；总三费率4.317%/4.165%</td>
+<td>不靠大幅降费虚增正常化盈利；同行IFRS不做未经桥接排名</td>
+<td>S1；管理人工与资产费用上升；研发资本化0.0061亿</td>
+</tr>
+<tr>
+<td>真实利润</td>
+<td>归母134.19→扣非133.87亿；归母现金交叉用合并利润157.00亿</td>
+<td>归母175.36→扣非174.65亿</td>
+<td>扣非同比恶化23.35%，现金为正；利润真实与可持续性分开</td>
+<td>正常化180—300亿，而非沿用2024峰值491亿</td>
+<td>S1/S2；正常周期参数为研究假设</td>
+</tr>
+<tr>
+<td>扣除商誉的净资产</td>
+<td>合并权益2853.12−合并商誉61.44=2791.67亿</td>
+<td>2834.06−63.59=2770.47亿</td>
+<td>账面规模改善21.21亿；商誉减少主要外币折差，不证明回收质量提高</td>
+<td>PB用同口径归母2337.62亿，单独做资产减值压力</td>
+<td>S1；归母应占商誉未完整分摊，不以合并商誉直接扣归母权益</td>
+</tr>
+</tbody></table>
+<p><strong>净现金分项对账（亿元）：</strong> 现金等价物1408.3714；短借7.7676＋长期借款215.1158＋一年内到期长期借款72.6935＋长期租赁305.9988＋一年内租赁110.0759＋股东借款4.0137=715.6653。借款余额已含相关应付利息，不另加；股东借款含一年内0.1859，不重复加。年末对应20.6872＋252.7259＋54.3327＋320.8287＋112.8246＋4.1969=765.5960。法定现金等价物已排除6.0494亿元存款利息、贷款质押和保证金等，不再重复减；使用范围受限但仍列现金等价物的情况为不适用。</p>
+<p>码头购股选择权17.17亿元是其他金融/或有现金义务，未混同银行借款，若全额作为即时现金支出压力，则严格现金缓冲进一步降至675.53亿元；不是法律义务已在当日全额到期。净现金为正并非所有船舶承诺均可不融资完成。相比产业报告的借款租赁粗口径，本次补入4.0137亿元股东借款，故采用692.71亿元而非696.72亿元。</p>
+<p><strong>基本面综合：走弱。</strong> 高权重负债下降提供反证，但严格现金与现金转化恶化，费用及扣非利润补充支持下调经营方向；扣商誉净资产增加不抵销这些约束。这里评价已披露期的变化，未来Q3修复能否持续另行验证。</p>
+<h2 id="section-3">3. 估值方法与假设</h2>
+
+<h3>3.1 方法路由</h3>
+<p>主方法为正常化归母盈利×周期PE，直接得到股权价值。班轮占主要利润波动，港口及联营收益已嵌入归母；缺少分部归母、独立投入与税负桥，不强行制造SOTP。PB/ROE与可持续分配仅作交叉约束。完整DCF不采用：新船付款、维护与扩张支出、租赁更新和跨周期运价路径不充分，强行终值会制造精确感。</p>
+<h3>3.2 核心假设</h3>
+<p>以下是当前规模下的正常年份情景，不是2026年度预测。模型不对任意历史均值自动赋概率，中枢是研究基准路径，不是统计期望。</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th align="right">保守</th>
+<th align="right">基准</th>
+<th align="right">乐观</th>
+<th>依据与限制</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>正常合并收入（亿元）</td>
+<td align="right">2000</td>
+<td align="right">2200</td>
+<td align="right">2400</td>
+<td>2023—2025实际1755—2339亿，当前TTM2223亿；乐观需货量及价格支持</td>
+</tr>
+<tr>
+<td>正常化归母净利率</td>
+<td align="right">9.00%</td>
+<td align="right">10.91%</td>
+<td align="right">12.50%</td>
+<td>实际2023约13.60%、2025约14.06%、2026H1约11.99%；成本和新船供给导致回落假设</td>
+</tr>
+<tr>
+<td>正常化归母利润（亿元）</td>
+<td align="right">180</td>
+<td align="right">240</td>
+<td align="right">300</td>
+<td>收入×净利率；基准为240/2200精确值，表中利率仅展示四舍五入</td>
+</tr>
+<tr>
+<td>周期PE</td>
+<td align="right">8</td>
+<td align="right">9</td>
+<td align="right">10</td>
+<td>研究假设，非已测得历史/同行分位；资本回报不稳且需再投资，不给稳定消费溢价</td>
+</tr>
+<tr>
+<td>权益要求回报率（交叉检验）</td>
+<td align="right">12%</td>
+<td align="right">11%</td>
+<td align="right">10%</td>
+<td>人民币权益长期要求回报假设；非当天无风险利率或WACC观测</td>
+</tr>
+<tr>
+<td>长期增长（交叉检验）</td>
+<td align="right">0%</td>
+<td align="right">1%</td>
+<td align="right">2%</td>
+<td>成熟行业，需再投资支持；未另加到PE结果</td>
+</tr>
+<tr>
+<td>正常年度CFO / 资本支出 / 筹资租赁现金（亿元）</td>
+<td align="right">360 / 170 / 145</td>
+<td align="right">450 / 180 / 150</td>
+<td align="right">520 / 190 / 155</td>
+<td>中周期现金检验假设，非近年船舶交付期预算；合并剩余45/120/175亿尚需扣其他项目</td>
+</tr>
+<tr>
+<td>净营运资金</td>
+<td align="right">仍有占用</td>
+<td align="right">应收与存货恢复正常周转</td>
+<td align="right">改善但不永久释放</td>
+<td>不假设占用归零，现金检验已含CFO</td>
+</tr>
+<tr>
+<td>新业务成功率 / 额外价值</td>
+<td align="right">不赋值</td>
+<td align="right">不赋值</td>
+<td align="right">不赋值</td>
+<td>缺独立现金与里程碑概率，不代表价值必为零</td>
+</tr>
+<tr>
+<td>股本（亿股）</td>
+<td align="right">152.68122965</td>
+<td align="right">152.68122965</td>
+<td align="right">152.68122965</td>
+<td>已发行总股本；尚未注销回购股不预先扣除</td>
+</tr>
+</tbody></table>
+<p><strong>倍数审计：</strong> 8/9/10倍意味着正常化盈利收益率12.50%/11.11%/10.00%。用一致的股东现金模型检验：可分配比例80%/81%/80%，权益回报12%/11%/10%，增长0%/1%/2%，稳态PE约6.67/8.10/10.00倍。主模型保守与基准略高，要求留存资金价值或更强回报支持；若长期只能达到该检验，则下限与中枢分别降至约7.86与12.73元。<strong>这不是独立统计验证，提示主区间存在假设风险。</strong></p>
+<p>长期资本支出170—190亿元低于2025约250亿元，意味着扩船交付高峰后资本强度必须下降；这是主模型的重要条件。不能用该正常年预算掩盖2026H1实际141亿元和新增合同。若未来连续几年CFO450亿、资本300亿、筹资租赁150亿，则现金余量为零，120亿元基准分配不能由当年内部现金独立支持，须完整重估。</p>
+<h3>3.3 主模型与现金/资产交叉</h3>
+<p>正常化归母利润已扣成本、折旧、财务费用、税及少数股东，并包含正常投资收益；因此不再加全部现金、联营股权或扣债/少数权益。</p>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">归母利润×PE（亿元）</th>
+<th align="right">除总股本</th>
+<th align="right">每股价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>保守</td>
+<td align="right">180×8=1440</td>
+<td align="right">152.68122965亿股</td>
+<td align="right">9.4314</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">240×9=2160</td>
+<td align="right">同上</td>
+<td align="right">14.1471</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">300×10=3000</td>
+<td align="right">同上</td>
+<td align="right">19.6488</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>交叉方法</th>
+<th align="right">保守</th>
+<th align="right">基准</th>
+<th align="right">乐观</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PB资产压力：归母BVPS15.31×0.65/0.90/1.15</td>
+<td align="right">9.95</td>
+<td align="right">13.78</td>
+<td align="right">17.61</td>
+<td>系数为资产回报折价假设，不是清算估值；上沿低于PE上沿，要求ROE额外验证</td>
+</tr>
+<tr>
+<td>分红检验：利润×50%÷要求股息率6%/5.5%/5%</td>
+<td align="right">9.82</td>
+<td align="right">14.29</td>
+<td align="right">19.65</td>
+<td>50%为条件假设，近中期49%；不含全部留存价值，也不是分红承诺</td>
+</tr>
+</tbody></table>
+<p>PB基准0.9在ke11%、g1%下隐含持续ROE约10%，与240/2337.62=10.27%接近；PE乐观上沿对应PB约1.283，需正常ROE12.83%及留存回报持续，不能凭船舶账面值实现。资产减值压力可按归母净资产10%（研究假设）降低PB基准约1.38元，不能当成已发生减值。</p>
+<p>分红中枢要求约120亿元全年归母分配，而正常现金基准余量120亿元仍未扣其他义务；因此分红验证是<strong>偏紧、部分通过</strong>。2026H1当期18.97亿元余量不独立覆盖约65.65亿元中期派息，现金存量可以缓冲，永久分配仍待证明。不能将0.43元直接乘2当成锁定年股息。尾部若正常利润仅120亿元、PE7倍，每股约5.50元；持续亏损和资产受损还可能更低。</p>
+<h3>3.4 反向估值</h3>
+<p>按A股价折算全部权益=16.14×152.68122965=2464.28亿元；这是统一每股权利估值口径，非A/H各自价格加总的实际市值。</p>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>现价要求</th>
+<th>对照与判断</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>归母利润，8/9/10倍PE</td>
+<td>308.03 / 273.81 / 246.43亿元</td>
+<td>9倍要求比基准240亿高14.09%，约为TTM267.51亿的1.024倍；可实现但不能证明稳定</td>
+</tr>
+<tr>
+<td>正常净利率（收入2200亿、9倍）</td>
+<td>12.45%</td>
+<td>高于基准10.91%，略高于H1约11.99%；需单位收益修复</td>
+</tr>
+<tr>
+<td>ROE（9倍、期末归母权益）</td>
+<td>11.71%</td>
+<td>高于基准10.27%；2025加权13.17%，半年5.70%不简单倍增</td>
+</tr>
+<tr>
+<td>长期分红支持，5.5%收益率</td>
+<td>年每股0.8877元、总额135.53亿元</td>
+<td>按50%派息需利润271.07亿元，且现金足以支付；不是已宣布分红</td>
+</tr>
+<tr>
+<td>回报率重估</td>
+<td>正常化利润240亿时需PE10.27倍</td>
+<td>超过基准9倍，接近乐观10倍；若成本或资本约束恶化，维持难度增加</td>
+</tr>
+<tr>
+<td>前沿业务成功概率</td>
+<td>不必反推</td>
+<td>当前价格可由较好成熟经营情景解释，无需用AI故事补残差</td>
+</tr>
+</tbody></table>
+<h2 id="section-4">4. 估值结果与交易溢价</h2>
+
+<h3>4.1 模型结果与权重</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th align="right">下限</th>
+<th align="right">中枢</th>
+<th align="right">上限</th>
+<th>使用方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>正常化盈利PE</td>
+<td align="right">9.43</td>
+<td align="right">14.15</td>
+<td align="right">19.65</td>
+<td>主输出，100%数值权重；权重是模型选取而非准确概率</td>
+</tr>
+<tr>
+<td>PB/ROE</td>
+<td align="right">9.95</td>
+<td align="right">13.78</td>
+<td align="right">17.61</td>
+<td>约束而非机械平均；提醒19.65元需要较强资本回报</td>
+</tr>
+<tr>
+<td>条件分红</td>
+<td align="right">9.82</td>
+<td align="right">14.29</td>
+<td align="right">19.65</td>
+<td>分配持续性部分通过，不能独立证明上沿</td>
+</tr>
+</tbody></table>
+<p>采用<strong>9.43—19.65元，中枢14.15元</strong>条件区间，置信度中低。主模型对未来正常年资本强度下降有依赖，实际若不下降，应先改模型，而非仍说“现价在区间所以安全”。</p>
+<h3>4.2 情景与敏感性</h3>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th>经营路径</th>
+<th>每股价值</th>
+<th>相对16.14元</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>保守</td>
+<td>航路正常化、成本刚性，利润180亿</td>
+<td>9.43</td>
+<td>-41.56%</td>
+</tr>
+<tr>
+<td>基准</td>
+<td>货量稳定、价格正常化，利润240亿</td>
+<td>14.15</td>
+<td>-12.35%</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td>运价与服务收益持续、成本受控，利润300亿</td>
+<td>19.65</td>
+<td>21.74%</td>
+</tr>
+<tr>
+<td>尾部压力</td>
+<td>利润120亿、7倍PE，非最大损失</td>
+<td>5.50</td>
+<td>-65.91%</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>归母利润（亿元） / PE</th>
+<th>8倍</th>
+<th>9倍</th>
+<th>10倍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>180</td>
+<td>9.43</td>
+<td>10.61</td>
+<td>11.79</td>
+</tr>
+<tr>
+<td>240</td>
+<td>12.58</td>
+<td>14.15</td>
+<td>15.72</td>
+</tr>
+<tr>
+<td>300</td>
+<td>15.72</td>
+<td>17.68</td>
+<td>19.65</td>
+</tr>
+</tbody></table>
+<p>4个核心变量：收入、归母净利率、PE与资本支出。以2200亿收入计，净利率每变动1个百分点，归母变动22亿元、9倍价值变动约1.30元。以240亿利润计，每变动1倍PE，每股价值变动1.57元。新增股本5%而盈利不变，基准降至13.47元；这是稀释压力假设，不是已公告发行。资本开支增加100亿不应在PE价值上直接永久扣100亿，但若反复发生且无回报，须重估正常利润、股东现金及倍数。</p>
+<h3>4.3 市场价格分解与估值泡沫判断</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>数值 / 判断</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当前价 / 下限 / 中枢 / 上限</td>
+<td>16.14 / 9.4314 / 14.1471 / 19.6488元</td>
+</tr>
+<tr>
+<td>相对中枢溢价率</td>
+<td>14.09%</td>
+</tr>
+<tr>
+<td>相对上限偏离率</td>
+<td>-17.86%</td>
+</tr>
+<tr>
+<td>上沿外偏离金额</td>
+<td>0元</td>
+</tr>
+<tr>
+<td>中枢潜在回报</td>
+<td>-12.35%</td>
+</tr>
+<tr>
+<td>保守安全边际</td>
+<td>-71.13%</td>
+</tr>
+<tr>
+<td>中枢差额</td>
+<td>1.9929元</td>
+</tr>
+<tr>
+<td>可解释估值溢价</td>
+<td>未单独量化；网络、现金及服务价值已进入盈利和倍数，不再重复加</td>
+</tr>
+<tr>
+<td>交易定价偏离</td>
+<td>精确归因证据不足。仅在额外溢价按0的记账情景下，残差为1.9929元、14.09%；不是观测到的资金溢价</td>
+</tr>
+<tr>
+<td>估值状态</td>
+<td>公允价值内，偏中枢上方；出清观察</td>
+</tr>
+</tbody></table>
+<p>市场价格=条件公允价值＋未重复计入的可解释溢价＋交易偏离。公允价值本身有区间，不能把约1.99元差额全部命名为泡沫。</p>
+<table>
+<thead>
+<tr>
+<th>判断层</th>
+<th>支持</th>
+<th>反证与缺口</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>价格</td>
+<td>位于条件区间内</td>
+<td>高于基准14.09%、无保守安全边际</td>
+</tr>
+<tr>
+<td>反向</td>
+<td>要求274亿正常利润，不超过近年已实现利润规模</td>
+<td>周期可持续性与租赁后分配未证明</td>
+</tr>
+<tr>
+<td>经营</td>
+<td>主业盈利及现金已兑现</td>
+<td>H1单位利润和再投资后现金走弱，资本开支继续增加</td>
+</tr>
+<tr>
+<td>交易</td>
+<td>有公司回购与两融明细</td>
+<td>缺完整机构/ETF/大单窗口，不能确认杠杆或叙事为主导</td>
+</tr>
+<tr>
+<td>正常化压力</td>
+<td>基准价值14.15仍有经营支持</td>
+<td>资本开支不降时分配检验失败；利润120亿尾部约5.50元</td>
+</tr>
+</tbody></table>
+<p>没有证据把现价升级为泡沫：现价不在上沿外、并不需要极端长期增长、尚未验证交易放大链。但这不等于可以买，现金与本金风险显著。</p>
+<h3>4.4 资金、筹码与交易方画像</h3>
+<table>
+<thead>
+<tr>
+<th>证据</th>
+<th>当前状态及窗口</th>
+<th>含义 / 限制</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>大额资金</td>
+<td>9月8日同花顺资金页仅返回加载提示，缺1/5/20日可审计序列</td>
+<td>不使用页面自动“主力控盘”结论；未获取不等于零</td>
+</tr>
+<tr>
+<td>融资</td>
+<td>9月1/2/3/4/7日余额33.81/35.89/35.72/35.25/35.91亿元</td>
+<td>9月1—7日约+6.21%，9月7日净买入0.664亿；不是连续融资收缩，9月8日数据尚未取得。S7</td>
+</tr>
+<tr>
+<td>成交换手</td>
+<td>9月8日5847.83万股、9.3786亿元；按流通A股125.5654亿股约0.466%</td>
+<td>单日不足判拥挤，多期成交尚缺。S8</td>
+</tr>
+<tr>
+<td>股东人数</td>
+<td>2024末352181→2025末375225→2026H1末430616户</td>
+<td>连续报告期增加，最后一期较年末+14.76%，趋于分散；A/H普通股登记口径，不能反推全部散户净买入。S1—S3</td>
+</tr>
+<tr>
+<td>公募与保险</td>
+<td>H1上证红利ETF8093.63万股，较年末增1427.57万股；其他保险持有人见披露</td>
+<td>是持股变动，不等于ETF申赎或机构统一方向</td>
+</tr>
+<tr>
+<td>产业资本</td>
+<td>8月末本轮A股回购累计3715.75万股、支付5.4562亿元</td>
+<td>确认公司买盘；不等于每个未来价位托底。H1集团内部转让26.10亿股不能视作外部增持</td>
+</tr>
+<tr>
+<td>大宗/龙虎榜</td>
+<td>未取得最新完整事件检索结果</td>
+<td>证据不足，不写“未发生”或猜测游资席位</td>
+</tr>
+</tbody></table>
+<p>画像为<strong>混合、边际定价者证据不足</strong>。公司回购与局部融资回升存在，股东分散且价格较8月末回撤；偏离持续性不能作确定方向判断。资金变化只影响价格偏离，不直接提高或降低正常化利润。</p>
+<h3>4.5 估值泡沫32项触发扫描</h3>
+<p>以下逐项执行9+14+9项；各表观察截至9月8日，财务比较为H1同比或余额较年末。允许状态五类，缺口不自动归有利，重复传导证据不重复扣估值。</p>
+<p><strong>基本面9项</strong></p>
+<table>
+<thead>
+<tr>
+<th>触发类型</th>
+<th>观察项</th>
+<th>状态</th>
+<th>当前证据与时间</th>
+<th>对主估值锚 / 传导链的影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>现金流断点</td>
+<td>资本开支规模</td>
+<td>当期恶化，持续性待确认</td>
+<td>H1资本支出141.37亿元/同期97.51亿元，+44.97%；尚低于CFO233.30亿元。S1</td>
+<td>投入强度恶化已确认；持续超过内部造血未确认，核查2027—2030付款计划。</td>
+</tr>
+<tr>
+<td>现金流断点</td>
+<td>经营现金流</td>
+<td>当期恶化，持续性待确认</td>
+<td>H1CFO233.30/257.77亿元，−9.49%；仍大于合并净利157.00亿元。S1</td>
+<td>同比走弱；不是利润上升而现金持续流出的完整触发，Q3验证。</td>
+</tr>
+<tr>
+<td>现金流断点</td>
+<td>自由现金流</td>
+<td>当期恶化，持续性待确认</td>
+<td>H1FCF代理91.94/160.26亿元，−42.63%；再扣筹资租赁付款18.97/90.51亿元。S1</td>
+<td>明显恶化但未持续为负，不能写持续现金断裂。</td>
+</tr>
+<tr>
+<td>现金流断点</td>
+<td>投资资金来源</td>
+<td>有利</td>
+<td>H1CFO覆盖购建资产支出，融资义务较年末减少49.93亿元。S1</td>
+<td>当前不是必须靠新增融资存续；新船70%融资仅为计划，未来另审。</td>
+</tr>
+<tr>
+<td>现金流断点</td>
+<td>融资停止后的可持续性</td>
+<td>证据不足</td>
+<td>严格净现金692.71亿元，但船舶资本承诺755.11亿元及新增合同约202.74亿元。S1/S4</td>
+<td>现金正不证明全部项目在停贷情景可完成；缺分年付款与最低运营现金预算。</td>
+</tr>
+<tr>
+<td>盈利不匹配</td>
+<td>原材料与中间品成本</td>
+<td>当期恶化，持续性待确认</td>
+<td>公司H1存货因燃料成本上升扩张；同行Q2燃料777/538美元。S1/S5</td>
+<td>当期成本压力已确认；缺公司采购价格连续序列与成本传导持续性。</td>
+</tr>
+<tr>
+<td>盈利不匹配</td>
+<td>定价权与成本转嫁</td>
+<td>不利信号出现</td>
+<td>H1货量+7.52%、人民币单箱收入约−6.2%，集运EBIT率20.52%降至14.15%。S1</td>
+<td>当期无法充分转嫁成本，压低正常化净利率；Q2修复是反证。</td>
+</tr>
+<tr>
+<td>盈利不匹配</td>
+<td>营收向利润的转化</td>
+<td>不利信号出现</td>
+<td>H1营收+2.59%、扣非归母−23.35%、毛利率下降2.80个百分点。S1</td>
+<td>增收不增利已发生，直接击中正常化盈利锚。</td>
+</tr>
+<tr>
+<td>盈利不匹配</td>
+<td>利润向自由现金流的转化</td>
+<td>当期恶化，持续性待确认</td>
+<td>H1扣非下降23.35%，FCF代理下降42.63%，现金转化更弱。S1</td>
+<td>不是利润增长而现金消失；再投资挤压已确认，持续性待Q3及全年。</td>
+</tr>
+</tbody></table>
+<p><strong>流动性14项</strong></p>
+<table>
+<thead>
+<tr>
+<th>触发类型</th>
+<th>观察项</th>
+<th>状态</th>
+<th>当前证据与时间</th>
+<th>对主估值锚 / 传导链的影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观：货币条件收缩</td>
+<td>通胀</td>
+<td>证据不足</td>
+<td>9月8日未取得可比最新序列。</td>
+<td>缺观察窗口与比较窗口，不判断收紧或转向。</td>
+</tr>
+<tr>
+<td>宏观：货币条件收缩</td>
+<td>政策利率与债券收益率</td>
+<td>证据不足</td>
+<td>9月8日未取得可比最新序列。</td>
+<td>缺观察窗口与比较窗口，不判断收紧或转向。</td>
+</tr>
+<tr>
+<td>宏观：货币条件收缩</td>
+<td>信用与融资条件</td>
+<td>证据不足</td>
+<td>9月8日未取得可比最新序列。</td>
+<td>缺观察窗口与比较窗口，不判断收紧或转向。</td>
+</tr>
+<tr>
+<td>宏观：货币条件收缩</td>
+<td>高投资项目对低成本资金的依赖</td>
+<td>证据不足</td>
+<td>新船计划最高70%外融，未披露贷款定价和项目IRR。S4</td>
+<td>不能以央企身份假定低成本资金永续；必要回报率上升进入敏感性。</td>
+</tr>
+<tr>
+<td>中观：政策与主线资金迁移</td>
+<td>监管与产业政策</td>
+<td>有利</td>
+<td>USTR行动处于2025-11-10起一年暂停期；上海8月规划支持航运。S6</td>
+<td>当前未验证新增纠偏压缩盈利；到期后的规则待跟踪。</td>
+</tr>
+<tr>
+<td>中观：政策与主线资金迁移</td>
+<td>ETF申赎</td>
+<td>证据不足</td>
+<td>H1上证红利ETF持股8093.63万股、较年末增加1427.57万股。S1</td>
+<td>持仓变化不是ETF净申购，缺近期申赎序列。</td>
+</tr>
+<tr>
+<td>中观：政策与主线资金迁移</td>
+<td>基金仓位</td>
+<td>证据不足</td>
+<td>H1前十持有人含国有股东、ETF和保险；完整基金仓位连续序列未取得。S1</td>
+<td>不能把国有控股股东或香港结算汇总作主动基金抱团。</td>
+</tr>
+<tr>
+<td>中观：政策与主线资金迁移</td>
+<td>主线增量资金</td>
+<td>证据不足</td>
+<td>9月8日同花顺资金页仅返回加载提示。S7</td>
+<td>未取得1/5/20日大单净流，不能用股价下跌反推资金净流出。</td>
+</tr>
+<tr>
+<td>微观：杠杆和承接逆转</td>
+<td>融资余额增速</td>
+<td>证据不足</td>
+<td>9月1日33.81亿元→9月7日35.91亿元，+6.21%，9月7日股价16元。S7</td>
+<td>融资增加，但估值高位、持续杠杆推涨机制未同时证实；缺20日比较。</td>
+</tr>
+<tr>
+<td>微观：杠杆和承接逆转</td>
+<td>新增融资集中度</td>
+<td>证据不足</td>
+<td>仅获得公司5个交易日余额，未获得行业及市场分母。S7</td>
+<td>无法判断新增融资集中在少数方向。</td>
+</tr>
+<tr>
+<td>微观：杠杆和承接逆转</td>
+<td>股价对杠杆资金的依赖</td>
+<td>证据不足</td>
+<td>9月1—7日融资增加，8月31日17元至9月7日16元，价格未同步走强。S7/S8</td>
+<td>时间窗口不完全重合且缺买盘归因，不认定杠杆为边际定价者。</td>
+</tr>
+<tr>
+<td>微观：杠杆和承接逆转</td>
+<td>龙头表现</td>
+<td>当期恶化，持续性待确认</td>
+<td>8月24日17.42元→9月8日16.14元，−7.35%；近期SCFI上涨。S6/S8</td>
+<td>样本出现利好与价格背离，连续市场龙头结构未确认。</td>
+</tr>
+<tr>
+<td>微观：杠杆和承接逆转</td>
+<td>市场广度</td>
+<td>证据不足</td>
+<td>9月8日未取得可比最新序列。</td>
+<td>缺观察窗口与比较窗口，不判断收紧或转向。</td>
+</tr>
+<tr>
+<td>微观：杠杆和承接逆转</td>
+<td>获利资金与回调承接</td>
+<td>证据不足</td>
+<td>公司回购至8月31日已发生，9月股价走弱；缺逐日大单及反弹量价。S4/S8</td>
+<td>不能将回购等同多元承接，不能直接认定踩踏。</td>
+</tr>
+</tbody></table>
+<p><strong>预期9项</strong></p>
+<table>
+<thead>
+<tr>
+<th>触发类型</th>
+<th>观察项</th>
+<th>状态</th>
+<th>当前证据与时间</th>
+<th>对主估值锚 / 传导链的影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>叙事耗尽</td>
+<td>价格隐含的增长年限</td>
+<td>有利</td>
+<td>现价按9倍PE隐含273.81亿元正常化归母，TTM267.51亿元。S1/模型</td>
+<td>要求利润保持较强水平，但无需遥远新业务全成功；可持续性仍待验证。</td>
+</tr>
+<tr>
+<td>叙事耗尽</td>
+<td>产业进度与远期预期的距离</td>
+<td>有利</td>
+<td>班轮与码头已形成收入、利润与现金；模型未加AI期权。S1/S6</td>
+<td>不依赖早期研发故事成熟化定价。</td>
+</tr>
+<tr>
+<td>叙事耗尽</td>
+<td>新信息对盈利预测的推动</td>
+<td>证据不足</td>
+<td>Q2归母75.42亿元环比修复，H1同比回落；无连续一致预期修订。S6</td>
+<td>经营恢复可验证，但不能声称市场预测持续上修或叙事耗尽。</td>
+</tr>
+<tr>
+<td>叙事耗尽</td>
+<td>同类利好的边际反应</td>
+<td>当期恶化，持续性待确认</td>
+<td>8月末披露业绩与新船，至9月8日股价较8月31日−5.06%。S4/S8</td>
+<td>短窗口反应偏弱，但未做事件归因与重复利好统计。</td>
+</tr>
+<tr>
+<td>财报与真实经营接管定价</td>
+<td>财报披露节点</td>
+<td>当期恶化，持续性待确认</td>
+<td>H1按期披露，扣非和现金同比下降，Q2环比恢复。S1/S6</td>
+<td>缺原市场一致预期，不能直接认定低于预期；当期财务恶化已知。</td>
+</tr>
+<tr>
+<td>财报与真实经营接管定价</td>
+<td>订单、收入与利润的一致性</td>
+<td>不利信号出现</td>
+<td>H1货量+7.52%、收入+2.59%、归母−23.48%。S1</td>
+<td>规模到利润的转换已受压，与基本面同一证据，不重复惩罚。</td>
+</tr>
+<tr>
+<td>财报与真实经营接管定价</td>
+<td>利润与现金流的一致性</td>
+<td>当期恶化，持续性待确认</td>
+<td>H1CFO/合并净利约1.49倍，但FCF代理及扣租赁后余量下降。S1</td>
+<td>现金仍为正，不写虚假盈利；观察资本支付压力延续。</td>
+</tr>
+<tr>
+<td>财报与真实经营接管定价</td>
+<td>真实应用与产品验证</td>
+<td>有利</td>
+<td>H1运输1427.95万TEU，主业持续收费。S1</td>
+<td>已验证商业模式；新技术单独价值不计。</td>
+</tr>
+<tr>
+<td>财报与真实经营接管定价</td>
+<td>实际业绩与价格隐含预期</td>
+<td>证据不足</td>
+<td>现价隐含273.81亿元，TTM267.51亿元，低于要求约2.3%。模型</td>
+<td>TTM非正常年，差距不大；不能凭单期认定价格锚已失效。</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>扫描维度</th>
+<th>项目数</th>
+<th>有利</th>
+<th>当期恶化</th>
+<th>不利信号出现</th>
+<th>证据不足</th>
+<th>不适用</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本面触发</td>
+<td>9</td>
+<td>1</td>
+<td>5</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>单位收益、资本现金压力；不机械计分</td>
+</tr>
+<tr>
+<td>流动性触发</td>
+<td>14</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>12</td>
+<td>0</td>
+<td>单位收益、资本现金压力；不机械计分</td>
+</tr>
+<tr>
+<td>预期触发</td>
+<td>9</td>
+<td>3</td>
+<td>3</td>
+<td>1</td>
+<td>2</td>
+<td>0</td>
+<td>单位收益、资本现金压力；不机械计分</td>
+</tr>
+<tr>
+<td>合计</td>
+<td>32</td>
+<td>5</td>
+<td>9</td>
+<td>3</td>
+<td>15</td>
+<td>0</td>
+<td>单位收益、资本现金压力；不机械计分</td>
+</tr>
+</tbody></table>
+<p><strong>关键传导：</strong> 单箱收益和成本转嫁受压→增收不增利→现金被再投资及租赁进一步压缩，已击中盈利锚。预期表中的规模利润不一致与此同源，不能当成第二条独立证明。价格弱于部分利好是早期信号，但融资并未确认收缩、没有完整承接证据，<strong>尚不能确认跨表相互强化的出清链</strong>；状态为<strong>出清观察</strong>。五类计数只验证完整性，不决定泡沫等级。</p>
+<h3>4.6 凯利仓位情景测算</h3>
+<p>现价P=16.14元（9月8日收盘），L=9.4314147410、H=19.6487807105，价值基准9月8日。持有期待指定：仅把上下限假设为同一期末两种价格回归结果，不含股息、费用、税，现金收益率0；不把已折现价值再折现。</p>
+<ul>
+<li>上涨u=21.74%；下跌d=41.56%；盈亏比u/d=0.5230；盈亏平衡概率p0=65.66%。</li>
+<li>理论f*=p/d−(1−p)/u；受限全凯利=min(1,max(0,f*))；半凯利=受限值÷2。</li>
+<li>概率没有实证估计，以下不是先触及上沿的概率，也不是实际仓位建议。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>上涨情景概率（假设）</th>
+<th>理论凯利</th>
+<th>受限全凯利</th>
+<th>半凯利</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>50.00%</td>
+<td>-109.70%</td>
+<td>0.00%</td>
+<td>0.00%</td>
+</tr>
+<tr>
+<td>60.00%</td>
+<td>-39.64%</td>
+<td>0.00%</td>
+<td>0.00%</td>
+</tr>
+<tr>
+<td>70.00%</td>
+<td>30.41%</td>
+<td>30.41%</td>
+<td>15.21%</td>
+</tr>
+<tr>
+<td>80.00%</td>
+<td>100.47%</td>
+<td>100.00%</td>
+<td>50.00%</td>
+</tr>
+<tr>
+<td>90.00%</td>
+<td>170.53%</td>
+<td>100.00%</td>
+<td>50.00%</td>
+</tr>
+</tbody></table>
+<p>70%假设下全凯利约30.41%、半凯利15.21%；这不证明真实胜率达到70%。50%/60%下负值仅表示该模型不支持新增多头。80%及以上的受限满仓由二项假设产生，不处理约5.50元或更低尾部、组合相关性与期限，不能据此满仓。</p>
+<h2 id="section-5">5. 风险与结论</h2>
+
+<h3>5.1 估值风险与失效条件</h3>
+<table>
+<thead>
+<tr>
+<th>风险 / 事实</th>
+<th>参数</th>
+<th>当前状态</th>
+<th>触发与处置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>新船支出与租赁消耗</td>
+<td>可分配比例、PE</td>
+<td>H1已走弱</td>
+<td>若未来现金持续不足以覆盖资本和租赁且无回报改善，完整重估；不得用净现金长期填补分配</td>
+</tr>
+<tr>
+<td>运价与成本不匹配</td>
+<td>正常利润180—300亿</td>
+<td>当期已出现</td>
+<td>Q3/H2单箱利润继续下降或正常化利润低于180亿，完整重估而非沿用下限</td>
+</tr>
+<tr>
+<td>有效运力恢复、需求退潮</td>
+<td>收入、净利率</td>
+<td>情景风险</td>
+<td>通道恢复与交船叠加并反映在多周运价和季度利润中，完整重估</td>
+</tr>
+<tr>
+<td>资产减值或少数权益变化</td>
+<td>NAV、归母回报</td>
+<td>暂未取得重大新增减值</td>
+<td>船舶/码头或联营重大减值，重新桥接归母价值</td>
+</tr>
+<tr>
+<td>新融资或资本承诺</td>
+<td>利息、股本、现金</td>
+<td>8月新增18艘船已纳入</td>
+<td>后续融资条款、股权稀释或新增重大订船，局部重算；改变财务持续性则全重估</td>
+</tr>
+<tr>
+<td>货币、监管与地缘</td>
+<td>要求回报率、成本</td>
+<td>金融条件证据不足</td>
+<td>USTR暂停到期规则、利率与成本新可比证据再审；不自动认为冲突有利</td>
+</tr>
+</tbody></table>
+<h3>5.2 最终结论</h3>
+<ul>
+<li>公允价值条件区间<strong>9.43—19.65元，中枢14.15元</strong>；主锚为正常化归母180/240/300亿元×8/9/10倍。它不是概率置信区间或未来保证成交价。</li>
+<li>16.14元在区间内，较中枢溢价14.09%，基准潜在回报−12.35%；合理乐观情景支持现价，但新增资金没有保守安全边际。</li>
+<li>基本面<strong>走弱</strong>；厚现金和降低融资负担提供韧性，不能抵销租赁与资本支付压力。第一且唯一不成立不等于公司没有价值。</li>
+<li><strong>出清观察，尚不认定泡沫或出清中。</strong> 资金与筹码缺口妨碍对偏离持续性的强判断。</li>
+<li>新增资金<strong>observe</strong>；已有持仓<strong>review</strong>。不改个人持仓、不提供唯一仓位。下一验证为正常利润、完整股东现金、船舶资本付款和Q3单位收益。</li>
+</ul>
+<h3>5.3 最少监控指标</h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>基线</th>
+<th>频率 / 重估动作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>集运EBIT率、单箱收入</td>
+<td>H1 14.15%、人民币约6827元/TEU</td>
+<td>季；改变180/240/300利润路径则完整重估</td>
+</tr>
+<tr>
+<td>CFO、资本及筹资租赁付款</td>
+<td>H1 233.30/141.37/72.96亿元</td>
+<td>季/公告；重复现金缺口改变分配和倍数</td>
+</tr>
+<tr>
+<td>严格净现金与义务</td>
+<td>692.71亿元，另有购股选择权和新船承诺</td>
+<td>季/事件；不能只看现金总额</td>
+</tr>
+<tr>
+<td>供需与运价</td>
+<td>最新已读周价9月4日、结算9月7日</td>
+<td>周/月；先验证是否传至利润，不因单日指数重估价值</td>
+</tr>
+<tr>
+<td>股本与资本配置</td>
+<td>152.6812亿股；本轮A股回购8月末3715.75万股</td>
+<td>公告；注销实施后更新每股分母</td>
+</tr>
+<tr>
+<td>资金与股东</td>
+<td>两融9月7日、户数6月末</td>
+<td>日/披露；只更新交易偏离，不能直接改内在价值</td>
+</tr>
+</tbody></table>
+<p><strong>未获取到的数据与研究局限</strong></p>
+<p>同口径3—5年全球有效运价中枢、维护/扩张开支与分年租赁更新、港口/投资归母利润拆分、已验证归母可分配现金、历史同业估值分位、完整1/5/20日资金与ETF申赎、交易方归因及最新大宗龙虎榜均不足。基于三年财务与最新H1构造正常化情景，因此区间置信度中低，不把假设当事实。未发现同证券既有权威估值研报，首次建立本稿；未覆盖历史产业/三要素报告。</p>
+<p><strong>数据时间审计</strong></p>
+<p>现价9月8日收盘、股本最新公告与H1一致；财报2026H1、历史年度2023—2025；融资最新取得9月7日（9月8日披露），未用旧盘中报价代替收盘。公告列表最新核验9月3日证券变动和回购，8月29日订船及半年报告；“未检出”不是保证无新事项。宏观金融、动态资金及独立未来现金缺口均已降低判断强度。</p>
+<p><strong>来源清单</strong></p>
+<ol>
+<li><strong>S1 法定披露：</strong> <a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12571262&stockid=601919">2026半年报</a>，2026-08-29；<a href="../../webpages/2026-09-08-中远海控-产业思维证据/2026H1.txt">本地正文</a>。费用、商誉、融资及现金分别核验附注2/27/43/45/47/48/63—66/78/79及研发。</li>
+<li><strong>S2 法定披露：</strong> <a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12005360&stockid=601919">2025年报</a>，2026-03-20；<a href="../../webpages/2026-09-08-中远海控-产业思维证据/2025.txt">本地正文</a>。</li>
+<li><strong>S3 法定披露：</strong> <a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=10800703&stockid=601919">2024年报</a>，2025-03-22；<a href="../../webpages/2026-09-08-中远海控-产业思维证据/2024.txt">本地正文</a>，含2023重述数据。</li>
+<li><strong>S4 公司公告：</strong> <a href="https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12571263&stockid=601919">18艘新船</a>，8月29日；<a href="https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?CompanyCode=80065439&gather=1&id=12580934">A股回购进展</a>，9月3日、数据8月31日；<a href="../../webpages/2026-09-08-中远海控-产业思维证据/造船公告.txt">订船副本</a>、<a href="../../webpages/2026-09-08-中远海控-产业思维证据/回购进展.txt">回购副本</a>。</li>
+<li><strong>S5 同行正式披露：</strong> <a href="https://investor.maersk.com/static-files/d0d97fdd-9715-463e-abba-259e202466e4">Maersk2026Q2</a>，8月13日；<a href="../../webpages/2026-09-08-中远海控-产业思维证据/Maersk2026Q2.pdf">PDF</a>。同行燃料及盈利用于成本旁证，不直接等同本公司。</li>
+<li><strong>S6 产业与事件输入：</strong> <a href="../../../workbench/targets/2026-09-08-1615-中远海控-产业思维分析.md">产业报告完整来源与日期</a>；<a href="https://www.cnfin.com/gs-lb/detail/20260828/4462204_1.html">新华财经Q2业绩交叉</a>，8月28日；<a href="https://ustr.gov/about/policy-offices/press-office/press-releases/2025/november/ustr-suspension-action-section-301-investigation-chinas-targeting-maritime-logistics-and">USTR暂停公告</a>，2025-11-09。没有以新闻称述替代财务附注明细。</li>
+<li><strong>S7 金融数据：</strong> <a href="https://stock.10jqka.com.cn/20260908/c679677064.shtml">同花顺9月7日融资及5日明细</a>，9月8日08:05；<a href="https://stockpage.10jqka.com.cn/601919/funds/">资金页</a>仅加载提示，不提供序列。本次无可调用Tushare工具，不宣称查询过Tushare。融资原文系自动数据报道，未逐笔交易所复核，保留数据源局限。</li>
+<li><strong>S8 行情：</strong> <a href="../../webpages/2026-09-08-中远海控-产业思维证据/行情腾讯.txt">腾讯9月8日快照</a>、<a href="../../webpages/2026-09-08-中远海控-产业思维证据/行情新浪.txt">新浪9月8日快照</a>；<a href="https://cn.investing.com/equities/china-cosco-historical-data">历史行情</a>用于8月24日、8月31日比较，今日盘中缓存排除。</li>
+<li><strong>模型与核验：</strong> <a href="../../webpages/2026-09-08-中远海控-估值证据/估值模型.json">可复算模型输入输出</a>、<a href="../../webpages/2026-09-08-中远海控-估值证据/证据摘录.md">新增附注证据摘录</a>；使用技能正常化方法、32项扫描、通胀传导、前沿业务边界及凯利参考。来源9月8日读取。</li>
+</ol>
+<p><strong>声明</strong></p>
+<p>价值是可审计假设下的条件区间，不是收益保证；股价可以低于保守情景。区间位置、凯利假设和产业资格均不能替代个人风险承受能力及真实交易计划。</p>
+</article>
+    </div>
+  </main>
+</body>
+</html>

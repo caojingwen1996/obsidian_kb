@@ -34,7 +34,7 @@ def report_metadata(targets_dir: Path, name: str, prior: dict | None) -> tuple[s
     if ranked:
         updated, _, path, text = max(ranked, key=lambda row: (row[0], row[1]))
         for line in text.splitlines()[:120]:
-            if "估值区间" not in line and "公允价值区间" not in line:
+            if not any(label in line for label in ("估值区间", "公允价值区间", "公允价值范围")):
                 continue
             match = RANGE_RE.search(line.replace("**", ""))
             if match:
@@ -196,7 +196,7 @@ def main() -> None:
         "items": items,
     }
     args.output.write_text(json.dumps(run, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"Collected {len(items)} targets through {trade_date}; week anchor {latest_day.isoformat()}; portfolio rows {len(tracking)}")
+    print(f"Collected {len(items)} targets through {trade_date}; portfolio rows {len(tracking)}")
 
 
 if __name__ == "__main__":

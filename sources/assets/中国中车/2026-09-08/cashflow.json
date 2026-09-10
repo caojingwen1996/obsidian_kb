@@ -1,0 +1,272 @@
+[
+  {
+    "ts_code": "601766.SH",
+    "ann_date": "2026-08-20",
+    "end_date": "2026-06-30",
+    "n_cashflow_act": -16139470000.0,
+    "c_pay_acq_const_fiolta": 3033606000.0,
+    "n_cashflow_inv_act": 3087528000.0,
+    "n_cash_flows_fnc_act": -2335299000.0,
+    "c_cash_equ_end_period": 27628963000.0
+  },
+  {
+    "ts_code": "601766.SH",
+    "ann_date": "2026-04-30",
+    "end_date": "2026-03-31",
+    "n_cashflow_act": -9084455000.0,
+    "c_pay_acq_const_fiolta": 1475237000.0,
+    "n_cashflow_inv_act": 8039314000.0,
+    "n_cash_flows_fnc_act": -954317000.0,
+    "c_cash_equ_end_period": 41152832000.0
+  },
+  {
+    "ts_code": "601766.SH",
+    "ann_date": "2026-04-30",
+    "end_date": "2026-03-31",
+    "n_cashflow_act": -9084455000.0,
+    "c_pay_acq_const_fiolta": 1475237000.0,
+    "n_cashflow_inv_act": 8039314000.0,
+    "n_cash_flows_fnc_act": -954317000.0,
+    "c_cash_equ_end_period": 41152832000.0
+  },
+  {
+    "ts_code": "601766.SH",
+    "ann_date": "2026-03-28",
+    "end_date": "2025-12-31",
+    "n_cashflow_act": 24185716000.0,
+    "c_pay_acq_const_fiolta": 9382515000.0,
+    "n_cashflow_inv_act": -14864987000.0,
+    "n_cash_flows_fnc_act": -12737031000.0,
+    "c_cash_equ_end_period": 43386289000.0
+  },
+  {
+    "ts_code": "601766.SH",
+    "ann_date": "2026-03-28",
+    "end_date": "2025-12-31",
+    "n_cashflow_act": 24185716000.0,
+    "c_pay_acq_const_fiolta": 9382515000.0,
+    "n_cashflow_inv_act": -14864987000.0,
+    "n_cash_flows_fnc_act": -12737031000.0,
+    "c_cash_equ_end_period": 43386289000.0
+  },
+  {
+    "ts_code": "601766.SH",
+    "ann_date": "2025-10-31",
+    "end_date": "2025-09-30",
+    "n_cashflow_act": -11527861000.0,
+    "c_pay_acq_const_fiolta": 5551266000.0,
+    "n_cashflow_inv_act": -14713381000.0,
+    "n_cash_flows_fnc_act": 4128942000.0,
+    "c_cash_equ_end_period": 24685483000.0
+  },
+  {
+    "ts_code": "601766.SH",
+    "ann_date": "2025-10-31",
+    "end_date": "2025-09-30",
+    "n_cashflow_act": -11527861000.0,
+    "c_pay_acq_const_fiolta": 5551266000.0,
+    "n_cashflow_inv_act": -14713381000.0,
+    "n_cash_flows_fnc_act": 4128942000.0,
+    "c_cash_equ_end_period": 24685483000.0
+  },
+  {
+    "ts_code": "601766.SH",
+    "ann_date": "2025-08-23",
+    "end_date": "2025-06-30",
+    "n_cashflow_act": -8997544000.0,
+    "c_pay_acq_const_fiolta": 3514780000.0,
+    "n_cashflow_inv_act": -11007126000.0,
+    "n_cash_flows_fnc_act": 9046120000.0,
+    "c_cash_equ_end_period": 35883777000.0
+  },
+  {
+    "ts_code": "601766.SH",
+    "ann_date": "2025-04-30",
+    "end_date": "2025-03-31",
+    "n_cashflow_act": -5034444000.0,
+    "c_pay_acq_const_fiolta": 1162095000.0,
+    "n_cashflow_inv_act": -8127760000.0,
+    "n_cash_flows_fnc_act": 176298000.0,
+    "c_cash_equ_end_period": 33659409000.0
+  },
+  {
+    "ts_code": "601766.SH",
+    "ann_date": "2025-04-30",
+    "end_date": "2025-03-31",
+    "n_cashflow_act": -5034444000.0,
+    "c_pay_acq_const_fiolta": 1162095000.0,
+    "n_cashflow_inv_act": -8127760000.0,
+    "n_cash_flows_fnc_act": 176298000.0,
+    "c_cash_equ_end_period": 33659409000.0
+  },
+  {
+    "ts_code": "601766.SH",
+    "ann_date": "2025-03-29",
+    "end_date": "2024-12-31",
+    "n_cashflow_act": 27127503000.0,
+    "c_pay_acq_const_fiolta": 10184807000.0,
+    "n_cashflow_inv_act": -17038007000.0,
+    "n_cash_flows_fnc_act": -9445353000.0,
+    "c_cash_equ_end_period": 46553111000.0
+  },
+  {
+    "ts_code": "601766.SH",
+    "ann_date": "2024-10-31",
+    "end_date": "2024-09-30",
+    "n_cashflow_act": 7622185000.0,
+    "c_pay_acq_const_fiolta": 5173652000.0,
+    "n_cashflow_inv_act": -9094176000.0,
+    "n_cash_flows_fnc_act": -8903448000.0,
+    "c_cash_equ_end_period": 35552037000.0
+  },
+  {
+    "ts_code": "601766.SH",
+    "ann_date": "2024-08-24",
+    "end_date": "2024-06-30",
+    "n_cashflow_act": 1845139000.0,
+    "c_pay_acq_const_fiolta": 3577674000.0,
+    "n_cashflow_inv_act": -12424254000.0,
+    "n_cash_flows_fnc_act": -2876637000.0,
+    "c_cash_equ_end_period": 32485160000.0
+  },
+  {
+    "ts_code": "601766.SH",
+    "ann_date": "2024-04-30",
+    "end_date": "2024-03-31",
+    "n_cashflow_act": 14487790000.0,
+    "c_pay_acq_const_fiolta": 905085000.0,
+    "n_cashflow_inv_act": -2954471000.0,
+    "n_cash_flows_fnc_act": -757645000.0,
+    "c_cash_equ_end_period": 56781149000.0
+  },
+  {
+    "ts_code": "601766.SH",
+    "ann_date": "2024-04-30",
+    "end_date": "2024-03-31",
+    "n_cashflow_act": 14487790000.0,
+    "c_pay_acq_const_fiolta": 905085000.0,
+    "n_cashflow_inv_act": -2954471000.0,
+    "n_cash_flows_fnc_act": -757645000.0,
+    "c_cash_equ_end_period": 56781149000.0
+  },
+  {
+    "ts_code": "601766.SH",
+    "ann_date": "2024-03-29",
+    "end_date": "2023-12-31",
+    "n_cashflow_act": 14721616000.0,
+    "c_pay_acq_const_fiolta": 8103773000.0,
+    "n_cashflow_inv_act": -11177322000.0,
+    "n_cash_flows_fnc_act": -5366691000.0,
+    "c_cash_equ_end_period": 46067025000.0
+  },
+  {
+    "ts_code": "601766.SH",
+    "ann_date": "2023-10-28",
+    "end_date": "2023-09-30",
+    "n_cashflow_act": -3992206000.0,
+    "c_pay_acq_const_fiolta": 4152465000.0,
+    "n_cashflow_inv_act": -6753201000.0,
+    "n_cash_flows_fnc_act": 1223771000.0,
+    "c_cash_equ_end_period": 38202735000.0
+  },
+  {
+    "ts_code": "601766.SH",
+    "ann_date": "2023-08-26",
+    "end_date": "2023-06-30",
+    "n_cashflow_act": -14780023000.0,
+    "c_pay_acq_const_fiolta": 2430888000.0,
+    "n_cashflow_inv_act": -5906961000.0,
+    "n_cash_flows_fnc_act": 6295720000.0,
+    "c_cash_equ_end_period": 33459271000.0
+  },
+  {
+    "ts_code": "601766.SH",
+    "ann_date": "2023-04-29",
+    "end_date": "2023-03-31",
+    "n_cashflow_act": -7232528000.0,
+    "c_pay_acq_const_fiolta": 1096201000.0,
+    "n_cashflow_inv_act": -5124251000.0,
+    "n_cash_flows_fnc_act": 5387576000.0,
+    "c_cash_equ_end_period": 40608487000.0
+  },
+  {
+    "ts_code": "601766.SH",
+    "ann_date": "2023-04-29",
+    "end_date": "2023-03-31",
+    "n_cashflow_act": -7232528000.0,
+    "c_pay_acq_const_fiolta": 1096201000.0,
+    "n_cashflow_inv_act": -5124251000.0,
+    "n_cash_flows_fnc_act": 5387576000.0,
+    "c_cash_equ_end_period": 40608487000.0
+  },
+  {
+    "ts_code": "601766.SH",
+    "ann_date": "2023-03-31",
+    "end_date": "2022-12-31",
+    "n_cashflow_act": 23953216000.0,
+    "c_pay_acq_const_fiolta": 7417459000.0,
+    "n_cashflow_inv_act": -8780943000.0,
+    "n_cash_flows_fnc_act": -11211851000.0,
+    "c_cash_equ_end_period": 47607566000.0
+  },
+  {
+    "ts_code": "601766.SH",
+    "ann_date": "2023-03-31",
+    "end_date": "2022-12-31",
+    "n_cashflow_act": 23953216000.0,
+    "c_pay_acq_const_fiolta": 7417459000.0,
+    "n_cashflow_inv_act": -8780943000.0,
+    "n_cash_flows_fnc_act": -11211851000.0,
+    "c_cash_equ_end_period": 47607566000.0
+  },
+  {
+    "ts_code": "601766.SH",
+    "ann_date": "2022-10-29",
+    "end_date": "2022-09-30",
+    "n_cashflow_act": 9859793000.0,
+    "c_pay_acq_const_fiolta": 3120446000.0,
+    "n_cashflow_inv_act": -6014027000.0,
+    "n_cash_flows_fnc_act": -245685000.0,
+    "c_cash_equ_end_period": 47293432000.0
+  },
+  {
+    "ts_code": "601766.SH",
+    "ann_date": "2022-08-27",
+    "end_date": "2022-06-30",
+    "n_cashflow_act": -1929087000.0,
+    "c_pay_acq_const_fiolta": 2000676000.0,
+    "n_cashflow_inv_act": -4985525000.0,
+    "n_cash_flows_fnc_act": 4954496000.0,
+    "c_cash_equ_end_period": 41487744000.0
+  },
+  {
+    "ts_code": "601766.SH",
+    "ann_date": "2022-04-30",
+    "end_date": "2022-03-31",
+    "n_cashflow_act": -9017614000.0,
+    "c_pay_acq_const_fiolta": 906831000.0,
+    "n_cashflow_inv_act": -5639495000.0,
+    "n_cash_flows_fnc_act": 3824681000.0,
+    "c_cash_equ_end_period": 32440315000.0
+  },
+  {
+    "ts_code": "601766.SH",
+    "ann_date": "2022-03-31",
+    "end_date": "2021-12-31",
+    "n_cashflow_act": 20592700000.0,
+    "c_pay_acq_const_fiolta": 5906780000.0,
+    "n_cashflow_inv_act": -13685364000.0,
+    "n_cash_flows_fnc_act": 7110955000.0,
+    "c_cash_equ_end_period": 43277994000.0
+  },
+  {
+    "ts_code": "601766.SH",
+    "ann_date": "2022-03-31",
+    "end_date": "2021-12-31",
+    "n_cashflow_act": 20592700000.0,
+    "c_pay_acq_const_fiolta": 5906780000.0,
+    "n_cashflow_inv_act": -13685364000.0,
+    "n_cash_flows_fnc_act": 7110955000.0,
+    "c_cash_equ_end_period": 43277994000.0
+  }
+]

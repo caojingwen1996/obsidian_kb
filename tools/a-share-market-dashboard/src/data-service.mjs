@@ -98,10 +98,11 @@ export async function loadDomain({
 
 export async function refreshDomains(definitions, options = {}) {
   if (!definitions.length) return {};
-  const { concurrency = definitions.length, ...loadOptions } = options;
+  const { concurrency = definitions.length, onProgress, ...loadOptions } = options;
   const workerCount = Math.max(1, Math.min(definitions.length, Number(concurrency) || definitions.length));
   const entries = new Array(definitions.length);
   let nextIndex = 0;
+  let completed = 0;
   const worker = async () => {
     while (nextIndex < definitions.length) {
       const index = nextIndex;
@@ -109,6 +110,8 @@ export async function refreshDomains(definitions, options = {}) {
       const definition = definitions[index];
       const result = await loadDomain({ ...definition, ...loadOptions });
       entries[index] = [definition.id, result];
+      completed += 1;
+      onProgress?.({ id: definition.id, result, completed, total: definitions.length });
     }
   };
   await Promise.all(Array.from({ length: workerCount }, worker));

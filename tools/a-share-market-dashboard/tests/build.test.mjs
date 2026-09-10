@@ -792,7 +792,7 @@ test('industry report panels use the holdings-list table layout', () => {
     '../../sources/automations/支柱产业/电网/2026-07-30-华明装备-机构级决策研报.html',
     '神马电力-机构级决策研报',
     '神马电力资金面分层分析',
-    '../../sources/automations/新兴产业/电网/2026-07-16-1021-神马电力-机构级决策研报.html',
+    '../../sources/automations/新兴产业/电网/神马电力-机构级决策研报.html',
     '../../sources/automations/支柱产业/电网/2026-07-18-神马电力资金面分层分析.html',
     '来源目录：sources/automations/支柱产业/电解铝',
     '来源目录：sources/automations/新兴产业/商业航天',
@@ -840,7 +840,7 @@ test('industry report panels use the holdings-list table layout', () => {
   assert.equal(reportRows.some(row => row.includes('十五五电网投资与电网行业完整分析报告')), false);
   assert.match(html, /data-filters="电网"[\s\S]*华明装备-机构级决策研报/);
   assert.match(html, /data-filters="电网"[\s\S]*神马电力-机构级决策研报/);
-  assert.doesNotMatch(html, /sources\/automations\/支柱产业\/电网\/2026-07-16-1021-神马电力-机构级决策研报\.html/);
+  assert.doesNotMatch(html, /sources\/automations\/支柱产业\/电网\/神马电力-机构级决策研报\.html/);
   assert.match(html, /<tr class="industry-report"[^>]*data-filters=""[^>]*>[\s\S]*中国中车机构级决策研报/);
   const appSource = readFileSync(new URL('../src/app.mjs', import.meta.url), 'utf8');
   assert.match(appSource, /querySelectorAll\('\.industry-research-item'\)/);

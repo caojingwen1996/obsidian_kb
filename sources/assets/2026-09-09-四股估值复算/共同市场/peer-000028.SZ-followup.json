@@ -1,0 +1,29 @@
+{
+  "retrieved": "2026-09-09T16:35:59.679762",
+  "params": {
+    "ts_code": "000028.SZ",
+    "trade_date": "20260908"
+  },
+  "rows": [
+    {
+      "ts_code": "000028.SZ",
+      "trade_date": "20260908",
+      "close": 20.36,
+      "turnover_rate": 0.4405,
+      "turnover_rate_f": 1.2664,
+      "volume_ratio": 0.95,
+      "pe": 10.9733,
+      "pe_ttm": 11.582,
+      "pb": 0.6604,
+      "ps": 0.1698,
+      "ps_ttm": 0.171,
+      "dv_ratio": 1.6342,
+      "dv_ttm": 2.7505,
+      "total_share": 61222.1584,
+      "float_share": 52585.9082,
+      "free_share": 18292.0394,
+      "total_mv": 1246483.1776,
+      "circ_mv": 1070649.1276
+    }
+  ]
+}

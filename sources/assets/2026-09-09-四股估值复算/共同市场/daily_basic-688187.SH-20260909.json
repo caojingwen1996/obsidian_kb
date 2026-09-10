@@ -1,0 +1,29 @@
+{
+  "retrieved": "2026-09-09T16:36:55.486115",
+  "params": {
+    "ts_code": "688187.SH",
+    "trade_date": "20260909"
+  },
+  "rows": [
+    {
+      "ts_code": "688187.SH",
+      "trade_date": "20260909",
+      "close": 46.1,
+      "turnover_rate": 0.2499,
+      "turnover_rate_f": 0.8398,
+      "volume_ratio": null,
+      "pe": 14.9749,
+      "pe_ttm": 14.8273,
+      "pb": 1.4466,
+      "ps": 2.1373,
+      "ps_ttm": 2.0753,
+      "dv_ratio": 3.1236,
+      "dv_ttm": 2.4295,
+      "total_share": 133070.3412,
+      "float_share": 86890.7512,
+      "free_share": 25852.6027,
+      "total_mv": 6134542.674,
+      "circ_mv": 4005663.575
+    }
+  ]
+}

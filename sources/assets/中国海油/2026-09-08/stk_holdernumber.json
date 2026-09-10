@@ -1,0 +1,117 @@
+{
+  "fetched_at": "2026-09-08T09:59:29.097869",
+  "params": {
+    "start_date": "20240101",
+    "end_date": "20260908"
+  },
+  "rows": [
+    {
+      "ts_code": "600938.SH",
+      "ann_date": "2026-07-07",
+      "end_date": "2026-07-07",
+      "holder_num": null
+    },
+    {
+      "ts_code": "600938.SH",
+      "ann_date": "2026-08-27",
+      "end_date": "2026-06-30",
+      "holder_num": 213020.0
+    },
+    {
+      "ts_code": "600938.SH",
+      "ann_date": "2026-04-02",
+      "end_date": "2026-04-02",
+      "holder_num": null
+    },
+    {
+      "ts_code": "600938.SH",
+      "ann_date": "2026-04-29",
+      "end_date": "2026-03-31",
+      "holder_num": 217916.0
+    },
+    {
+      "ts_code": "600938.SH",
+      "ann_date": "2026-03-27",
+      "end_date": "2026-02-28",
+      "holder_num": 224003.0
+    },
+    {
+      "ts_code": "600938.SH",
+      "ann_date": "2026-03-27",
+      "end_date": "2025-12-31",
+      "holder_num": 185906.0
+    },
+    {
+      "ts_code": "600938.SH",
+      "ann_date": "2025-12-03",
+      "end_date": "2025-12-03",
+      "holder_num": null
+    },
+    {
+      "ts_code": "600938.SH",
+      "ann_date": "2025-10-31",
+      "end_date": "2025-09-30",
+      "holder_num": 216486.0
+    },
+    {
+      "ts_code": "600938.SH",
+      "ann_date": "2025-08-28",
+      "end_date": "2025-06-30",
+      "holder_num": 232820.0
+    },
+    {
+      "ts_code": "600938.SH",
+      "ann_date": "2025-04-30",
+      "end_date": "2025-03-31",
+      "holder_num": 233407.0
+    },
+    {
+      "ts_code": "600938.SH",
+      "ann_date": "2025-03-28",
+      "end_date": "2025-02-28",
+      "holder_num": 225538.0
+    },
+    {
+      "ts_code": "600938.SH",
+      "ann_date": "2025-03-28",
+      "end_date": "2024-12-31",
+      "holder_num": 181598.0
+    },
+    {
+      "ts_code": "600938.SH",
+      "ann_date": "2024-10-29",
+      "end_date": "2024-09-30",
+      "holder_num": 170141.0
+    },
+    {
+      "ts_code": "600938.SH",
+      "ann_date": "2024-08-29",
+      "end_date": "2024-06-30",
+      "holder_num": 147275.0
+    },
+    {
+      "ts_code": "600938.SH",
+      "ann_date": "2024-04-26",
+      "end_date": "2024-03-31",
+      "holder_num": 151765.0
+    },
+    {
+      "ts_code": "600938.SH",
+      "ann_date": "2024-05-06",
+      "end_date": "2024-03-28",
+      "holder_num": null
+    },
+    {
+      "ts_code": "600938.SH",
+      "ann_date": "2024-03-22",
+      "end_date": "2024-02-29",
+      "holder_num": 129219.0
+    },
+    {
+      "ts_code": "600938.SH",
+      "ann_date": "2024-03-22",
+      "end_date": "2023-12-31",
+      "holder_num": 118407.0
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "security": "600011.SH",
+  "name": "华能国际",
+  "currency": "CNY",
+  "valuation_date": "2026-09-10",
+  "market_data_through": "2026-09-09",
+  "price": 7.04,
+  "total_shares_billion": 15.698093359,
+  "market_cap_billion": 110.514577536,
+  "primary_method": "正常化普通股股东利润乘以PE",
+  "method_boundary": "利润口径扣除永续债等其他权益工具分配；PE法直接得到普通股权益价值，不重复扣除净债务",
+  "scenarios": [
+    {"name": "保守", "normalized_common_profit_billion": 8.0, "pe": 9.0, "fair_value_per_share": 4.5865442607},
+    {"name": "基准", "normalized_common_profit_billion": 10.0, "pe": 10.0, "fair_value_per_share": 6.3702003621},
+    {"name": "乐观", "normalized_common_profit_billion": 12.0, "pe": 11.0, "fair_value_per_share": 8.4086644780}
+  ],
+  "rounded_fair_value": {"lower": 4.59, "center": 6.37, "upper": 8.41},
+  "reverse_valuation": {"assumed_pe": 10.0, "implied_common_profit_billion": 11.0514577247, "ttm_common_profit_billion": 9.2618750818},
+  "price_decomposition": {"fair_value_center": 6.37, "separate_quality_premium": 0.0, "pricing_residual": 0.67},
+  "kelly": {
+    "upside_amount": 1.3686644780,
+    "downside_amount": 2.4534557393,
+    "break_even_probability": 0.6419096208,
+    "rows": [
+      {"assumed_probability": 0.5, "full_kelly": 0.0, "half_kelly": 0.0},
+      {"assumed_probability": 0.6, "full_kelly": 0.0, "half_kelly": 0.0},
+      {"assumed_probability": 0.7, "full_kelly": 0.1622226750, "half_kelly": 0.0811113375},
+      {"assumed_probability": 0.8, "full_kelly": 0.4414817833, "half_kelly": 0.2207408917},
+      {"assumed_probability": 0.9, "full_kelly": 0.7207408917, "half_kelly": 0.3603704458}
+    ]
+  }
+}

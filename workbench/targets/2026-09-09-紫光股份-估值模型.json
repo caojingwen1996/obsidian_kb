@@ -1,0 +1,211 @@
+{
+  "version": "4.4.3-recalculation",
+  "as_of": "2026-09-09",
+  "price_date": "2026-09-08",
+  "price": 33.89,
+  "shares_in_100m": 28.60079874,
+  "years": 0.3095890410958904,
+  "discount": 1.0357080706202872,
+  "normalised_h1_sensitivity": 15.43058302660993,
+  "normalised_h1_range": [
+    14.979036520150002,
+    15.692795556983501
+  ],
+  "scenarios": [
+    {
+      "name": "悲观",
+      "profit": 30,
+      "distribution_profit": 2,
+      "core_profit": 28,
+      "core_pe": 24,
+      "distribution_pe": 12,
+      "year_end_equity": 696,
+      "fair_value": 23.495988299403542,
+      "h2_required": 14.56941697339007,
+      "cash_conversion": 0.65,
+      "cash_growth": 0.1,
+      "cashflows_2027_2031": [
+        21.450000000000003,
+        23.595000000000002,
+        25.954500000000007,
+        28.549950000000006,
+        31.404945000000012
+      ],
+      "forecast_pv_at_2026_end": 92.39949425489479,
+      "terminal_pv_at_2026_end": 203.94010523585018,
+      "terminal_share": 0.6881972763218892,
+      "cash_pressure_value": 10.004011152707578
+    },
+    {
+      "name": "基准",
+      "profit": 35,
+      "distribution_profit": 2.5,
+      "core_profit": 32.5,
+      "core_pe": 28,
+      "distribution_pe": 14,
+      "year_end_equity": 945.0,
+      "fair_value": 31.90188066513843,
+      "h2_required": 19.56941697339007,
+      "cash_conversion": 0.8,
+      "cash_growth": 0.15,
+      "cashflows_2027_2031": [
+        32.199999999999996,
+        37.029999999999994,
+        42.58449999999999,
+        48.972174999999986,
+        56.31800124999998
+      ],
+      "forecast_pv_at_2026_end": 151.65994416967317,
+      "terminal_pv_at_2026_end": 365.72263067481043,
+      "terminal_share": 0.7068707924396961,
+      "cash_pressure_value": 17.46611339778917
+    },
+    {
+      "name": "乐观",
+      "profit": 40,
+      "distribution_profit": 3,
+      "core_profit": 37,
+      "core_pe": 32,
+      "distribution_pe": 16,
+      "year_end_equity": 1232,
+      "fair_value": 41.590599978254545,
+      "h2_required": 24.56941697339007,
+      "cash_conversion": 0.9,
+      "cash_growth": 0.2,
+      "cashflows_2027_2031": [
+        43.199999999999996,
+        51.839999999999996,
+        62.20799999999999,
+        74.64959999999999,
+        89.57951999999997
+      ],
+      "forecast_pv_at_2026_end": 222.4473805557207,
+      "terminal_pv_at_2026_end": 581.7191125721422,
+      "terminal_share": 0.7233814359878441,
+      "cash_pressure_value": 27.147538093828512
+    }
+  ],
+  "kelly": {
+    "u": 0.2272233690839347,
+    "d": 0.30669848629673824,
+    "break_even": 0.5744257950970557,
+    "odds": 0.7408688964447335,
+    "rows": [
+      {
+        "p": 0.5,
+        "theoretical": -0.5702122642577869,
+        "constrained": 0,
+        "half": 0.0
+      },
+      {
+        "p": 0.6,
+        "theoretical": 0.19593643931225335,
+        "constrained": 0.19593643931225335,
+        "half": 0.09796821965612668
+      },
+      {
+        "p": 0.7,
+        "theoretical": 0.9620851428822934,
+        "constrained": 0.9620851428822934,
+        "half": 0.4810425714411467
+      },
+      {
+        "p": 0.8,
+        "theoretical": 1.7282338464523348,
+        "constrained": 1,
+        "half": 0.5
+      },
+      {
+        "p": 0.9,
+        "theoretical": 2.4943825500223746,
+        "constrained": 1,
+        "half": 0.5
+      }
+    ]
+  },
+  "price_position": {
+    "premium_mid": 0.06231981605504955,
+    "deviation_upper": -0.1851524138214108,
+    "upside_mid": -0.0586638930322092,
+    "conservative_margin": -0.44237388817819223,
+    "outside_upper": 0,
+    "mid_residual": 1.9881193348615689
+  },
+  "reverse": {
+    "required_profit": 37.10329379185792,
+    "required_h2": 21.67271076524799,
+    "required_cash_conversion": 1.5522629094708496,
+    "required_profit_growth_3y": 0.3142004838868997,
+    "growth_years_at_20pct": 4.4958230143214255,
+    "required_ict_multiple": 29.812068497600674
+  },
+  "flows": {
+    "5": {
+      "start": "20260901",
+      "end": "20260908",
+      "price_return": -0.11560542797494777,
+      "large_net": -25.701088,
+      "margin_change": 0.042001100514025724
+    },
+    "10": {
+      "start": "20260825",
+      "end": "20260908",
+      "price_return": -0.034472934472934535,
+      "large_net": -20.065038000000012,
+      "margin_change": 0.11614917280868298
+    },
+    "20": {
+      "start": "20260811",
+      "end": "20260908",
+      "price_return": -0.09360791655522871,
+      "large_net": -54.02813500000002,
+      "margin_change": 0.02171523185260993
+    }
+  },
+  "debt": [
+    {
+      "period": "20260630",
+      "core_debt": 291.0289919659,
+      "expanded_debt": 343.4274267725,
+      "cash": 67.2909226354,
+      "short_investments": 0.34922526859999997,
+      "strict_net_cash": -223.7380693305,
+      "extended_net_cash": -276.1365041371
+    },
+    {
+      "period": "20251231",
+      "core_debt": 220.2525832142,
+      "expanded_debt": 315.6542143843,
+      "cash": 85.7430133099,
+      "short_investments": 1.3706127778,
+      "strict_net_cash": -134.5095699043,
+      "extended_net_cash": -229.91120107440003
+    }
+  ],
+  "sensitivity_matrix": [
+    [
+      23.46222969552509,
+      27.175676122154957,
+      30.88912254878483
+    ],
+    [
+      27.51326216093949,
+      31.90188066513843,
+      36.290499169337366
+    ],
+    [
+      31.564294626353895,
+      36.6280852081219,
+      41.691875789889906
+    ]
+  ],
+  "issuance": {
+    "new_shares_max": 4.3,
+    "diluted_shares": 32.90079874,
+    "baseline_no_savings": 27.732435177077456,
+    "annual_savings_upper": 1.1272499999999996,
+    "with_upper_savings": 28.658698511991837
+  },
+  "repurchase_cost_stress": 1.5545368443790535,
+  "baseline_higher_discount": 31.72754934483065
+}

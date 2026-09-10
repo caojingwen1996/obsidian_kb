@@ -1,0 +1,22 @@
+{
+  "retrieved": "2026-09-09T16:35:57.013598",
+  "params": {
+    "ts_code": "600511.SH",
+    "trade_date": "20260909"
+  },
+  "rows": [
+    {
+      "ts_code": "600511.SH",
+      "trade_date": "20260909",
+      "open": 26.87,
+      "high": 26.93,
+      "low": 26.72,
+      "close": 26.89,
+      "pre_close": 26.92,
+      "change": -0.03,
+      "pct_chg": -0.1114,
+      "vol": 19127.0,
+      "amount": 51359.493
+    }
+  ]
+}

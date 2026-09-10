@@ -1,0 +1,962 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>华能国际机构级决策研报</title>
+  <style>:root {
+  --ink: #173247;
+  --muted: #657786;
+  --paper: #f4f7f8;
+  --card: #ffffff;
+  --navy: #0d4266;
+  --teal: #2d7480;
+  --gold: #a98c55;
+  --line: #d9e1e5;
+  --danger: #a82828;
+  --danger-bg: #ffe1df;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  line-height: 1.7;
+}
+
+.report-shell { max-width: 1500px; margin: 0 auto; background: var(--card); }
+.hero {
+  padding: 56px 76px 46px;
+  color: #fff;
+  background: linear-gradient(112deg, #0b3d60 0%, #164f70 55%, #817145 100%);
+}
+.eyebrow { margin: 0 0 12px; letter-spacing: .18em; font-size: 13px; opacity: .86; }
+.hero h1 { margin: 0; max-width: 1080px; font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: clamp(34px, 4.5vw, 64px); line-height: 1.16; font-weight: 600; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 19px; font-size: 14px; opacity: .92; }
+.layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); }
+.toc { padding: 32px 24px; border-right: 1px solid var(--line); background: #f8fafb; }
+.toc-inner { position: sticky; top: 18px; }
+.toc-title { margin: 0 0 13px 10px; color: var(--muted); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+.toc-link { display: block; padding: 7px 10px; border-radius: 7px; color: #36566d; text-decoration: none; font-size: 13px; line-height: 1.35; }
+.toc-link:hover { color: var(--navy); background: #e8f0f3; }
+.content { min-width: 0; padding: 42px 62px 80px; }
+.content > blockquote:first-child { margin-top: 0; }
+.content h2 { margin: 56px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #dce6e9; color: var(--navy); font-family: Georgia, "Noto Serif SC", "Songti SC", serif; font-size: 29px; line-height: 1.35; scroll-margin-top: 20px; }
+.content h2:first-of-type { margin-top: 12px; }
+.content h3 { margin: 32px 0 12px; color: #285b70; font-size: 20px; }
+.content h4 { margin: 24px 0 10px; color: #396675; font-size: 16px; }
+.content p, .content li { font-size: 15px; }
+.content a { color: #0d678e; text-underline-offset: 3px; }
+.content blockquote { margin: 20px 0; padding: 13px 18px; border-left: 4px solid var(--teal); color: #456170; background: #edf4f5; }
+.content table { width: 100%; margin: 18px 0 28px; border-collapse: collapse; display: block; overflow-x: auto; font-size: 13px; }
+.content th, .content td { min-width: 94px; padding: 10px 12px; border: 1px solid var(--line); vertical-align: top; }
+.content th { color: #fff; background: #245b72; text-align: left; white-space: nowrap; }
+.content tr:nth-child(even) td { background: #f7f9fa; }
+.content code { padding: 2px 5px; border-radius: 4px; background: #e9eef0; font-family: Consolas, monospace; }
+.content hr { margin: 44px 0; border: 0; border-top: 1px solid var(--line); }
+
+.daily-tracking { margin: 0 0 42px; padding: 22px; border: 1px solid #cbdade; border-radius: 16px; background: linear-gradient(135deg, #f3f8f9 0%, #fffaf0 100%); box-shadow: 0 12px 30px rgba(23, 50, 71, .07); }
+.daily-tracking-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
+.daily-tracking-kicker { margin: 0 0 4px; color: var(--teal); font-size: 12px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+.daily-tracking h2 { margin: 0; padding: 0; border: 0; font-size: 27px; }
+.daily-tracking-time { margin: 4px 0 0; color: var(--muted); font-size: 12px; text-align: right; }
+.tracking-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.tracking-card { min-width: 0; padding: 16px; border: 1px solid #d5e0e3; border-radius: 12px; background: rgba(255,255,255,.86); }
+.tracking-label { margin: 0 0 7px; color: var(--muted); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.tracking-title { margin: 0 0 14px; color: var(--navy); font-size: 18px; font-weight: 750; }
+.tracking-value { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.35; font-weight: 780; }
+.tracking-value.bad { color: var(--danger); }
+.fundamental-metric, .kelly-metric { margin: 0 0 7px; color: var(--navy); font-size: 14px; line-height: 1.55; font-weight: 650; }
+.kelly-summary { margin-top: 18px; padding-top: 15px; border-top: 1px solid var(--line); }
+
+.tracking-card[data-tracking-key="fair-value-range"] .tracking-value { font-size: 18px; line-height: 1.45; }
+.pricing-levels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+.pricing-level { display: flex; align-items: center; justify-content: center; min-height: 34px; padding: 5px 7px; border: 1px solid #d5e0e3; border-radius: 8px; color: #607580; background: #f4f7f8; font-size: 12px; line-height: 1.25; font-weight: 750; text-align: center; }
+.pricing-level.active { border-color: transparent; box-shadow: 0 0 0 2px rgba(15, 50, 70, .08); }
+.pricing-level-premium.active { color: #17604e; background: #dff3eb; }
+.pricing-level-overvalued.active { color: #86610d; background: #fff0bd; }
+.pricing-level-bubble.active { color: #9b4d10; background: #ffe3c9; }
+.pricing-level-severe.active { color: var(--danger); background: var(--danger-bg); }
+.tracking-detail { margin: 11px 0 0; color: var(--ink-soft); font-size: 13px; line-height: 1.65; }
+
+@media (max-width: 980px) {
+  .hero { padding: 40px 30px 34px; }
+  .layout { grid-template-columns: 1fr; }
+  .toc { border-right: 0; border-bottom: 1px solid var(--line); }
+  .toc-inner { position: static; columns: 2; }
+  .content { padding: 34px 30px 64px; }
+  .tracking-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .toc-inner { columns: 1; }
+  .content { padding: 28px 18px 54px; }
+  .daily-tracking-head { display: block; }
+  .daily-tracking-time { text-align: left; }
+}
+
+@media print {
+  body { background: #fff; }
+  .report-shell { max-width: none; }
+  .hero { padding: 30px 36px; color: #102f43; background: #fff; border-bottom: 2px solid #102f43; }
+  .daily-tracking, .tracking-card { border: 1px solid #aebbc2; color: #102f43; background: #fff; box-shadow: none; }
+  .layout { display: block; }
+  .toc { display: none; }
+  .content { padding: 25px 36px; }
+  .content h2 { break-after: avoid; }
+  .content table { display: table; overflow: visible; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <main class="report-shell">
+    <header class="hero">
+      <p class="eyebrow">BBXM EQUITY VALUATION · 600011.SH</p>
+      <h1>华能国际机构级决策研报</h1>
+      <div class="hero-meta"><span>研究截止时间未获取</span><span>报告生成时间未获取</span><span>市场与币种未获取</span></div>
+    </header>
+    <div class="layout">
+      <aside class="toc"><div class="toc-inner"><p class="toc-title">Report contents</p><a class="toc-link" href="#section-1">1. 估值摘要</a>
+<a class="toc-link" href="#section-2">2. 估值基础</a>
+<a class="toc-link" href="#section-3">3. 估值方法与假设</a>
+<a class="toc-link" href="#section-4">4. 估值结果与交易溢价</a>
+<a class="toc-link" href="#section-5">5. 仓位测算与网格交易</a>
+<a class="toc-link" href="#section-6">6. 风险与结论</a></div></aside>
+      <article class="content"><blockquote>
+<p>证券：600011.SH，华能国际电力股份有限公司，上海证券交易所；人民币/股。<br>研究时间：2026-09-10 10:35（Asia/Shanghai）；行情截至 2026-09-09 收盘 7.04 元，不标成 9 月 10 日实时价。<br>财务：2026H1；流量同比 2025H1，存量对比 2025 年末，历史覆盖 2022—2025。<br>上游：<a href="../../../../../workbench/targets/华能国际-产业思维分析.md">华能国际产业思维分析</a>，2026-09-10，完整 16 项周期扫描。<br>框架：<a href="../../../../../wiki/concepts/冰冰小美-framework-估值判断.md">估值判断框架</a>。金额除每股数外为亿元；普通股利润与普通股净资产均扣除永续债等其他权益工具影响。</p>
+</blockquote>
+<!-- DAILY_TRACKING_START -->
+<section class="daily-tracking" id="daily-tracking" data-updated-at="2026-09-10 10:35；市场数据截至 9 月 9 日，财务截至 2026H1。">
+  <div class="daily-tracking-head">
+    <div><p class="daily-tracking-kicker">Daily valuation tracker</p><h2>每日跟踪面板</h2></div>
+    <p class="daily-tracking-time">更新：2026-09-10 10:35；市场数据截至 9 月 9 日，财务截至 2026H1。<br>下次：收盘后 / 财报或重大公告后</p>
+  </div>
+  <div class="tracking-grid">
+    <div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p><p class="tracking-value bad">负债：融资债务约 3,189.94 亿元，较年末增加约 101.05 亿元；净现金：严格净债务约 2,966.01 亿元，较年末增加约 71.68 亿元；现金流：CFO 252.43 亿元、FCF 代理 48.52 亿元，同比均下降；开销：销/管/研/财务费用率合计约 7.04%，上年约 6.41%；真实利润：扣非归母 60.38 亿元，同比 -31.43%，普通股口径 H1 盈利约 54.94 亿元；扣商誉普通股净资产：约 530.48 亿元，较年末基本持平。综合：走弱。</p></div>
+    <div class="tracking-card" data-tracking-key="fair-value-range"><p class="tracking-title">心理面</p><p class="tracking-label">公允价值范围</p><p class="tracking-value">4.59—8.41 元；中枢 6.37 元；2026-09-10 完整复算。</p><div class="kelly-summary"><p class="tracking-label">凯利测算</p><p class="kelly-metric">现价 7.04 元；到上限 +19.44%，到下限 -34.85%；盈亏平衡概率 64.19%。假设成功率 50%/60% 时全凯利与半凯利均为 0；70% 时 16.22%/8.11%，80% 时 44.15%/22.07%，90% 时 72.07%/36.04%。真实概率待验证，非仓位建议。</p></div></div>
+    <div class="tracking-card" data-tracking-key="pricing-deviation"><p class="tracking-title">情绪面</p><p class="tracking-label">交易偏离定价</p><div class="pricing-levels"><span class="pricing-level pricing-level-premium">估值溢价</span><span class="pricing-level pricing-level-overvalued">普通高估</span><span class="pricing-level pricing-level-bubble">估值泡沫</span><span class="pricing-level pricing-level-severe">严重估值泡沫</span></div><p class="tracking-detail">当前判断：证据不足。现价较中枢 +10.52%，仍在公允价值区间内；未单列质量溢价，三层分解为 7.04＝6.37＋0＋0.67 元。</p></div>
+    <div class="tracking-card" data-tracking-key="capital-and-holders"><p class="tracking-label">资金面</p><p class="tracking-value">5/10/20 日股价 +2.47%/+4.14%/+1.73%；大单及特大单净额代理 +0.58/+0.54/-5.68 亿元；融资余额 9.98 亿元，5/10/20 日 -0.69%/-4.86%/-17.02%。股东户数 2025 年末 87,919→2026Q1 138,319→H1 175,570；北向代理持股 H1 减少 1,772.65 万股。</p></div>
+  </div>
+</section>
+<!-- DAILY_TRACKING_END -->
+<h2 id="section-1">1. 估值摘要</h2>
+
+<h3>1.1 每日跟踪字段</h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本面状态</td>
+<td>负债：融资债务约 3,189.94 亿元，较年末增加约 101.05 亿元；净现金：严格净债务约 2,966.01 亿元，较年末增加约 71.68 亿元；现金流：CFO 252.43 亿元、FCF 代理 48.52 亿元，同比均下降；开销：销/管/研/财务费用率合计约 7.04%，上年约 6.41%；真实利润：扣非归母 60.38 亿元，同比 -31.43%，普通股口径 H1 盈利约 54.94 亿元；扣商誉普通股净资产：约 530.48 亿元，较年末基本持平。综合：<strong>走弱</strong>。</td>
+</tr>
+<tr>
+<td>公允价值范围</td>
+<td><strong>4.59—8.41 元</strong>；中枢 <strong>6.37 元</strong>；2026-09-10 完整复算。</td>
+</tr>
+<tr>
+<td>凯利测算</td>
+<td>现价 7.04 元；到上限 +19.44%，到下限 -34.85%；盈亏平衡概率 64.19%。假设成功率 50%/60% 时全凯利与半凯利均为 0；70% 时 16.22%/8.11%，80% 时 44.15%/22.07%，90% 时 72.07%/36.04%。真实概率待验证，非仓位建议。</td>
+</tr>
+<tr>
+<td>交易定价偏离</td>
+<td>现价较中枢 +10.52%，仍在公允价值区间内；未单列质量溢价，三层分解为 7.04＝6.37＋0＋0.67 元。</td>
+</tr>
+<tr>
+<td>资金与筹码</td>
+<td>5/10/20 日股价 +2.47%/+4.14%/+1.73%；大单及特大单净额代理 +0.58/+0.54/-5.68 亿元；融资余额 9.98 亿元，5/10/20 日 -0.69%/-4.86%/-17.02%。股东户数 2025 年末 87,919→2026Q1 138,319→H1 175,570；北向代理持股 H1 减少 1,772.65 万股。</td>
+</tr>
+<tr>
+<td>每日跟踪时间</td>
+<td>2026-09-10 10:35；市场数据截至 9 月 9 日，财务截至 2026H1。</td>
+</tr>
+</tbody></table>
+<h3>1.2 核心结论</h3>
+<p>华能国际是高杠杆、重资本、受电价和煤价共同驱动的综合发电运营商，不能用单一静态 PE 判断便宜。2026H1 境内上网电量和电价分别同比下降 2.97% 和 4.58%，标煤单价只下降 2.84%，煤电、风电和光伏税前利润均下降；CFO 和 FCF 代理仍为正，是重要反证。主估值方法为<strong>正常化普通股股东利润 × PE</strong>，PB/ROE 与可持续股息率交叉核验。公允价值 4.59—8.41 元，中枢 6.37 元；现价 7.04 元处区间内、中枢偏上，估值状态为<strong>公允价值内</strong>，出清状态为<strong>出清观察</strong>。</p>
+<p>新增资金动作：<code>wait</code>；已有持仓动作：<code>review</code>。原因不是公司价值归零，而是现价到中枢潜在回报约 -9.52%，到保守端损失显著大于到乐观端收益，且正常化普通股利润需要从 TTM 约 92.62 亿元回升。未获取用户账户、持仓成本、目标仓位和交易费用，不给可执行买卖指令。</p>
+<h3>1.3 关键口径纠偏</h3>
+<p>2026 年 6 月末归母净资产 1,379.80 亿元，其中其他权益工具 734.75 亿元；普通股净资产约 645.05 亿元，对应每股 4.11 元，和数据库 PB 1.71 倍一致。数据库 PE-TTM 9.42 倍以未扣其他权益工具分配的归母利润计算；按基本 EPS 推算，2025 全年普通股利润约 116.17 亿元、2025H1 约 78.49 亿元、2026H1 约 54.94 亿元，TTM 普通股利润约 92.62 亿元，现价对应有效普通股 PE 约 11.93 倍。两种 PE 口径不可混用。</p>
+<h2 id="section-2">2. 估值基础</h2>
+
+<h3>2.1 产业、利润池与比较优势</h3>
+<p>电力需求长期增长，但供给增长更快。2026 年 1—7 月全国用电量同比 +4.7%，装机同比 +11.0%，平均利用小时减少 135 小时。利润池正从单纯电量迁向容量、辅助服务、现货峰谷价差、低成本新能源和交易能力。公司 158.8GW 可控装机、全国区域组合、大型煤机、港口燃料管理和低成本融资形成比较优势；“新能源装机增长即利润增长”已被 H1 风光利润下降反证。详见<a href="../../../../../workbench/targets/华能国际-产业思维分析.md">产业思维分析</a>。</p>
+<h3>2.2 分部成熟度与未来业务</h3>
+<table>
+<thead>
+<tr>
+<th>分部</th>
+<th align="right">2026H1 税前利润</th>
+<th align="right">同比变化</th>
+<th>成熟度与估值处理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>境内煤电</td>
+<td align="right">59.25</td>
+<td align="right">减利 13.85</td>
+<td>成熟基本盘；按正常化普通股利润整体估值</td>
+</tr>
+<tr>
+<td>燃机</td>
+<td align="right">9.73</td>
+<td align="right">增利 2.20</td>
+<td>成熟补充；不单列高倍数</td>
+</tr>
+<tr>
+<td>风电</td>
+<td align="right">31.65</td>
+<td align="right">减利 7.45</td>
+<td>已商业化成长；利用小时下降，不给额外成长溢价</td>
+</tr>
+<tr>
+<td>光伏</td>
+<td align="right">12.22</td>
+<td align="right">减利 6.01</td>
+<td>装机与电量增长、利润下降；不按装机容量计期权价值</td>
+</tr>
+<tr>
+<td>新加坡 / 巴基斯坦</td>
+<td align="right">7.45 / 4.51</td>
+<td align="right">口径未统一列示</td>
+<td>已运营资产；合并利润中体现，不重复加总</td>
+</tr>
+<tr>
+<td>容量与辅助服务</td>
+<td align="right">未单列</td>
+<td align="right">待验证</td>
+<td>政策和运营里程碑存在，但无独立利润，视为未单列期权</td>
+</tr>
+</tbody></table>
+<p>不采用 SOTP 作为主方法：分部税前利润无法直接分配合并融资成本、少数股东、税项和永续工具分配；若机械给新能源高倍数又在整体 PE 中计入，会重复估值。</p>
+<h3>2.3 多年财务核验</h3>
+<table>
+<thead>
+<tr>
+<th>期间</th>
+<th align="right">收入</th>
+<th align="right">归母净利润</th>
+<th align="right">普通股利润代理</th>
+<th align="right">经营现金流</th>
+<th align="right">现金资本开支</th>
+<th align="right">FCF 代理</th>
+<th align="right">毛利率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2022</td>
+<td align="right">2,467.25</td>
+<td align="right">-73.87</td>
+<td align="right">-95.76</td>
+<td align="right">325.20</td>
+<td align="right">407.26</td>
+<td align="right">-82.07</td>
+<td align="right">3.04%</td>
+</tr>
+<tr>
+<td>2023</td>
+<td align="right">2,543.97</td>
+<td align="right">84.46</td>
+<td align="right">54.94</td>
+<td align="right">454.97</td>
+<td align="right">593.80</td>
+<td align="right">-138.83</td>
+<td align="right">12.12%</td>
+</tr>
+<tr>
+<td>2024</td>
+<td align="right">2,455.51</td>
+<td align="right">101.35</td>
+<td align="right">72.21</td>
+<td align="right">505.30</td>
+<td align="right">636.53</td>
+<td align="right">-131.23</td>
+<td align="right">15.14%</td>
+</tr>
+<tr>
+<td>2025</td>
+<td align="right">2,292.88</td>
+<td align="right">144.10</td>
+<td align="right">116.17</td>
+<td align="right">672.13</td>
+<td align="right">583.26</td>
+<td align="right">88.87</td>
+<td align="right">18.45%</td>
+</tr>
+<tr>
+<td>2025H1</td>
+<td align="right">1,120.32</td>
+<td align="right">92.62</td>
+<td align="right">78.49</td>
+<td align="right">307.48</td>
+<td align="right">223.23</td>
+<td align="right">84.25</td>
+<td align="right">19.60%</td>
+</tr>
+<tr>
+<td>2026H1</td>
+<td align="right">1,069.09</td>
+<td align="right">65.86</td>
+<td align="right">54.94</td>
+<td align="right">252.43</td>
+<td align="right">203.90</td>
+<td align="right">48.52</td>
+<td align="right">17.42%</td>
+</tr>
+</tbody></table>
+<p>普通股利润代理＝基本 EPS × 最新稳定总股本，反映归母利润扣除其他权益工具持有人分配后的普通股口径；2022—2024 可能受报告期内分配时点影响，主要用于方向核验。FCF 代理＝CFO−购建固定、无形及其他长期资产支付现金，不等于完整 FCFE，也未加回资产处置、租赁本金、非现金购建和并购。来源：<a href="../../../../assets/华能国际/2026-09-10/华能国际-2026年半年度报告.pdf">半年报</a>、<a href="../../../../assets/华能国际/2026-09-10/华能国际-2025年年度报告.pdf">年报</a>及<a href="../../../../assets/华能国际/2026-09-10/research-inputs.json">数据快照</a>。</p>
+<h3>2.4 通胀传导</h3>
+<p>2026 年 8 月 CPI 同比 +0.8%、核心 CPI +1.0%，宏观通胀尚未形成全面货币收紧约束；PPI 同比 +3.8%，其中煤炭开采和洗选业 +26.6%，而电力热力生产和供应业价格同比下降，提示公司正在面对“投入端上升、输出端承压”的剪刀差风险。公司 H1 标煤单价仍同比下降 2.84%，属于已实现缓冲，但不能代替 Q3 采购成本。</p>
+<p>传导链为：煤价 / 运价上涨 → 燃料与营运资金增加 → 煤电度电利润下降 → CFO、分红与资本开支能力收缩；若长协、进口替代、库存管理和容量电价覆盖成本，则缓冲。金融层为通胀 → 利率 / 信用 → 折现率与融资成本；9 月 9 日 10 年国债 1.6816%、同比低约 18BP，公司 15 年债票息 2.12%，当前融资层暂未恶化。</p>
+<h3>2.5 基本面判断：六项核验</h3>
+<p>顺序代表权重递减；流量同比 2025H1，存量对比 2025 年末。</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>当前值</th>
+<th>比较期</th>
+<th>变化、原因与缺口</th>
+<th>估值影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>负债</td>
+<td>融资债务约 3,189.94 亿元；另有其他权益工具 734.75 亿元</td>
+<td>年末约 3,088.89 / 775.38 亿元</td>
+<td>债务增加约 101.05 亿元，其他权益工具减少 40.63 亿元；未用授信超 4,300 亿元</td>
+<td>高权重约束；低票息改善成本，不能消除杠杆</td>
+</tr>
+<tr>
+<td>净现金</td>
+<td>现金 223.93−融资债务 3,189.94＝严格净债务 2,966.01 亿元</td>
+<td>年末 194.56−3,088.89＝-2,894.33 亿元</td>
+<td>净债务增加约 71.68 亿元；未将其他权益工具再加为债务</td>
+<td>主判断走弱；PE法不重复扣净债务</td>
+</tr>
+<tr>
+<td>现金流</td>
+<td>CFO 252.43；资本开支 203.90；FCF 代理 48.52 亿元</td>
+<td>上年 307.48 / 223.23 / 84.25 亿元</td>
+<td>分别 -17.91%、-8.66%、-42.41%；仍为正且覆盖现金投资</td>
+<td>方向走弱，但正现金流是反证</td>
+</tr>
+<tr>
+<td>开销合理性</td>
+<td>销/管/研/财务费用率约 0.11%/3.09%/0.53%/3.30%</td>
+<td>上年约 0.11%/2.76%/0.52%/3.02%</td>
+<td>合计约 7.04% 对比 6.41%；收入下降使管费和财务费用率上升</td>
+<td>轻度走弱，融资成本仍是核心</td>
+</tr>
+<tr>
+<td>真实利润</td>
+<td>归母 65.86→扣非 60.38；普通股利润代理 54.94 亿元</td>
+<td>上年 92.62→88.06；普通股 78.49 亿元</td>
+<td>扣非 -31.43%，普通股约 -30%；CFO/普通股利润约 4.59 倍</td>
+<td>利润下降真实，不由非经常项目主导</td>
+</tr>
+<tr>
+<td>扣除商誉的净资产</td>
+<td>普通股净资产 645.05−商誉 114.57＝530.48 亿元</td>
+<td>年末 649.30−118.86＝530.44 亿元</td>
+<td>基本持平；商誉同比下降，资产质量未恶化</td>
+<td>每股有形普通股净资产约 3.38 元，仅提供有限底部</td>
+</tr>
+</tbody></table>
+<p>综合状态：<strong>走弱</strong>。固定顺序中的负债、净债务、现金流和真实利润均不利；融资可得性、正 FCF 和有形普通股净资产稳定构成反证，但不足以把综合状态改为稳定。</p>
+<p>融资债务取短期借款、长期借款、应付债券、租赁负债和一年内到期非流动负债之和；一年内到期项可能含非借款成分，因报告未在快照中进一步拆分，本口径偏保守。公司另有约 611.75 亿元已签约未入表资本性支出承诺，未来项目资金需求不能忽略。</p>
+<h2 id="section-3">3. 估值方法与假设</h2>
+
+<h3>3.1 价值类型与主方法</h3>
+<p>价值类型：<strong>成熟重资产公用事业中的周期与转型混合型</strong>。主方法：<strong>正常化普通股股东利润 × PE</strong>。公式：</p>
+<p><code>每股价值＝正常化普通股利润（亿元）× PE ÷ 总股本（亿股）</code></p>
+<p>PE 法直接得到普通股权益价值；融资成本、少数股东影响和永续工具分配已经通过普通股利润口径体现，不再把净债务机械扣第二次。总股本 156.9809 亿股。正常化利润以 2023—2026H1 普通股盈利、煤电价差、分部盈利和 FCF 约束综合确定，不使用 2025 单年高点直接外推。</p>
+<h3>3.2 三种情景</h3>
+<table>
+<thead>
+<tr>
+<th>情景</th>
+<th align="right">正常化普通股利润</th>
+<th align="right">PE</th>
+<th align="right">每股价值</th>
+<th>成立条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>保守</td>
+<td align="right">80 亿元</td>
+<td align="right">9 倍</td>
+<td align="right"><strong>4.59 元</strong></td>
+<td>电价和利用小时继续承压，煤价缓冲有限，FCF收缩</td>
+</tr>
+<tr>
+<td>基准</td>
+<td align="right">100 亿元</td>
+<td align="right">10 倍</td>
+<td align="right"><strong>6.37 元</strong></td>
+<td>普通股利润介于 2026 TTM 与 2025 全年之间，容量收益部分缓冲</td>
+</tr>
+<tr>
+<td>乐观</td>
+<td align="right">120 亿元</td>
+<td align="right">11 倍</td>
+<td align="right"><strong>8.41 元</strong></td>
+<td>电价降幅收窄、煤价受控、风光利用小时修复且资本回报改善</td>
+</tr>
+</tbody></table>
+<p>基准 100 亿元低于 2025 普通股利润约 116.17 亿元，但高于 2026 TTM 约 92.62 亿元，需要下半年恢复而非自然延续。PE 9—11 倍低于部分同行数据库 PE-TTM，但公司有效普通股 PE 与数据库口径不同，且高杠杆、重资本和资本承诺要求折价。</p>
+<h3>3.3 PB/ROE 与股息交叉核验</h3>
+<p>普通股净资产约 645.05 亿元，每股 4.11 元。三情景正常化普通股 ROE 分别约 12.4%、15.5%、18.6%，对应估值结果 PB 约 1.12、1.55、2.05 倍；当前 PB 1.71 倍，要求普通股 ROE 高于基准并保持。PB 只做交叉核验，不和 PE 结果平均。</p>
+<p>可持续股息情景为 0.28 元/6.1%、0.35 元/5.5%、0.40 元/4.75%，分别对应约 4.59、6.36、8.42 元，与主范围一致。2025 已实施 0.40 元/股，但 2026H1 普通股利润下降，不能把 0.40 元视为永久承诺。</p>
+<h3>3.4 敏感性与反向估值</h3>
+<p>利润—PE 敏感性（元/股）：</p>
+<table>
+<thead>
+<tr>
+<th>普通股利润 / PE</th>
+<th align="right">9 倍</th>
+<th align="right">10 倍</th>
+<th align="right">11 倍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>80 亿元</td>
+<td align="right">4.59</td>
+<td align="right">5.10</td>
+<td align="right">5.61</td>
+</tr>
+<tr>
+<td>100 亿元</td>
+<td align="right">5.73</td>
+<td align="right">6.37</td>
+<td align="right">7.01</td>
+</tr>
+<tr>
+<td>120 亿元</td>
+<td align="right">6.88</td>
+<td align="right">7.64</td>
+<td align="right">8.41</td>
+</tr>
+</tbody></table>
+<p>现价 7.04 元在 10 倍 PE 下隐含正常化普通股利润 <strong>110.51 亿元</strong>，比 2026 TTM 普通股利润约 92.62 亿元高 <strong>19.32%</strong>，接近 2025 全年 116.17 亿元。价格不是在定价远期爆发式增长，但确实要求利润从 H1 低点恢复。若只能维持 TTM 普通股利润，10 倍 PE 对应约 5.90 元；若给予 12 倍则约 7.08 元。倍数与利润不可拆开选择最乐观组合。</p>
+<p>若总股本在普通股总价值不变下增加 10%，基准中枢降至约 5.79 元；正式融资时必须同时计新增现金、项目回报和股数，不能只扣稀释。其他权益工具余额若继续上升，其分配将减少普通股利润，即使报表归母利润不变也会压低普通股价值。</p>
+<h2 id="section-4">4. 估值结果与交易溢价</h2>
+
+<h3>4.1 公允价值与价格位置</h3>
+<p>公允价值下限 <strong>4.59 元</strong>、中枢 <strong>6.37 元</strong>、上限 <strong>8.41 元</strong>。端点为经营与估值倍数组合，不是统计置信区间或止损价。</p>
+<table>
+<thead>
+<tr>
+<th>价格指标</th>
+<th align="right">结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>现价（9月9日）</td>
+<td align="right">7.04 元</td>
+</tr>
+<tr>
+<td>相对中枢溢价</td>
+<td align="right">+10.52%</td>
+</tr>
+<tr>
+<td>相对上限偏离</td>
+<td align="right">-16.28%</td>
+</tr>
+<tr>
+<td>中枢潜在回报</td>
+<td align="right">-9.52%</td>
+</tr>
+<tr>
+<td>到上限潜在回报</td>
+<td align="right">+19.44%</td>
+</tr>
+<tr>
+<td>到下限潜在损失</td>
+<td align="right">-34.85%</td>
+</tr>
+<tr>
+<td>保守安全边际 <code>1-P/L</code></td>
+<td align="right">-53.49%</td>
+</tr>
+</tbody></table>
+<p>负安全边际表示现价高于保守价值，不表示公司必然下跌。</p>
+<h3>4.2 三层价格分解</h3>
+<p>市场价格＝公允价值＋可解释估值溢价＋交易定价偏离。本模型已在利润和 PE 中纳入规模、融资能力、容量价值与转型质量，<strong>不另加质量溢价</strong>。按基准中枢记账：</p>
+<p><strong>7.04＝6.37＋0＋0.67 元</strong>。</p>
+<p>0.67 元是模型残差，不是可观测纯情绪价值。现价仍低于乐观上沿，因此不能把全部残差命名为泡沫；它主要代表市场对盈利修复、高股息和公用事业属性的额外定价。</p>
+<h3>4.3 资金、筹码与交易方</h3>
+<p>截至 9 月 9 日，5/10/20 日股价 +2.47%/+4.14%/+1.73%，50 日 -7.49%；大单及特大单净额代理分别 +0.58/+0.54/-5.68/-5.67 亿元，全口径净额代理分别 +3.29/+3.45/-0.03/-18.92 亿元。融资余额 9.98 亿元，5/10/20/50 日变化 -0.69%/-4.86%/-17.02%/-15.51%。短期反弹伴随杠杆下降，并非典型融资推动；50 日资金代理偏弱。</p>
+<p>股东户数由 2025 年末 87,919 户升至 2026Q1 138,319 户、H1 175,570 户，筹码明显分散。香港中央结算有限公司 H1 持有 A 股减少约 1,772.65 万股；香港中央结算（代理人）主要代表 H 股登记，不直接视作单一投资者。分档成交金额不证明机构身份，股东户数也不证明散户必然错误。</p>
+<h3>4.4 估值泡沫32项触发扫描</h3>
+<p>状态只使用五类互斥标签，不按数量机械评分。财务截至 2026H1，交易截至 9 月 9 日，宏观截至各自最新发布日。</p>
+<p><strong>基本面 9 项</strong></p>
+<table>
+<thead>
+<tr>
+<th>触发类型</th>
+<th>观察项</th>
+<th>状态</th>
+<th>当期及比较证据</th>
+<th>传导 / 缺口</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>现金流断点</td>
+<td>资本开支规模</td>
+<td>有利</td>
+<td>H1 现金资本开支 203.90 亿元，同比 -8.66%，低于 CFO 252.43 亿元</td>
+<td>已签约资本承诺 611.75 亿元仍需后续融资与回报核验</td>
+</tr>
+<tr>
+<td>现金流断点</td>
+<td>经营现金流</td>
+<td>有利</td>
+<td>CFO 252.43 亿元，同比 -17.91%，与利润同向下降且仍为正</td>
+<td>不是“利润增长而现金恶化”；方向仍走弱</td>
+</tr>
+<tr>
+<td>现金流断点</td>
+<td>自由现金流</td>
+<td>有利</td>
+<td>FCF 代理 48.52 亿元，同比下降但为正；2025 全年已转正</td>
+<td>未形成持续负值与缺口扩大，H2需复核</td>
+</tr>
+<tr>
+<td>现金流断点</td>
+<td>投资资金来源</td>
+<td>有利</td>
+<td>当期 CFO 覆盖现金资本开支；借款与发债主要同时用于置换和运营</td>
+<td>高外部融资规模是反证，不把“覆盖”写成无融资依赖</td>
+</tr>
+<tr>
+<td>现金流断点</td>
+<td>融资停止后的可持续性</td>
+<td>证据不足</td>
+<td>流动负债净额约 839 亿元，未用授信超 4,300 亿元</td>
+<td>项目级债务到期、资本承诺和无新增融资压力测试未披露</td>
+</tr>
+<tr>
+<td>盈利不匹配</td>
+<td>原材料与中间品成本</td>
+<td>有利</td>
+<td>H1 标煤单价 891.02 元/吨，同比 -2.84%</td>
+<td>8 月煤炭 PPI 上行，Q3持续性待验证</td>
+</tr>
+<tr>
+<td>盈利不匹配</td>
+<td>定价权与成本转嫁</td>
+<td>不利信号出现</td>
+<td>电价 -4.58%，降幅大于标煤价 -2.84%；市场化压价具有结构性</td>
+<td>直接压缩煤电价差，击中正常化利润锚</td>
+</tr>
+<tr>
+<td>盈利不匹配</td>
+<td>营收向利润的转化</td>
+<td>不利信号出现</td>
+<td>收入 -4.57%，扣非归母 -31.43%，毛利率 -2.18pct</td>
+<td>利润下降显著快于收入，多板块共同承压</td>
+</tr>
+<tr>
+<td>盈利不匹配</td>
+<td>利润向自由现金流的转化</td>
+<td>有利</td>
+<td>普通股利润代理 54.94 亿元，FCF 代理 48.52 亿元，转换仍为正</td>
+<td>FCF同比下降更快，下一期继续复核</td>
+</tr>
+</tbody></table>
+<p><strong>流动性 14 项</strong></p>
+<table>
+<thead>
+<tr>
+<th>触发类型</th>
+<th>观察项</th>
+<th>状态</th>
+<th>当期及比较证据</th>
+<th>传导 / 缺口</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>宏观：货币条件收缩</td>
+<td>通胀</td>
+<td>有利</td>
+<td>8 月 CPI +0.8%、核心 CPI +1.0%，未形成全面收紧约束</td>
+<td>煤炭PPI上行属于公司成本风险，已在基本面处理</td>
+</tr>
+<tr>
+<td>宏观：货币条件收缩</td>
+<td>政策利率与债券收益率</td>
+<td>有利</td>
+<td>9 月 9 日 10 年国债 1.6816%，同比约 -18.25BP</td>
+<td>低利率支持估值与融资</td>
+</tr>
+<tr>
+<td>宏观：货币条件收缩</td>
+<td>信用与融资条件</td>
+<td>有利</td>
+<td>公司 15 年债发行利率 2.12%，授信充足</td>
+<td>公司高债务仍需监控，不等于信用已收紧</td>
+</tr>
+<tr>
+<td>宏观：货币条件收缩</td>
+<td>高投资项目对低成本资金的依赖</td>
+<td>证据不足</td>
+<td>净债务约 2,966 亿元、资本承诺 611.75 亿元</td>
+<td>缺项目级IRR和利率敏感性，不能断言只靠低利率存续</td>
+</tr>
+<tr>
+<td>中观：政策与主线资金迁移</td>
+<td>监管与产业政策</td>
+<td>当期恶化，持续性待确认</td>
+<td>现货与新能源入市压低电能量价；容量机制提供反向补偿</td>
+<td>H1电价已下降，容量和辅助服务独立收益未披露</td>
+</tr>
+<tr>
+<td>中观：政策与主线资金迁移</td>
+<td>ETF申赎</td>
+<td>证据不足</td>
+<td>未取得公用事业 / 红利 ETF 对该股的最新净申赎归因</td>
+<td>不用板块涨跌替代申赎数据</td>
+</tr>
+<tr>
+<td>中观：政策与主线资金迁移</td>
+<td>基金仓位</td>
+<td>证据不足</td>
+<td>未取得 2026Q2 主动基金统一可比仓位</td>
+<td>前十大股东不足以代表全基金仓位</td>
+</tr>
+<tr>
+<td>中观：政策与主线资金迁移</td>
+<td>主线增量资金</td>
+<td>证据不足</td>
+<td>50 日净流出代理 -18.92 亿元，5/10 日转正</td>
+<td>时间窗口冲突，不能确认稳定新增来源</td>
+</tr>
+<tr>
+<td>微观：杠杆和承接逆转</td>
+<td>融资余额增速</td>
+<td>有利</td>
+<td>20 日融资余额 -17.02%，股价 +1.73%</td>
+<td>未出现高位融资快速增长</td>
+</tr>
+<tr>
+<td>微观：杠杆和承接逆转</td>
+<td>新增融资集中度</td>
+<td>证据不足</td>
+<td>缺全市场 / 行业新增融资分布</td>
+<td>个股余额不足以判断集中度</td>
+</tr>
+<tr>
+<td>微观：杠杆和承接逆转</td>
+<td>股价对杠杆资金的依赖</td>
+<td>有利</td>
+<td>融资下降时价格未同步失去支撑</td>
+<td>仅一个20日窗口，不推断永久独立</td>
+</tr>
+<tr>
+<td>微观：杠杆和承接逆转</td>
+<td>龙头表现</td>
+<td>证据不足</td>
+<td>个股 50 日 -7.49%、20 日 +1.73%</td>
+<td>未建立同业龙头篮子和利好反应窗口</td>
+</tr>
+<tr>
+<td>微观：杠杆和承接逆转</td>
+<td>市场广度</td>
+<td>证据不足</td>
+<td>未取得同日全市场与公用事业广度</td>
+<td>不以指数稳定代替广度</td>
+</tr>
+<tr>
+<td>微观：杠杆和承接逆转</td>
+<td>获利资金与回调承接</td>
+<td>证据不足</td>
+<td>短窗流入、长窗流出，证据相互冲突</td>
+<td>下一次财报和除息后承接待验证</td>
+</tr>
+</tbody></table>
+<p><strong>预期 9 项</strong></p>
+<table>
+<thead>
+<tr>
+<th>触发类型</th>
+<th>观察项</th>
+<th>状态</th>
+<th>当期及比较证据</th>
+<th>传导 / 缺口</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>叙事耗尽</td>
+<td>价格隐含的增长年限</td>
+<td>有利</td>
+<td>10 倍 PE 隐含普通股利润 110.51 亿元，接近 2025 全年而非多年远期高增</td>
+<td>仍要求较 TTM 恢复19.32%</td>
+</tr>
+<tr>
+<td>叙事耗尽</td>
+<td>产业进度与远期预期的距离</td>
+<td>有利</td>
+<td>发电资产、风光收入和利润均已商业化</td>
+<td>不存在早期概念按成熟盈利定价</td>
+</tr>
+<tr>
+<td>叙事耗尽</td>
+<td>新信息对盈利预测的推动</td>
+<td>证据不足</td>
+<td>近期新增装机与容量政策尚未形成独立利润上修证据</td>
+<td>不能把政策标题当盈利上修</td>
+</tr>
+<tr>
+<td>叙事耗尽</td>
+<td>同类利好的边际反应</td>
+<td>证据不足</td>
+<td>未建立同类公告事件窗</td>
+<td>不用单日涨跌归因</td>
+</tr>
+<tr>
+<td>财报接管定价</td>
+<td>财报披露节点</td>
+<td>不利信号出现</td>
+<td>H1 归母 -28.89%、普通股利润约 -30%、FCF代理 -42.41%</td>
+<td>财报暴露利润恢复路径不确定</td>
+</tr>
+<tr>
+<td>财报接管定价</td>
+<td>订单、收入与利润的一致性</td>
+<td>不利信号出现</td>
+<td>发电运营不用订单；收入 -4.57%、利润下降更快</td>
+<td>规模与装机叙事未转化为利润</td>
+</tr>
+<tr>
+<td>财报接管定价</td>
+<td>利润与现金流的一致性</td>
+<td>有利</td>
+<td>利润与CFO同向下降，CFO和FCF仍正</td>
+<td>没有账面利润增长而现金持续流出的错配</td>
+</tr>
+<tr>
+<td>财报接管定价</td>
+<td>真实应用与产品验证</td>
+<td>有利</td>
+<td>煤电、风光、燃机和海外资产均已运营并有收入</td>
+<td>容量/辅助服务独立利润除外</td>
+</tr>
+<tr>
+<td>财报接管定价</td>
+<td>实际业绩与价格隐含预期</td>
+<td>当期恶化，持续性待确认</td>
+<td>TTM普通股利润约92.62亿元，低于现价10倍PE所需110.51亿元</td>
+<td>需要H2修复；2025全年116.17亿元构成可达反证</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>分类</th>
+<th align="right">有利</th>
+<th align="right">当期恶化</th>
+<th align="right">不利信号</th>
+<th align="right">证据不足</th>
+<th align="right">不适用</th>
+<th align="right">合计</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本面</td>
+<td align="right">6</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">9</td>
+</tr>
+<tr>
+<td>流动性</td>
+<td align="right">5</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">0</td>
+<td align="right">14</td>
+</tr>
+<tr>
+<td>预期</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">9</td>
+</tr>
+<tr>
+<td>总计</td>
+<td align="right">15</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">11</td>
+<td align="right">0</td>
+<td align="right">32</td>
+</tr>
+</tbody></table>
+<h3>4.5 状态映射与压力测试</h3>
+<p>估值状态：<strong>公允价值内</strong>。现价未超过 8.41 元乐观上沿，且反向估值要求的是利润恢复而非多年不可验证增长。基本面中的电价—煤价剪刀差和利润转化、预期中的财报与业绩缺口均是不利信号，但流动性没有显著杠杆放大器，尚不满足估值泡沫门槛。</p>
+<p>出清状态：<strong>出清观察</strong>。50 日资金和价格偏弱、财报利润下降，但 20 日融资余额下降而价格回升，CFO 与 FCF 仍正，传导尚未形成持续去杠杆或现金断点。压力测试应优先看 TTM 普通股利润跌破 80 亿元、FCF 转负、净债务继续增加且电价降幅大于煤价降幅；任一单项不机械触发卖出。</p>
+<h2 id="section-5">5. 仓位测算与网格交易</h2>
+
+<h3>5.1 凯利仓位情景</h3>
+<p>取现价 <code>P=7.04</code>、保守价值 <code>L=4.5865</code>、乐观价值 <code>U=8.4087</code>：上涨额 <code>G=U−P=1.3687</code>，下跌额 <code>H=P−L=2.4535</code>，赔率 <code>b=G/H=0.5579</code>，盈亏平衡概率 <code>H/(G+H)=64.19%</code>。全凯利 <code>f=p−(1−p)/b</code>，负值按仅做多、无杠杆约束截为 0。</p>
+<table>
+<thead>
+<tr>
+<th align="right">假设上涨概率</th>
+<th align="right">全凯利</th>
+<th align="right">半凯利</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">50%</td>
+<td align="right">0.00%</td>
+<td align="right">0.00%</td>
+<td>低于盈亏平衡概率</td>
+</tr>
+<tr>
+<td align="right">60%</td>
+<td align="right">0.00%</td>
+<td align="right">0.00%</td>
+<td>仍低于盈亏平衡概率</td>
+</tr>
+<tr>
+<td align="right">70%</td>
+<td align="right">16.22%</td>
+<td align="right">8.11%</td>
+<td>需要盈利修复有较高把握</td>
+</tr>
+<tr>
+<td align="right">80%</td>
+<td align="right">44.15%</td>
+<td align="right">22.07%</td>
+<td>数学值很高，不能绕过组合风险上限</td>
+</tr>
+<tr>
+<td align="right">90%</td>
+<td align="right">72.07%</td>
+<td align="right">36.04%</td>
+<td>极高主观概率缺少可验证依据</td>
+</tr>
+</tbody></table>
+<p>真实上涨概率未取得可重复统计估计，凯利表只展示敏感性。高净债务、资本承诺、单一股票风险和政策/煤价跳跃风险要求实际风险预算显著低于数学全凯利；本报告不代替个人资产配置。</p>
+<h3>5.2 新增资金与已有持仓分流</h3>
+<table>
+<thead>
+<tr>
+<th>情境</th>
+<th>当前动作</th>
+<th>触发升级</th>
+<th>触发降级</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>新增资金</td>
+<td><code>wait</code></td>
+<td>价格接近或低于中枢且电价、利用小时或普通股利润至少两项改善</td>
+<td>FCF转负、净债务上升、电价—煤价差继续恶化</td>
+</tr>
+<tr>
+<td>已有持仓</td>
+<td><code>review</code></td>
+<td>持仓规模在个人风险预算内、原始逻辑为正常化盈利与分红且未破坏</td>
+<td>以静态9.42倍PE为唯一持有理由，或需要高分红覆盖短期现金需求</td>
+</tr>
+</tbody></table>
+<p>以上是研究动作标签，不是自动订单。用户未提供持仓成本、股数、账户现金、最大回撤、税费与期限，不能给出个性化加减仓数量。</p>
+<h3>5.3 网格适用性</h3>
+<p>华能国际流动性较好、估值区间可量化，表面上适合区间观察；但煤价、电价、财报和政策会引起价值中枢跳变，不能把 4.59—8.41 元直接机械切成永久网格。当前现价高于中枢，向上空间小于向下压力，<strong>不适合以新增资金启动进攻型网格</strong>。若已有底仓，只能在重新核验价值中枢、交易费用和最大库存后做防守型观察；本次不生成委托价、股数或自动化订单。</p>
+<h2 id="section-6">6. 风险与结论</h2>
+
+<h3>6.1 主要风险与证伪条件</h3>
+<table>
+<thead>
+<tr>
+<th>风险</th>
+<th>已有证据</th>
+<th>传导</th>
+<th>下一验证点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>电价与利用小时下降</td>
+<td>H1电价 -4.58%、境内电量 -2.97%</td>
+<td>收入、毛利、普通股利润下降</td>
+<td>Q3电量电价与年度交易结果</td>
+</tr>
+<tr>
+<td>煤价反向上升</td>
+<td>8月煤炭PPI同比 +26.6%</td>
+<td>电价不能转嫁时压缩煤电价差</td>
+<td>Q3标煤单价与长协履约</td>
+</tr>
+<tr>
+<td>新能源回报不及装机</td>
+<td>风光利用小时和税前利润下降</td>
+<td>折旧、利息和消纳吞噬增量</td>
+<td>分部利润、项目ROIC、弃电</td>
+</tr>
+<tr>
+<td>杠杆与融资</td>
+<td>严格净债务约2,966亿元，其他权益工具734.75亿元</td>
+<td>分配和利息优先于普通股、压低股息</td>
+<td>净债务、融资成本、永续工具余额</td>
+</tr>
+<tr>
+<td>资本开支与承诺</td>
+<td>未入表承诺约611.75亿元</td>
+<td>FCF转负或新增融资</td>
+<td>全年资本开支、在建转固和回报</td>
+</tr>
+<tr>
+<td>少数股东与口径</td>
+<td>H1少数股东损益27.40亿元，其他权益工具分配显著</td>
+<td>合并利润不等于普通股可得利润</td>
+<td>基本EPS、普通股利润和分红</td>
+</tr>
+<tr>
+<td>政策和市场化</td>
+<td>容量支持与现货压价并存</td>
+<td>价格结构改变</td>
+<td>容量/辅助服务独立收入披露</td>
+</tr>
+</tbody></table>
+<p>主估值锚被证伪的条件：TTM 普通股利润持续低于 80 亿元且没有明确恢复路径；或 FCF 代理转负、净债务持续增加，同时电价降幅继续大于煤价降幅。上行重估条件：普通股利润恢复到 120 亿元附近、净债务不再增加、风光利用小时和分部利润同时改善，才支持 11 倍乐观情景。</p>
+<h3>6.2 最终判断</h3>
+<ul>
+<li><strong>公允价值：</strong> 4.59—8.41 元，中枢 6.37 元。</li>
+<li><strong>现价位置：</strong> 7.04 元，区间内、中枢偏上；普通高估或泡沫均不成立，但保守安全边际不足。</li>
+<li><strong>基本面：</strong> 走弱；正 FCF 与低融资成本是反证。</li>
+<li><strong>主估值锚：</strong> 正常化普通股利润 × PE；PB/ROE 与可持续股息交叉验证。</li>
+<li><strong>反向估值：</strong> 10 倍 PE 要求普通股利润 110.51 亿元，比 TTM 高 19.32%，接近 2025 全年水平。</li>
+<li><strong>动作标签：</strong> 新增资金 <code>wait</code>；已有持仓 <code>review</code>；不生成交易订单。</li>
+<li><strong>置信度：</strong> 中。最新法定财务与价格完整，项目级回报、ETF申赎、基金仓位、行业库存与普通股盈利恢复概率仍不足。</li>
+</ul>
+<p><strong>来源与验证记录</strong></p>
+<ol>
+<li><a href="../../../../assets/华能国际/2026-09-10/华能国际-2026年半年度报告.pdf">2026年半年度报告</a>，2026-08-19。</li>
+<li><a href="../../../../assets/华能国际/2026-09-10/华能国际-2025年年度报告.pdf">2025年年度报告</a>，2026-03-25。</li>
+<li><a href="../../../../assets/华能国际/2026-09-10/华能国际-2026年公司债券发行公告.pdf">2026年公司债券发行公告</a>，2026-08-28。</li>
+<li><a href="../../../../assets/华能国际/2026-09-10/research-inputs.json">市场、财务、股东、资金、融资融券及同行快照</a>，2026-09-10 获取。</li>
+<li><a href="../../../../assets/华能国际/2026-09-10/valuation-model.json">估值模型JSON</a>，2026-09-10。</li>
+<li><a href="../../../../webpages/2026-09-10-华能国际估值证据快照/检索摘录.md">国家能源局、国家统计局、中债与官方披露摘录</a>，2026-09-10。</li>
+</ol>
+<p><strong>数据边界</strong></p>
+<p>未取得 ETF 申赎、主动基金仓位、全市场融资集中度、行业统一库存、项目级 IRR 和容量/辅助服务独立利润，相关扫描项标为“证据不足”。H 股价格、汇率、红利税和 A/H 折价未在本次重算，不把 A 股公允价值直接用于 H 股。研报用于研究与决策审计，不构成收益保证或个性化投资建议。</p>
+</article>
+    </div>
+  </main>
+</body>
+</html>

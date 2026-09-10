@@ -6,7 +6,17 @@ const EXPECTED_SECTIONS = [
   '估值基础',
   '估值方法与假设',
   '估值结果与交易溢价',
+  '仓位测算与网格交易',
   '风险与结论',
+];
+
+const EXPECTED_FUNDAMENTAL_ORDER = [
+  '负债',
+  '净现金',
+  '现金流',
+  '开销合理性',
+  '真实利润',
+  '扣除商誉的净资产',
 ];
 
 function loadMarked() {
@@ -100,6 +110,7 @@ const PRICING_LEVELS = [
 
 function pricingDeviationStatus(value) {
   const text = cleanInline(value);
+  const judgement = text.match(/当前判断[：:]\s*([^。；;]+)/)?.[1] || text;
   const mappings = [
     ['严重估值泡沫', '严重估值泡沫'],
     ['估值泡沫', '估值泡沫'],
@@ -113,7 +124,7 @@ function pricingDeviationStatus(value) {
     ['折价', '折价'],
     ['证据不足', '证据不足'],
   ];
-  return mappings.find(([needle]) => text.includes(needle))?.[1] || '证据不足';
+  return mappings.find(([needle]) => judgement.startsWith(needle))?.[1] || '证据不足';
 }
 
 function renderPricingDeviationCard(value) {
@@ -124,21 +135,39 @@ function renderPricingDeviationCard(value) {
     const active = status === label;
     return `<span class="pricing-level pricing-level-${tone}${active ? ' active' : ''}"${active ? ' aria-current="true"' : ''}>${label}</span>`;
   }).join('');
-  return `<div class="tracking-card" data-tracking-key="pricing-deviation"><p class="tracking-label">交易定价偏离</p><div class="pricing-levels">${levels}</div><p class="tracking-detail">${escapeHtml(detail)}</p></div>`;
+  return `<div class="tracking-card" data-tracking-key="pricing-deviation"><p class="tracking-title">情绪面</p><p class="tracking-label">交易偏离定价</p><div class="pricing-levels">${levels}</div><p class="tracking-detail">${escapeHtml(detail)}</p></div>`;
+}
+
+function renderFundamentalCard(value) {
+  const lines = String(value ?? '').split(/<br\s*\/?\s*>/gi).map(cleanInline).filter(Boolean);
+  if (lines.length < 2) {
+    return renderTrackingCard('fundamental-status', '基本面状态', lines[0] || '待确认；当前证据不足以判断基本面状态。', /走弱|恶化|不利/);
+  }
+  if (!EXPECTED_FUNDAMENTAL_ORDER.every((label, index) => lines[index]?.startsWith(`${label}：`))) {
+    throw new Error('基本面状态卡片须按固定权重顺序逐行填写六项指标。');
+  }
+  const metrics = lines.slice(0, 6).map((line) => `<p class="fundamental-metric">${escapeHtml(line)}</p>`).join('');
+  const detail = lines.slice(6).join('；');
+  return `<div class="tracking-card" data-tracking-key="fundamental-status"><p class="tracking-label">基本面状态</p>${metrics}${detail ? `<p class="tracking-detail">${escapeHtml(detail)}</p>` : ''}</div>`;
 }
 
 function renderDailyTracking(decisions, metadata) {
-  const fundamental = cleanInline(decisions['基本面状态']) || '待确认；当前证据不足以判断基本面状态。';
-  const fairValue = cleanInline(decisions['公允价值范围'] || decisions['公允价值区间']) || '未获取到；需要完成估值计算。';
-  const pricingDeviation = cleanInline(decisions['交易定价偏离'] || decisions['交易定价偏离判断'] || decisions['交易溢价'] || decisions['交易溢价判断'] || decisions['估值泡沫判断']) || '当前判断：证据不足。需要当前价格、公允价值和反向估值证据。';
-  const capital = cleanInline(decisions['资金与筹码'] || decisions['资金状态']) || '证据不足；资金、股东人数或交易方画像未获取到。';
+  const psychology = String(decisions['心理面'] ?? '').split(/<br\s*\/?\s*>/gi).map(cleanInline).filter(Boolean);
+  const kellyStart = psychology.findIndex((line) => /^凯利测算[：:]/.test(line));
+  const combinedFairValue = psychology.slice(0, kellyStart < 0 ? psychology.length : kellyStart).join('；').replace(/^公允价值范围[：:]\s*/, '');
+  const combinedKelly = kellyStart < 0 ? [] : psychology.slice(kellyStart).map((line, index) => index === 0 ? line.replace(/^凯利测算[：:]\s*/, '') : line).filter(Boolean);
+  const fairValue = combinedFairValue || cleanInline(decisions['公允价值范围'] || decisions['公允价值区间']) || '未获取到；需要完成估值计算。';
+  const kelly = combinedKelly.length ? combinedKelly : String(decisions['凯利测算'] ?? '').split(/<br\s*\/?\s*>/gi).map(cleanInline).filter(Boolean);
+  const fairValueCard = renderTrackingCard('fair-value-range', '公允价值范围', fairValue).replace(/<\/div>$/, `${kelly.length ? `<div class="kelly-summary"><p class="tracking-label">凯利测算</p>${kelly.map((line) => `<p class="kelly-metric">${escapeHtml(line)}</p>`).join('')}</div>` : ''}</div>`);
+  const pricingDeviation = cleanInline(decisions['情绪面'] || decisions['交易定价偏离'] || decisions['交易定价偏离判断'] || decisions['交易溢价'] || decisions['交易溢价判断'] || decisions['估值泡沫判断']).replace(/^交易偏离定价[：:]\s*/, '') || '当前判断：证据不足。需要当前价格、公允价值和反向估值证据。';
+  const capital = cleanInline(decisions['资金面'] || decisions['资金与筹码'] || decisions['资金状态']) || '证据不足；资金、股东人数或交易方画像未获取到。';
   const updatedAt = cleanInline(decisions['每日跟踪时间'] || metadata['研究截止时间']) || '未获取到';
 
   const cards = [
-    renderTrackingCard('fundamental-status', '基本面状态', fundamental, /走弱|恶化|不利/),
-    renderTrackingCard('fair-value-range', '公允价值范围', fairValue),
+    renderFundamentalCard(decisions['基本面状态']),
+    fairValueCard.replace('<p class="tracking-label">公允价值范围</p>', '<p class="tracking-title">心理面</p><p class="tracking-label">公允价值范围</p>'),
     renderPricingDeviationCard(pricingDeviation),
-    renderTrackingCard('capital-and-holders', '资金与筹码', capital, /流出|转弱|分散|拥挤|减持/),
+    renderTrackingCard('capital-and-holders', '资金面', capital, /流出|转弱|分散|拥挤|减持/),
   ].join('\n    ');
 
   return `<!-- DAILY_TRACKING_START -->
@@ -158,7 +187,8 @@ function normalizeObsidianLinks(markdown, outputPath, vaultRoot) {
   return markdown.replace(/!?(\[\[)([^\]|#]+)(?:#([^\]|]+))?(?:\|([^\]]+))?\]\]/g, (full, _open, target, anchor, label) => {
     if (full.startsWith('!')) return escapeHtml(label || target);
     const normalizedTarget = target.trim().replace(/\\/g, '/');
-    const sourcePath = path.resolve(vaultRoot, normalizedTarget.endsWith('.md') ? normalizedTarget : `${normalizedTarget}.md`);
+    const exactPath = path.resolve(vaultRoot, normalizedTarget);
+    const sourcePath = fs.existsSync(exactPath) ? exactPath : path.resolve(vaultRoot, normalizedTarget.endsWith('.md') ? normalizedTarget : `${normalizedTarget}.md`);
     const htmlTarget = sourcePath.replace(/\.md$/i, '.html');
     const linkTarget = fs.existsSync(htmlTarget) ? htmlTarget : sourcePath;
     let relative = path.relative(path.dirname(outputPath), linkTarget).replace(/\\/g, '/');
@@ -184,7 +214,29 @@ function validateSections(sections) {
   const valid = actual.length === EXPECTED_SECTIONS.length
     && actual.every((title, index) => title === EXPECTED_SECTIONS[index]);
   if (!valid) {
-    throw new Error(`报告必须按顺序包含5个编号模块：${EXPECTED_SECTIONS.join('、')}。当前为：${actual.join('、') || '无'}。`);
+    throw new Error(`报告必须按顺序包含6个编号模块：${EXPECTED_SECTIONS.join('、')}。当前为：${actual.join('、') || '无'}。`);
+  }
+}
+
+function validateFundamentalOrder(markdown) {
+  const heading = /^###\s+2\.5\s+基本面判断：六项核验\s*$/m.exec(markdown);
+  if (!heading) throw new Error('报告必须包含“2.5 基本面判断：六项核验”。');
+
+  const tail = markdown.slice(heading.index + heading[0].length);
+  const nextHeading = tail.search(/^#{2,3}\s+/m);
+  const section = nextHeading >= 0 ? tail.slice(0, nextHeading) : tail;
+  const actual = [];
+
+  for (const line of section.split(/\r?\n/)) {
+    const cells = line.split('|').slice(1, -1).map((cell) => cleanInline(cell));
+    const dimension = cells[0]?.replace(/^\d+\s*[.、]\s*/, '');
+    if (EXPECTED_FUNDAMENTAL_ORDER.includes(dimension)) actual.push(dimension);
+  }
+
+  const valid = actual.length === EXPECTED_FUNDAMENTAL_ORDER.length
+    && actual.every((dimension, index) => dimension === EXPECTED_FUNDAMENTAL_ORDER[index]);
+  if (!valid) {
+    throw new Error(`六项基本面必须严格按权重顺序展示：${EXPECTED_FUNDAMENTAL_ORDER.join('、')}。当前为：${actual.join('、') || '无'}。`);
   }
 }
 
@@ -205,6 +257,7 @@ function main() {
   markdown = normalizeObsidianLinks(markdown, outputPath, vaultRoot);
   const sectioned = sectionize(markdown);
   validateSections(sectioned.sections);
+  validateFundamentalOrder(markdown);
 
   const marked = loadMarked();
   const body = marked.parse(sectioned.markdown, { gfm: true, breaks: false });

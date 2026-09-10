@@ -231,3 +231,8 @@ Saved raw files are Markdown documents that later feed `summary.md`.
 After the per-author summaries are complete for one target date, also write one date-level brief to `{yyyymmdd}/daily_brief.md`.
 This brief must be based on the current saved articles for that date and should follow the structure reference in `demo.md`.
 Keep the existing per-author `summary.md` outputs unchanged; `daily_brief.md` is an additional whole-day synthesis.
+
+
+## 技能变更记录
+
+修改本技能的说明、模板、references、脚本或其他随附文件后，在同目录 [log.md](log.md) 追加记录，写明日期、版本（或未设版本号）、修改原因、涉及文件、具体变更和验证结果。保留已有记录；未经核实不补写历史，不把技能运行生成的业务报告当作技能变更。若调整版本号，记录旧版本 → 新版本；未调整时明确写“版本号不变”。

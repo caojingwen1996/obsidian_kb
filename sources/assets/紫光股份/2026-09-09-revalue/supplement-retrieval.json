@@ -1,0 +1,62 @@
+[
+  {
+    "name": "market-daily",
+    "api": "daily",
+    "params": {
+      "trade_date": "20260908",
+      "fields": "ts_code,trade_date,close,pct_chg,amount"
+    },
+    "rows": 5549,
+    "time": "2026-09-09T11:12:18.930990"
+  },
+  {
+    "name": "index-sh",
+    "api": "index_daily",
+    "params": {
+      "ts_code": "000001.SH",
+      "start_date": "20260801",
+      "end_date": "20260909"
+    },
+    "rows": 27,
+    "time": "2026-09-09T11:12:11.838123"
+  },
+  {
+    "name": "top-list",
+    "api": "top_list",
+    "params": {
+      "trade_date": "20260908"
+    },
+    "rows": 56,
+    "time": "2026-09-09T11:12:15.045213"
+  },
+  {
+    "name": "etf-share",
+    "api": "fund_share",
+    "params": {
+      "ts_code": "512720.SH",
+      "start_date": "20260801",
+      "end_date": "20260909"
+    },
+    "rows": 27,
+    "time": "2026-09-09T11:12:11.771237"
+  },
+  {
+    "name": "macro-lpr",
+    "api": "shibor_lpr",
+    "params": {
+      "start_date": "20260701",
+      "end_date": "20260909"
+    },
+    "rows": 1,
+    "time": "2026-09-09T11:12:14.313596"
+  },
+  {
+    "name": "treasury",
+    "error": "抱歉，您没有接口(yc_cb)访问权限，权限的具体详情访问：https://tushare.pro/document/1?doc_id=108。"
+  },
+  {
+    "url": "https://money.finance.sina.com.cn/corp/go.php/vCB_AllBulletin/stockid/000938.phtml?ftype=lsgg",
+    "status": 200,
+    "time": "2026-09-09T11:12:21.128121"
+  }
+]

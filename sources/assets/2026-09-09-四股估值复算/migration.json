@@ -1,0 +1,70 @@
+{
+  "updated_references": [
+    "workbench/index.md",
+    "workbench/targets/2026-07-20-中国中车-控股股东增持股份计划-跟踪.md",
+    "workbench/targets/2026-08-19-1421-中国中车-三要素分析.md",
+    "workbench/targets/2026-08-19-1510-华润江中-三要素分析.md",
+    "workbench/targets/2026-08-20-1028-徐工机械-三要素分析.md",
+    "workbench/targets/2026-09-08-支柱产业估值重算汇总.md",
+    "sources/automations/支柱产业/2026-08-19-1421-中国中车-三要素分析.html",
+    "sources/automations/支柱产业/消费/医药健康/2026-08-19-1510-华润江中-三要素分析.html",
+    "sources/automations/支柱产业/高端制造/工程机械/2026-08-04-徐工机械资金面分析.html",
+    "sources/automations/支柱产业/高端制造/工程机械/2026-08-20-1028-徐工机械-三要素分析.html",
+    "sources/automations/支柱产业/高端制造/轨交装备/2026-08-04-中国中车资金面分析.html",
+    "tools/a-share-market-dashboard/a-share-market-dashboard.html"
+  ],
+  "redirects": [
+    {
+      "name": "中国中车",
+      "old_md": "workbench/targets/2026-07-16-1334-中国中车机构级决策研报.md",
+      "md": "workbench/targets/中国中车-机构级决策研报.md",
+      "old_html": "sources/automations/支柱产业/2026-07-16-1334-中国中车机构级决策研报.html",
+      "html": "sources/automations/支柱产业/中国中车-机构级决策研报.html",
+      "price": 6.16,
+      "values": [
+        5.657329106202777,
+        6.49362993059797,
+        7.379124921134056
+      ]
+    },
+    {
+      "name": "徐工机械",
+      "old_md": "workbench/targets/2026-07-20-1737-徐工机械-机构级决策研报.md",
+      "md": "workbench/targets/徐工机械-机构级决策研报.md",
+      "old_html": "sources/automations/支柱产业/高端制造/2026-07-20-1737-徐工机械-机构级决策研报.html",
+      "html": "sources/automations/支柱产业/高端制造/徐工机械-机构级决策研报.html",
+      "price": 8.38,
+      "values": [
+        6.967682833072791,
+        8.197273921262108,
+        9.563486241472459
+      ]
+    },
+    {
+      "name": "华润江中",
+      "old_md": "workbench/targets/2026-08-11-1803-华润江中-机构级决策研报.md",
+      "md": "workbench/targets/华润江中-机构级决策研报.md",
+      "old_html": "sources/automations/支柱产业/消费/医药健康/2026-08-11-1803-华润江中-机构级决策研报.html",
+      "html": "sources/automations/支柱产业/消费/医药健康/华润江中-机构级决策研报.html",
+      "price": 23.12,
+      "values": [
+        21.75,
+        25.5,
+        29.45
+      ]
+    },
+    {
+      "name": "国药股份",
+      "old_md": "workbench/targets/2026-09-08-1446-国药股份-机构级决策研报.md",
+      "md": "workbench/targets/国药股份-机构级决策研报.md",
+      "old_html": "sources/automations/支柱产业/消费/医药健康/2026-09-08-1446-国药股份-机构级决策研报.html",
+      "html": "sources/automations/支柱产业/消费/医药健康/国药股份-机构级决策研报.html",
+      "price": 26.89,
+      "values": [
+        21.868700381227647,
+        29.88722385434445,
+        36.951476765371325
+      ]
+    }
+  ]
+}
