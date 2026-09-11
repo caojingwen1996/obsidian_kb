@@ -1226,21 +1226,37 @@ function renderYouzhiyouxingTemperatureCard(envelope) {
   </a>`;
 }
 
-function renderNasdaq100Card(envelope) {
+export function renderNasdaq100Card(envelope) {
   const data = envelope?.data;
   if (envelope?.status === 'latest' && data && Number.isFinite(data.currentPoint)) {
     const drawdown = Number.isFinite(data.drawdownPercent) ? data.drawdownPercent : null;
     const drawdownText = drawdown === null ? '待验证' : `${drawdown.toFixed(2)}%`;
     const updatedText = data.updatedText || formatTime(data.updatedAt);
+    const percent = value => Number.isFinite(value) ? `${value > 0 ? '+' : ''}${value.toFixed(2)}%` : '待验证';
+    const metric = (label, value) => `<div><small>${label}</small><strong>${value}</strong></div>`;
     return `<button class="overview-card nasdaq-card is-clickable-card" type="button" data-open-nasdaq-grid aria-label="打开纳斯达克网格策略">
       <div class="overview-card-head"><span>纳斯达克100指数</span><strong>NASDAQ 100</strong></div>
       <div class="nasdaq-main">
         <small>当前点位</small>
         <strong>${formatNumber(data.currentPoint, 2)}</strong>
-        <span>${escapeHtml(updatedText)}</span>
+        <span>${escapeHtml(updatedText)} · ${escapeHtml(envelope?.proxySource || data.quoteNote || '行情数据')}</span>
+      </div>
+      <div class="nasdaq-metrics">
+        ${metric('当日涨跌', percent(data.dayChangePercent))}
+        ${metric('当周涨跌', percent(data.weekChangePercent))}
+        ${metric('当月涨跌', percent(data.monthChangePercent))}
+      </div>
+      <div class="nasdaq-valuation">
+        <strong>估值与位置</strong>
+        <span>PE-TTM：${Number.isFinite(data.peTtm) ? `${data.peTtm.toFixed(1)}倍` : '待验证'} · 近10年分位：${Number.isFinite(data.pePercentile10y) ? `${data.pePercentile10y.toFixed(0)}%` : '待验证'}</span>
+        <span>200日均线：${Number.isFinite(data.ma200) ? `${formatNumber(data.ma200, 2)}点` : '待验证'} · 偏离 ${percent(data.ma200DeviationPercent)}</span>
+        <span>${escapeHtml(data.marketDate?.slice(0, 4) || '本年')}年内当前回撤：${percent(data.yearDrawdownPercent)}</span>
+        <small>周/月自上周末/上月末收盘计算；均线含当前点位；年内回撤相对本年最高收盘点。</small>
+        <small>${escapeHtml(data.valuationNote || '指数估值数据待验证')}</small>
+        ${data.dailyMetricsNote ? `<small>${escapeHtml(data.dailyMetricsNote)}</small>` : ''}
       </div>
       <div class="nasdaq-drawdown ${drawdown !== null && drawdown <= -10 ? 'is-deep' : ''}">
-        <small>距离历史最高点跌幅</small>
+        <small>距离${escapeHtml(data.highPointLabel || '历史最高点')}跌幅</small>
         <strong>${drawdownText}</strong>
         <span>最高点 ${formatNumber(data.highPoint, 2)}</span>
       </div>

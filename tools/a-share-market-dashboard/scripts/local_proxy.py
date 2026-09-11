@@ -1060,7 +1060,88 @@ def normalize_nasdaq100_chart(payload):
 
 
 def fetch_nasdaq100_snapshot(fetcher=fetch_upstream):
-    return normalize_nasdaq100_chart(fetcher(NASDAQ100_CHART_URL, "nasdaq100"))
+    if fetcher is fetch_upstream:
+        try:
+            from nasdaq_westock import fetch_chart
+            chart = fetch_chart(resolve_node_executable())
+            snapshot = normalize_nasdaq100_chart(chart)
+            snapshot["proxySource"] = "westock-data / 腾讯自选股"
+            data = snapshot["data"]
+            data.update(nasdaq100_daily_metrics(chart, data["currentPoint"]))
+            data.update(sourceUrl="https://gu.qq.com/usNDX", updatedText=data["marketDate"] + "（美股交易日）",
+                        updatedAt=None, highPointLabel="近2000个交易日最高收盘点",
+                        peTtm=None, pePercentile10y=None,
+                        valuationNote="PE-TTM及近十年分位待验证：WeStock未提供有效指数估值；独立估值源尚未通过日期和口径核验",
+                        valuationSourceUrl="https://www.getstockcheck.com/zh/index/NDX.GI/")
+            return snapshot
+        except (OSError, ValueError, KeyError, IndexError, subprocess.SubprocessError) as error:
+            write_proxy_log("API_FAIL", source="westock-nasdaq100", error=type(error).__name__)
+    snapshot = fetch_yahoo_nasdaq100_snapshot(fetcher)
+    snapshot["data"]["quoteNote"] = "Yahoo Finance备用行情" if fetcher is fetch_upstream else "Yahoo Finance"
+    return snapshot
+
+
+def fetch_yahoo_nasdaq100_snapshot(fetcher=fetch_upstream):
+    snapshot = normalize_nasdaq100_chart(fetcher(NASDAQ100_CHART_URL, "nasdaq100"))
+    data = snapshot["data"]
+    data.update(dayChangePercent=None, weekChangePercent=None, monthChangePercent=None,
+                ma200=None, ma200DeviationPercent=None, yearDrawdownPercent=None,
+                marketDate=None, peTtm=None, pePercentile10y=None,
+                valuationNote="行情源不提供指数PE-TTM及同口径近十年估值序列，待验证")
+    try:
+        daily = fetcher(NASDAQ100_CHART_URL.replace("range=max", "range=2y"), "nasdaq100")
+        data.update(nasdaq100_daily_metrics(daily, data["currentPoint"]))
+        daily_closes = daily["chart"]["result"][0]["indicators"]["quote"][0]["close"]
+        data["highPoint"] = round(max([data["highPoint"], *[
+            value for value in daily_closes
+            if isinstance(value, (int, float)) and math.isfinite(value) and value > 0
+        ]]), 2)
+        data["drawdownPercent"] = round((data["currentPoint"] / data["highPoint"] - 1) * 100, 2)
+    except (UpstreamError, ValueError, TypeError, KeyError, IndexError):
+        data["dailyMetricsNote"] = "日线数据获取失败或不足，涨跌幅、均线及年内回撤待验证"
+    return snapshot
+
+
+def nasdaq100_daily_metrics(payload, current):
+    result = payload["chart"]["result"][0]
+    meta = result["meta"]
+    if meta.get("dataGranularity") != "1d":
+        raise ValueError("daily bars required")
+    market_zone = timezone(timedelta(seconds=meta.get("gmtoffset", -18000)))
+    as_of = datetime.fromtimestamp(meta["regularMarketTime"], market_zone).date()
+    values = result["indicators"]["quote"][0]["close"]
+    rows = {}
+    for stamp, value in zip(result.get("timestamp", []), values):
+        if not isinstance(value, (int, float)) or not math.isfinite(value) or value <= 0:
+            continue
+        day = datetime.fromtimestamp(stamp, market_zone).date()
+        if day <= as_of:
+            rows[day] = float(value)
+    if not rows:
+        raise ValueError("no dated daily closes")
+    prior = sorted((day, value) for day, value in rows.items() if day < as_of)
+    week_start = as_of - timedelta(days=as_of.weekday())
+    month_start = as_of.replace(day=1)
+    year_start = as_of.replace(month=1, day=1)
+
+    def change_before(boundary):
+        before = [value for day, value in prior if day < boundary]
+        return round((current / before[-1] - 1) * 100, 2) if before else None
+
+    # Include the current session once, replacing its daily bar if already present.
+    closes = [value for _, value in prior] + [current]
+    ma = sum(closes[-200:]) / 200 if len(closes) >= 200 else None
+    year_values = [value for day, value in prior if day >= year_start] + [current]
+    covered_year = any(day < year_start for day, _ in prior)
+    return {
+        "marketDate": as_of.isoformat(),
+        "dayChangePercent": change_before(as_of),
+        "weekChangePercent": change_before(week_start),
+        "monthChangePercent": change_before(month_start),
+        "ma200": round(ma, 2) if ma else None,
+        "ma200DeviationPercent": round((current / ma - 1) * 100, 2) if ma else None,
+        "yearDrawdownPercent": round((current / max(year_values) - 1) * 100, 2) if covered_year else None,
+    }
 
 
 def _tencent_rows(payload, symbol):

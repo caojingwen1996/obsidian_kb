@@ -2,6 +2,7 @@ import { readFile, readdir, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { inflateRawSync } from 'node:zlib';
+import { renderIndexDayChart } from './index-day-chart.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const repoRoot = join(root, '..', '..');
@@ -1103,6 +1104,7 @@ const [template, styles, changelogSource, eventCalendarSource, ...modules] = awa
   ...moduleOrder.map(filename => readFile(join(sourceDir, filename), 'utf8')),
 ]);
 const industries = await Promise.all(industryDefinitions.map(scanIndustryReports));
+const indexDayStatistics = await readFile(join(repoRoot, 'sources', 'assets', '2026-09-11-index-day-distribution', 'yearly.csv'), 'utf8');
 const bbxmDailyDigest = await scanBbxmDailyDigest();
 const topicPages = await scanTopicPages();
 const changelog = validateChangelog(JSON.parse(changelogSource));
@@ -1157,6 +1159,8 @@ const output = renderedTemplate
   .replace('            <!-- TOPIC_CARDS -->', renderTopicCards(topicPages))
   .replace('        <!-- CHANGELOG_ENTRIES -->', renderChangelog(changelog))
   .replace('<!-- DASHBOARD_STYLES -->', `<style>${styles.trim()}</style>`)
+  .replace('<!-- NDX_DAY_CHART -->', renderIndexDayChart(indexDayStatistics, 'NDX'))
+  .replace('<!-- DIVIDEND_DAY_CHART -->', renderIndexDayChart(indexDayStatistics, 'H30269.CSI'))
   .replace('<!-- DASHBOARD_SCRIPT -->', () => `<script type="module">${bundle}</script>`);
 
 if (output.includes('DASHBOARD_STYLES') || output.includes('DASHBOARD_SCRIPT') || /<!-- [A-Z_]+ -->/.test(output)) {

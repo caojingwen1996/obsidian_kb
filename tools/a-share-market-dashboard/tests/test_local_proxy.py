@@ -244,7 +244,10 @@ class PayloadTests(unittest.TestCase):
     def test_fetches_nasdaq100_snapshot_through_fixed_yahoo_url(self):
         def fake_fetch(url, source):
             self.assertEqual(source, "nasdaq100")
-            self.assertEqual(url, "https://query1.finance.yahoo.com/v8/finance/chart/%5ENDX?range=max&interval=1d")
+            self.assertIn(url, [
+                "https://query1.finance.yahoo.com/v8/finance/chart/%5ENDX?range=max&interval=1d",
+                "https://query1.finance.yahoo.com/v8/finance/chart/%5ENDX?range=2y&interval=1d",
+            ])
             return {
                 "chart": {
                     "result": [{
