@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><title>徐工机械资金面分析 · 量能确认新版</title><style>:root {
+  --page-bg: #f6f7f9;
+  --surface: #ffffff;
+  --text: #171a21;
+  --muted: #667085;
+  --line: #eaecf0;
+  --head: #f7f8fa;
+  --blue-bg: #eef3f8;
+  --blue-text: #52657a;
+  --green-bg: #eaf7f0;
+  --green-text: #18794e;
+  --amber-bg: #fff1cf;
+  --amber-text: #a15c00;
+  --red-bg: #ffe4e6;
+  --red-text: #b4232f;
+  --danger-panel: #fff1f1;
+  --danger-border: #f9c6c8;
+  --info-panel: #f2f7fd;
+  --info-border: #cfe0f3;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--page-bg);
+  color: var(--text);
+  font: 15px/1.72 system-ui, -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+
+.report-shell { max-width: 1120px; margin: 0 auto; padding: 24px 18px 64px; }
+.report-header, .report-section {
+  background: var(--surface);
+  border: 1px solid #f0f1f3;
+  border-radius: 18px;
+  box-shadow: 0 6px 22px rgba(16, 24, 40, 0.035);
+}
+.report-header { padding: 28px 30px; }
+.report-section { margin-top: 16px; padding: 26px 30px; }
+.eyebrow { color: var(--muted); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+h1 { margin: 5px 0 7px; font-size: 30px; line-height: 1.25; }
+h2 { margin: 0 0 18px; font-size: 20px; }
+h3 { margin: 22px 0 12px; font-size: 16px; }
+p { margin: 10px 0; }
+.subtitle, .source-note { color: var(--muted); }
+.source-note { font-size: 12px; }
+
+.meta-grid, .decision-grid { display: grid; gap: 10px; }
+.meta-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 20px; }
+.decision-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.meta-item, .decision-card { background: #fafbfc; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+.meta-item small, .decision-card small { display: block; color: var(--muted); margin-bottom: 3px; }
+
+.table-wrap { width: 100%; overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+th { background: var(--head); color: #20242c; font-weight: 650; text-align: left; }
+th, td { padding: 12px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+tbody tr:last-child td { border-bottom: 0; }
+td.numeric, th.numeric { text-align: right; white-space: nowrap; font-weight: 650; }
+
+.tag { display: inline-flex; align-items: center; min-height: 25px; padding: 2px 9px; border-radius: 999px; font-size: 12px; font-weight: 650; white-space: nowrap; }
+.tag-neutral { color: var(--blue-text); background: var(--blue-bg); }
+.tag-good { color: var(--green-text); background: var(--green-bg); }
+.tag-warn { color: var(--amber-text); background: var(--amber-bg); }
+.tag-danger { color: var(--red-text); background: var(--red-bg); }
+
+.callout { margin-top: 16px; padding: 14px 16px; border-radius: 11px; border: 1px solid; }
+.callout strong { display: inline; }
+.callout-danger { color: #8d2328; background: var(--danger-panel); border-color: var(--danger-border); }
+.callout-info { color: #315b7d; background: var(--info-panel); border-color: var(--info-border); }
+
+ul { padding-left: 20px; }
+a { color: #356aa0; }
+code { background: #f2f4f7; border-radius: 5px; padding: 2px 5px; }
+
+@media (max-width: 760px) {
+  .report-shell { padding: 10px 8px 40px; }
+  .report-header, .report-section { border-radius: 14px; padding: 20px 16px; }
+  .meta-grid, .decision-grid { grid-template-columns: 1fr; }
+  table { min-width: 640px; }
+  h1 { font-size: 25px; }
+}
+
+.report-section,.report-header{min-width:0}.table-wrap{max-width:100%}blockquote{margin:12px 0}td{overflow-wrap:anywhere}.volume-table td:nth-child(2){text-align:right;font-variant-numeric:tabular-nums;font-weight:650;white-space:normal}.volume-table th:nth-child(2){text-align:right}.volume-table{table-layout:fixed}.volume-table th:first-child{width:27%}.volume-table th:nth-child(2){width:29%}.volume-table th:nth-child(3){width:44%}.source-note{overflow-wrap:anywhere}@media print{body{background:white}.report-shell{max-width:none;padding:0}.report-section{box-shadow:none;break-inside:auto}.table-wrap{overflow:visible}table{min-width:0!important;font-size:10px}h2,h3{break-after:avoid}}</style></head><body><main class="report-shell"><header class="report-header"><h1>徐工机械资金面分析</h1>
+<blockquote class="callout callout-info">
+<p>对象层级：A 股个股 · 徐工机械（000425.SZ）<br/>
+所属市场：深圳主板 · 工程机械<br/>
+分析截止时间：2026-09-15 18:06，Asia/Shanghai；行情截至9月15日收盘，融资截至9月14日<br/>
+比较窗口：订单与价格为9月15日、9月9—15日（5日）、8月19日—9月15日（20日）；融资窗口整体前移1个交易日<br/>
+核心问题：下跌中的承接能否支持趋势修复？新增量能模块如何区分缩量回调与趋势转弱？<br/>
+本版按新技能重新采集和计算，旧版保留。未提供持仓成本、仓位和风险预算。</p>
+</blockquote>
+<div class="decision-grid"><div class="decision-card"><small>资金状态</small><span class="tag tag-danger">结构性流出</span></div><div class="decision-card"><small>新增资金</small><strong>observe · 0%</strong></div><div class="decision-card"><small>已有持仓</small><strong>review · 先复核原计划</strong></div></div></header><section class="report-section"><h2>1. 核心结论与行动</h2>
+<h3>决策摘要</h3>
+<div aria-label="可横向滚动的数据表" class="table-wrap" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>当前结论</th>
+<th>决策含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>资金状态</td>
+<td><strong>结构性流出</strong></td>
+<td>融资净偿还与大额订单卖出占优，价格短期走弱；仍有小额承接及低频产业资本支持</td>
+</tr>
+<tr>
+<td>主导资金</td>
+<td>融资账户净撤出、大额订单代理净卖</td>
+<td>不等于已识别机构集体出逃</td>
+</tr>
+<tr>
+<td>主要分歧或拖累</td>
+<td>20日纯特大单仍微幅净买；公司回购、股东增持与日频资金相反</td>
+<td>不满足“全部资金共振撤离”的证据条件</td>
+</tr>
+<tr>
+<td>新增资金</td>
+<td><strong>observe；新增0%</strong></td>
+<td>风险预算缺失、量价与资金未确认修复；先观察，不把反弹直接作为入场依据</td>
+</tr>
+<tr>
+<td>已有持仓</td>
+<td><strong>review；不直接给减仓比例</strong></td>
+<td>先核验成本、仓位、原交易计划及允许回撤</td>
+</tr>
+<tr>
+<td>总体置信度</td>
+<td>中</td>
+<td>日频量价和融资可复算；账户身份、当前ETF权重及实时筹码成本不足</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote class="callout callout-info">
+<p><strong>一句话结论：</strong> 目前更像“反弹失效后的承接转弱”，不是已经确认的缩量洗盘；先看7.77—7.78元能否守住，再看8.08—8.13元能否被量价和资金共同收复。</p>
+</blockquote>
+<p>本版新增量能分析没有改变“结构性流出”的主判断。新增资金由旧版的 wait 规范为 observe，是因为尚无用户风险预算，不代表市场在两版之间又发生了额外下跌。</p>
+</section><section class="report-section"><h2>2. 资金面与筹码结构</h2>
+<h3>核心资金与筹码表</h3>
+<div aria-label="可横向滚动的数据表" class="table-wrap" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th class="numeric" style="text-align: right;">数值</th>
+<th>解读</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9/15收盘 / 日涨跌</td>
+<td class="numeric" style="text-align: right;"><strong>7.81元 / -3.58%</strong></td>
+<td>收盘接近日内低点7.78元，弱于沪深300当日-0.67%</td>
+</tr>
+<tr>
+<td>9/15大单＋特大单净额</td>
+<td class="numeric" style="text-align: right;"><strong>-1.5728亿元</strong></td>
+<td>大额订单代理净卖，不能直接归因机构</td>
+</tr>
+<tr>
+<td>近5日大单＋特大单净额</td>
+<td class="numeric" style="text-align: right;"><strong>-1.7432亿元</strong></td>
+<td>5天仅2天净买；今天贡献约90%的窗口净卖额，存在单日集中冲击</td>
+</tr>
+<tr>
+<td>近10日大单＋特大单净额</td>
+<td class="numeric" style="text-align: right;">-3.8092亿元</td>
+<td>更长短窗仍偏弱</td>
+</tr>
+<tr>
+<td>近20日大单＋特大单净额</td>
+<td class="numeric" style="text-align: right;">-2.8356亿元</td>
+<td>20天仅6天净买；不能把重叠窗口当独立证据计票</td>
+</tr>
+<tr>
+<td>9/15特大单净额</td>
+<td class="numeric" style="text-align: right;">-1.5617亿元</td>
+<td>当日大额卖出主要来自这一分档</td>
+</tr>
+<tr>
+<td>9/15中单 / 小单净额</td>
+<td class="numeric" style="text-align: right;">+0.8532 / +0.7196亿元</td>
+<td>中小订单承接；不等于已经识别个人账户</td>
+</tr>
+<tr>
+<td>9/14融资余额</td>
+<td class="numeric" style="text-align: right;"><strong>9.4043亿元</strong></td>
+<td>最新可得日；9/15未返回，不填0</td>
+</tr>
+<tr>
+<td>融资净买入：最新日 / 5日 / 20日</td>
+<td class="numeric" style="text-align: right;">-0.2292 / -0.6760 / -1.5477亿元</td>
+<td>杠杆债务净收缩；不将股价下跌直接按市值重估为融资余额下降</td>
+</tr>
+<tr>
+<td>2026Q2股东户数</td>
+<td class="numeric" style="text-align: right;">154,660户；环比+21.13%</td>
+<td>相对Q1的127,680户更分散，不能说明9月当天谁在买</td>
+</tr>
+<tr>
+<td>香港中央结算持股（6/30）</td>
+<td class="numeric" style="text-align: right;">8.3058亿股 / 7.0922%</td>
+<td>披露变动+5,713.15万股，属于低频通道持仓，不是最新日频北向净买</td>
+</tr>
+<tr>
+<td>截至8/31公司本轮累计回购</td>
+<td class="numeric" style="text-align: right;">3.4485亿元 / 3,680.64万股</td>
+<td>有产业资本支持；累计金额不计作当日流入</td>
+</tr>
+<tr>
+<td>8/31控股股东首次增持</td>
+<td class="numeric" style="text-align: right;">1,000.98万元 / 127.61万股</td>
+<td>已实施；后续1—2亿元计划包含首次增持，未实施部分不计入买盘</td>
+</tr>
+<tr>
+<td>大成工程机械ETF（159542）9/15份额变化</td>
+<td class="numeric" style="text-align: right;">-100万份</td>
+<td>单只小样本；当日净值缺失，未估算当日金额，不能映射为徐工净卖额</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote class="callout callout-danger">
+<p><strong>结构矛盾：</strong> 中小订单仍在承接，公司与控股股东也有已披露买入，但最新融资和大额订单偏卖，股价又回吐了9月初反弹。低频支持尚未转化成可验证的持续日频买盘；这是“有承接但尚未守住趋势”，不是“没有买方”。订单分档彼此非独立，融资成交与订单流也可能重叠。</p>
+</blockquote>
+<h3>有效资金来源与持续性</h3>
+<div aria-label="可横向滚动的数据表" class="table-wrap" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>资金来源</th>
+<th>当前方向</th>
+<th>核心证据</th>
+<th>对资金状态的影响</th>
+<th>持续性</th>
+<th>退出或反转条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>融资账户</td>
+<td>净流出</td>
+<td>1/5/20日净偿还；5日余额10.0803→9.4043亿元</td>
+<td>主要拖累</td>
+<td>多窗口同向，但窗口重叠</td>
+<td>净偿还收敛、5日净额转正且价格修复</td>
+</tr>
+<tr>
+<td>大额订单代理</td>
+<td>净卖</td>
+<td>1/5/10/20日合计均负</td>
+<td>主要拖累</td>
+<td>近20日14天非净买</td>
+<td>滚动5日转正、上涨不再冲高回落</td>
+</tr>
+<tr>
+<td>中小订单代理</td>
+<td>局部净买</td>
+<td>当日两档均正；小单20日+5.6063亿元</td>
+<td>承接反证</td>
+<td>小单持续，中单20日为负</td>
+<td>承接转负或低点失守</td>
+</tr>
+<tr>
+<td>公司 / 控股股东</td>
+<td>低频净买</td>
+<td>回购与8/31增持实施</td>
+<td>长期支持旁证</td>
+<td>当日执行待验证</td>
+<td>继续披露实际买入，而非重复计划</td>
+</tr>
+<tr>
+<td>ETF样本</td>
+<td>份额收缩</td>
+<td>159542截至9/14可配对20日估算净赎回199.445万元</td>
+<td>小样本辅助</td>
+<td>最近5个配对日为0</td>
+<td>份额持续扩张且补齐当前权重</td>
+</tr>
+</tbody>
+</table></div>
+<h3>关键缺口摘要</h3>
+<div aria-label="可横向滚动的数据表" class="table-wrap" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>缺口</th>
+<th>为什么重要</th>
+<th>是否影响主结论</th>
+<th>后续验证点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9/15融资数据</td>
+<td>判断当天杠杆是否同步退出</td>
+<td>中；已有5/20日背景，不冒充当天</td>
+<td>下一次交易所融资披露</td>
+</tr>
+<tr>
+<td>当日北向与机构账户方向</td>
+<td>识别真正的交易主体</td>
+<td>高；不作机构一致撤离结论</td>
+<td>新持仓披露、可识别席位</td>
+</tr>
+<tr>
+<td>ETF当前权重、其他ETF、当日NAV</td>
+<td>区分产品赎回与个股被动供给</td>
+<td>中；单样本不能外推</td>
+<td>基金公告、份额与NAV配对</td>
+</tr>
+<tr>
+<td>实时筹码成本及质押警戒线</td>
+<td>量化解套和强平压力</td>
+<td>中；不臆测强平价</td>
+<td>筹码模型与质押合同披露</td>
+</tr>
+</tbody>
+</table></div>
+<h3>流入机制</h3>
+<div aria-label="可横向滚动的数据表" class="table-wrap" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>机制</th>
+<th>是否存在</th>
+<th>证据</th>
+<th>边界与下一验证点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>场外真实增量</td>
+<td>当前证据不足</td>
+<td>有低频自有资金回购 / 增持，但日频融资收缩</td>
+<td>无法穿透所有资金的原始来源</td>
+</tr>
+<tr>
+<td>存量迁移</td>
+<td>证据不足</td>
+<td>大小单方向分化并不提供原资产去向</td>
+<td>需同时识别流出端和流入端</td>
+</tr>
+<tr>
+<td>减量报团</td>
+<td>当前不支持徐工为集中受益者</td>
+<td>近5日弱于三家同行和沪深300</td>
+<td>个股样本不足以判断全市场机制</td>
+</tr>
+</tbody>
+</table></div>
+</section><section class="report-section"><h2>3. F3/F5/F7 日频面板</h2>
+<div aria-label="可横向滚动的数据表" class="table-wrap" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>定义</th>
+<th>当日 / 最新日</th>
+<th>近5日</th>
+<th>近20日</th>
+<th>方向与持续性</th>
+<th>价格响应</th>
+<th>数据质量与代理边界</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F3</td>
+<td>融资买入－偿还</td>
+<td>9/15缺失；9/14 -0.2292亿元</td>
+<td>-0.6760亿元</td>
+<td>-1.5477亿元</td>
+<td>可得窗口均负</td>
+<td>9/14股价+0.50%但融资仍净偿还；较长窗偏弱</td>
+<td>截至9/14；账户方向直接，原因未知</td>
+</tr>
+<tr>
+<td>F5</td>
+<td>特大单买入－卖出</td>
+<td>9/15 -1.5617亿元</td>
+<td>-1.8872亿元</td>
+<td>+0.1559亿元</td>
+<td>短弱、中期微正</td>
+<td>9/15 -3.58%；5/20日-6.24%/-2.86%</td>
+<td>特大单不是机构身份；与大单合计口径区分</td>
+</tr>
+<tr>
+<td>F7</td>
+<td>单只159542份额变化×同日NAV</td>
+<td>9/15 NAV缺失；9/14为0</td>
+<td>截至9/14为0</td>
+<td>截至9/14 -199.445万元</td>
+<td>小样本偏赎回</td>
+<td>不计算产品流量对徐工股价的因果贡献</td>
+<td>产品级估算；未按历史权重硬分摊到徐工</td>
+</tr>
+</tbody>
+</table></div>
+<p>F3与配对F7的5日为9/8—9/14，20日为8/18—9/14；F5的5日为9/9—9/15，20日为8/19—9/15。F7份额已更新至9/15，配对NAV仅至9/14，不能将缺失NAV按0处理。</p>
+<h3>指标关系审计</h3>
+<ul>
+<li>可能重叠：融资买入属于市场成交；ETF申赎可能带来成分股交易；大单与特大单合计是F5所在订单层的扩展，不是另一来源。</li>
+<li>不可直接比较：F3与F5最新日期不同；F7是单只产品级估算，不是个股净流量。</li>
+<li>是否发生机械求和：否。订单四档净额合计最大舍入误差0.02万元，未将平台另列的net_mf_amount混入分档合计。</li>
+</ul>
+</section><section class="report-section"><h2>4. 交易方画像与数据层独立性</h2>
+<h3>4.1 标的类型声明</h3>
+<p>徐工机械是深市主板工程机械公司，有融资融券记录。9/15流通市值约702.75亿元，换手率1.2849%。可验证融资账户、公司和法定持股主体；订单大小不能穿透机构、游资或个人身份。159542的中报持仓镜像包含徐工，当前权重未取得。</p>
+<h3>4.2 一句话交易方画像</h3>
+<p>当前能确认“融资净偿还、大额订单净卖、中小订单当天净买”；中报跨境通道持股与产业资本历史买入形成反证，但无法确定9/15主买或主卖账户的真实机构类别。</p>
+<h3>4.3 交易方画像表</h3>
+<div aria-label="可横向滚动的数据表" class="table-wrap" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>买方类型</th>
+<th>方向</th>
+<th>强度</th>
+<th>确认数据源</th>
+<th>源独立性</th>
+<th>数据质量</th>
+<th>身份边界</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>G 国家队 / 政策性资金</td>
+<td>当期不可知</td>
+<td>不可知</td>
+<td>Q2有社保406组合；汇金检索未匹配前十</td>
+<td>低频持仓独立</td>
+<td>持仓直接测量；当期方向不可知</td>
+<td>无法由社保持股确认当日国家队买入</td>
+</tr>
+<tr>
+<td>I 内资机构</td>
+<td>日频不可知</td>
+<td>不可知</td>
+<td>Q2两家保险披露减持；订单层大额偏卖</td>
+<td>持仓独立但滞后</td>
+<td>低频直接测量；当期不可知</td>
+<td>不合成“机构全面减仓”</td>
+</tr>
+<tr>
+<td>N 北向 / 跨境资金</td>
+<td>低频持股增加；当期不可知</td>
+<td>不可知</td>
+<td>香港中央结算6/30持仓</td>
+<td>通道存量部分独立</td>
+<td>低频直接测量</td>
+<td>名义持有人不等于最终受益人</td>
+</tr>
+<tr>
+<td>H 游资 / 量化 / 短线资金</td>
+<td>不可知</td>
+<td>不可知</td>
+<td>近20日龙虎榜逐日查询空</td>
+<td>无法判断</td>
+<td>不可知</td>
+<td>无上榜记录不等于无参与</td>
+</tr>
+<tr>
+<td>M 融资等杠杆资金</td>
+<td>净偿还</td>
+<td>中</td>
+<td>融资净额与余额</td>
+<td>账户独立、成交重叠</td>
+<td>直接测量</td>
+<td>无法区分主动偿还与被动去杠杆</td>
+</tr>
+<tr>
+<td>C 产业资本 / 公司 / 内部人</td>
+<td>已披露买入；当日待验证</td>
+<td>弱（日频证据）</td>
+<td>回购、控股股东增持公告</td>
+<td>披露独立、成交可重叠</td>
+<td>直接测量</td>
+<td>计划与实际买入分开</td>
+</tr>
+<tr>
+<td>R 个人 / 小额订单代理</td>
+<td>小单净买代理</td>
+<td>中</td>
+<td>小单1/5/20日均正</td>
+<td>与订单层非独立</td>
+<td>弱推断</td>
+<td>拆单机构也可能落入小单</td>
+</tr>
+<tr>
+<td>Q QFII等境外机构</td>
+<td>不可知</td>
+<td>不可知</td>
+<td>本次前十未识别对应主体</td>
+<td>无法判断</td>
+<td>不可知</td>
+<td>不能排除前十之外持仓</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>主卖方：融资账户提供净撤出证据；成交层的大额订单代理偏卖，无法确认与融资账户是否同一批主体。</li>
+<li>主买方：成交层中小订单代理；真实身份不可知。</li>
+<li>主要承接方：当日只能确认订单规模，不将8月产业资本买入移到9月15日。</li>
+<li>无法确认的主体：日频G/I/N/H/Q；C类当天执行量。</li>
+</ul>
+<h3>4.4 核心结论</h3>
+<p>短线退出压力有数据支持，但“所有机构都在卖”不成立。低频股东持仓和增持提供了身份信息，仍不能覆盖日频买卖；当前只判断部分资金退出占优。</p>
+<h3>4.5 交易方结构特征</h3>
+<ul>
+<li>主买方：小单近20日+5.6063亿元，中单当日+0.8532亿元但20日-2.7707亿元，时间尺度不同。</li>
+<li>主卖方：大单＋特大单近20日-2.8356亿元；融资最新20日-1.5477亿元。</li>
+<li>次要买卖方：公司回购和控股股东买入为低频支持；并非额外可相加的一张“买票”。</li>
+<li>多空分歧：纯特大单20日微正、扩展大额口径为负；法定持股与日频订单方向不完全一致。</li>
+<li>异常信号：9/15占近5日大额净卖约90%；9/1大额净买3.6141亿元且成交量为此前20日均量2.65倍，两日均保留，不选择性剔除。</li>
+<li>不可知主体：没有账户级完整成交数据，不对拆单或“洗盘”作身份推断。</li>
+</ul>
+<h3>4.6 证据详情</h3>
+<h4>可用数据层</h4>
+<div aria-label="可横向滚动的数据表" class="table-wrap" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>层级</th>
+<th>数据层</th>
+<th>状态</th>
+<th>独立性</th>
+<th>关键结果</th>
+<th>可支持结论</th>
+<th>不能推出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L0</td>
+<td>订单流</td>
+<td>可用</td>
+<td>分档同源；与F3重叠</td>
+<td>大额卖、中小额当日买</td>
+<td>金额结构偏弱</td>
+<td>机构或个人身份</td>
+</tr>
+<tr>
+<td>L1</td>
+<td>跨境持仓</td>
+<td>低频可用</td>
+<td>持股披露部分独立</td>
+<td>香港中央结算Q2持股增加</td>
+<td>历史通道存量</td>
+<td>当天北向净买</td>
+</tr>
+<tr>
+<td>L2</td>
+<td>两融</td>
+<td>可用至9/14</td>
+<td>账户较独立</td>
+<td>净偿还、余额下降</td>
+<td>杠杆收缩</td>
+<td>强平原因</td>
+</tr>
+<tr>
+<td>L3</td>
+<td>大宗交易</td>
+<td>可用</td>
+<td>协议换手相对独立</td>
+<td>8/27成交6,408.85万元、7.94元</td>
+<td>大额换手</td>
+<td>卖方必然机构撤离</td>
+</tr>
+<tr>
+<td>L4</td>
+<td>龙虎榜</td>
+<td>20日查询无记录</td>
+<td>如上榜仍属成交子集</td>
+<td>未检出上榜</td>
+<td>仅说明查询结果</td>
+<td>无游资或机构</td>
+</tr>
+<tr>
+<td>L5</td>
+<td>回购 / 增持</td>
+<td>部分可用</td>
+<td>披露独立；成交可能重叠</td>
+<td>截至8月底已实施</td>
+<td>产业资本支持</td>
+<td>当日托底</td>
+</tr>
+<tr>
+<td>L6</td>
+<td>股东 / 质押 / 解禁</td>
+<td>低频及计划可用</td>
+<td>披露独立</td>
+<td>户数增加；质押4.04%</td>
+<td>筹码和供给旁证</td>
+<td>必然卖出或强平</td>
+</tr>
+<tr>
+<td>L7</td>
+<td>ETF / 筹码</td>
+<td>ETF单样本可用</td>
+<td>产品独立，交易可能重叠</td>
+<td>份额偏收缩</td>
+<td>样本申赎方向</td>
+<td>徐工精确被动卖额</td>
+</tr>
+</tbody>
+</table></div>
+<h4>不可用 / 不适用层</h4>
+<div aria-label="可横向滚动的数据表" class="table-wrap" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>层级或主体</th>
+<th>状态</th>
+<th>原因</th>
+<th>对结论影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L1日频</td>
+<td>无数据</td>
+<td>hk_hold 8/1—9/15返回0行，回退Q2通道持仓</td>
+<td>无法判断当前北向方向</td>
+</tr>
+<tr>
+<td>L7当前权重 / 当日NAV</td>
+<td>待核验</td>
+<td>fund_portfolio无权限；公开镜像仅低频持仓；9/15 NAV未返回</td>
+<td>不计算个股ETF归属金额</td>
+</tr>
+<tr>
+<td>L7筹码成本</td>
+<td>不可用</td>
+<td>cyq_perf无访问权限；公开检索未获同日可核验筹码模型</td>
+<td>不输出获利比例、密集成本或强平位</td>
+</tr>
+<tr>
+<td>质押警戒 / 平仓线</td>
+<td>未披露于所取数据</td>
+<td>只有比例，没有合同条件</td>
+<td>无法定量计算被动抛压触发价</td>
+</tr>
+</tbody>
+</table></div>
+<h3>4.7 数据层与独立性</h3>
+<div aria-label="可横向滚动的数据表" class="table-wrap" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>数据渠道</th>
+<th>当前结果</th>
+<th>身份锚点</th>
+<th>与其他层关系</th>
+<th>可用于什么结论</th>
+<th>不能推出什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>订单流</td>
+<td>大额净卖</td>
+<td>无</td>
+<td>同源分档、与融资成交重叠</td>
+<td>订单规模方向</td>
+<td>主力身份</td>
+</tr>
+<tr>
+<td>跨境持仓</td>
+<td>Q2通道持股增加</td>
+<td>名义持有人</td>
+<td>低频存量部分独立</td>
+<td>持股变化</td>
+<td>最新交易方向</td>
+</tr>
+<tr>
+<td>融资融券</td>
+<td>债务余额净减</td>
+<td>融资账户</td>
+<td>买入成交重叠</td>
+<td>杠杆收缩</td>
+<td>主动还是被动</td>
+</tr>
+<tr>
+<td>大宗交易</td>
+<td>8/27折价成交</td>
+<td>营业部，非最终账户</td>
+<td>相对独立</td>
+<td>局部换手</td>
+<td>全市场方向</td>
+</tr>
+<tr>
+<td>龙虎榜</td>
+<td>查询无记录</td>
+<td>无</td>
+<td>如有也为成交子集</td>
+<td>查询覆盖</td>
+<td>没有机构交易</td>
+</tr>
+<tr>
+<td>回购 / 增持</td>
+<td>8月底实际实施</td>
+<td>公司 / 控股股东</td>
+<td>披露独立，买入仍是市场成交</td>
+<td>产业资本行为</td>
+<td>当前资金完全独立第二票</td>
+</tr>
+<tr>
+<td>股东持仓 / 户数</td>
+<td>Q2更分散</td>
+<td>法定披露</td>
+<td>独立、滞后</td>
+<td>中期筹码结构</td>
+<td>日频机构行为</td>
+</tr>
+<tr>
+<td>ETF份额</td>
+<td>单只样本缩减</td>
+<td>产品，不是申购人</td>
+<td>成分股交易可能重叠</td>
+<td>样本产品净申赎</td>
+<td>全行业或徐工净流量</td>
+</tr>
+<tr>
+<td>质押 / 解禁</td>
+<td>4.04%；12月计划解禁</td>
+<td>披露持有人</td>
+<td>独立供给背景</td>
+<td>潜在压力</td>
+<td>实际出售</td>
+</tr>
+<tr>
+<td>筹码成本</td>
+<td>未取得</td>
+<td>无</td>
+<td>即使取得也由量价推导</td>
+<td>本次不使用</td>
+<td>成本密集区或强平</td>
+</tr>
+</tbody>
+</table></div>
+<h3>4.8 交叉验证总结</h3>
+<ul>
+<li>融资账户与大额订单方向同弱，但成交可重叠；不机械升级为共振流出。</li>
+<li>当日下跌和相对同行弱势支持退出压力占优；20日跑赢沪深300是反证，不能忽略。</li>
+<li>公司与控股股东披露买入和日频卖出冲突，解释为时间尺度差异；尚不能证明谁会在7.77元接盘。</li>
+</ul>
+<h3>4.9 信号冲突与不可知</h3>
+<ul>
+<li>方向冲突：中期纯特大单微正与短期明显净卖并存；低频资本支持未形成价格确认。</li>
+<li>重复统计：四档资金、F3融资买入、ETF成分交易、回购成交可能互相重叠，不相加。</li>
+<li>金额与身份：已确认规模分层的净额，未识别完整最终账户。</li>
+<li>不可知：无记录不等于无行为；披露空档不能填零。</li>
+<li>下一身份验证点：融资更新、公司执行公告、季度持仓及ETF申赎明细。</li>
+</ul>
+</section><section class="report-section"><h2>5. 关键价位与确认标准</h2>
+<h3>关键价位</h3>
+<div aria-label="可横向滚动的数据表" class="table-wrap" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th class="numeric" style="text-align: right;">价位</th>
+<th>性质</th>
+<th>意义 / 确认标准</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="numeric" style="text-align: right;">8.98</td>
+<td><span class="tag tag-warn">远端压力</span></td>
+<td>当前价口径前复权MA120约8.979；不是目标价</td>
+</tr>
+<tr>
+<td class="numeric" style="text-align: right;">8.57</td>
+<td><span class="tag tag-neutral">阶段高点</span></td>
+<td>9/8高点、近20日高点；收盘突破、量能增加且资金持续改善后再判断趋势升级</td>
+</tr>
+<tr>
+<td class="numeric" style="text-align: right;">8.39</td>
+<td><span class="tag tag-warn">短线压力</span></td>
+<td>9/9高点；突破后仍需验证回踩，不提前宣布反转</td>
+</tr>
+<tr>
+<td class="numeric" style="text-align: right;">8.31</td>
+<td><span class="tag tag-neutral">中期观察位</span></td>
+<td>当前价口径MA60约8.309；先看能否收复并持续</td>
+</tr>
+<tr>
+<td class="numeric" style="text-align: right;"><strong>8.08—8.13</strong></td>
+<td><span class="tag tag-danger">已失守</span></td>
+<td>MA20=8.075、MA5=8.118、MA10=8.127的显示区间；修复观察以未四舍五入均线或明确固定价为准</td>
+</tr>
+<tr>
+<td class="numeric" style="text-align: right;"><strong>7.77—7.78</strong></td>
+<td><span class="tag tag-neutral">前低观察区</span></td>
+<td>8/31低点7.77、9/15低点7.78；尚未收盘跌破7.77，但只相距约0.5%，不是已确认底部</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote class="callout callout-info">
+<p>关键位采用“收盘确认＋量能配合＋资金验证”。盘中触及不是有效突破；即使缩量，收盘破位也应记为风险。下述2个收盘日、均量以上等是本次观察约定，未做回测，不替代用户既定止损规则。</p>
+</blockquote>
+<h3>成交量与趋势确认</h3>
+<div aria-label="可横向滚动的数据表" class="table-wrap" role="region" tabindex="0"><table class="volume-table">
+<thead>
+<tr>
+<th>指标</th>
+<th style="text-align: right;">数值 / 当前状态</th>
+<th>趋势含义与确认条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>当日成交量 / 此前5日、20日均量</td>
+<td style="text-align: right;"><strong>115.62 / 79.50 / 113.33万手</strong></td>
+<td>当日9/15；前5日9/8—14，前20日8/18—9/14，均不含当日</td>
+</tr>
+<tr>
+<td>当日量 / 此前5日、20日均量</td>
+<td style="text-align: right;"><strong>1.45 / 1.02倍</strong></td>
+<td>对近期缩量阶段明显放大，但对20日基线基本持平，不是极端放量</td>
+</tr>
+<tr>
+<td>当日成交额 / 此前5日、20日均额</td>
+<td style="text-align: right;">9.1393 / 6.5742 / 9.1688亿元</td>
+<td>当日成交额略低于20日均额；成交额不是资金净流入</td>
+</tr>
+<tr>
+<td>当日换手率 / 此前5日、20日均值</td>
+<td style="text-align: right;">1.2849% / 0.8835% / 1.2594%</td>
+<td>总流通股本口径，不使用自由流通换手率1.4144%混算</td>
+</tr>
+<tr>
+<td>近5日 / 再前5日量能与价格</td>
+<td style="text-align: right;">74.93 / 146.43万手；比值0.512倍；-6.24% / +1.09%</td>
+<td>9/9—15与9/2—8不重叠；整段量缩但价格下跌，说明缩量本身不足以证明卖压安全释放</td>
+</tr>
+<tr>
+<td>近20日上涨日 / 下跌日量能</td>
+<td style="text-align: right;">10日 / 10日；121.87 / 105.40万手；比值1.156倍；平盘0日</td>
+<td>上涨日均量更大是反证，但包含9/1大涨放量，不能掩盖随后反弹失效</td>
+</tr>
+<tr>
+<td>最近上涨段 / 随后回调段</td>
+<td style="text-align: right;">9/4—9：+5.67%、140.19万手；9/10—15：-6.80%、74.37万手；比值<strong>0.530倍</strong></td>
+<td>上涨从9/3收盘7.93起算，回调从9/9收盘8.38起算；回调虽然缩量，却跌回7.81、低于上涨起点，不能称健康洗盘；本段回撤仍未确认结束</td>
+</tr>
+<tr>
+<td>突破验证</td>
+<td style="text-align: right;"><strong>8.57：未发生</strong></td>
+<td>9/8最高8.57、收盘8.33，事件量/前20均量1.14倍；大额净卖1.5401亿元，没有形成收盘突破；未来观察连续2日收于8.57上方、突破日量高于前20均量及5日资金改善</td>
+</tr>
+<tr>
+<td>跌破验证</td>
+<td style="text-align: right;"><strong>均线簇已失守；7.77未破</strong></td>
+<td>9/15收7.81、当日量/前20均量1.02倍、大额净卖1.5728亿元；即使不是巨量，均线失守仍成立。若未来收于7.77下方，先记破位风险，不等放量才处理</td>
+</tr>
+<tr>
+<td>回踩验证</td>
+<td style="text-align: right;"><strong>9/14小反弹次日失守；成功回踩未确认</strong></td>
+<td>9/14量51.57万手，为前20均量0.44倍，收8.10、大额净买0.1891亿元；9/15量为其2.24倍且收7.81。尚无已确认8.57突破，因此“突破后回踩量/突破日量”不适用</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote class="callout callout-info">
+<p><strong>量能结论：</strong> 这轮回调的平均成交量确实比上涨时小，但价格已经跌回上涨起点以下；昨天的小幅反弹又被今天更大的成交量压回去。因而更接近“承接不足、反弹未稳”，不能只凭缩量判断为洗盘，也不能凭今天放量判断恐慌已经出清。</p>
+<p class="source-note"><strong>口径与缺口：</strong> 日线取243行，近21个完整交易日成交量均为正，不补零、不删除异常日；成交量由手÷10,000转为万手，成交额由千元÷100,000转为亿元。均量基线不含当日，20日涨跌分组含当日；两段价格收益使用窗口前收盘。MA60/120按adj_factor折为9/15当前价口径，成交量不复权；近20日价格窗口与三家同行比较窗口无复权因子变动。9/15是收盘数据，不和盘中量比混用。波段按已观察日期描述，不能用于假装事前选点或证明策略收益。</p>
+</blockquote>
+<h3>价格、广度与筹码交叉验证</h3>
+<div aria-label="可横向滚动的数据表" class="table-wrap" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>验证项</th>
+<th>当前事实</th>
+<th>与资金信号关系</th>
+<th>结论影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>价格响应</td>
+<td>1/5/20日-3.58%/-6.24%/-2.86%</td>
+<td>短线确认走弱</td>
+<td>尚未确认修复</td>
+</tr>
+<tr>
+<td>成交与换手</td>
+<td>当日量是前5/20均量1.45/1.02倍；回调量0.53倍但跌破上涨起点</td>
+<td>缩量没有保护价格</td>
+<td>不将回调自动定性为洗盘</td>
+</tr>
+<tr>
+<td>上涨广度</td>
+<td>当日A股有行情样本5,548只：上涨1,120、下跌4,376、平盘52</td>
+<td>市场环境也弱</td>
+<td>个股下跌含系统性因素；非完整市场存量统计</td>
+</tr>
+<tr>
+<td>相对强弱</td>
+<td>5日徐工-6.24%，三一-2.40%、中联-3.29%、柳工-1.44%、沪深300-2.38%</td>
+<td>短期相对弱</td>
+<td>但20日徐工-2.86%好于沪深300-5.84%，不能把所有窗口都说成最弱</td>
+</tr>
+<tr>
+<td>筹码供给与抛压</td>
+<td>质押4.04%；12/28预计股权激励解禁748.616万股、0.0639%</td>
+<td>有供给背景，但非当天卖单</td>
+<td>老计划待最新实施公告复核；不等于即将全卖</td>
+</tr>
+<tr>
+<td>连续性</td>
+<td>大额合计和融资多个窗口为负；纯特大单20日微正</td>
+<td>有延续也有冲突</td>
+<td>保持结构性流出，而非全部共振</td>
+</tr>
+<tr>
+<td>基本面与价格预期</td>
+<td>H1营收612.47亿元、归母39.62亿元、扣非同比-14.28%；经营现金流41.58亿元；PE TTM14.81、PB1.42</td>
+<td>收入增长与利润下降分化</td>
+<td>经营现金流扣购建长期资产现金支出48.57亿元约-6.99亿元，仅为简化现金余量，不是完整FCFF；经营恢复和汇率影响需后续验证</td>
+</tr>
+</tbody>
+</table></div>
+<p>财务数据来自本次MCP及字段补取，与<a href="https://disc.static.szse.cn/disc/disk03/finalpage/2026-08-29/babcda20-4d63-4302-960b-0af56b4d766a.PDF">深交所半年报</a>交叉核验。中期拟每股分红0.045元，不能提前当成已实施回报。当前未取得可复核FY1/FY2一致预期和最新完整行业订单/汇率归因，因此无法证明市场已经过度悲观或过度乐观；不重新计算公允价值。</p>
+</section><section class="report-section"><h2>6. 资金分歧与传导链</h2>
+<ul>
+<li>主导链条：融资净偿还＋大额订单卖出 → 边际承接偏弱 → 反弹回吐、收盘跌回均线下方 → 短期相对同行走弱 → 结构性流出。</li>
+<li>反向链条：公司回购＋控股股东增持＋中小订单承接 → 可能缓冲供给 → 但缺日频持续执行和价格转强验证，尚不能升级为修复。</li>
+<li>谁在承接：当天只能识别中小订单分档；8/31可识别控股股东，时间不能混用。</li>
+<li>潜在退出路径：前低失守可能引发趋势仓风控和更多偿还；这是条件推演，不是已验证强平。缩量不免除破位风险。</li>
+</ul>
+</section><section class="report-section"><h2>7. 支持证据、反证与缺口</h2>
+<h3>支持当前状态的证据</h3>
+<ul>
+<li>9/15下跌3.58%，大额净卖1.5728亿元，收盘接近日内低点。</li>
+<li>5/20日融资净额为负、余额下降，金额与余额恒等核验误差为0。</li>
+<li>反弹后虽然缩量，但价格跌破上涨起点；9/14的小反弹未延续。</li>
+<li>短期弱于三家同行，市场上涨家数比例约20.19%，承接环境不利。</li>
+</ul>
+<h3>核心反证</h3>
+<ul>
+<li>20日纯特大单仍净买0.1559亿元，上涨日平均量也高于下跌日；短期不能外推为所有资金撤离。</li>
+<li>公司回购、控股股东实际增持与中报通道持仓增加提供低频支持；<a href="https://epaper.cs.com.cn/zgzqb/html/2026-09/01/nw.D110000zgzqb_20260901_5-B013.htm">公司披露</a>中的计划并未等同全部实施。</li>
+<li>H1收入和经营现金流同比增长，20日表现好于沪深300。资金流出不能单独推导基本面价值归零。</li>
+</ul>
+<h3>数据缺口</h3>
+<ul>
+<li>9/15融资、ETF当日NAV及完整当前权重、日频北向和机构身份不可得。</li>
+<li>筹码成本接口无权限；质押合同触发条件、解禁最终执行和未披露减持未知。</li>
+<li>股东增减持接口13行含重复记录及持股比例口径异常，未累加；8/31增持以公告为准。其余未能逐笔核验的记录不用于净额。</li>
+<li>最新宏观和行业景气、可比一致预期缺口降低“资金为什么撤出”的归因置信度，不改变已测得量价方向。</li>
+</ul>
+</section><section class="report-section"><h2>8. 行动与仓位映射</h2>
+<h3>新增资金</h3>
+<div aria-label="可横向滚动的数据表" class="table-wrap" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>行动</th>
+<th>条件化仓位</th>
+<th>触发条件</th>
+<th>维持条件</th>
+<th>取消条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>observe</strong></td>
+<td><strong>新增0%</strong></td>
+<td>当前资金偏弱且无用户风险预算</td>
+<td>先观察7.77前低；修复需收回均线簇、5日大额净额转正且融资不再持续收缩</td>
+<td>明确预算后仍须量价确认才能考虑升级；破位或基本面假设恶化则撤销试探方案</td>
+</tr>
+</tbody>
+</table></div>
+<h3>已有持仓</h3>
+<div aria-label="可横向滚动的数据表" class="table-wrap" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>行动</th>
+<th>仓位调整</th>
+<th>触发条件</th>
+<th>维持条件</th>
+<th>取消条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>review</strong></td>
+<td>不虚构成本或减仓比例</td>
+<td>核验趋势仓 / 基本面仓分类、成本、仓位和退出规则</td>
+<td>按原风控执行；等待量价资金修复不能代替止损</td>
+<td>若原计划的失效条件已达成，应按原计划评估reduce/sell，而非等待“足够放量”</td>
+</tr>
+</tbody>
+</table></div>
+</section><section class="report-section"><h2>9. 下一验证点与失效条件</h2>
+<ul>
+<li>下一验证时间：9/16及随后3—5个交易日收盘；融资待下一次披露后补齐。本报告不创建自动监控。</li>
+<li>下一验证指标：7.77前低、8.08—8.13均线簇、8.39与8.57；当日量/前20均量、5日大额净额、融资净额与余额。均线每天更新，不永远固定今日值。</li>
+<li>基本面与价格预期验证：后续回购和股东增持实际执行、分红实施、Q3盈利现金流及工程机械订单；不把计划金额计成当天买盘。</li>
+<li>当前判断失效条件：连续价格修复且融资、订单结构改善，并出现独立的持续配置证据时，应重新评估“结构性流出”；缺口补齐也可能改变判断。</li>
+<li>行动升级条件：先收回均线簇并保持2个收盘日、上攻量高于事件日前20日均量、5日大额净额转正且融资停止收缩、相对强弱改善；再结合预算决定observe→wait或有条件buy。以上为观察约定，无回测保证。</li>
+<li>行动降级条件：收盘失守7.77，或反弹持续缩量且资金再度恶化；已有持仓按原失效规则评估减仓/退出，不能把量能未放大当成继续持有的充分理由。</li>
+</ul>
+</section><section class="report-section"><h2>10. 数据审计</h2>
+<h3>数据采集清单</h3>
+<div aria-label="可横向滚动的数据表" class="table-wrap" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>数据层</th>
+<th>状态</th>
+<th>最新时点</th>
+<th>观察窗口</th>
+<th>来源</th>
+<th>口径与覆盖范围</th>
+<th>数据性质</th>
+<th>缺口及影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L0 资金分档 / F5</td>
+<td>已获取</td>
+<td>9/15</td>
+<td>7/1—9/15，55行</td>
+<td>本地MCP get_stock_moneyflow</td>
+<td>原单位万元；四档净额最大残差0.02万元；F5只取特大单</td>
+<td>统计代理</td>
+<td>不穿透身份，不和平台net_mf字段混算</td>
+</tr>
+<tr>
+<td>L1 北向 / 跨境</td>
+<td>部分获取</td>
+<td>持仓6/30；日频检查至9/15</td>
+<td>日频8/1—9/15</td>
+<td>Tushare hk_hold / top10_holders</td>
+<td>hk_hold空；Q2名义持仓8.3058亿股</td>
+<td>低频事实</td>
+<td>不支持当期净方向</td>
+</tr>
+<tr>
+<td>L2 融资融券 / F3</td>
+<td>已获取；当日缺失</td>
+<td>9/14</td>
+<td>7/1—9/14，54行</td>
+<td>本地stdio MCP get_margin_detail，成功</td>
+<td>原单位元：rzye=940427105；rzmre=11551080；rzche=34466839；rqye=8815230；rzrqye=949242335</td>
+<td>直接账户统计</td>
+<td>9/15未返回；不能猜强平；买入与订单重叠</td>
+</tr>
+<tr>
+<td>L3 大宗交易</td>
+<td>已获取</td>
+<td>8/27</td>
+<td>7/1—9/15，1行</td>
+<td>Tushare block_trade</td>
+<td>807.16万股、7.94元、6408.85万元；对当天收8.01折价0.87%；买广发北京阜成门南大街、卖招商深圳招商证券大厦</td>
+<td>局部交易事实</td>
+<td>席位不等于最终账户；不能直接判断卖出原因</td>
+</tr>
+<tr>
+<td>L4 龙虎榜</td>
+<td>已检查、无记录</td>
+<td>查询至9/15</td>
+<td>8/19—9/15逐日20次</td>
+<td>Tushare top_list</td>
+<td>按trade_date与000425.SZ查询，均成功空行</td>
+<td>查询事实</td>
+<td>不等于无游资/机构；本次无上榜席位可追踪</td>
+</tr>
+<tr>
+<td>L5 回购 / 增减持</td>
+<td>部分获取</td>
+<td>实施8/31；公告9/1</td>
+<td>2026年初至9/15</td>
+<td>Tushare repurchase/stk_holdertrade＋公司公告</td>
+<td>回购9行、增减持13行；累计值不相加；增持重复/异常字段回退公告</td>
+<td>已验证事实＋缺口</td>
+<td>不能证明9/15继续执行；不能由未检出推断无减持</td>
+</tr>
+<tr>
+<td>L6 股东户数 / 持仓</td>
+<td>已获取</td>
+<td>6/30</td>
+<td>户数7期；Q2前十</td>
+<td>MCP get_shareholder_count/check_central_huijin_holding；top10_holders</td>
+<td>户数154660；汇金前十大/流通前十大检索未匹配</td>
+<td>低频事实</td>
+<td>不排除前十外持仓；不推出当日主体</td>
+</tr>
+<tr>
+<td>L7 ETF / 筹码</td>
+<td>部分获取</td>
+<td>份额9/15；NAV9/14</td>
+<td>份额55行、NAV54行</td>
+<td>Tushare fund_share/fund_nav/fund_portfolio/cyq_perf；公开持仓镜像</td>
+<td>仅159542；份额原单位万份，净额=份额差×同日NAV；配对20日-199.445万元</td>
+<td>产品估算代理</td>
+<td>组合/筹码接口无权限；未按低频权重映射个股；9/15净额不算</td>
+</tr>
+<tr>
+<td>质押</td>
+<td>已获取</td>
+<td>9/11</td>
+<td>历史581行取最新</td>
+<td>Tushare pledge_stat</td>
+<td>质押47363.92万股、4.04%；与9/4相同</td>
+<td>供给风险代理</td>
+<td>缺合同警戒线，不等于将发生强平</td>
+</tr>
+<tr>
+<td>筹码供给</td>
+<td>部分获取</td>
+<td>2023年公告计划</td>
+<td>检查9/15—2027/3/15</td>
+<td>Tushare share_float及增减持/回购公告</td>
+<td>返回12/28预计解禁7486160股、0.0639%，股权激励</td>
+<td>计划记录</td>
+<td>老计划必须等待最新公告复核，不等于实际卖出</td>
+</tr>
+</tbody>
+</table></div>
+<p>融资窗口核验：1日余额9/11的9.6334→9/14的9.4043亿元；5日为9/7的10.0803→9/14的9.4043亿元；20日为8/17的10.9520→9/14的9.4043亿元。均以窗口首日前余额作为期初，与窗口内净买入求和一致，误差0元。完整审计和原始返回见下一章。</p>
+</section><section class="report-section"><h2>11. 来源与使用边界</h2>
+<h3>当前数据来源</h3>
+<ul>
+<li><a href="../../../assets/徐工机械/2026-09-15-1800/calculation.json">全部复算结果</a>、<a href="../../../assets/徐工机械/2026-09-15-1800/audit.json">主采集审计</a>：本次约18:01—18:05重新采集，不沿用旧报告数值作为新证据。</li>
+<li><a href="../../../assets/徐工机械/2026-09-15-1800/daily.json">日线原始返回</a>、<a href="../../../assets/徐工机械/2026-09-15-1800/adj.json">复权因子</a>、<a href="../../../assets/徐工机械/2026-09-15-1800/valuation.json">换手与估值</a>。量能按新技能“不含当日”基线重新计算，不能和旧版包含当日的均值混比。</li>
+<li><a href="../../../assets/徐工机械/2026-09-15-1800/margin.json">融资MCP返回</a>、<a href="../../../assets/徐工机械/2026-09-15-1800/moneyflow.json">订单流MCP返回</a>、<a href="../../../assets/徐工机械/2026-09-15-1800/holders.json">股东户数</a>、<a href="../../../assets/徐工机械/2026-09-15-1800/top10.json">前十大持仓</a>。</li>
+<li><a href="../../../assets/徐工机械/2026-09-15-1800/block.json">大宗交易</a>、<a href="../../../assets/徐工机械/2026-09-15-1800/top.json">龙虎榜逐日查询</a>、<a href="../../../assets/徐工机械/2026-09-15-1800/pledge.json">质押</a>、<a href="../../../assets/徐工机械/2026-09-15-1800/unlock.json">解禁计划</a>。</li>
+<li><a href="../../../assets/徐工机械/2026-09-15-1800/etfshare.json">ETF份额</a>、<a href="../../../assets/徐工机械/2026-09-15-1800/etfnav.json">ETF净值</a>、<a href="../../../assets/徐工机械/2026-09-15-1800/etfportfolio.json">组合权限失败记录</a>、<a href="../../../assets/徐工机械/2026-09-15-1800/chips.json">筹码权限失败记录</a>。<a href="https://vip.stock.finance.sina.com.cn/corp/go.php/vCI_FundOwnedList/stockid/000425/fund_ownedid/159542/displaytype/50.phtml">持仓公开镜像</a>仅作样本覆盖旁证，未将其中历史比例当作当前权重。</li>
+<li><a href="https://disc.static.szse.cn/disc/disk03/finalpage/2026-08-29/babcda20-4d63-4302-960b-0af56b4d766a.PDF">深交所2026半年报</a>、<a href="../../../assets/徐工机械/2026-09-15-1800/financial.json">财报MCP</a>、<a href="../../../assets/徐工机械/2026-09-15-1800/cashflow_extra.json">现金支出补取</a>、<a href="../../../assets/徐工机械/2026-09-15-1800/dividend.json">分红历史</a>。</li>
+<li><a href="https://epaper.cs.com.cn/zgzqb/html/2026-09/01/nw.D110000zgzqb_20260901_5-B013.htm">9/1公司增持与回购披露</a>：执行额、计划额和时间分别记录。</li>
+<li><a href="2026-09-15-徐工机械资金面分析.html">当日旧版报告</a>保留，不覆盖。本版补充量能及更多供给证据，不重估原机构研报。</li>
+</ul>
+<h3>框架依据</h3>
+<ul>
+<li>华泰证券《A股择时之资金面指标测试》（2021-07-02）：仅作资金来源分类参考，未复刻或验证其择时策略。</li>
+<li>F3/F5/F7为日频代理观察框架；新增量能模块用于确认价格响应，不是已验证的买卖模型。</li>
+</ul>
+<h3>使用边界</h3>
+<ul>
+<li>金额、账户、产品、披露频率分层处理；无数据不等于零，不能把方向相同的重叠指标当独立证据。</li>
+<li>技术位和观察阈值不保证有效；描述性波段不等于事前可交易策略。股价下跌不直接按市值重估融资债务余额。</li>
+<li>财报、分红、估值和宏观预期只检验资金持续性，不输出新公允价值或无条件交易指令。本报告不构成收益承诺或个性化投资建议。</li>
+</ul></section></main></body></html>

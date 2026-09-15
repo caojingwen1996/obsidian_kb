@@ -166,6 +166,13 @@ console.log(JSON.stringify({{
     title: "正常帖子",
     author_name: "买股票的老木匠",
     content: "这里是正常正文"
+  }}),
+  publicProfile: classifyManualActionPayload({{
+    title: "冰冰小美 - 雪球",
+    author_name: "冰冰小美",
+    published_at: "2026-09-12 17:17",
+    url: "https://xueqiu.com/u/7143769715",
+    content: "首页\\n下载App\\n登录\\n冰冰小美\\n63 关注\\n85955 粉丝\\n帖子\\n11453\\n冰冰小美09-12 17:17· 来自Android\\n捋一捋市场疲软"
   }})
 }}));
 """
@@ -174,6 +181,7 @@ console.log(JSON.stringify({{
         self.assertEqual(payload["verification"], "verification")
         self.assertEqual(payload["login"], "login")
         self.assertFalse(payload["normal"])
+        self.assertFalse(payload["publicProfile"])
 
     def test_manual_action_guidance_message_mentions_wait_and_resume(self) -> None:
         script_path = (PROJECT_ROOT / "scripts" / "extract_xueqiu_posts.mjs").as_uri()

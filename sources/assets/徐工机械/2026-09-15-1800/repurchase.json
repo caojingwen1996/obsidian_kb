@@ -1,0 +1,113 @@
+{
+  "source": "Tushare supplemental API",
+  "method": "repurchase",
+  "arguments": {
+    "ts_code": "000425.SZ",
+    "start_date": "20260101",
+    "end_date": "20260915"
+  },
+  "status": "ok",
+  "rows": [
+    {
+      "ts_code": "000425.SZ",
+      "ann_date": "20260901",
+      "end_date": "20260831",
+      "proc": "实施",
+      "exp_date": null,
+      "vol": 36806400.0,
+      "amount": 344849914.31,
+      "high_limit": 9.99,
+      "low_limit": 7.94
+    },
+    {
+      "ts_code": "000425.SZ",
+      "ann_date": "20260804",
+      "end_date": "20260731",
+      "proc": "实施",
+      "exp_date": null,
+      "vol": 36426900.0,
+      "amount": 341834660.31,
+      "high_limit": 9.99,
+      "low_limit": 8.67
+    },
+    {
+      "ts_code": "000425.SZ",
+      "ann_date": "20260721",
+      "end_date": "20260720",
+      "proc": "实施",
+      "exp_date": null,
+      "vol": 36205100.0,
+      "amount": 339833222.31,
+      "high_limit": 9.99,
+      "low_limit": 8.67
+    },
+    {
+      "ts_code": "000425.SZ",
+      "ann_date": "20260701",
+      "end_date": "20260630",
+      "proc": "实施",
+      "exp_date": null,
+      "vol": 35053100.0,
+      "amount": 329819073.31,
+      "high_limit": 9.99,
+      "low_limit": 8.67
+    },
+    {
+      "ts_code": "000425.SZ",
+      "ann_date": "20260601",
+      "end_date": "20260529",
+      "proc": "实施",
+      "exp_date": null,
+      "vol": 2552000.0,
+      "amount": 25010011.84,
+      "high_limit": 9.95,
+      "low_limit": 9.61
+    },
+    {
+      "ts_code": "000425.SZ",
+      "ann_date": "20260529",
+      "end_date": null,
+      "proc": "股东大会通过",
+      "exp_date": null,
+      "vol": null,
+      "amount": null,
+      "high_limit": 15.0,
+      "low_limit": null
+    },
+    {
+      "ts_code": "000425.SZ",
+      "ann_date": "20260429",
+      "end_date": null,
+      "proc": "预案",
+      "exp_date": "20270528",
+      "vol": null,
+      "amount": 600000000.0,
+      "high_limit": 15.0,
+      "low_limit": null
+    },
+    {
+      "ts_code": "000425.SZ",
+      "ann_date": "20260401",
+      "end_date": "20260331",
+      "proc": "完成",
+      "exp_date": null,
+      "vol": 37405303.0,
+      "amount": 309970727.17,
+      "high_limit": 10.2,
+      "low_limit": 7.67
+    },
+    {
+      "ts_code": "000425.SZ",
+      "ann_date": "20260211",
+      "end_date": "20260209",
+      "proc": "完成",
+      "exp_date": null,
+      "vol": 4356730.0,
+      "amount": 11340451.0,
+      "high_limit": null,
+      "low_limit": 2.58
+    }
+  ],
+  "row_count": 9,
+  "retrieved_at": "2026-09-15T18:01:27.903029+08:00"
+}

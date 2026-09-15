@@ -1,0 +1,191 @@
+[
+  {
+    "key": "basic",
+    "tool": "get_stock_basic",
+    "status": "ok",
+    "row_count": 1,
+    "message": null
+  },
+  {
+    "key": "daily",
+    "tool": "get_stock_daily",
+    "status": "ok",
+    "row_count": 243,
+    "message": null
+  },
+  {
+    "key": "valuation",
+    "tool": "get_stock_valuation",
+    "status": "ok",
+    "row_count": 55,
+    "message": null
+  },
+  {
+    "key": "moneyflow",
+    "tool": "get_stock_moneyflow",
+    "status": "ok",
+    "row_count": 55,
+    "message": null
+  },
+  {
+    "key": "margin",
+    "tool": "get_margin_detail",
+    "status": "ok",
+    "row_count": 54,
+    "message": null
+  },
+  {
+    "key": "holders",
+    "tool": "get_shareholder_count",
+    "status": "ok",
+    "row_count": 16,
+    "message": null
+  },
+  {
+    "key": "huijin",
+    "tool": "check_central_huijin_holding",
+    "status": "ok",
+    "row_count": null,
+    "message": null
+  },
+  {
+    "key": "financial",
+    "tool": "get_financial_statements",
+    "status": "ok",
+    "row_count": null,
+    "message": null
+  },
+  {
+    "key": "dividend",
+    "tool": "get_dividend_history",
+    "status": "ok",
+    "row_count": 82,
+    "message": null
+  },
+  {
+    "status": "ok",
+    "row_count": 243,
+    "message": null,
+    "key": "adj",
+    "tool": "adj_factor"
+  },
+  {
+    "status": "ok",
+    "row_count": 1,
+    "message": null,
+    "key": "block",
+    "tool": "block_trade"
+  },
+  {
+    "status": "error",
+    "row_count": null,
+    "message": "必填参数, trade_date",
+    "key": "top",
+    "tool": "top_list"
+  },
+  {
+    "status": "ok",
+    "row_count": 0,
+    "message": null,
+    "key": "repurchase",
+    "tool": "repurchase"
+  },
+  {
+    "status": "ok",
+    "row_count": 0,
+    "message": null,
+    "key": "holdertrade",
+    "tool": "stk_holdertrade"
+  },
+  {
+    "status": "ok",
+    "row_count": 533,
+    "message": null,
+    "key": "pledge",
+    "tool": "pledge_stat"
+  },
+  {
+    "status": "ok",
+    "row_count": 0,
+    "message": null,
+    "key": "unlock",
+    "tool": "share_float"
+  },
+  {
+    "status": "error",
+    "row_count": null,
+    "message": "抱歉，您没有接口(cyq_perf)访问权限，权限的具体详情访问：https://tushare.pro/document/1?doc_id=108。",
+    "key": "chips",
+    "tool": "cyq_perf"
+  },
+  {
+    "status": "ok",
+    "row_count": 0,
+    "message": null,
+    "key": "hk",
+    "tool": "hk_hold"
+  },
+  {
+    "status": "ok",
+    "row_count": 10,
+    "message": null,
+    "key": "top10",
+    "tool": "top10_holders"
+  },
+  {
+    "status": "ok",
+    "row_count": 10,
+    "message": null,
+    "key": "top10prev",
+    "tool": "top10_holders"
+  },
+  {
+    "status": "ok",
+    "row_count": 55,
+    "message": null,
+    "key": "csi300",
+    "tool": "index_daily"
+  },
+  {
+    "status": "ok",
+    "row_count": 55,
+    "message": null,
+    "key": "peer601600",
+    "tool": "daily"
+  },
+  {
+    "status": "ok",
+    "row_count": 55,
+    "message": null,
+    "key": "peer002532",
+    "tool": "daily"
+  },
+  {
+    "status": "ok",
+    "row_count": 55,
+    "message": null,
+    "key": "peer600219",
+    "tool": "daily"
+  },
+  {
+    "status": "ok",
+    "row_count": 31,
+    "message": null,
+    "key": "etfshare",
+    "tool": "fund_share"
+  },
+  {
+    "status": "ok",
+    "row_count": 31,
+    "message": null,
+    "key": "etfnav",
+    "tool": "fund_nav"
+  },
+  {
+    "status": "error",
+    "row_count": null,
+    "message": "抱歉，您没有接口(fund_portfolio)访问权限，权限的具体详情访问：https://tushare.pro/document/1?doc_id=108。",
+    "key": "etfportfolio",
+    "tool": "fund_portfolio"
+  }
+]

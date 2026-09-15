@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-10",
+  "updatedAt": "2026-09-15",
   "items": [
     {
       "id": "TODO-005",
@@ -60,16 +60,6 @@
       "status": "未开始",
       "source": "看板新增",
       "createdAt": "2026-09-01",
-      "updatedAt": "2026-09-04"
-    },
-    {
-      "id": "TODO-013",
-      "title": "复盘日记页面完善成日历型",
-      "detail": "",
-      "quadrant": "重要不紧急",
-      "status": "未开始",
-      "source": "看板新增",
-      "createdAt": "2026-09-02",
       "updatedAt": "2026-09-04"
     },
     {
@@ -141,6 +131,16 @@
       "source": "看板新增",
       "createdAt": "2026-09-10",
       "updatedAt": "2026-09-10"
+    },
+    {
+      "id": "TODO-023",
+      "title": "终极目标：将skill开源或上线到workbuddy",
+      "detail": "",
+      "quadrant": "重要且紧急",
+      "status": "未开始",
+      "source": "看板新增",
+      "createdAt": "2026-09-15",
+      "updatedAt": "2026-09-15"
     }
   ],
   "archive": [
@@ -194,6 +194,32 @@
       "updatedAt": "2026-09-10",
       "completedAt": "2026-09-10",
       "archivedAt": "2026-09-10",
+      "archiveReason": "status-completed"
+    },
+    {
+      "id": "TODO-013",
+      "title": "复盘日记页面完善成日历型",
+      "detail": "",
+      "quadrant": "重要不紧急",
+      "status": "已完成",
+      "source": "看板新增",
+      "createdAt": "2026-09-02",
+      "updatedAt": "2026-09-15",
+      "completedAt": "2026-09-15",
+      "archivedAt": "2026-09-15",
+      "archiveReason": "status-completed"
+    },
+    {
+      "id": "TODO-024",
+      "title": "参考workbuddy技能优化资金面分析skill",
+      "detail": "",
+      "quadrant": "重要且紧急",
+      "status": "已完成",
+      "source": "看板新增",
+      "createdAt": "2026-09-15",
+      "updatedAt": "2026-09-15",
+      "completedAt": "2026-09-15",
+      "archivedAt": "2026-09-15",
       "archiveReason": "status-completed"
     }
   ]

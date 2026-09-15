@@ -1,0 +1,56 @@
+{
+  "source": "local MCP stdio",
+  "tool": "get_stock_basic",
+  "arguments": {
+    "ts_code": "000425.SZ",
+    "use_cache": false
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\"dataset\": \"stock_basic\", \"row_count\": 1, \"rows\": [{\"area\": \"江苏\", \"exchange\": \"SZSE\", \"industry\": \"工程机械\", \"list_date\": \"1996-08-28\", \"list_status\": \"L\", \"market\": \"主板\", \"name\": \"徐工机械\", \"symbol\": \"000425\", \"ts_code\": \"000425.SZ\"}]}"
+        }
+      ],
+      "structuredContent": {
+        "dataset": "stock_basic",
+        "rows": [
+          {
+            "ts_code": "000425.SZ",
+            "symbol": "000425",
+            "name": "徐工机械",
+            "area": "江苏",
+            "industry": "工程机械",
+            "market": "主板",
+            "exchange": "SZSE",
+            "list_date": "1996-08-28",
+            "list_status": "L"
+          }
+        ],
+        "row_count": 1
+      },
+      "isError": false
+    }
+  },
+  "payload": {
+    "dataset": "stock_basic",
+    "rows": [
+      {
+        "ts_code": "000425.SZ",
+        "symbol": "000425",
+        "name": "徐工机械",
+        "area": "江苏",
+        "industry": "工程机械",
+        "market": "主板",
+        "exchange": "SZSE",
+        "list_date": "1996-08-28",
+        "list_status": "L"
+      }
+    ],
+    "row_count": 1
+  },
+  "retrieved_at": "2026-09-15T18:01:26.342038+08:00"
+}

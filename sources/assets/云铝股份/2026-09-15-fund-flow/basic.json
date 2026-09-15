@@ -1,0 +1,56 @@
+{
+  "source": "local MCP stdio",
+  "tool": "get_stock_basic",
+  "arguments": {
+    "ts_code": "000807.SZ",
+    "use_cache": false
+  },
+  "retrieved_at": "2026-09-15T17:52:53.064260+08:00",
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\"dataset\": \"stock_basic\", \"row_count\": 1, \"rows\": [{\"area\": \"云南\", \"exchange\": \"SZSE\", \"industry\": \"铝\", \"list_date\": \"1998-04-08\", \"list_status\": \"L\", \"market\": \"主板\", \"name\": \"云铝股份\", \"symbol\": \"000807\", \"ts_code\": \"000807.SZ\"}]}"
+        }
+      ],
+      "structuredContent": {
+        "dataset": "stock_basic",
+        "rows": [
+          {
+            "ts_code": "000807.SZ",
+            "symbol": "000807",
+            "name": "云铝股份",
+            "area": "云南",
+            "industry": "铝",
+            "market": "主板",
+            "exchange": "SZSE",
+            "list_date": "1998-04-08",
+            "list_status": "L"
+          }
+        ],
+        "row_count": 1
+      },
+      "isError": false
+    }
+  },
+  "payload": {
+    "dataset": "stock_basic",
+    "rows": [
+      {
+        "ts_code": "000807.SZ",
+        "symbol": "000807",
+        "name": "云铝股份",
+        "area": "云南",
+        "industry": "铝",
+        "market": "主板",
+        "exchange": "SZSE",
+        "list_date": "1998-04-08",
+        "list_status": "L"
+      }
+    ],
+    "row_count": 1
+  }
+}

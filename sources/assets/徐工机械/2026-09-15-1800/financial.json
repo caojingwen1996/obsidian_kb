@@ -1,0 +1,215 @@
+{
+  "source": "local MCP stdio",
+  "tool": "get_financial_statements",
+  "arguments": {
+    "ts_code": "000425.SZ",
+    "period": "20260630",
+    "use_cache": false
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 7,
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\"dataset\": \"financial_statements\", \"statements\": {\"balancesheet\": {\"row_count\": 2, \"rows\": [{\"accounts_receiv\": 47482871298.17, \"ann_date\": \"2026-08-29\", \"comp_type\": \"1\", \"end_date\": \"2026-06-30\", \"f_ann_date\": \"2026-08-29\", \"inventories\": 37983267959.85, \"money_cap\": 21406355419.75, \"report_type\": \"1\", \"total_assets\": 178996022590.64, \"total_hldr_eqy_exc_min_int\": 64557301347.66, \"total_liab\": 112950337588.32, \"ts_code\": \"000425.SZ\"}, {\"accounts_receiv\": 47482871298.17, \"ann_date\": \"2026-08-29\", \"comp_type\": \"1\", \"end_date\": \"2026-06-30\", \"f_ann_date\": \"2026-08-29\", \"inventories\": 37983267959.85, \"money_cap\": 21406355419.75, \"report_type\": \"1\", \"total_assets\": 178996022590.64, \"total_hldr_eqy_exc_min_int\": 64557301347.66, \"total_liab\": 112950337588.32, \"ts_code\": \"000425.SZ\"}]}, \"cashflow\": {\"row_count\": 2, \"rows\": [{\"ann_date\": \"2026-08-29\", \"comp_type\": \"1\", \"end_date\": \"2026-06-30\", \"f_ann_date\": \"2026-08-29\", \"n_cash_flows_fnc_act\": -1390881419.6, \"n_cashflow_act\": 4158249841.03, \"n_cashflow_inv_act\": -4593503043.1, \"report_type\": \"1\", \"ts_code\": \"000425.SZ\"}, {\"ann_date\": \"2026-08-29\", \"comp_type\": \"1\", \"end_date\": \"2026-06-30\", \"f_ann_date\": \"2026-08-29\", \"n_cash_flows_fnc_act\": -1390881419.6, \"n_cashflow_act\": 4158249841.03, \"n_cashflow_inv_act\": -4593503043.1, \"report_type\": \"1\", \"ts_code\": \"000425.SZ\"}]}, \"income\": {\"row_count\": 2, \"rows\": [{\"ann_date\": \"2026-08-29\", \"basic_eps\": 0.35, \"comp_type\": \"1\", \"end_date\": \"2026-06-30\", \"f_ann_date\": \"2026-08-29\", \"n_income_attr_p\": 3962016329.45, \"oper_cost\": 47700015366.27, \"report_type\": \"1\", \"revenue\": 61247013848.13, \"total_revenue\": 61247013848.13, \"ts_code\": \"000425.SZ\"}, {\"ann_date\": \"2026-08-29\", \"basic_eps\": 0.35, \"comp_type\": \"1\", \"end_date\": \"2026-06-30\", \"f_ann_date\": \"2026-08-29\", \"n_income_attr_p\": 3962016329.45, \"oper_cost\": 47700015366.27, \"report_type\": \"1\", \"revenue\": 61247013848.13, \"total_revenue\": 61247013848.13, \"ts_code\": \"000425.SZ\"}]}}}"
+        }
+      ],
+      "structuredContent": {
+        "dataset": "financial_statements",
+        "statements": {
+          "income": {
+            "rows": [
+              {
+                "ts_code": "000425.SZ",
+                "ann_date": "2026-08-29",
+                "f_ann_date": "2026-08-29",
+                "end_date": "2026-06-30",
+                "report_type": "1",
+                "comp_type": "1",
+                "basic_eps": 0.35,
+                "total_revenue": 61247013848.13,
+                "revenue": 61247013848.13,
+                "oper_cost": 47700015366.27,
+                "n_income_attr_p": 3962016329.45
+              },
+              {
+                "ts_code": "000425.SZ",
+                "ann_date": "2026-08-29",
+                "f_ann_date": "2026-08-29",
+                "end_date": "2026-06-30",
+                "report_type": "1",
+                "comp_type": "1",
+                "basic_eps": 0.35,
+                "total_revenue": 61247013848.13,
+                "revenue": 61247013848.13,
+                "oper_cost": 47700015366.27,
+                "n_income_attr_p": 3962016329.45
+              }
+            ],
+            "row_count": 2
+          },
+          "balancesheet": {
+            "rows": [
+              {
+                "ts_code": "000425.SZ",
+                "ann_date": "2026-08-29",
+                "f_ann_date": "2026-08-29",
+                "end_date": "2026-06-30",
+                "report_type": "1",
+                "comp_type": "1",
+                "money_cap": 21406355419.75,
+                "inventories": 37983267959.85,
+                "accounts_receiv": 47482871298.17,
+                "total_assets": 178996022590.64,
+                "total_liab": 112950337588.32,
+                "total_hldr_eqy_exc_min_int": 64557301347.66
+              },
+              {
+                "ts_code": "000425.SZ",
+                "ann_date": "2026-08-29",
+                "f_ann_date": "2026-08-29",
+                "end_date": "2026-06-30",
+                "report_type": "1",
+                "comp_type": "1",
+                "money_cap": 21406355419.75,
+                "inventories": 37983267959.85,
+                "accounts_receiv": 47482871298.17,
+                "total_assets": 178996022590.64,
+                "total_liab": 112950337588.32,
+                "total_hldr_eqy_exc_min_int": 64557301347.66
+              }
+            ],
+            "row_count": 2
+          },
+          "cashflow": {
+            "rows": [
+              {
+                "ts_code": "000425.SZ",
+                "ann_date": "2026-08-29",
+                "f_ann_date": "2026-08-29",
+                "end_date": "2026-06-30",
+                "report_type": "1",
+                "comp_type": "1",
+                "n_cashflow_act": 4158249841.03,
+                "n_cashflow_inv_act": -4593503043.1,
+                "n_cash_flows_fnc_act": -1390881419.6
+              },
+              {
+                "ts_code": "000425.SZ",
+                "ann_date": "2026-08-29",
+                "f_ann_date": "2026-08-29",
+                "end_date": "2026-06-30",
+                "report_type": "1",
+                "comp_type": "1",
+                "n_cashflow_act": 4158249841.03,
+                "n_cashflow_inv_act": -4593503043.1,
+                "n_cash_flows_fnc_act": -1390881419.6
+              }
+            ],
+            "row_count": 2
+          }
+        }
+      },
+      "isError": false
+    }
+  },
+  "payload": {
+    "dataset": "financial_statements",
+    "statements": {
+      "income": {
+        "rows": [
+          {
+            "ts_code": "000425.SZ",
+            "ann_date": "2026-08-29",
+            "f_ann_date": "2026-08-29",
+            "end_date": "2026-06-30",
+            "report_type": "1",
+            "comp_type": "1",
+            "basic_eps": 0.35,
+            "total_revenue": 61247013848.13,
+            "revenue": 61247013848.13,
+            "oper_cost": 47700015366.27,
+            "n_income_attr_p": 3962016329.45
+          },
+          {
+            "ts_code": "000425.SZ",
+            "ann_date": "2026-08-29",
+            "f_ann_date": "2026-08-29",
+            "end_date": "2026-06-30",
+            "report_type": "1",
+            "comp_type": "1",
+            "basic_eps": 0.35,
+            "total_revenue": 61247013848.13,
+            "revenue": 61247013848.13,
+            "oper_cost": 47700015366.27,
+            "n_income_attr_p": 3962016329.45
+          }
+        ],
+        "row_count": 2
+      },
+      "balancesheet": {
+        "rows": [
+          {
+            "ts_code": "000425.SZ",
+            "ann_date": "2026-08-29",
+            "f_ann_date": "2026-08-29",
+            "end_date": "2026-06-30",
+            "report_type": "1",
+            "comp_type": "1",
+            "money_cap": 21406355419.75,
+            "inventories": 37983267959.85,
+            "accounts_receiv": 47482871298.17,
+            "total_assets": 178996022590.64,
+            "total_liab": 112950337588.32,
+            "total_hldr_eqy_exc_min_int": 64557301347.66
+          },
+          {
+            "ts_code": "000425.SZ",
+            "ann_date": "2026-08-29",
+            "f_ann_date": "2026-08-29",
+            "end_date": "2026-06-30",
+            "report_type": "1",
+            "comp_type": "1",
+            "money_cap": 21406355419.75,
+            "inventories": 37983267959.85,
+            "accounts_receiv": 47482871298.17,
+            "total_assets": 178996022590.64,
+            "total_liab": 112950337588.32,
+            "total_hldr_eqy_exc_min_int": 64557301347.66
+          }
+        ],
+        "row_count": 2
+      },
+      "cashflow": {
+        "rows": [
+          {
+            "ts_code": "000425.SZ",
+            "ann_date": "2026-08-29",
+            "f_ann_date": "2026-08-29",
+            "end_date": "2026-06-30",
+            "report_type": "1",
+            "comp_type": "1",
+            "n_cashflow_act": 4158249841.03,
+            "n_cashflow_inv_act": -4593503043.1,
+            "n_cash_flows_fnc_act": -1390881419.6
+          },
+          {
+            "ts_code": "000425.SZ",
+            "ann_date": "2026-08-29",
+            "f_ann_date": "2026-08-29",
+            "end_date": "2026-06-30",
+            "report_type": "1",
+            "comp_type": "1",
+            "n_cashflow_act": 4158249841.03,
+            "n_cashflow_inv_act": -4593503043.1,
+            "n_cash_flows_fnc_act": -1390881419.6
+          }
+        ],
+        "row_count": 2
+      }
+    }
+  },
+  "retrieved_at": "2026-09-15T18:01:26.369039+08:00"
+}

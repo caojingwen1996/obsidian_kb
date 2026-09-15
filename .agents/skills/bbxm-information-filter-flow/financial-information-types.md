@@ -20,7 +20,7 @@ related:
   - "[[冰冰小美-信息的金融意义系列]]"
   - "[[冰冰小美：金融信息优先级的判断框架]]"
 usage:
-  - 供 bbxm-information-filter-flow/SKILL.md 在 Step 1 与 Step 2 中引用
+  - 供信息归纳技能在准备阶段按需补充金融信息分类；五层流程与结论以最新 Wiki 金融信息归纳框架和 SKILL.md 为准
 ---
 
 # 冰冰小美-金融信息类型字典

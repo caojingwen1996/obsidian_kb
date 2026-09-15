@@ -1,0 +1,13 @@
+{
+  "source": "Tushare supplemental API",
+  "method": "hk_hold",
+  "arguments": {
+    "ts_code": "000425.SZ",
+    "start_date": "20260801",
+    "end_date": "20260915"
+  },
+  "status": "ok",
+  "rows": [],
+  "row_count": 0,
+  "retrieved_at": "2026-09-15T18:01:28.166827+08:00"
+}

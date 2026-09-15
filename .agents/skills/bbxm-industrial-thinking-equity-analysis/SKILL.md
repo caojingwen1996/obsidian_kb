@@ -61,7 +61,7 @@ metadata:
 | 直接分析竞争格局、流动性和情绪位置 | `bbxm-three-factor-analysis` |
 | 专门研究财报、利润质量和现金流 | `financial-report-research` |
 | 分析资金流、交易方和增量资金 | `fund-flow-analysis` |
-| 判断一条新闻或公告有没有金融意义 | `bbxm-information-filter-flow` |
+| 明确调用信息归纳技能或金融信息归纳框架 | `bbxm-information-filter-flow`（信息归纳） |
 | 判断风险增强、减弱或重新增强 | `bbxm-risk-identification` |
 
 若用户同时要求产业思维和完整估值，先完成本技能并保存权威报告，再由 `个股估值计算` 读取产业结论作为前置输入；若同时要求产业思维和三要素，分别完成两个判断后再汇总，不得互相代替。

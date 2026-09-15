@@ -1,0 +1,11 @@
+{
+  "source": "Tushare supplemental API (no corresponding MCP tool)",
+  "method": "fund_portfolio",
+  "arguments": {
+    "ts_code": "512400.SH",
+    "period": "20260630"
+  },
+  "retrieved_at": "2026-09-15T17:52:55.558325+08:00",
+  "status": "error",
+  "message": "抱歉，您没有接口(fund_portfolio)访问权限，权限的具体详情访问：https://tushare.pro/document/1?doc_id=108。"
+}

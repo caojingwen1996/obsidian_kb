@@ -1,0 +1,4809 @@
+{
+  "source": "Tushare supplemental API (no corresponding MCP tool)",
+  "method": "pledge_stat",
+  "arguments": {
+    "ts_code": "000807.SZ"
+  },
+  "retrieved_at": "2026-09-15T17:52:54.737562+08:00",
+  "status": "ok",
+  "rows": [
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20260911",
+      "pledge_count": 1,
+      "unrest_pledge": 250.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.07
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20260904",
+      "pledge_count": 1,
+      "unrest_pledge": 250.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.07
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20260828",
+      "pledge_count": 1,
+      "unrest_pledge": 250.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.07
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20260821",
+      "pledge_count": 1,
+      "unrest_pledge": 250.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.07
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20260814",
+      "pledge_count": 1,
+      "unrest_pledge": 250.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.07
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20260807",
+      "pledge_count": 1,
+      "unrest_pledge": 250.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.07
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20260731",
+      "pledge_count": 1,
+      "unrest_pledge": 250.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.07
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20260724",
+      "pledge_count": 1,
+      "unrest_pledge": 250.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.07
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20260717",
+      "pledge_count": 1,
+      "unrest_pledge": 250.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.07
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20260417",
+      "pledge_count": 1,
+      "unrest_pledge": 600.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.17
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20260410",
+      "pledge_count": 1,
+      "unrest_pledge": 600.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.17
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20260403",
+      "pledge_count": 1,
+      "unrest_pledge": 600.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.17
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20260327",
+      "pledge_count": 1,
+      "unrest_pledge": 600.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.17
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20260320",
+      "pledge_count": 1,
+      "unrest_pledge": 600.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.17
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20260313",
+      "pledge_count": 1,
+      "unrest_pledge": 600.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.17
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20260306",
+      "pledge_count": 1,
+      "unrest_pledge": 600.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.17
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20260227",
+      "pledge_count": 1,
+      "unrest_pledge": 600.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.17
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20260213",
+      "pledge_count": 1,
+      "unrest_pledge": 600.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.17
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20260206",
+      "pledge_count": 1,
+      "unrest_pledge": 600.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.17
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20260130",
+      "pledge_count": 1,
+      "unrest_pledge": 600.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.17
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20260123",
+      "pledge_count": 1,
+      "unrest_pledge": 600.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.17
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20260116",
+      "pledge_count": 1,
+      "unrest_pledge": 600.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.17
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20260109",
+      "pledge_count": 1,
+      "unrest_pledge": 600.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.17
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20251231",
+      "pledge_count": 1,
+      "unrest_pledge": 600.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.17
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20251226",
+      "pledge_count": 1,
+      "unrest_pledge": 600.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.17
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20251219",
+      "pledge_count": 1,
+      "unrest_pledge": 600.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.17
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20251212",
+      "pledge_count": 1,
+      "unrest_pledge": 600.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.17
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20251205",
+      "pledge_count": 1,
+      "unrest_pledge": 600.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.17
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20251129",
+      "pledge_count": 1,
+      "unrest_pledge": 600.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.17
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20251128",
+      "pledge_count": 1,
+      "unrest_pledge": 600.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.17
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20251121",
+      "pledge_count": 1,
+      "unrest_pledge": 600.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.17
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20251115",
+      "pledge_count": 1,
+      "unrest_pledge": 600.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.17
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20251114",
+      "pledge_count": 1,
+      "unrest_pledge": 600.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.17
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20251107",
+      "pledge_count": 1,
+      "unrest_pledge": 600.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.17
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20251031",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20251024",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20251017",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20251010",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250930",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250926",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250919",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250912",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250905",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250829",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250822",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250815",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250808",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250801",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250725",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250718",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250711",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250704",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250627",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250620",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250613",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250606",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250530",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250523",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250516",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250509",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250430",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250425",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250418",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250411",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250403",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250328",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250321",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250314",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250307",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250228",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250221",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250214",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250207",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250127",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250124",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250117",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250110",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20250103",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20241227",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20241220",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20241213",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20241206",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20241129",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20241122",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20241115",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20241108",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20241101",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20241025",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20241018",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20241011",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240930",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240927",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240920",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240913",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240906",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240830",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240823",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240816",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240809",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240802",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240726",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240719",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240712",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240705",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240628",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240621",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240614",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240607",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240531",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240524",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240517",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240510",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240430",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240426",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240419",
+      "pledge_count": 1,
+      "unrest_pledge": 1355.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.39
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240412",
+      "pledge_count": 1,
+      "unrest_pledge": 1862.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.54
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240403",
+      "pledge_count": 1,
+      "unrest_pledge": 1862.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.54
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240329",
+      "pledge_count": 1,
+      "unrest_pledge": 1862.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.54
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240322",
+      "pledge_count": 1,
+      "unrest_pledge": 1862.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.54
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240315",
+      "pledge_count": 1,
+      "unrest_pledge": 1862.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.54
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240308",
+      "pledge_count": 1,
+      "unrest_pledge": 1862.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.54
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240301",
+      "pledge_count": 1,
+      "unrest_pledge": 1862.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.54
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240223",
+      "pledge_count": 2,
+      "unrest_pledge": 2200.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.63
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240208",
+      "pledge_count": 2,
+      "unrest_pledge": 2200.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.63
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240202",
+      "pledge_count": 2,
+      "unrest_pledge": 2200.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.63
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240126",
+      "pledge_count": 3,
+      "unrest_pledge": 2700.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240119",
+      "pledge_count": 3,
+      "unrest_pledge": 2700.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240112",
+      "pledge_count": 3,
+      "unrest_pledge": 2700.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20240105",
+      "pledge_count": 3,
+      "unrest_pledge": 2700.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20231229",
+      "pledge_count": 3,
+      "unrest_pledge": 2700.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20231222",
+      "pledge_count": 3,
+      "unrest_pledge": 2700.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20231215",
+      "pledge_count": 2,
+      "unrest_pledge": 2500.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.72
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20231208",
+      "pledge_count": 2,
+      "unrest_pledge": 2500.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.72
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20231201",
+      "pledge_count": 2,
+      "unrest_pledge": 2500.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.72
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20231124",
+      "pledge_count": 2,
+      "unrest_pledge": 2500.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.72
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20231117",
+      "pledge_count": 2,
+      "unrest_pledge": 2500.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.72
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20231110",
+      "pledge_count": 2,
+      "unrest_pledge": 2500.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.72
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20231103",
+      "pledge_count": 2,
+      "unrest_pledge": 2500.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.72
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20231027",
+      "pledge_count": 2,
+      "unrest_pledge": 2500.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.72
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20231020",
+      "pledge_count": 2,
+      "unrest_pledge": 2500.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.72
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20231013",
+      "pledge_count": 2,
+      "unrest_pledge": 2500.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.72
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230928",
+      "pledge_count": 2,
+      "unrest_pledge": 2500.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.72
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230922",
+      "pledge_count": 2,
+      "unrest_pledge": 2500.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.72
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230915",
+      "pledge_count": 2,
+      "unrest_pledge": 3000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.87
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230908",
+      "pledge_count": 2,
+      "unrest_pledge": 3000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.87
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230901",
+      "pledge_count": 2,
+      "unrest_pledge": 3000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.87
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230825",
+      "pledge_count": 2,
+      "unrest_pledge": 3000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.87
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230818",
+      "pledge_count": 2,
+      "unrest_pledge": 3000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.87
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230811",
+      "pledge_count": 2,
+      "unrest_pledge": 3000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.87
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230804",
+      "pledge_count": 2,
+      "unrest_pledge": 3000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.87
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230728",
+      "pledge_count": 2,
+      "unrest_pledge": 3000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.87
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230721",
+      "pledge_count": 2,
+      "unrest_pledge": 3000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.87
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230714",
+      "pledge_count": 2,
+      "unrest_pledge": 3000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.87
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230707",
+      "pledge_count": 2,
+      "unrest_pledge": 3000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.87
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230630",
+      "pledge_count": 2,
+      "unrest_pledge": 3000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.87
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230621",
+      "pledge_count": 2,
+      "unrest_pledge": 3000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.87
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230616",
+      "pledge_count": 2,
+      "unrest_pledge": 3000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.87
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230609",
+      "pledge_count": 2,
+      "unrest_pledge": 3000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.87
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230602",
+      "pledge_count": 2,
+      "unrest_pledge": 3000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.87
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230526",
+      "pledge_count": 2,
+      "unrest_pledge": 3000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.87
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230519",
+      "pledge_count": 2,
+      "unrest_pledge": 3000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.87
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230512",
+      "pledge_count": 2,
+      "unrest_pledge": 3000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.87
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230505",
+      "pledge_count": 2,
+      "unrest_pledge": 3000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.87
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230428",
+      "pledge_count": 2,
+      "unrest_pledge": 3000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.87
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230421",
+      "pledge_count": 2,
+      "unrest_pledge": 3000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.87
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230414",
+      "pledge_count": 1,
+      "unrest_pledge": 1000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.29
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230407",
+      "pledge_count": 1,
+      "unrest_pledge": 1000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.29
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230331",
+      "pledge_count": 1,
+      "unrest_pledge": 1000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.29
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230324",
+      "pledge_count": 1,
+      "unrest_pledge": 1000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.29
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230317",
+      "pledge_count": 1,
+      "unrest_pledge": 1000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.29
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230310",
+      "pledge_count": 1,
+      "unrest_pledge": 1000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.29
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230303",
+      "pledge_count": 1,
+      "unrest_pledge": 1000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.29
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230224",
+      "pledge_count": 1,
+      "unrest_pledge": 1000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.29
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230217",
+      "pledge_count": 1,
+      "unrest_pledge": 1000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.29
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230210",
+      "pledge_count": 1,
+      "unrest_pledge": 1000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.29
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230203",
+      "pledge_count": 1,
+      "unrest_pledge": 1000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.29
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230120",
+      "pledge_count": 1,
+      "unrest_pledge": 1000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.29
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230113",
+      "pledge_count": 1,
+      "unrest_pledge": 1000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.29
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20230106",
+      "pledge_count": 1,
+      "unrest_pledge": 1000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.29
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20221230",
+      "pledge_count": 1,
+      "unrest_pledge": 1000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.29
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20221223",
+      "pledge_count": 1,
+      "unrest_pledge": 1000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.29
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20221216",
+      "pledge_count": 1,
+      "unrest_pledge": 1000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.29
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20221209",
+      "pledge_count": 1,
+      "unrest_pledge": 1000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.29
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20221202",
+      "pledge_count": 1,
+      "unrest_pledge": 1000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.29
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20221125",
+      "pledge_count": 1,
+      "unrest_pledge": 1000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.29
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20221118",
+      "pledge_count": 1,
+      "unrest_pledge": 1000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.29
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20221111",
+      "pledge_count": 1,
+      "unrest_pledge": 1000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.29
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20221104",
+      "pledge_count": 1,
+      "unrest_pledge": 1000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.29
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20221028",
+      "pledge_count": 1,
+      "unrest_pledge": 1000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.29
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20221021",
+      "pledge_count": 1,
+      "unrest_pledge": 1000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.29
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20221014",
+      "pledge_count": 1,
+      "unrest_pledge": 1000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.29
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20220930",
+      "pledge_count": 1,
+      "unrest_pledge": 1000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.29
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20220923",
+      "pledge_count": 1,
+      "unrest_pledge": 1000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.29
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20220916",
+      "pledge_count": 1,
+      "unrest_pledge": 1000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.29
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20220909",
+      "pledge_count": 1,
+      "unrest_pledge": 1000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.29
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20220902",
+      "pledge_count": 1,
+      "unrest_pledge": 1000.0,
+      "rest_pledge": 0.0,
+      "total_share": 346795.74,
+      "pledge_ratio": 0.29
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20210219",
+      "pledge_count": 3,
+      "unrest_pledge": 0.93,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20210210",
+      "pledge_count": 3,
+      "unrest_pledge": 1.3,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20210205",
+      "pledge_count": 3,
+      "unrest_pledge": 1.3,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20210129",
+      "pledge_count": 3,
+      "unrest_pledge": 1.3,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20210122",
+      "pledge_count": 3,
+      "unrest_pledge": 1.3,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20210115",
+      "pledge_count": 3,
+      "unrest_pledge": 1.3,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20210108",
+      "pledge_count": 3,
+      "unrest_pledge": 1.3,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20201231",
+      "pledge_count": 3,
+      "unrest_pledge": 1.3,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20201225",
+      "pledge_count": 3,
+      "unrest_pledge": 1.3,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20201218",
+      "pledge_count": 3,
+      "unrest_pledge": 1.3,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20201211",
+      "pledge_count": 3,
+      "unrest_pledge": 1.3,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20201204",
+      "pledge_count": 3,
+      "unrest_pledge": 1.3,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20201127",
+      "pledge_count": 3,
+      "unrest_pledge": 1.3,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20201120",
+      "pledge_count": 3,
+      "unrest_pledge": 1.3,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20201113",
+      "pledge_count": 3,
+      "unrest_pledge": 1.3,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20201106",
+      "pledge_count": 3,
+      "unrest_pledge": 1.3,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20201030",
+      "pledge_count": 3,
+      "unrest_pledge": 1.3,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20201023",
+      "pledge_count": 3,
+      "unrest_pledge": 1.3,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20201016",
+      "pledge_count": 3,
+      "unrest_pledge": 1.3,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20201009",
+      "pledge_count": 3,
+      "unrest_pledge": 1.3,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200930",
+      "pledge_count": 3,
+      "unrest_pledge": 1.3,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200925",
+      "pledge_count": 4,
+      "unrest_pledge": 1.96,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200918",
+      "pledge_count": 5,
+      "unrest_pledge": 2.23,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200911",
+      "pledge_count": 5,
+      "unrest_pledge": 2.23,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200904",
+      "pledge_count": 6,
+      "unrest_pledge": 2.24,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200828",
+      "pledge_count": 7,
+      "unrest_pledge": 2.43,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200821",
+      "pledge_count": 7,
+      "unrest_pledge": 2.43,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200814",
+      "pledge_count": 7,
+      "unrest_pledge": 2.43,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200807",
+      "pledge_count": 7,
+      "unrest_pledge": 2.43,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200731",
+      "pledge_count": 7,
+      "unrest_pledge": 2.43,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200724",
+      "pledge_count": 7,
+      "unrest_pledge": 2.43,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200717",
+      "pledge_count": 7,
+      "unrest_pledge": 2.43,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200710",
+      "pledge_count": 7,
+      "unrest_pledge": 2.43,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200703",
+      "pledge_count": 7,
+      "unrest_pledge": 2.43,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200624",
+      "pledge_count": 7,
+      "unrest_pledge": 2.43,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200619",
+      "pledge_count": 7,
+      "unrest_pledge": 2.43,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200612",
+      "pledge_count": 7,
+      "unrest_pledge": 2.43,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200605",
+      "pledge_count": 7,
+      "unrest_pledge": 2.43,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200529",
+      "pledge_count": 7,
+      "unrest_pledge": 2.43,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200522",
+      "pledge_count": 7,
+      "unrest_pledge": 2.43,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200515",
+      "pledge_count": 7,
+      "unrest_pledge": 2.43,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200508",
+      "pledge_count": 7,
+      "unrest_pledge": 2.43,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200430",
+      "pledge_count": 7,
+      "unrest_pledge": 2.43,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200424",
+      "pledge_count": 7,
+      "unrest_pledge": 2.43,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200417",
+      "pledge_count": 7,
+      "unrest_pledge": 2.43,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200410",
+      "pledge_count": 7,
+      "unrest_pledge": 2.43,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200403",
+      "pledge_count": 7,
+      "unrest_pledge": 2.43,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200327",
+      "pledge_count": 7,
+      "unrest_pledge": 2.43,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200320",
+      "pledge_count": 7,
+      "unrest_pledge": 2.43,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200313",
+      "pledge_count": 7,
+      "unrest_pledge": 2.43,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200306",
+      "pledge_count": 7,
+      "unrest_pledge": 2.43,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200228",
+      "pledge_count": 7,
+      "unrest_pledge": 2.43,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200221",
+      "pledge_count": 8,
+      "unrest_pledge": 17661.65,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 5.65
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200214",
+      "pledge_count": 8,
+      "unrest_pledge": 17661.65,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 5.65
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200207",
+      "pledge_count": 8,
+      "unrest_pledge": 17661.65,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 5.65
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200123",
+      "pledge_count": 8,
+      "unrest_pledge": 17661.65,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 5.65
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200117",
+      "pledge_count": 8,
+      "unrest_pledge": 17661.65,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 5.65
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200110",
+      "pledge_count": 8,
+      "unrest_pledge": 17661.65,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 5.65
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20200103",
+      "pledge_count": 9,
+      "unrest_pledge": 17663.95,
+      "rest_pledge": 0.0,
+      "total_share": 312820.66,
+      "pledge_ratio": 5.65
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20191227",
+      "pledge_count": 9,
+      "unrest_pledge": 17663.95,
+      "rest_pledge": 0.0,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20191220",
+      "pledge_count": 9,
+      "unrest_pledge": 17663.95,
+      "rest_pledge": 0.0,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20191213",
+      "pledge_count": 9,
+      "unrest_pledge": 17663.95,
+      "rest_pledge": 0.0,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20191206",
+      "pledge_count": 9,
+      "unrest_pledge": 17663.95,
+      "rest_pledge": 0.0,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20191129",
+      "pledge_count": 9,
+      "unrest_pledge": 17663.95,
+      "rest_pledge": 0.0,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20191122",
+      "pledge_count": 9,
+      "unrest_pledge": 17663.95,
+      "rest_pledge": 0.0,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20191115",
+      "pledge_count": 9,
+      "unrest_pledge": 17663.95,
+      "rest_pledge": 0.0,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20191108",
+      "pledge_count": 9,
+      "unrest_pledge": 17663.95,
+      "rest_pledge": 0.0,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20191101",
+      "pledge_count": 9,
+      "unrest_pledge": 17663.95,
+      "rest_pledge": 0.0,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20191025",
+      "pledge_count": 9,
+      "unrest_pledge": 17663.95,
+      "rest_pledge": 0.0,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20191018",
+      "pledge_count": 9,
+      "unrest_pledge": 17663.95,
+      "rest_pledge": 0.0,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20191011",
+      "pledge_count": 9,
+      "unrest_pledge": 17663.95,
+      "rest_pledge": 0.0,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190930",
+      "pledge_count": 9,
+      "unrest_pledge": 17663.95,
+      "rest_pledge": 0.0,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190927",
+      "pledge_count": 9,
+      "unrest_pledge": 17663.95,
+      "rest_pledge": 0.0,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190920",
+      "pledge_count": 9,
+      "unrest_pledge": 17663.95,
+      "rest_pledge": 0.0,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190912",
+      "pledge_count": 9,
+      "unrest_pledge": 17663.95,
+      "rest_pledge": 0.0,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190906",
+      "pledge_count": 9,
+      "unrest_pledge": 17663.95,
+      "rest_pledge": 0.0,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190830",
+      "pledge_count": 9,
+      "unrest_pledge": 17663.95,
+      "rest_pledge": 0.0,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190823",
+      "pledge_count": 13,
+      "unrest_pledge": 17664.11,
+      "rest_pledge": 0.0,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190816",
+      "pledge_count": 13,
+      "unrest_pledge": 17664.11,
+      "rest_pledge": 0.0,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190809",
+      "pledge_count": 13,
+      "unrest_pledge": 17664.11,
+      "rest_pledge": 0.0,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190802",
+      "pledge_count": 14,
+      "unrest_pledge": 17664.4,
+      "rest_pledge": 0.0,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190726",
+      "pledge_count": 14,
+      "unrest_pledge": 17664.4,
+      "rest_pledge": 0.0,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190719",
+      "pledge_count": 14,
+      "unrest_pledge": 17664.4,
+      "rest_pledge": 0.0,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190712",
+      "pledge_count": 16,
+      "unrest_pledge": 17665.72,
+      "rest_pledge": 0.0,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190705",
+      "pledge_count": 16,
+      "unrest_pledge": 17665.72,
+      "rest_pledge": 0.0,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190628",
+      "pledge_count": 17,
+      "unrest_pledge": 17665.81,
+      "rest_pledge": 0.0,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.78
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190621",
+      "pledge_count": 18,
+      "unrest_pledge": 17665.81,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.57
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190614",
+      "pledge_count": 18,
+      "unrest_pledge": 17665.81,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.57
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190606",
+      "pledge_count": 18,
+      "unrest_pledge": 17665.81,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.57
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190531",
+      "pledge_count": 18,
+      "unrest_pledge": 17665.81,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.57
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190524",
+      "pledge_count": 18,
+      "unrest_pledge": 17665.81,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.57
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190517",
+      "pledge_count": 18,
+      "unrest_pledge": 17665.81,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.57
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190510",
+      "pledge_count": 21,
+      "unrest_pledge": 17665.99,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.57
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190430",
+      "pledge_count": 21,
+      "unrest_pledge": 17665.99,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.57
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190426",
+      "pledge_count": 21,
+      "unrest_pledge": 17665.99,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.57
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190419",
+      "pledge_count": 21,
+      "unrest_pledge": 17665.99,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.57
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190412",
+      "pledge_count": 21,
+      "unrest_pledge": 17665.99,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.57
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190404",
+      "pledge_count": 21,
+      "unrest_pledge": 17665.99,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.57
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190329",
+      "pledge_count": 21,
+      "unrest_pledge": 17665.99,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.57
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190322",
+      "pledge_count": 21,
+      "unrest_pledge": 17665.99,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.57
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190315",
+      "pledge_count": 21,
+      "unrest_pledge": 17665.99,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.57
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190308",
+      "pledge_count": 21,
+      "unrest_pledge": 17665.99,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.57
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190301",
+      "pledge_count": 21,
+      "unrest_pledge": 17665.99,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.57
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190222",
+      "pledge_count": 22,
+      "unrest_pledge": 17666.0,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.57
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190215",
+      "pledge_count": 24,
+      "unrest_pledge": 17666.16,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.57
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190201",
+      "pledge_count": 24,
+      "unrest_pledge": 17666.16,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.57
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190125",
+      "pledge_count": 25,
+      "unrest_pledge": 17666.46,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.57
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190118",
+      "pledge_count": 25,
+      "unrest_pledge": 17666.46,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.57
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190111",
+      "pledge_count": 27,
+      "unrest_pledge": 37666.61,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.24
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20190104",
+      "pledge_count": 27,
+      "unrest_pledge": 37666.61,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.24
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20181228",
+      "pledge_count": 27,
+      "unrest_pledge": 37666.61,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.24
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20181221",
+      "pledge_count": 29,
+      "unrest_pledge": 37666.79,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.24
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20181214",
+      "pledge_count": 30,
+      "unrest_pledge": 37666.8,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.24
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20181207",
+      "pledge_count": 30,
+      "unrest_pledge": 37666.8,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.24
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20181130",
+      "pledge_count": 31,
+      "unrest_pledge": 37667.3,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.24
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20181123",
+      "pledge_count": 32,
+      "unrest_pledge": 37667.56,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.24
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20181116",
+      "pledge_count": 32,
+      "unrest_pledge": 37667.56,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.24
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20181109",
+      "pledge_count": 33,
+      "unrest_pledge": 37667.76,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.24
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20181102",
+      "pledge_count": 33,
+      "unrest_pledge": 37667.76,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.24
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20181026",
+      "pledge_count": 33,
+      "unrest_pledge": 37667.76,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.24
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20181019",
+      "pledge_count": 35,
+      "unrest_pledge": 37667.87,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.24
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20181012",
+      "pledge_count": 38,
+      "unrest_pledge": 37669.26,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.24
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180928",
+      "pledge_count": 39,
+      "unrest_pledge": 37669.31,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.24
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180921",
+      "pledge_count": 51,
+      "unrest_pledge": 37672.4,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.24
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180914",
+      "pledge_count": 50,
+      "unrest_pledge": 37674.31,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.24
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180907",
+      "pledge_count": 50,
+      "unrest_pledge": 37674.31,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.24
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180831",
+      "pledge_count": 51,
+      "unrest_pledge": 37676.31,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.24
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180824",
+      "pledge_count": 51,
+      "unrest_pledge": 37676.31,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.24
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180817",
+      "pledge_count": 51,
+      "unrest_pledge": 37676.31,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.24
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180810",
+      "pledge_count": 51,
+      "unrest_pledge": 37676.31,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.24
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180803",
+      "pledge_count": 52,
+      "unrest_pledge": 37677.16,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.25
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180727",
+      "pledge_count": 57,
+      "unrest_pledge": 37713.12,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.26
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180720",
+      "pledge_count": 59,
+      "unrest_pledge": 37713.93,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.26
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180713",
+      "pledge_count": 58,
+      "unrest_pledge": 37713.89,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.26
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180706",
+      "pledge_count": 59,
+      "unrest_pledge": 37716.85,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.26
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180629",
+      "pledge_count": 61,
+      "unrest_pledge": 37717.88,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.26
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180622",
+      "pledge_count": 61,
+      "unrest_pledge": 37717.88,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.26
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180615",
+      "pledge_count": 61,
+      "unrest_pledge": 37718.4,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.26
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180608",
+      "pledge_count": 62,
+      "unrest_pledge": 37718.41,
+      "rest_pledge": 17705.68,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.26
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180601",
+      "pledge_count": 69,
+      "unrest_pledge": 20060.03,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.26
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180525",
+      "pledge_count": 71,
+      "unrest_pledge": 20061.25,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.26
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180518",
+      "pledge_count": 71,
+      "unrest_pledge": 20061.25,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.26
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180511",
+      "pledge_count": 73,
+      "unrest_pledge": 20062.34,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.26
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180504",
+      "pledge_count": 76,
+      "unrest_pledge": 20065.24,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.26
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180427",
+      "pledge_count": 81,
+      "unrest_pledge": 20067.02,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.26
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180420",
+      "pledge_count": 87,
+      "unrest_pledge": 20067.47,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.26
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180413",
+      "pledge_count": 90,
+      "unrest_pledge": 20068.01,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 21.26
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180404",
+      "pledge_count": 89,
+      "unrest_pledge": 68.57,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.59
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180330",
+      "pledge_count": 89,
+      "unrest_pledge": 68.57,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.59
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180323",
+      "pledge_count": 94,
+      "unrest_pledge": 72.34,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.59
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180316",
+      "pledge_count": 95,
+      "unrest_pledge": 72.67,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.59
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180309",
+      "pledge_count": 108,
+      "unrest_pledge": 76.74,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.6
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180302",
+      "pledge_count": 114,
+      "unrest_pledge": 84.53,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.6
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180223",
+      "pledge_count": 124,
+      "unrest_pledge": 98.27,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.6
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180214",
+      "pledge_count": 129,
+      "unrest_pledge": 125.79,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.61
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180209",
+      "pledge_count": 124,
+      "unrest_pledge": 130.5,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.62
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180202",
+      "pledge_count": 120,
+      "unrest_pledge": 135.59,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.62
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180126",
+      "pledge_count": 128,
+      "unrest_pledge": 103.81,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.61
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180119",
+      "pledge_count": 120,
+      "unrest_pledge": 102.97,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.61
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180112",
+      "pledge_count": 99,
+      "unrest_pledge": 75.97,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.6
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20180105",
+      "pledge_count": 105,
+      "unrest_pledge": 74.02,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.59
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20171229",
+      "pledge_count": 108,
+      "unrest_pledge": 85.2,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.6
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20171222",
+      "pledge_count": 125,
+      "unrest_pledge": 93.43,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.6
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20171215",
+      "pledge_count": 128,
+      "unrest_pledge": 93.62,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.6
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20171208",
+      "pledge_count": 125,
+      "unrest_pledge": 90.38,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.6
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20171201",
+      "pledge_count": 112,
+      "unrest_pledge": 79.7,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.6
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20171124",
+      "pledge_count": 114,
+      "unrest_pledge": 75.35,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.6
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20171117",
+      "pledge_count": 100,
+      "unrest_pledge": 69.72,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.59
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20171110",
+      "pledge_count": 99,
+      "unrest_pledge": 70.07,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.59
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20171103",
+      "pledge_count": 94,
+      "unrest_pledge": 70.01,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.59
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20171027",
+      "pledge_count": 81,
+      "unrest_pledge": 70.87,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.59
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20171020",
+      "pledge_count": 79,
+      "unrest_pledge": 63.22,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.59
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20171013",
+      "pledge_count": 70,
+      "unrest_pledge": 59.63,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.59
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170929",
+      "pledge_count": 52,
+      "unrest_pledge": 47.33,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.58
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170922",
+      "pledge_count": 35,
+      "unrest_pledge": 35.89,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.58
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170915",
+      "pledge_count": 36,
+      "unrest_pledge": 32.49,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.58
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170908",
+      "pledge_count": 47,
+      "unrest_pledge": 39.55,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.58
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170901",
+      "pledge_count": 34,
+      "unrest_pledge": 27.11,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.58
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170825",
+      "pledge_count": 40,
+      "unrest_pledge": 20.08,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.57
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170818",
+      "pledge_count": 35,
+      "unrest_pledge": 18.94,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.57
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170811",
+      "pledge_count": 32,
+      "unrest_pledge": 16.43,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.57
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170804",
+      "pledge_count": 27,
+      "unrest_pledge": 18.47,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.57
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170728",
+      "pledge_count": 41,
+      "unrest_pledge": 36.48,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.58
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170721",
+      "pledge_count": 28,
+      "unrest_pledge": 22.96,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.58
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170714",
+      "pledge_count": 36,
+      "unrest_pledge": 100.0,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.6
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170707",
+      "pledge_count": 34,
+      "unrest_pledge": 94.56,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.6
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170630",
+      "pledge_count": 41,
+      "unrest_pledge": 103.16,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.61
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170623",
+      "pledge_count": 45,
+      "unrest_pledge": 119.18,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.61
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170616",
+      "pledge_count": 48,
+      "unrest_pledge": 143.73,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.62
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170609",
+      "pledge_count": 50,
+      "unrest_pledge": 170.25,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.63
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170602",
+      "pledge_count": 50,
+      "unrest_pledge": 171.2,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.63
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170526",
+      "pledge_count": 47,
+      "unrest_pledge": 167.59,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.63
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170519",
+      "pledge_count": 39,
+      "unrest_pledge": 149.56,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.62
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170512",
+      "pledge_count": 41,
+      "unrest_pledge": 156.67,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.63
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170505",
+      "pledge_count": 33,
+      "unrest_pledge": 125.81,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.61
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170428",
+      "pledge_count": 36,
+      "unrest_pledge": 126.09,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.61
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170421",
+      "pledge_count": 38,
+      "unrest_pledge": 128.9,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.62
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170414",
+      "pledge_count": 39,
+      "unrest_pledge": 129.07,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.62
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170407",
+      "pledge_count": 45,
+      "unrest_pledge": 134.03,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.62
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170331",
+      "pledge_count": 54,
+      "unrest_pledge": 139.99,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.62
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170324",
+      "pledge_count": 54,
+      "unrest_pledge": 143.85,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.62
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170317",
+      "pledge_count": 49,
+      "unrest_pledge": 140.26,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.62
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170310",
+      "pledge_count": 49,
+      "unrest_pledge": 120.35,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.61
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170303",
+      "pledge_count": 46,
+      "unrest_pledge": 118.28,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.61
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170224",
+      "pledge_count": 43,
+      "unrest_pledge": 114.24,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.61
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170217",
+      "pledge_count": 46,
+      "unrest_pledge": 118.61,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.61
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170210",
+      "pledge_count": 53,
+      "unrest_pledge": 123.12,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.61
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170203",
+      "pledge_count": 53,
+      "unrest_pledge": 122.05,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.61
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170126",
+      "pledge_count": 53,
+      "unrest_pledge": 122.05,
+      "rest_pledge": 35364.9,
+      "total_share": 260683.88,
+      "pledge_ratio": 13.61
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170120",
+      "pledge_count": 51,
+      "unrest_pledge": 122.29,
+      "rest_pledge": 17659.22,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.82
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170113",
+      "pledge_count": 43,
+      "unrest_pledge": 109.94,
+      "rest_pledge": 17659.22,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.82
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20170106",
+      "pledge_count": 41,
+      "unrest_pledge": 110.95,
+      "rest_pledge": 17659.22,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.82
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20161230",
+      "pledge_count": 41,
+      "unrest_pledge": 105.76,
+      "rest_pledge": 17659.22,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.81
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20161223",
+      "pledge_count": 42,
+      "unrest_pledge": 105.82,
+      "rest_pledge": 17659.22,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.81
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20161216",
+      "pledge_count": 40,
+      "unrest_pledge": 103.42,
+      "rest_pledge": 17659.22,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.81
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20161209",
+      "pledge_count": 40,
+      "unrest_pledge": 110.4,
+      "rest_pledge": 17659.22,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.82
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20161202",
+      "pledge_count": 38,
+      "unrest_pledge": 111.19,
+      "rest_pledge": 17659.22,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.82
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20161125",
+      "pledge_count": 31,
+      "unrest_pledge": 104.49,
+      "rest_pledge": 17659.22,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.81
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20161118",
+      "pledge_count": 36,
+      "unrest_pledge": 181.1,
+      "rest_pledge": 17659.22,
+      "total_share": 260683.88,
+      "pledge_ratio": 6.84
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20161111",
+      "pledge_count": 31,
+      "unrest_pledge": 101.55,
+      "rest_pledge": 17659.22,
+      "total_share": 189861.16,
+      "pledge_ratio": 9.35
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20161104",
+      "pledge_count": 34,
+      "unrest_pledge": 113.36,
+      "rest_pledge": 17659.22,
+      "total_share": 189861.16,
+      "pledge_ratio": 9.36
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20161028",
+      "pledge_count": 30,
+      "unrest_pledge": 105.18,
+      "rest_pledge": 17659.22,
+      "total_share": 189861.16,
+      "pledge_ratio": 9.36
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20161021",
+      "pledge_count": 34,
+      "unrest_pledge": 106.04,
+      "rest_pledge": 17659.22,
+      "total_share": 189861.16,
+      "pledge_ratio": 9.36
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20161014",
+      "pledge_count": 34,
+      "unrest_pledge": 106.26,
+      "rest_pledge": 17659.22,
+      "total_share": 189861.16,
+      "pledge_ratio": 9.36
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160930",
+      "pledge_count": 45,
+      "unrest_pledge": 126.49,
+      "rest_pledge": 17659.22,
+      "total_share": 189861.16,
+      "pledge_ratio": 9.37
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160923",
+      "pledge_count": 43,
+      "unrest_pledge": 133.75,
+      "rest_pledge": 17659.22,
+      "total_share": 189861.16,
+      "pledge_ratio": 9.37
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160914",
+      "pledge_count": 41,
+      "unrest_pledge": 130.79,
+      "rest_pledge": 17659.22,
+      "total_share": 189861.16,
+      "pledge_ratio": 9.37
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160909",
+      "pledge_count": 34,
+      "unrest_pledge": 118.74,
+      "rest_pledge": 17659.22,
+      "total_share": 189861.16,
+      "pledge_ratio": 9.36
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160902",
+      "pledge_count": 30,
+      "unrest_pledge": 117.9,
+      "rest_pledge": 17659.22,
+      "total_share": 189861.16,
+      "pledge_ratio": 9.36
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160826",
+      "pledge_count": 29,
+      "unrest_pledge": 117.36,
+      "rest_pledge": 17659.22,
+      "total_share": 189861.16,
+      "pledge_ratio": 9.36
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160819",
+      "pledge_count": 27,
+      "unrest_pledge": 117.3,
+      "rest_pledge": 17659.22,
+      "total_share": 189861.16,
+      "pledge_ratio": 9.36
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160812",
+      "pledge_count": 25,
+      "unrest_pledge": 114.38,
+      "rest_pledge": 17659.22,
+      "total_share": 189861.16,
+      "pledge_ratio": 9.36
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160805",
+      "pledge_count": 23,
+      "unrest_pledge": 111.51,
+      "rest_pledge": 17659.22,
+      "total_share": 189861.16,
+      "pledge_ratio": 9.36
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160729",
+      "pledge_count": 21,
+      "unrest_pledge": 80.77,
+      "rest_pledge": 17659.22,
+      "total_share": 189861.16,
+      "pledge_ratio": 9.34
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160722",
+      "pledge_count": 19,
+      "unrest_pledge": 79.14,
+      "rest_pledge": 17659.22,
+      "total_share": 189861.16,
+      "pledge_ratio": 9.34
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160715",
+      "pledge_count": 18,
+      "unrest_pledge": 77.41,
+      "rest_pledge": 17659.22,
+      "total_share": 189861.16,
+      "pledge_ratio": 9.34
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160708",
+      "pledge_count": 18,
+      "unrest_pledge": 80.91,
+      "rest_pledge": 17659.22,
+      "total_share": 189861.16,
+      "pledge_ratio": 9.34
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160701",
+      "pledge_count": 18,
+      "unrest_pledge": 2677.62,
+      "rest_pledge": 17659.22,
+      "total_share": 189861.16,
+      "pledge_ratio": 10.71
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160624",
+      "pledge_count": 18,
+      "unrest_pledge": 2677.44,
+      "rest_pledge": 17659.22,
+      "total_share": 189861.16,
+      "pledge_ratio": 10.71
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160617",
+      "pledge_count": 19,
+      "unrest_pledge": 2673.43,
+      "rest_pledge": 17659.22,
+      "total_share": 189861.16,
+      "pledge_ratio": 10.71
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160608",
+      "pledge_count": 20,
+      "unrest_pledge": 2673.78,
+      "rest_pledge": 17659.22,
+      "total_share": 189861.16,
+      "pledge_ratio": 10.71
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160603",
+      "pledge_count": 20,
+      "unrest_pledge": 71.91,
+      "rest_pledge": 20260.86,
+      "total_share": 189861.16,
+      "pledge_ratio": 10.71
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160527",
+      "pledge_count": 20,
+      "unrest_pledge": 66.86,
+      "rest_pledge": 20260.86,
+      "total_share": 189861.16,
+      "pledge_ratio": 10.71
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160520",
+      "pledge_count": 20,
+      "unrest_pledge": 69.58,
+      "rest_pledge": 20260.86,
+      "total_share": 189861.16,
+      "pledge_ratio": 10.71
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160513",
+      "pledge_count": 20,
+      "unrest_pledge": 67.03,
+      "rest_pledge": 20260.86,
+      "total_share": 189861.16,
+      "pledge_ratio": 10.71
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160506",
+      "pledge_count": 17,
+      "unrest_pledge": 66.09,
+      "rest_pledge": 20260.86,
+      "total_share": 189861.16,
+      "pledge_ratio": 10.71
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160429",
+      "pledge_count": 17,
+      "unrest_pledge": 65.98,
+      "rest_pledge": 20260.86,
+      "total_share": 189861.16,
+      "pledge_ratio": 10.71
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160422",
+      "pledge_count": 18,
+      "unrest_pledge": 76.57,
+      "rest_pledge": 20260.86,
+      "total_share": 189861.16,
+      "pledge_ratio": 10.71
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160415",
+      "pledge_count": 18,
+      "unrest_pledge": 76.57,
+      "rest_pledge": 20260.86,
+      "total_share": 189861.16,
+      "pledge_ratio": 10.71
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160408",
+      "pledge_count": 18,
+      "unrest_pledge": 76.57,
+      "rest_pledge": 20260.86,
+      "total_share": 189861.16,
+      "pledge_ratio": 10.71
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160401",
+      "pledge_count": 17,
+      "unrest_pledge": 65.74,
+      "rest_pledge": 20260.86,
+      "total_share": 189861.16,
+      "pledge_ratio": 10.71
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160325",
+      "pledge_count": 17,
+      "unrest_pledge": 65.74,
+      "rest_pledge": 20260.86,
+      "total_share": 189861.16,
+      "pledge_ratio": 10.71
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160318",
+      "pledge_count": 16,
+      "unrest_pledge": 65.57,
+      "rest_pledge": 20260.86,
+      "total_share": 189861.16,
+      "pledge_ratio": 10.71
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160311",
+      "pledge_count": 16,
+      "unrest_pledge": 65.57,
+      "rest_pledge": 20260.86,
+      "total_share": 189861.16,
+      "pledge_ratio": 10.71
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160304",
+      "pledge_count": 18,
+      "unrest_pledge": 66.51,
+      "rest_pledge": 20260.86,
+      "total_share": 189861.16,
+      "pledge_ratio": 10.71
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160226",
+      "pledge_count": 18,
+      "unrest_pledge": 66.51,
+      "rest_pledge": 20260.86,
+      "total_share": 189861.16,
+      "pledge_ratio": 10.71
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160219",
+      "pledge_count": 18,
+      "unrest_pledge": 66.51,
+      "rest_pledge": 20260.86,
+      "total_share": 189861.16,
+      "pledge_ratio": 10.71
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160205",
+      "pledge_count": 18,
+      "unrest_pledge": 66.51,
+      "rest_pledge": 20260.86,
+      "total_share": 189861.16,
+      "pledge_ratio": 10.71
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160129",
+      "pledge_count": 17,
+      "unrest_pledge": 66.27,
+      "rest_pledge": 20260.86,
+      "total_share": 189861.16,
+      "pledge_ratio": 10.71
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160122",
+      "pledge_count": 18,
+      "unrest_pledge": 67.42,
+      "rest_pledge": 20260.86,
+      "total_share": 189861.16,
+      "pledge_ratio": 10.71
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160115",
+      "pledge_count": 18,
+      "unrest_pledge": 67.42,
+      "rest_pledge": 20260.86,
+      "total_share": 189861.16,
+      "pledge_ratio": 10.71
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20160108",
+      "pledge_count": 18,
+      "unrest_pledge": 67.42,
+      "rest_pledge": 20260.86,
+      "total_share": 189861.16,
+      "pledge_ratio": 10.71
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20151231",
+      "pledge_count": 19,
+      "unrest_pledge": 68.77,
+      "rest_pledge": 20260.86,
+      "total_share": 189861.16,
+      "pledge_ratio": 10.71
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20151225",
+      "pledge_count": 26,
+      "unrest_pledge": 80.54,
+      "rest_pledge": 20260.86,
+      "total_share": 189861.16,
+      "pledge_ratio": 10.71
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20151218",
+      "pledge_count": 16,
+      "unrest_pledge": 64.79,
+      "rest_pledge": 20260.86,
+      "total_share": 189861.16,
+      "pledge_ratio": 10.71
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20151211",
+      "pledge_count": 32,
+      "unrest_pledge": 138.09,
+      "rest_pledge": 20260.86,
+      "total_share": 189861.16,
+      "pledge_ratio": 10.74
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20151204",
+      "pledge_count": 18,
+      "unrest_pledge": 77.57,
+      "rest_pledge": 20260.86,
+      "total_share": 189861.16,
+      "pledge_ratio": 10.71
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20151127",
+      "pledge_count": 19,
+      "unrest_pledge": 68.0,
+      "rest_pledge": 20260.86,
+      "total_share": 189861.16,
+      "pledge_ratio": 10.71
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20151120",
+      "pledge_count": 16,
+      "unrest_pledge": 75.22,
+      "rest_pledge": 2601.64,
+      "total_share": 189861.16,
+      "pledge_ratio": 1.41
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20151113",
+      "pledge_count": 16,
+      "unrest_pledge": 75.22,
+      "rest_pledge": 2601.64,
+      "total_share": 189861.16,
+      "pledge_ratio": 1.41
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20151106",
+      "pledge_count": 19,
+      "unrest_pledge": 76.91,
+      "rest_pledge": 2601.64,
+      "total_share": 189861.16,
+      "pledge_ratio": 1.41
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20151030",
+      "pledge_count": 21,
+      "unrest_pledge": 78.16,
+      "rest_pledge": 2601.64,
+      "total_share": 189861.16,
+      "pledge_ratio": 1.41
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20151023",
+      "pledge_count": 19,
+      "unrest_pledge": 67.51,
+      "rest_pledge": 2601.64,
+      "total_share": 189861.16,
+      "pledge_ratio": 1.41
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20151016",
+      "pledge_count": 19,
+      "unrest_pledge": 58.89,
+      "rest_pledge": 2601.64,
+      "total_share": 189861.16,
+      "pledge_ratio": 1.4
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20151009",
+      "pledge_count": 17,
+      "unrest_pledge": 58.6,
+      "rest_pledge": 2601.64,
+      "total_share": 189861.16,
+      "pledge_ratio": 1.4
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150930",
+      "pledge_count": 17,
+      "unrest_pledge": 58.6,
+      "rest_pledge": 2601.64,
+      "total_share": 189861.16,
+      "pledge_ratio": 1.4
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150925",
+      "pledge_count": 17,
+      "unrest_pledge": 58.6,
+      "rest_pledge": 2601.64,
+      "total_share": 189861.16,
+      "pledge_ratio": 1.4
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150918",
+      "pledge_count": 20,
+      "unrest_pledge": 69.28,
+      "rest_pledge": 2601.64,
+      "total_share": 189861.16,
+      "pledge_ratio": 1.41
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150911",
+      "pledge_count": 20,
+      "unrest_pledge": 78.18,
+      "rest_pledge": 2601.64,
+      "total_share": 189861.16,
+      "pledge_ratio": 1.41
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150902",
+      "pledge_count": 21,
+      "unrest_pledge": 78.31,
+      "rest_pledge": 2601.64,
+      "total_share": 189861.16,
+      "pledge_ratio": 1.41
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150828",
+      "pledge_count": 21,
+      "unrest_pledge": 78.31,
+      "rest_pledge": 2601.64,
+      "total_share": 189861.16,
+      "pledge_ratio": 1.41
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150821",
+      "pledge_count": 25,
+      "unrest_pledge": 86.28,
+      "rest_pledge": 2601.64,
+      "total_share": 189861.16,
+      "pledge_ratio": 1.42
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150814",
+      "pledge_count": 24,
+      "unrest_pledge": 85.13,
+      "rest_pledge": 2601.64,
+      "total_share": 189861.16,
+      "pledge_ratio": 1.42
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150807",
+      "pledge_count": 28,
+      "unrest_pledge": 89.51,
+      "rest_pledge": 2601.64,
+      "total_share": 189861.16,
+      "pledge_ratio": 1.42
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150731",
+      "pledge_count": 31,
+      "unrest_pledge": 98.29,
+      "rest_pledge": 1408.46,
+      "total_share": 189861.16,
+      "pledge_ratio": 0.79
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150724",
+      "pledge_count": 28,
+      "unrest_pledge": 97.53,
+      "rest_pledge": 1408.46,
+      "total_share": 189861.16,
+      "pledge_ratio": 0.79
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150717",
+      "pledge_count": 29,
+      "unrest_pledge": 105.42,
+      "rest_pledge": 1408.46,
+      "total_share": 189861.16,
+      "pledge_ratio": 0.8
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150710",
+      "pledge_count": 31,
+      "unrest_pledge": 107.24,
+      "rest_pledge": 1408.46,
+      "total_share": 189861.16,
+      "pledge_ratio": 0.8
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150703",
+      "pledge_count": 65,
+      "unrest_pledge": 345.15,
+      "rest_pledge": 0.0,
+      "total_share": 189861.16,
+      "pledge_ratio": 0.18
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150626",
+      "pledge_count": 44,
+      "unrest_pledge": 133.49,
+      "rest_pledge": 0.0,
+      "total_share": 189861.16,
+      "pledge_ratio": 0.07
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150619",
+      "pledge_count": 112,
+      "unrest_pledge": 375.21,
+      "rest_pledge": 0.0,
+      "total_share": 189861.16,
+      "pledge_ratio": 0.2
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150612",
+      "pledge_count": 32,
+      "unrest_pledge": 100.5,
+      "rest_pledge": 0.0,
+      "total_share": 189861.16,
+      "pledge_ratio": 0.05
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150605",
+      "pledge_count": 44,
+      "unrest_pledge": 148.96,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.1
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150529",
+      "pledge_count": 28,
+      "unrest_pledge": 101.03,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.07
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150522",
+      "pledge_count": 33,
+      "unrest_pledge": 84.08,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.05
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150515",
+      "pledge_count": 33,
+      "unrest_pledge": 83.74,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.05
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150508",
+      "pledge_count": 41,
+      "unrest_pledge": 110.08,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.07
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150430",
+      "pledge_count": 17,
+      "unrest_pledge": 49.83,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.03
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150424",
+      "pledge_count": 18,
+      "unrest_pledge": 41.09,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.03
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150417",
+      "pledge_count": 36,
+      "unrest_pledge": 54.38,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.04
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150410",
+      "pledge_count": 32,
+      "unrest_pledge": 54.41,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.04
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150403",
+      "pledge_count": 18,
+      "unrest_pledge": 38.95,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.03
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150327",
+      "pledge_count": 16,
+      "unrest_pledge": 33.0,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.02
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150320",
+      "pledge_count": 17,
+      "unrest_pledge": 29.84,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.02
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150313",
+      "pledge_count": 44,
+      "unrest_pledge": 96.75,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.06
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150306",
+      "pledge_count": 12,
+      "unrest_pledge": 28.16,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.02
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150227",
+      "pledge_count": 8,
+      "unrest_pledge": 19.99,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.01
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150217",
+      "pledge_count": 9,
+      "unrest_pledge": 19.65,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.01
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150213",
+      "pledge_count": 11,
+      "unrest_pledge": 19.93,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.01
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150206",
+      "pledge_count": 18,
+      "unrest_pledge": 50.36,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.03
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150130",
+      "pledge_count": 10,
+      "unrest_pledge": 24.28,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.02
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150123",
+      "pledge_count": 11,
+      "unrest_pledge": 25.78,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.02
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150116",
+      "pledge_count": 15,
+      "unrest_pledge": 47.73,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.03
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20150109",
+      "pledge_count": 5,
+      "unrest_pledge": 5.03,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20141231",
+      "pledge_count": 5,
+      "unrest_pledge": 11.38,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.01
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20141226",
+      "pledge_count": 5,
+      "unrest_pledge": 12.55,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.01
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20141219",
+      "pledge_count": 9,
+      "unrest_pledge": 25.47,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.02
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20141212",
+      "pledge_count": 6,
+      "unrest_pledge": 12.67,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.01
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20141205",
+      "pledge_count": 4,
+      "unrest_pledge": 8.19,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.01
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20141128",
+      "pledge_count": 9,
+      "unrest_pledge": 22.87,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.01
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20141121",
+      "pledge_count": 11,
+      "unrest_pledge": 38.39,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.02
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20141114",
+      "pledge_count": 7,
+      "unrest_pledge": 19.92,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.01
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20141107",
+      "pledge_count": 5,
+      "unrest_pledge": 14.91,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.01
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20141031",
+      "pledge_count": 9,
+      "unrest_pledge": 22.75,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.01
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20141024",
+      "pledge_count": 15,
+      "unrest_pledge": 51.06,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.03
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20141017",
+      "pledge_count": 7,
+      "unrest_pledge": 18.89,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.01
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20141010",
+      "pledge_count": 5,
+      "unrest_pledge": 14.87,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.01
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20140930",
+      "pledge_count": 5,
+      "unrest_pledge": 14.87,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.01
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20140926",
+      "pledge_count": 6,
+      "unrest_pledge": 17.43,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.01
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20140919",
+      "pledge_count": 6,
+      "unrest_pledge": 17.43,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.01
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20140912",
+      "pledge_count": 5,
+      "unrest_pledge": 17.03,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.01
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20140905",
+      "pledge_count": 3,
+      "unrest_pledge": 13.75,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.01
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20140829",
+      "pledge_count": 4,
+      "unrest_pledge": 15.25,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.01
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20140822",
+      "pledge_count": 1,
+      "unrest_pledge": 1.25,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.0
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20140815",
+      "pledge_count": 2,
+      "unrest_pledge": 13.91,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.01
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20140808",
+      "pledge_count": 1,
+      "unrest_pledge": 9.15,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.01
+    },
+    {
+      "ts_code": "000807.SZ",
+      "end_date": "20140725",
+      "pledge_count": 1,
+      "unrest_pledge": 5.0,
+      "rest_pledge": 0.0,
+      "total_share": 153917.3,
+      "pledge_ratio": 0.0
+    }
+  ],
+  "row_count": 533
+}

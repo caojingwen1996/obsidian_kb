@@ -1,0 +1,123 @@
+{
+  "source": "Tushare supplemental API",
+  "method": "top10_holders",
+  "arguments": {
+    "ts_code": "000425.SZ",
+    "period": "20260630"
+  },
+  "status": "ok",
+  "rows": [
+    {
+      "ts_code": "000425.SZ",
+      "ann_date": "20260829",
+      "end_date": "20260630",
+      "holder_name": "徐州工程机械集团有限公司",
+      "hold_amount": 2469739335.0,
+      "hold_ratio": 21.0887,
+      "hold_float_ratio": 1.0406,
+      "hold_change": 0.0,
+      "holder_type": "一般企业"
+    },
+    {
+      "ts_code": "000425.SZ",
+      "ann_date": "20260829",
+      "end_date": "20260630",
+      "holder_name": "香港中央结算有限公司",
+      "hold_amount": 830577492.0,
+      "hold_ratio": 7.0922,
+      "hold_float_ratio": 9.2306,
+      "hold_change": 57131504.0,
+      "holder_type": "一般企业"
+    },
+    {
+      "ts_code": "000425.SZ",
+      "ann_date": "20260829",
+      "end_date": "20260630",
+      "holder_name": "天津茂信企业管理合伙企业(有限合伙)",
+      "hold_amount": 728675752.0,
+      "hold_ratio": 6.222,
+      "hold_float_ratio": 8.0981,
+      "hold_change": 0.0,
+      "holder_type": "一般企业"
+    },
+    {
+      "ts_code": "000425.SZ",
+      "ann_date": "20260829",
+      "end_date": "20260630",
+      "holder_name": "江苏省国信集团有限公司",
+      "hold_amount": 581990780.0,
+      "hold_ratio": 4.9695,
+      "hold_float_ratio": 6.4679,
+      "hold_change": 0.0,
+      "holder_type": "一般企业"
+    },
+    {
+      "ts_code": "000425.SZ",
+      "ann_date": "20260829",
+      "end_date": "20260630",
+      "holder_name": "上海隧道工程股份有限公司",
+      "hold_amount": 381960763.0,
+      "hold_ratio": 3.2615,
+      "hold_float_ratio": 4.2449,
+      "hold_change": 212438235.0,
+      "holder_type": "一般企业"
+    },
+    {
+      "ts_code": "000425.SZ",
+      "ann_date": "20260829",
+      "end_date": "20260630",
+      "holder_name": "湖州盈灿投资合伙企业(有限合伙)",
+      "hold_amount": 367957139.0,
+      "hold_ratio": 3.1419,
+      "hold_float_ratio": 4.0893,
+      "hold_change": 0.0,
+      "holder_type": "投资公司"
+    },
+    {
+      "ts_code": "000425.SZ",
+      "ann_date": "20260829",
+      "end_date": "20260630",
+      "holder_name": "建信金融资产投资有限公司",
+      "hold_amount": 240729587.0,
+      "hold_ratio": 2.0555,
+      "hold_float_ratio": 2.6753,
+      "hold_change": 0.0,
+      "holder_type": "投资公司"
+    },
+    {
+      "ts_code": "000425.SZ",
+      "ann_date": "20260829",
+      "end_date": "20260630",
+      "holder_name": "太平人寿保险有限公司-传统-普通保险产品-022L-CT001深",
+      "hold_amount": 113625779.0,
+      "hold_ratio": 0.9702,
+      "hold_float_ratio": 1.2628,
+      "hold_change": -646700.0,
+      "holder_type": "保险投资组合"
+    },
+    {
+      "ts_code": "000425.SZ",
+      "ann_date": "20260829",
+      "end_date": "20260630",
+      "holder_name": "中国人寿保险股份有限公司-传统-普通保险产品-005L-CT001沪",
+      "hold_amount": 112442065.0,
+      "hold_ratio": 0.9601,
+      "hold_float_ratio": 1.2496,
+      "hold_change": -3738900.0,
+      "holder_type": "保险投资组合"
+    },
+    {
+      "ts_code": "000425.SZ",
+      "ann_date": "20260829",
+      "end_date": "20260630",
+      "holder_name": "全国社保基金四零六组合",
+      "hold_amount": 75806492.0,
+      "hold_ratio": 0.6473,
+      "hold_float_ratio": 0.8425,
+      "hold_change": null,
+      "holder_type": "社保基金、社保机构"
+    }
+  ],
+  "row_count": 10,
+  "retrieved_at": "2026-09-15T18:01:28.228459+08:00"
+}

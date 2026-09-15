@@ -1,0 +1,1067 @@
+{
+  "latest": {
+    "ts_code": "000425.SZ",
+    "trade_date": "20260915",
+    "open": 8.07,
+    "high": 8.11,
+    "low": 7.78,
+    "close": 7.81,
+    "pre_close": 8.1,
+    "change": -0.29,
+    "pct_chg": -3.5802,
+    "vol": 1156171.73,
+    "amount": 913933.45053,
+    "adj_close": 7.81
+  },
+  "ma": {
+    "5": 8.118,
+    "10": 8.127,
+    "20": 8.075,
+    "60": 8.309203197681741,
+    "120": 8.978695069181718
+  },
+  "return": {
+    "1": -3.580246913580243,
+    "5": -6.242496998799529,
+    "20": -2.8606965174129306
+  },
+  "dates": {
+    "5": [
+      "20260909",
+      "20260915"
+    ],
+    "20": [
+      "20260819",
+      "20260915"
+    ]
+  },
+  "valuation": {
+    "ts_code": "000425.SZ",
+    "trade_date": "20260915",
+    "close": 7.81,
+    "turnover_rate": 1.2849,
+    "turnover_rate_f": 1.4144,
+    "volume_ratio": 1.45,
+    "pe": 13.9168,
+    "pe_ttm": 14.8101,
+    "pb": 1.4168,
+    "ps_ttm": 0.8527,
+    "dv_ratio": 2.2485,
+    "dv_ttm": 2.5467,
+    "total_mv": 9146455.4005,
+    "circ_mv": 7027504.3069
+  },
+  "adj_changes_60": [
+    43.9167,
+    44.9878
+  ],
+  "volume": {
+    "5": {
+      "dates": [
+        "20260908",
+        "20260914"
+      ],
+      "mean_vol": 794950.472,
+      "ratio": 1.4543946707663569,
+      "mean_amount": 657420.644646,
+      "mean_turnover": 0.88346
+    },
+    "20": {
+      "dates": [
+        "20260818",
+        "20260914"
+      ],
+      "mean_vol": 1133298.1030000001,
+      "ratio": 1.0201832394666948,
+      "mean_amount": 916882.1329575,
+      "mean_turnover": 1.25936
+    }
+  },
+  "five_windows": [
+    {
+      "start": "20260909",
+      "end": "20260915",
+      "mean_vol": 749257.884,
+      "return": -6.242496998799529
+    },
+    {
+      "start": "20260902",
+      "end": "20260908",
+      "mean_vol": 1464318.102,
+      "return": 1.0922330097087318
+    }
+  ],
+  "groups": {
+    "up": {
+      "n": 10,
+      "mean_vol": 1218652.421
+    },
+    "down": {
+      "n": 10,
+      "mean_vol": 1053972.155
+    },
+    "flat": {
+      "n": 0,
+      "mean_vol": null
+    }
+  },
+  "flow": {
+    "1": {
+      "sm": 0.7196210000000003,
+      "md": 0.853225,
+      "lg": -0.011129000000000087,
+      "elg": -1.5617170000000002,
+      "start": "20260915",
+      "end": "20260915",
+      "positive_large_days": 0
+    },
+    "5": {
+      "sm": 1.0949150000000003,
+      "md": 0.6483089999999998,
+      "lg": 0.14401400000000011,
+      "elg": -1.8872370000000003,
+      "start": "20260909",
+      "end": "20260915",
+      "positive_large_days": 2
+    },
+    "10": {
+      "sm": 3.812601000000001,
+      "md": -0.003383000000001084,
+      "lg": -1.3431230000000003,
+      "elg": -2.466098,
+      "start": "20260902",
+      "end": "20260915",
+      "positive_large_days": 3
+    },
+    "20": {
+      "sm": 5.606289000000001,
+      "md": -2.770691000000002,
+      "lg": -2.9914610000000006,
+      "elg": 0.1558609999999997,
+      "start": "20260819",
+      "end": "20260915",
+      "positive_large_days": 6
+    }
+  },
+  "margin": {
+    "1": {
+      "start": "20260914",
+      "end": "20260914",
+      "net": -0.22915759,
+      "opening": 9.63342864,
+      "closing": 9.40427105,
+      "identity_error": 0.0
+    },
+    "5": {
+      "start": "20260908",
+      "end": "20260914",
+      "net": -0.67598022,
+      "opening": 10.08025127,
+      "closing": 9.40427105,
+      "identity_error": 0.0
+    },
+    "20": {
+      "start": "20260818",
+      "end": "20260914",
+      "net": -1.5476838,
+      "opening": 10.95195485,
+      "closing": 9.40427105,
+      "identity_error": 0.0
+    }
+  },
+  "margin_latest": {
+    "trade_date": "20260914",
+    "ts_code": "000425.SZ",
+    "name": "徐工机械",
+    "rzye": 940427105.0,
+    "rqye": 8815230.0,
+    "rzmre": 11551080.0,
+    "rqyl": 1088300.0,
+    "rzche": 34466839.0,
+    "rqchl": 28800.0,
+    "rqmcl": 132000.0,
+    "rzrqye": 949242335.0
+  },
+  "conservation_max_wanyuan": 0.01999999998952262,
+  "recent_days": [
+    {
+      "trade_date": "20260915",
+      "close": 7.81,
+      "high": 8.11,
+      "low": 7.78,
+      "vol": 1156171.73,
+      "pct_chg": -3.5802,
+      "v20": 1.0201832394666948,
+      "large": -1.5728460000000002
+    },
+    {
+      "trade_date": "20260914",
+      "close": 8.1,
+      "high": 8.14,
+      "low": 7.97,
+      "vol": 515696.64,
+      "pct_chg": 0.4963,
+      "v20": 0.4427972221307497,
+      "large": 0.18912800000000007
+    },
+    {
+      "trade_date": "20260911",
+      "close": 8.06,
+      "high": 8.18,
+      "low": 8.02,
+      "vol": 691977.68,
+      "pct_chg": -2.1845,
+      "v20": 0.5849954248838772,
+      "large": -0.30350999999999984
+    },
+    {
+      "trade_date": "20260910",
+      "close": 8.24,
+      "high": 8.36,
+      "low": 8.18,
+      "vol": 610767.96,
+      "pct_chg": -1.6706,
+      "v20": 0.5053456384335816,
+      "large": -0.20088600000000006
+    },
+    {
+      "trade_date": "20260909",
+      "close": 8.38,
+      "high": 8.39,
+      "low": 8.23,
+      "vol": 771675.41,
+      "pct_chg": 0.6002,
+      "v20": 0.6300172282259835,
+      "large": 0.14489100000000035
+    },
+    {
+      "trade_date": "20260908",
+      "close": 8.33,
+      "high": 8.57,
+      "low": 8.3,
+      "vol": 1384634.67,
+      "pct_chg": 0.2407,
+      "v20": 1.1368838084605017,
+      "large": -1.5401460000000007
+    },
+    {
+      "trade_date": "20260907",
+      "close": 8.31,
+      "high": 8.41,
+      "low": 8.09,
+      "vol": 1684259.93,
+      "pct_chg": 2.0885,
+      "v20": 1.4051453999595966,
+      "large": -0.539307
+    },
+    {
+      "trade_date": "20260904",
+      "close": 8.14,
+      "high": 8.23,
+      "low": 7.94,
+      "vol": 1767033.71,
+      "pct_chg": 2.6482,
+      "v20": 1.5232131954343442,
+      "large": 1.3749700000000007
+    },
+    {
+      "trade_date": "20260903",
+      "close": 7.93,
+      "high": 8.05,
+      "low": 7.93,
+      "vol": 950088.85,
+      "pct_chg": -0.5019,
+      "v20": 0.8208925563930979,
+      "large": -0.25331000000000004
+    },
+    {
+      "trade_date": "20260902",
+      "close": 7.97,
+      "high": 8.16,
+      "low": 7.89,
+      "vol": 1535573.35,
+      "pct_chg": -3.2767,
+      "v20": 1.3481254047102142,
+      "large": -1.1082050000000003
+    },
+    {
+      "trade_date": "20260901",
+      "close": 8.24,
+      "high": 8.33,
+      "low": 8.0,
+      "vol": 2876796.7,
+      "pct_chg": 4.436,
+      "v20": 2.6529938552181855,
+      "large": 3.614057
+    },
+    {
+      "trade_date": "20260831",
+      "close": 7.89,
+      "high": 8.05,
+      "low": 7.77,
+      "vol": 1711472.62,
+      "pct_chg": -0.7547,
+      "v20": 1.6174722214442012,
+      "large": 0.48784399999999917
+    },
+    {
+      "trade_date": "20260828",
+      "close": 7.95,
+      "high": 7.97,
+      "low": 7.82,
+      "vol": 1515326.62,
+      "pct_chg": -0.7491,
+      "v20": 1.4159512292207717,
+      "large": -0.37347200000000014
+    },
+    {
+      "trade_date": "20260827",
+      "close": 8.01,
+      "high": 8.03,
+      "low": 7.89,
+      "vol": 811247.53,
+      "pct_chg": 0.125,
+      "v20": 0.7347598566316262,
+      "large": -0.3839460000000003
+    },
+    {
+      "trade_date": "20260826",
+      "close": 8.0,
+      "high": 8.12,
+      "low": 7.98,
+      "vol": 783920.43,
+      "pct_chg": -0.2494,
+      "v20": 0.688333496391563,
+      "large": -0.09551499999999978
+    },
+    {
+      "trade_date": "20260825",
+      "close": 8.02,
+      "high": 8.03,
+      "low": 7.92,
+      "vol": 526675.04,
+      "pct_chg": 1.0076,
+      "v20": 0.4545442392212326,
+      "large": 0.10320300000000006
+    },
+    {
+      "trade_date": "20260824",
+      "close": 7.94,
+      "high": 8.04,
+      "low": 7.92,
+      "vol": 896130.48,
+      "pct_chg": -0.8739,
+      "v20": 0.7732181434580269,
+      "large": -0.694948
+    },
+    {
+      "trade_date": "20260821",
+      "close": 8.01,
+      "high": 8.1,
+      "low": 7.97,
+      "vol": 688291.83,
+      "pct_chg": -1.233,
+      "v20": 0.5909243061047351,
+      "large": -1.0679579999999995
+    },
+    {
+      "trade_date": "20260820",
+      "close": 8.11,
+      "high": 8.2,
+      "low": 8.04,
+      "vol": 793249.29,
+      "pct_chg": 0.6203,
+      "v20": 0.6678489867662674,
+      "large": -0.15558699999999953
+    },
+    {
+      "trade_date": "20260819",
+      "close": 8.06,
+      "high": 8.11,
+      "low": 7.92,
+      "vol": 1055255.29,
+      "pct_chg": 0.2488,
+      "v20": 0.892056016821628,
+      "large": -0.460057
+    },
+    {
+      "trade_date": "20260818",
+      "close": 8.04,
+      "high": 8.06,
+      "low": 7.86,
+      "vol": 1095888.03,
+      "pct_chg": 1.005,
+      "v20": 0.9198486318866281,
+      "large": -0.38924600000000026
+    }
+  ],
+  "comparators": {
+    "csi300": {
+      "1": -0.6705658362823108,
+      "5": -2.3843643012447457,
+      "20": -5.835465276728858
+    },
+    "peer600031": {
+      "1": -2.158634538152626,
+      "5": -2.403605408112175,
+      "20": 2.7411702688455497
+    },
+    "peer000157": {
+      "1": -0.9202453987730008,
+      "5": -3.293413173652693,
+      "20": -6.782106782106778
+    },
+    "peer000528": {
+      "1": 0.4907975460122671,
+      "5": -1.4440433212996484,
+      "20": 1.3613861386138515
+    }
+  },
+  "breadth": {
+    "up": 1120,
+    "down": 4376,
+    "flat": 52
+  },
+  "extra": {
+    "block": [
+      {
+        "ts_code": "000425.SZ",
+        "trade_date": "20260827",
+        "price": 7.94,
+        "vol": 807.16,
+        "amount": 6408.85,
+        "buyer": "广发证券股份有限公司北京阜成门南大街证券营业部",
+        "seller": "招商证券股份有限公司深圳招商证券大厦证券营业部"
+      }
+    ],
+    "holders": [
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "2026-08-29",
+        "end_date": "2026-06-30",
+        "holder_num": 154660,
+        "previous_end_date": "2026-03-31",
+        "previous_holder_num": 127680,
+        "holder_num_change": 26980,
+        "holder_num_change_pct": 21.131,
+        "change_direction": "增加"
+      },
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "2026-04-29",
+        "end_date": "2026-03-31",
+        "holder_num": 127680,
+        "previous_end_date": "2025-12-31",
+        "previous_holder_num": 100414,
+        "holder_num_change": 27266,
+        "holder_num_change_pct": 27.1536,
+        "change_direction": "增加"
+      },
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "2026-04-29",
+        "end_date": "2025-12-31",
+        "holder_num": 100414,
+        "previous_end_date": "2025-09-30",
+        "previous_holder_num": 106090,
+        "holder_num_change": -5676,
+        "holder_num_change_pct": -5.3502,
+        "change_direction": "减少"
+      },
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "2025-10-31",
+        "end_date": "2025-09-30",
+        "holder_num": 106090,
+        "previous_end_date": "2025-06-30",
+        "previous_holder_num": 132775,
+        "holder_num_change": -26685,
+        "holder_num_change_pct": -20.0979,
+        "change_direction": "减少"
+      },
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "2025-08-30",
+        "end_date": "2025-06-30",
+        "holder_num": 132775,
+        "previous_end_date": "2025-03-31",
+        "previous_holder_num": 108828,
+        "holder_num_change": 23947,
+        "holder_num_change_pct": 22.0044,
+        "change_direction": "增加"
+      },
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "2025-04-29",
+        "end_date": "2025-03-31",
+        "holder_num": 108828,
+        "previous_end_date": "2024-12-31",
+        "previous_holder_num": 122007,
+        "holder_num_change": -13179,
+        "holder_num_change_pct": -10.8018,
+        "change_direction": "减少"
+      },
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "2025-04-29",
+        "end_date": "2024-12-31",
+        "holder_num": 122007,
+        "previous_end_date": null,
+        "previous_holder_num": null,
+        "holder_num_change": null,
+        "holder_num_change_pct": null,
+        "change_direction": "无法比较"
+      }
+    ],
+    "top10": [
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "20260829",
+        "end_date": "20260630",
+        "holder_name": "徐州工程机械集团有限公司",
+        "hold_amount": 2469739335.0,
+        "hold_ratio": 21.0887,
+        "hold_float_ratio": 1.0406,
+        "hold_change": 0.0,
+        "holder_type": "一般企业"
+      },
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "20260829",
+        "end_date": "20260630",
+        "holder_name": "香港中央结算有限公司",
+        "hold_amount": 830577492.0,
+        "hold_ratio": 7.0922,
+        "hold_float_ratio": 9.2306,
+        "hold_change": 57131504.0,
+        "holder_type": "一般企业"
+      },
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "20260829",
+        "end_date": "20260630",
+        "holder_name": "天津茂信企业管理合伙企业(有限合伙)",
+        "hold_amount": 728675752.0,
+        "hold_ratio": 6.222,
+        "hold_float_ratio": 8.0981,
+        "hold_change": 0.0,
+        "holder_type": "一般企业"
+      },
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "20260829",
+        "end_date": "20260630",
+        "holder_name": "江苏省国信集团有限公司",
+        "hold_amount": 581990780.0,
+        "hold_ratio": 4.9695,
+        "hold_float_ratio": 6.4679,
+        "hold_change": 0.0,
+        "holder_type": "一般企业"
+      },
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "20260829",
+        "end_date": "20260630",
+        "holder_name": "上海隧道工程股份有限公司",
+        "hold_amount": 381960763.0,
+        "hold_ratio": 3.2615,
+        "hold_float_ratio": 4.2449,
+        "hold_change": 212438235.0,
+        "holder_type": "一般企业"
+      },
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "20260829",
+        "end_date": "20260630",
+        "holder_name": "湖州盈灿投资合伙企业(有限合伙)",
+        "hold_amount": 367957139.0,
+        "hold_ratio": 3.1419,
+        "hold_float_ratio": 4.0893,
+        "hold_change": 0.0,
+        "holder_type": "投资公司"
+      },
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "20260829",
+        "end_date": "20260630",
+        "holder_name": "建信金融资产投资有限公司",
+        "hold_amount": 240729587.0,
+        "hold_ratio": 2.0555,
+        "hold_float_ratio": 2.6753,
+        "hold_change": 0.0,
+        "holder_type": "投资公司"
+      },
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "20260829",
+        "end_date": "20260630",
+        "holder_name": "太平人寿保险有限公司-传统-普通保险产品-022L-CT001深",
+        "hold_amount": 113625779.0,
+        "hold_ratio": 0.9702,
+        "hold_float_ratio": 1.2628,
+        "hold_change": -646700.0,
+        "holder_type": "保险投资组合"
+      },
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "20260829",
+        "end_date": "20260630",
+        "holder_name": "中国人寿保险股份有限公司-传统-普通保险产品-005L-CT001沪",
+        "hold_amount": 112442065.0,
+        "hold_ratio": 0.9601,
+        "hold_float_ratio": 1.2496,
+        "hold_change": -3738900.0,
+        "holder_type": "保险投资组合"
+      },
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "20260829",
+        "end_date": "20260630",
+        "holder_name": "全国社保基金四零六组合",
+        "hold_amount": 75806492.0,
+        "hold_ratio": 0.6473,
+        "hold_float_ratio": 0.8425,
+        "hold_change": null,
+        "holder_type": "社保基金、社保机构"
+      }
+    ],
+    "unlock": [
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "20231229",
+        "float_date": "20261228",
+        "float_share": 7486160.0,
+        "float_ratio": 0.0639,
+        "holder_name": "中高层管理人员、核心技术及业务人员(共计200人)",
+        "share_type": "股权激励限售流通"
+      }
+    ],
+    "pledge": [
+      {
+        "ts_code": "000425.SZ",
+        "end_date": "20260911",
+        "pledge_count": 1,
+        "unrest_pledge": 47363.92,
+        "rest_pledge": 0.0,
+        "total_share": 1171121.04,
+        "pledge_ratio": 4.04
+      },
+      {
+        "ts_code": "000425.SZ",
+        "end_date": "20260904",
+        "pledge_count": 1,
+        "unrest_pledge": 47363.92,
+        "rest_pledge": 0.0,
+        "total_share": 1171121.04,
+        "pledge_ratio": 4.04
+      },
+      {
+        "ts_code": "000425.SZ",
+        "end_date": "20260828",
+        "pledge_count": 1,
+        "unrest_pledge": 47363.92,
+        "rest_pledge": 0.0,
+        "total_share": 1171121.04,
+        "pledge_ratio": 4.04
+      },
+      {
+        "ts_code": "000425.SZ",
+        "end_date": "20260821",
+        "pledge_count": 1,
+        "unrest_pledge": 47363.92,
+        "rest_pledge": 0.0,
+        "total_share": 1171121.04,
+        "pledge_ratio": 4.04
+      },
+      {
+        "ts_code": "000425.SZ",
+        "end_date": "20260814",
+        "pledge_count": 1,
+        "unrest_pledge": 47363.92,
+        "rest_pledge": 0.0,
+        "total_share": 1171121.04,
+        "pledge_ratio": 4.04
+      },
+      {
+        "ts_code": "000425.SZ",
+        "end_date": "20260807",
+        "pledge_count": 1,
+        "unrest_pledge": 47363.92,
+        "rest_pledge": 0.0,
+        "total_share": 1171121.04,
+        "pledge_ratio": 4.04
+      },
+      {
+        "ts_code": "000425.SZ",
+        "end_date": "20260731",
+        "pledge_count": 1,
+        "unrest_pledge": 47363.92,
+        "rest_pledge": 0.0,
+        "total_share": 1171121.04,
+        "pledge_ratio": 4.04
+      },
+      {
+        "ts_code": "000425.SZ",
+        "end_date": "20260724",
+        "pledge_count": 1,
+        "unrest_pledge": 47363.92,
+        "rest_pledge": 0.0,
+        "total_share": 1171121.04,
+        "pledge_ratio": 4.04
+      },
+      {
+        "ts_code": "000425.SZ",
+        "end_date": "20260717",
+        "pledge_count": 1,
+        "unrest_pledge": 47363.92,
+        "rest_pledge": 0.0,
+        "total_share": 1171121.04,
+        "pledge_ratio": 4.04
+      },
+      {
+        "ts_code": "000425.SZ",
+        "end_date": "20260710",
+        "pledge_count": 1,
+        "unrest_pledge": 47363.92,
+        "rest_pledge": 0.0,
+        "total_share": 1171121.04,
+        "pledge_ratio": 4.04
+      }
+    ],
+    "repurchase": [
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "20260901",
+        "end_date": "20260831",
+        "proc": "实施",
+        "exp_date": null,
+        "vol": 36806400.0,
+        "amount": 344849914.31,
+        "high_limit": 9.99,
+        "low_limit": 7.94
+      },
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "20260804",
+        "end_date": "20260731",
+        "proc": "实施",
+        "exp_date": null,
+        "vol": 36426900.0,
+        "amount": 341834660.31,
+        "high_limit": 9.99,
+        "low_limit": 8.67
+      },
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "20260721",
+        "end_date": "20260720",
+        "proc": "实施",
+        "exp_date": null,
+        "vol": 36205100.0,
+        "amount": 339833222.31,
+        "high_limit": 9.99,
+        "low_limit": 8.67
+      },
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "20260701",
+        "end_date": "20260630",
+        "proc": "实施",
+        "exp_date": null,
+        "vol": 35053100.0,
+        "amount": 329819073.31,
+        "high_limit": 9.99,
+        "low_limit": 8.67
+      },
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "20260601",
+        "end_date": "20260529",
+        "proc": "实施",
+        "exp_date": null,
+        "vol": 2552000.0,
+        "amount": 25010011.84,
+        "high_limit": 9.95,
+        "low_limit": 9.61
+      },
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "20260529",
+        "end_date": null,
+        "proc": "股东大会通过",
+        "exp_date": null,
+        "vol": null,
+        "amount": null,
+        "high_limit": 15.0,
+        "low_limit": null
+      },
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "20260429",
+        "end_date": null,
+        "proc": "预案",
+        "exp_date": "20270528",
+        "vol": null,
+        "amount": 600000000.0,
+        "high_limit": 15.0,
+        "low_limit": null
+      },
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "20260401",
+        "end_date": "20260331",
+        "proc": "完成",
+        "exp_date": null,
+        "vol": 37405303.0,
+        "amount": 309970727.17,
+        "high_limit": 10.2,
+        "low_limit": 7.67
+      },
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "20260211",
+        "end_date": "20260209",
+        "proc": "完成",
+        "exp_date": null,
+        "vol": 4356730.0,
+        "amount": 11340451.0,
+        "high_limit": null,
+        "low_limit": 2.58
+      }
+    ],
+    "holdertrade": [
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "20260901",
+        "holder_name": "徐州工程机械集团有限公司",
+        "holder_type": "C",
+        "in_de": "IN",
+        "change_vol": 1276100.0,
+        "change_ratio": 0.0142,
+        "after_share": 94910747.0,
+        "after_ratio": 27.4616,
+        "avg_price": 7.84,
+        "total_share": 2471015435.0
+      },
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "20260901",
+        "holder_name": "徐州工程机械集团有限公司",
+        "holder_type": "C",
+        "in_de": "IN",
+        "change_vol": 1276100.0,
+        "change_ratio": 0.0142,
+        "after_share": 94910747.0,
+        "after_ratio": 27.4616,
+        "avg_price": 7.84,
+        "total_share": 2471015435.0
+      },
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "20260901",
+        "holder_name": "徐州工程机械集团有限公司",
+        "holder_type": "C",
+        "in_de": "IN",
+        "change_vol": 1276100.0,
+        "change_ratio": 0.0142,
+        "after_share": 94910747.0,
+        "after_ratio": 27.4616,
+        "avg_price": 7.84,
+        "total_share": 2471015435.0
+      },
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "20260901",
+        "holder_name": "徐州工程机械集团有限公司",
+        "holder_type": "C",
+        "in_de": "IN",
+        "change_vol": 1276100.0,
+        "change_ratio": 0.0142,
+        "after_share": 94910747.0,
+        "after_ratio": 27.4616,
+        "avg_price": 7.84,
+        "total_share": 2471015435.0
+      },
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "20260901",
+        "holder_name": "徐州工程机械集团有限公司",
+        "holder_type": "C",
+        "in_de": "IN",
+        "change_vol": 1276100.0,
+        "change_ratio": 0.0142,
+        "after_share": 94910747.0,
+        "after_ratio": 27.4616,
+        "avg_price": 7.84,
+        "total_share": 2471015435.0
+      },
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "20260901",
+        "holder_name": "徐州工程机械集团有限公司",
+        "holder_type": "C",
+        "in_de": "IN",
+        "change_vol": 1276100.0,
+        "change_ratio": 0.0142,
+        "after_share": 94910747.0,
+        "after_ratio": 27.4616,
+        "avg_price": 7.84,
+        "total_share": 2471015435.0
+      },
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "20260901",
+        "holder_name": "徐州工程机械集团有限公司",
+        "holder_type": "C",
+        "in_de": "IN",
+        "change_vol": 1276100.0,
+        "change_ratio": 0.0142,
+        "after_share": 94910747.0,
+        "after_ratio": 27.4616,
+        "avg_price": 7.84,
+        "total_share": 2471015435.0
+      },
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "20260402",
+        "holder_name": "徐州工程机械集团有限公司",
+        "holder_type": "C",
+        "in_de": "IN",
+        "change_vol": 2952100.0,
+        "change_ratio": 0.0328,
+        "after_share": 93634647.0,
+        "after_ratio": 1.0393,
+        "avg_price": null,
+        "total_share": 2469739335.0
+      },
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "20260402",
+        "holder_name": "徐州工程机械集团有限公司",
+        "holder_type": "C",
+        "in_de": "IN",
+        "change_vol": 2952100.0,
+        "change_ratio": 0.0328,
+        "after_share": 93634647.0,
+        "after_ratio": 1.0393,
+        "avg_price": null,
+        "total_share": 2469739335.0
+      },
+      {
+        "ts_code": "000425.SZ",
+        "ann_date": "20260402",
+        "holder_name": "徐州工程机械集团有限公司",
+        "holder_type": "C",
+        "in_de": "IN",
+        "change_vol": 2952100.0,
+        "change_ratio": 0.0328,
+        "after_share": 93634647.0,
+        "after_ratio": 1.0393,
+        "avg_price": null,
+        "total_share": 2469739335.0
+      }
+    ]
+  },
+  "top": [],
+  "financial": {
+    "income": [
+      {
+        "end_date": "2026-06-30",
+        "revenue": 61247013848.13,
+        "total_revenue": 61247013848.13,
+        "n_income_attr_p": 3962016329.45,
+        "n_cashflow_act": null,
+        "c_pay_acq_const_fiolta": null,
+        "money_cap": null,
+        "total_liab": null,
+        "total_assets": null
+      }
+    ],
+    "balancesheet": [
+      {
+        "end_date": "2026-06-30",
+        "revenue": null,
+        "total_revenue": null,
+        "n_income_attr_p": null,
+        "n_cashflow_act": null,
+        "c_pay_acq_const_fiolta": null,
+        "money_cap": 21406355419.75,
+        "total_liab": 112950337588.32,
+        "total_assets": 178996022590.64
+      }
+    ],
+    "cashflow": [
+      {
+        "end_date": "2026-06-30",
+        "revenue": null,
+        "total_revenue": null,
+        "n_income_attr_p": null,
+        "n_cashflow_act": 4158249841.03,
+        "c_pay_acq_const_fiolta": null,
+        "money_cap": null,
+        "total_liab": null,
+        "total_assets": null
+      }
+    ]
+  },
+  "wave": {
+    "up_n": 4,
+    "up_vol": 1401900.93,
+    "up_return": 5.674653215636827,
+    "down_n": 4,
+    "down_vol": 743653.5025,
+    "down_return": -6.801909307875908,
+    "ratio": 0.530460809737818
+  },
+  "etf": {
+    "1": {
+      "start": "20260915",
+      "end": "20260915",
+      "net": null,
+      "share_change": -100.0
+    },
+    "5": {
+      "start": "20260909",
+      "end": "20260915",
+      "net": null,
+      "share_change": -100.0
+    },
+    "20": {
+      "start": "20260819",
+      "end": "20260915",
+      "net": null,
+      "share_change": -250.0
+    }
+  },
+  "peer_adj": {
+    "600031.SH": [
+      54.155
+    ],
+    "000157.SZ": [
+      95.5261
+    ],
+    "000528.SZ": [
+      13.6732
+    ]
+  },
+  "etf_aligned": {
+    "1": {
+      "start": "20260914",
+      "end": "20260914",
+      "net": 0.0,
+      "share_change": 0.0
+    },
+    "5": {
+      "start": "20260908",
+      "end": "20260914",
+      "net": 0.0,
+      "share_change": 0.0
+    },
+    "20": {
+      "start": "20260818",
+      "end": "20260914",
+      "net": -0.0199445,
+      "share_change": -150.0
+    }
+  }
+}

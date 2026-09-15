@@ -1,0 +1,22 @@
+{
+  "provider": "Tushare",
+  "method": "stock_basic",
+  "params": {
+    "ts_code": "000807.SZ"
+  },
+  "fetched_at": "2026-09-15T17:33:05.947063+08:00",
+  "rows": [
+    {
+      "ts_code": "000807.SZ",
+      "symbol": "000807",
+      "name": "云铝股份",
+      "area": "云南",
+      "industry": "铝",
+      "cnspell": "YLGF",
+      "market": "主板",
+      "list_date": "19980408",
+      "act_name": "国务院国有资产监督管理委员会",
+      "act_ent_type": "中央国企"
+    }
+  ]
+}

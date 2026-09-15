@@ -1,0 +1,10 @@
+{
+  "code": "000807",
+  "status": "MANUAL_REVIEW",
+  "execution": "INPUT_REVIEW_COMPLETED_AWAITING_DATA",
+  "missing": "持仓成本与权重未提供；申万铝指数850551.SI已映射但sw_daily无访问权限；9月15日两融未返回；公司实际铝价、氧化铝/电力单位成本及可比组持续估值未获取到",
+  "model_recalculated": false,
+  "authority_unchanged": true,
+  "new_value_range": null,
+  "reviewed_at": "2026-09-15T17:45:27+08:00"
+}

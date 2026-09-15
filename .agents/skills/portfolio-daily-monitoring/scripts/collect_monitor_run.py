@@ -10,6 +10,8 @@ import sys
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
+from information_records import carry_information_history
+
 
 RANGE_RE = re.compile(r"(\d+(?:\.\d+)?)\s*(?:—|–|-|至|到)\s*(\d+(?:\.\d+)?)\s*元")
 UPDATED_RE = re.compile(r"^updated:\s*[\"']?(\d{4}-\d{2}-\d{2})", re.MULTILINE)
@@ -153,10 +155,11 @@ def main() -> None:
             "pe": float(latest_basic.get("pe_ttm") or 0),
             "pb": float(latest_basic.get("pb") or 0),
             "triggers": triggers,
+            "prior_information_events": carry_information_history(prior),
         }
 
         if prior and prior.get("revalue") in {"LIGHT_REVALUE", "FULL_REVALUE", "MANUAL_REVIEW"} and report_date <= prior.get("report_date", ""):
-            preserved = {key: value for key, value in prior.items() if key not in item and key not in {"announcements"}}
+            preserved = {key: value for key, value in prior.items() if key not in item and key not in {"announcements", "information_review", "information_events"}}
             item.update(preserved)
             if value_low <= close <= value_high:
                 item["reason"] = str(item.get("reason", "")).replace("，现价又高于旧上沿", "；估值模型仍未完成更新")

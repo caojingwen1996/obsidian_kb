@@ -1,0 +1,23 @@
+{
+  "source": "Tushare supplemental API",
+  "method": "share_float",
+  "arguments": {
+    "ts_code": "000425.SZ",
+    "start_date": "20260915",
+    "end_date": "20270315"
+  },
+  "status": "ok",
+  "rows": [
+    {
+      "ts_code": "000425.SZ",
+      "ann_date": "20231229",
+      "float_date": "20261228",
+      "float_share": 7486160.0,
+      "float_ratio": 0.0639,
+      "holder_name": "中高层管理人员、核心技术及业务人员(共计200人)",
+      "share_type": "股权激励限售流通"
+    }
+  ],
+  "row_count": 1,
+  "retrieved_at": "2026-09-15T18:01:28.066649+08:00"
+}

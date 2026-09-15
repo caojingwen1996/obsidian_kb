@@ -1,0 +1,23 @@
+{
+  "source": "Tushare supplemental API",
+  "method": "block_trade",
+  "arguments": {
+    "ts_code": "000425.SZ",
+    "start_date": "20260701",
+    "end_date": "20260915"
+  },
+  "status": "ok",
+  "rows": [
+    {
+      "ts_code": "000425.SZ",
+      "trade_date": "20260827",
+      "price": 7.94,
+      "vol": 807.16,
+      "amount": 6408.85,
+      "buyer": "广发证券股份有限公司北京阜成门南大街证券营业部",
+      "seller": "招商证券股份有限公司深圳招商证券大厦证券营业部"
+    }
+  ],
+  "row_count": 1,
+  "retrieved_at": "2026-09-15T18:01:27.598512+08:00"
+}

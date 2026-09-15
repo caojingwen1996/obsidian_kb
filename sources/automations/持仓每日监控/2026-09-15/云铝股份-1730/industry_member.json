@@ -1,0 +1,24 @@
+{
+  "provider": "Tushare",
+  "method": "index_member_all",
+  "params": {
+    "ts_code": "000807.SZ",
+    "is_new": "Y"
+  },
+  "fetched_at": "2026-09-15T17:33:08.706555+08:00",
+  "rows": [
+    {
+      "l1_code": "801050.SI",
+      "l1_name": "有色金属",
+      "l2_code": "801055.SI",
+      "l2_name": "工业金属",
+      "l3_code": "850551.SI",
+      "l3_name": "铝",
+      "ts_code": "000807.SZ",
+      "name": "云铝股份",
+      "in_date": "19980408",
+      "out_date": null,
+      "is_new": "Y"
+    }
+  ]
+}

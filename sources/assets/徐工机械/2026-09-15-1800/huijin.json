@@ -1,0 +1,78 @@
+{
+  "source": "local MCP stdio",
+  "tool": "check_central_huijin_holding",
+  "arguments": {
+    "ts_code": "000425.SZ",
+    "use_cache": false
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 9,
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\"dataset\": \"shareholders\", \"disclosure_scope\": \"仅核验前十大股东/前十大流通股东定期报告披露口径，不代表实时持仓，也不能排除未进入前十的持仓。\", \"holder_keywords\": [\"中央汇金\"], \"is_central_huijin_holding\": false, \"latest_only\": true, \"match_count\": 0, \"matched\": false, \"matches\": [], \"queried\": [{\"dataset\": \"top10_holders\", \"label\": \"前十大股东\", \"latest_report_period\": \"2026-06-30\", \"row_count\": 1136}, {\"dataset\": \"top10_floatholders\", \"label\": \"前十大流通股东\", \"latest_report_period\": \"2026-06-30\", \"row_count\": 1112}], \"selected_report_period\": \"2026-06-30\", \"ts_code\": \"000425.SZ\"}"
+        }
+      ],
+      "structuredContent": {
+        "dataset": "shareholders",
+        "ts_code": "000425.SZ",
+        "is_central_huijin_holding": false,
+        "matched": false,
+        "holder_keywords": [
+          "中央汇金"
+        ],
+        "latest_only": true,
+        "selected_report_period": "2026-06-30",
+        "matches": [],
+        "match_count": 0,
+        "queried": [
+          {
+            "dataset": "top10_holders",
+            "label": "前十大股东",
+            "row_count": 1136,
+            "latest_report_period": "2026-06-30"
+          },
+          {
+            "dataset": "top10_floatholders",
+            "label": "前十大流通股东",
+            "row_count": 1112,
+            "latest_report_period": "2026-06-30"
+          }
+        ],
+        "disclosure_scope": "仅核验前十大股东/前十大流通股东定期报告披露口径，不代表实时持仓，也不能排除未进入前十的持仓。"
+      },
+      "isError": false
+    }
+  },
+  "payload": {
+    "dataset": "shareholders",
+    "ts_code": "000425.SZ",
+    "is_central_huijin_holding": false,
+    "matched": false,
+    "holder_keywords": [
+      "中央汇金"
+    ],
+    "latest_only": true,
+    "selected_report_period": "2026-06-30",
+    "matches": [],
+    "match_count": 0,
+    "queried": [
+      {
+        "dataset": "top10_holders",
+        "label": "前十大股东",
+        "row_count": 1136,
+        "latest_report_period": "2026-06-30"
+      },
+      {
+        "dataset": "top10_floatholders",
+        "label": "前十大流通股东",
+        "row_count": 1112,
+        "latest_report_period": "2026-06-30"
+      }
+    ],
+    "disclosure_scope": "仅核验前十大股东/前十大流通股东定期报告披露口径，不代表实时持仓，也不能排除未进入前十的持仓。"
+  },
+  "retrieved_at": "2026-09-15T18:01:26.376038+08:00"
+}

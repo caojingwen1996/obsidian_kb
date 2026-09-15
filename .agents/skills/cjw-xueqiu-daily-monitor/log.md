@@ -21,3 +21,11 @@
 - 涉及文件：
 - 具体变更：
 - 验证结果：写明实际执行的检查；未验证时说明原因。
+
+## 2026-09-14 — 修复公开雪球主页登录误判
+
+- 版本：未设版本号；本次版本号不变。
+- 修改原因：BBXM 每日汇总抓取时，公开可读的雪球作者主页因顶部导航含“登录”入口被误判为需要登录，导致抓取器进入人工登录等待。
+- 涉及文件：scripts/extract_xueqiu_posts.mjs、scripts/tests/test_extract_xueqiu_posts.py、log.md。
+- 具体变更：`classifyManualActionPayload` 在识别登录文案时增加可读帖子内容反证；若 payload 已含发布时间、帖子计数或来自客户端标识，且标题不是登录页标题，则不视为登录阻断。
+- 验证结果：`python -m unittest .agents/skills/cjw-xueqiu-daily-monitor/scripts/tests/test_extract_xueqiu_posts.py` 通过，22 项测试全部 OK；随后 BBXM 抓取成功进入 23 条详情解析。

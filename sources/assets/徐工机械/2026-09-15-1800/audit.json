@@ -1,0 +1,143 @@
+{
+  "calls": [
+    {
+      "key": "basic",
+      "status": "ok",
+      "rows": 1,
+      "message": null
+    },
+    {
+      "key": "daily",
+      "status": "ok",
+      "rows": 243,
+      "message": null
+    },
+    {
+      "key": "valuation",
+      "status": "ok",
+      "rows": 55,
+      "message": null
+    },
+    {
+      "key": "moneyflow",
+      "status": "ok",
+      "rows": 55,
+      "message": null
+    },
+    {
+      "key": "margin",
+      "status": "ok",
+      "rows": 54,
+      "message": null
+    },
+    {
+      "key": "holders",
+      "status": "ok",
+      "rows": 7,
+      "message": null
+    },
+    {
+      "key": "financial",
+      "status": "ok",
+      "rows": null,
+      "message": null
+    },
+    {
+      "key": "dividend",
+      "status": "ok",
+      "rows": 85,
+      "message": null
+    },
+    {
+      "key": "huijin",
+      "status": "ok",
+      "rows": null,
+      "message": null
+    },
+    {
+      "key": "adj",
+      "status": "ok",
+      "rows": 243,
+      "message": null
+    },
+    {
+      "key": "block",
+      "status": "ok",
+      "rows": 1,
+      "message": null
+    },
+    {
+      "key": "repurchase",
+      "status": "ok",
+      "rows": 9,
+      "message": null
+    },
+    {
+      "key": "holdertrade",
+      "status": "ok",
+      "rows": 13,
+      "message": null
+    },
+    {
+      "key": "pledge",
+      "status": "ok",
+      "rows": 581,
+      "message": null
+    },
+    {
+      "key": "unlock",
+      "status": "ok",
+      "rows": 1,
+      "message": null
+    },
+    {
+      "key": "chips",
+      "status": "error",
+      "rows": null,
+      "message": "抱歉，您没有接口(cyq_perf)访问权限，权限的具体详情访问：https://tushare.pro/document/1?doc_id=108。"
+    },
+    {
+      "key": "hk",
+      "status": "ok",
+      "rows": 0,
+      "message": null
+    },
+    {
+      "key": "top10",
+      "status": "ok",
+      "rows": 10,
+      "message": null
+    },
+    {
+      "key": "csi300",
+      "status": "ok",
+      "rows": 55,
+      "message": null
+    },
+    {
+      "key": "peer600031",
+      "status": "ok",
+      "rows": 55,
+      "message": null
+    },
+    {
+      "key": "peer000157",
+      "status": "ok",
+      "rows": 55,
+      "message": null
+    },
+    {
+      "key": "peer000528",
+      "status": "ok",
+      "rows": 55,
+      "message": null
+    },
+    {
+      "key": "breadth",
+      "status": "ok",
+      "rows": 5548,
+      "message": null
+    }
+  ],
+  "retrieved_at": "2026-09-15T18:01:31.814843+08:00"
+}

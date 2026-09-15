@@ -1,0 +1,123 @@
+{
+  "source": "Tushare supplemental API (no corresponding MCP tool)",
+  "method": "top10_holders",
+  "arguments": {
+    "ts_code": "000807.SZ",
+    "period": "20260630"
+  },
+  "retrieved_at": "2026-09-15T17:52:54.923808+08:00",
+  "status": "ok",
+  "rows": [
+    {
+      "ts_code": "000807.SZ",
+      "ann_date": "20260828",
+      "end_date": "20260630",
+      "holder_name": "中国铝业股份有限公司",
+      "hold_amount": 1009202685.0,
+      "hold_ratio": 29.1008,
+      "hold_float_ratio": 29.1011,
+      "hold_change": 0.0,
+      "holder_type": "一般企业"
+    },
+    {
+      "ts_code": "000807.SZ",
+      "ann_date": "20260828",
+      "end_date": "20260630",
+      "holder_name": "云南冶金集团股份有限公司",
+      "hold_amount": 450906263.0,
+      "hold_ratio": 13.0021,
+      "hold_float_ratio": 13.0022,
+      "hold_change": 0.0,
+      "holder_type": "一般企业"
+    },
+    {
+      "ts_code": "000807.SZ",
+      "ann_date": "20260828",
+      "end_date": "20260630",
+      "holder_name": "香港中央结算有限公司",
+      "hold_amount": 291257153.0,
+      "hold_ratio": 8.3985,
+      "hold_float_ratio": 8.3986,
+      "hold_change": 33473987.0,
+      "holder_type": "一般企业"
+    },
+    {
+      "ts_code": "000807.SZ",
+      "ann_date": "20260828",
+      "end_date": "20260630",
+      "holder_name": "全国社保基金一一八组合",
+      "hold_amount": 36102704.0,
+      "hold_ratio": 1.041,
+      "hold_float_ratio": 1.041,
+      "hold_change": -1924656.0,
+      "holder_type": "社保基金、社保机构"
+    },
+    {
+      "ts_code": "000807.SZ",
+      "ann_date": "20260828",
+      "end_date": "20260630",
+      "holder_name": "中国工商银行股份有限公司-南方中证申万有色金属交易型开放式指数证券投资基金",
+      "hold_amount": 21874645.0,
+      "hold_ratio": 0.6308,
+      "hold_float_ratio": 0.6308,
+      "hold_change": -4195545.0,
+      "holder_type": "其他金融产品"
+    },
+    {
+      "ts_code": "000807.SZ",
+      "ann_date": "20260828",
+      "end_date": "20260630",
+      "holder_name": "全国社保基金一零六组合",
+      "hold_amount": 20547111.0,
+      "hold_ratio": 0.5925,
+      "hold_float_ratio": 0.5925,
+      "hold_change": 0.0,
+      "holder_type": "社保基金、社保机构"
+    },
+    {
+      "ts_code": "000807.SZ",
+      "ann_date": "20260828",
+      "end_date": "20260630",
+      "holder_name": "谭瑞清",
+      "hold_amount": 20481058.0,
+      "hold_ratio": 0.5906,
+      "hold_float_ratio": 0.5906,
+      "hold_change": -563384.0,
+      "holder_type": "自然人"
+    },
+    {
+      "ts_code": "000807.SZ",
+      "ann_date": "20260828",
+      "end_date": "20260630",
+      "holder_name": "中国人寿保险股份有限公司-分红-个人分红-005L-FH002沪",
+      "hold_amount": 16570417.0,
+      "hold_ratio": 0.4778,
+      "hold_float_ratio": 0.4778,
+      "hold_change": null,
+      "holder_type": "保险投资组合"
+    },
+    {
+      "ts_code": "000807.SZ",
+      "ann_date": "20260828",
+      "end_date": "20260630",
+      "holder_name": "中国建设银行股份有限公司-万家中证工业有色金属主题交易型开放式指数证券投资基金",
+      "hold_amount": 13570784.0,
+      "hold_ratio": 0.3913,
+      "hold_float_ratio": 0.3913,
+      "hold_change": null,
+      "holder_type": "开放式投资基金"
+    },
+    {
+      "ts_code": "000807.SZ",
+      "ann_date": "20260828",
+      "end_date": "20260630",
+      "holder_name": "中国人寿保险股份有限公司-传统-普通保险产品-005L-CT001沪",
+      "hold_amount": 13178570.0,
+      "hold_ratio": 0.38,
+      "hold_float_ratio": 0.38,
+      "hold_change": -2367528.0,
+      "holder_type": "保险投资组合"
+    }
+  ],
+  "row_count": 10
+}

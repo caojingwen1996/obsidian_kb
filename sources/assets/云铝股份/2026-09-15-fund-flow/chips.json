@@ -1,0 +1,12 @@
+{
+  "source": "Tushare supplemental API (no corresponding MCP tool)",
+  "method": "cyq_perf",
+  "arguments": {
+    "ts_code": "000807.SZ",
+    "start_date": "20260801",
+    "end_date": "20260915"
+  },
+  "retrieved_at": "2026-09-15T17:52:54.839113+08:00",
+  "status": "error",
+  "message": "抱歉，您没有接口(cyq_perf)访问权限，权限的具体详情访问：https://tushare.pro/document/1?doc_id=108。"
+}

@@ -1,4 +1,4 @@
 interface:
   display_name: "持仓每日监控"
-  short_description: "每日扫描持仓与已生成研报标的，识别估值重算和人工复盘触发器"
-  default_prompt: "Use $portfolio-daily-monitoring to scan portfolio or covered research names, separate price-only changes from valuation-input changes, and assign the correct revaluation and manual-review status."
+  short_description: "按五层归纳扫描持仓，识别估值重算和人工复盘触发器并跟踪旧事件"
+  default_prompt: "Use $portfolio-daily-monitoring to scan portfolio or covered research names using the latest Wiki financial-information framework: event nodes, impacts, market behavior, financial reactions, and longitudinal tracking. Review prior unresolved events, separate observed facts from hypotheses and risk direction from level, and preserve the existing revaluation and manual-review statuses."

@@ -7,6 +7,8 @@ import argparse
 import json
 from pathlib import Path
 
+from information_records import information_gaps, information_sections, information_summary, validate_information
+
 
 def money(value: float) -> str:
     return f"{value:.2f}亿元"
@@ -41,6 +43,10 @@ def source_link(item: dict) -> str:
 
 
 def target_report(run: dict, item: dict) -> str:
+    information, followup = information_sections(item)
+    gaps = information_gaps(item)
+    needs_reading = item["needs_review"] or item["revalue"] != "NO_REVALUE" or bool(gaps) or item['judgment'] in {'轻微削弱', '明显削弱', '逻辑失效', '信息不足'}
+    quick_conclusion = "五层归纳或历史复核尚未完成；下列估值与逻辑字段仅作现有记录，需继续查看第 7、8 节缺口。" if gaps else item['quick_conclusion']
     position, vstate = valuation_position(item)
     abnormal = bool(item["triggers"])
     announcements = item.get("announcements", [])
@@ -91,13 +97,13 @@ def target_report(run: dict, item: dict) -> str:
 
 | 标的 | 变化类型 | 核心变化 | 投资逻辑判断 | 估值处置状态 | 关联假设 | 是否待复盘 | 是否需继续阅读 |
 |---|---|---|---|---|---|---|---|
-| {item['name']} | {'异常波动/事件' if abnormal or announcements else '常规监控'} | {item['reason']} | {item['judgment']} | {item['revalue']} | {item['hypothesis']} | {'是' if item['needs_review'] else '否'} | {'是' if item['needs_review'] or item['revalue'] != 'NO_REVALUE' else '否'} |
+| {item['name']} | {'异常波动/事件' if abnormal or announcements else '常规监控'} | {item['reason']} | {item['judgment']} | {item['revalue']} | {item['hypothesis']} | {'是' if item['needs_review'] else '否'} | {'是' if needs_reading else '否'} |
 
 ### 快速阅读结论
 
-- 是否需要继续阅读后续章节：{'是' if item['needs_review'] or item['revalue'] != 'NO_REVALUE' else '否'}
-- 快速结论：{item['quick_conclusion']}
-- 如需继续阅读：重点查看第 2、6、7 节，核对异常、估值输入与核心假设变化。
+- 是否需要继续阅读后续章节：{'是' if needs_reading else '否'}
+- 快速结论：{quick_conclusion}
+- 如需继续阅读：重点查看第 2、6、7、8 节，核对异常、估值输入、五层归纳及待验证事项。
 
 ## 三、八类监控项结果
 
@@ -167,6 +173,10 @@ def target_report(run: dict, item: dict) -> str:
 
 #### 7. 系统初步影响判断
 
+{information}
+
+**标的综合判断（与事件风险方向、风险水平分别输出）**
+
 - 当前判断：{item['judgment']}
 - 受影响假设：{item['hypothesis']}
 - 支持证据：{item['support']}
@@ -183,6 +193,8 @@ def target_report(run: dict, item: dict) -> str:
 - 建议补充数据：成本、仓位、行业指数映射；{item['missing']}
 - 下一次复盘时间：下一交易日盘前；重大公告出现时即时复核
 - 建议复盘重点：{item['review_task']}
+
+{followup}
 
 ## 四、待人工复盘清单
 
@@ -225,7 +237,7 @@ def summary_report(run: dict, items: list[dict]) -> str:
         key=lambda i: (priority_order.get(i.get("review_priority", "—"), 9), i["name"]),
     )
     counts = {s: sum(i["revalue"] == s for i in items) for s in ("NO_REVALUE", "LIGHT_REVALUE", "FULL_REVALUE", "MANUAL_REVIEW")}
-    focus = [i for i in items if i["triggers"] or i["needs_review"] or i["revalue"] != "NO_REVALUE"]
+    focus = [i for i in items if i["triggers"] or i["needs_review"] or i["revalue"] != "NO_REVALUE" or information_gaps(i) or i['judgment'] in {'轻微削弱', '明显削弱', '逻辑失效', '信息不足'}]
     focus_rows = "\n".join(
         f"| {i['name']} | {i['reason']} | {i['judgment']} | {i['revalue']} | {'是' if i['needs_review'] else '否'} | 是 |" for i in focus
     )
@@ -254,6 +266,9 @@ def summary_report(run: dict, items: list[dict]) -> str:
     )
     if run.get("news_source_note"):
         gap_rows += f"\n| 全组合 | 公告与新闻索引 | 部分获取 | 交易所、巨潮、公司官网与公开公告索引 | {run['news_source_note']} |"
+    for item in items:
+        if information_gaps(item):
+            gap_rows += f"\n| {item['name']} | 五层归纳及历史复核 | 未完成 | 本次与上次运行记录 | 见事件归纳与跟踪进展；不代表没有风险 |"
     priority_names = "、".join(i["name"] for i in focus) or "无"
     quick_parts = [f"{len(abnormal)} 个标的触发默认异常规则"]
     if counts["FULL_REVALUE"]:
@@ -263,6 +278,9 @@ def summary_report(run: dict, items: list[dict]) -> str:
     if counts["MANUAL_REVIEW"]:
         quick_parts.append(f"{counts['MANUAL_REVIEW']} 个进入人工判断")
     quick_parts.append(f"其中 {counts['NO_REVALUE']} 个为 NO_REVALUE，维持原估值区间并仅更新价格和安全边际")
+    incomplete_count = sum(bool(information_gaps(item)) for item in items)
+    if incomplete_count:
+        quick_parts.append(f"{incomplete_count} 个标的五层归纳或历史复核未完成，不能视为完整监控完成")
     quick_conclusion = "；".join(quick_parts) + "。"
     continue_reading = bool(focus)
     return f"""# 持仓今日监控汇总
@@ -294,7 +312,9 @@ def summary_report(run: dict, items: list[dict]) -> str:
 
 - 是否需要继续阅读逐标的报告：{'是' if continue_reading else '否'}
 - 快速结论：{quick_conclusion}
-- 优先阅读标的及原因：{priority_names}；分别涉及区间边界、显著量价波动或待完成估值重算。
+- 优先阅读标的及原因：{priority_names}；检查区间边界、量价波动、估值重算、五层归纳及历史复核缺口。
+
+{information_summary(items, run['date'])}
 
 ## 三、逐标的监控索引
 
@@ -336,6 +356,8 @@ def main() -> None:
     parser.add_argument("--output-dir", required=True, type=Path)
     args = parser.parse_args()
     run = json.loads(args.input.read_text(encoding="utf-8-sig"))
+    for item in run["items"]:
+        validate_information(item)
     args.output_dir.mkdir(parents=True, exist_ok=True)
     for item in run["items"]:
         defaults = {

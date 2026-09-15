@@ -268,12 +268,23 @@ export function classifyManualActionPayload(payload) {
   const text = [
     String(payload?.title || ""),
     String(payload?.author_name || ""),
+    String(payload?.published_at || ""),
+    String(payload?.url || ""),
     String(payload?.content || ""),
   ].join("\n");
   if (VERIFICATION_PAYLOAD_PATTERN.test(text)) {
     return "verification";
   }
   if (LOGIN_PAYLOAD_PATTERN.test(text)) {
+    const title = String(payload?.title || "").trim();
+    const hasReadableXueqiuContent = (
+      Boolean(String(payload?.published_at || "").trim()) ||
+      /(?:^|\n)帖子\s*\n?\d+(?:\n|$)/.test(text) ||
+      /(?:来自Android|来自iPhone|来自雪球|来自网页)/.test(text)
+    );
+    if (hasReadableXueqiuContent && !/^登录雪球$/.test(title)) {
+      return false;
+    }
     return "login";
   }
   return false;

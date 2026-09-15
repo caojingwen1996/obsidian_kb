@@ -1,0 +1,28 @@
+{
+  "source": "Tushare supplemental API",
+  "method": "cashflow",
+  "arguments": {
+    "ts_code": "000425.SZ",
+    "period": "20260630",
+    "fields": "ts_code,ann_date,end_date,n_cashflow_act,c_pay_acq_const_fiolta"
+  },
+  "retrieved_at": "2026-09-15T18:05:05.235922+08:00",
+  "status": "ok",
+  "rows": [
+    {
+      "ts_code": "000425.SZ",
+      "ann_date": "20260829",
+      "end_date": "20260630",
+      "n_cashflow_act": 4158249841.03,
+      "c_pay_acq_const_fiolta": 4857493732.57
+    },
+    {
+      "ts_code": "000425.SZ",
+      "ann_date": "20260829",
+      "end_date": "20260630",
+      "n_cashflow_act": 4158249841.03,
+      "c_pay_acq_const_fiolta": 4857493732.57
+    }
+  ],
+  "row_count": 2
+}

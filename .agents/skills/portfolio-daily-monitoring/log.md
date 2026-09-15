@@ -53,3 +53,12 @@
 - 涉及文件：
 - 具体变更：
 - 验证结果：写明实际执行的检查；未验证时说明原因。
+
+## 2026-09-15 — 五层金融信息归纳融入每日持仓扫描
+
+- 版本：1.4.1 → 1.5.0。
+- 修改原因：用户要求将事件节点、影响、市场行为、金融反应、长期跟踪融入每日持仓扫描技能。
+- 涉及文件：SKILL.md、template.md、summary-template.md、agents/openai.yaml、references/five-layer-records.md、scripts/information_records.py、scripts/collect_monitor_run.py、scripts/generate_run_reports.py、scripts/test_information_records.py、test-skill-contract.cjs、log.md。
+- 具体变更：运行前读取最新金融信息归纳框架；逐事件关联风险源、变量、路径、主体暴露与研报假设；预期行为与实际行为、风险水平与方向、逻辑判断与估值处置分开。第7节呈现五层记录，第8节承接验证安排，汇总按事件编号合并多标的路径。采集器独立携带历史归纳，未复核历史不作为本次判断；缺少归纳时保留明确缺口并提示继续阅读。保留八类监控项、第6节固定字段、原重算阈值与报告命名。
+- 验证结果：Node技能契约检查通过；Python离线回归6/6通过，覆盖缺失输入与空记录区别、历史去重和待复核、多标的同事件合并、非法输入拒绝、Markdown/HTML五层展示和转义、CLI报告及估值字段兼容和输入文件不改写；git diff --check通过；中文乱码哨兵检查无命中。
+- 验证边界：仅更新技能及生成链路，未执行真实持仓采集、重估或生成当日业务报告，未新建定时任务；生成器验证结构，不代替金融证据核验。

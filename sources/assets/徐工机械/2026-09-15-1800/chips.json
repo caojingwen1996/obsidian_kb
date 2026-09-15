@@ -1,0 +1,12 @@
+{
+  "source": "Tushare supplemental API",
+  "method": "cyq_perf",
+  "arguments": {
+    "ts_code": "000425.SZ",
+    "start_date": "20260801",
+    "end_date": "20260915"
+  },
+  "status": "error",
+  "message": "抱歉，您没有接口(cyq_perf)访问权限，权限的具体详情访问：https://tushare.pro/document/1?doc_id=108。",
+  "retrieved_at": "2026-09-15T18:01:28.119293+08:00"
+}

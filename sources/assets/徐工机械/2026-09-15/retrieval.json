@@ -1,0 +1,79 @@
+{
+  "generated_at": "2026-09-15T17:19:29+08:00",
+  "code": "000425.SZ",
+  "query_range": {
+    "start": "20260801",
+    "end": "20260915"
+  },
+  "files": {
+    "stock_basic.json": {
+      "rows": 1,
+      "sha256": "6df15ef30d061529576f4c5b3aacb08056a0c48e6f15d04869fd9a8ae60533a8"
+    },
+    "daily.json": {
+      "rows": 32,
+      "sha256": "4aaf8e98113e91e5c4c47ed843b9a3375103ca7ac384727f0e092e35ea32e4cb"
+    },
+    "daily_basic.json": {
+      "rows": 32,
+      "sha256": "1ba2b5b66335f17e6ee613adaacade19640adb236f9122d8a0811e97a59df537"
+    },
+    "adj_factor.json": {
+      "rows": 32,
+      "sha256": "72007d2d97d2a4a8bb7ec40175373b831d0f89a5bcc3ac0f1fed23634eab0783"
+    },
+    "moneyflow.json": {
+      "rows": 32,
+      "sha256": "899cfd15f2c432bf14702b5715c1a59b1c7b06b2de105541c0b2ee2d79847562"
+    },
+    "margin_detail.json": {
+      "rows": 31,
+      "sha256": "b894fefe471cbb17a14e3f0c52b08ebe0d202af9ca0b8aece4c8d39992d8cabb"
+    },
+    "stk_holdernumber.json": {
+      "rows": 7,
+      "sha256": "f25bf38f1e1541080044bcb84121bb465bcf4e30ada97ac4744a8359ccd043a8"
+    },
+    "daily_basic-600031.SH.json": {
+      "rows": 2,
+      "sha256": "f3d89e8d4e16870d2a561e72997d092d9cc0bd4cb166173e92cc98a36a20b3cd"
+    },
+    "daily-600031.SH.json": {
+      "rows": 32,
+      "sha256": "2d0d5652fa0abff04828bf4587b590c9fcfcdb8d9689c2e8bf77ad9111dbe206"
+    },
+    "adj_factor-600031.SH.json": {
+      "rows": 32,
+      "sha256": "1c11834c79087058d74a60621d6d32b53596caf31c26150e05c8c812440f1edb"
+    },
+    "daily_basic-000157.SZ.json": {
+      "rows": 2,
+      "sha256": "a8b91a78f4bcc9d9041d52633bda4132e5868980b998fcb98906cbb8578a6ee4"
+    },
+    "daily-000157.SZ.json": {
+      "rows": 32,
+      "sha256": "4e9cac99fd0d4b19780f5df9d0990c3fa32d0106bc7e1989c30ea65840af4625"
+    },
+    "adj_factor-000157.SZ.json": {
+      "rows": 32,
+      "sha256": "1af66daf5e5207f2a5753356598ce161028067ccb56d47eace04ac5a56f36ad2"
+    },
+    "daily_basic-000528.SZ.json": {
+      "rows": 2,
+      "sha256": "0f3b6286620aaa3d1601e858f7d9e6bb22f3d787f54bbccdc74059da47e1a56a"
+    },
+    "daily-000528.SZ.json": {
+      "rows": 32,
+      "sha256": "f7b3270c3ad473c1292b4e539d72aad3fa1e28970ead5a3228e4036077aff0b5"
+    },
+    "adj_factor-000528.SZ.json": {
+      "rows": 32,
+      "sha256": "140eadc58472aaa9186c757a2e1ad0083009e987c27e08195bbe01e186563b40"
+    },
+    "market-daily-20260915.json": {
+      "rows": 5548,
+      "sha256": "e268482e40528c2be207bc76979c298e91eeb7a402852e85e356935409f10c83"
+    }
+  },
+  "errors": {}
+}

@@ -1,0 +1,399 @@
+{
+  "source": "Tushare supplemental API",
+  "method": "fund_share",
+  "arguments": {
+    "ts_code": "159542.SZ",
+    "start_date": "20260701",
+    "end_date": "20260915"
+  },
+  "retrieved_at": "2026-09-15T18:05:04.995921+08:00",
+  "status": "ok",
+  "rows": [
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260915",
+      "fd_share": 1309.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260914",
+      "fd_share": 1409.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260911",
+      "fd_share": 1409.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260910",
+      "fd_share": 1409.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260909",
+      "fd_share": 1409.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260908",
+      "fd_share": 1409.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260907",
+      "fd_share": 1409.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260904",
+      "fd_share": 1459.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260903",
+      "fd_share": 1459.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260902",
+      "fd_share": 1459.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260901",
+      "fd_share": 1459.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260831",
+      "fd_share": 1459.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260828",
+      "fd_share": 1459.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260827",
+      "fd_share": 1459.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260826",
+      "fd_share": 1559.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260825",
+      "fd_share": 1559.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260824",
+      "fd_share": 1559.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260821",
+      "fd_share": 1559.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260820",
+      "fd_share": 1559.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260819",
+      "fd_share": 1559.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260818",
+      "fd_share": 1559.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260817",
+      "fd_share": 1559.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260814",
+      "fd_share": 1609.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260813",
+      "fd_share": 1609.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260812",
+      "fd_share": 1609.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260811",
+      "fd_share": 1609.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260810",
+      "fd_share": 1659.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260807",
+      "fd_share": 1659.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260806",
+      "fd_share": 1609.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260805",
+      "fd_share": 1709.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260804",
+      "fd_share": 1709.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260803",
+      "fd_share": 1609.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260731",
+      "fd_share": 1559.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260730",
+      "fd_share": 1559.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260729",
+      "fd_share": 1659.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260728",
+      "fd_share": 1659.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260727",
+      "fd_share": 1659.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260724",
+      "fd_share": 1659.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260723",
+      "fd_share": 1659.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260722",
+      "fd_share": 1659.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260721",
+      "fd_share": 1659.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260720",
+      "fd_share": 1659.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260717",
+      "fd_share": 1659.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260716",
+      "fd_share": 1659.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260715",
+      "fd_share": 1709.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260714",
+      "fd_share": 1709.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260713",
+      "fd_share": 1659.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260710",
+      "fd_share": 1759.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260709",
+      "fd_share": 1759.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260708",
+      "fd_share": 1909.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260707",
+      "fd_share": 1909.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260706",
+      "fd_share": 1959.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260703",
+      "fd_share": 1809.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260702",
+      "fd_share": 1659.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    },
+    {
+      "ts_code": "159542.SZ",
+      "trade_date": "20260701",
+      "fd_share": 1659.285,
+      "fund_type": "ETF",
+      "market": "SZ"
+    }
+  ],
+  "row_count": 55
+}

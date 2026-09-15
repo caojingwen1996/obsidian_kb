@@ -4,7 +4,7 @@
 
 当用户点名冰冰小美体系或出现以下主动作时，可用本摘要快速发现候选子技能：
 
-- 过滤信息、判断信息金融意义：`bbxm-information-filter-flow`
+- 明确调用信息归纳技能或金融信息归纳框架（兼容旧技能名）：`bbxm-information-filter-flow`
 - 复盘交割单、买卖记录或仓位行为：`bbxm-trade-ticket-review`
 - 完整公司研究、估值、DCF 或目标价：`bbxm-equity-research`
 - 直接分析竞争格局、流动性、情绪及三要素共振：`bbxm-three-factor-analysis`

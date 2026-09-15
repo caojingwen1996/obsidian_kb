@@ -8,7 +8,7 @@ const template = fs.readFileSync(path.join(root, 'template.md'), 'utf8');
 const summaryTemplate = fs.readFileSync(path.join(root, 'summary-template.md'), 'utf8');
 const openai = fs.readFileSync(path.join(root, 'agents', 'openai.yaml'), 'utf8');
 
-assert.match(skill, /当前版本：`1\.4\.1`/);
+assert.match(skill, /当前版本：`1\.5\.0`/);
 assert.match(skill, /扫描已生成研报的标的/);
 assert.match(skill, /股价变化只更新安全边际/);
 assert.match(skill, /价格[\s\S]*?突破估值区间上下沿[\s\S]*?`NO_REVALUE`/);
@@ -61,5 +61,11 @@ assert.match(template, /## 五、估值重算队列/);
 assert.match(template, /原模型值[\s\S]*?最新值[\s\S]*?触发阈值/);
 assert.match(template, /本次监控没有标的进入估值重算队列/);
 assert.match(openai, /识别估值重算和人工复盘触发器/);
+
+assert.match(skill, /prior_information_events/);
+assert.match(skill, /不从投资逻辑判断或估值处置状态反推方向/);
+assert.match(template, /五层信息归纳/);
+assert.match(summaryTemplate, /事件归纳与跟踪进展/);
+assert.ok(fs.existsSync(path.join(root, 'references', 'five-layer-records.md')));
 
 console.log('PASS: portfolio daily monitoring skill contract');

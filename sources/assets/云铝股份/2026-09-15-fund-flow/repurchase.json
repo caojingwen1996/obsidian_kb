@@ -1,0 +1,13 @@
+{
+  "source": "Tushare supplemental API (no corresponding MCP tool)",
+  "method": "repurchase",
+  "arguments": {
+    "ts_code": "000807.SZ",
+    "start_date": "20260101",
+    "end_date": "20260915"
+  },
+  "retrieved_at": "2026-09-15T17:52:54.552587+08:00",
+  "status": "ok",
+  "rows": [],
+  "row_count": 0
+}

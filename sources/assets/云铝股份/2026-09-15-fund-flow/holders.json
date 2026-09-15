@@ -1,0 +1,417 @@
+{
+  "source": "local MCP stdio",
+  "tool": "get_shareholder_count",
+  "arguments": {
+    "ts_code": "000807.SZ",
+    "start_date": "20250101",
+    "end_date": "20260915",
+    "use_cache": false,
+    "limit": 1000
+  },
+  "retrieved_at": "2026-09-15T17:52:53.089263+08:00",
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 6,
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\"dataset\": \"stk_holdernumber\", \"disclosure_scope\": \"股东户数为不定期披露且存在公告滞后；户数减少不等于机构增持，户数增加也不等于必然利空。\", \"latest\": {\"ann_date\": \"2026-08-03\", \"change_direction\": \"减少\", \"end_date\": \"2026-07-20\", \"holder_num\": 127827, \"holder_num_change\": -30024, \"holder_num_change_pct\": -19.0205, \"previous_end_date\": \"2026-06-30\", \"previous_holder_num\": 157851, \"ts_code\": \"000807.SZ\"}, \"row_count\": 16, \"rows\": [{\"ann_date\": \"2026-08-03\", \"change_direction\": \"减少\", \"end_date\": \"2026-07-20\", \"holder_num\": 127827, \"holder_num_change\": -30024, \"holder_num_change_pct\": -19.0205, \"previous_end_date\": \"2026-06-30\", \"previous_holder_num\": 157851, \"ts_code\": \"000807.SZ\"}, {\"ann_date\": \"2026-08-28\", \"change_direction\": \"增加\", \"end_date\": \"2026-06-30\", \"holder_num\": 157851, \"holder_num_change\": 30024, \"holder_num_change_pct\": 23.488, \"previous_end_date\": \"2026-06-11\", \"previous_holder_num\": 127827, \"ts_code\": \"000807.SZ\"}, {\"ann_date\": \"2026-06-11\", \"change_direction\": \"持平\", \"end_date\": \"2026-06-11\", \"holder_num\": 127827, \"holder_num_change\": 0, \"holder_num_change_pct\": 0.0, \"previous_end_date\": \"2026-03-31\", \"previous_holder_num\": 127827, \"ts_code\": \"000807.SZ\"}, {\"ann_date\": \"2026-04-24\", \"change_direction\": \"增加\", \"end_date\": \"2026-03-31\", \"holder_num\": 127827, \"holder_num_change\": 48754, \"holder_num_change_pct\": 61.6569, \"previous_end_date\": \"2026-03-02\", \"previous_holder_num\": 79073, \"ts_code\": \"000807.SZ\"}, {\"ann_date\": \"2026-03-02\", \"change_direction\": \"减少\", \"end_date\": \"2026-03-02\", \"holder_num\": 79073, \"holder_num_change\": -50680, \"holder_num_change_pct\": -39.0588, \"previous_end_date\": \"2026-02-28\", \"previous_holder_num\": 129753, \"ts_code\": \"000807.SZ\"}, {\"ann_date\": \"2026-03-28\", \"change_direction\": \"增加\", \"end_date\": \"2026-02-28\", \"holder_num\": 129753, \"holder_num_change\": 41025, \"holder_num_change_pct\": 46.2368, \"previous_end_date\": \"2025-12-31\", \"previous_holder_num\": 88728, \"ts_code\": \"000807.SZ\"}, {\"ann_date\": \"2026-03-28\", \"change_direction\": \"增加\", \"end_date\": \"2025-12-31\", \"holder_num\": 88728, \"holder_num_change\": 9655, \"holder_num_change_pct\": 12.2102, \"previous_end_date\": \"2025-11-19\", \"previous_holder_num\": 79073, \"ts_code\": \"000807.SZ\"}, {\"ann_date\": \"2025-11-19\", \"change_direction\": \"持平\", \"end_date\": \"2025-11-19\", \"holder_num\": 79073, \"holder_num_change\": 0, \"holder_num_change_pct\": 0.0, \"previous_end_date\": \"2025-09-30\", \"previous_holder_num\": 79073, \"ts_code\": \"000807.SZ\"}, {\"ann_date\": \"2025-10-25\", \"change_direction\": \"减少\", \"end_date\": \"2025-09-30\", \"holder_num\": 79073, \"holder_num_change\": -7355, \"holder_num_change_pct\": -8.51, \"previous_end_date\": \"2025-06-30\", \"previous_holder_num\": 86428, \"ts_code\": \"000807.SZ\"}, {\"ann_date\": \"2025-08-26\", \"change_direction\": \"增加\", \"end_date\": \"2025-06-30\", \"holder_num\": 86428, \"holder_num_change\": 12529, \"holder_num_change_pct\": 16.9542, \"previous_end_date\": \"2025-06-24\", \"previous_holder_num\": 73899, \"ts_code\": \"000807.SZ\"}, {\"ann_date\": \"2025-06-24\", \"change_direction\": \"持平\", \"end_date\": \"2025-06-24\", \"holder_num\": 73899, \"holder_num_change\": 0, \"holder_num_change_pct\": 0.0, \"previous_end_date\": \"2025-05-07\", \"previous_holder_num\": 73899, \"ts_code\": \"000807.SZ\"}, {\"ann_date\": \"2025-05-07\", \"change_direction\": \"持平\", \"end_date\": \"2025-05-07\", \"holder_num\": 73899, \"holder_num_change\": 0, \"holder_num_change_pct\": 0.0, \"previous_end_date\": \"2025-04-30\", \"previous_holder_num\": 73899, \"ts_code\": \"000807.SZ\"}, {\"ann_date\": \"2025-05-07\", \"change_direction\": \"持平\", \"end_date\": \"2025-04-30\", \"holder_num\": 73899, \"holder_num_change\": 0, \"holder_num_change_pct\": 0.0, \"previous_end_date\": \"2025-03-31\", \"previous_holder_num\": 73899, \"ts_code\": \"000807.SZ\"}, {\"ann_date\": \"2025-04-24\", \"change_direction\": \"减少\", \"end_date\": \"2025-03-31\", \"holder_num\": 73899, \"holder_num_change\": -576, \"holder_num_change_pct\": -0.7734, \"previous_end_date\": \"2025-02-28\", \"previous_holder_num\": 74475, \"ts_code\": \"000807.SZ\"}, {\"ann_date\": \"2025-03-27\", \"change_direction\": \"减少\", \"end_date\": \"2025-02-28\", \"holder_num\": 74475, \"holder_num_change\": -24624, \"holder_num_change_pct\": -24.8479, \"previous_end_date\": \"2024-12-31\", \"previous_holder_num\": 99099, \"ts_code\": \"000807.SZ\"}, {\"ann_date\": \"2025-03-27\", \"change_direction\": \"无法比较\", \"end_date\": \"2024-12-31\", \"holder_num\": 99099, \"holder_num_change\": null, \"holder_num_change_pct\": null, \"previous_end_date\": null, \"previous_holder_num\": null, \"ts_code\": \"000807.SZ\"}], \"total_period_count\": 16, \"ts_code\": \"000807.SZ\"}"
+        }
+      ],
+      "structuredContent": {
+        "dataset": "stk_holdernumber",
+        "ts_code": "000807.SZ",
+        "rows": [
+          {
+            "ts_code": "000807.SZ",
+            "ann_date": "2026-08-03",
+            "end_date": "2026-07-20",
+            "holder_num": 127827,
+            "previous_end_date": "2026-06-30",
+            "previous_holder_num": 157851,
+            "holder_num_change": -30024,
+            "holder_num_change_pct": -19.0205,
+            "change_direction": "减少"
+          },
+          {
+            "ts_code": "000807.SZ",
+            "ann_date": "2026-08-28",
+            "end_date": "2026-06-30",
+            "holder_num": 157851,
+            "previous_end_date": "2026-06-11",
+            "previous_holder_num": 127827,
+            "holder_num_change": 30024,
+            "holder_num_change_pct": 23.488,
+            "change_direction": "增加"
+          },
+          {
+            "ts_code": "000807.SZ",
+            "ann_date": "2026-06-11",
+            "end_date": "2026-06-11",
+            "holder_num": 127827,
+            "previous_end_date": "2026-03-31",
+            "previous_holder_num": 127827,
+            "holder_num_change": 0,
+            "holder_num_change_pct": 0.0,
+            "change_direction": "持平"
+          },
+          {
+            "ts_code": "000807.SZ",
+            "ann_date": "2026-04-24",
+            "end_date": "2026-03-31",
+            "holder_num": 127827,
+            "previous_end_date": "2026-03-02",
+            "previous_holder_num": 79073,
+            "holder_num_change": 48754,
+            "holder_num_change_pct": 61.6569,
+            "change_direction": "增加"
+          },
+          {
+            "ts_code": "000807.SZ",
+            "ann_date": "2026-03-02",
+            "end_date": "2026-03-02",
+            "holder_num": 79073,
+            "previous_end_date": "2026-02-28",
+            "previous_holder_num": 129753,
+            "holder_num_change": -50680,
+            "holder_num_change_pct": -39.0588,
+            "change_direction": "减少"
+          },
+          {
+            "ts_code": "000807.SZ",
+            "ann_date": "2026-03-28",
+            "end_date": "2026-02-28",
+            "holder_num": 129753,
+            "previous_end_date": "2025-12-31",
+            "previous_holder_num": 88728,
+            "holder_num_change": 41025,
+            "holder_num_change_pct": 46.2368,
+            "change_direction": "增加"
+          },
+          {
+            "ts_code": "000807.SZ",
+            "ann_date": "2026-03-28",
+            "end_date": "2025-12-31",
+            "holder_num": 88728,
+            "previous_end_date": "2025-11-19",
+            "previous_holder_num": 79073,
+            "holder_num_change": 9655,
+            "holder_num_change_pct": 12.2102,
+            "change_direction": "增加"
+          },
+          {
+            "ts_code": "000807.SZ",
+            "ann_date": "2025-11-19",
+            "end_date": "2025-11-19",
+            "holder_num": 79073,
+            "previous_end_date": "2025-09-30",
+            "previous_holder_num": 79073,
+            "holder_num_change": 0,
+            "holder_num_change_pct": 0.0,
+            "change_direction": "持平"
+          },
+          {
+            "ts_code": "000807.SZ",
+            "ann_date": "2025-10-25",
+            "end_date": "2025-09-30",
+            "holder_num": 79073,
+            "previous_end_date": "2025-06-30",
+            "previous_holder_num": 86428,
+            "holder_num_change": -7355,
+            "holder_num_change_pct": -8.51,
+            "change_direction": "减少"
+          },
+          {
+            "ts_code": "000807.SZ",
+            "ann_date": "2025-08-26",
+            "end_date": "2025-06-30",
+            "holder_num": 86428,
+            "previous_end_date": "2025-06-24",
+            "previous_holder_num": 73899,
+            "holder_num_change": 12529,
+            "holder_num_change_pct": 16.9542,
+            "change_direction": "增加"
+          },
+          {
+            "ts_code": "000807.SZ",
+            "ann_date": "2025-06-24",
+            "end_date": "2025-06-24",
+            "holder_num": 73899,
+            "previous_end_date": "2025-05-07",
+            "previous_holder_num": 73899,
+            "holder_num_change": 0,
+            "holder_num_change_pct": 0.0,
+            "change_direction": "持平"
+          },
+          {
+            "ts_code": "000807.SZ",
+            "ann_date": "2025-05-07",
+            "end_date": "2025-05-07",
+            "holder_num": 73899,
+            "previous_end_date": "2025-04-30",
+            "previous_holder_num": 73899,
+            "holder_num_change": 0,
+            "holder_num_change_pct": 0.0,
+            "change_direction": "持平"
+          },
+          {
+            "ts_code": "000807.SZ",
+            "ann_date": "2025-05-07",
+            "end_date": "2025-04-30",
+            "holder_num": 73899,
+            "previous_end_date": "2025-03-31",
+            "previous_holder_num": 73899,
+            "holder_num_change": 0,
+            "holder_num_change_pct": 0.0,
+            "change_direction": "持平"
+          },
+          {
+            "ts_code": "000807.SZ",
+            "ann_date": "2025-04-24",
+            "end_date": "2025-03-31",
+            "holder_num": 73899,
+            "previous_end_date": "2025-02-28",
+            "previous_holder_num": 74475,
+            "holder_num_change": -576,
+            "holder_num_change_pct": -0.7734,
+            "change_direction": "减少"
+          },
+          {
+            "ts_code": "000807.SZ",
+            "ann_date": "2025-03-27",
+            "end_date": "2025-02-28",
+            "holder_num": 74475,
+            "previous_end_date": "2024-12-31",
+            "previous_holder_num": 99099,
+            "holder_num_change": -24624,
+            "holder_num_change_pct": -24.8479,
+            "change_direction": "减少"
+          },
+          {
+            "ts_code": "000807.SZ",
+            "ann_date": "2025-03-27",
+            "end_date": "2024-12-31",
+            "holder_num": 99099,
+            "previous_end_date": null,
+            "previous_holder_num": null,
+            "holder_num_change": null,
+            "holder_num_change_pct": null,
+            "change_direction": "无法比较"
+          }
+        ],
+        "row_count": 16,
+        "total_period_count": 16,
+        "latest": {
+          "ts_code": "000807.SZ",
+          "ann_date": "2026-08-03",
+          "end_date": "2026-07-20",
+          "holder_num": 127827,
+          "previous_end_date": "2026-06-30",
+          "previous_holder_num": 157851,
+          "holder_num_change": -30024,
+          "holder_num_change_pct": -19.0205,
+          "change_direction": "减少"
+        },
+        "disclosure_scope": "股东户数为不定期披露且存在公告滞后；户数减少不等于机构增持，户数增加也不等于必然利空。"
+      },
+      "isError": false
+    }
+  },
+  "payload": {
+    "dataset": "stk_holdernumber",
+    "ts_code": "000807.SZ",
+    "rows": [
+      {
+        "ts_code": "000807.SZ",
+        "ann_date": "2026-08-03",
+        "end_date": "2026-07-20",
+        "holder_num": 127827,
+        "previous_end_date": "2026-06-30",
+        "previous_holder_num": 157851,
+        "holder_num_change": -30024,
+        "holder_num_change_pct": -19.0205,
+        "change_direction": "减少"
+      },
+      {
+        "ts_code": "000807.SZ",
+        "ann_date": "2026-08-28",
+        "end_date": "2026-06-30",
+        "holder_num": 157851,
+        "previous_end_date": "2026-06-11",
+        "previous_holder_num": 127827,
+        "holder_num_change": 30024,
+        "holder_num_change_pct": 23.488,
+        "change_direction": "增加"
+      },
+      {
+        "ts_code": "000807.SZ",
+        "ann_date": "2026-06-11",
+        "end_date": "2026-06-11",
+        "holder_num": 127827,
+        "previous_end_date": "2026-03-31",
+        "previous_holder_num": 127827,
+        "holder_num_change": 0,
+        "holder_num_change_pct": 0.0,
+        "change_direction": "持平"
+      },
+      {
+        "ts_code": "000807.SZ",
+        "ann_date": "2026-04-24",
+        "end_date": "2026-03-31",
+        "holder_num": 127827,
+        "previous_end_date": "2026-03-02",
+        "previous_holder_num": 79073,
+        "holder_num_change": 48754,
+        "holder_num_change_pct": 61.6569,
+        "change_direction": "增加"
+      },
+      {
+        "ts_code": "000807.SZ",
+        "ann_date": "2026-03-02",
+        "end_date": "2026-03-02",
+        "holder_num": 79073,
+        "previous_end_date": "2026-02-28",
+        "previous_holder_num": 129753,
+        "holder_num_change": -50680,
+        "holder_num_change_pct": -39.0588,
+        "change_direction": "减少"
+      },
+      {
+        "ts_code": "000807.SZ",
+        "ann_date": "2026-03-28",
+        "end_date": "2026-02-28",
+        "holder_num": 129753,
+        "previous_end_date": "2025-12-31",
+        "previous_holder_num": 88728,
+        "holder_num_change": 41025,
+        "holder_num_change_pct": 46.2368,
+        "change_direction": "增加"
+      },
+      {
+        "ts_code": "000807.SZ",
+        "ann_date": "2026-03-28",
+        "end_date": "2025-12-31",
+        "holder_num": 88728,
+        "previous_end_date": "2025-11-19",
+        "previous_holder_num": 79073,
+        "holder_num_change": 9655,
+        "holder_num_change_pct": 12.2102,
+        "change_direction": "增加"
+      },
+      {
+        "ts_code": "000807.SZ",
+        "ann_date": "2025-11-19",
+        "end_date": "2025-11-19",
+        "holder_num": 79073,
+        "previous_end_date": "2025-09-30",
+        "previous_holder_num": 79073,
+        "holder_num_change": 0,
+        "holder_num_change_pct": 0.0,
+        "change_direction": "持平"
+      },
+      {
+        "ts_code": "000807.SZ",
+        "ann_date": "2025-10-25",
+        "end_date": "2025-09-30",
+        "holder_num": 79073,
+        "previous_end_date": "2025-06-30",
+        "previous_holder_num": 86428,
+        "holder_num_change": -7355,
+        "holder_num_change_pct": -8.51,
+        "change_direction": "减少"
+      },
+      {
+        "ts_code": "000807.SZ",
+        "ann_date": "2025-08-26",
+        "end_date": "2025-06-30",
+        "holder_num": 86428,
+        "previous_end_date": "2025-06-24",
+        "previous_holder_num": 73899,
+        "holder_num_change": 12529,
+        "holder_num_change_pct": 16.9542,
+        "change_direction": "增加"
+      },
+      {
+        "ts_code": "000807.SZ",
+        "ann_date": "2025-06-24",
+        "end_date": "2025-06-24",
+        "holder_num": 73899,
+        "previous_end_date": "2025-05-07",
+        "previous_holder_num": 73899,
+        "holder_num_change": 0,
+        "holder_num_change_pct": 0.0,
+        "change_direction": "持平"
+      },
+      {
+        "ts_code": "000807.SZ",
+        "ann_date": "2025-05-07",
+        "end_date": "2025-05-07",
+        "holder_num": 73899,
+        "previous_end_date": "2025-04-30",
+        "previous_holder_num": 73899,
+        "holder_num_change": 0,
+        "holder_num_change_pct": 0.0,
+        "change_direction": "持平"
+      },
+      {
+        "ts_code": "000807.SZ",
+        "ann_date": "2025-05-07",
+        "end_date": "2025-04-30",
+        "holder_num": 73899,
+        "previous_end_date": "2025-03-31",
+        "previous_holder_num": 73899,
+        "holder_num_change": 0,
+        "holder_num_change_pct": 0.0,
+        "change_direction": "持平"
+      },
+      {
+        "ts_code": "000807.SZ",
+        "ann_date": "2025-04-24",
+        "end_date": "2025-03-31",
+        "holder_num": 73899,
+        "previous_end_date": "2025-02-28",
+        "previous_holder_num": 74475,
+        "holder_num_change": -576,
+        "holder_num_change_pct": -0.7734,
+        "change_direction": "减少"
+      },
+      {
+        "ts_code": "000807.SZ",
+        "ann_date": "2025-03-27",
+        "end_date": "2025-02-28",
+        "holder_num": 74475,
+        "previous_end_date": "2024-12-31",
+        "previous_holder_num": 99099,
+        "holder_num_change": -24624,
+        "holder_num_change_pct": -24.8479,
+        "change_direction": "减少"
+      },
+      {
+        "ts_code": "000807.SZ",
+        "ann_date": "2025-03-27",
+        "end_date": "2024-12-31",
+        "holder_num": 99099,
+        "previous_end_date": null,
+        "previous_holder_num": null,
+        "holder_num_change": null,
+        "holder_num_change_pct": null,
+        "change_direction": "无法比较"
+      }
+    ],
+    "row_count": 16,
+    "total_period_count": 16,
+    "latest": {
+      "ts_code": "000807.SZ",
+      "ann_date": "2026-08-03",
+      "end_date": "2026-07-20",
+      "holder_num": 127827,
+      "previous_end_date": "2026-06-30",
+      "previous_holder_num": 157851,
+      "holder_num_change": -30024,
+      "holder_num_change_pct": -19.0205,
+      "change_direction": "减少"
+    },
+    "disclosure_scope": "股东户数为不定期披露且存在公告滞后；户数减少不等于机构增持，户数增加也不等于必然利空。"
+  }
+}

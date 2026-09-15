@@ -1,0 +1,174 @@
+{
+  "source": "Tushare supplemental API",
+  "method": "adj_factor",
+  "arguments": {
+    "ts_code": "000157.SZ",
+    "start_date": "20260801",
+    "end_date": "20260915"
+  },
+  "retrieved_at": "2026-09-15T18:05:05.810027+08:00",
+  "status": "ok",
+  "rows": [
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260915",
+      "adj_factor": 95.5261
+    },
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260914",
+      "adj_factor": 95.5261
+    },
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260911",
+      "adj_factor": 95.5261
+    },
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260910",
+      "adj_factor": 95.5261
+    },
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260909",
+      "adj_factor": 95.5261
+    },
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260908",
+      "adj_factor": 95.5261
+    },
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260907",
+      "adj_factor": 95.5261
+    },
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260904",
+      "adj_factor": 95.5261
+    },
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260903",
+      "adj_factor": 95.5261
+    },
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260902",
+      "adj_factor": 95.5261
+    },
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260901",
+      "adj_factor": 95.5261
+    },
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260831",
+      "adj_factor": 95.5261
+    },
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260828",
+      "adj_factor": 95.5261
+    },
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260827",
+      "adj_factor": 95.5261
+    },
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260826",
+      "adj_factor": 95.5261
+    },
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260825",
+      "adj_factor": 95.5261
+    },
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260824",
+      "adj_factor": 95.5261
+    },
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260821",
+      "adj_factor": 95.5261
+    },
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260820",
+      "adj_factor": 95.5261
+    },
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260819",
+      "adj_factor": 95.5261
+    },
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260818",
+      "adj_factor": 95.5261
+    },
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260817",
+      "adj_factor": 95.5261
+    },
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260814",
+      "adj_factor": 95.5261
+    },
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260813",
+      "adj_factor": 95.5261
+    },
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260812",
+      "adj_factor": 95.5261
+    },
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260811",
+      "adj_factor": 95.5261
+    },
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260810",
+      "adj_factor": 95.5261
+    },
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260807",
+      "adj_factor": 95.5261
+    },
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260806",
+      "adj_factor": 95.5261
+    },
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260805",
+      "adj_factor": 95.5261
+    },
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260804",
+      "adj_factor": 95.5261
+    },
+    {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260803",
+      "adj_factor": 95.5261
+    }
+  ],
+  "row_count": 32
+}

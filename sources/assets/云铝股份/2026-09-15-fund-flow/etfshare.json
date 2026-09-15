@@ -1,0 +1,231 @@
+{
+  "source": "Tushare supplemental API (no corresponding MCP tool)",
+  "method": "fund_share",
+  "arguments": {
+    "ts_code": "512400.SH",
+    "start_date": "20260801",
+    "end_date": "20260915"
+  },
+  "retrieved_at": "2026-09-15T17:52:55.434668+08:00",
+  "status": "ok",
+  "rows": [
+    {
+      "ts_code": "512400.SH",
+      "trade_date": "20260914",
+      "fd_share": 1448003.9,
+      "fund_type": "ETF",
+      "market": "SH"
+    },
+    {
+      "ts_code": "512400.SH",
+      "trade_date": "20260911",
+      "fd_share": 1457503.9,
+      "fund_type": "ETF",
+      "market": "SH"
+    },
+    {
+      "ts_code": "512400.SH",
+      "trade_date": "20260910",
+      "fd_share": 1445153.9,
+      "fund_type": "ETF",
+      "market": "SH"
+    },
+    {
+      "ts_code": "512400.SH",
+      "trade_date": "20260909",
+      "fd_share": 1445303.9,
+      "fund_type": "ETF",
+      "market": "SH"
+    },
+    {
+      "ts_code": "512400.SH",
+      "trade_date": "20260908",
+      "fd_share": 1436753.9,
+      "fund_type": "ETF",
+      "market": "SH"
+    },
+    {
+      "ts_code": "512400.SH",
+      "trade_date": "20260907",
+      "fd_share": 1435053.9,
+      "fund_type": "ETF",
+      "market": "SH"
+    },
+    {
+      "ts_code": "512400.SH",
+      "trade_date": "20260904",
+      "fd_share": 1437253.9,
+      "fund_type": "ETF",
+      "market": "SH"
+    },
+    {
+      "ts_code": "512400.SH",
+      "trade_date": "20260903",
+      "fd_share": 1405653.9,
+      "fund_type": "ETF",
+      "market": "SH"
+    },
+    {
+      "ts_code": "512400.SH",
+      "trade_date": "20260902",
+      "fd_share": 1412003.9,
+      "fund_type": "ETF",
+      "market": "SH"
+    },
+    {
+      "ts_code": "512400.SH",
+      "trade_date": "20260901",
+      "fd_share": 1422253.9,
+      "fund_type": "ETF",
+      "market": "SH"
+    },
+    {
+      "ts_code": "512400.SH",
+      "trade_date": "20260831",
+      "fd_share": 1415303.9,
+      "fund_type": "ETF",
+      "market": "SH"
+    },
+    {
+      "ts_code": "512400.SH",
+      "trade_date": "20260828",
+      "fd_share": 1375953.9,
+      "fund_type": "ETF",
+      "market": "SH"
+    },
+    {
+      "ts_code": "512400.SH",
+      "trade_date": "20260827",
+      "fd_share": 1375003.9,
+      "fund_type": "ETF",
+      "market": "SH"
+    },
+    {
+      "ts_code": "512400.SH",
+      "trade_date": "20260826",
+      "fd_share": 1356203.9,
+      "fund_type": "ETF",
+      "market": "SH"
+    },
+    {
+      "ts_code": "512400.SH",
+      "trade_date": "20260825",
+      "fd_share": 1329953.9,
+      "fund_type": "ETF",
+      "market": "SH"
+    },
+    {
+      "ts_code": "512400.SH",
+      "trade_date": "20260824",
+      "fd_share": 1337703.9,
+      "fund_type": "ETF",
+      "market": "SH"
+    },
+    {
+      "ts_code": "512400.SH",
+      "trade_date": "20260821",
+      "fd_share": 1328203.9,
+      "fund_type": "ETF",
+      "market": "SH"
+    },
+    {
+      "ts_code": "512400.SH",
+      "trade_date": "20260820",
+      "fd_share": 1313303.9,
+      "fund_type": "ETF",
+      "market": "SH"
+    },
+    {
+      "ts_code": "512400.SH",
+      "trade_date": "20260819",
+      "fd_share": 1312153.9,
+      "fund_type": "ETF",
+      "market": "SH"
+    },
+    {
+      "ts_code": "512400.SH",
+      "trade_date": "20260818",
+      "fd_share": 1308653.9,
+      "fund_type": "ETF",
+      "market": "SH"
+    },
+    {
+      "ts_code": "512400.SH",
+      "trade_date": "20260817",
+      "fd_share": 1322703.9,
+      "fund_type": "ETF",
+      "market": "SH"
+    },
+    {
+      "ts_code": "512400.SH",
+      "trade_date": "20260814",
+      "fd_share": 1311103.9,
+      "fund_type": "ETF",
+      "market": "SH"
+    },
+    {
+      "ts_code": "512400.SH",
+      "trade_date": "20260813",
+      "fd_share": 1316753.9,
+      "fund_type": "ETF",
+      "market": "SH"
+    },
+    {
+      "ts_code": "512400.SH",
+      "trade_date": "20260812",
+      "fd_share": 1328303.9,
+      "fund_type": "ETF",
+      "market": "SH"
+    },
+    {
+      "ts_code": "512400.SH",
+      "trade_date": "20260811",
+      "fd_share": 1342903.9,
+      "fund_type": "ETF",
+      "market": "SH"
+    },
+    {
+      "ts_code": "512400.SH",
+      "trade_date": "20260810",
+      "fd_share": 1326703.9,
+      "fund_type": "ETF",
+      "market": "SH"
+    },
+    {
+      "ts_code": "512400.SH",
+      "trade_date": "20260807",
+      "fd_share": 1317353.9,
+      "fund_type": "ETF",
+      "market": "SH"
+    },
+    {
+      "ts_code": "512400.SH",
+      "trade_date": "20260806",
+      "fd_share": 1323403.9,
+      "fund_type": "ETF",
+      "market": "SH"
+    },
+    {
+      "ts_code": "512400.SH",
+      "trade_date": "20260805",
+      "fd_share": 1316253.9,
+      "fund_type": "ETF",
+      "market": "SH"
+    },
+    {
+      "ts_code": "512400.SH",
+      "trade_date": "20260804",
+      "fd_share": 1301953.9,
+      "fund_type": "ETF",
+      "market": "SH"
+    },
+    {
+      "ts_code": "512400.SH",
+      "trade_date": "20260803",
+      "fd_share": 1292253.9,
+      "fund_type": "ETF",
+      "market": "SH"
+    }
+  ],
+  "row_count": 31
+}

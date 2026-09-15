@@ -1,0 +1,106 @@
+{
+  "source": "Tushare top_list by trading date",
+  "queries": [
+    {
+      "trade_date": "20260915",
+      "status": "ok",
+      "rows": []
+    },
+    {
+      "trade_date": "20260914",
+      "status": "ok",
+      "rows": []
+    },
+    {
+      "trade_date": "20260911",
+      "status": "ok",
+      "rows": []
+    },
+    {
+      "trade_date": "20260910",
+      "status": "ok",
+      "rows": []
+    },
+    {
+      "trade_date": "20260909",
+      "status": "ok",
+      "rows": []
+    },
+    {
+      "trade_date": "20260908",
+      "status": "ok",
+      "rows": []
+    },
+    {
+      "trade_date": "20260907",
+      "status": "ok",
+      "rows": []
+    },
+    {
+      "trade_date": "20260904",
+      "status": "ok",
+      "rows": []
+    },
+    {
+      "trade_date": "20260903",
+      "status": "ok",
+      "rows": []
+    },
+    {
+      "trade_date": "20260902",
+      "status": "ok",
+      "rows": []
+    },
+    {
+      "trade_date": "20260901",
+      "status": "ok",
+      "rows": []
+    },
+    {
+      "trade_date": "20260831",
+      "status": "ok",
+      "rows": []
+    },
+    {
+      "trade_date": "20260828",
+      "status": "ok",
+      "rows": []
+    },
+    {
+      "trade_date": "20260827",
+      "status": "ok",
+      "rows": []
+    },
+    {
+      "trade_date": "20260826",
+      "status": "ok",
+      "rows": []
+    },
+    {
+      "trade_date": "20260825",
+      "status": "ok",
+      "rows": []
+    },
+    {
+      "trade_date": "20260824",
+      "status": "ok",
+      "rows": []
+    },
+    {
+      "trade_date": "20260821",
+      "status": "ok",
+      "rows": []
+    },
+    {
+      "trade_date": "20260820",
+      "status": "ok",
+      "rows": []
+    },
+    {
+      "trade_date": "20260819",
+      "status": "ok",
+      "rows": []
+    }
+  ],
+  "retrieved_at": "2026-09-15T18:01:31.814843+08:00"
+}

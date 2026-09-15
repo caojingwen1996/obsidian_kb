@@ -429,14 +429,46 @@ button.nasdaq-card { width: 100%; border-top: 0; border-right: 0; border-bottom:
 .risk-panel-title { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; margin-bottom: 14px; }
 .risk-panel-title span { font-size: 15px; font-weight: 900; }
 .risk-panel-title b { color: #5fa9bb; font-size: 10px; letter-spacing: .1em; }
-.risk-score-orb { width: min(220px, 66vw); aspect-ratio: 1; margin: 20px auto 22px; border: 12px solid rgba(52,178,172,.34); border-top-color: #ef574b; border-right-color: #eba93b; border-radius: 50%; display: grid; place-items: center; box-shadow: 0 0 38px rgba(239,87,75,.16); }
-.risk-score-orb strong { font-size: 62px; line-height: 1; color: #f4f9fb; font-variant-numeric: tabular-nums; }
-.risk-score-orb span { margin-top: -18px; color: #88a6b4; font-size: 13px; }
-.risk-panel-main p { color: #a6bdc8; font-size: 12px; line-height: 1.8; text-align: center; }
-.risk-signal-row { display: grid; grid-template-columns: 1fr; gap: 9px; margin-top: 18px; }
-.risk-signal-row div, .risk-watch-list li { border: 1px solid rgba(118,215,214,.16); border-radius: 8px; background: rgba(10,35,47,.66); padding: 11px 12px; }
-.risk-signal-row small, .risk-watch-list span { display: block; color: #83a3b1; font-size: 10px; font-weight: 800; }
-.risk-signal-row strong, .risk-watch-list strong { display: block; margin-top: 7px; color: #f4f9fb; font-size: 18px; font-variant-numeric: tabular-nums; }
+.bbxm-risk-table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 13px; line-height: 1.8; }
+.bbxm-risk-table th, .bbxm-risk-table td { padding: 16px 6px; border-bottom: 1px solid rgba(118,215,214,.12); text-align: left; vertical-align: middle; white-space: normal; }
+.bbxm-risk-table thead { background: rgba(118,215,214,.07); color: #c4dce5; }
+.bbxm-risk-table thead th { padding-top: 10px; padding-bottom: 10px; }
+.bbxm-risk-table th:first-child { width: 56px; }
+.bbxm-risk-table th:last-child { width: 86px; }
+.bbxm-risk-table tbody th { color: #eef8fb; font-weight: 500; }
+.bbxm-risk-table td { color: #b7cbd5; overflow-wrap: anywhere; }
+.bbxm-risk-table tbody tr:last-child > * { border-bottom: 0; }
+.bbxm-risk-status { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; }
+.bbxm-risk-status::before { content: ''; width: 8px; height: 8px; flex: 0 0 8px; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 3px rgba(244,179,77,.14); }
+.bbxm-risk-status.is-weak { color: #f4b34d; }
+.bbxm-risk-status.is-very-weak { color: #ff6b59; }
+.bbxm-risk-status.is-very-weak::before { box-shadow: 0 0 0 3px rgba(255,107,89,.14); }
+.bbxm-risk-note { margin: 14px 0 0; color: #8daab8; font-size: 12px; line-height: 1.8; }
+.macro-risk { margin-top: 26px; }
+.macro-risk-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+.macro-risk-head h3 { margin: 0; font-size: 22px; }
+.macro-risk-head p { margin: 0; color: #8daab8; font-size: 12px; }
+.macro-risk-cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; }
+.macro-risk-card { position: relative; display: flex; flex-direction: column; border-top: 3px solid #ff6b59; }
+.macro-risk-card.is-elevated { border-top-color: #f4b34d; }
+.macro-risk-card:not(:last-child)::after { content: '→'; position: absolute; right: -23px; top: 50%; color: #76d7d6; font-size: 22px; }
+.macro-risk-card header { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.macro-risk-card h4 { margin: 0; font-size: 18px; }
+.macro-risk-score { color: #ff6b59; font-size: 13px; white-space: nowrap; }
+.macro-risk-score span { margin-left: 4px; font-size: 26px; font-variant-numeric: tabular-nums; }
+.macro-risk-card.is-elevated .macro-risk-score { color: #f4b34d; }
+.macro-risk-label { margin: 18px 0 8px; color: #8daab8; font-size: 12px; }
+.macro-risk-card ul { margin: 0 0 20px; padding-left: 18px; color: #c4dce5; font-size: 14px; line-height: 1.9; }
+.macro-risk-card li::marker { color: #5fa9bb; }
+.macro-risk-conclusion { margin-top: auto; border-top: 1px solid rgba(118,215,214,.16); }
+.macro-risk-conclusion strong { display: block; color: #eef8fb; font-size: 14px; line-height: 1.8; }
+@media (max-width: 1100px) {
+  .macro-risk-cards { grid-template-columns: 1fr; }
+  .macro-risk-card:not(:last-child)::after { content: '↓'; right: 50%; top: auto; bottom: -28px; }
+}
+.risk-watch-list li { border: 1px solid rgba(118,215,214,.16); border-radius: 8px; background: rgba(10,35,47,.66); padding: 11px 12px; }
+.risk-watch-list span { display: block; color: #83a3b1; font-size: 10px; font-weight: 800; }
+.risk-watch-list strong { display: block; margin-top: 7px; color: #f4f9fb; font-size: 18px; font-variant-numeric: tabular-nums; }
 .risk-watch-list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
 .risk-watch-list li { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; }
 .risk-watch-list li.is-high-risk { border-color: rgba(255,107,89,.48); background: rgba(104,26,22,.42); }
@@ -1027,7 +1059,6 @@ button.nasdaq-card { width: 100%; border-top: 0; border-right: 0; border-bottom:
   .risk-screen { min-height: 0; padding: 14px; }
   .risk-screen-head { flex-direction: column; }
   .risk-screen-head h3 { font-size: 24px; }
-  .risk-score-orb strong { font-size: 48px; }
   .portfolio-summary, .tracker-summary, .holding-form-grid, .tracking-form-grid { grid-template-columns: 1fr; }
   .todo-summary { grid-template-columns: 1fr; }
   .todo-board-actions, .todo-create-controls { justify-content: flex-start; }
@@ -1075,7 +1106,361 @@ button.nasdaq-card { width: 100%; border-top: 0; border-right: 0; border-bottom:
   .view { display: block !important; break-before: page; }
   #market-summary { break-before: auto; }
   .score-card, .temperature-card, .layer-card, .panel, .metric-row, .detail-card, .audit-summary, .audit-table-wrap { box-shadow: none; border: 1px solid var(--line); }
-}</style>
+}
+
+/* Risk source monitoring center */
+
+#risk-source-center{--rs-bg:light-dark(#f1f5f9,#0c1522);--rs-surface:light-dark(#ffffff,#121f30);--rs-soft:light-dark(#f6f8fb,#19293d);--rs-text:light-dark(#182c42,#e7f0ff);--rs-muted:light-dark(#586c83,#a4b6cd);--rs-line:light-dark(#dce5ee,#2b4058);--rs-blue:light-dark(#205eaa,#8cbcff);--rs-blue-bg:light-dark(#eaf2ff,#1c3555);--rs-red:light-dark(#b43749,#ff9ba9);--rs-red-bg:light-dark(#fff0f2,#3b2434);--rs-green:light-dark(#167155,#7ddbb8);--rs-green-bg:light-dark(#e9f7f0,#16372f);--rs-amber:light-dark(#8a5d15,#e5bd75);font:400 14px/1.5 "Segoe UI","Microsoft YaHei",sans-serif;color:var(--rs-text);background:var(--rs-bg);border:1px solid var(--rs-line);border-radius:12px;overflow-wrap:anywhere}
+#risk-source-center *{box-sizing:border-box}
+#risk-source-center h1,#risk-source-center h2,#risk-source-center h3,#risk-source-center p{margin:0}
+#risk-source-center button{font:inherit;color:inherit;cursor:pointer;touch-action:manipulation;transition:background .18s,border-color .18s}
+#risk-source-center button:focus-visible,#risk-source-center summary:focus-visible{outline:3px solid var(--rs-blue);outline-offset:3px}
+#risk-source-center h1{font-size:23px;font-weight:600;letter-spacing:1px}
+#risk-source-center h2{font-size:16px;font-weight:600}
+#risk-source-center h3{font-size:14px;font-weight:600}
+#risk-source-center .rs-header{padding:22px 24px 16px;border-bottom:1px solid var(--rs-line);background:var(--rs-surface);border-radius:12px 12px 0 0}
+#risk-source-center .rs-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+#risk-source-center .rs-titlemark{display:flex;align-items:center;gap:10px}
+#risk-source-center .rs-brand{color:var(--rs-blue);display:flex}
+#risk-source-center .rs-demo{font-size:12px;border:1px solid var(--rs-line);border-radius:6px;padding:5px 9px;color:var(--rs-muted);background:var(--rs-soft)}
+#risk-source-center .rs-subtitle{font-size:12px;color:var(--rs-muted);margin-top:5px}
+#risk-source-center .rs-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:20px}
+#risk-source-center .rs-stat{display:flex;gap:12px;align-items:baseline;padding-left:16px;border-left:1px solid var(--rs-line)}
+#risk-source-center .rs-stat:first-child{padding-left:0;border-left:0}
+#risk-source-center .rs-stat-label{font-size:13px;color:var(--rs-muted)}
+#risk-source-center .rs-stat-value{font-size:27px;font-weight:600;font-variant-numeric:tabular-nums}
+#risk-source-center .rs-stat-note{font-size:11px;color:var(--rs-muted)}
+#risk-source-center .rs-work{display:grid;grid-template-columns:minmax(180px,.85fr) minmax(310px,2fr) minmax(200px,1fr);gap:16px;padding:18px;align-items:stretch}
+#risk-source-center .rs-panel{border:1px solid var(--rs-line);background:var(--rs-surface);border-radius:9px;min-width:0}
+#risk-source-center .rs-panel-head{padding:15px 16px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;border-bottom:1px solid var(--rs-line)}
+#risk-source-center .rs-small{font-size:12px;color:var(--rs-muted)}
+#risk-source-center .rs-current{padding:16px 18px 0}
+#risk-source-center .rs-current-title{display:flex;align-items:center;justify-content:space-between;gap:10px}
+#risk-source-center .rs-current-title h2{font-size:21px}
+#risk-source-center .rs-state{font-size:12px;color:var(--rs-red);background:var(--rs-red-bg);padding:4px 8px;border-radius:4px;white-space:nowrap}
+#risk-source-center .rs-quote-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:14px 0 18px}
+#risk-source-center .rs-quote{background:var(--rs-soft);padding:9px 10px;border-radius:6px}
+#risk-source-center .rs-quote-label{display:block;font-size:12px;color:var(--rs-muted)}
+#risk-source-center .rs-quote-value{display:block;font-size:19px;font-weight:500;color:var(--rs-red);margin-top:3px}
+#risk-source-center .rs-section-line{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-bottom:10px}
+#risk-source-center .rs-chain{padding:0 18px}
+#risk-source-center .rs-node-wrap{display:grid;grid-template-columns:26px 1fr;gap:10px}
+#risk-source-center .rs-chain-rail{display:flex;flex-direction:column;align-items:center}
+#risk-source-center .rs-node-index{width:24px;height:24px;line-height:22px;text-align:center;border-radius:50%;background:var(--rs-soft);border:1px solid var(--rs-line);color:var(--rs-muted);font-size:11px;margin-top:10px}
+#risk-source-center .rs-arrow{flex:1;display:flex;align-items:center;justify-content:center;color:var(--rs-muted);font-size:17px;min-height:33px}
+#risk-source-center .rs-node{border:1px solid var(--rs-line);background:var(--rs-surface);border-radius:6px;padding:10px 12px;width:100%;text-align:left;margin:0 0 9px;min-height:55px}
+#risk-source-center .rs-node:hover{background:var(--rs-soft)}
+#risk-source-center .rs-node[aria-pressed=true]{background:var(--rs-blue-bg);border-color:var(--rs-blue)}
+#risk-source-center .rs-node-main{display:flex;align-items:center;justify-content:space-between;gap:10px}
+#risk-source-center .rs-node-title{font-size:14px;font-weight:500}
+#risk-source-center .rs-node-tag{font-size:11px;color:var(--rs-muted);white-space:nowrap}
+#risk-source-center .rs-node-caption{display:block;font-size:11px;color:var(--rs-muted);margin-top:3px}
+#risk-source-center .rs-node-evidence{margin:4px 18px 17px 54px;padding:11px;background:var(--rs-soft);border-radius:6px;font-size:12px}
+#risk-source-center .rs-node-evidence dt{color:var(--rs-muted)}
+#risk-source-center .rs-node-evidence dd{margin:3px 0 9px}
+#risk-source-center .rs-node-evidence dd:last-child{margin-bottom:0}
+#risk-source-center .rs-right{display:flex;flex-direction:column;gap:16px;min-width:0}
+#risk-source-center .rs-impact-list{padding:6px 16px}
+#risk-source-center .rs-impact{padding:11px 0;border-bottom:1px solid var(--rs-line);display:flex;justify-content:space-between;gap:10px;align-items:center}
+#risk-source-center .rs-impact:last-child{border-bottom:0}
+#risk-source-center .rs-impact small{display:block;color:var(--rs-muted);font-size:11px;margin-top:3px}
+#risk-source-center .rs-impact-level{font-size:20px;color:var(--rs-red);letter-spacing:1px;white-space:nowrap}
+#risk-source-center .rs-impact-note{padding:0 16px 12px;font-size:11px;color:var(--rs-muted)}
+#risk-source-center .rs-assets{padding:4px 16px 10px}
+#risk-source-center .rs-asset{padding:12px 0;border-bottom:1px solid var(--rs-line)}
+#risk-source-center .rs-asset:last-child{border-bottom:0}
+#risk-source-center .rs-asset-top{display:flex;justify-content:space-between;gap:8px;align-items:center}
+#risk-source-center .rs-badge{border-radius:4px;font-size:11px;padding:3px 6px;white-space:nowrap}
+#risk-source-center .rs-badge.negative{color:var(--rs-red);background:var(--rs-red-bg)}
+#risk-source-center .rs-badge.positive{color:var(--rs-green);background:var(--rs-green-bg)}
+#risk-source-center .rs-asset p{font-size:11px;color:var(--rs-muted);margin-top:5px}
+#risk-source-center .rs-timeline{margin:0 18px 18px}
+#risk-source-center .rs-timeline .rs-panel-head{border-bottom:0}
+#risk-source-center .rs-events{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));padding:0 16px 14px;gap:12px}
+#risk-source-center .rs-event{border:1px solid var(--rs-line);border-radius:6px;background:var(--rs-surface);text-align:left;padding:10px 12px;min-height:84px}
+#risk-source-center .rs-event[aria-pressed=true]{border-color:var(--rs-blue);background:var(--rs-blue-bg)}
+#risk-source-center .rs-event time{font-size:12px;font-variant-numeric:tabular-nums;color:var(--rs-blue)}
+#risk-source-center .rs-event strong{font-size:13px;font-weight:500;display:block;margin-top:4px}
+#risk-source-center .rs-event small{font-size:11px;color:var(--rs-muted)}
+#risk-source-center .rs-event-detail{border-top:1px solid var(--rs-line);margin:0 16px;padding:11px 0 14px;display:grid;grid-template-columns:1.2fr 1fr;gap:20px;font-size:12px}
+#risk-source-center .rs-event-detail span{display:block;color:var(--rs-muted);font-size:11px;margin-bottom:3px}
+#risk-source-center .rs-footer{padding:0 20px 14px;font-size:11px;color:var(--rs-muted);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+#risk-source-center[data-density="relaxed"] .rs-node{padding-top:15px;padding-bottom:15px}
+@media(max-width:850px){#risk-source-center .rs-work{grid-template-columns:180px minmax(0,1fr)}#risk-source-center .rs-right{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr}#risk-source-center .rs-events{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:550px){#risk-source-center .rs-work{display:flex;flex-direction:column;padding:12px}#risk-source-center .rs-right{display:flex}#risk-source-center .rs-radar-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}#risk-source-center .rs-source{margin:0}#risk-source-center .rs-header{padding:16px}#risk-source-center .rs-stats{gap:8px}#risk-source-center .rs-stat{display:block;padding-left:9px}#risk-source-center .rs-stat-value{font-size:24px}#risk-source-center .rs-stat-note{display:none}#risk-source-center .rs-stat-label{display:block}#risk-source-center .rs-timeline{margin:0 12px 12px}#risk-source-center .rs-event-detail{grid-template-columns:1fr;gap:10px}#risk-source-center h1{font-size:20px}#risk-source-center .rs-current-title h2{font-size:19px}#risk-source-center .rs-node-evidence{margin-left:18px}}
+@media(prefers-reduced-motion:reduce){#risk-source-center *{transition:none!important}}
+
+#risk-source-center .rs-stats{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:16px}
+#risk-source-center .rs-stat{align-items:center;gap:10px}
+#risk-source-center .rs-stat-label{font-size:14px;color:var(--rs-text);font-weight:500}
+#risk-source-center .rs-priority-label{font-size:12px;color:var(--rs-muted);margin-top:18px}
+#risk-source-center .rs-stat-value{color:var(--rs-red)}
+#risk-source-center .rs-overview{margin:18px;background:var(--rs-surface);border:1px solid var(--rs-line);border-radius:9px;overflow:hidden}
+#risk-source-center .rs-overview-head{padding:14px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+#risk-source-center .rs-overview table{width:100%;border-collapse:collapse;table-layout:fixed;color:var(--rs-text)}
+#risk-source-center .rs-overview th{text-align:left;font-weight:500;font-size:12px;color:var(--rs-muted);background:var(--rs-soft);padding:11px 18px;border-top:1px solid var(--rs-line);border-bottom:1px solid var(--rs-line)}
+#risk-source-center .rs-overview td{padding:11px 18px;border-bottom:1px solid var(--rs-line);vertical-align:middle}
+#risk-source-center .rs-overview tbody tr:last-child td{border-bottom:0}
+#risk-source-center .rs-overview tbody tr.is-selected{background:var(--rs-blue-bg)}
+#risk-source-center .rs-overview tbody tr:hover{background:var(--rs-soft)}
+#risk-source-center .rs-overview tr.is-priority .rs-source-link{font-weight:600}
+#risk-source-center .rs-source-link{background:none;border:0;padding:4px 0;min-height:36px;display:flex;align-items:center;gap:10px;width:100%;text-align:left;font-size:14px}
+#risk-source-center .rs-rank{color:var(--rs-muted);font-size:11px;font-variant-numeric:tabular-nums;min-width:13px}
+#risk-source-center .is-priority .rs-rank{color:var(--rs-red)}
+#risk-source-center .rs-value-cell{display:flex;align-items:center;gap:12px}
+#risk-source-center .rs-value-cell strong{font-size:22px;font-weight:500;font-variant-numeric:tabular-nums;min-width:28px}
+#risk-source-center .is-priority .rs-value-cell strong{color:var(--rs-red);font-weight:600}
+#risk-source-center .rs-value-track{height:4px;width:64px;background:var(--rs-soft);border-radius:2px}
+#risk-source-center .rs-value-fill{display:block;height:100%;background:var(--rs-muted);border-radius:2px;opacity:.6}
+#risk-source-center .is-priority .rs-value-fill{background:var(--rs-red);opacity:.85}
+#risk-source-center .rs-trend{font-size:22px;font-weight:500}
+#risk-source-center .rs-trend[data-trend="↑"]{color:var(--rs-red)}
+#risk-source-center .rs-trend[data-trend="↓"]{color:var(--rs-green)}
+#risk-source-center .rs-acceleration{font-size:18px;font-variant-numeric:tabular-nums;color:var(--rs-muted)}
+#risk-source-center .is-priority .rs-acceleration{color:var(--rs-amber);font-weight:600}
+#risk-source-center .rs-overview-note{padding:10px 18px;font-size:11px;color:var(--rs-muted);border-top:1px solid var(--rs-line)}
+#risk-source-center .rs-drill{margin:0 18px 18px;background:var(--rs-surface);border:1px solid var(--rs-line);border-radius:9px}
+#risk-source-center .rs-drill>summary{padding:15px 18px;cursor:pointer;font-size:14px;font-weight:500;color:var(--rs-blue)}
+#risk-source-center .rs-drill>summary small{font-size:12px;font-weight:400;color:var(--rs-muted);margin-left:12px}
+#risk-source-center .rs-drill .rs-work{grid-template-columns:minmax(0,2fr) minmax(210px,1fr);padding-top:0}
+#risk-source-center .rs-right{grid-column:auto;display:flex}
+#risk-source-center .rs-drill[open]>summary{margin-bottom:4px}
+#risk-source-center[data-density="relaxed"] .rs-overview td{padding-top:16px;padding-bottom:16px}
+@media(max-width:700px){#risk-source-center .rs-value-track{display:none}#risk-source-center .rs-overview td,#risk-source-center .rs-overview th{padding:10px}#risk-source-center .rs-drill .rs-work{display:flex;flex-direction:column}#risk-source-center .rs-drill .rs-right{display:grid;grid-template-columns:1fr 1fr}#risk-source-center .rs-stat-note{display:none}#risk-source-center .rs-stat{display:block}#risk-source-center .rs-stat-label{display:block;font-size:12px}#risk-source-center .rs-stat-value{font-size:25px}#risk-source-center .rs-source-link{font-size:13px;gap:5px}}
+@media(max-width:450px){#risk-source-center .rs-overview,#risk-source-center .rs-drill{margin:12px 8px}#risk-source-center .rs-overview td,#risk-source-center .rs-overview th{padding:9px 6px}#risk-source-center .rs-overview th{font-size:11px}#risk-source-center .rs-source-link{font-size:12px;min-height:44px}#risk-source-center .rs-rank{display:none}#risk-source-center .rs-value-cell strong{font-size:19px}#risk-source-center .rs-acceleration{font-size:15px}#risk-source-center .rs-driver{font-size:12px}#risk-source-center .rs-drill .rs-right{display:flex}#risk-source-center .rs-drill>summary small{display:block;margin:4px 0 0}}
+
+/* Dashboard integration: scoped dark surface and explicit monitoring / example states. */
+#risk-source-center{color-scheme:dark;--rs-bg:#0c1522;--rs-surface:#121f30;--rs-soft:#19293d;--rs-text:#e7f0ff;--rs-muted:#a4b6cd;--rs-line:#2b4058;--rs-blue:#8cbcff;--rs-blue-bg:#1c3555;--rs-red:#ff9ba9;--rs-red-bg:#3b2434;--rs-green:#7ddbb8;--rs-green-bg:#16372f;--rs-amber:#e5bd75;padding:0;min-height:0;background:var(--rs-bg)}
+#risk-source-center .rs-titlemark h3{font-size:26px;letter-spacing:.05em}
+#risk-source-center .rs-tools{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+#risk-source-center .rs-mode-toggle{display:flex;border:1px solid var(--rs-line);border-radius:7px;padding:3px;background:var(--rs-bg)}
+#risk-source-center .rs-mode-toggle button{min-height:38px;padding:6px 12px;border:0;border-radius:4px;background:transparent;color:var(--rs-muted)}
+#risk-source-center .rs-mode-toggle button[aria-pressed=true]{background:var(--rs-blue-bg);color:var(--rs-blue)}
+#risk-source-center .rs-overview tbody th{background:transparent;border-top:0;font-weight:400;vertical-align:middle}
+#risk-source-center .rs-source-link{min-height:44px}
+#risk-source-center .rs-pending{font-size:14px;color:var(--rs-muted);font-weight:400}
+#risk-source-center[data-mode=monitor] .rs-stat-value{color:var(--rs-text)}
+#risk-source-center[data-mode=monitor] .rs-impact-level{font-size:12px;color:var(--rs-muted)}
+#risk-source-center[data-mode=monitor] .rs-quote-value{font-size:14px;color:var(--rs-muted)}
+#risk-source-center .rs-source-evidence{font-size:12px;background:var(--rs-soft);padding:12px;border-radius:6px;margin-bottom:16px}
+#risk-source-center .rs-source-evidence span,#risk-source-center .rs-source-evidence small{display:block;margin-top:6px;color:var(--rs-muted)}
+#risk-source-center .rs-event-date{font-size:12px;color:var(--rs-blue)}
+#risk-source-center .rs-connected,#risk-source-center .rs-history{margin:18px;border:1px solid var(--rs-line);border-radius:9px;background:var(--rs-surface)}
+#risk-source-center .rs-connected>summary,#risk-source-center .rs-history>summary{cursor:pointer;padding:16px 18px;color:var(--rs-blue);min-height:48px}
+#risk-source-center .rs-connected-grid{display:grid;grid-template-columns:minmax(0,2fr) minmax(240px,1fr);gap:16px;padding:0 18px 18px}
+#risk-source-center .rs-data-note{padding:0 18px 14px;color:var(--rs-muted);font-size:12px}
+#risk-source-center .rs-history-body{padding:0 18px 18px}
+#risk-source-center .rs-history .macro-risk{margin-top:18px}
+#risk-source-center .rs-history .risk-panel-main{min-height:0}
+#risk-source-center .rs-drill{scroll-margin-top:20px}
+@media(max-width:900px){#risk-source-center .rs-connected-grid{grid-template-columns:minmax(0,1fr)}#risk-source-center .rs-stat{flex-wrap:wrap}#risk-source-center .rs-stat-value{font-size:23px}}
+@media(max-width:550px){#risk-source-center .rs-connected,#risk-source-center .rs-history{margin:12px 8px}#risk-source-center .rs-connected-grid{padding:0 10px 10px}#risk-source-center .rs-stats{grid-template-columns:1fr}#risk-source-center .rs-stat{display:flex;padding:0;border:0}#risk-source-center .rs-stat-note{display:block}#risk-source-center .rs-stat-value{font-size:20px}#risk-source-center .rs-overview th,#risk-source-center .rs-overview td{white-space:normal}#risk-source-center .rs-tools{gap:8px}}
+
+/* Risk state view, scoped from the supplied prototype. */
+
+#risk-state-view{color-scheme:dark;--bg:#0b1015;--panel:#121a22;--panel2:#18232d;--line:#2a3844;--text:#edf3f6;--muted:#a2b2c0;--red:#ff827b;--amber:#eac17c;--green:#78d9b0;--blue:#8bc9ee;--accent:var(--red)}
+#risk-state-view *{box-sizing:border-box}
+#risk-state-view{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 "Segoe UI","Microsoft YaHei",sans-serif}
+#risk-state-view button{font:inherit;color:inherit;cursor:pointer}
+#risk-state-view button:focus-visible,#risk-state-view summary:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+#risk-state-view button{transition:background .18s,border-color .18s}
+#risk-state-view button:hover{background:var(--panel2)}
+#risk-state-view button:active{filter:brightness(1.15)}
+#risk-state-view{max-width:1920px;margin:auto;padding:28px 36px 20px}
+#risk-state-view .top{display:flex;justify-content:space-between;align-items:center;gap:20px}
+#risk-state-view .brand{display:flex;align-items:center;gap:14px}
+#risk-state-view .mark{width:38px;height:38px;border:1px solid var(--line);display:grid;place-items:center;color:var(--blue)}
+#risk-state-view h1{font-size:27px;letter-spacing:2px;margin:0}
+#risk-state-view h2,#risk-state-view h3,#risk-state-view p{margin:0}
+#risk-state-view h2{font-size:18px}
+#risk-state-view h3{font-size:14px;font-weight:500}
+#risk-state-view .eyebrow{color:var(--muted);font-size:11px;letter-spacing:2px;text-transform:uppercase}
+#risk-state-view .tools{display:flex;align-items:center;gap:16px}
+#risk-state-view .demo{color:var(--amber);border:1px solid #6c5738;background:#292318;padding:4px 10px;border-radius:4px;font-size:12px}
+#risk-state-view .quiet{min-height:44px;border:1px solid var(--line);background:transparent;border-radius:6px;padding:8px 14px}
+#risk-state-view .date{color:var(--muted);font-size:13px}
+#risk-state-view .summary{display:grid;grid-template-columns:1.1fr .8fr .8fr 1.3fr;margin:24px 0 20px;border:1px solid var(--line);background:var(--panel);border-radius:10px}
+#risk-state-view .stat{padding:18px 26px;border-right:1px solid var(--line)}
+#risk-state-view .stat:last-child{border:0}
+#risk-state-view .label{color:var(--muted);font-size:13px}
+#risk-state-view .stat-line{display:flex;align-items:baseline;gap:12px;margin-top:3px}
+#risk-state-view .num{font:500 42px/1.2 "Consolas",monospace;letter-spacing:-2px}
+#risk-state-view .red{color:var(--red)}
+#risk-state-view .amber{color:var(--amber)}
+#risk-state-view .green{color:var(--green)}
+#risk-state-view .small{font-size:12px;color:var(--muted)}
+#risk-state-view .badge{font-size:12px;padding:3px 8px;background:#3b2527;color:var(--red);border-radius:4px}
+#risk-state-view .grid{display:grid;grid-template-columns:220px minmax(0,1fr) 290px;gap:18px}
+#risk-state-view .panel{background:var(--panel);border:1px solid var(--line);border-radius:10px}
+#risk-state-view .section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:18px}
+#risk-state-view .nav{padding:20px 14px}
+#risk-state-view .nav>.section-head{padding:0 6px}
+#risk-state-view .risk-tab{width:100%;text-align:left;background:transparent;border:1px solid transparent;border-radius:7px;padding:17px 13px;margin-bottom:9px;min-height:98px}
+#risk-state-view .risk-tab[aria-pressed=true]{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 7%,var(--panel));box-shadow:inset 3px 0 var(--accent)}
+#risk-state-view .tab-top{display:flex;align-items:center;justify-content:space-between}
+#risk-state-view .tab-num{font:27px "Consolas",monospace;color:var(--accent)}
+#risk-state-view .tab-bottom{display:flex;justify-content:space-between;font-size:12px;margin-top:8px;color:var(--muted)}
+#risk-state-view .legend{border-top:1px solid var(--line);margin:15px 8px 0;padding-top:18px;font-size:12px;color:var(--muted)}
+#risk-state-view .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor;margin-right:6px}
+#risk-state-view .detail{padding:23px 26px}
+#risk-state-view .detail-top{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:18px}
+#risk-state-view .detail-title{font-size:23px;margin-top:4px}
+#risk-state-view .score{display:flex;align-items:baseline;gap:10px;color:var(--accent)}
+#risk-state-view .score strong{font:56px/1 "Consolas",monospace;letter-spacing:-3px}
+#risk-state-view .status-box{margin:20px 0 24px;padding:16px 18px;border-left:2px solid var(--accent);background:var(--panel2)}
+#risk-state-view .status-box .label{font-size:12px;margin-bottom:6px}
+#risk-state-view .status-box p{font-size:18px;letter-spacing:.4px}
+#risk-state-view .status-box p+p{font-size:15px;color:var(--muted);margin-top:4px}
+#risk-state-view .contrib{display:grid;grid-template-columns:130px 1fr 48px;gap:12px;align-items:center;margin:11px 0;font-size:13px}
+#risk-state-view .bar{height:6px;background:#263440;border-radius:5px;overflow:hidden}
+#risk-state-view .bar span{display:block;height:100%;background:var(--accent);opacity:.8;border-radius:5px}
+#risk-state-view .percent{text-align:right;font:14px "Consolas",monospace}
+#risk-state-view .flow-section{border-top:1px solid var(--line);padding-top:20px;margin-top:23px}
+#risk-state-view .flow{display:flex;align-items:stretch;gap:8px;margin-top:14px}
+#risk-state-view .node{flex:1;padding:11px 6px;background:var(--panel2);border:1px solid var(--line);border-radius:6px;text-align:center;font-size:13px}
+#risk-state-view .node:last-child{color:var(--accent);border-color:var(--accent)}
+#risk-state-view .arrow{align-self:center;color:var(--muted)}
+#risk-state-view .flow-note{margin-top:10px;color:var(--muted);font-size:12px}
+#risk-state-view .right{display:grid;grid-template-rows:auto 1fr;gap:18px}
+#risk-state-view .side-panel{padding:20px}
+#risk-state-view .link-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);font-size:14px}
+#risk-state-view .link-row:last-child{border:0}
+#risk-state-view .strength{color:var(--accent);font-size:13px}
+#risk-state-view .asset{display:flex;align-items:center;justify-content:space-between;padding:11px 0;font-size:14px}
+#risk-state-view .asset small{font-size:12px}
+#risk-state-view .timeline{margin-top:18px;padding:18px 24px 14px}
+#risk-state-view .timeline .section-head{margin:0}
+#risk-state-view .trend-head{display:flex;align-items:center;gap:18px}
+#risk-state-view .trend-change{color:var(--accent);font:18px "Consolas",monospace}
+#risk-state-view .chart{height:110px;width:100%;display:block;margin-top:8px;overflow:visible}
+#risk-state-view .dates{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-left:30px}
+#risk-state-view .time-btn{min-height:44px;padding:5px;background:transparent;border:1px solid transparent;border-radius:5px;color:var(--muted);font:12px "Consolas",monospace}
+#risk-state-view .time-btn b{color:var(--text);margin-left:8px;font-size:14px}
+#risk-state-view .time-btn[aria-pressed=true]{background:var(--panel2);border-color:var(--line);color:var(--accent)}
+#risk-state-view .event-note{margin:8px 0 0 35px;color:var(--muted);font-size:12px;min-height:20px}
+#risk-state-view .footer{display:flex;justify-content:space-between;align-items:start;gap:20px;color:var(--muted);font-size:11px;margin-top:16px}
+#risk-state-view details{max-width:720px}
+#risk-state-view summary{cursor:pointer;min-height:30px}
+#risk-state-view details p{padding:10px 0;font-size:12px}
+#risk-state-view .sr-only{position:absolute;top:0;left:0;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(min-width:1600px){
+#risk-state-view{padding:36px 48px}
+#risk-state-view .grid{grid-template-columns:260px minmax(0,1fr) 340px}
+#risk-state-view .risk-tab{min-height:112px}
+#risk-state-view .detail{padding:26px 32px}
+#risk-state-view .contrib{margin:15px 0}
+#risk-state-view .chart{height:140px}
+#risk-state-view .status-box{margin:25px 0}
+#risk-state-view .node{padding:16px 8px}}
+@media(max-width:1100px){
+#risk-state-view{padding:22px}
+#risk-state-view .grid{grid-template-columns:190px minmax(0,1fr)}
+#risk-state-view .right{grid-column:1/-1;grid-template-columns:1fr 1fr;grid-template-rows:auto}
+#risk-state-view .stat{padding:18px}
+#risk-state-view .date{display:none}}
+@media(max-width:700px){
+#risk-state-view{padding:18px 14px}
+#risk-state-view .top{align-items:flex-start}
+#risk-state-view .brand{gap:8px}
+#risk-state-view .mark{display:none}
+#risk-state-view h1{font-size:22px}
+#risk-state-view .eyebrow{font-size:9px;letter-spacing:1px}
+#risk-state-view .tools{gap:8px;flex-wrap:wrap;justify-content:flex-end}
+#risk-state-view .summary{grid-template-columns:1fr 1fr}
+#risk-state-view .stat{padding:14px}
+#risk-state-view .stat:nth-child(2){border-right:0}
+#risk-state-view .stat:nth-child(-n+2){border-bottom:1px solid var(--line)}
+#risk-state-view .num{font-size:35px}
+#risk-state-view .grid{display:block}
+#risk-state-view .nav{margin-bottom:14px;padding:14px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#risk-state-view .nav>.section-head{grid-column:1/-1;margin:0}
+#risk-state-view .risk-tab{margin:0;min-height:90px}
+#risk-state-view .legend{grid-column:1/-1;margin:0;padding-top:10px}
+#risk-state-view .detail{padding:20px 16px}
+#risk-state-view .right{display:grid;margin-top:14px;grid-template-columns:1fr}
+#risk-state-view .contrib{grid-template-columns:100px 1fr 40px;gap:8px}
+#risk-state-view .flow{gap:4px}
+#risk-state-view .node{font-size:12px;padding:10px 3px}
+#risk-state-view .timeline{padding:16px 10px}
+#risk-state-view .trend-head{gap:8px}
+#risk-state-view .trend-head h2{font-size:16px}
+#risk-state-view .dates{margin:0;gap:2px}
+#risk-state-view .time-btn b{display:block;margin:3px 0 0}
+#risk-state-view .event-note{margin-left:8px}
+#risk-state-view .footer{display:block}
+#risk-state-view .footer>span{display:block;margin-top:8px}
+#risk-state-view .score strong{font-size:48px}}
+@media(min-width:1101px) and (max-height:1100px){
+#risk-state-view{padding:20px 30px 12px}
+#risk-state-view .summary{margin:16px 0}
+#risk-state-view .stat{padding:12px 22px}
+#risk-state-view .grid{gap:16px}
+#risk-state-view .nav{padding:16px 12px}
+#risk-state-view .risk-tab{min-height:80px;padding:12px;margin-bottom:6px}
+#risk-state-view .legend{margin-top:8px;padding-top:12px}
+#risk-state-view .detail{padding:18px 24px}
+#risk-state-view .detail-top{padding-bottom:12px}
+#risk-state-view .score strong{font-size:48px}
+#risk-state-view .status-box{margin:14px 0;padding:12px 16px}
+#risk-state-view .status-box p{font-size:16px}
+#risk-state-view .section-head{margin-bottom:12px}
+#risk-state-view .contrib{margin:8px 0}
+#risk-state-view .flow-section{padding-top:14px;margin-top:14px}
+#risk-state-view .flow{margin-top:10px}
+#risk-state-view .node{padding:10px 6px}
+#risk-state-view .side-panel{padding:16px 20px}
+#risk-state-view .link-row{padding:9px 0}
+#risk-state-view .asset{padding:8px 0}
+#risk-state-view .timeline{margin-top:16px;padding:14px 20px 10px}
+#risk-state-view .chart{height:90px;margin-top:4px}
+#risk-state-view .event-note{margin-top:4px}
+#risk-state-view .footer{margin-top:10px}}
+@media(prefers-reduced-motion:reduce){
+#risk-state-view *{transition:none!important}}
+
+#risk-source-center [hidden]{display:none!important}
+#risk-source-center .rs-view-toggle{min-height:44px;border:1px solid var(--rs-blue);border-radius:6px;padding:8px 12px;background:var(--rs-blue-bg);color:var(--rs-blue)}
+#risk-source-center .rs-view-toggle:hover{background:var(--rs-soft)}
+#risk-source-center .rs-view-label{font-size:12px;color:var(--rs-muted)}
+#risk-state-view{padding:18px;color:var(--text);font:15px/1.6 "Segoe UI","Microsoft YaHei",sans-serif;background:var(--bg);border-radius:0 0 12px 12px;min-width:0}
+#risk-state-view .summary{margin:0 0 18px}
+#risk-state-view .panel{min-width:0;box-shadow:none}
+#risk-state-view .grid{grid-template-columns:200px minmax(0,1fr) 270px}
+#risk-state-view .num.dimension-name{font-size:26px;letter-spacing:0}
+#risk-state-view .stat-line{flex-wrap:wrap;gap:8px}
+#risk-state-view .contrib{grid-template-columns:100px minmax(0,1fr) 40px}
+#risk-state-view .empty-chart{padding:30px 16px;text-align:center;background:var(--panel2);border:1px dashed var(--line);border-radius:6px;color:var(--muted);margin-top:14px}
+#risk-state-view .chart{height:130px}
+#risk-state-view .dates{margin-left:0}
+#risk-state-view .flow .node{min-width:0}
+#risk-state-view .score{font-size:13px}
+#risk-state-view[data-mode=monitor] .percent,#risk-state-view[data-mode=monitor] .strength{color:var(--muted)}
+@media(max-width:1250px){#risk-state-view .grid{grid-template-columns:180px minmax(0,1fr)}#risk-state-view .right{grid-column:1/-1;grid-template-columns:1fr 1fr;grid-template-rows:auto}#risk-state-view .summary{grid-template-columns:repeat(2,minmax(0,1fr))}#risk-state-view .stat:nth-child(2){border-right:0}#risk-state-view .stat:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+@media(max-width:850px){#risk-state-view .grid{display:block}#risk-state-view .nav{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}#risk-state-view .nav>.section-head,#risk-state-view .legend{grid-column:1/-1}#risk-state-view .risk-tab{margin:0}#risk-state-view .right{margin-top:14px}#risk-state-view .detail{padding:18px}}
+@media(max-width:550px){#risk-state-view{padding:10px}#risk-state-view .stat{padding:12px}#risk-state-view .num{font-size:30px}#risk-state-view .num.dimension-name{font-size:21px}#risk-state-view .right{grid-template-columns:1fr}#risk-state-view .flow{flex-direction:column}#risk-state-view .flow .arrow{transform:rotate(90deg)}#risk-state-view .flow .node{padding:10px}#risk-state-view .detail-top{gap:8px}#risk-state-view .score strong{font-size:36px}#risk-state-view .trend-head{flex-wrap:wrap}#risk-state-view .section-head{flex-wrap:wrap}}
+
+/* Source indicator examples: source observations remain distinct from path verification. */
+#risk-source-center .rs-indicator-panel{margin:10px 18px 0 54px;border:1px solid var(--rs-line);border-radius:8px;overflow:hidden;background:var(--rs-surface)}
+#risk-source-center .rs-indicator-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;background:var(--rs-soft);flex-wrap:wrap}
+#risk-source-center .rs-indicator-head p{font-size:12px;color:var(--rs-muted);margin-top:4px}
+#risk-source-center .rs-indicator-badge{font-size:11px;padding:4px 7px;color:var(--rs-amber);border:1px solid var(--rs-line);border-radius:4px}
+#risk-source-center .rs-indicator-table{width:100%;table-layout:fixed;border-collapse:collapse;color:var(--rs-text);font-size:12px;line-height:1.6}
+#risk-source-center .rs-indicator-table th,#risk-source-center .rs-indicator-table td{padding:12px 9px;text-align:left;border-bottom:1px solid var(--rs-line);vertical-align:top;white-space:normal;overflow-wrap:anywhere}
+#risk-source-center .rs-indicator-table thead th{font-weight:400;font-size:11px;color:var(--rs-muted);background:var(--rs-bg)}
+#risk-source-center .rs-indicator-table th:first-child{width:23%}
+#risk-source-center .rs-indicator-table th:nth-child(2),#risk-source-center .rs-indicator-table th:nth-child(3){width:12%}
+#risk-source-center .rs-indicator-table th:nth-child(4){width:13%}
+#risk-source-center .rs-indicator-table th:nth-child(5){width:22%}
+#risk-source-center .rs-indicator-table th:nth-child(6){width:18%}
+#risk-source-center .rs-indicator-table tbody th{font-weight:500;font-size:13px}
+#risk-source-center .rs-indicator-table small{display:block;font-size:11px;font-weight:400;color:var(--rs-muted);margin-top:3px}
+#risk-source-center .rs-indicator-table td{font-variant-numeric:tabular-nums}
+#risk-source-center .rs-indicator-value{font-weight:600}
+#risk-source-center .rs-indicator-change{color:var(--rs-blue)}
+#risk-source-center .rs-indicator-note{font-size:11px;line-height:1.7;color:var(--rs-muted);padding:11px 14px}
+#risk-source-center .rs-indicator-panel+.rs-node-evidence{margin-top:12px}
+@media(max-width:1250px){#risk-source-center .rs-indicator-table thead{display:none}#risk-source-center .rs-indicator-table,#risk-source-center .rs-indicator-table tbody{display:block}#risk-source-center .rs-indicator-table tr{display:grid;grid-template-columns:1fr 1fr;padding:10px 12px;border-bottom:1px solid var(--rs-line);gap:10px 14px}#risk-source-center .rs-indicator-table tbody th{grid-column:1/-1;width:auto!important;padding:0;border:0}#risk-source-center .rs-indicator-table td{padding:0;border:0;min-width:0}#risk-source-center .rs-indicator-table td::before{content:attr(data-label);display:block;color:var(--rs-muted);font-size:11px;font-weight:400;margin-bottom:3px}#risk-source-center .rs-indicator-table td:last-child{grid-column:1/-1}}
+@media(max-width:550px){#risk-source-center .rs-indicator-panel{margin-left:18px}#risk-source-center .rs-indicator-head{padding:12px}}</style>
 </head>
 <body>
   <div class="app-shell">
@@ -1098,7 +1483,7 @@ button.nasdaq-card { width: 100%; border-top: 0; border-right: 0; border-bottom:
             <button class="nav-item" type="button" data-view="rules-view"><span>06</span>评分规则</button>
             <button class="nav-item" type="button" data-view="audit-view"><span>07</span>数据审计</button>
             <button class="nav-item" type="button" data-view="featured-digest"><span>08</span>每日跟踪</button>
-            <button class="nav-item" type="button" data-view="risk-monitor"><span>09</span>风险发现系统</button>
+            <button class="nav-item" type="button" data-view="risk-monitor"><span>09</span>风险大屏</button>
             <button class="nav-item" type="button" data-view="topic-map"><span>10</span>主题</button>
             </div>
           </section>
@@ -1190,7 +1575,7 @@ button.nasdaq-card { width: 100%; border-top: 0; border-right: 0; border-bottom:
               <strong id="risk-level-value">读取中</strong>
               <span id="risk-level-detail">基于温度计与融资变化</span>
             </div>
-            <button class="button-secondary" type="button" data-open-risk-monitor>进入风险发现系统</button>
+            <button class="button-secondary" type="button" data-open-risk-monitor>进入风险大屏</button>
           </article>
           <article class="summary-shortcut-card turnover-card panel" id="market-turnover-card" aria-labelledby="market-turnover-heading"></article>
           <article class="summary-shortcut-card summary-shortcut-card-empty panel" aria-hidden="true"></article>
@@ -1322,42 +1707,51 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
       </section>
 
       <section class="view" id="risk-monitor" data-shell-content="thermometer" aria-labelledby="risk-monitor-heading">
-        <h2 class="visually-hidden" id="risk-monitor-heading">风险发现系统</h2>
-        <div class="risk-screen">
-          <header class="risk-screen-head">
-            <div>
-              <p class="eyebrow">MARKET RISK COMMAND</p>
-              <h3>风险发现系统大屏</h3>
-              <span id="risk-monitor-updated">随温度计同步更新</span>
-            </div>
-            <strong id="risk-screen-level">读取中</strong>
-          </header>
-          <div class="risk-screen-grid">
-            <article class="risk-panel risk-panel-main">
-              <div class="risk-panel-title"><span>综合风险</span><b>RISK SCORE</b></div>
-              <div class="risk-score-orb"><strong id="risk-score-value">--</strong><span>/100</span></div>
-              <p id="risk-screen-summary">正在读取市场温度、情绪和杠杆信号。</p>
-              <div class="risk-signal-row">
-                <div><small>温度计分数</small><strong id="risk-buy-score">--</strong></div>
-                <div><small>有效覆盖率</small><strong id="risk-coverage">--</strong></div>
-                <div><small>监控口径</small><strong>温度 + 杠杆</strong></div>
-              </div>
-            </article>
-            <article class="risk-panel risk-panel-secondary">
-              <div class="risk-panel-title"><span>融资余额趋势</span><b>SECOND SCREEN</b></div>
-              <div id="risk-margin-chart" aria-live="polite">
-                <div class="margin-chart-empty">进入风险发现系统后读取近一年融资余额。</div>
-              </div>
-            </article>
-            <article class="risk-panel risk-panel-side">
-              <div class="risk-panel-title"><span>风险观察</span><b>CHECKPOINTS</b></div>
-              <ul class="risk-watch-list" id="risk-watch-list">
-                <li><span>美债10年</span><strong>等待数据</strong></li>
-                <li><span>美元指数</span><strong>等待数据</strong></li>
-                <li><span>美元兑日元</span><strong>等待数据</strong></li>
-              </ul>
-            </article>
-          </div>
+        <h2 class="visually-hidden" id="risk-monitor-heading">风险大屏</h2>
+        <div class="risk-screen" id="risk-source-center" aria-label="风险源监测中心">
+
+<header class="rs-header">
+ <div class="rs-heading"><div class="rs-titlemark"><h3>风险源监测中心</h3></div><div class="rs-tools"><span class="rs-view-label" id="risk-view-label" aria-live="polite">风险源视图</span><button type="button" class="rs-view-toggle" id="risk-view-toggle" aria-controls="risk-source-view risk-state-view" aria-label="切换到风险状态视图">切换视图 <span aria-hidden="true">⇄</span></button><span class="rs-demo">监测模式 · 评分待接入</span><div class="rs-mode-toggle" role="group" aria-label="数据展示模式"><button type="button" data-risk-mode="monitor" aria-pressed="true">监测数据</button><button type="button" data-risk-mode="demo" aria-pressed="false">设计示例</button></div></div></div>
+ <p class="rs-subtitle">风险源监测中心 · 先看主要风险源，再展开传导路径</p>
+ <div id="risk-source-summary">
+ <p class="rs-priority-label">已有市场指标 · 不等同于风险源评分</p>
+ <div class="rs-stats" aria-label="已有指标快照"></div>
+ </div>
+</header>
+<div id="risk-source-view">
+
+<section class="rs-overview" aria-label="主要风险源总览">
+ <div class="rs-overview-head"><h2>风险源总览</h2><span class="rs-small">8 类风险源 · 分类排列，尚未评级</span></div>
+ <table>
+ <colgroup><col style="width:27%"><col style="width:19%"><col style="width:11%"><col style="width:15%"><col style="width:28%"></colgroup>
+ <thead><tr><th scope="col">风险源</th><th scope="col" data-score-heading aria-sort="none">风险值</th><th scope="col">趋势</th><th scope="col">加速度</th><th scope="col">当前核心驱动</th></tr></thead>
+ <tbody class="rs-overview-rows"></tbody>
+ </table>
+ <div class="rs-overview-note">风险值、趋势与加速度待建立计算口径；点击风险源展开路径。</div>
+</section>
+<details class="rs-drill" id="rs-source-detail">
+ <summary><span id="rs-drill-title">货币政策 · 传导路径与影响</span><small>展开查看详情与证据</small></summary>
+
+<div class="rs-work">
+ <section class="rs-panel" aria-label="当前风险源详情"><div class="rs-panel-head"><h2>当前风险源详情</h2><span class="rs-small">条件传导情景</span></div><div id="rs-current"></div><div class="rs-chain" aria-label="风险传导路径"></div><section class="rs-indicator-panel" aria-label="风险源监测指标"></section><dl class="rs-node-evidence" aria-live="polite"></dl></section>
+ <aside class="rs-right"><section class="rs-panel"><div class="rs-panel-head"><h2>影响的二级市场风险维度</h2><span class="rs-small">情景</span></div><div class="rs-impact-list"></div><p class="rs-impact-note">二级市场风险维度 · 箭头为影响示意</p></section><section class="rs-panel"><div class="rs-panel-head"><h2>受影响资产</h2><span class="rs-small">潜在影响</span></div><div class="rs-assets"></div></section></aside>
+</div>
+<section class="rs-panel rs-timeline" aria-label="风险演变时间轴与证据">
+ <div class="rs-panel-head"><h2>风险演变时间轴 / 证据</h2><span class="rs-small">事件待记录 · 点击节点查看指标</span></div>
+ <div class="rs-events"></div><div class="rs-event-detail" aria-live="polite"></div>
+</section>
+</details>
+
+<footer class="rs-footer"><span>路径与资产影响为条件情景；需用实际指标逐环节确认。</span><span id="rs-selection"></span></footer>
+</div>
+<section id="risk-state-view" aria-label="风险状态视图" hidden>
+<section class="summary" id="rsv-summary" aria-label="综合风险概览"></section>
+<div class="state-body"><div class="grid"><nav class="panel nav" aria-label="四维风险导航"><div class="section-head"><h2>四维风险</h2><span class="small">选择查看</span></div><div id="rsv-tabs" style="display:contents"></div><div class="legend" id="rsv-legend"><span class="red">●</span> ≥80 高风险　<span class="amber">●</span> 60–79 偏高<br>分数越高，风险程度越高</div></nav>
+<section class="panel detail" aria-label="当前风险维度详情" aria-live="polite"><div class="detail-top"><div><div class="eyebrow">Selected dimension <span id="rsv-dimension-no">01</span> / 04</div><h2 class="detail-title" id="rsv-detail-title"></h2></div><div class="score"><strong id="rsv-score"></strong><span id="rsv-level"></span></div></div><div class="status-box"><div class="label">核心状态</div><p id="rsv-state1"></p><p id="rsv-state2"></p></div><div class="section-head"><h3>风险来源贡献</h3><span class="small" id="rsv-contribution-note">贡献待评估</span></div><div id="rsv-contributions"></div><div class="flow-section"><h3>主传导路径</h3><div id="rsv-flow" class="flow"></div><div class="flow-note" id="rsv-flow-note"></div></div></section>
+<aside class="right"><section class="panel side-panel"><div class="section-head"><h2>风险联动</h2><span class="small">传导强度</span></div><div id="rsv-links"></div><div class="small" style="margin-top:10px">从当前维度向其他维度传导</div></section><section class="panel side-panel"><div class="section-head"><h2>受影响资产</h2><span class="small">相对暴露</span></div><div id="rsv-assets"></div><div class="small" style="margin-top:10px">暴露程度随所选维度变化</div></section></aside></div>
+<section class="panel timeline"><div class="section-head"><div class="trend-head"><h2>风险维度演变</h2><span id="rsv-trend-change" class="trend-change"></span></div><span class="small" id="rsv-trend-label"></span></div><svg class="chart" id="rsv-chart" viewBox="0 0 1200 130" preserveAspectRatio="none" role="img"></svg><p class="empty-chart" id="rsv-empty">尚无同口径的历史风险评分。</p><div id="rsv-dates" class="dates" aria-label="选择历史观察点"></div><p id="rsv-event-note" class="event-note" aria-live="polite"></p><table class="sr-only" id="rsv-accessible-data"><caption>风险维度演变数据</caption><thead><tr><th>日期</th><th>风险分数</th></tr></thead><tbody></tbody></table></section></div><footer class="footer"><details><summary>数据与评分口径</summary><p id="rsv-method"></p></details><span>风险来源 → 传导路径 → 风险维度 → 资产暴露</span></footer>
+</section>
+
         </div>
       </section>
 
@@ -2053,14 +2447,14 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                   <td><div class="tracking-fundamental-status"><span>读取研报…</span><span class="tracking-three-factor-state">未关联</span></div><small class="tracking-updated">支柱产业 · 石化化工 · 11:52<br>来源目录：sources/automations/支柱产业/石化化工</small></td>
                   <td>—</td>
                 </tr>
-                <tr class="industry-report" data-filters="高端制造" data-report-href="../../sources/automations/支柱产业/高端制造/徐工机械-机构级决策研报.html" data-equity-report-href="../../sources/automations/支柱产业/高端制造/徐工机械-机构级决策研报.html" data-three-factor-href="../../sources/automations/支柱产业/高端制造/工程机械/2026-08-20-1028-徐工机械-三要素分析.html" data-fund-flow-href="../../sources/automations/支柱产业/高端制造/工程机械/2026-08-04-徐工机械资金面分析.html" data-report-title="徐工机械-机构级决策研报" data-stock-name="徐工机械" data-report-label="支柱产业 · 高端制造" data-report-time="—" data-source-directory="sources/automations/支柱产业/高端制造">
+                <tr class="industry-report" data-filters="高端制造" data-report-href="../../sources/automations/支柱产业/高端制造/徐工机械-机构级决策研报.html" data-equity-report-href="../../sources/automations/支柱产业/高端制造/徐工机械-机构级决策研报.html" data-three-factor-href="../../sources/automations/支柱产业/高端制造/工程机械/2026-08-20-1028-徐工机械-三要素分析.html" data-fund-flow-href="../../sources/automations/支柱产业/高端制造/2026-09-15-徐工机械资金面分析.html" data-report-title="徐工机械-机构级决策研报" data-stock-name="徐工机械" data-report-label="支柱产业 · 高端制造" data-report-time="—" data-source-directory="sources/automations/支柱产业/高端制造">
                   <td class="tracking-target"><strong><a class="industry-report-link" href="../../sources/automations/支柱产业/高端制造/徐工机械-机构级决策研报.html" target="_blank" rel="noopener noreferrer">徐工机械</a></strong><small>徐工机械-机构级决策研报</small></td>
                   <td>读取研报…</td>
                   <td><span class="tracking-pricing-deviation is-neutral">读取研报…</span></td>
                   <td>读取中…</td>
                   <td>读取中…</td>
                   <td>读取研报…</td>
-                  <td><div class="tracking-report-links"><a class="industry-report-link" href="../../sources/automations/支柱产业/高端制造/工程机械/2026-08-04-徐工机械资金面分析.html" target="_blank" rel="noopener noreferrer">资金面分析</a></div></td>
+                  <td><div class="tracking-report-links"><a class="industry-report-link" href="../../sources/automations/支柱产业/高端制造/2026-09-15-徐工机械资金面分析.html" target="_blank" rel="noopener noreferrer">资金面分析</a></div></td>
                   <td><div class="tracking-fundamental-status"><span>读取研报…</span><a class="industry-report-link" href="../../sources/automations/支柱产业/高端制造/徐工机械-机构级决策研报.html" target="_blank" rel="noopener noreferrer">个股研报</a></div><small class="tracking-updated">支柱产业 · 高端制造 · —<br>来源目录：sources/automations/支柱产业/高端制造</small></td>
                   <td>—</td>
                 </tr>
@@ -2287,12 +2681,12 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
           <div class="todo-summary" id="todo-summary" aria-label="需求清单摘要">
             <article class="todo-summary-card is-important-urgent" data-todo-summary-quadrant="重要且紧急">
               <small>Q1</small>
-              <strong>7</strong>
+              <strong>8</strong>
               <span>重要且紧急</span>
             </article>
             <article class="todo-summary-card is-important-not-urgent" data-todo-summary-quadrant="重要不紧急">
               <small>Q2</small>
-              <strong>7</strong>
+              <strong>6</strong>
               <span>重要不紧急</span>
             </article>
             <article class="todo-summary-card is-urgent-not-important" data-todo-summary-quadrant="紧急不重要">
@@ -2336,10 +2730,18 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
               </div>
               <p class="todo-create-status" id="todo-create-status" role="status"></p>
             </form>
-            <div class="todo-source-note"><span id="todo-source-status">来源：data/todo.json · 更新：2026-09-10 · 已归档4项</span><strong id="todo-total-count">14项</strong></div>
+            <div class="todo-source-note"><span id="todo-source-status">来源：data/todo.json · 更新：2026-09-15 · 已归档5项</span><strong id="todo-total-count">14项</strong></div>
             <section class="todo-archive-panel" id="todo-archive-panel" aria-label="已归档任务" hidden>
               <div class="todo-archive-head"><strong>已归档任务</strong><span>按归档时间倒序</span></div>
               <div class="todo-archive-list" id="todo-archive-list">
+                <article class="todo-archive-item" data-todo-archive-id="TODO-013">
+                  <div class="todo-archive-row">
+                    <span class="todo-archive-id">TODO-013</span>
+                    <div class="todo-item-head todo-archive-title"><strong>复盘日记页面完善成日历型</strong></div>
+                    <div class="todo-archive-meta"><span class="todo-archive-completed">完成 2026-09-15</span><span class="todo-archive-quadrant">重要不紧急</span></div>
+                    <span class="todo-item-time">归档 2026-09-15</span>
+                  </div>
+                </article>
                 <article class="todo-archive-item" data-todo-archive-id="TODO-015">
                   <div class="todo-archive-row">
                     <span class="todo-archive-id">TODO-015</span>
@@ -2375,11 +2777,19 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
               </div>
             </section>
             <div class="todo-matrix" id="todo-matrix">
-              <section class="todo-quadrant is-important-urgent" data-todo-quadrant="重要且紧急" tabindex="0" aria-label="重要且紧急，7项任务，可滚动查看">
+              <section class="todo-quadrant is-important-urgent" data-todo-quadrant="重要且紧急" tabindex="0" aria-label="重要且紧急，8项任务，可滚动查看">
                 <header class="todo-quadrant-header">
                   <div class="todo-quadrant-heading"><span class="todo-quadrant-index">Q1</span><div><h3>重要且紧急</h3><p class="todo-quadrant-guide">立即处理</p></div></div>
-                  <div class="todo-quadrant-meta"><strong>7项</strong><button class="todo-quadrant-toggle" type="button" data-action="toggle-todo-quadrant" aria-expanded="true">收起</button></div>
+                  <div class="todo-quadrant-meta"><strong>8项</strong><button class="todo-quadrant-toggle" type="button" data-action="toggle-todo-quadrant" aria-expanded="true">收起</button></div>
                 </header>
+                <article class="todo-item" draggable="true" data-todo-id="TODO-023" data-todo-quadrant="重要且紧急" aria-label="拖动 终极目标：将skill开源或上线到workbuddy 到其他象限">
+                  <div class="todo-item-kicker"><span>TODO-023</span><span class="todo-item-time">创建 2026-09-15</span></div>
+                  <div class="todo-item-head"><strong>终极目标：将skill开源或上线到workbuddy</strong></div>
+                  <div class="todo-item-actions">
+                    <button class="todo-action-button is-status todo-status-button" type="button" data-action="cycle-todo-status" data-todo-id="TODO-023" data-todo-status="未开始" aria-label="修改 终极目标：将skill开源或上线到workbuddy 状态">状态 · 未开始</button>
+                    <button class="todo-action-button is-danger" type="button" data-action="delete-todo" data-todo-id="TODO-023">删除</button>
+                  </div>
+                </article>
                 <article class="todo-item" draggable="true" data-todo-id="TODO-022" data-todo-quadrant="重要且紧急" aria-label="拖动 一一校验风险监测表中的指标 到其他象限">
                   <div class="todo-item-kicker"><span>TODO-022</span><span class="todo-item-time">创建 2026-09-10</span></div>
                   <div class="todo-item-head"><strong>一一校验风险监测表中的指标</strong></div>
@@ -2437,10 +2847,10 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                   </div>
                 </article>
               </section>
-              <section class="todo-quadrant is-important-not-urgent" data-todo-quadrant="重要不紧急" tabindex="0" aria-label="重要不紧急，7项任务，可滚动查看">
+              <section class="todo-quadrant is-important-not-urgent" data-todo-quadrant="重要不紧急" tabindex="0" aria-label="重要不紧急，6项任务，可滚动查看">
                 <header class="todo-quadrant-header">
                   <div class="todo-quadrant-heading"><span class="todo-quadrant-index">Q2</span><div><h3>重要不紧急</h3><p class="todo-quadrant-guide">排入计划</p></div></div>
-                  <div class="todo-quadrant-meta"><strong>7项</strong><button class="todo-quadrant-toggle" type="button" data-action="toggle-todo-quadrant" aria-expanded="true">收起</button></div>
+                  <div class="todo-quadrant-meta"><strong>6项</strong><button class="todo-quadrant-toggle" type="button" data-action="toggle-todo-quadrant" aria-expanded="true">收起</button></div>
                 </header>
                 <article class="todo-item" draggable="true" data-todo-id="TODO-017" data-todo-quadrant="重要不紧急" aria-label="拖动 赛斯·卡拉曼，他的《安全边际》 到其他象限">
                   <div class="todo-item-kicker"><span>TODO-017</span><span class="todo-item-time">创建 2026-09-08</span></div>
@@ -2464,14 +2874,6 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                   <div class="todo-item-actions">
                     <button class="todo-action-button is-status todo-status-button" type="button" data-action="cycle-todo-status" data-todo-id="TODO-014" data-todo-status="进行中" aria-label="修改 《全球两次大危机的比较研究》分层阅读第1层：事件层，发生了什么？ 状态">状态 · 进行中</button>
                     <button class="todo-action-button is-danger" type="button" data-action="delete-todo" data-todo-id="TODO-014">删除</button>
-                  </div>
-                </article>
-                <article class="todo-item" draggable="true" data-todo-id="TODO-013" data-todo-quadrant="重要不紧急" aria-label="拖动 复盘日记页面完善成日历型 到其他象限">
-                  <div class="todo-item-kicker"><span>TODO-013</span><span class="todo-item-time">创建 2026-09-02</span></div>
-                  <div class="todo-item-head"><strong>复盘日记页面完善成日历型</strong></div>
-                  <div class="todo-item-actions">
-                    <button class="todo-action-button is-status todo-status-button" type="button" data-action="cycle-todo-status" data-todo-id="TODO-013" data-todo-status="未开始" aria-label="修改 复盘日记页面完善成日历型 状态">状态 · 未开始</button>
-                    <button class="todo-action-button is-danger" type="button" data-action="delete-todo" data-todo-id="TODO-013">删除</button>
                   </div>
                 </article>
                 <article class="todo-item" draggable="true" data-todo-id="TODO-012" data-todo-quadrant="重要不紧急" aria-label="拖动 看不懂金融信息系列，先补充一下宏观经济学 到其他象限">
@@ -2531,7 +2933,7 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
             <button class="button-secondary" id="open-tracking-form" type="button">新增跟踪</button>
             <button class="button-secondary" id="refresh-tracking-reports" type="button">一键更新</button>
             <button class="allocation-ribbon is-active" id="tracking-allocation-mode" type="button" aria-pressed="true">配比模式</button>
-<a class="button-secondary daily-monitor-button" id="open-daily-monitor" href="data/持仓今日监控汇总-2026-09-11.html" target="_blank" rel="noopener noreferrer" title="打开 2026-09-11 持仓今日监控汇总报告">每日监控</a>
+<a class="button-secondary daily-monitor-button" id="open-daily-monitor" href="data/持仓今日监控汇总-2026-09-15.html" target="_blank" rel="noopener noreferrer" title="打开 2026-09-15 持仓今日监控汇总报告">每日监控</a>
           </div>
           <div class="tracker-workspace">
             <form class="tracking-form panel" id="tracking-form" hidden>
@@ -4068,7 +4470,7 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
               <button type="button" data-topic-filter="bbxm" aria-pressed="false">冰冰小美</button>
               <button type="button" data-topic-filter="other" aria-pressed="false">其他</button>
           </nav>
-            <div class="topic-source-note">来源目录：wiki/topics · 19 个主题页</div>
+            <div class="topic-source-note">来源目录：wiki/topics · 18 个主题页</div>
             <div class="topic-grid">
               <article class="topic-card" data-topic-category="bishi">
                 <div class="topic-card-meta"><span>碧树西风</span><span>2026-06-05</span></div>
@@ -4093,12 +4495,6 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                 <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E4%BA%A7%E4%B8%9A%E6%80%9D%E7%BB%B4%E4%B8%8B%E6%A1%88%E4%BE%8B%E9%9B%86%E5%90%88.md" target="_blank" rel="noopener noreferrer">冰冰小美-产业思维下案例集合</a></h3>
                 <p>按产业和具体标的分类汇总知识库中已经归档的冰冰小美原始分析文章，只承担原文导航，不混入观点页、推导页、事件记录、研报或交易片段。</p>
                 <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E4%BA%A7%E4%B8%9A%E6%80%9D%E7%BB%B4%E4%B8%8B%E6%A1%88%E4%BE%8B%E9%9B%86%E5%90%88.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
-              </article>
-              <article class="topic-card" data-topic-category="bbxm">
-                <div class="topic-card-meta"><span>冰冰小美</span><span>2026-07-01</span></div>
-                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E8%A7%82%E6%B5%8B%E6%8C%87%E6%A0%87.md" target="_blank" rel="noopener noreferrer">冰冰小美-观测指标</a></h3>
-                <p>聚合冰冰小美体系中可反复观察的宏观全球指标、中观央行指标和微观企业指标，作为从全球价格信号、政策流动性、企业经营验证到交易前过滤的指标地图。</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E8%A7%82%E6%B5%8B%E6%8C%87%E6%A0%87.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="bbxm">
                 <div class="topic-card-meta"><span>冰冰小美</span><span>2026-08-31</span></div>
@@ -4131,10 +4527,10 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                 <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E6%83%85%E7%BB%AA%E4%BD%93%E7%B3%BB%E4%BA%A4%E6%98%93%E7%AF%87.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="bbxm">
-                <div class="topic-card-meta"><span>冰冰小美</span><span>2026-09-11</span></div>
-                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E9%A3%8E%E9%99%A9.md" target="_blank" rel="noopener noreferrer">冰冰小美-如何理解风险</a></h3>
-                <p>风险的定义与观察框架 风险的定义 投资风险，是在不确定的变化中，由于资产价值受损、定价缺乏支撑、资金约束或行为失误，使投资者遭受损失的可能性。 风险的观察角度 观察层次 回答的问题 需要记录的内容 与下一层的连接 风险来源 什么变化可…</p>
-                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E9%A3%8E%E9%99%A9.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
+                <div class="topic-card-meta"><span>冰冰小美</span><span>2026-09-14</span></div>
+                <h3><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E9%A3%8E%E9%99%A9%E6%9D%A5%E6%BA%90%E4%B8%8E%E4%BC%A0%E5%AF%BC%E8%B7%AF%E5%BE%84.md" target="_blank" rel="noopener noreferrer">冰冰小美-如何理解风险</a></h3>
+                <p>按宏观、中观、微观组织风险来源、传导路径与暴露监测；宏观部分以八类风险源串联核心问题、扫描指标、章节入口和二级市场风险维度。</p>
+                <div class="topic-card-footer"><span>来源：wiki/topics</span><a href="obsidian://open?path=E%3A%5Ccaojingwen%5Cobsidian%5Cllmwiki%5Cwiki%5Ctopics%5C%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E9%A3%8E%E9%99%A9%E6%9D%A5%E6%BA%90%E4%B8%8E%E4%BC%A0%E5%AF%BC%E8%B7%AF%E5%BE%84.md" target="_blank" rel="noopener noreferrer">打开主题</a></div>
               </article>
               <article class="topic-card" data-topic-category="bbxm">
                 <div class="topic-card-meta"><span>冰冰小美</span><span>2026-09-10</span></div>
@@ -5251,6 +5647,421 @@ function createDefaultDomainDefinitions(nowDate = new Date(), location = globalT
   ];
 }
 
+// ---- risk-state.mjs ----
+// Conditional examples adapted from prototypes/market-risk.html; no live scoring model is implied.
+const riskStateExamples = [
+ {name:'流动性',score:90,color:'var(--red)',history:[62,68,75,84,90],state:['全球资金成本高','A股增量资金不足'],sources:[['货币政策',35],['美债供需',25],['市场结构',20],['资本流动',12],['国内信用',8]],flow:['CPI ↑','加息预期 ↑','美债收益率 ↑','流动性 ↓'],note:'通胀压力经利率与融资条件传导，压缩市场资金承接能力。',links:[['估值','强 ↑↑↑'],['情绪','中 ↑↑'],['基本面','弱 ↑']],assets:[['科技成长','高'],['创业板','高'],['小盘股','高'],['银行','低']],events:['资金条件开始收紧','融资成本压力延续','增量资金承接走弱','资金供需矛盾扩大','流动性风险升至90']},
+ {name:'估值',score:82,color:'var(--red)',history:[66,69,73,79,82],state:['高估值资产的折现率压力上升','盈利兑现尚未覆盖定价预期'],sources:[['货币政策',30],['经济增长',25],['市场结构',20],['信用环境',15],['资本流动',10]],flow:['资金成本 ↑','折现率 ↑','估值支撑 ↓','重定价压力 ↑'],note:'资金成本与盈利预期共同影响估值支撑，不把高估值等同于必然下跌。',links:[['情绪','强 ↑↑↑'],['流动性','中 ↑↑'],['基本面','弱 ↑']],assets:[['科技成长','高'],['高估值消费','高'],['宽基指数','中'],['低估值银行','低']],events:['估值支撑开始承压','利率预期抬升','盈利预期修正','重定价压力扩大','估值风险升至82']},
+ {name:'情绪',score:78,color:'var(--amber)',history:[55,62,69,74,78],state:['风险偏好回落，亏钱效应扩散','拥挤交易的退出意愿增强'],sources:[['市场结构',35],['政策事件',25],['资本流动',20],['经济增长',12],['信用环境',8]],flow:['负面冲击 ↑','亏钱效应 ↑','集中卖出 ↑','风险偏好 ↓'],note:'关注恐慌是否得到成交与承接证据确认，情绪变化并非固定因果顺序。',links:[['流动性','强 ↑↑↑'],['估值','中 ↑↑'],['基本面','弱 ↑']],assets:[['题材股','高'],['小盘股','高'],['创业板','中'],['银行','低']],events:['风险偏好出现分歧','拥挤交易波动加大','亏钱效应扩散','退出意愿增强','情绪风险升至78']},
+ {name:'基本面',score:65,color:'var(--amber)',history:[60,63,67,65,65],state:['需求与盈利修复仍有分化','经营压力延续，近期风险持平'],sources:[['经济增长',35],['通胀与供给',25],['信用环境',20],['财政与债务',12],['政策事件',8]],flow:['需求走弱','收入承压','利润率下降','现金流承压'],note:'需按行业与企业验证需求、成本及现金回款，不能由总量指标直接推断个股。',links:[['估值','强 ↑↑↑'],['情绪','中 ↑↑'],['流动性','中 ↑↑']],assets:[['周期制造','高'],['可选消费','中'],['银行','中'],['公用事业','低']],events:['需求修复偏弱','经营压力上升','盈利分化扩大','部分压力缓和','基本面风险持平于65']}
+];
+const riskStateDates = ['08/17', '08/25', '09/01', '09/11', '09/14'];
+
+function riskStateModel(mode = 'monitor') {
+  const demo = mode === 'demo';
+  const dimensions = riskStateExamples.map(item => ({ ...item,
+    score: demo ? item.score : null,
+    history: demo ? [...item.history] : [],
+    state: demo ? [...item.state] : ['状态待评估', '需补充当前与比较窗口的监测证据'],
+    sources: item.sources.map(([name, value]) => [name, demo ? value : null]),
+    links: item.links.map(([name, level]) => [name, demo ? level : '待评估']),
+    assets: item.assets.map(([name, level]) => [name, demo ? level : '待核验']),
+    events: demo ? [...item.events] : [],
+  }));
+  return { demo, dimensions, dates: demo ? [...riskStateDates] : [], aggregate: demo ? 82 : null,
+    highCount: demo ? dimensions.filter(item => item.score >= 80).length : null,
+    risingCount: demo ? dimensions.filter(item => item.score > item.history.at(-2)).length : null,
+    largest: demo ? dimensions.reduce((largest, item) => item.score > largest.score ? item : largest).name : null };
+}
+
+function initRiskStateView(root) {
+  const state = { mode: null, selected: 0, point: 4 };
+  const query = id => root.querySelector('#rsv-' + id);
+  const escape = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
+  function renderChart() {
+    const model = riskStateModel(state.mode), dimension = model.dimensions[state.selected];
+    query('chart').toggleAttribute('hidden', !model.demo);
+    query('empty').hidden = model.demo;
+    query('accessible-data').hidden = !model.demo;
+    if (!model.demo) {
+      query('chart').innerHTML = '';
+      query('chart').setAttribute('aria-label', '风险历史评分尚未接入');
+      query('dates').innerHTML = '';
+      query('event-note').textContent = '等待同口径历史评分、观察日期与原始证据。';
+      query('accessible-data').querySelector('tbody').innerHTML = '';
+      return;
+    }
+    const chart = query('chart');
+    const width = Math.max(280, chart.clientWidth || 1200);
+    const xs = [0.1, 0.3, 0.5, 0.7, 0.9].map(ratio => width * ratio), y = value => 108 - (value - 50) * 1.8;
+    const points = xs.map((x, index) => x + ',' + y(dimension.history[index])).join(' ');
+    chart.setAttribute('viewBox', '0 0 ' + width + ' 130');
+    chart.setAttribute('aria-label', dimension.name + '风险示例：' + model.dates.map((date, index) => date + ' ' + dimension.history[index] + '分').join('，'));
+    chart.innerHTML = [60, 80, 100].map(value => '<line x1="28" y1="' + y(value) + '" x2="' + width + '" y2="' + y(value) + '" stroke="var(--line)" stroke-dasharray="3 5"/><text x="0" y="' + (y(value) + 4) + '" fill="var(--muted)" font-size="11">' + value + '</text>').join('')
+      + '<polyline points="' + points + '" stroke="' + dimension.color + '" stroke-width="2.5" fill="none" vector-effect="non-scaling-stroke"/>'
+      + xs.map((x, index) => '<circle cx="' + x + '" cy="' + y(dimension.history[index]) + '" r="' + (index === state.point ? 6 : 4) + '" fill="' + (index === state.point ? dimension.color : 'var(--panel)') + '" stroke="' + dimension.color + '" stroke-width="2"/>').join('');
+    query('dates').innerHTML = model.dates.map((date, index) => '<button type="button" class="time-btn" data-risk-point="' + index + '" aria-pressed="' + (index === state.point) + '" aria-label="' + date + '，' + dimension.history[index] + '分">' + date + '<b>' + dimension.history[index] + '</b></button>').join('');
+    query('event-note').textContent = model.dates[state.point] + ' · ' + dimension.events[state.point] + '（演示节点）';
+    query('accessible-data').querySelector('tbody').innerHTML = model.dates.map((date, index) => '<tr><td>' + date + '</td><td>' + dimension.history[index] + '</td></tr>').join('');
+  }
+  function render() {
+    const model = riskStateModel(state.mode), dimension = model.dimensions[state.selected], demo = model.demo;
+    root.dataset.mode = demo ? 'demo' : 'monitor';
+    root.style.setProperty('--accent', demo ? dimension.color : 'var(--blue)');
+    query('summary').innerHTML = [
+      ['综合风险指数', model.aggregate ?? '—', demo ? '高风险 · 示例 / 100' : '评分待接入'],
+      ['高风险维度', model.highCount ?? '—', demo ? '/ 04 维度' : '尚未评级'],
+      ['风险上升维度', model.risingCount ?? '—', demo ? '09/11 → 09/14' : '比较窗口待建立'],
+      ['当前最大风险', model.largest ?? '待评估', demo ? '90 ↗ · 示例' : '四维证据尚不完整'],
+    ].map(([name, value, note], index) => '<div class="stat"><div class="label">' + name + '</div><div class="stat-line"><strong class="num ' + (index === 3 ? 'dimension-name' : '') + '">' + value + '</strong><span class="small">' + note + '</span></div></div>').join('');
+    query('tabs').innerHTML = model.dimensions.map((item, index) => '<button type="button" class="risk-tab" data-risk-dimension="' + index + '" aria-pressed="' + (index === state.selected) + '" style="--accent:' + (demo ? item.color : 'var(--blue)') + '"><div class="tab-top"><span>' + item.name + '</span><strong class="tab-num">' + (item.score ?? '—') + '</strong></div><div class="tab-bottom"><span>' + (demo ? item.score >= 80 ? '高风险' : '偏高' : '待评估') + '</span><span>' + (demo ? item.score > item.history.at(-2) ? '↗ +' + (item.score - item.history.at(-2)) : '→ 持平' : '趋势待验证') + '</span></div></button>').join('');
+    query('legend').textContent = demo ? '演示分级：≥80 高风险；60–79 偏高。分数越高，风险程度越高。' : '四维风险按基本面、估值、流动性与情绪分别核验，尚无统一评分。';
+    query('dimension-no').textContent = String(state.selected + 1).padStart(2, '0');
+    query('detail-title').textContent = dimension.name + '风险';
+    query('score').textContent = dimension.score ?? '—';
+    query('level').textContent = demo ? dimension.score >= 80 ? '高风险' : '偏高' : '待评估';
+    query('state1').textContent = dimension.state[0];
+    query('state2').textContent = dimension.state[1];
+    query('contribution-note').textContent = demo ? '维度内相对贡献 · 演示' : '候选来源 · 贡献待评估';
+    query('contributions').innerHTML = dimension.sources.map(([name, value]) => '<div class="contrib"><span>' + escape(name) + '</span><div class="bar" aria-hidden="true">' + (demo ? '<span style="width:' + value + '%"></span>' : '') + '</div><span class="percent">' + (demo ? value + '%' : '—') + '</span></div>').join('');
+    query('flow').innerHTML = dimension.flow.map(text => '<div class="node">' + escape(text) + '</div>').join('<span class="arrow" aria-hidden="true">→</span>');
+    query('flow-note').textContent = '条件路径：' + dimension.note;
+    query('links').innerHTML = dimension.links.map(([name, strength]) => '<div class="link-row"><span>→ ' + name + '</span><span class="strength">' + strength + '</span></div>').join('');
+    query('assets').innerHTML = dimension.assets.map(([name, level]) => '<div class="asset"><span>' + name + '</span><small class="' + (demo ? level === '高' ? 'red' : level === '中' ? 'amber' : 'green' : 'small') + '"><span class="dot"></span>' + (demo ? level + '暴露' : level) + '</small></div>').join('');
+    query('trend-change').textContent = demo ? '+' + (dimension.score - dimension.history[0]) + ' 分' : '待接入';
+    query('trend-label').textContent = dimension.name + (demo ? ' · 2026年五次示例观察' : ' · 历史评分待接入');
+    query('method').textContent = demo ? '本视图按 market-risk.html 原型展示设计示例，未连接风险评分。综合指数 82 为独立示例值，尚无聚合公式；贡献比例尚无归因模型，联动强弱为假设。上升维度按 09/11 与 09/14 比较。资产暴露不代表交易结论。' : '尚未接入四维风险评分、来源归因和历史观察序列。当前保留候选来源、条件路径及暴露对象供核验，分数和贡献比例不以示例值填充。';
+    renderChart();
+  }
+  root.addEventListener('click', event => {
+    const dimension = event.target.closest('[data-risk-dimension]'), point = event.target.closest('[data-risk-point]');
+    if (dimension) {
+      state.selected = Number(dimension.dataset.riskDimension); state.point = 4; render();
+      root.querySelector('[data-risk-dimension="' + state.selected + '"]').focus({ preventScroll: true });
+    } else if (point) {
+      state.point = Number(point.dataset.riskPoint); renderChart();
+      root.querySelector('[data-risk-point="' + state.point + '"]').focus({ preventScroll: true });
+    }
+  });
+  let chartWidth = 0;
+  new ResizeObserver(entries => {
+    const width = entries[0].contentRect.width;
+    if (width > 0 && width !== chartWidth) { chartWidth = width; renderChart(); }
+  }).observe(root);
+  return { setMode(mode) { if (state.mode === mode) return; state.mode = mode; render(); } };
+}
+
+// ---- risk-indicators.mjs ----
+// Indicator categories follow wiki/topics/冰冰小美-风险来源与传导路径.md, 宏观风险来源表.
+// Every observation below is invented for layout review; providers are intended integrations only.
+const riskIndicatorCatalog = {
+  macro: { name: '经济增长风险', rows: [
+    ['实际GDP同比', '中国 · 季度', 4.2, 4.8, '%', '2026 Q2', '2026 Q1', '国家统计局', 1],
+    ['制造业PMI', '中国 · 月度', 49.2, 50.1, '点', '2026-08', '2026-07', '国家统计局', 1],
+    ['调查失业率', '中国 · 月度', 5.3, 5.1, '%', '2026-08', '2026-07', '国家统计局', 1],
+    ['社会消费品零售同比', '中国 · 月度', 3.1, 4.2, '%', '2026-08', '2026-07', '国家统计局', 1],
+  ] },
+  commodity: { name: '通胀与供给风险', rows: [
+    ['CPI同比', '美国 · 月度', 3.4, 3.1, '%', '2026-08', '2026-07', '美国劳工统计局', 1],
+    ['核心CPI同比', '美国 · 月度', 3.7, 3.5, '%', '2026-08', '2026-07', '美国劳工统计局', 1],
+    ['PPI同比', '中国 · 月度', -1.6, -2.2, '%', '2026-08', '2026-07', '国家统计局', 1],
+    ['布伦特原油现货', '国际 · 日度', 92.4, 88.7, '美元/桶', '2026-09-14', '2026-09-11', '美国能源信息署', 1],
+  ] },
+  money: { name: '货币政策风险', rows: [
+    ['政策利率目标上限', '美国 · 政策观察', 5.5, 5.25, '%', '2026-09-14', '2026-09-11', '美联储政策声明', 2, 'bp'],
+    ['下次会议加息概率', '美国 · 市场隐含预期', 64, 42, '%', '2026-09-14', '2026-09-11', '利率期货隐含概率', 0],
+    ['QT月度缩表规模', '美国 · 月度', 600, 450, '亿美元', '2026-08', '2026-07', '美联储资产负债表', 0],
+    ['存款准备金率', '中国 · 某类机构适用口径', 7, 7, '%', '2026-09-14', '2026-09-11', '中国人民银行公告', 2, 'bp'],
+  ] },
+  fiscal: { name: '财政与主权债务风险', rows: [
+    ['财政赤字', '美国 · 月度', 2650, 2300, '亿美元', '2026-08', '2026-07', '美国财政部月度报告', 0],
+    ['国债净发行额', '美国 · 月度', 3100, 2500, '亿美元', '2026-08', '2026-07', '美国财政部发行数据', 0],
+    ['联邦债务余额', '美国 · 月末', 38.4, 38.1, '万亿美元', '2026-08', '2026-07', '美国财政部债务数据', 1],
+    ['主权评级展望', '虚构经济体A · 事件', '负面', '稳定', '', '2026-09-14', '2026-09-11', '评级机构原始公告', 0, '展望下调'],
+  ] },
+  credit: { name: '信用与金融体系风险', rows: [
+    ['社融存量同比', '中国 · 月度', 8.1, 8.4, '%', '2026-08', '2026-07', '中国人民银行', 1],
+    ['人民币贷款余额同比', '中国 · 月度', 6.8, 7.1, '%', '2026-08', '2026-07', '中国人民银行', 1],
+    ['同期限信用利差', '中国 · AAA / 国债 · 3年', 85, 68, 'bp', '2026-09-14', '2026-09-11', '中债估值收益率', 0],
+    ['商业银行不良贷款率', '中国 · 季度', 1.65, 1.58, '%', '2026 Q2', '2026 Q1', '金融监管总局', 2],
+  ] },
+  capital: { name: '汇率与跨境资本风险', rows: [
+    ['美元指数', '美元 · 日度收盘', 104.2, 102.8, '点', '2026-09-14', '2026-09-11', '指数行情服务', 1],
+    ['美元兑人民币', '在岸 · 1美元折合人民币', 7.28, 7.21, '元', '2026-09-14', '2026-09-11', '中国外汇交易中心', 2],
+    ['美元兑日元', '1美元折合日元', 153.4, 150.8, '日元', '2026-09-14', '2026-09-11', '外汇行情服务', 1],
+    ['海外持有美债余额', '全部海外持有人 · 月末', 8.95, 9.08, '万亿美元', '2026-08', '2026-07', '美国财政部TIC', 2],
+  ] },
+  structure: { name: '市场结构与资金供需风险', rows: [
+    ['IPO融资额', 'A股 · 月度', 420, 260, '亿元', '2026-08', '2026-07', '沪深北交易所', 0],
+    ['限售股解禁市值', 'A股 · 月度计划 · 同价基准', 3800, 2900, '亿元', '2026-09', '2026-08', '交易所及公司公告', 0],
+    ['融资余额', '沪深两市 · 日末', 1.82, 1.85, '万亿元', '2026-09-14', '2026-09-11', '沪深交易所', 2],
+    ['股票ETF净申购额', '固定样本 · 周度估算', -180, 65, '亿元', '2026-W37', '2026-W36', '基金份额及净值公告', 0],
+  ] },
+  event: { name: '地缘政治与政策事件风险', rows: [
+    ['关税税率', '虚构国家A对B · 指定商品', 15, 10, '%', '2026-09-14', '2026-09-11', '海关及贸易主管部门', 0],
+    ['出口管制适用范围', '虚构清单 · 事件', '新增2类设备', '现有清单', '', '2026-09-14', '2026-09-11', '主管部门原始公告', 0, '范围扩大'],
+    ['监管新政进度', '虚构政策 · 事件', '正式发布', '征求意见', '', '2026-09-14', '2026-09-11', '监管部门原始公告', 0, '进入实施准备'],
+    ['地缘冲突事件状态', '虚构地区 · 事件', '局部航线暂停', '航线正常', '', '2026-09-14', '2026-09-11', '官方通报及航运公告', 0, '运输受扰'],
+  ] },
+};
+
+function riskIndicatorRows(sourceId, mode = 'monitor') {
+  const source = riskIndicatorCatalog[sourceId];
+  if (!source) return [];
+  return source.rows.map(([name, scope, value, previous, unit, period, previousPeriod, provider, digits, changeUnit]) => {
+    const demo = mode === 'demo';
+    const quantitative = typeof value === 'number';
+    const delta = quantitative ? Number(((value - previous) * (changeUnit === 'bp' ? 100 : 1)).toFixed(6)) : null;
+    const deltaUnit = changeUnit === 'bp' ? 'bp' : unit === '%' ? '个百分点' : unit;
+    const deltaDigits = changeUnit === 'bp' ? 0 : digits;
+    return { name, scope, category: source.name, provider, quantitative,
+      latest: demo ? (quantitative ? value.toFixed(digits) + ' ' + unit : value) : '待接入',
+      previous: demo ? (quantitative ? previous.toFixed(digits) + ' ' + unit : previous) : '—',
+      change: !demo ? '—' : quantitative ? (delta > 0 ? '+' : '') + delta.toFixed(deltaDigits) + ' ' + deltaUnit : changeUnit,
+      period: demo ? period : '待接入', previousPeriod: demo ? previousPeriod : '—', demo };
+  });
+}
+
+function renderRiskIndicatorTable(sourceId, mode) {
+  const rows = riskIndicatorRows(sourceId, mode);
+  if (!rows.length) return '';
+  const escape = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
+  const demo = mode === 'demo';
+  return '<div class="rs-indicator-head"><div><h3>风险源监测指标</h3><p>' + escape(rows[0].category) + ' · 代表性指标</p></div><span class="rs-indicator-badge">' + (demo ? '虚构数据 · 仅供样式预览' : '指标待接入') + '</span></div>'
+    + '<table class="rs-indicator-table"><caption class="visually-hidden">' + escape(rows[0].category) + '指标，' + (demo ? '全部为虚构数据' : '尚无观测值') + '</caption><thead><tr><th scope="col">指标 / 口径</th><th scope="col">最新值</th><th scope="col">比较值</th><th scope="col">变化</th><th scope="col">数据期</th><th scope="col">拟接入来源</th></tr></thead><tbody>'
+    + rows.map(row => '<tr><th scope="row">' + escape(row.name) + '<small>' + escape(row.scope) + '</small></th><td data-label="最新值" class="rs-indicator-value">' + escape(row.latest) + '</td><td data-label="比较值">' + escape(row.previous) + '</td><td data-label="变化" class="rs-indicator-change">' + escape(row.change) + '</td><td data-label="数据期"><span>本期 ' + escape(row.period) + '</span><small>比较 ' + escape(row.previousPeriod) + '</small></td><td data-label="拟接入来源">' + escape(row.provider) + '</td></tr>').join('')
+    + '</tbody></table><p class="rs-indicator-note">归类依据：《冰冰小美-风险来源与传导路径》宏观风险来源表。'
+    + (demo ? '数值、日期和事件均为虚构，来源列表示拟接入渠道，未从这些机构取数。变化仅描述读数差异，不直接代表风险升降。' : '点击右上角“设计示例”查看虚构读数样式。') + '</p>';
+}
+
+// ---- risk-screen.mjs ----
+// Source scenarios describe conditional paths; only explicit demo mode exposes example scores.
+function makeRiskSourceDefinitions() {
+const sources=[
+{id:"money",name:"货币政策",score:92,pace:"加速",fresh:false,title:"货币政策风险",quotes:["政策利率 ↑","紧缩预期 ↑","融资成本 ↑"],nodes:[
+["政策偏紧预期 ↑","来源变化","政策路径预期收紧","政策声明、利率期货隐含路径","政策转向或增长压力促使宽松"],
+["短端利率预期 ↑","利率传导","预期进入同币种市场利率","短期限国债收益率、隔夜指数掉期","预期变化未被实际报价确认"],
+["续融资成本 ↑","融资条件","新增和重定价债务成本上升","到期债务、实际续贷报价","固定利率或有效对冲覆盖"],
+["可分配现金流 ↓","基本面","利息支出侵蚀收益","利息费用、利息保障倍数","经营现金增长覆盖新增利息"],
+["成长资产估值承压","估值","现金流与要求回报率共同重估","情景现金流、折现率、现价","价格已反映冲击或盈利改善"]],
+impact:[["基本面","↑↑","利息支出增加"],["流动性","↑↑↑","续融资压力"],["估值","↑↑↑","折现条件变化"],["情绪","↑","政策预期波动"]],
+assets:[["科技成长","negative","高久期、盈利远期兑现"],["高杠杆企业","negative","近期再融资需求集中"],["银行","positive","资产重定价快于负债时"],["短久期现金类","positive","收益率上升、信用稳定时"]],
+events:["政策表态变化","短端报价上行","续贷成本抬升","折现假设调整"]},
+{id:"commodity",name:"商品供给",score:88,pace:"加速",fresh:false,title:"商品与供给风险",quotes:["原油 ↑","天然气 ↑","粮食 ↑"],nodes:[
+["原油价格 ↑","来源变化","供给收缩或运输受阻","现货油价、产量、商业库存、运费","供给恢复、库存回补或需求回落"],
+["通胀压力 ↑","价格传导","涨价进入成本并向更广泛品类扩散","能源分项、PPI、CPI及涨价广度","上游涨价被利润吸收，核心价格未扩散"],
+["加息预期 ↑","政策预期","市场判断价格压力将引起紧缩","利率期货隐含路径、央行沟通","增长走弱或供给恢复抑制加息预期"],
+["美债利率 ↑","市场定价","预期进入名义与实际收益率","美债名义收益率、实际收益率、期限溢价","避险需求或政策转向压低收益率"],
+["成长估值 ↓","估值影响","要求回报率提高，远期现金流现值承压","折现率、盈利预期、现价对应的增长假设","盈利上修抵消折现影响，或价格已充分调整"]],
+impact:[["基本面","↑↑","投入成本与购买力"],["流动性","↑↑↑","营运资金与融资"],["估值","↑↑","折现率与利润假设"],["情绪","↑","通胀叙事与追涨"]],
+assets:[["科技成长","negative","要求回报率上升且盈利未补偿"],["创业板","negative","其中高久期、成本敏感成分"],["石油","positive","上游产量稳定、成本可控时"],["黄金","positive","避险走强或实际利率回落时"]],
+events:["原油上涨","商品涨价扩散","CPI数据发布","加息预期抬升"]},
+{id:"structure",name:"市场结构",score:85,pace:"加速",fresh:true,title:"市场结构风险",quotes:["集中持仓 ↑","杠杆敞口 ↑","承接深度 ↓"],nodes:[
+["持仓拥挤 ↑","来源变化","资金集中于少数资产","持仓集中度、成交集中度","资金来源分散、持仓差异扩大"],
+["波动放大","市场反馈","单向交易面临反转","波动率、价差、市场深度","交易深度恢复，波动不再扩散"],
+["追保或赎回 ↑","资金约束","合同条款触发实际付款需求","追保通知、赎回净额、保证金","现金缓冲覆盖实际义务"],
+["被动卖出 ↑","流动性","卖出需求超出承接能力","强平记录、折价成交、成交深度","新增承接吸收抛压"],
+["资产折价扩大","估值与情绪","卖出反馈延长修复时间","价格修复、折溢价、亏损广度","强制卖出结束且价格修复"]],
+impact:[["基本面","↑","融资反馈可能传入经营"],["流动性","↑↑↑","被动清算"],["估值","↑↑","折价扩大"],["情绪","↑↑↑","亏损反馈"]],
+assets:[["拥挤成长股","negative","同向退出与高杠杆"],["小盘题材","negative","深度不足、承接脆弱"],["高流动性资产","positive","作为资金缓冲的相对作用"],["低杠杆组合","positive","较少被迫变现"]],
+events:["持仓集中增加","交易深度下降","追保需求出现","被动卖出扩散"]},
+{id:"fiscal",name:"财政债务",score:76,pace:"持续",fresh:false,title:"财政与债务风险",quotes:["利息负担 ↑","融资需求 ↑","财政空间 ↓"],nodes:[
+["财政利息负担 ↑","来源变化","收入与债务支出失衡","利息支出／财政收入、初级收支","税收改善或支出约束落实"],
+["财政空间收缩","支出约束","可用预算受挤压","实际预算、支出执行进度","调整结构但保留相关支出"],
+["采购或付款放缓","需求与支付","公共订单与现金支付受影响","采购金额、项目进度、付款记录","订单未减、付款按期到账"],
+["企业现金回收 ↓","基本面","公共客户收入与回款承压","政府客户敞口、应收账龄","市场化客户需求弥补缺口"],
+["融资与债权价值承压","跨维度影响","缺口与回收预期进入定价","资金余缺、债权回收、风险补偿","资金缺口填补、偿付基础改善"]],
+impact:[["基本面","↑↑","公共需求与回款"],["流动性","↑↑","付款与续融资"],["估值","↑↑","主权风险补偿"],["情绪","↑","财政叙事"]],
+assets:[["政府订单型企业","negative","采购与回款集中"],["相关主权债","negative","风险补偿不足时"],["低公共客户敞口","positive","相对暴露较小"],["黄金","positive","信用避险需求走强时"]],
+events:["利息支出上升","预算空间收缩","项目支付延后","信用补偿调整"]},
+{id:"event",name:"事件行为",score:74,pace:"新增",fresh:true,title:"事件与群体行为风险",quotes:["事件冲击 ↑","单向观点 ↑","跟随交易 ↑"],nodes:[
+["突发事件出现","来源变化","核实事件范围与实际生效情况","原始公告、有效政策、事件时间","消息被证伪或适用范围缩小"],
+["市场叙事趋同","信息传播","不同主体差异被忽略","固定来源观点比例、消息去重","观点分化，暴露差异被识别"],
+["集中追涨或避险","交易行为","交易偏离真实业务兑现","主题成交占比、订单与回款","订单兑现支撑价格变化"],
+["追随交易亏损 ↑","情绪反馈","事实落空或恐慌修复失败","事件超额收益、回吐幅度","事实改善且价格修复"],
+["定价偏离放大","二级市场","行为损失扩散到持仓","估值偏离、交易纪律与敞口","预期回归事实，拥挤度下降"]],
+impact:[["基本面","↑","须核实实际经营影响"],["流动性","↑↑","集中退出"],["估值","↑↑","叙事透支"],["情绪","↑↑↑","一致性交易"]],
+assets:[["事件主题股","negative","价格先于业务兑现"],["情绪核心股","negative","跟随拥挤与反转"],["低相关资产","positive","直接敞口较小"],["现金缓冲","positive","减少被动操作"]],
+events:["原始事件披露","叙事集中传播","主题交易拥挤","兑现与价格分化"]},
+{id:"capital",name:"资本流动",score:72,pace:"加速",fresh:false,title:"跨境资本与外部融资风险",quotes:["资本撤出 ↑","外币融资成本 ↑","汇率波动 ↑"],nodes:[
+["外部融资收缩","来源变化","相关主体资金供给减少","跨境融资流量、实际融资报价","融资恢复或本币资金替代"],
+["外币续接困难","融资条件","到期融资未获有效续作","到期外债、续作成功率","已落实融资或展期覆盖"],
+["外币支付缺口","流动性","同币种现金不足以偿付","外币现金、合同付款、净敞口","自然对冲或实际回款补充"],
+["资产出售或汇兑损失","损害实现","币种与期限错配放大损失","资产净回款、汇兑损益","套保有效、资金按期可用"],
+["跨市场风险重估","市场反馈","资金约束经持仓关系扩散","跨资产卖出、风险补偿","资金来源分散、市场深度恢复"]],
+impact:[["基本面","↑↑","汇兑与经营成本"],["流动性","↑↑↑","外币支付缺口"],["估值","↑↑","币种回报重估"],["情绪","↑","资本流动叙事"]],
+assets:[["外币负债企业","negative","无自然对冲或有效套保"],["外资集中资产","negative","相关投资人退出"],["出口企业","positive","净外币收入与汇率方向匹配"],["本币融资资产","positive","外部融资依赖较低"]],
+events:["跨境融资减弱","外币报价抬升","续接困难增加","跨资产出售出现"]},
+{id:"macro",name:"宏观经济",score:70,pace:"持续",fresh:false,title:"全球周期与需求风险",quotes:["终端需求 ↓","新订单 ↓","库存压力 ↑"],nodes:[
+["全球需求走弱","来源变化","确认相关市场与品类需求","实际消费、新订单、贸易量","替代市场需求改善"],
+["企业订单 ↓","产业传导","总量变化进入企业业务","订单金额、客户与地区收入占比","份额增长抵消市场收缩"],
+["产能利用率 ↓","经营反馈","生产调整慢于销售","利用率、库存周转、交付量","灵活调产及去库存改善"],
+["利润与现金流 ↓","基本面","固定成本与库存占用挤压回报","毛利率、经营现金流、应收账龄","成本调整、回款恢复"],
+["增长估值下修","估值","长期增长假设失去支持","正常化利润、情景估值、现价","估值已充分调整"]],
+impact:[["基本面","↑↑↑","订单与经营现金流"],["流动性","↑↑","库存与回款占用"],["估值","↑↑","增长假设下修"],["情绪","↑","衰退预期"]],
+assets:[["需求敏感周期股","negative","高固定成本与库存"],["出口链","negative","受损市场收入集中"],["防御性需求资产","positive","需求稳定且价格合理时"],["高质量债券","positive","利率下行且信用稳定时"]],
+events:["需求调查走弱","企业订单减少","库存压力显现","盈利预期下修"]}
+];
+
+const overview=[
+{id:"macro",name:"经济增长",score:58,trend:"↓",accel:3,driver:"PMI走弱"},
+{id:"commodity",name:"通胀与供给",score:86,trend:"↑",accel:14,driver:"原油、天然气"},
+{id:"money",name:"货币政策",score:91,trend:"↑",accel:18,driver:"加息预期"},
+{id:"fiscal",name:"财政与债务",score:77,trend:"↑",accel:6,driver:"美债供给"},
+{id:"credit",name:"信用与金融体系",score:62,trend:"→",accel:1,driver:"信用扩张偏弱"},
+{id:"capital",name:"汇率与跨境资本",score:73,trend:"↑",accel:8,driver:"日本减持美债"},
+{id:"structure",name:"市场结构与资金",score:84,trend:"↑",accel:15,driver:"IPO、资金分流"},
+{id:"event",name:"地缘与政策事件",score:79,trend:"↑",accel:11,driver:"央行会议、地缘风险"}
+];
+sources.push({id:"credit",title:"信用与金融体系风险",quotes:["信用扩张 →","授信标准 ↑","融资需求 ↓"],nodes:[
+["信用扩张偏弱","来源变化","区分信贷供给收紧与需求不足","分部门信贷增速、贷款需求调查","融资减少来自主动降杠杆，经营现金稳定"],
+["相关主体获贷减少","信用传导","总量变化进入实际授信与融资","授信额度、获批率、续贷成功率","信贷流向改善且主体融资未受限"],
+["续融资与现金压力","流动性","到期本息和必要支付缺乏覆盖","到期本息、可用现金、已落实融资","经营回款、展期或资金到账填补缺口"],
+["信用损失暴露","基本面","逾期、坏账影响债权人回收","逾期率、不良贷款、减值与回收","实际回收改善、资本拨备足以覆盖"],
+["风险补偿调整","估值","信用预期变化进入债券与股票价格","信用利差、回收假设、资本缓冲","风险补偿已充分、损失未继续扩散"]
+],impact:[["基本面","↑↑","债权回收与信用损失"],["流动性","↑↑","授信与续融资"],["估值","↑","信用补偿变化"],["情绪","↑","信用事件传播"]],assets:[["融资依赖企业","negative","短债集中且现金缓冲薄"],["银行与信用债","negative","受损债权暴露较大时"],["高现金流企业","positive","外部融资依赖较低"],["低信用风险资产","positive","流动性与偿付基础稳定"]],events:["信用增速偏弱","贷款调查更新","续作压力出现","信用补偿调整"]});
+overview.forEach(o=>Object.assign(sources.find(s=>s.id===o.id),o));
+sources.sort((a,b)=>b.score-a.score);
+Object.assign(sources.find(s=>s.id==="structure"),{title:"市场结构与资金风险",quotes:["IPO供给 ↑","资金分流 ↑","增量承接 ↓"],nodes:[
+["IPO与融资供给增加","来源变化","核实实际发行、募资与时间分布","IPO募资额、再融资额、解禁与减持规模","融资供给增加同时有匹配的增量资金"],
+["可交易权益供给增加","市场结构","分清新增融资与存量筹码流转","实际新增流通市值、发行与上市日期","长期资金吸收供给且无集中出售"],
+["资金承接不足","资金传导","买方资金不能匹配新增供给","净申购、参与资金、成交深度","增量资金与场内轮动形成有效承接"],
+["存量资产买盘减弱","流动性","资金分流进入个股与板块","盘口深度、买卖价差、成交集中度","资金扩散且流动性未恶化"],
+["估值与情绪承压","市场影响","退出折价或盈利估值假设下修","估值分位、超额收益、市场广度","盈利改善或价格调整后获得承接"]
+],events:["发行计划增加","募资实际落地","增量承接不足","存量资金分流"]});
+Object.assign(sources.find(s=>s.id==="capital"),{title:"汇率与跨境资本风险",quotes:["日本持有美债 ↓","美债供给 ↑","汇率波动 ↑"],nodes:[
+["日本持有美债减少","来源线索","先拆分交易、估值与统计变化","持有量、净交易量、估值调整","余额下降主要来自估值，不能证明主动减持"],
+["净出售进入供需","供给传导","核实实际交易与其他买方承接","跨境证券净交易、国债拍卖需求","其他投资者吸收供给，净供需未趋紧"],
+["美债收益率重定价","市场定价","不把单一持有变化等同利率上升","名义与实际收益率、期限溢价","货币政策或避险需求抵消供给影响"],
+["汇率与外币融资变化","跨境传导","利差与融资条件改变具体币种敞口","汇率、跨币种基差、外币融资报价","自然对冲、有效套保及融资覆盖"],
+["资产与持仓回报改变","影响结果","核实相关市场与主体暴露","净外币敞口、现金流、币种总回报","低外币负债或经营回报改善"]
+],events:["持有量变化","交易与估值拆分","债券供需核验","利率汇率传导"]});
+sources.find(s=>s.id==="event").title="地缘与政策事件风险";
+sources.find(s=>s.id==="macro").title="经济增长风险";
+sources.find(s=>s.id==="commodity").title="通胀与供给风险";
+sources.find(s=>s.id==="fiscal").quotes=["美债供给 ↑","融资需求 ↑","利息负担 ↑"];
+
+return sources;
+}
+const riskSourceDefinitions = makeRiskSourceDefinitions();
+const riskSourceTopics = {
+  macro: '需求、订单与库存', commodity: '能源价格与价格扩散', money: '利率与政策预期',
+  fiscal: '国债供给与偿付基础', credit: '信用供需与违约', capital: '汇率与跨境资金',
+  structure: '融资供给与资金承接', event: '事件落地与政策影响',
+};
+
+function riskSourceRows(mode = 'monitor') {
+  if (mode === 'demo') return riskSourceDefinitions.map(source => ({ ...source }));
+  const order = ['macro', 'commodity', 'money', 'fiscal', 'credit', 'capital', 'structure', 'event'];
+  return order.map(id => {
+    const source = riskSourceDefinitions.find(item => item.id === id);
+    return { ...source, score: null, trend: null, accel: null, driver: riskSourceTopics[id] };
+  });
+}
+
+function riskSourceReadings(risk = {}) {
+  return [['usTreasury10y', '美债10年', '%'], ['usDollarIndex', '美元指数', ''], ['usdJpy', '美元兑日元', '']].map(([key, name, unit]) => {
+    const entry = risk[key] ?? {};
+    const usable = risk.label !== '示例' && !['example', 'missing', 'expired', 'error'].includes(entry.status)
+      && Number.isFinite(entry.value) && Boolean(entry.date);
+    const status = entry.status === 'example' || risk.label === '示例' ? '示例已隔离'
+      : entry.status === 'expired' ? '缓存过期' : entry.status === 'missing' || entry.status === 'error' ? '数据缺失' : '待接入';
+    return { key, name, value: usable ? entry.value : null,
+      text: usable ? entry.value.toFixed(2) + unit : '—',
+      note: usable ? String(entry.date).slice(0, 10) + ' · 指标快照' : status,
+      errors: Array.isArray(entry.errors) ? entry.errors.map(String) : [] };
+  });
+}
+
+let riskSourceController;
+function updateRiskSourceScreen(risk) {
+  riskSourceController?.update(risk);
+}
+
+function initRiskSourceScreen() {
+  const root = document.getElementById('risk-source-center');
+  if (!root || root.dataset.initialized) return;
+  root.dataset.initialized = 'true';
+  const state = { view: 'source', mode: 'monitor', selected: 'money', node: 0, event: 0, readings: riskSourceReadings() };
+  const query = selector => root.querySelector(selector);
+  const escape = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
+  const current = () => riskSourceRows(state.mode).find(source => source.id === state.selected);
+  const isDemo = () => state.mode === 'demo';
+  const statusView = initRiskStateView(query('#risk-state-view'));
+  function renderView() {
+    const showState = state.view === 'state';
+    query('#risk-source-view').hidden = showState;
+    query('#risk-source-summary').hidden = showState;
+    query('#risk-state-view').hidden = !showState;
+    query('#risk-view-label').textContent = showState ? '风险状态视图' : '风险源视图';
+    query('#risk-view-toggle').setAttribute('aria-label', showState ? '切换到风险源视图' : '切换到风险状态视图');
+    query('.rs-titlemark h3').textContent = showState ? '市场风险状态' : '风险源监测中心';
+    query('.rs-subtitle').textContent = showState ? '风险状态视图 · 从四维状态回看风险来源、联动与资产暴露' : '风险源监测中心 · 先看主要风险源，再展开传导路径';
+    statusView.setMode(state.mode);
+  }
+  function renderStatus() {
+    const demo = isDemo();
+    query('.rs-priority-label').textContent = demo ? '优先关注 · 示例风险值前三' : '已有市场指标 · 不等同于风险源评分';
+    query('.rs-stats').setAttribute('aria-label', demo ? '示例风险值前三' : '已有指标快照');
+    query('.rs-stats').innerHTML = (demo ? riskSourceRows('demo').slice(0, 3).map(source => ({ name: source.name, text: source.score, note: '加速度 +' + source.accel })) : state.readings)
+      .map(item => '<div class="rs-stat"><span class="rs-stat-label">' + escape(item.name) + '</span><span class="rs-stat-value">' + escape(item.text) + '</span><span class="rs-stat-note">' + escape(item.note) + '</span></div>').join('');
+    query('.rs-demo').textContent = demo ? '设计示例 · 非实时监测' : '监测模式 · 评分待接入';
+    query('.rs-overview-head .rs-small').textContent = demo ? '8 类风险源 · 按示例风险值降序' : '8 类风险源 · 分类排列，尚未评级';
+    query('.rs-overview-note').textContent = demo ? '分值、趋势与加速度来自您提供的示例；计算口径与比较窗口尚未设定。' : '风险值、趋势、加速度尚无计算口径和比较窗口，暂不排名。核心驱动列列出待核验方向，点击风险源查看路径与指标。';
+    query('[data-score-heading]').textContent = demo ? '风险值 ↓' : '风险值';
+    query('[data-score-heading]').setAttribute('aria-sort', demo ? 'descending' : 'none');
+    root.querySelectorAll('[data-risk-mode]').forEach(button => button.setAttribute('aria-pressed', button.dataset.riskMode === state.mode));
+    query('.rs-footer > span').textContent = demo ? '此模式的分值、事件日期及方向为设计示例，不代表当前风险。' : '路径与资产影响为条件情景；需用实际指标逐环节确认。现有数据明细见下方。';
+    root.dataset.mode = state.mode;
+    renderView();
+  }
+  function renderEvidence() {
+    const source = current(), node = source.nodes[state.node];
+    query('.rs-indicator-panel').innerHTML = renderRiskIndicatorTable(source.id, state.mode);
+    query('.rs-node-evidence').innerHTML = '<dt>监测指标 · 环节 ' + (state.node + 1) + '</dt><dd>' + escape(node[3]) + '</dd><dt>反证 / 传导中断条件</dt><dd>' + escape(node[4]) + '</dd>';
+    root.querySelectorAll('[data-node]').forEach(button => button.setAttribute('aria-pressed', Number(button.dataset.node) === state.node));
+    const related = ['money', 'commodity', 'fiscal'].includes(source.id) ? state.readings.slice(0, 1) : source.id === 'capital' ? state.readings.slice(1) : [];
+    query('.rs-source-evidence').innerHTML = isDemo() ? '当前展示设计情景，未将演示方向写入监测数据。' : related.length
+      ? '<strong>相关市场快照</strong><span>' + related.map(item => escape(item.name + ' ' + item.text + ' · ' + item.note)).join('；') + '</span><small>仅供核验市场反馈，不能单独确认来源变化及整条路径。</small>'
+      : '<strong>路径证据待接入</strong><span>目前没有该来源的连续指标与事件记录，按下列环节建立监测。</span>';
+  }
+  function renderEventDetail() {
+    const source = current(), node = source.nodes[[0, 1, 2, 4][state.event]];
+    query('.rs-event-detail').innerHTML = '<div><span>监测指标 / ' + escape(source.events[state.event]) + '</span>' + escape(node[3]) + '</div><div><span>验证状态</span>' + (isDemo() ? '演示事件；原始资料、数据期与比较窗口待接入。' : '尚无已核验事件记录；需补充事件日期、原始来源及比较窗口。') + '</div>';
+    root.querySelectorAll('[data-event]').forEach(button => button.setAttribute('aria-pressed', Number(button.dataset.event) === state.event));
+  }
+  function render() {
+    const source = current(), demo = isDemo();
+    renderStatus();
+    query('.rs-overview-rows').innerHTML = riskSourceRows(state.mode).map((item, index) => '<tr class="' + (demo && index < 3 ? 'is-priority ' : '') + (item.id === source.id ? 'is-selected' : '') + '"><th scope="row"><button type="button" class="rs-source-link" data-source="' + item.id + '" aria-controls="rs-source-detail" aria-pressed="' + (item.id === source.id) + '"><span class="rs-rank">' + String(index + 1).padStart(2, '0') + '</span>' + item.name + '</button></th><td><div class="rs-value-cell"><strong>' + (demo ? item.score : '<span class="rs-pending">待评估</span>') + '</strong>' + (demo ? '<span class="rs-value-track" aria-hidden="true"><span class="rs-value-fill" style="width:' + item.score + '%"></span></span>' : '') + '</div></td><td><span class="rs-trend" data-trend="' + (item.trend ?? '') + '" aria-label="' + (demo ? { '↑': '上升', '↓': '下降', '→': '持平' }[item.trend] : '待评估') + '">' + (item.trend ?? '—') + '</span></td><td><span class="rs-acceleration">' + (demo ? '+' + item.accel : '—') + '</span></td><td class="rs-driver">' + item.driver + '</td></tr>').join('');
+    query('#rs-drill-title').textContent = source.name + ' · 传导路径与影响';
+    query('#rs-current').innerHTML = '<div class="rs-current"><div class="rs-current-title"><h2>' + source.title + '</h2><span class="rs-state">' + (demo ? '设计情景' : '待验证路径') + '</span></div><div class="rs-quote-row">' + source.quotes.map(quote => '<div class="rs-quote"><span class="rs-quote-label">' + escape(quote.slice(0, quote.lastIndexOf(' '))) + '</span><span class="rs-quote-value">' + (demo ? escape(quote.slice(quote.lastIndexOf(' ') + 1)) : '待核验') + '</span></div>').join('') + '</div><div class="rs-source-evidence"></div><div class="rs-section-line"><h3>风险传导路径</h3><span class="rs-small">条件成立时 · 逐环节验证</span></div></div>';
+    query('.rs-chain').innerHTML = source.nodes.map((node, index) => '<div class="rs-node-wrap"><div class="rs-chain-rail"><span class="rs-node-index">' + (index + 1) + '</span>' + (index < source.nodes.length - 1 ? '<span class="rs-arrow" aria-hidden="true">↓</span>' : '') + '</div><button type="button" class="rs-node" data-node="' + index + '" aria-pressed="' + (index === state.node) + '"><span class="rs-node-main"><span class="rs-node-title">' + escape(node[0]) + '</span><span class="rs-node-tag">' + escape(node[1]) + '</span></span><span class="rs-node-caption">' + escape(node[2]) + '</span></button></div>').join('');
+    query('.rs-impact-list').innerHTML = source.impact.map(item => '<div class="rs-impact"><div>' + item[0] + '<small>' + item[2] + '</small></div><span class="rs-impact-level">' + (demo ? item[1] : '待评估') + '</span></div>').join('');
+    query('.rs-impact-note').textContent = demo ? '二级市场风险维度 · 箭头为情景示意' : '列出可能受影响的维度；强弱尚未确认。';
+    query('.rs-assets').innerHTML = source.assets.map(item => '<div class="rs-asset"><div class="rs-asset-top"><span>' + item[0] + '</span><span class="rs-badge ' + item[1] + '">' + (item[1] === 'negative' ? '潜在承压' : '条件受益') + '</span></div><p>' + item[2] + '</p></div>').join('');
+    query('.rs-timeline .rs-small').textContent = demo ? '演示日期 · 点击事件查看指标' : '事件待记录 · 以下为后续核验节点';
+    query('.rs-events').innerHTML = source.events.map((event, index) => '<button type="button" class="rs-event" data-event="' + index + '" aria-pressed="' + (index === state.event) + '"><span class="rs-event-date">' + (demo ? ['08 / 17', '08 / 25', '09 / 11', '后续观察'][index] : '待记录') + '</span><strong>' + escape(event) + '</strong><small>' + (demo ? '演示节点' : '待核验') + ' →</small></button>').join('');
+    query('#rs-selection').textContent = source.name + (demo ? ' / ' + source.score + ' · 示例分' : ' / 评分待接入');
+    renderEvidence();
+    renderEventDetail();
+  }
+  root.addEventListener('click', event => {
+    const mode = event.target.closest('[data-risk-mode]'), source = event.target.closest('[data-source]'), node = event.target.closest('[data-node]'), timeline = event.target.closest('[data-event]');
+    if (event.target.closest('#risk-view-toggle')) { state.view = state.view === 'source' ? 'state' : 'source'; renderView(); }
+    else if (mode) { state.mode = mode.dataset.riskMode; render(); }
+    else if (source) {
+      state.selected = source.dataset.source; state.node = 0; state.event = 0;
+      query('.rs-drill').open = true; render();
+      query('.rs-drill > summary').focus({ preventScroll: true });
+      query('.rs-drill').scrollIntoView({ behavior: 'auto', block: 'start' });
+    } else if (node) { state.node = Number(node.dataset.node); renderEvidence(); }
+    else if (timeline) { state.event = Number(timeline.dataset.event); renderEventDetail(); }
+  });
+  riskSourceController = { update(risk) { state.readings = riskSourceReadings(risk); renderStatus(); renderEvidence(); } };
+  render();
+}
+
 // ---- app.mjs ----
 const LAYER_META = Object.freeze({
   position: { label: '位置层', targetWeight: 40, description: '三大指数相对 MA250 的历史位置' },
@@ -5464,66 +6275,68 @@ const STOCK_THREE_FACTOR_REPORT_LINKS = Object.freeze({
   "紫光股份": "../../sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-28-1004-紫光股份-三要素分析.html",
 });
 const DAILY_MONITOR_LINKS = Object.freeze({
-  "000425": {"href":"data/000425-徐工机械-每日监控-2026-09-11.html","title":"000425-徐工机械-每日监控-2026-09-11","code":"000425","name":"徐工机械","date":"2026-09-11","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新增估值输入达到默认阈值，维持权威研报区间"},
-  "000426": {"href":"data/000426-兴业银锡-每日监控-2026-09-11.html","title":"000426-兴业银锡-每日监控-2026-09-11","code":"000426","name":"兴业银锡","date":"2026-09-11","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格 38.68 元高于动态估值区间上沿 38.30 元；未确认新增盈利、现金流或商业事实输入达到默认阈值，价格只更新安全边际"},
+  "000425": {"href":"data/000425-徐工机械-每日监控-2026-09-15.html","title":"000425-徐工机械-每日监控-2026-09-15","code":"000425","name":"徐工机械","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "000426": {"href":"data/000426-兴业银锡-每日监控-2026-09-15.html","title":"000426-兴业银锡-每日监控-2026-09-15","code":"000426","name":"兴业银锡","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"9月15日股东会通过既有利润分配、章程和审计机构议案，属于程序性落地；未新增产量、价格、成本、现金流或股本变化，维持原估值基线"},
   "000528": {"href":"data/000528-柳工-每日监控-2026-09-04.html","title":"000528-柳工-每日监控-2026-09-04","code":"000528","name":"柳工","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"在已取得证据内未确认新增估值输入达到阈值，维持权威研报区间"},
-  "000807": {"href":"data/000807-云铝股份-每日监控-2026-09-11.html","title":"000807-云铝股份-每日监控-2026-09-11","code":"000807","name":"云铝股份","date":"2026-09-11","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新增估值输入达到默认阈值，维持权威研报区间"},
-  "000938": {"href":"data/000938-紫光股份-每日监控-2026-09-11.html","title":"000938-紫光股份-每日监控-2026-09-11","code":"000938","name":"紫光股份","date":"2026-09-11","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"近 5 日累计涨跌幅 -13.19% 的绝对值 ≥ 10%；未确认新增盈利、现金流或商业事实输入达到默认阈值，价格只更新安全边际"},
+  "000807": {"href":"data/000807-云铝股份-每日监控-2026-09-15.html","title":"000807-云铝股份-每日监控-2026-09-15","code":"000807","name":"云铝股份","date":"2026-09-15","status":"信息不足","valuationStatus":"MANUAL_REVIEW","valuationReason":"收盘后复核：铝锭去库与铝棒累库并存；公司实现价差及可比估值缺少最新同口径输入，不能可靠量化重估幅度，转人工复核；未确认基本面恶化"},
+  "000938": {"href":"data/000938-紫光股份-每日监控-2026-09-15.html","title":"000938-紫光股份-每日监控-2026-09-15","code":"000938","name":"紫光股份","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"新增3亿元最高额担保在批准额度内且约占2025年末归母权益2%，未达5%重估阈值；累计担保余额占归母权益218.50%，叠加原研报条件收益估值与现金压力值分歧，继续人工复盘但不把担保等额当净债务"},
   "002050": {"href":"data/002050-三花智控-每日监控-2026-09-08.html","title":"002050-三花智控-每日监控-2026-09-08","code":"002050","name":"三花智控","date":"2026-09-08","status":"强化","valuationStatus":"NO_REVALUE","valuationReason":"七部门方案明确支持液冷等算力设施节能技术，方向上支持液冷期权；未披露公司液冷订单、收入或利润，维持29—41元"},
-  "002262": {"href":"data/002262-恩华药业-每日监控-2026-09-11.html","title":"002262-恩华药业-每日监控-2026-09-11","code":"002262","name":"恩华药业","date":"2026-09-11","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新增估值输入达到默认阈值，维持权威研报区间"},
-  "002270": {"href":"data/002270-华明装备-每日监控-2026-09-11.html","title":"002270-华明装备-每日监控-2026-09-11","code":"002270","name":"华明装备","date":"2026-09-11","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新增估值输入达到默认阈值，维持权威研报区间"},
-  "002396": {"href":"data/002396-星网锐捷-每日监控-2026-09-11.html","title":"002396-星网锐捷-每日监控-2026-09-11","code":"002396","name":"星网锐捷","date":"2026-09-11","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新增估值输入达到默认阈值，维持权威研报区间"},
+  "002262": {"href":"data/002262-恩华药业-每日监控-2026-09-15.html","title":"002262-恩华药业-每日监控-2026-09-15","code":"002262","name":"恩华药业","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "002270": {"href":"data/002270-华明装备-每日监控-2026-09-15.html","title":"002270-华明装备-每日监控-2026-09-15","code":"002270","name":"华明装备","date":"2026-09-15","status":"强化","valuationStatus":"NO_REVALUE","valuationReason":"9月14日投资者关系记录提供方向性强化与约束，但无新增订单、盈利、现金流或资本开支量化输入达到重估阈值；维持原估值基线"},
+  "002396": {"href":"data/002396-星网锐捷-每日监控-2026-09-15.html","title":"002396-星网锐捷-每日监控-2026-09-15","code":"002396","name":"星网锐捷","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "600011": {"href":"data/600011-华能国际-每日监控-2026-09-14.html","title":"600011-华能国际-每日监控-2026-09-14","code":"600011","name":"华能国际","date":"2026-09-14","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"两笔合计40亿元融资含偿旧债；未确认净债务影响达到股权价值5%或同口径融资成本变化0.5pct，不改4.59—8.41元基线"},
   "600031": {"href":"data/600031-三一重工-每日监控-2026-09-08.html","title":"600031-三一重工-每日监控-2026-09-08","code":"600031","name":"三一重工","date":"2026-09-08","status":"强化","valuationStatus":"NO_REVALUE","valuationReason":"工程机械8月挖掘机和装载机销量同比增长、出口增速较高，支持需求假设；缺少公司份额、毛利和现金流新增值，不触发重估"},
-  "600150": {"href":"data/600150-中国船舶-每日监控-2026-09-11.html","title":"600150-中国船舶-每日监控-2026-09-11","code":"600150","name":"中国船舶","date":"2026-09-11","status":"信息不足","valuationStatus":"MANUAL_REVIEW","valuationReason":"近5日上涨18.94%，同时发生重大伤亡事故；事件可能改变履约、现金流和风险溢价，但关键量化输入未披露，不能把旧区间伪装成事故后的新估值"},
-  "600511": {"href":"data/600511-国药股份-每日监控-2026-09-11.html","title":"600511-国药股份-每日监控-2026-09-11","code":"600511","name":"国药股份","date":"2026-09-11","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新增估值输入达到默认阈值，维持权威研报区间"},
+  "600150": {"href":"data/600150-中国船舶-每日监控-2026-09-15.html","title":"600150-中国船舶-每日监控-2026-09-15","code":"600150","name":"中国船舶","date":"2026-09-15","status":"信息不足","valuationStatus":"MANUAL_REVIEW","valuationReason":"9月11日重大伤亡事故仍缺损失、停工、责任、保险、赔偿与交付影响；本轮按v4.5.0再次执行输入核验，完整估值重生成仍失败于Step 1"},
+  "600511": {"href":"data/600511-国药股份-每日监控-2026-09-15.html","title":"600511-国药股份-每日监控-2026-09-15","code":"600511","name":"国药股份","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
   "600673": {"href":"data/600673-东阳光-每日监控-2026-08-21.html","title":"600673-东阳光-每日监控-2026-08-21","code":"600673","name":"东阳光","date":"2026-08-21","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格 33.68 元高于动态估值区间上沿 30.00 元；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
-  "600750": {"href":"data/600750-华润江中-每日监控-2026-09-11.html","title":"600750-华润江中-每日监控-2026-09-11","code":"600750","name":"华润江中","date":"2026-09-11","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新增估值输入达到默认阈值，维持权威研报区间"},
-  "600938": {"href":"data/600938-中国海油-每日监控-2026-09-11.html","title":"600938-中国海油-每日监控-2026-09-11","code":"600938","name":"中国海油","date":"2026-09-11","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格 34.42 元高于动态估值区间上沿 33.13 元；未确认新增盈利、现金流或商业事实输入达到默认阈值，价格只更新安全边际"},
-  "601168": {"href":"data/601168-西部矿业-每日监控-2026-09-11.html","title":"601168-西部矿业-每日监控-2026-09-11","code":"601168","name":"西部矿业","date":"2026-09-11","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格 40.47 元高于动态估值区间上沿 40.29 元；未确认新增盈利、现金流或商业事实输入达到默认阈值，价格只更新安全边际"},
-  "601208": {"href":"data/601208-东材科技-每日监控-2026-09-11.html","title":"601208-东材科技-每日监控-2026-09-11","code":"601208","name":"东材科技","date":"2026-09-11","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格 48.59 元高于动态估值区间上沿 47.51 元；未确认新增盈利、现金流或商业事实输入达到默认阈值，价格只更新安全边际"},
-  "601766": {"href":"data/601766-中国中车-每日监控-2026-09-11.html","title":"601766-中国中车-每日监控-2026-09-11","code":"601766","name":"中国中车","date":"2026-09-11","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新增估值输入达到默认阈值，维持权威研报区间"},
-  "601919": {"href":"data/601919-中远海控-每日监控-2026-09-11.html","title":"601919-中远海控-每日监控-2026-09-11","code":"601919","name":"中远海控","date":"2026-09-11","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新增估值输入达到默认阈值，维持权威研报区间"},
-  "603530": {"href":"data/603530-神马电力-每日监控-2026-09-11.html","title":"603530-神马电力-每日监控-2026-09-11","code":"603530","name":"神马电力","date":"2026-09-11","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"单日涨跌幅 -7.58% 的绝对值 ≥ 5%；近 5 日累计涨跌幅 -10.25% 的绝对值 ≥ 10%；未确认新增盈利、现金流或商业事实输入达到默认阈值，价格只更新安全边际"},
-  "东材科技": {"href":"data/601208-东材科技-每日监控-2026-09-11.html","title":"601208-东材科技-每日监控-2026-09-11","code":"601208","name":"东材科技","date":"2026-09-11","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格 48.59 元高于动态估值区间上沿 47.51 元；未确认新增盈利、现金流或商业事实输入达到默认阈值，价格只更新安全边际"},
+  "600750": {"href":"data/600750-华润江中-每日监控-2026-09-15.html","title":"600750-华润江中-每日监控-2026-09-15","code":"600750","name":"华润江中","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"0.50元已知分红于9月11日实施；近5日按交易所日涨跌幅连乘修正除息口径，不改变原正常化盈利模型"},
+  "600938": {"href":"data/600938-中国海油-每日监控-2026-09-15.html","title":"600938-中国海油-每日监控-2026-09-15","code":"600938","name":"中国海油","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格33.91元超过估值上沿33.13元；未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "601168": {"href":"data/601168-西部矿业-每日监控-2026-09-15.html","title":"601168-西部矿业-每日监控-2026-09-15","code":"601168","name":"西部矿业","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "601208": {"href":"data/601208-东材科技-每日监控-2026-09-15.html","title":"601208-东材科技-每日监控-2026-09-15","code":"601208","name":"东材科技","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格48.29元超过估值上沿47.51元；未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "601766": {"href":"data/601766-中国中车-每日监控-2026-09-15.html","title":"601766-中国中车-每日监控-2026-09-15","code":"601766","name":"中国中车","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "601919": {"href":"data/601919-中远海控-每日监控-2026-09-15.html","title":"601919-中远海控-每日监控-2026-09-15","code":"601919","name":"中远海控","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "603530": {"href":"data/603530-神马电力-每日监控-2026-09-15.html","title":"603530-神马电力-每日监控-2026-09-15","code":"603530","name":"神马电力","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"近5日可比涨跌幅-13.46%达到10%阈值；未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "东材科技": {"href":"data/601208-东材科技-每日监控-2026-09-15.html","title":"601208-东材科技-每日监控-2026-09-15","code":"601208","name":"东材科技","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格48.29元超过估值上沿47.51元；未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
   "东阳光": {"href":"data/600673-东阳光-每日监控-2026-08-21.html","title":"600673-东阳光-每日监控-2026-08-21","code":"600673","name":"东阳光","date":"2026-08-21","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格 33.68 元高于动态估值区间上沿 30.00 元；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
-  "恩华药业": {"href":"data/002262-恩华药业-每日监控-2026-09-11.html","title":"002262-恩华药业-每日监控-2026-09-11","code":"002262","name":"恩华药业","date":"2026-09-11","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新增估值输入达到默认阈值，维持权威研报区间"},
-  "国药股份": {"href":"data/600511-国药股份-每日监控-2026-09-11.html","title":"600511-国药股份-每日监控-2026-09-11","code":"600511","name":"国药股份","date":"2026-09-11","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新增估值输入达到默认阈值，维持权威研报区间"},
-  "华明装备": {"href":"data/002270-华明装备-每日监控-2026-09-11.html","title":"002270-华明装备-每日监控-2026-09-11","code":"002270","name":"华明装备","date":"2026-09-11","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新增估值输入达到默认阈值，维持权威研报区间"},
-  "华润江中": {"href":"data/600750-华润江中-每日监控-2026-09-11.html","title":"600750-华润江中-每日监控-2026-09-11","code":"600750","name":"华润江中","date":"2026-09-11","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新增估值输入达到默认阈值，维持权威研报区间"},
+  "恩华药业": {"href":"data/002262-恩华药业-每日监控-2026-09-15.html","title":"002262-恩华药业-每日监控-2026-09-15","code":"002262","name":"恩华药业","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "国药股份": {"href":"data/600511-国药股份-每日监控-2026-09-15.html","title":"600511-国药股份-每日监控-2026-09-15","code":"600511","name":"国药股份","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "华明装备": {"href":"data/002270-华明装备-每日监控-2026-09-15.html","title":"002270-华明装备-每日监控-2026-09-15","code":"002270","name":"华明装备","date":"2026-09-15","status":"强化","valuationStatus":"NO_REVALUE","valuationReason":"9月14日投资者关系记录提供方向性强化与约束，但无新增订单、盈利、现金流或资本开支量化输入达到重估阈值；维持原估值基线"},
+  "华能国际": {"href":"data/600011-华能国际-每日监控-2026-09-14.html","title":"600011-华能国际-每日监控-2026-09-14","code":"600011","name":"华能国际","date":"2026-09-14","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"两笔合计40亿元融资含偿旧债；未确认净债务影响达到股权价值5%或同口径融资成本变化0.5pct，不改4.59—8.41元基线"},
+  "华润江中": {"href":"data/600750-华润江中-每日监控-2026-09-15.html","title":"600750-华润江中-每日监控-2026-09-15","code":"600750","name":"华润江中","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"0.50元已知分红于9月11日实施；近5日按交易所日涨跌幅连乘修正除息口径，不改变原正常化盈利模型"},
   "柳工": {"href":"data/000528-柳工-每日监控-2026-09-04.html","title":"000528-柳工-每日监控-2026-09-04","code":"000528","name":"柳工","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"在已取得证据内未确认新增估值输入达到阈值，维持权威研报区间"},
   "三花智控": {"href":"data/002050-三花智控-每日监控-2026-09-08.html","title":"002050-三花智控-每日监控-2026-09-08","code":"002050","name":"三花智控","date":"2026-09-08","status":"强化","valuationStatus":"NO_REVALUE","valuationReason":"七部门方案明确支持液冷等算力设施节能技术，方向上支持液冷期权；未披露公司液冷订单、收入或利润，维持29—41元"},
   "三一重工": {"href":"data/600031-三一重工-每日监控-2026-09-08.html","title":"600031-三一重工-每日监控-2026-09-08","code":"600031","name":"三一重工","date":"2026-09-08","status":"强化","valuationStatus":"NO_REVALUE","valuationReason":"工程机械8月挖掘机和装载机销量同比增长、出口增速较高，支持需求假设；缺少公司份额、毛利和现金流新增值，不触发重估"},
-  "神马电力": {"href":"data/603530-神马电力-每日监控-2026-09-11.html","title":"603530-神马电力-每日监控-2026-09-11","code":"603530","name":"神马电力","date":"2026-09-11","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"单日涨跌幅 -7.58% 的绝对值 ≥ 5%；近 5 日累计涨跌幅 -10.25% 的绝对值 ≥ 10%；未确认新增盈利、现金流或商业事实输入达到默认阈值，价格只更新安全边际"},
-  "西部矿业": {"href":"data/601168-西部矿业-每日监控-2026-09-11.html","title":"601168-西部矿业-每日监控-2026-09-11","code":"601168","name":"西部矿业","date":"2026-09-11","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格 40.47 元高于动态估值区间上沿 40.29 元；未确认新增盈利、现金流或商业事实输入达到默认阈值，价格只更新安全边际"},
-  "星网锐捷": {"href":"data/002396-星网锐捷-每日监控-2026-09-11.html","title":"002396-星网锐捷-每日监控-2026-09-11","code":"002396","name":"星网锐捷","date":"2026-09-11","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新增估值输入达到默认阈值，维持权威研报区间"},
-  "兴业银锡": {"href":"data/000426-兴业银锡-每日监控-2026-09-11.html","title":"000426-兴业银锡-每日监控-2026-09-11","code":"000426","name":"兴业银锡","date":"2026-09-11","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格 38.68 元高于动态估值区间上沿 38.30 元；未确认新增盈利、现金流或商业事实输入达到默认阈值，价格只更新安全边际"},
-  "徐工机械": {"href":"data/000425-徐工机械-每日监控-2026-09-11.html","title":"000425-徐工机械-每日监控-2026-09-11","code":"000425","name":"徐工机械","date":"2026-09-11","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新增估值输入达到默认阈值，维持权威研报区间"},
-  "云铝股份": {"href":"data/000807-云铝股份-每日监控-2026-09-11.html","title":"000807-云铝股份-每日监控-2026-09-11","code":"000807","name":"云铝股份","date":"2026-09-11","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新增估值输入达到默认阈值，维持权威研报区间"},
-  "中国船舶": {"href":"data/600150-中国船舶-每日监控-2026-09-11.html","title":"600150-中国船舶-每日监控-2026-09-11","code":"600150","name":"中国船舶","date":"2026-09-11","status":"信息不足","valuationStatus":"MANUAL_REVIEW","valuationReason":"近5日上涨18.94%，同时发生重大伤亡事故；事件可能改变履约、现金流和风险溢价，但关键量化输入未披露，不能把旧区间伪装成事故后的新估值"},
-  "中国海油": {"href":"data/600938-中国海油-每日监控-2026-09-11.html","title":"600938-中国海油-每日监控-2026-09-11","code":"600938","name":"中国海油","date":"2026-09-11","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格 34.42 元高于动态估值区间上沿 33.13 元；未确认新增盈利、现金流或商业事实输入达到默认阈值，价格只更新安全边际"},
-  "中国中车": {"href":"data/601766-中国中车-每日监控-2026-09-11.html","title":"601766-中国中车-每日监控-2026-09-11","code":"601766","name":"中国中车","date":"2026-09-11","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新增估值输入达到默认阈值，维持权威研报区间"},
-  "中远海控": {"href":"data/601919-中远海控-每日监控-2026-09-11.html","title":"601919-中远海控-每日监控-2026-09-11","code":"601919","name":"中远海控","date":"2026-09-11","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新增估值输入达到默认阈值，维持权威研报区间"},
-  "紫光股份": {"href":"data/000938-紫光股份-每日监控-2026-09-11.html","title":"000938-紫光股份-每日监控-2026-09-11","code":"000938","name":"紫光股份","date":"2026-09-11","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"近 5 日累计涨跌幅 -13.19% 的绝对值 ≥ 10%；未确认新增盈利、现金流或商业事实输入达到默认阈值，价格只更新安全边际"},
+  "神马电力": {"href":"data/603530-神马电力-每日监控-2026-09-15.html","title":"603530-神马电力-每日监控-2026-09-15","code":"603530","name":"神马电力","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"近5日可比涨跌幅-13.46%达到10%阈值；未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "西部矿业": {"href":"data/601168-西部矿业-每日监控-2026-09-15.html","title":"601168-西部矿业-每日监控-2026-09-15","code":"601168","name":"西部矿业","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "星网锐捷": {"href":"data/002396-星网锐捷-每日监控-2026-09-15.html","title":"002396-星网锐捷-每日监控-2026-09-15","code":"002396","name":"星网锐捷","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "兴业银锡": {"href":"data/000426-兴业银锡-每日监控-2026-09-15.html","title":"000426-兴业银锡-每日监控-2026-09-15","code":"000426","name":"兴业银锡","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"9月15日股东会通过既有利润分配、章程和审计机构议案，属于程序性落地；未新增产量、价格、成本、现金流或股本变化，维持原估值基线"},
+  "徐工机械": {"href":"data/000425-徐工机械-每日监控-2026-09-15.html","title":"000425-徐工机械-每日监控-2026-09-15","code":"000425","name":"徐工机械","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "云铝股份": {"href":"data/000807-云铝股份-每日监控-2026-09-15.html","title":"000807-云铝股份-每日监控-2026-09-15","code":"000807","name":"云铝股份","date":"2026-09-15","status":"信息不足","valuationStatus":"MANUAL_REVIEW","valuationReason":"收盘后复核：铝锭去库与铝棒累库并存；公司实现价差及可比估值缺少最新同口径输入，不能可靠量化重估幅度，转人工复核；未确认基本面恶化"},
+  "中国船舶": {"href":"data/600150-中国船舶-每日监控-2026-09-15.html","title":"600150-中国船舶-每日监控-2026-09-15","code":"600150","name":"中国船舶","date":"2026-09-15","status":"信息不足","valuationStatus":"MANUAL_REVIEW","valuationReason":"9月11日重大伤亡事故仍缺损失、停工、责任、保险、赔偿与交付影响；本轮按v4.5.0再次执行输入核验，完整估值重生成仍失败于Step 1"},
+  "中国海油": {"href":"data/600938-中国海油-每日监控-2026-09-15.html","title":"600938-中国海油-每日监控-2026-09-15","code":"600938","name":"中国海油","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格33.91元超过估值上沿33.13元；未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "中国中车": {"href":"data/601766-中国中车-每日监控-2026-09-15.html","title":"601766-中国中车-每日监控-2026-09-15","code":"601766","name":"中国中车","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "中远海控": {"href":"data/601919-中远海控-每日监控-2026-09-15.html","title":"601919-中远海控-每日监控-2026-09-15","code":"601919","name":"中远海控","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "紫光股份": {"href":"data/000938-紫光股份-每日监控-2026-09-15.html","title":"000938-紫光股份-每日监控-2026-09-15","code":"000938","name":"紫光股份","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"新增3亿元最高额担保在批准额度内且约占2025年末归母权益2%，未达5%重估阈值；累计担保余额占归母权益218.50%，叠加原研报条件收益估值与现金压力值分歧，继续人工复盘但不把担保等额当净债务"},
 });
 const EVENT_CALENDAR = Object.freeze(
 []
 );
 const CSI_DIVIDEND_SIGNAL = Object.freeze(
 {
-  "recordDate": "2026-09-11",
-  "runTime": "2026-09-11 10:07:54",
-  "indexDate": "2026-09-10",
-  "bondDate": "2026-09-10",
-  "dividendYield2": 4.1,
-  "ytdReturn": 2.75,
+  "recordDate": "2026-09-15",
+  "runTime": "2026-09-15 09:51:20",
+  "indexDate": "2026-09-14",
+  "bondDate": "2026-09-14",
+  "dividendYield2": 4.18,
+  "ytdReturn": 0.79,
   "ytdMaxDrawdown": -15.96,
   "xueqiuChangePercent": "待验证",
   "lixingerDate": "待确认",
   "lixingerDividendYield": "待验证",
   "lixingerPercentile10y": "待验证",
   "lixingerPercentile80Value": "待验证",
-  "bond10yYield": 1.68,
-  "spread": 2.42,
+  "bond10yYield": 1.69,
+  "spread": 2.49,
   "percentileSignal": "待验证",
   "absoluteSignal": "C（小额定投）",
   "spreadSignal": "C（小额定投）",
@@ -5830,6 +6643,10 @@ const CSI_DIVIDEND_YIELD_HISTORY = Object.freeze(
   {
     "date": "2026-09-10",
     "value": 4.1
+  },
+  {
+    "date": "2026-09-14",
+    "value": 4.18
   }
 ]
 );
@@ -5838,7 +6655,7 @@ const CSI_DIVIDEND_ANNUAL_PERFORMANCE = Object.freeze(
   "indexCode": "000922",
   "source": "中证指数官网 index-perf(000922)",
   "firstDate": "2008-05-26",
-  "lastDate": "2026-09-10",
+  "lastDate": "2026-09-14",
   "returnConvention": "每年首个可用交易日收盘价至末个可用交易日收盘价",
   "drawdownConvention": "每个自然年内日收盘价相对此前峰值的最大跌幅",
   "rows": [
@@ -7529,8 +8346,8 @@ const CSI_DIVIDEND_ANNUAL_PERFORMANCE = Object.freeze(
     {
       "year": 2026,
       "startDate": "2026-01-05",
-      "endDate": "2026-09-10",
-      "annualReturn": 2.7505284953087017,
+      "endDate": "2026-09-14",
+      "annualReturn": 0.7898470983435768,
       "maxDrawdown": -15.96361099166238,
       "status": "年内",
       "monthlyReturns": [
@@ -7592,9 +8409,9 @@ const CSI_DIVIDEND_ANNUAL_PERFORMANCE = Object.freeze(
         },
         {
           "month": 9,
-          "value": -0.7227520888637096,
+          "value": -2.617156487281447,
           "startDate": "2026-08-31",
-          "endDate": "2026-09-10",
+          "endDate": "2026-09-14",
           "status": "月内累计"
         },
         {
@@ -8955,13 +9772,13 @@ function riskWatchValueLabel(entry, valueText) {
 
 function updateRiskMonitor(derived) {
   const risk = riskLevelForDashboard(derived);
+  updateRiskSourceScreen(risk);
   const setText = (id, text) => {
     const node = document.getElementById(id);
     if (node) node.textContent = text;
   };
   const riskLevelNodes = [
     document.getElementById('risk-level-value'),
-    document.getElementById('risk-screen-level'),
   ];
   riskLevelNodes.forEach(node => {
     if (!node) return;
@@ -8971,10 +9788,6 @@ function updateRiskMonitor(derived) {
   setText('risk-level-detail', Number.isFinite(risk.riskScore)
     ? `综合风险 ${formatNumber(risk.riskScore, 0)} / 100`
     : '风险等级计算暂未接入');
-  setText('risk-score-value', Number.isFinite(risk.riskScore) ? formatNumber(risk.riskScore, 0) : '--');
-  setText('risk-buy-score', Number.isFinite(risk.buyScore) ? formatNumber(risk.buyScore, 1) : '--');
-  setText('risk-coverage', `${formatNumber(derived?.score?.coverage, 1)}%`);
-  setText('risk-screen-summary', risk.action);
   setText('risk-monitor-updated', `统计窗口 ${derived?.windowYears ?? 5} 年 · ${formatTime(derived?.generatedAt)}`);
   const watchList = document.getElementById('risk-watch-list');
   if (watchList) {
@@ -9334,6 +10147,7 @@ function shouldApplyPortfolioLoad(requestVersion, currentVersion) {
 }
 
 function startApp() {
+  initRiskSourceScreen();
   const monthlyDialog = document.getElementById('dividend-monthly-dialog');
   const monthlyBody = document.getElementById('dividend-monthly-grid');
   const monthlyStatus = document.getElementById('dividend-monthly-status');

@@ -1,0 +1,239 @@
+{
+  "market": {
+    "trade_date": "20260915",
+    "close": 7.81,
+    "daily_pct": -3.5802,
+    "turnover_rate": 1.2849,
+    "pe_ttm": 14.8101,
+    "pb": 1.4168,
+    "total_share_100m": 117.11210449000001,
+    "total_mv_100m": 914.6455400499999
+  },
+  "windows": [
+    {
+      "width": 5,
+      "price_start": "20260908",
+      "price_end": "20260915",
+      "price_return": -0.062424969987995294,
+      "large_flow_100m": -1.7432229999999995,
+      "margin_start": "20260907",
+      "margin_end": "20260914",
+      "margin_return": -0.06705985812196924
+    },
+    {
+      "width": 10,
+      "price_start": "20260901",
+      "price_end": "20260915",
+      "price_return": -0.05218446601941751,
+      "large_flow_100m": -3.809221,
+      "margin_start": "20260831",
+      "margin_end": "20260914",
+      "margin_return": -0.12511896792496513
+    },
+    {
+      "width": 20,
+      "price_start": "20260818",
+      "price_end": "20260915",
+      "price_return": -0.028606965174129195,
+      "large_flow_100m": -2.8356000000000003,
+      "margin_start": "20260817",
+      "margin_end": "20260914",
+      "margin_return": -0.14131575788956074
+    }
+  ],
+  "margin_latest": {
+    "trade_date": "20260914",
+    "rzye_100m": 9.40427105
+  },
+  "holders": [
+    {
+      "ts_code": "000425.SZ",
+      "ann_date": "20260829",
+      "end_date": "20260630",
+      "holder_num": 154660
+    },
+    {
+      "ts_code": "000425.SZ",
+      "ann_date": "20260429",
+      "end_date": "20260331",
+      "holder_num": 127680
+    },
+    {
+      "ts_code": "000425.SZ",
+      "ann_date": "20260429",
+      "end_date": "20251231",
+      "holder_num": 100414
+    },
+    {
+      "ts_code": "000425.SZ",
+      "ann_date": "20251031",
+      "end_date": "20250930",
+      "holder_num": 106090
+    },
+    {
+      "ts_code": "000425.SZ",
+      "ann_date": "20250830",
+      "end_date": "20250630",
+      "holder_num": 132775
+    },
+    {
+      "ts_code": "000425.SZ",
+      "ann_date": "20250429",
+      "end_date": "20250331",
+      "holder_num": 108828
+    }
+  ],
+  "peers": {
+    "600031.SH": {
+      "ts_code": "600031.SH",
+      "trade_date": "20260915",
+      "close": 19.49,
+      "pe_ttm": 20.1719,
+      "pb": 1.9462,
+      "total_mv": 17921063.5756
+    },
+    "000157.SZ": {
+      "ts_code": "000157.SZ",
+      "trade_date": "20260915",
+      "close": 6.46,
+      "pe_ttm": 13.3153,
+      "pb": 0.9699,
+      "total_mv": 5586953.7392
+    },
+    "000528.SZ": {
+      "ts_code": "000528.SZ",
+      "trade_date": "20260915",
+      "close": 8.19,
+      "pe_ttm": 11.585,
+      "pb": 0.8898,
+      "total_mv": 1671231.1691
+    }
+  },
+  "peer_windows": {
+    "600031.SH": {
+      "5": -0.02403605408112175,
+      "10": -0.036102868447082104,
+      "20": 0.027411702688455497
+    },
+    "000157.SZ": {
+      "5": -0.03293413173652682,
+      "10": -0.04011887072808329,
+      "20": -0.06782106782106778
+    },
+    "000528.SZ": {
+      "5": -0.014440433212996484,
+      "10": 0.030188679245283012,
+      "20": 0.013613861386138515
+    }
+  },
+  "market_breadth": {
+    "trade_date": "20260915",
+    "up": 1120,
+    "down": 4376,
+    "flat": 52,
+    "total": 5548
+  },
+  "valuation": {
+    "profits_100m": [
+      68.0,
+      75.0,
+      80.0
+    ],
+    "pe": [
+      12.0,
+      12.8,
+      14.0
+    ],
+    "values": [
+      6.967682833072791,
+      8.197273921262108,
+      9.563486241472459
+    ],
+    "reverse_profit_100m": 71.45668250522657,
+    "mid_premium": -0.047244233263645796,
+    "upper_deviation": -0.18335219994026786,
+    "mid_return": 0.04958692973906631,
+    "conservative_margin": -0.12088913733688722,
+    "price_decomposition": {
+      "fair_value_mid": 8.197273921262108,
+      "explainable_premium": 0.0,
+      "trading_deviation": -0.3872739212621079
+    },
+    "kelly": {
+      "upside": 0.22451808469557744,
+      "downside": 0.10785110972179368,
+      "break_even_probability": 0.3244918949569079,
+      "scenarios": [
+        {
+          "probability": 0.5,
+          "theoretical": 2.4090288156281923,
+          "long_only_full": 1.0,
+          "half": 0.5
+        },
+        {
+          "probability": 0.6,
+          "theoretical": 3.781631417107314,
+          "long_only_full": 1.0,
+          "half": 0.5
+        },
+        {
+          "probability": 0.7,
+          "theoretical": 5.154234018586435,
+          "long_only_full": 1.0,
+          "half": 0.5
+        },
+        {
+          "probability": 0.8,
+          "theoretical": 6.526836620065558,
+          "long_only_full": 1.0,
+          "half": 0.5
+        },
+        {
+          "probability": 0.9,
+          "theoretical": 7.899439221544681,
+          "long_only_full": 1.0,
+          "half": 0.5
+        }
+      ],
+      "boundary": "Two-point terminal-value sensitivity only; not a position recommendation."
+    }
+  },
+  "trigger_scan_counts": {
+    "fundamental": {
+      "total": 9,
+      "favorable": 1,
+      "current_deterioration": 3,
+      "adverse": 1,
+      "insufficient": 4,
+      "not_applicable": 0
+    },
+    "liquidity": {
+      "total": 14,
+      "favorable": 1,
+      "current_deterioration": 4,
+      "adverse": 1,
+      "insufficient": 8,
+      "not_applicable": 0
+    },
+    "expectation": {
+      "total": 9,
+      "favorable": 3,
+      "current_deterioration": 1,
+      "adverse": 1,
+      "insufficient": 4,
+      "not_applicable": 0
+    },
+    "total": {
+      "total": 32,
+      "favorable": 5,
+      "current_deterioration": 8,
+      "adverse": 3,
+      "insufficient": 16,
+      "not_applicable": 0
+    }
+  },
+  "actions": {
+    "new_cash": "wait",
+    "existing_holding": "review"
+  }
+}

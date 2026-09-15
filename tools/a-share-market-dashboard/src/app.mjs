@@ -1,3 +1,4 @@
+import { initRiskSourceScreen, updateRiskSourceScreen } from './risk-screen.mjs';
 import {
   BASE_WEIGHTS,
   calculateGreedMetrics,
@@ -1509,13 +1510,13 @@ function riskWatchValueLabel(entry, valueText) {
 
 function updateRiskMonitor(derived) {
   const risk = riskLevelForDashboard(derived);
+  updateRiskSourceScreen(risk);
   const setText = (id, text) => {
     const node = document.getElementById(id);
     if (node) node.textContent = text;
   };
   const riskLevelNodes = [
     document.getElementById('risk-level-value'),
-    document.getElementById('risk-screen-level'),
   ];
   riskLevelNodes.forEach(node => {
     if (!node) return;
@@ -1525,10 +1526,6 @@ function updateRiskMonitor(derived) {
   setText('risk-level-detail', Number.isFinite(risk.riskScore)
     ? `综合风险 ${formatNumber(risk.riskScore, 0)} / 100`
     : '风险等级计算暂未接入');
-  setText('risk-score-value', Number.isFinite(risk.riskScore) ? formatNumber(risk.riskScore, 0) : '--');
-  setText('risk-buy-score', Number.isFinite(risk.buyScore) ? formatNumber(risk.buyScore, 1) : '--');
-  setText('risk-coverage', `${formatNumber(derived?.score?.coverage, 1)}%`);
-  setText('risk-screen-summary', risk.action);
   setText('risk-monitor-updated', `统计窗口 ${derived?.windowYears ?? 5} 年 · ${formatTime(derived?.generatedAt)}`);
   const watchList = document.getElementById('risk-watch-list');
   if (watchList) {
@@ -1888,6 +1885,7 @@ export function shouldApplyPortfolioLoad(requestVersion, currentVersion) {
 }
 
 function startApp() {
+  initRiskSourceScreen();
   const monthlyDialog = document.getElementById('dividend-monthly-dialog');
   const monthlyBody = document.getElementById('dividend-monthly-grid');
   const monthlyStatus = document.getElementById('dividend-monthly-status');

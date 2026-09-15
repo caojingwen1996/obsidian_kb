@@ -101,9 +101,7 @@ test('dashboard shell exposes every approved navigation and rendering target', (
     'risk-level-detail',
     'risk-monitor',
     'risk-monitor-heading',
-    'risk-screen-level',
-    'risk-margin-chart',
-    'risk-watch-list',
+    'risk-source-center',
     'metric-list',
     'position-view',
     'valuation-view',
@@ -223,7 +221,7 @@ test('sidebar exposes the personal workspace as a first-level tree domain', () =
   assert.match(html, /id="tree-thermometer"[\s\S]*data-view="market-summary"[^>]*aria-current="page"><span>01<\/span>市场总览<\/button>\s*<button class="nav-item" type="button" data-view="dividend-signal-view"><span>02<\/span>红利信号<\/button>/);
   assert.match(html, /id="tree-thermometer"[\s\S]*<button class="nav-item" type="button" data-view="featured-digest"><span>08<\/span>每日跟踪<\/button>/);
   assert.doesNotMatch(html.match(/<div class="tree-children" id="tree-thermometer">[\s\S]*?<\/div>/)?.[0] ?? '', /data-view="fugui-strategy"/);
-  assert.match(html, /id="tree-thermometer"[\s\S]*<button class="nav-item" type="button" data-view="risk-monitor"><span>09<\/span>风险发现系统<\/button>/);
+  assert.match(html, /id="tree-thermometer"[\s\S]*<button class="nav-item" type="button" data-view="risk-monitor"><span>09<\/span>风险大屏<\/button>/);
   assert.match(html, /id="tree-thermometer"[\s\S]*<button class="nav-item" type="button" data-view="topic-map"><span>10<\/span>主题<\/button>/);
   assert.match(html, /id="tree-strategy"[\s\S]*<button class="nav-item" type="button" data-view="fugui-strategy"><span>01<\/span>富贵策略<\/button>\s*<button class="nav-item" type="button" data-view="xiaomei-strategy"><span>02<\/span>小美策略<\/button>/);
   const personalTree = html.match(/<div class="tree-children" id="tree-personal" hidden>[\s\S]*?<\/div>/)?.[0] ?? '';
@@ -353,7 +351,7 @@ test('sidebar exposes the personal workspace as a first-level tree domain', () =
   assert.match(html, /<section class="view" id="featured-digest" data-shell-content="thermometer" aria-labelledby="featured-digest-heading">/);
   assert.match(html, /<h2 class="visually-hidden" id="featured-digest-heading">每日跟踪<\/h2>/);
   assert.match(html, /<section class="view" id="risk-monitor" data-shell-content="thermometer" aria-labelledby="risk-monitor-heading">/);
-  assert.match(html, /<h2 class="visually-hidden" id="risk-monitor-heading">风险发现系统<\/h2>/);
+  assert.match(html, /<h2 class="visually-hidden" id="risk-monitor-heading">风险大屏<\/h2>/);
   assert.match(html, /<section class="view" id="fugui-strategy" data-shell-content="strategy" aria-labelledby="fugui-strategy-heading">/);
   assert.match(html, /<h2 class="visually-hidden" id="fugui-strategy-heading">富贵策略<\/h2>/);
   assert.match(html, /<section class="view" id="xiaomei-strategy" data-shell-content="strategy" aria-labelledby="xiaomei-strategy-heading">/);
@@ -562,7 +560,7 @@ test('market summary renders three overview cards and includes signal sources in
   assert.match(source, /id="risk-monitor-card"/);
   assert.match(source, /id="risk-level-value"/);
   assert.match(source, /风险等级/);
-  assert.match(source, /进入风险发现系统/);
+  assert.match(source, /进入风险大屏/);
   assert.equal((source.match(/class="summary-shortcut-card/g) ?? []).length, 4);
   assert.equal((source.match(/summary-shortcut-card-empty/g) ?? []).length, 1);
   assert.match(source, /id="market-turnover-card"/);
@@ -897,15 +895,12 @@ test('featured digest replaces book list and reads BBXM daily summaries', () => 
   assert.match(source, /data-shell-content="thermometer" aria-labelledby="featured-digest-heading"/);
   assert.match(source, /data-view="risk-monitor"/);
   assert.match(source, /data-shell-content="thermometer" aria-labelledby="risk-monitor-heading"/);
-  assert.match(source, /id="risk-margin-chart"/);
-  assert.match(source, /SECOND SCREEN/);
+  assert.doesNotMatch(source, /class="rs-connected"|class="rs-history"/);
+
   assert.match(appSource, /margin-hover-point/);
   assert.match(appSource, /const value = Number\(row\.rzye\)/);
   assert.match(appSource, /融资余额 \$\{formatNumber\(valueTrillion, 3\)\} 万亿/);
   assert.match(appSource, /截至某个交易日收盘，投资者尚未偿还的融资负债总额。/);
-  assert.match(source, /美债10年/);
-  assert.match(source, /美元指数/);
-  assert.match(source, /美元兑日元/);
   assert.match(appSource, /usTreasury10y/);
   assert.match(appSource, /usDollarIndex/);
   assert.match(appSource, /usdJpy/);

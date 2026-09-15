@@ -1,0 +1,13 @@
+{
+  "source": "Tushare supplemental API (no corresponding MCP tool)",
+  "method": "share_float",
+  "arguments": {
+    "ts_code": "000807.SZ",
+    "start_date": "20260915",
+    "end_date": "20270315"
+  },
+  "retrieved_at": "2026-09-15T17:52:54.783508+08:00",
+  "status": "ok",
+  "rows": [],
+  "row_count": 0
+}
