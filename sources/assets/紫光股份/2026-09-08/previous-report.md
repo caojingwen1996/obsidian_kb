@@ -9,7 +9,7 @@ valuation_model_version: "4.0"
 industrial_thinking_report: "[[workbench/targets/2026-08-28-1707-紫光股份-产业思维分析|紫光股份产业思维分析]]"
 framework_refs:
   - "[[concepts/冰冰小美-framework-估值判断|冰冰小美-framework-估值判断]]"
-  - "[[concepts/冰冰小美-macro-通胀与资产|冰冰小美-macro-通胀与资产]]"
+  - "[[冰冰小美-macro-通胀|冰冰小美-macro-通胀]]"
   - "[[concepts/冰冰小美-concept-体系三要素之流动性辩证分析|流动性辩证分析]]"
 sources:
   - "[[sources/manual/2026-08-28-紫光股份研究数据快照|2026-08-28 紫光股份研究数据快照]]"

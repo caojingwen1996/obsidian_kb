@@ -1,0 +1,164 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "产业思维 · 四层研究框架",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "hidden"
+    }
+  },
+  "lanes": [
+    {
+      "id": "research",
+      "label": "研究起点"
+    },
+    {
+      "id": "analysis",
+      "label": "逐层验证"
+    },
+    {
+      "id": "decision",
+      "label": "价值判断"
+    },
+    {
+      "id": "review",
+      "label": "持续跟踪"
+    }
+  ],
+  "mainPath": [
+    "prepare",
+    "industry",
+    "sector",
+    "company",
+    "value"
+  ],
+  "nodes": [
+    {
+      "id": "prepare",
+      "lane": "research",
+      "col": 0,
+      "type": "external",
+      "label": "研究准备",
+      "sublabel": "边界 · 地域 · 观察与比较窗口",
+      "tag": "明确证据来源",
+      "width": 210
+    },
+    {
+      "id": "industry",
+      "lane": "research",
+      "col": 1,
+      "type": "cloud",
+      "label": "① 产业研究",
+      "sublabel": "战略地位 · 成长空间 · 生命周期",
+      "tag": "产业判断与关键约束",
+      "width": 220
+    },
+    {
+      "id": "sector",
+      "lane": "analysis",
+      "col": 1,
+      "type": "backend",
+      "label": "② 行业研究",
+      "sublabel": "需求传导 · 景气 · 竞争格局",
+      "tag": "重点研究与观察清单",
+      "width": 210
+    },
+    {
+      "id": "company",
+      "lane": "analysis",
+      "col": 2,
+      "type": "database",
+      "label": "③ 公司研究",
+      "sublabel": "真实受益 · 战略执行 · 财务治理",
+      "tag": "公司候选与兑现条件",
+      "width": 220
+    },
+    {
+      "id": "value",
+      "lane": "decision",
+      "col": 2,
+      "type": "security",
+      "label": "④ 投资价值",
+      "sublabel": "估值预期 · 风险收益 · 行动条件",
+      "tag": "有条件的判断与跟踪计划",
+      "width": 220
+    },
+    {
+      "id": "tracking",
+      "lane": "review",
+      "col": 1,
+      "type": "messagebus",
+      "label": "持续跟踪与复核",
+      "sublabel": "新证据 → 更新判断 → 调整候选",
+      "tag": "回到受影响的研究层",
+      "width": 230
+    }
+  ],
+  "edges": [
+    {
+      "from": "prepare",
+      "to": "industry",
+      "label": "界定研究范围",
+      "role": "main"
+    },
+    {
+      "from": "industry",
+      "to": "sector",
+      "label": "沿产业链筛选",
+      "role": "main"
+    },
+    {
+      "from": "sector",
+      "to": "company",
+      "label": "验证企业兑现",
+      "role": "main"
+    },
+    {
+      "from": "company",
+      "to": "value",
+      "label": "衔接价格与风险",
+      "role": "main"
+    },
+    {
+      "from": "value",
+      "to": "tracking",
+      "label": "记录条件与节点",
+      "role": "main"
+    },
+    {
+      "from": "tracking",
+      "to": "industry",
+      "label": "按受影响层级重新核验",
+      "role": "return",
+      "variant": "dashed"
+    }
+  ],
+  "cards": [
+    {
+      "title": "产业 → 行业",
+      "items": [
+        "产业：战略地位；产业链、应用、渗透率、可实现市场与约束",
+        "生命周期：关注启动 → 资本引导 → 泡沫与瓶颈 → 问题解决与二次成长",
+        "产业输出：产业判断、主要变化、关键约束与产业链全表",
+        "行业划分：产品、客户、需求传导；景气：供需、库存、价格、成本与盈利",
+        "竞争格局：市场边界、竞争强度、壁垒与利润分配",
+        "核心矛盾：改善、持续性与证伪；输出行业比较、重点研究与观察清单"
+      ],
+      "dot": "cyan"
+    },
+    {
+      "title": "公司 → 价值",
+      "items": [
+        "真实业务与竞争地位：卖什么、卖给谁、相对谁更强",
+        "战略执行、技术壁垒、第二增长曲线；订单、收入、利润、现金流与治理",
+        "公司输出：候选、受益程度、兑现条件与风险",
+        "估值锚与预期差；风险收益、流动性、情绪与仓位承受力",
+        "行动：观察、等待、参与、持有或退出；输出有条件的判断与跟踪计划",
+        "持续跟踪：新证据 → 更新原判断 → 保留、降级或退出候选 → 对应层复核"
+      ],
+      "dot": "violet"
+    }
+  ]
+}

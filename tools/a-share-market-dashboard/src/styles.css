@@ -132,15 +132,15 @@ h3 { font-size: 15px; }
 button.nasdaq-card { width: 100%; border-top: 0; border-right: 0; border-bottom: 0; color: inherit; text-align: left; }
 .nasdaq-card .overview-card-head strong { font-size: 18px; }
 .nasdaq-main { margin: 20px 0 16px; }
-.nasdaq-main small, .nasdaq-drawdown small { display: block; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .08em; }
+.nasdaq-main small { display: block; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .08em; }
 .nasdaq-main strong { display: block; margin-top: 8px; font-size: 38px; line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: 0; }
 .nasdaq-main span { display: block; margin-top: 8px; color: var(--muted); font-size: 11px; }
-.nasdaq-drawdown { margin-top: auto; border-radius: 10px; background: #f5f7f8; padding: 15px; }
-.nasdaq-drawdown strong { display: block; margin-top: 8px; color: #2f7de1; font-size: 28px; font-variant-numeric: tabular-nums; }
+.nasdaq-drawdown { min-width: 0; }
+.nasdaq-drawdown strong { color: #2f7de1; }
 .nasdaq-drawdown.is-deep strong { color: var(--red); }
 .nasdaq-drawdown span { display: block; margin-top: 6px; color: var(--muted); font-size: 11px; }
 .nasdaq-empty { margin: auto 0 0; color: #516170; font-size: 12px; line-height: 1.7; }
-.nasdaq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-bottom: 16px; }
+.nasdaq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.6fr); gap: 8px; margin-bottom: 16px; }
 .nasdaq-metrics small, .nasdaq-metrics strong { display: block; overflow-wrap: anywhere; }
 .nasdaq-metrics small { color: var(--muted); font-size: 10px; }
 .nasdaq-metrics strong { margin-top: 6px; font-size: 16px; font-variant-numeric: tabular-nums; }

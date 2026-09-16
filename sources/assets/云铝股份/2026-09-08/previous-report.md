@@ -1,20 +1,25 @@
 ---
-title: "云铝股份（000807.SZ）机构级决策研报"
-aliases: ["云铝股份机构级研报"]
+title: 云铝股份（000807.SZ）机构级决策研报
+aliases:
+  - 云铝股份机构级研报
 artifact_type: equity_research
-security_code: "000807.SZ"
-market: "A股"
+security_code: 000807.SZ
+market: A股
 created: 2026-07-15T19:21:46+08:00
 updated: 2026-09-03T16:51:27+08:00
 as_of: 2026-09-03T16:14:27+08:00
-valuation_model_version: "4.2.1"
+valuation_model_version: 4.2.1
 industrial_thinking_report: "[[workbench/targets/2026-09-03-1631-云铝股份-产业思维分析|云铝股份产业思维分析]]"
 status: active
-tags: [function/query, research/equity, company/云铝股份, industry/aluminum]
+tags:
+  - function/query
+  - research/equity
+  - company/云铝股份
+  - industry/aluminum
 framework_refs:
   - "[[wiki/concepts/冰冰小美-framework-估值判断|冰冰小美估值判断框架]]"
   - "[[wiki/concepts/冰冰小美-framework-产业思维|冰冰小美产业思维框架]]"
-  - "[[wiki/concepts/冰冰小美-macro-通胀与资产|冰冰小美通胀与资产框架]]"
+  - "[[冰冰小美-macro-通胀|冰冰小美通胀与资产框架]]"
 sources:
   - "[[sources/webpages/2026-09-03-云铝股份v4.2.1估值证据快照|云铝股份v4.2.1估值证据快照]]"
   - "[[sources/webpages/2026-08-28-云铝股份H1与估值重估快照|云铝股份H1与估值重估快照]]"
@@ -23,9 +28,9 @@ related:
   - "[[workbench/targets/2026-09-03-1631-云铝股份-产业思维分析|云铝股份产业思维分析]]"
   - "[[wiki/concepts/冰冰小美-framework-估值判断|冰冰小美估值判断框架]]"
   - "[[wiki/concepts/冰冰小美-铜铝差异框架|冰冰小美-铜铝差异框架]]"
-summary: "按v4.2.1完成五章估值与32项扫描。公允价值维持22-31元、中枢26.5元；2026-09-03收盘27.38元位于区间上半部，反推正常化归母净利润约107.9亿元。当前属于公允价值内，不构成估值泡沫；新增资金observe、已有持仓review。"
-original_question: "使用个股估值计算技能估值云铝股份。"
-query_context: "读取当日产业思维报告并按bbxm-equity-research v4.2.1完整重估；未提供持仓成本、仓位、期限和风险预算。"
+summary: 按v4.2.1完成五章估值与32项扫描。公允价值维持22-31元、中枢26.5元；2026-09-03收盘27.38元位于区间上半部，反推正常化归母净利润约107.9亿元。当前属于公允价值内，不构成估值泡沫；新增资金observe、已有持仓review。
+original_question: 使用个股估值计算技能估值云铝股份。
+query_context: 读取当日产业思维报告并按bbxm-equity-research v4.2.1完整重估；未提供持仓成本、仓位、期限和风险预算。
 answer_status: recorded
 ---
 

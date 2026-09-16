@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "workflow",
+  "input": "E:\\caojingwen\\obsidian\\llmwiki\\tools\\risk-transmission-maps\\interest-monetary-conditions\\fundamentals.workflow.json",
+  "output": "E:\\caojingwen\\obsidian\\llmwiki\\tools\\risk-transmission-maps\\interest-monetary-conditions\\fundamentals.html",
+  "specification": {
+    "sha256": "7305eb3bf7490998cba263ca1ef0d114e562adbf4fb9f6d87627e43db6966f5c",
+    "bytes": 5963
+  },
+  "artifact": {
+    "sha256": "46f5e9f7a09370739fc780d0c9b26bde91ca7939ac43a9eab3b24b2cd1824272",
+    "bytes": 813400
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}

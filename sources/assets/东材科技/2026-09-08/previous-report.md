@@ -7,7 +7,7 @@ updated: 2026-08-25
 as_of: 2026-08-25 15:00
 framework_refs:
   - "[[concepts/冰冰小美-framework-估值判断]]"
-  - "[[concepts/冰冰小美-macro-通胀与资产]]"
+  - "[[冰冰小美-macro-通胀]]"
 sources:
   - "[[sources/webpages/2026-07-17-东材科技机构级研究资料快照]]"
   - "[[sources/webpages/2026-08-18-东材科技机构级研究更新快照]]"

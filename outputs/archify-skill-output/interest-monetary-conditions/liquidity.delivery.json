@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "workflow",
+  "input": "E:\\caojingwen\\obsidian\\llmwiki\\tools\\risk-transmission-maps\\interest-monetary-conditions\\liquidity.workflow.json",
+  "output": "E:\\caojingwen\\obsidian\\llmwiki\\tools\\risk-transmission-maps\\interest-monetary-conditions\\liquidity.html",
+  "specification": {
+    "sha256": "d2bf65c274781bc456b0b1edb76ca2dd83b175434f4fae49dc7063b58feb2e7d",
+    "bytes": 6224
+  },
+  "artifact": {
+    "sha256": "230c42b7f627d255e51926dc1fd7698bb5f285446b33183692257ba8d4f6c916",
+    "bytes": 814540
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}

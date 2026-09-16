@@ -1246,6 +1246,11 @@ export function renderNasdaq100Card(envelope) {
         ${metric('当日涨跌', percent(data.dayChangePercent))}
         ${metric('当周涨跌', percent(data.weekChangePercent))}
         ${metric('当月涨跌', percent(data.monthChangePercent))}
+        <div class="nasdaq-drawdown ${drawdown !== null && drawdown <= -10 ? 'is-deep' : ''}">
+          <small>距离${escapeHtml(data.highPointLabel || '历史最高点')}跌幅</small>
+          <strong>${drawdownText}</strong>
+          <span>最高点 ${formatNumber(data.highPoint, 2)}</span>
+        </div>
       </div>
       <div class="nasdaq-valuation">
         <strong>估值与位置</strong>
@@ -1255,11 +1260,6 @@ export function renderNasdaq100Card(envelope) {
         <small>周/月自上周末/上月末收盘计算；均线含当前点位；年内回撤相对本年最高收盘点。</small>
         <small>${escapeHtml(data.valuationNote || '指数估值数据待验证')}</small>
         ${data.dailyMetricsNote ? `<small>${escapeHtml(data.dailyMetricsNote)}</small>` : ''}
-      </div>
-      <div class="nasdaq-drawdown ${drawdown !== null && drawdown <= -10 ? 'is-deep' : ''}">
-        <small>距离${escapeHtml(data.highPointLabel || '历史最高点')}跌幅</small>
-        <strong>${drawdownText}</strong>
-        <span>最高点 ${formatNumber(data.highPoint, 2)}</span>
       </div>
       <span class="source-link">查看网格策略 →</span>
     </button>`;

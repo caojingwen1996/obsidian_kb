@@ -138,15 +138,15 @@ h3 { font-size: 15px; }
 button.nasdaq-card { width: 100%; border-top: 0; border-right: 0; border-bottom: 0; color: inherit; text-align: left; }
 .nasdaq-card .overview-card-head strong { font-size: 18px; }
 .nasdaq-main { margin: 20px 0 16px; }
-.nasdaq-main small, .nasdaq-drawdown small { display: block; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .08em; }
+.nasdaq-main small { display: block; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .08em; }
 .nasdaq-main strong { display: block; margin-top: 8px; font-size: 38px; line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: 0; }
 .nasdaq-main span { display: block; margin-top: 8px; color: var(--muted); font-size: 11px; }
-.nasdaq-drawdown { margin-top: auto; border-radius: 10px; background: #f5f7f8; padding: 15px; }
-.nasdaq-drawdown strong { display: block; margin-top: 8px; color: #2f7de1; font-size: 28px; font-variant-numeric: tabular-nums; }
+.nasdaq-drawdown { min-width: 0; }
+.nasdaq-drawdown strong { color: #2f7de1; }
 .nasdaq-drawdown.is-deep strong { color: var(--red); }
 .nasdaq-drawdown span { display: block; margin-top: 6px; color: var(--muted); font-size: 11px; }
 .nasdaq-empty { margin: auto 0 0; color: #516170; font-size: 12px; line-height: 1.7; }
-.nasdaq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-bottom: 16px; }
+.nasdaq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.6fr); gap: 8px; margin-bottom: 16px; }
 .nasdaq-metrics small, .nasdaq-metrics strong { display: block; overflow-wrap: anywhere; }
 .nasdaq-metrics small { color: var(--muted); font-size: 10px; }
 .nasdaq-metrics strong { margin-top: 6px; font-size: 16px; font-variant-numeric: tabular-nums; }
@@ -2681,7 +2681,7 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
           <div class="todo-summary" id="todo-summary" aria-label="需求清单摘要">
             <article class="todo-summary-card is-important-urgent" data-todo-summary-quadrant="重要且紧急">
               <small>Q1</small>
-              <strong>8</strong>
+              <strong>9</strong>
               <span>重要且紧急</span>
             </article>
             <article class="todo-summary-card is-important-not-urgent" data-todo-summary-quadrant="重要不紧急">
@@ -2730,10 +2730,18 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
               </div>
               <p class="todo-create-status" id="todo-create-status" role="status"></p>
             </form>
-            <div class="todo-source-note"><span id="todo-source-status">来源：data/todo.json · 更新：2026-09-15 · 已归档5项</span><strong id="todo-total-count">14项</strong></div>
+            <div class="todo-source-note"><span id="todo-source-status">来源：data/todo.json · 更新：2026-09-16 · 已归档6项</span><strong id="todo-total-count">15项</strong></div>
             <section class="todo-archive-panel" id="todo-archive-panel" aria-label="已归档任务" hidden>
               <div class="todo-archive-head"><strong>已归档任务</strong><span>按归档时间倒序</span></div>
               <div class="todo-archive-list" id="todo-archive-list">
+                <article class="todo-archive-item" data-todo-archive-id="TODO-024">
+                  <div class="todo-archive-row">
+                    <span class="todo-archive-id">TODO-024</span>
+                    <div class="todo-item-head todo-archive-title"><strong>参考workbuddy技能优化资金面分析skill</strong></div>
+                    <div class="todo-archive-meta"><span class="todo-archive-completed">完成 2026-09-15</span><span class="todo-archive-quadrant">重要且紧急</span></div>
+                    <span class="todo-item-time">归档 2026-09-15</span>
+                  </div>
+                </article>
                 <article class="todo-archive-item" data-todo-archive-id="TODO-013">
                   <div class="todo-archive-row">
                     <span class="todo-archive-id">TODO-013</span>
@@ -2777,11 +2785,19 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
               </div>
             </section>
             <div class="todo-matrix" id="todo-matrix">
-              <section class="todo-quadrant is-important-urgent" data-todo-quadrant="重要且紧急" tabindex="0" aria-label="重要且紧急，8项任务，可滚动查看">
+              <section class="todo-quadrant is-important-urgent" data-todo-quadrant="重要且紧急" tabindex="0" aria-label="重要且紧急，9项任务，可滚动查看">
                 <header class="todo-quadrant-header">
                   <div class="todo-quadrant-heading"><span class="todo-quadrant-index">Q1</span><div><h3>重要且紧急</h3><p class="todo-quadrant-guide">立即处理</p></div></div>
-                  <div class="todo-quadrant-meta"><strong>8项</strong><button class="todo-quadrant-toggle" type="button" data-action="toggle-todo-quadrant" aria-expanded="true">收起</button></div>
+                  <div class="todo-quadrant-meta"><strong>9项</strong><button class="todo-quadrant-toggle" type="button" data-action="toggle-todo-quadrant" aria-expanded="true">收起</button></div>
                 </header>
+                <article class="todo-item" draggable="true" data-todo-id="TODO-025" data-todo-quadrant="重要且紧急" aria-label="拖动 风险库整理-用 archify skill 展示风险路径传导图 到其他象限">
+                  <div class="todo-item-kicker"><span>TODO-025</span><span class="todo-item-time">创建 2026-09-16</span></div>
+                  <div class="todo-item-head"><strong>风险库整理-用 archify skill 展示风险路径传导图</strong></div>
+                  <div class="todo-item-actions">
+                    <button class="todo-action-button is-status todo-status-button" type="button" data-action="cycle-todo-status" data-todo-id="TODO-025" data-todo-status="未开始" aria-label="修改 风险库整理-用 archify skill 展示风险路径传导图 状态">状态 · 未开始</button>
+                    <button class="todo-action-button is-danger" type="button" data-action="delete-todo" data-todo-id="TODO-025">删除</button>
+                  </div>
+                </article>
                 <article class="todo-item" draggable="true" data-todo-id="TODO-023" data-todo-quadrant="重要且紧急" aria-label="拖动 终极目标：将skill开源或上线到workbuddy 到其他象限">
                   <div class="todo-item-kicker"><span>TODO-023</span><span class="todo-item-time">创建 2026-09-15</span></div>
                   <div class="todo-item-head"><strong>终极目标：将skill开源或上线到workbuddy</strong></div>
@@ -2933,7 +2949,7 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
             <button class="button-secondary" id="open-tracking-form" type="button">新增跟踪</button>
             <button class="button-secondary" id="refresh-tracking-reports" type="button">一键更新</button>
             <button class="allocation-ribbon is-active" id="tracking-allocation-mode" type="button" aria-pressed="true">配比模式</button>
-<a class="button-secondary daily-monitor-button" id="open-daily-monitor" href="data/持仓今日监控汇总-2026-09-15.html" target="_blank" rel="noopener noreferrer" title="打开 2026-09-15 持仓今日监控汇总报告">每日监控</a>
+<a class="button-secondary daily-monitor-button" id="open-daily-monitor" href="data/持仓今日监控汇总-2026-09-16.html" target="_blank" rel="noopener noreferrer" title="打开 2026-09-16 持仓今日监控汇总报告">每日监控</a>
           </div>
           <div class="tracker-workspace">
             <form class="tracking-form panel" id="tracking-form" hidden>
@@ -6275,60 +6291,60 @@ const STOCK_THREE_FACTOR_REPORT_LINKS = Object.freeze({
   "紫光股份": "../../sources/automations/新兴产业/算力/中游-计算系统与集群/2026-08-28-1004-紫光股份-三要素分析.html",
 });
 const DAILY_MONITOR_LINKS = Object.freeze({
-  "000425": {"href":"data/000425-徐工机械-每日监控-2026-09-15.html","title":"000425-徐工机械-每日监控-2026-09-15","code":"000425","name":"徐工机械","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
-  "000426": {"href":"data/000426-兴业银锡-每日监控-2026-09-15.html","title":"000426-兴业银锡-每日监控-2026-09-15","code":"000426","name":"兴业银锡","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"9月15日股东会通过既有利润分配、章程和审计机构议案，属于程序性落地；未新增产量、价格、成本、现金流或股本变化，维持原估值基线"},
+  "000425": {"href":"data/000425-徐工机械-每日监控-2026-09-16.html","title":"000425-徐工机械-每日监控-2026-09-16","code":"000425","name":"徐工机械","date":"2026-09-16","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "000426": {"href":"data/000426-兴业银锡-每日监控-2026-09-16.html","title":"000426-兴业银锡-每日监控-2026-09-16","code":"000426","name":"兴业银锡","date":"2026-09-16","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
   "000528": {"href":"data/000528-柳工-每日监控-2026-09-04.html","title":"000528-柳工-每日监控-2026-09-04","code":"000528","name":"柳工","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"在已取得证据内未确认新增估值输入达到阈值，维持权威研报区间"},
-  "000807": {"href":"data/000807-云铝股份-每日监控-2026-09-15.html","title":"000807-云铝股份-每日监控-2026-09-15","code":"000807","name":"云铝股份","date":"2026-09-15","status":"信息不足","valuationStatus":"MANUAL_REVIEW","valuationReason":"收盘后复核：铝锭去库与铝棒累库并存；公司实现价差及可比估值缺少最新同口径输入，不能可靠量化重估幅度，转人工复核；未确认基本面恶化"},
-  "000938": {"href":"data/000938-紫光股份-每日监控-2026-09-15.html","title":"000938-紫光股份-每日监控-2026-09-15","code":"000938","name":"紫光股份","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"新增3亿元最高额担保在批准额度内且约占2025年末归母权益2%，未达5%重估阈值；累计担保余额占归母权益218.50%，叠加原研报条件收益估值与现金压力值分歧，继续人工复盘但不把担保等额当净债务"},
+  "000807": {"href":"data/000807-云铝股份-每日监控-2026-09-16.html","title":"000807-云铝股份-每日监控-2026-09-16","code":"000807","name":"云铝股份","date":"2026-09-16","status":"信息不足","valuationStatus":"MANUAL_REVIEW","valuationReason":"铝锭去库、铝棒累库仍分化；公司同口径实现价差、销量、回款和可比估值未取得，不能确认风险方向或重算模型"},
+  "000938": {"href":"data/000938-紫光股份-每日监控-2026-09-16.html","title":"000938-紫光股份-每日监控-2026-09-16","code":"000938","name":"紫光股份","date":"2026-09-16","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"1600万元财务资助方案获股东会通过，条款未变且历史已计提，未达重估阈值；原研报收益估值与现金压力值分歧、累计担保集中度仍需人工复盘"},
   "002050": {"href":"data/002050-三花智控-每日监控-2026-09-08.html","title":"002050-三花智控-每日监控-2026-09-08","code":"002050","name":"三花智控","date":"2026-09-08","status":"强化","valuationStatus":"NO_REVALUE","valuationReason":"七部门方案明确支持液冷等算力设施节能技术，方向上支持液冷期权；未披露公司液冷订单、收入或利润，维持29—41元"},
-  "002262": {"href":"data/002262-恩华药业-每日监控-2026-09-15.html","title":"002262-恩华药业-每日监控-2026-09-15","code":"002262","name":"恩华药业","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
-  "002270": {"href":"data/002270-华明装备-每日监控-2026-09-15.html","title":"002270-华明装备-每日监控-2026-09-15","code":"002270","name":"华明装备","date":"2026-09-15","status":"强化","valuationStatus":"NO_REVALUE","valuationReason":"9月14日投资者关系记录提供方向性强化与约束，但无新增订单、盈利、现金流或资本开支量化输入达到重估阈值；维持原估值基线"},
-  "002396": {"href":"data/002396-星网锐捷-每日监控-2026-09-15.html","title":"002396-星网锐捷-每日监控-2026-09-15","code":"002396","name":"星网锐捷","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "002262": {"href":"data/002262-恩华药业-每日监控-2026-09-16.html","title":"002262-恩华药业-每日监控-2026-09-16","code":"002262","name":"恩华药业","date":"2026-09-16","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "002270": {"href":"data/002270-华明装备-每日监控-2026-09-16.html","title":"002270-华明装备-每日监控-2026-09-16","code":"002270","name":"华明装备","date":"2026-09-16","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "002396": {"href":"data/002396-星网锐捷-每日监控-2026-09-16.html","title":"002396-星网锐捷-每日监控-2026-09-16","code":"002396","name":"星网锐捷","date":"2026-09-16","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
   "600011": {"href":"data/600011-华能国际-每日监控-2026-09-14.html","title":"600011-华能国际-每日监控-2026-09-14","code":"600011","name":"华能国际","date":"2026-09-14","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"两笔合计40亿元融资含偿旧债；未确认净债务影响达到股权价值5%或同口径融资成本变化0.5pct，不改4.59—8.41元基线"},
   "600031": {"href":"data/600031-三一重工-每日监控-2026-09-08.html","title":"600031-三一重工-每日监控-2026-09-08","code":"600031","name":"三一重工","date":"2026-09-08","status":"强化","valuationStatus":"NO_REVALUE","valuationReason":"工程机械8月挖掘机和装载机销量同比增长、出口增速较高，支持需求假设；缺少公司份额、毛利和现金流新增值，不触发重估"},
-  "600150": {"href":"data/600150-中国船舶-每日监控-2026-09-15.html","title":"600150-中国船舶-每日监控-2026-09-15","code":"600150","name":"中国船舶","date":"2026-09-15","status":"信息不足","valuationStatus":"MANUAL_REVIEW","valuationReason":"9月11日重大伤亡事故仍缺损失、停工、责任、保险、赔偿与交付影响；本轮按v4.5.0再次执行输入核验，完整估值重生成仍失败于Step 1"},
-  "600511": {"href":"data/600511-国药股份-每日监控-2026-09-15.html","title":"600511-国药股份-每日监控-2026-09-15","code":"600511","name":"国药股份","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "600150": {"href":"data/600150-中国船舶-每日监控-2026-09-16.html","title":"600150-中国船舶-每日监控-2026-09-16","code":"600150","name":"中国船舶","date":"2026-09-16","status":"信息不足","valuationStatus":"MANUAL_REVIEW","valuationReason":"国务院提级调查强化安全监管与责任追查路径；本轮按bbxm-equity-research v4.5.0再次执行Step 1输入核验，仍缺事故后经营和财务量化输入，完整重估失败"},
+  "600511": {"href":"data/600511-国药股份-每日监控-2026-09-16.html","title":"600511-国药股份-每日监控-2026-09-16","code":"600511","name":"国药股份","date":"2026-09-16","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
   "600673": {"href":"data/600673-东阳光-每日监控-2026-08-21.html","title":"600673-东阳光-每日监控-2026-08-21","code":"600673","name":"东阳光","date":"2026-08-21","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格 33.68 元高于动态估值区间上沿 30.00 元；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
-  "600750": {"href":"data/600750-华润江中-每日监控-2026-09-15.html","title":"600750-华润江中-每日监控-2026-09-15","code":"600750","name":"华润江中","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"0.50元已知分红于9月11日实施；近5日按交易所日涨跌幅连乘修正除息口径，不改变原正常化盈利模型"},
-  "600938": {"href":"data/600938-中国海油-每日监控-2026-09-15.html","title":"600938-中国海油-每日监控-2026-09-15","code":"600938","name":"中国海油","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格33.91元超过估值上沿33.13元；未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
-  "601168": {"href":"data/601168-西部矿业-每日监控-2026-09-15.html","title":"601168-西部矿业-每日监控-2026-09-15","code":"601168","name":"西部矿业","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
-  "601208": {"href":"data/601208-东材科技-每日监控-2026-09-15.html","title":"601208-东材科技-每日监控-2026-09-15","code":"601208","name":"东材科技","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格48.29元超过估值上沿47.51元；未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
-  "601766": {"href":"data/601766-中国中车-每日监控-2026-09-15.html","title":"601766-中国中车-每日监控-2026-09-15","code":"601766","name":"中国中车","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
-  "601919": {"href":"data/601919-中远海控-每日监控-2026-09-15.html","title":"601919-中远海控-每日监控-2026-09-15","code":"601919","name":"中远海控","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
-  "603530": {"href":"data/603530-神马电力-每日监控-2026-09-15.html","title":"603530-神马电力-每日监控-2026-09-15","code":"603530","name":"神马电力","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"近5日可比涨跌幅-13.46%达到10%阈值；未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
-  "东材科技": {"href":"data/601208-东材科技-每日监控-2026-09-15.html","title":"601208-东材科技-每日监控-2026-09-15","code":"601208","name":"东材科技","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格48.29元超过估值上沿47.51元；未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "600750": {"href":"data/600750-华润江中-每日监控-2026-09-16.html","title":"600750-华润江中-每日监控-2026-09-16","code":"600750","name":"华润江中","date":"2026-09-16","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "600938": {"href":"data/600938-中国海油-每日监控-2026-09-16.html","title":"600938-中国海油-每日监控-2026-09-16","code":"600938","name":"中国海油","date":"2026-09-16","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格33.45元超过估值上沿33.13元；未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "601168": {"href":"data/601168-西部矿业-每日监控-2026-09-16.html","title":"601168-西部矿业-每日监控-2026-09-16","code":"601168","name":"西部矿业","date":"2026-09-16","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"近5日可比涨跌幅-12.09%达到10%阈值；未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "601208": {"href":"data/601208-东材科技-每日监控-2026-09-16.html","title":"601208-东材科技-每日监控-2026-09-16","code":"601208","name":"东材科技","date":"2026-09-16","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格49.37元超过估值上沿47.51元；未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "601766": {"href":"data/601766-中国中车-每日监控-2026-09-16.html","title":"601766-中国中车-每日监控-2026-09-16","code":"601766","name":"中国中车","date":"2026-09-16","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "601919": {"href":"data/601919-中远海控-每日监控-2026-09-16.html","title":"601919-中远海控-每日监控-2026-09-16","code":"601919","name":"中远海控","date":"2026-09-16","status":"强化","valuationStatus":"NO_REVALUE","valuationReason":"回购上限提高且已执行3715.7524万股，拟注销方向支持股东回报；计划数量上限不足总股本1%，未达到3%摊薄/每股价值重估阈值，维持原模型"},
+  "603530": {"href":"data/603530-神马电力-每日监控-2026-09-16.html","title":"603530-神马电力-每日监控-2026-09-16","code":"603530","name":"神马电力","date":"2026-09-16","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"近5日可比涨跌幅-11.76%达到10%阈值；未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "东材科技": {"href":"data/601208-东材科技-每日监控-2026-09-16.html","title":"601208-东材科技-每日监控-2026-09-16","code":"601208","name":"东材科技","date":"2026-09-16","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格49.37元超过估值上沿47.51元；未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
   "东阳光": {"href":"data/600673-东阳光-每日监控-2026-08-21.html","title":"600673-东阳光-每日监控-2026-08-21","code":"600673","name":"东阳光","date":"2026-08-21","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格 33.68 元高于动态估值区间上沿 30.00 元；未发现达到默认阈值的新增盈利、现金流或商业事实输入"},
-  "恩华药业": {"href":"data/002262-恩华药业-每日监控-2026-09-15.html","title":"002262-恩华药业-每日监控-2026-09-15","code":"002262","name":"恩华药业","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
-  "国药股份": {"href":"data/600511-国药股份-每日监控-2026-09-15.html","title":"600511-国药股份-每日监控-2026-09-15","code":"600511","name":"国药股份","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
-  "华明装备": {"href":"data/002270-华明装备-每日监控-2026-09-15.html","title":"002270-华明装备-每日监控-2026-09-15","code":"002270","name":"华明装备","date":"2026-09-15","status":"强化","valuationStatus":"NO_REVALUE","valuationReason":"9月14日投资者关系记录提供方向性强化与约束，但无新增订单、盈利、现金流或资本开支量化输入达到重估阈值；维持原估值基线"},
+  "恩华药业": {"href":"data/002262-恩华药业-每日监控-2026-09-16.html","title":"002262-恩华药业-每日监控-2026-09-16","code":"002262","name":"恩华药业","date":"2026-09-16","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "国药股份": {"href":"data/600511-国药股份-每日监控-2026-09-16.html","title":"600511-国药股份-每日监控-2026-09-16","code":"600511","name":"国药股份","date":"2026-09-16","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "华明装备": {"href":"data/002270-华明装备-每日监控-2026-09-16.html","title":"002270-华明装备-每日监控-2026-09-16","code":"002270","name":"华明装备","date":"2026-09-16","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
   "华能国际": {"href":"data/600011-华能国际-每日监控-2026-09-14.html","title":"600011-华能国际-每日监控-2026-09-14","code":"600011","name":"华能国际","date":"2026-09-14","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"两笔合计40亿元融资含偿旧债；未确认净债务影响达到股权价值5%或同口径融资成本变化0.5pct，不改4.59—8.41元基线"},
-  "华润江中": {"href":"data/600750-华润江中-每日监控-2026-09-15.html","title":"600750-华润江中-每日监控-2026-09-15","code":"600750","name":"华润江中","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"0.50元已知分红于9月11日实施；近5日按交易所日涨跌幅连乘修正除息口径，不改变原正常化盈利模型"},
+  "华润江中": {"href":"data/600750-华润江中-每日监控-2026-09-16.html","title":"600750-华润江中-每日监控-2026-09-16","code":"600750","name":"华润江中","date":"2026-09-16","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
   "柳工": {"href":"data/000528-柳工-每日监控-2026-09-04.html","title":"000528-柳工-每日监控-2026-09-04","code":"000528","name":"柳工","date":"2026-09-04","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"在已取得证据内未确认新增估值输入达到阈值，维持权威研报区间"},
   "三花智控": {"href":"data/002050-三花智控-每日监控-2026-09-08.html","title":"002050-三花智控-每日监控-2026-09-08","code":"002050","name":"三花智控","date":"2026-09-08","status":"强化","valuationStatus":"NO_REVALUE","valuationReason":"七部门方案明确支持液冷等算力设施节能技术，方向上支持液冷期权；未披露公司液冷订单、收入或利润，维持29—41元"},
   "三一重工": {"href":"data/600031-三一重工-每日监控-2026-09-08.html","title":"600031-三一重工-每日监控-2026-09-08","code":"600031","name":"三一重工","date":"2026-09-08","status":"强化","valuationStatus":"NO_REVALUE","valuationReason":"工程机械8月挖掘机和装载机销量同比增长、出口增速较高，支持需求假设；缺少公司份额、毛利和现金流新增值，不触发重估"},
-  "神马电力": {"href":"data/603530-神马电力-每日监控-2026-09-15.html","title":"603530-神马电力-每日监控-2026-09-15","code":"603530","name":"神马电力","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"近5日可比涨跌幅-13.46%达到10%阈值；未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
-  "西部矿业": {"href":"data/601168-西部矿业-每日监控-2026-09-15.html","title":"601168-西部矿业-每日监控-2026-09-15","code":"601168","name":"西部矿业","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
-  "星网锐捷": {"href":"data/002396-星网锐捷-每日监控-2026-09-15.html","title":"002396-星网锐捷-每日监控-2026-09-15","code":"002396","name":"星网锐捷","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
-  "兴业银锡": {"href":"data/000426-兴业银锡-每日监控-2026-09-15.html","title":"000426-兴业银锡-每日监控-2026-09-15","code":"000426","name":"兴业银锡","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"9月15日股东会通过既有利润分配、章程和审计机构议案，属于程序性落地；未新增产量、价格、成本、现金流或股本变化，维持原估值基线"},
-  "徐工机械": {"href":"data/000425-徐工机械-每日监控-2026-09-15.html","title":"000425-徐工机械-每日监控-2026-09-15","code":"000425","name":"徐工机械","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
-  "云铝股份": {"href":"data/000807-云铝股份-每日监控-2026-09-15.html","title":"000807-云铝股份-每日监控-2026-09-15","code":"000807","name":"云铝股份","date":"2026-09-15","status":"信息不足","valuationStatus":"MANUAL_REVIEW","valuationReason":"收盘后复核：铝锭去库与铝棒累库并存；公司实现价差及可比估值缺少最新同口径输入，不能可靠量化重估幅度，转人工复核；未确认基本面恶化"},
-  "中国船舶": {"href":"data/600150-中国船舶-每日监控-2026-09-15.html","title":"600150-中国船舶-每日监控-2026-09-15","code":"600150","name":"中国船舶","date":"2026-09-15","status":"信息不足","valuationStatus":"MANUAL_REVIEW","valuationReason":"9月11日重大伤亡事故仍缺损失、停工、责任、保险、赔偿与交付影响；本轮按v4.5.0再次执行输入核验，完整估值重生成仍失败于Step 1"},
-  "中国海油": {"href":"data/600938-中国海油-每日监控-2026-09-15.html","title":"600938-中国海油-每日监控-2026-09-15","code":"600938","name":"中国海油","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格33.91元超过估值上沿33.13元；未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
-  "中国中车": {"href":"data/601766-中国中车-每日监控-2026-09-15.html","title":"601766-中国中车-每日监控-2026-09-15","code":"601766","name":"中国中车","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
-  "中远海控": {"href":"data/601919-中远海控-每日监控-2026-09-15.html","title":"601919-中远海控-每日监控-2026-09-15","code":"601919","name":"中远海控","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
-  "紫光股份": {"href":"data/000938-紫光股份-每日监控-2026-09-15.html","title":"000938-紫光股份-每日监控-2026-09-15","code":"000938","name":"紫光股份","date":"2026-09-15","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"新增3亿元最高额担保在批准额度内且约占2025年末归母权益2%，未达5%重估阈值；累计担保余额占归母权益218.50%，叠加原研报条件收益估值与现金压力值分歧，继续人工复盘但不把担保等额当净债务"},
+  "神马电力": {"href":"data/603530-神马电力-每日监控-2026-09-16.html","title":"603530-神马电力-每日监控-2026-09-16","code":"603530","name":"神马电力","date":"2026-09-16","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"近5日可比涨跌幅-11.76%达到10%阈值；未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "西部矿业": {"href":"data/601168-西部矿业-每日监控-2026-09-16.html","title":"601168-西部矿业-每日监控-2026-09-16","code":"601168","name":"西部矿业","date":"2026-09-16","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"近5日可比涨跌幅-12.09%达到10%阈值；未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "星网锐捷": {"href":"data/002396-星网锐捷-每日监控-2026-09-16.html","title":"002396-星网锐捷-每日监控-2026-09-16","code":"002396","name":"星网锐捷","date":"2026-09-16","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "兴业银锡": {"href":"data/000426-兴业银锡-每日监控-2026-09-16.html","title":"000426-兴业银锡-每日监控-2026-09-16","code":"000426","name":"兴业银锡","date":"2026-09-16","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "徐工机械": {"href":"data/000425-徐工机械-每日监控-2026-09-16.html","title":"000425-徐工机械-每日监控-2026-09-16","code":"000425","name":"徐工机械","date":"2026-09-16","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "云铝股份": {"href":"data/000807-云铝股份-每日监控-2026-09-16.html","title":"000807-云铝股份-每日监控-2026-09-16","code":"000807","name":"云铝股份","date":"2026-09-16","status":"信息不足","valuationStatus":"MANUAL_REVIEW","valuationReason":"铝锭去库、铝棒累库仍分化；公司同口径实现价差、销量、回款和可比估值未取得，不能确认风险方向或重算模型"},
+  "中国船舶": {"href":"data/600150-中国船舶-每日监控-2026-09-16.html","title":"600150-中国船舶-每日监控-2026-09-16","code":"600150","name":"中国船舶","date":"2026-09-16","status":"信息不足","valuationStatus":"MANUAL_REVIEW","valuationReason":"国务院提级调查强化安全监管与责任追查路径；本轮按bbxm-equity-research v4.5.0再次执行Step 1输入核验，仍缺事故后经营和财务量化输入，完整重估失败"},
+  "中国海油": {"href":"data/600938-中国海油-每日监控-2026-09-16.html","title":"600938-中国海油-每日监控-2026-09-16","code":"600938","name":"中国海油","date":"2026-09-16","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"价格33.45元超过估值上沿33.13元；未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "中国中车": {"href":"data/601766-中国中车-每日监控-2026-09-16.html","title":"601766-中国中车-每日监控-2026-09-16","code":"601766","name":"中国中车","date":"2026-09-16","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"未确认新估值输入达到阈值，沿用已核验的权威研报基线"},
+  "中远海控": {"href":"data/601919-中远海控-每日监控-2026-09-16.html","title":"601919-中远海控-每日监控-2026-09-16","code":"601919","name":"中远海控","date":"2026-09-16","status":"强化","valuationStatus":"NO_REVALUE","valuationReason":"回购上限提高且已执行3715.7524万股，拟注销方向支持股东回报；计划数量上限不足总股本1%，未达到3%摊薄/每股价值重估阈值，维持原模型"},
+  "紫光股份": {"href":"data/000938-紫光股份-每日监控-2026-09-16.html","title":"000938-紫光股份-每日监控-2026-09-16","code":"000938","name":"紫光股份","date":"2026-09-16","status":"无实质影响","valuationStatus":"NO_REVALUE","valuationReason":"1600万元财务资助方案获股东会通过，条款未变且历史已计提，未达重估阈值；原研报收益估值与现金压力值分歧、累计担保集中度仍需人工复盘"},
 });
 const EVENT_CALENDAR = Object.freeze(
 []
 );
 const CSI_DIVIDEND_SIGNAL = Object.freeze(
 {
-  "recordDate": "2026-09-15",
-  "runTime": "2026-09-15 09:51:20",
-  "indexDate": "2026-09-14",
-  "bondDate": "2026-09-14",
-  "dividendYield2": 4.18,
-  "ytdReturn": 0.79,
+  "recordDate": "2026-09-16",
+  "runTime": "2026-09-16 10:04:10",
+  "indexDate": "2026-09-15",
+  "bondDate": "2026-09-15",
+  "dividendYield2": 4.2,
+  "ytdReturn": 0.17,
   "ytdMaxDrawdown": -15.96,
   "xueqiuChangePercent": "待验证",
   "lixingerDate": "待确认",
@@ -6336,7 +6352,7 @@ const CSI_DIVIDEND_SIGNAL = Object.freeze(
   "lixingerPercentile10y": "待验证",
   "lixingerPercentile80Value": "待验证",
   "bond10yYield": 1.69,
-  "spread": 2.49,
+  "spread": 2.51,
   "percentileSignal": "待验证",
   "absoluteSignal": "C（小额定投）",
   "spreadSignal": "C（小额定投）",
@@ -6647,6 +6663,10 @@ const CSI_DIVIDEND_YIELD_HISTORY = Object.freeze(
   {
     "date": "2026-09-14",
     "value": 4.18
+  },
+  {
+    "date": "2026-09-15",
+    "value": 4.2
   }
 ]
 );
@@ -6655,7 +6675,7 @@ const CSI_DIVIDEND_ANNUAL_PERFORMANCE = Object.freeze(
   "indexCode": "000922",
   "source": "中证指数官网 index-perf(000922)",
   "firstDate": "2008-05-26",
-  "lastDate": "2026-09-14",
+  "lastDate": "2026-09-15",
   "returnConvention": "每年首个可用交易日收盘价至末个可用交易日收盘价",
   "drawdownConvention": "每个自然年内日收盘价相对此前峰值的最大跌幅",
   "rows": [
@@ -8346,8 +8366,8 @@ const CSI_DIVIDEND_ANNUAL_PERFORMANCE = Object.freeze(
     {
       "year": 2026,
       "startDate": "2026-01-05",
-      "endDate": "2026-09-14",
-      "annualReturn": 0.7898470983435768,
+      "endDate": "2026-09-15",
+      "annualReturn": 0.1652452797405335,
       "maxDrawdown": -15.96361099166238,
       "status": "年内",
       "monthlyReturns": [
@@ -8409,9 +8429,9 @@ const CSI_DIVIDEND_ANNUAL_PERFORMANCE = Object.freeze(
         },
         {
           "month": 9,
-          "value": -2.617156487281447,
+          "value": -3.220644863441302,
           "startDate": "2026-08-31",
-          "endDate": "2026-09-14",
+          "endDate": "2026-09-15",
           "status": "月内累计"
         },
         {
@@ -9508,6 +9528,11 @@ function renderNasdaq100Card(envelope) {
         ${metric('当日涨跌', percent(data.dayChangePercent))}
         ${metric('当周涨跌', percent(data.weekChangePercent))}
         ${metric('当月涨跌', percent(data.monthChangePercent))}
+        <div class="nasdaq-drawdown ${drawdown !== null && drawdown <= -10 ? 'is-deep' : ''}">
+          <small>距离${escapeHtml(data.highPointLabel || '历史最高点')}跌幅</small>
+          <strong>${drawdownText}</strong>
+          <span>最高点 ${formatNumber(data.highPoint, 2)}</span>
+        </div>
       </div>
       <div class="nasdaq-valuation">
         <strong>估值与位置</strong>
@@ -9517,11 +9542,6 @@ function renderNasdaq100Card(envelope) {
         <small>周/月自上周末/上月末收盘计算；均线含当前点位；年内回撤相对本年最高收盘点。</small>
         <small>${escapeHtml(data.valuationNote || '指数估值数据待验证')}</small>
         ${data.dailyMetricsNote ? `<small>${escapeHtml(data.dailyMetricsNote)}</small>` : ''}
-      </div>
-      <div class="nasdaq-drawdown ${drawdown !== null && drawdown <= -10 ? 'is-deep' : ''}">
-        <small>距离${escapeHtml(data.highPointLabel || '历史最高点')}跌幅</small>
-        <strong>${drawdownText}</strong>
-        <span>最高点 ${formatNumber(data.highPoint, 2)}</span>
       </div>
       <span class="source-link">查看网格策略 →</span>
     </button>`;

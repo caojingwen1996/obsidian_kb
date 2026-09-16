@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-15",
+  "updatedAt": "2026-09-16",
   "items": [
     {
       "id": "TODO-005",
@@ -141,6 +141,16 @@
       "source": "看板新增",
       "createdAt": "2026-09-15",
       "updatedAt": "2026-09-15"
+    },
+    {
+      "id": "TODO-025",
+      "title": "风险库整理-用 archify skill 展示风险路径传导图",
+      "detail": "",
+      "quadrant": "重要且紧急",
+      "status": "未开始",
+      "source": "看板新增",
+      "createdAt": "2026-09-16",
+      "updatedAt": "2026-09-16"
     }
   ],
   "archive": [

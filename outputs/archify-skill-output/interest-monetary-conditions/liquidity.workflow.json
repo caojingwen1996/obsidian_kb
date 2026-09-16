@@ -1,0 +1,256 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "偿付与交易流动性的三条路径",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "hidden"
+    }
+  },
+  "lanes": [
+    {
+      "id": "p4",
+      "label": "P4｜到期偿付出现资金缺口"
+    },
+    {
+      "id": "p5",
+      "label": "P5｜追保引发被迫卖出"
+    },
+    {
+      "id": "p8",
+      "label": "P8｜外币融资与偿付压力上升"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "p4_0",
+      "lane": "p4",
+      "col": 0,
+      "type": "external",
+      "label": "资金紧张或授信收紧",
+      "sublabel": "到期融资无法顺利续接",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p4_1",
+      "lane": "p4",
+      "col": 1,
+      "type": "backend",
+      "label": "可获得资金减少",
+      "sublabel": "提款额度减少或融资期限缩短",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p4_2",
+      "lane": "p4",
+      "col": 2,
+      "type": "messagebus",
+      "label": "窗口资金缺口出现",
+      "sublabel": "现金与可信回款不足覆盖支付",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p4_3",
+      "lane": "p4",
+      "col": 3,
+      "type": "security",
+      "label": "折价处置或违约",
+      "sublabel": "续作、展期、变现未及时落实",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p5_0",
+      "lane": "p5",
+      "col": 0,
+      "type": "external",
+      "label": "利率或曲线变化",
+      "sublabel": "实际头寸损益与抵押价值受损",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p5_1",
+      "lane": "p5",
+      "col": 1,
+      "type": "backend",
+      "label": "真实合约触发追保",
+      "sublabel": "或提高折扣率，限时补资",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p5_2",
+      "lane": "p5",
+      "col": 2,
+      "type": "messagebus",
+      "label": "追保窗口现金不足",
+      "sublabel": "可用现金及已落实补资不够",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p5_3",
+      "lane": "p5",
+      "col": 3,
+      "type": "security",
+      "label": "出售其他流动资产",
+      "sublabel": "被动卖出须由交易证据确认",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p8_0",
+      "lane": "p8",
+      "col": 0,
+      "type": "external",
+      "label": "外币融资条件恶化",
+      "sublabel": "基准、加点或换汇成本上升",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p8_1",
+      "lane": "p8",
+      "col": 1,
+      "type": "backend",
+      "label": "外币融资全成本提高",
+      "sublabel": "对应外币收入或有效套保不足",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p8_2",
+      "lane": "p8",
+      "col": 2,
+      "type": "messagebus",
+      "label": "外币支付与续作承压",
+      "sublabel": "外币本息在窗口内刚性到期",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p8_3",
+      "lane": "p8",
+      "col": 3,
+      "type": "security",
+      "label": "外币支付缺口出现",
+      "sublabel": "现金、兑换与融资未及时落实",
+      "width": 190,
+      "height": 76
+    }
+  ],
+  "edges": [
+    {
+      "id": "p4_e0",
+      "from": "p4_0",
+      "to": "p4_1",
+      "label": "收紧融资",
+      "role": "main"
+    },
+    {
+      "id": "p4_e1",
+      "from": "p4_1",
+      "to": "p4_2",
+      "label": "支付集中",
+      "role": "main"
+    },
+    {
+      "id": "p4_e2",
+      "from": "p4_2",
+      "to": "p4_3",
+      "label": "补资未落实",
+      "role": "main"
+    },
+    {
+      "id": "p5_e0",
+      "from": "p5_0",
+      "to": "p5_1",
+      "label": "触及合约",
+      "role": "branch"
+    },
+    {
+      "id": "p5_e1",
+      "from": "p5_1",
+      "to": "p5_2",
+      "label": "形成缺口",
+      "role": "branch"
+    },
+    {
+      "id": "p5_e2",
+      "from": "p5_2",
+      "to": "p5_3",
+      "label": "被迫变现",
+      "role": "branch"
+    },
+    {
+      "id": "p5_feedback",
+      "from": "p5_3",
+      "to": "p5_1",
+      "label": "承接不足→损失放大→再次追保",
+      "role": "return",
+      "variant": "dashed"
+    },
+    {
+      "id": "p8_e0",
+      "from": "p8_0",
+      "to": "p8_1",
+      "label": "提高成本",
+      "role": "branch"
+    },
+    {
+      "id": "p8_e1",
+      "from": "p8_1",
+      "to": "p8_2",
+      "label": "币种不匹配",
+      "role": "branch"
+    },
+    {
+      "id": "p8_e2",
+      "from": "p8_2",
+      "to": "p8_3",
+      "label": "未获覆盖",
+      "role": "branch"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "P4｜证据与反证",
+      "items": [
+        "短债集中、依赖滚动融资、受限现金多或缺稳定授信的企业。",
+        "监测：可提款额度、到期支付、非受限现金及窗口资金缺口。",
+        "已落实续作与到账现金可中断；仅报价变贵先按 P1 成本风险记录。"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "P5｜证据与反证",
+      "items": [
+        "利率敏感、对冲不匹配、期限错配且可用现金不足的账户。",
+        "监测：净 DV01、抵押价值、追保通知、现金缺口及被动卖出成交。",
+        "及时补资可中断；仅利率波动或价格下跌不能证明强平。"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "P8｜证据与反证",
+      "items": [
+        "外币债务集中、外币收入不足、依赖短期掉期或跨境融资的企业。",
+        "监测：外币全成本、有效对冲、到期本息及逐币种窗口资金缺口。",
+        "同币种回款、及时兑换或已落实融资可缓和；不只看合并人民币现金。"
+      ]
+    }
+  ],
+  "mainPath": [
+    "p4_0",
+    "p4_1",
+    "p4_2",
+    "p4_3"
+  ]
+}

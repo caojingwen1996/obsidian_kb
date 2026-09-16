@@ -1,0 +1,61 @@
+{
+  "diagrams": [
+    {
+      "output": "fundamentals.html",
+      "diagram_type": "workflow",
+      "specification_sha256": "7305eb3bf7490998cba263ca1ef0d114e562adbf4fb9f6d87627e43db6966f5c",
+      "artifact_sha256": "46f5e9f7a09370739fc780d0c9b26bde91ca7939ac43a9eab3b24b2cd1824272",
+      "validation": {
+        "checksPassed": 9,
+        "checkCount": 9,
+        "compositionProfile": "showcase",
+        "compositionStatus": "pass",
+        "errors": 0,
+        "warnings": 0
+      },
+      "browser_evidence": "passed",
+      "visual_review": "passed",
+      "correction_rounds": 1
+    },
+    {
+      "output": "pricing.html",
+      "diagram_type": "workflow",
+      "specification_sha256": "886cabe63ffe387c4d79f410ac1b13e4963d2dfcef0480e4371682ab9063e8be",
+      "artifact_sha256": "ff1b52a8bbdca65aeae17b1e794a2ee43c8394665db165b41a34e90a75a211c0",
+      "validation": {
+        "checksPassed": 9,
+        "checkCount": 9,
+        "compositionProfile": "showcase",
+        "compositionStatus": "pass",
+        "errors": 0,
+        "warnings": 0
+      },
+      "browser_evidence": "passed",
+      "visual_review": "passed",
+      "correction_rounds": 1
+    },
+    {
+      "output": "liquidity.html",
+      "diagram_type": "workflow",
+      "specification_sha256": "d2bf65c274781bc456b0b1edb76ca2dd83b175434f4fae49dc7063b58feb2e7d",
+      "artifact_sha256": "230c42b7f627d255e51926dc1fd7698bb5f285446b33183692257ba8d4f6c916",
+      "validation": {
+        "checksPassed": 9,
+        "checkCount": 9,
+        "compositionProfile": "showcase",
+        "compositionStatus": "pass",
+        "errors": 0,
+        "warnings": 0
+      },
+      "browser_evidence": "passed",
+      "visual_review": "passed",
+      "correction_rounds": 1
+    }
+  ],
+  "portal": {
+    "output": "index.html",
+    "sha256": "3ef67c2b9d2b65aeae5be88779915bb14789a995c0c7ca76e856bf3b74cc64f3",
+    "checks": "浏览器三视图切换通过；嵌入与独立图原文一致"
+  },
+  "source_sha256": "f9e171494e04a630e5a9c6387a640b8416fdeb6979662ae1f018a5b6844b8b74"
+}

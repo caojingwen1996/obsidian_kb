@@ -1,0 +1,248 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "估值与情绪的三条传导路径",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "hidden"
+    }
+  },
+  "lanes": [
+    {
+      "id": "p3",
+      "label": "P3｜要求回报率上升压低估值"
+    },
+    {
+      "id": "p6",
+      "label": "P6｜宽松预期与经营兑现脱节"
+    },
+    {
+      "id": "p9",
+      "label": "P9｜政策预期引发一致性交易"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "p3_0",
+      "lane": "p3",
+      "col": 0,
+      "type": "external",
+      "label": "相关收益率上升",
+      "sublabel": "或降息预期未兑现",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p3_1",
+      "lane": "p3",
+      "col": 1,
+      "type": "backend",
+      "label": "要求回报率提高",
+      "sublabel": "币种、期限与风险补偿匹配",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p3_2",
+      "lane": "p3",
+      "col": 2,
+      "type": "messagebus",
+      "label": "未来现金流现值下降",
+      "sublabel": "比较同样的现金流假设",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p3_3",
+      "lane": "p3",
+      "col": 3,
+      "type": "security",
+      "label": "旧价格支撑不足",
+      "sublabel": "仍依赖旧折现率或远期增长",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p6_0",
+      "lane": "p6",
+      "col": 0,
+      "type": "external",
+      "label": "降息降准或总量增长",
+      "sublabel": "政策提供资金价格或供给支持",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p6_1",
+      "lane": "p6",
+      "col": 1,
+      "type": "backend",
+      "label": "实际新增融资未落实",
+      "sublabel": "或借款主要用于偿还旧债",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p6_2",
+      "lane": "p6",
+      "col": 2,
+      "type": "messagebus",
+      "label": "投资与回款未改善",
+      "sublabel": "未达到事前设定的观察目标",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p6_3",
+      "lane": "p6",
+      "col": 3,
+      "type": "security",
+      "label": "复苏定价支撑不足",
+      "sublabel": "原先快速复苏的盈利假设失效",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p9_0",
+      "lane": "p9",
+      "col": 0,
+      "type": "external",
+      "label": "政策与事前预期有差异",
+      "sublabel": "正式决定、表态与预测分开",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p9_1",
+      "lane": "p9",
+      "col": 1,
+      "type": "backend",
+      "label": "选择性解读与观点趋同",
+      "sublabel": "忽略主体与传导条件差异",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p9_2",
+      "lane": "p9",
+      "col": 2,
+      "type": "messagebus",
+      "label": "集中交易偏离证据",
+      "sublabel": "价格反应超出融资或盈利支撑",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p9_3",
+      "lane": "p9",
+      "col": 3,
+      "type": "security",
+      "label": "跟随交易亏损扩散",
+      "sublabel": "上涨预期落空或负反馈持续",
+      "width": 190,
+      "height": 76
+    }
+  ],
+  "edges": [
+    {
+      "id": "p3_e0",
+      "from": "p3_0",
+      "to": "p3_1",
+      "label": "改变基准",
+      "role": "main"
+    },
+    {
+      "id": "p3_e1",
+      "from": "p3_1",
+      "to": "p3_2",
+      "label": "折现重估",
+      "role": "main"
+    },
+    {
+      "id": "p3_e2",
+      "from": "p3_2",
+      "to": "p3_3",
+      "label": "尚未反映",
+      "role": "main"
+    },
+    {
+      "id": "p6_e0",
+      "from": "p6_0",
+      "to": "p6_1",
+      "label": "传导受阻",
+      "role": "branch"
+    },
+    {
+      "id": "p6_e1",
+      "from": "p6_1",
+      "to": "p6_2",
+      "label": "未带动经营",
+      "role": "branch"
+    },
+    {
+      "id": "p6_e2",
+      "from": "p6_2",
+      "to": "p6_3",
+      "label": "兑现落后",
+      "role": "branch"
+    },
+    {
+      "id": "p9_e0",
+      "from": "p9_0",
+      "to": "p9_1",
+      "label": "选择性解读",
+      "role": "branch"
+    },
+    {
+      "id": "p9_e1",
+      "from": "p9_1",
+      "to": "p9_2",
+      "label": "吸引交易",
+      "role": "branch"
+    },
+    {
+      "id": "p9_e2",
+      "from": "p9_2",
+      "to": "p9_3",
+      "label": "预期落空",
+      "role": "branch"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "P3｜证据与反证",
+      "items": [
+        "终值占比高、远期现金流占比高、依赖低利率假设的股票持有人。",
+        "监测：相关期限收益率、要求回报率、盈利假设及现价隐含增长。",
+        "须同步复核盈利与风险补偿；已充分重定价时不能机械继续加判风险。"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "P6｜证据与反证",
+      "items": [
+        "股价依赖宽松带动订单、投资和盈利迅速恢复的企业及持有人。",
+        "监测：融资实际到账、扩张资金比例、资本开支完成率、销售收现。",
+        "银行愿贷、企业愿借且满足条件才会传导；正常时滞不能直接判政策失效。"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "P9｜证据与反证",
+      "items": [
+        "依赖政策叙事、交易集中且忽略融资和估值差异的股票持有人。",
+        "监测：事前预期差、观点同向占比、成交集中度与超额收益回吐。",
+        "基本面重估、追保卖出分别核查；观点样本不等于全市场心理。"
+      ]
+    }
+  ],
+  "mainPath": [
+    "p3_0",
+    "p3_1",
+    "p3_2",
+    "p3_3"
+  ]
+}

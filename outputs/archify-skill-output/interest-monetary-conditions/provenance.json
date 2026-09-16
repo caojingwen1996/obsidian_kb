@@ -1,0 +1,14 @@
+{
+  "source": "wiki/concepts/冰冰小美-macro-利率与货币条件变化.md",
+  "source_sha256_before_link": "727f986ba93c16bff6af047c1ffd212ccb94e633e136035eacea46399482f2d1",
+  "source_updated": "2026-09-15",
+  "created": "2026-09-16",
+  "basis": "仅据指定页面整理，九条路径为原页整理者归纳；未新增实时风险判断",
+  "path_groups": {
+    "fundamentals": "P1 · P2 · P7",
+    "pricing": "P3 · P6 · P9",
+    "liquidity": "P4 · P5 · P8"
+  },
+  "cross_path_note": "P1到期现金不足时另查P4；图中以证据卡说明，不将所有P1情形自动连接为P4。",
+  "paths": "path-content.json"
+}

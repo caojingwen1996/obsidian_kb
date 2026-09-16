@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "workflow",
+  "input": "E:\\caojingwen\\obsidian\\llmwiki\\tools\\bbxm-industry-framework\\framework.json",
+  "output": "E:\\caojingwen\\obsidian\\llmwiki\\tools\\bbxm-industry-framework\\index.html",
+  "specification": {
+    "sha256": "63aca9906198d2509bd7764f194d1326c8dfb83decff55e746033225ec4fb969",
+    "bytes": 4505
+  },
+  "artifact": {
+    "sha256": "8caac5f190f54f57680d032fa039b16a2537c12cd1d9f2b039012b17e8a6184e",
+    "bytes": 805177
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}

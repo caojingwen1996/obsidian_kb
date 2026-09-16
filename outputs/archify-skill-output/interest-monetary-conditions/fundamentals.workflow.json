@@ -1,0 +1,248 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "经营收益的三条传导路径",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "hidden"
+    }
+  },
+  "lanes": [
+    {
+      "id": "p1",
+      "label": "P1｜利息成本侵蚀收益"
+    },
+    {
+      "id": "p2",
+      "label": "P2｜融资约束传入订单"
+    },
+    {
+      "id": "p7",
+      "label": "P7｜重定价错配压缩银行息差"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "p1_0",
+      "lane": "p1",
+      "col": 0,
+      "type": "external",
+      "label": "相关融资基准上升",
+      "sublabel": "或新融资报价高于原合同",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p1_1",
+      "lane": "p1",
+      "col": 1,
+      "type": "backend",
+      "label": "实际借款成本上升",
+      "sublabel": "进入浮息重定价或新增融资",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p1_2",
+      "lane": "p1",
+      "col": 2,
+      "type": "messagebus",
+      "label": "利息负担增加",
+      "sublabel": "费用化或资本化利息上升",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p1_3",
+      "lane": "p1",
+      "col": 3,
+      "type": "security",
+      "label": "可分配收益收缩",
+      "sublabel": "经营收益不足以覆盖新增利息",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p2_0",
+      "lane": "p2",
+      "col": 0,
+      "type": "external",
+      "label": "客户融资约束增加",
+      "sublabel": "贷款变贵或额度与审批收紧",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p2_1",
+      "lane": "p2",
+      "col": 1,
+      "type": "backend",
+      "label": "可支付购买量下降",
+      "sublabel": "相同收入与资本金下",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p2_2",
+      "lane": "p2",
+      "col": 2,
+      "type": "messagebus",
+      "label": "采购或开工推迟",
+      "sublabel": "融资未落实或回报不足",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p2_3",
+      "lane": "p2",
+      "col": 3,
+      "type": "security",
+      "label": "订单与交付下降",
+      "sublabel": "客户实际采购发生收缩",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p7_0",
+      "lane": "p7",
+      "col": 0,
+      "type": "external",
+      "label": "资产负债调价不同步",
+      "sublabel": "贷款、再投资与存款节奏不同",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p7_1",
+      "lane": "p7",
+      "col": 1,
+      "type": "backend",
+      "label": "收支利率变化不利",
+      "sublabel": "资产降得快或负债升得快",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p7_2",
+      "lane": "p7",
+      "col": 2,
+      "type": "messagebus",
+      "label": "净息差收窄",
+      "sublabel": "核对同口径实际披露",
+      "width": 190,
+      "height": 76
+    },
+    {
+      "id": "p7_3",
+      "lane": "p7",
+      "col": 3,
+      "type": "security",
+      "label": "净利息收入减少",
+      "sublabel": "规模增长不足以补偿息差",
+      "width": 190,
+      "height": 76
+    }
+  ],
+  "edges": [
+    {
+      "id": "p1_e0",
+      "from": "p1_0",
+      "to": "p1_1",
+      "label": "进入合同",
+      "role": "main"
+    },
+    {
+      "id": "p1_e1",
+      "from": "p1_1",
+      "to": "p1_2",
+      "label": "增加负担",
+      "role": "main"
+    },
+    {
+      "id": "p1_e2",
+      "from": "p1_2",
+      "to": "p1_3",
+      "label": "缓冲不足",
+      "role": "main"
+    },
+    {
+      "id": "p2_e0",
+      "from": "p2_0",
+      "to": "p2_1",
+      "label": "约束支付",
+      "role": "branch"
+    },
+    {
+      "id": "p2_e1",
+      "from": "p2_1",
+      "to": "p2_2",
+      "label": "推迟支出",
+      "role": "branch"
+    },
+    {
+      "id": "p2_e2",
+      "from": "p2_2",
+      "to": "p2_3",
+      "label": "传入订单",
+      "role": "branch"
+    },
+    {
+      "id": "p7_e0",
+      "from": "p7_0",
+      "to": "p7_1",
+      "label": "形成错配",
+      "role": "branch"
+    },
+    {
+      "id": "p7_e1",
+      "from": "p7_1",
+      "to": "p7_2",
+      "label": "压缩息差",
+      "role": "branch"
+    },
+    {
+      "id": "p7_e2",
+      "from": "p7_2",
+      "to": "p7_3",
+      "label": "规模未补偿",
+      "role": "branch"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "P1｜证据与反证",
+      "items": [
+        "浮息占比高、再融资较多、利润缓冲薄的非金融企业。",
+        "监测：重定价债务占比、执行利率、利息费用与利息保障倍数。",
+        "固定利率存量债不立即跟随；有效对冲或经营增长可缓和。到期现金不足时另查 P4。"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "P2｜证据与反证",
+      "items": [
+        "依赖按揭、分期及客户资本开支的地产链、耐用品和设备企业。",
+        "监测：客户融资全成本、贷款落实、实际采购及企业订单交付。",
+        "其他客户增长可中断传导；名义降息仍需核对预期实际融资利率。"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "P7｜证据与反证",
+      "items": [
+        "重定价不匹配、存款成本黏性高、依赖净利息收入的银行。",
+        "监测：分期限重定价缺口、资产收益率、负债成本率、净息差。",
+        "非息收入、费用和信用减值可缓冲总利润；息差下降不等于流动性危机。"
+      ]
+    }
+  ],
+  "mainPath": [
+    "p1_0",
+    "p1_1",
+    "p1_2",
+    "p1_3"
+  ]
+}
