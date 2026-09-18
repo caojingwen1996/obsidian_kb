@@ -1103,8 +1103,10 @@ const [template, styles, changelogSource, eventCalendarSource, ...modules] = awa
   readFile(join(sourceDir, 'event-calendar.json'), 'utf8'),
   ...moduleOrder.map(filename => readFile(join(sourceDir, filename), 'utf8')),
 ]);
+const nasdaqEtfAnchor = JSON.parse(await readFile(join(dataDir, 'nasdaq-etf-anchor.json'), 'utf8'));
 const industries = await Promise.all(industryDefinitions.map(scanIndustryReports));
 const indexDayStatistics = await readFile(join(repoRoot, 'sources', 'assets', '2026-09-11-index-day-distribution', 'yearly.csv'), 'utf8');
+const nasdaqDayStatistics = await readFile(join(dataDir, 'nasdaq-day-statistics.csv'), 'utf8');
 const bbxmDailyDigest = await scanBbxmDailyDigest();
 const topicPages = await scanTopicPages();
 const changelog = validateChangelog(JSON.parse(changelogSource));
@@ -1122,6 +1124,7 @@ const bundle = modules
   .map((source, index) => {
     const withGeneratedData = moduleOrder[index] === 'app.mjs'
       ? source
+        .replace('  // NASDAQ_ETF_ANCHOR', JSON.stringify(nasdaqEtfAnchor).slice(1, -1))
         .replace('  // STOCK_REPORT_LINKS', stockReportLinks)
         .replace('  // STOCK_THREE_FACTOR_REPORT_LINKS', stockThreeFactorReportLinks)
         .replace('  // DAILY_MONITOR_LINKS', dailyMonitorData.mapSource)
@@ -1159,7 +1162,7 @@ const output = renderedTemplate
   .replace('            <!-- TOPIC_CARDS -->', renderTopicCards(topicPages))
   .replace('        <!-- CHANGELOG_ENTRIES -->', renderChangelog(changelog))
   .replace('<!-- DASHBOARD_STYLES -->', `<style>${styles.trim()}</style>`)
-  .replace('<!-- NDX_DAY_CHART -->', renderIndexDayChart(indexDayStatistics, 'NDX'))
+  .replace('<!-- NDX_DAY_CHART -->', renderIndexDayChart(nasdaqDayStatistics, 'NDX'))
   .replace('<!-- DIVIDEND_DAY_CHART -->', renderIndexDayChart(indexDayStatistics, 'H30269.CSI'))
   .replace('<!-- DASHBOARD_SCRIPT -->', () => `<script type="module">${bundle}</script>`);
 

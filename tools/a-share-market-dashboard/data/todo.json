@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-16",
+  "updatedAt": "2026-09-17",
   "items": [
     {
       "id": "TODO-005",
@@ -151,6 +151,16 @@
       "source": "看板新增",
       "createdAt": "2026-09-16",
       "updatedAt": "2026-09-16"
+    },
+    {
+      "id": "TODO-026",
+      "title": "重构bbxm-plugin",
+      "detail": "到底如何区分skill和plugin",
+      "quadrant": "重要不紧急",
+      "status": "未开始",
+      "source": "看板新增",
+      "createdAt": "2026-09-17",
+      "updatedAt": "2026-09-17"
     }
   ],
   "archive": [

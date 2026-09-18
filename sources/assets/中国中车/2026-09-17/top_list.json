@@ -1,0 +1,12 @@
+{
+  "source": "local Tushare client",
+  "method": "top_list",
+  "params": {
+    "ts_code": "601766.SH",
+    "start_date": "20260701",
+    "end_date": "20260916"
+  },
+  "retrieved_at": "2026-09-17T10:20:05",
+  "status": "error",
+  "error": "必填参数, trade_date"
+}

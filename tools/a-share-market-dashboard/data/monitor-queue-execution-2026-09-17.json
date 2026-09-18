@@ -1,0 +1,20 @@
+[
+  {
+    "code": "600150",
+    "status": "MANUAL_REVIEW",
+    "potential_level": "FULL_REVALUE",
+    "execution": "FAILED_INPUT_VALIDATION",
+    "failed_step": "bbxm-equity-research v4.5.0 Step 1 incident impact inputs",
+    "missing": "船舶设备损失、停工范围与期限、事故责任结论、处罚赔偿、保险赔付及时间、订单延期和财务影响",
+    "authority": "2026-07-17-1133-中国船舶机构级决策研报.md",
+    "authority_unchanged": true,
+    "model_recalculated": false,
+    "bubble_scan_completed": false,
+    "new_value_range": null,
+    "retrieval_counts": {
+      "moneyflow": 33,
+      "margin_detail": 33,
+      "stk_holdernumber": 1
+    }
+  }
+]

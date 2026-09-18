@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "verified_at": "2026-09-17T02:44:21.694Z",
+  "checks": [
+    "six required chapters and HTML anchors",
+    "one tracking panel with four cards and ordered fundamentals",
+    "32 unique scan items and exact status totals",
+    "valuation arithmetic, recurring earnings stress and Kelly",
+    "local source links and converted HTML links",
+    "UTF-8 and no replacement, private-use or common mojibake characters",
+    "single authoritative report and intact previous report backup",
+    "valid cached JSON and successful official-page / daily Dragon Tiger retries"
+  ],
+  "limitations": [
+    "Structural HTML validation only; no browser visual signoff.",
+    "Economic assumptions and missing evidence remain conditional as documented."
+  ]
+}

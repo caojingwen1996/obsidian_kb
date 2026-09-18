@@ -19,7 +19,7 @@ tags:
 framework_refs:
   - "[[wiki/concepts/冰冰小美-framework-估值判断|冰冰小美估值判断框架]]"
   - "[[wiki/concepts/冰冰小美-framework-产业思维|冰冰小美产业思维框架]]"
-  - "[[冰冰小美-macro-通胀|冰冰小美通胀与资产框架]]"
+  - "[[冰冰小美-macro-basic-通胀|冰冰小美通胀与资产框架]]"
 sources:
   - "[[sources/webpages/2026-09-03-云铝股份v4.2.1估值证据快照|云铝股份v4.2.1估值证据快照]]"
   - "[[sources/webpages/2026-08-28-云铝股份H1与估值重估快照|云铝股份H1与估值重估快照]]"

@@ -2,7 +2,7 @@
 title: "冰冰小美-view-价值投资"
 aliases: []
 created: 2026-08-13
-updated: 2026-08-13
+updated: 2026-09-18
 type: concept
 status: active
 tags: []
@@ -31,8 +31,4 @@ common_misunderstandings: []
 ## 概念边界
 
 
-## 相关页面
-
-
 ## 来源
-

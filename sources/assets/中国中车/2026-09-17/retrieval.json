@@ -1,0 +1,122 @@
+[
+  {
+    "dataset": "daily",
+    "status": "ok",
+    "rows": 56,
+    "error": null
+  },
+  {
+    "dataset": "moneyflow",
+    "status": "ok",
+    "rows": 56,
+    "error": null
+  },
+  {
+    "dataset": "adj_factor",
+    "status": "ok",
+    "rows": 56,
+    "error": null
+  },
+  {
+    "dataset": "block_trade",
+    "status": "ok",
+    "rows": 0,
+    "error": null
+  },
+  {
+    "dataset": "margin_detail",
+    "status": "ok",
+    "rows": 56,
+    "error": null
+  },
+  {
+    "dataset": "top_list",
+    "status": "error",
+    "rows": 0,
+    "error": "必填参数, trade_date"
+  },
+  {
+    "dataset": "balancesheet",
+    "status": "ok",
+    "rows": 30,
+    "error": null
+  },
+  {
+    "dataset": "income",
+    "status": "ok",
+    "rows": 23,
+    "error": null
+  },
+  {
+    "dataset": "stk_holdernumber",
+    "status": "ok",
+    "rows": 91,
+    "error": null
+  },
+  {
+    "dataset": "daily_basic",
+    "status": "ok",
+    "rows": 56,
+    "error": null
+  },
+  {
+    "dataset": "cashflow",
+    "status": "ok",
+    "rows": 27,
+    "error": null
+  },
+  {
+    "dataset": "fina_indicator",
+    "status": "ok",
+    "rows": 25,
+    "error": null
+  },
+  {
+    "dataset": "stk_holdertrade",
+    "status": "ok",
+    "rows": 24,
+    "error": null
+  },
+  {
+    "dataset": "repurchase",
+    "status": "ok",
+    "rows": 0,
+    "error": null
+  },
+  {
+    "dataset": "dividend",
+    "status": "ok",
+    "rows": 62,
+    "error": null
+  },
+  {
+    "dataset": "trade_cal",
+    "status": "ok",
+    "rows": 4,
+    "error": null
+  },
+  {
+    "dataset": "stock_basic",
+    "status": "ok",
+    "rows": 1,
+    "error": null
+  },
+  {
+    "dataset": "shibor_lpr",
+    "status": "ok",
+    "rows": 1,
+    "error": null
+  },
+  {
+    "dataset": "daily_basic-688187.SH",
+    "status": "ok",
+    "rows": 1,
+    "error": null
+  },
+  {
+    "dataset": "daily_basic-688009.SH",
+    "status": "ok",
+    "rows": 1,
+    "error": null
+  }
+]

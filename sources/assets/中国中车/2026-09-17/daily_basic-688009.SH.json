@@ -1,0 +1,33 @@
+{
+  "source": "local Tushare client",
+  "method": "daily_basic",
+  "params": {
+    "ts_code": "688009.SH",
+    "start_date": "20260916",
+    "end_date": "20260916"
+  },
+  "retrieved_at": "2026-09-17T10:20:05",
+  "status": "ok",
+  "rows": [
+    {
+      "ts_code": "688009.SH",
+      "trade_date": "20260916",
+      "close": 4.63,
+      "turnover_rate": 0.3106,
+      "turnover_rate_f": 1.3344,
+      "volume_ratio": 0.79,
+      "pe": 13.3004,
+      "pe_ttm": 13.853,
+      "pb": 1.0433,
+      "ps": 1.419,
+      "ps_ttm": 1.4434,
+      "dv_ratio": 3.6717,
+      "dv_ttm": 3.6717,
+      "total_share": 1058981.9,
+      "float_share": 862101.8,
+      "free_share": 200680.2,
+      "total_mv": 4903086.197,
+      "circ_mv": 3991531.334
+    }
+  ]
+}

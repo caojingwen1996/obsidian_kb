@@ -15,3 +15,4 @@ tools/tushare-data/vendor/
 tools/tushare-data/.cache/
 tools/tushare-data/scripts/__pycache__/
 tools/tushare-data/tests/__pycache__/
+/.tmp

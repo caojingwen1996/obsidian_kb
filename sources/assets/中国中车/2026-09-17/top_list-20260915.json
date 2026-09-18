@@ -1,0 +1,11 @@
+{
+  "source": "local Tushare client",
+  "method": "top_list",
+  "params": {
+    "ts_code": "601766.SH",
+    "trade_date": "20260915"
+  },
+  "retrieved_at": "2026-09-17T10:22:03",
+  "status": "ok",
+  "rows": []
+}

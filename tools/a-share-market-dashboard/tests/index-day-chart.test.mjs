@@ -15,9 +15,16 @@ test('Each detail chart uses its own index and ten complete years', () => {
   for (const chart of [dividend, nasdaq]) {
     assert.equal((chart.match(/class="index-day-row"/g) || []).length, 11);
     assert.match(chart, /2026\*/);
-    assert.match(chart, /静态统计快照/);
   }
   assert.throws(() => renderIndexDayChart('', 'NDX'));
+  assert.match(dividend, /静态统计快照/);
+  assert.match(nasdaq, /每月月末统计一次/);
+});
+
+test('NDX cutoff follows the monthly data instead of a hard-coded date', () => {
+  const updated = csv.replace(/20260910/g, '20260930');
+  assert.match(renderIndexDayChart(updated, 'NDX'), /2026\*截至2026-09-30/);
+  assert.match(renderIndexDayChart(updated, 'NDX'), /年均 102.8 天/);
 });
 
 test('Chart placeholders are inside the intended detail views', async () => {

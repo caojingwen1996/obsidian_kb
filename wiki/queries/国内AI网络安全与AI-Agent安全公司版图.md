@@ -4,7 +4,7 @@ aliases:
   - 国内大模型安全公司
   - 国内智能体安全公司
 created: 2026-07-15
-updated: 2026-07-15
+updated: 2026-09-18
 type: query
 status: draft
 tags:
@@ -13,7 +13,8 @@ tags:
   - domain/security
 sources:
   - "[[sources/webpages/2026-07-15-国内AI网络安全与AI-Agent安全公司官网调研|国内 AI 网络安全与 AI Agent 安全公司官网调研]]"
-related: []
+related:
+  - "[[index|知识库索引]]"
 summary: "按 AI 赋能网安、大模型应用安全和 Agent 运行时安全三层整理国内厂商，并区分平台型、传统安全厂商与专向创业公司。"
 original_question: "国内做AI 网络安全和AI Agent 安全的公司"
 query_context: "用于建立国内厂商初筛名单和甲方选型口径。"
@@ -104,7 +105,3 @@ answer_status: recorded
 ## 来源
 
 - [[sources/webpages/2026-07-15-国内AI网络安全与AI-Agent安全公司官网调研|国内 AI 网络安全与 AI Agent 安全公司官网调研]]
-
-## 相关页面
-
-- [[index|知识库索引]]：当前问题页的总导航入口。

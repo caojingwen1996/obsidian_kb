@@ -51,6 +51,9 @@ const FUGUI_STRATEGY_RULES = Object.freeze({
 });
 const YOUZHIYOUXING_TEMPERATURE_URL = 'https://youzhiyouxing.cn/data';
 const NASDAQ100_SOURCE_URL = 'https://finance.yahoo.com/quote/%5ENDX/';
+const NASDAQ_ETF_ANCHOR = {
+  // NASDAQ_ETF_ANCHOR
+};
 export const NASDAQ_GRID_LEVELS = Object.freeze([
   Object.freeze({ level: 1, drawdownPercent: -9, assumedPrice: 91, multiplier: 1 }),
   Object.freeze({ level: 2, drawdownPercent: -12.5, assumedPrice: 87.5, multiplier: 1 }),
@@ -344,10 +347,14 @@ export function normalizeNasdaqGridUnitAmount(value, fallback = 10_000) {
   return Number.isFinite(amount) && amount > 0 ? Math.round(amount * 100) / 100 : fallback;
 }
 
-export function parseNasdaqEtfHistory(payload) {
+export function parseNasdaqEtfHistory(payload, now = new Date()) {
   const rows = payload?.data?.klines;
   if (!Array.isArray(rows) || !rows.length) throw new Error('ETF 历史行情为空');
-  const points = rows.map(row => {
+  const chinaTime = new Date(now.getTime() + 8 * 60 * 60 * 1000);
+  const today = chinaTime.toISOString().slice(0, 10);
+  const completedRows = rows.filter(row => String(row).slice(0, 10) < today || (String(row).slice(0, 10) === today && chinaTime.getUTCHours() >= 15));
+  if (!completedRows.length) throw new Error('ETF 已收盘日线为空');
+  const points = completedRows.map(row => {
     const [date, , close, high] = String(row).split(',');
     if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !(Number(close) > 0) || !Number.isFinite(Number(high)) || Number(high) < Number(close)) {
       throw new Error('ETF 历史行情不完整，无法确定前高');
@@ -364,6 +371,19 @@ export function parseNasdaqEtfHistory(payload) {
     startDate: points[0].date,
     drawdownPercent: (latest.close / peak.high - 1) * 100,
     source: payload.proxySource || '东方财富',
+  };
+}
+
+export function applyNasdaqEtfAnchor(data, anchor) {
+  if (!(Number.isFinite(anchor?.highPrice) && anchor.highPrice > 0)) throw new Error('固定前高缺失');
+  return {
+    ...data,
+    highPrice: anchor.highPrice,
+    highDate: anchor.highDate,
+    startDate: anchor.startDate,
+    anchorEndDate: anchor.anchorEndDate || anchor.date,
+    source: anchor.source,
+    drawdownPercent: (data.close / anchor.highPrice - 1) * 100,
   };
 }
 
@@ -1279,7 +1299,7 @@ export function renderNasdaqGridStrategy(envelope, unitAmount) {
   const drawdown = envelope?.status === 'latest' && Number.isFinite(data?.drawdownPercent)
     ? data.drawdownPercent
     : null;
-  const highPrice = envelope?.status === 'latest' ? data?.highPrice : null;
+  const highPrice = data?.highPrice ?? null;
   const plan = calculateNasdaqGridPlan(unitAmount, drawdown, highPrice);
   const formatGridMoney = value => `¥${formatNumber(value, 2)}`;
   const nextText = drawdown === null
@@ -1290,7 +1310,7 @@ export function renderNasdaqGridStrategy(envelope, unitAmount) {
   const updatedText = `${escapeHtml(data?.date)} 收盘 ¥${data?.close?.toFixed(3) ?? '—'}`;
   return {
     referenceText: highPrice > 0
-      ? `广发纳指100ETF（159941） · 区间前高 ¥${highPrice.toFixed(3)}（${data.highDate}） · ${data.source}前复权日线，日内最高价；样本 ${data.startDate} 至 ${data.date}。买入参考价向下取至 0.001 元，触发状态按 ETF 最新日线收盘价判断，非实时成交信号。`
+      ? `广发纳指100ETF（159941） · 固定前高 ¥${highPrice.toFixed(3)}（${data.highDate}） · ${data.source}前复权日线，日内最高价；样本 ${data.startDate} 至 ${data.anchorEndDate || data.date}，前高已保存，不随刷新变化。${envelope?.status !== 'latest' ? `最新收盘待验证（${envelope?.error || '正在读取'}），固定参考价仍可用。` : ''}买入参考价向下取至 0.001 元，触发状态按 ETF 最新日线收盘价判断，非实时成交信号。`
       : `广发纳指100ETF（159941） · ${envelope?.status === 'loading' ? '正在读取 ETF 前高与日线行情…' : envelope?.error || 'ETF 前高待验证'}，买入参考价待验证。`,
     summaryHtml: `<article><small>ETF 收盘回撤</small><strong>${drawdown === null ? '待验证' : `${drawdown.toFixed(2)}%`}</strong><span>${drawdown === null ? '尚未取得 ETF 行情' : updatedText}</span></article>
       <article><small>下一档</small><strong>${nextText}</strong><span>${plan.nextLevel ? `本档计划 ${formatGridMoney(plan.nextLevel.levelAmount)}` : '等待新策略条件'}</span></article>
@@ -1939,7 +1959,7 @@ function startApp() {
     busy: false,
     youzhiyouxingTemperature: { status: 'loading', sourceUrl: YOUZHIYOUXING_TEMPERATURE_URL },
     nasdaq100: { status: 'loading', sourceUrl: NASDAQ100_SOURCE_URL },
-    nasdaqEtf: { status: 'loading' },
+    nasdaqEtf: { status: 'loading', data: NASDAQ_ETF_ANCHOR },
     dividendSignal: CSI_DIVIDEND_SIGNAL,
     fuguiStrategy: { items: [] },
   };
@@ -3313,14 +3333,14 @@ function startApp() {
   const loadNasdaqEtf = async () => {
     if (nasdaqEtfLoading) return;
     nasdaqEtfLoading = true;
-    state.nasdaqEtf = { status: 'loading' };
+    state.nasdaqEtf = { status: 'loading', data: NASDAQ_ETF_ANCHOR };
     render();
     try {
       if (!isLocalProxyLocation()) throw new Error('请通过本地看板服务读取 ETF 行情');
-      const payload = await fetchJson(buildLocalProxyUrl('/api/eastmoney-kline', { secid: '0.159941', limit: 4000 }), requestTimeout());
-      state.nasdaqEtf = { status: 'latest', data: parseNasdaqEtfHistory(payload) };
+      const payload = await fetchJson(buildLocalProxyUrl('/api/eastmoney-kline', { secid: '0.159941', limit: 250 }), requestTimeout());
+      state.nasdaqEtf = { status: 'latest', data: applyNasdaqEtfAnchor(parseNasdaqEtfHistory(payload), NASDAQ_ETF_ANCHOR) };
     } catch (error) {
-      state.nasdaqEtf = { status: 'missing', error: `ETF 行情读取失败：${error instanceof Error ? error.message : String(error)}` };
+      state.nasdaqEtf = { status: 'missing', data: NASDAQ_ETF_ANCHOR, error: `ETF 行情读取失败：${error instanceof Error ? error.message : String(error)}` };
     } finally {
       nasdaqEtfLoading = false;
       render();

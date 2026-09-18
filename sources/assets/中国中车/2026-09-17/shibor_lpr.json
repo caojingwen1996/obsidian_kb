@@ -1,0 +1,17 @@
+{
+  "source": "local Tushare client",
+  "method": "shibor_lpr",
+  "params": {
+    "start_date": "20260801",
+    "end_date": "20260917"
+  },
+  "retrieved_at": "2026-09-17T10:20:05",
+  "status": "ok",
+  "rows": [
+    {
+      "date": "20260820",
+      "1y": 3.0,
+      "5y": 3.5
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 ## Policy View 页面生成规则
 
-本文件只定义政策解读型 View Page 的观点提炼要求。frontmatter、页面命名、目录位置、来源字段、相关页面、双链格式和更新流程，以 `schema.md`、`page-types.md`、`AGENTS.md` 和 `templates/view-page-template.md` 为准。
+本文件只定义政策解读型 View Page 的观点提炼要求。frontmatter、页面命名、目录位置、来源字段、`related` 关联字段、双链格式和更新流程，以 `schema.md`、`page-types.md`、`AGENTS.md` 和 `templates/view-page-template.md` 为准。
 
 当整理 policy view 页面时，不能直接总结政策原文，也不能把政策传导链完整塞进观点页。必须把来源中的“作者如何理解政策”提炼成可复用的阶段性观点，并明确区分政策事实、作者观点、整理者推断和待验证信息。
 

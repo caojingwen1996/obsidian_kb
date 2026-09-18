@@ -83,10 +83,6 @@ answer_status: recorded
 
 ---
 
-## 相关页面
-
-- [[页面路径|页面名称]]：说明这个页面如何支撑当前答案。
-
 ## 不确定性
 
 - 当前答案依赖哪些资料或前提？
@@ -96,5 +92,3 @@ answer_status: recorded
 ## 来源
 
 - [[sources/path|来源名称]]
-
-

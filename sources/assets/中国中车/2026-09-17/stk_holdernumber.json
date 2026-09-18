@@ -1,0 +1,557 @@
+{
+  "source": "local Tushare client",
+  "method": "stk_holdernumber",
+  "params": {
+    "ts_code": "601766.SH"
+  },
+  "retrieved_at": "2026-09-17T10:20:05",
+  "status": "ok",
+  "rows": [
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20260820",
+      "end_date": "20260630",
+      "holder_num": 585454
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20260525",
+      "end_date": "20260525",
+      "holder_num": 572708
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20260430",
+      "end_date": "20260331",
+      "holder_num": 574675
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20260328",
+      "end_date": "20260228",
+      "holder_num": 560297
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20260328",
+      "end_date": "20251231",
+      "holder_num": 506111
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20251031",
+      "end_date": "20250930",
+      "holder_num": 498219
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20250823",
+      "end_date": "20250630",
+      "holder_num": 513174
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20250430",
+      "end_date": "20250331",
+      "holder_num": 519396
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20250329",
+      "end_date": "20250228",
+      "holder_num": 519442
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20250329",
+      "end_date": "20241231",
+      "holder_num": 514816
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20241031",
+      "end_date": "20240930",
+      "holder_num": 539942
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20240824",
+      "end_date": "20240630",
+      "holder_num": 575311
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20240430",
+      "end_date": "20240331",
+      "holder_num": 565592
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20240329",
+      "end_date": "20240229",
+      "holder_num": 576770
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20240329",
+      "end_date": "20231231",
+      "holder_num": 597887
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20231028",
+      "end_date": "20230930",
+      "holder_num": 588089
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20230826",
+      "end_date": "20230630",
+      "holder_num": 601413
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20230802",
+      "end_date": "20230331",
+      "holder_num": 623261
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20230429",
+      "end_date": "20230331",
+      "holder_num": 625965
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20230331",
+      "end_date": "20230228",
+      "holder_num": 642170
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20230331",
+      "end_date": "20221231",
+      "holder_num": 658856
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20221029",
+      "end_date": "20220930",
+      "holder_num": 677231
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20220827",
+      "end_date": "20220630",
+      "holder_num": 693282
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20220430",
+      "end_date": "20220331",
+      "holder_num": 701921
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20220331",
+      "end_date": "20220228",
+      "holder_num": 701124
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20220331",
+      "end_date": "20211231",
+      "holder_num": 709612
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20211030",
+      "end_date": "20210930",
+      "holder_num": 724911
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20210828",
+      "end_date": "20210630",
+      "holder_num": 763885
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20210430",
+      "end_date": "20210331",
+      "holder_num": 791366
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20210331",
+      "end_date": "20210226",
+      "holder_num": 801882
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20210331",
+      "end_date": "20201231",
+      "holder_num": 745167
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20201031",
+      "end_date": "20200930",
+      "holder_num": 755550
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20200829",
+      "end_date": "20200630",
+      "holder_num": 780117
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20200430",
+      "end_date": "20200331",
+      "holder_num": 783102
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20200331",
+      "end_date": "20200229",
+      "holder_num": 792077
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20200331",
+      "end_date": "20191231",
+      "holder_num": 796529
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20191031",
+      "end_date": "20190930",
+      "holder_num": 804617
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20190830",
+      "end_date": "20190630",
+      "holder_num": 816302
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20190430",
+      "end_date": "20190331",
+      "holder_num": 836205
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20190329",
+      "end_date": "20190228",
+      "holder_num": 818013
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20190329",
+      "end_date": "20181231",
+      "holder_num": 809715
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20181031",
+      "end_date": "20180930",
+      "holder_num": 839601
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20180825",
+      "end_date": "20180630",
+      "holder_num": 866984
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20180427",
+      "end_date": "20180331",
+      "holder_num": 889929
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20180329",
+      "end_date": "20180228",
+      "holder_num": 904032
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20180329",
+      "end_date": "20171231",
+      "holder_num": 875910
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20171028",
+      "end_date": "20170930",
+      "holder_num": 927701
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20170826",
+      "end_date": "20170630",
+      "holder_num": 968291
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20170428",
+      "end_date": "20170331",
+      "holder_num": 1006581
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20170330",
+      "end_date": "20170228",
+      "holder_num": 1032472
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20170330",
+      "end_date": "20161231",
+      "holder_num": 1070288
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20161029",
+      "end_date": "20160930",
+      "holder_num": 1057261
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20160823",
+      "end_date": "20160630",
+      "holder_num": 1120213
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20160428",
+      "end_date": "20160331",
+      "holder_num": 1152223
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20160330",
+      "end_date": "20160229",
+      "holder_num": 1188123
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20160330",
+      "end_date": "20151231",
+      "holder_num": 1217875
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20151031",
+      "end_date": "20150930",
+      "holder_num": 1431299
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20150829",
+      "end_date": "20150630",
+      "holder_num": 1855350
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20150430",
+      "end_date": "20150331",
+      "holder_num": 575067
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20150331",
+      "end_date": "20150324",
+      "holder_num": 553995
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20150331",
+      "end_date": "20141231",
+      "holder_num": 269788
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20141031",
+      "end_date": "20140930",
+      "holder_num": 237225
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20140823",
+      "end_date": "20140630",
+      "holder_num": 254761
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20140426",
+      "end_date": "20140331",
+      "holder_num": 252018
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20140329",
+      "end_date": "20140324",
+      "holder_num": 255874
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20140329",
+      "end_date": "20131231",
+      "holder_num": 251234
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20131026",
+      "end_date": "20130930",
+      "holder_num": 276594
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20130828",
+      "end_date": "20130630",
+      "holder_num": 278393
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20130427",
+      "end_date": "20130331",
+      "holder_num": 282362
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20130329",
+      "end_date": "20130322",
+      "holder_num": 279991
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20130329",
+      "end_date": "20121231",
+      "holder_num": 271673
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20121026",
+      "end_date": "20120930",
+      "holder_num": 294404
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20120823",
+      "end_date": "20120630",
+      "holder_num": 295394
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20120425",
+      "end_date": "20120331",
+      "holder_num": 310614
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20120331",
+      "end_date": "20120229",
+      "holder_num": 312969
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20120331",
+      "end_date": "20111231",
+      "holder_num": 328863
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20111029",
+      "end_date": "20110930",
+      "holder_num": 359502
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20110806",
+      "end_date": "20110630",
+      "holder_num": 358783
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20110423",
+      "end_date": "20110331",
+      "holder_num": 384468
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20110330",
+      "end_date": "20101231",
+      "holder_num": 212081
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20101029",
+      "end_date": "20100930",
+      "holder_num": 157151
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20100811",
+      "end_date": "20100630",
+      "holder_num": 194090
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20100423",
+      "end_date": "20100331",
+      "holder_num": 208795
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20100423",
+      "end_date": "20091231",
+      "holder_num": 249321
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20091029",
+      "end_date": "20090930",
+      "holder_num": 368256
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20090821",
+      "end_date": "20090630",
+      "holder_num": 295823
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20090423",
+      "end_date": "20090331",
+      "holder_num": 340061
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20090423",
+      "end_date": "20081231",
+      "holder_num": 245020
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20081027",
+      "end_date": "20080930",
+      "holder_num": 195716
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20080728",
+      "end_date": "20080331",
+      "holder_num": 2
+    },
+    {
+      "ts_code": "601766.SH",
+      "ann_date": "20080728",
+      "end_date": "20071231",
+      "holder_num": 2
+    }
+  ]
+}

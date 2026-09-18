@@ -1,0 +1,20 @@
+{
+  "source": "local Tushare client",
+  "method": "stock_basic",
+  "params": {
+    "ts_code": "601766.SH",
+    "fields": "ts_code,symbol,name,industry,market,list_date"
+  },
+  "retrieved_at": "2026-09-17T10:20:05",
+  "status": "ok",
+  "rows": [
+    {
+      "ts_code": "601766.SH",
+      "symbol": "601766",
+      "name": "中国中车",
+      "industry": "运输设备",
+      "market": "主板",
+      "list_date": "20080818"
+    }
+  ]
+}

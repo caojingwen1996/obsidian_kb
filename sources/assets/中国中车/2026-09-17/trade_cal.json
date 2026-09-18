@@ -1,0 +1,37 @@
+{
+  "source": "local Tushare client",
+  "method": "trade_cal",
+  "params": {
+    "exchange": "SSE",
+    "start_date": "20260914",
+    "end_date": "20260917"
+  },
+  "retrieved_at": "2026-09-17T10:20:05",
+  "status": "ok",
+  "rows": [
+    {
+      "exchange": "SSE",
+      "cal_date": "20260917",
+      "is_open": 1,
+      "pretrade_date": "20260916"
+    },
+    {
+      "exchange": "SSE",
+      "cal_date": "20260916",
+      "is_open": 1,
+      "pretrade_date": "20260915"
+    },
+    {
+      "exchange": "SSE",
+      "cal_date": "20260915",
+      "is_open": 1,
+      "pretrade_date": "20260914"
+    },
+    {
+      "exchange": "SSE",
+      "cal_date": "20260914",
+      "is_open": 1,
+      "pretrade_date": "20260911"
+    }
+  ]
+}
