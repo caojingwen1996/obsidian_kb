@@ -1,6 +1,6 @@
 ---
 name: bbxm-expert
-description: Use when the user invokes bbxm-expert, 冰冰小美专家, 冰冰小美体系, 产业思维, 个股产业思维, 产业分析, 行业分析, 产业链分析, 三要素分析, 体系三要素, 信息归纳, 信息过滤, 交易复盘, 风险识别, 机构级研报, 个股深度研究, 估值, 公允价值, DCF, 目标价, or asks how to route a market, company, industry, news, or trade request inside the 冰冰小美 framework.
+description: Use when the user invokes bbxm-expert, 冰冰小美专家, 冰冰小美体系, 产业思维, 个股产业思维, 产业分析, 行业分析, 产业链分析, 三要素分析, 体系三要素, 信息归纳, 信息过滤, 交易复盘, 风险识别, 风险演绎观察, 机构级研报, 个股深度研究, 估值, 公允价值, DCF, 目标价, or asks how to route a market, company, industry, news, or trade request inside the 冰冰小美 framework.
 ---
 
 # 冰冰小美专家总入口
@@ -30,7 +30,8 @@ description: Use when the user invokes bbxm-expert, 冰冰小美专家, 冰冰�
 | 按产业思维分析单家公司、判断产业链位置、产业与行业周期如何传导到公司、真受益或概念映射、长期候选池资格 | `个股产业思维筛选` |
 | 产业思维、产业分析、行业分析、赛道分析、产业链结构、产业约束、产业周期与产业行动结论 | `产业分析` |
 | 直接分析体系三要素，判断市场、指数、板块或个股的竞争格局、流动性、情绪位置及共振状态 | `bbxm-three-factor-analysis` |
-| 判断风险增强、持平、减弱或重新增强 | `bbxm-risk-identification` |
+| 现在是什么风险、为什么产生、风险来源与核心变量 | `bbxm-risk-identification` |
+| 已识别风险如何变化，判断增加、维持、减弱、重新增强与持续性 | `bbxm-risk-evolution-monitoring`；缺少模型先完成风险识别 |
 
 ## 冲突消解
 
@@ -43,25 +44,25 @@ description: Use when the user invokes bbxm-expert, 冰冰小美专家, 冰冰�
 5. 用户是否明确要求用产业思维分析单家上市公司，重点是产业链位置、产业生命周期、行业景气传导、利润池、公司兑现或长期候选资格，且不要求完整 DCF 或目标价？是则使用 `个股产业思维筛选`。
 6. 用户是否要求分析一个产业、行业、赛道或产业链的时代主线、约束、完整周期与验证？是则使用 `产业分析`。
 7. 用户是否要求直接分析体系三要素，判断竞争格局、流动性、情绪位置或三者共振，且主动作不是显式信息归纳、交易复盘、完整公司研究、个股产业思维或产业分析？是则使用 `bbxm-three-factor-analysis`。
-8. 用户是否只要求判断风险增强、持平、减弱或重新增强，且不是在明确调用信息归纳技能、复盘交易、产出完整研报或分析产业路径？是则使用 `bbxm-risk-identification`。
+8. 用户是否要求识别是什么风险、为什么产生？使用 `bbxm-risk-identification`。若要求已识别风险的变化、方向或持续性，使用 `bbxm-risk-evolution-monitoring`；缺少风险模型时先识别再观察，缺少可比数据时只建立基准并标记证据不足。
 9. 如果一句话同时满足多个条件，优先选择用户的主动作；显式信息归纳、交易复盘和显式估值请求分别优先于直接子技能路由。
 
-`bbxm-risk-identification` 与 `bbxm-three-factor-analysis` 是两个技能平行、互不调用：前者判断风险状态及其变化，后者直接分析竞争格局、流动性与情绪的位置和共振。用户同时要求风险判断与三要素分析时，由 `bbxm-expert` 分别调用两个技能并汇总结论；一个技能不能替代另一个。
+`bbxm-risk-identification` 负责风险类型、来源和核心变量，`bbxm-risk-evolution-monitoring` 承接基准观察风险变化。两者与 `bbxm-three-factor-analysis` 分工独立，不自动互相替代；用户同时要求风险变化与三要素分析时，由本入口分别执行观察技能与三要素技能并汇总，观察缺少模型时先完成识别。
 
 反例：
 
 - 用户说“用信息归纳技能处理某公司拟投资项目的公告”，使用 `bbxm-information-filter-flow`，区分公告发布、项目实施和实际兑现。
 - 用户仅说“这个新闻能不能交易”，不自动调用信息归纳技能；按实际交易问题及证据缺口处理，不从消息直接推出买卖结论。
 - 用户说“复盘这笔买入依据是不是被消息误导”，先用 `bbxm-trade-ticket-review` 复盘交易，仅在用户明确调用信息归纳技能时追加 `bbxm-information-filter-flow` 的五层记录。
-- 用户说“研究某上市公司并做 DCF，回答今天是否会买”，必须使用 `个股估值计算`，不能只输出 `bbxm-risk-identification` 的风险等级。
+- 用户说“研究某上市公司并做 DCF，回答今天是否会买”，必须使用 `个股估值计算`，不能只输出 `bbxm-risk-identification` 的风险类型。
 - 用户说“按产业思维分析紫光股份是真受益还是概念映射”，使用 `个股产业思维筛选`，先分析产业和公司映射，不直接降级为完整 DCF 研报。
 - 用户说“按产业思维分析宁德时代并给出 DCF、目标价和今天是否买入”，先取得 `个股产业思维筛选` 结论，再由 `个股估值计算` 完成价值计算和价格判断。
 - 用户说“分析航空航天产业”，进入 `产业分析`，不因出现“风险”或“股票”一词自动降级为个股风险识别。
 - 用户说“按金融信息归纳框架整理这条航空航天增长数据”，进入 `bbxm-information-filter-flow`；仅问“有没有金融意义”不自动触发。
 - 用户说“研究航天电子并给出 DCF 和目标价”，进入 `个股估值计算`。
 - 用户说“直接按体系三要素分析当前指数的竞争格局、流动性和情绪位置”，使用 `bbxm-three-factor-analysis`。
-- 用户说“按冰冰小美体系判断该股风险是在增强还是减弱”，但没有要求完整财务和估值研报，使用 `bbxm-risk-identification`。
-- 用户说“分析当前板块的三要素，同时判断风险是否重新增强”，由 `bbxm-expert` 分别调用 `bbxm-three-factor-analysis` 与 `bbxm-risk-identification`，再汇总两者结论。
+- 用户说“按冰冰小美体系判断该股风险是在增强还是减弱”，但没有要求完整财务和估值研报，使用 `bbxm-risk-evolution-monitoring`；无基准时先识别。
+- 用户说“分析当前板块的三要素，同时判断风险是否重新增强”，由 `bbxm-expert` 分别调用 `bbxm-three-factor-analysis` 与 `bbxm-risk-evolution-monitoring`，再汇总两者结论。
 
 ## 工作原则
 

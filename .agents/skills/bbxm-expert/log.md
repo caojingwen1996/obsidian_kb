@@ -29,3 +29,12 @@
 - 涉及文件：SKILL.md、bbxm-expert-SKILL-strong-trigger.md、log.md。
 - 具体变更：将对应入口改为明确调用信息归纳技能或金融信息归纳框架；保留 bbxm-information-filter-flow 标识，避免普通新闻或交易问题被自动路由到归纳流程。
 - 验证结果：核对新技能触发边界与本入口一致，中文 UTF-8 内容检查及差异格式检查通过；未更改本技能主体分析流程。
+
+
+## 2026-09-20 — 拆分风险识别与演绎观察路由
+
+- 版本：版本号不变。
+- 修改原因：风险识别与已识别风险变化观察分为两个技能。
+- 涉及文件：SKILL.md、bbxm-expert-SKILL-strong-trigger.md、log.md。
+- 具体变更：识别风险类型、来源、核心变量进入 bbxm-risk-identification；风险方向和持续性进入 bbxm-risk-evolution-monitoring；同步冲突消解、三要素组合示例与兼容指针。
+- 验证结果：核对两个技能入口、方向判断示例及兼容指针一致，引用文件存在，UTF-8 编码检查通过。

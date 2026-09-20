@@ -29000,3 +29000,14 @@ automation / dividend-signal / daily-record
 - 修改文件：`wiki/concepts/冰冰小美-macro-basic-货币.md`、引用原路径锚点的汇率与企业居民信用页、`index.md`。
 - 操作说明：完整迁移风险传导路径表章节（含九条路径及按路径监测表），随迁使用检查表并保留来源依据；共用 S 指标保留原页并改为跨页跳转。明确整理者归纳边界，调整原页定义与摘要，建立双向关联，更新索引与页面计数。
 - 验证：迁移章节除四项指标链接外逐字一致；P1—P9 锚点齐全，原有跨页路径引用已更新，frontmatter 可解析。
+
+## 2026-09-20
+
+### skill / 创建风险识别与风险演绎观察技能
+
+- 操作：按用户指定方法论重新建立风险识别技能，新建风险演绎观察技能，并同步专家入口分流。
+- 新增文件：`.agents/skills/bbxm-risk-identification/{SKILL.md,log.md}`、`.agents/skills/bbxm-risk-evolution-monitoring/{SKILL.md,log.md}`；识别技能原目录此前已按用户要求删除。
+- 修改文件：`.agents/skills/bbxm-expert/{SKILL.md,bbxm-expert-SKILL-strong-trigger.md,log.md}`、`index.md`、`log.md`。
+- 资料来源：[[wiki/concepts/冰冰小美-concept-风险观察与演绎|风险观察与演绎]]、[[sources/articles/2025-09-20-冰冰小美：风险变化如何观察|《风险变化如何观察》]]。
+- 具体变更：识别技能输出风险类型、风险来源、核心变量和 T0 基准；观察技能承接基准，增量跟踪两股力量、风险方向、持续性和模型变化；新增技能导航，正式 Wiki 页面计数不变。
+- 验证结果：两项技能结构校验通过；独立合成情境走查覆盖同根因消息收敛、缺数据不判维持、政策仅宣布不判风险减弱三项边界，均符合预期。UTF-8、引用路径与变更格式核验通过；未进行实时金融数据采集、自动触发或有无技能对照评测。校验器最初默认 GBK 读取失败，改用 Python UTF-8 模式后通过，未修改校验器。

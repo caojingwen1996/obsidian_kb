@@ -67,6 +67,7 @@
 - [[concepts/冰冰小美-通胀对股市的非线性影响|通胀对股市的非线性影响]] - 区分温和通胀、输入性通胀和恶性通胀如何分别影响股市、制造业利润、政策反应和风险资产定价
 - [[冰冰小美-concept-二级市场风险维度|冰冰小美-concept-二级市场风险维度]] - 统一风险定义、四类基础来源、波动与拥挤等衍生形态、验证顺序，并用体系三要素观察风险的形成、扩散与转弱
 - [[concepts/冰冰小美-concept-风险识别|冰冰小美-concept-风险识别]] - 将四类风险来源、波动风险传导和风险转弱阶段整理为交易前的风险拆解与观察工具
+- [[冰冰小美-concept-风险观察与演绎|冰冰小美-concept-风险观察与演绎]] - 待补充概念内容
 - [[冰冰小美-risk-泡沫|冰冰小美-risk-泡沫]] - 待补充概念内容
 - [[concepts/冰冰小美-杠杆拥挤交易风险|冰冰小美-杠杆拥挤交易风险]] - 将融资余额和热钱高度集中到 AI 等单一方向后的杠杆爆破、基金赎回、获利盘卖出和多杀多流动性踩踏整理为风险概念
 - [[冰冰小美-concept-体系三要素之竞争格局的比较优势|冰冰小美-concept-竞争格局的比较优势]] - 用国情、市场定位、同质化/差异化竞争、有序/无序竞争和企业掌门人能力判断方向是否具备比较优势
@@ -479,6 +480,9 @@
 - [信息归纳技能](.agents/skills/bbxm-information-filter-flow/SKILL.md)：基于 [[wiki/concepts/冰冰小美-framework-金融信息归纳框架|金融信息归纳框架]]，整理事件节点、影响变量、市场行为、金融反应与长期跟踪；影响部分先用白话解释，再列证据表；[变更日志](.agents/skills/bbxm-information-filter-flow/log.md)。
 
 - [Archify 风险传导路径图](.agents/skills/archify/SKILL.md)：将有来源的风险主链、分支与反馈关系绘制为交互式 HTML；[技能变更日志](.agents/skills/archify/log.md)。
+
+- [风险识别技能](.agents/skills/bbxm-risk-identification/SKILL.md)：回答现在是什么风险、为什么产生，输出风险类型、来源、核心变量及观察基准；[变更日志](.agents/skills/bbxm-risk-identification/log.md)。
+- [风险演绎观察技能](.agents/skills/bbxm-risk-evolution-monitoring/SKILL.md)：承接已识别风险，增量观察风险方向、持续性和模型变化；[变更日志](.agents/skills/bbxm-risk-evolution-monitoring/log.md)。
 
 ## 看板维护
 

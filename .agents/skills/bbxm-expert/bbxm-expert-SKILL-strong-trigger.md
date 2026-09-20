@@ -8,6 +8,7 @@
 - 复盘交割单、买卖记录或仓位行为：`bbxm-trade-ticket-review`
 - 完整公司研究、估值、DCF 或目标价：`bbxm-equity-research`
 - 直接分析竞争格局、流动性、情绪及三要素共振：`bbxm-three-factor-analysis`
-- 判断风险增强、持平、减弱或重新增强：`bbxm-risk-identification`
+- 识别是什么风险、为什么产生、风险来源和核心变量：`bbxm-risk-identification`
+- 判断已识别风险增加、维持、减弱、重新增强与持续性：`bbxm-risk-evolution-monitoring`；缺少模型先识别
 
 发现候选路径后，必须读取同目录 `SKILL.md`，以其中的主动作优先级、冲突消解、组合调用和工作原则为准；不要从本文件推导独立路由规则。
