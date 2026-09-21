@@ -1608,7 +1608,7 @@ ingest / source / concept / repair
 
 ### 操作说明
 
-按用户要求将“冰冰小美-风险定义-风险”整理到知识库。先将用户整理文本归档为 source，再修复当前工作区中已跟踪但缺失的 [[冰冰小美-concept-二级市场风险维度|冰冰小美-concept-二级市场风险维度]] 页面。页面在原有基本面、情绪面、流动性和估值风险四类框架基础上，补充“风险是市场短期失去正常定价能力”的定义，并整理风险来源、表现、判断信号和风险减弱条件。
+按用户要求将“冰冰小美-风险定义-风险”整理到知识库。先将用户整理文本归档为 source，再修复当前工作区中已跟踪但缺失的 [[冰冰小美-indacator-风险类型|冰冰小美-concept-二级市场风险维度]] 页面。页面在原有基本面、情绪面、流动性和估值风险四类框架基础上，补充“风险是市场短期失去正常定价能力”的定义，并整理风险来源、表现、判断信号和风险减弱条件。
 
 ### 后续待办
 
@@ -13262,7 +13262,7 @@ topic-update / classification
 
 ### 操作说明
 
-按 [[concepts/冰冰小美-concept-风险类型整理|风险类型整理]] 和 [[冰冰小美-concept-二级市场风险维度|风险的定义]] 的分类口径，重写 Topic Page `冰冰小美-风险提示系列` 中的风险类型归纳：新增 2026 年 1 月至 7 月的“按月份风险类型总结”，并将“已整理核心文章”表格中的风险类型从散关键词改为基本面风险、情绪面风险、流动性风险、估值锚风险、波动风险、杠杆拥挤交易风险、风险对冲工具风险、杠杆清算与美元蓄水池风险、金融诱骗等标准分类标签。
+按 [[concepts/冰冰小美-concept-风险类型整理|风险类型整理]] 和 [[冰冰小美-indacator-风险类型|风险的定义]] 的分类口径，重写 Topic Page `冰冰小美-风险提示系列` 中的风险类型归纳：新增 2026 年 1 月至 7 月的“按月份风险类型总结”，并将“已整理核心文章”表格中的风险类型从散关键词改为基本面风险、情绪面风险、流动性风险、估值锚风险、波动风险、杠杆拥挤交易风险、风险对冲工具风险、杠杆清算与美元蓄水池风险、金融诱骗等标准分类标签。
 
 ### 后续待办
 
@@ -29020,3 +29020,75 @@ automation / dividend-signal / daily-record
 - 修改文件：`.agents/skills/bbxm-risk-identification/{SKILL.md,log.md}`、`.agents/skills/bbxm-risk-evolution-monitoring/{SKILL.md,log.md}`、`log.md`。
 - 操作说明：按用户要求，风险识别 4 个步骤、风险演绎观察 5 个步骤统一使用 `Step N.` 标题；仅调整格式，索引无需变更。
 - 验证结果：编号和数量核验通过，分析流程保持不变。
+
+## 2026-09-21
+
+- [2026-09-21] QUERY query="知识库有统计非金融信息国策等的页面吗" result_pages=4 mode=normal escalated=true；核验非金融信息分类、国策政策判断框架、宏观经济主题与中国国情分析跟踪。现有页面以方法、文章索引和部分时间节点为主，未检索到完整的国策政策清单或非金融信息来源总表；未修改正式页面与索引。
+
+### query / 信息的金融意义系列归纳方法论
+
+- 操作：全文阅读系列一至十五的库内原文，结合主题页和既有信息归纳框架，在会话中整理筛选、分类、事件节点、影响传导、评级、时效与持续验证的方法及记录模板。
+- 资料来源：[[wiki/topics/冰冰小美-信息的金融意义系列|信息的金融意义系列]] 所列十五篇原文；[[冰冰小美-framework-信息的金融处理|信息归纳框架]]。
+- 说明：区分作者明确论述与整理者操作化建议；不将历史案例当作当前市场结论。QMD 精确查询无结果，转为已定位文件的全文读取。正式知识页与索引未改动，无新增页面。
+- QUERY query="阅读信息的金融意义系列，整理如何归纳信息的方法论" result_pages=17 mode=normal escalated=true
+
+### ingest / 非金融信息观测指标表
+
+- 操作：依据用户指定的非金融信息五层分类页面，创建可复用的 Concept 指标表。
+- 新增文件：`wiki/concepts/冰冰小美-framework-非金融信息观测指标表.md`、`sources/webpages/2026-09-21-非金融信息指标表数据源入口核验.md`。
+- 修改文件：`wiki/views/冰冰小美：非金融信息的五层分类.md`（仅更新日期及 related 回链）、`index.md`、`log.md`。
+- 资料来源：[[wiki/views/冰冰小美：非金融信息的五层分类|非金融信息的五层分类]]、[[sources/articles/2025-06-09-冰冰小美：信息的金融意义（三）|《信息的金融意义（三）》]]、[[sources/articles/2025-07-17-冰冰小美：信息的金融意义（十）|《信息的金融意义（十）》]]、[[sources/webpages/2026-09-21-非金融信息指标表数据源入口核验|数据源入口核验]]。
+- 具体变更：单表列出27项观测对象，覆盖一国5项、二策8项、三业5项、四界4项、五略5项；提供具体指标、数据源及建议观测频率。区分原文分类与整理者设计、发布周期与复查节奏、事实与动机推断。未采集当期金融数值，也未创建自动监测任务。
+- 来源边界：统计局、发改委、工信部、商务部、巨潮、政府采购网、市场监管总局和外交部可读取；部分仅核验主页。政府网政策栏目返回403，政策文件库和全国人大网读取失败，财政部返回空正文，均保留待核验。
+- 索引：新增概念入口；原显示总数482与当前目录不符，本次按 wiki/ 下 Markdown 文件计数336→337，并在索引表头注明口径，不迁移或清理其他页面。
+- 验证结果：27项指标、5个分组、表格5列、6个模板章节、必需frontmatter、所有新增双链与12个来源链接定义、中文编码、唯一索引和337个Markdown页面计数检查通过。
+
+### skill / 删除信息归纳并重建信息处理
+
+- 操作：按用户指定的 [[wiki/concepts/冰冰小美-framework-信息的金融处理|信息的金融处理]] 页面删除旧信息归纳技能，创建 information-processing（信息处理）1.0.0。
+- 新增文件：`.agents/skills/information-processing/` 下的 SKILL.md、agents/openai.yaml、references/source-routing.md、references/output-contract.md、references/result-template.json、references/output-schema.json、scripts/validate_result.py、history/retired-information-filter-log.md、log.md。
+- 删除目录：`.agents/skills/bbxm-information-filter-flow/`，包含旧说明、五层报告模板、两份类型字典、界面配置及旧日志；旧日志在新技能 history/ 中逐字节保留。
+- 修改文件：`.agents/skills/bbxm-expert/{SKILL.md,bbxm-expert-SKILL-strong-trigger.md,log.md}`，`.agents/skills/bbxm-industrial-thinking-equity-analysis/{SKILL.md,log.md}`，`.agents/skills/bbxm-three-factor-analysis/{SKILL.md,log.md}`，`.agents/skills/fund-flow-analysis/{SKILL.md,log.md}`，`index.md`，`log.md`。
+- 具体变更：支持 feed 晨报/已有材料、monitor 预设来源单轮扫描、target 指定对象三种入口；按获取、结构化、归纳三步输出 InformationProcessingResult 1.0；补充对象到来源路由、证据约定、结构与引用校验，不执行领域判断或自动创建周期任务。
+- 依据边界：指定框架页 SHA256 前后相同；未改写其旧标题、来源空字段与待完善事项。模板直接转录页面JSON，路由和验证规则标明为执行补充。正式 Wiki 页面数不变，索引仅替换技能导航。
+- 验证结果：新技能通用校验、Schema自检、CLI验证、16项合成契约检查、本地链接、界面元数据、UTF-8、旧目录不存在、旧日志哈希及活动旧引用清理检查通过。测试文件位于 `.work/information-processing-validation-20260921/`，不进入知识层；未执行实时扫描或完整行为评测。
+- 相邻技能校验：专家入口及资金面技能通过；个股产业思维 compatibility 和三要素 version 顶层字段被通用校验器拒绝，核验均为修改前已有字段且 frontmatter 未改变，不作无关修复。
+- 删除方式：批量递归删除被自动审批拦截；改为明确文件补丁删除及空目录非递归清理，完成删除。
+
+### skill / 信息处理工作流拆分
+
+- 日期：2026-09-21。
+- 新增文件：`.agents/skills/information-processing/workflow.md`。
+- 修改文件：`.agents/skills/information-processing/SKILL.md`、`.agents/skills/information-processing/log.md`、`log.md`。
+- 操作说明：按用户要求将三个执行步骤原文移入独立 workflow.md，入口改为必须读取该文件；版本号保持1.0.0。
+- 验证结果：迁移前后正文一致、三步完整且无重复、链接及UTF-8检查和技能校验通过；输出契约未改。技能索引入口仍为原 SKILL.md，无需修改 index.md，正式 Wiki 页面数不变。
+
+### skill / 修正信息处理技能入口结构
+
+- 日期：2026-09-21。
+- 修改文件：`.agents/skills/information-processing/SKILL.md`、`.agents/skills/information-processing/workflow.md`、`.agents/skills/information-processing/log.md`、`log.md`。
+- 操作说明：按用户反馈重整 SKILL.md 的能力说明、输入输出、工作流入口和资源导航；将准备、范围、交付和验证细则统一放入 workflow.md。澄清纯 JSON 交付规则；技能版本保持1.0.0。
+- 验证结果：技能元数据校验、17处本地链接、中文编码及文档分层检查通过；三个核心步骤原文及输出模板、Schema、脚本、框架页保持不变。未执行网络采集或完整行为评测。
+- 索引：技能名称、路径和能力范围不变，无需修改 index.md；正式 Wiki 页面数量不变。
+
+- [2026-09-21] QUERY query="依据更新后的风险观察与演绎方法论，以信息处理为上游，分析风险识别与演绎观察应拆成两个技能还是合为一个" result_pages=1 mode=normal escalated=true；QMD 定向检索无结果，完整读取用户指定框架，并核对 information-processing 输出模板与现有两个风险技能。建议保留两个技能，以 Risk Model 交接；指出旧路径、旧层次及重复信息处理职责需要后续调整，并区分框架规定与契约设计建议。本次仅分析，未修改技能或方法论页面；索引不变。
+
+### refactor / 冰冰小美 Agent 风险任务编排
+
+- 日期：2026-09-21。
+- 修改文件：`wiki/agents/冰冰小美Agent.md`、`index.md`、`log.md`。
+- 操作说明：按用户指定位置更新一个统一入口、两个风险技能、一个信息处理上游的编排设计。补充六种请求路由、调用图、技能职责与输入输出、模型及逐轮记录交接、增量跟踪、重新识别和结束条件；明确已有信息结果复用、首次基准不判方向与周期执行边界。
+- 依据：[[wiki/concepts/冰冰小美-framework-信息的金融处理|信息的金融处理]]、[[wiki/concepts/冰冰小美-framework-风险观察与演绎|风险观察与演绎]]及本次对话确定的调用设计。
+- 边界：沿用用户已有 agents 页面及章节，保留 Role、职责说明和估值图；不新增页面类型或改动 schema。模型记录字段和结束条件标明为执行补充；未修改实际技能，页面明确接口与记录定位尚待接入。
+- 索引：在技能维护区增加 Agent 编排导航；本次无新增页面，不修改页面计数。
+- 验证结果：6处双链目标存在、唯一索引入口、中文 UTF-8、代码围栏配对及原有职责和估值内容保留检查通过；调用图已作文本结构核对，未进行图形渲染或技能运行验证。
+
+### skill / 按新版方法论更新风险识别与风险演绎观察
+
+- 日期：2026-09-21。
+- 修改文件：`.agents/skills/bbxm-risk-identification/{SKILL.md,log.md}`、`.agents/skills/bbxm-risk-evolution-monitoring/{SKILL.md,log.md}`、`.agents/skills/bbxm-expert/{SKILL.md,log.md}`、`wiki/agents/冰冰小美Agent.md`、`index.md`、`log.md`。
+- 新增文件：两个风险技能各自的 `workflow.md`、`template.md`，以及风险识别的 `references/handoff-contract.md`；验证记录 `.work/risk-skills-review-20260921.md` 不进入正式知识层。
+- 操作说明：两个风险技能首次设置显式版本1.0.0，统一消费 InformationProcessingResult；风险识别按五步建立完整 Risk Model，演绎观察按四步维护基准、方向、持续性与模型有效性。共用证据、版本和记录定位契约，补充来源失败、上游补取、重识别停止条件与结束观察边界。专家入口、Agent页面技能说明和索引同步。
+- 资料依据：[[wiki/concepts/冰冰小美-framework-风险观察与演绎|风险观察与演绎]]、[[wiki/concepts/冰冰小美-framework-信息的金融处理|信息的金融处理]]、[[wiki/agents/冰冰小美Agent|Agent 编排]]。
+- 保留范围：未修改方法论原页或信息处理输出契约；保留用户在Agent页面新删改的开头说明及原有估值内容，仅更新交接契约链接与技能接入状态。无新增正式Wiki页面，不改页面计数。
+- 验证结果：quick_validate 通过；9份活动文档43处本地链接、UTF-8、代码围栏和入口章节检查通过；识别五步、观察四步编号完整。完成14项合成情境规则走查，记录在 .work/risk-skills-review-20260921.md；未执行联网研究、自动调度或完整技能行为评测。

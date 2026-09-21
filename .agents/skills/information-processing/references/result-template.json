@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0",
+  "result_id": null,
+  "generated_at": null,
+  "context": {
+    "mode": null,
+    "observation_target": {
+      "type": null,
+      "id": null,
+      "name": null
+    },
+    "time_window": {
+      "id": null,
+      "core_question": null,
+      "key_event_id": null,
+      "start": null,
+      "end": null,
+      "pre_event_expectation": null,
+      "post_event_repricing": null
+    }
+  },
+  "events": [
+    {
+      "event_id": null,
+      "fact": {
+        "time": null,
+        "subject": null,
+        "action": null,
+        "object": null,
+        "value": null,
+        "unit": null
+      },
+      "source": {
+        "source_id": null,
+        "source_name": null,
+        "source_type": null,
+        "source_tier": null,
+        "published_at": null,
+        "raw_ref": null
+      },
+      "structure": {
+        "domain": null,
+        "hierarchy": {
+          "level": null,
+          "category": null
+        },
+        "observation_objects": [
+          {
+            "type": null,
+            "id": null,
+            "name": null
+          }
+        ],
+        "financial_factors": [
+          {
+            "factor_id": null,
+            "factor_name": null,
+            "direction": null
+          }
+        ],
+        "market_reactions": [
+          {
+            "object_id": null,
+            "object_name": null,
+            "metric": null,
+            "direction": null,
+            "value": null,
+            "unit": null
+          }
+        ]
+      }
+    }
+  ],
+  "timeline": {
+    "event_ids": []
+  },
+  "induction": {
+    "clusters": [
+      {
+        "cluster_id": null,
+        "core_question": null,
+        "time_span": {
+          "start": null,
+          "end": null
+        },
+        "event_ids": [],
+        "common_phenomena": [
+          {
+            "phenomenon_id": null,
+            "description": null,
+            "supporting_event_ids": []
+          }
+        ],
+        "core_variables": [
+          {
+            "variable_id": null,
+            "variable_name": null,
+            "variable_type": null,
+            "supporting_event_ids": [],
+            "supporting_phenomenon_ids": []
+          }
+        ],
+        "induction_result": {
+          "statement": null,
+          "supporting_event_ids": [],
+          "supporting_variable_ids": []
+        }
+      }
+    ]
+  }
+}

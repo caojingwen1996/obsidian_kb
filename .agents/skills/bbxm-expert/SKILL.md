@@ -1,6 +1,6 @@
 ---
 name: bbxm-expert
-description: Use when the user invokes bbxm-expert, 冰冰小美专家, 冰冰小美体系, 产业思维, 个股产业思维, 产业分析, 行业分析, 产业链分析, 三要素分析, 体系三要素, 信息归纳, 信息过滤, 交易复盘, 风险识别, 风险演绎观察, 机构级研报, 个股深度研究, 估值, 公允价值, DCF, 目标价, or asks how to route a market, company, industry, news, or trade request inside the 冰冰小美 framework.
+description: Use when the user invokes bbxm-expert, 冰冰小美专家, 冰冰小美体系, 产业思维, 个股产业思维, 产业分析, 行业分析, 产业链分析, 三要素分析, 体系三要素, 信息处理, Event结构化, 信息归纳, 交易复盘, 风险识别, 风险演绎观察, 机构级研报, 个股深度研究, 估值, 公允价值, DCF, 目标价, or asks how to route a market, company, industry, news, or trade request inside the 冰冰小美 framework.
 ---
 
 # 冰冰小美专家总入口
@@ -15,15 +15,15 @@ description: Use when the user invokes bbxm-expert, 冰冰小美专家, 冰冰�
 
 如果用户明确要求公允价值、DCF、SOTP、目标价、安全边际、交易溢价或“什么价格值得买”，使用 `个股估值计算`。估值前优先读取同一标的由 `个股产业思维筛选` 生成的最新报告；缺失时允许最低限度产业核验并下调置信度。完整财报证据按需交给 `financial-report-research`，风险阶段可引用 `bbxm-risk-identification`。
 
-用户明确调用“信息归纳”“信息归纳技能”“信息归纳报告”、`bbxm-information-filter-flow` 或“按冰冰小美金融信息归纳框架”处理材料时，读取并执行 `bbxm-information-filter-flow/SKILL.md`。旧技能名称和明确的旧框架调用作为兼容口令，按新版五层归纳流程执行。
+用户主动作是信息处理、从晨报或材料提取事件、扫描预设信息源、收集指定对象相关信息并结构化归纳，或点名 `information-processing`、要求按“信息的金融处理”框架执行时，读取 `information-processing/SKILL.md`，按 feed / monitor / target 入口执行信息获取、结构化和归纳，输出 `InformationProcessingResult`。
 
-普通的新闻分析、信息有没有用、能不能交易等问题不自动触发信息归纳技能；按实际主问题处理。归纳结论服务事件和市场反应的持续记录，不代替估值、仓位或买卖判断。
+仅问新闻含义、风险、估值或能否交易时，按实际主问题处理；信息处理负责上游证据组织，不自动代替领域判断，也不因 monitor 模式自动创建定时任务。
 
 ## 子技能分流
 
 | 用户意图 | 优先使用 |
 |---|---|
-| 明确调用信息归纳技能、金融信息归纳框架或旧技能兼容口令 | `bbxm-information-filter-flow`（信息归纳） |
+| 信息处理、晨报事件提取、预设来源扫描或标的信息结构化归纳 | `information-processing`（信息处理） |
 | 交割单复盘、买卖记录复盘、仓位行为复盘 | `bbxm-trade-ticket-review` |
 | 公允价值、DCF、SOTP、目标价、估值区间、安全边际、交易溢价、什么价格值得买 | `个股估值计算` |
 | 完整公司研究或基本面深挖，但未要求估值 | `个股产业思维筛选` + `financial-report-research`，按主问题决定先后 |
@@ -37,7 +37,7 @@ description: Use when the user invokes bbxm-expert, 冰冰小美专家, 冰冰�
 
 按以下顺序判断，不得跳步：
 
-1. 用户是否明确调用信息归纳技能、金融信息归纳框架或旧技能兼容口令？是则使用 `bbxm-information-filter-flow`，按五层归纳流程输出。
+1. 用户的主动作是否为信息获取、事件结构化与归纳，或明确调用信息处理技能/信息的金融处理框架？是则使用 `information-processing`，按三种入口与三个步骤输出 `InformationProcessingResult`；领域分析作为用户另行要求的下游工作。
 2. 用户是否提供交割单、成交记录、买卖动作、仓位变化并要求复盘？是则使用 `bbxm-trade-ticket-review`。
 3. 用户是否要求公允价值、DCF、SOTP、目标价、安全边际、交易溢价或现金决策？是则使用 `个股估值计算`，优先消费已有产业思维报告和财报证据。
 4. 用户是否要求完整公司研究或基本面深挖，但未要求估值？是则组合 `个股产业思维筛选` 与 `financial-report-research`，不得把估值技能重新扩张成全能研报。
@@ -45,24 +45,43 @@ description: Use when the user invokes bbxm-expert, 冰冰小美专家, 冰冰�
 6. 用户是否要求分析一个产业、行业、赛道或产业链的时代主线、约束、完整周期与验证？是则使用 `产业分析`。
 7. 用户是否要求直接分析体系三要素，判断竞争格局、流动性、情绪位置或三者共振，且主动作不是显式信息归纳、交易复盘、完整公司研究、个股产业思维或产业分析？是则使用 `bbxm-three-factor-analysis`。
 8. 用户是否要求识别是什么风险、为什么产生？使用 `bbxm-risk-identification`。若要求已识别风险的变化、方向或持续性，使用 `bbxm-risk-evolution-monitoring`；缺少风险模型时先识别再观察，缺少可比数据时只建立基准并标记证据不足。
-9. 如果一句话同时满足多个条件，优先选择用户的主动作；显式信息归纳、交易复盘和显式估值请求分别优先于直接子技能路由。
+9. 如果一句话同时满足多个条件，优先选择用户的主动作；显式信息处理、交易复盘和显式估值请求分别优先于直接子技能路由。
 
-`bbxm-risk-identification` 负责风险类型、来源和核心变量，`bbxm-risk-evolution-monitoring` 承接基准观察风险变化。两者与 `bbxm-three-factor-analysis` 分工独立，不自动互相替代；用户同时要求风险变化与三要素分析时，由本入口分别执行观察技能与三要素技能并汇总，观察缺少模型时先完成识别。
+`bbxm-risk-identification` 接收信息处理结果，建立风险类型、表现、来源、关键变量及传导关系五项 Risk Model；`bbxm-risk-evolution-monitoring` 承接该模型、本轮信息处理结果与历史记录观察变化。两者与 `bbxm-three-factor-analysis` 分工独立，不自动互相替代；用户同时要求风险变化与三要素分析时，由本入口分别执行观察技能与三要素技能并汇总，观察缺少模型时先完成识别。
 
 反例：
 
-- 用户说“用信息归纳技能处理某公司拟投资项目的公告”，使用 `bbxm-information-filter-flow`，区分公告发布、项目实施和实际兑现。
-- 用户仅说“这个新闻能不能交易”，不自动调用信息归纳技能；按实际交易问题及证据缺口处理，不从消息直接推出买卖结论。
-- 用户说“复盘这笔买入依据是不是被消息误导”，先用 `bbxm-trade-ticket-review` 复盘交易，仅在用户明确调用信息归纳技能时追加 `bbxm-information-filter-flow` 的五层记录。
+- 用户说“用信息处理技能整理某公司拟投资项目的公告”，使用 `information-processing` 的 feed 模式，区分公告发布、项目实施和实际兑现，输出 Event 和归纳结构。
+- 用户仅说“这个新闻能不能交易”，不自动调用信息处理技能；按实际交易问题及证据缺口处理，不从消息直接推出买卖结论。
+- 用户说“复盘这笔买入依据是不是被消息误导”，先用 `bbxm-trade-ticket-review` 复盘交易，用户同时要求事件结构化时，由 `information-processing` 提供上游信息结果，不恢复五层风险报告。
 - 用户说“研究某上市公司并做 DCF，回答今天是否会买”，必须使用 `个股估值计算`，不能只输出 `bbxm-risk-identification` 的风险类型。
 - 用户说“按产业思维分析紫光股份是真受益还是概念映射”，使用 `个股产业思维筛选`，先分析产业和公司映射，不直接降级为完整 DCF 研报。
 - 用户说“按产业思维分析宁德时代并给出 DCF、目标价和今天是否买入”，先取得 `个股产业思维筛选` 结论，再由 `个股估值计算` 完成价值计算和价格判断。
 - 用户说“分析航空航天产业”，进入 `产业分析`，不因出现“风险”或“股票”一词自动降级为个股风险识别。
-- 用户说“按金融信息归纳框架整理这条航空航天增长数据”，进入 `bbxm-information-filter-flow`；仅问“有没有金融意义”不自动触发。
+- 用户说“按信息的金融处理框架整理这条航空航天增长数据”，进入 `information-processing`；仅问“有没有金融意义”则按具体问题回答。
 - 用户说“研究航天电子并给出 DCF 和目标价”，进入 `个股估值计算`。
 - 用户说“直接按体系三要素分析当前指数的竞争格局、流动性和情绪位置”，使用 `bbxm-three-factor-analysis`。
 - 用户说“按冰冰小美体系判断该股风险是在增强还是减弱”，但没有要求完整财务和估值研报，使用 `bbxm-risk-evolution-monitoring`；无基准时先识别。
 - 用户说“分析当前板块的三要素，同时判断风险是否重新增强”，由 `bbxm-expert` 分别调用 `bbxm-three-factor-analysis` 与 `bbxm-risk-evolution-monitoring`，再汇总两者结论。
+
+## 风险任务组合调用
+
+风险任务按 [共享交接契约](../bbxm-risk-identification/references/handoff-contract.md) 运行，页面说明见 [冰冰小美 Agent](../../../wiki/agents/冰冰小美Agent.md)。先核对已有模型与信息结果，再调用所需技能，用户无需手动逐个调用。
+
+| 请求与已有材料 | 本轮执行 |
+|---|---|
+| 只整理信息 | 信息处理，到 InformationProcessingResult 为止 |
+| 从材料或指定对象识别风险 | 取得或复用 InformationProcessingResult → 风险识别，交付 Risk Model |
+| 已提供有效 InformationProcessingResult | 直接进入用户要求的风险识别或演绎观察，不重复获取 |
+| 首次识别并建立观察基准 | 信息处理 → 风险识别 → 演绎观察初始化 T0；没有可比历史不判方向 |
+| 继续观察已有风险 | 定位模型与历史 → 取得或复用本轮信息结果 → 演绎观察；正常变化不重识别 |
+| 风险性质或传导机制改变 | 演绎观察交回风险识别，保留旧模型，形成新版本或关联风险及新基准 |
+
+已有材料用 feed；预设来源且有扫描范围时用 monitor；围绕对象动态找来源用 target。“继续观察”不自动等于 monitor。最新分析需要上游取得当期证据，过期或缺项时提出具体补充需求。
+
+风险识别和演绎观察直接被调用时，也遵守相同上游门槛；本入口已经准备的有效信息结果传给子技能复用。信息处理返回本次组合任务，不再次启动同一个风险任务。补取证据、重识别和记录定位的停止条件遵守共享契约；不创建无条件循环。
+
+仅识别则不初始化持续观察。用户要求观察但模型仍不充分时报告候选/等待证据；有模型无可比历史时建立基准。保存按授权维护模型、T0、逐轮记录和定位表；本轮执行不代表定时任务已启动。
 
 ## 工作原则
 
