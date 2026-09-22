@@ -29128,3 +29128,13 @@ automation / dividend-signal / daily-record
 - 具体变更：业务分析完成后调用通用HTML技能，完整保留业务模板与证据，使用浅色研报、首屏结论、数值图/关系图分工、图表切换及JS自检；不改变业务保存路径与版本规则，不包装纯JSON或强制简短问答生成HTML。风险阅读版在原Risk模型或观察记录旁生成；已有HTML复用核验。
 - 验证结果：新技能及专家入口quick_validate通过；HTML校验脚本10项正反例通过；原文副本哈希一致。结构和语法检查不等于浏览器渲染通过，本轮没有交付新的业务HTML或声称完成视觉验收。
 - 边界：未新增正式Wiki页面，页面数不变；未改写所有业务技能、迁移历史报告、接入看板或启动调度。
+
+
+## 2026-09-22
+
+### skill / 风险技能保留 Markdown 并默认 HTML 输出
+
+- 修改文件：两个风险技能的SKILL.md、workflow.md、template.md、log.md，以及风险识别references/handoff-contract.md；同步index.md导航及本日志。
+- 版本：风险识别、风险演绎观察均由1.0.1升至1.0.2。
+- 具体变更：完整Markdown作为模型交接和历史母稿，默认调用bbxm-html-report生成同目录同名HTML；直接调用也生效。默认输出位置保持tools/a-share-market-dashboard/data/Risk，最终交付HTML主链接与Markdown链接；定位表记录双格式，失败保留母稿并明确缺项。
+- 验证结果：两个技能quick_validate、9份Markdown编码及38处本地引用检查通过。本轮未重生成历史HTML、未运行金融分析，不新增正式Wiki页面。
