@@ -1,0 +1,259 @@
+{
+  "schema_version": "1.0",
+  "result_id": "IPR-XCMG-IR-20260917-TEST-20260922",
+  "generated_at": "2026-09-22T11:03:45+08:00",
+  "context": {
+    "mode": "feed",
+    "observation_target": {
+      "type": "上市公司",
+      "id": "000425.SZ",
+      "name": "徐工机械"
+    },
+    "time_window": {
+      "id": "TW-XCMG-IR-20260917",
+      "core_question": "本次调研披露了哪些经营事实、管理措施和预期，可供后续风险识别使用？",
+      "key_event_id": "XCMG-20260917-IR-FX-LOSS",
+      "start": "2026-09-17T10:00:00+08:00",
+      "end": "2026-09-17T11:30:00+08:00",
+      "pre_event_expectation": null,
+      "post_event_repricing": null
+    }
+  },
+  "events": [
+    {
+      "event_id": "XCMG-20260917-IR-MINING-TARGET",
+      "fact": {
+        "time": "2026-09-17",
+        "subject": "徐工集团工程机械股份有限公司管理层",
+        "action": "陈述2030年矿业机械板块目标",
+        "object": "矿业机械板块（含地上、地下矿山设备、备件等），目标指标口径未说明",
+        "value": "超400亿",
+        "unit": null
+      },
+      "source": {
+        "source_id": "SRC-XCMG-IR-20260917-1225575840",
+        "source_name": "徐工机械投资者关系活动记录表（2026-09）",
+        "source_type": "公司投资者关系活动记录表（用户提供本地文件）",
+        "source_tier": "专题源",
+        "published_at": null,
+        "raw_ref": "sources/papers/2026-09-17-徐工机械-投资者关系活动记录表-1225575840.pdf#page=1"
+      },
+      "structure": {
+        "domain": "企业经营",
+        "hierarchy": {
+          "level": "微观",
+          "category": "企业战略"
+        },
+        "observation_objects": [
+          {
+            "type": "上市公司",
+            "id": "000425.SZ",
+            "name": "徐工机械"
+          }
+        ],
+        "financial_factors": [],
+        "market_reactions": []
+      }
+    },
+    {
+      "event_id": "XCMG-20260917-IR-OVERSEAS-H1",
+      "fact": {
+        "time": "2026-09-17",
+        "subject": "徐工集团工程机械股份有限公司管理层",
+        "action": "披露2026年上半年海外业务收入",
+        "object": "2026年上半年海外总收入309亿元、同比增长21%；管理层自述，未核对定期报告",
+        "value": 309,
+        "unit": "亿元"
+      },
+      "source": {
+        "source_id": "SRC-XCMG-IR-20260917-1225575840",
+        "source_name": "徐工机械投资者关系活动记录表（2026-09）",
+        "source_type": "公司投资者关系活动记录表（用户提供本地文件）",
+        "source_tier": "专题源",
+        "published_at": null,
+        "raw_ref": "sources/papers/2026-09-17-徐工机械-投资者关系活动记录表-1225575840.pdf#page=2"
+      },
+      "structure": {
+        "domain": "企业经营",
+        "hierarchy": {
+          "level": "微观",
+          "category": "经营披露"
+        },
+        "observation_objects": [
+          {
+            "type": "上市公司",
+            "id": "000425.SZ",
+            "name": "徐工机械"
+          }
+        ],
+        "financial_factors": [
+          {
+            "factor_id": "FF-OVERSEAS-REVENUE",
+            "factor_name": "上半年海外总收入（公司自述）",
+            "direction": "同比上升"
+          }
+        ],
+        "market_reactions": []
+      }
+    },
+    {
+      "event_id": "XCMG-20260917-IR-FX-LOSS",
+      "fact": {
+        "time": "2026-09-17",
+        "subject": "徐工集团工程机械股份有限公司管理层",
+        "action": "陈述上半年汇率损失及管理层归因",
+        "object": "2026年上半年汇率损失较大；公司归因于人民币升值及美元强于多数出口国本币，金额与会计口径未披露",
+        "value": null,
+        "unit": null
+      },
+      "source": {
+        "source_id": "SRC-XCMG-IR-20260917-1225575840",
+        "source_name": "徐工机械投资者关系活动记录表（2026-09）",
+        "source_type": "公司投资者关系活动记录表（用户提供本地文件）",
+        "source_tier": "专题源",
+        "published_at": null,
+        "raw_ref": "sources/papers/2026-09-17-徐工机械-投资者关系活动记录表-1225575840.pdf#page=2"
+      },
+      "structure": {
+        "domain": "企业经营",
+        "hierarchy": {
+          "level": "微观",
+          "category": "经营披露"
+        },
+        "observation_objects": [
+          {
+            "type": "上市公司",
+            "id": "000425.SZ",
+            "name": "徐工机械"
+          }
+        ],
+        "financial_factors": [
+          {
+            "factor_id": "FF-FX-LOSS",
+            "factor_name": "上半年汇率损失（公司自述，未量化）",
+            "direction": null
+          }
+        ],
+        "market_reactions": []
+      }
+    },
+    {
+      "event_id": "XCMG-20260917-IR-FX-MEASURES",
+      "fact": {
+        "time": "2026-09-17",
+        "subject": "徐工集团工程机械股份有限公司管理层",
+        "action": "说明应对汇兑波动的主动管理措施",
+        "object": "提升海外工厂本土化率、优化结算并推广人民币结算、专项治理海外应收账款和库存；各项进度及效果未量化",
+        "value": null,
+        "unit": null
+      },
+      "source": {
+        "source_id": "SRC-XCMG-IR-20260917-1225575840",
+        "source_name": "徐工机械投资者关系活动记录表（2026-09）",
+        "source_type": "公司投资者关系活动记录表（用户提供本地文件）",
+        "source_tier": "专题源",
+        "published_at": null,
+        "raw_ref": "sources/papers/2026-09-17-徐工机械-投资者关系活动记录表-1225575840.pdf#page=2"
+      },
+      "structure": {
+        "domain": "企业经营",
+        "hierarchy": {
+          "level": "微观",
+          "category": "经营管理"
+        },
+        "observation_objects": [
+          {
+            "type": "上市公司",
+            "id": "000425.SZ",
+            "name": "徐工机械"
+          }
+        ],
+        "financial_factors": [],
+        "market_reactions": []
+      }
+    },
+    {
+      "event_id": "XCMG-20260917-IR-MARGIN-OUTLOOK",
+      "fact": {
+        "time": "2026-09-17",
+        "subject": "徐工集团工程机械股份有限公司管理层",
+        "action": "表达毛利率逐年增长预期并说明经营措施",
+        "object": "公司预计2026年及后续较长时间毛利率逐年增长；一稳一降四调整为管理层措施陈述，不是已实现结果",
+        "value": null,
+        "unit": null
+      },
+      "source": {
+        "source_id": "SRC-XCMG-IR-20260917-1225575840",
+        "source_name": "徐工机械投资者关系活动记录表（2026-09）",
+        "source_type": "公司投资者关系活动记录表（用户提供本地文件）",
+        "source_tier": "专题源",
+        "published_at": null,
+        "raw_ref": "sources/papers/2026-09-17-徐工机械-投资者关系活动记录表-1225575840.pdf#page=2"
+      },
+      "structure": {
+        "domain": "企业经营",
+        "hierarchy": {
+          "level": "微观",
+          "category": "经营预期"
+        },
+        "observation_objects": [
+          {
+            "type": "上市公司",
+            "id": "000425.SZ",
+            "name": "徐工机械"
+          }
+        ],
+        "financial_factors": [],
+        "market_reactions": []
+      }
+    },
+    {
+      "event_id": "XCMG-20260917-IR-OVERSEAS-OUTLOOK",
+      "fact": {
+        "time": "2026-09-17",
+        "subject": "徐工集团工程机械股份有限公司管理层",
+        "action": "表达海外出口持续增长预期",
+        "object": "公司预计海外市场保持良好态势和出口增长；第（三）及（六）问重复表达合并记录",
+        "value": null,
+        "unit": null
+      },
+      "source": {
+        "source_id": "SRC-XCMG-IR-20260917-1225575840",
+        "source_name": "徐工机械投资者关系活动记录表（2026-09）",
+        "source_type": "公司投资者关系活动记录表（用户提供本地文件）",
+        "source_tier": "专题源",
+        "published_at": null,
+        "raw_ref": "sources/papers/2026-09-17-徐工机械-投资者关系活动记录表-1225575840.pdf#page=2"
+      },
+      "structure": {
+        "domain": "企业经营",
+        "hierarchy": {
+          "level": "微观",
+          "category": "经营预期"
+        },
+        "observation_objects": [
+          {
+            "type": "上市公司",
+            "id": "000425.SZ",
+            "name": "徐工机械"
+          }
+        ],
+        "financial_factors": [],
+        "market_reactions": []
+      }
+    }
+  ],
+  "timeline": {
+    "event_ids": [
+      "XCMG-20260917-IR-MINING-TARGET",
+      "XCMG-20260917-IR-OVERSEAS-H1",
+      "XCMG-20260917-IR-FX-LOSS",
+      "XCMG-20260917-IR-FX-MEASURES",
+      "XCMG-20260917-IR-MARGIN-OUTLOOK",
+      "XCMG-20260917-IR-OVERSEAS-OUTLOOK"
+    ]
+  },
+  "induction": {
+    "clusters": []
+  }
+}
