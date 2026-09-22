@@ -132,8 +132,21 @@ flowchart TD
 
 
 
+## 通用输出规范
+
+分析、比较、风险模型、观察记录与研报的最终阅读版统一调用 [[.agents/skills/bbxm-html-report/SKILL|通用 HTML 报告输出]]。先完成分析子技能的方法论与完整模板，再生成HTML并验证；不能只读取方法论文件或生成结论摘要就结束。
+
+调用关系：**业务分析技能 → 通用HTML输出技能 → 内容、脚本与渲染检查 → HTML文件交付**。HTML不替代Markdown母稿、InformationProcessingResult或其他机器工件。
+
+- 浅底深字、首屏结论先行；数值图优先ECharts并保留精确表，关系图用SVG或HTML+CSS。
+- 业务模板的章节、证据、反证、状态、数据口径及输出路径保持完整；样式遵守通用规范，子技能更严格的离线和审计要求继续执行。
+- 风险产物在 `tools/a-share-market-dashboard/data/Risk/` 内对应模型/观察记录旁生成同名HTML；其他产物遵循各自路径与版本规则。
+- 子技能已有HTML时复用并核验，不重复产出第二套。简短Q&A、单数字查询不强制HTML；用户明确仅聊天、纯JSON或其他格式时优先遵从。
+- 所有内联JS交付前做语法检查，图表需实际渲染验收；最终给HTML链接。保存文件不代表接入看板展示或启动监控。
+
 ## skills
 
+- [[.agents/skills/bbxm-html-report/SKILL|通用 HTML 报告输出]]：分析完成后的共用交付技能，统一样式、图表、脚本校验及文件交付。
 - [[.agents/skills/bbxm-expert/SKILL|冰冰小美专家总入口]]：统一接收问题并执行风险任务组合路由。
 - [[.agents/skills/information-processing/SKILL|信息处理]]：上游证据组织，输出 InformationProcessingResult。
 - [[.agents/skills/bbxm-risk-identification/SKILL|风险识别]]：接收信息处理结果，按五步建立 Risk Model；工作流与输出模板独立维护。

@@ -1,0 +1,4 @@
+interface:
+  display_name: "通用 HTML 报告输出"
+  short_description: "为冰冰小美分析生成完整浅色HTML阅读版，保留证据并验证图表与脚本"
+  default_prompt: "使用 $bbxm-html-report 将本轮完整分析生成 HTML 阅读版，沿用业务模板与输出路径，并完成格式和图表验证。"

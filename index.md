@@ -476,6 +476,8 @@
 
 - [[wiki/agents/冰冰小美Agent|冰冰小美 Agent 编排]]：统一入口下的信息处理、风险识别与风险演绎观察调用规则，含模型交接、增量跟踪和结束条件；专家入口与风险技能已同步。
 
+- [通用 HTML 报告输出](.agents/skills/bbxm-html-report/SKILL.md)：冰冰小美 Agent 分析完成后的统一阅读版输出，保留完整业务模板并校验图表与脚本；[变更日志](.agents/skills/bbxm-html-report/log.md)。
+
 - [技能维护规则](AGENTS.md#skill-变更日志)：每个项目技能在自身目录维护 log.md。
 - [个股估值计算变更日志](.agents/skills/bbxm-equity-research/log.md)：其他技能的日志同样位于 .agents/skills/<技能目录>/log.md。
 

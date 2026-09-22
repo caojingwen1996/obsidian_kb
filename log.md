@@ -29116,3 +29116,15 @@ automation / dividend-signal / daily-record
 - 操作说明：默认持久化完整模板及可追溯上游证据，对话交付摘要和链接；保存上一轮晨报候选模型与首次基准，不追加新市场观测。原始晨报逐字保存，原始资料与分析分离；没有迁移旧Workbench研究或修改看板页面。
 - 验证结果：两个技能quick_validate、上游结构与引用校验通过；14份文件UTF-8及56处本地引用检查通过。定位表指向实际文件，正式Wiki页面数量不变。
 - 状态：晨报模型仍为候选，方向证据不足，等待证据；保存不代表后台监控或看板展示已接入。
+
+
+## 2026-09-22
+
+### skill / 配置冰冰小美 Agent 通用 HTML 输出
+
+- 新增技能：`.agents/skills/bbxm-html-report/`，版本1.0.0；包含标准入口、独立workflow、样式reference、CSS资产、HTML校验脚本、界面元数据与独立日志。
+- 来源归档：`sources/manual/2026-09-22-wb-finance-1.5.0-html-report-style.md`，从用户指定1.5.0版本真实cb_teams_marketplace路径逐字节复制，未采用其他缓存版本。
+- 修改文件：`.agents/skills/bbxm-expert/{SKILL.md,log.md}`、`wiki/agents/冰冰小美Agent.md`、`index.md`、`log.md`。
+- 具体变更：业务分析完成后调用通用HTML技能，完整保留业务模板与证据，使用浅色研报、首屏结论、数值图/关系图分工、图表切换及JS自检；不改变业务保存路径与版本规则，不包装纯JSON或强制简短问答生成HTML。风险阅读版在原Risk模型或观察记录旁生成；已有HTML复用核验。
+- 验证结果：新技能及专家入口quick_validate通过；HTML校验脚本10项正反例通过；原文副本哈希一致。结构和语法检查不等于浏览器渲染通过，本轮没有交付新的业务HTML或声称完成视觉验收。
+- 边界：未新增正式Wiki页面，页面数不变；未改写所有业务技能、迁移历史报告、接入看板或启动调度。
