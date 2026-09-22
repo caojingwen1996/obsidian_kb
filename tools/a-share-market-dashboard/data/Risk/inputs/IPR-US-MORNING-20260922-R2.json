@@ -1,0 +1,283 @@
+{
+  "schema_version": "1.0",
+  "result_id": "IPR-US-MORNING-20260922-R2",
+  "generated_at": "2026-09-22T15:52:05+08:00",
+  "context": {
+    "mode": "feed",
+    "observation_target": {
+      "type": "市场",
+      "id": "US-EQUITIES",
+      "name": "美股科技股"
+    },
+    "time_window": {
+      "id": "TW-MORNING-20260922",
+      "core_question": "晨报支持何种风险模型及状态？",
+      "key_event_id": null,
+      "start": "2026-09-22",
+      "end": "2026-09-22",
+      "pre_event_expectation": null,
+      "post_event_repricing": null
+    }
+  },
+  "events": [
+    {
+      "event_id": "E1",
+      "fact": {
+        "time": "2026-09-22",
+        "subject": "用户提供晨报",
+        "action": "报告油价回落",
+        "object": "Brent约105→约100美元/桶；起始时点、合约和取价时点未给出",
+        "value": null,
+        "unit": null
+      },
+      "source": {
+        "source_id": "USER-MORNING-20260922",
+        "source_name": "隔夜美股晨报｜2026年9月22日",
+        "source_type": "用户提供市场摘要，内容为来源陈述",
+        "source_tier": "线索源",
+        "published_at": "2026-09-22",
+        "raw_ref": "sources/manual/2026-09-22-隔夜美股晨报-用户提供.md#原文内容"
+      },
+      "structure": {
+        "domain": "美国金融市场",
+        "hierarchy": {
+          "level": "宏观",
+          "category": "市场摘要"
+        },
+        "observation_objects": [
+          {
+            "type": "市场",
+            "id": "US-EQUITIES",
+            "name": "美股科技股"
+          }
+        ],
+        "financial_factors": [],
+        "market_reactions": []
+      }
+    },
+    {
+      "event_id": "E2",
+      "fact": {
+        "time": "2026-09-22",
+        "subject": "用户提供晨报",
+        "action": "报告长端利率回落",
+        "object": "10Y重新跌破5%；前值及取价时点未给出",
+        "value": null,
+        "unit": null
+      },
+      "source": {
+        "source_id": "USER-MORNING-20260922",
+        "source_name": "隔夜美股晨报｜2026年9月22日",
+        "source_type": "用户提供市场摘要，内容为来源陈述",
+        "source_tier": "线索源",
+        "published_at": "2026-09-22",
+        "raw_ref": "sources/manual/2026-09-22-隔夜美股晨报-用户提供.md#原文内容"
+      },
+      "structure": {
+        "domain": "美国金融市场",
+        "hierarchy": {
+          "level": "宏观",
+          "category": "市场摘要"
+        },
+        "observation_objects": [
+          {
+            "type": "市场",
+            "id": "US-EQUITIES",
+            "name": "美股科技股"
+          }
+        ],
+        "financial_factors": [],
+        "market_reactions": []
+      }
+    },
+    {
+      "event_id": "E3",
+      "fact": {
+        "time": "2026-09-22",
+        "subject": "用户提供晨报",
+        "action": "报告短端利率水平",
+        "object": "2Y约4.75%；未给出可比前值",
+        "value": null,
+        "unit": null
+      },
+      "source": {
+        "source_id": "USER-MORNING-20260922",
+        "source_name": "隔夜美股晨报｜2026年9月22日",
+        "source_type": "用户提供市场摘要，内容为来源陈述",
+        "source_tier": "线索源",
+        "published_at": "2026-09-22",
+        "raw_ref": "sources/manual/2026-09-22-隔夜美股晨报-用户提供.md#原文内容"
+      },
+      "structure": {
+        "domain": "美国金融市场",
+        "hierarchy": {
+          "level": "宏观",
+          "category": "市场摘要"
+        },
+        "observation_objects": [
+          {
+            "type": "市场",
+            "id": "US-EQUITIES",
+            "name": "美股科技股"
+          }
+        ],
+        "financial_factors": [],
+        "market_reactions": []
+      }
+    },
+    {
+      "event_id": "E4",
+      "fact": {
+        "time": "2026-09-22",
+        "subject": "用户提供晨报",
+        "action": "报告加息概率",
+        "object": "10月加息约55%，年内至少一次约91%；对应时点和原始快照未核实",
+        "value": null,
+        "unit": null
+      },
+      "source": {
+        "source_id": "USER-MORNING-20260922",
+        "source_name": "隔夜美股晨报｜2026年9月22日",
+        "source_type": "用户提供市场摘要，内容为来源陈述",
+        "source_tier": "线索源",
+        "published_at": "2026-09-22",
+        "raw_ref": "sources/manual/2026-09-22-隔夜美股晨报-用户提供.md#原文内容"
+      },
+      "structure": {
+        "domain": "美国金融市场",
+        "hierarchy": {
+          "level": "宏观",
+          "category": "市场摘要"
+        },
+        "observation_objects": [
+          {
+            "type": "市场",
+            "id": "US-EQUITIES",
+            "name": "美股科技股"
+          }
+        ],
+        "financial_factors": [],
+        "market_reactions": []
+      }
+    },
+    {
+      "event_id": "E5",
+      "fact": {
+        "time": "2026-09-22",
+        "subject": "用户提供晨报",
+        "action": "报告当日指数上涨",
+        "object": "9月21日美股Nasdaq+2.26%、标普500+1.49%、道指+0.71%、半导体+4.3%",
+        "value": null,
+        "unit": null
+      },
+      "source": {
+        "source_id": "USER-MORNING-20260922",
+        "source_name": "隔夜美股晨报｜2026年9月22日",
+        "source_type": "用户提供市场摘要，内容为来源陈述",
+        "source_tier": "线索源",
+        "published_at": "2026-09-22",
+        "raw_ref": "sources/manual/2026-09-22-隔夜美股晨报-用户提供.md#原文内容"
+      },
+      "structure": {
+        "domain": "美国金融市场",
+        "hierarchy": {
+          "level": "宏观",
+          "category": "市场摘要"
+        },
+        "observation_objects": [
+          {
+            "type": "市场",
+            "id": "US-EQUITIES",
+            "name": "美股科技股"
+          }
+        ],
+        "financial_factors": [],
+        "market_reactions": []
+      }
+    },
+    {
+      "event_id": "E6",
+      "fact": {
+        "time": "2026-09-22",
+        "subject": "用户提供晨报",
+        "action": "提出AI基本面确认解释",
+        "object": "未列公司公告、订单、盈利或指引证据；资金集中买入也未附流量数据",
+        "value": null,
+        "unit": null
+      },
+      "source": {
+        "source_id": "USER-MORNING-20260922",
+        "source_name": "隔夜美股晨报｜2026年9月22日",
+        "source_type": "用户提供市场摘要，内容为来源陈述",
+        "source_tier": "线索源",
+        "published_at": "2026-09-22",
+        "raw_ref": "sources/manual/2026-09-22-隔夜美股晨报-用户提供.md#原文内容"
+      },
+      "structure": {
+        "domain": "美国金融市场",
+        "hierarchy": {
+          "level": "宏观",
+          "category": "市场摘要"
+        },
+        "observation_objects": [
+          {
+            "type": "市场",
+            "id": "US-EQUITIES",
+            "name": "美股科技股"
+          }
+        ],
+        "financial_factors": [],
+        "market_reactions": []
+      }
+    },
+    {
+      "event_id": "E7",
+      "fact": {
+        "time": "2026-09-22",
+        "subject": "用户提供晨报",
+        "action": "提出过去两周科技股受压解释",
+        "object": "历史起止日、量化表现及归因证据未给出",
+        "value": null,
+        "unit": null
+      },
+      "source": {
+        "source_id": "USER-MORNING-20260922",
+        "source_name": "隔夜美股晨报｜2026年9月22日",
+        "source_type": "用户提供市场摘要，内容为来源陈述",
+        "source_tier": "线索源",
+        "published_at": "2026-09-22",
+        "raw_ref": "sources/manual/2026-09-22-隔夜美股晨报-用户提供.md#原文内容"
+      },
+      "structure": {
+        "domain": "美国金融市场",
+        "hierarchy": {
+          "level": "宏观",
+          "category": "市场摘要"
+        },
+        "observation_objects": [
+          {
+            "type": "市场",
+            "id": "US-EQUITIES",
+            "name": "美股科技股"
+          }
+        ],
+        "financial_factors": [],
+        "market_reactions": []
+      }
+    }
+  ],
+  "timeline": {
+    "event_ids": [
+      "E1",
+      "E2",
+      "E3",
+      "E4",
+      "E5",
+      "E6",
+      "E7"
+    ]
+  },
+  "induction": {
+    "clusters": []
+  }
+}

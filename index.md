@@ -485,6 +485,7 @@
 
 - [Archify 风险传导路径图](.agents/skills/archify/SKILL.md)：将有来源的风险主链、分支与反馈关系绘制为交互式 HTML；[技能变更日志](.agents/skills/archify/log.md)。
 
+- [风险产物定位表](tools/a-share-market-dashboard/data/Risk/risk-records.md)：风险识别与演绎观察默认输出入口，保存模型、上游证据和逐轮记录。
 - [风险识别技能](.agents/skills/bbxm-risk-identification/SKILL.md)：承接 InformationProcessingResult，按五步输出 Risk Model（类型、表现、来源、关键变量、传导关系），共享交接契约并独立维护工作流；[变更日志](.agents/skills/bbxm-risk-identification/log.md)。
 - [风险演绎观察技能](.agents/skills/bbxm-risk-evolution-monitoring/SKILL.md)：承接 Risk Model、本轮信息结果与历史记录，按四步观察方向、持续性及模型有效性，保留基准并按需重识别；[变更日志](.agents/skills/bbxm-risk-evolution-monitoring/log.md)。
 

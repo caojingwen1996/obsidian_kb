@@ -29104,3 +29104,15 @@ automation / dividend-signal / daily-record
 - 验证：原件哈希一致，3页均完成渲染与视觉核对；上游通过现有结构/引用校验；文档链接、事件来源页码与UTF-8检查通过。单文件执行测试，没有独立代理或无技能对照组，不代表全场景评测通过。
 - 证据边界：调研表达日、上半年数据所属期、远期预期分别保留；公开原件候选链接未能读取，公开时间保持未知。没有把管理措施当成风险减弱，或把应收库存治理当成已经恶化；不运行风险演绎观察或交易判断。
 - 后续：若需确认模型，应补取损失金额与会计科目、分币种净敞口、套保覆盖和措施效果；接口尚缺独立的数据所属期/表达时间/事实预期状态字段，当前通过事件文字与运行说明保留。
+
+
+## 2026-09-22
+
+### skill / 统一风险技能输出目录并保存晨报模型
+
+- 修改原因：用户指定输出路径，按项目已存在目录落实为 `tools/a-share-market-dashboard/data/Risk/`；固定从项目根解析，保留Risk大小写。
+- 修改文件：风险识别与风险演绎观察两个技能的SKILL.md、workflow.md、log.md，以及风险识别references/handoff-contract.md；两个技能升至1.0.1。同步 `wiki/agents/冰冰小美Agent.md`、`index.md`、`log.md`。
+- 新增文件：`sources/manual/2026-09-22-隔夜美股晨报-用户提供.md`；Risk目录的risk-records.md、inputs/IPR-US-MORNING-20260922-R2.json及对应-run.md、models/US-TECH-MONETARY-PRESSURE-v1.md、observations/US-TECH-MONETARY-PRESSURE/OBS-US-TECH-20260922-T0.md。
+- 操作说明：默认持久化完整模板及可追溯上游证据，对话交付摘要和链接；保存上一轮晨报候选模型与首次基准，不追加新市场观测。原始晨报逐字保存，原始资料与分析分离；没有迁移旧Workbench研究或修改看板页面。
+- 验证结果：两个技能quick_validate、上游结构与引用校验通过；14份文件UTF-8及56处本地引用检查通过。定位表指向实际文件，正式Wiki页面数量不变。
+- 状态：晨报模型仍为候选，方向证据不足，等待证据；保存不代表后台监控或看板展示已接入。
