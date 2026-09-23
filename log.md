@@ -29415,3 +29415,14 @@ automation / dividend-signal / daily-record
 - 变更：技能版本 1.0.0 → 2.0.0，保留 information-processing 调用名；入口对齐 Event / Signal / Cluster / Theme、Summary、Core Findings 和风险移交候选。校验器适配五份新 Schema、对象引用和可核验计数；修复索引中的旧目录链接，注明 feed 已实现与其他模式待实现。
 - 验证：6 项回归测试通过（含 23 类无效样例及 CLI 检查）；技能元数据校验、17 处入口链接、UTF-8/乱码检查通过；用户提供的三个目录共 10 文件 SHA-256 完全不变。详情见[技能变更日志](.agents/skills/bbxm-information-processing/log.md)。
 - 边界：未新增正式 Wiki 页面，未改写方法论页面和用户提供的新方法/Schema/feed 工作流；未运行真实采集、下游风险分析或完整技能行为基准。
+
+
+## 2026-09-23
+
+### analysis / 伊朗参会材料复核与指定目录输出
+
+- 调用：information-processing 2.0.0 feed；同一对话相同材料复核，复用上一轮已读取的官方来源，未新增联网核验。
+- 新增：`sources/manual/2026-09-23-用户提供-伊朗总统赴联合国参会片段.md`、`outputs/information-processing/2026-09-23-iran-us/result.json`、同目录 `summary.md`。
+- 修改：`index.md` 增加输出入口，本日志记录执行；未修改技能，未新增正式Wiki页面。
+- 结果：复用E1、C1等对象；相对 IP-IRAN-US-FEED-20260923-01 新增Event=0、Signal=0，包含1条日期待核事件、1个弱Cluster、0个Theme。保留关系变化证据不足与总统权限表述校正两项结论，不移交风险识别。
+- 验证：validate_result.py通过五份Schema、对象引用及可核验计数校验；新增中文文件UTF-8与替换字符/私用区检查通过。输出目录遵循用户指定的项目outputs。

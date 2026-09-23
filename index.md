@@ -492,6 +492,8 @@
 - [风险识别技能](.agents/skills/bbxm-risk-identification/SKILL.md)：承接 InformationProcessingResult，按五步输出 Risk Model（类型、表现、来源、关键变量、传导关系），共享交接契约并独立维护工作流；[变更日志](.agents/skills/bbxm-risk-identification/log.md)。
 - [风险演绎观察技能](.agents/skills/bbxm-risk-evolution-monitoring/SKILL.md)：承接 Risk Model、本轮信息结果与历史记录，按四步观察方向、持续性及模型有效性，保留基准并按需重识别；[变更日志](.agents/skills/bbxm-risk-evolution-monitoring/log.md)。
 
+- [信息处理输出：伊朗总统赴联合国参会](outputs/information-processing/2026-09-23-iran-us/summary.md)：重复材料复核，1条既有待核事件、0条新增信号；[标准JSON](outputs/information-processing/2026-09-23-iran-us/result.json)。业务输出不计入正式Wiki页面数。
+
 ## 看板维护
 
 - [[tools/a-share-market-dashboard/a-share-market-dashboard.html|A股市场看板]]：纳斯达克100的2026年累计涨跌震荡天数按月末统计，次月1日北京时间08:00更新；2016—2025历史统计保持固定。

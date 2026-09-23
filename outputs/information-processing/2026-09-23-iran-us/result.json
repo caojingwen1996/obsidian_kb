@@ -1,0 +1,158 @@
+{
+  "result_id": "IP-IRAN-US-FEED-20260923-02",
+  "mode": "feed",
+  "generated_at": "2026-09-23T20:25:17.676976+08:00",
+  "observation_window": {
+    "start": null,
+    "end": null
+  },
+  "events": [
+    {
+      "event_id": "E1",
+      "event_time": {
+        "value": null,
+        "precision": "unknown"
+      },
+      "subject": "马苏德·佩泽希齐扬",
+      "action": "据用户材料赴纽约参加联合国活动",
+      "object": "联合国活动",
+      "key_fact": "用户材料称佩泽希齐扬赴纽约参会，并明确称此行不是正式访美；原始发布日期、出发与入境时间尚未核实。",
+      "context": "仅作为待核事件保留。联合国第80届大会页面可证其2025年参会，但不能据此把用户所说今天认定为该次行程，也不能当作2026年新增事件。赴联合国总部的通行有独立于双边关系的制度背景。伊朗宪法第110、113、114、176条规定总统直选及行政职责、最高领袖的战略权限，以及总统主持最高国家安全委员会且委员会决定须获领袖确认。制度背景不计为新增事件或信号。",
+      "source_refs": [
+        {
+          "source_id": "sources/manual/2026-09-23-用户提供-伊朗总统赴联合国参会片段.md",
+          "source_type": "用户提供的未注明来源材料",
+          "publisher": null,
+          "published_at": null,
+          "original_text": "伊朗和美国的关系最近有了微妙变化。伊朗总统佩泽希齐扬今天去美国纽约参加联合国活动，不是正式访美，但两国在大打出手后伊朗总统还能入境美国就很稀罕了。伊朗总统是民选的，但总统在伊朗国内不是最高领袖，只负责日常行政、经济民生等事项，参与不了重大战略决策"
+        },
+        {
+          "source_id": "https://gadebate.un.org/en/80/iran-islamic-republic",
+          "source_type": "联合国官方历史参会记录；只作背景，不证明未注明日期的本次行程",
+          "publisher": "United Nations"
+        },
+        {
+          "source_id": "https://history.state.gov/historicaldocuments/frus1950v02/d14",
+          "source_type": "美国国务院历史法律备忘录，引用总部协定第11、12条",
+          "publisher": "U.S. Department of State"
+        },
+        {
+          "source_id": "https://faolex.fao.org/docs/pdf/ira127540.pdf",
+          "source_type": "FAOLEX收录的伊朗宪法英文文本，第110、113、114、176条",
+          "publisher": "FAOLEX"
+        }
+      ],
+      "confidence": "low",
+      "conflict": {
+        "exists": true,
+        "description": "原文称总统参与不了重大战略决策，与宪法第176条所载总统主持最高国家安全委员会的制度职责不符。冲突针对权限背景，不是对出行事实的否认。"
+      }
+    }
+  ],
+  "signals": [],
+  "clusters": [
+    {
+      "cluster_id": "C1",
+      "cluster_name": "伊朗总统赴联合国参会线索及其解释边界",
+      "member_events": [
+        "E1"
+      ],
+      "member_signals": [],
+      "relationships": [],
+      "common_direction": "uncertain",
+      "time_range": {
+        "start": null,
+        "end": null
+      },
+      "timeline": [
+        {
+          "time": null,
+          "type": "event",
+          "ref_id": "E1",
+          "summary": "原文称赴纽约参加联合国活动，日期和入境详情待核。",
+          "stage": "key_event"
+        }
+      ],
+      "strength": "weak",
+      "confidence": "low",
+      "status": "uncertain",
+      "notes": "单成员弱Cluster，不构成多源独立变化。历史参会与制度材料仅用于解释边界；没有可排列的前后时间序列。"
+    }
+  ],
+  "themes": [],
+  "summary": {
+    "new_event_count": 0,
+    "new_signal_count": 0,
+    "forming_theme_count": 0,
+    "updated_existing_theme_count": 0,
+    "isolated_signal_count": 0,
+    "insufficient_for_theme_count": 1,
+    "risk_identification_handoff_count": 0,
+    "forming_theme_refs": [],
+    "updated_existing_theme_refs": [],
+    "isolated_signal_refs": [],
+    "insufficient_for_theme_refs": [
+      {
+        "ref_type": "cluster",
+        "ref_id": "C1",
+        "reason": "行程日期待核；入境参会不足以证明双边政策变化，缺乏授权接触、谈判成果及持续性证据。"
+      }
+    ]
+  },
+  "core_findings": [
+    {
+      "finding_id": "F1",
+      "conclusion": "仅凭所述赴纽约参加联合国活动，不能确认美伊关系改善。入境具有联合国东道国制度背景；原文所称微妙变化与稀罕属于作者解释，缺少比较基准。",
+      "supporting_event_refs": [
+        "E1"
+      ],
+      "supporting_signal_refs": [],
+      "supporting_cluster_refs": [
+        "C1"
+      ],
+      "theme_ref": null,
+      "theme_status": null,
+      "current_direction": "uncertain",
+      "confidence": "high",
+      "why_it_matters": "这是对现有证据充分性的判断，不是断言关系没有变化；避免把多边参会直接升级为双边缓和信号。",
+      "open_questions": [
+        "原文日期、链接及实际入境时间是什么？",
+        "有无获授权的美伊双边会晤、直接或间接谈判？",
+        "会谈是否形成双方确认且实际执行的安排？"
+      ]
+    },
+    {
+      "finding_id": "F2",
+      "conclusion": "原文对伊朗总统权限的描述过于绝对：总统参与国家安全政策机制，但相关决定受最高领袖所定方针及确认权约束。",
+      "supporting_event_refs": [
+        "E1"
+      ],
+      "supporting_signal_refs": [],
+      "supporting_cluster_refs": [
+        "C1"
+      ],
+      "theme_ref": null,
+      "theme_status": null,
+      "current_direction": null,
+      "confidence": "high",
+      "why_it_matters": "宪法职权说明参与权与最终决定权有区别，不能由职位名称直接判断一次外交接触是否获得授权。",
+      "open_questions": [
+        "本次行程有无明确谈判授权？",
+        "总统表态是否得到最高领袖或相关决策机构确认？"
+      ]
+    }
+  ],
+  "risk_identification_handoff": [
+    {
+      "handoff_id": "H1",
+      "finding_ref": "F1",
+      "theme_ref": null,
+      "eligible": false,
+      "reason": "未识别有方向的变量变化、持续演化或明确下行传导；当前只有日期待核的事件线索与解释边界，不移交风险识别。",
+      "supporting_cluster_refs": [
+        "C1"
+      ]
+    }
+  ],
+  "notes": "本轮为同一材料复核与按用户指定目录输出。比较基准为 IP-IRAN-US-FEED-20260923-01，文件位于 /Users/cjw/.codex/visualizations/2026/09/19/01a0b7aa-5d38-77b3-8f70-d13d4c1ba236/iran-us-information-processing.json。复用 E1、C1、F1、F2、H1；新增 Event ID=[]，新增 Signal ID=[]。本结果包含1条既有待核Event，去重后新增Event=0，不代表没有事件线索。本轮没有新外部证据，复用本对话上一轮实际读取的官方来源及核验结果，未声称重新进行当前新闻核验。原文今天与大打出手后缺少日期锚点，时区未知，不用生成日期替代事件日。2025年参会记录仅为历史背景，不与本次行程强行对应。总统权限与总部协定为静态背景，不计新增Event或Signal。缺少可验证预期差和市场反应，不执行Event Analysis，不生成Repricing Signal。无既有Theme更新，未执行风险或交易判断。按用户指定保存到项目outputs，未新增正式Wiki页面。结构校验不代表事实已获确认。"
+}
