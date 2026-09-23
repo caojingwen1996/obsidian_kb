@@ -1,35 +1,35 @@
 ---
-title: "冰冰小美：AI美元战略把全球热钱绑定到AI资本开支的判断框架"
+title: 冰冰小美：AI美元战略把全球热钱绑定到AI资本开支的判断框架
 aliases:
-  - "AI美元战略"
-  - "Ai-美元战略"
+  - AI美元战略
+  - Ai-美元战略
 created: 2026-05-29
 updated: 2026-09-18
 type: view
 status: active
 tags:
-  - "macro/liquidity"
-  - "macro/fx"
-  - "asset/equity"
-  - "learning/reasoning"
+  - macro/liquidity
+  - macro/fx
+  - asset/equity
+  - learning/reasoning
 sources:
   - "[[sources/articles/2026-04-18-冰冰小美：Ai-美元战略|2026-04-18《Ai-美元战略》]]"
 related:
   - "[[people/冰冰小美|冰冰小美]]"
   - "[[topics/冰冰小美-AI产业趋势|AI产业趋势]]"
-  - "[[topics/冰冰小美-宏观经济|宏观经济]]"
+  - "[[冰冰小美-宏观经济分析合集|宏观经济]]"
   - "[[topics/冰冰小美-中美产业竞争|中美产业竞争]]"
   - "[[reasoning/冰冰小美-AI美元战略如何由美债膨胀传导为全球热钱重排|AI美元战略如何由美债膨胀传导为全球热钱重排]]"
   - "[[冰冰小美-宏观战略-竞争格局分析|中美产业竞争]]"
-summary: "记录冰冰小美在《Ai-美元战略》中提出的阶段判断：AI不只是产业泡沫，而是美元、美债、稳定币、全球热钱和科技资本开支共同绑定的战略结构。"
+summary: 记录冰冰小美在《Ai-美元战略》中提出的阶段判断：AI不只是产业泡沫，而是美元、美债、稳定币、全球热钱和科技资本开支共同绑定的战略结构。
 person: "[[people/冰冰小美|冰冰小美]]"
 topic_refs:
   - "[[topics/冰冰小美-AI产业趋势|AI产业趋势]]"
-  - "[[topics/冰冰小美-宏观经济|宏观经济]]"
+  - "[[冰冰小美-宏观经济分析合集|宏观经济]]"
   - "[[topics/冰冰小美-中美产业竞争|中美产业竞争]]"
-stance: "AI行情不是普通泡沫，而是美元信用、AI资本开支和全球热钱共同形成的战略绑定。"
-time_scope: "2026-04-18 形成的阶段性判断"
-confidence: "medium"
+stance: AI行情不是普通泡沫，而是美元信用、AI资本开支和全球热钱共同形成的战略绑定。
+time_scope: 2026-04-18 形成的阶段性判断
+confidence: medium
 ---
 
 # 冰冰小美：AI美元战略把全球热钱绑定到AI资本开支的判断框架

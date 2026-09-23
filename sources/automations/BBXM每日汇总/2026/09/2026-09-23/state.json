@@ -1,0 +1,77 @@
+{
+  "account": "冰冰小美",
+  "account_url": "https://xueqiu.com/u/7143769715",
+  "task_date": "20260923",
+  "start_time": "2026-09-23 16:05:43",
+  "end_time": "2026-09-23 16:05:43",
+  "scan_round": 1,
+  "success_count": 4,
+  "failure_count": 0,
+  "log_file": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-23\\task.log",
+  "result_dir": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-23",
+  "state_file": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-23\\state.json",
+  "processed_items": {
+    "410325412": {
+      "source_id": "410325412",
+      "title": "如果指数因为金融砸盘做空，而跌停板，大面积的前期投机妖股集体跌停（监管频繁，以前也是，既要又要典型，制度缺陷的铁证），市... - 雪球",
+      "published_at": "2026-09-23 12:00:00",
+      "url": "https://www.xueqiu.com/7143769715/410325412",
+      "platform": "xueqiu",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-23\\120000_如果指数因为金融砸盘做空_而跌停板_大面积的前期投机妖股集体跌停_监管频繁_以前也是_既要又要典_41032541.md",
+      "saved_at": "2026-09-23 16:05:43"
+    },
+    "410315643": {
+      "source_id": "410315643",
+      "title": "我哪里看不懂短线。但是短线加起来也就1000亿资金对倒。全市场几万亿资金跟随情绪波动，跷跷板。这不是搞笑的市场。看A股总... - 雪球",
+      "published_at": "2026-09-23 11:08:00",
+      "url": "https://www.xueqiu.com/7143769715/410315643",
+      "platform": "xueqiu",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-23\\110800_我哪里看不懂短线_但是短线加起来也就1000亿资金对倒_全市场几万亿资金跟随情绪波动_跷跷板_这_41031564.md",
+      "saved_at": "2026-09-23 16:05:43"
+    },
+    "410310788": {
+      "source_id": "410310788",
+      "title": "早点离开这种市场。已经没救了。全是看底牌，人少的地方报团拉。人多的地方，只能尾盘买，早盘卖。多呆一秒都是罪。股价从一个极... - 雪球",
+      "published_at": "2026-09-23 10:49:00",
+      "url": "https://www.xueqiu.com/7143769715/410310788",
+      "platform": "xueqiu",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-23\\104900_早点离开这种市场_已经没救了_全是看底牌_人少的地方报团拉_人多的地方_只能尾盘买_早盘卖_多呆_41031078.md",
+      "saved_at": "2026-09-23 16:05:43"
+    },
+    "410307862": {
+      "source_id": "410307862",
+      "title": "10:10， 万科A 破板，科技投机标，四会富士快速拉升。量化投机对决。吸引人气与流动性溢价。10:11分 中际旭创 企... - 雪球",
+      "published_at": "2026-09-23 10:38:00",
+      "url": "https://www.xueqiu.com/7143769715/410307862",
+      "platform": "xueqiu",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-23\\103800_10_10_万科A_破板_科技投机标_四会富士快速拉升_量化投机对决_吸引人气与流动性溢价_10_41030786.md",
+      "saved_at": "2026-09-23 16:05:43"
+    }
+  },
+  "events": [
+    {
+      "type": "item_saved",
+      "time": "2026-09-23 16:05:43",
+      "item_key": "410325412",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-23\\120000_如果指数因为金融砸盘做空_而跌停板_大面积的前期投机妖股集体跌停_监管频繁_以前也是_既要又要典_41032541.md"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-09-23 16:05:43",
+      "item_key": "410315643",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-23\\110800_我哪里看不懂短线_但是短线加起来也就1000亿资金对倒_全市场几万亿资金跟随情绪波动_跷跷板_这_41031564.md"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-09-23 16:05:43",
+      "item_key": "410310788",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-23\\104900_早点离开这种市场_已经没救了_全是看底牌_人少的地方报团拉_人多的地方_只能尾盘买_早盘卖_多呆_41031078.md"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-09-23 16:05:43",
+      "item_key": "410307862",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-23\\103800_10_10_万科A_破板_科技投机标_四会富士快速拉升_量化投机对决_吸引人气与流动性溢价_10_41030786.md"
+    }
+  ]
+}

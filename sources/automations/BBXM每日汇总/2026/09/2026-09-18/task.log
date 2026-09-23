@@ -1,0 +1,18 @@
+2026-09-22 17:15:22,290 [INFO] 保存成功: E:\caojingwen\obsidian\llmwiki\sources\automations\BBXM每日汇总\2026\09\2026-09-18\170500_预演_40982469.md
+2026-09-22 17:15:22,378 [INFO] 保存成功: E:\caojingwen\obsidian\llmwiki\sources\automations\BBXM每日汇总\2026\09\2026-09-18\165900_根据历史推演_需要考虑重磅利好发布_比如_双节期间_降低印花税率_推动牛市氛围回归_米联储加息落_40982383.md
+2026-09-22 17:15:22,444 [INFO] 保存成功: E:\caojingwen\obsidian\llmwiki\sources\automations\BBXM每日汇总\2026\09\2026-09-18\165600_很多人会困惑_加息为何科技涨了_留言板有一个问的很好_为什么2年期利率上涨_30年期利率下跌_加_40982354.md
+2026-09-22 17:15:22,490 [INFO] 保存成功: E:\caojingwen\obsidian\llmwiki\sources\automations\BBXM每日汇总\2026\09\2026-09-18\152900_网页链接历史_网页链接重演_网页链接轮回_仙居杨梅最初的梦_-_雪球_40981075.md
+2026-09-22 17:15:22,536 [INFO] 保存成功: E:\caojingwen\obsidian\llmwiki\sources\automations\BBXM每日汇总\2026\09\2026-09-18\131700_雪球-聪明的投资者都在这里_40978055.md
+2026-09-22 17:15:22,581 [INFO] 跳过非目标日期内容: 帖子不属于目标日期: 2025-08-13
+2026-09-22 17:15:22,581 [INFO] 跳过非目标日期内容: 帖子不属于目标日期: 2025-08-13
+2026-09-22 17:15:22,583 [INFO] 保存成功: E:\caojingwen\obsidian\llmwiki\sources\automations\BBXM每日汇总\2026\09\2026-09-18\061100_Market_expectations_for_a_Democrat_34_sweep_34_i_40971375.md
+2026-09-22 17:15:22,628 [INFO] 保存成功: E:\caojingwen\obsidian\llmwiki\sources\automations\BBXM每日汇总\2026\09\2026-09-18\060600_US_median_household_income_adjusted_for_inflatio_40971370.md
+2026-09-22 17:15:22,674 [INFO] 保存成功: E:\caojingwen\obsidian\llmwiki\sources\automations\BBXM每日汇总\2026\09\2026-09-18\060500_AI_firms_and_the_US_government_are_competing_for_40971368.md
+2026-09-22 17:20:00,000 [INFO] 后处理：清理正文页面外壳与作者评论噪声（refetch_details.mjs + rebuild_comments2.py）
+2026-09-22 17:21:00,000 [INFO] 后处理：删除误存他人帖子 131700_雪球-聪明的投资者都在这里_40978055.md（作者：仙居杨梅最初的梦，URL /5418424084/）
+2026-09-22 17:22:00,000 [INFO] 后处理：识别 409824691（预演）与 409823838 为同一篇专栏文章，409824691 为社区转发入口，标注为重复载体并回填专栏正文
+2026-09-22 17:23:00,000 [INFO] 风险分析：已调用 bbxm-risk-identification 五步识别路径，覆盖 7/7，未解决 0
+2026-09-22 17:23:30,000 [INFO] 风险分析：全部归入待验证（候选 4 / 证据不足 3 / 重复载体 1-含于7），合格 R/W 节点 0
+2026-09-22 17:24:00,000 [INFO] Excel 更新器状态：no_risk（完整分析后无可写入节点，未修改工作簿）
+2026-09-22 17:25:00,000 [INFO] 已生成 summary.md
+2026-09-22 17:25:00,000 [INFO] 上游=当日原帖集合（未另跑 information-processing）；未写 tools/a-share-market-dashboard/data/Risk/；未生成 HTML

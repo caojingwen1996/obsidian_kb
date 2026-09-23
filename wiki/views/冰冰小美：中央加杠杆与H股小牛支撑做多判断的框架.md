@@ -1,41 +1,41 @@
 ---
-title: "冰冰小美：中央加杠杆与H股小牛支撑做多判断的框架"
+title: 冰冰小美：中央加杠杆与H股小牛支撑做多判断的框架
 aliases:
-  - "目前有什么有利"
-  - "目前有什么有利，支撑我的判断"
+  - 目前有什么有利
+  - 目前有什么有利，支撑我的判断
 created: 2026-05-29
 updated: 2026-09-18
 type: view
 status: active
 tags:
-  - "macro/fiscal"
-  - "macro/liquidity"
-  - "strategy/allocation"
-  - "learning/reasoning"
+  - macro/fiscal
+  - macro/liquidity
+  - strategy/allocation
+  - learning/reasoning
 sources:
   - "[[sources/articles/2025-06-15-冰冰小美：目前有什么有利|冰冰小美：目前有什么有利]]"
 related:
   - "[[people/冰冰小美|冰冰小美]]"
-  - "[[topics/冰冰小美-宏观经济|宏观经济]]"
+  - "[[冰冰小美-宏观经济分析合集|宏观经济]]"
   - "[[views/冰冰小美-政策解读-中央加杠杆|中央加杠杆]]"
   - "[[concepts/冰冰小美-流动性辩证分析|流动性辩证分析]]"
   - "[[views/冰冰小美：突发风险降临时先重估风险层级与交易窗口的判断框架|突发风险重估]]"
   - "[[views/冰冰小美：中观流动性主导经济信心恢复的判断框架|中观流动性主导经济信心恢复]]"
   - "[[views/冰冰小美-政策解读-中央加杠杆|中央加杠杆确认化债与资产重估]]"
-summary: "冰冰小美在 2025-06-15 继突发风险重估后，补充做多判断的有利条件：中央加杠杆和金融市场稳定提供政策底，低利率与股息率利差吸引大资金，改革与风险化解吸引外资，H 股小牛趋势成为全球资金分散风险的承接方向。"
+summary: 冰冰小美在 2025-06-15 继突发风险重估后，补充做多判断的有利条件：中央加杠杆和金融市场稳定提供政策底，低利率与股息率利差吸引大资金，改革与风险化解吸引外资，H 股小牛趋势成为全球资金分散风险的承接方向。
 person: "[[people/冰冰小美|冰冰小美]]"
 topic_refs:
-  - "[[topics/冰冰小美-宏观经济|宏观经济]]"
-stance: "风险判断是交易起点；若中央加杠杆、中观流动性、利差吸引力、外资重估和 H 股趋势同时有利，作者认为做多中国资产仍有底气，但这种底气不能被误读为一买就挣。"
-time_scope: "2025-06"
-confidence: "medium"
+  - "[[冰冰小美-宏观经济分析合集|宏观经济]]"
+stance: 风险判断是交易起点；若中央加杠杆、中观流动性、利差吸引力、外资重估和 H 股趋势同时有利，作者认为做多中国资产仍有底气，但这种底气不能被误读为一买就挣。
+time_scope: 2025-06
+confidence: medium
 provenance:
   - "extracted: 0.78"
-  - "source_density: \"single-source\""
+  - 'source_density: "single-source"'
   - "inference: 0.22"
-lifecycle: "seeded"
-review_after: "2026-08-29"
-tier: "developing"
+lifecycle: seeded
+review_after: 2026-08-29
+tier: developing
 ---
 
 # 冰冰小美：中央加杠杆与H股小牛支撑做多判断的框架

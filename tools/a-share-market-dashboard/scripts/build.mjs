@@ -8,6 +8,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const repoRoot = join(root, '..', '..');
 const sourceDir = join(root, 'src');
 const dataDir = join(root, 'data');
+const marketOverviewDataDir = join(dataDir, '市场总览');
 const outputPath = join(root, 'a-share-market-dashboard.html');
 const moduleOrder = ['core.mjs', 'adapters.mjs', 'data-service.mjs', 'risk-state.mjs', 'risk-indicators.mjs', 'risk-screen.mjs', 'app.mjs'];
 const automationsDir = join(repoRoot, 'sources', 'automations');
@@ -16,8 +17,8 @@ const dividendSignalPath = join(automationsDir, '中证红利信号', '最新信
 const dividendHistoryWorkbookPath = join(automationsDir, '中证红利信号', '中证红利每日信号.xlsx');
 const dividendAnnualPerformancePath = join(automationsDir, '中证红利信号', '中证红利年度表现.json');
 const bbxmDailyDigestDir = join(automationsDir, 'BBXM每日汇总');
-const todoDataPath = join(dataDir, 'todo.json');
-const todoDataHref = 'data/todo.json';
+const todoDataPath = join(dataDir, '需求清单', 'todo.json');
+const todoDataHref = 'data/需求清单/todo.json';
 const todoQuadrants = [
   { key: 'important-urgent', label: '重要且紧急', shortLabel: 'Q1', description: '立即处理', className: 'is-important-urgent' },
   { key: 'important-not-urgent', label: '重要不紧急', shortLabel: 'Q2', description: '排入计划', className: 'is-important-not-urgent' },
@@ -894,7 +895,7 @@ function normalizeTodoDate(value) {
 
 function parseTodoListFromJson(text) {
   if (!text?.trim()) {
-    return { items: [], sourceHref: todoDataHref, sourceNote: '未找到 data/todo.json', status: 'missing' };
+    return { items: [], sourceHref: todoDataHref, sourceNote: `未找到 ${todoDataHref}`, status: 'missing' };
   }
   let payload;
   try {
@@ -945,7 +946,7 @@ function parseTodoListFromJson(text) {
     items,
     archive: normalizeTodoArchiveItems(rawArchive),
     sourceHref: todoDataHref,
-    sourceNote: `${latestUpdate ? `来源：data/todo.json · 更新：${latestUpdate}` : '来源：data/todo.json'}${rawArchive.length ? ` · 已归档${rawArchive.length}项` : ''}`,
+    sourceNote: `来源：${todoDataHref}${latestUpdate ? ` · 更新：${latestUpdate}` : ''}${rawArchive.length ? ` · 已归档${rawArchive.length}项` : ''}`,
     status: 'loaded',
   };
 }
@@ -1096,17 +1097,27 @@ function stripModuleSyntax(source, filename) {
   return `\n// ---- ${filename} ----\n${withoutExports.trim()}\n`;
 }
 
+async function readOptionalSnapshot(filename) {
+  try {
+    return await readFile(join(marketOverviewDataDir, filename), 'utf8');
+  } catch (error) {
+    if (error.code !== 'ENOENT') throw error;
+    console.warn(`数据文件缺失：${filename}；对应内容显示待验证。`);
+    return null;
+  }
+}
+
 const [template, styles, changelogSource, eventCalendarSource, ...modules] = await Promise.all([
   readFile(join(sourceDir, 'index.html'), 'utf8'),
   readFile(join(sourceDir, 'styles.css'), 'utf8'),
   readFile(join(sourceDir, 'changelog.json'), 'utf8'),
-  readFile(join(sourceDir, 'event-calendar.json'), 'utf8'),
+  readFile(join(marketOverviewDataDir, 'event-calendar.json'), 'utf8'),
   ...moduleOrder.map(filename => readFile(join(sourceDir, filename), 'utf8')),
 ]);
-const nasdaqEtfAnchor = JSON.parse(await readFile(join(dataDir, 'nasdaq-etf-anchor.json'), 'utf8'));
+const nasdaqEtfAnchor = JSON.parse(await readOptionalSnapshot('nasdaq-etf-anchor.json') ?? '{}');
 const industries = await Promise.all(industryDefinitions.map(scanIndustryReports));
 const indexDayStatistics = await readFile(join(repoRoot, 'sources', 'assets', '2026-09-11-index-day-distribution', 'yearly.csv'), 'utf8');
-const nasdaqDayStatistics = await readFile(join(dataDir, 'nasdaq-day-statistics.csv'), 'utf8');
+const nasdaqDayStatistics = await readOptionalSnapshot('nasdaq-day-statistics.csv');
 const bbxmDailyDigest = await scanBbxmDailyDigest();
 const topicPages = await scanTopicPages();
 const changelog = validateChangelog(JSON.parse(changelogSource));
@@ -1162,7 +1173,9 @@ const output = renderedTemplate
   .replace('            <!-- TOPIC_CARDS -->', renderTopicCards(topicPages))
   .replace('        <!-- CHANGELOG_ENTRIES -->', renderChangelog(changelog))
   .replace('<!-- DASHBOARD_STYLES -->', `<style>${styles.trim()}</style>`)
-  .replace('<!-- NDX_DAY_CHART -->', renderIndexDayChart(nasdaqDayStatistics, 'NDX'))
+  .replace('<!-- NDX_DAY_CHART -->', nasdaqDayStatistics === null
+    ? '<section class="panel index-day-chart" data-index-day-chart="NDX"><h3>纳斯达克100（NDX） · 逐年涨跌震荡天数</h3><p>年度统计数据缺失，待验证。请补充 data/市场总览/nasdaq-day-statistics.csv 后重新构建。</p></section>'
+    : renderIndexDayChart(nasdaqDayStatistics, 'NDX'))
   .replace('<!-- DIVIDEND_DAY_CHART -->', renderIndexDayChart(indexDayStatistics, 'H30269.CSI'))
   .replace('<!-- DASHBOARD_SCRIPT -->', () => `<script type="module">${bundle}</script>`);
 

@@ -5,3 +5,4 @@
 | 观察对象 | risk_id | 当前模型版本 / 链接 | T0记录 | 最新观察 | 任务状态 | 最新分析截止时间 | 上游运行记录 |
 |---|---|---|---|---|---|---|---|
 | 美股科技股 | US-TECH-MONETARY-PRESSURE | [[tools/a-share-market-dashboard/data/Risk/models/US-TECH-MONETARY-PRESSURE-v1|v1，候选]] | [[tools/a-share-market-dashboard/data/Risk/observations/US-TECH-MONETARY-PRESSURE/OBS-US-TECH-20260922-T0|T0]] | [[tools/a-share-market-dashboard/data/Risk/observations/US-TECH-MONETARY-PRESSURE/OBS-US-TECH-20260922-T0|首次观察]] | 等待证据 | 2026-09-22晨报，具体时刻未知；行情所属9月21日 | [[tools/a-share-market-dashboard/data/Risk/inputs/IPR-US-MORNING-20260922-R2-run|运行说明]] |
+| 英特尔（INTC.US） | INTC-AI-EXPECTATION-REALIZATION | [[tools/a-share-market-dashboard/data/Risk/models/INTC-AI-EXPECTATION-REALIZATION-v1|v1，候选]]；[HTML阅读版](models/INTC-AI-EXPECTATION-REALIZATION-v1.html) | 未初始化 | 本轮仅识别 | 等待证据 | 2026-09-23T14:44:53+08:00；主要事件9月16—17日 | [[tools/a-share-market-dashboard/data/Risk/inputs/IPR-INTC-NOTA-20260923-run|运行说明]] |

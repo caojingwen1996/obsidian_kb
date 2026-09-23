@@ -55,16 +55,24 @@ HHMMSS_核心观点.md
 
 ### 4.1 分析范围与完整性门禁
 
-抓取和原始帖保存完成后，必须使用 `bbxm-expert` 的风险识别路径和 `risk-node-identification` 规则，对 `{DATE}` 当天全部已保存帖子逐帖分析。不得只分析本轮净新增帖子，也不得用“上次次数 + 本次次数”累计；同日重跑必须按当天完整集合重算，每条帖子最多计一次。
+抓取和原始帖保存完成后，必须**实际调用** `bbxm-risk-identification` 技能（入口：`.agents/skills/bbxm-risk-identification/SKILL.md`），按该技能的识别方法对 `{DATE}` 当天全部已保存帖子逐帖分析。不得只凭印象套用格式，必须读取该技能的 `SKILL.md`、`workflow.md`、`template.md` 和 `references/handoff-contract.md` 后再执行。
+
+调用方式与边界：
+
+1. **必须调用，且必须留下调用痕迹**：当日有已保存帖子时，逐帖分析必须走 `bbxm-risk-identification` 的五步识别路径（识别风险表现 → 确定风险类型 → 识别风险来源 → 确定风险关键变量 → 建立风险传导关系）；空结果日（`saved_post_count = 0`）没有可识别对象，不加载技能，只做空风险清理。
+2. **技能是方法来源，不是落盘目标**：每日自动任务只把逐帖结论写入当日 `processing/risk-analysis.json` 与 `summary.md`，**不改动、不新增** `tools/a-share-market-dashboard/data/Risk/` 下的模型母稿、HTML 阅读版和 `risk-records.md` 定位表。该目录由人工维护，自动任务不写入，避免每日批量污染定位表。
+3. **不生成 HTML**：本任务不调用 `bbxm-html-report`，交付物是 `summary.md`。
+4. **技能内部的上游门槛按本提示词裁剪**：`bbxm-risk-identification` 默认要求消费 `InformationProcessingResult`。本任务不单独调用 `information-processing`；上游证据直接取当日已保存原帖正文及元数据，等价于 `feed` 模式输入，并在分析文件与 `task.log` 中记录「上游=当日原帖集合，未另跑信息处理技能」。
+5. **风险评估不输出方向与持续性**：只判定 `R/W` 等级并给出风险对象、触发、传导、证据与理由；不输出增加、维持、减弱或买卖结论。
 
 风险判断只允许使用：
 
 1. `{DATE}` 当天已保存的冰冰小美帖子正文及元数据；
-2. 本提示词要求阅读的冰冰小美体系知识页；
-3. `bbxm-expert` 的风险识别规则；
-4. `risk-node-identification` 的等级、传导链和证据规则。
+2. `{DATE}` 当天作者本人在对应帖子下、与核心观点直接相关的补充评论；
+3. 本提示词要求阅读的冰冰小美体系知识页，以及 `bbxm-risk-identification` 引用的风险类型与风险来源传导路径页面；
+4. `bbxm-risk-identification` 的风险类型、来源、关键变量和传导关系规则。
 
-不得额外联网获取行情、新闻、利率、资金流或其他外部数据来补足风险证据。证据不足时必须归为 `待验证`，不得强行判定。
+不得额外联网获取行情、新闻、利率、资金流或其他外部数据来补足风险证据。证据不足时必须归为 `待验证`，不得强行判定。当日无合格风险节点时，必须说明「已按技能识别、未发现受证据支持的风险」，而不是省略识别过程。
 
 出现以下任一情况时，`analysis_complete` 必须为 `false`，不得把抓取不完整写成零风险：
 
@@ -77,12 +85,16 @@ HHMMSS_核心观点.md
 
 ### 4.2 风险等级与计数
 
+等级判定必须在 `bbxm-risk-identification` 五步识别完成后进行：先确认存在受证据支持的风险表现、类型与来源，再按传导关系的完整度定级。不得跳过识别直接贴等级。
+
 - `R1 / R2 / R3`：风险增强节点，写入风险工具；每条合格帖子计 1 次。
 - `W1 / W2 / W3`：风险减弱或转向机会节点，写入风险工具；每条合格帖子计 1 次。
 - `N`：方向不明确，不写入。
 - `待验证`：证据、抓取或传导链不完整，不写入。
 
 合格风险必须同时具备明确的风险对象、触发信息、传导链和帖子证据。不得仅因帖子出现“上涨、下跌、利好、利空”等孤立词语而触发。一条帖子包含多个相关风险点时仍只计 1 次，并在同一条原因中概括。
+
+与技能字段的对应关系：`bbxm-risk-identification` 的 `identification_status`（已支持 / 候选 / 证据不足）用于内部判断，**不直接作为等级**；只有来源与传导链均有证据支持的「已支持」风险才可写为 `R/W` 节点，仅「候选」或「证据不足」的风险一律归入 `待验证`，写入 `not_written`，不改写为等级节点。
 
 ### 4.3 `risk-analysis.json`
 
@@ -101,6 +113,15 @@ sources/automations/BBXM每日汇总/{YEAR}/{MONTH}/{DATE}/processing/risk-analy
   "author": "冰冰小美",
   "generated_at": "ISO 8601 时间",
   "analysis_complete": true,
+  "skill_call": {
+    "skill": "bbxm-risk-identification",
+    "skill_path": ".agents/skills/bbxm-risk-identification/SKILL.md",
+    "invoked": true,
+    "method": "five-step-identification",
+    "upstream": "当日已保存原帖集合（未另跑 information-processing）",
+    "risk_dir_write": false,
+    "html_report": false
+  },
   "coverage": {
     "saved_post_count": 0,
     "analyzed_post_count": 0,
@@ -112,6 +133,8 @@ sources/automations/BBXM每日汇总/{YEAR}/{MONTH}/{DATE}/processing/risk-analy
 }
 ```
 
+`skill_call` 是调用痕迹字段，必须如实填写：当日有帖子且已按技能识别时 `invoked` 为 `true`；空结果日 `invoked` 为 `false` 并注明「无可用对象，未加载技能」。该字段仅用于追溯，Excel 更新器按白名单校验必需字段，不读取该字段，添加它不影响写入。
+
 `qualified` 每项必须包含：`post_key`、`source_file`、`url`、`title`、`published_at`、`level`、`risk_object`、`trigger`、`transmission`、`evidence`、`reason`。`post_key` 优先使用帖子 URL；没有 URL 时使用来源文件名和发布时间生成稳定键。`level` 只能是 `R1`、`R2`、`R3`、`W1`、`W2`、`W3`。
 
 `not_written` 每项必须包含：`post_key`、`level`、`reason`，其中 `level` 只能是 `N`、`待验证`。
@@ -121,7 +144,8 @@ sources/automations/BBXM每日汇总/{YEAR}/{MONTH}/{DATE}/processing/risk-analy
 - `post_key` 在逐帖结果中唯一；完全相同的重复结果只保留一条，矛盾结果必须阻断；
 - `saved_post_count = analyzed_post_count + unresolved_post_count`；
 - `analysis_complete=true` 时 `unresolved_post_count` 必须为 `0`；
-- 所有写入理由都能追溯到 `source_file` 或 `url`。
+- 所有写入理由都能追溯到 `source_file` 或 `url`；
+- `skill_call` 与实际执行一致：有帖子时必须为已调用，空结果日必须为未调用且写明原因。
 
 ### 4.4 调用 Excel 更新器
 
@@ -182,6 +206,7 @@ python tools/bbxm-risk-dashboard/scripts/upsert_automated_risk.py --analysis-fil
 
 ## 风险提示判定
 
+- 风险识别技能调用：已调用 `bbxm-risk-identification` / 未调用（空结果日，无可用对象，仅做空风险清理）
 - 分析覆盖：已分析 X / 已保存 Y，未解决 Z
 - 是否写入风险工具：是 / 否 / 待补写 / 已阻断
 - 当日累计风险提示次数：N
@@ -250,9 +275,10 @@ python tools/bbxm-risk-dashboard/scripts/upsert_automated_risk.py --analysis-fil
 3. 原始帖保存状态和帖子数量；
 4. summary.md 路径；
 5. 风险分析覆盖：已保存、已分析、未解决数量；
-6. Excel 写入状态：`written / no_risk / removed / pending / blocked`；
-7. 当日自动风险提示次数和 R1/R2/R3/W1/W2/W3 分布；
-8. 抓取、分析或写入失败边界；
-9. summary.md 更新状态及“解析今天文章的观点”章节生成状态；
-10. 缺失标签、缺失正文或汇总失败的原帖及原因；
-11. 人工跟进项。
+6. **风险识别技能调用状态**：是否已调用 `bbxm-risk-identification`；未调用时说明原因（如空结果日无可用对象）；并说明本次未写 `tools/a-share-market-dashboard/data/Risk/`、未生成 HTML；
+7. Excel 写入状态：`written / no_risk / removed / pending / blocked`；
+8. 当日自动风险提示次数和 R1/R2/R3/W1/W2/W3 分布；
+9. 抓取、分析或写入失败边界；
+10. summary.md 更新状态及“解析今天文章的观点”章节生成状态；
+11. 缺失标签、缺失正文或汇总失败的原帖及原因；
+12. 人工跟进项。

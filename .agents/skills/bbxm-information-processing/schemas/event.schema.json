@@ -1,0 +1,330 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "event.schema.json",
+  "title": "Event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event_id",
+    "event_time",
+    "subject",
+    "action",
+    "key_fact",
+    "source_refs",
+    "confidence"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "event_time": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "precision"
+      ],
+      "properties": {
+        "value": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "precision": {
+          "type": "string",
+          "enum": [
+            "exact",
+            "minute",
+            "hour",
+            "day",
+            "week",
+            "month",
+            "unknown"
+          ]
+        }
+      }
+    },
+    "subject": {
+      "type": "string",
+      "minLength": 1
+    },
+    "action": {
+      "type": "string",
+      "minLength": 1
+    },
+    "object": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "key_fact": {
+      "type": "string",
+      "minLength": 1
+    },
+    "key_values": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "value"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "value": {},
+          "unit": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "context": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source_id"
+        ],
+        "properties": {
+          "source_id": {
+            "type": "string"
+          },
+          "source_type": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "publisher": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "published_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "original_text": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "conflict": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "exists"
+      ],
+      "properties": {
+        "exists": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "event_analysis": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "core_question": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "time_window": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "start": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "key_event_time": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "end": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "pre_event_expectation": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "market_expectation": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "prevailing_narrative": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "priced_in_conditions": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "actual_result": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "expected_result": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "surprise": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "exists": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "description": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "direction": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "enum": [
+                "positive",
+                "negative",
+                "mixed",
+                "none",
+                "unknown",
+                null
+              ]
+            },
+            "magnitude": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "enum": [
+                "small",
+                "moderate",
+                "large",
+                "extreme",
+                "unknown",
+                null
+              ]
+            }
+          }
+        },
+        "immediate_reaction": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "repricing": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "changed_variables": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "variable",
+              "direction"
+            ],
+            "properties": {
+              "variable": {
+                "type": "string"
+              },
+              "direction": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "uncertainties": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

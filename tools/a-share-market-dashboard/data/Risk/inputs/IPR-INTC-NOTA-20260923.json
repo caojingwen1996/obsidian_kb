@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.0",
+  "result_id": "IPR-INTC-NOTA-20260923",
+  "generated_at": "2026-09-23T14:44:53+08:00",
+  "context": {
+    "mode": "feed",
+    "observation_target": {
+      "type": "上市公司",
+      "id": "INTC.US",
+      "name": "英特尔"
+    },
+    "time_window": {
+      "id": "TW-INTC-20260916-20260923",
+      "core_question": "Nota NVA合作与存储叙事各自有哪些已确认事实和兑现缺口？",
+      "key_event_id": "EV-NOTA-NVA-B70-20260917",
+      "start": "2026-09-16",
+      "end": "2026-09-23",
+      "pre_event_expectation": null,
+      "post_event_repricing": null
+    }
+  },
+  "events": [
+    {
+      "event_id": "EV-SKHYNIX-INTEL-CLARIFICATION-20260916",
+      "fact": {
+        "time": "2026-09-16",
+        "subject": "SK hynix",
+        "action": "发布澄清，表示具体安排尚未确定",
+        "object": "报道涉及的俄亥俄工厂租赁或合资存储生产方案",
+        "value": null,
+        "unit": null
+      },
+      "source": {
+        "source_id": "S2",
+        "source_name": "SK hynix Newsroom",
+        "source_type": "公司官方披露",
+        "source_tier": "专题源",
+        "published_at": "2026-09-16",
+        "raw_ref": "sources/manual/2026-09-23-英特尔NotaAI与存储叙事-核验摘录.md::S2"
+      },
+      "structure": {
+        "domain": "企业",
+        "hierarchy": {
+          "level": "微观",
+          "category": "公司产品及合作披露"
+        },
+        "observation_objects": [
+          {
+            "type": "上市公司",
+            "id": "INTC.US",
+            "name": "英特尔"
+          }
+        ],
+        "financial_factors": [],
+        "market_reactions": []
+      }
+    },
+    {
+      "event_id": "EV-NOTA-NVA-B70-20260917",
+      "fact": {
+        "time": "2026-09-17",
+        "subject": "Nota AI",
+        "action": "宣布推出可购买的集成方案",
+        "object": "Nota Vision Agent与Intel Arc Pro B70 GPU",
+        "value": "厂商报告单卡32路视频合计540 FPS，均值16.9 FPS/路；ITS目标15 FPS/路",
+        "unit": null
+      },
+      "source": {
+        "source_id": "S1",
+        "source_name": "Nota AI Newsroom",
+        "source_type": "公司官方披露",
+        "source_tier": "专题源",
+        "published_at": "2026-09-17",
+        "raw_ref": "sources/manual/2026-09-23-英特尔NotaAI与存储叙事-核验摘录.md::S1"
+      },
+      "structure": {
+        "domain": "企业",
+        "hierarchy": {
+          "level": "微观",
+          "category": "公司产品及合作披露"
+        },
+        "observation_objects": [
+          {
+            "type": "上市公司",
+            "id": "INTC.US",
+            "name": "英特尔"
+          }
+        ],
+        "financial_factors": [],
+        "market_reactions": []
+      }
+    }
+  ],
+  "timeline": {
+    "event_ids": [
+      "EV-SKHYNIX-INTEL-CLARIFICATION-20260916",
+      "EV-NOTA-NVA-B70-20260917"
+    ]
+  },
+  "induction": {
+    "clusters": []
+  }
+}

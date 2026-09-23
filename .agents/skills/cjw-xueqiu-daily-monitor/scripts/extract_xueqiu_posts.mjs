@@ -228,7 +228,7 @@ async function applyCapturePacing(plan, candidateIndex) {
 }
 
 export function isXueqiuPostUrl(value) {
-  return /^https?:\/\/xueqiu\.com\/\d+\/\d+(?:[?#].*)?$/.test(String(value || ""));
+  return /^https?:\/\/(?:www\.)?xueqiu\.com\/\d+\/\d+(?:[?#].*)?$/.test(String(value || ""));
 }
 
 export function shouldKeepCandidateForCaptureScope(candidate, targetDate, captureScope, now = new Date()) {
@@ -723,7 +723,7 @@ function buildHomepageExtractionScript(maxPosts, captureScope = "daily") {
         await sleep(600);
       }
 
-      const postUrlPattern = /^https?:\\/\\/xueqiu\\.com\\/\\d+\\/\\d+(?:\\?.*)?$/;
+      const postUrlPattern = /^https?:\\/\\/(?:www\\.)?xueqiu\\.com\\/\\d+\\/\\d+(?:\\?.*)?$/;
       const inferPublishedAt = (text) => {
         const source = String(text || "");
         const publishedMarkerPatterns = [
@@ -742,6 +742,7 @@ function buildHomepageExtractionScript(maxPosts, captureScope = "daily") {
           /\\d{4}[-/]\\d{1,2}[-/]\\d{1,2}/,
           /(?:今天|昨天|昨日)\\s*\\d{1,2}:\\d{2}/,
           /\\d+\\s*(?:分钟前|小时前)/,
+          /\\d{1,2}[-/]\\d{1,2}\\s+\\d{1,2}:\\d{2}(?::\\d{2})?/,
           /\\b\\d{1,2}:\\d{2}(?::\\d{2})?\\b/,
         ];
         for (const pattern of patterns) {
@@ -862,7 +863,7 @@ function buildDetailExtractionScript(commentScope = "none") {
 function buildVerificationInspectionPayloadScript() {
   return `
     (() => {
-      const textPattern = /璁块棶楠岃瘉|璇锋寜浣忔粦鍧梶鎷栧姩鍒版渶鍙宠竟|涓轰簡鏇村ソ鐨勮闂綋楠寍鍗冲彲缁х画璁块棶缃戦〉|鍒寮€|婊戝潡|楠岃瘉/;
+      const textPattern = /访问验证|请按住滑块|拖动到最右边|为了更好的访问体验|即可继续访问网页|别离开|滑块|验证/;
       const elements = Array.from(document.querySelectorAll("div, span, button, section"));
       const hintNode = elements.find((node) => textPattern.test((node.innerText || "").replace(/\\s+/g, "")));
       if (!hintNode) return null;
@@ -1002,7 +1003,7 @@ function buildClickNextColumnPageScript() {
   `;
 }
 
-async function extractHomepageCandidates(cdp, sessionId, args) {
+export async function extractHomepageCandidates(cdp, sessionId, args, emptyRetryDelayMs = 3_000) {
   const seenUrls = new Set();
   const allCandidates = [];
   const maxPages = args.captureScope === "all-visible" ? 20 : 1;
@@ -1043,6 +1044,29 @@ async function extractHomepageCandidates(cdp, sessionId, args) {
         return url && !seenUrls.has(url);
       });
       if (!hasNewAfterClick) break;
+    }
+  }
+
+  // Cold-start guard: a freshly launched Chrome can reach readyState "interactive"
+  // before the homepage timeline renders. In that case the first pass finds zero
+  // post anchors and silently returns an empty list (exit 0, empty JSON), which
+  // callers cannot distinguish from a genuine no-post day. Wait briefly and run
+  // the homepage extraction once more before reporting zero candidates.
+  if (allCandidates.length === 0) {
+    await sleep(emptyRetryDelayMs);
+    const retryCandidates =
+      (await evaluateJson(
+        cdp,
+        sessionId,
+        buildHomepageExtractionScript(args.maxPosts, args.captureScope),
+        true
+      )) ?? [];
+    for (const candidate of retryCandidates) {
+      const url = String(candidate?.url || "").trim();
+      if (!url || seenUrls.has(url)) continue;
+      seenUrls.add(url);
+      allCandidates.push(candidate);
+      if (allCandidates.length >= args.maxPosts) break;
     }
   }
 

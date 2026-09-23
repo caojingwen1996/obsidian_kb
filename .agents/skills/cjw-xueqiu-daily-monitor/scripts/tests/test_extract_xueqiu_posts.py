@@ -416,6 +416,70 @@ console.log(JSON.stringify({{ calls, value }}));
         self.assertEqual(payload["calls"], 2)
         self.assertEqual(payload["value"], "ok")
 
+    def test_homepage_extraction_retries_once_after_empty_first_pass(self) -> None:
+        script_path = (PROJECT_ROOT / "scripts" / "extract_xueqiu_posts.mjs").as_uri()
+        payload = self.run_node_module_json(
+            f"""
+import {{ extractHomepageCandidates }} from {json.dumps(script_path)};
+let calls = 0;
+const cdp = {{
+  async send(method, payload, options) {{
+    calls += 1;
+    if (calls === 1) {{
+      return {{ result: {{ value: [] }} }};
+    }}
+    return {{
+      result: {{
+        value: [
+          {{
+            url: "https://xueqiu.com/7143769715/410217703",
+            title: "根据时间节点",
+            published_at: "1小时前",
+            content_snippet: "snippet"
+          }}
+        ]
+      }}
+    }};
+  }}
+}};
+const candidates = await extractHomepageCandidates(
+  cdp, "session-1", {{ captureScope: "daily", maxPosts: 30 }}, 10
+);
+console.log(JSON.stringify({{ calls, count: candidates.length }}));
+"""
+        )
+
+        self.assertEqual(payload["calls"], 2)
+        self.assertEqual(payload["count"], 1)
+
+    def test_homepage_extraction_skips_retry_when_first_pass_finds_posts(self) -> None:
+        script_path = (PROJECT_ROOT / "scripts" / "extract_xueqiu_posts.mjs").as_uri()
+        payload = self.run_node_module_json(
+            f"""
+import {{ extractHomepageCandidates }} from {json.dumps(script_path)};
+let calls = 0;
+const cdp = {{
+  async send(method, payload, options) {{
+    calls += 1;
+    return {{
+      result: {{
+        value: [
+          {{ url: "https://xueqiu.com/7143769715/410217703", title: "t", published_at: "1小时前" }}
+        ]
+      }}
+    }};
+  }}
+}};
+const candidates = await extractHomepageCandidates(
+  cdp, "session-1", {{ captureScope: "daily", maxPosts: 30 }}, 10
+);
+console.log(JSON.stringify({{ calls, count: candidates.length }}));
+"""
+        )
+
+        self.assertEqual(payload["calls"], 1)
+        self.assertEqual(payload["count"], 1)
+
     def test_build_human_like_drag_path_properties(self) -> None:
         script_path = (PROJECT_ROOT / "scripts" / "extract_xueqiu_posts.mjs").as_uri()
         payload = self.run_node_module_json(

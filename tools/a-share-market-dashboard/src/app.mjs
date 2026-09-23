@@ -1573,7 +1573,7 @@ function renderEventCalendar(events = EVENT_CALENDAR) {
     .sort((left, right) => String(left.date).localeCompare(String(right.date)));
   count.textContent = `${sorted.length} 项`;
   if (!sorted.length) {
-    list.innerHTML = '<p class="event-calendar-empty">暂无事件。可在 src/event-calendar.json 中维护财报、政策、会议、解禁、复核节点等事件。</p>';
+    list.innerHTML = '<p class="event-calendar-empty">暂无事件。可在 data/市场总览/event-calendar.json 中维护财报、政策、会议、解禁、复核节点等事件。</p>';
     return;
   }
   list.innerHTML = sorted.map(event => {
@@ -3673,7 +3673,7 @@ function startApp() {
       const updatedAt = String(payload.updatedAt ?? '').trim();
       const archive = Array.isArray(payload.archive) ? payload.archive : Array.isArray(payload.archivedItems) ? payload.archivedItems : [];
       const archiveCount = archive.length;
-      sourceStatus.textContent = `${updatedAt ? `来源：data/todo.json · 更新：${updatedAt}` : '来源：data/todo.json'}${archiveCount ? ` · 已归档${archiveCount}项` : ''}`;
+      sourceStatus.textContent = `${updatedAt ? `来源：data/需求清单/todo.json · 更新：${updatedAt}` : '来源：data/需求清单/todo.json'}${archiveCount ? ` · 已归档${archiveCount}项` : ''}`;
     }
     renderTodoArchiveList(payload);
   };
@@ -3719,7 +3719,7 @@ function startApp() {
     const matrix = document.getElementById('todo-matrix');
     const sourceStatus = document.getElementById('todo-source-status');
     matrix?.setAttribute('aria-busy', 'true');
-    if (sourceStatus) sourceStatus.textContent = '正在读取 data/todo.json...';
+    if (sourceStatus) sourceStatus.textContent = '正在读取 data/需求清单/todo.json...';
     try {
       const payload = await fetchTodoAction(todoActionUrl('/api/todos'));
       if (requestVersion !== todoLoadVersion) return;

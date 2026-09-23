@@ -1,24 +1,24 @@
 ---
-title: "冰冰小美：历史危机经验提示AI高位风险边界的判断框架"
+title: 冰冰小美：历史危机经验提示AI高位风险边界的判断框架
 aliases:
-  - "历史危机的经验与警示"
-  - "历史危机经验提示AI高位风险边界"
-  - "一半清醒一半醉"
+  - 历史危机的经验与警示
+  - 历史危机经验提示AI高位风险边界
+  - 一半清醒一半醉
 created: 2026-05-29
 updated: 2026-09-18
-type: "view"
+type: view
 status: active
 tags:
-  - "macro/liquidity"
-  - "macro/rates"
-  - "asset/equity"
-  - "strategy/risk-control"
-  - "strategy/timing"
+  - macro/liquidity
+  - macro/rates
+  - asset/equity
+  - strategy/risk-control
+  - strategy/timing
 sources:
   - "[[sources/articles/2026-05-10-冰冰小美：历史危机的经验与警示|2026-05-10《历史危机的经验与警示》]]"
 related:
   - "[[people/冰冰小美|冰冰小美]]"
-  - "[[topics/冰冰小美-宏观经济|宏观经济]]"
+  - "[[冰冰小美-宏观经济分析合集|宏观经济]]"
   - "[[topics/冰冰小美-AI产业趋势|AI产业趋势]]"
   - "[[concepts/冰冰小美-波动风险|波动风险]]"
   - "[[concepts/冰冰小美-宏观风险信号表|宏观风险信号表]]"
@@ -26,17 +26,17 @@ related:
   - "[[reasoning/冰冰小美-历史危机经验如何传导为AI资本开支风险预警|历史危机经验如何传导为AI资本开支风险预警]]"
   - "[[reasoning/冰冰小美-5月14日风险节点推导|5月14日风险节点推导]]"
   - "[[冰冰小美-trigger-宏观信号表|宏观风险信号表]]"
-summary: "记录冰冰小美在《历史危机的经验与警示》中用 2000 泡沫、2008 流动性挤压、自由现金流不足、杠杆过高和政策错配，提示 AI / 半导体高位资本开支行情需要提前做风险准备。"
+summary: 记录冰冰小美在《历史危机的经验与警示》中用 2000 泡沫、2008 流动性挤压、自由现金流不足、杠杆过高和政策错配，提示 AI / 半导体高位资本开支行情需要提前做风险准备。
 person: "[[people/冰冰小美|冰冰小美]]"
 topic_refs:
-  - "[[topics/冰冰小美-宏观经济|宏观经济]]"
+  - "[[冰冰小美-宏观经济分析合集|宏观经济]]"
   - "[[topics/冰冰小美-AI产业趋势|AI产业趋势]]"
-stance: "市场乐观时仍要把历史危机经验整理成风险检查表；AI 资本开支扩张进入股价充分反映阶段后，应重点检查融资、现金流、杠杆、政策牌和中美科技牌。"
-time_scope: "2026-05-10 至 5/14 密集事件周前的风险观察"
-confidence: "medium"
+stance: 市场乐观时仍要把历史危机经验整理成风险检查表；AI 资本开支扩张进入股价充分反映阶段后，应重点检查融资、现金流、杠杆、政策牌和中美科技牌。
+time_scope: 2026-05-10 至 5/14 密集事件周前的风险观察
+confidence: medium
 base_confidence: 0.58
 lifecycle: draft
-lifecycle_changed: "2026-05-29"
+lifecycle_changed: 2026-05-29
 tier: supporting
 provenance:
   - "extracted: 0.74"

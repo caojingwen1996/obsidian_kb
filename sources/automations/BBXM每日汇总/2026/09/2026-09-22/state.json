@@ -1,0 +1,62 @@
+{
+  "account": "冰冰小美",
+  "account_url": "https://xueqiu.com/u/7143769715",
+  "task_date": "20260922",
+  "start_time": "2026-09-22 18:08:25",
+  "end_time": "2026-09-22 18:08:25",
+  "scan_round": 1,
+  "success_count": 3,
+  "failure_count": 0,
+  "log_file": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-22\\task.log",
+  "result_dir": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-22",
+  "state_file": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-22\\state.json",
+  "processed_items": {
+    "410225664": {
+      "source_id": "410225664",
+      "title": "这就是现实呀。随便发个帖，立马热榜。一看，又第七了。保护自己最重要。切记。 - 雪球",
+      "published_at": "2026-09-22 17:53:00",
+      "url": "https://www.xueqiu.com/7143769715/410225664",
+      "platform": "xueqiu",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-22\\175300_这就是现实呀_随便发个帖_立马热榜_一看_又第七了_保护自己最重要_切记_-_雪球_41022566.md",
+      "saved_at": "2026-09-22 18:08:25"
+    },
+    "410217703": {
+      "source_id": "410217703",
+      "title": "根据时间节点，我幻想10月落地。观察9月投机猖獗，引发人心，蠢蠢欲动。对于行情的波动，要不要进入投机偷鸡一把，还是耐心等... - 雪球",
+      "published_at": "2026-09-22 16:44:00",
+      "url": "https://www.xueqiu.com/7143769715/410217703",
+      "platform": "xueqiu",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-22\\164400_根据时间节点_我幻想10月落地_观察9月投机猖獗_引发人心_蠢蠢欲动_对于行情的波动_要不要进入_41021770.md",
+      "saved_at": "2026-09-22 18:08:25"
+    },
+    "410215494": {
+      "source_id": "410215494",
+      "title": "图片帖（无文字正文）",
+      "published_at": "2026-09-22 16:27:00",
+      "url": "https://www.xueqiu.com/7143769715/410215494",
+      "platform": "xueqiu",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-22\\162700_图片帖_无文字正文_41021549.md",
+      "saved_at": "2026-09-22 18:08:25"
+    }
+  },
+  "events": [
+    {
+      "type": "item_saved",
+      "time": "2026-09-22 18:08:25",
+      "item_key": "410225664",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-22\\175300_这就是现实呀_随便发个帖_立马热榜_一看_又第七了_保护自己最重要_切记_-_雪球_41022566.md"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-09-22 18:08:25",
+      "item_key": "410217703",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-22\\164400_根据时间节点_我幻想10月落地_观察9月投机猖獗_引发人心_蠢蠢欲动_对于行情的波动_要不要进入_41021770.md"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-09-22 18:08:25",
+      "item_key": "410215494",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-22\\162700_图片帖_无文字正文_41021549.md"
+    }
+  ]
+}

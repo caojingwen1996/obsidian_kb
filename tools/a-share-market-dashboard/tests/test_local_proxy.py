@@ -906,7 +906,7 @@ class ServerTests(unittest.TestCase):
     def test_todo_item_create_move_status_and_delete_update_json(self):
         with TemporaryDirectory() as directory:
             todo_data = Path(directory) / "todo.json"
-            shutil.copyfile(DASHBOARD.parent / "data" / "todo.json", todo_data)
+            shutil.copyfile(DASHBOARD.parent / "data" / "需求清单" / "todo.json", todo_data)
 
             created = apply_todo_json_action(
                 {
@@ -1002,13 +1002,13 @@ class ServerTests(unittest.TestCase):
     def test_todo_item_api_reads_latest_json_without_rebuilding_dashboard(self):
         with TemporaryDirectory() as directory:
             dashboard_dir = Path(directory) / "tools" / "a-share-market-dashboard"
-            data_dir = dashboard_dir / "data"
+            data_dir = dashboard_dir / "data" / "需求清单"
             scripts_dir = dashboard_dir / "scripts"
             data_dir.mkdir(parents=True)
             scripts_dir.mkdir()
             dashboard = dashboard_dir / "a-share-market-dashboard.html"
             dashboard.write_text("<!doctype html>", encoding="utf-8")
-            shutil.copyfile(DASHBOARD.parent / "data" / "todo.json", data_dir / "todo.json")
+            shutil.copyfile(DASHBOARD.parent / "data" / "需求清单" / "todo.json", data_dir / "todo.json")
             (scripts_dir / "build.mjs").write_text(
                 "from pathlib import Path\nPath('rebuilt-marker.txt').write_text('ok', encoding='utf-8')\n",
                 encoding="utf-8",
@@ -1041,6 +1041,11 @@ class ServerTests(unittest.TestCase):
                 with urlopen(create_request, timeout=3) as response:
                     create_result = json.loads(response.read().decode("utf-8"))
                 after_create = read_json(f"http://{host}:{port}/api/todos")
+                saved = json.loads((data_dir / "todo.json").read_text(encoding="utf-8"))
+                self.assertEqual(saved["items"], after_create["items"])
+                self.assertFalse((dashboard_dir / "data" / "todo.json").exists())
+                source = read_json(f"http://{host}:{port}/data/{quote('需求清单')}/todo.json")
+                self.assertEqual(source, saved)
                 status_request = Request(
                     f"http://{host}:{port}/api/todo-item",
                     data=json.dumps({

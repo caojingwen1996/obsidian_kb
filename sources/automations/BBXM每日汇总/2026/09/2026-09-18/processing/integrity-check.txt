@@ -1,0 +1,32 @@
+=== risk-analysis.json ===
+analysis_complete=True
+skill_call.invoked=True skill=bbxm-risk-identification
+skill_call.risk_dir_write=False html=False
+coverage={'saved_post_count': 7, 'analyzed_post_count': 7, 'unresolved_post_count': 0, 'unresolved_reasons': []}
+qualified=0 not_written=7
+levels=['待验证']
+=== risk-write-status.json ===
+status=no_risk count=0
+msg=完整分析后没有可写入节点，未修改 Excel
+=== state.json ===
+raw_post_count=7 content_count=6
+merge=409824691 与 409823838 为同一篇文章，内容计数以 409823838 为准
+risk_analysis={'skill': 'bbxm-risk-identification', 'method': 'five-step-identification', 'analyzed': 7, 'qualified': 0, 'not_written': 7, 'excel_status': 'no_risk'}
+=== summary.md sections ===
+  ## 总观点: OK
+  ## 解析今天文章的观点: OK
+  ## 当日内容汇总: OK
+  ## 风险提示判定: OK
+  sum chars=5565
+=== md files ===
+  count=8
+   - 060500_AI_firms_and_the_US_government_are_competing_for_40971368.md
+   - 060600_US_median_household_income_adjusted_for_inflatio_40971370.md
+   - 061100_Market_expectations_for_a_Democrat_34_sweep_34_i_40971375.md
+   - 152900_网页链接历史_网页链接重演_网页链接轮回_仙居杨梅最初的梦_-_雪球_40981075.md
+   - 165600_很多人会困惑_加息为何科技涨了_留言板有一个问的很好_为什么2年期利率上涨_30年期利率下跌_加_40982354.md
+   - 165900_根据历史推演_需要考虑重磅利好发布_比如_双节期间_降低印花税率_推动牛市氛围回归_米联储加息落_40982383.md
+   - 170500_预演_40982469.md
+   - summary.md
+=== mojibake scan (all files) ===
+  clean (no mojibake, no U+FFFD)

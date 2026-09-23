@@ -40,7 +40,7 @@ const here = dirname(fileURLToPath(import.meta.url));
 const sourcePath = join(here, '..', 'src', 'index.html');
 const artifactPath = join(here, '..', 'a-share-market-dashboard.html');
 const launcherPath = join(here, '..', '启动面板.cmd');
-const todoDataPath = join(here, '..', 'data', 'todo.json');
+const todoDataPath = join(here, '..', 'data', '需求清单', 'todo.json');
 const repoRoot = join(here, '..', '..', '..');
 const hangTianElectronicsReportPath = join(
   repoRoot,
@@ -70,6 +70,19 @@ function countFeedReports(directoryName) {
     && !entry.name.includes('完整分析报告')
   ).length;
 }
+
+test('todo data and source links use the dedicated requirements folder', () => {
+  const source = readFileSync(sourcePath, 'utf8');
+  const artifact = readFileSync(artifactPath, 'utf8');
+  const app = readFileSync(new URL('../src/app.mjs', import.meta.url), 'utf8');
+  assert.ok(existsSync(todoDataPath));
+  assert.ok(existsSync(join(here, '..', 'data', '需求清单', 'todo.xlsx')));
+  assert.equal(existsSync(join(here, '..', 'data', 'todo.json')), false);
+  for (const html of [source, artifact]) {
+    assert.match(html, /href="data\/需求清单\/todo\.json"/);
+  }
+  assert.match(app, /来源：data\/需求清单\/todo\.json/);
+});
 
 test('generated dashboard contains one document and a parseable runtime', () => {
   const html = readFileSync(artifactPath, 'utf8');
@@ -877,6 +890,7 @@ test('launcher rebuilds the dashboard before starting the local proxy', () => {
   const proxyIndex = launcher.indexOf('scripts\\local_proxy.py');
 
   assert.match(launcher, /where node/i);
+  assert.match(launcher, /chcp 65001 >nul/i);
   assert.match(launcher, /%USERPROFILE%\\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node\.exe/i);
   assert.ok(buildIndex >= 0, 'launcher must invoke the dashboard builder');
   assert.ok(proxyIndex > buildIndex, 'launcher must build before starting the proxy');

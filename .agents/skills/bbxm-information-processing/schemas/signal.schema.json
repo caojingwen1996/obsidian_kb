@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "signal.schema.json",
+  "title": "Signal",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "signal_id",
+    "signal_type",
+    "event_refs",
+    "variable",
+    "direction",
+    "magnitude",
+    "novelty",
+    "persistence",
+    "scope",
+    "confidence",
+    "time"
+  ],
+  "properties": {
+    "signal_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "signal_type": {
+      "type": "string",
+      "enum": [
+        "fact",
+        "repricing"
+      ]
+    },
+    "event_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "variable": {
+      "type": "string",
+      "minLength": 1
+    },
+    "direction": {
+      "type": "string",
+      "enum": [
+        "up",
+        "down",
+        "stable",
+        "improving",
+        "deteriorating",
+        "tightening",
+        "easing",
+        "accelerating",
+        "decelerating",
+        "widening",
+        "narrowing",
+        "mixed",
+        "unknown"
+      ]
+    },
+    "magnitude": {
+      "type": "string",
+      "enum": [
+        "small",
+        "moderate",
+        "large",
+        "extreme",
+        "unknown"
+      ]
+    },
+    "novelty": {
+      "type": "string",
+      "enum": [
+        "new",
+        "continuation",
+        "reversal",
+        "reconfirmation",
+        "unknown"
+      ]
+    },
+    "persistence": {
+      "type": "string",
+      "enum": [
+        "one_off",
+        "short_lived",
+        "repeated",
+        "persistent",
+        "unknown"
+      ]
+    },
+    "scope": {
+      "type": "string",
+      "enum": [
+        "company",
+        "industry",
+        "sector",
+        "market",
+        "macro",
+        "cross_market"
+      ]
+    },
+    "evidence_type": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "fundamental",
+        "macro_data",
+        "policy",
+        "market_price",
+        "company_action",
+        "expectation",
+        "flow",
+        "positioning",
+        "sentiment",
+        null
+      ]
+    },
+    "time": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "precision"
+      ],
+      "properties": {
+        "value": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "precision": {
+          "type": "string",
+          "enum": [
+            "exact",
+            "minute",
+            "hour",
+            "day",
+            "week",
+            "month",
+            "unknown"
+          ]
+        }
+      }
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "notes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

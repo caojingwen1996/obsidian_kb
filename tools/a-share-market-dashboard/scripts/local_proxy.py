@@ -2275,7 +2275,7 @@ def create_server(
     portfolio_file = Path(
         portfolio_path or artifact.parent / "data" / "portfolio.json"
     ).resolve()
-    todo_data_file = (artifact.parent / "data" / "todo.json").resolve()
+    todo_data_file = (artifact.parent / "data" / "需求清单" / "todo.json").resolve()
     vault_root = artifact.parents[2]
     review_diary_dir = Path(
         review_diary_dir or vault_root / "workbench" / "journal"

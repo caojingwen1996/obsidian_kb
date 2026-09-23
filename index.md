@@ -63,7 +63,7 @@
 - [[冰冰小美-macro-国运|冰冰小美-macro-国运]] - 汇集直接讨论国运、国情、货币信用、产业发展及国运投资应用的原始资料，概念内容待提炼
 - [[concepts/冰冰小美-债务、分配与增长约束|债务、分配与增长约束]] - 用债务累积、分配结构与旧路径上限理解增长为何会受约束
 - [[concepts/冰冰小美-framework-底线思维|冰冰小美-framework-底线思维]] - 在买入前先推演最坏情形、时间成本、改善高度和自身承受力，把长期看好压回可承受执行结构
-- [[concepts/冰冰小美-concept-时间窗口|时间窗口]] - 用底线思维、常识回归和价值共识延续理解重大宏观波动后的可承接节点
+- [[concepts/冰冰小美-concept-时间窗口|时间窗口]] - 归纳原文中的风险转弱、信息时效、事件观察、政策流动性、产业战略与资金容量窗口，以及窗口延长和中断的条件
 - [[冰冰小美-trigger-宏观信号表|宏观风险信号表]] - 将汇率、美元、石油、流动性、避险资产、AI现金流、亚太市场和美国债务整理为风险敞口检查表
 - [[冰冰小美-macro-basic-通胀|冰冰小美-macro-通胀]] - 概括通胀、通缩与滞胀的九类来源变化，区分成本端与需求端传导，关联分路径监测指标
 - [[concepts/冰冰小美-通胀对股市的非线性影响|通胀对股市的非线性影响]] - 区分温和通胀、输入性通胀和恶性通胀如何分别影响股市、制造业利润、政策反应和风险资产定价
@@ -149,7 +149,7 @@
 - [[topics/冰冰小美的书单|冰冰小美的书单]] - 按人性与交易认识、价值发展与守护、经济周期与主导经济三条线组织推荐书籍、年鉴、央行报告和“推荐书目1—9”来源索引
 - [[topics/碧树西风-量化交易|量化交易]] - 围绕量化思维、分布视角与可计算化表达形成的方法论主题，关注如何把变化压成可观察、可比较的变量
 - [[topics/碧树西风-信息高地、上位者博弈与非标路径|信息高地、上位者博弈与非标路径]] - 围绕信息高地、上位者博弈与非标路径形成的长期主题
-- [[topics/冰冰小美-宏观经济|宏观经济]] - 围绕增长、通胀、利率、流动性、债务与分配如何塑造市场环境形成的长期主题
+- [[冰冰小美-宏观经济分析合集|宏观经济]] - 围绕增长、通胀、利率、流动性、债务与分配如何塑造市场环境形成的长期主题
 - [[冰冰小美-风险来源与传导路径|冰冰小美-风险来源与传到]] - 按宏观、中观、微观组织风险来源；宏观八类风险源融合核心问题、扫描指标、章节入口与二级市场风险维度
 - [[topics/冰冰小美-中国股市看法|冰冰小美-中国股市看法]] - 聚合冰冰小美关于中国股市和 A 股的长期看法，组织国情国运、中央加杠杆、结构性牛市、指数慢牛、个股分化、ETF承接、投机产业链和仓位风控
 - [[wiki/topics/冰冰小美-风险体系|冰冰小美-风险体系]] - 聚合冰冰小美关于风险节点、历史危机、波动风险、流动性挤压、仓位控制和风险转弱观察的文章地图
@@ -329,7 +329,7 @@
 
 ## 时间线
 
-- [[timelines/冰冰小美-风险提示汇总|冰冰小美-风险提示汇总]] - 从风险体系迁入月度风险概览、已整理核心文章和2022—2026年风险提示文章时间序列
+- [[冰冰小美-风险演绎合集|冰冰小美-风险提示汇总]] - 汇总月度风险阶段、原始文章和结构化承接页；风险演绎原文已续接至2026-09-17
 
 - [[cjw-复盘日记|cjw-复盘日记]] - 用于持续记录 cjw 的复盘日记条目，按日期沉淀市场观察、交易动作、认知变化、错误修正和后续验证点
 - [[cjw-电网设备-变压器|cjw-电网设备-变压器]] - 持续记录 cjw 对电网设备与变压器方向的关键节点、产业验证、市场交易和风险变化，当前已补入华明装备场景框架、估值修复与建仓策略
@@ -483,14 +483,19 @@
 
 - [westock-data 数据查询](.agents/skills/westock-data/SKILL.md)：项目内 A 股、港股、美股行情及财务等数据查询工具；[变更日志](.agents/skills/westock-data/log.md)。
 
-- [信息处理技能](.agents/skills/information-processing/SKILL.md)：基于 [[wiki/concepts/冰冰小美-framework-信息的金融处理|信息的金融处理]]，支持 feed / monitor / target 三种入口，完成信息获取、事件结构化和归纳，输出 InformationProcessingResult；[变更日志](.agents/skills/information-processing/log.md)。
+- [信息处理技能](.agents/skills/bbxm-information-processing/SKILL.md)：基于 [[wiki/concepts/冰冰小美-framework-信息的金融处理|信息的金融处理]]，以 feed 完成 Event → Signal → Cluster → Theme 归纳，输出 InformationProcessingResult、总结与 Core Findings；monitor / target 待实现；[变更日志](.agents/skills/bbxm-information-processing/log.md)。
 
 - [Archify 风险传导路径图](.agents/skills/archify/SKILL.md)：将有来源的风险主链、分支与反馈关系绘制为交互式 HTML；[技能变更日志](.agents/skills/archify/log.md)。
 
 - [风险产物定位表](tools/a-share-market-dashboard/data/Risk/risk-records.md)：风险识别与演绎观察默认以 HTML 阅读版交付，保留完整 Markdown 模型、逐轮记录及上游证据。
+  - [[tools/a-share-market-dashboard/data/Risk/models/INTC-AI-EXPECTATION-REALIZATION-v1|英特尔AI合作叙事的预期兑现落差]]：[完整HTML阅读版](tools/a-share-market-dashboard/data/Risk/models/INTC-AI-EXPECTATION-REALIZATION-v1.html)；2026-09-23首次识别为候选，订单、收益归属及定价证据待验证。
 - [风险识别技能](.agents/skills/bbxm-risk-identification/SKILL.md)：承接 InformationProcessingResult，按五步输出 Risk Model（类型、表现、来源、关键变量、传导关系），共享交接契约并独立维护工作流；[变更日志](.agents/skills/bbxm-risk-identification/log.md)。
 - [风险演绎观察技能](.agents/skills/bbxm-risk-evolution-monitoring/SKILL.md)：承接 Risk Model、本轮信息结果与历史记录，按四步观察方向、持续性及模型有效性，保留基准并按需重识别；[变更日志](.agents/skills/bbxm-risk-evolution-monitoring/log.md)。
 
 ## 看板维护
 
 - [[tools/a-share-market-dashboard/a-share-market-dashboard.html|A股市场看板]]：纳斯达克100的2026年累计涨跌震荡天数按月末统计，次月1日北京时间08:00更新；2016—2025历史统计保持固定。
+  - 纳指锚点或年度统计文件缺失时，看板仍可构建，相应数据标记为“待验证”；补回有效数据后重新构建即可恢复展示。
+  - 2026-09-23 已从回收站恢复缺失业务数据并核验正在运行的看板，需求清单与归档恢复；恢复记录见维护日志。
+  - 需求清单数据：[[tools/a-share-market-dashboard/data/需求清单/todo.json|活动需求与归档]]、[[tools/a-share-market-dashboard/data/需求清单/todo.xlsx|原有需求表格]]。
+  - 市场总览数据：[[tools/a-share-market-dashboard/data/市场总览/event-calendar.json|事件日历]]、[[tools/a-share-market-dashboard/data/市场总览/nasdaq-day-statistics.csv|纳指年度统计]]、[[tools/a-share-market-dashboard/data/市场总览/nasdaq-etf-anchor.json|ETF 固定锚点]]、[[tools/a-share-market-dashboard/data/市场总览/nasdaq-etf-history.json|ETF 历史行情]]。

@@ -1,0 +1,212 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cluster.schema.json",
+  "title": "Cluster",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "cluster_id",
+    "cluster_name",
+    "member_events",
+    "member_signals",
+    "relationships",
+    "time_range",
+    "timeline",
+    "strength",
+    "confidence",
+    "status"
+  ],
+  "properties": {
+    "cluster_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "cluster_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "member_events": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "member_signals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "same_variable",
+          "same_direction",
+          "same_driver",
+          "same_subject",
+          "same_time_window",
+          "transmission_link"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "common_variable": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "common_driver": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "common_direction": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "time_range": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "start",
+        "end"
+      ],
+      "properties": {
+        "start": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "end": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "timeline": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "time",
+          "type",
+          "ref_id",
+          "summary"
+        ],
+        "properties": {
+          "time": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "event",
+              "signal"
+            ]
+          },
+          "ref_id": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "variable": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "direction": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "stage": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "background",
+              "pre_event",
+              "key_event",
+              "immediate_reaction",
+              "repricing",
+              "confirmation",
+              "reversal",
+              "follow_up",
+              null
+            ]
+          }
+        }
+      }
+    },
+    "strength": {
+      "type": "string",
+      "enum": [
+        "weak",
+        "moderate",
+        "strong"
+      ]
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "emerging",
+        "forming",
+        "established",
+        "weakening",
+        "dissolving",
+        "uncertain"
+      ]
+    },
+    "notes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "anyOf": [
+        {
+          "properties": {
+            "member_events": {
+              "minItems": 1
+            }
+          }
+        },
+        {
+          "properties": {
+            "member_signals": {
+              "minItems": 1
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

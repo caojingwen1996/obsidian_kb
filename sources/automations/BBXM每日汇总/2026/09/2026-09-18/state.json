@@ -1,0 +1,157 @@
+{
+  "account": "冰冰小美",
+  "account_url": "https://xueqiu.com/u/7143769715",
+  "task_date": "20260918",
+  "start_time": "2026-09-22 17:15:22",
+  "end_time": "2026-09-22 17:17:55",
+  "scan_round": 1,
+  "success_count": 7,
+  "failure_count": 0,
+  "log_file": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-18\\task.log",
+  "result_dir": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-18",
+  "state_file": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-18\\state.json",
+  "processed_items": {
+    "409824691": {
+      "source_id": "409824691",
+      "title": "预演",
+      "published_at": "2026-09-18 17:05:00",
+      "url": "https://www.xueqiu.com/7143769715/409824691",
+      "platform": "xueqiu",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-18\\170500_预演_40982469.md",
+      "saved_at": "2026-09-22 17:15:22",
+      "duplicate_of": "409823838",
+      "duplicate_reason": "同一篇专栏文章的社区转发入口；社区页正文位置为他人评论",
+      "body_source": "专栏页正文（与 409823838 同源）"
+    },
+    "409823838": {
+      "source_id": "409823838",
+      "title": "根据历史推演，需要考虑重磅利好发布，比如，双节期间，降低印花税率，推动牛市氛围回归。米联储加息落地，但是依旧是扩表的。并... - 雪球",
+      "published_at": "2026-09-18 16:59:00",
+      "url": "https://www.xueqiu.com/7143769715/409823838",
+      "platform": "xueqiu",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-18\\165900_根据历史推演_需要考虑重磅利好发布_比如_双节期间_降低印花税率_推动牛市氛围回归_米联储加息落_40982383.md",
+      "saved_at": "2026-09-22 17:15:22",
+      "is_canonical": true,
+      "duplicate_entry_ids": [
+        "409824691"
+      ],
+      "body_source": "专栏页正文"
+    },
+    "409823541": {
+      "source_id": "409823541",
+      "title": "很多人会困惑。加息为何科技涨了。留言板有一个问的很好，为什么2年期利率上涨，30年期利率下跌。加息的核心变化就在于此。长... - 雪球",
+      "published_at": "2026-09-18 16:56:00",
+      "url": "https://www.xueqiu.com/7143769715/409823541",
+      "platform": "xueqiu",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-18\\165600_很多人会困惑_加息为何科技涨了_留言板有一个问的很好_为什么2年期利率上涨_30年期利率下跌_加_40982354.md",
+      "saved_at": "2026-09-22 17:15:22"
+    },
+    "409810755": {
+      "source_id": "409810755",
+      "title": "网页链接历史。网页链接重演。网页链接轮回。@仙居杨梅最初的梦 - 雪球",
+      "published_at": "2026-09-18 15:29:00",
+      "url": "https://www.xueqiu.com/7143769715/409810755",
+      "platform": "xueqiu",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-18\\152900_网页链接历史_网页链接重演_网页链接轮回_仙居杨梅最初的梦_-_雪球_40981075.md",
+      "saved_at": "2026-09-22 17:15:22"
+    },
+    "409713758": {
+      "source_id": "409713758",
+      "title": "Market expectations for a Democrat &#34;sweep&#34; in the 20... - 雪球",
+      "published_at": "2026-09-18 06:11:00",
+      "url": "https://www.xueqiu.com/7143769715/409713758",
+      "platform": "xueqiu",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-18\\061100_Market_expectations_for_a_Democrat_34_sweep_34_i_40971375.md",
+      "saved_at": "2026-09-22 17:15:22"
+    },
+    "409713707": {
+      "source_id": "409713707",
+      "title": "US median household income adjusted for inflation rose +$2,2... - 雪球",
+      "published_at": "2026-09-18 06:06:00",
+      "url": "https://www.xueqiu.com/7143769715/409713707",
+      "platform": "xueqiu",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-18\\060600_US_median_household_income_adjusted_for_inflatio_40971370.md",
+      "saved_at": "2026-09-22 17:15:22"
+    },
+    "409713683": {
+      "source_id": "409713683",
+      "title": "AI firms and the US government are competing for capital:US ... - 雪球",
+      "published_at": "2026-09-18 06:05:00",
+      "url": "https://www.xueqiu.com/7143769715/409713683",
+      "platform": "xueqiu",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-18\\060500_AI_firms_and_the_US_government_are_competing_for_40971368.md",
+      "saved_at": "2026-09-22 17:15:22"
+    }
+  },
+  "events": [
+    {
+      "type": "item_saved",
+      "time": "2026-09-22 17:15:22",
+      "item_key": "409824691",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-18\\170500_预演_40982469.md"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-09-22 17:15:22",
+      "item_key": "409823838",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-18\\165900_根据历史推演_需要考虑重磅利好发布_比如_双节期间_降低印花税率_推动牛市氛围回归_米联储加息落_40982383.md"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-09-22 17:15:22",
+      "item_key": "409823541",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-18\\165600_很多人会困惑_加息为何科技涨了_留言板有一个问的很好_为什么2年期利率上涨_30年期利率下跌_加_40982354.md"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-09-22 17:15:22",
+      "item_key": "409810755",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-18\\152900_网页链接历史_网页链接重演_网页链接轮回_仙居杨梅最初的梦_-_雪球_40981075.md"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-09-22 17:15:22",
+      "item_key": "409713758",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-18\\061100_Market_expectations_for_a_Democrat_34_sweep_34_i_40971375.md"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-09-22 17:15:22",
+      "item_key": "409713707",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-18\\060600_US_median_household_income_adjusted_for_inflatio_40971370.md"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-09-22 17:15:22",
+      "item_key": "409713683",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-18\\060500_AI_firms_and_the_US_government_are_competing_for_40971368.md"
+    }
+  ],
+  "content_count": 6,
+  "merge_note": "409824691 与 409823838 为同一篇文章，内容计数以 409823838 为准",
+  "raw_post_count": 7,
+  "excluded_items": {
+    "131700_雪球-聪明的投资者都在这里_40978055": {
+      "reason": "误存他人帖子，已删除",
+      "author": "仙居杨梅最初的梦",
+      "url_author_id": "5418424084"
+    }
+  },
+  "post_processing": {
+    "body_cleaned": true,
+    "author_comments_rebuilt": true,
+    "column_duplicate_merged": {
+      "canonical": "409823838",
+      "duplicate": "409824691"
+    },
+    "risk_analysis": {
+      "skill": "bbxm-risk-identification",
+      "method": "five-step-identification",
+      "analyzed": 7,
+      "qualified": 0,
+      "not_written": 7,
+      "excel_status": "no_risk"
+    },
+    "summary_generated": true
+  }
+}

@@ -1,42 +1,42 @@
 ---
-title: "冰冰小美：AI泡沫需要用制约因素与周期视角观察的判断框架"
+title: 冰冰小美：AI泡沫需要用制约因素与周期视角观察的判断框架
 aliases:
-  - "陷阱与风波"
-  - "制约与平衡"
-  - "AI泡沫制约与平衡"
-  - "AI单一叙事风险"
+  - 陷阱与风波
+  - 制约与平衡
+  - AI泡沫制约与平衡
+  - AI单一叙事风险
 created: 2026-05-29
 updated: 2026-09-18
-type: "view"
+type: view
 status: active
 tags:
-  - "macro/cycle"
-  - "macro/inflation"
-  - "asset/equity"
-  - "asset/commodity"
-  - "strategy/risk-control"
+  - macro/cycle
+  - macro/inflation
+  - asset/equity
+  - asset/commodity
+  - strategy/risk-control
 sources:
   - "[[sources/articles/2025-10-06-冰冰小美：陷阱与风波|2025-10-06《陷阱与风波》]]"
 related:
   - "[[people/冰冰小美|冰冰小美]]"
   - "[[topics/冰冰小美-AI产业趋势|AI产业趋势]]"
-  - "[[topics/冰冰小美-宏观经济|宏观经济]]"
+  - "[[冰冰小美-宏观经济分析合集|宏观经济]]"
   - "[[topics/冰冰小美-地缘重估与资源-货币秩序|地缘重估与资源-货币秩序]]"
   - "[[views/冰冰小美：长期主义通过路径演绎连接宏观与微观交易的判断框架|长期主义通过路径演绎连接宏观与微观交易]]"
   - "[[views/冰冰小美：国家资本推动金融中心重塑的判断框架|国家资本推动金融中心重塑]]"
   - "[[reasoning/冰冰小美-AI高投资泡沫如何由现金流与成本压力传导为周期风波|AI高投资泡沫如何由现金流与成本压力传导为周期风波]]"
-summary: "记录冰冰小美在《陷阱与风波》中对 AI 行情的阶段判断：行情可以延续，但越接近单一叙事，越要观察现金流、投资减速、成本传导、货币周期和资源争夺等制约因素。"
+summary: 记录冰冰小美在《陷阱与风波》中对 AI 行情的阶段判断：行情可以延续，但越接近单一叙事，越要观察现金流、投资减速、成本传导、货币周期和资源争夺等制约因素。
 person: "[[people/冰冰小美|冰冰小美]]"
 topic_refs:
   - "[[topics/冰冰小美-AI产业趋势|AI产业趋势]]"
-  - "[[topics/冰冰小美-宏观经济|宏观经济]]"
+  - "[[冰冰小美-宏观经济分析合集|宏观经济]]"
   - "[[topics/冰冰小美-地缘重估与资源-货币秩序|地缘重估与资源-货币秩序]]"
-stance: "持续慢牛或 AI 行情并不排除风险；越在兴奋节点，越要用周期、现金流和制衡因素理解泡沫。"
-time_scope: "2025-10-06 对 AI、双创、A/H 和美股科技方向共振后的阶段观察"
-confidence: "medium"
+stance: 持续慢牛或 AI 行情并不排除风险；越在兴奋节点，越要用周期、现金流和制衡因素理解泡沫。
+time_scope: 2025-10-06 对 AI、双创、A/H 和美股科技方向共振后的阶段观察
+confidence: medium
 base_confidence: 0.57
 lifecycle: draft
-lifecycle_changed: "2026-05-29"
+lifecycle_changed: 2026-05-29
 tier: supporting
 provenance:
   - "extracted: 0.72"

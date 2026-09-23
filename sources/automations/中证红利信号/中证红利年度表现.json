@@ -1,17 +1,17 @@
 {
   "indexCode": "000922",
-  "source": "中证指数官网 index-perf(000922)",
-  "firstDate": "2008-05-26",
-  "lastDate": "2026-09-17",
+  "source": "AKShare stock_zh_index_daily_tx(sh000922)",
+  "firstDate": "2008-07-31",
+  "lastDate": "2026-09-22",
   "returnConvention": "每年首个可用交易日收盘价至末个可用交易日收盘价",
   "drawdownConvention": "每个自然年内日收盘价相对此前峰值的最大跌幅",
   "rows": [
     {
       "year": 2008,
-      "start_date": "2008-05-26",
+      "start_date": "2008-07-31",
       "end_date": "2008-12-31",
-      "annual_return": -53.85772921194992,
-      "max_drawdown": -58.79084941567703,
+      "annual_return": -38.53012922533061,
+      "max_drawdown": -43.63878699914856,
       "status": "成立首年",
       "monthly_returns": [
         {
@@ -36,22 +36,18 @@
         },
         {
           "month": 5,
-          "value": 0.697384672639112,
-          "startDate": "2008-05-26",
-          "endDate": "2008-05-30",
-          "status": "已统计"
+          "value": null,
+          "status": "数据不足"
         },
         {
           "month": 6,
-          "value": -25.126138189609005,
-          "startDate": "2008-05-30",
-          "endDate": "2008-06-30",
-          "status": "已统计"
+          "value": null,
+          "status": "数据不足"
         },
         {
           "month": 7,
-          "value": -0.43923184502411283,
-          "startDate": "2008-06-30",
+          "value": 0.0,
+          "startDate": "2008-07-31",
           "endDate": "2008-07-31",
           "status": "已统计"
         },
@@ -492,14 +488,14 @@
         },
         {
           "month": 3,
-          "value": -7.00377915015209,
+          "value": -7.004147847727893,
           "startDate": "2013-02-28",
           "endDate": "2013-03-29",
           "status": "已统计"
         },
         {
           "month": 4,
-          "value": -1.8947067942227114,
+          "value": -1.8943178394151383,
           "startDate": "2013-03-29",
           "endDate": "2013-04-26",
           "status": "已统计"
@@ -527,14 +523,14 @@
         },
         {
           "month": 8,
-          "value": 5.4501137471563155,
+          "value": 5.44964947304889,
           "startDate": "2013-07-31",
           "endDate": "2013-08-30",
           "status": "已统计"
         },
         {
           "month": 9,
-          "value": 4.281707751982355,
+          "value": 4.282166883871641,
           "startDate": "2013-08-30",
           "endDate": "2013-09-30",
           "status": "已统计"
@@ -566,7 +562,7 @@
       "year": 2014,
       "start_date": "2014-01-02",
       "end_date": "2014-12-31",
-      "annual_return": 51.916571227204656,
+      "annual_return": 51.916130737379994,
       "max_drawdown": -8.924518848182972,
       "status": "完整年度",
       "monthly_returns": [
@@ -649,7 +645,7 @@
         },
         {
           "month": 12,
-          "value": 17.962881886962823,
+          "value": 17.962539847587266,
           "startDate": "2014-11-28",
           "endDate": "2014-12-31",
           "status": "已统计"
@@ -802,14 +798,14 @@
         },
         {
           "month": 7,
-          "value": 3.70028351559335,
+          "value": 3.7000135007425383,
           "startDate": "2016-06-30",
           "endDate": "2016-07-29",
           "status": "已统计"
         },
         {
           "month": 8,
-          "value": 3.8002468402880796,
+          "value": 3.800517116127189,
           "startDate": "2016-07-29",
           "endDate": "2016-08-31",
           "status": "已统计"
@@ -1112,14 +1108,14 @@
         },
         {
           "month": 11,
-          "value": -0.8722294098412076,
+          "value": -0.8719924553696301,
           "startDate": "2019-10-31",
           "endDate": "2019-11-29",
           "status": "已统计"
         },
         {
           "month": 12,
-          "value": 6.147616418185176,
+          "value": 6.147362684119684,
           "startDate": "2019-11-29",
           "endDate": "2019-12-31",
           "status": "已统计"
@@ -1237,14 +1233,14 @@
         },
         {
           "month": 2,
-          "value": 6.182840586512373,
+          "value": 6.183066237628676,
           "startDate": "2021-01-29",
           "endDate": "2021-02-26",
           "status": "已统计"
         },
         {
           "month": 3,
-          "value": 2.5837190423366074,
+          "value": 2.5835010402432745,
           "startDate": "2021-02-26",
           "endDate": "2021-03-31",
           "status": "已统计"
@@ -1693,8 +1689,8 @@
     {
       "year": 2026,
       "start_date": "2026-01-05",
-      "end_date": "2026-09-17",
-      "annual_return": -0.9279436464728286,
+      "end_date": "2026-09-22",
+      "annual_return": 0.05158259006139421,
       "max_drawdown": -15.96361099166238,
       "status": "年内",
       "monthly_returns": [
@@ -1756,9 +1752,9 @@
         },
         {
           "month": 9,
-          "value": -4.276880676830308,
+          "value": -3.3304654082771057,
           "startDate": "2026-08-31",
-          "endDate": "2026-09-17",
+          "endDate": "2026-09-22",
           "status": "月内累计"
         },
         {

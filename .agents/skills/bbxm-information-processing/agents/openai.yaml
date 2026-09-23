@@ -1,0 +1,4 @@
+interface:
+  display_name: "信息处理"
+  short_description: "以 feed 处理已有材料，提取事件、信号、事件簇和主题，输出结构化结果与核心发现。"
+  default_prompt: "使用 $information-processing，以 feed 模式处理这些已有材料，依次提取 Event、Signal、Cluster、Theme，生成符合 schemas 的 InformationProcessingResult，再给出总结与 Core Findings；monitor 和 target 尚未实现。"

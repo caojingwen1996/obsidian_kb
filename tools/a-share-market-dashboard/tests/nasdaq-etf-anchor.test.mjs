@@ -2,9 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { parseNasdaqEtfHistory, applyNasdaqEtfAnchor, renderNasdaqGridStrategy, calculateNasdaqGridPlan } from '../src/app.mjs';
-const anchor = JSON.parse(readFileSync(new URL('../data/nasdaq-etf-anchor.json', import.meta.url), 'utf8'));
+const anchor = JSON.parse(readFileSync(new URL('../data/市场总览/nasdaq-etf-anchor.json', import.meta.url), 'utf8'));
 test('saved ETF anchor matches captured completed history', () => {
- const payload = JSON.parse(readFileSync(new URL('../data/nasdaq-etf-history.json', import.meta.url), 'utf8'));
+ const payload = JSON.parse(readFileSync(new URL('../data/市场总览/nasdaq-etf-history.json', import.meta.url), 'utf8'));
  const data = parseNasdaqEtfHistory(payload, new Date('2026-09-17T02:59:00Z'));
  assert.equal(data.highPrice, anchor.highPrice);
  assert.equal(data.highDate, anchor.highDate);

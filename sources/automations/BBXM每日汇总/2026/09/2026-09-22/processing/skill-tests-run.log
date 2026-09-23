@@ -1,0 +1,24 @@
+2026-09-22 18:00:06,904 [INFO] 开始处理已提取帖子 input_file=D:\Users\28024\AppData\Local\Temp\tmp8m6qcmgd\posts.json author=测试作者 target_date=2026-05-25
+2026-09-22 18:00:06,954 [INFO] 保存成功: D:\Users\28024\AppData\Local\Temp\tmp8m6qcmgd\测试作者\20260525\093000_五月二十五日文章_77963187.md
+2026-09-22 18:00:06,997 [INFO] 开始处理已提取帖子 input_file=D:\Users\28024\AppData\Local\Temp\tmp8m6qcmgd\posts.json author=测试作者 target_date=2026-05-24
+2026-09-22 18:00:07,063 [INFO] 保存成功: D:\Users\28024\AppData\Local\Temp\tmp8m6qcmgd\测试作者\20260524\130000_五月二十四日文章_77963187.md
+..2026-09-22 18:00:10,277 [INFO] 开始处理已提取帖子 input_file=D:\Users\28024\AppData\Local\Temp\tmpq3zhmkao\posts.json author=测试作者 target_date=2026-04-07
+2026-09-22 18:00:10,300 [INFO] 保存成功: D:\Users\28024\AppData\Local\Temp\tmpq3zhmkao\output\20260407\测试作者\093000_第一条_1001.md
+2026-09-22 18:00:10,553 [INFO] 跳过非目标日期内容: 帖子不属于目标日期: 2026-04-06
+2026-09-22 18:00:10,579 [INFO] 跳过重复帖子: https://xueqiu.com/u/9838764557/status/1001
+..................................................ss...
+----------------------------------------------------------------------
+Ran 57 tests in 20.192s
+
+OK (skipped=2)
+{
+  "account": "闵行一霸",
+  "start_time": "2026-04-06 09:30:00",
+  "end_time": null,
+  "scan_rounds": 0,
+  "success_count": 0,
+  "failure_count": 0,
+  "log_file": "D:\\Users\\28024\\AppData\\Local\\Temp\\tmp5d_vno29\\output\\20260406\\闵行一霸\\task.log",
+  "result_dir": "D:\\Users\\28024\\AppData\\Local\\Temp\\tmp5d_vno29\\output\\20260406\\闵行一霸",
+  "state_file": "D:\\Users\\28024\\AppData\\Local\\Temp\\tmp5d_vno29\\output\\20260406\\闵行一霸\\state.json"
+}

@@ -1,0 +1,24 @@
+type=list len=8
+top-level keys sample: ['title', 'published_at', 'url', 'content', 'author_name', 'author_comments']
+
+- pid=409824691 keys=['title', 'published_at', 'url', 'content', 'author_name', 'author_comments']
+    sizes={'title': 2, 'published_at': 16, 'url': 43, 'content': 3131, 'author_name': 4, 'author_comments': 'list'}
+    [url] = 'https://www.xueqiu.com/7143769715/409824691'
+    [content] = '首页\n\ue68c\n\ue68b\n下载App\n登录\n冰冰小美\n发布于2026-09-18 17:05\n来自Android\n\xa0·\xa0\n广东\n关注\n预演\n来自冰冰小美的雪球专栏\n\n风险提示：用户发表的所有文章仅代表个人观点，与雪球的立场无关。投资决策需建立在独立思考之上。\n\n冰冰小美的专栏\n141篇文章 · 86589人关注\n\ue703\n\ue633\n227\n\ue62f\n33\n\ue680\n1人打赏\n\ue62d\n\n3\n\n\ue64b\n\n55\n\n投诉\n\n回复@冰冰小美\n\n\n\n\n'
+- pid=409823838 keys=['title', 'published_at', 'url', 'content', 'author_name', 'author_comments']
+    sizes={'title': 68, 'published_at': 16, 'url': 43, 'content': 2673, 'author_name': 4, 'author_comments': 'list'}
+    [title] = '根据历史推演，需要考虑重磅利好发布，比如，双节期间，降低印花税率，推动牛市氛围回归。米联储加息落地，但是依旧是扩表的。并...\xa0-\xa0雪球'
+    [url] = 'https://www.xueqiu.com/7143769715/409823838'
+    [content] = '首页\n\ue68c\n\ue68b\n下载App\n登录\n冰冰小美\n发布于2026-09-18 16:59\n来自Android\n\xa0·\xa0\n广东\n关注\n根据历史推演\n，\n\n需要考虑重磅利好发布\n，\n\n比如\n，\n双节期间\n，\n\n降低印花税率\n，\n推动牛市氛围回归\n。\n\n米联储加息落地\n，\n但是依旧是扩表的\n。\n并没有收缩\n。\n当前对流动性的收紧仅仅是价格上\n，\n而不是实质上\n。\n流动性收紧通道并没有完全落地\n。\n\n目前央行逆周期'
+- pid=409823541 keys=['title', 'published_at', 'url', 'content', 'author_name', 'author_comments']
+    sizes={'title': 68, 'published_at': 16, 'url': 43, 'content': 2520, 'author_name': 4, 'author_comments': 'list'}
+- pid=409810755 keys=['title', 'published_at', 'url', 'content', 'author_name', 'author_comments']
+    sizes={'title': 35, 'published_at': 16, 'url': 43, 'content': 1979, 'author_name': 4, 'author_comments': 'list'}
+- pid=409780551 keys=['title', 'published_at', 'url', 'content', 'author_name', 'author_comments']
+    sizes={'title': 13, 'published_at': 16, 'url': 43, 'content': 1474, 'author_name': 8, 'author_comments': 'list'}
+- pid=409713758 keys=['title', 'published_at', 'url', 'content', 'author_name', 'author_comments']
+    sizes={'title': 68, 'published_at': 16, 'url': 43, 'content': 2360, 'author_name': 4, 'author_comments': 'list'}
+- pid=409713707 keys=['title', 'published_at', 'url', 'content', 'author_name', 'author_comments']
+    sizes={'title': 68, 'published_at': 16, 'url': 43, 'content': 2591, 'author_name': 4, 'author_comments': 'list'}
+- pid=409713683 keys=['title', 'published_at', 'url', 'content', 'author_name', 'author_comments']
+    sizes={'title': 68, 'published_at': 16, 'url': 43, 'content': 2995, 'author_name': 4, 'author_comments': 'list'}
