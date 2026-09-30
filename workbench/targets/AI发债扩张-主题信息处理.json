@@ -1,0 +1,771 @@
+{
+  "result_id": "IP-AI-DEBT-THEME-20260928-01",
+  "mode": "theme",
+  "generated_at": "2026-09-28T10:21:20Z",
+  "observation_window": {
+    "start": "2026-08-30",
+    "end": "2026-09-28"
+  },
+  "theme_context": {
+    "theme_name": "AI 发债扩张",
+    "core_question": "AI相关大型科技企业是否扩大债券融资，扩张的用途、期限与承接情况如何，哪些证据支持或削弱融资压力解释？",
+    "core_variables": [
+      "debt_issuance",
+      "maturity_profile",
+      "market_absorption",
+      "funding_cost",
+      "funding_gap",
+      "funding_diversification",
+      "liquidity_buffer"
+    ],
+    "common_driver": "研究假设：数据中心与AI投资增加融资需求；须逐主体核验资金用途。",
+    "open_questions": [
+      "总发行扩张是否也意味着净融资增加？",
+      "供给能否在合理定价下完成？",
+      "有多少融资属于AI专项，而非一般公司用途？"
+    ]
+  },
+  "search_log": [
+    {
+      "query": "CPRAM：What impact is hyperscaler bond issuance having on bond markets?",
+      "source": "https://cpram.com/lux/en/individual/publications/experts/article/what-impact-is-hyperscaler-bond-issuance-having-on-bond-markets",
+      "accessed_at": "2026-09-28T10:21:20Z",
+      "status": "success",
+      "detail": "A spectacular surge in bond issuance；文章发布日期不是明确的发行统计截止日。 本库数据摘录：sources/webpages/2026-09-28-ai-debt-theme/cpr-source-data.json"
+    },
+    {
+      "query": "Goldman Sachs：How AI Debt Is Reshaping Credit Markets",
+      "source": "https://www.goldmansachs.com/insights/goldman-sachs-exchanges/how-ai-debt-is-reshaping-the-credit-market",
+      "accessed_at": "2026-09-28T10:21:20Z",
+      "status": "success",
+      "detail": "访谈中发行规模、保险客户订单与 new issue concessions 段落；统计不等于上半年同比。 本库数据摘录：sources/webpages/2026-09-28-ai-debt-theme/gs-source-data.json"
+    },
+    {
+      "query": "TwentyFour AM：How hyperscaler issuance is reshaping the Treasury curve",
+      "source": "https://blog.twentyfouram.com/insights/how-hyperscaler-issuance-is-reshaping-the-treasury-curve",
+      "accessed_at": "2026-09-28T10:21:20Z",
+      "status": "success",
+      "detail": "Demand has been strong overall 段落；不同发行日且整体市场均值不是匹配30年期限对照。 本库数据摘录：sources/webpages/2026-09-28-ai-debt-theme/tf-source-data.json"
+    },
+    {
+      "query": "Amazon：2026-09-09 英镑票据募集说明书补充文件 424B5",
+      "source": "https://www.sec.gov/Archives/edgar/data/1018724/000110465926107122/tm2624614-3_424b5.htm",
+      "accessed_at": "2026-09-28T10:21:20Z",
+      "status": "success",
+      "detail": "封面、S-4、USE OF PROCEEDS；用途包含多种公司用途，没有逐笔AI专用金额。 本库数据摘录：sources/webpages/2026-09-28-ai-debt-theme/amzn-source-data.json"
+    },
+    {
+      "query": "Oracle：截至2026-08-31季度 Form 10-Q",
+      "source": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+      "accessed_at": "2026-09-28T10:21:20Z",
+      "status": "success",
+      "detail": "现金流量表、Free cash flow 表、现金变动解释及资产负债表；现金流包含带重大融资成分的客户预付款。 本库数据摘录：sources/webpages/2026-09-28-ai-debt-theme/orcl-source-data.json"
+    },
+    {
+      "query": "ECB Blog：Big tech, big debt: when US tech giants tap the euro area bond market",
+      "source": "https://www.ecb.europa.eu/press/blog/date/2026/html/ecb.blog20260831~dac6a37e73.en.html",
+      "accessed_at": "2026-09-28T10:21:20Z",
+      "status": "success",
+      "detail": "Is there a risk of crowding-out?；Chart 3；Conclusion。观察截至8月20日，不能当9月28日实时结论。 本库数据摘录：sources/webpages/2026-09-28-ai-debt-theme/ecb-source-data.json"
+    },
+    {
+      "query": "AI hyperscaler bond issuance September 2026 Oracle Alphabet Meta bonds",
+      "source": "Web Search",
+      "accessed_at": "2026-09-28T10:21:20Z",
+      "status": "success",
+      "detail": "发现机构及监管原始资料，排除社交媒体主张；仅经打开核对的资料进入证据。"
+    },
+    {
+      "query": "Financing the AI build-out",
+      "source": "https://www.ubp.com/en/news-insights/newsroom/financing-the-ai-build-out",
+      "accessed_at": "2026-09-28T10:21:20Z",
+      "status": "failed",
+      "detail": "正文回读超时（400 Timeout fetching），后续打开仍返回Internal Error；未使用搜索摘要中的数值。"
+    },
+    {
+      "query": "Amazon September 14 2026 completed notes",
+      "source": "Web Search / SEC EDGAR",
+      "accessed_at": "2026-09-28T10:21:20Z",
+      "status": "no_results",
+      "detail": "未找到足以确认本笔英镑交易实际交割的结果；仅保留定价与预计交割事实。"
+    },
+    {
+      "query": "Amazon September 9 2026 8-K",
+      "source": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000036/amzn-20260908.htm",
+      "accessed_at": "2026-09-28T10:21:20Z",
+      "status": "success",
+      "detail": "原文为董事任命，排除为无关资料；不能作为债券交割确认。"
+    }
+  ],
+  "events": [
+    {
+      "event_id": "E1",
+      "event_time": {
+        "value": "2026-09-23",
+        "precision": "day"
+      },
+      "subject": "五家美国 hyperscaler",
+      "action": "机构报告累计发行规模",
+      "key_fact": "CPRAM报告2026年至今发债约2230亿美元，较2025全年多1170亿美元。",
+      "context": "观察是机构统计，不是逐券复算；年内累计的精确截止日未披露。2025全年1060亿美元由2230−1170推算；不是同期间同比。",
+      "source_refs": [
+        {
+          "source_id": "https://cpram.com/lux/en/individual/publications/experts/article/what-impact-is-hyperscaler-bond-issuance-having-on-bond-markets",
+          "source_type": "机构原始研究；未取得逐券底表",
+          "publisher": "CPRAM",
+          "published_at": "2026-09-23"
+        },
+        {
+          "source_id": "sources/webpages/2026-09-28-ai-debt-theme/cpr-source-data.json",
+          "source_type": "本次核对的数据摘录；非完整网页副本"
+        }
+      ],
+      "confidence": "medium",
+      "key_values": [
+        {
+          "name": "2026_ytd_issuance",
+          "value": 223,
+          "unit": "USD billion"
+        },
+        {
+          "name": "excess_over_2025_full_year",
+          "value": 117,
+          "unit": "USD billion"
+        },
+        {
+          "name": "2025_full_year_derived",
+          "value": 106,
+          "unit": "USD billion"
+        }
+      ]
+    },
+    {
+      "event_id": "E2",
+      "event_time": {
+        "value": "2026-09-23",
+        "precision": "day"
+      },
+      "subject": "五家美国 hyperscaler",
+      "action": "机构报告发行期限分布",
+      "key_fact": "CPRAM报告2026年其美元债发行约41%集中在20年以上期限，而美国投资级发行整体为15%。",
+      "context": "同篇文章的期限分布观察；不同样本的结构比较，不是同一主体历史增速。",
+      "source_refs": [
+        {
+          "source_id": "https://cpram.com/lux/en/individual/publications/experts/article/what-impact-is-hyperscaler-bond-issuance-having-on-bond-markets",
+          "source_type": "机构原始研究；未取得逐券底表",
+          "publisher": "CPRAM",
+          "published_at": "2026-09-23"
+        },
+        {
+          "source_id": "sources/webpages/2026-09-28-ai-debt-theme/cpr-source-data.json",
+          "source_type": "本次核对的数据摘录；非完整网页副本"
+        }
+      ],
+      "confidence": "medium"
+    },
+    {
+      "event_id": "E3",
+      "event_time": {
+        "value": "2026-09-09",
+        "precision": "day"
+      },
+      "subject": "Amazon",
+      "action": "披露英镑债券定价条款",
+      "key_fact": "四档债券面值合计42.5亿英镑，票息5.200%—6.650%，到期年份2029、2032、2038、2045。",
+      "context": "计划9月14日前后交割；本轮未取得最终交割确认。一般公司用途，不等于AI专项；票息不等于含费用和对冲的全口径成本。",
+      "source_refs": [
+        {
+          "source_id": "https://www.sec.gov/Archives/edgar/data/1018724/000110465926107122/tm2624614-3_424b5.htm",
+          "source_type": "发行人监管披露；定价文件",
+          "publisher": "Amazon / SEC EDGAR",
+          "published_at": "2026-09-09"
+        },
+        {
+          "source_id": "sources/webpages/2026-09-28-ai-debt-theme/amzn-source-data.json",
+          "source_type": "本次核对的数据摘录；非完整网页副本"
+        }
+      ],
+      "confidence": "high",
+      "key_values": [
+        {
+          "name": "offering_principal",
+          "value": 4.25,
+          "unit": "GBP billion"
+        }
+      ]
+    },
+    {
+      "event_id": "E4",
+      "event_time": {
+        "value": "2026-08-03",
+        "precision": "day"
+      },
+      "subject": "Hyperscaler融资群体",
+      "action": "访谈报告年度及年内发行",
+      "key_fact": "高盛访谈报告2025全球发债1080亿美元、2026录制时年内累计1940亿美元。",
+      "context": "窗口外背景：8月3日录制、8月5日发布。原文是年内累计而非明确上半年；不计算上半年同比，不与CPRAM不同口径金额拼接。",
+      "source_refs": [
+        {
+          "source_id": "https://www.goldmansachs.com/insights/goldman-sachs-exchanges/how-ai-debt-is-reshaping-the-credit-market",
+          "source_type": "机构访谈原始转录；录制于2026-08-03",
+          "publisher": "Goldman Sachs",
+          "published_at": "2026-08-05"
+        },
+        {
+          "source_id": "sources/webpages/2026-09-28-ai-debt-theme/gs-source-data.json",
+          "source_type": "本次核对的数据摘录；非完整网页副本"
+        }
+      ],
+      "confidence": "medium"
+    },
+    {
+      "event_id": "E5",
+      "event_time": {
+        "value": "2026-08-03",
+        "precision": "day"
+      },
+      "subject": "部分大型AI融资的保险客户",
+      "action": "交易台报告长端参与人数变化",
+      "key_fact": "30年档、订单超过5000万美元的保险客户，从一季度约15家到二季度末约为一半。",
+      "context": "窗口外历史观察；属于交易台特定样本，不能解读为全市场需求金额减半或发行失败。",
+      "source_refs": [
+        {
+          "source_id": "https://www.goldmansachs.com/insights/goldman-sachs-exchanges/how-ai-debt-is-reshaping-the-credit-market",
+          "source_type": "机构访谈原始转录；录制于2026-08-03",
+          "publisher": "Goldman Sachs",
+          "published_at": "2026-08-05"
+        },
+        {
+          "source_id": "sources/webpages/2026-09-28-ai-debt-theme/gs-source-data.json",
+          "source_type": "本次核对的数据摘录；非完整网页副本"
+        }
+      ],
+      "confidence": "medium"
+    },
+    {
+      "event_id": "E6",
+      "event_time": {
+        "value": "2026-08-03",
+        "precision": "day"
+      },
+      "subject": "部分大型hyperscaler新券",
+      "action": "交易台报告发行溢价变化",
+      "key_fact": "此前约2—3bp的新券溢价，在一笔大型交易达到20bp。",
+      "context": "窗口外历史观察；未披露交易身份及精确日期，单笔极值不是行业平均，不能当当前新券定价。",
+      "source_refs": [
+        {
+          "source_id": "https://www.goldmansachs.com/insights/goldman-sachs-exchanges/how-ai-debt-is-reshaping-the-credit-market",
+          "source_type": "机构访谈原始转录；录制于2026-08-03",
+          "publisher": "Goldman Sachs",
+          "published_at": "2026-08-05"
+        },
+        {
+          "source_id": "sources/webpages/2026-09-28-ai-debt-theme/gs-source-data.json",
+          "source_type": "本次核对的数据摘录；非完整网页副本"
+        }
+      ],
+      "confidence": "medium"
+    },
+    {
+      "event_id": "E7",
+      "event_time": {
+        "value": "2026-09-03",
+        "precision": "day"
+      },
+      "subject": "Amazon、Oracle、Meta、Alphabet部分30年档发行",
+      "action": "基金经理报告认购覆盖",
+      "key_fact": "四个案例认购倍数分别为2.5、4.5、3.6、4.6倍；文中美国投资级年内整体参考均值为2.98倍。",
+      "context": "Amazon为7月发行；其余交易日期未完整披露。认购不等于最终交割或低成本融资；2.98倍不是严格匹配30年期对照。",
+      "source_refs": [
+        {
+          "source_id": "https://blog.twentyfouram.com/insights/how-hyperscaler-issuance-is-reshaping-the-treasury-curve",
+          "source_type": "基金经理原始评论；底层订单簿未公开",
+          "publisher": "TwentyFour Asset Management",
+          "published_at": "2026-09-03"
+        },
+        {
+          "source_id": "sources/webpages/2026-09-28-ai-debt-theme/tf-source-data.json",
+          "source_type": "本次核对的数据摘录；非完整网页副本"
+        }
+      ],
+      "confidence": "medium"
+    },
+    {
+      "event_id": "E8",
+      "event_time": {
+        "value": "2026-08-31",
+        "precision": "day"
+      },
+      "subject": "欧元hyperscaler债券",
+      "action": "研究人员报告利差及承接变化",
+      "key_fact": "ECB Blog报告年中后认购覆盖率回落、信用利差上升。",
+      "context": "文章发布于本次窗口内，但图表最新观测为8月20日。没有取得日序列，不把作者机制解释当作已识别的因果效应。",
+      "source_refs": [
+        {
+          "source_id": "https://www.ecb.europa.eu/press/blog/date/2026/html/ecb.blog20260831~dac6a37e73.en.html",
+          "source_type": "央行研究人员文章；不必然代表ECB正式立场",
+          "publisher": "ECB Blog 作者研究",
+          "published_at": "2026-08-31"
+        },
+        {
+          "source_id": "sources/webpages/2026-09-28-ai-debt-theme/ecb-source-data.json",
+          "source_type": "本次核对的数据摘录；非完整网页副本"
+        }
+      ],
+      "confidence": "medium"
+    },
+    {
+      "event_id": "E9",
+      "event_time": {
+        "value": "2026-08-31",
+        "precision": "day"
+      },
+      "subject": "欧元区其他公司债发行人",
+      "action": "研究人员报告市场外溢有限",
+      "key_fact": "同篇研究认为欧元区其他发行人认购仍较强且变化不大，暂未看到所讨论的广泛融资外溢。",
+      "context": "反证适用欧元区及来源观测窗口，不等于美国不存在挤出，也不证明未来不会出现。",
+      "source_refs": [
+        {
+          "source_id": "https://www.ecb.europa.eu/press/blog/date/2026/html/ecb.blog20260831~dac6a37e73.en.html",
+          "source_type": "央行研究人员文章；不必然代表ECB正式立场",
+          "publisher": "ECB Blog 作者研究",
+          "published_at": "2026-08-31"
+        },
+        {
+          "source_id": "sources/webpages/2026-09-28-ai-debt-theme/ecb-source-data.json",
+          "source_type": "本次核对的数据摘录；非完整网页副本"
+        }
+      ],
+      "confidence": "medium"
+    },
+    {
+      "event_id": "E10",
+      "event_time": {
+        "value": "2026-08-31",
+        "precision": "day"
+      },
+      "subject": "Oracle",
+      "action": "季度披露经营现金流与资本开支",
+      "key_fact": "截至8月31日季度经营现金流231.03亿美元、资本开支284.99亿美元，自由现金流−53.96亿美元；上年同期为−3.62亿美元。",
+      "context": "原始单位百万美元。经营现金流包括114亿美元带重大融资成分的客户预付款；缺口反映现金投资需求，不等同违约或融资不可得。",
+      "source_refs": [
+        {
+          "source_id": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+          "source_type": "发行人季度监管披露；未经审计",
+          "publisher": "Oracle / SEC EDGAR",
+          "published_at": "2026-09-11"
+        },
+        {
+          "source_id": "sources/webpages/2026-09-28-ai-debt-theme/orcl-source-data.json",
+          "source_type": "本次核对的数据摘录；非完整网页副本"
+        }
+      ],
+      "confidence": "high",
+      "key_values": [
+        {
+          "name": "operating_cash_flow",
+          "value": 23.103,
+          "unit": "USD billion"
+        },
+        {
+          "name": "capex",
+          "value": 28.499,
+          "unit": "USD billion"
+        },
+        {
+          "name": "free_cash_flow",
+          "value": -5.396,
+          "unit": "USD billion"
+        },
+        {
+          "name": "prior_year_quarter_free_cash_flow",
+          "value": -0.362,
+          "unit": "USD billion"
+        }
+      ]
+    },
+    {
+      "event_id": "E11",
+      "event_time": {
+        "value": "2026-08-31",
+        "precision": "day"
+      },
+      "subject": "Oracle",
+      "action": "完成季度ATM普通股融资",
+      "key_fact": "本季度ATM普通股发行净筹资199.09亿美元。",
+      "context": "统计期6—8月；这是股权融资，不能计入债券发行；说明融资渠道不止债券。",
+      "source_refs": [
+        {
+          "source_id": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+          "source_type": "发行人季度监管披露；未经审计",
+          "publisher": "Oracle / SEC EDGAR",
+          "published_at": "2026-09-11"
+        },
+        {
+          "source_id": "sources/webpages/2026-09-28-ai-debt-theme/orcl-source-data.json",
+          "source_type": "本次核对的数据摘录；非完整网页副本"
+        }
+      ],
+      "confidence": "high",
+      "key_values": [
+        {
+          "name": "ATM_net_proceeds",
+          "value": 19.909,
+          "unit": "USD billion"
+        }
+      ]
+    },
+    {
+      "event_id": "E12",
+      "event_time": {
+        "value": "2026-08-31",
+        "precision": "day"
+      },
+      "subject": "Oracle",
+      "action": "披露现金余额变化",
+      "key_fact": "现金及现金等价物从5月31日312.89亿美元增至8月31日363.69亿美元。",
+      "context": "余额不是自由现金流，受经营、股权融资及其他收支共同影响；不能仅从投资缺口推出现金耗尽。",
+      "source_refs": [
+        {
+          "source_id": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+          "source_type": "发行人季度监管披露；未经审计",
+          "publisher": "Oracle / SEC EDGAR",
+          "published_at": "2026-09-11"
+        },
+        {
+          "source_id": "sources/webpages/2026-09-28-ai-debt-theme/orcl-source-data.json",
+          "source_type": "本次核对的数据摘录；非完整网页副本"
+        }
+      ],
+      "confidence": "high",
+      "key_values": [
+        {
+          "name": "cash_aug31",
+          "value": 36.369,
+          "unit": "USD billion"
+        },
+        {
+          "name": "cash_may31",
+          "value": 31.289,
+          "unit": "USD billion"
+        }
+      ]
+    }
+  ],
+  "signals": [
+    {
+      "signal_id": "S1",
+      "signal_type": "fact",
+      "event_refs": [
+        "E1"
+      ],
+      "variable": "debt_issuance",
+      "direction": "up",
+      "magnitude": "unknown",
+      "scope": "industry",
+      "confidence": "medium",
+      "time": {
+        "value": null,
+        "precision": "unknown"
+      },
+      "notes": "年内累计已高于上年全年；不是同比增速，统计截止日未披露。"
+    },
+    {
+      "signal_id": "S2",
+      "signal_type": "fact",
+      "event_refs": [
+        "E5"
+      ],
+      "variable": "market_absorption",
+      "direction": "down",
+      "magnitude": "unknown",
+      "scope": "industry",
+      "confidence": "medium",
+      "time": {
+        "value": "2026-06",
+        "precision": "month"
+      },
+      "notes": "仅指特定30年档大额保险客户数量减少；季度末以6月30日表示，非精确交易日。"
+    },
+    {
+      "signal_id": "S3",
+      "signal_type": "fact",
+      "event_refs": [
+        "E6"
+      ],
+      "variable": "funding_cost",
+      "direction": "widening",
+      "magnitude": "unknown",
+      "scope": "industry",
+      "confidence": "medium",
+      "time": {
+        "value": null,
+        "precision": "unknown"
+      },
+      "notes": "指新券溢价案例从2—3bp至20bp；并非行业平均或全口径融资成本。"
+    },
+    {
+      "signal_id": "S4",
+      "signal_type": "fact",
+      "event_refs": [
+        "E8"
+      ],
+      "variable": "funding_cost",
+      "direction": "widening",
+      "magnitude": "unknown",
+      "scope": "industry",
+      "confidence": "medium",
+      "time": {
+        "value": "2026-08-20",
+        "precision": "day"
+      },
+      "notes": "欧元债利差上升的来源观察；未重构触发事件及前后预期，故列事实信号。"
+    },
+    {
+      "signal_id": "S5",
+      "signal_type": "fact",
+      "event_refs": [
+        "E10"
+      ],
+      "variable": "funding_gap",
+      "direction": "up",
+      "magnitude": "unknown",
+      "scope": "company",
+      "confidence": "medium",
+      "time": {
+        "value": "2026-08-31",
+        "precision": "day"
+      },
+      "notes": "同季度现金流缺口由3.62亿扩大到53.96亿美元；不是风险等级。"
+    },
+    {
+      "signal_id": "S6",
+      "signal_type": "fact",
+      "event_refs": [
+        "E12"
+      ],
+      "variable": "liquidity_buffer",
+      "direction": "up",
+      "magnitude": "unknown",
+      "scope": "company",
+      "confidence": "medium",
+      "time": {
+        "value": "2026-08-31",
+        "precision": "day"
+      },
+      "notes": "季度末现金及等价物余额上升，原因不得仅归于经营改善。"
+    }
+  ],
+  "clusters": [],
+  "evidence": [
+    {
+      "evidence_id": "EV1",
+      "variable": "debt_issuance",
+      "relationship": "support",
+      "rationale": "支持群体总发行规模扩张；仍需逐券与净发行验证。",
+      "signal_refs": [
+        "S1"
+      ]
+    },
+    {
+      "evidence_id": "EV2",
+      "variable": "maturity_profile",
+      "relationship": "context",
+      "rationale": "长端集中度较高，提示按期限核验承接；不是历史增速。",
+      "event_refs": [
+        "E2"
+      ]
+    },
+    {
+      "evidence_id": "EV3",
+      "variable": "funding_diversification",
+      "relationship": "support",
+      "rationale": "当前窗口内英镑定价文件支持跨币种筹资；用途与实际交割仍需区分。",
+      "event_refs": [
+        "E3"
+      ]
+    },
+    {
+      "evidence_id": "EV4",
+      "variable": "debt_issuance",
+      "relationship": "support",
+      "rationale": "较早机构统计与扩张方向一致；口径不同不能视为可连续拼接的独立总量序列。",
+      "event_refs": [
+        "E4"
+      ]
+    },
+    {
+      "evidence_id": "EV5",
+      "variable": "market_absorption",
+      "relationship": "support",
+      "rationale": "支持长端特定投资者参与减弱这一子命题，不代表整体承接失败。",
+      "signal_refs": [
+        "S2"
+      ]
+    },
+    {
+      "evidence_id": "EV6",
+      "variable": "funding_cost",
+      "relationship": "support",
+      "rationale": "个别新券所需溢价上升，支持边际定价压力线索。",
+      "signal_refs": [
+        "S3"
+      ]
+    },
+    {
+      "evidence_id": "EV7",
+      "variable": "market_absorption",
+      "relationship": "counter_evidence",
+      "rationale": "多数所列发行仍有多倍认购，削弱普遍无人承接的解释；高认购与更高定价补偿可以同时出现。",
+      "event_refs": [
+        "E7"
+      ]
+    },
+    {
+      "evidence_id": "EV8",
+      "variable": "funding_cost",
+      "relationship": "support",
+      "rationale": "欧元市场来源也报告利差上升，支持定价调整线索；不是美国市场因果验证。",
+      "signal_refs": [
+        "S4"
+      ]
+    },
+    {
+      "evidence_id": "EV9",
+      "variable": "market_absorption",
+      "relationship": "counter_evidence",
+      "rationale": "欧元区其他发行人融资外溢暂不明显，限制资本竞争已普遍恶化这一推断。",
+      "event_refs": [
+        "E9"
+      ]
+    },
+    {
+      "evidence_id": "EV10",
+      "variable": "funding_gap",
+      "relationship": "support",
+      "rationale": "同主体现金投资缺口扩大，支持需要外部融资这一子命题；不能外推所有AI公司。",
+      "signal_refs": [
+        "S5"
+      ]
+    },
+    {
+      "evidence_id": "EV11",
+      "variable": "funding_diversification",
+      "relationship": "counter_evidence",
+      "rationale": "已完成股权融资提供替代资金，削弱新增需求必须全部由债券投资者承接的假设。",
+      "event_refs": [
+        "E11"
+      ]
+    },
+    {
+      "evidence_id": "EV12",
+      "variable": "liquidity_buffer",
+      "relationship": "counter_evidence",
+      "rationale": "现金余额增加，反对仅凭负自由现金流认定现金已耗尽。",
+      "signal_refs": [
+        "S6"
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "F1",
+      "conclusion": "AI相关大型科技企业的发债扩张得到群体统计和新发行文件支持；总发行、净融资及AI专项用途必须分开。",
+      "evidence_refs": [
+        "EV1",
+        "EV3",
+        "EV4"
+      ],
+      "confidence": "medium",
+      "open_questions": [
+        "逐券清单、到期偿还及融资用途能否统一？"
+      ]
+    },
+    {
+      "finding_id": "F2",
+      "conclusion": "定价压力与持续承接同时存在：局部溢价和利差上升，但多个发行案例仍有多倍认购。",
+      "evidence_refs": [
+        "EV5",
+        "EV6",
+        "EV7",
+        "EV8"
+      ],
+      "confidence": "medium",
+      "open_questions": [
+        "同券同期限连续数据是否显示认购与定价进一步变化？"
+      ]
+    },
+    {
+      "finding_id": "F3",
+      "conclusion": "长端与不同币种应分别观察，不能把欧元区与美元市场的承接或挤出结论合并。",
+      "evidence_refs": [
+        "EV2",
+        "EV3",
+        "EV9"
+      ],
+      "confidence": "medium",
+      "open_questions": [
+        "净久期供给及各资金池的可比投资者需求是什么？"
+      ]
+    },
+    {
+      "finding_id": "F4",
+      "conclusion": "Oracle现金投资缺口扩大，但股权融资与更高现金余额同时存在；负自由现金流不能直接解释为融资不可得。",
+      "evidence_refs": [
+        "EV10",
+        "EV11",
+        "EV12"
+      ],
+      "confidence": "high",
+      "open_questions": [
+        "客户预付款、到期债务与授信如何影响未来资金需要？"
+      ]
+    }
+  ],
+  "gaps": [
+    {
+      "variable": "debt_issuance",
+      "reason": "未取得统一逐券清单、净发行及当期精确截止日；CPRAM隐含2025年1060亿美元与高盛1080亿美元存在口径差异。",
+      "next_step": "按发行人、币种、日期、到期与回购核对，避免不同统计拼接。"
+    },
+    {
+      "variable": "maturity_profile",
+      "reason": "缺少同样本净久期供给，发行面值和长端占比不能直接反映新增久期风险。",
+      "next_step": "获取偿还和存量久期，分币种计算净供给。"
+    },
+    {
+      "variable": "market_absorption",
+      "reason": "主要是机构交易台或基金经理的订单案例，缺同券订单簿、配售与发行完成序列；Amazon英镑定价的最终交割未独立确认。",
+      "next_step": "优先核实发行完成、最终定价与可比认购，且分别分析美元和欧元。"
+    },
+    {
+      "variable": "funding_cost",
+      "reason": "缺同券连续利差、无风险基准及费用/对冲成本；没有9月28日实时价格。",
+      "next_step": "建立相同评级、期限和币种的比较，避免以票息代替总融资成本。"
+    },
+    {
+      "variable": "funding_gap",
+      "reason": "只核对Oracle季度现金流，且经营现金流含客户预付款；不能概括整个群体。",
+      "next_step": "补齐五家公司同期间财务与预付款、租赁、资本开支及债务期限表。"
+    },
+    {
+      "variable": "funding_diversification",
+      "reason": "一般公司用途不能拆出精确AI支出比例，多币种债务未统一换算。",
+      "next_step": "核对资金用途与套保；债券、股权及项目融资分别列示。"
+    },
+    {
+      "variable": "liquidity_buffer",
+      "reason": "有现金余额不等于所有未来义务均已覆盖，缺本次完整偿债期限与授信评估。",
+      "next_step": "结合非受限现金、承诺授信和未来付款义务继续核验。"
+    }
+  ],
+  "summary": {
+    "event_count": 12,
+    "signal_count": 6,
+    "cluster_count": 0,
+    "evidence_count": 12,
+    "finding_count": 4,
+    "gap_count": 7
+  },
+  "notes": "研究问题和变量由用户给定主题扩展，为本轮工作假设。默认关注2026-08-30至09-28公开信息，不是30天新增发行总额。高盛8月资料作为明确标注的历史背景；ECB文章在窗口内、底层观测截至8月20日；Oracle观测期为6—8月；部分发行统计截止日未披露。UTC获取时间按本轮核对批次记录，非逐次访问计时。直接披露与机构估算分层，不把同源多个观察当多源验证；不执行风险识别、不覆盖原风险模型、不产生交易结论。Cluster非必要，故为空。"
+}

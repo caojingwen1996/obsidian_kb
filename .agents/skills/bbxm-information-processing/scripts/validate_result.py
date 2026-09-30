@@ -1,4 +1,4 @@
-"""Validate the feed contract and references; does not verify factual truth."""
+"""Validate feed/theme contracts and references; does not verify factual truth."""
 
 import argparse
 import json
@@ -18,7 +18,9 @@ def validate_result(result):
         schema = json.loads(path.read_text(encoding="utf-8-sig"))
         Draft202012Validator.check_schema(schema)
         registry = registry.with_resource(schema["$id"], Resource.from_contents(schema))
-    schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8-sig"))
+    is_theme = isinstance(result, dict) and result.get("mode") == "theme"
+    schema_path = SCHEMA_DIR / "theme-processing-result.schema.json" if is_theme else SCHEMA_PATH
+    schema = json.loads(schema_path.read_text(encoding="utf-8-sig"))
     validator = Draft202012Validator(schema, registry=registry, format_checker=FormatChecker())
     errors = [
         f"{'/'.join(map(str, error.absolute_path)) or '$'}: {error.message}"
@@ -26,6 +28,8 @@ def validate_result(result):
     ]
     if errors:
         return errors
+    if is_theme:
+        return validate_theme_references(result)
 
     collections = {
         "event": ("events", "event_id"),
@@ -133,6 +137,71 @@ def validate_result(result):
     return errors
 
 
+def validate_theme_references(result):
+    """Cross-object checks after the theme schema has validated field shapes."""
+    errors = []
+    objects = {}
+    for field, key in (("events", "event_id"), ("signals", "signal_id"),
+                       ("clusters", "cluster_id"), ("evidence", "evidence_id"),
+                       ("findings", "finding_id")):
+        items = result.get(field, [])
+        objects[field] = {item[key]: item for item in items}
+        if len(items) != len(objects[field]):
+            errors.append(f"{field}: duplicate {key}")
+        count = "evidence_count" if field == "evidence" else f"{field[:-1]}_count"
+        if result["summary"][count] != len(items):
+            errors.append(f"summary/{count}: disagrees with {field}")
+    if result["summary"]["gap_count"] != len(result["gaps"]):
+        errors.append("summary/gap_count: disagrees with gaps")
+
+    def refs(values, allowed, label):
+        if set(values) - set(allowed):
+            errors.append(f"{label}: unresolved references")
+
+    for signal in result["signals"]:
+        refs(signal["event_refs"], objects["events"], signal["signal_id"])
+        if signal["signal_type"] == "repricing":
+            analyses = [(objects["events"].get(ref, {}).get("event_analysis") or {})
+                        for ref in signal["event_refs"]]
+            if not any((a.get("repricing") or "").strip() for a in analyses):
+                errors.append(f"{signal['signal_id']}: repricing requires Event Analysis")
+
+    for cluster in result.get("clusters", []):
+        events = cluster.get("member_events", [])
+        signals = cluster["member_signals"]
+        refs(events, objects["events"], cluster["cluster_id"])
+        refs(signals, objects["signals"], cluster["cluster_id"])
+        for link in cluster["structure_view"]:
+            refs(link["supporting_refs"], events + signals, "cluster/structure_view")
+        for entry in cluster.get("timeline", []):
+            refs([entry["ref_id"]], events if entry["type"] == "event" else signals,
+                 "cluster/timeline")
+
+    variables = result["theme_context"]["core_variables"]
+    mapped_events, mapped_signals = set(), set()
+    for evidence in result["evidence"]:
+        refs([evidence["variable"]], variables, "evidence/variable")
+        refs(evidence.get("event_refs", []), objects["events"], evidence["evidence_id"])
+        refs(evidence.get("signal_refs", []), objects["signals"], evidence["evidence_id"])
+        mapped_events.update(evidence.get("event_refs", []))
+        mapped_signals.update(evidence.get("signal_refs", []))
+    for ref in mapped_signals:
+        mapped_events.update(objects["signals"].get(ref, {}).get("event_refs", []))
+    refs(objects["events"], mapped_events, "events without evidence mapping")
+    refs(objects["signals"], mapped_signals, "signals without evidence mapping")
+    for finding in result["findings"]:
+        refs(finding["evidence_refs"], objects["evidence"], finding["finding_id"])
+    for gap in result["gaps"]:
+        refs([gap["variable"]], variables, "gaps/variable")
+    covered = {item["variable"] for item in result["evidence"] + result["gaps"]}
+    refs(variables, covered, "uncovered core_variables")
+    if result["observation_window"]["start"] > result["observation_window"]["end"]:
+        errors.append("observation_window: start is after end")
+    if result["events"] and not any(row["status"] == "success" for row in result["search_log"]):
+        errors.append("search_log: events require at least one successful source retrieval")
+    return errors
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("result", type=Path)
@@ -146,7 +215,7 @@ def main():
         for error in errors:
             print(error)
         raise SystemExit(1)
-    print("InformationProcessingResult valid (feed structure, references and checkable counts only).")
+    print(f"{result['mode']} result valid (structure, references and checkable counts only).")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,21 @@
+{
+  "title": "TwentyFour AM：How hyperscaler issuance is reshaping the Treasury curve",
+  "url": "https://blog.twentyfouram.com/insights/how-hyperscaler-issuance-is-reshaping-the-treasury-curve",
+  "publisher": "TwentyFour Asset Management",
+  "published": "2026-09-03",
+  "type": "基金经理原始评论；底层订单簿未公开",
+  "quote": "Demand has been strong overall",
+  "data": {
+    "30y_order_coverage_x": {
+      "Amazon_July": 2.5,
+      "Oracle": 4.5,
+      "Meta": 3.6,
+      "Alphabet_recent": 4.6
+    },
+    "us_ig_primary_ytd_average_coverage_x": 2.98,
+    "issuer_deal_dates_except_amazon": null
+  },
+  "locator": "Demand has been strong overall 段落；不同发行日且整体市场均值不是匹配30年期限对照。",
+  "retrieved_at": "2026-09-28T10:21:20Z",
+  "local_path": "sources/webpages/2026-09-28-ai-debt-theme/tf-source-data.json"
+}

@@ -1,0 +1,351 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "theme-processing-result.schema.json",
+  "title": "ThemeProcessingResult",
+  "description": "围绕已知主题主动搜集的本轮证据与发现；不表示历史 Theme 状态更新。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "result_id",
+    "mode",
+    "generated_at",
+    "observation_window",
+    "theme_context",
+    "search_log",
+    "events",
+    "signals",
+    "evidence",
+    "findings",
+    "gaps",
+    "summary"
+  ],
+  "properties": {
+    "result_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mode": {
+      "const": "theme"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "observation_window": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "start",
+        "end"
+      ],
+      "properties": {
+        "start": {
+          "type": "string",
+          "format": "date"
+        },
+        "end": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "theme_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "theme_name",
+        "core_question",
+        "core_variables"
+      ],
+      "properties": {
+        "theme_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "theme_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "core_question": {
+          "type": "string",
+          "minLength": 1
+        },
+        "core_variables": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "common_driver": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "transmission_structure": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "open_questions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "search_log": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "query",
+          "source",
+          "accessed_at",
+          "status",
+          "detail"
+        ],
+        "properties": {
+          "query": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source": {
+            "type": "string",
+            "minLength": 1
+          },
+          "accessed_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "enum": [
+              "success",
+              "no_results",
+              "failed"
+            ]
+          },
+          "detail": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "minItems": 1
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "$ref": "event.schema.json"
+      }
+    },
+    "signals": {
+      "type": "array",
+      "items": {
+        "$ref": "signal.schema.json"
+      }
+    },
+    "clusters": {
+      "type": "array",
+      "items": {
+        "$ref": "cluster.schema.json"
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "evidence_id",
+          "variable",
+          "relationship",
+          "rationale"
+        ],
+        "properties": {
+          "evidence_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "variable": {
+            "type": "string",
+            "minLength": 1
+          },
+          "relationship": {
+            "enum": [
+              "support",
+              "counter_evidence",
+              "context"
+            ]
+          },
+          "event_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          },
+          "signal_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          },
+          "rationale": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "anyOf": [
+          {
+            "required": [
+              "event_refs"
+            ],
+            "properties": {
+              "event_refs": {
+                "minItems": 1
+              }
+            }
+          },
+          {
+            "required": [
+              "signal_refs"
+            ],
+            "properties": {
+              "signal_refs": {
+                "minItems": 1
+              }
+            }
+          }
+        ]
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "finding_id",
+          "conclusion",
+          "evidence_refs",
+          "confidence"
+        ],
+        "properties": {
+          "finding_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "conclusion": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "confidence": {
+            "enum": [
+              "high",
+              "medium",
+              "low"
+            ]
+          },
+          "open_questions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "variable",
+          "reason",
+          "next_step"
+        ],
+        "properties": {
+          "variable": {
+            "type": "string",
+            "minLength": 1
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "next_step": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "event_count",
+        "signal_count",
+        "cluster_count",
+        "evidence_count",
+        "finding_count",
+        "gap_count"
+      ],
+      "properties": {
+        "event_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "signal_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "cluster_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "evidence_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "finding_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "gap_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "notes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

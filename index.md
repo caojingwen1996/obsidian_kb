@@ -59,7 +59,7 @@
 - [[concepts/碧树西风-概念-量化|碧树西风-概念-量化]] - 将单点直觉和模糊叙事压回样本总集、时间曲线、变量、反馈和可测试行动的上位方法
 - [[concepts/量化交易|量化交易]] - 量化思维在金融交易中的应用，关注信号、算法、回测、执行、成本、容量和失效风险
 - [[concepts/冰冰小美-汇率、长期利率与流动性|汇率、长期利率与流动性]] - 用汇率、长期利率与流动性这一组价格信号判断宏观环境是否真正切换
-- [[冰冰小美-indicator-金融信息（todo)|金融信息]] - 判断一条信息是否影响钱的数量、价格、流向、风险偏好和资源配置，是冰冰小美“信息的金融意义”体系的信息分类入口
+- [[冰冰小美-indicator-金融信息（todo)|金融信息]] - 判断一条信息是否影响钱的数量、价格、流向、风险偏好和资源配置，是冰冰小美“信息的金融意义”体系的信息分类入口；信源章节按T1官方一手发布、T1.5官方账号、T2博主与媒体整理入口及核验规则，含中美短端利率、期货预期、国债曲线与融资利率数据入口
 - [[冰冰小美-macro-国运|冰冰小美-macro-国运]] - 汇集直接讨论国运、国情、货币信用、产业发展及国运投资应用的原始资料，概念内容待提炼
 - [[concepts/冰冰小美-债务、分配与增长约束|债务、分配与增长约束]] - 用债务累积、分配结构与旧路径上限理解增长为何会受约束
 - [[concepts/冰冰小美-framework-底线思维|冰冰小美-framework-底线思维]] - 在买入前先推演最坏情形、时间成本、改善高度和自身承受力，把长期看好压回可承受执行结构
@@ -153,7 +153,7 @@
 - [[冰冰小美-风险来源与传导路径|冰冰小美-风险来源与传到]] - 按宏观、中观、微观组织风险来源；宏观八类风险源融合核心问题、扫描指标、章节入口与二级市场风险维度
 - [[topics/冰冰小美-中国股市看法|冰冰小美-中国股市看法]] - 聚合冰冰小美关于中国股市和 A 股的长期看法，组织国情国运、中央加杠杆、结构性牛市、指数慢牛、个股分化、ETF承接、投机产业链和仓位风控
 - [[wiki/topics/冰冰小美-风险体系|冰冰小美-风险体系]] - 聚合冰冰小美关于风险节点、历史危机、波动风险、流动性挤压、仓位控制和风险转弱观察的文章地图
-- [[topics/冰冰小美-投机|冰冰小美-投机]] - 按投机对象、短线窗口、标的承接、仓位买卖和风险复盘组织概念、方法与原文入口
+- [[topics/冰冰小美-投机|冰冰小美-投机]] - 基于五篇核心原文，按交易性质、投机对象、三要素、热点传播、参与选择与风险复盘组织理解框架，并连接概念、执行方法和原文入口
 - [[冰冰小美-情绪体系交易篇|冰冰小美-情绪体系交易篇]] - 聚合冰冰小美情绪体系交易系列中的分仓、借势、等待、情绪周期、情绪冰点、冰点转势、亏钱效应和买卖纪律
 - [[冰冰小美-情绪体系认知篇|冰冰小美-体系三要素]] - 聚合冰冰小美关于竞争格局、流动性辩证分析、情绪位置变化，以及三要素如何落到看盘判断、执行规则和风险复盘的相关页面；来源补充4篇正文明确提到“宏观决定仓位”的原帖
 - [[topics/冰冰小美-选股体系|冰冰小美-选股体系]] - 聚合冰冰小美关于长线选股、短线体系边界、等待空仓、反平庸交易和投资边界的相关概念与来源
@@ -476,23 +476,26 @@
 
 - [[wiki/agents/冰冰小美Agent|冰冰小美 Agent 编排]]：统一入口下的信息处理、风险识别与风险演绎观察调用规则，含模型交接、增量跟踪和结束条件；专家入口与风险技能已同步。
 
-- [通用 HTML 报告输出](.agents/skills/bbxm-html-report/SKILL.md)：冰冰小美 Agent 分析完成后的统一阅读版输出，保留完整业务模板并校验图表与脚本；[变更日志](.agents/skills/bbxm-html-report/log.md)。
+- [通用 HTML 报告输出](.agents/skills/bbxm-html-report/SKILL.md)：冰冰小美 Agent 分析完成后的统一阅读版输出，结论先行、正文聚焦、明细可展开，保留完整业务模板并校验图表与脚本；[变更日志](.agents/skills/bbxm-html-report/log.md)。
 
 - [技能维护规则](AGENTS.md#skill-变更日志)：每个项目技能在自身目录维护 log.md。
 - [个股估值计算变更日志](.agents/skills/bbxm-equity-research/log.md)：其他技能的日志同样位于 .agents/skills/<技能目录>/log.md。
 
 - [westock-data 数据查询](.agents/skills/westock-data/SKILL.md)：项目内 A 股、港股、美股行情及财务等数据查询工具；[变更日志](.agents/skills/westock-data/log.md)。
 
-- [信息处理技能](.agents/skills/bbxm-information-processing/SKILL.md)：基于 [[wiki/concepts/冰冰小美-framework-信息的金融处理|信息的金融处理]]，以 feed 完成 Event → Signal → Cluster → Theme 归纳，输出 InformationProcessingResult、总结与 Core Findings；monitor / target 待实现；[变更日志](.agents/skills/bbxm-information-processing/log.md)。
+- [信息处理技能](.agents/skills/bbxm-information-processing/SKILL.md)：基于 [[wiki/concepts/冰冰小美-framework-信息的金融处理|信息的金融处理]]，以 feed 完成 Event → Signal → Cluster → Theme 归纳，输出 InformationProcessingResult、总结与 Core Findings，references方法文档已中文化；[theme工作流](.agents/skills/bbxm-information-processing/workflows/theme-workflow.md)已接入：围绕已知主题主动搜集事件和数据，整理支持证据、反证与缺口，输出 ThemeProcessingResult；[阅读版规范](.agents/skills/bbxm-information-processing/SKILL.md#theme-阅读版输出规范)集中在SKILL.md，结论先行、按问题组织正文与明细附录；复用 Event / Signal / Cluster 定义；[变更日志](.agents/skills/bbxm-information-processing/log.md)。
 
 - [Archify 风险传导路径图](.agents/skills/archify/SKILL.md)：将有来源的风险主链、分支与反馈关系绘制为交互式 HTML；[技能变更日志](.agents/skills/archify/log.md)。
 
 - [风险产物定位表](tools/a-share-market-dashboard/data/Risk/risk-records.md)：风险识别与演绎观察默认以 HTML 阅读版交付，保留完整 Markdown 模型、逐轮记录及上游证据。
   - [[tools/a-share-market-dashboard/data/Risk/models/INTC-AI-EXPECTATION-REALIZATION-v1|英特尔AI合作叙事的预期兑现落差]]：[完整HTML阅读版](tools/a-share-market-dashboard/data/Risk/models/INTC-AI-EXPECTATION-REALIZATION-v1.html)；2026-09-23首次识别为候选，订单、收益归属及定价证据待验证。
-- [风险识别技能](.agents/skills/bbxm-risk-identification/SKILL.md)：承接 InformationProcessingResult，按五步输出 Risk Model（类型、表现、来源、关键变量、传导关系），共享交接契约并独立维护工作流；[变更日志](.agents/skills/bbxm-risk-identification/log.md)。
+- [风险识别技能](.agents/skills/bbxm-risk-identification/SKILL.md)：承接feed或theme结果，风险表现逐项调用信息处理theme搜集事件、数据和反证，校验后回填证据与缺口，按五步输出 Risk Model；[输出模板](.agents/skills/bbxm-risk-identification/template.md)以结论和五项风险要素为正文，风险来源沿用知识库分类与定义，突出核心变量、传导条件与反证；内部编号、运行统计与基准登记置于附录；[变更日志](.agents/skills/bbxm-risk-identification/log.md)。 风险传导正文使用主链图，逐环节证据表放入附录。
 - [风险演绎观察技能](.agents/skills/bbxm-risk-evolution-monitoring/SKILL.md)：承接 Risk Model、本轮信息结果与历史记录，按四步观察方向、持续性及模型有效性，保留基准并按需重识别；[变更日志](.agents/skills/bbxm-risk-evolution-monitoring/log.md)。
 
 - [信息处理输出：伊朗总统赴联合国参会](outputs/information-processing/2026-09-23-iran-us/summary.md)：重复材料复核，1条既有待核事件、0条新增信号；[标准JSON](outputs/information-processing/2026-09-23-iran-us/result.json)。业务输出不计入正式Wiki页面数。
+- [信息处理输出：AI企业与美国政府资本竞争](outputs/information-processing/2026-09-28-us-ai-capital/summary.md)：5项来源事件条目、2项事实信号、1个候选主题；校正增长率与统计窗口，保留公共私人融资竞争的证据缺口；[标准JSON](outputs/information-processing/2026-09-28-us-ai-capital/result.json)。
+- [[workbench/targets/AI发债扩张-主题信息处理|AI发债扩张主题搜集]]：2026-09-28主题研究；阅读版按发行规模、市场承接、证据边界与后续观察组织；[HTML阅读版](sources/automations/temp/AI发债扩张-主题信息处理.html)、[[workbench/targets/AI发债扩张-主题信息处理.json|结构化结果]]。业务输出不计入正式Wiki页面数。
+- [AI融资需求与债市吸收能力候选风险模型](tools/a-share-market-dashboard/data/Risk/models/US-AI-DEBT-ABSORPTION-v1.html)：2026-09-28首次识别，已按新版模板重排，含风险传导、关键变量和证据覆盖三张图；政府挤出、融资受限与现金流损害待验证；[完整Markdown](tools/a-share-market-dashboard/data/Risk/models/US-AI-DEBT-ABSORPTION-v1.md)。HTML静态检查通过，浏览器视觉验收未完成。
 
 ## 看板维护
 

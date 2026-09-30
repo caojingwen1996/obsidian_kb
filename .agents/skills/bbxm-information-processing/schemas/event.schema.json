@@ -326,5 +326,6 @@
         }
       }
     }
-  }
+  },
+  "description": "A factual Event extracted from the current feed run. Event extraction and optional Event Analysis operate on current-run evidence and do not require historical storage."
 }

@@ -2,6 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "theme.schema.json",
   "title": "Theme",
+  "description": "A higher-level question or explanatory structure synthesized from multiple Clusters in the current feed run. It has no cross-run lifecycle state.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -11,8 +12,7 @@
     "summary",
     "cluster_refs",
     "core_variables",
-    "current_direction",
-    "status",
+    "explanatory_compression",
     "confidence"
   ],
   "properties": {
@@ -34,17 +34,20 @@
     },
     "cluster_refs": {
       "type": "array",
-      "minItems": 1,
+      "minItems": 2,
+      "uniqueItems": true,
       "items": {
-        "type": "string"
+        "type": "string",
+        "minLength": 1
       }
     },
     "core_variables": {
       "type": "array",
+      "uniqueItems": true,
       "items": {
-        "type": "string"
-      },
-      "uniqueItems": true
+        "type": "string",
+        "minLength": 1
+      }
     },
     "common_driver": {
       "type": [
@@ -55,29 +58,28 @@
     "transmission_structure": {
       "type": "array",
       "items": {
-        "type": "string"
+        "type": "string",
+        "minLength": 1
       }
     },
-    "current_direction": {
-      "type": "string",
-      "enum": [
-        "strengthening",
-        "weakening",
-        "stable",
-        "reversing",
-        "mixed",
-        "uncertain"
-      ]
+    "directional_relationships": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "reinforce",
+          "offset",
+          "conflict",
+          "reframe",
+          "mixed"
+        ]
+      }
     },
-    "status": {
+    "explanatory_compression": {
       "type": "string",
-      "enum": [
-        "emerging",
-        "forming",
-        "established",
-        "weakening",
-        "uncertain"
-      ]
+      "minLength": 1,
+      "description": "Why the higher-level Theme explains the supporting Clusters more clearly than keeping them separate."
     },
     "evidence_state": {
       "type": [
@@ -88,7 +90,7 @@
       "properties": {
         "supporting_cluster_count": {
           "type": "integer",
-          "minimum": 0
+          "minimum": 2
         },
         "source_diversity": {
           "type": [
@@ -99,12 +101,6 @@
         "cross_market_confirmation": {
           "type": [
             "boolean",
-            "null"
-          ]
-        },
-        "time_persistence": {
-          "type": [
-            "string",
             "null"
           ]
         },
@@ -119,6 +115,18 @@
           "items": {
             "type": "string"
           }
+        },
+        "inference_depth": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            null
+          ]
         }
       }
     },

@@ -1,420 +1,428 @@
-# Theme Synthesis Reference
+# 主题归纳参考（Theme Synthesis）
 
-## 1. Purpose
+## 1. 目的
 
-Define how multiple Clusters are synthesized into higher-level Themes.
+定义如何将**当前 feed 运行**中的多个 Cluster 归纳为更高层次的 Theme。
 
-A **Theme** is a persistent core question or explanatory structure synthesized from multiple related Clusters.
+**Theme** 是由本次运行中多个相关 Cluster 支持的、更高层次的核心问题或解释结构。
 
-It describes the higher-level issue that those event processes collectively point toward.
+主题归纳是无状态的，不跨轮次检索、更新、合并或跟踪 Theme。
 
-The formal object structure is defined in:
+正式对象结构定义见：
 
 `schemas/theme.schema.json`
 
 ---
 
-## 2. Core Model
+## 2. 核心模型
 
 ```text
-Clusters
-    ↓
-Find common variables
-    ↓
-Find common drivers
-    ↓
-Find shared transmission structure
-    ↓
-Identify common core question
-    ↓
-Evaluate explanatory compression
-    ↓
-Theme Candidate
-    ↓
-Additional Cluster support
-    ↓
-Theme
+当前 feed 中的 Cluster
+        ↓
+寻找共同变量
+        ↓
+寻找共同驱动因素
+        ↓
+寻找共同传导结构
+        ↓
+识别共同核心问题
+        ↓
+评估解释性压缩
+        ↓
+   ┌────┴────┐
+   ↓         ↓
+Theme    保持各Cluster独立
 ```
 
-Core question:
+核心问题：
 
-> What higher-level issue are these Clusters collectively describing?
+> 当前 feed 中这些 Cluster 共同描述了什么更高层次的问题？
 
 ---
 
-## 3. Theme Definition
+## 3. 无状态边界
 
-Theme moves beyond a single event process.
+主题归纳只能比较本次运行创建的 Cluster。
 
-Conceptually:
+不得要求使用：
+
+```text
+历史 Theme
+历史 Cluster
+跨轮次 Theme 匹配
+跨轮次 Theme 更新 / 合并
+Theme 生命周期状态
+历史持续性跟踪
+```
+
+如果当前 feed 已明确包含历史上下文，可以将其保留为证据；工作流不从记忆中检索这些上下文。
+
+---
+
+## 4. Theme 的定义
+
+Theme 超越单一事件过程。
+
+概念上：
 
 ```text
 Event
-= single fact
+= 单一事实
 
 Signal
-= variable change
+= 变量变化
 
 Cluster
-= event process
+= 当前 feed 内的相关变化结构
 
 Theme
-= persistent core question / explanatory structure
+= 跨Cluster的更高层次问题 / 解释结构
 ```
 
-Theme should be able to absorb multiple independent Clusters over time.
+只有当前 feed 中的多个 Cluster 能支持有用的更高层次抽象时，才形成 Theme。
 
 ---
 
-## 4. Theme Formation Dimensions
+## 5. 主题形成的判断维度
 
-Evaluate whether multiple Clusters share a higher-level structure using the following dimensions.
+从以下维度评估当前 feed 中的多个 Cluster 是否具有共同的更高层次结构。
 
-### 4.1 Common Question
+### 5.1 共同问题
 
-Ask:
+询问：
 
-> Are these Clusters repeatedly answering the same higher-level question?
+> 这些 Cluster 是否在回答同一个更高层次问题的不同部分？
 
-This is the strongest Theme criterion.
+这是最重要的 Theme 判断标准。
 
-Example:
+示例：
 
 ```text
-Can high interest rates continue to constrain AI-driven growth assets?
+高融资成本与AI驱动的扩张如何相互作用？
 ```
 
 ---
 
-### 4.2 Common Variables
+### 5.2 共同变量
 
-Ask:
+询问：
 
-> Do these Clusters repeatedly involve the same core variables?
+> 这些 Cluster 是否涉及相互重叠的核心变量？
 
-Example:
+示例：
 
 ```text
-energy
-inflation
-long-term rates
-growth valuation
+能源
+通胀
+长期利率
+成长资产估值
 ```
 
 ---
 
-### 4.3 Common Driver
+### 5.3 共同驱动因素
 
-Ask:
+询问：
 
-> Do the Clusters share a common underlying driver?
+> 这些 Cluster 是否具有由本次运行证据支持的共同底层驱动因素？
 
-Examples:
+示例：
 
 ```text
-energy shock
-monetary policy
-AI capital expenditure cycle
-credit tightening
+能源冲击
+货币政策
+AI资本开支周期
+信用收紧
 ```
 
 ---
 
-### 4.4 Shared Transmission Structure
+### 5.4 共同传导结构
 
-Ask:
+询问：
 
-> Can the Clusters be connected through one coherent transmission structure?
+> 这些 Cluster 能否通过一条连贯的传导结构连接起来？
 
-Example:
+示例：
 
 ```text
-energy
-→ inflation
-→ rates
-→ valuation
+能源
+→ 通胀
+→ 利率
+→ 估值
 ```
+
+各环节的联系必须有证据支持，或明确标记为推断。
 
 ---
 
-### 4.5 Directional Relationship
+### 5.5 方向关系
 
-Clusters may:
+在当前 feed 中，Cluster 之间可能存在：
 
 ```text
 reinforce
-weaken
-reverse
+offset
+conflict
 reframe
 ```
 
-the same Theme.
+即相互强化、抵消、冲突，或重新界定问题。
 
-They do not need to move in one direction forever.
-
-A reversal may be especially informative.
+方向关系描述当前证据集合中，支撑 Theme 的 Cluster 如何相互作用。
 
 ---
 
-### 4.6 Explanatory Compression
+### 5.6 解释性压缩
 
-Ask:
+询问：
 
-> Can one higher-level question explain several otherwise separate Clusters?
+> 能否用一个更高层次的问题，更清楚地解释多个原本独立的 Cluster？
 
-A useful Theme should reduce complexity without hiding important differences.
+有用的 Theme 应降低复杂度，同时不掩盖重要差异。
 
 ---
 
-## 5. Theme Candidate
-
-Create a Theme Candidate when a common higher-level structure is visible but evidence is still incomplete.
-
-Suggested states:
+## 6. 主题形成逻辑
 
 ```text
-emerging
-forming
-established
-weakening
-uncertain
+INPUT current_feed_clusters
+
+candidate_groups = DetectHigherLevelRelationships(current_feed_clusters)
+
+FOR group IN candidate_groups:
+
+    IF 多个 Cluster 具有明确的共同核心问题
+       AND 关系有证据支持
+       AND 归纳有助于解释性压缩:
+
+        创建 Theme
+
+    ELSE:
+        保持各Cluster独立
 ```
 
-A Theme Candidate is appropriate when:
+不要仅因为多个 Cluster 出现在同一份 feed 中，就创建 Theme。
 
-- only a small number of Clusters support it;
-- common question is plausible but still broad;
-- cross-market confirmation is limited;
-- persistence has not yet been established.
+不要为 Theme 创建跨时间持续状态或生命周期状态。
 
 ---
 
-## 6. Theme Naming
+## 7. 主题命名
 
-Theme names should describe a persistent issue or explanatory structure.
+Theme 名称应描述当前 feed 中可见的更高层次问题或解释结构。
 
-Preferred:
-
-```text
-High-rate pressure on growth assets
-AI expansion sustainability under high funding costs
-Energy-driven inflation pressure
-Credit tightening and demand slowdown
-```
-
-Avoid:
+推荐：
 
 ```text
-Bullish
-Bearish
-Good news
-Bad news
-Market risk
+高融资成本对AI扩张的压力
+AI基础设施扩张与融资需求
+能源驱动的通胀压力
+信用收紧与需求放缓
 ```
 
-Theme naming should remain descriptive.
+避免：
+
+```text
+看多
+看空
+利好
+利空
+市场风险
+```
+
+Theme 命名应保持描述性。
 
 ---
 
-## 7. Core Question
+## 8. 核心问题
 
-Every Theme SHOULD contain one explicit `core_question`.
+每个 Theme 应包含一个明确的 `core_question`。
 
-Examples:
+示例：
 
 ```text
-Will high rates continue to constrain growth-asset valuations?
+高融资成本正在如何影响成长资产估值？
 
-Can AI demand remain strong enough to justify continued CapEx expansion?
+AI需求能否支撑当前资本开支扩张速度？
 
-Is energy inflation pressure becoming persistent enough to alter the rate path?
+能源压力是否已足够广泛，能够改变利率预期？
 ```
 
-The core question gives the Theme a stable organizing center.
+核心问题为本次主题归纳提供稳定的组织中心。
 
 ---
 
-## 8. Supporting Clusters
+## 9. 支撑主题的 Cluster
 
-Theme should reference the Clusters that support it.
+Theme 应引用支撑它的 Cluster。
 
-Example:
+示例：
 
 ```text
-Cluster A:
-FOMC repricing
+Cluster A：
+AI资本开支扩张
 
-Cluster B:
-10Y breaks above 5%
+Cluster B：
+大型科技公司的债务融资
 
-Cluster C:
-Energy prices lift inflation expectations
+Cluster C：
+数据中心电力需求
 
 ↓
-Theme:
-High-rate pressure on growth assets
+Theme：
+AI基础设施扩张及其融资与资源需求
 ```
 
-A Theme should not be created from one isolated Cluster unless explicitly marked as `emerging`.
+Theme 通常需要多个独立 Cluster。
+
+单个孤立 Cluster 应继续保留为 Cluster。
 
 ---
 
-## 9. Transmission Structure
+## 10. 传导结构
 
-When relevant, Theme may summarize the higher-level transmission structure connecting Clusters.
+存在相关联系时，Theme 可以概括连接各 Cluster 的更高层次传导结构。
 
-Example:
+示例：
 
 ```text
-energy pressure
-→ inflation expectation
-→ long-term rates
-→ growth valuation
+AI基础设施扩张
+→ 融资需求
+→ 电力需求
+→ 资源需求
 ```
 
-The structure should remain evidence-backed.
+该结构应能够追溯到支撑它的 Cluster。
 
 ---
 
-## 10. Direction
+## 11. 证据状态
 
-Theme direction describes how the higher-level issue is evolving.
-
-Suggested values:
+Theme 的证据状态可以概括本次运行的支持情况：
 
 ```text
-strengthening
-weakening
-stable
-reversing
-mixed
-uncertain
+支撑Cluster的数量
+来源多样性
+当前feed内的跨市场确认
+方向一致性
+相互矛盾的证据
+推断深度
 ```
 
-Direction should be inferred from supporting Clusters.
+Theme 的置信度不能只依据 Cluster 数量判断。
+
+不要把历史持续性作为必需条件。
 
 ---
 
-## 11. Evidence State
+## 12. 不确定性与待回答问题
 
-Theme evidence state may summarize:
+Theme 应保留尚未解决的问题。
 
-```text
-number of supporting Clusters
-source diversity
-cross-market confirmation
-time persistence
-directional consistency
-contradictory evidence
-```
-
-Theme confidence should not be based solely on Cluster count.
-
----
-
-## 12. Uncertainty and Open Questions
-
-Theme should preserve unresolved issues.
-
-Examples:
+示例：
 
 ```text
-Is the decline in oil prices persistent?
+融资增长反映的是暂时性的发行时点安排，还是更广泛的资金需求？
 
-Will lower yields survive the next inflation release?
+AI资本开支增长是否足够快地转化为收入？
 
-Is AI CapEx growth translating into revenue quickly enough?
+能源约束是否已足以影响部署速度？
 ```
 
-Use:
+使用：
 
 ```text
 uncertainties[]
 open_questions[]
 ```
 
-to keep the Theme falsifiable and trackable.
+这些字段保留当前证据的限制。
 
 ---
 
-## 13. Theme Merge Rules
+## 13. 本次运行内的 Theme 边界
 
-Merge Theme A and Theme B when:
+同一次运行中，如果两个候选 Theme 结构重叠，只有满足以下条件时才合并：
 
-- they share the same core question;
-- they share the same core variables;
-- they form adjacent parts of one transmission structure;
-- one is clearly a sub-theme of the other;
-- merging improves explanatory clarity.
+- 具有相同核心问题；
+- 具有相同核心变量；
+- 是同一传导结构中相邻的部分；
+- 合并后能够使解释更清楚。
 
-Keep Themes separate when:
+以下情况应保持独立：
 
-- drivers are materially different;
-- scopes are materially different;
-- common question becomes too broad;
-- the relationship is weak or speculative.
+- 驱动因素存在实质差异；
+- 作用范围存在实质差异；
+- 共同问题变得过于宽泛；
+- 关系较弱或依赖推测。
+
+这只是本次运行内的归纳决策，不合并已存储的 Theme。
 
 ---
 
-## 14. Theme Boundary
+## 14. Theme 的职责边界
 
-Theme may describe:
+Theme 可以描述：
 
 ```text
-persistent core question
-higher-level explanatory structure
-shared variables
-shared drivers
-shared transmission structure
-current direction
-uncertainty
+更高层次的核心问题
+更高层次的解释结构
+共同变量
+共同驱动因素
+共同传导结构
+支撑Cluster之间的关系
+不确定性
 ```
 
-Theme should not decide:
+Theme 不应决定：
 
 ```text
-portfolio allocation
-trade execution
-asset recommendation
-risk score
-valuation conclusion
+组合配置
+交易执行
+资产推荐
+风险评分
+估值结论
+没有所提供证据支持的历史持续性
 ```
 
-Those belong to downstream expert analysis.
+这些属于下游专家分析或未来的时间演化分析能力。
 
 ---
 
-## 15. Quality Check
+## 15. 质量检查
 
-Before accepting a Theme, verify:
+接受一个 Theme 前，检查：
 
-- Do multiple Clusters support it?
-- Is there a clear core question?
-- Are common variables identifiable?
-- Is the common driver evidence-backed?
-- Is the transmission structure coherent?
-- Does the Theme compress information meaningfully?
-- Is it persistent enough to outlive one Event?
-- Are contradictions preserved?
-- Are open questions explicit?
-- Can every claim be traced back to Clusters?
+- 是否有多个来自当前 feed 的 Cluster 支撑？
+- 是否具有明确的核心问题？
+- 共同变量是否可识别？
+- 共同驱动因素是否有证据支持？
+- 传导结构是否连贯？
+- Theme 是否有意义地压缩了信息？
+- 是否保留了矛盾？
+- 待回答问题是否明确？
+- 每项主张能否追溯到本次运行的 Cluster？
+- Theme 是否避免依赖历史存储？
 
 ---
 
-## 16. Output Principle
+## 16. 输出原则
 
-A good Theme answers:
+好的 Theme 回答：
 
-> What persistent higher-level question do these event processes collectively describe?
+> 当前 feed 中这些 Cluster 共同描述了什么更高层次的问题或解释结构？
 
-Conceptually:
+概念流程：
 
 ```text
-Clusters
+Cluster
     ↓
-Common Structure
+共同结构
     ↓
-Core Question
+核心问题
+    ↓
+解释性压缩
     ↓
 Theme
 ```

@@ -1,0 +1,23 @@
+{
+  "title": "Goldman Sachs：How AI Debt Is Reshaping Credit Markets",
+  "url": "https://www.goldmansachs.com/insights/goldman-sachs-exchanges/how-ai-debt-is-reshaping-the-credit-market",
+  "publisher": "Goldman Sachs",
+  "published": "2026-08-05",
+  "type": "机构访谈原始转录；录制于2026-08-03",
+  "quote": "These companies, the group of hyperscalers, issued $108 billion of debt globally in 2025.",
+  "data": {
+    "2025_global_hyperscaler_debt_usd_bn": 108,
+    "2026_ytd_global_hyperscaler_debt_usd_bn": 194,
+    "ytd_exact_cutoff": null,
+    "Q1_insurance_clients_with_orders_over_50m_in_30y_tranche_approx": 15,
+    "Q2_end_relative_client_count_approx": "half of Q1",
+    "earlier_new_issue_concession_bp": [
+      2,
+      3
+    ],
+    "one_large_deal_new_issue_concession_bp": 20
+  },
+  "locator": "访谈中发行规模、保险客户订单与 new issue concessions 段落；统计不等于上半年同比。",
+  "retrieved_at": "2026-09-28T10:21:20Z",
+  "local_path": "sources/webpages/2026-09-28-ai-debt-theme/gs-source-data.json"
+}

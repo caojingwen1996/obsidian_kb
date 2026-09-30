@@ -2,9 +2,11 @@
 
 ## 1. Purpose
 
-`feed` 模式用于处理用户已经提供的文章、晨报、研报、新闻摘要或其他混合信息。
+`feed` mode processes articles, morning briefs, research reports, news summaries, or other mixed information supplied by the user.
 
-该模式以用户提供的信息为主要处理范围，负责将原始信息加工为结构化的：
+The mode is **stateless at the workflow level**. Each run analyzes only the current `FeedContent` and does not retrieve, compare, merge, or update objects from previous runs.
+
+Its responsibility is to transform the current input into structured information:
 
 ```text
 Event
@@ -15,6 +17,8 @@ Event
 → InformationProcessingResult
 ```
 
+Historical storage, cross-run memory, longitudinal tracking, and temporal comparison are outside this workflow.
+
 ---
 
 ## 2. Entry Conditions
@@ -24,7 +28,7 @@ mode = feed
 input = FeedContent
 ```
 
-输入可以包括：
+Input may include:
 
 ```text
 text
@@ -34,13 +38,40 @@ news summary
 mixed information
 ```
 
-`feed` 模式默认不主动扩展为全市场扫描。
+`feed` mode uses the supplied content as its primary processing scope.
 
-只有在关键事实缺失、存在明显冲突、时间或数值存在歧义，或缺少必要上下文时，才进行必要的回源补充或核验。
+It does not actively expand into a full-market scan.
+
+Necessary source verification may be performed only when a key fact is missing, conflicting, ambiguous in time or value, or lacks required context. Such verification supports the current run and does not create historical memory.
 
 ---
 
-## 3. Main Workflow
+## 3. Stateless Boundary
+
+The workflow may use only information available to the current run:
+
+```text
+current FeedContent
++ source-backed context required to interpret it
+```
+
+The workflow must not require:
+
+```text
+historical Signal store
+historical Cluster store
+historical Theme store
+cross-run object matching
+cross-run state updates
+longitudinal persistence tracking
+memory retrieval
+```
+
+Any future historical-memory capability should be implemented outside this workflow and consume `InformationProcessingResult` as an input.
+
+---
+
+## 4. Main Workflow
 
 ```text
 INPUT FeedContent
@@ -56,14 +87,9 @@ FOR event IN events:
 
 signals = ExtractSignals(events)
 
-clusters = BuildClusters(
-    events,
-    signals
-)
+clusters = BuildClusters(signals)
 
-themes = SynthesizeThemes(
-    clusters
-)
+themes = SynthesizeThemes(clusters)
 
 core_findings = GenerateCoreFindings(
     events,
@@ -72,18 +98,12 @@ core_findings = GenerateCoreFindings(
     themes
 )
 
-risk_handoffs = EvaluateRiskIdentificationHandoff(
-    themes,
-    core_findings
-)
-
 result = BuildInformationProcessingResult(
     events,
     signals,
     clusters,
     themes,
-    core_findings,
-    risk_handoffs
+    core_findings
 )
 
 RETURN result
@@ -91,7 +111,7 @@ RETURN result
 
 ---
 
-## 4. Input Normalization
+## 5. Input Normalization
 
 ```text
 NormalizeInput()
@@ -100,15 +120,17 @@ NormalizeInput()
     normalize entity names
     normalize units
     preserve source information
-    remove obvious duplicate fragments
+    remove obvious duplicate fragments within current input
     preserve original context
 ```
 
-Do not remove information that may be required for source traceability.
+Do not remove information required for source traceability.
+
+Deduplication is limited to the current input.
 
 ---
 
-## 5. Event Extraction
+## 6. Event Extraction
 
 ```text
 events = ExtractEvents(content)
@@ -126,7 +148,7 @@ ELSE:
     preserve as context / fragment
 ```
 
-Apply Event split and merge rules as required.
+Apply Event split and merge rules within the current feed as required.
 
 Methodology:
 
@@ -142,7 +164,7 @@ schemas/event.schema.json
 
 ---
 
-## 6. Event Analysis
+## 7. Event Analysis
 
 Event Analysis is optional.
 
@@ -150,7 +172,7 @@ Event Analysis is optional.
 FOR event IN events:
 
     IF event is a key turning point
-       AND pre-event expectation can be identified
+       AND pre-event expectation can be identified from current-run evidence
        AND post-event reaction / repricing is observable:
 
         RunEventAnalysis(event)
@@ -178,7 +200,7 @@ references/event-extraction.md
 
 ---
 
-## 7. Signal Extraction
+## 8. Signal Extraction
 
 ```text
 signals = ExtractSignals(events)
@@ -202,10 +224,12 @@ Signal extraction should identify:
 variable
 direction
 magnitude
-novelty
-persistence
 scope
+evidence_type
+observation_time
 ```
+
+Signal extraction does not classify a Signal by historical novelty or persistence.
 
 Methodology:
 
@@ -221,40 +245,53 @@ schemas/signal.schema.json
 
 ---
 
-## 8. Cluster Formation
+## 9. Cluster Formation
 
 ```text
-clusters = BuildClusters(events, signals)
+clusters = BuildClusters(signals)
 ```
 
-For each Event / Signal:
+Cluster formation compares Signals produced in the **current feed only**.
+
+Primary questions:
 
 ```text
-compare with existing Clusters
-
-check:
-    same_variable?
-    same_direction?
-    same_driver?
-    same_subject?
-    same_time_window?
-    transmission_link?
-
-IF meaningful relationship exists:
-    add to matching Cluster
-
-ELSE:
-    create weak Cluster
+same_problem?
+common_driver?
+shared_transmission_structure?
+explanatory_compression?
 ```
 
-For each Cluster:
+Supporting checks may include:
+
+```text
+same_variable?
+same_direction?
+same_subject?
+same_time_window?
+```
+
+Decision logic:
+
+```text
+FOR related Signal groups in current feed:
+
+    IF multiple Signals form a coherent explanatory structure:
+        create Cluster
+
+    ELSE:
+        keep Signals isolated
+```
+
+Do not query or compare against Clusters from previous runs.
+
+For each accepted Cluster:
 
 ```text
 build Structure View
-build Timeline View
-evaluate strength
+build Timeline View when timestamps support it
+evaluate current-run evidence strength
 evaluate confidence
-update status
 ```
 
 Methodology:
@@ -271,13 +308,13 @@ schemas/cluster.schema.json
 
 ---
 
-## 9. Theme Synthesis
+## 10. Theme Synthesis
 
 ```text
 themes = SynthesizeThemes(clusters)
 ```
 
-Compare Clusters and evaluate:
+Compare Clusters created in the current run and evaluate:
 
 ```text
 common_question?
@@ -288,17 +325,20 @@ directional_relationship?
 explanatory_compression?
 ```
 
-If a persistent higher-level structure is visible:
+If multiple Clusters support a meaningful higher-level structure:
 
 ```text
-create or update Theme
+create Theme
 ```
 
-If evidence remains incomplete:
+If evidence is insufficient:
 
 ```text
-keep as emerging / forming Theme
+do not create Theme
+preserve Clusters independently
 ```
+
+Theme creation does not depend on historical persistence or previous Theme state.
 
 Methodology:
 
@@ -314,13 +354,13 @@ schemas/theme.schema.json
 
 ---
 
-## 10. Core Findings
+## 11. Core Findings
 
 ```text
 core_findings = GenerateCoreFindings(...)
 ```
 
-Select the information conclusions most worth retaining from this run.
+Select the information conclusions most worth retaining from the current run.
 
 Each Core Finding should be traceable to supporting:
 
@@ -331,7 +371,9 @@ Cluster
 Theme
 ```
 
-Core Findings should remain at the information synthesis layer.
+A Core Finding may also be supported directly by strong Signals or Clusters when no Theme is formed.
+
+Core Findings remain at the information-synthesis layer.
 
 Do not generate:
 
@@ -340,30 +382,8 @@ risk score
 investment recommendation
 trade direction
 valuation conclusion
+historical trend conclusion without current-run evidence
 ```
-
----
-
-## 11. Risk Identification Handoff
-
-```text
-risk_handoffs = EvaluateRiskIdentificationHandoff(
-    themes,
-    core_findings
-)
-```
-
-Generate a handoff candidate when a Theme or Core Finding has enough structure to justify downstream risk identification.
-
-The handoff only indicates:
-
-```text
-whether the object is ready for risk-identification processing
-why
-which Clusters support it
-```
-
-Risk identification itself is outside this workflow.
 
 ---
 
@@ -384,12 +404,14 @@ The result may contain:
 ```text
 summary
 core_findings
-risk_identification_handoff
 events[]
 signals[]
 clusters[]
 themes[]
+isolated_signals[]
 ```
+
+All objects belong to the current run.
 
 ---
 
@@ -401,12 +423,11 @@ Default presentation for `feed` mode:
 
 ```text
 1. Summary
-   - new Signals
-   - forming Themes
-   - updated existing Themes
+   - key Signals
+   - Clusters formed in this feed
+   - Themes formed in this feed
    - isolated Signals
-   - information insufficient to form a Theme
-   - Risk Identification handoff candidates
+   - information insufficient for higher-level synthesis
 
 2. Core Findings
    - the most important information conclusions from this run
@@ -429,15 +450,45 @@ Optional Event Analysis
     ↓
 Signal Extraction
     ↓
-Cluster Formation
+Current-Feed Signal Clustering
     ↓
-Theme Synthesis
+Current-Feed Theme Synthesis
     ↓
 Core Findings
-    ↓
-Risk Identification Handoff
     ↓
 InformationProcessingResult
     ↓
 Summary + Core Findings
 ```
+
+---
+
+## 15. Design Principle
+
+`feed` mode performs **single-run information compression**.
+
+Conceptually:
+
+```text
+What happened?
+    ↓
+Event
+    ↓
+What changed?
+    ↓
+Signal
+    ↓
+Which changes belong together?
+    ↓
+Cluster
+    ↓
+What higher-level issue do those Clusters describe?
+    ↓
+Theme
+    ↓
+What is worth retaining from this run?
+    ↓
+Core Findings
+```
+
+Historical memory and cross-run temporal analysis can be added later as separate capabilities that consume this workflow's output.

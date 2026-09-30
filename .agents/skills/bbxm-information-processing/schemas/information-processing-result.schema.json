@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "information-processing-result.schema.json",
   "title": "InformationProcessingResult",
-  "description": "Structured output contract for bottom-up feed mode information processing.",
+  "description": "Structured output contract for stateless, bottom-up feed-mode information processing. All objects belong to the current run.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -50,28 +50,27 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "new_event_count",
-        "new_signal_count",
-        "forming_theme_count",
-        "updated_existing_theme_count",
+        "event_count",
+        "signal_count",
+        "cluster_count",
+        "theme_count",
         "isolated_signal_count",
-        "insufficient_for_theme_count",
-        "risk_identification_handoff_count"
+        "insufficient_for_higher_level_synthesis_count"
       ],
       "properties": {
-        "new_event_count": {
+        "event_count": {
           "type": "integer",
           "minimum": 0
         },
-        "new_signal_count": {
+        "signal_count": {
           "type": "integer",
           "minimum": 0
         },
-        "forming_theme_count": {
+        "cluster_count": {
           "type": "integer",
           "minimum": 0
         },
-        "updated_existing_theme_count": {
+        "theme_count": {
           "type": "integer",
           "minimum": 0
         },
@@ -79,93 +78,36 @@
           "type": "integer",
           "minimum": 0
         },
-        "insufficient_for_theme_count": {
+        "insufficient_for_higher_level_synthesis_count": {
           "type": "integer",
           "minimum": 0
         },
-        "risk_identification_handoff_count": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "theme_state_changes": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "new": {
-              "type": "integer",
-              "minimum": 0
-            },
-            "strengthening": {
-              "type": "integer",
-              "minimum": 0
-            },
-            "stable": {
-              "type": "integer",
-              "minimum": 0
-            },
-            "weakening": {
-              "type": "integer",
-              "minimum": 0
-            },
-            "reversing": {
-              "type": "integer",
-              "minimum": 0
-            },
-            "uncertain": {
-              "type": "integer",
-              "minimum": 0
-            }
+        "key_signal_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
           }
         },
-        "forming_theme_refs": {
+        "cluster_refs": {
           "type": "array",
+          "uniqueItems": true,
           "items": {
             "type": "string"
-          },
-          "uniqueItems": true
+          }
         },
-        "updated_existing_theme_refs": {
+        "theme_refs": {
           "type": "array",
+          "uniqueItems": true,
           "items": {
             "type": "string"
-          },
-          "uniqueItems": true
+          }
         },
         "isolated_signal_refs": {
           "type": "array",
+          "uniqueItems": true,
           "items": {
             "type": "string"
-          },
-          "uniqueItems": true
-        },
-        "insufficient_for_theme_refs": {
-          "type": "array",
-          "description": "References to Signals or Clusters that do not yet support a Theme.",
-          "items": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": [
-              "ref_type",
-              "ref_id"
-            ],
-            "properties": {
-              "ref_type": {
-                "type": "string",
-                "enum": [
-                  "signal",
-                  "cluster"
-                ]
-              },
-              "ref_id": {
-                "type": "string"
-              },
-              "reason": {
-                "type": [
-                  "string",
-                  "null"
-                ]
-              }
-            }
           }
         }
       }
@@ -178,7 +120,6 @@
         "required": [
           "finding_id",
           "conclusion",
-          "supporting_cluster_refs",
           "confidence"
         ],
         "properties": {
@@ -189,63 +130,36 @@
           "conclusion": {
             "type": "string",
             "minLength": 1,
-            "description": "The most important information conclusion worth retaining from this run."
+            "description": "The most important information conclusion worth retaining from the current run."
           },
           "supporting_event_refs": {
             "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
             "items": {
               "type": "string"
-            },
-            "uniqueItems": true
+            }
           },
           "supporting_signal_refs": {
             "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
             "items": {
               "type": "string"
-            },
-            "uniqueItems": true
+            }
           },
           "supporting_cluster_refs": {
             "type": "array",
             "minItems": 1,
+            "uniqueItems": true,
             "items": {
               "type": "string"
-            },
-            "uniqueItems": true
+            }
           },
           "theme_ref": {
             "type": [
               "string",
               "null"
-            ]
-          },
-          "theme_status": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "enum": [
-              "emerging",
-              "forming",
-              "established",
-              "weakening",
-              "uncertain",
-              null
-            ]
-          },
-          "current_direction": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "enum": [
-              "strengthening",
-              "weakening",
-              "stable",
-              "reversing",
-              "mixed",
-              "uncertain",
-              null
             ]
           },
           "why_it_matters": {
@@ -268,72 +182,86 @@
               "low"
             ]
           }
-        }
-      }
-    },
-    "risk_identification_handoff": {
-      "type": "array",
-      "description": "Themes or findings mature enough to be considered by the downstream risk-identification skill.",
-      "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "handoff_id",
-          "eligible",
-          "reason"
-        ],
-        "properties": {
-          "handoff_id": {
-            "type": "string"
-          },
-          "theme_ref": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "finding_ref": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "eligible": {
-            "type": "boolean"
-          },
-          "reason": {
-            "type": "string"
-          },
-          "supporting_cluster_refs": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "uniqueItems": true
-          }
         },
         "anyOf": [
+          {
+            "required": [
+              "supporting_event_refs"
+            ]
+          },
+          {
+            "required": [
+              "supporting_signal_refs"
+            ]
+          },
+          {
+            "required": [
+              "supporting_cluster_refs"
+            ]
+          },
           {
             "required": [
               "theme_ref"
             ],
             "properties": {
               "theme_ref": {
-                "type": "string"
-              }
-            }
-          },
-          {
-            "required": [
-              "finding_ref"
-            ],
-            "properties": {
-              "finding_ref": {
-                "type": "string"
+                "type": "string",
+                "minLength": 1
               }
             }
           }
         ]
+      }
+    },
+    "isolated_signals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "signal_ref",
+          "reason"
+        ],
+        "properties": {
+          "signal_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "insufficient_for_higher_level_synthesis": {
+      "type": "array",
+      "description": "Current-run Signals or Clusters that are valid but do not support a higher-level Cluster or Theme synthesis.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "ref_type",
+          "ref_id",
+          "reason"
+        ],
+        "properties": {
+          "ref_type": {
+            "type": "string",
+            "enum": [
+              "signal",
+              "cluster"
+            ]
+          },
+          "ref_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
       }
     },
     "events": {

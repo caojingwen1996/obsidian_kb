@@ -1,0 +1,25 @@
+{
+  "title": "Oracle：截至2026-08-31季度 Form 10-Q",
+  "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+  "publisher": "Oracle / SEC EDGAR",
+  "published": "2026-09-11",
+  "type": "发行人季度监管披露；未经审计",
+  "quote": "Three Months Ended August 31",
+  "data": {
+    "units": "USD million",
+    "period": "2026-06-01/2026-08-31",
+    "operating_cash_flow_2026": 23103,
+    "operating_cash_flow_2025_comparable_quarter": 8140,
+    "capex_2026": 28499,
+    "capex_2025_comparable_quarter": 8502,
+    "free_cash_flow_2026": -5396,
+    "free_cash_flow_2025_comparable_quarter": -362,
+    "customer_prepayments_significant_financing_component_usd_bn": 11.4,
+    "ATM_net_proceeds_2026_quarter": 19909,
+    "cash_equivalents_aug31": 36369,
+    "cash_equivalents_may31": 31289
+  },
+  "locator": "现金流量表、Free cash flow 表、现金变动解释及资产负债表；现金流包含带重大融资成分的客户预付款。",
+  "retrieved_at": "2026-09-28T10:21:20Z",
+  "local_path": "sources/webpages/2026-09-28-ai-debt-theme/orcl-source-data.json"
+}

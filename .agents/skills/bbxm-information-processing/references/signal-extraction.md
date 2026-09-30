@@ -1,100 +1,127 @@
-# Signal Extraction Reference
+# 信号提取参考（Signal Extraction）
 
-## 1. Purpose
+## 1. 目的
 
-Define how standardized Signals are extracted from Events.
+定义如何从当前 feed 运行中的 Event 提取标准化 Signal。
 
-A **Signal** represents a meaningful change in a variable, condition, expectation, behavior, or market pricing.
+**Signal** 表示变量、条件、预期、行为或市场定价发生了有意义的变化。
 
-The formal object structure is defined in:
+信号提取是无状态的，不要求检索历史 Signal 或开展跨轮次比较。
+
+正式对象结构定义见：
 
 `schemas/signal.schema.json`
 
 ---
 
-## 2. Core Model
+## 2. 核心模型
 
 ```text
 Event
     ↓
-Identify meaningful change
+识别有意义的变化
     ↓
-Variable
+变量
     ↓
-Direction
+方向
     ↓
-Magnitude
+幅度
     ↓
-Novelty
+范围
     ↓
-Persistence
+证据类型
     ↓
-Scope
+观测时间
     ↓
 Signal
 ```
 
-Core question:
+核心问题：
 
-> What variable changed, in what direction, with what strength and informational character?
+> 哪个变量发生了变化，方向是什么，可观察的强度与范围如何？
 
 ---
 
-## 3. Signal Types
+## 3. 无状态边界
 
-Signals have two primary types.
+信号提取可以使用：
 
-### 3.1 Fact Signal
+```text
+当前 Event
+当前 Event Analysis
+当前 feed 中包含的其他证据
+解释当前 Event 所必需、且有来源支持的上下文
+```
 
-Derived directly from an observable Event.
+不要求使用：
+
+```text
+此前的 Signal
+历史 Signal 存储
+跨轮次延续 / 反转分类
+跨轮次再次确认
+跨轮次持续性估计
+```
+
+如果来源本身明确给出了历史比较，应将该比较保留为证据或上下文，不从工作流记忆中重建。
+
+---
+
+## 4. 信号类型
+
+Signal 分为两种主要类型。
+
+### 4.1 事实信号（Fact Signal）
+
+直接从可观察的 Event 中提取。
 
 ```text
 Event
     ↓
-Observed factual change
+观察到的事实变化
     ↓
 Fact Signal
 ```
 
-Example:
+示例：
 
 ```text
-Brent fell from 105 to 100
+布伦特原油从105下跌至100
 → crude_oil_price ↓
 ```
 
-### 3.2 Repricing Signal
+### 4.2 再定价信号（Repricing Signal）
 
-Derived from the `event_analysis` section of a key Event.
+从关键 Event 的 `event_analysis` 部分提取。
 
 ```text
-Pre-event expectation
+事件前预期
     ↓
-Key Event
+关键事件
     ↓
-Post-event repricing
+事件后的再定价
     ↓
 Repricing Signal
 ```
 
-Example:
+示例：
 
 ```text
-Fed funds futures reduce expected rate cuts after CPI
+CPI公布后，联邦基金期货反映的预期降息次数减少
 → rate_cut_expectation ↓
 ```
 
 ---
 
-## 4. Variable
+## 5. 变量
 
-Variable answers:
+变量回答：
 
-> What exactly changed?
+> 究竟什么发生了变化？
 
-Prefer reusable variables.
+优先使用可复用的变量。
 
-Examples:
+示例：
 
 ```text
 crude_oil_price
@@ -107,19 +134,19 @@ liquidity
 earnings_expectation
 ```
 
-Avoid broad categories such as:
+避免使用以下宽泛类别：
 
 ```text
-macro news
-technology news
-market news
+宏观新闻
+科技新闻
+市场新闻
 ```
 
 ---
 
-## 5. Direction
+## 6. 方向
 
-Suggested vocabulary:
+建议词汇：
 
 ```text
 up
@@ -137,9 +164,9 @@ mixed
 unknown
 ```
 
-Choose the expression that matches the variable.
+选择与变量相匹配的表达。
 
-Examples:
+示例：
 
 ```text
 credit_spread → widening
@@ -150,9 +177,9 @@ yield → up
 
 ---
 
-## 6. Magnitude
+## 7. 幅度
 
-Suggested values:
+建议取值：
 
 ```text
 small
@@ -162,72 +189,24 @@ extreme
 unknown
 ```
 
-Magnitude may be judged from:
+可以依据本次运行中的以下证据判断幅度：
 
-- absolute change;
-- percentage change;
-- historical deviation;
-- deviation from expectation;
-- source-described significance;
-- observable market reaction.
+- 绝对变化量；
+- 百分比变化；
+- 来源给出的历史偏离程度；
+- 事件分析中的预期偏离；
+- 来源描述的重要程度；
+- 可观察的市场反应。
 
-Do not invent arbitrary thresholds.
+不要编造任意阈值。
 
----
-
-## 7. Novelty
-
-Novelty describes how the new Signal relates to recent observations.
-
-Suggested values:
-
-```text
-new
-continuation
-reversal
-reconfirmation
-unknown
-```
-
-Examples:
-
-```text
-First CapEx cut in six quarters
-→ new
-
-Third consecutive month of slowing inflation
-→ continuation
-
-Oil reverses after several weeks of gains
-→ reversal
-
-Another hyperscaler raises AI CapEx
-→ reconfirmation
-```
+不要仅为划分幅度而查询历史存储。
 
 ---
 
-## 8. Persistence
+## 8. 范围
 
-Suggested values:
-
-```text
-one_off
-short_lived
-repeated
-persistent
-unknown
-```
-
-Persistence must be based on observed evidence.
-
-Do not infer durability from one Event.
-
----
-
-## 9. Scope
-
-Suggested values:
+建议取值：
 
 ```text
 company
@@ -238,13 +217,13 @@ macro
 cross_market
 ```
 
-Scope describes where the Signal is observable.
+范围描述该 Signal 在哪里可以被观察到。
 
 ---
 
-## 10. Evidence Type
+## 9. 证据类型
 
-Suggested evidence types:
+建议证据类型：
 
 ```text
 fundamental
@@ -258,74 +237,76 @@ positioning
 sentiment
 ```
 
-Evidence type helps later Cluster formation evaluate evidence diversity.
+证据类型帮助聚类阶段判断：当前 feed 中的多个 Signal 是否获得不同证据的支持。
 
 ---
 
-## 11. Signal Time
+## 10. 信号时间
 
-Every Signal should preserve observation time.
+每个 Signal 都应保留观测时间。
 
-For Fact Signals:
-
-```text
-normally inherit the Event time
-```
-
-For Repricing Signals:
+对于事实信号：
 
 ```text
-use the time when repricing becomes observable
+通常继承 Event 的时间
 ```
+
+对于再定价信号：
+
+```text
+使用再定价变得可观察时的时间
+```
+
+时间用于解释当前 feed 内部的关系，不意味着跨轮次跟踪。
 
 ---
 
-## 12. Multiple Signals from One Event
+## 11. 一个事件产生多个信号
 
-One Event may generate multiple Signals when multiple variables directly change.
+当多个变量直接发生变化时，一个 Event 可以产生多个 Signal。
 
-Example:
+示例：
 
 ```text
-OPEC announces additional production cuts.
+OPEC宣布额外减产。
 ```
 
-Possible Signals:
+可能产生的信号：
 
 ```text
 oil_supply → tightening
 oil_price_pressure → up
 ```
 
-Do not automatically extend the full causal chain without evidence.
+没有证据时，不要自动延伸整条因果链。
 
-For example, avoid automatically generating:
+例如，不要自动生成：
 
 ```text
 inflation → up
-10Y yield → up
-technology stocks → down
+10年期收益率 → up
+科技股 → down
 ```
 
-unless those changes are directly observed or supported by Event Analysis.
+除非这些变化已被直接观察到，或得到事件分析支持。
 
 ---
 
-## 13. Multiple Repricing Signals from One Event
+## 12. 一个事件产生多个再定价信号
 
-One key Event with Event Analysis may generate multiple Repricing Signals.
+一个包含事件分析的关键 Event，可以产生多个再定价信号。
 
-Example:
+示例：
 
 ```text
-CPI > consensus
+CPI > 市场一致预期
 ↓
-rate-cut expectation ↓
-2Y yield ↑
-USD ↑
+降息预期 ↓
+2年期收益率 ↑
+美元 ↑
 ```
 
-Possible Signals:
+可能产生的信号：
 
 ```text
 rate_cut_expectation ↓
@@ -333,104 +314,107 @@ short_term_yield ↑
 usd_strength ↑
 ```
 
-Each Signal should remain separately traceable to the Event.
+每个 Signal 都应能够单独追溯到 Event。
 
 ---
 
-## 14. When Not to Generate a Signal
+## 13. 不应生成信号的情况
 
-Do not generate a Signal when:
+以下情况不生成 Signal：
 
-- no meaningful variable changed;
-- the information is static background;
-- direction cannot be determined;
-- the relationship depends mainly on speculation;
-- the observed price move cannot reasonably be linked to the Event;
-- the supposed change is repeated reporting of the same fact.
+- 没有有意义的变量变化；
+- 信息只是静态背景；
+- 无法确定方向；
+- 关系主要依赖推测；
+- 观察到的价格变化无法合理关联到 Event；
+- 所谓变化只是当前 feed 内对同一事实的重复报道。
 
 ---
 
-## 15. Signal Comparison
+## 14. 为当前 feed 内的关系识别做准备
 
-When comparing a new Signal with prior Signals, examine:
+信号提取不执行历史比较。
+
+为了支持下游聚类，每个 Signal 应提供足够信息，使其能够识别当前 feed 内部的关系：
 
 ```text
-same variable?
-same direction?
-same driver?
-same subject?
-same time window?
-continuation?
-reversal?
-reconfirmation?
+variable
+direction
+subject
+可取得时保留驱动因素证据
+time
+scope
+evidence_type
+event_ref
 ```
 
-These relationships become inputs to Cluster formation.
+这些字段使聚类阶段能够检查：
+
+```text
+same_problem?
+common_driver?
+shared_transmission_structure?
+same_variable?
+same_direction?
+same_subject?
+same_time_window?
+```
 
 ---
 
-## 16. Relationship to Clustering
+## 15. 与聚类的关系
 
 ```text
-Event
+当前 feed 中的 Event
     ↓
-Signal Extraction
+信号提取
     ↓
-Signals
+当前 feed 中的 Signal
     ↓
-Relationship Detection
+关系识别
     ↓
-Cluster
+Cluster 或孤立信号
 ```
 
-Cluster formation may use:
-
-```text
-common_variable
-common_direction
-common_driver
-same_subject
-same_time_window
-transmission_link
-```
+聚类只评估本次运行产生的 Signal 之间的关系。
 
 ---
 
-## 17. Quality Check
+## 16. 质量检查
 
-Before accepting a Signal, verify:
+接受一个 Signal 前，检查：
 
-- Which variable changed?
-- Is direction evidence-backed?
-- Is magnitude grounded in observable information?
-- Is novelty correctly classified?
-- Is persistence observed or assumed?
-- Is scope appropriate?
-- Is the Signal traceable to Event?
-- Is signal type correctly identified as Fact or Repricing?
-- Has unsupported downstream causal inference been excluded?
-- Is time represented accurately?
+- 哪个变量发生了变化？
+- 方向是否有证据支持？
+- 幅度是否基于本次运行中可观察的信息？
+- 范围是否合适？
+- 证据类型是否合适？
+- Signal 是否能追溯到 Event？
+- 是否正确区分了事实信号与再定价信号？
+- 是否排除了缺乏支持的下游因果推断？
+- 时间表达是否准确？
+- Signal 是否避免依赖历史记忆？
 
 ---
 
-## 18. Output Principle
+## 17. 输出原则
 
-Signal Extraction converts:
-
-```text
-What happened?
-```
-
-into:
+信号提取将：
 
 ```text
-What changed?
+发生了什么？
 ```
 
-For key Event Analysis it may also answer:
+转换为：
 
 ```text
-What was repriced?
+什么发生了变化？
 ```
 
-The Signal should remain standardized, time-aware, traceable, and ready for Cluster formation.
+对于关键事件分析，还可以回答：
+
+```text
+什么被重新定价？
+```
+
+Signal 应保持标准化、时间明确、可追溯，并可用于当前 feed 内的聚类。

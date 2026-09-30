@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>AI发债扩张｜规模、承接与证据边界</title><style>:root{color-scheme:light;--bg:#f5f7fa;--paper:#fff;--ink:#172b3a;--muted:#586b79;--line:#dbe3e9;--accent:#245c85;--up:#c83c3c;--down:#16815c}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 system-ui,"Microsoft YaHei",sans-serif}main{max-width:1180px;margin:auto;padding:36px 28px 64px}header,section{margin-bottom:24px}h1{font-size:30px;line-height:1.35;margin:0 0 12px}h2{font-size:23px;border-bottom:1px solid var(--line);padding-bottom:8px;margin-top:32px}h3{font-size:18px}a{color:var(--accent);text-underline-offset:3px}.meta,.source{color:var(--muted);font-size:14px}.summary,.note{background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:6px;padding:16px 20px}.note.warning{border-left-color:#a56c14;background:#fff9ed}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}.card{padding:16px;background:var(--paper);border:1px solid var(--line);border-radius:6px}.table-scroll{overflow-x:auto;background:var(--paper)}table{width:100%;border-collapse:collapse;font-size:14px}th,td{border-bottom:1px solid var(--line);padding:11px 14px;text-align:left;vertical-align:top}th{background:#eef3f7;font-weight:600}.number{text-align:right;font-variant-numeric:tabular-nums}.up{color:var(--up)}.down{color:var(--down)}.status{display:inline-block;padding:2px 9px;border-radius:4px;background:#edf2f6;color:#3a5265}.status.warning{background:#fff0d5;color:#80520b}.chart{height:360px;min-width:0;width:100%}.toolbar{display:flex;gap:8px;margin:12px 0}button{font:inherit;padding:6px 12px;border:1px solid var(--line);border-radius:4px;background:#fff;color:var(--ink);cursor:pointer}button[aria-pressed=true]{background:var(--accent);color:#fff}button:focus-visible,a:focus-visible{outline:3px solid #6a9ab9;outline-offset:3px}pre{overflow-x:auto;padding:16px;background:#eef3f7}svg{max-width:100%;height:auto}[hidden]{display:none!important}
+@media(max-width:640px){main{padding:20px 14px 40px}h1{font-size:24px}h2{font-size:20px}th,td{padding:8px 10px}.chart{height:300px}}
+@media print{body{background:#fff}main{max-width:none;padding:0}.toolbar,nav{display:none}.table-scroll{overflow:visible}.data-table[hidden]{display:block!important}.chart{display:none}thead{display:table-header-group}tr,.note,.summary{break-inside:avoid}a{color:inherit}h2{break-after:avoid}}
+
+body{background:#f5f7fa;overflow-wrap:anywhere}main{max-width:960px;padding:42px 36px 64px;background:white}h1{font-size:38px;letter-spacing:.02em;margin-bottom:18px}p{margin:14px 0}h2{margin-top:42px;font-size:23px;line-height:1.5;scroll-margin-top:20px}h3{margin-top:26px;color:#245c85}blockquote{margin:0 0 20px;padding:18px 22px;background:#edf4f8;border-left:4px solid #397ca6}blockquote p{margin:0 0 8px}blockquote p:last-child{margin-bottom:0}blockquote>p:first-child strong{font-size:22px;line-height:1.5}.findings{padding:0;margin:22px 0;list-style:none;border-block:1px solid #dbe3e9}.findings li{padding:12px 0;border-bottom:1px solid #eef2f5}.findings li:last-child{border:0}nav{display:flex;gap:8px 22px;flex-wrap:wrap;margin:24px 0 8px;font-size:14px}section{margin-bottom:24px}figure{margin:22px 0;padding:18px 20px;background:#f8fafc;border:1px solid #dbe3e9;border-radius:6px}figcaption strong,figcaption span{display:block}figcaption strong{font-size:19px;color:#245c85}figcaption span{font-size:13px;color:#586b79;margin-top:4px}figure svg{display:block;width:100%;height:auto}.chart-mobile{display:none}summary{cursor:pointer;color:#245c85;font-weight:600;padding:12px 0}summary:focus-visible{outline:3px solid #6a9ab9;outline-offset:2px}.exact-data{font-size:13px;border-top:1px solid #dbe3e9}.exact-data summary{padding-bottom:0}.exact-data[open] summary{padding-bottom:12px}.appendix{border:1px solid #dbe3e9;border-radius:6px;padding:0 18px}.appendix[open]{padding-bottom:14px}.appendix p,.appendix li{font-size:14px}.appendix table{min-width:630px}section:has(.appendix){margin-bottom:10px}.table-scroll{max-width:100%;overflow-x:auto}.meta{font-size:12px;letter-spacing:.08em;margin-bottom:12px}li{margin-bottom:6px}li:last-child{margin-bottom:0}a{overflow-wrap:anywhere}
+@media(max-width:640px){main{padding:24px 16px 40px}h1{font-size:30px}h2{font-size:21px;margin-top:32px}blockquote{padding:16px}blockquote>p:first-child strong{font-size:20px}nav{gap:8px 16px}figure{padding:14px 10px}figcaption strong{font-size:17px}.chart-desktop{display:none}figure .chart-mobile{display:block}.appendix{padding:0 12px}}
+@media print{main{max-width:none;padding:0}nav{display:none}.chart-mobile{display:none!important}.chart-desktop{display:block!important}.appendix>*{display:block!important}.exact-data>*{display:block!important}details::details-content{display:block!important;content-visibility:visible!important}figure{break-inside:avoid}.table-scroll{overflow:visible}.appendix table{min-width:0}.appendix{border:0;padding:0}h2,h3,summary{break-after:avoid}}
+</style></head><body><main><p class="meta">主题研究 · 信息检索截至 2026-09-28</p><h1 id="ai">AI 发债扩张</h1>
+<blockquote>
+<p><strong>发债规模扩大；局部定价压力与持续认购并存。</strong></p>
+<p>本轮最值得关注的是：新增融资需求能否继续被市场吸收，以及企业为此需要付出多少成本。目前的证据尚不足以判断普遍融资困难。</p>
+</blockquote>
+<p>检索截至 <strong>2026-09-28</strong>；主要关注 <strong>8月30日—9月28日公开信息</strong>，并引用更早的背景资料。数据各有截止期，不代表9月28日实时市场状态。研究对象：Alphabet、Amazon、Meta、Microsoft、Oracle。</p>
+<!-- OVERVIEW_START -->
+<ul class="findings">
+<li><strong>规模：扩张有据。</strong> 五家公司2026年内累计发行已超过2025全年；尚缺统一净发行数据。</li>
+<li><strong>承接：有订单，也有补偿压力。</strong> 多笔长期债券获多倍认购，局部样本同时出现溢价或利差上升。</li>
+<li><strong>边界：融资困难尚未证实。</strong> 发债增长、认购订单和最终融资结果是三个不同问题。</li>
+</ul>
+<!-- OVERVIEW_END -->
+<nav aria-label="报告目录"><a href="#section-1">01 发行规模</a><a href="#section-2">02 市场承接</a><a href="#section-3">03 证据边界</a><a href="#section-4">04 后续观察</a><a href="#appendices">数据与来源</a></nav><section><h2 id="section-1">1. 发了多少：年内累计已超过上年全年</h2>
+<p><strong>2230亿美元</strong>是CPRAM报告的五家公司2026年内累计发债规模；同篇数据推算2025全年为<strong>1060亿美元</strong>。这支持“发行扩张”，但不能直接代表净融资或AI专项投入。<a href="https://cpram.com/lux/en/individual/publications/experts/article/what-impact-is-hyperscaler-bond-issuance-having-on-bond-markets">CPRAM</a></p>
+<figure><figcaption><strong>发行规模已超过上年全年</strong><span>CPRAM · 9月23日发布 · 年内累计与上年全年对照</span></figcaption><svg aria-label="发行规模已超过上年全年" baseprofile="full" class="chart-desktop" height="220" role="img" version="1.1" viewbox="0 0 780 220" width="780" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<rect fill="none" height="220" width="780" x="0" y="0"></rect>
+<path class="zr0-cls-0" d="M158.5 30L158.5 178.1" fill="none" pointer-events="visible" stroke="#e6edf2"></path>
+<path class="zr0-cls-0" d="M273.5 30L273.5 178.1" fill="none" pointer-events="visible" stroke="#e6edf2"></path>
+<path class="zr0-cls-0" d="M389.5 30L389.5 178.1" fill="none" pointer-events="visible" stroke="#e6edf2"></path>
+<path class="zr0-cls-0" d="M504.5 30L504.5 178.1" fill="none" pointer-events="visible" stroke="#e6edf2"></path>
+<path class="zr0-cls-0" d="M619.5 30L619.5 178.1" fill="none" pointer-events="visible" stroke="#e6edf2"></path>
+<path class="zr0-cls-0" d="M735.5 30L735.5 178.1" fill="none" pointer-events="visible" stroke="#e6edf2"></path>
+<text dominant-baseline="central" fill="#54555a" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="middle" transform="translate(446.5 203)" y="6">十亿美元</text>
+<text dominant-baseline="central" fill="#253e50" style="font-size:14px;font-family:Microsoft YaHei, sans-serif;" text-anchor="end" transform="translate(150 67.025)" xml:space="preserve">2025 全年（推算）</text>
+<text dominant-baseline="central" fill="#253e50" style="font-size:14px;font-family:Microsoft YaHei, sans-serif;" text-anchor="end" transform="translate(150 141.075)" xml:space="preserve">2026 年内累计</text>
+<text dominant-baseline="central" fill="#54555a" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="middle" transform="translate(158 186.1)" y="6">0</text>
+<text dominant-baseline="central" fill="#54555a" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="middle" transform="translate(273.4 186.1)" y="6">50</text>
+<text dominant-baseline="central" fill="#54555a" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="middle" transform="translate(388.8 186.1)" y="6">100</text>
+<text dominant-baseline="central" fill="#54555a" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="middle" transform="translate(504.2 186.1)" y="6">150</text>
+<text dominant-baseline="central" fill="#54555a" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="middle" transform="translate(619.6 186.1)" y="6">200</text>
+<text dominant-baseline="central" fill="#54555a" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="middle" transform="translate(735 186.1)" y="6">250</text>
+<path class="zr0-cls-1" d="M158 51L399.6 51A3 3 0 0 1 402.6 54L402.6 80A3 3 0 0 1 399.6 83L158 83L158 51" ecmeta_data_index="0" ecmeta_series_index="0" ecmeta_ssr_type="chart" fill="#b9c8d3"></path>
+<path class="zr0-cls-2" d="M158 125.1L669.7 125.1A3 3 0 0 1 672.7 128.1L672.7 154.1A3 3 0 0 1 669.7 157.1L158 157.1L158 125.1" ecmeta_data_index="1" ecmeta_series_index="0" ecmeta_ssr_type="chart" fill="#397ca6"></path>
+<text dominant-baseline="central" fill="#203e52" style="font-size:16px;font-family:Microsoft YaHei, sans-serif;" text-anchor="start" transform="translate(407.648 67.025)">106</text>
+<text dominant-baseline="central" fill="#203e52" style="font-size:16px;font-family:Microsoft YaHei, sans-serif;" text-anchor="start" transform="translate(677.684 141.075)">223</text>
+<style><![CDATA[
+.zr0-cls-0:hover {
+pointer-events:none;
+}
+.zr0-cls-1:hover {
+cursor:pointer;
+fill:rgba(203,220,232,1);
+}
+.zr0-cls-2:hover {
+cursor:pointer;
+fill:rgba(62,136,182,1);
+}
+
+]]>
+
+</style>
+</svg><svg aria-label="发行规模已超过上年全年" baseprofile="full" class="chart-mobile" height="220" role="img" version="1.1" viewbox="0 0 340 220" width="340" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<rect fill="none" height="220" width="340" x="0" y="0"></rect>
+<path class="zr1-cls-3" d="M118.5 30L118.5 178.1" fill="none" pointer-events="visible" stroke="#e6edf2"></path>
+<path class="zr1-cls-3" d="M153.5 30L153.5 178.1" fill="none" pointer-events="visible" stroke="#e6edf2"></path>
+<path class="zr1-cls-3" d="M189.5 30L189.5 178.1" fill="none" pointer-events="visible" stroke="#e6edf2"></path>
+<path class="zr1-cls-3" d="M224.5 30L224.5 178.1" fill="none" pointer-events="visible" stroke="#e6edf2"></path>
+<path class="zr1-cls-3" d="M259.5 30L259.5 178.1" fill="none" pointer-events="visible" stroke="#e6edf2"></path>
+<path class="zr1-cls-3" d="M295.5 30L295.5 178.1" fill="none" pointer-events="visible" stroke="#e6edf2"></path>
+<text dominant-baseline="central" fill="#54555a" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="middle" transform="translate(206.5 203)" y="6">十亿美元</text>
+<text dominant-baseline="central" fill="#253e50" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="end" transform="translate(110 67.025)" xml:space="preserve">2025 全年（推算）</text>
+<text dominant-baseline="central" fill="#253e50" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="end" transform="translate(110 141.075)" xml:space="preserve">2026 年内累计</text>
+<text dominant-baseline="central" fill="#54555a" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="middle" transform="translate(118 186.1)" y="6">0</text>
+<text dominant-baseline="central" fill="#54555a" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="middle" transform="translate(153.4 186.1)" y="6">50</text>
+<text dominant-baseline="central" fill="#54555a" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="middle" transform="translate(188.8 186.1)" y="6">100</text>
+<text dominant-baseline="central" fill="#54555a" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="middle" transform="translate(224.2 186.1)" y="6">150</text>
+<text dominant-baseline="central" fill="#54555a" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="middle" transform="translate(259.6 186.1)" y="6">200</text>
+<text dominant-baseline="central" fill="#54555a" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="middle" transform="translate(295 186.1)" y="6">250</text>
+<path class="zr1-cls-4" d="M118 51L190 51A3 3 0 0 1 193 54L193 80A3 3 0 0 1 190 83L118 83L118 51" ecmeta_data_index="0" ecmeta_series_index="0" ecmeta_ssr_type="chart" fill="#b9c8d3"></path>
+<path class="zr1-cls-5" d="M118 125.1L272.9 125.1A3 3 0 0 1 275.9 128.1L275.9 154.1A3 3 0 0 1 272.9 157.1L118 157.1L118 125.1" ecmeta_data_index="1" ecmeta_series_index="0" ecmeta_ssr_type="chart" fill="#397ca6"></path>
+<text dominant-baseline="central" fill="#203e52" style="font-size:13px;font-family:Microsoft YaHei, sans-serif;" text-anchor="start" transform="translate(198.048 67.025)">106</text>
+<text dominant-baseline="central" fill="#203e52" style="font-size:13px;font-family:Microsoft YaHei, sans-serif;" text-anchor="start" transform="translate(280.884 141.075)">223</text>
+<style><![CDATA[
+.zr1-cls-3:hover {
+pointer-events:none;
+}
+.zr1-cls-4:hover {
+cursor:pointer;
+fill:rgba(203,220,232,1);
+}
+.zr1-cls-5:hover {
+cursor:pointer;
+fill:rgba(62,136,182,1);
+}
+
+]]>
+
+</style>
+</svg><details class="exact-data"><summary>查看精确数值（十亿美元）</summary><div aria-label="精确数据与来源" class="table-scroll" role="region" tabindex="0"><table><thead><tr><th>对象 / 窗口</th><th>十亿美元</th></tr></thead><tbody><tr><td>2025 全年（推算）</td><td>106</td></tr><tr><td>2026 年内累计</td><td>223</td></tr></tbody></table></div></details></figure>
+<p><strong>读图要点：</strong> 比较的是“2026年内累计”和“2025全年”，不是同期间同比。来源发表于9月23日，年内精确截止日未披露；2025数值由2230−1170推算。</p>
+<p>两个补充事实：Amazon 9月9日披露<strong>42.5亿英镑</strong>债券定价，用途为一般公司用途，最终交割尚未独立核实；CPRAM样本中，2026年美元发行的<strong>41%</strong>为20年以上期限，提示后续需单独观察长端承接。<a href="https://www.sec.gov/Archives/edgar/data/1018724/000110465926107122/tm2624614-3_424b5.htm">Amazon / SEC EDGAR</a> · <a href="https://cpram.com/lux/en/individual/publications/experts/article/what-impact-is-hyperscaler-bond-issuance-having-on-bond-markets">CPRAM</a></p>
+</section><section><h2 id="section-2">2. 市场如何承接：认购仍在，部分交易需要更高补偿</h2>
+<h3 id="_1">持续认购的证据</h3>
+<p>TwentyFour列举的四笔30年期发行，认购覆盖为<strong>2.5—4.6倍</strong>。这些案例削弱了“普遍无人承接”的解释，但订单不能等同于最终交割或低成本融资。<a href="https://blog.twentyfouram.com/insights/how-hyperscaler-issuance-is-reshaping-the-treasury-curve">TwentyFour Asset Management</a></p>
+<figure><figcaption><strong>四笔长期债券仍获多倍认购</strong><span>TwentyFour · 9月3日发布 · 不同交易日期的30年期案例</span></figcaption><svg aria-label="四笔长期债券仍获多倍认购" baseprofile="full" class="chart-desktop" height="290" role="img" version="1.1" viewbox="0 0 780 290" width="780" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<rect fill="none" height="290" width="780" x="0" y="0"></rect>
+<path class="zr2-cls-6" d="M118.5 30L118.5 248.1" fill="none" pointer-events="visible" stroke="#e6edf2"></path>
+<path class="zr2-cls-6" d="M241.5 30L241.5 248.1" fill="none" pointer-events="visible" stroke="#e6edf2"></path>
+<path class="zr2-cls-6" d="M365.5 30L365.5 248.1" fill="none" pointer-events="visible" stroke="#e6edf2"></path>
+<path class="zr2-cls-6" d="M488.5 30L488.5 248.1" fill="none" pointer-events="visible" stroke="#e6edf2"></path>
+<path class="zr2-cls-6" d="M611.5 30L611.5 248.1" fill="none" pointer-events="visible" stroke="#e6edf2"></path>
+<path class="zr2-cls-6" d="M735.5 30L735.5 248.1" fill="none" pointer-events="visible" stroke="#e6edf2"></path>
+<text dominant-baseline="central" fill="#54555a" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="middle" transform="translate(426.5 273)" y="6">倍</text>
+<text dominant-baseline="central" fill="#253e50" style="font-size:14px;font-family:Microsoft YaHei, sans-serif;" text-anchor="end" transform="translate(110 57.2625)">Amazon</text>
+<text dominant-baseline="central" fill="#253e50" style="font-size:14px;font-family:Microsoft YaHei, sans-serif;" text-anchor="end" transform="translate(110 111.7875)">Oracle</text>
+<text dominant-baseline="central" fill="#253e50" style="font-size:14px;font-family:Microsoft YaHei, sans-serif;" text-anchor="end" transform="translate(110 166.3125)">Meta</text>
+<text dominant-baseline="central" fill="#253e50" style="font-size:14px;font-family:Microsoft YaHei, sans-serif;" text-anchor="end" transform="translate(110 220.8375)">Alphabet</text>
+<text dominant-baseline="central" fill="#54555a" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="middle" transform="translate(118 256.1)" y="6">0</text>
+<text dominant-baseline="central" fill="#54555a" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="middle" transform="translate(241.4 256.1)" y="6">1</text>
+<text dominant-baseline="central" fill="#54555a" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="middle" transform="translate(364.8 256.1)" y="6">2</text>
+<text dominant-baseline="central" fill="#54555a" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="middle" transform="translate(488.2 256.1)" y="6">3</text>
+<text dominant-baseline="central" fill="#54555a" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="middle" transform="translate(611.6 256.1)" y="6">4</text>
+<text dominant-baseline="central" fill="#54555a" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="middle" transform="translate(735 256.1)" y="6">5</text>
+<path class="zr2-cls-7" d="M118 41.3L423.5 41.3A3 3 0 0 1 426.5 44.3L426.5 70.3A3 3 0 0 1 423.5 73.3L118 73.3L118 41.3" ecmeta_data_index="0" ecmeta_series_index="0" ecmeta_ssr_type="chart" fill="#397ca6"></path>
+<path class="zr2-cls-7" d="M118 95.8L670.3 95.8A3 3 0 0 1 673.3 98.8L673.3 124.8A3 3 0 0 1 670.3 127.8L118 127.8L118 95.8" ecmeta_data_index="1" ecmeta_series_index="0" ecmeta_ssr_type="chart" fill="#397ca6"></path>
+<path class="zr2-cls-7" d="M118 150.3L559.2 150.3A3 3 0 0 1 562.2 153.3L562.2 179.3A3 3 0 0 1 559.2 182.3L118 182.3L118 150.3" ecmeta_data_index="2" ecmeta_series_index="0" ecmeta_ssr_type="chart" fill="#397ca6"></path>
+<path class="zr2-cls-7" d="M118 204.8L682.6 204.8A3 3 0 0 1 685.6 207.8L685.6 233.8A3 3 0 0 1 682.6 236.8L118 236.8L118 204.8" ecmeta_data_index="3" ecmeta_series_index="0" ecmeta_ssr_type="chart" fill="#397ca6"></path>
+<text dominant-baseline="central" fill="#203e52" style="font-size:16px;font-family:Microsoft YaHei, sans-serif;" text-anchor="start" transform="translate(431.5 57.2625)">2.5</text>
+<text dominant-baseline="central" fill="#203e52" style="font-size:16px;font-family:Microsoft YaHei, sans-serif;" text-anchor="start" transform="translate(678.3 111.7875)">4.5</text>
+<text dominant-baseline="central" fill="#203e52" style="font-size:16px;font-family:Microsoft YaHei, sans-serif;" text-anchor="start" transform="translate(567.24 166.3125)">3.6</text>
+<text dominant-baseline="central" fill="#203e52" style="font-size:16px;font-family:Microsoft YaHei, sans-serif;" text-anchor="start" transform="translate(690.64 220.8375)">4.6</text>
+<style><![CDATA[
+.zr2-cls-6:hover {
+pointer-events:none;
+}
+.zr2-cls-7:hover {
+cursor:pointer;
+fill:rgba(62,136,182,1);
+}
+
+]]>
+
+</style>
+</svg><svg aria-label="四笔长期债券仍获多倍认购" baseprofile="full" class="chart-mobile" height="290" role="img" version="1.1" viewbox="0 0 340 290" width="340" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<rect fill="none" height="290" width="340" x="0" y="0"></rect>
+<path class="zr3-cls-8" d="M80.5 30L80.5 248.1" fill="none" pointer-events="visible" stroke="#e6edf2"></path>
+<path class="zr3-cls-8" d="M123.5 30L123.5 248.1" fill="none" pointer-events="visible" stroke="#e6edf2"></path>
+<path class="zr3-cls-8" d="M166.5 30L166.5 248.1" fill="none" pointer-events="visible" stroke="#e6edf2"></path>
+<path class="zr3-cls-8" d="M209.5 30L209.5 248.1" fill="none" pointer-events="visible" stroke="#e6edf2"></path>
+<path class="zr3-cls-8" d="M252.5 30L252.5 248.1" fill="none" pointer-events="visible" stroke="#e6edf2"></path>
+<path class="zr3-cls-8" d="M295.5 30L295.5 248.1" fill="none" pointer-events="visible" stroke="#e6edf2"></path>
+<text dominant-baseline="central" fill="#54555a" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="middle" transform="translate(187.5 273)" y="6">倍</text>
+<text dominant-baseline="central" fill="#253e50" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="end" transform="translate(72 57.2625)">Amazon</text>
+<text dominant-baseline="central" fill="#253e50" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="end" transform="translate(72 111.7875)">Oracle</text>
+<text dominant-baseline="central" fill="#253e50" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="end" transform="translate(72 166.3125)">Meta</text>
+<text dominant-baseline="central" fill="#253e50" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="end" transform="translate(72 220.8375)">Alphabet</text>
+<text dominant-baseline="central" fill="#54555a" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="middle" transform="translate(80 256.1)" y="6">0</text>
+<text dominant-baseline="central" fill="#54555a" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="middle" transform="translate(123 256.1)" y="6">1</text>
+<text dominant-baseline="central" fill="#54555a" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="middle" transform="translate(166 256.1)" y="6">2</text>
+<text dominant-baseline="central" fill="#54555a" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="middle" transform="translate(209 256.1)" y="6">3</text>
+<text dominant-baseline="central" fill="#54555a" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="middle" transform="translate(252 256.1)" y="6">4</text>
+<text dominant-baseline="central" fill="#54555a" style="font-size:12px;font-family:Microsoft YaHei, sans-serif;" text-anchor="middle" transform="translate(295 256.1)" y="6">5</text>
+<path class="zr3-cls-9" d="M80 41.3L184.5 41.3A3 3 0 0 1 187.5 44.3L187.5 70.3A3 3 0 0 1 184.5 73.3L80 73.3L80 41.3" ecmeta_data_index="0" ecmeta_series_index="0" ecmeta_ssr_type="chart" fill="#397ca6"></path>
+<path class="zr3-cls-9" d="M80 95.8L270.5 95.8A3 3 0 0 1 273.5 98.8L273.5 124.8A3 3 0 0 1 270.5 127.8L80 127.8L80 95.8" ecmeta_data_index="1" ecmeta_series_index="0" ecmeta_ssr_type="chart" fill="#397ca6"></path>
+<path class="zr3-cls-9" d="M80 150.3L231.8 150.3A3 3 0 0 1 234.8 153.3L234.8 179.3A3 3 0 0 1 231.8 182.3L80 182.3L80 150.3" ecmeta_data_index="2" ecmeta_series_index="0" ecmeta_ssr_type="chart" fill="#397ca6"></path>
+<path class="zr3-cls-9" d="M80 204.8L274.8 204.8A3 3 0 0 1 277.8 207.8L277.8 233.8A3 3 0 0 1 274.8 236.8L80 236.8L80 204.8" ecmeta_data_index="3" ecmeta_series_index="0" ecmeta_ssr_type="chart" fill="#397ca6"></path>
+<text dominant-baseline="central" fill="#203e52" style="font-size:13px;font-family:Microsoft YaHei, sans-serif;" text-anchor="start" transform="translate(192.5 57.2625)">2.5</text>
+<text dominant-baseline="central" fill="#203e52" style="font-size:13px;font-family:Microsoft YaHei, sans-serif;" text-anchor="start" transform="translate(278.5 111.7875)">4.5</text>
+<text dominant-baseline="central" fill="#203e52" style="font-size:13px;font-family:Microsoft YaHei, sans-serif;" text-anchor="start" transform="translate(239.8 166.3125)">3.6</text>
+<text dominant-baseline="central" fill="#203e52" style="font-size:13px;font-family:Microsoft YaHei, sans-serif;" text-anchor="start" transform="translate(282.8 220.8375)">4.6</text>
+<style><![CDATA[
+.zr3-cls-8:hover {
+pointer-events:none;
+}
+.zr3-cls-9:hover {
+cursor:pointer;
+fill:rgba(62,136,182,1);
+}
+
+]]>
+
+</style>
+</svg><details class="exact-data"><summary>查看精确数值（倍）</summary><div aria-label="精确数据与来源" class="table-scroll" role="region" tabindex="0"><table><thead><tr><th>对象 / 窗口</th><th>倍</th></tr></thead><tbody><tr><td>Amazon</td><td>2.5</td></tr><tr><td>Oracle</td><td>4.5</td></tr><tr><td>Meta</td><td>3.6</td></tr><tr><td>Alphabet</td><td>4.6</td></tr></tbody></table></div></details></figure>
+<p><strong>读图要点：</strong> Amazon案例为7月发行，其余交易日期未完整披露；文章发布于9月3日。四笔交易不是同期样本，不能据此判断承接正在改善。</p>
+<h3 id="_2">局部定价压力的证据</h3>
+<p>高盛8月访谈报告，一笔大型交易的新券溢价达到<strong>20个基点</strong>，此前约为2—3个基点；部分长期债的大额保险客户数量也有减少。这是历史、局部样本，不能当作当前全市场平均。<a href="https://www.goldmansachs.com/insights/goldman-sachs-exchanges/how-ai-debt-is-reshaping-the-credit-market">Goldman Sachs</a></p>
+<p>ECB Blog的欧元市场观察也呈现认购覆盖回落、利差上升，但其他发行人的认购仍较强，暂未见所讨论的广泛外溢。相关数据截至8月20日，不能外推至美国或当前时点。<a href="https://www.ecb.europa.eu/press/blog/date/2026/html/ecb.blog20260831~dac6a37e73.en.html">ECB Blog 作者研究</a></p>
+<blockquote>
+<p><strong>两组证据可以同时成立：投资者继续认购，也可能要求发行人提供更高补偿。</strong> 下一步要核对同一笔债券的最终定价、配售和交割，而不是只看订单倍数。</p>
+</blockquote>
+<h3 id="_3">企业样本：资金缺口与融资缓冲并存</h3>
+<p>Oracle 6—8月季度资本开支高于经营现金流，自由现金流为<strong>−53.96亿美元</strong>；同时有<strong>199.09亿美元股权融资净额</strong>，期末现金余额升至<strong>363.69亿美元</strong>。这个样本说明投资存在现金缺口，也有其他融资渠道；不能据此判断整个群体融资不可得。经营现金流含114亿美元客户预付款。<a href="https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm">Oracle / SEC EDGAR</a></p>
+</section><section><h2 id="section-3">3. 还不能判断什么</h2>
+<ul>
+<li><strong>实际新增融资需求有多大？</strong> 总发行没有扣除到期偿还、回购和再融资；一般公司用途也无法准确拆出AI投入。</li>
+<li><strong>融资是否普遍变难或变贵？</strong> 缺少相同期限、币种和评级下的连续成本、最终配售及交割数据。</li>
+<li><strong>是否已与美国政府形成资金挤出？</strong> 本轮没有验证争夺同一资金池的因果关系，也不能由欧元区观察推导美元市场结论。</li>
+</ul>
+</section><section><h2 id="section-4">4. 后续优先观察三件事</h2>
+<ol>
+<li><strong>净供给：</strong> 按公司、币种和期限核对新发行与到期偿还，确认真实新增融资需求。</li>
+<li><strong>承接与成本：</strong> 对同券同时记录新券溢价、最终订单、配售与交割，判断压力是否从定价延伸到融资完成。</li>
+<li><strong>企业现金：</strong> 对照资本开支、经营现金流、现金及授信、未来偿债，核实缺口能否被现有渠道覆盖。</li>
+</ol>
+<p>下列附录保留具体数值、七项缺口、事件与来源，供核对。检索中UBP正文访问失败，相关数字未采用；本轮未取得Amazon英镑债最终交割确认。</p>
+</section><h2 id="appendices">数据与来源附录</h2><section id="section-5"><details class="appendix"><summary>附录 A｜发行数据与口径</summary>
+<p><strong>发行规模扩大，但统计口径尚未统一。</strong> CPRAM在9月23日发布的文章中给出五家公司年内累计约2230亿美元，比2025全年多1170亿美元。2025全年1060亿美元为两数相减所得；这是年内累计与上年全年的规模对照，不能标注为同比。年内统计的精确截止日未披露。<a href="https://cpram.com/lux/en/individual/publications/experts/article/what-impact-is-hyperscaler-bond-issuance-having-on-bond-markets">CPRAM</a></p>
+<div aria-label="精确数据与来源" class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>比较窗口</th>
+<th style="text-align: right;">发行规模（十亿美元）</th>
+<th>数据属性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2025 全年</td>
+<td style="text-align: right;">106</td>
+<td>由223−117推算，CPRAM同篇口径</td>
+</tr>
+<tr>
+<td>2026 年内累计</td>
+<td style="text-align: right;">223</td>
+<td>9月23日文章报告；精确统计截止日未披露</td>
+</tr>
+</tbody>
+</table></div>
+<p>高盛8月3日录制的访谈给出另一口径：2025全球发行1080亿美元，2026当时年内累计1940亿美元。与CPRAM不能拼成一条可比时间序列；也不能将1940亿美元写成已核实的上半年同比数据。<a href="https://www.goldmansachs.com/insights/goldman-sachs-exchanges/how-ai-debt-is-reshaping-the-credit-market">Goldman Sachs</a></p>
+<p><strong>本窗口内能定位到具体新发行文件。</strong> Amazon 9月9日英镑债券定价文件的四档面值合计42.5亿英镑，预计9月14日前后交割；本轮没有取得最终交割确认。用途为一般公司用途，因此没有把整笔金额记成AI专项资金。<a href="https://www.sec.gov/Archives/edgar/data/1018724/000110465926107122/tm2624614-3_424b5.htm">Amazon / SEC EDGAR</a></p>
+<div aria-label="精确数据与来源" class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>到期年份</th>
+<th style="text-align: right;">面值（十亿英镑）</th>
+<th style="text-align: right;">年票息</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2029</td>
+<td style="text-align: right;">1.25</td>
+<td style="text-align: right;">5.200%</td>
+</tr>
+<tr>
+<td>2032</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">5.550%</td>
+</tr>
+<tr>
+<td>2038</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">6.250%</td>
+</tr>
+<tr>
+<td>2045</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">6.650%</td>
+</tr>
+</tbody>
+</table></div>
+<p>四档面值合计4.25十亿英镑；未换算美元、未与机构累计数相加。票息不是包括发行费用、汇率对冲与基准利率影响的全口径成本。</p>
+<p><strong>期限结构需要单独观察。</strong> CPRAM的2026年美元发行统计中，20年以上期限约占41%，美国投资级发行整体为15%。这支持关注长端承接能力；它是样本结构差异，不是“长端需求下降”的直接证据。<a href="https://cpram.com/lux/en/individual/publications/experts/article/what-impact-is-hyperscaler-bond-issuance-having-on-bond-markets">CPRAM</a></p>
+</details></section><section id="section-6"><details class="appendix"><summary>附录 B｜认购、定价与市场范围</summary>
+<p><strong>支持边际定价压力的线索：</strong> 高盛交易台报告，部分大型融资30年档、订单超过5000万美元的保险客户数量，从一季度约15家降至二季度末约一半；此前2—3bp的新券溢价曾在一笔大型交易达到20bp。这些是8月访谈中的历史样本，不代表全市场需求减半或当前平均溢价。<a href="https://www.goldmansachs.com/insights/goldman-sachs-exchanges/how-ai-debt-is-reshaping-the-credit-market">Goldman Sachs</a></p>
+<p><strong>反对“普遍无人承接”的证据：</strong> TwentyFour在9月3日列出的30年档案例仍有多倍认购。较高认购和更高价格补偿可以并存；最终配售、撤单与实际交割仍需核对。<a href="https://blog.twentyfouram.com/insights/how-hyperscaler-issuance-is-reshaping-the-treasury-curve">TwentyFour Asset Management</a></p>
+<div aria-label="精确数据与来源" class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>30年档发行案例</th>
+<th style="text-align: right;">认购覆盖（倍）</th>
+<th>来源时点限制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Amazon</td>
+<td style="text-align: right;">2.5</td>
+<td>7月发行</td>
+</tr>
+<tr>
+<td>Oracle</td>
+<td style="text-align: right;">4.5</td>
+<td>原文未给精确交易日</td>
+</tr>
+<tr>
+<td>Meta</td>
+<td style="text-align: right;">3.6</td>
+<td>原文未给精确交易日</td>
+</tr>
+<tr>
+<td>Alphabet</td>
+<td style="text-align: right;">4.6</td>
+<td>来源称近期交易，精确日未给</td>
+</tr>
+</tbody>
+</table></div>
+<p>文中美国投资级年内整体认购均值为2.98倍，但并非严格匹配这些30年档的同期限基准，仅作为宽口径背景参考，不画入认购图。这四笔不是同期样本，也不能推导承接改善趋势。</p>
+<p><strong>欧元市场呈现“补偿调整、外溢有限”的组合。</strong> ECB Blog作者报告，年中后hyperscaler认购覆盖回落、利差上升，但其他欧元区发行人认购仍较强且变化不大，暂未看到所讨论的广泛外溢。文章发布于8月31日，相关图表观测截至8月20日；这一结论不能外推到美国或9月28日。<a href="https://www.ecb.europa.eu/press/blog/date/2026/html/ecb.blog20260831~dac6a37e73.en.html">ECB Blog 作者研究</a></p>
+</details></section><section id="section-7"><details class="appendix"><summary>附录 C｜Oracle 财务明细</summary>
+<p>Oracle截至8月31日季度，资本开支284.99亿美元高于经营现金流231.03亿美元，自由现金流为−53.96亿美元，上年同期为−3.62亿美元。经营现金流包含114亿美元带重大融资成分的客户预付款。同期ATM股权融资净额199.09亿美元，现金及等价物从312.89亿增至363.69亿美元。<a href="https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm">Oracle / SEC EDGAR</a></p>
+<div aria-label="精确数据与来源" class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th style="text-align: right;">本期（十亿美元）</th>
+<th>对照 / 口径</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>经营现金流</td>
+<td style="text-align: right;">23.103</td>
+<td>2026年6—8月；包含客户预付款</td>
+</tr>
+<tr>
+<td>资本开支</td>
+<td style="text-align: right;">28.499</td>
+<td>同季度现金支出</td>
+</tr>
+<tr>
+<td>自由现金流</td>
+<td style="text-align: right;">-5.396</td>
+<td>23.103−28.499；上年同季度-0.362</td>
+</tr>
+<tr>
+<td>ATM股权融资净额</td>
+<td style="text-align: right;">19.909</td>
+<td>股权，不能算成发债</td>
+</tr>
+<tr>
+<td>现金及现金等价物</td>
+<td style="text-align: right;">36.369</td>
+<td>8月31日余额；5月31日31.289</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>本轮归纳：</strong> 这个样本支持现金投资需求扩大，也说明可通过债券之外的渠道筹资。现金流量、融资流量和期末现金存量不能简单相加；负自由现金流不等于现金耗尽，亦不能由一家企业概括整个AI融资群体。</p>
+</details></section><section id="section-8"><details class="appendix"><summary>附录 D｜完整证据缺口</summary>
+<div aria-label="精确数据与来源" class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>待核问题</th>
+<th>为什么仍有缺口</th>
+<th>下一步</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>总发行与净融资</td>
+<td>未取得统一逐券清单、净发行及当期精确截止日；CPRAM隐含2025年1060亿美元与高盛1080亿美元存在口径差异。</td>
+<td>按发行人、币种、日期、到期与回购核对，避免不同统计拼接。</td>
+</tr>
+<tr>
+<td>期限与净久期</td>
+<td>缺少同样本净久期供给，发行面值和长端占比不能直接反映新增久期风险。</td>
+<td>获取偿还和存量久期，分币种计算净供给。</td>
+</tr>
+<tr>
+<td>认购与完成情况</td>
+<td>主要是机构交易台或基金经理的订单案例，缺同券订单簿、配售与发行完成序列；Amazon英镑定价的最终交割未独立确认。</td>
+<td>优先核实发行完成、最终定价与可比认购，且分别分析美元和欧元。</td>
+</tr>
+<tr>
+<td>信用补偿与总成本</td>
+<td>缺同券连续利差、无风险基准及费用/对冲成本；没有9月28日实时价格。</td>
+<td>建立相同评级、期限和币种的比较，避免以票息代替总融资成本。</td>
+</tr>
+<tr>
+<td>企业资金缺口</td>
+<td>只核对Oracle季度现金流，且经营现金流含客户预付款；不能概括整个群体。</td>
+<td>补齐五家公司同期间财务与预付款、租赁、资本开支及债务期限表。</td>
+</tr>
+<tr>
+<td>融资渠道与用途</td>
+<td>一般公司用途不能拆出精确AI支出比例，多币种债务未统一换算。</td>
+<td>核对资金用途与套保；债券、股权及项目融资分别列示。</td>
+</tr>
+<tr>
+<td>现金与偿债缓冲</td>
+<td>有现金余额不等于所有未来义务均已覆盖，缺本次完整偿债期限与授信评估。</td>
+<td>结合非受限现金、承诺授信和未来付款义务继续核验。</td>
+</tr>
+</tbody>
+</table></div>
+<p>优先级最高的是<strong>统一逐券净发行口径、同券新券溢价/认购/完成情况、同主体资金缺口与缓冲</strong>。不能把总发行金额与美国国债供给简单相加，就认定争夺同一资金池。本轮没有验证政府融资竞争的因果效应。</p>
+</details></section><section id="section-9"><details class="appendix"><summary>附录 E｜12项事件记录</summary>
+<p>本轮提取12项来源事件、6项事实信号、12条证据映射、4条发现及7项缺口。事件是原始披露或机构“报告了某观察”，机构统计没有被冒充为逐券复算。两个来源的不同数字保留并说明口径，未用于计算虚假的连续趋势。</p>
+<div aria-label="精确数据与来源" class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>事件</th>
+<th>日期</th>
+<th>观察</th>
+<th>时间与证据限制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E1</td>
+<td>2026-09-23</td>
+<td>CPRAM报告2026年至今发债约2230亿美元，较2025全年多1170亿美元。</td>
+<td>观察是机构统计，不是逐券复算；年内累计的精确截止日未披露。2025全年1060亿美元由2230−1170推算；不是同期间同比。</td>
+</tr>
+<tr>
+<td>E2</td>
+<td>2026-09-23</td>
+<td>CPRAM报告2026年其美元债发行约41%集中在20年以上期限，而美国投资级发行整体为15%。</td>
+<td>同篇文章的期限分布观察；不同样本的结构比较，不是同一主体历史增速。</td>
+</tr>
+<tr>
+<td>E3</td>
+<td>2026-09-09</td>
+<td>四档债券面值合计42.5亿英镑，票息5.200%—6.650%，到期年份2029、2032、2038、2045。</td>
+<td>计划9月14日前后交割；本轮未取得最终交割确认。一般公司用途，不等于AI专项；票息不等于含费用和对冲的全口径成本。</td>
+</tr>
+<tr>
+<td>E4</td>
+<td>2026-08-03</td>
+<td>高盛访谈报告2025全球发债1080亿美元、2026录制时年内累计1940亿美元。</td>
+<td>窗口外背景：8月3日录制、8月5日发布。原文是年内累计而非明确上半年；不计算上半年同比，不与CPRAM不同口径金额拼接。</td>
+</tr>
+<tr>
+<td>E5</td>
+<td>2026-08-03</td>
+<td>30年档、订单超过5000万美元的保险客户，从一季度约15家到二季度末约为一半。</td>
+<td>窗口外历史观察；属于交易台特定样本，不能解读为全市场需求金额减半或发行失败。</td>
+</tr>
+<tr>
+<td>E6</td>
+<td>2026-08-03</td>
+<td>此前约2—3bp的新券溢价，在一笔大型交易达到20bp。</td>
+<td>窗口外历史观察；未披露交易身份及精确日期，单笔极值不是行业平均，不能当当前新券定价。</td>
+</tr>
+<tr>
+<td>E7</td>
+<td>2026-09-03</td>
+<td>四个案例认购倍数分别为2.5、4.5、3.6、4.6倍；文中美国投资级年内整体参考均值为2.98倍。</td>
+<td>Amazon为7月发行；其余交易日期未完整披露。认购不等于最终交割或低成本融资；2.98倍不是严格匹配30年期对照。</td>
+</tr>
+<tr>
+<td>E8</td>
+<td>2026-08-31</td>
+<td>ECB Blog报告年中后认购覆盖率回落、信用利差上升。</td>
+<td>文章发布于本次窗口内，但图表最新观测为8月20日。没有取得日序列，不把作者机制解释当作已识别的因果效应。</td>
+</tr>
+<tr>
+<td>E9</td>
+<td>2026-08-31</td>
+<td>同篇研究认为欧元区其他发行人认购仍较强且变化不大，暂未看到所讨论的广泛融资外溢。</td>
+<td>反证适用欧元区及来源观测窗口，不等于美国不存在挤出，也不证明未来不会出现。</td>
+</tr>
+<tr>
+<td>E10</td>
+<td>2026-08-31</td>
+<td>截至8月31日季度经营现金流231.03亿美元、资本开支284.99亿美元，自由现金流−53.96亿美元；上年同期为−3.62亿美元。</td>
+<td>原始单位百万美元。经营现金流包括114亿美元带重大融资成分的客户预付款；缺口反映现金投资需求，不等同违约或融资不可得。</td>
+</tr>
+<tr>
+<td>E11</td>
+<td>2026-08-31</td>
+<td>本季度ATM普通股发行净筹资199.09亿美元。</td>
+<td>统计期6—8月；这是股权融资，不能计入债券发行；说明融资渠道不止债券。</td>
+</tr>
+<tr>
+<td>E12</td>
+<td>2026-08-31</td>
+<td>现金及现金等价物从5月31日312.89亿美元增至8月31日363.69亿美元。</td>
+<td>余额不是自由现金流，受经营、股权融资及其他收支共同影响；不能仅从投资缺口推出现金耗尽。</td>
+</tr>
+</tbody>
+</table></div>
+</details></section><section id="section-10"><details class="appendix"><summary>附录 F｜来源与检索记录</summary>
+<ul>
+<li><a href="https://cpram.com/lux/en/individual/publications/experts/article/what-impact-is-hyperscaler-bond-issuance-having-on-bond-markets">CPRAM</a>：机构原始研究；未取得逐券底表；发布 2026-09-23；<a href="../../webpages/2026-09-28-ai-debt-theme/cpr-source-data.json">来源数据摘录</a>。</li>
+<li><a href="https://www.goldmansachs.com/insights/goldman-sachs-exchanges/how-ai-debt-is-reshaping-the-credit-market">Goldman Sachs</a>：机构访谈原始转录；录制于2026-08-03；发布 2026-08-05；<a href="../../webpages/2026-09-28-ai-debt-theme/gs-source-data.json">来源数据摘录</a>。</li>
+<li><a href="https://blog.twentyfouram.com/insights/how-hyperscaler-issuance-is-reshaping-the-treasury-curve">TwentyFour Asset Management</a>：基金经理原始评论；底层订单簿未公开；发布 2026-09-03；<a href="../../webpages/2026-09-28-ai-debt-theme/tf-source-data.json">来源数据摘录</a>。</li>
+<li><a href="https://www.sec.gov/Archives/edgar/data/1018724/000110465926107122/tm2624614-3_424b5.htm">Amazon / SEC EDGAR</a>：发行人监管披露；定价文件；发布 2026-09-09；<a href="../../webpages/2026-09-28-ai-debt-theme/amzn-source-data.json">来源数据摘录</a>。</li>
+<li><a href="https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm">Oracle / SEC EDGAR</a>：发行人季度监管披露；未经审计；发布 2026-09-11；<a href="../../webpages/2026-09-28-ai-debt-theme/orcl-source-data.json">来源数据摘录</a>。</li>
+<li><a href="https://www.ecb.europa.eu/press/blog/date/2026/html/ecb.blog20260831~dac6a37e73.en.html">ECB Blog 作者研究</a>：央行研究人员文章；不必然代表ECB正式立场；发布 2026-08-31；<a href="../../webpages/2026-09-28-ai-debt-theme/ecb-source-data.json">来源数据摘录</a>。</li>
+</ul>
+<p>来源副本保存的是本次读取的数据摘录与短原文，不冒充完整网页。相同来源的多个事件不当作独立多源验证。</p>
+<p>UBP正文回读超时、后续仍报内部错误，未采用搜索摘要中的数字。Amazon相关8-K核对后为董事任命，已排除；没有据此确认债券交割。无结果或访问失败都不等于相关事件不存在。</p>
+<ul>
+<li><a href="../../../workbench/targets/AI%E5%8F%91%E5%80%BA%E6%89%A9%E5%BC%A0-%E4%B8%BB%E9%A2%98%E4%BF%A1%E6%81%AF%E5%A4%84%E7%90%86.json">完整ThemeProcessingResult与检索记录</a></li>
+<li><a href="AI发债扩张-主题信息处理.html">HTML阅读版</a></li>
+</ul>
+</details></section><section id="section-11"><details class="appendix"><summary>附录 G｜验证记录</summary>
+<p>结构化结果通过theme Schema、引用、计数及变量覆盖校验。阅读版保留原有六张明细表的133个单元格与六个来源链接；两张图使用同一组数据生成桌面、窄屏SVG及精确值表。HTML结构、链接与中文编码检查通过。浏览器连接失败，本次未完成桌面/窄屏视觉验收。此次仅重排阅读结构，未更新研究数据或现有风险模型。</p></details></section></main></body></html>

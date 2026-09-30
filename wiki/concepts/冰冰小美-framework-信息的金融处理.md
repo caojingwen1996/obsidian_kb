@@ -77,7 +77,7 @@ Nota AI刚刚宣布在英特尔Arc Pro B70上推出集成NVA解决方案，进�
 | **专题源：按研究需要建档** | 公司公告与投资者关系栏目、行业协会、产业统计机构、相关主管部门 | 与正在跟踪的产业、企业或风险直接相关，能提供连续数据或执行证据           |
 | **观察源：试用建档**    | 研究机构、专业媒体、专家和分析者                | 能持续提供独特线索，引用可追溯，观点可以事后验证；需要记录立场、利益关系和纠错情况 |
 
-预设观测对象：
+
 
 2.自下而上
 
@@ -85,7 +85,9 @@ Nota AI刚刚宣布在英特尔Arc Pro B70上推出集成NVA解决方案，进�
 
 
 
-
+3.monitor：
+适用于已经建立固定观察体系，需要周期性扫描预设信息源的场景。
+该模式主要回答：预设观察对象在当前扫描周期内出现了哪些新的 Event？
 
 
 
@@ -105,16 +107,66 @@ Signal = 变量变化
 Cluster = 多个信号开始聚合
 Theme = 多个 Cluster 共同指向什么持续性的核心问题
 
+```
+┌────────────────────────────────────────────┐
+│ L0 · Source / Runtime State                │
+│                                            │
+│ Sources                                    │
+│ Receipts → ReceiptAttempts                 │
+└────────────────────┬───────────────────────┘
+                     │
+                     ▼
+┌────────────────────────────────────────────┐
+│ L1 · Evidence                              │
+│                                            │
+│ Articles                                   │
+│ ├── ArticleRevisions                       │
+│ └── ArticleDiscoveries                     │
+└────────────────────┬───────────────────────┘
+                     │
+                     ▼
+┌────────────────────────────────────────────┐
+│ L2 · Interpretation                        │
+│                                            │
+│ Analyses                                   │
+│ GroupingDecisions                          │
+└────────────────────┬───────────────────────┘
+                     │
+                     ▼
+┌────────────────────────────────────────────┐
+│ L3 · Persistent Knowledge                  │
+│                                            │
+│ Stories                                    │
+│   └── Facts                                │
+│       └── FactArticles                     │
+│                                            │
+│ StorySignals                               │
+│ StoryLinks                                 │
+└────────────────────┬───────────────────────┘
+                     │
+                     ▼
+┌────────────────────────────────────────────┐
+│ L4 · Serving Projection                    │
+│                                            │
+│ Publications                               │
+│ ├── PoolSearch                             │
+│ ├── SelectedState                          │
+│ └── SelectedLedger                         │
+└────────────────────────────────────────────┘
 
+
+       Embeddings
+           ↑
+     Derived Cache
+```
 
 
 
 ### 输入
 
 我要观察什么？
-- feed模式: 用户给信息
-- monitor模式：根据预设观测对象 获取这些预设观测对象当天新增的信息
-- target模式：输入具体标的，获取具体标的的相关信息
+- feed模式: 自下而上的分析信息
+- theme模式：输入具体标的，获取具体标的的相关信息
 
 
 
@@ -174,29 +226,9 @@ reason = "证据仍不足"
 
 > **今天真正值得记住的是什么？**
 
-建议每条 Finding 长这样：
 
-```
-Core Finding #1
 
-结论：
-能源价格压力出现明显缓解。
 
-依据：
-- Cluster A：原油价格连续回落
-- Cluster B：通胀预期同步下降
-- Cluster C：长端利率回落
-
-对应 Theme：
-宏观定价压力是否正在缓解？
-
-状态：
-Theme strengthening / forming
-
-后续观察：
-油价回落是否持续；
-10Y 是否继续确认。
-```
 
 
 
@@ -204,7 +236,7 @@ Theme strengthening / forming
 ### 步骤
 
 
-1.信息拆解为Event
+Step1.信息拆解为Event
 
 Event：在特定时间或时间区间内，某个主体发生、执行、发布或出现的一项可独立记录的信息变化。
 标准化原始信息：统一时间 统一主体名称，去除噪音，保留来源
@@ -255,7 +287,7 @@ Event Analysis：
 如果存在可识别的变化（预期差）则进入下一步。
 
 
-2.提取真正发生变化的核心变量：Signal 
+Step2.提取真正发生变化的核心变量：Signal 
 
 目的：把“发生了什么”转换成“哪个变量发生了什么方向、什么强度、什么性质的变化”。
 
@@ -287,11 +319,12 @@ Signal 可以有两类来源：
 |AI CapEx 需求|↑|moderate|reconfirmation|repeated|industry|
 |长期利率|↓|moderate|reversal|short-lived|market|
 
-3.判断多个 Signal能否归纳为cluster
+==Step3.判断多个 Signal能否归纳为cluster==（涉及到查询）
 
 目的：这一段时间里，到底发生了什么？市场是怎么重新定价的？
 
-cluster定义：一组相互关联的 Event / Signal，围绕同一件事情或同一段演化过程形成的事件集合。
+Cluster定义：一组相互关联的 Event / Signal，围绕同一件事情或同一段演化过程形成的事件集合。
+
 可以观察Event或Signal有没有连续性。（也就是冰冰小美语境下的时间窗口）
 
 
@@ -306,6 +339,25 @@ cluster定义：一组相互关联的 Event / Signal，围绕同一件事情或�
 | **Same Time Window**  | 是否在同一观察窗口内连续出现？ | 过去3天多个AI需求信号       |
 | **Transmission Link** | 是否位于同一条传导链？     | 油价↑ → 通胀预期↑ → 10Y↑ |
 
+```
+Fact Candidate
+     ↓
+① 代码召回候选 Fact
+     ↓
+Embedding 相似度
+最近 14 天
+cosine >= 0.6
+Top 10
+     ↓
+② LLM 判断关系
+     ↓
+根据关系维度表判断
+     ↓
+③ 代码根据结果执行
+```
+
+
+
 cluster的timeline:提取每个 Event / Signal 的时间 ,统一时间格式, 按时间排序.
 
 Cluster 最终可以有两种表现形式：
@@ -318,7 +370,10 @@ Cluster 最终可以有两种表现形式：
 
 
 
-4.判断多个 Cluster 是否共同指向同一个核心问题
+
+
+
+==4.判断多个 Cluster 是否共同指向同一个核心问题==
 
 目的：这些事情共同在回答什么“核心问题”
 
@@ -391,13 +446,11 @@ feed：
 适用于已经存在一份或多份待处理材料的场景。
 该模式主要回答：从已有材料中，可以提取哪些与当前观察目标相关的 Event？
 
-monitor：
-适用于已经建立固定观察体系，需要周期性扫描预设信息源的场景。
-该模式主要回答：预设观察对象在当前扫描周期内出现了哪些新的 Event？
 
-target：
+
+theme：
 适用于给定一个具体对象，围绕该对象动态获取相关信息的场景。
-该模式主要回答：与指定 Target 相关的新增 Event 有哪些？
+该模式主要回答：与指定 Theme 相关的新增 Event 有哪些？ 
 
 
 ```
@@ -415,22 +468,9 @@ schemas/information-processing-result.schema.json定义。
 
 结果中可以包含结构化的 `Event`、`Signal`、`Cluster` 和 `Theme` 对象，具体结构由 `schemas/` 目录下对应的 Schema 定义。
 
-对于 `feed` 模式，面向用户的回答应基于标准输出进一步整理为：
-1. 总结
-   - 今日新增 Signal
-   - 正在形成的 Theme
-   - 获得新证据的已有 Theme
-   - 孤立 Signal
-   - 暂不足以形成 Theme 的信息
-   - 建议移交 Risk Identification 的对象
-
-2. Core Findings
-   - 本轮最值得保留的信息结论
 
 
-`InformationProcessingResult` 是标准结构化输出。
-
-面向用户的总结回答是基于标准输出生成的展示结果。
+面向用户的总结回答是基于标准输出生成的展示结果：生成事件影响评估卡。
 
 风险判断、投资判断和交易结论不属于本 Skill 的职责范围。
 
@@ -493,6 +533,9 @@ schemas/information-processing-result.schema.json定义。
 
 工作流程
 
+
+
+
 ```
 ## 工作模式
 
@@ -534,6 +577,7 @@ theme-synthesis.md
 ### workflow
 
 feed_workflow.md
+
 
 
 

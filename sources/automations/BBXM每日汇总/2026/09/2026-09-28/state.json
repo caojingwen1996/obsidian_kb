@@ -1,0 +1,62 @@
+{
+  "account": "冰冰小美",
+  "account_url": "https://xueqiu.com/u/7143769715",
+  "task_date": "20260928",
+  "start_time": "2026-09-28 16:05:10",
+  "end_time": "2026-09-28 16:05:10",
+  "scan_round": 1,
+  "success_count": 3,
+  "failure_count": 0,
+  "log_file": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-28\\task.log",
+  "result_dir": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-28",
+  "state_file": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-28\\state.json",
+  "processed_items": {
+    "410733603": {
+      "source_id": "410733603",
+      "title": "很多时候，对比账户结果，不公平性的收益率，就这样发生了。交易的公平性是双向多空。而A股，只能单边上涨盈利，天生输一半。所... - 雪球",
+      "published_at": "2026-09-28 11:10:00",
+      "url": "https://www.xueqiu.com/7143769715/410733603",
+      "platform": "xueqiu",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-28\\111000_很多时候_对比账户结果_不公平性的收益率_就这样发生了_交易的公平性是双向多空_而A股_只能单边_41073360.md",
+      "saved_at": "2026-09-28 16:05:10"
+    },
+    "410725563": {
+      "source_id": "410725563",
+      "title": "如果，你3750听了小美的话，10月后再来交易，这一个半月就没有那么痛苦。如果你深谙投机本质是做空，那么空头趋势下，趋利... - 雪球",
+      "published_at": "2026-09-28 10:44:00",
+      "url": "https://www.xueqiu.com/7143769715/410725563",
+      "platform": "xueqiu",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-28\\104400_如果_你3750听了小美的话_10月后再来交易_这一个半月就没有那么痛苦_如果你深谙投机本质是做_41072556.md",
+      "saved_at": "2026-09-28 16:05:10"
+    },
+    "410722729": {
+      "source_id": "410722729",
+      "title": "我的账户里有两只股票，一只是绿的，另一只也是绿的。窗外是秋天的夜，屏幕上跳动的数字，红的很少，绿的很多。我向来是不惮以最... - 雪球",
+      "published_at": "2026-09-28 10:37:00",
+      "url": "https://www.xueqiu.com/7143769715/410722729",
+      "platform": "xueqiu",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-28\\103700_我的账户里有两只股票_一只是绿的_另一只也是绿的_窗外是秋天的夜_屏幕上跳动的数字_红的很少_绿_41072272.md",
+      "saved_at": "2026-09-28 16:05:10"
+    }
+  },
+  "events": [
+    {
+      "type": "item_saved",
+      "time": "2026-09-28 16:05:10",
+      "item_key": "410733603",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-28\\111000_很多时候_对比账户结果_不公平性的收益率_就这样发生了_交易的公平性是双向多空_而A股_只能单边_41073360.md"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-09-28 16:05:10",
+      "item_key": "410725563",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-28\\104400_如果_你3750听了小美的话_10月后再来交易_这一个半月就没有那么痛苦_如果你深谙投机本质是做_41072556.md"
+    },
+    {
+      "type": "item_saved",
+      "time": "2026-09-28 16:05:10",
+      "item_key": "410722729",
+      "file_path": "E:\\caojingwen\\obsidian\\llmwiki\\sources\\automations\\BBXM每日汇总\\2026\\09\\2026-09-28\\103700_我的账户里有两只股票_一只是绿的_另一只也是绿的_窗外是秋天的夜_屏幕上跳动的数字_红的很少_绿_41072272.md"
+    }
+  ]
+}

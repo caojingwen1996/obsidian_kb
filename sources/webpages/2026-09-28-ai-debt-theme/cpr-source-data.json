@@ -1,0 +1,25 @@
+{
+  "title": "CPRAM：What impact is hyperscaler bond issuance having on bond markets?",
+  "url": "https://cpram.com/lux/en/individual/publications/experts/article/what-impact-is-hyperscaler-bond-issuance-having-on-bond-markets",
+  "publisher": "CPRAM",
+  "published": "2026-09-23",
+  "type": "机构原始研究；未取得逐券底表",
+  "quote": "Since the start of 2026, they have issued around $223bn in bonds, or $117bn more than in full-year 2025.",
+  "data": {
+    "sample": [
+      "Alphabet",
+      "Amazon",
+      "Meta",
+      "Microsoft",
+      "Oracle"
+    ],
+    "2026_ytd_bond_issuance_usd_bn": 223,
+    "excess_over_full_2025_usd_bn": 117,
+    "2026_ytd_exact_cutoff": null,
+    "20plus_year_share_hyperscalers_pct": 41,
+    "20plus_year_share_us_ig_pct": 15
+  },
+  "locator": "A spectacular surge in bond issuance；文章发布日期不是明确的发行统计截止日。",
+  "retrieved_at": "2026-09-28T10:21:20Z",
+  "local_path": "sources/webpages/2026-09-28-ai-debt-theme/cpr-source-data.json"
+}

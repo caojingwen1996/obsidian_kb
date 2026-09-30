@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><title>AI融资需求与债券市场吸收能力错配｜候选风险模型</title><style>:root{color-scheme:light;--bg:#f5f7fa;--paper:#fff;--ink:#172b3a;--muted:#586b79;--line:#dbe3e9;--accent:#245c85;--up:#c83c3c;--down:#16815c}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 system-ui,"Microsoft YaHei",sans-serif}main{max-width:1180px;margin:auto;padding:36px 28px 64px}header,section{margin-bottom:24px}h1{font-size:30px;line-height:1.35;margin:0 0 12px}h2{font-size:23px;border-bottom:1px solid var(--line);padding-bottom:8px;margin-top:32px}h3{font-size:18px}a{color:var(--accent);text-underline-offset:3px}.meta,.source{color:var(--muted);font-size:14px}.summary,.note{background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:6px;padding:16px 20px}.note.warning{border-left-color:#a56c14;background:#fff9ed}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}.card{padding:16px;background:var(--paper);border:1px solid var(--line);border-radius:6px}.table-scroll{overflow-x:auto;background:var(--paper)}table{width:100%;border-collapse:collapse;font-size:14px}th,td{border-bottom:1px solid var(--line);padding:11px 14px;text-align:left;vertical-align:top}th{background:#eef3f7;font-weight:600}.number{text-align:right;font-variant-numeric:tabular-nums}.up{color:var(--up)}.down{color:var(--down)}.status{display:inline-block;padding:2px 9px;border-radius:4px;background:#edf2f6;color:#3a5265}.status.warning{background:#fff0d5;color:#80520b}.chart{height:360px;min-width:0;width:100%}.toolbar{display:flex;gap:8px;margin:12px 0}button{font:inherit;padding:6px 12px;border:1px solid var(--line);border-radius:4px;background:#fff;color:var(--ink);cursor:pointer}button[aria-pressed=true]{background:var(--accent);color:#fff}button:focus-visible,a:focus-visible{outline:3px solid #6a9ab9;outline-offset:3px}pre{overflow-x:auto;padding:16px;background:#eef3f7}svg{max-width:100%;height:auto}[hidden]{display:none!important}
+@media(max-width:640px){main{padding:20px 14px 40px}h1{font-size:24px}h2{font-size:20px}th,td{padding:8px 10px}.chart{height:300px}}
+@media print{body{background:#fff}main{max-width:none;padding:0}.toolbar,nav{display:none}.table-scroll{overflow:visible}.data-table[hidden]{display:block!important}.chart{display:none}thead{display:table-header-group}tr,.note,.summary{break-inside:avoid}a{color:inherit}h2{break-after:avoid}}
+
+body{overflow-wrap:anywhere}main{max-width:1180px}nav{display:flex;flex-wrap:wrap;gap:8px 18px;padding:14px 0;border-block:1px solid var(--line)}nav a{font-size:14px}table{min-width:830px}h2,h3{scroll-margin-top:20px}blockquote{margin:16px 0;background:#fff9ed;border-left:4px solid #b08032;padding:12px 18px}.flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:20px 0}.flow div{border:1px solid var(--line);background:#fff;padding:12px;font-size:14px}.flow small{display:block;color:var(--muted)}@media(max-width:640px){.flow{grid-template-columns:1fr}table{min-width:790px}}
+
+.risk-visual{margin:24px 0 30px;background:#fff;border:1px solid #dbe3e9;border-radius:8px;padding:18px 16px 8px;break-inside:avoid}
+.risk-visual figcaption{display:flex;flex-direction:column;gap:5px;margin:0 4px 12px}.risk-visual figcaption strong{font-size:19px;color:#245c85}.risk-visual figcaption span{font-size:13px;color:#586b79}
+.visual-scroll{overflow-x:auto;max-width:100%}.risk-visual svg{display:block;width:100%;min-width:860px;height:auto;font-family:system-ui,"Microsoft YaHei",sans-serif}
+@media(max-width:640px){.risk-visual{padding:12px 8px}.risk-visual figcaption strong{font-size:17px}}
+@media print{.risk-visual{padding:8px;break-inside:avoid}.risk-visual svg{min-width:0}.visual-scroll{overflow:visible}}
+
+.transmission{padding:22px!important}.chain-diagram{max-width:920px;margin:20px auto}.chain-node{max-width:560px;margin:0 auto;padding:14px 20px;border:1px solid #c7d3df;border-radius:8px;background:#f6f8fa;position:relative;z-index:1}.chain-node strong,.chain-node span{display:block}.chain-node strong{font-size:17px}.chain-node span{font-size:13px;color:#586b79;margin-top:3px}.chain-node.observed{background:#edf5fb;border-color:#7fa8c6}.chain-edge{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:22px;padding:12px 0 20px 42px;margin-left:calc(50% - 260px);min-height:95px}.chain-arrow{position:absolute;left:14px;top:0;bottom:0;border-left:2px dashed #a8792c}.chain-arrow:after{content:"";position:absolute;bottom:0;left:-6px;border-left:5px solid transparent;border-right:5px solid transparent;border-top:8px solid #a8792c}.chain-edge p,.chain-edge aside{font-size:13px;line-height:1.6;margin:0;padding:5px 8px}.chain-edge b{display:block;font-size:12px;color:#80520b}.chain-edge aside{background:#f0f7f3;border-left:2px solid #6e9b84;border-radius:3px}.chain-edge aside b{color:#365f4a}.chain-branch{max-width:560px;margin:0 auto 14px;padding:10px 16px;border:1px dashed #a8792c;border-radius:6px;background:#fff9ed;font-size:13px}.chain-branch strong,.chain-branch span{display:block}.chain-branch span{margin-top:4px;color:#586b79}@media(max-width:760px){.transmission{padding:12px!important}.chain-edge{margin-left:0;grid-template-columns:1fr;padding-left:28px;gap:4px}.chain-arrow{left:10px}.chain-node strong{font-size:16px}.chain-node{padding:12px}.chain-branch{margin-top:4px}.chain-edge aside{font-size:12px}}@media print{.transmission{break-inside:auto}.chain-node,.chain-edge,.chain-branch{break-inside:avoid}}
+
+.chain-node .chain-branch{margin:12px 0 0;padding:9px 12px}.chain-node .chain-branch strong{font-size:13px}.chain-node .chain-branch span{font-size:12px}
+</style></head><body><main><header><p class="meta">风险识别 · AI 企业与债券市场</p><h1 id="ai">风险模型：AI融资需求与债券市场吸收能力错配</h1></header><nav aria-label="报告目录"><a href="#_1">识别结论</a><a href="#_2">风险分析</a><a href="#_3">验证重点与模型边界</a><a href="#_5">附录：身份与依据</a><a href="#_7">附录：关键变量与模型基准</a><a href="#_10">附录：模型交接</a><a href="#_11">附录：方法与交付验证</a><a href="#transmission-evidence">附录：传导证据</a></nav>
+<h2 id="_1">识别结论</h2>
+<blockquote>
+<p><strong>当前关注的是：AI 企业融资需求增加后，债券市场能否充分承接。重点看新券溢价、认购与发行完成情况，再判断融资压力是否传导到企业现金流。目前尚未确认承接不足或实际融资损害。</strong></p>
+</blockquote>
+<p class="source"><em>资料说明：主要依据<a href="https://www.goldmansachs.com/insights/goldman-sachs-exchanges/how-ai-debt-is-reshaping-the-credit-market">高盛信用市场访谈</a>（2026-08-03录制、08-05发布）；发行统计窗口仍有缺口，结论为候选判断，不代表9月28日实时状况。</em></p>
+<h2 id="_2">风险分析</h2>
+<h3 id="1">1. 风险类型：谁面临什么损害？</h3>
+<p>主类别为<strong>估值风险中的信用补偿重定价</strong>。融资流动性、现金流与偿债损害是待验证延伸，不能当作已经发生的独立风险。分类参照<a href="../../../../../wiki/concepts/%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-indacator-%E9%A3%8E%E9%99%A9%E7%B1%BB%E5%9E%8B.md">项目风险类型</a>；“融资需求与吸收错配”是本次候选机制归纳，不是作者固定分类。</p>
+<ul>
+<li><strong>发行人：</strong> 需要滚动融资、现金缓冲不足的主体，可能更容易受到融资成本提高或融资规模受限的影响。是否存在这种暴露，须由财报、现金和到期债务证据确认。</li>
+<li><strong>债券持有者：</strong> 长久期、集中持有相关债券者可能承受定价暴露；现有证据没有确认同券价格损失，也没有确认杠杆清算风险（相关价格与持仓证据仍缺失）。</li>
+</ul>
+<p>这些是暴露筛选条件，不代表所有 AI 企业或所有债券持有者面临相同风险。利差变化、再融资约束与经营压力属于同一候选路径的不同环节，不另列为独立风险。</p>
+<h3 id="2">2. 风险表现：现在实际观察到了什么？</h3><figure class="risk-visual" id="evidence-map"><figcaption><strong>图 3 · 证据覆盖：哪些有线索，哪些尚未成立</strong><span>来源：高盛访谈与用户提供材料；统计口径及缺失数据详见附录。</span></figcaption><div aria-label="图 3 · 证据覆盖：哪些有线索，哪些尚未成立，窄屏可横向滚动" class="visual-scroll" role="region" tabindex="0"><svg aria-labelledby="evidence-map-title evidence-map-desc" role="img" viewbox="0 0 1100 470" xmlns="http://www.w3.org/2000/svg"><title id="evidence-map-title">图 3 · 证据覆盖：哪些有线索，哪些尚未成立</title><desc id="evidence-map-desc">来源：高盛访谈与用户提供材料；统计口径及缺失数据详见附录。</desc><defs><marker id="evidence-map-arrow" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8394a1"></path></marker></defs><text fill="#3978a2" font-size="15" font-weight="600" text-anchor="middle" x="390" y="40">有来源线索</text><text fill="#a8792c" font-size="15" font-weight="600" text-anchor="middle" x="660" y="40">关键证据待补</text><text fill="#172b3a" font-size="15" font-weight="600" text-anchor="middle" x="930" y="40">当前可以说到哪里</text><rect fill="#f0f4f7" height="56" rx="5" width="1050" x="25" y="60"></rect><text fill="#172b3a" font-size="16" font-weight="600" text-anchor="start" x="45" y="90">AI 发债扩张</text><circle cx="315" cy="85" fill="#3978a2" r="7" stroke="#8394a1"></circle><text fill="#3978a2" font-size="14" font-weight="400" text-anchor="middle" x="400" y="90">高盛发行统计</text><path d="M 535 77 l 8 8 l -8 8 l -8 -8 z" fill="#fff0d5" stroke="#a8792c"></path><text fill="#80520b" font-size="14" font-weight="400" text-anchor="middle" x="670" y="90">净发行与样本口径</text><text fill="#172b3a" font-size="14" font-weight="400" text-anchor="middle" x="930" y="90">有背景线索</text><rect fill="#ffffff" height="56" rx="5" width="1050" x="25" y="126"></rect><text fill="#172b3a" font-size="16" font-weight="600" text-anchor="start" x="45" y="156">债市承接约束</text><circle cx="315" cy="151" fill="#fff" r="7" stroke="#8394a1"></circle><text fill="#8394a1" font-size="14" font-weight="400" text-anchor="middle" x="400" y="156">—</text><path d="M 535 143 l 8 8 l -8 8 l -8 -8 z" fill="#fff0d5" stroke="#a8792c"></path><text fill="#80520b" font-size="14" font-weight="400" text-anchor="middle" x="670" y="156">认购、溢价、完成情况</text><text fill="#172b3a" font-size="14" font-weight="400" text-anchor="middle" x="930" y="156">机制未确认</text><rect fill="#f0f4f7" height="56" rx="5" width="1050" x="25" y="192"></rect><text fill="#172b3a" font-size="16" font-weight="600" text-anchor="start" x="45" y="222">信用补偿变化</text><circle cx="315" cy="217" fill="#3978a2" r="7" stroke="#8394a1"></circle><text fill="#3978a2" font-size="14" font-weight="400" text-anchor="middle" x="400" y="222">高盛利差观察</text><path d="M 535 209 l 8 8 l -8 8 l -8 -8 z" fill="#fff0d5" stroke="#a8792c"></path><text fill="#80520b" font-size="14" font-weight="400" text-anchor="middle" x="670" y="222">同券序列、全口径成本</text><text fill="#172b3a" font-size="14" font-weight="400" text-anchor="middle" x="930" y="222">局部定价线索</text><rect fill="#ffffff" height="56" rx="5" width="1050" x="25" y="258"></rect><text fill="#172b3a" font-size="16" font-weight="600" text-anchor="start" x="45" y="288">政府融资竞争</text><circle cx="315" cy="283" fill="#fff" r="7" stroke="#8394a1"></circle><text fill="#8394a1" font-size="14" font-weight="400" text-anchor="middle" x="400" y="288">—</text><path d="M 535 275 l 8 8 l -8 8 l -8 -8 z" fill="#fff0d5" stroke="#a8792c"></path><text fill="#80520b" font-size="14" font-weight="400" text-anchor="middle" x="670" y="288">底表、窗口、共同投资者</text><text fill="#172b3a" font-size="14" font-weight="400" text-anchor="middle" x="930" y="288">候选放大支线</text><rect fill="#f0f4f7" height="56" rx="5" width="1050" x="25" y="324"></rect><text fill="#172b3a" font-size="16" font-weight="600" text-anchor="start" x="45" y="354">企业现金流损害</text><circle cx="315" cy="349" fill="#fff" r="7" stroke="#8394a1"></circle><text fill="#8394a1" font-size="14" font-weight="400" text-anchor="middle" x="400" y="354">—</text><path d="M 535 341 l 8 8 l -8 8 l -8 -8 z" fill="#fff0d5" stroke="#a8792c"></path><text fill="#80520b" font-size="14" font-weight="400" text-anchor="middle" x="670" y="354">现金流、授信、到期债务</text><text fill="#172b3a" font-size="14" font-weight="400" text-anchor="middle" x="930" y="354">实际损害未确认</text><text fill="#586b79" font-size="13" font-weight="400" text-anchor="start" x="30" y="445">● 有来源报告的线索　○ 未有足够线索　◇ 待补证据；不代表评分、置信度或独立多源验证。</text></svg></div></figure>
+<p><strong>已观察线索：</strong> 高盛访谈报告，特定 AI 债券篮子的信用利差在此前 12 个月从 74bp 低位接近翻倍（精确终值未知）。这是来源报告的局部风险补偿调整，篮子定义及连续序列仍缺失。参见<a href="https://www.goldmansachs.com/insights/goldman-sachs-exchanges/how-ai-debt-is-reshaping-the-credit-market">高盛访谈</a>。</p>
+<p><strong>背景事实与观点边界：</strong> 高盛访谈报告了发行规模扩张，它本身不是不利结果。用户材料将公共与私人发债并列解释为资本竞争；国债与公司债发行统计的底表、统计窗口及共同资金池尚未验证，不能把这段观点当作已确认的因果关系。</p>
+<p><strong>尚未确认的损害：</strong> 全口径融资成本提高、融资可得性下降、发行失败、同券价格损失、现金流损害或违约均缺充分证据。信用利差扩大不能单独证明这些后果已经发生。</p>
+<h3 id="3">3. 风险来源：发生了什么变化？</h3>
+<p>按<a href="../../../../../wiki/topics/%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E9%A3%8E%E9%99%A9%E6%9D%A5%E6%BA%90%E4%B8%8E%E4%BC%A0%E5%AF%BC%E8%B7%AF%E5%BE%84.md">知识库的风险来源定义</a>，这一节回答：<strong>发生了什么？什么变化可能带来损害？</strong></p>
+<p>本材料涉及以下三类宏观风险来源。分类名称和核心问题沿用知识库；右侧列出本材料的对应变化及其证据状态。</p>
+<div aria-label="可横向滚动的数据表" class="table-scroll" role="region" tabindex="0"><table class="data-table">
+<thead>
+<tr>
+<th>层次</th>
+<th>知识库风险来源</th>
+<th>知识库核心问题</th>
+<th>本材料中的具体变化</th>
+<th>证据状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>宏观</td>
+<td><strong>市场结构与资金供需风险</strong></td>
+<td>证券市场自身资金结构是否恶化？</td>
+<td>AI相关企业发债增加，需要债券投资者提供更多资金；需要核实新增供给是否超出承接能力。</td>
+<td>主要关注来源。高盛访谈报告了发行扩张，但净供给及承接不足尚未确认。</td>
+</tr>
+<tr>
+<td>宏观</td>
+<td><strong>财政与主权债务风险</strong></td>
+<td>政府财政和债务是否形成压力？</td>
+<td>用户材料称美国国债发行增加，可能与企业争取同一批资金。</td>
+<td>相关来源待验证。发行统计窗口、净发行和共同投资者资料缺失，尚不能确认挤出或主权偿债压力。</td>
+</tr>
+<tr>
+<td>宏观</td>
+<td><strong>信用与金融体系风险</strong></td>
+<td>银行和信用体系是否出现问题？</td>
+<td>高盛访谈报告特定AI债券篮子的信用利差扩大，需核实企业信用与融资条件是否发生变化。</td>
+<td>局部信用定价线索。尚不能确认银行体系问题、融资受限或企业违约。</td>
+</tr>
+</tbody>
+</table></div>
+<p><em>来源时点：高盛访谈录制于2026-08-03；用户材料中滚动发行统计的截止日未知。上述分类是知识库整理口径，不代表三类风险均已发生，也不作为三个独立风险计数。</em></p>
+<h3 id="4">4. 风险关键变量：什么变化最能改变判断？</h3><figure class="risk-visual" id="variable-map"><figcaption><strong>图 2 · 关键变量关系：先看什么，再看什么</strong><span>七项变量的主次关系来自现有模型；箭头表示验证关系，所有缺失基准保留待验证。</span></figcaption><div aria-label="图 2 · 关键变量关系：先看什么，再看什么，窄屏可横向滚动" class="visual-scroll" role="region" tabindex="0"><svg aria-labelledby="variable-map-title variable-map-desc" role="img" viewbox="0 0 1100 435" xmlns="http://www.w3.org/2000/svg"><title id="variable-map-title">图 2 · 关键变量关系：先看什么，再看什么</title><desc id="variable-map-desc">七项变量的主次关系来自现有模型；箭头表示验证关系，所有缺失基准保留待验证。</desc><defs><marker id="variable-map-arrow" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8394a1"></path></marker></defs><text fill="#586b79" font-size="14" font-weight="400" text-anchor="middle" x="550" y="30">按照待验证机制确定观察顺序；不是当前风险程度排名</text><rect fill="#f5f7fa" height="100" rx="9" stroke="#8394a1" stroke-dasharray="6 4" stroke-width="1.5" width="280" x="60" y="65"></rect><text fill="#172b3a" font-size="17" font-weight="600" text-anchor="middle" x="200.0" y="94">净供给</text><text fill="#586b79" font-size="13" font-weight="400" text-anchor="middle" x="200.0" y="120">真正需要新增资金吸收多少？</text><text fill="#586b79" font-size="13" font-weight="400" text-anchor="middle" x="200.0" y="142">总发行须扣除偿还与再融资</text><rect fill="#fff8ea" height="100" rx="9" stroke="#a8792c" stroke-dasharray="6 4" stroke-width="1.5" width="280" x="430" y="65"></rect><text fill="#172b3a" font-size="17" font-weight="600" text-anchor="middle" x="570.0" y="94">投资者承接</text><text fill="#586b79" font-size="13" font-weight="400" text-anchor="middle" x="570.0" y="120">认购、溢价、发行能否完成？</text><text fill="#586b79" font-size="13" font-weight="400" text-anchor="middle" x="570.0" y="142">与同期限、同币种供给匹配</text><path d="M 340 115 H 430" fill="none" marker-end="url(#variable-map-arrow)" stroke="#8394a1" stroke-dasharray="6 5" stroke-width="1.7"></path><text fill="#8394a1" font-size="12" font-weight="400" text-anchor="middle" x="385" y="100">供需匹配</text><rect fill="#f5f7fa" height="100" rx="9" stroke="#8394a1" stroke-dasharray="6 4" stroke-width="1.5" width="240" x="800" y="65"></rect><text fill="#172b3a" font-size="17" font-weight="600" text-anchor="middle" x="920.0" y="94">融资条件</text><text fill="#586b79" font-size="13" font-weight="400" text-anchor="middle" x="920.0" y="120">信用利差 + 无风险基准</text><text fill="#586b79" font-size="13" font-weight="400" text-anchor="middle" x="920.0" y="142">核实全口径成本与可得性</text><path d="M 710 115 H 800" fill="none" marker-end="url(#variable-map-arrow)" stroke="#8394a1" stroke-dasharray="6 5" stroke-width="1.7"></path><text fill="#8394a1" font-size="12" font-weight="400" text-anchor="middle" x="755" y="100">验证传导</text><rect fill="#f5f7fa" height="100" rx="9" stroke="#8394a1" stroke-dasharray="6 4" stroke-width="1.5" width="240" x="800" y="260"></rect><text fill="#172b3a" font-size="17" font-weight="600" text-anchor="middle" x="920.0" y="289">企业承受力</text><text fill="#586b79" font-size="13" font-weight="400" text-anchor="middle" x="920.0" y="315">资金缺口 / 债务到期</text><text fill="#586b79" font-size="13" font-weight="400" text-anchor="middle" x="920.0" y="337">现金与承诺融资能否覆盖？</text><path d="M 920 165 V 260" fill="none" marker-end="url(#variable-map-arrow)" stroke="#8394a1" stroke-dasharray="6 5" stroke-width="1.7"></path><text fill="#8394a1" font-size="12" font-weight="400" text-anchor="middle" x="982" y="220">验证损害</text><rect fill="#f5f7fa" height="100" rx="9" stroke="#8394a1" stroke-dasharray="6 4" stroke-width="1.5" width="280" x="60" y="260"></rect><text fill="#172b3a" font-size="17" font-weight="600" text-anchor="middle" x="200.0" y="289">政府竞争解释</text><text fill="#586b79" font-size="13" font-weight="400" text-anchor="middle" x="200.0" y="315">净久期供给与共同投资者</text><text fill="#586b79" font-size="13" font-weight="400" text-anchor="middle" x="200.0" y="337">分离政策预期和期限溢价</text><path d="M 200 260 V 215 H 550 V 170" fill="none" marker-end="url(#variable-map-arrow)" stroke="#8394a1" stroke-dasharray="6 5" stroke-width="1.7"></path><text fill="#8394a1" font-size="12" font-weight="400" text-anchor="middle" x="380" y="205">辅助解释</text><rect fill="#f5f7fa" height="100" rx="9" stroke="#8394a1" stroke-dasharray="6 4" stroke-width="1.5" width="280" x="430" y="260"></rect><text fill="#172b3a" font-size="17" font-weight="600" text-anchor="middle" x="570.0" y="289">持有者脆弱性</text><text fill="#586b79" font-size="13" font-weight="400" text-anchor="middle" x="570.0" y="315">集中度 / 久期 / 杠杆</text><text fill="#586b79" font-size="13" font-weight="400" text-anchor="middle" x="570.0" y="337">无数据，不认定被迫卖出</text><text fill="#586b79" font-size="12" font-weight="400" text-anchor="middle" x="570" y="382">持有者暴露单独验证，不等同企业损害</text><text fill="#245c85" font-size="15" font-weight="600" text-anchor="middle" x="550" y="405">先核对供给与承接，再验证融资条件与企业承受力；政府供给和持有者结构辅助解释。</text></svg></div></figure>
+<p><strong>首先看投资者承接条件，并与新增净供给匹配。</strong> 这是“发行多”转成“融资压力”的关键缺口。其次确认融资成本或可得性是否改变，再看企业现金流与偿债缓冲能否承受；政府供给和持有者结构用于区分原因及暴露。</p>
+<div aria-label="可横向滚动的数据表" class="table-scroll" role="region" tabindex="0"><table class="data-table">
+<thead>
+<tr>
+<th>关键变量 / 主次</th>
+<th>为什么决定风险 / 作用环节</th>
+<th>当前已知状态 / 证据引用</th>
+<th>什么变化支持机制 / 什么变化削弱或否定机制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>核心：债市吸收条件，结合净融资与净久期供给</td>
+<td>决定供给扩张是否真正遇到需求约束</td>
+<td>发行统计仅报告总发行扩张；净供给、认购、发行溢价与完成率待验证</td>
+<td>同窗口净供给增加且认购/完成情况转差支持机制；需求同步吸收、新券溢价稳定或收窄削弱机制</td>
+</tr>
+<tr>
+<td>传导验证：信用补偿与全口径成本</td>
+<td>决定局部定价线索是否转成实际融资负担</td>
+<td>高盛访谈报告了局部篮子的利差变化；匹配期限基准、费用及连续序列缺失</td>
+<td>匹配期限全口径成本增加支持成本渠道；无风险利率下降抵消利差则阻断该渠道</td>
+</tr>
+<tr>
+<td>损害验证：外部资金缺口、再融资窗口与承受力</td>
+<td>决定企业是否依赖近期外部融资以及缓冲是否足够</td>
+<td>现有材料无同主体现金流、到期债务和授信资料</td>
+<td>近期偿还/投入需求超出可用现金与承诺融资支持脆弱性；内生现金流和缓冲充足削弱损害推断</td>
+</tr>
+<tr>
+<td>辅助解释：主权供给与利率分解、持有者脆弱性</td>
+<td>区分政府竞争、政策预期、企业信用因素与集中度影响</td>
+<td>国债与公司债发行统计待核；无持仓、杠杆或被动卖出证据</td>
+<td>共同投资者与同期限承接约束证据支持竞争支线；资金池分离或其他因素解释更强则削弱该支线</td>
+</tr>
+</tbody>
+</table></div>
+<p>各变量的完整口径、基准与观察频率见附录。</p>
+<h3 id="5">5. 风险传导关系：如何逐步造成损害？</h3><p>传导路径仍是候选机制。 节点标注已知状态；虚线箭头表示尚未完成因果验证，箭头旁写明成立条件。蓝色节点表示有来源线索，不能据此把后续损害视为事实。</p><figure aria-labelledby="chain-caption" class="risk-visual transmission" id="risk-chain"><figcaption id="chain-caption"><strong>图 1 · 风险传导：哪些条件成立才会造成损害？</strong><span>蓝色节点：有来源线索 · 虚线箭头：条件推断 · 绿色标记：可能阻断路径的条件</span></figcaption><div class="chain-diagram"><div class="chain-node observed"><strong>AI 总发行扩张</strong><span>已有来源报告</span></div><div class="chain-edge"><span aria-hidden="true" class="chain-arrow"></span><p><b>成立条件</b>扣除到期、回购和再融资后，仍有新增供给</p><aside><b>⊣ 阻断条件</b>净发行未增加，或期限缩短抵消久期供给</aside></div><div class="chain-node pending"><strong>净融资 / 净久期供给增加</strong><span>扣除到期与置换后，净增量仍待验证</span></div><div class="chain-edge"><span aria-hidden="true" class="chain-arrow"></span><p><b>成立条件</b>同币种、同期限的新增需求未跟上供给</p><aside><b>⊣ 阻断条件</b>需求足以承接，新券溢价稳定或收窄</aside></div><div class="chain-node pending"><strong>投资者承接不足</strong><span>认购、溢价与发行完成情况待验证</span><aside class="chain-branch"><strong>待验证支线：政府净久期供给增加</strong><span>⇢ 只有在同窗口竞争同一批受限资金时，才可能加重承接约束。共同投资者与供给底表仍缺失。</span></aside></div><div class="chain-edge"><span aria-hidden="true" class="chain-arrow"></span><p><b>成立条件</b>投资者提高报价要求或减少认购</p><aside><b>⊣ 阻断条件</b>发行仍顺畅；利差变化由信用、期限或流动性解释</aside></div><div class="chain-node observed"><strong>要求更高信用补偿 / 减少认购</strong><span>局部利差有线索，原因及认购变化未确认</span></div><div class="chain-edge"><span aria-hidden="true" class="chain-arrow"></span><p><b>成立条件</b>基准利率与费用未抵消利差变化，或发行规模受限</p><aside><b>⊣ 阻断条件</b>基准利率下行抵消；固定成本且近期无需再融资</aside></div><div class="chain-node pending"><strong>全口径融资成本上升 / 规模受限</strong><span>总成本与融资可得性待验证</span></div><div class="chain-edge"><span aria-hidden="true" class="chain-arrow"></span><p><b>成立条件</b>依赖外部融资，且现金、授信或投入调整不足以缓冲</p><aside><b>⊣ 阻断条件</b>内生现金流与现金缓冲充足，或可调整投入</aside></div><div class="chain-node pending"><strong>现金流、投入或资产定价受损</strong><span>实际损害尚未确认</span></div></div></figure><p><strong>最关键的一步是“新增供给能否被承接”。</strong> 总发行增加不等于净供给增加，净供给增加也不等于需求不足。需要同窗口的净发行、认购、新券溢价与发行完成情况，才能验证中间环节。</p>
+<p><strong>局部利差扩大不等于企业已受损。</strong> <a href="https://www.goldmansachs.com/insights/goldman-sachs-exchanges/how-ai-debt-is-reshaping-the-credit-market">高盛访谈</a>提供了总发行及局部利差线索；全口径成本、融资可得性和企业现金缓冲仍待验证。政府竞争只是待验证支线，政策预期和企业信用变化可能提供其他解释。</p>
+<p>图中的阻断条件均为待检验条件，不能视为已经实施或已经见效。当前也无证据支持“价格下跌—追保—被迫卖出”反馈环。完整逐环节依据见<a href="#transmission-evidence">附录：传导证据与阻断条件</a>。</p><h2 id="_3">验证重点与模型边界</h2>
+<p><strong>最优先验证净供给与投资者承接是否匹配：</strong> 补齐同样本、同币种、同期限的净供给、认购、新券溢价及发行完成情况。若供给扩张且承接受限，候选机制获得支持；若新增需求顺畅吸收供给，则应削弱“吸收错配”解释，而不是仅凭发行总额继续确认风险。两种情况仍需结合替代解释检验。</p>
+<p><strong>随后验证实际损害：</strong> 结合全口径融资成本、企业现金流、到期债务和缓冲条件，区分“融资更贵”与“融资不可得”。政府挤出解释必须另外补齐主权供给与共同投资者证据。</p>
+<ul>
+<li><strong>模型失效条件：</strong> 统一样本和窗口后，净供给扩张前提被推翻；或者融资需求可被新增需求和现金流吸收，且同期限融资条件不支持吸收约束解释。若信用定价主要由经营恶化、政策冲击或主体事件解释，应改用相应来源重新识别，不固守“资本竞争”叙事。</li>
+</ul>
+<h3 id="_4">需要排除的其他解释</h3>
+<ol>
+<li>企业提前融资、置换到期债务或保留现金，会抬高总发行，却不必然构成融资困难。</li>
+<li>信用利差变化也可能来自企业经营预期、行业集中、期限结构或交易流动性；政府融资不是唯一解释。</li>
+<li>国债长端收益率可以随政策利率预期和期限溢价变化；供给因素的贡献需要控制这些变量，不能用宏观叙事代替识别。</li>
+<li>债券投资者新增需求、海外资金或渠道分流可能吸收供给。信用补偿提高也可能是正常风险定价，不能直接当作危机。</li>
+</ol>
+<p><strong>当前结论边界：</strong> 现有材料支持建立局部信用补偿重定价的候选模型，尚不能确认融资受限、主权债务危机、系统性流动性危机或 AI 企业违约潮。未有独立验证的反证数据不等于模型成立。</p>
+<h2 id="_5">附录：身份与依据</h2>
+<div aria-label="可横向滚动的数据表" class="table-scroll" role="region" tabindex="0"><table class="data-table">
+<thead>
+<tr>
+<th>字段</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>risk_id / model_version</td>
+<td>US-AI-DEBT-ABSORPTION / 1</td>
+</tr>
+<tr>
+<td>观察对象 / 核心问题</td>
+<td>AI相关债券发行人及债券持有者；债务融资需求扩张，是否超过同期限、同币种投资者愿意承接的供给，从而抬高风险补偿并约束融资？</td>
+</tr>
+<tr>
+<td>identification_status</td>
+<td>候选；观察到局部定价线索，来源归因及融资损害尚未验证</td>
+</tr>
+<tr>
+<td>model_as_of / 信息截止时间 / 时区</td>
+<td>2026-09-28T15:41:39+08:00 / 上游材料核验于2026-09-28T14:50:49+08:00；本轮同源复核未增加市场事件 / Asia/Shanghai</td>
+</tr>
+<tr>
+<td>上游信息窗口 / result_id / 结果位置</td>
+<td>无统一可比窗口；IP-US-AI-CAPITAL-FEED-20260928-01；<a href="../inputs/IP-US-AI-CAPITAL-FEED-20260928-01.json">完整上游快照</a>、<a href="../inputs/IP-US-AI-CAPITAL-FEED-20260928-01-run.md">运行说明</a></td>
+</tr>
+<tr>
+<td>来源覆盖 / 失败与缺口</td>
+<td>用户原文、一份主要机构访谈、转载溯源线索；发行底表、篮子定义、同期限净供给、需求、现金流和当前行情缺失；不把单一来源的多个观察视为多源共振</td>
+</tr>
+<tr>
+<td>previous_model_ref / 变更原因</td>
+<td>首次识别；没有同对象既有模型。本轮响应用户明确请求，不初始化演绎观察T0</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>时点边界：</strong> 模型建立于9月28日，关键机构观察来自8月3日录制、8月5日发布的访谈；不是对9月28日市场状态的实时确认。原文“过去12个月”的截止日仍未知。</p>
+<p><strong>本次修订说明：</strong> 按风险识别 1.0.7 输出模板将传导正文改为关系图与简短解释，逐环节证据表移入附录；风险来源仍沿用知识库分类；不新增市场证据，不改变 risk_id、model_version、model_as_of、信息窗口或候选状态。</p>
+<h3 id="_6">证据编号与运行记录</h3>
+<ul>
+<li>运行统计：1个候选模型、0个已支持的完整因果模型；仅调整呈现，未新增市场观测。</li>
+<li>证据映射：E3/E4/S1对应发行扩张线索，E5/S2对应信用利差线索，E1/E2对应待核的国债与公司债统计，C2对应AI融资与信用定价材料簇。</li>
+<li><a href="../../../../../outputs/information-processing/2026-09-28-us-ai-capital/summary.md">信息处理结果</a>与<a href="../inputs/IP-US-AI-CAPITAL-FEED-20260928-01.json">完整上游快照</a>保留可追溯引用；变量编号及基准见后续附录。</li>
+</ul>
+<h2 id="_7">附录：关键变量与模型基准</h2>
+<p>下表区分上游共同变量与本层决定损害能否发生的变量。无经校准阈值，本轮不设主观红线，也不将建议频率理解为已经启动监控。</p>
+<div aria-label="可横向滚动的数据表" class="table-scroll" role="region" tabindex="0"><table class="data-table">
+<thead>
+<tr>
+<th>风险关键变量</th>
+<th>与上游共同变量的联系或差异</th>
+<th>观测指标 / 口径 / 单位</th>
+<th>基准值或状态 / 观测时点</th>
+<th>来源引用</th>
+<th>建议频率 / 验证条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>V1 净融资与净久期供给</td>
+<td>从S1总发行扩张转向真正需被吸收的新增供给</td>
+<td>同样本总发行、到期偿还、净发行，按币种/评级/期限分组；美元、年或一致口径久期暴露</td>
+<td>待验证；上游金额仅为源报告的总额，不能代入净融资</td>
+<td>E3/E4/S1；回源发行与偿还清单</td>
+<td>月度、每次大发行；观察净供给与需求是否匹配</td>
+</tr>
+<tr>
+<td>V2 债市吸收条件</td>
+<td>上游缺需求端，是供给转成风险的必要环节</td>
+<td>新券发行溢价bp、认购倍数、最终发行额/计划额、撤回/延期及基金流入</td>
+<td>待验证；不能从利差倒推出认购不足</td>
+<td>C2为线索；需新券与资金需求资料</td>
+<td>每次发行/周度；同评级同期限比较</td>
+</tr>
+<tr>
+<td>V3 信用补偿与全口径成本</td>
+<td>S2只是特定篮子信用利差；不等同融资总成本</td>
+<td>匹配期限信用利差、债券收益率、无风险基准与必要对冲费用；bp/%</td>
+<td>来源称其篮子此前12个月从74bp低位接近翻倍；精确终值未知，不写成148bp。访谈录制日8月3日</td>
+<td>E5/S2及<a href="https://www.goldmansachs.com/insights/goldman-sachs-exchanges/how-ai-debt-is-reshaping-the-credit-market">高盛访谈</a></td>
+<td>日/周及发行时；先补篮子定义与连续序列</td>
+</tr>
+<tr>
+<td>V4 企业外部资金缺口</td>
+<td>上游没有现金流和资金用途；决定对发债的依赖</td>
+<td>资本开支、经营现金流、其他必须支付、可用现金、已承诺融资；美元</td>
+<td>待验证；不能假定每一美元发债都投入AI或反映现金短缺</td>
+<td>需同主体财报与融资用途</td>
+<td>季度、指引更新；检查融资需求的经济用途与缓冲</td>
+</tr>
+<tr>
+<td>V5 再融资窗口与偿债承受力</td>
+<td>从市场定价转到主体损害；不可仅用行业总额判断</td>
+<td>一年内到期债务、非受限现金、已承诺授信、利息覆盖；美元/倍</td>
+<td>待验证；无资料表明资金链断裂或违约</td>
+<td>需债务期限表、财报和授信资料</td>
+<td>季度及融资公告；识别实际近期续接压力</td>
+</tr>
+<tr>
+<td>V6 主权供给与利率分解</td>
+<td>E1公共发行主张尚未证实；分开政府供给和政策路径</td>
+<td>国债同窗口净发行/久期、拍卖表现、预期短端利率与期限溢价；美元/bp/%</td>
+<td>本轮均待验证；5.06万亿美元不是已核实净发行；7.70万亿仅为两主张的合计</td>
+<td>E1/E2；<a href="https://www.newyorkfed.org/research/data_indicators/term-premia-tabs">纽约联储方法资料</a>；需财政部同窗口统计</td>
+<td>拍卖/周/月；不能仅凭长端收益率变化判定挤出</td>
+</tr>
+<tr>
+<td>V7 持有者脆弱性</td>
+<td>上游未包含持仓结构，不假定杠杆或被动卖出</td>
+<td>同行业集中度、久期、赎回条款和杠杆；具体口径依账户/基金</td>
+<td>待验证；仅为暴露筛选条件</td>
+<td>需投资者/基金公开资料</td>
+<td>月/季；无证据不增加杠杆清算分支</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="_8">风险应对基线及宣布 / 执行 / 见效阶段</h3>
+<p>当前上游未提供可验证的专门应对措施、规模及效果。现金流改善、调整资本开支节奏、延长债务期限或融资渠道分流，只能列为可能阻断路径的条件；其“宣布、执行、见效”状态均未验证。观察这些力量是后续工作，不由本轮代做方向判断。</p>
+<h3 id="_9">数据缺口与上游补充需求</h3>
+<div aria-label="可横向滚动的数据表" class="table-scroll" role="region" tabindex="0"><table class="data-table">
+<thead>
+<tr>
+<th>优先补充</th>
+<th>上游需要交付什么</th>
+<th>对模型判断的用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>统一统计窗口与对象</td>
+<td>5.06/2.64万亿美元的原图、截止日、总额/净额、样本；AI债逐发行人清单与用途</td>
+<td>确定两类供给是否真的进入同一可比较资金池</td>
+</tr>
+<tr>
+<td>修正增长率与时间口径</td>
+<td>同样本2024、2025全年及2025/2026上半年数据</td>
+<td>541%缺核验基数；194/109−1约78%是部分年度与全年比较，不能标成上半年同比；保留1080/1090亿美元来源差异</td>
+</tr>
+<tr>
+<td>验证融资损害而非仅定价</td>
+<td>同期限新券溢价、认购、发行完成、到期债务及现金缓冲</td>
+<td>区分可以付更高价格融资与融资不可得</td>
+</tr>
+<tr>
+<td>验证公共融资竞争</td>
+<td>国债净久期供给、对应投资者需求、政策预期与期限溢价</td>
+<td>公共挤出只在同窗口多项证据可关联后进入支持链</td>
+</tr>
+</tbody>
+</table></div>
+<p>材料底稿：<a href="../../../../../sources/manual/2026-09-28-%E7%94%A8%E6%88%B7%E6%8F%90%E4%BE%9B-AI%E4%BC%81%E4%B8%9A%E4%B8%8E%E7%BE%8E%E5%9B%BD%E6%94%BF%E5%BA%9C%E8%B5%84%E6%9C%AC%E7%AB%9E%E4%BA%89.md">原文与来源登记</a>。后续识别可按主动补证规则查找这些关键数据；本次为来源分类与呈现修订，未新增市场数据。</p>
+<p><a id="transmission-evidence"></a></p>
+<h2>附录：传导证据与阻断条件</h2>
+<p>此表用于核对主链图的条件与依据；所有原有证据边界保留。</p>
+<div aria-label="传导证据与阻断条件核对表" class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>传导环节</th>
+<th>成立条件与作用机制</th>
+<th>证据引用 / 事实或推断</th>
+<th>阻断条件 / 反证</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AI债务发行扩张 → 净融资/净久期供给增加</td>
+<td>扣除到期、回购和再融资后，仍有需新增承接的供给</td>
+<td>高盛访谈中的发行统计为总发行线索；净量待验证</td>
+<td>净发行没有明显变化，或期限缩短抵消久期供给增加</td>
+</tr>
+<tr>
+<td>净供给增加 → 投资者吸收约束形成</td>
+<td>同币种、同期限资金需求未同步增长，认购或发行承接受约束</td>
+<td>推断；现有材料缺同窗口基金流入、认购和集中度资料</td>
+<td>新增需求足以吸收供给，新券溢价不变或收窄</td>
+</tr>
+<tr>
+<td>吸收约束 → 更高信用补偿/融资受限</td>
+<td>投资者提高报价要求或减少认购，发行人接受更高成本或减少发行</td>
+<td>高盛访谈中的利差观察仅为局部利差线索，原因未识别</td>
+<td>控制信用基本面、期限和流动性后供给因素解释力弱；发行仍顺畅</td>
+</tr>
+<tr>
+<td>信用补偿增加 → 全口径融资成本上升</td>
+<td>匹配期限无风险利率、对冲成本和费用未抵消利差增加</td>
+<td>条件推断；缺完整成本资料</td>
+<td>无风险利率下行抵消利差变化；企业已有固定成本融资且无需近期再融资</td>
+</tr>
+<tr>
+<td>融资成本上升/规模受限 → 现金流、投入与定价受损</td>
+<td>企业依赖外部融资，且现金、授信或投入调整不足以缓冲</td>
+<td>待验证；缺少企业现金流、债务期限、融资计划与预期修订资料</td>
+<td>内生现金流与现金缓冲足够，项目回报改善或投入安排可调整</td>
+</tr>
+<tr>
+<td>政府净久期供给 → 同一资金池竞争 → AI融资压力</td>
+<td>两类供给竞争相同投资者的受限资金，且政策/信用因素不能充分解释变化</td>
+<td>待验证支线；国债与公司债发行统计无原表、截止日或共同投资者证据</td>
+<td>投资者群体、币种、期限分离；需求扩张；变化由其他因素解释</td>
+</tr>
+</tbody>
+</table></div><h2 id="_10">附录：模型交接</h2>
+<ul>
+<li><strong>观察结束条件：</strong> 将来启动观察后，在约定的完整可比窗口中验证关键缺口已闭合、条件链不成立或原融资需求已经消退，方可结束；本轮未启动观察，不能宣告风险已解除。</li>
+<li><strong>重新开启条件：</strong> 出现同样本净发行扩张且需求跟不上、发行延期/撤回，或企业近期再融资与现金覆盖出现新的实证缺口；重新交给上游核验。</li>
+<li><strong>交接：</strong> 仅交付候选风险模型。上游H1的eligible=false保持原样；本次用户明确调用风险识别，允许基于该证据建立候选模型，不等于自动移交门槛已满足或风险升级为已支持。</li>
+<li><strong>保存位置：</strong> <a href="US-AI-DEBT-ABSORPTION-v1.html">HTML阅读版</a>、本Markdown母稿、<a href="../inputs/IP-US-AI-CAPITAL-FEED-20260928-01.json">上游快照</a>与<a href="../inputs/IP-US-AI-CAPITAL-FEED-20260928-01-run.md">运行说明</a>。</li>
+<li><strong>范围限制：</strong> 本模型不输出风险方向、持续性、概率评分、仓位或买卖判断；T0由后续用户明确要求的演绎观察初始化。</li>
+</ul>
+<h2 id="_11">附录：方法与交付验证</h2>
+<ul>
+<li>按<a href="../../../../../wiki/concepts/%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-framework-%E9%A3%8E%E9%99%A9%E8%A7%82%E5%AF%9F%E4%B8%8E%E6%BC%94%E7%BB%8E.md">风险观察与演绎第一层</a>执行表现、类型、来源、关键变量、传导五步；分类使用<a href="../../../../../wiki/concepts/%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-indacator-%E9%A3%8E%E9%99%A9%E7%B1%BB%E5%9E%8B.md">风险类型</a>，来源按<a href="../../../../../wiki/topics/%E5%86%B0%E5%86%B0%E5%B0%8F%E7%BE%8E-%E9%A3%8E%E9%99%A9%E6%9D%A5%E6%BA%90%E4%B8%8E%E4%BC%A0%E5%AF%BC%E8%B7%AF%E5%BE%84.md">来源与传导框架</a>组织，不把本模型写回正式Wiki。</li>
+<li>标准上游快照与原结果字节一致，并通过当前信息处理Schema校验；源报告与本模型的区别、候选状态、时间窗口和每段推断边界均保留。</li>
+<li>HTML由同一Markdown转换，完整保留表格和来源；风险传导正文使用 HTML+CSS 纵向关系图，Markdown 保留对应 Mermaid；关键变量与证据覆盖继续使用内联 SVG。三张图均不包含新增数据、概率或权重，无外部脚本或图表依赖；传导证据表保留在附录。结构、章节、锚点和本地链接在交付前校验。</li>
+<li>视觉验收限制：本次刷新报告被浏览器本地文件 URL 策略阻止；桌面/窄屏实际渲染验收未完成。HTML 结构检查通过，主链已设窄屏纵向样式；不将静态检查当作视觉通过。</li>
+</ul></main></body></html>
+

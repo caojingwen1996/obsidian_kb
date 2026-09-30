@@ -2,6 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "signal.schema.json",
   "title": "Signal",
+  "description": "A meaningful variable change extracted from the current feed run. This object does not depend on historical Signal retrieval or cross-run state.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -11,8 +12,6 @@
     "variable",
     "direction",
     "magnitude",
-    "novelty",
-    "persistence",
     "scope",
     "confidence",
     "time"
@@ -32,9 +31,17 @@
     "event_refs": {
       "type": "array",
       "minItems": 1,
+      "uniqueItems": true,
       "items": {
-        "type": "string"
+        "type": "string",
+        "minLength": 1
       }
+    },
+    "subject": {
+      "type": [
+        "string",
+        "null"
+      ]
     },
     "variable": {
       "type": "string",
@@ -68,26 +75,6 @@
         "unknown"
       ]
     },
-    "novelty": {
-      "type": "string",
-      "enum": [
-        "new",
-        "continuation",
-        "reversal",
-        "reconfirmation",
-        "unknown"
-      ]
-    },
-    "persistence": {
-      "type": "string",
-      "enum": [
-        "one_off",
-        "short_lived",
-        "repeated",
-        "persistent",
-        "unknown"
-      ]
-    },
     "scope": {
       "type": "string",
       "enum": [
@@ -116,6 +103,13 @@
         "sentiment",
         null
       ]
+    },
+    "driver": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "A driver explicitly supported by evidence available in the current feed run."
     },
     "time": {
       "type": "object",

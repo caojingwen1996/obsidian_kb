@@ -103,3 +103,64 @@ Chrome：`C:\Users\lenovo\AppData\Local\Google\Chrome SxS\Application\chrome.exe
   3. bash 环境本次完全正常（前几日的 PATH 损坏未复现），`tail -c` 截断多字节字符会显示假乱码，核验中文必须用 UTF-8 读取（Python）而非 `tail` 直出。
 - 已向根 `log.md` 追加 audit 条目；技能变更记入 `cjw-xueqiu-daily-monitor/log.md`。
 - 遗留：`tools/bbxm-risk-dashboard/data/~$冰冰小美风险提示.xlsx` 陈旧锁文件仍在（Jul 14），本次 `no_risk` 无需写入故未受影响，待人工确认是否清理。
+
+---
+
+## 2026-09-24（周四，16:00）
+
+- 目标日期 2026-09-24；结果：**空结果（0 原帖）**。
+- 流程：首轮提取即报 `Session with given id not found.`（进程 exit 1、未产出 JSON）→ **原样重跑一次即成功**（candidates=0）→ 独立 DOM 核验（`processing/verify-homepage.json`）确认时间线最新为「昨天 12:00/11:08/10:49/10:38」= 2026-09-23，09-24 无发帖、页面正常、无验证迹象 → 空洞风险分析（0/0/0，`analysis_complete=true`，`skill_call.invoked=false`）→ 更新器 `no_risk`（未改工作簿）→ 核验目录内仅 5 个中间文件、无原帖 Markdown → 删除 `2026/09/2026-09-24/`。summary.md 路径报告为「无（0 原帖，目录已清理）」。
+- 本次新增沉淀（下次复用）：
+  1. **新失败模式：`Session with given id not found.`**。不同于 09-21 的 `scrollHeight of null` 与 09-22 的「静默空 JSON」，该错误在 attach/建 target 阶段就抛出，进程 exit 1 且无任何输出文件。**处置同为「原样重跑一次」**，本次重跑即成功；若重跑仍失败再上报。
+  2. **核验脚本的 `awaitPromise` 坑**：`evaluateJson(cdp, sessionId, script, awaitPromise=false)` 传 async IIFE 时，返回的是 Promise 对象、`returnByValue` 无法序列化 → 整段 payload 变 `undefined`，核验结果只剩空壳（表现为 `items=undefined markers=`）。**异步 IIFE 必须传 `true`**。
+  3. **核验脚本改为「锚点 + 容器文本」自证**：`a[href]` 匹配 `^https?://(?:www\.)?xueqiu\.com/\d+/\d+`，取 `closest("article, .timeline__item, .card, .feed__item, .status__item, li")` 的 `innerText`，可同时拿到「冰冰小美昨天 12:00」这类相对时间前缀与帖子 ID；比只匹配 `冰冰小美(\d{2}-\d{2} \d{2}:\d{2})` 更可靠（后者无法识别「今天/昨天」形态，且旧版会把置顶帖的 2024-05-19 排在首位）。
+  4. **`python -c "..."` 内嵌反引号会被 bash 命令替换吞掉**：本日写 `log.md` 时用双引号包裹 `-c` 脚本，反引号片段（如 `` `log.md` ``、路径）被 shell 当作子命令执行并从文本中静默删除。**要在 Python 里写含反引号的 Markdown，必须用单引号包裹 `-c`、或写成独立 .py 文件、或直接用 Edit 工具**。
+- 已向根 `log.md` 追加 audit 记录。
+- 遗留不变：`tools/bbxm-risk-dashboard/data/~$冰冰小美风险提示.xlsx` 陈旧锁文件仍在（Jul 14），待人工确认是否清理。
+
+---
+
+## 2026-09-28（周一，16:00）
+
+- 目标日期 2026-09-28；结果：**保存 3 篇原帖**（10:37 账户浮亏情绪帖 410722729、10:44「投机本质是做空/缩量报团溢价/行情割裂」410725563、11:10「交易公平性双向多空，A股只能单边上涨盈利」410733603）+ `summary.md` + `state.json` + `task.log` + `processing/`；当日无买卖信号，未生成 `操作.md`。
+- 抓取：CDP 9333 起始不可用 → 脚本内置路径以 `CHROME_PATH`(Canary) 启动 + 项目专用 `--profile-dir`，**首轮提取即成功**（candidates=3），未复现任何冷启动竞态。独立核验脚本直读主页 DOM：时间线最新三条即上述三帖（显示「5 小时前」），当日无更新帖、无验证迹象，覆盖完整。
+- 作者补充评论：仅 11:10 帖有 1 条作者本人评论（11:14「（图片评论）一切根源。Ipo 加速且扩容。」）；extract 的 `author_comments` 是嵌套折叠块混入他人回复，**必须在保存前人工精简**（本次通过在 save 脚本里按 content_id 覆盖 `author_comments` 实现）。图片未能提取，列入待验证边界。
+- 风险分析：`bbxm-risk-identification` **v1.0.3**（今日模板已更新，正文结论前置、身份/口径移入附录）五步路径逐帖分析，覆盖 3/3、未解决 0；合格 R/W = 0，3 项全部 `待验证`（候选 2：制度性不公+IPO 扩容为长期论断无发行数据、信心受损/缩量抱团缺当日成交与流动性数据；证据不足 1：纯盘面情绪记录）。更新器 `no_risk`，未改工作簿；未写 `Risk/`、未生成 HTML。
+- 知识库印证（§6.2）：A股投机产业链根源在交易制度与融资市场定位 / A股投机产业链如何由做多制度与低违规成本形成 / A股制度定位与投资难度 / 投机三层核心逻辑 / 风险来源与传导路径。
+- 本次新增沉淀（下次直用）：
+  1. **`openPageSession` 签名坑**：vendor 版只接受 `{cdp, reusing, url, matchTarget, enablePage, enableRuntime, activateTarget}`，需先 `const wsUrl = await waitForChromeDebugPort(port)` 再 `await CdpConnection.connect(wsUrl)`；**不接受 `port` 参数**，误传抛 `TypeError: Cannot read properties of undefined (reading 'send')`。核验脚本模板：`openPageSession({cdp, reusing, url})` → `cdp.send("Page.navigate",{url},{sessionId})` → `waitForDocumentReady(cdp, sessionId, 30000)` → `sleep(3000)` → `evaluateJson(cdp, sessionId, asyncIIFE, true)`。
+  2. **核验脚本的 `reusing` 语义**：`reusing:true` 会 `Target.createTarget` 新开标签（用于新启动的 Chrome）；`reusing:false` 才走 `Target.getTargets` + `matchTarget` 复用已有标签。脚本自启动 Chrome 时用 `reusing:false` + `matchTarget` 匹配账号 URL。
+  3. **state.json 键名**：`content_task.ensure_day_state` 写出的是 `account` / `account_url` / `task_date`(YYYYMMDD) / `processed_items`，**不是** `author_name`/`target_date`；自检脚本别按后者取键。
+  4. **技能已知问题（非本轮引入）**：`bbxm-risk-identification` 的 `references/handoff-contract.md` 缺失，技能自身 `log.md`（1.0.3）已自记该问题；本轮按现存 SKILL/workflow/template 执行，未修改技能。
+  5. **非空结果日的产物核对**：`processing/` 内的 `extract.json`、`extract_full.txt`、`verify-homepage.json` 会残留雪球图标字体的私用区字符（`\ue6xx`），属原始数据而非乱码；编码自检应只对交付物（原帖 `*.md`、`summary.md`、`risk-analysis.json`）判定，不要据此误报。
+- 已向根 `log.md` 追加 ingest+audit 条目；未新增 Wiki 页面，`index.md` 不变。
+- 遗留不变：`~$冰冰小美风险提示.xlsx` 陈旧锁文件（Jul 14）待人工确认是否清理。
+
+---
+
+## 2026-09-29（周二，16:00）
+
+- 目标日期 2026-09-29；结果：**空结果（0 原帖）**。
+- 流程：首轮提取即正常退出（exit 0、12 秒、未复现任何冷启动竞态），candidates=0 → 独立 DOM 核验（`processing/verify-homepage.json`）确认时间线最新三条为「昨天 11:10 / 10:44 / 10:37」= 2026-09-28，09-29 无发帖；页面标题、登录态正常（`hasUserNav=true`、无登录链接）、无验证/滑块 → 空洞风险分析（0/0/0，`analysis_complete=true`，`skill_call.invoked=false`）→ 更新器 `no_risk`（未改工作簿）→ 核验目录内仅 6 个中间文件、无原帖 Markdown／`summary.md`／`state.json`／`task.log` → 删除 `2026/09/2026-09-29/`。summary.md 路径报告为「无（0 原帖，目录已清理）」。
+- 本次无新增技能缺陷；核验脚本沿用 09-28 模板（`waitForChromeDebugPort` → `CdpConnection.connect` → `openPageSession({cdp, reusing:true, url})` → `Page.navigate` → `waitForDocumentReady` → `sleep(4000)` → `evaluateJson(..., true)`），一次通过；已随目录一并删除。
+- 环境提示：`ls`/`find`/`cat`/`curl` 等 bash 本次完全正常；CDP 9333 起始不可用属常态，脚本内置启动路径工作正常。
+- 已向根 `log.md` 追加 audit 记录；未新增 Wiki 页面，`index.md` 不变。
+- 遗留不变：`tools/bbxm-risk-dashboard/data/~$冰冰小美风险提示.xlsx` 陈旧锁文件（Jul 14）待人工确认是否清理。
+
+---
+
+## 2026-09-30（周三，16:00）
+
+- 目标日期 2026-09-30；结果：**0 原帖，但不判定为空结果**——登录态失效构成阻断项，目录与证据全部保留。
+- 流程：CDP 9333 起始不可用 → 脚本内置路径 + `CHROME_PATH`(Canary) + 项目专用 `--profile-dir` 启动 → 首轮报 `Timed out waiting for document.readyState`（已知冷启动竞态）→ 原样重跑成功，`candidates=0`（`extract.json=[]`）→ 独立核验。
+- **核心发现：专用浏览器 profile 登录态失效**。主页 DOM 时间线可读（最新非置顶帖 2026-09-28 11:10，未出现 09-29／09-30），但导航显示「首页 下载App 登录」、无用户菜单、`window.SNOWMAN.user` 为空，服务端按匿名渲染。Cookie 中 `xq_a_token`/`xqat`/`xq_r_token`/`xq_id_token` 均存在且为 session 级未过期，但服务端不认——属「Cookie 在、会话失效」。时间线 JSON 接口（`/v4/statuses/user_timeline.json`、`/statuses/original/timeline.json`）均返回阿里云 WAF 挑战页，接口级交叉核验受阻。
+- 判定与产物：`risk-analysis.json` 写 `analysis_complete=false` + `skill_call.invoked=false` + `blocking.login_blocked=true`；更新器返回 **`blocked`**（工作簿未改动）；未写 `Risk/`、未生成 HTML；未生成 `summary.md`／`state.json`／`操作.md`。保留 `task.log` + `processing/` 9 个证据文件。
+- 本次新增沉淀（下次直用）：
+  1. **`CdpConnection.connect(wsUrl)` 必须显式传超时**：签名是 `connect(url, timeoutMs, options)`；不传 `timeoutMs` 时内部 `setTimeout(reject, undefined)` 会在 0ms 立即 reject，报 `CDP connection timeout.` 而非真实网络问题。核验脚本一律写 `CdpConnection.connect(wsUrl, 30_000)`。
+  2. **CDP 常驻化更稳**：脚本自启动的 Chrome 会随 node 退出而关闭，导致「同一条 bash 命令里第一次 `connect` 失败、第二次成功」的伪随机现象。更稳做法：先用 `nohup <Canary> --remote-debugging-port=9333 --user-data-dir=<专用 profile> about:blank &` 起常驻实例，`curl /json/version` 确认后再跑核验脚本。本轮常驻实例未关闭，便于人工在该 profile 内重新登录。
+  3. **登录态判定要三看**：`document.cookie` 看不到 HttpOnly Cookie（会误判未登录）；应改用 CDP `Storage.getCookies` 取全量 Cookie，再结合导航文本（`首页 下载App 登录` = 未登录）与 `window.SNOWMAN.user`。三者结合才能区分「Cookie 在但会话失效」。
+  4. **登录态失效属阻断项，不是空结果**：按主提示词第二节第 4 条，只要存在登录阻断，即使 0 原帖也必须保留日期目录与证据、写 `analysis_complete=false`、接受更新器 `blocked`，不得删目录、不得报「已确认无新帖」。
+  5. 核验脚本模板（本轮定型，7 个临时脚本用完即删）：`waitForChromeDebugPort(port,20000)` → `CdpConnection.connect(wsUrl,30000)` → `openPageSession({cdp,reusing:false,url:"about:blank",matchTarget:t=>(t.url||"").includes("xueqiu.com")})` → `Page.navigate` → `waitForDocumentReady(cdp,sessionId,30000)` → `sleep(4000)` → `evaluateJson(cdp,sessionId,asyncIIFE,true)`。临时脚本放 `scripts/` 目录下以便相对 import vendor 与主脚本。
+- 已向根 `log.md` 追加 audit 记录；未新增 Wiki 页面，`index.md` 不变。
+- **人工跟进（高优先级）**：需在专用 profile 中重新登录雪球，然后对 2026-09-30 执行同日重跑；本轮无法确认当日是否真的无发帖。
+- 遗留不变：`~$冰冰小美风险提示.xlsx` 陈旧锁文件（Jul 14）待人工确认是否清理。

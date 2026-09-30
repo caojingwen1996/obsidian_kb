@@ -60,3 +60,14 @@
 - 具体变更：把 `buildVerificationInspectionPayloadScript` 的 `textPattern` 恢复为与第 671 行一致的 `/访问验证|请按住滑块|拖动到最右边|为了更好的访问体验|即可继续访问网页|别离开|滑块|验证/`；未改动其他逻辑与测试。
 - 验证结果：`node --check` 通过；全文件私用区字符计数由 4 降为 0；两处 `textPattern` 文本一致；技能测试 55 passed / 2 skipped（57 项，与既有基线一致）。WorkBuddy 副本同步后内容与项目版本逐字节一致。
 - 备注：本次为编码修复，不改变抓取与提取行为；当日抓取本身未受该缺陷影响（未触发验证页）。
+
+
+## 2026-09-24 — 记录 CDP 会话异常失败模式（未改代码，版本号不变）
+
+- 版本：未记版本号；本次版本号不变，仅追加运行观察。
+- 背景：BBXM 每日汇总 2026-09-24 定时轮首次调用 `extract_xueqiu_posts.mjs` 时，进程直接以 `Session with given id not found.` 退出（exit 1），未产出任何 JSON 输出文件；CDP 9333 未起来（`/json/version` 连接被拒）。
+- 现象归类：这是与既有两种冷启动竞态都不同的第三种失败模式——09-21 复现的是 `Cannot read properties of null (reading scrollHeight)`（页面正文未就绪），09-22 复现的是「主页时间线未渲染完导致静默返回空 JSON（exit 0）」；本次发生在建立 target / attach 会话阶段，属于 CDP 连接层竞态，表现为显式报错且无输出。
+- 已验证处置：**原样重跑一次即成功**（candidates=0，`--date 2026-09-24`，`--comment-scope author-only`，`--request-pacing auto`，项目专用 `--profile-dir`）。与既有脚本内置的「0 候选等 3 秒重试」防护互补，不冲突。
+- 涉及文件：无代码变更；本次只更新本 log.md。
+- 验证结果：重跑后脚本正常退出并写出 `extract-2026-09-24.json`（空数组）；另起独立核验脚本直读主页 DOM 确认当日确无发帖（时间线最新为 2026-09-23 12:00），失败非漏采。
+- 备注：如需根治，可考虑在脚本入口对 `Session with given id not found` 增加一次自动重连重试；本次未改动抓取与提取逻辑，留待后续在有完整回归测试窗口时再评估。

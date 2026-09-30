@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "target_date": "2026-09-30",
+  "author": "冰冰小美",
+  "generated_at": "2026-09-30T16:06:04+08:00",
+  "analysis_complete": false,
+  "skill_call": {
+    "skill": "bbxm-risk-identification",
+    "skill_path": ".agents/skills/bbxm-risk-identification/SKILL.md",
+    "invoked": false,
+    "method": "five-step-identification",
+    "upstream": "当日已保存原帖集合（未另跑 information-processing）",
+    "risk_dir_write": false,
+    "html_report": false,
+    "note": "non_empty_expected_but_no_saved_posts_and_capture_integrity_unconfirmed：当日无已保存帖子，无可识别对象；且专用浏览器 profile 登录态失效，抓取完整性无法确认，故 analysis_complete=false，未按空结果日裁剪。"
+  },
+  "coverage": {
+    "saved_post_count": 0,
+    "analyzed_post_count": 0,
+    "unresolved_post_count": 0,
+    "unresolved_reasons": [
+      "登录态失效：CDP 9333 专用 profile（.agents/skills/cjw-xueqiu-daily-monitor/scripts/.xueqiu-chrome-profile）加载后雪球页面导航显示「登录」入口，服务端按未登录返回，登录会话不可用。",
+      "抓取完整性未确认：脚本提取得到 candidates=0（processing/extract.json 为 []）；公开主页 DOM 时间线（processing/verify-homepage.json）最新帖为 2026-09-28 11:10，未出现 2026-09-29／2026-09-30 条目，与「当日无发帖」一致，但受登录态失效影响无法出具完整性证明。",
+      "接口复核受阻：时间线 JSON 接口返回阿里云 WAF 挑战页（processing/verify-timeline-api.json），无法用接口做交叉完整性核验。"
+    ]
+  },
+  "qualified": [],
+  "not_written": [],
+  "blocking": {
+    "login_blocked": true,
+    "content_extraction_failed": false,
+    "page_anomaly": false,
+    "excel_pending": false,
+    "detail": "登录态失效构成阻断项，按主提示词第二节第 4 条不判定为空结果，保留日期目录与证据文件并由人工处理。"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "title": "Amazon：2026-09-09 英镑票据募集说明书补充文件 424B5",
+  "url": "https://www.sec.gov/Archives/edgar/data/1018724/000110465926107122/tm2624614-3_424b5.htm",
+  "publisher": "Amazon / SEC EDGAR",
+  "published": "2026-09-09",
+  "type": "发行人监管披露；定价文件",
+  "quote": "The underwriters expect to deliver the notes on or about September 14, 2026",
+  "data": {
+    "tranches": [
+      {
+        "gbp_bn": 1.25,
+        "coupon_pct": 5.2,
+        "maturity": "2029-09-14"
+      },
+      {
+        "gbp_bn": 1,
+        "coupon_pct": 5.55,
+        "maturity": "2032-09-14"
+      },
+      {
+        "gbp_bn": 1,
+        "coupon_pct": 6.25,
+        "maturity": "2038-09-14"
+      },
+      {
+        "gbp_bn": 1,
+        "coupon_pct": 6.65,
+        "maturity": "2045-09-14"
+      }
+    ],
+    "expected_delivery": "2026-09-14",
+    "use_of_proceeds": "general corporate purposes",
+    "actual_settlement_verified": false
+  },
+  "locator": "封面、S-4、USE OF PROCEEDS；用途包含多种公司用途，没有逐笔AI专用金额。",
+  "retrieved_at": "2026-09-28T10:21:20Z",
+  "local_path": "sources/webpages/2026-09-28-ai-debt-theme/amzn-source-data.json"
+}

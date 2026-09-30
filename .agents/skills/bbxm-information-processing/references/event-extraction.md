@@ -1,169 +1,196 @@
-# Event Extraction Reference
+# 事件提取参考（Event Extraction）
 
-## 1. Purpose
+## 1. 目的
 
-Define how factual Events are extracted from feed content.
+定义如何从 feed 材料中提取事实性事件（Event）。
 
-An **Event** is the smallest traceable factual unit used by downstream information processing.
+**Event** 是供下游信息处理使用的、可追溯的最小事实单元。
 
-This reference answers:
+事件提取以当前 feed 运行中的材料为范围，不要求检索此前运行中的 Event。
 
-- What counts as an Event?
-- What should remain background information?
-- When should one source fragment be split into multiple Events?
-- When should multiple reports be merged into one Event?
-- How should time, source, ambiguity, and conflicting information be represented?
-- When should a key Event receive additional Event Analysis?
+本文回答：
 
-The formal object structure is defined in:
+- 什么信息可以构成 Event？
+- 什么信息应保留为背景？
+- 什么时候应把一个来源片段拆成多个 Event？
+- 什么时候应把当前输入中的多篇报道合并为一个 Event？
+- 如何表示时间、来源、歧义与信息冲突？
+- 什么时候应对关键 Event 补充事件分析（Event Analysis）？
+
+正式对象结构定义见：
 
 `schemas/event.schema.json`
 
 ---
 
-## 2. Core Model
+## 2. 核心模型
 
 ```text
-Raw Information
+原始信息
     ↓
-Identify factual statement
+识别事实陈述
     ↓
-Identify subject / action / object / time / value / source
+识别主体 / 动作 / 对象 / 时间 / 数值 / 来源
     ↓
-Check whether the fact is independently meaningful
+检查该事实是否具有独立意义
     ↓
 Event
     ↓
-IF Event is a key turning point
+IF Event 是关键转折点
     ↓
-Event Analysis (optional)
+Event Analysis（可选）
 ```
 
-Core question:
+核心问题：
 
-> What actually happened?
+> 实际发生了什么？
 
 ---
 
-## 3. Event Definition
+## 3. 无状态边界
 
-An Event describes a factual occurrence, observation, announcement, measurement, or state change.
-
-Examples:
+事件提取可以使用：
 
 ```text
-Brent crude fell from 105 to 100.
-The Federal Reserve raised its policy rate by 25bp.
-Microsoft raised planned AI capital expenditure.
-US core CPI rose 0.4% month-on-month.
+当前 FeedContent
+本次运行包含的多个来源片段
+为核验当前 Event 所必需、且有来源支持的上下文
 ```
 
-Event extraction should remain close to source facts.
+不要求使用：
+
+```text
+历史 Event 存储
+跨轮次 Event 匹配
+跨轮次生命周期状态
+记忆检索
+```
+
+去重与合并在当前处理范围内完成。
 
 ---
 
-## 4. Minimum Event Criteria
+## 4. Event 的定义
 
-Create an Event when the information contains:
+Event 描述实际发生的事情、观察、公告、测量结果或状态变化。
 
-1. A recognizable subject or object;
-2. A factual action, state, observation, announcement, or measurement;
-3. Enough context to distinguish it from unrelated information.
-
-Preferred factual elements:
+示例：
 
 ```text
-Who / What
-Did what
-When
-To what
-How much
-According to which source
+布伦特原油从105下跌至100。
+美联储将政策利率提高25bp。
+微软上调计划中的AI资本开支。
+美国核心CPI环比上涨0.4%。
 ```
 
-If one element is missing, preserve the Event when the remaining fact is still independently meaningful.
+事件提取应紧贴来源中的事实。
 
 ---
 
-## 5. Event vs Background
+## 5. Event 的最低成立条件
 
-Background describes context without a new factual development.
+信息满足以下条件时创建 Event：
 
-Example:
+1. 存在可识别的主体或对象；
+2. 包含事实性的动作、状态、观察、公告或测量结果；
+3. 有足够上下文，可以与无关信息区分。
+
+优先提取以下事实要素：
 
 ```text
-Inflation has remained elevated for several months.
+谁 / 什么
+做了什么
+什么时候
+针对什么对象
+多少
+依据哪个来源
 ```
 
-→ Background
+即使缺少某个要素，只要剩余事实仍具有独立意义，也应保留该 Event。
 
-Example:
+---
+
+## 6. 事件与背景的区别
+
+背景只描述上下文，不包含新的事实进展。
+
+示例：
 
 ```text
-August core CPI rose 0.4% month-on-month.
+通胀已连续数月处于高位。
+```
+
+→ 背景
+
+示例：
+
+```text
+8月核心CPI环比上涨0.4%。
 ```
 
 → Event
 
-Background may be attached to an Event as `context`.
+本次运行提供的背景，可以作为 `context` 附在 Event 中。
 
 ---
 
-## 6. Event Splitting
+## 7. 事件拆分
 
-Split one source fragment into multiple Events when:
+以下情况应将一个来源片段拆成多个 Event：
 
-- different subjects perform different actions;
-- the same subject performs multiple independently meaningful actions;
-- facts occur at materially different times;
-- one paragraph contains unrelated developments;
-- each fact can independently support a downstream Signal.
+- 不同主体执行不同动作；
+- 同一主体执行多个具有独立意义的动作；
+- 事实发生时间存在实质差异；
+- 同一段落包含互不相关的进展；
+- 每个事实都能独立支持下游 Signal。
 
-Example:
+示例：
 
 ```text
-Microsoft raised AI CapEx guidance and Nvidia reported stronger GPU orders.
+微软上调AI资本开支指引，英伟达披露GPU订单增强。
 ```
 
-Should normally become:
+通常应拆成：
 
 ```text
-Event A:
-Microsoft raised AI CapEx guidance.
+Event A：
+微软上调AI资本开支指引。
 
-Event B:
-Nvidia reported stronger GPU orders.
+Event B：
+英伟达披露GPU订单增强。
 ```
 
 ---
 
-## 7. Event Merging
+## 8. 事件合并
 
-Merge reports when they describe the same underlying occurrence.
+在当前处理范围内，多篇报道描述同一件事实时应合并。
 
-Typical criteria:
+典型判断条件：
 
 ```text
-same subject
-+ same core action
-+ same object
-+ same approximate event time
+同一主体
++ 相同核心动作
++ 同一对象
++ 大致相同的事件时间
 ```
 
-After merging:
+合并后：
 
-- preserve all source references;
-- preserve material wording differences;
-- preserve conflicting values;
-- avoid double-counting the same underlying fact.
+- 保留全部来源引用；
+- 保留重要措辞差异；
+- 保留相互冲突的数值；
+- 避免重复计数同一事实。
+
+不要为去重而查询历史 Event 存储。
 
 ---
 
-## 8. Time Handling
+## 9. 时间处理
 
-Every Event should preserve time as accurately as the source allows.
+每个 Event 都应按来源允许的精度保留时间。
 
-Suggested precision:
+建议精度值：
 
 ```text
 exact
@@ -175,15 +202,15 @@ month
 unknown
 ```
 
-Do not infer an exact timestamp from a broad time reference.
+不要根据宽泛的时间表述推断精确时间戳。
 
 ---
 
-## 9. Source Traceability
+## 10. 来源追溯
 
-Every Event must remain traceable to source material.
+每个 Event 必须能够追溯到来源材料。
 
-The downstream traceability chain should support:
+下游追溯链应支持：
 
 ```text
 Theme
@@ -193,31 +220,31 @@ Theme
 → Source
 ```
 
-Multiple sources describing the same Event should be retained under `source_refs`.
+本次运行中描述同一 Event 的多个来源，应保留在 `source_refs` 中。
 
 ---
 
-## 10. Conflicting Information
+## 11. 信息冲突
 
-When sources conflict:
+本次运行中的来源存在冲突时：
 
 ```text
-keep both claims
+保留双方主张
 ↓
-mark conflict
+标记冲突
 ↓
-preserve sources
+保留来源
 ↓
-adjust confidence if necessary
+必要时调整置信度
 ```
 
-Do not silently resolve factual conflicts without sufficient evidence.
+证据不足时，不要悄然消解事实冲突。
 
 ---
 
-## 11. Confidence
+## 12. 置信度
 
-Suggested values:
+建议取值：
 
 ```text
 high
@@ -225,116 +252,116 @@ medium
 low
 ```
 
-Confidence reflects factual reliability.
+置信度反映事实的可靠性。
 
-Possible considerations:
+可以考虑：
 
-- primary vs secondary source;
-- source independence;
-- completeness;
-- internal consistency;
-- cross-source confirmation.
+- 一手来源还是二手来源；
+- 来源独立性；
+- 信息完整性；
+- 内部一致性；
+- 当前处理范围内可见的跨来源确认。
 
-Confidence does not represent market importance.
+置信度不代表市场重要性。
 
 ---
 
-# 12. Event Analysis
+## 13. 事件分析（Event Analysis）
 
-Event Analysis is optional.
+事件分析是可选步骤。
 
-Use it only when an Event is a meaningful turning point and understanding the event requires a bounded before/after comparison.
+仅当 Event 是有意义的转折点，且理解它需要由本次运行证据支持、有明确窗口的前后比较时使用。
 
-Typical examples:
+典型示例：
 
 ```text
-central-bank decision
-inflation release
-earnings report
-guidance change
-policy announcement
-major geopolitical escalation
-major supply disruption
+央行决策
+通胀数据发布
+财报发布
+业绩指引变化
+政策公告
+重大地缘局势升级
+重大供给中断
 ```
 
 ---
 
-## 13. Event Analysis Core Model
+## 14. 事件分析的核心模型
 
 ```text
-Core Question
+核心问题
     ↓
-Pre-Event Expectation
+事件前预期
     ↓
-Key Event
+关键事件
     ↓
-Actual vs Expected
+实际结果与预期对比
     ↓
-Surprise
+预期差
     ↓
-Immediate Reaction
+即时反应
     ↓
-Repricing
+再定价
     ↓
-Changed Variables
+发生变化的变量
 ```
 
-Core question:
+核心问题：
 
-> What changed around this Event relative to what had already been expected?
+> 围绕这一事件，相对于此前已有预期，什么发生了变化？
 
 ---
 
-## 14. Pre-Event Expectation
+## 15. 事件前预期
 
-Capture what was known, expected, or priced before the Event.
+当前 feed 或必要的有来源核验材料提供相关信息时，记录事件发生前已知、已预期或已计入价格的内容。
 
-Possible fields:
-
-```text
-market expectation
-prevailing narrative
-priced-in conditions
-```
-
-Examples:
+可能包含的字段内容：
 
 ```text
-Consensus expected CPI at 0.2% MoM.
-Fed funds futures priced two cuts.
-AI CapEx expectations had already been revised upward.
+市场预期
+主流叙事
+已计入价格的条件
 ```
 
-Pre-event expectations must be source-backed.
+示例：
+
+```text
+市场一致预期CPI环比上涨0.2%。
+联邦基金期货定价反映两次降息。
+所提供的报告显示，AI资本开支预期此前已经上调。
+```
+
+事件前预期必须有来源支持。
 
 ---
 
-## 15. Actual vs Expected
+## 16. 实际结果与预期对比
 
-For key Events, compare:
+对于关键 Event，比较：
 
 ```text
-Expected
+预期
 vs
-Actual
+实际
 ```
 
-Example:
+示例：
 
 ```text
-Expected CPI: 0.2%
-Actual CPI: 0.4%
+预期CPI：0.2%
+实际CPI：0.4%
 ```
 
-The gap may create a `surprise`.
+二者差异可能形成 `surprise`。
 
 ---
 
-## 16. Surprise
+## 17. 预期差（Surprise）
 
-Surprise captures the difference between expectation and realization.
+预期差描述预期与实际兑现之间的差别。
 
-Suggested direction:
+建议方向值：
 
 ```text
 positive
@@ -344,7 +371,7 @@ none
 unknown
 ```
 
-Suggested magnitude:
+建议幅度值：
 
 ```text
 small
@@ -354,49 +381,49 @@ extreme
 unknown
 ```
 
-Interpret surprise direction relative to the observed variable or question.
+预期差方向应相对于所观察的变量或问题解释。
 
 ---
 
-## 17. Immediate Reaction and Repricing
+## 18. 即时反应与再定价
 
-Separate the first observable reaction from the broader repricing.
+将最初可观察到的反应与更广泛的再定价分开。
 
-Possible observations:
+可能观察到：
 
 ```text
-price reaction
-yield reaction
-FX reaction
-credit reaction
-expectation change
-analyst revision
-narrative change
-flow change
+价格反应
+收益率反应
+汇率反应
+信用反应
+预期变化
+分析师预测修订
+叙事变化
+资金流变化
 ```
 
-Repricing asks:
+再定价回答：
 
-> Which expectation or variable was revalued after the Event?
+> 事件发生后，哪项预期或变量被重新评估？
 
-Examples:
+示例：
 
 ```text
-rate-cut expectation ↓
-long-term yield ↑
-AI demand expectation ↑
-inflation expectation ↑
+降息预期 ↓
+长期收益率 ↑
+AI需求预期 ↑
+通胀预期 ↑
 ```
 
 ---
 
-## 18. Changed Variables
+## 19. 发生变化的变量
 
-Event Analysis should identify variables whose pricing or expectation changed across the event window.
+事件分析应识别在所观察事件窗口内，定价或预期发生变化的变量。
 
-These changed variables may later become Repricing Signals.
+这些变量随后可以形成再定价信号（Repricing Signal）。
 
-Example:
+示例：
 
 ```text
 rate_cut_expectation ↓
@@ -405,9 +432,9 @@ long_term_yield ↑
 
 ---
 
-## 19. Event Analysis Timeline Stages
+## 20. 事件分析的时间轴阶段
 
-Optional stage labels:
+可选阶段标签：
 
 ```text
 pre_event
@@ -419,56 +446,60 @@ reversal
 follow_up
 ```
 
-These labels can later be reused in Cluster timelines.
+这些标签描述本次运行证据所覆盖的有限事件窗口。
+
+它们可以复用于同次运行中的 Cluster 时间轴。
 
 ---
 
-## 20. Event Boundary
+## 21. 事件层的职责边界
 
-Event extraction and Event Analysis may describe:
+事件提取与事件分析可以描述：
 
 ```text
-facts
-expectations
-surprises
-observable repricing
+事实
+预期
+预期差
+可观察的再定价
 ```
 
-They should not decide:
+不应判断：
 
 ```text
-risk level
-investment attractiveness
-trade direction
-valuation conclusion
+风险等级
+投资吸引力
+交易方向
+估值结论
+没有所提供证据支持的历史持续性
 ```
 
 ---
 
-## 21. Quality Check
+## 22. 质量检查
 
-Before accepting an Event, verify:
+接受一个 Event 前，检查：
 
-- Is it factual?
-- Is it independently meaningful?
-- Is the subject identifiable?
-- Is the action or change clear?
-- Is time represented honestly?
-- Is the source traceable?
-- Should it be split?
-- Is it a duplicate?
-- Are conflicts preserved?
-- Is Event Analysis actually necessary?
-- If Event Analysis is used, are expectations and repricing evidence-backed?
+- 是否属于事实？
+- 是否具有独立意义？
+- 主体是否可识别？
+- 动作或变化是否清晰？
+- 时间是否如实表达？
+- 来源是否可追溯？
+- 是否应拆分？
+- 是否与当前处理范围内的信息重复？
+- 是否保留了冲突？
+- 是否确实需要事件分析？
+- 若使用事件分析，预期与再定价是否有证据支持？
+- 处理是否避免依赖历史存储？
 
 ---
 
-## 22. Output Principle
+## 23. 输出原则
 
-A good Event is:
+好的 Event 应当：
 
-> factual, traceable, time-aware, sufficiently atomic, and suitable for downstream Signal extraction.
+> 真实、可追溯、时间明确、粒度足够独立，并适合下游提取 Signal。
 
-A key Event may additionally contain:
+关键 Event 还可以包含：
 
-> a bounded reconstruction of pre-event expectation, realization, surprise, reaction, and repricing.
+> 基于本次运行可用证据，在明确窗口内重建事件前预期、实际兑现、预期差、反应与再定价。

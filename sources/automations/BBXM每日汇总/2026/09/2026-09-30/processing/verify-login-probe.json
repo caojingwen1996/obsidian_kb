@@ -1,0 +1,25 @@
+{
+  "probes": [
+    {
+      "url": "https://www.xueqiu.com/",
+      "title": "雪球 - 聪明的投资者都在这里",
+      "navText": null,
+      "hasLoginEntry": true,
+      "currentUser": null
+    },
+    {
+      "url": "https://www.xueqiu.com/404",
+      "title": "雪球 - 聪明的投资者都在这里",
+      "navText": null,
+      "hasLoginEntry": true,
+      "currentUser": null
+    },
+    {
+      "url": "https://www.xueqiu.com/u/7143769715",
+      "title": "冰冰小美 - 雪球",
+      "navText": "首页   下载App 登录",
+      "hasLoginEntry": true,
+      "currentUser": null
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "results": [
+    {
+      "url": "https://xueqiu.com/v4/statuses/user_timeline.json?user_id=7143769715&page=1",
+      "httpStatus": 200,
+      "ok": true,
+      "bodyHead": "<textarea id=\"renderData\" style=\"display:none\">{\"_waf_bd8ce2ce37\":\"/yV5AuYrJiefB/RpKEDojP/++u6WAkPYw55JVwssSic=\"}</textarea><!doctype html><html><head><meta charset=\"utf-8\"><meta name=\"aliyun_waf_aa\" ",
+      "statusCount": null,
+      "errorCode": null,
+      "errorDesc": null,
+      "items": null
+    },
+    {
+      "url": "https://xueqiu.com/statuses/original/timeline.json?user_id=7143769715&page=1",
+      "httpStatus": 200,
+      "ok": true,
+      "bodyHead": "<textarea id=\"renderData\" style=\"display:none\">{\"_waf_bd8ce2ce37\":\"3CmcC3Yn3XPZEF3PbAymPQNdZXDNxi+GtBJGz0FT9/M=\"}</textarea><!doctype html><html><head><meta charset=\"utf-8\"><meta name=\"aliyun_waf_aa\" ",
+      "statusCount": null,
+      "errorCode": null,
+      "errorDesc": null,
+      "items": null
+    }
+  ]
+}

@@ -2,19 +2,19 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "cluster.schema.json",
   "title": "Cluster",
+  "description": "A coherent aggregation of at least two related Signals from the current feed run. It does not represent cross-run lifecycle state.",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "cluster_id",
     "cluster_name",
-    "member_events",
+    "summary",
     "member_signals",
     "relationships",
-    "time_range",
-    "timeline",
+    "structure_view",
+    "explanatory_compression",
     "strength",
-    "confidence",
-    "status"
+    "confidence"
   ],
   "properties": {
     "cluster_id": {
@@ -25,32 +25,51 @@
       "type": "string",
       "minLength": 1
     },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
     "member_events": {
       "type": "array",
+      "uniqueItems": true,
       "items": {
-        "type": "string"
+        "type": "string",
+        "minLength": 1
       }
     },
     "member_signals": {
       "type": "array",
+      "minItems": 2,
+      "uniqueItems": true,
       "items": {
-        "type": "string"
+        "type": "string",
+        "minLength": 1
       }
     },
     "relationships": {
       "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
       "items": {
         "type": "string",
         "enum": [
+          "same_problem",
           "same_variable",
           "same_direction",
           "same_driver",
           "same_subject",
           "same_time_window",
-          "transmission_link"
+          "common_scope",
+          "transmission_link",
+          "evidence_diversity"
         ]
-      },
-      "uniqueItems": true
+      }
+    },
+    "common_question": {
+      "type": [
+        "string",
+        "null"
+      ]
     },
     "common_variable": {
       "type": [
@@ -70,13 +89,65 @@
         "null"
       ]
     },
-    "time_range": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "start",
-        "end"
+    "directional_relationship": {
+      "type": [
+        "string",
+        "null"
       ],
+      "enum": [
+        "aligned",
+        "mixed",
+        "conflicting",
+        "unknown",
+        null
+      ]
+    },
+    "structure_view": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "statement",
+          "link_type",
+          "supporting_refs"
+        ],
+        "properties": {
+          "statement": {
+            "type": "string",
+            "minLength": 1
+          },
+          "link_type": {
+            "type": "string",
+            "enum": [
+              "observed",
+              "inferred"
+            ]
+          },
+          "supporting_refs": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "explanatory_compression": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Why grouping these Signals produces a clearer explanation than listing them independently."
+    },
+    "time_range": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
       "properties": {
         "start": {
           "type": [
@@ -118,10 +189,12 @@
             ]
           },
           "ref_id": {
-            "type": "string"
+            "type": "string",
+            "minLength": 1
           },
           "summary": {
-            "type": "string"
+            "type": "string",
+            "minLength": 1
           },
           "variable": {
             "type": [
@@ -171,42 +244,11 @@
         "low"
       ]
     },
-    "status": {
-      "type": "string",
-      "enum": [
-        "emerging",
-        "forming",
-        "established",
-        "weakening",
-        "dissolving",
-        "uncertain"
-      ]
-    },
     "notes": {
       "type": [
         "string",
         "null"
       ]
     }
-  },
-  "allOf": [
-    {
-      "anyOf": [
-        {
-          "properties": {
-            "member_events": {
-              "minItems": 1
-            }
-          }
-        },
-        {
-          "properties": {
-            "member_signals": {
-              "minItems": 1
-            }
-          }
-        }
-      ]
-    }
-  ]
+  }
 }

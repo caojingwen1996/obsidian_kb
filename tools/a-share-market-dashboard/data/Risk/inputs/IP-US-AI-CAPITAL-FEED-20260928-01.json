@@ -1,0 +1,420 @@
+{
+  "result_id": "IP-US-AI-CAPITAL-FEED-20260928-01",
+  "mode": "feed",
+  "generated_at": "2026-09-28T14:50:49+08:00",
+  "observation_window": {
+    "start": null,
+    "end": null
+  },
+  "summary": {
+    "new_event_count": 5,
+    "new_signal_count": 2,
+    "forming_theme_count": 1,
+    "updated_existing_theme_count": 0,
+    "isolated_signal_count": 0,
+    "insufficient_for_theme_count": 1,
+    "risk_identification_handoff_count": 0,
+    "forming_theme_refs": [
+      "T1"
+    ],
+    "updated_existing_theme_refs": [],
+    "isolated_signal_refs": [],
+    "insufficient_for_theme_refs": [
+      {
+        "ref_type": "cluster",
+        "ref_id": "C1",
+        "reason": "统计窗口和原始底表缺失，不足以形成公共私人融资竞争的Theme。"
+      }
+    ]
+  },
+  "core_findings": [
+    {
+      "finding_id": "F1",
+      "conclusion": "可保留的变化是来源报告的AI债务发行扩张及局部信用利差扩大；政府与企业全面争夺资本尚未被证明。",
+      "supporting_event_refs": [
+        "E3",
+        "E4",
+        "E5"
+      ],
+      "supporting_signal_refs": [
+        "S1",
+        "S2"
+      ],
+      "supporting_cluster_refs": [
+        "C2"
+      ],
+      "theme_ref": "T1",
+      "theme_status": "emerging",
+      "current_direction": "uncertain",
+      "confidence": "medium",
+      "open_questions": [
+        "取得独立发行和信用价格底表，验证两类样本与统计窗口。"
+      ]
+    },
+    {
+      "finding_id": "F2",
+      "conclusion": "78%是1940相对1090的算术增幅，不能写成2026上半年同比；541%缺少已核验分母。",
+      "supporting_event_refs": [
+        "E3",
+        "E4"
+      ],
+      "supporting_cluster_refs": [
+        "C2"
+      ],
+      "confidence": "high",
+      "why_it_matters": "算术检查可信度高不代表输入金额已独立验证。",
+      "open_questions": [
+        "补2025上半年同样本数据及2024全年同样本数据。"
+      ]
+    },
+    {
+      "finding_id": "F3",
+      "conclusion": "7.70万亿美元为材料中两数之和；缺统计截止日、净发行和资金需求侧证据，不能直接据此认定挤出或美债长端利率上升归因。",
+      "supporting_event_refs": [
+        "E1",
+        "E2"
+      ],
+      "supporting_cluster_refs": [
+        "C1",
+        "C2"
+      ],
+      "confidence": "high",
+      "why_it_matters": "这是对证据边界的判断，不是对该发行规模或历史纪录的确认。",
+      "open_questions": [
+        "索取DoubleLine/Macrobond原图与数据定义，核对国债、企业债同窗口净发行。"
+      ]
+    }
+  ],
+  "risk_identification_handoff": [
+    {
+      "handoff_id": "H1",
+      "theme_ref": "T1",
+      "eligible": false,
+      "reason": "保持候选观察：单一机构来源、发行量口径不齐，政府竞争与美债长端因果缺证；暂不自动移交风险识别。",
+      "supporting_cluster_refs": [
+        "C2"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "event_id": "E1",
+      "event_time": {
+        "value": null,
+        "precision": "unknown"
+      },
+      "subject": "用户提供材料（原作者未提供）",
+      "action": "声称国债发行规模上升",
+      "key_fact": "材料称：不含T-bills的美国国债过去12个月发行5.06万亿美元，创2021年以来最高。数值及历史排名待验证。",
+      "source_refs": [
+        {
+          "source_id": "sources/manual/2026-09-28-用户提供-AI企业与美国政府资本竞争.md",
+          "source_type": "user_provided_commentary",
+          "publisher": "原始作者未提供",
+          "published_at": null
+        }
+      ],
+      "context": "记录来源主张，不作为已独立核实的市场事实；滚动窗口截止日、总额/净额和期限结构缺失。",
+      "confidence": "low",
+      "conflict": {
+        "exists": false,
+        "description": null
+      },
+      "event_analysis": null
+    },
+    {
+      "event_id": "E2",
+      "event_time": {
+        "value": null,
+        "precision": "unknown"
+      },
+      "subject": "用户提供材料（原作者未提供）",
+      "action": "声称公司债发行创新高",
+      "key_fact": "材料称：同期公司债发行2.64万亿美元，创历史新高。未取得统计底表；5.06+2.64=7.70仅为算术合计，不另增事件。",
+      "source_refs": [
+        {
+          "source_id": "sources/manual/2026-09-28-用户提供-AI企业与美国政府资本竞争.md",
+          "source_type": "user_provided_commentary",
+          "publisher": "原始作者未提供",
+          "published_at": null
+        }
+      ],
+      "context": "公司债币种、发行地、评级和发行人范围未知；不能把总发行额直接称为新增融资或净资金需求。",
+      "confidence": "low",
+      "conflict": {
+        "exists": false,
+        "description": null
+      },
+      "event_analysis": null
+    },
+    {
+      "event_id": "E3",
+      "event_time": {
+        "value": "2026-08-03",
+        "precision": "day"
+      },
+      "subject": "Goldman Sachs研究访谈",
+      "action": "回顾2025年超大规模科技公司全球债务发行",
+      "key_fact": "访谈给出2025年全球发行约1080亿美元；用户材料给出1090亿美元及同比541%。",
+      "source_refs": [
+        {
+          "source_id": "https://www.goldmansachs.com/insights/goldman-sachs-exchanges/how-ai-debt-is-reshaping-the-credit-market",
+          "source_type": "primary_research_interview",
+          "publisher": "Goldman Sachs",
+          "published_at": "2026-08-05"
+        },
+        {
+          "source_id": "sources/manual/2026-09-28-用户提供-AI企业与美国政府资本竞争.md",
+          "source_type": "user_provided_commentary",
+          "publisher": "原始作者未提供",
+          "published_at": null
+        }
+      ],
+      "context": "事件时间为访谈录制日；被回顾观察期为2025全年。541%及其2024分母未独立核验。",
+      "confidence": "medium",
+      "conflict": {
+        "exists": true,
+        "description": "1080与1090亿美元存在差异，样本/舍入原因未明；不能将不同来源强制视为完全同口径。"
+      },
+      "event_analysis": null
+    },
+    {
+      "event_id": "E4",
+      "event_time": {
+        "value": "2026-08-03",
+        "precision": "day"
+      },
+      "subject": "Goldman Sachs研究访谈",
+      "action": "报告2026年内累计债务发行",
+      "key_fact": "访谈给出超大规模科技公司2026年内累计1940亿美元，未明确数据截止日为6月30日。",
+      "source_refs": [
+        {
+          "source_id": "https://www.goldmansachs.com/insights/goldman-sachs-exchanges/how-ai-debt-is-reshaping-the-credit-market",
+          "source_type": "primary_research_interview",
+          "publisher": "Goldman Sachs",
+          "published_at": "2026-08-05"
+        },
+        {
+          "source_id": "sources/manual/2026-09-28-用户提供-AI企业与美国政府资本竞争.md",
+          "source_type": "user_provided_commentary",
+          "publisher": "原始作者未提供",
+          "published_at": null
+        }
+      ],
+      "context": "时间为录制日而非精确统计截止日。用户原文称上半年；194/109-1约78.0%，194/108-1约79.6%，均为部分年度与上年全年比较，不是同窗口同比。",
+      "confidence": "medium",
+      "conflict": {
+        "exists": true,
+        "description": "用户上半年口径与访谈year-to-date无法直接对齐；明确的原始样本与统计窗口待补。"
+      },
+      "event_analysis": null
+    },
+    {
+      "event_id": "E5",
+      "event_time": {
+        "value": "2026-08-03",
+        "precision": "day"
+      },
+      "subject": "Goldman Sachs交易台",
+      "action": "描述AI领导者债券篮子信用利差扩大",
+      "key_fact": "同一访谈称其AI领导者篮子信用利差在此前12个月从74bp低位接近翻倍。",
+      "source_refs": [
+        {
+          "source_id": "https://www.goldmansachs.com/insights/goldman-sachs-exchanges/how-ai-debt-is-reshaping-the-credit-market",
+          "source_type": "primary_research_interview",
+          "publisher": "Goldman Sachs",
+          "published_at": "2026-08-05"
+        }
+      ],
+      "context": "这是来源报告的特定篮子观察，缺指数定义和底表；不是美国国债收益率，也不能证明由政府融资竞争导致。",
+      "confidence": "medium",
+      "conflict": {
+        "exists": false,
+        "description": null
+      },
+      "event_analysis": null
+    }
+  ],
+  "signals": [
+    {
+      "signal_id": "S1",
+      "signal_type": "fact",
+      "event_refs": [
+        "E3",
+        "E4"
+      ],
+      "variable": "hyperscaler_reported_gross_debt_issuance",
+      "direction": "up",
+      "magnitude": "large",
+      "novelty": "unknown",
+      "persistence": "unknown",
+      "scope": "industry",
+      "confidence": "medium",
+      "evidence_type": "company_action",
+      "time": {
+        "value": "2026-08-03",
+        "precision": "day"
+      },
+      "notes": "来源报告的部分年度累计已超过上年全年，支持发行规模扩张；未验证同窗口同比、净融资或全部AI企业覆盖。large依据约八成的跨窗口规模差，不代表利率冲击强度。时间为访谈时点。"
+    },
+    {
+      "signal_id": "S2",
+      "signal_type": "fact",
+      "event_refs": [
+        "E5"
+      ],
+      "variable": "gs_ai_leader_basket_credit_spread",
+      "direction": "widening",
+      "magnitude": "large",
+      "novelty": "unknown",
+      "persistence": "unknown",
+      "scope": "sector",
+      "confidence": "medium",
+      "evidence_type": "market_price",
+      "time": {
+        "value": "2026-08-03",
+        "precision": "day"
+      },
+      "notes": "来源描述约翻倍；精确终点及底表缺失。不构造148bp精确终值，不构造关键事件前后再定价因果。"
+    }
+  ],
+  "clusters": [
+    {
+      "cluster_id": "C1",
+      "cluster_name": "公共与公司债发行量主张待核",
+      "member_events": [
+        "E1",
+        "E2"
+      ],
+      "member_signals": [],
+      "relationships": [
+        "same_variable",
+        "same_time_window"
+      ],
+      "common_variable": "reported_debt_issuance",
+      "common_driver": null,
+      "common_direction": null,
+      "time_range": {
+        "start": null,
+        "end": null
+      },
+      "timeline": [
+        {
+          "time": null,
+          "type": "event",
+          "ref_id": "E1",
+          "summary": "国债发行主张；截止日未知"
+        },
+        {
+          "time": null,
+          "type": "event",
+          "ref_id": "E2",
+          "summary": "公司债发行主张；截止日未知"
+        }
+      ],
+      "strength": "weak",
+      "confidence": "low",
+      "status": "uncertain",
+      "notes": "同一材料声称同窗口，两者仅构成待核信息集合，不是独立证据共振；未知时间的排列不是历史先后。未产生国债供给上升已确认Signal。"
+    },
+    {
+      "cluster_id": "C2",
+      "cluster_name": "AI债务融资扩张及局部信用定价观察",
+      "member_events": [
+        "E3",
+        "E4",
+        "E5"
+      ],
+      "member_signals": [
+        "S1",
+        "S2"
+      ],
+      "relationships": [
+        "same_subject"
+      ],
+      "common_variable": "AI_debt_market_absorption",
+      "common_driver": null,
+      "common_direction": "发行规模扩张、特定篮子信用利差扩大并存",
+      "time_range": {
+        "start": "2026-08-03",
+        "end": "2026-08-03"
+      },
+      "timeline": [
+        {
+          "time": "2026-08-03",
+          "type": "event",
+          "ref_id": "E3",
+          "summary": "回顾2025年超大规模科技公司全球债务发行"
+        },
+        {
+          "time": "2026-08-03",
+          "type": "event",
+          "ref_id": "E4",
+          "summary": "报告2026年内累计债务发行"
+        },
+        {
+          "time": "2026-08-03",
+          "type": "event",
+          "ref_id": "E5",
+          "summary": "描述AI领导者债券篮子信用利差扩大"
+        },
+        {
+          "time": "2026-08-03",
+          "type": "signal",
+          "ref_id": "S1",
+          "summary": "来源报告发行规模扩张"
+        },
+        {
+          "time": "2026-08-03",
+          "type": "signal",
+          "ref_id": "S2",
+          "summary": "来源报告特定篮子利差扩大"
+        }
+      ],
+      "strength": "weak",
+      "confidence": "medium",
+      "status": "emerging",
+      "notes": "时间轴是同一访谈的观测归档时点，底层回顾期不同，不是同日行情演化。两变量同属AI融资过程，但篮子与发行样本未逐一匹配；不将并存写成因果。单一机构来源，不重复计独立验证。"
+    }
+  ],
+  "themes": [
+    {
+      "theme_id": "T1",
+      "theme_name": "AI债务融资扩张与债市吸收能力",
+      "core_question": "AI债务融资扩张是否正在提高债市吸收这些债券所要求的补偿？",
+      "summary": "形成候选观察问题；公共部门融资挤出与美国长端国债收益率因果尚未建立。",
+      "cluster_refs": [
+        "C2"
+      ],
+      "core_variables": [
+        "hyperscaler_reported_gross_debt_issuance",
+        "gs_ai_leader_basket_credit_spread"
+      ],
+      "common_driver": null,
+      "transmission_structure": [],
+      "current_direction": "uncertain",
+      "status": "emerging",
+      "confidence": "low",
+      "evidence_state": {
+        "supporting_cluster_count": 1,
+        "source_diversity": "一个机构访谈；转载不增加独立来源",
+        "cross_market_confirmation": null,
+        "time_persistence": "缺乏可复算连续序列，待验证",
+        "directional_consistency": "供给与定价观察并存，尚无因果识别",
+        "contradictory_evidence": []
+      },
+      "uncertainties": [
+        "来源滚动窗口不同，AI企业/超大规模公司样本不同。",
+        "1940亿美元不自动等于2026上半年。",
+        "信用利差不等于美债期限溢价。",
+        "尚未取得已发生的反证；发行总额含再融资、需求增加或融资渠道分流均为待检验的替代解释。"
+      ],
+      "open_questions": [
+        "同窗口净发行、到期偿还和期限结构如何？",
+        "新券发行溢价、认购需求与基金流入是否同时恶化？",
+        "控制政策利率预期后，美债期限溢价是否与净久期供给同步变化？"
+      ]
+    }
+  ],
+  "notes": "仅处理用户材料及必要核验，未扩展为全市场扫描。本轮5个Event是来源主张/报告观察条目（E1/E2待验证），不是5个独立确认市场事件；2个Signal为来源报告变化。首次处理，全部对象为本轮新提取，非9月28日新发生。滚动12个月截止日未知；2025全年、2026年内累计与访谈此前12个月不同，不设虚假的统一窗口。无适合识别因果的关键事件窗口，因此event_analysis为null，Repricing Signal为0。未产生风险等级、交易建议或当前风险增强/减弱结论。"
+}
