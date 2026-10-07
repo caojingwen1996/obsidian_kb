@@ -89,4 +89,4 @@
 - [S2 SK hynix官方澄清，2026-09-16](https://news.skhynix.com/en/fact-10/)。
 - [S3 Intel产品背景，2026-03-25](https://www.intel.com/content/www/us/en/newsroom/news/client-computing/intel-core-ultra-series-3-with-vpro-powers-next-gen-pcs-on-18a.html)。
 - [[sources/manual/2026-09-23-英特尔NotaAI与存储叙事-核验摘录|库内原始线索与短摘录]]。
-- 方法：[[wiki/concepts/冰冰小美-framework-风险观察与演绎|风险观察与演绎]]、[[wiki/topics/冰冰小美-风险来源与传导路径|风险来源与传导路径]]。机制与变量选择是本次分析者的条件推断，不冒充冰冰小美对英特尔事件的原话。
+- 方法：[[冰冰小美-framework-风险观察|风险观察与演绎]]、[[wiki/topics/冰冰小美-风险来源与传导路径|风险来源与传导路径]]。机制与变量选择是本次分析者的条件推断，不冒充冰冰小美对英特尔事件的原话。

@@ -29064,7 +29064,7 @@ automation / dividend-signal / daily-record
 - 操作：按用户指定方法论重新建立风险识别技能，新建风险演绎观察技能，并同步专家入口分流。
 - 新增文件：`.agents/skills/bbxm-risk-identification/{SKILL.md,log.md}`、`.agents/skills/bbxm-risk-evolution-monitoring/{SKILL.md,log.md}`；识别技能原目录此前已按用户要求删除。
 - 修改文件：`.agents/skills/bbxm-expert/{SKILL.md,bbxm-expert-SKILL-strong-trigger.md,log.md}`、`index.md`、`log.md`。
-- 资料来源：[[冰冰小美-framework-风险观察与演绎|风险观察与演绎]]、[[sources/articles/2025-09-20-冰冰小美：风险变化如何观察|《风险变化如何观察》]]。
+- 资料来源：[[冰冰小美-framework-风险观察|风险观察与演绎]]、[[sources/articles/2025-09-20-冰冰小美：风险变化如何观察|《风险变化如何观察》]]。
 - 具体变更：识别技能输出风险类型、风险来源、核心变量和 T0 基准；观察技能承接基准，增量跟踪两股力量、风险方向、持续性和模型变化；新增技能导航，正式 Wiki 页面计数不变。
 - 验证结果：两项技能结构校验通过；独立合成情境走查覆盖同根因消息收敛、缺数据不判维持、政策仅宣布不判风险减弱三项边界，均符合预期。UTF-8、引用路径与变更格式核验通过；未进行实时金融数据采集、自动触发或有无技能对照评测。校验器最初默认 GBK 读取失败，改用 Python UTF-8 模式后通过，未修改校验器。
 
@@ -29182,7 +29182,7 @@ automation / dividend-signal / daily-record
 - 日期：2026-09-21。
 - 修改文件：`wiki/agents/冰冰小美Agent.md`、`index.md`、`log.md`。
 - 操作说明：按用户指定位置更新一个统一入口、两个风险技能、一个信息处理上游的编排设计。补充六种请求路由、调用图、技能职责与输入输出、模型及逐轮记录交接、增量跟踪、重新识别和结束条件；明确已有信息结果复用、首次基准不判方向与周期执行边界。
-- 依据：[[wiki/concepts/冰冰小美-framework-信息的金融处理|信息的金融处理]]、[[wiki/concepts/冰冰小美-framework-风险观察与演绎|风险观察与演绎]]及本次对话确定的调用设计。
+- 依据：[[wiki/concepts/冰冰小美-framework-信息的金融处理|信息的金融处理]]、[[冰冰小美-framework-风险观察|风险观察与演绎]]及本次对话确定的调用设计。
 - 边界：沿用用户已有 agents 页面及章节，保留 Role、职责说明和估值图；不新增页面类型或改动 schema。模型记录字段和结束条件标明为执行补充；未修改实际技能，页面明确接口与记录定位尚待接入。
 - 索引：在技能维护区增加 Agent 编排导航；本次无新增页面，不修改页面计数。
 - 验证结果：6处双链目标存在、唯一索引入口、中文 UTF-8、代码围栏配对及原有职责和估值内容保留检查通过；调用图已作文本结构核对，未进行图形渲染或技能运行验证。
@@ -29194,7 +29194,7 @@ automation / dividend-signal / daily-record
 - 修改文件：`.agents/skills/bbxm-risk-identification/{SKILL.md,log.md}`、`.agents/skills/bbxm-risk-evolution-monitoring/{SKILL.md,log.md}`、`.agents/skills/bbxm-expert/{SKILL.md,log.md}`、`wiki/agents/冰冰小美Agent.md`、`index.md`、`log.md`。
 - 新增文件：两个风险技能各自的 `workflow.md`、`template.md`，以及风险识别的 `references/handoff-contract.md`；验证记录 `.work/risk-skills-review-20260921.md` 不进入正式知识层。
 - 操作说明：两个风险技能首次设置显式版本1.0.0，统一消费 InformationProcessingResult；风险识别按五步建立完整 Risk Model，演绎观察按四步维护基准、方向、持续性与模型有效性。共用证据、版本和记录定位契约，补充来源失败、上游补取、重识别停止条件与结束观察边界。专家入口、Agent页面技能说明和索引同步。
-- 资料依据：[[wiki/concepts/冰冰小美-framework-风险观察与演绎|风险观察与演绎]]、[[wiki/concepts/冰冰小美-framework-信息的金融处理|信息的金融处理]]、[[wiki/agents/冰冰小美Agent|Agent 编排]]。
+- 资料依据：[[冰冰小美-framework-风险观察|风险观察与演绎]]、[[wiki/concepts/冰冰小美-framework-信息的金融处理|信息的金融处理]]、[[wiki/agents/冰冰小美Agent|Agent 编排]]。
 - 保留范围：未修改方法论原页或信息处理输出契约；保留用户在Agent页面新删改的开头说明及原有估值内容，仅更新交接契约链接与技能接入状态。无新增正式Wiki页面，不改页面计数。
 - 验证结果：quick_validate 通过；9份活动文档43处本地链接、UTF-8、代码围栏和入口章节检查通过；识别五步、观察四步编号完整。完成14项合成情境规则走查，记录在 .work/risk-skills-review-20260921.md；未执行联网研究、自动调度或完整技能行为评测。
 
@@ -29781,3 +29781,35 @@ audit / 中证红利股息率信号每日检查（自动化 09:45 任务）
 - 资料来源：雪球「冰冰小美」主页（https://xueqiu.com/u/7143769715）公开 DOM 时间线与 CDP 登录态探测；主提示词 `.agents/automations/bbxm_daliy_brief.md`。
 - 说明：目标日期 2026-09-30，抓取脚本返回 candidates=0（`extract.json = []`），公开主页时间线最新帖为 2026-09-28 11:10，未见 09-29／09-30 条目，未发现验证码或滑块。但 CDP 专用 profile（`.agents/skills/cjw-xueqiu-daily-monitor/scripts/.xueqiu-chrome-profile`）加载后雪球导航显示「登录」入口、服务端按未登录渲染，**登录态失效构成阻断项**，按主提示词第二节第 4 条不判定为空结果，保留日期目录与证据文件而不清理。时间线 JSON 接口返回阿里云 WAF 挑战页，接口级交叉核验受阻。风险分析文件 `analysis_complete=false`、`skill_call.invoked=false`，更新器返回 `blocked`，工作簿未被修改；未写 `tools/a-share-market-dashboard/data/Risk/`，未生成 HTML，未生成 `summary.md`／`state.json`／`操作.md`。
 - 后续待办：人工在专用 profile 中重新登录雪球后，对 2026-09-30 执行同日重跑以确认当日是否确无发帖；`tools/bbxm-risk-dashboard/data/~$冰冰小美风险提示.xlsx` 陈旧锁文件（Jul 14）待确认清理。
+
+## 2026-10-05
+
+### tooling / 新增 Mac 面板启动器
+
+- 新增：`tools/a-share-market-dashboard/启动面板.command`（可执行），以及 `tests/mac-launcher.test.mjs`。
+- 修改：面板 `README.md`、根 `index.md`、本日志。
+- 行为：定位系统/Homebrew/Codex Node与Python 3，从脚本目录构建，成功后运行原有local_proxy.py；构建失败停止，交互终端保留错误提示。复用现有服务与浏览器启动逻辑。
+- 验证：bash -n通过；node --test tools/a-share-market-dashboard/tests/mac-launcher.test.mjs 两项通过，覆盖中文空格路径、构建到服务启动顺序和构建失败阻断。测试使用替身运行时，未启动真实服务或抓取行情。
+- 无正式Wiki页面新增。
+
+
+## 2026-10-07
+
+### ui / 精简温度计侧栏菜单
+
+- 用户要求：移除截图中的位置分位、估值与 ERP、情绪温度、评分规则、数据审计五个菜单入口。
+- 修改：面板 `src/index.html`、`src/changelog.json`、`tests/build.test.mjs`、`README.md`、生成文件 `a-share-market-dashboard.html`，同步根索引和本日志。
+- 结果：温度计菜单保留市场总览、红利信号、每日跟踪、风险大屏和主题，编号01—05；默认市场总览入口不变。
+- 验证：构建成功；针对菜单、页面结构与导航的3项检查通过，检查覆盖源码及生成HTML。较大范围build/data-service测试49通过、6失败，失败涉及todo旧路径、三要素摘要、市场总览文案、研报内容、主题筛选和持仓排序断言，未在本次菜单任务中修改这些功能。
+- 保留此前尚未提交的Mac启动器及其文档、索引、日志改动。无正式Wiki页面新增。
+
+## 2026-10-07
+
+### design / 风险监控业务模型与自动评级规则
+
+- 新增文件：`tools/a-share-market-dashboard/prototypes/risk-monitoring-design.md`，业务设计版本1.0；修改文件：`index.md`、`log.md`。
+- 资料来源：用户确认的风险监控模块设计方案；[[wiki/topics/冰冰小美-风险体系|风险体系]]、[[wiki/topics/冰冰小美-风险来源与传导路径|风险来源与传导路径]]、[[冰冰小美-framework-风险观察|风险观察与演绎]]、[[wiki/concepts/冰冰小美-indacator-风险类型|二级市场风险维度]]、[[wiki/reasoning/冰冰小美如何判断风险转弱的节点|风险转弱节点框架]]及已有风险记录定位表。
+- 操作说明：补充具体风险与观察轮次、变量和指标证据、规则及阈值版本、三值条件组合评级、快照字段、可比性、转弱确认、结束重开和修订保留约束；以市场资金供需失衡的发行融资路径完成周度样例，提供9周合成输入和23项验收场景。第80/95百分位、样例历史窗口与容差均标记为待校准工程默认值，不归于作者原文或真实市场结论。
+- 验证：UTF-8与异常字符检查、7个库内链接和代码围栏检查通过；核对23项验收场景、9周评级、5组未知结果、16组完全布尔输入及4项分位边界；补充不利分位向量后复算9组S/T/B/H条件、16项相对趋势、2次转弱确认与2个结束条件观察期，均通过。检查使用临时内联Python逻辑，未新增或运行生产评级引擎，未构建看板。
+- 交付边界：只交付业务设计与导航，不修改风险体系草稿、看板代码和技能，不获取行情、不创建调度，不新增正式Wiki页面，页面总数不变。
+- 后续依赖：样本清单、指标口径与数据可得性、阈值校准，以及缺失的风险技能共享交接契约；本轮不创建替代契约，不将既有模型自动迁成规则评级。

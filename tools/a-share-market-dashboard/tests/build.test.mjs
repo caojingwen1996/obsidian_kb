@@ -232,10 +232,10 @@ test('sidebar exposes the personal workspace as a first-level tree domain', () =
   assert.match(html, /class="tracking-table-wrap"/);
   assert.match(html, /<table class="tracking-table">/);
   assert.match(html, /id="tree-thermometer"[\s\S]*data-view="market-summary"[^>]*aria-current="page"><span>01<\/span>市场总览<\/button>\s*<button class="nav-item" type="button" data-view="dividend-signal-view"><span>02<\/span>红利信号<\/button>/);
-  assert.match(html, /id="tree-thermometer"[\s\S]*<button class="nav-item" type="button" data-view="featured-digest"><span>08<\/span>每日跟踪<\/button>/);
+  assert.match(html, /id="tree-thermometer"[\s\S]*<button class="nav-item" type="button" data-view="featured-digest"><span>03<\/span>每日跟踪<\/button>/);
   assert.doesNotMatch(html.match(/<div class="tree-children" id="tree-thermometer">[\s\S]*?<\/div>/)?.[0] ?? '', /data-view="fugui-strategy"/);
-  assert.match(html, /id="tree-thermometer"[\s\S]*<button class="nav-item" type="button" data-view="risk-monitor"><span>09<\/span>风险大屏<\/button>/);
-  assert.match(html, /id="tree-thermometer"[\s\S]*<button class="nav-item" type="button" data-view="topic-map"><span>10<\/span>主题<\/button>/);
+  assert.match(html, /id="tree-thermometer"[\s\S]*<button class="nav-item" type="button" data-view="risk-monitor"><span>04<\/span>风险大屏<\/button>/);
+  assert.match(html, /id="tree-thermometer"[\s\S]*<button class="nav-item" type="button" data-view="topic-map"><span>05<\/span>主题<\/button>/);
   assert.match(html, /id="tree-strategy"[\s\S]*<button class="nav-item" type="button" data-view="fugui-strategy"><span>01<\/span>富贵策略<\/button>\s*<button class="nav-item" type="button" data-view="xiaomei-strategy"><span>02<\/span>小美策略<\/button>/);
   const personalTree = html.match(/<div class="tree-children" id="tree-personal" hidden>[\s\S]*?<\/div>/)?.[0] ?? '';
   assert.match(personalTree, /data-view="position-manager"><span>01<\/span>需求清单<\/button>/);
@@ -1383,4 +1383,15 @@ test('todo action requests abort instead of leaving the UI busy forever', async 
 test('todo actions use the independent local service origin', () => {
   assert.equal(todoActionUrl('/api/todos', { protocol: 'http:', hostname: '127.0.0.1' }), 'http://127.0.0.1:49889/api/todos');
   assert.equal(todoActionUrl('/api/todos', { protocol: 'file:', hostname: '' }), '/api/todos');
+});
+
+
+test('thermometer sidebar retains only the five requested entries', () => {
+  for (const path of [sourcePath, join(dirname(sourcePath), '..', 'a-share-market-dashboard.html')]) {
+    const html = readFileSync(path, 'utf8');
+    const tree = html.match(/id="tree-thermometer">([\s\S]*?)<\/div>/)?.[1] ?? '';
+    assert.deepEqual([...tree.matchAll(/data-view="([^"]+)"/g)].map(match => match[1]), [
+      'market-summary', 'dividend-signal-view', 'featured-digest', 'risk-monitor', 'topic-map',
+    ]);
+  }
 });
