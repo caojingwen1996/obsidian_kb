@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1880" height="1640" viewBox="0 0 1880 1640">
+<defs>
+ <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#61758c"/></marker>
+</defs>
+<rect width="100%" height="100%" fill="#f7f9fc"/>
+<style>text {font-family: 'Noto Sans CJK SC','WenQuanYi Zen Hei',sans-serif; fill:#18334e;} .body {font-size:25px} .label {font-size:22px;fill:#50647a}</style>
+
+<text x="60" y="75" font-size="46" font-weight="800" fill="#18334e" text-anchor="start">AIHOT 业务处理架构</text>
+<rect x="1410" y="32" width="360" height="56" rx="28" fill="#e7effc" stroke="#d0dff1" stroke-width="2"/>
+<text x="1590" y="69" font-size="25" font-weight="600" fill="#18334e" text-anchor="middle">校正版 · 文档依据视图</text>
+<text x="60" y="125" font-size="27" font-weight="400" fill="#18334e" text-anchor="start">采集与加工 → 事件组织 → 内容产品与报告 → 统一交付</text>
+<rect x="500" y="960" width="1270" height="240" rx="15" fill="#fff9ed" stroke="#eadfca" stroke-width="2"/>
+<polyline points="420,275 490,275" fill="none" stroke="#61758c" stroke-width="3" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="850,275 920,275" fill="none" stroke="#61758c" stroke-width="3" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="1280,275 1350,275" fill="none" stroke="#61758c" stroke-width="3" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="1410,360 1410,450 245,450 245,615" fill="none" stroke="#61758c" stroke-width="3" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="560" y="430" font-size="22" font-weight="500" fill="#18334e" text-anchor="start">加工完成，满足公开条件</text>
+<polyline points="1630,360 1630,540" fill="none" stroke="#61758c" stroke-width="3" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="1644" y="485" font-size="22" font-weight="500" fill="#18334e" text-anchor="start">进入事件处理</text>
+<polyline points="1120,695 1120,725 715,725 715,770" fill="none" stroke="#61758c" stroke-width="3" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="1450,695 1450,770" fill="none" stroke="#61758c" stroke-width="3" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="980,620 935,620 935,990 975,990 975,1025" fill="none" stroke="#f7f9fc" stroke-width="12" stroke-linejoin="round"/>
+<polyline points="980,620 935,620 935,990 975,990 975,1025" fill="none" stroke="#61758c" stroke-width="3" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="930" y="934" font-size="22" font-weight="500" fill="#18334e" text-anchor="end">补充事件</text>
+<polyline points="715,880 715,1025" fill="none" stroke="#61758c" stroke-width="3" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="1020,1087 1120,1087" fill="none" stroke="#61758c" stroke-width="3" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="60,680 28,680 28,1330 60,1330" fill="none" stroke="#61758c" stroke-width="3" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="540,825 470,825 470,1220 680,1220 680,1250" fill="none" stroke="#61758c" stroke-width="3" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="1770,835 1820,835 1820,1330 1770,1330" fill="none" stroke="#61758c" stroke-width="3" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<polyline points="777,1150 777,1250" fill="none" stroke="#61758c" stroke-width="3" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="790" y="1230" font-size="22" font-weight="500" fill="#18334e" text-anchor="start">日报</text>
+<polyline points="1427,1150 1427,1250" fill="none" stroke="#61758c" stroke-width="3" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="1440" y="1230" font-size="22" font-weight="500" fill="#18334e" text-anchor="start">周报／月报</text>
+<rect x="60" y="190" width="360" height="170" rx="15" fill="#edf5ff" stroke="#d7e1ed" stroke-width="2"/>
+<path d="M 76 190 H 404" stroke="#4383c7" stroke-width="6" stroke-linecap="round"/>
+<text x="84" y="233" font-size="29" font-weight="700" fill="#18334e" text-anchor="start">L0  信源接入</text>
+<text x="84" y="274" font-size="26" font-weight="400" fill="#18334e" text-anchor="start">RSS · 网页 · JSON</text>
+<text x="84" y="309" font-size="26" font-weight="400" fill="#18334e" text-anchor="start">X · 公众号 · 外部推送</text>
+<rect x="490" y="190" width="360" height="170" rx="15" fill="#edf5ff" stroke="#d7e1ed" stroke-width="2"/>
+<path d="M 506 190 H 834" stroke="#4383c7" stroke-width="6" stroke-linecap="round"/>
+<text x="514" y="233" font-size="29" font-weight="700" fill="#18334e" text-anchor="start">L1  内容准备</text>
+<text x="514" y="274" font-size="26" font-weight="400" fill="#18334e" text-anchor="start">入库判重 · 正文提取</text>
+<text x="514" y="309" font-size="26" font-weight="400" fill="#18334e" text-anchor="start">清洗与元数据补齐</text>
+<rect x="920" y="190" width="360" height="170" rx="15" fill="#eef7f2" stroke="#d7e1ed" stroke-width="2"/>
+<path d="M 936 190 H 1264" stroke="#419878" stroke-width="6" stroke-linecap="round"/>
+<text x="944" y="233" font-size="29" font-weight="700" fill="#18334e" text-anchor="start">L2  相关性预筛</text>
+<text x="944" y="274" font-size="26" font-weight="400" fill="#18334e" text-anchor="start">PASS / UNKNOWN 继续</text>
+<text x="944" y="309" font-size="26" font-weight="400" fill="#18334e" text-anchor="start">BLOCK 阻断公开</text>
+<rect x="1350" y="190" width="420" height="170" rx="15" fill="#eef7f2" stroke="#d7e1ed" stroke-width="2"/>
+<path d="M 1366 190 H 1754" stroke="#419878" stroke-width="6" stroke-linecap="round"/>
+<text x="1374" y="233" font-size="29" font-weight="700" fill="#18334e" text-anchor="start">L3  评估与内容加工</text>
+<text x="1374" y="274" font-size="25" font-weight="400" fill="#18334e" text-anchor="start">双评分 ∥ 事实结构化</text>
+<text x="1374" y="309" font-size="25" font-weight="400" fill="#18334e" text-anchor="start">↓ 标题 · 摘要 · 推荐理由</text>
+<rect x="980" y="540" width="790" height="155" rx="15" fill="#f1edfc" stroke="#d7e1ed" stroke-width="2"/>
+<path d="M 996 540 H 1754" stroke="#8461b2" stroke-width="6" stroke-linecap="round"/>
+<text x="1004" y="583" font-size="29" font-weight="700" fill="#18334e" text-anchor="start">L4  事件归组与精选确认</text>
+<text x="1004" y="624" font-size="26" font-weight="400" fill="#18334e" text-anchor="start">候选召回 → 关系判断 → 信息增量评估</text>
+<text x="1004" y="659" font-size="26" font-weight="400" fill="#18334e" text-anchor="start">事件关联／进展关系 + 精选资格确认</text>
+<rect x="60" y="615" width="370" height="125" rx="15" fill="#ffffff" stroke="#d7e1ed" stroke-width="2"/>
+<path d="M 76 615 H 414" stroke="#4383c7" stroke-width="6" stroke-linecap="round"/>
+<text x="84" y="658" font-size="29" font-weight="700" fill="#18334e" text-anchor="start">全部动态</text>
+<text x="84" y="699" font-size="24" font-weight="400" fill="#18334e" text-anchor="start">editorial 且满足公开条件</text>
+<rect x="540" y="770" width="350" height="110" rx="15" fill="#fff5e6" stroke="#d7e1ed" stroke-width="2"/>
+<path d="M 556 770 H 874" stroke="#cd9642" stroke-width="6" stroke-linecap="round"/>
+<text x="564" y="813" font-size="29" font-weight="700" fill="#18334e" text-anchor="start">精选内容</text>
+<text x="564" y="854" font-size="24" font-weight="400" fill="#18334e" text-anchor="start">够分 + 完成入选确认</text>
+<rect x="1070" y="770" width="700" height="130" rx="15" fill="#f1edfc" stroke="#d7e1ed" stroke-width="2"/>
+<path d="M 1086 770 H 1754" stroke="#8461b2" stroke-width="6" stroke-linecap="round"/>
+<text x="1094" y="813" font-size="29" font-weight="700" fill="#18334e" text-anchor="start">L5  事件热度与综述</text>
+<text x="1094" y="854" font-size="25" font-weight="400" fill="#18334e" text-anchor="start">独立参与方 · 时间衰减 · 事件综述</text>
+<text x="1094" y="930" font-size="24" font-weight="600" fill="#18334e" text-anchor="start">产物：热点榜 · 事件页</text>
+<rect x="60" y="790" width="370" height="410" rx="15" fill="#eef2f7" stroke="#dce4ef" stroke-width="2"/>
+<text x="85" y="835" font-size="28" font-weight="700" fill="#18334e" text-anchor="start">关键边界</text>
+<text x="85" y="880" font-size="23" font-weight="400" fill="#18334e" text-anchor="start">hot_signal 仅作热度证据，</text>
+<text x="85" y="916" font-size="23" font-weight="400" fill="#18334e" text-anchor="start">不单独进入内容展示。</text>
+<text x="85" y="988" font-size="23" font-weight="400" fill="#18334e" text-anchor="start">普通文章仅有标题时，</text>
+<text x="85" y="1024" font-size="23" font-weight="400" fill="#18334e" text-anchor="start">等待材料补齐。</text>
+<text x="85" y="1096" font-size="23" font-weight="400" fill="#18334e" text-anchor="start">日报可补入符合规则的事件；</text>
+<text x="85" y="1132" font-size="23" font-weight="400" fill="#18334e" text-anchor="start">取材同样遵守 publication。</text>
+<text x="524" y="999" font-size="28" font-weight="700" fill="#18334e" text-anchor="start">L6  报告编排</text>
+<rect x="535" y="1025" width="485" height="125" rx="15" fill="#ffffff" stroke="#d7e1ed" stroke-width="2"/>
+<path d="M 551 1025 H 1004" stroke="#cd9642" stroke-width="6" stroke-linecap="round"/>
+<text x="559" y="1068" font-size="29" font-weight="700" fill="#18334e" text-anchor="start">日报：规则选编</text>
+<text x="559" y="1109" font-size="25" font-weight="400" fill="#18334e" text-anchor="start">通过 publication 取材</text>
+<rect x="1120" y="1025" width="615" height="125" rx="15" fill="#ffffff" stroke="#d7e1ed" stroke-width="2"/>
+<path d="M 1136 1025 H 1719" stroke="#cd9642" stroke-width="6" stroke-linecap="round"/>
+<text x="1144" y="1068" font-size="29" font-weight="700" fill="#18334e" text-anchor="start">周报／月报：从日报汇编</text>
+<text x="1144" y="1109" font-size="25" font-weight="400" fill="#18334e" text-anchor="start">模型仅撰写总述与栏目导读</text>
+<rect x="60" y="1250" width="1710" height="160" rx="15" fill="#eaf2fe" stroke="#ccddf3" stroke-width="2"/>
+<text x="90" y="1295" font-size="32" font-weight="700" fill="#18334e" text-anchor="start">L7  统一公开与交付</text>
+<text x="90" y="1343" font-size="27" font-weight="400" fill="#18334e" text-anchor="start">publication：公开范围 · 撤回 · 全文权限 · 代表报道</text>
+<text x="90" y="1385" font-size="27" font-weight="600" fill="#18334e" text-anchor="start">网页  ·  RSS  ·  API  ·  MCP  ·  Agent Markdown</text>
+<rect x="60" y="1450" width="1710" height="104" rx="15" fill="#f0f3f7" stroke="#dce3eb" stroke-width="2"/>
+<text x="84" y="1490" font-size="27" font-weight="700" fill="#18334e" text-anchor="start">贯穿全流程的支撑</text>
+<text x="84" y="1530" font-size="26" font-weight="400" fill="#18334e" text-anchor="start">行业／站点配置  ·  任务调度  ·  回执复用  ·  预算熔断  ·  告警与恢复  ·  人工校正</text>
+<text x="60" y="1605" font-size="21" font-weight="400" fill="#18334e" text-anchor="start">依据：KKKKhazix/AIHOT main 分支文档，2026-10-08；未逐行核验源码。完整来源见配套 Markdown。</text>
+</svg>

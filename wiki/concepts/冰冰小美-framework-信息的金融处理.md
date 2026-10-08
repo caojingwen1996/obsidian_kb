@@ -180,7 +180,7 @@ maybe 一个观测对象是：新闻，标的，宏观日报，微信公众号�
 
 观测指标表：
 [[wiki/concepts/冰冰小美-indicator-非金融信息观测指标表]]
-[[冰冰小美-indicator-金融信息（todo)]]
+[[冰冰小美-indicator-金融信息（todo整理)]]
 
 还需要一个路由routing表（todo)
 eg：利率 → 央行 / 财政部 / Treasury）
