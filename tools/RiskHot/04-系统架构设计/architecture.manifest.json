@@ -1,0 +1,807 @@
+{
+  "manifest_version": "1.0.0",
+  "document_id": "RH-SAD-001",
+  "status": "proposed_design_not_implemented",
+  "as_of": "2026-10-10",
+  "project": "RiskHot",
+  "implementation_root": "..",
+  "source_document": "RiskHot_系统架构设计_V1.0.md",
+  "scope": "首版宏观风险系统；不新增正式 Wiki 知识页",
+  "path_semantics": "planned implementation paths are relative to RiskHot root and are not claims of existing source files",
+  "architecture": {
+    "style": "contract-first modular backend with independent SPA, durable workflows and replaceable agent runtime",
+    "production_runtime": "Node.js 24 LTS",
+    "language": "TypeScript 7.x subject to toolchain compatibility gate",
+    "frontend": "React 19.3 + Vite 8.1 SPA",
+    "api": "Fastify 5.x",
+    "contract_source": "JSON Schema 2020-12",
+    "http_contract": "OpenAPI 3.1.2",
+    "database": "PostgreSQL 18.x",
+    "durable_execution": "Temporal",
+    "large_artifacts": "versioned object storage",
+    "optional_retrieval": "pgvector"
+  },
+  "state_authorities": {
+    "business_facts": "PostgreSQL domain schemas",
+    "accepted_operations_and_start_intent": "PostgreSQL operations and Outbox",
+    "execution_history_and_recovery": "Temporal",
+    "task_progress": "rebuildable operations projection of Temporal execution",
+    "large_artifacts": "object storage fixed versions with PG references",
+    "search_and_vectors": "rebuildable derived indexes",
+    "traces": "operational evidence only, not business approval state"
+  },
+  "modules": [
+    {
+      "id": "reference",
+      "title": "共享配置",
+      "planned_path": "packages/domains/reference/",
+      "depends_on": [],
+      "database_schemas_owned": [
+        "reference"
+      ],
+      "facts_owned": [
+        "对象和变量",
+        "风险源和类型",
+        "规则与模型/Prompt版本登记",
+        "展示分类映射"
+      ],
+      "requirements": [
+        "FR-CFG-01",
+        "FR-CFG-02",
+        "FR-CFG-03",
+        "FR-CFG-05",
+        "FR-CFG-06"
+      ],
+      "public_surface": "public/",
+      "internal_layers": [
+        "domain",
+        "application",
+        "adapters"
+      ],
+      "cross_module_access": "public contracts only; writes only to owned schemas",
+      "composition": "apps/api and apps/worker inject ports; operations uses registered ports without reverse domain imports"
+    },
+    {
+      "id": "observations",
+      "title": "指标与观测",
+      "planned_path": "packages/domains/observations/",
+      "depends_on": [
+        "reference"
+      ],
+      "database_schemas_owned": [
+        "observations"
+      ],
+      "facts_owned": [
+        "指标定义",
+        "变量映射",
+        "观测值与修订版本"
+      ],
+      "requirements": [
+        "FR-CFG-04"
+      ],
+      "public_surface": "public/",
+      "internal_layers": [
+        "domain",
+        "application",
+        "adapters"
+      ],
+      "cross_module_access": "public contracts only; writes only to owned schemas",
+      "composition": "apps/api and apps/worker inject ports; operations uses registered ports without reverse domain imports"
+    },
+    {
+      "id": "information",
+      "title": "L0 信息处理",
+      "planned_path": "packages/domains/information/",
+      "depends_on": [
+        "reference"
+      ],
+      "database_schemas_owned": [
+        "information"
+      ],
+      "facts_owned": [
+        "信源",
+        "原文版本",
+        "事件和事件更新",
+        "事件-对象-变量关系",
+        "M评价"
+      ],
+      "requirements": [
+        "FR-L0-01",
+        "FR-L0-02",
+        "FR-L0-03",
+        "FR-L0-04",
+        "FR-L0-05",
+        "FR-L0-06",
+        "FR-L0-07",
+        "FR-L0-08",
+        "FR-L0-09",
+        "FR-L0-10"
+      ],
+      "public_surface": "public/",
+      "internal_layers": [
+        "domain",
+        "application",
+        "adapters"
+      ],
+      "cross_module_access": "public contracts only; writes only to owned schemas",
+      "composition": "apps/api and apps/worker inject ports; operations uses registered ports without reverse domain imports"
+    },
+    {
+      "id": "registry",
+      "title": "L1 风险识别与纳管",
+      "planned_path": "packages/domains/registry/",
+      "depends_on": [
+        "reference",
+        "information"
+      ],
+      "database_schemas_owned": [
+        "registry"
+      ],
+      "facts_owned": [
+        "风险候选",
+        "正式风险与定义版本",
+        "长期变量关系",
+        "八字段风险-事件关系"
+      ],
+      "requirements": [
+        "FR-L1-01",
+        "FR-L1-02",
+        "FR-L1-03",
+        "FR-L1-04",
+        "FR-L1-05",
+        "FR-L1-06",
+        "FR-L1-07",
+        "FR-L1-08"
+      ],
+      "public_surface": "public/",
+      "internal_layers": [
+        "domain",
+        "application",
+        "adapters"
+      ],
+      "cross_module_access": "public contracts only; writes only to owned schemas",
+      "composition": "apps/api and apps/worker inject ports; operations uses registered ports without reverse domain imports"
+    },
+    {
+      "id": "analysis",
+      "title": "L2 风险态势分析",
+      "planned_path": "packages/domains/analysis/",
+      "depends_on": [
+        "reference",
+        "observations",
+        "information",
+        "registry"
+      ],
+      "database_schemas_owned": [
+        "analysis"
+      ],
+      "facts_owned": [
+        "分析草稿",
+        "快照修订",
+        "变量当前分析",
+        "快照附属变化结果",
+        "减弱节点记录"
+      ],
+      "requirements": [
+        "FR-L2-01",
+        "FR-L2-02",
+        "FR-L2-03",
+        "FR-L2-04",
+        "FR-L2-05",
+        "FR-L2-06",
+        "FR-L2-07",
+        "FR-L2-08",
+        "FR-L2-09",
+        "FR-L2-10",
+        "FR-L2-11",
+        "FR-L2-12",
+        "FR-L2-13"
+      ],
+      "public_surface": "public/",
+      "internal_layers": [
+        "domain",
+        "application",
+        "adapters"
+      ],
+      "cross_module_access": "public contracts only; writes only to owned schemas",
+      "composition": "apps/api and apps/worker inject ports; operations uses registered ports without reverse domain imports"
+    },
+    {
+      "id": "publication",
+      "title": "风险产品与发布",
+      "planned_path": "packages/domains/publication/",
+      "depends_on": [
+        "reference",
+        "registry",
+        "analysis"
+      ],
+      "database_schemas_owned": [
+        "publication"
+      ],
+      "facts_owned": [
+        "报告版本",
+        "固定快照引用",
+        "发布和撤回记录",
+        "可重建产品读模型"
+      ],
+      "requirements": [
+        "FR-PUB-01",
+        "FR-PUB-02",
+        "FR-PUB-03",
+        "FR-PUB-04",
+        "FR-PUB-05",
+        "FR-PUB-06",
+        "FR-PUB-07",
+        "FR-PUB-08"
+      ],
+      "public_surface": "public/",
+      "internal_layers": [
+        "domain",
+        "application",
+        "adapters"
+      ],
+      "cross_module_access": "public contracts only; writes only to owned schemas",
+      "composition": "apps/api and apps/worker inject ports; operations uses registered ports without reverse domain imports"
+    },
+    {
+      "id": "operations",
+      "title": "横向运行",
+      "planned_path": "packages/domains/operations/",
+      "depends_on": [],
+      "database_schemas_owned": [
+        "operations"
+      ],
+      "facts_owned": [
+        "任务受理",
+        "执行状态投影",
+        "复核待办投影",
+        "计划配置",
+        "审计检索"
+      ],
+      "requirements": [
+        "FR-OPS-02",
+        "FR-OPS-03",
+        "FR-OPS-04",
+        "FR-OPS-05",
+        "FR-OPS-06"
+      ],
+      "public_surface": "public/",
+      "internal_layers": [
+        "domain",
+        "application",
+        "adapters"
+      ],
+      "cross_module_access": "public contracts only; writes only to owned schemas",
+      "composition": "apps/api and apps/worker inject ports; operations uses registered ports without reverse domain imports"
+    },
+    {
+      "id": "identity",
+      "title": "身份与权限",
+      "planned_path": "packages/domains/identity/",
+      "depends_on": [],
+      "database_schemas_owned": [
+        "identity"
+      ],
+      "facts_owned": [
+        "用户映射",
+        "角色和授权",
+        "受限服务身份"
+      ],
+      "requirements": [
+        "FR-OPS-01"
+      ],
+      "public_surface": "public/",
+      "internal_layers": [
+        "domain",
+        "application",
+        "adapters"
+      ],
+      "cross_module_access": "public contracts only; writes only to owned schemas",
+      "composition": "apps/api and apps/worker inject ports; operations uses registered ports without reverse domain imports"
+    }
+  ],
+  "platform_boundaries": {
+    "domain_forbidden_imports": [
+      "http framework",
+      "Temporal SDK",
+      "model vendor SDK",
+      "database concrete driver"
+    ],
+    "frontend_allowed_internal_packages": [
+      "packages/generated/",
+      "packages/ui/"
+    ],
+    "operations_domain_dependencies": [],
+    "integration_registration_owner": "application composition roots",
+    "generated_source_of_truth": "packages/contracts/schemas/"
+  },
+  "deployables": [
+    {
+      "id": "web",
+      "planned_path": "apps/web/",
+      "independently_deployable": true
+    },
+    {
+      "id": "api",
+      "planned_path": "apps/api/",
+      "independently_deployable": true
+    },
+    {
+      "id": "worker",
+      "planned_path": "apps/worker/",
+      "independently_deployable": true
+    },
+    {
+      "id": "outbox-relay",
+      "planned_path": "apps/outbox-relay/",
+      "independently_deployable": true
+    }
+  ],
+  "requirement_count": 51,
+  "requirement_ownership": [
+    {
+      "requirement_id": "FR-CFG-01",
+      "title": "宏观作用对象与展示分类管理",
+      "primary_module": "reference",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-CFG-02",
+      "title": "全局变量与候选治理",
+      "primary_module": "reference",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-CFG-03",
+      "title": "风险源与风险类型配置",
+      "primary_module": "reference",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-CFG-04",
+      "title": "指标定义、变量映射与观测数据",
+      "primary_module": "observations",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-CFG-05",
+      "title": "金融意义与风险判定规则配置",
+      "primary_module": "reference",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-CFG-06",
+      "title": "配置、Prompt 与模型版本管理",
+      "primary_module": "reference",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-L0-01",
+      "title": "信源登记、准入与启停",
+      "primary_module": "information",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-L0-02",
+      "title": "自动采集、人工补录与补采",
+      "primary_module": "information",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-L0-03",
+      "title": "原文清洗、去重与版本保存",
+      "primary_module": "information",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-L0-04",
+      "title": "事件抽取与原文定位",
+      "primary_module": "information",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-L0-05",
+      "title": "事件归组与身份判断",
+      "primary_module": "information",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-L0-06",
+      "title": "事件作用对象与直接变量关联",
+      "primary_module": "information",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-L0-07",
+      "title": "增量分类与事件状态更新",
+      "primary_module": "information",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-L0-08",
+      "title": "金融意义评级与复评",
+      "primary_module": "information",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-L0-09",
+      "title": "事件检索、人工校正与归组调整",
+      "primary_module": "information",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-L0-10",
+      "title": "事件保存与下游交付",
+      "primary_module": "information",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-L1-01",
+      "title": "风险识别触发与上下文准备",
+      "primary_module": "registry",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-L1-02",
+      "title": "一次形成完整风险候选",
+      "primary_module": "registry",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-L1-03",
+      "title": "风险检索、同一性匹配与复核",
+      "primary_module": "registry",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-L1-04",
+      "title": "新风险准入与正式纳管",
+      "primary_module": "registry",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-L1-05",
+      "title": "风险定义与长期变量配置维护",
+      "primary_module": "registry",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-L1-06",
+      "title": "风险与事件关联维护",
+      "primary_module": "registry",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-L1-07",
+      "title": "跟踪状态变更、暂停与恢复",
+      "primary_module": "registry",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-L1-08",
+      "title": "纳管结果交付与变更通知",
+      "primary_module": "registry",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-L2-01",
+      "title": "观察发起、截止时间与基准选择",
+      "primary_module": "analysis",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-L2-02",
+      "title": "指标与事件证据准备",
+      "primary_module": "analysis",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-L2-03",
+      "title": "关键变量当前状态与风险作用分析",
+      "primary_module": "analysis",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-L2-04",
+      "title": "风险来源与传导压力分析",
+      "primary_module": "analysis",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-L2-05",
+      "title": "应对措施、缓冲条件与效果分析",
+      "primary_module": "analysis",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-L2-06",
+      "title": "当前两股力量比较",
+      "primary_module": "analysis",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-L2-07",
+      "title": "实际影响范围与损害兑现分析",
+      "primary_module": "analysis",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-L2-08",
+      "title": "当前风险快照与持续性展望",
+      "primary_module": "analysis",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-L2-09",
+      "title": "可比性检查与方向变化分析",
+      "primary_module": "analysis",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-L2-10",
+      "title": "持续性变化分析",
+      "primary_module": "analysis",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-L2-11",
+      "title": "减弱节点候选、验证与失效",
+      "primary_module": "analysis",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-L2-12",
+      "title": "结果保存、审核、修订与交付",
+      "primary_module": "analysis",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-L2-13",
+      "title": "后续观察重点与 L1 维护反馈",
+      "primary_module": "analysis",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-OPS-01",
+      "title": "身份、角色与访问控制",
+      "primary_module": "identity",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-OPS-02",
+      "title": "任务状态、重试、重算与取消",
+      "primary_module": "operations",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-OPS-03",
+      "title": "人工复核中心",
+      "primary_module": "operations",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-OPS-04",
+      "title": "证据追溯、版本审计与历史重放",
+      "primary_module": "operations",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-OPS-05",
+      "title": "采集、观察和出刊计划",
+      "primary_module": "operations",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-OPS-06",
+      "title": "运行异常、数据陈旧与恢复验证",
+      "primary_module": "operations",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-PUB-01",
+      "title": "完整风险目录与多维检索",
+      "primary_module": "publication",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-PUB-02",
+      "title": "最新风险与今日新增风险",
+      "primary_module": "publication",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-PUB-03",
+      "title": "最严重风险排序与不可比较项",
+      "primary_module": "publication",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-PUB-04",
+      "title": "风险详情、证据下钻与 Timeline",
+      "primary_module": "publication",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-PUB-05",
+      "title": "日报、周报、月报编制",
+      "primary_module": "publication",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-PUB-06",
+      "title": "报告编辑、引用与一致性校验",
+      "primary_module": "publication",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-PUB-07",
+      "title": "报告审核、发布、撤回与修订",
+      "primary_module": "publication",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    },
+    {
+      "requirement_id": "FR-PUB-08",
+      "title": "报告阅读、历史版本与导出",
+      "primary_module": "publication",
+      "acceptance_source": "../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md"
+    }
+  ],
+  "pending_business_decisions": [
+    "D-01",
+    "D-02",
+    "D-03",
+    "D-04",
+    "D-05",
+    "D-06",
+    "D-07",
+    "D-08",
+    "D-09",
+    "D-10",
+    "D-11",
+    "D-12"
+  ],
+  "constraints": [
+    {
+      "id": "C01",
+      "title": "单一业务事实源",
+      "rule": "PostgreSQL 领域版本是正式业务权威；投影和检索可重建",
+      "verification_gate": "G02",
+      "enforcement_status": "to_be_implemented"
+    },
+    {
+      "id": "C02",
+      "title": "单一执行权威",
+      "rule": "Temporal owns retry/wait/timer/recovery; no second durable checkpoint for the same task",
+      "verification_gate": "G06",
+      "enforcement_status": "to_be_implemented"
+    },
+    {
+      "id": "C03",
+      "title": "前后端分离",
+      "rule": "web imports only generated contracts/SDK and UI; no DB, server, worker or model SDK imports",
+      "verification_gate": "G02",
+      "enforcement_status": "to_be_implemented"
+    },
+    {
+      "id": "C04",
+      "title": "领域边界",
+      "rule": "Domain graph is acyclic; cross-domain imports target public surfaces; no cross-domain writes",
+      "verification_gate": "G02",
+      "enforcement_status": "to_be_implemented"
+    },
+    {
+      "id": "C05",
+      "title": "时间正确",
+      "rule": "Evidence available_at <= cutoff; later corrections require explicit retrospective new run",
+      "verification_gate": "G03",
+      "enforcement_status": "to_be_implemented"
+    },
+    {
+      "id": "C06",
+      "title": "风险身份",
+      "rule": "Full candidate before matching; IDs allocated by application; L0 target != L1 observation target",
+      "verification_gate": "G03",
+      "enforcement_status": "to_be_implemented"
+    },
+    {
+      "id": "C07",
+      "title": "四维当前状态",
+      "rule": "risk_level/risk_stage/affected_scope/persistence_outlook only; change result attached to snapshot revision",
+      "verification_gate": "G03",
+      "enforcement_status": "to_be_implemented"
+    },
+    {
+      "id": "C08",
+      "title": "审批授权",
+      "rule": "AI cannot self-approve; default formal decisions require authorized human review",
+      "verification_gate": "G04",
+      "enforcement_status": "to_be_implemented"
+    },
+    {
+      "id": "C09",
+      "title": "幂等交付",
+      "rule": "Domain mutation + audit + Outbox atomically; Inbox and stable operation identity; no exactly-once external claim",
+      "verification_gate": "G06",
+      "enforcement_status": "to_be_implemented"
+    },
+    {
+      "id": "C10",
+      "title": "八字段关系",
+      "rule": "monitored_risk_event_relation retains eight defined fields; revision/audit sidecars; first event_update_id immutable",
+      "verification_gate": "G03",
+      "enforcement_status": "to_be_implemented"
+    },
+    {
+      "id": "C11",
+      "title": "未知不等于失败",
+      "rule": "unknown/missing/incomparable/no-result/technical-failure distinct",
+      "verification_gate": "G03",
+      "enforcement_status": "to_be_implemented"
+    },
+    {
+      "id": "C12",
+      "title": "撤回强制校验",
+      "rule": "All supported report reads/downloads consult authoritative status; no irrevocable public object links",
+      "verification_gate": "G05",
+      "enforcement_status": "to_be_implemented"
+    },
+    {
+      "id": "C13",
+      "title": "固定版本",
+      "rule": "ExecutionManifest pins inputs, model metadata, rules, prompts, tools and worker compatibility",
+      "verification_gate": "G07",
+      "enforcement_status": "to_be_implemented"
+    },
+    {
+      "id": "C14",
+      "title": "开发隔离",
+      "rule": "Worktree, branch, database, queues, object prefix and ports isolated; no production credentials",
+      "verification_gate": "G09",
+      "enforcement_status": "to_be_implemented"
+    },
+    {
+      "id": "C15",
+      "title": "组合验收",
+      "rule": "Final merge candidate must pass contract, boundary and affected integration/E2E gates",
+      "verification_gate": "G10",
+      "enforcement_status": "to_be_implemented"
+    },
+    {
+      "id": "C16",
+      "title": "单一契约源",
+      "rule": "JSON Schema is DTO authority; generated artifacts not edited; Ajv2020 path explicitly validated",
+      "verification_gate": "G01",
+      "enforcement_status": "to_be_implemented"
+    },
+    {
+      "id": "C17",
+      "title": "取消与提交竞争裁决",
+      "rule": "Commit eligibility, execution generation, approval revision and expected result version checked with lock/CAS in the same PG transaction; signals only wake execution",
+      "verification_gate": "G06",
+      "enforcement_status": "to_be_implemented"
+    },
+    {
+      "id": "C18",
+      "title": "恢复后默认关闭",
+      "rule": "Restored reports/downloads and pending commits remain closed until revocation/permission/cancellation reconciliation; stale workers fenced by recovery generation",
+      "verification_gate": "G06",
+      "enforcement_status": "to_be_implemented"
+    },
+    {
+      "id": "C19",
+      "title": "长期启动账本",
+      "rule": "Stable operation identity and terminal receipt survive Temporal history retention; ambiguous missing history goes to reconciliation, never blind restart",
+      "verification_gate": "G06",
+      "enforcement_status": "to_be_implemented"
+    }
+  ],
+  "excluded_initial_infrastructure": [
+    "Kafka/NATS",
+    "Redis task queue",
+    "standalone vector database",
+    "graph database",
+    "Kubernetes by default",
+    "second durable agent checkpoint orchestrator"
+  ],
+  "validation_status": "design checks only; runtime compatibility, security, quality, performance and recovery remain unverified"
+}

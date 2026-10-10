@@ -1,0 +1,971 @@
+{
+  "format_version": "1.0.0",
+  "status": "proposed_templates_not_dispatchable",
+  "source_document": "RiskHot_系统架构设计_V1.0.md",
+  "architecture_manifest": "architecture.manifest.json",
+  "path_base": "RiskHot implementation root (parent of this directory)",
+  "requirements_semantics": "requirements in task packages are contribution scope, may repeat across frontend/quality; unique primary ownership lives in architecture.manifest.json",
+  "dependency_semantics": "depends_on gates implementation dispatch; upstream business module implementations may be replaced by frozen contract fixtures until final integration; production execution never uses these mocks",
+  "dispatch_preconditions": [
+    "base_commit resolves to an exact repository commit",
+    "contract_version and contract_digest populated and match generated code",
+    "all depends_on tasks accepted",
+    "verification scripts exist and run in this task environment",
+    "owned paths do not conflict with active task leases",
+    "worktree/branch/database/queues/object prefix/ports/budget allocated",
+    "no production credentials or unapproved private data",
+    "acceptance_refs resolved to exact AC/E2E/AT IDs in instantiated package"
+  ],
+  "serial_resources": [
+    {
+      "resource": "shared contracts and generators",
+      "owner_role": "contract_integrator",
+      "paths": [
+        "packages/contracts/",
+        "packages/generated/",
+        "tooling/"
+      ]
+    },
+    {
+      "resource": "dependency lock and root build config",
+      "owner_role": "dependency_integrator",
+      "paths": [
+        "package.json",
+        "pnpm-lock.yaml",
+        "pnpm-workspace.yaml",
+        "nx.json",
+        "tsconfig.base.json",
+        "eslint.config.mjs"
+      ]
+    },
+    {
+      "resource": "migration numbering and cross-schema order",
+      "owner_role": "migration_integrator",
+      "paths": [
+        "database/migrations/"
+      ]
+    }
+  ],
+  "shared_change_protocol": "Module agents submit change proposals; serial owner commits a new batch; regenerate digest, assess downstream impact, then re-dispatch affected tasks. No implicit cross-path write authorization.",
+  "sequential_path_reuse": "WP12 reuses apps/api and apps/worker only after WP02 and all downstream tasks finish; acquire a fresh exclusive lease.",
+  "quality_independence": "Implementing agents cannot weaken acceptance gates or modify hidden gold answers; independent quality owner reviews test changes.",
+  "tasks": [
+    {
+      "task_id": "WP01",
+      "title": "契约与工程底座",
+      "status": "template_not_dispatchable",
+      "depends_on": [],
+      "owned_paths": [
+        "packages/contracts/",
+        "packages/generated/",
+        "tooling/",
+        "package.json",
+        "pnpm-lock.yaml",
+        "pnpm-workspace.yaml",
+        "nx.json",
+        "tsconfig.base.json",
+        "eslint.config.mjs"
+      ],
+      "requirements": [
+        "FR-CFG-01",
+        "FR-CFG-02",
+        "FR-CFG-03",
+        "FR-CFG-04",
+        "FR-CFG-05",
+        "FR-CFG-06",
+        "FR-L0-01",
+        "FR-L0-02",
+        "FR-L0-03",
+        "FR-L0-04",
+        "FR-L0-05",
+        "FR-L0-06",
+        "FR-L0-07",
+        "FR-L0-08",
+        "FR-L0-09",
+        "FR-L0-10",
+        "FR-L1-01",
+        "FR-L1-02",
+        "FR-L1-03",
+        "FR-L1-04",
+        "FR-L1-05",
+        "FR-L1-06",
+        "FR-L1-07",
+        "FR-L1-08",
+        "FR-L2-01",
+        "FR-L2-02",
+        "FR-L2-03",
+        "FR-L2-04",
+        "FR-L2-05",
+        "FR-L2-06",
+        "FR-L2-07",
+        "FR-L2-08",
+        "FR-L2-09",
+        "FR-L2-10",
+        "FR-L2-11",
+        "FR-L2-12",
+        "FR-L2-13",
+        "FR-PUB-01",
+        "FR-PUB-02",
+        "FR-PUB-03",
+        "FR-PUB-04",
+        "FR-PUB-05",
+        "FR-PUB-06",
+        "FR-PUB-07",
+        "FR-PUB-08",
+        "FR-OPS-01",
+        "FR-OPS-02",
+        "FR-OPS-03",
+        "FR-OPS-04",
+        "FR-OPS-05",
+        "FR-OPS-06"
+      ],
+      "acceptance_refs": [
+        "BR AC/E2E for listed FR",
+        "RH-SAD-001 AT scenarios relevant to this task"
+      ],
+      "forbidden_paths": [
+        "production secrets",
+        "other active tasks owned paths",
+        "generated artifacts except generator output",
+        "quality gate weakening without independent approval"
+      ],
+      "base_commit": null,
+      "contract_version": null,
+      "contract_digest": null,
+      "environment": {
+        "branch": null,
+        "worktree": null,
+        "database": null,
+        "temporal_namespace_or_isolated_server": null,
+        "task_queue_prefix": null,
+        "object_prefix": null,
+        "port_allocation": null,
+        "budget": null
+      },
+      "fixtures": [
+        "51 FR 契约样例",
+        "正常/未知/不可比/拒绝/失败 fixtures"
+      ],
+      "verification_commands": [
+        "pnpm run verify:contracts",
+        "pnpm run verify:boundaries",
+        "pnpm run verify:task-packages"
+      ],
+      "command_status": "planned_scripts_must_be_created_and_verified_before_dispatch",
+      "completion_artifacts": [
+        "Schema/OpenAPI",
+        "生成 SDK 与 mock",
+        "工具链兼容报告",
+        "可运行门禁脚本",
+        "固定契约摘要"
+      ]
+    },
+    {
+      "task_id": "WP02",
+      "title": "持久执行和 Agent 运行平台",
+      "status": "template_not_dispatchable",
+      "depends_on": [
+        "WP01"
+      ],
+      "owned_paths": [
+        "packages/platform/",
+        "apps/api/",
+        "apps/worker/",
+        "apps/outbox-relay/"
+      ],
+      "requirements": [],
+      "acceptance_refs": [
+        "BR AC/E2E for listed FR",
+        "RH-SAD-001 AT scenarios relevant to this task"
+      ],
+      "forbidden_paths": [
+        "production secrets",
+        "other active tasks owned paths",
+        "generated artifacts except generator output",
+        "quality gate weakening without independent approval"
+      ],
+      "base_commit": null,
+      "contract_version": null,
+      "contract_digest": null,
+      "environment": {
+        "branch": null,
+        "worktree": null,
+        "database": null,
+        "temporal_namespace_or_isolated_server": null,
+        "task_queue_prefix": null,
+        "object_prefix": null,
+        "port_allocation": null,
+        "budget": null
+      },
+      "fixtures": [
+        "确定性模型 stub",
+        "重复/断网/Activity 完成通知丢失"
+      ],
+      "verification_commands": [
+        "pnpm run verify:platform",
+        "pnpm run verify:replay",
+        "pnpm run verify:recovery"
+      ],
+      "command_status": "planned_scripts_must_be_created_and_verified_before_dispatch",
+      "completion_artifacts": [
+        "Outbox/Inbox 原语",
+        "最小持久闭环",
+        "ModelAdapter stub 与能力注册",
+        "工件接口",
+        "API/Worker 组合根"
+      ]
+    },
+    {
+      "task_id": "WP03",
+      "title": "独立前端",
+      "status": "template_not_dispatchable",
+      "depends_on": [
+        "WP01"
+      ],
+      "owned_paths": [
+        "apps/web/",
+        "packages/ui/"
+      ],
+      "requirements": [
+        "FR-CFG-01",
+        "FR-CFG-02",
+        "FR-CFG-03",
+        "FR-CFG-04",
+        "FR-CFG-05",
+        "FR-CFG-06",
+        "FR-L0-01",
+        "FR-L0-02",
+        "FR-L0-03",
+        "FR-L0-04",
+        "FR-L0-05",
+        "FR-L0-06",
+        "FR-L0-07",
+        "FR-L0-08",
+        "FR-L0-09",
+        "FR-L0-10",
+        "FR-L1-01",
+        "FR-L1-02",
+        "FR-L1-03",
+        "FR-L1-04",
+        "FR-L1-05",
+        "FR-L1-06",
+        "FR-L1-07",
+        "FR-L1-08",
+        "FR-L2-01",
+        "FR-L2-02",
+        "FR-L2-03",
+        "FR-L2-04",
+        "FR-L2-05",
+        "FR-L2-06",
+        "FR-L2-07",
+        "FR-L2-08",
+        "FR-L2-09",
+        "FR-L2-10",
+        "FR-L2-11",
+        "FR-L2-12",
+        "FR-L2-13",
+        "FR-PUB-01",
+        "FR-PUB-02",
+        "FR-PUB-03",
+        "FR-PUB-04",
+        "FR-PUB-05",
+        "FR-PUB-06",
+        "FR-PUB-07",
+        "FR-PUB-08",
+        "FR-OPS-01",
+        "FR-OPS-02",
+        "FR-OPS-03",
+        "FR-OPS-04",
+        "FR-OPS-05",
+        "FR-OPS-06"
+      ],
+      "acceptance_refs": [
+        "BR AC/E2E for listed FR",
+        "RH-SAD-001 AT scenarios relevant to this task"
+      ],
+      "forbidden_paths": [
+        "production secrets",
+        "other active tasks owned paths",
+        "generated artifacts except generator output",
+        "quality gate weakening without independent approval"
+      ],
+      "base_commit": null,
+      "contract_version": null,
+      "contract_digest": null,
+      "environment": {
+        "branch": null,
+        "worktree": null,
+        "database": null,
+        "temporal_namespace_or_isolated_server": null,
+        "task_queue_prefix": null,
+        "object_prefix": null,
+        "port_allocation": null,
+        "budget": null
+      },
+      "fixtures": [
+        "契约 fixtures",
+        "不同角色/首次/未知/失败/撤回"
+      ],
+      "verification_commands": [
+        "pnpm run verify:web",
+        "pnpm run verify:web-e2e"
+      ],
+      "command_status": "planned_scripts_must_be_created_and_verified_before_dispatch",
+      "completion_artifacts": [
+        "契约 mock 页面",
+        "状态与权限交互",
+        "浏览器测试结果",
+        "独立静态制品"
+      ]
+    },
+    {
+      "task_id": "WP04",
+      "title": "身份与运行管理",
+      "status": "template_not_dispatchable",
+      "depends_on": [
+        "WP02"
+      ],
+      "owned_paths": [
+        "packages/domains/identity/",
+        "packages/domains/operations/"
+      ],
+      "requirements": [
+        "FR-OPS-01",
+        "FR-OPS-02",
+        "FR-OPS-03",
+        "FR-OPS-04",
+        "FR-OPS-05",
+        "FR-OPS-06"
+      ],
+      "acceptance_refs": [
+        "BR AC/E2E for listed FR",
+        "RH-SAD-001 AT scenarios relevant to this task"
+      ],
+      "forbidden_paths": [
+        "production secrets",
+        "other active tasks owned paths",
+        "generated artifacts except generator output",
+        "quality gate weakening without independent approval"
+      ],
+      "base_commit": null,
+      "contract_version": null,
+      "contract_digest": null,
+      "environment": {
+        "branch": null,
+        "worktree": null,
+        "database": null,
+        "temporal_namespace_or_isolated_server": null,
+        "task_queue_prefix": null,
+        "object_prefix": null,
+        "port_allocation": null,
+        "budget": null
+      },
+      "fixtures": [
+        "角色正反例",
+        "重复计划/暂停/恢复/审核信号"
+      ],
+      "verification_commands": [
+        "pnpm run verify:domain -- identity",
+        "pnpm run verify:domain -- operations"
+      ],
+      "command_status": "planned_scripts_must_be_created_and_verified_before_dispatch",
+      "completion_artifacts": [
+        "身份与授权",
+        "任务投影/复核注册端口",
+        "计划版本同步",
+        "审计检索"
+      ]
+    },
+    {
+      "task_id": "WP05",
+      "title": "配置与指标观测",
+      "status": "template_not_dispatchable",
+      "depends_on": [
+        "WP02"
+      ],
+      "owned_paths": [
+        "packages/domains/reference/",
+        "packages/domains/observations/"
+      ],
+      "requirements": [
+        "FR-CFG-01",
+        "FR-CFG-02",
+        "FR-CFG-03",
+        "FR-CFG-05",
+        "FR-CFG-06",
+        "FR-CFG-04"
+      ],
+      "acceptance_refs": [
+        "BR AC/E2E for listed FR",
+        "RH-SAD-001 AT scenarios relevant to this task"
+      ],
+      "forbidden_paths": [
+        "production secrets",
+        "other active tasks owned paths",
+        "generated artifacts except generator output",
+        "quality gate weakening without independent approval"
+      ],
+      "base_commit": null,
+      "contract_version": null,
+      "contract_digest": null,
+      "environment": {
+        "branch": null,
+        "worktree": null,
+        "database": null,
+        "temporal_namespace_or_isolated_server": null,
+        "task_queue_prefix": null,
+        "object_prefix": null,
+        "port_allocation": null,
+        "budget": null
+      },
+      "fixtures": [
+        "空值/零值/负值/基点",
+        "修订与事后补采",
+        "未批准规则"
+      ],
+      "verification_commands": [
+        "pnpm run verify:domain -- reference",
+        "pnpm run verify:domain -- observations"
+      ],
+      "command_status": "planned_scripts_must_be_created_and_verified_before_dispatch",
+      "completion_artifacts": [
+        "版本化配置",
+        "指标映射与修订",
+        "数据时点校验",
+        "迁移草案"
+      ]
+    },
+    {
+      "task_id": "WP06",
+      "title": "L0 信息处理",
+      "status": "template_not_dispatchable",
+      "depends_on": [
+        "WP02"
+      ],
+      "owned_paths": [
+        "packages/domains/information/"
+      ],
+      "requirements": [
+        "FR-L0-01",
+        "FR-L0-02",
+        "FR-L0-03",
+        "FR-L0-04",
+        "FR-L0-05",
+        "FR-L0-06",
+        "FR-L0-07",
+        "FR-L0-08",
+        "FR-L0-09",
+        "FR-L0-10"
+      ],
+      "acceptance_refs": [
+        "BR AC/E2E for listed FR",
+        "RH-SAD-001 AT scenarios relevant to this task"
+      ],
+      "forbidden_paths": [
+        "production secrets",
+        "other active tasks owned paths",
+        "generated artifacts except generator output",
+        "quality gate weakening without independent approval"
+      ],
+      "base_commit": null,
+      "contract_version": null,
+      "contract_digest": null,
+      "environment": {
+        "branch": null,
+        "worktree": null,
+        "database": null,
+        "temporal_namespace_or_isolated_server": null,
+        "task_queue_prefix": null,
+        "object_prefix": null,
+        "port_allocation": null,
+        "budget": null
+      },
+      "fixtures": [
+        "同文多源",
+        "纠正/重复/新增来源",
+        "计划与实际事件",
+        "中文定位"
+      ],
+      "verification_commands": [
+        "pnpm run verify:domain -- information"
+      ],
+      "command_status": "planned_scripts_must_be_created_and_verified_before_dispatch",
+      "completion_artifacts": [
+        "L0 用例与适配器",
+        "原文和事件版本",
+        "三元关系与 M",
+        "迁移草案"
+      ]
+    },
+    {
+      "task_id": "WP07",
+      "title": "L1 识别与纳管",
+      "status": "template_not_dispatchable",
+      "depends_on": [
+        "WP02"
+      ],
+      "owned_paths": [
+        "packages/domains/registry/"
+      ],
+      "requirements": [
+        "FR-L1-01",
+        "FR-L1-02",
+        "FR-L1-03",
+        "FR-L1-04",
+        "FR-L1-05",
+        "FR-L1-06",
+        "FR-L1-07",
+        "FR-L1-08"
+      ],
+      "acceptance_refs": [
+        "BR AC/E2E for listed FR",
+        "RH-SAD-001 AT scenarios relevant to this task"
+      ],
+      "forbidden_paths": [
+        "production secrets",
+        "other active tasks owned paths",
+        "generated artifacts except generator output",
+        "quality gate weakening without independent approval"
+      ],
+      "base_commit": null,
+      "contract_version": null,
+      "contract_digest": null,
+      "environment": {
+        "branch": null,
+        "worktree": null,
+        "database": null,
+        "temporal_namespace_or_isolated_server": null,
+        "task_queue_prefix": null,
+        "object_prefix": null,
+        "port_allocation": null,
+        "budget": null
+      },
+      "fixtures": [
+        "同风险不同标题",
+        "不同范围同标题",
+        "damage_targets 缺失",
+        "并发纳管"
+      ],
+      "verification_commands": [
+        "pnpm run verify:domain -- registry"
+      ],
+      "command_status": "planned_scripts_must_be_created_and_verified_before_dispatch",
+      "completion_artifacts": [
+        "候选/匹配/纳管",
+        "定义与关系侧车",
+        "并发唯一性测试",
+        "迁移草案"
+      ]
+    },
+    {
+      "task_id": "WP08",
+      "title": "L2 风险态势分析",
+      "status": "template_not_dispatchable",
+      "depends_on": [
+        "WP02"
+      ],
+      "owned_paths": [
+        "packages/domains/analysis/"
+      ],
+      "requirements": [
+        "FR-L2-01",
+        "FR-L2-02",
+        "FR-L2-03",
+        "FR-L2-04",
+        "FR-L2-05",
+        "FR-L2-06",
+        "FR-L2-07",
+        "FR-L2-08",
+        "FR-L2-09",
+        "FR-L2-10",
+        "FR-L2-11",
+        "FR-L2-12",
+        "FR-L2-13"
+      ],
+      "acceptance_refs": [
+        "BR AC/E2E for listed FR",
+        "RH-SAD-001 AT scenarios relevant to this task"
+      ],
+      "forbidden_paths": [
+        "production secrets",
+        "other active tasks owned paths",
+        "generated artifacts except generator output",
+        "quality gate weakening without independent approval"
+      ],
+      "base_commit": null,
+      "contract_version": null,
+      "contract_digest": null,
+      "environment": {
+        "branch": null,
+        "worktree": null,
+        "database": null,
+        "temporal_namespace_or_isolated_server": null,
+        "task_queue_prefix": null,
+        "object_prefix": null,
+        "port_allocation": null,
+        "budget": null
+      },
+      "fixtures": [
+        "首次/不可比/反证",
+        "措施未生效",
+        "来源缓冲损害并行",
+        "部分技术失败"
+      ],
+      "verification_commands": [
+        "pnpm run verify:domain -- analysis"
+      ],
+      "command_status": "planned_scripts_must_be_created_and_verified_before_dispatch",
+      "completion_artifacts": [
+        "分析节点与工作流注册定义",
+        "四维快照与附属结果",
+        "版本/基准/截止校验",
+        "迁移草案"
+      ]
+    },
+    {
+      "task_id": "WP09",
+      "title": "产品与报告发布",
+      "status": "template_not_dispatchable",
+      "depends_on": [
+        "WP02"
+      ],
+      "owned_paths": [
+        "packages/domains/publication/"
+      ],
+      "requirements": [
+        "FR-PUB-01",
+        "FR-PUB-02",
+        "FR-PUB-03",
+        "FR-PUB-04",
+        "FR-PUB-05",
+        "FR-PUB-06",
+        "FR-PUB-07",
+        "FR-PUB-08"
+      ],
+      "acceptance_refs": [
+        "BR AC/E2E for listed FR",
+        "RH-SAD-001 AT scenarios relevant to this task"
+      ],
+      "forbidden_paths": [
+        "production secrets",
+        "other active tasks owned paths",
+        "generated artifacts except generator output",
+        "quality gate weakening without independent approval"
+      ],
+      "base_commit": null,
+      "contract_version": null,
+      "contract_digest": null,
+      "environment": {
+        "branch": null,
+        "worktree": null,
+        "database": null,
+        "temporal_namespace_or_isolated_server": null,
+        "task_queue_prefix": null,
+        "object_prefix": null,
+        "port_allocation": null,
+        "budget": null
+      },
+      "fixtures": [
+        "补算旧日",
+        "恢复旧风险",
+        "最新低于历史最高",
+        "撤回缓存/导出"
+      ],
+      "verification_commands": [
+        "pnpm run verify:domain -- publication"
+      ],
+      "command_status": "planned_scripts_must_be_created_and_verified_before_dispatch",
+      "completion_artifacts": [
+        "查询投影",
+        "冻结报告引用",
+        "撤回/下载授权",
+        "迁移草案"
+      ]
+    },
+    {
+      "task_id": "WP10",
+      "title": "独立质量与模型评测",
+      "status": "template_not_dispatchable",
+      "depends_on": [
+        "WP01"
+      ],
+      "owned_paths": [
+        "tests/",
+        "evals/"
+      ],
+      "requirements": [
+        "FR-CFG-01",
+        "FR-CFG-02",
+        "FR-CFG-03",
+        "FR-CFG-04",
+        "FR-CFG-05",
+        "FR-CFG-06",
+        "FR-L0-01",
+        "FR-L0-02",
+        "FR-L0-03",
+        "FR-L0-04",
+        "FR-L0-05",
+        "FR-L0-06",
+        "FR-L0-07",
+        "FR-L0-08",
+        "FR-L0-09",
+        "FR-L0-10",
+        "FR-L1-01",
+        "FR-L1-02",
+        "FR-L1-03",
+        "FR-L1-04",
+        "FR-L1-05",
+        "FR-L1-06",
+        "FR-L1-07",
+        "FR-L1-08",
+        "FR-L2-01",
+        "FR-L2-02",
+        "FR-L2-03",
+        "FR-L2-04",
+        "FR-L2-05",
+        "FR-L2-06",
+        "FR-L2-07",
+        "FR-L2-08",
+        "FR-L2-09",
+        "FR-L2-10",
+        "FR-L2-11",
+        "FR-L2-12",
+        "FR-L2-13",
+        "FR-PUB-01",
+        "FR-PUB-02",
+        "FR-PUB-03",
+        "FR-PUB-04",
+        "FR-PUB-05",
+        "FR-PUB-06",
+        "FR-PUB-07",
+        "FR-PUB-08",
+        "FR-OPS-01",
+        "FR-OPS-02",
+        "FR-OPS-03",
+        "FR-OPS-04",
+        "FR-OPS-05",
+        "FR-OPS-06"
+      ],
+      "acceptance_refs": [
+        "BR AC/E2E for listed FR",
+        "RH-SAD-001 AT scenarios relevant to this task"
+      ],
+      "forbidden_paths": [
+        "production secrets",
+        "other active tasks owned paths",
+        "generated artifacts except generator output",
+        "quality gate weakening without independent approval"
+      ],
+      "base_commit": null,
+      "contract_version": null,
+      "contract_digest": null,
+      "environment": {
+        "branch": null,
+        "worktree": null,
+        "database": null,
+        "temporal_namespace_or_isolated_server": null,
+        "task_queue_prefix": null,
+        "object_prefix": null,
+        "port_allocation": null,
+        "budget": null
+      },
+      "fixtures": [
+        "BR 的157 AC与32 E2E",
+        "固定金标准",
+        "注入/错误引用/事后信息"
+      ],
+      "verification_commands": [
+        "pnpm run verify:contracts",
+        "pnpm run verify:integration",
+        "pnpm run verify:e2e",
+        "pnpm run verify:evals"
+      ],
+      "command_status": "planned_scripts_must_be_created_and_verified_before_dispatch",
+      "completion_artifacts": [
+        "需求-测试追踪",
+        "16 AT 场景",
+        "独立标注与隐藏反例",
+        "质量评测报告"
+      ]
+    },
+    {
+      "task_id": "WP11",
+      "title": "部署与恢复工程",
+      "status": "template_not_dispatchable",
+      "depends_on": [
+        "WP02"
+      ],
+      "owned_paths": [
+        "infra/"
+      ],
+      "requirements": [],
+      "acceptance_refs": [
+        "BR AC/E2E for listed FR",
+        "RH-SAD-001 AT scenarios relevant to this task"
+      ],
+      "forbidden_paths": [
+        "production secrets",
+        "other active tasks owned paths",
+        "generated artifacts except generator output",
+        "quality gate weakening without independent approval"
+      ],
+      "base_commit": null,
+      "contract_version": null,
+      "contract_digest": null,
+      "environment": {
+        "branch": null,
+        "worktree": null,
+        "database": null,
+        "temporal_namespace_or_isolated_server": null,
+        "task_queue_prefix": null,
+        "object_prefix": null,
+        "port_allocation": null,
+        "budget": null
+      },
+      "fixtures": [
+        "受理未启动",
+        "保存未交付",
+        "已撤回",
+        "恢复时点错位"
+      ],
+      "verification_commands": [
+        "pnpm run verify:infra",
+        "pnpm run verify:restore"
+      ],
+      "command_status": "planned_scripts_must_be_created_and_verified_before_dispatch",
+      "completion_artifacts": [
+        "隔离环境分配",
+        "不可变制品部署",
+        "备份与恢复手册",
+        "故障演练报告"
+      ]
+    },
+    {
+      "task_id": "WP12",
+      "title": "最终集成与迁移",
+      "status": "template_not_dispatchable",
+      "depends_on": [
+        "WP03",
+        "WP04",
+        "WP05",
+        "WP06",
+        "WP07",
+        "WP08",
+        "WP09",
+        "WP10",
+        "WP11"
+      ],
+      "owned_paths": [
+        "database/migrations/",
+        "apps/api/",
+        "apps/worker/",
+        "agent-tasks/integration/",
+        "docs/adr/"
+      ],
+      "requirements": [
+        "FR-CFG-01",
+        "FR-CFG-02",
+        "FR-CFG-03",
+        "FR-CFG-04",
+        "FR-CFG-05",
+        "FR-CFG-06",
+        "FR-L0-01",
+        "FR-L0-02",
+        "FR-L0-03",
+        "FR-L0-04",
+        "FR-L0-05",
+        "FR-L0-06",
+        "FR-L0-07",
+        "FR-L0-08",
+        "FR-L0-09",
+        "FR-L0-10",
+        "FR-L1-01",
+        "FR-L1-02",
+        "FR-L1-03",
+        "FR-L1-04",
+        "FR-L1-05",
+        "FR-L1-06",
+        "FR-L1-07",
+        "FR-L1-08",
+        "FR-L2-01",
+        "FR-L2-02",
+        "FR-L2-03",
+        "FR-L2-04",
+        "FR-L2-05",
+        "FR-L2-06",
+        "FR-L2-07",
+        "FR-L2-08",
+        "FR-L2-09",
+        "FR-L2-10",
+        "FR-L2-11",
+        "FR-L2-12",
+        "FR-L2-13",
+        "FR-PUB-01",
+        "FR-PUB-02",
+        "FR-PUB-03",
+        "FR-PUB-04",
+        "FR-PUB-05",
+        "FR-PUB-06",
+        "FR-PUB-07",
+        "FR-PUB-08",
+        "FR-OPS-01",
+        "FR-OPS-02",
+        "FR-OPS-03",
+        "FR-OPS-04",
+        "FR-OPS-05",
+        "FR-OPS-06"
+      ],
+      "acceptance_refs": [
+        "BR AC/E2E for listed FR",
+        "RH-SAD-001 AT scenarios relevant to this task"
+      ],
+      "forbidden_paths": [
+        "production secrets",
+        "other active tasks owned paths",
+        "generated artifacts except generator output",
+        "quality gate weakening without independent approval"
+      ],
+      "base_commit": null,
+      "contract_version": null,
+      "contract_digest": null,
+      "environment": {
+        "branch": null,
+        "worktree": null,
+        "database": null,
+        "temporal_namespace_or_isolated_server": null,
+        "task_queue_prefix": null,
+        "object_prefix": null,
+        "port_allocation": null,
+        "budget": null
+      },
+      "fixtures": [
+        "各通道固定 fixtures",
+        "真实脱敏集成样本"
+      ],
+      "verification_commands": [
+        "pnpm run verify:all",
+        "pnpm run verify:replay",
+        "pnpm run verify:recovery",
+        "pnpm run verify:restore"
+      ],
+      "command_status": "planned_scripts_must_be_created_and_verified_before_dispatch",
+      "completion_artifacts": [
+        "最终组合提交",
+        "有序迁移与兼容说明",
+        "完整验收记录",
+        "发布与回退清单"
+      ]
+    }
+  ],
+  "verification_scripts_status": "planned, not present or executed in this documentation delivery",
+  "merge_policy": [
+    "rebase or merge against exact queue candidate",
+    "regenerate contracts and require zero drift",
+    "enforce module boundaries and path leases",
+    "run affected domain/integration/E2E tests",
+    "run replay for workflow changes",
+    "run model evals for model/prompt/tool/routing changes",
+    "attach real command exit codes and artifacts",
+    "no self-reported completion without evidence"
+  ]
+}
