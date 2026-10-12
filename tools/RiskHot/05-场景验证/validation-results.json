@@ -1,0 +1,37 @@
+{
+  "recorded_at": "2026-10-12T02:08:38.040758+00:00",
+  "status": "PASS_WITH_UNVERIFIED_PRODUCTION_SCOPE",
+  "business_http": {
+    "total": 46,
+    "passed": 46,
+    "failed": 0,
+    "not_run": 0
+  },
+  "browser": {
+    "startTime": "2026-10-12T02:05:32.768Z",
+    "duration": 9802.665,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "temporal_groups": [
+    "PASS real workflow: manual wait, duplicate start, worker restart, PG-gated cancellation",
+    "PASS real workflow with injected model test adapter: proposal metadata and duplicate domain-completed signals",
+    "PASS approved snapshot reconciliation: database qualification and idempotent completion",
+    "PASS real Temporal Schedule: creates one report draft per window and never auto-publishes"
+  ],
+  "build": "PASS",
+  "static_import_boundaries": "PASS",
+  "artifacts": {
+    "scenario-results.json": "3927fc29ca3e145185bd64015a53da7a576bf0d777963b001668afacd2e19f82",
+    "scenario-results.tap.txt": "b56ab28e97d686e8af020e5ec12621852cc0886fbd59aa7863c7a0be28632a99",
+    "browser-results.json": "4e4e10fd8bf51d0660c620c38dd8ef03bb6a01938f76bde156b84bd6bb7e4027",
+    "browser-run.log.txt": "4c407f93509ed951037628d84b0e774efec0593d7fd78387e5a2c416fe256a06",
+    "temporal-smoke.log.txt": "e1c7b5f4a2698c225cb44a8d0c032c0235a792941db39b2704bf778342c89a36",
+    "build.log.txt": "07b87f2dc60d377ffb1f0f7a74d03e7e15b5f7fb9e51688dfd71d1deaae1c0f2",
+    "boundaries.log.txt": "57400141ef18473ea2fb3736e44d6811ba190ef22691d7c522e67e04318f1852",
+    "browser-desktop.png": "81fbe65ccc8032fb3966807ce85dc105cedeb67b4d75b2af4491f254060c118d",
+    "browser-mobile.png": "e3d80da6b1a0b048eb4e427a5d759e04c223fd84debc32272cd4431b98ef0fff"
+  }
+}

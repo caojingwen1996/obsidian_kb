@@ -1,0 +1,8 @@
+packages:
+  - apps/*
+  - packages/*
+  - packages/domains/*
+  - packages/platform/*
+onlyBuiltDependencies:
+  - '@temporalio/core-bridge'
+  - esbuild

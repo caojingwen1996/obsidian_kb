@@ -1,0 +1,2952 @@
+{
+  "openapi": "3.1.2",
+  "info": {
+    "title": "RiskHot API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/v1/commands/reference.save": {
+      "post": {
+        "operationId": "reference.save",
+        "summary": "保存配置草稿",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:reference.save",
+                "title": "保存配置草稿",
+                "x-domain": "reference",
+                "x-roles": [
+                  "researcher",
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "配置类型"
+                  },
+                  "data": {
+                    "type": "object",
+                    "additionalProperties": true,
+                    "title": "业务内容"
+                  },
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid",
+                    "title": "记录 ID"
+                  },
+                  "expected_version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "title": "当前版本"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "操作理由"
+                  }
+                },
+                "required": [
+                  "kind",
+                  "data"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/reference.approve": {
+      "post": {
+        "operationId": "reference.approve",
+        "summary": "批准配置",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:reference.approve",
+                "title": "批准配置",
+                "x-domain": "reference",
+                "x-roles": [
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid",
+                    "title": "记录 ID"
+                  },
+                  "expected_version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "title": "当前版本"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "操作理由"
+                  }
+                },
+                "required": [
+                  "id",
+                  "expected_version",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/reference.disable": {
+      "post": {
+        "operationId": "reference.disable",
+        "summary": "停用配置",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:reference.disable",
+                "title": "停用配置",
+                "x-domain": "reference",
+                "x-roles": [
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid",
+                    "title": "记录 ID"
+                  },
+                  "expected_version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "title": "当前版本"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "操作理由"
+                  }
+                },
+                "required": [
+                  "id",
+                  "expected_version",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/reference.resolve_variable": {
+      "post": {
+        "operationId": "reference.resolve_variable",
+        "summary": "处理变量候选",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:reference.resolve_variable",
+                "title": "处理变量候选",
+                "x-domain": "reference",
+                "x-roles": [
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid",
+                    "title": "记录 ID"
+                  },
+                  "expected_version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "title": "当前版本"
+                  },
+                  "decision": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "决定"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "操作理由"
+                  },
+                  "target_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid"
+                  },
+                  "data": {
+                    "type": "object",
+                    "additionalProperties": true,
+                    "title": "业务内容"
+                  }
+                },
+                "required": [
+                  "id",
+                  "expected_version",
+                  "decision",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/observations.indicator": {
+      "post": {
+        "operationId": "observations.indicator",
+        "summary": "保存指标定义",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:observations.indicator",
+                "title": "保存指标定义",
+                "x-domain": "observations",
+                "x-roles": [
+                  "researcher",
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "additionalProperties": true,
+                    "title": "业务内容"
+                  }
+                },
+                "required": [
+                  "data"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/observations.mapping": {
+      "post": {
+        "operationId": "observations.mapping",
+        "summary": "批准变量映射",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:observations.mapping",
+                "title": "批准变量映射",
+                "x-domain": "observations",
+                "x-roles": [
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "additionalProperties": true,
+                    "title": "业务内容"
+                  }
+                },
+                "required": [
+                  "data"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/observations.import": {
+      "post": {
+        "operationId": "observations.import",
+        "summary": "导入观测数据",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:observations.import",
+                "title": "导入观测数据",
+                "x-domain": "observations",
+                "x-roles": [
+                  "researcher",
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "rows": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": true
+                    },
+                    "title": "批量数据"
+                  }
+                },
+                "required": [
+                  "rows"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/information.source": {
+      "post": {
+        "operationId": "information.source",
+        "summary": "登记信源",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:information.source",
+                "title": "登记信源",
+                "x-domain": "information",
+                "x-roles": [
+                  "admin"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "additionalProperties": true,
+                    "title": "业务内容"
+                  }
+                },
+                "required": [
+                  "data"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/information.source_status": {
+      "post": {
+        "operationId": "information.source_status",
+        "summary": "信源准入与启停",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:information.source_status",
+                "title": "信源准入与启停",
+                "x-domain": "information",
+                "x-roles": [
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid",
+                    "title": "记录 ID"
+                  },
+                  "expected_version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "title": "当前版本"
+                  },
+                  "status": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "目标状态"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "操作理由"
+                  }
+                },
+                "required": [
+                  "id",
+                  "expected_version",
+                  "status",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/information.ingest": {
+      "post": {
+        "operationId": "information.ingest",
+        "summary": "录入原文",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:information.ingest",
+                "title": "录入原文",
+                "x-domain": "information",
+                "x-roles": [
+                  "researcher",
+                  "reviewer",
+                  "admin"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "source_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid"
+                  },
+                  "url": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "原始地址"
+                  },
+                  "content": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "原文"
+                  },
+                  "published_at": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "format": "date-time"
+                  }
+                },
+                "required": [
+                  "source_id",
+                  "url",
+                  "content",
+                  "published_at"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/information.extract": {
+      "post": {
+        "operationId": "information.extract",
+        "summary": "发起事件抽取",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:information.extract",
+                "title": "发起事件抽取",
+                "x-domain": "information",
+                "x-roles": [
+                  "researcher",
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "information_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid"
+                  }
+                },
+                "required": [
+                  "information_id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/information.event": {
+      "post": {
+        "operationId": "information.event",
+        "summary": "确认事件与增量",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:information.event",
+                "title": "确认事件与增量",
+                "x-domain": "information",
+                "x-roles": [
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "additionalProperties": true,
+                    "title": "业务内容"
+                  },
+                  "task_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "title": "抽取任务 ID（可选）"
+                  }
+                },
+                "required": [
+                  "data"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/information.correct": {
+      "post": {
+        "operationId": "information.correct",
+        "summary": "校正事件",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:information.correct",
+                "title": "校正事件",
+                "x-domain": "information",
+                "x-roles": [
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid",
+                    "title": "记录 ID"
+                  },
+                  "expected_version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "title": "当前版本"
+                  },
+                  "data": {
+                    "type": "object",
+                    "additionalProperties": true,
+                    "title": "业务内容"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "操作理由"
+                  }
+                },
+                "required": [
+                  "id",
+                  "expected_version",
+                  "data",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/information.rate": {
+      "post": {
+        "operationId": "information.rate",
+        "summary": "事件金融意义复评",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:information.rate",
+                "title": "事件金融意义复评",
+                "x-domain": "information",
+                "x-roles": [
+                  "researcher",
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "event_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid"
+                  },
+                  "data": {
+                    "type": "object",
+                    "additionalProperties": true,
+                    "title": "业务内容"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "操作理由"
+                  }
+                },
+                "required": [
+                  "event_id",
+                  "data",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/information.grouping": {
+      "post": {
+        "operationId": "information.grouping",
+        "summary": "提出归组调整",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:information.grouping",
+                "title": "提出归组调整",
+                "x-domain": "information",
+                "x-roles": [
+                  "researcher",
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid",
+                    "title": "记录 ID"
+                  },
+                  "data": {
+                    "type": "object",
+                    "additionalProperties": true,
+                    "title": "业务内容"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "操作理由"
+                  }
+                },
+                "required": [
+                  "id",
+                  "data",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/registry.identify": {
+      "post": {
+        "operationId": "registry.identify",
+        "summary": "发起风险识别",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:registry.identify",
+                "title": "发起风险识别",
+                "x-domain": "registry",
+                "x-roles": [
+                  "researcher",
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "event_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid"
+                  },
+                  "event_update_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "操作理由"
+                  }
+                },
+                "required": [
+                  "event_id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/registry.candidate": {
+      "post": {
+        "operationId": "registry.candidate",
+        "summary": "保存完整风险候选",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:registry.candidate",
+                "title": "保存完整风险候选",
+                "x-domain": "registry",
+                "x-roles": [
+                  "researcher",
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "additionalProperties": true,
+                    "title": "业务内容"
+                  },
+                  "task_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid"
+                  }
+                },
+                "required": [
+                  "data"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/registry.match": {
+      "post": {
+        "operationId": "registry.match",
+        "summary": "复核风险同一性",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:registry.match",
+                "title": "复核风险同一性",
+                "x-domain": "registry",
+                "x-roles": [
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid",
+                    "title": "记录 ID"
+                  },
+                  "expected_version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "title": "当前版本"
+                  },
+                  "decision": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "决定"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "操作理由"
+                  },
+                  "target_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid"
+                  }
+                },
+                "required": [
+                  "id",
+                  "expected_version",
+                  "decision",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/registry.admit": {
+      "post": {
+        "operationId": "registry.admit",
+        "summary": "正式纳管",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:registry.admit",
+                "title": "正式纳管",
+                "x-domain": "registry",
+                "x-roles": [
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid",
+                    "title": "记录 ID"
+                  },
+                  "expected_version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "title": "当前版本"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "操作理由"
+                  }
+                },
+                "required": [
+                  "id",
+                  "expected_version",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/registry.revise": {
+      "post": {
+        "operationId": "registry.revise",
+        "summary": "修改观察配置",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:registry.revise",
+                "title": "修改观察配置",
+                "x-domain": "registry",
+                "x-roles": [
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid",
+                    "title": "记录 ID"
+                  },
+                  "expected_version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "title": "当前版本"
+                  },
+                  "data": {
+                    "type": "object",
+                    "additionalProperties": true,
+                    "title": "业务内容"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "操作理由"
+                  }
+                },
+                "required": [
+                  "id",
+                  "expected_version",
+                  "data",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/registry.relate": {
+      "post": {
+        "operationId": "registry.relate",
+        "summary": "关联事件",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:registry.relate",
+                "title": "关联事件",
+                "x-domain": "registry",
+                "x-roles": [
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "risk_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid"
+                  },
+                  "event_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "操作理由"
+                  },
+                  "event_update_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid"
+                  }
+                },
+                "required": [
+                  "risk_id",
+                  "event_id",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/registry.tracking": {
+      "post": {
+        "operationId": "registry.tracking",
+        "summary": "变更跟踪状态",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:registry.tracking",
+                "title": "变更跟踪状态",
+                "x-domain": "registry",
+                "x-roles": [
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid",
+                    "title": "记录 ID"
+                  },
+                  "expected_version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "title": "当前版本"
+                  },
+                  "status": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "目标状态"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "操作理由"
+                  }
+                },
+                "required": [
+                  "id",
+                  "expected_version",
+                  "status",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/analysis.start": {
+      "post": {
+        "operationId": "analysis.start",
+        "summary": "发起观察",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:analysis.start",
+                "title": "发起观察",
+                "x-domain": "analysis",
+                "x-roles": [
+                  "researcher",
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "risk_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid"
+                  },
+                  "snapshot_time": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "date-time"
+                  },
+                  "comparison_snapshot_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "操作理由"
+                  },
+                  "hindsight": {
+                    "type": "boolean"
+                  },
+                  "allow_inactive": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "risk_id",
+                  "snapshot_time"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/analysis.draft": {
+      "post": {
+        "operationId": "analysis.draft",
+        "summary": "保存研究草稿",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:analysis.draft",
+                "title": "保存研究草稿",
+                "x-domain": "analysis",
+                "x-roles": [
+                  "researcher",
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "task_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid"
+                  },
+                  "data": {
+                    "type": "object",
+                    "additionalProperties": true,
+                    "title": "业务内容"
+                  },
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid",
+                    "title": "记录 ID"
+                  },
+                  "expected_version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "title": "当前版本"
+                  }
+                },
+                "required": [
+                  "task_id",
+                  "data"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/analysis.submit": {
+      "post": {
+        "operationId": "analysis.submit",
+        "summary": "提交分析审核",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:analysis.submit",
+                "title": "提交分析审核",
+                "x-domain": "analysis",
+                "x-roles": [
+                  "researcher",
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid",
+                    "title": "记录 ID"
+                  },
+                  "expected_version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "title": "当前版本"
+                  }
+                },
+                "required": [
+                  "id",
+                  "expected_version"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/analysis.approve": {
+      "post": {
+        "operationId": "analysis.approve",
+        "summary": "批准分析",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:analysis.approve",
+                "title": "批准分析",
+                "x-domain": "analysis",
+                "x-roles": [
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid",
+                    "title": "记录 ID"
+                  },
+                  "expected_version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "title": "当前版本"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "操作理由"
+                  }
+                },
+                "required": [
+                  "id",
+                  "expected_version",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/analysis.withdraw": {
+      "post": {
+        "operationId": "analysis.withdraw",
+        "summary": "撤回分析",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:analysis.withdraw",
+                "title": "撤回分析",
+                "x-domain": "analysis",
+                "x-roles": [
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid",
+                    "title": "记录 ID"
+                  },
+                  "expected_version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "title": "当前版本"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "操作理由"
+                  }
+                },
+                "required": [
+                  "id",
+                  "expected_version",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/analysis.revise": {
+      "post": {
+        "operationId": "analysis.revise",
+        "summary": "创建分析修订",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:analysis.revise",
+                "title": "创建分析修订",
+                "x-domain": "analysis",
+                "x-roles": [
+                  "researcher",
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid",
+                    "title": "记录 ID"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "操作理由"
+                  }
+                },
+                "required": [
+                  "id",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/analysis.feedback": {
+      "post": {
+        "operationId": "analysis.feedback",
+        "summary": "创建后续观察事项",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:analysis.feedback",
+                "title": "创建后续观察事项",
+                "x-domain": "analysis",
+                "x-roles": [
+                  "researcher",
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "risk_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid"
+                  },
+                  "data": {
+                    "type": "object",
+                    "additionalProperties": true,
+                    "title": "业务内容"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "操作理由"
+                  }
+                },
+                "required": [
+                  "risk_id",
+                  "data",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/publication.generate": {
+      "post": {
+        "operationId": "publication.generate",
+        "summary": "编制周期报告",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:publication.generate",
+                "title": "编制周期报告",
+                "x-domain": "publication",
+                "x-roles": [
+                  "researcher",
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "minLength": 1,
+                    "enum": [
+                      "daily",
+                      "weekly",
+                      "monthly"
+                    ]
+                  },
+                  "period_start": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "date-time"
+                  },
+                  "period_end": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "date-time"
+                  },
+                  "cutoff": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "date-time"
+                  },
+                  "scope": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "type",
+                  "period_start",
+                  "period_end",
+                  "cutoff"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/publication.edit": {
+      "post": {
+        "operationId": "publication.edit",
+        "summary": "编辑报告草稿",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:publication.edit",
+                "title": "编辑报告草稿",
+                "x-domain": "publication",
+                "x-roles": [
+                  "researcher",
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid",
+                    "title": "记录 ID"
+                  },
+                  "expected_version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "title": "当前版本"
+                  },
+                  "data": {
+                    "type": "object",
+                    "additionalProperties": true,
+                    "title": "业务内容"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "操作理由"
+                  }
+                },
+                "required": [
+                  "id",
+                  "expected_version",
+                  "data",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/publication.submit": {
+      "post": {
+        "operationId": "publication.submit",
+        "summary": "提交报告审核",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:publication.submit",
+                "title": "提交报告审核",
+                "x-domain": "publication",
+                "x-roles": [
+                  "researcher",
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid",
+                    "title": "记录 ID"
+                  },
+                  "expected_version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "title": "当前版本"
+                  }
+                },
+                "required": [
+                  "id",
+                  "expected_version"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/publication.publish": {
+      "post": {
+        "operationId": "publication.publish",
+        "summary": "发布报告",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:publication.publish",
+                "title": "发布报告",
+                "x-domain": "publication",
+                "x-roles": [
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid",
+                    "title": "记录 ID"
+                  },
+                  "expected_version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "title": "当前版本"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "操作理由"
+                  }
+                },
+                "required": [
+                  "id",
+                  "expected_version",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/publication.withdraw": {
+      "post": {
+        "operationId": "publication.withdraw",
+        "summary": "撤回报告",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:publication.withdraw",
+                "title": "撤回报告",
+                "x-domain": "publication",
+                "x-roles": [
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid",
+                    "title": "记录 ID"
+                  },
+                  "expected_version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "title": "当前版本"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "操作理由"
+                  }
+                },
+                "required": [
+                  "id",
+                  "expected_version",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/publication.revise": {
+      "post": {
+        "operationId": "publication.revise",
+        "summary": "创建报告修订",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:publication.revise",
+                "title": "创建报告修订",
+                "x-domain": "publication",
+                "x-roles": [
+                  "researcher",
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid",
+                    "title": "记录 ID"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "操作理由"
+                  }
+                },
+                "required": [
+                  "id",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/operations.cancel": {
+      "post": {
+        "operationId": "operations.cancel",
+        "summary": "取消任务",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:operations.cancel",
+                "title": "取消任务",
+                "x-domain": "operations",
+                "x-roles": [
+                  "researcher",
+                  "reviewer",
+                  "admin"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid",
+                    "title": "记录 ID"
+                  },
+                  "expected_version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "title": "当前版本"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "操作理由"
+                  }
+                },
+                "required": [
+                  "id",
+                  "expected_version",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/operations.retry": {
+      "post": {
+        "operationId": "operations.retry",
+        "summary": "重试失败阶段",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:operations.retry",
+                "title": "重试失败阶段",
+                "x-domain": "operations",
+                "x-roles": [
+                  "researcher",
+                  "reviewer",
+                  "admin"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid",
+                    "title": "记录 ID"
+                  },
+                  "expected_version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "title": "当前版本"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "操作理由"
+                  }
+                },
+                "required": [
+                  "id",
+                  "expected_version",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/operations.recompute": {
+      "post": {
+        "operationId": "operations.recompute",
+        "summary": "创建重算任务",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:operations.recompute",
+                "title": "创建重算任务",
+                "x-domain": "operations",
+                "x-roles": [
+                  "researcher",
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid",
+                    "title": "记录 ID"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "操作理由"
+                  }
+                },
+                "required": [
+                  "id",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/operations.assign": {
+      "post": {
+        "operationId": "operations.assign",
+        "summary": "认领或转派待办",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:operations.assign",
+                "title": "认领或转派待办",
+                "x-domain": "operations",
+                "x-roles": [
+                  "researcher",
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "additionalProperties": true,
+                    "title": "业务内容"
+                  }
+                },
+                "required": [
+                  "data"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/operations.review": {
+      "post": {
+        "operationId": "operations.review",
+        "summary": "退回或驳回复核",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:operations.review",
+                "title": "退回或驳回复核",
+                "x-domain": "operations",
+                "x-roles": [
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "additionalProperties": true,
+                    "title": "业务内容"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "操作理由"
+                  }
+                },
+                "required": [
+                  "data",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/operations.schedule": {
+      "post": {
+        "operationId": "operations.schedule",
+        "summary": "保存运行计划",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:operations.schedule",
+                "title": "保存运行计划",
+                "x-domain": "operations",
+                "x-roles": [
+                  "admin"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "additionalProperties": true,
+                    "title": "业务内容"
+                  },
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid",
+                    "title": "记录 ID"
+                  },
+                  "expected_version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "title": "当前版本"
+                  }
+                },
+                "required": [
+                  "data"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/operations.schedule_status": {
+      "post": {
+        "operationId": "operations.schedule_status",
+        "summary": "启停运行计划",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:operations.schedule_status",
+                "title": "启停运行计划",
+                "x-domain": "operations",
+                "x-roles": [
+                  "admin"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid",
+                    "title": "记录 ID"
+                  },
+                  "expected_version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "title": "当前版本"
+                  },
+                  "enabled": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "id",
+                  "expected_version",
+                  "enabled"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/operations.schedule_run": {
+      "post": {
+        "operationId": "operations.schedule_run",
+        "summary": "补跑指定计划窗口",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:operations.schedule_run",
+                "title": "补跑指定计划窗口",
+                "x-domain": "operations",
+                "x-roles": [
+                  "admin"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid",
+                    "title": "记录 ID"
+                  },
+                  "run_key": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "id",
+                  "run_key"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/operations.issue": {
+      "post": {
+        "operationId": "operations.issue",
+        "summary": "确认或验证异常恢复",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:operations.issue",
+                "title": "确认或验证异常恢复",
+                "x-domain": "operations",
+                "x-roles": [
+                  "admin"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid",
+                    "title": "记录 ID"
+                  },
+                  "expected_version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "title": "当前版本"
+                  },
+                  "decision": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "决定"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "操作理由"
+                  }
+                },
+                "required": [
+                  "id",
+                  "expected_version",
+                  "decision",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/operations.feedback": {
+      "post": {
+        "operationId": "operations.feedback",
+        "summary": "处理观察反馈",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:operations.feedback",
+                "title": "处理观察反馈",
+                "x-domain": "operations",
+                "x-roles": [
+                  "researcher",
+                  "reviewer"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid",
+                    "title": "记录 ID"
+                  },
+                  "expected_version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "title": "当前版本"
+                  },
+                  "status": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "目标状态"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "title": "操作理由"
+                  }
+                },
+                "required": [
+                  "id",
+                  "expected_version",
+                  "status",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    },
+    "/api/v1/commands/identity.user": {
+      "post": {
+        "operationId": "identity.user",
+        "summary": "创建或更新账号",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "$id": "urn:riskhot:command:identity.user",
+                "title": "创建或更新账号",
+                "x-domain": "identity",
+                "x-roles": [
+                  "admin"
+                ],
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "additionalProperties": true,
+                    "title": "业务内容"
+                  },
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "format": "uuid",
+                    "title": "记录 ID"
+                  },
+                  "expected_version": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "title": "当前版本"
+                  },
+                  "password": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "data"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "操作结果或既有幂等回执"
+          },
+          "202": {
+            "description": "持久任务已受理"
+          },
+          "403": {
+            "description": "无权限"
+          },
+          "409": {
+            "description": "版本或幂等冲突"
+          },
+          "422": {
+            "description": "业务校验失败"
+          }
+        }
+      }
+    }
+  }
+}

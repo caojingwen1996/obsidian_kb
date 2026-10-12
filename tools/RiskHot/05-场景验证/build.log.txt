@@ -1,0 +1,23 @@
+
+> riskhot@0.1.0 build /Users/cjw/dev/Obsidian/wiki/tools/RiskHot
+> pnpm generate && pnpm typecheck && vite build --config apps/web/vite.config.ts
+
+
+> riskhot@0.1.0 generate /Users/cjw/dev/Obsidian/wiki/tools/RiskHot
+> node --import tsx tooling/generate.ts
+
+Generated 46 command contracts and SDK.
+
+> riskhot@0.1.0 typecheck /Users/cjw/dev/Obsidian/wiki/tools/RiskHot
+> tsc --noEmit
+
+vite v8.3.4 building client environment for production...
+transforming...
+✓ 2045 modules transformed.
+rendering chunks...
+computing gzip size...
+apps/web/dist/index.html                   0.59 kB │ gzip:   0.42 kB
+apps/web/dist/assets/index-CKkiDmET.css   26.19 kB │ gzip:   6.59 kB
+apps/web/dist/assets/index-vLuLWRuR.js   410.84 kB │ gzip: 130.86 kB
+
+✓ built in 249ms

@@ -1,0 +1,5 @@
+
+> riskhot@0.1.0 verify:boundaries /Users/cjw/dev/Obsidian/wiki/tools/RiskHot
+> node --import tsx tooling/boundaries.ts
+
+PASS: frontend/server separation, domain imports, platform direction, workflow deterministic dependencies

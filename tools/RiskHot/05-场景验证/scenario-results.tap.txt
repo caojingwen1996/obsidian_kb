@@ -1,0 +1,286 @@
+TAP version 13
+# Subtest: SC-001 测试数据库防误清理
+ok 1 - SC-001 测试数据库防误清理
+  ---
+  duration_ms: 183.04275
+  type: 'test'
+  ...
+# Subtest: SC-002 幂等重试复用结果，同键异载荷拒绝
+ok 2 - SC-002 幂等重试复用结果，同键异载荷拒绝
+  ---
+  duration_ms: 139.70925
+  type: 'test'
+  ...
+# Subtest: SC-003 越权写入与管理员越权审核均拒绝
+ok 3 - SC-003 越权写入与管理员越权审核均拒绝
+  ---
+  duration_ms: 192.497291
+  type: 'test'
+  ...
+# Subtest: SC-004 配置类型边界、批准后不可改与停用后新引用拒绝
+ok 4 - SC-004 配置类型边界、批准后不可改与停用后新引用拒绝
+  ---
+  duration_ms: 207.197667
+  type: 'test'
+  ...
+# Subtest: SC-005 原文三次重复和同URL修订保留旧值
+ok 5 - SC-005 原文三次重复和同URL修订保留旧值
+  ---
+  duration_ms: 136.413375
+  type: 'test'
+  ...
+# Subtest: SC-006 信源未准入或停用禁止新录入，历史不丢失
+ok 6 - SC-006 信源未准入或停用禁止新录入，历史不丢失
+  ---
+  duration_ms: 155.672584
+  type: 'test'
+  ...
+# Subtest: SC-007 事件允许有对象无变量，拒绝捏造原文引用
+ok 7 - SC-007 事件允许有对象无变量，拒绝捏造原文引用
+  ---
+  duration_ms: 188.108417
+  type: 'test'
+  ...
+# Subtest: SC-008 同一事件公告到实施追加增量，重复不追加
+ok 8 - SC-008 同一事件公告到实施追加增量，重复不追加
+  ---
+  duration_ms: 289.853
+  type: 'test'
+  ...
+# Subtest: SC-009 仅新增来源不生成实质进展通知
+ok 9 - SC-009 仅新增来源不生成实质进展通知
+  ---
+  duration_ms: 242.2455
+  type: 'test'
+  ...
+# Subtest: SC-010 指标批量导入保留空值、逐行失败且重试不重复
+ok 10 - SC-010 指标批量导入保留空值、逐行失败且重试不重复
+  ---
+  duration_ms: 177.971125
+  type: 'test'
+  ...
+# Subtest: SC-011 未批准M规则保留空分，不能自动纳管
+ok 11 - SC-011 未批准M规则保留空分，不能自动纳管
+  ---
+  duration_ms: 154.375584
+  type: 'test'
+  ...
+# Subtest: SC-012 完整候选先匹配再纳管，代码解析为真实配置ID
+ok 12 - SC-012 完整候选先匹配再纳管，代码解析为真实配置ID
+  ---
+  duration_ms: 170.695709
+  type: 'test'
+  ...
+# Subtest: SC-013 未确认变量及越界观察对象不能纳管
+ok 13 - SC-013 未确认变量及越界观察对象不能纳管
+  ---
+  duration_ms: 312.487459
+  type: 'test'
+  ...
+# Subtest: SC-014 风险关联和候选均拒绝跨事件更新ID
+ok 14 - SC-014 风险关联和候选均拒绝跨事件更新ID
+  ---
+  duration_ms: 216.609209
+  type: 'test'
+  ...
+# Subtest: SC-015 并发同身份纳管最多创建一个正式风险
+ok 15 - SC-015 并发同身份纳管最多创建一个正式风险
+  ---
+  duration_ms: 174.503667
+  type: 'test'
+  ...
+# Subtest: SC-016 关闭恢复保留原风险ID与首次纳管时间
+ok 16 - SC-016 关闭恢复保留原风险ID与首次纳管时间
+  ---
+  duration_ms: 296.696375
+  type: 'test'
+  ...
+# Subtest: SC-017 后续进展不改首次关联ID，观察仍能读到新证据
+ok 17 - SC-017 后续进展不改首次关联ID，观察仍能读到新证据
+  ---
+  duration_ms: 191.050375
+  type: 'test'
+  ...
+# Subtest: SC-018 证据截止隔离后发修订，显式追溯另行标记
+ok 18 - SC-018 证据截止隔离后发修订，显式追溯另行标记
+  ---
+  duration_ms: 187.356875
+  type: 'test'
+  ...
+# Subtest: SC-019 首次观察不得stable或shortening，合法未知可以批准
+ok 19 - SC-019 首次观察不得stable或shortening，合法未知可以批准
+  ---
+  duration_ms: 180.163875
+  type: 'test'
+  ...
+# Subtest: SC-020 技术阶段缺项不能提交，合法业务未知不等于失败
+ok 20 - SC-020 技术阶段缺项不能提交，合法业务未知不等于失败
+  ---
+  duration_ms: 210.852667
+  type: 'test'
+  ...
+# Subtest: SC-021 取消任务后旧代次不能批准且原草稿保留
+ok 21 - SC-021 取消任务后旧代次不能批准且原草稿保留
+  ---
+  duration_ms: 204.91325
+  type: 'test'
+  ...
+# Subtest: SC-022 发起人撤权后已排队结果不能正式提交
+ok 22 - SC-022 发起人撤权后已排队结果不能正式提交
+  ---
+  duration_ms: 181.152875
+  type: 'test'
+  ...
+# Subtest: SC-023 运行中暂停及定义变化阻止旧分析正式提交
+ok 23 - SC-023 运行中暂停及定义变化阻止旧分析正式提交
+  ---
+  duration_ms: 207.744292
+  type: 'test'
+  ...
+# Subtest: SC-024 旧截止运行不冒充最新，显式追溯也不改变最新选择
+ok 24 - SC-024 旧截止运行不冒充最新，显式追溯也不改变最新选择
+  ---
+  duration_ms: 249.458291
+  type: 'test'
+  ...
+# Subtest: SC-025 同等级可以减弱，未设节点规则不能确认节点
+ok 25 - SC-025 同等级可以减弱，未设节点规则不能确认节点
+  ---
+  duration_ms: 216.952291
+  type: 'test'
+  ...
+# Subtest: SC-026 最新等级空值不能回取历史高等级排序
+ok 26 - SC-026 最新等级空值不能回取历史高等级排序
+  ---
+  duration_ms: 220.054458
+  type: 'test'
+  ...
+# Subtest: SC-027 报告固定引用、禁止篡改结构化判断且重复发布只出刊一次
+ok 27 - SC-027 报告固定引用、禁止篡改结构化判断且重复发布只出刊一次
+  ---
+  duration_ms: 211.02675
+  type: 'test'
+  ...
+# Subtest: SC-028 报告发布前上游撤回必须阻断，撤回后可另建修订
+ok 28 - SC-028 报告发布前上游撤回必须阻断，撤回后可另建修订
+  ---
+  duration_ms: 202.685875
+  type: 'test'
+  ...
+# Subtest: SC-029 空期报告可说明覆盖不足但不编造无风险
+ok 29 - SC-029 空期报告可说明覆盖不足但不编造无风险
+  ---
+  duration_ms: 179.92575
+  type: 'test'
+  ...
+# Subtest: SC-030 乐观并发拒绝旧版覆盖并保留审计
+ok 30 - SC-030 乐观并发拒绝旧版覆盖并保留审计
+  ---
+  duration_ms: 130.432041
+  type: 'test'
+  ...
+# Subtest: SC-031 同计划窗口幂等且停用不再受理新窗口
+ok 31 - SC-031 同计划窗口幂等且停用不再受理新窗口
+  ---
+  duration_ms: 152.512167
+  type: 'test'
+  ...
+# Subtest: SC-032 重算生成新运行并保留原固定输入
+ok 32 - SC-032 重算生成新运行并保留原固定输入
+  ---
+  duration_ms: 207.096125
+  type: 'test'
+  ...
+# Subtest: SC-041 仅来源补充进入观察证据，但不越过历史截止
+ok 33 - SC-041 仅来源补充进入观察证据，但不越过历史截止
+  ---
+  duration_ms: 551.047041
+  type: 'test'
+  ...
+# Subtest: SC-042 复核退回驳回推进领域状态，过期决定和正式记录拒绝
+ok 34 - SC-042 复核退回驳回推进领域状态，过期决定和正式记录拒绝
+  ---
+  duration_ms: 285.424625
+  type: 'test'
+  ...
+# Subtest: SC-045 迟到的历史批准不能越过比较基准截止边界
+ok 35 - SC-045 迟到的历史批准不能越过比较基准截止边界
+  ---
+  duration_ms: 222.374916
+  type: 'test'
+  ...
+# Subtest: SC-046 技术失败任务即使草稿完整也不能批准
+ok 36 - SC-046 技术失败任务即使草稿完整也不能批准
+  ---
+  duration_ms: 192.443542
+  type: 'test'
+  ...
+# Subtest: SC-033 首次初始化只允许一次且登录不泄露密码摘要
+ok 37 - SC-033 首次初始化只允许一次且登录不泄露密码摘要
+  ---
+  duration_ms: 377.328166
+  type: 'test'
+  ...
+# Subtest: SC-034 匿名、CSRF缺失及额外契约字段均被HTTP边界拒绝
+ok 38 - SC-034 匿名、CSRF缺失及额外契约字段均被HTTP边界拒绝
+  ---
+  duration_ms: 207.929791
+  type: 'test'
+  ...
+# Subtest: SC-035 阅读者不能写入或读取内部原文，研究员不能发布
+ok 39 - SC-035 阅读者不能写入或读取内部原文，研究员不能发布
+  ---
+  duration_ms: 354.706416
+  type: 'test'
+  ...
+# Subtest: SC-036 撤权后旧登录会话立即失效
+ok 40 - SC-036 撤权后旧登录会话立即失效
+  ---
+  duration_ms: 184.438959
+  type: 'test'
+  ...
+# Subtest: SC-037 已发布报告两种导出保留版本截止和固定引用
+ok 41 - SC-037 已发布报告两种导出保留版本截止和固定引用
+  ---
+  duration_ms: 359.307709
+  type: 'test'
+  ...
+# Subtest: SC-038 撤回报告的列表直达与导出均不提供正文
+ok 42 - SC-038 撤回报告的列表直达与导出均不提供正文
+  ---
+  duration_ms: 271.680833
+  type: 'test'
+  ...
+# Subtest: SC-039 HTTP同键重放返回同一结果并拒绝同键内容变化
+ok 43 - SC-039 HTTP同键重放返回同一结果并拒绝同键内容变化
+  ---
+  duration_ms: 188.939041
+  type: 'test'
+  ...
+# Subtest: SC-040 阅读者不能利用列表和分析清单绕过原文权限
+ok 44 - SC-040 阅读者不能利用列表和分析清单绕过原文权限
+  ---
+  duration_ms: 231.613042
+  type: 'test'
+  ...
+# Subtest: SC-043 原文权限过滤先于搜索，避免检索命中泄露隐藏内容
+ok 45 - SC-043 原文权限过滤先于搜索，避免检索命中泄露隐藏内容
+  ---
+  duration_ms: 428.481458
+  type: 'test'
+  ...
+# Subtest: SC-044 撤回后的旧命令回执不能重新暴露报告正文
+ok 46 - SC-044 撤回后的旧命令回执不能重新暴露报告正文
+  ---
+  duration_ms: 237.660375
+  type: 'test'
+  ...
+1..46
+# tests 46
+# suites 0
+# pass 46
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 11117.488417

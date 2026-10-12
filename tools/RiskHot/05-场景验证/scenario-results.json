@@ -1,0 +1,767 @@
+{
+  "started_at": "2026-10-12T02:03:59.572Z",
+  "completed_at": "2026-10-12T02:04:10.749Z",
+  "environment": {
+    "node": "v22.22.1",
+    "database": "本机独立 riskhot_test；不清理 riskhot",
+    "transport": "Fastify inject + 真实 PostgreSQL",
+    "model": "人工结构化夹具；不调用供应商模型",
+    "temporal": "本套未启动 Temporal Worker，不证明持久执行恢复"
+  },
+  "command": "node --import tsx --test --test-concurrency=1 --test-reporter=tap tests/scenarios/business.test.ts tests/scenarios/http.test.ts",
+  "exit_code": 0,
+  "counts": {
+    "total": 46,
+    "passed": 46,
+    "failed": 0,
+    "not_run": 0
+  },
+  "cases": [
+    {
+      "id": "SC-001",
+      "requirements": [
+        "FR-OPS-04"
+      ],
+      "acceptance": [],
+      "baseline": "本机专用 riskhot_test；无需业务资料。",
+      "action": "分别传入开发库 URL、远端 URL，并查询当前数据库名。",
+      "expected": "拒绝非本机专用测试库；真实连接名为 riskhot_test。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-001 测试数据库防误清理",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-002",
+      "requirements": [
+        "FR-OPS-02"
+      ],
+      "acceptance": [
+        "AC-OPS-02-1"
+      ],
+      "baseline": "研究员和一个合法变量草稿请求。",
+      "action": "同幂等键提交同内容两次，再提交不同内容。",
+      "expected": "前两次返回同 ID；内容冲突返回 IDEMPOTENCY_CONFLICT；仅一条变量。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-002 幂等重试复用结果，同键异载荷拒绝",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-003",
+      "requirements": [
+        "FR-OPS-01"
+      ],
+      "acceptance": [
+        "AC-OPS-01-1",
+        "AC-OPS-01-3"
+      ],
+      "baseline": "分别只有 reader、admin 角色的账号。",
+      "action": "阅读者写配置；管理员批准研究员草稿。",
+      "expected": "两次服务端拒绝；草稿状态不变。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-003 越权写入与管理员越权审核均拒绝",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-004",
+      "requirements": [
+        "FR-CFG-01",
+        "FR-CFG-06"
+      ],
+      "acceptance": [
+        "AC-CFG-01-2",
+        "AC-CFG-01-3"
+      ],
+      "baseline": "已批准的宏观对象、变量、信源。",
+      "action": "新建 company；修改已批准变量；停用对象后创建事件。",
+      "expected": "越界对象、直接改生效版、新引用停用对象均拒绝；原对象仍可查询。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-004 配置类型边界、批准后不可改与停用后新引用拒绝",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-005",
+      "requirements": [
+        "FR-L0-03"
+      ],
+      "acceptance": [
+        "AC-L0-03-1",
+        "AC-L0-03-2"
+      ],
+      "baseline": "已准入的单一信源和同一原始 URL。",
+      "action": "三次录入政策利率2%；后来录入修订3%。",
+      "expected": "重复复用原 ID；修订新 ID 指向旧版；旧正文2%仍在。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-005 原文三次重复和同URL修订保留旧值",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-006",
+      "requirements": [
+        "FR-L0-01"
+      ],
+      "acceptance": [
+        "AC-L0-01-1",
+        "AC-L0-01-2"
+      ],
+      "baseline": "已准入信源及一份历史原文；另一信源未审核。",
+      "action": "停用后新增原文；从未审核信源新增原文。",
+      "expected": "两次均拒绝；历史原文可读且内容不变。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-006 信源未准入或停用禁止新录入，历史不丢失",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-007",
+      "requirements": [
+        "FR-L0-04",
+        "FR-L0-06"
+      ],
+      "acceptance": [
+        "AC-L0-06-3"
+      ],
+      "baseline": "原文、已批准对象；不提供变量。",
+      "action": "保存对象无变量事件；另填原文不存在的引用。",
+      "expected": "第一事件成功且变量列表为空；假引用拒绝，无半成品事件。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-007 事件允许有对象无变量，拒绝捏造原文引用",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-008",
+      "requirements": [
+        "FR-L0-07"
+      ],
+      "acceptance": [
+        "AC-L0-07-2",
+        "AC-L0-07-3",
+        "AC-L0-07-4"
+      ],
+      "baseline": "已宣布、计划将来实施的政策事件。",
+      "action": "时间推进一周而不补资料，再录实施证据并重交同增量。",
+      "expected": "仅时间流逝状态不变；实施追加同一事件更新；重交不增加更新。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-008 同一事件公告到实施追加增量，重复不追加",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-009",
+      "requirements": [
+        "FR-L0-05",
+        "FR-L0-07"
+      ],
+      "acceptance": [
+        "AC-L0-05-1",
+        "AC-L0-07-1"
+      ],
+      "baseline": "一条已有政策事件与两个已准入信源。",
+      "action": "第二来源以 SOURCE_ADDITION 确认归入已有事件。",
+      "expected": "一个 Event、两个来源、一条 EventUpdate；不新增实质进展通知。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-009 仅新增来源不生成实质进展通知",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-010",
+      "requirements": [
+        "FR-CFG-04"
+      ],
+      "acceptance": [
+        "AC-CFG-04-2"
+      ],
+      "baseline": "指标单位为%；10行数据含2行不同单位和1行明确空值。",
+      "action": "导入整批并重复导入。",
+      "expected": "8成功2失败；重复复用；空值保留为 null 而非0。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-010 指标批量导入保留空值、逐行失败且重试不重复",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-011",
+      "requirements": [
+        "FR-CFG-05",
+        "FR-L0-08"
+      ],
+      "acceptance": [
+        "AC-CFG-05-1",
+        "AC-L0-08-1",
+        "AC-L0-08-3"
+      ],
+      "baseline": "事件存在，未批准M规则。",
+      "action": "按明确范围和期限提交人工金融意义评价。",
+      "expected": "score=null、状态draft；不产生正式风险。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-011 未批准M规则保留空分，不能自动纳管",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-012",
+      "requirements": [
+        "FR-L1-02",
+        "FR-L1-03",
+        "FR-L1-04"
+      ],
+      "acceptance": [
+        "AC-L1-04-1"
+      ],
+      "baseline": "对象、变量、宏观风险源、维度及事件均有效。",
+      "action": "创建完整候选、确认new并纳管，再重试纳管。",
+      "expected": "只有一个正式风险；代码解析为配置ID；候选无预分配risk_id；首次纳管时间可查。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-012 完整候选先匹配再纳管，代码解析为真实配置ID",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-013",
+      "requirements": [
+        "FR-L1-04",
+        "FR-CFG-01"
+      ],
+      "acceptance": [
+        "AC-L1-04-3",
+        "AC-CFG-01-2"
+      ],
+      "baseline": "一项变量未确认的完整候选，以及economic_sector对象。",
+      "action": "尝试纳管未确认变量；尝试以经济部门作为L1观察对象。",
+      "expected": "明确拒绝原因；候选保留且没有正式风险。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-013 未确认变量及越界观察对象不能纳管",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-014",
+      "requirements": [
+        "FR-L1-06"
+      ],
+      "acceptance": [
+        "AC-L1-06-2"
+      ],
+      "baseline": "两个不同事件及各自更新；一项正式风险。",
+      "action": "直接关联及候选入口均使用另一个事件的update_id。",
+      "expected": "两条入口均以UPDATE_MISMATCH拒绝错误引用。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-014 风险关联和候选均拒绝跨事件更新ID",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-015",
+      "requirements": [
+        "FR-L1-03",
+        "FR-L1-04"
+      ],
+      "acceptance": [
+        "AC-L1-04-2"
+      ],
+      "baseline": "两份definition、对象与scope相同的候选，均已完成匹配。",
+      "action": "并发执行两个纳管命令。",
+      "expected": "至少一项成功；数据库最多一个正式风险，不因并发重复身份。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-015 并发同身份纳管最多创建一个正式风险",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-016",
+      "requirements": [
+        "FR-L1-07",
+        "FR-PUB-02"
+      ],
+      "acceptance": [
+        "AC-L1-07-2"
+      ],
+      "baseline": "一项已纳管风险。",
+      "action": "关闭，时间推进一天，人工审核恢复monitoring。",
+      "expected": "ID及原admitted_at不变，单独记录restored_at；不新建风险。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-016 关闭恢复保留原风险ID与首次纳管时间",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-017",
+      "requirements": [
+        "FR-L1-06",
+        "FR-L2-02"
+      ],
+      "acceptance": [
+        "AC-L1-06-1",
+        "AC-L1-06-3",
+        "AC-L2-02-1"
+      ],
+      "baseline": "已纳管风险已有事件首次关联。",
+      "action": "追加实施更新、重复关联，并发起观察。",
+      "expected": "只有一条业务关系，首次event_update_id不变；输入证据含初始与进展两份原文。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-017 后续进展不改首次关联ID，观察仍能读到新证据",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-018",
+      "requirements": [
+        "FR-L2-02",
+        "FR-L2-12",
+        "FR-OPS-04"
+      ],
+      "acceptance": [
+        "AC-L2-02-2"
+      ],
+      "baseline": "T1已有原文、风险与固定任务；T2补采纠正。",
+      "action": "以T1普通复核及显式hindsight再运行。",
+      "expected": "普通包和旧包不含后发修订；追溯包包含且显式标记事后资料。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-018 证据截止隔离后发修订，显式追溯另行标记",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-019",
+      "requirements": [
+        "FR-L2-01",
+        "FR-L2-08",
+        "FR-L2-09"
+      ],
+      "acceptance": [
+        "AC-L2-01-1",
+        "AC-L2-09-1"
+      ],
+      "baseline": "新风险无历史快照，具备完整人工分析。",
+      "action": "尝试首次trend=stable；再以undetermined完成审核。",
+      "expected": "stable被拒绝；合法业务未知可批准，风险等级仍可为null。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-019 首次观察不得stable或shortening，合法未知可以批准",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-020",
+      "requirements": [
+        "FR-L2-12",
+        "FR-OPS-02"
+      ],
+      "acceptance": [
+        "AC-L2-12-2"
+      ],
+      "baseline": "已有一项正式快照；新任务只有trend技术阶段失败。",
+      "action": "保存新草稿并提交审核。",
+      "expected": "提交INCOMPLETE_ANALYSIS；草稿保留，产品当前结果仍为旧正式快照。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-020 技术阶段缺项不能提交，合法业务未知不等于失败",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-021",
+      "requirements": [
+        "FR-OPS-02",
+        "FR-L2-12"
+      ],
+      "acceptance": [
+        "AC-OPS-02-3"
+      ],
+      "baseline": "任务已生成待审核分析。",
+      "action": "取消任务后批准原待审核结果。",
+      "expected": "提交资格/代次失效；不产生批准结果，已有待审核记录保留。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-021 取消任务后旧代次不能批准且原草稿保留",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-022",
+      "requirements": [
+        "FR-OPS-01"
+      ],
+      "acceptance": [
+        "AC-OPS-01-2"
+      ],
+      "baseline": "研究员发起分析并提交；审核员会话仍正常。",
+      "action": "管理员禁用任务发起人，审核员尝试批准已排队分析。",
+      "expected": "最终提交再次校验发起人授权并拒绝，避免借审核员绕过撤权。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-022 发起人撤权后已排队结果不能正式提交",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-023",
+      "requirements": [
+        "FR-L1-05",
+        "FR-L1-07",
+        "FR-L2-12"
+      ],
+      "acceptance": [
+        "AC-L1-05-1"
+      ],
+      "baseline": "待审核分析固定风险定义版本。",
+      "action": "运行中暂停后批准；恢复后修改机制再批准。",
+      "expected": "分别返回TRACKING_CHANGED、DEFINITION_CHANGED；旧输出不成为当前结论。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-023 运行中暂停及定义变化阻止旧分析正式提交",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-024",
+      "requirements": [
+        "FR-PUB-02",
+        "FR-L2-12"
+      ],
+      "acceptance": [
+        "AC-PUB-02-3"
+      ],
+      "baseline": "旧截止任务尚未批准，新截止任务已批准。",
+      "action": "延迟批准旧任务；显式追溯旧截止并批准。",
+      "expected": "普通旧任务STALE_RUN；追溯可保存，但最新仍按snapshot_time选择较新快照。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-024 旧截止运行不冒充最新，显式追溯也不改变最新选择",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-025",
+      "requirements": [
+        "FR-L2-09",
+        "FR-L2-11"
+      ],
+      "acceptance": [
+        "AC-L2-09-2",
+        "AC-L2-11-1",
+        "AC-L2-11-2"
+      ],
+      "baseline": "测试等级规则已批准，前后均high；第二次有可比基准。",
+      "action": "尝试无节点规则confirmed，再以easing且节点待判断批准。",
+      "expected": "无规则确认被阻止；同级方向可减弱且不自动确认节点。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-025 同等级可以减弱，未设节点规则不能确认节点",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-026",
+      "requirements": [
+        "FR-PUB-03"
+      ],
+      "acceptance": [
+        "AC-PUB-03-3"
+      ],
+      "baseline": "前一快照high，后一快照等级待判断。",
+      "action": "查询风险产品投影。",
+      "expected": "选择后一快照；severity为空且显示等级待判断，不回取旧高等级。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-026 最新等级空值不能回取历史高等级排序",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-027",
+      "requirements": [
+        "FR-PUB-06",
+        "FR-PUB-07",
+        "FR-OPS-04"
+      ],
+      "acceptance": [
+        "AC-PUB-06-3",
+        "AC-PUB-07-1",
+        "AC-OPS-04-2"
+      ],
+      "baseline": "一份已批准快照及固定报告草稿。",
+      "action": "篡改报告引用内的趋势；正常发布两次；上游再新增快照。",
+      "expected": "判断篡改拒绝；一次发布事件；固定快照ID/版本不随上游变化。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-027 报告固定引用、禁止篡改结构化判断且重复发布只出刊一次",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-028",
+      "requirements": [
+        "FR-PUB-06",
+        "FR-PUB-07"
+      ],
+      "acceptance": [
+        "AC-PUB-06-3"
+      ],
+      "baseline": "报告已提交，引用快照仍可独立撤回。",
+      "action": "先撤回快照，再发布报告。",
+      "expected": "REFERENCE_WITHDRAWN阻止发布；报告保持submitted。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-028 报告发布前上游撤回必须阻断，撤回后可另建修订",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-029",
+      "requirements": [
+        "FR-PUB-05",
+        "FR-PUB-06"
+      ],
+      "acceptance": [
+        "AC-PUB-05-4",
+        "AC-PUB-06-2"
+      ],
+      "baseline": "报告期内有新风险但无已批准快照。",
+      "action": "生成日报草稿。",
+      "expected": "条目为新纳管待评估、快照为空；不虚构等级或无风险结论。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-029 空期报告可说明覆盖不足但不编造无风险",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-030",
+      "requirements": [
+        "FR-OPS-03",
+        "FR-OPS-04"
+      ],
+      "acceptance": [
+        "AC-OPS-03-3"
+      ],
+      "baseline": "两位操作者持有同一配置草稿旧版本。",
+      "action": "成功修改一次后以旧expected_version再改。",
+      "expected": "VERSION_CONFLICT拒绝覆盖；只保存两版，成功修改有审计。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-030 乐观并发拒绝旧版覆盖并保留审计",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-031",
+      "requirements": [
+        "FR-OPS-05"
+      ],
+      "acceptance": [
+        "AC-OPS-05-1",
+        "AC-OPS-05-2"
+      ],
+      "baseline": "管理员创建默认停用的本机测试计划。",
+      "action": "启用后同run_key补跑两次；停用后新窗口补跑。",
+      "expected": "窗口请求复用；停用后不受理新任务。仅验证计划命令，不等于时钟恢复演练。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-031 同计划窗口幂等且停用不再受理新窗口",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-032",
+      "requirements": [
+        "FR-OPS-02",
+        "FR-OPS-04"
+      ],
+      "acceptance": [
+        "AC-OPS-04-3"
+      ],
+      "baseline": "已固定输入的观察任务。",
+      "action": "提出有理由的重算。",
+      "expected": "新任务ID及recompute_of，原证据包和旧任务数据不变。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-032 重算生成新运行并保留原固定输入",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-033",
+      "requirements": [
+        "FR-OPS-01"
+      ],
+      "acceptance": [
+        "AC-OPS-01-1"
+      ],
+      "baseline": "空的专用测试库及强测试密码。",
+      "action": "HTTP首次初始化、再次初始化、正确及错误密码登录。",
+      "expected": "只创建一个初始管理员；错误密码401；会话HttpOnly；响应无密码摘要。",
+      "source": "tests/scenarios/http.test.ts",
+      "name": "SC-033 首次初始化只允许一次且登录不泄露密码摘要",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-034",
+      "requirements": [
+        "FR-OPS-01"
+      ],
+      "acceptance": [
+        "AC-OPS-01-1"
+      ],
+      "baseline": "有效研究员会话及变量保存契约。",
+      "action": "匿名调用、缺CSRF调用、额外bypass_approval字段调用。",
+      "expected": "分别鉴权/CSRF/Schema拒绝；数据库不新增变量。",
+      "source": "tests/scenarios/http.test.ts",
+      "name": "SC-034 匿名、CSRF缺失及额外契约字段均被HTTP边界拒绝",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-035",
+      "requirements": [
+        "FR-OPS-01",
+        "FR-PUB-07"
+      ],
+      "acceptance": [
+        "AC-OPS-01-1",
+        "AC-PUB-07-4"
+      ],
+      "baseline": "已发布报告、内部原文、阅读者和研究员会话。",
+      "action": "阅读者写配置及读取原文，研究员发布报告。",
+      "expected": "均403，无原文泄露或越权发布。",
+      "source": "tests/scenarios/http.test.ts",
+      "name": "SC-035 阅读者不能写入或读取内部原文，研究员不能发布",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-036",
+      "requirements": [
+        "FR-OPS-01"
+      ],
+      "acceptance": [
+        "AC-OPS-01-2"
+      ],
+      "baseline": "审核员已登录。",
+      "action": "管理员禁用账号，旧会话继续写配置。",
+      "expected": "401/403，数据库无写入；无需等待会话自然到期。",
+      "source": "tests/scenarios/http.test.ts",
+      "name": "SC-036 撤权后旧登录会话立即失效",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-037",
+      "requirements": [
+        "FR-PUB-08"
+      ],
+      "acceptance": [
+        "AC-PUB-08-1",
+        "AC-PUB-08-2"
+      ],
+      "baseline": "带固定快照引用的已发布报告。",
+      "action": "阅读者导出Markdown和可打印HTML。",
+      "expected": "两者含报告ID、快照ID、数据截止；无内部原文和密码摘要。",
+      "source": "tests/scenarios/http.test.ts",
+      "name": "SC-037 已发布报告两种导出保留版本截止和固定引用",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-038",
+      "requirements": [
+        "FR-PUB-07",
+        "FR-PUB-08"
+      ],
+      "acceptance": [
+        "AC-PUB-07-2",
+        "AC-PUB-08-3"
+      ],
+      "baseline": "阅读者持有曾发布报告直达地址。",
+      "action": "撤回后读列表、直达、两种导出。",
+      "expected": "正文不再暴露；直达可见撤回说明；下载拒绝。",
+      "source": "tests/scenarios/http.test.ts",
+      "name": "SC-038 撤回报告的列表直达与导出均不提供正文",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-039",
+      "requirements": [
+        "FR-OPS-02"
+      ],
+      "acceptance": [
+        "AC-OPS-02-1"
+      ],
+      "baseline": "研究员会话和固定幂等键。",
+      "action": "通过HTTP同键同载荷两次、同键异载荷一次。",
+      "expected": "同结果ID；异载荷409；边界没有丢失幂等语义。",
+      "source": "tests/scenarios/http.test.ts",
+      "name": "SC-039 HTTP同键重放返回同一结果并拒绝同键内容变化",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-040",
+      "requirements": [
+        "FR-OPS-01",
+        "FR-OPS-04"
+      ],
+      "acceptance": [
+        "AC-OPS-01-1"
+      ],
+      "baseline": "阅读者没有evidence_access；正式快照内有固定原文清单。",
+      "action": "读取原文列表与分析快照详情。",
+      "expected": "任何列表或嵌套manifest均不泄露原文content；公开分析仍可读。",
+      "source": "tests/scenarios/http.test.ts",
+      "name": "SC-040 阅读者不能利用列表和分析清单绕过原文权限",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-041",
+      "requirements": [
+        "FR-L0-07",
+        "FR-L2-02"
+      ],
+      "acceptance": [
+        "AC-L0-07-1",
+        "AC-L2-02-2"
+      ],
+      "baseline": "已纳管风险及第一信源；截止后另一信源补充相同事件。",
+      "action": "SOURCE_ADDITION后分别发起当前观察和旧截止观察。",
+      "expected": "当前包含两个出处；旧截止不含新取得的出处；没有新增实质进展。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-041 仅来源补充进入观察证据，但不越过历史截止",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-042",
+      "requirements": [
+        "FR-OPS-03",
+        "FR-L2-12",
+        "FR-PUB-07"
+      ],
+      "acceptance": [
+        "AC-OPS-03-3"
+      ],
+      "baseline": "分析和报告均已提交待审核。",
+      "action": "复核退回、旧版本再决定、重新提交后驳回；尝试退回正式分析。",
+      "expected": "退回恢复draft、驳回进入rejected；旧版409；正式分析拒绝退回且保持approved。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-042 复核退回驳回推进领域状态，过期决定和正式记录拒绝",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-043",
+      "requirements": [
+        "FR-OPS-01"
+      ],
+      "acceptance": [
+        "AC-OPS-01-1"
+      ],
+      "baseline": "原文有仅隐藏证据包包含的稀有标记；公开判断不包含该词。",
+      "action": "阅读者及有原文权限的研究员分别搜索该标记。",
+      "expected": "阅读者零命中；研究员可以找到风险；查询匹配先应用权限过滤。",
+      "source": "tests/scenarios/http.test.ts",
+      "name": "SC-043 原文权限过滤先于搜索，避免检索命中泄露隐藏内容",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-044",
+      "requirements": [
+        "FR-PUB-07",
+        "FR-OPS-04"
+      ],
+      "acceptance": [
+        "AC-PUB-07-2"
+      ],
+      "baseline": "已发布报告且操作者持有旧发布请求键。",
+      "action": "撤回后重放旧发布请求。",
+      "expected": "返回当前撤回元数据，不通过幂等回执泄露旧正文。",
+      "source": "tests/scenarios/http.test.ts",
+      "name": "SC-044 撤回后的旧命令回执不能重新暴露报告正文",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-045",
+      "requirements": [
+        "FR-L2-02",
+        "FR-L2-08"
+      ],
+      "acceptance": [
+        "AC-L2-02-2"
+      ],
+      "baseline": "早期观察到后续时间才批准。",
+      "action": "以中间截止时间观察，并显式选择该早期快照作基准。",
+      "expected": "默认基准为空；显式选择拒绝，防止迟到批准形成未来信息。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-045 迟到的历史批准不能越过比较基准截止边界",
+      "status": "PASS"
+    },
+    {
+      "id": "SC-046",
+      "requirements": [
+        "FR-L2-12",
+        "FR-OPS-02"
+      ],
+      "acceptance": [
+        "AC-L2-12-1"
+      ],
+      "baseline": "研究内容完整且已提交，执行任务随后技术失败。",
+      "action": "请求正式批准。",
+      "expected": "COMMIT_REVOKED，草稿内容保留但未生成正式快照。",
+      "source": "tests/scenarios/business.test.ts",
+      "name": "SC-046 技术失败任务即使草稿完整也不能批准",
+      "status": "PASS"
+    }
+  ]
+}
