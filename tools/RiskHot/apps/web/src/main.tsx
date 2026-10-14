@@ -5,6 +5,7 @@ import { createRootRoute, createRoute, createRouter, RouterProvider } from '@tan
 import { AppShell, Dashboard, RiskDetailPage, SectionPage } from './App';
 import { ApiError } from './api';
 import './styles.css';
+import './management.css';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,6 +23,8 @@ const indexRoute = createRoute({ getParentRoute: () => rootRoute, path: '/', com
 const sectionRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/$section',
+  validateSearch: (search: Record<string, unknown>): { view?: string } =>
+    typeof search.view === 'string' ? { view: search.view } : {},
   component: SectionPage,
 });
 const detailRoute = createRoute({

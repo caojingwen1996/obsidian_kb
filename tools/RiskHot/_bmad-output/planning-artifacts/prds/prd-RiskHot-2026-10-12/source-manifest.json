@@ -1,0 +1,27 @@
+{
+  "generated_date": "2026-10-12",
+  "timezone": "Asia/Shanghai",
+  "source_policy": "业务依据仅限所列四份领域设计；技能说明、执行配置与本次生成产物仅作为工作流资料。",
+  "files": [
+    {
+      "path": "02-业务架构与领域设计/02-D6 风险产品与发布业务领域设计.md",
+      "sha256": "543ca092e4075b54e024e772f32fdf1f481a31d0b8d5f2f8a727303b85cfa4b1",
+      "lines": 324
+    },
+    {
+      "path": "02-业务架构与领域设计/RiskHot_L0_信息处理层_业务架构与领域设计V1.0.md",
+      "sha256": "0d74cebd324b90979e98ae7b1868111072b23cd267af76ebf5b4ea596095bb2b",
+      "lines": 857
+    },
+    {
+      "path": "02-业务架构与领域设计/RiskHot_L1_风险识别与纳管层_业务架构与领域设计.md",
+      "sha256": "700aef994643d050999e9a0ae2160d3c01d5e509ce61f9481e74fb76c112fac5",
+      "lines": 1158
+    },
+    {
+      "path": "02-业务架构与领域设计/RiskHot_L2_风险态势分析层_业务架构与领域设计V1.0.md",
+      "sha256": "21e6831de64dc4cc022c73c60fbc91cdfc37b7b41be65501483f0e9355979e0c",
+      "lines": 972
+    }
+  ]
+}

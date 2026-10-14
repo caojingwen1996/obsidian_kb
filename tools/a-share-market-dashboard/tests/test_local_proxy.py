@@ -7,12 +7,14 @@ import sys
 from tempfile import TemporaryDirectory
 from threading import Thread
 import unittest
+from unittest.mock import patch
 from urllib.error import HTTPError
 from urllib.parse import parse_qs, quote, urlparse
 from urllib.request import Request, urlopen
 
 from scripts.local_proxy import (
     DEFAULT_PORT,
+    DIVIDEND_WORKBOOK_PATH,
     RouteError,
     UpstreamError,
     apply_todo_json_action,
@@ -35,6 +37,7 @@ from scripts.local_proxy import (
     list_review_diaries,
     normalize_nasdaq100_chart,
     normalize_review_diary_payload,
+    open_dividend_workbook,
     parse_json_payload,
     parse_youzhiyouxing_temperature,
     rerender_tracking_reports,
@@ -584,6 +587,62 @@ class PayloadTests(unittest.TestCase):
     def test_market_margin_rejects_legacy_market_parameter(self):
         with self.assertRaises(RouteError):
             fetch_market_margin({"market": ["1"]}, client=object(), market_margin_tool=lambda client, args: {})
+
+
+class OpenDividendSourceTests(unittest.TestCase):
+    def test_opens_original_unicode_path_with_excel_on_mac(self):
+        with TemporaryDirectory(prefix="signal source ") as directory:
+            workbook = Path(directory) / DIVIDEND_WORKBOOK_PATH
+            workbook.parent.mkdir(parents=True)
+            workbook.write_bytes(b"workbook fixture")
+            for platform, command in (("darwin", ["open", "-b", "com.microsoft.Excel"]), ("linux", ["xdg-open"])):
+                with self.subTest(platform=platform), patch("scripts.local_proxy.sys.platform", platform), patch("scripts.local_proxy.subprocess.run") as run:
+                    self.assertTrue(open_dividend_workbook(directory)["opened"])
+                    run.assert_called_once_with([*command, str(workbook.resolve())], check=True, capture_output=True, timeout=10)
+            with patch("scripts.local_proxy.sys.platform", "win32"), patch("scripts.local_proxy.os.startfile", create=True) as startfile:
+                open_dividend_workbook(directory)
+                startfile.assert_called_once_with(str(workbook.resolve()))
+
+    def test_missing_workbook_never_launches_application(self):
+        with TemporaryDirectory() as directory, patch("scripts.local_proxy.subprocess.run") as run:
+            with self.assertRaises(FileNotFoundError):
+                open_dividend_workbook(directory)
+            run.assert_not_called()
+
+    def test_unavailable_excel_does_not_fall_back_to_numbers(self):
+        with TemporaryDirectory() as directory:
+            workbook = Path(directory) / DIVIDEND_WORKBOOK_PATH
+            workbook.parent.mkdir(parents=True)
+            workbook.write_bytes(b"workbook fixture")
+            with patch("scripts.local_proxy.sys.platform", "darwin"), patch("scripts.local_proxy.subprocess.run", side_effect=OSError("Excel unavailable")) as run:
+                with self.assertRaises(OSError):
+                    open_dividend_workbook(directory)
+                run.assert_called_once_with(["open", "-b", "com.microsoft.Excel", str(workbook.resolve())], check=True, capture_output=True, timeout=10)
+
+    def test_open_route_dispatches_only_fixed_source_and_reports_failures(self):
+        with running_server(lambda *args: None) as base, patch("scripts.local_proxy.open_dividend_workbook") as opener:
+            request = Request(f"{base}/api/open-dividend-source", data=b"{}", headers={"Content-Type": "application/json", "Origin": base}, method="POST")
+            opener.return_value = {"opened": True, "file": DIVIDEND_WORKBOOK_PATH.as_posix()}
+            with urlopen(request, timeout=3) as response:
+                self.assertTrue(json.load(response)["opened"])
+            opener.assert_called_once_with(DASHBOARD.resolve().parents[2])
+            for error, status in ((FileNotFoundError("missing workbook"), 404), (OSError("application unavailable"), 500)):
+                with self.subTest(status=status):
+                    opener.side_effect = error
+                    with self.assertRaises(HTTPError) as failed:
+                        urlopen(request, timeout=3)
+                    self.assertEqual(failed.exception.code, status)
+
+    def test_rejects_remote_origins_arbitrary_paths_and_get_requests(self):
+        with running_server(lambda *args: None) as base, patch("scripts.local_proxy.open_dividend_workbook") as opener:
+            for origin, body, status in (("https://example.com", b"{}", 403), (base, b'{"path":"/tmp/arbitrary.xlsx"}', 400), (base, b"[]", 400)):
+                request = Request(f"{base}/api/open-dividend-source", data=body, headers={"Content-Type": "application/json", "Origin": origin}, method="POST")
+                with self.assertRaises(HTTPError) as blocked:
+                    urlopen(request, timeout=3)
+                self.assertEqual(blocked.exception.code, status)
+            with self.assertRaises(HTTPError):
+                urlopen(f"{base}/api/open-dividend-source", timeout=3)
+            opener.assert_not_called()
 
 
 class ServerTests(unittest.TestCase):

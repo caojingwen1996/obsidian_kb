@@ -83,25 +83,15 @@ class LlmLixingerFallbackTest(unittest.TestCase):
         self.assertIn("公开页面失败后采用", parsed.note)
 
 
-class XueqiuQuoteParseTest(unittest.TestCase):
-    def test_parses_xueqiu_realtime_quote_payload(self):
-        payload = """
-        {
-          "data": [
-            {
-              "symbol": "SH000922",
-              "percent": -0.73,
-              "timestamp": 1783319400000
-            }
-          ]
-        }
-        """
-
-        parsed = check_signal.parse_xueqiu_quote_payload(payload)
-
+class IntradayQuoteParseTest(unittest.TestCase):
+    def test_parses_tencent_realtime_quote_payload(self):
+        fields = [""] * 33
+        fields[30] = "20260706153000"
+        fields[32] = "-0.73"
+        parsed = check_signal.parse_tencent_quote_payload('v_sh000922="' + "~".join(fields) + '";')
         self.assertEqual(parsed.date, "2026-07-06")
         self.assertEqual(parsed.change_percent, -0.73)
-        self.assertEqual(parsed.source, "雪球实时行情")
+        self.assertEqual(parsed.source, "腾讯行情")
 
 
 class AkshareDataSourceTest(unittest.TestCase):
@@ -264,8 +254,8 @@ class CsvHeaderLabelTest(unittest.TestCase):
             akshare_dividend_yield_2=4.67,
             ytd_return=5.25,
             ytd_max_drawdown=-8.40,
-            xueqiu_quote_date="2026-07-06",
-            xueqiu_change_percent="-0.73",
+            intraday_quote_date="2026-07-06",
+            intraday_change_percent="-0.73",
             lixinger_date="2026-07-03",
             lixinger_dividend_yield="4.66",
             lixinger_percentile_10y="30.44",
@@ -302,7 +292,7 @@ class CsvHeaderLabelTest(unittest.TestCase):
                 "akshare_dividend_yield_2",
                 "ytd_return",
                 "ytd_max_drawdown",
-                "xueqiu_change_percent",
+                "intraday_change_percent",
                 "bond_date__china_10y_yield_date",
                 "bond_10y_yield",
                 "spread",
@@ -315,7 +305,7 @@ class CsvHeaderLabelTest(unittest.TestCase):
                 "lixinger_percentile_10y",
                 "lixinger_percentile_80_value",
                 "lixinger_source",
-            ],
+            ] + list(check_signal.SCORE_FIELD_LABELS),
         )
         self.assertEqual(
             [cell.value for cell in sheet[2]],
@@ -325,7 +315,7 @@ class CsvHeaderLabelTest(unittest.TestCase):
                 "指数股息率口径(%)",
                 "全年收益率(%)",
                 "年内最大回撤(%)",
-                "雪球当天涨跌幅(%)",
+                "当天涨跌幅(%)",
                 "中国10年国债收益率日期",
                 "中国10年国债收益率(%)",
                 "股债利差:股息率2-10年国债收益率(百分点)",
@@ -338,7 +328,7 @@ class CsvHeaderLabelTest(unittest.TestCase):
                 "理杏仁近10年股息率分位(%)",
                 "理杏仁近10年80%分位点(%)",
                 "理杏仁数据源状态",
-            ],
+            ] + list(check_signal.SCORE_FIELD_LABELS.values()),
         )
         run_dates = [
             row[0]
@@ -359,7 +349,7 @@ class CsvHeaderLabelTest(unittest.TestCase):
             self.assertEqual(cell.fill.fill_type, None)
         self.assertFalse(sheet.sheet_view.showGridLines)
         self.assertEqual(sheet.freeze_panes, "A3")
-        self.assertTrue(sheet.row_dimensions[2].hidden)
+        self.assertFalse(sheet.row_dimensions[2].hidden)
         self.assertEqual(sheet.row_dimensions[2].outlineLevel, 1)
         self.assertFalse(sheet.sheet_properties.outlinePr.summaryBelow)
         self.assertIsNotNone(sheet.auto_filter.ref)

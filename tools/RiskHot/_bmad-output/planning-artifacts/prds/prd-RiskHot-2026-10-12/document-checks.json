@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-12",
+  "status": "pass",
+  "functional_requirements": 41,
+  "nonfunctional_requirements": 7,
+  "acceptance_scenarios": 17,
+  "open_question_groups": 14,
+  "assumptions": 2,
+  "resolved_wiki_links": 22,
+  "source_files": 4,
+  "source_hashes_unchanged": true,
+  "errors": [],
+  "scope": "document structure, references, encoding and source integrity; no software tests or business validation executed",
+  "chinese_document_filenames": 13,
+  "chinese_document_titles": 13,
+  "latest_change": "13份阅读文档改为中文文件名和标题，文档互链及索引已同步"
+}

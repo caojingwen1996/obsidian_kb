@@ -3,6 +3,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { inflateRawSync } from 'node:zlib';
 import { renderIndexDayChart } from './index-day-chart.mjs';
+import { parseCsindexPerformance } from '../src/adapters.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const repoRoot = join(root, '..', '..');
@@ -10,11 +11,14 @@ const sourceDir = join(root, 'src');
 const dataDir = join(root, 'data');
 const marketOverviewDataDir = join(dataDir, '市场总览');
 const outputPath = join(root, 'a-share-market-dashboard.html');
-const moduleOrder = ['core.mjs', 'adapters.mjs', 'data-service.mjs', 'risk-state.mjs', 'risk-indicators.mjs', 'risk-screen.mjs', 'app.mjs'];
+const moduleOrder = ['core.mjs', 'adapters.mjs', 'data-service.mjs', 'risk-state.mjs', 'risk-indicators.mjs', 'risk-screen.mjs', 'dividend-scoring.mjs', 'app.mjs'];
 const automationsDir = join(repoRoot, 'sources', 'automations');
 const topicsDir = join(repoRoot, 'wiki', 'topics');
+const dividendStrategy = JSON.parse(await readFile(join(repoRoot, '.agents', 'skills', 'zzhl-dividend-signal', 'strategy-v1.json'), 'utf8'));
+const dividendScorePath = join(automationsDir, '中证红利信号', '评分记录.json');
 const dividendSignalPath = join(automationsDir, '中证红利信号', '最新信号.md');
 const dividendHistoryWorkbookPath = join(automationsDir, '中证红利信号', '中证红利每日信号.xlsx');
+const dividendIndexHistoryPath = join(automationsDir, '中证红利信号', '中证红利指数日线.json');
 const dividendAnnualPerformancePath = join(automationsDir, '中证红利信号', '中证红利年度表现.json');
 const bbxmDailyDigestDir = join(automationsDir, 'BBXM每日汇总');
 const todoDataPath = join(dataDir, '需求清单', 'todo.json');
@@ -768,6 +772,10 @@ function numberFromText(value) {
 
 function decodeXml(value) {
   return String(value ?? '')
+    .replace(/&#(x[0-9a-f]+|\d+);/gi, (entity, code) => {
+      const point = code[0].toLowerCase() === 'x' ? parseInt(code.slice(1), 16) : Number(code);
+      return point <= 0x10ffff ? String.fromCodePoint(point) : entity;
+    })
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
     .replace(/&quot;/g, '"')
@@ -849,12 +857,15 @@ function parseDividendYieldHistoryFromWorkbook(buffer) {
   const runDateIndex = header.findIndex(value => String(value).trim() === 'run_date__record_date');
   const dateIndex = indexDateIndex >= 0 ? indexDateIndex : runDateIndex;
   const dividendIndex = header.findIndex(value => String(value).trim() === 'akshare_dividend_yield_2');
+  const headlineIndex = header.findIndex((value, index) => String(value).trim() === 'headline_signal'
+    || String(rows[1]?.[index] ?? '').trim() === '综合结论');
   if (dateIndex < 0 || dividendIndex < 0) return [];
   return rows.slice(2).map(row => {
     const date = String(row[dateIndex] ?? '').trim().replaceAll('/', '-');
     const value = Number(row[dividendIndex]);
     return /^\d{4}-\d{1,2}-\d{1,2}$/.test(date) && Number.isFinite(value)
-      ? { date: date.replace(/^(\d{4})-(\d{1,2})-(\d{1,2})$/, (_, year, month, day) => `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`), value }
+      ? { date: date.replace(/^(\d{4})-(\d{1,2})-(\d{1,2})$/, (_, year, month, day) => `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`), value,
+        headline: String(row[headlineIndex] ?? '').trim() }
       : null;
   }).filter(Boolean);
 }
@@ -965,7 +976,7 @@ function parseDividendSignal(markdown) {
     dividendYield2: numberFromText(pickAny(['中证红利股息率口径', 'AKShare 中证红利股息率2'])),
     ytdReturn: numberFromText(pickAny(['全年收益率', '年内收益率'])),
     ytdMaxDrawdown: numberFromText(pickAny(['年内最大回撤', '全年最大回撤'])),
-    xueqiuChangePercent: pick('雪球当天涨跌幅'),
+    xueqiuChangePercent: pickAny(['当天涨跌幅', '雪球当天涨跌幅']),
     lixingerDate: pick('理杏仁估值日期'),
     lixingerDividendYield: pick('理杏仁市值加权股息率'),
     lixingerPercentile10y: pick('理杏仁近10年股息率分位'),
@@ -1122,8 +1133,13 @@ const bbxmDailyDigest = await scanBbxmDailyDigest();
 const topicPages = await scanTopicPages();
 const changelog = validateChangelog(JSON.parse(changelogSource));
 const eventCalendar = validateEventCalendar(JSON.parse(eventCalendarSource));
+const dividendScorePayload = JSON.parse(await readFile(dividendScorePath, 'utf8').catch(error => { if (error.code !== 'ENOENT') throw error; return 'null'; }));
 const dividendSignal = parseDividendSignal(await readFile(dividendSignalPath, 'utf8').catch(() => ''));
 const dividendYieldHistory = parseDividendYieldHistoryFromWorkbook(await readFile(dividendHistoryWorkbookPath).catch(() => null));
+const dividendIndexHistory = parseCsindexPerformance(JSON.parse(await readFile(dividendIndexHistoryPath, 'utf8').catch(error => {
+  if (error.code !== 'ENOENT') throw error;
+  return '{}';
+}))).map(({ date, close }) => ({ date, close }));
 const dividendAnnualPerformance = parseDividendAnnualPerformance(await readFile(dividendAnnualPerformancePath, 'utf8').catch(() => ''));
 const todoList = parseTodoListFromJson(await readFile(todoDataPath, 'utf8').catch(() => ''));
 
@@ -1133,15 +1149,19 @@ const stockThreeFactorReportLinks = renderStockThreeFactorReportLinkMap(automati
 const dailyMonitorData = await scanDailyMonitorData();
 const bundle = modules
   .map((source, index) => {
-    const withGeneratedData = moduleOrder[index] === 'app.mjs'
+    const withGeneratedData = moduleOrder[index] === 'dividend-scoring.mjs'
+      ? source.replace(/^import.*dividendDefaults.*$/m, `const dividendDefaults = ${JSON.stringify(dividendStrategy)};`)
+      : moduleOrder[index] === 'app.mjs'
       ? source
         .replace('  // NASDAQ_ETF_ANCHOR', JSON.stringify(nasdaqEtfAnchor).slice(1, -1))
         .replace('  // STOCK_REPORT_LINKS', stockReportLinks)
         .replace('  // STOCK_THREE_FACTOR_REPORT_LINKS', stockThreeFactorReportLinks)
         .replace('  // DAILY_MONITOR_LINKS', dailyMonitorData.mapSource)
         .replace('  // EVENT_CALENDAR', JSON.stringify(eventCalendar, null, 2))
+        .replace('  // CSI_DIVIDEND_SCORE_PAYLOAD', JSON.stringify(dividendScorePayload, null, 2))
         .replace('  // CSI_DIVIDEND_SIGNAL', JSON.stringify(dividendSignal, null, 2))
         .replace('  // CSI_DIVIDEND_YIELD_HISTORY', JSON.stringify(dividendYieldHistory, null, 2))
+        .replace('  // CSI_DIVIDEND_INDEX_HISTORY', JSON.stringify(dividendIndexHistory, null, 2))
         .replace('  // CSI_DIVIDEND_ANNUAL_PERFORMANCE', JSON.stringify(dividendAnnualPerformance, null, 2))
       : source;
     return stripModuleSyntax(withGeneratedData, moduleOrder[index]);

@@ -14,13 +14,13 @@ const fields = (properties: Record<string, Schema>, required = Object.keys(prope
   required,
 });
 
-export function dataFields(command: string, kind: string): DataFields | undefined {
+export function dataFields(command: string, kind: string, category = ''): DataFields | undefined {
   if (command === 'reference.save') {
     const common = { name: t('名称'), code: t('唯一编码') };
     if (kind === 'target')
       return fields({
         ...common,
-        type: choice('对象类型', [
+        type: choice('观测主体类型', [
           'economy',
           'macro_institution',
           'financial_system',
@@ -41,21 +41,22 @@ export function dataFields(command: string, kind: string): DataFields | undefine
     if (kind === 'dimension') return fields({ ...common, definition: t('风险类型定义') });
     if (kind === 'prompt') return fields({ ...common, purpose: t('分析用途'), content: t('模板正文') });
     if (kind === 'model') return fields({ ...common, provider: t('供应商'), model_id: t('实际模型 ID') });
-    if (kind === 'market') return fields({ ...common, target_id: t('对应观察对象') });
-    if (kind === 'rule')
-      return fields(
-        {
-          ...common,
-          category: choice('规则类别', ['m', 'risk_level', 'weakening', 'freshness']),
-          definition: t('规则说明'),
-          scope: t('适用范围'),
-          weights: a('M 评分权重'),
-          levels: a('风险等级及顺序'),
-          confirmation_criteria: t('减弱节点确认条件'),
-          calibration_evidence: t('校准证据'),
-        },
-        ['name', 'code', 'category', 'definition', 'scope'],
-      );
+    if (kind === 'market') return fields({ ...common, target_id: t('对应事件的观测主体') });
+    if (kind === 'rule') {
+      const specific: Record<string, Record<string, Schema>> = {
+        m: { weights: a('M 评分权重') },
+        risk_level: { levels: a('风险等级及顺序') },
+        weakening: { confirmation_criteria: t('减弱节点确认条件'), calibration_evidence: t('校准证据') },
+        freshness: { max_hours: { type: 'number', title: '最长有效时长（小时）', minimum: 1 } },
+      };
+      return fields({
+        ...common,
+        category: choice('规则类别', ['m', 'risk_level', 'weakening', 'freshness']),
+        definition: t('规则说明'),
+        scope: t('适用范围'),
+        ...specific[category],
+      });
+    }
   }
   if (command === 'information.source')
     return fields({
@@ -70,7 +71,7 @@ export function dataFields(command: string, kind: string): DataFields | undefine
       {
         information_id: t('原文依据'),
         title: t('事件标题'),
-        subject: t('主体'),
+        subject: t('事件行为主体'),
         action: t('行为'),
         time_semantics: t('发生或计划时间的含义'),
         status: choice('事件阶段', [
@@ -94,7 +95,7 @@ export function dataFields(command: string, kind: string): DataFields | undefine
         quote: t('原文引句（必须与原文一致）'),
         summary: t('事件摘要'),
         event_id: t('既有事件（非新事件时填写）'),
-        targets: a('对象与变量关系'),
+        targets: a('事件观测主体与变量关系'),
       },
       ['information_id', 'title', 'subject', 'action', 'time_semantics', 'status', 'increment_type', 'quote'],
     );

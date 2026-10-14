@@ -38,7 +38,7 @@ export async function validateConfig(ctx: Context, kind: string, d: Data, id?: s
   const same = (await ctx.db.list('reference', kind)).find((r) => r.id !== id && r.data.code === d.code);
   ensure(!same, 'CODE_CONFLICT', '该类型下编码已存在', 409);
   if (kind === 'target') {
-    ensure(targetTypes.includes(text(d, 'type')), 'INVALID_TARGET', '首版只允许五类宏观对象');
+    ensure(targetTypes.includes(text(d, 'type')), 'INVALID_TARGET', '首版事件的观测主体只允许五类宏观类型');
     text(d, 'jurisdiction');
     text(d, 'scope');
   }

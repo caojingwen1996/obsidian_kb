@@ -591,7 +591,6 @@ test('market summary renders three overview cards and includes signal sources in
     'CSI DIVIDEND SIGNAL',
     '打开信号源',
     '来源与验证边界',
-    '历史分位点',
     'DIVIDEND YIELD HISTORY',
     '中证红利股息率走势',
     '中证红利每日信号.xlsx',
@@ -600,7 +599,9 @@ test('market summary renders three overview cards and includes signal sources in
     'parseDividendSignalMarkdown',
     'refreshDividendSignalFromSource',
     'cache: \'no-store\'',
-    '未进重点买入',
+    '每日记录结果',
+    '本地试算结果',
+    '综合分 / 100',
     'dividend-detail-date',
     '股息率2',
     '全年收益率',
@@ -618,7 +619,7 @@ test('market summary renders three overview cards and includes signal sources in
     '股息率2 - 10年国债收益率',
     '历史分位',
     '理杏仁公开页面',
-    '雪球行情',
+    '当天行情',
     '原始来源备注',
     'zzhl-dividend-signal 最新信号',
     '<td>中证红利股息率信号</td>',
@@ -639,9 +640,9 @@ test('market summary renders three overview cards and includes signal sources in
   assert.match(artifact, /"bondDate": "\d{4}-\d{2}-\d{2}"/);
   assert.doesNotMatch(artifact, /记录信息|dividend-record-list/);
   assert.ok(artifact.includes('AKShare stock_zh_index_value_csindex(000922, 股息率2)'));
-  assert.ok(appSource.includes('数据日期：${displayDate}'));
+  assert.ok(appSource.includes('${escapeHtml(displayDate)}'));
   assert.match(appSource, /state\.dividendSignal = signal/);
-  assert.match(appSource, /renderDerived\(derived, state\.youzhiyouxingTemperature, state\.nasdaq100, state\.dividendSignal\)/);
+  assert.match(appSource, /renderDerived\(derived, state\.youzhiyouxingTemperature, state\.nasdaq100, state\.dividendSignal,/);
   assert.match(appSource, /viewId === 'market-summary' \|\| viewId === 'dividend-signal-view'/);
   assert.match(appSource, /absolute\.grade \? `\$\{absolute\.grade\} \$\{absolute\.label\}`/);
   assert.match(appSource, /const displayDate = signal\.indexDate \|\| signal\.recordDate/);

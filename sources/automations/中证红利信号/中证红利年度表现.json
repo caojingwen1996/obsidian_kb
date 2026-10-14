@@ -2,7 +2,7 @@
   "indexCode": "000922",
   "source": "中证指数官网 index-perf(000922)",
   "firstDate": "2008-05-26",
-  "lastDate": "2026-09-29",
+  "lastDate": "2026-10-13",
   "returnConvention": "每年首个可用交易日收盘价至末个可用交易日收盘价",
   "drawdownConvention": "每个自然年内日收盘价相对此前峰值的最大跌幅",
   "rows": [
@@ -1693,8 +1693,8 @@
     {
       "year": 2026,
       "start_date": "2026-01-05",
-      "end_date": "2026-09-29",
-      "annual_return": -1.745663442603962,
+      "end_date": "2026-10-13",
+      "annual_return": 1.9900020271052865,
       "max_drawdown": -15.96361099166238,
       "status": "年内",
       "monthly_returns": [
@@ -1756,15 +1756,17 @@
         },
         {
           "month": 9,
-          "value": -5.066959055123621,
+          "value": -3.936052266185408,
           "startDate": "2026-08-31",
-          "endDate": "2026-09-29",
-          "status": "月内累计"
+          "endDate": "2026-09-30",
+          "status": "已统计"
         },
         {
           "month": 10,
-          "value": null,
-          "status": "未开始"
+          "value": 2.580033276658633,
+          "startDate": "2026-09-30",
+          "endDate": "2026-10-13",
+          "status": "月内累计"
         },
         {
           "month": 11,

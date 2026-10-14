@@ -16,21 +16,25 @@ from pathlib import Path
 from typing import Iterable
 from urllib import parse, request
 
+try:
+    from .scoring import load_strategy, score_input, confirm_records, grade_for_score, finite
+except ImportError:
+    from scoring import load_strategy, score_input, confirm_records, grade_for_score, finite
+
 
 INDEX_CODE = "000922"
 INDEX_DAILY_SYMBOL = "sh000922"
 INDEX_INCEPTION_DATE = "20080526"
+CSI_TR_SYMBOL = "H00922"
+TRADING_DAYS_PER_YEAR = 244
+MIN_PERCENTILE_WINDOW_ROWS = 2000
 CSINDEX_PERFORMANCE_URL = "https://www.csindex.com.cn/csindex-home/perf/index-perf"
 LIXINGER_INDEX_PATH = "sh/000922/922"
 LIXINGER_PUBLIC_URL = (
     "https://www.lixinger.com/equity/index/detail/"
     f"{LIXINGER_INDEX_PATH}/fundamental/valuation/dyr?metrics-type=mcw"
 )
-XUEQIU_SYMBOL = "SH000922"
-XUEQIU_REALTIME_URL = (
-    "https://stock.xueqiu.com/v5/stock/realtime/quotec.json"
-    f"?symbol={XUEQIU_SYMBOL}"
-)
+TENCENT_QUOTE_URL = "http://qt.gtimg.cn/q=sh000922"
 
 
 @dataclass
@@ -44,7 +48,7 @@ class LixingerPercentile:
 
 
 @dataclass
-class XueqiuQuote:
+class IntradayQuote:
     date: str
     change_percent: float | None
     source: str
@@ -97,8 +101,8 @@ class Signal:
     akshare_dividend_yield_2: float
     ytd_return: float
     ytd_max_drawdown: float
-    xueqiu_quote_date: str
-    xueqiu_change_percent: str
+    intraday_quote_date: str
+    intraday_change_percent: str
     lixinger_date: str
     lixinger_dividend_yield: str
     lixinger_percentile_10y: str
@@ -113,6 +117,10 @@ class Signal:
     source_note: str
     annual_performance: list[AnnualPerformance] = field(default_factory=list)
     annual_performance_source: str = ""
+    percentile_value: float | None = None
+    scoring: dict = field(default_factory=dict)
+    trading_dates: list[str] = field(default_factory=list)
+    strategy: dict = field(default_factory=dict)
 
 
 CSV_HEADER_LABELS = {
@@ -129,7 +137,7 @@ CSV_CHINESE_LABELS = {
     "akshare_dividend_yield_2": "指数股息率口径(%)",
     "ytd_return": "全年收益率(%)",
     "ytd_max_drawdown": "年内最大回撤(%)",
-    "xueqiu_change_percent": "雪球当天涨跌幅(%)",
+    "intraday_change_percent": "当天涨跌幅(%)",
     "bond_date": "中国10年国债收益率日期",
     "bond_10y_yield": "中国10年国债收益率(%)",
     "spread": "股债利差:股息率2-10年国债收益率(百分点)",
@@ -150,7 +158,7 @@ CSV_FIELD_ORDER = [
     "akshare_dividend_yield_2",
     "ytd_return",
     "ytd_max_drawdown",
-    "xueqiu_change_percent",
+    "intraday_change_percent",
     "bond_date",
     "bond_10y_yield",
     "spread",
@@ -164,6 +172,16 @@ CSV_FIELD_ORDER = [
     "lixinger_percentile_80_value",
     "lixinger_source",
 ]
+
+SCORE_FIELD_LABELS = {
+    "strategy_version": "评分策略版本", "composite_score": "综合分",
+    "composite_grade": "综合等级", "score_lower": "综合分下界", "score_upper": "综合分上界",
+    "percentile_score": "历史分位得分", "absolute_score": "绝对股息率得分", "ratio_score": "股债倍数得分",
+    "percentile_contribution": "历史分位贡献", "absolute_contribution": "绝对股息率贡献", "ratio_contribution": "股债倍数贡献",
+    "score_quality": "评分数据质量", "confirmation_status": "连续确认状态",
+}
+CSV_FIELD_ORDER += list(SCORE_FIELD_LABELS)
+CSV_CHINESE_LABELS.update(SCORE_FIELD_LABELS)
 
 EXCEL_BOLD_FIELDS = {
     "percentile_signal",
@@ -304,77 +322,60 @@ def fetch_lixinger_public_percentile() -> LixingerPercentile:
     return parse_lixinger_public_percentile(text, LIXINGER_PUBLIC_URL)
 
 
-def quote_date_from_timestamp(value) -> str:
-    if value in (None, ""):
-        return ""
-    timestamp = float(value)
-    if timestamp > 10_000_000_000:
-        timestamp = timestamp / 1000
-    return datetime.fromtimestamp(timestamp).strftime("%Y-%m-%d")
-
-
-def parse_xueqiu_quote_payload(text: str) -> XueqiuQuote:
-    if not text.strip():
-        raise RuntimeError("雪球实时行情接口返回空响应")
-    payload = json.loads(text)
-    data = payload.get("data")
-    if isinstance(data, list):
-        quote = data[0] if data else {}
-    elif isinstance(data, dict):
-        quote = data.get("quote") if isinstance(data.get("quote"), dict) else data
-    else:
-        quote = {}
-    if not isinstance(quote, dict):
-        raise RuntimeError("雪球实时行情接口返回结构异常")
-
-    change = None
-    for key in ("percent", "chg_percent", "change_percent"):
-        if quote.get(key) is not None:
-            change = to_float(quote[key])
-            break
+def parse_tencent_quote_payload(text: str) -> IntradayQuote:
+    if '="' not in text:
+        raise RuntimeError("腾讯行情接口返回结构异常")
+    payload = text.split('="', 1)[1].rsplit('"', 1)[0]
+    if not payload.strip():
+        raise RuntimeError("腾讯行情接口返回空响应")
+    fields = payload.split("~")
+    if len(fields) < 33:
+        raise RuntimeError("腾讯行情接口字段不足")
+    change = to_float(fields[32])
     if change is None:
-        raise RuntimeError("雪球实时行情接口缺少涨跌幅字段")
-
+        raise RuntimeError("腾讯行情接口缺少涨跌幅字段")
+    raw_ts = fields[30]
     quote_date = (
-        str(quote.get("date", ""))[:10]
-        or quote_date_from_timestamp(quote.get("timestamp"))
-        or quote_date_from_timestamp(quote.get("time"))
+        f"{raw_ts[:4]}-{raw_ts[4:6]}-{raw_ts[6:8]}"
+        if re.fullmatch(r"\d{14}", raw_ts)
+        else ""
     )
-    return XueqiuQuote(
+    return IntradayQuote(
         date=quote_date,
         change_percent=change,
-        source="雪球实时行情",
-        note=XUEQIU_REALTIME_URL,
+        source="腾讯行情",
+        note=TENCENT_QUOTE_URL,
     )
 
 
-def fetch_xueqiu_realtime_quote() -> XueqiuQuote:
+def fetch_tencent_realtime_quote() -> IntradayQuote:
     req = request.Request(
-        XUEQIU_REALTIME_URL,
+        TENCENT_QUOTE_URL,
         headers={
             "User-Agent": (
                 "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                 "AppleWebKit/537.36 (KHTML, like Gecko) "
                 "Chrome/126.0 Safari/537.36"
             ),
-            "Accept": "application/json,text/plain,*/*",
-            "Referer": f"https://xueqiu.com/S/{XUEQIU_SYMBOL}",
+            "Accept": "*/*",
+            "Referer": "https://gu.qq.com/",
         },
     )
     with request.urlopen(req, timeout=25) as response:
-        text = response.read().decode("utf-8", errors="replace")
-    return parse_xueqiu_quote_payload(text)
+        raw = response.read()
+    text = raw.decode("gbk", errors="replace")
+    return parse_tencent_quote_payload(text)
 
 
-def get_xueqiu_realtime_quote() -> XueqiuQuote:
+def get_intraday_realtime_quote() -> IntradayQuote:
     try:
-        return fetch_xueqiu_realtime_quote()
+        return fetch_tencent_realtime_quote()
     except Exception as exc:
-        return XueqiuQuote(
+        return IntradayQuote(
             date="",
             change_percent=None,
-            source="雪球实时行情待验证",
-            note=f"雪球实时行情失败：{exc}",
+            source="腾讯行情待验证",
+            note=f"腾讯行情失败：{exc}",
         )
 
 
@@ -397,8 +398,63 @@ def make_llm_lixinger_percentile(
     )
 
 
+def fetch_csi_derived_percentile(ak) -> LixingerPercentile:
+    """理杏仁不可用时的兜底口径：用官方价格指数与全收益指数推算滚动12个月股息率及其近10年分位。
+
+    股息率(t) = (TR/PR)(t) / (TR/PR)(t-244) - 1，即全收益指数相对价格指数一年内的超额部分，
+    等价于滚动12个月股息贡献。分位取当前值在近10年窗口内的位置，80%分位点取窗口收益率的80分位值。
+    """
+    import numpy as np
+    import pandas as pd
+
+    end_date = datetime.now().strftime("%Y%m%d")
+    closes: dict[str, pd.Series] = {}
+    for symbol in (INDEX_CODE, CSI_TR_SYMBOL):
+        frame = ak.stock_zh_index_hist_csindex(
+            symbol=symbol, start_date=INDEX_INCEPTION_DATE, end_date=end_date
+        )
+        series = frame[["日期", "收盘"]].copy()
+        series["日期"] = pd.to_datetime(series["日期"])
+        series["收盘"] = pd.to_numeric(series["收盘"], errors="coerce")
+        series = series.dropna().set_index("日期")["收盘"]
+        if series.empty:
+            raise RuntimeError(f"中证指数历史行情为空：{symbol}")
+        closes[symbol] = series
+    merged = pd.concat(closes, axis=1).dropna().sort_index()
+    merged.columns = ["price", "total_return"]
+    if len(merged) <= TRADING_DAYS_PER_YEAR:
+        raise RuntimeError("官方指数历史不足一年，无法推算滚动股息率")
+
+    ratio = merged["total_return"] / merged["price"]
+    yields = (ratio / ratio.shift(TRADING_DAYS_PER_YEAR) - 1) * 100
+    yields = yields.dropna()
+    if yields.empty:
+        raise RuntimeError("滚动股息率序列为空")
+
+    current_date = yields.index[-1]
+    current = float(yields.iloc[-1])
+    window_start = current_date - pd.DateOffset(years=10)
+    window = yields[(yields.index > window_start) & (yields.index <= current_date)]
+    if len(window) < MIN_PERCENTILE_WINDOW_ROWS:
+        raise RuntimeError(f"近10年窗口样本不足：{len(window)} 个交易日")
+    percentile = float((window < current).mean() * 100)
+    percentile_80 = float(np.percentile(window, 80))
+    return LixingerPercentile(
+        date=current_date.strftime("%Y-%m-%d"),
+        dividend_yield=current,
+        percentile_10y=percentile,
+        percentile_80_value=percentile_80,
+        source="中证官方指数推算",
+        note=(
+            f"000922价格指数×H00922全收益指数推算滚动12个月股息率({current:.2f}%)，"
+            f"近10年窗口{len(window)}个交易日，当前分位{percentile:.2f}%，80%分位点{percentile_80:.2f}%"
+        ),
+    )
+
+
 def fetch_lixinger_percentile(
     llm_percentile: LixingerPercentile | None = None,
+    ak=None,
 ) -> LixingerPercentile:
     errors: list[str] = []
     try:
@@ -410,6 +466,12 @@ def fetch_lixinger_percentile(
     if llm_percentile is not None:
         llm_percentile.note = f"{llm_percentile.note}; 公开页面失败后采用：{public_error}"
         return llm_percentile
+
+    if ak is not None:
+        try:
+            return fetch_csi_derived_percentile(ak)
+        except Exception as csi_exc:
+            errors.append(f"官方指数推算失败：{csi_exc}")
 
     errors.append("未提供大模型网页查询结果")
 
@@ -472,6 +534,8 @@ def strong_signal_count(signals: Iterable[object]) -> int:
 
 
 def should_highlight_signal_row(row: dict[str, object]) -> bool:
+    if row.get("strategy_version"):
+        return row.get("composite_grade") in {"B", "A"}
     return (
         strong_signal_count(
             [
@@ -501,11 +565,12 @@ def normalize_output_row(row: dict[str, object]) -> dict[str, object]:
     normalized = dict(row)
     for field in ("percentile_signal", "absolute_signal", "spread_signal"):
         normalized[field] = normalize_signal_label(normalized.get(field, ""))
-    normalized["headline_signal"] = build_headline(
-        str(normalized.get("percentile_signal", "")),
-        str(normalized.get("absolute_signal", "")),
-        str(normalized.get("spread_signal", "")),
-    )
+    if not normalized.get("headline_signal") and not normalized.get("strategy_version"):
+        normalized["headline_signal"] = build_headline(
+            str(normalized.get("percentile_signal", "")),
+            str(normalized.get("absolute_signal", "")),
+            str(normalized.get("spread_signal", "")),
+        )
     return normalized
 
 
@@ -728,6 +793,7 @@ def fetch_signal(
     llm_percentile: LixingerPercentile | None = None,
     target_run_date: datetime | None = None,
 ) -> Signal:
+    strategy = load_strategy()
     ak = import_akshare()
     run_date = target_run_date or datetime.now()
     index_valuation = fetch_index_valuation(ak, run_date)
@@ -757,19 +823,19 @@ def fetch_signal(
             note=f"AKShare: {fallback_method}({INDEX_DAILY_SYMBOL}, {fallback_close_col})",
         )
         annual_performance_source = f"AKShare {fallback_method}({INDEX_DAILY_SYMBOL})"
-    xueqiu_quote = get_xueqiu_realtime_quote()
+    intraday_quote = get_intraday_realtime_quote()
 
     bond_yield = fetch_bond_yield(ak, latest_date)
     bond_10y = bond_yield.yield_10y
     spread = dividend_yield_2 - bond_10y
 
-    lixinger = fetch_lixinger_percentile(llm_percentile)
+    lixinger = fetch_lixinger_percentile(llm_percentile, ak=ak)
     percentile_signal = evaluate_percentile(lixinger.percentile_10y)
     absolute_signal = evaluate_absolute(dividend_yield_2)
     spread_signal = evaluate_spread(dividend_yield_2, bond_10y)
-    headline = build_headline(percentile_signal, absolute_signal, spread_signal)
+    headline = "等待V1评分"
 
-    return Signal(
+    signal = Signal(
         run_date=run_date.strftime("%Y-%m-%d"),
         run_time=datetime.now().strftime("%H:%M:%S"),
         index_date=index_valuation.date,
@@ -777,11 +843,11 @@ def fetch_signal(
         akshare_dividend_yield_2=dividend_yield_2,
         ytd_return=index_performance.ytd_return,
         ytd_max_drawdown=index_performance.ytd_max_drawdown,
-        xueqiu_quote_date=xueqiu_quote.date,
-        xueqiu_change_percent=(
+        intraday_quote_date=intraday_quote.date,
+        intraday_change_percent=(
             ""
-            if xueqiu_quote.change_percent is None
-            else f"{xueqiu_quote.change_percent:.2f}"
+            if intraday_quote.change_percent is None
+            else f"{intraday_quote.change_percent:.2f}"
         ),
         lixinger_date=lixinger.date,
         lixinger_dividend_yield=(
@@ -804,12 +870,24 @@ def fetch_signal(
         headline_signal=headline,
         source_note=(
             f"{index_valuation.note}; {index_performance.note}; {bond_yield.note}; "
-            f"{xueqiu_quote.source}: {xueqiu_quote.note}; "
+            f"{intraday_quote.source}: {intraday_quote.note}; "
             f"{lixinger.source}: {lixinger.note}"
         ),
         annual_performance=annual_performance,
         annual_performance_source=annual_performance_source,
     )
+    history = index_history if annual_performance_source.startswith("中证") else fallback_history
+    history_date_col = "date" if annual_performance_source.startswith("中证") else fallback_date_col
+    signal.trading_dates = sorted({str(v)[:10] for v in history[history_date_col] if str(v)[:10] <= signal.index_date})
+    signal.strategy = strategy
+    signal.percentile_value = lixinger.percentile_10y
+    signal.scoring = score_signal(signal)
+    for key, attr in (("percentile", "percentile_signal"), ("absolute", "absolute_signal"), ("ratio", "spread_signal")):
+        value = signal.scoring["components"][key]["score"]
+        setattr(signal, attr, grade_for_score(value, signal.strategy) if value is not None else "")
+    signal.headline_signal = signal.scoring["label"]
+    return signal
+
 
 
 def output_field_name(name: str) -> str:
@@ -817,9 +895,17 @@ def output_field_name(name: str) -> str:
 
 
 def signal_output_row(signal: Signal) -> dict[str, object]:
-    return normalize_output_row(
-        {output_field_name(name): getattr(signal, name) for name in CSV_FIELD_ORDER}
-    )
+    row = {output_field_name(name): getattr(signal, name, "") for name in CSV_FIELD_ORDER}
+    score = signal.scoring
+    if score:
+        row.update(strategy_version=score["strategyVersion"], composite_score=score["score"],
+                   composite_grade=score["grade"], score_lower=score["lower"], score_upper=score["upper"],
+                   score_quality="；".join(score["quality"]),
+                   confirmation_status=score.get("confirmation", {}).get("message", "证据不足"))
+        for key, component in score["components"].items():
+            row[key + "_score"] = component["score"]
+            row[key + "_contribution"] = component["contribution"]
+    return normalize_output_row(row)
 
 
 def read_rows_from_csv(csv_path: Path) -> list[dict[str, object]]:
@@ -834,7 +920,7 @@ def read_rows_from_csv(csv_path: Path) -> list[dict[str, object]]:
             rows.append(
                 normalize_output_row(
                     {
-                        output_field_name(name): row.get(output_field_name(name), "")
+                        output_field_name(name): row.get(output_field_name(name), row.get("xueqiu_change_percent", "") if name == "intraday_change_percent" else "")
                         for name in CSV_FIELD_ORDER
                     }
                 )
@@ -861,7 +947,7 @@ def read_rows_from_xlsx(xlsx_path: Path) -> list[dict[str, object]]:
             rows.append(
                 normalize_output_row(
                     {
-                        output_field_name(name): row.get(output_field_name(name), "")
+                        output_field_name(name): row.get(output_field_name(name), row.get("xueqiu_change_percent", "") if name == "intraday_change_percent" else "")
                         for name in CSV_FIELD_ORDER
                     }
                 )
@@ -893,6 +979,7 @@ def write_xlsx(
         row
         for row in rows
         if row.get(CSV_HEADER_LABELS["run_date"], "") != signal.run_date
+        or (row.get("strategy_version") or "legacy") != (signal.scoring.get("strategyVersion") or "legacy")
     ]
     rows.append(signal_output_row(signal))
 
@@ -952,13 +1039,14 @@ def write_xlsx(
         "akshare_dividend_yield_2": "0.00",
         "ytd_return": "0.00",
         "ytd_max_drawdown": "0.00",
-        "xueqiu_change_percent": "0.00",
+        "intraday_change_percent": "0.00",
         "bond_10y_yield": "0.0000",
         "spread": "0.0000",
         "lixinger_dividend_yield": "0.00",
         "lixinger_percentile_10y": "0.00",
         "lixinger_percentile_80_value": "0.00",
     }
+    numeric_formats.update({name: "0.0000" for name in SCORE_FIELD_LABELS if name.endswith(("score", "contribution", "lower", "upper"))})
     for field, number_format in numeric_formats.items():
         column_index = output_fieldnames.index(output_field_name(field)) + 1
         for row_index in range(3, sheet.max_row + 1):
@@ -981,7 +1069,8 @@ def write_xlsx(
 
     sheet.auto_filter.ref = sheet.dimensions
     sheet.freeze_panes = "A3"
-    sheet.row_dimensions[2].hidden = True
+    # 中文标签行改为可见；保留 outlineLevel 以便用户在 Excel 里手动折叠。
+    sheet.row_dimensions[2].hidden = False
     sheet.row_dimensions[2].outlineLevel = 1
     sheet.sheet_properties.outlinePr.summaryBelow = False
     workbook.save(xlsx_path)
@@ -999,21 +1088,24 @@ def write_markdown(signal: Signal, md_path: Path) -> None:
         if signal.lixinger_percentile_80_value
         else "待验证"
     )
+    def display_number(value):
+        return f"{value:.2f}" if finite(value) else "待验证"
+
     text = f"""# 中证红利最新股息率信号
 
 - 运行时间：{signal.run_date} {signal.run_time}
 - 指数估值日期：{signal.index_date}
 - 理杏仁估值日期：{signal.lixinger_date or "待确认"}
 - 10年国债收益率日期：{signal.bond_date}
-- 中证红利股息率口径：{signal.akshare_dividend_yield_2:.2f}%
-- 全年收益率：{signal.ytd_return:.2f}%
-- 年内最大回撤：{signal.ytd_max_drawdown:.2f}%
-- 雪球当天涨跌幅：{signal.xueqiu_change_percent + "%" if signal.xueqiu_change_percent else "待验证"}
+- 中证红利股息率口径：{display_number(signal.akshare_dividend_yield_2)}%
+- 全年收益率：{display_number(signal.ytd_return)}%
+- 年内最大回撤：{display_number(signal.ytd_max_drawdown)}%
+- 当天涨跌幅：{signal.intraday_change_percent + "%" if signal.intraday_change_percent else "待验证"}
 - 理杏仁市值加权股息率：{signal.lixinger_dividend_yield + "%" if signal.lixinger_dividend_yield else "待验证"}
 - 理杏仁近10年股息率分位：{percentile_text}
 - 理杏仁近10年80%分位点：{p80_text}
-- 中国10年国债收益率：{signal.bond_10y_yield:.2f}%
-- 指数股息率口径 - 10年国债收益率：{signal.spread:.2f}%
+- 中国10年国债收益率：{display_number(signal.bond_10y_yield)}%
+- 指数股息率口径 - 10年国债收益率：{display_number(signal.spread)}%
 
 ## 判断
 
@@ -1031,9 +1123,19 @@ def write_markdown(signal: Signal, md_path: Path) -> None:
 - 本记录只是按既定规则生成的观察信号，不构成投资建议。
 - 指数股息率口径用于绝对股息率、股债利差记录和相对国债收益率倍数评级；当前使用 AKShare `股息率2`。
 - 全年收益率和年内最大回撤均按本年度首个交易日至指数估值日期的日收盘价计算。
-- 理杏仁市值加权股息率用于近10年历史分位判断。
+- 理杏仁市值加权股息率用于近10年历史分位判断；理杏仁不可用时，改用中证官方价格指数(000922)与全收益指数(H00922)推算的滚动12个月股息率分位，实际口径以来源栏为准。
 - 若数据源字段、接口或口径变化，需要重新核对脚本。
 """
+    if signal.scoring:
+        score = signal.scoring
+        value = f"{score['score']:.1f}" if score['score'] is not None else f"{score['lower']:.1f}～{score['upper']:.1f}（不完整）"
+        details = ["## V1 加权评分", "", f"- 策略版本：{score['strategyVersion']}", f"- 综合分：{value}", f"- 综合等级：{score['grade'] or '待验证'}", f"- 数据质量：{'；'.join(score['quality'])}", f"- 连续确认：{score.get('confirmation', {}).get('message', '证据不足')}"]
+        for key, item in score["components"].items():
+            label = {"percentile": "历史分位", "absolute": "绝对股息率", "ratio": "股债倍数"}[key]
+            detail = "待验证" if item["score"] is None else f"{item['score']:.4f} × {item['weight']}% = {item['contribution']:.4f}；锚点 {item['interval']}"
+            details.append(f"- {label}贡献：{detail}")
+        details += ["", "等级按未舍入分数判定；缺项不重分配权重。替代口径标记参考评分，日期未对齐不参与连续确认。参数尚未经收益回测验证。", ""]
+        text += "\n" + "\n".join(details)
     md_path.write_text(text, encoding="utf-8")
 
 
@@ -1060,8 +1162,109 @@ def write_annual_performance_json(
     )
 
 
+def numeric_input(value):
+    try:
+        return float(value) if value not in (None, "") else None
+    except (ValueError, TypeError):
+        return None
+
+
+def score_signal(signal, kind="daily"):
+    return score_input(
+        {"percentile": signal.percentile_value if signal.percentile_value is not None else numeric_input(signal.lixinger_percentile_10y), "dividendYield": signal.akshare_dividend_yield_2, "bondYield": signal.bond_10y_yield},
+        strategy=signal.strategy or load_strategy(),
+        dates={"index": signal.index_date, "percentile": signal.lixinger_date, "bond": signal.bond_date},
+        source_key=f"股息率2|bond_zh_us_rate|{signal.lixinger_source}" if signal.lixinger_source else "",
+        reference="推算" in signal.lixinger_source, kind=kind,
+    )
+
+
+def legacy_score_records(output_dir):
+    rows = read_rows_from_xlsx(output_dir / "中证红利每日信号.xlsx")
+    if not rows:
+        rows = read_rows_from_csv(output_dir / "中证红利每日信号.csv")
+    records = []
+    for row in rows:
+        record = score_input(
+            {"percentile": numeric_input(row.get("lixinger_percentile_10y")), "dividendYield": numeric_input(row.get("akshare_dividend_yield_2")), "bondYield": numeric_input(row.get("bond_10y_yield"))},
+            dates={"index": row.get(CSV_HEADER_LABELS["index_date"], ""), "percentile": row.get(CSV_HEADER_LABELS["lixinger_date"], ""), "bond": row.get(CSV_HEADER_LABELS["bond_date"], "")},
+            source_key=str(row.get("lixinger_source") or ""), reference=True, kind="legacy",
+        )
+        record["originalHeadline"] = row.get("headline_signal", "")
+        record["recordDate"] = row.get(CSV_HEADER_LABELS["run_date"], "")
+        records.append(record)
+    return records
+
+
+def write_score_artifact(signal, output_dir, kind="daily"):
+    path = output_dir / "评分记录.json"
+    previous = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+    records = previous.get("records", []) or legacy_score_records(output_dir)
+    signal.strategy = signal.strategy or load_strategy()
+    result = score_signal(signal, kind)
+    result["strategySnapshot"] = signal.strategy
+    raw = asdict(signal)
+    for key in ("scoring", "trading_dates", "annual_performance", "strategy"):
+        raw.pop(key, None)
+    raw = {key: None if isinstance(value, float) and not finite(value) else value for key, value in raw.items()}
+    result.update(raw=raw, recordDate=signal.run_date)
+    prior = next((r for r in reversed(records) if r.get("dates", {}).get("index") == signal.index_date), {})
+    result["originalHeadline"] = prior.get("originalHeadline") or prior.get("raw", {}).get("headline_signal", "")
+    # Preserve the original legacy observation as provenance; it cannot confirm V1.
+    records = [r for r in records if not (r.get("dates", {}).get("index") == signal.index_date and r.get("strategyVersion") == result["strategyVersion"])]
+    records.append(result)
+    records.sort(key=lambda r: r.get("dates", {}).get("index", ""))
+    calendar = sorted(set(previous.get("tradingDates", []) + signal.trading_dates))
+    result["confirmation"] = confirm_records(records, calendar, signal.strategy["confirmationDays"])
+    signal.scoring = result
+    payload = {"schemaVersion": 1, "strategy": signal.strategy, "latest": result, "records": records, "tradingDates": calendar}
+    output_dir.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_suffix(".json.tmp")
+    temporary.write_text(json.dumps(payload, ensure_ascii=False, indent=2, allow_nan=False) + "\n", encoding="utf-8")
+    temporary.replace(path)
+    return payload
+
+
+def snapshot_from_local(output_dir):
+    text = (output_dir / "最新信号.md").read_text(encoding="utf-8-sig")
+    def pick(label):
+        match = re.search(r"^- " + re.escape(label) + r"：(.+)$", text, re.M)
+        return match.group(1).strip() if match else ""
+    def number(label):
+        match = re.search(r"-?\d+(?:\.\d+)?", pick(label))
+        return float(match.group()) if match else None
+    def numeric_text(label):
+        value = number(label)
+        return str(value) if value is not None else ""
+    quote_value = number("当天涨跌幅")
+    if quote_value is None:
+        quote_value = number("雪球当天涨跌幅")
+    run = pick("运行时间").split()
+    note = re.search(r"## 来源\s+- (.+)", text)
+    source_note = note.group(1) if note else ""
+    source = "中证官方指数推算" if "官方指数推算" in source_note else "理杏仁公开页面" if "理杏仁" in source_note else ""
+    signal = Signal(
+        run_date=run[0] if run else "", run_time=run[1] if len(run) > 1 else "",
+        index_date=pick("指数估值日期"), bond_date=pick("10年国债收益率日期"),
+        akshare_dividend_yield_2=number("中证红利股息率口径"), bond_10y_yield=number("中国10年国债收益率"),
+        ytd_return=number("全年收益率"), ytd_max_drawdown=number("年内最大回撤"),
+        intraday_quote_date="", intraday_change_percent=str(quote_value) if quote_value is not None else "", lixinger_date=pick("理杏仁估值日期"),
+        lixinger_dividend_yield=numeric_text("理杏仁市值加权股息率"),
+        lixinger_percentile_10y=numeric_text("理杏仁近10年股息率分位"),
+        lixinger_percentile_80_value=numeric_text("理杏仁近10年80%分位点"),
+        lixinger_source=source, spread=number("指数股息率口径 - 10年国债收益率"),
+        percentile_signal=pick("历史分位点触发"), absolute_signal=pick("绝对股息率触发"),
+        spread_signal=pick("相对债券收益率触发"), headline_signal=pick("综合结论"), source_note=source_note,
+    )
+    payload = write_score_artifact(signal, output_dir, kind="snapshot")
+    signal.headline_signal = signal.scoring["label"]
+    write_markdown(signal, output_dir / "V1参考快照.md")
+    return payload
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--snapshot-from-local", action="store_true", help="只重算本地原始数据，不联网、不改写旧记录")
     parser.add_argument("--output-dir", default="sources/automations/中证红利信号")
     parser.add_argument("--run-date", default=None, help="Override run date in YYYY-MM-DD")
     parser.add_argument("--llm-lixinger-date", default=None)
@@ -1072,6 +1275,10 @@ def main() -> int:
     args = parser.parse_args()
 
     output_dir = Path(args.output_dir)
+    if args.snapshot_from_local:
+        payload = snapshot_from_local(output_dir)
+        print(f"本地参考快照：{payload['latest']['dates']['index']}，{payload['latest']['score']}分")
+        return 0
     target_run_date = (
         datetime.fromisoformat(args.run_date) if args.run_date else None
     )
@@ -1086,6 +1293,7 @@ def main() -> int:
         llm_percentile=llm_percentile,
         target_run_date=target_run_date,
     )
+    write_score_artifact(signal, output_dir)
     write_xlsx(
         signal,
         output_dir / "中证红利每日信号.xlsx",

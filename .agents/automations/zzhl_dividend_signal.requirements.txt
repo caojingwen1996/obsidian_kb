@@ -1,0 +1,4 @@
+# Direct dependencies verified for the daily signal task (Python 3.12).
+akshare==1.19.1
+pandas==3.0.6
+openpyxl==3.1.5

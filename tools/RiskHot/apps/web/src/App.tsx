@@ -63,6 +63,8 @@ import {
 } from './components';
 import { CommandForm, type CommandIntent } from './CommandForm';
 import { label } from './labels';
+import { ManagementPage } from './ManagementPage';
+import { managementPages, type Collection } from './management';
 
 interface Workspace {
   session: Session;
@@ -83,7 +85,10 @@ const navigation: { path: string; label: string; icon: LucideIcon; group: string
   { path: '/analysis', label: '观察分析', icon: FlaskConical, group: '研究' },
   { path: '/reports', label: '研究报告', icon: FileText, group: '研究' },
   { path: '/reviews', label: '复核中心', icon: ClipboardCheck, group: '管理' },
+  { path: '/reference', label: '基础资料', icon: BookOpen, group: '资料' },
+  { path: '/data', label: '数据管理', icon: Database, group: '资料' },
   { path: '/config', label: '配置中心', icon: SlidersHorizontal, group: '管理' },
+  { path: '/strategies', label: '策略中心', icon: Settings2, group: '管理' },
   { path: '/operations', label: '运行中心', icon: Activity, group: '管理' },
   { path: '/accounts', label: '账号与权限', icon: Users, group: '管理' },
 ];
@@ -297,10 +302,10 @@ export function AppShell() {
             宏观风险研究工作区
           </div>
           <nav aria-label="主导航">
-            {['研究', '管理'].map((group) => (
+            {['研究', '资料', '管理'].map((group) => (
               <div className="nav-group" key={group}>
                 <div className="nav-caption">
-                  {group} / {group === '研究' ? 'RESEARCH' : 'CONTROL'}
+                  {group} / {group === '研究' ? 'RESEARCH' : group === '资料' ? 'REFERENCE' : 'CONTROL'}
                 </div>
                 {navigation
                   .filter((item) => item.group === group)
@@ -426,7 +431,12 @@ export function CommandButton({
     schema = contracts[name];
   if (!schema || !schema['x-roles']?.some((role) => session.user.roles.includes(role))) return null;
   return (
-    <button className={className} onClick={() => act({ name, record, defaults, domain })}>
+    <button
+      className={className}
+      onClick={() =>
+        act({ name, record, defaults, domain, title: name.startsWith('reference.') ? title : undefined })
+      }
+    >
       {icon && <Plus size={15} />}
       {title ?? schema.title}
     </button>
@@ -595,14 +605,6 @@ export function Dashboard() {
   );
 }
 
-interface Collection {
-  domain: Domain;
-  kind: string;
-  title: string;
-  command?: string;
-  commandTitle?: string;
-  defaults?: Data;
-}
 interface SectionDefinition {
   index: string;
   title: string;
@@ -654,33 +656,6 @@ const sections: Record<string, SectionDefinition> = {
       },
     ],
   },
-  config: {
-    index: '07',
-    title: '配置中心',
-    description: '共同的语言、明确的边界、版本化的研究规则。',
-    collections: [
-      ...[
-        'target',
-        'variable',
-        'risk_source',
-        'dimension',
-        'rule',
-        'prompt',
-        'model',
-        'market',
-        'variable_candidate',
-      ].map((kind) => ({
-        domain: 'reference' as Domain,
-        kind,
-        title: label(kind),
-        command: 'reference.save',
-        defaults: { kind },
-      })),
-      { domain: 'observations', kind: 'indicator', title: '指标', command: 'observations.indicator' },
-      { domain: 'observations', kind: 'mapping', title: '变量映射', command: 'observations.mapping' },
-      { domain: 'observations', kind: 'value', title: '观测数据', command: 'observations.import' },
-    ],
-  },
   operations: {
     index: '08',
     title: '运行中心',
@@ -727,6 +702,23 @@ export function SectionPage() {
     <RiskCatalogue />
   ) : section === 'reviews' ? (
     <Reviews />
+  ) : managementPages[section] ? (
+    <ManagementPage
+      section={section}
+      definition={managementPages[section]!}
+      renderAction={(collection) =>
+        collection.command && (
+          <CommandButton
+            name={collection.command}
+            title={collection.commandTitle}
+            defaults={collection.defaults}
+          />
+        )
+      }
+      renderCollection={(collection) => (
+        <RecordCollection key={`${section}:${collection.kind}`} collection={collection} />
+      )}
+    />
   ) : sections[section] ? (
     <CollectionPage key={section} section={section} definition={sections[section]!} />
   ) : (
@@ -854,7 +846,9 @@ function RecordCollection({ collection }: { collection: Collection }) {
             <table className="record-table">
               <thead>
                 <tr>
-                  <th>研究记录 / RECORD</th>
+                  <th>
+                    {collection.emptyDescription ? `${collection.title} / RECORD` : '研究记录 / RECORD'}
+                  </th>
                   <th>状态</th>
                   <th>版本</th>
                   <th>更新于（北京时间）</th>
@@ -924,7 +918,8 @@ function RecordCollection({ collection }: { collection: Collection }) {
           description={
             search || status
               ? '调整关键词或状态筛选，查看其他记录。'
-              : '保存的真实业务记录将在这里展示；暂无记录不会被解释为没有风险。'
+              : (collection.emptyDescription ??
+                '保存的真实业务记录将在这里展示；暂无记录不会被解释为没有风险。')
           }
           action={
             search || status ? (
@@ -1303,16 +1298,23 @@ function Reviews() {
 }
 
 function rowActions(domain: Domain, row: RecordRow): { name: string; title?: string; defaults?: Data }[] {
-  if (domain === 'reference')
+  if (domain === 'reference') {
+    const strategy = ['rule', 'prompt'].includes(row.kind);
     return [
       ...(row.status === 'draft'
         ? [
-            { name: 'reference.save', title: '编辑配置' },
-            { name: row.kind === 'variable_candidate' ? 'reference.resolve_variable' : 'reference.approve' },
+            { name: 'reference.save', title: `编辑${label(row.kind)}` },
+            {
+              name: row.kind === 'variable_candidate' ? 'reference.resolve_variable' : 'reference.approve',
+              title: strategy ? '批准策略' : undefined,
+            },
           ]
         : []),
-      ...(row.status === 'approved' ? [{ name: 'reference.disable' }] : []),
+      ...(row.status === 'approved'
+        ? [{ name: 'reference.disable', title: strategy ? '停用策略' : undefined }]
+        : []),
     ];
+  }
   if (row.kind === 'source')
     return [
       { name: 'information.source_status' },

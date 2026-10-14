@@ -5,8 +5,11 @@ from datetime import date, datetime, timedelta, timezone
 from http.client import RemoteDisconnected
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import html
+import importlib
+import types
 import json
 import math
+import os
 from pathlib import Path
 import re
 import shutil
@@ -75,6 +78,7 @@ TODO_STATUSES = ("未开始", "进行中", "已完成")
 TODO_CREATE_SOURCE = "看板新增"
 DEFAULT_PORT = 49888
 TODO_ACTION_PORT = 49889
+DIVIDEND_WORKBOOK_PATH = Path("sources/automations/中证红利信号/中证红利每日信号.xlsx")
 FUGUI_DATA_PROVIDERS = {"akshare", "tushare"}
 AKSHARE_CODE_NAME_CACHE_TTL_SECONDS = 600
 AKSHARE_SPOT_CACHE_TTL_SECONDS = 120
@@ -2260,6 +2264,32 @@ def rerender_tracking_reports(tracking_items, vault_root, renderer_path=None, no
     }
 
 
+def open_dividend_workbook(vault_root):
+    root = Path(vault_root).resolve()
+    workbook = (root / DIVIDEND_WORKBOOK_PATH).resolve()
+    try:
+        workbook.relative_to(root)
+    except ValueError:
+        raise FileNotFoundError("未找到中证红利每日信号.xlsx")
+    if not workbook.is_file():
+        raise FileNotFoundError("未找到中证红利每日信号.xlsx")
+    if sys.platform == "win32":
+        os.startfile(str(workbook))
+    else:
+        command = ["open", "-b", "com.microsoft.Excel"] if sys.platform == "darwin" else ["xdg-open"]
+        subprocess.run([*command, str(workbook)], check=True, capture_output=True, timeout=10)
+    return {"opened": True, "file": DIVIDEND_WORKBOOK_PATH.as_posix()}
+
+
+def dividend_strategy_store():
+    package_name = "dashboard_dividend_runtime"
+    if package_name not in sys.modules:
+        package = types.ModuleType(package_name)
+        package.__path__ = [str(Path(__file__).resolve().parents[3] / ".agents/skills/zzhl-dividend-signal/scripts")]
+        sys.modules[package_name] = package
+    return importlib.import_module(package_name + ".strategy_store")
+
+
 def create_server(
     host="127.0.0.1",
     port=DEFAULT_PORT,
@@ -2269,12 +2299,14 @@ def create_server(
     review_diary_dir=None,
     renderer_path=None,
     node_executable=None,
+    dividend_strategy_path=None,
 ):
     """Create a loopback-only dashboard server with fixed proxy routes."""
     artifact = Path(dashboard_path or Path(__file__).resolve().parents[1] / "a-share-market-dashboard.html").resolve()
     portfolio_file = Path(
         portfolio_path or artifact.parent / "data" / "portfolio.json"
     ).resolve()
+    dividend_settings_file = Path(dividend_strategy_path or artifact.parent / "data/红利信号/strategy-settings.json").resolve()
     todo_data_file = (artifact.parent / "data" / "需求清单" / "todo.json").resolve()
     vault_root = artifact.parents[2]
     review_diary_dir = Path(
@@ -2337,6 +2369,34 @@ def create_server(
             except OSError:
                 return self.send_json(500, {"error": "dashboard artifact unavailable"})
             return self._send_bytes(200, body, "text/html; charset=utf-8")
+
+        def send_dividend_strategy(self):
+            try:
+                settings = dividend_strategy_store().read_settings(dividend_settings_file)
+            except (OSError, ValueError, TypeError):
+                return self.send_json(500, {"error": "每日策略配置无法读取，请检查配置文件"})
+            return self.send_json(200, settings)
+
+        def save_dividend_strategy(self):
+            origin = self.headers.get("Origin", "")
+            port = self.server.server_address[1]
+            if origin and origin not in {f"http://127.0.0.1:{port}", f"http://localhost:{port}"}:
+                return self.send_json(403, {"error": "请从本地看板应用每日策略"})
+            if urlparse(self.path).query or self.headers.get_content_type() != "application/json":
+                return self.send_json(400, {"error": "每日策略请求格式无效"})
+            try:
+                payload = self.read_todo_item_payload()
+                if not isinstance(payload, dict) or set(payload) != {"strategy", "expectedRevision"}:
+                    raise ValueError("每日策略请求格式无效")
+                store = dividend_strategy_store()
+                saved = store.save_settings(payload["strategy"], payload["expectedRevision"], dividend_settings_file)
+            except dividend_strategy_store().StrategyConflict as error:
+                return self.send_json(409, {"error": str(error), "settings": dividend_strategy_store().read_settings(dividend_settings_file)})
+            except (ValueError, TypeError, UnicodeDecodeError) as error:
+                return self.send_json(400, {"error": str(error) or "每日策略参数无效"})
+            except OSError:
+                return self.send_json(500, {"error": "每日策略保存失败，原配置保留"})
+            return self.send_json(200, saved)
 
         def send_portfolio(self):
             try:
@@ -2536,6 +2596,8 @@ def create_server(
                 return self.send_json(200, {"ok": True})
             if parsed.path in {"/", "/a-share-market-dashboard.html"}:
                 return self.send_dashboard()
+            if parsed.path == "/api/dividend-strategy":
+                return self.send_dividend_strategy()
             if parsed.path == "/api/portfolio":
                 return self.send_portfolio()
             if parsed.path == "/api/todos":
@@ -2630,6 +2692,28 @@ def create_server(
 
         def do_POST(self):
             parsed = urlparse(self.path)
+            if parsed.path == "/api/dividend-strategy":
+                return self.save_dividend_strategy()
+            if parsed.path == "/api/open-dividend-source":
+                origin = self.headers.get("Origin", "")
+                port = self.server.server_address[1]
+                if origin and origin not in {f"http://127.0.0.1:{port}", f"http://localhost:{port}"}:
+                    return self.send_json(403, {"error": "请从本地看板打开信号源"})
+                if parsed.query or self.headers.get_content_type() != "application/json":
+                    return self.send_json(400, {"error": "invalid open source request"})
+                try:
+                    if self.read_todo_item_payload() != {}:
+                        raise ValueError
+                except (ValueError, UnicodeDecodeError):
+                    return self.send_json(400, {"error": "invalid open source request"})
+                try:
+                    result = open_dividend_workbook(vault_root)
+                except FileNotFoundError as error:
+                    return self.send_json(404, {"error": str(error)})
+                except (OSError, subprocess.SubprocessError):
+                    message = "无法打开信号源，请确认 Microsoft Excel 已安装并可启动" if sys.platform == "darwin" else "无法打开信号源，请检查系统默认表格应用"
+                    return self.send_json(500, {"error": message})
+                return self.send_json(200, result)
             if parsed.path == "/api/review-diary":
                 return self.save_review_diary()
             if parsed.path == "/api/tracking-rerender-reports":

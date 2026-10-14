@@ -28,7 +28,7 @@ async function openRow(page: Page, title: string) {
   await page.getByRole('button', { name: title, exact: false }).first().click();
 }
 
-test('B-01 浏览器完成首次登录、资料→事件→纳管→分析审核→报告发布撤回', async ({ page }) => {
+test('B-01 浏览器完成首次登录、资料→事件→纳管→分析审核→报告发布撤回', async ({ page }, testInfo) => {
   const errors: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
   await page.goto('/');
@@ -106,7 +106,7 @@ test('B-01 浏览器完成首次登录、资料→事件→纳管→分析审核
   panel = dialog(page);
   await field(panel, '原文依据', info.id);
   await field(panel, '事件标题', '测试政策利率公告');
-  await field(panel, '主体', '场景央行');
+  await field(panel, '事件行为主体', '场景央行');
   await field(panel, '行为', '上调政策利率');
   await field(panel, '发生或计划时间', '已公告，计划下一周实施');
   await panel.getByLabel('事件阶段').selectOption('announced');
@@ -114,7 +114,7 @@ test('B-01 浏览器完成首次登录、资料→事件→纳管→分析审核
   await field(panel, '原文引句', content);
   await field(panel, '事件摘要', '政策调整已公告；实施效果待核验');
   await panel
-    .getByRole('textbox', { name: '对象与变量关系', exact: true })
+    .getByRole('textbox', { name: '事件观测主体与变量关系', exact: true })
     .fill(JSON.stringify([{ target_id: target.id, variable_ids: [variable.id] }]));
   const event = await submit(page, 'information.event', '确认事件与增量');
   await page.goto('/analysis');
@@ -228,9 +228,17 @@ test('B-01 浏览器完成首次登录、资料→事件→纳管→分析审核
   expect((await page.request.get(`/api/v1/reports/${report.id}/export?format=markdown`)).status()).toBe(410);
   await closePanels(page);
   await page.goto('/');
-  await page.screenshot({ path: '05-场景验证/browser-desktop.png', fullPage: true, animations: 'disabled' });
+  await page.screenshot({
+    path: testInfo.outputPath('browser-desktop.png'),
+    fullPage: true,
+    animations: 'disabled',
+  });
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.screenshot({ path: '05-场景验证/browser-mobile.png', fullPage: true, animations: 'disabled' });
+  await page.screenshot({
+    path: testInfo.outputPath('browser-mobile.png'),
+    fullPage: true,
+    animations: 'disabled',
+  });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   expect(
     await page
@@ -242,7 +250,7 @@ test('B-01 浏览器完成首次登录、资料→事件→纳管→分析审核
   expect(errors).toEqual([]);
 });
 
-test('B-02 登录错误、正常登录退出、手机导航与布局', async ({ page }) => {
+test('B-02 登录错误、正常登录退出、手机导航与布局', async ({ page }, testInfo) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
   await expect(page.getByRole('heading', { name: '欢迎回到研究现场' })).toBeVisible();
@@ -253,7 +261,11 @@ test('B-02 登录错误、正常登录退出、手机导航与布局', async ({ 
   await page.getByLabel('密码', { exact: false }).fill(password);
   await page.getByRole('button', { name: '进入工作区', exact: true }).click();
   await expect(page.getByRole('heading', { name: '风险总览', exact: true })).toBeVisible();
-  await page.screenshot({ path: '05-场景验证/browser-mobile.png', fullPage: true, animations: 'disabled' });
+  await page.screenshot({
+    path: testInfo.outputPath('browser-mobile.png'),
+    fullPage: true,
+    animations: 'disabled',
+  });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   await page.getByRole('button', { name: '展开导航' }).click();
   await expect(page.getByRole('link', { name: '风险目录', exact: true })).toBeInViewport();
@@ -263,4 +275,136 @@ test('B-02 登录错误、正常登录退出、手机导航与布局', async ({ 
   await page.getByRole('button', { name: '退出登录' }).click();
   await expect(page.getByRole('heading', { name: '欢迎回到研究现场' })).toBeVisible();
   expect((await page.request.get('/api/v1/auth/me')).status()).toBe(401);
+});
+
+test('B-03 配置与策略分区、分类表单、规则纠错审核、资料与数据入口', async ({ page }, testInfo) => {
+  const errors: string[] = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  await page.goto('/config');
+  await page.getByLabel('登录名', { exact: true }).fill('browser-admin');
+  await page.getByLabel('密码', { exact: false }).fill(password);
+  await page.getByRole('button', { name: '进入工作区', exact: true }).click();
+  const directory = page.getByRole('navigation', { name: '配置中心目录' });
+  await expect(directory.getByRole('link')).toHaveCount(4);
+  await expect(directory).not.toContainText('评估规则');
+  await expect(directory).not.toContainText('事件的观测主体');
+  await expect(page.getByRole('button', { name: '货币条件', exact: true })).toBeVisible();
+  await directory.getByRole('link', { name: '风险类型' }).click();
+  await expect(page).toHaveURL(/\/config\?view=dimension$/);
+  await page.reload();
+  await expect(page.getByRole('heading', { name: '风险类型', exact: true })).toBeVisible();
+  await expect(page.getByRole('button', { name: '流动性', exact: true })).toBeVisible();
+  await page.getByRole('button', { name: '新建风险类型', exact: true }).first().click();
+  await expect(dialog(page).getByRole('heading', { name: '新建风险类型', exact: true })).toBeVisible();
+  await expect(dialog(page).getByRole('combobox')).toHaveCount(0);
+  await field(dialog(page), '名称', '页面分区测试类型');
+  await field(dialog(page), '唯一编码', 'B_PAGE_DIM');
+  await field(dialog(page), '风险类型定义', '仅用于验证配置页面的类别边界');
+  const dimension = (await submit(page, 'reference.save', '新建风险类型')) as RecordRow;
+  expect(dimension.kind).toBe('dimension');
+  await page.screenshot({ path: testInfo.outputPath('config-desktop.png'), fullPage: true });
+
+  await page.getByRole('navigation', { name: '管理工作区' }).getByRole('link', { name: '策略中心' }).click();
+  await expect(page.getByRole('heading', { name: '策略中心', exact: true })).toBeVisible();
+  await expect(page.getByRole('navigation', { name: '策略中心目录' }).getByRole('link')).toHaveCount(2);
+  await page.getByRole('button', { name: '新建评估规则', exact: true }).first().click();
+  let panel = dialog(page);
+  await field(panel, '名称', '页面测试等级规则');
+  await field(panel, '唯一编码', 'B_PAGE_RULE');
+  await panel.getByLabel('规则类别').selectOption('m');
+  await panel.getByRole('textbox', { name: 'M 评分权重', exact: true }).fill('{');
+  await expect(panel.getByRole('button', { name: '新建评估规则', exact: true })).toBeDisabled();
+  await panel.getByLabel('规则类别').selectOption('weakening');
+  await expect(panel.getByLabel('减弱节点确认条件')).toBeVisible();
+  await expect(panel.getByLabel('校准证据')).toBeVisible();
+  await expect(panel.getByRole('textbox', { name: 'M 评分权重', exact: true })).toHaveCount(0);
+  await panel.getByLabel('规则类别').selectOption('freshness');
+  await expect(panel.getByLabel('最长有效时长')).toHaveAttribute('min', '1');
+  await panel.getByLabel('最长有效时长').fill('48');
+  await panel.getByLabel('规则类别').selectOption('risk_level');
+  await expect(panel.getByLabel('最长有效时长')).toHaveCount(0);
+  await field(panel, '规则说明', '按证据严重度定义风险等级');
+  await field(panel, '适用范围', '仅用于浏览器场景');
+  await panel
+    .getByRole('textbox', { name: '风险等级及顺序', exact: true })
+    .fill('[{"code":"low","order":1},{"code":"low","order":2}]');
+  const rejected = page.waitForResponse((r) => r.url().endsWith('/commands/reference.save'));
+  await panel.getByRole('button', { name: '新建评估规则', exact: true }).click();
+  expect((await rejected).ok()).toBe(false);
+  await expect(panel.getByRole('alert')).toContainText('等级编码重复');
+  await panel
+    .getByRole('textbox', { name: '风险等级及顺序', exact: true })
+    .fill('[{"code":"low","order":1},{"code":"high","order":2}]');
+  const rule = (await submit(page, 'reference.save', '新建评估规则')) as RecordRow;
+  expect(rule.kind).toBe('rule');
+  expect(rule.data).not.toHaveProperty('max_hours');
+  expect(rule.data).not.toHaveProperty('weights');
+  await openRow(page, '页面测试等级规则');
+  await dialog(page).getByRole('button', { name: '编辑评估规则', exact: true }).click();
+  await expect(dialog(page).getByLabel('规则类别')).toHaveValue('risk_level');
+  await expect(dialog(page).getByRole('textbox', { name: '风险等级及顺序', exact: true })).toContainText(
+    'high',
+  );
+  await dialog(page).getByRole('button', { name: '取消', exact: true }).click();
+  await dialog(page).getByRole('button', { name: '批准策略', exact: true }).click();
+  await field(dialog(page), '操作理由', '确认规则范围与等级顺序');
+  const approved = (await submit(page, 'reference.approve', '批准策略')) as RecordRow;
+  expect(approved.id).toBe(rule.id);
+  expect(approved.status).toBe('approved');
+  await expect(dialog(page).getByRole('button', { name: '编辑评估规则', exact: true })).toHaveCount(0);
+  await expect(dialog(page).getByRole('button', { name: '停用策略', exact: true })).toBeVisible();
+  await closePanels(page);
+  await page.screenshot({ path: testInfo.outputPath('strategies-desktop.png'), fullPage: true });
+
+  await page
+    .getByRole('navigation', { name: '策略中心目录' })
+    .getByRole('link', { name: '分析模板' })
+    .click();
+  await page.getByRole('button', { name: '新建分析模板', exact: true }).first().click();
+  panel = dialog(page);
+  await expect(panel.getByLabel('规则类别')).toHaveCount(0);
+  await field(panel, '名称', '页面测试分析模板');
+  await field(panel, '唯一编码', 'B_PAGE_PROMPT');
+  await field(panel, '分析用途', '验证分析方法与分类设置分开');
+  await field(panel, '模板正文', '区分事实、判断及未决事项，列出证据与时间边界。');
+  const prompt = (await submit(page, 'reference.save', '新建分析模板')) as RecordRow;
+  expect(prompt.kind).toBe('prompt');
+  await page.goBack();
+  await expect(page.getByRole('heading', { name: '评估规则', exact: true })).toBeVisible();
+  await expect(page.getByRole('button', { name: '页面测试等级规则', exact: true })).toBeVisible();
+
+  await page.goto('/config?view=rule');
+  await expect(page.getByRole('heading', { name: '风险源', exact: true })).toBeVisible();
+  await expect(page.getByRole('button', { name: '页面测试等级规则', exact: true })).toHaveCount(0);
+  await page.goto('/reference?view=target');
+  await expect(page.getByRole('heading', { name: '事件的观测主体', exact: true })).toBeVisible();
+  await expect(page.getByRole('button', { name: '浏览器测试经济体', exact: true })).toBeVisible();
+  await page
+    .getByRole('navigation', { name: '基础资料目录' })
+    .getByRole('link', { name: '全局变量' })
+    .click();
+  await expect(page.getByRole('button', { name: '政策利率', exact: true })).toBeVisible();
+  await page.goto('/data');
+  await expect(page.getByRole('heading', { name: '数据管理', exact: true })).toBeVisible();
+  await expect(page.getByRole('button', { name: '导入观测数据', exact: true }).first()).toBeVisible();
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  for (const section of ['config', 'strategies', 'reference', 'data']) {
+    await page.goto('/' + section);
+    await expect(page.locator('.management-workspace')).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await expect(
+      page.getByRole('navigation', { name: '管理工作区' }).getByRole('link', { name: '策略中心' }),
+    ).toBeInViewport();
+  }
+  await page.goto('/strategies');
+  await page.screenshot({ path: testInfo.outputPath('strategies-mobile.png'), fullPage: true });
+  await page.getByRole('button', { name: '展开导航' }).click();
+  const nav = page.getByRole('navigation', { name: '主导航' });
+  await nav.getByRole('link', { name: '策略中心', exact: true }).scrollIntoViewIfNeeded();
+  await expect(nav.getByRole('link', { name: '策略中心', exact: true })).toBeInViewport();
+  await nav.getByRole('link', { name: '账号与权限', exact: true }).scrollIntoViewIfNeeded();
+  await expect(nav.getByRole('link', { name: '账号与权限', exact: true })).toBeInViewport();
+  await expect(page.getByRole('button', { name: '退出登录' })).toBeInViewport();
+  expect(errors).toEqual([]);
 });

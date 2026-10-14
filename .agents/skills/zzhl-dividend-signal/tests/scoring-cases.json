@@ -1,0 +1,143 @@
+[
+  {
+    "name": "screenshot",
+    "input": {
+      "percentile": 35.83,
+      "dividendYield": 4.13,
+      "bondYield": 1.67
+    },
+    "score": 38.04406946107784,
+    "grade": "D",
+    "components": [
+      28.664,
+      42.6,
+      49.461077844311376
+    ]
+  },
+  {
+    "name": "C boundary",
+    "input": {
+      "percentile": 50,
+      "dividendYield": 4,
+      "bondYield": 2
+    },
+    "score": 40,
+    "grade": "C",
+    "components": [
+      40,
+      40,
+      40
+    ]
+  },
+  {
+    "name": "B boundary",
+    "input": {
+      "percentile": 70,
+      "dividendYield": 5,
+      "bondYield": 1.6666666666666667
+    },
+    "score": 60,
+    "grade": "B",
+    "components": [
+      60,
+      60,
+      60
+    ]
+  },
+  {
+    "name": "A boundary",
+    "input": {
+      "percentile": 80,
+      "dividendYield": 6,
+      "bondYield": 1.5
+    },
+    "score": 80,
+    "grade": "A",
+    "components": [
+      80,
+      80,
+      80
+    ]
+  },
+  {
+    "name": "upper clipping",
+    "input": {
+      "percentile": 100,
+      "dividendYield": 9,
+      "bondYield": 1
+    },
+    "score": 100,
+    "grade": "A",
+    "components": [
+      100,
+      100,
+      100
+    ]
+  },
+  {
+    "name": "lower clipping",
+    "input": {
+      "percentile": 0,
+      "dividendYield": 0,
+      "bondYield": 2
+    },
+    "score": 0,
+    "grade": "D",
+    "components": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "name": "missing percentile",
+    "input": {
+      "percentile": null,
+      "dividendYield": 4,
+      "bondYield": 2
+    },
+    "score": null,
+    "grade": null,
+    "components": [
+      null,
+      40,
+      40
+    ],
+    "lower": 22,
+    "upper": 67
+  },
+  {
+    "name": "invalid bond",
+    "input": {
+      "percentile": 50,
+      "dividendYield": 4,
+      "bondYield": 0
+    },
+    "score": null,
+    "grade": null,
+    "components": [
+      40,
+      40,
+      null
+    ],
+    "lower": 30,
+    "upper": 55
+  },
+  {
+    "name": "invalid percentile and negative yield",
+    "input": {
+      "percentile": 101,
+      "dividendYield": -1,
+      "bondYield": 2
+    },
+    "score": null,
+    "grade": null,
+    "components": [
+      null,
+      null,
+      null
+    ],
+    "lower": 0,
+    "upper": 100
+  }
+]

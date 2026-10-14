@@ -1,0 +1,11 @@
+{
+  "version": "dividend-weighted-v1",
+  "weights": {"percentile": 45, "absolute": 30, "ratio": 25},
+  "anchors": {
+    "percentile": [[0, 0], [50, 40], [70, 60], [80, 80], [100, 100]],
+    "absolute": [[3, 0], [4, 40], [5, 60], [6, 80], [7, 100]],
+    "ratio": [[1, 0], [2, 40], [3, 60], [4, 80], [5, 100]]
+  },
+  "thresholds": {"C": 40, "B": 60, "A": 80},
+  "confirmationDays": 3
+}

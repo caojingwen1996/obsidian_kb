@@ -1,0 +1,6 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "riskhot-knowledge",
+  "version": "0.1.0",
+  "description": "Read-only project knowledge access and context workflow for the RiskHot design repository."
+}

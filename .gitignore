@@ -16,3 +16,11 @@ tools/tushare-data/.cache/
 tools/tushare-data/scripts/__pycache__/
 tools/tushare-data/tests/__pycache__/
 /.tmp
+
+# Local credentials and temporary files
+__pycache__/
+*.py[cod]
+.pytest_cache/
+~$*
+tools/RiskHot/docs/**/.working/
+tools/riskhot-knowledge-plugin/riskhot-tunnel.env

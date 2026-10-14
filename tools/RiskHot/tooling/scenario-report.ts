@@ -1,7 +1,8 @@
 import { spawn } from 'node:child_process';
-import { readdir, readFile, mkdir, writeFile } from 'node:fs/promises';
+import { readdir, mkdir, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { scenarioCatalog } from '../tests/fixtures/scenario-catalog.js';
+import { readRequirementIds } from './requirement-ids.js';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const directory = new URL('../05-场景验证/', import.meta.url);
@@ -64,11 +65,7 @@ const report = {
 await mkdir(directory, { recursive: true });
 await writeFile(new URL('scenario-results.json', directory), JSON.stringify(report, null, 2) + '\n', 'utf8');
 await writeFile(new URL('scenario-results.tap.txt', directory), output, 'utf8');
-const requirements = await readFile(
-  new URL('../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md', import.meta.url),
-  'utf8',
-);
-const allFr = [...requirements.matchAll(/^### (FR-[A-Z0-9]+-\d{2}) /gm)].map((m) => m[1]!);
+const allFr = await readRequirementIds(new URL('../03-业务功能需求/', import.meta.url));
 const uniqueAc = new Set(results.flatMap((x) => x.acceptance));
 const associatedFr = new Set(results.flatMap((x) => x.requirements));
 const unassociated = allFr.filter((x) => !associatedFr.has(x));
@@ -91,7 +88,7 @@ const body = `# RiskHot 系统场景验证测试案例 V1.0
 
 关联 ${associatedFr.size}/${allFr.length} 项功能需求、${uniqueAc.size} 个验收编号。**关联不等于整项需求或整条 AC 全部通过**：例如 HTTP 导出测试不替代浏览器可访问性验收，命令层计划幂等不替代 Temporal 恢复演练，人工结构化判断不替代真实模型金融语义评测。只有用例中明确断言的行为有自动化证据。
 
-依据：[业务功能需求规格](../03-业务功能需求/RiskHot_系统业务功能需求规格说明书_V1.0.md)、[系统架构设计](../04-系统架构设计/RiskHot_系统架构设计_V1.0.md)、[命令契约](../packages/contracts/commands.json)。
+依据：[业务功能需求规格](../03-业务功能需求/01.%20RiskHot_系统业务功能需求规格说明书_V1.0.md)、[系统架构设计](../04-系统架构设计/RiskHot_系统架构设计_V1.0.md)、[命令契约](../packages/contracts/commands.json)。
 
 ## 2. 环境与执行
 
@@ -143,7 +140,7 @@ ${detailed}
 | 不污染开发库 | PASS | 连接 URL 白名单与 current_database 双校验；SC-001 |
 | 不扩大测试结论 | WARN | 只报告已执行硬约束，生产、AI、浏览器和耐久运行另有验收项 |
 
-总体：**${counts.failed || counts.not_run || exitCode !== 0 ? 'FAIL' : 'WARN'}**。全部自动化通过也只代表本套范围通过，不能代替需求第16.4节与架构第20.3节的系统上线验收。
+总体：**${counts.failed || counts.not_run || exitCode !== 0 ? 'FAIL' : 'WARN'}**。全部自动化通过也只代表本套范围通过，不能代替[需求系统验收与发布判定](../03-业务功能需求/09.%20RiskHot_验收与交付管理_V1.0.md#system-acceptance)与架构第20.3节的系统上线验收。
 `;
 await writeFile(new URL('RiskHot_场景验证测试案例_V1.0.md', directory), body, 'utf8');
 console.log(JSON.stringify({ report: '05-场景验证/scenario-results.json', ...counts, exit_code: exitCode }));

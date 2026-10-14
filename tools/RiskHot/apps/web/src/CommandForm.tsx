@@ -21,6 +21,7 @@ import { label } from './labels';
 
 export interface CommandIntent {
   name: string;
+  title?: string;
   record?: RecordRow;
   domain?: Domain;
   defaults?: Data;
@@ -339,15 +340,23 @@ export function CommandForm({
       </Modal>
     );
   const can = schema['x-roles']?.some((role) => session.user.roles.includes(role)) ?? false;
-  const nestedFields = dataFields(intent.name, str(input.kind, ''));
+  const nestedFields = dataFields(intent.name, str(input.kind, ''), str(asData(input.data).category, ''));
+  const fixedKind = intent.name === 'reference.save' && Boolean(intent.record || intent.defaults?.kind);
+  const title = intent.title ?? schema.title ?? intent.name;
   const set = (field: string, value: Json | undefined, nested = false) => {
     setDirty(true);
     setReceipt(undefined);
     mutation.reset();
+    const changingRuleCategory = nested && input.kind === 'rule' && field === 'category';
+    if (changingRuleCategory || (!nested && field === 'kind')) setErrors({});
     setInput((previous) => {
       const target = nested ? { ...asData(previous.data) } : { ...previous };
       if (value === undefined) delete target[field];
       else target[field] = value;
+      if (changingRuleCategory) {
+        for (const key of ['weights', 'levels', 'confirmation_criteria', 'calibration_evidence', 'max_hours'])
+          delete target[key];
+      }
       if (!nested && field === 'kind') target.data = {};
       return nested ? { ...previous, data: target } : target;
     });
@@ -397,13 +406,7 @@ export function CommandForm({
   };
   const formal = /approve|admit|publish|withdraw|tracking|disable|source_status/.test(intent.name);
   return (
-    <Modal
-      title={schema.title ?? intent.name}
-      eyebrow="RESEARCH ACTION / 业务操作"
-      onClose={onClose}
-      wide
-      dirty={dirty}
-    >
+    <Modal title={title} eyebrow="RESEARCH ACTION / 业务操作" onClose={onClose} wide dirty={dirty}>
       <form onSubmit={submit}>
         <div className="modal-body">
           {intent.record && (
@@ -413,6 +416,13 @@ export function CommandForm({
               <code>
                 v{intent.record.version} · {intent.record.id.slice(0, 8)}
               </code>
+            </div>
+          )}
+          {fixedKind && !intent.record && (
+            <div className="operation-context">
+              <span>创建类型</span>
+              <strong>{label(str(input.kind))}</strong>
+              <span>保存后进入草稿，核验后批准</span>
             </div>
           )}
           {formal && (
@@ -435,7 +445,12 @@ export function CommandForm({
                 {Object.entries(schema.properties ?? {})
                   .filter(
                     ([name]) =>
-                      name !== 'data' && !(intent.record && ['id', 'expected_version'].includes(name)),
+                      name !== 'data' &&
+                      !(fixedKind && name === 'kind') &&
+                      !(
+                        (intent.record || intent.name === 'reference.save') &&
+                        ['id', 'expected_version'].includes(name)
+                      ),
                   )
                   .map(([name, definition]) =>
                     field(name, definition, schema.required?.includes(name) ?? false),
@@ -503,7 +518,7 @@ export function CommandForm({
               disabled={!can || templateLoading || mutation.isPending || Object.values(errors).some(Boolean)}
             >
               {mutation.isPending ? <LoaderCircle size={15} className="spin" /> : <ArrowRight size={15} />}
-              {mutation.isPending ? '正在提交…' : schema.title}
+              {mutation.isPending ? '正在提交…' : title}
             </button>
           )}
         </div>

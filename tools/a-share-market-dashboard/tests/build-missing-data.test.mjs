@@ -26,6 +26,8 @@ test('build tolerates absent Nasdaq snapshots but rejects corrupt data', async t
   await cp(new URL('../scripts/', import.meta.url), join(dashboard, 'scripts'), { recursive: true });
   const csv = await readFile(new URL('../../../sources/assets/2026-09-11-index-day-distribution/yearly.csv', import.meta.url), 'utf8');
   await writeFile(join(statistics, 'yearly.csv'), csv);
+  await mkdir(join(temporaryRoot, '.agents/skills/zzhl-dividend-signal'), { recursive: true });
+  await cp(new URL('../../../.agents/skills/zzhl-dividend-signal/strategy-v1.json', import.meta.url), join(temporaryRoot, '.agents/skills/zzhl-dividend-signal/strategy-v1.json'));
   const build = () => spawnSync(process.execPath, ['scripts/build.mjs'], { cwd: dashboard, encoding: 'utf8' });
 
   const missing = build();
@@ -38,6 +40,7 @@ test('build tolerates absent Nasdaq snapshots but rejects corrupt data', async t
   const runtime = html.match(/<script type="module">([\s\S]*?)<\/script>/)[1];
   assert.doesNotThrow(() => new Function(runtime));
   assert.deepEqual(new Function(`${runtime}\nreturn EVENT_CALENDAR;`)(), events);
+  assert.deepEqual(new Function(`${runtime}\nreturn CSI_DIVIDEND_INDEX_HISTORY;`)(), []);
   const anchor = new Function(`${runtime}\nreturn NASDAQ_ETF_ANCHOR;`)();
   const grid = renderNasdaqGridStrategy({ status: 'missing', data: anchor }, 10000);
   assert.match(grid.rowsHtml, /待验证/);
@@ -45,10 +48,19 @@ test('build tolerates absent Nasdaq snapshots but rejects corrupt data', async t
 
   await writeFile(join(data, 'nasdaq-etf-anchor.json'), JSON.stringify({ highPrice: 3, highDate: '2026-01-01' }));
   await writeFile(join(data, 'nasdaq-day-statistics.csv'), csv);
+  const dividendDirectory = join(temporaryRoot, 'sources', 'automations', '中证红利信号');
+  await mkdir(dividendDirectory, { recursive: true });
+  await writeFile(join(dividendDirectory, '中证红利指数日线.json'), JSON.stringify({
+    data: [{ tradeDate: '20261013', indexCode: '000922', close: 5635.07 }],
+  }));
   const present = build();
   assert.equal(present.status, 0, present.stderr);
   html = await readFile(join(dashboard, 'a-share-market-dashboard.html'), 'utf8');
   assert.match(html, /"highPrice":3/);
+  const presentRuntime = html.match(/<script type="module">([\s\S]*?)<\/script>/)[1];
+  assert.deepEqual(new Function(`${presentRuntime}\nreturn CSI_DIVIDEND_INDEX_HISTORY;`)(), [
+    { date: '2026-10-13', close: 5635.07 },
+  ]);
   assert.match(html, /年均 102.8 天/);
   assert.doesNotMatch(html, /年度统计数据缺失，待验证/);
 

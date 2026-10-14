@@ -2,7 +2,7 @@
   "version": 1,
   "stats": {
     "total_sources_ingested": 221,
-    "total_pages": 458,
+    "total_pages": 330,
     "source_count": 262
   },
   "sources": {
@@ -1826,14 +1826,15 @@
       ]
     },
     "sources/articles/2025-08-16-冰冰小美：信息的金融意义（十一）.md": {
-      "ingested_at": "2026-05-29T09:45:35+08:00",
-      "size_bytes": 5407,
-      "modified_at": "2026-05-29T09:50:45+08:00",
-      "content_hash": "sha256:39a15e9fda98e9c727696c8d317236fb9fe4a9e2edfc961c3885dde716f9aa6f",
+      "ingested_at": "2026-10-09T11:50:54+08:00",
+      "size_bytes": 6143,
+      "modified_at": "2026-06-13T12:12:20+08:00",
+      "content_hash": "sha256:bd7688bd37c14c463a1224c485ce88b81b03129c5fca95234c4e1b981dc37ab7",
       "source_type": "document",
       "project": null,
       "pages_created": [
-        "wiki/views/冰冰小美：信息来源以官方原文和央行为最高可信度的判断框架.md"
+        "wiki/views/冰冰小美：信息来源以官方原文和央行为最高可信度的判断框架.md",
+        "wiki/concepts/冰冰小美-indicator-信息来源.md"
       ],
       "pages_updated": [
         "sources/articles/2025-08-16-冰冰小美：信息的金融意义（十一）.md",
@@ -6124,5 +6125,5 @@
       ]
     }
   ],
-  "updated_at": "2026-08-26T16:21:09+08:00"
+  "updated_at": "2026-10-09T11:50:54+08:00"
 }

@@ -1,0 +1,238 @@
+.sidebar > nav {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+.sidebar > .brand,
+.sidebar > .workspace-label,
+.sidebar-note,
+.sidebar-user {
+  flex-shrink: 0;
+}
+.management-page {
+  --management-accent: #295c47;
+  --management-tint: #eaf0e1;
+}
+.management-strategies {
+  --management-accent: #79562f;
+  --management-tint: #f1e9d9;
+}
+.management-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  padding: 10px 0 30px;
+}
+.management-heading h1 {
+  font-size: 32px;
+  margin: 10px 0 12px;
+}
+.management-heading p,
+.management-section-heading p {
+  color: #65736a;
+  font-size: 13px;
+  line-height: 1.9;
+  max-width: 630px;
+}
+.management-question {
+  color: var(--management-accent);
+  border-left: 2px solid var(--management-accent);
+  padding: 10px 0 10px 20px;
+  font-family: 'Songti SC', 'STSong', serif;
+  font-size: 22px;
+  line-height: 1.8;
+  max-width: 210px;
+  flex-shrink: 0;
+}
+.management-switcher {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-block: 1px solid var(--line);
+  margin-bottom: 34px;
+}
+.management-switcher a {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 12px;
+  row-gap: 5px;
+  padding: 17px 24px 17px 0;
+  color: #65736a;
+}
+.management-switcher strong {
+  font-size: 13px;
+  font-weight: 500;
+}
+.management-switcher span {
+  font-size: 11px;
+}
+.management-switcher svg {
+  position: absolute;
+  right: 16px;
+  opacity: 0.6;
+}
+.management-switcher a[aria-current] {
+  color: var(--management-accent);
+  box-shadow: inset 0 -2px var(--management-accent);
+}
+.management-switcher a:hover {
+  color: var(--ink);
+}
+.management-layout {
+  display: grid;
+  grid-template-columns: 205px minmax(0, 1fr);
+  gap: 30px;
+  align-items: start;
+}
+.management-catalog {
+  display: grid;
+  gap: 24px;
+}
+.management-group h2 {
+  font-size: 10px;
+  font-weight: 500;
+  color: #68786b;
+  letter-spacing: 0.1em;
+  padding: 0 12px 10px;
+}
+.management-group a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  padding: 15px 12px;
+  border-left: 2px solid transparent;
+}
+.management-group a:hover {
+  background: #eef0e8;
+}
+.management-group a[aria-current] {
+  border-color: var(--management-accent);
+  background: var(--management-tint);
+  color: var(--management-accent);
+}
+.management-group strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+}
+.management-group small {
+  display: block;
+  margin-top: 6px;
+  color: #65736a;
+  font-size: 10px;
+  line-height: 1.6;
+}
+.management-workspace {
+  min-width: 0;
+}
+.management-section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+.management-section-heading .eyebrow {
+  color: var(--management-accent);
+  font-size: 10px;
+}
+.management-section-heading h2 {
+  font-size: 23px;
+  margin: 8px 0;
+}
+.management-section-heading .button {
+  flex-shrink: 0;
+  margin-top: 14px;
+}
+.management-strategies .button.primary {
+  background: var(--management-accent);
+}
+.management-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin-top: 18px;
+  color: #65736a;
+  font-size: 12px;
+  line-height: 1.8;
+}
+.management-note svg {
+  margin-top: 3px;
+}
+.management-workspace .record-table {
+  min-width: 600px;
+}
+.management-workspace .table-scroll {
+  position: relative;
+}
+.management-workspace .record-table td:first-child {
+  max-width: 380px;
+}
+.management-workspace .record-table p {
+  overflow-wrap: anywhere;
+}
+@media (max-width: 1150px) {
+  .management-layout {
+    grid-template-columns: 175px minmax(0, 1fr);
+    gap: 20px;
+  }
+  .management-question {
+    font-size: 19px;
+    max-width: 160px;
+  }
+  .management-switcher span {
+    flex-basis: 100%;
+  }
+}
+@media (max-width: 800px) {
+  .management-heading {
+    align-items: flex-start;
+    padding-top: 0;
+  }
+  .management-question {
+    display: none;
+  }
+  .management-heading h1 {
+    font-size: 28px;
+  }
+  .management-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 26px;
+  }
+  .management-catalog {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 20px;
+  }
+  .management-group > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .management-group a {
+    padding: 10px 12px;
+    gap: 12px;
+  }
+  .management-group small {
+    display: none;
+  }
+  .management-group h2 {
+    padding-bottom: 8px;
+  }
+  .management-switcher {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-bottom: 24px;
+  }
+  .management-section-heading {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .management-section-heading .button {
+    margin-top: 0;
+  }
+}
