@@ -1,0 +1,128 @@
+{
+  "results": [
+    {
+      "name": "主导航仅两个",
+      "passed": true
+    },
+    {
+      "name": "八类风险",
+      "passed": true
+    },
+    {
+      "name": "默认政策选中",
+      "passed": true
+    },
+    {
+      "name": "键盘可选择信号",
+      "passed": true
+    },
+    {
+      "name": "无输入与配置",
+      "passed": true
+    },
+    {
+      "name": "变化优先资金居首",
+      "passed": true
+    },
+    {
+      "name": "排行联动解读",
+      "passed": true
+    },
+    {
+      "name": "依据展开",
+      "passed": true
+    },
+    {
+      "name": "过期无当前方向",
+      "passed": true
+    },
+    {
+      "name": "缺失不补零",
+      "passed": true
+    },
+    {
+      "name": "首次仅一个趋势点",
+      "passed": true
+    },
+    {
+      "name": "周报可读",
+      "passed": true
+    },
+    {
+      "name": "历史保留73分",
+      "passed": true
+    },
+    {
+      "name": "历史不混入当前91分",
+      "passed": true
+    },
+    {
+      "name": "历史基准10.02",
+      "passed": true
+    },
+    {
+      "name": "返回原报告",
+      "passed": true
+    },
+    {
+      "name": "日报变化8分",
+      "passed": true
+    },
+    {
+      "name": "未知路径友好恢复",
+      "passed": true
+    },
+    {
+      "name": "无效信号后返回可用",
+      "passed": true
+    },
+    {
+      "name": "390无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "390触摸联动",
+      "passed": true
+    },
+    {
+      "name": "390详情无溢出",
+      "passed": true
+    },
+    {
+      "name": "390报告无溢出",
+      "passed": true
+    },
+    {
+      "name": "320无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "320触摸联动",
+      "passed": true
+    },
+    {
+      "name": "320详情无溢出",
+      "passed": true
+    },
+    {
+      "name": "320报告无溢出",
+      "passed": true
+    },
+    {
+      "name": "依据单位完整",
+      "passed": true
+    },
+    {
+      "name": "无JavaScript异常",
+      "passed": true
+    },
+    {
+      "name": "无远程请求",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "net": [],
+  "passed": 30,
+  "failed": 0
+}

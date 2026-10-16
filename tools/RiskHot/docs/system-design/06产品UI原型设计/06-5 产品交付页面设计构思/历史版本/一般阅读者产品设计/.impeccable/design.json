@@ -1,0 +1,781 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-16T09:52:21.526142+00:00",
+  "title": "Design System: RiskHot 阅读产品",
+  "extensions": {
+    "colorMeta": {
+      "green": {
+        "role": "primary",
+        "displayName": "品牌阅读绿",
+        "canonical": "#214c3b",
+        "tonalRamp": [
+          "oklch(15% 0.05671 165.30)",
+          "oklch(26% 0.05671 165.30)",
+          "oklch(38% 0.05671 165.30)",
+          "oklch(49% 0.05671 165.30)",
+          "oklch(61% 0.05671 165.30)",
+          "oklch(72% 0.05671 165.30)",
+          "oklch(84% 0.05671 165.30)",
+          "oklch(95% 0.05671 165.30)"
+        ]
+      },
+      "deep": {
+        "role": "primary",
+        "displayName": "已声明品牌深绿（未引用）",
+        "canonical": "#173c2e",
+        "tonalRamp": [
+          "oklch(15% 0.04972 165.98)",
+          "oklch(26% 0.04972 165.98)",
+          "oklch(38% 0.04972 165.98)",
+          "oklch(49% 0.04972 165.98)",
+          "oklch(61% 0.04972 165.98)",
+          "oklch(72% 0.04972 165.98)",
+          "oklch(84% 0.04972 165.98)",
+          "oklch(95% 0.04972 165.98)"
+        ]
+      },
+      "red": {
+        "role": "secondary",
+        "displayName": "压力红",
+        "canonical": "#a13e2b",
+        "tonalRamp": [
+          "oklch(15% 0.13571 32.79)",
+          "oklch(26% 0.13571 32.79)",
+          "oklch(38% 0.13571 32.79)",
+          "oklch(49% 0.13571 32.79)",
+          "oklch(61% 0.13571 32.79)",
+          "oklch(72% 0.13571 32.79)",
+          "oklch(84% 0.13571 32.79)",
+          "oklch(95% 0.13571 32.79)"
+        ]
+      },
+      "redwash": {
+        "role": "secondary",
+        "displayName": "压力浅底",
+        "canonical": "#f7eae4",
+        "tonalRamp": [
+          "oklch(15% 0.01632 46.57)",
+          "oklch(26% 0.01632 46.57)",
+          "oklch(38% 0.01632 46.57)",
+          "oklch(49% 0.01632 46.57)",
+          "oklch(61% 0.01632 46.57)",
+          "oklch(72% 0.01632 46.57)",
+          "oklch(84% 0.01632 46.57)",
+          "oklch(95% 0.01632 46.57)"
+        ]
+      },
+      "teal": {
+        "role": "secondary",
+        "displayName": "缓解青绿",
+        "canonical": "#28645b",
+        "tonalRamp": [
+          "oklch(15% 0.06385 182.08)",
+          "oklch(26% 0.06385 182.08)",
+          "oklch(38% 0.06385 182.08)",
+          "oklch(49% 0.06385 182.08)",
+          "oklch(61% 0.06385 182.08)",
+          "oklch(72% 0.06385 182.08)",
+          "oklch(84% 0.06385 182.08)",
+          "oklch(95% 0.06385 182.08)"
+        ]
+      },
+      "tealwash": {
+        "role": "secondary",
+        "displayName": "缓解浅底",
+        "canonical": "#e7efea",
+        "tonalRamp": [
+          "oklch(15% 0.01078 158.84)",
+          "oklch(26% 0.01078 158.84)",
+          "oklch(38% 0.01078 158.84)",
+          "oklch(49% 0.01078 158.84)",
+          "oklch(61% 0.01078 158.84)",
+          "oklch(72% 0.01078 158.84)",
+          "oklch(84% 0.01078 158.84)",
+          "oklch(95% 0.01078 158.84)"
+        ]
+      },
+      "amber": {
+        "role": "secondary",
+        "displayName": "已声明琥珀色（未引用）",
+        "canonical": "#775825",
+        "tonalRamp": [
+          "oklch(15% 0.07888 77.30)",
+          "oklch(26% 0.07888 77.30)",
+          "oklch(38% 0.07888 77.30)",
+          "oklch(49% 0.07888 77.30)",
+          "oklch(61% 0.07888 77.30)",
+          "oklch(72% 0.07888 77.30)",
+          "oklch(84% 0.07888 77.30)",
+          "oklch(95% 0.07888 77.30)"
+        ]
+      },
+      "demo-text": {
+        "role": "secondary",
+        "displayName": "演示棕字",
+        "canonical": "#755124",
+        "tonalRamp": [
+          "oklch(15% 0.07747 69.82)",
+          "oklch(26% 0.07747 69.82)",
+          "oklch(38% 0.07747 69.82)",
+          "oklch(49% 0.07747 69.82)",
+          "oklch(61% 0.07747 69.82)",
+          "oklch(72% 0.07747 69.82)",
+          "oklch(84% 0.07747 69.82)",
+          "oklch(95% 0.07747 69.82)"
+        ]
+      },
+      "demo-dot": {
+        "role": "secondary",
+        "displayName": "演示棕点",
+        "canonical": "#96713e",
+        "tonalRamp": [
+          "oklch(15% 0.08259 73.72)",
+          "oklch(26% 0.08259 73.72)",
+          "oklch(38% 0.08259 73.72)",
+          "oklch(49% 0.08259 73.72)",
+          "oklch(61% 0.08259 73.72)",
+          "oklch(72% 0.08259 73.72)",
+          "oklch(84% 0.08259 73.72)",
+          "oklch(95% 0.08259 73.72)"
+        ]
+      },
+      "lead-ink": {
+        "role": "secondary",
+        "displayName": "重点区浅字",
+        "canonical": "#fffdf4",
+        "tonalRamp": [
+          "oklch(15% 0.01201 96.42)",
+          "oklch(26% 0.01201 96.42)",
+          "oklch(38% 0.01201 96.42)",
+          "oklch(49% 0.01201 96.42)",
+          "oklch(61% 0.01201 96.42)",
+          "oklch(72% 0.01201 96.42)",
+          "oklch(84% 0.01201 96.42)",
+          "oklch(95% 0.01201 96.42)"
+        ]
+      },
+      "lead-muted": {
+        "role": "secondary",
+        "displayName": "重点区说明",
+        "canonical": "#d9e4d7",
+        "tonalRamp": [
+          "oklch(15% 0.02104 140.90)",
+          "oklch(26% 0.02104 140.90)",
+          "oklch(38% 0.02104 140.90)",
+          "oklch(49% 0.02104 140.90)",
+          "oklch(61% 0.02104 140.90)",
+          "oklch(72% 0.02104 140.90)",
+          "oklch(84% 0.02104 140.90)",
+          "oklch(95% 0.02104 140.90)"
+        ]
+      },
+      "lead-status-ink": {
+        "role": "secondary",
+        "displayName": "重点区方向字",
+        "canonical": "#ffded1",
+        "tonalRamp": [
+          "oklch(15% 0.04076 42.72)",
+          "oklch(26% 0.04076 42.72)",
+          "oklch(38% 0.04076 42.72)",
+          "oklch(49% 0.04076 42.72)",
+          "oklch(61% 0.04076 42.72)",
+          "oklch(72% 0.04076 42.72)",
+          "oklch(84% 0.04076 42.72)",
+          "oklch(95% 0.04076 42.72)"
+        ]
+      },
+      "lead-status-line": {
+        "role": "secondary",
+        "displayName": "重点区方向线",
+        "canonical": "#b3aa8f",
+        "tonalRamp": [
+          "oklch(15% 0.03884 91.76)",
+          "oklch(26% 0.03884 91.76)",
+          "oklch(38% 0.03884 91.76)",
+          "oklch(49% 0.03884 91.76)",
+          "oklch(61% 0.03884 91.76)",
+          "oklch(72% 0.03884 91.76)",
+          "oklch(84% 0.03884 91.76)",
+          "oklch(95% 0.03884 91.76)"
+        ]
+      },
+      "stable-wash": {
+        "role": "secondary",
+        "displayName": "稳定浅底",
+        "canonical": "#e9ede7",
+        "tonalRamp": [
+          "oklch(15% 0.00904 134.87)",
+          "oklch(26% 0.00904 134.87)",
+          "oklch(38% 0.00904 134.87)",
+          "oklch(49% 0.00904 134.87)",
+          "oklch(61% 0.00904 134.87)",
+          "oklch(72% 0.00904 134.87)",
+          "oklch(84% 0.00904 134.87)",
+          "oklch(95% 0.00904 134.87)"
+        ]
+      },
+      "stable-ink": {
+        "role": "secondary",
+        "displayName": "稳定灰绿",
+        "canonical": "#4c6055",
+        "tonalRamp": [
+          "oklch(15% 0.03009 160.92)",
+          "oklch(26% 0.03009 160.92)",
+          "oklch(38% 0.03009 160.92)",
+          "oklch(49% 0.03009 160.92)",
+          "oklch(61% 0.03009 160.92)",
+          "oklch(72% 0.03009 160.92)",
+          "oklch(84% 0.03009 160.92)",
+          "oklch(95% 0.03009 160.92)"
+        ]
+      },
+      "unknown-wash": {
+        "role": "secondary",
+        "displayName": "未知浅底",
+        "canonical": "#eeece5",
+        "tonalRamp": [
+          "oklch(15% 0.00958 93.57)",
+          "oklch(26% 0.00958 93.57)",
+          "oklch(38% 0.00958 93.57)",
+          "oklch(49% 0.00958 93.57)",
+          "oklch(61% 0.00958 93.57)",
+          "oklch(72% 0.00958 93.57)",
+          "oklch(84% 0.00958 93.57)",
+          "oklch(95% 0.00958 93.57)"
+        ]
+      },
+      "unknown-ink": {
+        "role": "secondary",
+        "displayName": "未知暖灰",
+        "canonical": "#665d48",
+        "tonalRamp": [
+          "oklch(15% 0.03402 87.54)",
+          "oklch(26% 0.03402 87.54)",
+          "oklch(38% 0.03402 87.54)",
+          "oklch(49% 0.03402 87.54)",
+          "oklch(61% 0.03402 87.54)",
+          "oklch(72% 0.03402 87.54)",
+          "oklch(84% 0.03402 87.54)",
+          "oklch(95% 0.03402 87.54)"
+        ]
+      },
+      "focus": {
+        "role": "secondary",
+        "displayName": "焦点棕",
+        "canonical": "#80652b",
+        "tonalRamp": [
+          "oklch(15% 0.08320 84.02)",
+          "oklch(26% 0.08320 84.02)",
+          "oklch(38% 0.08320 84.02)",
+          "oklch(49% 0.08320 84.02)",
+          "oklch(61% 0.08320 84.02)",
+          "oklch(72% 0.08320 84.02)",
+          "oklch(84% 0.08320 84.02)",
+          "oklch(95% 0.08320 84.02)"
+        ]
+      },
+      "history-wash": {
+        "role": "secondary",
+        "displayName": "历史提示浅底",
+        "canonical": "#eee9dc",
+        "tonalRamp": [
+          "oklch(15% 0.01814 89.36)",
+          "oklch(26% 0.01814 89.36)",
+          "oklch(38% 0.01814 89.36)",
+          "oklch(49% 0.01814 89.36)",
+          "oklch(61% 0.01814 89.36)",
+          "oklch(72% 0.01814 89.36)",
+          "oklch(84% 0.01814 89.36)",
+          "oklch(95% 0.01814 89.36)"
+        ]
+      },
+      "history-line": {
+        "role": "secondary",
+        "displayName": "历史提示线",
+        "canonical": "#ded4ba",
+        "tonalRamp": [
+          "oklch(15% 0.03653 89.46)",
+          "oklch(26% 0.03653 89.46)",
+          "oklch(38% 0.03653 89.46)",
+          "oklch(49% 0.03653 89.46)",
+          "oklch(61% 0.03653 89.46)",
+          "oklch(72% 0.03653 89.46)",
+          "oklch(84% 0.03653 89.46)",
+          "oklch(95% 0.03653 89.46)"
+        ]
+      },
+      "history-ink": {
+        "role": "secondary",
+        "displayName": "历史提示字",
+        "canonical": "#65512f",
+        "tonalRamp": [
+          "oklch(15% 0.05629 79.82)",
+          "oklch(26% 0.05629 79.82)",
+          "oklch(38% 0.05629 79.82)",
+          "oklch(49% 0.05629 79.82)",
+          "oklch(61% 0.05629 79.82)",
+          "oklch(72% 0.05629 79.82)",
+          "oklch(84% 0.05629 79.82)",
+          "oklch(95% 0.05629 79.82)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "阅读浅底",
+        "canonical": "#f7f6f1",
+        "tonalRamp": [
+          "oklch(15% 0.00670 97.35)",
+          "oklch(26% 0.00670 97.35)",
+          "oklch(38% 0.00670 97.35)",
+          "oklch(49% 0.00670 97.35)",
+          "oklch(61% 0.00670 97.35)",
+          "oklch(72% 0.00670 97.35)",
+          "oklch(84% 0.00670 97.35)",
+          "oklch(95% 0.00670 97.35)"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "报告浅白",
+        "canonical": "#fffefa",
+        "tonalRamp": [
+          "oklch(15% 0.00537 95.10)",
+          "oklch(26% 0.00537 95.10)",
+          "oklch(38% 0.00537 95.10)",
+          "oklch(49% 0.00537 95.10)",
+          "oklch(61% 0.00537 95.10)",
+          "oklch(72% 0.00537 95.10)",
+          "oklch(84% 0.00537 95.10)",
+          "oklch(95% 0.00537 95.10)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "正文墨绿",
+        "canonical": "#243c33",
+        "tonalRamp": [
+          "oklch(15% 0.03414 168.63)",
+          "oklch(26% 0.03414 168.63)",
+          "oklch(38% 0.03414 168.63)",
+          "oklch(49% 0.03414 168.63)",
+          "oklch(61% 0.03414 168.63)",
+          "oklch(72% 0.03414 168.63)",
+          "oklch(84% 0.03414 168.63)",
+          "oklch(95% 0.03414 168.63)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "次要灰绿",
+        "canonical": "#59685f",
+        "tonalRamp": [
+          "oklch(15% 0.02308 159.13)",
+          "oklch(26% 0.02308 159.13)",
+          "oklch(38% 0.02308 159.13)",
+          "oklch(49% 0.02308 159.13)",
+          "oklch(61% 0.02308 159.13)",
+          "oklch(72% 0.02308 159.13)",
+          "oklch(84% 0.02308 159.13)",
+          "oklch(95% 0.02308 159.13)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "基础细线",
+        "canonical": "#d6dcd2",
+        "tonalRamp": [
+          "oklch(15% 0.01495 132.49)",
+          "oklch(26% 0.01495 132.49)",
+          "oklch(38% 0.01495 132.49)",
+          "oklch(49% 0.01495 132.49)",
+          "oklch(61% 0.01495 132.49)",
+          "oklch(72% 0.01495 132.49)",
+          "oklch(84% 0.01495 132.49)",
+          "oklch(95% 0.01495 132.49)"
+        ]
+      },
+      "wash": {
+        "role": "neutral",
+        "displayName": "观察浅绿",
+        "canonical": "#eaf0e7",
+        "tonalRamp": [
+          "oklch(15% 0.01353 134.90)",
+          "oklch(26% 0.01353 134.90)",
+          "oklch(38% 0.01353 134.90)",
+          "oklch(49% 0.01353 134.90)",
+          "oklch(61% 0.01353 134.90)",
+          "oklch(72% 0.01353 134.90)",
+          "oklch(84% 0.01353 134.90)",
+          "oklch(95% 0.01353 134.90)"
+        ]
+      },
+      "side-paper": {
+        "role": "neutral",
+        "displayName": "次要变化浅底",
+        "canonical": "#efeee5",
+        "tonalRamp": [
+          "oklch(15% 0.01200 101.49)",
+          "oklch(26% 0.01200 101.49)",
+          "oklch(38% 0.01200 101.49)",
+          "oklch(49% 0.01200 101.49)",
+          "oklch(61% 0.01200 101.49)",
+          "oklch(72% 0.01200 101.49)",
+          "oklch(84% 0.01200 101.49)",
+          "oklch(95% 0.01200 101.49)"
+        ]
+      },
+      "side-line": {
+        "role": "neutral",
+        "displayName": "次要变化细线",
+        "canonical": "#cfd6ca",
+        "tonalRamp": [
+          "oklch(15% 0.01795 131.89)",
+          "oklch(26% 0.01795 131.89)",
+          "oklch(38% 0.01795 131.89)",
+          "oklch(49% 0.01795 131.89)",
+          "oklch(61% 0.01795 131.89)",
+          "oklch(72% 0.01795 131.89)",
+          "oklch(84% 0.01795 131.89)",
+          "oklch(95% 0.01795 131.89)"
+        ]
+      },
+      "panel-line": {
+        "role": "neutral",
+        "displayName": "观察分隔线",
+        "canonical": "#c7d1c2",
+        "tonalRamp": [
+          "oklch(15% 0.02315 134.96)",
+          "oklch(26% 0.02315 134.96)",
+          "oklch(38% 0.02315 134.96)",
+          "oklch(49% 0.02315 134.96)",
+          "oklch(61% 0.02315 134.96)",
+          "oklch(72% 0.02315 134.96)",
+          "oklch(84% 0.02315 134.96)",
+          "oklch(95% 0.02315 134.96)"
+        ]
+      },
+      "intro-ink": {
+        "role": "neutral",
+        "displayName": "导语墨色",
+        "canonical": "#44594d",
+        "tonalRamp": [
+          "oklch(15% 0.03236 159.69)",
+          "oklch(26% 0.03236 159.69)",
+          "oklch(38% 0.03236 159.69)",
+          "oklch(49% 0.03236 159.69)",
+          "oklch(61% 0.03236 159.69)",
+          "oklch(72% 0.03236 159.69)",
+          "oklch(84% 0.03236 159.69)",
+          "oklch(95% 0.03236 159.69)"
+        ]
+      },
+      "previous-wash": {
+        "role": "neutral",
+        "displayName": "上期底色",
+        "canonical": "#eeeee7",
+        "tonalRamp": [
+          "oklch(15% 0.00930 106.58)",
+          "oklch(26% 0.00930 106.58)",
+          "oklch(38% 0.00930 106.58)",
+          "oklch(49% 0.00930 106.58)",
+          "oklch(61% 0.00930 106.58)",
+          "oklch(72% 0.00930 106.58)",
+          "oklch(84% 0.00930 106.58)",
+          "oklch(95% 0.00930 106.58)"
+        ]
+      },
+      "mechanism-line": {
+        "role": "neutral",
+        "displayName": "机制线",
+        "canonical": "#a7b9a5",
+        "tonalRamp": [
+          "oklch(15% 0.03437 142.44)",
+          "oklch(26% 0.03437 142.44)",
+          "oklch(38% 0.03437 142.44)",
+          "oklch(49% 0.03437 142.44)",
+          "oklch(61% 0.03437 142.44)",
+          "oklch(72% 0.03437 142.44)",
+          "oklch(84% 0.03437 142.44)",
+          "oklch(95% 0.03437 142.44)"
+        ]
+      },
+      "selection-wash": {
+        "role": "neutral",
+        "displayName": "选择背景",
+        "canonical": "#cedfca",
+        "tonalRamp": [
+          "oklch(15% 0.03369 139.73)",
+          "oklch(26% 0.03369 139.73)",
+          "oklch(38% 0.03369 139.73)",
+          "oklch(49% 0.03369 139.73)",
+          "oklch(61% 0.03369 139.73)",
+          "oklch(72% 0.03369 139.73)",
+          "oklch(84% 0.03369 139.73)",
+          "oklch(95% 0.03369 139.73)"
+        ]
+      },
+      "selection-ink": {
+        "role": "neutral",
+        "displayName": "选择文字",
+        "canonical": "#183b2b",
+        "tonalRamp": [
+          "oklch(15% 0.05026 161.83)",
+          "oklch(26% 0.05026 161.83)",
+          "oklch(38% 0.05026 161.83)",
+          "oklch(49% 0.05026 161.83)",
+          "oklch(61% 0.05026 161.83)",
+          "oklch(72% 0.05026 161.83)",
+          "oklch(84% 0.05026 161.83)",
+          "oklch(95% 0.05026 161.83)"
+        ]
+      },
+      "print-paper": {
+        "role": "neutral",
+        "displayName": "打印纸面",
+        "canonical": "white",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.88)",
+          "oklch(26% 0.00000 89.88)",
+          "oklch(38% 0.00000 89.88)",
+          "oklch(49% 0.00000 89.88)",
+          "oklch(61% 0.00000 89.88)",
+          "oklch(72% 0.00000 89.88)",
+          "oklch(84% 0.00000 89.88)",
+          "oklch(95% 0.00000 89.88)"
+        ]
+      },
+      "print-ink": {
+        "role": "neutral",
+        "displayName": "打印文字",
+        "canonical": "#111",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.88)",
+          "oklch(26% 0.00000 89.88)",
+          "oklch(38% 0.00000 89.88)",
+          "oklch(49% 0.00000 89.88)",
+          "oklch(61% 0.00000 89.88)",
+          "oklch(72% 0.00000 89.88)",
+          "oklch(84% 0.00000 89.88)",
+          "oklch(95% 0.00000 89.88)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "display",
+        "purpose": "详情标题；手机缩至30px。"
+      },
+      "page-heading": {
+        "displayName": "page-heading",
+        "purpose": "实际 reader.css 中的 page-heading 文字角色；响应式变化见 DESIGN.md。"
+      },
+      "lead": {
+        "displayName": "lead",
+        "purpose": "实际 reader.css 中的 lead 文字角色；响应式变化见 DESIGN.md。"
+      },
+      "report-title": {
+        "displayName": "report-title",
+        "purpose": "实际 reader.css 中的 report-title 文字角色；响应式变化见 DESIGN.md。"
+      },
+      "headline": {
+        "displayName": "headline",
+        "purpose": "实际 reader.css 中的 headline 文字角色；响应式变化见 DESIGN.md。"
+      },
+      "section-title": {
+        "displayName": "section-title",
+        "purpose": "实际 reader.css 中的 section-title 文字角色；响应式变化见 DESIGN.md。"
+      },
+      "report-entry": {
+        "displayName": "report-entry",
+        "purpose": "实际 reader.css 中的 report-entry 文字角色；响应式变化见 DESIGN.md。"
+      },
+      "list-title": {
+        "displayName": "list-title",
+        "purpose": "实际 reader.css 中的 list-title 文字角色；响应式变化见 DESIGN.md。"
+      },
+      "intro": {
+        "displayName": "intro",
+        "purpose": "实际 reader.css 中的 intro 文字角色；响应式变化见 DESIGN.md。"
+      },
+      "report-deck": {
+        "displayName": "report-deck",
+        "purpose": "实际 reader.css 中的 report-deck 文字角色；响应式变化见 DESIGN.md。"
+      },
+      "body": {
+        "displayName": "body",
+        "purpose": "全站无衬线正文基线。"
+      },
+      "article-body": {
+        "displayName": "article-body",
+        "purpose": "实际 reader.css 中的 article-body 文字角色；响应式变化见 DESIGN.md。"
+      },
+      "report-body": {
+        "displayName": "report-body",
+        "purpose": "实际 reader.css 中的 report-body 文字角色；响应式变化见 DESIGN.md。"
+      },
+      "reading-link": {
+        "displayName": "reading-link",
+        "purpose": "实际 reader.css 中的 reading-link 文字角色；响应式变化见 DESIGN.md。"
+      },
+      "support": {
+        "displayName": "support",
+        "purpose": "实际 reader.css 中的 support 文字角色；响应式变化见 DESIGN.md。"
+      },
+      "label": {
+        "displayName": "label",
+        "purpose": "静态方向标签。"
+      },
+      "metadata": {
+        "displayName": "metadata",
+        "purpose": "时间、来源等辅助信息。"
+      },
+      "footnote": {
+        "displayName": "footnote",
+        "purpose": "实际 reader.css 中的 footnote 文字角色；响应式变化见 DESIGN.md。"
+      },
+      "brand": {
+        "displayName": "brand",
+        "purpose": "RiskHot 英文标志。"
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "reading-arrow",
+        "value": "transform .2s cubic-bezier(.16,1,.3,1)",
+        "purpose": "阅读链接悬停时箭头向右4px；无额外全局动画。"
+      },
+      {
+        "name": "reading-scroll",
+        "value": "smooth",
+        "purpose": "普通偏好下的锚点滚动；系统决定时长。"
+      },
+      {
+        "name": "reduced-motion",
+        "value": "@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.arrow{transition:none}}",
+        "purpose": "取消平滑滚动与箭头过渡；原生展开不增加动画。"
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide-min",
+        "value": "1600px"
+      },
+      {
+        "name": "medium-max",
+        "value": "1050px"
+      },
+      {
+        "name": "mobile-max",
+        "value": "760px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "两入口导航",
+      "kind": "nav",
+      "refersTo": "primary-nav",
+      "description": "原型全部一级入口；选中态依赖 aria-current。",
+      "html": "<nav class=\"ds-primary-nav\" aria-label=\"主导航\"><a href=\"#overview\" aria-current=\"page\">风险速览</a><a href=\"#reports/week\">观察报告</a></nav>",
+      "css": ".ds-primary-nav{display:flex;gap:40px;min-height:88px;background:var(--paper,#f7f6f1);border-bottom:1px solid var(--line,#d6dcd2);font-family:\"PingFang SC\",\"Microsoft YaHei\",sans-serif;line-height:1.85}.ds-primary-nav a{display:flex;align-items:center;position:relative;font-size:16px;color:var(--muted,#59685f);white-space:nowrap;text-decoration:none}.ds-primary-nav a[aria-current=page]{color:var(--green,#214c3b);font-weight:600}.ds-primary-nav a[aria-current=page]:after{content:\"\";height:3px;background:var(--green,#214c3b);position:absolute;bottom:-1px;left:0;right:0}.ds-primary-nav a:hover{color:var(--green,#214c3b)}.ds-primary-nav a:focus-visible{outline:3px solid var(--focus,#80652b);outline-offset:5px;border-radius:2px;}@media(max-width:1050px){.ds-primary-nav{gap:28px}}@media(max-width:760px){.ds-primary-nav{width:100%;gap:32px;min-height:47px}.ds-primary-nav a{font-size:15px}}"
+    },
+    {
+      "name": "阅读链接",
+      "kind": "custom",
+      "refersTo": "reading-link",
+      "description": "普通链接与箭头；不是提交按钮。",
+      "html": "<a class=\"ds-reading-link\" href=\"#risk/r1\">读懂这项风险<svg class=\"ds-arrow\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4 12h15M13 6l6 6-6 6\"/></svg></a>",
+      "css": ".ds-reading-link{display:inline-flex;align-items:center;gap:12px;font-size:14px;font-weight:500;line-height:1.6;min-height:36px;color:var(--green,#214c3b);text-decoration:none;text-underline-offset:5px;font-family:\"PingFang SC\",\"Microsoft YaHei\",sans-serif;}.ds-reading-link svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}.ds-reading-link .ds-arrow{transition:transform .2s cubic-bezier(.16,1,.3,1)}.ds-reading-link:hover{text-decoration:underline}.ds-reading-link:hover .ds-arrow{transform:translateX(4px)}.ds-reading-link:focus-visible{outline:3px solid var(--focus,#80652b);outline-offset:5px;border-radius:2px;}@media(prefers-reduced-motion:reduce){.ds-reading-link .ds-arrow{transition:none}}"
+    },
+    {
+      "name": "语义方向标签",
+      "kind": "chip",
+      "refersTo": "direction-up",
+      "description": "静态方向标签，以文字、SVG 和颜色共同表达状态。",
+      "html": "<div class=\"ds-badges\"><span class=\"ds-status ds-up\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 17 18 4M8 4h10v10\"/></svg>压力增加</span><span class=\"ds-status ds-down\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m5 7 13 13M8 20h10V10\"/></svg>有所缓解</span><span class=\"ds-status ds-stable\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4 12h16m-5-5 5 5-5 5\"/></svg>变化不大</span><span class=\"ds-status ds-unknown\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M9 8a3 3 0 0 1 6 0c0 2-3 2-3 5m0 4h.01\"/></svg>暂难判断</span></div>",
+      "css": ".ds-badges{display:flex;flex-wrap:wrap;gap:12px}.ds-status{display:inline-flex;align-items:center;gap:6px;font-size:12px;line-height:1.7;padding:2px 8px;border-radius:3px;background:var(--stable-wash,#e9ede7);color:var(--stable-ink,#4c6055);white-space:nowrap;font-family:\"PingFang SC\",\"Microsoft YaHei\",sans-serif;}.ds-status svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}.ds-status.ds-up{background:var(--redwash,#f7eae4);color:var(--red,#a13e2b)}.ds-status.ds-down{background:var(--tealwash,#e7efea);color:var(--teal,#28645b)}.ds-status.ds-unknown{background:var(--unknown-wash,#eeece5);color:var(--unknown-ink,#665d48)}"
+    },
+    {
+      "name": "依据展开",
+      "kind": "custom",
+      "refersTo": "evidence-disclosure",
+      "description": "原生 details 支持键盘和展开；内容留在阅读路径内。",
+      "html": "<details class=\"ds-evidence\"><summary>查看本轮依据与数据<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m6 9 6 6 6-6\"/></svg></summary><div class=\"ds-evidence-body\"><h3>本轮判断依据</h3><p>融资成本仍然偏高，支持工具尚未充分覆盖承压环节。</p><h3>目前还缺什么？</h3><p>支持覆盖范围和融资成本的后续变化仍需验证。</p></div></details>",
+      "css": ".ds-evidence{border-block:1px solid var(--line,#d6dcd2);margin-top:24px;color:var(--ink,#243c33);font-family:\"PingFang SC\",\"Microsoft YaHei\",sans-serif;line-height:1.85}.ds-evidence summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:17px 0;font-size:15px}.ds-evidence summary::-webkit-details-marker{display:none}.ds-evidence summary svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}.ds-evidence[open]>summary svg{transform:rotate(180deg)}.ds-evidence summary:focus-visible{outline:3px solid var(--focus,#80652b);outline-offset:5px;border-radius:2px;}.ds-evidence-body{padding:0 0 25px}.ds-evidence-body h3{font-size:14px;line-height:1.4;margin:18px 0 7px}.ds-evidence-body p{font-size:14px;line-height:2;margin:0;max-width:42em}"
+    },
+    {
+      "name": "术语展开",
+      "kind": "custom",
+      "refersTo": "inline-term",
+      "description": "轻量的原生术语解释，不增加输入或设置。",
+      "html": "<details class=\"ds-inline-term\"><summary>为什么不能直接说稳定？</summary><p>“稳定”需要与可比历史进行比较。第一次看到一个信号，不代表它与过去相同。</p></details>",
+      "css": ".ds-inline-term{margin-top:16px;border-bottom:1px solid var(--line,#d6dcd2);font-family:\"PingFang SC\",\"Microsoft YaHei\",sans-serif;line-height:1.85}.ds-inline-term summary{font-size:13px;color:var(--green,#214c3b);padding:8px 0;cursor:pointer}.ds-inline-term summary:focus-visible{outline:3px solid var(--focus,#80652b);outline-offset:5px;border-radius:2px;}.ds-inline-term p{font-size:14px;color:var(--muted,#59685f);padding:4px 0 15px;line-height:2;margin:0;max-width:42em}"
+    },
+    {
+      "name": "机制作用路径",
+      "kind": "custom",
+      "refersTo": "mechanism-line",
+      "description": "三个节点静态解释传导关系；不是步骤控件。",
+      "html": "<div class=\"ds-mechanism\" aria-label=\"风险作用路径\"><div>美元资金更难获得</div><svg class=\"ds-arrow\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4 12h15M13 6l6 6-6 6\"/></svg><div>短期融资成本上升</div><svg class=\"ds-arrow\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4 12h15M13 6l6 6-6 6\"/></svg><div>相关主体偿付承压</div></div>",
+      "css": ".ds-mechanism{display:flex;align-items:center;gap:12px;margin:25px 0 6px;color:var(--ink,#243c33);font-family:\"PingFang SC\",\"Microsoft YaHei\",sans-serif;line-height:1.85}.ds-mechanism>div{flex:1;text-align:center;padding:12px 5px;border-block:1px solid var(--mechanism-line,#a7b9a5);font-size:14px}.ds-mechanism svg{width:16px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}@media(max-width:760px){.ds-mechanism{gap:7px}.ds-mechanism>div{font-size:12px;padding:12px 2px}.ds-mechanism svg{width:13px}}"
+    },
+    {
+      "name": "报告周期导航",
+      "kind": "nav",
+      "refersTo": "period-nav",
+      "description": "日、周、月的实际报告入口。",
+      "html": "<nav class=\"ds-period-nav\" aria-label=\"报告周期\"><a href=\"#reports/day\">日观察</a><a href=\"#reports/week\" aria-current=\"page\">周观察</a><a href=\"#reports/month\">月观察</a></nav>",
+      "css": ".ds-period-nav{display:flex;gap:26px;font-family:\"PingFang SC\",\"Microsoft YaHei\",sans-serif;line-height:1.85}.ds-period-nav a{font-size:15px;padding:7px 0;color:var(--muted,#59685f);border-bottom:2px solid transparent;text-decoration:none}.ds-period-nav a[aria-current=page]{border-color:var(--green,#214c3b);color:var(--green,#214c3b);font-weight:600}.ds-period-nav a:hover{color:var(--green,#214c3b)}.ds-period-nav a:focus-visible{outline:3px solid var(--focus,#80652b);outline-offset:5px;border-radius:2px;}@media(max-width:760px){.ds-period-nav{gap:28px}}"
+    },
+    {
+      "name": "报告纸面",
+      "kind": "card",
+      "refersTo": "report-paper",
+      "description": "连续文章表面，无悬浮阴影和卡片按钮。",
+      "html": "<article class=\"ds-report-paper\"><h1>本周风险观察</h1><p>风险判断仍需同时阅读程度、变化与证据边界。</p><section class=\"ds-report-summary\"><h2>本期摘要</h2><p>美元融资压力继续增加，部分支持尚未充分传导。</p></section></article>",
+      "css": ".ds-report-paper{padding:42px 48px 46px;background:var(--white,#fffefa);border:1px solid var(--line,#d6dcd2);color:var(--ink,#243c33);font-family:\"PingFang SC\",\"Microsoft YaHei\",sans-serif;line-height:1.85}.ds-report-paper h1{font-family:\"Songti SC\",\"STSong\",\"Noto Serif CJK SC\",serif;font-size:35px;line-height:1.5;font-weight:600;letter-spacing:-.02em;max-width:19em;margin:0}.ds-report-paper>p{font-size:17px;color:var(--muted,#59685f);line-height:1.95;margin:17px 0 0}.ds-report-summary{background:var(--wash,#eaf0e7);padding:24px 28px;margin-top:28px}.ds-report-summary h2{font-family:\"Songti SC\",\"STSong\",\"Noto Serif CJK SC\",serif;font-size:24px;line-height:1.4;margin:0 0 12px}.ds-report-summary p{font-size:15px;line-height:1.95;margin:0}@media(max-width:1050px){.ds-report-paper{padding:32px}}@media(max-width:760px){.ds-report-paper{padding:25px 23px}.ds-report-paper h1{font-size:28px}.ds-report-paper>p{font-size:15px}.ds-report-summary{padding:21px;margin-top:23px}.ds-report-summary h2{font-size:22px}.ds-report-summary p{font-size:14px}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "可解释的风险阅读",
+    "overview": "以绿色品牌、平面浅底、中文衬线标题和无衬线正文，建立安静且有判断力的阅读表面。细线与底色区分内容层次，语义色只辅助表达变化与未知；正文承担解释，不由装饰图形代替。\n\n这是对已完成离线原型的实物提取，沿用已确认的阅读方向。一般阅读者直接进入风险速览或观察报告；详情沿同一阅读路径按需展开依据。本次属于中途采用 impeccable 的交付收尾，没有进行概念抽签、批准效果图或审美选案访谈。适用范围仅为本目录，不继承或改写父级管理中心的视觉规范。",
+    "keyCharacteristics": [
+      "中文衬线标题与宽松正文行距形成连续阅读节奏。",
+      "深绿重点区、浅色观察区和细线分隔构成平面层级。",
+      "文本、SVG 方向符号与语义底色共同表达变化，未知单独保留。",
+      "两入口始终直接可达；手机按内容顺序折为单列。"
+    ],
+    "rules": [
+      {
+        "name": "The Semantic Color Rule",
+        "body": "方向标签同时保留文字、SVG 与色彩；红色表示压力增加，青绿色表示有所缓解，灰绿色表示变化不大，暖灰表示未知，不能用绿色统一代替风险结论。",
+        "section": "colors"
+      },
+      {
+        "name": "The Reading Rhythm Rule",
+        "body": "衬线字承担标题，无衬线字承担正文、导航与时点；正文宽度和行距优先服务连续阅读。",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Reading Rule",
+        "body": "层级以背景色、边框、间距和字重表达，不引入悬浮投影来替代现有阅读层次。",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do 保留本地绿色阅读配色，主判断、状态和历史提示分别使用对应色彩角色。",
+      "Do 用细分隔线、衬线标题、无衬线正文与宽松行距组织内容。",
+      "Do 为链接与展开项保留可见焦点，并尊重减少动效偏好。",
+      "Do 在手机上保留两个直接入口，并按主判断、次要变化、连续正文的顺序阅读。",
+      "Do 将新状态与历史报告的适用时点写清楚，语义标签同时有文字说明。"
+    ],
+    "donts": [
+      "Don't 将父级管理中心的颜色、卡片或配置控件自动搬入本阅读表面。",
+      "Don't 将变化不大、首次观察、未评估合并成同一种“安全”状态。",
+      "Don't 为本原型增加我的关注、收藏、订阅、配置、提醒或输入任务。",
+      "Don't 把本次提取记录表述为曾经完成概念抽签、用户审美选案或批准效果图。",
+      "Don't 把仅用于演示、历史提示、选择、打印或已声明但未使用的色值提升为通用品牌主色。"
+    ]
+  }
+}

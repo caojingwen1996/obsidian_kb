@@ -1,0 +1,15 @@
+{
+  "artifact": "../../../量化信号决策辅助产品设计.html",
+  "artifactSha256": "27053bb01a3efad0f85c9e51db8ca2628b8f618d621680f78e424f077244c481",
+  "captureOrigin": "本地独立HTML在Google Chrome中通过Playwright截图；非生成图像",
+  "captures": {
+    "mobile-report.png": "4298ad285d155698414da892b240d63a65789f7e448b280d4ff68064d251cfbf",
+    "desktop.png": "4fa0205cec35de58d82394061477da741bdd2340e451254458bc52e05b88f60a",
+    "mobile-detail.png": "7e0caee5a3d33bbc86940cdb2427ee63164b3da4d816e21d69857b60e3481e70",
+    "historical.png": "7cc8de95a30c43d5d9f8cd7cd2522ff891b615375f3ed8a6cc857b18fa3b5db7",
+    "debt-evidence.png": "2eb9eb278acca0b93a99c612dfd8895f4ae823ceab70c05afc4c9aad1938b29c",
+    "mobile.png": "eab42bd09fe4d2fe4965251341003c40c3a0049f678075fe1882a704fb09b77b",
+    "detail.png": "783be4d416f613f1f878316d02ab46c9cb7d106dedef0c057dcb303ba19c04b9",
+    "report.png": "8cf6416b405328988da477cf7ba578b972fa8a96216f47ee4021712a482d116e"
+  }
+}

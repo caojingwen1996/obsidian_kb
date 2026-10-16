@@ -1,0 +1,842 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="RiskHot 产品层交互原型：关注风险变化、核心变量与证据，规划条件性资产映射。全部数据均为虚构演示。">
+<title>RiskHot · 风险观察工作台</title>
+<style>
+:root{--primary:#295c47;--nav:#193d33;--nav-text:#d2ded7;--canvas:#f5f5ef;--surface:#fff;--subtle:#f7f8f5;--ink:#22352e;--muted:#58675e;--line:#dfe5df;--selected:#e8f0e9;--ai:#eee8ff;--ai-ink:#624392;--danger:#a1392c;--warning:#856019;--down:#226c65;--sidebar:216px;--radius:12px}
+*{box-sizing:border-box}.workspace>*,.detail-grid>*,.report-layout>*,.mapping-layout>*,.scenario>*,.stack{min-width:0}html{scroll-behavior:smooth}body{margin:0;background:var(--canvas);color:var(--ink);font-family:"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",system-ui,sans-serif;font-size:14px;line-height:1.65}button,input,select{font:inherit}button,a,input,select{ -webkit-tap-highlight-color:transparent}button{cursor:pointer}button:disabled{cursor:default;opacity:.55}a{color:var(--primary);text-decoration:none}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #a78031;outline-offset:3px}button{color:inherit}h1,h2,h3,h4,p{margin:0}h1{font-size:20px;line-height:1.5;font-weight:600}h2{font-size:15px;line-height:1.6;font-weight:600}h3{font-size:14px;font-weight:600}small,.small{font-size:12px;line-height:1.6}.muted{color:var(--muted)}.mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;overflow-wrap:anywhere;font-size:12px}.icon{width:18px;height:18px;display:inline-block;vertical-align:middle;flex:0 0 auto;fill:none;stroke:currentColor;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round}.sr-only{position:absolute!important;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.skip{position:fixed;top:-60px;left:16px;background:#fff;padding:10px;z-index:50}.skip:focus{top:10px}
+.sidebar{position:fixed;inset:0 auto 0 0;width:var(--sidebar);background:var(--nav);color:var(--nav-text);padding:25px 16px 18px;display:flex;flex-direction:column;z-index:30}.brand{display:flex;align-items:center;gap:11px;padding:0 10px;color:#fff}.brand-mark{position:relative;width:30px;height:30px;display:grid;grid-template-columns:1fr 1fr;gap:4px;transform:rotate(-5deg)}.brand-mark i{background:#c9dbad;border-radius:3px}.brand-mark i:nth-child(2){background:#678b77}.brand-mark i:nth-child(3){background:#93b49c}.brand-mark i:nth-child(4){background:#e0e9ce}.brand-name{font-weight:650;letter-spacing:-.7px;font-size:23px;line-height:1.3}.brand-sub{font-size:11px;letter-spacing:1px;color:#d2ded7;padding:12px 10px 0}.nav-label{font-size:11px;color:#b3c8bc;margin:34px 12px 10px;letter-spacing:1px}.nav-item{width:100%;border:0;background:none;color:var(--nav-text);display:flex;align-items:center;gap:12px;min-height:46px;padding:10px 13px;text-align:left;border-radius:8px;margin-bottom:6px}.nav-item:hover{background:#254e40}.nav-item.active{background:#e8f0e9;color:#234c3a;font-weight:600}.nav-count{font-size:11px;margin-left:auto;opacity:.85}.nav-sep{height:1px;background:#3a5b4e;margin:18px 12px}.side-bottom{margin-top:auto;padding-top:30px}.side-note{margin:0 12px 23px;padding:16px 0;border-top:1px solid #3a5b4e;color:#d2ded7;font-size:12px;line-height:1.9}.side-note strong{color:#f0f3e8;font-weight:500}.identity{display:flex;gap:10px;align-items:center;padding:12px 12px 0}.avatar{width:31px;height:31px;border:1px solid #6b8879;border-radius:50%;display:grid;place-items:center;color:#f0f3e8}.identity small{display:block;color:#b8cabe}.main{margin-left:var(--sidebar);min-height:100vh}.topbar{height:57px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.97);position:sticky;top:0;z-index:20;display:flex;gap:18px;align-items:center;padding:0 32px;white-space:nowrap}.crumb{font-size:14px;font-weight:600;display:flex;gap:12px;align-items:center;overflow:hidden;min-width:0}.crumb .prefix{color:var(--muted);font-weight:400}.top-actions{margin-left:auto;display:flex;align-items:center;gap:12px}.search-trigger{height:33px;min-width:204px;border:1px solid var(--line);border-radius:7px;background:var(--subtle);padding:0 10px;display:flex;gap:8px;align-items:center;color:var(--muted);font-size:12px}.key{margin-left:auto;font-size:11px;border:1px solid var(--line);border-radius:4px;padding:0 4px;background:#fff}.demo-pill{font-size:11px;line-height:1.6;background:#f7f0dc;color:#76550d;border:1px solid #e6d9b7;border-radius:5px;padding:3px 7px;white-space:nowrap}.icon-btn.mobile-menu{display:none}.content{padding:24px 32px 40px;max-width:1800px;margin:auto}.page-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:20px}.page-head p{margin-top:5px;color:var(--muted)}.cutoff{text-align:right;font-size:12px;color:var(--muted);padding-top:2px;white-space:nowrap}.cutoff strong{display:block;font-size:12px;font-weight:500;color:var(--ink)}.btn{min-height:38px;padding:8px 13px;border:1px solid var(--line);border-radius:8px;background:#fff;display:inline-flex;align-items:center;justify-content:center;gap:7px;font-size:13px;line-height:1.5}.btn:hover{background:var(--subtle)}.btn.primary{background:var(--primary);border-color:var(--primary);color:#fff}.btn.primary:hover{background:#214a39}.btn.quiet{background:transparent;border-color:transparent;padding-left:0;padding-right:0;color:var(--primary)}.icon-btn{padding:7px;border:1px solid transparent;background:transparent;border-radius:6px;line-height:1;display:inline-flex;align-items:center;justify-content:center;min-width:32px;min-height:32px}.icon-btn:hover{background:var(--selected)}.icon-btn.saved{color:var(--warning)}.icon-btn.saved svg{fill:#eadbb5}.tag{display:inline-flex;gap:5px;align-items:center;font-size:11px;line-height:1.6;padding:3px 7px;border-radius:5px;white-space:nowrap;background:#eff2ee;color:var(--muted);font-weight:500}.tag.up,.severity.high{color:var(--danger);background:#f8ece8}.tag.down{color:var(--down);background:#e9f3ee}.tag.stable{color:#506679;background:#edf1f5}.tag.unknown{color:#67726a;background:#f0f2ef;border:1px dashed #c3ccc3;padding:2px 6px}.tag.ai{color:var(--ai-ink);background:var(--ai)}.tag.new{color:var(--warning);background:#f7f0dc}.tag.plan{color:var(--ai-ink);background:var(--ai)}.severity{display:inline-flex;align-items:center;font-size:12px;gap:6px;padding:2px 7px;border-radius:4px;background:#eef1ed;color:var(--muted);white-space:nowrap}.severity.mid{color:var(--warning);background:#f8f1df}.dot{width:5px;height:5px;border-radius:100%;background:currentColor;display:inline-block;flex-shrink:0}.surface{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}.section-head{padding:18px 20px 15px;display:flex;align-items:center;gap:12px;justify-content:space-between}.section-head p{font-size:12px;color:var(--muted);margin-top:2px}.section-head.border{border-bottom:1px solid var(--line)}.briefing{padding:20px 24px;background:#ebf0e5;border:1px solid #d9e2d0;border-radius:12px;display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:32px;margin-bottom:24px}.brief-meta{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted);margin-bottom:9px}.briefing h2{font-size:18px;font-weight:600;line-height:1.6;letter-spacing:.1px}.briefing p{font-size:13px;color:var(--muted);margin-top:7px;max-width:800px}.brief-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.brief-link{border:1px solid #ccd8c4;background:#f7f9f3;border-radius:6px;padding:5px 9px;font-size:12px;display:flex;align-items:center;gap:8px}.brief-right{border-left:1px solid #cad5c3;padding-left:22px;display:flex;flex-direction:column;justify-content:center}.brief-right .large{font-size:18px;letter-spacing:.3px;margin:7px 0}.brief-right a{font-size:12px}.workspace{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px;align-items:start}.stats-line{display:flex;align-items:center;gap:14px;padding:0 20px 14px;font-size:12px;color:var(--muted)}.stats-line b{font-weight:600;color:var(--ink);padding-right:2px}.tabs{display:flex;align-items:center;gap:20px;overflow-x:auto;border-bottom:1px solid var(--line);padding:0 20px;scrollbar-width:thin}.tab{border:0;background:none;padding:11px 0;font-size:12px;white-space:nowrap;border-bottom:2px solid transparent;color:var(--muted);display:flex;align-items:center;gap:5px}.tab.active{color:var(--primary);border-bottom-color:var(--primary);font-weight:600}.tab .n{font-size:11px;border-radius:4px;background:#f0f2ed;padding:0 4px}.toolbar{display:flex;align-items:center;gap:10px;padding:13px 20px;flex-wrap:wrap}.input-wrap{display:flex;align-items:center;gap:8px;min-width:130px;flex:1;border:1px solid var(--line);border-radius:7px;padding:0 10px;background:#fff;min-height:35px}.input-wrap input{width:100%;min-width:0;border:0;outline:none!important;background:transparent;font-size:12px;padding:7px 0;color:var(--ink)}.input-wrap:focus-within{outline:2px solid var(--primary);outline-offset:1px}.toolbar select,.select{font-size:12px;border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--ink);height:35px;padding:0 9px;max-width:100%}.check{display:flex;align-items:center;gap:6px;font-size:12px;white-space:nowrap}.check input{accent-color:var(--primary)}.risk-table{width:100%;border-collapse:collapse;text-align:left;table-layout:fixed}.risk-table thead{background:var(--subtle);font-size:11px;color:var(--muted)}.risk-table th{font-weight:500;padding:10px 12px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);white-space:nowrap}.risk-table td{padding:17px 12px;border-bottom:1px solid #e9ede7;vertical-align:top}.risk-table th:first-child,.risk-table td:first-child{padding-left:20px}.risk-table th:last-child,.risk-table td:last-child{padding-right:20px}.risk-table tr:last-child td{border-bottom:0}.risk-table tbody tr:hover{background:#fafbf8}.risk-table tbody tr.selected{background:#f4f7ef}.risk-title{font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:7px;text-align:left;line-height:1.55;color:var(--ink);border:0;background:none;padding:0;max-width:100%}.risk-title:hover{color:var(--primary);text-decoration:underline;text-underline-offset:3px}.risk-meta{font-size:11px;color:var(--muted);margin-top:5px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}.risk-reason{font-size:12px;line-height:1.65;color:var(--muted);margin-top:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.variable-chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}.variable-chip{border:1px solid #dce5d9;border-radius:5px;background:#f8faf5;padding:2px 6px;font-size:11px;color:var(--primary);line-height:1.7}.variable-chip:hover{border-color:var(--primary)}.subcell{font-size:11px;color:var(--muted);display:block;margin-top:6px;line-height:1.6}.table-footer{padding:12px 20px;background:var(--subtle);border-top:1px solid var(--line);font-size:11px;color:var(--muted);display:flex;gap:12px;justify-content:space-between;align-items:center}.empty{padding:45px 24px;text-align:center;color:var(--muted)}.empty h3{margin:10px 0 7px;color:var(--ink)}.focus-box{padding:20px}.focus-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}.focus-code{font-size:11px;color:var(--muted);margin-bottom:6px}.focus-name{font-size:17px;font-weight:600;line-height:1.6;margin-bottom:10px}.focus-box p{font-size:13px;color:var(--muted);line-height:1.8}.focus-section{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}.focus-section h3{font-size:12px;margin-bottom:8px}.reason-row{display:flex;gap:10px;margin:10px 0;font-size:12px}.reason-num{width:19px;height:19px;border-radius:100%;background:var(--selected);display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;font-size:11px;font-weight:600;margin-top:2px}.focus-box .btn{width:100%;margin-top:20px}.aside-stack{display:grid;gap:16px}.quiet-panel{padding:18px 20px}.quiet-panel h3{font-size:13px;margin-bottom:9px}.quiet-panel p{font-size:12px;color:var(--muted);line-height:1.8}.note-line{font-size:11px;color:var(--muted);padding:14px 0 0;display:flex;gap:7px;align-items:flex-start}.note-line .icon{width:14px;height:14px;margin-top:3px}.bottom-insight{margin-top:20px;display:flex;gap:15px;align-items:center;justify-content:space-between;padding:15px 20px;border:1px solid var(--line);border-radius:10px;background:#fff}.bottom-insight h3{font-size:13px}.bottom-insight p{font-size:12px;color:var(--muted);margin-top:3px}.status-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:9px}.detail-header{margin-bottom:18px}.detail-header .lead{font-size:14px;max-width:900px;margin:12px 0 0;color:var(--muted);line-height:1.9}.detail-tabs{background:#fff;border:1px solid var(--line);border-radius:9px;margin-bottom:20px;padding:0 18px;gap:28px}.detail-tabs .tab{font-size:13px;padding:12px 0}.detail-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px;align-items:start}.reading-block{padding:20px 24px}.reading-block+.reading-block{border-top:1px solid var(--line)}.reading-block h2{margin-bottom:14px}.compare{display:grid;grid-template-columns:minmax(0,1fr) 32px minmax(0,1fr);gap:14px;align-items:stretch}.compare-box{padding:15px 17px;background:var(--subtle);border:1px solid var(--line);border-radius:8px}.compare-box.current{background:#eef3e8;border-color:#d5dfcb}.compare-box .caption{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--muted);gap:12px}.compare-box p{font-size:13px;line-height:1.8;margin:12px 0}.compare-mid{display:flex;align-items:center;justify-content:center;color:var(--muted)}.compare-meta{margin-top:13px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:11px;color:var(--muted)}.analysis-block{padding:17px 18px;border-radius:8px;background:#f6f3fb;margin-top:17px}.analysis-block .row{display:flex;gap:10px;align-items:center;margin-bottom:8px}.analysis-block p{font-size:13px;line-height:1.85}.fact-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line);border-radius:8px;overflow:hidden}.fact-cell{padding:14px 16px;border-bottom:1px solid var(--line);border-right:1px solid var(--line)}.fact-cell h3{font-size:11px;color:var(--muted);font-weight:400;margin-bottom:6px}.fact-cell p{font-size:13px;line-height:1.8}.forces{display:grid;grid-template-columns:1fr 1fr;gap:16px}.force{padding:16px;background:var(--subtle);border:1px solid var(--line);border-radius:8px}.force h3{display:flex;align-items:center;gap:7px;margin-bottom:8px}.force p{font-size:13px;color:var(--muted);line-height:1.8}.force .btn{font-size:12px;margin-top:7px;min-height:28px}.stack{display:grid;gap:18px}.observation{padding:20px;background:#edf1e5;border:1px solid #d7dfcb;border-radius:12px}.observation h2{margin-bottom:9px}.observation p{font-size:13px;line-height:1.85}.observation .small{margin-top:12px;display:block}.evidence-summary{padding:18px 20px}.evidence-summary h2{margin-bottom:12px}.evidence-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;line-height:1.8;margin-bottom:13px}.evidence-item .tag{margin-top:2px;flex-shrink:0}.evidence-summary .btn{min-height:31px;font-size:12px}.timeline{padding:20px 24px}.timeline-item{position:relative;padding:0 0 24px 30px;border-left:1px solid #c8d2c5;margin-left:4px}.timeline-item:last-child{border-left-color:transparent;padding-bottom:0}.timeline-item:before{content:'';width:9px;height:9px;border:2px solid #fff;outline:1px solid #9aae9d;border-radius:50%;background:#e8f0e9;position:absolute;left:-5px;top:5px}.timeline-item.current:before{background:var(--primary);outline-color:var(--primary)}.timeline-title{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.timeline-title strong{font-size:13px}.timeline-item p{font-size:13px;line-height:1.8;margin-top:10px}.timeline-item .btn{font-size:11px;min-height:26px;padding:3px 7px;margin-top:9px}.timeline-rationale{font-size:12px;color:var(--muted);margin-top:6px}.segmented{display:flex;gap:3px;border:1px solid var(--line);border-radius:7px;padding:3px;background:var(--subtle)}.segment{border:0;background:transparent;border-radius:5px;padding:5px 10px;font-size:12px;color:var(--muted)}.segment.active{background:#fff;color:var(--primary);box-shadow:0 1px 3px #17322212;font-weight:600}.variable-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.variable-card{padding:20px}.variable-card .variable-top{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-bottom:8px}.variable-card h2{font-size:16px}.variable-card p{font-size:13px;line-height:1.8;color:var(--muted);margin-top:10px}.variable-card .card-bottom{margin-top:16px;padding-top:12px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px}.mini-data{width:100%;border-collapse:collapse;font-size:12px;margin-top:14px;text-align:left}.mini-data th{font-size:11px;color:var(--muted);background:var(--subtle);font-weight:400;padding:8px 10px;border-bottom:1px solid var(--line)}.mini-data td{padding:9px 10px;border-bottom:1px solid #e9ede7}.mini-data tr:last-child td{border-bottom:0}.mini-data th:last-child,.mini-data td:last-child{text-align:right}.mini-data-wrap{overflow-x:auto}.risk-link-row{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding:13px 0}.risk-link-row:last-child{border:0}.risk-link-row p{font-size:12px;color:var(--muted);margin-top:4px}.banner{display:flex;gap:10px;align-items:flex-start;border:1px solid #dfd4ec;background:#f5f0fa;color:#5e477d;padding:13px 16px;border-radius:9px;margin-bottom:20px;font-size:12px;line-height:1.85}.banner.neutral{background:#f3f5f0;border-color:var(--line);color:var(--muted)}.mapping-layout{display:grid;grid-template-columns:180px minmax(0,1fr);gap:20px;align-items:start}.asset-nav{padding:12px}.asset-btn{padding:12px;border:0;border-radius:7px;display:flex;width:100%;align-items:center;gap:8px;text-align:left;background:transparent;color:var(--muted);margin-bottom:4px}.asset-btn.active{background:var(--selected);color:var(--primary);font-weight:600}.asset-btn .icon{width:16px;height:16px}.mapping-overview{padding:20px 24px}.mapping-overview h2{font-size:18px}.mapping-overview p{font-size:13px;color:var(--muted);margin-top:8px}.chain{display:grid;grid-template-columns:1fr 20px 1fr 20px 1fr;align-items:center;margin:20px 0;gap:8px}.chain-node{border:1px solid var(--line);border-radius:8px;padding:14px 13px;min-height:100px;background:var(--subtle)}.chain-node .overline{font-size:11px;color:var(--muted);margin-bottom:6px}.chain-node strong{font-size:13px;font-weight:600}.chain-node p{font-size:11px;margin-top:6px}.chain-arrow{text-align:center;color:var(--muted)}.cycle-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:15px 0}.cycle{padding:16px;border:1px solid var(--line);border-radius:8px}.cycle-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.cycle-head strong{font-size:13px}.spectrum{position:relative;display:flex;height:8px;margin:18px 0 7px;border-radius:2px;overflow:visible;background:repeating-linear-gradient(90deg,#e4e8df 0,#e4e8df calc(20% - 3px),transparent calc(20% - 3px),transparent 20%)}.spectrum:after{content:'';position:absolute;left:var(--pos);top:-4px;width:4px;height:16px;border-radius:2px;background:var(--primary)}.spectrum-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}.cycle p{font-size:12px;color:var(--muted);line-height:1.8;margin-top:12px}.scenario{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:20px}.scenario-title{display:flex;align-items:center;gap:8px;margin-bottom:9px}.scenario-title h2{font-size:16px}.scenario p{font-size:13px;line-height:1.9;color:var(--muted)}.condition{padding:13px 15px;background:var(--subtle);border-radius:8px;margin-top:12px;border:1px solid var(--line)}.condition strong{font-size:12px;display:block;margin-bottom:6px}.condition p{font-size:12px}.condition.invalid{background:#fbf4ef;border-color:#eadbce}.report-layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:20px;align-items:start}.report-nav{padding:18px}.report-nav .segmented{margin-bottom:16px}.report-card{padding:14px;border:1px solid var(--line);border-radius:8px;background:#fff;width:100%;text-align:left;margin-bottom:12px}.report-card.active{background:var(--selected);border-color:#b8cbb7}.report-card strong{display:block;font-size:14px;margin:6px 0}.report-card small{display:block;color:var(--muted)}.report-paper{padding:30px 36px}.report-kicker{font-size:12px;color:var(--muted);display:flex;align-items:center;justify-content:space-between;padding-bottom:18px;margin-bottom:23px;border-bottom:1px solid var(--line)}.report-paper h2{font-size:23px;line-height:1.5;letter-spacing:.4px}.report-paper .report-period{font-size:13px;color:var(--muted);margin-top:8px}.report-abstract{background:#f2f5ed;border-radius:8px;padding:18px 20px;margin:22px 0;font-size:14px;line-height:1.9}.report-section{padding:20px 0;border-top:1px solid var(--line)}.report-section h3{font-size:15px;margin-bottom:12px}.report-risk{padding:13px 0}.report-risk+.report-risk{border-top:1px solid #ebeee8}.report-risk .heading{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.report-risk p{font-size:13px;color:var(--muted);margin-top:7px;line-height:1.9}.report-ref{font-size:11px;color:var(--primary);margin-top:6px;border:0;background:none;padding:0;text-align:left}.archive-note{margin:0 0 18px}.view-options{display:flex;gap:10px;align-items:center}.spacer{flex:1}.back-btn{font-size:12px;color:var(--muted);border:0;background:transparent;padding:0;display:inline-flex;align-items:center;gap:6px}.view-label{font-size:11px;color:var(--muted);letter-spacing:.2px}.read-status{font-size:11px;display:flex;align-items:center;gap:5px;color:var(--muted)}
+.dialog{border:1px solid var(--line);padding:0;color:var(--ink);border-radius:16px;max-width:min(720px,calc(100vw - 32px));width:720px;max-height:85vh;background:#fff;box-shadow:0 24px 90px #10291933}.dialog::backdrop{background:#13271f66;backdrop-filter:blur(2px)}.dialog.drawer{position:fixed;inset:0 0 0 auto;margin:0;height:100dvh;max-height:100dvh;width:590px;max-width:100vw;border-radius:0;border-right:0;box-shadow:-15px 0 60px #10291922}.dialog-head{position:sticky;top:0;background:#fff;z-index:2;padding:19px 24px;display:flex;align-items:center;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line)}.dialog-head h2{font-size:20px}.dialog-body{padding:22px 24px 30px}.dialog-body>p{margin-bottom:14px;font-size:13px;line-height:1.9;color:var(--muted)}.dialog-section{margin:22px 0}.dialog-section h3{font-size:14px;margin-bottom:12px}.dialog-section p{font-size:13px;line-height:1.9}.definition-box{background:var(--subtle);border:1px solid var(--line);border-radius:8px;padding:15px 17px;margin:14px 0;font-size:13px;line-height:1.9}.definition-box .tag{margin-bottom:9px}.source-block{font-size:12px;color:var(--muted);line-height:1.9;padding:14px 16px;border:1px solid var(--line);border-radius:8px;margin:12px 0}.source-block strong{display:block;color:var(--ink);font-weight:500;margin-bottom:5px}.search-large{display:flex;gap:10px;align-items:center;border:1px solid var(--line);padding:12px 14px;border-radius:8px;margin-bottom:17px}.search-large input{font-size:16px;outline:0;border:0;width:100%;min-width:0}.search-result{padding:12px 0;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:15px}.search-result button{border:0;background:none;padding:0;text-align:left;font-size:14px;font-weight:500}.search-result small{display:block;color:var(--muted)}.philosophy-row{padding:18px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:28px 1fr;gap:13px}.philosophy-row .num{font-size:18px;color:#7b967f;font-weight:300}.philosophy-row h3{margin-bottom:6px;font-size:14px}.philosophy-row p{font-size:13px;line-height:1.9;color:var(--muted)}.toast{position:fixed;bottom:24px;left:calc(50% + var(--sidebar)/2);transform:translateX(-50%);padding:12px 18px;background:#234535;color:#fff;border-radius:8px;font-size:13px;box-shadow:0 5px 25px #14281e33;z-index:80;max-width:85vw;text-align:center;opacity:0;pointer-events:none;transition:opacity .18s}.toast.show{opacity:1}.mobile-backdrop{display:none}.hide{display:none!important}
+@media(min-width:1600px){.workspace,.detail-grid{grid-template-columns:minmax(0,1fr) 340px}.briefing{grid-template-columns:minmax(0,1fr) 310px}.risk-table td{padding-top:20px;padding-bottom:20px}}
+@media(max-width:1279px){:root{--sidebar:192px}.topbar{padding:0 24px}.content{padding:22px 24px 35px}.workspace,.detail-grid{grid-template-columns:minmax(0,1fr) 270px;gap:16px}.briefing{grid-template-columns:minmax(0,1fr) 220px;padding:20px;gap:20px}.brief-right{padding-left:18px}.tabs{gap:15px}.toolbar{padding:12px 15px;gap:7px}.risk-table th,.risk-table td{padding-left:8px;padding-right:8px}.focus-box{padding:18px}.search-trigger{min-width:180px}.risk-table th:first-child,.risk-table td:first-child{padding-left:16px}.risk-table th:last-child,.risk-table td:last-child{padding-right:15px}.scenario{grid-template-columns:1fr}.mapping-layout{grid-template-columns:155px 1fr}.report-layout{grid-template-columns:215px 1fr}.report-paper{padding:25px}.variable-list{gap:14px}}
+@media(max-width:1099px){.workspace,.detail-grid{grid-template-columns:1fr}.aside-stack{grid-template-columns:1fr 1fr;align-items:start}.aside-stack .focus-box{grid-row:span 2}.detail-grid>.stack{display:grid;grid-template-columns:1fr 1fr}.risk-table .col-risk{width:auto!important}.risk-table .col-level{width:100px!important}.risk-table .col-trend{width:120px!important}.risk-table .col-time{width:100px!important}.top-actions{gap:8px}.topbar .read-status{display:none}.search-trigger{min-width:150px}.briefing h2{font-size:17px}.briefing{grid-template-columns:1fr 220px}.mapping-layout{grid-template-columns:1fr}.asset-nav{display:flex;gap:6px;overflow:auto;padding:8px}.asset-btn{margin:0;white-space:nowrap;min-width:max-content;width:auto;flex:1}.cycle-grid{grid-template-columns:1fr 1fr}.report-layout{grid-template-columns:1fr}.report-nav{display:flex;gap:15px;align-items:center}.report-nav .segmented{margin:0;flex-shrink:0}.report-card{margin:0}.report-nav>p{max-width:200px}.report-paper{padding:30px}}
+@media(max-width:899px){:root{--sidebar:0px}.sidebar{transform:translateX(-100%);width:216px;transition:transform .16s}.sidebar.open{transform:translateX(0)}.mobile-backdrop.open{position:fixed;inset:0;background:#142b2055;display:block;z-index:25}.main{margin-left:0}.icon-btn.mobile-menu{display:inline-flex}.topbar{padding:0 20px;gap:12px}.content{padding:22px 20px 32px}.topbar .prefix{display:none}.toast{left:50%}.detail-grid>.stack{grid-template-columns:1fr 1fr}.search-trigger{min-width:160px}.briefing{grid-template-columns:1fr 220px}.nav-label{margin-top:25px}.identity{padding-bottom:10px}.page-head{gap:12px}.sidebar .side-bottom{padding-top:10px}}
+@media(max-width:599px){body{font-size:14px}.topbar{padding:0 12px;gap:8px}.crumb{font-size:13px;max-width:155px}.top-actions{gap:8px}.search-trigger{min-width:32px;width:32px;padding:6px;justify-content:center;background:#fff}.search-trigger .search-label,.search-trigger .key{display:none}.demo-pill{font-size:11px}.top-actions .btn{font-size:11px;padding:5px 6px;min-height:32px}.content{padding:18px 16px 30px}.page-head{display:block;margin-bottom:16px}.cutoff{text-align:left;display:flex;flex-wrap:wrap;gap:7px;margin-top:10px;font-size:11px;white-space:normal}.cutoff strong{font-size:11px}.page-head p{font-size:13px}.briefing{grid-template-columns:1fr;padding:17px;gap:16px;margin-bottom:18px}.briefing h2{font-size:17px}.briefing p{font-size:12px}.brief-right{border-left:0;border-top:1px solid #cad5c3;padding:12px 0 0}.brief-right .large{font-size:15px;margin:4px 0}.brief-right a{display:inline}.brief-meta{font-size:11px;gap:7px}.section-head{padding:15px 16px 12px}.stats-line{padding:0 16px 12px;gap:11px;font-size:11px}.tabs{padding:0 16px;gap:18px}.tab{padding:12px 0;min-height:44px}.toolbar{padding:12px 16px;gap:9px}.toolbar .input-wrap{flex-basis:100%;min-height:42px}.input-wrap input{font-size:16px;min-height:40px}.toolbar select,.select{height:42px;font-size:13px}.check{font-size:12px;min-height:42px}.risk-table,.risk-table tbody{display:block;width:100%}.risk-table thead{display:none}.risk-table tbody tr{display:grid;grid-template-columns:1fr 1fr 1fr;padding:16px;border-bottom:1px solid var(--line);gap:12px 8px}.risk-table tbody tr:last-child{border:0}.risk-table td{display:block;border:0!important;padding:0!important}.risk-table td:first-child{grid-column:1/-1}.risk-table td:last-child{display:none}.risk-table td[data-label]:before{content:attr(data-label);display:block;font-size:11px;color:var(--muted);margin-bottom:6px}.risk-title{font-size:15px}.risk-reason{font-size:12px}.risk-meta{font-size:11px}.subcell{font-size:11px}.risk-table colgroup{display:none}.variable-chip{font-size:11px;padding:3px 6px}.table-footer{padding:12px 16px;font-size:11px;display:block}.table-footer>span:last-child{display:block;margin-top:6px}.aside-stack,.detail-grid>.stack{grid-template-columns:1fr}.aside-stack .focus-box{grid-row:auto}.bottom-insight{display:block;padding:15px 16px}.bottom-insight .btn{margin-top:8px}.detail-tabs{gap:22px;padding:0 14px}.detail-tabs .tab{font-size:12px}.reading-block{padding:17px 16px}.compare{grid-template-columns:1fr;gap:10px}.compare-mid{display:none}.compare-box{padding:13px 14px}.fact-grid{grid-template-columns:1fr}.forces{grid-template-columns:1fr;gap:12px}.variable-list{grid-template-columns:1fr}.variable-card{padding:18px}.variable-card h2{font-size:15px}.chain{grid-template-columns:1fr;gap:7px;margin:15px 0}.chain-node{min-height:0;padding:13px}.chain-arrow{transform:rotate(90deg)}.mapping-overview{padding:18px 16px}.cycle-grid{grid-template-columns:1fr}.scenario{grid-template-columns:1fr}.report-nav{display:block;padding:15px}.report-nav .segmented{width:max-content;margin-bottom:12px}.report-nav>p{max-width:none;margin-top:12px}.report-paper{padding:22px 18px}.report-paper h2{font-size:20px}.report-kicker{font-size:11px}.report-abstract{padding:14px 15px;font-size:13px}.dialog-head{padding:16px}.dialog-head h2{font-size:18px}.dialog-body{padding:18px 16px 28px}.dialog{max-width:calc(100vw - 20px);width:100%}.dialog.drawer{max-width:100vw}.dialog .icon-btn{min-width:40px;min-height:40px}.dialog .btn,.btn{min-height:44px}.mini-data{font-size:11px}.mini-data th,.mini-data td{padding:8px 7px;white-space:nowrap}.mini-data-wrap{max-width:100%}.timeline{padding:20px 17px}.timeline-item{padding-left:22px}.view-options{margin-top:10px;flex-wrap:wrap}.section-head .segmented{max-width:100%;overflow-x:auto}.section-head:has(.segmented){flex-wrap:wrap}.brief-link{min-height:36px}.risk-link-row{gap:12px}.identity small{font-size:11px}.mobile-keep{display:block!important}.risk-table .mobile-keep{grid-column:auto}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+@media print{.sidebar,.topbar,.demo-pill,.toolbar,.detail-tabs,.toast,.back-btn{display:none!important}.main{margin:0}.content{padding:0}.surface{break-inside:avoid}.workspace,.detail-grid,.report-layout{display:block}.content:before{content:'RiskHot 产品原型 · 全部内容为虚构演示，非实时研究结论';display:block;font-size:12px;margin-bottom:15px}.report-nav{display:none}body{background:#fff}}
+</style>
+</head>
+<body>
+<a href="#maincontent" class="skip">跳到主要内容</a>
+<div id="mobile-backdrop" class="mobile-backdrop" data-action="mobile-close"></div>
+<aside class="sidebar" id="sidebar" aria-label="主导航">
+ <a class="brand" href="#home" aria-label="RiskHot 首页"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="brand-name">RiskHot</span></a>
+ <div class="brand-sub">看清变化，理解风险</div>
+ <div class="nav-label">风险观察</div>
+ <nav>
+ <a href="#home" class="nav-item" data-nav="home"><span data-icon="radar"></span><span>关注清单</span><span class="nav-count">01</span></a>
+ <a href="#archive" class="nav-item" data-nav="archive"><span data-icon="archive"></span><span>风险档案</span><span class="nav-count">02</span></a>
+ <a href="#variables" class="nav-item" data-nav="variables"><span data-icon="sliders"></span><span>变量观察</span><span class="nav-count">03</span></a>
+ <a href="#mapping" class="nav-item" data-nav="mapping"><span data-icon="network"></span><span>市场映射</span><span class="nav-count">规划</span></a>
+ <div class="nav-sep"></div>
+ <a href="#reports" class="nav-item" data-nav="reports"><span data-icon="file"></span><span>周期报告</span></a>
+ </nav>
+ <div class="side-bottom">
+  <div class="side-note"><strong>从变化出发，回到证据。</strong><br>持续观察，也保留未知。<br>发现 · 跟踪 · 理解 · 映射</div>
+  <button class="nav-item" data-action="philosophy"><span data-icon="compass"></span><span>产品理念与原型说明</span></button>
+  <div class="identity"><span class="avatar"><span data-icon="eye"></span></span><div><span class="small">阅读工作区</span><small>本地原型 · 无后台连接</small></div></div>
+ </div>
+</aside>
+<div class="main">
+ <header class="topbar">
+  <button class="icon-btn mobile-menu" data-action="mobile-open" aria-label="打开导航"><span data-icon="menu"></span></button>
+  <div class="crumb" id="crumb"><span class="prefix">风险观察</span><span class="muted">/</span><span>关注清单</span></div>
+  <div class="top-actions">
+   <button class="search-trigger" data-action="search" aria-label="搜索风险和变量"><span data-icon="search"></span><span class="search-label">搜索风险、变量</span><span class="key">⌘ K</span></button>
+   <span class="demo-pill">虚构演示数据</span>
+   <span id="context-action"></span>
+  </div>
+ </header>
+ <main id="maincontent" class="content" tabindex="-1"></main>
+</div>
+<dialog id="dialog" class="dialog" aria-labelledby="dialog-title"><div class="dialog-head"><h2 id="dialog-title"></h2><button class="icon-btn" data-action="dialog-close" aria-label="关闭弹窗"><span data-icon="x"></span></button></div><div class="dialog-body" id="dialog-body"></div></dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script id="demo-data" type="application/json">{
+  "cutoff": "2025-03-14 18:00",
+  "timezone": "北京时间",
+  "risks": [
+    {
+      "id": "r1",
+      "code": "RH-014",
+      "name": "美元融资条件收紧风险",
+      "category": "流动性",
+      "region": "跨市场",
+      "level": "高",
+      "trend": "增强",
+      "tracking": "跟踪中",
+      "snapshot": "2025-03-14 18:00",
+      "base": "2025-03-11 18:00",
+      "first": "2025-03-05 18:00",
+      "new": false,
+      "stage": "传导",
+      "variables": [
+        "v1",
+        "v2"
+      ],
+      "summary": "融资条件继续趋紧，政策支持有所增加，缓释效果尚未充分传导至压力环节。",
+      "reason": "外币融资可得性进一步下降；支持工具使用增加，暂未抵消短期融资压力。",
+      "baselineSummary": "融资压力已扩展，风险处于高位；政策支持的缓释传导仍偏慢。",
+      "firstSummary": "融资条件出现初步趋紧信号，压力传导范围有待识别。",
+      "duration": "持续性判断延长",
+      "durationText": "若融资成本维持高位且支持覆盖不足，压力可能继续存在。",
+      "scope": "短期外币融资主体及相关融资链条",
+      "next": "观察融资溢价能否连续回落，以及政策支持是否覆盖当前承压主体。",
+      "counter": "支持工具使用量增加，长期资金供给保持相对稳定。",
+      "gap": "非银行主体的实际融资成交覆盖不足。",
+      "hist": [
+        [
+          "03-05",
+          "中",
+          "待判断",
+          "首次观察，尚无比较基准"
+        ],
+        [
+          "03-08",
+          "中",
+          "增强",
+          "融资溢价扩大，压力仍局限于短期限"
+        ],
+        [
+          "03-11",
+          "高",
+          "增强",
+          "融资压力扩展，缓释传导偏慢"
+        ],
+        [
+          "03-14",
+          "高",
+          "增强",
+          "等级维持高位，压力继续增强"
+        ]
+      ],
+      "firstTrend": "增强",
+      "firstReason": "相较首次观察，融资约束的程度与覆盖范围均有所扩大；政策支持的抵消作用仍有限。",
+      "snapshotId": "DEMO-SNAP-RH-014-20250314",
+      "comparisonId": "DEMO-SNAP-RH-014-20250311"
+    },
+    {
+      "id": "r2",
+      "code": "RH-008",
+      "name": "主权债务再融资压力",
+      "category": "债务与信用",
+      "region": "跨市场",
+      "level": "高",
+      "trend": "稳定",
+      "tracking": "跟踪中",
+      "snapshot": "2025-03-13 18:00",
+      "base": "2025-03-10 18:00",
+      "first": "2025-03-03 18:00",
+      "new": false,
+      "stage": "积累",
+      "variables": [
+        "v3",
+        "v1"
+      ],
+      "summary": "偿债与融资约束维持高位，本轮尚未出现足以改变方向判断的新证据。",
+      "reason": "实际融资利率维持高位，融资窗口与偿付安排未发生实质变化。",
+      "baselineSummary": "再融资约束较高，尚有既定融资安排作为缓冲。",
+      "firstSummary": "到期债务集中，融资条件存在进一步趋紧的可能。",
+      "duration": "持续性判断维持",
+      "durationText": "后续融资安排兑现前，压力持续条件仍然存在。",
+      "scope": "存在较大到期融资需求的主权融资主体",
+      "next": "观察融资安排的实际完成情况及发行条件。",
+      "counter": "部分融资安排已有明确进展。",
+      "gap": "后续到期结构的最新修订尚未补齐。",
+      "hist": [
+        [
+          "03-03",
+          "中",
+          "待判断",
+          "首次观察"
+        ],
+        [
+          "03-07",
+          "高",
+          "增强",
+          "实际融资约束上升"
+        ],
+        [
+          "03-10",
+          "高",
+          "稳定",
+          "融资安排未显著改变"
+        ],
+        [
+          "03-13",
+          "高",
+          "稳定",
+          "高位维持，方向未变"
+        ]
+      ],
+      "firstTrend": "增强",
+      "firstReason": "相比首次观察，实际融资约束有所扩大；最近两轮维持高位。",
+      "snapshotId": "DEMO-SNAP-RH-008-20250313",
+      "comparisonId": "DEMO-SNAP-RH-008-20250310"
+    },
+    {
+      "id": "r3",
+      "code": "RH-021",
+      "name": "全球制造业需求放缓",
+      "category": "增长与需求",
+      "region": "全球",
+      "level": "中",
+      "trend": "减弱",
+      "tracking": "跟踪中",
+      "snapshot": "2025-03-14 12:00",
+      "base": "2025-03-11 12:00",
+      "first": "2025-03-05 12:00",
+      "new": false,
+      "stage": "修复观察",
+      "variables": [
+        "v4"
+      ],
+      "summary": "订单指标连续改善，下行压力边际减轻，需求恢复的持续性仍需验证。",
+      "reason": "外部需求强度边际修复；绝对水平仍偏弱，尚不足以确认风险解除。",
+      "baselineSummary": "订单出现初步改善，持续性尚待下一轮数据验证。",
+      "firstSummary": "订单与生产活动偏弱，需求下行压力较明显。",
+      "duration": "持续性判断维持",
+      "durationText": "减弱信号已经出现，持续时间判断暂未实质修订。",
+      "scope": "制造业生产及相关跨境贸易需求",
+      "next": "下一轮订单能否延续改善，并向生产活动传导。",
+      "counter": "订单绝对水平仍偏弱，部分地区改善不均衡。",
+      "gap": "缺少下一轮订单与生产交叉验证。",
+      "hist": [
+        [
+          "03-05",
+          "高",
+          "待判断",
+          "首次观察"
+        ],
+        [
+          "03-08",
+          "高",
+          "稳定",
+          "弱需求状态延续"
+        ],
+        [
+          "03-11",
+          "中",
+          "减弱",
+          "订单开始改善"
+        ],
+        [
+          "03-14",
+          "中",
+          "减弱",
+          "改善延续，持续性待验证"
+        ]
+      ],
+      "firstTrend": "减弱",
+      "firstReason": "相较首次观察，连续的订单改善减轻了需求下行压力；改善仍需扩展到更多地区。",
+      "snapshotId": "DEMO-SNAP-RH-021-20250314",
+      "comparisonId": "DEMO-SNAP-RH-021-20250311"
+    },
+    {
+      "id": "r4",
+      "code": "RH-027",
+      "name": "能源供给扰动与成本传导",
+      "category": "供给与通胀",
+      "region": "全球",
+      "level": "中",
+      "trend": "增强",
+      "tracking": "跟踪中",
+      "snapshot": "2025-03-14 09:00",
+      "base": "2025-03-10 09:00",
+      "first": "2025-03-04 09:00",
+      "new": false,
+      "stage": "传导",
+      "variables": [
+        "v5"
+      ],
+      "summary": "供给与库存缓冲同时回落，成本压力增加，终端传导程度尚待验证。",
+      "reason": "能源供给可用性降低；替代供给增加尚未完全填补缺口。",
+      "baselineSummary": "供给扰动已出现，库存仍提供一定缓冲。",
+      "firstSummary": "供给受扰，替代来源及持续时长尚不明确。",
+      "duration": "持续性判断待判断",
+      "durationText": "供给恢复时间缺少足够证据，暂不作持续时间结论。",
+      "scope": "能源使用成本及相关生产链条",
+      "next": "观察替代供给能否落地，以及库存缓冲是否进一步下降。",
+      "counter": "替代来源有所增加，可能缓解局部缺口。",
+      "gap": "尚缺终端价格与需求同步变化证据。",
+      "hist": [
+        [
+          "03-04",
+          "中",
+          "待判断",
+          "首次观察"
+        ],
+        [
+          "03-07",
+          "中",
+          "稳定",
+          "库存提供缓冲"
+        ],
+        [
+          "03-10",
+          "中",
+          "增强",
+          "库存缓冲减弱"
+        ],
+        [
+          "03-14",
+          "中",
+          "增强",
+          "供给与库存共同收缩"
+        ]
+      ],
+      "firstTrend": "增强",
+      "firstReason": "与首次观察相比，库存缓冲减少，供给缺口的约束更加明显。",
+      "snapshotId": "DEMO-SNAP-RH-027-20250314",
+      "comparisonId": "DEMO-SNAP-RH-027-20250310"
+    },
+    {
+      "id": "r5",
+      "code": "RH-032",
+      "name": "跨境资本流动失衡",
+      "category": "流动性",
+      "region": "跨市场",
+      "level": "待判断",
+      "trend": "待判断",
+      "tracking": "跟踪中",
+      "snapshot": "2025-03-14 15:00",
+      "base": null,
+      "first": "2025-03-14 15:00",
+      "new": true,
+      "stage": "待判断",
+      "variables": [
+        "v1"
+      ],
+      "summary": "已完成首次观察，证据覆盖仍有限，严重程度与历史变化均待判断。",
+      "reason": "首次观察缺少可比历史快照，暂不形成变化方向。",
+      "baselineSummary": "",
+      "firstSummary": "",
+      "duration": "持续性判断待判断",
+      "durationText": "证据尚不足以判断持续条件与时间窗口。",
+      "scope": "已观测样本中的跨境资金流动",
+      "next": "补充历史基准与实际资金流数据，验证信号覆盖范围。",
+      "counter": "部分样本的流动方向存在分化。",
+      "gap": "无可比历史快照，资金流数据覆盖不足。",
+      "hist": [
+        [
+          "03-14",
+          "待判断",
+          "待判断",
+          "首次观察，无历史比较基准"
+        ]
+      ],
+      "firstTrend": "待判断",
+      "firstReason": "首次观察，无历史比较基准。",
+      "snapshotId": "DEMO-SNAP-RH-032-20250314",
+      "comparisonId": null
+    },
+    {
+      "id": "r6",
+      "code": "RH-033",
+      "name": "通胀黏性与政策路径偏离",
+      "category": "供给与通胀",
+      "region": "跨市场",
+      "level": "待评估",
+      "trend": "待评估",
+      "tracking": "跟踪中",
+      "snapshot": null,
+      "base": null,
+      "first": null,
+      "new": true,
+      "stage": "待评估",
+      "variables": [
+        "v3"
+      ],
+      "summary": "风险已建档，首轮评估尚未形成有效快照。",
+      "reason": "尚无有效快照；完成首轮评估后再展示等级、趋势及依据。",
+      "baselineSummary": "",
+      "firstSummary": "",
+      "duration": "待评估",
+      "durationText": "尚无有效分析结果。",
+      "scope": "尚未形成有效评估范围",
+      "next": "等待首轮观测完成。",
+      "counter": "尚无正式分析结果。",
+      "gap": "首轮快照待生成。",
+      "hist": [],
+      "firstTrend": "待判断",
+      "firstReason": "尚无有效快照。",
+      "snapshotId": null,
+      "comparisonId": null
+    },
+    {
+      "id": "r7",
+      "code": "RH-005",
+      "name": "全球航运阻塞传导风险",
+      "category": "供给与通胀",
+      "region": "全球",
+      "level": "低",
+      "trend": "减弱",
+      "tracking": "已暂停",
+      "snapshot": "2025-02-25 18:00",
+      "base": "2025-02-20 18:00",
+      "first": "2025-02-15 18:00",
+      "new": false,
+      "stage": "修复观察",
+      "variables": [],
+      "summary": "历史快照保留；观察已暂停，旧结论不用于描述当前市场。",
+      "reason": "历史比较中运输约束有所缓和。",
+      "baselineSummary": "历史运输约束仍存在。",
+      "firstSummary": "历史运输约束较明显。",
+      "duration": "历史判断",
+      "durationText": "仅保留历史评估，当前持续性未知。",
+      "scope": "历史观测的相关运输链条",
+      "next": "恢复观察前需更新证据。",
+      "counter": "历史反证不代表当前情况。",
+      "gap": "缺少后续观测。",
+      "hist": [
+        [
+          "02-15",
+          "中",
+          "待判断",
+          "首次观察"
+        ],
+        [
+          "02-20",
+          "中",
+          "减弱",
+          "约束缓和"
+        ],
+        [
+          "02-25",
+          "低",
+          "减弱",
+          "最后有效快照"
+        ]
+      ],
+      "firstTrend": "减弱",
+      "firstReason": "仅供历史比较，不代表当前情况。",
+      "snapshotId": "DEMO-SNAP-RH-005-20250225",
+      "comparisonId": "DEMO-SNAP-RH-005-20250220"
+    },
+    {
+      "id": "r8",
+      "code": "RH-002",
+      "name": "银行体系存款流出风险",
+      "category": "债务与信用",
+      "region": "跨市场",
+      "level": "低",
+      "trend": "稳定",
+      "tracking": "已结束",
+      "snapshot": "2025-02-12 18:00",
+      "base": "2025-02-08 18:00",
+      "first": "2025-02-03 18:00",
+      "new": false,
+      "stage": "历史归档",
+      "variables": [],
+      "summary": "保留跟踪结束时的风险评估与依据；结束跟踪不构成风险归零结论。",
+      "reason": "结束跟踪前的最后两轮结果保持稳定。",
+      "baselineSummary": "历史流出压力已较低。",
+      "firstSummary": "历史流出压力较明显。",
+      "duration": "历史判断",
+      "durationText": "保留历史结论。",
+      "scope": "历史观测样本",
+      "next": "当前无持续观察任务。",
+      "counter": "历史结论的适用时间已限定。",
+      "gap": "未持续采集后续证据。",
+      "hist": [
+        [
+          "02-03",
+          "中",
+          "待判断",
+          "首次观察"
+        ],
+        [
+          "02-08",
+          "低",
+          "减弱",
+          "流出缓和"
+        ],
+        [
+          "02-12",
+          "低",
+          "稳定",
+          "结束前最后快照"
+        ]
+      ],
+      "firstTrend": "减弱",
+      "firstReason": "仅供历史比较，不代表当前情况。",
+      "snapshotId": "DEMO-SNAP-RH-002-20250212",
+      "comparisonId": "DEMO-SNAP-RH-002-20250208"
+    }
+  ],
+  "variables": [
+    {
+      "id": "v1",
+      "code": "VAR-FUNDING-01",
+      "name": "外币融资可得性",
+      "domain": "流动性",
+      "state": "趋紧",
+      "definition": "衡量市场主体获得外币资金的难易程度。指标数值与风险作用需要结合具体机制解释。",
+      "indicators": [
+        [
+          "跨币种融资溢价",
+          "18",
+          "24",
+          "31",
+          "基点"
+        ],
+        [
+          "短期外币融资成本",
+          "4.20",
+          "4.34",
+          "4.48",
+          "%"
+        ]
+      ],
+      "sources": [
+        "示例观测表 A",
+        "示例事件摘录 A"
+      ],
+      "description": "两项观测共同指向融资条件趋紧；覆盖对象仍有限，不能外推到全部金融机构。",
+      "risks": [
+        "r1",
+        "r2",
+        "r5"
+      ],
+      "effects": [
+        "放大短期融资压力",
+        "增加外币债务再融资约束",
+        "可能放大跨境资金流动敏感性"
+      ],
+      "counter": "长期资金供给尚未出现同等幅度变化。",
+      "gap": "部分非银行主体的实际融资成交数据缺失。",
+      "riskSnapshots": {
+        "r1": "DEMO-SNAP-RH-014-20250314",
+        "r2": "DEMO-SNAP-RH-008-20250313",
+        "r5": "DEMO-SNAP-RH-032-20250314"
+      }
+    },
+    {
+      "id": "v2",
+      "code": "VAR-POLICY-02",
+      "name": "流动性支持力度",
+      "domain": "政策应对",
+      "state": "边际改善",
+      "definition": "观察政策工具实际投放、覆盖范围及资金到达压力环节的有效性。",
+      "indicators": [
+        [
+          "工具实际使用规模",
+          "90",
+          "110",
+          "140",
+          "示例单位"
+        ],
+        [
+          "覆盖主体数",
+          "12",
+          "14",
+          "14",
+          "家"
+        ]
+      ],
+      "sources": [
+        "示例政策工具使用表"
+      ],
+      "description": "实际使用量增加，覆盖主体未同步扩大。政策意图与落地效果分别观察。",
+      "risks": [
+        "r1"
+      ],
+      "effects": [
+        "提供缓释支持，传导效果仍待验证"
+      ],
+      "counter": "覆盖主体范围未进一步扩大。",
+      "gap": "缺少从投放到最终使用方的完整链路。",
+      "riskSnapshots": {
+        "r1": "DEMO-SNAP-RH-014-20250314"
+      }
+    },
+    {
+      "id": "v3",
+      "code": "VAR-REALRATE-03",
+      "name": "实际融资利率",
+      "domain": "融资条件",
+      "state": "高位维持",
+      "definition": "观察名义融资成本与通胀预期相结合后的实际融资约束。",
+      "indicators": [
+        [
+          "示例实际融资利率",
+          "2.20",
+          "2.35",
+          "2.34",
+          "%"
+        ]
+      ],
+      "sources": [
+        "示例融资利率观测表"
+      ],
+      "description": "本轮高位维持。高位水平与变化方向需要分别解读。",
+      "risks": [
+        "r2",
+        "r6"
+      ],
+      "effects": [
+        "维持再融资约束",
+        "可能抑制需求端通胀压力；本轮尚无正式风险分析"
+      ],
+      "counter": "不同主体的融资成本存在差异。",
+      "gap": "部分期限的通胀预期口径尚未对齐。",
+      "riskSnapshots": {
+        "r2": "DEMO-SNAP-RH-008-20250313",
+        "r6": null
+      }
+    },
+    {
+      "id": "v4",
+      "code": "VAR-DEMAND-04",
+      "name": "外部需求强度",
+      "domain": "实体需求",
+      "state": "边际修复",
+      "definition": "观察订单、出口及生产活动共同反映的外部需求状态。",
+      "indicators": [
+        [
+          "示例新订单指数",
+          "46.8",
+          "47.5",
+          "48.6",
+          "指数点"
+        ],
+        [
+          "示例出口订单指数",
+          "45.9",
+          "46.3",
+          "47.1",
+          "指数点"
+        ]
+      ],
+      "sources": [
+        "示例需求观测表"
+      ],
+      "description": "连续两轮改善，绝对水平仍偏弱。边际改善与恢复充分程度分别保留。",
+      "risks": [
+        "r3"
+      ],
+      "effects": [
+        "减轻需求下行压力"
+      ],
+      "counter": "绝对水平仍偏弱，改善持续性有待确认。",
+      "gap": "尚缺下一轮订单数据。",
+      "riskSnapshots": {
+        "r3": "DEMO-SNAP-RH-021-20250314"
+      }
+    },
+    {
+      "id": "v5",
+      "code": "VAR-SUPPLY-05",
+      "name": "能源供给可用性",
+      "domain": "供给冲击",
+      "state": "收缩",
+      "definition": "观察可用供给、库存与替代来源对能源供给缺口的共同影响。",
+      "indicators": [
+        [
+          "示例可用供给指数",
+          "102",
+          "98",
+          "94",
+          "指数点"
+        ],
+        [
+          "示例库存覆盖天数",
+          "30",
+          "28",
+          "26",
+          "天"
+        ]
+      ],
+      "sources": [
+        "示例供给观测表"
+      ],
+      "description": "可用供给与库存缓冲均回落；成本能否向下游传导仍有不确定性。",
+      "risks": [
+        "r4"
+      ],
+      "effects": [
+        "加大成本传导压力"
+      ],
+      "counter": "部分地区替代供给有所增加。",
+      "gap": "终端需求承接能力尚未完成观测。",
+      "riskSnapshots": {
+        "r4": "DEMO-SNAP-RH-027-20250314"
+      }
+    }
+  ]
+}</script>
+<script>
+'use strict';
+/** Offline interaction prototype. All entities and observations are synthetic.
+ *  Trend values are supplied by demo analysis records, never calculated from grades.
+ *  Personal favorites are local UI preferences and never modify tracking status. */
+const DATA=JSON.parse(document.getElementById('demo-data').textContent);
+const RISKS=DATA.risks, VARIABLES=DATA.variables;
+const R=id=>RISKS.find(r=>r.id===id),V=id=>VARIABLES.find(v=>v.id===id);
+const icons={
+ radar:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><path d="M12 12l7-7M12 2v2M22 12h-2M12 22v-2M2 12h2"/>',
+ archive:'<rect x="4" y="7" width="16" height="13" rx="2"/><path d="M3 3h18v4H3zM9 11h6"/>',
+ sliders:'<path d="M5 3v7m0 4v7M12 3v11m0 4v3M19 3v2m0 4v12M2 10h6M9 14h6M16 5h6"/>',
+ network:'<rect x="9" y="2" width="6" height="5" rx="1"/><rect x="2" y="16" width="6" height="5" rx="1"/><rect x="16" y="16" width="6" height="5" rx="1"/><path d="M12 7v5M5 16v-4h14v4"/>',
+ file:'<path d="M14 2H5a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V8zM14 2v6h6M8 12h8M8 16h8"/>',
+ compass:'<circle cx="12" cy="12" r="9"/><path d="M16 8l-2 6-6 2 2-6z"/>',
+ eye:'<path d="M2 12s3-6 10-6 10 6 10 6-3 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="2.5"/>',
+ search:'<circle cx="10" cy="10" r="6.5"/><path d="M15 15l5 5"/>',
+ arrow:'<path d="M4 12h16M14 6l6 6-6 6"/>',
+ back:'<path d="M20 12H4M10 6l-6 6 6 6"/>',
+ up:'<path d="M4 17l6-6 4 4 6-10M14 5h6v6"/>',
+ down:'<path d="M4 7l6 6 4-4 6 10M14 19h6v-6"/>',
+ star:'<path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9z"/>',
+ x:'<path d="M6 6l12 12M6 18L18 6"/>',
+ menu:'<path d="M4 6h16M4 12h16M4 18h16"/>',
+ clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+ info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7h.01"/>',
+ check:'<path d="M5 12l4 4L19 6"/>',
+ link:'<path d="M10 13a4 4 0 0 0 6 0l3-3a4 4 0 0 0-6-6l-2 2M14 11a4 4 0 0 0-6 0l-3 3a4 4 0 0 0 6 6l2-2"/>',
+ chevron:'<path d="M9 5l7 7-7 7"/>',
+ shield:'<path d="M12 2l8 3v7c0 5-8 10-8 10S4 17 4 12V5z"/>',
+ download:'<path d="M12 3v12M7 10l5 5 5-5M4 16v5h16v-5"/>',
+ layers:'<path d="M12 3L2 8l10 5 10-5zM2 12l10 5 10-5M2 16l10 5 10-5"/>',
+ refresh:'<path d="M20 8a8 8 0 1 0 0 8M20 3v5h-5"/>'
+};
+const icon=n=>`<svg class="icon" viewBox="0 0 24 24" aria-hidden="true">${icons[n]||icons.info}</svg>`;
+function hydrateIcons(root=document){root.querySelectorAll('[data-icon]').forEach(el=>{el.innerHTML=icon(el.dataset.icon);el.removeAttribute('data-icon')})}
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let favorites=[];let localAvailable=true;
+try{const stored=JSON.parse(localStorage.getItem('riskhot-favorites-v1')||'["r1","r3"]');favorites=Array.isArray(stored)?stored.filter(id=>R(id)):['r1','r3']}catch(e){favorites=['r1','r3'];localAvailable=false}
+const state={view:'home',riskId:'r1',tab:'overview',filter:'all',query:'',category:'all',sort:'latest',mine:false,archiveStatus:'all',archiveQuery:'',variableQuery:'',asset:'credit',report:'week',baseline:'previous',origin:'#home'};
+let toastTimer,dialogTrigger=null;
+const $=s=>document.querySelector(s);
+const tag=(text,cls='')=>`<span class="tag ${cls}">${esc(text)}</span>`;
+const trendClass=t=>({增强:'up',减弱:'down',稳定:'stable'}[t]||'unknown');
+const trend=t=>tag(({增强:'↗ ',减弱:'↘ ',稳定:'→ '}[t]||'')+t,trendClass(t));
+const severity=l=>`<span class="severity ${l==='高'?'high':l==='中'?'mid':''}"><i class="dot"></i>${esc(l)}</span>`;
+const stamp=r=>r.snapshot?`${r.snapshot.replaceAll('-','.')} · 北京时间`:'尚无有效快照';
+const active=()=>RISKS.filter(r=>r.tracking==='跟踪中');
+const evaluated=()=>active().filter(r=>r.snapshot);
+const pageHead=(title,desc)=>`<div class="page-head"><div><h1>${title}</h1><p>${desc}</p></div><div class="cutoff">示例截面<strong>${DATA.cutoff.replaceAll('-','.')} · 北京时间</strong></div></div>`;
+const OBS_TIMES=['2025-03-08 08:00','2025-03-11 08:00','2025-03-14 08:00'];
+// Each risk reads only observations available by its own assessment cutoff.
+function availableObservations(r){return OBS_TIMES.map((time,i)=>({time,index:i+1})).filter(o=>!r||!!r.snapshot&&o.time<=r.snapshot)}
+function riskIndicatorTable(v,r){const obs=availableObservations(r),latest=obs.at(-1),prior=obs.at(-2);if(!latest)return '<div class="definition-box small">本风险截止时点尚无可用演示观测。</div>';return `<div class="mini-data-wrap"><table class="mini-data"><thead><tr><th>观测指标（虚构）</th><th>${prior?prior.time.slice(5,10).replace('-','.'):'前轮'}</th><th>${latest.time.slice(5,10).replace('-','.')}</th><th>单位</th></tr></thead><tbody>${v.indicators.map(row=>`<tr><td>${row[0]}</td><td>${prior?row[prior.index]:'—'}</td><td><strong>${row[latest.index]}</strong></td><td>${row[4]}</td></tr>`).join('')}</tbody></table></div><div class="small muted" style="margin-top:8px">最新可用观测：${latest.time}（北京时间）；按本风险评估截止截取。</div>`}
+function variableObservationTable(v,r){const obs=availableObservations(r);if(!obs.length)return '<div class="definition-box small">尚无本风险快照可用的观测数据；全局变量视图可独立阅读。</div>';return `<div class="mini-data-wrap"><table class="mini-data"><thead><tr><th>指标</th>${obs.map(o=>`<th>${o.time.slice(5,10).replace('-','.')}</th>`).join('')}<th>单位</th></tr></thead><tbody>${v.indicators.map(row=>`<tr><td>${row[0]}</td>${obs.map((o,i)=>`<td>${i===obs.length-1?'<strong>'+row[o.index]+'</strong>':row[o.index]}</td>`).join('')}<td>${row[4]}</td></tr>`).join('')}</tbody></table></div>`}
+function evidenceObservations(v,r){const obs=availableObservations(r),latest=obs.at(-1),prior=obs.at(-2);if(!latest)return '当前截止时点无可用演示观测。';return v.indicators.map(row=>`${row[0]}：${prior?row[prior.index]+' → ':''}${row[latest.index]} ${row[4]}`).join('<br>')+`<br>观测可用时间：${latest.time}（北京时间）`}
+function favoriteButton(r){return `<button class="icon-btn ${favorites.includes(r.id)?'saved':''}" data-action="favorite" data-id="${r.id}" aria-pressed="${favorites.includes(r.id)}" aria-label="${favorites.includes(r.id)?'取消':'加入'}本机关注：${esc(r.name)}">${icon('star')}</button>`}
+function selectRiskLink(r,text=r.name){return `<a class="risk-title" href="#risk/${r.id}/overview">${esc(text)}</a>`}
+function route(){
+ const hash=location.hash.slice(1)||'home';
+ if(hash==='maincontent')return;
+ const bits=hash.split('/');
+ if(bits[0]==='risk'&&R(bits[1])){if(state.view!=='risk')state.origin='#'+state.view;state.view='risk';state.riskId=bits[1];state.tab=['overview','evolution','drivers','mapping'].includes(bits[2])?bits[2]:'overview';state.baseline='previous'}
+ else state.view=['home','archive','variables','mapping','reports'].includes(bits[0])?bits[0]:'home';
+ closeMobile();render();window.scrollTo({top:0,behavior:'instant'});
+}
+function render(){
+ const names={home:'关注清单',archive:'风险档案',variables:'变量观察',mapping:'市场映射',reports:'周期报告',risk:'风险详情'};
+ const name=names[state.view];
+ document.title=`${name} · RiskHot 产品原型`;
+ $('#crumb').innerHTML=state.view==='risk'?`<button class="back-btn" data-action="back">${icon('back')} 返回清单</button><span class="muted">/</span><span>${name}</span>`:`<span class="prefix">风险观察</span><span class="prefix muted">/</span><span>${name}</span>`;
+ document.querySelectorAll('[data-nav]').forEach(el=>{const isActive=el.dataset.nav===(state.view==='risk'?'home':state.view);el.classList.toggle('active',isActive);if(isActive)el.setAttribute('aria-current','page');else el.removeAttribute('aria-current')});
+ $('#context-action').innerHTML=state.view==='risk'?favoriteButton(R(state.riskId)):state.view==='reports'?`<button class="btn" data-action="export-report">${icon('download')} 导出</button>`:`<button class="icon-btn" data-action="philosophy" aria-label="查看原型说明">${icon('info')}</button>`;
+ const renderers={home:renderHome,archive:renderArchive,variables:renderVariables,risk:renderRisk,mapping:renderMapping,reports:renderReports};
+ $('#maincontent').innerHTML=renderers[state.view]();hydrateIcons();
+}
+function homeRows(){
+ let rows=active().filter(r=>state.filter==='pending'?!r.snapshot:!!r.snapshot);
+ if(['增强','减弱','稳定','待判断'].includes(state.filter))rows=rows.filter(r=>r.trend===state.filter);
+ if(state.category!=='all')rows=rows.filter(r=>r.category===state.category);
+ if(state.mine)rows=rows.filter(r=>favorites.includes(r.id));
+ const q=state.query.trim().toLowerCase();if(q)rows=rows.filter(r=>(r.name+r.code+r.category+r.variables.map(id=>V(id).name).join('')).toLowerCase().includes(q));
+ if(state.sort==='severity')rows.sort((a,b)=>({高:3,中:2,低:1}[b.level]||0)-({高:3,中:2,低:1}[a.level]||0)||(b.snapshot||'').localeCompare(a.snapshot||''));
+ else rows.sort((a,b)=>(b.snapshot||'').localeCompare(a.snapshot||''));
+ return rows;
+}
+function riskTable(rows,archive=false){
+ if(!rows.length)return `<div class="empty">${icon('search')}<h3>当前筛选下没有风险条目</h3><p class="small">可以清除搜索、分类或本机关注条件。</p><button class="btn" data-action="reset-filters">清除筛选</button></div>`;
+ return `<table class="risk-table"><colgroup><col class="col-risk"><col class="col-level" style="width:80px"><col class="col-trend" style="width:95px"><col class="col-time" style="width:88px"><col style="width:40px"></colgroup><thead><tr><th scope="col">风险 / 核心变化</th><th scope="col">严重程度</th><th scope="col">${archive?'跟踪状态':'变化方向'}</th><th scope="col">评估截止</th><th scope="col"><span class="sr-only">本机关注</span></th></tr></thead><tbody>${rows.map(r=>`<tr ${r.id==='r1'&&!archive?'class="selected"':''}><td>${selectRiskLink(r)}<div class="risk-meta"><span class="mono">${r.code}</span><span>${r.category}</span>${r.new?tag('新纳管','new'):''}</div><div class="risk-reason">${esc(r.reason)}</div><div class="variable-chips">${r.variables.slice(0,2).map(id=>`<button class="variable-chip" data-action="variable" data-id="${id}" data-risk="${r.id}">${esc(V(id).name)}</button>`).join('')}</div></td><td data-label="严重程度">${severity(r.level)}<span class="subcell">${esc(r.stage)}</span>${state.sort==='severity'&&!['高','中','低'].includes(r.level)?'<span class="subcell">未参与等级排序</span>':''}</td><td data-label="${archive?'跟踪状态':'变化方向'}">${archive?tag(r.tracking,r.tracking==='跟踪中'?'stable':''):trend(r.trend)}<span class="subcell">${archive?`${r.snapshot?'最后变化：'+r.trend:'首轮待评估'}`:r.base?'较 '+r.base.slice(5,10).replace('-','.'):r.snapshot?'首次观察':'尚无快照'}</span></td><td data-label="评估截止">${r.snapshot?`<span class="small">${r.snapshot.slice(5,10).replace('-','.')}</span><span class="subcell">${r.snapshot.slice(11)}<br>北京时间</span>`:'<span class="small muted">待评估</span>'}</td><td>${favoriteButton(r)}</td></tr>`).join('')}</tbody></table>`;
+}
+function homeFilterTabs(){const filters=[['all','最近评估',evaluated().length],['增强','增强中',evaluated().filter(r=>r.trend==='增强').length],['减弱','减弱中',evaluated().filter(r=>r.trend==='减弱').length],['稳定','稳定',evaluated().filter(r=>r.trend==='稳定').length],['待判断','待判断',evaluated().filter(r=>r.trend==='待判断').length],['pending','待评估',active().filter(r=>!r.snapshot).length]];return filters.map(([key,label,n])=>`<button class="tab ${state.filter===key?'active':''}" data-action="home-filter" data-filter="${key}" aria-pressed="${state.filter===key}">${label}<span class="n">${n}</span></button>`).join('')}
+function renderHome(){return `${pageHead('关注清单','从值得关注的风险变化，进入有依据的持续观察。')}
+ <section class="briefing" aria-label="本轮变化摘要"><div><div class="brief-meta">本轮值得看的变化 ${tag('摘要示例','ai')}<span>引用 2 项风险分析</span></div><h2>融资压力继续积累，需求端出现边际缓和</h2><p>美元融资风险在高位继续增强；制造业需求压力有所减轻。两条变化均保留验证条件，避免把边际变化扩大为整体结论。</p><div class="brief-links"><a class="brief-link" href="#risk/r1/overview">${trend('增强')} 美元融资条件 ${icon('arrow')}</a><a class="brief-link" href="#risk/r3/overview">${trend('减弱')} 制造业需求 ${icon('arrow')}</a></div></div><div class="brief-right"><span class="small muted">本轮观察提醒</span><div class="large">等级未变，压力仍可增强。</div><span class="small muted">程度回答“有多严重”；<br>方向回答“相较基准如何变化”。</span><a href="#risk/r1/evolution" style="margin-top:10px">查看一个对照示例 →</a></div></section>
+ <div class="workspace"><div><section class="surface"><div class="section-head"><div><h2>当前风险关注清单</h2><p>一项风险，一条持续更新的研究线索。</p></div><a class="btn quiet small" href="#archive">全部档案 ${icon('arrow')}</a></div><div class="stats-line"><span><b>${active().length}</b> 项跟踪中</span><span><b>${evaluated().length}</b> 项已评估</span><span><b>${active().filter(r=>!r.snapshot).length}</b> 项待评估</span></div><div class="tabs" id="home-tabs" aria-label="风险视图">${homeFilterTabs()}</div><div class="toolbar"><label class="input-wrap">${icon('search')}<input id="risk-query" value="${esc(state.query)}" placeholder="搜索风险或核心变量" aria-label="筛选风险或变量"></label><select id="risk-category" aria-label="筛选风险类别"><option value="all">全部类别</option>${[...new Set(active().map(r=>r.category))].map(c=>`<option ${state.category===c?'selected':''}>${c}</option>`).join('')}</select><select id="risk-sort" aria-label="排序依据"><option value="latest" ${state.sort==='latest'?'selected':''}>评估时间 ↓</option><option value="severity" ${state.sort==='severity'?'selected':''}>严重程度 ↓</option></select><label class="check"><input id="mine-only" type="checkbox" ${state.mine?'checked':''}>本机关注</label></div><div id="risk-results">${riskTable(homeRows())}</div><div class="table-footer"><span>当前跟踪 · 每项取最新有效快照 · 比较基准随风险保留</span><span id="risk-count">${homeRows().length} 项结果</span></div></section><div class="bottom-insight"><div><h3>风险减弱后，下一步看什么？</h3><p>继续验证驱动变量与市场反应，让机会线索保持条件性。</p></div><a class="btn quiet" href="#mapping">查看映射设计 ${icon('arrow')}</a></div><div class="note-line">${icon('info')}<span>本页为产品方案演示。所有数值、摘要及时间均为虚构；未连接实时行情、信源或项目后台。</span></div></div>
+ <aside class="aside-stack"><section class="surface focus-box"><div class="focus-top"><h2>研究焦点</h2>${tag('增强中','up')}</div><div class="focus-code mono">RH-014 · 流动性</div><div class="focus-name">压力与缓释，<br>哪一端发生了变化？</div><p>外币融资条件趋紧，政策支持也在增加。关键在于支持是否真正到达承压主体。</p><div class="focus-section"><h3>两条关键依据</h3><div class="reason-row"><span class="reason-num">1</span><span>融资溢价由 24 升至 31 基点，融资约束进一步上升。</span></div><div class="reason-row"><span class="reason-num">2</span><span>支持工具使用增加，但覆盖范围尚未扩大。</span></div><button class="btn quiet" style="width:auto;margin-top:2px;min-height:28px;font-size:12px" data-action="evidence" data-id="r1">查看示例证据 ${icon('link')}</button></div><div class="focus-section"><h3>下一轮验证</h3><p>溢价能否持续回落？政策支持能否覆盖当前承压主体？</p></div><a class="btn primary" href="#risk/r1/overview">打开风险研究 ${icon('arrow')}</a></section><section class="surface quiet-panel"><h3>还有 1 项风险等待首次评估</h3><p>已建档与已评估分开呈现，空缺不补成“稳定”。</p><button class="btn quiet" style="font-size:12px;min-height:28px;margin-top:5px" data-action="home-filter" data-filter="pending">查看待评估风险 →</button></section></aside></div>`}
+function updateHomeResults(){if(state.view!=='home')return;$('#risk-results').innerHTML=riskTable(homeRows());$('#risk-count').textContent=homeRows().length+' 项结果';$('#home-tabs').innerHTML=homeFilterTabs()}
+function renderArchive(){let rows=RISKS.filter(r=>state.archiveStatus==='all'||r.tracking===state.archiveStatus);const q=state.archiveQuery.toLowerCase();if(q)rows=rows.filter(r=>(r.name+r.code+r.category).toLowerCase().includes(q));return `${pageHead('风险档案','保留每项风险的稳定身份、观察历史与当前跟踪状态。')}<div class="banner neutral">${icon('archive')}<span>本原型有 8 项建档风险：6 项跟踪中、1 项已暂停、1 项已结束。无快照对象仍保留；暂停或结束跟踪不代表风险程度归零。</span></div><section class="surface"><div class="section-head"><h2>全部已建档风险</h2><span class="small muted">阅读视图 · 不在此修改纳管状态</span></div><div class="toolbar"><label class="input-wrap">${icon('search')}<input id="archive-query" aria-label="搜索已建档风险" value="${esc(state.archiveQuery)}" placeholder="搜索风险名称、编码或类别"></label><select id="archive-status" aria-label="跟踪状态筛选">${['all','跟踪中','已暂停','已结束'].map(s=>`<option value="${s}" ${state.archiveStatus===s?'selected':''}>${s==='all'?'全部跟踪状态':s}</option>`).join('')}</select></div><div id="archive-results">${riskTable(rows,true)}</div><div class="table-footer"><span>历史条目始终显示最后有效评估时间；后续恢复观察前应更新证据。</span><span id="archive-count">${rows.length} 项结果</span></div></section>`}
+function archiveUpdate(){let rows=RISKS.filter(r=>state.archiveStatus==='all'||r.tracking===state.archiveStatus);const q=state.archiveQuery.toLowerCase();if(q)rows=rows.filter(r=>(r.name+r.code+r.category).toLowerCase().includes(q));$('#archive-results').innerHTML=riskTable(rows,true);$('#archive-count').textContent=rows.length+' 项结果'}
+function riskHeader(r){return `<div class="detail-header"><div class="page-head" style="margin-bottom:0"><div><div class="view-label mono" style="margin-bottom:5px">${r.code} · ${r.category} · ${r.region}</div><h1>${r.name}</h1><div class="status-row">${severity(r.level)}${trend(r.trend)}${tag(r.tracking)}${r.new?tag('新纳管','new'):''}</div></div><div class="cutoff">本轮评估截止<strong>${stamp(r)}</strong></div></div><p class="lead">${esc(r.summary)}</p></div>`}
+function renderRisk(){const r=R(state.riskId);return `${riskHeader(r)}<nav class="tabs detail-tabs" aria-label="风险详情分区">${[['overview','当前判断'],['evolution','演化时间线'],['drivers','变量与证据'],['mapping','影响映射 · 规划']].map(([key,label])=>`<a class="tab ${state.tab===key?'active':''}" ${state.tab===key?'aria-current="page"':''} href="#risk/${r.id}/${key}">${label}</a>`).join('')}</nav>${r.tracking!=='跟踪中'?`<div class="banner neutral">${icon('clock')}<span>当前查看 ${r.tracking} 的历史风险。下列结论仅适用于最后有效快照，当前状态未知。</span></div>`:''}${!r.snapshot?renderPending(r):state.tab==='overview'?renderRiskOverview(r):state.tab==='evolution'?renderEvolution(r):state.tab==='drivers'?renderDrivers(r):renderRiskMapping(r)}`}
+function renderPending(r){return `<section class="surface"><div class="empty">${icon('clock')}<h2>风险已建档，等待首轮有效评估</h2><p style="margin:10px auto 20px;max-width:530px">严重程度、变化方向与持续性均保留“待评估”。首轮形成当前状态后，历史变化仍需要可比基准。</p><a class="btn" href="#archive">返回风险档案</a></div></section><div class="note-line">${icon('info')}<span>建档风险可见于全部档案；无有效快照时，不参与最近评估与严重程度排序。</span></div>`}
+function nextPanel(r){return `<section class="observation"><h2>下一轮，验证什么？</h2><p>${esc(r.next)}</p><span class="small muted">观察重点来自本轮分析结果；阅读端不自动触发重新评级。</span></section>`}
+function evidencePanel(r){return `<section class="surface evidence-summary"><h2>让判断保持可检验</h2><div class="evidence-item">${tag('支持')}<span>${esc(r.reason)}</span></div><div class="evidence-item">${tag('反证','new')}<span>${esc(r.counter)}</span></div><div class="evidence-item">${tag('缺口','unknown')}<span>${esc(r.gap)}</span></div><button class="btn quiet" data-action="evidence" data-id="${r.id}">展开事实与来源 ${icon('arrow')}</button></section>`}
+function comparePanel(r){const first=state.baseline==='first',base=first?r.first:r.base,summary=first?r.firstSummary:r.baselineSummary,t=first?r.firstTrend:r.trend,reason=first?r.firstReason:r.reason;return `<div class="section-head border"><h2>当前状态与历史变化</h2>${r.base?`<div class="segmented" aria-label="历史比较基准"><button class="segment ${!first?'active':''}" data-action="baseline" data-base="previous" aria-pressed="${!first}">较上一轮</button><button class="segment ${first?'active':''}" data-action="baseline" data-base="first" aria-pressed="${first}">较首次观察</button></div>`:tag('无历史基准','unknown')}</div><div class="reading-block"><div class="compare"><div class="compare-box"><div class="caption"><span>${first?'首次观察':'比较基准'}</span><span>${base?base.slice(5,10).replace('-','.'): '—'}</span></div>${base?`<p>${esc(summary)}</p><div class="status-row" style="margin:0 0 9px">${severity(first?r.hist[0][1]:r.hist[Math.max(0,r.hist.length-2)][1])}</div><div class="small muted">${base} · 北京时间</div>`:'<p>这是首轮观察，尚无可比历史快照。</p><div class="small muted">不默认填入“稳定”。</div>'}</div><div class="compare-mid">${icon('arrow')}</div><div class="compare-box current"><div class="caption"><span>本轮状态</span>${severity(r.level)}</div><p>${esc(r.summary)}</p><div class="small muted">${r.snapshot} · 北京时间</div></div></div><div class="analysis-block"><div class="row">${tag('变化分析示例','ai')}${trend(t)}</div><p>${esc(reason)}</p><div class="compare-meta">${r.base?'当前与基准分别锁定，读取对应的演示分析记录。':'首次观察缺少可比基准，方向保留待判断。'}</div></div></div>`}
+function renderRiskOverview(r){return `<div class="detail-grid"><div class="stack"><section class="surface" id="compare-panel">${comparePanel(r)}</section><section class="surface"><div class="reading-block"><h2>当前风险，拆开看</h2><div class="fact-grid"><div class="fact-cell"><h3>当前阶段</h3><p>${esc(r.stage)} · ${r.level==='待判断'?'证据不足，保留判断':'阶段名称为原型演示口径'}</p></div><div class="fact-cell"><h3>当前影响范围</h3><p>${esc(r.scope)}</p></div><div class="fact-cell"><h3>持续性判断</h3><p>${esc(r.duration)}</p></div><div class="fact-cell"><h3>持续条件</h3><p>${esc(r.durationText)}</p></div></div></div><div class="reading-block"><h2>压力端与缓释端</h2><div class="forces"><div class="force"><h3><i class="dot" style="color:var(--danger)"></i>风险压力</h3><p>${esc(r.reason)}</p></div><div class="force"><h3><i class="dot" style="color:var(--down)"></i>缓释与相反证据</h3><p>${esc(r.counter)}</p></div></div><div class="note-line">${icon('info')}<span>按机制解释两端作用，不把指标数量或报道数量换算为力量百分比。</span></div></div></section></div><aside class="stack">${nextPanel(r)}${evidencePanel(r)}<section class="surface quiet-panel"><h3>追溯到本轮快照</h3><p class="mono">${r.snapshotId}</p><button class="btn quiet" style="font-size:12px;min-height:29px;margin-top:7px" data-action="pinned" data-id="${r.id}">查看引用信息 →</button></section></aside></div>`}
+function renderEvolution(r){return `<div class="detail-grid"><section class="surface"><div class="section-head border"><div><h2>每一次判断，保留当时的依据</h2><p>按观察顺序呈现；趋势读取对应分析结果。</p></div><span class="small muted">${r.hist.length} 轮观察</span></div><div class="timeline">${[...r.hist].reverse().map(([date,level,t,desc],idx)=>`<article class="timeline-item ${idx===0?'current':''}"><div class="timeline-title"><strong>${date.replace('-','.')} · ${idx===0?'本轮快照':'历史快照'}</strong>${severity(level)}${trend(t)}</div><p>${desc}</p><div class="timeline-rationale">${idx===0?esc(r.next):t==='待判断'?'无比较基准，不形成历史变化结论。':'此处保留该轮结论；更新不会无痕覆盖历史。'}</div><button class="btn" data-action="history" data-id="${r.id}" data-date="${date}">查看该轮记录 ${icon('chevron')}</button></article>`).join('')}</div></section><aside class="stack">${nextPanel(r)}<section class="surface quiet-panel"><h3>减弱信号与转折确认分开</h3><p>${r.trend==='减弱'?'本轮已出现减弱信号；是否形成持续的减弱节点仍需后续证据验证。':'本轮尚未展示经验证的减弱节点。界面保留观察条件，不补造转折确认。'}</p></section><section class="surface quiet-panel"><h3>变化不会被等级档位遮住</h3><p>连续两轮均为“高”，可以同时对应“风险增强”。时间线并列呈现程度、方向及解释。</p></section></aside></div>`}
+function renderDrivers(r){return `<div class="detail-grid"><div class="stack">${r.variables.length?r.variables.map(id=>{const v=V(id),i=v.risks.indexOf(r.id);return `<section class="surface variable-card"><div class="variable-top"><h2>${v.name}</h2>${tag(v.state)}</div><span class="small muted mono">${v.code} · 变量状态与作用分开呈现</span><div class="definition-box"><span class="small muted">在此风险中的作用</span><p style="margin-top:5px;color:var(--ink)">${esc(v.effects[i])}</p></div>${riskIndicatorTable(v,r)}<p>${esc(v.description)}</p><div class="card-bottom"><span class="small muted">指标事实 → 变量状态 → 风险机制</span><button class="btn quiet" data-action="variable" data-id="${id}" data-risk="${r.id}">看证据 ${icon('arrow')}</button></div></section>`}).join(''):`<section class="surface"><div class="empty"><h3>历史变量明细未纳入演示</h3><p>本原型保留该风险的历史状态，不补造变量证据。</p></div></section>`}</div><aside class="stack">${evidencePanel(r)}<section class="surface quiet-panel"><h3>核心变量与指标分工</h3><p>变量表达需要理解的风险机制；指标提供观测依据。指标数值的变化，需要经过机制分析才能形成风险方向。</p><a class="btn quiet" href="#variables">进入变量观察 →</a></section></aside></div>`}
+function renderRiskMapping(r){return `<div class="banner">${icon('network')}<span>规划能力。当前风险状态与证据来自现有 L1/L2 设计；资产传导、市场定价、情绪及风险态度分析需要新增上游能力与规则。</span></div><section class="surface"><div class="reading-block"><h2>从这项风险出发，探索条件性传导</h2><p class="muted" style="font-size:13px;line-height:1.9">围绕“${esc(r.name)}”，后续页面应先展示传导机制，再区分已观测市场反应与待验证的资产情景。</p><div class="chain"><div class="chain-node"><div class="overline">风险状态</div><strong>${esc(r.name)}</strong><p>${esc(r.level)} · ${esc(r.trend)}</p></div><div class="chain-arrow">→</div><div class="chain-node"><div class="overline">作用机制</div><strong>${r.variables.length?esc(V(r.variables[0]).name):'待补齐机制证据'}</strong><p>明确方向、范围及成立条件</p></div><div class="chain-arrow">→</div><div class="chain-node"><div class="overline">资产映射</div><strong>条件性影响与观察线索</strong><p>价格反应、反证与失效条件</p></div></div><a class="btn primary" href="#mapping">查看市场映射规划原型 ${icon('arrow')}</a></div></section>`}
+function variableCard(v){return `<section class="surface variable-card"><div class="variable-top"><h2><button class="risk-title" style="font-size:16px" data-action="variable" data-id="${v.id}">${v.name}</button></h2>${tag(v.state)}</div><div class="small muted">${v.domain} · ${v.risks.length} 项风险关联</div><p>${esc(v.description)}</p><div class="mini-data-wrap"><table class="mini-data"><thead><tr><th>核心观测指标（虚构）</th><th>本轮</th></tr></thead><tbody>${v.indicators.map(row=>`<tr><td>${row[0]}</td><td><strong>${row[3]}</strong> ${row[4]}</td></tr>`).join('')}</tbody></table></div><div class="card-bottom"><span class="small muted">同一变量，分别解释各风险作用</span><button class="btn quiet" data-action="variable" data-id="${v.id}">展开 ${icon('arrow')}</button></div></section>`}
+function renderVariables(){return `${pageHead('变量观察','从核心变量出发，理解同一变化如何作用于不同风险。')}<div class="banner neutral">${icon('sliders')}<span>阅读层展示已有变量定义与本轮分析。全局变量维护、指标口径及映射治理留在 M2；本页不提供修改定义或重新评级操作。</span></div><div class="toolbar" style="padding:0 0 18px"><label class="input-wrap" style="max-width:440px">${icon('search')}<input id="variable-query" aria-label="搜索变量或观测指标" value="${esc(state.variableQuery)}" placeholder="搜索核心变量、领域或观测指标"></label><span class="small muted">示例观测轮次：03.08 / 03.11 / 03.14</span></div><div class="variable-list" id="variable-results">${variableRows()}</div>`}
+function variableRows(){const q=state.variableQuery.trim().toLowerCase();const rows=VARIABLES.filter(v=>(v.name+v.domain+v.indicators.map(i=>i[0]).join('')).toLowerCase().includes(q));return rows.length?rows.map(variableCard).join(''):`<div class="surface empty" style="grid-column:1/-1"><h3>没有匹配的变量</h3><p>可以尝试变量名称或指标名称。</p></div>`}
+const assetConfig={
+ credit:{name:'信用资产',risk:'r1',driver:'外币融资条件',mechanism:'融资约束 → 再融资难度 → 信用风险补偿',pressure:'融资约束可能抬高信用风险补偿要求',opportunity:'融资压力缓和后，信用风险补偿是否仍偏高？',condition:'融资压力连续缓和，违约相关证据未恶化，二级市场流动性改善。',invalid:'融资压力反复、实际违约恶化，或高利差主要补偿流动性不足。',reaction:'示例：融资压力继续增强，信用利差已有扩张。二者的时间顺序与幅度仍需核对。',emotion:'偏谨慎',attitude:'容忍度仍偏高',emotionEvidence:'示例：避险表达增多，波动担忧上升。',attitudeEvidence:'示例：部分资金仍接受较低契约保护与较高杠杆。',verify:'同时观察融资溢价、信用利差与真实成交流动性。'},
+ rates:{name:'利率资产',risk:'r3',driver:'增长与政策预期',mechanism:'需求变化 → 增长与通胀预期 → 利率定价',pressure:'影响方向取决于增长、通胀与政策预期的共同变化',opportunity:'需求风险减弱后，既有利率预期需要修订吗？',condition:'需求改善持续，并有通胀、政策预期和期限结构的交叉验证。',invalid:'需求改善短暂，或通胀变化与政策反应抵消增长影响。',reaction:'示例：需求指标改善，利率反应方向分化。暂不形成统一资产方向判断。',emotion:'分歧',attitude:'趋于谨慎',emotionEvidence:'示例：增长前景的观点差异扩大。',attitudeEvidence:'示例：部分参与者降低久期风险承担。',verify:'对照需求、通胀、政策预期与期限结构，明确作用条件。'},
+ equities:{name:'权益资产',risk:'r3',driver:'需求与盈利预期',mechanism:'订单变化 → 盈利预期 → 估值与资金风险承担',pressure:'需求改善能否转化为盈利，需要与估值及融资条件一起验证',opportunity:'风险缓和能否传导到盈利，市场预期是否已经反映？',condition:'订单改善向盈利兑现，融资条件与估值假设保持兼容。',invalid:'订单修复未兑现盈利，或估值已充分体现改善。',reaction:'示例：部分价格先于需求改善反应，仍需检验已有预期。',emotion:'偏乐观',attitude:'容忍度偏高',emotionEvidence:'示例：积极预期表达增加。',attitudeEvidence:'示例：风险补偿要求下降、融资参与升温。',verify:'对照订单、盈利兑现、估值与风险补偿变化。'},
+ fx:{name:'汇率资产',risk:'r5',driver:'跨境融资与资金流',mechanism:'资金需求变化 → 跨境流动 → 汇率压力',pressure:'影响取决于双边差异、政策反应与真实资金流',opportunity:'融资信号与实际资金流之间，是否存在可验证的偏离？',condition:'补齐历史基准，并确认资金流、政策行为与市场成交的一致性。',invalid:'仅有单一资金指标，或主要变化来自另一侧货币因素。',reaction:'示例证据不足：尚不能区分融资需求与实际资金迁移。',emotion:'待判断',attitude:'待判断',emotionEvidence:'尚无满足要求的情绪观测。',attitudeEvidence:'尚无可比较的风险承担行为证据。',verify:'先补齐资金流历史数据与双边政策背景，不提前贴资产方向标签。'}
+};
+function renderMapping(){const a=assetConfig[state.asset];return `${pageHead('市场映射','把风险变化、市场反应与条件性机会放在同一研究框架中。')}<div class="banner">${icon('network')}<span><strong>规划能力 · 全部为虚构研究情景。</strong> 此区域超出现行 L3 已确认能力。上线前需补齐资产传导、市场定价、情绪与风险态度的分析契约；不输出交易指令或目标价格。</span></div><div class="mapping-layout"><aside class="surface asset-nav" aria-label="资产类别">${Object.entries(assetConfig).map(([key,c])=>`<button class="asset-btn ${key===state.asset?'active':''}" data-action="asset" data-asset="${key}" aria-pressed="${key===state.asset}">${icon(key==='credit'?'shield':key==='rates'?'sliders':key==='equities'?'layers':'network')} ${c.name}</button>`).join('')}</aside><div class="stack"><section class="surface mapping-overview"><div class="status-row" style="margin:0 0 10px">${tag('资产观察')}${tag('条件性解释','plan')}</div><h2>${a.name}：${a.pressure}</h2><p>先明确风险如何传导，再讨论定价是否已经反映。</p><div class="chain"><div class="chain-node"><div class="overline">01 / 风险变化</div><a class="risk-title" href="#risk/${a.risk}/overview" style="font-size:13px">${R(a.risk).name}</a><p>${R(a.risk).level} · ${R(a.risk).trend}</p></div><div class="chain-arrow">→</div><div class="chain-node"><div class="overline">02 / 传导机制假设</div><strong>${a.driver}</strong><p>${a.mechanism}</p></div><div class="chain-arrow">→</div><div class="chain-node"><div class="overline">03 / 条件性资产影响</div><strong>${a.name}定价与风险补偿</strong><p>保留正反方向与成立条件</p></div></div><div class="definition-box" style="margin-bottom:0"><strong style="font-size:12px">市场反应 · 与风险状态分别观测</strong><p style="font-size:13px">${a.reaction}</p></div></section><section class="surface reading-block"><h2>两类周期，分别回答两个问题</h2><div class="cycle-grid"><div class="cycle"><div class="cycle-head"><strong>情绪周期</strong>${tag(a.emotion,'new')}</div><span class="small muted">投资者此刻如何感受市场？</span>${a.emotion==='待判断'?'<div class="definition-box small">缺少观测，不显示位置。</div>':`<div class="spectrum" style="--pos:${state.asset==='credit'?'28%':state.asset==='rates'?'50%':'73%'}" aria-label="定性位置示意，非量化指数"></div><div class="spectrum-labels"><span>恐惧</span><span>中性</span><span>贪婪</span></div>`}<p>${a.emotionEvidence}</p></div><div class="cycle"><div class="cycle-head"><strong>风险态度周期</strong>${tag(a.attitude)}</div><span class="small muted">参与者愿意承担多少风险？</span>${a.attitude==='待判断'?'<div class="definition-box small">缺少行为证据，不显示位置。</div>':`<div class="spectrum" style="--pos:${state.asset==='rates'?'32%':'70%'}" aria-label="定性位置示意，非量化指数"></div><div class="spectrum-labels"><span>厌恶高</span><span>中性</span><span>容忍高</span></div>`}<p>${a.attitudeEvidence}</p></div></div><div class="note-line">${icon('info')}<span>位置仅用于定性界面评审，未建立量化指数。正式观测应分别记录主体、市场、时间窗口与来源；情绪极端本身不构成机会确认。</span></div></section><section class="surface reading-block"><div class="scenario"><div><div class="scenario-title">${tag('待验证线索','plan')}<h2>${a.opportunity}</h2></div><p>将“风险变化”与“市场已有定价”对照，保留成立条件、反证与失效路径。风险减弱也可能已被价格充分反映。</p><div class="condition"><strong>成立条件</strong><p>${a.condition}</p></div><div class="condition invalid"><strong>失效条件</strong><p>${a.invalid}</p></div></div><aside class="observation"><h2>继续观察</h2><p>${a.verify}</p><button class="btn" style="margin-top:14px;background:#fff" data-action="mapping-evidence" data-asset="${state.asset}">查看规划证据要求 ${icon('arrow')}</button></aside></div></section></div></div>`}
+const reportInfo={day:{name:'风险日报',period:'2025.03.14',start:'2025-03-14',id:'DEMO-REPORT-D-0314'},week:{name:'风险周报',period:'2025.03.10 — 2025.03.14',start:'2025-03-10',id:'DEMO-REPORT-W-0314'},month:{name:'风险月报 · 月内截至本轮',period:'2025.03.01 — 2025.03.14',start:'2025-03-01',id:'DEMO-REPORT-M-0314'}};
+function reportRows(){return evaluated().filter(r=>r.snapshot.slice(0,10)>=reportInfo[state.report].start)}
+function reportRisk(r){return `<div class="report-risk"><div class="heading">${selectRiskLink(r)}${severity(r.level)}${trend(r.trend)}</div><p>${r.reason}</p><button class="report-ref" data-action="pinned" data-id="${r.id}" aria-label="查看${r.name}的报告引用快照">引用快照：${r.snapshotId} ${icon('link')}</button></div>`}
+function renderReports(){const info=reportInfo[state.report],rows=reportRows();return `${pageHead('周期报告','把一个周期内的重要变化，整理成可回溯的阅读结果。')}<div class="report-layout"><aside class="surface report-nav"><div class="segmented" aria-label="报告周期">${[['day','日报'],['week','周报'],['month','月报']].map(([key,label])=>`<button class="segment ${state.report===key?'active':''}" data-action="report-period" data-period="${key}" aria-pressed="${state.report===key}">${label}</button>`).join('')}</div><div class="report-card active">${tag('发布态示例')}<strong>${info.name}</strong><small>${info.period}</small><small style="margin-top:8px">版本 v1.0 · 引用 ${rows.length} 项风险</small></div><p class="small muted">仅提供一份当前周期样例。导出为 Markdown；已发布状态与版本用于展示交互，未执行后台发布。</p></aside><article class="surface report-paper"><div class="report-kicker"><span>RiskHot / 风险观察</span>${tag('虚构演示数据','new')}</div><h2>${info.name}</h2><div class="report-period">报告周期：${info.period} · 北京时间</div><div class="small muted" style="margin-top:6px">数据截止：2025.03.14 18:00　生成：18:10　发布：18:15（均为演示）</div><div class="report-abstract"><strong>本期观察</strong><p style="margin-top:7px">融资压力仍在积累，需求端出现边际缓和。风险程度与变化方向保持分开，${rows.filter(r=>r.trend==='待判断').length} 项首次观察风险保留待判断，后续继续核对驱动变量与缓释证据。</p></div><div class="report-section"><h3>01　压力增强</h3>${rows.filter(r=>r.trend==='增强').map(reportRisk).join('')||'<p class="small muted">本期无符合口径的增强条目。</p>'}</div><div class="report-section"><h3>02　风险减弱与持续验证</h3>${rows.filter(r=>r.trend==='减弱').map(reportRisk).join('')||'<p class="small muted">本期无符合口径的减弱条目。</p>'}</div><div class="report-section"><h3>03　保持稳定 / 尚待判断</h3>${rows.filter(r=>!['增强','减弱'].includes(r.trend)).map(reportRisk).join('')}</div><div class="report-section"><h3>04　下一轮观察</h3><p class="small" style="line-height:1.9">${R('r1').next}<br>${R('r3').next}</p></div><div class="source-block"><strong>本原型报告口径</strong>截面时点跟踪中、周期内有有效评估的风险，每项引用最新快照及适用的历史比较基准。栏目和纳入规则用于产品讨论，正式规则仍待确认。月报示例覆盖月内截至本轮的时间，未冒充完整月度报告。<br><span class="mono">${info.id} / v1.0</span></div></article></div>`}
+function openDialog(title,html,drawer=false){const d=$('#dialog');if(!d.open)dialogTrigger=document.activeElement;$('#dialog-title').textContent=title;$('#dialog-body').innerHTML=html;d.classList.toggle('drawer',drawer);hydrateIcons(d);if(!d.open)d.showModal();d.scrollTop=0;const autofocus=d.querySelector('[autofocus]');if(autofocus)autofocus.focus()}
+function closeDialog(){const d=$('#dialog');if(d.open)d.close()}
+$('#dialog').addEventListener('close',()=>{if(dialogTrigger&&dialogTrigger.isConnected)dialogTrigger.focus()});
+$('#dialog').addEventListener('click',e=>{if(e.target===$('#dialog')){const b=e.target.getBoundingClientRect();if(e.clientX<b.left||e.clientX>b.right||e.clientY<b.top||e.clientY>b.bottom)closeDialog()}});
+function showVariable(id,riskId){const v=V(id);if(!v)return;const r=R(riskId);openDialog(v.name,`${tag('变量阅读视图')}${tag('虚构演示','new')}<div class="mono muted" style="margin:10px 0">${v.code}</div><p>${v.definition}</p>${r?`<div class="definition-box"><span class="small muted">当前风险上下文 · ${r.name}</span><p style="margin-top:7px">${v.effects[v.risks.indexOf(r.id)]||'关联机制待补充'}</p><div class="small muted" style="margin-top:7px">此处不将变量上行直接解释为风险增强。</div></div>`:''}<div class="dialog-section"><h3>观测事实 · 虚构数据</h3>${variableObservationTable(v,r)}<p class="small muted" style="margin-top:10px">演示观测于各标注日期 08:00 可用。本视图截止：${r?r.snapshot||'尚无有效快照':DATA.cutoff}（北京时间）。仅展示截止时点已可用的演示记录。</p></div><div class="dialog-section"><h3>变量状态 → 风险作用</h3>${tag(v.state)}<p style="margin-top:10px">${v.description}</p>${v.risks.map((rid,i)=>`<div class="risk-link-row"><div><a href="#risk/${rid}/drivers" data-action="dialog-nav" class="risk-title" style="font-size:13px">${R(rid).name}</a><p>${v.effects[i]}</p></div>${tag(R(rid).snapshot?'关联风险':'待评估',R(rid).snapshot?'':'unknown')}</div>`).join('')}</div><div class="dialog-section"><h3>相反证据与数据缺口</h3><div class="source-block"><strong>相反证据</strong>${v.counter}</div><div class="source-block"><strong>数据缺口</strong>${v.gap}</div></div><div class="source-block"><strong>演示来源及追溯要求</strong>${v.sources.join('；')}。这些来源名称均为虚构占位，不对应真实机构。<br>生产数据应保留来源标识、原文定位、数据观察期、发布时间、修订版本与证据截止时间。</div>`,true)}
+function showEvidence(id){const r=R(id);if(!r)return;openDialog('证据与判断依据',`<div class="small muted">${r.code} · ${r.name}</div><div class="status-row">${tag('虚构演示数据','new')}${tag('事实 / 分析分层')}</div><div class="dialog-section"><h3>01　观测事实</h3>${r.variables.length?r.variables.map(vid=>{const v=V(vid);return `<div class="source-block"><strong>${v.name}</strong>${evidenceObservations(v,r)}<br><span class="small muted">来源：${v.sources.join('；')} · 虚构示例</span></div>`}).join(''):'<p class="muted">本原型未包含该历史风险的逐项观测证据。</p>'}</div><div class="dialog-section"><h3>02　分析解释</h3><div class="analysis-block" style="margin-top:0">${tag('分析示例','ai')}<p style="margin-top:9px">${r.reason}</p></div></div><div class="dialog-section"><h3>03　反证与缺口</h3><div class="source-block"><strong>相反证据</strong>${r.counter}</div><div class="source-block"><strong>尚缺什么</strong>${r.gap}</div></div><div class="dialog-section"><h3>04　继续验证</h3><p>${r.next}</p></div><div class="source-block"><strong>引用快照</strong><span class="mono">${r.snapshotId||'尚无有效快照'}</span><br>评估截止：${stamp(r)}<br>比较基准：${r.base||'无'}<br>本抽屉展示的是虚构观测；真实上线需接入被对应快照锁定的证据，不以最新数据覆盖历史。</div>`,true)}
+function showPinned(id){const r=R(id);if(!r)return;openDialog('引用快照',`<div class="status-row">${tag('固定引用')}${tag('虚构演示','new')}</div><div class="dialog-section"><h3>${r.name}</h3><div class="source-block"><strong>风险身份</strong><span class="mono">${r.code}</span></div><div class="source-block"><strong>本轮快照</strong><span class="mono">${r.snapshotId||'无有效快照'}</span><br>评估截止：${stamp(r)}</div><div class="source-block"><strong>比较基准快照</strong><span class="mono">${r.comparisonId||'无可比历史基准'}</span><br>信息截止：${r.base||'—'}</div><div class="definition-box">${severity(r.level)} ${trend(r.trend)}<p style="margin-top:10px">${r.summary}</p></div><p class="muted small">报告条目回到其引用的快照。更新后的风险主页可以独立展示最新状态，已引用结论不得被无痕替换。本原型没有后台版本变更。</p></div>`,true)}
+function showHistory(id,date){const r=R(id),h=r?.hist.find(x=>x[0]===date);if(!h)return;const idx=r.hist.indexOf(h);openDialog('历史观察记录',`<div class="small muted">${r.name} · 2025.${date.replace('-','.')}</div><div class="status-row">${severity(h[1])}${trend(h[2])}${tag('虚构历史快照')}</div><div class="definition-box"><strong>该轮判断</strong><p style="margin-top:10px">${h[3]}</p></div><div class="source-block"><strong>该轮比较基准</strong>${idx>0?'2025.'+r.hist[idx-1][0].replace('-','.'):'首次观察，无历史基准'}<br>严重程度与趋势分别保留；历史内容不随新一轮判断覆盖。</div><div class="source-block"><strong>演示覆盖边界</strong>${idx===r.hist.length-1?'此处为最后一轮快照，可回到“变量与证据”查看演示明细。':'本原型为该历史轮次提供状态与变化摘要。逐项证据尚未纳入演示，不引用当前数据冒充当时证据。'}</div>`,true)}
+function showPhilosophy(){openDialog('产品理念与原型说明',`<div class="status-row">${tag('产品方案 v1.0')}${tag('本地交互原型')}</div><div class="definition-box" style="font-size:17px;font-weight:500">从风险的变化出发，用变量解释，用证据校验，用条件理解机会。</div><p>RiskHot 的核心阅读对象是一项持续观察的风险。首页帮助分配注意力，详情保存判断过程，变量连接事实与机制，映射保留成立条件。</p>${[
+ ['变化优先','首页优先展示风险变化及其原因。严重程度与变化方向并列，避免高等级遮住新增压力。'],
+ ['结论可展开，未知可保留','按“结论 → 核心变量 → 指标 / 事件证据”逐层阅读。同时保留反证、缺口与下一轮观察条件。'],
+ ['围绕同一对象持续研究','从发现、跟踪到理解，都在同一风险身份下完成。阅读者无需频繁跨模块寻找同一对象。'],
+ ['机会保持条件性','风险变化、市场定价、情绪周期和风险态度分别建模。机会线索同时展示成立条件与失效条件。'],
+ ['读取与治理分层','关注收藏仅保存本机偏好；不会改变正式风险纳管与跟踪状态。参数治理与评估发布由后台负责。']
+ ].map(([t,p],i)=>`<div class="philosophy-row"><span class="num">0${i+1}</span><div><h3>${t}</h3><p>${p}</p></div></div>`).join('')}<div class="dialog-section"><h3>当前可体验</h3><p>关注清单搜索与筛选、严重程度排序、本机关注、风险详情、已提供基准间的切换、演化记录、变量证据抽屉、档案状态筛选、规划资产切换、日周月报告与 Markdown 导出。</p></div><div class="dialog-section"><h3>范围与限制</h3><p>全部数据与机构样例均为虚构。未连接真实项目、行情、LLM 或数据库；不会修改项目文件。资产映射为规划交互，尚缺上游正式分析能力；报告规则与若干评级、阶段、时效口径仍待确认。月报样例为月内截至本轮版本。</p></div><div class="source-block"><strong>项目依据（通过 RiskHot Knowledge 读取）</strong>《业务架构总览》§4.3–4.4；《RiskHot L3 风险产品与发布层：业务架构与领域设计》§1.4–1.6；共用 DESIGN.md V2.2。<br>视觉沿用深绿导航、暖灰画布与白色工作面。产品层导航与页面组织为本次建议，未改动管理中心现有架构。</div><div class="source-block"><strong>本机数据</strong>关注标记${localAvailable?'保存在当前浏览器本地存储':'仅保留在当前页面会话'}。不含账号、密钥或远程请求。<button class="btn quiet" style="display:block;font-size:12px" data-action="reset-demo">恢复演示关注标记</button></div>`,false)}
+function showMappingEvidence(asset){const a=assetConfig[asset];openDialog('映射上线前的证据要求',`<p>${a.name} · 规划契约。以下为需要补齐的分析输入，尚未在现行产品层中作为已实现能力提供。</p>${[['风险事实','引用 riskId、snapshotId 与适用的 comparisonSnapshotId；保留严重程度、方向、证据和时间。'],['传导机制','明确变量、受影响主体、传导环节、条件、正反方向及证据引用；不直接换算涨跌概率。'],['市场定价','按市场与资产保留价格、利差、估值或其他适用观测，记录观察期、可比口径和数据版本。'],['情绪与风险态度','分别记录心理感受与承担风险的行为证据；明确样本主体、时间窗口、来源与覆盖限制。'],['条件性线索','给出可验证命题、成立条件、反证、失效条件和下一轮观测；不凭单一极端情绪确认机会。']].map(([t,p])=>`<div class="source-block"><strong>${t}</strong>${p}</div>`).join('')}`,true)}
+function openSearch(){openDialog('搜索风险与变量',`<label class="search-large">${icon('search')}<input id="global-search" autofocus placeholder="输入风险、变量或稳定编码" aria-label="全局搜索风险和变量"></label><div id="search-results">${searchResults('')}</div><p class="small muted" style="margin-top:15px">搜索范围仅限本原型的 8 项风险和 5 项变量。</p>`)}
+function searchResults(q){q=q.trim().toLowerCase();const rs=RISKS.filter(r=>(r.name+r.code+r.category+r.variables.map(id=>V(id).name).join('')).toLowerCase().includes(q));const vs=VARIABLES.filter(v=>(v.name+v.code+v.domain+v.indicators.map(i=>i[0]).join('')).toLowerCase().includes(q));if(!rs.length&&!vs.length)return '<div class="empty"><h3>没有匹配结果</h3><p>请尝试更短的名称或编码。</p></div>';return `<div class="small muted">风险 ${rs.length} · 变量 ${vs.length}</div>${rs.slice(0,q?8:4).map(r=>`<div class="search-result"><a href="#risk/${r.id}/overview" data-action="dialog-nav"><span>${r.name}</span><small>${r.code} · ${r.tracking}</small></a>${trend(r.trend)}</div>`).join('')}${vs.slice(0,q?5:2).map(v=>`<div class="search-result"><button data-action="variable" data-id="${v.id}">${v.name}<small>${v.code}</small></button>${tag('变量')}</div>`).join('')}`}
+function toast(text){clearTimeout(toastTimer);$('#toast').textContent=text;$('#toast').classList.add('show');toastTimer=setTimeout(()=>$('#toast').classList.remove('show'),3000)}
+function saveFavorites(){try{localStorage.setItem('riskhot-favorites-v1',JSON.stringify(favorites))}catch(e){localAvailable=false}}
+function toggleFavorite(id){if(!R(id))return;const added=!favorites.includes(id);favorites=added?[...favorites,id]:favorites.filter(x=>x!==id);saveFavorites();document.querySelectorAll(`[data-action="favorite"][data-id="${id}"]`).forEach(el=>{el.classList.toggle('saved',added);el.setAttribute('aria-pressed',String(added));el.setAttribute('aria-label',(added?'取消':'加入')+'本机关注：'+R(id).name)});if(state.view==='home'&&state.mine)updateHomeResults();toast((added?'已加入':'已取消')+'本机关注；正式跟踪状态保持不变')}
+function closeMobile(){$('#sidebar').classList.remove('open');$('#mobile-backdrop').classList.remove('open')}
+function exportReport(){const info=reportInfo[state.report],rows=reportRows();const text=`# RiskHot ${info.name}\n\n> 全部内容为虚构演示，非实时研究结论。\n\n报告 ID：${info.id}\n版本：v1.0\n报告周期：${info.period}\n数据截止：2025-03-14 18:00（北京时间）\n生成：2025-03-14 18:10（演示）\n发布：2025-03-14 18:15（发布态演示，未执行后台发布）\n\n## 本期观察\n融资压力仍在积累，需求端出现边际缓和。风险程度与变化方向分别保留。\n\n${rows.map(r=>`## ${r.name}\n\n严重程度：${r.level}；变化方向：${r.trend}\n\n${r.reason}\n\n相反证据：${r.counter}\n数据缺口：${r.gap}\n下一轮观察：${r.next}\n\n风险引用：${r.code}\n本轮快照：${r.snapshotId}\n快照截止：${r.snapshot}\n基准快照：${r.comparisonId||'无可比历史基准'}\n基准截止：${r.base||'无'}\n`).join('\n')}\n## 口径说明\n本原型采用“截面时点跟踪中、周期内有有效评估的风险，每项引用最新快照”。正式纳入规则与栏目仍待确认。月报样例覆盖月内截至本轮的区间，不代表完整月度报告。\n`;
+const blob=new Blob(['\ufeff',text],{type:'text/markdown;charset=utf-8'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`RiskHot_${state.report}_demo_20250314.md`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('已导出当前周期报告及其快照引用')}
+document.addEventListener('click',e=>{const el=e.target.closest('[data-action]');if(!el)return;const a=el.dataset.action;
+ if(a==='favorite')toggleFavorite(el.dataset.id);
+ else if(a==='philosophy')showPhilosophy();
+ else if(a==='search')openSearch();
+ else if(a==='dialog-close')closeDialog();
+ else if(a==='variable')showVariable(el.dataset.id,el.dataset.risk);
+ else if(a==='evidence')showEvidence(el.dataset.id);
+ else if(a==='pinned')showPinned(el.dataset.id);
+ else if(a==='history')showHistory(el.dataset.id,el.dataset.date);
+ else if(a==='dialog-nav')closeDialog();
+ else if(a==='home-filter'){state.filter=el.dataset.filter;if(state.view!=='home')location.hash='#home';else updateHomeResults()}
+ else if(a==='reset-filters'){state.filter='all';state.category='all';state.query='';state.mine=false;state.archiveStatus='all';state.archiveQuery='';render()}
+ else if(a==='baseline'){state.baseline=el.dataset.base;$('#compare-panel').innerHTML=comparePanel(R(state.riskId))}
+ else if(a==='asset'){state.asset=el.dataset.asset;render()}
+ else if(a==='report-period'){state.report=el.dataset.period;render()}
+ else if(a==='mapping-evidence')showMappingEvidence(el.dataset.asset);
+ else if(a==='export-report')exportReport();
+ else if(a==='back'){location.hash=state.origin||'#home'}
+ else if(a==='mobile-open'){$('#sidebar').classList.add('open');$('#mobile-backdrop').classList.add('open')}
+ else if(a==='mobile-close')closeMobile();
+ else if(a==='reset-demo'){favorites=['r1','r3'];saveFavorites();closeDialog();render();toast('已恢复演示关注标记')}
+});
+document.addEventListener('input',e=>{if(e.target.id==='risk-query'){state.query=e.target.value;updateHomeResults()}else if(e.target.id==='global-search'){$('#search-results').innerHTML=searchResults(e.target.value)}else if(e.target.id==='archive-query'){state.archiveQuery=e.target.value;archiveUpdate()}else if(e.target.id==='variable-query'){state.variableQuery=e.target.value;$('#variable-results').innerHTML=variableRows()}});
+document.addEventListener('change',e=>{if(e.target.id==='risk-category'){state.category=e.target.value;updateHomeResults()}else if(e.target.id==='risk-sort'){state.sort=e.target.value;updateHomeResults()}else if(e.target.id==='mine-only'){state.mine=e.target.checked;updateHomeResults()}else if(e.target.id==='archive-status'){state.archiveStatus=e.target.value;archiveUpdate()}});
+document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openSearch()}if(e.key==='Escape'){closeMobile()}});
+window.addEventListener('hashchange',()=>{closeDialog();route()});hydrateIcons();route();
+</script>
+</body></html>

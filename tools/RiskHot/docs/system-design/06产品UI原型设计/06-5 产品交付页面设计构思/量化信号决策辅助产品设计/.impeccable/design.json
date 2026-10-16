@@ -1,0 +1,283 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-16T10:15:27.873559+00:00",
+  "title": "Design System: RiskHot 量化信号决策辅助产品",
+  "extensions": {
+    "colorMeta": {
+      "bg": {
+        "role": "neutral",
+        "displayName": "bg",
+        "tonalRamp": [
+          "oklch(15.00% 0.0297 257.53)",
+          "oklch(26.43% 0.0297 257.53)",
+          "oklch(37.86% 0.0297 257.53)",
+          "oklch(49.29% 0.0297 257.53)",
+          "oklch(60.71% 0.0297 257.53)",
+          "oklch(72.14% 0.0297 257.53)",
+          "oklch(83.57% 0.0297 257.53)",
+          "oklch(95.00% 0.0297 257.53)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "surface",
+        "tonalRamp": [
+          "oklch(15.00% 0.0377 255.52)",
+          "oklch(26.43% 0.0377 255.52)",
+          "oklch(37.86% 0.0377 255.52)",
+          "oklch(49.29% 0.0377 255.52)",
+          "oklch(60.71% 0.0377 255.52)",
+          "oklch(72.14% 0.0377 255.52)",
+          "oklch(83.57% 0.0377 255.52)",
+          "oklch(95.00% 0.0377 255.52)"
+        ]
+      },
+      "raised": {
+        "role": "neutral",
+        "displayName": "raised",
+        "tonalRamp": [
+          "oklch(15.00% 0.0456 253.12)",
+          "oklch(26.43% 0.0456 253.12)",
+          "oklch(37.86% 0.0456 253.12)",
+          "oklch(49.29% 0.0456 253.12)",
+          "oklch(60.71% 0.0456 253.12)",
+          "oklch(72.14% 0.0456 253.12)",
+          "oklch(83.57% 0.0456 253.12)",
+          "oklch(95.00% 0.0456 253.12)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "line",
+        "tonalRamp": [
+          "oklch(15.00% 0.0495 252.43)",
+          "oklch(26.43% 0.0495 252.43)",
+          "oklch(37.86% 0.0495 252.43)",
+          "oklch(49.29% 0.0495 252.43)",
+          "oklch(60.71% 0.0495 252.43)",
+          "oklch(72.14% 0.0495 252.43)",
+          "oklch(83.57% 0.0495 252.43)",
+          "oklch(95.00% 0.0495 252.43)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "ink",
+        "tonalRamp": [
+          "oklch(15.00% 0.0137 258.34)",
+          "oklch(26.43% 0.0137 258.34)",
+          "oklch(37.86% 0.0137 258.34)",
+          "oklch(49.29% 0.0137 258.34)",
+          "oklch(60.71% 0.0137 258.34)",
+          "oklch(72.14% 0.0137 258.34)",
+          "oklch(83.57% 0.0137 258.34)",
+          "oklch(95.00% 0.0137 258.34)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "muted",
+        "tonalRamp": [
+          "oklch(15.00% 0.0372 253.50)",
+          "oklch(26.43% 0.0372 253.50)",
+          "oklch(37.86% 0.0372 253.50)",
+          "oklch(49.29% 0.0372 253.50)",
+          "oklch(60.71% 0.0372 253.50)",
+          "oklch(72.14% 0.0372 253.50)",
+          "oklch(83.57% 0.0372 253.50)",
+          "oklch(95.00% 0.0372 253.50)"
+        ]
+      },
+      "blue": {
+        "role": "primary",
+        "displayName": "blue",
+        "tonalRamp": [
+          "oklch(15.00% 0.1098 257.56)",
+          "oklch(26.43% 0.1098 257.56)",
+          "oklch(37.86% 0.1098 257.56)",
+          "oklch(49.29% 0.1098 257.56)",
+          "oklch(60.71% 0.1098 257.56)",
+          "oklch(72.14% 0.1098 257.56)",
+          "oklch(83.57% 0.1098 257.56)",
+          "oklch(95.00% 0.1098 257.56)"
+        ]
+      },
+      "selected": {
+        "role": "neutral",
+        "displayName": "selected",
+        "tonalRamp": [
+          "oklch(15.00% 0.0654 253.73)",
+          "oklch(26.43% 0.0654 253.73)",
+          "oklch(37.86% 0.0654 253.73)",
+          "oklch(49.29% 0.0654 253.73)",
+          "oklch(60.71% 0.0654 253.73)",
+          "oklch(72.14% 0.0654 253.73)",
+          "oklch(83.57% 0.0654 253.73)",
+          "oklch(95.00% 0.0654 253.73)"
+        ]
+      },
+      "red": {
+        "role": "secondary",
+        "displayName": "red",
+        "tonalRamp": [
+          "oklch(15.00% 0.1216 10.62)",
+          "oklch(26.43% 0.1216 10.62)",
+          "oklch(37.86% 0.1216 10.62)",
+          "oklch(49.29% 0.1216 10.62)",
+          "oklch(60.71% 0.1216 10.62)",
+          "oklch(72.14% 0.1216 10.62)",
+          "oklch(83.57% 0.1216 10.62)",
+          "oklch(95.00% 0.1216 10.62)"
+        ]
+      },
+      "green": {
+        "role": "secondary",
+        "displayName": "green",
+        "tonalRamp": [
+          "oklch(15.00% 0.0948 171.43)",
+          "oklch(26.43% 0.0948 171.43)",
+          "oklch(37.86% 0.0948 171.43)",
+          "oklch(49.29% 0.0948 171.43)",
+          "oklch(60.71% 0.0948 171.43)",
+          "oklch(72.14% 0.0948 171.43)",
+          "oklch(83.57% 0.0948 171.43)",
+          "oklch(95.00% 0.0948 171.43)"
+        ]
+      },
+      "amber": {
+        "role": "secondary",
+        "displayName": "amber",
+        "tonalRamp": [
+          "oklch(15.00% 0.1097 79.65)",
+          "oklch(26.43% 0.1097 79.65)",
+          "oklch(37.86% 0.1097 79.65)",
+          "oklch(49.29% 0.1097 79.65)",
+          "oklch(60.71% 0.1097 79.65)",
+          "oklch(72.14% 0.1097 79.65)",
+          "oklch(83.57% 0.1097 79.65)",
+          "oklch(95.00% 0.1097 79.65)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "headline": {
+        "displayName": "页面标题",
+        "purpose": "功能标题；不确立独立 display 字体。"
+      },
+      "score": {
+        "displayName": "排行分值",
+        "purpose": "tabular-nums，单位随值展示。"
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "scroll",
+        "value": "smooth",
+        "purpose": "文档滚动；prefers-reduced-motion 时设为 auto。"
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide",
+        "value": "1550px"
+      },
+      {
+        "name": "compact",
+        "value": "1100px"
+      },
+      {
+        "name": "mobile",
+        "value": "760px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "次级按钮",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "描边按钮与悬停、焦点。",
+      "html": "<button class=\"ds-button\">按当前分值排序</button>",
+      "css": ".ds-button{font:15px/1.6 -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;color:var(--ink,#edf3fc);background:none;border:1px solid var(--line,#2b4058);border-radius:6px;padding:8px 13px;min-height:44px;cursor:pointer}.ds-button:hover{background:var(--raised,#192b40)}.ds-button:focus-visible{outline:3px solid var(--blue,#8cbbff);outline-offset:4px}"
+    },
+    {
+      "name": "选中排序",
+      "kind": "button",
+      "refersTo": "sort-selected",
+      "description": "按下状态有底色、边框和蓝字。",
+      "html": "<button class=\"ds-sort\" aria-pressed=\"true\">当前分值</button>",
+      "css": ".ds-sort{font:15px/1.6 -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;color:var(--ink,#edf3fc);font-size:12px;color:var(--blue,#8cbbff);background:var(--raised,#192b40);border:1px solid var(--line,#2b4058);border-radius:6px;padding:7px 10px;min-height:44px;cursor:pointer}.ds-sort:hover{background:var(--raised,#192b40)}.ds-sort:focus-visible{outline:3px solid var(--blue,#8cbbff);outline-offset:4px}"
+    },
+    {
+      "name": "数据状态",
+      "kind": "chip",
+      "refersTo": "badge",
+      "description": "非交互说明标签。",
+      "html": "<span class=\"ds-badge\">首次观测</span>",
+      "css": ".ds-badge{font:15px/1.6 -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;color:var(--ink,#edf3fc);display:inline-block;font-size:12px;padding:2px 7px;border:1px solid var(--line,#2b4058);border-radius:4px;color:var(--muted,#a8bad0)}"
+    },
+    {
+      "name": "双入口导航",
+      "kind": "nav",
+      "refersTo": "navigation-active",
+      "description": "活动入口保留蓝色底线。",
+      "html": "<nav class=\"ds-nav\"><a href=\"#overview\" aria-current=\"page\">风险速览</a><a href=\"#reports\">观察报告</a></nav>",
+      "css": ".ds-nav{font:15px/1.6 -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;color:var(--ink,#edf3fc);display:flex;gap:28px;background:var(--surface,#121f30)}.ds-nav a{display:flex;align-items:center;min-height:76px;color:var(--muted,#a8bad0);font-weight:600;text-decoration:none;border-bottom:3px solid transparent;padding-top:3px}.ds-nav a[aria-current=page]{color:var(--ink,#edf3fc);border-color:var(--blue,#8cbbff)}.ds-nav a:hover{color:white}.ds-nav a:focus-visible{outline:3px solid var(--blue,#8cbbff);outline-offset:4px}"
+    },
+    {
+      "name": "主面板",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "背景与描边构建层次，无投影。",
+      "html": "<section class=\"ds-panel\"><h2>风险排序</h2><p>按同一快照比较风险强度</p></section>",
+      "css": ".ds-panel{font:15px/1.6 -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;color:var(--ink,#edf3fc);background:var(--surface,#121f30);border:1px solid var(--line,#2b4058);border-radius:10px;overflow:hidden}.ds-panel h2{font-size:19px;line-height:1.35;margin:0;padding:18px 20px;border-bottom:1px solid var(--line,#2b4058)}.ds-panel p{font-size:13px;color:var(--muted,#a8bad0);padding:20px;margin:0}"
+    },
+    {
+      "name": "选中信号行",
+      "kind": "custom",
+      "refersTo": "signal-row-selected",
+      "description": "数字带单位，文字与箭头共同表达方向。",
+      "html": "<div class=\"ds-row\"><button class=\"ds-signal\">货币政策</button><span class=\"ds-score\">91<small>分</small></span><span class=\"ds-direction\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" aria-hidden=\"true\"><path d=\"M12 20V4m-6 6 6-6 6 6\"/></svg>增强</span></div>",
+      "css": ".ds-row{font:15px/1.6 -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;color:var(--ink,#edf3fc);display:flex;align-items:center;gap:20px;background:var(--selected,#203b5b);padding:17px 20px;font-variant-numeric:tabular-nums}.ds-signal{font:15px/1.6 -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;color:var(--ink,#edf3fc);font-size:14px;font-weight:600;border:0;border-radius:2px;background:transparent;min-height:44px;cursor:pointer}.ds-signal:hover{background:transparent}.ds-signal:focus-visible{outline:3px solid var(--blue,#8cbbff);outline-offset:4px}.ds-score{font-size:24px;font-weight:650;line-height:1.2}.ds-score small{font-size:11px;font-weight:400;color:var(--muted,#a8bad0);margin-left:3px}.ds-direction{display:flex;align-items:center;gap:5px;color:var(--red,#ff9aa9);font-size:13px}.ds-direction svg{width:16px;height:16px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "深蓝信号观察台",
+    "overview": "以深蓝底色、克制边框与横向对齐的数字形成专业监测界面。排序先交付优先级，趋势和证据紧接判断；色彩服务选择、变化方向与数据状态。\n\n这是量化信号产品的独立视觉系统。父目录一般阅读者版的浅色纸张、配色与圆角不构成本产品的约束。保留中文系统字体的清晰阅读性，密度来自实际字段，不以装饰扩大界面。",
+    "keyCharacteristics": [
+      "深蓝色阶区分背景、容器和选中状态。",
+      "等宽数字与邻近单位支持横向比较。",
+      "红色表示压力增强，绿色表示缓解，琥珀色提示需注意的状态。",
+      "宽屏双栏联动，窄屏改为纵向行与解读。"
+    ],
+    "rules": [
+      {
+        "name": "The Semantic Direction Rule",
+        "body": "红绿只表达压力变化方向；绿色不等于安全，缺失和首次不伪装成持平。",
+        "section": "colors"
+      },
+      {
+        "name": "The Comparable Numbers Rule",
+        "body": "数字使用 tabular-nums，并保留单位、截止时间与比较基准。",
+        "section": "typography"
+      },
+      {
+        "name": "The Tonal Depth Rule",
+        "body": "使用底色层级和细边框建立层次，不增加投影装饰。",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do 使用本文件的深蓝色阶，并让蓝色承担选中和趋势线角色。",
+      "Do 同时提供文字、方向箭头和颜色，避免单靠色彩传意。",
+      "Do 保留缺失、首次、过期状态及数值单位；证据指标在名称旁标注单位。",
+      "Do 保留键盘焦点、44px 最小交互高度与窄屏字段标签。"
+    ],
+    "donts": [
+      "Don't 将父阅读版浅色系统的调色板和圆角作为本产品校验标准。",
+      "Don't 把缓解显示成安全，也不要把未知补为零分。",
+      "Don't 为这个已确认的两入口产品加入配置、订阅或资产录入入口。"
+    ]
+  }
+}

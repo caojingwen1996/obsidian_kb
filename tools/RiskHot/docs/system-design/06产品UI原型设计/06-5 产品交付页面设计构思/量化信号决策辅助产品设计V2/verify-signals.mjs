@@ -1,0 +1,20 @@
+import {readFileSync,writeFileSync} from 'node:fs';
+import vm from 'node:vm';
+const source=readFileSync(new URL('./signal.js',import.meta.url),'utf8');
+const ctx=vm.createContext({});vm.runInContext(source.slice(0,source.indexOf("document.addEventListener('click'")),ctx);
+const results=[];function test(name,expression){const passed=!!vm.runInContext(expression,ctx);results.push({name,passed});if(!passed)throw new Error(name)}
+test('程度和方向组合',"stateLabel(getSignal('debt'))==='偏高缓解' && stateLabel(getSignal('policy'))==='高压增强'");
+test('连续期数由数据计算',"streak(getSignal('policy'))===5 && streak(getSignal('supply'))===3");
+test('首次和过期不推断连续',"streak(getSignal('credit'))===0 && streak(getSignal('fx'))===0");
+test('跨档变化识别',"changeItems().some(x=>x.s.id==='funds'&&x.title==='窗口内首次进入高压')");
+test('变化类型均有呈现',"changeItems().some(x=>x.s.id==='debt') && changeItems().some(x=>x.s.id==='policy')");
+test('无显著变化的空态',"changeItems([{...getSignal('policy'),history:[70,70],score:70,previous:70}]).length===0");
+test('同项去重与三项上限',"changeItems().length<=3 && new Set(changeItems().map(x=>x.s.id)).size===changeItems().length");
+test('缺失和过期排除重要变化',"!changeItems().some(x=>['fx','credit','growth'].includes(x.s.id))");
+test('历史位置排除当前期',"position(getSignal('policy')).includes('此前 7 期中的 7 期') && position(getSignal('policy')).includes('73–85')");
+test('历史当期不引用未来',"position(getSignal('policy','past'),true).includes('2026.10.02–10.08') && !position(getSignal('policy','past'),true).includes('91')");
+test('相等不算低于',"position({...getSignal('policy'),history:[60,70,70,70],score:70}).includes('此前 3 期中的 1 期，与 2 期相同')");
+test('首次样本不足',"position(getSignal('credit')).includes('历史样本不足')");
+test('过期不显示当前位置',"position(getSignal('fx')).includes('不计算当前历史位置')");
+test('缺失不补零',"position(getSignal('growth')).includes('暂无可比较分值')");
+writeFileSync(new URL('./信号规则验证.json',import.meta.url),JSON.stringify({passed:results.length,failed:0,results},null,2));console.log(results.length+' rules passed');

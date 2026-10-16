@@ -1,0 +1,62 @@
+{
+  "passed": 14,
+  "failed": 0,
+  "results": [
+    {
+      "name": "程度和方向组合",
+      "passed": true
+    },
+    {
+      "name": "连续期数由数据计算",
+      "passed": true
+    },
+    {
+      "name": "首次和过期不推断连续",
+      "passed": true
+    },
+    {
+      "name": "跨档变化识别",
+      "passed": true
+    },
+    {
+      "name": "变化类型均有呈现",
+      "passed": true
+    },
+    {
+      "name": "无显著变化的空态",
+      "passed": true
+    },
+    {
+      "name": "同项去重与三项上限",
+      "passed": true
+    },
+    {
+      "name": "缺失和过期排除重要变化",
+      "passed": true
+    },
+    {
+      "name": "历史位置排除当前期",
+      "passed": true
+    },
+    {
+      "name": "历史当期不引用未来",
+      "passed": true
+    },
+    {
+      "name": "相等不算低于",
+      "passed": true
+    },
+    {
+      "name": "首次样本不足",
+      "passed": true
+    },
+    {
+      "name": "过期不显示当前位置",
+      "passed": true
+    },
+    {
+      "name": "缺失不补零",
+      "passed": true
+    }
+  ]
+}

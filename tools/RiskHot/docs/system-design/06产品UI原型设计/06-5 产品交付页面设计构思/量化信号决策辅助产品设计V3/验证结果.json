@@ -1,0 +1,127 @@
+{
+  "passed": 30,
+  "failed": 0,
+  "results": [
+    {
+      "name": "仅两个主入口",
+      "pass": true
+    },
+    {
+      "name": "四个稳定对象",
+      "pass": true
+    },
+    {
+      "name": "对象无重复",
+      "pass": true
+    },
+    {
+      "name": "来源筛选",
+      "pass": true
+    },
+    {
+      "name": "零关联空态",
+      "pass": true
+    },
+    {
+      "name": "新纳入优先",
+      "pass": true
+    },
+    {
+      "name": "对象预览更新",
+      "pass": true
+    },
+    {
+      "name": "返回保留选择",
+      "pass": true
+    },
+    {
+      "name": "返回保留排序",
+      "pass": true
+    },
+    {
+      "name": "事件评估分开",
+      "pass": true
+    },
+    {
+      "name": "对象值独立",
+      "pass": true
+    },
+    {
+      "name": "对象到来源",
+      "pass": true
+    },
+    {
+      "name": "来源到对象链接",
+      "pass": true
+    },
+    {
+      "name": "返回来源上下文",
+      "pass": true
+    },
+    {
+      "name": "历史报告排除未来对象",
+      "pass": true
+    },
+    {
+      "name": "历史对象值76",
+      "pass": true
+    },
+    {
+      "name": "历史事件截止",
+      "pass": true
+    },
+    {
+      "name": "关联保持历史截止",
+      "pass": true
+    },
+    {
+      "name": "关联保留报告上下文",
+      "pass": true
+    },
+    {
+      "name": "未评分不补零",
+      "pass": true
+    },
+    {
+      "name": "不生成假历史",
+      "pass": true
+    },
+    {
+      "name": "不存在快照回退",
+      "pass": true
+    },
+    {
+      "name": "不合法关联回退",
+      "pass": true
+    },
+    {
+      "name": "无横向溢出 390#overview",
+      "pass": true
+    },
+    {
+      "name": "无横向溢出 390#object/ust/home",
+      "pass": true
+    },
+    {
+      "name": "无横向溢出 390#reports/week",
+      "pass": true
+    },
+    {
+      "name": "无横向溢出 320#overview",
+      "pass": true
+    },
+    {
+      "name": "无横向溢出 320#object/ust/home",
+      "pass": true
+    },
+    {
+      "name": "无横向溢出 320#reports/week",
+      "pass": true
+    },
+    {
+      "name": "无运行错误",
+      "pass": true
+    }
+  ],
+  "errors": []
+}
