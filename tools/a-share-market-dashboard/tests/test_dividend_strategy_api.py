@@ -10,11 +10,12 @@ from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
 from scripts.local_proxy import create_server
+from tests.dividend_fixture import seed_dividend_vault
 
 
 @contextmanager
 def strategy_server(directory):
-    dashboard = Path(__file__).resolve().parents[1] / "a-share-market-dashboard.html"
+    dashboard, _ = seed_dividend_vault(directory)
     server = create_server(port=0, dashboard_path=dashboard, dividend_strategy_path=Path(directory) / "settings.json")
     thread = Thread(target=server.serve_forever, daemon=True)
     thread.start()
@@ -43,6 +44,10 @@ class DividendStrategyApiTest(unittest.TestCase):
             saved = request_json(endpoint, {"strategy": config, "expectedRevision": 0}, origin=base)
             self.assertEqual(saved["revision"], 1)
             self.assertEqual(saved["strategy"]["thresholds"]["C"], 30)
+            self.assertEqual(saved["recalculation"]["updatedRows"], 2)
+            view = request_json(base + "/api/dividend-view-data")
+            self.assertEqual(view["payload"]["strategy"], saved["strategy"])
+            self.assertTrue(view["yieldHistory"][0]["headline"].startswith("A"))
             self.assertEqual(request_json(endpoint)["history"][0]["strategy"], initial["strategy"])
             with self.assertRaises(HTTPError) as conflict:
                 request_json(endpoint, {"strategy": config, "expectedRevision": 0}, origin=base)

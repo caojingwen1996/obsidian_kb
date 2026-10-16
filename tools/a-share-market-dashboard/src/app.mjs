@@ -4,6 +4,8 @@ import {
   readDividendTrial, saveDividendTrial, DIVIDEND_TRIAL_STORAGE_KEY,
 } from './dividend-scoring.mjs';
 import { initRiskSourceScreen, updateRiskSourceScreen } from './risk-screen.mjs';
+import { dividendWorkbookPayload, runDividendBacktest } from './dividend-backtest.mjs';
+import { calculateDividendWeeklyBollinger, loadDividendBollingerHistory, mergeDividendIndexHistory } from './dividend-bollinger.mjs';
 import {
   BASE_WEIGHTS,
   calculateGreedMetrics,
@@ -471,6 +473,15 @@ export async function loadDailyDividendStrategy(fetcher = globalThis.fetch, loca
   return settings;
 }
 
+export async function loadDividendBacktestData(fetcher = globalThis.fetch, location = globalThis.location) {
+  if (!isLocalProxyLocation(location)) throw new Error('请通过“启动面板.command”（Mac）或“启动面板.cmd”（Windows）打开看板，再读取当前Excel回测。');
+  const response = await fetcher('/api/dividend-backtest-data', { cache: 'no-store' });
+  const payload = await response.json();
+  if (!response.ok) throw new Error(payload?.error || `HTTP ${response.status}`);
+  if (payload?.schemaVersion !== 1 || !Array.isArray(payload.rows) || !Array.isArray(payload.indexPoints)) throw new Error('回测数据格式无效');
+  return payload;
+}
+
 export async function applyDailyDividendStrategy(strategy, expectedRevision, fetcher = globalThis.fetch, location = globalThis.location) {
   if (!isLocalProxyLocation(location)) throw new Error('应用每日策略需通过“启动面板.command”或“启动面板.cmd”打开看板。');
   if (validateDividendStrategy(strategy).length) throw new Error('参数无效，无法应用到每日测算。');
@@ -480,6 +491,8 @@ export async function applyDailyDividendStrategy(strategy, expectedRevision, fet
     body: JSON.stringify({ strategy, expectedRevision }),
   }, fetcher);
   if (!Number.isInteger(saved?.revision) || saved.revision < 0 || validateDividendStrategy(saved.strategy).length) throw new Error('每日策略未能保存，请重新读取配置。');
+  if (!saved.recalculation?.updatedRows || !saved.recalculation?.view) throw new Error('策略已保存，但当前服务未完成Excel重算，请重启最新版启动面板后再次应用。');
+  dividendViewFromData(saved.recalculation.view);
   return saved;
 }
 
@@ -1003,8 +1016,14 @@ export function signalFromDividendPayload(payload) {
     ytdReturn: raw.ytd_return, ytdMaxDrawdown: raw.ytd_max_drawdown, xueqiuChangePercent: raw.intraday_change_percent ?? raw.xueqiu_change_percent,
     percentileSignal: raw.percentile_signal, absoluteSignal: raw.absolute_signal, spreadSignal: raw.spread_signal,
     headline: scoring.label, sourceNote: raw.source_note ?? record.sourceKey, scoring,
-    status: record.kind === 'daily' ? 'latest' : 'snapshot',
+    status: payload.recalculatedAt ? 'recalculated' : record.kind === 'daily' ? 'latest' : 'snapshot',
+    recalculatedAt: payload.recalculatedAt,
   };
+}
+
+export function dividendViewFromData(data) {
+  if (data?.schemaVersion !== 1 || !Array.isArray(data.yieldHistory) || !Array.isArray(data.indexHistory)) throw new Error('红利查看页数据格式无效');
+  return { signal: signalFromDividendPayload(data.payload), payload: data.payload, yieldHistory: data.yieldHistory, indexHistory: data.indexHistory };
 }
 
 function dividendCalculationText(component) {
@@ -1127,33 +1146,146 @@ export function renderDividendAnnualPerformance(history) {
   </article>`;
 }
 
+export function renderDividendStrategyHelp(strategy) {
+  const { C, B, A } = strategy.thresholds;
+  const validThresholds = !validateDividendStrategy(strategy).some(error => error.field.startsWith('thresholds'));
+  const validDays = Number.isInteger(strategy.confirmationDays) && strategy.confirmationDays >= 1 && strategy.confirmationDays <= 20;
+  return `<p class="dividend-score-footnote">等级按综合得分划分（满分100分，含下限、不含上限）：${validThresholds ? `D ＜ ${C}分（吸引力偏弱）；C 为 ${C}～＜${B}分（基础配置）；B 为 ${B}～＜${A}分（加大买入）；A 为 ${A}～100分（重点配置，含100分）。` : '请先填写有效且依次递增的C、B、A起点。'}</p>
+    <p class="dividend-score-footnote">连续确认：${validDays ? `同一新等级须连续出现 ${strategy.confirmationDays} 个有效交易日，才确认建立或调整等级；当天得分与等级仍会立即显示。` : '请填写1～20的整数。'}缺失或无效的交易日记录会中断计数，策略版本或数据来源变化后重新确认。当前信号效果回测按每天的得分等级分组，不使用连续确认天数筛选。</p>
+    <p class="dividend-score-footnote">打分锚点：指标落在相邻两个输入值之间时，分数按所处位置等比例换算（线性插值）；例如恰好位于两个输入值的中间，就取两者分数的平均值。低于首个输入值按0分，高于最后一个输入值按100分；三项分数再按上方权重合成为综合得分。</p>`;
+}
+
 export function renderDividendStrategyDetails(strategy = DIVIDEND_DEFAULT_STRATEGY, storageNotice = '', dailyOptions = {}) {
   const input = (path, value, fixed = false) => `<input type="number" step="any" data-dividend-param="${path}" aria-label="${escapeHtml(path.startsWith('weights.') ? `${DIVIDEND_SCORE_LABELS[path.split('.')[1]]}权重` : path.startsWith('anchors.') ? `${DIVIDEND_SCORE_LABELS[path.split('.')[1]]}第${Number(path.split('.')[2]) + 1}锚点${path.endsWith('.0') ? '输入值' : '分数'}` : path.startsWith('thresholds.') ? `${path.split('.')[1]}等级起点` : '连续确认交易日数')}" value="${Number.isFinite(value) ? value : ''}"${fixed ? ' readonly aria-readonly="true"' : ''}>`;
   return `<article class="panel dividend-strategy-panel">
-    <div class="dividend-strategy-heading"><p class="eyebrow">STRATEGY SETTINGS</p><h3 id="dividend-strategy-heading">策略详情 · 参数设置</h3><p>“保存本地参数”仅保存在浏览器；“保存并应用到每日测算”在下一次每日运行生效，当前每日记录与旧历史结果保留原版本。</p></div>
+    <div class="dividend-strategy-heading"><p class="eyebrow">STRATEGY SETTINGS</p><h3 id="dividend-strategy-heading">策略详情 · 参数设置</h3><p>“保存本地参数”仅保存在浏览器；“保存并应用到每日测算”会保存策略并立即重算当前Excel，同步更新查看页和走势图，后续每日任务也使用新策略。重算前自动备份，原始指标与数据日期保留。</p></div>
     <div class="dividend-param-weights">${DIVIDEND_SCORE_KEYS.map(key => `<label>${DIVIDEND_SCORE_LABELS[key]}权重（%）${input(`weights.${key}`, strategy.weights[key])}</label>`).join('')}</div>
     <div class="dividend-param-curves">${DIVIDEND_SCORE_KEYS.map(key => `<section><h4>${DIVIDEND_SCORE_LABELS[key]}打分锚点${key === 'ratio' ? '（倍）' : '（%）'}</h4><table><thead><tr><th>输入值</th><th>对应分数</th></tr></thead><tbody>${strategy.anchors[key].map(([x, y], i) => `<tr><td>${input(`anchors.${key}.${i}.0`, x, key === 'percentile' && [0, 4].includes(i))}</td><td>${input(`anchors.${key}.${i}.1`, y, [0, 4].includes(i))}</td></tr>`).join('')}</tbody></table></section>`).join('')}</div>
     <div class="dividend-param-levels">${['C', 'B', 'A'].map(grade => `<label data-strategy-grade="${grade}">${grade} · ${DIVIDEND_GRADE_LABELS[grade]}起点${input(`thresholds.${grade}`, strategy.thresholds[grade])}</label>`).join('')}<label>连续确认交易日数${input('confirmationDays', strategy.confirmationDays)}</label></div>
-    <p class="dividend-score-footnote">D：低于C起点；其余等级达到本级起点且低于下一级。锚点之间线性插值，两端截断为0～100。</p>
-    <div data-dividend-errors role="status" class="dividend-param-errors"></div><div class="dividend-param-actions"><button type="button" class="button-primary" data-dividend-apply${dailyOptions.ready ? '' : ' disabled'}>保存并应用到每日测算</button><button type="button" class="button-secondary" data-dividend-save>保存本地参数</button><button type="button" class="button-secondary" data-dividend-undo>撤销修改</button><button type="button" class="button-secondary" data-dividend-reset>恢复V1默认值</button></div>
-    <p data-dividend-daily-note class="dividend-daily-config-note" role="status">${escapeHtml(dailyOptions.notice || '应用到每日测算需通过启动面板打开看板；旧历史结果保留原策略版本。')}</p>
+    <div data-dividend-strategy-help>${renderDividendStrategyHelp(strategy)}</div>
+    <div data-dividend-errors role="status" class="dividend-param-errors"></div><div class="dividend-param-actions"><button type="button" class="button-primary" data-dividend-apply${dailyOptions.ready ? '' : ' disabled'}>保存并应用到每日测算</button><button type="button" class="button-secondary" data-dividend-save>保存本地参数</button><button type="button" class="button-secondary" data-dividend-undo>撤销修改</button><button type="button" class="button-secondary" data-dividend-reset>恢复V1默认值</button><button class="button-secondary dividend-backtest-button" type="button" data-open-dividend-backtest aria-controls="dividend-backtest-panel">策略回测</button><button class="button-secondary" type="button" data-open-dividend-source title="Mac 上使用 Microsoft Excel 打开中证红利每日信号.xlsx">打开信号源（Excel）</button></div>
+    <p data-dividend-daily-note class="dividend-daily-config-note" role="status">${escapeHtml(dailyOptions.notice || '请通过启动面板保存并应用策略，立即重算Excel和刷新查看页。')}</p>
     <p data-dividend-storage-note class="dividend-score-footnote" role="status">${escapeHtml(storageNotice || '参数保存在本浏览器当前站点；更换浏览器或服务端口不共享。')}</p>
     <p class="dividend-score-footnote">股债倍数 = 股息率 ÷ 10年国债收益率；股债利差单独记录。权重和阈值尚未经收益回测验证；未设定每次投入金额、定投频率或仓位比例。</p>
   </article>`;
 }
 
+export function renderDividendBollingerStrategy(indexHistory = [], options = {}) {
+  const bands = calculateDividendWeeklyBollinger(indexHistory, { asOf: options.asOf });
+  const ready = bands.status === 'ready';
+  const status = options.indexStatus ?? 'snapshot';
+  const badge = status === 'loading' ? '更新中' : status === 'error' ? '更新失败' : ready ? '已接入' : '数据不足';
+  const note = ready ? '20周均线 ± 2倍标准差；按每周最后一个交易日收盘价计算。'
+    : bands.weeks ? `有效历史仅${bands.weeks}周，需至少20周，暂不生成轨道判断。` : '暂无有效的中证红利日线数据，暂不生成轨道判断。';
+  return `<section class="dividend-bollinger-strategy" aria-labelledby="dividend-bollinger-strategy-heading" data-status="${ready ? 'ready' : bands.status}">
+    <div class="dividend-detail-hero">
+      <div><h4 id="dividend-bollinger-strategy-heading" class="dividend-strategy-title">布林线策略 <span class="dividend-strategy-period">周线</span></h4>
+      <p class="dividend-strategy-verdict">${ready ? bands.label : '周线布林轨道待判断'}</p>
+      <p class="dividend-strategy-score">最新收盘 <strong>${formatNumber(bands.close, 2)}</strong><span> 点</span></p>
+      <p class="dividend-detail-date">中证红利 · 000922 · 数据截至 ${bands.date ?? '待确认'}${ready && bands.isPartialWeek ? ' · 本周未收盘（动态值）' : ''}</p></div>
+      <span class="status-badge">${badge}</span>
+    </div>
+    <div class="dividend-detail-metrics" aria-label="中证红利周线布林轨道指标">
+      <article><small>周线上轨</small><strong>${formatNumber(bands.upper, 2)}</strong><span>点</span></article>
+      <article><small>周线中轨</small><strong>${formatNumber(bands.middle, 2)}</strong><span>点 · 20周均线</span></article>
+      <article><small>周线下轨</small><strong>${formatNumber(bands.lower, 2)}</strong><span>点</span></article>
+      <article><small>当前轨道位置</small><strong>${ready ? bands.label : '待判断'}</strong><span>${ready && bands.percentB !== null ? `%B ${formatNumber(bands.percentB, 1)}%（下轨0% · 上轨100%）` : '—'}</span></article>
+    </div>
+    <p class="dividend-bollinger-note">${note} 来源：中证指数官网日线。${ready ? `计算窗口 ${bands.windowStart} 至 ${bands.date}。` : ''}</p>
+    ${status === 'error' ? `<p class="dividend-bollinger-note is-error" role="status">更新失败：${escapeHtml(options.indexError || '行情暂不可用')} ${ready ? '保留本地数据，请以所示数据日期为准。' : '可稍后重新进入本页重试。'}</p>` : ''}
+  </section>`;
+}
+
 export function renderDividendSignalDetail(signal, trialOptions = {}) {
-  if (!signal) {
-    return `<article class="panel dividend-detail-empty">
+  const dailyScore = signal ? dividendScoringForSignal(signal) : null;
+  const buyDecision = `<section class="panel dividend-buy-decision" aria-labelledby="dividend-buy-decision-heading">
+    <div class="dividend-buy-decision-heading"><p class="eyebrow">BUY DECISION</p><h3 id="dividend-buy-decision-heading">买入判断</h3></div>
+    <div class="dividend-buy-strategies">
+    <section class="dividend-detail-summary" aria-labelledby="dividend-yield-strategy-heading">
+    <h4 id="dividend-yield-strategy-heading" class="dividend-strategy-title">股息率策略评分</h4>
+    ${!signal ? `<div class="dividend-detail-empty">
       <p class="eyebrow">LOCAL SIGNAL</p>
-      <h3>未找到本地最新信号记录</h3>
+      <p class="dividend-strategy-verdict">未找到本地最新信号记录</p>
       <p>请先运行中证红利股息率信号检查，生成 sources/automations/中证红利信号/最新信号.md 后再查看详情。</p>
-    </article>`;
-  }
-  const dailyScore = dividendScoringForSignal(signal);
-  const absolute = normalizeSignalLevel(signal.absoluteSignal);
-  const spread = normalizeSignalLevel(signal.spreadSignal);
-  const percentile = normalizeSignalLevel(signal.percentileSignal);
+    </div>` : `
+    <div class="dividend-detail-hero">
+      <div>
+        <p class="dividend-strategy-verdict">${escapeHtml(`${dailyScore.grade ?? '待验证'} · ${dailyScore.label}`)}</p>
+        <p class="dividend-strategy-score">综合分 <strong>${dailyScore.score === null ? `${dailyScore.lower.toFixed(1)}～${dailyScore.upper.toFixed(1)}` : dailyScore.score.toFixed(1)}</strong><span> / 100</span></p>
+        <p class="dividend-detail-date">${escapeHtml(`数据日期：${signal.indexDate || signal.recordDate || signal.runTime?.match(/\d{4}-\d{2}-\d{2}/)?.[0] || '日期待确认'}`)}</p>
+      </div>
+      <div class="dividend-detail-actions">
+        <span class="status-badge ${signal.status === 'latest' ? 'is-latest' : ''}">${signal.status === 'recalculated' ? '当前策略重算' : signal.status === 'latest' ? '最新' : '快照'}</span>
+      </div>
+    </div>
+    <div class="dividend-detail-metrics" aria-label="红利信号核心指标">
+      <article><small>股息率2</small><strong>${formatNumber(signal.dividendYield2, 2)}%</strong><span>用于绝对股息率评分</span></article>
+      <article><small>10年国债</small><strong>${formatNumber(signal.bond10yYield, 2)}%</strong></article>
+      <article><small>股债利差</small><strong>${formatNumber(signal.spread, 2)}个百分点</strong><span>利差记录，评分使用股债倍数</span></article>
+      <article><small>历史分位</small><strong>${formatNumber(dailyScore.input.percentile, 2)}%</strong><span>用于历史位置评分</span></article>
+    </div>`}
+    </section>
+    ${renderDividendBollingerStrategy(trialOptions.indexHistory ?? CSI_DIVIDEND_INDEX_HISTORY ?? [], trialOptions)}
+    </div>
+  </section>`;
+  if (!signal) return `<div class="dividend-detail-layout">${buyDecision}</div>`;
+  return `<div class="dividend-detail-layout">
+    ${buyDecision}
+    ${signal.recalculatedAt ? `<p class="dividend-score-footnote">重算时间：${escapeHtml(signal.recalculatedAt)}；使用Excel已保存指标，历史重算不作为当时连续确认的信号。</p>` : ''}
+    ${renderDividendYieldChart(trialOptions.yieldHistory ?? CSI_DIVIDEND_YIELD_HISTORY, trialOptions.indexHistory ?? CSI_DIVIDEND_INDEX_HISTORY)}
+    ${renderDividendScorePanel(dailyScore, signal.recalculatedAt ? '当前策略重算结果' : '每日记录结果')}
+  </div>`;
+}
+
+export function renderDividendManagement(signal, options = {}) {
+  return renderDividendStrategyDetails(options.strategy ?? DIVIDEND_DEFAULT_STRATEGY, options.storageNotice, options.dailyOptions);
+}
+
+export function renderDividendManagementSource(signal) {
+  return signal ? renderDividendSourceDetails(signal) : '<article class="panel"><h3>来源与验证边界</h3><p class="dividend-page-description">暂无信号记录；可先配置策略，生成每日信号后查看来源信息。</p></article>';
+}
+
+export function dividendBacktestCompletionNotice(result, updatedAt, completedAt = new Date()) {
+  const time = completedAt.toLocaleTimeString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false });
+  return `回测完成（${time}）：读取 ${result.coverage.rawRecords} 条Excel记录，${result.coverage.usableSamples} 条可用信号。结果见下方。数据源：当前Excel磁盘文件（已保存内容）及本地指数日线。使用本次填写的策略参数，未保存或应用策略。${updatedAt ? ` 文件修改时间：${new Date(updatedAt).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' })}。` : ''}`;
+}
+
+export function renderDividendBacktest(result) {
+  const c = result.coverage;
+  const points = value => Number.isFinite(value) ? value.toFixed(1) : '—';
+  const componentText = (component, key) => {
+    const value = Number.isFinite(component?.value) ? `${component.value.toFixed(2)}${key === 'ratio' ? '倍' : '%'}` : '—';
+    const score = Number.isFinite(component?.score) ? `${points(component.score)}分` : '—';
+    return `${value} / ${score}`;
+  };
+  const pct = value => Number.isFinite(value) ? `${value > 0 ? '+' : ''}${value.toFixed(2)}%` : '—';
+  const rate = value => Number.isFinite(value) ? `${value.toFixed(1)}%` : '—';
+  const sourceName = value => value || '未记录';
+  const summary = [...result.referenceSummary]
+    .sort((a, b) => 'ABCD'.indexOf(a.grade) - 'ABCD'.indexOf(b.grade) || a.sourceKey.localeCompare(b.sourceKey));
+  return `<div class="dividend-backtest-overview">
+      <article><small>Excel原始记录</small><strong>${c.rawRecords}</strong><span>去重 ${c.duplicates} 条重复估值日</span></article>
+      <article><small>可用信号样本</small><strong>${c.usableSamples}</strong><span>不纳入统计 ${c.uniqueRecords - c.usableSamples} 条</span></article>
+      <article><small>A／B 样本</small><strong>${c.gradeCounts.A + c.gradeCounts.B}</strong><span>${c.gradeCounts.A + c.gradeCounts.B ? '按当前编辑参数重算' : '当前样本无法评价A／B效果'}</span></article>
+      <article><small>Excel全区间</small><strong>${result.period.tradingDays}<em>交易日</em></strong><span>${escapeHtml(result.period.startDate)} ～ ${escapeHtml(result.period.endDate)}</span></article>
+    </div>
+    <p class="dividend-score-footnote">信号区间 ${escapeHtml(c.signalFirstDate || '—')} ～ ${escapeHtml(c.signalLastDate || '—')} · 价格截至 ${escapeHtml(c.priceLastDate || '—')} · 参数 ${escapeHtml(result.strategy.version)}（本次编辑值）</p>
+    <p class="dividend-score-footnote">可用样本：${['A', 'B', 'C', 'D'].map(grade => `${grade} ${c.gradeCounts[grade]}条`).join(' · ')}。不同分位来源分别统计；各信号区间长短不同且相互重叠，平均收益不代表策略资金收益。</p>
+    <h3 class="dividend-backtest-section">信号后续表现 · 统一截至 ${escapeHtml(result.period.endDate)}</h3>
+    <p class="dividend-score-footnote">每条信号从记录日之后首个交易日收盘起，计算到Excel最后交易日。末尾后续交易日不足的信号不计收益，不填零。</p>
+    <div class="dividend-table-scroll"><table class="dividend-backtest-table"><thead><tr><th>等级</th><th>分位来源</th><th>样本</th><th>已完成</th><th>后续不足</th><th>缺价格</th><th>平均收益</th><th>中位收益</th><th>上涨占比</th><th>最差回撤</th></tr></thead><tbody>
+      ${summary.length ? summary.map(item => `<tr><th>${item.grade}</th><td>${escapeHtml(sourceName(item.sourceKey))}</td><td>${item.signals}</td><td>${item.completed}</td><td>${item.pending}</td><td>${item.priceGaps}</td><td>${pct(item.meanReturnPct)}</td><td>${pct(item.medianReturnPct)}</td><td>${rate(item.positiveRatePct)}</td><td>${pct(item.worstDrawdownPct)}</td></tr>`).join('') : '<tr><td colspan="10">没有满足日期、来源与输入要求的样本。</td></tr>'}
+    </tbody></table></div>
+    ${Object.keys(c.reasonCounts).length ? `<p class="dividend-backtest-exclusions">未纳入原因：${Object.entries(c.reasonCounts).map(([reason, count]) => `${escapeHtml(reason)} ${count}条`).join('；')}。同一条记录可能有多个原因。</p>` : ''}
+    <details class="dividend-backtest-details"><summary>逐条信号与未纳入原因（${result.rows.length}条）</summary>
+    <p class="dividend-score-footnote">每项按“指标值 / 得分”显示：历史分位和绝对股息率以%计，股债倍数以倍计；指标值保留2位小数，得分保留1位小数。各项得分满分100分；综合得分 = 历史分位得分 × ${result.strategy.weights.percentile}% + 绝对股息率得分 × ${result.strategy.weights.absolute}% + 股债倍数得分 × ${result.strategy.weights.ratio}%。计算和分级使用未舍入数值；缺项显示“—”。</p>
+    <div class="dividend-table-scroll"><table class="dividend-backtest-table dividend-backtest-signal-table"><thead><tr><th>Excel行</th><th>估值日期</th><th>综合等级／得分</th>${DIVIDEND_SCORE_KEYS.map(key => `<th>${DIVIDEND_SCORE_LABELS[key]}及得分</th>`).join('')}<th>计算起止</th><th>区间收益</th><th>区间回撤</th><th>状态</th></tr></thead><tbody>
+      ${result.rows.map(row => { const observation = row.observation ?? {}; return `<tr><td>${row.workbookRow ?? '—'}</td><td>${escapeHtml(row.date || '—')}</td><td>${escapeHtml(row.grade || '—')} / ${points(row.score)}</td>${DIVIDEND_SCORE_KEYS.map(key => `<td data-dividend-component="${key}">${componentText(row.components?.[key], key)}</td>`).join('')}<td>${escapeHtml(observation.entryDate ? `${observation.entryDate} ～ ${observation.exitDate}` : '—')}</td><td>${pct(observation.returnPct)}</td><td>${pct(observation.drawdownPct)}</td><td>${escapeHtml(row.reasons.join('；') || observation.status || '—')}</td></tr>`; }).join('')}
+    </tbody></table></div></details>
+    <details class="dividend-backtest-details"><summary>计算口径与参数快照</summary><ul>${result.methodology.map(text => `<li>${escapeHtml(text)}</li>`).join('')}</ul><p class="dividend-score-footnote">权重：分位 ${result.strategy.weights.percentile}% · 股息率 ${result.strategy.weights.absolute}% · 股债倍数 ${result.strategy.weights.ratio}%；等级分界 C/B/A：${['C', 'B', 'A'].map(key => result.strategy.thresholds[key]).join('/')}。本次结果不保存或应用策略，也不改写Excel。</p><pre>${escapeHtml(JSON.stringify(result.strategy, null, 2))}</pre></details>`;
+}
+
+function renderDividendSourceDetails(signal) {
   const sourceNotes = String(signal.sourceNote ?? '').split(';').map(item => item.trim()).filter(Boolean);
   const sourceNoteText = sourceNotes.join('；');
   const sourceBoundary = pattern => sourceNotes.find(item => pattern.test(item)) ?? '';
@@ -1189,36 +1321,11 @@ export function renderDividendSignalDetail(signal, trialOptions = {}) {
       note: sourceBoundary(/腾讯|雪球/) || '用于辅助记录当日涨跌幅；失败时不参与核心信号判断。',
     },
   ];
-  return `<div class="dividend-detail-layout">
-    <article class="panel dividend-detail-summary">
-    <div class="dividend-detail-hero">
-      <div>
-        <p class="eyebrow">CSI DIVIDEND SIGNAL</p>
-        <h3>${escapeHtml(`${dailyScore.grade ?? '待验证'} · ${dailyScore.label}`)}</h3>
-        <p class="dividend-detail-date">${escapeHtml(`数据日期：${signal.indexDate || signal.recordDate || signal.runTime?.match(/\d{4}-\d{2}-\d{2}/)?.[0] || '日期待确认'}`)}</p>
-      </div>
-      <div class="dividend-detail-actions">
-        <span class="status-badge ${signal.status === 'latest' ? 'is-latest' : ''}">${signal.status === 'latest' ? '最新' : '快照'}</span>
-        <button class="button-secondary" type="button" data-open-dividend-source title="Mac 上使用 Microsoft Excel 打开中证红利每日信号.xlsx">打开信号源（Excel）</button>
-        <button class="button-secondary dividend-backtest-button" type="button" disabled title="策略回测待开发">策略回测（待开发）</button>
-      </div>
-    </div>
-    <div class="dividend-detail-metrics" aria-label="红利信号核心指标">
-      <article><small>股息率2</small><strong>${formatNumber(signal.dividendYield2, 2)}%</strong><span>用于绝对股息率评分</span></article>
-      <article><small>10年国债</small><strong>${formatNumber(signal.bond10yYield, 2)}%</strong></article>
-      <article><small>股债利差</small><strong>${formatNumber(signal.spread, 2)}个百分点</strong><span>利差记录，评分使用股债倍数</span></article>
-      <article><small>历史分位</small><strong>${formatNumber(dailyScore.input.percentile, 2)}%</strong><span>用于历史位置评分</span></article>
-    </div>
-    </article>
-    ${renderDividendYieldChart(CSI_DIVIDEND_YIELD_HISTORY, trialOptions.indexHistory ?? CSI_DIVIDEND_INDEX_HISTORY)}
-    ${renderDividendScorePanel(dailyScore, '每日记录结果')}
-    ${renderDividendStrategyDetails(trialOptions.strategy ?? DIVIDEND_DEFAULT_STRATEGY, trialOptions.storageNotice, trialOptions.dailyOptions)}
-    <article class="panel dividend-detail-panel dividend-detail-source">
+  return `<article class="panel dividend-detail-panel dividend-detail-source">
       <h3>来源与验证边界</h3>
       <ul>${sourceRows.map(item => `<li><strong>${escapeHtml(item.metric)}</strong>：${escapeHtml(item.source)}；日期：${escapeHtml(item.date)}；说明：${escapeHtml(item.note)}</li>`).join('')}</ul>
       ${sourceNoteText ? `<p>原始来源备注：${escapeHtml(sourceNoteText)}</p>` : ''}
-    </article>
-  </div>`;
+    </article>`;
 }
 
 export function dividendBuyPointGrade(headline) {
@@ -1769,9 +1876,11 @@ function renderDerived(derived, officialTemperature = { status: 'loading' }, nas
   </article>`).join('');
   byId('youzhiyouxing-temperature-card').innerHTML = renderYouzhiyouxingTemperatureCard(officialTemperature);
   byId('dividend-signal-card').innerHTML = renderDividendSignalCard(dividendSignal);
-  if (!byId('dividend-signal-detail').contains(document.activeElement) || !document.activeElement?.matches('[data-dividend-param]')) {
-    byId('dividend-signal-detail').innerHTML = renderDividendSignalDetail(dividendSignal, dividendTrialOptions);
+  byId('dividend-signal-detail').innerHTML = renderDividendSignalDetail(dividendSignal, dividendTrialOptions);
+  if (!byId('dividend-management-detail').contains(document.activeElement) || !document.activeElement?.matches('[data-dividend-param]')) {
+    byId('dividend-management-detail').innerHTML = renderDividendManagement(dividendSignal, dividendTrialOptions);
   }
+  byId('dividend-management-source').innerHTML = renderDividendManagementSource(dividendSignal);
   byId('dividend-annual-detail').innerHTML = dividendSignal ? renderDividendAnnualPerformance(CSI_DIVIDEND_ANNUAL_PERFORMANCE) : '';
   byId('nasdaq100-card').innerHTML = renderNasdaq100Card(nasdaq100);
   if (byId('margin-balance-card')) {
@@ -2106,6 +2215,9 @@ function startApp() {
     dividendSignal: CSI_DIVIDEND_SCORE_PAYLOAD?.latest ? signalFromDividendPayload(CSI_DIVIDEND_SCORE_PAYLOAD) : CSI_DIVIDEND_SIGNAL,
     dividendPayload: CSI_DIVIDEND_SCORE_PAYLOAD,
     dividendIndexHistory: CSI_DIVIDEND_INDEX_HISTORY ?? [],
+    dividendIndexStatus: 'snapshot',
+    dividendIndexError: '',
+    dividendYieldHistory: CSI_DIVIDEND_YIELD_HISTORY ?? [],
     fuguiStrategy: { items: [] },
   };
   const storage = resolveStorage();
@@ -2116,7 +2228,7 @@ function startApp() {
   let dividendApplying = false;
   let dividendDraftEdited = false;
   let dividendHasLocalTrial = Boolean(storage.getItem(DIVIDEND_TRIAL_STORAGE_KEY));
-  let dividendDailyNotice = isLocalProxyLocation() ? '正在读取每日策略配置…' : '应用到每日测算需通过启动面板打开看板；旧历史结果保留原策略版本。';
+  let dividendDailyNotice = isLocalProxyLocation() ? '正在读取每日策略配置…' : '请通过启动面板保存并应用策略，立即重算Excel和刷新查看页。';
   async function refreshDailyDividendSettings() {
     if (!isLocalProxyLocation()) return;
     try {
@@ -2125,7 +2237,7 @@ function startApp() {
         dividendSavedStrategy = structuredClone(dividendDailySettings.strategy);
         dividendDraftStrategy = structuredClone(dividendSavedStrategy);
       }
-      dividendDailyNotice = `每日任务配置：${dividendDailySettings.strategy.version}。下一次每日运行使用此配置；当前每日记录保留原版本。`;
+      dividendDailyNotice = `每日任务配置：${dividendDailySettings.strategy.version}。点击保存并应用可立即重算Excel并更新查看页。`;
       describeDividendDraft();
     } catch (error) {
       dividendDailySettings = null;
@@ -2142,12 +2254,14 @@ function startApp() {
     if (!dividendDailySettings) return;
     const same = ['weights', 'anchors', 'thresholds', 'confirmationDays'].every(key => JSON.stringify(dividendDraftStrategy[key]) === JSON.stringify(dividendDailySettings.strategy[key]));
     dividendDailyNotice = same
-      ? `当前参数与每日任务配置 ${dividendDailySettings.strategy.version} 一致；下一次每日运行使用此配置。`
-      : `当前编辑参数尚未应用到每日测算。每日任务仍使用 ${dividendDailySettings.strategy.version}；点击“保存并应用到每日测算”后，下一次运行生效。`;
+      ? `当前参数与每日任务配置 ${dividendDailySettings.strategy.version} 一致；点击保存并应用可重新计算Excel并刷新查看页。`
+      : `当前编辑参数尚未应用到每日测算。每日任务仍使用 ${dividendDailySettings.strategy.version}；点击“保存并应用到每日测算”后，立即重算Excel并更新查看页和走势图。`;
   }
   function updateDividendParameterValidation() {
-    const container = document.getElementById('dividend-signal-detail');
+    const container = document.getElementById('dividend-management-detail');
     const errors = validateDividendStrategy(dividendDraftStrategy);
+    const help = container.querySelector('[data-dividend-strategy-help]');
+    if (help) help.innerHTML = renderDividendStrategyHelp(dividendDraftStrategy);
     const dailyNote = container.querySelector('[data-dividend-daily-note]');
     if (dailyNote) { dailyNote.textContent = dividendDailyNotice; dailyNote.classList.toggle('is-error', /应用失败|读取失败/.test(dividendDailyNotice)); }
     container.querySelectorAll('[data-dividend-param]').forEach(input => {
@@ -2161,10 +2275,14 @@ function startApp() {
     const save = container.querySelector('[data-dividend-save]');
     if (save) save.disabled = errors.length > 0 || dividendApplying;
     const apply = container.querySelector('[data-dividend-apply]');
-    if (apply) { apply.disabled = errors.length > 0 || !dividendDailySettings || dividendApplying; apply.textContent = dividendApplying ? '正在保存每日策略…' : '保存并应用到每日测算'; }
+    if (apply) { apply.disabled = errors.length > 0 || !dividendDailySettings || dividendApplying; apply.textContent = dividendApplying ? '正在保存并重算Excel…' : '保存并应用到每日测算'; }
+    const backtest = container.querySelector('[data-open-dividend-backtest]');
+    const backtestBusy = document.getElementById('dividend-backtest-result').getAttribute('aria-busy') === 'true';
+    if (backtest) backtest.disabled = errors.length > 0 || dividendApplying || backtestBusy;
+    document.getElementById('dividend-backtest-run').disabled = errors.length > 0 || dividendApplying || backtestBusy;
     container.querySelectorAll('[data-dividend-param], [data-dividend-undo], [data-dividend-reset]').forEach(control => { control.disabled = dividendApplying; });
   }
-  document.getElementById('dividend-signal-detail').addEventListener('input', event => {
+  document.getElementById('dividend-management-detail').addEventListener('input', event => {
     const input = event.target.closest('[data-dividend-param]');
     if (!input || input.readOnly || dividendApplying) return;
     dividendDraftEdited = true;
@@ -2174,15 +2292,16 @@ function startApp() {
     target[parts.at(-1)] = input.value === '' ? NaN : Number(input.value);
     describeDividendDraft();
     updateDividendParameterValidation();
+    markDividendBacktestStale();
   });
-  document.getElementById('dividend-signal-detail').addEventListener('click', async event => {
+  document.getElementById('dividend-management-detail').addEventListener('click', async event => {
     if (dividendApplying) return;
     if (event.target.closest('[data-dividend-apply]')) {
       if (!dividendDailySettings || validateDividendStrategy(dividendDraftStrategy).length) return;
       const requested = structuredClone(dividendDraftStrategy);
       const revision = dividendDailySettings.revision;
       dividendApplying = true;
-      dividendDailyNotice = '正在保存每日策略，当前每日记录和旧历史结果保留原版本…';
+      dividendDailyNotice = '正在备份并重算当前Excel，完成后更新查看页和走势图…';
       render();
       try {
         const settings = await applyDailyDividendStrategy(requested, revision);
@@ -2191,7 +2310,15 @@ function startApp() {
         dividendSavedStrategy = structuredClone(settings.strategy);
         dividendDraftEdited = true;
         dividendHasLocalTrial = true;
-        dividendDailyNotice = `${settings.changed === false ? '参数与每日配置一致' : '每日策略已保存'}：${settings.strategy.version}。下一次每日运行生效；当前每日记录与旧历史不重算。`;
+        const view = dividendViewFromData(settings.recalculation.view);
+        dividendSignalRequest += 1;
+        state.dividendSignal = view.signal;
+        state.dividendPayload = view.payload;
+        state.dividendYieldHistory = view.yieldHistory;
+        state.dividendIndexHistory = mergeDividendIndexHistory(state.dividendIndexHistory, view.indexHistory);
+        dividendSignalLoadedAt = Date.now();
+        dividendDailyNotice = `已保存并应用 ${settings.strategy.version}，重算Excel ${settings.recalculation.updatedRows} 条记录；查看页、评分和走势图已同步更新。后续每日任务也使用此策略；重算前文件已备份。`;
+        markDividendBacktestStale();
         try {
           saveDividendTrial(storage, settings.strategy);
           dividendStorageNotice = dividendPersistentStorage ? '浏览器本地参数也已同步保存。' : '每日策略已保存；浏览器参数仅保留本次会话。';
@@ -2200,7 +2327,7 @@ function startApp() {
         if (/HTTP 409/.test(error.message)) {
           try { dividendDailySettings = await loadDailyDividendStrategy(); } catch { dividendDailySettings = null; }
         }
-        dividendDailyNotice = `应用失败：${error.message.replace(/[。；]+$/, '')}。${/HTTP 409/.test(error.message) && dividendDailySettings ? '已重新读取最新配置，可再次应用当前参数；' : ''}当前编辑参数保留，每日结果未改写。`;
+        dividendDailyNotice = `应用失败：${error.message.replace(/[。；]+$/, '')}。${/HTTP 409/.test(error.message) && dividendDailySettings ? '已重新读取最新配置，可再次应用当前参数；' : ''}当前编辑参数保留，请排除错误后重试。`;
       } finally {
         dividendApplying = false;
         render();
@@ -2223,8 +2350,61 @@ function startApp() {
       dividendStorageNotice = '已恢复V1默认参数。保存本地参数仅保存在浏览器；用于每日任务请点击“保存并应用到每日测算”。';
     } else return;
     describeDividendDraft();
+    markDividendBacktestStale();
     render();
   });
+  const backtestPanel = document.getElementById('dividend-backtest-panel');
+  const backtestStatus = document.getElementById('dividend-backtest-status');
+  const backtestBody = document.getElementById('dividend-backtest-result');
+  const backtestRun = document.getElementById('dividend-backtest-run');
+  let backtestResult = null;
+  let backtestRequest = 0;
+  function markDividendBacktestStale() {
+    if (!backtestResult) return;
+    backtestStatus.classList.remove('is-error');
+    backtestStatus.textContent = '参数或Excel已更新，下方仍为上次回测结果；点击“策略回测”或“重新读取Excel并回测”更新。';
+  }
+  const setBacktestBusy = busy => {
+    backtestBody.setAttribute('aria-busy', String(busy));
+    backtestRun.textContent = busy ? '正在回测…' : backtestResult ? '重新读取Excel并回测' : '读取Excel并回测';
+    updateDividendParameterValidation();
+  };
+  const executeDividendBacktest = async () => {
+    const request = ++backtestRequest;
+    const strategy = structuredClone(dividendDraftStrategy);
+    if (!backtestResult) backtestBody.innerHTML = '<p class="dividend-score-footnote">正在计算，完成后将在这里显示回测结果。</p>';
+    backtestStatus.classList.remove('is-error');
+    backtestStatus.textContent = `正在读取当前Excel已保存的数据，按本次填写的策略参数回测…${backtestResult ? ' 下方暂为上次结果，完成后更新。' : ''}`;
+    setBacktestBusy(true);
+    try {
+      const errors = validateDividendStrategy(strategy);
+      if (errors.length) throw new Error(errors.map(error => error.message).join('；'));
+      const data = await loadDividendBacktestData();
+      if (request !== backtestRequest) return;
+      const payload = dividendWorkbookPayload(data.rows, data.indexPoints);
+      backtestResult = runDividendBacktest(payload, data.indexPoints, strategy);
+      backtestBody.innerHTML = renderDividendBacktest(backtestResult);
+      backtestStatus.textContent = dividendBacktestCompletionNotice(backtestResult, data.workbookUpdatedAt);
+      if (JSON.stringify(strategy) !== JSON.stringify(dividendDraftStrategy)) markDividendBacktestStale();
+    } catch (error) {
+      if (request !== backtestRequest) return;
+      backtestResult = null;
+      backtestBody.innerHTML = '';
+      backtestStatus.classList.add('is-error');
+      backtestStatus.textContent = `回测失败：${error instanceof Error ? error.message : String(error)}。请确认Excel文件已保存，并通过启动面板运行最新版看板服务后重试。`;
+    } finally {
+      if (request === backtestRequest) setBacktestBusy(false);
+    }
+  };
+  document.getElementById('dividend-management-detail').addEventListener('click', event => {
+    const button = event.target.closest('[data-open-dividend-backtest]');
+    if (!button || button.disabled) return;
+    document.getElementById('dividend-backtest-title').focus({ preventScroll: true });
+    backtestPanel.scrollIntoView({ behavior: 'auto', block: 'start' });
+    executeDividendBacktest();
+  });
+  backtestRun.addEventListener('click', executeDividendBacktest);
+
   let nasdaqGridUnitAmount = normalizeNasdaqGridUnitAmount(storage.getItem(NASDAQ_GRID_UNIT_AMOUNT_STORAGE_KEY));
   let { holdings, trackingItems } = loadPortfolio(storage);
   let portfolioVersion = 0;
@@ -2253,6 +2433,7 @@ function startApp() {
   let fuguiStatusFilter = 'all';
   let fuguiTtmSortMode = 'none';
   let dividendSignalLoadedAt = 0;
+  let dividendSignalRequest = 0;
   let dividendIndexLoadedAt = 0;
   const reportSummaryCache = new Map();
   const threeFactorSummaryCache = new Map();
@@ -3465,46 +3646,56 @@ function startApp() {
 
   async function refreshDividendIndexHistory() {
     if (!isLocalProxyLocation() || Date.now() - dividendIndexLoadedAt < 60_000) return;
-    const dates = (CSI_DIVIDEND_YIELD_HISTORY ?? []).map(point => point.date).sort();
-    if (!dates.length) return;
-    const savedDates = new Set(state.dividendIndexHistory.map(point => point.date));
-    if (savedDates.has(dates[0]) && savedDates.has(dates.at(-1))) return;
     dividendIndexLoadedAt = Date.now();
+    state.dividendIndexStatus = 'loading';
+    state.dividendIndexError = '';
+    render();
     try {
-      const payload = await fetchJson(buildLocalProxyUrl('/api/csindex-performance', {
-        indexCode: '000922', startDate: dates[0].replaceAll('-', ''), endDate: dates.at(-1).replaceAll('-', ''),
-      }), requestTimeout());
-      const history = parseCsindexPerformance(payload);
-      if (history.length) {
-        const merged = new Map([...state.dividendIndexHistory, ...history].map(point => [point.date, point]));
-        state.dividendIndexHistory = [...merged.values()];
-        render();
-      }
-    } catch {
-      // Keep the saved official closes when the existing local data route is unavailable.
+      const history = await loadDividendBollingerHistory();
+      state.dividendIndexHistory = mergeDividendIndexHistory(state.dividendIndexHistory, history);
+      state.dividendIndexStatus = 'loaded';
+    } catch (error) {
+      state.dividendIndexStatus = 'error';
+      state.dividendIndexError = error instanceof Error ? error.message : String(error);
     }
+    render();
   }
 
   async function refreshDividendSignalFromSource() {
     if (!isLocalProxyLocation()) return null;
     if (Date.now() - dividendSignalLoadedAt < 15_000) return state.dividendSignal;
     dividendSignalLoadedAt = Date.now();
+    const request = ++dividendSignalRequest;
     try {
       let signal;
+      let signalPayload = null;
+      try {
+        const response = await fetch('/api/dividend-view-data', { cache: 'no-store' });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const view = dividendViewFromData(await response.json());
+        if (request !== dividendSignalRequest) return state.dividendSignal;
+        state.dividendSignal = view.signal;
+        state.dividendPayload = view.payload;
+        state.dividendYieldHistory = view.yieldHistory;
+        state.dividendIndexHistory = mergeDividendIndexHistory(state.dividendIndexHistory, view.indexHistory);
+        render();
+        return view.signal;
+      } catch { /* An older local service can still expose the existing signal file. */ }
       try {
         const scored = await fetch(CSI_DIVIDEND_SCORE_SOURCE_URL, { cache: 'no-store' });
         if (!scored.ok) throw new Error(`HTTP ${scored.status}`);
         const payload = await scored.json();
         signal = signalFromDividendPayload(payload);
-        state.dividendPayload = payload;
+        signalPayload = payload;
       } catch {
       const response = await fetch(CSI_DIVIDEND_SIGNAL_SOURCE_URL, { cache: 'no-store' });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const markdown = await response.text();
       signal = parseDividendSignalMarkdown(markdown);
-      state.dividendPayload = null;
       }
       if (!signal) throw new Error('Invalid dividend signal markdown');
+      if (request !== dividendSignalRequest) return state.dividendSignal;
+      state.dividendPayload = signalPayload;
       state.dividendSignal = signal;
       render();
       return signal;
@@ -3515,7 +3706,7 @@ function startApp() {
 
   const render = () => {
     const derived = deriveDashboard(state.snapshot, state.windowYears);
-    renderDerived(derived, state.youzhiyouxingTemperature, state.nasdaq100, state.dividendSignal, { strategy: dividendDraftStrategy, storageNotice: dividendStorageNotice, indexHistory: state.dividendIndexHistory, dailyOptions: { ready: Boolean(dividendDailySettings), notice: dividendDailyNotice } });
+    renderDerived(derived, state.youzhiyouxingTemperature, state.nasdaq100, state.dividendSignal, { strategy: dividendDraftStrategy, storageNotice: dividendStorageNotice, yieldHistory: state.dividendYieldHistory, indexHistory: state.dividendIndexHistory, indexStatus: state.dividendIndexStatus, indexError: state.dividendIndexError, dailyOptions: { ready: Boolean(dividendDailySettings), notice: dividendDailyNotice } });
     updateDividendParameterValidation();
     const grid = renderNasdaqGridStrategy(state.nasdaqEtf, nasdaqGridUnitAmount);
     document.getElementById('nasdaq-grid-reference').textContent = grid.referenceText;
@@ -4317,13 +4508,15 @@ function startApp() {
       else item.removeAttribute('aria-current');
     });
     document.querySelectorAll('.view').forEach(view => view.classList.toggle('is-active', view.id === viewId));
-    pageTitle.textContent = labelForView(button) || (viewId === 'nasdaq-grid-view' ? '纳斯达克网格策略' : pageTitle.textContent);
+    pageTitle.textContent = (viewId === 'dividend-management-view' ? '红利信号 · 管理' : labelForView(button)) || (viewId === 'nasdaq-grid-view' ? '纳斯达克网格策略' : pageTitle.textContent);
     if (viewId === 'risk-monitor') refreshRiskMarginChart();
     if (viewId === 'nasdaq-grid-view' && state.nasdaqEtf.status !== 'latest') loadNasdaqEtf();
     if (viewId === 'review-diary-view' && !reviewDiariesLoaded) refreshReviewDiaries();
     if (viewId === 'position-manager') refreshTodoList();
-    if (viewId === 'market-summary' || viewId === 'dividend-signal-view') refreshDividendSignalFromSource();
-    if (viewId === 'dividend-signal-view') refreshDividendIndexHistory();
+    if (['market-summary', 'dividend-signal-view', 'dividend-management-view'].includes(viewId)) {
+      const refreshed = refreshDividendSignalFromSource();
+      if (viewId === 'dividend-signal-view') refreshed.finally(() => refreshDividendIndexHistory());
+    }
     if (viewId.startsWith('industry-')) hydrateIndustryReportRows(document.getElementById(viewId));
   };
 
@@ -4337,7 +4530,7 @@ function startApp() {
       const children = group.querySelector('.tree-children');
       if (children) children.hidden = !expanded;
     });
-    marketActions.hidden = targetShell !== 'thermometer' && targetShell !== 'strategy';
+    marketActions.hidden = navigation.viewId === 'dividend-management-view' || (targetShell !== 'thermometer' && targetShell !== 'strategy');
     topbar.hidden = targetShell === 'changelog';
     notice.hidden = targetShell !== 'thermometer';
     sidebarFooter.hidden = targetShell !== 'thermometer';
@@ -4351,6 +4544,13 @@ function startApp() {
     setActiveView(navigation.viewId);
     closeSidebar();
   };
+
+  document.querySelectorAll('[data-dividend-view]').forEach(button => button.addEventListener('click', () => {
+    const viewId = button.dataset.dividendView;
+    setShell(viewId === 'dividend-management-view' ? 'strategy' : 'thermometer', viewId);
+    window.scrollTo({ top: 0 });
+    document.getElementById(viewId)?.querySelector('.dividend-page-nav [aria-current="page"]')?.focus({ preventScroll: true });
+  }));
 
   document.querySelectorAll('[data-window]').forEach(button => button.addEventListener('click', () => {
     state.windowYears = Number(button.dataset.window);
@@ -4556,7 +4756,7 @@ function startApp() {
   document.getElementById('dividend-signal-card')?.addEventListener('click', event => {
     if (event.target.closest('[data-open-dividend-signal]')) setShell('thermometer', 'dividend-signal-view');
   });
-  document.getElementById('dividend-signal-detail')?.addEventListener('click', async event => {
+  document.getElementById('dividend-management-detail')?.addEventListener('click', async event => {
     const button = event.target.closest('[data-open-dividend-source]');
     if (!button || button.disabled) return;
     button.disabled = true;
@@ -4854,6 +5054,9 @@ function startApp() {
   refreshLive();
   loadMarketTurnover();
   setInterval(loadMarketTurnover, 300_000);
+  setInterval(() => {
+    if (document.getElementById('dividend-signal-view').classList.contains('is-active')) refreshDividendIndexHistory();
+  }, 300_000);
   setInterval(() => {
     if (isTradingSession() && state.snapshot.mode === 'live') {
       refreshLive(['shanghaiHistory', 'csi300History', 'csiAllHistory']);

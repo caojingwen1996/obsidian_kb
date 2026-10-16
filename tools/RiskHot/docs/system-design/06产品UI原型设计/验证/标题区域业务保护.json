@@ -1,0 +1,192 @@
+{
+  "date": "2026-10-16",
+  "scope": "本轮标题修正仅改3处CSS字号；原有HTML与脚本在标题修正时不变。随后并行AI内嵌改动分开记录；当前初始业务数据及提交处理仍逐字节一致。",
+  "files": [
+    {
+      "file": "06-4-M3策略管理中心UI设计/M3策略管理中心交互原型.html",
+      "before": "2223e5dc218e29ed32edccace5f091a868d2edbdc6d9328784b76211ce0b591f",
+      "after": "2223e5dc218e29ed32edccace5f091a868d2edbdc6d9328784b76211ce0b591f",
+      "unchanged": true
+    },
+    {
+      "file": "06-4-M3策略管理中心UI设计/原型资源/flow-data.js",
+      "before": "7362bcdd91050fa3befff4fb3d5a101bcbb7adfebeb4bfb17068d93a8a4ed617",
+      "after": "7362bcdd91050fa3befff4fb3d5a101bcbb7adfebeb4bfb17068d93a8a4ed617",
+      "unchanged": true
+    },
+    {
+      "file": "06-4-M3策略管理中心UI设计/原型资源/styles.css",
+      "before": "31d19c97ac13b5970cc350a478e94bbbae267d97af02cd6aa102636e39044c03",
+      "after": "145aad722b672c3e29b74463890781aa87ddd5f33927ad6a16d5f8fa143f48f2",
+      "unchanged": false
+    },
+    {
+      "file": "06-4-M3策略管理中心UI设计/原型资源/app.js",
+      "before": "778ccd15194a029f8c76961023640995a3cbdb4e3e5778ff6c9cf752860808d4",
+      "after": "778ccd15194a029f8c76961023640995a3cbdb4e3e5778ff6c9cf752860808d4",
+      "unchanged": true
+    },
+    {
+      "file": "06-2-M1信源管理中心UI设计/M1信源管理中心交互原型.html",
+      "before": "bcb750ea309a08cc93b5c03599c7eb603c04fcbc8222afa77b43d513bb576fcd",
+      "after": "bcb750ea309a08cc93b5c03599c7eb603c04fcbc8222afa77b43d513bb576fcd",
+      "unchanged": true
+    },
+    {
+      "file": "06-2-M1信源管理中心UI设计/.working/key-catalog.html",
+      "before": "22da4a2d60d8ea3d45dea7cd489b19d1b6964f58124d2509933446e621ad6838",
+      "after": "22da4a2d60d8ea3d45dea7cd489b19d1b6964f58124d2509933446e621ad6838",
+      "unchanged": true
+    },
+    {
+      "file": "06-2-M1信源管理中心UI设计/.working/key-status-confirm.html",
+      "before": "6522204bf43bfbf40764d79db28e388519a747c35a895616cdda4b649d665fdd",
+      "after": "6522204bf43bfbf40764d79db28e388519a747c35a895616cdda4b649d665fdd",
+      "unchanged": true
+    },
+    {
+      "file": "06-2-M1信源管理中心UI设计/.working/key-record.html",
+      "before": "da38389dd32ce30308c55ba6c9b137b756f0bed53765e31f3602139383e9baad",
+      "after": "da38389dd32ce30308c55ba6c9b137b756f0bed53765e31f3602139383e9baad",
+      "unchanged": true
+    },
+    {
+      "file": "06-2-M1信源管理中心UI设计/.working/key-registration.html",
+      "before": "9354a693285e5377df538ae1757fbd3ca52c94e7641f1adf86705a0e08f17279",
+      "after": "9354a693285e5377df538ae1757fbd3ca52c94e7641f1adf86705a0e08f17279",
+      "unchanged": true
+    },
+    {
+      "file": "06-2-M1信源管理中心UI设计/mockups/key-catalog.html",
+      "before": "22da4a2d60d8ea3d45dea7cd489b19d1b6964f58124d2509933446e621ad6838",
+      "after": "22da4a2d60d8ea3d45dea7cd489b19d1b6964f58124d2509933446e621ad6838",
+      "unchanged": true
+    },
+    {
+      "file": "06-2-M1信源管理中心UI设计/mockups/key-status-confirm.html",
+      "before": "6522204bf43bfbf40764d79db28e388519a747c35a895616cdda4b649d665fdd",
+      "after": "6522204bf43bfbf40764d79db28e388519a747c35a895616cdda4b649d665fdd",
+      "unchanged": true
+    },
+    {
+      "file": "06-2-M1信源管理中心UI设计/mockups/key-record.html",
+      "before": "da38389dd32ce30308c55ba6c9b137b756f0bed53765e31f3602139383e9baad",
+      "after": "da38389dd32ce30308c55ba6c9b137b756f0bed53765e31f3602139383e9baad",
+      "unchanged": true
+    },
+    {
+      "file": "06-2-M1信源管理中心UI设计/mockups/key-registration.html",
+      "before": "9354a693285e5377df538ae1757fbd3ca52c94e7641f1adf86705a0e08f17279",
+      "after": "9354a693285e5377df538ae1757fbd3ca52c94e7641f1adf86705a0e08f17279",
+      "unchanged": true
+    },
+    {
+      "file": "06-2-M1信源管理中心UI设计/原型资源/styles.css",
+      "before": "880ccec0e1e5d90ccb4f821eabb08b3b3c43dceac3980fc59ffbc0bdc90fc41e",
+      "after": "880ccec0e1e5d90ccb4f821eabb08b3b3c43dceac3980fc59ffbc0bdc90fc41e",
+      "unchanged": true
+    },
+    {
+      "file": "06-2-M1信源管理中心UI设计/原型资源/source-catalog.js",
+      "before": "6128ab53337e963310a5fb7df78dc7bef041baf2f38fbec68b39f5a7bb01f552",
+      "after": "6128ab53337e963310a5fb7df78dc7bef041baf2f38fbec68b39f5a7bb01f552",
+      "unchanged": true
+    },
+    {
+      "file": "06-2-M1信源管理中心UI设计/原型资源/ui-v2.css",
+      "before": "0379d9d3dfbebac1cd8ce94d19f364df503f2807eaf40d9639f6d75567884bbf",
+      "after": "0379d9d3dfbebac1cd8ce94d19f364df503f2807eaf40d9639f6d75567884bbf",
+      "unchanged": true
+    },
+    {
+      "file": "06-2-M1信源管理中心UI设计/原型资源/app.js",
+      "before": "47c4a2309e48e82507f7efd5fe5849a4de31526a98401be330aa334400aa17a4",
+      "after": "47c4a2309e48e82507f7efd5fe5849a4de31526a98401be330aa334400aa17a4",
+      "unchanged": true
+    },
+    {
+      "file": "06-3-M2风险源管理中心UI设计/M2风险源管理中心交互原型.html",
+      "before": "fc57b2631398dbb84341685ee4315c4f99d7eea336b72f4915368e54a36329b7",
+      "after": "fc57b2631398dbb84341685ee4315c4f99d7eea336b72f4915368e54a36329b7",
+      "unchanged": true
+    },
+    {
+      "file": "06-3-M2风险源管理中心UI设计/mockups/key-catalog.html",
+      "before": "9adddaeb3c5aea9cb8a501c87db10611f23bced24e037ff3179ec36aeed3ccc1",
+      "after": "9adddaeb3c5aea9cb8a501c87db10611f23bced24e037ff3179ec36aeed3ccc1",
+      "unchanged": true
+    },
+    {
+      "file": "06-3-M2风险源管理中心UI设计/mockups/key-governance.html",
+      "before": "c8552c84388cae5b287d6fbf71e9ad9fef315631349de73dd946bec6b1db1b38",
+      "after": "c8552c84388cae5b287d6fbf71e9ad9fef315631349de73dd946bec6b1db1b38",
+      "unchanged": true
+    },
+    {
+      "file": "06-3-M2风险源管理中心UI设计/mockups/key-indicator.html",
+      "before": "7c68032b13c411e56be940b388512674601d9b3e0afeff1a0c7ac634872ec735",
+      "after": "7c68032b13c411e56be940b388512674601d9b3e0afeff1a0c7ac634872ec735",
+      "unchanged": true
+    },
+    {
+      "file": "06-3-M2风险源管理中心UI设计/mockups/key-revision.html",
+      "before": "822ce1d460df42e1833e1c305d4ede3587da1dc891fc870888124a039bbb5169",
+      "after": "822ce1d460df42e1833e1c305d4ede3587da1dc891fc870888124a039bbb5169",
+      "unchanged": true
+    },
+    {
+      "file": "06-3-M2风险源管理中心UI设计/原型资源/styles.css",
+      "before": "6251c348813b454a205f56a6ff595539d7b887a1a1c05ebdfd989b643103e756",
+      "after": "6251c348813b454a205f56a6ff595539d7b887a1a1c05ebdfd989b643103e756",
+      "unchanged": true
+    },
+    {
+      "file": "06-3-M2风险源管理中心UI设计/原型资源/ui-v2.css",
+      "before": "a92a874413b24637304fcef6a9a56aefb1a2a8c48c1babf061dc8ac9e594fcf4",
+      "after": "a92a874413b24637304fcef6a9a56aefb1a2a8c48c1babf061dc8ac9e594fcf4",
+      "unchanged": true
+    },
+    {
+      "file": "06-3-M2风险源管理中心UI设计/原型资源/lucide.min.js",
+      "before": "ab85225ecc1daa2033607856f03dd2dabcbc08e2d260a5b97e17c690aa929766",
+      "after": "ab85225ecc1daa2033607856f03dd2dabcbc08e2d260a5b97e17c690aa929766",
+      "unchanged": true
+    },
+    {
+      "file": "06-3-M2风险源管理中心UI设计/原型资源/app.js",
+      "before": "6f3d1009f622106124b834d11a98d92a891900fd4a985864a769a706f4aba5a7",
+      "after": "6f3d1009f622106124b834d11a98d92a891900fd4a985864a769a706f4aba5a7",
+      "unchanged": true
+    }
+  ],
+  "changed": [
+    "06-4-M3策略管理中心UI设计/原型资源/styles.css"
+  ],
+  "business_unchanged": true,
+  "parallel_ui_changes": [
+    {
+      "file": "06-4-M3策略管理中心UI设计/原型资源/styles.css",
+      "title_after": "145aad722b672c3e29b74463890781aa87ddd5f33927ad6a16d5f8fa143f48f2",
+      "after": "5d445f1e3c8ba618bb983e4e2396b8df874e5212ecc21c91cb8f3c958fdd4252",
+      "scope": "检查期间出现的并行AI任务内嵌界面改动；非本轮标题修正"
+    },
+    {
+      "file": "06-4-M3策略管理中心UI设计/原型资源/app.js",
+      "title_after": "778ccd15194a029f8c76961023640995a3cbdb4e3e5778ff6c9cf752860808d4",
+      "after": "cb0feebe84a0ab997d66386ede93640b572b2606bc576d9b3d7a7849f77517f7",
+      "scope": "检查期间出现的并行AI任务内嵌界面改动；非本轮标题修正"
+    }
+  ],
+  "current_business_regions": {
+    "initial_data": {
+      "before": "9643c9d10b7f2821ab0bf3761e652954b146e5c029935e136c56d29d75ee516d",
+      "after": "9643c9d10b7f2821ab0bf3761e652954b146e5c029935e136c56d29d75ee516d",
+      "unchanged": true
+    },
+    "business_submit": {
+      "before": "924ebf2bc2792fceb69e1e0f8aaaa976c0251ab67065a93b7328847a245037b8",
+      "after": "924ebf2bc2792fceb69e1e0f8aaaa976c0251ab67065a93b7328847a245037b8",
+      "unchanged": true
+    }
+  }
+}

@@ -6,6 +6,7 @@
 <meta name="referrer" content="no-referrer">
 <title>M2 · 定义修订工作区</title>
 <link rel="stylesheet" href="../原型资源/styles.css">
+<link rel="stylesheet" href="../原型资源/ui-v2.css">
 <script defer src="../原型资源/lucide.min.js"></script>
 <script defer src="../原型资源/app.js"></script>
 </head>
@@ -20,15 +21,14 @@
       <div class="r-nav-item"><i data-lucide="activity" aria-hidden="true"></i>风险态势分析</div>
       <div class="r-nav-item"><i data-lucide="newspaper" aria-hidden="true"></i>风险产品与发布</div>
       <div class="r-side-title">横向支撑中心</div>
-      <div class="r-nav-item"><i data-lucide="radio" aria-hidden="true"></i>信源管理中心</div>
+      <a class="r-nav-item" href="../../06-2-M1信源管理中心UI设计/M1信源管理中心交互原型.html"><i data-lucide="radio" aria-hidden="true"></i>信源管理中心</a>
       <div class="r-nav-item r-nav-active" aria-current="page"><i data-lucide="library" aria-hidden="true"></i>风险源管理中心</div>
-      <div class="r-nav-item"><i data-lucide="sliders-horizontal" aria-hidden="true"></i>策略管理中心</div>
+      <a class="r-nav-item" href="../../06-4-M3策略管理中心UI设计/M3策略管理中心交互原型.html"><i data-lucide="sliders-horizontal" aria-hidden="true"></i>策略管理中心</a>
       <div class="r-side-foot"><span class="r-dot"></span>共享定义 · 跨层复用<br><span class="r-code">RISK OBSERVATORY</span></div>
     </aside>
     <div class="r-workspace">
-      <header class="r-top">RiskHot　 /　 横向支撑　 /　 <strong>M2</strong></header>
+      <header class="r-top"><div class="r-breadcrumb"><span>RiskHot　/　横向支撑　/</span><h1>风险源管理中心</h1></div><button type="button" class="r-secondary cursor-interaction" data-action="revisions" id="rh-revisions">修订审核</button></header>
       <main class="r-main">
-        <div class="r-heading"><div><div class="r-eyebrow">REFERENCE & GOVERNANCE</div><h1>风险源管理中心</h1><p class="r-subtitle">统一定义风险来源、观察因素与证据口径</p></div><div class="r-flex"><button type="button" class="r-secondary cursor-interaction" data-action="revisions" id="rh-revisions">修订审核</button><span class="r-demo">UI 评审 · 演示数据</span></div></div>
         <nav class="r-tabs" aria-label="定义目录">
           <button type="button" class="r-tab cursor-interaction" data-view="sources" aria-pressed="true">风险源目录 <span>08</span></button>
           <button type="button" class="r-tab cursor-interaction" data-view="variables" aria-pressed="false">全局变量库 <span id="rh-variable-count">05</span></button>
@@ -36,7 +36,7 @@
         </nav>
         <div id="rh-content"></div>
         <div id="rh-message" class="r-toast" role="status" aria-live="polite" hidden></div>
-        <footer class="r-footer r-between"><span>定义治理 · 版本可追溯 · 历史引用保留</span><span>M2 / V1.0 设计稿</span></footer>
+        <footer class="r-footer r-between"><span>定义治理 · 版本可追溯 · 历史引用保留</span><span>UI 评审 · 演示数据　/　M2 / V1.0 设计稿</span></footer>
       </main>
     </div>
   </div>

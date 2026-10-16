@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-15",
+  "files": [
+    {
+      "file": "原型资源/app.js",
+      "sha256_before": "505b5b274f264216b3bc805424f2b9af26aef28f7d8b60c4d2ec1a206982c050",
+      "sha256_after": "505b5b274f264216b3bc805424f2b9af26aef28f7d8b60c4d2ec1a206982c050",
+      "unchanged": true
+    },
+    {
+      "file": "原型资源/flow-data.js",
+      "sha256_before": "7362bcdd91050fa3befff4fb3d5a101bcbb7adfebeb4bfb17068d93a8a4ed617",
+      "sha256_after": "7362bcdd91050fa3befff4fb3d5a101bcbb7adfebeb4bfb17068d93a8a4ed617",
+      "unchanged": true
+    }
+  ],
+  "static_html_hooks_unchanged": true,
+  "static_html_hooks_count": 14
+}

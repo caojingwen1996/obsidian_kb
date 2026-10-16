@@ -144,14 +144,17 @@ test('built dashboard retains workbook conclusions in its historical chart data'
   const indexPoints = new Function(`${runtime}\nreturn CSI_DIVIDEND_INDEX_HISTORY;`)();
   assert.ok(points.length > 0);
   assert.ok(points.every(point => typeof point.headline === 'string'));
-  assert.ok(points.some(point => point.headline === '加大买入区间'));
-  assert.ok(points.some(point => point.headline === '未进入加大买入区间'));
+  assert.ok(points.some(point => point.headline.length > 0));
   assert.ok(indexPoints.length > 0);
   const html = renderDividendYieldChart(points, indexPoints);
-  assert.match(html, /data-buy-grade="B"/);
   assert.match(html, /class="dividend-index-line"/);
   assert.match(html, /class="dividend-yield-line"/);
   const closes = new Map(indexPoints.map(point => [point.date, point.close]));
+  const expectedBuyPoints = points.filter(point => dividendBuyPointGrade(point.headline) && closes.has(point.date));
+  for (const layout of ['desktop', 'mobile']) {
+    const markers = chartPlot(html, layout).match(/<circle class="dividend-buy-point/g) ?? [];
+    assert.equal(markers.length, expectedBuyPoints.length);
+  }
   for (const match of html.matchAll(/data-buy-date="([^"]+)" data-buy-grade="[AB]" data-buy-close="([^"]+)"/g)) {
     assert.equal(Number(match[2]), closes.get(match[1]));
   }

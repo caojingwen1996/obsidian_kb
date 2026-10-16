@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-16",
+  "scripts": [
+    {
+      "module": "06-2-M1信源管理中心UI设计",
+      "before_sha256": "47c4a2309e48e82507f7efd5fe5849a4de31526a98401be330aa334400aa17a4",
+      "after_sha256": "47c4a2309e48e82507f7efd5fe5849a4de31526a98401be330aa334400aa17a4",
+      "unchanged": true,
+      "focus_scope_only": false
+    },
+    {
+      "module": "06-3-M2风险源管理中心UI设计",
+      "before_sha256": "6f3d1009f622106124b834d11a98d92a891900fd4a985864a769a706f4aba5a7",
+      "after_sha256": "ed5b37d221d77c63466c9edf08278a04dbc63a84df0b51bcb77f3fe452957402",
+      "unchanged": false,
+      "focus_scope_only": true
+    },
+    {
+      "module": "06-4-M3策略管理中心UI设计",
+      "before_sha256": "15a33aa81574bc49e5c5e2f9b746f915ceaa3b4a9efdfeba311bdc820b020640",
+      "after_sha256": "15a33aa81574bc49e5c5e2f9b746f915ceaa3b4a9efdfeba311bdc820b020640",
+      "unchanged": true,
+      "focus_scope_only": false
+    }
+  ]
+}

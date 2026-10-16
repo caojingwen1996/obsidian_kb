@@ -1,0 +1,203 @@
+{
+  "date": "2026-10-16",
+  "scope": "C01仅改展示函数；事件处理、权限、校验与领域数据不变",
+  "renderer": "06-4-M3策略管理中心UI设计/原型资源/app.js",
+  "before": "505b5b274f264216b3bc805424f2b9af26aef28f7d8b60c4d2ec1a206982c050",
+  "after": "14794e133ccb7129c8b82728e8cb989f0937f7cd07b41a58a20d93c69a47b847",
+  "changed_presentation_functions": [
+    "catalog",
+    "panorama",
+    "detail",
+    "flowView",
+    "dependenciesView",
+    "historyView"
+  ],
+  "added_presentation_functions": [
+    "architectureEntry"
+  ],
+  "protected": [
+    {
+      "function": "makeFlow",
+      "before": "9e73e5102bac12d9740883096a798e894d05315e121498d9b998b6112ecd4ffb",
+      "after": "9e73e5102bac12d9740883096a798e894d05315e121498d9b998b6112ecd4ffb",
+      "unchanged": true
+    },
+    {
+      "function": "toast",
+      "before": "7d86ac51bc10f1a816b4ed42afb808bdfbe02b7ae865a1155a1a7f3054e72cd0",
+      "after": "7d86ac51bc10f1a816b4ed42afb808bdfbe02b7ae865a1155a1a7f3054e72cd0",
+      "unchanged": true
+    },
+    {
+      "function": "render",
+      "before": "bea4c3daae41d98688896e7e3b480824d694b0a6debdd08ef86e70157bcba296",
+      "after": "bea4c3daae41d98688896e7e3b480824d694b0a6debdd08ef86e70157bcba296",
+      "unchanged": true
+    },
+    {
+      "function": "stageNodes",
+      "before": "ab49769f5da5bd2eb5b3763ae8b3b95b25d2be44db07d8ee9df9f969a992a34b",
+      "after": "ab49769f5da5bd2eb5b3763ae8b3b95b25d2be44db07d8ee9df9f969a992a34b",
+      "unchanged": true
+    },
+    {
+      "function": "nodeStage",
+      "before": "c00f15785d912bcd1460d974928aacc96b275c50aba4b6b6fab2ce8886c6324d",
+      "after": "c00f15785d912bcd1460d974928aacc96b275c50aba4b6b6fab2ce8886c6324d",
+      "unchanged": true
+    },
+    {
+      "function": "flowNode",
+      "before": "93250abcae1187e8d0a4c2b2c3047a938e9b688b9b5e4a7b0328b2f401ca48b7",
+      "after": "93250abcae1187e8d0a4c2b2c3047a938e9b688b9b5e4a7b0328b2f401ca48b7",
+      "unchanged": true
+    },
+    {
+      "function": "renderFlowGroup",
+      "before": "13860f81130a5fb8c5e76f384e3151b8275d2bd14be0f86d2570ae8916eb57f5",
+      "after": "13860f81130a5fb8c5e76f384e3151b8275d2bd14be0f86d2570ae8916eb57f5",
+      "unchanged": true
+    },
+    {
+      "function": "renderStageBody",
+      "before": "9f7d176ad042a3a2378ca75d318dda0a3490f32e9bc4bced1bc195b6a3d8985e",
+      "after": "9f7d176ad042a3a2378ca75d318dda0a3490f32e9bc4bced1bc195b6a3d8985e",
+      "unchanged": true
+    },
+    {
+      "function": "flowOverview",
+      "before": "7136223cb083dee4039fa8ff3da71958c043554af552e3cbb636caa589706210",
+      "after": "7136223cb083dee4039fa8ff3da71958c043554af552e3cbb636caa589706210",
+      "unchanged": true
+    },
+    {
+      "function": "nodeExplanation",
+      "before": "d4063be0f388ece60a591a96e6a7f8702a072ae0463762803770b3fe2035f971",
+      "after": "d4063be0f388ece60a591a96e6a7f8702a072ae0463762803770b3fe2035f971",
+      "unchanged": true
+    },
+    {
+      "function": "sourceView",
+      "before": "a46e03c00b09b4e8d824dc672c2ba77539938af8a15439a48fb813d9c76c7179",
+      "after": "a46e03c00b09b4e8d824dc672c2ba77539938af8a15439a48fb813d9c76c7179",
+      "unchanged": true
+    },
+    {
+      "function": "basicView",
+      "before": "f253dee7a57183b2a384498c7d5a1c1309781520b6857ed1e9d96718cb3b1b41",
+      "after": "f253dee7a57183b2a384498c7d5a1c1309781520b6857ed1e9d96718cb3b1b41",
+      "unchanged": true
+    },
+    {
+      "function": "validate",
+      "before": "0d3e5d7bee5b519578425a89376d6a2e1ea4840fb01fee88d52c5467793800f3",
+      "after": "0d3e5d7bee5b519578425a89376d6a2e1ea4840fb01fee88d52c5467793800f3",
+      "unchanged": true
+    },
+    {
+      "function": "validationView",
+      "before": "0317087cf9974a2d6a57797d7fde57c788479612b94f5405c2f71cfbb50479fe",
+      "after": "0317087cf9974a2d6a57797d7fde57c788479612b94f5405c2f71cfbb50479fe",
+      "unchanged": true
+    },
+    {
+      "function": "aiView",
+      "before": "4afcfab0d2990781186b2baeb43ff30c94705f9977a2ebe144dd4b89fdccb758",
+      "after": "4afcfab0d2990781186b2baeb43ff30c94705f9977a2ebe144dd4b89fdccb758",
+      "unchanged": true
+    },
+    {
+      "function": "taskContent",
+      "before": "6085e390b946c1ae06e706734ee029af41b2e9cccd4d4e2207d5a97e845d1072",
+      "after": "6085e390b946c1ae06e706734ee029af41b2e9cccd4d4e2207d5a97e845d1072",
+      "unchanged": true
+    },
+    {
+      "function": "evaluationView",
+      "before": "99d33c2eabb84e9753cb65499b5ed141c0654319c3f938b0098d5699de6a4cd0",
+      "after": "99d33c2eabb84e9753cb65499b5ed141c0654319c3f938b0098d5699de6a4cd0",
+      "unchanged": true
+    },
+    {
+      "function": "compareView",
+      "before": "65369075834473f5e258088092ff78e11ea6bf7f564b2cb9e5b70cd514e0c754",
+      "after": "65369075834473f5e258088092ff78e11ea6bf7f564b2cb9e5b70cd514e0c754",
+      "unchanged": true
+    },
+    {
+      "function": "datasetView",
+      "before": "38e21fe7372c3864935590b2393646573849f95c347f8e5dec4d8fe2ad9ca213",
+      "after": "38e21fe7372c3864935590b2393646573849f95c347f8e5dec4d8fe2ad9ca213",
+      "unchanged": true
+    },
+    {
+      "function": "metricView",
+      "before": "8c0ecf42622c42fbc27001f095f90351ad4b2739fdc40ec448a2336e16ed9aca",
+      "after": "8c0ecf42622c42fbc27001f095f90351ad4b2739fdc40ec448a2336e16ed9aca",
+      "unchanged": true
+    },
+    {
+      "function": "evalHistory",
+      "before": "dfe9edcba3cb52f38a360d9e860b27391252698961e73f578db878b005e2e99f",
+      "after": "dfe9edcba3cb52f38a360d9e860b27391252698961e73f578db878b005e2e99f",
+      "unchanged": true
+    },
+    {
+      "function": "modal",
+      "before": "c3925346d7cd710613f4b24c9fdd59ede8dd0e54613c4cbfc0fa3b48de0f8549",
+      "after": "c3925346d7cd710613f4b24c9fdd59ede8dd0e54613c4cbfc0fa3b48de0f8549",
+      "unchanged": true
+    },
+    {
+      "function": "closeModal",
+      "before": "15dbb36a2d0f3edd008e9811a08467a17777ea1ecf31bec733504faf5ead6bf0",
+      "after": "15dbb36a2d0f3edd008e9811a08467a17777ea1ecf31bec733504faf5ead6bf0",
+      "unchanged": true
+    },
+    {
+      "function": "openStrategy",
+      "before": "6b48768c49455db19834c5c1032645babe92887254083c1b8171a787b37ade9f",
+      "after": "6b48768c49455db19834c5c1032645babe92887254083c1b8171a787b37ade9f",
+      "unchanged": true
+    },
+    {
+      "function": "openNew",
+      "before": "f2471120fc83d1e6e22f717363f652ea8414f45194b78b863ed965638e2f6184",
+      "after": "f2471120fc83d1e6e22f717363f652ea8414f45194b78b863ed965638e2f6184",
+      "unchanged": true
+    },
+    {
+      "function": "openGovernance",
+      "before": "30bb6a19ba8e53bf8ab38c3331f138d366b64791b5bcbdd93d1b7fa7132cb7e1",
+      "after": "30bb6a19ba8e53bf8ab38c3331f138d366b64791b5bcbdd93d1b7fa7132cb7e1",
+      "unchanged": true
+    },
+    {
+      "function": "openCase",
+      "before": "f507414e2d18821f81dd58e3e2c4c84f1f88a511bbf57b2c755c8cca469da794",
+      "after": "f507414e2d18821f81dd58e3e2c4c84f1f88a511bbf57b2c755c8cca469da794",
+      "unchanged": true
+    },
+    {
+      "function": "writeActions与全部事件处理",
+      "before": "f4eb80dd9e8226a151b4a52a3e9b19420d932bed4bd1fc875c5623ff88308325",
+      "after": "f4eb80dd9e8226a151b4a52a3e9b19420d932bed4bd1fc875c5623ff88308325",
+      "unchanged": true
+    },
+    {
+      "function": "初始数据与视图分派",
+      "before": "e6c56326371e7969d923d2d7324f0d508c69063371e80c46dc1c6941f47ad8b4",
+      "after": "e6c56326371e7969d923d2d7324f0d508c69063371e80c46dc1c6941f47ad8b4",
+      "unchanged": true
+    }
+  ],
+  "flow_data": {
+    "before": "7362bcdd91050fa3befff4fb3d5a101bcbb7adfebeb4bfb17068d93a8a4ed617",
+    "after": "7362bcdd91050fa3befff4fb3d5a101bcbb7adfebeb4bfb17068d93a8a4ed617",
+    "unchanged": true
+  },
+  "stylesheet": {
+    "file": "06-4-M3策略管理中心UI设计/原型资源/styles.css",
+    "after": "7a8677a7065b114b1afab313b210633b6777326ba968577d388fb46d6048ebb4"
+  }
+}

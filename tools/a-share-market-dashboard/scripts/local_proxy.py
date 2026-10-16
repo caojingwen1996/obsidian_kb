@@ -21,6 +21,13 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import parse_qs, quote, unquote, urlencode, urlparse
 from urllib.request import Request, urlopen
 import webbrowser
+import zipfile
+import xml.etree.ElementTree as ET
+
+try:
+    from .dividend_recalculation import iso_date, number, save_and_recalculate
+except ImportError:
+    from dividend_recalculation import iso_date, number, save_and_recalculate
 
 
 VENDOR_PYTHON_PATH = Path(__file__).resolve().parents[1] / "vendor" / "python"
@@ -2290,6 +2297,61 @@ def dividend_strategy_store():
     return importlib.import_module(package_name + ".strategy_store")
 
 
+def read_dividend_backtest_data(vault_root):
+    """Read fixed local market files on every run; never fetch or change data."""
+    workbook = Path(vault_root) / DIVIDEND_WORKBOOK_PATH
+    ns = {"m": "http://schemas.openxmlformats.org/spreadsheetml/2006/main"}
+    with zipfile.ZipFile(workbook) as package:
+        if sum(item.file_size for item in package.infolist()) > MAX_RESPONSE_BYTES:
+            raise ValueError("Excel文件过大")
+        strings = []
+        if "xl/sharedStrings.xml" in package.namelist():
+            strings = ["".join(node.itertext()) for node in ET.fromstring(package.read("xl/sharedStrings.xml"))]
+        sheet = ET.fromstring(package.read("xl/worksheets/sheet1.xml"))
+        rows, row_numbers = [], []
+        for source_row in sheet.findall("m:sheetData/m:row", ns):
+            row = []
+            for cell in source_row.findall("m:c", ns):
+                column = 0
+                letters = re.match(r"[A-Z]+", cell.get("r", ""))
+                if not letters:
+                    raise ValueError("Excel单元格位置无效")
+                for letter in letters[0]:
+                    column = column * 26 + ord(letter) - 64
+                while len(row) < column:
+                    row.append(None)
+                inline, value = cell.find("m:is", ns), cell.find("m:v", ns)
+                if cell.find("m:f", ns) is not None and (value is None or value.text is None):
+                    raise ValueError("Excel公式没有计算缓存，请先在Excel中计算并保存")
+                if cell.get("t") == "e":
+                    raise ValueError("Excel包含错误单元格，请先修复后重试")
+                text = "".join(inline.itertext()) if inline is not None else value.text if value is not None else None
+                row[column - 1] = strings[int(text)] if cell.get("t") == "s" else text
+            rows.append(row)
+            row_numbers.append(int(source_row.get("r", len(rows))))
+    history = json.loads((workbook.parent / "中证红利指数日线.json").read_text(encoding="utf-8-sig"))
+    points = []
+    for item in history.get("data", []):
+        day, close = str(item.get("tradeDate", "")), item.get("close")
+        if re.fullmatch(r"\d{8}", day) and isinstance(close, (int, float)) and not isinstance(close, bool) and math.isfinite(close) and close > 0:
+            points.append({"date": f"{day[:4]}-{day[4:6]}-{day[6:8]}", "close": close})
+    return {"schemaVersion": 1, "rows": rows, "rowNumbers": row_numbers, "indexPoints": points,
+            "workbookUpdatedAt": datetime.fromtimestamp(workbook.stat().st_mtime, timezone.utc).isoformat()}
+
+
+def read_dividend_view_data(vault_root):
+    data = read_dividend_backtest_data(vault_root)
+    payload = json.loads((Path(vault_root) / DIVIDEND_WORKBOOK_PATH.parent / "评分记录.json").read_text(encoding="utf-8-sig"))
+    headers = data["rows"][0]
+    history = []
+    for values in data["rows"][2:]:
+        row = dict(zip(headers, values))
+        day, value = iso_date(row.get("index_date__index_valuation_date")), number(row.get("akshare_dividend_yield_2"))
+        if day and value is not None:
+            history.append({"date": day, "value": value, "headline": row.get("headline_signal") or ""})
+    return {"schemaVersion": 1, "payload": payload, "yieldHistory": history, "indexHistory": data["indexPoints"]}
+
+
 def create_server(
     host="127.0.0.1",
     port=DEFAULT_PORT,
@@ -2389,13 +2451,14 @@ def create_server(
                 if not isinstance(payload, dict) or set(payload) != {"strategy", "expectedRevision"}:
                     raise ValueError("每日策略请求格式无效")
                 store = dividend_strategy_store()
-                saved = store.save_settings(payload["strategy"], payload["expectedRevision"], dividend_settings_file)
+                scoring = importlib.import_module(store.__package__ + ".scoring")
+                saved = save_and_recalculate(payload["strategy"], payload["expectedRevision"], dividend_settings_file, vault_root, store, scoring, read_dividend_backtest_data)
             except dividend_strategy_store().StrategyConflict as error:
                 return self.send_json(409, {"error": str(error), "settings": dividend_strategy_store().read_settings(dividend_settings_file)})
-            except (ValueError, TypeError, UnicodeDecodeError) as error:
+            except (ValueError, TypeError, KeyError, IndexError, UnicodeDecodeError, zipfile.BadZipFile, ET.ParseError) as error:
                 return self.send_json(400, {"error": str(error) or "每日策略参数无效"})
             except OSError:
-                return self.send_json(500, {"error": "每日策略保存失败，原配置保留"})
+                return self.send_json(500, {"error": "保存并重算失败，原配置与数据已保留；请确认Excel文件可写后重试"})
             return self.send_json(200, saved)
 
         def send_portfolio(self):
@@ -2598,6 +2661,23 @@ def create_server(
                 return self.send_dashboard()
             if parsed.path == "/api/dividend-strategy":
                 return self.send_dividend_strategy()
+            if parsed.path == "/api/dividend-view-data":
+                if parsed.query:
+                    return self.send_json(400, {"error": "查看页只允许读取当前固定文件"})
+                try:
+                    return self.send_json(200, read_dividend_view_data(vault_root))
+                except (OSError, ValueError, TypeError, KeyError, IndexError, zipfile.BadZipFile, ET.ParseError) as error:
+                    return self.send_json(422, {"error": f"查看页数据读取失败：{error}"})
+            if parsed.path == "/api/dividend-backtest-data":
+                if parsed.query:
+                    return self.send_json(400, {"error": "回测只允许读取当前固定Excel文件"})
+                try:
+                    payload = read_dividend_backtest_data(vault_root)
+                except FileNotFoundError:
+                    return self.send_json(404, {"error": "缺少当前Excel或本地指数日线文件"})
+                except (OSError, ValueError, KeyError, IndexError, TypeError, zipfile.BadZipFile, ET.ParseError) as error:
+                    return self.send_json(422, {"error": f"回测数据读取失败：{error}"})
+                return self.send_json(200, payload)
             if parsed.path == "/api/portfolio":
                 return self.send_portfolio()
             if parsed.path == "/api/todos":

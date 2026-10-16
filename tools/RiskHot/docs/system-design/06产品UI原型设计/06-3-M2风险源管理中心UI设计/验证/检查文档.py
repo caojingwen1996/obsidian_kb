@@ -63,11 +63,16 @@ if covered != set(range(1, 28)):
     errors.append(f'建议验收覆盖缺口：{set(range(1, 28)) - covered}')
 if len(list((output / 'mockups').glob('*.html'))) != 4:
     errors.append('关键页面 HTML 数量错误')
-if len(list(output.rglob('*.png'))) != 17:
+if len(list(output.rglob('*.png'))) != 19:
     errors.append('截图数量错误')
 
 
 app = (output / '原型资源/app.js').read_text(encoding='utf-8')
+for html in output.rglob('*.html'):
+    if 'data-view="indicators"' in html.read_text(encoding='utf-8'):
+        errors.append(f'仍有独立关键指标tab：{html.name}')
+if 'data-detail-tab="${v}"' not in app or "['observations','观测指标']" not in app:
+    errors.append('缺少变量观测指标入口')
 if "['usage','使用关系']" in app or 'function usage(' in app or 'function renderImpact(' in app:
     errors.append('原型仍保留首版使用关系／独立影响查询')
 if 'function renderInitialization(' in app or "button('initialization'" in app or "a==='init-confirm'" in app:
@@ -75,8 +80,15 @@ if 'function renderInitialization(' in app or "button('initialization'" in app o
 if not any('M2-F18' in row and '后续' in row and '首版' in row for row in rows):
     errors.append('M2-F18 尚未标为首版移出')
 
+functional = (project / 'docs/system-design/03-系统功能架构/M2风险源管理中心功能设计.md').read_text(encoding='utf-8')
+for number in range(1, 9):
+    if f'| 审核-{number:02d} |' not in functional:
+        errors.append(f'首次指标审核业务规则缺失：审核-{number:02d}')
+if '正式确认仍须在身份获批后逐项完成' in functional or '身份未确认时单项审核按钮禁用' in functional:
+    errors.append('主功能文档仍保留先分配身份后审核指标的旧规则')
+
 report = {
-    'checks': ['UTF-8与Markdown围栏', '新文档与三处新增导航双链', '独立HTML本地资源', '20项功能追踪', '27项历史验收关联（AC-M2-22转后续）', '4份关键页面与17张截图'],
+    'checks': ['UTF-8与Markdown围栏', '新文档与三处新增导航双链', '独立HTML本地资源', '20项功能追踪', '首次指标审核8条业务规则', '27项历史验收关联（AC-M2-08首版移除，AC-M2-22转后续）', '4份关键页面与19张截图'],
     'link_count': link_count,
     'errors': errors,
     'scope': '仅新文档、新增导航及本地资源；不检查既有无关链接',

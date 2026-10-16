@@ -11,7 +11,7 @@ const sourceDir = join(root, 'src');
 const dataDir = join(root, 'data');
 const marketOverviewDataDir = join(dataDir, '市场总览');
 const outputPath = join(root, 'a-share-market-dashboard.html');
-const moduleOrder = ['core.mjs', 'adapters.mjs', 'data-service.mjs', 'risk-state.mjs', 'risk-indicators.mjs', 'risk-screen.mjs', 'dividend-scoring.mjs', 'app.mjs'];
+const moduleOrder = ['core.mjs', 'adapters.mjs', 'data-service.mjs', 'risk-state.mjs', 'risk-indicators.mjs', 'risk-screen.mjs', 'dividend-scoring.mjs', 'dividend-backtest.mjs', 'dividend-bollinger.mjs', 'app.mjs'];
 const automationsDir = join(repoRoot, 'sources', 'automations');
 const topicsDir = join(repoRoot, 'wiki', 'topics');
 const dividendStrategy = JSON.parse(await readFile(join(repoRoot, '.agents', 'skills', 'zzhl-dividend-signal', 'strategy-v1.json'), 'utf8'));
@@ -19,6 +19,7 @@ const dividendScorePath = join(automationsDir, '中证红利信号', '评分记�
 const dividendSignalPath = join(automationsDir, '中证红利信号', '最新信号.md');
 const dividendHistoryWorkbookPath = join(automationsDir, '中证红利信号', '中证红利每日信号.xlsx');
 const dividendIndexHistoryPath = join(automationsDir, '中证红利信号', '中证红利指数日线.json');
+const dividendBollingerHistoryPath = join(dataDir, '红利信号', '中证红利布林日线.json');
 const dividendAnnualPerformancePath = join(automationsDir, '中证红利信号', '中证红利年度表现.json');
 const bbxmDailyDigestDir = join(automationsDir, 'BBXM每日汇总');
 const todoDataPath = join(dataDir, '需求清单', 'todo.json');
@@ -1135,11 +1136,18 @@ const changelog = validateChangelog(JSON.parse(changelogSource));
 const eventCalendar = validateEventCalendar(JSON.parse(eventCalendarSource));
 const dividendScorePayload = JSON.parse(await readFile(dividendScorePath, 'utf8').catch(error => { if (error.code !== 'ENOENT') throw error; return 'null'; }));
 const dividendSignal = parseDividendSignal(await readFile(dividendSignalPath, 'utf8').catch(() => ''));
-const dividendYieldHistory = parseDividendYieldHistoryFromWorkbook(await readFile(dividendHistoryWorkbookPath).catch(() => null));
-const dividendIndexHistory = parseCsindexPerformance(JSON.parse(await readFile(dividendIndexHistoryPath, 'utf8').catch(error => {
+const dividendWorkbookBuffer = await readFile(dividendHistoryWorkbookPath).catch(error => { if (error.code !== 'ENOENT') throw error; return null; });
+const dividendYieldHistory = parseDividendYieldHistoryFromWorkbook(dividendWorkbookBuffer);
+const dividendIndexSnapshot = parseCsindexPerformance(JSON.parse(await readFile(dividendIndexHistoryPath, 'utf8').catch(error => {
   if (error.code !== 'ENOENT') throw error;
   return '{}';
 }))).map(({ date, close }) => ({ date, close }));
+const dividendBollingerSnapshot = parseCsindexPerformance(JSON.parse(await readFile(dividendBollingerHistoryPath, 'utf8').catch(error => {
+  if (error.code !== 'ENOENT') throw error;
+  return '{}';
+})));
+const dividendIndexHistory = [...new Map([...dividendBollingerSnapshot, ...dividendIndexSnapshot]
+  .map(({ date, close }) => [date, { date, close }])).values()].sort((a, b) => a.date.localeCompare(b.date));
 const dividendAnnualPerformance = parseDividendAnnualPerformance(await readFile(dividendAnnualPerformancePath, 'utf8').catch(() => ''));
 const todoList = parseTodoListFromJson(await readFile(todoDataPath, 'utf8').catch(() => ''));
 

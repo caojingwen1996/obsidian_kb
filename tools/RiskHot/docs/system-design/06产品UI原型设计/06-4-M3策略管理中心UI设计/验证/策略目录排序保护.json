@@ -1,0 +1,11 @@
+{
+  "date": "2026-10-16",
+  "before": "e351fe71869e2345d6eed8fb690870ec036c5ee6e924e8f6e69b513106e579a2",
+  "after": "778ccd15194a029f8c76961023640995a3cbdb4e3e5778ff6c9cf752860808d4",
+  "scope": "仅目录筛选副本增加业务层/模块/编码升序；源数组和处理逻辑不变",
+  "protected_non_sort_code": {
+    "before": "d8dd288189939ebc69711fecfe07d8467fef6310fc7c6442d95e522cc7886c88",
+    "after": "d8dd288189939ebc69711fecfe07d8467fef6310fc7c6442d95e522cc7886c88",
+    "unchanged": true
+  }
+}

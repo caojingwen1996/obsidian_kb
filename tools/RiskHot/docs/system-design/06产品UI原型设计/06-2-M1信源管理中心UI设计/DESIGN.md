@@ -1,199 +1,36 @@
 ---
-name: RiskHot M1 信源管理中心
-description: 继承现有浅色绿色工作台的信源目录、档案、启停与追溯视觉契约。
-status: final
-updated: 2026-10-13
-sources:
-  - docs/system-design/03-系统功能架构/M1 信源管理中心功能设计.md
-  - docs/system-design/06产品UI原型设计/06-1-配置模块产品UI设计/原型资源/styles.css
-  - docs/system-design/06产品UI原型设计/06-1-配置模块产品UI设计/配置模块交互原型.html
+name: RiskHot M1 信源管理中心UI规范
+version: V2.1
+updated: 2026-10-16
 colors:
-  canvas: '#f5f5ef'
-  surface: '#fffef8'
-  ink: '#233b34'
-  muted: '#647067'
-  line: '#dfe4d8'
   primary: '#295c47'
-  on-primary: '#ffffff'
-  accent: '#d9e89a'
-  danger: '#a1392c'
-  warning: '#856019'
-  focus: '#607c2b'
-  sidebar: '#edf0e6'
-  selected: '#f0f4e7'
+  navigation: '#193d33'
+  canvas: '#f5f5ef'
+  surface: '#ffffff'
+  ink: '#22352e'
+  muted: '#58675e'
+  line: '#dfe5df'
+  ai-surface: '#eee8ff'
+  ai-text: '#624392'
 typography:
-  title:
-    fontFamily: '"PingFang SC", "Microsoft YaHei", sans-serif'
-    fontSize: 22px
-    fontWeight: '600'
-    lineHeight: '1.4'
-    letterSpacing: '-0.02em'
-  section:
-    fontFamily: '"PingFang SC", "Microsoft YaHei", sans-serif'
-    fontSize: 20px
-    fontWeight: '600'
-    lineHeight: '1.5'
-  body:
-    fontFamily: '"PingFang SC", "Microsoft YaHei", sans-serif'
-    fontSize: 14px
-    fontWeight: '400'
-    lineHeight: '1.65'
-  label:
-    fontFamily: '"PingFang SC", "Microsoft YaHei", sans-serif'
-    fontSize: 13px
-    fontWeight: '500'
-    lineHeight: '1.5'
-  meta:
-    fontFamily: '"PingFang SC", "Microsoft YaHei", sans-serif'
-    fontSize: 12px
-    fontWeight: '400'
-    lineHeight: '1.6'
-  code:
-    fontFamily: '"SFMono-Regular", Consolas, monospace'
-    fontSize: 12px
-    fontWeight: '400'
-    lineHeight: '1.6'
-rounded:
-  sm: 5px
-  md: 9px
-  lg: 12px
-spacing:
-  '1': 4px
-  '2': 8px
-  '3': 12px
-  '4': 16px
-  '5': 24px
-  '6': 32px
-  sidebar-width: 192px
-  desktop-gutter: 34px
-  mobile-gutter: 16px
-components:
-  workspace-nav:
-    background: '{colors.sidebar}'
-    foreground: '{colors.ink}'
-    width: '{spacing.sidebar-width}'
-  section-tabs:
-    foreground: '{colors.muted}'
-    active: '{colors.primary}'
-    gap: '{spacing.5}'
-  search-filter-bar:
-    background: '{colors.surface}'
-    radius: '{rounded.sm}'
-    gap: '{spacing.2}'
-  view-switcher:
-    active: '{colors.primary}'
-    foreground: '{colors.muted}'
-  group-list:
-    background: '{colors.surface}'
-    border: '{colors.line}'
-    radius: '{rounded.md}'
-  source-row:
-    foreground: '{colors.ink}'
-    selected-background: '{colors.selected}'
-    gap: '{spacing.2}'
-  source-detail:
-    background: '{colors.surface}'
-    padding: '{spacing.5}'
-    radius: '{rounded.md}'
-  classification-tags:
-    foreground: '{colors.muted}'
-    background: '{colors.surface}'
-    gap: '{spacing.1}'
-  status-pair:
-    active: '{colors.primary}'
-    disabled: '{colors.muted}'
-  source-form:
-    background: '{colors.surface}'
-    radius: '{rounded.lg}'
-    gap: '{spacing.4}'
-  duplicate-comparison:
-    background: '{colors.surface}'
-    warning: '{colors.warning}'
-    gap: '{spacing.4}'
-  action-button:
-    background: '{colors.primary}'
-    foreground: '{colors.on-primary}'
-    radius: '{rounded.sm}'
-  operation-dialog:
-    background: '{colors.surface}'
-    radius: '{rounded.lg}'
-    warning: '{colors.warning}'
-  feedback-panel:
-    foreground: '{colors.ink}'
-    error: '{colors.danger}'
-    warning: '{colors.warning}'
-    border: '{colors.line}'
-  relation-list:
-    background: '{colors.surface}'
-    foreground: '{colors.ink}'
-    border: '{colors.line}'
-  version-timeline:
-    foreground: '{colors.ink}'
-    secondary: '{colors.muted}'
-    gap: '{spacing.4}'
+  body: {fontFamily: '"PingFang SC", "Microsoft YaHei", sans-serif', fontSize: '14px', fontWeight: 400, lineHeight: 1.65}
+  title: {fontFamily: '"PingFang SC", "Microsoft YaHei", sans-serif', fontSize: '20px', fontWeight: 600, lineHeight: 1.5}
+rounded: {control: '8px', panel: '12px', dialog: '16px'}
 ---
 
-# M1 信源管理中心 · 视觉设计
+# M1 信源管理中心UI规范
 
-## Brand & Style
+## 统一视觉与修改边界
 
-采用现有 RiskHot 浅色／绿色研究工作台：暖白底、深绿色操作、清晰的主从列表和轻量分组。用户已确认沿用现有风格与交互。本设计面向快速找到来源、确认资料身份、明确操作后果，不增加欢迎页、装饰性图表或评分卡。
+本版先补充[[tools/RiskHot/docs/system-design/06产品UI原型设计/DESIGN|M1/M2/M3统一UI规范V2.1]]，再在现有styles.css之后加载ui-v2.css，采用深绿导航、白色工作面、14px正文和统一控件。下文保留的交互/字段约束继续有效；旧组件表中涉及浅绿侧条等视觉描述由统一规范取代，业务含义不变。
 
-业务唯一输入为 [[tools/RiskHot/docs/system-design/03-系统功能架构/M1 信源管理中心功能设计|M1 信源管理中心功能设计]]。布局和交互参照 [[tools/RiskHot/docs/system-design/06产品UI原型设计/06-1-配置模块产品UI设计/配置模块交互原型.html|既有配置模块原型]]；颜色、侧栏、控件及圆角参照 [[tools/RiskHot/docs/system-design/06产品UI原型设计/06-1-配置模块产品UI设计/原型资源/styles.css|既有原型样式]]。旧原型里的信用分、其他对象审批交互不继承至 M1。行为详见 [[tools/RiskHot/docs/system-design/06产品UI原型设计/06-2-M1信源管理中心UI设计/EXPERIENCE|M1 页面与交互契约]]。
+保留本中心[[tools/RiskHot/docs/system-design/06产品UI原型设计/06-2-M1信源管理中心UI设计/EXPERIENCE|交互契约]]及现有业务JavaScript。三中心导航使用静态相对链接，原有控件ID、data属性和内联脚本不改。禁止通过新增状态或字段改变业务。
 
-2026-10-13 用户确认所有在册均已登记，单一目录，仅启用／停用。本文与行为契约优先于所引用的视觉参考；业务冲突回到 M1 功能设计确认。本次交付以双契约为主，并追加关键页面示意图；示意图用于阅读布局，不等同已实现的可运行原型或正式组件库。frontmatter 文件路径相对于 RiskHot 项目根。`[ASSUMPTION]` 标出为可实施性补齐的设计默认值，不能当作已经确认的业务规则。
+## 现行页面组织
 
-## Colors
+信源直接进入搜索/筛选/四视图共用工具区，不重复加入大标题与说明。树状分层和全部平铺视图保留；六段详情、业务/技术双状态、表单查重、启停确认、关系和历史统一排版。960px详情抽屉断点保持与app.js一致；侧栏900px以下隐藏，手机详情/表单保持全屏。正文14px、名称15px、详情标题20px、标签12px；主要控件8px圆角。历史静态图稿仅作旧版存档，现行界面以可点击原型为准。
 
-| Token | 用途与限制 |
-|---|---|
-| `{colors.canvas}` / `{colors.surface}` | 页面背景与内容面板；保留现有暖色，不以大色块划分业务等级。 |
-| `{colors.ink}` / `{colors.muted}` | 主文字／辅助说明；必填、错误与关键后果不能仅用淡色呈现。 |
-| `{colors.primary}` / `{colors.on-primary}` | 主要动作、选中导航、链接；每个操作区只有一个视觉主动作。 |
-| `{colors.line}` | 面板与行分隔；不可单独作为输入框、聚焦或选中的唯一边界。 |
-| `{colors.accent}` | 继承的少量柔和强调，搭配深色正文；不得承担启用成功或高价值含义。 |
-| `{colors.warning}` | 待确认、未知结果；必须带说明文字。 |
-| `{colors.danger}` | 保存失败、冲突、拒绝等异常；“停用”平时用中性状态，操作后果可用警示。 |
-| `{colors.focus}` | 键盘焦点；继承 3px 外描边与 3px 间隔。 |
-| `{colors.sidebar}` / `{colors.selected}` | 导航背景／当前选中行；同时用文字或边线标识选择状态。 |
-
-承重组合的交付目标：正文、辅助字、链接、状态文字与底色对比至少 4.5:1；焦点、必要控件轮廓至少 3:1。本地按不透明色值计算：`ink/surface` 11.90:1、`muted/surface` 5.13:1、`on-primary/primary` 7.73:1、`warning/surface` 5.64:1、`danger/surface` 6.63:1、`focus/surface` 4.71:1；基础承重组合达到上述目标。实际渲染后的透明度、悬浮、禁用样式仍须验证。浅分隔线仅为装饰分组，不宣称满足交互轮廓要求。输入框采用 `{colors.muted}` 实线边界 [ASSUMPTION]，标签与焦点配合识别；不以降低整组件透明度作为唯一禁用表达。
-
-## Typography
-
-保持系统中文字体，不引入网络字体。名称使用 `{typography.body.fontSize}`，稳定编码使用 `{typography.code.fontSize}`；编码允许断行复制，不让长 URL 撑开页面。标题使用 `{typography.title.fontSize}`，分区使用 `{typography.section.fontSize}`。
-
-[ASSUMPTION] 在既有原型 10～13px 小字较多的基础上，将业务正文统一到 14px、辅助信息至少 12px，维持原有字体与层级，提高长字段及移动阅读的可辨识性。上述行高和字重为本版排版默认，不是新增品牌字体规范。重要状态、缺项和操作理由不得降到小字脚注。文本放大 200% 后完整保留信息与操作；不强行固定行高或单行截断必读后果。
-
-## Layout & Spacing
-
-继承 192px 左侧导航、桌面外边距 34px 和现有主从结构；间距统一使用 `{spacing.1}`～`{spacing.6}`。不新增仪表盘，进入 M1 直接显示统一信源目录，默认专题研究，按金融属性分组，无须先手动选择。
-
-| 区域 | 排列与尺寸 |
-|---|---|
-| 工作台外壳 | 左侧工作台导航，上方位置导航，标题下为统一目录。M1 标为当前一级模块，其他模块导航只保留项目已有入口。 |
-| 信源目录 | 直接进入检索工具区：搜索、清空条件与新增同排，之后为分类／启停筛选、四视图和分组列表；不重复显示页面大标题及说明。详情随权限提供启用／停用。 |
-| 主从区域 | 继承列表 `minmax(350px,1fr)`、详情 `minmax(320px,400px)` 的伸缩思路；空间不足切换详情抽屉，不压缩成两列窄文本。 |
-| 新增／编辑 | [ASSUMPTION] 桌面最大宽 880px，双列字段；长文本与比较信息占整行，底部固定操作区；字段体滚动，页头／操作区始终可见。 |
-| 查重对照 | [ASSUMPTION] 两列为“本次登记／已有信源”，字段逐项对齐；窄屏按字段纵向对照。 |
-| 启停确认 | [ASSUMPTION] 最大宽 640px；名称与目标状态 → 核验／影响 → 选填理由 → 确认。禁止在未读影响前默认聚焦危险提交。 |
-| 历史版本 | 时间线在详情页；历史定义打开独立只读详情层，固定显示“历史版本”与版本号。 |
-
-以下静态图稿为历史版本，仅参考视觉布局，当前单一目录／两态规则以可点击原型为准：[目录与六段详情](mockups/key-catalog.html) 展示旧列表／详情布局；[正式档案与手机详情](mockups/key-record.html) 展示双状态与窄屏排布；[登记查重](mockups/key-registration.html) 展示错误前置及字段对照；[暂停与结果未知](mockups/key-status-confirm.html) 展示操作前后两种状态。这些旧图的生命周期和状态表述已失效，当前布局和行为见可点击原型。
-
-正式档案图是放大的阅读示意，省略列表以容纳字段与手机对照，不改变桌面主从及窄屏抽屉的导航契约。[ASSUMPTION] 查重错误可将摘要及对照前置到名称／代码之后，其余表单分段顺序保持；暂停图的左右两幅为前后状态对照，真实界面只显示当前一步。
-
-响应规则继承现有 1180px、960px、640px 断点含义：1180px 以下压缩非关键辅助排布；960px 以下详情切为抽屉；640px 以下隐藏常驻侧栏，改为顶部导航入口。新增 M1 页面落实到这些断点的细节为 [ASSUMPTION]：手机单列、16px 外边距、表单全屏层；四视图通过可滚动按钮保留，不将功能删掉。手机触控目标提升至 44px [ASSUMPTION]，桌面继承按钮最小高 40px。
-
-交互实现参照[[tools/RiskHot/docs/system-design/06产品UI原型设计/06-2-M1信源管理中心UI设计/M1信源管理中心交互原型.html|M1 原型]]。[ASSUMPTION] 桌面主从面板采用最大 740px、约 80dvh 高度并分别滚动，详情操作区常驻；这一布局用于长档案和清单操作可达，手机仍为全屏详情。
-
-## Elevation & Depth
-
-普通内容面板通过 `{colors.line}` 与底色区分。继承极轻的面板投影，不使用浮起卡片表现信源价值。遮罩仅用于新增／编辑、启停确认和窄屏详情；页面内的查重结果嵌在表单内容中，避免在表单上再叠确认弹窗。[ASSUMPTION] 对话层保留单层可交互表面，历史版本可替换当前详情并支持返回。
-
-## Shapes
-
-输入与按钮 `{rounded.sm}`，分组面板 `{rounded.md}`，对话框 `{rounded.lg}`。分类标签采用小圆角方形，禁止把每个标签做成醒目彩色胶囊。启用／停用均采用文字和小标识组合；T1、T1.5、T2 外观同级，不用红黄绿暗示信用好坏。
+## 沿用的组件与业务展示约束
 
 ## Components
 
@@ -228,3 +65,14 @@ components:
 | FRED 等聚合入口显示逐序列回源提醒 | 对整个平台套 T1，或为过校验伪造等级 |
 | 缺项、无权限、未知结果均写具体原因 | 只弹“操作失败”，或把查询失败显示为“暂无” |
 | 沿用已有视觉并提高关键小字可读性 | 引入新字体库、新网络素材或与来源身份无关的装饰 |
+
+## 三中心紧凑标题统一（2026-10-16最新）
+
+遵循上级统一规范：57px位置栏、14px模块h1、20px当前任务标题、20px内容顶间距和16px标题底间距。桌面标题说明同排，手机保持自然换行。M1原有无正文大标题的工具区直接进入设计保留；M2模块名称与原修订审核动作在顶栏，正文不重复；M3流水线标题先于选择工具区并保持只读和6:4。当前布局以此补充及现行原型为准。
+
+标题区域共同约束见[[tools/RiskHot/docs/system-design/06产品UI原型设计/标题区域设计规范|标题区域设计规范V1.0]]；逐页结果见[[tools/RiskHot/docs/system-design/06产品UI原型设计/验证/标题区域全页面检查记录|全页面标题检查]]。标题规则以此共用规范为准，其他组件及业务契约保持。
+
+
+## 2026-10-16 · 三中心页面与页签操作统一顶栏
+
+本模块全部现行页面执行[[tools/RiskHot/docs/system-design/06产品UI原型设计/标题区域设计规范|标题区域设计规范V1.1]]：页面／页签操作进入应用顶部位置栏，弹窗及抽屉操作进入各自标题行；保持单行并允许操作区横向滚动，保留原控件、权限、表单归属和焦点。此规则覆盖此前正文操作区及底部表单操作的历史布局。具体覆盖及验证限制见[[tools/RiskHot/docs/system-design/06产品UI原型设计/验证/三中心操作统一顶栏记录|三中心操作统一顶栏记录]]。

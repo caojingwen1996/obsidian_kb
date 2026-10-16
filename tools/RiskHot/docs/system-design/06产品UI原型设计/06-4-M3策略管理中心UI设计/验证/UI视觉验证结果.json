@@ -1,0 +1,212 @@
+{
+  "date": "2026-10-15",
+  "viewports": [
+    {
+      "name": "catalog",
+      "width": 1920,
+      "viewport": 1920,
+      "content": 1920
+    },
+    {
+      "name": "system-flow",
+      "width": 1920,
+      "viewport": 1920,
+      "content": 1920
+    },
+    {
+      "name": "scenario-flow",
+      "width": 1920,
+      "viewport": 1920,
+      "content": 1920
+    },
+    {
+      "name": "ai",
+      "width": 1920,
+      "viewport": 1920,
+      "content": 1920
+    },
+    {
+      "name": "evaluation",
+      "width": 1920,
+      "viewport": 1920,
+      "content": 1920
+    },
+    {
+      "name": "catalog",
+      "width": 1440,
+      "viewport": 1440,
+      "content": 1440
+    },
+    {
+      "name": "system-flow",
+      "width": 1440,
+      "viewport": 1440,
+      "content": 1440
+    },
+    {
+      "name": "scenario-flow",
+      "width": 1440,
+      "viewport": 1440,
+      "content": 1440
+    },
+    {
+      "name": "ai",
+      "width": 1440,
+      "viewport": 1440,
+      "content": 1440
+    },
+    {
+      "name": "evaluation",
+      "width": 1440,
+      "viewport": 1440,
+      "content": 1440
+    },
+    {
+      "name": "catalog",
+      "width": 1024,
+      "viewport": 1024,
+      "content": 1024
+    },
+    {
+      "name": "system-flow",
+      "width": 1024,
+      "viewport": 1024,
+      "content": 1024
+    },
+    {
+      "name": "scenario-flow",
+      "width": 1024,
+      "viewport": 1024,
+      "content": 1024
+    },
+    {
+      "name": "ai",
+      "width": 1024,
+      "viewport": 1024,
+      "content": 1024
+    },
+    {
+      "name": "evaluation",
+      "width": 1024,
+      "viewport": 1024,
+      "content": 1024
+    },
+    {
+      "name": "catalog",
+      "width": 768,
+      "viewport": 768,
+      "content": 768
+    },
+    {
+      "name": "system-flow",
+      "width": 768,
+      "viewport": 768,
+      "content": 768
+    },
+    {
+      "name": "scenario-flow",
+      "width": 768,
+      "viewport": 768,
+      "content": 768
+    },
+    {
+      "name": "ai",
+      "width": 768,
+      "viewport": 768,
+      "content": 768
+    },
+    {
+      "name": "evaluation",
+      "width": 768,
+      "viewport": 768,
+      "content": 768
+    },
+    {
+      "name": "catalog",
+      "width": 390,
+      "viewport": 390,
+      "content": 390
+    },
+    {
+      "name": "system-flow",
+      "width": 390,
+      "viewport": 390,
+      "content": 390
+    },
+    {
+      "name": "scenario-flow",
+      "width": 390,
+      "viewport": 390,
+      "content": 390
+    },
+    {
+      "name": "ai",
+      "width": 390,
+      "viewport": 390,
+      "content": 390
+    },
+    {
+      "name": "evaluation",
+      "width": 390,
+      "viewport": 390,
+      "content": 390
+    },
+    {
+      "name": "catalog",
+      "width": 320,
+      "viewport": 320,
+      "content": 320
+    },
+    {
+      "name": "system-flow",
+      "width": 320,
+      "viewport": 320,
+      "content": 320
+    },
+    {
+      "name": "scenario-flow",
+      "width": 320,
+      "viewport": 320,
+      "content": 320
+    },
+    {
+      "name": "ai",
+      "width": 320,
+      "viewport": 320,
+      "content": 320
+    },
+    {
+      "name": "evaluation",
+      "width": 320,
+      "viewport": 320,
+      "content": 320
+    }
+  ],
+  "captures": [
+    "desktop.png",
+    "strategy-basic.png",
+    "strategy-dependencies.png",
+    "strategy-history.png",
+    "ai-definition.png",
+    "ai-prompt.png",
+    "ai-schema.png",
+    "ai-constraints.png",
+    "ai-usage.png",
+    "ai-revision-dialog.png",
+    "evaluation-compare.png",
+    "evaluation-datasets.png",
+    "evaluation-metrics.png",
+    "evaluation-history.png",
+    "evaluation-request-dialog.png",
+    "strategy-new-dialog.png",
+    "system-flow.png",
+    "scenario-flow.png",
+    "mobile.png",
+    "mobile-ai.png",
+    "mobile-system-flow.png",
+    "mobile-scenario-flow.png"
+  ],
+  "errors": [],
+  "network": [],
+  "scope": "M3视觉与响应式检查，业务行为另由原91项交互检查覆盖"
+}

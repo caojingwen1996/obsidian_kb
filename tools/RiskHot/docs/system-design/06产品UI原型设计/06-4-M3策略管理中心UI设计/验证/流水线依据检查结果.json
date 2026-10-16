@@ -1,0 +1,116 @@
+{
+  "date": "2026-10-15",
+  "blueprints": 7,
+  "nodes": 122,
+  "sourceFiles": [
+    "docs/system-design/03-系统功能架构/系统功能架构总览.md",
+    "docs/system-design/02-业务架构与领域设计/RiskHot_L0_信息处理层_业务架构与领域设计V1.0.md",
+    "docs/system-design/02-业务架构与领域设计/RiskHot_L1_风险识别与纳管层_业务架构与领域设计.md",
+    "docs/system-design/02-业务架构与领域设计/RiskHot_L2_风险态势分析层_业务架构与领域设计V1.0.md",
+    "docs/system-design/02-业务架构与领域设计/RiskHot_L3_风险产品与发布层_业务架构与领域设计 V1.0.md"
+  ],
+  "findings": [
+    {
+      "id": "system",
+      "nodes": 19,
+      "source": "系统功能架构总览",
+      "unresolved": [
+        {
+          "id": "REPORT",
+          "reason": "完整发布状态机与强制复核条件待确认。"
+        }
+      ]
+    },
+    {
+      "id": "STR-L0-01",
+      "nodes": 24,
+      "source": "L0 信息处理层：业务架构与领域设计",
+      "unresolved": [
+        {
+          "id": "X",
+          "reason": "归组阈值与人工处理机制待进一步确认。"
+        }
+      ]
+    },
+    {
+      "id": "STR-L0-02",
+      "nodes": 10,
+      "source": "L0 信息处理层：业务架构与领域设计",
+      "unresolved": [
+        {
+          "id": "X",
+          "reason": "M权重、正式阈值与恢复流程待确认。"
+        }
+      ]
+    },
+    {
+      "id": "STR-L1-01",
+      "nodes": 21,
+      "source": "L1 风险识别与纳管层：业务架构与领域设计",
+      "unresolved": [
+        {
+          "id": "ADMIT",
+          "reason": "自动准入门槛与关键变量最低配置数量待讨论。"
+        },
+        {
+          "id": "RESTORE",
+          "reason": "恢复条件与状态迁移待讨论。"
+        },
+        {
+          "id": "X",
+          "reason": "人工复核、准入、事务和恢复机制待讨论。"
+        }
+      ]
+    },
+    {
+      "id": "STR-L2-01",
+      "nodes": 19,
+      "source": "L2 风险态势分析层：业务架构与领域设计",
+      "unresolved": [
+        {
+          "id": "H",
+          "reason": "复核条件、权限和恢复执行机制待讨论。"
+        },
+        {
+          "id": "XCTX",
+          "reason": "必要输入集合及补齐责任待讨论。"
+        }
+      ]
+    },
+    {
+      "id": "STR-L2-02",
+      "nodes": 15,
+      "source": "L2 风险态势分析层：业务架构与领域设计",
+      "unresolved": [
+        {
+          "id": "X",
+          "reason": "比较基准选择、复核和发布细则待讨论。"
+        }
+      ]
+    },
+    {
+      "id": "STR-L3-01",
+      "nodes": 14,
+      "source": "L3 风险产品与发布层：业务架构与领域设计",
+      "unresolved": [
+        {
+          "id": "P1",
+          "reason": "日历边界、时区与空报告策略待讨论。"
+        },
+        {
+          "id": "CPUB",
+          "reason": "正式发布条件、强制复核和状态机待讨论。"
+        },
+        {
+          "id": "WITHDRAW",
+          "reason": "撤回迁移、可见性及再次发布规则待讨论。"
+        },
+        {
+          "id": "H",
+          "reason": "复核入口、条件、发布状态机待讨论。"
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

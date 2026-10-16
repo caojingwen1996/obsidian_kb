@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-16",
+  "before_layout": {
+    "topbar": 64,
+    "filtersTop": 256.421875,
+    "firstRow": 409.515625
+  },
+  "stylesheet": {
+    "before": "6397870258ba09a924bbdd1c8cd6bdf0b25f2c36c1e0637caebdfdd4801b208d",
+    "after": "775f1c5c4912bdcb16b340c9dd00aa5826b24663ad1e0dfe228552a3f877ab4f"
+  },
+  "protected": [
+    {
+      "file": "原型资源/app.js",
+      "before": "cacc37a476ad7ae5eeca72c96dfe0254548a5df72cd68642b48b14059391ce56",
+      "after": "cacc37a476ad7ae5eeca72c96dfe0254548a5df72cd68642b48b14059391ce56",
+      "unchanged": true
+    },
+    {
+      "file": "原型资源/flow-data.js",
+      "before": "7362bcdd91050fa3befff4fb3d5a101bcbb7adfebeb4bfb17068d93a8a4ed617",
+      "after": "7362bcdd91050fa3befff4fb3d5a101bcbb7adfebeb4bfb17068d93a8a4ed617",
+      "unchanged": true
+    }
+  ],
+  "checks": [
+    "1920/catalog",
+    "1920/panorama",
+    "1920/ai",
+    "1920/evaluation",
+    "1440/catalog",
+    "1440/panorama",
+    "1440/ai",
+    "1440/evaluation",
+    "1024/catalog",
+    "1024/panorama",
+    "1024/ai",
+    "1024/evaluation",
+    "768/catalog",
+    "768/panorama",
+    "768/ai",
+    "768/evaluation",
+    "390/catalog",
+    "390/panorama",
+    "390/ai",
+    "390/evaluation",
+    "320/catalog",
+    "320/panorama",
+    "320/ai",
+    "320/evaluation"
+  ],
+  "errors": [],
+  "after_layout": {
+    "topbar": 57,
+    "filtersTop": 134,
+    "firstRow": 287.09375
+  }
+}

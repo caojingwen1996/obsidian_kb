@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-16T02:03:11.208063+00:00",
+  "title": "RiskHot M2 统一规范继承",
+  "extensions": {
+    "inheritance": {
+      "design": "../../DESIGN.md",
+      "sidecar": "../../.impeccable/design.json",
+      "localStylesheet": "../原型资源/ui-v2.css",
+      "precedence": "继承根规范；本地覆盖原有styles.css，仅调整UI，保留模块交互契约。"
+    },
+    "breakpoints": [
+      {
+        "name": "shell-compact",
+        "value": "1280px",
+        "purpose": "三中心侧栏216px变192px，正文水平边距32px变24px。"
+      },
+      {
+        "name": "sidebar-hidden",
+        "value": "900px",
+        "purpose": "三中心隐藏侧栏；M2目录/详情在此堆叠。"
+      },
+      {
+        "name": "m2-phone",
+        "value": "600px",
+        "purpose": "仅M2手机16px正文边距与输入、44px普通按钮。"
+      },
+      {
+        "name": "m2-m3-narrow",
+        "value": "360px",
+        "purpose": "M2/M3各自处理窄屏标题、字段与节点；不新增M1断点。"
+      },
+      {
+        "name": "m2-ai-table",
+        "value": "760px",
+        "purpose": "M2 AI建议表调整单元格及操作按钮目标，不改变900px目录/详情堆叠规则。"
+      }
+    ]
+  },
+  "components": [],
+  "narrative": {
+    "overview": "M2保留目录/详情及审核抽屉；900px目录详情堆叠、760px AI表布局、600px手机、360px窄屏。保留light-dark()已有暗色，根预览控件仅展示浅色。"
+  }
+}

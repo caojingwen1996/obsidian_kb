@@ -1,0 +1,6 @@
+[2026-10-15 22:01:08] 开始抓取 2026-10-15 冰冰小美 雪球帖子（首次运行，auto 节奏，author-only 评论）
+[2026-10-15 22:10:18] 原帖保存完成：18/18，其中 214200 为图片帖（正文依作者评论确认）；feed 混入 2 条非目标日期旧帖（2026-05-17、2026-08-21）未保存
+[2026-10-15 22:20] 风险识别：已调用 bbxm-risk-identification 五步法（上游=当日原帖集合18篇，未另跑 information-processing）；知识页核对：风险类型/风险源与传导路径已读；SKILL引用的 风险观察与演绎、topics/风险来源与传导路径 及 references/handoff-contract.md 均不存在，按实际页面核对并记为边界
+[2026-10-15 22:21] risk-analysis.json 自检通过：saved=18=analyzed+unresolved(0)，qualified=5（R2×3 R3×1 W3×1），not_written=13（N×12 待验证×1），post_key唯一
+[2026-10-15 22:21] Excel 更新器执行：status=written count=5（tools/bbxm-risk-dashboard/data/冰冰小美风险提示.xlsx）；未写 data/Risk/ 目录，未生成 HTML
+[2026-10-15 22:22] summary.md 生成（四章齐全，解析章节基于当日原帖+作者评论+库内冰冰小美知识页，未联网补数）；操作.md 生成（买入信号5条，无卖出/减仓）

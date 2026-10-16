@@ -1,0 +1,343 @@
+{
+  "date": "2026-10-16",
+  "viewportChecks": 48,
+  "captures": [
+    "M1-专题目录.png",
+    "M1-all.png",
+    "M1-verify.png",
+    "M1-monitor.png",
+    "M1-档案.png",
+    "M1-tech.png",
+    "M1-relations.png",
+    "M1-history.png",
+    "M1-编辑表单.png",
+    "M1-停用确认.png",
+    "M1-新增表单.png",
+    "M1-读取失败.png",
+    "M2-风险源.png",
+    "M2-风险源历史.png",
+    "M2-风险类型.png",
+    "M2-新增定义.png",
+    "M2-变量定义.png",
+    "M2-变量观测指标.png",
+    "M2-指标维护.png",
+    "M2-候选列表.png",
+    "M2-候选审核.png",
+    "M2-AI观测审核.png",
+    "M2-修订记录.png",
+    "M2-暗色目录.png",
+    "M2-暗色审核.png",
+    "M3-策略目录.png",
+    "M3-流水线.png",
+    "M3-AI管理.png",
+    "M3-策略评估.png",
+    "M1-手机目录.png",
+    "M1-手机详情.png",
+    "M1-手机表单.png",
+    "M2-手机目录.png",
+    "M2-手机候选.png",
+    "M2-手机审核.png",
+    "M2-手机AI观测审核.png",
+    "M3-手机目录.png"
+  ],
+  "viewports": [
+    {
+      "name": "M1目录",
+      "width": 1920,
+      "viewport": 1920,
+      "content": 1920
+    },
+    {
+      "name": "M1详情",
+      "width": 1920,
+      "viewport": 1920,
+      "content": 1920
+    },
+    {
+      "name": "M1编辑",
+      "width": 1920,
+      "viewport": 1920,
+      "content": 1920
+    },
+    {
+      "name": "M2目录",
+      "width": 1920,
+      "viewport": 1920,
+      "content": 1920
+    },
+    {
+      "name": "M2候选",
+      "width": 1920,
+      "viewport": 1920,
+      "content": 1920
+    },
+    {
+      "name": "M2审核",
+      "width": 1920,
+      "viewport": 1920,
+      "content": 1920
+    },
+    {
+      "name": "M3目录",
+      "width": 1920,
+      "viewport": 1920,
+      "content": 1920
+    },
+    {
+      "name": "M3流水线",
+      "width": 1920,
+      "viewport": 1920,
+      "content": 1920
+    },
+    {
+      "name": "M1目录",
+      "width": 1440,
+      "viewport": 1440,
+      "content": 1440
+    },
+    {
+      "name": "M1详情",
+      "width": 1440,
+      "viewport": 1440,
+      "content": 1440
+    },
+    {
+      "name": "M1编辑",
+      "width": 1440,
+      "viewport": 1440,
+      "content": 1440
+    },
+    {
+      "name": "M2目录",
+      "width": 1440,
+      "viewport": 1440,
+      "content": 1440
+    },
+    {
+      "name": "M2候选",
+      "width": 1440,
+      "viewport": 1440,
+      "content": 1440
+    },
+    {
+      "name": "M2审核",
+      "width": 1440,
+      "viewport": 1440,
+      "content": 1440
+    },
+    {
+      "name": "M3目录",
+      "width": 1440,
+      "viewport": 1440,
+      "content": 1440
+    },
+    {
+      "name": "M3流水线",
+      "width": 1440,
+      "viewport": 1440,
+      "content": 1440
+    },
+    {
+      "name": "M1目录",
+      "width": 1024,
+      "viewport": 1024,
+      "content": 1024
+    },
+    {
+      "name": "M1详情",
+      "width": 1024,
+      "viewport": 1024,
+      "content": 1024
+    },
+    {
+      "name": "M1编辑",
+      "width": 1024,
+      "viewport": 1024,
+      "content": 1024
+    },
+    {
+      "name": "M2目录",
+      "width": 1024,
+      "viewport": 1024,
+      "content": 1024
+    },
+    {
+      "name": "M2候选",
+      "width": 1024,
+      "viewport": 1024,
+      "content": 1024
+    },
+    {
+      "name": "M2审核",
+      "width": 1024,
+      "viewport": 1024,
+      "content": 1024
+    },
+    {
+      "name": "M3目录",
+      "width": 1024,
+      "viewport": 1024,
+      "content": 1024
+    },
+    {
+      "name": "M3流水线",
+      "width": 1024,
+      "viewport": 1024,
+      "content": 1024
+    },
+    {
+      "name": "M1目录",
+      "width": 768,
+      "viewport": 768,
+      "content": 768
+    },
+    {
+      "name": "M1详情",
+      "width": 768,
+      "viewport": 768,
+      "content": 768
+    },
+    {
+      "name": "M1编辑",
+      "width": 768,
+      "viewport": 768,
+      "content": 768
+    },
+    {
+      "name": "M2目录",
+      "width": 768,
+      "viewport": 768,
+      "content": 768
+    },
+    {
+      "name": "M2候选",
+      "width": 768,
+      "viewport": 768,
+      "content": 768
+    },
+    {
+      "name": "M2审核",
+      "width": 768,
+      "viewport": 768,
+      "content": 768
+    },
+    {
+      "name": "M3目录",
+      "width": 768,
+      "viewport": 768,
+      "content": 768
+    },
+    {
+      "name": "M3流水线",
+      "width": 768,
+      "viewport": 768,
+      "content": 768
+    },
+    {
+      "name": "M1目录",
+      "width": 390,
+      "viewport": 390,
+      "content": 390
+    },
+    {
+      "name": "M1详情",
+      "width": 390,
+      "viewport": 390,
+      "content": 390
+    },
+    {
+      "name": "M1编辑",
+      "width": 390,
+      "viewport": 390,
+      "content": 390
+    },
+    {
+      "name": "M2目录",
+      "width": 390,
+      "viewport": 390,
+      "content": 390
+    },
+    {
+      "name": "M2候选",
+      "width": 390,
+      "viewport": 390,
+      "content": 390
+    },
+    {
+      "name": "M2审核",
+      "width": 390,
+      "viewport": 390,
+      "content": 390
+    },
+    {
+      "name": "M3目录",
+      "width": 390,
+      "viewport": 390,
+      "content": 390
+    },
+    {
+      "name": "M3流水线",
+      "width": 390,
+      "viewport": 390,
+      "content": 390
+    },
+    {
+      "name": "M1目录",
+      "width": 320,
+      "viewport": 320,
+      "content": 320
+    },
+    {
+      "name": "M1详情",
+      "width": 320,
+      "viewport": 320,
+      "content": 320
+    },
+    {
+      "name": "M1编辑",
+      "width": 320,
+      "viewport": 320,
+      "content": 320
+    },
+    {
+      "name": "M2目录",
+      "width": 320,
+      "viewport": 320,
+      "content": 320
+    },
+    {
+      "name": "M2候选",
+      "width": 320,
+      "viewport": 320,
+      "content": 320
+    },
+    {
+      "name": "M2审核",
+      "width": 320,
+      "viewport": 320,
+      "content": 320
+    },
+    {
+      "name": "M3目录",
+      "width": 320,
+      "viewport": 320,
+      "content": 320
+    },
+    {
+      "name": "M3流水线",
+      "width": 320,
+      "viewport": 320,
+      "content": 320
+    }
+  ],
+  "checks": [
+    "M1至M2",
+    "M2至M3",
+    "M3至M1",
+    "M1统一导航",
+    "M2统一导航",
+    "M3统一导航"
+  ],
+  "errors": [],
+  "network": []
+}

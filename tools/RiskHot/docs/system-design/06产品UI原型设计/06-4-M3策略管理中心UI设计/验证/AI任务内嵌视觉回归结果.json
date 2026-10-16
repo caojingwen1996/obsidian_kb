@@ -1,0 +1,105 @@
+{
+  "date": "2026-10-16",
+  "protection": [
+    {
+      "name": "M3策略管理中心交互原型.html",
+      "before": "2223e5dc218e29ed32edccace5f091a868d2edbdc6d9328784b76211ce0b591f",
+      "after": "2223e5dc218e29ed32edccace5f091a868d2edbdc6d9328784b76211ce0b591f"
+    },
+    {
+      "name": "原型资源/flow-data.js",
+      "before": "7362bcdd91050fa3befff4fb3d5a101bcbb7adfebeb4bfb17068d93a8a4ed617",
+      "after": "7362bcdd91050fa3befff4fb3d5a101bcbb7adfebeb4bfb17068d93a8a4ed617"
+    },
+    {
+      "name": "全部写入处理与权限检查",
+      "before": "924ebf2bc2792fceb69e1e0f8aaaa976c0251ab67065a93b7328847a245037b8",
+      "after": "924ebf2bc2792fceb69e1e0f8aaaa976c0251ab67065a93b7328847a245037b8"
+    },
+    {
+      "name": "完整性校验",
+      "before": "ac3637dd4157ae47544dfabd5935b2ecc26eaa1afa3b56d6ed09667708335d41",
+      "after": "ac3637dd4157ae47544dfabd5935b2ecc26eaa1afa3b56d6ed09667708335d41"
+    },
+    {
+      "name": "角色与草稿编辑条件",
+      "before": "24a2478808652625507f07ed1cdeca1fd93e602deb6695adea88907a42e30b5e",
+      "after": "24a2478808652625507f07ed1cdeca1fd93e602deb6695adea88907a42e30b5e"
+    },
+    {
+      "name": "AI 任务定义及策略数据",
+      "before": "57695caff5067476ef11f7b20c224211cf2d8881a5c8ea0f11ba72779dbe2d89",
+      "after": "57695caff5067476ef11f7b20c224211cf2d8881a5c8ea0f11ba72779dbe2d89"
+    }
+  ],
+  "checks": [
+    {
+      "name": "策略目录",
+      "identical": true,
+      "before": "66362d9746eeeea74a263e788ce20e8a62dd10f2b7728edc19b3b72aaf60d9c0",
+      "after": "66362d9746eeeea74a263e788ce20e8a62dd10f2b7728edc19b3b72aaf60d9c0"
+    },
+    {
+      "name": "系统全景",
+      "identical": true,
+      "before": "79c1fd69827538501811191931d407708a7bb2b4c747879ef7189ba2a27d7ba2",
+      "after": "79c1fd69827538501811191931d407708a7bb2b4c747879ef7189ba2a27d7ba2"
+    },
+    {
+      "name": "条件节点",
+      "identical": true,
+      "before": "583bda8e2daf521b3790334e16dc0541d7f2f422ce5ddbb454dc7e184ecbcf15",
+      "after": "583bda8e2daf521b3790334e16dc0541d7f2f422ce5ddbb454dc7e184ecbcf15"
+    },
+    {
+      "name": "程序节点",
+      "identical": true,
+      "before": "f214d413095cc7bf510d1e6d40f37f7194800208c76dbc40d50d332307628990",
+      "after": "f214d413095cc7bf510d1e6d40f37f7194800208c76dbc40d50d332307628990"
+    },
+    {
+      "name": "边界节点",
+      "identical": true,
+      "before": "6332d74c26dfa00a7c167332bbc989b67a244a8026501a50e01bb526e200ae95",
+      "after": "6332d74c26dfa00a7c167332bbc989b67a244a8026501a50e01bb526e200ae95"
+    },
+    {
+      "name": "策略-basic",
+      "identical": true,
+      "before": "d1c70efd92e291e42eaa1e4c6737c6b539c5eb53a3b6f16ebe73f065f6e8d5c9",
+      "after": "d1c70efd92e291e42eaa1e4c6737c6b539c5eb53a3b6f16ebe73f065f6e8d5c9"
+    },
+    {
+      "name": "策略-dependencies",
+      "identical": true,
+      "before": "19bfec933a205d9c9e229f95505b3841e2bb7869a5b5b1d3fdd9e028734c3a42",
+      "after": "19bfec933a205d9c9e229f95505b3841e2bb7869a5b5b1d3fdd9e028734c3a42"
+    },
+    {
+      "name": "策略-history",
+      "identical": true,
+      "before": "274bcdb4e2ca78673c21219dd9b6850d4bc9fb9b5818caf28c99fd89efb57e36",
+      "after": "274bcdb4e2ca78673c21219dd9b6850d4bc9fb9b5818caf28c99fd89efb57e36"
+    },
+    {
+      "name": "人工节点",
+      "identical": true,
+      "before": "03acc780b75138959f72b81a5d9f2b32640e15e039f9b84422def8cf28fa74e0",
+      "after": "03acc780b75138959f72b81a5d9f2b32640e15e039f9b84422def8cf28fa74e0"
+    },
+    {
+      "name": "C02-Prompt",
+      "identical": true,
+      "before": "477a9cca42827f72d55f6f321befc5735ae3d405914990d09bf8458d1e65b49a",
+      "after": "477a9cca42827f72d55f6f321befc5735ae3d405914990d09bf8458d1e65b49a"
+    },
+    {
+      "name": "评估",
+      "identical": true,
+      "before": "36ef65f6ea50a2f336106866848f6ee025f0a0689f885bff573f015b7a3f899b",
+      "after": "36ef65f6ea50a2f336106866848f6ee025f0a0689f885bff573f015b7a3f899b"
+    }
+  ],
+  "passed": 11,
+  "total": 11
+}

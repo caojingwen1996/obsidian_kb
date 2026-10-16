@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-16",
+  "files_checked": 22,
+  "local_links": 150,
+  "unchanged_javascript": 5,
+  "presentation_file_changed": true,
+  "interaction_checks": 319,
+  "viewport_checks": 48,
+  "navigation_shell_checks": 6,
+  "screenshots": 37,
+  "visual_evidence_scope": "三中心紧凑标题本轮重新验证，最新流水线手机截图另存",
+  "stale_design_metadata": [
+    {
+      "file": "06-2-M1信源管理中心UI设计/原型资源/ui-v2.css",
+      "scope": "紧凑标题规范已更新，工具侧车保留历史，未自动刷新"
+    },
+    {
+      "file": "06-3-M2风险源管理中心UI设计/原型资源/ui-v2.css",
+      "scope": "紧凑标题规范已更新，工具侧车保留历史，未自动刷新"
+    },
+    {
+      "file": "06-4-M3策略管理中心UI设计/原型资源/styles.css",
+      "scope": "紧凑标题规范已更新，工具侧车保留历史，未自动刷新"
+    }
+  ],
+  "known_preexisting_missing": [
+    {
+      "file": "readme.md",
+      "target": "tools/RiskHot/docs/system-design/06产品UI原型设计/06-1-配置模块产品UI设计/00. 阅读导航",
+      "scope": "重构前既有缺失的配置模块入口；非本轮三中心资源"
+    },
+    {
+      "file": "06-2-M1信源管理中心UI设计/M1信源管理中心交互原型.html",
+      "target": "../06-1-配置模块产品UI设计/配置模块交互原型.html",
+      "scope": "重构前既有缺失的配置模块入口；非本轮三中心资源"
+    }
+  ],
+  "errors": [],
+  "title_audit": {
+    "state_viewport_checks": 1218,
+    "screenshots": 231,
+    "business_unchanged": true
+  },
+  "current_c01": {
+    "layout_assertions": 45,
+    "viewport_checks": 37,
+    "screenshots": 19
+  }
+}

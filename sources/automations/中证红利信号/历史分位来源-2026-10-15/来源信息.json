@@ -1,0 +1,31 @@
+{
+  "fetchedAt": "2026-10-15T15:15:33.250186+08:00",
+  "purpose": "83条缺失历史分位及7条休市期间国债数据的来源快照",
+  "method": {
+    "lagTradingDays": 244,
+    "windowYears": 10,
+    "rank": "strict less-than / count",
+    "minimumSamples": 2000,
+    "p80": "linear interpolation"
+  },
+  "sources": [
+    {
+      "file": "000922.json",
+      "url": "https://www.csindex.com.cn/csindex-home/perf/index-perf?indexCode=000922&startDate=20080526&endDate=20261014",
+      "sha256": "72fc068c91b4e9a51e5ae8f680dfba2e4e5c096db0e657929778cb851d4b1837",
+      "fetchedAt": "2026-10-15T15:10:22.484544+08:00"
+    },
+    {
+      "file": "H00922.json",
+      "url": "https://www.csindex.com.cn/csindex-home/perf/index-perf?indexCode=H00922&startDate=20080526&endDate=20261014",
+      "sha256": "c9872e1888df8b4d5361c7926f8476411b4f0f6efc7d3d830d5dd2fd6407f99c",
+      "fetchedAt": "2026-10-15T15:10:20.309713+08:00"
+    },
+    {
+      "file": "bond-yields.json",
+      "url": "https://datacenter.eastmoney.com/api/data/get?type=RPTA_WEB_TREASURYYIELD&sty=ALL&st=SOLAR_DATE&sr=-1&p=1&ps=500&pageNo=1&pageNum=1",
+      "sha256": "e5f945f48c765ea3b5f4615f3cce0fd3fafa51b13a248b48bd66a916fa3f8b71",
+      "fetchedAt": "2026-10-15T15:12:13.254131+08:00"
+    }
+  ]
+}

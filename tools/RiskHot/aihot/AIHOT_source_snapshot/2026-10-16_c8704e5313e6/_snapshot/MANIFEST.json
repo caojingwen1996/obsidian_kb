@@ -1,0 +1,1897 @@
+{
+  "summary": {
+    "repository": "https://github.com/KKKKhazix/AIHOT",
+    "branch": "main",
+    "commit": "c8704e5313e6b051560365226b3919d7e0ada5ea",
+    "downloaded_at": "2026-10-16T14:31:17.630950+08:00",
+    "destination": "/Users/cjw/dev/Obsidian/wiki/tools/RiskHot/aihot/AIHOT_source_snapshot/2026-10-16_c8704e5313e6",
+    "success": 103,
+    "failure": 0,
+    "required_prompt_count": 19,
+    "all_prompt_count": 29,
+    "typescript_count": 56,
+    "bytes": 668514,
+    "existing_files_preserved": true,
+    "existing_file_count": 6,
+    "scope": "源码参考子集，保留核心模块及一层直接依赖；不宣称独立可构建或运行。"
+  },
+  "required_patterns": {
+    "prefilter.md": [
+      "industry/prompts/prefilter.md"
+    ],
+    "selection-score.md": [
+      "industry/prompts/selection-score.md"
+    ],
+    "structure.md": [
+      "industry/prompts/structure.md"
+    ],
+    "content-understanding.md": [
+      "industry/prompts/content-understanding.md"
+    ],
+    "summarize-*.md": [
+      "industry/prompts/summarize-article-empty.md",
+      "industry/prompts/summarize-article.md",
+      "industry/prompts/summarize-long-post-quoted.md",
+      "industry/prompts/summarize-long-post.md",
+      "industry/prompts/summarize-short-post-quoted.md",
+      "industry/prompts/summarize-short-post.md"
+    ],
+    "mend-wording.md": [
+      "industry/prompts/mend-wording.md"
+    ],
+    "group-*.md": [
+      "industry/prompts/group-batch.md",
+      "industry/prompts/group-definitions.md",
+      "industry/prompts/group-method.md",
+      "industry/prompts/group-pair.md",
+      "industry/prompts/group-signal.md"
+    ],
+    "story-digest.md": [
+      "industry/prompts/story-digest.md"
+    ],
+    "report-period.md": [
+      "industry/prompts/report-period.md"
+    ],
+    "report-period-sections.md": [
+      "industry/prompts/report-period-sections.md"
+    ]
+  },
+  "tasks": [
+    {
+      "id": "AI-01",
+      "name": "行业预筛",
+      "prompts": [
+        "industry/prompts/prefilter.md"
+      ],
+      "implementations": [
+        "packages/backend/src/editorial/analyze.ts",
+        "packages/backend/src/editorial/writing.ts"
+      ],
+      "evidence": [
+        {
+          "path": "packages/backend/src/editorial/analyze.ts",
+          "line": 239,
+          "token": "async function runPrefilter("
+        }
+      ],
+      "note": "purpose=prefilter_article；runSelectionPrefilter 包装调用。"
+    },
+    {
+      "id": "AI-02",
+      "name": "评分 A",
+      "prompts": [
+        "industry/prompts/selection-score.md"
+      ],
+      "implementations": [
+        "packages/backend/src/editorial/analyze.ts"
+      ],
+      "evidence": [
+        {
+          "path": "packages/backend/src/editorial/analyze.ts",
+          "line": 276,
+          "token": "async function runScores("
+        }
+      ],
+      "note": "purpose=score_article；SCORE_CALLS=2；score-1 为第一次独立请求。"
+    },
+    {
+      "id": "AI-03",
+      "name": "评分 B",
+      "prompts": [
+        "industry/prompts/selection-score.md"
+      ],
+      "implementations": [
+        "packages/backend/src/editorial/analyze.ts"
+      ],
+      "evidence": [
+        {
+          "path": "packages/backend/src/editorial/analyze.ts",
+          "line": 289,
+          "token": "for (let i = 0; i < SCORE_CALLS; i++)"
+        }
+      ],
+      "note": "同一循环的 score-2 为第二次独立请求；与第一次顺序执行。"
+    },
+    {
+      "id": "AI-04",
+      "name": "事实结构化",
+      "prompts": [
+        "industry/prompts/safety.md",
+        "industry/prompts/structure.md"
+      ],
+      "implementations": [
+        "packages/backend/src/editorial/analyze.ts",
+        "packages/backend/src/editorial/vocabulary.ts"
+      ],
+      "evidence": [
+        {
+          "path": "packages/backend/src/editorial/analyze.ts",
+          "line": 323,
+          "token": "export async function runStructure("
+        }
+      ],
+      "note": "purpose=structure_article；结构化与整个评分流程并行。"
+    },
+    {
+      "id": "AI-05",
+      "name": "内容理解与写作",
+      "prompts": [
+        "industry/prompts/content-understanding.md",
+        "industry/prompts/rules-answer-first-summary.md",
+        "industry/prompts/rules-anti-hallucination.md",
+        "industry/prompts/rules-domain.md",
+        "industry/prompts/rules-self-contained-title.md",
+        "industry/prompts/understand.md"
+      ],
+      "implementations": [
+        "packages/backend/src/editorial/analyze.ts",
+        "packages/backend/src/editorial/writing.ts"
+      ],
+      "evidence": [
+        {
+          "path": "packages/backend/src/editorial/analyze.ts",
+          "line": 342,
+          "token": "export async function runUnderstand("
+        }
+      ],
+      "note": "purpose=understand_article；实际入口 understand.md 包含 content-understanding.md。"
+    },
+    {
+      "id": "AI-06",
+      "name": "分场景摘要",
+      "prompts": [
+        "industry/prompts/identity-context.md",
+        "industry/prompts/rules-answer-first-summary.md",
+        "industry/prompts/rules-anti-hallucination.md",
+        "industry/prompts/rules-domain.md",
+        "industry/prompts/rules-self-contained-title.md",
+        "industry/prompts/safety.md",
+        "industry/prompts/summarize-article-empty.md",
+        "industry/prompts/summarize-article.md",
+        "industry/prompts/summarize-long-post-quoted.md",
+        "industry/prompts/summarize-long-post.md",
+        "industry/prompts/summarize-short-post-quoted.md",
+        "industry/prompts/summarize-short-post.md"
+      ],
+      "implementations": [
+        "packages/backend/src/editorial/analyze.ts",
+        "packages/backend/src/editorial/writing.ts"
+      ],
+      "evidence": [
+        {
+          "path": "packages/backend/src/editorial/analyze.ts",
+          "line": 423,
+          "token": "async function runSummarize("
+        }
+      ],
+      "note": "purpose=summarize_article；文章/长帖/短帖分流，另有空文及引用片段。"
+    },
+    {
+      "id": "AI-07",
+      "name": "措辞修正与可选翻译",
+      "prompts": [
+        "industry/prompts/mend-wording.md",
+        "industry/prompts/safety.md",
+        "industry/prompts/translate-body.md",
+        "industry/prompts/translate-post.md"
+      ],
+      "implementations": [
+        "packages/backend/src/editorial/analyze.ts",
+        "packages/backend/src/editorial/wording.ts",
+        "packages/backend/src/editorial/translate.ts"
+      ],
+      "evidence": [
+        {
+          "path": "packages/backend/src/editorial/analyze.ts",
+          "line": 386,
+          "token": "async function mendWording("
+        },
+        {
+          "path": "packages/backend/src/editorial/translate.ts",
+          "line": 78,
+          "token": "async function translateBatch("
+        }
+      ],
+      "note": "purpose=mend_wording / translate_body；两个可选操作，全文翻译由 worker schedules 调度。"
+    },
+    {
+      "id": "AI-08",
+      "name": "事件关系判断",
+      "prompts": [
+        "industry/prompts/group-batch.md",
+        "industry/prompts/group-definitions.md",
+        "industry/prompts/group-method.md",
+        "industry/prompts/group-pair.md",
+        "industry/prompts/group-signal.md"
+      ],
+      "implementations": [
+        "packages/backend/src/events/relate.ts",
+        "packages/backend/src/events/group.ts",
+        "packages/backend/src/events/recall.ts",
+        "packages/backend/src/events/consolidate.ts"
+      ],
+      "evidence": [
+        {
+          "path": "packages/backend/src/events/group.ts",
+          "line": 77,
+          "token": "async function judgeBatch("
+        },
+        {
+          "path": "packages/backend/src/events/group.ts",
+          "line": 94,
+          "token": "async function judgeSignal("
+        }
+      ],
+      "note": "purpose=group_article / group_signal；跨事件判断另有 group_story。relate.ts 定义 Prompt、Schema、输入，group.ts 发起调用。"
+    },
+    {
+      "id": "AI-09",
+      "name": "归组复核",
+      "prompts": [
+        "industry/prompts/group-definitions.md",
+        "industry/prompts/group-method.md",
+        "industry/prompts/group-pair.md"
+      ],
+      "implementations": [
+        "packages/backend/src/events/group.ts",
+        "packages/backend/src/events/consolidate.ts",
+        "packages/backend/src/events/relate.ts",
+        "packages/backend/src/editorial/models.ts"
+      ],
+      "evidence": [
+        {
+          "path": "packages/backend/src/events/group.ts",
+          "line": 86,
+          "token": "async function confirmMerge("
+        },
+        {
+          "path": "packages/backend/src/events/consolidate.ts",
+          "line": 56,
+          "token": "async function judgeStories("
+        },
+        {
+          "path": "packages/backend/src/editorial/models.ts",
+          "line": 32,
+          "token": "env: \"GROUP_REVIEW_MODEL\""
+        }
+      ],
+      "note": "purpose=group_review / group_story_review；GROUP_REVIEW_MODEL 是环境配置变量，不是文件。"
+    },
+    {
+      "id": "AI-10",
+      "name": "精选信息增量",
+      "prompts": [
+        "industry/prompts/group-batch.md",
+        "industry/prompts/group-definitions.md",
+        "industry/prompts/group-method.md"
+      ],
+      "implementations": [
+        "packages/backend/src/events/group.ts",
+        "packages/backend/src/events/relate.ts",
+        "packages/backend/src/events/recall.ts"
+      ],
+      "evidence": [
+        {
+          "path": "packages/backend/src/events/group.ts",
+          "line": 77,
+          "token": "async function judgeBatch("
+        },
+        {
+          "path": "packages/backend/src/events/relate.ts",
+          "line": 73,
+          "token": "export const BatchSchema"
+        }
+      ],
+      "note": "与 AI-08 的 group_article 同次调用，输出 selection.addsValue 和 reason；不凭空新增独立调用。"
+    },
+    {
+      "id": "AI-11",
+      "name": "事件综述",
+      "prompts": [
+        "industry/prompts/story-digest.md"
+      ],
+      "implementations": [
+        "packages/backend/src/events/digest.ts",
+        "packages/backend/src/publication/story-evidence.ts"
+      ],
+      "evidence": [
+        {
+          "path": "packages/backend/src/events/digest.ts",
+          "line": 44,
+          "token": "export async function composeStoryDigest("
+        }
+      ],
+      "note": "purpose=story_digest；jobs/events.ts 注册执行。"
+    },
+    {
+      "id": "AI-12",
+      "name": "周期报告总述",
+      "prompts": [
+        "industry/prompts/report-period-no-sections.md",
+        "industry/prompts/report-period-sections.md",
+        "industry/prompts/report-period.md"
+      ],
+      "implementations": [
+        "packages/backend/src/reports/compose.ts",
+        "packages/backend/src/reports/edition.ts"
+      ],
+      "evidence": [
+        {
+          "path": "packages/backend/src/reports/compose.ts",
+          "line": 142,
+          "token": "export function periodPrompt("
+        },
+        {
+          "path": "packages/backend/src/reports/compose.ts",
+          "line": 212,
+          "token": "purpose: `report_${kind}`"
+        }
+      ],
+      "note": "purpose=report_weekly / report_monthly；一次返回 overview 与 sections，日刊规则编排。"
+    },
+    {
+      "id": "AI-13",
+      "name": "周期报告栏目导读",
+      "prompts": [
+        "industry/prompts/report-period-no-sections.md",
+        "industry/prompts/report-period-sections.md",
+        "industry/prompts/report-period.md"
+      ],
+      "implementations": [
+        "packages/backend/src/reports/compose.ts",
+        "packages/backend/src/reports/edition.ts"
+      ],
+      "evidence": [
+        {
+          "path": "packages/backend/src/reports/compose.ts",
+          "line": 148,
+          "token": "sections: introduced.length ?"
+        }
+      ],
+      "note": "是 AI-12 同次调用的 sections 部分；仅为满足栏目条目门槛的栏目生成导读，其他走 no-sections。"
+    }
+  ],
+  "files": [
+    {
+      "path": "LICENSE",
+      "bytes": 1078,
+      "sha256": "b7f53d07ea4ae2eef26a4f8b28cb7d4df95586e2aa713df408f1ffde9f5a0fea",
+      "git_blob_oid": "2d848c9f3fed5317d59e0b88cafa289b42a29d2d",
+      "tasks": [],
+      "reasons": [
+        "调度、站点配置、包路径或上游说明"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/LICENSE"
+    },
+    {
+      "path": "NOTICE",
+      "bytes": 570,
+      "sha256": "1d5df777ab21bafc48d1741f78f378514434f0fa71c17665f014e0519acbea20",
+      "git_blob_oid": "dc992eb2bf97931e00a4c6618b8aa207cd1514f7",
+      "tasks": [],
+      "reasons": [
+        "调度、站点配置、包路径或上游说明"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/NOTICE"
+    },
+    {
+      "path": "README.md",
+      "bytes": 13660,
+      "sha256": "48ec749c52ceb40c6b29e09347bece3122cca4090b5b493f9ddeabe67d221368",
+      "git_blob_oid": "d58561263724a3abe9a47df7650972c2c1547952",
+      "tasks": [],
+      "reasons": [
+        "调度、站点配置、包路径或上游说明"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/README.md"
+    },
+    {
+      "path": "apps/worker/src/main.ts",
+      "bytes": 2128,
+      "sha256": "3508e9fc692a0ef22de47ba5712219e0559df9dab016f77bf92ac70dd5afb13e",
+      "git_blob_oid": "585aed02bb77fcbf6df4a36dc86bacf3a7d1ef15",
+      "tasks": [],
+      "reasons": [
+        "调度、站点配置、包路径或上游说明"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/apps/worker/src/main.ts"
+    },
+    {
+      "path": "apps/worker/src/schedules.ts",
+      "bytes": 5550,
+      "sha256": "63d06856b4c29733caf86726e57558e7863cdb690e085c795153f14765d999f6",
+      "git_blob_oid": "d8f80303fafd46436638c1c7d1e90319593ecab6",
+      "tasks": [],
+      "reasons": [
+        "调度、站点配置、包路径或上游说明"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/apps/worker/src/schedules.ts"
+    },
+    {
+      "path": "docs/architecture.md",
+      "bytes": 12378,
+      "sha256": "8afbf2cc05b7bb5d6dd3dc9fc7b5adfefb6b089f2c0ea908e91ce3a55fe84394",
+      "git_blob_oid": "8a504fa21ce47b2a56d29d7abb6c2055fa4e212d",
+      "tasks": [],
+      "reasons": [
+        "原始架构依据"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/docs/architecture.md"
+    },
+    {
+      "path": "docs/customize.md",
+      "bytes": 19748,
+      "sha256": "d1fcd0e5bfae285d7c74986961db7a1d107697c6692cbeabad64a79df59734a0",
+      "git_blob_oid": "2a8d2f235030b5294054f4136e5f20a30d505ce3",
+      "tasks": [],
+      "reasons": [
+        "原始架构依据"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/docs/customize.md"
+    },
+    {
+      "path": "docs/grouping.md",
+      "bytes": 5428,
+      "sha256": "f34305506b2a54a4d0ab0b26cfbc5b83231a463b34c094cc5c491fa122e9547b",
+      "git_blob_oid": "7168a03d101e80b60cbfdffec5e22f2f6bc9076c",
+      "tasks": [],
+      "reasons": [
+        "原始架构依据"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/docs/grouping.md"
+    },
+    {
+      "path": "docs/selection.md",
+      "bytes": 13261,
+      "sha256": "5ba9a71e7b3006c9641ca52c358a95dee531a0418fbb727d55152d78f2298c39",
+      "git_blob_oid": "0a02242e0977b974cacd82b52e4182aa7d5e891d",
+      "tasks": [],
+      "reasons": [
+        "原始架构依据"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/docs/selection.md"
+    },
+    {
+      "path": "docs/sources.md",
+      "bytes": 20980,
+      "sha256": "c50a08a4ab48b7cba7690e4bbf893ba7d989b5f58c91ba009f16442453a817b6",
+      "git_blob_oid": "0348c649a7adace1e803113e59f611f331dcf8ed",
+      "tasks": [],
+      "reasons": [
+        "原始架构依据"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/docs/sources.md"
+    },
+    {
+      "path": "docs/story-digest-evaluation.md",
+      "bytes": 3792,
+      "sha256": "88ea4b62f1e74c0c4ab6e4b880b6c5893dc4a4c343467b3b18a42aa71bda1535",
+      "git_blob_oid": "4918ce734534bf96a33776939e2d9a4c31a17818",
+      "tasks": [],
+      "reasons": [
+        "原始架构依据"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/docs/story-digest-evaluation.md"
+    },
+    {
+      "path": "industry/README.md",
+      "bytes": 960,
+      "sha256": "34058936ebf6339aef33e212868d218a0fbefa4d2275851a8a1486fe805922a5",
+      "git_blob_oid": "765cb8f23b0b65cc5dfa661cddf42784578bbacc",
+      "tasks": [],
+      "reasons": [
+        "行业配置与说明"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/README.md"
+    },
+    {
+      "path": "industry/package.json",
+      "bytes": 111,
+      "sha256": "666dc35a33e97e9186a2b5830b52d6b7da373f2c88bcad9b528d08d0e7cf9d37",
+      "git_blob_oid": "c176029e599d2094a2f13577f6fa8c365f055878",
+      "tasks": [],
+      "reasons": [
+        "行业配置与说明"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/package.json"
+    },
+    {
+      "path": "industry/prompts/content-understanding.md",
+      "bytes": 6313,
+      "sha256": "1258869a380794e925e024c4b9595a18fdfc49c551927fdd106b8040b820c8ef",
+      "git_blob_oid": "574a1512762876d331d5f55eb42ef573a2c7eb59",
+      "tasks": [
+        "AI-05"
+      ],
+      "reasons": [
+        "完整 Prompt 包及共享依赖",
+        "用户指定 Prompt"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/prompts/content-understanding.md"
+    },
+    {
+      "path": "industry/prompts/group-batch.md",
+      "bytes": 2875,
+      "sha256": "322f8a6356417d4fc757d6bf571f52f4420d86a760a2f13ff1a8ceb18d771513",
+      "git_blob_oid": "5ae104c24aabd99d9a82f32d832e5901db47865a",
+      "tasks": [
+        "AI-08",
+        "AI-10"
+      ],
+      "reasons": [
+        "完整 Prompt 包及共享依赖",
+        "用户指定 Prompt"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/prompts/group-batch.md"
+    },
+    {
+      "path": "industry/prompts/group-definitions.md",
+      "bytes": 2349,
+      "sha256": "135dfd2ab167a2643463d9c7e614a0ba3319871b6e27247e179836dba1169669",
+      "git_blob_oid": "b978478e8fb8d92913e6a7f08e2da7d8f44565b5",
+      "tasks": [
+        "AI-08",
+        "AI-09",
+        "AI-10"
+      ],
+      "reasons": [
+        "完整 Prompt 包及共享依赖",
+        "用户指定 Prompt"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/prompts/group-definitions.md"
+    },
+    {
+      "path": "industry/prompts/group-method.md",
+      "bytes": 652,
+      "sha256": "0bde8c68b2bc8954931a35246c0975b0f38459f11ac2ca354a1d9491660674fa",
+      "git_blob_oid": "9aa73587b6a826c58c598fa42940f2af63e0d662",
+      "tasks": [
+        "AI-08",
+        "AI-09",
+        "AI-10"
+      ],
+      "reasons": [
+        "完整 Prompt 包及共享依赖",
+        "用户指定 Prompt"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/prompts/group-method.md"
+    },
+    {
+      "path": "industry/prompts/group-pair.md",
+      "bytes": 490,
+      "sha256": "a711a1b7c9e5c85b42ff54efe922e5f13f78221262d14339a50b7a793bb49053",
+      "git_blob_oid": "3bad0c3e9cb3ba0f29cc578687cc9131a408df9f",
+      "tasks": [
+        "AI-08",
+        "AI-09"
+      ],
+      "reasons": [
+        "完整 Prompt 包及共享依赖",
+        "用户指定 Prompt"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/prompts/group-pair.md"
+    },
+    {
+      "path": "industry/prompts/group-signal.md",
+      "bytes": 701,
+      "sha256": "e5f3746474e6d18bc292254109b9b3f9fbb42c51384843879f2a6899a67f79c5",
+      "git_blob_oid": "f13fab3e9b0ff3320c58e105afa183ae3ba7e857",
+      "tasks": [
+        "AI-08"
+      ],
+      "reasons": [
+        "完整 Prompt 包及共享依赖",
+        "用户指定 Prompt"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/prompts/group-signal.md"
+    },
+    {
+      "path": "industry/prompts/identity-context.md",
+      "bytes": 244,
+      "sha256": "6ac2adecce61231fa8ce50685eacf2871e386983dadb58977f522674f0b0ddc7",
+      "git_blob_oid": "cc920549faeba36cb59b9da8f81a4100f26bf96e",
+      "tasks": [
+        "AI-06"
+      ],
+      "reasons": [
+        "完整 Prompt 包及共享依赖"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/prompts/identity-context.md"
+    },
+    {
+      "path": "industry/prompts/mend-wording.md",
+      "bytes": 535,
+      "sha256": "8b207964d36c55c36c8154b32e9cd73e90c60fb41a327729ac2d88c783812cb7",
+      "git_blob_oid": "2bcb8b1eac7c9f245a10a42b72f3fb3fb2690bdc",
+      "tasks": [
+        "AI-07"
+      ],
+      "reasons": [
+        "完整 Prompt 包及共享依赖",
+        "用户指定 Prompt"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/prompts/mend-wording.md"
+    },
+    {
+      "path": "industry/prompts/prefilter.md",
+      "bytes": 1601,
+      "sha256": "bc27aaf562982f23e1b6fd93a45506073ea10f1552b68e3ea85a1697277ccce0",
+      "git_blob_oid": "4fbd092cad1f69e009a9fac3681d6fc355ba1ee4",
+      "tasks": [
+        "AI-01"
+      ],
+      "reasons": [
+        "完整 Prompt 包及共享依赖",
+        "用户指定 Prompt"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/prompts/prefilter.md"
+    },
+    {
+      "path": "industry/prompts/report-period-no-sections.md",
+      "bytes": 18,
+      "sha256": "96cf08f4f3a6b5ad2f0a1b9ab5c42138adafa1f52e00e9810dcbfa350a1bb049",
+      "git_blob_oid": "ac0f48c7486a83855ff521e4addbad4d8920faba",
+      "tasks": [
+        "AI-12",
+        "AI-13"
+      ],
+      "reasons": [
+        "完整 Prompt 包及共享依赖"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/prompts/report-period-no-sections.md"
+    },
+    {
+      "path": "industry/prompts/report-period-sections.md",
+      "bytes": 228,
+      "sha256": "8ad73d08323f202e29a2a0e02c29476bb7bab1122aeae94899c3c984f32830c9",
+      "git_blob_oid": "68001f2619bea208512a55b540adef3d9e69e208",
+      "tasks": [
+        "AI-12",
+        "AI-13"
+      ],
+      "reasons": [
+        "完整 Prompt 包及共享依赖",
+        "用户指定 Prompt"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/prompts/report-period-sections.md"
+    },
+    {
+      "path": "industry/prompts/report-period.md",
+      "bytes": 775,
+      "sha256": "085f5d6626eb3648282b38b3d86f5ea6f0101f0c12ff33ad4f8650eba9a480c8",
+      "git_blob_oid": "1fa25ee8302ba0dbdb4e9721afc2dc4fe222d81e",
+      "tasks": [
+        "AI-12",
+        "AI-13"
+      ],
+      "reasons": [
+        "完整 Prompt 包及共享依赖",
+        "用户指定 Prompt"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/prompts/report-period.md"
+    },
+    {
+      "path": "industry/prompts/rules-answer-first-summary.md",
+      "bytes": 1131,
+      "sha256": "b8a517e60351e5adc453159e9d4e49a08d765c657a9b726044f04601d7f5a923",
+      "git_blob_oid": "a2d7c3246a5989ec2507b31b05190a3ac434e9e4",
+      "tasks": [
+        "AI-05",
+        "AI-06"
+      ],
+      "reasons": [
+        "完整 Prompt 包及共享依赖"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/prompts/rules-answer-first-summary.md"
+    },
+    {
+      "path": "industry/prompts/rules-anti-hallucination.md",
+      "bytes": 1176,
+      "sha256": "37026fd742a233cb932166e173c19588fdbba086709d3ef4a8fd532f2be1cccf",
+      "git_blob_oid": "b56a5fc897078c4b20a6f49a6a12061e659ecf74",
+      "tasks": [
+        "AI-05",
+        "AI-06"
+      ],
+      "reasons": [
+        "完整 Prompt 包及共享依赖"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/prompts/rules-anti-hallucination.md"
+    },
+    {
+      "path": "industry/prompts/rules-domain.md",
+      "bytes": 3930,
+      "sha256": "d2ae6066259bac3144eb2bea32f0239e15dd23f7e19d1acf281727853277a864",
+      "git_blob_oid": "bba754893537e1d41f8a42398934c9affef9f34e",
+      "tasks": [
+        "AI-05",
+        "AI-06"
+      ],
+      "reasons": [
+        "完整 Prompt 包及共享依赖"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/prompts/rules-domain.md"
+    },
+    {
+      "path": "industry/prompts/rules-self-contained-title.md",
+      "bytes": 1814,
+      "sha256": "4f1652d77ef64ee6756b6872a4b4405fcb46edc8356c4de3cb577e21208f4f6b",
+      "git_blob_oid": "7706a682eb5e4b7af2b95f3a700d6b364216cc2b",
+      "tasks": [
+        "AI-05",
+        "AI-06"
+      ],
+      "reasons": [
+        "完整 Prompt 包及共享依赖"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/prompts/rules-self-contained-title.md"
+    },
+    {
+      "path": "industry/prompts/safety.md",
+      "bytes": 234,
+      "sha256": "3963b20e601f9bdde876ea9a9f2e68b58d6e618e59109791773ff6e1d4e7badd",
+      "git_blob_oid": "ad08766153ed60790257dce5b8af6d24e038f788",
+      "tasks": [
+        "AI-04",
+        "AI-06",
+        "AI-07"
+      ],
+      "reasons": [
+        "完整 Prompt 包及共享依赖"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/prompts/safety.md"
+    },
+    {
+      "path": "industry/prompts/selection-score.md",
+      "bytes": 9705,
+      "sha256": "11700da358cfa0a07b73deaf872ac7fcf43cf665e47e8a6b40e594fa82447ace",
+      "git_blob_oid": "2f80469d40abc1d17685e809739f8ad324ccb9c7",
+      "tasks": [
+        "AI-02",
+        "AI-03"
+      ],
+      "reasons": [
+        "完整 Prompt 包及共享依赖",
+        "用户指定 Prompt"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/prompts/selection-score.md"
+    },
+    {
+      "path": "industry/prompts/story-digest.md",
+      "bytes": 1825,
+      "sha256": "de9ea4c2acee5eefd8c8dbc7fca8c1f95145592ab7df91bebfbfbb41a5108630",
+      "git_blob_oid": "751a84318cee4091f8b1dd20e009a4dd41ac26b7",
+      "tasks": [
+        "AI-11"
+      ],
+      "reasons": [
+        "完整 Prompt 包及共享依赖",
+        "用户指定 Prompt"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/prompts/story-digest.md"
+    },
+    {
+      "path": "industry/prompts/structure.md",
+      "bytes": 7269,
+      "sha256": "28cd59a85ce48f6ea3f79933455533e8b612a7cfedf432d75b1508c9ca7c6789",
+      "git_blob_oid": "7c6535c9240e85b74fc335f0e49f43a9ba59f0ab",
+      "tasks": [
+        "AI-04"
+      ],
+      "reasons": [
+        "完整 Prompt 包及共享依赖",
+        "用户指定 Prompt"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/prompts/structure.md"
+    },
+    {
+      "path": "industry/prompts/summarize-article-empty.md",
+      "bytes": 84,
+      "sha256": "776095e536b4c8d6305bef073b6c421d4da876b974a2395baf1befb2e7fdd71a",
+      "git_blob_oid": "a903153592688d2795265b8aee4e43c3c12a9074",
+      "tasks": [
+        "AI-06"
+      ],
+      "reasons": [
+        "完整 Prompt 包及共享依赖",
+        "用户指定 Prompt"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/prompts/summarize-article-empty.md"
+    },
+    {
+      "path": "industry/prompts/summarize-article.md",
+      "bytes": 1243,
+      "sha256": "c6168d058ef79d116e5fb40b2107528de17361fe226704562e1cbdfb3a899afb",
+      "git_blob_oid": "40d51950f705e1592475f2f81438f70e5d30266c",
+      "tasks": [
+        "AI-06"
+      ],
+      "reasons": [
+        "完整 Prompt 包及共享依赖",
+        "用户指定 Prompt"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/prompts/summarize-article.md"
+    },
+    {
+      "path": "industry/prompts/summarize-long-post-quoted.md",
+      "bytes": 108,
+      "sha256": "4b9d46e6f676d9ac021f29a669144d178398ba8490a07ada2764a5c2b9f46fd0",
+      "git_blob_oid": "1031a3c61a3befdd098c63fd48918af3c9654755",
+      "tasks": [
+        "AI-06"
+      ],
+      "reasons": [
+        "完整 Prompt 包及共享依赖",
+        "用户指定 Prompt"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/prompts/summarize-long-post-quoted.md"
+    },
+    {
+      "path": "industry/prompts/summarize-long-post.md",
+      "bytes": 1114,
+      "sha256": "435dd830db2eac7e2bd8b60d6b4aa7a01a35c44f4ff365febc00426081018795",
+      "git_blob_oid": "f068a9eb65cc3ea058e950b77beffc806e8f1ac8",
+      "tasks": [
+        "AI-06"
+      ],
+      "reasons": [
+        "完整 Prompt 包及共享依赖",
+        "用户指定 Prompt"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/prompts/summarize-long-post.md"
+    },
+    {
+      "path": "industry/prompts/summarize-short-post-quoted.md",
+      "bytes": 545,
+      "sha256": "13932cd0485af8e8d249ce901d4eced7f61bb1844ba0abaf7976076879d8b992",
+      "git_blob_oid": "f6b9f4bd13a86c6d57e1c6ecaf2864d7a698da06",
+      "tasks": [
+        "AI-06"
+      ],
+      "reasons": [
+        "完整 Prompt 包及共享依赖",
+        "用户指定 Prompt"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/prompts/summarize-short-post-quoted.md"
+    },
+    {
+      "path": "industry/prompts/summarize-short-post.md",
+      "bytes": 603,
+      "sha256": "a9c7bb00b229315543fe816587acebd06bd5e1ed195d533020773120b836701b",
+      "git_blob_oid": "d37612eac19f68cdd561d5e011ba9bdfb7469e39",
+      "tasks": [
+        "AI-06"
+      ],
+      "reasons": [
+        "完整 Prompt 包及共享依赖",
+        "用户指定 Prompt"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/prompts/summarize-short-post.md"
+    },
+    {
+      "path": "industry/prompts/translate-body.md",
+      "bytes": 878,
+      "sha256": "ab366757aee22b33df9584d7b0de0fc580acb1f7fba23aa009e62f0e0eb64f84",
+      "git_blob_oid": "53db81138e214eb2cb6136978216587c2be2f9be",
+      "tasks": [
+        "AI-07"
+      ],
+      "reasons": [
+        "完整 Prompt 包及共享依赖"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/prompts/translate-body.md"
+    },
+    {
+      "path": "industry/prompts/translate-post.md",
+      "bytes": 283,
+      "sha256": "69be2da90b33716adc1ad3b70c1d801b96273d6da03c72d0ea07ffa180fc54c7",
+      "git_blob_oid": "c09484eb8579cd437eade6baa44bd5cd087cd407",
+      "tasks": [
+        "AI-07"
+      ],
+      "reasons": [
+        "完整 Prompt 包及共享依赖"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/prompts/translate-post.md"
+    },
+    {
+      "path": "industry/prompts/understand.md",
+      "bytes": 324,
+      "sha256": "39bbbd78478b7b4f9fcd236a31acad74f51e423f4bd91ab5946a9e09430abe50",
+      "git_blob_oid": "81e6e423c5646e2d33dac7eda278e13e2e61980b",
+      "tasks": [
+        "AI-05"
+      ],
+      "reasons": [
+        "完整 Prompt 包及共享依赖"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/prompts/understand.md"
+    },
+    {
+      "path": "industry/selection.ts",
+      "bytes": 1320,
+      "sha256": "c931f041cbe5099fed008424e8c4fa77b4a532706141300360d1e17a512597c2",
+      "git_blob_oid": "95cc87ec7eddc6f82b632cb017867d61a7055571",
+      "tasks": [],
+      "reasons": [
+        "直接依赖：packages/backend/src/editorial/analyze.ts",
+        "行业配置与说明"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/selection.ts"
+    },
+    {
+      "path": "industry/sources.json",
+      "bytes": 9069,
+      "sha256": "c5d9ae9b5c61040f89ca0d1be01c41e5d311ce6724685f36be9f8a1d751ed558",
+      "git_blob_oid": "44dce745cbe4fbbb420f3fed997280496bfbfc7d",
+      "tasks": [],
+      "reasons": [
+        "行业配置与说明"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/sources.json"
+    },
+    {
+      "path": "industry/taxonomy.ts",
+      "bytes": 13724,
+      "sha256": "82a9bb97a40a355daf237739c6dc7f0b50808cd6a8b172f34548b7d52d32baa7",
+      "git_blob_oid": "682b5085074298e2edc7ccd7dd13fe0848310b7b",
+      "tasks": [],
+      "reasons": [
+        "直接依赖：packages/backend/src/editorial/analyze.ts",
+        "直接依赖：packages/backend/src/editorial/vocabulary.ts",
+        "直接依赖：packages/backend/src/editorial/writing.ts",
+        "直接依赖：packages/backend/src/reports/compose.ts",
+        "直接依赖：packages/backend/src/reports/correct.ts",
+        "直接依赖：packages/backend/src/reports/edition.ts",
+        "行业配置与说明"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/taxonomy.ts"
+    },
+    {
+      "path": "industry/topics.json",
+      "bytes": 10584,
+      "sha256": "784e03f44aca0c6795e3830c92448af877203068a17d3713931adbd3ba93db17",
+      "git_blob_oid": "4750aa3ece077354b778f9a9259d4171c0cee6db",
+      "tasks": [],
+      "reasons": [
+        "行业配置与说明"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/topics.json"
+    },
+    {
+      "path": "industry/tsconfig.json",
+      "bytes": 64,
+      "sha256": "487cd5319c8b830a4cf881e48aeb9ee9878d8fd93b414ac78033e1409db72f2b",
+      "git_blob_oid": "c213b9e110537e9953a0370ba03dfffd084b425a",
+      "tasks": [],
+      "reasons": [
+        "行业配置与说明"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/tsconfig.json"
+    },
+    {
+      "path": "industry/wording.ts",
+      "bytes": 541,
+      "sha256": "18ecc128effa3a43afb133de8498f53ac835cf7b21c985eabbac04681224d873",
+      "git_blob_oid": "201981639a312d9bf60b37acdfe233bc7eee60f2",
+      "tasks": [],
+      "reasons": [
+        "直接依赖：packages/backend/src/editorial/models.ts",
+        "直接依赖：packages/backend/src/editorial/wording.ts",
+        "行业配置与说明"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/industry/wording.ts"
+    },
+    {
+      "path": "packages/backend/package.json",
+      "bytes": 620,
+      "sha256": "8a2546a4292f6ed2fd1bf2e798bfd845e3d748a10e86f3f283303f214529d318",
+      "git_blob_oid": "c1381fbe0fc48b24906961772b39c0484f669777",
+      "tasks": [],
+      "reasons": [
+        "调度、站点配置、包路径或上游说明"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/package.json"
+    },
+    {
+      "path": "packages/backend/src/audit.ts",
+      "bytes": 2169,
+      "sha256": "32f1f8a5514e30c7837a558d98b8c13e9a13df2100332a11a51c4470757ae10e",
+      "git_blob_oid": "84729558a0714e3d4c2b4efbff5c833d160074fc",
+      "tasks": [],
+      "reasons": [
+        "直接依赖：packages/backend/src/events/corrections.ts",
+        "直接依赖：packages/backend/src/events/merge.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/audit.ts"
+    },
+    {
+      "path": "packages/backend/src/config.ts",
+      "bytes": 5468,
+      "sha256": "f34a701f7ccc3e2486348d942a62761d640d19acc04ac9750e3769caf5584638",
+      "git_blob_oid": "c528d369c4b80e638094df5f3377ff3324d94e4f",
+      "tasks": [],
+      "reasons": [
+        "直接依赖：packages/backend/src/editorial/prompts.ts",
+        "直接依赖：packages/backend/src/jobs/queue.ts",
+        "直接依赖：packages/backend/src/providers/embeddings.ts",
+        "直接依赖：packages/backend/src/providers/llm.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/config.ts"
+    },
+    {
+      "path": "packages/backend/src/content/extract.ts",
+      "bytes": 12410,
+      "sha256": "91ae6268494ecc560e595dc67fe8e4c6bb2d85ec420360becdacfcba7c276647",
+      "git_blob_oid": "a99e1a57b523a276edc672d93270be806f9c0971",
+      "tasks": [],
+      "reasons": [
+        "直接依赖：packages/backend/src/editorial/analyze.ts",
+        "直接依赖：packages/backend/src/jobs/content.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/content/extract.ts"
+    },
+    {
+      "path": "packages/backend/src/content/materials.ts",
+      "bytes": 17796,
+      "sha256": "9717cd1d14a9630b46ce49b4c1fd2969bca6130d7a97619b2f802bb5bfc66d2e",
+      "git_blob_oid": "3b22ef71eaa26b781dfc5d9982e061cbfe50e870",
+      "tasks": [],
+      "reasons": [
+        "直接依赖：packages/backend/src/events/group.ts",
+        "直接依赖：packages/backend/src/jobs/content.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/content/materials.ts"
+    },
+    {
+      "path": "packages/backend/src/content/posts.ts",
+      "bytes": 752,
+      "sha256": "94eeeb5303e9ca43e50bf102bb109768e165ef69c0b01b3c280e7b1814377df5",
+      "git_blob_oid": "8cfd335dfe7da218f08c1411cdf88b2b4f68ee63",
+      "tasks": [],
+      "reasons": [
+        "直接依赖：packages/backend/src/editorial/analyze.ts",
+        "直接依赖：packages/backend/src/editorial/translate.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/content/posts.ts"
+    },
+    {
+      "path": "packages/backend/src/content/provenance.ts",
+      "bytes": 5908,
+      "sha256": "d3716abb1f16e8e4348d6d72e7b708c997af499fb857c3af4b8bf7efec52bc98",
+      "git_blob_oid": "e84db7ee27ab0e2ab87dffecf60c0ff4d270e6e2",
+      "tasks": [],
+      "reasons": [
+        "直接依赖：packages/backend/src/events/corrections.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/content/provenance.ts"
+    },
+    {
+      "path": "packages/backend/src/content/sanitize.ts",
+      "bytes": 11877,
+      "sha256": "2f70991788b7ff21ccfc6547ae888b5391ae61c4a10bdf9a5542f4685d92eae0",
+      "git_blob_oid": "090df92381171e6f1dfde51efb1f549bf3da203e",
+      "tasks": [],
+      "reasons": [
+        "直接依赖：packages/backend/src/editorial/translate.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/content/sanitize.ts"
+    },
+    {
+      "path": "packages/backend/src/db.ts",
+      "bytes": 1800,
+      "sha256": "b04d24652386038066cfb69ddb5c755e4b90aad6fa3051649a7dbf34525c8189",
+      "git_blob_oid": "5fa143af2798075c1b21eb6e5463f964a1b7d62b",
+      "tasks": [],
+      "reasons": [
+        "直接依赖：packages/backend/src/editorial/analyze.ts",
+        "直接依赖：packages/backend/src/editorial/input.ts",
+        "直接依赖：packages/backend/src/editorial/models.ts",
+        "直接依赖：packages/backend/src/editorial/translate.ts",
+        "直接依赖：packages/backend/src/events/consolidate.ts",
+        "直接依赖：packages/backend/src/events/corrections.ts",
+        "直接依赖：packages/backend/src/events/digest.ts",
+        "直接依赖：packages/backend/src/events/group.ts",
+        "直接依赖：packages/backend/src/events/hot.ts",
+        "直接依赖：packages/backend/src/events/merge.ts",
+        "直接依赖：packages/backend/src/events/recall.ts",
+        "直接依赖：packages/backend/src/events/related.ts",
+        "直接依赖：packages/backend/src/jobs/content.ts",
+        "直接依赖：packages/backend/src/jobs/events.ts",
+        "直接依赖：packages/backend/src/jobs/publication.ts",
+        "直接依赖：packages/backend/src/jobs/queue.ts",
+        "直接依赖：packages/backend/src/providers/embeddings.ts",
+        "直接依赖：packages/backend/src/providers/receipts.ts",
+        "直接依赖：packages/backend/src/reports/compose.ts",
+        "直接依赖：packages/backend/src/reports/correct.ts",
+        "直接依赖：packages/backend/src/reports/edition.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/db.ts"
+    },
+    {
+      "path": "packages/backend/src/editorial/analyze.ts",
+      "bytes": 29507,
+      "sha256": "d8089b9e9291cafd5007ed45ee36fd2c3f3088c55a66fe5cfb0d1f8e03af5cf5",
+      "git_blob_oid": "00e722730ba55f1d328d0af63e558f52d2eff038",
+      "tasks": [
+        "AI-01",
+        "AI-02",
+        "AI-03",
+        "AI-04",
+        "AI-05",
+        "AI-06",
+        "AI-07"
+      ],
+      "reasons": [
+        "AI 任务实现及业务规则",
+        "直接依赖：packages/backend/src/jobs/content.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/editorial/analyze.ts"
+    },
+    {
+      "path": "packages/backend/src/editorial/input.ts",
+      "bytes": 7007,
+      "sha256": "3edbda1d1243476865a8a8c5058d2a5ed2d5b42dfe5554099f487cdf753a436a",
+      "git_blob_oid": "2e8b35d695c6389012d757ddd4b6004287ef8218",
+      "tasks": [],
+      "reasons": [
+        "AI 任务实现及业务规则",
+        "直接依赖：packages/backend/src/editorial/analyze.ts",
+        "直接依赖：packages/backend/src/editorial/writing.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/editorial/input.ts"
+    },
+    {
+      "path": "packages/backend/src/editorial/models.ts",
+      "bytes": 6626,
+      "sha256": "f6ef7c2b7c11250cac7a538907a4daf87510801cbac05a445b86b56edfe9eeae",
+      "git_blob_oid": "754fc81d81ebcd58c5d296db55e2678ee43dd897",
+      "tasks": [
+        "AI-09"
+      ],
+      "reasons": [
+        "AI 任务实现及业务规则",
+        "直接依赖：packages/backend/src/editorial/analyze.ts",
+        "直接依赖：packages/backend/src/editorial/translate.ts",
+        "直接依赖：packages/backend/src/events/consolidate.ts",
+        "直接依赖：packages/backend/src/events/digest.ts",
+        "直接依赖：packages/backend/src/events/group.ts",
+        "直接依赖：packages/backend/src/reports/compose.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/editorial/models.ts"
+    },
+    {
+      "path": "packages/backend/src/editorial/prompts.ts",
+      "bytes": 3237,
+      "sha256": "819f89b9d183d8129fe058638d5b244661a475971fa92af5ff5faac0e3d34b0f",
+      "git_blob_oid": "53b9806f83a9aea5e1e83cd6e698732366b50d23",
+      "tasks": [],
+      "reasons": [
+        "AI 任务实现及业务规则",
+        "直接依赖：packages/backend/src/editorial/analyze.ts",
+        "直接依赖：packages/backend/src/editorial/translate.ts",
+        "直接依赖：packages/backend/src/editorial/writing.ts",
+        "直接依赖：packages/backend/src/events/digest.ts",
+        "直接依赖：packages/backend/src/events/relate.ts",
+        "直接依赖：packages/backend/src/reports/compose.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/editorial/prompts.ts"
+    },
+    {
+      "path": "packages/backend/src/editorial/translate.ts",
+      "bytes": 21881,
+      "sha256": "331b3d1b8268bad8891fa968fa92dc2a4c645d8ae55f7d865779bfc58a3f37f7",
+      "git_blob_oid": "089ac0bf3519264a6c9e7c7bd3ee1e4f0eb2ada8",
+      "tasks": [
+        "AI-07"
+      ],
+      "reasons": [
+        "AI 任务实现及业务规则"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/editorial/translate.ts"
+    },
+    {
+      "path": "packages/backend/src/editorial/vocabulary.ts",
+      "bytes": 2421,
+      "sha256": "ae0b6f229199f547fb70f2445b4861b51a10392a5019b4b68ff9f442fff1ce0e",
+      "git_blob_oid": "eea406e966851e919bd50d0c5703e39524a41bde",
+      "tasks": [
+        "AI-04"
+      ],
+      "reasons": [
+        "AI 任务实现及业务规则",
+        "直接依赖：packages/backend/src/editorial/analyze.ts",
+        "直接依赖：packages/backend/src/reports/compose.ts",
+        "直接依赖：packages/backend/src/reports/correct.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/editorial/vocabulary.ts"
+    },
+    {
+      "path": "packages/backend/src/editorial/wording.ts",
+      "bytes": 1294,
+      "sha256": "38d52ea58f5af4fb4f474cd9b17cbab6e4fcb588cf84c6345a3f4e7296867318",
+      "git_blob_oid": "7e57c92e5cd761821c13f83cdcc687dd8d5cfa62",
+      "tasks": [
+        "AI-07"
+      ],
+      "reasons": [
+        "AI 任务实现及业务规则",
+        "直接依赖：packages/backend/src/editorial/analyze.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/editorial/wording.ts"
+    },
+    {
+      "path": "packages/backend/src/editorial/writing.ts",
+      "bytes": 17890,
+      "sha256": "83570a30e7fbd14532babfd4782e11e25980086afdc9bd27481eb6bac1614adc",
+      "git_blob_oid": "6f218e7bd095da92361044ea6ca744dfcc202f82",
+      "tasks": [
+        "AI-01",
+        "AI-05",
+        "AI-06"
+      ],
+      "reasons": [
+        "AI 任务实现及业务规则",
+        "直接依赖：packages/backend/src/editorial/analyze.ts",
+        "直接依赖：packages/backend/src/editorial/input.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/editorial/writing.ts"
+    },
+    {
+      "path": "packages/backend/src/events/consolidate.ts",
+      "bytes": 9180,
+      "sha256": "f8995cf11dc0f89ebc681ba41ee398b61cb2016d7d4eebe3c210dce91d646282",
+      "git_blob_oid": "d01406872d379f321928e9fbc67294fb947bc328",
+      "tasks": [
+        "AI-08",
+        "AI-09"
+      ],
+      "reasons": [
+        "AI 任务实现及业务规则",
+        "直接依赖：packages/backend/src/events/group.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/events/consolidate.ts"
+    },
+    {
+      "path": "packages/backend/src/events/corrections.ts",
+      "bytes": 9783,
+      "sha256": "5c3907578f6b78cc8a407400fc95b6ad4b7f43009253321619a76b7b867ef940",
+      "git_blob_oid": "e68c7b42fea6ba9edf6405309304dad0ca2fff3d",
+      "tasks": [],
+      "reasons": [
+        "AI 任务实现及业务规则"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/events/corrections.ts"
+    },
+    {
+      "path": "packages/backend/src/events/digest.ts",
+      "bytes": 6954,
+      "sha256": "30b2e9ad380e6627fdef22b96a33c54e0257810633b0980ea3890bafe124e5dc",
+      "git_blob_oid": "b00c1a98b9677ad6011158e0222527352bc5cfca",
+      "tasks": [
+        "AI-11"
+      ],
+      "reasons": [
+        "AI 任务实现及业务规则",
+        "直接依赖：packages/backend/src/events/corrections.ts",
+        "直接依赖：packages/backend/src/jobs/events.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/events/digest.ts"
+    },
+    {
+      "path": "packages/backend/src/events/group.ts",
+      "bytes": 35832,
+      "sha256": "34bc582abe1f96b8ec9814d73e25fb85165855a8f46fe1105eb160c5311c4752",
+      "git_blob_oid": "e072c8b458d727a2b5f3517b37b7beceb0ec6ad1",
+      "tasks": [
+        "AI-08",
+        "AI-09",
+        "AI-10"
+      ],
+      "reasons": [
+        "AI 任务实现及业务规则",
+        "直接依赖：packages/backend/src/events/corrections.ts",
+        "直接依赖：packages/backend/src/jobs/events.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/events/group.ts"
+    },
+    {
+      "path": "packages/backend/src/events/hot.ts",
+      "bytes": 19831,
+      "sha256": "9a7b964c10d1c85b1931e2e26a39745430fa19968cab7409f747ef26dfcd1313",
+      "git_blob_oid": "1f2920d2b4c4fe982134b953ecc37f717e37e871",
+      "tasks": [],
+      "reasons": [
+        "AI 任务实现及业务规则",
+        "直接依赖：packages/backend/src/jobs/publication.ts",
+        "直接依赖：packages/backend/src/reports/edition.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/events/hot.ts"
+    },
+    {
+      "path": "packages/backend/src/events/merge.ts",
+      "bytes": 2913,
+      "sha256": "c4dc55cb729e354cd47b3505d50d0770691417dc326168f326a559538b109b97",
+      "git_blob_oid": "b94aead5e6bfea6459e42ac82c9e8de78d01f3b3",
+      "tasks": [],
+      "reasons": [
+        "AI 任务实现及业务规则",
+        "直接依赖：packages/backend/src/events/consolidate.ts",
+        "直接依赖：packages/backend/src/events/corrections.ts",
+        "直接依赖：packages/backend/src/events/group.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/events/merge.ts"
+    },
+    {
+      "path": "packages/backend/src/events/recall.ts",
+      "bytes": 15074,
+      "sha256": "ec993c9de5ac21aee58cf980a225f0e808bde040338b4ae0565c4e6612a389e6",
+      "git_blob_oid": "f13ac24cb6695a4ba513e5710f014a2a37c71daf",
+      "tasks": [
+        "AI-08",
+        "AI-10"
+      ],
+      "reasons": [
+        "AI 任务实现及业务规则",
+        "直接依赖：packages/backend/src/events/consolidate.ts",
+        "直接依赖：packages/backend/src/events/group.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/events/recall.ts"
+    },
+    {
+      "path": "packages/backend/src/events/relate.ts",
+      "bytes": 10480,
+      "sha256": "b2cac34b5a7b03d83ef3fb30e555f16629cf853f654b5e7890492a8e48cc68ca",
+      "git_blob_oid": "f20d8e6aa03a81b02aaad69a112274f4b0978e56",
+      "tasks": [
+        "AI-08",
+        "AI-09",
+        "AI-10"
+      ],
+      "reasons": [
+        "AI 任务实现及业务规则",
+        "直接依赖：packages/backend/src/events/consolidate.ts",
+        "直接依赖：packages/backend/src/events/group.ts",
+        "直接依赖：packages/backend/src/events/recall.ts",
+        "直接依赖：packages/backend/src/events/related.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/events/relate.ts"
+    },
+    {
+      "path": "packages/backend/src/events/related.ts",
+      "bytes": 2136,
+      "sha256": "415e69d32882783b45a27262629e9a04d0de29eb54a0cec72fd02ba0b1c91b30",
+      "git_blob_oid": "b4d77968caacb21effc63d919927a99df9b21476",
+      "tasks": [],
+      "reasons": [
+        "AI 任务实现及业务规则",
+        "直接依赖：packages/backend/src/events/consolidate.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/events/related.ts"
+    },
+    {
+      "path": "packages/backend/src/jobs/content.ts",
+      "bytes": 17262,
+      "sha256": "f0d48a4d78d1e7564b320d10d72d1077b9f59a67ca35929a2e350f0b5daa6548",
+      "git_blob_oid": "6534e3f738856521584eae4e47ca1a699c286564",
+      "tasks": [],
+      "reasons": [
+        "直接依赖：packages/backend/src/jobs/events.ts",
+        "调用封装、回执、召回或任务执行"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/jobs/content.ts"
+    },
+    {
+      "path": "packages/backend/src/jobs/events.ts",
+      "bytes": 2339,
+      "sha256": "a69cc57aa1591757fd7ee9243874109081770bb3549f9a615f3b75fedd7b0e2e",
+      "git_blob_oid": "676ec7f5ab9fd85f2c6c7c9258b35d156b0d808c",
+      "tasks": [],
+      "reasons": [
+        "调用封装、回执、召回或任务执行"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/jobs/events.ts"
+    },
+    {
+      "path": "packages/backend/src/jobs/publication.ts",
+      "bytes": 1691,
+      "sha256": "fc62770fe3632fb876176eded0e58753cd38cd56705d05277d30678f51cb1d73",
+      "git_blob_oid": "af8856c6b335d2cd0b71b9391c85ea1c2ee0d4dc",
+      "tasks": [],
+      "reasons": [
+        "调用封装、回执、召回或任务执行"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/jobs/publication.ts"
+    },
+    {
+      "path": "packages/backend/src/jobs/queue.ts",
+      "bytes": 9508,
+      "sha256": "cb121592d5e721cc13f3905509f132b79e39ca7a0ee36169e2f39748c35a7bbb",
+      "git_blob_oid": "79b92f150121a8a5960dc6d4357d61cce04dce84",
+      "tasks": [],
+      "reasons": [
+        "直接依赖：packages/backend/src/editorial/analyze.ts",
+        "直接依赖：packages/backend/src/editorial/translate.ts",
+        "直接依赖：packages/backend/src/events/corrections.ts",
+        "直接依赖：packages/backend/src/events/group.ts",
+        "直接依赖：packages/backend/src/events/merge.ts",
+        "直接依赖：packages/backend/src/jobs/content.ts",
+        "直接依赖：packages/backend/src/jobs/events.ts",
+        "直接依赖：packages/backend/src/jobs/publication.ts",
+        "直接依赖：packages/backend/src/reports/compose.ts",
+        "调用封装、回执、召回或任务执行"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/jobs/queue.ts"
+    },
+    {
+      "path": "packages/backend/src/lib/ids.ts",
+      "bytes": 1090,
+      "sha256": "e14fbf18a75cf5744761722d65f0b50a13e14cc6d17c693404c618b77be5d779",
+      "git_blob_oid": "9598788fc71f3cda40c28181e99cd8ae1b3254b0",
+      "tasks": [],
+      "reasons": [
+        "直接依赖：packages/backend/src/editorial/translate.ts",
+        "直接依赖：packages/backend/src/events/group.ts",
+        "直接依赖：packages/backend/src/events/recall.ts",
+        "直接依赖：packages/backend/src/providers/embeddings.ts",
+        "直接依赖：packages/backend/src/providers/llm.ts",
+        "直接依赖：packages/backend/src/providers/receipts.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/lib/ids.ts"
+    },
+    {
+      "path": "packages/backend/src/lib/log-error.ts",
+      "bytes": 1282,
+      "sha256": "afdf2145810db4458659c2f38773d476003c4880090401ddc54782bc5f4136f6",
+      "git_blob_oid": "102091db348db2b1f495a3385c9dc5d4303a1169",
+      "tasks": [],
+      "reasons": [
+        "直接依赖：packages/backend/src/jobs/queue.ts",
+        "直接依赖：packages/backend/src/reports/compose.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/lib/log-error.ts"
+    },
+    {
+      "path": "packages/backend/src/lib/shutdown.ts",
+      "bytes": 152,
+      "sha256": "2170a2a78073a61446d34b4d50523af3314e753883efa83a38d3e8aa46884df7",
+      "git_blob_oid": "dd3a714988af5ed207396ae78f0e902b964fe9c7",
+      "tasks": [],
+      "reasons": [
+        "直接依赖：packages/backend/src/jobs/queue.ts",
+        "直接依赖：packages/backend/src/providers/receipts.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/lib/shutdown.ts"
+    },
+    {
+      "path": "packages/backend/src/lib/text.ts",
+      "bytes": 4290,
+      "sha256": "466a707ee2355cb316c08555c40dc3e8d8eee04b9a0838e470bbaa14ce456506",
+      "git_blob_oid": "b512de471cd047caec5a87706d145e7430112f42",
+      "tasks": [],
+      "reasons": [
+        "直接依赖：packages/backend/src/editorial/analyze.ts",
+        "直接依赖：packages/backend/src/editorial/input.ts",
+        "直接依赖：packages/backend/src/editorial/translate.ts",
+        "直接依赖：packages/backend/src/editorial/writing.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/lib/text.ts"
+    },
+    {
+      "path": "packages/backend/src/media/images.ts",
+      "bytes": 14697,
+      "sha256": "138f6ddfe699c0d9e35380b8757863dc86760a03dca62985e1b7922244b583ac",
+      "git_blob_oid": "bcb4af6bb8e512fbb567a1427f1710439782141c",
+      "tasks": [],
+      "reasons": [
+        "直接依赖：packages/backend/src/editorial/input.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/media/images.ts"
+    },
+    {
+      "path": "packages/backend/src/modules.ts",
+      "bytes": 14873,
+      "sha256": "4469d2a0ff3b71937305aace3ebaf449060f8656221bcdb22ee7f8785e04d4c8",
+      "git_blob_oid": "b6e925427e079991ddcaae111cc5488adcceae20",
+      "tasks": [],
+      "reasons": [
+        "直接依赖：packages/backend/src/editorial/models.ts",
+        "直接依赖：packages/backend/src/editorial/translate.ts",
+        "直接依赖：packages/backend/src/events/corrections.ts",
+        "直接依赖：packages/backend/src/jobs/publication.ts",
+        "直接依赖：packages/backend/src/jobs/queue.ts",
+        "直接依赖：packages/backend/src/reports/compose.ts",
+        "直接依赖：packages/backend/src/reports/correct.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/modules.ts"
+    },
+    {
+      "path": "packages/backend/src/providers/embeddings.ts",
+      "bytes": 6501,
+      "sha256": "25790c38477273194675635a11066975fabb79e1beca48a182b9639ce0ef3860",
+      "git_blob_oid": "54a23a2b02290e4fba77b12c32eccd780a4dd881",
+      "tasks": [],
+      "reasons": [
+        "直接依赖：packages/backend/src/events/group.ts",
+        "直接依赖：packages/backend/src/events/recall.ts",
+        "调用封装、回执、召回或任务执行"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/providers/embeddings.ts"
+    },
+    {
+      "path": "packages/backend/src/providers/llm.ts",
+      "bytes": 9244,
+      "sha256": "54e6e8442b5f08764565afe306251fd06a46fe92d649495e95ea6f9d8e217265",
+      "git_blob_oid": "f00d8bd18f4b4cbef96ed3a2f2c0eaddf396ad26",
+      "tasks": [],
+      "reasons": [
+        "直接依赖：packages/backend/src/editorial/analyze.ts",
+        "直接依赖：packages/backend/src/editorial/input.ts",
+        "直接依赖：packages/backend/src/editorial/models.ts",
+        "直接依赖：packages/backend/src/editorial/translate.ts",
+        "直接依赖：packages/backend/src/events/consolidate.ts",
+        "直接依赖：packages/backend/src/events/digest.ts",
+        "直接依赖：packages/backend/src/events/group.ts",
+        "直接依赖：packages/backend/src/jobs/content.ts",
+        "直接依赖：packages/backend/src/providers/embeddings.ts",
+        "直接依赖：packages/backend/src/reports/compose.ts",
+        "调用封装、回执、召回或任务执行"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/providers/llm.ts"
+    },
+    {
+      "path": "packages/backend/src/providers/receipts.ts",
+      "bytes": 12903,
+      "sha256": "d4b1b011cb4439b21a1daacc689c25879079ae23073c0a3c3d9d2e3c38f9b4f8",
+      "git_blob_oid": "224381c35af8382cd32d882bd591e83ee304ed10",
+      "tasks": [],
+      "reasons": [
+        "直接依赖：packages/backend/src/editorial/analyze.ts",
+        "直接依赖：packages/backend/src/editorial/translate.ts",
+        "直接依赖：packages/backend/src/events/consolidate.ts",
+        "直接依赖：packages/backend/src/events/digest.ts",
+        "直接依赖：packages/backend/src/events/group.ts",
+        "直接依赖：packages/backend/src/jobs/content.ts",
+        "直接依赖：packages/backend/src/providers/embeddings.ts",
+        "直接依赖：packages/backend/src/providers/llm.ts",
+        "直接依赖：packages/backend/src/reports/compose.ts",
+        "调用封装、回执、召回或任务执行"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/providers/receipts.ts"
+    },
+    {
+      "path": "packages/backend/src/publication/coverage.ts",
+      "bytes": 989,
+      "sha256": "2dd61b1e8c725d3da569b6e9311c2d7087b12eaccb132cbb033d38111298cb1b",
+      "git_blob_oid": "885ca163f538976125b86cccd7d9c72c172520b6",
+      "tasks": [],
+      "reasons": [
+        "直接依赖：packages/backend/src/reports/edition.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/publication/coverage.ts"
+    },
+    {
+      "path": "packages/backend/src/publication/publish.ts",
+      "bytes": 28928,
+      "sha256": "bf6aa746fbf0174c5e815d2f8baff83c973515fa800ffc026236e298c0bdd2ae",
+      "git_blob_oid": "8fd43a6804add1a6bb990e835d7482806d7cf15a",
+      "tasks": [],
+      "reasons": [
+        "直接依赖：packages/backend/src/events/corrections.ts",
+        "直接依赖：packages/backend/src/events/group.ts",
+        "直接依赖：packages/backend/src/events/merge.ts",
+        "直接依赖：packages/backend/src/jobs/content.ts",
+        "直接依赖：packages/backend/src/jobs/publication.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/publication/publish.ts"
+    },
+    {
+      "path": "packages/backend/src/publication/representative.ts",
+      "bytes": 1745,
+      "sha256": "8d4128ff938323d57b165a27fc82a9d7b271af1b898699476dc83761e588ec33",
+      "git_blob_oid": "1514c39aa71c6e8961ee7dcd637880ff7df8d750",
+      "tasks": [],
+      "reasons": [
+        "直接依赖：packages/backend/src/events/hot.ts",
+        "直接依赖：packages/backend/src/events/recall.ts",
+        "直接依赖：packages/backend/src/reports/edition.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/publication/representative.ts"
+    },
+    {
+      "path": "packages/backend/src/publication/scope.ts",
+      "bytes": 4344,
+      "sha256": "988117ba4029c36d7abeee678919ec07d613183bac762ca246a6883bcda146a4",
+      "git_blob_oid": "5534e8d11bc7f4951e082f643c1ce6f421a08c34",
+      "tasks": [],
+      "reasons": [
+        "直接依赖：packages/backend/src/events/consolidate.ts",
+        "直接依赖：packages/backend/src/events/group.ts",
+        "直接依赖：packages/backend/src/events/hot.ts",
+        "直接依赖：packages/backend/src/events/recall.ts",
+        "直接依赖：packages/backend/src/events/related.ts",
+        "直接依赖：packages/backend/src/reports/edition.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/publication/scope.ts"
+    },
+    {
+      "path": "packages/backend/src/publication/story-evidence.ts",
+      "bytes": 2830,
+      "sha256": "b7150047ad759bf0a89604baccd4d6b43e197311cb6349b404e5843698cd469b",
+      "git_blob_oid": "1a6addf118dffffd9a13583aff9b64ead8cfa970",
+      "tasks": [
+        "AI-11"
+      ],
+      "reasons": [
+        "直接依赖：packages/backend/src/events/digest.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/publication/story-evidence.ts"
+    },
+    {
+      "path": "packages/backend/src/reports/compose.ts",
+      "bytes": 19083,
+      "sha256": "c4b5f1195a83c0c87a718c2c9eb45100d802f618894ea7b53236d9440db0d54b",
+      "git_blob_oid": "abbfe20dbee7736d3e8c2f92bc93dc0559eeed8d",
+      "tasks": [
+        "AI-12",
+        "AI-13"
+      ],
+      "reasons": [
+        "AI 任务实现及业务规则"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/reports/compose.ts"
+    },
+    {
+      "path": "packages/backend/src/reports/correct.ts",
+      "bytes": 4258,
+      "sha256": "88d336824c5c089da003efd36f364bc0206b2a14d202d80ef55a367e367f7be4",
+      "git_blob_oid": "8bb7b7006a654e47528f76fc5738d62111830a4a",
+      "tasks": [],
+      "reasons": [
+        "AI 任务实现及业务规则"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/reports/correct.ts"
+    },
+    {
+      "path": "packages/backend/src/reports/edition.ts",
+      "bytes": 23285,
+      "sha256": "d22647fc9a05a24d49eb4ebef98e0ecee7f615f3d9a5813456efbfe136838457",
+      "git_blob_oid": "2983360a26233499e531daf9cdb54d065e45924f",
+      "tasks": [
+        "AI-12",
+        "AI-13"
+      ],
+      "reasons": [
+        "AI 任务实现及业务规则",
+        "直接依赖：packages/backend/src/reports/compose.ts",
+        "直接依赖：packages/backend/src/reports/correct.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/reports/edition.ts"
+    },
+    {
+      "path": "packages/backend/src/sources/x.ts",
+      "bytes": 11903,
+      "sha256": "c7c550612f595bedb9575f7a2dd5c14049be1b4947df267c17552f890ab4c055",
+      "git_blob_oid": "7eb89b11fe2677b5de02efb99c367217c4d6a2ac",
+      "tasks": [],
+      "reasons": [
+        "直接依赖：packages/backend/src/editorial/writing.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/backend/src/sources/x.ts"
+    },
+    {
+      "path": "packages/contracts/package.json",
+      "bytes": 192,
+      "sha256": "b14f866fe6fdc20840081bf2c2799cea5106acf0bca547358895413b04b7ce8c",
+      "git_blob_oid": "6cdf5e0264cbf507077a1b480d2c14088f6184b4",
+      "tasks": [],
+      "reasons": [
+        "调度、站点配置、包路径或上游说明"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/contracts/package.json"
+    },
+    {
+      "path": "packages/contracts/src/taxonomy.ts",
+      "bytes": 2645,
+      "sha256": "2520add226f2a4b4453bb369a231f3573047db4e901b6a9c74c1a1eba43e1a7f",
+      "git_blob_oid": "d1c04d9b5f8334c39b27199b48621efc0af3ebbf",
+      "tasks": [],
+      "reasons": [
+        "直接依赖：packages/backend/src/editorial/analyze.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/contracts/src/taxonomy.ts"
+    },
+    {
+      "path": "packages/contracts/src/time.ts",
+      "bytes": 3430,
+      "sha256": "78e80d63ba64c504455fd559b706430d526e43c37f649f266af87f28150de605",
+      "git_blob_oid": "ccfdbd89a347ed2376194663ae435443c0d61e4c",
+      "tasks": [],
+      "reasons": [
+        "直接依赖：packages/backend/src/editorial/input.ts",
+        "直接依赖：packages/backend/src/events/consolidate.ts",
+        "直接依赖：packages/backend/src/events/digest.ts",
+        "直接依赖：packages/backend/src/events/group.ts",
+        "直接依赖：packages/backend/src/events/recall.ts",
+        "直接依赖：packages/backend/src/events/relate.ts",
+        "直接依赖：packages/backend/src/reports/compose.ts",
+        "直接依赖：packages/backend/src/reports/edition.ts"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/packages/contracts/src/time.ts"
+    },
+    {
+      "path": "site/README.md",
+      "bytes": 1271,
+      "sha256": "ee02c364259e816a26e1cefbf5f40fec3267e771164165f6ac2f0572c4cf7804",
+      "git_blob_oid": "26e30e67c355f553c6f76a913aaeb499ededcdf1",
+      "tasks": [],
+      "reasons": [
+        "调度、站点配置、包路径或上游说明"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/site/README.md"
+    },
+    {
+      "path": "site/models.ts",
+      "bytes": 3412,
+      "sha256": "58674d6bffe683fcb013bccae3c61ee14693769d8aefc231b3d4ca539b70ed7a",
+      "git_blob_oid": "a96bfee51fae88497118653e1d764c9dc777393b",
+      "tasks": [],
+      "reasons": [
+        "直接依赖：packages/backend/src/editorial/models.ts",
+        "直接依赖：packages/backend/src/providers/llm.ts",
+        "调度、站点配置、包路径或上游说明"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/site/models.ts"
+    },
+    {
+      "path": "site/package.json",
+      "bytes": 350,
+      "sha256": "21f713754d8e6208666b9f02deda3ec5893223c495066b75888033ba2bc7fd18",
+      "git_blob_oid": "37eefd2d8b3ef3adf9a6707c0daadcf147d07e2b",
+      "tasks": [],
+      "reasons": [
+        "调度、站点配置、包路径或上游说明"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/site/package.json"
+    },
+    {
+      "path": "site/site.ts",
+      "bytes": 19178,
+      "sha256": "7c6a3adec37b1b42ef0d92eb6bde231672624beaf820783a917e1bd94161cdc9",
+      "git_blob_oid": "0873d3b2b36376c72e2c15d0ff92f05cf1bba015",
+      "tasks": [],
+      "reasons": [
+        "直接依赖：packages/backend/src/editorial/analyze.ts",
+        "直接依赖：packages/backend/src/editorial/prompts.ts",
+        "直接依赖：packages/backend/src/editorial/wording.ts",
+        "直接依赖：packages/backend/src/events/hot.ts",
+        "直接依赖：packages/backend/src/reports/compose.ts",
+        "调度、站点配置、包路径或上游说明"
+      ],
+      "status": "verified",
+      "url": "https://github.com/KKKKhazix/AIHOT/blob/c8704e5313e6b051560365226b3919d7e0ada5ea/site/site.ts"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-16T02:03:11.208063+00:00",
+  "title": "RiskHot M1 统一规范继承",
+  "extensions": {
+    "inheritance": {
+      "design": "../../DESIGN.md",
+      "sidecar": "../../.impeccable/design.json",
+      "localStylesheet": "../原型资源/ui-v2.css",
+      "precedence": "继承根规范；本地覆盖原有styles.css，仅调整UI，保留模块交互契约。"
+    },
+    "breakpoints": [
+      {
+        "name": "shell-compact",
+        "value": "1280px",
+        "purpose": "三中心侧栏216px变192px，正文水平边距32px变24px。"
+      },
+      {
+        "name": "m1-detail-drawer",
+        "value": "960px",
+        "purpose": "M1目录单列，详情切换抽屉；与现有脚本模式一致。"
+      },
+      {
+        "name": "sidebar-hidden",
+        "value": "900px",
+        "purpose": "三中心隐藏侧栏；M2目录/详情在此堆叠。"
+      },
+      {
+        "name": "m1-phone",
+        "value": "640px",
+        "purpose": "仅M1手机16px正文边距与输入、44px普通按钮及全屏弹窗。"
+      }
+    ]
+  },
+  "components": [],
+  "narrative": {
+    "overview": "M1保留四视图、六段档案，960px详情抽屉；不恢复重复大标题。仅浅色。"
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "date": "2026-10-16",
+  "files": [
+    {
+      "file": "06-2-M1信源管理中心UI设计/M1信源管理中心交互原型.html",
+      "before": "258417849417acb25efbc95af6a1a977aed311c88f2e67ba189ea15c1922a9b5",
+      "after": "bcb750ea309a08cc93b5c03599c7eb603c04fcbc8222afa77b43d513bb576fcd",
+      "unchanged": false
+    },
+    {
+      "file": "06-2-M1信源管理中心UI设计/原型资源/source-catalog.js",
+      "before": "6128ab53337e963310a5fb7df78dc7bef041baf2f38fbec68b39f5a7bb01f552",
+      "after": "6128ab53337e963310a5fb7df78dc7bef041baf2f38fbec68b39f5a7bb01f552",
+      "unchanged": true
+    },
+    {
+      "file": "06-2-M1信源管理中心UI设计/原型资源/app.js",
+      "before": "47c4a2309e48e82507f7efd5fe5849a4de31526a98401be330aa334400aa17a4",
+      "after": "47c4a2309e48e82507f7efd5fe5849a4de31526a98401be330aa334400aa17a4",
+      "unchanged": true
+    },
+    {
+      "file": "06-2-M1信源管理中心UI设计/原型资源/ui-v2.css",
+      "before": "52e7a27ca1296f27be5a585067d541321ad4e846b2021ed62150a7cc7f3f7594",
+      "after": "0379d9d3dfbebac1cd8ce94d19f364df503f2807eaf40d9639f6d75567884bbf",
+      "unchanged": false
+    },
+    {
+      "file": "06-3-M2风险源管理中心UI设计/M2风险源管理中心交互原型.html",
+      "before": "a3de2a0a5eb97f4b8b0ceb85f9bee6e3b870f4d83de12f2718e30d1c03a7f3da",
+      "after": "fc57b2631398dbb84341685ee4315c4f99d7eea336b72f4915368e54a36329b7",
+      "unchanged": false
+    },
+    {
+      "file": "06-3-M2风险源管理中心UI设计/原型资源/lucide.min.js",
+      "before": "ab85225ecc1daa2033607856f03dd2dabcbc08e2d260a5b97e17c690aa929766",
+      "after": "ab85225ecc1daa2033607856f03dd2dabcbc08e2d260a5b97e17c690aa929766",
+      "unchanged": true
+    },
+    {
+      "file": "06-3-M2风险源管理中心UI设计/原型资源/app.js",
+      "before": "6f3d1009f622106124b834d11a98d92a891900fd4a985864a769a706f4aba5a7",
+      "after": "6f3d1009f622106124b834d11a98d92a891900fd4a985864a769a706f4aba5a7",
+      "unchanged": true
+    },
+    {
+      "file": "06-3-M2风险源管理中心UI设计/原型资源/ui-v2.css",
+      "before": "34917496d8729555629e36098f83f7573ad9afd94a30d3e651e37f9f9a4be5bb",
+      "after": "a92a874413b24637304fcef6a9a56aefb1a2a8c48c1babf061dc8ac9e594fcf4",
+      "unchanged": false
+    },
+    {
+      "file": "06-3-M2风险源管理中心UI设计/mockups/key-catalog.html",
+      "before": "2d4349eb1019a8589df31e611e7f8fa4da4dfe81c60f02e62ed1d4612d11941a",
+      "after": "9adddaeb3c5aea9cb8a501c87db10611f23bced24e037ff3179ec36aeed3ccc1",
+      "unchanged": false
+    },
+    {
+      "file": "06-3-M2风险源管理中心UI设计/mockups/key-governance.html",
+      "before": "e9549863547878425973dff48aa93b96602432f59179a2b99815f91571c647be",
+      "after": "c8552c84388cae5b287d6fbf71e9ad9fef315631349de73dd946bec6b1db1b38",
+      "unchanged": false
+    },
+    {
+      "file": "06-3-M2风险源管理中心UI设计/mockups/key-indicator.html",
+      "before": "ad7cd3496a3dc0a7ec826c1198888016511bfee8d49a1ab2fcb8a5426301de44",
+      "after": "7c68032b13c411e56be940b388512674601d9b3e0afeff1a0c7ac634872ec735",
+      "unchanged": false
+    },
+    {
+      "file": "06-3-M2风险源管理中心UI设计/mockups/key-revision.html",
+      "before": "07b695d36ca04741e6cb01175f5e24ddaa8e38e7f029c03f7c6419d684267392",
+      "after": "822ce1d460df42e1833e1c305d4ede3587da1dc891fc870888124a039bbb5169",
+      "unchanged": false
+    },
+    {
+      "file": "06-4-M3策略管理中心UI设计/M3策略管理中心交互原型.html",
+      "before": "2223e5dc218e29ed32edccace5f091a868d2edbdc6d9328784b76211ce0b591f",
+      "after": "2223e5dc218e29ed32edccace5f091a868d2edbdc6d9328784b76211ce0b591f",
+      "unchanged": true
+    },
+    {
+      "file": "06-4-M3策略管理中心UI设计/原型资源/flow-data.js",
+      "before": "7362bcdd91050fa3befff4fb3d5a101bcbb7adfebeb4bfb17068d93a8a4ed617",
+      "after": "7362bcdd91050fa3befff4fb3d5a101bcbb7adfebeb4bfb17068d93a8a4ed617",
+      "unchanged": true
+    },
+    {
+      "file": "06-4-M3策略管理中心UI设计/原型资源/app.js",
+      "before": "cacc37a476ad7ae5eeca72c96dfe0254548a5df72cd68642b48b14059391ce56",
+      "after": "cb0feebe84a0ab997d66386ede93640b572b2606bc576d9b3d7a7849f77517f7",
+      "unchanged": false,
+      "header_after": "e351fe71869e2345d6eed8fb690870ec036c5ee6e924e8f6e69b513106e579a2",
+      "title_spec_after": "778ccd15194a029f8c76961023640995a3cbdb4e3e5778ff6c9cf752860808d4"
+    },
+    {
+      "file": "06-4-M3策略管理中心UI设计/原型资源/styles.css",
+      "before": "775f1c5c4912bdcb16b340c9dd00aa5826b24663ad1e0dfe228552a3f877ab4f",
+      "after": "5d445f1e3c8ba618bb983e4e2396b8df874e5212ecc21c91cb8f3c958fdd4252",
+      "unchanged": false,
+      "compact_header_after": "31d19c97ac13b5970cc350a478e94bbbae267d97af02cd6aa102636e39044c03",
+      "title_spec_after": "145aad722b672c3e29b74463890781aa87ddd5f33927ad6a16d5f8fa143f48f2"
+    }
+  ],
+  "m3_handlers": {
+    "before": "7e9b6ea854bb75265504b6deb146b1fa86033dacfc8d6778530fa402249f17f0",
+    "after": "7e9b6ea854bb75265504b6deb146b1fa86033dacfc8d6778530fa402249f17f0",
+    "unchanged": true
+  },
+  "m3_initial_data": {
+    "before": "7217986a3c1db39c00ca6f37ba55727f0602312740d514884dde255fef6ca7bc",
+    "after": "7217986a3c1db39c00ca6f37ba55727f0602312740d514884dde255fef6ca7bc",
+    "unchanged": true
+  },
+  "scope": "M1/M2 JavaScript与全部领域数据不变；M3仅flowHeader/panorama/flowView展示组织变化",
+  "later_catalog_sort": {
+    "before": "e351fe71869e2345d6eed8fb690870ec036c5ee6e924e8f6e69b513106e579a2",
+    "after": "778ccd15194a029f8c76961023640995a3cbdb4e3e5778ff6c9cf752860808d4",
+    "scope": "用户追加要求，目录显示顺序变化；保护区段保持"
+  },
+  "later_title_spec_audit": {
+    "file": "06-4-M3策略管理中心UI设计/原型资源/styles.css",
+    "before": "31d19c97ac13b5970cc350a478e94bbbae267d97af02cd6aa102636e39044c03",
+    "after": "145aad722b672c3e29b74463890781aa87ddd5f33927ad6a16d5f8fa143f48f2",
+    "scope": "标题规范逐页检查后，策略名称和手机弹窗20px"
+  },
+  "parallel_ui_changes": [
+    {
+      "file": "06-4-M3策略管理中心UI设计/原型资源/styles.css",
+      "title_after": "145aad722b672c3e29b74463890781aa87ddd5f33927ad6a16d5f8fa143f48f2",
+      "after": "5d445f1e3c8ba618bb983e4e2396b8df874e5212ecc21c91cb8f3c958fdd4252",
+      "scope": "检查期间出现的并行AI任务内嵌界面改动；非本轮标题修正"
+    },
+    {
+      "file": "06-4-M3策略管理中心UI设计/原型资源/app.js",
+      "title_after": "778ccd15194a029f8c76961023640995a3cbdb4e3e5778ff6c9cf752860808d4",
+      "after": "cb0feebe84a0ab997d66386ede93640b572b2606bc576d9b3d7a7849f77517f7",
+      "scope": "检查期间出现的并行AI任务内嵌界面改动；非本轮标题修正"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-16",
+  "before": "14794e133ccb7129c8b82728e8cb989f0937f7cd07b41a58a20d93c69a47b847",
+  "after": "cacc37a476ad7ae5eeca72c96dfe0254548a5df72cd68642b48b14059391ce56",
+  "scope": "允许渲染/菜单选中与导航改动，流水线视图统一只读；领域数据及治理处理不变",
+  "business_handlers": {
+    "before": "f4eb80dd9e8226a151b4a52a3e9b19420d932bed4bd1fc875c5623ff88308325",
+    "after": "f4eb80dd9e8226a151b4a52a3e9b19420d932bed4bd1fc875c5623ff88308325",
+    "unchanged": true,
+    "normalization": "仅剔除data-view=panorama的菜单路由排除条件后比较，原panorama动作处理保留"
+  },
+  "flow_data": {
+    "before": "7362bcdd91050fa3befff4fb3d5a101bcbb7adfebeb4bfb17068d93a8a4ed617",
+    "after": "7362bcdd91050fa3befff4fb3d5a101bcbb7adfebeb4bfb17068d93a8a4ed617"
+  },
+  "stylesheet": {
+    "before": "3e64d96bd68b5ef3eb935c3b2ad3acbfab210c83ee08f044d41821d59fc0d57f",
+    "after": "6397870258ba09a924bbdd1c8cd6bdf0b25f2c36c1e0637caebdfdd4801b208d"
+  },
+  "initial_data": {
+    "before": "7a4b4845c14417407fc809c0b88ac2c1b2eaa2fe985568c90eaedbaf0c32cac5",
+    "after": "7a4b4845c14417407fc809c0b88ac2c1b2eaa2fe985568c90eaedbaf0c32cac5",
+    "unchanged": true,
+    "normalization": "Exclude authorized panorama readonly guard difference."
+  }
+}

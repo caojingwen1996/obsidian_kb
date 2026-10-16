@@ -1,0 +1,70 @@
+/* Shared page and dialog action row. Module palettes and business states remain local. */
+.unified-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  height: 57px;
+  min-height: 57px;
+  gap: 12px;
+  padding-block: 6px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--rh-line, var(--line, #dfe5df)) transparent;
+}
+.unified-top-row > * { flex: none; }
+.unified-top-row > :last-child { margin-left: auto; }
+#rh-m2 .r-top.unified-top-row { justify-content: flex-start; flex-wrap: nowrap; padding-block: 6px; gap: 12px; }
+.unified-tools, .unified-tools .detail-actions, .unified-tools .actions,
+.unified-tools .r-flex, .unified-tools #group-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 8px;
+}
+.unified-tools { min-width: 0; }
+.unified-tools > *, .unified-tools .actions > *, .unified-tools .r-flex > * { flex: none; }
+.unified-tools button, .unified-top-row .page-tools button {
+  min-height: 36px;
+  padding: 7px 12px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+.unified-tools .detail-actions {
+  position: static;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.unified-tools .detail-close { display: none; }
+.unified-action-header .unified-tools .detail-close { display: inline-flex; align-items: center; justify-content: center; }
+.unified-tools .quiet, .unified-tools .r-back { margin: 0; }
+.unified-action-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 12px;
+}
+.unified-action-header > :first-child:not(.unified-tools) { min-width: 0; max-width: 45%; }
+.unified-action-header > .unified-tools {
+  flex: 1 1 120px;
+  min-width: 120px;
+  overflow-x: auto;
+  padding: 4px;
+  scrollbar-width: thin;
+}
+.unified-action-header > button { flex: none; }
+#rh-m2 .unified-tools, #rh-m2 .unified-tools .r-flex { flex-wrap: nowrap; }
+#rh-m2 .unified-tools button { min-height: 36px; white-space: nowrap; }
+#rh-m2 .r-dialog-header.unified-action-header { padding-right: 24px; }
+#rh-m2 .unified-action-header .r-dialog-close { position: static; flex: none; }
+.dialog-footer:has(> .actions:empty), .modal-foot:empty,
+.r-form-actions:not(:has(button, input, span, p)), .r-indicator-actions:not(:has(button, span)),
+.r-governance-actions:not(:has(button, span)) { display: none; }
+.unified-tools [hidden], .unified-top-row [hidden] { display: none !important; }
+@media (max-width: 650px) {
+  .unified-top-row { gap: 8px; padding-inline: 12px; }
+  .unified-action-header { gap: 8px; padding-inline: 16px; }
+}

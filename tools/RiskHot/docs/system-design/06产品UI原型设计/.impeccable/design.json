@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-16T02:03:11.208063+00:00",
+  "title": "Design System: RiskHot M1/M2/M3统一UI规范",
+  "extensions": {
+    "typographyMeta": {
+      "section": {
+        "displayName": "分区与条目标题",
+        "purpose": "三中心实际使用的15px/600/1.6标题层级。"
+      },
+      "control": {
+        "displayName": "普通操作控件",
+        "purpose": "桌面主次按钮采用14px/500/1.5。"
+      }
+    },
+    "shadows": [
+      {
+        "name": "dialog-light",
+        "value": "0 20px 64px #102b2633",
+        "purpose": "M1/M2/M3居中弹窗浅色阴影；M1手机全屏弹窗取消阴影。"
+      },
+      {
+        "name": "dialog-m2-dark",
+        "value": "0 20px 64px #00000070",
+        "purpose": "仅M2既有暗色弹窗；不扩展到M1/M3。"
+      },
+      {
+        "name": "toast-light",
+        "value": "0 8px 24px #102b2629",
+        "purpose": "M1/M3提示浮层；M2提示沿用本地边界。"
+      }
+    ],
+    "motion": [
+      {
+        "name": "state-feedback",
+        "value": "150ms ease-out",
+        "purpose": "三中心按钮背景与边界状态反馈；M3同时过渡文字色。"
+      },
+      {
+        "name": "reduced-motion",
+        "value": "none",
+        "purpose": "三中心在prefers-reduced-motion: reduce下取消transition及animation。"
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "shell-compact",
+        "value": "1280px",
+        "purpose": "三中心侧栏216px变192px，正文水平边距32px变24px。"
+      },
+      {
+        "name": "m3-dense-flow",
+        "value": "1050px",
+        "purpose": "仅M3工具区换行与流程节点压缩。"
+      },
+      {
+        "name": "m1-detail-drawer",
+        "value": "960px",
+        "purpose": "M1目录单列，详情切换抽屉；与现有脚本模式一致。"
+      },
+      {
+        "name": "sidebar-hidden",
+        "value": "900px",
+        "purpose": "三中心隐藏侧栏；M2目录/详情在此堆叠。"
+      },
+      {
+        "name": "m3-flow-stacked",
+        "value": "760px",
+        "purpose": "M3流程由3:2变为单列；M2在同断点调整AI建议表和操作目标。"
+      },
+      {
+        "name": "m3-phone",
+        "value": "650px",
+        "purpose": "仅M3手机表格字段行、16px正文边距与输入、44px普通按钮。"
+      },
+      {
+        "name": "m1-phone",
+        "value": "640px",
+        "purpose": "仅M1手机16px正文边距与输入、44px普通按钮及全屏弹窗。"
+      },
+      {
+        "name": "m2-phone",
+        "value": "600px",
+        "purpose": "仅M2手机16px正文边距与输入、44px普通按钮。"
+      },
+      {
+        "name": "m2-m3-narrow",
+        "value": "360px",
+        "purpose": "M2/M3各自处理窄屏标题、字段与节点；不新增M1断点。"
+      }
+    ],
+    "sourceEvidence": [
+      {
+        "module": "M1",
+        "file": "06-2-M1信源管理中心UI设计/原型资源/ui-v2.css",
+        "readScope": "完整样式表",
+        "sha256": "52e7a27ca1296f27be5a585067d541321ad4e846b2021ed62150a7cc7f3f7594"
+      },
+      {
+        "module": "M2",
+        "file": "06-3-M2风险源管理中心UI设计/原型资源/ui-v2.css",
+        "readScope": "完整样式表",
+        "sha256": "34917496d8729555629e36098f83f7573ad9afd94a30d3e651e37f9f9a4be5bb"
+      },
+      {
+        "module": "M3",
+        "file": "06-4-M3策略管理中心UI设计/原型资源/styles.css",
+        "readScope": "完整样式表",
+        "sha256": "b5a2e5abcc595dea89cd48ca62aa1fdc11410595c491026033845dc36dcd6867"
+      }
+    ],
+    "scope": {
+      "normativeSource": "../DESIGN.md",
+      "themeSupport": {
+        "M1": "light",
+        "M2": "light and existing dark via light-dark()",
+        "M3": "light"
+      },
+      "precedence": "根规范统一视觉语言；模块业务契约与实际本地响应式模式继续有效。M1不恢复重复大标题。"
+    }
+  },
+  "components": [
+    {
+      "name": "绿色主操作",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "浅色共用主按钮；active和禁用态取M3现行实现；M2暗色仍由本地样式负责。",
+      "html": "<button class=\"ds-primary\" type=\"button\">保存修改</button>",
+      "css": ".ds-primary{font-family:\"PingFang SC\",\"Microsoft YaHei\",sans-serif;font-size:14px;font-weight:500;line-height:1.5;min-height:40px;padding:9px 16px;border:1px solid var(--green,#295c47);border-radius:8px;background:var(--green,#295c47);color:#ffffff;cursor:pointer;transition:background-color 150ms ease-out,border-color 150ms ease-out}.ds-primary:hover:not(:disabled),.ds-primary:active:not(:disabled){background:#214c3b;border-color:#214c3b}.ds-primary:focus-visible{outline:2px solid var(--green,#295c47);outline-offset:3px;}.ds-primary:disabled{color:#6c756f;background:#f0f2ed;border-color:#e1e5df;cursor:not-allowed;opacity:.65}@media(prefers-reduced-motion:reduce){.ds-primary{transition:none}}"
+    },
+    {
+      "name": "显式标签输入框",
+      "kind": "input",
+      "refersTo": "text-field",
+      "description": "取M3当前字段结构及M1/M2共同的输入尺寸；预览为浅色。",
+      "html": "<label class=\"ds-field\">名称<input class=\"ds-input\" type=\"text\" placeholder=\"输入名称\"></label>",
+      "css": ".ds-field{font-family:\"PingFang SC\",\"Microsoft YaHei\",sans-serif;font-size:14px;font-weight:500;color:var(--ink,#22352e)}.ds-input{display:block;margin-top:7px;width:240px;max-width:100%;min-height:40px;padding:9px 12px;border:1px solid #bdc9bf;border-radius:8px;background:var(--paper,#ffffff);color:var(--ink,#22352e);font-family:\"PingFang SC\",\"Microsoft YaHei\",sans-serif;font-size:14px;font-weight:400;line-height:1.5;caret-color:var(--green,#295c47)}.ds-input::placeholder{color:#68736b}.ds-input:hover:not(:disabled){border-color:#879e8d}.ds-input:focus-visible{outline:2px solid var(--green,#295c47);outline-offset:3px;}.ds-input:disabled{background:#f3f5f1;color:#606c63;border-color:var(--line,#dfe5df)}"
+    },
+    {
+      "name": "横向支撑中心导航",
+      "kind": "nav",
+      "description": "三中心共同的深绿导航与浅色当前项；链接为侧车预览锚点。",
+      "html": "<nav class=\"ds-nav\" aria-label=\"横向支撑中心\"><a class=\"ds-nav-link\" href=\"#m1\">M1 信源管理中心</a><a class=\"ds-nav-link\" href=\"#m2\" aria-current=\"page\">M2 风险源管理中心</a><a class=\"ds-nav-link\" href=\"#m3\">M3 策略管理中心</a></nav>",
+      "css": ".ds-nav{width:216px;padding:16px;background:#193d33;font-family:\"PingFang SC\",\"Microsoft YaHei\",sans-serif}.ds-nav-link{display:flex;align-items:center;min-height:44px;padding:12px;margin-bottom:5px;border-radius:8px;color:#d2ded7;text-decoration:none;font-size:13px;line-height:1.65;white-space:nowrap}.ds-nav-link:hover{background:#284e41;color:#ffffff}.ds-nav-link[aria-current=page]{background:#e6eee5;color:#254e3b;font-weight:600}.ds-nav-link:focus-visible{outline:2px solid var(--green,#295c47);outline-offset:3px;}"
+    }
+  ],
+  "narrative": {
+    "northStar": "清晰分层的治理工作台。",
+    "overview": "本版将已完成的M3视觉体系扩展到M1、M2。先补全规范，再修改界面。依据Impeccable的Operate原则和UI UX Pro Max的企业应用、表格与响应式建议，统一三中心的视觉语言，保留各中心已确认的工作流程。\n\n**方向：清晰分层的治理工作台。** 深绿导航、暖灰背景、白色工作面、14px正文、统一控件与留白。信息层级通过字重、间距和边界表达，避免重复卡片与装饰性彩色侧条。绿色表达系统主操作，AI分析使用独立紫色。",
+    "keyCharacteristics": [],
+    "rules": [],
+    "dos": [
+      "Do：规范先行；以原有25项M1、201项M2、91项M3交互检查为回归基线。",
+      "Do：保存全部业务脚本/数据哈希；对桌面、平板和手机分别检查布局。",
+      "Do：保留每中心独立的信息架构与已确认的精简要求。"
+    ],
+    "donts": [
+      "Don't：新增按钮业务、模拟指标、状态或审批规则来装饰界面。",
+      "Don't：用强制同构布局覆盖M1六段档案、M2审核抽屉或M3流程画布。"
+    ]
+  }
+}

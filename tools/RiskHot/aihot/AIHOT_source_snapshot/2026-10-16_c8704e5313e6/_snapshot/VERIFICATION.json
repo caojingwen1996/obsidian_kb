@@ -1,0 +1,13 @@
+{
+  "upstream_files_verified": 103,
+  "empty_or_corrupt": 0,
+  "task_mappings_verified": 13,
+  "required_prompts_verified": 19,
+  "summarize_matches": 6,
+  "group_matches": 5,
+  "prompt_includes_missing": 0,
+  "broken_local_links": 0,
+  "existing_files_unchanged": 6,
+  "sha256_command": "shasum -a 256 -c _snapshot/SHA256SUMS",
+  "sha256_exit_code": 0
+}

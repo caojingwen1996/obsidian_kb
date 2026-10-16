@@ -1,0 +1,784 @@
+{
+  "date": "2026-10-16",
+  "round": "内嵌补检",
+  "order": [
+    "M1",
+    "M2",
+    "M3"
+  ],
+  "widths": [
+    1440,
+    390,
+    320
+  ],
+  "records": [
+    {
+      "module": "M3",
+      "name": "内嵌AI任务-definition",
+      "width": 1440,
+      "topHeight": 57,
+      "mainTopPadding": 20,
+      "pageWidth": 1440,
+      "headings": [
+        {
+          "text": "策略管理中心",
+          "tag": "H1",
+          "font": 14,
+          "weight": 600,
+          "line": 21,
+          "width": 84,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 399.53125,
+          "y": -578.5
+        },
+        {
+          "text": "流水线",
+          "tag": "H2",
+          "font": 20,
+          "weight": 600,
+          "line": 30,
+          "width": 60,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 248,
+          "y": -513.5
+        },
+        {
+          "text": "风险来源分析",
+          "tag": "H2",
+          "font": 20,
+          "weight": 600,
+          "line": 32,
+          "width": 120,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 980.59375,
+          "y": 77.390625
+        }
+      ],
+      "failures": [],
+      "screenshot": "标题区域截图/内嵌补检/M3-1440-内嵌AI任务-definition.png"
+    },
+    {
+      "module": "M3",
+      "name": "内嵌AI任务-prompt",
+      "width": 1440,
+      "topHeight": 57,
+      "mainTopPadding": 20,
+      "pageWidth": 1440,
+      "headings": [
+        {
+          "text": "策略管理中心",
+          "tag": "H1",
+          "font": 14,
+          "weight": 600,
+          "line": 21,
+          "width": 84,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 399.53125,
+          "y": 17.5
+        },
+        {
+          "text": "流水线",
+          "tag": "H2",
+          "font": 20,
+          "weight": 600,
+          "line": 30,
+          "width": 60,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 248,
+          "y": 82.5
+        },
+        {
+          "text": "风险来源分析",
+          "tag": "H2",
+          "font": 20,
+          "weight": 600,
+          "line": 32,
+          "width": 120,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 980.59375,
+          "y": 309.984375
+        }
+      ],
+      "failures": [],
+      "screenshot": "标题区域截图/内嵌补检/M3-1440-内嵌AI任务-prompt.png"
+    },
+    {
+      "module": "M3",
+      "name": "内嵌AI任务-schema",
+      "width": 1440,
+      "topHeight": 57,
+      "mainTopPadding": 20,
+      "pageWidth": 1440,
+      "headings": [
+        {
+          "text": "策略管理中心",
+          "tag": "H1",
+          "font": 14,
+          "weight": 600,
+          "line": 21,
+          "width": 84,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 399.53125,
+          "y": 17.5
+        },
+        {
+          "text": "流水线",
+          "tag": "H2",
+          "font": 20,
+          "weight": 600,
+          "line": 30,
+          "width": 60,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 248,
+          "y": 82.5
+        },
+        {
+          "text": "风险来源分析",
+          "tag": "H2",
+          "font": 20,
+          "weight": 600,
+          "line": 32,
+          "width": 120,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 980.59375,
+          "y": 309.984375
+        }
+      ],
+      "failures": [],
+      "screenshot": "标题区域截图/内嵌补检/M3-1440-内嵌AI任务-schema.png"
+    },
+    {
+      "module": "M3",
+      "name": "内嵌AI任务-constraints",
+      "width": 1440,
+      "topHeight": 57,
+      "mainTopPadding": 20,
+      "pageWidth": 1440,
+      "headings": [
+        {
+          "text": "策略管理中心",
+          "tag": "H1",
+          "font": 14,
+          "weight": 600,
+          "line": 21,
+          "width": 84,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 399.53125,
+          "y": 17.5
+        },
+        {
+          "text": "流水线",
+          "tag": "H2",
+          "font": 20,
+          "weight": 600,
+          "line": 30,
+          "width": 60,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 248,
+          "y": 82.5
+        },
+        {
+          "text": "风险来源分析",
+          "tag": "H2",
+          "font": 20,
+          "weight": 600,
+          "line": 32,
+          "width": 120,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 980.59375,
+          "y": 309.984375
+        }
+      ],
+      "failures": [],
+      "screenshot": "标题区域截图/内嵌补检/M3-1440-内嵌AI任务-constraints.png"
+    },
+    {
+      "module": "M3",
+      "name": "内嵌AI任务-usage",
+      "width": 1440,
+      "topHeight": 57,
+      "mainTopPadding": 20,
+      "pageWidth": 1440,
+      "headings": [
+        {
+          "text": "策略管理中心",
+          "tag": "H1",
+          "font": 14,
+          "weight": 600,
+          "line": 21,
+          "width": 84,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 399.53125,
+          "y": 17.5
+        },
+        {
+          "text": "流水线",
+          "tag": "H2",
+          "font": 20,
+          "weight": 600,
+          "line": 30,
+          "width": 60,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 248,
+          "y": 82.5
+        },
+        {
+          "text": "风险来源分析",
+          "tag": "H2",
+          "font": 20,
+          "weight": 600,
+          "line": 32,
+          "width": 120,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 980.59375,
+          "y": 309.984375
+        }
+      ],
+      "failures": [],
+      "screenshot": "标题区域截图/内嵌补检/M3-1440-内嵌AI任务-usage.png"
+    },
+    {
+      "module": "M3",
+      "name": "内嵌AI任务-definition",
+      "width": 390,
+      "topHeight": 57,
+      "mainTopPadding": 20,
+      "pageWidth": 390,
+      "headings": [
+        {
+          "text": "策略管理中心",
+          "tag": "H1",
+          "font": 14,
+          "weight": 600,
+          "line": 21,
+          "width": 84,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 16,
+          "y": -2631.5
+        },
+        {
+          "text": "流水线",
+          "tag": "H2",
+          "font": 20,
+          "weight": 600,
+          "line": 30,
+          "width": 358,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 16,
+          "y": -2572
+        },
+        {
+          "text": "风险来源分析",
+          "tag": "H2",
+          "font": 20,
+          "weight": 600,
+          "line": 32,
+          "width": 120,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 37,
+          "y": 105.453125
+        }
+      ],
+      "failures": [],
+      "screenshot": "标题区域截图/内嵌补检/M3-390-内嵌AI任务-definition.png"
+    },
+    {
+      "module": "M3",
+      "name": "内嵌AI任务-prompt",
+      "width": 390,
+      "topHeight": 57,
+      "mainTopPadding": 20,
+      "pageWidth": 390,
+      "headings": [
+        {
+          "text": "策略管理中心",
+          "tag": "H1",
+          "font": 14,
+          "weight": 600,
+          "line": 21,
+          "width": 84,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 16,
+          "y": -2631.5
+        },
+        {
+          "text": "流水线",
+          "tag": "H2",
+          "font": 20,
+          "weight": 600,
+          "line": 30,
+          "width": 358,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 16,
+          "y": -2572
+        },
+        {
+          "text": "风险来源分析",
+          "tag": "H2",
+          "font": 20,
+          "weight": 600,
+          "line": 32,
+          "width": 120,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 37,
+          "y": 105.453125
+        }
+      ],
+      "failures": [],
+      "screenshot": "标题区域截图/内嵌补检/M3-390-内嵌AI任务-prompt.png"
+    },
+    {
+      "module": "M3",
+      "name": "内嵌AI任务-schema",
+      "width": 390,
+      "topHeight": 57,
+      "mainTopPadding": 20,
+      "pageWidth": 390,
+      "headings": [
+        {
+          "text": "策略管理中心",
+          "tag": "H1",
+          "font": 14,
+          "weight": 600,
+          "line": 21,
+          "width": 84,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 16,
+          "y": -2631.5
+        },
+        {
+          "text": "流水线",
+          "tag": "H2",
+          "font": 20,
+          "weight": 600,
+          "line": 30,
+          "width": 358,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 16,
+          "y": -2572
+        },
+        {
+          "text": "风险来源分析",
+          "tag": "H2",
+          "font": 20,
+          "weight": 600,
+          "line": 32,
+          "width": 120,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 37,
+          "y": 105.453125
+        }
+      ],
+      "failures": [],
+      "screenshot": "标题区域截图/内嵌补检/M3-390-内嵌AI任务-schema.png"
+    },
+    {
+      "module": "M3",
+      "name": "内嵌AI任务-constraints",
+      "width": 390,
+      "topHeight": 57,
+      "mainTopPadding": 20,
+      "pageWidth": 390,
+      "headings": [
+        {
+          "text": "策略管理中心",
+          "tag": "H1",
+          "font": 14,
+          "weight": 600,
+          "line": 21,
+          "width": 84,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 16,
+          "y": -2675.5
+        },
+        {
+          "text": "流水线",
+          "tag": "H2",
+          "font": 20,
+          "weight": 600,
+          "line": 30,
+          "width": 358,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 16,
+          "y": -2616
+        },
+        {
+          "text": "风险来源分析",
+          "tag": "H2",
+          "font": 20,
+          "weight": 600,
+          "line": 32,
+          "width": 120,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 37,
+          "y": 61.453125
+        }
+      ],
+      "failures": [],
+      "screenshot": "标题区域截图/内嵌补检/M3-390-内嵌AI任务-constraints.png"
+    },
+    {
+      "module": "M3",
+      "name": "内嵌AI任务-usage",
+      "width": 390,
+      "topHeight": 57,
+      "mainTopPadding": 20,
+      "pageWidth": 390,
+      "headings": [
+        {
+          "text": "策略管理中心",
+          "tag": "H1",
+          "font": 14,
+          "weight": 600,
+          "line": 21,
+          "width": 84,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 16,
+          "y": -2675.5
+        },
+        {
+          "text": "流水线",
+          "tag": "H2",
+          "font": 20,
+          "weight": 600,
+          "line": 30,
+          "width": 358,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 16,
+          "y": -2616
+        },
+        {
+          "text": "风险来源分析",
+          "tag": "H2",
+          "font": 20,
+          "weight": 600,
+          "line": 32,
+          "width": 120,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 37,
+          "y": 61.453125
+        }
+      ],
+      "failures": [],
+      "screenshot": "标题区域截图/内嵌补检/M3-390-内嵌AI任务-usage.png"
+    },
+    {
+      "module": "M3",
+      "name": "内嵌AI任务-definition",
+      "width": 320,
+      "topHeight": 57,
+      "mainTopPadding": 20,
+      "pageWidth": 320,
+      "headings": [
+        {
+          "text": "策略管理中心",
+          "tag": "H1",
+          "font": 14,
+          "weight": 600,
+          "line": 21,
+          "width": 84,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 16,
+          "y": -3326.5
+        },
+        {
+          "text": "流水线",
+          "tag": "H2",
+          "font": 20,
+          "weight": 600,
+          "line": 30,
+          "width": 288,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 16,
+          "y": -3267
+        },
+        {
+          "text": "风险来源分析",
+          "tag": "H2",
+          "font": 20,
+          "weight": 600,
+          "line": 32,
+          "width": 120,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 37,
+          "y": 59.796875
+        }
+      ],
+      "failures": [],
+      "screenshot": "标题区域截图/内嵌补检/M3-320-内嵌AI任务-definition.png"
+    },
+    {
+      "module": "M3",
+      "name": "内嵌AI任务-prompt",
+      "width": 320,
+      "topHeight": 57,
+      "mainTopPadding": 20,
+      "pageWidth": 320,
+      "headings": [
+        {
+          "text": "策略管理中心",
+          "tag": "H1",
+          "font": 14,
+          "weight": 600,
+          "line": 21,
+          "width": 84,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 16,
+          "y": -3326.5
+        },
+        {
+          "text": "流水线",
+          "tag": "H2",
+          "font": 20,
+          "weight": 600,
+          "line": 30,
+          "width": 288,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 16,
+          "y": -3267
+        },
+        {
+          "text": "风险来源分析",
+          "tag": "H2",
+          "font": 20,
+          "weight": 600,
+          "line": 32,
+          "width": 120,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 37,
+          "y": 59.796875
+        }
+      ],
+      "failures": [],
+      "screenshot": "标题区域截图/内嵌补检/M3-320-内嵌AI任务-prompt.png"
+    },
+    {
+      "module": "M3",
+      "name": "内嵌AI任务-schema",
+      "width": 320,
+      "topHeight": 57,
+      "mainTopPadding": 20,
+      "pageWidth": 320,
+      "headings": [
+        {
+          "text": "策略管理中心",
+          "tag": "H1",
+          "font": 14,
+          "weight": 600,
+          "line": 21,
+          "width": 84,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 16,
+          "y": -3370.5
+        },
+        {
+          "text": "流水线",
+          "tag": "H2",
+          "font": 20,
+          "weight": 600,
+          "line": 30,
+          "width": 288,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 16,
+          "y": -3311
+        },
+        {
+          "text": "风险来源分析",
+          "tag": "H2",
+          "font": 20,
+          "weight": 600,
+          "line": 32,
+          "width": 120,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 37,
+          "y": 15.796875
+        }
+      ],
+      "failures": [],
+      "screenshot": "标题区域截图/内嵌补检/M3-320-内嵌AI任务-schema.png"
+    },
+    {
+      "module": "M3",
+      "name": "内嵌AI任务-constraints",
+      "width": 320,
+      "topHeight": 57,
+      "mainTopPadding": 20,
+      "pageWidth": 320,
+      "headings": [
+        {
+          "text": "策略管理中心",
+          "tag": "H1",
+          "font": 14,
+          "weight": 600,
+          "line": 21,
+          "width": 84,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 16,
+          "y": -3370.5
+        },
+        {
+          "text": "流水线",
+          "tag": "H2",
+          "font": 20,
+          "weight": 600,
+          "line": 30,
+          "width": 288,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 16,
+          "y": -3311
+        },
+        {
+          "text": "风险来源分析",
+          "tag": "H2",
+          "font": 20,
+          "weight": 600,
+          "line": 32,
+          "width": 120,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 37,
+          "y": 15.796875
+        }
+      ],
+      "failures": [],
+      "screenshot": "标题区域截图/内嵌补检/M3-320-内嵌AI任务-constraints.png"
+    },
+    {
+      "module": "M3",
+      "name": "内嵌AI任务-usage",
+      "width": 320,
+      "topHeight": 57,
+      "mainTopPadding": 20,
+      "pageWidth": 320,
+      "headings": [
+        {
+          "text": "策略管理中心",
+          "tag": "H1",
+          "font": 14,
+          "weight": 600,
+          "line": 21,
+          "width": 84,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 16,
+          "y": -3376.5
+        },
+        {
+          "text": "流水线",
+          "tag": "H2",
+          "font": 20,
+          "weight": 600,
+          "line": 30,
+          "width": 288,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 16,
+          "y": -3317
+        },
+        {
+          "text": "风险来源分析",
+          "tag": "H2",
+          "font": 20,
+          "weight": 600,
+          "line": 32,
+          "width": 120,
+          "textFits": true,
+          "horizontalFits": true,
+          "dialog": false,
+          "x": 37,
+          "y": 9.796875
+        }
+      ],
+      "failures": [],
+      "screenshot": "标题区域截图/内嵌补检/M3-320-内嵌AI任务-usage.png"
+    }
+  ],
+  "errors": [],
+  "network": [],
+  "navigationFailures": []
+}
