@@ -21,7 +21,7 @@ class StrategyStoreTest(unittest.TestCase):
             changed["thresholds"]["C"] = 30
             saved = save_settings(changed, 0, path)
             self.assertEqual(saved["revision"], 1)
-            self.assertEqual(saved["strategy"]["version"], "dividend-weighted-v1-r1")
+            self.assertEqual(saved["strategy"]["version"], "dividend-two-factor-v2-r1")
             self.assertEqual(load_strategy(path), saved["strategy"])
             self.assertEqual(saved["history"][0]["strategy"], original)
             self.assertFalse(save_settings(changed, 1, path)["changed"])
@@ -72,7 +72,7 @@ class StrategyStoreTest(unittest.TestCase):
             self.assertEqual(len(payload["records"]), 2)
             self.assertEqual(payload["latest"]["grade"], "C")
             self.assertEqual(payload["latest"]["strategySnapshot"], applied["strategy"])
-            self.assertEqual(payload["latest"]["confirmation"]["count"], 1)
+            self.assertEqual(payload["latest"]["confirmation"]["count"], 0)
             self.assertEqual(check_signal.read_rows_from_xlsx(workbook)[0], old_row)
             check_signal.write_score_artifact(score, output)
             check_signal.write_xlsx(score, workbook)

@@ -47,7 +47,8 @@ class DividendStrategyApiTest(unittest.TestCase):
             self.assertEqual(saved["recalculation"]["updatedRows"], 2)
             view = request_json(base + "/api/dividend-view-data")
             self.assertEqual(view["payload"]["strategy"], saved["strategy"])
-            self.assertTrue(view["yieldHistory"][0]["headline"].startswith("A"))
+            self.assertTrue(view["yieldHistory"][0]["headline"].startswith("B"))
+            self.assertEqual(view["yieldHistory"][0]["recordDate"], "2026-01-05")
             self.assertEqual(request_json(endpoint)["history"][0]["strategy"], initial["strategy"])
             with self.assertRaises(HTTPError) as conflict:
                 request_json(endpoint, {"strategy": config, "expectedRevision": 0}, origin=base)
@@ -70,7 +71,7 @@ class DividendStrategyApiTest(unittest.TestCase):
                 request_json(endpoint, {"strategy": config, "expectedRevision": 1})
             self.assertEqual(invalid.exception.code, 400)
             self.assertEqual(path.read_bytes(), before)
-            config["weights"]["ratio"] = 25
+            config["weights"]["ratio"] = 8
             config["thresholds"]["C"] = 35
             with patch("pathlib.Path.replace", side_effect=OSError("write failed")):
                 with self.assertRaises(HTTPError) as failed:

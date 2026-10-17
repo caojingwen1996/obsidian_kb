@@ -6,12 +6,13 @@ import math
 from datetime import date
 from pathlib import Path
 
-KEYS = ("percentile", "absolute", "ratio")
-LABELS = {"D": "吸引力偏弱", "C": "基础配置区间", "B": "加大买入区间", "A": "重点配置区间"}
+KEYS = ("absolute", "ratio")
+LABELS = {"D": "不买入", "C": "等待区间", "B": "观察区间", "A": "买入区间"}
+COMPONENT_LABELS = {"D": "指标得分偏低", "C": "指标得分一般", "B": "指标得分较高", "A": "指标得分高"}
 
 
 def load_default_strategy():
-    return json.loads((Path(__file__).resolve().parents[1] / "strategy-v1.json").read_text(encoding="utf-8-sig"))
+    return json.loads((Path(__file__).resolve().parents[1] / "strategy-v2.json").read_text(encoding="utf-8-sig"))
 
 
 def load_strategy(settings_path=None):
@@ -33,7 +34,18 @@ def valid_date(value):
         return False
 
 
+def normalize_strategy(config):
+    if not isinstance(config, dict) or not isinstance(config.get("weights"), dict) or "percentile" not in config["weights"]:
+        return config
+    weights = config["weights"]
+    total = sum(weights.get(k, 0) for k in KEYS) if all(finite(weights.get(k)) for k in KEYS) else 0
+    anchors = config.get("anchors") if isinstance(config.get("anchors"), dict) else {}
+    return dict(config, weights={k: weights.get(k, 0) / total * 100 if total else None for k in KEYS},
+                anchors={k: anchors.get(k) for k in KEYS})
+
+
 def validate_strategy(config):
+    config = normalize_strategy(config)
     if not isinstance(config, dict):
         return [{"field": "strategy", "message": "策略参数格式无效"}]
     errors = []
@@ -43,10 +55,10 @@ def validate_strategy(config):
     anchors = config.get("anchors") if isinstance(config.get("anchors"), dict) else {}
     thresholds = config.get("thresholds") if isinstance(config.get("thresholds"), dict) else {}
     for key in KEYS:
-        if not finite(weights.get(key)) or weights[key] <= 0:
-            errors.append({"field": f"weights.{key}", "message": "权重必须大于0"})
+        if not finite(weights.get(key)) or weights[key] < 0:
+            errors.append({"field": f"weights.{key}", "message": "权重不能小于0"})
     if all(finite(weights.get(k)) for k in KEYS) and abs(sum(weights[k] for k in KEYS) - 100) > 1e-8:
-        errors.append({"field": "weights", "message": "三项权重合计必须为100%"})
+        errors.append({"field": "weights", "message": "两项权重合计必须为100%"})
     for key in KEYS:
         points = anchors.get(key, [])
         if not isinstance(points, list) or len(points) != 5:
@@ -58,12 +70,10 @@ def validate_strategy(config):
                 errors.append({"field": prefix, "message": "锚点必须是有限数值"})
                 continue
             x, score = point
-            if x < 0 or (key == "percentile" and x > 100) or (key == "ratio" and x <= 0):
+            if x < 0 or (key == "ratio" and x <= 0):
                 errors.append({"field": prefix + ".0", "message": "输入锚点超出允许范围"})
             if score < 0 or score > 100 or (i == 0 and score != 0) or (i == 4 and score != 100):
                 errors.append({"field": prefix + ".1", "message": "分数范围0～100，端点固定0和100"})
-            if key == "percentile" and ((i == 0 and x != 0) or (i == 4 and x != 100)):
-                errors.append({"field": prefix + ".0", "message": "分位端点固定0%和100%"})
             if i and isinstance(points[i - 1], list) and len(points[i - 1]) == 2:
                 for axis in (0, 1):
                     if finite(points[i - 1][axis]) and point[axis] <= points[i - 1][axis]:
@@ -94,41 +104,44 @@ def grade_for_score(value, strategy):
 
 
 def score_input(inputs, strategy=None, dates=None, source_key="", reference=False, kind="daily"):
-    strategy = strategy or load_default_strategy()
+    strategy = normalize_strategy(strategy or load_default_strategy())
     errors = validate_strategy(strategy)
     if errors:
         raise ValueError(json.dumps(errors, ensure_ascii=False))
     dates = dates or {}
-    p, y, b = (inputs.get(k) for k in ("percentile", "dividendYield", "bondYield"))
-    p = p if finite(p) and 0 <= p <= 100 else None
+    y, b = (inputs.get(k) for k in ("dividendYield", "bondYield"))
     y = y if finite(y) and y >= 0 else None
     b = b if finite(b) and b > 0 else None
     ratio = y / b if y is not None and b is not None else None
     ratio = ratio if finite(ratio) else None
     components, lower, upper = {}, 0, 0
-    for key, value in zip(KEYS, (p, y, ratio)):
+    for key, value in zip(KEYS, (y, ratio)):
         detail = interpolate(value, strategy["anchors"][key]) if value is not None else {"score": None, "interval": None, "clipped": False}
         weight = strategy["weights"][key]
         contribution = detail["score"] * weight / 100 if detail["score"] is not None else None
         components[key] = dict(detail, value=value, weight=weight, contribution=contribution)
         lower += contribution or 0
         upper += contribution if contribution is not None else weight
-    complete = all(item["score"] is not None for item in components.values())
+    complete = all(item["weight"] == 0 or item["score"] is not None for item in components.values())
     grade = grade_for_score(lower, strategy) if complete else None
     next_grade = {"D": "C", "C": "B", "B": "A"}.get(grade)
-    aligned = all(valid_date(dates.get(k)) for k in ("index", "percentile", "bond")) and len(set(dates.values())) == 1
+    required_keys = ["index"]
+    if strategy["weights"]["ratio"] > 0:
+        required_keys.append("bond")
+    required_dates = [dates.get(k) for k in required_keys]
+    aligned = all(valid_date(day) for day in required_dates) and len(set(required_dates)) == 1
+    source_key = "股息率与股债倍数" if strategy["weights"]["ratio"] > 0 else "绝对股息率"
+    dates = {key: dates.get(key) for key in required_keys}
     quality = []
     if not complete:
         quality.append("数据不足")
-    if reference:
-        quality.append("参考评分")
     if not aligned:
         quality.append("日期未对齐")
     if kind != "daily":
         quality.append("历史数据试算" if kind == "legacy" else "本地参考快照")
     return {
-        "input": {"percentile": p, "dividendYield": y, "bondYield": b},
-        "dates": dates, "sourceKey": source_key, "reference": reference, "kind": kind,
+        "input": {"dividendYield": y, "bondYield": b},
+        "dates": dates, "sourceKey": source_key, "reference": False, "kind": kind,
         "strategyVersion": strategy["version"], "components": components,
         "score": lower if complete else None, "lower": lower, "upper": upper,
         "grade": grade, "label": LABELS.get(grade, "数据不足，暂不评级"),

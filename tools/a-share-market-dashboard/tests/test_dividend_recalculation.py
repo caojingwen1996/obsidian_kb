@@ -37,10 +37,11 @@ class DividendRecalculationTest(unittest.TestCase):
                 for column in list(range(9)) + list(range(13, 18)):
                     self.assertEqual(old[column], new[column])
                 self.assertEqual(new[headers.index("strategy_version")], applied["strategy"]["version"])
-            self.assertEqual(data["rows"][2][12][0], "A")
+            self.assertEqual(data["rows"][2][12][0], "B")
             self.assertIn("历史重算", data["rows"][2][-1])
             view = read_dividend_view_data(root)
             self.assertEqual(view, applied["recalculation"]["view"])
+            self.assertEqual(view["yieldHistory"][0]["recordDate"], "2026-01-05")
             self.assertFalse(view["payload"]["latest"]["eligible"])
             self.assertEqual(view["payload"]["latest"]["kind"], "legacy")
             with zipfile.ZipFile(workbook) as package:

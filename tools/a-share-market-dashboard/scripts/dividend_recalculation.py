@@ -100,7 +100,7 @@ def prepare_recalculation(data, original, previous, strategy, scoring):
     if len(rows) < 3:
         raise ValueError("当前Excel没有可重算的数据")
     headers = rows[0]
-    required = ["run_date__record_date", "index_date__index_valuation_date", "akshare_dividend_yield_2", "bond_10y_yield", "bond_date__china_10y_yield_date", "lixinger_percentile_10y", "lixinger_date__percentile_source_date", "lixinger_source", "percentile_signal", "absolute_signal", "spread_signal", "headline_signal", "strategy_version", "composite_score", "composite_grade", "score_lower", "score_upper", "score_quality", "confirmation_status"]
+    required = ["run_date__record_date", "index_date__index_valuation_date", "akshare_dividend_yield_2", "bond_10y_yield", "bond_date__china_10y_yield_date", "absolute_signal", "spread_signal", "headline_signal", "strategy_version", "composite_score", "composite_grade", "score_lower", "score_upper", "score_quality", "confirmation_status"]
     required += [key + suffix for key in scoring.KEYS for suffix in ("_score", "_contribution")]
     if any(key not in headers for key in required):
         raise ValueError("当前Excel缺少重算所需字段")
@@ -115,23 +115,23 @@ def prepare_recalculation(data, original, previous, strategy, scoring):
             continue
         raw = dict(zip(headers, values))
         raw = {**original_raw.get(iso_date(raw.get("index_date__index_valuation_date")), {}), **raw}
-        dates = {"index": iso_date(raw.get("index_date__index_valuation_date")), "percentile": iso_date(raw.get("lixinger_date__percentile_source_date")), "bond": iso_date(raw.get("bond_date__china_10y_yield_date"))}
-        source = str(raw.get("lixinger_source") or "").strip()
-        result = scoring.score_input({"percentile": number(raw.get("lixinger_percentile_10y")), "dividendYield": number(raw.get("akshare_dividend_yield_2")), "bondYield": number(raw.get("bond_10y_yield"))}, strategy, dates, source, "推算" in source, "legacy")
+        dates = {"index": iso_date(raw.get("index_date__index_valuation_date")), "bond": iso_date(raw.get("bond_date__china_10y_yield_date"))}
+        source = "股息率与股债倍数"
+        result = scoring.score_input({"dividendYield": number(raw.get("akshare_dividend_yield_2")), "bondYield": number(raw.get("bond_10y_yield"))}, strategy, dates, source, False, "legacy")
         updates = {"strategy_version": strategy["version"], "composite_score": result["score"], "composite_grade": result["grade"], "score_lower": result["lower"], "score_upper": result["upper"], "score_quality": "；".join(result["quality"]), "confirmation_status": "历史重算，不作为当时连续确认信号", "headline_signal": f'{result["grade"]} · {result["label"]}' if result["grade"] else result["label"]}
-        for key, signal_field in zip(scoring.KEYS, ("percentile_signal", "absolute_signal", "spread_signal")):
+        for key, signal_field in zip(scoring.KEYS, ("absolute_signal", "spread_signal")):
             component = result["components"][key]
             grade = scoring.grade_for_score(component["score"], strategy) if component["score"] is not None else None
-            updates.update({signal_field: f"{grade} · {scoring.LABELS[grade]}" if grade else "待验证", key + "_score": component["score"], key + "_contribution": component["contribution"]})
+            updates.update({signal_field: f"{grade} · {scoring.COMPONENT_LABELS[grade]}" if grade else "待验证", key + "_score": component["score"], key + "_contribution": component["contribution"]})
         row_number = data.get("rowNumbers", list(range(1, len(rows) + 1)))[position]
         for key, value in updates.items():
             changes[f"{column_name(headers.index(key) + 1)}{row_number}"] = value
         raw.update(updates)
-        raw.update(run_date=iso_date(raw.get("run_date__record_date")), index_date=dates["index"], lixinger_date=dates["percentile"], bond_date=dates["bond"], source_note=str(raw.get("source_note") or source) + "；按当前策略历史重算，原始指标日期不变")
+        raw.update(run_date=iso_date(raw.get("run_date__record_date")), index_date=dates["index"], bond_date=dates["bond"], source_note=str(raw.get("source_note") or source) + "；按当前策略历史重算，原始指标日期不变")
         result.update(raw=raw, recordDate=raw["run_date"], strategySnapshot=deepcopy(strategy), recalculatedAt=stamp, fromWorkbook=True)
         records.append(result)
         if dates["index"] and result["input"]["dividendYield"] is not None:
-            yield_history.append({"date": dates["index"], "value": result["input"]["dividendYield"], "headline": updates["headline_signal"]})
+            yield_history.append({"date": dates["index"], "recordDate": raw["run_date"], "value": result["input"]["dividendYield"], "headline": updates["headline_signal"]})
     dated = [record for record in records if record["dates"]["index"]]
     if not dated:
         raise ValueError("当前Excel没有有效的指数估值日期")
@@ -143,10 +143,10 @@ def prepare_recalculation(data, original, previous, strategy, scoring):
     raw = latest["raw"]
     def display(value):
         return "待验证" if value is None or value == "" else str(value)
-    markdown = ["# 中证红利最新股息率信号", "", f'- 运行时间：{latest["recordDate"]} {raw.get("run_time", "")}', f"- 重算时间：{stamp}", f'- 指数估值日期：{latest["dates"]["index"]}', f'- 理杏仁估值日期：{latest["dates"]["percentile"]}', f'- 10年国债收益率日期：{latest["dates"]["bond"]}']
-    for label, value in [("中证红利股息率口径", latest["input"]["dividendYield"]), ("全年收益率", raw.get("ytd_return")), ("年内最大回撤", raw.get("ytd_max_drawdown")), ("当天涨跌幅", raw.get("intraday_change_percent")), ("理杏仁市值加权股息率", raw.get("lixinger_dividend_yield")), ("理杏仁近10年股息率分位", latest["input"]["percentile"]), ("理杏仁近10年80%分位点", raw.get("lixinger_percentile_80_value")), ("中国10年国债收益率", latest["input"]["bondYield"]), ("指数股息率口径 - 10年国债收益率", raw.get("spread"))]:
+    markdown = ["# 中证红利最新股息率信号", "", f'- 运行时间：{latest["recordDate"]} {raw.get("run_time", "")}', f"- 重算时间：{stamp}", f'- 指数估值日期：{latest["dates"]["index"]}', f'- 10年国债收益率日期：{latest["dates"]["bond"]}']
+    for label, value in [("中证红利股息率口径", latest["input"]["dividendYield"]), ("全年收益率", raw.get("ytd_return")), ("年内最大回撤", raw.get("ytd_max_drawdown")), ("当天涨跌幅", raw.get("intraday_change_percent")), ("中国10年国债收益率", latest["input"]["bondYield"]), ("指数股息率口径 - 10年国债收益率", raw.get("spread"))]:
         markdown.append(f"- {label}：{display(value)}%")
-    markdown += ["", "## 判断", "", f'- 历史分位点触发：{raw["percentile_signal"]}', f'- 绝对股息率触发：{raw["absolute_signal"]}', f'- 相对债券收益率触发：{raw["spread_signal"]}', f'- 综合结论：{raw["headline_signal"]}', "", "## 当前策略重算", "", f'- 策略版本：{strategy["version"]}', f'- 综合分：{display(latest["score"])}', f'- 数据质量：{"；".join(latest["quality"])}', "- 连续确认：历史重算，不作为当时连续确认信号"]
+    markdown += ["", "## 判断", "", f'- 绝对股息率触发：{raw["absolute_signal"]}', f'- 相对债券收益率触发：{raw["spread_signal"]}', f'- 综合结论：{raw["headline_signal"]}', "", "## 当前策略重算", "", f'- 策略版本：{strategy["version"]}', f'- 综合分：{display(latest["score"])}', f'- 数据质量：{"；".join(latest["quality"])}', "- 连续确认：历史重算，不作为当时连续确认信号"]
     for key, component in latest["components"].items():
         markdown.append(f'- {key}贡献：{display(component["score"])} × {component["weight"]}% = {display(component["contribution"])}')
     markdown += ["", "## 来源", "", "- " + raw["source_note"], "", "## 说明", "", "- 保存策略后使用当前Excel已保存指标重算；不新增行情，不改变原始数据日期。", "- 历史重算不视为当时已发布或连续确认的每日信号；原文件与策略已备份。", ""]

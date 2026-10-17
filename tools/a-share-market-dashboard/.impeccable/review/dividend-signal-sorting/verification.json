@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-17",
+  "scope": "回测逐条明细排序及计算起止列后移",
+  "tests": {"relatedPassed": 32, "newSortingCases": 3, "build": "passed", "fullSuiteRerun": false},
+  "browser": {
+    "rows": 91,
+    "sortButtons": 13,
+    "finalColumn": "计算起止",
+    "returnAscendingFirst": [-3.21, -3.20, -3.16, -2.74, -2.61],
+    "returnDescendingFirst": [10.22, 8.85, 8.37, 8.10, 7.38],
+    "missingValuesLastBothDirections": true,
+    "excelAscendingFirst": [3, 4, 5, 6, 7],
+    "keyboardScoreDescendingFirst": [70.4, 67.0, 66.3, 66.2, 65.9],
+    "componentValueAndScoreIndependentlySelectable": true,
+    "disclosureRemainsOpen": true,
+    "desktop": {"width": 1800, "documentWidth": 1800, "tableWidth": 1412},
+    "mobile": {"width": 390, "documentWidth": 390, "wrapperWidth": 328, "tableScrollWidth": 1280, "buttonHeight": 44},
+    "consoleErrors": []
+  },
+  "semantics": {"oneActiveAriaSort": true, "keyboardFocusRetained": true, "tiesKeepOriginalOrder": true, "inputRowsNotMutated": true},
+  "review": {"disposition": "ship", "requiredFixes": [], "scope": "只读复核代码、新增测试与桌面/手机截图，未重跑浏览器和测试", "tradeoffs": ["合并列提供独立排序按钮", "手机明细继续局部横向滚动"]},
+  "unchanged": ["Excel", "策略参数", "回测计算及汇总统计", "数据请求"]
+}

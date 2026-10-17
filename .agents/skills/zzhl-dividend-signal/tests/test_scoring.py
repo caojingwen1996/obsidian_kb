@@ -14,8 +14,19 @@ DATES = {"index": "2026-10-13", "percentile": "2026-10-13", "bond": "2026-10-13"
 
 
 class ScoringTest(unittest.TestCase):
+    def test_zero_weight_percentile_is_optional(self):
+        strategy = copy.deepcopy(load_strategy())
+        strategy["weights"] = {"percentile": 0, "absolute": 92, "ratio": 8}
+        dates = {"index": "2026-07-01", "bond": "2026-07-01", "percentile": "2027-01-01"}
+        result = score_input({"dividendYield": 5, "bondYield": 2}, strategy, dates)
+        self.assertAlmostEqual(result["score"], 61.6)
+        self.assertTrue(result["eligible"])
+        self.assertEqual(result["sourceKey"], "股息率与股债倍数")
+        dates["bond"] = "2026-06-30"
+        self.assertFalse(score_input({"dividendYield": 5, "bondYield": 2}, strategy, dates)["eligible"])
+
     def test_shared_cases(self):
-        cases = json.loads(Path(__file__).with_name("scoring-cases.json").read_text(encoding="utf-8"))
+        cases = json.loads(Path(__file__).with_name("scoring-cases-v2.json").read_text(encoding="utf-8"))
         for case in cases:
             with self.subTest(case=case["name"]):
                 result = score_input(case["input"], dates=DATES, source_key="official")
@@ -35,19 +46,19 @@ class ScoringTest(unittest.TestCase):
             for x, score in points:
                 self.assertEqual(interpolate(x, points)["score"], score)
         self.assertEqual(grade_for_score(39.99999, strategy), "D")
-        self.assertEqual(grade_for_score(59.99999, strategy), "C")
-        self.assertEqual(grade_for_score(79.99999, strategy), "B")
+        self.assertEqual(grade_for_score(47.99999, strategy), "C")
+        self.assertEqual(grade_for_score(64.99999, strategy), "B")
         for value in (float("nan"), float("inf"), True, "4"):
             result = score_input({"percentile": value, "dividendYield": value, "bondYield": value})
             self.assertIsNone(result["score"])
         result = score_input({"percentile": 80, "dividendYield": 6, "bondYield": 1.5}, dates=dict(DATES, bond="2026-10-12"), reference=True)
-        self.assertIn("参考评分", result["quality"])
+        self.assertNotIn("参考评分", result["quality"])
         self.assertIn("日期未对齐", result["quality"])
         self.assertFalse(result["eligible"])
 
     def test_strategy_validation(self):
         self.assertEqual(validate_strategy(load_strategy()), [])
-        for field, value in [("weights", {"percentile": 0, "absolute": 30, "ratio": 25}), ("thresholds", {"C": 60, "B": 40, "A": 80}), ("confirmationDays", 0)]:
+        for field, value in [("weights", {"absolute": 30, "ratio": 25}), ("thresholds", {"C": 60, "B": 40, "A": 80}), ("confirmationDays", 0)]:
             config = copy.deepcopy(load_strategy()); config[field] = value
             self.assertTrue(validate_strategy(config))
         config = load_strategy(); config["anchors"]["ratio"][1] = [1, 40]
@@ -80,7 +91,7 @@ class ScoringTest(unittest.TestCase):
             "percentile_signal": "D", "absolute_signal": "C", "spread_signal": "C",
             "headline_signal": "旧结论必须保留", "source_note": "中证官方指数推算",
         }
-        with tempfile.TemporaryDirectory() as temp:
+        with tempfile.TemporaryDirectory() as temp, patch.object(check_signal, "load_strategy", side_effect=load_strategy):
             output = Path(temp)
             old = check_signal.Signal(**fields)
             workbook = output / "中证红利每日信号.xlsx"
@@ -99,16 +110,17 @@ class ScoringTest(unittest.TestCase):
             check_signal.write_score_artifact(current, output)
             payload = check_signal.write_score_artifact(current, output)
             self.assertEqual(len([r for r in payload["records"] if r["dates"]["index"] == "2026-10-13"]), 1)
-            self.assertEqual(payload["latest"]["confirmation"]["count"], 1)
+            self.assertEqual(payload["latest"]["confirmation"]["count"], 0)
             check_signal.write_xlsx(current, workbook)
             rows = check_signal.read_rows_from_xlsx(workbook)
             self.assertEqual(rows[0], old_row)
-            self.assertAlmostEqual(rows[1]["composite_score"], 38.04406946107784)
-            self.assertEqual(rows[1]["composite_grade"], "D")
+            self.assertAlmostEqual(rows[1]["composite_score"], 45.50577245508982)
+            self.assertEqual(rows[1]["composite_grade"], "C")
             check_signal.write_markdown(current, output / "latest-v1.md")
-            self.assertIn("综合分：38.0", (output / "latest-v1.md").read_text(encoding="utf-8"))
+            self.assertIn("综合分：45.5", (output / "latest-v1.md").read_text(encoding="utf-8"))
+            self.assertIn("仅综合评级 A 可买入，B / C / D 均不买入", (output / "latest-v1.md").read_text(encoding="utf-8"))
 
-    def test_fetch_uses_v1_without_rounding_percentile_before_scoring(self):
+    def test_fetch_uses_two_factors_without_fetching_percentile(self):
         import pandas as pd
         from datetime import datetime
         history = pd.DataFrame({"date": ["2026-10-09", "2026-10-12", "2026-10-13"], "close": [100, 101, 102]})
@@ -117,13 +129,26 @@ class ScoringTest(unittest.TestCase):
              patch.object(check_signal, "fetch_csindex_index_history", return_value=history), \
              patch.object(check_signal, "get_intraday_realtime_quote", return_value=check_signal.IntradayQuote("2026-10-14", None, "test", "test")), \
              patch.object(check_signal, "fetch_bond_yield", return_value=check_signal.BondYield("2026-10-13", 1.5, "test", "test")), \
-             patch.object(check_signal, "fetch_lixinger_percentile", return_value=check_signal.LixingerPercentile("2026-10-13", 6, 80.004, 6, "test", "test")):
+             patch.object(check_signal, "fetch_lixinger_percentile", side_effect=AssertionError("retired fetch must not run")) as retired_fetch:
             signal = check_signal.fetch_signal(target_run_date=datetime(2026, 10, 14))
-        self.assertEqual(signal.scoring["input"]["percentile"], 80.004)
+        retired_fetch.assert_not_called()
+        self.assertNotIn("percentile", signal.scoring["input"])
         self.assertEqual(signal.scoring["grade"], "A")
         self.assertEqual(signal.absolute_signal, "A")
-        self.assertEqual(signal.headline_signal, "重点配置区间")
+        self.assertEqual(signal.headline_signal, "买入区间")
         self.assertEqual(signal.trading_dates, ["2026-10-09", "2026-10-12", "2026-10-13"])
+
+    def test_only_composite_a_highlights_daily_rows(self):
+        strategy = load_strategy()
+        for dividend_yield, grade, label in [(6, "A", "买入区间"), (5, "B", "观察区间"), (4.1, "C", "等待区间"), (3, "D", "不买入")]:
+            with self.subTest(grade=grade):
+                result = score_input({"dividendYield": dividend_yield, "bondYield": 2}, strategy, DATES)
+                self.assertEqual(result["grade"], grade)
+                self.assertEqual(result["label"], label)
+                self.assertEqual(check_signal.should_highlight_signal_row({"strategy_version": strategy["version"], "composite_grade": grade}), grade == "A")
+        self.assertFalse(check_signal.should_highlight_signal_row({"absolute_signal": "A", "spread_signal": "A"}))
+        for grade in ("B", "C", "D"):
+            self.assertNotIn("买入", check_signal.display_signal_grade(grade))
 
 
 if __name__ == "__main__":

@@ -1,0 +1,183 @@
+[
+  {
+    "antipattern": "flat-type-hierarchy",
+    "name": "Flat type hierarchy",
+    "description": "Dominant heading and body roles are separated by less than 1.25× at every step, leaving the size hierarchy flat. Add at least one stronger size step.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/cjw/dev/Obsidian/wiki/tools/a-share-market-dashboard/src/index.html",
+    "line": 0,
+    "snippet": "Role sizes: body 16px, h1 16px, h2 16px, h3 16px (largest adjacent step 1.00:1; target 1.25:1)"
+  },
+  {
+    "antipattern": "em-dash-overuse",
+    "name": "Em-dash overuse",
+    "description": "Em-dash saturation in body copy is an AI cadence tell. Advisory only: humans use em-dashes legitimately, so this fires only on saturation — at least 8 em-dashes (— or --) at a density near one per 500 characters of body text — never on a long article that uses a few. Prefer commas, colons, periods, or parentheses.",
+    "severity": "advisory",
+    "category": "slop",
+    "file": "/Users/cjw/dev/Obsidian/wiki/tools/a-share-market-dashboard/src/index.html",
+    "line": 0,
+    "snippet": "12 em-dashes in body text",
+    "advisory": true
+  },
+  {
+    "antipattern": "side-tab",
+    "name": "Side-tab accent border",
+    "description": "Thick colored border on one side of a card — the most recognizable tell of AI-generated UIs. Use a subtler accent or remove it entirely.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/cjw/dev/Obsidian/wiki/tools/a-share-market-dashboard/src/styles.css",
+    "line": 69,
+    "snippet": "border-left: 3px solid var(--gold)"
+  },
+  {
+    "antipattern": "side-tab",
+    "name": "Side-tab accent border",
+    "description": "Thick colored border on one side of a card — the most recognizable tell of AI-generated UIs. Use a subtler accent or remove it entirely.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/cjw/dev/Obsidian/wiki/tools/a-share-market-dashboard/src/styles.css",
+    "line": 109,
+    "snippet": "border-left: 4px solid var(--blue)"
+  },
+  {
+    "antipattern": "side-tab",
+    "name": "Side-tab accent border",
+    "description": "Thick colored border on one side of a card — the most recognizable tell of AI-generated UIs. Use a subtler accent or remove it entirely.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/cjw/dev/Obsidian/wiki/tools/a-share-market-dashboard/src/styles.css",
+    "line": 131,
+    "snippet": "border-left: 4px solid #2f7de1"
+  },
+  {
+    "antipattern": "side-tab",
+    "name": "Side-tab accent border",
+    "description": "Thick colored border on one side of a card — the most recognizable tell of AI-generated UIs. Use a subtler accent or remove it entirely.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/cjw/dev/Obsidian/wiki/tools/a-share-market-dashboard/src/styles.css",
+    "line": 185,
+    "snippet": "border-left: 4px solid #0f6672"
+  },
+  {
+    "antipattern": "side-tab",
+    "name": "Side-tab accent border",
+    "description": "Thick colored border on one side of a card — the most recognizable tell of AI-generated UIs. Use a subtler accent or remove it entirely.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/cjw/dev/Obsidian/wiki/tools/a-share-market-dashboard/src/styles.css",
+    "line": 241,
+    "snippet": "border-left: 4px solid var(--green)"
+  },
+  {
+    "antipattern": "side-tab",
+    "name": "Side-tab accent border",
+    "description": "Thick colored border on one side of a card — the most recognizable tell of AI-generated UIs. Use a subtler accent or remove it entirely.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/cjw/dev/Obsidian/wiki/tools/a-share-market-dashboard/src/styles.css",
+    "line": 322,
+    "snippet": "border-left: 3px solid var(--green)"
+  },
+  {
+    "antipattern": "side-tab",
+    "name": "Side-tab accent border",
+    "description": "Thick colored border on one side of a card — the most recognizable tell of AI-generated UIs. Use a subtler accent or remove it entirely.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/cjw/dev/Obsidian/wiki/tools/a-share-market-dashboard/src/styles.css",
+    "line": 782,
+    "snippet": "border-left: 3px solid #0f6672"
+  },
+  {
+    "antipattern": "side-tab",
+    "name": "Side-tab accent border",
+    "description": "Thick colored border on one side of a card — the most recognizable tell of AI-generated UIs. Use a subtler accent or remove it entirely.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/cjw/dev/Obsidian/wiki/tools/a-share-market-dashboard/src/styles.css",
+    "line": 1116,
+    "snippet": "border-left: 3px solid #0f6672"
+  },
+  {
+    "antipattern": "border-accent-on-rounded",
+    "name": "Border accent on rounded element",
+    "description": "Thick accent border on a rounded card — the border clashes with the rounded corners. Remove the border or the border-radius.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/cjw/dev/Obsidian/wiki/tools/a-share-market-dashboard/src/styles.css",
+    "line": 164,
+    "snippet": "border-top: 3px solid"
+  },
+  {
+    "antipattern": "border-accent-on-rounded",
+    "name": "Border accent on rounded element",
+    "description": "Thick accent border on a rounded card — the border clashes with the rounded corners. Remove the border or the border-radius.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/cjw/dev/Obsidian/wiki/tools/a-share-market-dashboard/src/styles.css",
+    "line": 896,
+    "snippet": "border-top: 3px solid"
+  },
+  {
+    "antipattern": "border-accent-on-rounded",
+    "name": "Border accent on rounded element",
+    "description": "Thick accent border on a rounded card — the border clashes with the rounded corners. Remove the border or the border-radius.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/cjw/dev/Obsidian/wiki/tools/a-share-market-dashboard/src/styles.css",
+    "line": 946,
+    "snippet": "border-top: 18px solid"
+  },
+  {
+    "antipattern": "border-accent-on-rounded",
+    "name": "Border accent on rounded element",
+    "description": "Thick accent border on a rounded card — the border clashes with the rounded corners. Remove the border or the border-radius.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/cjw/dev/Obsidian/wiki/tools/a-share-market-dashboard/src/styles.css",
+    "line": 946,
+    "snippet": "border-bottom: 18px solid"
+  },
+  {
+    "antipattern": "border-accent-on-rounded",
+    "name": "Border accent on rounded element",
+    "description": "Thick accent border on a rounded card — the border clashes with the rounded corners. Remove the border or the border-radius.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/cjw/dev/Obsidian/wiki/tools/a-share-market-dashboard/src/styles.css",
+    "line": 947,
+    "snippet": "border-top: 17px solid"
+  },
+  {
+    "antipattern": "border-accent-on-rounded",
+    "name": "Border accent on rounded element",
+    "description": "Thick accent border on a rounded card — the border clashes with the rounded corners. Remove the border or the border-radius.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/cjw/dev/Obsidian/wiki/tools/a-share-market-dashboard/src/styles.css",
+    "line": 947,
+    "snippet": "border-bottom: 17px solid"
+  },
+  {
+    "antipattern": "overused-font",
+    "name": "Overused font",
+    "description": "Inter, Roboto, Fraunces, Geist, Plus Jakarta Sans, and Space Grotesk are used on so many sites they no longer feel distinctive. Each new wave of AI-generated UIs converges on the same handful of faces. Choose a face that gives your interface personality.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/cjw/dev/Obsidian/wiki/tools/a-share-market-dashboard/src/styles.css",
+    "line": 15,
+    "snippet": "font-family: Inter"
+  },
+  {
+    "antipattern": "side-tab",
+    "name": "Side-tab accent border",
+    "description": "Thick colored border on one side of a card — the most recognizable tell of AI-generated UIs. Use a subtler accent or remove it entirely.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/Users/cjw/dev/Obsidian/wiki/tools/a-share-market-dashboard/src/styles.css",
+    "line": 1535,
+    "snippet": "#risk-state-view .risk-tab[aria-pressed=true] — inset box-shadow 3px stripe (left)"
+  }
+]

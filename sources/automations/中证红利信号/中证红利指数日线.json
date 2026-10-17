@@ -1,7 +1,7 @@
 {
   "source": "中证指数官网 index-perf(000922)",
-  "sourceUrl": "https://www.csindex.com.cn/csindex-home/perf/index-perf?indexCode=000922&startDate=20080526&endDate=20261014",
-  "fetchedAt": "2026-10-15T15:10:22.484544+08:00",
+  "sourceUrl": "https://www.csindex.com.cn/csindex-home/perf/index-perf?indexCode=000922&startDate=20260602&endDate=20261016",
+  "fetchedAt": "2026-10-17T13:52:51+08:00",
   "data": [
     {
       "tradeDate": "20260602",
@@ -1622,6 +1622,42 @@
       "tradingValue": 583.74,
       "consNumber": 100.0,
       "peg": 8.94
+    },
+    {
+      "tradeDate": "20261015",
+      "indexCode": "000922",
+      "indexNameCnAll": "中证红利指数",
+      "indexNameCn": "中证红利",
+      "indexNameEnAll": "CSI Dividend Index",
+      "indexNameEn": "CSI Dividend",
+      "open": 5630.3,
+      "high": 5630.3,
+      "low": 5499.89,
+      "close": 5535.58,
+      "change": -137.35,
+      "changePct": -2.42,
+      "tradingVol": 6743015256.0,
+      "tradingValue": 686.91,
+      "consNumber": 100.0,
+      "peg": 8.92
+    },
+    {
+      "tradeDate": "20261016",
+      "indexCode": "000922",
+      "indexNameCnAll": "中证红利指数",
+      "indexNameCn": "中证红利",
+      "indexNameEnAll": "CSI Dividend Index",
+      "indexNameEn": "CSI Dividend",
+      "open": 5544.6,
+      "high": 5620.21,
+      "low": 5532.67,
+      "close": 5580.71,
+      "change": 45.13,
+      "changePct": 0.81,
+      "tradingVol": 5980570160.0,
+      "tradingValue": 587.01,
+      "consNumber": 100.0,
+      "peg": 8.93
     }
   ]
 }

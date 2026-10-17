@@ -27,7 +27,9 @@ test('build tolerates absent Nasdaq snapshots but rejects corrupt data', async t
   const csv = await readFile(new URL('../../../sources/assets/2026-09-11-index-day-distribution/yearly.csv', import.meta.url), 'utf8');
   await writeFile(join(statistics, 'yearly.csv'), csv);
   await mkdir(join(temporaryRoot, '.agents/skills/zzhl-dividend-signal'), { recursive: true });
-  await cp(new URL('../../../.agents/skills/zzhl-dividend-signal/strategy-v1.json', import.meta.url), join(temporaryRoot, '.agents/skills/zzhl-dividend-signal/strategy-v1.json'));
+  await cp(new URL('../../../.agents/skills/zzhl-dividend-signal/strategy-v2.json', import.meta.url), join(temporaryRoot, '.agents/skills/zzhl-dividend-signal/strategy-v2.json'));
+  await mkdir(join(dashboard, 'data', '红利信号'), { recursive: true });
+  await cp(new URL('../data/红利信号/management-trial.json', import.meta.url), join(dashboard, 'data', '红利信号', 'management-trial.json'));
   const build = () => spawnSync(process.execPath, ['scripts/build.mjs'], { cwd: dashboard, encoding: 'utf8' });
 
   const missing = build();

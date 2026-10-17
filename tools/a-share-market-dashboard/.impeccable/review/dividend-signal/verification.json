@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-17",
+  "scope": "红利信号查看页 distill/clarify",
+  "viewports": [
+    {"width": 1280, "documentWidth": 1280, "screenshots": ["desktop.png", "desktop-details.png"]},
+    {"width": 820, "documentWidth": 820},
+    {"width": 390, "documentWidth": 390, "screenshots": ["mobile.png", "mobile-history.png"], "expandedAnnualWrapperWidth": 322, "annualScrollWidth": 680, "titleHeight": 32.5},
+    {"width": 320, "documentWidth": 320, "titleHeight": 32.5}
+  ],
+  "browserChecks": {
+    "scoreAndMethodDisclosureOpens": true,
+    "historyDisclosureOpens": true,
+    "monthly2026DialogOpensAndCloses": true,
+    "disclosuresRetainedAcrossViewManagementNavigation": true,
+    "keyboardChartTooltipOpacity": 1,
+    "globalRefreshDetailsExpand": true,
+    "consoleErrors": []
+  },
+  "dataDates": {"score": "2026-10-15", "bollinger": "2026-10-16", "chartEnd": "2026-10-15"},
+  "chart": {"background": "white", "buyPointCount": 6, "dualAxesRetained": true},
+  "tests": {"targetedPassed": 38, "fullTests": 172, "fullPassed": 165, "knownExistingFailures": 7, "newFailures": 0},
+  "build": "passed",
+  "review": {"disposition": "ship", "requiredFixes": [], "scope": "只读审阅代码、设计约定与四张截图；未重复执行浏览器操作或测试"},
+  "unchanged": ["评分算法", "回测算法", "布林算法", "Excel", "策略参数", "评分记录"],
+  "limitations": ["全量测试仍有7项既有失败", "没有重新核对逐年历史数据", "机械检测为全局静态建议，不是本页无障碍认证"]
+}

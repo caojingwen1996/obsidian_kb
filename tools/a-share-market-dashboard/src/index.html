@@ -75,7 +75,7 @@
         </div>
       </header>
 
-      <div class="notice" id="global-notice" role="status">正在初始化。稳定联网请双击“启动面板.cmd”。</div>
+      <details id="market-refresh-details" class="market-refresh-details" open><summary>全市场数据刷新情况 <span>与本页红利数据分别核对</span></summary><div class="notice" id="global-notice" role="status">正在初始化。稳定联网请双击“启动面板.cmd”。</div></details>
 
       <section class="view is-active" id="market-summary" data-shell-content="thermometer" aria-labelledby="summary-heading">
         <div class="summary-heading compact-summary is-render-target" hidden>
@@ -194,8 +194,10 @@
           <button type="button" data-dividend-view="dividend-management-view">管理</button>
         </nav>
         <div id="dividend-signal-detail"></div>
-        <!-- DIVIDEND_DAY_CHART -->
+        <details class="dividend-history-disclosure" open><summary>年度收益与历史统计 <span>展开查看长期表现和对照指数</span></summary><div class="dividend-history-body">
         <div id="dividend-annual-detail"></div>
+        <!-- DIVIDEND_DAY_CHART -->
+        </div></details>
       </section>
 
       <section class="view" id="dividend-management-view" data-shell-content="strategy" aria-label="红利信号管理">
@@ -203,17 +205,14 @@
           <button type="button" data-dividend-view="dividend-signal-view">查看</button>
           <button type="button" data-dividend-view="dividend-management-view" aria-current="page">管理</button>
         </nav>
-        <p class="dividend-page-description">管理红利信号的评分规则与每日测算配置。保存并应用后立即重算Excel，同步查看页和走势图。</p>
         <div class="dividend-detail-layout">
           <div id="dividend-management-detail"></div>
           <article id="dividend-backtest-panel" class="panel dividend-backtest-panel" aria-labelledby="dividend-backtest-title">
             <header class="dividend-backtest-heading">
-              <div><p class="eyebrow">SIGNAL BACKTEST</p><h3 id="dividend-backtest-title" tabindex="-1">策略回测</h3></div>
+              <div><h3 id="dividend-backtest-title" tabindex="-1">策略回测</h3><p class="dividend-backtest-lead">比较不同等级信号之后的指数表现</p></div>
               <div class="dividend-backtest-controls"><button class="button-primary" type="button" id="dividend-backtest-run">读取Excel并回测</button></div>
             </header>
-            <p class="dividend-page-description">使用当前Excel全部历史记录重新评分，每条信号从记录日之后首个交易日收盘起，统一计算到Excel最后交易日。收益使用本地中证红利000922价格指数日线，不模拟资金仓位。</p>
-            <p class="dividend-score-footnote">每次读取当前Excel已保存内容，使用管理页本次填写的策略参数，无需先保存参数。Excel数据和策略参数未变化时，再次回测的结果相同。</p>
-            <p id="dividend-backtest-status" class="dividend-backtest-status" role="status" aria-live="polite">点击“策略回测”或“读取Excel并回测”，结果将直接显示在这里。</p>
+            <p id="dividend-backtest-status" class="dividend-backtest-status" role="status" aria-live="polite">还没有回测结果。点击“读取Excel并回测”，查看各等级的收益与回撤；无需先保存参数。</p>
             <div id="dividend-backtest-result"></div>
           </article>
           <div id="dividend-management-source"></div>

@@ -1,0 +1,61 @@
+{
+  "date": "2026-10-17",
+  "scope": "红利管理页面 distill/clarify",
+  "viewports": [
+    {
+      "width": 1280,
+      "documentWidth": 1280,
+      "screenshots": [
+        "desktop.png",
+        "desktop-settings.png"
+      ]
+    },
+    {
+      "width": 390,
+      "documentWidth": 390,
+      "screenshots": [
+        "mobile.png",
+        "mobile-settings.png"
+      ]
+    },
+    {
+      "width": 820,
+      "documentWidth": 820,
+      "tableWidth": 600
+    }
+  ],
+  "browserChecks": {
+    "readOnlyBacktest": true,
+    "parameterCount": 37,
+    "invalidWeightsDisableRun": true,
+    "invalidSummaryVisible": true,
+    "undoRetainsDisclosureState": true,
+    "keyboardEnterTogglesSettings": true,
+    "sourceExcelEntryVisible": true,
+    "staleCopyUsesActualButtons": true,
+    "consoleErrors": []
+  },
+  "contrast": {
+    "primary": 5.7531,
+    "readonly": 5.7203
+  },
+  "backtest": {
+    "raw": 102,
+    "usable": 85,
+    "completed": 82,
+    "pending": 3
+  },
+  "review": {
+    "firstDisposition": "fix",
+    "finding": "P3 过期结果提示旧按钮名称",
+    "finalDisposition": "ship",
+    "verdictScope": "该文案修复resolved；未重开全局设计审查"
+  },
+  "screenshotOrigin": "本机正在运行的localhost:49888当前页面全页截图；桌面和手机均为同一真实回测数据，未生成或替换行情",
+  "unchanged": [
+    "评分/回测算法",
+    "Excel",
+    "策略参数",
+    "评分记录"
+  ]
+}

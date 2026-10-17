@@ -1,0 +1,51 @@
+{
+  "action": "补齐回测本地指数日线",
+  "indexCode": "000922",
+  "source": "中证指数官网 index-perf(000922)",
+  "sourceUrl": "https://www.csindex.com.cn/csindex-home/perf/index-perf?indexCode=000922&startDate=20260602&endDate=20261016",
+  "fetchedAt": "2026-10-17T13:52:51+08:00",
+  "range": {
+    "startDate": "2026-06-02",
+    "endDate": "2026-10-16"
+  },
+  "previousCount": 90,
+  "currentCount": 92,
+  "existingRowsUnchanged": true,
+  "added": [
+    {
+      "date": "2026-10-15",
+      "close": 5535.58
+    },
+    {
+      "date": "2026-10-16",
+      "close": 5580.71
+    }
+  ],
+  "backup": "中证红利指数日线-补齐前.json",
+  "rawResponse": "中证指数官方响应.json",
+  "backupSha256": "d17bd8f34aa4567ad0f97b80ca9fe8e0f332b05a4be6b696fb901704dd132b4f",
+  "rawResponseSha256": "1680e19e8eb3f18d9050ccd4d95d97946ee3047287f4fcee2779e94d8368991b",
+  "note": "仅补齐价格数据；Excel、策略参数与评分记录未修改。回测仍按Excel最后估值日2026-10-15截断，2026-10-16价格不提前用于本轮收益。",
+  "verification": {
+    "endpoint": "http://127.0.0.1:49888/api/dividend-backtest-data",
+    "liveLatestPriceDate": "2026-10-16",
+    "strategyVersion": "dividend-weighted-v1-r3",
+    "period": {
+      "startDate": "2026-06-02",
+      "endDate": "2026-10-15",
+      "tradingDays": 91
+    },
+    "rawRecords": 102,
+    "usableSamples": 85,
+    "completed": 82,
+    "pending": 3,
+    "priceGaps": 0,
+    "conflictingPrices": 0,
+    "tests": {
+      "backtest": 13,
+      "localData": 3,
+      "builtRuntime": 1
+    },
+    "note": "使用正在运行的本地服务返回的当前Excel与价格，以前端现行回测和渲染函数验证；未执行浏览器点击。"
+  }
+}

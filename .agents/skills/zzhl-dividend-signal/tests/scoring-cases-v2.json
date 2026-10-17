@@ -1,0 +1,109 @@
+[
+  {
+    "name": "snapshot",
+    "input": {
+      "dividendYield": 4.13,
+      "bondYield": 1.67
+    },
+    "score": 45.50577245508982,
+    "grade": "C",
+    "components": [
+      42.6,
+      78.92215568862277
+    ]
+  },
+  {
+    "name": "low endpoints",
+    "input": {
+      "dividendYield": 3,
+      "bondYield": 3
+    },
+    "score": 0,
+    "grade": "D",
+    "components": [
+      0,
+      0
+    ]
+  },
+  {
+    "name": "anchors",
+    "input": {
+      "dividendYield": 4,
+      "bondYield": 2
+    },
+    "score": 41.6,
+    "grade": "C",
+    "components": [
+      40,
+      60
+    ]
+  },
+  {
+    "name": "ratio anchor",
+    "input": {
+      "dividendYield": 5,
+      "bondYield": 2
+    },
+    "score": 61.6,
+    "grade": "B",
+    "components": [
+      60,
+      80
+    ]
+  },
+  {
+    "name": "upper endpoints",
+    "input": {
+      "dividendYield": 6,
+      "bondYield": 1.2
+    },
+    "score": 100,
+    "grade": "A",
+    "components": [
+      100,
+      100
+    ]
+  },
+  {
+    "name": "missing bond",
+    "input": {
+      "dividendYield": 4.5
+    },
+    "score": null,
+    "grade": null,
+    "lower": 46,
+    "upper": 54,
+    "components": [
+      50,
+      null
+    ]
+  },
+  {
+    "name": "missing yield",
+    "input": {
+      "bondYield": 2
+    },
+    "score": null,
+    "grade": null,
+    "lower": 0,
+    "upper": 100,
+    "components": [
+      null,
+      null
+    ]
+  },
+  {
+    "name": "retired percentile ignored",
+    "input": {
+      "percentile": null,
+      "dividendYield": 4,
+      "bondYield": 2
+    },
+    "score": 41.6,
+    "grade": "C",
+    "components": [
+      40,
+      60
+    ]
+  }
+]

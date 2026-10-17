@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-17T06:24:50.476908+00:00",
+  "title": "Design System: A股市场仪表盘 · 红利查看与管理局部约定",
+  "extensions": {
+    "breakpoints": [
+      {
+        "name": "chart-narrow-upper",
+        "value": "1100px"
+      },
+      {
+        "name": "summary-and-signal-compact",
+        "value": "900px"
+      },
+      {
+        "name": "existing-shell-and-chart-mobile",
+        "value": "760px"
+      },
+      {
+        "name": "dividend-mobile",
+        "value": "700px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "回测主按钮",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "本页action蓝主按钮；回测内边距10px 18px、圆角8px、最小高度44px；导航仍沿用全局蓝。",
+      "html": "<button class=\"ds-primary\" type=\"button\">读取Excel并回测</button>",
+      "css": ".ds-primary{min-height:44px;padding:10px 18px;border:0;border-radius:8px;background:#2464bf;color:white;font:700 13px Inter, \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif;cursor:pointer}.ds-primary:hover:not(:disabled){background:#1d55a6}.ds-primary:active:not(:disabled){background:#184b96}.ds-primary:focus-visible{outline:3px solid rgba(50,118,216,.35);outline-offset:2px;}"
+    },
+    {
+      "name": "保存并应用主按钮",
+      "kind": "button",
+      "refersTo": "button-save",
+      "description": "参数区保存动作；内边距10px 16px、圆角8px、最小高度44px；作用行为不变。",
+      "html": "<button class=\"ds-save\" type=\"button\">保存并应用到每日测算</button>",
+      "css": ".ds-save{min-height:44px;padding:10px 16px;border:0;border-radius:8px;background:#2464bf;color:white;font:700 12px Inter, \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif;cursor:pointer}.ds-save:hover:not(:disabled){background:#1d55a6}.ds-save:active:not(:disabled){background:#184b96}.ds-save:focus-visible{outline:3px solid rgba(50,118,216,.35);outline-offset:2px;}.ds-save:disabled{opacity:.45;cursor:not-allowed}"
+    },
+    {
+      "name": "次按钮",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "现有撤销、恢复及辅助操作。",
+      "html": "<button class=\"ds-secondary\" type=\"button\">撤销修改</button>",
+      "css": ".ds-secondary{min-height:44px;padding:8px 12px;border:1px solid var(--line,#dfe5e9);border-radius:9px;background:var(--card,#fff);color:var(--ink,#18232c);font:12px Inter, \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif;cursor:pointer}.ds-secondary:hover{border-color:#aeb9c0}.ds-secondary:focus-visible{outline:3px solid rgba(50,118,216,.35);outline-offset:2px;}.ds-secondary:disabled{opacity:.45;cursor:not-allowed}"
+    },
+    {
+      "name": "数值输入",
+      "kind": "input",
+      "description": "评分参数输入；保留只读与无效状态。",
+      "html": "<label class=\"ds-field\">权重（%）<input type=\"number\" aria-label=\"评分权重\" value=\"40\"></label>",
+      "css": ".ds-field{display:grid;gap:8px;color:#41515e;font:13px/1.5 Inter, \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif}.ds-field input{min-height:42px;min-width:0;padding:8px;border:1px solid #c9d5dd;border-radius:5px;color:#172e40;background:#fff;font:14px Inter, \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif;font-variant-numeric:tabular-nums}.ds-field input:focus{outline:2px solid #388369;outline-offset:1px}.ds-field input[readonly]{background:#f0f3f5;color:#53616c}.ds-field input[aria-invalid=\"true\"]{border-color:#c43e35;background:#fff5f4}"
+    },
+    {
+      "name": "查看与管理导航",
+      "kind": "nav",
+      "description": "现有页签及当前页语义；保留全局navigation蓝，与本页action主按钮蓝区分。",
+      "html": "<nav class=\"ds-nav\" aria-label=\"红利信号页面\"><button type=\"button\">查看</button><button type=\"button\" aria-current=\"page\">管理</button></nav>",
+      "css": ".ds-nav{display:flex;gap:24px;border-bottom:1px solid var(--line,#dfe5e9)}.ds-nav button{border:0;border-bottom:3px solid transparent;padding:10px 6px 12px;background:transparent;color:var(--muted,#6d7a84);font:14px Inter, \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif;cursor:pointer}.ds-nav button:hover{color:var(--blue,#3276d8)}.ds-nav button[aria-current=\"page\"]{border-bottom-color:var(--blue,#3276d8);color:var(--ink,#18232c);font-weight:700}.ds-nav button:focus-visible{outline:3px solid rgba(50,118,216,.35);outline-offset:2px;}"
+    },
+    {
+      "name": "回测结果表面",
+      "kind": "card",
+      "refersTo": "result-panel",
+      "description": "本页无阴影白色面板。",
+      "html": "<article class=\"ds-panel\"><h3>策略回测</h3><p>比较不同等级信号之后的指数表现</p></article>",
+      "css": ".ds-panel{padding:28px;border-radius:14px;background:var(--card,#fff);color:var(--ink,#18232c);box-shadow:none;font-family:Inter, \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif}.ds-panel h3{margin:0;font-size:20px}.ds-panel p{margin:7px 0 0;color:#53616c;font-size:13px}@media(max-width:700px){.ds-panel{padding:20px 16px}}"
+    },
+    {
+      "name": "按需展开说明",
+      "kind": "custom",
+      "description": "原生details保留摘要、键盘展开与可见焦点。",
+      "html": "<details class=\"ds-disclosure\"><summary>怎么看这张表？</summary><p>每行表示同一等级、同一历史分位来源的一组信号。</p></details>",
+      "css": ".ds-disclosure{border-top:1px solid var(--line,#dfe5e9);color:var(--ink,#18232c);font:13px/1.8 Inter, \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif}.ds-disclosure summary{padding:15px 0;font-weight:600;cursor:pointer}.ds-disclosure summary:hover{color:var(--blue,#3276d8)}.ds-disclosure summary:focus-visible{outline:3px solid var(--blue,#3276d8);outline-offset:4px}.ds-disclosure p{margin:0 0 20px;color:#53616c}"
+    },
+    {
+      "name": "查看页当前信号表面",
+      "kind": "card",
+      "refersTo": "signal-panel",
+      "description": "评分与周线布林并置；日期、质量仍可见，内部不嵌套卡片。",
+      "html": "<section class=\"ds-signal\"><h3>当前信号</h3><div class=\"ds-signal-columns\"><section><h4>股息率策略评分</h4></section><section><h4>布林线策略 · 周线</h4></section></div></section>",
+      "css": ".ds-signal{padding:24px 28px;border:0;border-radius:14px;background:var(--card,#fff);box-shadow:none;color:var(--ink,#18232c);font-family:Inter, \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif}.ds-signal h3{margin:0 0 22px;font-size:17px}.ds-signal-columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}.ds-signal-columns>section{padding:0;border:0;border-radius:0}.ds-signal-columns>section+section{border-left:1px solid var(--line,#dfe5e9);padding-left:28px}.ds-signal h4{margin:0 0 14px;color:#53616c;font-size:13px;font-weight:600}@media(max-width:900px){.ds-signal-columns{grid-template-columns:1fr;gap:22px}.ds-signal-columns>section+section{border-left:0;border-top:1px solid var(--line,#dfe5e9);padding:22px 0 0}}@media(max-width:700px){.ds-signal{padding:20px 16px}}"
+    },
+    {
+      "name": "查看页图例颜色",
+      "kind": "custom",
+      "description": "提取真实线图图例；颜色对应指数、股息率和A/B历史买点，未合成示例数据。",
+      "html": "<div class=\"ds-chart-legend\" aria-label=\"走势与买点图例\"><span class=\"ds-index\">中证红利指数（左轴）</span><span class=\"ds-yield\">股息率（右轴）</span><span class=\"ds-grade-a\">A 买点 · 重点买入</span><span class=\"ds-grade-b\">B 买点 · 加大买入</span></div>",
+      "css": ".ds-chart-legend{display:flex;flex-wrap:wrap;align-items:center;gap:10px 20px;margin:0 0 8px;font:12px/1.7 Inter,\"PingFang SC\",\"Microsoft YaHei\",system-ui,sans-serif}.ds-chart-legend>span{display:inline-flex;align-items:center;gap:7px}.ds-chart-legend>span::before{content:\"\";display:inline-block;width:14px;height:2px;background:currentColor}.ds-chart-legend .ds-index{color:#2464bf}.ds-chart-legend .ds-yield{color:#82633b}.ds-chart-legend .ds-grade-a{color:#945409}.ds-chart-legend .ds-grade-b{color:#126a53}.ds-chart-legend .ds-grade-a::before,.ds-chart-legend .ds-grade-b::before{width:7px;height:7px;border-radius:50%}@media(max-width:760px){.ds-chart-legend{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px 8px;line-height:1.5}}"
+    },
+    {
+      "name": "查看页评分与历史披露",
+      "kind": "custom",
+      "description": "查看页摘要内边距18px 4px；焦点外偏移3px，区别于管理页。",
+      "html": "<details class=\"ds-view-details\"><summary>评分拆解与连续确认 <span>查看三项贡献、公式和确认状态</span></summary></details>",
+      "css": ".ds-view-details{border-top:1px solid var(--line,#dfe5e9);color:var(--ink,#18232c);font:13px/1.8 Inter, \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif}.ds-view-details>summary{padding:18px 4px;cursor:pointer;font-weight:600}.ds-view-details>summary span{margin-left:14px;color:#53616c;font-size:12px;font-weight:400}.ds-view-details>summary:hover{color:var(--blue,#3276d8)}.ds-view-details>summary:focus-visible{outline:3px solid var(--blue,#3276d8);outline-offset:3px}@media(max-width:700px){.ds-view-details>summary span{display:block;margin:5px 0 0}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "",
+    "overview": "本文件从 `src/styles.css`、`src/index.html`、`src/app.mjs` 的既有实现与本次用户请求提取，只适用于 `#dividend-management-view` 与 `#dividend-signal-view` 的维护。蓝色、白色表面、中性灰文本及系统中文无衬线字体沿用现有仪表盘；不构成全站视觉升级，也不授权修改其他页面。\n\n当前没有 `PRODUCT.md`。这里没有完成产品访谈、品牌工作坊或用户研究，不把描述性判断写成已确认的品牌承诺。页面任务、阅读次序与交互边界分别见 [管理页 surface brief](.impeccable/dividend-management-surface.md) 与 [查看页 surface brief](.impeccable/dividend-signal-surface.md)。",
+    "keyCharacteristics": [
+      "沿用已有蓝灰视觉。",
+      "用文字层级、间距与分隔线组织密集数据。",
+      "局部采用无阴影表面，减少嵌套容器。"
+    ],
+    "rules": [],
+    "dos": [
+      "**Do** 沿用既有蓝灰颜色、字体与导航语义。",
+      "**Do** 在两页用留白、细分隔线和渐进展开降低阅读负担。",
+      "**Do** 保持字段标签、来源口径、空值和错误状态可理解。"
+    ],
+    "donts": [
+      "**Don't** 将本文件扩展为全站换肤授权或已确认的品牌研究。",
+      "**Don't** 用视觉精简改变原有数据、计算、来源、保存与应用行为。",
+      "**Don't** 为统一外观移除焦点、输入标签、只读或无效状态。"
+    ]
+  }
+}

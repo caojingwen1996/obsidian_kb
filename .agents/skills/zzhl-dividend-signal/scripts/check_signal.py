@@ -17,9 +17,9 @@ from typing import Iterable
 from urllib import parse, request
 
 try:
-    from .scoring import load_strategy, score_input, confirm_records, grade_for_score, finite
+    from .scoring import load_strategy, score_input, confirm_records, grade_for_score, finite, COMPONENT_LABELS
 except ImportError:
-    from scoring import load_strategy, score_input, confirm_records, grade_for_score, finite
+    from scoring import load_strategy, score_input, confirm_records, grade_for_score, finite, COMPONENT_LABELS
 
 
 INDEX_CODE = "000922"
@@ -200,12 +200,7 @@ SIGNAL_LEVELS = {
     "A": 3,
 }
 
-SIGNAL_GRADE_LABELS = {
-    "D": "不买或少买",
-    "C": "小额定投",
-    "B": "加大买入",
-    "A": "重点买入",
-}
+SIGNAL_GRADE_LABELS = COMPONENT_LABELS
 
 LEGACY_SIGNAL_LABELS = {
     "历史分位点待验证": "",
@@ -534,18 +529,7 @@ def strong_signal_count(signals: Iterable[object]) -> int:
 
 
 def should_highlight_signal_row(row: dict[str, object]) -> bool:
-    if row.get("strategy_version"):
-        return row.get("composite_grade") in {"B", "A"}
-    return (
-        strong_signal_count(
-            [
-                row.get("percentile_signal", ""),
-                row.get("absolute_signal", ""),
-                row.get("spread_signal", ""),
-            ]
-        )
-        >= 2
-    )
+    return row.get("composite_grade") == "A"
 
 
 def build_headline(
@@ -829,8 +813,6 @@ def fetch_signal(
     bond_10y = bond_yield.yield_10y
     spread = dividend_yield_2 - bond_10y
 
-    lixinger = fetch_lixinger_percentile(llm_percentile, ak=ak)
-    percentile_signal = evaluate_percentile(lixinger.percentile_10y)
     absolute_signal = evaluate_absolute(dividend_yield_2)
     spread_signal = evaluate_spread(dividend_yield_2, bond_10y)
     headline = "等待V1评分"
@@ -849,29 +831,17 @@ def fetch_signal(
             if intraday_quote.change_percent is None
             else f"{intraday_quote.change_percent:.2f}"
         ),
-        lixinger_date=lixinger.date,
-        lixinger_dividend_yield=(
-            "" if lixinger.dividend_yield <= 0 else f"{lixinger.dividend_yield:.2f}"
-        ),
-        lixinger_percentile_10y=(
-            "" if lixinger.percentile_10y is None else f"{lixinger.percentile_10y:.2f}"
-        ),
-        lixinger_percentile_80_value=(
-            ""
-            if lixinger.percentile_80_value is None
-            else f"{lixinger.percentile_80_value:.2f}"
-        ),
-        lixinger_source=lixinger.source,
+        lixinger_date="", lixinger_dividend_yield="", lixinger_percentile_10y="",
+        lixinger_percentile_80_value="", lixinger_source="",
         bond_10y_yield=bond_10y,
         spread=spread,
-        percentile_signal=percentile_signal,
+        percentile_signal="",
         absolute_signal=absolute_signal,
         spread_signal=spread_signal,
         headline_signal=headline,
         source_note=(
             f"{index_valuation.note}; {index_performance.note}; {bond_yield.note}; "
-            f"{intraday_quote.source}: {intraday_quote.note}; "
-            f"{lixinger.source}: {lixinger.note}"
+            f"{intraday_quote.source}: {intraday_quote.note}"
         ),
         annual_performance=annual_performance,
         annual_performance_source=annual_performance_source,
@@ -880,9 +850,8 @@ def fetch_signal(
     history_date_col = "date" if annual_performance_source.startswith("中证") else fallback_date_col
     signal.trading_dates = sorted({str(v)[:10] for v in history[history_date_col] if str(v)[:10] <= signal.index_date})
     signal.strategy = strategy
-    signal.percentile_value = lixinger.percentile_10y
     signal.scoring = score_signal(signal)
-    for key, attr in (("percentile", "percentile_signal"), ("absolute", "absolute_signal"), ("ratio", "spread_signal")):
+    for key, attr in (("absolute", "absolute_signal"), ("ratio", "spread_signal")):
         value = signal.scoring["components"][key]["score"]
         setattr(signal, attr, grade_for_score(value, signal.strategy) if value is not None else "")
     signal.headline_signal = signal.scoring["label"]
@@ -1078,16 +1047,6 @@ def write_xlsx(
 
 def write_markdown(signal: Signal, md_path: Path) -> None:
     md_path.parent.mkdir(parents=True, exist_ok=True)
-    percentile_text = (
-        f"{float(signal.lixinger_percentile_10y):.2f}%"
-        if signal.lixinger_percentile_10y
-        else "待验证"
-    )
-    p80_text = (
-        f"{float(signal.lixinger_percentile_80_value):.2f}%"
-        if signal.lixinger_percentile_80_value
-        else "待验证"
-    )
     def display_number(value):
         return f"{value:.2f}" if finite(value) else "待验证"
 
@@ -1095,24 +1054,20 @@ def write_markdown(signal: Signal, md_path: Path) -> None:
 
 - 运行时间：{signal.run_date} {signal.run_time}
 - 指数估值日期：{signal.index_date}
-- 理杏仁估值日期：{signal.lixinger_date or "待确认"}
 - 10年国债收益率日期：{signal.bond_date}
 - 中证红利股息率口径：{display_number(signal.akshare_dividend_yield_2)}%
 - 全年收益率：{display_number(signal.ytd_return)}%
 - 年内最大回撤：{display_number(signal.ytd_max_drawdown)}%
 - 当天涨跌幅：{signal.intraday_change_percent + "%" if signal.intraday_change_percent else "待验证"}
-- 理杏仁市值加权股息率：{signal.lixinger_dividend_yield + "%" if signal.lixinger_dividend_yield else "待验证"}
-- 理杏仁近10年股息率分位：{percentile_text}
-- 理杏仁近10年80%分位点：{p80_text}
 - 中国10年国债收益率：{display_number(signal.bond_10y_yield)}%
 - 指数股息率口径 - 10年国债收益率：{display_number(signal.spread)}%
 
 ## 判断
 
-- 历史分位点触发：{display_signal_grade(signal.percentile_signal)}
 - 绝对股息率触发：{display_signal_grade(signal.absolute_signal)}
 - 相对债券收益率触发：{display_signal_grade(signal.spread_signal)}
 - 综合结论：{signal.headline_signal}
+- 买入规则：仅综合评级 A 可买入，B / C / D 均不买入；单项指标评级不是买入信号。
 
 ## 来源
 
@@ -1123,18 +1078,17 @@ def write_markdown(signal: Signal, md_path: Path) -> None:
 - 本记录只是按既定规则生成的观察信号，不构成投资建议。
 - 指数股息率口径用于绝对股息率、股债利差记录和相对国债收益率倍数评级；当前使用 AKShare `股息率2`。
 - 全年收益率和年内最大回撤均按本年度首个交易日至指数估值日期的日收盘价计算。
-- 理杏仁市值加权股息率用于近10年历史分位判断；理杏仁不可用时，改用中证官方价格指数(000922)与全收益指数(H00922)推算的滚动12个月股息率分位，实际口径以来源栏为准。
 - 若数据源字段、接口或口径变化，需要重新核对脚本。
 """
     if signal.scoring:
         score = signal.scoring
         value = f"{score['score']:.1f}" if score['score'] is not None else f"{score['lower']:.1f}～{score['upper']:.1f}（不完整）"
-        details = ["## V1 加权评分", "", f"- 策略版本：{score['strategyVersion']}", f"- 综合分：{value}", f"- 综合等级：{score['grade'] or '待验证'}", f"- 数据质量：{'；'.join(score['quality'])}", f"- 连续确认：{score.get('confirmation', {}).get('message', '证据不足')}"]
+        details = ["## 双指标加权评分", "", f"- 策略版本：{score['strategyVersion']}", f"- 综合分：{value}", f"- 综合等级：{score['grade'] or '待验证'}", f"- 数据质量：{'；'.join(score['quality'])}", f"- 连续确认：{score.get('confirmation', {}).get('message', '证据不足')}"]
         for key, item in score["components"].items():
-            label = {"percentile": "历史分位", "absolute": "绝对股息率", "ratio": "股债倍数"}[key]
+            label = {"absolute": "绝对股息率", "ratio": "股债倍数"}[key]
             detail = "待验证" if item["score"] is None else f"{item['score']:.4f} × {item['weight']}% = {item['contribution']:.4f}；锚点 {item['interval']}"
             details.append(f"- {label}贡献：{detail}")
-        details += ["", "等级按未舍入分数判定；缺项不重分配权重。替代口径标记参考评分，日期未对齐不参与连续确认。参数尚未经收益回测验证。", ""]
+        details += ["", "等级按未舍入分数判定；缺项不重分配权重。股息率与国债日期未对齐不参与连续确认。参数尚未经收益回测验证。", ""]
         text += "\n" + "\n".join(details)
     md_path.write_text(text, encoding="utf-8")
 
@@ -1171,11 +1125,11 @@ def numeric_input(value):
 
 def score_signal(signal, kind="daily"):
     return score_input(
-        {"percentile": signal.percentile_value if signal.percentile_value is not None else numeric_input(signal.lixinger_percentile_10y), "dividendYield": signal.akshare_dividend_yield_2, "bondYield": signal.bond_10y_yield},
+        {"dividendYield": signal.akshare_dividend_yield_2, "bondYield": signal.bond_10y_yield},
         strategy=signal.strategy or load_strategy(),
-        dates={"index": signal.index_date, "percentile": signal.lixinger_date, "bond": signal.bond_date},
-        source_key=f"股息率2|bond_zh_us_rate|{signal.lixinger_source}" if signal.lixinger_source else "",
-        reference="推算" in signal.lixinger_source, kind=kind,
+        dates={"index": signal.index_date, "bond": signal.bond_date},
+        source_key="股息率与股债倍数",
+        reference=False, kind=kind,
     )
 
 
@@ -1186,9 +1140,9 @@ def legacy_score_records(output_dir):
     records = []
     for row in rows:
         record = score_input(
-            {"percentile": numeric_input(row.get("lixinger_percentile_10y")), "dividendYield": numeric_input(row.get("akshare_dividend_yield_2")), "bondYield": numeric_input(row.get("bond_10y_yield"))},
-            dates={"index": row.get(CSV_HEADER_LABELS["index_date"], ""), "percentile": row.get(CSV_HEADER_LABELS["lixinger_date"], ""), "bond": row.get(CSV_HEADER_LABELS["bond_date"], "")},
-            source_key=str(row.get("lixinger_source") or ""), reference=True, kind="legacy",
+            {"dividendYield": numeric_input(row.get("akshare_dividend_yield_2")), "bondYield": numeric_input(row.get("bond_10y_yield"))},
+            dates={"index": row.get(CSV_HEADER_LABELS["index_date"], ""), "bond": row.get(CSV_HEADER_LABELS["bond_date"], "")},
+            source_key="股息率与股债倍数", reference=False, kind="legacy",
         )
         record["originalHeadline"] = row.get("headline_signal", "")
         record["recordDate"] = row.get(CSV_HEADER_LABELS["run_date"], "")
@@ -1282,15 +1236,7 @@ def main() -> int:
     target_run_date = (
         datetime.fromisoformat(args.run_date) if args.run_date else None
     )
-    llm_percentile = make_llm_lixinger_percentile(
-        date=args.llm_lixinger_date or args.run_date or "",
-        dividend_yield=args.llm_lixinger_dividend_yield,
-        percentile_10y=args.llm_lixinger_percentile_10y,
-        percentile_80_value=args.llm_lixinger_percentile_80_value,
-        source_note=args.llm_source_note,
-    )
     signal = fetch_signal(
-        llm_percentile=llm_percentile,
         target_run_date=target_run_date,
     )
     write_score_artifact(signal, output_dir)
@@ -1305,16 +1251,7 @@ def main() -> int:
         output_dir / "中证红利年度表现.json",
         signal.annual_performance_source,
     )
-    percentile_print = (
-        f"{signal.lixinger_percentile_10y}%"
-        if signal.lixinger_percentile_10y
-        else "待验证"
-    )
-    print(
-        f"{signal.index_date} {signal.headline_signal}："
-        f"指数股息率口径 {signal.akshare_dividend_yield_2:.2f}%，"
-        f"理杏仁分位 {percentile_print}，利差 {signal.spread:.2f}%"
-    )
+    print(f"{signal.index_date} {signal.headline_signal}：指数股息率口径 {signal.akshare_dividend_yield_2:.2f}%，股债倍数 {signal.akshare_dividend_yield_2 / signal.bond_10y_yield:.2f}倍")
     return 0
 
 

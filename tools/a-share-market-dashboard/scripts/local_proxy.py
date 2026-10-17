@@ -2348,7 +2348,7 @@ def read_dividend_view_data(vault_root):
         row = dict(zip(headers, values))
         day, value = iso_date(row.get("index_date__index_valuation_date")), number(row.get("akshare_dividend_yield_2"))
         if day and value is not None:
-            history.append({"date": day, "value": value, "headline": row.get("headline_signal") or ""})
+            history.append({"date": day, "recordDate": iso_date(row.get("run_date__record_date")), "value": value, "headline": row.get("headline_signal") or ""})
     return {"schemaVersion": 1, "payload": payload, "yieldHistory": history, "indexHistory": data["indexPoints"]}
 
 

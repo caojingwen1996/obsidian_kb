@@ -98,7 +98,7 @@ test('live loader requests a full history for 000922 and reports failed or insuf
 test('cards retain snapshot values after a failed refresh and work independently of dividend score data', () => {
   const html = renderDividendSignalDetail(null, { indexHistory: weeklyCloses, asOf, indexStatus: 'error', indexError: 'HTTP 503 <unavailable>' });
   assert.match(html, /data-status="ready"/);
-  assert.match(html, /中证红利 · 000922 · 数据截至 2026-05-22/);
+  assert.match(html, /收盘日 2026-05-22/);
   assert.match(html, /<small>周线中轨<\/small><strong>10.5<\/strong>/);
   assert.match(html, /%B /);
   assert.match(html, /更新失败：HTTP 503 &lt;unavailable&gt;/);
@@ -109,11 +109,28 @@ test('cards retain snapshot values after a failed refresh and work independently
   assert.match(missing, /<small>周线上轨<\/small><strong>—<\/strong>/);
 });
 
+test('Bollinger overview keeps its values and defers units, formula and source details', () => {
+  const html = renderDividendBollingerStrategy(weeklyCloses, { asOf });
+  const details = html.match(/<details[^>]+data-dividend-disclosure="bollinger-method"[^>]*>[\s\S]*?<\/details>/)[0];
+  const primary = html.replace(details, '');
+  assert.match(primary, /中轨至上轨/);
+  assert.match(primary, /收盘日 2026-05-22/);
+  assert.match(primary, /<small>周线中轨<\/small><strong>10.5<\/strong>/);
+  assert.match(primary, /class="dividend-band-position"/);
+  assert.doesNotMatch(primary, /已接入|20周均线|标准差|下轨0%|计算窗口|来源：/);
+  assert.match(details, /<summary>详情<\/summary>/);
+  assert.doesNotMatch(details.split('>')[0], /\bopen\b/);
+  assert.match(details, /20周均线 ± 2倍标准差/);
+  assert.match(details, /%B以下轨为0%、上轨为100%/);
+  assert.match(details, /来源：中证指数官网日线/);
+});
+
 test('built dashboard computes real weekly bands from its embedded official history', () => {
   const html = readFileSync(new URL('../a-share-market-dashboard.html', import.meta.url), 'utf8');
   const runtime = html.match(/<script type="module">([\s\S]*?)<\/script>/)?.[1];
   assert.ok(runtime);
-  const { bands, card, count } = new Function(`${runtime}\nconst bands = calculateDividendWeeklyBollinger(CSI_DIVIDEND_INDEX_HISTORY, { asOf: new Date('2026-10-15T09:00:00Z') }); return { bands, count: CSI_DIVIDEND_INDEX_HISTORY.length, card: renderDividendBollingerStrategy(CSI_DIVIDEND_INDEX_HISTORY, { asOf: new Date('2026-10-15T09:00:00Z') }) };`)();
+  // Pin this historical expectation to its last priced day as newer daily rows are appended.
+  const { bands, card, count } = new Function(`${runtime}\nconst bands = calculateDividendWeeklyBollinger(CSI_DIVIDEND_INDEX_HISTORY, { asOf: new Date('2026-10-14T09:00:00Z') }); return { bands, count: CSI_DIVIDEND_INDEX_HISTORY.length, card: renderDividendBollingerStrategy(CSI_DIVIDEND_INDEX_HISTORY, { asOf: new Date('2026-10-14T09:00:00Z') }) };`)();
   assert.ok(count >= 200);
   assert.equal(bands.status, 'ready');
   assert.equal(bands.date, '2026-10-14');
@@ -125,4 +142,17 @@ test('built dashboard computes real weekly bands from its embedded official hist
   assert.equal(bands.label, '中轨至上轨');
   assert.match(card, /data-status="ready"/);
   assert.match(card, /本周未收盘/);
+});
+
+
+test('position graphic keeps true out-of-band values and never invents a marker for missing bands', () => {
+  const points = weeklyCloses.map((point, i) => ({...point, close: i === 19 ? 1000 : 100}));
+  const bands = calculateDividendWeeklyBollinger(points, {asOf});
+  assert.ok(bands.percentB > 100);
+  const html = renderDividendBollingerStrategy(points, {asOf});
+  assert.match(html, /--position:100%/);
+  const shown = Number(html.match(/aria-label="当前轨道位置：[^\"]*%B ([\d.]+)%"/)[1]);
+  assert.ok(Math.abs(shown - bands.percentB) <= 0.05);
+  assert.match(html, /%B保留轨道外的实际值/);
+  assert.doesNotMatch(renderDividendBollingerStrategy([], {asOf}), /class="dividend-band-position"|--position:/);
 });

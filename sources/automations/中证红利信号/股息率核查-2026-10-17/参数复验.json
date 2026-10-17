@@ -1,0 +1,112 @@
+{
+  "period": {
+    "startDate": "2026-06-02",
+    "endDate": "2026-10-15",
+    "tradingDays": 91
+  },
+  "method": "Same common endpoint and entry rule; segment by signal valuation date, no annualization, no retuning.",
+  "comparison": {
+    "dividend-weighted-v1-r3": {
+      "full": {
+        "n": 82,
+        "rho": 0.3407578321892413,
+        "meanReturn": 1.1396863262632724,
+        "positivePct": 58.53658536585366,
+        "worstDD": -11.636302858097947,
+        "B": 4,
+        "top20Mean": 3.019210307477171
+      },
+      "beforeJune30": {
+        "n": 17,
+        "rho": 0.28431372549019607,
+        "meanReturn": 2.254877927788074,
+        "positivePct": 52.94117647058823,
+        "worstDD": -11.636302858097947,
+        "B": 4,
+        "top20Mean": null
+      },
+      "fromJune30": {
+        "n": 65,
+        "rho": 0.4377670210818701,
+        "meanReturn": 0.8480208304798628,
+        "positivePct": 60,
+        "worstDD": -5.077416703823189,
+        "B": 0,
+        "top20Mean": 3.199722706949588
+      },
+      "officialSource": {
+        "n": 68,
+        "rho": 0.4805367078196047,
+        "meanReturn": 0.9035978568363795,
+        "positivePct": 52.94117647058823,
+        "worstDD": -11.636302858097947,
+        "B": 4,
+        "top20Mean": 3.019210307477171
+      },
+      "B": {
+        "n": 4,
+        "rho": 0.8,
+        "meanReturn": 3.7591608747552963,
+        "positivePct": 75,
+        "worstDD": -11.636302858097947,
+        "B": 4,
+        "top20Mean": null
+      }
+    },
+    "dividend-weighted-v1-r4": {
+      "full": {
+        "n": 82,
+        "rho": 0.6123715042999669,
+        "meanReturn": 1.1396863262632724,
+        "positivePct": 58.53658536585366,
+        "worstDD": -11.636302858097947,
+        "B": 6,
+        "top20Mean": 3.0192103074771706
+      },
+      "beforeJune30": {
+        "n": 17,
+        "rho": 0.9313725490196079,
+        "meanReturn": 2.254877927788074,
+        "positivePct": 52.94117647058823,
+        "worstDD": -11.636302858097947,
+        "B": 6,
+        "top20Mean": null
+      },
+      "fromJune30": {
+        "n": 65,
+        "rho": 0.8447644751867398,
+        "meanReturn": 0.8480208304798628,
+        "positivePct": 60,
+        "worstDD": -5.077416703823189,
+        "B": 0,
+        "top20Mean": 3.9329414377177385
+      },
+      "officialSource": {
+        "n": 68,
+        "rho": 0.6241232214203867,
+        "meanReturn": 0.9035978568363795,
+        "positivePct": 52.94117647058823,
+        "worstDD": -11.636302858097947,
+        "B": 6,
+        "top20Mean": 3.0192103074771706
+      },
+      "B": {
+        "n": 6,
+        "rho": 0.7714285714285715,
+        "meanReturn": 6.974990053879133,
+        "positivePct": 100,
+        "worstDD": -6.529842760448357,
+        "B": 6,
+        "top20Mean": null
+      }
+    }
+  },
+  "verifiedDividendYield2": {
+    "2026-06-24": 5.25,
+    "2026-06-25": 5.31,
+    "2026-06-26": 5.43,
+    "2026-06-29": 5.39,
+    "2026-06-30": 4.84,
+    "2026-07-01": 4.76
+  }
+}

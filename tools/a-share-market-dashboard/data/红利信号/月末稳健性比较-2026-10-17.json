@@ -1,0 +1,2282 @@
+{
+  "reviewedAt": "2026-10-17",
+  "period": {
+    "startDate": "2026-06-02",
+    "endDate": "2026-10-15",
+    "tradingDays": 91
+  },
+  "workbookUpdatedAt": "2026-10-17T10:24:57.024451+00:00",
+  "source": {
+    "workbook": "/Users/cjw/dev/Obsidian/wiki/sources/automations/中证红利信号/中证红利每日信号.xlsx",
+    "prices": "current local backtest API, same saved prices",
+    "inputHash": "76d7400c567e1e2302f8d2cc2d1da98fc3a2bb342d3dbea8dac5915424821bd1"
+  },
+  "protectedHashes": {
+    "/Users/cjw/dev/Obsidian/wiki/tools/a-share-market-dashboard/data/红利信号/strategy-settings.json": "2e8ce9326bb0e6924c3f20e4f6bf9fe4bf61877c55efa00df58c3508475c0e2b",
+    "/Users/cjw/dev/Obsidian/wiki/tools/a-share-market-dashboard/data/红利信号/management-trial.json": "a4fbfe4219e19d58cec0830bef5857162566ab8d056573a28633c3c8e743762b",
+    "/Users/cjw/dev/Obsidian/wiki/sources/automations/中证红利信号/中证红利每日信号.xlsx": "89baede33779c507458524f9e417b7563fdab4438f6436d83afca9202e95f116"
+  },
+  "applied": false,
+  "method": {
+    "purpose": "Compare sensitivity and lag with fixed A65, not optimize the highest in-sample return.",
+    "warmup": "Compare only dates with at least ten valid distinct valuation records already available by each archived record date.",
+    "input": "Only past/current records; each proxy uses the current valuation close and current bond yield. Future observations used solely for outcome evaluation.",
+    "baseline": "Same record-date-next-session-close entry, common Excel cutoff; only price-index returns, no cash portfolio or dividend reinvestment.",
+    "proxy": "Yield times index level is a diagnostic proxy, not aggregate actual cash dividends. Smoothed yields are modelling inputs, never corrected official data.",
+    "limitations": "One conspicuous month-end discontinuity in a short, retrospectively completed data set; overlapping outcomes, not point-in-time or out-of-sample proof."
+  },
+  "baselineCoverage": {
+    "rawRecords": 102,
+    "uniqueRecords": 91,
+    "duplicates": 11,
+    "completeInputs": 91,
+    "usableSamples": 86,
+    "dailyEligible": 0,
+    "confirmedChanges": 0,
+    "confirmedBuyChanges": 0,
+    "signalFirstDate": "2026-06-02",
+    "signalLastDate": "2026-10-15",
+    "priceCount": 91,
+    "priceFirstDate": "2026-06-02",
+    "priceLastDate": "2026-10-15",
+    "conflictingPrices": 0,
+    "reasonCounts": {
+      "指标日期未对齐": 5,
+      "估值日缺少交易日证据": 5
+    },
+    "gradeCounts": {
+      "A": 7,
+      "B": 35,
+      "C": 44,
+      "D": 0
+    }
+  },
+  "baselineA": {
+    "total": 7,
+    "completed": 7,
+    "pending": 0,
+    "meanReturnPct": 6.494327701314643,
+    "medianReturnPct": 6.483973292347223,
+    "minReturnPct": 3.0195428160935567,
+    "positiveRatePct": 100,
+    "worstDrawdownPct": -6.529842760448357,
+    "dates": [
+      "2026-06-18",
+      "2026-06-22",
+      "2026-06-23",
+      "2026-06-24",
+      "2026-06-25",
+      "2026-06-26",
+      "2026-06-29"
+    ]
+  },
+  "commonStartDate": "2026-06-17",
+  "structuralChanges": [
+    {
+      "date": "2026-06-30",
+      "previousDate": "2026-06-29",
+      "rawYield": 4.84,
+      "previousYield": 5.39,
+      "baseProxyChangePct": -11.926977281809492,
+      "indexChangePct": -1.9186792456514778
+    }
+  ],
+  "candidates": [
+    {
+      "id": "current",
+      "label": "当前规则",
+      "strategy": {
+        "version": "dividend-two-factor-v2-r5",
+        "weights": {
+          "absolute": 92,
+          "ratio": 8
+        },
+        "anchors": {
+          "absolute": [
+            [
+              3,
+              0
+            ],
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ],
+            [
+              5.5,
+              80
+            ],
+            [
+              6,
+              100
+            ]
+          ],
+          "ratio": [
+            [
+              1,
+              0
+            ],
+            [
+              1.5,
+              40
+            ],
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ]
+        },
+        "thresholds": {
+          "C": 40,
+          "B": 48,
+          "A": 65
+        },
+        "confirmationDays": 1
+      },
+      "commonSamples": 77,
+      "commonCompleted": 74,
+      "A": {
+        "total": 7,
+        "completed": 7,
+        "pending": 0,
+        "meanReturnPct": 6.494327701314643,
+        "medianReturnPct": 6.483973292347223,
+        "minReturnPct": 3.0195428160935567,
+        "positiveRatePct": 100,
+        "worstDrawdownPct": -6.529842760448357,
+        "dates": [
+          "2026-06-18",
+          "2026-06-22",
+          "2026-06-23",
+          "2026-06-24",
+          "2026-06-25",
+          "2026-06-26",
+          "2026-06-29"
+        ]
+      },
+      "ABeforeJune30": {
+        "total": 7,
+        "completed": 7,
+        "pending": 0,
+        "meanReturnPct": 6.494327701314643,
+        "medianReturnPct": 6.483973292347223,
+        "minReturnPct": 3.0195428160935567,
+        "positiveRatePct": 100,
+        "worstDrawdownPct": -6.529842760448357,
+        "dates": [
+          "2026-06-18",
+          "2026-06-22",
+          "2026-06-23",
+          "2026-06-24",
+          "2026-06-25",
+          "2026-06-26",
+          "2026-06-29"
+        ]
+      },
+      "AFromJune30": {
+        "total": 0,
+        "completed": 0,
+        "pending": 0,
+        "meanReturnPct": null,
+        "medianReturnPct": null,
+        "minReturnPct": null,
+        "positiveRatePct": null,
+        "worstDrawdownPct": null,
+        "dates": []
+      },
+      "gradeChanges": 7,
+      "aBoundaryCrossings": 2,
+      "maxAbsoluteScoreStep": 17.51766495662499,
+      "june30ScoreChange": -17.51766495662499,
+      "event": [
+        {
+          "date": "2026-06-24",
+          "rawYield": 5.25,
+          "scoringYield": 5.25,
+          "indexClose": 5262.82,
+          "grade": "A",
+          "score": 71.12506015812994,
+          "returnPct": 6.483973292347223
+        },
+        {
+          "date": "2026-06-25",
+          "rawYield": 5.31,
+          "scoringYield": 5.31,
+          "indexClose": 5198.51,
+          "grade": "A",
+          "score": 73.36661909976368,
+          "returnPct": 8.845337837439281
+        },
+        {
+          "date": "2026-06-26",
+          "rawYield": 5.43,
+          "scoringYield": 5.43,
+          "indexClose": 5085.73,
+          "grade": "A",
+          "score": 77.8311618343537,
+          "returnPct": 8.101806194844063
+        },
+        {
+          "date": "2026-06-29",
+          "rawYield": 5.39,
+          "scoringYield": 5.39,
+          "indexClose": 5120.71,
+          "grade": "A",
+          "score": 76.3610856144438,
+          "returnPct": 10.216507448541146
+        },
+        {
+          "date": "2026-06-30",
+          "rawYield": 4.84,
+          "scoringYield": 4.84,
+          "indexClose": 5022.46,
+          "grade": "B",
+          "score": 58.843420657818804,
+          "returnPct": 8.36633576145067
+        },
+        {
+          "date": "2026-07-01",
+          "rawYield": 4.76,
+          "scoringYield": 4.76,
+          "indexClose": 5108.21,
+          "grade": "B",
+          "score": 57.329988078862904,
+          "returnPct": 7.383985070631294
+        },
+        {
+          "date": "2026-07-02",
+          "rawYield": 4.72,
+          "scoringYield": 4.72,
+          "indexClose": 5154.94,
+          "grade": "B",
+          "score": 56.583094773118894,
+          "returnPct": 6.300960545064194
+        },
+        {
+          "date": "2026-07-03",
+          "rawYield": 4.67,
+          "scoringYield": 4.67,
+          "indexClose": 5207.46,
+          "grade": "B",
+          "score": 55.63950432342668,
+          "returnPct": 4.151708774544116
+        },
+        {
+          "date": "2026-07-06",
+          "rawYield": 4.57,
+          "scoringYield": 4.57,
+          "indexClose": 5314.92,
+          "grade": "B",
+          "score": 53.77095068761149,
+          "returnPct": 5.143415027000131
+        },
+        {
+          "date": "2026-07-07",
+          "rawYield": 4.64,
+          "scoringYield": 4.64,
+          "indexClose": 5239.37,
+          "grade": "B",
+          "score": 55.0820783637826,
+          "returnPct": 6.4444546999869345
+        },
+        {
+          "date": "2026-07-08",
+          "rawYield": 4.62,
+          "scoringYield": 4.62,
+          "indexClose": 5264.79,
+          "grade": "B",
+          "score": 54.70877653149266,
+          "returnPct": 6.779961806292301
+        },
+        {
+          "date": "2026-07-09",
+          "rawYield": 4.67,
+          "scoringYield": 4.67,
+          "indexClose": 5200.44,
+          "grade": "B",
+          "score": 55.64807366482505,
+          "returnPct": 6.492167345439026
+        },
+        {
+          "date": "2026-07-10",
+          "rawYield": 4.69,
+          "scoringYield": 4.69,
+          "indexClose": 5184.1,
+          "grade": "B",
+          "score": 56.02125577652605,
+          "returnPct": 4.297315120113043
+        }
+      ],
+      "addedADates": [],
+      "removedADates": []
+    },
+    {
+      "id": "weights-50-50",
+      "label": "仅改权重50/50",
+      "weights": {
+        "absolute": 50,
+        "ratio": 50
+      },
+      "strategy": {
+        "version": "dividend-two-factor-v2-r5",
+        "weights": {
+          "absolute": 50,
+          "ratio": 50
+        },
+        "anchors": {
+          "absolute": [
+            [
+              3,
+              0
+            ],
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ],
+            [
+              5.5,
+              80
+            ],
+            [
+              6,
+              100
+            ]
+          ],
+          "ratio": [
+            [
+              1,
+              0
+            ],
+            [
+              1.5,
+              40
+            ],
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ]
+        },
+        "thresholds": {
+          "C": 40,
+          "B": 48,
+          "A": 65
+        },
+        "confirmationDays": 1
+      },
+      "commonSamples": 77,
+      "commonCompleted": 74,
+      "A": {
+        "total": 25,
+        "completed": 25,
+        "pending": 0,
+        "meanReturnPct": 4.889379798969814,
+        "medianReturnPct": 4.804602967543303,
+        "minReturnPct": -0.7889454441178612,
+        "positiveRatePct": 96,
+        "worstDrawdownPct": -6.529842760448357,
+        "dates": [
+          "2026-06-17",
+          "2026-06-18",
+          "2026-06-22",
+          "2026-06-23",
+          "2026-06-24",
+          "2026-06-25",
+          "2026-06-26",
+          "2026-06-29",
+          "2026-06-30",
+          "2026-07-01",
+          "2026-07-02",
+          "2026-07-03",
+          "2026-07-06",
+          "2026-07-07",
+          "2026-07-08",
+          "2026-07-09",
+          "2026-07-10",
+          "2026-07-13",
+          "2026-07-14",
+          "2026-07-15",
+          "2026-07-16",
+          "2026-07-17",
+          "2026-07-24",
+          "2026-07-27",
+          "2026-07-28"
+        ]
+      },
+      "ABeforeJune30": {
+        "total": 8,
+        "completed": 8,
+        "pending": 0,
+        "meanReturnPct": 6.1972640575447295,
+        "medianReturnPct": 5.833373013178377,
+        "minReturnPct": 3.0195428160935567,
+        "positiveRatePct": 100,
+        "worstDrawdownPct": -6.529842760448357,
+        "dates": [
+          "2026-06-17",
+          "2026-06-18",
+          "2026-06-22",
+          "2026-06-23",
+          "2026-06-24",
+          "2026-06-25",
+          "2026-06-26",
+          "2026-06-29"
+        ]
+      },
+      "AFromJune30": {
+        "total": 17,
+        "completed": 17,
+        "pending": 0,
+        "meanReturnPct": 4.273904853758088,
+        "medianReturnPct": 4.297315120113043,
+        "minReturnPct": -0.7889454441178612,
+        "positiveRatePct": 94.11764705882354,
+        "worstDrawdownPct": -5.077416703823189,
+        "dates": [
+          "2026-06-30",
+          "2026-07-01",
+          "2026-07-02",
+          "2026-07-03",
+          "2026-07-06",
+          "2026-07-07",
+          "2026-07-08",
+          "2026-07-09",
+          "2026-07-10",
+          "2026-07-13",
+          "2026-07-14",
+          "2026-07-15",
+          "2026-07-16",
+          "2026-07-17",
+          "2026-07-24",
+          "2026-07-27",
+          "2026-07-28"
+        ]
+      },
+      "gradeChanges": 3,
+      "aBoundaryCrossings": 3,
+      "maxAbsoluteScoreStep": 10.785405978906155,
+      "june30ScoreChange": -10.785405978906155,
+      "event": [
+        {
+          "date": "2026-06-24",
+          "rawYield": 5.25,
+          "scoringYield": 5.25,
+          "indexClose": 5262.82,
+          "grade": "A",
+          "score": 77.03162598831213,
+          "returnPct": 6.483973292347223
+        },
+        {
+          "date": "2026-06-25",
+          "rawYield": 5.31,
+          "scoringYield": 5.31,
+          "indexClose": 5198.51,
+          "grade": "A",
+          "score": 78.44136937352313,
+          "returnPct": 8.845337837439281
+        },
+        {
+          "date": "2026-06-26",
+          "rawYield": 5.43,
+          "scoringYield": 5.43,
+          "indexClose": 5085.73,
+          "grade": "A",
+          "score": 81.14476146471063,
+          "returnPct": 8.101806194844063
+        },
+        {
+          "date": "2026-06-29",
+          "rawYield": 5.39,
+          "scoringYield": 5.39,
+          "indexClose": 5120.71,
+          "grade": "A",
+          "score": 80.35678509027373,
+          "returnPct": 10.216507448541146
+        },
+        {
+          "date": "2026-06-30",
+          "rawYield": 4.84,
+          "scoringYield": 4.84,
+          "indexClose": 5022.46,
+          "grade": "A",
+          "score": 69.57137911136758,
+          "returnPct": 8.36633576145067
+        },
+        {
+          "date": "2026-07-01",
+          "rawYield": 4.76,
+          "scoringYield": 4.76,
+          "indexClose": 5108.21,
+          "grade": "A",
+          "score": 68.51242549289317,
+          "returnPct": 7.383985070631294
+        },
+        {
+          "date": "2026-07-02",
+          "rawYield": 4.72,
+          "scoringYield": 4.72,
+          "indexClose": 5154.94,
+          "grade": "A",
+          "score": 68.04434233199311,
+          "returnPct": 6.300960545064194
+        },
+        {
+          "date": "2026-07-03",
+          "rawYield": 4.67,
+          "scoringYield": 4.67,
+          "indexClose": 5207.46,
+          "grade": "A",
+          "score": 67.39690202141671,
+          "returnPct": 4.151708774544116
+        },
+        {
+          "date": "2026-07-06",
+          "rawYield": 4.57,
+          "scoringYield": 4.57,
+          "indexClose": 5314.92,
+          "grade": "A",
+          "score": 66.21844179757178,
+          "returnPct": 5.143415027000131
+        },
+        {
+          "date": "2026-07-07",
+          "rawYield": 4.64,
+          "scoringYield": 4.64,
+          "indexClose": 5239.37,
+          "grade": "A",
+          "score": 67.06298977364128,
+          "returnPct": 6.4444546999869345
+        },
+        {
+          "date": "2026-07-08",
+          "rawYield": 4.62,
+          "scoringYield": 4.62,
+          "indexClose": 5264.79,
+          "grade": "A",
+          "score": 66.82985332182916,
+          "returnPct": 6.779961806292301
+        },
+        {
+          "date": "2026-07-09",
+          "rawYield": 4.67,
+          "scoringYield": 4.67,
+          "indexClose": 5200.44,
+          "grade": "A",
+          "score": 67.45046040515653,
+          "returnPct": 6.492167345439026
+        },
+        {
+          "date": "2026-07-10",
+          "rawYield": 4.69,
+          "scoringYield": 4.69,
+          "indexClose": 5184.1,
+          "grade": "A",
+          "score": 67.68284860328774,
+          "returnPct": 4.297315120113043
+        }
+      ],
+      "addedADates": [
+        "2026-06-17",
+        "2026-06-30",
+        "2026-07-01",
+        "2026-07-02",
+        "2026-07-03",
+        "2026-07-06",
+        "2026-07-07",
+        "2026-07-08",
+        "2026-07-09",
+        "2026-07-10",
+        "2026-07-13",
+        "2026-07-14",
+        "2026-07-15",
+        "2026-07-16",
+        "2026-07-17",
+        "2026-07-24",
+        "2026-07-27",
+        "2026-07-28"
+      ],
+      "removedADates": []
+    },
+    {
+      "id": "linear20",
+      "label": "股息率曲线每1个百分点20分",
+      "anchors": [
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          20
+        ],
+        [
+          4,
+          40
+        ],
+        [
+          5,
+          60
+        ],
+        [
+          7,
+          100
+        ]
+      ],
+      "strategy": {
+        "version": "dividend-two-factor-v2-r5",
+        "weights": {
+          "absolute": 92,
+          "ratio": 8
+        },
+        "anchors": {
+          "absolute": [
+            [
+              2,
+              0
+            ],
+            [
+              3,
+              20
+            ],
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ],
+            [
+              7,
+              100
+            ]
+          ],
+          "ratio": [
+            [
+              1,
+              0
+            ],
+            [
+              1.5,
+              40
+            ],
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ]
+        },
+        "thresholds": {
+          "C": 40,
+          "B": 48,
+          "A": 65
+        },
+        "confirmationDays": 1
+      },
+      "commonSamples": 77,
+      "commonCompleted": 74,
+      "A": {
+        "total": 6,
+        "completed": 6,
+        "pending": 0,
+        "meanReturnPct": 6.974990053879133,
+        "medianReturnPct": 7.292889743595643,
+        "minReturnPct": 3.0195428160935567,
+        "positiveRatePct": 100,
+        "worstDrawdownPct": -6.529842760448357,
+        "dates": [
+          "2026-06-18",
+          "2026-06-23",
+          "2026-06-24",
+          "2026-06-25",
+          "2026-06-26",
+          "2026-06-29"
+        ]
+      },
+      "ABeforeJune30": {
+        "total": 6,
+        "completed": 6,
+        "pending": 0,
+        "meanReturnPct": 6.974990053879133,
+        "medianReturnPct": 7.292889743595643,
+        "minReturnPct": 3.0195428160935567,
+        "positiveRatePct": 100,
+        "worstDrawdownPct": -6.529842760448357,
+        "dates": [
+          "2026-06-18",
+          "2026-06-23",
+          "2026-06-24",
+          "2026-06-25",
+          "2026-06-26",
+          "2026-06-29"
+        ]
+      },
+      "AFromJune30": {
+        "total": 0,
+        "completed": 0,
+        "pending": 0,
+        "meanReturnPct": null,
+        "medianReturnPct": null,
+        "minReturnPct": null,
+        "positiveRatePct": null,
+        "worstDrawdownPct": null,
+        "dates": []
+      },
+      "gradeChanges": 9,
+      "aBoundaryCrossings": 4,
+      "maxAbsoluteScoreStep": 10.341664956624989,
+      "june30ScoreChange": -10.341664956624989,
+      "event": [
+        {
+          "date": "2026-06-24",
+          "rawYield": 5.25,
+          "scoringYield": 5.25,
+          "indexClose": 5262.82,
+          "grade": "A",
+          "score": 66.52506015812995,
+          "returnPct": 6.483973292347223
+        },
+        {
+          "date": "2026-06-25",
+          "rawYield": 5.31,
+          "scoringYield": 5.31,
+          "indexClose": 5198.51,
+          "grade": "A",
+          "score": 67.66261909976369,
+          "returnPct": 8.845337837439281
+        },
+        {
+          "date": "2026-06-26",
+          "rawYield": 5.43,
+          "scoringYield": 5.43,
+          "indexClose": 5085.73,
+          "grade": "A",
+          "score": 69.9191618343537,
+          "returnPct": 8.101806194844063
+        },
+        {
+          "date": "2026-06-29",
+          "rawYield": 5.39,
+          "scoringYield": 5.39,
+          "indexClose": 5120.71,
+          "grade": "A",
+          "score": 69.18508561444379,
+          "returnPct": 10.216507448541146
+        },
+        {
+          "date": "2026-06-30",
+          "rawYield": 4.84,
+          "scoringYield": 4.84,
+          "indexClose": 5022.46,
+          "grade": "B",
+          "score": 58.843420657818804,
+          "returnPct": 8.36633576145067
+        },
+        {
+          "date": "2026-07-01",
+          "rawYield": 4.76,
+          "scoringYield": 4.76,
+          "indexClose": 5108.21,
+          "grade": "B",
+          "score": 57.329988078862904,
+          "returnPct": 7.383985070631294
+        },
+        {
+          "date": "2026-07-02",
+          "rawYield": 4.72,
+          "scoringYield": 4.72,
+          "indexClose": 5154.94,
+          "grade": "B",
+          "score": 56.583094773118894,
+          "returnPct": 6.300960545064194
+        },
+        {
+          "date": "2026-07-03",
+          "rawYield": 4.67,
+          "scoringYield": 4.67,
+          "indexClose": 5207.46,
+          "grade": "B",
+          "score": 55.63950432342668,
+          "returnPct": 4.151708774544116
+        },
+        {
+          "date": "2026-07-06",
+          "rawYield": 4.57,
+          "scoringYield": 4.57,
+          "indexClose": 5314.92,
+          "grade": "B",
+          "score": 53.77095068761149,
+          "returnPct": 5.143415027000131
+        },
+        {
+          "date": "2026-07-07",
+          "rawYield": 4.64,
+          "scoringYield": 4.64,
+          "indexClose": 5239.37,
+          "grade": "B",
+          "score": 55.0820783637826,
+          "returnPct": 6.4444546999869345
+        },
+        {
+          "date": "2026-07-08",
+          "rawYield": 4.62,
+          "scoringYield": 4.62,
+          "indexClose": 5264.79,
+          "grade": "B",
+          "score": 54.70877653149266,
+          "returnPct": 6.779961806292301
+        },
+        {
+          "date": "2026-07-09",
+          "rawYield": 4.67,
+          "scoringYield": 4.67,
+          "indexClose": 5200.44,
+          "grade": "B",
+          "score": 55.64807366482505,
+          "returnPct": 6.492167345439026
+        },
+        {
+          "date": "2026-07-10",
+          "rawYield": 4.69,
+          "scoringYield": 4.69,
+          "indexClose": 5184.1,
+          "grade": "B",
+          "score": 56.02125577652605,
+          "returnPct": 4.297315120113043
+        }
+      ],
+      "addedADates": [],
+      "removedADates": [
+        "2026-06-22"
+      ]
+    },
+    {
+      "id": "yield-mean-5",
+      "label": "最近5期股息率均值",
+      "window": 5,
+      "signal": "yield",
+      "aggregation": "mean",
+      "strategy": {
+        "version": "dividend-two-factor-v2-r5",
+        "weights": {
+          "absolute": 92,
+          "ratio": 8
+        },
+        "anchors": {
+          "absolute": [
+            [
+              3,
+              0
+            ],
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ],
+            [
+              5.5,
+              80
+            ],
+            [
+              6,
+              100
+            ]
+          ],
+          "ratio": [
+            [
+              1,
+              0
+            ],
+            [
+              1.5,
+              40
+            ],
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ]
+        },
+        "thresholds": {
+          "C": 40,
+          "B": 48,
+          "A": 65
+        },
+        "confirmationDays": 1
+      },
+      "commonSamples": 77,
+      "commonCompleted": 74,
+      "A": {
+        "total": 7,
+        "completed": 7,
+        "pending": 0,
+        "meanReturnPct": 7.797245477037602,
+        "medianReturnPct": 8.101806194844063,
+        "minReturnPct": 5.182772734009533,
+        "positiveRatePct": 100,
+        "worstDrawdownPct": -5.077416703823189,
+        "dates": [
+          "2026-06-23",
+          "2026-06-24",
+          "2026-06-25",
+          "2026-06-26",
+          "2026-06-29",
+          "2026-06-30",
+          "2026-07-01"
+        ]
+      },
+      "ABeforeJune30": {
+        "total": 5,
+        "completed": 5,
+        "pending": 0,
+        "meanReturnPct": 7.766079501436249,
+        "medianReturnPct": 8.101806194844063,
+        "minReturnPct": 5.182772734009533,
+        "positiveRatePct": 100,
+        "worstDrawdownPct": -5.077416703823189,
+        "dates": [
+          "2026-06-23",
+          "2026-06-24",
+          "2026-06-25",
+          "2026-06-26",
+          "2026-06-29"
+        ]
+      },
+      "AFromJune30": {
+        "total": 2,
+        "completed": 2,
+        "pending": 0,
+        "meanReturnPct": 7.875160416040982,
+        "medianReturnPct": 7.875160416040982,
+        "minReturnPct": 7.383985070631294,
+        "positiveRatePct": 100,
+        "worstDrawdownPct": -5.077416703823189,
+        "dates": [
+          "2026-06-30",
+          "2026-07-01"
+        ]
+      },
+      "gradeChanges": 3,
+      "aBoundaryCrossings": 2,
+      "maxAbsoluteScoreStep": 4.381657447945372,
+      "june30ScoreChange": -2.4714475814140826,
+      "event": [
+        {
+          "date": "2026-06-24",
+          "rawYield": 5.25,
+          "scoringYield": 5.1659999999999995,
+          "indexClose": 5262.82,
+          "grade": "A",
+          "score": 68.00305919559986,
+          "returnPct": 6.483973292347223
+        },
+        {
+          "date": "2026-06-25",
+          "rawYield": 5.31,
+          "scoringYield": 5.212,
+          "indexClose": 5198.51,
+          "grade": "A",
+          "score": 69.724071327301,
+          "returnPct": 8.845337837439281
+        },
+        {
+          "date": "2026-06-26",
+          "rawYield": 5.43,
+          "scoringYield": 5.26,
+          "indexClose": 5085.73,
+          "grade": "A",
+          "score": 71.51232251357281,
+          "returnPct": 8.101806194844063
+        },
+        {
+          "date": "2026-06-29",
+          "rawYield": 5.39,
+          "scoringYield": 5.3100000000000005,
+          "indexClose": 5120.71,
+          "grade": "A",
+          "score": 73.38726616191033,
+          "returnPct": 10.216507448541146
+        },
+        {
+          "date": "2026-06-30",
+          "rawYield": 4.84,
+          "scoringYield": 5.244,
+          "indexClose": 5022.46,
+          "grade": "A",
+          "score": 70.91581858049625,
+          "returnPct": 8.36633576145067
+        },
+        {
+          "date": "2026-07-01",
+          "rawYield": 4.76,
+          "scoringYield": 5.145999999999999,
+          "indexClose": 5108.21,
+          "grade": "A",
+          "score": 67.26037450710679,
+          "returnPct": 7.383985070631294
+        },
+        {
+          "date": "2026-07-02",
+          "rawYield": 4.72,
+          "scoringYield": 5.0280000000000005,
+          "indexClose": 5154.94,
+          "grade": "B",
+          "score": 62.87871705916142,
+          "returnPct": 6.300960545064194
+        },
+        {
+          "date": "2026-07-03",
+          "rawYield": 4.67,
+          "scoringYield": 4.876,
+          "indexClose": 5207.46,
+          "grade": "B",
+          "score": 59.50540108801467,
+          "returnPct": 4.151708774544116
+        },
+        {
+          "date": "2026-07-06",
+          "rawYield": 4.57,
+          "scoringYield": 4.712000000000001,
+          "indexClose": 5314.92,
+          "grade": "B",
+          "score": 56.436043684907084,
+          "returnPct": 5.143415027000131
+        },
+        {
+          "date": "2026-07-07",
+          "rawYield": 4.64,
+          "scoringYield": 4.672,
+          "indexClose": 5239.37,
+          "grade": "B",
+          "score": 55.682644421463856,
+          "returnPct": 6.4444546999869345
+        },
+        {
+          "date": "2026-07-08",
+          "rawYield": 4.62,
+          "scoringYield": 4.644,
+          "indexClose": 5264.79,
+          "grade": "B",
+          "score": 55.15921173425367,
+          "returnPct": 6.779961806292301
+        },
+        {
+          "date": "2026-07-09",
+          "rawYield": 4.67,
+          "scoringYield": 4.634,
+          "indexClose": 5200.44,
+          "grade": "B",
+          "score": 54.97241399631676,
+          "returnPct": 6.492167345439026
+        },
+        {
+          "date": "2026-07-10",
+          "rawYield": 4.69,
+          "scoringYield": 4.638,
+          "indexClose": 5184.1,
+          "grade": "B",
+          "score": 55.0453271410507,
+          "returnPct": 4.297315120113043
+        }
+      ],
+      "addedADates": [
+        "2026-06-30",
+        "2026-07-01"
+      ],
+      "removedADates": [
+        "2026-06-18",
+        "2026-06-22"
+      ]
+    },
+    {
+      "id": "yield-mean-10",
+      "label": "最近10期股息率均值",
+      "window": 10,
+      "signal": "yield",
+      "aggregation": "mean",
+      "strategy": {
+        "version": "dividend-two-factor-v2-r5",
+        "weights": {
+          "absolute": 92,
+          "ratio": 8
+        },
+        "anchors": {
+          "absolute": [
+            [
+              3,
+              0
+            ],
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ],
+            [
+              5.5,
+              80
+            ],
+            [
+              6,
+              100
+            ]
+          ],
+          "ratio": [
+            [
+              1,
+              0
+            ],
+            [
+              1.5,
+              40
+            ],
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ]
+        },
+        "thresholds": {
+          "C": 40,
+          "B": 48,
+          "A": 65
+        },
+        "confirmationDays": 1
+      },
+      "commonSamples": 77,
+      "commonCompleted": 74,
+      "A": {
+        "total": 6,
+        "completed": 6,
+        "pending": 0,
+        "meanReturnPct": 8.202488809661775,
+        "medianReturnPct": 8.234070978147367,
+        "minReturnPct": 6.300960545064194,
+        "positiveRatePct": 100,
+        "worstDrawdownPct": -5.077416703823189,
+        "dates": [
+          "2026-06-25",
+          "2026-06-26",
+          "2026-06-29",
+          "2026-06-30",
+          "2026-07-01",
+          "2026-07-02"
+        ]
+      },
+      "ABeforeJune30": {
+        "total": 3,
+        "completed": 3,
+        "pending": 0,
+        "meanReturnPct": 9.054550493608163,
+        "medianReturnPct": 8.845337837439281,
+        "minReturnPct": 8.101806194844063,
+        "positiveRatePct": 100,
+        "worstDrawdownPct": -5.077416703823189,
+        "dates": [
+          "2026-06-25",
+          "2026-06-26",
+          "2026-06-29"
+        ]
+      },
+      "AFromJune30": {
+        "total": 3,
+        "completed": 3,
+        "pending": 0,
+        "meanReturnPct": 7.3504271257153855,
+        "medianReturnPct": 7.383985070631294,
+        "minReturnPct": 6.300960545064194,
+        "positiveRatePct": 100,
+        "worstDrawdownPct": -5.077416703823189,
+        "dates": [
+          "2026-06-30",
+          "2026-07-01",
+          "2026-07-02"
+        ]
+      },
+      "gradeChanges": 3,
+      "aBoundaryCrossings": 2,
+      "maxAbsoluteScoreStep": 2.1096134168605687,
+      "june30ScoreChange": -0.16652758226098285,
+      "event": [
+        {
+          "date": "2026-06-24",
+          "rawYield": 5.25,
+          "scoringYield": 5.0520000000000005,
+          "indexClose": 5262.82,
+          "grade": "B",
+          "score": 63.76605788930905,
+          "returnPct": 6.483973292347223
+        },
+        {
+          "date": "2026-06-25",
+          "rawYield": 5.31,
+          "scoringYield": 5.093,
+          "indexClose": 5198.51,
+          "grade": "A",
+          "score": 65.30097760359634,
+          "returnPct": 8.845337837439281
+        },
+        {
+          "date": "2026-06-26",
+          "rawYield": 5.43,
+          "scoringYield": 5.143,
+          "indexClose": 5085.73,
+          "grade": "A",
+          "score": 67.16347427515305,
+          "returnPct": 8.101806194844063
+        },
+        {
+          "date": "2026-06-29",
+          "rawYield": 5.39,
+          "scoringYield": 5.187,
+          "indexClose": 5120.71,
+          "grade": "A",
+          "score": 68.81501875364009,
+          "returnPct": 10.216507448541146
+        },
+        {
+          "date": "2026-06-30",
+          "rawYield": 4.84,
+          "scoringYield": 5.183,
+          "indexClose": 5022.46,
+          "grade": "A",
+          "score": 68.6484911713791,
+          "returnPct": 8.36633576145067
+        },
+        {
+          "date": "2026-07-01",
+          "rawYield": 4.76,
+          "scoringYield": 5.156,
+          "indexClose": 5108.21,
+          "grade": "A",
+          "score": 67.6320425492893,
+          "returnPct": 7.383985070631294
+        },
+        {
+          "date": "2026-07-02",
+          "rawYield": 4.72,
+          "scoringYield": 5.119999999999999,
+          "indexClose": 5154.94,
+          "grade": "A",
+          "score": 66.2981367030442,
+          "returnPct": 6.300960545064194
+        },
+        {
+          "date": "2026-07-03",
+          "rawYield": 4.67,
+          "scoringYield": 5.068,
+          "indexClose": 5207.46,
+          "grade": "B",
+          "score": 64.35976700452385,
+          "returnPct": 4.151708774544116
+        },
+        {
+          "date": "2026-07-06",
+          "rawYield": 4.57,
+          "scoringYield": 5.011,
+          "indexClose": 5314.92,
+          "grade": "B",
+          "score": 62.25015358766328,
+          "returnPct": 5.143415027000131
+        },
+        {
+          "date": "2026-07-07",
+          "rawYield": 4.64,
+          "scoringYield": 4.958,
+          "indexClose": 5239.37,
+          "grade": "B",
+          "score": 61.050203561990116,
+          "returnPct": 6.4444546999869345
+        },
+        {
+          "date": "2026-07-08",
+          "rawYield": 4.62,
+          "scoringYield": 4.895,
+          "indexClose": 5264.79,
+          "grade": "B",
+          "score": 59.870013229795795,
+          "returnPct": 6.779961806292301
+        },
+        {
+          "date": "2026-07-09",
+          "rawYield": 4.67,
+          "scoringYield": 4.831,
+          "indexClose": 5200.44,
+          "grade": "B",
+          "score": 58.66977384898712,
+          "returnPct": 6.492167345439026
+        },
+        {
+          "date": "2026-07-10",
+          "rawYield": 4.69,
+          "scoringYield": 4.757,
+          "indexClose": 5184.1,
+          "grade": "B",
+          "score": 57.27870228761926,
+          "returnPct": 4.297315120113043
+        }
+      ],
+      "addedADates": [
+        "2026-06-30",
+        "2026-07-01",
+        "2026-07-02"
+      ],
+      "removedADates": [
+        "2026-06-18",
+        "2026-06-22",
+        "2026-06-23",
+        "2026-06-24"
+      ]
+    },
+    {
+      "id": "base-mean-5",
+      "label": "最近5期分红基数代理均值/当日指数",
+      "window": 5,
+      "signal": "base",
+      "aggregation": "mean",
+      "strategy": {
+        "version": "dividend-two-factor-v2-r5",
+        "weights": {
+          "absolute": 92,
+          "ratio": 8
+        },
+        "anchors": {
+          "absolute": [
+            [
+              3,
+              0
+            ],
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ],
+            [
+              5.5,
+              80
+            ],
+            [
+              6,
+              100
+            ]
+          ],
+          "ratio": [
+            [
+              1,
+              0
+            ],
+            [
+              1.5,
+              40
+            ],
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ]
+        },
+        "thresholds": {
+          "C": 40,
+          "B": 48,
+          "A": 65
+        },
+        "confirmationDays": 1
+      },
+      "commonSamples": 77,
+      "commonCompleted": 74,
+      "A": {
+        "total": 9,
+        "completed": 9,
+        "pending": 0,
+        "meanReturnPct": 6.8011794156982734,
+        "medianReturnPct": 7.383985070631294,
+        "minReturnPct": 3.0195428160935567,
+        "positiveRatePct": 100,
+        "worstDrawdownPct": -6.529842760448357,
+        "dates": [
+          "2026-06-18",
+          "2026-06-22",
+          "2026-06-23",
+          "2026-06-24",
+          "2026-06-25",
+          "2026-06-26",
+          "2026-06-29",
+          "2026-06-30",
+          "2026-07-01"
+        ]
+      },
+      "ABeforeJune30": {
+        "total": 7,
+        "completed": 7,
+        "pending": 0,
+        "meanReturnPct": 6.494327701314643,
+        "medianReturnPct": 6.483973292347223,
+        "minReturnPct": 3.0195428160935567,
+        "positiveRatePct": 100,
+        "worstDrawdownPct": -6.529842760448357,
+        "dates": [
+          "2026-06-18",
+          "2026-06-22",
+          "2026-06-23",
+          "2026-06-24",
+          "2026-06-25",
+          "2026-06-26",
+          "2026-06-29"
+        ]
+      },
+      "AFromJune30": {
+        "total": 2,
+        "completed": 2,
+        "pending": 0,
+        "meanReturnPct": 7.875160416040982,
+        "medianReturnPct": 7.875160416040982,
+        "minReturnPct": 7.383985070631294,
+        "positiveRatePct": 100,
+        "worstDrawdownPct": -5.077416703823189,
+        "dates": [
+          "2026-06-30",
+          "2026-07-01"
+        ]
+      },
+      "gradeChanges": 5,
+      "aBoundaryCrossings": 2,
+      "maxAbsoluteScoreStep": 8.184965199969227,
+      "june30ScoreChange": -1.0011337297409,
+      "event": [
+        {
+          "date": "2026-06-24",
+          "rawYield": 5.25,
+          "scoringYield": 5.246971167548957,
+          "indexClose": 5262.82,
+          "grade": "A",
+          "score": 71.01248851732639,
+          "returnPct": 6.483973292347223
+        },
+        {
+          "date": "2026-06-25",
+          "rawYield": 5.31,
+          "scoringYield": 5.3118270465960435,
+          "indexClose": 5198.51,
+          "grade": "A",
+          "score": 73.43452832944332,
+          "returnPct": 8.845337837439281
+        },
+        {
+          "date": "2026-06-26",
+          "rawYield": 5.43,
+          "scoringYield": 5.430490037811681,
+          "indexClose": 5085.73,
+          "grade": "A",
+          "score": 77.84937636490145,
+          "returnPct": 8.101806194844063
+        },
+        {
+          "date": "2026-06-29",
+          "rawYield": 5.39,
+          "scoringYield": 5.392679577636695,
+          "indexClose": 5120.71,
+          "grade": "A",
+          "score": 76.46069286570102,
+          "returnPct": 10.216507448541146
+        },
+        {
+          "date": "2026-06-30",
+          "rawYield": 4.84,
+          "scoringYield": 5.366244441966686,
+          "indexClose": 5022.46,
+          "grade": "A",
+          "score": 75.45955913596012,
+          "returnPct": 8.36633576145067
+        },
+        {
+          "date": "2026-07-01",
+          "rawYield": 4.76,
+          "scoringYield": 5.146382584114592,
+          "indexClose": 5108.21,
+          "grade": "A",
+          "score": 67.2745939359909,
+          "returnPct": 7.383985070631294
+        },
+        {
+          "date": "2026-07-02",
+          "rawYield": 4.72,
+          "scoringYield": 4.972754041754123,
+          "indexClose": 5154.94,
+          "grade": "B",
+          "score": 61.326682746634646,
+          "returnPct": 6.300960545064194
+        },
+        {
+          "date": "2026-07-03",
+          "rawYield": 4.67,
+          "scoringYield": 4.795987598560527,
+          "indexClose": 5207.46,
+          "grade": "B",
+          "score": 58.00384922465653,
+          "returnPct": 4.151708774544116
+        },
+        {
+          "date": "2026-07-06",
+          "rawYield": 4.57,
+          "scoringYield": 4.574410354248041,
+          "indexClose": 5314.92,
+          "grade": "B",
+          "score": 53.853725365231526,
+          "returnPct": 5.143415027000131
+        },
+        {
+          "date": "2026-07-07",
+          "rawYield": 4.64,
+          "scoringYield": 4.64044706901784,
+          "indexClose": 5239.37,
+          "grade": "B",
+          "score": 55.090468816206226,
+          "returnPct": 6.4444546999869345
+        },
+        {
+          "date": "2026-07-08",
+          "rawYield": 4.62,
+          "scoringYield": 4.618354996115704,
+          "indexClose": 5264.79,
+          "grade": "B",
+          "score": 54.6779028790691,
+          "returnPct": 6.779961806292301
+        },
+        {
+          "date": "2026-07-09",
+          "rawYield": 4.67,
+          "scoringYield": 4.673761604787287,
+          "indexClose": 5200.44,
+          "grade": "B",
+          "score": 55.71867268270386,
+          "returnPct": 6.492167345439026
+        },
+        {
+          "date": "2026-07-10",
+          "rawYield": 4.69,
+          "scoringYield": 4.688284361798575,
+          "indexClose": 5184.1,
+          "grade": "B",
+          "score": 55.98905692173979,
+          "returnPct": 4.297315120113043
+        }
+      ],
+      "addedADates": [
+        "2026-06-30",
+        "2026-07-01"
+      ],
+      "removedADates": []
+    },
+    {
+      "id": "base-median-5",
+      "label": "最近5期分红基数代理中位数/当日指数",
+      "window": 5,
+      "signal": "base",
+      "aggregation": "median",
+      "strategy": {
+        "version": "dividend-two-factor-v2-r5",
+        "weights": {
+          "absolute": 92,
+          "ratio": 8
+        },
+        "anchors": {
+          "absolute": [
+            [
+              3,
+              0
+            ],
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ],
+            [
+              5.5,
+              80
+            ],
+            [
+              6,
+              100
+            ]
+          ],
+          "ratio": [
+            [
+              1,
+              0
+            ],
+            [
+              1.5,
+              40
+            ],
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ]
+        },
+        "thresholds": {
+          "C": 40,
+          "B": 48,
+          "A": 65
+        },
+        "confirmationDays": 1
+      },
+      "commonSamples": 77,
+      "commonCompleted": 74,
+      "A": {
+        "total": 9,
+        "completed": 9,
+        "pending": 0,
+        "meanReturnPct": 6.8011794156982734,
+        "medianReturnPct": 7.383985070631294,
+        "minReturnPct": 3.0195428160935567,
+        "positiveRatePct": 100,
+        "worstDrawdownPct": -6.529842760448357,
+        "dates": [
+          "2026-06-18",
+          "2026-06-22",
+          "2026-06-23",
+          "2026-06-24",
+          "2026-06-25",
+          "2026-06-26",
+          "2026-06-29",
+          "2026-06-30",
+          "2026-07-01"
+        ]
+      },
+      "ABeforeJune30": {
+        "total": 7,
+        "completed": 7,
+        "pending": 0,
+        "meanReturnPct": 6.494327701314643,
+        "medianReturnPct": 6.483973292347223,
+        "minReturnPct": 3.0195428160935567,
+        "positiveRatePct": 100,
+        "worstDrawdownPct": -6.529842760448357,
+        "dates": [
+          "2026-06-18",
+          "2026-06-22",
+          "2026-06-23",
+          "2026-06-24",
+          "2026-06-25",
+          "2026-06-26",
+          "2026-06-29"
+        ]
+      },
+      "AFromJune30": {
+        "total": 2,
+        "completed": 2,
+        "pending": 0,
+        "meanReturnPct": 7.875160416040982,
+        "medianReturnPct": 7.875160416040982,
+        "minReturnPct": 7.383985070631294,
+        "positiveRatePct": 100,
+        "worstDrawdownPct": -5.077416703823189,
+        "dates": [
+          "2026-06-30",
+          "2026-07-01"
+        ]
+      },
+      "gradeChanges": 5,
+      "aBoundaryCrossings": 2,
+      "maxAbsoluteScoreStep": 20.236193449805235,
+      "june30ScoreChange": 3.818123051711339,
+      "event": [
+        {
+          "date": "2026-06-24",
+          "rawYield": 5.25,
+          "scoringYield": 5.24793099516989,
+          "indexClose": 5262.82,
+          "grade": "A",
+          "score": 71.04816212156942,
+          "returnPct": 6.483973292347223
+        },
+        {
+          "date": "2026-06-25",
+          "rawYield": 5.31,
+          "scoringYield": 5.312852375007454,
+          "indexClose": 5198.51,
+          "grade": "A",
+          "score": 73.47263861231093,
+          "returnPct": 8.845337837439281
+        },
+        {
+          "date": "2026-06-26",
+          "rawYield": 5.43,
+          "scoringYield": 5.430668989505932,
+          "indexClose": 5085.73,
+          "grade": "A",
+          "score": 77.85602793550238,
+          "returnPct": 8.101806194844063
+        },
+        {
+          "date": "2026-06-29",
+          "rawYield": 5.39,
+          "scoringYield": 5.392907214038677,
+          "indexClose": 5120.71,
+          "grade": "A",
+          "score": 76.46915473520497,
+          "returnPct": 10.216507448541146
+        },
+        {
+          "date": "2026-06-30",
+          "rawYield": 4.84,
+          "scoringYield": 5.4961290084938454,
+          "indexClose": 5022.46,
+          "grade": "A",
+          "score": 80.2872777869163,
+          "returnPct": 8.36633576145067
+        },
+        {
+          "date": "2026-07-01",
+          "rawYield": 4.76,
+          "scoringYield": 5.40318955172164,
+          "indexClose": 5108.21,
+          "grade": "A",
+          "score": 76.81928822292413,
+          "returnPct": 7.383985070631294
+        },
+        {
+          "date": "2026-07-02",
+          "rawYield": 4.72,
+          "scoringYield": 4.72,
+          "indexClose": 5154.94,
+          "grade": "B",
+          "score": 56.583094773118894,
+          "returnPct": 6.300960545064194
+        },
+        {
+          "date": "2026-07-03",
+          "rawYield": 4.67,
+          "scoringYield": 4.67,
+          "indexClose": 5207.46,
+          "grade": "B",
+          "score": 55.63950432342668,
+          "returnPct": 4.151708774544116
+        },
+        {
+          "date": "2026-07-06",
+          "rawYield": 4.57,
+          "scoringYield": 4.574872171170967,
+          "indexClose": 5314.92,
+          "grade": "B",
+          "score": 53.862392865564786,
+          "returnPct": 5.143415027000131
+        },
+        {
+          "date": "2026-07-07",
+          "rawYield": 4.64,
+          "scoringYield": 4.64084033003968,
+          "indexClose": 5239.37,
+          "grade": "B",
+          "score": 55.09784941687891,
+          "returnPct": 6.4444546999869345
+        },
+        {
+          "date": "2026-07-08",
+          "rawYield": 4.62,
+          "scoringYield": 4.619146860558541,
+          "indexClose": 5264.79,
+          "grade": "B",
+          "score": 54.69276469660529,
+          "returnPct": 6.779961806292301
+        },
+        {
+          "date": "2026-07-09",
+          "rawYield": 4.67,
+          "scoringYield": 4.674734599380052,
+          "indexClose": 5200.44,
+          "grade": "B",
+          "score": 55.73693416059298,
+          "returnPct": 6.492167345439026
+        },
+        {
+          "date": "2026-07-10",
+          "rawYield": 4.69,
+          "scoringYield": 4.689469107463204,
+          "indexClose": 5184.1,
+          "grade": "B",
+          "score": 56.011292060583344,
+          "returnPct": 4.297315120113043
+        }
+      ],
+      "addedADates": [
+        "2026-06-30",
+        "2026-07-01"
+      ],
+      "removedADates": []
+    },
+    {
+      "id": "base-mean-10",
+      "label": "最近10期分红基数代理均值/当日指数",
+      "window": 10,
+      "signal": "base",
+      "aggregation": "mean",
+      "strategy": {
+        "version": "dividend-two-factor-v2-r5",
+        "weights": {
+          "absolute": 92,
+          "ratio": 8
+        },
+        "anchors": {
+          "absolute": [
+            [
+              3,
+              0
+            ],
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ],
+            [
+              5.5,
+              80
+            ],
+            [
+              6,
+              100
+            ]
+          ],
+          "ratio": [
+            [
+              1,
+              0
+            ],
+            [
+              1.5,
+              40
+            ],
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ]
+        },
+        "thresholds": {
+          "C": 40,
+          "B": 48,
+          "A": 65
+        },
+        "confirmationDays": 1
+      },
+      "commonSamples": 77,
+      "commonCompleted": 74,
+      "A": {
+        "total": 10,
+        "completed": 10,
+        "pending": 0,
+        "meanReturnPct": 6.751157528634866,
+        "medianReturnPct": 6.933979181489258,
+        "minReturnPct": 3.0195428160935567,
+        "positiveRatePct": 100,
+        "worstDrawdownPct": -6.529842760448357,
+        "dates": [
+          "2026-06-18",
+          "2026-06-22",
+          "2026-06-23",
+          "2026-06-24",
+          "2026-06-25",
+          "2026-06-26",
+          "2026-06-29",
+          "2026-06-30",
+          "2026-07-01",
+          "2026-07-02"
+        ]
+      },
+      "ABeforeJune30": {
+        "total": 7,
+        "completed": 7,
+        "pending": 0,
+        "meanReturnPct": 6.494327701314643,
+        "medianReturnPct": 6.483973292347223,
+        "minReturnPct": 3.0195428160935567,
+        "positiveRatePct": 100,
+        "worstDrawdownPct": -6.529842760448357,
+        "dates": [
+          "2026-06-18",
+          "2026-06-22",
+          "2026-06-23",
+          "2026-06-24",
+          "2026-06-25",
+          "2026-06-26",
+          "2026-06-29"
+        ]
+      },
+      "AFromJune30": {
+        "total": 3,
+        "completed": 3,
+        "pending": 0,
+        "meanReturnPct": 7.3504271257153855,
+        "medianReturnPct": 7.383985070631294,
+        "minReturnPct": 6.300960545064194,
+        "positiveRatePct": 100,
+        "worstDrawdownPct": -5.077416703823189,
+        "dates": [
+          "2026-06-30",
+          "2026-07-01",
+          "2026-07-02"
+        ]
+      },
+      "gradeChanges": 5,
+      "aBoundaryCrossings": 2,
+      "maxAbsoluteScoreStep": 5.816978376793486,
+      "june30ScoreChange": 1.488559794541402,
+      "event": [
+        {
+          "date": "2026-06-24",
+          "rawYield": 5.25,
+          "scoringYield": 5.243727345795601,
+          "indexClose": 5262.82,
+          "grade": "A",
+          "score": 70.89192643832338,
+          "returnPct": 6.483973292347223
+        },
+        {
+          "date": "2026-06-25",
+          "rawYield": 5.31,
+          "scoringYield": 5.308928262136651,
+          "indexClose": 5198.51,
+          "grade": "A",
+          "score": 73.32678383071465,
+          "returnPct": 8.845337837439281
+        },
+        {
+          "date": "2026-06-26",
+          "rawYield": 5.43,
+          "scoringYield": 5.427873856850443,
+          "indexClose": 5085.73,
+          "grade": "A",
+          "score": 77.75213385238294,
+          "returnPct": 8.101806194844063
+        },
+        {
+          "date": "2026-06-29",
+          "rawYield": 5.39,
+          "scoringYield": 5.3916795327210485,
+          "indexClose": 5120.71,
+          "grade": "A",
+          "score": 76.42351845290656,
+          "returnPct": 10.216507448541146
+        },
+        {
+          "date": "2026-06-30",
+          "rawYield": 4.84,
+          "scoringYield": 5.432226825101644,
+          "indexClose": 5022.46,
+          "grade": "A",
+          "score": 77.91207824744797,
+          "returnPct": 8.36633576145067
+        },
+        {
+          "date": "2026-07-01",
+          "rawYield": 4.76,
+          "scoringYield": 5.276081815352148,
+          "indexClose": 5108.21,
+          "grade": "A",
+          "score": 72.09509987065448,
+          "returnPct": 7.383985070631294
+        },
+        {
+          "date": "2026-07-02",
+          "rawYield": 4.72,
+          "scoringYield": 5.164738555637893,
+          "indexClose": 5154.94,
+          "grade": "A",
+          "score": 67.96096165942636,
+          "returnPct": 6.300960545064194
+        },
+        {
+          "date": "2026-07-03",
+          "rawYield": 4.67,
+          "scoringYield": 5.049767034216298,
+          "indexClose": 5207.46,
+          "grade": "B",
+          "score": 63.6821116795792,
+          "returnPct": 4.151708774544116
+        },
+        {
+          "date": "2026-07-06",
+          "rawYield": 4.57,
+          "scoringYield": 4.885019277806627,
+          "indexClose": 5314.92,
+          "grade": "B",
+          "score": 59.683314569974556,
+          "returnPct": 5.143415027000131
+        },
+        {
+          "date": "2026-07-07",
+          "rawYield": 4.64,
+          "scoringYield": 4.8922644535507125,
+          "indexClose": 5239.37,
+          "grade": "B",
+          "score": 59.816499250097245,
+          "returnPct": 6.4444546999869345
+        },
+        {
+          "date": "2026-07-08",
+          "rawYield": 4.62,
+          "scoringYield": 4.805839566250506,
+          "indexClose": 5264.79,
+          "grade": "B",
+          "score": 58.19663831087029,
+          "returnPct": 6.779961806292301
+        },
+        {
+          "date": "2026-07-09",
+          "rawYield": 4.67,
+          "scoringYield": 4.801503865057572,
+          "indexClose": 5200.44,
+          "grade": "B",
+          "score": 58.11618082794609,
+          "returnPct": 6.492167345439026
+        },
+        {
+          "date": "2026-07-10",
+          "rawYield": 4.69,
+          "scoringYield": 4.752941546266468,
+          "indexClose": 5184.1,
+          "grade": "B",
+          "score": 57.20253380272877,
+          "returnPct": 4.297315120113043
+        }
+      ],
+      "addedADates": [
+        "2026-06-30",
+        "2026-07-01",
+        "2026-07-02"
+      ],
+      "removedADates": []
+    }
+  ],
+  "syntheticStressTests": {
+    "permanentDividendDropAtConstantPrice": [
+      {
+        "day": 1,
+        "currentActualYield": 4.84,
+        "smoothedYield": 5.279999999999999,
+        "score": 71.99359999999997,
+        "grade": "A"
+      },
+      {
+        "day": 2,
+        "currentActualYield": 4.84,
+        "smoothedYield": 5.17,
+        "score": 67.9104,
+        "grade": "A"
+      },
+      {
+        "day": 3,
+        "currentActualYield": 4.84,
+        "smoothedYield": 5.06,
+        "score": 63.82719999999999,
+        "grade": "B"
+      },
+      {
+        "day": 4,
+        "currentActualYield": 4.84,
+        "smoothedYield": 4.95,
+        "score": 60.6,
+        "grade": "B"
+      },
+      {
+        "day": 5,
+        "currentActualYield": 4.84,
+        "smoothedYield": 4.84,
+        "score": 58.39999999999999,
+        "grade": "B"
+      }
+    ],
+    "realPriceDropAtConstantBase": {
+      "oldPrice": 5500,
+      "newPrice": 5000,
+      "oldYield": 4.7,
+      "currentActualYield": 5.17,
+      "directYieldMean5": {
+        "input": 4.794,
+        "grade": "B"
+      },
+      "baseMean5": {
+        "input": 5.17,
+        "grade": "A"
+      },
+      "condition": "Hypothetical constant dividend-base proxy and bond yield; illustrates different price response, not an actual market observation."
+    }
+  },
+  "review": {
+    "trialCandidate": "base-mean-5",
+    "rationale": "Smaller month-end score discontinuity while preserving same-day price response; selection based on mechanism, not the largest observed mean return.",
+    "productionDecision": "Not applied. First use as a separately labelled shadow score. A real dividend reduction must not be treated as a correctable data error; causal smoothing delays its recognition.",
+    "displayContract": "Preserve and display original published yield and raw rating; label effective yield as a smoothed modelling reference, not official yield.",
+    "unchanged": {
+      "weights": {
+        "absolute": 92,
+        "ratio": 8
+      },
+      "anchors": {
+        "absolute": [
+          [
+            3,
+            0
+          ],
+          [
+            4,
+            40
+          ],
+          [
+            5,
+            60
+          ],
+          [
+            5.5,
+            80
+          ],
+          [
+            6,
+            100
+          ]
+        ],
+        "ratio": [
+          [
+            1,
+            0
+          ],
+          [
+            1.5,
+            40
+          ],
+          [
+            2,
+            60
+          ],
+          [
+            2.5,
+            80
+          ],
+          [
+            5,
+            100
+          ]
+        ]
+      },
+      "thresholds": {
+        "C": 40,
+        "B": 48,
+        "A": 65
+      },
+      "buyGrades": [
+        "A"
+      ]
+    },
+    "dataQualityCandidate": "Flag abs(change in yield-times-price proxy) >= 5% for review; threshold is a provisional diagnostic, not calibrated evidence and not an automatic correction.",
+    "insufficientEvidence": "Only one observed >=5% dividend-base-proxy discontinuity; cannot establish a globally optimal window or future trading benefit.",
+    "chineseSummary": {
+      "candidate": "5期分红参考基数均值，再按当日指数点位换算评分参考股息率；仅作为独立标注的观察评分候选，未应用。",
+      "steps": [
+        "参考基数 = 当日原始股息率 × 同日指数收盘点位",
+        "取最近5条当时已可得有效记录的参考基数均值",
+        "评分参考股息率 = 均值 ÷ 当日指数收盘点位；股债倍数使用该参考值与当日国债收益率"
+      ],
+      "preserved": "原始股息率、原始评级、92/8权重、原锚点、C40/B48/A65分界及仅A级可买入规则均保留。",
+      "limitation": "参考基数不是实际分红总额。真实分红减少也会被平滑，压力情景中前两期仍为A、第三期降为B；仅有一次明显月末跳变，无法证明最优或可替代原始评级。",
+      "sample": "共同有效比较从2026-06-17开始，共74条已完成收益信号；回测统一截止日仍为2026-10-15。所有统计为重叠信号后指数收益，不是资金收益。"
+    }
+  },
+  "checks": {
+    "baselineMatchesPriorResults": true,
+    "sameSampleAndCutoff": true,
+    "futurePerturbationDoesNotChangePastInputs": true
+  },
+  "sources": [
+    {
+      "title": "股息率：中证资本市场运行统计监测中心供稿，2013-06-03",
+      "url": "https://epaper.cs.com.cn/zgzqb/html/2013-06/03/nw.D110000zgzqb_20130603_7-A04.htm?div=-1",
+      "use": "Supports general trailing-cash-dividend statistics and monthly-window changes, not a direct explanation of the 2026-06-30 event."
+    }
+  ]
+}

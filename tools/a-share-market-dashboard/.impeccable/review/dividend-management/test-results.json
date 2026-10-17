@@ -1,0 +1,18 @@
+{
+  "counts": {
+    "tests": 170,
+    "pass": 163,
+    "fail": 7
+  },
+  "failures": [
+    "sidebar exposes the personal workspace as a first-level tree domain",
+    "three-factor report summary exposes the overall and each factor judgement",
+    "market summary renders three overview cards and includes signal sources in data audit",
+    "industry report panels use the holdings-list table layout",
+    "topic map reads wiki topic pages into the thermometer navigation",
+    "tracking list refreshes intraday quotes directly from stock codes",
+    "XCMG report renders fair value without an active bubble warning"
+  ],
+  "knownExistingFailuresOnly": true,
+  "targetedTestsPassed": 35
+}

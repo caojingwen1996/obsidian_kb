@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "revision": 4,
+  "strategy": {
+    "version": "dividend-weighted-v1-r4",
+    "weights": {
+      "percentile": 5,
+      "absolute": 90,
+      "ratio": 5
+    },
+    "anchors": {
+      "percentile": [
+        [
+          0,
+          0
+        ],
+        [
+          50,
+          40
+        ],
+        [
+          70,
+          60
+        ],
+        [
+          80,
+          80
+        ],
+        [
+          100,
+          100
+        ]
+      ],
+      "absolute": [
+        [
+          3,
+          0
+        ],
+        [
+          4,
+          40
+        ],
+        [
+          5,
+          60
+        ],
+        [
+          5.5,
+          80
+        ],
+        [
+          6,
+          100
+        ]
+      ],
+      "ratio": [
+        [
+          1,
+          0
+        ],
+        [
+          1.5,
+          40
+        ],
+        [
+          2,
+          60
+        ],
+        [
+          2.5,
+          80
+        ],
+        [
+          5,
+          100
+        ]
+      ]
+    },
+    "thresholds": {
+      "C": 40,
+      "B": 66,
+      "A": 80
+    },
+    "confirmationDays": 1
+  },
+  "updatedAt": "2026-10-17T15:22:16+08:00",
+  "changed": true,
+  "recalculation": {
+    "updatedRows": 102,
+    "gradeCounts": {
+      "A": 0,
+      "B": 8,
+      "C": 94,
+      "D": 0
+    },
+    "backupPath": "sources/automations/中证红利信号/备份/保存并重算-20261017-152216-ddc8131f"
+  },
+  "verification": {
+    "inputsUnchanged": true,
+    "workbookVersionsMatch": true
+  }
+}

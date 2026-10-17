@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { inflateRawSync } from 'node:zlib';
 import { renderIndexDayChart } from './index-day-chart.mjs';
 import { parseCsindexPerformance } from '../src/adapters.mjs';
+import { backtestDate } from '../src/dividend-backtest.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const repoRoot = join(root, '..', '..');
@@ -14,7 +15,7 @@ const outputPath = join(root, 'a-share-market-dashboard.html');
 const moduleOrder = ['core.mjs', 'adapters.mjs', 'data-service.mjs', 'risk-state.mjs', 'risk-indicators.mjs', 'risk-screen.mjs', 'dividend-scoring.mjs', 'dividend-backtest.mjs', 'dividend-bollinger.mjs', 'app.mjs'];
 const automationsDir = join(repoRoot, 'sources', 'automations');
 const topicsDir = join(repoRoot, 'wiki', 'topics');
-const dividendStrategy = JSON.parse(await readFile(join(repoRoot, '.agents', 'skills', 'zzhl-dividend-signal', 'strategy-v1.json'), 'utf8'));
+const dividendStrategy = JSON.parse(await readFile(join(repoRoot, '.agents', 'skills', 'zzhl-dividend-signal', 'strategy-v2.json'), 'utf8'));
 const dividendScorePath = join(automationsDir, '中证红利信号', '评分记录.json');
 const dividendSignalPath = join(automationsDir, '中证红利信号', '最新信号.md');
 const dividendHistoryWorkbookPath = join(automationsDir, '中证红利信号', '中证红利每日信号.xlsx');
@@ -862,10 +863,10 @@ function parseDividendYieldHistoryFromWorkbook(buffer) {
     || String(rows[1]?.[index] ?? '').trim() === '综合结论');
   if (dateIndex < 0 || dividendIndex < 0) return [];
   return rows.slice(2).map(row => {
-    const date = String(row[dateIndex] ?? '').trim().replaceAll('/', '-');
+    const date = backtestDate(row[dateIndex]);
     const value = Number(row[dividendIndex]);
-    return /^\d{4}-\d{1,2}-\d{1,2}$/.test(date) && Number.isFinite(value)
-      ? { date: date.replace(/^(\d{4})-(\d{1,2})-(\d{1,2})$/, (_, year, month, day) => `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`), value,
+    return date && Number.isFinite(value)
+      ? { date, recordDate: backtestDate(row[runDateIndex]) ?? '', value,
         headline: String(row[headlineIndex] ?? '').trim() }
       : null;
   }).filter(Boolean);
@@ -1134,7 +1135,9 @@ const bbxmDailyDigest = await scanBbxmDailyDigest();
 const topicPages = await scanTopicPages();
 const changelog = validateChangelog(JSON.parse(changelogSource));
 const eventCalendar = validateEventCalendar(JSON.parse(eventCalendarSource));
-const dividendScorePayload = JSON.parse(await readFile(dividendScorePath, 'utf8').catch(error => { if (error.code !== 'ENOENT') throw error; return 'null'; }));
+const dividendScoreData = JSON.parse(await readFile(dividendScorePath, 'utf8').catch(error => { if (error.code !== 'ENOENT') throw error; return 'null'; }));
+// Offline viewing needs the latest score; backtesting reads the full workbook through the local service.
+const dividendScorePayload = dividendScoreData?.latest ? { ...dividendScoreData, records: [dividendScoreData.latest] } : dividendScoreData;
 const dividendSignal = parseDividendSignal(await readFile(dividendSignalPath, 'utf8').catch(() => ''));
 const dividendWorkbookBuffer = await readFile(dividendHistoryWorkbookPath).catch(error => { if (error.code !== 'ENOENT') throw error; return null; });
 const dividendYieldHistory = parseDividendYieldHistoryFromWorkbook(dividendWorkbookBuffer);
@@ -1149,6 +1152,7 @@ const dividendBollingerSnapshot = parseCsindexPerformance(JSON.parse(await readF
 const dividendIndexHistory = [...new Map([...dividendBollingerSnapshot, ...dividendIndexSnapshot]
   .map(({ date, close }) => [date, { date, close }])).values()].sort((a, b) => a.date.localeCompare(b.date));
 const dividendAnnualPerformance = parseDividendAnnualPerformance(await readFile(dividendAnnualPerformancePath, 'utf8').catch(() => ''));
+const dividendManagementTrial = JSON.parse(await readFile(join(root, 'data/红利信号/management-trial.json'), 'utf8'));
 const todoList = parseTodoListFromJson(await readFile(todoDataPath, 'utf8').catch(() => ''));
 
 const automationReports = await walkHtmlFiles(automationsDir);
@@ -1166,6 +1170,7 @@ const bundle = modules
         .replace('  // STOCK_THREE_FACTOR_REPORT_LINKS', stockThreeFactorReportLinks)
         .replace('  // DAILY_MONITOR_LINKS', dailyMonitorData.mapSource)
         .replace('  // EVENT_CALENDAR', JSON.stringify(eventCalendar, null, 2))
+        .replace('  // CSI_DIVIDEND_MANAGEMENT_TRIAL\n  null', JSON.stringify(dividendManagementTrial, null, 2))
         .replace('  // CSI_DIVIDEND_SCORE_PAYLOAD', JSON.stringify(dividendScorePayload, null, 2))
         .replace('  // CSI_DIVIDEND_SIGNAL', JSON.stringify(dividendSignal, null, 2))
         .replace('  // CSI_DIVIDEND_YIELD_HISTORY', JSON.stringify(dividendYieldHistory, null, 2))

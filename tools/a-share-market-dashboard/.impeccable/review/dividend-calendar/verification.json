@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-17",
+  "scope": "将打开年度数据替换为收益日历年/月切换",
+  "tests": {"relatedPassed": 41, "newCalendarCases": 3, "build": "passed", "fullSuiteRerun": false},
+  "browser": {
+    "desktopWidth": 1280,
+    "mobileWidth": 390,
+    "mobileDocumentWidth": 390,
+    "desktopColumns": 4,
+    "mobileColumns": 2,
+    "annualRows": 19,
+    "monthlyCells": 12,
+    "defaultYear": 2026,
+    "yearSelection2008": "1至4月数据不足，5至12月保留真实月收益",
+    "currentYear": "10月月内累计，11及12月未开始",
+    "keyboardEnterSwitchesModes": true,
+    "selectedYearRetainedAfterModeSwitch": true,
+    "modeAndYearRetainedAfterManagementNavigation": true,
+    "consoleErrors": []
+  },
+  "review": {"disposition": "ship", "requiredFixes": [], "scope": "指定代码、新增测试及桌面/手机月度截图独立只读复核，未重复执行浏览器或测试", "minorTradeoff": "手机10月截止日期略紧但可读"},
+  "unchanged": ["年度与月度原始数据", "收益计算和校验口径", "评分/回测/布林算法", "Excel及每日策略参数"],
+  "screenshots": ["desktop-year.png", "desktop-month.png", "mobile-month.png"]
+}

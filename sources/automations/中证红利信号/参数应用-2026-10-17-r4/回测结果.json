@@ -1,0 +1,8312 @@
+{
+  "schemaVersion": 2,
+  "type": "dividend-signal-backtest",
+  "strategy": {
+    "version": "dividend-weighted-v1-r4",
+    "weights": {
+      "percentile": 5,
+      "absolute": 90,
+      "ratio": 5
+    },
+    "anchors": {
+      "percentile": [
+        [
+          0,
+          0
+        ],
+        [
+          50,
+          40
+        ],
+        [
+          70,
+          60
+        ],
+        [
+          80,
+          80
+        ],
+        [
+          100,
+          100
+        ]
+      ],
+      "absolute": [
+        [
+          3,
+          0
+        ],
+        [
+          4,
+          40
+        ],
+        [
+          5,
+          60
+        ],
+        [
+          5.5,
+          80
+        ],
+        [
+          6,
+          100
+        ]
+      ],
+      "ratio": [
+        [
+          1,
+          0
+        ],
+        [
+          1.5,
+          40
+        ],
+        [
+          2,
+          60
+        ],
+        [
+          2.5,
+          80
+        ],
+        [
+          5,
+          100
+        ]
+      ]
+    },
+    "thresholds": {
+      "C": 40,
+      "B": 66,
+      "A": 80
+    },
+    "confirmationDays": 1
+  },
+  "period": {
+    "startDate": "2026-06-02",
+    "endDate": "2026-10-15",
+    "tradingDays": 91
+  },
+  "coverage": {
+    "rawRecords": 102,
+    "uniqueRecords": 91,
+    "duplicates": 11,
+    "completeInputs": 91,
+    "usableSamples": 85,
+    "dailyEligible": 0,
+    "confirmedChanges": 0,
+    "confirmedBuyChanges": 0,
+    "signalFirstDate": "2026-06-02",
+    "signalLastDate": "2026-10-15",
+    "priceCount": 91,
+    "priceFirstDate": "2026-06-02",
+    "priceLastDate": "2026-10-15",
+    "conflictingPrices": 0,
+    "reasonCounts": {
+      "指标日期未对齐": 6,
+      "估值日缺少交易日证据": 5
+    },
+    "gradeCounts": {
+      "A": 0,
+      "B": 6,
+      "C": 79,
+      "D": 0
+    }
+  },
+  "confirmedSummary": [],
+  "referenceSummary": [
+    {
+      "grade": "C",
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "signals": 65,
+      "completed": 62,
+      "pending": 3,
+      "priceGaps": 0,
+      "meanReturnPct": 0.3160437732515969,
+      "medianReturnPct": -0.34366898216123265,
+      "positiveRatePct": 48.38709677419355,
+      "worstDrawdownPct": -11.636302858097947
+    },
+    {
+      "grade": "B",
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "signals": 6,
+      "completed": 6,
+      "pending": 0,
+      "priceGaps": 0,
+      "meanReturnPct": 6.974990053879133,
+      "medianReturnPct": 7.292889743595643,
+      "positiveRatePct": 100,
+      "worstDrawdownPct": -6.529842760448357
+    },
+    {
+      "grade": "C",
+      "sourceKey": "理杏仁公开页面",
+      "kind": "legacy",
+      "signals": 14,
+      "completed": 14,
+      "pending": 0,
+      "priceGaps": 0,
+      "meanReturnPct": 2.286401749193895,
+      "medianReturnPct": 1.7150562812440096,
+      "positiveRatePct": 85.71428571428571,
+      "worstDrawdownPct": -5.077416703823189
+    }
+  ],
+  "rows": [
+    {
+      "date": "2026-06-02",
+      "availableDate": "2026-06-03",
+      "workbookRow": 3,
+      "grade": "C",
+      "score": 58.055107777197286,
+      "lower": 58.055107777197286,
+      "upper": 58.055107777197286,
+      "input": {
+        "percentile": 69.62077493816983,
+        "dividendYield": 4.83,
+        "bondYield": 1.7036
+      },
+      "components": {
+        "percentile": {
+          "score": 59.62077493816983,
+          "interval": [
+            [
+              50,
+              40
+            ],
+            [
+              70,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 69.62077493816983,
+          "weight": 5,
+          "contribution": 2.9810387469084914
+        },
+        "absolute": {
+          "score": 56.6,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.83,
+          "weight": 90,
+          "contribution": 50.94
+        },
+        "ratio": {
+          "score": 82.681380605776,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.8351725757220003,
+          "weight": 5,
+          "contribution": 4.1340690302888
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-06-04",
+        "exitDate": "2026-10-15",
+        "entryClose": 5681.52,
+        "exitClose": 5535.58,
+        "returnPct": -2.5686788042636577,
+        "drawdownPct": -11.636302858097947
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-06-03",
+      "availableDate": "2026-06-04",
+      "workbookRow": 4,
+      "grade": "C",
+      "score": 57.964515090874855,
+      "lower": 57.964515090874855,
+      "upper": 57.964515090874855,
+      "input": {
+        "percentile": 67.93075020610058,
+        "dividendYield": 4.83,
+        "bondYield": 1.7128
+      },
+      "components": {
+        "percentile": {
+          "score": 57.93075020610058,
+          "interval": [
+            [
+              50,
+              40
+            ],
+            [
+              70,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 67.93075020610058,
+          "weight": 5,
+          "contribution": 2.8965375103050293
+        },
+        "absolute": {
+          "score": 56.6,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.83,
+          "weight": 90,
+          "contribution": 50.94
+        },
+        "ratio": {
+          "score": 82.55955161139654,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.819943951424568,
+          "weight": 5,
+          "contribution": 4.127977580569827
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-06-05",
+        "exitDate": "2026-10-15",
+        "entryClose": 5683.85,
+        "exitClose": 5535.58,
+        "returnPct": -2.6086191577891826,
+        "drawdownPct": -11.636302858097947
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-06-04",
+      "availableDate": "2026-06-05",
+      "workbookRow": 5,
+      "grade": "C",
+      "score": 58.3309029154502,
+      "lower": 58.3309029154502,
+      "upper": 58.3309029154502,
+      "input": {
+        "percentile": 67.90276060980635,
+        "dividendYield": 4.85,
+        "bondYield": 1.7081
+      },
+      "components": {
+        "percentile": {
+          "score": 57.90276060980635,
+          "interval": [
+            [
+              50,
+              40
+            ],
+            [
+              70,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 67.90276060980635,
+          "weight": 5,
+          "contribution": 2.8951380304903176
+        },
+        "absolute": {
+          "score": 56.99999999999999,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.85,
+          "weight": 90,
+          "contribution": 51.29999999999999
+        },
+        "ratio": {
+          "score": 82.71529769919793,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.839412212399742,
+          "weight": 5,
+          "contribution": 4.1357648849598965
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-06-08",
+        "exitDate": "2026-10-15",
+        "entryClose": 5633.62,
+        "exitClose": 5535.58,
+        "returnPct": -1.7402664716470007,
+        "drawdownPct": -11.09903531285954
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-06-08",
+      "availableDate": "2026-06-08",
+      "workbookRow": 6,
+      "grade": "C",
+      "score": 59.175477908762176,
+      "lower": 59.175477908762176,
+      "upper": 59.175477908762176,
+      "input": {
+        "percentile": 66.81780708985985,
+        "dividendYield": 4.9,
+        "bondYield": 1.7275
+      },
+      "components": {
+        "percentile": {
+          "score": 56.817807089859855,
+          "interval": [
+            [
+              50,
+              40
+            ],
+            [
+              70,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 66.81780708985985,
+          "weight": 5,
+          "contribution": 2.8408903544929927
+        },
+        "absolute": {
+          "score": 58.00000000000001,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.9,
+          "weight": 90,
+          "contribution": 52.20000000000001
+        },
+        "ratio": {
+          "score": 82.6917510853835,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.836468885672938,
+          "weight": 5,
+          "contribution": 4.134587554269175
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-06-09",
+        "exitDate": "2026-10-15",
+        "entryClose": 5629.97,
+        "exitClose": 5535.58,
+        "returnPct": -1.676563107796314,
+        "drawdownPct": -11.09903531285954
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-06-09",
+      "availableDate": "2026-06-09",
+      "workbookRow": 7,
+      "grade": "C",
+      "score": 58.9367689005138,
+      "lower": 58.9367689005138,
+      "upper": 58.9367689005138,
+      "input": {
+        "percentile": 62.17552533992583,
+        "dividendYield": 4.9,
+        "bondYield": 1.7376
+      },
+      "components": {
+        "percentile": {
+          "score": 52.17552533992583,
+          "interval": [
+            [
+              50,
+              40
+            ],
+            [
+              70,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 62.17552533992583,
+          "weight": 5,
+          "contribution": 2.608776266996291
+        },
+        "absolute": {
+          "score": 58.00000000000001,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.9,
+          "weight": 90,
+          "contribution": 52.20000000000001
+        },
+        "ratio": {
+          "score": 82.55985267034991,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.8199815837937385,
+          "weight": 5,
+          "contribution": 4.127992633517496
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-06-10",
+        "exitDate": "2026-10-15",
+        "entryClose": 5588.98,
+        "exitClose": 5535.58,
+        "returnPct": -0.9554516208681973,
+        "drawdownPct": -11.09903531285954
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-06-10",
+      "availableDate": "2026-06-10",
+      "workbookRow": 8,
+      "grade": "C",
+      "score": 59.55415425739908,
+      "lower": 59.55415425739908,
+      "upper": 59.55415425739908,
+      "input": {
+        "percentile": 63.71499176276772,
+        "dividendYield": 4.93,
+        "bondYield": 1.7476
+      },
+      "components": {
+        "percentile": {
+          "score": 53.71499176276772,
+          "interval": [
+            [
+              50,
+              40
+            ],
+            [
+              70,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 63.71499176276772,
+          "weight": 5,
+          "contribution": 2.685749588138386
+        },
+        "absolute": {
+          "score": 58.599999999999994,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.93,
+          "weight": 90,
+          "contribution": 52.73999999999999
+        },
+        "ratio": {
+          "score": 82.56809338521401,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.8210116731517507,
+          "weight": 5,
+          "contribution": 4.128404669260701
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-06-11",
+        "exitDate": "2026-10-15",
+        "entryClose": 5566.74,
+        "exitClose": 5535.58,
+        "returnPct": -0.5597531050489102,
+        "drawdownPct": -11.09903531285954
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-06-11",
+      "availableDate": "2026-06-11",
+      "workbookRow": 9,
+      "grade": "C",
+      "score": 59.874257584940196,
+      "lower": 59.874257584940196,
+      "upper": 59.874257584940196,
+      "input": {
+        "percentile": 62.8242074927954,
+        "dividendYield": 4.95,
+        "bondYield": 1.7475
+      },
+      "components": {
+        "percentile": {
+          "score": 52.8242074927954,
+          "interval": [
+            [
+              50,
+              40
+            ],
+            [
+              70,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 62.8242074927954,
+          "weight": 5,
+          "contribution": 2.6412103746397704
+        },
+        "absolute": {
+          "score": 59,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.95,
+          "weight": 90,
+          "contribution": 53.1
+        },
+        "ratio": {
+          "score": 82.66094420600858,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.832618025751073,
+          "weight": 5,
+          "contribution": 4.133047210300429
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-06-12",
+        "exitDate": "2026-10-15",
+        "entryClose": 5649.5,
+        "exitClose": 5535.58,
+        "returnPct": -2.0164616337729036,
+        "drawdownPct": -11.09903531285954
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-06-12",
+      "availableDate": "2026-06-12",
+      "workbookRow": 10,
+      "grade": "C",
+      "score": 58.50536848242438,
+      "lower": 58.50536848242438,
+      "upper": 58.50536848242438,
+      "input": {
+        "percentile": 60.90534979423868,
+        "dividendYield": 4.88,
+        "bondYield": 1.7427
+      },
+      "components": {
+        "percentile": {
+          "score": 50.90534979423868,
+          "interval": [
+            [
+              50,
+              40
+            ],
+            [
+              70,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 60.90534979423868,
+          "weight": 5,
+          "contribution": 2.545267489711934
+        },
+        "absolute": {
+          "score": 57.599999999999994,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.88,
+          "weight": 90,
+          "contribution": 51.83999999999999
+        },
+        "ratio": {
+          "score": 82.40201985424915,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.8002524817811443,
+          "weight": 5,
+          "contribution": 4.120100992712457
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-06-15",
+        "exitDate": "2026-10-15",
+        "entryClose": 5590.7,
+        "exitClose": 5535.58,
+        "returnPct": -0.985923050780757,
+        "drawdownPct": -10.164022394333438
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-06-16",
+      "availableDate": "2026-06-16",
+      "workbookRow": 11,
+      "grade": "C",
+      "score": 61.488511565789274,
+      "lower": 61.488511565789274,
+      "upper": 61.488511565789274,
+      "input": {
+        "percentile": 54.94233937397035,
+        "dividendYield": 5.03,
+        "bondYield": 1.7324
+      },
+      "components": {
+        "percentile": {
+          "score": 44.94233937397035,
+          "interval": [
+            [
+              50,
+              40
+            ],
+            [
+              70,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 54.94233937397035,
+          "weight": 5,
+          "contribution": 2.2471169686985175
+        },
+        "absolute": {
+          "score": 61.20000000000001,
+          "interval": [
+            [
+              5,
+              60
+            ],
+            [
+              5.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 5.03,
+          "weight": 90,
+          "contribution": 55.08000000000001
+        },
+        "ratio": {
+          "score": 83.22789194181482,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.903486492726853,
+          "weight": 5,
+          "contribution": 4.161394597090741
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-06-17",
+        "exitDate": "2026-10-15",
+        "entryClose": 5434.15,
+        "exitClose": 5535.58,
+        "returnPct": 1.8665292640063447,
+        "drawdownPct": -7.575977843821013
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-06-17",
+      "availableDate": "2026-06-17",
+      "workbookRow": 12,
+      "grade": "C",
+      "score": 63.476705679445274,
+      "lower": 63.476705679445274,
+      "upper": 63.476705679445274,
+      "input": {
+        "percentile": 58.40197693574959,
+        "dividendYield": 5.08,
+        "bondYield": 1.727
+      },
+      "components": {
+        "percentile": {
+          "score": 48.40197693574959,
+          "interval": [
+            [
+              50,
+              40
+            ],
+            [
+              70,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 58.40197693574959,
+          "weight": 5,
+          "contribution": 2.4200988467874796
+        },
+        "absolute": {
+          "score": 63.2,
+          "interval": [
+            [
+              5,
+              60
+            ],
+            [
+              5.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 5.08,
+          "weight": 90,
+          "contribution": 56.88
+        },
+        "ratio": {
+          "score": 83.53213665315576,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.94151708164447,
+          "weight": 5,
+          "contribution": 4.176606832657788
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-06-18",
+        "exitDate": "2026-10-15",
+        "entryClose": 5316.65,
+        "exitClose": 5535.58,
+        "returnPct": 4.117818551155339,
+        "drawdownPct": -6.529842760448357
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-06-18",
+      "availableDate": "2026-06-18",
+      "workbookRow": 13,
+      "grade": "B",
+      "score": 67.51042754025887,
+      "lower": 67.51042754025887,
+      "upper": 67.51042754025887,
+      "input": {
+        "percentile": 59.40716344174557,
+        "dividendYield": 5.19,
+        "bondYield": 1.7299
+      },
+      "components": {
+        "percentile": {
+          "score": 49.40716344174557,
+          "interval": [
+            [
+              50,
+              40
+            ],
+            [
+              70,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 59.40716344174557,
+          "weight": 5,
+          "contribution": 2.4703581720872787
+        },
+        "absolute": {
+          "score": 67.60000000000002,
+          "interval": [
+            [
+              5,
+              60
+            ],
+            [
+              5.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 5.19,
+          "weight": 90,
+          "contribution": 60.84000000000002
+        },
+        "ratio": {
+          "score": 84.00138736343142,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 3.000173420428927,
+          "weight": 5,
+          "contribution": 4.2000693681715715
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-06-22",
+        "exitDate": "2026-10-15",
+        "entryClose": 5373.33,
+        "exitClose": 5535.58,
+        "returnPct": 3.0195428160935567,
+        "drawdownPct": -6.529842760448357
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-06-22",
+      "availableDate": "2026-06-22",
+      "workbookRow": 14,
+      "grade": "C",
+      "score": 65.63431058861192,
+      "lower": 65.63431058861192,
+      "upper": 65.63431058861192,
+      "input": {
+        "percentile": 58.22002472187886,
+        "dividendYield": 5.14,
+        "bondYield": 1.7375
+      },
+      "components": {
+        "percentile": {
+          "score": 48.22002472187886,
+          "interval": [
+            [
+              50,
+              40
+            ],
+            [
+              70,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 58.22002472187886,
+          "weight": 5,
+          "contribution": 2.4110012360939432
+        },
+        "absolute": {
+          "score": 65.6,
+          "interval": [
+            [
+              5,
+              60
+            ],
+            [
+              5.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 5.14,
+          "weight": 90,
+          "contribution": 59.03999999999999
+        },
+        "ratio": {
+          "score": 83.66618705035971,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.9582733812949638,
+          "weight": 5,
+          "contribution": 4.183309352517986
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-06-23",
+        "exitDate": "2026-10-15",
+        "entryClose": 5342.69,
+        "exitClose": 5535.58,
+        "returnPct": 3.6103535859276947,
+        "drawdownPct": -5.993797132156264
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-06-23",
+      "availableDate": "2026-06-23",
+      "workbookRow": 15,
+      "grade": "B",
+      "score": 66.66342099271782,
+      "lower": 66.66342099271782,
+      "upper": 66.66342099271782,
+      "input": {
+        "percentile": 57.14874330449115,
+        "dividendYield": 5.17,
+        "bondYield": 1.7437
+      },
+      "components": {
+        "percentile": {
+          "score": 47.14874330449115,
+          "interval": [
+            [
+              50,
+              40
+            ],
+            [
+              70,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 57.14874330449115,
+          "weight": 5,
+          "contribution": 2.3574371652245576
+        },
+        "absolute": {
+          "score": 66.8,
+          "interval": [
+            [
+              5,
+              60
+            ],
+            [
+              5.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 5.17,
+          "weight": 90,
+          "contribution": 60.12
+        },
+        "ratio": {
+          "score": 83.71967654986523,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.9649595687331534,
+          "weight": 5,
+          "contribution": 4.185983827493261
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-06-24",
+        "exitDate": "2026-10-15",
+        "entryClose": 5262.82,
+        "exitClose": 5535.58,
+        "returnPct": 5.182772734009533,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-06-24",
+      "availableDate": "2026-06-24",
+      "workbookRow": 16,
+      "grade": "B",
+      "score": 69.43905052631371,
+      "lower": 69.43905052631371,
+      "upper": 69.43905052631371,
+      "input": {
+        "percentile": 54.71775854964977,
+        "dividendYield": 5.25,
+        "bondYield": 1.7454
+      },
+      "components": {
+        "percentile": {
+          "score": 44.71775854964977,
+          "interval": [
+            [
+              50,
+              40
+            ],
+            [
+              70,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 54.71775854964977,
+          "weight": 5,
+          "contribution": 2.2358879274824885
+        },
+        "absolute": {
+          "score": 70,
+          "interval": [
+            [
+              5,
+              60
+            ],
+            [
+              5.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 5.25,
+          "weight": 90,
+          "contribution": 63
+        },
+        "ratio": {
+          "score": 84.06325197662427,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 3.0079064970780336,
+          "weight": 5,
+          "contribution": 4.203162598831214
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-06-25",
+        "exitDate": "2026-10-15",
+        "entryClose": 5198.51,
+        "exitClose": 5535.58,
+        "returnPct": 6.483973292347223,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-06-25",
+      "availableDate": "2026-06-25",
+      "workbookRow": 17,
+      "grade": "B",
+      "score": 71.20786016634736,
+      "lower": 71.20786016634736,
+      "upper": 71.20786016634736,
+      "input": {
+        "percentile": 45.59308072487644,
+        "dividendYield": 5.31,
+        "bondYield": 1.7351
+      },
+      "components": {
+        "percentile": {
+          "score": 36.47446457990115,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 45.59308072487644,
+          "weight": 5,
+          "contribution": 1.8237232289950578
+        },
+        "absolute": {
+          "score": 72.39999999999998,
+          "interval": [
+            [
+              5,
+              60
+            ],
+            [
+              5.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 5.31,
+          "weight": 90,
+          "contribution": 65.15999999999998
+        },
+        "ratio": {
+          "score": 84.48273874704628,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 3.0603423433807846,
+          "weight": 5,
+          "contribution": 4.224136937352314
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-06-26",
+        "exitDate": "2026-10-15",
+        "entryClose": 5085.73,
+        "exitClose": 5535.58,
+        "returnPct": 8.845337837439281,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-06-26",
+      "availableDate": "2026-06-26",
+      "workbookRow": 18,
+      "grade": "B",
+      "score": 76.17189895421086,
+      "lower": 76.17189895421086,
+      "upper": 76.17189895421086,
+      "input": {
+        "percentile": 58.74845615479622,
+        "dividendYield": 5.43,
+        "bondYield": 1.7314
+      },
+      "components": {
+        "percentile": {
+          "score": 48.74845615479622,
+          "interval": [
+            [
+              50,
+              40
+            ],
+            [
+              70,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 58.74845615479622,
+          "weight": 5,
+          "contribution": 2.4374228077398112
+        },
+        "absolute": {
+          "score": 77.19999999999999,
+          "interval": [
+            [
+              5,
+              60
+            ],
+            [
+              5.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 5.43,
+          "weight": 90,
+          "contribution": 69.47999999999999
+        },
+        "ratio": {
+          "score": 85.08952292942128,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 3.1361903661776593,
+          "weight": 5,
+          "contribution": 4.254476146471064
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-06-29",
+        "exitDate": "2026-10-15",
+        "entryClose": 5120.71,
+        "exitClose": 5535.58,
+        "returnPct": 8.101806194844063,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-06-29",
+      "availableDate": "2026-06-29",
+      "workbookRow": 21,
+      "grade": "B",
+      "score": 74.1250975448741,
+      "lower": 74.1250975448741,
+      "upper": 74.1250975448741,
+      "input": {
+        "percentile": 45.73547589616811,
+        "dividendYield": 5.39,
+        "bondYield": 1.717
+      },
+      "components": {
+        "percentile": {
+          "score": 36.58838071693449,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 45.73547589616811,
+          "weight": 5,
+          "contribution": 1.8294190358467244
+        },
+        "absolute": {
+          "score": 75.6,
+          "interval": [
+            [
+              5,
+              60
+            ],
+            [
+              5.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 5.39,
+          "weight": 90,
+          "contribution": 68.03999999999999
+        },
+        "ratio": {
+          "score": 85.11357018054747,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 3.139196272568433,
+          "weight": 5,
+          "contribution": 4.255678509027374
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-06-30",
+        "exitDate": "2026-10-15",
+        "entryClose": 5022.46,
+        "exitClose": 5535.58,
+        "returnPct": 10.216507448541146,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-06-30",
+      "availableDate": "2026-06-30",
+      "workbookRow": 22,
+      "grade": "C",
+      "score": 57.045131318635725,
+      "lower": 57.045131318635725,
+      "upper": 57.045131318635725,
+      "input": {
+        "percentile": 45.19983518747425,
+        "dividendYield": 4.84,
+        "bondYield": 1.733
+      },
+      "components": {
+        "percentile": {
+          "score": 36.1598681499794,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 45.19983518747425,
+          "weight": 5,
+          "contribution": 1.80799340749897
+        },
+        "absolute": {
+          "score": 56.8,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.84,
+          "weight": 90,
+          "contribution": 51.12
+        },
+        "ratio": {
+          "score": 82.34275822273514,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.7928447778418923,
+          "weight": 5,
+          "contribution": 4.117137911136757
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-07-01",
+        "exitDate": "2026-10-15",
+        "entryClose": 5108.21,
+        "exitClose": 5535.58,
+        "returnPct": 8.36633576145067,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-07-01",
+      "availableDate": "2026-07-01",
+      "workbookRow": 23,
+      "grade": "C",
+      "score": 55.322128416615236,
+      "lower": 55.322128416615236,
+      "upper": 55.322128416615236,
+      "input": {
+        "percentile": 38.77214668314792,
+        "dividendYield": 4.76,
+        "bondYield": 1.7448
+      },
+      "components": {
+        "percentile": {
+          "score": 31.01771734651834,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 38.77214668314792,
+          "weight": 5,
+          "contribution": 1.550885867325917
+        },
+        "absolute": {
+          "score": 55.199999999999996,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.76,
+          "weight": 90,
+          "contribution": 49.68
+        },
+        "ratio": {
+          "score": 81.82485098578634,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.728106373223292,
+          "weight": 5,
+          "contribution": 4.0912425492893165
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-07-02",
+        "exitDate": "2026-10-15",
+        "entryClose": 5154.94,
+        "exitClose": 5535.58,
+        "returnPct": 7.383985070631294,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-07-02",
+      "availableDate": "2026-07-02",
+      "workbookRow": 24,
+      "grade": "C",
+      "score": 54.56996965329815,
+      "lower": 54.56996965329815,
+      "upper": 54.56996965329815,
+      "input": {
+        "percentile": 38.13838550247117,
+        "dividendYield": 4.72,
+        "bondYield": 1.741
+      },
+      "components": {
+        "percentile": {
+          "score": 30.510708401976938,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 38.13838550247117,
+          "weight": 5,
+          "contribution": 1.525535420098847
+        },
+        "absolute": {
+          "score": 54.39999999999999,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.72,
+          "weight": 90,
+          "contribution": 48.959999999999994
+        },
+        "ratio": {
+          "score": 81.68868466398621,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.7110855829982765,
+          "weight": 5,
+          "contribution": 4.08443423319931
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-07-03",
+        "exitDate": "2026-10-15",
+        "entryClose": 5207.46,
+        "exitClose": 5535.58,
+        "returnPct": 6.300960545064194,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-07-03",
+      "availableDate": "2026-07-03",
+      "workbookRow": 25,
+      "grade": "C",
+      "score": 53.69082647221166,
+      "lower": 53.69082647221166,
+      "upper": 53.69082647221166,
+      "input": {
+        "percentile": 39.02840675174969,
+        "dividendYield": 4.67,
+        "bondYield": 1.7463
+      },
+      "components": {
+        "percentile": {
+          "score": 31.222725401399757,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 39.02840675174969,
+          "weight": 5,
+          "contribution": 1.561136270069988
+        },
+        "absolute": {
+          "score": 53.4,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.67,
+          "weight": 90,
+          "contribution": 48.06
+        },
+        "ratio": {
+          "score": 81.39380404283342,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.6742255053541775,
+          "weight": 5,
+          "contribution": 4.069690202141671
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-07-06",
+        "exitDate": "2026-10-15",
+        "entryClose": 5314.92,
+        "exitClose": 5535.58,
+        "returnPct": 4.151708774544116,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-07-06",
+      "availableDate": "2026-07-07",
+      "workbookRow": 29,
+      "grade": "C",
+      "score": 51.877563174400784,
+      "lower": 51.877563174400784,
+      "upper": 51.877563174400784,
+      "input": {
+        "percentile": 39.14297486608982,
+        "dividendYield": 4.57,
+        "bondYield": 1.7379
+      },
+      "components": {
+        "percentile": {
+          "score": 31.31437989287186,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 39.14297486608982,
+          "weight": 5,
+          "contribution": 1.565718994643593
+        },
+        "absolute": {
+          "score": 51.400000000000006,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.57,
+          "weight": 90,
+          "contribution": 46.26000000000001
+        },
+        "ratio": {
+          "score": 81.03688359514356,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.6296104493929455,
+          "weight": 5,
+          "contribution": 4.051844179757178
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-07-08",
+        "exitDate": "2026-10-15",
+        "entryClose": 5264.79,
+        "exitClose": 5535.58,
+        "returnPct": 5.143415027000131,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-07-07",
+      "availableDate": "2026-07-08",
+      "workbookRow": 30,
+      "grade": "C",
+      "score": 53.12729609314493,
+      "lower": 53.12729609314493,
+      "upper": 53.12729609314493,
+      "input": {
+        "percentile": 38.52492789451998,
+        "dividendYield": 4.64,
+        "bondYield": 1.7406
+      },
+      "components": {
+        "percentile": {
+          "score": 30.819942315615986,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 38.52492789451998,
+          "weight": 5,
+          "contribution": 1.5409971157807993
+        },
+        "absolute": {
+          "score": 52.8,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.64,
+          "weight": 90,
+          "contribution": 47.52
+        },
+        "ratio": {
+          "score": 81.32597954728254,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.6657474434103183,
+          "weight": 5,
+          "contribution": 4.066298977364127
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-07-09",
+        "exitDate": "2026-10-15",
+        "entryClose": 5200.44,
+        "exitClose": 5535.58,
+        "returnPct": 6.4444546999869345,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-07-08",
+      "availableDate": "2026-07-09",
+      "workbookRow": 31,
+      "grade": "C",
+      "score": 52.14418533218293,
+      "lower": 52.14418533218293,
+      "upper": 52.14418533218293,
+      "input": {
+        "percentile": 23.03,
+        "dividendYield": 4.62,
+        "bondYield": 1.7385
+      },
+      "components": {
+        "percentile": {
+          "score": 18.424,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 23.03,
+          "weight": 5,
+          "contribution": 0.9212
+        },
+        "absolute": {
+          "score": 52.400000000000006,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.62,
+          "weight": 90,
+          "contribution": 47.16000000000001
+        },
+        "ratio": {
+          "score": 81.25970664365832,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.6574633304572908,
+          "weight": 5,
+          "contribution": 4.062985332182916
+        }
+      },
+      "sourceKey": "理杏仁公开页面",
+      "kind": "legacy",
+      "reference": false,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-07-10",
+        "exitDate": "2026-10-15",
+        "entryClose": 5184.1,
+        "exitClose": 5535.58,
+        "returnPct": 6.779961806292301,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-07-09",
+      "availableDate": "2026-07-10",
+      "workbookRow": 32,
+      "grade": "C",
+      "score": 53.18184604051565,
+      "lower": 53.18184604051565,
+      "upper": 53.18184604051565,
+      "input": {
+        "percentile": 26.17,
+        "dividendYield": 4.67,
+        "bondYield": 1.7376
+      },
+      "components": {
+        "percentile": {
+          "score": 20.936000000000003,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 26.17,
+          "weight": 5,
+          "contribution": 1.0468000000000002
+        },
+        "absolute": {
+          "score": 53.4,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.67,
+          "weight": 90,
+          "contribution": 48.06
+        },
+        "ratio": {
+          "score": 81.50092081031308,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.6876151012891345,
+          "weight": 5,
+          "contribution": 4.0750460405156534
+        }
+      },
+      "sourceKey": "理杏仁公开页面",
+      "kind": "legacy",
+      "reference": false,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-07-13",
+        "exitDate": "2026-10-15",
+        "entryClose": 5198.11,
+        "exitClose": 5535.58,
+        "returnPct": 6.492167345439026,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-07-10",
+      "availableDate": "2026-07-13",
+      "workbookRow": 33,
+      "grade": "C",
+      "score": 53.52868486032878,
+      "lower": 53.52868486032878,
+      "upper": 53.52868486032878,
+      "input": {
+        "percentile": 25.76,
+        "dividendYield": 4.69,
+        "bondYield": 1.7398
+      },
+      "components": {
+        "percentile": {
+          "score": 20.608,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 25.76,
+          "weight": 5,
+          "contribution": 1.0304
+        },
+        "absolute": {
+          "score": 53.80000000000001,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.69,
+          "weight": 90,
+          "contribution": 48.42000000000001
+        },
+        "ratio": {
+          "score": 81.56569720657546,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.695712150821934,
+          "weight": 5,
+          "contribution": 4.078284860328774
+        }
+      },
+      "sourceKey": "理杏仁公开页面",
+      "kind": "legacy",
+      "reference": false,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-07-14",
+        "exitDate": "2026-10-15",
+        "entryClose": 5307.5,
+        "exitClose": 5535.58,
+        "returnPct": 4.297315120113043,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-07-13",
+      "availableDate": "2026-07-14",
+      "workbookRow": 34,
+      "grade": "C",
+      "score": 53.06447141382868,
+      "lower": 53.06447141382868,
+      "upper": 53.06447141382868,
+      "input": {
+        "percentile": 18.78,
+        "dividendYield": 4.68,
+        "bondYield": 1.7442
+      },
+      "components": {
+        "percentile": {
+          "score": 15.024000000000001,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 18.78,
+          "weight": 5,
+          "contribution": 0.7512000000000001
+        },
+        "absolute": {
+          "score": 53.599999999999994,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.68,
+          "weight": 90,
+          "contribution": 48.23999999999999
+        },
+        "ratio": {
+          "score": 81.46542827657379,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.683178534571723,
+          "weight": 5,
+          "contribution": 4.07327141382869
+        }
+      },
+      "sourceKey": "理杏仁公开页面",
+      "kind": "legacy",
+      "reference": false,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-07-15",
+        "exitDate": "2026-10-15",
+        "entryClose": 5378.84,
+        "exitClose": 5535.58,
+        "returnPct": 2.914011199440769,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-07-14",
+      "availableDate": "2026-07-15",
+      "workbookRow": 35,
+      "grade": "C",
+      "score": 51.122752557177336,
+      "lower": 51.122752557177336,
+      "upper": 51.122752557177336,
+      "input": {
+        "percentile": 15.75,
+        "dividendYield": 4.58,
+        "bondYield": 1.7402
+      },
+      "components": {
+        "percentile": {
+          "score": 12.6,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 15.75,
+          "weight": 5,
+          "contribution": 0.63
+        },
+        "absolute": {
+          "score": 51.6,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.58,
+          "weight": 90,
+          "contribution": 46.44
+        },
+        "ratio": {
+          "score": 81.05505114354672,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.63188139294334,
+          "weight": 5,
+          "contribution": 4.052752557177336
+        }
+      },
+      "sourceKey": "理杏仁公开页面",
+      "kind": "legacy",
+      "reference": false,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-07-16",
+        "exitDate": "2026-10-15",
+        "entryClose": 5321.07,
+        "exitClose": 5535.58,
+        "returnPct": 4.03133204411894,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-07-15",
+      "availableDate": "2026-07-16",
+      "workbookRow": 36,
+      "grade": "C",
+      "score": 50.961145023802224,
+      "lower": 50.961145023802224,
+      "upper": 50.961145023802224,
+      "input": {
+        "percentile": 39.06056860321385,
+        "dividendYield": 4.52,
+        "bondYield": 1.7406
+      },
+      "components": {
+        "percentile": {
+          "score": 31.24845488257108,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 39.06056860321385,
+          "weight": 5,
+          "contribution": 1.562422744128554
+        },
+        "absolute": {
+          "score": 50.39999999999999,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.52,
+          "weight": 90,
+          "contribution": 45.35999999999999
+        },
+        "ratio": {
+          "score": 80.77444559347352,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.596805699184189,
+          "weight": 5,
+          "contribution": 4.038722279673675
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-07-17",
+        "exitDate": "2026-10-15",
+        "entryClose": 5281.81,
+        "exitClose": 5535.58,
+        "returnPct": 4.804602967543303,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-07-16",
+      "availableDate": "2026-07-17",
+      "workbookRow": 37,
+      "grade": "C",
+      "score": 51.06314547227162,
+      "lower": 51.06314547227162,
+      "upper": 51.06314547227162,
+      "input": {
+        "percentile": 18.87,
+        "dividendYield": 4.57,
+        "bondYield": 1.7437
+      },
+      "components": {
+        "percentile": {
+          "score": 15.096,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 18.87,
+          "weight": 5,
+          "contribution": 0.7548
+        },
+        "absolute": {
+          "score": 51.400000000000006,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.57,
+          "weight": 90,
+          "contribution": 46.26000000000001
+        },
+        "ratio": {
+          "score": 80.96690944543212,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.620863680679016,
+          "weight": 5,
+          "contribution": 4.048345472271606
+        }
+      },
+      "sourceKey": "理杏仁公开页面",
+      "kind": "legacy",
+      "reference": false,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-07-20",
+        "exitDate": "2026-10-15",
+        "entryClose": 5450.51,
+        "exitClose": 5535.58,
+        "returnPct": 1.5607713773573506,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-07-17",
+      "availableDate": "2026-07-20",
+      "workbookRow": 38,
+      "grade": "C",
+      "score": 51.34762822339691,
+      "lower": 51.34762822339691,
+      "upper": 51.34762822339691,
+      "input": {
+        "percentile": 12.26,
+        "dividendYield": 4.6,
+        "bondYield": 1.7404
+      },
+      "components": {
+        "percentile": {
+          "score": 9.808,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 12.26,
+          "weight": 5,
+          "contribution": 0.4904
+        },
+        "absolute": {
+          "score": 51.99999999999999,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.6,
+          "weight": 90,
+          "contribution": 46.79999999999999
+        },
+        "ratio": {
+          "score": 81.14456446793841,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.6430705584923007,
+          "weight": 5,
+          "contribution": 4.05722822339692
+        }
+      },
+      "sourceKey": "理杏仁公开页面",
+      "kind": "legacy",
+      "reference": false,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-07-21",
+        "exitDate": "2026-10-15",
+        "entryClose": 5391.09,
+        "exitClose": 5535.58,
+        "returnPct": 2.6801630097067486,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-07-20",
+      "availableDate": "2026-07-21",
+      "workbookRow": 39,
+      "grade": "C",
+      "score": 49.83987470357437,
+      "lower": 49.83987470357437,
+      "upper": 49.83987470357437,
+      "input": {
+        "percentile": 38.44252163164401,
+        "dividendYield": 4.46,
+        "bondYield": 1.7453
+      },
+      "components": {
+        "percentile": {
+          "score": 30.75401730531521,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 38.44252163164401,
+          "weight": 5,
+          "contribution": 1.5377008652657604
+        },
+        "absolute": {
+          "score": 49.2,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.46,
+          "weight": 90,
+          "contribution": 44.28
+        },
+        "ratio": {
+          "score": 80.44347676617201,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.5554345957715006,
+          "weight": 5,
+          "contribution": 4.022173838308601
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-07-22",
+        "exitDate": "2026-10-15",
+        "entryClose": 5452.59,
+        "exitClose": 5535.58,
+        "returnPct": 1.5220289807229115,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-07-22",
+      "availableDate": "2026-07-23",
+      "workbookRow": 40,
+      "grade": "C",
+      "score": 49.50957978927922,
+      "lower": 49.50957978927922,
+      "upper": 49.50957978927922,
+      "input": {
+        "percentile": 29.95467655541821,
+        "dividendYield": 4.46,
+        "bondYield": 1.7297
+      },
+      "components": {
+        "percentile": {
+          "score": 23.963741244334567,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 29.95467655541821,
+          "weight": 5,
+          "contribution": 1.1981870622167283
+        },
+        "absolute": {
+          "score": 49.2,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.46,
+          "weight": 90,
+          "contribution": 44.28
+        },
+        "ratio": {
+          "score": 80.62785454124993,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.578481817656241,
+          "weight": 5,
+          "contribution": 4.031392727062497
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-07-24",
+        "exitDate": "2026-10-15",
+        "entryClose": 5404.28,
+        "exitClose": 5535.58,
+        "returnPct": 2.4295558335245326,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-07-23",
+      "availableDate": "2026-07-24",
+      "workbookRow": 41,
+      "grade": "C",
+      "score": 47.59658181818182,
+      "lower": 47.59658181818182,
+      "upper": 47.59658181818182,
+      "input": {
+        "percentile": 4.96,
+        "dividendYield": 4.41,
+        "bondYield": 1.7325
+      },
+      "components": {
+        "percentile": {
+          "score": 3.968,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 4.96,
+          "weight": 5,
+          "contribution": 0.1984
+        },
+        "absolute": {
+          "score": 48.2,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.41,
+          "weight": 90,
+          "contribution": 43.38
+        },
+        "ratio": {
+          "score": 80.36363636363637,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.545454545454546,
+          "weight": 5,
+          "contribution": 4.0181818181818185
+        }
+      },
+      "sourceKey": "理杏仁公开页面",
+      "kind": "legacy",
+      "reference": false,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-07-27",
+        "exitDate": "2026-10-15",
+        "entryClose": 5434,
+        "exitClose": 5535.58,
+        "returnPct": 1.8693411851306685,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-07-24",
+      "availableDate": "2026-07-27",
+      "workbookRow": 42,
+      "grade": "C",
+      "score": 50.54339873159208,
+      "lower": 50.54339873159208,
+      "upper": 50.54339873159208,
+      "input": {
+        "percentile": 37.54631535611362,
+        "dividendYield": 4.5,
+        "bondYield": 1.7282
+      },
+      "components": {
+        "percentile": {
+          "score": 30.037052284890894,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 37.54631535611362,
+          "weight": 5,
+          "contribution": 1.5018526142445447
+        },
+        "absolute": {
+          "score": 50,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.5,
+          "weight": 90,
+          "contribution": 45
+        },
+        "ratio": {
+          "score": 80.83092234695059,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.6038652933688233,
+          "weight": 5,
+          "contribution": 4.041546117347529
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-07-28",
+        "exitDate": "2026-10-15",
+        "entryClose": 5437.92,
+        "exitClose": 5535.58,
+        "returnPct": 1.7959072586577252,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-07-27",
+      "availableDate": "2026-07-28",
+      "workbookRow": 43,
+      "grade": "C",
+      "score": 49.94991115053416,
+      "lower": 49.94991115053416,
+      "upper": 49.94991115053416,
+      "input": {
+        "percentile": 36.46477132262052,
+        "dividendYield": 4.47,
+        "bondYield": 1.7337
+      },
+      "components": {
+        "percentile": {
+          "score": 29.171817058096416,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 36.46477132262052,
+          "weight": 5,
+          "contribution": 1.4585908529048208
+        },
+        "absolute": {
+          "score": 49.39999999999999,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.47,
+          "weight": 90,
+          "contribution": 44.459999999999994
+        },
+        "ratio": {
+          "score": 80.62640595258695,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.5783007440733687,
+          "weight": 5,
+          "contribution": 4.031320297629347
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-07-29",
+        "exitDate": "2026-10-15",
+        "entryClose": 5519.12,
+        "exitClose": 5535.58,
+        "returnPct": 0.2982359506588095,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-07-28",
+      "availableDate": "2026-07-29",
+      "workbookRow": 44,
+      "grade": "C",
+      "score": 48.58408815630223,
+      "lower": 48.58408815630223,
+      "upper": 48.58408815630223,
+      "input": {
+        "percentile": 2.34,
+        "dividendYield": 4.47,
+        "bondYield": 1.7351
+      },
+      "components": {
+        "percentile": {
+          "score": 1.8719999999999999,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 2.34,
+          "weight": 5,
+          "contribution": 0.09359999999999999
+        },
+        "absolute": {
+          "score": 49.39999999999999,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.47,
+          "weight": 90,
+          "contribution": 44.459999999999994
+        },
+        "ratio": {
+          "score": 80.60976312604461,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.5762203907555756,
+          "weight": 5,
+          "contribution": 4.030488156302231
+        }
+      },
+      "sourceKey": "理杏仁公开页面",
+      "kind": "legacy",
+      "reference": false,
+      "eligible": false,
+      "reasons": [
+        "指标日期未对齐"
+      ],
+      "observation": null,
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-07-29",
+      "availableDate": "2026-07-30",
+      "workbookRow": 45,
+      "grade": "C",
+      "score": 47.30923852501588,
+      "lower": 47.30923852501588,
+      "upper": 47.30923852501588,
+      "input": {
+        "percentile": 2.34,
+        "dividendYield": 4.4,
+        "bondYield": 1.7329
+      },
+      "components": {
+        "percentile": {
+          "score": 1.8719999999999999,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 2.34,
+          "weight": 5,
+          "contribution": 0.09359999999999999
+        },
+        "absolute": {
+          "score": 48.00000000000001,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.4,
+          "weight": 90,
+          "contribution": 43.20000000000001
+        },
+        "ratio": {
+          "score": 80.31277050031738,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.5390963125396735,
+          "weight": 5,
+          "contribution": 4.015638525015869
+        }
+      },
+      "sourceKey": "理杏仁公开页面",
+      "kind": "legacy",
+      "reference": false,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-07-31",
+        "exitDate": "2026-10-15",
+        "entryClose": 5569.41,
+        "exitClose": 5535.58,
+        "returnPct": -0.6074252030286886,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-07-30",
+      "availableDate": "2026-07-31",
+      "workbookRow": 46,
+      "grade": "C",
+      "score": 46.49978934635962,
+      "lower": 46.49978934635962,
+      "upper": 46.49978934635962,
+      "input": {
+        "percentile": 0.14,
+        "dividendYield": 4.36,
+        "bondYield": 1.7196
+      },
+      "components": {
+        "percentile": {
+          "score": 0.11200000000000002,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 0.14,
+          "weight": 5,
+          "contribution": 0.005600000000000001
+        },
+        "absolute": {
+          "score": 47.2,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.36,
+          "weight": 90,
+          "contribution": 42.48
+        },
+        "ratio": {
+          "score": 80.28378692719237,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.5354733658990463,
+          "weight": 5,
+          "contribution": 4.014189346359618
+        }
+      },
+      "sourceKey": "理杏仁公开页面",
+      "kind": "legacy",
+      "reference": false,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-08-03",
+        "exitDate": "2026-10-15",
+        "entryClose": 5549.16,
+        "exitClose": 5535.58,
+        "returnPct": -0.24472172364826683,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-07-31",
+      "availableDate": "2026-08-03",
+      "workbookRow": 47,
+      "grade": "C",
+      "score": 44.00122787797689,
+      "lower": 44.00122787797689,
+      "upper": 44.00122787797689,
+      "input": {
+        "percentile": 36.47591601482091,
+        "dividendYield": 4.15,
+        "bondYield": 1.7141
+      },
+      "components": {
+        "percentile": {
+          "score": 29.18073281185673,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 36.47591601482091,
+          "weight": 5,
+          "contribution": 1.4590366405928363
+        },
+        "absolute": {
+          "score": 43.00000000000001,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.15,
+          "weight": 90,
+          "contribution": 38.7
+        },
+        "ratio": {
+          "score": 76.84382474768101,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.4210956186920254,
+          "weight": 5,
+          "contribution": 3.8421912373840508
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-08-04",
+        "exitDate": "2026-10-15",
+        "entryClose": 5459.34,
+        "exitClose": 5535.58,
+        "returnPct": 1.396505804730963,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-08-03",
+      "availableDate": "2026-08-04",
+      "workbookRow": 48,
+      "grade": "C",
+      "score": 43.9537965866989,
+      "lower": 43.9537965866989,
+      "upper": 43.9537965866989,
+      "input": {
+        "percentile": 30.69633292130202,
+        "dividendYield": 4.16,
+        "bondYield": 1.7169
+      },
+      "components": {
+        "percentile": {
+          "score": 24.55706633704162,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 30.69633292130202,
+          "weight": 5,
+          "contribution": 1.2278533168520809
+        },
+        "absolute": {
+          "score": 43.2,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.16,
+          "weight": 90,
+          "contribution": 38.88
+        },
+        "ratio": {
+          "score": 76.91886539693634,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.4229716349234085,
+          "weight": 5,
+          "contribution": 3.845943269846817
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-08-05",
+        "exitDate": "2026-10-15",
+        "entryClose": 5447.98,
+        "exitClose": 5535.58,
+        "returnPct": 1.6079354182651162,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-08-04",
+      "availableDate": "2026-08-05",
+      "workbookRow": 49,
+      "grade": "C",
+      "score": 44.3946575265678,
+      "lower": 44.3946575265678,
+      "upper": 44.3946575265678,
+      "input": {
+        "percentile": 7.87,
+        "dividendYield": 4.23,
+        "bondYield": 1.7126
+      },
+      "components": {
+        "percentile": {
+          "score": 6.296,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 7.87,
+          "weight": 5,
+          "contribution": 0.3148
+        },
+        "absolute": {
+          "score": 44.60000000000001,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.23,
+          "weight": 90,
+          "contribution": 40.14000000000001
+        },
+        "ratio": {
+          "score": 78.79715053135585,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.4699287632838964,
+          "weight": 5,
+          "contribution": 3.9398575265677924
+        }
+      },
+      "sourceKey": "理杏仁公开页面",
+      "kind": "legacy",
+      "reference": false,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-08-06",
+        "exitDate": "2026-10-15",
+        "entryClose": 5513.67,
+        "exitClose": 5535.58,
+        "returnPct": 0.3973759764367424,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-08-05",
+      "availableDate": "2026-08-06",
+      "workbookRow": 50,
+      "grade": "C",
+      "score": 44.68195735542978,
+      "lower": 44.68195735542978,
+      "upper": 44.68195735542978,
+      "input": {
+        "percentile": 10.34,
+        "dividendYield": 4.24,
+        "bondYield": 1.7137
+      },
+      "components": {
+        "percentile": {
+          "score": 8.271999999999998,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 10.34,
+          "weight": 5,
+          "contribution": 0.4135999999999999
+        },
+        "absolute": {
+          "score": 44.800000000000004,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.24,
+          "weight": 90,
+          "contribution": 40.32000000000001
+        },
+        "ratio": {
+          "score": 78.96714710859544,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.474178677714886,
+          "weight": 5,
+          "contribution": 3.948357355429772
+        }
+      },
+      "sourceKey": "理杏仁公开页面",
+      "kind": "legacy",
+      "reference": false,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-08-07",
+        "exitDate": "2026-10-15",
+        "entryClose": 5506.75,
+        "exitClose": 5535.58,
+        "returnPct": 0.5235392926862481,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-08-06",
+      "availableDate": "2026-08-07",
+      "workbookRow": 51,
+      "grade": "C",
+      "score": 44.535640208764335,
+      "lower": 44.535640208764335,
+      "upper": 44.535640208764335,
+      "input": {
+        "percentile": 30.6836902800659,
+        "dividendYield": 4.19,
+        "bondYield": 1.7143
+      },
+      "components": {
+        "percentile": {
+          "score": 24.54695222405272,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 30.6836902800659,
+          "weight": 5,
+          "contribution": 1.227347611202636
+        },
+        "absolute": {
+          "score": 43.80000000000001,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.19,
+          "weight": 90,
+          "contribution": 39.42000000000001
+        },
+        "ratio": {
+          "score": 77.76585195123376,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.444146298780844,
+          "weight": 5,
+          "contribution": 3.8882925975616875
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-08-10",
+        "exitDate": "2026-10-15",
+        "entryClose": 5561.23,
+        "exitClose": 5535.58,
+        "returnPct": -0.4612289008007142,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-08-07",
+      "availableDate": "2026-08-10",
+      "workbookRow": 52,
+      "grade": "C",
+      "score": 44.670880602905385,
+      "lower": 44.670880602905385,
+      "upper": 44.670880602905385,
+      "input": {
+        "percentile": 29.0654590366406,
+        "dividendYield": 4.2,
+        "bondYield": 1.7114
+      },
+      "components": {
+        "percentile": {
+          "score": 23.25236722931248,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 29.0654590366406,
+          "weight": 5,
+          "contribution": 1.162618361465624
+        },
+        "absolute": {
+          "score": 44,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.2,
+          "weight": 90,
+          "contribution": 39.6
+        },
+        "ratio": {
+          "score": 78.16524482879514,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.4541311207198784,
+          "weight": 5,
+          "contribution": 3.908262241439757
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-08-11",
+        "exitDate": "2026-10-15",
+        "entryClose": 5531.31,
+        "exitClose": 5535.58,
+        "returnPct": 0.07719690272285362,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-08-10",
+      "availableDate": "2026-08-11",
+      "workbookRow": 53,
+      "grade": "C",
+      "score": 43.974166988950735,
+      "lower": 43.974166988950735,
+      "upper": 43.974166988950735,
+      "input": {
+        "percentile": 30.53152039555006,
+        "dividendYield": 4.16,
+        "bondYield": 1.7074
+      },
+      "components": {
+        "percentile": {
+          "score": 24.42521631644005,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 30.53152039555006,
+          "weight": 5,
+          "contribution": 1.2212608158220024
+        },
+        "absolute": {
+          "score": 43.2,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.16,
+          "weight": 90,
+          "contribution": 38.88
+        },
+        "ratio": {
+          "score": 77.45812346257468,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.436453086564367,
+          "weight": 5,
+          "contribution": 3.872906173128734
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-08-12",
+        "exitDate": "2026-10-15",
+        "entryClose": 5513.68,
+        "exitClose": 5535.58,
+        "returnPct": 0.39719388865511185,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-08-11",
+      "availableDate": "2026-08-12",
+      "workbookRow": 54,
+      "grade": "C",
+      "score": 43.39311098420837,
+      "lower": 43.39311098420837,
+      "upper": 43.39311098420837,
+      "input": {
+        "percentile": 7.04,
+        "dividendYield": 4.18,
+        "bondYield": 1.7161
+      },
+      "components": {
+        "percentile": {
+          "score": 5.632000000000001,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 7.04,
+          "weight": 5,
+          "contribution": 0.2816
+        },
+        "absolute": {
+          "score": 43.599999999999994,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.18,
+          "weight": 90,
+          "contribution": 39.239999999999995
+        },
+        "ratio": {
+          "score": 77.43021968416758,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.4357554921041897,
+          "weight": 5,
+          "contribution": 3.871510984208379
+        }
+      },
+      "sourceKey": "理杏仁公开页面",
+      "kind": "legacy",
+      "reference": false,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-08-13",
+        "exitDate": "2026-10-15",
+        "entryClose": 5464.42,
+        "exitClose": 5535.58,
+        "returnPct": 1.3022425069815213,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-08-12",
+      "availableDate": "2026-08-13",
+      "workbookRow": 55,
+      "grade": "C",
+      "score": 44.528475650718505,
+      "lower": 44.528475650718505,
+      "upper": 44.528475650718505,
+      "input": {
+        "percentile": 30.49031726411207,
+        "dividendYield": 4.19,
+        "bondYield": 1.7141
+      },
+      "components": {
+        "percentile": {
+          "score": 24.392253811289653,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 30.49031726411207,
+          "weight": 5,
+          "contribution": 1.2196126905644826
+        },
+        "absolute": {
+          "score": 43.80000000000001,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.19,
+          "weight": 90,
+          "contribution": 39.42000000000001
+        },
+        "ratio": {
+          "score": 77.77725920308035,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.4444314800770086,
+          "weight": 5,
+          "contribution": 3.8888629601540172
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-08-14",
+        "exitDate": "2026-10-15",
+        "entryClose": 5478.39,
+        "exitClose": 5535.58,
+        "returnPct": 1.0439198377625525,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-08-13",
+      "availableDate": "2026-08-14",
+      "workbookRow": 56,
+      "grade": "C",
+      "score": 45.542046578859605,
+      "lower": 45.542046578859605,
+      "upper": 45.542046578859605,
+      "input": {
+        "percentile": 35.87314662273476,
+        "dividendYield": 4.23,
+        "bondYield": 1.7032
+      },
+      "components": {
+        "percentile": {
+          "score": 28.698517298187806,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 35.87314662273476,
+          "weight": 5,
+          "contribution": 1.4349258649093903
+        },
+        "absolute": {
+          "score": 44.60000000000001,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.23,
+          "weight": 90,
+          "contribution": 40.14000000000001
+        },
+        "ratio": {
+          "score": 79.34241427900423,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.4835603569751057,
+          "weight": 5,
+          "contribution": 3.9671207139502114
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-08-17",
+        "exitDate": "2026-10-15",
+        "entryClose": 5500.06,
+        "exitClose": 5535.58,
+        "returnPct": 0.6458111366057784,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-08-14",
+      "availableDate": "2026-08-17",
+      "workbookRow": 57,
+      "grade": "C",
+      "score": 44.29324168828106,
+      "lower": 44.29324168828106,
+      "upper": 44.29324168828106,
+      "input": {
+        "percentile": 8.95,
+        "dividendYield": 4.22,
+        "bondYield": 1.6964
+      },
+      "components": {
+        "percentile": {
+          "score": 7.16,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 8.95,
+          "weight": 5,
+          "contribution": 0.358
+        },
+        "absolute": {
+          "score": 44.39999999999999,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.22,
+          "weight": 90,
+          "contribution": 39.959999999999994
+        },
+        "ratio": {
+          "score": 79.50483376562131,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.4876208441405327,
+          "weight": 5,
+          "contribution": 3.9752416882810655
+        }
+      },
+      "sourceKey": "理杏仁公开页面",
+      "kind": "legacy",
+      "reference": false,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-08-18",
+        "exitDate": "2026-10-15",
+        "entryClose": 5534.83,
+        "exitClose": 5535.58,
+        "returnPct": 0.013550551688124024,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-08-17",
+      "availableDate": "2026-08-18",
+      "workbookRow": 58,
+      "grade": "C",
+      "score": 44.93625397411555,
+      "lower": 44.93625397411555,
+      "upper": 44.93625397411555,
+      "input": {
+        "percentile": 34.32220848784507,
+        "dividendYield": 4.2,
+        "bondYield": 1.6924
+      },
+      "components": {
+        "percentile": {
+          "score": 27.457766790276054,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 34.32220848784507,
+          "weight": 5,
+          "contribution": 1.3728883395138027
+        },
+        "absolute": {
+          "score": 44,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.2,
+          "weight": 90,
+          "contribution": 39.6
+        },
+        "ratio": {
+          "score": 79.26731269203499,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.4816828173008747,
+          "weight": 5,
+          "contribution": 3.9633656346017494
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-08-19",
+        "exitDate": "2026-10-15",
+        "entryClose": 5553.33,
+        "exitClose": 5535.58,
+        "returnPct": -0.3196280429940246,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-08-18",
+      "availableDate": "2026-08-19",
+      "workbookRow": 59,
+      "grade": "C",
+      "score": 44.37833425981741,
+      "lower": 44.37833425981741,
+      "upper": 44.37833425981741,
+      "input": {
+        "percentile": 34.32220848784507,
+        "dividendYield": 4.17,
+        "bondYield": 1.6864
+      },
+      "components": {
+        "percentile": {
+          "score": 27.457766790276054,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 34.32220848784507,
+          "weight": 5,
+          "contribution": 1.3728883395138027
+        },
+        "absolute": {
+          "score": 43.4,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.17,
+          "weight": 90,
+          "contribution": 39.06
+        },
+        "ratio": {
+          "score": 78.9089184060721,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.4727229601518026,
+          "weight": 5,
+          "contribution": 3.9454459203036047
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-08-20",
+        "exitDate": "2026-10-15",
+        "entryClose": 5585.1,
+        "exitClose": 5535.58,
+        "returnPct": -0.8866448228321833,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-08-19",
+      "availableDate": "2026-08-20",
+      "workbookRow": 60,
+      "grade": "C",
+      "score": 44.196147801221365,
+      "lower": 44.196147801221365,
+      "upper": 44.196147801221365,
+      "input": {
+        "percentile": 34.32220848784507,
+        "dividendYield": 4.16,
+        "bondYield": 1.6831
+      },
+      "components": {
+        "percentile": {
+          "score": 27.457766790276054,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 34.32220848784507,
+          "weight": 5,
+          "contribution": 1.3728883395138027
+        },
+        "absolute": {
+          "score": 43.2,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.16,
+          "weight": 90,
+          "contribution": 38.88
+        },
+        "ratio": {
+          "score": 78.86518923415126,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.4716297308537816,
+          "weight": 5,
+          "contribution": 3.943259461707563
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-08-21",
+        "exitDate": "2026-10-15",
+        "entryClose": 5579.34,
+        "exitClose": 5535.58,
+        "returnPct": -0.7843221599687422,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-08-20",
+      "availableDate": "2026-08-21",
+      "workbookRow": 61,
+      "grade": "C",
+      "score": 43.80822952750233,
+      "lower": 43.80822952750233,
+      "upper": 43.80822952750233,
+      "input": {
+        "percentile": 34.22570016474464,
+        "dividendYield": 4.14,
+        "bondYield": 1.6832
+      },
+      "components": {
+        "percentile": {
+          "score": 27.38056013179571,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 34.22570016474464,
+          "weight": 5,
+          "contribution": 1.3690280065897855
+        },
+        "absolute": {
+          "score": 42.8,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.14,
+          "weight": 90,
+          "contribution": 38.519999999999996
+        },
+        "ratio": {
+          "score": 78.38403041825094,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.4596007604562735,
+          "weight": 5,
+          "contribution": 3.9192015209125475
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-08-24",
+        "exitDate": "2026-10-15",
+        "entryClose": 5653.4,
+        "exitClose": 5535.58,
+        "returnPct": -2.0840556125517384,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-08-21",
+      "availableDate": "2026-08-24",
+      "workbookRow": 62,
+      "grade": "C",
+      "score": 43.896193241341095,
+      "lower": 43.896193241341095,
+      "upper": 43.896193241341095,
+      "input": {
+        "percentile": 36.47591601482091,
+        "dividendYield": 4.14,
+        "bondYield": 1.6839
+      },
+      "components": {
+        "percentile": {
+          "score": 29.18073281185673,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 36.47591601482091,
+          "weight": 5,
+          "contribution": 1.4590366405928363
+        },
+        "absolute": {
+          "score": 42.8,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.14,
+          "weight": 90,
+          "contribution": 38.519999999999996
+        },
+        "ratio": {
+          "score": 78.34313201496526,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.4585783003741315,
+          "weight": 5,
+          "contribution": 3.917156600748263
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-08-25",
+        "exitDate": "2026-10-15",
+        "entryClose": 5619.16,
+        "exitClose": 5535.58,
+        "returnPct": -1.4874109297475013,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-08-24",
+      "availableDate": "2026-08-25",
+      "workbookRow": 63,
+      "grade": "C",
+      "score": 42.94772991354702,
+      "lower": 42.94772991354702,
+      "upper": 42.94772991354702,
+      "input": {
+        "percentile": 36.42356819118253,
+        "dividendYield": 4.09,
+        "bondYield": 1.6794
+      },
+      "components": {
+        "percentile": {
+          "score": 29.138854552946025,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 36.42356819118253,
+          "weight": 5,
+          "contribution": 1.4569427276473013
+        },
+        "absolute": {
+          "score": 41.8,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.09,
+          "weight": 90,
+          "contribution": 37.62
+        },
+        "ratio": {
+          "score": 77.41574371799452,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.435393592949863,
+          "weight": 5,
+          "contribution": 3.870787185899726
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-08-26",
+        "exitDate": "2026-10-15",
+        "entryClose": 5658.97,
+        "exitClose": 5535.58,
+        "returnPct": -2.180432128108123,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-08-25",
+      "availableDate": "2026-08-26",
+      "workbookRow": 64,
+      "grade": "C",
+      "score": 43.32543514513169,
+      "lower": 43.32543514513169,
+      "upper": 43.32543514513169,
+      "input": {
+        "percentile": 36.42356819118253,
+        "dividendYield": 4.11,
+        "bondYield": 1.6815
+      },
+      "components": {
+        "percentile": {
+          "score": 29.138854552946025,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 36.42356819118253,
+          "weight": 5,
+          "contribution": 1.4569427276473013
+        },
+        "absolute": {
+          "score": 42.2,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.11,
+          "weight": 90,
+          "contribution": 37.980000000000004
+        },
+        "ratio": {
+          "score": 77.76984834968779,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.444246208742195,
+          "weight": 5,
+          "contribution": 3.8884924174843896
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-08-27",
+        "exitDate": "2026-10-15",
+        "entryClose": 5676.05,
+        "exitClose": 5535.58,
+        "returnPct": -2.4747844011240305,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-08-26",
+      "availableDate": "2026-08-27",
+      "workbookRow": 65,
+      "grade": "C",
+      "score": 42.707636481072505,
+      "lower": 42.707636481072505,
+      "upper": 42.707636481072505,
+      "input": {
+        "percentile": 35.88792748248867,
+        "dividendYield": 4.08,
+        "bondYield": 1.6887
+      },
+      "components": {
+        "percentile": {
+          "score": 28.710341985990937,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 35.88792748248867,
+          "weight": 5,
+          "contribution": 1.4355170992995467
+        },
+        "absolute": {
+          "score": 41.6,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.08,
+          "weight": 90,
+          "contribution": 37.44
+        },
+        "ratio": {
+          "score": 76.64238763545923,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.4160596908864806,
+          "weight": 5,
+          "contribution": 3.8321193817729613
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-08-28",
+        "exitDate": "2026-10-15",
+        "entryClose": 5691.52,
+        "exitClose": 5535.58,
+        "returnPct": -2.7398656246486075,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-08-27",
+      "availableDate": "2026-08-28",
+      "workbookRow": 66,
+      "grade": "C",
+      "score": 42.55573622857729,
+      "lower": 42.55573622857729,
+      "upper": 42.55573622857729,
+      "input": {
+        "percentile": 37.60296540362438,
+        "dividendYield": 4.07,
+        "bondYield": 1.6988
+      },
+      "components": {
+        "percentile": {
+          "score": 30.082372322899506,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 37.60296540362438,
+          "weight": 5,
+          "contribution": 1.5041186161449753
+        },
+        "absolute": {
+          "score": 41.400000000000006,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.07,
+          "weight": 90,
+          "contribution": 37.260000000000005
+        },
+        "ratio": {
+          "score": 75.8323522486461,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.3958088062161527,
+          "weight": 5,
+          "contribution": 3.791617612432305
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-08-31",
+        "exitDate": "2026-10-15",
+        "entryClose": 5718.42,
+        "exitClose": 5535.58,
+        "returnPct": -3.1973866907292647,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-08-28",
+      "availableDate": "2026-08-31",
+      "workbookRow": 67,
+      "grade": "C",
+      "score": 42.37598926826735,
+      "lower": 42.37598926826735,
+      "upper": 42.37598926826735,
+      "input": {
+        "percentile": 37.6286537669823,
+        "dividendYield": 4.06,
+        "bondYield": 1.6949
+      },
+      "components": {
+        "percentile": {
+          "score": 30.10292301358584,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 37.6286537669823,
+          "weight": 5,
+          "contribution": 1.505146150679292
+        },
+        "absolute": {
+          "score": 41.19999999999999,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.06,
+          "weight": 90,
+          "contribution": 37.07999999999999
+        },
+        "ratio": {
+          "score": 75.81686235176115,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.3954215587940286,
+          "weight": 5,
+          "contribution": 3.7908431175880573
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-09-01",
+        "exitDate": "2026-10-15",
+        "entryClose": 5719.05,
+        "exitClose": 5535.58,
+        "returnPct": -3.2080502880723283,
+        "drawdownPct": -5.077416703823189
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-08-31",
+      "availableDate": "2026-09-01",
+      "workbookRow": 68,
+      "grade": "C",
+      "score": 42.58450822929012,
+      "lower": 42.58450822929012,
+      "upper": 42.58450822929012,
+      "input": {
+        "percentile": 37.57725587144623,
+        "dividendYield": 4.07,
+        "bondYield": 1.6883
+      },
+      "components": {
+        "percentile": {
+          "score": 30.061804697156987,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 37.57725587144623,
+          "weight": 5,
+          "contribution": 1.5030902348578494
+        },
+        "absolute": {
+          "score": 41.400000000000006,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.07,
+          "weight": 90,
+          "contribution": 37.260000000000005
+        },
+        "ratio": {
+          "score": 76.4283598886454,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.410708997216135,
+          "weight": 5,
+          "contribution": 3.82141799443227
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-09-02",
+        "exitDate": "2026-10-15",
+        "entryClose": 5634.58,
+        "exitClose": 5535.58,
+        "returnPct": -1.7570076207987118,
+        "drawdownPct": -5.0267669699090245
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-09-01",
+      "availableDate": "2026-09-02",
+      "workbookRow": 69,
+      "grade": "C",
+      "score": 42.59854229616236,
+      "lower": 42.59854229616236,
+      "upper": 42.59854229616236,
+      "input": {
+        "percentile": 37.57725587144623,
+        "dividendYield": 4.07,
+        "bondYield": 1.6834
+      },
+      "components": {
+        "percentile": {
+          "score": 30.061804697156987,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 37.57725587144623,
+          "weight": 5,
+          "contribution": 1.5030902348578494
+        },
+        "absolute": {
+          "score": 41.400000000000006,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.07,
+          "weight": 90,
+          "contribution": 37.260000000000005
+        },
+        "ratio": {
+          "score": 76.70904122609005,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.4177260306522514,
+          "weight": 5,
+          "contribution": 3.8354520613045024
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-09-03",
+        "exitDate": "2026-10-15",
+        "entryClose": 5635.06,
+        "exitClose": 5535.58,
+        "returnPct": -1.7653760563330345,
+        "drawdownPct": -5.0267669699090245
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-09-02",
+      "availableDate": "2026-09-03",
+      "workbookRow": 70,
+      "grade": "C",
+      "score": 43.669451793570275,
+      "lower": 43.669451793570275,
+      "upper": 43.669451793570275,
+      "input": {
+        "percentile": 35.7643180881747,
+        "dividendYield": 4.13,
+        "bondYield": 1.6861
+      },
+      "components": {
+        "percentile": {
+          "score": 28.611454470539755,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 35.7643180881747,
+          "weight": 5,
+          "contribution": 1.4305727235269876
+        },
+        "absolute": {
+          "score": 42.599999999999994,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.13,
+          "weight": 90,
+          "contribution": 38.339999999999996
+        },
+        "ratio": {
+          "score": 77.97758140086592,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.449439535021648,
+          "weight": 5,
+          "contribution": 3.8988790700432956
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-09-04",
+        "exitDate": "2026-10-15",
+        "entryClose": 5648.28,
+        "exitClose": 5535.58,
+        "returnPct": -1.9952976835425962,
+        "drawdownPct": -5.0267669699090245
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-09-03",
+      "availableDate": "2026-09-04",
+      "workbookRow": 71,
+      "grade": "C",
+      "score": 43.72512684788512,
+      "lower": 43.72512684788512,
+      "upper": 43.72512684788512,
+      "input": {
+        "percentile": 36.69686985172982,
+        "dividendYield": 4.13,
+        "bondYield": 1.6798
+      },
+      "components": {
+        "percentile": {
+          "score": 29.35749588138386,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 36.69686985172982,
+          "weight": 5,
+          "contribution": 1.467874794069193
+        },
+        "absolute": {
+          "score": 42.599999999999994,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.13,
+          "weight": 90,
+          "contribution": 38.339999999999996
+        },
+        "ratio": {
+          "score": 78.34504107631861,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.4586260269079654,
+          "weight": 5,
+          "contribution": 3.9172520538159303
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-09-07",
+        "exitDate": "2026-10-15",
+        "entryClose": 5580.21,
+        "exitClose": 5535.58,
+        "returnPct": -0.7997906888808859,
+        "drawdownPct": -5.0267669699090245
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-09-04",
+      "availableDate": "2026-09-07",
+      "workbookRow": 72,
+      "grade": "C",
+      "score": 43.55721315544761,
+      "lower": 43.55721315544761,
+      "upper": 43.55721315544761,
+      "input": {
+        "percentile": 37.34046932894195,
+        "dividendYield": 4.12,
+        "bondYield": 1.6804
+      },
+      "components": {
+        "percentile": {
+          "score": 29.87237546315356,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 37.34046932894195,
+          "weight": 5,
+          "contribution": 1.493618773157678
+        },
+        "absolute": {
+          "score": 42.400000000000006,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.12,
+          "weight": 90,
+          "contribution": 38.160000000000004
+        },
+        "ratio": {
+          "score": 78.07188764579863,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.4517971911449656,
+          "weight": 5,
+          "contribution": 3.903594382289931
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-09-08",
+        "exitDate": "2026-10-15",
+        "entryClose": 5652.8,
+        "exitClose": 5535.58,
+        "returnPct": -2.0736626096801603,
+        "drawdownPct": -5.0267669699090245
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-09-07",
+      "availableDate": "2026-09-08",
+      "workbookRow": 73,
+      "grade": "C",
+      "score": 44.51643012909939,
+      "lower": 44.51643012909939,
+      "upper": 44.51643012909939,
+      "input": {
+        "percentile": 37.2888339513803,
+        "dividendYield": 4.17,
+        "bondYield": 1.6798
+      },
+      "components": {
+        "percentile": {
+          "score": 29.831067161104237,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 37.2888339513803,
+          "weight": 5,
+          "contribution": 1.4915533580552118
+        },
+        "absolute": {
+          "score": 43.4,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.17,
+          "weight": 90,
+          "contribution": 39.06
+        },
+        "ratio": {
+          "score": 79.29753542088343,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.482438385522086,
+          "weight": 5,
+          "contribution": 3.964876771044172
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-09-09",
+        "exitDate": "2026-10-15",
+        "entryClose": 5716,
+        "exitClose": 5535.58,
+        "returnPct": -3.1564030790762754,
+        "drawdownPct": -5.0267669699090245
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-09-08",
+      "availableDate": "2026-09-09",
+      "workbookRow": 74,
+      "grade": "C",
+      "score": 43.37652702811481,
+      "lower": 43.37652702811481,
+      "upper": 43.37652702811481,
+      "input": {
+        "percentile": 37.7008652657602,
+        "dividendYield": 4.11,
+        "bondYield": 1.6815
+      },
+      "components": {
+        "percentile": {
+          "score": 30.160692212608158,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 37.7008652657602,
+          "weight": 5,
+          "contribution": 1.508034610630408
+        },
+        "absolute": {
+          "score": 42.2,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.11,
+          "weight": 90,
+          "contribution": 37.980000000000004
+        },
+        "ratio": {
+          "score": 77.76984834968779,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.444246208742195,
+          "weight": 5,
+          "contribution": 3.8884924174843896
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-09-10",
+        "exitDate": "2026-10-15",
+        "entryClose": 5677.09,
+        "exitClose": 5535.58,
+        "returnPct": -2.4926502838602205,
+        "drawdownPct": -4.375833393516748
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-09-09",
+      "availableDate": "2026-09-10",
+      "workbookRow": 75,
+      "grade": "C",
+      "score": 42.60866258398912,
+      "lower": 42.60866258398912,
+      "upper": 42.60866258398912,
+      "input": {
+        "percentile": 37.7008652657602,
+        "dividendYield": 4.07,
+        "bondYield": 1.6816
+      },
+      "components": {
+        "percentile": {
+          "score": 30.160692212608158,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 37.7008652657602,
+          "weight": 5,
+          "contribution": 1.508034610630408
+        },
+        "absolute": {
+          "score": 41.400000000000006,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.07,
+          "weight": 90,
+          "contribution": 37.260000000000005
+        },
+        "ratio": {
+          "score": 76.81255946717413,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.420313986679353,
+          "weight": 5,
+          "contribution": 3.8406279733587065
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-09-11",
+        "exitDate": "2026-10-15",
+        "entryClose": 5580.28,
+        "exitClose": 5535.58,
+        "returnPct": -0.801035073508849,
+        "drawdownPct": -2.716888758270186
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-09-10",
+      "availableDate": "2026-09-11",
+      "workbookRow": 76,
+      "grade": "C",
+      "score": 43.210654448277076,
+      "lower": 43.210654448277076,
+      "upper": 43.210654448277076,
+      "input": {
+        "percentile": 38.22075782537068,
+        "dividendYield": 4.1,
+        "bondYield": 1.6797
+      },
+      "components": {
+        "percentile": {
+          "score": 30.576606260296547,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 38.22075782537068,
+          "weight": 5,
+          "contribution": 1.5288303130148273
+        },
+        "absolute": {
+          "score": 41.99999999999999,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.1,
+          "weight": 90,
+          "contribution": 37.8
+        },
+        "ratio": {
+          "score": 77.63648270524497,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.4409120676311242,
+          "weight": 5,
+          "contribution": 3.881824135262249
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-09-14",
+        "exitDate": "2026-10-15",
+        "entryClose": 5568.76,
+        "exitClose": 5535.58,
+        "returnPct": -0.5958238458831144,
+        "drawdownPct": -2.5156408248874107
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-09-14",
+      "availableDate": "2026-09-15",
+      "workbookRow": 77,
+      "grade": "C",
+      "score": 44.714776403234026,
+      "lower": 44.714776403234026,
+      "upper": 44.714776403234026,
+      "input": {
+        "percentile": 38.1128965801401,
+        "dividendYield": 4.18,
+        "bondYield": 1.6888
+      },
+      "components": {
+        "percentile": {
+          "score": 30.490317264112083,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 38.1128965801401,
+          "weight": 5,
+          "contribution": 1.5245158632056042
+        },
+        "absolute": {
+          "score": 43.599999999999994,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.18,
+          "weight": 90,
+          "contribution": 39.239999999999995
+        },
+        "ratio": {
+          "score": 79.00521080056845,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.475130270014211,
+          "weight": 5,
+          "contribution": 3.950260540028422
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-09-16",
+        "exitDate": "2026-10-15",
+        "entryClose": 5503.7,
+        "exitClose": 5535.58,
+        "returnPct": 0.5792466885913061,
+        "drawdownPct": -2.421147449378014
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-09-15",
+      "availableDate": "2026-09-16",
+      "workbookRow": 78,
+      "grade": "C",
+      "score": 45.099674955346046,
+      "lower": 45.099674955346046,
+      "upper": 45.099674955346046,
+      "input": {
+        "percentile": 37.97364085667216,
+        "dividendYield": 4.2,
+        "bondYield": 1.6865
+      },
+      "components": {
+        "percentile": {
+          "score": 30.37891268533773,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 37.97364085667216,
+          "weight": 5,
+          "contribution": 1.5189456342668866
+        },
+        "absolute": {
+          "score": 44,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.2,
+          "weight": 90,
+          "contribution": 39.6
+        },
+        "ratio": {
+          "score": 79.61458642158317,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.490364660539579,
+          "weight": 5,
+          "contribution": 3.9807293210791586
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-09-17",
+        "exitDate": "2026-10-15",
+        "entryClose": 5473.85,
+        "exitClose": 5535.58,
+        "returnPct": 1.1277254583154317,
+        "drawdownPct": -2.421147449378014
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-09-16",
+      "availableDate": "2026-09-17",
+      "workbookRow": 79,
+      "grade": "C",
+      "score": 45.50597360628514,
+      "lower": 45.50597360628514,
+      "upper": 45.50597360628514,
+      "input": {
+        "percentile": 38.61671469740634,
+        "dividendYield": 4.22,
+        "bondYield": 1.6858
+      },
+      "components": {
+        "percentile": {
+          "score": 30.893371757925067,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 38.61671469740634,
+          "weight": 5,
+          "contribution": 1.5446685878962534
+        },
+        "absolute": {
+          "score": 44.39999999999999,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.22,
+          "weight": 90,
+          "contribution": 39.959999999999994
+        },
+        "ratio": {
+          "score": 80.0261003677779,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.5032625459722384,
+          "weight": 5,
+          "contribution": 4.001305018388894
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-09-18",
+        "exitDate": "2026-10-15",
+        "entryClose": 5461.76,
+        "exitClose": 5535.58,
+        "returnPct": 1.3515789782048149,
+        "drawdownPct": -2.421147449378014
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-09-17",
+      "availableDate": "2026-09-18",
+      "workbookRow": 80,
+      "grade": "C",
+      "score": 46.02587955580351,
+      "lower": 46.02587955580351,
+      "upper": 46.02587955580351,
+      "input": {
+        "percentile": 37.94238683127572,
+        "dividendYield": 4.25,
+        "bondYield": 1.6862
+      },
+      "components": {
+        "percentile": {
+          "score": 30.35390946502058,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 37.94238683127572,
+          "weight": 5,
+          "contribution": 1.517695473251029
+        },
+        "absolute": {
+          "score": 45,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.25,
+          "weight": 90,
+          "contribution": 40.5
+        },
+        "ratio": {
+          "score": 80.1636816510497,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.5204602063812125,
+          "weight": 5,
+          "contribution": 4.008184082552486
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-09-21",
+        "exitDate": "2026-10-15",
+        "entryClose": 5527.38,
+        "exitClose": 5535.58,
+        "returnPct": 0.14835238395043415,
+        "drawdownPct": -2.421147449378014
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-09-18",
+      "availableDate": "2026-09-20",
+      "workbookRow": 81,
+      "grade": "C",
+      "score": 46.23154120552455,
+      "lower": 46.23154120552455,
+      "upper": 46.23154120552455,
+      "input": {
+        "percentile": 38.46153846153847,
+        "dividendYield": 4.26,
+        "bondYield": 1.682
+      },
+      "components": {
+        "percentile": {
+          "score": 30.769230769230774,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 38.46153846153847,
+          "weight": 5,
+          "contribution": 1.5384615384615388
+        },
+        "absolute": {
+          "score": 45.199999999999996,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.26,
+          "weight": 90,
+          "contribution": 40.67999999999999
+        },
+        "ratio": {
+          "score": 80.26159334126041,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.5326991676575505,
+          "weight": 5,
+          "contribution": 4.013079667063021
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-09-21",
+        "exitDate": "2026-10-15",
+        "entryClose": 5527.38,
+        "exitClose": 5535.58,
+        "returnPct": 0.14835238395043415,
+        "drawdownPct": -2.421147449378014
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-09-21",
+      "availableDate": "2026-09-22",
+      "workbookRow": 83,
+      "grade": "C",
+      "score": 45.29897393002693,
+      "lower": 45.29897393002693,
+      "upper": 45.29897393002693,
+      "input": {
+        "percentile": 37.95800741045698,
+        "dividendYield": 4.21,
+        "bondYield": 1.6829
+      },
+      "components": {
+        "percentile": {
+          "score": 30.366405928365584,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 37.95800741045698,
+          "weight": 5,
+          "contribution": 1.5183202964182791
+        },
+        "absolute": {
+          "score": 44.2,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.21,
+          "weight": 90,
+          "contribution": 39.78
+        },
+        "ratio": {
+          "score": 80.01307267217304,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.5016340840216293,
+          "weight": 5,
+          "contribution": 4.0006536336086524
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-09-23",
+        "exitDate": "2026-10-15",
+        "entryClose": 5484.03,
+        "exitClose": 5535.58,
+        "returnPct": 0.9400021517023127,
+        "drawdownPct": -2.421147449378014
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-09-22",
+      "availableDate": "2026-09-23",
+      "workbookRow": 84,
+      "grade": "C",
+      "score": 45.299591758205075,
+      "lower": 45.299591758205075,
+      "upper": 45.299591758205075,
+      "input": {
+        "percentile": 37.91683820502264,
+        "dividendYield": 4.21,
+        "bondYield": 1.6791
+      },
+      "components": {
+        "percentile": {
+          "score": 30.333470564018114,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 37.91683820502264,
+          "weight": 5,
+          "contribution": 1.5166735282009056
+        },
+        "absolute": {
+          "score": 44.2,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.21,
+          "weight": 90,
+          "contribution": 39.78
+        },
+        "ratio": {
+          "score": 80.05836460008338,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.507295575010422,
+          "weight": 5,
+          "contribution": 4.002918230004169
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-09-24",
+        "exitDate": "2026-10-15",
+        "entryClose": 5469.4,
+        "exitClose": 5535.58,
+        "returnPct": 1.210004753720706,
+        "drawdownPct": -2.421147449378014
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-09-23",
+      "availableDate": "2026-09-24",
+      "workbookRow": 85,
+      "grade": "C",
+      "score": 45.84413010977827,
+      "lower": 45.84413010977827,
+      "upper": 45.84413010977827,
+      "input": {
+        "percentile": 37.87566899958831,
+        "dividendYield": 4.24,
+        "bondYield": 1.6807
+      },
+      "components": {
+        "percentile": {
+          "score": 30.300535199670648,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 37.87566899958831,
+          "weight": 5,
+          "contribution": 1.5150267599835325
+        },
+        "absolute": {
+          "score": 44.800000000000004,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.24,
+          "weight": 90,
+          "contribution": 40.32000000000001
+        },
+        "ratio": {
+          "score": 80.18206699589457,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.522758374486821,
+          "weight": 5,
+          "contribution": 4.009103349794729
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-09-28",
+        "exitDate": "2026-10-15",
+        "entryClose": 5439.6,
+        "exitClose": 5535.58,
+        "returnPct": 1.7644679755864257,
+        "drawdownPct": -2.421147449378014
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-09-24",
+      "availableDate": "2026-09-28",
+      "workbookRow": 86,
+      "grade": "C",
+      "score": 46.07779292283348,
+      "lower": 46.07779292283348,
+      "upper": 46.07779292283348,
+      "input": {
+        "percentile": 39.05349794238683,
+        "dividendYield": 4.25,
+        "bondYield": 1.6738
+      },
+      "components": {
+        "percentile": {
+          "score": 31.242798353909464,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 39.05349794238683,
+          "weight": 5,
+          "contribution": 1.5621399176954731
+        },
+        "absolute": {
+          "score": 45,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.25,
+          "weight": 90,
+          "contribution": 40.5
+        },
+        "ratio": {
+          "score": 80.31306010276019,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.5391325128450233,
+          "weight": 5,
+          "contribution": 4.0156530051380095
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-09-29",
+        "exitDate": "2026-10-15",
+        "entryClose": 5428.67,
+        "exitClose": 5535.58,
+        "returnPct": 1.969358977429092,
+        "drawdownPct": -2.421147449378014
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-09-28",
+      "availableDate": "2026-09-29",
+      "workbookRow": 87,
+      "grade": "C",
+      "score": 46.44564121383147,
+      "lower": 46.44564121383147,
+      "upper": 46.44564121383147,
+      "input": {
+        "percentile": 39.20922570016474,
+        "dividendYield": 4.27,
+        "bondYield": 1.679
+      },
+      "components": {
+        "percentile": {
+          "score": 31.36738056013179,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 39.20922570016474,
+          "weight": 5,
+          "contribution": 1.5683690280065894
+        },
+        "absolute": {
+          "score": 45.39999999999999,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.27,
+          "weight": 90,
+          "contribution": 40.85999999999999
+        },
+        "ratio": {
+          "score": 80.34544371649791,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.543180464562239,
+          "weight": 5,
+          "contribution": 4.017272185824896
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-09-30",
+        "exitDate": "2026-10-15",
+        "entryClose": 5493.34,
+        "exitClose": 5535.58,
+        "returnPct": 0.7689311056661374,
+        "drawdownPct": -2.421147449378014
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-09-29",
+      "availableDate": "2026-09-30",
+      "workbookRow": 88,
+      "grade": "C",
+      "score": 46.63536362908638,
+      "lower": 46.63536362908638,
+      "upper": 46.63536362908638,
+      "input": {
+        "percentile": 39.20922570016474,
+        "dividendYield": 4.28,
+        "bondYield": 1.667
+      },
+      "components": {
+        "percentile": {
+          "score": 31.36738056013179,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 39.20922570016474,
+          "weight": 5,
+          "contribution": 1.5683690280065894
+        },
+        "absolute": {
+          "score": 45.60000000000001,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.28,
+          "weight": 90,
+          "contribution": 41.040000000000006
+        },
+        "ratio": {
+          "score": 80.53989202159568,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.56748650269946,
+          "weight": 5,
+          "contribution": 4.0269946010797835
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-10-08",
+        "exitDate": "2026-10-15",
+        "entryClose": 5556.01,
+        "exitClose": 5535.58,
+        "returnPct": -0.3677099213284407,
+        "drawdownPct": -2.421147449378014
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-10-01",
+      "availableDate": "2026-10-01",
+      "workbookRow": 90,
+      "grade": "C",
+      "score": 45.73561153639514,
+      "lower": 45.73561153639514,
+      "upper": 45.73561153639514,
+      "input": {
+        "percentile": 39.74464579901153,
+        "dividendYield": 4.23,
+        "bondYield": 1.6822
+      },
+      "components": {
+        "percentile": {
+          "score": 31.795716639209225,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 39.74464579901153,
+          "weight": 5,
+          "contribution": 1.5897858319604612
+        },
+        "absolute": {
+          "score": 44.60000000000001,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.23,
+          "weight": 90,
+          "contribution": 40.14000000000001
+        },
+        "ratio": {
+          "score": 80.11651408869338,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.5145642610866727,
+          "weight": 5,
+          "contribution": 4.0058257044346695
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [
+        "指标日期未对齐",
+        "估值日缺少交易日证据"
+      ],
+      "observation": null,
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-10-02",
+      "availableDate": "2026-10-02",
+      "workbookRow": 91,
+      "grade": "C",
+      "score": 45.73561153639514,
+      "lower": 45.73561153639514,
+      "upper": 45.73561153639514,
+      "input": {
+        "percentile": 39.74464579901153,
+        "dividendYield": 4.23,
+        "bondYield": 1.6822
+      },
+      "components": {
+        "percentile": {
+          "score": 31.795716639209225,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 39.74464579901153,
+          "weight": 5,
+          "contribution": 1.5897858319604612
+        },
+        "absolute": {
+          "score": 44.60000000000001,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.23,
+          "weight": 90,
+          "contribution": 40.14000000000001
+        },
+        "ratio": {
+          "score": 80.11651408869338,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.5145642610866727,
+          "weight": 5,
+          "contribution": 4.0058257044346695
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [
+        "指标日期未对齐",
+        "估值日缺少交易日证据"
+      ],
+      "observation": null,
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-10-05",
+      "availableDate": "2026-10-05",
+      "workbookRow": 94,
+      "grade": "C",
+      "score": 45.73561153639514,
+      "lower": 45.73561153639514,
+      "upper": 45.73561153639514,
+      "input": {
+        "percentile": 39.74464579901153,
+        "dividendYield": 4.23,
+        "bondYield": 1.6822
+      },
+      "components": {
+        "percentile": {
+          "score": 31.795716639209225,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 39.74464579901153,
+          "weight": 5,
+          "contribution": 1.5897858319604612
+        },
+        "absolute": {
+          "score": 44.60000000000001,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.23,
+          "weight": 90,
+          "contribution": 40.14000000000001
+        },
+        "ratio": {
+          "score": 80.11651408869338,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.5145642610866727,
+          "weight": 5,
+          "contribution": 4.0058257044346695
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [
+        "指标日期未对齐",
+        "估值日缺少交易日证据"
+      ],
+      "observation": null,
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-10-06",
+      "availableDate": "2026-10-06",
+      "workbookRow": 95,
+      "grade": "C",
+      "score": 45.73561153639514,
+      "lower": 45.73561153639514,
+      "upper": 45.73561153639514,
+      "input": {
+        "percentile": 39.74464579901153,
+        "dividendYield": 4.23,
+        "bondYield": 1.6822
+      },
+      "components": {
+        "percentile": {
+          "score": 31.795716639209225,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 39.74464579901153,
+          "weight": 5,
+          "contribution": 1.5897858319604612
+        },
+        "absolute": {
+          "score": 44.60000000000001,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.23,
+          "weight": 90,
+          "contribution": 40.14000000000001
+        },
+        "ratio": {
+          "score": 80.11651408869338,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.5145642610866727,
+          "weight": 5,
+          "contribution": 4.0058257044346695
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [
+        "指标日期未对齐",
+        "估值日缺少交易日证据"
+      ],
+      "observation": null,
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-10-07",
+      "availableDate": "2026-10-07",
+      "workbookRow": 96,
+      "grade": "C",
+      "score": 45.73561153639514,
+      "lower": 45.73561153639514,
+      "upper": 45.73561153639514,
+      "input": {
+        "percentile": 39.74464579901153,
+        "dividendYield": 4.23,
+        "bondYield": 1.6822
+      },
+      "components": {
+        "percentile": {
+          "score": 31.795716639209225,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 39.74464579901153,
+          "weight": 5,
+          "contribution": 1.5897858319604612
+        },
+        "absolute": {
+          "score": 44.60000000000001,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.23,
+          "weight": 90,
+          "contribution": 40.14000000000001
+        },
+        "ratio": {
+          "score": 80.11651408869338,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.5145642610866727,
+          "weight": 5,
+          "contribution": 4.0058257044346695
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [
+        "指标日期未对齐",
+        "估值日缺少交易日证据"
+      ],
+      "observation": null,
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-10-08",
+      "availableDate": "2026-10-08",
+      "workbookRow": 97,
+      "grade": "C",
+      "score": 44.93012896687854,
+      "lower": 44.93012896687854,
+      "upper": 44.93012896687854,
+      "input": {
+        "percentile": 38.78139151914368,
+        "dividendYield": 4.19,
+        "bondYield": 1.6899
+      },
+      "components": {
+        "percentile": {
+          "score": 31.025113215314946,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 38.78139151914368,
+          "weight": 5,
+          "contribution": 1.5512556607657473
+        },
+        "absolute": {
+          "score": 43.80000000000001,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.19,
+          "weight": 90,
+          "contribution": 39.42000000000001
+        },
+        "ratio": {
+          "score": 79.17746612225577,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.479436653056394,
+          "weight": 5,
+          "contribution": 3.958873306112788
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-10-09",
+        "exitDate": "2026-10-15",
+        "entryClose": 5601.34,
+        "exitClose": 5535.58,
+        "returnPct": -1.174004791710559,
+        "drawdownPct": -2.421147449378014
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-10-09",
+      "availableDate": "2026-10-09",
+      "workbookRow": 98,
+      "grade": "C",
+      "score": 44.058763792255256,
+      "lower": 44.058763792255256,
+      "upper": 44.058763792255256,
+      "input": {
+        "percentile": 35.92592592592593,
+        "dividendYield": 4.15,
+        "bondYield": 1.6864
+      },
+      "components": {
+        "percentile": {
+          "score": 28.740740740740748,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 35.92592592592593,
+          "weight": 5,
+          "contribution": 1.4370370370370376
+        },
+        "absolute": {
+          "score": 43.00000000000001,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.15,
+          "weight": 90,
+          "contribution": 38.7
+        },
+        "ratio": {
+          "score": 78.43453510436434,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.4608633776091087,
+          "weight": 5,
+          "contribution": 3.921726755218217
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-10-12",
+        "exitDate": "2026-10-15",
+        "entryClose": 5618.87,
+        "exitClose": 5535.58,
+        "returnPct": -1.4823265176094114,
+        "drawdownPct": -2.421147449378014
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-10-12",
+      "availableDate": "2026-10-13",
+      "workbookRow": 101,
+      "grade": "C",
+      "score": 43.89165966487144,
+      "lower": 43.89165966487144,
+      "upper": 43.89165966487144,
+      "input": {
+        "percentile": 35.50247116968698,
+        "dividendYield": 4.14,
+        "bondYield": 1.6722
+      },
+      "components": {
+        "percentile": {
+          "score": 28.40197693574958,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 35.50247116968698,
+          "weight": 5,
+          "contribution": 1.420098846787479
+        },
+        "absolute": {
+          "score": 42.8,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.14,
+          "weight": 90,
+          "contribution": 38.519999999999996
+        },
+        "ratio": {
+          "score": 79.03121636167923,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.4757804090419806,
+          "weight": 5,
+          "contribution": 3.9515608180839616
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "已完成",
+        "entryDate": "2026-10-14",
+        "exitDate": "2026-10-15",
+        "entryClose": 5672.93,
+        "exitClose": 5535.58,
+        "returnPct": -2.421147449378014,
+        "drawdownPct": -2.421147449378014
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-10-13",
+      "availableDate": "2026-10-14",
+      "workbookRow": 102,
+      "grade": "C",
+      "score": 43.732969424762814,
+      "lower": 43.732969424762814,
+      "upper": 43.732969424762814,
+      "input": {
+        "percentile": 35.83,
+        "dividendYield": 4.13,
+        "bondYield": 1.6654
+      },
+      "components": {
+        "percentile": {
+          "score": 28.664,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 35.83,
+          "weight": 5,
+          "contribution": 1.4332
+        },
+        "absolute": {
+          "score": 42.599999999999994,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.13,
+          "weight": 90,
+          "contribution": 38.339999999999996
+        },
+        "ratio": {
+          "score": 79.19538849525638,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.4798847123814096,
+          "weight": 5,
+          "contribution": 3.9597694247628192
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "后续交易日不足"
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-10-14",
+      "availableDate": "2026-10-15",
+      "workbookRow": 103,
+      "grade": "C",
+      "score": 43.288882538144826,
+      "lower": 43.288882538144826,
+      "upper": 43.288882538144826,
+      "input": {
+        "percentile": 38.1,
+        "dividendYield": 4.1,
+        "bondYield": 1.6516
+      },
+      "components": {
+        "percentile": {
+          "score": 30.48,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 38.1,
+          "weight": 5,
+          "contribution": 1.524
+        },
+        "absolute": {
+          "score": 41.99999999999999,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.1,
+          "weight": 90,
+          "contribution": 37.8
+        },
+        "ratio": {
+          "score": 79.29765076289658,
+          "interval": [
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ]
+          ],
+          "clipped": false,
+          "value": 2.4824412690724147,
+          "weight": 5,
+          "contribution": 3.964882538144829
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "后续交易日不足"
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    },
+    {
+      "date": "2026-10-15",
+      "availableDate": "2026-10-16",
+      "workbookRow": 104,
+      "grade": "C",
+      "score": 45.13518722968496,
+      "lower": 45.13518722968496,
+      "upper": 45.13518722968496,
+      "input": {
+        "percentile": 38.08,
+        "dividendYield": 4.2,
+        "bondYield": 1.6601
+      },
+      "components": {
+        "percentile": {
+          "score": 30.464,
+          "interval": [
+            [
+              0,
+              0
+            ],
+            [
+              50,
+              40
+            ]
+          ],
+          "clipped": false,
+          "value": 38.08,
+          "weight": 5,
+          "contribution": 1.5231999999999999
+        },
+        "absolute": {
+          "score": 44,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.2,
+          "weight": 90,
+          "contribution": 39.6
+        },
+        "ratio": {
+          "score": 80.23974459369917,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.529968074212397,
+          "weight": 5,
+          "contribution": 4.011987229684959
+        }
+      },
+      "sourceKey": "中证官方指数推算",
+      "kind": "legacy",
+      "reference": true,
+      "eligible": false,
+      "reasons": [],
+      "observation": {
+        "status": "后续交易日不足"
+      },
+      "confirmation": {
+        "status": "insufficient",
+        "baseline": null,
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "证据不足"
+      },
+      "confirmedChange": false
+    }
+  ],
+  "methodology": [
+    "固定使用本次参数重算历史输入，原有分数、等级和每日文件不改写；不同来源与记录类型分别统计。",
+    "缺失指标不补零、不重新分配权重；日期未对齐、来源或记录日期缺失的记录退出观察样本。",
+    "同一估值日期保留最早收集的记录，避免将后来修订或补齐的数据提前使用。",
+    "使用Excel全部历史记录，以Excel最后估值日为统一截止日；本地价格超出Excel范围的部分不参与计算。",
+    "以记录日期为可知日，从其后首个交易日收盘起计算到统一截止日；后续不足两个收盘价或价格断档时不计收益，不填零。",
+    "Excel历史记录（含事后补齐）仅做信号效果回看，不升级为当时已发布或已连续确认的每日信号。",
+    "统计中证红利000922价格指数收益与计算区间内收盘最大回撤，不含分红再投资、交易成本或资金收益；上涨比例仅指收益大于0的样本占比。",
+    "各信号到截止日的区间长短不同且相互重叠，样本不独立，分组均值不代表策略资金收益；参数为事后固定，结果属于样本内回看，不构成样本外验证。"
+  ]
+}

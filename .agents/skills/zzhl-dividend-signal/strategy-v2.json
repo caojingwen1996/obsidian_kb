@@ -1,0 +1,59 @@
+{
+  "version": "dividend-two-factor-v2",
+  "weights": {
+    "absolute": 92,
+    "ratio": 8
+  },
+  "anchors": {
+    "absolute": [
+      [
+        3,
+        0
+      ],
+      [
+        4,
+        40
+      ],
+      [
+        5,
+        60
+      ],
+      [
+        5.5,
+        80
+      ],
+      [
+        6,
+        100
+      ]
+    ],
+    "ratio": [
+      [
+        1,
+        0
+      ],
+      [
+        1.5,
+        40
+      ],
+      [
+        2,
+        60
+      ],
+      [
+        2.5,
+        80
+      ],
+      [
+        5,
+        100
+      ]
+    ]
+  },
+  "thresholds": {
+    "C": 40,
+    "B": 48,
+    "A": 65
+  },
+  "confirmationDays": 1
+}

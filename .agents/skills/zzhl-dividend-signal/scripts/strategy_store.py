@@ -10,9 +10,9 @@ from pathlib import Path
 from threading import Lock
 
 try:
-    from .scoring import load_default_strategy, validate_strategy
+    from .scoring import load_default_strategy, validate_strategy, normalize_strategy
 except ImportError:
-    from scoring import load_default_strategy, validate_strategy
+    from scoring import load_default_strategy, validate_strategy, normalize_strategy
 
 DEFAULT_SETTINGS_PATH = Path(__file__).resolve().parents[4] / "tools/a-share-market-dashboard/data/红利信号/strategy-settings.json"
 _LOCK = Lock()
@@ -74,6 +74,7 @@ def save_settings(strategy, expected_revision, path=None):
         raise ValueError("策略参数格式无效")
     if isinstance(expected_revision, bool) or not isinstance(expected_revision, int) or expected_revision < 0:
         raise ValueError("每日策略版本无效")
+    strategy = normalize_strategy(strategy)
     defaults = load_default_strategy()
     clean = {"version": defaults["version"], **{k: deepcopy(strategy.get(k)) for k in ("weights", "anchors", "thresholds", "confirmationDays")}}
     if any(not isinstance(clean.get(k), dict) for k in ("weights", "anchors", "thresholds")):

@@ -588,15 +588,14 @@ test('market summary renders three overview cards and includes signal sources in
     '/api/youzhiyouxing-temperature',
     '中证红利股息率信号',
     '查看红利信号详情',
-    'BUY DECISION',
-    '股息率策略评分',
-    '布林线策略',
+    '当前信号',
+    '信号1：股息率',
+    '信号2：布林线',
     '周线布林轨道待判断',
     '中证红利周线布林轨道指标',
     '打开信号源',
     '来源与验证边界',
-    'DIVIDEND YIELD HISTORY',
-    '中证红利股息率走势',
+    '指数与股息率走势',
     '中证红利每日信号.xlsx',
     'dividend-yield-chart',
     '../../sources/automations/中证红利信号/最新信号.md',
@@ -614,15 +613,13 @@ test('market summary renders three overview cards and includes signal sources in
     '成立首年',
     '完整年度',
     '2008-05-26',
-    '中证红利年度表现.json',
+    '收益日历',
     '10年国债收益率',
     'AKShare bond_zh_us_rate',
-    'C（小额定投）',
-    '2026-07-29',
+    '仅A级买入',
     '股债利差',
     '股息率2 - 10年国债收益率',
-    '历史分位',
-    '理杏仁公开页面',
+    '股债倍数',
     '当天行情',
     '原始来源备注',
     'zzhl-dividend-signal 最新信号',
@@ -648,13 +645,11 @@ test('market summary renders three overview cards and includes signal sources in
   assert.match(appSource, /state\.dividendSignal = signal/);
   assert.match(appSource, /renderDerived\(derived, state\.youzhiyouxingTemperature, state\.nasdaq100, state\.dividendSignal,/);
   assert.match(appSource, /viewId === 'market-summary' \|\| viewId === 'dividend-signal-view'/);
-  assert.match(appSource, /absolute\.grade \? `\$\{absolute\.grade\} \$\{absolute\.label\}`/);
   assert.match(appSource, /const displayDate = signal\.indexDate \|\| signal\.recordDate/);
   assert.match(appSource, /class="dividend-detail-date"/);
   assert.doesNotMatch(appSource, /<div><small>10年国债<\/small><strong>\$\{formatNumber\(signal\.bond10yYield, 2\)\}%<\/strong><span>/);
   assert.doesNotMatch(appSource, /<article><small>股息率2<\/small><strong>\$\{formatNumber\(signal\.dividendYield2, 2\)\}%<\/strong><span>[\s\S]*signal\.indexDate/);
   assert.match(appSource, /dividend-hover-point/);
-  assert.match(appSource, /股息率 \$\{formatNumber\(point\.value, 2\)\}%/);
   assert.match(appSource, /aria-label="\$\{escapeHtml\(label\)\}"/);
   assert.match(readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8'), /dividend-hover-tooltip/);
   assert.doesNotMatch(artifact, /CSI_DIVIDEND_SIGNAL\s*=\s*Object\.freeze\(\s*\/\/ CSI_DIVIDEND_SIGNAL/);
@@ -666,7 +661,6 @@ test('market summary renders three overview cards and includes signal sources in
   assert.match(artifact, /"year": 2008[\s\S]*"status": "成立首年"/);
   assert.match(artifact, /"year": 2026[\s\S]*"status": "年内"/);
   assert.match(artifact, /"spread": \d+(?:\.\d+)?/);
-  assert.match(artifact, /"spreadSignal": "C（小额定投）"/);
   assert.match(artifact, /"date": "2026-06-02"[\s\S]*"value": 4\.83/);
   assert.doesNotMatch(artifact, /<circle class="is-(?:high|low)"/);
   assert.match(readFileSync(new URL('../scripts/build.mjs', import.meta.url), 'utf8'), /中证红利每日信号\.xlsx/);
@@ -1358,6 +1352,17 @@ test('built artifact is self-contained and directly openable', () => {
   assert.match(output, /<script type="module">[\s\S]+<\/script>/);
   assert.match(output, /温度计/);
   assert.ok(Buffer.byteLength(output, 'utf8') < 2_000_000);
+});
+
+test('offline score snapshot retains the latest result without duplicating the full score archive', () => {
+  const output = readFileSync(artifactPath, 'utf8');
+  const runtime = output.match(/<script type="module">([\s\S]*?)<\/script>/)[1];
+  const embedded = new Function(`${runtime}\nreturn CSI_DIVIDEND_SCORE_PAYLOAD;`)();
+  const archive = JSON.parse(readFileSync(join(repoRoot, 'sources', 'automations', '中证红利信号', '评分记录.json'), 'utf8'));
+  assert.deepEqual(embedded.latest, archive.latest);
+  assert.deepEqual(embedded.strategy, archive.strategy);
+  assert.deepEqual(embedded.tradingDates, archive.tradingDates);
+  assert.deepEqual(embedded.records, [archive.latest]);
 });
 
 test('built artifact explains that the launcher is required for stable live data', () => {
