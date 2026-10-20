@@ -10,7 +10,7 @@ as_of: 2026-08-20T15:00:00+08:00
 status: active
 tags: [function/query, research/equity, company/星网锐捷, industry/data-center-network]
 framework_refs:
-  - "[[wiki/concepts/冰冰小美-framework-估值判断|冰冰小美估值判断框架]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-估值判断|冰冰小美估值判断框架]]"
 sources:
   - "[[sources/webpages/2026-08-21-星网锐捷v3.0.2研报数据核验快照|2026-08-21研报数据核验快照]]"
   - "[[sources/webpages/2026-08-19-星网锐捷三要素更新快照|2026-08-19三要素更新快照]]"
@@ -18,7 +18,7 @@ sources:
   - "[[sources/assets/2026-08-15-星网锐捷-收购广州芯德46%股权公告.pdf|收购广州芯德46%股权公告]]"
 related:
   - "[[workbench/targets/2026-08-17-1454-星网锐捷-三要素分析|星网锐捷三要素分析]]"
-  - "[[wiki/concepts/冰冰小美-framework-估值判断|冰冰小美估值判断框架]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-估值判断|冰冰小美估值判断框架]]"
 html: "[[sources/automations/新兴产业/算力/中游-数据中心网络/2026-08-05-1010-星网锐捷-机构级决策研报.html|HTML阅读版]]"
 summary: "星网锐捷H1收入和利润增长已验证，但毛利、现金流、存货和应收形成明显反证。主类型调整为成长企业，以2027年利润折现为主锚；公允价值24—36元、中枢30元。2026-08-20收盘30.15元位于区间中枢，融资开始去化但近5日仍+22.05%，风险重新增强并处于出清观察。新增现金wait，已有持仓review。"
 original_question: "星网捷锐"
@@ -423,7 +423,7 @@ answer_status: recorded
 6. 星网锐捷2025年年度报告（深交所）：<https://disc.static.szse.cn/disc/disk03/finalpage/2026-03-28/5e57bf46-d306-46fa-a8ec-7ba2445b9e81.PDF>。
 7. 同花顺盈利预测：<https://basic.10jqka.com.cn/002396/worth.html>；样本少，仅作外部锚。
 8. 国家发展改革委“人工智能+”：<https://www.ndrc.gov.cn/wsdwhfz/202607/t20260727_1406699.html>；中央网信办一体化算力网：<https://www.cac.gov.cn/2026-07/15/c_1785861481530197.htm>。
-9. [[wiki/concepts/冰冰小美-framework-估值判断|冰冰小美估值判断框架]]：32项触发器与估值泡沫门槛。
+9. [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-估值判断|冰冰小美估值判断框架]]：32项触发器与估值泡沫门槛。
 
 ## 16. 声明
 

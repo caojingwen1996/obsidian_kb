@@ -5,7 +5,7 @@ description: 基于“战略方向—产业结构—约束条件—周期与节�
 version: 1.1.0
 language: zh-CN
 knowledge_base:
-  - wiki/concepts/冰冰小美-framework-产业思维.md
+  - _archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-产业思维.md
 templates:
   - template.md
 ---
@@ -34,7 +34,7 @@ templates:
 
 执行前优先读取：
 
-`wiki/concepts/冰冰小美-framework-产业思维.md`
+`_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-产业思维.md`
 
 该文件是本 Skill 的主框架。其他资料与其概念命名冲突时，优先采用该文件的结构和术语。
 

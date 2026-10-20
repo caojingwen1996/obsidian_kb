@@ -4,7 +4,7 @@ title: 产业分析输出模板
 version: 3.3.0
 language: zh-CN
 scope: industry-and-sector-research
-framework_source: wiki/concepts/冰冰小美-framework-产业思维.md
+framework_source: _archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-产业思维.md
 used_by:
   - SKILL.md
 legacy_template:
@@ -56,7 +56,7 @@ legacy_template:
 - **核心研究问题：**
 - **主要数据来源：**
 - **原文与归纳边界：** [作者正文、作者观点、研究工具和个人推断分别说明；重复转载不算独立证据]
-- **框架来源：** `wiki/concepts/冰冰小美-framework-产业思维.md`
+- **框架来源：** `_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-产业思维.md`
 
 ---
 
@@ -458,7 +458,7 @@ TAM 填写规则：
 
 ```yaml
 analysis_metadata:
-  framework_source: "wiki/concepts/冰冰小美-framework-产业思维.md"
+  framework_source: "_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-产业思维.md"
   framework_version:
   framework_updated_at:
   framework_parsing_method:

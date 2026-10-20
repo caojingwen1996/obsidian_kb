@@ -6,10 +6,10 @@ created: 2026-08-12
 updated: 2026-08-12
 as_of: 2026-08-12 10:19
 framework_refs:
-  - "[[冰冰小美-情绪体系认知篇|冰冰小美-体系三要素]]"
-  - "[[concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势|竞争格局的比较优势]]"
-  - "[[concepts/冰冰小美-concept-体系三要素之流动性辩证分析|流动性辩证分析]]"
-  - "[[concepts/冰冰小美-concept-体系三要素之情绪位置的变化|情绪位置的变化]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/topics/冰冰小美-情绪体系认知篇|冰冰小美-体系三要素]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势|竞争格局的比较优势]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析|流动性辩证分析]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化|情绪位置的变化]]"
 sources:
   - "[[sources/webpages/2026-08-12-江钨装备研究数据快照|2026-08-12 江钨装备研究数据快照]]"
 ---

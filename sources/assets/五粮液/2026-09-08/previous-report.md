@@ -6,10 +6,10 @@ created: 2026-08-03
 updated: 2026-08-03
 as_of: 2026-08-03 17:27
 framework_refs:
-  - "[[冰冰小美-情绪体系认知篇|冰冰小美-体系三要素]]"
-  - "[[concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势|竞争格局的比较优势]]"
-  - "[[concepts/冰冰小美-concept-体系三要素之流动性辩证分析|流动性辩证分析]]"
-  - "[[concepts/冰冰小美-concept-体系三要素之情绪位置的变化|情绪位置的变化]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/topics/冰冰小美-情绪体系认知篇|冰冰小美-体系三要素]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势|竞争格局的比较优势]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析|流动性辩证分析]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化|情绪位置的变化]]"
 sources:
   - "[[sources/manual/2026-08-03-五粮液研究数据快照|2026-08-03 五粮液研究数据快照]]"
 ---
@@ -319,7 +319,7 @@ sources:
 ## 16. 相关页面与来源
 
 - [[sources/manual/2026-08-03-五粮液研究数据快照|2026-08-03 五粮液研究数据快照]]：本报告的结构化数据来源。
-- [[冰冰小美-情绪体系认知篇|冰冰小美-体系三要素]]：竞争格局、流动性、情绪位置的分析框架。
-- [[concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势|竞争格局的比较优势]]：解释为什么强品牌不等于短期可买。
-- [[concepts/冰冰小美-concept-体系三要素之流动性辩证分析|流动性辩证分析]]：解释资金从恶化到修复的阶段差异。
-- [[concepts/冰冰小美-concept-体系三要素之情绪位置的变化|情绪位置的变化]]：解释低位逆向观察和极端恐慌买点的区别。
+- [[_archives/2026-10-20-wiki-rebuild/wiki/topics/冰冰小美-情绪体系认知篇|冰冰小美-体系三要素]]：竞争格局、流动性、情绪位置的分析框架。
+- [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势|竞争格局的比较优势]]：解释为什么强品牌不等于短期可买。
+- [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析|流动性辩证分析]]：解释资金从恶化到修复的阶段差异。
+- [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化|情绪位置的变化]]：解释低位逆向观察和极端恐慌买点的区别。

@@ -1707,13 +1707,23 @@ def delete_bbxm_featured_post(payload, vault_root):
         raise ValueError
     relative_path = _normalize_dashboard_href(payload.get("href", ""))
     parts = relative_path.split("/")
+    monthly_layout = (
+        len(parts) == 6
+        and re.fullmatch(r"\d{4}", parts[3])
+        and re.fullmatch(r"(?:0[1-9]|1[0-2])", parts[4])
+        and re.fullmatch(rf"{parts[3]}-{parts[4]}-\d{{2}}_\d{{6}}_.+\.md", parts[5])
+    )
+    daily_layout = (
+        len(parts) == 6
+        and re.fullmatch(r"\d{4}-\d{2}-\d{2}", parts[3])
+        and parts[4] == "冰冰小美"
+    )
     if (
         len(parts) != 6
         or parts[0] != "sources"
         or parts[1] != "automations"
         or parts[2] != "BBXM每日汇总"
-        or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", parts[3])
-        or parts[4] != "冰冰小美"
+        or not (monthly_layout or daily_layout)
     ):
         raise ValueError
     filename = parts[5]

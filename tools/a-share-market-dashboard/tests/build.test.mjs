@@ -946,7 +946,7 @@ test('featured digest replaces book list and reads BBXM daily summaries', () => 
   assert.match(buildSource, /scanBbxmDailyDigest/);
   assert.match(buildSource, /metadataValue\(markdown, '标签'\)/);
   assert.match(buildSource, /digestFiltersFromPost\(markdown\)/);
-  assert.match(buildSource, /file\.name === '操作\.md'/);
+  assert.match(buildSource, /findBbxmDigestGroups\(bbxmDailyDigestDir\)/);
   assert.match(buildSource, /markdownSection\(summary, '总观点'\)/);
   assert.match(buildSource, /markdownSection\(summary, '解析今天文章的观点'\)/);
   assert.match(buildSource, /obsidianOpenPathHref\(summaryPath\)/);

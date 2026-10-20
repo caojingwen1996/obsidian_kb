@@ -1,0 +1,224 @@
+{
+  "account": "冰冰小美",
+  "account_url": "https://xueqiu.com/u/7143769715",
+  "task_date": "2026-10-15",
+  "start_time": "2026-10-15 22:01:08",
+  "end_time": "2026-10-15 22:10:18",
+  "scan_round": 1,
+  "success_count": 18,
+  "failure_count": 0,
+  "result_dir": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/2026/10",
+  "state_file": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/2026/10/2026-10-15_state.json",
+  "processed_items": {
+    "412504304": {
+      "source_id": "412504304",
+      "title": "晒图展示做多费城半导体仓位（作者评论确认方向）",
+      "published_at": "2026-10-15 21:42:00",
+      "url": "https://www.xueqiu.com/7143769715/412504304",
+      "platform": "xueqiu",
+      "file_path": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/2026/10/2026-10-15_214200_晒图展示做多费城半导体仓位（作者评论确认方向）.md",
+      "saved_at": "2026-10-15 22:10:18",
+      "tags": "交易",
+      "image_post": true
+    },
+    "412458118": {
+      "source_id": "412458118",
+      "title": "交流贴：已经买了，听听空头劝不要买的理由",
+      "published_at": "2026-10-15 16:03:00",
+      "url": "https://www.xueqiu.com/7143769715/412458118",
+      "platform": "xueqiu",
+      "file_path": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/2026/10/2026-10-15_160300_交流贴：已经买了，听听空头劝不要买的理由.md",
+      "saved_at": "2026-10-15 22:10:18",
+      "tags": "交易，市场",
+      "image_post": false
+    },
+    "412457060": {
+      "source_id": "412457060",
+      "title": "兼听则明，不建议抄作业，观察、印证、再交易",
+      "published_at": "2026-10-15 15:58:00",
+      "url": "https://www.xueqiu.com/7143769715/412457060",
+      "platform": "xueqiu",
+      "file_path": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/2026/10/2026-10-15_155800_兼听则明，不建议抄作业，观察、印证、再交易.md",
+      "saved_at": "2026-10-15 22:10:18",
+      "tags": "交易",
+      "image_post": false
+    },
+    "412446135": {
+      "source_id": "412446135",
+      "title": "9月月报说明：通胀顽固、加息周期，据此在创业板点位买入",
+      "published_at": "2026-10-15 15:10:00",
+      "url": "https://www.xueqiu.com/7143769715/412446135",
+      "platform": "xueqiu",
+      "file_path": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/2026/10/2026-10-15_151000_9月月报说明：通胀顽固、加息周期，据此在创业板点位买入.md",
+      "saved_at": "2026-10-15 22:10:18",
+      "tags": "宏观，交易",
+      "image_post": false
+    },
+    "412443356": {
+      "source_id": "412443356",
+      "title": "收盘总结：交易心中的正义与价值，而非市场营造的欲望与假象",
+      "published_at": "2026-10-15 14:57:00",
+      "url": "https://www.xueqiu.com/7143769715/412443356",
+      "platform": "xueqiu",
+      "file_path": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/2026/10/2026-10-15_145700_收盘总结：交易心中的正义与价值，而非市场营造的欲望与假象.md",
+      "saved_at": "2026-10-15 22:10:18",
+      "tags": "交易",
+      "image_post": false
+    },
+    "412438009": {
+      "source_id": "412438009",
+      "title": "马后炮调查贴：此前风险提示的回顾确认",
+      "published_at": "2026-10-15 14:37:00",
+      "url": "https://www.xueqiu.com/7143769715/412438009",
+      "platform": "xueqiu",
+      "file_path": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/2026/10/2026-10-15_143700_马后炮调查贴：此前风险提示的回顾确认.md",
+      "saved_at": "2026-10-15 22:10:18",
+      "tags": "交易",
+      "image_post": false
+    },
+    "412433612": {
+      "source_id": "412433612",
+      "title": "长鑫科技跌破3万亿，融资市之问",
+      "published_at": "2026-10-15 14:21:00",
+      "url": "https://www.xueqiu.com/7143769715/412433612",
+      "platform": "xueqiu",
+      "file_path": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/2026/10/2026-10-15_142100_长鑫科技跌破3万亿，融资市之问.md",
+      "saved_at": "2026-10-15 22:10:18",
+      "tags": "市场，行业",
+      "image_post": false
+    },
+    "412429463": {
+      "source_id": "412429463",
+      "title": "提前规避风险后现在有足够主动性去仓位配置",
+      "published_at": "2026-10-15 14:06:00",
+      "url": "https://www.xueqiu.com/7143769715/412429463",
+      "platform": "xueqiu",
+      "file_path": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/2026/10/2026-10-15_140600_提前规避风险后现在有足够主动性去仓位配置.md",
+      "saved_at": "2026-10-15 22:10:18",
+      "tags": "市场，交易",
+      "image_post": false
+    },
+    "412426133": {
+      "source_id": "412426133",
+      "title": "创业板年线没理由跌超10%，按指数点位指引选择企业买入",
+      "published_at": "2026-10-15 13:53:00",
+      "url": "https://www.xueqiu.com/7143769715/412426133",
+      "platform": "xueqiu",
+      "file_path": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/2026/10/2026-10-15_135300_创业板年线没理由跌超10%，按指数点位指引选择企业买入.md",
+      "saved_at": "2026-10-15 22:10:18",
+      "tags": "市场，交易",
+      "image_post": false
+    },
+    "412423419": {
+      "source_id": "412423419",
+      "title": "能接受亏损即开始建仓，中期持有，市场总得有多头",
+      "published_at": "2026-10-15 13:42:00",
+      "url": "https://www.xueqiu.com/7143769715/412423419",
+      "platform": "xueqiu",
+      "file_path": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/2026/10/2026-10-15_134200_能接受亏损即开始建仓，中期持有，市场总得有多头.md",
+      "saved_at": "2026-10-15 22:10:18",
+      "tags": "交易",
+      "image_post": false
+    },
+    "412419618": {
+      "source_id": "412419618",
+      "title": "罕见走势堪比互联网泡沫破灭，谨慎但确实没见过",
+      "published_at": "2026-10-15 13:29:00",
+      "url": "https://www.xueqiu.com/7143769715/412419618",
+      "platform": "xueqiu",
+      "file_path": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/2026/10/2026-10-15_132900_罕见走势堪比互联网泡沫破灭，谨慎但确实没见过.md",
+      "saved_at": "2026-10-15 22:10:18",
+      "tags": "市场",
+      "image_post": false
+    },
+    "412405703": {
+      "source_id": "412405703",
+      "title": "价值投机与情绪投机拉长时间看始终是投机，认清楚亏钱认知",
+      "published_at": "2026-10-15 12:04:00",
+      "url": "https://www.xueqiu.com/7143769715/412405703",
+      "platform": "xueqiu",
+      "file_path": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/2026/10/2026-10-15_120400_价值投机与情绪投机拉长时间看始终是投机，认清楚亏钱认知.md",
+      "saved_at": "2026-10-15 22:10:18",
+      "tags": "交易",
+      "image_post": false
+    },
+    "412398226": {
+      "source_id": "412398226",
+      "title": "利率加息影响已反应指数，多杀多扭转颓势困难，中期选举存变数",
+      "published_at": "2026-10-15 11:30:00",
+      "url": "https://www.xueqiu.com/7143769715/412398226",
+      "platform": "xueqiu",
+      "file_path": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/2026/10/2026-10-15_113000_利率加息影响已反应指数，多杀多扭转颓势困难，中期选举存变数.md",
+      "saved_at": "2026-10-15 22:10:18",
+      "tags": "宏观，市场",
+      "image_post": false
+    },
+    "412395417": {
+      "source_id": "412395417",
+      "title": "美债利率改变估值锚点，AI融资过热与债市股市跷跷板",
+      "published_at": "2026-10-15 11:20:00",
+      "url": "https://www.xueqiu.com/7143769715/412395417",
+      "platform": "xueqiu",
+      "file_path": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/2026/10/2026-10-15_112000_美债利率改变估值锚点，AI融资过热与债市股市跷跷板.md",
+      "saved_at": "2026-10-15 22:10:18",
+      "tags": "宏观，市场",
+      "image_post": false
+    },
+    "412390305": {
+      "source_id": "412390305",
+      "title": "利率下行已反应不利，需思考见底条件与金融救市力量",
+      "published_at": "2026-10-15 11:02:00",
+      "url": "https://www.xueqiu.com/7143769715/412390305",
+      "platform": "xueqiu",
+      "file_path": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/2026/10/2026-10-15_110200_利率下行已反应不利，需思考见底条件与金融救市力量.md",
+      "saved_at": "2026-10-15 22:10:18",
+      "tags": "宏观，市场",
+      "image_post": false
+    },
+    "412388469": {
+      "source_id": "412388469",
+      "title": "美股能源板块涨幅第一，国内炼化因出口管制与宏观不同步",
+      "published_at": "2026-10-15 10:56:00",
+      "url": "https://www.xueqiu.com/7143769715/412388469",
+      "platform": "xueqiu",
+      "file_path": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/2026/10/2026-10-15_105600_美股能源板块涨幅第一，国内炼化因出口管制与宏观不同步.md",
+      "saved_at": "2026-10-15 22:10:18",
+      "tags": "行业，市场",
+      "image_post": false
+    },
+    "412385351": {
+      "source_id": "412385351",
+      "title": "美债长端利率剧烈波动，AI融资为核心传导变量，存储遭全球集中做空",
+      "published_at": "2026-10-15 10:46:00",
+      "url": "https://www.xueqiu.com/7143769715/412385351",
+      "platform": "xueqiu",
+      "file_path": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/2026/10/2026-10-15_104600_美债长端利率剧烈波动，AI融资为核心传导变量，存储遭全球集中做空.md",
+      "saved_at": "2026-10-15 22:10:18",
+      "tags": "宏观，行业",
+      "image_post": false
+    },
+    "412345157": {
+      "source_id": "412345157",
+      "title": "CPI引发加息升温，全球科技普跌，存储集中抛售，宏观流动性风险",
+      "published_at": "2026-10-15 08:48:00",
+      "url": "https://www.xueqiu.com/7143769715/412345157",
+      "platform": "xueqiu",
+      "file_path": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/2026/10/2026-10-15_084800_CPI引发加息升温，全球科技普跌，存储集中抛售，宏观流动性风险.md",
+      "saved_at": "2026-10-15 22:10:18",
+      "tags": "宏观，市场",
+      "image_post": false
+    }
+  },
+  "offdate_feed_items": [
+    {
+      "url": "https://www.xueqiu.com/7143769715/389337388",
+      "published_at": "2026-05-17 20:01",
+      "note": "feed 中混入的非目标日期旧帖，按规则不保存原帖"
+    },
+    {
+      "url": "https://www.xueqiu.com/7143769715/406016674",
+      "published_at": "2026-08-21 11:18",
+      "note": "feed 中混入的非目标日期旧帖，按规则不保存原帖"
+    }
+  ]
+}

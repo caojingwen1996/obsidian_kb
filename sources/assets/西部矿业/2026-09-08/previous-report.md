@@ -522,7 +522,7 @@ html: "[[sources/automations/战略资源/铜/2026-07-23-1726-西部矿业-机�
 - [[sources/automations/战略资源/铜/2026-07-22-铜产业完整分析报告.html|铜产业完整分析报告]]。
 - [Mysteel 转引广州期货：2026-08-17 铜周度观察](https://youse.mysteel.com/a/26081709/59F50DF87F20C035.html)。
 - [SMM：铜精矿数据入口](https://data.smm.cn/item/%E9%93%9C/%E9%93%9C%E7%B2%BE%E7%9F%BF)。
-- [[wiki/concepts/冰冰小美-framework-估值判断|冰冰小美估值判断框架]]。
+- [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-估值判断|冰冰小美估值判断框架]]。
 - [[workbench/targets/2026-08-19-1617-西部矿业-三要素分析|西部矿业三要素分析]]。
 - [[sources/webpages/2026-08-20-西部矿业v3.0.2研报数据核验快照|本轮数据核验快照]]。
 

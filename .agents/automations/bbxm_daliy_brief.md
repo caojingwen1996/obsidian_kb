@@ -6,18 +6,20 @@
 - 目标年份：`{YEAR}`
 - 目标月份：`{MONTH}`
 - 目标作者：`冰冰小美`
-- 输出位置：按 skill 的 `EXTEND.md` 配置读取输出根目录，并固定使用 `sources/automations/BBXM每日汇总/{YEAR}/{MONTH}/{DATE}`。`{YEAR}` 为四位年份，`{MONTH}` 为两位月份，`{DATE}` 为 `YYYY-MM-DD`；不得在日期目录下再创建“冰冰小美”子目录。
+- 输出位置：按 skill 的 `EXTEND.md` 配置读取输出根目录，并固定使用 `sources/automations/BBXM每日汇总/{YEAR}/{MONTH}`。`{YEAR}` 为四位年份，`{MONTH}` 为两位月份，`{DATE}` 为 `YYYY-MM-DD`；目录仅到月，不再创建日期、作者或 processing 子目录。
+- 实际文件名：原帖为 `{DATE}_HHMMSS_核心观点.md`，汇总、状态、日志和操作分别为 `{DATE}_summary.md`、`{DATE}_state.json`、`{DATE}_task.log`、`{DATE}_操作.md`；中间文件为 `{DATE}_processing_原文件名`。下文 `summary.md`、`state.json`、`task.log`、`操作.md` 和 `processing/` 均指这些实际带日期前缀的文件，不表示可以创建同名子目录或无前缀文件。
+- 本任务的月目录约定优先于抓取 skill 的通用目录约定。若通用脚本必须使用日目录，在知识库之外的临时目录执行，发布前按上述命名放入月目录，并同步状态、分析文件中的文件路径；同日重跑从月目录恢复已有状态，保留帖子 URL／内容 ID 去重键，不因改名重复抓取。
 
 ## 二、抓取与重跑规则
 
 1. 先读取 `cjw-xueqiu-daily-monitor` skill 的 `EXTEND.md`，确认账号、目标日期、输出根目录、同日重跑规则和浏览器环境要求。
-2. 如果 `{DATE}` 当天已经存在日期输出目录，必须按同日重跑处理：
+2. 如果月目录中已存在 `{DATE}_state.json` 或其他 `{DATE}_` 文件，必须按同日重跑处理：
    - 复用已有 `state.json`、原始帖子文件、`task.log` 和 `processing/` 中间状态；
    - 只补抓新增帖子；
    - 不覆盖已有原始文件；
    - 不把抓取失败或验证不完整写成“无新帖”。
 3. 如果登录、访问验证、页面结构、内容提取或保存失败，必须明确记录失败原因、失败阶段和未验证边界。
-4. 如果完整抓取后确认 `{DATE}` 目标日期原帖保存数为 0，且不存在登录、滑块验证、页面异常、内容提取失败、Excel `pending` 或其他阻断项，则视为空结果：不得保留 `{DATE}` 日期目录，不生成或最终保留 `summary.md`、`task.log`、`processing/`、`state.json` 或 `操作.md`；若脚本中途生成了临时目录或正式日期目录，完成必要的空风险清理后必须删除。收尾报告中把 `summary.md` 路径写为“无（0 原帖，目录已清理）”。如果抓取不完整、已发现目标日期候选但正文未保存、风险分析被阻断或 Excel 待补写，则必须保留日期目录和证据文件，不能按空结果删除。
+4. 如果完整抓取后确认 `{DATE}` 目标日期原帖保存数为 0，且不存在登录、滑块验证、页面异常、内容提取失败、Excel `pending` 或其他阻断项，则视为空结果：不保留该日期的汇总、日志、中间文件、状态和操作文件。仅清理 `{DATE}_` 对应文件，不得删除同月其他日期的资料；月目录或年目录仅在真正为空时删除。收尾报告中把汇总路径写为“无（0 原帖，该日期文件已清理）”。如果抓取不完整、已发现目标日期候选但正文未保存、风险分析被阻断或 Excel 待补写，必须保留该日期文件和证据，不能按空结果删除。
 
 ## 三、原帖命名
 
@@ -26,7 +28,7 @@
 每篇帖子必须生成一组一一对应的 Markdown 文件：
 
 ```text
-HHMMSS_核心观点.md
+{DATE}_HHMMSS_核心观点.md
 
 ```
 
@@ -101,7 +103,7 @@ HHMMSS_核心观点.md
 把逐帖结果写入：
 
 ```text
-sources/automations/BBXM每日汇总/{YEAR}/{MONTH}/{DATE}/processing/risk-analysis.json
+sources/automations/BBXM每日汇总/{YEAR}/{MONTH}/{DATE}_processing_risk-analysis.json
 ```
 
 文件必须包含：
@@ -152,7 +154,7 @@ sources/automations/BBXM每日汇总/{YEAR}/{MONTH}/{DATE}/processing/risk-analy
 生成分析文件后执行：
 
 ```powershell
-python tools/bbxm-risk-dashboard/scripts/upsert_automated_risk.py --analysis-file "sources/automations/BBXM每日汇总/{YEAR}/{MONTH}/{DATE}/processing/risk-analysis.json" --workbook "tools/bbxm-risk-dashboard/data/冰冰小美风险提示.xlsx" --status-file "sources/automations/BBXM每日汇总/{YEAR}/{MONTH}/{DATE}/processing/risk-write-status.json"
+python tools/bbxm-risk-dashboard/scripts/upsert_automated_risk.py --analysis-file "sources/automations/BBXM每日汇总/{YEAR}/{MONTH}/{DATE}_processing_risk-analysis.json" --workbook "tools/bbxm-risk-dashboard/data/冰冰小美风险提示.xlsx" --status-file "sources/automations/BBXM每日汇总/{YEAR}/{MONTH}/{DATE}_processing_risk-write-status.json"
 ```
 
 更新器只允许修改目标日期、风险原因以 `[自动分析｜冰冰小美每日任务]` 开头的自动行；不得修改同日人工行或其他日期记录。完整分析后没有 R1/R2/R3/W1/W2/W3 可写入节点时，由更新器删除旧自动行，不新增零次数行。
@@ -169,7 +171,7 @@ python tools/bbxm-risk-dashboard/scripts/upsert_automated_risk.py --analysis-fil
 
 ## 五、summary.md 输出要求
 
-在日期目录生成或更新 `summary.md`。
+在月目录生成或更新 `{DATE}_summary.md`。
 
 生成 `summary.md` 时必须先区分来源类型：
 
@@ -264,14 +266,14 @@ python tools/bbxm-risk-dashboard/scripts/upsert_automated_risk.py --analysis-fil
 2. `解析今天文章的观点` 负责跨帖综合；`当日内容汇总` 负责逐帖留痕，两者不得相互替代。
 3. 不得把观点写成事实，不得把推测写成结论，不得把方向偏好写成买入信号。
 4. 不得省略未验证边界；抓取不完整时必须说明。
-5. 中间分析产物只能放入日期目录下的 `processing/`，不要混放在 `summary.md` 同级作为最终读物。
+5. 中间分析产物放入同一月目录，以 `{DATE}_processing_` 前缀区分，不创建 processing 子目录；不得将中间文件当作最终读物。
 
 ## 八、任务收尾报告
 
 每次运行结束必须明确报告：
 
 1. 目标日期；
-2. 日期输出目录；
+2. 月输出目录及目标日期文件前缀；
 3. 原始帖保存状态和帖子数量；
 4. summary.md 路径；
 5. 风险分析覆盖：已保存、已分析、未解决数量；

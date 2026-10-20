@@ -63,7 +63,7 @@ metadata:
 |---|---|
 | [共享交接契约](references/handoff-contract.md) | 接入信息处理、交接模型与保存记录时 |
 | [输出模板](template.md) | 交付每条风险模型时 |
-| [风险类型](../../../wiki/concepts/冰冰小美-indacator-风险类型.md) | 确定风险类别时 |
+| [风险类型](../../../_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-indacator-风险类型.md) | 确定风险类别时 |
 | [风险来源与传导路径](../../../wiki/topics/冰冰小美-风险来源与传导路径.md) | 核对来源、机制与替代解释时 |
 
 ## 维护

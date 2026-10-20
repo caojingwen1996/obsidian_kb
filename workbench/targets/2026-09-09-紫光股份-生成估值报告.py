@@ -82,7 +82,7 @@ as_of: "2026-09-09 11:20 Asia/Shanghai"
 valuation_model_version: "4.4.3"
 industrial_thinking_report: "workbench/targets/2026-08-28-1707-紫光股份-产业思维分析.md；2026-09-09版"
 framework_refs:
-  - "wiki/concepts/冰冰小美-framework-估值判断.md；读取2026-09-09，包括基本面判断"
+  - "_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-估值判断.md；读取2026-09-09，包括基本面判断"
   - ".agents/skills/bbxm-equity-research/references/valuation-bubble-trigger-scan.md；读取2026-09-09"
   - ".agents/skills/bbxm-equity-research/references/inflation-transmission.md；读取2026-09-09全文"
   - ".agents/skills/bbxm-equity-research/references/frontier-tech-valuation.md；读取2026-09-09全文"
@@ -188,7 +188,7 @@ FCF代理=CFO−购建长期资产现金，未扣租赁本金、全部并购现�
 
 ### 2.5 基本面判断：六项核验
 
-2026-09-09已阅读全文[[wiki/concepts/冰冰小美-framework-估值判断|估值判断]]中的基本面判断。以下严格按负债→净现金→现金流→开销合理性→真实利润→扣除商誉的净资产排列，代表判断权重递减，无自设百分比或总分。
+2026-09-09已阅读全文[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-估值判断|估值判断]]中的基本面判断。以下严格按负债→净现金→现金流→开销合理性→真实利润→扣除商誉的净资产排列，代表判断权重递减，无自设百分比或总分。
 
 | 维度 | 当前值 / 期间 | 比较值 / 期间 | 方向、原因与反证 | 模型影响 / 缺口和来源 |
 |---|---|---|---|---|

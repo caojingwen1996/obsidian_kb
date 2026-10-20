@@ -10,11 +10,11 @@ as_of: 2026-08-20T15:00:00+08:00
 status: active
 tags: [function/query, research/equity, company/四方股份, industry/power-grid]
 framework_refs:
-  - "[[wiki/concepts/冰冰小美-framework-估值判断|冰冰小美估值判断框架]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-估值判断|冰冰小美估值判断框架]]"
 sources:
   - "[[sources/webpages/2026-08-21-四方股份v3.0.2研报数据核验快照|2026-08-21研报数据核验快照]]"
 related:
-  - "[[wiki/concepts/冰冰小美-framework-估值判断|冰冰小美估值判断框架]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-估值判断|冰冰小美估值判断框架]]"
 html: "[[sources/automations/支柱产业/电网/2026-08-21-1100-四方股份-机构级决策研报.html|HTML阅读版]]"
 summary: "四方股份的电网自动化基本盘稳健、现金流和分红质量较好，但毛利率下行，SST及海外尚缺独立财务验证。2026-08-20收盘43.49元对应42.22倍PE TTM、7.01倍PB，高于25—37元公允价值区间，判断为普通高估；股价与融资已大幅去化，泡沫处于出清中但未完成。新增现金avoid，已有持仓reduce/review。"
 original_question: "四方股份"
@@ -407,7 +407,7 @@ answer_status: recorded
 5. 四方股份公告列表：<https://money.finance.sina.com.cn/corp/go.php/vCB_AllBulletin/stockid/601126.phtml>；半年报日历：<https://data.eastmoney.com/stockcalendar/601126.html>。
 6. 同花顺盈利预测聚合：<https://basic.10jqka.com.cn/601126/worth.html>；聚合样本只作外部预期锚。
 7. 中金公司2026Q1点评公开摘要：<https://stock.finance.sina.com.cn/stock/go.php/vReport_Show/kind/search/rptid/830862803197/index.phtml>。
-8. [[wiki/concepts/冰冰小美-framework-估值判断|冰冰小美估值判断框架]]：企业类型、估值锚、32项触发器和泡沫门槛。
+8. [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-估值判断|冰冰小美估值判断框架]]：企业类型、估值锚、32项触发器和泡沫门槛。
 
 ## 16. 声明
 

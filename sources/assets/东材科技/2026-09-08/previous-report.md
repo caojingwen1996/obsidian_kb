@@ -6,8 +6,8 @@ created: 2026-07-17
 updated: 2026-08-25
 as_of: 2026-08-25 15:00
 framework_refs:
-  - "[[concepts/冰冰小美-framework-估值判断]]"
-  - "[[冰冰小美-macro-basic-通胀]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-估值判断|冰冰小美-framework-估值判断]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-macro-basic-通胀|冰冰小美-macro-basic-通胀]]"
 sources:
   - "[[sources/webpages/2026-07-17-东材科技机构级研究资料快照]]"
   - "[[sources/webpages/2026-08-18-东材科技机构级研究更新快照]]"
@@ -577,9 +577,9 @@ html: "[[sources/automations/新兴产业/算力/上游-PCB材料/2026-07-17-145
 8. [国家统计局：2026 年 7 月 CPI](https://www.stats.gov.cn/sj/zxfbhjd/202608/t20260809_1965008.html)，发布 2026-08-09。
 9. [国家统计局：2026 年 7 月 PPI](https://www.stats.gov.cn/sj/zxfbhjd/202608/t20260809_1965007.html)，发布 2026-08-09。
 10. 本地 `tushare-data` MCP：证券身份、日线、估值、资金分档、融资融券与三大财务报表，调用时间 2026-08-25。
-11. [[wiki/events/冰冰小美-标的-东材科技-建仓事件|东材科技建仓事件]]。
-12. [[wiki/events/冰冰小美-标的-东材科技800亿市值达到后清仓|东材科技 800 亿市值达到后清仓事件]]。
-13. [[wiki/timelines/冰冰小美-标的-PCB树脂-东材科技|PCB 树脂与东材科技时间线]]。
+11. [[_archives/2026-10-20-wiki-rebuild/wiki/events/冰冰小美-标的-东材科技-建仓事件|东材科技建仓事件]]。
+12. [[_archives/2026-10-20-wiki-rebuild/wiki/events/冰冰小美-标的-东材科技800亿市值达到后清仓|东材科技 800 亿市值达到后清仓事件]]。
+13. [[_archives/2026-10-20-wiki-rebuild/wiki/timelines/冰冰小美-标的-PCB树脂-东材科技|PCB 树脂与东材科技时间线]]。
 14. [[workbench/targets/2026-08-19-1710-东材科技-三要素分析|东材科技三要素分析]]。
 
 ## 16. 声明

@@ -19,7 +19,7 @@ metadata:
 
 ## 必读估值框架
 
-开始估值前，必须读取知识库 [wiki/concepts/冰冰小美-framework-估值判断.md](../../../wiki/concepts/冰冰小美-framework-估值判断.md) 的最新正文，包括“基本面判断”；不得仅凭历史报告或本技能中的摘要执行。先完成六项基本面核验，再计算公允价值、市场价格分解和估值泡沫状态。在报告 `framework_refs` 中记录框架路径，并注明本次读取日期。本技能的操作规则必须服从该页的三个价格层次：
+开始估值前，必须读取知识库 [_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-估值判断.md](../../../_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-估值判断.md) 的最新正文，包括“基本面判断”；不得仅凭历史报告或本技能中的摘要执行。先完成六项基本面核验，再计算公允价值、市场价格分解和估值泡沫状态。在报告 `framework_refs` 中记录框架路径，并注明本次读取日期。本技能的操作规则必须服从该页的三个价格层次：
 
 ```text
 市场价格
@@ -39,7 +39,7 @@ metadata:
 | [references/inflation-transmission.md](references/inflation-transmission.md) | 将通胀拆成需求、成本、定价权、营运资金、融资成本和估值锚的公司级传导，区分经营层通胀影响与流动性表中的金融条件影响，避免重复计入。 | 所有标的先做暴露筛查；高暴露或中等暴露时读取全文并展开分部传导，低暴露时只保留筛查结论，证据缺失时写证据不足。 | 第2章适用性与分部传导，第3章情景和关键假设，第4章经营影响与交易偏离分离，第6章监控和失效条件。 |
 | [references/kelly-position-sizing.md](references/kelly-position-sizing.md) | 价值区间与现价的凯利情景、部分亏损公式、概率缺口与仓位边界。 | 默认估值报告及用户要求凯利计算时读取。 | 第5章5.1概率敏感性和第1章公允价值卡片。 |
 
-Reference 只提供专项方法和检查表，不能替代标的当前证据。若 reference 与知识库最新框架冲突，以 `wiki/concepts/冰冰小美-framework-估值判断.md` 为准，并在报告中说明差异。
+Reference 只提供专项方法和检查表，不能替代标的当前证据。若 reference 与知识库最新框架冲突，以 `_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-估值判断.md` 为准，并在报告中说明差异。
 
 ## 路由边界
 
@@ -205,7 +205,7 @@ workbench/targets/*<标的>*产业思维分析.md
 
 这些指标只说明现价在估值区间中的位置，不直接给出泡沫结论。周期股还必须对比正常化周期中枢，成长股必须对比反向估值隐含的增长年限，前沿业务必须对比成功概率和后续融资稀释。
 
-严格按 `wiki/concepts/冰冰小美-framework-估值判断.md` 分三层计算：
+严格按 `_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-估值判断.md` 分三层计算：
 
 ```text
 市场价格 = 公允价值 + 可解释估值溢价 + 交易定价偏离

@@ -6,10 +6,10 @@ created: 2026-07-23
 updated: 2026-07-23
 as_of: 2026-07-23 15:08
 framework_refs:
-  - "[[冰冰小美-情绪体系认知篇|冰冰小美-体系三要素]]"
-  - "[[冰冰小美-concept-体系三要素之竞争格局的比较优势|竞争格局的比较优势]]"
-  - "[[冰冰小美-concept-体系三要素之流动性辩证分析|流动性辩证分析]]"
-  - "[[冰冰小美-concept-体系三要素之情绪位置的变化|情绪位置变化]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/topics/冰冰小美-情绪体系认知篇|冰冰小美-体系三要素]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势|竞争格局的比较优势]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析|流动性辩证分析]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化|情绪位置变化]]"
 ---
 
 # 特锐德机构级决策研报

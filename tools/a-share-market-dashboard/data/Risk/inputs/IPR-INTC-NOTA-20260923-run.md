@@ -3,7 +3,7 @@
 - 模式：feed；从用户给定两条线索回源，不扩展为全市场扫描或公司完整财报研究。
 - 观察对象：Intel Corporation，INTC.US；关联Nota AI、SK hynix。
 - 事件窗口：2026-09-16—2026-09-23；信息核验截止：2026-09-23T14:44:53+08:00。来源原始日期不补造时分；Intel 2026-03-25产品资料仅作窗口前背景。
-- 方法依据：2026-09-23读取当前项目[[冰冰小美-framework-信息的金融处理(todo)|信息处理框架]]及两个技能执行契约；这是项目框架，不把全部字段归为作者原话。
+- 方法依据：2026-09-23读取当前项目[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-信息的金融处理(todo)|信息处理框架]]及两个技能执行契约；这是项目框架，不把全部字段归为作者原话。
 - 上游JSON：[[tools/a-share-market-dashboard/data/Risk/inputs/IPR-INTC-NOTA-20260923.json|结构化结果]]。
 - 库内证据：[[sources/manual/2026-09-23-英特尔NotaAI与存储叙事-核验摘录|用户材料和官方短摘录]]。
 

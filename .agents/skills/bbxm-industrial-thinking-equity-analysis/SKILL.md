@@ -24,7 +24,7 @@ metadata:
 
 每次执行前完整读取：
 
-`wiki/concepts/冰冰小美-framework-产业思维.md`
+`_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-产业思维.md`
 
 该页面是本技能关于产业思维定义、层级、阶段、变量、权重和边界的唯一权威来源。不得使用历史对话摘要、旧报告或本技能中的记忆替代当前页面。
 

@@ -8,10 +8,10 @@ created: YYYY-MM-DD
 updated: YYYY-MM-DD
 as_of: YYYY-MM-DD HH:mm
 framework_refs:
-  - "[[wiki/topics/冰冰小美-情绪体系认知篇]]"
-  - "[[wiki/concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势]]"
-  - "[[wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析]]"
-  - "[[wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/topics/冰冰小美-情绪体系认知篇|冰冰小美-情绪体系认知篇]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势|冰冰小美-concept-体系三要素之竞争格局的比较优势]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析|冰冰小美-concept-体系三要素之流动性辩证分析]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化|冰冰小美-concept-体系三要素之情绪位置的变化]]"
 ---
 
 # <分析对象>冰冰小美体系三要素分析

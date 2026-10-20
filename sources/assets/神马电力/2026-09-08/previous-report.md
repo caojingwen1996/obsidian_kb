@@ -15,7 +15,7 @@ sources:
   - "[[sources/assets/神马电力-2026年半年度报告.pdf|神马电力2026年半年度报告]]"
   - "[[sources/assets/神马电力-2025年年度报告.pdf|神马电力2025年年度报告]]"
   - "[[sources/assets/东吴证券-2026-06-04神马电力深度报告.pdf|东吴证券神马电力深度报告]]"
-related: ["[[wiki/concepts/冰冰小美-framework-估值判断|冰冰小美估值判断框架]]"]
+related: ["[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-估值判断|冰冰小美估值判断框架]]"]
 summary: 2026H1经营改善，成长企业主锚支持31—49元；8月19日收盘50.67元为普通高估。高位资金分歧使风险重新增强；新增现金wait，已有持仓review。
 original_question: 神马电力
 query_context: 按bbxm-equity-research v3.0.2原地更新，纳入8月19日收盘、成长企业估值主锚与32项触发器。
@@ -100,7 +100,7 @@ answer_status: completed
 
 | 指标 | 数值 | 来源 | 时间 / 口径 |
 |---|---:|---|---|
-| 当前价格 | 50.67元 | [[sources/webpages/2026-08-19-神马电力机构级研究收盘快照|收盘快照]] | 8月19日收盘，-2.33% |
+| 当前价格 | 50.67元 | [[sources/webpages/2026-08-19-神马电力机构级研究收盘快照\|收盘快照]] | 8月19日收盘，-2.33% |
 | 52周最高 / 最低 | 73.93 / 28.31元 | 同上 | 滚动52周 |
 | 今年以来表现 | +23.34% | 同上 | YTD |
 | 总市值 | 218.59亿元 | 同上 | 收盘市值 |
@@ -459,7 +459,7 @@ answer_status: completed
 6. [神马电力公司公告索引](https://money.finance.sina.com.cn/corp/go.php/vCB_AllBulletin/stockid/603530.phtml)，访问于2026-08-19；仅定位公告日期，关键财务以法定报告为准。
 7. [[sources/assets/神马电力-2026-06-13藏粤工程中标公告.pdf|《神马电力藏粤工程中标公告》]]，公司，2026-06-13。
 8. [[sources/assets/东吴证券-2026-06-04神马电力深度报告.pdf|《东吴证券神马电力深度报告》]]，东吴证券，2026-06-04。
-9. [[wiki/concepts/冰冰小美-framework-估值判断|《冰冰小美估值判断框架》]]，访问于2026-08-19。
+9. [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-估值判断|《冰冰小美估值判断框架》]]，访问于2026-08-19。
 
 ## 16. 声明
 

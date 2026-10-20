@@ -14,7 +14,7 @@ tags:
 sources:
   - "[[sources/manual/2026-07-08-cjw-亏钱效应复盘片段|2026-07-08 cjw 亏钱效应复盘片段]]"
 related:
-  - "[[concepts/冰冰小美-framework-复盘|冰冰小美-framework-复盘]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-复盘|冰冰小美-framework-复盘]]"
   - "[[concepts/碧树西风-concept-复盘系统|复盘系统]]"
 summary: "用于持续记录 cjw 的复盘日记条目，按日期沉淀市场观察、交易动作、认知变化、错误修正和后续验证点。"
 subject: "cjw"
@@ -80,7 +80,7 @@ verification_window: "每次新增日记条目后，回看前一阶段判断是�
 - **证据 / 来源**：
   - 用户要求新建 timeline：`cjw-复盘日记`。
 - **关联页面**：
-  - [[concepts/冰冰小美-framework-复盘|冰冰小美-framework-复盘]]
+  - [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-复盘|冰冰小美-framework-复盘]]
   - [[concepts/碧树西风-concept-复盘系统|复盘系统]]
 
 ### 2026-07-08｜亏钱效应复盘：盘中操作、抄作业、卖A买B
@@ -106,9 +106,9 @@ verification_window: "每次新增日记条目后，回看前一阶段判断是�
 - **证据 / 来源**：
   - [[sources/manual/2026-07-08-cjw-亏钱效应复盘片段|2026-07-08 cjw 亏钱效应复盘片段]]
 - **关联页面**：
-  - [[concepts/冰冰小美-framework-复盘|冰冰小美-framework-复盘]]
+  - [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-复盘|冰冰小美-framework-复盘]]
   - [[concepts/冰冰小美-亏钱认知|冰冰小美-亏钱认知]]
-  - [[concepts/冰冰小美-交割单认知|冰冰小美-交割单认知]]
+  - [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-交割单认知|冰冰小美-交割单认知]]
   - [[concepts/碧树西风-concept-复盘系统|复盘系统]]
 
 ---
@@ -138,7 +138,7 @@ verification_window: "每次新增日记条目后，回看前一阶段判断是�
 
 ## 相关页面
 
-- [[concepts/冰冰小美-framework-复盘|冰冰小美-framework-复盘]]：提供风险、亏钱效应、修复方向和流动性支持的复盘框架。
+- [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-复盘|冰冰小美-framework-复盘]]：提供风险、亏钱效应、修复方向和流动性支持的复盘框架。
 - [[concepts/碧树西风-concept-复盘系统|复盘系统]]：提供围绕规则破坏、系统内收益和执行偏差的复盘视角。
 
 ## 来源

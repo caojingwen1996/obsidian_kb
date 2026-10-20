@@ -66,7 +66,7 @@ description: Use when the user invokes bbxm-expert, 冰冰小美专家, 冰冰�
 
 ## 风险任务组合调用
 
-风险任务按 [共享交接契约](../bbxm-risk-identification/references/handoff-contract.md) 运行，页面说明见 [冰冰小美 Agent](../../../wiki/agents/冰冰小美Agent.md)。先核对已有模型与信息结果，再调用所需技能，用户无需手动逐个调用。
+风险任务按 [共享交接契约](../bbxm-risk-identification/references/handoff-contract.md) 运行，页面说明见 [冰冰小美 Agent](../../../_archives/2026-10-20-wiki-rebuild/wiki/agents/冰冰小美Agent.md)。先核对已有模型与信息结果，再调用所需技能，用户无需手动逐个调用。
 
 | 请求与已有材料 | 本轮执行 |
 |---|---|

@@ -962,6 +962,27 @@ class ServerTests(unittest.TestCase):
 
         self.assertTrue(summary_exists)
 
+    def test_featured_post_delete_accepts_monthly_post_and_rejects_control_files(self):
+        with TemporaryDirectory() as directory:
+            vault_root = Path(directory)
+            month_dir = vault_root / "sources" / "automations" / "BBXM每日汇总" / "2026" / "07"
+            month_dir.mkdir(parents=True)
+            post = month_dir / "2026-07-30_162100_样例.md"
+            post.write_text("标题：样例\n", encoding="utf-8")
+            prefix = "../../sources/automations/BBXM每日汇总/2026/07/"
+            result = delete_bbxm_featured_post({"href": prefix + post.name}, vault_root)
+            self.assertTrue(result["deleted"])
+            self.assertFalse(post.exists())
+            for filename in [
+                "2026-07-30_summary.md", "2026-07-30_操作.md",
+                "2026-07-30_processing_risk-analysis.md", "2026-08-30_162100_错月.md",
+            ]:
+                path = month_dir / filename
+                path.write_text("# 保留\n", encoding="utf-8")
+                with self.assertRaises(ValueError):
+                    delete_bbxm_featured_post({"href": prefix + filename}, vault_root)
+                self.assertTrue(path.exists())
+
     def test_todo_item_create_move_status_and_delete_update_json(self):
         with TemporaryDirectory() as directory:
             todo_data = Path(directory) / "todo.json"

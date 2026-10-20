@@ -214,7 +214,7 @@ for name,code in NAMES.items():
  c1='## 1. 估值摘要\n\n### 1.1 每日跟踪字段\n\n'+table(['项目','结论'],[['基本面状态',fundamental],['公允价值范围',f'{low:.2f}—{high:.2f}元；中枢{base:.2f}元；估值基准2026-09-09'],['凯利测算',ktext],['交易定价偏离',f'现价{price:.2f}元；相对中枢{pct(price/base-1)}、相对上限{pct(price/high-1)}；{price:.2f}={base:.2f}+0+({price-base:+.2f})；公允价值内，置信度中等'],['资金与筹码',flowtext+'<br>户数最新较前次'+trend+'；交易方完整身份待验证'],['每日跟踪时间',STAMP+'（Asia/Shanghai；9月9日收盘后，融资9月8日，财报2026H1）']])
  c1+='### 1.2 本次结论\n\n'+f'**{method}：{low:.2f}/{base:.2f}/{high:.2f}元（保守/基准/乐观）。** '+crossdesc+f' 新增资金{action}，已有持仓review；第三章直接展示计算结果，第五章独立列仓位与网格。\n\n'
  created=re.search(r'^created: (.+)$',s,re.M).group(1)
- header=f'---\nartifact_type: equity_research\nsecurity_code: "{code}"\ncreated: {created}\nupdated: 2026-09-09\nas_of: "{STAMP} Asia/Shanghai"\nvaluation_model_version: "4.5.0"\nframework_refs:\n  - "wiki/concepts/冰冰小美-framework-估值判断.md；读取2026-09-09"\n  - "bbxm-equity-research@4.5.0及四项references"\n---\n\n# {name}机构级决策研报\n\n> 更新{STAMP}；人民币/股，其他金额亿元。行情截至2026-09-09收盘，融资截至2026-09-08；财务2026H1，流量比较2025H1、余额比较2025年末。框架：[[wiki/concepts/冰冰小美-framework-估值判断|估值判断]]。\n\n'
+ header=f'---\nartifact_type: equity_research\nsecurity_code: "{code}"\ncreated: {created}\nupdated: 2026-09-09\nas_of: "{STAMP} Asia/Shanghai"\nvaluation_model_version: "4.5.0"\nframework_refs:\n  - "_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-估值判断.md；读取2026-09-09"\n  - "bbxm-equity-research@4.5.0及四项references"\n---\n\n# {name}机构级决策研报\n\n> 更新{STAMP}；人民币/股，其他金额亿元。行情截至2026-09-09收盘，融资截至2026-09-08；财务2026H1，流量比较2025H1、余额比较2025年末。框架：[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-估值判断|估值判断]]。\n\n'
  report=header+c1+c2+c3+c4+c5+c6
  assert '\ufffd' not in report
  write(new,report)

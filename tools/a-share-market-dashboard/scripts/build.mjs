@@ -1,8 +1,9 @@
 import { readFile, readdir, writeFile } from 'node:fs/promises';
-import { dirname, join } from 'node:path';
+import { dirname, join, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { inflateRawSync } from 'node:zlib';
 import { renderIndexDayChart } from './index-day-chart.mjs';
+import { findBbxmDigestGroups } from './bbxm-digest-files.mjs';
 import { parseCsindexPerformance } from '../src/adapters.mjs';
 import { backtestDate } from '../src/dividend-backtest.mjs';
 
@@ -273,37 +274,34 @@ function digestFiltersFromPost(markdown) {
 }
 
 async function scanBbxmDailyDigest() {
-  const dateEntries = await readdir(bbxmDailyDigestDir, { withFileTypes: true }).catch(() => []);
+  const dateEntries = await findBbxmDigestGroups(bbxmDailyDigestDir);
   const dayGroups = [];
   for (const dateEntry of dateEntries) {
-    if (!dateEntry.isDirectory() || !/^\d{4}-\d{2}-\d{2}$/.test(dateEntry.name)) continue;
-    const dayDir = join(bbxmDailyDigestDir, dateEntry.name, '冰冰小美');
-    const files = await readdir(dayDir, { withFileTypes: true }).catch(() => []);
     const entries = [];
-    for (const file of files) {
-      if (!file.isFile() || !file.name.endsWith('.md') || file.name === 'summary.md' || file.name === '操作.md' || file.name.includes('_解读')) continue;
-      const markdown = await readFile(join(dayDir, file.name), 'utf8');
+    for (const file of dateEntry.files) {
+      const markdown = await readFile(file.path, 'utf8');
       const title = frontmatterValue(markdown, '标题') || digestTitleFromFilename(file.name);
-      const publishedAt = frontmatterValue(markdown, '发布时间') || `${dateEntry.name} ${timeFromFilename(file.name)}`;
+      const filenameTime = file.name.replace(/^(\d{2})(\d{2})\d{2}_.*/, '$1:$2');
+      const publishedAt = frontmatterValue(markdown, '发布时间') || `${dateEntry.date} ${filenameTime}`;
       const sourceUrl = frontmatterValue(markdown, '原始链接');
       entries.push({
-        date: dateEntry.name,
+        date: dateEntry.date,
         time: publishedAt.match(/\d{2}:\d{2}/)?.[0] ?? timeFromFilename(file.name),
         title: truncateText(title, 78),
         excerpt: digestExcerpt(markdown, title),
         originalTextEncoded: Buffer.from(digestOriginalText(markdown, title), 'utf8').toString('base64'),
         sourceUrl,
-        href: `../../sources/automations/BBXM每日汇总/${dateEntry.name}/冰冰小美/${file.name}`,
+        href: `../../${relative(repoRoot, file.path).split(sep).join('/')}`,
         filters: digestFiltersFromPost(markdown),
       });
     }
-    const summaryPath = join(dayDir, 'summary.md');
-    const summary = await readFile(summaryPath, 'utf8').catch(() => '');
+    const summaryPath = dateEntry.summaryPath;
+    const summary = summaryPath ? await readFile(summaryPath, 'utf8') : '';
     const summaryHeadline = markdownSection(summary, '总观点');
     const summaryAnalysis = markdownSection(summary, '解析今天文章的观点');
     dayGroups.push({
-      date: dateEntry.name,
-      weekday: weekdayFromDate(dateEntry.name),
+      date: dateEntry.date,
+      weekday: weekdayFromDate(dateEntry.date),
       entries: entries.sort((left, right) => right.time.localeCompare(left.time)),
       summary: truncateText(summaryHeadline, 138),
       summaryDetail: truncateText(summaryHeadline, 360),

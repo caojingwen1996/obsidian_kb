@@ -1186,7 +1186,7 @@ MonitoredRisk 的表名在本设计中采用 `monitored_risk`，供第 4.5 节�
 | `sentiment`    | 预期转差 → 恐慌与一致性卖出 → 价格冲击进一步放大 |
 
 
-四项 `knowledge_refs` 均引用 [[wiki/concepts/冰冰小美-indacator-风险类型|风险类型与二级市场风险维度]]；来源和传导的区分参照 [[wiki/concepts/冰冰小美-indacator-风险源与传导路径|风险源与传导路径]]。上表是面向 RiskHot 的配置定义整理，不宣称为作者逐字定义；路径属于示例，不代表现实风险已发生。
+四项 `knowledge_refs` 均引用 [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-indacator-风险类型|风险类型与二级市场风险维度]]；来源和传导的区分参照 [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-indacator-宏观风险源与传导路径|风险源与传导路径]]。上表是面向 RiskHot 的配置定义整理，不宣称为作者逐字定义；路径属于示例，不代表现实风险已发生。
 
 ### 4.9 risk_source_config：风险源配置表
 
@@ -1216,7 +1216,7 @@ MonitoredRisk 的表名在本设计中采用 `monitored_risk`，供第 4.5 节�
 
 #### 4.9.3 八类宏观初始配置
 
-分类名称与核心问题沿用 [[wiki/concepts/冰冰小美-indacator-风险源与传导路径|风险源与传导路径]] 的宏观八类表；英文编码和简要定义是本轮配置设计。以下各项 `analysis_level=macro`、`parent_source_id=NULL`、`status=enabled`，`sort_order` 按表顺序为 10—80。正式 `source_id` 在初始化时分配，不伪造已经存在的配置 ID。
+分类名称与核心问题沿用 [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-indacator-宏观风险源与传导路径|风险源与传导路径]] 的宏观八类表；英文编码和简要定义是本轮配置设计。以下各项 `analysis_level=macro`、`parent_source_id=NULL`、`status=enabled`，`sort_order` 按表顺序为 10—80。正式 `source_id` 在初始化时分配，不伪造已经存在的配置 ID。
 
 
 | source_code                       | source_name | definition                                         | core_question              |

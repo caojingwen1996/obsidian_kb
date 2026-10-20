@@ -7,8 +7,8 @@ updated: 2026-07-30
 as_of: 2026-07-30 10:41
 framework_refs:
   - "[[concepts/冰冰小美-rule-体系三要素的运用|冰冰小美-rule-体系三要素的运用]]"
-  - "[[冰冰小美-framework-产业思维|产业思维]]"
-  - "[[reasoning/冰冰小美-汽车股机会风险如何由补贴退坡与同质化竞争共同形成|汽车股机会风险如何由补贴退坡与同质化竞争共同形成]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-产业思维|产业思维]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/reasoning/冰冰小美-汽车股机会风险如何由补贴退坡与同质化竞争共同形成|汽车股机会风险如何由补贴退坡与同质化竞争共同形成]]"
 ---
 
 # 福田汽车机构级决策研报

@@ -6,7 +6,7 @@ version: 4.3.0
 language: zh-CN
 
 knowledge_sources:
-  primary_framework: wiki/concepts/冰冰小美-framework-产业思维.md
+  primary_framework: _archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-产业思维.md
 
 templates:
   output_template: template.md
@@ -38,7 +38,7 @@ runtime_policy:
 
 ### 2.1 知识库主文件
 
-`wiki/concepts/冰冰小美-framework-产业思维.md` 定义分析什么，是框架的唯一权威来源。
+`_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-产业思维.md` 定义分析什么，是框架的唯一权威来源。
 
 ### 2.2 SKILL.md
 
@@ -85,7 +85,7 @@ runtime_policy:
 
 每次任务开始时完整读取：
 
-`wiki/concepts/冰冰小美-framework-产业思维.md`
+`_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-产业思维.md`
 
 不得用历史报告、旧模板、对话摘要、缓存阶段或模型记忆替代。
 

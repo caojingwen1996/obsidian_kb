@@ -17,17 +17,17 @@ tags:
   - company/云铝股份
   - industry/aluminum
 framework_refs:
-  - "[[wiki/concepts/冰冰小美-framework-估值判断|冰冰小美估值判断框架]]"
-  - "[[wiki/concepts/冰冰小美-framework-产业思维|冰冰小美产业思维框架]]"
-  - "[[冰冰小美-macro-basic-通胀|冰冰小美通胀与资产框架]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-估值判断|冰冰小美估值判断框架]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-产业思维|冰冰小美产业思维框架]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-macro-basic-通胀|冰冰小美通胀与资产框架]]"
 sources:
   - "[[sources/webpages/2026-09-03-云铝股份v4.2.1估值证据快照|云铝股份v4.2.1估值证据快照]]"
   - "[[sources/webpages/2026-08-28-云铝股份H1与估值重估快照|云铝股份H1与估值重估快照]]"
   - "[[sources/articles/2025-12-27-冰冰小美：铜与铝的不同|冰冰小美：铜与铝的不同]]"
 related:
   - "[[workbench/targets/2026-09-03-1631-云铝股份-产业思维分析|云铝股份产业思维分析]]"
-  - "[[wiki/concepts/冰冰小美-framework-估值判断|冰冰小美估值判断框架]]"
-  - "[[wiki/concepts/冰冰小美-铜铝差异框架|冰冰小美-铜铝差异框架]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-估值判断|冰冰小美估值判断框架]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-铜铝差异框架|冰冰小美-铜铝差异框架]]"
 summary: 按v4.2.1完成五章估值与32项扫描。公允价值维持22-31元、中枢26.5元；2026-09-03收盘27.38元位于区间上半部，反推正常化归母净利润约107.9亿元。当前属于公允价值内，不构成估值泡沫；新增资金observe、已有持仓review。
 original_question: 使用个股估值计算技能估值云铝股份。
 query_context: 读取当日产业思维报告并按bbxm-equity-research v4.2.1完整重估；未提供持仓成本、仓位、期限和风险预算。

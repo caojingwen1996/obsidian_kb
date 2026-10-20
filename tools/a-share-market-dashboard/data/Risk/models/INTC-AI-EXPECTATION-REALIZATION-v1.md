@@ -10,7 +10,7 @@
 | 观察对象 / 核心问题 | 英特尔（INTC.US）及基于AI叙事形成的股票定价：能否把产品推出与合作探讨兑现为归属于公司的可持续利润？ |
 | identification_status | 候选；没有“已支持”的独立风险模型 |
 | model_as_of / 信息截止时间 / 时区 | 2026-09-23T14:44:53+08:00 / 2026-09-23T14:44:53+08:00 / Asia/Shanghai；主要事件证据为9月16—17日 |
-| 上游信息窗口 / result_id / 结果位置 | 2026-09-16—2026-09-23；IPR-INTC-NOTA-20260923；[[tools/a-share-market-dashboard/data/Risk/inputs/IPR-INTC-NOTA-20260923.json|上游结果]]与[[tools/a-share-market-dashboard/data/Risk/inputs/IPR-INTC-NOTA-20260923-run|运行说明]] |
+| 上游信息窗口 / result_id / 结果位置 | 2026-09-16—2026-09-23；IPR-INTC-NOTA-20260923；[[tools/a-share-market-dashboard/data/Risk/inputs/IPR-INTC-NOTA-20260923.json\|上游结果]]与[[tools/a-share-market-dashboard/data/Risk/inputs/IPR-INTC-NOTA-20260923-run\|运行说明]] |
 | 来源覆盖 / 失败与缺口 | 3份一手材料；无订单、盈利归属、股价量能或预期修订数据。存储具体说法出处未知，本轮不能穷尽全部披露 |
 | previous_model_ref / 变更原因 | 首次识别；无旧模型，本轮不初始化T0或演绎记录 |
 
@@ -28,7 +28,7 @@
 | 模型要素 | 判断 | 证据引用 / 推断边界 |
 |---|---|---|
 | 风险表现 | 目前没有经核验的不利经营或市场结果；只观察到事实成熟度不同的两条AI叙事被并列转述 | S0、S1、S2；传播范围未知，不代表市场普遍共识 |
-| 风险类型 | 以估值风险、情绪面风险为候选：把未确定现金流提前定价。基本面兑现仅是验证环节，未确认基本面恶化 | 依据[[wiki/concepts/冰冰小美-indacator-风险类型|项目风险分类]]；无证据支持流动性或杠杆风险 |
+| 风险类型 | 以估值风险、情绪面风险为候选：把未确定现金流提前定价。基本面兑现仅是验证环节，未确认基本面恶化 | 依据[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-indacator-风险类型\|项目风险分类]]；无证据支持流动性或杠杆风险 |
 | 风险来源 | 潜在驱动力是证据阶段与收益预期不匹配；触发信息是NVA发布及存储合作线索；放大因素可能为单向传播和拥挤交易，但未测量 | 前两项有S1/S2；“提前资本化”和拥挤属于待验证假设 |
 | 风险关键变量 | 正式协议与经济权益、付费订单和复购、增量利润及现金回收、市场隐含预期和经营兑现之间的差额 | 必须分别观察GPU方案与存储项目，不能以新闻数量替代 |
 | 风险传导关系 | 信息被过度外推 → 利润预期或估值溢价提前抬升 → 后续经营/协议不及预期 → 预期修订和持仓调整 → 价格支撑受损 | 整条损害链为条件推断；目前只能确认起点材料存在，不能确认每个箭头已发生 |
@@ -89,4 +89,4 @@
 - [S2 SK hynix官方澄清，2026-09-16](https://news.skhynix.com/en/fact-10/)。
 - [S3 Intel产品背景，2026-03-25](https://www.intel.com/content/www/us/en/newsroom/news/client-computing/intel-core-ultra-series-3-with-vpro-powers-next-gen-pcs-on-18a.html)。
 - [[sources/manual/2026-09-23-英特尔NotaAI与存储叙事-核验摘录|库内原始线索与短摘录]]。
-- 方法：[[冰冰小美-framework-风险观察|风险观察与演绎]]、[[冰冰小美-indacator-风险源与传导路径|风险来源与传导路径]]。机制与变量选择是本次分析者的条件推断，不冒充冰冰小美对英特尔事件的原话。
+- 方法：[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-风险观察|风险观察与演绎]]、[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-indacator-宏观风险源与传导路径|风险来源与传导路径]]。机制与变量选择是本次分析者的条件推断，不冒充冰冰小美对英特尔事件的原话。

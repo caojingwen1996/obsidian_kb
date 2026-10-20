@@ -1468,7 +1468,7 @@ reasoning / topic / link
 
 ### 操作说明
 
-继续推进 40 篇风险相关文章逐篇整理目标。本次优先处理“石油美元与石油危机链条”中的 3 篇，将其补入既有推导页 [[reasoning/冰冰小美-中东石油危机如何传导为石油美元压力与股市风险敞口|中东石油危机如何传导为石油美元压力与股市风险敞口]]：补充石油美元霸权、风险前减仓化工与铜、期货涨不等于化工股涨三条材料，并更新 [[topics/冰冰小美-宏观风险关键词文章整理清单|宏观风险关键词文章整理清单]] 的逐篇状态。
+继续推进 40 篇风险相关文章逐篇整理目标。本次优先处理“石油美元与石油危机链条”中的 3 篇，将其补入既有推导页 [[_archives/2026-10-20-wiki-rebuild/wiki/reasoning/冰冰小美-中东石油危机如何传导为石油美元压力与股市风险敞口|中东石油危机如何传导为石油美元压力与股市风险敞口]]：补充石油美元霸权、风险前减仓化工与铜、期货涨不等于化工股涨三条材料，并更新 [[topics/冰冰小美-宏观风险关键词文章整理清单|宏观风险关键词文章整理清单]] 的逐篇状态。
 
 ### 后续待办
 
@@ -1575,7 +1575,7 @@ ingest / source / topic / concept / timeline
 
 ### 操作说明
 
-按用户要求抓取雪球帖子中的网页链接，并整理到风险相关页面。该帖为投资相声口儿整理的冰冰小美宏观风险关键词文章索引，正文共抓取到 40 个冰冰小美链接，分为全球局势/宏观风险、石油危机、恶性通胀、军事冲突四组。本次先将索引帖归档为 source，再补入[[冰冰小美-RiskHot架构设计|风险提示系列]]]、[[冰冰小美-trigger-宏观信号表|宏观风险信号表]] 和 [[冰冰小美-风险节点记录|风险节点记录]]。
+按用户要求抓取雪球帖子中的网页链接，并整理到风险相关页面。该帖为投资相声口儿整理的冰冰小美宏观风险关键词文章索引，正文共抓取到 40 个冰冰小美链接，分为全球局势/宏观风险、石油危机、恶性通胀、军事冲突四组。本次先将索引帖归档为 source，再补入[[冰冰小美-RiskHot架构设计|风险提示系列]]]、[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/宏观-framework-风险累积观察表|宏观风险信号表]] 和 [[_archives/2026-10-20-wiki-rebuild/wiki/timelines/冰冰小美-风险节点记录|风险节点记录]]。
 
 ### 后续待办
 
@@ -1601,7 +1601,7 @@ concept / link / cleanup
 
 ### 操作说明
 
-按用户提供的雪球链接 `https://xueqiu.com/7143769715/380735164`，复用库内已归档 source [[sources/articles/2026-03-23-冰冰小美：风险对冲|2026-03-23《风险对冲》]]。该文此前已整理为观点页 [[views/冰冰小美：风险对冲只是权宜之计的判断框架|风险对冲只是权宜之计]] 和推导页 [[reasoning/冰冰小美-金融危机如何由债市杠杆与保证金压力传导为股债汇三杀|股债汇三杀传导链]]；本次进一步补入 [[concepts/冰冰小美-concept-风险类型整理|风险类型整理]] 的“风险对冲与对冲工具风险”分支，并修复观点页中一个 malformed wikilink。
+按用户提供的雪球链接 `https://xueqiu.com/7143769715/380735164`，复用库内已归档 source [[sources/articles/2026-03-23-冰冰小美：风险对冲|2026-03-23《风险对冲》]]。该文此前已整理为观点页 [[_archives/2026-10-20-wiki-rebuild/wiki/views/冰冰小美：风险对冲只是权宜之计的判断框架|风险对冲只是权宜之计]] 和推导页 [[_archives/2026-10-20-wiki-rebuild/wiki/reasoning/冰冰小美-金融危机如何由债市杠杆与保证金压力传导为股债汇三杀|股债汇三杀传导链]]；本次进一步补入 [[concepts/冰冰小美-concept-风险类型整理|风险类型整理]] 的“风险对冲与对冲工具风险”分支，并修复观点页中一个 malformed wikilink。
 
 ### 后续待办
 
@@ -1629,7 +1629,7 @@ ingest / source / concept / repair
 
 ### 操作说明
 
-按用户要求将“冰冰小美-风险定义-风险”整理到知识库。先将用户整理文本归档为 source，再修复当前工作区中已跟踪但缺失的 [[冰冰小美-indacator-风险类型|冰冰小美-concept-二级市场风险维度]] 页面。页面在原有基本面、情绪面、流动性和估值风险四类框架基础上，补充“风险是市场短期失去正常定价能力”的定义，并整理风险来源、表现、判断信号和风险减弱条件。
+按用户要求将“冰冰小美-风险定义-风险”整理到知识库。先将用户整理文本归档为 source，再修复当前工作区中已跟踪但缺失的 [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-indacator-风险类型|冰冰小美-concept-二级市场风险维度]] 页面。页面在原有基本面、情绪面、流动性和估值风险四类框架基础上，补充“风险是市场短期失去正常定价能力”的定义，并整理风险来源、表现、判断信号和风险减弱条件。
 
 ### 后续待办
 
@@ -1721,7 +1721,7 @@ timeline / normalize
 
 ### 操作说明
 
-按用户要求，将 [[冰冰小美-风险节点记录|冰冰小美-风险节点记录]] 中所有 `节点类型` 统一改为“流动性辩证分析 / 风险节点”，用 [[冰冰小美-concept-体系三要素之流动性辩证分析|流动性辩证分析]] 作为该时间线风险节点的统一分类口径；原先的细分含义保留在各节点的“阶段位置”中。
+按用户要求，将 [[_archives/2026-10-20-wiki-rebuild/wiki/timelines/冰冰小美-风险节点记录|冰冰小美-风险节点记录]] 中所有 `节点类型` 统一改为“流动性辩证分析 / 风险节点”，用 [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析|流动性辩证分析]] 作为该时间线风险节点的统一分类口径；原先的细分含义保留在各节点的“阶段位置”中。
 
 ### 后续待办
 
@@ -1746,7 +1746,7 @@ timeline / link
 
 ### 操作说明
 
-按用户指定路径，将“杠杆拥挤交易风险”补入 [[冰冰小美-风险节点记录|冰冰小美-风险节点记录]]。本次把 2026-07-02 节点定位为风险线从宏观流动性挤压延伸到 AI 方向杠杆拥挤、基金赎回、获利盘兑现和多杀多流动性踩踏的交易结构风险节点；同步补充阶段总览、时间线索引、竖向时间线、事实/观点/推断分离、后续验证点、相关概念和来源。
+按用户指定路径，将“杠杆拥挤交易风险”补入 [[_archives/2026-10-20-wiki-rebuild/wiki/timelines/冰冰小美-风险节点记录|冰冰小美-风险节点记录]]。本次把 2026-07-02 节点定位为风险线从宏观流动性挤压延伸到 AI 方向杠杆拥挤、基金赎回、获利盘兑现和多杀多流动性踩踏的交易结构风险节点；同步补充阶段总览、时间线索引、竖向时间线、事实/观点/推断分离、后续验证点、相关概念和来源。
 
 ### 后续待办
 
@@ -1772,12 +1772,12 @@ ingest / source / concept / index
 
 ### 操作说明
 
-按用户提供的雪球原文整理“杠杆拥挤交易风险”。本次先将原文归档为 source，再新建 Concept Page [[concepts/冰冰小美-杠杆拥挤交易风险|冰冰小美-杠杆拥挤交易风险]]。页面将融资余额高度集中到 AI 相关方向后的杠杆爆破、场外基金赎回、获利盘卖出、多杀多和流动性踩踏整理为可复用风险概念，并区分“新登交易意愿下降”与“老登需要长期资金介入”的后续观察。
+按用户提供的雪球原文整理“杠杆拥挤交易风险”。本次先将原文归档为 source，再新建 Concept Page [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-杠杆拥挤交易风险|冰冰小美-杠杆拥挤交易风险]]。页面将融资余额高度集中到 AI 相关方向后的杠杆爆破、场外基金赎回、获利盘卖出、多杀多和流动性踩踏整理为可复用风险概念，并区分“新登交易意愿下降”与“老登需要长期资金介入”的后续观察。
 
 ### 后续待办
 
 - 核验原文中“融资余额突破 3 万亿”和“新增融资余额 95% 涌入 AI 相关”的数据口径。
-- 后续若有实际盘面样本，可补充到 [[concepts/冰冰小美-指标-交易|冰冰小美-指标-交易]] 或相关风险时间线中。
+- 后续若有实际盘面样本，可补充到 [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-指标-交易|冰冰小美-指标-交易]] 或相关风险时间线中。
 
 ## 2026-07-01
 
@@ -1794,7 +1794,7 @@ source / concept
 
 ### 操作说明
 
-按用户要求将“大盘层次的做空指数：ST 几十个涨停，超跌反弹涨停”整理进 [[concepts/冰冰小美-指标-交易|冰冰小美-指标-交易]]。本次先保存用户短句 source，再将其整理为交易指标中的盘面风险观察项：ST 批量涨停和超跌反弹批量涨停可能提示主线承接不足、资金偏向低位弹性或风险偏好退化。未新增正式 wiki 页面，页面总数不变。
+按用户要求将“大盘层次的做空指数：ST 几十个涨停，超跌反弹涨停”整理进 [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-指标-交易|冰冰小美-指标-交易]]。本次先保存用户短句 source，再将其整理为交易指标中的盘面风险观察项：ST 批量涨停和超跌反弹批量涨停可能提示主线承接不足、资金偏向低位弹性或风险偏好退化。未新增正式 wiki 页面，页面总数不变。
 
 ### 后续待办
 
@@ -1815,7 +1815,7 @@ concept / index
 
 ### 操作说明
 
-按用户要求新建空白 Concept Page [[concepts/冰冰小美-指标-交易|冰冰小美-指标-交易]]，作为后续整理冰冰小美体系中交易指标的 seed 页。同步更新总索引页面总数。
+按用户要求新建空白 Concept Page [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-指标-交易|冰冰小美-指标-交易]]，作为后续整理冰冰小美体系中交易指标的 seed 页。同步更新总索引页面总数。
 
 ### 后续待办
 
@@ -1835,7 +1835,7 @@ topic / refactor / index
 
 ### 操作说明
 
-按用户要求继续扩展 [[topics/冰冰小美-观测指标|冰冰小美-观测指标]]，在“宏观全球指标”“中观央行指标”之后新增“微观企业指标”。该章节聚合产业位置、经营验证、竞争格局、成长质量、估值兑现和企业风险六类观察变量，并回[[冰冰小美-framework-产业思维|产业思维]]]]]、[[concepts/冰冰小美-framework-产业链财报旁证法|产业链财报旁证法]]、[[concepts/冰冰小美-framework-长线四大选股体系|长线四大选股体系]]、[[concepts/冰冰小美-成长股选择框架|成长股选择框架]] 等既有页面。同步更新总索引描述。
+按用户要求继续扩展 [[topics/冰冰小美-观测指标|冰冰小美-观测指标]]，在“宏观全球指标”“中观央行指标”之后新增“微观企业指标”。该章节聚合产业位置、经营验证、竞争格局、成长质量、估值兑现和企业风险六类观察变量，并回[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-产业思维|产业思维]]]]]、[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-产业链财报旁证法|产业链财报旁证法]]、[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-长线四大选股体系|长线四大选股体系]]、[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-成长股选择框架|成长股选择框架]] 等既有页面。同步更新总索引描述。
 
 ### 后续待办
 
@@ -1876,7 +1876,7 @@ topic / index
 
 ### 操作说明
 
-按用户要求新建 Topic Page [[topics/冰冰小美-观测指标|冰冰小美-观测指标]]。页面作为指标地图入口，聚合 [[冰冰小美-indicator-金融信息（todo整理)|金融信息]]、[[concepts/冰冰小美-汇率、长期利率与流动性|汇率、长期利率与流动性]]、[[冰冰小美-concept-体系三要素之流动性辩证分析|流动性辩证分析]]、[[冰冰小美-concept-体系三要素之情绪位置的变化|情绪位置的变化]]、[[冰冰小美-trigger-宏观信号表|宏观风险信号表]]、[[concepts/冰冰小美-framework-产业链财报旁证法|产业链财报旁证法]] 等已有页面，用于后续整理文章、复盘交易或判断风险时快速定位“应该观察什么”。同步更新总索引页面总数。
+按用户要求新建 Topic Page [[topics/冰冰小美-观测指标|冰冰小美-观测指标]]。页面作为指标地图入口，聚合 [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-indicator-金融信息（todo整理)|金融信息]]、[[concepts/冰冰小美-汇率、长期利率与流动性|汇率、长期利率与流动性]]、[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析|流动性辩证分析]]、[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化|情绪位置的变化]]、[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/宏观-framework-风险累积观察表|宏观风险信号表]]、[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-产业链财报旁证法|产业链财报旁证法]] 等已有页面，用于后续整理文章、复盘交易或判断风险时快速定位“应该观察什么”。同步更新总索引页面总数。
 
 ### 后续待办
 
@@ -1903,7 +1903,7 @@ ingest / source / view / timeline / index
 
 ### 操作说明
 
-将雪球原帖《2026年6月月报（一）问天》归档为 source，并整理为 View Page [[views/冰冰小美：美元体系重构推动全球缴费状态的判断框架|冰冰小美：美元体系重构推动全球缴费状态的判断框架]]。页面把作者关于 2026 年 6 月原油、比特币、大宗、外汇和贵金属巨震的解释，整理为“美国围绕美债、美元信用、能源、AI、稳定币和制造业回流重构全球缴费状态”的阶段判断；同时更新 [[timelines/冰冰小美-中美战略判断演化时间线|冰冰小美-中美战略判断演化时间线]]，将 2026-06-27 作为战略实施加速后的美元收费结构节点。
+将雪球原帖《2026年6月月报（一）问天》归档为 source，并整理为 View Page [[_archives/2026-10-20-wiki-rebuild/wiki/views/冰冰小美：美元体系重构推动全球缴费状态的判断框架|冰冰小美：美元体系重构推动全球缴费状态的判断框架]]。页面把作者关于 2026 年 6 月原油、比特币、大宗、外汇和贵金属巨震的解释，整理为“美国围绕美债、美元信用、能源、AI、稳定币和制造业回流重构全球缴费状态”的阶段判断；同时更新 [[_archives/2026-10-20-wiki-rebuild/wiki/timelines/冰冰小美-中美战略判断演化时间线|冰冰小美-中美战略判断演化时间线]]，将 2026-06-27 作为战略实施加速后的美元收费结构节点。
 
 ### 后续待办
 
@@ -1924,7 +1924,7 @@ refactor / timeline
 
 ### 操作说明
 
-按用户要求重写 [[timelines/冰冰小美-竞争格局的比较优势-国情|冰冰小美-竞争格局的比较优势-国情]]，将页面内容收窄为“仅从国情角度记录竞争格局的比较优势变化”。本次删除交易化展开、交易节点、标的案例等支线表达，改为围绕国家发展阶段、中美关系、顶层战略目标、产业转型和旧路径依赖退场来记录比较优势变化；保留并重写 2026-05-14《中美建设性战略稳定关系》节点。
+按用户要求重写 [[_archives/2026-10-20-wiki-rebuild/wiki/timelines/冰冰小美-竞争格局的比较优势-国情|冰冰小美-竞争格局的比较优势-国情]]，将页面内容收窄为“仅从国情角度记录竞争格局的比较优势变化”。本次删除交易化展开、交易节点、标的案例等支线表达，改为围绕国家发展阶段、中美关系、顶层战略目标、产业转型和旧路径依赖退场来记录比较优势变化；保留并重写 2026-05-14《中美建设性战略稳定关系》节点。
 
 ### 后续待办
 
@@ -1948,7 +1948,7 @@ timeline / link
 
 ### 操作说明
 
-按用户要求将雪球文章 `https://xueqiu.com/7143769715/388897676` 整理进 [[timelines/冰冰小美-竞争格局的比较优势-国情|冰冰小美-竞争格局的比较优势-国情]]。该文章已有库内 source 副本 [[sources/articles/2026-05-14-冰冰小美：中美建设性战略稳定关系|2026-05-14《中美建设性战略稳定关系》]]，本次未重复归档原文，而是将其作为 `2026-05-14｜中美建设性战略稳定关系与国情九年周期` 节点补入时间线，并回链到对应观点页和推导页。同步更新索引说明。
+按用户要求将雪球文章 `https://xueqiu.com/7143769715/388897676` 整理进 [[_archives/2026-10-20-wiki-rebuild/wiki/timelines/冰冰小美-竞争格局的比较优势-国情|冰冰小美-竞争格局的比较优势-国情]]。该文章已有库内 source 副本 [[sources/articles/2026-05-14-冰冰小美：中美建设性战略稳定关系|2026-05-14《中美建设性战略稳定关系》]]，本次未重复归档原文，而是将其作为 `2026-05-14｜中美建设性战略稳定关系与国情九年周期` 节点补入时间线，并回链到对应观点页和推导页。同步更新索引说明。
 
 ### 后续待办
 
@@ -1968,7 +1968,7 @@ timeline / index
 
 ### 操作说明
 
-按用户要求新建空白 Timeline Page [[timelines/冰冰小美-竞争格局的比较优势-国情|冰冰小美-竞争格局的比较优势-国情]]。页面作为 seed 入口，暂不填充具体来源节点，仅保留页面定位、核心问题、阶段总览、待补充时间锚、事实/观点/推断分离、相关页面和来源占位，用于后续按国情维度整理竞争格局的比较优势从体系三要素到交易、宏观和产业应用的演化脉络。同步更新总索引时间线入口和页面总数。
+按用户要求新建空白 Timeline Page [[_archives/2026-10-20-wiki-rebuild/wiki/timelines/冰冰小美-竞争格局的比较优势-国情|冰冰小美-竞争格局的比较优势-国情]]。页面作为 seed 入口，暂不填充具体来源节点，仅保留页面定位、核心问题、阶段总览、待补充时间锚、事实/观点/推断分离、相关页面和来源占位，用于后续按国情维度整理竞争格局的比较优势从体系三要素到交易、宏观和产业应用的演化脉络。同步更新总索引时间线入口和页面总数。
 
 ### 后续待办
 
@@ -1990,7 +1990,7 @@ ingest / source / reasoning / timeline / index
 
 ### 操作说明
 
-将雪球原帖《氟化工（与闺蜜一起整理）》归档为 source，并新建 Reasoning Page [[reasoning/冰冰小美-多氟多氟化工需求周期推导|冰冰小美-多氟多氟化工需求周期推导]]。页面把原帖中的多氟多逻辑拆成库存周期、六氟磷酸锂供需、新国标、AI 液冷、半导体电子化学品、萤石资源和高端氟材料国产化推导链，并标注数据口径待核验。同步更新 [[timelines/冰冰小美-标的-周期产业-多氟多|冰冰小美-标的-周期产业-多氟多]]，把 2026-06-30 原帖作为首个正式来源节点。
+将雪球原帖《氟化工（与闺蜜一起整理）》归档为 source，并新建 Reasoning Page [[_archives/2026-10-20-wiki-rebuild/wiki/reasoning/冰冰小美-多氟多氟化工需求周期推导|冰冰小美-多氟多氟化工需求周期推导]]。页面把原帖中的多氟多逻辑拆成库存周期、六氟磷酸锂供需、新国标、AI 液冷、半导体电子化学品、萤石资源和高端氟材料国产化推导链，并标注数据口径待核验。同步更新 [[_archives/2026-10-20-wiki-rebuild/wiki/timelines/冰冰小美-标的-周期产业-多氟多|冰冰小美-标的-周期产业-多氟多]]，把 2026-06-30 原帖作为首个正式来源节点。
 
 ### 后续待办
 
@@ -2012,7 +2012,7 @@ view / query / index
 
 ### 操作说明
 
-将“冰冰小美对预测市场的看法”整理为 View Page [[views/冰冰小美对预测市场的看法|冰冰小美对预测市场的看法]]。页面综合 [[sources/manual/372290338/四、投资认知与感悟类/2、散户避坑指南/306_常见的主观预测市场的行为|常见的主观预测市场的行为]]、[[sources/manual/372290338/一、核心体系/4、情绪位置变化/078_情绪体系交易的前置原则与核心操作准则|情绪体系交易的前置原则与核心操作准则]]、[[sources/manual/372290338/一、核心体系/1、体系三要素（竞争格局＞流动性辩证分析＞情绪位置变化）/020_交易有利即市场行为有利|交易有利即市场行为有利]] 等来源，区分“有效预判”和“主观预测市场”，并更新总索引观点入口。
+将“冰冰小美对预测市场的看法”整理为 View Page [[_archives/2026-10-20-wiki-rebuild/wiki/views/冰冰小美对预测市场的看法|冰冰小美对预测市场的看法]]。页面综合 [[sources/manual/372290338/四、投资认知与感悟类/2、散户避坑指南/306_常见的主观预测市场的行为|常见的主观预测市场的行为]]、[[sources/manual/372290338/一、核心体系/4、情绪位置变化/078_情绪体系交易的前置原则与核心操作准则|情绪体系交易的前置原则与核心操作准则]]、[[sources/manual/372290338/一、核心体系/1、体系三要素（竞争格局＞流动性辩证分析＞情绪位置变化）/020_交易有利即市场行为有利|交易有利即市场行为有利]] 等来源，区分“有效预判”和“主观预测市场”，并更新总索引观点入口。
 
 ### 后续待办
 
@@ -2032,7 +2032,7 @@ timeline / index
 
 ### 操作说明
 
-新建 Timeline Page [[timelines/冰冰小美-标的-周期产业-多氟多|冰冰小美-标的-周期产业-多氟多]]，作为多氟多在冰冰小美体系下的周期产业标的跟踪入口。页面当前为 seed 状态，保留后续补充原文来源、事件节点、交易节点、产业验证和风险节点的结构，并更新总索引时间线入口。
+新建 Timeline Page [[_archives/2026-10-20-wiki-rebuild/wiki/timelines/冰冰小美-标的-周期产业-多氟多|冰冰小美-标的-周期产业-多氟多]]，作为多氟多在冰冰小美体系下的周期产业标的跟踪入口。页面当前为 seed 状态，保留后续补充原文来源、事件节点、交易节点、产业验证和风险节点的结构，并更新总索引时间线入口。
 
 ### 后续待办
 
@@ -2058,11 +2058,11 @@ ingest / source / event
 
 ### 操作说明
 
-保存用户提供的长电科技临港高端先进封测工厂扩产材料为 source，并新建 Event Page [[events/冰冰小美-标的-长电科技-临港高端先进封测工厂扩产|冰冰小美-标的-长电科技-临港高端先进封测工厂扩产]]。页面保留用户提供的 1-13 章结构，补充 wiki frontmatter、来源、相关长电科技时间线、半导体材料跟踪和 AI 产业趋势链接，并更新总索引事件入口。
+保存用户提供的长电科技临港高端先进封测工厂扩产材料为 source，并新建 Event Page [[_archives/2026-10-20-wiki-rebuild/wiki/events/冰冰小美-标的-长电科技-临港高端先进封测工厂扩产|冰冰小美-标的-长电科技-临港高端先进封测工厂扩产]]。页面保留用户提供的 1-13 章结构，补充 wiki frontmatter、来源、相关长电科技时间线、半导体材料跟踪和 AI 产业趋势链接，并更新总索引事件入口。
 
 ### 后续待办
 
-- 后续可将该事件补入 [[冰冰小美-标的-新兴产业-长电科技|冰冰小美-标的-新兴产业-长电科技]] 时间线。
+- 后续可将该事件补入 [[_archives/2026-10-20-wiki-rebuild/wiki/timelines/冰冰小美-标的-新兴产业-长电科技|冰冰小美-标的-新兴产业-长电科技]] 时间线。
 - 若要把项目数据写成高置信事实，需要继续核验公告原文、项目公司设立、合资方、土地审批、设备招标和客户认证。
 
 ## 2026-06-24
@@ -2078,7 +2078,7 @@ link / timeline / event
 
 ### 操作说明
 
-将两个 Event Page 回链到 [[timelines/冰冰小美-标的-PCB树脂-东材科技|冰冰小美-标的-PCB树脂-东材科技]] Timeline Page：[[events/冰冰小美-标的-东材科技-建仓事件|建仓事件]] 对应 2026-04-08 建仓确认节点，[[events/冰冰小美-标的-东材科技800亿市值达到后清仓|清仓事件]] 对应 2026-06-22 估值兑现退出节点。同步补充 timeline 的 sources、related、事实/观点/推断、关键节点复盘、交易节点和相关事件章节。
+将两个 Event Page 回链到 [[_archives/2026-10-20-wiki-rebuild/wiki/timelines/冰冰小美-标的-PCB树脂-东材科技|冰冰小美-标的-PCB树脂-东材科技]] Timeline Page：[[_archives/2026-10-20-wiki-rebuild/wiki/events/冰冰小美-标的-东材科技-建仓事件|建仓事件]] 对应 2026-04-08 建仓确认节点，[[_archives/2026-10-20-wiki-rebuild/wiki/events/冰冰小美-标的-东材科技800亿市值达到后清仓|清仓事件]] 对应 2026-06-22 估值兑现退出节点。同步补充 timeline 的 sources、related、事实/观点/推断、关键节点复盘、交易节点和相关事件章节。
 
 ### 后续待办
 
@@ -2103,7 +2103,7 @@ ingest / source / event
 
 ### 操作说明
 
-将下载目录中的 `冰冰小美-标的-东材科技-建仓事件.md` 复制到当前知识库 `sources/manual/`，并新建 Event Page [[events/冰冰小美-标的-东材科技-建仓事件|冰冰小美-标的-东材科技-建仓事件]]。正式事件页保留原文件正文结构不变，仅补充 wiki frontmatter、来源和相关页面链接。同步更新总索引事件入口。
+将下载目录中的 `冰冰小美-标的-东材科技-建仓事件.md` 复制到当前知识库 `sources/manual/`，并新建 Event Page [[_archives/2026-10-20-wiki-rebuild/wiki/events/冰冰小美-标的-东材科技-建仓事件|冰冰小美-标的-东材科技-建仓事件]]。正式事件页保留原文件正文结构不变，仅补充 wiki frontmatter、来源和相关页面链接。同步更新总索引事件入口。
 
 ### 后续待办
 
@@ -2130,7 +2130,7 @@ ingest / source / event
 
 ### 操作说明
 
-将下载目录中的 `东材科技800亿市值目标达到-清仓事件.md` 复制到当前知识库 `sources/manual/`，并新建 Event Page [[events/冰冰小美-标的-东材科技800亿市值达到后清仓|冰冰小美-标的-东材科技800亿市值达到后清仓]]。正式事件页保留原文件 1-13 章正文结构不变，仅补充 wiki frontmatter、来源和相关页面链接。同步更新 [[topics/东材科技-标的研究-PCB树脂|东材科技-标的研究-PCB树脂]] 的关联事件链接与总索引事件入口。
+将下载目录中的 `东材科技800亿市值目标达到-清仓事件.md` 复制到当前知识库 `sources/manual/`，并新建 Event Page [[_archives/2026-10-20-wiki-rebuild/wiki/events/冰冰小美-标的-东材科技800亿市值达到后清仓|冰冰小美-标的-东材科技800亿市值达到后清仓]]。正式事件页保留原文件 1-13 章正文结构不变，仅补充 wiki frontmatter、来源和相关页面链接。同步更新 [[topics/东材科技-标的研究-PCB树脂|东材科技-标的研究-PCB树脂]] 的关联事件链接与总索引事件入口。
 
 ### 后续待办
 
@@ -2182,7 +2182,7 @@ timeline / target-tracking / link
 
 ### 操作说明
 
-新建 [[wiki/timelines/冰冰小美-标的-PCB树脂-东材科技|冰冰小美-标的-PCB树脂-东材科技]] Timeline Page，作为 PCB 树脂方向与东材科技标的的 seed 跟踪页。页面记录 2026-04-08 起点线索和 2026-06-22 800 亿市值目标达到后清仓节点，并将树脂占 PCB 成本、PCB 增长、树脂空间增长、扩产投产进度等问题列为后续验证项。同步更新总索引时间线入口。
+新建 [[_archives/2026-10-20-wiki-rebuild/wiki/timelines/冰冰小美-标的-PCB树脂-东材科技|冰冰小美-标的-PCB树脂-东材科技]] Timeline Page，作为 PCB 树脂方向与东材科技标的的 seed 跟踪页。页面记录 2026-04-08 起点线索和 2026-06-22 800 亿市值目标达到后清仓节点，并将树脂占 PCB 成本、PCB 增长、树脂空间增长、扩产投产进度等问题列为后续验证项。同步更新总索引时间线入口。
 
 ### 后续待办
 
@@ -2207,7 +2207,7 @@ ingest / source / timeline
 
 ### 操作说明
 
-保存用户提供的东材科技清仓原始片段，并将其整理进 [[wiki/timelines/冰冰小美的交割单跟踪|冰冰小美的交割单跟踪]]，补充为 2026-06-22 “800 亿市值目标达到后清仓”的估值兑现退出节点。
+保存用户提供的东材科技清仓原始片段，并将其整理进 [[_archives/2026-10-20-wiki-rebuild/wiki/timelines/冰冰小美的交割单跟踪|冰冰小美的交割单跟踪]]，补充为 2026-06-22 “800 亿市值目标达到后清仓”的估值兑现退出节点。
 
 ### 后续待办
 
@@ -5969,7 +5969,7 @@ ingest
 
 ### 操作说明
 
-复用既有来源页 [[sources/articles/2025-12-05-冰冰小美：自动化与设备周期|2025-12-05《自动化与设备周期》]]，新增观点页 [[views/冰冰小美-自动化与设备周期观|冰冰小美-自动化与设备周期观]]，并新增推导页 [[reasoning/冰冰小美-自动化设备周期如何由海外矿产与技术壁垒共同触发|自动化设备周期如何由海外矿产与技术壁垒共同触发]]。本次整理将作者关于自动化设备周期的判断区分为观点与推导：观点页记录“谁怎么看”，推导页拆解美元流动性、海外建设、矿产资本开支、AI基础设施和技术壁垒错配如何共同触发设备周期。涉及市场、产业景气和估值的内容均按作者观点与待验证推测处理，不写成投资建议。
+复用既有来源页 [[sources/articles/2025-12-05-冰冰小美：自动化与设备周期|2025-12-05《自动化与设备周期》]]，新增观点页 [[views/冰冰小美-自动化与设备周期观|冰冰小美-自动化与设备周期观]]，并新增推导页 [[_archives/2026-10-20-wiki-rebuild/wiki/reasoning/冰冰小美-自动化设备周期如何由海外矿产与技术壁垒共同触发|自动化设备周期如何由海外矿产与技术壁垒共同触发]]。本次整理将作者关于自动化设备周期的判断区分为观点与推导：观点页记录“谁怎么看”，推导页拆解美元流动性、海外建设、矿产资本开支、AI基础设施和技术壁垒错配如何共同触发设备周期。涉及市场、产业景气和估值的内容均按作者观点与待验证推测处理，不写成投资建议。
 
 ### 后续待办
 
@@ -6004,7 +6004,7 @@ ingest
 
 ### 操作说明
 
-复用三篇既有来源页 [[sources/articles/2025-12-27-冰冰小美：时代|2025-12-27《时代》]]、[[sources/articles/2025-12-27-冰冰小美：循环|2025-12-27《循环》]]、[[sources/articles/2025-12-27-冰冰小美：铜与铝的不同|2025-12-27《铜与铝的不同》]]，新增 [[views/冰冰小美：时代变局推动有色金属与通胀重估的判断框架|时代变局推动有色金属与通胀重估]]、[[reasoning/冰冰小美-有色金属二十年供需周期如何传导为全球通胀与产业转型|有色金属二十年供需周期如何传导为全球通胀与产业转型]]、[[views/冰冰小美：中美循环竞争取决于AI生态闭环与全球话语权的判断框架|中美循环竞争取决于AI生态闭环与全球话语权]] 与 [[concepts/冰冰小美-铜铝差异框架|铜铝差异框架]]。本次将《时代》拆为有色金属与全球通胀的大周期观点和推导，将《循环》整理为中美话语权竞争与 AI 生态闭环观点，将《铜与铝的不同》沉淀为有色内部品种差异概念。涉及大宗价格、全球通胀、AI 投资、话语权归属和具体公司表达的内容均按作者观点或待验证推测处理，不写成投资建议。
+复用三篇既有来源页 [[sources/articles/2025-12-27-冰冰小美：时代|2025-12-27《时代》]]、[[sources/articles/2025-12-27-冰冰小美：循环|2025-12-27《循环》]]、[[sources/articles/2025-12-27-冰冰小美：铜与铝的不同|2025-12-27《铜与铝的不同》]]，新增 [[_archives/2026-10-20-wiki-rebuild/wiki/views/冰冰小美：时代变局推动有色金属与通胀重估的判断框架|时代变局推动有色金属与通胀重估]]、[[_archives/2026-10-20-wiki-rebuild/wiki/reasoning/冰冰小美-有色金属二十年供需周期如何传导为全球通胀与产业转型|有色金属二十年供需周期如何传导为全球通胀与产业转型]]、[[_archives/2026-10-20-wiki-rebuild/wiki/views/冰冰小美：中美循环竞争取决于AI生态闭环与全球话语权的判断框架|中美循环竞争取决于AI生态闭环与全球话语权]] 与 [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-铜铝差异框架|铜铝差异框架]]。本次将《时代》拆为有色金属与全球通胀的大周期观点和推导，将《循环》整理为中美话语权竞争与 AI 生态闭环观点，将《铜与铝的不同》沉淀为有色内部品种差异概念。涉及大宗价格、全球通胀、AI 投资、话语权归属和具体公司表达的内容均按作者观点或待验证推测处理，不写成投资建议。
 
 ### 后续待办
 
@@ -6029,7 +6029,7 @@ ingest
 
 ### 操作说明
 
-复用既有来源页 [[sources/articles/2026-01-16-冰冰小美：长期主义的浪漫|2026-01-16《长期主义的浪漫》]]，新增观点页 [[views/冰冰小美：长期主义的浪漫连接实事求是与理念选择的判断框架|长期主义的浪漫连接实事求是与理念选择]]。本次将作者关于长期主义的表达整理为理念选择框架：以实事求是和长期调查为起点，区分互相成就、理念共同体和互相踩踏式竞争，并把股市中的长期主义理解为愿意让利、承受短期不舒服和保持独立判断的价值观。文中社会分层、腐败案例、产研合作和股市映射均按作者观点或待验证背景处理，不写成社会学事实结论或投资建议。
+复用既有来源页 [[sources/articles/2026-01-16-冰冰小美：长期主义的浪漫|2026-01-16《长期主义的浪漫》]]，新增观点页 [[_archives/2026-10-20-wiki-rebuild/wiki/views/冰冰小美：长期主义的浪漫连接实事求是与理念选择的判断框架|长期主义的浪漫连接实事求是与理念选择]]。本次将作者关于长期主义的表达整理为理念选择框架：以实事求是和长期调查为起点，区分互相成就、理念共同体和互相踩踏式竞争，并把股市中的长期主义理解为愿意让利、承受短期不舒服和保持独立判断的价值观。文中社会分层、腐败案例、产研合作和股市映射均按作者观点或待验证背景处理，不写成社会学事实结论或投资建议。
 
 ### 后续待办
 
@@ -6106,7 +6106,7 @@ ingest
 
 ### 操作说明
 
-复用既有来源页 [[sources/articles/2026-03-20-冰冰小美：如何理解时间窗口|2026-03-20《如何理解时间窗口》]] 与 [[sources/articles/2026-03-20-冰冰小美：宏观分析的框架|2026-03-20《宏观分析的框架》]]，新增 [[concepts/冰冰小美-时间窗口|时间窗口]]、[[冰冰小美-trigger-宏观信号表|宏观风险信号表]] 和 [[reasoning/冰冰小美-多重宏观风险信号如何打开风险敞口|多重宏观风险信号如何打开风险敞口]]。本次将“抄底是共识的延续”整理为底线思维、常识回归和价值共识延续框架，并将宏观风险信号拆成汇率、美元、石油、流动性、避险资产、AI现金流、区域泡沫、隐形债务和美国债务的风险敞口推导。涉及市场、政策、联储人事、地缘和资产价格的内容均按作者观点或待验证推测处理，不写成投资建议。
+复用既有来源页 [[sources/articles/2026-03-20-冰冰小美：如何理解时间窗口|2026-03-20《如何理解时间窗口》]] 与 [[sources/articles/2026-03-20-冰冰小美：宏观分析的框架|2026-03-20《宏观分析的框架》]]，新增 [[concepts/冰冰小美-时间窗口|时间窗口]]、[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/宏观-framework-风险累积观察表|宏观风险信号表]] 和 [[_archives/2026-10-20-wiki-rebuild/wiki/reasoning/冰冰小美-多重宏观风险信号如何打开风险敞口|多重宏观风险信号如何打开风险敞口]]。本次将“抄底是共识的延续”整理为底线思维、常识回归和价值共识延续框架，并将宏观风险信号拆成汇率、美元、石油、流动性、避险资产、AI现金流、区域泡沫、隐形债务和美国债务的风险敞口推导。涉及市场、政策、联储人事、地缘和资产价格的内容均按作者观点或待验证推测处理，不写成投资建议。
 
 ### 后续待办
 
@@ -6163,7 +6163,7 @@ ingest
 
 ### 操作说明
 
-整理 [[sources/articles/2026-04-19-冰冰小美：补充2023年熊市结束|2026-04-19《补充2023年熊市结束，牛市起点观点》]]，新增 [[views/冰冰小美：2023熊市结束观点延续到化债与结构性牛市的判断框架|2023熊市结束观点延续到化债与结构性牛市]] 与 [[reasoning/冰冰小美-化债如何由房地产债务出清传导为科技成长与指数慢牛|化债如何由房地产债务出清传导为科技成长与指数慢牛]]。本次把作者关于化债、房地产旧周期、科技成长、ETF 慢牛、人民币汇率和做空风险识别的内容拆成观点页与推导链页，并补入 [[concepts/冰冰小美-ETF行情|ETF行情]]、人物页、宏观经济主题页和知识地图。涉及点位、行业表现、市场人数、利润率和汇率窗口等内容均按作者观点或待验证线索处理，不写成事实结论或投资建议。
+整理 [[sources/articles/2026-04-19-冰冰小美：补充2023年熊市结束|2026-04-19《补充2023年熊市结束，牛市起点观点》]]，新增 [[_archives/2026-10-20-wiki-rebuild/wiki/views/冰冰小美：2023熊市结束观点延续到化债与结构性牛市的判断框架|2023熊市结束观点延续到化债与结构性牛市]] 与 [[_archives/2026-10-20-wiki-rebuild/wiki/reasoning/冰冰小美-化债如何由房地产债务出清传导为科技成长与指数慢牛|化债如何由房地产债务出清传导为科技成长与指数慢牛]]。本次把作者关于化债、房地产旧周期、科技成长、ETF 慢牛、人民币汇率和做空风险识别的内容拆成观点页与推导链页，并补入 [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-ETF行情|ETF行情]]、人物页、宏观经济主题页和知识地图。涉及点位、行业表现、市场人数、利润率和汇率窗口等内容均按作者观点或待验证线索处理，不写成事实结论或投资建议。
 
 ### 后续待办
 
@@ -6191,7 +6191,7 @@ ingest
 
 ### 操作说明
 
-复用既有来源页 [[sources/articles/2026-03-23-冰冰小美：风险对冲|2026-03-23《风险对冲》]]，新增观点页 [[views/冰冰小美：风险对冲只是权宜之计的判断框架|风险对冲只是权宜之计]] 与推导页 [[reasoning/冰冰小美-金融危机如何由债市杠杆与保证金压力传导为股债汇三杀|金融危机如何由债市杠杆与保证金压力传导为股债汇三杀]]。本次整理将风险对冲从“工具选择”压回普通投资者能力边界和宏观金融传导链，重点沉淀债市基差杠杆、利率波动、保证金压力、高流动性资产抛售、挤兑、准备金收缩和汇率冲击之间的关系。涉及债市杠杆规模、具体机构风险、衍生品产品波动和汇率攻击案例的内容均按作者观点或待验证推测处理，不写成事实结论或投资建议。
+复用既有来源页 [[sources/articles/2026-03-23-冰冰小美：风险对冲|2026-03-23《风险对冲》]]，新增观点页 [[_archives/2026-10-20-wiki-rebuild/wiki/views/冰冰小美：风险对冲只是权宜之计的判断框架|风险对冲只是权宜之计]] 与推导页 [[_archives/2026-10-20-wiki-rebuild/wiki/reasoning/冰冰小美-金融危机如何由债市杠杆与保证金压力传导为股债汇三杀|金融危机如何由债市杠杆与保证金压力传导为股债汇三杀]]。本次整理将风险对冲从“工具选择”压回普通投资者能力边界和宏观金融传导链，重点沉淀债市基差杠杆、利率波动、保证金压力、高流动性资产抛售、挤兑、准备金收缩和汇率冲击之间的关系。涉及债市杠杆规模、具体机构风险、衍生品产品波动和汇率攻击案例的内容均按作者观点或待验证推测处理，不写成事实结论或投资建议。
 
 ### 后续待办
 
@@ -6220,7 +6220,7 @@ ingest
 
 ### 操作说明
 
-复用既有来源页 [[sources/articles/2026-03-31-冰冰小美：金融诱骗|2026-03-31《金融诱骗》]]，新增概念页 [[concepts/冰冰小美-金融诱骗|金融诱骗]] 与推导页 [[reasoning/冰冰小美-金融诱骗如何由市场失效与多空博弈共同形成|金融诱骗如何由市场失效与多空博弈共同形成]]。本次整理将“金融诱骗”从标题词沉淀为风险控制概念：当市场缺少稳定力量、对冲思维和石油科技跷跷板失效、局部流动性报团仍制造短线安慰、AI 现金流和地缘油价多空博弈同步升温时，走势可能诱导交易者轻举妄动。涉及全球不确定性指数、美元储备占比、具体公司订单、OpenAI 产品动作、主权基金做空原油和地缘冲突的内容均按作者观点或待验证线索处理，不写成事实结论或投资建议。
+复用既有来源页 [[sources/articles/2026-03-31-冰冰小美：金融诱骗|2026-03-31《金融诱骗》]]，新增概念页 [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-金融诱骗|金融诱骗]] 与推导页 [[_archives/2026-10-20-wiki-rebuild/wiki/reasoning/冰冰小美-金融诱骗如何由市场失效与多空博弈共同形成|金融诱骗如何由市场失效与多空博弈共同形成]]。本次整理将“金融诱骗”从标题词沉淀为风险控制概念：当市场缺少稳定力量、对冲思维和石油科技跷跷板失效、局部流动性报团仍制造短线安慰、AI 现金流和地缘油价多空博弈同步升温时，走势可能诱导交易者轻举妄动。涉及全球不确定性指数、美元储备占比、具体公司订单、OpenAI 产品动作、主权基金做空原油和地缘冲突的内容均按作者观点或待验证线索处理，不写成事实结论或投资建议。
 
 ### 后续待办
 
@@ -6628,7 +6628,7 @@ ingest
 ### 后续待办
 
 - 后续若继续出现“模拟训练”“数字员工”“人的价格”相关材料，可考虑拆出对应 Reasoning Page。
-- 可继续观察该观点与 [[topics/AI门票|AI门票]]、[[concepts/谁负债赚谁的钱|谁负债赚谁的钱]] 是否需要建立跨页综合。
+- 可继续观察该观点与 [[topics/AI门票|AI门票]]、[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/谁负债赚谁的钱|谁负债赚谁的钱]] 是否需要建立跨页综合。
 
 ## 2026-06-02
 
@@ -10610,7 +10610,7 @@ automation / update
 
 ### 操作说明
 
-按项目本地 `.agents/skills/zzhl-dividend-signal/SKILL.md` 运行 `python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py`，用免费数据源刷新中证红利当日信号。最新可用 AKShare 指数估值日期与中国10年国债收益率日期均推进到 `2026-06-16`；`股息率2` 为 `5.03%`，中国10年国债收益率为 `1.7324%`，利差为 `3.2976%`。按 `[[queries/中证红利什么时候买入收益率最高|中证红利什么时候买入收益率最高]]` 的三种规则判断：历史分位点 `待验证`、绝对股息率 `加大买入`、股债利差 `历史上偏强买点`，综合结论维持“历史分位点待验证，暂不判定重点买入区间”。由于未配置 `LIXINGER_TOKEN`，且理杏仁公开页面返回 `HTTP Error 429: Too Many Requests`，本次未编造历史分位与 80% 分位点数值。未新增正式 wiki 页面，因此未更新 `index.md`。
+按项目本地 `.agents/skills/zzhl-dividend-signal/SKILL.md` 运行 `python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py`，用免费数据源刷新中证红利当日信号。最新可用 AKShare 指数估值日期与中国10年国债收益率日期均推进到 `2026-06-16`；`股息率2` 为 `5.03%`，中国10年国债收益率为 `1.7324%`，利差为 `3.2976%`。按 `[[_archives/2026-10-20-wiki-rebuild/wiki/queries/中证红利什么时候买入收益率最高|中证红利什么时候买入收益率最高]]` 的三种规则判断：历史分位点 `待验证`、绝对股息率 `加大买入`、股债利差 `历史上偏强买点`，综合结论维持“历史分位点待验证，暂不判定重点买入区间”。由于未配置 `LIXINGER_TOKEN`，且理杏仁公开页面返回 `HTTP Error 429: Too Many Requests`，本次未编造历史分位与 80% 分位点数值。未新增正式 wiki 页面，因此未更新 `index.md`。
 
 ### 后续待办
 
@@ -11182,7 +11182,7 @@ refactor / rename / concept / link
 
 ### 后续待办
 
-- 后续新增产业类 View / Reasoning 页面时，优先回链到 `[[concepts/冰冰小美-framework-产业思维|产业思维]]`，再按具体行业补充到成长股、猪周期、铜铝差异或产业链财报旁证等下位框架。
+- 后续新增产业类 View / Reasoning 页面时，优先回链到 `[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-产业思维|产业思维]]`，再按具体行业补充到成长股、猪周期、铜铝差异或产业链财报旁证等下位框架。
 
 ## 2026-06-18
 
@@ -12788,7 +12788,7 @@ automation / data-refresh / query-support
 - `AKShare: bond_zh_us_rate`
 - `雪球实时行情: https://stock.xueqiu.com/v5/stock/realtime/quotec.json?symbol=SH000922`
 - `理杏仁公开页面: https://www.lixinger.com/equity/index/detail/sh/000922/922/fundamental/valuation/dyr?metrics-type=mcw`
-- `[[queries/中证红利什么时候买入收益率最高|中证红利什么时候买入收益率最高]]`
+- `[[_archives/2026-10-20-wiki-rebuild/wiki/queries/中证红利什么时候买入收益率最高|中证红利什么时候买入收益率最高]]`
 
 ### 操作说明
 
@@ -13128,7 +13128,7 @@ automation / query-refresh
 
 ### 操作说明
 
-按自动化任务运行 `.agents/skills/zzhl-dividend-signal/scripts/check_signal.py --run-date 2026-07-08`，使用免费数据源刷新中证红利当日股息率信号，并将本次结果写入每日记录。此次脚本运行时间为 `2026-07-08 14:26:18`；AKShare 最新可用中证红利指数估值日期与中国10年国债收益率日期均推进到 `2026-07-07`；`股息率2 = 4.64%`，中国10年国债收益率 `1.7406%`，股债利差 `2.8994%`。按 `[[queries/中证红利什么时候买入收益率最高|中证红利什么时候买入收益率最高]]` 的三种规则判断：历史分位点 `待验证`、绝对股息率触发为 `C（小额定投）`、相对债券收益率触发为 `B（加大买入）`，综合结论继续保留为“历史分位点待验证，暂不判定加大买入区间”，未标记为重点买入区间。此次免费数据源失败边界也已保留：理杏仁公开页面返回 `HTTP Error 429: Too Many Requests`，雪球实时行情接口返回空响应，因此未编造近10年历史分位、80% 分位点或当天涨跌幅。
+按自动化任务运行 `.agents/skills/zzhl-dividend-signal/scripts/check_signal.py --run-date 2026-07-08`，使用免费数据源刷新中证红利当日股息率信号，并将本次结果写入每日记录。此次脚本运行时间为 `2026-07-08 14:26:18`；AKShare 最新可用中证红利指数估值日期与中国10年国债收益率日期均推进到 `2026-07-07`；`股息率2 = 4.64%`，中国10年国债收益率 `1.7406%`，股债利差 `2.8994%`。按 `[[_archives/2026-10-20-wiki-rebuild/wiki/queries/中证红利什么时候买入收益率最高|中证红利什么时候买入收益率最高]]` 的三种规则判断：历史分位点 `待验证`、绝对股息率触发为 `C（小额定投）`、相对债券收益率触发为 `B（加大买入）`，综合结论继续保留为“历史分位点待验证，暂不判定加大买入区间”，未标记为重点买入区间。此次免费数据源失败边界也已保留：理杏仁公开页面返回 `HTTP Error 429: Too Many Requests`，雪球实时行情接口返回空响应，因此未编造近10年历史分位、80% 分位点或当天涨跌幅。
 
 ### 后续待办
 
@@ -13283,7 +13283,7 @@ topic-update / classification
 
 ### 操作说明
 
-按 [[concepts/冰冰小美-concept-风险类型整理|风险类型整理]] 和 [[冰冰小美-indacator-风险类型|风险的定义]] 的分类口径，重写 Topic Page `冰冰小美-风险提示系列` 中的风险类型归纳：新增 2026 年 1 月至 7 月的“按月份风险类型总结”，并将“已整理核心文章”表格中的风险类型从散关键词改为基本面风险、情绪面风险、流动性风险、估值锚风险、波动风险、杠杆拥挤交易风险、风险对冲工具风险、杠杆清算与美元蓄水池风险、金融诱骗等标准分类标签。
+按 [[concepts/冰冰小美-concept-风险类型整理|风险类型整理]] 和 [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-indacator-风险类型|风险的定义]] 的分类口径，重写 Topic Page `冰冰小美-风险提示系列` 中的风险类型归纳：新增 2026 年 1 月至 7 月的“按月份风险类型总结”，并将“已整理核心文章”表格中的风险类型从散关键词改为基本面风险、情绪面风险、流动性风险、估值锚风险、波动风险、杠杆拥挤交易风险、风险对冲工具风险、杠杆清算与美元蓄水池风险、金融诱骗等标准分类标签。
 
 ### 后续待办
 
@@ -15661,9 +15661,9 @@ automation / bbxm-daily-brief / risk-analysis
 
 ### 修改文件
 
-- `sources/automations/BBXM每日汇总/2026-07-20/冰冰小美/summary.md`
-- `sources/automations/BBXM每日汇总/2026-07-20/冰冰小美/state.json`
-- `sources/automations/BBXM每日汇总/2026-07-20/冰冰小美/task.log`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-20_summary.md`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-20_state.json`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-20_task.log`
 - `sources/automations/BBXM每日汇总/2026-07-20/冰冰小美/processing/risk-analysis.json`
 - `sources/automations/BBXM每日汇总/2026-07-20/冰冰小美/processing/risk-write-status.json`
 - `tools/bbxm-risk-dashboard/data/冰冰小美风险提示.xlsx`
@@ -16382,9 +16382,9 @@ automation / xueqiu / risk-dashboard
 
 ### 修改文件
 
-- `sources/automations/BBXM每日汇总/2026-07-20/冰冰小美/summary.md`
-- `sources/automations/BBXM每日汇总/2026-07-20/冰冰小美/state.json`
-- `sources/automations/BBXM每日汇总/2026-07-20/冰冰小美/task.log`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-20_summary.md`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-20_state.json`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-20_task.log`
 - `sources/automations/BBXM每日汇总/2026-07-20/冰冰小美/processing/rerun-blocked-candidates-20260720-1613.json`
 - `sources/automations/BBXM每日汇总/2026-07-20/冰冰小美/processing/risk-analysis.json`
 - `sources/automations/BBXM每日汇总/2026-07-20/冰冰小美/processing/risk-write-status.json`
@@ -16958,8 +16958,8 @@ automation / bbxm-daily-brief / same-day-rerun-blocked
 
 ### 修改文件
 
-- `sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/summary.md`
-- `sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/task.log`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-21_summary.md`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-21_task.log`
 - `sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/processing/risk-analysis.json`
 - `sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/processing/risk-write-status.json`
 - `sources/automations/BBXM每日汇总/2026-07-21/冰冰小美/processing/rerun-blocked-status-20260721-1619.json`
@@ -18423,11 +18423,11 @@ automation / bbxm-daily-brief
 
 ### 修改文件
 
-- `sources/automations/BBXM每日汇总/2026-07-27/冰冰小美/processing/extracted-posts.json`
-- `sources/automations/BBXM每日汇总/2026-07-27/冰冰小美/processing/risk-analysis.json`
-- `sources/automations/BBXM每日汇总/2026-07-27/冰冰小美/processing/risk-write-status.json`
-- `sources/automations/BBXM每日汇总/2026-07-27/冰冰小美/task.log`
-- `sources/automations/BBXM每日汇总/2026-07-27/冰冰小美/summary.md`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-27_processing_extracted-posts.json`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-27_processing_risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-27_processing_risk-write-status.json`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-27_task.log`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-27_summary.md`
 - `log.md`
 
 ### 操作说明
@@ -19149,9 +19149,9 @@ automation / bbxm-daily-brief / risk-analysis
 
 ### 修改文件
 
-- `sources/automations/BBXM每日汇总/2026-07-30/冰冰小美/summary.md`
-- `sources/automations/BBXM每日汇总/2026-07-30/冰冰小美/操作.md`
-- `sources/automations/BBXM每日汇总/2026-07-30/冰冰小美/processing/risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-30_summary.md`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-30_操作.md`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-30_processing_risk-analysis.json`
 - `sources/automations/BBXM每日汇总/2026-07-30/冰冰小美/*_解读.md`
 - `log.md`
 
@@ -20363,12 +20363,12 @@ automation / xueqiu-capture
 
 ### 修改文件
 
-- `sources/automations/BBXM每日汇总/2026/08/2026-08-30/130100_2026年8月月报_一_40728433.md`
-- `sources/automations/BBXM每日汇总/2026/08/2026-08-30/133400_2026年8月月报_二_40728573.md`
-- `sources/automations/BBXM每日汇总/2026/08/2026-08-30/state.json`
-- `sources/automations/BBXM每日汇总/2026/08/2026-08-30/task.log`
-- `sources/automations/BBXM每日汇总/2026/08/2026-08-30/processing/extracted-posts.json`
-- `sources/automations/BBXM每日汇总/2026/08/2026-08-30/processing/column-posts.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-30_130100_2026年8月月报_一_40728433.md`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-30_133400_2026年8月月报_二_40728573.md`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-30_state.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-30_task.log`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-30_processing_extracted-posts.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-30_processing_column-posts.json`
 - `log.md`
 
 ### 操作说明
@@ -20387,11 +20387,11 @@ automation / BBXM每日汇总
 
 ### 修改文件
 
-- `sources/automations/BBXM每日汇总/2026/08/2026-08-31/task.log`
-- `sources/automations/BBXM每日汇总/2026/08/2026-08-31/summary.md`
-- `sources/automations/BBXM每日汇总/2026/08/2026-08-31/processing/extracted-posts.json`
-- `sources/automations/BBXM每日汇总/2026/08/2026-08-31/processing/risk-analysis.json`
-- `sources/automations/BBXM每日汇总/2026/08/2026-08-31/processing/risk-write-status.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-31_task.log`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-31_summary.md`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-31_processing_extracted-posts.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-31_processing_risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-31_processing_risk-write-status.json`
 - `log.md`
 
 ### 操作说明
@@ -20662,13 +20662,13 @@ automation / bbxm-daily-brief
 ### 修改文件
 
 - sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/*.md
-- sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/summary.md
-- sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/state.json
-- sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/task.log
-- sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/processing/extracted-posts.json
-- sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/processing/column-posts.json
-- sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/processing/risk-analysis.json
-- sources/automations/BBXM每日汇总/2026-08-05/冰冰小美/processing/risk-write-status.json
+- sources/automations/BBXM每日汇总/2026/08/2026-08-05_summary.md
+- sources/automations/BBXM每日汇总/2026/08/2026-08-05_state.json
+- sources/automations/BBXM每日汇总/2026/08/2026-08-05_task.log
+- sources/automations/BBXM每日汇总/2026/08/2026-08-05_processing_extracted-posts.json
+- sources/automations/BBXM每日汇总/2026/08/2026-08-05_processing_column-posts.json
+- sources/automations/BBXM每日汇总/2026/08/2026-08-05_processing_risk-analysis.json
+- sources/automations/BBXM每日汇总/2026/08/2026-08-05_processing_risk-write-status.json
 - 	ools/bbxm-risk-dashboard/data/冰冰小美风险提示.xlsx
 - log.md
 
@@ -21333,7 +21333,7 @@ link / topic-update
 
 ### 操作说明
 
-将 `sources/automations/BBXM每日汇总/2026-08-01/冰冰小美/085100_2026年7月月报_一_40321386.md` 与 `sources/automations/BBXM每日汇总/2026-08-01/冰冰小美/112500_2026年7月月报_二_40322474.md` 链接到“冰冰小美-月报地图”：更新 frontmatter 来源、月报总览表格、阶段演化、重要资料和待补充问题，并将两篇 7 月月报标记为待拆 View / Reasoning。
+将 `sources/automations/BBXM每日汇总/2026/08/2026-08-01_085100_2026年7月月报_一_40321386.md` 与 `sources/automations/BBXM每日汇总/2026/08/2026-08-01_112500_2026年7月月报_二_40322474.md` 链接到“冰冰小美-月报地图”：更新 frontmatter 来源、月报总览表格、阶段演化、重要资料和待补充问题，并将两篇 7 月月报标记为待拆 View / Reasoning。
 
 ### 后续待办
 
@@ -21930,10 +21930,10 @@ automation / blocked / capture
 
 ### 修改文件
 
-- `sources/automations/BBXM每日汇总/2026-08-14/冰冰小美/summary.md`
-- `sources/automations/BBXM每日汇总/2026-08-14/冰冰小美/task.log`
-- `sources/automations/BBXM每日汇总/2026-08-14/冰冰小美/processing/risk-analysis.json`
-- `sources/automations/BBXM每日汇总/2026-08-14/冰冰小美/processing/risk-write-status.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-14_summary.md`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-14_task.log`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-14_processing_risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-14_processing_risk-write-status.json`
 - `log.md`
 
 ### 操作说明
@@ -23192,10 +23192,10 @@ automation / BBXM每日汇总 / blocked
 
 ### 修改文件
 
-- `sources/automations/BBXM每日汇总/2026-08-19/冰冰小美/summary.md`
-- `sources/automations/BBXM每日汇总/2026-08-19/冰冰小美/task.log`
-- `sources/automations/BBXM每日汇总/2026-08-19/冰冰小美/processing/risk-analysis.json`
-- `sources/automations/BBXM每日汇总/2026-08-19/冰冰小美/processing/risk-write-status.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-19_summary.md`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-19_task.log`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-19_processing_risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-19_processing_risk-write-status.json`
 - `log.md`
 
 ### 操作说明
@@ -23965,9 +23965,9 @@ automation / ingest / risk-analysis
 ### 修改文件
 
 - `sources/automations/BBXM每日汇总/2026-08-21/冰冰小美/`
-- `sources/automations/BBXM每日汇总/2026-08-21/冰冰小美/processing/risk-analysis.json`
-- `sources/automations/BBXM每日汇总/2026-08-21/冰冰小美/processing/risk-write-status.json`
-- `sources/automations/BBXM每日汇总/2026-08-21/冰冰小美/summary.md`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-21_processing_risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-21_processing_risk-write-status.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-21_summary.md`
 - `tools/bbxm-risk-dashboard/data/冰冰小美风险提示.xlsx`
 - `log.md`
 
@@ -24121,15 +24121,15 @@ automation / xueqiu / risk-update
 
 ### 修改文件
 
-- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/095800_请问你对这种市场有啥看法_量化割韭菜_都没反应过来_崩了_-_雪球_40627623.md`
-- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/100600_银行_煤炭_黄金拉升_量化因子读到了吗_不分青红皂白_反向全砸_人家_南方铜业_8_我们这边高开_40627943.md`
-- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/state.json`
-- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/task.log`
-- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/processing/extracted-posts.json`
-- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/processing/column-posts.json`
-- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/processing/risk-analysis.json`
-- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/processing/risk-write-status.json`
-- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/summary.md`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-24_095800_请问你对这种市场有啥看法_量化割韭菜_都没反应过来_崩了_-_雪球_40627623.md`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-24_100600_银行_煤炭_黄金拉升_量化因子读到了吗_不分青红皂白_反向全砸_人家_南方铜业_8_我们这边高开_40627943.md`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-24_state.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-24_task.log`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-24_processing_extracted-posts.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-24_processing_column-posts.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-24_processing_risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-24_processing_risk-write-status.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-24_summary.md`
 - `tools/bbxm-risk-dashboard/data/冰冰小美风险提示.xlsx`
 - `log.md`
 
@@ -24176,14 +24176,14 @@ automation / xueqiu / risk-audit
 ### 修改文件
 
 - `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/*.md`
-- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/state.json`
-- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/task.log`
-- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/summary.md`
-- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/processing/extracted-posts.json`
-- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/processing/extracted-posts-rerun-20260824.json`
-- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/processing/column-posts.json`
-- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/processing/risk-analysis.json`
-- `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美/processing/risk-write-status.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-24_state.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-24_task.log`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-24_summary.md`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-24_processing_extracted-posts.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-24_processing_extracted-posts-rerun-20260824.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-24_processing_column-posts.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-24_processing_risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-24_processing_risk-write-status.json`
 - `log.md`
 
 ### 操作说明
@@ -24254,11 +24254,11 @@ automation / source-archive / daily-summary / risk-analysis
 ### 修改文件
 
 - `sources/automations/BBXM每日汇总/2026-08-26/冰冰小美/*.md`
-- `sources/automations/BBXM每日汇总/2026-08-26/冰冰小美/summary.md`
-- `sources/automations/BBXM每日汇总/2026-08-26/冰冰小美/操作.md`
-- `sources/automations/BBXM每日汇总/2026-08-26/冰冰小美/processing/risk-analysis.json`
-- `sources/automations/BBXM每日汇总/2026-08-26/冰冰小美/processing/risk-write-status.json`
-- `sources/automations/BBXM每日汇总/2026-08-26/冰冰小美/task.log`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-26_summary.md`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-26_操作.md`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-26_processing_risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-26_processing_risk-write-status.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-26_task.log`
 - `log.md`
 
 ### 操作说明
@@ -24338,10 +24338,10 @@ automation / BBXM每日汇总 / xueqiu-capture / risk-dashboard
 
 ### 修改文件
 
-- `sources/automations/BBXM每日汇总/2026-08-26/冰冰小美/processing/risk-analysis.json`
-- `sources/automations/BBXM每日汇总/2026-08-26/冰冰小美/processing/risk-write-status.json`
-- `sources/automations/BBXM每日汇总/2026-08-26/冰冰小美/task.log`
-- `sources/automations/BBXM每日汇总/2026-08-26/冰冰小美/summary.md`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-26_processing_risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-26_processing_risk-write-status.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-26_task.log`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-26_summary.md`
 - `log.md`
 
 ### 操作说明
@@ -25973,9 +25973,9 @@ ingest / automation / risk-write
 ### 修改文件
 
 - `sources/automations/BBXM每日汇总/2026/08/2026-08-31/`
-- `sources/automations/BBXM每日汇总/2026/08/2026-08-31/summary.md`
-- `sources/automations/BBXM每日汇总/2026/08/2026-08-31/processing/risk-analysis.json`
-- `sources/automations/BBXM每日汇总/2026/08/2026-08-31/processing/risk-write-status.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-31_summary.md`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-31_processing_risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026/08/2026-08-31_processing_risk-write-status.json`
 - `tools/bbxm-risk-dashboard/data/冰冰小美风险提示.xlsx`
 - `log.md`
 
@@ -26049,9 +26049,9 @@ ingest / automation / risk-write
 ### 修改文件
 
 - `sources/automations/BBXM每日汇总/2026/09/2026-09-01/`
-- `sources/automations/BBXM每日汇总/2026/09/2026-09-01/summary.md`
-- `sources/automations/BBXM每日汇总/2026/09/2026-09-01/processing/risk-analysis.json`
-- `sources/automations/BBXM每日汇总/2026/09/2026-09-01/processing/risk-write-status.json`
+- `sources/automations/BBXM每日汇总/2026/09/2026-09-01_summary.md`
+- `sources/automations/BBXM每日汇总/2026/09/2026-09-01_processing_risk-analysis.json`
+- `sources/automations/BBXM每日汇总/2026/09/2026-09-01_processing_risk-write-status.json`
 - `tools/bbxm-risk-dashboard/data/冰冰小美风险提示.xlsx`
 - `log.md`
 
@@ -27122,7 +27122,7 @@ automation / dividend-signal / daily-record
 
 ### research：恩华药业产业思维筛选
 
-- 按用户点名的 `个股产业思维筛选 v1.2.1` 和当前 [[wiki/concepts/冰冰小美-framework-产业思维|冰冰小美产业思维框架]]，新增 `workbench/targets/2026-09-07-1745-恩华药业-产业思维分析.md`；本地持仓清单没有恩华药业，报告按“仅研究”处理。
+- 按用户点名的 `个股产业思维筛选 v1.2.1` 和当前 [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-产业思维|冰冰小美产业思维框架]]，新增 `workbench/targets/2026-09-07-1745-恩华药业-产业思维分析.md`；本地持仓清单没有恩华药业，报告按“仅研究”处理。
 - 研究结论为：中枢神经系统药物产业跟踪资格通过；恩华药业作为“传统中枢神经细分龙头、创新转型追赶者”，公司筛选资格有条件通过；当前投资资格部分有利，候选池动作“纳入”观察级。没有把 NH600001 写成已获批，也没有把公司口径市占率、管理层销售目标、管线数量或低 PB 单独作为买入依据。
 - 新增 `sources/webpages/2026-09-07-恩华药业产业思维研究证据快照.md`，并在 `sources/assets/恩华药业/` 留存公司 2025 年报、2026 年半年报、两份投资者关系记录、布瑞哌唑片注册公告及海思科同行半年报原始 PDF 与 SHA256。证据覆盖公司经营、分部、营运资金、研发、审批、政策、同行和 2026-09-07 收盘估值。
 - 报告按 4 个一级章节、16 个二级章节和行业景气 8 维度 16 指标完成；盈利时间线保留收入、毛利率、经营现金流、资本开支代理和自由现金流代理。产业阶段判为“问题解决与二次成长”，行业周期判为“结构性扩张、强度中低”。
@@ -27133,7 +27133,7 @@ automation / dividend-signal / daily-record
 
 ### update：个股估值计算同步基本面判断
 
-- 修改 `.agents/skills/bbxm-equity-research/SKILL.md` 为 v4.3.0，按 [[wiki/concepts/冰冰小美-framework-估值判断|估值判断框架]] 最新“基本面判断”接入负债、净现金、现金流、开销合理性、真实利润、扣除商誉的净资产六项前置核验。
+- 修改 `.agents/skills/bbxm-equity-research/SKILL.md` 为 v4.3.0，按 [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-估值判断|估值判断框架]] 最新“基本面判断”接入负债、净现金、现金流、开销合理性、真实利润、扣除商誉的净资产六项前置核验。
 - 同步 `template.md` 的2.5六项证据表与模型版本；将数据、可比期间、来源、缺口映射至估值参数、基本面面板和重估条件，补充现金债务对账、权益商誉同口径和不重复计入约束。
 - 同步既有渲染测试的技能版本断言。原五章、四卡片及32项扫描保持不变；未改写已有知识库框架和个股报告，未新增正式Wiki页面，根 `index.md` 导航及页数无需变更。
 - 验证：既有渲染测试通过，实际新模板HTML渲染通过，六项完整性、技能本地引用、UTF-8和技能差异空白检查通过。本次为技能文档与模板更新，未执行个股实盘数据研究或模型行为对照评测。
@@ -27186,7 +27186,7 @@ automation / dividend-signal / daily-record
 
 ### research：恩华药业个股估值计算
 
-- 按用户点名的 `个股估值计算 v4.3.0`，读取最新[[wiki/concepts/冰冰小美-framework-估值判断|估值判断框架]]、估值专项 references 和[[workbench/targets/2026-09-07-1745-恩华药业-产业思维分析|同标的产业思维报告]]，新增 `workbench/targets/2026-09-08-0941-恩华药业-机构级决策研报.md`。报告只含规定的五章，并补齐负债、净现金、现金流、开销合理性、真实利润、扣除商誉净资产六项基本面核验。
+- 按用户点名的 `个股估值计算 v4.3.0`，读取最新[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-估值判断|估值判断框架]]、估值专项 references 和[[workbench/targets/2026-09-07-1745-恩华药业-产业思维分析|同标的产业思维报告]]，新增 `workbench/targets/2026-09-08-0941-恩华药业-机构级决策研报.md`。报告只含规定的五章，并补齐负债、净现金、现金流、开销合理性、真实利润、扣除商誉净资产六项基本面核验。
 - 估值以正常化归母净利润 × 合理 PE 为主锚，FCFE 代理 DCF、PB/ROE 和可持续股东回报交叉验证；未把 NH600001、NHL35700、管线数量或管理层目标按成功计价。综合公允价值为 16—29 元、中枢 21.5 元；2026-09-07 收盘 22.09 元处于区间内。六项基本面状态为“待确认”，主要反证是 2026H1 CFO/归母降至 37.86%。
 - 完整执行基本面 9 项、流动性 14 项、预期 9 项共 32 项泡沫扫描：16 项有利、8 项逆转、7 项证据不足、1 项不适用。现金转化是击中估值锚的关键逆转，但现价没有高于上沿、反向利润可实现且融资余额下降，结论为“公允价值内、不构成估值泡沫”；新增资金 `wait`、已有持仓 `review`。
 - 新增 `sources/webpages/2026-09-08-恩华药业估值证据快照.md`，保存财务、分部、股本、受限资金、研发、行情、历史估值、资金、两融、股东人数、宏观数据、模型公式及接口失败边界。Tushare 基金持仓接口权限不足；最近 60 个交易日逐日检查无龙虎榜记录，大宗交易查询无记录，未以缺失数据填造交易方结论。
@@ -27226,7 +27226,7 @@ automation / dividend-signal / daily-record
 
 ### research：新版个股估值计算重估中国海油
 
-- 按 `个股估值计算 v4.3.0` 及最新 [[wiki/concepts/冰冰小美-framework-估值判断|估值判断框架]]，原地更新 `workbench/targets/2026-08-31-1530-中国海油-机构级决策研报.md`，完整补齐负债、净现金、现金流、开销合理性、真实利润、扣除商誉净资产六项证据与模型映射。
+- 按 `个股估值计算 v4.3.0` 及最新 [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-估值判断|估值判断框架]]，原地更新 `workbench/targets/2026-08-31-1530-中国海油-机构级决策研报.md`，完整补齐负债、净现金、现金流、开销合理性、真实利润、扣除商誉净资产六项证据与模型映射。
 - 最新市场口径为2026-09-07收盘33.12元，财报截至2026-06-30。重新查询Tushare并核验完整半年报，纠正旧报告2025年末现金2,954亿元为2,146.95亿元、股本475.67亿股为475.29953984亿股；不把中枢价差直接当作精确交易定价偏离。
 - 公允价值16.95—33.13元、中枢24.18元；当前属估值溢价、乐观上沿。32项逐项扫描16项有利、3项逆转、13项证据不足，出清观察。清单实际为观察，新增资金wait；已有持仓仅条件化review，未执行交易。
 - 新增 `sources/webpages/2026-09-08-中国海油估值证据快照.md` 与 `sources/assets/中国海油/2026-09-08/` 财报PDF、查询返回、来源清单和计算底稿；保留旧来源，修改前报告留在 `.work/cnooc-revalue-20260908/report-before.md`。
@@ -28324,7 +28324,7 @@ automation / dividend-signal / daily-record
 
 ### automation / ingest：BBXM 每日汇总
 
-- 新增文件：sources/automations/BBXM每日汇总/2026/09/2026-09-14/summary.md、sources/automations/BBXM每日汇总/2026/09/2026-09-14/task.log、sources/automations/BBXM每日汇总/2026/09/2026-09-14/processing/extracted-posts.json、sources/automations/BBXM每日汇总/2026/09/2026-09-14/processing/risk-analysis.json、sources/automations/BBXM每日汇总/2026/09/2026-09-14/processing/risk-write-status.json。
+- 新增文件：sources/automations/BBXM每日汇总/2026/09/2026-09-14_summary.md、sources/automations/BBXM每日汇总/2026/09/2026-09-14_task.log、sources/automations/BBXM每日汇总/2026/09/2026-09-14_processing_extracted-posts.json、sources/automations/BBXM每日汇总/2026/09/2026-09-14_processing_risk-analysis.json、sources/automations/BBXM每日汇总/2026/09/2026-09-14_processing_risk-write-status.json。
 - 操作说明：按 `.agents/automations/bbxm_daliy_brief.md` 执行 2026-09-14 冰冰小美雪球可见详情抓取、目标日期过滤、summary 生成、风险分析 JSON 生成和 Excel 更新器调用；正式日期目录未创建“冰冰小美”子目录。
 - 抓取结果：首次自动启动返回 0 候选后，启动稳定 CDP 9333 重跑成功；最终解析可见详情 23 条，目标日期 2026-09-14 为 0 条，原帖保存 0 篇，未生成 state.json 或 操作.md。
 - 风险写入：analysis_complete=true，saved/analyzed/unresolved=0/0/0；Excel 更新器返回 no_risk，count=0。
@@ -28456,7 +28456,7 @@ automation / dividend-signal / daily-record
 ### automation：BBXM每日汇总
 
 - 运行时间：2026-09-14 16:18:38 +08:00。
-- 修改文件：sources/automations/BBXM每日汇总/2026/09/2026-09-14/summary.md、task.log、processing/extracted-posts.json、processing/risk-analysis.json、processing/risk-write-status.json；.agents/skills/cjw-xueqiu-daily-monitor/scripts/extract_xueqiu_posts.mjs、scripts/tests/test_extract_xueqiu_posts.py、log.md；根 log.md。
+- 修改文件：sources/automations/BBXM每日汇总/2026/09/2026-09-14_summary.md、task.log、processing/extracted-posts.json、processing/risk-analysis.json、processing/risk-write-status.json；.agents/skills/cjw-xueqiu-daily-monitor/scripts/extract_xueqiu_posts.mjs、scripts/tests/test_extract_xueqiu_posts.py、log.md；根 log.md。
 - 操作说明：按 `.agents/automations/bbxm_daliy_brief.md` 执行冰冰小美 2026-09-14 每日汇总。修复公开雪球主页因导航登录按钮导致的抓取器误判后，all-visible 抓取 23 条详情，目标日期原帖 0 条，生成空集合 summary 与风险分析。
 - 风险写入：risk-analysis.json 覆盖 0/0/0，analysis_complete=true；Excel 更新器返回 no_risk，count=0，未修改冰冰小美风险提示.xlsx。
 - 数据边界：23 条可见详情日期分布为 2024-05-19 x1、2026-08-01 x1、2026-08-30 x2、2026-08-31 x7、2026-09-01 x7、2026-09-02 x3、2026-09-12 x2；未覆盖运行后新增、平台隐藏后恢复或非可见范围内容。
@@ -28629,7 +28629,7 @@ automation / dividend-signal / daily-record
 ### refactor / skill：信息归纳技能
 
 - 修改文件：`.agents/skills/bbxm-information-filter-flow/` 下 SKILL.md、template.md、agents/openai.yaml、两份类型字典及 log.md；bbxm-expert 的 SKILL.md、兼容指针及 log.md；bbxm-industrial-thinking-equity-analysis、bbxm-three-factor-analysis、bbxm-risk-identification、fund-flow-analysis 的 SKILL.md 与各自 log.md；index.md、log.md。
-- 资料依据：[[冰冰小美-framework-信息的金融处理(todo)|金融信息归纳框架]] 当前正文及用户本次改造要求。
+- 资料依据：[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-信息的金融处理(todo)|金融信息归纳框架]] 当前正文及用户本次改造要求。
 - 操作说明：将原信息过滤技能改为“信息归纳”，保留现有调用标识；以动态读取 Wiki 框架、五层归纳、信息源建档、风险监测对象、事件与市场反应记录为核心；同步相关技能入口为明确调用才启用，并增加技能导航。
 - 验证结果：YAML、五层结构、模板字段、框架和资源路径、UTF-8 与差异格式检查通过；不涉及业务数据采集或市场结论验证。
 - 页面与历史边界：正式 Wiki 页面及原始资料未修改，页面总数不变；各技能版本号不变，已有工作区修改与历史日志保留。
@@ -28640,7 +28640,7 @@ automation / dividend-signal / daily-record
 
 - 修改文件：`.agents/skills/portfolio-daily-monitoring/` 中的技能说明、逐标的/汇总模板、入口提示、采集器、报告生成器、契约测试及技能日志；`log.md`。
 - 新增文件：技能目录下 `references/five-layer-records.md`、`scripts/information_records.py`、`scripts/test_information_records.py`。
-- 资料依据：用户本轮五层归纳要求及 [[冰冰小美-framework-信息的金融处理(todo)|金融信息归纳框架]] 最新正文；结构化字段为实现约定，不作作者原话。
+- 资料依据：用户本轮五层归纳要求及 [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-信息的金融处理(todo)|金融信息归纳框架]] 最新正文；结构化字段为实现约定，不作作者原话。
 - 操作说明：技能升级1.4.1→1.5.0，新增逐事件五层记录及历史复核，汇总按事件编号去重；保持八类监控项、估值处置与固定字段。缺少归纳明确提示未完成，旧事件不自动转为当日判断。
 - 验证：技能契约检查通过，Python离线回归6/6通过，差异空白与中文编码检查通过。未执行真实持仓扫描或重估，未生成当日报告或新建调度。
 - 索引说明：未新增或修改正式Wiki页面，无需调整index.md导航或页面计数。
@@ -28736,7 +28736,7 @@ automation / dividend-signal / daily-record
 
 - 新增文件：`tools/risk-transmission-maps/interest-monetary-conditions/` 下三个Archify图源、HTML、统一浏览入口、来源与验证记录、浏览器截图。
 - 修改文件：原概念页添加交互图双链与日期；`index.md`添加图入口；`log.md`追加本记录。未新建正式Wiki页面。
-- 资料来源：[[冰冰小美-macro-basic-货币|利率与货币条件变化]]。
+- 资料来源：[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-macro-basic-货币|利率与货币条件变化]]。
 - 操作说明：九条路径分为经营收益P1/P2/P7、估值与情绪P3/P6/P9、流动性P4/P5/P8；每条保留条件、暴露主体、监测摘要和反证，P5保留带条件的追保反馈。未新增实时判断、数值或交易结论；未修改技能。
 - 验证：三个workflow图均通过9/9 showcase，0错误0警告；1440×900、1600×1000、1920×1080、2048×1320浏览器检查全部通过；浅深色截图回看及三视图切换通过。完整哈希与分项记录见产物verification.json。
 
@@ -29075,7 +29075,7 @@ automation / dividend-signal / daily-record
 - 修复：核验覆盖率时发现主页时间线候选整体漏采缺陷——时间线条目为相对 `href`，解析后带 `www.`，而 `postUrlPattern` 与 `isXueqiuPostUrl` 只匹配不带 `www.` 的地址；同时裸时间被日期推断回退成目标日期，产生假候选。已允许可选 `www.` 前缀，并在主页日期模式中新增 `MM-DD HH:MM` 形态。修复同步到 WorkBuddy 技能副本，变更记入技能 `log.md`。
 - 验证：`node --check` 通过；技能测试 22 项全部 OK；修复后以 `--date 2026-09-18` 实测候选由 3 提升为 10，正确解析出该日 17:05、16:59、16:56、15:29、06:11、06:06、06:05 等真实时间线帖子；`--date 2026-09-20` 候选为 0。另行直接读取主页 DOM 复核，最新帖为 2026-09-18 17:05「专栏预演」，无 09-19、09-20 发帖，据此确认空结果为真实空结果而非漏采。风险分析契约写入空覆盖（0/0/0，`analysis_complete=true`），更新器返回 `no_risk`，工作簿 `tools/bbxm-risk-dashboard/data/冰冰小美风险提示.xlsx` 未被修改。
 - 后续待办：① `2026-09-18` 目录为空目录（16:04 运行时当日尚无帖子），但作者在当日 16:56、16:59、17:05 后又发 3 帖，从未被抓取，需人工决定是否安排补抓，本次未越界处理；② 主页候选仍会夹带正文内嵌的他人帖与旧帖链接，作为详情页抓取冗余，后续可再收紧。
-- [[concepts/冰冰小美-concept-时间窗口|时间窗口]] - 归纳原文中的风险转弱、信息时效、事件观察、政策流动性、产业战略与资金容量窗口，以及窗口延长和中断的条件## 2026-09-20- [[concepts/冰冰小美-concept-时间窗口|时间窗口]] - 归纳原文中的风险转弱、信息时效、事件观察、政策流动性、产业战略与资金容量窗口，以及窗口延长和中断的条件- [[concepts/冰冰小美-concept-时间窗口|时间窗口]] - 归纳原文中的风险转弱、信息时效、事件观察、政策流动性、产业战略与资金容量窗口，以及窗口延长和中断的条件### link / 补充时间窗口的原文概念- [[concepts/冰冰小美-concept-时间窗口|时间窗口]] - 归纳原文中的风险转弱、信息时效、事件观察、政策流动性、产业战略与资金容量窗口，以及窗口延长和中断的条件- [[concepts/冰冰小美-concept-时间窗口|时间窗口]] - 归纳原文中的风险转弱、信息时效、事件观察、政策流动性、产业战略与资金容量窗口，以及窗口延长和中断的条件- 修改文件：`wiki/concepts/冰冰小美-concept-时间窗口.md`、`index.md`、`log.md`。- [[concepts/冰冰小美-concept-时间窗口|时间窗口]] - 归纳原文中的风险转弱、信息时效、事件观察、政策流动性、产业战略与资金容量窗口，以及窗口延长和中断的条件- 新增文件：无。- [[concepts/冰冰小美-concept-时间窗口|时间窗口]] - 归纳原文中的风险转弱、信息时效、事件观察、政策流动性、产业战略与资金容量窗口，以及窗口延长和中断的条件- 资料来源：库内《如何理解时间窗口》《行情不等于风险》《信息的金融意义（十四）》《风险变化如何观察》等文章，以及《如何提高自己短线的审美度》《A股常见特色概念扩散》原始归档；具体来源双链见页面。- [[concepts/冰冰小美-concept-时间窗口|时间窗口]] - 归纳原文中的风险转弱、信息时效、事件观察、政策流动性、产业战略与资金容量窗口，以及窗口延长和中断的条件- 操作说明：按用户指定新增“时间窗口”章节，归纳风险阶段、常识回归、交易合力、信息时效、事件观察、政策与流动性、产业战略、资金容量、窗口延长与中断九类用法；逐项保留原文出处，明确分类属于整理者归纳，历史观点不外推为当前结论。保留已有正文与用户先前修改，补充来源字段和来源列表，同步索引摘要与更新日期；不改动原始资料。- [[concepts/冰冰小美-concept-时间窗口|时间窗口]] - 归纳原文中的风险转弱、信息时效、事件观察、政策流动性、产业战略与资金容量窗口，以及窗口延长和中断的条件- 验证：新增章节唯一、九类概念分组与 16 个去重原文来源核验通过，新增双链均可解析，未检出乱码；已抽查原有章节保留情况。未新增页面，索引页面计数不变。- [[concepts/冰冰小美-concept-时间窗口|时间窗口]] - 归纳原文中的风险转弱、信息时效、事件观察、政策流动性、产业战略与资金容量窗口，以及窗口延长和中断的条件
+- [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-时间窗口|时间窗口]] - 归纳原文中的风险转弱、信息时效、事件观察、政策流动性、产业战略与资金容量窗口，以及窗口延长和中断的条件## 2026-09-20- [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-时间窗口|时间窗口]] - 归纳原文中的风险转弱、信息时效、事件观察、政策流动性、产业战略与资金容量窗口，以及窗口延长和中断的条件- [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-时间窗口|时间窗口]] - 归纳原文中的风险转弱、信息时效、事件观察、政策流动性、产业战略与资金容量窗口，以及窗口延长和中断的条件### link / 补充时间窗口的原文概念- [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-时间窗口|时间窗口]] - 归纳原文中的风险转弱、信息时效、事件观察、政策流动性、产业战略与资金容量窗口，以及窗口延长和中断的条件- [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-时间窗口|时间窗口]] - 归纳原文中的风险转弱、信息时效、事件观察、政策流动性、产业战略与资金容量窗口，以及窗口延长和中断的条件- 修改文件：`wiki/concepts/冰冰小美-concept-时间窗口.md`、`index.md`、`log.md`。- [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-时间窗口|时间窗口]] - 归纳原文中的风险转弱、信息时效、事件观察、政策流动性、产业战略与资金容量窗口，以及窗口延长和中断的条件- 新增文件：无。- [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-时间窗口|时间窗口]] - 归纳原文中的风险转弱、信息时效、事件观察、政策流动性、产业战略与资金容量窗口，以及窗口延长和中断的条件- 资料来源：库内《如何理解时间窗口》《行情不等于风险》《信息的金融意义（十四）》《风险变化如何观察》等文章，以及《如何提高自己短线的审美度》《A股常见特色概念扩散》原始归档；具体来源双链见页面。- [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-时间窗口|时间窗口]] - 归纳原文中的风险转弱、信息时效、事件观察、政策流动性、产业战略与资金容量窗口，以及窗口延长和中断的条件- 操作说明：按用户指定新增“时间窗口”章节，归纳风险阶段、常识回归、交易合力、信息时效、事件观察、政策与流动性、产业战略、资金容量、窗口延长与中断九类用法；逐项保留原文出处，明确分类属于整理者归纳，历史观点不外推为当前结论。保留已有正文与用户先前修改，补充来源字段和来源列表，同步索引摘要与更新日期；不改动原始资料。- [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-时间窗口|时间窗口]] - 归纳原文中的风险转弱、信息时效、事件观察、政策流动性、产业战略与资金容量窗口，以及窗口延长和中断的条件- 验证：新增章节唯一、九类概念分组与 16 个去重原文来源核验通过，新增双链均可解析，未检出乱码；已抽查原有章节保留情况。未新增页面，索引页面计数不变。- [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-时间窗口|时间窗口]] - 归纳原文中的风险转弱、信息时效、事件观察、政策流动性、产业战略与资金容量窗口，以及窗口延长和中断的条件
 
 
 ## 2026-09-20
@@ -29085,7 +29085,7 @@ automation / dividend-signal / daily-record
 - 操作：按用户指定方法论重新建立风险识别技能，新建风险演绎观察技能，并同步专家入口分流。
 - 新增文件：`.agents/skills/bbxm-risk-identification/{SKILL.md,log.md}`、`.agents/skills/bbxm-risk-evolution-monitoring/{SKILL.md,log.md}`；识别技能原目录此前已按用户要求删除。
 - 修改文件：`.agents/skills/bbxm-expert/{SKILL.md,bbxm-expert-SKILL-strong-trigger.md,log.md}`、`index.md`、`log.md`。
-- 资料来源：[[冰冰小美-framework-风险观察|风险观察与演绎]]、[[sources/articles/2025-09-20-冰冰小美：风险变化如何观察|《风险变化如何观察》]]。
+- 资料来源：[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-风险观察|风险观察与演绎]]、[[sources/articles/2025-09-20-冰冰小美：风险变化如何观察|《风险变化如何观察》]]。
 - 具体变更：识别技能输出风险类型、风险来源、核心变量和 T0 基准；观察技能承接基准，增量跟踪两股力量、风险方向、持续性和模型变化；新增技能导航，正式 Wiki 页面计数不变。
 - 验证结果：两项技能结构校验通过；独立合成情境走查覆盖同根因消息收敛、缺数据不判维持、政策仅宣布不判风险减弱三项边界，均符合预期。UTF-8、引用路径与变更格式核验通过；未进行实时金融数据采集、自动触发或有无技能对照评测。校验器最初默认 GBK 读取失败，改用 Python UTF-8 模式后通过，未修改校验器。
 
@@ -29101,7 +29101,7 @@ automation / dividend-signal / daily-record
 ### query / 信息的金融意义系列归纳方法论
 
 - 操作：全文阅读系列一至十五的库内原文，结合主题页和既有信息归纳框架，在会话中整理筛选、分类、事件节点、影响传导、评级、时效与持续验证的方法及记录模板。
-- 资料来源：[[wiki/topics/冰冰小美-信息的金融意义系列|信息的金融意义系列]] 所列十五篇原文；[[冰冰小美-framework-信息的金融处理(todo)|信息归纳框架]]。
+- 资料来源：[[_archives/2026-10-20-wiki-rebuild/wiki/topics/冰冰小美-信息的金融意义系列|信息的金融意义系列]] 所列十五篇原文；[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-信息的金融处理(todo)|信息归纳框架]]。
 - 说明：区分作者明确论述与整理者操作化建议；不将历史案例当作当前市场结论。QMD 精确查询无结果，转为已定位文件的全文读取。正式知识页与索引未改动，无新增页面。
 - QUERY query="阅读信息的金融意义系列，整理如何归纳信息的方法论" result_pages=17 mode=normal escalated=true
 
@@ -29167,7 +29167,7 @@ automation / dividend-signal / daily-record
 
 ### skill / 删除信息归纳并重建信息处理
 
-- 操作：按用户指定的 [[冰冰小美-framework-信息的金融处理(todo)|信息的金融处理]] 页面删除旧信息归纳技能，创建 information-processing（信息处理）1.0.0。
+- 操作：按用户指定的 [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-信息的金融处理(todo)|信息的金融处理]] 页面删除旧信息归纳技能，创建 information-processing（信息处理）1.0.0。
 - 新增文件：`.agents/skills/information-processing/` 下的 SKILL.md、agents/openai.yaml、references/source-routing.md、references/output-contract.md、references/result-template.json、references/output-schema.json、scripts/validate_result.py、history/retired-information-filter-log.md、log.md。
 - 删除目录：`.agents/skills/bbxm-information-filter-flow/`，包含旧说明、五层报告模板、两份类型字典、界面配置及旧日志；旧日志在新技能 history/ 中逐字节保留。
 - 修改文件：`.agents/skills/bbxm-expert/{SKILL.md,bbxm-expert-SKILL-strong-trigger.md,log.md}`，`.agents/skills/bbxm-industrial-thinking-equity-analysis/{SKILL.md,log.md}`，`.agents/skills/bbxm-three-factor-analysis/{SKILL.md,log.md}`，`.agents/skills/fund-flow-analysis/{SKILL.md,log.md}`，`index.md`，`log.md`。
@@ -29203,7 +29203,7 @@ automation / dividend-signal / daily-record
 - 日期：2026-09-21。
 - 修改文件：`wiki/agents/冰冰小美Agent.md`、`index.md`、`log.md`。
 - 操作说明：按用户指定位置更新一个统一入口、两个风险技能、一个信息处理上游的编排设计。补充六种请求路由、调用图、技能职责与输入输出、模型及逐轮记录交接、增量跟踪、重新识别和结束条件；明确已有信息结果复用、首次基准不判方向与周期执行边界。
-- 依据：[[冰冰小美-framework-信息的金融处理(todo)|信息的金融处理]]、[[冰冰小美-framework-风险观察|风险观察与演绎]]及本次对话确定的调用设计。
+- 依据：[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-信息的金融处理(todo)|信息的金融处理]]、[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-风险观察|风险观察与演绎]]及本次对话确定的调用设计。
 - 边界：沿用用户已有 agents 页面及章节，保留 Role、职责说明和估值图；不新增页面类型或改动 schema。模型记录字段和结束条件标明为执行补充；未修改实际技能，页面明确接口与记录定位尚待接入。
 - 索引：在技能维护区增加 Agent 编排导航；本次无新增页面，不修改页面计数。
 - 验证结果：6处双链目标存在、唯一索引入口、中文 UTF-8、代码围栏配对及原有职责和估值内容保留检查通过；调用图已作文本结构核对，未进行图形渲染或技能运行验证。
@@ -29215,7 +29215,7 @@ automation / dividend-signal / daily-record
 - 修改文件：`.agents/skills/bbxm-risk-identification/{SKILL.md,log.md}`、`.agents/skills/bbxm-risk-evolution-monitoring/{SKILL.md,log.md}`、`.agents/skills/bbxm-expert/{SKILL.md,log.md}`、`wiki/agents/冰冰小美Agent.md`、`index.md`、`log.md`。
 - 新增文件：两个风险技能各自的 `workflow.md`、`template.md`，以及风险识别的 `references/handoff-contract.md`；验证记录 `.work/risk-skills-review-20260921.md` 不进入正式知识层。
 - 操作说明：两个风险技能首次设置显式版本1.0.0，统一消费 InformationProcessingResult；风险识别按五步建立完整 Risk Model，演绎观察按四步维护基准、方向、持续性与模型有效性。共用证据、版本和记录定位契约，补充来源失败、上游补取、重识别停止条件与结束观察边界。专家入口、Agent页面技能说明和索引同步。
-- 资料依据：[[冰冰小美-framework-风险观察|风险观察与演绎]]、[[冰冰小美-framework-信息的金融处理(todo)|信息的金融处理]]、[[wiki/agents/冰冰小美Agent|Agent 编排]]。
+- 资料依据：[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-风险观察|风险观察与演绎]]、[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-信息的金融处理(todo)|信息的金融处理]]、[[_archives/2026-10-20-wiki-rebuild/wiki/agents/冰冰小美Agent|Agent 编排]]。
 - 保留范围：未修改方法论原页或信息处理输出契约；保留用户在Agent页面新删改的开头说明及原有估值内容，仅更新交接契约链接与技能接入状态。无新增正式Wiki页面，不改页面计数。
 - 验证结果：quick_validate 通过；9份活动文档43处本地链接、UTF-8、代码围栏和入口章节检查通过；识别五步、观察四步编号完整。完成14项合成情境规则走查，记录在 .work/risk-skills-review-20260921.md；未执行联网研究、自动调度或完整技能行为评测。
 
@@ -29289,7 +29289,7 @@ automation / dividend-signal / daily-record
 
 ### update / 续接冰冰小美风险演绎原文合集
 
-- 操作：从 [[wiki/topics/冰冰小美-风险演绎合集|冰冰小美-风险提示汇总]] 原有时间序列的 2026-03-21 继续整理，扫描 `sources/articles/` 与 `sources/automations/BBXM每日汇总/` 至 2026-09-22；新增 2026-03-23 至 2026-09-17 的 40 个风险演绎原文入口，并按 3 月下旬至 9 月补齐风险阶段主线。
+- 操作：从 [[_archives/2026-10-20-wiki-rebuild/wiki/topics/冰冰小美-风险演绎合集|冰冰小美-风险提示汇总]] 原有时间序列的 2026-03-21 继续整理，扫描 `sources/articles/` 与 `sources/automations/BBXM每日汇总/` 至 2026-09-22；新增 2026-03-23 至 2026-09-17 的 40 个风险演绎原文入口，并按 3 月下旬至 9 月补齐风险阶段主线。
 - 修改文件：`wiki/topics/冰冰小美-风险演绎合集.md`、`index.md`、`hot.md`、`log.md`。
 - 新增文件：无；原始资料均已存在于当前库的 `sources/`，本次只做去重、筛选、链接和结构化承接，不修改原始资料，也不新增正式 Wiki 页面。
 - 收录口径：保留能说明风险来源、方向变化、传导链、节点验证或风险出清的原帖；同一内容同时存在原帖、解读稿、日报汇总和风险识别稿时只链接原帖。2026-05-21 归档的《风险转弱的节点》原文发布时间为 2024-05-09，未按归档日期插入 2026 年序列。
@@ -29422,7 +29422,7 @@ automation / dividend-signal / daily-record
 - 抓取：使用 `extract_xueqiu_posts.mjs`（项目专用 profile + CDP 9333，`CHROME_PATH` 指向 Chrome Canary），候选 4、跳过非目标日期 0，保存原帖 4 篇（10:38、10:49、11:08、12:00），均为普通帖子，无图片帖、无作者补充评论。
 - 覆盖核验：另起 Chrome 直读主页 DOM，确认 2026-09-23 仅 4 篇且最新为 12:00，核验时点（16:04）无后续发帖；时间线其余为 09-22 及更早。
 - 风险分析：按 `.agents/skills/bbxm-risk-identification/`（v1.0.2）五步识别逐帖分析，覆盖 4/4、未解决 0；合格 R/W = 0，4 项全部归入 `待验证`（候选 3 项、证据不足 1 项），更新器返回 `no_risk`，未修改工作簿。未写 `tools/a-share-market-dashboard/data/Risk/`，未生成 HTML。
-- 知识库印证：[[views/冰冰小美：A股投机产业链根源在交易制度与融资市场定位的判断框架]]、[[reasoning/冰冰小美-A股指数稳定与个股分化如何由ETF承接和量化投机共同形成]]、[[views/冰冰小美：极致报团与投机分化构成股市投资者困境的判断框架]]。
+- 知识库印证：[[_archives/2026-10-20-wiki-rebuild/wiki/views/冰冰小美：A股投机产业链根源在交易制度与融资市场定位的判断框架|冰冰小美：A股投机产业链根源在交易制度与融资市场定位的判断框架]]、[[_archives/2026-10-20-wiki-rebuild/wiki/reasoning/冰冰小美-A股指数稳定与个股分化如何由ETF承接和量化投机共同形成|冰冰小美-A股指数稳定与个股分化如何由ETF承接和量化投机共同形成]]、[[_archives/2026-10-20-wiki-rebuild/wiki/views/冰冰小美：极致报团与投机分化构成股市投资者困境的判断框架|冰冰小美：极致报团与投机分化构成股市投资者困境的判断框架]]。
 - 技能修复（repair / encoding）：修复 `scripts/extract_xueqiu_posts.mjs` 中 `buildVerificationInspectionPayloadScript` 的 `textPattern` 乱码（GBK 双重编码，含私用区字符），恢复对“访问验证／请按住滑块／滑块”等风控提示文案的识别能力；同步 WorkBuddy 技能副本。`node --check` 通过，技能测试 55 passed / 2 skipped。
 - 说明：本次未新增正式 Wiki 页面，未更新 `index.md` 页面总数；`sources/` 下按自动化输出规则新增当日目录；未执行任何证券交易。
 
@@ -29430,7 +29430,7 @@ automation / dividend-signal / daily-record
 
 ### refactor / 信息处理 Skill 对齐新 feed 契约
 
-- 依据：[[冰冰小美-framework-信息的金融处理(todo)|信息的金融处理]] 的“信息处理skill的开发”章节及用户最新填充的 references、schemas、workflows。
+- 依据：[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-信息的金融处理(todo)|信息的金融处理]] 的“信息处理skill的开发”章节及用户最新填充的 references、schemas、workflows。
 - 用户确认：严格保留新 Schema，只完成 feed；monitor / target 明确待实现。
 - 修改文件：`.agents/skills/bbxm-information-processing/SKILL.md`、`agents/openai.yaml`、`scripts/validate_result.py`、技能 `log.md`；新增该技能 `tests/test_validate_result.py`；同步根 `index.md` 与本日志。
 - 变更：技能版本 1.0.0 → 2.0.0，保留 information-processing 调用名；入口对齐 Event / Signal / Cluster / Theme、Summary、Core Findings 和风险移交候选。校验器适配五份新 Schema、对象引用和可核验计数；修复索引中的旧目录链接，注明 feed 已实现与其他模式待实现。
@@ -29544,7 +29544,7 @@ automation / dividend-signal / daily-record
   - `processing/`：`extract.json`、`extract_full.txt`、`verify-homepage.json`、`verify_homepage_20260928.mjs`、`save_posts_20260928.py`、`save-report.txt`、`risk-analysis.json`、`risk-write-status.json`
 - 操作说明：按 `.agents/automations/bbxm_daliy_brief.md` 主提示词执行。08:00 后启动，目标日期取当日。首轮提取即成功（CDP 9333 原不可用，由脚本内置路径以 `CHROME_PATH` + 项目专用 profile 启动）；独立核验脚本直读主页 DOM，确认时间线最新为三帖「5 小时前」（10:37 / 10:44 / 11:10），当日无更新帖，覆盖完整。原帖保存后补写 `标签：` 元数据；仅保留作者本人与核心观点直接相关的补充评论 1 条（11:10 帖 11:14「一切根源。Ipo 加速且扩容。」）。
 - 风险分析：按 v1.0.3 五步识别路径逐帖分析，覆盖 3/3、未解决 0，`analysis_complete=true`；合格 R/W = 0，3 项全部归入 `not_written` 的「待验证」（候选 2：11:10 帖制度性不公与 IPO 扩容为长期论断且无发行数据、10:44 帖信心受损/缩量抱团缺当日成交与流动性数据；证据不足 1：10:37 帖为纯现象记录）。更新器返回 `no_risk`，未修改工作簿。未写 `tools/a-share-market-dashboard/data/Risk/`，未生成 HTML，未另跑 information-processing。
-- 知识库印证（§6.2）：[[views/冰冰小美：A股投机产业链根源在交易制度与融资市场定位的判断框架|A股投机产业链根源在交易制度与融资市场定位]]、[[reasoning/冰冰小美-A股投机产业链如何由做多制度与低违规成本形成|A股投机产业链如何由做多制度与低违规成本形成]]、[[views/冰冰小美：A股制度定位、参与者立场与投资难度判断|A股制度定位、参与者立场与投资难度判断]]、[[concepts/冰冰小美-framework-投机三层核心逻辑|投机三层核心逻辑]]、[[冰冰小美-indacator-风险源与传导路径|风险来源与传导路径]]。
+- 知识库印证（§6.2）：[[_archives/2026-10-20-wiki-rebuild/wiki/views/冰冰小美：A股投机产业链根源在交易制度与融资市场定位的判断框架|A股投机产业链根源在交易制度与融资市场定位]]、[[_archives/2026-10-20-wiki-rebuild/wiki/reasoning/冰冰小美-A股投机产业链如何由做多制度与低违规成本形成|A股投机产业链如何由做多制度与低违规成本形成]]、[[_archives/2026-10-20-wiki-rebuild/wiki/views/冰冰小美：A股制度定位、参与者立场与投资难度判断|A股制度定位、参与者立场与投资难度判断]]、[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-投机三层核心逻辑|投机三层核心逻辑]]、[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-indacator-宏观风险源与传导路径|风险来源与传导路径]]。
 - 难度与边界：当日无买卖信号，未生成 `操作.md`；11:10 帖作者图片评论的图片未能提取，列入待验证边界。`bbxm-risk-identification` 的 `references/handoff-contract.md` 缺失（技能 1.0.3 `log.md` 已自记为既有问题），本轮按现存 SKILL/workflow/template 执行，未修改技能。
 - 后续待办：无新增遗留；`tools/bbxm-risk-dashboard/data/~$冰冰小美风险提示.xlsx` 陈旧锁文件（7 月）仍在，本次 `no_risk` 未受影响，待人工确认是否清理。
 
@@ -29581,7 +29581,7 @@ automation / dividend-signal / daily-record
 
 - 用户要求：风险来源直接按知识库定义显示。
 - 修改文件：风险识别技能`SKILL.md`、`workflow.md`、`template.md`及技能日志；`tools/a-share-market-dashboard/data/Risk/models/US-AI-DEBT-ABSORPTION-v1.md`与同名HTML；根`index.md`及本日志。
-- 依据：[[冰冰小美-indacator-风险源与传导路径|风险来源与传导路径]]当前宏观风险来源表。
+- 依据：[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-indacator-宏观风险源与传导路径|风险来源与传导路径]]当前宏观风险来源表。
 - 变更：技能1.0.5 → 1.0.6；来源章节改为层次、知识库来源、核心问题、材料变化与证据状态。AI报告映射三项宏观来源，主线仍为资金供需错配候选机制；没有将分类归属当作风险确认或重复增加独立风险数量。替代解释移至验证章节，三张图保留。
 - 验证：技能和HTML静态检查通过；三个来源名称与核心问题逐项匹配知识库，六张表/三张SVG及UTF-8检查通过。未修改知识库原定义，未新增金融数据，既有视觉验收未完成状态保留。
 
@@ -29798,7 +29798,7 @@ audit / 中证红利股息率信号每日检查（自动化 09:45 任务）
 
 - 操作：audit / BBXM 每日汇总（冰冰小美）定时任务执行与登录态阻断核查。
 - 修改文件：本条目追加根 `log.md`。
-- 新增文件：`sources/automations/BBXM每日汇总/2026/09/2026-09-30/processing/extract.json`、`verify-homepage.json`、`verify-login.json`、`verify-nav.json`、`verify-cookies.json`、`verify-login-probe.json`、`verify-timeline-api.json`、`risk-analysis.json`、`risk-write-status.json`、`sources/automations/BBXM每日汇总/2026/09/2026-09-30/task.log`。未新增正式 Wiki 页面，`index.md` 不变。
+- 新增文件：`sources/automations/BBXM每日汇总/2026/09/2026-09-30_processing_extract.json`、`verify-homepage.json`、`verify-login.json`、`verify-nav.json`、`verify-cookies.json`、`verify-login-probe.json`、`verify-timeline-api.json`、`risk-analysis.json`、`risk-write-status.json`、`sources/automations/BBXM每日汇总/2026/09/2026-09-30_task.log`。未新增正式 Wiki 页面，`index.md` 不变。
 - 资料来源：雪球「冰冰小美」主页（https://xueqiu.com/u/7143769715）公开 DOM 时间线与 CDP 登录态探测；主提示词 `.agents/automations/bbxm_daliy_brief.md`。
 - 说明：目标日期 2026-09-30，抓取脚本返回 candidates=0（`extract.json = []`），公开主页时间线最新帖为 2026-09-28 11:10，未见 09-29／09-30 条目，未发现验证码或滑块。但 CDP 专用 profile（`.agents/skills/cjw-xueqiu-daily-monitor/scripts/.xueqiu-chrome-profile`）加载后雪球导航显示「登录」入口、服务端按未登录渲染，**登录态失效构成阻断项**，按主提示词第二节第 4 条不判定为空结果，保留日期目录与证据文件而不清理。时间线 JSON 接口返回阿里云 WAF 挑战页，接口级交叉核验受阻。风险分析文件 `analysis_complete=false`、`skill_call.invoked=false`，更新器返回 `blocked`，工作簿未被修改；未写 `tools/a-share-market-dashboard/data/Risk/`，未生成 HTML，未生成 `summary.md`／`state.json`／`操作.md`。
 - 后续待办：人工在专用 profile 中重新登录雪球后，对 2026-09-30 执行同日重跑以确认当日是否确无发帖；`tools/bbxm-risk-dashboard/data/~$冰冰小美风险提示.xlsx` 陈旧锁文件（Jul 14）待确认清理。
@@ -29829,7 +29829,7 @@ audit / 中证红利股息率信号每日检查（自动化 09:45 任务）
 ### design / 风险监控业务模型与自动评级规则
 
 - 新增文件：`tools/a-share-market-dashboard/prototypes/risk-monitoring-design.md`，业务设计版本1.0；修改文件：`index.md`、`log.md`。
-- 资料来源：用户确认的风险监控模块设计方案；[[冰冰小美-RiskHot架构设计|风险体系]]、[[冰冰小美-indacator-风险源与传导路径|风险来源与传导路径]]、[[冰冰小美-framework-风险观察|风险观察与演绎]]、[[wiki/concepts/冰冰小美-indacator-风险类型|二级市场风险维度]]、[[wiki/reasoning/冰冰小美如何判断风险转弱的节点|风险转弱节点框架]]及已有风险记录定位表。
+- 资料来源：用户确认的风险监控模块设计方案；[[冰冰小美-RiskHot架构设计|风险体系]]、[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-indacator-宏观风险源与传导路径|风险来源与传导路径]]、[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-风险观察|风险观察与演绎]]、[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-indacator-风险类型|二级市场风险维度]]、[[_archives/2026-10-20-wiki-rebuild/wiki/reasoning/冰冰小美如何判断风险转弱的节点|风险转弱节点框架]]及已有风险记录定位表。
 - 操作说明：补充具体风险与观察轮次、变量和指标证据、规则及阈值版本、三值条件组合评级、快照字段、可比性、转弱确认、结束重开和修订保留约束；以市场资金供需失衡的发行融资路径完成周度样例，提供9周合成输入和23项验收场景。第80/95百分位、样例历史窗口与容差均标记为待校准工程默认值，不归于作者原文或真实市场结论。
 - 验证：UTF-8与异常字符检查、7个库内链接和代码围栏检查通过；核对23项验收场景、9周评级、5组未知结果、16组完全布尔输入及4项分位边界；补充不利分位向量后复算9组S/T/B/H条件、16项相对趋势、2次转弱确认与2个结束条件观察期，均通过。检查使用临时内联Python逻辑，未新增或运行生产评级引擎，未构建看板。
 - 交付边界：只交付业务设计与导航，不修改风险体系草稿、看板代码和技能，不获取行情、不创建调度，不新增正式Wiki页面，页面总数不变。
@@ -30013,7 +30013,7 @@ audit / 中证红利股息率信号每日检查（自动化 09:45 任务）
 
 - 修改文件：`wiki/topics/冰冰小美-信息的金融意义系列.md`、`index.md`、`log.md`。
 - 依据：用户指定截图中“十一／信息来源”行的空白单元格。
-- 说明：补入 [[wiki/concepts/冰冰小美-indicator-信息来源|冰冰小美-indicator-信息来源]]，更新主题页日期及索引说明；页面总数不变。
+- 说明：补入 [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-indicator-信息来源|冰冰小美-indicator-信息来源]]，更新主题页日期及索引说明；页面总数不变。
 - 验证：目标文件存在，双链别名分隔符已按 Markdown 表格转义，表格列数保持不变，新增文本 UTF-8 检查通过。
 
 
@@ -30136,7 +30136,7 @@ audit / 中证红利股息率信号每日检查（自动化 09:45 任务）
 - 说明：在核心领域模型图后新增汇总表，覆盖 MonitoredRisk、关键变量关联、风险—事件关联、候选定义、匹配与纳管结果，以及 L0 事件、共享配置和 L2 快照；区分归属、业务含义、职责、关系和讨论状态，不将处理结果提升为实体。原 4.2—4.7 顺延为 4.3—4.8；保留 risk_def 定位待讨论，同步索引。
 - 验证：第 4 章小节 4.1—4.8 连续且唯一；移除新增节并还原标题编号后与原文逐字一致，全部 Mermaid 代码及业务步骤编号不变；新增章节引用有效，新增文字 UTF-8 与异常字符检查通过。
 
-- [2026-10-10T11:12:16+08:00] QUERY query="风险类型与风险源的关系" result_pages=3 mode=normal escalated=false；依据：[[wiki/concepts/冰冰小美-indacator-风险类型|二级市场风险维度]]、[[wiki/concepts/冰冰小美-indacator-风险源与传导路径|风险源与传导路径]]、[[tools/RiskHot/02-业务架构与领域设计/02-D1 风险知识与规则业务领域设计|D1 风险知识与规则]]。仅追加查询记录，正式页面与索引不变。
+- [2026-10-10T11:12:16+08:00] QUERY query="风险类型与风险源的关系" result_pages=3 mode=normal escalated=false；依据：[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-indacator-风险类型|二级市场风险维度]]、[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-indacator-宏观风险源与传导路径|风险源与传导路径]]、[[tools/RiskHot/02-业务架构与领域设计/02-D1 风险知识与规则业务领域设计|D1 风险知识与规则]]。仅追加查询记录，正式页面与索引不变。
 
 
 ## 2026-10-10
@@ -30155,7 +30155,7 @@ audit / 中证红利股息率信号每日检查（自动化 09:45 任务）
 ### link / 补充风险源与风险类型的作用
 
 - 修改文件：`wiki/topics/冰冰小美-风险体系.md`、`index.md`、`log.md`；无新增文件。
-- 资料来源：[[wiki/concepts/冰冰小美-indacator-风险源与传导路径|风险源]]、[[wiki/concepts/冰冰小美-indacator-风险类型|风险类型]]。
+- 资料来源：[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-indacator-宏观风险源与传导路径|风险源]]、[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-indacator-风险类型|风险类型]]。
 - 说明：按用户要求，在主题页分别说明风险源用于追踪起因与驱动因素、风险类型用于判断受损维度与扩散情况；补充两者通过传导路径形成的多对多关系及证据边界，同步摘要和索引说明。
 - 验证：两个正文链接及其目标有效，摘要与索引说明同步，新增内容 UTF-8 与异常字符检查通过。
 
@@ -30206,7 +30206,7 @@ audit / 中证红利股息率信号每日检查（自动化 09:45 任务）
 ### design / risk_dimension_config 风险类型配置表
 
 - 修改文件：`tools/RiskHot/RiskHot_L1_风险识别与纳管层_业务架构与领域设计.md`、`tools/RiskHot/02-业务架构与领域设计/02-D1 风险知识与规则业务领域设计.md`、`tools/RiskHot/冰冰小美-RiskHot架构设计.md`、`index.md`、`log.md`；无新增文件。
-- 资料来源：用户要求重命名风险类型表并完成结构设计；既有 RiskDimension 配置职责及 [[wiki/concepts/冰冰小美-indacator-风险类型|风险类型]] 知识页。
+- 资料来源：用户要求重命名风险类型表并完成结构设计；既有 RiskDimension 配置职责及 [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-indacator-风险类型|风险类型]] 知识页。
 - 说明：表名统一为 risk_dimension_config，领域名 RiskDimension 与关联字段 risk_dimension_ids 保留；L1 新增第 4.9 节，设计 13 个字段、主键与编码唯一约束、数组引用校验、停用历史保留规则及四类初始配置，说明 JSON 引用的校验边界和历史语义；同步 D1、架构入口、待定项范围及索引。未恢复或覆盖与本任务无关的文档编辑，未执行数据库建表或迁移。
 - 验证：13 字段唯一且表格列数一致；四类初始 ID、编码、排序唯一，定义及识别依据、边界与示例齐备；RiskHot 设计目录内旧独立表名零残留，关联字段正确；章节入口与知识链接有效，新增内容 UTF-8 异常字符检查通过。
 
@@ -30426,7 +30426,7 @@ audit / 中证红利股息率信号每日检查（自动化 09:45 任务）
 ### initialize / RiskHot 宏观风险源配置
 
 - 操作：按用户要求，在本机 RiskHot 开发库 `riskhot` 初始化并启用八类宏观风险源；使用现有 `reference.save` 和 `reference.approve` 命令及已有管理员授权，保留领域验证、历史和审计。
-- 资料来源：[[wiki/concepts/冰冰小美-indacator-风险源与传导路径|风险源与传导路径]]；编码及定义沿用 [[tools/RiskHot/02-业务架构与领域设计/RiskHot_L1_风险识别与纳管层_业务架构与领域设计#4.9.3 八类宏观初始配置|L1 风险源初始配置设计]]。配置内保存两份依据的 SHA-256。
+- 资料来源：[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-indacator-宏观风险源与传导路径|风险源与传导路径]]；编码及定义沿用 [[tools/RiskHot/02-业务架构与领域设计/RiskHot_L1_风险识别与纳管层_业务架构与领域设计#4.9.3 八类宏观初始配置|L1 风险源初始配置设计]]。配置内保存两份依据的 SHA-256。
 - 配置：经济增长、通胀与供给、货币政策、财政与主权债务、信用与金融体系、汇率与跨境资本、市场结构与资金供需、地缘政治与政策事件，共8类；均为 `macro`、无父级、状态 `approved`、版本2。保存核心问题、42项按类别列出的变量名称、指标示例、章节引用、归类边界及来源；变量名称为分类元数据，不等于新增全局变量或观测指标配置。
 - 口径：沿用资料页宏观八类及第9—12项归并说明，保留作者线索与整理扩展的区别；此次按首版宏观范围初始化，中观、微观未导入。未把分类或示例转成当期风险判断。
 - 验证：逐项核对数据与来源，8项均有创建、批准两条历史和两条审计；再次执行新增0、跳过8，未产生重复记录或新版本；实际配置中心显示8条且全部已批准。
@@ -30437,7 +30437,7 @@ audit / 中证红利股息率信号每日检查（自动化 09:45 任务）
 ### initialize / RiskHot 四类风险类型配置
 
 - 操作：按用户要求，在本机 RiskHot 开发库 `riskhot` 初始化并启用基本面、流动性、估值、情绪四类风险类型；通过现有 `reference.save` 与 `reference.approve` 命令执行，保留验证、版本与审计。
-- 资料来源：[[wiki/concepts/冰冰小美-indacator-风险类型|风险类型与二级市场风险维度]]；编码、配置定义、识别条件、分类边界及典型路径沿用 [[tools/RiskHot/02-业务架构与领域设计/RiskHot_L1_风险识别与纳管层_业务架构与领域设计#4.8.3 四类初始配置|L1 四类风险类型初始配置设计]]。两份依据的 SHA-256 均保存在配置元数据中。
+- 资料来源：[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-indacator-风险类型|风险类型与二级市场风险维度]]；编码、配置定义、识别条件、分类边界及典型路径沿用 [[tools/RiskHot/02-业务架构与领域设计/RiskHot_L1_风险识别与纳管层_业务架构与领域设计#4.8.3 四类初始配置|L1 四类风险类型初始配置设计]]。两份依据的 SHA-256 均保存在配置元数据中。
 - 配置：`fundamental`、`liquidity`、`valuation`、`sentiment` 共4项，状态均为 `approved`、版本2；核心问题、二级观察方向和典型高风险信号直接沿用指定文章，并保留“情绪面风险”别名。定义和示例明确标记为配置整理，典型信号不直接转成评级阈值或当期风险结论。
 - 验证：4项内容逐一核对一致；每项保留创建、批准两条历史和两条审计；重复执行新增0、跳过4；既有8类风险源逐条保持不变；实际配置中心“风险类型”页显示4条且全部已批准。
 - 修改文件：仅追加本条 `log.md`；配置已持久化到本地 PostgreSQL。来源文章和应用代码未改动，无新增正式知识页或导航工件，`index.md`及页面统计无需调整。
@@ -30644,7 +30644,7 @@ audit / 中证红利股息率信号每日检查（自动化 09:45 任务）
 - 操作：design / refactor / link。
 - 修改文件：`tools/RiskHot/03-业务功能需求/02. RiskHot_配置模块功能需求规格说明书_V1.0.md`、`tools/RiskHot/05产品UI设计/` 内设计、原型与验证记录、`tools/RiskHot/index.md`、`tools/RiskHot/log.md`、`index.md`、本日志。
 - 新增文件：`tools/RiskHot/05产品UI设计/原型资源/source-catalog.js`、`tools/RiskHot/05产品UI设计/验证/桌面-信源展开.png`。
-- 资料来源：[[wiki/concepts/冰冰小美-indicator-金融信息（todo整理)|金融信息信源章节]]及用户提供的分层页面参考图。
+- 资料来源：[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-indicator-金融信息（todo整理)|金融信息信源章节]]及用户提供的分层页面参考图。
 - 说明：在配置模块原型按 T1／T1.5／T2 展示40项文档参考入口，FRED 另列；参考清单与已登记、已准入信源分离。16项本地原型检查通过；未修改正式Wiki知识页或业务数据库，Wiki 页面计数不变。
 
 ## 2026-10-12 · RiskHot 信源页视觉一致性修订
@@ -32272,3 +32272,35 @@ refactor / rename / link
 - 修改文件：该概念页、wiki_laomujiang/index.md、整理方案.md、topics/利率货币与央行.md、timelines/买股票的老木匠-利率与流动性判断演化.md、log.md。
 - 内容：同步标题、dimension、引用及索引分组，说明政策是宏观起因，而市场承接是微观观察对象。保留既有历史日志中的原名称。
 - 验证：旧链接无残留，新目标存在，属性解析与差异检查通过。
+
+## 2026-10-20 · BBXM 每日汇总统一按年月归档并维护引用
+
+- 操作：migrate / cleanup / link / validation。
+- 修改依据：用户要求截图中的 BBXM 每日汇总目录层级只到月，删除空文件夹，并保留 Obsidian 引用。
+- 目录整理：`sources/automations/BBXM每日汇总/` 下 604 个文件迁至 `YYYY/MM/`，保留 2024—2026 年共 16 个月目录。每日文件增加 `YYYY-MM-DD_` 前缀，处理文件增加 `YYYY-MM-DD_processing_` 前缀；已有名称包含日期的历史文章保留原名。所有 606 个业务文件均保留，无覆盖合并；移除 87 个腾空目录及一个仅有访达缓存的日期目录中的 `.DS_Store`，该缓存已备份。
+- 引用维护：更新正文与属性中的双链、Markdown 路径、清单、看板本地链接及状态／分析 JSON 中的文件定位；Windows 和紧凑日期旧路径按对应原文件映射至新位置，URL、内容 ID、去重键和分析数据结构保留。额外修复 21 处指向三篇 2026-07-18 原帖的旧紧凑日期双链。三份关联来源页和一篇观点页的表格中，14 个双链只补充显示名分隔符转义。
+- 修改文件：BBXM 月目录中需要路径同步的汇总、状态、分析与处理文件，`_运行状态.md`，引用这些文件的 16 篇 Wiki 页面及关联来源快照，`.manifest.json`，`.agents/automations/bbxm_daliy_brief.md`，看板的 `scripts/build.mjs`、`scripts/local_proxy.py`、`tests/build.test.mjs`、`tests/test_local_proxy.py` 和生成的 HTML，`index.md`、`log.md`。原帖仅迁移与改名，未改写正文；页面总数不变。保留执行期间其他任务对索引等文件的并行修改。
+- 新增文件：`tools/a-share-market-dashboard/scripts/bbxm-digest-files.mjs`、`tools/a-share-market-dashboard/tests/bbxm-digest-files.test.mjs`，用于同时读取月目录与历史目录，并校验处理文件不会混入每日跟踪。
+- 后续归档规则：每日任务说明固定输出到月目录，使用日期前缀；通用抓取脚本如需日目录，先在库外临时区处理，再按月归档并同步路径。空结果仅清理该日期文件，不影响同月其他日期资料。
+- 验证：迁移前能解析的 14,334 处 Markdown／双链仍指向原目标；文件清单和原帖正文哈希核对通过；状态及分析 JSON 的路径已同步，结构和非字符串值未变。427 份迁移或修改 Markdown 的表格检查通过，看板中 72 处 BBXM 本地文件链接均有效。看板构建、目录发现的两项测试和路径校验的三项 Python 测试通过，每日跟踪集成测试通过。
+- 完整测试边界：看板 Node 测试 206 项中 198 项通过、8 项失败；在库外还原本轮修改前代码和 HTML 后重跑，失败名称与数量相同，确认无新增失败。保留原有与本次整理无关的问题。
+- 原有缺失：[[sources/automations/战略资源/铜/2026-07-22-冰冰小美铜文章与铜产业报告对比分析|铜文章与产业报告对比分析]] 中仍有 15 处指向八个已缺失旧合集文件的双链；这些目标在整理前已不存在，未伪造替代资料。另一个旧状态记录引用的 `rerun-blocked-candidates-20260720-1613.json` 也在整理前缺失。均不属于本次迁移造成的引用损坏。
+- 修改前备份、逐文件映射及验证记录：`/var/folders/hh/5jrmgmsx377fsl_56cz7q13w0000gn/T/bbxm-monthly-20261020-xp3migsj/`。未提交或回退用户已有 Git 改动。
+
+## 2026-10-20 · 清空旧Wiki并按主题时间线重整9—10月原文
+
+- 操作：archive / rebuild / ingest / link / validation。
+- 修改依据：用户明确要求删除 `wiki/` 下所有旧文档，并参照 `wiki_laomujiang/timelines/` 的页面结构，重新整理冰冰小美2026年9月、10月文章。本次将该指令视为清空并重建的明确授权；原始资料、其他知识库和具体标的工作域不在删除范围。
+- 归档：活动 `wiki/` 原335个文件已移出，含332篇Markdown、1个HTML及2个缓存文件。[[_archives/2026-10-20-wiki-rebuild/README|旧Wiki归档说明]]保存可读历史页、[原样压缩包](_archives/2026-10-20-wiki-rebuild/original-wiki.zip)、引用修改前压缩备份及路径、哈希、来源覆盖记录。原样包逐文件核对通过；可读副本只作引用与必要格式维护，不作为本轮新结论的来源。
+- 资料范围：逐篇读取 `sources/automations/BBXM每日汇总/2026/09/`、`2026/10/` 的55份原始资料，其中54份带作者元数据的原帖、1份归属待核的9月12日手工文本；9月29份、10月26份，覆盖10个有原文日期。55份文件字节哈希保持不变。11份自动汇总只作覆盖核对；处理文件及操作汇总不作为独立作者观点。
+- 新增活动页面：[[wiki/timelines/冰冰小美-利率与流动性判断演化|利率与流动性判断演化]]、[[wiki/timelines/冰冰小美-A股结构与政策资金判断演化|A股结构与政策资金判断演化]]、[[wiki/timelines/冰冰小美-AI与科技股判断演化|AI与科技股判断演化]]、[[wiki/timelines/冰冰小美-风险与参与条件判断演化|风险与参与条件判断演化]]、[[wiki/timelines/冰冰小美-交易认知与执行边界判断演化|交易认知与执行边界判断演化]]。活动 `wiki/` 仅保留这五篇，未从旧页摘要重写。
+- 页面结构：导读、页面定位、核心问题、五列判断演化表、关键转折点、阶段总览、事实／观点／推断分离、后续验证点、不确定性、来源。使用 `type: timeline`，不生成 source／sources 属性；每篇至少有三个可比较时间点，正文和来源逐项链接本库原文。
+- 证据边界：9月18日正文与转发入口、9月22日评论与正文存在重复，不按独立信源计票；图片内容缺失、只含语气词、账户修辞和生活感想单独标记。10月15日作者明确说未写9月月报，未补造；10月原文现存至16日，未用抓取候选或运行状态补作17日之后的原文。所有政策、行情、概率和融资数字均保留作者或转发材料归属，未宣称外部核验。
+- 核心阅读结果：风险来源维持与个人参与条件变化并存；10月15日的明确建仓自述不回写成9月已确认见底。长端利率下降的不同解释、投资与投机术语的语境差异、ETF成交与净流入的区别均保留，不拼成单一看多结论。
+- 索引与清单：重建 `index.md` 的活动知识导航并保留项目与工具维护区；更新 `hot.md`、`.manifest.json`，登记55份本轮来源及五篇页面，正式页面计数改为5。旧页面记录转向归档，其他来源与研究记录保留；涉及引用维护的既有来源清单同步内容哈希。
+- 引用维护：原有可解析的14,367处双链／Markdown链接仍指向原目标或其明确归档位置；新页315处链接全部通过。涉及来源、Workbench、其他库、看板、Canvas及技能参考资料的改动均为路径和必要格式维护。老木匠四篇参考时间线字节未变；其两篇概念页仅同步旧方法页参考路径，正文判断与结构保留。
+- 格式兼容：本轮涉及的649份Markdown表格检查通过；72份文件的361个表格双链补齐显示名分隔符转义。两篇可读归档与两篇既有Workbench文档中的7行历史缺列以“原表未提供”补空，一处原行截断保留提示；未补写缺失事实，原样文本仍在压缩备份中。
+- 技能兼容：仅维护 bbxm-expert、bbxm-risk-identification、bbxm-three-factor-analysis、bbxm-industrial-thinking-equity-analysis、bbxm-industry-analysis、bbxm-equity-research 六个技能内实际引用旧知识页的定位，并各自追加日志；版本号不变，不改变技能方法或输出流程。
+- 验证：五篇页面YAML、九节正文结构、来源覆盖、无来源属性、活动目录仅含五篇、55份原文哈希、旧文件原样包、老木匠四篇参考页、现有链接与新链接、649份Markdown表格及9份JSON／Canvas语法检查通过。检验报告见归档中的 `validation.json`。
+- 检索状态：`QMD skipped: qmd CLI unavailable`。当前环境无可用QMD命令，未刷新其检索索引；Markdown与Obsidian文件已完成重建。
+- 执行临时区：`/var/folders/hh/5jrmgmsx377fsl_56cz7q13w0000gn/T/bbxm-wiki-rebuild-20261020-_f7qmc16/`。未提交、清理或回退用户原有Git改动。

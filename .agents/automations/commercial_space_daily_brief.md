@@ -24,10 +24,10 @@
 
 执行前先按 UTF-8 读取以下页面；页面不存在、无法读取或疑似乱码时，在完成报告中说明，不得凭印象补写：
 
-- `wiki/concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势.md`
-- `wiki/concepts/冰冰小美-framework-产业思维.md`
-- `wiki/reasoning/冰冰小美-商业航天如何复制碳中和产业投资路径.md`
-- `wiki/timelines/冰冰小美-商业航天投资跟踪.md`
+- `_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势.md`
+- `_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-产业思维.md`
+- `_archives/2026-10-20-wiki-rebuild/wiki/reasoning/冰冰小美-商业航天如何复制碳中和产业投资路径.md`
+- `_archives/2026-10-20-wiki-rebuild/wiki/timelines/冰冰小美-商业航天投资跟踪.md`
 
 竞争格局只回答“方向有没有资格”。涉及具体公司时，仍需检查产业链位置、技术壁垒、供应链话语权、订单、收入、利润、现金流和估值，不得把行业逻辑自动映射为公司价值。
 

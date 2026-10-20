@@ -6,8 +6,8 @@ created: 2026-08-11
 updated: 2026-08-25
 as_of: 2026-08-25 12:00
 framework_refs:
-  - "[[concepts/冰冰小美-framework-估值判断]]"
-  - "[[冰冰小美-macro-basic-通胀]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-估值判断|冰冰小美-framework-估值判断]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-macro-basic-通胀|冰冰小美-macro-basic-通胀]]"
 sources:
   - "[[sources/webpages/2026-08-11-华润江中研究数据快照]]"
   - "[[sources/webpages/2026-08-19-华润江中机构级研究更新快照]]"

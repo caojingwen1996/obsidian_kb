@@ -13,7 +13,7 @@ framework_refs: [bbxm-equity-research@3.0.5]
 sources:
   - "[[sources/papers/柳工机构研报-2026-07-30/柳工2026年半年度报告.pdf|柳工2026年半年度报告]]"
 related:
-  - "[[concepts/冰冰小美-framework-估值判断|估值判断]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-估值判断|估值判断]]"
 summary: 柳工2026H1收入与海外业务继续增长，但利润、毛利、现金转换和应收质量同步转弱。按周期企业中周期利润主锚重估，公允价值7.5—10.0元、中枢8.6元；8.21元位于区间内，新增现金observe，持仓review。
 original_question: 柳工持仓的机构级研究、估值与风险判断。
 query_context: 2026-08-27因半年报法定披露触发FULL_REVALUE，使用Tushare行情资金与法定半年报全量重估。
@@ -74,7 +74,7 @@ answer_status: completed
 |---|---|---|---|
 | 行情、估值 | 本地Tushare daily / daily_basic | 2026-08-26 | 已获取 |
 | 资金分档、融资 | 本地Tushare moneyflow / margin_detail | 至2026-08-26 | 已获取；仅为交易代理，不能识别账户 |
-| 半年报、财务报表、分部 | [[sources/papers/柳工机构研报-2026-07-30/柳工2026年半年度报告.pdf|2026年半年度报告]] | 2026-06-30，披露2026-08-27 | 已获取 |
+| 半年报、财务报表、分部 | [[sources/papers/柳工机构研报-2026-07-30/柳工2026年半年度报告.pdf\|2026年半年度报告]] | 2026-06-30，披露2026-08-27 | 已获取 |
 | 2025年报及五年历史 | 既有权威研报底稿与法定年报 | 2021—2025 | 已获取 |
 | 卖方目标价、产业订单 | 公开研报摘要 | 截至2026-08-27 | 不完整，降权 |
 | 北向、ETF申赎、基金仓位 | 对应持仓与申赎数据 | 截至2026-08-27 | 未获取到 |
@@ -307,4 +307,4 @@ answer_status: completed
 
 ## 相关页面
 
-- [[concepts/冰冰小美-framework-估值判断|估值判断]]：本报告的价格分解与32项触发扫描依据。
+- [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-估值判断|估值判断]]：本报告的价格分解与32项触发扫描依据。

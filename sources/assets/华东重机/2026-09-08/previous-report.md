@@ -6,10 +6,10 @@ created: 2026-08-11
 updated: 2026-08-11
 as_of: "2026-08-11 15:23"
 framework_refs:
-  - "[[wiki/concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势|竞争格局的比较优势]]"
-  - "[[wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析|流动性辩证分析]]"
-  - "[[wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化|情绪位置的变化]]"
-  - "[[wiki/topics/冰冰小美-情绪体系认知篇|冰冰小美情绪体系理论篇]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势|竞争格局的比较优势]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析|流动性辩证分析]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化|情绪位置的变化]]"
+  - "[[_archives/2026-10-20-wiki-rebuild/wiki/topics/冰冰小美-情绪体系认知篇|冰冰小美情绪体系理论篇]]"
 ---
 
 # 华东重机机构级决策研报
