@@ -1,0 +1,47 @@
+{
+  "status": "PASS",
+  "restored_files": 311,
+  "restored_markdown": 310,
+  "active_markdown": 315,
+  "active_html": 1,
+  "current_timeline_files_preserved": 5,
+  "excluded_archived_timeline_files": 22,
+  "protected_files_unchanged": 3323,
+  "concurrent_external_changes": [
+    {
+      "path": "wiki_laomujiang/timelines/买股票的老木匠-利率与流动性判断演化.md",
+      "before_hash": "64b25b7ea2130afa0155caa432869df5ecf80f1b066cf9e118a6f6f49e73ac35",
+      "current_hash": "f6668713c2ea5a902e11b30d6a7b35fc3b245bffe4d5d8eab9d587e7651faafa",
+      "classification": "concurrent edit outside restore write scope; preserved"
+    }
+  ],
+  "restored_links_preserved": 5490,
+  "legacy_unresolved_link_occurrences": 1939,
+  "index_covers_all_restored_files": true,
+  "utf8_checked": true,
+  "encoding_recovered_from_git": 7,
+  "markdown_tables_checked": 314,
+  "table_check_exit": 0,
+  "format_repairs": [
+    {
+      "path": "wiki/views/冰冰小美对情绪体系核心目的的看法.md",
+      "repaired_rows": [
+        65,
+        66
+      ],
+      "repair": "原表末尾缺列标为原表未提供；截断文字按原样展示"
+    },
+    {
+      "path": "wiki/views/冰冰小美：信息传播对象决定信息动机与接收状态的判断框架.md",
+      "repaired_rows": [
+        243,
+        244
+      ],
+      "repair": "原表末尾缺列标为原表未提供；截断文字按原样展示"
+    }
+  ],
+  "qmd": "QMD skipped: qmd CLI unavailable",
+  "issues": [],
+  "restored_html_local_links_preserved": 0,
+  "metadata_diff_whitespace_exit": 0
+}

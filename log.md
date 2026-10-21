@@ -32304,3 +32304,18 @@ refactor / rename / link
 - 验证：五篇页面YAML、九节正文结构、来源覆盖、无来源属性、活动目录仅含五篇、55份原文哈希、旧文件原样包、老木匠四篇参考页、现有链接与新链接、649份Markdown表格及9份JSON／Canvas语法检查通过。检验报告见归档中的 `validation.json`。
 - 检索状态：`QMD skipped: qmd CLI unavailable`。当前环境无可用QMD命令，未刷新其检索索引；Markdown与Obsidian文件已完成重建。
 - 执行临时区：`/var/folders/hh/5jrmgmsx377fsl_56cz7q13w0000gn/T/bbxm-wiki-rebuild-20261020-_f7qmc16/`。未提交、清理或回退用户原有Git改动。
+
+## 2026-10-21 · 恢复Wiki非时间线历史文档
+
+- 操作：restore / link / repair / encoding / validation。
+- 修改依据：用户要求恢复 `wiki/` 下除timeline以外的文档；本轮按 `wiki/timelines/` 目录确定排除范围，不覆盖或恢复其中旧页面。
+- 恢复来源：[[_archives/2026-10-20-wiki-rebuild/README|2026-10-20旧Wiki归档]]；共311份文档，含310篇Markdown、1份HTML。目录为concepts 83、reasoning 86、views 112、queries 15、topics 11、events 3、agents 1。112篇观点页按历史兼容恢复，未恢复View新建规则或模板。
+- 编码修复：归档中7篇文档已存在乱码；分别从Git历史最近的正常UTF-8版本恢复，不使用猜测替换。原归档及压缩包保留，逐文件版本与哈希见恢复记录。
+- 引用维护：恢复页对已恢复知识的引用改回活动 `wiki/` 路径；链接按新目录位置重算。22篇未恢复旧时间线保留归档引用。未改写历史判断或补造原始来源。
+- 导航与清单：更新index.md、hot.md及.manifest.json；活动Wiki共315篇Markdown和1份HTML，时间线目录仍为原有五篇。来源记录数量及来源哈希保留，历史来源到恢复页的路径同步。
+- 保留边界：现有时间线、原始资料、老木匠知识库、旧归档和其他任务的工作区改动均保留。
+- 验证：311份恢复文档全部登记索引，5490处恢复前有效引用仍指向同一内容；314份本轮Markdown表格检查通过，恢复页均通过UTF-8和典型乱码扫描；原有五篇时间线的清单与字节哈希不变，原归档保持不变。恢复文件原有的未解析引用保留并登记在恢复记录，不伪造缺失目标。
+- 历史格式修复：两篇观点页的四行旧表格末尾缺列以“原表未提供”标记，原行截断处保留原文字面显示；未补造判断内容。
+- 并行编辑：检测到老木匠利率与流动性时间线由本轮之外的编辑发生变化，本轮未写入该文件，保留其最新内容，检查报告单独记录。
+- 检索状态：QMD skipped: qmd CLI unavailable；当前配置为不可用的Windows命令路径，未改写本机配置。
+- 备份与检查记录：`_archives/2026-10-21-wiki-partial-restore/`；修改前五篇时间线与根索引、日志、缓存、清单保存在pre-restore.zip。
