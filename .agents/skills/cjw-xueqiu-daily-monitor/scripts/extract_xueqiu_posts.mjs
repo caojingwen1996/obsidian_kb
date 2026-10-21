@@ -23,7 +23,7 @@ function printHelp() {
       "  --date YYYY-MM-DD      Target date used for later filtering",
       "  --author-name NAME     Optional author name override",
       "  --output-file PATH     Optional JSON output path; defaults to stdout",
-      "  --profile-dir PATH     Chrome profile dir; defaults to scripts/.xueqiu-chrome-profile",
+      "  --profile-dir PATH     Chrome profile dir; defaults to scripts/.xueqiu-automation-profile",
       "  --debug-port PORT      Remote debugging port; defaults to 9333",
       "  --max-posts N          Maximum detail pages to extract; defaults to 30",
       "  --capture-scope SCOPE  daily | all-visible; defaults to daily",
@@ -422,7 +422,7 @@ export function parseArgsForTesting(argv) {
 
 export function resolveProfileDirForTesting(metaUrl, explicitProfileDir) {
   const scriptDir = path.dirname(fileURLToPath(metaUrl));
-  return path.resolve(explicitProfileDir || path.join(scriptDir, ".xueqiu-chrome-profile"));
+  return path.resolve(explicitProfileDir || path.join(scriptDir, ".xueqiu-automation-profile"));
 }
 
 async function isChromeDebugPortUsable(port) {
@@ -1318,9 +1318,9 @@ async function main() {
     const chromePath = findChromeExecutable({
       candidates: {
         darwin: [
-          "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+          "/Applications/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
           "/Applications/Chromium.app/Contents/MacOS/Chromium",
-          path.join(process.env.HOME ?? "", "Applications/Google Chrome.app/Contents/MacOS/Google Chrome"),
+          path.join(process.env.HOME ?? "", "Applications/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing"),
           path.join(process.env.HOME ?? "", "Applications/Chromium.app/Contents/MacOS/Chromium"),
         ],
         win32: [

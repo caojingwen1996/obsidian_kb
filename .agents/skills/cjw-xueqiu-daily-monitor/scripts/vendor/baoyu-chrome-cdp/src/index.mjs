@@ -4,6 +4,7 @@ import net from "node:net";
 import os from "node:os";
 import path from "node:path";
 import process from "node:process";
+import { assertAutomationProfile, findMacAutomationChrome } from "../../../automation_browser.mjs";
 
 export function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -33,6 +34,9 @@ export async function getFreePort(fixedEnvName) {
 }
 
 export function findChromeExecutable(options) {
+  if (process.platform === "darwin") {
+    return findMacAutomationChrome({ envNames: options.envNames });
+  }
   for (const envName of options.envNames ?? []) {
     const override = process.env[envName]?.trim();
     if (override && fs.existsSync(override)) return override;
@@ -279,6 +283,7 @@ export class CdpConnection {
 }
 
 export async function launchChrome({ chromePath, profileDir, port, url, headless = false, extraArgs = [] }) {
+  assertAutomationProfile(chromePath, profileDir);
   await fs.promises.mkdir(profileDir, { recursive: true });
   const args = [
     `--remote-debugging-port=${port}`,

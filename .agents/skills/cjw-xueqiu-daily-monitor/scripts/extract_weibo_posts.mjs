@@ -23,7 +23,7 @@ function printHelp() {
       "  --date YYYY-MM-DD      Target date used for later filtering",
       "  --author-name NAME     Optional author name override",
       "  --output-file PATH     Optional JSON output path; defaults to stdout",
-      "  --profile-dir PATH     Chrome profile dir; defaults to scripts/.xueqiu-chrome-profile",
+      "  --profile-dir PATH     Chrome profile dir; defaults to scripts/.xueqiu-automation-profile",
       "  --debug-port PORT      Remote debugging port; defaults to 9333",
       "  --max-posts N          Maximum detail pages to extract; defaults to 30",
       "  --headless             Launch Chrome in headless mode when starting a new instance",
@@ -94,7 +94,7 @@ function parseArgs(argv) {
 
 function resolveProfileDir(metaUrl, explicitProfileDir) {
   const scriptDir = path.dirname(fileURLToPath(metaUrl));
-  return path.resolve(explicitProfileDir || path.join(scriptDir, ".xueqiu-chrome-profile"));
+  return path.resolve(explicitProfileDir || path.join(scriptDir, ".xueqiu-automation-profile"));
 }
 
 async function evaluateJson(cdp, sessionId, expression, awaitPromise = true) {
@@ -290,7 +290,7 @@ async function main() {
           path.join(process.env.LOCALAPPDATA ?? "", "Microsoft/Edge/Application/msedge.exe"),
         ],
         darwin: [
-          "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+          "/Applications/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
           "/Applications/Chromium.app/Contents/MacOS/Chromium",
         ],
         default: [

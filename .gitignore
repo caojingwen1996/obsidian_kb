@@ -5,6 +5,7 @@
 .agents/skills/zzhl-dividend-signal/local.env
 .agents/skills/eastmoney-miaoxiang/local.env
 .agents/skills/cjw-xueqiu-daily-monitor/scripts/.xueqiu-chrome-profile/
+**/.xueqiu-automation-profile/
 .codex/skills/cjw-xueqiu-daily-monitor/scripts/.xueqiu-chrome-profile/
 tools/a-share-market-dashboard/data/portfolio.json
 tools/a-share-market-dashboard/data/proxy.log

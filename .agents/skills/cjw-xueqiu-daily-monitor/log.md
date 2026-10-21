@@ -71,3 +71,14 @@
 - 涉及文件：无代码变更；本次只更新本 log.md。
 - 验证结果：重跑后脚本正常退出并写出 `extract-2026-09-24.json`（空数组）；另起独立核验脚本直读主页 DOM 确认当日确无发帖（时间线最新为 2026-09-23 12:00），失败非漏采。
 - 备注：如需根治，可考虑在脚本入口对 `Session with given id not found` 增加一次自动重连重试；本次未改动抓取与提取逻辑，留待后续在有完整回归测试窗口时再评估。
+
+## 2026-10-21 — 隔离 macOS 自动化浏览器启动
+
+- 版本：未设版本号；本次版本号不变。
+- 修改原因：固定雪球 CDP 实例使用日常 Google Chrome 的另一个数据目录，出现后台实例与程序坞唤起相互影响；仅分开 profile 不能代替应用隔离。
+- 涉及文件：scripts/start_automation_chrome.sh、scripts/automation_browser.mjs（新增）、scripts/vendor/baoyu-chrome-cdp/src/index.mjs、scripts/extract_xueqiu_posts.mjs、scripts/extract_weibo_posts.mjs、scripts/task_store.py、scripts/tests/test_start_automation_chrome.py、scripts/tests/test_extract_xueqiu_posts.py、scripts/tests/test_automation_browser.mjs（新增）、SKILL.md、EXTEND.md、references/workflow.md、log.md。已安装副本仅同步启动相关文件及文案，保留其他代码和配置。
+- 具体变更：启动器和提取器共用专用浏览器选择器，自动发现 Chrome for Testing / Chromium；macOS 显式指定日常 Chrome 或通过软链指向它时也拒绝，缺少专用浏览器不回退。可视实例使用 open -g -n -a 后台启动；支持可选无界面运行，端口仍为 9333。
+- 数据保护：新默认目录为 scripts/.xueqiu-automation-profile，旧 .xueqiu-chrome-profile 保留。旧目录版本为 156，本机 Chrome for Testing 为 147，拒绝降级打开；日常 Chrome 数据目录不可用于自动化。新目录首次使用可能需要重新登录。
+- 验证：项目完整 Python 回归 81 项、Node 测试 7 项通过；覆盖版本排序、拒绝日常 Chrome / 软链、拒绝个人 profile 与版本降级。Codex、Claude 副本各 5 项启动测试、7 项选择器测试及 dry-run 通过。
+- 真实启动验证：临时目录、空白页、随机本地端口启动 Chrome for Testing 147 成功，重复启动复用实例，测试结束后已退出；日常 Chrome PID 未变，旧专用目录关键文件哈希未变。本轮 4 个日常窗口、11 个标签页标识完整不变。未执行抓取或迁移登录数据。
+- 追溯边界：PID 69909 对应本技能固定 profile / 9333 启动链；PID 6094 属于 Playwright 临时 profile，原父进程已退出，现存记录未能定位具体创建脚本。后续临时会话通过项目与 Codex 全局隔离规则约束，不声称修改了未知原脚本。

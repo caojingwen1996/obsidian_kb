@@ -516,6 +516,12 @@ Agent 不得执行以下行为：
 - 只有当用户明确输入 `$superpower`，或明确要求“使用 superpower skill”时，才允许调用。
 - 规划、需求分析、测试驱动开发、调试和代码修改，默认直接按照本项目要求执行。
 
+### 浏览器自动化隔离
+
+- macOS 上的抓取、离线渲染和 Playwright 测试使用独立的 Chrome for Testing / Chromium 应用及任务专用数据目录；不得新启动日常 `Google Chrome.app` 实例，也不得以 `channel: 'chrome'` 作为缺省回退。只分开数据目录或添加 `--no-startup-window` 不能代替应用隔离。
+- 用户明确要求操作现有日常窗口时，复用已连接的浏览器入口。临时脚本自行启动的浏览器须在 `finally` 中关闭；持久 CDP 服务必须使用专用应用并明确记录用途。
+- 雪球任务统一调用 `.agents/skills/cjw-xueqiu-daily-monitor/scripts/start_automation_chrome.sh` 及其共用选择器；旧登录目录保留，不自动降级打开。
+
 ---
 
 ## 13. 修改前检查

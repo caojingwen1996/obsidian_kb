@@ -245,7 +245,7 @@ console.log(JSON.stringify({{ profileDir }}));
 """
         )
 
-        self.assertIn(".xueqiu-chrome-profile", payload["profileDir"])
+        self.assertIn(".xueqiu-automation-profile", payload["profileDir"])
         self.assertNotIn("E:\\\\E:\\\\", payload["profileDir"])
 
     def test_column_capture_args_accept_all_visible_and_author_comments(self) -> None:

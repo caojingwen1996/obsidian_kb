@@ -374,7 +374,7 @@ def build_parser() -> argparse.ArgumentParser:
     init_parser.add_argument("--account", required=True)
     init_parser.add_argument("--start-time", required=True)
     init_parser.add_argument("--output-root", help="输出根目录；未传时从 EXTEND.md 读取")
-    init_parser.add_argument("--chrome-profile", default="./.xueqiu-chrome-profile")
+    init_parser.add_argument("--chrome-profile", default="./.xueqiu-automation-profile")
     init_parser.add_argument("--resume-existing", action="store_true")
     init_parser.set_defaults(func=init_command)
 

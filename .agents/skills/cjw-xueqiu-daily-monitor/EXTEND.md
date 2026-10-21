@@ -103,9 +103,13 @@ Typical usage:
 The current repo-local convention is:
 
 - preferred output root: `E:/caojingwen/obsidian/source/xueqiu_exports/cjw-xueqiu-daily-monitor`
-- preferred Chrome profile: `./scripts/.xueqiu-chrome-profile`
+- preferred Chrome profile: `./scripts/.xueqiu-automation-profile`
 - preferred automation Chrome startup script: `./scripts/start_automation_chrome.sh`
 - preferred automation Chrome CDP port: `9333`
+- preferred automation browser on macOS: Chrome for Testing / Chromium，自动查找已安装应用与 Playwright 缓存；不得回退到日常 Google Chrome
+- preferred launch mode: 后台启动专用可视窗口；需要无界面运行时设置 `XUEQIU_CHROME_HEADLESS=1`
+
+旧 `scripts/.xueqiu-chrome-profile` 保留用于历史登录数据，不用于自动降级迁移。新目录首次使用可能需要在专用浏览器中重新登录；显式指定旧目录时也必须通过浏览器版本兼容性检查。
 
 These are operator defaults for this repository. Capture and summary commands must point to the same output root for a given task date.
 

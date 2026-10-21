@@ -98,6 +98,8 @@ description: 当用户需要读取、抓取、提取、归档或汇总来自各�
 
 在调用 `scripts/extract_xueqiu_posts.mjs` 前，必须先检测固定自动化 Chrome/CDP 实例是否可用，并将其作为后续抓取复用的 `自动化专用 Chrome 实例`。
 
+macOS 上该实例必须使用 Chrome for Testing 或 Chromium；启动器与提取器共用 [scripts/automation_browser.mjs](scripts/automation_browser.mjs) 的选择与校验逻辑，不得新启动日常 Google Chrome，也不得在专用浏览器缺失时回退。新实例默认使用 `scripts/.xueqiu-automation-profile`；旧 `scripts/.xueqiu-chrome-profile` 保留，不自动复制或降级打开，首次使用新目录可能需要重新登录。专用浏览器在后台启动，登录和人工验证仍在专用窗口完成。
+
 如重试后仍失败，必须停止当前任务，并将该项记录为待人工跟进。
 完整流程见：[references/workflow.md](references/workflow.md#step-1-pre-check)
 

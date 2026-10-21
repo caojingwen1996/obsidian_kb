@@ -32319,3 +32319,16 @@ refactor / rename / link
 - 并行编辑：检测到老木匠利率与流动性时间线由本轮之外的编辑发生变化，本轮未写入该文件，保留其最新内容，检查报告单独记录。
 - 检索状态：QMD skipped: qmd CLI unavailable；当前配置为不可用的Windows命令路径，未改写本机配置。
 - 备份与检查记录：`_archives/2026-10-21-wiki-partial-restore/`；修改前五篇时间线与根索引、日志、缓存、清单保存在pre-restore.zip。
+
+## 2026-10-21 — 修复后台 Chrome 自动化启动隔离
+
+- 操作：repair / browser-automation。
+- 修改文件：[[AGENTS|项目工作规则]]、[[index|工具导航]]、.gitignore；.agents/skills/cjw-xueqiu-daily-monitor 的启动脚本、共用 CDP 模块、雪球／微博提取器、task_store 默认 profile、测试、说明及技能日志；/Users/cjw/.codex/AGENTS.md；对 Codex、Claude 已安装副本做启动相关的局部同步。
+- 新增文件：上述技能内 scripts/automation_browser.mjs、scripts/tests/test_automation_browser.mjs；已安装副本增加相同模块、测试及维护日志。
+- 资料来源：本轮进程核对、现存启动代码、专用 profile 的 Last Version、已安装浏览器元数据与本地启动测试。
+- 操作说明：雪球固定 profile / 9333 启动链改用独立 Chrome for Testing / Chromium，不再回退日常 Chrome；保留旧登录目录，默认使用新 .xueqiu-automation-profile，拒绝版本降级及日常 profile 复用，新目录加入 Git 忽略。旧目录未迁移、未删除。
+- 追溯边界：PID 6094 的 Playwright 临时会话可确定其 profile，但原父进程已消失，具体创建脚本仍未定位，不武断归因某一工具。项目及全局规则要求后续临时 Playwright 使用独立应用并在 finally 关闭，不声称修改了未知原脚本。
+- 验证：项目 81 项 Python 回归、7 项 Node 测试通过；Codex、Claude 副本各 5 项启动测试、7 项选择器测试及 dry-run 通过。临时空白页实测启动、复用、关闭成功；日常进程和本轮 4 窗口／11 标签页标识未变，旧专用 profile 关键文件哈希未变。
+- 索引：只补工具隔离入口，没有新增正式 Wiki 页面，页面计数不变。
+- 修改前备份：/var/folders/hh/5jrmgmsx377fsl_56cz7q13w0000gn/T/chrome-automation-launcher-backup-mixwmc4j。
+- 后续使用：首次抓取可能需要在独立浏览器重新登录；本轮未执行抓取、未变更调度。

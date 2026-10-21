@@ -388,6 +388,8 @@
 
 ## 技能维护
 
+- [[.agents/skills/cjw-xueqiu-daily-monitor/SKILL#1.3 浏览器自动检测与启动|抓取任务的浏览器隔离]]：macOS 自动化使用独立 Chrome for Testing / Chromium 与新专用目录，保留旧登录数据，避免干扰日常 Chrome；[启动脚本](.agents/skills/cjw-xueqiu-daily-monitor/scripts/start_automation_chrome.sh)。
+
 - [中证红利每日信号任务](.agents/automations/zzhl_dividend_signal.md)：每天北京时间 09:00 调用现有 `zzhl-dividend-signal`，记录股息率信号与年度表现；含运行环境、同日重跑和失败核验规则。
 
 - [[wiki/agents/冰冰小美Agent|冰冰小美 Agent 编排]]：统一入口下的信息处理、风险识别与风险演绎观察调用规则，含模型交接、增量跟踪和结束条件；专家入口与风险技能已同步。

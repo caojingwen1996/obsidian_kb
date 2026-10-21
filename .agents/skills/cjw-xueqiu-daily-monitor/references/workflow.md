@@ -78,6 +78,8 @@ Do not continue until the user confirms one of the allowed pre-check outcomes.
 必做检查：
 
 - 检查固定自动化 Chrome/CDP 实例是否已经可访问
+- macOS 使用 Chrome for Testing / Chromium 及 `scripts/.xueqiu-automation-profile`，不得新启动日常 Google Chrome；`CHROME_PATH` 显式覆盖也受隔离检查
+- 启动器与提取器共用 `scripts/automation_browser.mjs`；缺少专用浏览器或版本不兼容时停止，保留旧目录，不自动回退或降级
 - 如果 Chrome 页面仍显示 remote debugging 为 `starting...`，视为尚未就绪
 - 在继续抓取前，必须确认至少有一个调试端口正在实际监听
 - 不能仅凭一个陈旧的 `DevToolsActivePort` 文件就判断环境可用
@@ -102,9 +104,11 @@ Do not continue until the user confirms one of the allowed pre-check outcomes.
 1. 先不要立即判定抓取失败
 2. 先检查固定自动化 Chrome/CDP 实例是否已经启动
 3. 如果未启动，则执行 `scripts/start_automation_chrome.sh` 自动启动浏览器
-4. 启动后，确认该自动化 Chrome 实例内已完成 `chrome://inspect/#remote-debugging` 授权
+4. 启动脚本通过 `--remote-debugging-port` 暴露专用实例；不需要修改日常浏览器的 `chrome://inspect/#remote-debugging` 设置
 5. 检查目标调试端口是否已经暴露 `/json/version`
 6. 如端口可用，则直接复用并重试一次本地提取脚本
+
+macOS 可视实例使用 `open -g -n -a` 在后台启动独立应用，不抢占日常 Chrome 的应用入口。首次使用新目录时，在专用窗口完成登录；旧 `.xueqiu-chrome-profile` 原样保留。只需无界面运行时，可使用 `XUEQIU_CHROME_HEADLESS=1 bash scripts/start_automation_chrome.sh`；需要人工登录或验证时使用默认可视模式。
 
 如果浏览器已经启动，但本地提取脚本仍然预检失败，则应判定为：
 
@@ -277,7 +281,7 @@ python3 scripts/task_store.py init \
   --account "闵行一霸" \
   --start-time "2026-03-25 09:30:00" \
   --output-root {output-root} \
-  --chrome-profile ./scripts/.xueqiu-chrome-profile
+  --chrome-profile ./scripts/.xueqiu-automation-profile
 ```
 
 ### Start a scan round
