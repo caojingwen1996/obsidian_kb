@@ -8,13 +8,16 @@ from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from threading import Lock
+from uuid import uuid4
 
 try:
     from .scoring import load_default_strategy, validate_strategy, normalize_strategy
 except ImportError:
     from scoring import load_default_strategy, validate_strategy, normalize_strategy
 
-DEFAULT_SETTINGS_PATH = Path(__file__).resolve().parents[4] / "tools/a-share-market-dashboard/data/红利信号/strategy-settings.json"
+SETTINGS_RELATIVE_PATH = Path("sources/automations/中证红利信号/策略参数.json")
+LEGACY_SETTINGS_RELATIVE_PATH = Path("tools/a-share-market-dashboard/data/红利信号/strategy-settings.json")
+DEFAULT_SETTINGS_PATH = Path(__file__).resolve().parents[4] / SETTINGS_RELATIVE_PATH
 _LOCK = Lock()
 
 
@@ -22,8 +25,7 @@ class StrategyConflict(ValueError):
     pass
 
 
-def read_settings(path=None):
-    path = Path(path or DEFAULT_SETTINGS_PATH)
+def _read_settings(path):
     try:
         settings = json.loads(path.read_text(encoding="utf-8-sig"))
     except FileNotFoundError:
@@ -41,6 +43,34 @@ def read_settings(path=None):
     if not isinstance(history[-1], dict) or history[-1].get("revision") != revision or history[-1].get("strategy") != strategy:
         raise ValueError("每日策略历史与当前版本不一致")
     return settings
+
+
+def migrate_legacy_settings(path=None):
+    path = Path(path or DEFAULT_SETTINGS_PATH).resolve()
+    if path.exists() or not path.as_posix().endswith("/" + SETTINGS_RELATIVE_PATH.as_posix()):
+        return path
+    legacy = path.parents[3] / LEGACY_SETTINGS_RELATIVE_PATH
+    if not legacy.exists():
+        return path
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with settings_lock(path):
+        if path.exists() or not legacy.exists():
+            return path
+        _read_settings(legacy)  # Reject damaged configuration instead of resetting parameters.
+        raw = legacy.read_bytes()
+        backup = path.parent / "备份/策略参数迁移" / uuid4().hex / "strategy-settings.json"
+        backup.parent.mkdir(parents=True, exist_ok=True)
+        with backup.open("xb") as output:
+            output.write(raw)
+        temporary = path.with_suffix(".json.tmp")
+        temporary.write_bytes(raw)
+        temporary.replace(path)
+        legacy.unlink()
+    return path
+
+
+def read_settings(path=None):
+    return _read_settings(migrate_legacy_settings(path))
 
 
 @contextmanager
@@ -85,10 +115,10 @@ def save_settings(strategy, expected_revision, path=None):
     clean["weights"] = {k: clean["weights"][k] for k in defaults["weights"]}
     clean["anchors"] = {k: clean["anchors"][k] for k in defaults["anchors"]}
     clean["thresholds"] = {k: clean["thresholds"][k] for k in defaults["thresholds"]}
-    path = Path(path or DEFAULT_SETTINGS_PATH)
+    path = migrate_legacy_settings(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     with settings_lock(path):
-        current = read_settings(path)
+        current = _read_settings(path)
         if expected_revision != current["revision"]:
             raise StrategyConflict("每日策略已被其他页面更新，请刷新配置后重试；当前试算参数保留。")
         if all(current["strategy"][k] == clean[k] for k in ("weights", "anchors", "thresholds", "confirmationDays")):

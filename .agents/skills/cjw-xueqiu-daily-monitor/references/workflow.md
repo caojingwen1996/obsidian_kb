@@ -145,7 +145,7 @@ Classify the run as:
 - `new-day start`: no same-day author directory exists yet
 - `same-day rerun`: the author directory already exists for that date
 
-Use the existing author-date output directory as the source of truth. Prefer `state.json` when present, and use saved raw `.txt` files for fallback reconstruction when needed. Do not guess from memory alone.
+Use the existing author-date output directory as the source of truth. Prefer `state.json` when present, and use saved raw `.md` / legacy `.txt` files for fallback reconstruction when needed. Do not guess from memory alone.
 
 Related files:
 
@@ -205,7 +205,7 @@ It must also reuse the Step 2.5 risk plan. Do not switch a high-risk pass back t
 6. compare with already saved state or raw files for the same author-date directory
 7. open only newly discovered items
 8. extract content into structured JSON and pass it to `scripts/content_task.py`
-9. save raw `.txt` files
+9. save raw Markdown files
 9. append task logs and leave saved raw files available for later reruns
 
 Required behavior:
@@ -248,7 +248,7 @@ Local responsibility split for this step:
 - `scripts/start_automation_chrome.sh`: launch or reuse the dedicated automation Chrome instance
 - `scripts/extract_xueqiu_posts.mjs`: homepage access, page interaction, login-state reuse, DOM-first verification auto-attempt with screenshot-based visual fallback, manual fallback, DOM extraction
 - `scripts/task_store.py`: state file, deduplication, scan rounds, logs
-- `scripts/content_task.py`: consume extracted post JSON, filter by target date, deduplicate, and save raw `.txt` files
+- `scripts/content_task.py`: consume extracted post JSON, filter by target date, deduplicate, and save raw Markdown files
 
 ### Extract structured posts
 
@@ -350,13 +350,13 @@ Never:
 
 ## Step 5: Generate summaries
 
-Run summary generation only after the operator considers the day's raw capture complete enough.
+Run summary generation once the current capture pass is complete enough. No additional confirmation is needed for the already authorized scope.
 
 ### 5.1 Prepare author input
 
 For each author directory under `{yyyymmdd}/`:
 
-1. load all saved raw `.txt` files
+1. load all saved raw `.md` / legacy `.txt` files
 2. parse only the minimum fields needed for summarization:
    - `title`
    - `published_at`
@@ -367,7 +367,7 @@ For each author directory under `{yyyymmdd}/`:
 
 Rules:
 
-- read saved raw `.txt` files only
+- read saved raw `.md` / legacy `.txt` files only
 - do not mix in logs or unrelated files
 - preserve post boundaries
 - keep metadata separate from body text
@@ -444,7 +444,7 @@ Rules:
 
 - summarize viewpoints only
 - do not output old heuristic sections such as `核心内容` / `背景语境` / `Spec相关`
-- do not overwrite raw `.txt` files
+- do not overwrite raw `.md` / legacy `.txt` files
 - allow rerunning Step 5 from saved raw files
 
 ### 5.4 Preserve intermediate artifacts
@@ -460,6 +460,20 @@ Related references:
 
 - [summary-format.md](summary-format.md)
 - [output-layout.md](output-layout.md)
+
+## Step 5.5: Preprocess and publish Timeline pages (enabled by default)
+
+Read and execute [timeline-processing.md](timeline-processing.md) after raw capture and summary preparation. `content_task.py` prepares a manifest automatically at the end of each author-date save; `task_store.py finish` prepares one for the legacy path. For manually saved or historical inputs, call `scripts/timeline_postprocess.py prepare` explicitly.
+
+The invoking Agent must read original evidence, compare existing themes and historical candidates, create `plan.json` and candidate Markdown, then run `scripts/timeline_postprocess.py apply`. Do not stop at the manifest or mistake a Python save command for semantic analysis. A summary failure does not invalidate complete original evidence; report summary and Timeline status separately.
+
+- Pass `--capture-only` to the saving entrypoint only when the user asks for capture without processing, or the enclosing task explicitly restricts Wiki writes. Record why processing was skipped.
+- For explicitly selected libraries pass `--timeline-profile laomujiang` or `bbxm`; the configuration provides normal account mappings. Unknown ownership blocks only library writes.
+- `--extend-file` selects the same runtime configuration for capture and postprocessing. Capture, summary and processing must use the same output root.
+- Same-version reruns do not duplicate nodes. Source revisions save separate raw versions; include affected topics in this run's analysis. Cross-date candidates are supplied through manifest history_states.
+- New themes with at least three distinct, fully supported dates can be created automatically. Below threshold, retain a candidate; do not ask for per-page permission or create empty pages.
+- Keep human edits and historical judgments. On conflict, re-prepare and compare before retrying. No forced overwrite.
+- Report pending, blocked, failed and finalize_pending separately. No silent success when report.json contains unprocessed sources.
 
 ## Step 6: Finalize
 
@@ -481,6 +495,7 @@ The workflow is considered complete for the date when:
 - raw data is stable enough for summary generation
 - final summaries have been written
 - important failures have been recorded for follow-up
+- Timeline processing has completed through apply, or an explicit skip/failure reason is recorded; report created/updated pages, candidates, unprocessed sources and pending finalization
 
 ## Stop Conditions
 

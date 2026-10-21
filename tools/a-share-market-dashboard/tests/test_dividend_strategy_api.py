@@ -9,14 +9,15 @@ from unittest.mock import patch
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
-from scripts.local_proxy import create_server
+from scripts.local_proxy import create_server, dividend_strategy_store
 from tests.dividend_fixture import seed_dividend_vault
 
 
 @contextmanager
-def strategy_server(directory):
+def strategy_server(directory, use_default_path=False):
     dashboard, _ = seed_dividend_vault(directory)
-    server = create_server(port=0, dashboard_path=dashboard, dividend_strategy_path=Path(directory) / "settings.json")
+    options = {} if use_default_path else {"dividend_strategy_path": Path(directory) / "settings.json"}
+    server = create_server(port=0, dashboard_path=dashboard, **options)
     thread = Thread(target=server.serve_forever, daemon=True)
     thread.start()
     try:
@@ -35,6 +36,29 @@ def request_json(url, payload=None, origin=None):
 
 
 class DividendStrategyApiTest(unittest.TestCase):
+    def test_default_path_migrates_and_saves_next_to_workbook(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            store = dividend_strategy_store()
+            old = root / store.LEGACY_SETTINGS_RELATIVE_PATH
+            new = root / store.SETTINGS_RELATIVE_PATH
+            config = deepcopy(store.read_settings(old)["strategy"])
+            config["thresholds"]["A"] = 67
+            store.save_settings(config, 0, old)
+            before = old.read_bytes()
+            with strategy_server(directory, use_default_path=True) as base:
+                endpoint = base + "/api/dividend-strategy"
+                initial = request_json(endpoint)
+                self.assertEqual(initial["revision"], 1)
+                self.assertEqual(new.read_bytes(), before)
+                config["thresholds"]["A"] = 68
+                saved = request_json(endpoint, {"strategy": config, "expectedRevision": 1})
+                self.assertEqual(saved["revision"], 2)
+                self.assertEqual(store.read_settings(new)["strategy"], saved["strategy"])
+                backup = root / saved["recalculation"]["backupPath"] / new.name
+                self.assertEqual(backup.read_bytes(), before)
+                self.assertFalse(old.exists())
+
     def test_read_apply_conflict_and_history(self):
         with TemporaryDirectory() as directory, strategy_server(directory) as base:
             endpoint = base + "/api/dividend-strategy"

@@ -1,6 +1,6 @@
 ---
 name: zzhl-dividend-signal
-version: 1.2.1
+version: 1.3.0
 description: 检查中证红利指数（000922）股息率信号，使用AKShare与腾讯行情记录数据，按绝对股息率92%、股债倍数8%的双指标策略评分，不再采集或计算历史分位。
 ---
 
@@ -24,11 +24,19 @@ python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py
 3. 通过腾讯行情接口获取中证红利 `sh000922` 的当天涨跌幅；该涨跌幅日期默认等于记录日期。
 4. 通过 AKShare `bond_zh_us_rate` 获取 10 年期中国国债收益率。
 5. 仅使用绝对股息率和股债倍数评分；不获取理杏仁或指数估算分位。
-6. 优先读取已应用的每日策略配置，尚无配置时读取本技能 `strategy-v2.json`，按V2双指标连续加权评分计算综合分、子分数、权重贡献和等级。原问题页仅保留旧研究背景，不作为当前参数源。
+6. 读取每日策略配置 `sources/automations/中证红利信号/策略参数.json`（唯一权威参数源，含 `schemaVersion`、`revision`、`strategy`、`updatedAt`、`history`），按V2双指标连续加权评分计算综合分、子分数、权重贡献和等级。该文件缺失时回退本技能 `strategy-v2.json` 默认值（版本 `dividend-two-factor-v2`，无 `-rN` 后缀）；文件损坏时明确报错并中止，不静默回退。原问题页仅保留旧研究背景，不作为当前参数源。
 7. 将每日结果写入 `sources/automations/中证红利信号/中证红利每日信号.xlsx`。
 8. 将最近一次结果写入 `sources/automations/中证红利信号/最新信号.md`。
 9. 将原始输入、实际数据日期、策略版本、得分贡献和连续确认状态写入 `sources/automations/中证红利信号/评分记录.json`。
 10. 将指数成立以来每一年的收益率和年内最大回撤写入 `sources/automations/中证红利信号/中证红利年度表现.json`。
+
+## 任务运行监控
+
+正常每日入口会在输出目录的`运行记录/`中为每次执行写入独立JSON凭证：开始时间、阶段、20秒心跳、结束时间、耗时、已写文件、错误与输出校验结果。文件通过临时文件原子替换，同日补跑保留原失败凭证；离线`snapshot-from-local`不生成每日执行凭证。
+
+`run_monitor.py`与看板共用校验：四份输出可读、当日当前策略记录唯一、输入／日期／分数一致、年度及月度字段有效、参数历史与当前版本一致、综合分复算通过。必要输出未完成标记部分完成并返回失败；附属行情缺失标记完成有提醒。估值与国债使用上一交易日不视为运行失败；日期未对齐单独提醒。
+
+看板“红利信号 → 任务监控”只读本地凭证与产物，页面可见时每30秒刷新。尚无执行凭证的历史信号仅标记“有信号记录”；当日本地文件校验通过可标记“产物已核验”，不补造开始、结束或耗时。超过09:00约定时间及30分钟等待范围仍无凭证，显示“逾期未确认”；进程停止或心跳超过120秒显示“状态待确认”。这些规则不更改调度定义。
 
 ## 数据源优先级
 
@@ -57,7 +65,21 @@ python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py
 
 ## V2 双指标评分
 
-当前默认参数源为 [strategy-v2.json](strategy-v2.json)，基础版本 `dividend-two-factor-v2`。每日运行读取看板已应用配置。旧 [strategy-v1.json](strategy-v1.json) 冻结保留用于档案追溯；旧配置在读取评分时仅迁移两项有效权重，不再计算历史分位。
+### 每日策略参数来源
+
+计算必须从每日策略配置文件读取，不得在脚本、任务或报告里另设一套参数：
+
+| 项 | 内容 |
+|---|---|
+| 权威参数文件 | `sources/automations/中证红利信号/策略参数.json`（项目根目录下） |
+| 职责 | 每日运行、看板参数应用、离线重算共用的唯一参数源；`strategy.version` 形如 `dividend-two-factor-v2-r5`，`history` 保留各版完整参数 |
+| 回退 | 文件缺失时回退本技能 `strategy-v2.json`（版本 `dividend-two-factor-v2`，无 revision 后缀，仅作默认值） |
+| 失败处理 | 文件损坏、schema 不为 1、revision 非法、策略校验失败或 `history` 与当前版本不一致时明确报错并中止，不静默改用默认值、不改写原文件 |
+| 变更方式 | 由看板“保存并应用到每日测算”写入，或手动编辑后确保 `revision`、`strategy`、`history[-1]` 三者一致；每次参数变化 revision 递增 |
+
+脚本入口为 `scripts/strategy_store.py` 的 `read_settings()` 与 `scripts/scoring.py` 的 `load_strategy()`，默认路径由 `SETTINGS_RELATIVE_PATH` 推导，看板服务与每日任务共用同一文件。旧 `tools/a-share-market-dashboard/data/红利信号/strategy-settings.json` 为已迁移的历史路径，仅保留兼容读取，不再作为当前参数源。
+
+旧 [strategy-v1.json](strategy-v1.json) 冻结保留用于档案追溯；旧配置在读取评分时仅迁移两项有效权重，不再计算历史分位。
 
 综合分 = 绝对股息率得分 × 92% + 股债倍数得分 × 8%。股债倍数 = 股息率2 ÷ 中国10年国债收益率。
 
@@ -93,7 +115,7 @@ python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py
 
 每日Markdown同步追加评分说明；Excel在原列之后追加策略版本、综合分/等级、上下界、两项得分/贡献、质量和连续确认状态，保留中文表头可见。旧文件缺少这些字段仍可读取。
 
-首次离线重算使用以下命令，生成 `评分记录.json` 与 `V1参考快照.md`，不联网，不覆盖旧 `最新信号.md` 和工作簿，也不把重算时间当作行情日期：
+首次离线重算使用以下命令，生成 `评分记录.json` 与 `历史归档/V1参考快照.md`，不联网，不覆盖旧 `最新信号.md` 和工作簿，也不把重算时间当作行情日期。已结束的历史核查、试算及参数应用资料统一存放在信号目录的 `历史归档/`，当前运行文件与 `备份/` 保留在原处：
 
 ```bash
 .work/zzhl-dividend-signal/.venv/bin/python .agents/skills/zzhl-dividend-signal/scripts/check_signal.py --snapshot-from-local
@@ -110,6 +132,8 @@ python .agents\skills\zzhl-dividend-signal\scripts\check_signal.py
 看板展示“每日记录结果”和“策略详情”参数表单；本地实时测算卡片已移除，编辑参数不再生成当日试算分数、分差或等级变化。每日结果的连续确认按有效评分记录与交易日历判断，不按页面访问次数计数。
 
 “保存本地参数”仅保留浏览器参数。“保存并应用到每日测算”调用本地服务 `POST /api/dividend-strategy`（`strategy` 与 `expectedRevision`），保存后下一次每日任务生效，同时同步浏览器本地参数。当前每日结果及旧历史不立即重算。`GET /api/dividend-strategy` 返回当前配置；修改前读取版本，冲突返回409并保留编辑参数。直接打开HTML或旧服务不支持应用时，提示使用/重启启动面板。
+
+每日任务与看板统一读写 `sources/automations/中证红利信号/策略参数.json`，与 `中证红利每日信号.xlsx` 同目录。旧位置 `tools/a-share-market-dashboard/data/红利信号/strategy-settings.json` 仅用于首次兼容迁移，原文件先备份至信号目录的 `备份/策略参数迁移/`；迁移保留全部参数、revision与历史，新文件存在时不采用旧文件。看板应用参数时，重算备份中的配置文件也命名为 `策略参数.json`。
 
 每日配置文件包含 `schemaVersion`、`revision`、`strategy`、`updatedAt`、`history`。首次变更发布 `dividend-two-factor-v2-r1`，后续每次参数变化递增revision；相同参数重复应用不生成新版本。配置历史保留各版完整参数和北京时间。写入使用进程/文件锁与原子替换，非法参数或保存失败不覆盖原配置；配置损坏明确报错，不静默退回默认。保存配置不改调度时间、不主动运行每日任务。恢复双指标默认值先只改变编辑参数，需再次点击应用按钮才发布到每日任务。
 

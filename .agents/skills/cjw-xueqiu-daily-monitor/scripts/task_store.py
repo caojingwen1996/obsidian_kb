@@ -12,7 +12,12 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-from utils import resolve_output_root
+try:
+    from .utils import resolve_output_root
+    from .timeline_postprocess import capture_hook, digest
+except ImportError:
+    from utils import resolve_output_root
+    from timeline_postprocess import capture_hook, digest
 
 
 def parse_datetime(value: str) -> datetime:
@@ -128,7 +133,8 @@ def build_summary(state: dict[str, Any]) -> dict[str, Any]:
 
 
 def init_command(args: argparse.Namespace) -> int:
-    output_root = resolve_output_root(args.output_root)
+    extend_file = getattr(args, "extend_file", None)
+    output_root = resolve_output_root(args.output_root, **({"extend_file": Path(extend_file)} if extend_file else {}))
 
     start_time = parse_datetime(args.start_time)
     task_date = start_time.strftime("%Y%m%d")
@@ -164,6 +170,7 @@ def init_command(args: argparse.Namespace) -> int:
         "log_file": str(log_file),
         "result_dir": str(result_dir),
         "state_file": str(state_file),
+        "output_root": str(output_root),
         "processed_items": {},
         "events": [],
     }
@@ -196,7 +203,10 @@ def should_process_command(args: argparse.Namespace) -> int:
     if not ensure_same_day(state["task_date"], published_at):
         result = {"should_process": False, "reason": "not_today", "item_key": item_key}
         write_log(Path(state["log_file"]), "INFO", round_id, f"跳过非当日内容 item_key={item_key}")
-    elif item_key in state["processed_items"]:
+    elif item_key in state["processed_items"] and (
+        not getattr(args, "content_hash", None)
+        or args.content_hash == state["processed_items"][item_key].get("content_hash")
+    ):
         result = {"should_process": False, "reason": "already_processed", "item_key": item_key}
         write_log(Path(state["log_file"]), "INFO", round_id, f"跳过已处理内容 item_key={item_key}")
     else:
@@ -224,7 +234,13 @@ def save_item_command(args: argparse.Namespace) -> int:
     round_id = state["scan_round"]
     processed_items = state["processed_items"]
 
-    if item_key in processed_items:
+    previous = processed_items.get(item_key, {})
+    previous_hash = previous.get("content_hash")
+    if previous and not previous_hash:
+        old_text = Path(previous["file_path"]).read_text(encoding="utf-8-sig")
+        previous_hash = digest(json.dumps([previous.get("title"), old_text.split("正文：\n", 1)[-1].rstrip()], ensure_ascii=False))
+    version_hash = digest(json.dumps([title, content], ensure_ascii=False))
+    if previous_hash == version_hash:
         existing = processed_items[item_key]
         write_log(Path(state["log_file"]), "INFO", round_id, f"重复保存已拦截 item_key={item_key}")
         print(
@@ -244,6 +260,8 @@ def save_item_command(args: argparse.Namespace) -> int:
     title_slug = sanitize_name(title)[:48]
     filename = f"{published_at.strftime('%H%M%S')}_{title_slug}_{item_key[:8]}.txt"
     result_path = Path(state["result_dir"]) / filename
+    if result_path.exists():
+        result_path = result_path.with_name(f"{result_path.stem}-{version_hash[:12]}.txt")
 
     body = "\n".join(
         [
@@ -256,7 +274,10 @@ def save_item_command(args: argparse.Namespace) -> int:
             "",
         ]
     )
-    atomic_write_text(result_path, body)
+    if result_path.exists() and result_path.read_text(encoding="utf-8") != body:
+        raise ValueError("原文版本文件冲突，拒绝覆盖")
+    if not result_path.exists():
+        atomic_write_text(result_path, body)
 
     processed_items[item_key] = {
         "source_id": args.source_id,
@@ -265,6 +286,8 @@ def save_item_command(args: argparse.Namespace) -> int:
         "url": url,
         "file_path": str(result_path),
         "saved_at": now_text(),
+        "content_hash": version_hash,
+        "previous_versions": previous.get("previous_versions", []) + ([previous["file_path"]] if previous else []),
     }
     state["success_count"] += 1
     append_event(
@@ -354,6 +377,10 @@ def finish_command(args: argparse.Namespace) -> int:
     save_state(state_file, state)
 
     summary = build_summary(state)
+    kwargs = {"capture_only": getattr(args, "capture_only", False), "profile": getattr(args, "timeline_profile", None)}
+    if getattr(args, "extend_file", None):
+        kwargs["extend_file"] = Path(args.extend_file)
+    summary["postprocessing"] = capture_hook(Path(state["result_dir"]), **kwargs)
     write_log(
         Path(state["log_file"]),
         "INFO",
@@ -363,7 +390,7 @@ def finish_command(args: argparse.Namespace) -> int:
         f"log={state['log_file']} result_dir={state['result_dir']}",
     )
     print(json.dumps(summary, ensure_ascii=False, indent=2))
-    return 0
+    return int(summary["postprocessing"]["status"] in ("blocked", "failed"))
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -374,6 +401,7 @@ def build_parser() -> argparse.ArgumentParser:
     init_parser.add_argument("--account", required=True)
     init_parser.add_argument("--start-time", required=True)
     init_parser.add_argument("--output-root", help="输出根目录；未传时从 EXTEND.md 读取")
+    init_parser.add_argument("--extend-file", help="自定义 EXTEND.md 配置路径")
     init_parser.add_argument("--chrome-profile", default="./.xueqiu-automation-profile")
     init_parser.add_argument("--resume-existing", action="store_true")
     init_parser.set_defaults(func=init_command)
@@ -389,6 +417,7 @@ def build_parser() -> argparse.ArgumentParser:
     should_parser.add_argument("--title", required=True)
     should_parser.add_argument("--published-at", required=True)
     should_parser.add_argument("--url", required=True)
+    should_parser.add_argument("--content-hash", help="已获取正文时传版本指纹，允许修订版本重新保存")
     should_parser.set_defaults(func=should_process_command)
 
     save_parser = subparsers.add_parser("save-item")
@@ -418,6 +447,9 @@ def build_parser() -> argparse.ArgumentParser:
     finish_parser = subparsers.add_parser("finish")
     finish_parser.add_argument("--state-file", required=True)
     finish_parser.add_argument("--end-time")
+    finish_parser.add_argument("--capture-only", action="store_true")
+    finish_parser.add_argument("--timeline-profile")
+    finish_parser.add_argument("--extend-file")
     finish_parser.set_defaults(func=finish_command)
 
     return parser

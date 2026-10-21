@@ -49,10 +49,10 @@ class ContentTaskTests(unittest.TestCase):
                             "platform": "xueqiu",
                         },
                         {
-                            "title": "重复内容",
+                            "title": "第一条",
                             "published_at": "2026-04-07 09:45:00",
                             "url": "https://xueqiu.com/u/9838764557/status/1001",
-                            "content": "正文一重复",
+                            "content": "正文一",
                             "author_name": "测试作者",
                             "platform": "xueqiu",
                         },

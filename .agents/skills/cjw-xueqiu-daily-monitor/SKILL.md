@@ -1,15 +1,17 @@
 ---
 name: cjw-xueqiu-daily-monitor
-description: 当用户需要读取、抓取、提取、归档或汇总来自各类内容平台的文章、帖子或链接时使用，包括但不限于雪球、微信公众号、微博及其他网页内容平台；也用于按默认配置抓取各平台启用项、手动抓取指定账号的当日帖子、对同一天任务进行无重复补抓，或基于已保存的原始文本生成每位作者的 Markdown 汇总。当用户说“阅读这篇文章”“读取平台文章”“抓取默认配置”“开启雪球任务”“抓取雪球帖子”“抓取微信公众号文章”时触发。用户提供链接时只处理本次输入，不自动合并默认配置。
+description: 抓取、归档和汇总雪球、微信公众号、微博等平台文章；抓取后自动预处理、比较历史判断，更新或创建所属知识库的 Timeline。也用于增量补抓或重新整理已保存原文。用户提供链接时只处理本次输入，不合并默认账号；明确只抓取时跳过后处理。
 ---
 
-# 雪球日常监控
+# 文章抓取、预处理与 Timeline 整理
 
-面向已配置账号主页的手动当日雪球监控流程。
+面向指定链接或已配置账号的单轮抓取与知识整理流程。
 
 使用这个 skill 时，先判断输入模式。只有默认配置模式才从 `EXTEND.md` 读取各平台启用项；用户提供链接时，以本次链接为唯一抓取输入。每次手动启动执行一轮抓取，在同日重跑时复用既有状态，并基于已保存的原始文本生成每位作者的 Markdown 汇总。
 
 `EXTEND.md` 是默认抓取项和运行偏好的唯一配置来源，包括输出根目录等运行偏好。主流程文档不得另行定义与 `EXTEND.md` 冲突的固定路径。
+
+抓取后默认开启 Timeline 预处理、更新与自动建页；满足至少三个可追溯时间点等成页条件时直接创建，不限于现有主题。脚本准备证据和安全写入，调用本技能的 Agent 负责阅读原文、比较历史、生成修改计划并执行发布，不得把“已生成处理清单”视为完成。
 
 ## 输入模式路由（第 0 步）
 
@@ -23,12 +25,13 @@ description: 当用户需要读取、抓取、提取、归档或汇总来自各�
 
 ## 范围边界
 
-这个 skill 只定义雪球业务流程本身：
+本技能覆盖原文抓取和所属知识库的 Timeline 后处理：
 
 - 账号配置与操作者确认
 - 目标日期解析
 - 同日重跑识别与去重
 - 原始文件和汇总输出要求
+- 原文预处理、主题归组、历史比较及 Timeline 自动更新／建页
 
 也支持微信公众号抓取：用户提供一个或多个 `mp.weixin.qq.com/s...` 文章链接时，使用 `scripts/extract_wechat_articles.mjs` 提取结构化 JSON；用户提供可访问的公众号主页/历史消息页面时，使用 `--history-url` 先发现文章链接，再复用现有保存流程写入原始 `.txt` 文件。
 
@@ -49,7 +52,8 @@ description: 当用户需要读取、抓取、提取、归档或汇总来自各�
 - [ ] 第 3 步：按输入范围和平台逐项执行一轮抓取
 - [ ] 第 4 步：同日重跑时复用既有状态
 - [ ] 第 5 步：基于已保存的原始文本生成 Markdown 汇总
-- [ ] 第 6 步：收尾并汇报输出位置
+- [ ] 第 5.5 步：预处理原文、比较历史并更新或自动创建 Timeline
+- [ ] 第 6 步：分别报告抓取、汇总和 Timeline 处理结果
 ```
 
 ## 第 1 步：预检
@@ -155,6 +159,7 @@ macOS 上该实例必须使用 Chrome for Testing 或 Chromium；启动器与提
 - 优先复用 `state.json`，只有在需要手动重建状态时才回退到已保存的原始 `.txt` 文件
 - 只保存新发现的帖子
 - 不要覆盖已有原始文件
+- 同一帖子内容修订时保存独立版本，并重新整理受影响主题；同版本重跑不重复插入。
 
 完整流程见：[references/workflow.md](references/workflow.md#step-4-same-day-rerun)
 
@@ -170,6 +175,17 @@ macOS 上该实例必须使用 Chrome for Testing 或 Chromium；启动器与提
 
 每份最终作者汇总都必须保留 `总观点` 和 `分观点` 这两个必需章节。
 
+## 第 5.5 步：Timeline 后处理（默认开启）
+
+必须读取并执行 [references/timeline-processing.md](references/timeline-processing.md)。从保存入口返回的 manifest 开始，或对已保存原文执行 `scripts/timeline_postprocess.py prepare`；完成原文核对、既有主题检索、跨日期候选合并和历史比较后，生成 plan 与候选全文，再执行 `apply`。
+
+- `EXTEND.md` 已开启后处理、更新已有页和自动建页；知识库按配置映射或用户明确指定，不跨库猜测。
+- 只有本地原文可作证据，不能仅分析 summary；原文在库外时先归档，不修改旧原文。
+- 保留已有页面结构和人工内容，采用增量插入；未达到新建门槛的主题记录为候选，后续自动评估。
+- 明确“只抓取／不整理”时传 `--capture-only`；重新整理已保存资料不需要联网。
+- 未知归属、正文缺失、校验失败、写入冲突和待收尾结果须报告；不把 AI 整理完成标为人工已读。
+- 不恢复 view 或 reading_queue，不顺带创建其他类型知识页。
+
 ## 第 6 步：收尾
 
 需要汇报：
@@ -180,10 +196,11 @@ macOS 上该实例必须使用 Chrome for Testing 或 Chromium；启动器与提
 - 每位作者的汇总文件位置
 - 每位作者的 processing 目录
 - 仍需人工跟进的失败项
+- Timeline 新增／更新页、候选积累、无变化、待补全、失败或待收尾项；必须完成 apply 或明确记录未完成原因。
 
 ## 输出目录
 
-所有输出都组织在 `EXTEND.md` 配置的 `preferred output root` 下。
+抓取、汇总及中间产物组织在 `EXTEND.md` 的 `preferred output root` 下；归档来源和最终 Timeline 使用该文件的知识库配置。
 
 ```text
 {output-root}/
@@ -209,16 +226,34 @@ macOS 上该实例必须使用 Chrome for Testing 或 Chromium；启动器与提
 - 不要声称存在超出当前汇总启发式范围的 `spec` 匹配能力
 - 不要在登录、页面、保存或风控失败后静默继续
 
+## 站内 API 抓取通道（批量或历史回溯）
+
+页面逐篇浏览只适合当日少量帖子。当需要「某个账号的全部帖子」或一次性回溯几十篇时，改用站内 JSON 接口，在已登录页面上下文里同源 `fetch`，可显著降低风控风险：
+
+1. `scripts/extract_xueqiu_timeline_api.mjs --user-id UID --max-pages N --output-file F`
+   调用 `/v4/statuses/user_timeline.json`，分页拿全量时间线（id、title、created_at）。
+   时间线里的 `text` 会被截断到约 220 字，**不能直接当全文**。
+2. `scripts/extract_xueqiu_status_detail.mjs --ids-file F --output-file F --delay-min 3500 --delay-max 7000`
+   对筛选出的 id 调 `/statuses/show.json?id=...` 取未截断全文。
+
+两个脚本都复用 `自动化专用 Chrome 实例`（默认 9333），必须先确认 CDP 可用。
+
+数十篇规模仍按第 2.5 步处理：详情页间隔保持 3–7 秒随机延迟，不要压成固定高频。
+
 ## 参考资料
 
 | File | Purpose |
 |------|---------|
 | [EXTEND.md](EXTEND.md) | 手动账号配置与任务启动确认来源 |
+| [scripts/extract_xueqiu_timeline_api.mjs](scripts/extract_xueqiu_timeline_api.mjs) | 分页拉取账号全量时间线（文本被截断） |
+| [scripts/extract_xueqiu_status_detail.mjs](scripts/extract_xueqiu_status_detail.mjs) | 按 id 批量取帖子未截断全文 |
 | [references/workflow.md](references/workflow.md) | 详细操作流程 |
 | [references/output-layout.md](references/output-layout.md) | 输出根目录和目录层级规则 |
 | [references/summary-format.md](references/summary-format.md) | 必需的 Markdown 汇总结构 |
 | [references/error-policy.md](references/error-policy.md) | 失败处理与停止条件 |
 | [references/file-layout.md](references/file-layout.md) | 原始文件命名和单文件内容格式 |
+| [references/timeline-processing.md](references/timeline-processing.md) | 默认启用的证据预处理、主题比较、自动建页及发布协议 |
+| [scripts/timeline_postprocess.py](scripts/timeline_postprocess.py) | prepare / apply；原文归档、候选状态、校验与安全写入 |
 | [scripts/start_automation_chrome.sh](scripts/start_automation_chrome.sh) | 启动固定自动化 Chrome/CDP 实例 |
 | [scripts/extract_xueqiu_posts.mjs](scripts/extract_xueqiu_posts.mjs) | 通过本地 CDP 访问雪球主页并提取结构化帖子 JSON |
 | [scripts/extract_wechat_articles.mjs](scripts/extract_wechat_articles.mjs) | 从微信公众号文章链接提取结构化文章 JSON |

@@ -19,7 +19,7 @@
 
 1. 按 UTF-8 读取项目 `AGENTS.md`、`schema.md`、`page-types.md`、`index.md` 和本文件。
 2. 读取 `.agents/skills/zzhl-dividend-signal/SKILL.md`，使用其现有数据源、评级规则与输出口径，不在本任务中另建一套信号算法。
-3. 确认 `.agents/skills/zzhl-dividend-signal/scripts/check_signal.py` 和 `.agents/skills/zzhl-dividend-signal/strategy-v2.json` 存在。
+3. 确认 `.agents/skills/zzhl-dividend-signal/scripts/check_signal.py` 和 `.agents/skills/zzhl-dividend-signal/strategy-v2.json` 存在。每日任务读取Excel同目录的 `sources/automations/中证红利信号/策略参数.json` 当前已应用参数，与看板共用；不要用默认值覆盖已有配置。旧路径仅保留首次迁移兼容。
 4. 确认专用 Python 环境可执行且依赖可导入；失败时报告具体缺项，不能记为业务执行成功。恢复环境的命令见下文。
 5. 若已有同任务运行未结束，等待其结束后再检查当天结果，不并发写入同一工作簿。
 
@@ -74,4 +74,10 @@ cd /Users/cjw/dev/Obsidian/wiki
 
 脚本退出码为 0 后，还需确认三个文件存在且可读、Markdown 运行日期及工作簿记录日期等于 `{RUN_DATE}`、年度 JSON 的 `indexCode` 为 `000922` 且 `rows` 非空。源数据缺失与旧数据必须单独说明，不能只凭退出码称“全部数据已验证”。
 
+同时核验本次使用的策略版本：`最新信号.md` 与 `评分记录.json` 中的策略版本应为 `策略参数.json` 当前 `strategy.version`（形如 `dividend-two-factor-v2-r5`），权重、锚点和等级分界与该文件的 `strategy` 一致。若出现无 `-rN` 后缀的 `dividend-two-factor-v2`，说明参数文件缺失并已回退技能默认值，必须报告；若运行报错“每日策略配置格式无效 / 版本无效 / 历史与当前版本不一致”，属参数文件损坏，应中止并交人工修复，不得删除或重建该文件。
+
 向根目录 `log.md` 追加当日执行结果、实际更新文件和验证边界；没有新增正式 Wiki 页面时，无需重复增加索引条目或调整页面计数。最后用中文简要报告记录日期、实际数据日期、两项指标评级、综合结论、输出位置与未验证项；失败则报告失败原因及仍需处理的步骤。
+
+## 六、运行监控凭证
+
+每日脚本自动将每次尝试独立写入同输出目录`运行记录/*.json`，保留开始、阶段、心跳、结束、耗时及校验结果；同日补跑不覆盖失败记录。失败时一并检查凭证中的`stage`、`error`和`writtenFiles`，不得只看旧产物判断成功。看板“红利信号 → 任务监控”只读这些凭证和当前产物，不触发执行或修改调度。未留执行凭证的历史仅可按产物核验，不补造运行过程。

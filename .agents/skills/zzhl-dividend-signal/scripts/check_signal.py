@@ -17,6 +17,11 @@ from typing import Iterable
 from urllib import parse, request
 
 try:
+    from .run_monitor import RunMonitor, local_now
+except ImportError:
+    from run_monitor import RunMonitor, local_now
+
+try:
     from .scoring import load_strategy, score_input, confirm_records, grade_for_score, finite, COMPONENT_LABELS
 except ImportError:
     from scoring import load_strategy, score_input, confirm_records, grade_for_score, finite, COMPONENT_LABELS
@@ -776,13 +781,18 @@ def fetch_bond_yield(ak, target_date: datetime) -> BondYield:
 def fetch_signal(
     llm_percentile: LixingerPercentile | None = None,
     target_run_date: datetime | None = None,
+    on_stage=None,
 ) -> Signal:
+    stage = on_stage or (lambda name: None)
+    stage("读取策略参数与依赖")
     strategy = load_strategy()
     ak = import_akshare()
     run_date = target_run_date or datetime.now()
+    stage("获取指数估值")
     index_valuation = fetch_index_valuation(ak, run_date)
     latest_date = datetime.fromisoformat(index_valuation.date)
     dividend_yield_2 = index_valuation.dividend_yield
+    stage("获取指数日线与年度表现")
     try:
         index_history = fetch_csindex_index_history(latest_date)
         index_performance, annual_performance = build_index_performance(
@@ -807,8 +817,10 @@ def fetch_signal(
             note=f"AKShare: {fallback_method}({INDEX_DAILY_SYMBOL}, {fallback_close_col})",
         )
         annual_performance_source = f"AKShare {fallback_method}({INDEX_DAILY_SYMBOL})"
+    stage("获取腾讯行情")
     intraday_quote = get_intraday_realtime_quote()
 
+    stage("获取10年国债收益率")
     bond_yield = fetch_bond_yield(ak, latest_date)
     bond_10y = bond_yield.yield_10y
     spread = dividend_yield_2 - bond_10y
@@ -1212,7 +1224,7 @@ def snapshot_from_local(output_dir):
     )
     payload = write_score_artifact(signal, output_dir, kind="snapshot")
     signal.headline_signal = signal.scoring["label"]
-    write_markdown(signal, output_dir / "V1参考快照.md")
+    write_markdown(signal, output_dir / "历史归档" / "V1参考快照.md")
     return payload
 
 
@@ -1233,24 +1245,32 @@ def main() -> int:
         payload = snapshot_from_local(output_dir)
         print(f"本地参考快照：{payload['latest']['dates']['index']}，{payload['latest']['score']}分")
         return 0
-    target_run_date = (
-        datetime.fromisoformat(args.run_date) if args.run_date else None
-    )
-    signal = fetch_signal(
-        target_run_date=target_run_date,
-    )
-    write_score_artifact(signal, output_dir)
-    write_xlsx(
-        signal,
-        output_dir / "中证红利每日信号.xlsx",
-        legacy_csv_path=output_dir / "中证红利每日信号.csv",
-    )
-    write_markdown(signal, output_dir / "最新信号.md")
-    write_annual_performance_json(
-        signal.annual_performance,
-        output_dir / "中证红利年度表现.json",
-        signal.annual_performance_source,
-    )
+    run_date = args.run_date or local_now().date().isoformat()
+    monitor = RunMonitor(output_dir, run_date)
+    try:
+        target_run_date = datetime.fromisoformat(run_date)
+        signal = fetch_signal(target_run_date=target_run_date, on_stage=monitor.stage)
+        monitor.stage("写入评分记录")
+        write_score_artifact(signal, output_dir)
+        monitor.written("评分记录.json")
+        monitor.stage("写入每日信号Excel")
+        write_xlsx(signal, output_dir / "中证红利每日信号.xlsx",
+                   legacy_csv_path=output_dir / "中证红利每日信号.csv")
+        monitor.written("中证红利每日信号.xlsx")
+        monitor.stage("写入最新信号")
+        write_markdown(signal, output_dir / "最新信号.md")
+        monitor.written("最新信号.md")
+        monitor.stage("写入年度表现")
+        write_annual_performance_json(signal.annual_performance,
+                                     output_dir / "中证红利年度表现.json", signal.annual_performance_source)
+        monitor.written("中证红利年度表现.json")
+        monitor.stage("核验输出文件")
+        record = monitor.finish()
+        if record["status"] == "partial":
+            raise RuntimeError(f"输出校验未通过：{record['error']}")
+    except BaseException as error:
+        monitor.finish(error)
+        raise
     print(f"{signal.index_date} {signal.headline_signal}：指数股息率口径 {signal.akshare_dividend_yield_2:.2f}%，股债倍数 {signal.akshare_dividend_yield_2 / signal.bond_10y_yield:.2f}倍")
     return 0
 

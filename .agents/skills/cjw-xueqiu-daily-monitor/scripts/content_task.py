@@ -15,8 +15,10 @@ from urllib.parse import urlparse
 
 try:
     from .utils import init_logger, resolve_output_root, write_log
+    from .timeline_postprocess import capture_hook
 except ImportError:
     from utils import init_logger, resolve_output_root, write_log
+    from timeline_postprocess import capture_hook
 
 
 class NonTargetDateError(ValueError):
@@ -50,6 +52,7 @@ class TaskSummary:
     result_dir: str = ""
     log_file: str = ""
     failures: list[str] = field(default_factory=list)
+    postprocessing: list[dict[str, Any]] = field(default_factory=list)
 
 
 def parse_args() -> argparse.Namespace:
@@ -59,6 +62,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--account-url", help="Homepage URL for summary output")
     parser.add_argument("--date", help="Target date in YYYY-MM-DD format")
     parser.add_argument("--output-dir", help="Output root; defaults to EXTEND.md preferred output root")
+    parser.add_argument("--capture-only", action="store_true", help="仅保存原文，不进入 Timeline 整理")
+    parser.add_argument("--timeline-profile", help="用户明确指定的知识库配置名")
+    parser.add_argument("--extend-file", help="运行配置文件；默认使用本技能 EXTEND.md")
     parser.add_argument(
         "--date-source",
         choices=("target", "post"),
@@ -393,6 +399,7 @@ def ensure_day_state(result_dir: Path, author_name: str, account_url: str, targe
 
 def update_day_state(result_dir: Path, state: dict[str, Any], record: PostRecord, file_path: Path) -> None:
     item_key = record.content_id or record.url
+    previous = state.setdefault("processed_items", {}).get(item_key, {})
     state.setdefault("processed_items", {})[item_key] = {
         "source_id": record.content_id,
         "title": record.title,
@@ -401,6 +408,8 @@ def update_day_state(result_dir: Path, state: dict[str, Any], record: PostRecord
         "platform": record.platform,
         "file_path": str(file_path),
         "saved_at": record.fetched_at,
+        "content_hash": content_hash(record),
+        "previous_versions": previous.get("previous_versions", []) + ([previous["file_path"]] if previous else []),
     }
     state["success_count"] = int(state.get("success_count") or 0) + 1
     state.setdefault("events", []).append(
@@ -412,6 +421,12 @@ def update_day_state(result_dir: Path, state: dict[str, Any], record: PostRecord
         }
     )
     write_json_file(result_dir / "state.json", state)
+
+
+def content_hash(record: PostRecord) -> str:
+    return hashlib.sha256(json.dumps(
+        [record.title, record.content, record.author_comments], ensure_ascii=False, sort_keys=True,
+    ).encode("utf-8")).hexdigest()
 
 
 def append_processing_payload(result_dir: Path, payload: dict[str, Any]) -> None:
@@ -485,11 +500,14 @@ def print_task_summary(summary: TaskSummary) -> None:
         print("失败明细:")
         for item in summary.failures:
             print(f"- {item}")
+    for result in summary.postprocessing:
+        print("Timeline 后处理: " + json.dumps(result, ensure_ascii=False))
 
 
 def process_extracted_posts(args: argparse.Namespace) -> TaskSummary:
     target_date = parse_target_date(args.date)
-    output_root = resolve_output_root(args.output_dir)
+    extend_file = getattr(args, "extend_file", None)
+    output_root = resolve_output_root(args.output_dir, extend_file=extend_file)
     input_items = load_input_items(args.input_file)
     author_name = derive_author_name(args.author_name, args.account_url, input_items)
     date_source = getattr(args, "date_source", "target")
@@ -514,6 +532,7 @@ def process_extracted_posts(args: argparse.Namespace) -> TaskSummary:
     loggers: dict[Path, Any] = {}
     logged_starts: set[Path] = set()
     saved_keys_by_dir: dict[Path, set[str]] = {}
+    touched: set[Path] = set()
 
     def logger_for(log_file: Path) -> Any:
         if log_file not in loggers:
@@ -548,6 +567,9 @@ def process_extracted_posts(args: argparse.Namespace) -> TaskSummary:
                 logged_starts.add(log_file)
 
             day_state = ensure_day_state(result_dir, author_name, account_url, record_date)
+            day_state["output_root"] = str(output_root)
+            write_json_file(result_dir / "state.json", day_state)
+            touched.add(result_dir)
             append_processing_payload(result_dir, payload)
             if result_dir not in saved_keys_by_dir:
                 saved_keys_by_dir[result_dir] = load_existing_keys(result_dir)
@@ -557,9 +579,19 @@ def process_extracted_posts(args: argparse.Namespace) -> TaskSummary:
             summary.matched_count += 1
             dedupe_key = record.content_id or record.url
             if dedupe_key in saved_keys or record.url in saved_keys:
-                summary.skipped_count += 1
-                write_log(logger, "info", f"跳过重复帖子: {record.url}")
-                continue
+                previous = day_state["processed_items"].get(dedupe_key, {})
+                previous_hash = previous.get("content_hash")
+                if not previous_hash and previous.get("file_path"):
+                    old_text = Path(previous["file_path"]).read_text(encoding="utf-8-sig")
+                    old_body = old_text.split("正文：\n", 1)[-1].rstrip()
+                    new_body = "\n".join([record.content, *format_author_comments(record.author_comments)]).rstrip()
+                    if old_body == new_body and previous.get("title") == record.title:
+                        previous_hash = content_hash(record)
+                if previous_hash == content_hash(record):
+                    summary.skipped_count += 1
+                    write_log(logger, "info", f"跳过相同内容版本: {record.url}")
+                    continue
+                write_log(logger, "info", f"保存原文新版本，保留旧文件: {record.url}")
 
             saved_paths = save_posts_to_files([record], result_dir, logger)
             for file_path in saved_paths:
@@ -575,6 +607,11 @@ def process_extracted_posts(args: argparse.Namespace) -> TaskSummary:
         for logger in loggers.values():
             close_logger_handlers(logger)
 
+    for result_dir in sorted(touched):
+        kwargs = {"profile": getattr(args, "timeline_profile", None), "capture_only": getattr(args, "capture_only", False)}
+        if extend_file:
+            kwargs["extend_file"] = Path(extend_file)
+        summary.postprocessing.append(capture_hook(result_dir, **kwargs))
     return summary
 
 
@@ -582,7 +619,9 @@ def main() -> int:
     args = parse_args()
     summary = process_extracted_posts(args)
     print_task_summary(summary)
-    return 0 if summary.failure_count == 0 else 1
+    return 0 if summary.failure_count == 0 and not any(
+        item["status"] in ("failed", "blocked") for item in summary.postprocessing
+    ) else 1
 
 
 if __name__ == "__main__":

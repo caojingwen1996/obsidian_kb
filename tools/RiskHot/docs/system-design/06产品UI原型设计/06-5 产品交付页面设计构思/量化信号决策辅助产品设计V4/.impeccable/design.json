@@ -1,0 +1,364 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-17T06:13:50.807455+00:00",
+  "title": "Design System: RiskHot 量化信号决策辅助产品 V4",
+  "extensions": {
+    "colorMeta": {
+      "bg": {
+        "role": "neutral",
+        "displayName": "夜蓝底",
+        "tonalRamp": [
+          "oklch(15.00% 0.0297 257.53)",
+          "oklch(26.43% 0.0297 257.53)",
+          "oklch(37.86% 0.0297 257.53)",
+          "oklch(49.29% 0.0297 257.53)",
+          "oklch(60.71% 0.0297 257.53)",
+          "oklch(72.14% 0.0297 257.53)",
+          "oklch(83.57% 0.0297 257.53)",
+          "oklch(95.00% 0.0297 257.53)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "容器蓝",
+        "tonalRamp": [
+          "oklch(15.00% 0.0377 255.52)",
+          "oklch(26.43% 0.0377 255.52)",
+          "oklch(37.86% 0.0377 255.52)",
+          "oklch(49.29% 0.0377 255.52)",
+          "oklch(60.71% 0.0377 255.52)",
+          "oklch(72.14% 0.0377 255.52)",
+          "oklch(83.57% 0.0377 255.52)",
+          "oklch(95.00% 0.0377 255.52)"
+        ]
+      },
+      "raised": {
+        "role": "neutral",
+        "displayName": "浮层蓝",
+        "tonalRamp": [
+          "oklch(15.00% 0.0456 253.12)",
+          "oklch(26.43% 0.0456 253.12)",
+          "oklch(37.86% 0.0456 253.12)",
+          "oklch(49.29% 0.0456 253.12)",
+          "oklch(60.71% 0.0456 253.12)",
+          "oklch(72.14% 0.0456 253.12)",
+          "oklch(83.57% 0.0456 253.12)",
+          "oklch(95.00% 0.0456 253.12)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "边界蓝",
+        "tonalRamp": [
+          "oklch(15.00% 0.0495 252.43)",
+          "oklch(26.43% 0.0495 252.43)",
+          "oklch(37.86% 0.0495 252.43)",
+          "oklch(49.29% 0.0495 252.43)",
+          "oklch(60.71% 0.0495 252.43)",
+          "oklch(72.14% 0.0495 252.43)",
+          "oklch(83.57% 0.0495 252.43)",
+          "oklch(95.00% 0.0495 252.43)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "主文字",
+        "tonalRamp": [
+          "oklch(15.00% 0.0137 258.34)",
+          "oklch(26.43% 0.0137 258.34)",
+          "oklch(37.86% 0.0137 258.34)",
+          "oklch(49.29% 0.0137 258.34)",
+          "oklch(60.71% 0.0137 258.34)",
+          "oklch(72.14% 0.0137 258.34)",
+          "oklch(83.57% 0.0137 258.34)",
+          "oklch(95.00% 0.0137 258.34)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "辅助文字",
+        "tonalRamp": [
+          "oklch(15.00% 0.0372 253.50)",
+          "oklch(26.43% 0.0372 253.50)",
+          "oklch(37.86% 0.0372 253.50)",
+          "oklch(49.29% 0.0372 253.50)",
+          "oklch(60.71% 0.0372 253.50)",
+          "oklch(72.14% 0.0372 253.50)",
+          "oklch(83.57% 0.0372 253.50)",
+          "oklch(95.00% 0.0372 253.50)"
+        ]
+      },
+      "blue": {
+        "role": "primary",
+        "displayName": "信号蓝",
+        "tonalRamp": [
+          "oklch(15.00% 0.1098 257.56)",
+          "oklch(26.43% 0.1098 257.56)",
+          "oklch(37.86% 0.1098 257.56)",
+          "oklch(49.29% 0.1098 257.56)",
+          "oklch(60.71% 0.1098 257.56)",
+          "oklch(72.14% 0.1098 257.56)",
+          "oklch(83.57% 0.1098 257.56)",
+          "oklch(95.00% 0.1098 257.56)"
+        ]
+      },
+      "selected": {
+        "role": "neutral",
+        "displayName": "选择蓝",
+        "tonalRamp": [
+          "oklch(15.00% 0.0654 253.73)",
+          "oklch(26.43% 0.0654 253.73)",
+          "oklch(37.86% 0.0654 253.73)",
+          "oklch(49.29% 0.0654 253.73)",
+          "oklch(60.71% 0.0654 253.73)",
+          "oklch(72.14% 0.0654 253.73)",
+          "oklch(83.57% 0.0654 253.73)",
+          "oklch(95.00% 0.0654 253.73)"
+        ]
+      },
+      "red": {
+        "role": "secondary",
+        "displayName": "压力粉红",
+        "tonalRamp": [
+          "oklch(15.00% 0.1216 10.62)",
+          "oklch(26.43% 0.1216 10.62)",
+          "oklch(37.86% 0.1216 10.62)",
+          "oklch(49.29% 0.1216 10.62)",
+          "oklch(60.71% 0.1216 10.62)",
+          "oklch(72.14% 0.1216 10.62)",
+          "oklch(83.57% 0.1216 10.62)",
+          "oklch(95.00% 0.1216 10.62)"
+        ]
+      },
+      "green": {
+        "role": "secondary",
+        "displayName": "缓解薄荷绿",
+        "tonalRamp": [
+          "oklch(15.00% 0.0948 171.43)",
+          "oklch(26.43% 0.0948 171.43)",
+          "oklch(37.86% 0.0948 171.43)",
+          "oklch(49.29% 0.0948 171.43)",
+          "oklch(60.71% 0.0948 171.43)",
+          "oklch(72.14% 0.0948 171.43)",
+          "oklch(83.57% 0.0948 171.43)",
+          "oklch(95.00% 0.0948 171.43)"
+        ]
+      },
+      "amber": {
+        "role": "secondary",
+        "displayName": "提醒琥珀",
+        "tonalRamp": [
+          "oklch(15.00% 0.1097 79.65)",
+          "oklch(26.43% 0.1097 79.65)",
+          "oklch(37.86% 0.1097 79.65)",
+          "oklch(49.29% 0.1097 79.65)",
+          "oklch(60.71% 0.1097 79.65)",
+          "oklch(72.14% 0.1097 79.65)",
+          "oklch(83.57% 0.1097 79.65)",
+          "oklch(95.00% 0.1097 79.65)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "headline": {
+        "displayName": "页面标题",
+        "purpose": "功能标题；不确立独立 display 字体。"
+      },
+      "score": {
+        "displayName": "排行分值",
+        "purpose": "tabular-nums，单位随值展示。"
+      },
+      "object-score": {
+        "displayName": "对象解读分值",
+        "purpose": "对象与来源摘要的大数值，保留 /100 单位。"
+      },
+      "object-title": {
+        "displayName": "稳定对象名称",
+        "purpose": "对象宽行中的主名称。"
+      },
+      "body": {
+        "displayName": "功能正文",
+        "purpose": "系统中文无衬线；数字使用 tabular-nums。"
+      },
+      "title": {
+        "displayName": "面板与区块标题",
+        "purpose": "19px 标题；保持功能阅读层级。"
+      },
+      "label": {
+        "displayName": "辅助字段",
+        "purpose": "角色、日期、前值、限制等辅助信息。"
+      },
+      "variable-value": {
+        "displayName": "变量观测值",
+        "purpose": "当前变量值与邻近单位；手机为22px。"
+      },
+      "reason-lead": {
+        "displayName": "综合原因主句",
+        "purpose": "原因区的判断摘要，不取代限制与变量依据。"
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "scroll",
+        "value": "smooth",
+        "purpose": "文档滚动；prefers-reduced-motion 时设为 auto。"
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide",
+        "value": "1550px"
+      },
+      {
+        "name": "compact",
+        "value": "1100px"
+      },
+      {
+        "name": "mobile",
+        "value": "760px"
+      }
+    ],
+    "focus": [
+      {
+        "name": "interactive",
+        "value": "outline:3px solid var(--blue);outline-offset:4px",
+        "purpose": "按钮、链接和summary的focus-visible。"
+      },
+      {
+        "name": "reading-target",
+        "value": "outline:2px solid var(--blue);outline-offset:6px",
+        "purpose": "程序定位后的区块和变量焦点。"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "次级按钮",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "描边按钮与悬停、焦点。",
+      "html": "<button class=\"ds-button\">按当前分值排序</button>",
+      "css": ".ds-button{font:15px/1.6 -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;color:var(--ink,#edf3fc);background:none;border:1px solid var(--line,#2b4058);border-radius:6px;padding:8px 13px;min-height:44px;cursor:pointer}.ds-button:hover{background:var(--raised,#192b40)}.ds-button:focus-visible{outline:3px solid var(--blue,#8cbbff);outline-offset:4px}"
+    },
+    {
+      "name": "数据状态",
+      "kind": "chip",
+      "refersTo": "badge",
+      "description": "非交互说明标签。",
+      "html": "<span class=\"ds-badge\">首次观测</span>",
+      "css": ".ds-badge{font:15px/1.6 -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;color:var(--ink,#edf3fc);display:inline-block;font-size:12px;padding:2px 7px;border:1px solid var(--line,#2b4058);border-radius:4px;color:var(--muted,#a8bad0)}"
+    },
+    {
+      "name": "双入口导航",
+      "kind": "nav",
+      "refersTo": "navigation-active",
+      "description": "活动入口保留蓝色底线。",
+      "html": "<nav class=\"ds-nav\"><a href=\"#overview\" aria-current=\"page\">风险速览</a><a href=\"#reports\">观察报告</a></nav>",
+      "css": ".ds-nav{font:15px/1.6 -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;color:var(--ink,#edf3fc);display:flex;gap:28px;background:var(--surface,#121f30)}.ds-nav a{display:flex;align-items:center;min-height:76px;color:var(--muted,#a8bad0);font-weight:600;text-decoration:none;border-bottom:3px solid transparent;padding-top:3px}.ds-nav a[aria-current=page]{color:var(--ink,#edf3fc);border-color:var(--blue,#8cbbff)}.ds-nav a:hover{color:white}.ds-nav a:focus-visible{outline:3px solid var(--blue,#8cbbff);outline-offset:4px}"
+    },
+    {
+      "name": "主面板",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "背景与描边构建层次，无投影。",
+      "html": "<section class=\"ds-panel\"><h2>风险观察</h2><p>按同一快照比较风险强度</p></section>",
+      "css": ".ds-panel{font:15px/1.6 -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;color:var(--ink,#edf3fc);background:var(--surface,#121f30);border:1px solid var(--line,#2b4058);border-radius:10px;overflow:hidden}.ds-panel h2{font-size:19px;line-height:1.35;margin:0;padding:18px 20px;border-bottom:1px solid var(--line,#2b4058)}.ds-panel p{font-size:13px;color:var(--muted,#a8bad0);padding:20px;margin:0}"
+    },
+    {
+      "name": "稳定风险对象行",
+      "kind": "custom",
+      "refersTo": "object-row-selected",
+      "description": "整行选择，名称、范围、原因与状态相邻；合成示例。",
+      "html": "<button class=\"ds-object\" aria-pressed=\"true\"><span><strong>美国国债再融资与承接压力</strong><small>美国国债市场 · 中长期发行与承接</small><span class=\"ds-reason\">新增承接观测使评估由 80 调整至 84。</span></span><span class=\"ds-state\"><strong>84<small>/100</small></strong><small>高压增强</small></span></button>",
+      "css": ".ds-object{font:15px/1.6 -apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;display:grid;grid-template-columns:1fr 150px;gap:24px;width:100%;padding:24px;text-align:left;background:transparent;color:var(--ink,#edf3fc);border:0;border-bottom:1px solid var(--line,#2b4058);border-radius:6px;cursor:pointer}.ds-object:hover{background:var(--raised,#192b40)}.ds-object[aria-pressed=true]{background:var(--selected,#203b5b)}.ds-object strong{font-size:17px}.ds-object small{display:block;color:var(--muted,#a8bad0);font-size:12px;margin-top:6px}.ds-reason{display:block;margin-top:12px;color:var(--muted,#a8bad0);font-size:13px;line-height:1.8}.ds-state{text-align:right}.ds-state strong{font-size:25px;color:var(--red,#ff9aa9)}.ds-state strong small{display:inline;margin-left:4px;font-weight:400}.ds-object:focus-visible{outline:3px solid var(--blue,#8cbbff);outline-offset:4px}@media(max-width:760px){.ds-object{grid-template-columns:1fr;padding:20px;gap:12px}.ds-state{text-align:left}}"
+    },
+    {
+      "name": "紧凑变量预览",
+      "kind": "custom",
+      "refersTo": "compact-variable",
+      "description": "首页解读先展示两项变量，说明、值和作用相邻。",
+      "html": "<div class=\"ds-compact\"><div><span><strong>发行承接能力</strong><small>承接倍数下降，新增发行更依赖边际资金。</small></span><span><b>2.1 <small>倍</small></b><small class=\"ds-pressure\">压力因素</small></span></div></div>",
+      "css": ".ds-compact{font:15px/1.6 -apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;color:var(--ink,#edf3fc);margin:14px 0 20px}.ds-compact>div{display:flex;justify-content:space-between;gap:20px;padding:14px 0;border-bottom:1px solid var(--line,#2b4058)}.ds-compact>div>span:first-child{max-width:70%}.ds-compact strong{font-size:14px}.ds-compact small{display:block;font-size:12px;color:var(--muted,#a8bad0);margin-top:5px}.ds-compact>div>span:last-child{text-align:right;min-width:70px}.ds-compact b{font-size:23px;font-variant-numeric:tabular-nums;white-space:nowrap}.ds-compact b small{display:inline;font-weight:400;margin-left:5px}.ds-compact .ds-pressure{color:var(--red,#ff9aa9)}"
+    },
+    {
+      "name": "核心驱动变量与依据",
+      "kind": "custom",
+      "refersTo": "variable-row",
+      "description": "开放宽行保留角色、当期作用、当前与比较值；原生details展开依据。",
+      "html": "<article class=\"ds-variable\" tabindex=\"-1\"><div class=\"ds-variable-head\"><div><h3>国债市场流动性</h3><span>来源因素</span> <span class=\"ds-pressure\">压力因素</span></div><div class=\"ds-reading\"><strong>78 <small>指数点</small></strong><small>前值 86 指数点</small></div></div><p>市场深度下降，与拍卖承接走弱相互印证。</p><details><summary>观测依据与限制</summary><dl><div><dt>证据记录</dt><dd>DEMO-04-depth-1016 · v1</dd></div><div><dt>观测 / 可获得时间</dt><dd>均为 2026.10.16 18:00 北京时间</dd></div><div><dt>适用限制</dt><dd>合成深度指标只覆盖本对象范围。</dd></div></dl></details></article>",
+      "css": ".ds-variable{font:15px/1.6 -apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;color:var(--ink,#edf3fc);padding:24px 0;border-bottom:1px solid var(--line,#2b4058)}.ds-variable-head{display:flex;justify-content:space-between;gap:20px}.ds-variable h3{margin:0 0 8px;font-size:17px;line-height:1.35}.ds-variable-head span{font-size:12px;color:var(--muted,#a8bad0)}.ds-variable-head .ds-pressure{color:var(--red,#ff9aa9)}.ds-reading{text-align:right;flex-shrink:0}.ds-reading strong{font-size:23px;font-variant-numeric:tabular-nums;white-space:nowrap}.ds-reading small{font-size:12px;font-weight:400;color:var(--muted,#a8bad0)}.ds-reading>small{display:block;margin-top:6px}.ds-variable p{margin:14px 0 4px}.ds-variable summary{color:var(--blue,#8cbbff);min-height:44px;padding:12px 0;cursor:pointer}.ds-variable summary:focus-visible{outline:3px solid var(--blue,#8cbbff);outline-offset:4px}.ds-variable:focus{outline:2px solid var(--blue,#8cbbff);outline-offset:6px}.ds-variable dl>div{display:grid;grid-template-columns:125px 1fr;gap:16px;margin:12px 0;font-size:13px}.ds-variable dt{color:var(--muted,#a8bad0)}.ds-variable dd{margin:0;overflow-wrap:anywhere}@media(max-width:760px){.ds-variable-head{gap:12px}.ds-variable h3{font-size:16px}.ds-reading strong{font-size:22px}.ds-variable dl>div{grid-template-columns:1fr;gap:4px}}"
+    },
+    {
+      "name": "原因中的变量入口",
+      "kind": "button",
+      "refersTo": "reading-control",
+      "description": "实际页面点击后定位、展开并聚焦对应变量依据；预览仅呈现控件外观。",
+      "html": "<div class=\"ds-reason-links\"><span>对应变量</span><button>国债市场流动性 <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" aria-hidden=\"true\"><path d=\"M4 12h16m-6-6 6 6-6 6\"/></svg></button></div>",
+      "css": ".ds-reason-links{font:15px/1.6 -apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;color:var(--ink,#edf3fc);display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:20px 0}.ds-reason-links>span{color:var(--muted,#a8bad0);font-size:12px;margin-right:4px}.ds-reason-links button{display:flex;align-items:center;gap:10px;border:1px solid var(--line,#2b4058);background:transparent;color:var(--blue,#8cbbff);min-height:44px;border-radius:6px;font:inherit;font-size:13px;padding:8px 12px;cursor:pointer}.ds-reason-links svg{width:16px;height:16px}.ds-reason-links button:hover{background:var(--raised,#192b40)}.ds-reason-links button:focus-visible{outline:3px solid var(--blue,#8cbbff);outline-offset:4px}"
+    },
+    {
+      "name": "后续验证条件",
+      "kind": "custom",
+      "refersTo": "watch-item",
+      "description": "标题、观察信号与强化/缓解/缺口三行；这是阅读内容。",
+      "html": "<section class=\"ds-watch\"><h3>先看承接能否与深度一起修复</h3><p>下一次拍卖结果与同期市场深度，需共同验证。</p><dl><div><dt class=\"ds-pressure\">强化条件</dt><dd>承接继续走弱，且市场深度进一步下降。</dd></div><div><dt class=\"ds-relief\">缓解条件</dt><dd>承接改善得到连续深度恢复支持。</dd></div><div><dt>证据缺口</dt><dd>下一次拍卖尚未发生，不能先认定修复。</dd></div></dl><small>关联变量：发行承接能力 / 国债市场流动性</small></section>",
+      "css": ".ds-watch{font:15px/1.6 -apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;color:var(--ink,#edf3fc);padding:24px 0;border-bottom:1px solid var(--line,#2b4058)}.ds-watch h3{margin:0 0 10px;font-size:17px;line-height:1.35}.ds-watch p{margin:8px 0 16px;max-width:72ch}.ds-watch dl>div{display:grid;grid-template-columns:76px 1fr;gap:16px;margin:12px 0}.ds-watch dt{font-size:13px;color:var(--muted,#a8bad0)}.ds-watch dd{margin:0;font-size:14px}.ds-watch small{font-size:12px;color:var(--muted,#a8bad0)}.ds-watch .ds-pressure{color:var(--red,#ff9aa9)}.ds-watch .ds-relief{color:var(--green,#80d8bc)}@media(max-width:760px){.ds-watch dl>div{grid-template-columns:68px 1fr;gap:12px}}"
+    },
+    {
+      "name": "折叠演化脉络",
+      "kind": "custom",
+      "refersTo": "evolution-disclosure",
+      "description": "主体读完后按需展开历史记录；默认折叠。",
+      "html": "<details class=\"ds-evolution\"><summary>对象演化脉络 <span>· 6 条记录</span></summary><p>事件提供证据，评估说明判断是否改变；同日记录按形成顺序由新到旧。</p><div class=\"ds-record\"><time>2026.10.16</time><div><strong>84 分 · 增强 4 分</strong><p>承接走弱超过成本改善的缓冲，形成新的评估快照。</p></div></div></details>",
+      "css": ".ds-evolution{font:15px/1.6 -apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;color:var(--ink,#edf3fc);border-top:1px solid var(--line,#2b4058);margin-top:32px;padding-top:12px}.ds-evolution>summary{cursor:pointer;min-height:56px;padding:14px 0;font-size:18px;font-weight:700}.ds-evolution>summary span{font-size:12px;font-weight:400;color:var(--muted,#a8bad0)}.ds-evolution>summary:focus-visible{outline:3px solid var(--blue,#8cbbff);outline-offset:4px}.ds-evolution p{margin:8px 0}.ds-record{display:grid;grid-template-columns:110px 1fr;gap:24px;border-top:1px solid var(--line,#2b4058);padding:24px 0}.ds-record time{font-size:12px;color:var(--muted,#a8bad0)}.ds-record strong{font-size:17px}@media(max-width:760px){.ds-record{grid-template-columns:1fr;gap:14px}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "深蓝信号观察台",
+    "overview": "以深蓝底色、克制边框与横向对齐的数字形成专业监测界面。对象列表交付可比较的压力与判断理由，变量的观测、作用和依据连续呈现，来源关联支持进一步追溯。\n\nV4 是 V3 视觉体系的局部扩展，保留色彩、系统中文无衬线字体、密度与无投影层级。新增内容以宽行、留白和细线接入既有阅读环境；没有另建调色板、字体组合或装饰主题。这里的文字、事件、评估与数值均为离线合成演示。",
+    "keyCharacteristics": [
+      "深蓝色阶区分背景、容器和选中状态。",
+      "等宽数字、邻近单位与比较基准支持核对。",
+      "变量角色、当期作用与数值变化分别表达，颜色辅助文字。",
+      "宽屏分栏、窄屏堆叠；证据与演化记录按需展开。"
+    ],
+    "rules": [
+      {
+        "name": "The Semantic Direction Rule",
+        "body": "方向必须由文字说明；绿色不等于安全，缺失和首次不伪装成持平。",
+        "section": "colors"
+      },
+      {
+        "name": "The Contextual Effect Rule",
+        "body": "来源因素与应对因素是角色；压力、缓解、待判断是本对象当期作用，不能只凭数值增减或角色着色。",
+        "section": "colors"
+      },
+      {
+        "name": "The Comparable Numbers Rule",
+        "body": "数字使用 tabular-nums，并保留单位、截止时间与比较基准。",
+        "section": "typography"
+      },
+      {
+        "name": "The Tonal Depth Rule",
+        "body": "使用底色层级和细边框建立层次，不增加投影装饰。",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do 使用继承的深蓝色阶，以浅蓝区分链接、焦点与评估记录。",
+      "Do 同时呈现数值、单位、比较基准与当期作用文字。",
+      "Do 将变量角色、观测变化和综合判断分开表达。",
+      "Do 为新增交互保留 44px 最小高度和清晰的键盘焦点。",
+      "Do 让原因中的变量入口定位、展开并聚焦对应依据。",
+      "Do 在宽行中保留证据限制、观测日期与明确缺口。"
+    ],
+    "donts": [
+      "Don't 为 V4 局部扩展建立新调色板、display 字体或投影装饰。",
+      "Don't 把缓解显示成安全、把未评分或缺失变量补零。",
+      "Don't 根据数值增减自动推导风险方向或变量作用。",
+      "Don't 将当前快照的变量、原因或观察条件混入历史阅读。",
+      "Don't 将来源关联当成贡献权重，或将单项条件当成已确认结论。"
+    ]
+  }
+}

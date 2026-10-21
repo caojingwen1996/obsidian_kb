@@ -13,7 +13,7 @@ const sourceDir = join(root, 'src');
 const dataDir = join(root, 'data');
 const marketOverviewDataDir = join(dataDir, '市场总览');
 const outputPath = join(root, 'a-share-market-dashboard.html');
-const moduleOrder = ['core.mjs', 'adapters.mjs', 'data-service.mjs', 'risk-state.mjs', 'risk-indicators.mjs', 'risk-screen.mjs', 'dividend-scoring.mjs', 'dividend-backtest.mjs', 'dividend-bollinger.mjs', 'app.mjs'];
+const moduleOrder = ['core.mjs', 'adapters.mjs', 'data-service.mjs', 'risk-state.mjs', 'risk-indicators.mjs', 'risk-screen.mjs', 'dividend-scoring.mjs', 'dividend-backtest.mjs', 'dividend-bollinger.mjs', 'dividend-task-monitor.mjs', 'app.mjs'];
 const automationsDir = join(repoRoot, 'sources', 'automations');
 const topicsDir = join(repoRoot, 'wiki', 'topics');
 const dividendStrategy = JSON.parse(await readFile(join(repoRoot, '.agents', 'skills', 'zzhl-dividend-signal', 'strategy-v2.json'), 'utf8'));
@@ -1139,10 +1139,20 @@ const dividendScorePayload = dividendScoreData?.latest ? { ...dividendScoreData,
 const dividendSignal = parseDividendSignal(await readFile(dividendSignalPath, 'utf8').catch(() => ''));
 const dividendWorkbookBuffer = await readFile(dividendHistoryWorkbookPath).catch(error => { if (error.code !== 'ENOENT') throw error; return null; });
 const dividendYieldHistory = parseDividendYieldHistoryFromWorkbook(dividendWorkbookBuffer);
-const dividendIndexSnapshot = parseCsindexPerformance(JSON.parse(await readFile(dividendIndexHistoryPath, 'utf8').catch(error => {
+const dividendIndexFile = JSON.parse(await readFile(dividendIndexHistoryPath, 'utf8').catch(error => {
   if (error.code !== 'ENOENT') throw error;
   return '{}';
-}))).map(({ date, close }) => ({ date, close }));
+}));
+const dividendIndexSnapshot = parseCsindexPerformance(dividendIndexFile).map(({ date, close }) => ({ date, close }));
+const dividendIndexStatus = JSON.parse(await readFile(dividendIndexHistoryPath.replace('.json', '更新状态.json'), 'utf8').catch(() => '{}'));
+const dividendIndexLastUpdate = dividendIndexStatus.fetchedAt === dividendIndexFile.fetchedAt ? dividendIndexStatus : {};
+const dividendIndexSourceMeta = {
+  source: dividendIndexFile.source || '来源待确认',
+  cutoffDate: dividendIndexSnapshot.map(point => point.date).sort().at(-1) || '',
+  fetchedAt: dividendIndexFile.fetchedAt || '',
+  status: dividendIndexLastUpdate.status || 'saved',
+  lastAttemptAt: dividendIndexLastUpdate.lastAttemptAt || '',
+};
 const dividendBollingerSnapshot = parseCsindexPerformance(JSON.parse(await readFile(dividendBollingerHistoryPath, 'utf8').catch(error => {
   if (error.code !== 'ENOENT') throw error;
   return '{}';
@@ -1173,6 +1183,7 @@ const bundle = modules
         .replace('  // CSI_DIVIDEND_SIGNAL', JSON.stringify(dividendSignal, null, 2))
         .replace('  // CSI_DIVIDEND_YIELD_HISTORY', JSON.stringify(dividendYieldHistory, null, 2))
         .replace('  // CSI_DIVIDEND_INDEX_HISTORY', JSON.stringify(dividendIndexHistory, null, 2))
+        .replace('  // CSI_DIVIDEND_INDEX_SOURCE_META', JSON.stringify(dividendIndexSourceMeta, null, 2))
         .replace('  // CSI_DIVIDEND_ANNUAL_PERFORMANCE', JSON.stringify(dividendAnnualPerformance, null, 2))
       : source;
     return stripModuleSyntax(withGeneratedData, moduleOrder[index]);

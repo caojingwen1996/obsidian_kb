@@ -1,0 +1,195 @@
+{
+  "passed": 47,
+  "failed": 0,
+  "results": [
+    {
+      "name": "仅两个主入口",
+      "pass": true
+    },
+    {
+      "name": "四个稳定对象",
+      "pass": true
+    },
+    {
+      "name": "对象无重复",
+      "pass": true
+    },
+    {
+      "name": "来源筛选",
+      "pass": true
+    },
+    {
+      "name": "零关联空态",
+      "pass": true
+    },
+    {
+      "name": "新纳入优先",
+      "pass": true
+    },
+    {
+      "name": "对象预览更新",
+      "pass": true
+    },
+    {
+      "name": "返回保留选择",
+      "pass": true
+    },
+    {
+      "name": "返回保留排序",
+      "pass": true
+    },
+    {
+      "name": "事件评估分开",
+      "pass": true
+    },
+    {
+      "name": "对象值独立",
+      "pass": true
+    },
+    {
+      "name": "三项核心驱动变量",
+      "pass": true
+    },
+    {
+      "name": "来源和应对分别表达",
+      "pass": true
+    },
+    {
+      "name": "两项观察重点",
+      "pass": true
+    },
+    {
+      "name": "卡内跳转聚焦",
+      "pass": true
+    },
+    {
+      "name": "原因定位并展开变量证据",
+      "pass": true
+    },
+    {
+      "name": "演化按需展开",
+      "pass": true
+    },
+    {
+      "name": "对象到来源",
+      "pass": true
+    },
+    {
+      "name": "来源到对象链接",
+      "pass": true
+    },
+    {
+      "name": "返回来源上下文",
+      "pass": true
+    },
+    {
+      "name": "历史报告排除未来对象",
+      "pass": true
+    },
+    {
+      "name": "历史对象值76",
+      "pass": true
+    },
+    {
+      "name": "历史事件截止",
+      "pass": true
+    },
+    {
+      "name": "历史变量独立",
+      "pass": true
+    },
+    {
+      "name": "历史原因与Watch独立",
+      "pass": true
+    },
+    {
+      "name": "关联保持历史截止",
+      "pass": true
+    },
+    {
+      "name": "关联保留报告上下文",
+      "pass": true
+    },
+    {
+      "name": "未评分不补零",
+      "pass": true
+    },
+    {
+      "name": "不生成假历史",
+      "pass": true
+    },
+    {
+      "name": "缺失变量不补零",
+      "pass": true
+    },
+    {
+      "name": "待评估对象仍提供验证条件",
+      "pass": true
+    },
+    {
+      "name": "过期观测标注10.14",
+      "pass": true
+    },
+    {
+      "name": "过期作用待判断",
+      "pass": true
+    },
+    {
+      "name": "不存在快照回退",
+      "pass": true
+    },
+    {
+      "name": "不合法关联回退",
+      "pass": true
+    },
+    {
+      "name": "无横向溢出 390#overview",
+      "pass": true
+    },
+    {
+      "name": "无横向溢出 390#object/ust/home",
+      "pass": true
+    },
+    {
+      "name": "无横向溢出 390#reports/week",
+      "pass": true
+    },
+    {
+      "name": "无横向溢出 320#overview",
+      "pass": true
+    },
+    {
+      "name": "无横向溢出 320#object/ust/home",
+      "pass": true
+    },
+    {
+      "name": "无横向溢出 320#reports/week",
+      "pass": true
+    },
+    {
+      "name": "报告携带观察重点",
+      "pass": true
+    },
+    {
+      "name": "无配置或输入负担",
+      "pass": true
+    },
+    {
+      "name": "核心驱动变量首页可读",
+      "pass": true
+    },
+    {
+      "name": "方向引用独立记录",
+      "pass": true
+    },
+    {
+      "name": "历史独立观察数组",
+      "pass": true
+    },
+    {
+      "name": "无运行错误",
+      "pass": true
+    }
+  ],
+  "errors": []
+}

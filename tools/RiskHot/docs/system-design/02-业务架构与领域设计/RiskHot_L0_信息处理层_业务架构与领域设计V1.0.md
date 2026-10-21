@@ -722,15 +722,17 @@ flowchart LR
 
 **没有** `target.variable_ids` **或静态 TargetVariable 表**。对象与变量的对应关系在具体 Event 的上下文中解释。
 
-#### 4.5.5 `variable_config`：统一变量字典（沿用既有配置）
+#### 4.5.5 `variable_config`：核心驱动变量统一字典（沿用既有配置）
+
+**中文业务名称：核心驱动变量。** 下文的“全局变量”或“变量”是其上下文简称；表名 `variable_config`、字段名及既有引用保持不变。
 
 
 | 字段              | 说明                |
 | --------------- | ----------------- |
-| `variable_id`   | 全局稳定变量 ID，既有配置主键  |
+| `variable_id`   | 全局稳定核心驱动变量 ID，既有配置主键  |
 | `variable_code` | 稳定语义编码（建议保留）      |
-| `variable_name` | 变量名称              |
-| `definition`    | 变量定义、观测边界与解释口径    |
+| `variable_name` | 核心驱动变量名称              |
+| `definition`    | 核心驱动变量定义、观测边界与解释口径    |
 | `unit`          | 量纲或单位，若变量为状态项可以为空 |
 | `status`        | 启用状态，必要时维护        |
 

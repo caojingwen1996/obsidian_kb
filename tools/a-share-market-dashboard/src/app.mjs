@@ -6,6 +6,7 @@ import {
 import { initRiskSourceScreen, updateRiskSourceScreen } from './risk-screen.mjs';
 import { dividendWorkbookPayload, runDividendBacktest, backtestDate, dividendEntryDate } from './dividend-backtest.mjs';
 import { calculateDividendWeeklyBollinger, loadDividendBollingerHistory, mergeDividendIndexHistory } from './dividend-bollinger.mjs';
+import { renderDividendTaskMonitor, renderDividendTaskSummary } from './dividend-task-monitor.mjs';
 import {
   BASE_WEIGHTS,
   calculateGreedMetrics,
@@ -190,6 +191,9 @@ const CSI_DIVIDEND_YIELD_HISTORY = Object.freeze(
 );
 const CSI_DIVIDEND_INDEX_HISTORY = Object.freeze(
   // CSI_DIVIDEND_INDEX_HISTORY
+);
+const CSI_DIVIDEND_INDEX_SOURCE_META = Object.freeze(
+  // CSI_DIVIDEND_INDEX_SOURCE_META
 );
 const CSI_DIVIDEND_ANNUAL_PERFORMANCE = Object.freeze(
   // CSI_DIVIDEND_ANNUAL_PERFORMANCE
@@ -481,7 +485,11 @@ export async function loadDividendBacktestData(fetcher = globalThis.fetch, locat
   if (!isLocalProxyLocation(location)) throw new Error('请通过“启动面板.command”（Mac）或“启动面板.cmd”（Windows）打开看板，再读取当前Excel回测。');
   const response = await fetcher('/api/dividend-backtest-data', { cache: 'no-store' });
   const payload = await response.json();
-  if (!response.ok) throw new Error(payload?.error || `HTTP ${response.status}`);
+  if (!response.ok) {
+    const error = new Error(payload?.error || `HTTP ${response.status}`);
+    error.indexHistoryMeta = payload?.indexHistoryMeta;
+    throw error;
+  }
   if (payload?.schemaVersion !== 1 || !Array.isArray(payload.rows) || !Array.isArray(payload.indexPoints)) throw new Error('回测数据格式无效');
   return payload;
 }
@@ -1026,7 +1034,7 @@ export function signalFromDividendPayload(payload) {
 
 export function dividendViewFromData(data) {
   if (data?.schemaVersion !== 1 || !Array.isArray(data.yieldHistory) || !Array.isArray(data.indexHistory)) throw new Error('红利查看页数据格式无效');
-  return { signal: signalFromDividendPayload(data.payload), payload: data.payload, yieldHistory: data.yieldHistory, indexHistory: data.indexHistory };
+  return { signal: signalFromDividendPayload(data.payload), payload: data.payload, yieldHistory: data.yieldHistory, indexHistory: data.indexHistory, indexHistoryMeta: data.indexHistoryMeta };
 }
 
 function dividendCalculationText(component) {
@@ -1269,8 +1277,8 @@ export function renderDividendManagement(signal, options = {}) {
   return renderDividendStrategyDetails(options.strategy ?? DIVIDEND_DEFAULT_STRATEGY, options.storageNotice, options.dailyOptions);
 }
 
-export function renderDividendManagementSource(signal) {
-  return `<details class="dividend-source-disclosure" data-dividend-disclosure="sources"><summary>数据来源与验证边界</summary><div class="dividend-source-body"><button class="button-secondary" type="button" data-open-dividend-source title="Mac 上使用 Microsoft Excel 打开中证红利每日信号.xlsx">打开信号源（Excel）</button>${signal ? renderDividendSourceDetails(signal) : '<p class="dividend-page-description">暂无信号记录；可先配置策略，生成每日信号后查看来源信息。</p>'}</div></details>`;
+export function renderDividendManagementSource(signal, indexMetadata = CSI_DIVIDEND_INDEX_SOURCE_META) {
+  return `<details class="dividend-source-disclosure" data-dividend-disclosure="sources"><summary>数据来源与验证边界</summary><div class="dividend-source-body"><button class="button-secondary" type="button" data-open-dividend-source title="Mac 上使用 Microsoft Excel 打开中证红利每日信号.xlsx">打开信号源（Excel）</button>${signal ? renderDividendSourceDetails(signal, indexMetadata) : `<p class="dividend-page-description">暂无信号记录；可先配置策略，生成每日信号后查看来源信息。</p><ul>${renderDividendIndexSource(indexMetadata)}</ul>`}</div></details>`;
 }
 
 export function dividendBacktestCompletionNotice(result, _updatedAt, completedAt = new Date()) {
@@ -1363,7 +1371,24 @@ export function renderDividendBacktest(result, sort = {}) {
     <details class="dividend-backtest-details"><summary>计算口径与参数快照</summary><ul>${result.methodology.map(text => `<li>${escapeHtml(text)}</li>`).join('')}</ul><p class="dividend-score-footnote">权重：股息率 ${result.strategy.weights.absolute}% · 股债倍数 ${result.strategy.weights.ratio}%；等级分界 C/B/A：${['C', 'B', 'A'].map(key => result.strategy.thresholds[key]).join('/')}。本次结果不保存或应用策略，也不改写Excel。</p><pre>${escapeHtml(JSON.stringify(strategySnapshot, null, 2))}</pre></details>`;
 }
 
-function renderDividendSourceDetails(signal) {
+export function renderDividendIndexSource(metadata = {}) {
+  const meta = metadata ?? {};
+  const timestamp = value => {
+    if (!value) return '待确认';
+    const date = new Date(value);
+    return Number.isNaN(date.getTime()) ? '待确认' : date.toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false });
+  };
+  const result = {
+    updated: '更新成功，已覆盖回测截止日',
+    cached: '更新失败，使用本地价格',
+    failed: '更新失败，价格不足，回测停止',
+    saved: '已有本地日线，尚无自动更新结果',
+    missing: '日线信息不可用，请重新回测更新',
+  }[meta.status] ?? '尚无自动更新结果';
+  return `<li data-dividend-index-source><strong>指数日线</strong>：${escapeHtml(meta.source || '来源待确认')}（价格指数）；截止日期：${escapeHtml(meta.cutoffDate || '待确认')}；最近更新时间：${escapeHtml(timestamp(meta.fetchedAt))}；更新结果：${escapeHtml(result)}${meta.lastAttemptAt ? `（最近尝试：${escapeHtml(timestamp(meta.lastAttemptAt))}）` : ''}。每次回测前自动更新。</li>`;
+}
+
+function renderDividendSourceDetails(signal, indexMetadata) {
   const sourceNotes = String(signal.sourceNote ?? '').split(/[;；]/).map(item => item.trim()).filter(item => item && !/理杏仁|lixinger|分位|H00922/.test(item));
   const sourceNoteText = sourceNotes.join('；');
   const sourceBoundary = pattern => sourceNotes.find(item => pattern.test(item)) ?? '';
@@ -1395,7 +1420,7 @@ function renderDividendSourceDetails(signal) {
   ];
   return `<article class="panel dividend-detail-panel dividend-detail-source">
       <h3>来源与验证边界</h3>
-      <ul>${sourceRows.map(item => `<li><strong>${escapeHtml(item.metric)}</strong>：${escapeHtml(item.source)}；日期：${escapeHtml(item.date)}；说明：${escapeHtml(item.note)}</li>`).join('')}</ul>
+      <ul>${renderDividendIndexSource(indexMetadata)}${sourceRows.map(item => `<li><strong>${escapeHtml(item.metric)}</strong>：${escapeHtml(item.source)}；日期：${escapeHtml(item.date)}；说明：${escapeHtml(item.note)}</li>`).join('')}</ul>
       ${sourceNoteText ? `<p>原始来源备注：${escapeHtml(sourceNoteText)}</p>` : ''}
     </article>`;
 }
@@ -1974,7 +1999,7 @@ function renderDerived(derived, officialTemperature = { status: 'loading' }, nas
   for (const [id, html] of [
     ['dividend-signal-detail', () => renderDividendSignalDetail(dividendSignal, dividendTrialOptions)],
     ['dividend-management-detail', () => renderDividendManagement(dividendSignal, dividendTrialOptions)],
-    ['dividend-management-source', () => renderDividendManagementSource(dividendSignal)],
+    ['dividend-management-source', () => renderDividendManagementSource(dividendSignal, dividendTrialOptions.indexHistoryMeta)],
   ]) {
     const container = byId(id);
     if (container.contains(document.activeElement) && document.activeElement?.matches('[data-dividend-param]')) continue;
@@ -2264,6 +2289,76 @@ export function shouldApplyPortfolioLoad(requestVersion, currentVersion) {
 
 function startApp() {
   initRiskSourceScreen();
+  let dividendTaskPayload = null;
+  let dividendTaskError = '';
+  let dividendTaskRequest = null;
+  let dividendTaskLoadedAt = 0;
+  let dividendTaskRendered = '';
+  const taskContent = document.getElementById('dividend-task-monitor-content');
+  const taskRefreshButton = document.getElementById('refresh-dividend-task');
+  const renderTaskMonitor = () => {
+    const signature = JSON.stringify([dividendTaskPayload ? { ...dividendTaskPayload, checkedAt: '' } : null, dividendTaskError]);
+    if (signature === dividendTaskRendered) {
+      const checked = taskContent.querySelector('[data-task-check-time]');
+      if (checked && dividendTaskPayload) {
+        checked.textContent = new Date(dividendTaskPayload.checkedAt).toLocaleTimeString('zh-CN', { timeZone: 'Asia/Shanghai', hour: '2-digit', minute: '2-digit', hour12: false });
+        checked.setAttribute('datetime', dividendTaskPayload.checkedAt);
+        checked.parentElement.title = `最近核对：${new Date(dividendTaskPayload.checkedAt).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' })}`;
+      }
+      return;
+    }
+    dividendTaskRendered = signature;
+    const expanded = new Set([...taskContent.querySelectorAll('[data-task-run-id][open]')].map(item => item.dataset.taskRunId));
+    const validationOpen = taskContent.querySelector('.task-validation-details')?.open;
+    const overviewOpen = taskContent.querySelector('.task-overview-details')?.open;
+    taskContent.innerHTML = renderDividendTaskMonitor(dividendTaskPayload, dividendTaskError);
+    taskContent.querySelectorAll('[data-task-run-id]').forEach(item => { item.open = expanded.has(item.dataset.taskRunId); });
+    const validationDetails = taskContent.querySelector('.task-validation-details');
+    if (validationDetails) validationDetails.open = Boolean(validationOpen);
+    const overviewDetails = taskContent.querySelector('.task-overview-details');
+    if (overviewDetails) overviewDetails.open = Boolean(overviewOpen);
+    document.getElementById('dividend-task-summary').innerHTML = renderDividendTaskSummary(dividendTaskPayload, dividendTaskError);
+  };
+  const refreshDividendTaskMonitor = (force = false) => {
+    if (dividendTaskRequest) return dividendTaskRequest;
+    if (!force && Date.now() - dividendTaskLoadedAt < 15_000) return Promise.resolve();
+    if (!isLocalProxyLocation()) {
+      dividendTaskError = '请通过“启动面板”打开看板后读取任务监控。';
+      renderTaskMonitor();
+      return Promise.resolve();
+    }
+    taskRefreshButton.disabled = true;
+    taskRefreshButton.textContent = '读取中…';
+    taskContent.setAttribute('aria-busy', 'true');
+    document.getElementById('dividend-task-fetch-status').textContent = '正在核对本地执行记录与信号文件…';
+    dividendTaskRequest = (async () => {
+      try {
+        const response = await fetch('/api/dividend-task-monitor', { cache: 'no-store', signal: AbortSignal.timeout(12_000) });
+        if (response.status === 404) throw new Error('当前服务尚未提供任务监控，请重新运行“启动面板”。');
+        if (!response.ok) throw new Error(`任务状态读取失败（${response.status}），请重试。`);
+        const payload = await response.json();
+        if (payload.schemaVersion !== 1 || !payload.current || !payload.validation || !Array.isArray(payload.history)) throw new Error('任务状态格式异常，请重新运行“启动面板”。');
+        dividendTaskPayload = payload;
+        dividendTaskError = '';
+      } catch (error) {
+        dividendTaskError = error?.name === 'TimeoutError' ? '任务状态读取超时，请重试。' : error?.message || '任务状态读取失败，请检查本地服务。';
+      } finally {
+        dividendTaskLoadedAt = Date.now();
+        dividendTaskRequest = null;
+        taskRefreshButton.disabled = false;
+        taskRefreshButton.textContent = '刷新状态';
+        taskContent.setAttribute('aria-busy', 'false');
+        renderTaskMonitor();
+        document.getElementById('dividend-task-fetch-status').textContent = dividendTaskError ? '读取失败；刷新状态可重新检查。' : '状态已核对；本页停留期间每30秒更新。';
+      }
+    })();
+    return dividendTaskRequest;
+  };
+  taskRefreshButton.addEventListener('click', () => refreshDividendTaskMonitor(true));
+  renderTaskMonitor();
+  setInterval(() => {
+    if (!document.hidden && document.querySelector('#dividend-signal-view.is-active, #dividend-task-monitor-view.is-active')) refreshDividendTaskMonitor();
+  }, 30_000);
   const monthlyDialog = document.getElementById('dividend-monthly-dialog');
   const monthlyBody = document.getElementById('dividend-monthly-grid');
   const monthlyStatus = document.getElementById('dividend-monthly-status');
@@ -2352,6 +2447,7 @@ function startApp() {
     dividendSignal: CSI_DIVIDEND_SCORE_PAYLOAD?.latest ? signalFromDividendPayload(CSI_DIVIDEND_SCORE_PAYLOAD) : CSI_DIVIDEND_SIGNAL,
     dividendPayload: CSI_DIVIDEND_SCORE_PAYLOAD,
     dividendIndexHistory: CSI_DIVIDEND_INDEX_HISTORY ?? [],
+    dividendIndexHistoryMeta: CSI_DIVIDEND_INDEX_SOURCE_META ?? {},
     dividendIndexStatus: 'snapshot',
     dividendIndexError: '',
     dividendYieldHistory: CSI_DIVIDEND_YIELD_HISTORY ?? [],
@@ -2459,6 +2555,7 @@ function startApp() {
         state.dividendPayload = view.payload;
         state.dividendYieldHistory = view.yieldHistory;
         state.dividendIndexHistory = mergeDividendIndexHistory(state.dividendIndexHistory, view.indexHistory);
+        state.dividendIndexHistoryMeta = view.indexHistoryMeta ?? state.dividendIndexHistoryMeta;
         dividendSignalLoadedAt = Date.now();
         dividendDailyNotice = `已保存并应用 ${settings.strategy.version}，重算Excel ${settings.recalculation.updatedRows} 条记录；查看页、评分和走势图已同步更新。后续每日任务也使用此策略；重算前文件已备份。`;
         markDividendBacktestStale();
@@ -2513,25 +2610,35 @@ function startApp() {
     backtestRun.textContent = busy ? '正在回测…' : backtestResult ? '重新读取Excel并回测' : '读取Excel并回测';
     updateDividendParameterValidation();
   };
+  const updateDividendIndexSource = metadata => {
+    if (!metadata) return;
+    state.dividendIndexHistoryMeta = metadata;
+    const container = document.getElementById('dividend-management-source');
+    const wasOpen = Boolean(container.querySelector('details')?.open);
+    container.innerHTML = renderDividendManagementSource(state.dividendSignal, metadata);
+    container.querySelector('details').open = wasOpen;
+  };
   const executeDividendBacktest = async () => {
     const request = ++backtestRequest;
     const strategy = structuredClone(dividendDraftStrategy);
     if (!backtestResult) backtestBody.innerHTML = '<p class="dividend-score-footnote">正在计算，完成后将在这里显示回测结果。</p>';
     backtestStatus.classList.remove('is-error');
-    backtestStatus.textContent = `正在读取当前Excel已保存的数据，按本次填写的策略参数回测…${backtestResult ? ' 下方暂为上次结果，完成后更新。' : ''}`;
+    backtestStatus.textContent = `正在读取Excel并自动更新指数日线，随后按本次参数回测…${backtestResult ? ' 下方暂为上次结果，完成后更新。' : ''}`;
     setBacktestBusy(true);
     try {
       const errors = validateDividendStrategy(strategy);
       if (errors.length) throw new Error(errors.map(error => error.message).join('；'));
       const data = await loadDividendBacktestData();
       if (request !== backtestRequest) return;
+      updateDividendIndexSource(data.indexHistoryMeta);
       const payload = dividendWorkbookPayload(data.rows, data.indexPoints);
       backtestResult = runDividendBacktest(payload, data.indexPoints, strategy);
       backtestBody.innerHTML = renderDividendBacktest({ ...backtestResult, workbookUpdatedAt: data.workbookUpdatedAt }, backtestSort);
-      backtestStatus.textContent = dividendBacktestCompletionNotice(backtestResult, data.workbookUpdatedAt);
+      backtestStatus.textContent = dividendBacktestCompletionNotice(backtestResult, data.workbookUpdatedAt) + (data.indexUpdate?.message ? ` ${data.indexUpdate.message}` : "");
       if (JSON.stringify(strategy) !== JSON.stringify(dividendDraftStrategy)) markDividendBacktestStale();
     } catch (error) {
       if (request !== backtestRequest) return;
+      updateDividendIndexSource(error.indexHistoryMeta);
       backtestResult = null;
       backtestBody.innerHTML = '';
       backtestStatus.classList.add('is-error');
@@ -3830,6 +3937,7 @@ function startApp() {
         state.dividendPayload = view.payload;
         state.dividendYieldHistory = view.yieldHistory;
         state.dividendIndexHistory = mergeDividendIndexHistory(state.dividendIndexHistory, view.indexHistory);
+        state.dividendIndexHistoryMeta = view.indexHistoryMeta ?? state.dividendIndexHistoryMeta;
         render();
         return view.signal;
       } catch { /* An older local service can still expose the existing signal file. */ }
@@ -3858,7 +3966,7 @@ function startApp() {
 
   const render = () => {
     const derived = deriveDashboard(state.snapshot, state.windowYears);
-    renderDerived(derived, state.youzhiyouxingTemperature, state.nasdaq100, state.dividendSignal, { strategy: dividendDraftStrategy, storageNotice: dividendStorageNotice, yieldHistory: state.dividendYieldHistory, indexHistory: state.dividendIndexHistory, indexStatus: state.dividendIndexStatus, indexError: state.dividendIndexError, dailyOptions: { ready: Boolean(dividendDailySettings), notice: dividendDailyNotice } });
+    renderDerived(derived, state.youzhiyouxingTemperature, state.nasdaq100, state.dividendSignal, { strategy: dividendDraftStrategy, storageNotice: dividendStorageNotice, yieldHistory: state.dividendYieldHistory, indexHistory: state.dividendIndexHistory, indexStatus: state.dividendIndexStatus, indexError: state.dividendIndexError, indexHistoryMeta: state.dividendIndexHistoryMeta, dailyOptions: { ready: Boolean(dividendDailySettings), notice: dividendDailyNotice } });
     updateDividendParameterValidation();
     const grid = renderNasdaqGridStrategy(state.nasdaqEtf, nasdaqGridUnitAmount);
     document.getElementById('nasdaq-grid-reference').textContent = grid.referenceText;
@@ -4063,7 +4171,7 @@ function startApp() {
     const [domain, viewId] = String(storage.getItem(ACTIVE_VIEW_STORAGE_KEY) ?? '').split(':');
     if (!domain || !viewId) return null;
     const button = [...document.querySelectorAll('[data-view]')].find(item => item.dataset.view === viewId);
-    if (!button && viewId !== 'nasdaq-grid-view') return null;
+    if (!button && !['nasdaq-grid-view', 'dividend-task-monitor-view'].includes(viewId)) return null;
     return { domain: button ? shellForButton(button) : 'thermometer', viewId };
   };
 
@@ -4649,7 +4757,7 @@ function startApp() {
   };
 
   const setActiveView = viewId => {
-    const button = [...document.querySelectorAll('[data-view]')].find(item => item.dataset.view === viewId);
+    const button = [...document.querySelectorAll('[data-view]')].find(item => item.dataset.view === (viewId === 'dividend-task-monitor-view' ? 'dividend-signal-view' : viewId));
     const shell = button ? shellForButton(button) : 'thermometer';
     activeViewByShell[shell] = viewId;
     if (button || viewId === 'nasdaq-grid-view') storage.setItem(ACTIVE_VIEW_STORAGE_KEY, `${shell}:${viewId}`);
@@ -4660,7 +4768,8 @@ function startApp() {
       else item.removeAttribute('aria-current');
     });
     document.querySelectorAll('.view').forEach(view => view.classList.toggle('is-active', view.id === viewId));
-    pageTitle.textContent = (viewId === 'dividend-management-view' ? '红利信号 · 管理' : labelForView(button)) || (viewId === 'nasdaq-grid-view' ? '纳斯达克网格策略' : pageTitle.textContent);
+    pageTitle.textContent = (viewId === 'dividend-management-view' ? '股息率回测' : labelForView(button)) || (viewId === 'nasdaq-grid-view' ? '纳斯达克网格策略' : pageTitle.textContent);
+    if (['dividend-signal-view', 'dividend-task-monitor-view'].includes(viewId)) refreshDividendTaskMonitor();
     if (viewId === 'risk-monitor') refreshRiskMarginChart();
     if (viewId === 'nasdaq-grid-view' && state.nasdaqEtf.status !== 'latest') loadNasdaqEtf();
     if (viewId === 'review-diary-view' && !reviewDiariesLoaded) refreshReviewDiaries();
@@ -4682,13 +4791,13 @@ function startApp() {
       const children = group.querySelector('.tree-children');
       if (children) children.hidden = !expanded;
     });
-    marketActions.hidden = navigation.viewId === 'dividend-management-view' || (targetShell !== 'thermometer' && targetShell !== 'strategy');
+    marketActions.hidden = ['dividend-management-view', 'dividend-task-monitor-view'].includes(navigation.viewId) || (targetShell !== 'thermometer' && targetShell !== 'strategy');
     topbar.hidden = targetShell === 'changelog';
     notice.hidden = targetShell !== 'thermometer';
     const marketRefreshDetails = document.getElementById('market-refresh-details');
-    marketRefreshDetails.hidden = targetShell !== 'thermometer';
+    marketRefreshDetails.hidden = targetShell !== 'thermometer' || navigation.viewId === 'dividend-task-monitor-view';
     marketRefreshDetails.open = navigation.viewId !== 'dividend-signal-view';
-    sidebarFooter.hidden = targetShell !== 'thermometer';
+    sidebarFooter.hidden = targetShell !== 'thermometer' || navigation.viewId === 'dividend-task-monitor-view';
     pageEyebrow.textContent = {
       thermometer: 'MARKET VALUATION MONITOR',
       strategy: 'STRATEGY MENU',
@@ -4700,12 +4809,14 @@ function startApp() {
     closeSidebar();
   };
 
-  document.querySelectorAll('[data-dividend-view]').forEach(button => button.addEventListener('click', () => {
+  document.addEventListener('click', event => {
+    const button = event.target.closest('[data-dividend-view]');
+    if (!button) return;
     const viewId = button.dataset.dividendView;
     setShell(viewId === 'dividend-management-view' ? 'strategy' : 'thermometer', viewId);
     window.scrollTo({ top: 0 });
     document.getElementById(viewId)?.querySelector('.dividend-page-nav [aria-current="page"]')?.focus({ preventScroll: true });
-  }));
+  });
 
   document.querySelectorAll('[data-window]').forEach(button => button.addEventListener('click', () => {
     state.windowYears = Number(button.dataset.window);

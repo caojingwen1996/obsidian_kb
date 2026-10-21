@@ -6,7 +6,6 @@ updated: YYYY-MM-DD
 type: person
 status: active
 tags: []
-sources: []
 related: []
 summary: ""
 people_type: ""
@@ -65,9 +64,9 @@ People Page
 
 ## 代表观点
 
-本节只保留最能代表人物画像的 View Page。
+本节只保留最能代表人物画像、可回查原文的观点；不另建观点页。
 
-- [[views/观点页面|观点页面]]：说明该观点如何体现人物判断。
+- [[sources/文章路径|作者原文]]：简述代表性观点，并说明它如何体现人物判断。
 
 ## 代表推导
 本节只保留最能体现人物推导方式的 Reasoning Page。
@@ -88,7 +87,7 @@ People Page
 ## 待补充问题
 
 - 待验证的人物特征：
-- 待补充的观点页：
+- 待补充的观点依据：
 - 待拆分的推导页：
 
 ## 来源

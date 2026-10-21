@@ -6,12 +6,12 @@ updated: YYYY-MM-DD
 type: topic
 status: active
 tags: []
-sources: []
 related: []
 summary: ""
 topic_scope: ""
 key_questions: []
 related_concepts: []
+related_indicators: []
 ---
 
 # 主题标题
@@ -25,6 +25,10 @@ related_concepts: []
 - [[concepts/概念A|概念A]]：说明该概念为什么属于本主题。
 - [[concepts/概念B|概念B]]：说明该概念为什么属于本主题。
 
+## 核心指标
+
+- 在此链接所属知识库 indicators/ 中已存在的规范，说明观察用途；同步维护 related_indicators。
+
 ## 关键人物
 
 - [[people/人物A|人物A]]：说明该人物与主题的关系。
@@ -34,11 +38,6 @@ related_concepts: []
 
 - [[events/事件A|事件A]]：说明该事件为什么属于本主题。
 - [[events/事件B|事件B]]：说明该事件为什么属于本主题。
-
-## 相关观点
-
-- [[views/观点页面A|观点页面A]]：说明该观点为什么属于本主题。
-- [[views/观点页面B|观点页面B]]：说明该观点为什么属于本主题。
 
 ## 相关时间线
 

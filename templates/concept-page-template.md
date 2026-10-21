@@ -6,7 +6,6 @@ updated: YYYY-MM-DD
 type: concept
 status: active
 tags: []
-sources: []
 related: []
 summary: ""
 definition: ""

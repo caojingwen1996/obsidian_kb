@@ -101,6 +101,8 @@ class ScoringTest(unittest.TestCase):
             md_before, xlsx_before = (output / "最新信号.md").read_bytes(), workbook.read_bytes()
             snapshot = check_signal.snapshot_from_local(output)
             self.assertEqual(snapshot["latest"]["kind"], "snapshot")
+            self.assertTrue((output / "历史归档" / "V1参考快照.md").is_file())
+            self.assertFalse((output / "V1参考快照.md").exists())
             self.assertEqual((output / "最新信号.md").read_bytes(), md_before)
             self.assertEqual(workbook.read_bytes(), xlsx_before)
             current = check_signal.Signal(**dict(fields, run_date="2026-10-14", index_date="2026-10-13", bond_date="2026-10-13", lixinger_date="2026-10-13"))

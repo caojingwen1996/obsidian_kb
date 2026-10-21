@@ -6,7 +6,6 @@ updated: YYYY-MM-DD
 type: timeline
 status: active
 tags: []
-sources: []
 related: []
 summary: ""
 subject: ""
@@ -35,7 +34,7 @@ verification_window: ""
 
 本页只负责记录时间顺序、阶段位置和关键节点。  
 复杂因果推导请链接到对应的 Reasoning Page。  
-作者观点来源请链接到对应的 View Page 或 People Page。
+作者观点来源请链接到对应的原始资料，必要时补充 People Page。
 
 ---
 
@@ -126,7 +125,6 @@ verification_window: ""
   - 来源二
 - **关联页面**：
   - [[events/相关事件]]
-  - [[views/相关观点]]
   - [[reasoning/相关推导]]
   - [[topics/相关主题]]
 
@@ -287,7 +285,6 @@ verification_window: ""
 
 ## 11. 相关观点
 
-- [[views/观点页面A|观点页面A]]：说明该观点为什么相关。
 - [[people/人物页面A|人物页面A]]：说明该人物与本时间线的关系。
 
 ---

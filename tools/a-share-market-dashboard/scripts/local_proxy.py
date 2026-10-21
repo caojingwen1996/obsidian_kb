@@ -10,12 +10,13 @@ import types
 import json
 import math
 import os
+import plistlib
 from pathlib import Path
 import re
 import shutil
 import subprocess
 import sys
-from threading import Lock, Thread
+from threading import Event, Lock, Thread
 from time import monotonic
 from urllib.error import HTTPError, URLError
 from urllib.parse import parse_qs, quote, unquote, urlencode, urlparse
@@ -25,8 +26,10 @@ import zipfile
 import xml.etree.ElementTree as ET
 
 try:
+    from .dividend_index_history import refresh_index_history, index_history_metadata
     from .dividend_recalculation import iso_date, number, save_and_recalculate
 except ImportError:
+    from dividend_index_history import refresh_index_history, index_history_metadata
     from dividend_recalculation import iso_date, number, save_and_recalculate
 
 
@@ -2307,8 +2310,8 @@ def dividend_strategy_store():
     return importlib.import_module(package_name + ".strategy_store")
 
 
-def read_dividend_backtest_data(vault_root):
-    """Read fixed local market files on every run; never fetch or change data."""
+def read_dividend_backtest_data(vault_root, refresh_history=False, fetcher=None):
+    """Read saved Excel; backtest requests refresh prices before returning data."""
     workbook = Path(vault_root) / DIVIDEND_WORKBOOK_PATH
     ns = {"m": "http://schemas.openxmlformats.org/spreadsheetml/2006/main"}
     with zipfile.ZipFile(workbook) as package:
@@ -2339,14 +2342,27 @@ def read_dividend_backtest_data(vault_root):
                 row[column - 1] = strings[int(text)] if cell.get("t") == "s" else text
             rows.append(row)
             row_numbers.append(int(source_row.get("r", len(rows))))
-    history = json.loads((workbook.parent / "中证红利指数日线.json").read_text(encoding="utf-8-sig"))
+    history_path = workbook.parent / "中证红利指数日线.json"
+    update = None
+    if refresh_history:
+        headers = rows[0] if rows else []
+        try:
+            date_column = headers.index("index_date__index_valuation_date")
+        except ValueError as error:
+            raise ValueError("Excel缺少指数估值日期字段") from error
+        required_dates = {iso_date(row[date_column]) for row in rows[1:] if len(row) > date_column}
+        required_dates.discard("")
+        history, update = refresh_index_history(history_path, required_dates, fetcher or fetch_upstream, write_proxy_log)
+    else:
+        history = json.loads(history_path.read_text(encoding="utf-8-sig"))
     points = []
     for item in history.get("data", []):
         day, close = str(item.get("tradeDate", "")), item.get("close")
         if re.fullmatch(r"\d{8}", day) and isinstance(close, (int, float)) and not isinstance(close, bool) and math.isfinite(close) and close > 0:
             points.append({"date": f"{day[:4]}-{day[4:6]}-{day[6:8]}", "close": close})
     return {"schemaVersion": 1, "rows": rows, "rowNumbers": row_numbers, "indexPoints": points,
-            "workbookUpdatedAt": datetime.fromtimestamp(workbook.stat().st_mtime, timezone.utc).isoformat()}
+            "workbookUpdatedAt": datetime.fromtimestamp(workbook.stat().st_mtime, timezone.utc).isoformat(),
+            "indexUpdate": update, "indexHistoryMeta": index_history_metadata(history_path, history, update)}
 
 
 def read_dividend_view_data(vault_root):
@@ -2359,7 +2375,14 @@ def read_dividend_view_data(vault_root):
         day, value = iso_date(row.get("index_date__index_valuation_date")), number(row.get("akshare_dividend_yield_2"))
         if day and value is not None:
             history.append({"date": day, "recordDate": iso_date(row.get("run_date__record_date")), "value": value, "headline": row.get("headline_signal") or ""})
-    return {"schemaVersion": 1, "payload": payload, "yieldHistory": history, "indexHistory": data["indexPoints"]}
+    return {"schemaVersion": 1, "payload": payload, "yieldHistory": history, "indexHistory": data["indexPoints"], "indexHistoryMeta": data["indexHistoryMeta"]}
+
+
+def read_dividend_task_monitor(vault_root):
+    # Share validation with the daily runner; reading this endpoint never starts a task.
+    dividend_strategy_store()
+    module = importlib.import_module("dashboard_dividend_runtime.run_monitor")
+    return module.monitor_payload(Path(vault_root) / DIVIDEND_WORKBOOK_PATH.parent)
 
 
 def create_server(
@@ -2378,7 +2401,7 @@ def create_server(
     portfolio_file = Path(
         portfolio_path or artifact.parent / "data" / "portfolio.json"
     ).resolve()
-    dividend_settings_file = Path(dividend_strategy_path or artifact.parent / "data/红利信号/strategy-settings.json").resolve()
+    dividend_settings_file = Path(dividend_strategy_path or artifact.parents[2] / dividend_strategy_store().SETTINGS_RELATIVE_PATH).resolve()
     todo_data_file = (artifact.parent / "data" / "需求清单" / "todo.json").resolve()
     vault_root = artifact.parents[2]
     review_diary_dir = Path(
@@ -2440,7 +2463,12 @@ def create_server(
                 body = artifact.read_bytes()
             except OSError:
                 return self.send_json(500, {"error": "dashboard artifact unavailable"})
-            return self._send_bytes(200, body, "text/html; charset=utf-8")
+            self._send_bytes(200, body, "text/html; charset=utf-8")
+            launch_token = getattr(self.server, "browser_launch_token", None)
+            if launch_token and parse_qs(urlparse(self.path).query).get("launch") == [launch_token]:
+                write_proxy_log("BROWSER_PAGE_REQUESTED", path=urlparse(self.path).path,
+                                launch=launch_token, result="dashboard-served")
+                self.server.browser_page_requested.set()
 
         def send_dividend_strategy(self):
             try:
@@ -2671,6 +2699,13 @@ def create_server(
                 return self.send_dashboard()
             if parsed.path == "/api/dividend-strategy":
                 return self.send_dividend_strategy()
+            if parsed.path == "/api/dividend-task-monitor":
+                if parsed.query:
+                    return self.send_json(400, {"error": "任务监控只允许读取当前固定任务"})
+                try:
+                    return self.send_json(200, read_dividend_task_monitor(vault_root))
+                except (OSError, ValueError, KeyError, TypeError) as error:
+                    return self.send_json(422, {"error": f"任务监控读取失败：{error}"})
             if parsed.path == "/api/dividend-view-data":
                 if parsed.query:
                     return self.send_json(400, {"error": "查看页只允许读取当前固定文件"})
@@ -2682,11 +2717,12 @@ def create_server(
                 if parsed.query:
                     return self.send_json(400, {"error": "回测只允许读取当前固定Excel文件"})
                 try:
-                    payload = read_dividend_backtest_data(vault_root)
+                    payload = read_dividend_backtest_data(vault_root, refresh_history=True, fetcher=fetcher)
                 except FileNotFoundError:
                     return self.send_json(404, {"error": "缺少当前Excel或本地指数日线文件"})
                 except (OSError, ValueError, KeyError, IndexError, TypeError, zipfile.BadZipFile, ET.ParseError) as error:
-                    return self.send_json(422, {"error": f"回测数据读取失败：{error}"})
+                    return self.send_json(422, {"error": f"回测数据读取失败：{error}",
+                                                "indexHistoryMeta": index_history_metadata(Path(vault_root) / DIVIDEND_WORKBOOK_PATH.parent / "中证红利指数日线.json")})
                 return self.send_json(200, payload)
             if parsed.path == "/api/portfolio":
                 return self.send_portfolio()
@@ -2838,6 +2874,100 @@ def create_server(
     return ThreadingHTTPServer((host, port), DashboardHandler)
 
 
+def open_dashboard_browser(url):
+    """Use Launch Services on macOS; report browser launch failures explicitly."""
+    if sys.platform == "darwin":
+        write_proxy_log("BROWSER_OPEN_ATTEMPT", method="macos-open", url=url)
+        try:
+            subprocess.run(["/usr/bin/open", url], check=True, timeout=10,
+                           stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
+            write_proxy_log("BROWSER_OPEN_ACCEPTED", method="macos-open", url=url, returncode=0)
+            print(f"已请求默认浏览器打开：{url}")
+            return True
+        except (OSError, subprocess.SubprocessError) as error:
+            detail = getattr(error, "stderr", None)
+            if isinstance(detail, bytes):
+                detail = detail.decode("utf-8", errors="replace")
+            write_proxy_log("BROWSER_OPEN_ERROR", method="macos-open", url=url,
+                            error_type=type(error).__name__, error=str(error),
+                            returncode=getattr(error, "returncode", None),
+                            detail=" ".join(detail.split()) if detail else None)
+            write_proxy_log("BROWSER_OPEN_FALLBACK", method="python-webbrowser", url=url)
+    write_proxy_log("BROWSER_OPEN_ATTEMPT", method="python-webbrowser", url=url)
+    try:
+        opened = webbrowser.open(url, new=2, autoraise=True)
+    except (OSError, webbrowser.Error) as error:
+        write_proxy_log("BROWSER_OPEN_ERROR", method="python-webbrowser", url=url,
+                        error_type=type(error).__name__, error=str(error))
+        opened = False
+    if opened:
+        write_proxy_log("BROWSER_OPEN_ACCEPTED", method="python-webbrowser", url=url, result=True)
+        print(f"已请求浏览器打开：{url}")
+    else:
+        write_proxy_log("BROWSER_OPEN_FAILED", method="python-webbrowser", url=url, result=False)
+        print(f"未能自动打开浏览器，请手动打开：{url}")
+    return opened
+
+
+def regular_chrome_command(url):
+    """Target the everyday Chrome profile, rather than another automation instance."""
+    executable = Path("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
+    profile_root = Path.home() / "Library/Application Support/Google/Chrome"
+    if not executable.is_file() or not profile_root.is_dir():
+        return None
+    try:
+        preferences = Path.home() / "Library/Preferences/com.apple.LaunchServices/com.apple.launchservices.secure.plist"
+        handlers = plistlib.loads(preferences.read_bytes()).get("LSHandlers", [])
+        default_http = next((item.get("LSHandlerRoleAll", "") for item in handlers
+                             if item.get("LSHandlerURLScheme") == "http"), "")
+        if default_http.lower() != "com.google.chrome":
+            return None
+    except (OSError, ValueError, TypeError, AttributeError):
+        return None
+    profile = "Default"
+    try:
+        local_state = json.loads((profile_root / "Local State").read_text(encoding="utf-8"))
+        candidate = local_state.get("profile", {}).get("last_used", "Default")
+        if isinstance(candidate, str) and re.fullmatch(r"Default|Profile [0-9]+", candidate):
+            profile = candidate
+    except (OSError, ValueError, TypeError, AttributeError):
+        pass
+    return [str(executable), f"--user-data-dir={profile_root}",
+            f"--profile-directory={profile}", "--new-window", url]
+
+
+def open_and_confirm_dashboard(server):
+    host, port = server.server_address
+    url = f"http://{host}:{port}/?launch={server.browser_launch_token}"
+    command = regular_chrome_command(url) if sys.platform == "darwin" else None
+    if command:
+        write_proxy_log("BROWSER_OPEN_ATTEMPT", method="regular-chrome-profile", url=url,
+                        window="new", profile=command[2].split("=", 1)[1])
+        try:
+            PROXY_LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
+            with (PROXY_LOG_PATH.parent / "browser-launch.log").open("ab") as browser_log:
+                subprocess.Popen(command, stdout=browser_log, stderr=browser_log,
+                                 start_new_session=True)
+        except OSError as error:
+            write_proxy_log("BROWSER_OPEN_ERROR", method="regular-chrome-profile",
+                            error_type=type(error).__name__, error=str(error))
+        else:
+            if server.browser_page_requested.wait(10):
+                write_proxy_log("BROWSER_OPEN_CONFIRMED", method="regular-chrome-profile", url=url,
+                                evidence="dashboard-page-request")
+                print("日常 Chrome 已请求到面板页面，已指定新窗口打开。", flush=True)
+                return True
+        write_proxy_log("BROWSER_OPEN_FALLBACK", method="default-browser", url=url)
+    open_dashboard_browser(url)
+    if server.browser_page_requested.wait(4):
+        write_proxy_log("BROWSER_OPEN_CONFIRMED", method="default-browser", url=url,
+                        evidence="dashboard-page-request")
+        return True
+    write_proxy_log("BROWSER_OPEN_UNCONFIRMED", method="final", url=url)
+    print(f"未收到本次启动的页面访问确认，请手动打开：http://{host}:{port}/", flush=True)
+    return False
+
+
 def main():
     try:
         server = create_server()
@@ -2855,9 +2985,11 @@ def main():
     print(f"A 股大盘面板已启动：{url}")
     print(f"需求清单轻量服务已启动：http://{host}:{TODO_ACTION_PORT}/")
     print("关闭此窗口或按 Ctrl+C 可停止本地数据服务。")
+    server.browser_launch_token = os.urandom(12).hex()
+    server.browser_page_requested = Event()
     Thread(target=prewarm_fugui_reference_data, daemon=True).start()
     Thread(target=todo_action_server.serve_forever, daemon=True).start()
-    webbrowser.open(url)
+    Thread(target=open_and_confirm_dashboard, args=(server,), daemon=True).start()
     try:
         server.serve_forever()
     except KeyboardInterrupt:

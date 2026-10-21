@@ -1,0 +1,22 @@
+{
+  "origin": "Local dedicated Chrome for Testing rendering of V4 offline HTML using temporary isolated adaptation of verify.mjs",
+  "desktopWidth": 1440,
+  "mobileWidth": 390,
+  "crop": "evidence.png is variable-depth element only",
+  "files": [
+    "mobile-report.png",
+    "desktop.png",
+    "historical.png",
+    "mobile-object.png",
+    "unassessed.png",
+    "object.png",
+    "stale.png",
+    "mobile.png",
+    "evidence.png",
+    "source.png",
+    "report.png"
+  ],
+  "shippingRasterAssets": [],
+  "updated": "2026-10-21",
+  "purpose": "Terminology update; 47 interaction checks passed"
+}

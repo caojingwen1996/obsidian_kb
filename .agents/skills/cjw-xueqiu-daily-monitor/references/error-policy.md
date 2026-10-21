@@ -53,3 +53,19 @@ Stop and ask the user before continuing when:
 - the target date is unclear
 - login or page problems prevent reliable extraction
 - saved content is empty or clearly malformed
+
+
+## Timeline postprocessing failures
+
+Capture and postprocessing have separate outcomes. Preserve captured originals even if later analysis fails. A configured library and enabled auto-create policy authorize qualifying pages without a second approval; missing evidence is a processing limitation, not an approval gate.
+
+- Unknown library mapping: keep originals, record blocked ownership, process other known-library inputs.
+- Truncated or incomplete content: retain reviewed coverage and missing sections; exclude missing evidence and do not count partial nodes toward the three-date creation gate.
+- Unresolved contradictions: preserve both sources and limitations; do not invent a consensus.
+- Bad links, table escaping, column counts or page schema: keep drafts, fix and rerun apply before publication.
+- Changed source or target hash: prepare again and re-read current content; never overwrite a user edit with the stale draft.
+- Write lock present: do not remove another live task's lock. Retry later. After an interrupted process, verify that the recorded PID is no longer active before removing a stale lock.
+- Page written but index/log failed: report finalize_pending and rerun the same plan to finish bookkeeping without duplicating the page.
+- report.json has unprocessed or blocked inputs: explain their scope; do not report whole-batch completion.
+
+No error in one theme should roll back successfully saved unrelated themes or raw files. Analysis and candidate status do not represent human reading status.

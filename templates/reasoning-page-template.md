@@ -6,7 +6,6 @@ updated: YYYY-MM-DD
 type: reasoning
 status: active
 tags: []
-sources: []
 related: []
 summary: ""
 conclusion: ""
@@ -105,7 +104,6 @@ confidence: ""
 
 ## 相关观点
 
-- [[views/观点页面A|观点页面A]]：说明该观点为什么相关。
 
 ## 相关事件
 

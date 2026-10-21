@@ -1,7 +1,7 @@
-# 红利管理页 surface brief
+# 股息率回测页 surface brief
 
 - 模式：**Operate**。
-- 范围：`src/index.html` 的 `#dividend-management-view`，及 `src/app.mjs` 的红利管理、评分参数、回测汇总渲染与 `src/styles.css` 对应局部样式。
+- 范围：`src/index.html` 的 `#dividend-management-view`，及 `src/app.mjs` 的股息率回测、评分参数、回测汇总渲染与 `src/styles.css` 对应局部样式。
 - 类型：既有界面的 distill / clarify；不是新产品、全站换肤或视觉身份替换。
 - 依据：用户反馈页面太乱，并曾不理解回测汇总表列名与用途；其余约定来自现有实现。无 `PRODUCT.md`，未开展产品访谈或已确认用户研究。
 - 视觉继承：[DESIGN.md](../DESIGN.md) 的本页蓝灰 token 与系统中文无衬线字体；补充响应信息见 [design.json](design.json)。
@@ -12,7 +12,7 @@
 
 ## 首屏与流程
 
-1. 保留“查看 / 管理”页签。
+1. 保留“查看 / 股息率回测”页签。
 2. 参数摘要默认折叠，展示当前参数概况和编辑入口。
 3. 回测是主要任务：标题、简短用途、明确回测按钮与状态提示；无需先保存参数。
 4. 完成后先展示截至日期、比较问题、可用/完成/待观察/缺价格概况与六列汇总。

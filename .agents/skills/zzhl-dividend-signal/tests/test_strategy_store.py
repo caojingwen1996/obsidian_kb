@@ -7,11 +7,52 @@ import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from scripts.scoring import load_default_strategy, load_strategy
-from scripts.strategy_store import read_settings, save_settings, StrategyConflict
+from scripts.strategy_store import read_settings, save_settings, StrategyConflict, SETTINGS_RELATIVE_PATH, LEGACY_SETTINGS_RELATIVE_PATH
 from scripts import check_signal
 
 
 class StrategyStoreTest(unittest.TestCase):
+    def test_migration_preserves_bytes_history_and_daily_settings(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            old, new = root / LEGACY_SETTINGS_RELATIVE_PATH, root / SETTINGS_RELATIVE_PATH
+            strategy = deepcopy(load_default_strategy())
+            strategy["thresholds"]["A"] = 67
+            saved = save_settings(strategy, 0, old)
+            before = old.read_bytes()
+            self.assertEqual(read_settings(new), {k: v for k, v in saved.items() if k != "changed"})
+            self.assertEqual(new.read_bytes(), before)
+            self.assertFalse(old.exists())
+            backups = list((new.parent / "备份/策略参数迁移").glob("*/strategy-settings.json"))
+            self.assertEqual(len(backups), 1)
+            self.assertEqual(backups[0].read_bytes(), before)
+            self.assertEqual(load_strategy(new), saved["strategy"])
+            strategy["thresholds"]["A"] = 68
+            self.assertEqual(save_settings(strategy, 1, new)["revision"], 2)
+
+    def test_new_settings_take_precedence_over_legacy(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            old, new = root / LEGACY_SETTINGS_RELATIVE_PATH, root / SETTINGS_RELATIVE_PATH
+            strategy = deepcopy(load_default_strategy())
+            strategy["thresholds"]["A"] = 67
+            saved = save_settings(strategy, 0, new)
+            old.parent.mkdir(parents=True)
+            old.write_text("invalid stale settings", encoding="utf-8")
+            self.assertEqual(read_settings(new)["strategy"], saved["strategy"])
+
+    def test_invalid_legacy_is_not_migrated_or_reset(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            old, new = root / LEGACY_SETTINGS_RELATIVE_PATH, root / SETTINGS_RELATIVE_PATH
+            old.parent.mkdir(parents=True)
+            old.write_text("invalid settings", encoding="utf-8")
+            with self.assertRaises(ValueError):
+                read_settings(new)
+            self.assertFalse(new.exists())
+            self.assertTrue(old.exists())
+            self.assertEqual(read_settings(root / "custom.json")["revision"], 0)
+
     def test_applied_settings_have_versions_and_are_read_by_daily_task(self):
         with TemporaryDirectory() as directory:
             path = Path(directory) / "strategy-settings.json"

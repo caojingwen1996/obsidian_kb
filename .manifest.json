@@ -1,9 +1,9 @@
 {
   "version": 1,
   "stats": {
-    "total_sources_ingested": 276,
+    "total_sources_ingested": 279,
     "total_pages": 315,
-    "source_count": 330
+    "source_count": 333
   },
   "sources": {
     "sources/articles/2025-10-02-冰冰小美：长期主义与变通.md": {
@@ -6722,6 +6722,53 @@
         "wiki/timelines/冰冰小美-风险与参与条件判断演化.md"
       ],
       "pages_updated": []
+    },
+    "sources/automations/老木匠每日汇总/2026-08-14 老木匠直播：AI的账、美元重置与「挺」字诀.md": {
+      "ingested_at": "2026-10-21T10:58:23+08:00",
+      "size_bytes": 21869,
+      "modified_at": "2026-10-17T15:08:05+08:00",
+      "content_hash": "sha256:eb03e52f92022d8c3b51c515cf21e390a6043c897ae8fc8d6fcafa69ba3f9e9d",
+      "source_type": "document",
+      "project": "wiki_laomujiang",
+      "pages_created": [
+        "wiki_laomujiang/concepts/微观-资金面-公募行业配置.md"
+      ],
+      "pages_updated": [
+        "wiki_laomujiang/concepts/微观-资金面-筹码结构.md",
+        "wiki_laomujiang/concepts/微观-indicator-风险源及传导.md",
+        "wiki_laomujiang/index.md",
+        "hot.md",
+        "log.md",
+        ".manifest.json",
+        "wiki_laomujiang/topics/风险判断.md"
+      ],
+      "notes": "直接判断：第七节第2项；本条经验判断尚无独立重复验证。 页面登记在独立老木匠库索引，不计入主wiki/页面数。"
+    },
+    "sources/automations/老木匠每日汇总/2026-07-31 老木匠直播：波动代表分歧与熊市常识.md": {
+      "ingested_at": "2026-10-21T10:58:23+08:00",
+      "size_bytes": 17141,
+      "modified_at": "2026-10-17T15:08:05+08:00",
+      "content_hash": "sha256:4618e281360a25af1953dc16a75f4c2d0d3a41f59b3e6f1db29fd7f3530e9a12",
+      "source_type": "document",
+      "project": "wiki_laomujiang",
+      "pages_created": [
+        "wiki_laomujiang/concepts/微观-资金面-公募行业配置.md"
+      ],
+      "pages_updated": [],
+      "notes": "辅助背景：第六节公募抱团激励；不计作行业配置判断法的独立复现。 页面登记在独立老木匠库索引，不计入主wiki/页面数。"
+    },
+    "sources/automations/老木匠每日汇总/2026-08-15 老木匠直播：忍住不买，就是能力.md": {
+      "ingested_at": "2026-10-21T10:58:23+08:00",
+      "size_bytes": 5962,
+      "modified_at": "2026-10-17T15:08:05+08:00",
+      "content_hash": "sha256:b269b0e5987e2e372faa56a4fb29dafde1b2d065a99e4118388c693a12af998c",
+      "source_type": "document",
+      "project": "wiki_laomujiang",
+      "pages_created": [
+        "wiki_laomujiang/concepts/微观-资金面-公募行业配置.md"
+      ],
+      "pages_updated": [],
+      "notes": "辅助背景：第二节第3项业绩与赎回约束；不计作行业配置判断法的独立复现。 页面登记在独立老木匠库索引，不计入主wiki/页面数。"
     }
   },
   "research": [
@@ -6782,5 +6829,5 @@
       ]
     }
   ],
-  "updated_at": "2026-10-21T09:56:00+08:00"
+  "updated_at": "2026-10-21T12:30:09+08:00"
 }

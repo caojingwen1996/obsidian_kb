@@ -139,7 +139,7 @@ def prepare_recalculation(data, original, previous, strategy, scoring):
     preserved = [record for record in previous_records if not (record.get("fromWorkbook") and record.get("strategyVersion") == strategy["version"])]
     payload = {"schemaVersion": 1, "strategy": strategy, "latest": latest, "records": preserved + records, "tradingDates": sorted({point["date"] for point in data["indexPoints"]}), "recalculatedAt": stamp}
     counts = {grade: sum(record["grade"] == grade for record in records) for grade in ("A", "B", "C", "D")}
-    view = {"schemaVersion": 1, "payload": payload, "yieldHistory": yield_history, "indexHistory": data["indexPoints"]}
+    view = {"schemaVersion": 1, "payload": payload, "yieldHistory": yield_history, "indexHistory": data["indexPoints"], "indexHistoryMeta": data.get("indexHistoryMeta")}
     raw = latest["raw"]
     def display(value):
         return "待验证" if value is None or value == "" else str(value)
@@ -187,7 +187,7 @@ def commit_files(replacements, originals, backup_dir):
 
 
 def save_and_recalculate(strategy, revision, settings_file, vault_root, store, scoring, read_data):
-    settings_file = Path(settings_file)
+    settings_file = store.migrate_legacy_settings(settings_file)
     settings_file.parent.mkdir(parents=True, exist_ok=True)
     directory = Path(vault_root) / "sources/automations/中证红利信号"
     workbook = directory / "中证红利每日信号.xlsx"

@@ -6,7 +6,6 @@ updated: YYYY-MM-DD
 type: event
 status: active
 tags: []
-sources: []
 related: []
 summary: ""
 event_date: YYYY-MM-DD
@@ -40,10 +39,6 @@ certainty: ""
 ## 影响
 
 说明该事件造成或可能造成的影响。将事实、观点和推测分开写。
-
-## 相关观点
-
-- [[views/观点页面A|观点页面A]]：说明该观点与事件的关系。
 
 ## 相关推导
 

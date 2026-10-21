@@ -1,0 +1,20 @@
+{
+  "result": "partial_pass",
+  "browser": "Chrome for Testing 147",
+  "login_verified": true,
+  "api_capture_ok": true,
+  "article": {
+    "title": "老木匠·2026年10月17日：交易拥挤度、两融余额与风格转化",
+    "author_name": "涨知识的小老鼠",
+    "url": "https://www.xueqiu.com/2573414707/412783095",
+    "published_at": "2026-10-18T18:22:13+08:00",
+    "html_characters": 6180,
+    "body_characters_without_whitespace": 4693
+  },
+  "page_extractor_clean_body": false,
+  "page_extractor_issue": "Existing page extractor returns document.body.innerText, including navigation, sidebars and footer. No production code was changed in this test.",
+  "normal_chrome_processes_unchanged": true,
+  "original_browser_pages_preserved": true,
+  "remaining_test_pages": 0,
+  "checked_at": "2026-10-21T07:03:33.604Z"
+}

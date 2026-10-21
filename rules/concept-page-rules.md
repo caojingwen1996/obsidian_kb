@@ -1,6 +1,6 @@
 ## Concept 页面生成规则
 
-本文件只定义 Concept Page 的概念提炼要求。frontmatter、页面命名、目录位置、来源字段、`related` 关系字段、双链格式和更新流程，以 `schema.md`、`page-types.md`、`AGENTS.md` 和 `templates/concept-page-template.md` 为准。
+本文件只定义 Concept Page 的概念提炼要求。frontmatter、页面命名、目录位置、正文来源引用、`related` 关系字段、双链格式和更新流程，以 `schema.md`、`page-types.md`、`AGENTS.md` 和 `templates/concept-page-template.md` 为准。
 
 当整理 concept 页面时，不能直接总结原文，也不能把单篇文章观点包装成概念。必须把来源中的稳定概念、方法、模型、框架或判断工具提炼成可复用的知识单元。
 
@@ -11,13 +11,15 @@
 适合进入 Concept Page 的内容通常满足以下条件：
 
 - 它解释一个稳定概念、方法、模型、框架或判断工具；
-- 它可以被多个 View Page、Reasoning Page、Topic Page 或后续资料复用；
+- 它可以被多个 Reasoning Page、Topic Page 或后续资料复用；
 - 它不只依赖单一事件、单一观点或一次性语境；
 - 它能够回答“这是什么”“解决什么问题”“如何使用”“边界在哪里”。
 
 不适合进入 Concept Page 的内容应转入其他页面类型：
 
-- 重点是“谁怎么看”时，进入 View Page；
+- 重点是规定数据输入、观测口径、计算判定与 Agent 输出时，进入 Indicator Page；定义与机制可保留于 Concept，并按需互链。指标规范采用项目的专属模板与契约。
+
+- 重点是“谁怎么看”时，保留原始资料及作者归属；满足演化或推导条件后，按 `page-types.md` 选择现有类型，不另建观点页；
 - 重点是“为什么这样推导”时，进入 Reasoning Page；
 - 重点是“发生了什么”时，进入 Event Page；
 - 重点是“先后顺序”时，进入 Timeline Page；
@@ -160,5 +162,5 @@
 - 是否说明了概念来源和整理者归纳边界；
 - 是否说明了概念解决的问题；
 - 是否避免生成已从 Concept 模板移除的八个章节；
-- 是否能被后续 View Page、Reasoning Page 或 Topic Page 复用；
+- 是否能被后续 Reasoning Page 或 Topic Page 复用；
 - 是否与已有同义概念页重复。

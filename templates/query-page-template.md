@@ -7,7 +7,6 @@ type: query
 status: draft
 tags:
   - function/query
-sources: []
 related: []
 summary: ""
 original_question: ""
@@ -87,7 +86,7 @@ answer_status: recorded
 
 - 当前答案依赖哪些资料或前提？
 - 哪些部分仍需要后续验证？
-- 这个问题后续是否应拆分为 Concept / View / Reasoning / Topic？
+- 这个问题后续是否应拆分为 Concept / Reasoning / Topic？
 
 ## 来源
 

@@ -1,6 +1,6 @@
 # Output Layout
 
-All outputs are organized under the configured output root declared in `EXTEND.md`.
+Capture files, summaries and intermediate records are organized under the configured output root declared in `EXTEND.md`. Archived sources and final Timeline pages use that file's knowledge-library profile paths.
 
 ## Directory layers
 
@@ -46,9 +46,9 @@ Rules:
 - preserve these files for traceability and review
 - do not write final Markdown results here
 
-## Final Markdown outputs
+## Capture summary Markdown outputs
 
-Final Markdown results must live at:
+The per-author summary lives at:
 
 ```text
 {output-root}/{yyyymmdd}/{author}/summary.md
@@ -75,3 +75,12 @@ Rules:
 - `daily_brief.md` lives under the date root, not inside an author directory
 - it is generated after per-author `summary.md` files are complete
 - it synthesizes the current date's saved articles across all authors
+
+
+## Timeline evidence and publication
+
+The existing `{yyyymmdd}/{author}/processing/` directory contains `timeline/` with manifest.json, plan.json, draft Markdown, snapshots, timeline-state.json, capture-hook.json and report.json. These are intermediate artifacts, not final knowledge pages.
+
+Original files outside the configured library sources tree are copied into that profile's `sources/captures/` with immutable version names. Already archived originals are reused. Final pages are written to the profile's timelines directory and linked from that profile's index, as configured in EXTEND.md. Do not create a reading/ queue or mix libraries.
+
+Cross-date prepare discovers candidate states under the configured capture root and the current task's output_root. The author state retains output_root for custom layouts. See [timeline-processing.md](timeline-processing.md) for the complete prepare/apply protocol and retry behavior.

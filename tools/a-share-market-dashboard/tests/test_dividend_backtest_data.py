@@ -11,11 +11,11 @@ from scripts.local_proxy import create_server, read_dividend_backtest_data
 
 
 class DividendBacktestDataTest(unittest.TestCase):
-    def fixture(self, root, value='70', formula=''):
+    def fixture(self, root, value='70', formula='', header='原始字段'):
         directory = root / 'sources/automations/中证红利信号'
         directory.mkdir(parents=True, exist_ok=True)
         with zipfile.ZipFile(directory / '中证红利每日信号.xlsx', 'w') as package:
-            package.writestr('xl/sharedStrings.xml', '<sst xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><si><t>原始字段</t></si></sst>')
+            package.writestr('xl/sharedStrings.xml', f'<sst xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><si><t>{header}</t></si></sst>')
             package.writestr('xl/worksheets/sheet1.xml', f'<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetData><row r="1"><c r="A1" t="s"><v>0</v></c></row><row r="2"><c r="A2" t="inlineStr"><is><t>中文</t></is></c></row><row r="3"><c r="A3"><v>{value}</v></c><c r="C3">{formula}</c></row></sheetData></worksheet>')
         (directory / '中证红利指数日线.json').write_text(json.dumps({'data': [{'tradeDate': '20260105', 'close': 100}]}), encoding='utf-8')
         return directory
@@ -45,17 +45,19 @@ class DividendBacktestDataTest(unittest.TestCase):
     def test_endpoint_rejects_path_parameters_and_reports_missing_files(self):
         with TemporaryDirectory() as temp:
             root = Path(temp)
-            self.fixture(root)
+            self.fixture(root, value='2026-01-05', header='index_date__index_valuation_date')
             dashboard = root / 'tools/dashboard/page.html'
             dashboard.parent.mkdir(parents=True)
             dashboard.write_text('<html></html>', encoding='utf-8')
-            server = create_server(port=0, dashboard_path=dashboard)
+            server = create_server(port=0, dashboard_path=dashboard, fetcher=lambda *args: {"data": [{"tradeDate": "20260105", "close": 100, "indexCode": "000922"}]})
             thread = Thread(target=server.serve_forever, daemon=True)
             thread.start()
             base = f'http://127.0.0.1:{server.server_address[1]}/api/dividend-backtest-data'
             try:
                 with urlopen(base, timeout=3) as response:
-                    self.assertEqual(json.loads(response.read())['schemaVersion'], 1)
+                    payload = json.loads(response.read())
+                    self.assertEqual(payload['schemaVersion'], 1)
+                    self.assertEqual(payload['indexUpdate']['status'], 'updated')
                 with self.assertRaises(HTTPError) as invalid:
                     urlopen(base + '?path=/private/file', timeout=3)
                 self.assertEqual(invalid.exception.code, 400)

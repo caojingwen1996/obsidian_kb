@@ -13,6 +13,24 @@ from tests.dividend_fixture import seed_dividend_vault
 
 
 class DividendRecalculationTest(unittest.TestCase):
+    def test_apply_migrates_legacy_before_preparing_recalculation(self):
+        with TemporaryDirectory() as temp:
+            root = Path(temp)
+            seed_dividend_vault(root)
+            store = dividend_strategy_store()
+            scoring = importlib.import_module(store.__package__ + ".scoring")
+            strategy = deepcopy(store.read_settings(root / "unused.json")["strategy"])
+            strategy["thresholds"]["A"] = 67
+            old = root / store.LEGACY_SETTINGS_RELATIVE_PATH
+            store.save_settings(strategy, 0, old)
+            before = old.read_bytes()
+            strategy["thresholds"]["A"] = 68
+            new = root / store.SETTINGS_RELATIVE_PATH
+            saved = save_and_recalculate(strategy, 1, new, root, store, scoring, read_dividend_backtest_data)
+            self.assertEqual(saved["revision"], 2)
+            self.assertEqual((root / saved["recalculation"]["backupPath"] / new.name).read_bytes(), before)
+            self.assertFalse(old.exists())
+
     def apply(self, root, strategy, revision):
         store = dividend_strategy_store()
         scoring = importlib.import_module(store.__package__ + ".scoring")

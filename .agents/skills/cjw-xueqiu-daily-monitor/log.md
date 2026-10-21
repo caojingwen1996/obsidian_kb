@@ -72,6 +72,34 @@
 - 验证结果：重跑后脚本正常退出并写出 `extract-2026-09-24.json`（空数组）；另起独立核验脚本直读主页 DOM 确认当日确无发帖（时间线最新为 2026-09-23 12:00），失败非漏采。
 - 备注：如需根治，可考虑在脚本入口对 `Session with given id not found` 增加一次自动重连重试；本次未改动抓取与提取逻辑，留待后续在有完整回归测试窗口时再评估。
 
+
+## 2026-10-17 — 新增站内 API 批量抓取通道（版本号不变）
+
+- 版本：未设版本号；本次版本号不变。
+- 修改原因：需要把一个账号（雪球 @涨知识的小老鼠，UID 2573414707）历史上全部「老木匠直播」整理稿一次性抓全，共 55 篇。现有 `extract_xueqiu_posts.mjs` 只能滚动 5 轮取首页可见约 20 条，且必须逐篇打开详情页；按该路径抓 55 篇要连续浏览几十个页面，风控风险高、耗时过长。
+- 涉及文件：scripts/extract_xueqiu_timeline_api.mjs（新增）、scripts/extract_xueqiu_status_detail.mjs（新增）、SKILL.md（新增「站内 API 抓取通道」章节与参考资料两行）、log.md。
+- 具体变更：
+  1. `extract_xueqiu_timeline_api.mjs`：在已登录页面上下文同源 fetch `/v4/statuses/user_timeline.json?user_id=&page=&count=20`，自动翻页到返回空为止，产出 id / title / created_at / text。
+  2. `extract_xueqiu_status_detail.mjs`：对给定 id 列表调用 `/statuses/show.json?id=`，带随机延迟（默认 1.5–3.5s，批量场景建议 3.5–7s），产出未截断 `text`。
+  3. SKILL.md 明确时间线 `text` 被截断到约 220 字，不能直接当全文，必须回查详情页接口。
+- 验证结果：实测该账号时间线 4 页共 70 条，筛出 55 篇「老木匠·YYYY年M月D日」直播稿；详情接口 55/55 全部成功，正文长度 2.3k–14.4k 字符，无一篇失败或触发访问验证。转换后写入 `sources/automations/老木匠每日汇总/` 共 54 个 Markdown（另有 1 篇 8 月 8 日因目录内已有完整版本而跳过）。
+- 备注：本次未改动 `extract_xueqiu_posts.mjs`，当日例行抓取流程不受影响。
+
+## 2026-10-20 — 开启抓取后预处理与 Timeline 自动建页
+
+- 版本：未设版本号；本次版本号不变。新增处理中间状态协议 version 为 1。
+- 修改原因：用户批准技能说明草案，要求抓取后自动预处理，并直接开放 Timeline 自动建页。
+- 涉及文件：SKILL.md、EXTEND.md、references/workflow.md、references/output-layout.md、references/error-policy.md；新增 references/timeline-processing.md、scripts/timeline_postprocess.py、scripts/tests/test_timeline_postprocess.py；修改 scripts/content_task.py、scripts/task_store.py、scripts/tests/test_content_task.py、log.md。
+- 具体变更：
+  1. 默认启用后处理、已有页更新和新主题建页；配置冰冰小美与老木匠的独立库路由，未知归属停止整理。移除失效 Windows 默认输出路径，使用当前工作区 outputs/cjw-xueqiu-daily-monitor。
+  2. 保存入口自动归档原文并生成证据清单；调用技能的 Agent 继续阅读原文、核对完整性、检索既有主题、比较历史、生成计划并调用发布。脚本不内置模型、不联网；不能把清单准备成功当作整理完成。
+  3. 候选按知识库与主题跨日期累积；满足至少三个不同日期的完整可追溯节点等条件后自动创建，已有主题增量更新；保留原章节、人工正文及首次创建日期。
+  4. 加入原文版本保存、摘录与日期核验、跨库及路径拦截、真正来源双链检查、表格列数和转义检查、正文保护、文件冲突检查、写锁、旧页快照、独立失败状态、幂等重试及索引日志收尾恢复。支持 --capture-only。
+  5. 新页面无 source/sources 属性；老木匠保留导读加九节结构；不恢复 reading 或 view 页面类型，不扩展抓取范围和定时任务。更具体任务的输出约定仍优先。
+- 验证结果：完整 unittest 套件 79 项通过，其中新增后处理测试 22 项；skill-creator quick_validate 通过；修改 Markdown 表格、UTF-8 和差异空白检查通过。隔离测试覆盖创建、更新、跨日期积累、重复执行、修订稿、人工编辑冲突、坏链、错列表格、错库、失败恢复及只抓取模式。现有 Wiki 与来源文件和修改前快照哈希一致。
+- 验证边界：未执行联网抓取或对真实主题进行模型分析，未生成正式 Timeline；自动化任务配置未变更。
+
+
 ## 2026-10-21 — 隔离 macOS 自动化浏览器启动
 
 - 版本：未设版本号；本次版本号不变。

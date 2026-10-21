@@ -1,3 +1,57 @@
+## 2026-10-17
+
+### docs / update 趋势动物用户手册12图版
+
+- 更新文件：[[tools/RiskHot/aihot/趋势动物产品用户手册.docx|趋势动物产品用户手册 Word图解版]]、`tools/RiskHot/index.md`、`index.md`、`log.md`。
+- 说明：原Word文件更新为V1.2，4张历史真实截图由附录移入相关章节；新增8张教学示意图，涵盖阅读流程、字段、温度、强度、涨跌对照、房产层级、统计周期和观察记录比较。逐图标明类型、来源或假设数据，原Markdown源稿保留。
+- 核验：文档共12张内嵌图，图号连续，4张截图与8张示意图分类明确；完成20页渲染检查。不计入正式知识页数量。
+
+### docs / create 趋势动物用户手册Word图解版
+
+- 新增文件：[[tools/RiskHot/aihot/趋势动物产品用户手册.docx|趋势动物产品用户手册 Word图解版]]；保留Markdown文字源稿。
+- 修改文件：`tools/RiskHot/index.md`、`index.md`、`log.md`。
+- 说明：将已有手册转为Word图解版V1.1，增加金融资产列表、房产组合详情、上海面积段与全国城市趋势四张公开历史截图，附阅读说明、日期及原图链接；保持非官方及未端内实测边界，不计入正式知识页数量。
+
+### docs / add 趋势动物产品用户手册
+
+- 新增文件：[[tools/RiskHot/aihot/趋势动物产品用户手册|趋势动物产品用户手册]]。
+- 修改文件：`tools/RiskHot/index.md`、`index.md`、`log.md`。
+- 资料来源：已核实的主理人访谈、温度与相对强度说明图，以及2025-08-05金融资产、2026-08-17房产页面截图；原始链接保留于手册末尾。
+- 说明：按用户要求在原报告同目录新增独立Markdown手册，覆盖快速上手、字段解释、趋势图阅读、历史示例及常见问题。明确为非官方公开资料版，未将截图推断写成已实测操作；属于工具项目资料，未计入正式知识页数量。
+
+### docs / export 趋势动物产品报告
+
+- 新增文件：[[tools/RiskHot/aihot/趋势动物产品报告与RiskHot设计借鉴|趋势动物产品报告与 RiskHot 设计借鉴]]。
+- 修改文件：`tools/RiskHot/index.md`、`index.md`、`log.md`。
+- 资料来源：[已生成的报告 Page](https://chatgpt.com/space/page_cc4a0a6e9588819180933d0342d82970)。
+- 说明：按用户指定路径导出完整 Markdown，保留107个原报告内容块、表格、来源链接与 Mermaid 图，仅增加文档标题、来源页及调整章节层级；属于工具项目资料，未计入正式知识页数量，未改写研究结论。
+
+### 操作类型
+
+automation / bbxm-daily-brief / empty-result-cleanup / backfill / status-tracking
+
+### 修改文件
+
+- `log.md`
+- `.workbuddy/automations/automation-1791862326503/memory.md`
+- `sources/automations/BBXM每日汇总/_运行状态.md`（新增）
+- `sources/automations/BBXM每日汇总/2026/10/2026-10-16/`（补抓：8 条原帖 + `processing/risk-analysis.json` + `risk-write-status.json` + `summary.md`）
+- `.agents/automations/bbxm_daliy_brief.md`（新增第九节「运行状态维护」、收尾报告第 13 项）
+- 自动化「冰冰小美每日汇总」prompt（新增第 10 步更新运行状态文件；补充 published_at / evidence 格式要求）
+
+### 操作说明
+
+1. 常规轮（目标日期 2026-10-17）：雪球主页 24 条可见帖 newest=2026-10-16 16:36，目标日期 0 条候选、0 帖保存；无登录/滑块/页面异常/提取失败。按空结果处理：hollow `risk-analysis.json` → upsert 返回 `no_risk` → 删除日期目录。未生成 `summary.md`/`操作.md`/`task.log`。
+2. 执行状态核查：发现 2026-10-16 22:20 那次调度执行被中断（`automation_runs.result_success=0`，`runtime_state.last_error`=Request cancelled 499），当日 8 条帖子（16:36 股指期货交割日/托而不举、15:08 ETF 尾盘放量、14:50 医药崩盘带崩指数等）全部漏抓。因空结果日会删除日期目录，文件系统上「跑了但没帖」与「压根没跑」不可区分，导致漏跑无痕迹、无告警。
+3. 补抓 2026-10-16：按任务文件完整流程补齐 8 条原帖（`HHMMSS_核心观点` 命名、已打标签）、逐帖五步法风险分析（qualified 5：R3×1 医药崩盘连锁、R2×2 ETF 放量脆弱与托而不举、W2×2 创业板金叉与阶段底持有机会；not_written 3：图片持仓帖待验证×1、无风险内容 N×2）、Excel upsert `status=written count=5`、生成 `summary.md`。当天无明确买卖信号，未生成 `操作.md`。
+4. 建立每日运行状态追踪：新增 `sources/automations/BBXM每日汇总/_运行状态.md`（每次运行必须留痕，区分 ✅有帖 / ⭕空结果 / ❌失败中断 / ⚠️待补写），并同步写入任务文件第九节与自动化 prompt 第 10 步，已回填 10-13～10-17 历史记录。
+
+### 后续待办
+
+- 2026-10-13 残留目录（仅 `processing`，15 条候选未保存）待补跑；
+- Excel 陈旧锁文件 `~$冰冰小美风险提示.xlsx` 待确认清理；
+- `bbxm-risk-identification` 技能引用的知识页路径与实际不符：`风险观察与演绎`→实为 `concepts/冰冰小美-framework-风险观察.md`，`风险来源与传导路径`→实为 `concepts/冰冰小美-indacator-风险源与传导路径.md`，`references/handoff-contract.md` 缺失，待修正技能引用。
+
 ## 2026-10-13
 
 ### 操作类型
@@ -1167,10 +1221,10 @@ ingest / view / timeline / reasoning / link
 
 ### 资料来源
 
-- `sources/automations/BBXM每日汇总/2026-07-10/冰冰小美/132300_航天人_挣钱了要记得给广西同胞捐点_-_雪球_39947115.md`
-- `sources/automations/BBXM每日汇总/2026-07-10/冰冰小美/133100_这应该是商业航天的Deep_seek时刻_-_雪球_39947387.md`
-- `sources/automations/BBXM每日汇总/2026-07-10/冰冰小美/133800_这种上涨只能说明_目前买卖的人群_还是倾向于宏大叙事与未来产业_简单一句_就是中米G2全面竞争的_39947594.md`
-- `sources/automations/BBXM每日汇总/2026-07-10/冰冰小美/134700_关注商业航天的_下一步要跟踪产业进度_比如中国星网组网速度_比如产业规划与投资增速_比如细分领域_39947874.md`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-10_132300_航天人_挣钱了要记得给广西同胞捐点_-_雪球_39947115.md`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-10_133100_这应该是商业航天的Deep_seek时刻_-_雪球_39947387.md`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-10_133800_这种上涨只能说明_目前买卖的人群_还是倾向于宏大叙事与未来产业_简单一句_就是中米G2全面竞争的_39947594.md`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-10_134700_关注商业航天的_下一步要跟踪产业进度_比如中国星网组网速度_比如产业规划与投资增速_比如细分领域_39947874.md`
 
 ### 操作说明
 
@@ -1575,7 +1629,7 @@ ingest / source / topic / concept / timeline
 
 ### 操作说明
 
-按用户要求抓取雪球帖子中的网页链接，并整理到风险相关页面。该帖为投资相声口儿整理的冰冰小美宏观风险关键词文章索引，正文共抓取到 40 个冰冰小美链接，分为全球局势/宏观风险、石油危机、恶性通胀、军事冲突四组。本次先将索引帖归档为 source，再补入[[冰冰小美-RiskHot架构设计|风险提示系列]]]、[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/宏观-framework-风险累积观察表|宏观风险信号表]] 和 [[_archives/2026-10-20-wiki-rebuild/wiki/timelines/冰冰小美-风险节点记录|风险节点记录]]。
+按用户要求抓取雪球帖子中的网页链接，并整理到风险相关页面。该帖为投资相声口儿整理的冰冰小美宏观风险关键词文章索引，正文共抓取到 40 个冰冰小美链接，分为全球局势/宏观风险、石油危机、恶性通胀、军事冲突四组。本次先将索引帖归档为 source，再补入[[冰冰小美-RiskHot架构设计|风险提示系列]]]、[[冰冰小美-trigger-宏观信号表|宏观风险信号表]] 和 [[_archives/2026-10-20-wiki-rebuild/wiki/timelines/冰冰小美-风险节点记录|风险节点记录]]。
 
 ### 后续待办
 
@@ -1876,7 +1930,7 @@ topic / index
 
 ### 操作说明
 
-按用户要求新建 Topic Page [[topics/冰冰小美-观测指标|冰冰小美-观测指标]]。页面作为指标地图入口，聚合 [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-indicator-金融信息（todo整理)|金融信息]]、[[concepts/冰冰小美-汇率、长期利率与流动性|汇率、长期利率与流动性]]、[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析|流动性辩证分析]]、[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化|情绪位置的变化]]、[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/宏观-framework-风险累积观察表|宏观风险信号表]]、[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-产业链财报旁证法|产业链财报旁证法]] 等已有页面，用于后续整理文章、复盘交易或判断风险时快速定位“应该观察什么”。同步更新总索引页面总数。
+按用户要求新建 Topic Page [[topics/冰冰小美-观测指标|冰冰小美-观测指标]]。页面作为指标地图入口，聚合 [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-indicator-金融信息（todo整理)|金融信息]]、[[concepts/冰冰小美-汇率、长期利率与流动性|汇率、长期利率与流动性]]、[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析|流动性辩证分析]]、[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化|情绪位置的变化]]、[[冰冰小美-trigger-宏观信号表|宏观风险信号表]]、[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-产业链财报旁证法|产业链财报旁证法]] 等已有页面，用于后续整理文章、复盘交易或判断风险时快速定位“应该观察什么”。同步更新总索引页面总数。
 
 ### 后续待办
 
@@ -6106,7 +6160,7 @@ ingest
 
 ### 操作说明
 
-复用既有来源页 [[sources/articles/2026-03-20-冰冰小美：如何理解时间窗口|2026-03-20《如何理解时间窗口》]] 与 [[sources/articles/2026-03-20-冰冰小美：宏观分析的框架|2026-03-20《宏观分析的框架》]]，新增 [[concepts/冰冰小美-时间窗口|时间窗口]]、[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/宏观-framework-风险累积观察表|宏观风险信号表]] 和 [[_archives/2026-10-20-wiki-rebuild/wiki/reasoning/冰冰小美-多重宏观风险信号如何打开风险敞口|多重宏观风险信号如何打开风险敞口]]。本次将“抄底是共识的延续”整理为底线思维、常识回归和价值共识延续框架，并将宏观风险信号拆成汇率、美元、石油、流动性、避险资产、AI现金流、区域泡沫、隐形债务和美国债务的风险敞口推导。涉及市场、政策、联储人事、地缘和资产价格的内容均按作者观点或待验证推测处理，不写成投资建议。
+复用既有来源页 [[sources/articles/2026-03-20-冰冰小美：如何理解时间窗口|2026-03-20《如何理解时间窗口》]] 与 [[sources/articles/2026-03-20-冰冰小美：宏观分析的框架|2026-03-20《宏观分析的框架》]]，新增 [[concepts/冰冰小美-时间窗口|时间窗口]]、[[冰冰小美-trigger-宏观信号表|宏观风险信号表]] 和 [[_archives/2026-10-20-wiki-rebuild/wiki/reasoning/冰冰小美-多重宏观风险信号如何打开风险敞口|多重宏观风险信号如何打开风险敞口]]。本次将“抄底是共识的延续”整理为底线思维、常识回归和价值共识延续框架，并将宏观风险信号拆成汇率、美元、石油、流动性、避险资产、AI现金流、区域泡沫、隐形债务和美国债务的风险敞口推导。涉及市场、政策、联储人事、地缘和资产价格的内容均按作者观点或待验证推测处理，不写成投资建议。
 
 ### 后续待办
 
@@ -13191,10 +13245,10 @@ automation / source-refresh
 ### 修改文件
 
 - `sources/automations/BBXM每日汇总/2026-07-08/冰冰小美/*.md`
-- `sources/automations/BBXM每日汇总/2026-07-08/冰冰小美/state.json`
-- `sources/automations/BBXM每日汇总/2026-07-08/冰冰小美/task.log`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-08_state.json`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-08_task.log`
 - `sources/automations/BBXM每日汇总/2026-07-08/冰冰小美/processing/extracted-posts.json`
-- `sources/automations/BBXM每日汇总/2026-07-08/冰冰小美/summary.md`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-08_summary.md`
 - `log.md`
 
 ### 操作说明
@@ -13213,13 +13267,13 @@ automation / same-day-rerun
 
 ### 修改文件
 
-- `sources/automations/BBXM每日汇总/2026-07-08/冰冰小美/165400_7月7日_中国人民银行行长在香港固定收益及货币峰会上明确表示_未来国家外汇储备将继续提高在香港的_39908060.md`
-- `sources/automations/BBXM每日汇总/2026-07-08/冰冰小美/170900_原油在飙升_10年期美国国债也在拉升_日元贬值_已经突破162_人民币小幅度贬值_费城半导体指数_39908450.md`
-- `sources/automations/BBXM每日汇总/2026-07-08/冰冰小美/171400_所有老美的动作_就是制造个别经济体的金融危机_-_雪球_39908553.md`
-- `sources/automations/BBXM每日汇总/2026-07-08/冰冰小美/state.json`
-- `sources/automations/BBXM每日汇总/2026-07-08/冰冰小美/task.log`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-08_165400_7月7日_中国人民银行行长在香港固定收益及货币峰会上明确表示_未来国家外汇储备将继续提高在香港的_39908060.md`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-08_170900_原油在飙升_10年期美国国债也在拉升_日元贬值_已经突破162_人民币小幅度贬值_费城半导体指数_39908450.md`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-08_171400_所有老美的动作_就是制造个别经济体的金融危机_-_雪球_39908553.md`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-08_state.json`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-08_task.log`
 - `sources/automations/BBXM每日汇总/2026-07-08/冰冰小美/processing/extracted-posts-rerun-20260708-2.json`
-- `sources/automations/BBXM每日汇总/2026-07-08/冰冰小美/summary.md`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-08_summary.md`
 - `log.md`
 
 ### 操作说明
@@ -13323,7 +13377,7 @@ automation / source-refresh
 ### 修改文件
 
 - `sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/`
-- `sources/automations/BBXM每日汇总/2026-07-09/冰冰小美/summary.md`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-09_summary.md`
 - `log.md`
 
 ### 操作说明
@@ -13413,9 +13467,9 @@ automation / source-refresh
 
 - `sources/automations/BBXM每日汇总/2026-07-10/冰冰小美/processing/extracted-posts-20260710.json`
 - `sources/automations/BBXM每日汇总/2026-07-10/冰冰小美/*.md`
-- `sources/automations/BBXM每日汇总/2026-07-10/冰冰小美/state.json`
-- `sources/automations/BBXM每日汇总/2026-07-10/冰冰小美/task.log`
-- `sources/automations/BBXM每日汇总/2026-07-10/冰冰小美/summary.md`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-10_state.json`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-10_task.log`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-10_summary.md`
 - `log.md`
 
 ### 操作说明
@@ -13499,12 +13553,12 @@ automation / source-refresh / rerun
 ### 修改文件
 
 - `sources/automations/BBXM每日汇总/2026-07-10/冰冰小美/*.md`
-- `sources/automations/BBXM每日汇总/2026-07-10/冰冰小美/state.json`
-- `sources/automations/BBXM每日汇总/2026-07-10/冰冰小美/task.log`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-10_state.json`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-10_task.log`
 - `sources/automations/BBXM每日汇总/2026-07-10/冰冰小美/processing/column-posts.json`
 - `sources/automations/BBXM每日汇总/2026-07-10/冰冰小美/processing/extracted-posts-rerun-20260710-1603.json`
 - `sources/automations/BBXM每日汇总/2026-07-10/冰冰小美/processing/new-posts-rerun-20260710-1603.json`
-- `sources/automations/BBXM每日汇总/2026-07-10/冰冰小美/summary.md`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-10_summary.md`
 - `log.md`
 
 ### 操作说明
@@ -13952,9 +14006,9 @@ automation / bbxm-daily-brief
 - `sources/automations/BBXM每日汇总/2026-07-14/冰冰小美/processing/extracted-posts.json`
 - `sources/automations/BBXM每日汇总/2026-07-14/冰冰小美/processing/column-posts.json`
 - `sources/automations/BBXM每日汇总/2026-07-14/冰冰小美/processing/summary-input.json`
-- `sources/automations/BBXM每日汇总/2026-07-14/冰冰小美/state.json`
-- `sources/automations/BBXM每日汇总/2026-07-14/冰冰小美/task.log`
-- `sources/automations/BBXM每日汇总/2026-07-14/冰冰小美/summary.md`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-14_state.json`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-14_task.log`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-14_summary.md`
 - `sources/automations/BBXM每日汇总/2026-07-14/冰冰小美/*.md`（20 条目标日期原始帖）
 - `log.md`
 
@@ -13978,7 +14032,7 @@ automation / bbxm-daily-brief-rerun
 
 - `sources/automations/BBXM每日汇总/2026-07-14/冰冰小美/processing/extracted-posts-rerun-20260714-160439.json`
 - `sources/automations/BBXM每日汇总/2026-07-14/冰冰小美/processing/rerun-dedupe-20260714-160439.json`
-- `sources/automations/BBXM每日汇总/2026-07-14/冰冰小美/task.log`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-14_task.log`
 - `log.md`
 
 ### 操作说明
@@ -15192,8 +15246,8 @@ automation / blocked-capture / risk-dashboard
 
 ### 修改文件
 
-- `sources/automations/BBXM每日汇总/2026-07-17/冰冰小美/summary.md`
-- `sources/automations/BBXM每日汇总/2026-07-17/冰冰小美/task.log`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-17_summary.md`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-17_task.log`
 - `sources/automations/BBXM每日汇总/2026-07-17/冰冰小美/processing/risk-analysis.json`
 - `sources/automations/BBXM每日汇总/2026-07-17/冰冰小美/processing/risk-write-status.json`
 - `log.md`
@@ -15215,16 +15269,16 @@ automation / rerun-capture / risk-dashboard
 
 ### 修改文件
 
-- `sources/automations/BBXM每日汇总/2026-07-17/冰冰小美/135900_市场恐慌跌破下跌趋势通道.md`
-- `sources/automations/BBXM每日汇总/2026-07-17/冰冰小美/141500_海力士ADR做空引发亚太恐慌.md`
-- `sources/automations/BBXM每日汇总/2026-07-17/冰冰小美/143600_超卖修正是改善市场契机.md`
-- `sources/automations/BBXM每日汇总/2026-07-17/冰冰小美/144900_日韩科技行情极端回撤需重新来过.md`
-- `sources/automations/BBXM每日汇总/2026-07-17/冰冰小美/145900_米相关不利叠加量化收割波动.md`
-- `sources/automations/BBXM每日汇总/2026-07-17/冰冰小美/151500_7月风险应验凸显保护本金.md`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-17_135900_市场恐慌跌破下跌趋势通道.md`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-17_141500_海力士ADR做空引发亚太恐慌.md`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-17_143600_超卖修正是改善市场契机.md`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-17_144900_日韩科技行情极端回撤需重新来过.md`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-17_145900_米相关不利叠加量化收割波动.md`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-17_151500_7月风险应验凸显保护本金.md`
 - `sources/automations/BBXM每日汇总/2026-07-17/冰冰小美/*_解读.md`
-- `sources/automations/BBXM每日汇总/2026-07-17/冰冰小美/summary.md`
-- `sources/automations/BBXM每日汇总/2026-07-17/冰冰小美/task.log`
-- `sources/automations/BBXM每日汇总/2026-07-17/冰冰小美/state.json`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-17_summary.md`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-17_task.log`
+- `sources/automations/BBXM每日汇总/2026/07/2026-07-17_state.json`
 - `sources/automations/BBXM每日汇总/2026-07-17/冰冰小美/processing/risk-analysis.json`
 - `sources/automations/BBXM每日汇总/2026-07-17/冰冰小美/processing/risk-write-status.json`
 - `log.md`
@@ -17443,7 +17497,7 @@ ingest / topic-update / case-map
 
 ### 修改文件
 
-- `sources/automations/BBXM每日汇总/铜与西部矿业合集/010_2025-03-12_铜：周期与成长的仓位再平衡.md`
+- `sources/automations/BBXM每日汇总/2025/03/010_2025-03-12_铜：周期与成长的仓位再平衡.md`
 - `wiki/topics/冰冰小美-减仓案例合集.md`
 - `.manifest.json`
 - `hot.md`
@@ -24135,7 +24189,7 @@ automation / xueqiu / risk-update
 
 ### 操作说明
 
-按 `.agents/automations/bbxm_daliy_brief.md` 运行 2026-08-24 BBXM 每日汇总。雪球抓取阶段识别 19 条详情记录，其中 2 条属于目标日期、17 条为 2026-08-21 和 2026-08-19 旧帖并已过滤；2 篇目标日期原帖保存到 `sources/automations/BBXM每日汇总/2026-08-24/冰冰小美`，并补写 `标签：市场，交易`。生成 `summary.md`，新增“解析今天文章的观点”章节；风险分析覆盖 saved/analyzed/unresolved=2/2/0，写入 2 条 R1 自动风险提示，Excel 更新器返回 `written`。
+按 `.agents/automations/bbxm_daliy_brief.md` 运行 2026-08-24 BBXM 每日汇总。雪球抓取阶段识别 19 条详情记录，其中 2 条属于目标日期、17 条为 2026-08-21 和 2026-08-19 旧帖并已过滤；2 篇目标日期原帖保存到 `sources/automations/BBXM每日汇总/2026/08`，并补写 `标签：市场，交易`。生成 `summary.md`，新增“解析今天文章的观点”章节；风险分析覆盖 saved/analyzed/unresolved=2/2/0，写入 2 条 R1 自动风险提示，Excel 更新器返回 `written`。
 
 ### 后续待办
 
@@ -27044,7 +27098,7 @@ automation / dividend-signal / daily-record
 ### automation / BBXM每日汇总：无目标日帖子
 
 - 运行 2026-09-07 BBXM每日汇总；主提示词 `.agents/automations/bbxm_daliy_brief.md` 已读取并作为唯一任务/output contract；范围限定为冰冰小美。
-- 输出目录：`sources/automations/BBXM每日汇总/2026/09/2026-09-07`；正式日期目录下未创建或保留“冰冰小美”子目录。
+- 输出目录：`sources/automations/BBXM每日汇总/2026/09`；正式日期目录下未创建或保留“冰冰小美”子目录。
 - 抓取情况：雪球冰冰小美 all-visible 抓取候选 40 条并成功写入 `processing/extracted-posts.json`；目标日期 2026-09-07 原帖 0 条。可见详情日期分布为 2024-05-19 x1、2026-08-01 x1、2026-08-24 x6、2026-08-25 x1、2026-08-26 x12、2026-08-30 x2、2026-08-31 x7、2026-09-01 x7、2026-09-02 x3。
 - 原帖保存：0 篇，未生成 `state.json` 或 `操作.md`；这是完整可见抓取后的无目标日帖子，不是抓取阻断。
 - 产物：生成 `summary.md`、`task.log`、`processing/risk-analysis.json`、`processing/risk-write-status.json`；风险分析 coverage=0/0，unresolved=0，qualified=0，not_written=0。
@@ -28855,7 +28909,7 @@ automation / dividend-signal / daily-record
 ### automation / BBXM每日汇总
 
 - 修改文件：`sources/automations/BBXM每日汇总/2026/09/2026-09-17/` 下原帖、`state.json`、`task.log`、`summary.md`、`processing/extracted-posts.json`、`processing/column-posts.json`、`processing/risk-analysis.json`、`processing/risk-write-status.json`，以及 `tools/bbxm-risk-dashboard/data/冰冰小美风险提示.xlsx`、`log.md`。
-- 操作说明：按 `.agents/automations/bbxm_daliy_brief.md` 运行 2026-09-17 冰冰小美每日汇总，目标日期按北京时间固定为 `2026-09-17`，正式目录为 `sources/automations/BBXM每日汇总/2026/09/2026-09-17`，未在日期目录下保留“冰冰小美”子目录。
+- 操作说明：按 `.agents/automations/bbxm_daliy_brief.md` 运行 2026-09-17 冰冰小美每日汇总，目标日期按北京时间固定为 `2026-09-17`，正式目录为 `sources/automations/BBXM每日汇总/2026/09`，未在日期目录下保留“冰冰小美”子目录。
 - 抓取情况：雪球 all-visible 抓取 24 条可见详情，启用 high-risk pacing；日期分布为 2024-05-19 x1、2026-08-01 x1、2026-08-30 x2、2026-08-31 x7、2026-09-01 x7、2026-09-02 x3、2026-09-12 x2、2026-09-17 x1。目标日期原帖 1 条，保存 1 篇 Markdown，失败 0；已补齐 `标签：宏观，市场`。
 - 产物与结论：生成 `summary.md`，包含总观点、解析今天文章的观点、当日内容汇总和风险提示判定。核心结论为美联储加息落地后，作者把通胀、利率、财政债务、AI隐性债务、中国信用换锚和人民币汇率串成宏观风险框架；当天没有明确买入、卖出、加仓或减仓信号，未生成 `操作.md`。
 - 风险分析与 Excel：`risk-analysis.json` 覆盖 1/1，未解决 0，qualified=1，等级为 R2 x1；Excel 更新器返回 `written`，count=1，已更新自动分析风险提示行。
@@ -31134,7 +31188,7 @@ dashboard / index-yield-chart
 - 空风险清理：写入空洞 `risk-analysis.json`（coverage 0/0/0，`analysis_complete=true`，`skill_call.invoked=false`「无可用对象，未加载技能」）→ 调用 `tools/bbxm-risk-dashboard/scripts/upsert_automated_risk.py` → `status=no_risk`（未修改工作簿）→ 核验日期目录仅 4 个中间文件、无原帖 Markdown 后，删除日期目录 `sources/automations/BBXM每日汇总/2026/10/2026-10-14`。
 - 修改文件：本 `log.md`。新增文件：无（日期目录已按空结果规则清理）。未写 `tools/a-share-market-dashboard/data/Risk/`，未生成 HTML，未生成 `summary.md`、`操作.md`。
 - 边界：本次未做任何证券交易；`bbxm-risk-identification` 的 `references/handoff-contract.md` 缺失为既有问题，空结果日未执行识别，不受影响。
-- 后续待办：人工复核 `sources/automations/BBXM每日汇总/2026/10/2026-10-13` 残留目录（昨日轮次仅存 `processing/extract.json`，含 2026-10-13 10:30–19:45 共 15 条候选帖未保存原帖、未生成汇总与风险分析）；人工确认是否清理陈旧 Excel 锁文件 `tools/bbxm-risk-dashboard/data/~$冰冰小美风险提示.xlsx`。
+- 后续待办：人工复核 `sources/automations/BBXM每日汇总/2026/10` 残留目录（昨日轮次仅存 `processing/extract.json`，含 2026-10-13 10:30–19:45 共 15 条候选帖未保存原帖、未生成汇总与风险分析）；人工确认是否清理陈旧 Excel 锁文件 `tools/bbxm-risk-dashboard/data/~$冰冰小美风险提示.xlsx`。
 
 ## 2026-10-15
 
@@ -31845,6 +31899,14 @@ feature / backtest / dashboard
 - 验证：13项回测测试、3项本地数据接口测试及1项构建运行时检查通过。正在运行的49888端口接口返回更新后的92条价格；通过前端现行计算与渲染函数复验成功。Excel102条原始记录，去重后91条；85条可用信号中82条已完成、3条后续交易日不足，收益价格缺失及冲突均为0。统一截止日仍为Excel的2026-10-15，新增16日价格不提前用于收益。未执行浏览器点击。
 - 边界：原有日期不齐或缺少交易日证据的记录继续按原规则排除；本轮仅补齐本地数据，后续Excel推进时仍需保持价格日线覆盖。
 
+## 2026-10-17 · 风险卡片 V4
+
+- 新增独立 V4 交互原型、说明与源目录，补齐核心变量、变化原因和系统给出的下一步观察重点。
+- 原因可定位并展开变量证据；历史报告使用独立当期变量与 Watch；保留两入口、免配置。
+- 来源：风险产品与交付功能设计、V3 已批准视觉和交互。数据均为合成演示。
+- 47 项交互检查通过，原版本摘要校验未变；设计复核记录与 DESIGN.md 在 V4 目录。
+
+
 ## 2026-10-17 · 红利管理与回测页面精简
 
 - 操作：UI refactor / distill / clarify / verification。
@@ -31981,6 +32043,38 @@ feature / backtest / dashboard
 - 说明：修复只在代理浏览器保存导致用户仍见旧值的问题；共享试算15/82/3、C40/B48/A65绑定每日r4，保留独立本地试算与活动编辑，每日任务及Excel未修改。
 - 验证：37项相关测试通过，构建成功，页面重载显示新权重。
 
+## 2026-10-17 · 新建 wiki_laomujiang/ 并提炼 12 个正式页面
+
+### 操作类型
+
+ingest / refactor
+
+### 新增文件
+
+- `wiki_laomujiang/整理方案.md`（从 `workbench/买股票的老木匠-直播整理方案.md` 迁移并改写）
+- `wiki_laomujiang/index.md`
+- `wiki_laomujiang/concepts/`：央行注水口、竞争性融资、汇兑损益与人民币自由兑换、周期股低迷期双重出清、库存周期反转四信号、股东人数四阶段、融资余额风险线、银行核心一级资本（8 页）
+- `wiki_laomujiang/timelines/`：买股票的老木匠-利率与流动性判断演化、周期与有色判断演化、风险与市场位置判断演化、AI与科技股判断演化（4 页）
+
+### 说明
+
+基于 `sources/automations/老木匠每日汇总/` 下 55 篇直播整理稿（2026-07-18 至 2026-10-16）提炼。按用户要求**不建 view 页与 reasoning 页**：他对具体问题的判断并入 timeline 页的演化表，因果链写在 concept 页「核心内涵」里。页面类型只保留 concept 与 timeline，导航用 topic 类型的 index.md。
+
+结构约定：concept 准入需 ≥2 篇独立出现且可迁移；timeline 需同一判断对象跨 ≥3 个时间点。所有页面显著标注「来源为第三方 AI 整理的直播稿，非作者原文逐字稿」，阈值类数字一律标注时点、不当普适常数。8 月 8 日、8 月 27 日两场因存在作者本人原帖，相关页面优先引原帖。
+
+`sources/automations/老木匠每日汇总/` 保持扁平未改动，该目录是自动化任务写入目标。
+
+### 验证
+
+12 个页面 frontmatter 字段齐全，双链 100% 可解析（含表格内 `\|` 转义），无「相关页面」章节，均含证据等级标注。
+
+### 后续待办
+
+- C7 认知与方法论簇（10 篇）尚未提炼，是否提炼待定。
+- C5 估值簇仅成页 1 个，应收账款、护城河、庞氏融资三场未成页。
+- 各页 `related` 交叉关系未完全补齐。
+- 待确认：老木匠 person 页在 `workbench/买股票的老木匠.md`，与 schema.md 推荐的 `wiki/people/` 不一致（该目录不存在）。
+
 ## 2026-10-17
 
 ### UI / 红利回测等级浓度
@@ -32015,6 +32109,46 @@ feature / backtest / dashboard
 - 说明：移除当前分位计算契约、页面控件/指标卡/拆解/明细/来源；日采集不再调用分位接口。保留V1与原始档案，参数92/8、C40/B48/A65、确认1天，版本dividend-two-factor-v2-r5；未调整既有调度状态。
 - 数据：重算102条Excel记录，原始指标与日期列核对不变；备份保存并重算-20261017-182457-61c10957。83条完成回测与上轮试算一致，A级7条均值6.4943%、最差回撤-6.5298%。
 - 验证：69项前端、23项技能、9项后端通过，构建与diff检查通过；服务加载V2；管理/查看/展开拆解均无历史分位，明细11列排序与颜色正常，旧缓存迁移92/8。
+
+## 2026-10-17 · 补建 4 个 topic 页并打通三层级
+
+### 操作类型
+
+refactor / link
+
+### 新增文件
+
+- `wiki_laomujiang/topics/利率货币与央行.md`
+- `wiki_laomujiang/topics/周期与有色金属.md`
+- `wiki_laomujiang/topics/风险判断与市场位置.md`
+- `wiki_laomujiang/topics/AI与科技融资.md`
+
+### 修改文件
+
+- `wiki_laomujiang/index.md`：新增「四个主题」主入口段落，补 `related_topics` 字段，使用规则改为「先查主题页」
+- `wiki_laomujiang/整理方案.md`：目录结构加 `topics/`，新增 3.3 Topic 页章节与第 5 批执行记录
+- `wiki_laomujiang/concepts/` 8 页、`wiki_laomujiang/timelines/` 4 页：frontmatter `related` 补回指所属主题页
+
+### 说明
+
+此前 `index.md` 虽为 `type: topic`，实质是目录式导航，缺少主题聚合层。按用户选择改为「4 个主题对齐 4 条 timeline」的粒度：C4 筹码执行簇并入风险主题，C5 估值簇并入利率主题。
+
+主题划分依据：利率线是另外三条线的底层变量——周期涨价被定性为货币现象，AI 泡沫归因于融资成本，风险敞口锚定美债收益率。四个主题之间只有一处共享概念，即竞争性融资（利率线用它解释收益率上行，AI 线用它解释融资收缩的下行后果），已在两页互相标注需同步更新。
+
+三层级导航成型：topic（这条线在追问什么）→ concept（工具是什么、怎么用）→ timeline（某时点持什么判断、怎么变的），12 个下层页面已全部回指所属主题页。
+
+### 验证
+
+17 个正式页面 frontmatter 齐全（topic 页含 topic_scope / key_questions / related_concepts），双链 100% 可解析，均含证据等级标注。
+
+### 后续待办
+
+- 四个主题页尚未接入知识库总 `index.md`，是否登记待用户决定。
+- C7 认知与方法论簇（10 篇）仍未提炼。
+- 应收账款、护城河、庞氏融资三场未成页。
+- 概念页之间横向 related（如股东人数四阶段 与 库存周期反转四信号）未补齐。
+- 老木匠 person 页仍在 `workbench/买股票的老木匠.md`，与 schema.md 推荐的 `wiki/people/` 不一致（该目录不存在）。
+
 
 ## 2026-10-17 · 红利收益日历默认月视图
 
@@ -32082,80 +32216,6 @@ feature / backtest / dashboard
 - 修复：缺文件构建测试补齐V2策略和共享试算配置；页面集成测试同步当前信号、双指标标题和收益日历。离线构建只携带最新评分记录，避免将完整档案重复嵌入，生成文件从2873370字节降至1200647字节；原始评分JSON、走势历史及完整Excel回测保留。新增测试核对最新结果、参数与交易日历均与原档案一致。
 - 验证边界：红利接口/重算9项与技能24项通过。全量前端199项中192项通过，需求清单、三要素报告、行业报告、主题图、跟踪排序、徐工报告及市场汇总旧断言7项失败，已用提交03123738的隔离副本逐项复现；不修改这些模块或跳过测试。完整测试记录位于/tmp/dividend-dashboard-prepush-tests.log，基线复现位于临时dividend-prepush-baseline-noxljM目录及/tmp/dividend-baseline-market.log。
 
-## 2026-10-17 · 新建 wiki_laomujiang/ 并提炼 12 个正式页面
-
-### 操作类型
-
-ingest / refactor
-
-### 新增文件
-
-- `wiki_laomujiang/整理方案.md`（从 `workbench/买股票的老木匠-直播整理方案.md` 迁移并改写）
-- `wiki_laomujiang/index.md`
-- `wiki_laomujiang/concepts/`：央行注水口、竞争性融资、汇兑损益与人民币自由兑换、周期股低迷期双重出清、库存周期反转四信号、股东人数四阶段、融资余额风险线、银行核心一级资本（8 页）
-- `wiki_laomujiang/timelines/`：买股票的老木匠-利率与流动性判断演化、周期与有色判断演化、风险与市场位置判断演化、AI与科技股判断演化（4 页）
-
-### 说明
-
-基于 `sources/automations/老木匠每日汇总/` 下 55 篇直播整理稿（2026-07-18 至 2026-10-16）提炼。按用户要求**不建 view 页与 reasoning 页**：他对具体问题的判断并入 timeline 页的演化表，因果链写在 concept 页「核心内涵」里。页面类型只保留 concept 与 timeline，导航用 topic 类型的 index.md。
-
-结构约定：concept 准入需 ≥2 篇独立出现且可迁移；timeline 需同一判断对象跨 ≥3 个时间点。所有页面显著标注「来源为第三方 AI 整理的直播稿，非作者原文逐字稿」，阈值类数字一律标注时点、不当普适常数。8 月 8 日、8 月 27 日两场因存在作者本人原帖，相关页面优先引原帖。
-
-`sources/automations/老木匠每日汇总/` 保持扁平未改动，该目录是自动化任务写入目标。
-
-### 验证
-
-12 个页面 frontmatter 字段齐全，双链 100% 可解析（含表格内 `\|` 转义），无「相关页面」章节，均含证据等级标注。
-
-### 后续待办
-
-- C7 认知与方法论簇（10 篇）尚未提炼，是否提炼待定。
-- C5 估值簇仅成页 1 个，应收账款、护城河、庞氏融资三场未成页。
-- 各页 `related` 交叉关系未完全补齐。
-- 待确认：老木匠 person 页在 `workbench/买股票的老木匠.md`，与 schema.md 推荐的 `wiki/people/` 不一致（该目录不存在）。
-
-
-## 2026-10-17 · 补建 4 个 topic 页并打通三层级
-
-### 操作类型
-
-refactor / link
-
-### 新增文件
-
-- `wiki_laomujiang/topics/利率货币与央行.md`
-- `wiki_laomujiang/topics/周期与有色金属.md`
-- `wiki_laomujiang/topics/风险判断与市场位置.md`
-- `wiki_laomujiang/topics/AI与科技融资.md`
-
-### 修改文件
-
-- `wiki_laomujiang/index.md`：新增「四个主题」主入口段落，补 `related_topics` 字段，使用规则改为「先查主题页」
-- `wiki_laomujiang/整理方案.md`：目录结构加 `topics/`，新增 3.3 Topic 页章节与第 5 批执行记录
-- `wiki_laomujiang/concepts/` 8 页、`wiki_laomujiang/timelines/` 4 页：frontmatter `related` 补回指所属主题页
-
-### 说明
-
-此前 `index.md` 虽为 `type: topic`，实质是目录式导航，缺少主题聚合层。按用户选择改为「4 个主题对齐 4 条 timeline」的粒度：C4 筹码执行簇并入风险主题，C5 估值簇并入利率主题。
-
-主题划分依据：利率线是另外三条线的底层变量——周期涨价被定性为货币现象，AI 泡沫归因于融资成本，风险敞口锚定美债收益率。四个主题之间只有一处共享概念，即竞争性融资（利率线用它解释收益率上行，AI 线用它解释融资收缩的下行后果），已在两页互相标注需同步更新。
-
-三层级导航成型：topic（这条线在追问什么）→ concept（工具是什么、怎么用）→ timeline（某时点持什么判断、怎么变的），12 个下层页面已全部回指所属主题页。
-
-### 验证
-
-17 个正式页面 frontmatter 齐全（topic 页含 topic_scope / key_questions / related_concepts），双链 100% 可解析，均含证据等级标注。
-
-### 后续待办
-
-- 四个主题页尚未接入知识库总 `index.md`，是否登记待用户决定。
-- C7 认知与方法论簇（10 篇）仍未提炼。
-- 应收账款、护城河、庞氏融资三场未成页。
-- 概念页之间横向 related（如股东人数四阶段 与 库存周期反转四信号）未补齐。
-- 老木匠 person 页仍在 `workbench/买股票的老木匠.md`，与 schema.md 推荐的 `wiki/people/` 不一致（该目录不存在）。
-
-
-
 ## 2026-10-17 · 概念页按 分类×维度 重分类并拆分（8 → 11）
 
 ### 操作类型
@@ -32205,6 +32265,13 @@ refactor / rename / link
 - 老木匠 person 页仍在 `workbench/买股票的老木匠.md`，与 schema.md 推荐的 `wiki/people/` 不一致（该目录不存在）。
 
 
+## 2026-10-17 · 管理入口改名为股息率回测
+
+- 操作：UI copy / verification；按用户要求，将原“管理”页签改为“股息率回测”。
+- 修改文件：tools/a-share-market-dashboard/src/index.html、src/app.mjs、README.md、DESIGN.md、.impeccable/dividend-management-surface.md、.impeccable/dividend-signal-surface.md、a-share-market-dashboard.html；同步根index.md与本日志。
+- 变更：查看页和回测页两处页签、策略侧栏入口及页面标题统一命名；现有页面标识、参数设置、回测和每日应用功能保留。
+- 验证：语法检查、构建及19项既有策略页面测试通过。浏览器实际切换到新页签，页面标题和当前页签均显示“股息率回测”；按Impeccable检查标签可读、选中下划线与窄屏布局正常。截图/tmp/dividend-backtest-tab-renamed.png。
+
 
 ## 2026-10-17 · 修复老木匠笔记属性区解析错误
 
@@ -32215,6 +32282,15 @@ refactor / rename / link
 - 验证：使用系统Ruby Psych解析器检查21篇笔记，修复前11篇解析失败，修复后全部通过；逐文件核对正文和链接不变，UTF-8检查通过。修改前副本：/var/folders/hh/5jrmgmsx377fsl_56cz7q13w0000gn/T/laomujiang-frontmatter-before-20261017-37634-5l8aen；修复清单位于/tmp/laomujiang-frontmatter-repair.json。
 - 页面核对：在Obsidian重新打开“资金面-微观-筹码结构”，属性区已恢复为正常的“笔记属性”表单，识别15个属性，不再整段标红；截图/tmp/laomujiang-frontmatter-fixed.png。
 
+
+## 2026-10-18 · 中证红利每日信号（自动化）
+
+- 操作：自动化日常执行（周日休市日照常运行），未新增正式 Wiki 页面，不调整索引。
+- 执行：`check_signal.py --run-date 2026-10-18`，退出码 0；专用环境 akshare/pandas/openpyxl 导入正常。
+- 更新文件：`sources/automations/中证红利信号/中证红利每日信号.xlsx`（2026-10-18 恰好 1 行，既有 103 行保留）、`最新信号.md`（运行日期 2026-10-18）、`中证红利年度表现.json`（indexCode=000922，19 行）、`评分记录.json`。
+- 数据口径：指数估值日期 2026-10-16（早于记录日期 2 天，10-17/10-18 休市），股息率2 = 4.17%；10年国债 1.648%（2026-10-16）；股债倍数 2.52；腾讯行情 +0.82% 为早盘快照口径，非当日全天涨跌幅。
+- 评级：绝对股息率 C、股债倍数 A（V2-r5），综合分 46.3，综合等级 C（等待区间），仅综合 A 可买入。
+- 验证边界：理杏仁未采集（当前策略不使用分位）；评分参数尚未经收益回测验证。
 
 
 ## 2026-10-18 · 老木匠四主题逐篇风险分析
@@ -32227,13 +32303,11 @@ refactor / rename / link
 - 验证：4个topic的YAML解析通过；21条分析数量匹配；新增正文双链目标全部存在；原正文逐字保留；新增内容无替换字符或私用区乱码；git diff --check通过。
 
 
-
 ## 2026-10-18 · 修复判断演化表来源链接
 
 - 操作：link。检查老木匠四条时间线的第3节，补齐风险与市场位置、周期与有色表格的55行日期来源链接；同日原帖与直播按证据类型区分，混合引用保留两个入口。
 - 修改文件：`wiki_laomujiang/timelines/买股票的老木匠-风险与市场位置判断演化.md`、`wiki_laomujiang/timelines/买股票的老木匠-周期与有色判断演化.md`、`log.md`。
 - 验证：四表新增及已有链接目标全部存在，表格行数不变；日期别名使用表格所需的转义分隔符。原判断内容不改。未新增页面或改变导航，索引无需变更。
-
 
 
 ## 2026-10-18 · 新增微观风险源及传导概念页
@@ -32248,14 +32322,12 @@ refactor / rename / link
 - 验证：新页与目录索引YAML解析通过；六项路径、全部新页双链目标、UTF-8与12页计数检查通过；已适配风险源总页当前改名路径。git diff --check通过。旧总页已改为宏观页，后续分类同步主要针对此前主题分析。
 
 
-
 ## 2026-10-18 · 补充个股融资微观资金面风险
 
 - 操作：refactor / link。按用户要求在既有概念页增加资金面章节，保留六类基本面路径。
 - 修改文件：`wiki_laomujiang/concepts/indicator-微观风险源及传导.md`、`wiki_laomujiang/index.md`、`index.md`、`log.md`。
 - 来源：既有8月10日《降杠杆的正反馈与凡事要证据》整理稿，原始资料未改。
 - 内容：区分杠杆集中、补仓能力不足及融资条件收紧等风险因素，与融资余额等指标；补追保和被迫卖出的反馈路径、相对指标口径及未知账户数据边界。属性改为基本面与资金面双分类，按用户要求同页分节，不套用全市场2万亿元阈值。
-
 
 
 ## 2026-10-18 · 补充筹码结构与股东人数风险观察
@@ -32273,6 +32345,359 @@ refactor / rename / link
 - 内容：同步标题、dimension、引用及索引分组，说明政策是宏观起因，而市场承接是微观观察对象。保留既有历史日志中的原名称。
 - 验证：旧链接无残留，新目标存在，属性解析与差异检查通过。
 
+## 2026-10-19 · 中证红利每日信号（自动化重试执行）
+
+- 操作：automation / zzhl-dividend-signal（每日信号检查，本次为同日重试执行）。
+- 修改文件：`sources/automations/中证红利信号/中证红利每日信号.xlsx`（新增 2026-10-19 一行，总数 105 行，历史行保留）、`sources/automations/中证红利信号/最新信号.md`、`sources/automations/中证红利信号/中证红利年度表现.json`（刷新）、本文件。
+- 数据边界：记录日期 2026-10-19；指数估值日期与国债日期均为 2026-10-16（最近可得交易日）；雪球/腾讯行情涨跌幅 1.13% 为早盘快照口径，非全天涨跌幅；理杏仁未采集，不执行分位补录。
+- 评级：绝对股息率 C（股息率2 4.17%）、股债倍数 A（1.648% 国债，倍数 2.52）；V2-r5 综合分 46.3，等级 C（等待区间），不可买入。
+- 验证：脚本退出码 0；xlsx 当天恰好 1 行、其他日期保留；最新信号.md 运行日期 2026-10-19；JSON indexCode=000922、rows 19 行非空。
+
+
+## 2026-10-20 · 老木匠截图概念页统一宏观前缀
+
+- 操作：rename / link；按用户截图重命名12篇概念页，不新增或删除概念内容。
+- 命名：原微观项保留分类与微观层级；原宏观项移至最前，省略重复宏观；indicator 分类保留。category、dimension、来源、证据及既有别名保持不变。
+- 修改文件：wiki_laomujiang/concepts/下12篇笔记及其引用页、wiki_laomujiang/index.md、整理方案.md、根index.md、.obsidian/workspace.json、本日志。原始资料和历史日志内容保留。
+- 文件对应关系：
+
+| 原文件名 | 新文件名 |
+|---|---|
+| `基本面-微观-产能出清.md` | `宏观-基本面-微观-产能出清.md` |
+| `基本面-微观-汇兑损益.md` | `宏观-基本面-微观-汇兑损益.md` |
+| `基本面-微观-库存数据验证.md` | `宏观-基本面-微观-库存数据验证.md` |
+| `基本面-微观-银行核心一级资本.md` | `宏观-基本面-微观-银行核心一级资本.md` |
+| `情绪面-微观-周期顶部四信号.md` | `宏观-情绪面-微观-周期顶部四信号.md` |
+| `资金面-宏观-竞争性融资.md` | `宏观-资金面-竞争性融资.md` |
+| `资金面-宏观-人民币自由兑换.md` | `宏观-资金面-人民币自由兑换.md` |
+| `资金面-宏观-融资余额风险线.md` | `宏观-资金面-融资余额风险线.md` |
+| `资金面-微观-筹码结构.md` | `宏观-资金面-微观-筹码结构.md` |
+| `资金面-微观-股东出清.md` | `宏观-资金面-微观-股东出清.md` |
+| `资金面-微观-央行注水口.md` | `宏观-资金面-微观-央行注水口.md` |
+| `indicator-微观风险源及传导.md` | `宏观-indicator-微观风险源及传导.md` |
+
+- 备份：/Users/cjw/Documents/Codex/2026-10-20/referenced-chatgpt-conversation-this-is-an/work/rename-before。
+- 验证：12个新文件存在、12个旧文件已移走；116处双链目标已更新且全部可解析至实际文件；22个Markdown文件的YAML解析通过；原分类、维度、来源、别名及正文内容保留（仅标题与链接同步）；工作区JSON解析和git diff --check通过。
+
+
+## 2026-10-20 · 排查面板自动打开浏览器
+
+- 操作：repair；本地49888端口有服务监听，截图接口正常；原启动代码忽略webbrowser.open结果，无法识别自动打开失败。
+- 修改文件：tools/a-share-market-dashboard/scripts/local_proxy.py、tests/test_browser_launch.py、README.md、log.md。
+- 修复：Mac优先使用系统open命令，超时或失败回退，并明确输出手动网址；不终止当前运行服务。
+- 诊断边界：系统open调用成功，不据此断言原浏览器接口必然失败或浏览器已到前台。
+
+
+## 2026-10-20 · 增加浏览器窗口打开日志
+
+- 操作：diagnostics；按用户要求复用data/proxy.log及终端输出，记录打开尝试、接受请求、异常、回退与失败。
+- 修改文件：tools/a-share-market-dashboard/scripts/local_proxy.py、tests/test_browser_launch.py、README.md、log.md。
+- 日志字段：时间、方式、网址、退出码、异常类型和系统错误信息；明确接受请求不等于窗口可见。测试使用临时日志目录。
+
+
+## 2026-10-20 · 中证红利每日信号自动化执行
+
+- 操作：automated-run（zzhl-dividend-signal，13:48 北京时间）。
+- 修改文件：sources/automations/中证红利信号/中证红利每日信号.xlsx、最新信号.md、评分记录.json、中证红利年度表现.json、log.md。
+- 结果：记录日期 2026-10-20；指数估值与国债日期 2026-10-19；股息率2 4.13%，10年国债 1.65%，股债倍数 2.50；绝对股息率 C、股债倍数 A（V2-r5）；综合分 45.6，等级 C（等待区间），不可买入；连续确认"已确认 C，策略维持"。
+- 验证边界：xlsx 2026-10-20 恰好 1 行、既有 105 行保留；JSON indexCode=000922、19 行；腾讯行情 -1.61% 为 13:48 盘中快照，非全天涨跌幅；理杏仁未采集（当前策略不使用分位）。
+
+
+## 2026-10-20 · 排查后台Chrome接收面板打开请求
+
+- 操作：repair / diagnostics。用户反馈系统接受请求后仍无可见浏览器窗口。
+- 线索：存在日常Chrome、headless实例及使用抓取专用目录的no-startup-window实例；通用open返回0不能证明目标窗口，具体原接收实例未追溯确认。
+- 修改文件：tools/a-share-market-dashboard/scripts/local_proxy.py、tests/test_browser_launch.py、README.md、log.md。
+- 修复：默认浏览器为Chrome时，指定日常用户目录、最近常规配置及new-window；失败回退原系统方式。服务先响应再发起打开；每次launch独立标记，返回对应页面后记录PAGE_REQUESTED与CONFIRMED，超时UNCONFIRMED。其他默认浏览器不强制改用Chrome。
+- 实测：13:49:59从Finder启动command，regular-chrome-profile、window=new、profile=Default；同秒收到对应launch页面请求及CONFIRMED，服务PID66880保持运行。服务器证据不等于前台窗口或全部脚本渲染已核验。
+- 验证：9项浏览器启动测试及2项Mac启动器测试通过，覆盖独立launch确认、无页面请求不判成功、常规Chrome目录选择、其他默认浏览器保留及启动失败回退；差异检查通过。
+
+## 2026-10-20 · 回测前自动更新中证红利指数日线
+
+- 操作：repair / data update；补齐2026-10-19价格，并在每次回测前更新。
+- 新增文件：tools/a-share-market-dashboard/scripts/dividend_index_history.py、tests/test_dividend_index_history.py。
+- 修改文件：该项目scripts/local_proxy.py、src/app.mjs、tests/test_dividend_backtest_data.py、README.md及生成HTML；sources/automations/中证红利信号/中证红利指数日线.json及其备份；根index.md、log.md。
+- 来源：中证指数官网index-perf(000922)，区间20260602至20261019，93条日线；10月19日收盘5623.37。原历史保留并备份，Excel和评分参数不改。
+- 机制：回测接口每次联网，核验日期、指数代码、正收盘价与截止日，合并历史后加锁、原子替换。联网失败且本地覆盖范围时提示使用本地，仍缺截止日则明确报错。休市日不填造价格；查看和策略重算仍只读本地。
+- 验证：16项Python红利测试、23项前端回测测试及构建通过。重启实际服务后回测接口返回updated，按现行参数完成回测，读取105条记录、88条可用信号，截止2026-10-19。
+- 边界：官网尚未发布的截止日仍须等待；既有日期错配及休市估值记录继续按原规则排除。
+
+## 2026-10-20 · 来源区增加指数日线更新信息
+
+- 操作：UI copy / provenance；按用户要求在既有“数据来源与验证边界”中增加指数日线来源、截止日期、最近成功更新时间及更新结果。
+- 修改文件：tools/a-share-market-dashboard的src/app.mjs、scripts/local_proxy.py、scripts/dividend_index_history.py、scripts/dividend_recalculation.py、scripts/build.mjs、README.md及生成HTML；新增tests/dividend-index-source.test.mjs并扩充tests/test_dividend_index_history.py；日线JSON及更新状态JSON，本日志。
+- 数据机制：回测和查看接口提供实际文件元数据；最新尝试结果独立保存，失败不改写价格文件或成功获取时间；源文件被替换后不采用旧状态。回测成功或失败均更新来源区并保留展开状态；离线构建也嵌入实际元数据。
+- 显示：沿用原列表与文字样式，字段转义，缺失时间显示待确认；成功、缓存回退、失败停止与尚无结果分别标注。更新时间用Asia/Shanghai。
+- 验证：18项Python红利测试及47项前端相关测试通过，构建通过。Impeccable检查未发现新增样式问题；检测器四项旧配色提示位于本次未改动代码。
+- 设计边界：Impeccable提示既有design.json与DESIGN.md不同步，本次未修改设计系统。
+- 页面实测：重启服务并刷新后，展开来源区可见中证官网、2026-10-19截止日期、北京时间更新时间及成功结果。点击回测后14:18:46完成105条记录/88条可用信号，来源区保持展开并同步更新时间；期间发现局部刷新函数误用byId作用域，已修正为document.getElementById并复测成功。截图/tmp/dividend-index-source-proof.png，窄屏字段正常换行。
+
+
+## 2026-10-20 · 策略参数与每日Excel统一存放
+
+- 操作：migrate / config；按用户要求将已应用策略从看板data/红利信号/strategy-settings.json迁至sources/automations/中证红利信号/策略参数.json。
+- 修改文件：技能strategy_store.py、配置测试、SKILL.md与技能log.md；看板local_proxy.py、dividend_recalculation.py、API/重算测试、README.md；每日任务说明、.gitignore、index.md及本日志。
+- 数据：完整保留当前r5参数和6条历史；旧文件原字节备份至信号目录的备份/策略参数迁移/，新旧字节SHA256均为2e8ce9326bb0e6924c3f20e4f6bf9fe4bf61877c55efa00df58c3508475c0e2b。未重算或修改现有Excel、评分记录。
+- 行为：看板与每日任务统一读取及保存新文件；旧文件首次迁移兼容，新文件优先；重算备份与回滚包含新名称配置，保持版本冲突检查和原子写入。
+- 验证：27项技能测试及8项看板API/重算测试通过；已重启实际面板，接口和每日load_strategy读取完全一致，当前权重92%/8%、门槛C40/B48/A65、revision5不变。
+
+
+## 2026-10-20 · 中证红利历史资料统一归档
+
+- 操作：migrate / link；按用户要求整理中证红利信号目录。
+- 移动文件：历史分位来源-2026-10-15、参数应用-2026-10-17-r4、双指标试算-2026-10-17、双指标应用-2026-10-17、股息率核查-2026-10-17、日线补齐-2026-10-17六个目录及V1参考快照.md，统一移入sources/automations/中证红利信号/历史归档/，共20个文件，内容未改写。
+- 修改文件：index.md及看板README.md更新归档路径；同时修复日线来源信息JSON链接缺少扩展名。技能check_signal.py、tests/test_scoring.py、SKILL.md及技能日志更新离线参考快照输出位置，防止原目录重新生成历史文件。本日志追加维护记录。
+- 保留：当前Excel、CSV、策略参数、评分记录、最新信号、年度表现、指数日线与更新状态、锁文件及备份目录均留在原处，未改当前参数或重新计算业务数据。
+- 验证：27项技能测试通过；20个归档文件、根层当前文件的SHA256与整理前一致。实际看板配置及查看接口正常；每日任务load_strategy返回r5；本地回测读取107行（含表头）、93条日线；4处归档索引链接目标存在。未发现影响当前运行的路径依赖，无需重启服务。
+
+
+## 2026-10-20 · 明确中证红利策略参数来源并收盘后重算
+
+- 操作：docs / automated-run（zzhl-dividend-signal，15:20 北京时间）。
+- 修改文件：`.agents/skills/zzhl-dividend-signal/SKILL.md`、`.agents/automations/zzhl_dividend_signal.md`、`.agents/skills/zzhl-dividend-signal/log.md`、`sources/automations/中证红利信号/`（xlsx、最新信号.md、评分记录.json、年度表现.json）、log.md。
+- 变更：按用户要求确认并写明每日计算一律从`sources/automations/中证红利信号/策略参数.json`读取权重、锚点、等级分界与确认天数；文件缺失才回退技能默认`strategy-v2.json`（版本无-rN后缀），损坏或版本不一致报错中止。脚本代码未改动，仅补齐文档口径与核验项。
+- 结果：读取 revision 5 / `dividend-two-factor-v2-r5`（92%/8%、C40/B48/A65、确认天数1）；收盘后重算综合分 45.59，等级 C（等待区间），不可买入；当天涨跌幅由 13:48 盘中 -1.61% 更新为收盘 -1.21%。
+- 验证边界：估值与国债日期仍为 2026-10-19；xlsx 当天 1 行、共 106 行；评分记录版本 r5；年度 JSON indexCode=000922、19 行；pytest 未安装在专用环境，本轮以手工核算（42.6×92%+80.0279×8%=45.5942）替代单元测试比对。
+
+
+## 2026-10-20 · 修正老木匠概念命名顺序与维度
+
+- 操作：repair / rename / link；此前把“宏观”误设为所有概念的总前缀，本次按用户澄清恢复“宏观/微观在前，基本面/资金面/情绪面在后”。
+- 重命名：wiki_laomujiang/concepts下11页，微观基本面4页、微观资金面5页、微观情绪面1页、微观综合indicator1页；人民币自由兑换保留宏观-资金面名称，共12个概念，未新增或删减知识单元。
+- 分类：市场层面按用户约定归微观，因此融资余额风险线、竞争性融资的dimension同步为微观并注明口径；国家资本项下开放政策页面人民币自由兑换仍归宏观。央行注水口保留微观—资金面，不因涉及央行而加宏观前缀。
+- 修改文件：12个概念页的名称、title/一级标题、相关双链；wiki_laomujiang/index.md、整理方案.md、4个topic、4条timeline及根index.md同步引用。整理方案和索引移除“统一加宏观前缀”的错误规则，统一{维度}-{分类}-{名称}；跨类综合页保留微观-indicator-风险源及传导用途名称。
+- 验证：12页名称、title、一级标题、dimension/category一致；核查116处概念双链均有目标；来源字段与修改前一致；未改sources原始资料；未发现旧错误名残留、重名冲突或新增乱码，差异空白检查通过。历史维护日志保留当时路径记录。
+
+- [2026-10-20T15:26:08+08:00] QUERY query="周期顶部四个定性信号能否用冰冰小美的风险累积理解" result_pages=3 mode=normal escalated=false；依据[[wiki/concepts/冰冰小美-trigger-宏观信号表|宏观信号表]]、[[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-framework-风险观察|风险观察]]及[[wiki_laomujiang/concepts/微观-情绪面-周期顶部四信号|周期顶部四信号]]作概念对照；对应理解属于归纳，区分风险累积、反转证据与价格下跌时点，不新增正式知识页。
+
+
+## 2026-10-20 · 周期四信号改为风险累积观察表述
+
+- 操作：clarify / link；按用户确认采用“用四个定性信号观察周期标的的风险是否正在累积，判断是否应提高警惕；不据此确认顶部，也不预测下跌时点。”
+- 修改文件：wiki_laomujiang/concepts/微观-情绪面-周期顶部四信号.md的summary、definition、一句话定义及相关解释；wiki_laomujiang/index.md、topics/周期与有色金属.md、timelines/买股票的老木匠-周期与有色判断演化.md和根index.md同步简介及观察边界。
+- 说明：保留原文件名、原始资料、作者转述及四项信号；移除整理文字中“据此识别顶部”和“四项齐全才警戒”的过强说法。新增与冰冰小美风险观察/宏观信号表的方法对应链接，明确为整理者跨框架归纳。
+- 验证：5份文档来源字段与修改前一致，相关58处概念链接均有目标，统一表述及UTF-8检查通过；未改sources原始资料，未新增知识页。
+
+
+## 2026-10-20 · 宏观信号表按维度与用途重命名
+
+- 操作：rename / link。将wiki/concepts/冰冰小美-trigger-宏观信号表.md重命名为宏观-framework-风险累积观察表.md，统一title、一级标题，保留旧名别名与作者来源。
+- 说明：宏观在前，综合框架用途在后；跨基本面、资金面、情绪面，不强制归入单一类别。注明观察风险累积、提高警惕的用途及不确认顶部、不预测下跌时点的边界。
+- 修改文件：目标概念页、引用该页的知识页、根index.md与hot.md；原始sources未修改。
+- 验证：同步44处双链；来源字段完整保留，目标无重名，活动知识页无旧目标链接，UTF-8检查通过。历史日志保留当时名称。
+
+
+## 2026-10-20 · 风险累积观察项按三面分表
+
+- 操作：refactor；将宏观-framework-风险累积观察表第5节总表拆为基本面、资金面、情绪面三表。
+- 修改文件：wiki/concepts/宏观-framework-风险累积观察表.md、index.md、log.md。
+- 说明：按主要传导机制归组，保留原11行内容，补充跨类别归类边界及整理者归纳属性；原详细解读、来源与引用不变。
+- 验证：基本面3项、资金面5项、情绪面3项，共11项无遗漏；未修改原始资料。
+
+
+## 2026-10-20 · 周期四信号简化阅读
+
+- 操作：clarify；将微观-情绪面-周期顶部四信号核心内涵的四项信号分别用一句话说明观察变化与风险含义，统一小标题。
+- 修改文件：wiki_laomujiang/concepts/微观-情绪面-周期顶部四信号.md、index.md、log.md。
+- 保留：四段原有来源转述和机制解释移入默认折叠的依据与解释，来源链接及其他章节不变。
+- 验证：四个折叠块及四句概括完整，全部双链与修改前一致；未改原始资料。
+
+
+## 2026-10-20 · 明确信号三的高位条件
+
+- 操作：clarify。
+- 修改文件：wiki_laomujiang/concepts/微观-情绪面-周期顶部四信号.md、log.md。
+- 说明：按用户确认将信号三标题改为“股价高、股东人数激增”，一句话说明明确股价处于高位且股东人数大幅增加；原依据和来源保留。页面未新增或重命名，索引无需变更。
+- 验证：目标标题及说明已替换，其他正文未改。
+
+
+## 2026-10-20 · 股东出清合并至筹码结构
+
+- 操作：merge / link；按用户确认合并重复概念，保留筹码结构主页面，将股东出清改为其中独立章节，原独立页面移除，旧名称保留为别名。
+- 内容：保留作者原帖、航空公司案例、选股偏好及适用边界、与产能出清的区别；合并来源与关系，删除工具/判据的重复分工说明，明确人数多不能证明出清完成。
+- 修改文件：筹码结构、产能出清、微观风险源及传导、周期主题及时间线、子库索引与整理方案、根index.md和log.md。子库概念数12改为11。
+- 验证：旧页所有来源链接并入主页面；旧页快照存于/tmp/shareholder-merge-before.json供本次核对，原始sources不变；引用转向主页面章节。
+
+
+## 2026-10-20 · 筹码结构核心内涵简化与概念复用
+
+- 操作：refactor / link。
+- 修改文件：wiki_laomujiang/concepts/微观-资金面-筹码结构.md、index.md、log.md。
+- 内容：将八段核心内涵改为四阶段简表及承接、情绪、数据三个要点；复用冰冰小美流动性辩证分析、情绪位置变化概念并补充related，明确跨框架对应为整理者归纳，未把两套周期等同。
+- 一致性：同步definition和检查表，移除单凭人数确认机构行为、放量确认顶部等过强规则；股东出清章节及所有来源字段保留。
+- 验证：新引用目标存在、来源字段不变、UTF-8及差异空白检查通过。
+
+
+## 2026-10-20 · 回退核心内涵优化
+
+- 按用户要求回退上一轮筹码结构核心内涵及概念复用修改，恢复修改前完整页面和索引简介。
+- 保留此前已完成的股东出清合并；历史维护日志保留并以本条注明回退。
+- 验证：页面与上一轮修改前快照逐字一致。
+
+
+## 2026-10-20 · 优化筹码结构第一阶段标题
+
+- 操作：clarify。将微观-资金面-筹码结构的第一阶段标题改为“第一阶段：低位交易清淡与持股分散”；正文不变，无新增页面，索引无需调整。
+- 修改文件：wiki_laomujiang/concepts/微观-资金面-筹码结构.md、log.md。
+- 验证：仅替换一处章节标题。
+
+
+## 2026-10-20 · 统一筹码结构章节标题
+
+- 操作：clarify；将筹码结构全篇章节标题统一为简洁专业表述，去掉“要素”重复编号，保留四阶段顺序。
+- 修改文件：wiki_laomujiang/concepts/微观-资金面-筹码结构.md、log.md。
+- 验证：仅标题发生变化，正文与元数据逐字不变；已有股东出清章节锚点保持有效，无需调整索引链接。
+
+
+## 2026-10-20 · 筹码结构按阅读主线重新整理
+
+- 操作：refactor / clarify / link；按用户要求整理单篇页面结构。
+- 修改文件：wiki_laomujiang/concepts/微观-资金面-筹码结构.md、wiki_laomujiang/index.md、index.md、log.md；未新增知识页，页面数量与文件名不变。
+- 内容：重排为概念定义、观察变量与数据口径、筹码转移四阶段、风险信号与承接判断、周期低迷期股东出清、统一核验清单、来源与归纳边界七节。四阶段详细解释原文保留，仅集中来源说明；股东出清与产能出清的边界、航空公司案例保留，分散检查项合并，来源按用途分组。
+- 一致性修正：将检查表中“巨量＋下跌＝出货”等确定性判断改为作者解释与待核验线索；不再将三信号齐备作为唯一警戒条件。修正“全部来自AI整理稿”与作者原帖并存的矛盾；补齐正文原已引用的2026-10-10资料至sources字段，合计15项。旧有跨市场、周期长度及技术因素推测保留为待验证问题。
+- 导航：保留“周期低迷期的股东出清”章节名及旧页别名；根索引和子库索引各仅修改该页简介一行，不调整其他页面。
+- 验证：YAML解析、UTF-8与差异空白检查通过；四阶段解释及两段核心出清案例与修改前快照逐字一致；原有15个来源目标全部保留、15份原始资料哈希不变；文章出站双链和15处入站章节链接均可解析。整理未新增实证结论，来源原有的不确定性继续保留。
+- 修改前快照：/var/folders/hh/5jrmgmsx377fsl_56cz7q13w0000gn/T/chip-structure-reorganize-20261020-10py0f45/before.json。
+
+## 2026-10-20 · 查询主题阅读包职责的现有承接页
+
+- 操作：query / audit；核对现有页面是否承担跨文档共识、观点增量、冲突辨析、证据评价和精读导航。
+- 修改文件：log.md；未新增知识页，索引无需调整。
+- 依据页面：[[_archives/2026-10-20-wiki-rebuild/wiki/topics/冰冰小美-投机|冰冰小美-投机]]、[[_archives/2026-10-20-wiki-rebuild/wiki/topics/冰冰小美-信息的金融意义系列|冰冰小美-信息的金融意义系列]]、[[_archives/2026-10-20-wiki-rebuild/wiki/queries/冰冰小美如何看待泡沫|冰冰小美如何看待泡沫]]。
+- 查询结果：候选页面已部分承担跨篇归纳、原文回查和阅读导航；本次未发现同时完整覆盖上述五项职责的页面。该结论基于候选页面正文核对，不是全库逐页审计。
+- 检索说明：QMD 已配置，但所配置 CLI 当前不可用；采用本地索引、关键词及正文读取。
+- [2026-10-20] QUERY query="有没有承担共识、增量、冲突、证据和精读导航职责的主题阅读包页面？" result_pages=3 mode=normal escalated=true
+
+## 2026-10-20 · 新增 AI 阅读队列页面类型
+
+- 操作：schema / template / navigation。
+- 资料来源：用户本轮要求新增以优先级、主题、推荐章节、处理状态辅助入库前人工阅读和处理的页面类型。
+- 修改文件：AGENTS.md、schema.md、page-types.md、templates/README.md、index.md、log.md。
+- 新增文件：[[templates/reading-queue-page-template|AI 阅读队列模板]]、[[reading/AI阅读队列|AI 阅读队列]]。
+- 类型设计：新增 `reading_queue` 工作流页面，放在同级 `reading/`；与八类正式知识页区分，默认维护一份总队列，按需建立主题分队列，不增加正式 Wiki 页面计数。
+- 内容设计：以四个核心维度组织队列，补充稳定编号、资料链接、推荐理由和处理结果；支持按需填写跨篇共同观点、独有增量、分歧、证据和精读顺序，以及人工读后记录。
+- 流程设计：区分 AI 预读与人工阅读状态；已处理必须回填实际去向，暂缓或跳过保留原因；已有入库授权可直接执行，不增加重复确认步骤。原始资料仍先归档到 `sources/`，再提炼知识。
+- 交付边界：本次只建立定义、模板和空队列，未自动加入文章，未修改既有 Topic 页面或原始资料。
+- 验证：`git diff --check` 通过；新增内容 UTF-8 与乱码检查通过；两份 YAML 可解析，14 个新增双链及章节锚点可解析，八个队列字段与六种处理状态一致，空表无虚构资料条目。
+- 修改前快照：/var/folders/hh/5jrmgmsx377fsl_56cz7q13w0000gn/T/ai-reading-queue-20261020-jbjner88。
+
+## 2026-10-20 · 将跨文档主题阅读包确立为阅读队列的首要职责
+
+- 操作：schema / template / clarify。
+- 资料来源：用户指出前版将多篇文章合并为主题阅读包的主责未落实，重新强调共识、新增观点、冲突、证据和精读导航。
+- 修改文件：AGENTS.md、schema.md、page-types.md、templates/README.md、templates/reading-queue-page-template.md、reading/AI阅读队列.md、index.md、log.md；无新增文件。
+- 核心修正：将五项跨文档分析从可选导读提升为每包必备正文与完成标准；先围绕子问题形成可连续阅读的知识脉络，再提供原文回查。缺少发现时保留章节并说明核对结果，不能虚构内容。
+- 组织修正：一条队列记录对应一份多文章阅读包，资料清单置于包内记录来源、去重和核对范围。优先级、主题、推荐章节与人工处理状态服务于阅读包管理。
+- 质量约束：共识标明支持资料与独立性；增量明确本批比较基线；冲突列双方依据和条件差异；证据列出处、核查情况及局限；精读默认三篇并定位真实章节，资料不足时说明原因。
+- 状态修正：新增待整理、待补全、可阅读三种编制状态，与人工阅读状态分开。约定分析范围内存在未读正文或缺失片段时保持待补全；部分入库不得将整包标为已处理。
+- 验证：差异空白、UTF-8、两份 YAML、11 个新增双链及章节锚点、表格列数检查通过；五项分析、包级队列单位、两类状态及覆盖完成条件检查通过；原 Topic 定义逐字未改。当前为空队列，未宣称生成实际主题阅读包。
+- 修改前快照：/var/folders/hh/5jrmgmsx377fsl_56cz7q13w0000gn/T/theme-reading-pack-20261020-w42g71tl。
+
+## 2026-10-20 · 用老木匠风险时间线实测主题阅读包
+
+- 操作：reading / synthesis / audit。
+- 资料来源：用户指定 [[wiki_laomujiang/timelines/买股票的老木匠-风险与市场位置判断演化|风险与市场位置判断演化]] 中的文章；提取其引用的 22 篇库内直播整理稿，日期为 2026-07-18 至 2026-10-16。
+- 新增文件：[[reading/老木匠-风险与市场位置-主题阅读包|老木匠：风险与市场位置主题阅读包]]。
+- 修改文件：[[reading/AI阅读队列|AI 阅读队列]]、index.md、log.md。
+- 分析范围：核对 22 篇中的 141 个主题相关章节片段，包内逐篇记录章节与行号；其余章节不计为已精读。按原帖地址和文件内容查重，未发现完全重复资料；22 篇均为同一整理者转述同一作者，不作为独立信源计票。
+- 阅读包内容：按风险传导、参与约束、仓位选择和重新参与条件组织知识脉络；合并五条共同判断，列五项比较增量、六组冲突或条件差异、八项证据评价；精读推荐 08-10、09-12、10-11 三篇并定位具体章节。
+- 测试发现：07-20 稿第五节末句截断，本库来源目录中未找到完整替代文本；10-07 稿第二节混用收益率与期货价格方向；信息是否提前定价、缩量含义等仍需回源核实。缺失内容未用于推断，稿内市场数据及个人业绩未作独立验证。
+- 队列登记：R001，高优先级，编制状态“待补全”，人工状态“待读”；五项分析已有实际内容，尾文缺口继续保留，未代填人工判断或执行正式入库。
+- 验证：YAML、五项模块、22 篇覆盖、141 处章节标题及行号、双链与章节锚点、表格列数、三篇精读位置和 UTF-8 检查通过；22 篇来源文件哈希及原时间线与处理前一致；根索引正式 Wiki 页面计数未变；差异空白检查通过。
+- 修改前快照与本轮核对记录：/var/folders/hh/5jrmgmsx377fsl_56cz7q13w0000gn/T/laomujiang-reading-test-20261020-k8qrh0l6。
+
+## 2026-10-20 · 将老木匠阅读包迁回独立知识库
+
+- 操作：migrate / link / routing。
+- 修改依据：用户明确 `wiki/` 与 `wiki_laomujiang/` 是两个知识库，老木匠阅读包应归属后者；纠正上一轮将其放在根目录阅读工作流中的错误。
+- 迁移文件：根目录 `reading/` 下的队列和阅读包迁到 [[wiki_laomujiang/reading/AI阅读队列|老木匠 AI 阅读队列]]、[[wiki_laomujiang/reading/老木匠-风险与市场位置-主题阅读包|老木匠风险主题阅读包]]；移除迁移后为空的旧目录，不保留重复页面。
+- 导航修正：移除根 index.md 本次误加的阅读区入口，在 [[wiki_laomujiang/index|老木匠知识库索引]] 增加独立“阅读与处理”区。队列标题和范围明确为老木匠库，内部双链与阅读包自链接同步新路径。
+- 规则修正：AGENTS.md、SCHEMA.md、page-types.md、templates/README.md、templates/reading-queue-page-template.md 明确先确定知识库归属，再选择阅读目录和索引；根阅读队列不作为跨库总队列。
+- 保留内容：阅读包分析正文仅替换链接路径；22 篇资料覆盖、来源引用、精读导航和“待补全／待读”状态保留；未修改正式知识页和原始资料。历史维护日志保留旧路径作为当时记录，以本条注明迁移后的归属。
+- 验证：154 处新链接、迁移页链接及章节锚点可解析；两页 YAML、UTF-8、队列状态检查通过；63 份老木匠来源文件哈希未变；除历史日志外未检出旧阅读页双链；差异空白检查通过。
+- 修改前快照：/var/folders/hh/5jrmgmsx377fsl_56cz7q13w0000gn/T/laomujiang-reading-move-20261020-7s7wztwu。
+
+## 2026-10-20 · 新增页面取消来源属性
+
+- 操作：schema / template / clarify。
+- 修改依据：用户要求以后新增页面去掉 source 属性；现有模板实际使用复数 sources，因此同时取消两种属性写法。
+- 规则：两个知识库的新建正式知识页、AI 阅读队列和主题阅读包均不生成 `source` 或 `sources`，不保留空值、空数组或可选字段。原始资料继续归档，来源在正文论述、来源章节或资料覆盖表中以双链追溯。
+- 修改文件：AGENTS.md、SCHEMA.md、page-types.md、templates/README.md、templates/ 下九份页面模板、rules/concept-page-rules.md、rules/policy-view-page-rules.md、wiki_laomujiang/整理方案.md、wiki_laomujiang/index.md、index.md、log.md。
+- 兼容边界：已有页面的历史属性允许保留，本轮不批量迁移。老木匠库索引和整理方案仅修改写作约定，其原有 frontmatter 保留。
+- 验证：九份模板及 Schema 样例均不含来源属性，模板 YAML 可解析，正文按行保持不变；新增规则链接、UTF-8 和差异空白检查通过；页面数量未变，来源文件未修改。
+- 同步编辑说明：校验期间发现老木匠风险主题阅读包在本轮操作之外删除了 sources 属性并调整表格格式；保留其现状，未覆盖，也不计为本轮执行的属性迁移。其余 2131 份已记录哈希的页面与来源文件未变。
+- 修改前快照：/var/folders/hh/5jrmgmsx377fsl_56cz7q13w0000gn/T/no-source-property-20261020-t_zzq380。
+
+## 2026-10-20 · 老木匠判断演化页改为主题阅读定位
+
+- 操作：reading / clarify / link。
+- 修改依据：用户要求直接把现有 timelines 定位改为 reading，增加「导读：阅读问题与知识脉络」，其余结构不动。
+- 修改文件：wiki_laomujiang/timelines/ 下利率与流动性、周期与有色、风险与市场位置、AI 与科技股四篇判断演化页；wiki_laomujiang/index.md、wiki_laomujiang/整理方案.md、log.md。
+- 具体变更：四页开头各增加阅读问题与有原文双链的知识脉络，页面定位改为辅助人工阅读、核对与处理；本库索引和整理方案同步职责说明。
+- 保留边界：保留目录、文件名、type: timeline、原有章节顺序与判断演化表；第 2—9 节逐字未改。未增加新页面，未改动另一知识库和已有阅读队列、阅读包；原始资料未修改。
+- 验证：四页原有标题顺序、正文保留范围、属性差异、导读双链及锚点、UTF-8 和来源文件哈希检查通过。页面数量不变，本库索引更新用途说明，根索引现有入口无需改动。
+- 修改前快照：/var/folders/hh/5jrmgmsx377fsl_56cz7q13w0000gn/T/timeline-reading-20261020-e8rth0k7。
+
+## 2026-10-20 · 撤回独立 reading 页面及规则
+
+- 操作：cleanup / schema / link。
+- 修改依据：用户要求去掉本次对话创建的 reading 页面及规则。
+- 删除文件：wiki_laomujiang/reading/AI阅读队列.md、wiki_laomujiang/reading/老木匠-风险与市场位置-主题阅读包.md、templates/reading-queue-page-template.md；删除后移除空的 wiki_laomujiang/reading/ 目录。
+- 修改文件：AGENTS.md、SCHEMA.md、page-types.md、templates/README.md、wiki_laomujiang/index.md、log.md。
+- 撤回范围：独立 reading_queue 类型、阅读目录契约、跨文档五模块要求、队列字段与状态、可选前置流程及导航入口。此前相关日志仅为历史记录，不再代表当前生效规则。
+- 保留范围：四篇 timelines 页的主题阅读定位及「导读：阅读问题与知识脉络」保持不变；两库独立归属与新增页面不生成 source/sources 属性的规则保留。原始资料未修改。
+- 验证：现行规则与索引已无独立阅读工作流引用；四篇 timelines、整理方案及老木匠来源文件哈希未变；UTF-8 与差异空白检查通过。未新增页面，正式知识页数量不变。
+- 删除前快照：/var/folders/hh/5jrmgmsx377fsl_56cz7q13w0000gn/T/remove-reading-workflow-20261020-1jazvzkw。
+
+## 2026-10-20 · 修复利率阅读页判断演化表错列
+
+- 操作：repair / formatting。
+- 修改文件：wiki_laomujiang/timelines/买股票的老木匠-利率与流动性判断演化.md、log.md。
+- 原因：判断演化表中 17 个日期双链的显示名分隔符未转义，被 Markdown 当作表格分列符，造成链接拆开与后续列错位。
+- 修复：仅将表格内双链的 `|` 转义为 `\|`；正文、链接目标、显示名称及表格结构均不变。
+- 验证：四篇 timelines 的所有表格列数一致，表格内无未转义的双链分隔符；本页判断演化表各行均为五列。除这 17 处转义外，页面内容逐字未变。页面数量和导航未变，无需调整索引。
+- 修改前快照：/var/folders/hh/5jrmgmsx377fsl_56cz7q13w0000gn/T/fix-timeline-table-20261020-vwjzx_4e。
+
+## 2026-10-20 · 将表格双链转义接入页面生成检查
+
+- 操作：schema / validation。
+- 修改依据：用户要求将表格中双链的转义要求加入规则，并在以后生成页面时自动检查，避免错列。
+- 修改文件：AGENTS.md、SCHEMA.md、page-types.md、templates/README.md、log.md。
+- 新增文件：rules/check_markdown_tables.py。
+- 规则：SCHEMA.md 统一定义表格内显示名分隔符写为 `\|`，表格外仍用普通竖线；禁止重复转义，所有表格行须与表头及分隔行列数一致。AGENTS.md、页面质量要求和模板流程要求每次生成或修改后检查本次 Markdown 文件，修复失败项并重跑，通过后才能交付。
+- 检查器：只读检查，兼容 UTF-8 BOM，跳过 frontmatter 与围栏代码块，识别双链、章节链接、嵌入及引用表格；报告文件、行号和列数问题，失败返回非零退出码。此为 Agent 生成流程的必执行检查，不是编辑器保存钩子。
+- 验证：13 组正确／错误格式样例通过；错误行定位、失败退出码和不存在文件的错误处理通过；四篇老木匠 timelines 与本轮规则文件检查通过。未改动原始资料或现有知识页，页面总数及导航不变，无需调整索引。
+
+## 2026-10-20 · 取消 View 页面类型及生成配置
+
+- 操作：schema / cleanup / template。
+- 修改依据：用户要求删除 views 页面的定义及相关配置。
+- 修改文件：AGENTS.md、SCHEMA.md、page-types.md、templates/README.md、templates/people-page-template.md、templates/event-page-template.md、templates/timeline-page-template.md、templates/reasoning-page-template.md、templates/query-page-template.md、templates/topic-page-template.md、rules/concept-page-rules.md、index.md、log.md。
+- 删除文件：templates/view-page-template.md、rules/policy-view-page-rules.md。
+- 配置清理：正式类型由八类改为七类；删除 view 目录的新建契约、专属字段与子类型、生成规则、命名和类型选择分支，移除其他模板对观点页的强制依赖。观点回到原始资料取证，符合演化或完整推导门槛时使用已有类型，不把单篇观点自动改建为其他页面。其余章节编号保留，避免改变无关锚点。
+- 历史兼容：112 篇 wiki/views 历史页面及既有双链保留；旧 type: view 仅用于历史兼容，不再作为新增类型。索引观点区标明历史保留用途，页面计数不变。检索历史观点的配置仍可读取这些内容，不作为新建配置处理。
+- 验证：七类类型集合一致；现行生成规则与模板已无 View Page、view_type 或已删除模板／规则依赖；历史知识页与原始资料哈希未变；本轮 Markdown 表格及差异空白检查通过。
+- 修改前快照：/var/folders/hh/5jrmgmsx377fsl_56cz7q13w0000gn/T/remove-view-type-20261020-p48943yw。
+
+## 2026-10-20 · 编写抓取后自动整理与 Timeline 建页技能草案
+
+- 操作：design / documentation。
+- 修改依据：用户要求按前述方案设计 cjw-xueqiu-daily-monitor，并直接开放自动建页；本轮只交付技能说明文档，不修改技能。
+- 新增文件：outputs/skill-design/cjw-xueqiu-daily-monitor-自动预处理与Timeline建页-技能说明草案.md。
+- 修改文件：index.md、log.md；索引仅在技能维护区登记待评审草案，不改变正式知识页计数。
+- 文档内容：保留现有抓取和汇总流程，设计自动预处理、跨库路由、原文取证、历史比较、自动更新和新主题自动建页；明确三时间点门槛、页面结构、去重版本、人工编辑保护、校验、失败恢复、拟新增配置和验收案例。
+- 执行边界：未修改技能说明、EXTEND 配置、references、脚本、技能日志或自动化任务；没有执行抓取，也没有生成或更新 Timeline 页面。草案中的新增字段与流程均未生效。
+- 验证：草案与索引表格、UTF-8、草案状态检查通过；技能目录排除浏览器运行数据后的所有文件与操作前哈希一致。全目录核对发现正在使用的浏览器缓存自行变化，仅记录该外部运行变化，未改写或回滚缓存。
+
+## 2026-10-20 · 为技能草案文件名标记首次创建日期
+
+- 操作：rename / link。
+- 修改依据：用户要求在文件名上标记第一次创建时间。
+- 重命名：`outputs/skill-design/cjw-xueqiu-daily-monitor-自动预处理与Timeline建页-技能说明草案.md` → `outputs/skill-design/2026-10-20-cjw-xueqiu-daily-monitor-自动预处理与Timeline建页-技能说明草案.md`。
+- 日期取自文档 created 属性，为 2026-10-20；后续修订保留该前缀。
+- 修改文件：index.md、log.md；草案正文逐字不变，现有技能未修改。
+- 导航：索引链接同步新路径；历史日志保留当时路径，本条记录其重命名关系。
+
 ## 2026-10-20 · BBXM 每日汇总统一按年月归档并维护引用
 
 - 操作：migrate / cleanup / link / validation。
@@ -32286,6 +32711,16 @@ refactor / rename / link
 - 完整测试边界：看板 Node 测试 206 项中 198 项通过、8 项失败；在库外还原本轮修改前代码和 HTML 后重跑，失败名称与数量相同，确认无新增失败。保留原有与本次整理无关的问题。
 - 原有缺失：[[sources/automations/战略资源/铜/2026-07-22-冰冰小美铜文章与铜产业报告对比分析|铜文章与产业报告对比分析]] 中仍有 15 处指向八个已缺失旧合集文件的双链；这些目标在整理前已不存在，未伪造替代资料。另一个旧状态记录引用的 `rerun-blocked-candidates-20260720-1613.json` 也在整理前缺失。均不属于本次迁移造成的引用损坏。
 - 修改前备份、逐文件映射及验证记录：`/var/folders/hh/5jrmgmsx377fsl_56cz7q13w0000gn/T/bbxm-monthly-20261020-xp3migsj/`。未提交或回退用户已有 Git 改动。
+
+## 2026-10-20 · 实施抓取后预处理与 Timeline 自动建页
+
+- 操作：implementation / configuration / validation。
+- 修改依据：用户批准 2026-10-20 技能草案，要求修改 cjw-xueqiu-daily-monitor，开启抓取后自动预处理和 Timeline 自动建页。
+- 修改文件：该技能的 SKILL.md、EXTEND.md、三个既有 references、content_task.py、task_store.py、test_content_task.py 和技能 log.md；index.md、技能设计文档状态、本日志。
+- 新增文件：该技能 references/timeline-processing.md、scripts/timeline_postprocess.py、scripts/tests/test_timeline_postprocess.py。
+- 说明：保存入口自动准备证据，Agent 完成原文阅读、历史比较及发布；默认开启既有主题增量更新与新主题自动建页，至少三个不同日期的完整节点才可建页。两个知识库独立路由，保留已有结构与人工正文；加入版本保存、候选持久化、双链及表格检查、并发冲突保护和失败重试。设计文档改为 implemented，保留首次创建日期文件名前缀；索引页面总数不变。
+- 验证：79 项技能测试通过（新增后处理测试 22 项），技能格式、Markdown 表格、UTF-8 和差异空白检查通过；正式 Wiki 与来源文件哈希对照无变化。
+- 执行边界：本次只实施技能并在临时目录验证，没有执行联网抓取、生成正式 Timeline 或修改调度任务。具体自动化任务的禁止项与输出约定仍优先，不能据技能默认值覆盖。
 
 ## 2026-10-20 · 清空旧Wiki并按主题时间线重整9—10月原文
 
@@ -32305,6 +32740,15 @@ refactor / rename / link
 - 检索状态：`QMD skipped: qmd CLI unavailable`。当前环境无可用QMD命令，未刷新其检索索引；Markdown与Obsidian文件已完成重建。
 - 执行临时区：`/var/folders/hh/5jrmgmsx377fsl_56cz7q13w0000gn/T/bbxm-wiki-rebuild-20261020-_f7qmc16/`。未提交、清理或回退用户原有Git改动。
 
+## 2026-10-20 · BBXM每日汇总自动运行（10-20 空结果日）
+
+- 操作：automation / bbxm-daily-brief。
+- 修改文件：[[sources/automations/BBXM每日汇总/_运行状态.md|_运行状态.md]]、`log.md`。
+- 新增文件：无（空结果日，日期文件已按规则清理）。
+- 资料来源：雪球 @冰冰小美 时间线 API（4 页 77 条）与主页 DOM all-visible 核验（30 条），双通道一致确认 2026-10-20 全天 0 帖，最新帖为 2026-10-19 19:29。
+- 说明：空风险清理完成——空心 risk-analysis.json → upsert_automated_risk.py → status=no_risk（未修改工作簿）；未写 `tools/a-share-market-dashboard/data/Risk/`，未调用 bbxm-html-report、未生成 HTML。未加载 bbxm-risk-identification（无可用对象）。发现 10-18、10-19 两天无运行记录：10-18 确无帖（时间线无 10-17/10-18 帖，另有 10-18 空 extract 残留文件待清理）；10-19 有 3 条帖子（14:10、15:04、19:29）未抓取，需按同日重跑补抓。以上已写入 _运行状态.md 备注与自动化记忆。
+
+
 ## 2026-10-21 · 恢复Wiki非时间线历史文档
 
 - 操作：restore / link / repair / encoding / validation。
@@ -32320,6 +32764,105 @@ refactor / rename / link
 - 检索状态：QMD skipped: qmd CLI unavailable；当前配置为不可用的Windows命令路径，未改写本机配置。
 - 备份与检查记录：`_archives/2026-10-21-wiki-partial-restore/`；修改前五篇时间线与根索引、日志、缓存、清单保存在pre-restore.zip。
 
+- [2026-10-21 10:35:44 +0800] QUERY query="老木匠看公募行业配置判断高低估这段话整理到哪个concept页面" result_pages=0 mode=normal escalated=true；全文核对后未发现该段进入正式概念页，原文位于2026-08-14直播整理稿第七节第2项；QMD CLI不可用。
+
+
+## 2026-10-21 · 新建老木匠公募行业配置概念页
+
+- 操作：ingest / link / index。
+- 修改依据：用户指定新建“微观-资金面-公募行业配置”，整理本轮提供的段落，并更新索引和双链；市场相关观察统一归微观。
+- 新增文件：[[wiki_laomujiang/concepts/微观-资金面-公募行业配置|微观-资金面-公募行业配置]]。
+- 修改文件：[[wiki_laomujiang/index|老木匠知识索引]]、[[wiki_laomujiang/concepts/微观-资金面-筹码结构|筹码结构]]、[[wiki_laomujiang/concepts/微观-indicator-风险源及传导|微观风险源及传导]]、[[hot|近期维护记录]]、`.manifest.json`、`log.md`。
+- 资料来源：[[sources/automations/老木匠每日汇总/2026-08-14 老木匠直播：AI的账、美元重置与「挺」字诀|8月14日整理稿]]第七节第2项为直接依据；[[sources/automations/老木匠每日汇总/2026-07-31 老木匠直播：波动代表分歧与熊市常识|7月31日整理稿]]第六节与[[sources/automations/老木匠每日汇总/2026-08-15 老木匠直播：忍住不买，就是能力|8月15日整理稿]]第二节第3项分别提供抱团激励和赎回约束背景，不算同一指标的独立复现。
+- 说明：按概念模板保留原段，整理工作定义、关键变量和核验清单；作者转述、整理者归纳与待验证边界分别标注。新页不生成source或sources属性；标签使用schema现有策略、功能与资产标签。配置高低不直接充当估值结论或买卖时点，行业配置归微观—资金面。
+- 导航与双链：老木匠库概念数由11更新为12，新页与筹码结构、微观风险源及传导双向关联，并链接独立索引与已有来源人物页。索引注明本次用户指定建页的单一直接依据，不将两份机制背景伪作重复验证。新页仅登记在所属知识库，主wiki页面计数315保留；来源清单新增三条库内来源记录。
+- 既有状态：老木匠四个主题文件在本次修改前已被删除，保留删除状态；索引说明当前文件缺失，不新增指向它们的链接。其他既有页面的历史缺链留待专项维护。
+- 检索状态：QMD skipped: qmd CLI unavailable；本机未安装可用qmd，已有配置为Windows路径，未修改配置。
+- 验证：6份Markdown表格检查通过；本轮新增的25处双链全部可解析，YAML、UTF-8与概念模板检查通过。老木匠库63份原始资料哈希全部不变；来源清单原有330条记录完整保留，新增3条记录哈希正确；概念计数12，主wiki计数315保持不变。
+
+
+## 2026-10-21 · 新建老木匠风险判断主题入口
+
+- 操作：topic / link / index。
+- 修改依据：用户要求新建“风险判断”topic，将风险累积状态相关概念链接到此处。
+- 新增文件：[[wiki_laomujiang/topics/风险判断|风险判断]]。
+- 修改文件：[[wiki_laomujiang/index|老木匠知识索引]]、[[wiki_laomujiang/concepts/微观-资金面-公募行业配置|公募行业配置]]、[[wiki_laomujiang/concepts/微观-资金面-筹码结构|筹码结构]]、[[wiki_laomujiang/concepts/微观-资金面-融资余额风险线|融资余额风险线]]、[[wiki_laomujiang/concepts/微观-情绪面-周期顶部四信号|周期顶部四信号]]、[[wiki_laomujiang/concepts/微观-indicator-风险源及传导|微观风险源及传导]]、[[hot|近期维护记录]]、`.manifest.json`、`log.md`。
+- 资料来源：上述五篇已有概念页及其库内来源；主题页提供公募配置、股东人数、融资余额与周期四信号的四个直接回源入口。
+- 说明：主题页按模板组织主题说明、核心概念、关键人物、相关时间线、重要资料和待补充问题。四项指标聚合为风险累积状态观察，风险源及传导提供状态、驱动因素与传导条件的核验入口；联读方法标明整理者归纳，保留经验判断与指标重叠边界，市场相关观察沿用微观分类。
+- 双链与导航：五个概念页仅新增主题回链并按需更新日期，原有正文保留；老木匠索引新增当前主题入口和相关属性，现有数量为1个主题、12个概念、4条时间线。四个已删除的历史主题文件保留原状态，新主题使用独立路径。
+- 清单与近期记录：更新既有8月14日来源记录的页面关联及清单维护时间，不新增来源；来源数333与主wiki页面数315保持不变。近期活动保留最近三次维护记录。
+- 检索状态：QMD skipped: qmd CLI unavailable；当前无可用本地qmd，未改写配置。
+- 验证：9份Markdown表格检查通过；新页字段、章节结构与UTF-8检查通过，本轮新增26处双链全部可解析，五个概念页均有主题回链且正文逐字不变。63份原始资料哈希不变，清单来源数量与其他来源记录保留；当前库1个主题、12个概念、4条时间线。
+
+
+## 2026-10-21 · 中证红利每日信号自动检查
+
+- 操作：automation / signal-check；automation ID：`automation`；完成核验时间：2026-10-21T12:10:10+08:00（Asia/Shanghai）。
+- 执行依据：[[.agents/automations/zzhl_dividend_signal|每日信号任务]]及[[.agents/skills/zzhl-dividend-signal/SKILL|zzhl-dividend-signal技能]]；使用既有专用Python环境，AKShare 1.19.1、pandas 3.0.6、openpyxl 3.1.5导入成功。运行前未发现同任务进程；主脚本退出码0，记录时间2026-10-21 12:07:55。
+- 修改文件：[[sources/automations/中证红利信号/中证红利每日信号.xlsx|每日信号Excel]]、[[sources/automations/中证红利信号/最新信号|最新信号]]、[[sources/automations/中证红利信号/中证红利年度表现.json|年度表现JSON]]、[[sources/automations/中证红利信号/评分记录.json|评分记录JSON]]、`log.md`；同步库外自动化运行记忆。未新增正式Wiki页面，未调整索引或页面计数。
+- 资料来源：AKShare `stock_zh_index_value_csindex(000922)`的`股息率2`、中证指数官网`index-perf(000922)`、AKShare `bond_zh_us_rate`、腾讯行情`sh000922`。估值接口再次读取确认列名和数值，未采集历史分位。
+- 本次结果：估值及国债日期均为2026-10-20；股息率2为4.18%（子分43.6000，C），中国10年国债收益率1.6354%，股债倍数2.5559496（子分80.4476，A）；综合46.5478078分、C级等待，按规则不买入。全年收益率0.5506%，年内最大回撤-15.9636%。
+- 策略核验：[[sources/automations/中证红利信号/策略参数.json|权威策略参数]]为`dividend-two-factor-v2-r5`；92%／8%权重、全部锚点、C40／B48／A65分界与Markdown、评分JSON快照一致，复算贡献及等级一致；配置文件字节未变。
+- 文件核验：三份固定输出及配套评分JSON均可读。Excel由105条增至106条，当天恰好一条、全部记录日期唯一，原105条逐项保留。评分JSON由409条增至410条，本次记录日期及估值日期／版本键唯一，其他评分记录保留。年度JSON代码000922、19年，2008-05-26至2026-10-20，月度字段保留。
+- 数据时点与缺口：腾讯实际日期2026-10-21，运行时涨跌幅-0.83%；当前尚未收盘，不称当日收盘信号，不用行情修正股息率。本次评分输入、日线与行情无缺项；已停用的历史分位字段不算待补项。
+- 历史核验边界：评分JSON按“估值日期＋策略版本”存在20个旧重复组、多出44条，全部为`legacy`记录，运行前后保持一致。本次没有增加重复，未执行历史去重；不得据本次核验称整个历史评分库已去重。
+- 保留边界：任务文件、技能说明与脚本、策略参数、索引及原有工作区改动保留；未创建或修改任何调度定义。
+- 核验副本与明细：`/Users/cjw/dev/Obsidian/wiki/.work/zzhl-dividend-signal/audit-20261021-120745-yc9lg36_`，含运行前四份输出与策略参数、运行前清单、验证结果、估值接口字段复核。Markdown表格与UTF-8检查结果见本条后续验证记录。
+
+- 最终验证（2026-10-21T12:10:41+08:00）：本轮3份Markdown表格检查通过；最新信号及新增日志／记忆内容UTF-8、替换字符和私用区检查通过；最终读回Excel仍为106条且当日唯一，原105条保留，r5策略及受保护文件未变。
+
+
+## 2026-10-21 · 新增Indicator类型与两项试点规范
+
+- 操作：schema / template / migrate / link / validation。
+- 修改依据：用户批准新增indicator页面类型、模板与相关规则，以公募行业配置、融资余额风险线为试点，同步风险判断主题、索引和双链。
+- 类型与规则：更新AGENTS.md、[[schema|Schema]]、[[page-types|页面类型规范]]、[[templates/README|模板索引]]、[[templates/topic-page-template|Topic模板]]和[[rules/concept-page-rules|Concept生成规则]]；新增[[templates/indicator-page-template|Indicator模板]]、[[rules/indicator-page-rules|指标生成与调用规则]]。正式类型从七类增至八类；两个知识库分别使用indicators目录，规范字段与通用输出契约集中在Schema，Topic新增related_indicators。
+- 试点规范：[[_archives/2026-10-21-indicator-rollback/indicators/微观-资金面-公募行业配置|公募行业配置]]、[[_archives/2026-10-21-indicator-rollback/indicators/微观-资金面-融资余额风险线|融资余额风险线]]，均为spec_version 1.0.0、validation_status draft；固定稳定标识、输入、读数字段、判定条件、异常处理和未运行JSON示例。公募配置不直接证明估值；两万亿元只保留为作者历史经验，口径和当前适用性未复核时不作自动阈值。
+- 原页保留：[[_archives/2026-10-21-indicator-pilot/README|试点迁移说明]]及两份原样快照；原concept路径改为status redirected的兼容入口，保留目标和归档双链，不再维护第二份有效规范。Obsidian可点击正文目标，Agent按redirect_to解析；快照不改写旧判断。
+- 双链与索引：更新[[wiki_laomujiang/topics/风险判断|风险判断]]、[[wiki_laomujiang/index|老木匠索引]]、[[wiki_laomujiang/concepts/微观-资金面-筹码结构|筹码结构]]、[[wiki_laomujiang/concepts/微观-indicator-风险源及传导|风险源及传导]]、[[wiki_laomujiang/timelines/买股票的老木匠-风险与市场位置判断演化|风险判断演化]]；主题现在分别登记2项指标和3个概念。保留修改前已有的主题正文删节，不重新添加其他章节。
+- 全局维护：根[[index|索引]]仅登记页面规范入口；[[hot|近期记录]]、`.manifest.json`同步现行规范路径。老木匠库有效知识为10个概念、2项指标、1个主题、4条时间线，另有2个旧路径兼容入口；主Wiki计数315、清单来源数333不变。原始sources资料不改写。
+- 检查工具：新增`rules/check_indicator_pages.py`及`rules/tests/test_indicator_pages.py`，只使用本地PyYAML和标准库，支持规范与运行结果检查，不新增联网调用、不自动安装依赖。检查不执行指标计算、证据真实性审查或有效性回测。
+- 验证：13项测试通过；两项规范通过检查；合法结果命令行检查通过，缺失数据却输出方向性信号的结果被拒绝。表格、双链、编码和原始资料完整性检查结果见本节后续验证记录。
+- 检索状态：QMD skipped: qmd CLI unavailable；未修改现有配置，文件更新已完成。
+- 终验：23份Markdown表格检查通过；85处本轮新增或迁移双链可解析，YAML与UTF-8通过。两份旧页原样归档核对通过，全部3238份sources文件哈希保持不变；两个指标的稳定标识唯一，旧路径可访问。未执行实时数据采集或有效性回测，两个试点维持draft。
+
+
+## 2026-10-21 · 红利信号内新增任务监控
+
+- 操作：feature / UI / monitoring / validation；记录时间2026-10-21T12:53:27+08:00。
+- 用户确认：只监控中证红利，在“查看 / 股息率回测”后加任务监控第三页签，查看页增加任务摘要；不新增一级侧栏入口。
+- 修改文件与完整清单：[[tools/a-share-market-dashboard/.impeccable/review/dividend-task-verification|实现与验证记录]]；包含前端入口／渲染／样式、本地只读接口、构建与产物、每日脚本监控接入、任务文件、技能说明／日志、三组测试及局部设计文档。
+- 新增能力：独立执行凭证、阶段、20秒心跳、结束／失败／耗时记录；同日补跑保留原失败；监控核验四份输出与9项业务条件，并区分产物已核验、真实执行成功、附属缺项、部分完成、明确失败、逾期未确认与状态待确认。历史开始／结束／耗时未记录时如实显示。
+- 当日事实：当前2026-10-21记录12:07:55，估值及国债2026-10-20，腾讯行情2026-10-21，r5参数；四份产物、9项核验通过。本轮开发未重跑每日任务、未改写既有信号或参数，也未创建／修改调度定义。
+- 本地运行：原49888主服务与49889辅助服务已加载新代码；可从红利信号进入监控，刷新只读本机，不执行任务或新增外网数据源。
+- 测试：37项技能Python、30项相关Node、9项相关看板Python通过；构建成功。全量Node202/209通过，7项失败均在修改前重新构建副本复现；看板Python111项有1个旧日报白名单404错误，也在修改前复现，未扩大修改无关功能。
+- UI验证：桌面1280px与390px iframe窄屏布局、三页签与摘要跳转、真实接口、逐项检查展开通过；独立reviewer唯一实质修复是摘要按钮44px触控高度，修复后该项resolved、ship；独立documenter提示的旧两页签文案已同步。机械检查的旧全站告警保留，未将其报告为全站通过。
+- 索引：没有新增正式Wiki页面，index.md及页面计数保持；测试与截图属于工具维护工件。
+
+- 最终检查（2026-10-21T12:54:56+08:00）：构建与37项技能Python、30项相关Node、监控API测试通过；10份Markdown表格检查通过，新增代码／文档UTF-8检查通过。实际49888监控接口四文件／9项检查通过；四份业务输出及策略参数SHA256与开发核验基线一致。临时预览服务已清理，主／辅助服务运行中。
+
+## 2026-10-21 · 红利任务监控改用状态组件
+
+- 操作：UI / distill / validation；记录时间：2026-10-21T14:46:23+08:00。
+- 用户要求：将截图中的文字概览换成常用任务监测组件。沿用蓝灰白视觉，仅调整任务概览、刷新提示及其轮询表现。
+- 变更：状态徽标、四步步骤条、真实校验分段进度、来源日期标签；长说明与原始错误保留在运行详情，读屏反馈保留。历史缺执行凭证时前三步显示灰色未记录，仅实际产物核验显示完成。
+- 修改文件与截图：[[tools/a-share-market-dashboard/.impeccable/review/task-status-components-verification|状态组件实现与验证记录]]；包括局部前端模块／样式／页面／更新记录、测试、构建产物与设计文档。
+- 验证：相关Node25项通过，构建成功；桌面1280px与390px iframe响应预览无新增遮挡，实际详情展开及刷新保留通过。独立Impeccable最终审查ship、当前范围无实质问题；单次扫描新增范围29项均为advisory，没有新增non-advisory，未扩大修复旧全站问题。
+- 边界：四份信号输出及策略参数SHA256保持；未重跑每日信号，未改后端、技能或调度。临时窄屏预览服务／标签已关闭，保留主任务页。没有新增正式Wiki页面，索引和计数保持。
+
+
+## 2026-10-21 · 回退公募行业配置与融资余额风险线两项试点
+
+- 操作：rollback / archive / link / validation。
+- 用户指令：仅回退公募行业配置、融资余额风险线两项试点；indicator类型与模板暂保留，冰冰小美五页整理继续暂停。
+- 恢复页面：[[wiki_laomujiang/concepts/微观-资金面-公募行业配置|公募行业配置]]、[[wiki_laomujiang/concepts/微观-资金面-融资余额风险线|融资余额风险线]]，从迁移前原样归档恢复为type concept、status active，原路径不再是跳转入口。
+- 新增归档：[[_archives/2026-10-21-indicator-rollback/README|回退说明]]及indicators目录中的两份试点规范原样副本；保留试点新增内容供追溯，不再登记为现行规范。
+- 修改文件：[[wiki_laomujiang/index|老木匠索引]]、[[wiki_laomujiang/topics/风险判断|风险判断]]、[[wiki_laomujiang/concepts/微观-资金面-筹码结构|筹码结构]]、[[wiki_laomujiang/concepts/微观-indicator-风险源及传导|风险源及传导]]、[[wiki_laomujiang/timelines/买股票的老木匠-风险与市场位置判断演化|风险判断演化]]、`.manifest.json`、[[hot|近期记录]]、[[page-types|页面类型命名示例]]、原试点归档说明及`rules/tests/test_indicator_pages.py`。
+- 索引与双链：两项恢复登记到概念入口，风险判断主题合并为概念观察表；老木匠库为12个概念、1个主题、4条时间线，无活动indicator规范。历史日志和迁移说明中的试点规范链接指向归档，原始来源及历史正文保留。
+- 检查工具：指标测试改用归档样例，不再依赖活动知识页；未调整模板、Schema、指标生成规则或检查器的行为。
+- 验证：14份Markdown表格检查、13项指标契约测试通过；两份归档规范仍可通过格式检查，不代表当前启用或指标有效性得到验证。两篇恢复稿与迁移前原稿逐字节一致，两份试点归档与回退前文件逐字节一致。3569份受保护文件哈希不变，覆盖原始sources、主Wiki、全部模板和未调整的规则；清单统计不变。新增或改写链接可解析，恢复稿及历史记录中的既有缺链保持原状；UTF-8可读且未引入替换字符或私用区字符，日志中既有字符未作无关清理。
+
+
 ## 2026-10-21 — 修复后台 Chrome 自动化启动隔离
 
 - 操作：repair / browser-automation。
@@ -32332,3 +32875,31 @@ refactor / rename / link
 - 索引：只补工具隔离入口，没有新增正式 Wiki 页面，页面计数不变。
 - 修改前备份：/var/folders/hh/5jrmgmsx377fsl_56cz7q13w0000gn/T/chrome-automation-launcher-backup-mixwmc4j。
 - 后续使用：首次抓取可能需要在独立浏览器重新登录；本轮未执行抓取、未变更调度。
+
+
+## 2026-10-21 — 美债属性查询
+
+- 操作：query；仅追加本查询记录，未新增知识页，索引无需变更。
+- 资料来源：[[sources/automations/老木匠每日汇总/2026-08-18 老木匠直播：美债的买家换了，逻辑就变了|8月18日美债直播整理稿]]；核对[[wiki_laomujiang/timelines/买股票的老木匠-利率与流动性判断演化|利率与流动性判断演化]]相关段落。
+- 说明：区分美债的流动性、美元购买力暴露、收益性、信用及价格风险与储备用途；作者的买家结构归因不作为已独立核验事实。
+- [2026-10-21T15:18:17+08:00] QUERY query="根据8月18日文章总结美债属性，购买力与流动性是否属于属性" result_pages=2 mode=normal escalated=false；QMD CLI不可用，直接读取指定来源及相关段落。
+
+## 2026-10-21 · RiskHot 核心驱动变量术语统一
+
+- 操作：documentation / terminology / verification。
+- 修改文件：RiskHot 业务架构、功能设计、表结构说明、原型及源文件、验证结果、截图、项目索引与日志；知识库根索引中的 RiskHot V4 条目。范围见 [[tools/RiskHot/log#2026-10-21 · 核心驱动变量术语统一|RiskHot 维护记录]]。
+- 新增文件：无；正式 Wiki 页面计数不变。
+- 资料来源：用户本轮术语统一要求。
+- 说明：统一中文业务名称为“核心驱动变量”，保留技术标识与引用契约；重新生成 V4 离线 HTML 和 11 张截图。
+- 验证：47 项原型交互检查、标题与导航术语核对，以及 390／320 像素无横向溢出检查通过。
+- 最终检查：17 个 Markdown 文件表格检查、术语遗漏、UTF-8、脚本语法及差异格式检查通过。
+
+
+## 2026-10-21 · 提交并同步远程
+
+- 操作：commit / sync / validation。
+- 资料来源：用户要求提交并推送当前工作区改动。
+- 提交范围：当前知识库目录迁移与归档、页面规则和模板、索引与日志、雪球内容处理、红利信号与看板、RiskHot 文档及已有运行产物。
+- 本轮修改：修正[[wiki_laomujiang/concepts/微观-基本面-产能出清|产能出清]]表格中一处双链显示名分隔符转义；追加本记录。未新增正式知识页，索引计数无需变更。
+- 验证：490份新增或修改的Markdown表格检查通过；指标契约13项、红利脚本37项测试通过。雪球81项测试中2项启动测试失败，报profile兼容性无法验证；看板Python 111项中1项文件服务测试返回404；前端212项中7项断言失败。未将本次同步宣称为全量测试通过，未扩大修改业务代码。
+- 提交前检查：未发现常见私钥或访问令牌特征；确认当前分支为main、上游为origin/main。推送状态以实际Git执行结果为准。

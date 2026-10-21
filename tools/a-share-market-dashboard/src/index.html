@@ -31,7 +31,7 @@
             <div class="tree-children" id="tree-strategy" hidden>
             <button class="nav-item" type="button" data-view="fugui-strategy"><span>01</span>富贵策略</button>
             <button class="nav-item" type="button" data-view="xiaomei-strategy"><span>02</span>小美策略</button>
-            <button class="nav-item" type="button" data-view="dividend-management-view"><span>03</span>红利管理</button>
+            <button class="nav-item" type="button" data-view="dividend-management-view"><span>03</span>股息率回测</button>
             </div>
           </section>
           <section class="tree-group" data-tree-group="industry">
@@ -191,8 +191,10 @@
       <section class="view" id="dividend-signal-view" data-shell-content="thermometer" aria-label="红利信号">
         <nav class="dividend-page-nav" aria-label="红利信号页面">
           <button type="button" data-dividend-view="dividend-signal-view" aria-current="page">查看</button>
-          <button type="button" data-dividend-view="dividend-management-view">管理</button>
+          <button type="button" data-dividend-view="dividend-management-view">股息率回测</button>
+          <button type="button" data-dividend-view="dividend-task-monitor-view">任务监控</button>
         </nav>
+        <div id="dividend-task-summary" aria-live="polite"></div>
         <div id="dividend-signal-detail"></div>
         <details class="dividend-history-disclosure" open><summary>年度收益与历史统计 <span>展开查看长期表现和对照指数</span></summary><div class="dividend-history-body">
         <div id="dividend-annual-detail"></div>
@@ -200,10 +202,22 @@
         </div></details>
       </section>
 
+      <section class="view" id="dividend-task-monitor-view" data-shell-content="thermometer" aria-label="中证红利任务监控">
+        <nav class="dividend-page-nav" aria-label="红利信号页面">
+          <button type="button" data-dividend-view="dividend-signal-view">查看</button>
+          <button type="button" data-dividend-view="dividend-management-view">股息率回测</button>
+          <button type="button" data-dividend-view="dividend-task-monitor-view" aria-current="page">任务监控</button>
+        </nav>
+        <div class="task-monitor-toolbar"><span class="task-auto-refresh" title="页面可见时每30秒读取本地任务状态"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M6.1 7a7 7 0 0 1 11.5-1L20 9M4 15l2.4 3a7 7 0 0 0 11.5-1"/></svg><span>自动刷新</span><span>30s</span></span><button type="button" class="button-secondary" id="refresh-dividend-task">刷新状态</button></div>
+        <p id="dividend-task-fetch-status" class="sr-only" role="status" aria-live="polite"></p>
+        <div id="dividend-task-monitor-content" aria-busy="false"></div>
+      </section>
+
       <section class="view" id="dividend-management-view" data-shell-content="strategy" aria-label="红利信号管理">
         <nav class="dividend-page-nav" aria-label="红利信号页面">
           <button type="button" data-dividend-view="dividend-signal-view">查看</button>
-          <button type="button" data-dividend-view="dividend-management-view" aria-current="page">管理</button>
+          <button type="button" data-dividend-view="dividend-management-view" aria-current="page">股息率回测</button>
+          <button type="button" data-dividend-view="dividend-task-monitor-view">任务监控</button>
         </nav>
         <div class="dividend-detail-layout">
           <div id="dividend-management-detail"></div>
