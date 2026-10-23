@@ -6,7 +6,9 @@
   const globalHeader = document.querySelector('.topbar, .r-top, .top');
   if (!globalHeader) return;
   globalHeader.classList.add('unified-top-row');
-  let globalTools = globalHeader.querySelector('#page-tools');
+  let globalTools = globalHeader.dataset?.toolsTarget
+    ? document.querySelector(globalHeader.dataset.toolsTarget)
+    : globalHeader.querySelector('#page-tools');
   if (!globalTools) {
     globalTools = document.createElement('div');
     globalTools.className = 'unified-tools';
@@ -65,7 +67,7 @@
     }
   }
   function move(element) {
-    if (moved.has(element) || element.closest('.unified-tools')) return;
+    if (moved.has(element) || element.closest('.unified-tools, [data-local-actions]')) return;
     const home = document.createComment('original action position');
     element.before(home);
     bindForms(element);
@@ -86,7 +88,12 @@
     }
     for (const [element, home] of moved) {
       const target = destination(home);
-      if (target && element.parentElement !== target) target.append(element);
+      if (target && element.parentElement !== target) {
+        const active = document.activeElement;
+        const restoreFocus = active && element.contains(active);
+        target.append(element);
+        if (restoreFocus) active.focus({ preventScroll: true });
+      }
     }
   }
   const observer = new MutationObserver(sync);

@@ -6,6 +6,7 @@ import { renderIndexDayChart } from './index-day-chart.mjs';
 import { findBbxmDigestGroups } from './bbxm-digest-files.mjs';
 import { parseCsindexPerformance } from '../src/adapters.mjs';
 import { backtestDate } from '../src/dividend-backtest.mjs';
+import { parseNasdaqEtfHistory } from '../src/app.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const repoRoot = join(root, '..', '..');
@@ -13,7 +14,7 @@ const sourceDir = join(root, 'src');
 const dataDir = join(root, 'data');
 const marketOverviewDataDir = join(dataDir, '市场总览');
 const outputPath = join(root, 'a-share-market-dashboard.html');
-const moduleOrder = ['core.mjs', 'adapters.mjs', 'data-service.mjs', 'risk-state.mjs', 'risk-indicators.mjs', 'risk-screen.mjs', 'dividend-scoring.mjs', 'dividend-backtest.mjs', 'dividend-bollinger.mjs', 'dividend-task-monitor.mjs', 'app.mjs'];
+const moduleOrder = ['core.mjs', 'adapters.mjs', 'data-service.mjs', 'risk-state.mjs', 'risk-indicators.mjs', 'risk-screen.mjs', 'dividend-scoring.mjs', 'dividend-backtest.mjs', 'dividend-bollinger.mjs', 'dividend-task-monitor.mjs', 'startup-checks.mjs', 'app.mjs'];
 const automationsDir = join(repoRoot, 'sources', 'automations');
 const topicsDir = join(repoRoot, 'wiki', 'topics');
 const dividendStrategy = JSON.parse(await readFile(join(repoRoot, '.agents', 'skills', 'zzhl-dividend-signal', 'strategy-v2.json'), 'utf8'));
@@ -1125,7 +1126,8 @@ const [template, styles, changelogSource, eventCalendarSource, ...modules] = awa
   readFile(join(marketOverviewDataDir, 'event-calendar.json'), 'utf8'),
   ...moduleOrder.map(filename => readFile(join(sourceDir, filename), 'utf8')),
 ]);
-const nasdaqEtfAnchor = JSON.parse(await readOptionalSnapshot('nasdaq-etf-anchor.json') ?? '{}');
+const nasdaqEtfHistory = JSON.parse(await readOptionalSnapshot('nasdaq-etf-history.json') ?? 'null');
+const nasdaqEtfSnapshot = nasdaqEtfHistory ? parseNasdaqEtfHistory(nasdaqEtfHistory) : {};
 const industries = await Promise.all(industryDefinitions.map(scanIndustryReports));
 const indexDayStatistics = await readFile(join(repoRoot, 'sources', 'assets', '2026-09-11-index-day-distribution', 'yearly.csv'), 'utf8');
 const nasdaqDayStatistics = await readOptionalSnapshot('nasdaq-day-statistics.csv');
@@ -1173,7 +1175,7 @@ const bundle = modules
       ? source.replace(/^import.*dividendDefaults.*$/m, `const dividendDefaults = ${JSON.stringify(dividendStrategy)};`)
       : moduleOrder[index] === 'app.mjs'
       ? source
-        .replace('  // NASDAQ_ETF_ANCHOR', JSON.stringify(nasdaqEtfAnchor).slice(1, -1))
+        .replace('  // NASDAQ_ETF_SNAPSHOT', JSON.stringify(nasdaqEtfSnapshot).slice(1, -1))
         .replace('  // STOCK_REPORT_LINKS', stockReportLinks)
         .replace('  // STOCK_THREE_FACTOR_REPORT_LINKS', stockThreeFactorReportLinks)
         .replace('  // DAILY_MONITOR_LINKS', dailyMonitorData.mapSource)

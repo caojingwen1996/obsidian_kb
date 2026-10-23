@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-22T08:57:49.110770+00:00",
+  "title": "Design System: RiskHot 流水线全景",
+  "extensions": {
+    "motion": [
+      {
+        "name": "control-transition",
+        "value": "150ms ease-out",
+        "purpose": "共用控件背景、边框与文字色过渡。"
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "vertical-flow",
+        "value": "760px"
+      },
+      {
+        "name": "bottom-navigation",
+        "value": "900px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Layer Navigation",
+      "kind": "nav",
+      "description": "定位与滚动同步当前业务层。",
+      "html": "<nav class=\"ds-nav\"><button aria-current=\"location\">L0</button><button>L1</button><button>L2</button></nav>",
+      "css": ".ds-nav{display:flex;gap:4px;background:#fff;padding:8px}.ds-nav button{min-width:44px;min-height:44px;border:1px solid #dfe5df;border-radius:7px;background:#fff;color:#295c47;font:13px \"PingFang SC\",\"Microsoft YaHei\",sans-serif}.ds-nav button[aria-current]{background:#295c47;color:#fff}.ds-nav button:hover{background:#e8f0e9;color:#295c47}.ds-nav button:focus-visible{outline:2px solid #295c47;outline-offset:-3px}"
+    },
+    {
+      "name": "Business Layer",
+      "kind": "custom",
+      "description": "一级业务层标题与职责；原生独立折叠。",
+      "html": "<details class=\"ds-layer\" open><summary><b>L0 · 信息接入与事件管理</b><small>接入可追溯资料，形成事件与指标事实数据</small></summary><div>F01 · 信息接入</div></details>",
+      "css": ".ds-layer{border:1px solid #dfe5df;border-radius:12px;background:#fff;color:#22352e;font-family:\"PingFang SC\",\"Microsoft YaHei\",sans-serif}.ds-layer summary{min-height:64px;padding:12px 16px;background:#f0f4ee;border-radius:12px;cursor:pointer}.ds-layer b{font-size:16px;line-height:1.5}.ds-layer small{display:block;margin-top:4px;font-size:12px;line-height:1.65;color:#58675e}.ds-layer div{padding:12px;font-size:14px}.ds-layer summary:hover{background:#e8f0e9}.ds-layer summary:focus-visible{outline:2px solid #295c47;outline-offset:-3px}",
+      "refersTo": "layer-header"
+    },
+    {
+      "name": "Collapsed Module",
+      "kind": "card",
+      "description": "默认收起的F模块卡头。",
+      "html": "<details class=\"ds-module\"><summary>F01 · 信息接入</summary><div>展开后阅读具体业务动作</div></details>",
+      "css": ".ds-module{border:1px solid #dfe5df;border-radius:8px;overflow:clip;color:#22352e;font-family:\"PingFang SC\",\"Microsoft YaHei\",sans-serif}.ds-module summary{display:flex;align-items:center;min-height:48px;padding:8px 12px;box-sizing:border-box;background:#f7f8f5;font-size:14px;font-weight:600;cursor:pointer}.ds-module div{padding:16px 12px;font-size:12px}.ds-module summary:hover{background:#e8f0e9}.ds-module summary:focus-visible{outline:2px solid #295c47;outline-offset:-3px}",
+      "refersTo": "module-collapsed"
+    },
+    {
+      "name": "Program Node",
+      "kind": "button",
+      "description": "程序业务动作；保留真实Step和执行角色。",
+      "html": "<button class=\"ds-program\"><b>Step 2 · 采集、补录与版本保存</b><small>程序 · 形成可追溯的资料与指标版本</small></button>",
+      "css": ".ds-program{width:100%;min-height:44px;text-align:left;border:1px solid #cad7c8;border-radius:8px;padding:12px;background:#e8f0f7;color:#365f7c;font-family:\"PingFang SC\",\"Microsoft YaHei\",sans-serif;cursor:pointer}.ds-program b{font-size:14px;font-weight:600}.ds-program small{display:block;font-size:12px;margin-top:4px}.ds-program:hover{border-color:#295c47}.ds-program:focus-visible{outline:2px solid #295c47;outline-offset:-3px}.ds-program:active{outline:2px solid #295c47}",
+      "refersTo": "node-program"
+    },
+    {
+      "name": "AI Node",
+      "kind": "button",
+      "description": "固定AI任务的只读节点选择。",
+      "html": "<button class=\"ds-ai\"><b>AI分析任务</b><small>AI · 固定任务版本与五标签详情</small></button>",
+      "css": ".ds-ai{width:100%;min-height:44px;text-align:left;border:1px solid #cad7c8;border-radius:8px;padding:12px;background:#eee8ff;color:#624392;font-family:\"PingFang SC\",\"Microsoft YaHei\",sans-serif;cursor:pointer}.ds-ai b{font-size:14px;font-weight:600}.ds-ai small{display:block;font-size:12px;margin-top:4px}.ds-ai:hover{border-color:#295c47}.ds-ai:focus-visible{outline:2px solid #295c47;outline-offset:-3px}.ds-ai:active{outline:2px solid #295c47}",
+      "refersTo": "node-ai"
+    },
+    {
+      "name": "Conditional Path",
+      "kind": "custom",
+      "description": "路径容器不占Step，交付目标保留层与模块限定。",
+      "html": "<section class=\"ds-path\"><b>路径 A · 资讯 / 公告 / 报告</b><p>按输入类型分流</p><button>交付 L0 / F02 · 事件管理</button></section>",
+      "css": ".ds-path{padding:12px;border:1px dashed #cad7c8;border-radius:12px;background:#fff;color:#22352e;font:12px/1.65 \"PingFang SC\",\"Microsoft YaHei\",sans-serif}.ds-path b{color:#295c47}.ds-path p{margin:4px 0 12px;color:#58675e}.ds-path button{min-height:44px;border:0;background:transparent;color:#295c47;font:inherit;text-align:left;cursor:pointer}.ds-path button:hover{text-decoration:underline}.ds-path button:focus-visible{outline:2px solid #295c47;outline-offset:-3px}",
+      "refersTo": "conditional-path"
+    }
+  ],
+  "narrative": {
+    "northStar": "清晰分层的治理工作台",
+    "overview": "沿用共用UI的深绿导航、暖灰画布与白色工作面，以业务层、功能模块、真实动作、条件路径建立阅读层次。角色配色说明执行主体，结构与编号说明流程职责，详情与来源承接可追溯阅读。\n\n本次全景原型已按[[tools/RiskHot/docs/system-design/06产品UI原型设计/06-1-流水线全景ui设计/04.RiskHot 流水线节点视觉与编号规范|节点视觉与编号规范]]实施。规范原稿的“建议稿（待评审）”状态保留；原型落地不代表正式业务批准。以下现行契约覆盖历史的“12px弱化层标签、模块15px、规范尚未实施”说明；后文历史章节保留原日期与原结论。C01继续遵循其现行策略编排规范。",
+    "keyCharacteristics": [
+      "一级业务层容器承载二级模块，真实动作与路径各有语义。",
+      "深绿负责导航，角色配色与文字共同说明执行职责。",
+      "展示编号独立于稳定业务身份，跨层引用可定位可追溯。"
+    ],
+    "rules": [
+      {
+        "name": "The Layer Hierarchy Rule",
+        "body": "业务层标题高于模块标题，模块高于动作说明；历史弱化层标签不再作为现行全景样式。",
+        "section": "typography"
+      }
+    ],
+    "dos": [
+      "Do 以业务层、模块、动作、路径的顺序组织阅读层次。",
+      "Do 为判断出口写出条件，跨层引用保留层、模块与稳定节点ID。",
+      "Do 同时提供颜色、图标或角色文字及可见键盘焦点。"
+    ],
+    "donts": [
+      "Don't 将起点、纯交接、结束或路径容器计入Step。",
+      "Don't 将F07、F08或M画成不存在的串行执行链。",
+      "Don't 用展示编号替换稳定节点身份或改变固定AI版本。"
+    ]
+  }
+}

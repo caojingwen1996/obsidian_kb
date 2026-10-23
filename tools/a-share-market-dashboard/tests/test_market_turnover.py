@@ -1,9 +1,17 @@
 from datetime import datetime, timezone, timedelta
+import json
+import os
+from pathlib import Path
+from tempfile import TemporaryDirectory
+from threading import Thread
+from types import SimpleNamespace
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock, patch
+from urllib.error import HTTPError
+from urllib.request import urlopen
 
-from scripts.local_proxy import fetch_market_turnover, UpstreamError
-from tushare_client import validate_params, TushareClientError
+from scripts.local_proxy import create_server, fetch_market_turnover, UpstreamError
+from tushare_client import RowsFrame, validate_params, TushareClientError
 
 
 class FakeClient:
@@ -63,3 +71,76 @@ class MarketTurnoverTests(unittest.TestCase):
             with self.assertRaises(UpstreamError) as caught:
                 fetch_market_turnover(FakeClient({}), self.now())
         self.assertEqual(caught.exception.source, "tushare-permission")
+
+    def test_missing_dependency_has_a_distinct_error(self):
+        error = TushareClientError("tushare", "package missing")
+        error.__cause__ = ImportError("tushare")
+        with patch.object(FakeClient, "call", side_effect=error):
+            with self.assertRaises(UpstreamError) as caught:
+                fetch_market_turnover(FakeClient({}), self.now())
+        self.assertEqual(caught.exception.source, "tushare-dependency")
+
+    def test_missing_token_is_classified_before_calling_provider(self):
+        with patch("tushare_client.resolve_token", side_effect=TushareClientError("tushare-token")):
+            with self.assertRaises(UpstreamError) as caught:
+                fetch_market_turnover(now=self.now())
+        self.assertEqual(caught.exception.source, "tushare-token")
+
+    def test_reuses_dashboard_env_without_process_environment(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            dashboard = root / "dashboard"
+            dashboard.mkdir()
+            (dashboard / ".env").write_text("TUSHARE_TOKEN=test-only-credential\n", encoding="utf-8")
+            provider = Mock()
+            provider.daily_info.side_effect = lambda **params: RowsFrame([
+                {"ts_code": params["ts_code"], "trade_date": "20260903", "amount": 100}
+            ])
+            pro_api = Mock(return_value=provider)
+            with patch.dict(os.environ, {}, clear=True), \
+                 patch("scripts.local_proxy.__file__", str(dashboard / "scripts" / "local_proxy.py")), \
+                 patch("tushare_client.TUSHARE_DATA_DIR", root / "shared"), \
+                 patch("tushare_client.REPO_ROOT", root), \
+                 patch.dict("sys.modules", {"tushare": SimpleNamespace(pro_api=pro_api)}), \
+                 patch("tushare_client._read_cache", return_value=None), \
+                 patch("tushare_client._write_cache"), \
+                 patch("scripts.local_proxy.write_proxy_log"):
+                data = fetch_market_turnover(now=self.now())
+            self.assertEqual(data["points"], [{"date": "2026-09-03", "amount": 200}])
+            pro_api.assert_called_once_with("test-only-credential")
+
+    def test_route_explains_failures_logs_source_and_survives_next_request(self):
+        server = create_server(port=0)
+        thread = Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+        url = f"http://127.0.0.1:{server.server_address[1]}/api/market-turnover"
+        try:
+            for source, status, hint in (
+                ("tushare-token", 503, "TUSHARE_TOKEN"),
+                ("tushare-dependency", 503, "依赖"),
+                ("tushare-permission", 503, "daily_info"),
+                ("market-turnover-empty", 502, "沪深"),
+                ("tushare", 502, "取数失败"),
+            ):
+                with self.subTest(source=source), \
+                     patch("scripts.local_proxy.fetch_market_turnover", side_effect=UpstreamError(source)), \
+                     patch("scripts.local_proxy.write_proxy_log") as logger:
+                    with self.assertRaises(HTTPError) as caught:
+                        urlopen(url, timeout=3)
+                    with caught.exception as response:
+                        payload = json.load(response)
+                        self.assertEqual(response.code, status)
+                    self.assertEqual(payload["source"], source)
+                    self.assertIn(hint, payload["error"])
+                    logger.assert_called_once_with("UPSTREAM_FAIL", route="/api/market-turnover", source=source)
+            expected = fetch_market_turnover(FakeClient({code: [
+                {"ts_code": code, "trade_date": "20260903", "amount": 100}
+            ] for code in ("SH_MARKET", "SZ_MARKET")}), self.now())
+            with patch("scripts.local_proxy.fetch_market_turnover", return_value=expected):
+                with urlopen(url, timeout=3) as response:
+                    self.assertEqual(response.status, 200)
+                    self.assertEqual(json.load(response), expected)
+        finally:
+            server.shutdown()
+            server.server_close()
+            thread.join(timeout=3)

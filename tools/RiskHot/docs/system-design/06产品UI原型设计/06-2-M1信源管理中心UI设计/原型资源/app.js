@@ -12,7 +12,7 @@ const D = {
  functions:{label:'信息功能',values:{RAW_DATA:'原始数据',POLICY:'政策',EVENT:'事件',ANALYSIS:'观点分析'}},
  status:{label:'业务状态',values:{ACTIVE:'启用',DISABLED:'停用'}}
 };
-const V = {all:{name:'全部',rule:'全部信源 · 平铺显示',keys:[]},verify:{name:'事实核验',rule:'信源等级 → 来源类别',keys:['tier','category']},monitor:{name:'日常监测',rule:'关注优先级 → 监测频率 → 信源等级',keys:['priority','frequency','tier']},research:{name:'专题研究',rule:'金融属性 → 观察层级 → 关注优先级',keys:['dims','levels','priority']}};
+const V = {all:{name:'全部',rule:'全部信源 · 平铺显示',keys:[]},verify:{name:'信源等级',rule:'信源等级 → 来源类别',keys:['tier','category']},monitor:{name:'日常监测',rule:'关注优先级 → 监测频率 → 信源等级',keys:['priority','frequency','tier']},research:{name:'专题研究',rule:'金融属性 → 观察层级 → 关注优先级',keys:['dims','levels','priority']}};
 // 六维为独立演示配置；不依据正文、优先级或等级推导其他维度。
 const overrides = {
  'wiki-source-001':{dims:['QUANTITY','PRICE','FLOW'],levels:['MACRO'],priority:'CORE',frequency:'MONTHLY',functions:['POLICY','RAW_DATA']},
@@ -38,7 +38,7 @@ function samples(){
  });
 }
 let records=samples();
-const context = () => ({query:'',filters:{tier:[],dims:[],levels:[],priority:[],frequency:[],status:[]},view:'research',selected:null,collapsed:new Set(),limit:12});
+const context = () => ({query:'',filters:{tier:[],dims:[],levels:[],priority:[],frequency:[],status:[]},view:'research',selected:null,collapsed:new Set()});
 const state={directory:context(),role:'both',scene:'normal',tab:'archive'};
 let edit=null,operation=null,pending=null,toastTimer,returnToDetail=false;
 const ctx = () => state.directory;
@@ -81,17 +81,16 @@ function groupHTML(rows,keys,path='',depth=0){
  return [...groups].sort(([a],[b])=>{const ai=order.indexOf(a),bi=order.indexOf(b);return (ai<0?999:ai)-(bi<0?999:bi);}).map(([v,xs])=>{const id=path+key+':'+v,closed=ctx().collapsed.has(id);const contentId='branch-'+encodeURIComponent(id),kind=D[key]?.label||'来源类别';return `<div class="group-node" data-depth="${depth}"><button class="group-head" data-group="${esc(id)}" aria-expanded="${!closed}" aria-controls="${contentId}"><span class="group-label"><span class="group-chevron" aria-hidden="true">${closed?'›':'⌄'}</span><span class="group-type">${esc(kind)}</span><strong>${esc(label(key,v))}</strong></span><small>${xs.length}</small></button><div id="${contentId}" class="group-children" role="group" aria-label="${esc(kind+'：'+label(key,v))}" ${closed?'hidden':''}>${groupHTML(xs,keys.slice(1),id+'/',depth+1)}</div></div>`;}).join('');
 }
 function renderList(){
- const list=filtered(),visible=list.slice(0,ctx().limit);
+ const list=filtered();
  $('result-count').textContent=state.scene==='denied'?'无读取权限':state.scene==='error'?'读取失败':state.scene==='loading'?'正在加载':`${list.length} 个来源 · 去重总数`;
  let chips=[];for(const [k,vals] of Object.entries(ctx().filters)){const count=$('filter-count-'+k);if(count)count.textContent=vals.length?` · ${vals.length}`:'';for(const v of vals)chips.push(`<button class="filter-chip" data-remove-filter="${k}" data-value="${v}">${D[k].label}：${esc(label(k,v))} ×</button>`);}
- $('active-filters').innerHTML=chips.join('')||'未设置筛选';$('load-more').innerHTML='';
+ $('active-filters').innerHTML=chips.join('')||'未设置筛选';
  if(state.scene==='loading'){$('list').innerHTML='<div class="skeleton"></div><div class="skeleton"></div><p class="empty">正在读取来源… <button class="quiet" data-action="retry">结束加载演示</button></p>';return;}
  if(['error','denied'].includes(state.scene)){$('list').innerHTML=`<div class="empty"><h3>${state.scene==='error'?'暂时无法读取信源':'当前账号无读取权限'}</h3><p>${state.scene==='error'?'搜索与筛选条件已保留。':'此场景不显示信源资料。'}</p><button class="secondary" data-action="retry">${state.scene==='error'?'重试':'返回正常预览'}</button></div>`;return;}
  const offline=state.scene==='offline'?'<p class="notice warning">离线演示：以下是上次读取的示例资料，只可查看，禁止保存及启停。</p>':'';
  if(!list.length){const has=ctx().query||Object.values(ctx().filters).some(x=>x.length);$('list').innerHTML=offline+`<div class="empty"><h3>${has?'暂无符合条件的信源':'信源目录暂无条目'}</h3><p>${has?'试试移除部分条件。':'可切换场景查看示例资料。'}</p><button class="secondary" data-action="clear">${has?'清空条件':'返回正常预览'}</button></div>`;return;}
- if(ctx().view==='all')$('list').innerHTML=offline+visible.map(rowHTML).join('');
- else {const main=visible.filter(x=>x.tier!=='AUX'),aux=visible.filter(x=>x.tier==='AUX');$('list').innerHTML=offline+groupHTML(main,V[ctx().view].keys)+(aux.length?`<button class="group-head" data-group="aux" aria-expanded="${!ctx().collapsed.has('aux')}"><span>辅助入口 · 逐序列回源</span><small>${aux.length}</small></button><div ${ctx().collapsed.has('aux')?'hidden':''}>${aux.map(rowHTML).join('')}</div>`:'');}
- if(list.length>ctx().limit)$('load-more').innerHTML=`<div class="load-area"><button class="secondary" data-action="load-more">加载更多（已显示 ${visible.length}／${list.length}）</button></div>`;
+ if(ctx().view==='all')$('list').innerHTML=offline+list.map(rowHTML).join('');
+ else {const main=list.filter(x=>x.tier!=='AUX'),aux=list.filter(x=>x.tier==='AUX');$('list').innerHTML=offline+groupHTML(main,V[ctx().view].keys)+(aux.length?`<button class="group-head" data-group="aux" aria-expanded="${!ctx().collapsed.has('aux')}"><span>辅助入口 · 逐序列回源</span><small>${aux.length}</small></button><div ${ctx().collapsed.has('aux')?'hidden':''}>${aux.map(rowHTML).join('')}</div>`:'');}
 }
 function sourceArchive(x){
  const sections=[['身份',pairs([['信源身份',`<span class="mono">${esc(x.id)}</span>`],['发布主体',esc(x.publisher)],['转载主体',esc(x.reposter||'不适用')],['来源类别',esc(x.category)],['渠道',esc(x.channel)]])],['分类',pairs([['信源等级',tags('tier',x.tier)],['金融属性',tags('dims',x.dims)],['观察层级',tags('levels',x.levels)],['信息功能',tags('functions',x.functions)]])],['监测配置',pairs([['优先级',esc(label('priority',x.priority))],['监测频率',esc(label('frequency',x.frequency))]])+'<small>业务检查偏好，不等于采集任务时间表。</small>'],['信息内容',`<p>${esc(x.description||'待补充')}</p>`+pairs([['资料类型',esc(x.material)],['允许范围',esc(x.scope)],['接入方式',x.mode==='manual'?'人工':'自动']])],['观察用途与口径',pairs([['观察用途',esc(x.purpose)],['口径注意',esc(x.caliber)]])],['来源入口与依据',pairs([['来源定位',safeLink(x.locator)],...(x.verifyLocator?[['核验入口',safeLink(x.verifyLocator)]]:[]),['身份依据',esc(x.basis||'待补充')],['核验材料',esc(x.basisRef||'待补充')],['核验时间',esc(x.verified||'暂无核验记录')],['创建时间',esc(x.created)],['修改时间',esc(x.updated)]])]];
@@ -160,12 +159,12 @@ function finishOperation(x){const restoring=operation?.target==='ACTIVE';$('oper
 function queryResult(){if(!pending)return;const p=pending,x=byId(p.id);if(p.kind==='save')finishSave(x,p.isNew);else finishOperation(x);}
 function closeOperation(){if(pending){toast('请先查询最新状态，再关闭结果窗口。');return;}$('operation').close();operation=null;restoreDetail();}
 function viewHistory(index,side){const x=selected(),h=x.history[index],s=h[side];$('history-title').textContent='历史版本 v'+s.version+' · 只读';$('history-body').innerHTML=`<p class="mono">${esc(s.id)} · ${esc(s.code)}</p><p class="notice">${esc(s.name)} · 当时状态：${label('status',s.status)}</p>${sourceArchive(s)}<section><h3>当时引用</h3>${relationsContent(s,true)}</section>`;showModal('history');}
-function clearFilters(){ctx().query='';for(const k in ctx().filters)ctx().filters[k]=[];ctx().limit=12;if(state.scene==='empty')state.scene=$('scene').value='normal';render();}
+function clearFilters(){ctx().query='';for(const k in ctx().filters)ctx().filters[k]=[];if(state.scene==='empty')state.scene=$('scene').value='normal';render();}
 $('filters').addEventListener('toggle',e=>{if(e.target.tagName==='DETAILS'&&e.target.open){for(const d of $('filters').querySelectorAll('details'))if(d!==e.target)d.open=false;}},true);
 document.addEventListener('pointerdown',e=>{if(!e.target.closest('#filters'))$('filters').querySelectorAll('details[open]').forEach(d=>d.open=false);});
-$('search-form').addEventListener('submit',e=>{e.preventDefault();ctx().query=$('search').value;ctx().limit=12;renderList();renderDetail();});
+$('search-form').addEventListener('submit',e=>{e.preventDefault();ctx().query=$('search').value;renderList();renderDetail();});
 $('search').addEventListener('search',()=>{ctx().query=$('search').value;renderList();renderDetail();});
-$('filters').addEventListener('change',e=>{if(!e.target.dataset.filter)return;const key=e.target.dataset.filter;ctx().filters[key]=[...$('filters').querySelectorAll(`[data-filter="${key}"]:checked`)].map(x=>x.value);ctx().limit=12;renderList();renderDetail();});
+$('filters').addEventListener('change',e=>{if(!e.target.dataset.filter)return;const key=e.target.dataset.filter;ctx().filters[key]=[...$('filters').querySelectorAll(`[data-filter="${key}"]:checked`)].map(x=>x.value);renderList();renderDetail();});
 $('edit-form').addEventListener('submit',e=>{e.preventDefault();saveEditor();});
 $('edit-form').addEventListener('input',()=>{if(edit){edit.dirty=true;edit.draft=readDraft();updateImpact();}});
 $('check-duplicate').addEventListener('click',()=>{duplicateCheck();$('duplicate').scrollIntoView({block:'start'});});
@@ -186,7 +185,6 @@ document.addEventListener('click',e=>{
  if(b.dataset.removeFilter){ctx().filters[b.dataset.removeFilter]=ctx().filters[b.dataset.removeFilter].filter(x=>x!==b.dataset.value);render();return;}
  const action=b.dataset.action;
  if(action==='close-filter'){const d=b.closest('details');d.open=false;d.querySelector('summary').focus();}
- if(action==='load-more'){ctx().limit+=12;renderList();}
  if(action==='expand-all'){ctx().collapsed.clear();renderList();}
  if(action==='collapse-all'){document.querySelectorAll('[data-group]').forEach(g=>ctx().collapsed.add(g.dataset.group));renderList();}
  if(action==='clear')clearFilters();

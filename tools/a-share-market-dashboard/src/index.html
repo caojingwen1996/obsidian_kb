@@ -6,8 +6,19 @@
   <title>温度计</title>
   <!-- DASHBOARD_STYLES -->
 </head>
-<body>
-  <div class="app-shell">
+<body class="is-starting">
+  <section class="startup-screen" id="startup-screen" aria-labelledby="startup-heading" tabindex="-1">
+    <div class="startup-panel">
+      <header class="startup-header"><h1 id="startup-heading" aria-label="市场面板启动检查">market_dashboard.init</h1><span id="startup-status">初始化中...</span></header>
+      <ol class="startup-checks" id="startup-checks" aria-label="启动检查日志" aria-busy="true"><li class="startup-check is-loading"><strong class="startup-check-label">初始化市场面板...</strong><p><span class="startup-check-state" aria-label="检查中">[··]</span><span class="startup-check-detail">正在载入检查程序…</span></p></li></ol>
+      <footer class="startup-footer">
+        <p id="startup-summary" role="status" aria-live="polite">正在准备检查…</p>
+        <div class="startup-actions"><button class="button-secondary" id="startup-retry" type="button" hidden>重新检查</button><button class="button-secondary" id="startup-enter" type="button">先进入面板</button></div>
+      </footer>
+      <noscript><p>需要启用 JavaScript 才能检查数据和使用面板。启用后请重新加载页面。</p></noscript>
+    </div>
+  </section>
+  <div class="app-shell" id="dashboard-shell" hidden inert>
     <aside class="sidebar" id="sidebar">
       <div class="brand">
         <span class="brand-mark">A</span>
@@ -128,6 +139,11 @@
           </div>
           <div class="event-calendar-list" id="event-calendar-list"></div>
         </section>
+
+        <details class="dividend-source-disclosure market-source-disclosure" id="market-source-disclosure">
+          <summary>数据来源与验证边界</summary>
+          <div class="dividend-source-body" id="market-source-content"><p>正在核对数据来源…</p></div>
+        </details>
 
         <div class="hero-grid is-render-target" hidden>
           <article class="score-card">

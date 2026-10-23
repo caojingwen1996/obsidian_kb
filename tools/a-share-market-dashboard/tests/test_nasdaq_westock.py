@@ -1,4 +1,6 @@
 import sys
+import json
+import subprocess
 import unittest
 from pathlib import Path
 from types import SimpleNamespace
@@ -35,6 +37,31 @@ class WeStockNasdaqTests(unittest.TestCase):
 
     def test_primary_failure_uses_yahoo(self):
         with patch("nasdaq_westock.fetch_chart", side_effect=ValueError("missing")), \
+             patch("local_proxy.fetch_yahoo_nasdaq100_snapshot", return_value={"data": {}}) as fallback:
+            result = fetch_nasdaq100_snapshot()
+        fallback.assert_called_once()
+        self.assertIn("备用", result["data"]["quoteNote"])
+
+    def test_package_launch_loads_primary_without_scripts_on_sys_path(self):
+        chart = fetch_chart("node", runner=self.runner)
+        code = '''
+import json, sys
+from unittest.mock import patch
+from scripts.local_proxy import fetch_nasdaq100_snapshot
+chart = json.loads(sys.stdin.read())
+with patch("scripts.nasdaq_westock.fetch_chart", return_value=chart), \\
+     patch("scripts.local_proxy.fetch_yahoo_nasdaq100_snapshot", side_effect=AssertionError("unexpected fallback")):
+    result = fetch_nasdaq100_snapshot()
+assert "westock" in result["proxySource"]
+assert result["data"]["currentPoint"] == 110
+'''
+        result = subprocess.run([sys.executable, "-c", code], input=json.dumps(chart),
+                                cwd=Path(__file__).resolve().parents[1], capture_output=True,
+                                text=True, timeout=10)
+        self.assertEqual(result.returncode, 0, result.stderr)
+
+    def test_import_failure_uses_existing_fallback(self):
+        with patch("nasdaq_westock.fetch_chart", side_effect=ImportError("dependency missing")), \
              patch("local_proxy.fetch_yahoo_nasdaq100_snapshot", return_value={"data": {}}) as fallback:
             result = fetch_nasdaq100_snapshot()
         fallback.assert_called_once()

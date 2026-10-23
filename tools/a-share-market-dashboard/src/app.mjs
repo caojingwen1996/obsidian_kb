@@ -7,6 +7,7 @@ import { initRiskSourceScreen, updateRiskSourceScreen } from './risk-screen.mjs'
 import { dividendWorkbookPayload, runDividendBacktest, backtestDate, dividendEntryDate } from './dividend-backtest.mjs';
 import { calculateDividendWeeklyBollinger, loadDividendBollingerHistory, mergeDividendIndexHistory } from './dividend-bollinger.mjs';
 import { renderDividendTaskMonitor, renderDividendTaskSummary } from './dividend-task-monitor.mjs';
+import { createStartupScreen } from './startup-checks.mjs';
 import {
   BASE_WEIGHTS,
   calculateGreedMetrics,
@@ -59,8 +60,8 @@ const FUGUI_STRATEGY_RULES = Object.freeze({
 });
 const YOUZHIYOUXING_TEMPERATURE_URL = 'https://youzhiyouxing.cn/data';
 const NASDAQ100_SOURCE_URL = 'https://finance.yahoo.com/quote/%5ENDX/';
-const NASDAQ_ETF_ANCHOR = {
-  // NASDAQ_ETF_ANCHOR
+const NASDAQ_ETF_SNAPSHOT = {
+  // NASDAQ_ETF_SNAPSHOT
 };
 export const NASDAQ_GRID_LEVELS = Object.freeze([
   Object.freeze({ level: 1, drawdownPercent: -9, assumedPrice: 91, multiplier: 1 }),
@@ -78,22 +79,27 @@ export function parseMarketTurnover(payload) {
       || !validDate(payload.today) || !validDate(payload.startDate)) throw new Error('成交额口径或日期无效');
   const byDate = new Map();
   for (const point of payload.points ?? []) {
-    if (validDate(point?.date) && point.date >= payload.startDate && point.date <= payload.today
+    if (validDate(point?.date) && point.date >= payload.startDate && point.date < payload.today
         && typeof point.amount === 'number' && Number.isFinite(point.amount) && point.amount > 0) {
       byDate.set(point.date, point);
     }
   }
   const points = [...byDate.values()].sort((a, b) => a.date.localeCompare(b.date));
-  if (!points.length) throw new Error('暂无有效的沪深合计数据');
+  if (!points.length) throw new Error('截至前一天暂无有效的沪深合计数据');
   return { ...payload, points };
 }
 
-export function renderMarketTurnoverCard(entry = { status: 'loading' }, today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Shanghai' }).format(new Date())) {
+export function marketTurnoverRequestError(payload, status) {
+  return typeof payload?.error === 'string' && payload.error.trim()
+    ? payload.error
+    : `成交额加载失败：HTTP ${status}`;
+}
+
+export function renderMarketTurnoverCard(entry = { status: 'loading' }) {
   const heading = '<div><h2 id="market-turnover-heading">每日成交额</h2><small>沪深两市 · 含 A/B 股 · 亿元</small></div>';
   if (!entry.data) return `${heading}<p role="status">${entry.status === 'loading' ? '正在加载近一年数据…' : '成交额待验证'}</p><small>${escapeHtml(entry.error ?? '')}</small>`;
   const { points, incompleteDays = 0 } = entry.data;
   const latest = points.at(-1);
-  const current = points.find(point => point.date === today);
   const high = points.reduce((a, b) => a.amount >= b.amount ? a : b);
   const low = points.reduce((a, b) => a.amount <= b.amount ? a : b);
   const ceiling = high.amount * 1.05;
@@ -101,7 +107,7 @@ export function renderMarketTurnoverCard(entry = { status: 'loading' }, today = 
   const y = amount => 82 - amount / ceiling * 74;
   const path = points.map((point, index) => `${index ? 'L' : 'M'}${x(index).toFixed(2)},${y(point.amount).toFixed(2)}`).join(' ');
   return `${heading}
-    <div class="turnover-current"><small>今日成交额 · ${escapeHtml(today)}</small><strong>${current ? formatNumber(current.amount, 2) : '待更新'}</strong><small>${current ? '已发布日度统计' : `日度数据尚未发布 · 最近 ${latest.date}：${formatNumber(latest.amount, 2)}`}</small></div>
+    <div class="turnover-current"><small>最近交易日成交额 · ${escapeHtml(latest.date)}</small><strong>${formatNumber(latest.amount, 2)}</strong><small>截至前一天 · 已发布日度统计</small></div>
     <figure class="turnover-chart">
       <svg viewBox="0 0 300 88" role="img" aria-label="近一年沪深股票成交额曲线，单位亿元，纵轴从零开始">
         <title>近一年成交额：${points[0].date} 至 ${latest.date}，${points.length} 个交易日</title>
@@ -345,6 +351,38 @@ function escapeHtml(value) {
   return String(value ?? '').replace(/[&<>'"]/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[character]);
 }
 
+export function renderMarketSourceDetails(state = {}, derived = {}) {
+  const statusText = entry => {
+    const status = { loading: '正在读取', latest: '读取成功', snapshot: '本地快照', expired: '缓存已过期', example: '示例数据', missing: '读取失败' }[entry?.status] ?? '尚未读取';
+    const errors = [entry?.error, ...(entry?.errors ?? [])].filter(Boolean).join('；');
+    return `${status}${entry?.data && entry.status === 'missing' ? '，保留上次结果' : ''}${errors ? `：${errors}` : ''}`;
+  };
+  const row = (label, source, date, status, note = '', url = '') => {
+    const link = /^https?:\/\//i.test(url) ? ` · <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">查看来源</a>` : '';
+    return `<li><strong>${escapeHtml(label)}</strong>：${escapeHtml(source || '来源待确认')}；数据日期：${escapeHtml(date || '待确认')}；${escapeHtml(status)}${note ? `。${escapeHtml(note)}` : ''}${link}</li>`;
+  };
+  const temperature = state.youzhiyouxingTemperature;
+  const nasdaq = state.nasdaq100;
+  const turnover = state.marketTurnover;
+  const signal = state.dividendSignal;
+  const rows = [
+    row('有知有行温度计', temperature?.proxySource || '有知有行公开温度计', temperature?.data?.updatedText,
+      statusText(temperature), '沿用来源页面的更新时间，不代表实时行情。', temperature?.sourceUrl),
+    row('中证红利信号', signal?.sourceNote, signal ? `股息率 ${signal.indexDate || '待确认'} / 国债 ${signal.bondDate || '待确认'}` : '',
+      signal ? '本地信号记录' : '暂无信号记录', '股债利差由股息率2减去10年国债收益率计算；详细口径及原始Excel见中证红利页面。'),
+    row('纳斯达克100', nasdaq?.proxySource, nasdaq?.data?.marketDate || nasdaq?.data?.updatedText,
+      statusText(nasdaq), [nasdaq?.data?.valuationNote, nasdaq?.data?.dailyMetricsNote].filter(Boolean).join('；') || '点位按来源交易日展示；未提供的估值字段保持缺失。', nasdaq?.data?.sourceUrl || nasdaq?.sourceUrl),
+    row('沪深每日成交额', turnover?.data?.source, turnover?.data?.points?.at(-1)?.date,
+      statusText(turnover), `沪深股票，含A/B股，单位亿元；采用已发布日度统计，不代表盘中实时成交额。${turnover?.data?.incompleteDays ? `已排除 ${turnover.data.incompleteDays} 日缺少单边数据的记录。` : ''}`, turnover?.data?.sourceUrl),
+    ...[['融资余额', 'margin'], ['美国10年国债收益率', 'usTreasury10y'], ['美元指数', 'usDollarIndex'], ['美元兑日元', 'usdJpy']].map(([label, key]) => {
+      const entry = derived[key];
+      return row(label, entry?.source, entry?.data?.at(-1)?.date, statusText(entry));
+    }),
+    row('每日跟踪与事件日历', '本地归档：BBXM每日汇总；data/市场总览/event-calendar.json', '', '本地内容', '文章按归档日期、事件按计划日期展示；不代表实时行情或事件已经发生。'),
+  ];
+  return `<ul>${rows.join('')}</ul><p>风险等级是页面规则判断：美债10年收益率高于4.5%、美元指数高于100或美元兑日元达到160时提示高风险，其余情况暂空。示例、缓存、缺失数据均按上方状态披露；暂空不代表低风险。各来源更新节奏和交易日可能不同。</p>`;
+}
+
 function formatNumber(value, digits = 1) {
   return Number.isFinite(value) ? new Intl.NumberFormat('zh-CN', { maximumFractionDigits: digits }).format(value) : '—';
 }
@@ -375,38 +413,27 @@ export function parseNasdaqEtfHistory(payload, now = new Date()) {
   if (!Array.isArray(rows) || !rows.length) throw new Error('ETF 历史行情为空');
   const chinaTime = new Date(now.getTime() + 8 * 60 * 60 * 1000);
   const today = chinaTime.toISOString().slice(0, 10);
-  const completedRows = rows.filter(row => String(row).slice(0, 10) < today || (String(row).slice(0, 10) === today && chinaTime.getUTCHours() >= 15));
-  if (!completedRows.length) throw new Error('ETF 已收盘日线为空');
-  const points = completedRows.map(row => {
+  const points = rows.filter(row => String(row).slice(0, 10) <= today).map(row => {
     const [date, , close, high] = String(row).split(',');
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !(Number(close) > 0) || !Number.isFinite(Number(high)) || Number(high) < Number(close)) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !Number.isFinite(Date.parse(date)) || new Date(date).toISOString().slice(0, 10) !== date
+        || !Number.isFinite(Number(close)) || !(Number(close) > 0) || !Number.isFinite(Number(high)) || Number(high) < Number(close)) {
       throw new Error('ETF 历史行情不完整，无法确定前高');
     }
     return { date, close: Number(close), high: Number(high) };
   }).sort((a, b) => a.date.localeCompare(b.date));
+  const completedPoints = points.filter(point => point.date < today || chinaTime.getUTCHours() >= 15);
+  if (!completedPoints.length) throw new Error('ETF 已收盘日线为空');
   const peak = points.reduce((best, point) => point.high >= best.high ? point : best);
-  const latest = points.at(-1);
+  const latest = completedPoints.at(-1);
   return {
     highPrice: peak.high,
     highDate: peak.date,
     close: latest.close,
     date: latest.date,
     startDate: points[0].date,
+    endDate: points.at(-1).date,
     drawdownPercent: (latest.close / peak.high - 1) * 100,
     source: payload.proxySource || '东方财富',
-  };
-}
-
-export function applyNasdaqEtfAnchor(data, anchor) {
-  if (!(Number.isFinite(anchor?.highPrice) && anchor.highPrice > 0)) throw new Error('固定前高缺失');
-  return {
-    ...data,
-    highPrice: anchor.highPrice,
-    highDate: anchor.highDate,
-    startDate: anchor.startDate,
-    anchorEndDate: anchor.anchorEndDate || anchor.date,
-    source: anchor.source,
-    drawdownPercent: (data.close / anchor.highPrice - 1) * 100,
   };
 }
 
@@ -1677,7 +1704,7 @@ export function renderNasdaqGridStrategy(envelope, unitAmount) {
   const updatedText = `${escapeHtml(data?.date)} 收盘 ¥${data?.close?.toFixed(3) ?? '—'}`;
   return {
     referenceText: highPrice > 0
-      ? `广发纳指100ETF（159941） · 固定前高 ¥${highPrice.toFixed(3)}（${data.highDate}） · ${data.source}前复权日线，日内最高价；样本 ${data.startDate} 至 ${data.anchorEndDate || data.date}，前高已保存，不随刷新变化。${envelope?.status !== 'latest' ? `最新收盘待验证（${envelope?.error || '正在读取'}），固定参考价仍可用。` : ''}买入参考价向下取至 0.001 元，触发状态按 ETF 最新日线收盘价判断，非实时成交信号。`
+      ? `广发纳指100ETF（159941） · 动态前高 ¥${highPrice.toFixed(3)}（${data.highDate}） · ${data.source}前复权日线，日内最高价；样本 ${data.startDate} 至 ${data.endDate || data.date}。每次行情刷新重新计算前高，含当日盘中最高价；本页可见时每分钟刷新。${envelope?.status !== 'latest' ? `沿用上次计算结果，最新行情待验证（${envelope?.error || (envelope?.status === 'loading' ? '正在读取' : '本地快照')}）。` : ''}买入参考价向下取至 0.001 元，回撤及触发状态按 ETF 最新已收盘日线判断。`
       : `广发纳指100ETF（159941） · ${envelope?.status === 'loading' ? '正在读取 ETF 前高与日线行情…' : envelope?.error || 'ETF 前高待验证'}，买入参考价待验证。`,
     summaryHtml: `<article><small>ETF 收盘回撤</small><strong>${drawdown === null ? '待验证' : `${drawdown.toFixed(2)}%`}</strong><span>${drawdown === null ? '尚未取得 ETF 行情' : updatedText}</span></article>
       <article><small>下一档</small><strong>${nextText}</strong><span>${plan.nextLevel ? `本档计划 ${formatGridMoney(plan.nextLevel.levelAmount)}` : '等待新策略条件'}</span></article>
@@ -2288,6 +2315,8 @@ export function shouldApplyPortfolioLoad(requestVersion, currentVersion) {
 }
 
 function startApp() {
+  const startup = createStartupScreen();
+  let startingUp = true;
   initRiskSourceScreen();
   let dividendTaskPayload = null;
   let dividendTaskError = '';
@@ -2443,7 +2472,8 @@ function startApp() {
     busy: false,
     youzhiyouxingTemperature: { status: 'loading', sourceUrl: YOUZHIYOUXING_TEMPERATURE_URL },
     nasdaq100: { status: 'loading', sourceUrl: NASDAQ100_SOURCE_URL },
-    nasdaqEtf: { status: 'loading', data: NASDAQ_ETF_ANCHOR },
+    marketTurnover: { status: 'loading' },
+    nasdaqEtf: { status: 'snapshot', data: NASDAQ_ETF_SNAPSHOT },
     dividendSignal: CSI_DIVIDEND_SCORE_PAYLOAD?.latest ? signalFromDividendPayload(CSI_DIVIDEND_SCORE_PAYLOAD) : CSI_DIVIDEND_SIGNAL,
     dividendPayload: CSI_DIVIDEND_SCORE_PAYLOAD,
     dividendIndexHistory: CSI_DIVIDEND_INDEX_HISTORY ?? [],
@@ -3964,8 +3994,14 @@ function startApp() {
     }
   }
 
+  const renderMarketSources = (derived = deriveDashboard(state.snapshot, state.windowYears)) => {
+    const content = document.getElementById('market-source-content');
+    if (content) content.innerHTML = renderMarketSourceDetails(state, derived);
+  };
+
   const render = () => {
     const derived = deriveDashboard(state.snapshot, state.windowYears);
+    renderMarketSources(derived);
     renderDerived(derived, state.youzhiyouxingTemperature, state.nasdaq100, state.dividendSignal, { strategy: dividendDraftStrategy, storageNotice: dividendStorageNotice, yieldHistory: state.dividendYieldHistory, indexHistory: state.dividendIndexHistory, indexStatus: state.dividendIndexStatus, indexError: state.dividendIndexError, indexHistoryMeta: state.dividendIndexHistoryMeta, dailyOptions: { ready: Boolean(dividendDailySettings), notice: dividendDailyNotice } });
     updateDividendParameterValidation();
     const grid = renderNasdaqGridStrategy(state.nasdaqEtf, nasdaqGridUnitAmount);
@@ -4047,18 +4083,22 @@ function startApp() {
   const loadMarketTurnover = async () => {
     if (marketTurnoverLoading) return;
     marketTurnoverLoading = true;
-    turnoverCard.innerHTML = renderMarketTurnoverCard({ status: 'loading', data: marketTurnoverData });
+    state.marketTurnover = { status: 'loading', data: marketTurnoverData };
+    turnoverCard.innerHTML = renderMarketTurnoverCard(state.marketTurnover);
+    renderMarketSources();
     try {
       if (!isLocalProxyLocation()) throw new Error('请通过本地看板服务读取');
       const response = await fetch(buildLocalProxyUrl('/api/market-turnover'), { cache: 'no-store', signal: AbortSignal.timeout(60_000) });
       const payload = await response.json();
-      if (!response.ok) throw new Error(`${payload.source ?? '数据源'}：HTTP ${response.status}`);
+      if (!response.ok) throw new Error(marketTurnoverRequestError(payload, response.status));
       marketTurnoverData = parseMarketTurnover(payload);
-      turnoverCard.innerHTML = renderMarketTurnoverCard({ status: 'latest', data: marketTurnoverData });
+      state.marketTurnover = { status: 'latest', data: marketTurnoverData };
     } catch (error) {
-      turnoverCard.innerHTML = renderMarketTurnoverCard({ status: 'missing', data: marketTurnoverData, error: error instanceof Error ? error.message : String(error) });
+      state.marketTurnover = { status: 'missing', data: marketTurnoverData, error: error instanceof Error ? error.message : String(error) };
     } finally {
       marketTurnoverLoading = false;
+      turnoverCard.innerHTML = renderMarketTurnoverCard(state.marketTurnover);
+      renderMarketSources();
     }
   };
   turnoverCard.addEventListener('input', event => {
@@ -4079,21 +4119,22 @@ function startApp() {
   const loadNasdaqEtf = async () => {
     if (nasdaqEtfLoading) return;
     nasdaqEtfLoading = true;
-    state.nasdaqEtf = { status: 'loading', data: NASDAQ_ETF_ANCHOR };
+    const previousData = state.nasdaqEtf.data;
+    state.nasdaqEtf = { status: 'loading', data: previousData };
     render();
     try {
       if (!isLocalProxyLocation()) throw new Error('请通过本地看板服务读取 ETF 行情');
-      const payload = await fetchJson(buildLocalProxyUrl('/api/eastmoney-kline', { secid: '0.159941', limit: 250 }), requestTimeout());
-      state.nasdaqEtf = { status: 'latest', data: applyNasdaqEtfAnchor(parseNasdaqEtfHistory(payload), NASDAQ_ETF_ANCHOR) };
+      const payload = await fetchJson(buildLocalProxyUrl('/api/eastmoney-kline', { secid: '0.159941', limit: 4000 }), 60_000);
+      state.nasdaqEtf = { status: 'latest', data: parseNasdaqEtfHistory(payload) };
     } catch (error) {
-      state.nasdaqEtf = { status: 'missing', data: NASDAQ_ETF_ANCHOR, error: `ETF 行情读取失败：${error instanceof Error ? error.message : String(error)}` };
+      state.nasdaqEtf = { status: 'missing', data: previousData, error: `ETF 行情读取失败：${error instanceof Error ? error.message : String(error)}` };
     } finally {
       nasdaqEtfLoading = false;
       render();
     }
   };
 
-  const refreshLive = async (domainIds = null) => {
+  const refreshLive = async (domainIds = null, reportProgress = () => {}) => {
     if (state.busy) return;
     state.busy = true;
     refreshButton.disabled = true;
@@ -4120,6 +4161,7 @@ function startApp() {
         now: Date.now,
         concurrency: definitions.length,
         onProgress: ({ id, result, completed, total }) => {
+          reportProgress(`已核对 ${completed} / ${total} 项；${labels[id] ?? id}：${STATUS_LABELS[result.status] ?? '待验证'}`);
           pending.delete(id);
           domains[id] = result;
           const timedOut = result.errors.some(error => /timed out|timeout|aborted/i.test(error));
@@ -4771,10 +4813,10 @@ function startApp() {
     pageTitle.textContent = (viewId === 'dividend-management-view' ? '股息率回测' : labelForView(button)) || (viewId === 'nasdaq-grid-view' ? '纳斯达克网格策略' : pageTitle.textContent);
     if (['dividend-signal-view', 'dividend-task-monitor-view'].includes(viewId)) refreshDividendTaskMonitor();
     if (viewId === 'risk-monitor') refreshRiskMarginChart();
-    if (viewId === 'nasdaq-grid-view' && state.nasdaqEtf.status !== 'latest') loadNasdaqEtf();
+    if (viewId === 'nasdaq-grid-view' && !startingUp) loadNasdaqEtf();
     if (viewId === 'review-diary-view' && !reviewDiariesLoaded) refreshReviewDiaries();
     if (viewId === 'position-manager') refreshTodoList();
-    if (['market-summary', 'dividend-signal-view', 'dividend-management-view'].includes(viewId)) {
+    if (!startingUp && ['market-summary', 'dividend-signal-view', 'dividend-management-view'].includes(viewId)) {
       const refreshed = refreshDividendSignalFromSource();
       if (viewId === 'dividend-signal-view') refreshed.finally(() => refreshDividendIndexHistory());
     }
@@ -5313,13 +5355,55 @@ function startApp() {
   renderTrackingItems();
   refreshTrackingQuotes();
   loadProxyPortfolio();
-  refreshDailyDividendSettings();
-  refreshDividendSignalFromSource();
-  loadYouzhiyouxingTemperature();
-  loadNasdaq100();
-  refreshLive();
-  loadMarketTurnover();
+  const checkEntry = (entry, detail, valid = true) => entry?.status === 'latest' && !valid
+    ? { status: 'failed', detail: '返回数据缺少有效数值，请进入面板核对数据来源。' }
+    : { status: entry?.status === 'latest' ? 'passed' : entry?.data ? 'warning' : 'failed', detail: entry?.status === 'latest' ? detail : entry?.error || '仅有本地快照，最新数据待验证。' };
+  startup.run([
+    { id: 'service', label: '本地面板服务', run: async () => {
+      if (!isLocalProxyLocation()) throw new Error('请通过“启动面板.command”或“启动面板.cmd”打开本地面板。');
+      const health = await fetchJson(buildLocalProxyUrl('/health'), 5_000);
+      if (health?.ok !== true) throw new Error('本地服务未通过连接检查。');
+      return { status: 'passed', detail: '本地服务连接正常。' };
+    } },
+    { id: 'settings', label: '浏览器设置与界面', run: () => ({ status: dividendPersistentStorage ? 'passed' : 'warning', detail: dividendPersistentStorage ? '本地设置可读写，面板界面已初始化。' : '仅保留本次会话；浏览器设置无法持久保存。' }) },
+    { id: 'market', label: '市场数据与风险指标', run: async report => {
+      await refreshLive(null, report);
+      const domains = Object.values(state.snapshot.domains ?? {});
+      const latest = domains.filter(entry => entry.status === 'latest').length;
+      const issues = ['snapshot', 'expired', 'missing', 'example'].map(status => {
+        const count = domains.filter(entry => entry.status === status).length;
+        return count ? `${STATUS_LABELS[status]} ${count} 项` : '';
+      }).filter(Boolean);
+      return { status: state.snapshot.mode === 'live' && latest === domains.length && domains.length > 0 ? 'passed' : 'warning', detail: state.snapshot.mode === 'live' ? `${latest} / ${domains.length} 项最新数据${issues.length ? `；${issues.join('、')}` : '，已重算指标。'}` : '真实市场数据未取得，当前为示例数据。' };
+    } },
+    { id: 'temperature', label: '有知有行市场温度计', run: async () => {
+      await loadYouzhiyouxingTemperature();
+      const value = state.youzhiyouxingTemperature.data?.temperature;
+      return checkEntry(state.youzhiyouxingTemperature, `读取成功；${state.youzhiyouxingTemperature.data?.updatedText || '来源未标注更新时间'}。`, Number.isFinite(value) && value >= 0 && value <= 100);
+    } },
+    { id: 'dividend', label: '中证红利信号与策略', run: async () => {
+      const [signal] = await Promise.all([refreshDividendSignalFromSource(), refreshDailyDividendSettings()]);
+      const date = signal?.recordDate || signal?.indexDate || state.dividendSignal?.recordDate || state.dividendSignal?.indexDate;
+      return { status: signal && dividendDailySettings ? 'passed' : 'warning', detail: signal ? `信号日期 ${date || '待确认'}；${dividendDailySettings ? '策略配置已读取。' : dividendDailyNotice}` : `最新信号读取失败${date ? `，保留 ${date} 的本地记录` : ''}；请进入红利页面核对。` };
+    } },
+    { id: 'nasdaq', label: '纳斯达克100行情', run: async () => {
+      await loadNasdaq100();
+      const value = state.nasdaq100.data?.currentPoint;
+      return checkEntry(state.nasdaq100, `${state.nasdaq100.proxySource || '行情已读取'}；${state.nasdaq100.data?.marketDate || state.nasdaq100.data?.updatedText || '日期待确认'}。`, Number.isFinite(value) && value > 0);
+    } },
+    { id: 'etf', label: 'ETF动态前高与七档计划', run: async () => {
+      await loadNasdaqEtf();
+      return checkEntry(state.nasdaqEtf, `前高 ¥${state.nasdaqEtf.data?.highPrice?.toFixed(3) ?? '待确认'}；七档参考价已重算。`);
+    } },
+    { id: 'turnover', label: '沪深每日成交额', run: async () => {
+      await loadMarketTurnover();
+      return checkEntry(state.marketTurnover, `Tushare；最近交易日 ${state.marketTurnover.data?.points?.at(-1)?.date || '待确认'}。`);
+    } },
+  ]).catch(error => startup.fail(error)).finally(() => { startingUp = false; });
   setInterval(loadMarketTurnover, 300_000);
+  setInterval(() => {
+    if (!document.hidden && document.getElementById('nasdaq-grid-view').classList.contains('is-active')) loadNasdaqEtf();
+  }, 60_000);
   setInterval(() => {
     if (document.getElementById('dividend-signal-view').classList.contains('is-active')) refreshDividendIndexHistory();
   }, 300_000);
@@ -5335,6 +5419,9 @@ function startApp() {
 }
 
 if (typeof document !== 'undefined') {
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', startApp, { once: true });
-  else startApp();
+  const bootDashboard = () => {
+    try { startApp(); } catch (error) { createStartupScreen().fail(error); }
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bootDashboard, { once: true });
+  else bootDashboard();
 }

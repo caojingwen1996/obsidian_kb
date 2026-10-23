@@ -1,0 +1,114 @@
+{
+  "date": "2026-10-22",
+  "moved_entries": [
+    [
+      "docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/03. 流水线文档依据与节点对照.md",
+      "docs/system-design/06产品UI原型设计/06-1-流水线全景ui设计/03. 流水线文档依据与节点对照.md"
+    ],
+    [
+      "docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/原型资源/system-panorama.js",
+      "docs/system-design/06产品UI原型设计/06-1-流水线全景ui设计/原型资源/system-panorama.js"
+    ],
+    [
+      "docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/验证/F级流程卡片验证记录.md",
+      "docs/system-design/06产品UI原型设计/06-1-流水线全景ui设计/验证/F级流程卡片验证记录.md"
+    ],
+    [
+      "docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/验证/模块卡头精简记录.md",
+      "docs/system-design/06产品UI原型设计/06-1-流水线全景ui设计/验证/模块卡头精简记录.md"
+    ],
+    [
+      "docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/验证/默认收起与层级弱化记录.md",
+      "docs/system-design/06产品UI原型设计/06-1-流水线全景ui设计/验证/默认收起与层级弱化记录.md"
+    ],
+    [
+      "docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/验证/流水线全景细化验证记录.md",
+      "docs/system-design/06产品UI原型设计/06-1-流水线全景ui设计/验证/流水线全景细化验证记录.md"
+    ],
+    [
+      "docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/验证/流水线全景验证.mjs",
+      "docs/system-design/06产品UI原型设计/06-1-流水线全景ui设计/验证/流水线全景验证.mjs"
+    ],
+    [
+      "docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/验证/流水线全景验证结果.json",
+      "docs/system-design/06产品UI原型设计/06-1-流水线全景ui设计/验证/流水线全景验证结果.json"
+    ],
+    [
+      "docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/验证/流水线子菜单业务保护.json",
+      "docs/system-design/06产品UI原型设计/06-1-流水线全景ui设计/验证/流水线子菜单业务保护.json"
+    ],
+    [
+      "docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/验证/流水线子菜单布局静态检查.json",
+      "docs/system-design/06产品UI原型设计/06-1-流水线全景ui设计/验证/流水线子菜单布局静态检查.json"
+    ],
+    [
+      "docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/验证/流水线子菜单截图",
+      "docs/system-design/06产品UI原型设计/06-1-流水线全景ui设计/验证/流水线子菜单截图"
+    ],
+    [
+      "docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/验证/流水线子菜单调整记录.md",
+      "docs/system-design/06产品UI原型设计/06-1-流水线全景ui设计/验证/流水线子菜单调整记录.md"
+    ],
+    [
+      "docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/验证/流水线子菜单验证结果.json",
+      "docs/system-design/06产品UI原型设计/06-1-流水线全景ui设计/验证/流水线子菜单验证结果.json"
+    ],
+    [
+      "docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/验证/去除交付说明-手机.jpg",
+      "docs/system-design/06产品UI原型设计/06-1-流水线全景ui设计/验证/去除交付说明-手机.jpg"
+    ],
+    [
+      "docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/验证/去除交付说明-桌面.jpg",
+      "docs/system-design/06产品UI原型设计/06-1-流水线全景ui设计/验证/去除交付说明-桌面.jpg"
+    ],
+    [
+      "docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/验证/连接箭头与层间距-手机.jpg",
+      "docs/system-design/06产品UI原型设计/06-1-流水线全景ui设计/验证/连接箭头与层间距-手机.jpg"
+    ],
+    [
+      "docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/验证/连接箭头与层间距-桌面.jpg",
+      "docs/system-design/06产品UI原型设计/06-1-流水线全景ui设计/验证/连接箭头与层间距-桌面.jpg"
+    ],
+    [
+      "docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/验证/C01布局截图/业务流程全景-桌面.png",
+      "docs/system-design/06产品UI原型设计/06-1-流水线全景ui设计/验证/历史截图/C01布局截图/业务流程全景-桌面.png"
+    ],
+    [
+      "docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/验证/C01布局截图/业务流程全景-手机.png",
+      "docs/system-design/06产品UI原型设计/06-1-流水线全景ui设计/验证/历史截图/C01布局截图/业务流程全景-手机.png"
+    ],
+    [
+      "docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/验证/AI任务内嵌截图/非AI回归/系统全景-before.png",
+      "docs/system-design/06产品UI原型设计/06-1-流水线全景ui设计/验证/历史截图/AI任务内嵌截图/非AI回归/系统全景-before.png"
+    ],
+    [
+      "docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/验证/AI任务内嵌截图/非AI回归/系统全景-after.png",
+      "docs/system-design/06产品UI原型设计/06-1-流水线全景ui设计/验证/历史截图/AI任务内嵌截图/非AI回归/系统全景-after.png"
+    ],
+    [
+      "docs/system-design/06产品UI原型设计/验证/流水线同级导航截图",
+      "docs/system-design/06产品UI原型设计/06-1-流水线全景ui设计/验证/流水线同级导航截图"
+    ],
+    [
+      "docs/system-design/06产品UI原型设计/验证/流水线同级导航调整记录.md",
+      "docs/system-design/06产品UI原型设计/06-1-流水线全景ui设计/验证/流水线同级导航调整记录.md"
+    ],
+    [
+      "docs/system-design/06产品UI原型设计/验证/流水线同级导航验证.mjs",
+      "docs/system-design/06产品UI原型设计/06-1-流水线全景ui设计/验证/流水线同级导航验证.mjs"
+    ],
+    [
+      "docs/system-design/06产品UI原型设计/验证/流水线同级导航验证结果.json",
+      "docs/system-design/06产品UI原型设计/06-1-流水线全景ui设计/验证/流水线同级导航验证结果.json"
+    ]
+  ],
+  "moved_files": 30,
+  "protected_runtime_sha256": {
+    "docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/原型资源/system-panorama.js": "981723efffdd93b4886446a41125e90c73096f2bd5af669cd616fb936034f06a",
+    "docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/原型资源/flow-data.js": "7343b737dd9c80c6ffa4651d6ea212260fa918657c2d4f5ecfc4a28b26ad88ac",
+    "docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/原型资源/styles.css": "826a067cddd73e03e75d3faae9768d735b1c4e4fee45da0eff96a49c3c8eb976",
+    "docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/原型资源/task-prompts.js": "419d41eeda261de539b1bf03eaca0cf0a5af3a7f229f5e7b36519390bfdbe1ab",
+    "docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/原型资源/task-contracts.js": "28119ed8a97b039faa90ee78b98378dec1d60170e5c2eb1a07d986f8b119a7f6",
+    "docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/原型资源/app.js": "a8c5af67a65119357879e69b98fa6dee176a6adf6412030557f3308affda49aa"
+  }
+}

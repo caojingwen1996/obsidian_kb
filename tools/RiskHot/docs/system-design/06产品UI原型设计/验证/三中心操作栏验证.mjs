@@ -27,7 +27,7 @@ class Node {
   get form() { return this.attrs.form ? all.find(n => n.id === this.attrs.form && n.isConnected) : this.parentElement?.closest('form'); }
   setAttribute(key, value) { this.attrs[key] = value; }
   hasAttribute(key) { return key in this.attrs; }
-  matches(selector) { return selector === this.tag || selector[0] === '.' && this.classes.has(selector.slice(1)); }
+  matches(selector) { return selector.split(',').some(value => { const s = value.trim(); return s === this.tag || s[0] === '.' && this.classes.has(s.slice(1)) || s[0] === '[' && this.hasAttribute(s.slice(1, -1)); }); }
   closest(selector) { return this.matches(selector) ? this : this.parentElement?.closest(selector); }
   append(node) { node.remove(); this.children.push(node); node.parentElement = this; mutations++; }
   insertBefore(node, next) { node.remove(); const index = this.children.indexOf(next); this.children.splice(index < 0 ? this.children.length : index, 0, node); node.parentElement = this; mutations++; }
@@ -64,6 +64,13 @@ const portalContext = vm.createContext({
 vm.runInContext(read('原型资源/top-actions.js').replace('const observer =', 'Object.assign(api,{sync,moved,pageSelectors,dialogSelectors}); const observer ='), portalContext);
 check('page action moved into global header', create.closest('header') === header);
 check('moving preserves the original button listener', create.clickHandler() === 'new');
+const local = add(pageBody, 'div'); local.setAttribute('data-local-actions', '');
+const localAction = add(local, 'button'); localAction.clickHandler = () => 'local';
+pageCandidates.push(localAction); api.sync();
+check('contextual list action stays in its original group', localAction.parentElement === local);
+check('contextual action is not registered for relocation', !api.moved.has(localAction));
+check('contextual action retains its original listener', localAction.clickHandler() === 'local');
+
 const before = mutations; api.sync(); api.sync();
 check('repeated synchronization is stable', mutations === before);
 
@@ -147,6 +154,6 @@ for (const workspace of ['revision', 'revisions', 'feedback']) {
 m2.run("Object.assign(api.state,{view:'variables',workspace:null,variableMode:'candidates'});api.render();");
 check('M2/candidates: candidate catalog remains available', m2.get('#rh-content').innerHTML.includes('rh-candidate-rows'));
 
-const report = { date: '2026-10-16', checks: results.length, results, limitation: 'No browser layout, pixel screenshots, or end-to-end browser regression executed; fixtures validate relocation lifecycle, form ownership and incumbent render states.' };
+const report = { date: '2026-10-22', checks: results.length, results, limitation: 'No browser layout, pixel screenshots, or end-to-end browser regression executed; fixtures validate relocation lifecycle, form ownership and incumbent render states.' };
 writeFileSync(new URL('三中心操作栏验证结果.json', import.meta.url), JSON.stringify(report, null, 2) + '\n', 'utf8');
 console.log(`${results.length} checks passed. Browser visual verification not included.`);

@@ -1,0 +1,47 @@
+{
+ "account": "冰冰小美",
+ "account_url": "https://xueqiu.com/u/7143769715",
+ "task_date": "2026-10-19",
+ "start_time": "2026-10-21 22:25:10",
+ "end_time": "2026-10-21 22:25:10",
+ "scan_round": 1,
+ "success_count": 3,
+ "failure_count": 0,
+ "result_dir": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/2026/10",
+ "state_file": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/2026/10/2026-10-19_state.json",
+ "processed_items": {
+  "412869898": {
+   "source_id": "412869898",
+   "title": "等10-23业绩报，存储费半暂时稳住，做空动能下降",
+   "published_at": "2026-10-19 14:10:57",
+   "url": "https://www.xueqiu.com/7143769715/412869898",
+   "platform": "xueqiu",
+   "file_path": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/2026/10/2026-10-19_141057_等10-23业绩报_存储费半暂时稳住_做空动能下降.md",
+   "saved_at": "2026-10-21 22:25:10",
+   "tags": "市场，交易",
+   "image_post": false
+  },
+  "412879807": {
+   "source_id": "412879807",
+   "title": "发帖方式建议征集",
+   "published_at": "2026-10-19 15:04:32",
+   "url": "https://www.xueqiu.com/7143769715/412879807",
+   "platform": "xueqiu",
+   "file_path": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/2026/10/2026-10-19_150432_发帖方式建议征集.md",
+   "saved_at": "2026-10-21 22:25:10",
+   "tags": "无（闲聊帖，不涉及宏观/市场/行业/交易）",
+   "image_post": false
+  },
+  "412911470": {
+   "source_id": "412911470",
+   "title": "留言板更新：随心更新，既定目标已结束",
+   "published_at": "2026-10-19 19:29:21",
+   "url": "https://www.xueqiu.com/7143769715/412911470",
+   "platform": "xueqiu",
+   "file_path": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/2026/10/2026-10-19_192921_留言板更新_随心更新_既定目标已结束.md",
+   "saved_at": "2026-10-21 22:25:10",
+   "tags": "无（闲聊帖，不涉及宏观/市场/行业/交易）",
+   "image_post": false
+  }
+ }
+}

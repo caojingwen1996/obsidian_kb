@@ -1,6 +1,6 @@
 {
-  "date": "2026-10-16",
-  "checks": 79,
+  "date": "2026-10-22",
+  "checks": 82,
   "results": [
     "M1信源管理中心交互原型.html: shared stylesheet loaded last",
     "M1信源管理中心交互原型.html: shared script runs after module script",
@@ -10,6 +10,9 @@
     "M3策略管理中心交互原型.html: shared script runs after module script",
     "page action moved into global header",
     "moving preserves the original button listener",
+    "contextual list action stays in its original group",
+    "contextual action is not registered for relocation",
+    "contextual action retains its original listener",
     "repeated synchronization is stable",
     "dialog actions move into their own header",
     "submit retains the original owning form",

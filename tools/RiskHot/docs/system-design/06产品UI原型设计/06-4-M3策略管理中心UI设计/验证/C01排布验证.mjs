@@ -26,7 +26,7 @@ try {
   if(width===1440){
    check('流水线作为独立子菜单',await page.locator('.workspace-nav [data-view=panorama]').count()===1&&await page.locator('.architecture-entry').count()===0);
    check('流水线子菜单仅显示名称',await page.locator('[data-view=panorama]').innerText().then(t=>t==='流水线全景'));
-   check('新建策略归当前页顶栏操作区',await page.locator('#page-tools [data-action=new]').count()===1&&await page.locator('.workspace-nav [data-action=new]').count()===0);
+   check('新建策略归当前工作区操作栏',await page.locator('#page-tools [data-action=new]').count()===1&&await page.locator('.workspace-nav [data-action=new]').count()===0);
   }
   await action('panorama');await fit('业务流程全景',width);
   if(capture)await snap('业务流程全景-'+suffix,true);
@@ -59,7 +59,7 @@ try {
   await section('history');await fit('版本治理与生效',width);
   if(capture)await snap('版本治理与生效-'+suffix,true);
   if(width===1440){
-   check('治理页签审核动作归顶栏且唯一',await page.locator('#page-tools [data-action=review]').count()===1&&await page.locator('[data-action=review]').count()===1);
+   check('治理页签审核动作归工作区操作栏且唯一',await page.locator('#page-tools [data-action=review]').count()===1&&await page.locator('[data-action=review]').count()===1);
    check('治理动作先于历史材料',await page.locator('.governance-bar').evaluate(el=>el.getBoundingClientRect().bottom<document.querySelector('.governance-history').getBoundingClientRect().top));
   }
   await action('review');check(width+'px治理确认保留在途说明',await page.locator('#modal').innerText().then(t=>t.includes('继续锁定 V1.2')));

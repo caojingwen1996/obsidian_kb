@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-22",
+  "checks": 25,
+  "results": [
+    "1440: navigation excludes catalog actions",
+    "1440: controls and document fit viewport",
+    "1440: create opens dialog and cancel restores focus",
+    "1024: navigation excludes catalog actions",
+    "1024: controls and document fit viewport",
+    "1024: create opens dialog and cancel restores focus",
+    "768: navigation excludes catalog actions",
+    "768: controls and document fit viewport",
+    "768: create opens dialog and cancel restores focus",
+    "390: navigation excludes catalog actions",
+    "390: controls and document fit viewport",
+    "390: create opens dialog and cancel restores focus",
+    "320: navigation excludes catalog actions",
+    "320: controls and document fit viewport",
+    "320: create opens dialog and cancel restores focus",
+    "collapse and expand change group visibility",
+    "flat view hides only grouping controls",
+    "all: all 40 sources available without loading more",
+    "verify: all 40 sources available without loading more",
+    "monitor: all 40 sources available without loading more",
+    "research: all 40 sources available without loading more",
+    "search and clear show all matching results immediately",
+    "tier filter includes every matching source and restores all",
+    "read-only role cannot create",
+    "no script errors or external requests"
+  ],
+  "errors": [],
+  "external": []
+}

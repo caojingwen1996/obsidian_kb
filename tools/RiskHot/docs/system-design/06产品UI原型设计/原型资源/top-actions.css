@@ -68,3 +68,52 @@
   .unified-top-row { gap: 8px; padding-inline: 12px; }
   .unified-action-header { gap: 8px; padding-inline: 16px; }
 }
+
+/* Navigation identifies the module; workspace controls act on its content. */
+.workspace-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  background: var(--paper, var(--rh-paper, #ffffff));
+  border: 1px solid var(--line, var(--rh-line, #dfe5df));
+  border-radius: 8px;
+}
+.workspace-toolbar > .page-tools,
+.workspace-toolbar > .unified-tools { flex: 1 1 240px; min-width: 0; }
+.workspace-toolbar .page-tools,
+.workspace-toolbar .page-tools .actions,
+#rh-m2 .workspace-toolbar .unified-tools,
+#rh-m2 .workspace-toolbar .unified-tools .r-flex {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+}
+.workspace-toolbar .page-tools { justify-content: flex-end; }
+.workspace-toolbar .page-tools label { flex-wrap: wrap; }
+.workspace-toolbar .back,
+#rh-m2 .workspace-toolbar .r-back { margin: 0; flex: none; }
+#rh-m2 .workspace-toolbar .unified-tools > * { max-width: 100%; }
+#rh-m2 .r-top.unified-top-row > .r-breadcrumb { margin-left: 0; }
+.workspace-toolbar:has(> #top-back[hidden]):has(> #page-tools:empty) { display: none; }
+@media (max-width: 650px) {
+  .workspace-toolbar { padding: 12px; gap: 12px; }
+  .workspace-toolbar > .page-tools,
+  .workspace-toolbar > .unified-tools { flex-basis: 100%; }
+  .workspace-toolbar .page-tools { justify-content: flex-start; }
+  .workspace-toolbar .page-tools button,
+  .workspace-toolbar .page-tools select,
+  .workspace-toolbar > button,
+  #rh-m2 .workspace-toolbar .unified-tools button { min-height: 44px; }
+  .workspace-toolbar .back-context { display: inline; }
+}
+
+.workspace-toolbar .page-tools > .actions { min-width: 0; max-width: 100%; flex: 0 1 auto; }
+@media (max-width:650px) {
+  .workspace-toolbar .page-tools > .strategy-tools { width: 100%; justify-content: flex-start; }
+  .workspace-toolbar .page-tools .version-picker { width: 100%; justify-content: space-between; }
+}

@@ -1,0 +1,122 @@
+"""从 L0 Markdown 原文章节生成离线原型的任务定义展示数据；正文只在文档维护。"""
+from pathlib import Path
+from html import escape
+from urllib.parse import quote, unquote, urlsplit
+import argparse
+import hashlib
+import json
+import os
+import re
+
+prototype = Path(__file__).resolve().parents[1]
+design = prototype.parents[1]
+vault = next(p for p in design.parents if (p / 'schema.md').is_file())
+source = design / '02-业务架构与领域设计/RiskHot_L0_信息处理层_业务架构与领域设计V1.0.md'
+output = prototype / '原型资源/task-definition-references.js'
+
+
+def slug(heading):
+    return heading.lower().replace('.', '').replace(' ', '-')
+
+
+def document_link(target, wiki=False):
+    path, separator, fragment = target.partition('#')
+    if urlsplit(path).scheme or path.startswith('//'):
+        raise ValueError(f'仅支持项目内文档链接：{target}')
+    file = (vault if wiki else source.parent) / unquote(path)
+    if not file.is_file():
+        file = Path(str(file) + '.md')
+    file = file.resolve()
+    if not file.is_relative_to(vault) or not file.is_file():
+        raise ValueError(f'文档链接不可读取：{target}')
+    href = quote(os.path.relpath(file, prototype), safe='/.-_')
+    return href + ('#' + quote(slug(fragment), safe='-_') if separator else '')
+
+
+def inline(text):
+    # Raw source HTML is always escaped. Only these Markdown constructs produce markup.
+    token = r'(`[^`]+`|\*\*[^*]+\*\*|\[\[[^\]]+\]\]|\[[^\]]+\]\([^\n)]+\))'
+    result = []
+    for part in re.split(token, text):
+        if part.startswith('`') and part.endswith('`'):
+            result.append('<code>' + escape(part[1:-1]) + '</code>')
+        elif part.startswith('**') and part.endswith('**'):
+            result.append('<strong>' + escape(part[2:-2]) + '</strong>')
+        elif part.startswith('[['):
+            target, _, label = part[2:-2].replace('\\|', '|').partition('|')
+            result.append('<a class="link" target="_blank" rel="noopener" href="' + escape(document_link(target, True), quote=True) + '">' + escape(label or target) + '</a>')
+        elif re.fullmatch(r'\[[^\]]+\]\([^\n)]+\)', part):
+            match = re.fullmatch(r'\[([^\]]+)\]\(([^\n)]+)\)', part)
+            result.append('<a class="link" target="_blank" rel="noopener" href="' + escape(document_link(match[2].strip('<>')), quote=True) + '">' + escape(match[1]) + '</a>')
+        else:
+            result.append(escape(part))
+    return ''.join(result)
+
+
+def render(body):
+    lines = body.splitlines()
+    result = []
+    i = 0
+    while i < len(lines):
+        line = lines[i].strip()
+        if not line:
+            i += 1
+            continue
+        if line.startswith('|'):
+            rows = []
+            while i < len(lines) and lines[i].strip().startswith('|'):
+                rows.append(re.split(r'(?<!\\)\|', lines[i].strip()[1:-1]))
+                i += 1
+            if len(rows) < 2 or not all(re.fullmatch(r'\s*:?-+:?\s*', cell) for cell in rows[1]):
+                raise ValueError('无效 Markdown 表格')
+            if any(len(row) != len(rows[0]) for row in rows):
+                raise ValueError('表格列数不一致')
+            header = ''.join('<th scope="col">' + inline(c.strip()) + '</th>' for c in rows[0])
+            content = ''.join('<tr>' + ''.join('<td>' + inline(c.strip().replace('\\|', '|')) + '</td>' for c in row) + '</tr>' for row in rows[2:])
+            result.append('<div class="task-definition-table" role="region" aria-label="任务定义字段表" tabindex="0"><table><thead><tr>' + header + '</tr></thead><tbody>' + content + '</tbody></table></div>')
+            continue
+        if re.fullmatch(r'\*\*[^*]+\*\*', line):
+            result.append('<h4>' + escape(line[2:-2]) + '</h4>')
+        elif re.match(r'^\d+\. ', line):
+            items = []
+            while i < len(lines) and re.match(r'^\d+\. ', lines[i]):
+                items.append('<li>' + inline(re.sub(r'^\d+\. ', '', lines[i])) + '</li>')
+                i += 1
+            result.append('<ol>' + ''.join(items) + '</ol>')
+            continue
+        else:
+            if line.startswith(('#', '```', '- ')):
+                raise ValueError('出现尚未支持的章节结构，请扩展渲染并验证：' + line)
+            result.append('<p>' + inline(line) + '</p>')
+        i += 1
+    return '\n'.join(result)
+
+
+def generate():
+    text = source.read_text(encoding='utf-8-sig')
+    assets = {}
+    for i in range(1, 6):
+        task = f'AI-0{i}'
+        match = re.search(rf'^#### (6\.1\.{i} {task} [^\n]+ 定义)\n(.*?)(?=^#{{1,4}} |\Z)', text, re.M | re.S)
+        if not match:
+            raise ValueError(f'缺少任务定义章节：{task}')
+        heading = match[1]
+        duties = re.search(r'^\*\*分析职责与步骤\*\*\s*\n(.*?)(?=^\*\*|\Z)', match[2], re.M | re.S)
+        if not duties or not duties[1].strip():
+            raise ValueError(f'缺少分析职责与步骤：{task}')
+        body = duties[1].strip()
+        assets[task] = dict(heading=heading, href='../../' + str(source.relative_to(design)) + '#' + slug(heading), body=body, html=render(body), sourceSha256=hashlib.sha256(body.encode('utf-8')).hexdigest())
+    return "'use strict';\n// Generated by 验证/同步任务定义引用.py. Maintain the L0 Markdown source only.\nconst TASK_DEFINITION_REFERENCES = " + json.dumps(assets, ensure_ascii=False, indent=2) + ';\n'
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--check', action='store_true')
+    args = parser.parse_args()
+    content = generate()
+    if args.check:
+        if not output.is_file() or output.read_text(encoding='utf-8') != content:
+            raise SystemExit('任务定义未同步，请运行本脚本（不带 --check）')
+    else:
+        output.write_text(content, encoding='utf-8')
+    print('5 项任务定义原文章节同步检查通过' if args.check else '已从 L0 原文同步 5 项任务定义')

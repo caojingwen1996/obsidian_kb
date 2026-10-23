@@ -413,7 +413,7 @@ function closeNewDialog(){
  const dialog=newDialog;newDialog=null;
  dialog.close();dialog.remove();state.isNew=false;
  render();save();
- root.querySelector('[data-action="new"]')?.focus({preventScroll:true});
+ (content.querySelector('[data-action="new"]')||root.querySelector('[data-action="new"]'))?.focus({preventScroll:true});
  if(newDialogScroll)window.scrollTo(newDialogScroll.x,newDialogScroll.y);
  newDialogScroll=null;
 }

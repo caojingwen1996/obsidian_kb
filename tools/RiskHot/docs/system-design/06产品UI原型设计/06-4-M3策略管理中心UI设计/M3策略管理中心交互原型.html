@@ -6,9 +6,10 @@
   <title>RiskHot · M3 策略管理中心</title>
   <link rel="stylesheet" href="原型资源/styles.css">
   <script defer src="原型资源/flow-data.js"></script>
-  <script defer src="原型资源/system-panorama.js"></script>
-  <script defer src="原型资源/task-prompts.js"></script>
+  <script defer src="../06-1-流水线全景ui设计/原型资源/system-panorama.js"></script>
   <script defer src="原型资源/task-contracts.js"></script>
+  <script defer src="原型资源/task-prompt-references.js"></script>
+  <script defer src="原型资源/task-definition-references.js"></script>
   <script defer src="原型资源/app.js"></script>
 <link rel="stylesheet" href="../原型资源/top-actions.css">
 <script defer src="../原型资源/top-actions.js"></script>
@@ -23,13 +24,17 @@
     <p class="nav-label">横向支撑中心</p>
     <a class="nav-item" href="../06-2-M1信源管理中心UI设计/M1信源管理中心交互原型.html"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2"/></svg><span>信源管理中心</span></a>
     <a class="nav-item" href="../06-3-M2风险源管理中心UI设计/M2风险源管理中心交互原型.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"/></svg><span>风险源管理中心</span></a>
-    <div class="nav-item nav-parent" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v5a4 4 0 0 0 4 4h2a4 4 0 0 1 4 4v5M17 3v5a4 4 0 0 1-4 4M7 3h0M17 21h0"/><circle cx="7" cy="3" r="2"/><circle cx="17" cy="3" r="2"/><circle cx="17" cy="21" r="2"/></svg><span>策略管理中心</span></div>
-    <nav class="tabs workspace-nav" aria-label="策略管理中心子菜单"><button data-view="panorama" data-action="panorama">流水线全景</button><button data-view="catalog">策略设计与管理</button><button data-view="ai">AI 智能分析管理</button><button data-view="evaluation">策略评估</button></nav>
+    <div class="support-nav" data-section="strategy">
+      <a href="../06-1-流水线全景ui设计/流水线全景交互原型.html#panorama" class="nav-item panorama-entry" data-view="panorama" data-action="panorama" data-primary-nav="panorama"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h5v5H4zM15 14h5v5h-5zM9 7h8v7M6.5 10v7H15"/></svg><span>流水线全景</span></a>
+      <button type="button" class="nav-item nav-parent" data-action="catalog" data-primary-nav="strategy"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v5a4 4 0 0 0 4 4h2a4 4 0 0 1 4 4v5M17 3v5a4 4 0 0 1-4 4M7 3h0M17 21h0"/><circle cx="7" cy="3" r="2"/><circle cx="17" cy="3" r="2"/><circle cx="17" cy="21" r="2"/></svg><span>策略管理中心</span></button>
+      <nav class="tabs workspace-nav" aria-label="策略管理中心子菜单"><button data-view="catalog">策略设计与管理</button><button data-view="ai">AI 智能分析管理</button><button data-view="evaluation">策略评估</button></nav>
+    </div>
     <div class="side-foot"><span class="dot"></span> 定义有据 · 版本可溯<br><small>RISK OBSERVATORY</small></div>
   </aside>
   <div class="workspace">
-    <header class="top"><div class="breadcrumb"><span>RiskHot　/　横向支撑　/</span><h1>策略管理中心</h1><button id="top-back" class="link back" data-action="back" aria-label="返回策略目录" hidden>← 返回<span class="back-context">策略</span>目录</button></div><div id="page-tools" class="page-tools" role="group" aria-label="当前页面操作"></div><label class="role">预览角色 <select id="role"><option>系统管理员</option><option>授权阅读者</option></select></label></header>
+    <header class="top" data-tools-target="#page-tools"><div class="breadcrumb"><span>RiskHot　/　横向支撑　/</span><h1 id="module-title">策略管理中心</h1></div><label class="role">预览角色 <select id="role"><option>系统管理员</option><option>授权阅读者</option></select></label></header>
     <main>
+      <section class="workspace-toolbar" aria-label="策略工作区操作"><button id="top-back" class="link back" data-action="back" aria-label="返回策略目录" hidden>← 返回<span class="back-context">策略</span>目录</button><div id="page-tools" class="page-tools" role="group" aria-label="当前页面操作"></div></section>
       <div id="content"></div>
       <footer>本地交互原型 · 数据仅保留于本次页面会话，刷新重置<span>UI 评审 · 演示数据　/　M3 / V1.0　2026.10.15</span></footer>
     </main>

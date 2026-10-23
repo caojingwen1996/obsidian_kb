@@ -14,6 +14,7 @@ import plistlib
 from pathlib import Path
 import re
 import shutil
+import signal
 import subprocess
 import sys
 from threading import Event, Lock, Thread
@@ -1076,7 +1077,10 @@ def normalize_nasdaq100_chart(payload):
 def fetch_nasdaq100_snapshot(fetcher=fetch_upstream):
     if fetcher is fetch_upstream:
         try:
-            from nasdaq_westock import fetch_chart
+            if __package__:
+                from .nasdaq_westock import fetch_chart
+            else:
+                from nasdaq_westock import fetch_chart
             chart = fetch_chart(resolve_node_executable())
             snapshot = normalize_nasdaq100_chart(chart)
             snapshot["proxySource"] = "westock-data / 腾讯自选股"
@@ -1088,7 +1092,7 @@ def fetch_nasdaq100_snapshot(fetcher=fetch_upstream):
                         valuationNote="PE-TTM及近十年分位待验证：WeStock未提供有效指数估值；独立估值源尚未通过日期和口径核验",
                         valuationSourceUrl="https://www.getstockcheck.com/zh/index/NDX.GI/")
             return snapshot
-        except (OSError, ValueError, KeyError, IndexError, subprocess.SubprocessError) as error:
+        except (ImportError, OSError, ValueError, KeyError, IndexError, subprocess.SubprocessError) as error:
             write_proxy_log("API_FAIL", source="westock-nasdaq100", error=type(error).__name__)
     snapshot = fetch_yahoo_nasdaq100_snapshot(fetcher)
     snapshot["data"]["quoteNote"] = "Yahoo Finance备用行情" if fetcher is fetch_upstream else "Yahoo Finance"
@@ -1307,13 +1311,27 @@ def fetch_market_snapshot(fetcher=fetch_upstream, workers=8):
         return _fetch_sina_market_snapshot(fetcher, workers)
 
 
+def market_turnover_error(source):
+    messages = {
+        "tushare-token": "未配置 Tushare Token，请设置 TUSHARE_TOKEN 环境变量，并从同一终端重新启动面板。",
+        "tushare-dependency": "当前 Python 缺少 Tushare 依赖，请按 README 安装后重新启动面板。",
+        "tushare-permission": "Tushare 未授权此次请求，请检查 Token 及 daily_info 接口权限。",
+        "market-turnover-empty": "Tushare 未返回可配对的沪深成交额，请稍后刷新。",
+    }
+    status = 503 if source in {"tushare-token", "tushare-dependency", "tushare-permission"} else 502
+    return status, messages.get(source, "Tushare 成交额取数失败，请稍后刷新；详细错误分类见 data/proxy.log。")
+
+
 def fetch_market_turnover(client=None, now=None):
     from tushare_client import TushareClient, TushareClientError
 
     now = now or datetime.now(timezone(timedelta(hours=8)))
     today = now.date()
     start = today.replace(year=today.year - 1, day=min(today.day, 28)) if today.month == 2 else today.replace(year=today.year - 1)
-    client = client or TushareClient(logger=write_proxy_log)
+    client = client or TushareClient(
+        extra_env_paths=(Path(__file__).resolve().parents[1] / ".env",),
+        logger=write_proxy_log,
+    )
     markets = {}
     try:
         for code in ("SH_MARKET", "SZ_MARKET"):
@@ -1334,7 +1352,8 @@ def fetch_market_turnover(client=None, now=None):
                     dates[day.isoformat()] = amount
             markets[code] = dates
     except TushareClientError as error:
-        raise UpstreamError(getattr(error, "source", "tushare")) from error
+        source = "tushare-dependency" if isinstance(error.__cause__, ImportError) else error.source
+        raise UpstreamError(source) from error
     shared = markets["SH_MARKET"].keys() & markets["SZ_MARKET"].keys()
     if not shared:
         raise UpstreamError("market-turnover-empty")
@@ -2789,6 +2808,10 @@ def create_server(
             except RouteError as error:
                 return self.send_json(400, {"error": str(error)})
             except UpstreamError as error:
+                write_proxy_log("UPSTREAM_FAIL", route=parsed.path, source=error.source)
+                if parsed.path == "/api/market-turnover":
+                    status, message = market_turnover_error(error.source)
+                    return self.send_json(status, {"error": message, "source": error.source})
                 return self.send_json(502, {"error": "upstream request failed", "source": error.source})
             except Exception as error:
                 write_proxy_log("INTERNAL_FAIL", route=parsed.path, source=source, error=type(error).__name__)
@@ -2968,6 +2991,48 @@ def open_and_confirm_dashboard(server):
     return False
 
 
+def serve_dashboard(server, todo_action_server):
+    previous_handlers = {}
+    exit_code = 0
+    todo_thread = None
+
+    def stop_service(signum, frame):
+        write_proxy_log("SERVICE_SIGNAL", signal=signal.Signals(signum).name,
+                        pid=os.getpid(), parent_pid=os.getppid())
+        raise SystemExit(128 + signum)
+
+    try:
+        for signum in (signal.SIGTERM, signal.SIGHUP):
+            previous_handlers[signum] = signal.signal(signum, stop_service)
+        write_proxy_log("SERVICE_START", pid=os.getpid(), parent_pid=os.getppid(),
+                        python=sys.executable, port=server.server_address[1],
+                        todo_port=todo_action_server.server_address[1])
+        todo_thread = Thread(target=todo_action_server.serve_forever, daemon=True)
+        todo_thread.start()
+        Thread(target=prewarm_fugui_reference_data, daemon=True).start()
+        Thread(target=open_and_confirm_dashboard, args=(server,), daemon=True).start()
+        server.serve_forever()
+    except KeyboardInterrupt:
+        exit_code = 130
+        write_proxy_log("SERVICE_SIGNAL", signal="SIGINT", pid=os.getpid(), parent_pid=os.getppid())
+    except SystemExit as error:
+        exit_code = error.code if isinstance(error.code, int) else 1
+    except BaseException as error:
+        exit_code = 1
+        write_proxy_log("SERVICE_ERROR", error=type(error).__name__)
+        raise
+    finally:
+        # shutdown() must not run on the main server's own serving thread.
+        if todo_thread is not None and todo_thread.is_alive():
+            todo_action_server.shutdown()
+        todo_action_server.server_close()
+        server.server_close()
+        write_proxy_log("SERVICE_STOP", pid=os.getpid(), exit_code=exit_code)
+        for signum, handler in previous_handlers.items():
+            signal.signal(signum, handler)
+    return exit_code
+
+
 def main():
     try:
         server = create_server()
@@ -2979,7 +3044,7 @@ def main():
             server.server_close()
         except (NameError, OSError):
             pass
-        return
+        return 1
     host, port = server.server_address
     url = f"http://{host}:{port}/"
     print(f"A 股大盘面板已启动：{url}")
@@ -2987,18 +3052,8 @@ def main():
     print("关闭此窗口或按 Ctrl+C 可停止本地数据服务。")
     server.browser_launch_token = os.urandom(12).hex()
     server.browser_page_requested = Event()
-    Thread(target=prewarm_fugui_reference_data, daemon=True).start()
-    Thread(target=todo_action_server.serve_forever, daemon=True).start()
-    Thread(target=open_and_confirm_dashboard, args=(server,), daemon=True).start()
-    try:
-        server.serve_forever()
-    except KeyboardInterrupt:
-        print("\n正在停止本地数据服务……")
-    finally:
-        todo_action_server.shutdown()
-        todo_action_server.server_close()
-        server.server_close()
+    return serve_dashboard(server, todo_action_server)
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

@@ -33,7 +33,7 @@ web
 
 ## Evidence on Hand
 
-[[tools/RiskHot/docs/system-design/03-系统功能架构/M3策略管理中心功能设计|M3功能设计]]和[[tools/RiskHot/docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/03. 流水线文档依据与节点对照|总览与领域文档节点对照]]。现有原型含6条策略、16项AI任务、7套蓝图122节点及明确标注的评审示例。
+[[tools/RiskHot/docs/system-design/03-系统功能架构/M3策略管理中心功能设计|M3功能设计]]和[[tools/RiskHot/docs/system-design/06产品UI原型设计/06-1-流水线全景ui设计/03. 流水线文档依据与节点对照|总览与领域文档节点对照]]。现有原型含6条策略、16项AI任务、7套蓝图122节点及明确标注的评审示例。
 
 ## Product Principles
 

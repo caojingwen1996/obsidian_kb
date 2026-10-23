@@ -28,7 +28,7 @@ for (const [, file] of html.matchAll(/<script defer src="([^"]+)"/g)) {
 let checks = 0;
 const check = (name, condition) => { assert.ok(condition, name); checks++; };
 const run = code => vm.runInContext(code, context);
-check('one return button in the top header', /<header class="top">[^]*id="top-back"[^]*<\/header>/.test(html) && (html.match(/data-action="back"/g) || []).length === 1);
+check('one return button in the workspace toolbar', /<section class="workspace-toolbar"[^>]*>[^]*id="top-back"[^]*<\/section>/.test(html) && (html.match(/data-action="back"/g) || []).length === 1);
 check('return button has a full accessible name', /aria-label="返回策略目录" hidden/.test(html));
 for (const view of ['catalog', 'ai', 'evaluation', 'detail', 'panorama']) {
   run(`state.view=${JSON.stringify(view)}; render();`);
@@ -50,7 +50,7 @@ const change = (id, value) => listeners.get('change')({ target: { id, value } })
 const tools = () => element('#page-tools').innerHTML;
 const body = () => element('#content').innerHTML;
 const button = action => tools().match(new RegExp(`<button[^>]*data-action="${action}"[^>]*>`))?.[0];
-check('page tools are part of the top header', /<header class="top">[^]*id="page-tools"[^]*<\/header>/.test(html));
+check('page tools are part of the workspace toolbar', /<section class="workspace-toolbar"[^>]*>[^]*id="page-tools"[^]*<\/section>/.test(html));
 const scenes = [
   ['catalog', {}, ['new']],
   ['detail', { detail: 'flow' }, ['copy', 'save', 'validate', 'add-node']],

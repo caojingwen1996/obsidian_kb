@@ -9,7 +9,7 @@ const shots = path.join(dir, 'AI任务内嵌截图');
 const browser = await chromium.launch({ headless: true, executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' });
 const page = await browser.newPage({ viewport: { width: 1440, height: 1050 }, reducedMotion: 'reduce' });
 const checks = [], errors = [], network = [], captures = [];
-const tabs = ['definition', 'prompt', 'schema', 'constraints', 'usage'];
+const tabs = ['definition', 'schema', 'constraints', 'usage'];
 page.on('pageerror', error => errors.push(error.message));
 await page.route('**/*', route => {
   if (route.request().url().startsWith('file:')) return route.continue();
@@ -29,7 +29,7 @@ try {
   await page.locator('[data-action=open][data-id="STR-L2-01"]').click();
   const before = await page.evaluate(() => JSON.stringify({ strategies, tasks, flows: DOMAIN_FLOWS }));
   await select('A1');
-  check('AI 节点原地展示五标签', await page.locator('[data-node-task-tab]').count() === 5);
+  check('AI 节点原地展示四标签', await page.locator('[data-node-task-tab]').count() === 4);
   const position = await page.evaluate(() => ({ y: scrollY, left: document.querySelector('.flow-area').scrollTop }));
   await select('A2');
   check('相邻 AI 节点切换保留左侧与页面滚动', await page.evaluate(before => scrollY === before.y && document.querySelector('.flow-area').scrollTop === before.left, position));
@@ -62,7 +62,7 @@ try {
   }
   await page.locator('[data-node-task-tab=definition]').focus();
   await page.keyboard.press('ArrowRight');
-  check('标签支持方向键及焦点', await page.locator('[data-node-task-tab=prompt]').evaluate(el => el === document.activeElement && el.getAttribute('aria-selected') === 'true'));
+  check('标签支持方向键及焦点', await page.locator('[data-node-task-tab=schema]').evaluate(el => el === document.activeElement && el.getAttribute('aria-selected') === 'true'));
   await page.keyboard.press('End');
   check('End 定位最后标签', await page.locator('[data-node-task-tab=usage]').getAttribute('aria-selected') === 'true');
   check('浏览不改蓝图策略与共享任务', before === await page.evaluate(() => JSON.stringify({ strategies, tasks, flows: DOMAIN_FLOWS })));
@@ -97,18 +97,18 @@ try {
   check('历史版本节点配置只读', await page.locator('#node-form [name=input]').isDisabled());
   await page.locator('#role').selectOption('授权阅读者');
   await page.locator('#version').selectOption('V2.0');
-  check('阅读者草稿配置只读且可看任务', await page.locator('#node-form [name=input]').isDisabled() && await page.locator('[data-node-task-tab]').count() === 5);
+  check('阅读者草稿配置只读且可看任务', await page.locator('#node-form [name=input]').isDisabled() && await page.locator('[data-node-task-tab]').count() === 4);
   await page.locator('#role').selectOption('系统管理员');
   await page.locator('[data-view=ai]').click();
   await page.locator('[data-task="AI-L2-01"]').click();
   await page.locator('[data-action=edit-task]').click();
-  await page.locator('#task-form [name=prompt]').fill('仅存在于新草稿的提示词');
+  await page.locator('#task-form [name=schema]').fill('{"draftOnly":true}');
   await page.locator('#task-form [name=reason]').fill('验证固定版本');
   await page.locator('button[form=task-form][type=submit]').click();
   await page.locator('[data-view=catalog]').click();
   await page.locator('[data-action=open][data-id="STR-L2-01"]').click();
-  await select('A1'); await page.locator('[data-node-task-tab=prompt]').click();
-  check('C02 草稿不覆盖内嵌固定 Prompt', !(await page.locator('#node-task-content').innerText()).includes('仅存在于新草稿'));
+  await select('A1'); await page.locator('[data-node-task-tab=schema]').click();
+  check('C02 草稿不覆盖内嵌固定 Schema', !(await page.locator('#node-task-content').innerText()).includes('draftOnly'));
   await page.locator('[data-node-task-tab=usage]').click();
   check('引用与版本保留草稿提示', (await page.locator('#node-task-content').innerText()).includes('@1.1 草稿'));
   await page.evaluate(() => { record().flow.find(n => n.id === 'A1').taskVersion = '9.9'; render(); });
@@ -120,7 +120,7 @@ try {
     const nodes = await page.locator('.node.AI').evaluateAll((nodes,prefix)=>nodes.filter(node=>node.dataset.node.startsWith(prefix+'-')).map(node=>node.dataset.node),prefix);
     for (const node of nodes) {
       await select(node);
-      check(`${id}/${node} 固定任务与只读配置`, await page.locator('[data-node-task-tab]').count() === 5 && await page.locator('#node-form [name=input]').isDisabled());
+      check(`${id}/${node} 固定任务与只读配置`, await page.locator('[data-node-task-tab]').count() === 4 && await page.locator('#node-form [name=input]').isDisabled());
     }
   }
   for (const width of [1920, 1440, 1024, 768, 390, 320]) {
@@ -129,7 +129,7 @@ try {
       await page.locator(`[data-node-task-tab=${tab}]`).click();
       check(`${width}/${tab} 无横向溢出`, await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth && document.querySelector('.node-detail').scrollWidth <= document.querySelector('.node-detail').clientWidth));
     }
-    await page.locator('[data-node-task-tab=prompt]').click(); await snapshot(width + '-responsive');
+    await page.locator('[data-node-task-tab=schema]').click(); await snapshot(width + '-responsive');
   }
   await page.setViewportSize({width:1440,height:1050});await load();
   await page.locator('[data-action=open][data-id="STR-L0-01"]').click();await select('A1');

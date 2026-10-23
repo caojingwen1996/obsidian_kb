@@ -11,7 +11,7 @@ Windows 双击 `启动面板.cmd`；Mac 双击 `启动面板.command`。启动�
 3. 自动选择一个可用端口并打开默认浏览器；
 4. 让面板通过同源 `/api` 获取公开数据，绕开浏览器对本地 HTML 的 CORS 和 JSONP 限制。
 
-不需要安装 pip 包，但系统需要 Python 3。系统 Node 与 Codex 内置 Node 均不可用，或看板构建失败时，启动器会停止而不会继续打开旧看板。命令窗口必须保持打开；关闭窗口后实时刷新停止，浏览器中的最近成功快照仍可展示。
+公开数据接口使用 Python 3 标准库；成交额等 Tushare 功能另需下文的依赖和 Token。系统 Node 与 Codex 内置 Node 均不可用，或看板构建失败时，启动器会停止而不会继续打开旧看板。命令窗口必须保持打开；关闭窗口后实时刷新停止，浏览器中的最近成功快照仍可展示。
 
 Mac 启动器优先使用系统 Node.js / Python 3，并支持 Homebrew 常用路径；未找到时尝试 Codex 内置运行时。也可在终端执行（无需可执行权限）：
 
@@ -20,6 +20,33 @@ bash "/Users/cjw/dev/Obsidian/wiki/tools/a-share-market-dashboard/启动面板.c
 ```
 
 若复制文件后双击提示没有执行权限，在面板目录执行 `chmod +x 启动面板.command`。浏览器打开后保持终端窗口运行，按 `Ctrl+C` 停止服务。
+
+### 成交额接口的 Tushare 配置（Mac）
+
+在面板目录，用启动器所选的 Python 安装本地依赖；默认是 `command -v python3` 对应的系统 Python：
+
+```bash
+python3 -m pip install --target vendor/python -r requirements.txt
+```
+
+在自己的 zsh 终端设置环境变量并从同一终端启动，Token 不显示、不写入命令历史：
+
+```zsh
+read -rs "TUSHARE_TOKEN?请输入 Tushare Token："
+export TUSHARE_TOKEN
+printf '\n'
+bash "/Users/cjw/dev/Obsidian/wiki/tools/a-share-market-dashboard/启动面板.command"
+```
+
+变量只对该终端及其子进程生效；Finder 双击启动的另一个终端不会继承。Token 还需具有 Tushare `daily_info` 权限。成交额维持 `SH_MARKET + SZ_MARKET` 的沪深股票统计，单位亿元。面板统计截至前一天，显示最近已发布交易日的数值；休市时沿用最近交易日，当日数据不计入主值、曲线、滑块和极值。
+
+成交额与启动器也会复用已有配置，优先顺序为：环境变量、`tools/tushare-data/.env`、面板目录`.env`、知识库根目录`.env`。面板和共享Tushare目录下的`.env`已在Git忽略列表中，不会随仓库同步到另一台电脑。
+
+也可直接双击 Mac 启动器：未找到 Token 时，它会在终端提示输入，输入不回显，只导出为本次服务的环境变量，不保存到文件。留空会继续启动其余功能，成交额显示配置提示。
+
+`/api/market-turnover` 缺少 Token、依赖或接口权限时返回 503 及具体说明；上游取数失败或沪深数据无法配对时返回 502。错误分类记录在 `data/proxy.log`，不记录 Token。
+
+服务日志中的 `SERVICE_START` 记录 PID、父 PID、Python 路径和端口，`SERVICE_SIGNAL` 记录 SIGTERM / SIGHUP / SIGINT，`SERVICE_STOP` 记录退出码。SIGTERM 表示收到停止请求，不能仅凭该信号确定发送者；历史版本没有这些记录，无法事后还原发送者。Mac 启动器保留 SIGTERM 的 143、SIGHUP 的 129 及其他异常退出码，Ctrl+C 正常停止。不支持记录 SIGKILL 等无法捕获的信号。
 
 `a-share-market-dashboard.html` 仍是完整的单文件 artifact，可以直接双击查看示例数据或已有缓存。要稳定获取联网数据，请使用启动器。
 
@@ -53,9 +80,13 @@ bash "/Users/cjw/dev/Obsidian/wiki/tools/a-share-market-dashboard/启动面板.c
 
 需求清单数据集中保存在 `data/需求清单/`：`todo.json` 是看板实际读取和写回的数据文件，包含活动需求与归档；`todo.xlsx` 保留原有表格。移动目录后需重新构建看板并重启本地服务。
 
-市场总览本地数据集中保存在 `data/市场总览/`：`event-calendar.json` 为事件日历，`nasdaq-day-statistics.csv` 为纳指年度统计，`nasdaq-etf-anchor.json` 为固定前高锚点，`nasdaq-etf-history.json` 为对应历史行情证据。修改这些数据后需重新构建看板。红利信号继续读取 `sources/automations/中证红利信号/` 的自动化产物；实时行情、浏览器缓存和共用数据源保持原有机制。
+市场总览本地数据集中保存在 `data/市场总览/`：`event-calendar.json` 为事件日历，`nasdaq-day-statistics.csv` 为纳指年度统计，`nasdaq-etf-history.json` 用于构建ETF历史快照。网格页打开时及可见期间每分钟读取最多4000根最新前复权日线，按返回样本的日内最高价动态重算前高、回撤和七档参考价；盘中新高参与计算，触发状态仍使用最新已收盘日线。请求失败保留上次计算结果并标注待验证。旧`nasdaq-etf-anchor.json`仅保留为历史记录，不再参与计算。修改本地数据后需重新构建看板。红利信号继续读取 `sources/automations/中证红利信号/` 的自动化产物。
 
 看板更新记录维护在 `src/changelog.json`，与知识库根目录的 `log.md` 分开。每条记录包含日期、星期、类型、标题、摘要和可选明细；构建时按日期倒序生成时间线。修改该文件后重新运行构建脚本，独立 HTML 产物中的更新日志会同步刷新。
+
+## 启动检查
+
+每次打开或重新加载面板，先显示启动检查页，复用本次的数据读取结果，检查本地服务、浏览器设置、市场与风险数据、温度计、红利信号与策略、纳指、ETF动态前高和成交额。检查完成后，“重新检查”和“进入面板”各占底部一半宽度，放大并以三轮柔和光晕提示操作；减少动态效果模式静态突出按钮。全部通过后留出3秒再自动进入面板，鼠标移入、按下或键盘聚焦按钮区会取消自动进入；缓存、缺失和失败会单独标注，不冒充最新数据，也不自动进入。检查最多等待20秒，超时请求继续在后台读取；可提前进入面板，也可在检查完成后重新检查（重新加载页面）。这些检查只确认连接、返回数据和计算可用，不保证来源数据绝对准确。
 
 ## 红利加权评分与参数设置
 

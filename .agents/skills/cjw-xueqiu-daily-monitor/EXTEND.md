@@ -15,7 +15,7 @@ Maintain accounts in the following format.
   url: https://xueqiu.com/u/7143769715
 
 - [enabled] name: 买股票的老木匠
-  url: https://xueqiu.com/u/3058599833
+  url: https://xueqiu.com/u/2573414707
 ```
 
 Rules:

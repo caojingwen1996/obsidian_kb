@@ -1,0 +1,36 @@
+{
+ "account": "冰冰小美",
+ "account_url": "https://xueqiu.com/u/7143769715",
+ "task_date": "2026-10-21",
+ "start_time": "2026-10-21 22:25:10",
+ "end_time": "2026-10-21 22:25:10",
+ "scan_round": 1,
+ "success_count": 2,
+ "failure_count": 0,
+ "result_dir": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/2026/10",
+ "state_file": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/2026/10/2026-10-21_state.json",
+ "processed_items": {
+  "413240926": {
+   "source_id": "413240926",
+   "title": "宁德时代增收不增利，A股产业投资从高景气回归周期",
+   "published_at": "2026-10-21 19:27:28",
+   "url": "https://www.xueqiu.com/7143769715/413240926",
+   "platform": "xueqiu",
+   "file_path": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/2026/10/2026-10-21_192728_宁德时代增收不增利_A股产业投资从高景气回归周期.md",
+   "saved_at": "2026-10-21 22:25:10",
+   "tags": "行业，市场",
+   "image_post": false
+  },
+  "413258810": {
+   "source_id": "413258810",
+   "title": "人类之光",
+   "published_at": "2026-10-21 22:05:38",
+   "url": "https://www.xueqiu.com/7143769715/413258810",
+   "platform": "xueqiu",
+   "file_path": "/Users/cjw/dev/Obsidian/wiki/sources/automations/BBXM每日汇总/2026/10/2026-10-21_220538_人类之光.md",
+   "saved_at": "2026-10-21 22:25:10",
+   "tags": "市场",
+   "image_post": false
+  }
+ }
+}

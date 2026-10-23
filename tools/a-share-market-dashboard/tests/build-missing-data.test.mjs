@@ -34,7 +34,7 @@ test('build tolerates absent Nasdaq snapshots but rejects corrupt data', async t
 
   const missing = build();
   assert.equal(missing.status, 0, missing.stderr);
-  assert.match(missing.stderr, /nasdaq-etf-anchor\.json/);
+  assert.match(missing.stderr, /nasdaq-etf-history\.json/);
   assert.match(missing.stderr, /nasdaq-day-statistics\.csv/);
   let html = await readFile(join(dashboard, 'a-share-market-dashboard.html'), 'utf8');
   assert.match(html, /纳斯达克100（NDX）.*逐年涨跌震荡天数/);
@@ -43,12 +43,12 @@ test('build tolerates absent Nasdaq snapshots but rejects corrupt data', async t
   assert.doesNotThrow(() => new Function(runtime));
   assert.deepEqual(new Function(`${runtime}\nreturn EVENT_CALENDAR;`)(), events);
   assert.deepEqual(new Function(`${runtime}\nreturn CSI_DIVIDEND_INDEX_HISTORY;`)(), []);
-  const anchor = new Function(`${runtime}\nreturn NASDAQ_ETF_ANCHOR;`)();
-  const grid = renderNasdaqGridStrategy({ status: 'missing', data: anchor }, 10000);
+  const snapshot = new Function(`${runtime}\nreturn NASDAQ_ETF_SNAPSHOT;`)();
+  const grid = renderNasdaqGridStrategy({ status: 'missing', data: snapshot }, 10000);
   assert.match(grid.rowsHtml, /待验证/);
   assert.doesNotMatch(grid.rowsHtml, /is-triggered|is-next/);
 
-  await writeFile(join(data, 'nasdaq-etf-anchor.json'), JSON.stringify({ highPrice: 3, highDate: '2026-01-01' }));
+  await writeFile(join(data, 'nasdaq-etf-history.json'), JSON.stringify({ data: { klines: ['2026-01-01,2,2.5,3,1,1'] }, proxySource: '测试行情' }));
   await writeFile(join(data, 'nasdaq-day-statistics.csv'), csv);
   const dividendDirectory = join(temporaryRoot, 'sources', 'automations', '中证红利信号');
   await mkdir(dividendDirectory, { recursive: true });
@@ -66,9 +66,9 @@ test('build tolerates absent Nasdaq snapshots but rejects corrupt data', async t
   assert.match(html, /年均 102.8 天/);
   assert.doesNotMatch(html, /年度统计数据缺失，待验证/);
 
-  await writeFile(join(data, 'nasdaq-etf-anchor.json'), '{broken');
+  await writeFile(join(data, 'nasdaq-etf-history.json'), '{broken');
   assert.notEqual(build().status, 0, 'malformed JSON must not be treated as a missing snapshot');
-  await writeFile(join(data, 'nasdaq-etf-anchor.json'), '{}');
+  await writeFile(join(data, 'nasdaq-etf-history.json'), JSON.stringify({ data: { klines: ['2026-01-01,2,2.5,3,1,1'] } }));
   await writeFile(join(data, 'nasdaq-day-statistics.csv'), 'broken');
   assert.notEqual(build().status, 0, 'malformed CSV must not be treated as a missing snapshot');
 });

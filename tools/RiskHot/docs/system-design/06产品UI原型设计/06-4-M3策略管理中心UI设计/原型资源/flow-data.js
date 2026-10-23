@@ -1,6 +1,11 @@
 'use strict';
 // Source-grounded business blueprints; version numbers and evaluation fixtures remain UI examples.
 const FLOW_SOURCES = {
+  "F02": {"title":"F02 事件管理模块功能设计 V1.0","path":"docs/system-design/03-系统功能架构/F02 事件管理模块功能设计 V1.0.md"},
+  "F01": {
+    "title": "F01 信息接入与标准化模块功能设计 V2.1",
+    "path": "docs/system-design/03-系统功能架构/F01 信息接入与标准化模块功能设计 V2.1.md"
+  },
   "overview": {
     "title": "系统功能架构总览",
     "path": "docs/system-design/03-系统功能架构/系统功能架构总览.md"
@@ -690,7 +695,7 @@ const DOMAIN_FLOWS = {
   },
   "STR-L0-01": {
     "source": "L0",
-    "summary": "依据L0 §2.2.2～2.2.4、§2.2.6及总览F02：事件抽取、归组、对象变量、增量分类和保存交付。F01信息接入在系统全景单独展示。",
+    "summary": "依据L0 §2.2.2～2.2.4、§2.2.6及总览F02：事件抽取、归组、对象变量、增量分类和保存交付。F01 信息接入与标准化模块在系统全景单独展示。",
     "nodes": [
       {
         "id": "S",
