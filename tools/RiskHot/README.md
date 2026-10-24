@@ -1,6 +1,6 @@
 # RiskHot
 
-当前阶段为**来源到事件候选的工程实现与验证**。已提供中国人民银行公开公告连接器、标准化、AI-01 抽取执行、持久化、授权 API 和命令式状态监测。真实公告已保存；真实模型服务、模型名及凭据尚未配置，因此完整真实链路验收仍待执行。
+当前阶段为**来源到事件候选的工程实现与验证**。来源清单 40 条均已纳入接入状态管理，26 条已在明确栏目/序列范围内完成真实抓取、标准化与持久化；6 条待补地址，8 条受登录、风控或网络访问限制。逐项范围和证据见[[tools/RiskHot/docs/verification/all-sources|全部信源接入验证记录]]。真实模型服务、模型名及凭据尚未配置，抽取保持等待配置。
 
 本次实现遵循[[tools/RiskHot/docs/superpowers/specs/2026-10-24-source-to-candidates-design|用户已批准设计]]；当前接口与存储以[[tools/RiskHot/docs/system-design/04-系统架构设计/04-公共技术契约/来源候选切片实现契约|来源候选切片实现契约]]为准，证据见[[tools/RiskHot/docs/verification/source-candidates|执行验证记录]]。候选保存后保持 `pending`，不生成正式事件。
 
@@ -25,7 +25,21 @@ npm run dev
 
 API 为 [localhost:18081](http://localhost:18081)，登录入口为 `/auth/login`；账号与密码从本地 `.env` 的 `OPERATOR_USERNAME`、`OPERATOR_PASSWORD` 读取。`/health/ready` 仅报告 API 的数据库/工件可用性与模型配置标记，不能据此判断整条链路完成。运行日志在 `.riskhot/logs/`。在运行终端按 Ctrl-C 停止本任务进程；`docker compose stop` 停止本任务依赖服务，保留数据卷。
 
-`src/data/source-catalog.js` 的 40 条来源元数据会被导入；当前只为 `wiki-source-001` 配置真实连接器并启用，其余条目不表示已接入。不会导入 `source-demo.js` 演示状态或旧 `.data/`。
+`src/data/source-catalog.js` 保留 40 条来源身份与参考元数据，`src/data/source-connections.json` 保存已核验的连接器范围。初始化启用就绪来源；重复初始化保留人工暂停。配置变更生成来源版本，在途操作继续使用受理时版本。不会导入 `source-demo.js` 演示状态或旧 `.data/`。
+
+## 运行全部来源
+
+```sh
+npm run sources:run -- --key my-next-source-batch
+```
+
+命令逐条报告全部 40 个来源，最多同时推进两个；每条使用独立幂等键。已保存但模型缺配置显示 waiting_config，缺地址/需登录/访问受阻分别显示明确原因，不算采集成功。结果写入 `.riskhot/runs/sources-<timestamp>.json`，有未完成项时退出码为 2。重新开始一轮使用新的 key；同一 key 复用原操作。
+
+可限定来源，例如 `npm run sources:run -- --key my-rate-batch --sources wiki-source-005,wiki-source-021`。单源命令也支持 `npm run run:real -- --source wiki-source-004 --key my-safe-batch`，默认仍为央行。
+
+华尔街见闻使用公开浏览器渲染，在私有环境配置 `SOURCE_BROWSER_EXECUTABLE` 指向独立 Chrome for Testing 或 Chromium；不接受日常 Google Chrome。每次创建临时任务目录并在 finally 关闭/清理，文档和普通子资源请求均按允许范围拦截；当前只需来源域和官方 `static.wscn.net`。这一规则不等同于操作系统或容器级网络隔离。
+
+日期化快照区分观测日、发布日期和列表更新时间；仅采集窗口变化不生成新资料。DR007 只接日终 17:00，FR007 检查实际曲线及收盘口径；不满足时保留原件并明确拒绝。巨潮和披露易当前保存公告索引，不能视为 PDF 正文；中债日评、国债曲线、名义美债和 FRED DPRIME 均按验证记录中的实际范围提供。
 
 ## 获取并查询真实公告
 
@@ -57,7 +71,7 @@ npm run run:real -- --watch BATCH_ID --retry PROCESSING_ID --reason "模型配�
 
 | 接口 | 用途 |
 | --- | --- |
-| `GET /api/v1/m1/sources`、`PATCH /api/v1/m1/sources/:key` | 查看授权来源，启停并保留配置版本 |
+| `GET /api/v1/m1/sources`、`PATCH /api/v1/m1/sources/:key` | 查看授权来源、连接器就绪原因和最新批次结果，启停并保留配置版本 |
 | `POST /api/v1/l0/source-fetches` | 持久受理获取，返回 202 和 operation_id |
 | `GET /api/v1/l0/runs?from=2026-10-24&to=2026-10-24&status=waiting_config` | 按上海日期范围和派生状态筛选，最多 100 批次 |
 | `GET /api/v1/l0/operations/:id` | 批次及子资料状态、原因、资料和 processing 引用 |
@@ -79,4 +93,4 @@ npm run run:real -- --watch BATCH_ID --retry PROCESSING_ID --reason "模型配�
 
 `docs/` 保存业务、功能、架构及 UI 原型；`aihot/` 保存参考资料与旧设计归档；项目技能和 BMAD 资料保留。`.data/` 是保留的旧运行数据，不自动导入新环境。旧架构清单、工作包、开发报告和场景报告均是历史记录，不作为新系统已实现或验收通过的证明。
 
-旧应用恢复副本位于 `/Users/cjw/.codex/backups/RiskHot-code-removal-20261024-123733`，其中 recovery-manifest.json 记录逐文件摘要。本目录的新工程依据已批准设计建立独立数据库、工件和身份环境。当前不包含多站点、定时采集、PDF/OCR、AI-02～05、正式事件提交或产品页面对接。
+旧应用恢复副本位于 `/Users/cjw/.codex/backups/RiskHot-code-removal-20261024-123733`，其中 recovery-manifest.json 记录逐文件摘要。本目录的新工程依据已批准设计建立独立数据库、工件和身份环境。当前不包含定时采集、PDF/OCR、AI-02～05、正式事件提交或产品页面对接。

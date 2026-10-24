@@ -1,5 +1,7 @@
 # 来源到事件候选：执行验证记录
 
+后续40条来源扩展与41项测试见[[tools/RiskHot/docs/verification/all-sources|全部信源接入记录]]；本页保留首次单源阶段证据。真实模型配置缺口不变。
+
 > 2026-10-24 · 工程验证 21/21 通过；真实信源前半链路通过；真实模型验收待配置。不能据此签署完整 L0 验收。
 
 输入依据为[[tools/RiskHot/docs/superpowers/specs/2026-10-24-source-to-candidates-design|已批准设计]]；实施契约见[[tools/RiskHot/docs/system-design/04-系统架构设计/04-公共技术契约/来源候选切片实现契约|当前实现映射]]，启动和恢复步骤见[[tools/RiskHot/README|README]]。本次在独立工作树及 `codex/source-candidate-loop` 分支实施，没有合并、推送或导入旧运行数据。

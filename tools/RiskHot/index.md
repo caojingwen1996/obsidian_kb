@@ -2,9 +2,11 @@
 
 ## 来源到事件候选：工程实现
 
-- [[tools/RiskHot/README|启动与操作说明]]：独立 TypeScript/PostgreSQL/Temporal/OIDC 工程，40 条来源元数据，首条央行连接器及 API/CLI 状态监测。
+- [[tools/RiskHot/docs/verification/all-sources|全部信源接入验证]]：40条状态明确，26条真实入库、6条待补地址、8条受阻；41项测试通过，真实模型调用0次。[[tools/RiskHot/docs/verification/all-sources.json|逐源证据清单]]保留范围、运行及原件摘要。
+
+- [[tools/RiskHot/README|启动与操作说明]]：独立 TypeScript/PostgreSQL/Temporal/OIDC 工程，40条来源状态、26个实际采集范围及API/CLI监测。
 - [[tools/RiskHot/docs/superpowers/specs/2026-10-24-source-to-candidates-design|已批准设计]]与[[tools/RiskHot/docs/superpowers/plans/2026-10-24-source-to-candidates|实施计划]]：EXTRACTION_ONLY 候选范围，真实模型验收仍待配置。
-- [[tools/RiskHot/docs/system-design/04-系统架构设计/04-公共技术契约/来源候选切片实现契约|当前实现契约]]与[[tools/RiskHot/docs/verification/source-candidates|执行验证记录]]：21 项工程测试通过，真实央行资料已保存，0 次真实模型调用；完整 L0 未验收。
+- [[tools/RiskHot/docs/system-design/04-系统架构设计/04-公共技术契约/来源候选切片实现契约|当前实现契约]]与[[tools/RiskHot/docs/verification/all-sources|当前执行验证]]：41项测试通过，26条来源资料已保存，0次真实模型调用；完整L0未验收。
 
 ## 当前UI统一规则
 
