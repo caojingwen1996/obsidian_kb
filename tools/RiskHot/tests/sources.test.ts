@@ -120,7 +120,8 @@ test('the disclosure index adapter selects its declared announcement table rathe
   const raw=Buffer.from('<table class="jc-table3"><tr><td><a href="/new/disclosure/detail?announcementId=123&amp;announcementTime=2026-10-24">受控公告</a></td></tr></table><table class="jc-table3"><tr><td>无关面板</td></tr></table>');
   const material=parseSource(profile,raw,profile.entryUrl!);
   assert.equal(material.segments.length,1);
-  assert.equal(material.observedAtText,'2026-10-24');
+  assert.equal(material.snapshotAtText,'2026-10-24');
+  assert.equal(material.observedAtText,undefined);
   assert.ok(!material.segments[0]!.text.includes('无关面板'));
 });
 
@@ -131,4 +132,46 @@ test('official discovery selects the declared data column and excludes leadershi
     {key:'wiki-source-009',old:'https://www.chinabond.com.cn/xxwsy/sy_zdgz_ath/202610/t20261022_855470049.html',url:'https://www.chinabond.com.cn/xxwsy/sy_zdgz_ath/202610/t20261023_855472795.html',title:'中债收益率曲线和指数日评',wrap:false},
   ];
   for(const item of cases){const p=connectorFor(item.key);const link=`<a href="${item.url}">${item.title}</a>`;const raw=Buffer.from(`<a href="${item.old}">领导或非目标置顶</a>${item.wrap?`<div class="gzdtlist">${link}</div>`:link}`);assert.equal(discoverSource(p,raw,p.entryUrl!,1)[0]?.url,item.url);}
+});
+
+test('a missing HTTP media header still saves bytes for strict parsing, while an explicit binary type is rejected', async () => {
+  const bytes=Buffer.from('<h1>正文</h1><div id="article"><p>金额0。</p></div>');
+  const raw=await fetchSource(article,url,async()=>new Response(bytes));
+  assert.equal(parseSource(article,raw,url).segments[0]?.text,'金额0。');
+  await assert.rejects(()=>fetchSource(article,url,async()=>new Response(bytes,{headers:{'content-type':'image/png'}})),/SOURCE_MEDIA_UNSUPPORTED/);
+});
+
+test('release dates and index update times do not become observation dates', () => {
+  const raw=Buffer.from('<time>2026-10-24</time><div id="article">观测日2026-10-23，利率0。</div>');
+  const release=parseSource({...article,kind:'html-snapshot',dateMeaning:'release'},raw,url);
+  assert.equal(release.publishedAtText,'2026-10-24');
+  assert.equal(release.observedAtText,undefined);
+  assert.equal(release.snapshotAtText,'2026-10-24');
+  const view=parseSource({...article,kind:'html-snapshot',dateMeaning:'snapshot'},raw,url);
+  assert.equal(view.publishedAtText,null);
+  assert.equal(view.observedAtText,undefined);
+});
+
+test('daily-close adapters reject intraday DR007 and an unqualified FR007 curve instead of relabeling it', () => {
+  const p5=connectorFor('wiki-source-005');
+  const row={date:'26-10-23',productCode:'DR007',weightedRate:'0',latestRate:'0',avgPrd:'7'};
+  assert.throws(()=>parseSource(p5,Buffer.from(JSON.stringify({data:{showDateCN:'2026-10-23 10:00'},records:[row]})),p5.entryUrl!),/SOURCE_NOT_FINAL/);
+  assert.equal(parseSource(p5,Buffer.from(JSON.stringify({data:{showDateCN:'2026-10-23 17:00'},records:[row]})),p5.entryUrl!).segments.length,1);
+  const p7=connectorFor('wiki-source-007');
+  const record={curveid:'CISCF07',showTime:null,tl:'1Y',optimalBid:'0',optimalAvg:'0',optimalAsk:'0'};
+  const data={showDateCN:'2026-10-23',curveType:'FR007',cfgItemType:'72',curveId:'16',quoteTime:'16:30'};
+  assert.equal(parseSource(p7,Buffer.from(JSON.stringify({data,records:[record]})),p7.entryUrl!).segments.length,1);
+  for(const bad of [{showDateCN:'2026-10-23'},{...data,quoteTime:'10:00'},{...data,curveType:'SHIBOR'}])assert.throws(()=>parseSource(p7,Buffer.from(JSON.stringify({data:bad,records:[record]})),p7.entryUrl!),/SOURCE_NOT_FINAL/);
+});
+
+test('snapshot dates must name a real calendar day rather than just match a date-shaped string', () => {
+  for(const date of ['2026-99-99 17:00','2026-02-30','2026-10-24 25:00'])assert.throws(()=>parseSource({...article,kind:'html-snapshot'},Buffer.from(`<time>${date}</time><div id="article">余额0</div>`),url),/SOURCE_DATE_INVALID/);
+});
+
+test('browser subresources require explicit public dependency origins while document paths keep their source scope', async () => {
+  const { browserRequestAllowed }=await import('../src/l0/source-browser.js');
+  const p={...article,browser:{waitFor:'#article',resourceOrigins:['https://static.wscn.net']}};
+  assert.equal(browserRequestAllowed(p,'https://static.wscn.net/app.js','Script'),true);
+  for(const resource of ['http://127.0.0.1:18081/api','https://10.0.0.1/private','file:///etc/passwd','https://unregistered.test/app.js'])assert.equal(browserRequestAllowed(p,resource,'XHR'),false);
+  assert.equal(browserRequestAllowed(p,'https://www.safe.gov.cn/admin','Document'),false);
 });

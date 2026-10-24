@@ -54,6 +54,12 @@ test('OIDC protects writes; strict input, idempotency, source eligibility and ti
     await repo.recordRaw(fixtureChild, 1, raw); await repo.recordNormalized(fixtureChild, 1, material); await repo.saveMaterial(fixtureChild, 1); await repo.deliverPending();
     const stored = await repo.operation(fixtureChild);
     await repo.acceptSet(stored.processing_id!, 1, { covered_segment_ids: material.segments.map(x => x.id), candidates: [], no_event_reason: '仅有背景说明', warnings: [] });
+    const failed=await repo.submit(payload,subject,`${headers['idempotency-key']}-discovery-failed`);
+    await repo.failOperation(failed.id,1,'SOURCE_ITEMS_MISSING');
+    const sourceStatus=(await app.inject({url:'/api/v1/m1/sources',headers})).json().items.find((item:{catalog_key:string})=>item.catalog_key==='wiki-source-001');
+    assert.equal(sourceStatus.last_operation_id,failed.id,'A latest discovery failure must not be hidden behind an older material');
+    assert.equal(sourceStatus.last_status,'recoverable');
+    assert.equal(sourceStatus.last_reason,'SOURCE_ITEMS_MISSING');
     assert.equal((await app.inject({ url: `/api/v1/l0/versions/${stored.version_id}`, headers })).json().material.title, '受控背景资料');
     assert.equal((await app.inject({ url: `/api/v1/l0/versions/${stored.version_id}/raw`, headers })).rawPayload.toString(), raw.toString());
     await db.query('UPDATE platform.actors SET source_keys=ARRAY[]::text[] WHERE subject=$1', [subject]);

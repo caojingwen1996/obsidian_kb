@@ -7,6 +7,14 @@ import type { SourceConnector } from '../m1/connectors.js';
 import { DomainError } from '../platform/types.js';
 import { assertSourceUrl } from './sources.js';
 
+export function browserRequestAllowed(profile: SourceConnector, value: string, type: string): boolean {
+  try {
+    if(type==='Document'){assertSourceUrl(profile,value);return true;}
+    const url=new URL(value);
+    return url.protocol==='https:'&&!url.username&&!url.password&&[...profile.allowed.map(rule=>rule.origin),...(profile.browser?.resourceOrigins??[])].includes(url.origin);
+  }catch{return false;}
+}
+
 export async function fetchRenderedSource(profile: SourceConnector, value: string, executable = process.env.SOURCE_BROWSER_EXECUTABLE): Promise<Buffer> {
   const url = assertSourceUrl(profile,value).href;
   if (!executable) throw new DomainError('SOURCE_BROWSER_NOT_CONFIGURED',503);
@@ -37,14 +45,14 @@ export async function fetchRenderedSource(profile: SourceConnector, value: strin
       const message=JSON.parse(String(event.data));
       if (message.id) { const call=pending.get(message.id);pending.delete(message.id);if(message.error)call?.reject(new DomainError('SOURCE_BROWSER_PROTOCOL_FAILED',502));else call?.resolve(message.result); }
       if (message.method==='Fetch.requestPaused') {
-        try { assertSourceUrl(profile,message.params.request.url);void send('Fetch.continueRequest',{requestId:message.params.requestId}).catch(()=>{}); }
-        catch { void send('Fetch.failRequest',{requestId:message.params.requestId,errorReason:'BlockedByClient'}).catch(()=>{}); }
+        const allowed=browserRequestAllowed(profile,message.params.request.url,message.params.resourceType);
+        void send(allowed?'Fetch.continueRequest':'Fetch.failRequest',{requestId:message.params.requestId,...(allowed?{}:{errorReason:'BlockedByClient'})}).catch(()=>{});
       }
     });
     socket.addEventListener('close',()=>{for(const call of pending.values())call.reject(new DomainError('SOURCE_BROWSER_CLOSED',502));pending.clear();});
     const {targetId}=await send('Target.createTarget',{url:'about:blank'},undefined);
     sessionId=(await send('Target.attachToTarget',{targetId,flatten:true},undefined)).sessionId;
-    await send('Page.enable');await send('Fetch.enable',{patterns:[{urlPattern:'*',resourceType:'Document',requestStage:'Request'}]});
+    await send('Page.enable');await send('Fetch.enable',{patterns:[{urlPattern:'*',requestStage:'Request'}]});
     await send('Page.navigate',{url});
     const selector=JSON.stringify(profile.browser!.waitFor);const deadline=Date.now()+15_000;
     while(Date.now()<deadline){

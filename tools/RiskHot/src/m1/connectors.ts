@@ -9,10 +9,11 @@ export interface SourceConnector {
   allowed: { origin: string; path: string; search?: string; searchPattern?: string }[];
   method?: 'POST'; referer?: string;
   dateQueries?: Record<string, 'month' | 'monthStart' | 'day'>;
-  browser?: { waitFor: string };
+  dateMeaning?: 'observation' | 'release' | 'snapshot';
+  browser?: { waitFor: string; resourceOrigins?: string[] };
   discovery?: { format: 'html' | 'rss' | 'script-links' | 'nuxt-links' | 'json' | 'json-date'; selector: string; records?: string; nested?: string; where?: Record<string, string | number>; urlField?: string; titleField?: string; sortField?: string; datePath?: string; template?: string };
   html?: { body: string; title?: string; date?: string; datePattern?: string; encoding?: string; dateFromUrl?: { selector: string; parameter: string } };
-  json?: { records: string; fields: { path: string; label: string; optional?: boolean }[]; dateField?: string; datePath?: string; dateParts?: string[]; dateParameter?: string; where?: Record<string, string | number | string[]>; script?: string; curve?: { xml: string; terms: string[] } };
+  json?: { records: string; fields: { path: string; label: string; optional?: boolean }[]; dateField?: string; datePath?: string; dateParts?: string[]; dateParameter?: string; where?: Record<string, string | number | string[]>; script?: string; curve?: { xml: string; terms: string[] }; requirements?: {path:string;equals?:string;pattern?:string}[] };
   jsonArticle?: { script?: string; title: string; body: string; date: string; free?: string };
 }
 

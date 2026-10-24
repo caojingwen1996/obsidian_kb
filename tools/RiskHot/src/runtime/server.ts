@@ -74,8 +74,12 @@ export async function buildServer(repo: ExecutionStore) {
   });
   app.get('/api/v1/m1/sources', async request => {
     await repo.authorize(request.actor, 'read');
-    const rows = (await repo.db.query("SELECT s.*,v.config->'connection' AS connection,last_op.id AS last_operation_id,last_op.status AS last_status,last_op.reason_code AS last_reason FROM m1.sources s JOIN m1.source_versions v ON v.source_id=s.id AND v.version=s.version JOIN platform.actors a ON a.subject=$1 LEFT JOIN LATERAL(SELECT id,status,reason_code FROM information.operations o WHERE o.source_id=s.id AND o.kind='material' ORDER BY o.created_at DESC,o.id DESC LIMIT 1) last_op ON true WHERE '*'=ANY(a.source_keys) OR s.catalog_key=ANY(a.source_keys) ORDER BY s.catalog_key", [request.actor])).rows;
-    return {items:rows.map(row=>{const connection=row.connection??connectorFor(row.catalog_key);return {...row,connection,connector_configured:connection.readiness==='ready'};})};
+    const rows = (await repo.db.query("SELECT s.*,v.config->'connection' AS connection,last_op.id AS last_operation_id FROM m1.sources s JOIN m1.source_versions v ON v.source_id=s.id AND v.version=s.version JOIN platform.actors a ON a.subject=$1 LEFT JOIN LATERAL(SELECT id FROM information.operations o WHERE o.source_id=s.id AND o.kind='batch' ORDER BY o.created_at DESC,o.id DESC LIMIT 1) last_op ON true WHERE '*'=ANY(a.source_keys) OR s.catalog_key=ANY(a.source_keys) ORDER BY s.catalog_key", [request.actor])).rows;
+    return {items:await Promise.all(rows.map(async row=>{
+      const connection=row.connection??connectorFor(row.catalog_key);
+      const last=row.last_operation_id?await repo.operation(row.last_operation_id):null;
+      return {...row,connection,connector_configured:connection.readiness==='ready',last_status:last?.slice_status??null,last_reason:last?.reason_code??last?.children?.find(child=>child.reason_code)?.reason_code??null};
+    }))};
   });
   app.patch('/api/v1/m1/sources/:key', { schema: { params: { type: 'object', additionalProperties: false, required: ['key'], properties: { key: { type: 'string', pattern: '^wiki-source-[0-9]{3}$' } } }, body: { type: 'object', additionalProperties: false, required: ['state'], properties: { state: { enum: ['ACTIVE', 'DISABLED'] } } } } }, async request => {
     const { key } = request.params as { key: string }; const { state } = request.body as { state: string };

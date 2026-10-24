@@ -85,7 +85,7 @@
   },
   {
     "key": "wiki-source-005",
-    "id": "catalog-005-v1",
+    "id": "catalog-005-v2",
     "kind": "json-snapshot",
     "readiness": "ready",
     "entryUrl": "https://www.chinamoney.com.cn/r/cms/www/chinamoney/data/currency/prr-md.json",
@@ -123,7 +123,13 @@
       "where": {
         "productCode": "DR007"
       },
-      "datePath": "data.showDateCN"
+      "datePath": "data.showDateCN",
+      "requirements": [
+        {
+          "path": "data.showDateCN",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2} 17:00$"
+        }
+      ]
     }
   },
   {
@@ -171,7 +177,7 @@
   },
   {
     "key": "wiki-source-007",
-    "id": "catalog-007-v1",
+    "id": "catalog-007-v2",
     "kind": "json-snapshot",
     "readiness": "ready",
     "entryUrl": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-shibor/Ifcc?lang=CN&cfgItemType=72",
@@ -211,7 +217,25 @@
           "label": "optimalAvg"
         }
       ],
-      "datePath": "data.showDateCN"
+      "datePath": "data.showDateCN",
+      "requirements": [
+        {
+          "path": "data.curveType",
+          "equals": "FR007"
+        },
+        {
+          "path": "data.cfgItemType",
+          "equals": "72"
+        },
+        {
+          "path": "data.curveId",
+          "equals": "16"
+        },
+        {
+          "path": "data.quoteTime",
+          "equals": "16:30"
+        }
+      ]
     }
   },
   {
@@ -388,7 +412,7 @@
   },
   {
     "key": "wiki-source-013",
-    "id": "catalog-013-v1",
+    "id": "catalog-013-v2",
     "kind": "json-snapshot",
     "readiness": "ready",
     "entryUrl": "https://query.sse.com.cn/commonSoaQuery.do?isPagination=true&pageHelp.pageSize=25&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20261001&endDate=20261024&sqlId=RZRQ_HZ_INFO",
@@ -474,7 +498,7 @@
   },
   {
     "key": "wiki-source-015",
-    "id": "catalog-015-v1",
+    "id": "catalog-015-v2",
     "kind": "html-snapshot",
     "readiness": "ready",
     "entryUrl": "https://www.cninfo.com.cn/",
@@ -491,11 +515,12 @@
         "selector": "table.jc-table3 a[href*=\"announcementId=\"]",
         "parameter": "announcementTime"
       }
-    }
+    },
+    "dateMeaning": "snapshot"
   },
   {
     "key": "wiki-source-016",
-    "id": "catalog-016-v1",
+    "id": "catalog-016-v2",
     "kind": "json-snapshot",
     "readiness": "ready",
     "entryUrl": "https://www.hkexnews.hk/ncms/script/eds/homecat0_c.json",
@@ -563,7 +588,8 @@
         }
       ],
       "datePath": "lastupdatetime"
-    }
+    },
+    "dateMeaning": "snapshot"
   },
   {
     "key": "wiki-source-018",
@@ -622,7 +648,7 @@
   },
   {
     "key": "wiki-source-020",
-    "id": "catalog-020-v1",
+    "id": "catalog-020-v2",
     "kind": "html-snapshot",
     "readiness": "ready",
     "entryUrl": "https://www.federalreserve.gov/releases/h15/",
@@ -637,7 +663,8 @@
       "body": "#dailyH15 table.statistics",
       "title": "#content h2",
       "date": "#content .dates"
-    }
+    },
+    "dateMeaning": "release"
   },
   {
     "key": "wiki-source-021",
@@ -770,7 +797,7 @@
   },
   {
     "key": "wiki-source-026",
-    "id": "catalog-026-v1",
+    "id": "catalog-026-v2",
     "kind": "json-snapshot",
     "readiness": "ready",
     "entryUrl": "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/od/treasury_securities_auctions_v2?sort=-record_date&page%5Bsize%5D=5",
@@ -852,7 +879,8 @@
           "optional": false
         }
       ]
-    }
+    },
+    "dateMeaning": "release"
   },
   {
     "key": "wiki-source-027",
@@ -988,7 +1016,7 @@
   },
   {
     "key": "wiki-source-039",
-    "id": "catalog-039-v1",
+    "id": "catalog-039-v2",
     "kind": "html-snapshot",
     "readiness": "ready",
     "entryUrl": "https://wallstreetcn.com/live",
@@ -1000,7 +1028,10 @@
       }
     ],
     "browser": {
-      "waitFor": "li:has(a[href^=\"/livenews/\"]) time[datetime]"
+      "waitFor": "li:has(a[href^=\"/livenews/\"]) time[datetime]",
+      "resourceOrigins": [
+        "https://static.wscn.net"
+      ]
     },
     "html": {
       "body": "ul:has(> li > div > a[href^=\"/livenews/\"])",

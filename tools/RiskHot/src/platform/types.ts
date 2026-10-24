@@ -10,7 +10,7 @@ export interface Segment { id: string; text: string; rawLocator: string; kind: '
 export interface NormalizedMaterial {
   title: string | null; publishedAtText: string | null; url: string;
   normalizerVersion: string; segments: Segment[];
-  observedAtText?: string; sourceIdentity?: string;
+  observedAtText?: string; snapshotAtText?: string; sourceIdentity?: string;
 }
 export interface EvidenceRef { segment_id: string; start_cp: number; end_cp: number; quote: string }
 export interface Candidate {

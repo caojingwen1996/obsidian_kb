@@ -26,7 +26,8 @@ export async function fetchSource(profile: SourceConnector, value: string, fetch
         url = assertSourceUrl(profile, new URL(next, url).href).href; continue;
       }
       if (!response.ok) { await response.body?.cancel(); throw new DomainError(`SOURCE_HTTP_${response.status}`, 502, response.status === 429 || response.status >= 500); }
-      if (!/text\/(html|xml|plain)|application\/(json|rss\+xml|atom\+xml|xml)/i.test(response.headers.get('content-type') ?? '')) { await response.body?.cancel(); throw new DomainError('SOURCE_MEDIA_UNSUPPORTED'); }
+      const media=response.headers.get('content-type');
+      if (media && !/^(?:text\/(?:html|xml|plain)|application\/(?:json|rss\+xml|atom\+xml|xml|xhtml\+xml))(?:\s*;|$)/i.test(media)) { await response.body?.cancel(); throw new DomainError('SOURCE_MEDIA_UNSUPPORTED'); }
       if (!response.body) throw new DomainError('SOURCE_EMPTY');
       const chunks: Uint8Array[] = []; let size = 0;
       for await (const chunk of response.body) {
@@ -110,6 +111,12 @@ function curveRecords(data: unknown, config: { xml: string; terms: string[] }): 
 }
 function dateValue(value: unknown): string {
   if (typeof value !== 'string' || !value.trim() || !(/\d{4}[-/年]\d{1,2}[-/月]\d{1,2}|^\d{8}$|\d{1,2}\/\d{1,2}\/\d{4}/u.test(value) || Number.isFinite(Date.parse(value)))) throw new DomainError('SOURCE_DATE_MISSING');
+  const parts=value.match(/(\d{4})[-/年](\d{1,2})[-/月](\d{1,2})/u)??value.match(/^(\d{4})(\d{2})(\d{2})$/u);
+  const reversed=value.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/u);
+  const calendar=parts?[Number(parts[1]),Number(parts[2]),Number(parts[3])]:reversed?[Number(reversed[3]),Number(reversed[2]),Number(reversed[1])]:null;
+  if(calendar){const [y,m,d]=calendar as [number,number,number];const stamp=new Date(Date.UTC(y,m-1,d));if(stamp.getUTCFullYear()!==y||stamp.getUTCMonth()!==m-1||stamp.getUTCDate()!==d)throw new DomainError('SOURCE_DATE_INVALID');}
+  const time=value.match(/(?:T|\s)(\d{1,2}):(\d{2})(?::(\d{2}))?/u);
+  if(time&&(Number(time[1])>23||Number(time[2])>59||Number(time[3]??0)>59))throw new DomainError('SOURCE_DATE_INVALID');
   return clean(value);
 }
 export function parseSource(profile: SourceConnector, raw: Buffer, value: string): NormalizedMaterial {
@@ -122,6 +129,10 @@ export function parseSource(profile: SourceConnector, raw: Buffer, value: string
     if (!profile.json) throw new DomainError('SOURCE_SCHEMA_INVALID');
     let data: unknown;
     try { data = JSON.parse(profile.json.script ? load(text)(profile.json.script).text() : text); } catch { throw new DomainError('SOURCE_JSON_INVALID'); }
+    for(const rule of profile.json.requirements??[]){
+      const actual=at(data,rule.path);
+      if(typeof actual!=='string'||(rule.equals!==undefined&&actual!==rule.equals)||(rule.pattern!==undefined&&!new RegExp(rule.pattern).test(actual)))throw new DomainError('SOURCE_NOT_FINAL');
+    }
     const records = profile.json.curve ? curveRecords(data,profile.json.curve) : at(data, profile.json.records);
     if (!Array.isArray(records)) throw new DomainError('SOURCE_SCHEMA_INVALID');
     const selected = records.map((item: unknown, index: number) => ({ item, index })).filter(({ item }) => Object.entries(profile.json!.where ?? {}).every(([key, wanted]) => Array.isArray(wanted) ? wanted.includes(String(at(item,key))) : at(item, key) === wanted));
@@ -135,7 +146,8 @@ export function parseSource(profile: SourceConnector, raw: Buffer, value: string
       });
       return segment(url, fields.filter(value => value !== null).join('\n'), profile.json!.curve ? `json:${pointer(profile.json!.curve.xml)}::xml xid=${String(at(item,'xid'))}` : `json:${pointer(profile.json!.records)}/${index}`, 'paragraph');
     });
-    material = { url, title: profile.scope, publishedAtText: null, observedAtText: observed, sourceIdentity: `${url}\nobservation:${observed}`, normalizerVersion: profile.id, segments };
+    material = { url, title: profile.scope, publishedAtText:null, normalizerVersion:profile.id,segments };
+    applySnapshotDate(material,profile,observed);
   } else if (profile.jsonArticle) {
     const config = profile.jsonArticle; let data: unknown;
     try { data = JSON.parse(config.script ? load(text)(config.script).text() : text); } catch { throw new DomainError('SOURCE_JSON_INVALID'); }
@@ -154,11 +166,20 @@ export function parseSource(profile: SourceConnector, raw: Buffer, value: string
     if (config.datePattern && date) date = date.match(new RegExp(config.datePattern))?.[1] ?? null;
     material = { url, title: selectedText($, config.title) ?? profile.scope, publishedAtText: date, normalizerVersion: profile.id, segments: htmlSegments(text, config.body, url) };
     if (profile.kind === 'html-snapshot') {
-      const observed = dateValue(date); material.observedAtText = observed; material.publishedAtText = null;
-      material.sourceIdentity = `${url}\nobservation:${observed}`;
+      applySnapshotDate(material,profile,dateValue(date));
     }
   }
   if (!material.segments.length) throw new DomainError('BODY_MISSING');
   if (material.segments.reduce((n,item) => n + Array.from(item.text).length, 0) > 20_000) throw new DomainError('TEXT_TOO_LARGE', 413);
   return material;
+}
+
+function applySnapshotDate(material: NormalizedMaterial, profile: SourceConnector, date: string): void {
+  const meaning=profile.dateMeaning??'observation';
+  material.snapshotAtText=date;
+  material.publishedAtText=meaning==='release'?date:null;
+  if(meaning==='observation')material.observedAtText=date;
+  const identity=new URL(material.url);
+  for(const parameter of Object.keys(profile.dateQueries??{}))identity.searchParams.delete(parameter);
+  material.sourceIdentity=`${identity.href}\n${meaning}:${date}`;
 }
