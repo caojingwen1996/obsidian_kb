@@ -9,7 +9,7 @@ import { extractionSchema, validateExtraction } from '../l0/extraction.js';
 import { DomainError, type NormalizedMaterial } from '../platform/types.js';
 import type { FetchCommand, OperationRow } from '../l0/repository.js';
 import { retryableModelFailure } from '../l0/policy.js';
-import { CodexModelClient } from '../l0/codex.js';
+import { CodexModelClient, CodexExecutionError } from '../l0/codex.js';
 
 const errorCode = (error: unknown) => error instanceof DomainError ? error.code : 'IO_UNAVAILABLE';
 export function ioActivities(repo: ExecutionStore) {
@@ -92,6 +92,7 @@ export function ioActivities(repo: ExecutionStore) {
         const attempt = (await repo.db.query<{ response_artifact_id: string | null; error_code: string | null; generation: string; request_artifact_id: string; within_budget: boolean }>('SELECT a.response_artifact_id,a.error_code,a.generation,a.request_artifact_id,w.deadline>clock_timestamp() AS within_budget FROM platform.model_attempts a JOIN platform.model_budget_windows w ON w.id=a.window_id WHERE a.id=$1 AND a.processing_id=$2', [attemptId, id])).rows[0];
         if (!attempt || Number(attempt.generation) !== generation) throw new DomainError('STALE_ATTEMPT');
         if (!attempt.within_budget) throw new DomainError('MODEL_BUDGET_EXHAUSTED', 409);
+        if (attempt.error_code) throw new DomainError(attempt.error_code, 502, retryableModelFailure(attempt.error_code));
         if (!attempt.response_artifact_id) { const code = attempt.error_code ?? 'MODEL_NETWORK_ERROR'; throw new DomainError(code, 502, retryableModelFailure(code)); }
         const response = decodeModelResponse(await repo.json<TransportResponse>(attempt.response_artifact_id));
         const input = await repo.json<TaskInput>(attempt.request_artifact_id);
@@ -131,11 +132,15 @@ export function modelActivities(repo: ExecutionStore) {
         const artifact = await repo.putJson(response, 'model-response');
         await repo.db.query('UPDATE platform.model_attempts SET status=\'response_received\',response_artifact_id=$2,completed_at=now() WHERE id=$1 AND response_artifact_id IS NULL', [attemptId, artifact]);
       } catch (error) {
+        let diagnosticArtifact: string | null = null;
+        if (error instanceof CodexExecutionError) {
+          diagnosticArtifact = await repo.putJson({ code:error.code, diagnostic:error.diagnostic }, 'model-failure');
+        }
         if (error instanceof DomainError && ['MODEL_QUOTA_EXHAUSTED','MODEL_LOGIN_REQUIRED','MODEL_SUBSCRIPTION_REQUIRED'].includes(error.code)) {
           const delay = error.code === 'MODEL_QUOTA_EXHAUSTED' ? '6 hours' : '5 minutes';
           await repo.db.query("INSERT INTO platform.model_service_state(protocol,reason_code,blocked_until) VALUES('codex-exec',$1,now()+$2::interval) ON CONFLICT(protocol) DO UPDATE SET reason_code=EXCLUDED.reason_code,blocked_until=EXCLUDED.blocked_until,updated_at=now()", [error.code, delay]);
         }
-        await repo.db.query('UPDATE platform.model_attempts SET status=\'failed\',error_code=$2,completed_at=now() WHERE id=$1 AND response_artifact_id IS NULL', [attemptId, errorCode(error)]);
+        await repo.db.query('UPDATE platform.model_attempts SET status=\'failed\',error_code=$2,response_artifact_id=$3,completed_at=now() WHERE id=$1 AND response_artifact_id IS NULL', [attemptId, errorCode(error), diagnosticArtifact]);
       } finally { clearInterval(timer); }
     },
   };

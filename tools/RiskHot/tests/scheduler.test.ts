@@ -56,6 +56,8 @@ test('alerts stay quiet on success, deduplicate persistence, resolve, recur and 
 
 test('automatic recovery is fenced, atomically limited and cannot bypass output review or a model pause', async () => {
   const c = await openFixture();
+  const io = new Pool({ connectionString: c.urlFor('IO_DATABASE_URL') });
+  const automatic = new ExecutionStore(io, c.artifacts);
   try {
     const { id, material, version } = await c.processing();
     await c.db.query("INSERT INTO platform.actors VALUES('riskhot-scheduler',ARRAY['read','submit','retry','auto_retry'],ARRAY['*'])");
@@ -63,7 +65,7 @@ test('automatic recovery is fenced, atomically limited and cannot bypass output 
     await c.repo.prepare(id, 1, { version_id: version, material, manifest: { provider: { protocol: 'codex-exec', endpoint: 'codex://local', model: 'controlled' }, prompt: 'controlled' } });
     await c.repo.extractionFailed(id, 1, 'MODEL_QUOTA_EXHAUSTED');
     await c.db.query("UPDATE platform.model_budget_windows SET deadline=now()-interval '1 second' WHERE processing_id=$1", [id]);
-    const results = await Promise.allSettled([c.repo.retryExtraction(id, 'riskhot-scheduler', 'automatic subscription recovery', true, 1, 'auto1', true), c.repo.retryExtraction(id, 'riskhot-scheduler', 'automatic subscription recovery', true, 1, 'auto2', true)]);
+    const results = await Promise.allSettled([automatic.retryExtraction(id, 'riskhot-scheduler', 'automatic subscription recovery', true, 1, 'auto1', true), automatic.retryExtraction(id, 'riskhot-scheduler', 'automatic subscription recovery', true, 1, 'auto2', true)]);
     assert.equal(results.filter(r => r.status === 'fulfilled').length, 1);
     assert.equal((await c.db.query('SELECT count(*)::int AS n FROM platform.automatic_recoveries WHERE processing_id=$1', [id])).rows[0].n, 1);
     await c.repo.extractionFailed(id, 2, 'MODEL_QUOTA_EXHAUSTED');
@@ -75,7 +77,7 @@ test('automatic recovery is fenced, atomically limited and cannot bypass output 
     assert.equal((await c.model.query('SELECT * FROM platform.claim_model_call($1)', [reserved.id])).rows[0].reason_code, 'MODEL_QUOTA_EXHAUSTED');
     await c.repo.extractionFailed(id, attempt, 'MODEL_SCHEMA_INVALID');
     await assert.rejects(() => c.repo.retryExtraction(id, 'riskhot-scheduler', 'review forbidden', false, attempt, 'auto4', true), /OUTPUT_REVIEW_REQUIRED/);
-  } finally { await c.dispose(); }
+  } finally { await io.end(); await c.dispose(); }
 });
 
 test('a committed pending slot resumes without a new slot, and all sources share the in-flight ceiling', async () => {

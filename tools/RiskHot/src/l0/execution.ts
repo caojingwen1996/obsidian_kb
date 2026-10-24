@@ -50,7 +50,7 @@ export class ExecutionStore extends Repository {
   async retryExtraction(id: string, actor: string, reason: string, openBudget: boolean, expected: number, key: string = randomUUID(), automatic = false): Promise<number> {
     if (!reason.trim()) throw new DomainError('RETRY_REASON_REQUIRED', 400);
     return this.action(actor, 'retry-extraction', key, { id, reason, openBudget, expected }, async client => {
-      const op = (await client.query<{ catalog_key: string; state: string }>('SELECT s.catalog_key,s.state FROM information.processing_runs p JOIN information.material_versions v ON v.id=p.version_id JOIN information.materials m ON m.id=v.material_id JOIN m1.sources s ON s.id=m.source_id WHERE p.id=$1 FOR SHARE OF s', [id])).rows[0];
+      const op = (await client.query<{ catalog_key: string; state: string }>('SELECT s.catalog_key,s.state FROM information.processing_runs p JOIN information.material_versions v ON v.id=p.version_id JOIN information.materials m ON m.id=v.material_id CROSS JOIN LATERAL platform.lock_source(m.source_id) s WHERE p.id=$1', [id])).rows[0];
       if (!op) throw new DomainError('NOT_FOUND', 404);
       await this.authorize(actor, automatic ? 'auto_retry' : openBudget ? 'model_budget' : 'retry', op.catalog_key, client);
       if (op.state !== 'ACTIVE') throw new DomainError('SOURCE_DISABLED', 409);

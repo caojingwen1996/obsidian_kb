@@ -1,12 +1,21 @@
 import { spawn } from 'node:child_process';
 import { mkdtemp, writeFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
-import { join, isAbsolute } from 'node:path';
+import { join } from 'node:path';
 import { extractionSchema } from './extraction.js';
 import { DomainError } from '../platform/types.js';
 import type { TaskInput, TransportResponse } from './model.js';
 
 const MAX_OUTPUT = 2_097_152;
+function transportSchema(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map(transportSchema);
+  if (value && typeof value === 'object') return Object.fromEntries(Object.entries(value).filter(([key]) => key !== 'uniqueItems').map(([key, item]) => [key, transportSchema(item)]));
+  return value;
+}
+export class CodexExecutionError extends DomainError {
+  constructor(code: string, public diagnostic: { exit_code: number | null; errors: unknown[]; stderr: string }) { super(code, 503, code === 'MODEL_NETWORK_ERROR'); }
+}
+const redact = (value: string) => value.replace(/Bearer\s+\S+/gi, 'Bearer [redacted]').replace(/\bsk-[A-Za-z0-9_-]+/g, '[redacted]').slice(0, 16_384);
 export function codexEnvironment(base: NodeJS.ProcessEnv = process.env): NodeJS.ProcessEnv {
   return Object.fromEntries(['PATH', 'HOME', 'TMPDIR', 'LANG', 'LC_ALL', 'TZ', 'CODEX_HOME', 'SSL_CERT_FILE', 'CODEX_CA_CERTIFICATE'].filter(k => base[k] !== undefined).map(k => [k, base[k]]));
 }
@@ -28,7 +37,8 @@ export class CodexModelClient {
       const timer = setTimeout(() => fail('MODEL_BUDGET_EXHAUSTED'), Math.max(1, timeout));
       child.once('error', () => fail('MODEL_CODEX_UNAVAILABLE'));
       child.stdin.on('error', () => { /* Early exit is handled by close. */ });
-      const collect = (stream: 'stdout' | 'stderr', chunk: Buffer) => { size += chunk.length; if (size > MAX_OUTPUT) return fail('MODEL_RESPONSE_TOO_LARGE'); if (stream === 'stdout') stdout += chunk.toString('utf8'); else stderr += chunk.toString('utf8'); };
+      child.stdout.setEncoding('utf8'); child.stderr.setEncoding('utf8');
+      const collect = (stream: 'stdout' | 'stderr', chunk: string) => { size += Buffer.byteLength(chunk); if (size > MAX_OUTPUT) return fail('MODEL_RESPONSE_TOO_LARGE'); if (stream === 'stdout') stdout += chunk; else stderr += chunk; };
       child.stdout.on('data', chunk => collect('stdout', chunk)); child.stderr.on('data', chunk => collect('stderr', chunk));
       child.once('close', code => { if (settled) return; settled = true; clearTimeout(timer); resolve({ code, stdout, stderr }); });
       child.stdin.end(stdin);
@@ -46,25 +56,19 @@ export class CodexModelClient {
     await this.authenticated();
     const folder = await mkdtemp(join(tmpdir(), 'riskhot-extraction-'));
     try {
-      const schema = join(folder, 'schema.json'); await writeFile(schema, JSON.stringify(extractionSchema), { mode: 0o600 });
+      const schema = join(folder, 'schema.json'); await writeFile(schema, JSON.stringify(transportSchema(extractionSchema)), { mode: 0o600 });
       const args = ['exec', '--ignore-user-config', '--ephemeral', '--skip-git-repo-check', '--sandbox', 'read-only', '--json', '--color', 'never', '-C', folder, '-m', input.manifest.provider.model,
         '-c', 'approval_policy="never"', '-c', 'web_search="disabled"', '-c', 'project_doc_max_bytes=0', '-c', 'model_reasoning_effort="low"'];
       for (const feature of ['shell_tool', 'apps', 'plugins', 'multi_agent', 'browser_use', 'computer_use', 'image_generation', 'hooks', 'skill_search', 'sleep_tool', 'workspace_dependencies', 'tool_suggest', 'view_image']) args.push('--disable', feature);
-      args.push('--enable', 'skip_host_skill_discovery', '--output-schema', schema, '-');
+      args.push('--enable', 'skip_host_skill_discovery', '--enable', 'respect_system_proxy', '--output-schema', schema, '-');
       const prompt = `${input.manifest.prompt}\n\n不得调用工具、读取文件、访问网络或执行命令；仅处理以下固定输入。\n${JSON.stringify({ version_id: input.version_id, material: input.material })}`;
       const result = await this.run(args, folder, prompt, Math.min(150_000, options.deadlineMs - Date.now()));
       const events: { type?: string; item?: { type?: string; text?: string }; usage?: Record<string, number>; error?: { message?: string } }[] = [];
       try { for (const line of result.stdout.split('\n').filter(x => x.trim())) events.push(JSON.parse(line)); }
       catch { throw new DomainError(result.code === 0 ? 'MODEL_RESPONSE_INVALID' : failureCode(result.stderr), 502); }
       const failed = events.find(e => e.type === 'turn.failed' || e.type === 'error');
-      if (result.code !== 0 || failed) throw new DomainError(failureCode(`${result.stderr} ${JSON.stringify(failed ?? {})}`), 503);
-      const turns = events.filter(e => e.type === 'turn.completed');
-      if (!turns.length) throw new DomainError('MODEL_INCOMPLETE');
-      const messages = events.filter(e => e.type === 'item.completed' && e.item?.type === 'agent_message');
-      if (!messages.length) throw new DomainError('MODEL_EMPTY_RESPONSE');
-      if (turns.length !== 1 || messages.length !== 1 || typeof messages[0]!.item?.text !== 'string') throw new DomainError('MODEL_RESPONSE_INVALID');
-      if (events.some(e => e.type === 'item.completed' && !['agent_message', 'reasoning'].includes(e.item?.type ?? ''))) throw new DomainError('MODEL_UNEXPECTED_TOOL_USE');
-      return { status: 200, protocol: 'codex-exec', body: JSON.stringify({ complete: true, model: input.manifest.provider.model, output: messages[0]!.item!.text, usage: turns[0]!.usage }) };
+      if (result.code !== 0 || failed) throw new CodexExecutionError(failureCode(`${result.stderr} ${JSON.stringify(failed ?? {})}`), { exit_code:result.code, errors:events.filter(e=>e.type==='turn.failed'||e.type==='error').map(e=>redact(JSON.stringify(e))), stderr:redact(result.stderr) });
+      return { status: 200, protocol: 'codex-exec', body: JSON.stringify({ model: input.manifest.provider.model, events }) };
     } finally { await rm(folder, { recursive: true, force: true }); }
   }
 }

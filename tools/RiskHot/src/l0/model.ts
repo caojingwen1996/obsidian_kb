@@ -52,10 +52,16 @@ export function decodeModelResponse(transport: TransportResponse): ModelResponse
   let raw: unknown;
   try { raw = JSON.parse(transport.body); } catch { throw new DomainError('MODEL_JSON_INVALID'); }
   if (transport.protocol === 'codex-exec') {
-    const record = raw as { complete?: unknown; output?: unknown; usage?: Record<string, number> };
-    if (record?.complete !== true || typeof record.output !== 'string') throw new DomainError('MODEL_RESPONSE_INVALID');
-    let data: unknown; try { data = JSON.parse(record.output); } catch { throw new DomainError('MODEL_JSON_INVALID'); }
-    return { complete: true, finishReason: 'turn.completed', data, usage: record.usage };
+    const record = raw as { events?: {type?:string;item?:{type?:string;text?:string};usage?:Record<string,number>}[] };
+    if (!Array.isArray(record?.events)) throw new DomainError('MODEL_RESPONSE_INVALID');
+    const turns=record.events.filter(e=>e.type==='turn.completed');
+    if(!turns.length)throw new DomainError('MODEL_INCOMPLETE');
+    const messages=record.events.filter(e=>e.type==='item.completed'&&e.item?.type==='agent_message');
+    if(!messages.length)throw new DomainError('MODEL_EMPTY_RESPONSE');
+    if(turns.length!==1||messages.length!==1||typeof messages[0]!.item?.text!=='string')throw new DomainError('MODEL_RESPONSE_INVALID');
+    if(record.events.some(e=>e.type==='item.completed'&&!['agent_message','reasoning'].includes(e.item?.type??'')))throw new DomainError('MODEL_UNEXPECTED_TOOL_USE');
+    let data: unknown; try { data = JSON.parse(messages[0]!.item!.text!); } catch { throw new DomainError('MODEL_JSON_INVALID'); }
+    return { complete: true, finishReason: 'turn.completed', data, usage: turns[0]!.usage };
   }
   const record = raw as { choices?: { finish_reason?: unknown; message?: { content?: unknown; refusal?: unknown; tool_calls?: unknown } }[]; usage?: Record<string, number> };
   const choice = Array.isArray(record?.choices) && record.choices.length === 1 ? record.choices[0] : undefined;
