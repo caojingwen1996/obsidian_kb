@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-24T13:19:29.628Z",
+  "checked_at": "2026-10-24T13:24:37.644Z",
   "timezone": "Asia/Shanghai",
   "scope": "EXTRACTION_ONLY",
   "subscription": {
@@ -403,7 +403,7 @@
       "issue_key": "source:8ae54c96-2dfc-426b-b362-07c4f0fa427c:MODEL_CODEX_FAILED",
       "code": "MODEL_CODEX_FAILED",
       "opened_at": "2026-10-24T13:19:17.238Z",
-      "resolved_at": null,
+      "resolved_at": "2026-10-24T13:22:48.347Z",
       "delivery_status": "submitted",
       "delivery_attempts": 1
     }
@@ -431,7 +431,7 @@
     {
       "extraction_status": "completed",
       "error_code": null,
-      "count": 6
+      "count": 14
     },
     {
       "extraction_status": "pending",
@@ -440,18 +440,8 @@
     },
     {
       "extraction_status": "recoverable",
-      "error_code": "MODEL_BUDGET_EXHAUSTED",
-      "count": 1
-    },
-    {
-      "extraction_status": "recoverable",
-      "error_code": "MODEL_CODEX_FAILED",
-      "count": 1
-    },
-    {
-      "extraction_status": "recoverable",
       "error_code": "MODEL_NOT_CONFIGURED",
-      "count": 24
+      "count": 18
     }
   ],
   "static_checks": {
@@ -460,5 +450,12 @@
     "utf8_added_text": "passed",
     "json": "passed",
     "diff_check": "passed"
+  },
+  "runtime_verified": {
+    "service": "running",
+    "pid": 31979,
+    "health_ready": true,
+    "model_configured": true,
+    "enabled_schedules": 26
   }
 }
