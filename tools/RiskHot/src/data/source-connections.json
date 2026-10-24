@@ -1,0 +1,1030 @@
+[
+  {
+    "key": "wiki-source-002",
+    "id": "catalog-002-v1",
+    "kind": "article",
+    "readiness": "ready",
+    "entryUrl": "https://www.mof.gov.cn/index.htm",
+    "scope": "财政部公开栏目详情",
+    "allowed": [
+      {
+        "origin": "https://www.mof.gov.cn",
+        "path": "^/index\\.htm$"
+      },
+      {
+        "origin": "https://www.mof.gov.cn",
+        "path": "^/zhengwuxinxi/caizhengxinwen/\\d{6}/t\\d+_\\d+\\.htm$"
+      }
+    ],
+    "html": {
+      "body": ".my_doccontent",
+      "title": ".title_con",
+      "date": "meta[name=\"PubDate\"]@content",
+      "encoding": "utf-8"
+    },
+    "discovery": {
+      "format": "html",
+      "selector": "a[href*=\"/zhengwuxinxi/caizhengxinwen/\"][href$=\".htm\"]"
+    }
+  },
+  {
+    "key": "wiki-source-003",
+    "id": "catalog-003-v1",
+    "kind": "article",
+    "readiness": "ready",
+    "entryUrl": "https://zwgls.mof.gov.cn/",
+    "scope": "债务管理司公开栏目详情",
+    "allowed": [
+      {
+        "origin": "https://zwgls.mof.gov.cn",
+        "path": "^/$"
+      },
+      {
+        "origin": "https://zwgls.mof.gov.cn",
+        "path": "^/gzdt/\\d{6}/t\\d+_\\d+\\.htm$"
+      }
+    ],
+    "html": {
+      "body": ".my_conboxzw .TRS_Editor",
+      "title": ".title_con",
+      "date": "meta[name=\"PubDate\"]@content",
+      "encoding": "utf-8"
+    },
+    "discovery": {
+      "format": "html",
+      "selector": "a[href*=\"/gzdt/\"][href$=\".htm\"]"
+    }
+  },
+  {
+    "key": "wiki-source-004",
+    "id": "catalog-004-v1",
+    "kind": "article",
+    "readiness": "ready",
+    "entryUrl": "https://www.safe.gov.cn/",
+    "scope": "国家外汇管理局公开栏目详情",
+    "allowed": [
+      {
+        "origin": "https://www.safe.gov.cn",
+        "path": "^/$"
+      },
+      {
+        "origin": "https://www.safe.gov.cn",
+        "path": "^/safe/\\d{4}/\\d{4}/\\d+\\.html$"
+      }
+    ],
+    "html": {
+      "body": "#content",
+      "title": "meta[name=\"ArticleTitle\"]@content",
+      "date": "meta[name=\"PubDate\"]@content",
+      "encoding": "utf-8"
+    },
+    "discovery": {
+      "format": "html",
+      "selector": "a[href*=\"/safe/20\"][href$=\".html\"]"
+    }
+  },
+  {
+    "key": "wiki-source-005",
+    "id": "catalog-005-v1",
+    "kind": "json-snapshot",
+    "readiness": "ready",
+    "entryUrl": "https://www.chinamoney.com.cn/r/cms/www/chinamoney/data/currency/prr-md.json",
+    "scope": "日终17:00快照，DR007使用weightedRate；latestRate是最新成交利率，不是加权利率。",
+    "allowed": [
+      {
+        "origin": "https://www.chinamoney.com.cn",
+        "path": "^/r/cms/www/chinamoney/data/currency/prr\\-md\\.json$"
+      }
+    ],
+    "json": {
+      "records": "records",
+      "fields": [
+        {
+          "path": "date",
+          "label": "date"
+        },
+        {
+          "path": "productCode",
+          "label": "productCode"
+        },
+        {
+          "path": "weightedRate",
+          "label": "weightedRate"
+        },
+        {
+          "path": "latestRate",
+          "label": "latestRate"
+        },
+        {
+          "path": "avgPrd",
+          "label": "avgPrd"
+        }
+      ],
+      "where": {
+        "productCode": "DR007"
+      },
+      "datePath": "data.showDateCN"
+    }
+  },
+  {
+    "key": "wiki-source-006",
+    "id": "catalog-006-v1",
+    "kind": "json-snapshot",
+    "readiness": "ready",
+    "entryUrl": "https://www.chinamoney.com.cn/r/cms/www/chinamoney/data/currency/fdr.json",
+    "scope": "FDR007为银银间回购定盘利率，字段value；不与DR007互换。",
+    "allowed": [
+      {
+        "origin": "https://www.chinamoney.com.cn",
+        "path": "^/r/cms/www/chinamoney/data/currency/fdr\\.json$"
+      }
+    ],
+    "json": {
+      "records": "records",
+      "fields": [
+        {
+          "path": "productCode",
+          "label": "productCode"
+        },
+        {
+          "path": "productShow",
+          "label": "productShow"
+        },
+        {
+          "path": "produceDate",
+          "label": "produceDate"
+        },
+        {
+          "path": "value",
+          "label": "value"
+        },
+        {
+          "path": "intBp",
+          "label": "intBp"
+        }
+      ],
+      "where": {
+        "productCode": "FDR007"
+      },
+      "datePath": "data.showDateCN"
+    }
+  },
+  {
+    "key": "wiki-source-007",
+    "id": "catalog-007-v1",
+    "kind": "json-snapshot",
+    "readiness": "ready",
+    "entryUrl": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-shibor/Ifcc?lang=CN&cfgItemType=72",
+    "scope": "FR007 cfgItemType=72，收盘curveId=16、quoteTime16:30；按tl保留期限和bid/avg/ask，不是央行政策利率。",
+    "allowed": [
+      {
+        "origin": "https://www.chinamoney.com.cn",
+        "path": "^/ags/ms/cm\\-u\\-bk\\-shibor/Ifcc$",
+        "search": "?lang=CN&cfgItemType=72"
+      }
+    ],
+    "json": {
+      "records": "records",
+      "fields": [
+        {
+          "path": "curveid",
+          "label": "curveid"
+        },
+        {
+          "path": "showTime",
+          "label": "showTime"
+        },
+        {
+          "path": "tl",
+          "label": "tl"
+        },
+        {
+          "path": "optimalBid",
+          "label": "optimalBid"
+        },
+        {
+          "path": "optimalAsk",
+          "label": "optimalAsk"
+        },
+        {
+          "path": "optimalAvg",
+          "label": "optimalAvg"
+        }
+      ],
+      "datePath": "data.showDateCN"
+    }
+  },
+  {
+    "key": "wiki-source-008",
+    "id": "catalog-008-v1",
+    "kind": "json-snapshot",
+    "readiness": "ready",
+    "entryUrl": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-currency/ClsYldCurvCurvData",
+    "scope": "CFETS国债到期收盘曲线2年/10年/30年；AAA存单尚未核验",
+    "allowed": [
+      {
+        "origin": "https://www.chinamoney.com.cn",
+        "path": "^/ags/ms/cm\\-u\\-bk\\-currency/ClsYldCurvCurvData$"
+      },
+      {
+        "origin": "https://www.chinamoney.com.cn",
+        "path": "^/ags/ms/cm\\-u\\-bk\\-currency/ClsYldCurvXml$",
+        "searchPattern": "^\\?lang=CN&bondType=CYCC000&interestRateDate=\\d{4}-\\d{2}-\\d{2}&maturityYield=1&currentYield=&futureYield=$"
+      }
+    ],
+    "method": "POST",
+    "discovery": {
+      "format": "json-date",
+      "selector": "",
+      "datePath": "data.interestRateDateCN",
+      "template": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-currency/ClsYldCurvXml?lang=CN&bondType=CYCC000&interestRateDate={date}&maturityYield=1&currentYield=&futureYield="
+    },
+    "json": {
+      "records": "",
+      "fields": [
+        {
+          "path": "term_years",
+          "label": "term_years"
+        },
+        {
+          "path": "yield_percent",
+          "label": "yield_percent"
+        }
+      ],
+      "dateParameter": "interestRateDate",
+      "curve": {
+        "xml": "data.dataXml",
+        "terms": [
+          "2",
+          "10",
+          "30"
+        ]
+      }
+    }
+  },
+  {
+    "key": "wiki-source-009",
+    "id": "catalog-009-v1",
+    "kind": "article",
+    "readiness": "ready",
+    "entryUrl": "https://www.chinabond.com.cn/",
+    "scope": "中债官方日评全文含国债关键期限收益率，附完整docx链接。不是完整逐期限曲线API。",
+    "allowed": [
+      {
+        "origin": "https://www.chinabond.com.cn",
+        "path": "^/$"
+      },
+      {
+        "origin": "https://www.chinabond.com.cn",
+        "path": "^/xxwsy/sy_zdgz_ath/\\d{6}/t\\d+_\\d+\\.html$"
+      }
+    ],
+    "html": {
+      "body": "#hiddenContent",
+      "title": "title",
+      "date": "title",
+      "encoding": "utf-8"
+    },
+    "discovery": {
+      "format": "html",
+      "selector": "a[href*=\"/xxwsy/sy_zdgz_ath/\"][href$=\".html\"]"
+    }
+  },
+  {
+    "key": "wiki-source-010",
+    "id": "catalog-010-v1",
+    "kind": "json-snapshot",
+    "readiness": "ready",
+    "entryUrl": "https://www.chinamoney.com.cn/r/cms/www/chinamoney/data/currency/bk-lpr.json",
+    "scope": "页面LPR模块调用此JSON；shibor字段在该接口含义是LPR报价，termCode1Y/5Y。",
+    "allowed": [
+      {
+        "origin": "https://www.chinamoney.com.cn",
+        "path": "^/r/cms/www/chinamoney/data/currency/bk\\-lpr\\.json$"
+      }
+    ],
+    "json": {
+      "records": "records",
+      "fields": [
+        {
+          "path": "termCode",
+          "label": "termCode"
+        },
+        {
+          "path": "shibor",
+          "label": "shibor"
+        },
+        {
+          "path": "shibIdUpDown",
+          "label": "shibIdUpDown"
+        }
+      ],
+      "datePath": "data.showDateCN"
+    }
+  },
+  {
+    "key": "wiki-source-011",
+    "id": "catalog-011-v1",
+    "kind": "article",
+    "readiness": "ready",
+    "entryUrl": "https://www.nfra.gov.cn/cn/static/data/DocInfo/SelectItemAndDocByItemUUId/data_orderBy=item,pageSize=7.json",
+    "scope": "金融监管总局监管动态完整HTML公告",
+    "allowed": [
+      {
+        "origin": "https://www.nfra.gov.cn",
+        "path": "^/cn/static/data/DocInfo/SelectItemAndDocByItemUUId/data_orderBy=item,pageSize=7\\.json$"
+      },
+      {
+        "origin": "https://www.nfra.gov.cn",
+        "path": "^/cn/static/data/DocInfo/SelectByDocId/data_docId=\\d+\\.json$"
+      }
+    ],
+    "discovery": {
+      "format": "json",
+      "selector": "",
+      "records": "data",
+      "where": {
+        "itemId": 915
+      },
+      "nested": "docInfoVOList",
+      "sortField": "publishDate",
+      "urlField": "docId",
+      "titleField": "docTitle",
+      "template": "https://www.nfra.gov.cn/cn/static/data/DocInfo/SelectByDocId/data_docId={id}.json"
+    },
+    "jsonArticle": {
+      "title": "data.docTitle",
+      "body": "data.docClob",
+      "date": "data.publishDate"
+    }
+  },
+  {
+    "key": "wiki-source-012",
+    "id": "catalog-012-v1",
+    "kind": "article",
+    "readiness": "ready",
+    "entryUrl": "https://www.csrc.gov.cn/",
+    "scope": "中国证监会公开栏目详情",
+    "allowed": [
+      {
+        "origin": "https://www.csrc.gov.cn",
+        "path": "^/$"
+      },
+      {
+        "origin": "https://www.csrc.gov.cn",
+        "path": "^/csrc/c100028/c\\d+/content\\.shtml$"
+      }
+    ],
+    "html": {
+      "body": ".detail-news",
+      "title": "meta[name=\"ArticleTitle\"]@content",
+      "date": "meta[name=\"PubDate\"]@content",
+      "encoding": "utf-8"
+    },
+    "discovery": {
+      "format": "html",
+      "selector": "a[href$=\"/content.shtml\"]"
+    }
+  },
+  {
+    "key": "wiki-source-013",
+    "id": "catalog-013-v1",
+    "kind": "json-snapshot",
+    "readiness": "ready",
+    "entryUrl": "https://query.sse.com.cn/commonSoaQuery.do?isPagination=true&pageHelp.pageSize=25&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20261001&endDate=20261024&sqlId=RZRQ_HZ_INFO",
+    "scope": "上交所融资融券汇总原始日期化数据，金额单位元，融券余量/卖出量保留原单位；请求需Referer原页面。",
+    "allowed": [
+      {
+        "origin": "https://query.sse.com.cn",
+        "path": "^/commonSoaQuery\\.do$",
+        "searchPattern": "^\\?isPagination=true&pageHelp.pageSize=25&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=\\d{8}&endDate=\\d{8}&sqlId=RZRQ_HZ_INFO$"
+      }
+    ],
+    "json": {
+      "records": "result",
+      "fields": [
+        {
+          "path": "opDate",
+          "label": "opDate"
+        },
+        {
+          "path": "rzye",
+          "label": "rzye"
+        },
+        {
+          "path": "rzmre",
+          "label": "rzmre"
+        },
+        {
+          "path": "rzche",
+          "label": "rzche"
+        },
+        {
+          "path": "rqyl",
+          "label": "rqyl"
+        },
+        {
+          "path": "rqylje",
+          "label": "rqylje"
+        },
+        {
+          "path": "rqmcl",
+          "label": "rqmcl"
+        },
+        {
+          "path": "rzrqjyzl",
+          "label": "rzrqjyzl"
+        }
+      ],
+      "dateField": "opDate"
+    },
+    "referer": "https://www.sse.com.cn/market/othersdata/margin/sum/",
+    "dateQueries": {
+      "beginDate": "monthStart",
+      "endDate": "day"
+    }
+  },
+  {
+    "key": "wiki-source-014",
+    "id": "catalog-014-v1",
+    "kind": "article",
+    "readiness": "ready",
+    "entryUrl": "https://www.szse.cn/disclosure/notice/general/index.html",
+    "scope": "公告正文HTML含表格，不是PDF；列表由内联脚本var curHref/curTitle生成链接。",
+    "allowed": [
+      {
+        "origin": "https://www.szse.cn",
+        "path": "^/disclosure/notice/general/index\\.html$"
+      },
+      {
+        "origin": "https://www.szse.cn",
+        "path": "^/disclosure/notice/general/t\\d+_\\d+\\.html$"
+      }
+    ],
+    "html": {
+      "body": "#desContent",
+      "title": "h2.title",
+      "date": ".time span",
+      "encoding": "utf-8"
+    },
+    "discovery": {
+      "format": "script-links",
+      "selector": ".g-content-list .newslist > li"
+    }
+  },
+  {
+    "key": "wiki-source-015",
+    "id": "catalog-015-v1",
+    "kind": "html-snapshot",
+    "readiness": "ready",
+    "entryUrl": "https://www.cninfo.com.cn/",
+    "scope": "巨潮首页最近10条公告索引（标题可能截短，非PDF正文）",
+    "allowed": [
+      {
+        "origin": "https://www.cninfo.com.cn",
+        "path": "^/$"
+      }
+    ],
+    "html": {
+      "body": "table.jc-table3",
+      "dateFromUrl": {
+        "selector": "table.jc-table3 a[href*=\"announcementId=\"]",
+        "parameter": "announcementTime"
+      }
+    }
+  },
+  {
+    "key": "wiki-source-016",
+    "id": "catalog-016-v1",
+    "kind": "json-snapshot",
+    "readiness": "ready",
+    "entryUrl": "https://www.hkexnews.hk/ncms/script/eds/homecat0_c.json",
+    "scope": "披露易最新上市公司公告日期化原始列表（5条）；stock[].sc/sn为证券代码/名称，webPath为官方PDF链接。不是PDF正文，完整title有时按首页截短；保留原字段。",
+    "allowed": [
+      {
+        "origin": "https://www.hkexnews.hk",
+        "path": "^/ncms/script/eds/homecat0_c\\.json$"
+      }
+    ],
+    "json": {
+      "records": "newsInfo",
+      "fields": [
+        {
+          "path": "newsId",
+          "label": "newsId"
+        },
+        {
+          "path": "sTxt",
+          "label": "sTxt"
+        },
+        {
+          "path": "title",
+          "label": "title"
+        },
+        {
+          "path": "ext",
+          "label": "ext"
+        },
+        {
+          "path": "size",
+          "label": "size"
+        },
+        {
+          "path": "webPath",
+          "label": "webPath"
+        },
+        {
+          "path": "dod",
+          "label": "dod"
+        },
+        {
+          "path": "multi",
+          "label": "multi"
+        },
+        {
+          "path": "stock",
+          "label": "stock"
+        },
+        {
+          "path": "relD",
+          "label": "relD"
+        },
+        {
+          "path": "relM",
+          "label": "relM"
+        },
+        {
+          "path": "relY",
+          "label": "relY"
+        },
+        {
+          "path": "relTime",
+          "label": "relTime"
+        }
+      ],
+      "datePath": "lastupdatetime"
+    }
+  },
+  {
+    "key": "wiki-source-018",
+    "id": "catalog-018-v1",
+    "kind": "article",
+    "readiness": "ready",
+    "entryUrl": "https://www.stats.gov.cn/",
+    "scope": "国家统计局公开栏目详情",
+    "allowed": [
+      {
+        "origin": "https://www.stats.gov.cn",
+        "path": "^/$"
+      },
+      {
+        "origin": "https://www.stats.gov.cn",
+        "path": "^/sj/zxfbhjd/\\d{6}/t\\d+_\\d+\\.html$"
+      }
+    ],
+    "html": {
+      "body": ".txt-content",
+      "title": "meta[name=\"ArticleTitle\"]@content",
+      "date": "meta[name=\"PubDate\"]@content",
+      "encoding": "utf-8"
+    },
+    "discovery": {
+      "format": "html",
+      "selector": "a[href*=\"/sj/zxfbhjd/\"][href$=\".html\"]"
+    }
+  },
+  {
+    "key": "wiki-source-019",
+    "id": "catalog-019-v1",
+    "kind": "article",
+    "readiness": "ready",
+    "entryUrl": "https://www.federalreserve.gov/feeds/press_monetary.xml",
+    "scope": "美联储Monetary Policy新闻稿，非附件纪要全文",
+    "allowed": [
+      {
+        "origin": "https://www.federalreserve.gov",
+        "path": "^/feeds/press_monetary\\.xml$"
+      },
+      {
+        "origin": "https://www.federalreserve.gov",
+        "path": "^/newsevents/pressreleases/monetary\\d+[a-z]\\.htm$"
+      }
+    ],
+    "discovery": {
+      "format": "rss",
+      "selector": "item"
+    },
+    "html": {
+      "body": "#article",
+      "title": "#article h3.title",
+      "date": "#article .article__time"
+    }
+  },
+  {
+    "key": "wiki-source-020",
+    "id": "catalog-020-v1",
+    "kind": "html-snapshot",
+    "readiness": "ready",
+    "entryUrl": "https://www.federalreserve.gov/releases/h15/",
+    "scope": "H.15当前期利率统计表（发布日与列观测日分开）",
+    "allowed": [
+      {
+        "origin": "https://www.federalreserve.gov",
+        "path": "^/releases/h15/$"
+      }
+    ],
+    "html": {
+      "body": "#dailyH15 table.statistics",
+      "title": "#content h2",
+      "date": "#content .dates"
+    }
+  },
+  {
+    "key": "wiki-source-021",
+    "id": "catalog-021-v1",
+    "kind": "json-snapshot",
+    "readiness": "ready",
+    "entryUrl": "https://markets.newyorkfed.org/api/rates/all/latest.json",
+    "scope": "纽约联储EFFR/SOFR最新观测",
+    "allowed": [
+      {
+        "origin": "https://markets.newyorkfed.org",
+        "path": "^/api/rates/all/latest\\.json$"
+      }
+    ],
+    "json": {
+      "records": "refRates",
+      "dateField": "effectiveDate",
+      "fields": [
+        {
+          "path": "type",
+          "label": "type",
+          "optional": false
+        },
+        {
+          "path": "effectiveDate",
+          "label": "effectiveDate",
+          "optional": false
+        },
+        {
+          "path": "percentRate",
+          "label": "percentRate",
+          "optional": false
+        },
+        {
+          "path": "volumeInBillions",
+          "label": "volumeInBillions",
+          "optional": true
+        },
+        {
+          "path": "targetRateFrom",
+          "label": "targetRateFrom",
+          "optional": true
+        },
+        {
+          "path": "targetRateTo",
+          "label": "targetRateTo",
+          "optional": true
+        },
+        {
+          "path": "revisionIndicator",
+          "label": "revisionIndicator",
+          "optional": false
+        }
+      ],
+      "where": {
+        "type": [
+          "EFFR",
+          "SOFR"
+        ]
+      }
+    }
+  },
+  {
+    "key": "wiki-source-022",
+    "id": "catalog-022-v1",
+    "kind": "blocked",
+    "readiness": "access_blocked",
+    "entryUrl": "https://www.cmegroup.com/markets/interest-rates/stirs/30-day-federal-fund.quotes.html",
+    "scope": "本机官方入口请求受阻；见逐源核验记录",
+    "allowed": [
+      {
+        "origin": "https://www.cmegroup.com",
+        "path": "^/markets/interest\\-rates/stirs/30\\-day\\-federal\\-fund\\.quotes\\.html$"
+      }
+    ],
+    "reason": "SOURCE_ACCESS_BLOCKED"
+  },
+  {
+    "key": "wiki-source-023",
+    "id": "catalog-023-v1",
+    "kind": "blocked",
+    "readiness": "access_blocked",
+    "entryUrl": "https://www.cmegroup.com/markets/interest-rates/stirs/three-month-sofr.html",
+    "scope": "本机官方入口请求受阻；见逐源核验记录",
+    "allowed": [
+      {
+        "origin": "https://www.cmegroup.com",
+        "path": "^/markets/interest\\-rates/stirs/three\\-month\\-sofr\\.html$"
+      }
+    ],
+    "reason": "SOURCE_ACCESS_BLOCKED"
+  },
+  {
+    "key": "wiki-source-024",
+    "id": "catalog-024-v1",
+    "kind": "html-snapshot",
+    "readiness": "ready",
+    "entryUrl": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=202610",
+    "scope": "美国财政部当前月名义国债曲线（含3月/2年/10年/30年），TIPS未核验",
+    "allowed": [
+      {
+        "origin": "https://home.treasury.gov",
+        "path": "^/resource\\-center/data\\-chart\\-center/interest\\-rates/TextView$",
+        "searchPattern": "^\\?type=daily_treasury_yield_curve&field_tdr_date_value=\\d{6}$"
+      }
+    ],
+    "dateQueries": {
+      "field_tdr_date_value": "month"
+    },
+    "html": {
+      "body": "table",
+      "title": "h1",
+      "date": "table tbody tr:last-child time@datetime"
+    }
+  },
+  {
+    "key": "wiki-source-025",
+    "id": "catalog-025-v1",
+    "kind": "blocked",
+    "readiness": "access_blocked",
+    "entryUrl": "https://www.freddiemac.com/pmms",
+    "scope": "本机官方入口请求受阻；见逐源核验记录",
+    "allowed": [
+      {
+        "origin": "https://www.freddiemac.com",
+        "path": "^/pmms$"
+      }
+    ],
+    "reason": "SOURCE_ACCESS_BLOCKED"
+  },
+  {
+    "key": "wiki-source-026",
+    "id": "catalog-026-v1",
+    "kind": "json-snapshot",
+    "readiness": "ready",
+    "entryUrl": "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/od/treasury_securities_auctions_v2?sort=-record_date&page%5Bsize%5D=5",
+    "scope": "财政部最近5条国债拍卖公告/结果原始记录；未来拍卖不算已完成",
+    "allowed": [
+      {
+        "origin": "https://api.fiscaldata.treasury.gov",
+        "path": "^/services/api/fiscal_service/v1/accounting/od/treasury_securities_auctions_v2$",
+        "search": "?sort=-record_date&page%5Bsize%5D=5"
+      }
+    ],
+    "json": {
+      "records": "data",
+      "dateField": "announcemt_date",
+      "fields": [
+        {
+          "path": "announcemt_date",
+          "label": "announcemt_date",
+          "optional": false
+        },
+        {
+          "path": "comp_auction_close_date",
+          "label": "comp_auction_close_date",
+          "optional": false
+        },
+        {
+          "path": "issue_date",
+          "label": "issue_date",
+          "optional": false
+        },
+        {
+          "path": "maturity_date",
+          "label": "maturity_date",
+          "optional": false
+        },
+        {
+          "path": "cusip",
+          "label": "cusip",
+          "optional": false
+        },
+        {
+          "path": "security_type",
+          "label": "security_type",
+          "optional": false
+        },
+        {
+          "path": "security_desc",
+          "label": "security_desc",
+          "optional": false
+        },
+        {
+          "path": "offering_amt",
+          "label": "offering_amt",
+          "optional": false
+        },
+        {
+          "path": "high_rate",
+          "label": "high_rate",
+          "optional": false
+        },
+        {
+          "path": "high_yield",
+          "label": "high_yield",
+          "optional": false
+        },
+        {
+          "path": "bid_to_cover_ratio",
+          "label": "bid_to_cover_ratio",
+          "optional": false
+        },
+        {
+          "path": "grand_total_par_awarded",
+          "label": "grand_total_par_awarded",
+          "optional": false
+        },
+        {
+          "path": "pdf_filenm_comp_results",
+          "label": "pdf_filenm_comp_results",
+          "optional": false
+        }
+      ]
+    }
+  },
+  {
+    "key": "wiki-source-027",
+    "id": "catalog-027-v1",
+    "kind": "blocked",
+    "readiness": "access_blocked",
+    "entryUrl": "https://www.sec.gov/edgar/search/",
+    "scope": "本机官方入口请求受阻；见逐源核验记录",
+    "allowed": [
+      {
+        "origin": "https://www.sec.gov",
+        "path": "^/edgar/search/$"
+      }
+    ],
+    "reason": "SOURCE_ACCESS_BLOCKED"
+  },
+  {
+    "key": "wiki-source-033",
+    "id": "catalog-033-v1",
+    "kind": "blocked",
+    "readiness": "access_blocked",
+    "entryUrl": "https://xueqiu.com/u/7143769715",
+    "scope": "静态响应为WAF且无正文；隔离Chrome for Testing普通访问未取得账号内容。",
+    "allowed": [
+      {
+        "origin": "https://xueqiu.com",
+        "path": "^/u/7143769715$"
+      }
+    ],
+    "reason": "SOURCE_ACCESS_BLOCKED"
+  },
+  {
+    "key": "wiki-source-034",
+    "id": "catalog-034-v1",
+    "kind": "blocked",
+    "readiness": "access_blocked",
+    "entryUrl": "https://xueqiu.com/u/3058599833",
+    "scope": "静态响应为WAF；全新隔离Chrome for Testing普通访问出现滑动验证，未尝试处理验证码。",
+    "allowed": [
+      {
+        "origin": "https://xueqiu.com",
+        "path": "^/u/3058599833$"
+      }
+    ],
+    "reason": "SOURCE_ACCESS_BLOCKED"
+  },
+  {
+    "key": "wiki-source-035",
+    "id": "catalog-035-v1",
+    "kind": "blocked",
+    "readiness": "authentication_required",
+    "entryUrl": "https://weibo.com/u/2826115500",
+    "scope": "静态请求转到Sina Visitor System；隔离浏览器显示对应账号资料，但帖子列表明确提示“前方有点拥堵，请登录后使用”。",
+    "allowed": [
+      {
+        "origin": "https://weibo.com",
+        "path": "^/u/2826115500$"
+      }
+    ],
+    "reason": "SOURCE_AUTH_REQUIRED"
+  },
+  {
+    "key": "wiki-source-036",
+    "id": "catalog-036-v1",
+    "kind": "blocked",
+    "readiness": "authentication_required",
+    "entryUrl": "https://weibo.com/u/7796318711",
+    "scope": "静态请求转到Sina Visitor System；隔离浏览器显示对应账号资料，但帖子列表明确提示“前方有点拥堵，请登录后使用”。",
+    "allowed": [
+      {
+        "origin": "https://weibo.com",
+        "path": "^/u/7796318711$"
+      }
+    ],
+    "reason": "SOURCE_AUTH_REQUIRED"
+  },
+  {
+    "key": "wiki-source-037",
+    "id": "catalog-037-v1",
+    "kind": "article",
+    "readiness": "ready",
+    "entryUrl": "https://www.gelonghui.com/live/",
+    "scope": "格隆汇最新公开快讯详情",
+    "allowed": [
+      {
+        "origin": "https://www.gelonghui.com",
+        "path": "^/live/$"
+      },
+      {
+        "origin": "https://www.gelonghui.com",
+        "path": "^/live/\\d+$"
+      }
+    ],
+    "discovery": {
+      "format": "nuxt-links",
+      "selector": "script:not([src])",
+      "template": "https://www.gelonghui.com/live/{id}"
+    },
+    "html": {
+      "body": ".news-left-top .dtb-content",
+      "title": ".news-left-top h1",
+      "date": ".news-left-top p.other-info > time"
+    }
+  },
+  {
+    "key": "wiki-source-038",
+    "id": "catalog-038-v1",
+    "kind": "article",
+    "readiness": "ready",
+    "entryUrl": "https://www.cls.cn/",
+    "scope": "财联社最新免费详情正文",
+    "allowed": [
+      {
+        "origin": "https://www.cls.cn",
+        "path": "^/$"
+      },
+      {
+        "origin": "https://www.cls.cn",
+        "path": "^/detail/\\d+$"
+      }
+    ],
+    "discovery": {
+      "format": "html",
+      "selector": "a[href^=\"/detail/\"]"
+    },
+    "jsonArticle": {
+      "script": "script#__NEXT_DATA__",
+      "title": "props.pageProps.articleDetail.title",
+      "body": "props.pageProps.articleDetail.content",
+      "date": "props.pageProps.articleDetail.ctime",
+      "free": "props.pageProps.articleDetail.isFree"
+    }
+  },
+  {
+    "key": "wiki-source-039",
+    "id": "catalog-039-v1",
+    "kind": "html-snapshot",
+    "readiness": "ready",
+    "entryUrl": "https://wallstreetcn.com/live",
+    "scope": "华尔街见闻公开快讯页首屏，最多20条完整快讯",
+    "allowed": [
+      {
+        "origin": "https://wallstreetcn.com",
+        "path": "^/live$"
+      }
+    ],
+    "browser": {
+      "waitFor": "li:has(a[href^=\"/livenews/\"]) time[datetime]"
+    },
+    "html": {
+      "body": "ul:has(> li > div > a[href^=\"/livenews/\"])",
+      "date": "li:has(a[href^=\"/livenews/\"]) time@datetime"
+    }
+  },
+  {
+    "key": "wiki-source-040",
+    "id": "catalog-040-v1",
+    "kind": "html-snapshot",
+    "readiness": "ready",
+    "entryUrl": "https://fred.stlouisfed.org/series/DPRIME",
+    "scope": "FRED DPRIME最近5个观测值，含Source/Release/Notes",
+    "allowed": [
+      {
+        "origin": "https://fred.stlouisfed.org",
+        "path": "^/series/DPRIME$"
+      }
+    ],
+    "html": {
+      "body": "#recent-obs, #notes-content",
+      "title": "h1",
+      "date": "#recent-obs tr:first-child td:first-child",
+      "datePattern": "(\\d{4}-\\d{2}-\\d{2})"
+    }
+  }
+]
