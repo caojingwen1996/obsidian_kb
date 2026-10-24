@@ -92,14 +92,15 @@ export function ioActivities(repo: ExecutionStore) {
         const attempt = (await repo.db.query<{ response_artifact_id: string | null; error_code: string | null; generation: string; request_artifact_id: string; within_budget: boolean }>('SELECT a.response_artifact_id,a.error_code,a.generation,a.request_artifact_id,w.deadline>clock_timestamp() AS within_budget FROM platform.model_attempts a JOIN platform.model_budget_windows w ON w.id=a.window_id WHERE a.id=$1 AND a.processing_id=$2', [attemptId, id])).rows[0];
         if (!attempt || Number(attempt.generation) !== generation) throw new DomainError('STALE_ATTEMPT');
         if (!attempt.within_budget) throw new DomainError('MODEL_BUDGET_EXHAUSTED', 409);
-        if (attempt.error_code) throw new DomainError(attempt.error_code, 502, retryableModelFailure(attempt.error_code));
         if (!attempt.response_artifact_id) { const code = attempt.error_code ?? 'MODEL_NETWORK_ERROR'; throw new DomainError(code, 502, retryableModelFailure(code)); }
-        const response = decodeModelResponse(await repo.json<TransportResponse>(attempt.response_artifact_id));
+        const transport = await repo.json<TransportResponse & {code?:string}>(attempt.response_artifact_id);
+        if(transport.code)throw new DomainError(transport.code,502,retryableModelFailure(transport.code));
+        const response = decodeModelResponse(transport);
         const input = await repo.json<TaskInput>(attempt.request_artifact_id);
         await repo.db.query('UPDATE platform.model_attempts SET finish_reason=$2 WHERE id=$1', [attemptId, response.finishReason]);
         const result = validateExtraction(response, input.material);
         await repo.acceptSet(id, generation, result);
-        await repo.db.query('UPDATE platform.model_attempts SET status=\'accepted\',finish_reason=$2 WHERE id=$1', [attemptId, response.finishReason]);
+        await repo.db.query('UPDATE platform.model_attempts SET status=\'accepted\',finish_reason=$2,error_code=NULL WHERE id=$1', [attemptId, response.finishReason]);
         return { accepted: true, retryable: false };
       } catch (error) {
         const code = errorCode(error); await repo.extractionFailed(id, generation, code, code === 'MODEL_NOT_CONFIGURED', attemptId);
@@ -129,6 +130,7 @@ export function modelActivities(repo: ExecutionStore) {
         const response = input.manifest.provider.protocol === 'codex-exec'
           ? await new CodexModelClient().execute(input, { deadlineMs: permit.deadline.getTime() })
           : await new HttpModelClient().execute(input, process.env.MODEL_API_KEY!, { deadlineMs: permit.deadline.getTime() });
+        if(response.protocol==='codex-exec'&&JSON.parse(response.body).events?.some((e:{type:string})=>e.type==='turn.completed'))await repo.db.query("UPDATE platform.model_service_state SET reason_code=NULL,blocked_until=NULL,updated_at=now() WHERE protocol='codex-exec' AND updated_at<=(SELECT started_at FROM platform.model_attempts WHERE id=$1)",[attemptId]);
         const artifact = await repo.putJson(response, 'model-response');
         await repo.db.query('UPDATE platform.model_attempts SET status=\'response_received\',response_artifact_id=$2,completed_at=now() WHERE id=$1 AND response_artifact_id IS NULL', [attemptId, artifact]);
       } catch (error) {

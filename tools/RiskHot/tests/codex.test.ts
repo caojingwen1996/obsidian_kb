@@ -83,6 +83,14 @@ test('a rejected tool-bearing response remains available as a transport artifact
   } finally {await f.dispose();}
 });
 
+test('a CLI startup feature warning is metadata while actual tool executions stay rejected', async () => {
+  const f=await fixture(`console.log(JSON.stringify({type:'item.completed',item:{type:'error',message:'Under-development features enabled: respect_system_proxy, skip_host_skill_discovery.'}}));console.log(JSON.stringify({type:'turn.started'}));${completed}`);
+  try {
+    const {CodexModelClient}=await import('../src/l0/codex.js');
+    assert.deepEqual(decodeModelResponse(await new CodexModelClient(f.executable).execute(input,{deadlineMs:Date.now()+5000})).data,output);
+  } finally {await f.dispose();}
+});
+
 test('Chinese structured output survives a UTF-8 character split across pipe chunks', async () => {
   const event = JSON.stringify({ type:'item.completed', item:{type:'agent_message',text:JSON.stringify(output)} })+'\n'+JSON.stringify({type:'turn.completed'})+'\n';
   const split = Buffer.from(event).indexOf(Buffer.from('受控')) + 1;
@@ -121,4 +129,18 @@ test('the model role binds a failure diagnostic and its error atomically, preser
     const result=await ioActivities(c.repo).consume(p.id,1,attempt.id);
     assert.equal(result.code,'MODEL_CODEX_FAILED');
   } finally { if(old===undefined)delete process.env.CODEX_EXECUTABLE;else process.env.CODEX_EXECUTABLE=old;await f.dispose();await c.dispose(); }
+});
+
+test('fixed successful transport can be revalidated after a decoder correction without another model call', async () => {
+  const c=await openFixture();
+  try{
+    const p=await c.processing();const attempt=await c.repo.reserveAttempt(p.id,1);
+    const text=JSON.stringify({covered_segment_ids:p.material.segments.map(s=>s.id),candidates:[],no_event_reason:'受控背景',warnings:[]});
+    const artifact=await c.repo.putJson({status:200,protocol:'codex-exec',body:JSON.stringify({events:[{type:'item.completed',item:{type:'agent_message',text}},{type:'turn.completed'}]})},'model-response');
+    await c.db.query("UPDATE platform.model_attempts SET status='rejected',error_code='MODEL_UNEXPECTED_TOOL_USE',response_artifact_id=$2 WHERE id=$1",[attempt.id,artifact]);
+    await c.repo.extractionFailed(p.id,1,'MODEL_UNEXPECTED_TOOL_USE');
+    const consumed=await ioActivities(c.repo).consume(p.id,1,attempt.id);
+    assert.equal(consumed.accepted,true);
+    assert.equal((await c.db.query('SELECT error_code FROM platform.model_attempts WHERE id=$1',[attempt.id])).rows[0].error_code,null);
+  }finally{await c.dispose();}
 });

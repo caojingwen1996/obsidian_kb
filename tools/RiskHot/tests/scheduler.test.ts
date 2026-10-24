@@ -4,6 +4,9 @@ import { openFixture } from './fixture.js';
 import { ExecutionStore } from '../src/l0/execution.js';
 import { Pool } from 'pg';
 import { readCatalog } from '../src/m1/catalog.js';
+import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
+import { randomUUID } from 'node:crypto';
 
 test('a due schedule is durable, concurrent ticks submit once, restart skips in-flight work and disabled sources', async () => {
   const c = await openFixture();
@@ -123,4 +126,67 @@ test('supervisor failure stays visible without PostgreSQL and quiet across repea
     await serviceHealthy(c.folder); await serviceFailure(c.folder, 'api', notify);
     assert.equal(notices, 2);
   } finally { await c.dispose(); }
+});
+
+test('a retry and the end of quota backoff do not resolve an ongoing problem or send it twice', async () => {
+  const c=await openFixture();
+  try{
+    const {Scheduler}=await import('../src/runtime/scheduler.js');let notices=0;const s=new Scheduler(c.repo,async()=>{notices++;});const now=new Date();
+    await c.repo.failOperation(c.parent.id,1,'SOURCE_ACCESS_BLOCKED');
+    await c.db.query("INSERT INTO platform.schedule_runs(source_id,scheduled_at,operation_id,status) VALUES($1,$2,$3,'running')",[c.parent.source_id,new Date(now.getTime()-1000),c.parent.id]);
+    await s.monitor(now);assert.equal(notices,1);
+    const retry=await c.repo.submit({source_key:'wiki-source-001',limit:1},'review-operator',randomUUID());
+    await c.db.query("INSERT INTO platform.schedule_runs(source_id,scheduled_at,operation_id,status) VALUES($1,$2,$3,'running')",[c.parent.source_id,now,retry.id]);
+    await s.monitor(new Date(now.getTime()+1));
+    assert.equal((await c.db.query('SELECT count(*)::int n FROM platform.runtime_alerts WHERE resolved_at IS NULL')).rows[0].n,1);
+    await c.repo.failOperation(retry.id,1,'SOURCE_ACCESS_BLOCKED');await s.monitor(new Date(now.getTime()+2));assert.equal(notices,1);
+    await c.db.query("UPDATE information.operations SET status='completed',reason_code=NULL WHERE id=$1",[retry.id]);await s.monitor(new Date(now.getTime()+3));
+    assert.equal((await c.db.query('SELECT count(*)::int n FROM platform.runtime_alerts WHERE resolved_at IS NULL')).rows[0].n,0);
+    await c.db.query("INSERT INTO platform.model_service_state(protocol,reason_code,blocked_until) VALUES('codex-exec','MODEL_QUOTA_EXHAUSTED',$1)",[new Date(now.getTime()+1000)]);
+    await s.monitor(now);assert.equal(notices,2);await s.monitor(new Date(now.getTime()+2000));
+    assert.equal((await c.db.query("SELECT count(*)::int n FROM platform.runtime_alerts WHERE resolved_at IS NULL AND code='MODEL_QUOTA_EXHAUSTED'")).rows[0].n,1);
+    await c.db.query("UPDATE platform.model_service_state SET blocked_until=$1",[new Date(now.getTime()+5000)]);await s.monitor(new Date(now.getTime()+3000));assert.equal(notices,2);
+    await c.db.query("UPDATE platform.model_service_state SET reason_code=NULL,blocked_until=NULL");await s.monitor(new Date(now.getTime()+4000));
+    assert.equal((await c.db.query('SELECT count(*)::int n FROM platform.runtime_alerts WHERE resolved_at IS NULL')).rows[0].n,0);
+  }finally{await c.dispose();}
+});
+
+test('two forbidden pending submissions do not starve an authorized source', async()=>{
+  const c=await openFixture();try{
+    const {Scheduler}=await import('../src/runtime/scheduler.js');await c.repo.seedCatalog((await readCatalog('src/data/source-catalog.js')).slice(0,3));
+    await c.db.query("INSERT INTO platform.actors VALUES('riskhot-scheduler',ARRAY['read','submit','retry','auto_retry'],ARRAY['wiki-source-003'])");await c.db.query("UPDATE information.operations SET status='completed'");
+    const s=new Scheduler(c.repo,async()=>undefined);const now=new Date();await s.initialize(now);await c.db.query('UPDATE platform.source_schedules SET next_run_at=$1',[now]);
+    for(let i=0;i<3;i++)await s.tick(new Date(now.getTime()+i));
+    assert.equal((await c.db.query("SELECT count(*)::int n FROM information.operations o JOIN m1.sources s ON s.id=o.source_id WHERE o.actor='riskhot-scheduler' AND s.catalog_key='wiki-source-003'")).rows[0].n,1);
+    assert.equal((await c.db.query("SELECT count(*)::int n FROM platform.schedule_runs WHERE status='blocked' AND error_code='FORBIDDEN'")).rows[0].n,2);
+  }finally{await c.dispose();}
+});
+
+test('a resumed processing without a scheduled run reports review and keeps its alert through another pending attempt', async()=>{
+  const c=await openFixture();try{
+    const {Scheduler}=await import('../src/runtime/scheduler.js');const p=await c.processing();let notices=0;const s=new Scheduler(c.repo,async()=>{notices++;});
+    await c.repo.extractionFailed(p.id,1,'MODEL_EVIDENCE_INVALID');await s.monitor();assert.equal(notices,1);
+    await c.db.query("UPDATE information.processing_runs SET extraction_status='pending',error_code=NULL WHERE id=$1",[p.id]);await s.monitor();
+    assert.equal((await c.db.query('SELECT count(*)::int n FROM platform.runtime_alerts WHERE resolved_at IS NULL')).rows[0].n,1);
+    await c.db.query("UPDATE information.processing_runs SET extraction_status='completed',candidate_count=0 WHERE id=$1",[p.id]);await s.monitor();
+    assert.equal((await c.db.query('SELECT count(*)::int n FROM platform.runtime_alerts WHERE resolved_at IS NULL')).rows[0].n,0);
+  }finally{await c.dispose();}
+});
+
+test('service recovery preserves failed delivery and the next failure archives the previous incident',async()=>{
+  const c=await openFixture();try{
+    const {serviceFailure,serviceHealthy}=await import('../src/platform/notifications.js');
+    await serviceFailure(c.folder,'scheduler',async()=>{throw new Error('controlled unavailable notification');});await serviceHealthy(c.folder);
+    const status=JSON.parse(await readFile(join(c.folder,'.riskhot/service-alert.json'),'utf8'));assert.equal(status.submitted,false);assert.ok(status.resolved_at);
+    await serviceFailure(c.folder,'api',async()=>undefined);
+    const history=await readFile(join(c.folder,'.riskhot/service-alert-history.jsonl'),'utf8');assert.match(history,/"submitted":false/);
+  }finally{await c.dispose();}
+});
+
+test('an empty source setting initializes every ready source rather than selecting none',async()=>{
+  const c=await openFixture();try{
+    const {Scheduler,schedulerSettings}=await import('../src/runtime/scheduler.js');await c.repo.seedCatalog((await readCatalog('src/data/source-catalog.js')).slice(0,3));
+    await new Scheduler(c.repo,async()=>undefined,schedulerSettings({SCHEDULE_SOURCES:''})).initialize();
+    assert.equal((await c.db.query('SELECT count(*)::int n FROM platform.source_schedules')).rows[0].n,3);
+  }finally{await c.dispose();}
 });

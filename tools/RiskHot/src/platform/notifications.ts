@@ -2,7 +2,7 @@ import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import type { Pool } from 'pg';
 import { transaction } from './db.js';
-import { mkdir, readFile, writeFile, rename, rm } from 'node:fs/promises';
+import { mkdir, readFile, writeFile, rename, appendFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
 export interface RuntimeIssue { key: string; code: string; owner: string | null }
@@ -44,8 +44,10 @@ export class AlertStore {
 export async function serviceFailure(root: string, component: string, notify: Notifier = systemNotification): Promise<void> {
   const folder = join(root, '.riskhot'); const path = join(folder, 'service-alert.json');
   await mkdir(folder, { recursive: true, mode: 0o700 });
-  let state = { code: 'BACKGROUND_SERVICE_FAILED', component, opened_at: new Date().toISOString(), attempts: 0, submitted: false, next_at: 0 };
+  const fresh = () => ({ code: 'BACKGROUND_SERVICE_FAILED', component, opened_at: new Date().toISOString(), attempts: 0, submitted: false, next_at: 0, resolved_at:null as string|null });
+  let state = fresh();
   try { state = JSON.parse(await readFile(path, 'utf8')); } catch { /* First failure. */ }
+  if(state.resolved_at){await appendFile(join(folder,'service-alert-history.jsonl'),JSON.stringify(state)+'\n',{mode:0o600});state=fresh();}
   if (state.submitted || state.attempts >= 3 || state.next_at > Date.now()) return;
   state.attempts++; state.next_at = Date.now() + 300_000;
   const save = async () => { await writeFile(`${path}.tmp`, JSON.stringify(state), { mode: 0o600 }); await rename(`${path}.tmp`, path); };
@@ -53,4 +55,10 @@ export async function serviceFailure(root: string, component: string, notify: No
   try { await notify({ key: 'background-service', code: state.code, owner: null }); state.submitted = true; } catch { /* Delivery failure remains visible. */ }
   await save();
 }
-export async function serviceHealthy(root: string): Promise<void> { await rm(join(root, '.riskhot/service-alert.json'), { force: true }); }
+export async function serviceStatus(root:string):Promise<Record<string,unknown>|null>{
+  try{return JSON.parse(await readFile(join(root,'.riskhot/service-alert.json'),'utf8'));}catch(error){if((error as NodeJS.ErrnoException).code==='ENOENT')return null;throw error;}
+}
+export async function serviceHealthy(root: string): Promise<void> {
+  const state=await serviceStatus(root);if(!state||state.resolved_at)return;
+  state.resolved_at=new Date().toISOString();const path=join(root,'.riskhot/service-alert.json');await writeFile(`${path}.tmp`,JSON.stringify(state),{mode:0o600});await rename(`${path}.tmp`,path);
+}

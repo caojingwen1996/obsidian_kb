@@ -11,6 +11,7 @@ import { ArtifactStore } from '../platform/artifacts.js';
 import { ExecutionStore } from '../l0/execution.js';
 import { connectorFor } from '../m1/connectors.js';
 import { modelCredentialsConfigured } from '../l0/model.js';
+import {serviceStatus} from '../platform/notifications.js';
 import type { FetchCommand } from '../l0/repository.js';
 
 declare module 'fastify' { interface FastifyRequest { actor: string } }
@@ -88,8 +89,10 @@ export async function buildServer(repo: ExecutionStore) {
       LEFT JOIN LATERAL(SELECT * FROM platform.schedule_runs WHERE source_id=s.id ORDER BY scheduled_at DESC LIMIT 1) r ON true
       WHERE '*'=ANY(a.source_keys) OR s.catalog_key=ANY(a.source_keys) ORDER BY s.catalog_key`, [request.actor])).rows;
     const alerts = (await repo.db.query(`SELECT x.* FROM platform.runtime_alerts x JOIN platform.actors a ON a.subject=$1
-      WHERE x.resolved_at IS NULL AND ('*'=ANY(a.source_keys) OR EXISTS(SELECT 1 FROM platform.schedule_runs r JOIN m1.sources s ON s.id=r.source_id WHERE r.id=x.owner_id AND s.catalog_key=ANY(a.source_keys))) ORDER BY x.opened_at DESC`, [request.actor])).rows;
-    return { schedules, alerts, model_service: (await repo.db.query('SELECT protocol,reason_code,blocked_until,updated_at FROM platform.model_service_state')).rows, notification_semantics: 'submitted means handed to the OS; display is controlled by system settings' };
+      WHERE x.resolved_at IS NULL AND ('*'=ANY(a.source_keys) OR EXISTS(SELECT 1 FROM platform.schedule_runs r JOIN m1.sources s ON s.id=r.source_id WHERE r.id=x.owner_id AND s.catalog_key=ANY(a.source_keys))
+      OR EXISTS(SELECT 1 FROM information.processing_runs p JOIN information.material_versions v ON v.id=p.version_id JOIN information.materials m ON m.id=v.material_id JOIN m1.sources s ON s.id=m.source_id WHERE p.id=x.owner_id AND s.catalog_key=ANY(a.source_keys))) ORDER BY x.opened_at DESC`, [request.actor])).rows;
+    const full=(await repo.db.query("SELECT '*'=ANY(source_keys) AS full FROM platform.actors WHERE subject=$1",[request.actor])).rows[0]?.full;
+    return { schedules, alerts, background_service:full?await serviceStatus(process.cwd()):null, model_service: (await repo.db.query('SELECT protocol,reason_code,blocked_until,updated_at FROM platform.model_service_state')).rows, notification_semantics: 'submitted means handed to the OS; display is controlled by system settings' };
   });
   app.patch('/api/v1/m1/sources/:key', { schema: { params: { type: 'object', additionalProperties: false, required: ['key'], properties: { key: { type: 'string', pattern: '^wiki-source-[0-9]{3}$' } } }, body: { type: 'object', additionalProperties: false, required: ['state'], properties: { state: { enum: ['ACTIVE', 'DISABLED'] } } } } }, async request => {
     const { key } = request.params as { key: string }; const { state } = request.body as { state: string };

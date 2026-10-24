@@ -10,6 +10,11 @@ import { ExecutionStore } from '../l0/execution.js';
 import { CodexModelClient } from '../l0/codex.js';
 
 interface SchedulerConfig { intervalSeconds: number; maxInFlight: number; sources?: string[] }
+export function schedulerSettings(env: NodeJS.ProcessEnv = process.env): SchedulerConfig {
+  const sources = env.SCHEDULE_SOURCES?.split(',').map(x=>x.trim()).filter(Boolean);
+  if(sources?.some(key=>!/^wiki-source-\d{3}$/.test(key)))throw new DomainError('SCHEDULE_SOURCE_INVALID');
+  return { intervalSeconds:Number(env.SCHEDULE_INTERVAL_SECONDS??3600), maxInFlight:2, sources:sources?.length?sources:undefined };
+}
 export const SCHEDULER_ACTOR = 'riskhot-scheduler';
 const codeOf = (error: unknown) => error instanceof DomainError ? error.code : 'SCHEDULER_UNAVAILABLE';
 export class Scheduler {
@@ -44,7 +49,7 @@ export class Scheduler {
           catch (error) { if (!(error instanceof DomainError)) throw error; }
         }
         const pending = (await lock.query<{ id: string; catalog_key: string }>(`SELECT r.id,s.catalog_key FROM platform.schedule_runs r JOIN m1.sources s ON s.id=r.source_id WHERE r.status='pending' AND s.state='ACTIVE' AND ($1::text[] IS NULL OR s.catalog_key=ANY($1)) ORDER BY r.scheduled_at LIMIT $2`, [this.config.sources ?? null, slots])).rows;
-        for (const run of pending) { await this.submitRun(run.id, run.catalog_key); slots--; }
+        for (const run of pending) if(await this.submitRun(run.id, run.catalog_key)) slots--;
         if (slots > 0) {
           const due = (await lock.query<{ source_id: string; catalog_key: string; next_run_at: Date; interval_seconds: number }>(`SELECT q.*,s.catalog_key FROM platform.source_schedules q JOIN m1.sources s ON s.id=q.source_id JOIN m1.source_versions v ON v.source_id=s.id AND v.version=s.version
             WHERE q.enabled AND q.next_run_at<=$1 AND s.state='ACTIVE' AND (v.config->'connection'->>'readiness'='ready' OR v.config->>'connector'='pbc-html-1.0.0')
@@ -73,18 +78,20 @@ export class Scheduler {
         (o.kind='material' OR (o.kind='batch' AND NOT EXISTS(SELECT 1 FROM information.operations c WHERE c.parent_id=o.id)))) AS n`);
     return Number(result.rows[0]!.n);
   }
-  private async submitRun(id: string, source: string): Promise<void> {
+  private async submitRun(id: string, source: string): Promise<boolean> {
     try {
       const operation = await this.repo.submit({ source_key: source, limit: 1 }, SCHEDULER_ACTOR, `schedule/${id}`);
       await this.repo.db.query("UPDATE platform.schedule_runs SET operation_id=$2,status='running',error_code=NULL WHERE id=$1", [id, operation.id]);
+      return true;
     } catch (error) {
-      await this.repo.db.query("UPDATE platform.schedule_runs SET error_code=$2 WHERE id=$1", [id, codeOf(error)]);
+      await this.repo.db.query('UPDATE platform.schedule_runs SET error_code=$2,status=$3 WHERE id=$1', [id, codeOf(error),error instanceof DomainError&&!error.retryable?'blocked':'pending']);
       if (!(error instanceof DomainError)) throw error;
+      return false;
     }
   }
   async monitor(now = new Date()): Promise<void> {
     const issues: RuntimeIssue[] = [];
-    const service = (await this.repo.db.query("SELECT reason_code FROM platform.model_service_state WHERE protocol='codex-exec' AND blocked_until>$1", [now])).rows[0];
+    const service = (await this.repo.db.query("SELECT reason_code FROM platform.model_service_state WHERE protocol='codex-exec'")).rows[0];
     if (service?.reason_code) issues.push({ key: `model:${service.reason_code}`, code: service.reason_code, owner: null });
     const runs = (await this.repo.db.query<{ id: string; operation_id: string | null; source_id: string; error_code: string | null }>("SELECT r.* FROM platform.schedule_runs r WHERE r.status IN ('pending','running') OR r.id IN (SELECT DISTINCT ON(source_id) id FROM platform.schedule_runs ORDER BY source_id,scheduled_at DESC) ORDER BY r.scheduled_at")).rows;
     for (const run of runs) {
@@ -95,17 +102,23 @@ export class Scheduler {
         await this.repo.db.query('UPDATE platform.schedule_runs SET status=$2,error_code=$3 WHERE id=$1', [run.id, operation.slice_status, code]);
       }
     }
-    // Only latest state per source is actionable; an old failure must not survive a successful later run.
-    const latest = (await this.repo.db.query<{id:string;source_id:string;status:string;error_code:string|null}>(`SELECT DISTINCT ON(source_id) id,source_id,status,error_code FROM platform.schedule_runs ORDER BY source_id,scheduled_at DESC`)).rows;
-    for (const run of latest) if (['review','recoverable','partial','waiting_config'].includes(run.status) && run.error_code && !['MODEL_QUOTA_EXHAUSTED','MODEL_LOGIN_REQUIRED'].includes(run.error_code)) issues.push({ key: `source:${run.source_id}:${run.error_code}`, code: run.status === 'review' ? 'OUTPUT_REVIEW_REQUIRED' : run.error_code, owner: run.id });
+    // A queued retry is not recovery. Retain the last terminal source outcome until success.
+    const latest = (await this.repo.db.query<{id:string;source_id:string;status:string;error_code:string|null}>(`SELECT DISTINCT ON(source_id) id,source_id,status,error_code FROM platform.schedule_runs WHERE status NOT IN ('pending','running','queued') ORDER BY source_id,scheduled_at DESC`)).rows;
+    for (const run of latest) if (['blocked','review','recoverable','partial','waiting_config'].includes(run.status) && run.error_code && !['MODEL_QUOTA_EXHAUSTED','MODEL_LOGIN_REQUIRED','MODEL_SUBSCRIPTION_REQUIRED'].includes(run.error_code)) issues.push({ key: `source:${run.source_id}:${run.error_code}`, code: run.status === 'review' ? 'OUTPUT_REVIEW_REQUIRED' : run.error_code, owner: run.id });
+    const processings=(await this.repo.db.query<{id:string;source_id:string;extraction_status:string;error_code:string}>(`SELECT p.id,m.source_id,p.extraction_status,p.error_code FROM information.processing_runs p JOIN information.material_versions v ON v.id=p.version_id JOIN information.materials m ON m.id=v.material_id
+      LEFT JOIN LATERAL(SELECT used,deadline FROM platform.model_budget_windows WHERE processing_id=p.id ORDER BY generation DESC LIMIT 1) w ON true
+      WHERE p.extraction_status IN ('review','recoverable') AND p.error_code IS NOT NULL AND p.error_code NOT IN ('MODEL_NOT_CONFIGURED','MODEL_QUOTA_EXHAUSTED','MODEL_LOGIN_REQUIRED','MODEL_SUBSCRIPTION_REQUIRED')
+      AND (p.error_code NOT IN ('MODEL_NETWORK_ERROR','MODEL_BUDGET_EXHAUSTED') OR w.used>=3 OR w.deadline<=$1)`,[now])).rows;
+    for(const p of processings)issues.push({key:`source:${p.source_id}:${p.error_code}`,code:p.extraction_status==='review'?'OUTPUT_REVIEW_REQUIRED':p.error_code,owner:p.id});
+    const retrying=(await this.repo.db.query<{issue_key:string;code:string;owner_id:string}>("SELECT a.issue_key,a.code,a.owner_id FROM platform.runtime_alerts a JOIN information.processing_runs p ON p.id=a.owner_id WHERE a.resolved_at IS NULL AND p.extraction_status='pending'")).rows;
+    for(const a of retrying)issues.push({key:a.issue_key,code:a.code,owner:a.owner_id});
     await this.alerts.reconcile(issues, now);
   }
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === resolve(process.argv[1])) {
   const db = database('IO_DATABASE_URL'); const repo = new ExecutionStore(db, new ArtifactStore(required('ARTIFACT_ROOT')));
-  const sources = process.env.SCHEDULE_SOURCES?.split(',').filter(Boolean);
-  const scheduler = new Scheduler(repo, systemNotification, { intervalSeconds: Number(process.env.SCHEDULE_INTERVAL_SECONDS ?? 3600), maxInFlight: 2, sources });
+  const scheduler = new Scheduler(repo, systemNotification, schedulerSettings());
   let stopping = false; process.on('SIGTERM', () => { stopping = true; }); process.on('SIGINT', () => { stopping = true; });
   try {
     await scheduler.initialize();
