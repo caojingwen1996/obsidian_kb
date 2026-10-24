@@ -2,11 +2,12 @@ import { DomainError, type ModelResponse, type NormalizedMaterial } from '../pla
 
 export interface ModelConfig { protocol: string; endpoint: string; model: string }
 export interface TaskInput { version_id: string; material: NormalizedMaterial; manifest: { provider: ModelConfig; prompt: string } }
-export interface TransportResponse { status: number; body: string }
-export const modelCredentialsConfigured = () => Boolean(process.env.MODEL_API_KEY) || process.env.MODEL_CREDENTIAL_READY === 'true';
+export interface TransportResponse { status: number; body: string; protocol?: string }
+export const modelCredentialsConfigured = () => process.env.MODEL_PROTOCOL === 'codex-exec' || Boolean(process.env.MODEL_API_KEY) || process.env.MODEL_CREDENTIAL_READY === 'true';
 
 export function modelConfig(): ModelConfig {
   const { MODEL_PROTOCOL: protocol, MODEL_ENDPOINT: endpoint, MODEL_NAME: model } = process.env;
+  if (protocol === 'codex-exec' && model && (!endpoint || endpoint === 'codex://local')) return { protocol, endpoint: 'codex://local', model };
   if (!protocol || !endpoint || !model || !modelCredentialsConfigured()) throw new DomainError('MODEL_NOT_CONFIGURED', 503);
   if (protocol !== 'openai-chat') throw new DomainError('MODEL_PROTOCOL_UNSUPPORTED', 503);
   const url = new URL(endpoint);
@@ -50,6 +51,12 @@ export function decodeModelResponse(transport: TransportResponse): ModelResponse
   if (transport.status !== 200) throw new DomainError(`MODEL_HTTP_${transport.status}`, 502, transport.status === 429 || transport.status >= 500);
   let raw: unknown;
   try { raw = JSON.parse(transport.body); } catch { throw new DomainError('MODEL_JSON_INVALID'); }
+  if (transport.protocol === 'codex-exec') {
+    const record = raw as { complete?: unknown; output?: unknown; usage?: Record<string, number> };
+    if (record?.complete !== true || typeof record.output !== 'string') throw new DomainError('MODEL_RESPONSE_INVALID');
+    let data: unknown; try { data = JSON.parse(record.output); } catch { throw new DomainError('MODEL_JSON_INVALID'); }
+    return { complete: true, finishReason: 'turn.completed', data, usage: record.usage };
+  }
   const record = raw as { choices?: { finish_reason?: unknown; message?: { content?: unknown; refusal?: unknown; tool_calls?: unknown } }[]; usage?: Record<string, number> };
   const choice = Array.isArray(record?.choices) && record.choices.length === 1 ? record.choices[0] : undefined;
   if (!choice || typeof choice.message?.content !== 'string' || choice.message.refusal || choice.message.tool_calls) throw new DomainError('MODEL_RESPONSE_INVALID');

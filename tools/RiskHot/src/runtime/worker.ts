@@ -13,6 +13,6 @@ const repo = db ? new ExecutionStore(db, new ArtifactStore(required('ARTIFACT_RO
 const worker = await Worker.create({
   connection, namespace: process.env.TEMPORAL_NAMESPACE || 'riskhot-l0', taskQueue: `riskhot-l0-${role}`,
   ...(role === 'workflow' ? { workflowsPath: fileURLToPath(new URL('./workflows.ts', import.meta.url)) } : { activities: role === 'io' ? ioActivities(repo!) : modelActivities(repo!) }),
-  maxConcurrentActivityTaskExecutions: role === 'model' ? 2 : 8,
+  maxConcurrentActivityTaskExecutions: role === 'model' ? 1 : 8,
 });
 try { await worker.run(); } finally { await db?.end(); await connection.close(); }

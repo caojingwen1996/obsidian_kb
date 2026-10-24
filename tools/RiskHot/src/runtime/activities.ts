@@ -9,6 +9,7 @@ import { extractionSchema, validateExtraction } from '../l0/extraction.js';
 import { DomainError, type NormalizedMaterial } from '../platform/types.js';
 import type { FetchCommand, OperationRow } from '../l0/repository.js';
 import { retryableModelFailure } from '../l0/policy.js';
+import { CodexModelClient } from '../l0/codex.js';
 
 const errorCode = (error: unknown) => error instanceof DomainError ? error.code : 'IO_UNAVAILABLE';
 export function ioActivities(repo: ExecutionStore) {
@@ -118,13 +119,15 @@ export function modelActivities(repo: ExecutionStore) {
       const timer = setInterval(() => Context.current().heartbeat(), 20_000);
       try {
         const input = await repo.json<TaskInput>(attempt.request_artifact_id);
-        if (!process.env.MODEL_API_KEY) throw new DomainError('MODEL_NOT_CONFIGURED', 503);
+        if (input.manifest.provider.protocol !== 'codex-exec' && !process.env.MODEL_API_KEY) throw new DomainError('MODEL_NOT_CONFIGURED', 503);
         const permit = (await repo.db.query<{ allowed: boolean; reason_code: string | null; deadline: Date }>('SELECT * FROM platform.claim_model_call($1)', [attemptId])).rows[0];
         if (!permit?.allowed) {
           if (permit?.reason_code === 'MODEL_CALL_ALREADY_CLAIMED') return;
           throw new DomainError(permit?.reason_code ?? 'MODEL_CALL_NOT_PERMITTED', 409);
         }
-        const response = await new HttpModelClient().execute(input, process.env.MODEL_API_KEY, { deadlineMs: permit.deadline.getTime() });
+        const response = input.manifest.provider.protocol === 'codex-exec'
+          ? await new CodexModelClient().execute(input, { deadlineMs: permit.deadline.getTime() })
+          : await new HttpModelClient().execute(input, process.env.MODEL_API_KEY!, { deadlineMs: permit.deadline.getTime() });
         const artifact = await repo.putJson(response, 'model-response');
         await repo.db.query('UPDATE platform.model_attempts SET status=\'response_received\',response_artifact_id=$2,completed_at=now() WHERE id=$1 AND response_artifact_id IS NULL', [attemptId, artifact]);
       } catch (error) {
