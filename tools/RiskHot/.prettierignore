@@ -1,9 +1,0 @@
-node_modules
-.data
-**/dist
-packages/generated
-packages/contracts/openapi.json
-05-场景验证
-playwright-report
-test-results
-pnpm-lock.yaml

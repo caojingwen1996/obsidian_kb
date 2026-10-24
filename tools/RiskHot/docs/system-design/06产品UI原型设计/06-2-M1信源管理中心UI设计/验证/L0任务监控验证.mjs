@@ -1,0 +1,82 @@
+import assert from 'node:assert/strict';
+import { mkdtemp, mkdir, writeFile, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join, dirname } from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
+const browserPath = process.env.RISK_HOT_TEST_BROWSER;
+if (!browserPath || !/Chrome for Testing|Chromium/.test(browserPath) || /\/Google Chrome\.app\//.test(browserPath)) throw new Error('Use a dedicated Chrome for Testing / Chromium executable.');
+const { chromium } = await import(process.env.RISK_HOT_PLAYWRIGHT_MODULE ? pathToFileURL(process.env.RISK_HOT_PLAYWRIGHT_MODULE).href : 'playwright');
+const dir = dirname(fileURLToPath(import.meta.url));
+const output = join(dir, 'L0任务监控截图'); await mkdir(output, {recursive:true});
+const profile = await mkdtemp(join(tmpdir(),'riskhot-m1-intake-'));
+const checks=[], errors=[], network=[];
+let context;
+async function check(name, fn) { await fn(); checks.push(name); }
+try {
+ context = await chromium.launchPersistentContext(profile,{executablePath:browserPath,headless:true,locale:'zh-CN'});
+ const page=await context.newPage(); page.on('pageerror',e=>errors.push(e.message)); page.on('request',r=>{if(/^https?:/.test(r.url()))network.push(r.url());});
+ const url = new URL('../M1信源管理中心交互原型.html',import.meta.url).href;
+ await page.goto(url);
+ await check('原目录40条信源保留',async()=>assert.match(await page.locator('#result-count').innerText(),/40/));
+ await page.locator('#intake-workspace-link').click();await page.waitForSelector('#intake-title');
+ const row=id=>page.locator('.intake-table tbody tr').filter({has:page.locator(`[data-intake-detail="${id}"]`)});
+ const control=(id,action)=>page.locator(`[data-task-id="${id}"][data-task-control="${action}"]`).first();
+ await check('当天按批次统计而非信源计数',async()=>{assert.equal(await page.locator('.intake-table tbody tr').count(),5);assert.equal(await page.locator('.intake-metrics strong').first().innerText(),'5');assert.equal(await page.locator('#intake-source').count(),0);assert(!/国家统计局|中国人民银行/.test(await page.locator('.intake-table').innerText()));});
+ await check('计划时间倒序且任务编号独立',async()=>{assert.match(await page.locator('.intake-table tbody tr').first().innerText(),/15:00/);assert.match(await row('L0-1024-006').innerText(),/14:30/);assert.match(await row('L0-1024-006').innerText(),/0 \/ 2 个信源完成/);});
+ await page.locator('#intake-from').fill('2026-10-23');await page.locator('#intake-search').press('Enter');
+ await check('日期范围包含前一天的批次且统计同步',async()=>{assert.equal(await page.locator('.intake-table tbody tr').count(),6);assert.equal(await page.locator('.intake-metrics strong').first().innerText(),'6');assert.match(await row('L0-1024-001').innerText(),/2026-10-23/);});
+ await page.locator('#intake-from').fill('2026-10-25');await page.locator('#intake-search').press('Enter');
+ await check('反向日期区间被拒绝且不改有效范围',async()=>{assert.match(await page.locator('#intake-feedback').innerText(),/开始日期不能晚于/);assert.equal(await page.locator('.intake-table tbody tr').count(),6);});
+ await page.locator('[data-intake-action=clear]').click();
+ for(const width of [1440,390,320]){
+  await page.setViewportSize({width,height:1000});
+  await check(`${width}批次列表无页面溢出`,async()=>assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)));
+  await page.evaluate(()=>{document.activeElement?.blur();window.scrollTo(0,0);});
+  if(width!==320)await page.screenshot({path:join(output,`${width}.png`),fullPage:true});
+  await page.locator('[data-intake-detail="L0-1024-006"]').click();
+  await check(`${width}批次下展示多个信源结果`,async()=>{assert.equal(await page.locator('.intake-source-result').count(),2);assert.match(await page.locator('#intake-detail-title').innerText(),/2026-10-24 14:30/);assert.match(await page.locator('#intake-detail').innerText(),/国家统计局/);});
+  await page.locator('.intake-source-result summary').first().click();
+  await check(`${width}每个信源有独立六步进度`,async()=>{assert.equal(await page.locator('.intake-source-result').first().locator('.intake-steps li').count(),6);assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));});
+  await page.evaluate(()=>{document.activeElement?.blur();window.scrollTo(0,0);});
+  if(width!==320)await page.screenshot({path:join(output,`${width}-detail.png`),fullPage:true});
+  await page.locator('[data-intake-action=close-detail]').click();
+ }
+ await page.setViewportSize({width:1440,height:1000});
+ await page.locator('[data-intake-action=attention]').click();
+ await check('异常统计按含异常批次去重，含运行中异常',async()=>{assert.equal(await page.locator('.intake-table tbody tr').count(),3);assert.match(await row('L0-1024-006').innerText(),/运行中/);});
+ await page.locator('[data-intake-action=clear]').first().click();
+ await page.locator('#intake-search').fill('L0-1024-005');await page.locator('#intake-search').press('Enter');
+ await check('任务编号查询',async()=>assert.equal(await page.locator('.intake-table tbody tr').count(),1));
+ await page.locator('#intake-search').fill('不存在');await page.locator('#intake-search').press('Enter');
+ await check('空查询恢复入口',async()=>assert.match(await page.locator('.intake-empty').innerText(),/没有符合条件/));
+ await page.locator('[data-intake-action=clear]').first().click();
+ await control('L0-1024-006','pause').click();await page.locator('[data-task-confirm=cancel]').click();
+ await check('取消保留批次状态',async()=>assert.match(await row('L0-1024-006').innerText(),/运行中/));
+ await control('L0-1024-006','pause').click();await page.locator('[data-task-confirm=apply]').click();
+ await page.locator('[data-intake-detail="L0-1024-006"]').click();
+ await check('暂停作用批次中运行项，既有失败结果保留',async()=>{assert.match(await row('L0-1024-006').innerText(),/已暂停/);assert.match(await page.locator('.intake-source-result').first().innerText(),/已暂停/);assert.match(await page.locator('.intake-source-result').nth(1).innerText(),/失败/);});
+ await page.locator('[data-intake-action=close-detail]').click();
+ await control('L0-1024-006','start').click();await page.locator('[data-task-confirm=apply]').click();
+ await check('继续批次恢复原信源步骤',async()=>{await page.locator('[data-intake-detail="L0-1024-006"]').click();assert.match(await page.locator('.intake-source-result').first().innerText(),/Step 3/);assert.match(await row('L0-1024-006').innerText(),/运行中/);await page.locator('[data-intake-action=close-detail]').click();});
+ await control('L0-1024-004','start').click();await page.locator('[data-task-confirm=apply]').click();
+ await check('开启批次保留原计划时间，运行数联动',async()=>{assert.match(await row('L0-1024-004').innerText(),/15:00/);assert.match(await row('L0-1024-004').innerText(),/运行中/);assert.equal(await page.locator('.intake-metrics strong').nth(1).innerText(),'2');});
+ await check('不合格信源阻止批次开启',async()=>assert(await control('L0-1024-002','start').isDisabled()));
+ await page.locator('#preview-toggle').click();
+ for(const scene of ['error','loading','empty','denied','offline']){
+  await page.locator('#scene').selectOption(scene);
+  await check(`${scene}读取场景`,async()=>{assert(await page.locator(scene==='offline'?'.intake-alert':'.intake-empty').isVisible());if(scene!=='offline')assert.equal(await page.locator('.intake-metrics').count(),0);else for(const b of await page.locator('[data-task-control]').all())assert(await b.isDisabled());});
+ }
+ await page.locator('#scene').selectOption('normal');await page.locator('#role').selectOption('researcher');
+ await check('只读角色无批次启停按钮',async()=>assert.equal(await page.locator('[data-task-control]').count(),0));
+ await page.locator('#role').selectOption('both');await page.locator('#reset').click();
+ await check('重置恢复批次状态与当日范围',async()=>{assert.equal(await page.locator('.intake-table tbody tr').count(),5);assert.match(await row('L0-1024-004').innerText(),/待执行/);});
+ await page.locator('#intake-refresh').click();await page.waitForFunction(()=>document.querySelector('#intake-refresh')?.textContent==='刷新状态');
+ await check('刷新快照标识',async()=>assert.match(await page.locator('.intake-refresh').innerText(),/本地快照/));
+ await page.reload();await page.waitForSelector('#intake-title');
+ await check('路由直达',async()=>assert(await page.locator('#source-workspace').isHidden()));
+ await page.locator('#source-workspace-link').click();await page.locator('[data-view=all]').click();
+ await check('返回保留信源目录',async()=>assert.equal(await page.locator('#list .source-row').count(),40));
+ await check('无脚本异常或外网请求',async()=>{assert.deepEqual(errors,[]);assert.deepEqual(network,[]);});
+ await writeFile(join(dir,'L0任务监控验证结果.json'),JSON.stringify({date:'2026-10-24',checks:checks.length,results:checks,errors,network},null,2)+'\n','utf8');
+ console.log(`${checks.length} checks passed`);
+} finally { await context?.close(); await rm(profile,{recursive:true,force:true}); }

@@ -1,0 +1,10 @@
+file:///Users/cjw/dev/Obsidian/wiki/.agents/skills/cjw-xueqiu-daily-monitor/scripts/vendor/baoyu-chrome-cdp/src/index.mjs:268
+          reject(new Error(`CDP timeout: ${method}`));
+                 ^
+
+Error: CDP timeout: Runtime.evaluate
+    at Timeout._onTimeout (file:///Users/cjw/dev/Obsidian/wiki/.agents/skills/cjw-xueqiu-daily-monitor/scripts/vendor/baoyu-chrome-cdp/src/index.mjs:268:18)
+    at listOnTimeout (node:internal/timers:585:17)
+    at process.processTimers (node:internal/timers:521:7)
+
+Node.js v22.22.1
