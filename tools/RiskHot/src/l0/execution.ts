@@ -66,7 +66,7 @@ export class ExecutionStore extends Repository {
       const next = expected + 1;
       if (automatic) {
         const protocol = processing.input_artifact_id ? (await this.json<TaskInput>(processing.input_artifact_id)).manifest.provider.protocol : null;
-        if (!(protocol === null && processing.error_code === 'MODEL_NOT_CONFIGURED') && !(protocol === 'codex-exec' && ['MODEL_NETWORK_ERROR','MODEL_LOGIN_REQUIRED','MODEL_QUOTA_EXHAUSTED','MODEL_BUDGET_EXHAUSTED'].includes(processing.error_code ?? ''))) throw new DomainError('AUTO_RECOVERY_NOT_ALLOWED', 409);
+        if (!(protocol === null && processing.error_code === 'MODEL_NOT_CONFIGURED') && !(protocol === 'codex-exec' && ['MODEL_NETWORK_ERROR','MODEL_CAPACITY_UNAVAILABLE','MODEL_LOGIN_REQUIRED','MODEL_QUOTA_EXHAUSTED','MODEL_BUDGET_EXHAUSTED'].includes(processing.error_code ?? ''))) throw new DomainError('AUTO_RECOVERY_NOT_ALLOWED', 409);
         if (protocol === 'codex-exec' && !exhausted) throw new DomainError('AUTO_RECOVERY_WINDOW_ACTIVE', 409);
         if ((await client.query("SELECT 1 FROM platform.model_service_state WHERE protocol='codex-exec' AND blocked_until>clock_timestamp()")).rowCount) throw new DomainError('MODEL_SERVICE_PAUSED', 409);
         if (openBudget) {

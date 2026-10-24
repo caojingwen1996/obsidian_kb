@@ -168,6 +168,8 @@ test('a resumed processing without a scheduled run reports review and keeps its 
     await c.repo.extractionFailed(p.id,1,'MODEL_EVIDENCE_INVALID');await s.monitor();assert.equal(notices,1);
     await c.db.query("UPDATE information.processing_runs SET extraction_status='pending',error_code=NULL WHERE id=$1",[p.id]);await s.monitor();
     assert.equal((await c.db.query('SELECT count(*)::int n FROM platform.runtime_alerts WHERE resolved_at IS NULL')).rows[0].n,1);
+    await c.db.query("UPDATE information.processing_runs SET extraction_status='recoverable',error_code='MODEL_NETWORK_ERROR' WHERE id=$1",[p.id]);await s.monitor();
+    assert.equal((await c.db.query('SELECT count(*)::int n FROM platform.runtime_alerts WHERE resolved_at IS NULL')).rows[0].n,1,'a live workflow retry also keeps the incident open');
     await c.db.query("UPDATE information.processing_runs SET extraction_status='completed',candidate_count=0 WHERE id=$1",[p.id]);await s.monitor();
     assert.equal((await c.db.query('SELECT count(*)::int n FROM platform.runtime_alerts WHERE resolved_at IS NULL')).rows[0].n,0);
   }finally{await c.dispose();}

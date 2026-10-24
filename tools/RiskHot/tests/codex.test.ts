@@ -60,6 +60,7 @@ test('only a successful turn with one final message is accepted; quota and auth 
     { body: `${completed}${completed}`, error: 'MODEL_RESPONSE_INVALID' },
     { body: `console.log(JSON.stringify({type:'turn.failed',error:{message:'usage limit reached; try again later'}}));process.exitCode=1;`, error: 'MODEL_QUOTA_EXHAUSTED' },
     { body: `console.error('401 Unauthorized: please log in');process.exitCode=1;`, error: 'MODEL_LOGIN_REQUIRED' },
+    { body: `console.log(JSON.stringify({type:'turn.failed',error:{message:'Selected model is at capacity. Please try a different model.'}}));process.exitCode=1;`, error: 'MODEL_CAPACITY_UNAVAILABLE' },
     { body: `setTimeout(()=>{},5000);`, error: 'MODEL_BUDGET_EXHAUSTED', timeout: 80 },
   ];
   const { CodexModelClient } = await import('../src/l0/codex.js');

@@ -413,7 +413,7 @@
       "passed": 61,
       "failed": 0,
       "skipped": 0,
-      "duration_ms": 57747.23175
+      "duration_ms": 54806.653917
     },
     "typecheck": "passed",
     "review": {
@@ -422,7 +422,10 @@
       "important_fixed": 4,
       "additional_empty_source_selection_fixed": true,
       "minor_deferred": 0
-    }
+    },
+    "capacity_recovery_operation": "a59da43b-7b7f-4ddc-800d-3ac3c74c6109",
+    "capacity_classification_regression": "RED→GREEN",
+    "live_retry_incident_regression": "RED→GREEN"
   },
   "background_processing_counts": [
     {
@@ -452,7 +455,7 @@
     }
   ],
   "static_checks": {
-    "markdown_files": 9,
+    "markdown_files": 10,
     "new_changed_wiki_links": 11,
     "utf8_added_text": "passed",
     "json": "passed",

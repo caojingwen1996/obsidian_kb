@@ -20,6 +20,7 @@ export function codexEnvironment(base: NodeJS.ProcessEnv = process.env): NodeJS.
   return Object.fromEntries(['PATH', 'HOME', 'TMPDIR', 'LANG', 'LC_ALL', 'TZ', 'CODEX_HOME', 'SSL_CERT_FILE', 'CODEX_CA_CERTIFICATE'].filter(k => base[k] !== undefined).map(k => [k, base[k]]));
 }
 function failureCode(text: string): string {
+  if (/at.capacity|overloaded|server.busy|temporarily.unavailable/i.test(text)) return 'MODEL_CAPACITY_UNAVAILABLE';
   if (/usage.limit|quota.exceed|rate.limit|limit.reached|too many requests|429/i.test(text)) return 'MODEL_QUOTA_EXHAUSTED';
   if (/unauthorized|authentication|log.?in|sign.?in|401|token.expired/i.test(text)) return 'MODEL_LOGIN_REQUIRED';
   if (/connection|network|timed?.?out|502|503|504/i.test(text)) return 'MODEL_NETWORK_ERROR';
