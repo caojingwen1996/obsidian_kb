@@ -107,7 +107,7 @@ export class Repository {
         return first((await client.query<OperationRow>('SELECT * FROM information.operations WHERE id=$1', [prior.operation_id])).rows);
       }
       await this.authorize(actor, 'submit', command.source_key, client);
-      const source = first((await client.query<{ id: string; version: number; state: string }>('SELECT id,version,state FROM m1.sources WHERE catalog_key=$1 FOR SHARE', [command.source_key])).rows);
+      const source = first((await client.query<{ id: string; version: number; state: string }>('SELECT * FROM platform.source_for_submit($1)', [command.source_key])).rows);
       if (source.state !== 'ACTIVE') throw new DomainError('SOURCE_DISABLED', 409);
       if (source.id !== snapshot.id || source.version !== snapshot.version) throw new DomainError('SOURCE_VERSION_CHANGED', 409);
       const artifact = await this.artifact(ref, client);

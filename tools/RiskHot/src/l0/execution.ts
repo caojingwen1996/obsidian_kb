@@ -16,7 +16,7 @@ export class ExecutionStore extends Repository {
       if (processing.extraction_status === 'completed') return;
       if (processing.extraction_status === 'review') throw new DomainError('OUTPUT_REVIEW_REQUIRED', 409);
       if (processing.version_id !== input.version_id) throw new DomainError('INPUT_VERSION_MISMATCH');
-      await client.query('UPDATE information.processing_runs SET manifest_artifact_id=COALESCE(manifest_artifact_id,$2),input_artifact_id=COALESCE(input_artifact_id,$3),extraction_status=\'pending\',error_code=NULL WHERE id=$1', [id, manifest, request]);
+      await client.query('UPDATE information.processing_runs SET manifest_artifact_id=COALESCE(manifest_artifact_id,$2),input_artifact_id=COALESCE(input_artifact_id,$3),provider_protocol=CASE WHEN input_artifact_id IS NULL THEN $4 ELSE provider_protocol END,extraction_status=\'pending\',error_code=NULL WHERE id=$1', [id, manifest, request, input.manifest.provider.protocol]);
       if (!(await client.query('SELECT 1 FROM platform.model_budget_windows WHERE processing_id=$1', [id])).rowCount) {
         await client.query('INSERT INTO platform.model_budget_windows(processing_id,generation,actor,reason) VALUES($1,$2,\'system\',\'initial task budget\')', [id, generation]);
       }
@@ -47,12 +47,12 @@ export class ExecutionStore extends Repository {
       await client.query('UPDATE information.operations SET status=$2,reason_code=$3,updated_at=now() WHERE processing_id=$1', [id, waiting ? 'waiting_config' : state, code]);
     });
   }
-  async retryExtraction(id: string, actor: string, reason: string, openBudget: boolean, expected: number, key: string = randomUUID()): Promise<number> {
+  async retryExtraction(id: string, actor: string, reason: string, openBudget: boolean, expected: number, key: string = randomUUID(), automatic = false): Promise<number> {
     if (!reason.trim()) throw new DomainError('RETRY_REASON_REQUIRED', 400);
     return this.action(actor, 'retry-extraction', key, { id, reason, openBudget, expected }, async client => {
       const op = (await client.query<{ catalog_key: string; state: string }>('SELECT s.catalog_key,s.state FROM information.processing_runs p JOIN information.material_versions v ON v.id=p.version_id JOIN information.materials m ON m.id=v.material_id JOIN m1.sources s ON s.id=m.source_id WHERE p.id=$1 FOR SHARE OF s', [id])).rows[0];
       if (!op) throw new DomainError('NOT_FOUND', 404);
-      await this.authorize(actor, openBudget ? 'model_budget' : 'retry', op.catalog_key, client);
+      await this.authorize(actor, automatic ? 'auto_retry' : openBudget ? 'model_budget' : 'retry', op.catalog_key, client);
       if (op.state !== 'ACTIVE') throw new DomainError('SOURCE_DISABLED', 409);
     }, async client => {
       const processing = await this.processing(id, client, true);
@@ -64,10 +64,20 @@ export class ExecutionStore extends Repository {
       if (exhausted && !openBudget) throw new DomainError('MODEL_BUDGET_EXHAUSTED', 409);
       if (openBudget && !exhausted) throw new DomainError('BUDGET_NOT_EXHAUSTED', 409);
       const next = expected + 1;
+      if (automatic) {
+        const protocol = processing.input_artifact_id ? (await this.json<TaskInput>(processing.input_artifact_id)).manifest.provider.protocol : null;
+        if (!(protocol === null && processing.error_code === 'MODEL_NOT_CONFIGURED') && !(protocol === 'codex-exec' && ['MODEL_NETWORK_ERROR','MODEL_LOGIN_REQUIRED','MODEL_QUOTA_EXHAUSTED','MODEL_BUDGET_EXHAUSTED'].includes(processing.error_code ?? ''))) throw new DomainError('AUTO_RECOVERY_NOT_ALLOWED', 409);
+        if (protocol === 'codex-exec' && !exhausted) throw new DomainError('AUTO_RECOVERY_WINDOW_ACTIVE', 409);
+        if ((await client.query("SELECT 1 FROM platform.model_service_state WHERE protocol='codex-exec' AND blocked_until>clock_timestamp()")).rowCount) throw new DomainError('MODEL_SERVICE_PAUSED', 409);
+        if (openBudget) {
+          if ((await client.query("SELECT 1 FROM platform.automatic_recoveries WHERE processing_id=$1 AND created_at>clock_timestamp()-interval '24 hours'", [id])).rowCount) throw new DomainError('AUTO_RECOVERY_LIMIT', 409);
+          await client.query('INSERT INTO platform.automatic_recoveries(processing_id,generation) VALUES($1,$2)', [id, next]);
+        }
+      }
       if (openBudget) await client.query('INSERT INTO platform.model_budget_windows(processing_id,generation,actor,reason) VALUES($1,$2,$3,$4)', [id, next, actor, reason]);
       await client.query('UPDATE information.processing_runs SET generation=$2,extraction_status=\'pending\',error_code=NULL WHERE id=$1', [id, next]);
       await client.query('UPDATE information.operations SET status=\'queued\',reason_code=NULL,updated_at=now() WHERE processing_id=$1', [id]);
-      await client.query('INSERT INTO platform.audit_log(actor,action,owner_id,detail) VALUES($1,\'retry-extraction\',$2,$3)', [actor, id, { reason, openBudget, previous_generation: expected, generation: next }]);
+      await client.query('INSERT INTO platform.audit_log(actor,action,owner_id,detail) VALUES($1,\'retry-extraction\',$2,$3)', [actor, id, { reason, openBudget, automatic, previous_generation: expected, generation: next }]);
       await this.intent(client, 'extract', id, next);
       return next;
     });

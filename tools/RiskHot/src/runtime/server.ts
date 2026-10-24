@@ -81,6 +81,16 @@ export async function buildServer(repo: ExecutionStore) {
       return {...row,connection,connector_configured:connection.readiness==='ready',last_status:last?.slice_status??null,last_reason:last?.reason_code??last?.children?.find(child=>child.reason_code)?.reason_code??null};
     }))};
   });
+  app.get('/api/v1/l0/monitor', async request => {
+    await repo.authorize(request.actor, 'read');
+    const schedules = (await repo.db.query(`SELECT q.*,s.catalog_key,r.id AS latest_run_id,r.status AS latest_status,r.error_code AS latest_error,r.operation_id
+      FROM platform.source_schedules q JOIN m1.sources s ON s.id=q.source_id JOIN platform.actors a ON a.subject=$1
+      LEFT JOIN LATERAL(SELECT * FROM platform.schedule_runs WHERE source_id=s.id ORDER BY scheduled_at DESC LIMIT 1) r ON true
+      WHERE '*'=ANY(a.source_keys) OR s.catalog_key=ANY(a.source_keys) ORDER BY s.catalog_key`, [request.actor])).rows;
+    const alerts = (await repo.db.query(`SELECT x.* FROM platform.runtime_alerts x JOIN platform.actors a ON a.subject=$1
+      WHERE x.resolved_at IS NULL AND ('*'=ANY(a.source_keys) OR EXISTS(SELECT 1 FROM platform.schedule_runs r JOIN m1.sources s ON s.id=r.source_id WHERE r.id=x.owner_id AND s.catalog_key=ANY(a.source_keys))) ORDER BY x.opened_at DESC`, [request.actor])).rows;
+    return { schedules, alerts, model_service: (await repo.db.query('SELECT protocol,reason_code,blocked_until,updated_at FROM platform.model_service_state')).rows, notification_semantics: 'submitted means handed to the OS; display is controlled by system settings' };
+  });
   app.patch('/api/v1/m1/sources/:key', { schema: { params: { type: 'object', additionalProperties: false, required: ['key'], properties: { key: { type: 'string', pattern: '^wiki-source-[0-9]{3}$' } } }, body: { type: 'object', additionalProperties: false, required: ['state'], properties: { state: { enum: ['ACTIVE', 'DISABLED'] } } } } }, async request => {
     const { key } = request.params as { key: string }; const { state } = request.body as { state: string };
     return repo.action(request.actor, 'source-state', keyOf(request.headers), { key, state }, tx => repo.authorize(request.actor, 'source_admin', key, tx), async tx => {

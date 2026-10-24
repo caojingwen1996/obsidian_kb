@@ -28,6 +28,11 @@ RETURNS TABLE(catalog_key text,state text) LANGUAGE sql SECURITY DEFINER SET sea
 $$;
 REVOKE ALL ON FUNCTION platform.authorize_actor(text,text,text) FROM PUBLIC;
 REVOKE ALL ON FUNCTION platform.lock_source(uuid) FROM PUBLIC;
+CREATE OR REPLACE FUNCTION platform.source_for_submit(p_key text)
+RETURNS TABLE(id uuid,version integer,state text) LANGUAGE sql SECURITY DEFINER SET search_path=pg_catalog,m1 AS $$
+ SELECT s.id,s.version,s.state FROM m1.sources s WHERE s.catalog_key=p_key FOR SHARE OF s
+$$;
+REVOKE ALL ON FUNCTION platform.source_for_submit(text) FROM PUBLIC;
 CREATE TABLE IF NOT EXISTS platform.artifact_objects(
  id uuid PRIMARY KEY DEFAULT gen_random_uuid(), sha256 text NOT NULL UNIQUE CHECK(sha256 ~ '^[a-f0-9]{64}$'),
  size integer NOT NULL CHECK(size>=0), kind text NOT NULL, created_at timestamptz NOT NULL DEFAULT now()
@@ -121,6 +126,32 @@ CREATE TABLE IF NOT EXISTS platform.model_attempts(
 ALTER TABLE platform.model_attempts ADD COLUMN IF NOT EXISTS call_key text;
 ALTER TABLE platform.model_attempts ADD COLUMN IF NOT EXISTS started_at timestamptz;
 ALTER TABLE information.processing_runs ADD COLUMN IF NOT EXISTS review_attempt_id uuid REFERENCES platform.model_attempts(id);
+ALTER TABLE information.processing_runs ADD COLUMN IF NOT EXISTS provider_protocol text;
+CREATE TABLE IF NOT EXISTS platform.model_service_state(
+ protocol text PRIMARY KEY, reason_code text, blocked_until timestamptz, updated_at timestamptz NOT NULL DEFAULT now()
+);
+CREATE TABLE IF NOT EXISTS platform.automatic_recoveries(
+ processing_id uuid NOT NULL REFERENCES information.processing_runs(id), generation bigint NOT NULL,
+ created_at timestamptz NOT NULL DEFAULT now(), PRIMARY KEY(processing_id,generation)
+);
+CREATE TABLE IF NOT EXISTS platform.source_schedules(
+ source_id uuid PRIMARY KEY REFERENCES m1.sources(id), enabled boolean NOT NULL DEFAULT true,
+ interval_seconds integer NOT NULL DEFAULT 3600 CHECK(interval_seconds BETWEEN 60 AND 86400),
+ next_run_at timestamptz NOT NULL, updated_at timestamptz NOT NULL DEFAULT now()
+);
+CREATE TABLE IF NOT EXISTS platform.schedule_runs(
+ id uuid PRIMARY KEY DEFAULT gen_random_uuid(), source_id uuid NOT NULL REFERENCES m1.sources(id),
+ scheduled_at timestamptz NOT NULL, operation_id uuid REFERENCES information.operations(id),
+ status text NOT NULL DEFAULT 'pending', error_code text, created_at timestamptz NOT NULL DEFAULT now(),
+ UNIQUE(source_id,scheduled_at)
+);
+CREATE TABLE IF NOT EXISTS platform.runtime_alerts(
+ id uuid PRIMARY KEY DEFAULT gen_random_uuid(), issue_key text NOT NULL, code text NOT NULL, owner_id uuid,
+ opened_at timestamptz NOT NULL DEFAULT now(), last_seen_at timestamptz NOT NULL DEFAULT now(), resolved_at timestamptz,
+ delivery_status text NOT NULL DEFAULT 'pending', delivery_attempts integer NOT NULL DEFAULT 0,
+ next_delivery_at timestamptz NOT NULL DEFAULT now(), delivered_at timestamptz
+);
+CREATE UNIQUE INDEX IF NOT EXISTS active_alert_key ON platform.runtime_alerts(issue_key) WHERE resolved_at IS NULL;
 CREATE UNIQUE INDEX IF NOT EXISTS model_attempt_call_key ON platform.model_attempts(processing_id,generation,call_key);
 CREATE OR REPLACE FUNCTION platform.claim_model_call(p_attempt uuid)
 RETURNS TABLE(allowed boolean,reason_code text,deadline timestamptz,request_artifact_id uuid)
@@ -128,7 +159,7 @@ LANGUAGE plpgsql SECURITY DEFINER SET search_path=pg_catalog,platform,informatio
 DECLARE item record; source_record record; actor_name text;
 BEGIN
  SELECT a.id,a.processing_id,a.generation,a.status,a.request_artifact_id,p.generation AS current_generation,
- p.extraction_status,p.input_artifact_id,w.deadline AS call_deadline,m.source_id INTO item
+ p.extraction_status,p.input_artifact_id,p.provider_protocol,w.deadline AS call_deadline,m.source_id INTO item
  FROM platform.model_attempts a JOIN information.processing_runs p ON p.id=a.processing_id
  JOIN platform.model_budget_windows w ON w.id=a.window_id
  JOIN information.material_versions v ON v.id=p.version_id JOIN information.materials m ON m.id=v.material_id
@@ -142,6 +173,9 @@ BEGIN
  END IF;
  IF item.call_deadline<=clock_timestamp() THEN
   RETURN QUERY SELECT false,'MODEL_BUDGET_EXHAUSTED'::text,item.call_deadline,item.request_artifact_id; RETURN;
+ END IF;
+ IF EXISTS(SELECT 1 FROM platform.model_service_state s WHERE s.protocol=item.provider_protocol AND s.blocked_until>clock_timestamp()) THEN
+  RETURN QUERY SELECT false,s.reason_code,item.call_deadline,item.request_artifact_id FROM platform.model_service_state s WHERE s.protocol=item.provider_protocol; RETURN;
  END IF;
  SELECT * INTO source_record FROM platform.lock_source(item.source_id);
  IF source_record.state<>'ACTIVE' THEN RETURN QUERY SELECT false,'SOURCE_DISABLED'::text,item.call_deadline,item.request_artifact_id; RETURN; END IF;

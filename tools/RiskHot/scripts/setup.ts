@@ -23,5 +23,6 @@ try {
   await grantRuntimeRoles(admin);
   const repo = new Repository(admin, new ArtifactStore(required('ARTIFACT_ROOT')));
   await repo.seedCatalog(await readCatalog('src/data/source-catalog.js'));
+  await admin.query("INSERT INTO platform.actors(subject,permissions,source_keys) VALUES('riskhot-scheduler',ARRAY['read','submit','retry','auto_retry'],ARRAY['*']) ON CONFLICT(subject) DO NOTHING");
   console.log('Database schema, isolated roles, and source catalog initialized.');
 } finally { await admin.end(); }

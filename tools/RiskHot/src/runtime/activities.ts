@@ -131,6 +131,10 @@ export function modelActivities(repo: ExecutionStore) {
         const artifact = await repo.putJson(response, 'model-response');
         await repo.db.query('UPDATE platform.model_attempts SET status=\'response_received\',response_artifact_id=$2,completed_at=now() WHERE id=$1 AND response_artifact_id IS NULL', [attemptId, artifact]);
       } catch (error) {
+        if (error instanceof DomainError && ['MODEL_QUOTA_EXHAUSTED','MODEL_LOGIN_REQUIRED','MODEL_SUBSCRIPTION_REQUIRED'].includes(error.code)) {
+          const delay = error.code === 'MODEL_QUOTA_EXHAUSTED' ? '6 hours' : '5 minutes';
+          await repo.db.query("INSERT INTO platform.model_service_state(protocol,reason_code,blocked_until) VALUES('codex-exec',$1,now()+$2::interval) ON CONFLICT(protocol) DO UPDATE SET reason_code=EXCLUDED.reason_code,blocked_until=EXCLUDED.blocked_until,updated_at=now()", [error.code, delay]);
+        }
         await repo.db.query('UPDATE platform.model_attempts SET status=\'failed\',error_code=$2,completed_at=now() WHERE id=$1 AND response_artifact_id IS NULL', [attemptId, errorCode(error)]);
       } finally { clearInterval(timer); }
     },
