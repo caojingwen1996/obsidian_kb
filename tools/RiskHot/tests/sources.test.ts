@@ -114,3 +114,21 @@ test('script comments cannot replace the actual discovered resource and daily-br
   const { fetchRenderedSource } = await import('../src/l0/source-browser.js');
   await assert.rejects(() => fetchRenderedSource({ ...article, browser:{waitFor:'#article'} },url,'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'), /SOURCE_BROWSER_ISOLATION_REQUIRED/);
 });
+
+test('the disclosure index adapter selects its declared announcement table rather than unrelated homepage panels', () => {
+  const profile=connectorFor('wiki-source-015');
+  const raw=Buffer.from('<table class="jc-table3"><tr><td><a href="/new/disclosure/detail?announcementId=123&amp;announcementTime=2026-10-24">受控公告</a></td></tr></table><table class="jc-table3"><tr><td>无关面板</td></tr></table>');
+  const material=parseSource(profile,raw,profile.entryUrl!);
+  assert.equal(material.segments.length,1);
+  assert.equal(material.observedAtText,'2026-10-24');
+  assert.ok(!material.segments[0]!.text.includes('无关面板'));
+});
+
+test('official discovery selects the declared data column and excludes leadership and unrelated pinned links', () => {
+  const cases=[
+    {key:'wiki-source-003',old:'https://zwgls.mof.gov.cn/gzdt/202511/t20251101_3975501.htm',url:'https://zwgls.mof.gov.cn/gzdt/202610/t20261009_4002433.htm',title:'最新债务政策',wrap:true},
+    {key:'wiki-source-004',old:'https://www.safe.gov.cn/safe/2023/1208/23600.html',url:'https://www.safe.gov.cn/safe/2026/1006/27959.html',title:'外汇储备数据',wrap:false},
+    {key:'wiki-source-009',old:'https://www.chinabond.com.cn/xxwsy/sy_zdgz_ath/202610/t20261022_855470049.html',url:'https://www.chinabond.com.cn/xxwsy/sy_zdgz_ath/202610/t20261023_855472795.html',title:'中债收益率曲线和指数日评',wrap:false},
+  ];
+  for(const item of cases){const p=connectorFor(item.key);const link=`<a href="${item.url}">${item.title}</a>`;const raw=Buffer.from(`<a href="${item.old}">领导或非目标置顶</a>${item.wrap?`<div class="gzdtlist">${link}</div>`:link}`);assert.equal(discoverSource(p,raw,p.entryUrl!,1)[0]?.url,item.url);}
+});

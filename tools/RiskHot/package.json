@@ -14,7 +14,8 @@
     "setup:identity": "node --env-file-if-exists=.env --import tsx scripts/setup-identity.ts",
     "setup:temporal": "node --env-file-if-exists=.env --import tsx scripts/setup-temporal.ts",
     "dev": "node --env-file-if-exists=.env --import tsx scripts/dev.ts",
-    "run:real": "node --env-file-if-exists=.env --import tsx scripts/run.ts"
+    "run:real": "node --env-file-if-exists=.env --import tsx scripts/run.ts",
+    "sources:run": "node --env-file-if-exists=.env --import tsx scripts/run-sources.ts"
   },
   "devDependencies": {
     "@types/node": "22.20.5",

@@ -6,7 +6,7 @@ import { required } from '../src/platform/db.js';
 const flags = new Map<string, string>();
 for (let index = 2; index < process.argv.length; index += 2) {
   const key = process.argv[index], value = process.argv[index + 1];
-  if (!key || !['--key', '--url', '--watch', '--retry', '--reason', '--open-budget'].includes(key) || !value) throw new Error('Use --key VALUE, --url URL, --watch OPERATION_ID, --retry PROCESSING_ID, --reason TEXT, or --open-budget true');
+  if (!key || !['--key', '--source', '--url', '--watch', '--retry', '--reason', '--open-budget'].includes(key) || !value) throw new Error('Use --source SOURCE_KEY, --key VALUE, --url URL, --watch OPERATION_ID, --retry PROCESSING_ID, --reason TEXT, or --open-budget true');
   flags.set(key, value);
 }
 if (flags.has('--retry') && (!flags.has('--watch') || !flags.has('--reason'))) throw new Error('Retry requires --watch OPERATION_ID and --reason TEXT');
@@ -26,7 +26,7 @@ if (flags.has('--retry')) {
   if (!retried.ok) throw new Error(`RETRY_HTTP_${retried.status}`);
 }
 if (!id) {
-  const submitted = await fetch(`${origin}/api/v1/l0/source-fetches`, { method: 'POST', headers: { ...headers, 'idempotency-key': requestKey }, body: JSON.stringify({ source_key: 'wiki-source-001', limit: 1, ...(flags.get('--url') ? { url: flags.get('--url') } : {}) }) });
+  const submitted = await fetch(`${origin}/api/v1/l0/source-fetches`, { method: 'POST', headers: { ...headers, 'idempotency-key': requestKey }, body: JSON.stringify({ source_key: flags.get('--source') ?? 'wiki-source-001', limit: 1, ...(flags.get('--url') ? { url: flags.get('--url') } : {}) }) });
   if (!submitted.ok) throw new Error(`SUBMISSION_HTTP_${submitted.status}`);
   id = (await submitted.json() as { operation_id: string }).operation_id;
 }

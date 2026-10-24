@@ -52,7 +52,7 @@
     },
     "discovery": {
       "format": "html",
-      "selector": "a[href*=\"/gzdt/\"][href$=\".htm\"]"
+      "selector": ".gzdtlist a[href*=\"/gzdt/\"][href$=\".htm\"]"
     }
   },
   {
@@ -61,7 +61,7 @@
     "kind": "article",
     "readiness": "ready",
     "entryUrl": "https://www.safe.gov.cn/",
-    "scope": "国家外汇管理局公开栏目详情",
+    "scope": "国家外汇管理局外汇储备规模公告",
     "allowed": [
       {
         "origin": "https://www.safe.gov.cn",
@@ -80,7 +80,7 @@
     },
     "discovery": {
       "format": "html",
-      "selector": "a[href*=\"/safe/20\"][href$=\".html\"]"
+      "selector": "a[href*=\"/safe/20\"][href$=\".html\"]:contains(\"外汇储备\")"
     }
   },
   {
@@ -268,7 +268,7 @@
     "kind": "article",
     "readiness": "ready",
     "entryUrl": "https://www.chinabond.com.cn/",
-    "scope": "中债官方日评全文含国债关键期限收益率，附完整docx链接。不是完整逐期限曲线API。",
+    "scope": "中债收益率曲线和指数日评全文，非完整逐期限曲线API",
     "allowed": [
       {
         "origin": "https://www.chinabond.com.cn",
@@ -287,7 +287,7 @@
     },
     "discovery": {
       "format": "html",
-      "selector": "a[href*=\"/xxwsy/sy_zdgz_ath/\"][href$=\".html\"]"
+      "selector": "a[href*=\"/xxwsy/sy_zdgz_ath/\"][href$=\".html\"]:contains(\"中债收益率曲线和指数日评\")"
     }
   },
   {
@@ -486,7 +486,7 @@
       }
     ],
     "html": {
-      "body": "table.jc-table3",
+      "body": "table.jc-table3:has(a[href*=\"announcementId=\"]):first",
       "dateFromUrl": {
         "selector": "table.jc-table3 a[href*=\"announcementId=\"]",
         "parameter": "announcementTime"

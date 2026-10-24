@@ -4,6 +4,8 @@ import { ArtifactStore, type ArtifactRef } from '../platform/artifacts.js';
 import { transaction } from '../platform/db.js';
 import { DomainError, type CatalogEntry, type ExtractionResult, type NormalizedMaterial, type SourceItem } from '../platform/types.js';
 import { assertPbcUrl } from './pbc.js';
+import { connectorFor, sourceEntryUrl, type SourceConnector } from '../m1/connectors.js';
+import { assertSourceUrl, requireConnector } from './sources.js';
 
 export interface FetchCommand { source_key: string; limit: number; url?: string }
 export interface OperationRow {
@@ -58,10 +60,25 @@ export class Repository {
   async seedCatalog(rows: CatalogEntry[]): Promise<void> {
     await transaction(this.db, async client => {
       for (const row of rows) {
-        const source = first((await client.query<{ id: string; version: number }>('INSERT INTO m1.sources(catalog_key,name,url,metadata,state) VALUES($1,$2,$3,$4,$5) ON CONFLICT(catalog_key) DO UPDATE SET catalog_key=EXCLUDED.catalog_key RETURNING id,version', [row.id, row.name, row.url, row, row.id === 'wiki-source-001' ? 'ACTIVE' : 'DISABLED'])).rows);
-        await client.query('INSERT INTO m1.source_versions(source_id,version,config) VALUES($1,$2,$3) ON CONFLICT DO NOTHING', [source.id, source.version, { catalog: row, connector: row.id === 'wiki-source-001' ? 'pbc-html-1.0.0' : null }]);
+        const connection = connectorFor(row.id);
+        let source = (await client.query<{ id:string;version:number;state:string }>('SELECT id,version,state FROM m1.sources WHERE catalog_key=$1 FOR UPDATE',[row.id])).rows[0];
+        if (!source) source = first((await client.query<{ id:string;version:number;state:string }>('INSERT INTO m1.sources(catalog_key,name,url,metadata,state) VALUES($1,$2,$3,$4,$5) RETURNING id,version,state',[row.id,row.name,row.url,row,connection.readiness==='ready'?'ACTIVE':'DISABLED'])).rows);
+        const previous = (await client.query<{config:{connection?:SourceConnector;connector?:string|null}}>('SELECT config FROM m1.source_versions WHERE source_id=$1 AND version=$2',[source.id,source.version])).rows[0]?.config;
+        const previouslyConfigured = previous?.connection?.readiness === 'ready' || previous?.connector === 'pbc-html-1.0.0';
+        const state = previous && !previouslyConfigured && connection.readiness === 'ready' ? 'ACTIVE' : source.state;
+        const config = {catalog:row,connector:connection.id,connection,state};
+        if (previous && digest(previous) === digest(config)) continue;
+        const version = previous ? source.version+1 : source.version;
+        await client.query('INSERT INTO m1.source_versions(source_id,version,config) VALUES($1,$2,$3)',[source.id,version,config]);
+        await client.query('UPDATE m1.sources SET name=$2,url=$3,metadata=$4,state=$5,version=$6 WHERE id=$1',[source.id,row.name,row.url,row,state,version]);
       }
     });
+  }
+  async connectionFor(op: Pick<OperationRow,'source_id'|'source_version'>, client: Pool | PoolClient = this.db): Promise<SourceConnector> {
+    const row = first((await client.query<{config:{connection?:SourceConnector;connector?:string};catalog_key:string}>('SELECT v.config,s.catalog_key FROM m1.source_versions v JOIN m1.sources s ON s.id=v.source_id WHERE v.source_id=$1 AND v.version=$2',[op.source_id,op.source_version])).rows);
+    if (row.config.connection) return row.config.connection;
+    if (row.catalog_key === 'wiki-source-001' && row.config.connector === 'pbc-html-1.0.0') return connectorFor(row.catalog_key);
+    throw new DomainError('CONNECTOR_NOT_CONFIGURED',409);
   }
   async checkSource(op: OperationRow, client: Pool | PoolClient = this.db): Promise<void> {
     const source = first((await client.query<{ catalog_key: string; state: string }>('SELECT * FROM platform.lock_source($1)', [op.source_id])).rows);
@@ -74,11 +91,13 @@ export class Repository {
   async submit(command: FetchCommand, actor: string, key: string): Promise<OperationRow> {
     if (!/^[\x21-\x7e]{1,128}$/.test(key)) throw new DomainError('IDEMPOTENCY_KEY_INVALID', 400);
     const requestedUrl = command.url ?? null;
-    command = { ...command, ...(command.url ? { url: assertPbcUrl(command.url).href } : {}) };
     await this.authorize(actor, 'submit', command.source_key);
     const snapshot = first((await this.db.query<{ id: string; version: number }>('SELECT id,version FROM m1.sources WHERE catalog_key=$1', [command.source_key])).rows);
+    const connection = await this.connectionFor({source_id:snapshot.id,source_version:snapshot.version}); requireConnector(connection);
+    command = { ...command, ...(command.url ? { url: connection.kind==='pbc' ? assertPbcUrl(command.url).href : assertSourceUrl(connection,command.url).href } : {}) };
     const input = { type: 'SOURCE_FETCH', ...command };
-    const ref = await this.artifacts.put(Buffer.from(JSON.stringify({ ...input, requested_url: requestedUrl, source_id: snapshot.id, source_version: snapshot.version })), 'intake-command');
+    const entryUrl = assertSourceUrl(connection,sourceEntryUrl(connection)).href;
+    const ref = await this.artifacts.put(Buffer.from(JSON.stringify({ ...input, entry_url:entryUrl, requested_url: requestedUrl, source_id: snapshot.id, source_version: snapshot.version })), 'intake-command');
     return transaction(this.db, async client => {
       await client.query('SELECT pg_advisory_xact_lock(hashtextextended($1,0))', [`${actor}:source-fetch:${key}`]);
       const prior = (await client.query<{ digest: string; operation_id: string }>('SELECT digest,operation_id FROM platform.command_receipts WHERE actor=$1 AND kind=\'source-fetch\' AND key=$2', [actor, key])).rows[0];
@@ -91,7 +110,6 @@ export class Repository {
       const source = first((await client.query<{ id: string; version: number; state: string }>('SELECT id,version,state FROM m1.sources WHERE catalog_key=$1 FOR SHARE', [command.source_key])).rows);
       if (source.state !== 'ACTIVE') throw new DomainError('SOURCE_DISABLED', 409);
       if (source.id !== snapshot.id || source.version !== snapshot.version) throw new DomainError('SOURCE_VERSION_CHANGED', 409);
-      if (command.source_key !== 'wiki-source-001') throw new DomainError('CONNECTOR_NOT_CONFIGURED', 409);
       const artifact = await this.artifact(ref, client);
       const op = first((await client.query<OperationRow>('INSERT INTO information.operations(kind,source_id,source_version,actor,command_artifact_id) VALUES(\'batch\',$1,$2,$3,$4) RETURNING *', [source.id, source.version, actor, artifact])).rows);
       await client.query('INSERT INTO platform.command_receipts(actor,kind,key,digest,operation_id) VALUES($1,\'source-fetch\',$2,$3,$4)', [actor, key, digest(input), op.id]);
@@ -106,15 +124,17 @@ export class Repository {
     if (Number(row.generation) !== generation) throw new DomainError('STALE_EXECUTION', 409);
   }
   async recordDiscovery(id: string, generation: number, items: SourceItem[], raw: Buffer): Promise<string[]> {
-    items = items.map(item => ({ ...item, url: assertPbcUrl(item.url).href }));
     const snapshot = await this.rawOperation(id); this.guard(snapshot, generation);
+    const connection = await this.connectionFor(snapshot);
+    const itemUrl = (value:string) => connection.kind==='pbc' ? assertPbcUrl(value).href : assertSourceUrl(connection,value).href;
+    items = items.map(item => ({ ...item, url:itemUrl(item.url) }));
     const captured = await this.artifacts.capture(id, 'discovery', Buffer.from(JSON.stringify({ items, raw: raw.toString('base64') })));
     const fixed = JSON.parse((await this.artifacts.read(captured.sha256)).toString('utf8')) as { items: SourceItem[]; raw: string };
     if (!Array.isArray(fixed.items) || !fixed.items.length || fixed.items.length > 5 || typeof fixed.raw !== 'string') throw new DomainError('CAPTURE_INTEGRITY', 503);
-    items = fixed.items.map(item => ({ ...item, url: assertPbcUrl(item.url).href }));
+    items = fixed.items.map(item => ({ ...item, url:itemUrl(item.url) }));
     raw = Buffer.from(fixed.raw, 'base64');
     const list = await this.artifact(await this.artifacts.put(raw, 'source-list'));
-    const commands = await Promise.all(items.map(async item => ({ item, artifact: await this.putJson({ type: 'SOURCE_REFERENCE', source_id: snapshot.source_id, source_version: snapshot.source_version, actor: snapshot.actor, parent_operation_id: id, url: item.url, connector: 'pbc-html-1.0.0' }, 'intake-command') })));
+    const commands = await Promise.all(items.map(async item => ({ item, artifact: await this.putJson({ type: 'SOURCE_REFERENCE', source_id: snapshot.source_id, source_version: snapshot.source_version, actor: snapshot.actor, parent_operation_id: id, url: item.url, connector:connection.id,scope:connection.scope }, 'intake-command') })));
     return transaction(this.db, async client => {
       const parent = await this.rawOperation(id, client, true);
       this.guard(parent, generation); await this.checkSource(parent, client);
@@ -187,7 +207,7 @@ export class Repository {
     return transaction(this.db, async client => {
       const op = await this.rawOperation(id, client, true); this.guard(op, generation); await this.checkSource(op, client);
       if (op.version_id) return op.version_id;
-      const identity = first((await client.query<{ id: string; current_version_id: string | null }>('INSERT INTO information.materials(source_id,identity) VALUES($1,$2) ON CONFLICT(source_id,identity) DO UPDATE SET identity=EXCLUDED.identity RETURNING id,current_version_id', [op.source_id, op.url])).rows);
+      const identity = first((await client.query<{ id: string; current_version_id: string | null }>('INSERT INTO information.materials(source_id,identity) VALUES($1,$2) ON CONFLICT(source_id,identity) DO UPDATE SET identity=EXCLUDED.identity RETURNING id,current_version_id', [op.source_id, material.sourceIdentity ?? op.url])).rows);
       let version = (await client.query<{ id: string }>('SELECT id FROM information.material_versions WHERE material_id=$1 AND content_digest=$2', [identity.id, contentDigest])).rows[0];
       if (!version) {
         if (identity.current_version_id) {

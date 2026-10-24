@@ -2,7 +2,8 @@ import { readFile } from 'node:fs/promises';
 import { Context } from '@temporalio/activity';
 import { ApplicationFailure } from '@temporalio/common';
 import { ExecutionStore } from '../l0/execution.js';
-import { discoverPbc, fetchPbc, parsePbc, PBC_LIST, assertPbcUrl } from '../l0/pbc.js';
+import { assertSourceUrl, discoverSource, fetchSource, parseSource } from '../l0/sources.js';
+import { fetchRenderedSource } from '../l0/source-browser.js';
 import { modelConfig, modelCredentialsConfigured, HttpModelClient, decodeModelResponse, type TaskInput, type TransportResponse } from '../l0/model.js';
 import { extractionSchema, validateExtraction } from '../l0/extraction.js';
 import { DomainError, type NormalizedMaterial } from '../platform/types.js';
@@ -24,13 +25,18 @@ export function ioActivities(repo: ExecutionStore) {
     async discover(id: string, generation: number): Promise<void> {
       await materialActivity(id, generation, async op => {
         if (await repo.recoverDiscovery(id, generation)) return;
-        const input = await repo.json<FetchCommand>(op.command_artifact_id);
+        const input = await repo.json<FetchCommand & {entry_url?:string}>(op.command_artifact_id);
+        const connection = await repo.connectionFor(op);
         if (input.url) {
-          assertPbcUrl(input.url);
+          assertSourceUrl(connection,input.url);
           await repo.recordDiscovery(id, generation, [{ url: input.url, title: '' }], Buffer.from(JSON.stringify({ fixed_url: input.url })));
+        } else if (connection.kind !== 'article' && connection.kind !== 'pbc' && !connection.discovery) {
+          const url = input.entry_url ?? connection.entryUrl!;
+          await repo.recordDiscovery(id,generation,[{url,title:connection.scope}],Buffer.from(JSON.stringify({fixed_url:url,scope:connection.scope})));
         } else {
-          const raw = await fetchPbc(PBC_LIST, true);
-          const items = discoverPbc(raw.toString('utf8'), PBC_LIST, input.limit);
+          const url = input.entry_url ?? connection.entryUrl!;
+          const raw = await fetchSource(connection,url);
+          const items = discoverSource(connection,raw,url,input.limit);
           await repo.recordDiscovery(id, generation, items, raw);
         }
       });
@@ -39,14 +45,15 @@ export function ioActivities(repo: ExecutionStore) {
       await materialActivity(id, generation, async op => {
         if (await repo.recoverRaw(id, generation)) return;
         if (!op.url) throw new DomainError('SOURCE_URL_MISSING');
-        await repo.recordRaw(id, generation, await fetchPbc(op.url));
+        const connection = await repo.connectionFor(op);
+        await repo.recordRaw(id, generation, connection.browser ? await fetchRenderedSource(connection,op.url) : await fetchSource(connection,op.url));
       });
     },
     async normalize(id: string, generation: number): Promise<void> {
       await materialActivity(id, generation, async op => {
         if (op.normalized_artifact_id) { await repo.bytes(op.normalized_artifact_id); return; }
         if (!op.raw_artifact_id || !op.url) throw new DomainError('RAW_REQUIRED');
-        await repo.recordNormalized(id, generation, parsePbc(await repo.bytes(op.raw_artifact_id), op.url));
+        await repo.recordNormalized(id, generation, parseSource(await repo.connectionFor(op),await repo.bytes(op.raw_artifact_id),op.url));
       });
     },
     async save(id: string, generation: number): Promise<void> {

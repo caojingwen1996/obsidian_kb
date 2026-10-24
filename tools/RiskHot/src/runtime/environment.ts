@@ -1,6 +1,6 @@
 export type RuntimeRole = 'workflow' | 'io' | 'model' | 'relay' | 'api';
 const fields: Record<RuntimeRole, string[]> = {
-  workflow: [], io: ['IO_DATABASE_URL', 'MODEL_PROTOCOL', 'MODEL_ENDPOINT', 'MODEL_NAME'],
+  workflow: [], io: ['IO_DATABASE_URL', 'MODEL_PROTOCOL', 'MODEL_ENDPOINT', 'MODEL_NAME','SOURCE_BROWSER_EXECUTABLE'],
   model: ['MODEL_DATABASE_URL', 'MODEL_API_KEY'], relay: ['RELAY_DATABASE_URL'],
   api: ['DATABASE_URL', 'OIDC_ISSUER', 'OIDC_CLIENT_ID', 'OIDC_CLIENT_SECRET', 'MODEL_PROTOCOL', 'MODEL_ENDPOINT', 'MODEL_NAME'],
 };

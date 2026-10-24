@@ -9,7 +9,7 @@ import { DomainError } from '../platform/types.js';
 import { database, required } from '../platform/db.js';
 import { ArtifactStore } from '../platform/artifacts.js';
 import { ExecutionStore } from '../l0/execution.js';
-import { assertPbcUrl } from '../l0/pbc.js';
+import { connectorFor } from '../m1/connectors.js';
 import { modelCredentialsConfigured } from '../l0/model.js';
 import type { FetchCommand } from '../l0/repository.js';
 
@@ -74,7 +74,8 @@ export async function buildServer(repo: ExecutionStore) {
   });
   app.get('/api/v1/m1/sources', async request => {
     await repo.authorize(request.actor, 'read');
-    return { items: (await repo.db.query("SELECT s.*,s.catalog_key='wiki-source-001' AS connector_configured FROM m1.sources s JOIN platform.actors a ON a.subject=$1 WHERE '*'=ANY(a.source_keys) OR s.catalog_key=ANY(a.source_keys) ORDER BY s.catalog_key", [request.actor])).rows };
+    const rows = (await repo.db.query("SELECT s.*,v.config->'connection' AS connection,last_op.id AS last_operation_id,last_op.status AS last_status,last_op.reason_code AS last_reason FROM m1.sources s JOIN m1.source_versions v ON v.source_id=s.id AND v.version=s.version JOIN platform.actors a ON a.subject=$1 LEFT JOIN LATERAL(SELECT id,status,reason_code FROM information.operations o WHERE o.source_id=s.id AND o.kind='material' ORDER BY o.created_at DESC,o.id DESC LIMIT 1) last_op ON true WHERE '*'=ANY(a.source_keys) OR s.catalog_key=ANY(a.source_keys) ORDER BY s.catalog_key", [request.actor])).rows;
+    return {items:rows.map(row=>{const connection=row.connection??connectorFor(row.catalog_key);return {...row,connection,connector_configured:connection.readiness==='ready'};})};
   });
   app.patch('/api/v1/m1/sources/:key', { schema: { params: { type: 'object', additionalProperties: false, required: ['key'], properties: { key: { type: 'string', pattern: '^wiki-source-[0-9]{3}$' } } }, body: { type: 'object', additionalProperties: false, required: ['state'], properties: { state: { enum: ['ACTIVE', 'DISABLED'] } } } } }, async request => {
     const { key } = request.params as { key: string }; const { state } = request.body as { state: string };
@@ -91,7 +92,6 @@ export async function buildServer(repo: ExecutionStore) {
   });
   app.post('/api/v1/l0/source-fetches', { schema: { body: { type: 'object', additionalProperties: false, required: ['source_key', 'limit'], properties: { source_key: { type: 'string', pattern: '^wiki-source-[0-9]{3}$' }, limit: { type: 'integer', minimum: 1, maximum: 5 }, url: { type: 'string', maxLength: 2048 } } } } }, async (request, reply) => {
     const input = request.body as FetchCommand;
-    if (input.url) assertPbcUrl(input.url);
     const operation = await repo.submit(input, request.actor, keyOf(request.headers));
     return reply.code(202).send({ operation_id: operation.id, status_url: `/api/v1/l0/operations/${operation.id}` });
   });
