@@ -132,3 +132,7 @@ AI 输出校验器固定关闭类型强转、默认值填充和多余字段删�
 同一节点的重试可能得到不同的合法建议。程序先锁 owner 对应的 processing/candidate 行，核对 execution_generation、input_digest 和节点接受状态；第一个符合条件并成功提交的结果成为有效建议，之后的结果仅作为 superseded 尝试保存。接纳 AI-01 时在同一事务生成全部候选 UUID 和启动意图；model local_key 只用于本响应内关联，重复 local_key 拒绝整套候选。
 
 模型 Worker 使用独立运行凭据，仅可访问已分配任务的输入工件、保存响应和尝试状态。候选接纳、业务校验及正式提交由 IO Worker 执行；模型进程不持 information 正式表写权限。人工修正必须形成独立来源和新建议代次，不能把超时尝试直接改为模型成功。
+
+## 2026-10-24 来源候选切片实现映射
+
+本稿的完整系统目标与版本号保持不变。本次经用户批准实施的来源引用输入、EXTRACTION_ONLY 身份、物理表/API、原件恢复、模型预算及复核契约见[[tools/RiskHot/docs/system-design/04-系统架构设计/04-公共技术契约/来源候选切片实现契约|来源候选切片实现契约]]；该增补只约束当前候选切片，不能据此标记完整 L0 已实现。真实模型验收状态见[[tools/RiskHot/docs/verification/source-candidates|执行验证记录]]。

@@ -11,6 +11,8 @@
     "typecheck": "tsc --noEmit",
     "init:env": "node --import tsx scripts/init-env.ts",
     "setup": "node --env-file-if-exists=.env --import tsx scripts/setup.ts",
+    "setup:identity": "node --env-file-if-exists=.env --import tsx scripts/setup-identity.ts",
+    "setup:temporal": "node --env-file-if-exists=.env --import tsx scripts/setup-temporal.ts",
     "dev": "node --env-file-if-exists=.env --import tsx scripts/dev.ts",
     "run:real": "node --env-file-if-exists=.env --import tsx scripts/run.ts"
   },

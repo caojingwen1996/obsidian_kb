@@ -1,5 +1,11 @@
 # RiskHot 项目文档索引
 
+## 来源到事件候选：工程实现
+
+- [[tools/RiskHot/README|启动与操作说明]]：独立 TypeScript/PostgreSQL/Temporal/OIDC 工程，40 条来源元数据，首条央行连接器及 API/CLI 状态监测。
+- [[tools/RiskHot/docs/superpowers/specs/2026-10-24-source-to-candidates-design|已批准设计]]与[[tools/RiskHot/docs/superpowers/plans/2026-10-24-source-to-candidates|实施计划]]：EXTRACTION_ONLY 候选范围，真实模型验收仍待配置。
+- [[tools/RiskHot/docs/system-design/04-系统架构设计/04-公共技术契约/来源候选切片实现契约|当前实现契约]]与[[tools/RiskHot/docs/verification/source-candidates|执行验证记录]]：21 项工程测试通过，真实央行资料已保存，0 次真实模型调用；完整 L0 未验收。
+
 ## 当前UI统一规则
 
 - [[tools/RiskHot/docs/system-design/06产品UI原型设计/标题区域设计规范|标题与操作区设计规范V1.1]]：导航与操作按职责分开；M1目录操作位于列表标题行，M2/M3页面与页签操作位于正文独立工作区操作栏，弹窗／抽屉操作进入自身标题行。最新验证见[[tools/RiskHot/docs/system-design/06产品UI原型设计/验证/工作区操作栏优化记录|M2/M3工作区操作栏优化记录]]。
