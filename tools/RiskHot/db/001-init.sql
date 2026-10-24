@@ -100,6 +100,8 @@ CREATE TABLE IF NOT EXISTS platform.model_attempts(
  response_artifact_id uuid REFERENCES platform.artifact_objects(id), finish_reason text, error_code text,
  created_at timestamptz NOT NULL DEFAULT now(), completed_at timestamptz, UNIQUE(processing_id,attempt_no)
 );
+ALTER TABLE platform.model_attempts ADD COLUMN IF NOT EXISTS call_key text;
+CREATE UNIQUE INDEX IF NOT EXISTS model_attempt_call_key ON platform.model_attempts(processing_id,generation,call_key);
 CREATE TABLE IF NOT EXISTS platform.audit_log(
  id uuid PRIMARY KEY DEFAULT gen_random_uuid(), actor text NOT NULL, action text NOT NULL, owner_id uuid, detail jsonb NOT NULL DEFAULT '{}', created_at timestamptz NOT NULL DEFAULT now()
 );

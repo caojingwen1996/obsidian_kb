@@ -50,6 +50,8 @@ test('checks codepoint evidence and rejects forged quotes, formal IDs and excess
   const candidate = { title: '测试机构宣布操作', description: '操作量为零', subject_name: '测试机构', action: '宣布操作', stage: '宣布', time: null, uncertainties: [], evidence: [{ segment_id: segment.id, start_cp: 0, end_cp: 13, quote: '测试机构宣布操作量为零😀。' }] };
   const payload = { covered_segment_ids: material.segments.map(x => x.id), candidates: [candidate], no_event_reason: null, warnings: [] };
   assert.equal(validateExtraction({ complete: true, data: payload, finishReason: 'stop' }, material).candidates.length, 1);
+  const withoutOffsets = { ...payload, candidates: [{ ...candidate, evidence: [{ ...candidate.evidence[0], start_cp: null, end_cp: null }] }] };
+  assert.equal(validateExtraction({ complete: true, data: withoutOffsets, finishReason: 'stop' }, material).candidates[0]?.evidence[0]?.end_cp, 13);
   assert.throws(() => validateExtraction({ complete: true, data: { ...payload, candidates: [{ ...candidate, evidence: [{ ...candidate.evidence[0], quote: '伪造' }] }] }, finishReason: 'stop' }, material), /EVIDENCE/);
   assert.throws(() => validateExtraction({ complete: true, data: { ...payload, candidates: [{ ...candidate, event_id: 'fake' }] }, finishReason: 'stop' }, material), /SCHEMA/);
   assert.throws(() => validateExtraction({ complete: true, data: { ...payload, candidates: Array(51).fill(candidate) }, finishReason: 'stop' }, material), /SCHEMA/);

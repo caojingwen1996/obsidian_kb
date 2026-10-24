@@ -14,6 +14,7 @@ try {
     await admin.query(sql.rows[0]!.sql);
   }
   if (!(await admin.query("SELECT 1 FROM pg_database WHERE datname='riskhot_test'")).rowCount) await admin.query('CREATE DATABASE riskhot_test');
+  if (!(await admin.query("SELECT 1 FROM pg_database WHERE datname='temporal'")).rowCount) await admin.query('CREATE DATABASE temporal OWNER temporal');
   const sql = await readFile('db/001-init.sql', 'utf8');
   await admin.query(sql);
   const test = new Pool({ connectionString: required('TEST_DATABASE_URL') });
