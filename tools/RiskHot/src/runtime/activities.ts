@@ -36,7 +36,7 @@ export function ioActivities(repo: ExecutionStore) {
     },
     async acquire(id: string, generation: number): Promise<void> {
       await materialActivity(id, generation, async op => {
-        if (op.raw_artifact_id) { await repo.bytes(op.raw_artifact_id); return; }
+        if (await repo.recoverRaw(id, generation)) return;
         if (!op.url) throw new DomainError('SOURCE_URL_MISSING');
         await repo.recordRaw(id, generation, await fetchPbc(op.url));
       });

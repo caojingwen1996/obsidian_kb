@@ -41,13 +41,15 @@ export class ExecutionStore extends Repository {
       await client.query('UPDATE information.operations SET status=$2,reason_code=$3,updated_at=now() WHERE processing_id=$1', [id, waiting ? 'waiting_config' : 'recoverable', code]);
     });
   }
-  async retryExtraction(id: string, actor: string, reason: string, openBudget: boolean, expected: number): Promise<number> {
+  async retryExtraction(id: string, actor: string, reason: string, openBudget: boolean, expected: number, key: string = randomUUID()): Promise<number> {
     if (!reason.trim()) throw new DomainError('RETRY_REASON_REQUIRED', 400);
-    return transaction(this.db, async client => {
-      const processing = await this.processing(id, client, true);
-      const op = (await client.query<{ catalog_key: string; state: string }>('SELECT s.catalog_key,s.state FROM information.material_versions v JOIN information.materials m ON m.id=v.material_id JOIN m1.sources s ON s.id=m.source_id WHERE v.id=$1 FOR SHARE OF s', [processing.version_id])).rows[0]!;
+    return this.action(actor, 'retry-extraction', key, { id, reason, openBudget, expected }, async client => {
+      const op = (await client.query<{ catalog_key: string; state: string }>('SELECT s.catalog_key,s.state FROM information.processing_runs p JOIN information.material_versions v ON v.id=p.version_id JOIN information.materials m ON m.id=v.material_id JOIN m1.sources s ON s.id=m.source_id WHERE p.id=$1 FOR SHARE OF s', [id])).rows[0];
+      if (!op) throw new DomainError('NOT_FOUND', 404);
       await this.authorize(actor, openBudget ? 'model_budget' : 'retry', op.catalog_key, client);
       if (op.state !== 'ACTIVE') throw new DomainError('SOURCE_DISABLED', 409);
+    }, async client => {
+      const processing = await this.processing(id, client, true);
       if (processing.extraction_status === 'completed') return Number(processing.generation);
       if (Number(processing.generation) !== expected) throw new DomainError('STALE_EXECUTION', 409);
       const window = (await client.query<{ used: number; deadline: Date }>('SELECT used,deadline FROM platform.model_budget_windows WHERE processing_id=$1 ORDER BY generation DESC LIMIT 1', [id])).rows[0];
@@ -60,6 +62,25 @@ export class ExecutionStore extends Repository {
       await client.query('UPDATE information.operations SET status=\'queued\',reason_code=NULL,updated_at=now() WHERE processing_id=$1', [id]);
       await client.query('INSERT INTO platform.audit_log(actor,action,owner_id,detail) VALUES($1,\'retry-extraction\',$2,$3)', [actor, id, { reason, openBudget, previous_generation: expected, generation: next }]);
       await this.intent(client, 'extract', id, next);
+      return next;
+    });
+  }
+  async retryOperation(id: string, actor: string, reason: string, expected: number, key: string): Promise<number> {
+    return this.action(actor, 'retry-operation', key, { id, reason, expected }, async client => {
+      const op = await this.rawOperation(id, client);
+      const source = (await client.query<{ catalog_key: string }>('SELECT catalog_key FROM m1.sources WHERE id=$1', [op.source_id])).rows[0]!;
+      await this.authorize(actor, 'retry', source.catalog_key, client); await this.checkSource(op, client);
+    }, async client => {
+      const op = await this.rawOperation(id, client, true);
+      if (op.status === 'completed') return Number(op.generation);
+      this.guard(op, expected);
+      if (op.processing_id) throw new DomainError('USE_EXTRACTION_RETRY', 409);
+      if (op.kind === 'batch' && (await client.query('SELECT 1 FROM information.operations WHERE parent_id=$1', [id])).rowCount) throw new DomainError('RETRY_FAILED_CHILD', 409);
+      if (!['recoverable', 'waiting_config'].includes(op.status)) throw new DomainError('NOT_RECOVERABLE', 409);
+      const next = expected + 1;
+      await client.query('UPDATE information.operations SET generation=$2,status=\'queued\',reason_code=NULL,updated_at=now() WHERE id=$1', [id, next]);
+      await this.intent(client, op.kind === 'batch' ? 'discovery' : 'material', id, next);
+      await client.query('INSERT INTO platform.audit_log(actor,action,owner_id,detail) VALUES($1,\'retry-operation\',$2,$3)', [actor, id, { reason, generation: next }]);
       return next;
     });
   }

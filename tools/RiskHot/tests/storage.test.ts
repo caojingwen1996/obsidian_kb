@@ -40,19 +40,45 @@ test('persists complete commands and reuses concurrent submissions and fixed can
     assert.equal(new Set(results.map(x => x.id)).size, 1);
     await assert.rejects(() => repo.submit({ ...command, limit: 2 }, 'storage-operator', key), /IDEMPOTENCY_CONFLICT/);
     const parent = results[0]!;
+    const savedCommand = await repo.json<{ source_id: string; source_version: number; source_key: string }>(parent.command_artifact_id);
+    assert.equal(savedCommand.source_key, 'wiki-source-001');
+    assert.equal(savedCommand.source_id, parent.source_id);
+    assert.equal(savedCommand.source_version, parent.source_version);
     const runUrl = url.replace('2026102308535522110', Date.now().toString());
     const children = await repo.recordDiscovery(parent.id, 1, [{ url: runUrl, title: '测试' }], Buffer.from('saved listing'));
     const repeatedDiscovery = await repo.recordDiscovery(parent.id, 1, [{ url: url.replace('2026102308535522110', '2026102200000000000'), title: 'late item' }], Buffer.from('changed listing'));
     assert.deepEqual(repeatedDiscovery, children, 'A saved discovery set must not grow during a retry');
     const child = children[0]!;
+    await db.query(`CREATE OR REPLACE FUNCTION platform.reject_raw_checkpoint() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN IF NEW.id='${child}'::uuid AND NEW.raw_artifact_id IS NOT NULL AND OLD.raw_artifact_id IS NULL THEN RAISE EXCEPTION 'INJECTED_CHECKPOINT_FAILURE'; END IF; RETURN NEW; END $$`);
+    await db.query('CREATE TRIGGER reject_raw_checkpoint BEFORE UPDATE ON information.operations FOR EACH ROW EXECUTE FUNCTION platform.reject_raw_checkpoint()');
+    try {
+      await assert.rejects(() => repo.recordRaw(child, 1, bytes), /INJECTED_CHECKPOINT_FAILURE/);
+      assert.equal((await db.query('SELECT count(*)::int AS n FROM information.acquisitions WHERE operation_id=$1', [child])).rows[0].n, 1, 'A published acquisition receipt survives a later operation checkpoint failure');
+    } finally {
+      await db.query('DROP TRIGGER reject_raw_checkpoint ON information.operations');
+      await db.query('DROP FUNCTION platform.reject_raw_checkpoint()');
+    }
+    assert.equal(await repo.recoverRaw(child, 1), true);
     await repo.recordRaw(child, 1, bytes);
     await repo.recordNormalized(child, 1, parsePbc(bytes, runUrl));
     const versions = await Promise.all([repo.saveMaterial(child, 1), repo.saveMaterial(child, 1)]);
     assert.equal(versions[0], versions[1]);
+    await db.query("UPDATE m1.sources SET state='DISABLED' WHERE catalog_key='wiki-source-001'");
+    await repo.deliverPending();
+    assert.equal((await repo.operation(child)).processing_id, null, 'Delivery must recheck current source eligibility');
+    await db.query("UPDATE m1.sources SET state='ACTIVE' WHERE catalog_key='wiki-source-001'");
     await repo.deliverPending();
     const operation = await repo.operation(child);
     assert.ok(operation.processing_id);
     assert.equal((await repo.processing(operation.processing_id!)).candidate_count, null);
+    await db.query("UPDATE information.processing_runs SET extraction_status='recoverable',error_code='MODEL_NOT_CONFIGURED' WHERE id=$1", [operation.processing_id]);
+    await repo.failOperation(child, 1, 'MODEL_NOT_CONFIGURED', true);
+    const duplicateBatch = await repo.submit(command, 'storage-operator', `${key}-same-version`);
+    const [duplicateChild] = await repo.recordDiscovery(duplicateBatch.id, 1, [{ url: runUrl, title: 'same source version' }], Buffer.from('saved duplicate listing'));
+    assert.ok(duplicateChild);
+    await repo.recordRaw(duplicateChild, 1, bytes); await repo.recordNormalized(duplicateChild, 1, parsePbc(bytes, runUrl)); await repo.saveMaterial(duplicateChild, 1); await repo.deliverPending();
+    assert.equal((await repo.operation(duplicateChild)).processing_id, operation.processing_id);
+    assert.equal((await repo.operation(duplicateBatch.id)).slice_status, 'waiting_config', 'Reusing an existing processing must preserve its waiting state');
     await repo.failOperation(child, 1, 'INJECTED_FAILURE');
     assert.equal((await repo.processing(operation.processing_id!)).candidate_count, null);
     const material = parsePbc(bytes, runUrl);
@@ -63,5 +89,5 @@ test('persists complete commands and reuses concurrent submissions and fixed can
     assert.equal(saved.candidate_count, 0);
     assert.equal(saved.extraction_status, 'completed');
     assert.equal((await repo.operation(parent.id)).slice_status, 'completed');
-  } finally { await db.end(); await rm(folder, { recursive: true, force: true }); }
+  } finally { await db.query("UPDATE m1.sources SET state='ACTIVE' WHERE catalog_key='wiki-source-001'"); await db.end(); await rm(folder, { recursive: true, force: true }); }
 });

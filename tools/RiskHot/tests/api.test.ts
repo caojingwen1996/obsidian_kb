@@ -1,0 +1,108 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { mkdtemp, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { Pool } from 'pg';
+import { decodeJwt } from 'jose';
+import { load } from 'cheerio';
+import { ExecutionStore } from '../src/l0/execution.js';
+import { ArtifactStore } from '../src/platform/artifacts.js';
+import { buildServer } from '../src/runtime/server.js';
+import { parsePbc } from '../src/l0/pbc.js';
+
+test('OIDC protects writes; strict input, idempotency, source eligibility and time-batch queries stay consistent', async () => {
+  const db = new Pool({ connectionString: process.env.TEST_DATABASE_URL });
+  const folder = await mkdtemp(join(tmpdir(), 'riskhot-api-'));
+  const repo = new ExecutionStore(db, new ArtifactStore(folder));
+  await repo.seedCatalog([{ id: 'wiki-source-001', name: '中国人民银行', url: 'https://www.pbc.gov.cn/', tier: 'T1', group: '测试', focus: '测试', context: '测试' }]);
+  const tokenResponse = await fetch(`${process.env.OIDC_ISSUER}/protocol/openid-connect/token`, { method: 'POST', body: new URLSearchParams({ grant_type: 'password', client_id: process.env.OIDC_CLIENT_ID!, client_secret: process.env.OIDC_CLIENT_SECRET!, username: process.env.OPERATOR_USERNAME!, password: process.env.OPERATOR_PASSWORD! }) });
+  const tokens = await tokenResponse.json() as { access_token?: string };
+  assert.equal(typeof tokens.access_token, 'string', 'Local validation identity must be initialized');
+  const token = tokens.access_token!;
+  const subject = decodeJwt(token).sub!;
+  await db.query('INSERT INTO platform.actors VALUES($1,ARRAY[]::text[],ARRAY[\'wiki-source-001\']) ON CONFLICT(subject) DO UPDATE SET permissions=ARRAY[]::text[],source_keys=EXCLUDED.source_keys', [subject]);
+  const app = await buildServer(repo);
+  const headers = { authorization: `Bearer ${token}`, 'idempotency-key': `api-${Date.now()}` };
+  const payload = { source_key: 'wiki-source-001', limit: 1 };
+  try {
+    assert.equal((await app.inject({ method: 'POST', url: '/api/v1/l0/source-fetches', payload })).statusCode, 401);
+    assert.equal((await app.inject({ method: 'POST', url: '/api/v1/l0/source-fetches', headers, payload })).statusCode, 403);
+    await db.query("UPDATE platform.actors SET permissions=ARRAY['read','submit','source_admin','retry','model_budget'] WHERE subject=$1", [subject]);
+    assert.equal((await app.inject({ method: 'POST', url: '/api/v1/l0/source-fetches', headers: { ...headers, 'content-type': 'application/json' }, payload: '{"source_key":' })).statusCode, 400);
+    assert.equal((await app.inject({ method: 'POST', url: '/api/v1/l0/source-fetches', headers, payload: { ...payload, limit: '1' } })).statusCode, 400);
+    assert.equal((await app.inject({ method: 'POST', url: '/api/v1/l0/source-fetches', headers, payload: { ...payload, actor: 'admin' } })).statusCode, 400);
+    assert.equal((await app.inject({ method: 'POST', url: '/api/v1/l0/source-fetches', headers, payload: { ...payload, url: 'https://evil.test/' } })).statusCode, 400);
+    assert.equal((await app.inject({ method: 'POST', url: '/api/v1/l0/source-fetches', headers, payload: { ...payload, url: 'not-a-url' } })).statusCode, 400);
+    const first = await app.inject({ method: 'POST', url: '/api/v1/l0/source-fetches', headers, payload });
+    assert.equal(first.statusCode, 202, first.body);
+    const again = await app.inject({ method: 'POST', url: '/api/v1/l0/source-fetches', headers, payload });
+    assert.equal(first.json().operation_id, again.json().operation_id);
+    const reordered = await app.inject({ method: 'POST', url: '/api/v1/l0/source-fetches', headers, payload: { limit: 1, source_key: 'wiki-source-001' } });
+    assert.equal(reordered.statusCode, 202, 'JSON object key order must not change command identity');
+    assert.equal((await app.inject({ method: 'POST', url: '/api/v1/l0/source-fetches', headers, payload: { ...payload, limit: 2 } })).statusCode, 409);
+    const detail = await app.inject({ url: first.json().status_url, headers });
+    assert.equal(detail.json().slice_status, 'queued');
+    assert.equal((await app.inject({ url: '/api/v1/l0/runs?from=2000-01-01&to=2000-01-02', headers })).json().items.length, 0);
+    assert.equal((await app.inject({ url: '/api/v1/l0/runs?from=2026-02-30', headers })).statusCode, 400);
+    assert.equal((await app.inject({ url: `/api/v1/l0/runs?status=queued&to=${encodeURIComponent(new Date().toISOString())}`, headers })).json().items.some((x: { id: string }) => x.id === first.json().operation_id), true);
+    const fixtureUrl = `https://www.pbc.gov.cn/zhengcehuobisi/125207/125213/125431/125475/${Date.now()}/index.html`;
+    const [fixtureChild] = await repo.recordDiscovery(first.json().operation_id, 1, [{ url: fixtureUrl, title: '受控背景资料' }], Buffer.from('controlled listing'));
+    assert.ok(fixtureChild);
+    const raw = Buffer.from('<meta name="ArticleTitle" content="受控背景资料"><div id="zoom"><p>这是一般背景说明。</p></div>');
+    const material = parsePbc(raw, fixtureUrl);
+    await repo.recordRaw(fixtureChild, 1, raw); await repo.recordNormalized(fixtureChild, 1, material); await repo.saveMaterial(fixtureChild, 1); await repo.deliverPending();
+    const stored = await repo.operation(fixtureChild);
+    await repo.acceptSet(stored.processing_id!, 1, { covered_segment_ids: material.segments.map(x => x.id), candidates: [], no_event_reason: '仅有背景说明', warnings: [] });
+    assert.equal((await app.inject({ url: `/api/v1/l0/versions/${stored.version_id}`, headers })).json().material.title, '受控背景资料');
+    assert.equal((await app.inject({ url: `/api/v1/l0/versions/${stored.version_id}/raw`, headers })).rawPayload.toString(), raw.toString());
+    await db.query('UPDATE platform.actors SET source_keys=ARRAY[]::text[] WHERE subject=$1', [subject]);
+    assert.equal((await app.inject({ url: `/api/v1/l0/versions/${stored.version_id}/raw`, headers })).statusCode, 403);
+    await db.query("UPDATE platform.actors SET source_keys=ARRAY['wiki-source-001'] WHERE subject=$1", [subject]);
+    await db.query("INSERT INTO information.operations(kind,source_id,source_version,actor,command_artifact_id,scheduled_at,reason_code) SELECT 'batch',source_id,source_version,actor,command_artifact_id,now()+interval '1 minute','API_PAGE_FIXTURE' FROM information.operations,generate_series(1,101) WHERE id=$1", [first.json().operation_id]);
+    const completed = await app.inject({ url: '/api/v1/l0/runs?status=completed', headers });
+    assert.equal(completed.json().items.some((x: { id: string }) => x.id === first.json().operation_id), true, 'Status filtering must happen before the page limit');
+    const paused = await app.inject({ method: 'PATCH', url: '/api/v1/m1/sources/wiki-source-001', headers, payload: { state: 'DISABLED' } });
+    assert.equal(paused.statusCode, 200);
+    assert.equal((await app.inject({ method: 'POST', url: '/api/v1/l0/source-fetches', headers: { ...headers, 'idempotency-key': `${headers['idempotency-key']}-paused` }, payload })).statusCode, 409);
+    await app.inject({ method: 'PATCH', url: '/api/v1/m1/sources/wiki-source-001', headers: { ...headers, 'idempotency-key': `${headers['idempotency-key']}-enable` }, payload: { state: 'ACTIVE' } });
+    await app.inject({ method: 'PATCH', url: '/api/v1/m1/sources/wiki-source-001', headers, payload: { state: 'DISABLED' } });
+    assert.equal((await db.query("SELECT state FROM m1.sources WHERE catalog_key='wiki-source-001'")).rows[0].state, 'ACTIVE', 'Replaying an old state command must not apply it again');
+    assert.equal((await app.inject({ method: 'POST', url: '/api/v1/l0/source-fetches', headers, payload: { ...payload, extra: 'x'.repeat(2_097_153) } })).statusCode, 413);
+    const login = await app.inject({ url: '/auth/login' });
+    assert.equal(login.statusCode, 302);
+    const initialCookie = String(login.headers['set-cookie']).split(';')[0]!;
+    const provider = await fetch(String(login.headers.location), { redirect: 'manual' });
+    const page = load(await provider.text());
+    const action = page('form').attr('action'); assert.ok(action, 'Identity provider must supply an actual login form');
+    const providerCookies = provider.headers.getSetCookie().map(item => item.split(';')[0]).join('; ');
+    const signedIn = await fetch(action, { method: 'POST', redirect: 'manual', headers: { cookie: providerCookies }, body: new URLSearchParams({ username: process.env.OPERATOR_USERNAME!, password: process.env.OPERATOR_PASSWORD!, credentialId: '' }) });
+    const callback = signedIn.headers.get('location'); assert.ok(callback, 'Authorization code redirect is required');
+    const callbackUrl = new URL(callback);
+    assert.equal((await app.inject({ url: callbackUrl.pathname + callbackUrl.search })).statusCode, 401, 'Login state must be bound to the initiating browser cookie');
+    const accepted = await app.inject({ url: callbackUrl.pathname + callbackUrl.search, headers: { cookie: initialCookie } });
+    assert.equal(accepted.statusCode, 302, accepted.body);
+    const cookieHeaders = Array.isArray(accepted.headers['set-cookie']) ? accepted.headers['set-cookie'] : [String(accepted.headers['set-cookie'])];
+    const session = cookieHeaders.find(item => item.startsWith('riskhot_session=')); assert.ok(session);
+    const sessionCookie = session.split(';')[0]!;
+    assert.equal((await app.inject({ url: '/api/v1/m1/sources', headers: { cookie: sessionCookie } })).statusCode, 200);
+    assert.equal((await app.inject({ method: 'POST', url: '/api/v1/l0/source-fetches', headers: { cookie: sessionCookie, 'idempotency-key': 'csrf-test' }, payload })).statusCode, 403);
+    assert.equal((await app.inject({ method: 'POST', url: '/auth/logout', headers: { cookie: sessionCookie, origin: process.env.API_ORIGIN! } })).statusCode, 204);
+    assert.equal((await app.inject({ url: '/api/v1/m1/sources', headers: { cookie: sessionCookie } })).statusCode, 401);
+  } finally {
+    await db.query("DELETE FROM information.operations WHERE actor=$1 AND reason_code='API_PAGE_FIXTURE'", [subject]);
+    await db.query("UPDATE platform.actors SET source_keys=ARRAY['wiki-source-001'] WHERE subject=$1", [subject]);
+    await db.query("UPDATE m1.sources SET state='ACTIVE' WHERE catalog_key='wiki-source-001'");
+    await app.close(); await db.end(); await rm(folder, { recursive: true, force: true });
+  }
+});
+
+test('runtime model and API database roles cannot manufacture business candidates or self-grant authority', async () => {
+  const model = new Pool({ connectionString: process.env.MODEL_DATABASE_URL });
+  const api = new Pool({ connectionString: process.env.DATABASE_URL });
+  try {
+    await assert.rejects(() => model.query('SELECT * FROM information.material_versions LIMIT 1'), { code: '42501' });
+    await assert.rejects(() => api.query("UPDATE platform.actors SET permissions=ARRAY['source_admin'] WHERE false"), { code: '42501' });
+    await assert.rejects(() => api.query("INSERT INTO information.event_candidates(processing_id,ordinal,payload) VALUES(gen_random_uuid(),0,'{}')"), { code: '42501' });
+  } finally { await model.end(); await api.end(); }
+});

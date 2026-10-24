@@ -8,7 +8,8 @@ const ITEM_PATH = /^\/zhengcehuobisi\/125207\/125213\/125431\/125475\/\d+\/index
 const clean = (value: string) => value.replace(/[\s\u00a0]+/gu, ' ').trim();
 
 export function assertPbcUrl(value: string, list = false): URL {
-  const url = new URL(value);
+  let url: URL;
+  try { url = new URL(value); } catch { throw new DomainError('SOURCE_URL_NOT_ALLOWED', 400); }
   if (url.origin !== 'https://www.pbc.gov.cn' || url.username || url.password || url.search || url.hash || (!ITEM_PATH.test(url.pathname) && !(list && url.href === PBC_LIST))) {
     throw new DomainError('SOURCE_URL_NOT_ALLOWED', 400);
   }

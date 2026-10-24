@@ -15,6 +15,19 @@ CREATE TABLE IF NOT EXISTS m1.source_versions(
 CREATE TABLE IF NOT EXISTS platform.actors(
  subject text PRIMARY KEY, permissions text[] NOT NULL, source_keys text[] NOT NULL
 );
+CREATE OR REPLACE FUNCTION platform.authorize_actor(p_subject text,p_permission text,p_source text)
+RETURNS boolean LANGUAGE plpgsql SECURITY DEFINER SET search_path=pg_catalog,platform AS $$
+BEGIN
+ PERFORM 1 FROM platform.actors WHERE subject=p_subject AND p_permission=ANY(permissions)
+ AND (p_source IS NULL OR p_source=ANY(source_keys) OR '*'=ANY(source_keys)) FOR SHARE;
+ RETURN FOUND;
+END $$;
+CREATE OR REPLACE FUNCTION platform.lock_source(p_id uuid)
+RETURNS TABLE(catalog_key text,state text) LANGUAGE sql SECURITY DEFINER SET search_path=pg_catalog,m1 AS $$
+ SELECT s.catalog_key,s.state FROM m1.sources s WHERE s.id=p_id FOR SHARE OF s
+$$;
+REVOKE ALL ON FUNCTION platform.authorize_actor(text,text,text) FROM PUBLIC;
+REVOKE ALL ON FUNCTION platform.lock_source(uuid) FROM PUBLIC;
 CREATE TABLE IF NOT EXISTS platform.artifact_objects(
  id uuid PRIMARY KEY DEFAULT gen_random_uuid(), sha256 text NOT NULL UNIQUE CHECK(sha256 ~ '^[a-f0-9]{64}$'),
  size integer NOT NULL CHECK(size>=0), kind text NOT NULL, created_at timestamptz NOT NULL DEFAULT now()
@@ -55,11 +68,16 @@ CREATE TABLE IF NOT EXISTS platform.command_receipts(
  digest text NOT NULL, operation_id uuid NOT NULL REFERENCES information.operations(id),
  created_at timestamptz NOT NULL DEFAULT now(), PRIMARY KEY(actor,kind,key)
 );
+CREATE TABLE IF NOT EXISTS platform.action_receipts(
+ actor text NOT NULL REFERENCES platform.actors(subject), kind text NOT NULL, key text NOT NULL,
+ digest text NOT NULL, result jsonb NOT NULL, created_at timestamptz NOT NULL DEFAULT now(), PRIMARY KEY(actor,kind,key)
+);
 CREATE TABLE IF NOT EXISTS information.acquisitions(
  id uuid PRIMARY KEY DEFAULT gen_random_uuid(), operation_id uuid NOT NULL REFERENCES information.operations(id),
  raw_artifact_id uuid NOT NULL REFERENCES platform.artifact_objects(id), acquired_at timestamptz NOT NULL DEFAULT now(),
  UNIQUE(operation_id,raw_artifact_id)
 );
+CREATE UNIQUE INDEX IF NOT EXISTS acquisition_operation_key ON information.acquisitions(operation_id);
 CREATE TABLE IF NOT EXISTS information.processing_runs(
  id uuid PRIMARY KEY DEFAULT gen_random_uuid(), version_id uuid NOT NULL REFERENCES information.material_versions(id),
  analysis_key text NOT NULL DEFAULT 'EXTRACTION_ONLY', processing_scope text NOT NULL DEFAULT 'EXTRACTION_ONLY' CHECK(processing_scope='EXTRACTION_ONLY'),

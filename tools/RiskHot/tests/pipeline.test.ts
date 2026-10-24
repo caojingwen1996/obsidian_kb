@@ -60,8 +60,10 @@ test('enforces persistent model budgets and fences late attempts after authorize
     await assert.rejects(() => repo.reserveAttempt(processingId, 1), /BUDGET_EXHAUSTED/);
     assert.equal((await repo.processing(processingId)).candidate_count, null);
     await assert.rejects(() => repo.retryExtraction(processingId, 'pipeline-operator', 'ordinary retry', false, 1), /BUDGET_EXHAUSTED/);
-    const next = await repo.retryExtraction(processingId, 'pipeline-operator', '服务恢复，授权再次尝试', true, 1);
+    const recoveryKey = `budget-${processingId}`;
+    const next = await repo.retryExtraction(processingId, 'pipeline-operator', '服务恢复，授权再次尝试', true, 1, recoveryKey);
     assert.equal(next, 2);
+    assert.equal(await repo.retryExtraction(processingId, 'pipeline-operator', '服务恢复，授权再次尝试', true, 1, recoveryKey), 2);
     const attempt = await repo.reserveAttempt(processingId, 2);
     assert.equal(attempt.attempt_no, 4);
     const result = { covered_segment_ids: material.segments.map(x => x.id), candidates: [], no_event_reason: '受控测试', warnings: [] };
