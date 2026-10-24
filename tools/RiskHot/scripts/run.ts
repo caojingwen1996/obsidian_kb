@@ -40,7 +40,7 @@ while (Date.now() < deadline) {
   const summary = JSON.stringify({ operation_id: id, slice_status: operation.slice_status, reason: operation.reason_code, children: operation.children?.map(item => ({ id: item.id, stage: item.stage, status: item.status, reason: item.reason_code, processing_id: item.processing_id, version_id: item.version_id })) });
   if (summary !== previous) { console.log(summary); previous = summary; }
   await writeFile(`.riskhot/runs/${id}.json`, JSON.stringify({ request_key: requestKey, checked_at: new Date().toISOString(), operation }, null, 2) + '\n', { mode: 0o600 });
-  if (['completed', 'recoverable', 'waiting_config', 'partial'].includes(operation.slice_status)) {
+  if (['completed', 'recoverable', 'waiting_config', 'partial', 'review'].includes(operation.slice_status)) {
     if (operation.slice_status !== 'completed') process.exitCode = 2;
     break;
   }

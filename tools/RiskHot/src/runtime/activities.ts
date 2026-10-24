@@ -3,10 +3,11 @@ import { Context } from '@temporalio/activity';
 import { ApplicationFailure } from '@temporalio/common';
 import { ExecutionStore } from '../l0/execution.js';
 import { discoverPbc, fetchPbc, parsePbc, PBC_LIST, assertPbcUrl } from '../l0/pbc.js';
-import { modelConfig, HttpModelClient, decodeModelResponse, type TaskInput, type TransportResponse } from '../l0/model.js';
+import { modelConfig, modelCredentialsConfigured, HttpModelClient, decodeModelResponse, type TaskInput, type TransportResponse } from '../l0/model.js';
 import { extractionSchema, validateExtraction } from '../l0/extraction.js';
 import { DomainError, type NormalizedMaterial } from '../platform/types.js';
 import type { FetchCommand, OperationRow } from '../l0/repository.js';
+import { retryableModelFailure } from '../l0/policy.js';
 
 const errorCode = (error: unknown) => error instanceof DomainError ? error.code : 'IO_UNAVAILABLE';
 export function ioActivities(repo: ExecutionStore) {
@@ -22,7 +23,7 @@ export function ioActivities(repo: ExecutionStore) {
   return {
     async discover(id: string, generation: number): Promise<void> {
       await materialActivity(id, generation, async op => {
-        if (op.raw_artifact_id) return;
+        if (await repo.recoverDiscovery(id, generation)) return;
         const input = await repo.json<FetchCommand>(op.command_artifact_id);
         if (input.url) {
           assertPbcUrl(input.url);
@@ -55,10 +56,11 @@ export function ioActivities(repo: ExecutionStore) {
       try {
         const processing = await repo.processing(id); repo.guard(processing, generation);
         if (processing.extraction_status === 'completed') return false;
+        if (processing.extraction_status === 'review') return false;
         const op = (await repo.db.query<OperationRow>('SELECT * FROM information.operations WHERE processing_id=$1 ORDER BY created_at LIMIT 1', [id])).rows[0];
         if (!op) throw new DomainError('PROCESSING_OWNER_MISSING');
         await repo.checkSource(op);
-        if (!process.env.MODEL_API_KEY) throw new DomainError('MODEL_NOT_CONFIGURED', 503);
+        if (!modelCredentialsConfigured()) throw new DomainError('MODEL_NOT_CONFIGURED', 503);
         if (processing.input_artifact_id) { await repo.bytes(processing.input_artifact_id); return true; }
         const version = (await repo.db.query<{ normalized_artifact_id: string }>('SELECT normalized_artifact_id FROM information.material_versions WHERE id=$1', [processing.version_id])).rows[0]!;
         const material = await repo.json<NormalizedMaterial>(version.normalized_artifact_id);
@@ -79,17 +81,19 @@ export function ioActivities(repo: ExecutionStore) {
     async consume(id: string, generation: number, attemptId: string): Promise<{ accepted: boolean; retryable: boolean; code?: string }> {
       try {
         const processing = await repo.processing(id); repo.guard(processing, generation);
-        const attempt = (await repo.db.query<{ response_artifact_id: string | null; error_code: string | null; generation: string; request_artifact_id: string }>('SELECT response_artifact_id,error_code,generation,request_artifact_id FROM platform.model_attempts WHERE id=$1 AND processing_id=$2', [attemptId, id])).rows[0];
+        const attempt = (await repo.db.query<{ response_artifact_id: string | null; error_code: string | null; generation: string; request_artifact_id: string; within_budget: boolean }>('SELECT a.response_artifact_id,a.error_code,a.generation,a.request_artifact_id,w.deadline>clock_timestamp() AS within_budget FROM platform.model_attempts a JOIN platform.model_budget_windows w ON w.id=a.window_id WHERE a.id=$1 AND a.processing_id=$2', [attemptId, id])).rows[0];
         if (!attempt || Number(attempt.generation) !== generation) throw new DomainError('STALE_ATTEMPT');
-        if (!attempt.response_artifact_id) throw new DomainError(attempt.error_code ?? 'MODEL_NETWORK_ERROR', 502, true);
+        if (!attempt.within_budget) throw new DomainError('MODEL_BUDGET_EXHAUSTED', 409);
+        if (!attempt.response_artifact_id) { const code = attempt.error_code ?? 'MODEL_NETWORK_ERROR'; throw new DomainError(code, 502, retryableModelFailure(code)); }
         const response = decodeModelResponse(await repo.json<TransportResponse>(attempt.response_artifact_id));
         const input = await repo.json<TaskInput>(attempt.request_artifact_id);
+        await repo.db.query('UPDATE platform.model_attempts SET finish_reason=$2 WHERE id=$1', [attemptId, response.finishReason]);
         const result = validateExtraction(response, input.material);
         await repo.acceptSet(id, generation, result);
         await repo.db.query('UPDATE platform.model_attempts SET status=\'accepted\',finish_reason=$2 WHERE id=$1', [attemptId, response.finishReason]);
         return { accepted: true, retryable: false };
       } catch (error) {
-        const code = errorCode(error); await repo.extractionFailed(id, generation, code);
+        const code = errorCode(error); await repo.extractionFailed(id, generation, code, code === 'MODEL_NOT_CONFIGURED', attemptId);
         await repo.db.query('UPDATE platform.model_attempts SET status=$2,error_code=$3 WHERE id=$1 AND status<>\'accepted\'', [attemptId, code.startsWith('STALE') ? 'superseded' : 'rejected', code]);
         return { accepted: false, retryable: error instanceof DomainError && error.retryable, code };
       }
@@ -108,7 +112,12 @@ export function modelActivities(repo: ExecutionStore) {
       try {
         const input = await repo.json<TaskInput>(attempt.request_artifact_id);
         if (!process.env.MODEL_API_KEY) throw new DomainError('MODEL_NOT_CONFIGURED', 503);
-        const response = await new HttpModelClient().execute(input, process.env.MODEL_API_KEY);
+        const permit = (await repo.db.query<{ allowed: boolean; reason_code: string | null; deadline: Date }>('SELECT * FROM platform.claim_model_call($1)', [attemptId])).rows[0];
+        if (!permit?.allowed) {
+          if (permit?.reason_code === 'MODEL_CALL_ALREADY_CLAIMED') return;
+          throw new DomainError(permit?.reason_code ?? 'MODEL_CALL_NOT_PERMITTED', 409);
+        }
+        const response = await new HttpModelClient().execute(input, process.env.MODEL_API_KEY, { deadlineMs: permit.deadline.getTime() });
         const artifact = await repo.putJson(response, 'model-response');
         await repo.db.query('UPDATE platform.model_attempts SET status=\'response_received\',response_artifact_id=$2,completed_at=now() WHERE id=$1 AND response_artifact_id IS NULL', [attemptId, artifact]);
       } catch (error) {

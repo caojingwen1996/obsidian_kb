@@ -3,6 +3,7 @@ import type { Pool, PoolClient } from 'pg';
 import { ArtifactStore, type ArtifactRef } from '../platform/artifacts.js';
 import { transaction } from '../platform/db.js';
 import { DomainError, type CatalogEntry, type ExtractionResult, type NormalizedMaterial, type SourceItem } from '../platform/types.js';
+import { assertPbcUrl } from './pbc.js';
 
 export interface FetchCommand { source_key: string; limit: number; url?: string }
 export interface OperationRow {
@@ -14,6 +15,7 @@ export interface OperationRow {
 export interface ProcessingRow {
   id: string; version_id: string; extraction_status: string; candidate_count: number | null; generation: string | number;
   processing_scope: string; result_status: string; input_artifact_id: string | null; manifest_artifact_id: string | null; error_code: string | null;
+  review_attempt_id?: string | null;
 }
 function canonical(value: unknown): unknown {
   if (Array.isArray(value)) return value.map(canonical);
@@ -27,8 +29,8 @@ export class Repository {
   constructor(public db: Pool, public artifacts: ArtifactStore) {}
 
   async artifact(ref: ArtifactRef, client: Pool | PoolClient = this.db): Promise<string> {
-    const result = await client.query<{ id: string }>('INSERT INTO platform.artifact_objects(sha256,size,kind) VALUES($1,$2,$3) ON CONFLICT(sha256) DO UPDATE SET sha256=EXCLUDED.sha256 RETURNING id', [ref.sha256, ref.size, ref.kind]);
-    return first(result.rows).id;
+    const result = await client.query<{ id: string }>('INSERT INTO platform.artifact_objects(sha256,size,kind) VALUES($1,$2,$3) ON CONFLICT(sha256) DO NOTHING RETURNING id', [ref.sha256, ref.size, ref.kind]);
+    return result.rows[0]?.id ?? first((await client.query<{ id: string }>('SELECT id FROM platform.artifact_objects WHERE sha256=$1', [ref.sha256])).rows).id;
   }
   async bytes(id: string): Promise<Buffer> {
     const row = first((await this.db.query<{ sha256: string }>('SELECT sha256 FROM platform.artifact_objects WHERE id=$1', [id])).rows);
@@ -71,10 +73,12 @@ export class Repository {
   }
   async submit(command: FetchCommand, actor: string, key: string): Promise<OperationRow> {
     if (!/^[\x21-\x7e]{1,128}$/.test(key)) throw new DomainError('IDEMPOTENCY_KEY_INVALID', 400);
+    const requestedUrl = command.url ?? null;
+    command = { ...command, ...(command.url ? { url: assertPbcUrl(command.url).href } : {}) };
     await this.authorize(actor, 'submit', command.source_key);
     const snapshot = first((await this.db.query<{ id: string; version: number }>('SELECT id,version FROM m1.sources WHERE catalog_key=$1', [command.source_key])).rows);
     const input = { type: 'SOURCE_FETCH', ...command };
-    const ref = await this.artifacts.put(Buffer.from(JSON.stringify({ ...input, source_id: snapshot.id, source_version: snapshot.version })), 'intake-command');
+    const ref = await this.artifacts.put(Buffer.from(JSON.stringify({ ...input, requested_url: requestedUrl, source_id: snapshot.id, source_version: snapshot.version })), 'intake-command');
     return transaction(this.db, async client => {
       await client.query('SELECT pg_advisory_xact_lock(hashtextextended($1,0))', [`${actor}:source-fetch:${key}`]);
       const prior = (await client.query<{ digest: string; operation_id: string }>('SELECT digest,operation_id FROM platform.command_receipts WHERE actor=$1 AND kind=\'source-fetch\' AND key=$2', [actor, key])).rows[0];
@@ -102,7 +106,13 @@ export class Repository {
     if (Number(row.generation) !== generation) throw new DomainError('STALE_EXECUTION', 409);
   }
   async recordDiscovery(id: string, generation: number, items: SourceItem[], raw: Buffer): Promise<string[]> {
+    items = items.map(item => ({ ...item, url: assertPbcUrl(item.url).href }));
     const snapshot = await this.rawOperation(id); this.guard(snapshot, generation);
+    const captured = await this.artifacts.capture(id, 'discovery', Buffer.from(JSON.stringify({ items, raw: raw.toString('base64') })));
+    const fixed = JSON.parse((await this.artifacts.read(captured.sha256)).toString('utf8')) as { items: SourceItem[]; raw: string };
+    if (!Array.isArray(fixed.items) || !fixed.items.length || fixed.items.length > 5 || typeof fixed.raw !== 'string') throw new DomainError('CAPTURE_INTEGRITY', 503);
+    items = fixed.items.map(item => ({ ...item, url: assertPbcUrl(item.url).href }));
+    raw = Buffer.from(fixed.raw, 'base64');
     const list = await this.artifact(await this.artifacts.put(raw, 'source-list'));
     const commands = await Promise.all(items.map(async item => ({ item, artifact: await this.putJson({ type: 'SOURCE_REFERENCE', source_id: snapshot.source_id, source_version: snapshot.source_version, actor: snapshot.actor, parent_operation_id: id, url: item.url, connector: 'pbc-html-1.0.0' }, 'intake-command') })));
     return transaction(this.db, async client => {
@@ -118,9 +128,17 @@ export class Repository {
       return ids.sort();
     });
   }
+  async recoverDiscovery(id: string, generation: number): Promise<string[] | null> {
+    const op = await this.rawOperation(id); this.guard(op, generation);
+    if (op.raw_artifact_id) return (await this.db.query<{ id: string }>('SELECT id FROM information.operations WHERE parent_id=$1 ORDER BY id', [id])).rows.map(row => row.id);
+    const captured = await this.artifacts.recoverCapture(id, 'discovery');
+    if (!captured) return null;
+    const fixed = JSON.parse((await this.artifacts.read(captured.sha256)).toString('utf8')) as { items: SourceItem[]; raw: string };
+    return this.recordDiscovery(id, generation, fixed.items, Buffer.from(fixed.raw, 'base64'));
+  }
   async recordRaw(id: string, generation: number, raw: Buffer): Promise<void> {
     if (await this.recoverRaw(id, generation)) return;
-    const artifact = await this.artifact(await this.artifacts.put(raw, 'raw'));
+    const artifact = await this.artifact(await this.artifacts.capture(id, 'raw', raw));
     await transaction(this.db, async client => {
       const op = await this.rawOperation(id, client, true); this.guard(op, generation); await this.checkSource(op, client);
       if (op.raw_artifact_id || (await client.query('SELECT 1 FROM information.acquisitions WHERE operation_id=$1', [id])).rowCount) return;
@@ -130,7 +148,18 @@ export class Repository {
   }
   async recoverRaw(id: string, generation: number): Promise<boolean> {
     const op = await this.rawOperation(id); this.guard(op, generation);
-    const receipt = (await this.db.query<{ raw_artifact_id: string }>('SELECT raw_artifact_id FROM information.acquisitions WHERE operation_id=$1 ORDER BY acquired_at,id LIMIT 1', [id])).rows[0];
+    let receipt = (await this.db.query<{ raw_artifact_id: string }>('SELECT raw_artifact_id FROM information.acquisitions WHERE operation_id=$1 ORDER BY acquired_at,id LIMIT 1', [id])).rows[0];
+    if (!op.raw_artifact_id && !receipt) {
+      const captured = await this.artifacts.recoverCapture(id, 'raw');
+      if (captured) {
+        const artifact = await this.artifact(captured);
+        await transaction(this.db, async client => {
+          const current = await this.rawOperation(id, client, true); this.guard(current, generation); await this.checkSource(current, client);
+          await client.query('INSERT INTO information.acquisitions(operation_id,raw_artifact_id) VALUES($1,$2) ON CONFLICT DO NOTHING', [id, artifact]);
+        });
+        receipt = (await this.db.query<{ raw_artifact_id: string }>('SELECT raw_artifact_id FROM information.acquisitions WHERE operation_id=$1', [id])).rows[0];
+      }
+    }
     const artifact = op.raw_artifact_id || receipt?.raw_artifact_id;
     if (!artifact) return false;
     await this.bytes(artifact);
@@ -200,6 +229,7 @@ export class Repository {
   private async attachProcessing(client: Pool | PoolClient, versionId: string | null = null): Promise<void> {
     await client.query(`UPDATE information.operations o SET processing_id=p.id,
       status=CASE WHEN p.extraction_status='completed' THEN 'completed'
+        WHEN p.extraction_status='review' THEN 'review'
         WHEN p.extraction_status='recoverable' AND p.error_code='MODEL_NOT_CONFIGURED' THEN 'waiting_config'
         WHEN p.extraction_status='recoverable' THEN 'recoverable' ELSE 'running' END,
       stage=CASE WHEN p.extraction_status='completed' THEN 'candidates_saved' ELSE 'extract' END,
@@ -214,6 +244,7 @@ export class Repository {
     await transaction(this.db, async client => {
       const processing = await this.processing(id, client, true); this.guard(processing, generation);
       if (processing.extraction_status === 'completed') return;
+      if (processing.extraction_status === 'review') throw new DomainError('OUTPUT_REVIEW_REQUIRED', 409);
       const op = first((await client.query<OperationRow>('SELECT * FROM information.operations WHERE processing_id=$1 ORDER BY created_at LIMIT 1', [id])).rows);
       await this.checkSource(op, client);
       for (const [ordinal, candidate] of data.candidates.entries()) await client.query('INSERT INTO information.event_candidates(processing_id,ordinal,payload) VALUES($1,$2,$3)', [id, ordinal, candidate]);
@@ -229,7 +260,7 @@ export class Repository {
     if (op.kind === 'batch') {
       op.children = (await this.db.query<OperationRow>('SELECT * FROM information.operations WHERE parent_id=$1 ORDER BY created_at,id', [id])).rows;
       const statuses = await Promise.all(op.children.map(async child => (await this.operation(child.id)).slice_status));
-      op.slice_status = !statuses.length ? op.status : statuses.every(s => s === 'completed') ? 'completed' : statuses.includes('completed') ? 'partial' : statuses.includes('recoverable') ? 'recoverable' : statuses.includes('waiting_config') ? 'waiting_config' : 'running';
+      op.slice_status = !statuses.length ? op.status : statuses.every(s => s === 'completed') ? 'completed' : statuses.includes('completed') ? 'partial' : statuses.includes('review') ? 'review' : statuses.includes('recoverable') ? 'recoverable' : statuses.includes('waiting_config') ? 'waiting_config' : 'running';
     } else if (op.processing_id) {
       const processing = await this.processing(op.processing_id);
       op.slice_status = processing.extraction_status === 'completed' ? 'completed' : op.status;

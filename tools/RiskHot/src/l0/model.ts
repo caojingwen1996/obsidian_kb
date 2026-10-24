@@ -3,10 +3,11 @@ import { DomainError, type ModelResponse, type NormalizedMaterial } from '../pla
 export interface ModelConfig { protocol: string; endpoint: string; model: string }
 export interface TaskInput { version_id: string; material: NormalizedMaterial; manifest: { provider: ModelConfig; prompt: string } }
 export interface TransportResponse { status: number; body: string }
+export const modelCredentialsConfigured = () => Boolean(process.env.MODEL_API_KEY) || process.env.MODEL_CREDENTIAL_READY === 'true';
 
 export function modelConfig(): ModelConfig {
-  const { MODEL_PROTOCOL: protocol, MODEL_ENDPOINT: endpoint, MODEL_NAME: model, MODEL_API_KEY: key } = process.env;
-  if (!protocol || !endpoint || !model || !key) throw new DomainError('MODEL_NOT_CONFIGURED', 503);
+  const { MODEL_PROTOCOL: protocol, MODEL_ENDPOINT: endpoint, MODEL_NAME: model } = process.env;
+  if (!protocol || !endpoint || !model || !modelCredentialsConfigured()) throw new DomainError('MODEL_NOT_CONFIGURED', 503);
   if (protocol !== 'openai-chat') throw new DomainError('MODEL_PROTOCOL_UNSUPPORTED', 503);
   const url = new URL(endpoint);
   if (url.username || url.password || url.search || (url.protocol !== 'https:' && !(url.protocol === 'http:' && ['localhost', '127.0.0.1', '[::1]'].includes(url.hostname)))) throw new DomainError('MODEL_ENDPOINT_INVALID', 503);
@@ -14,27 +15,34 @@ export function modelConfig(): ModelConfig {
 }
 
 export class HttpModelClient {
-  async execute(input: TaskInput, key: string): Promise<TransportResponse> {
+  async execute(input: TaskInput, key: string, options?: { deadlineMs: number }): Promise<TransportResponse> {
     if (input.manifest.provider.protocol !== 'openai-chat') throw new DomainError('MODEL_PROTOCOL_UNSUPPORTED', 503);
-    let response: Response;
+    const remaining = options ? options.deadlineMs - Date.now() : 120_000;
+    if (remaining <= 0) throw new DomainError('MODEL_BUDGET_EXHAUSTED', 409);
+    const budgetLimited = remaining <= 120_000 && Boolean(options);
+    const signal = AbortSignal.timeout(Math.max(1, Math.ceil(Math.min(120_000, remaining))));
     try {
-      response = await fetch(input.manifest.provider.endpoint, {
-        method: 'POST', redirect: 'error', signal: AbortSignal.timeout(120_000),
+      const response = await fetch(input.manifest.provider.endpoint, {
+        method: 'POST', redirect: 'error', signal,
         headers: { 'content-type': 'application/json', authorization: `Bearer ${key}` },
         body: JSON.stringify({ model: input.manifest.provider.model, max_completion_tokens: 8192,
           messages: [{ role: 'system', content: input.manifest.prompt }, { role: 'user', content: JSON.stringify({ version_id: input.version_id, material: input.material }) }],
         }),
       });
-    } catch { throw new DomainError('MODEL_NETWORK_ERROR', 502, true); }
-    if (!response.body) throw new DomainError('MODEL_EMPTY_RESPONSE', 502);
-    const chunks: Uint8Array[] = [];
-    let size = 0;
-    for await (const chunk of response.body) {
-      size += chunk.byteLength;
-      if (size > 1_048_576) throw new DomainError('MODEL_RESPONSE_TOO_LARGE', 502);
-      chunks.push(chunk);
+      if (!response.body) throw new DomainError('MODEL_EMPTY_RESPONSE', 502);
+      const chunks: Uint8Array[] = [];
+      let size = 0;
+      for await (const chunk of response.body) {
+        size += chunk.byteLength;
+        if (size > 1_048_576) throw new DomainError('MODEL_RESPONSE_TOO_LARGE', 502);
+        chunks.push(chunk);
+      }
+      return { status: response.status, body: Buffer.concat(chunks).toString('utf8') };
+    } catch (error) {
+      if (error instanceof DomainError) throw error;
+      if (budgetLimited && signal.aborted) throw new DomainError('MODEL_BUDGET_EXHAUSTED', 409);
+      throw new DomainError('MODEL_NETWORK_ERROR', 502, true);
     }
-    return { status: response.status, body: Buffer.concat(chunks).toString('utf8') };
   }
 }
 

@@ -119,7 +119,43 @@ CREATE TABLE IF NOT EXISTS platform.model_attempts(
  created_at timestamptz NOT NULL DEFAULT now(), completed_at timestamptz, UNIQUE(processing_id,attempt_no)
 );
 ALTER TABLE platform.model_attempts ADD COLUMN IF NOT EXISTS call_key text;
+ALTER TABLE platform.model_attempts ADD COLUMN IF NOT EXISTS started_at timestamptz;
+ALTER TABLE information.processing_runs ADD COLUMN IF NOT EXISTS review_attempt_id uuid REFERENCES platform.model_attempts(id);
 CREATE UNIQUE INDEX IF NOT EXISTS model_attempt_call_key ON platform.model_attempts(processing_id,generation,call_key);
+CREATE OR REPLACE FUNCTION platform.claim_model_call(p_attempt uuid)
+RETURNS TABLE(allowed boolean,reason_code text,deadline timestamptz,request_artifact_id uuid)
+LANGUAGE plpgsql SECURITY DEFINER SET search_path=pg_catalog,platform,information,m1 AS $$
+DECLARE item record; source_record record; actor_name text;
+BEGIN
+ SELECT a.id,a.processing_id,a.generation,a.status,a.request_artifact_id,p.generation AS current_generation,
+ p.extraction_status,p.input_artifact_id,w.deadline AS call_deadline,m.source_id INTO item
+ FROM platform.model_attempts a JOIN information.processing_runs p ON p.id=a.processing_id
+ JOIN platform.model_budget_windows w ON w.id=a.window_id
+ JOIN information.material_versions v ON v.id=p.version_id JOIN information.materials m ON m.id=v.material_id
+ WHERE a.id=p_attempt FOR UPDATE OF a FOR SHARE OF p;
+ IF NOT FOUND THEN RETURN QUERY SELECT false,'ATTEMPT_NOT_FOUND'::text,NULL::timestamptz,NULL::uuid; RETURN; END IF;
+ IF item.generation<>item.current_generation OR item.request_artifact_id<>item.input_artifact_id THEN
+  RETURN QUERY SELECT false,'STALE_EXECUTION'::text,item.call_deadline,item.request_artifact_id; RETURN;
+ END IF;
+ IF item.extraction_status IN ('completed','review') THEN
+  RETURN QUERY SELECT false,'PROCESSING_NOT_CALLABLE'::text,item.call_deadline,item.request_artifact_id; RETURN;
+ END IF;
+ IF item.call_deadline<=clock_timestamp() THEN
+  RETURN QUERY SELECT false,'MODEL_BUDGET_EXHAUSTED'::text,item.call_deadline,item.request_artifact_id; RETURN;
+ END IF;
+ SELECT * INTO source_record FROM platform.lock_source(item.source_id);
+ IF source_record.state<>'ACTIVE' THEN RETURN QUERY SELECT false,'SOURCE_DISABLED'::text,item.call_deadline,item.request_artifact_id; RETURN; END IF;
+ SELECT o.actor INTO actor_name FROM information.operations o WHERE o.processing_id=item.processing_id ORDER BY o.created_at,o.id LIMIT 1;
+ IF actor_name IS NULL OR NOT platform.authorize_actor(actor_name,'submit',source_record.catalog_key) THEN
+  RETURN QUERY SELECT false,'FORBIDDEN'::text,item.call_deadline,item.request_artifact_id; RETURN;
+ END IF;
+ IF item.status<>'prepared' THEN
+  RETURN QUERY SELECT false,'MODEL_CALL_ALREADY_CLAIMED'::text,item.call_deadline,item.request_artifact_id; RETURN;
+ END IF;
+ UPDATE platform.model_attempts SET status='calling',started_at=clock_timestamp() WHERE id=p_attempt;
+ RETURN QUERY SELECT true,NULL::text,item.call_deadline,item.request_artifact_id;
+END $$;
+REVOKE ALL ON FUNCTION platform.claim_model_call(uuid) FROM PUBLIC;
 CREATE TABLE IF NOT EXISTS platform.audit_log(
  id uuid PRIMARY KEY DEFAULT gen_random_uuid(), actor text NOT NULL, action text NOT NULL, owner_id uuid, detail jsonb NOT NULL DEFAULT '{}', created_at timestamptz NOT NULL DEFAULT now()
 );

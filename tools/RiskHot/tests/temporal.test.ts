@@ -15,6 +15,8 @@ import { Connection } from '@temporalio/client';
 import { ExecutionStore } from '../src/l0/execution.js';
 import { ArtifactStore } from '../src/platform/artifacts.js';
 import { parsePbc } from '../src/l0/pbc.js';
+import { grantRuntimeRoles } from '../src/platform/grants.js';
+import { runtimeEnvironment, type RuntimeRole } from '../src/runtime/environment.js';
 
 async function until(check: () => Promise<boolean>, milliseconds: number) {
   const deadline = Date.now() + milliseconds;
@@ -46,14 +48,16 @@ test('real Temporal resumes a durable retry after worker restart and saves a mul
   await new Promise<void>(resolve => server.listen(0, '127.0.0.1', resolve));
   const address = server.address(); assert.ok(address && typeof address === 'object');
   const children: ChildProcess[] = [];
-  const environment = { ...process.env, DATABASE_URL: dbUrl.href, IO_DATABASE_URL: dbUrl.href, MODEL_DATABASE_URL: dbUrl.href, RELAY_DATABASE_URL: dbUrl.href, ARTIFACT_ROOT: join(folder, 'artifacts'), TEMPORAL_NAMESPACE: namespace, MODEL_PROTOCOL: 'openai-chat', MODEL_ENDPOINT: `http://127.0.0.1:${address.port}`, MODEL_NAME: 'controlled-test-model', MODEL_API_KEY: 'controlled-local-only-key' };
+  const roleUrl = (key: string) => { const url = new URL(process.env[key]!); url.pathname = dbUrl.pathname; return url.href; };
+  const environment = { ...process.env, DATABASE_URL: roleUrl('DATABASE_URL'), IO_DATABASE_URL: roleUrl('IO_DATABASE_URL'), MODEL_DATABASE_URL: roleUrl('MODEL_DATABASE_URL'), RELAY_DATABASE_URL: roleUrl('RELAY_DATABASE_URL'), ARTIFACT_ROOT: join(folder, 'artifacts'), TEMPORAL_NAMESPACE: namespace, MODEL_PROTOCOL: 'openai-chat', MODEL_ENDPOINT: `http://127.0.0.1:${address.port}`, MODEL_NAME: 'controlled-test-model', MODEL_API_KEY: 'controlled-local-only-key' };
   const start = (file: string, role?: string) => {
     const output = openSync(join(folder, `${role ?? 'relay'}.log`), 'a');
-    const child = spawn(process.execPath, ['--import', 'tsx', file, ...(role ? [role] : [])], { env: environment, stdio: ['ignore', output, output] });
+    const child = spawn(process.execPath, ['--import', 'tsx', file, ...(role ? [role] : [])], { env: runtimeEnvironment((role || 'relay') as RuntimeRole, environment), stdio: ['ignore', output, output] });
     closeSync(output); children.push(child); return child;
   };
   try {
     await db.query(await readFile('db/001-init.sql', 'utf8'));
+    await grantRuntimeRoles(db);
     const repo = new ExecutionStore(db, new ArtifactStore(environment.ARTIFACT_ROOT));
     await repo.seedCatalog([{ id: 'wiki-source-001', name: '中国人民银行', url: 'https://www.pbc.gov.cn/', tier: 'T1', group: '虚构测试', focus: '虚构测试', context: '虚构测试' }]);
     await db.query("INSERT INTO platform.actors VALUES('workflow-test',ARRAY['submit','read','retry','model_budget'],ARRAY['wiki-source-001'])");

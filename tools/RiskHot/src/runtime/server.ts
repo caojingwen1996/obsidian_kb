@@ -10,6 +10,7 @@ import { database, required } from '../platform/db.js';
 import { ArtifactStore } from '../platform/artifacts.js';
 import { ExecutionStore } from '../l0/execution.js';
 import { assertPbcUrl } from '../l0/pbc.js';
+import { modelCredentialsConfigured } from '../l0/model.js';
 import type { FetchCommand } from '../l0/repository.js';
 
 declare module 'fastify' { interface FastifyRequest { actor: string } }
@@ -53,6 +54,12 @@ export async function buildServer(repo: ExecutionStore) {
     if (!row) throw new DomainError('NOT_FOUND', 404);
     await repo.authorize(actor, 'read', row.catalog_key); return row;
   };
+  const processingView = async (actor: string, id: string) => {
+    const processing = await repo.processing(id); await sourceForVersion(actor, processing.version_id);
+    const attempts = (await repo.db.query('SELECT id,attempt_no,generation,status,finish_reason,error_code,created_at,started_at,completed_at FROM platform.model_attempts WHERE processing_id=$1 ORDER BY attempt_no', [id])).rows;
+    const budget = (await repo.db.query('SELECT id,generation,used,deadline FROM platform.model_budget_windows WHERE processing_id=$1 ORDER BY generation DESC LIMIT 1', [id])).rows[0] ?? null;
+    return { ...processing, attempts, budget_window: budget, output_review_basis: processing.extraction_status === 'review' ? await repo.reviewBasis(id) : null };
+  };
   app.get('/', async () => ({ name: 'RiskHot', stage: 'source-to-candidates', login: '/auth/login', sources: '/api/v1/m1/sources', runs: '/api/v1/l0/runs' }));
   app.get('/auth/login', async (_request, reply) => auth.login(reply));
   app.get('/auth/callback', async (request, reply) => auth.callback(request, reply));
@@ -62,7 +69,7 @@ export async function buildServer(repo: ExecutionStore) {
     try {
       await repo.db.query('SELECT version FROM platform.schema_versions WHERE version=1');
       await mkdir(required('ARTIFACT_ROOT'), { recursive: true }); await access(required('ARTIFACT_ROOT'), constants.W_OK);
-      return { ready: true, model_configured: Boolean(process.env.MODEL_PROTOCOL && process.env.MODEL_ENDPOINT && process.env.MODEL_NAME && process.env.MODEL_API_KEY) };
+      return { ready: true, model_configured: Boolean(process.env.MODEL_PROTOCOL && process.env.MODEL_ENDPOINT && process.env.MODEL_NAME && modelCredentialsConfigured()) };
     } catch { return reply.code(503).send({ ready: false }); }
   });
   app.get('/api/v1/m1/sources', async request => {
@@ -91,20 +98,20 @@ export async function buildServer(repo: ExecutionStore) {
   app.get('/api/v1/l0/operations/:id', { schema: { params: params('id') } }, async request => {
     const operation = await repo.operation((request.params as { id: string }).id);
     await repo.authorize(request.actor, 'read', operation.source_key);
-    return { ...operation, processing: operation.processing_id ? await repo.processing(operation.processing_id) : null };
+    return { ...operation, processing: operation.processing_id ? await processingView(request.actor, operation.processing_id) : null };
   });
-  app.get('/api/v1/l0/runs', { schema: { querystring: { type: 'object', additionalProperties: false, properties: { from: { type: 'string' }, to: { type: 'string' }, status: { enum: ['queued', 'running', 'completed', 'partial', 'recoverable', 'waiting_config'] } } } } }, async request => {
+  app.get('/api/v1/l0/runs', { schema: { querystring: { type: 'object', additionalProperties: false, properties: { from: { type: 'string' }, to: { type: 'string' }, status: { enum: ['queued', 'running', 'completed', 'partial', 'review', 'recoverable', 'waiting_config'] } } } } }, async request => {
     await repo.authorize(request.actor, 'read');
     const query = request.query as { from?: string; to?: string; status?: string };
     const from = boundary(query.from, false), to = boundary(query.to, true);
     if (from && to && from >= to) throw new DomainError('DATE_RANGE_INVALID', 400);
     const rows = await repo.db.query<{ id: string }>(`WITH batches AS (
       SELECT o.id,o.scheduled_at,CASE WHEN c.total=0 THEN o.status
-        WHEN c.done=c.total THEN 'completed' WHEN c.done>0 THEN 'partial'
+        WHEN c.done=c.total THEN 'completed' WHEN c.done>0 THEN 'partial' WHEN c.review THEN 'review'
         WHEN c.broken THEN 'recoverable' WHEN c.waiting THEN 'waiting_config' ELSE 'running' END AS slice_status
       FROM information.operations o JOIN m1.sources s ON s.id=o.source_id JOIN platform.actors a ON a.subject=$1
       LEFT JOIN LATERAL (SELECT count(*) AS total,count(*) FILTER(WHERE child.status='completed' OR p.extraction_status='completed') AS done,
-        bool_or(child.status='recoverable') AS broken,bool_or(child.status='waiting_config') AS waiting
+        bool_or(child.status='recoverable') AS broken,bool_or(child.status='waiting_config') AS waiting,bool_or(child.status='review') AS review
         FROM information.operations child LEFT JOIN information.processing_runs p ON p.id=child.processing_id WHERE child.parent_id=o.id) c ON true
       WHERE o.kind='batch' AND ('*'=ANY(a.source_keys) OR s.catalog_key=ANY(a.source_keys))
         AND ($2::timestamptz IS NULL OR o.scheduled_at>=$2) AND ($3::timestamptz IS NULL OR o.scheduled_at<$3)
@@ -113,7 +120,7 @@ export async function buildServer(repo: ExecutionStore) {
     return { items, limit: 100, timezone: 'Asia/Shanghai', coverage: 'latest 100 matching-filter batches' };
   });
   app.get('/api/v1/l0/processings/:id', { schema: { params: params('id'), querystring: { type: 'object', additionalProperties: false, properties: { cursor: { type: 'string', pattern: '^\\d{1,3}$' }, limit: { type: 'string', pattern: '^[1-9][0-9]{0,2}$' } } } } }, async request => {
-    const processing = await repo.processing((request.params as { id: string }).id); await sourceForVersion(request.actor, processing.version_id);
+    const processing = await processingView(request.actor, (request.params as { id: string }).id);
     const query = request.query as { cursor?: string; limit?: string };
     const start = Number(query.cursor ?? 0), limit = Number(query.limit ?? 20);
     if (limit > 100) throw new DomainError('PAGE_LIMIT', 400);
@@ -144,6 +151,11 @@ export async function buildServer(repo: ExecutionStore) {
     const body = request.body as { expected_generation: number; reason: string };
     const generation = await repo.retryOperation((request.params as { id: string }).id, request.actor, body.reason, body.expected_generation, keyOf(request.headers));
     return reply.code(202).send({ generation });
+  });
+  app.post('/api/v1/l0/processings/:id/reviews', { schema: { params: params('id'), body: { type: 'object', additionalProperties: false, required: ['expected_generation', 'basis_digest', 'decision', 'reason'], properties: { expected_generation: { type: 'integer', minimum: 1 }, basis_digest: { type: 'string', pattern: '^[a-f0-9]{64}$' }, decision: { const: 'RETRY_FIXED_INPUT' }, reason: { type: 'string', minLength: 1, maxLength: 2000 } } } } }, async (request, reply) => {
+    const body = request.body as { expected_generation: number; basis_digest: string; reason: string };
+    const generation = await repo.reviewOutput((request.params as { id: string }).id, request.actor, body.reason, body.expected_generation, body.basis_digest, keyOf(request.headers));
+    return reply.code(202).send({ generation, status: 'recoverable', next_action: 'retry' });
   });
   return app;
 }

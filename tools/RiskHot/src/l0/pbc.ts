@@ -33,7 +33,7 @@ export function discoverPbc(html: string, baseUrl: string, limit: number): Sourc
 }
 
 export function parsePbc(raw: Buffer, url: string): NormalizedMaterial {
-  assertPbcUrl(url);
+  url = assertPbcUrl(url).href;
   if (raw.byteLength > 1_048_576) throw new DomainError('RAW_TOO_LARGE', 413);
   let html: string;
   try { html = new TextDecoder('utf-8', { fatal: true }).decode(raw); }
@@ -41,6 +41,10 @@ export function parsePbc(raw: Buffer, url: string): NormalizedMaterial {
   const $ = load(html);
   const body = $('#zoom');
   if (body.length !== 1) throw new DomainError('BODY_MISSING');
+  const articleTitle = $('meta[name="ArticleTitle"]').attr('content')?.trim() || null;
+  const pageTitle = articleTitle || $('title').text().trim();
+  if ($('input[type="password"]').length || body.find('form').length || /^(用户登录|登录|sign in|log ?in)/iu.test(pageTitle)) throw new DomainError('SOURCE_AUTH_REQUIRED');
+  if (/(安全验证|人机验证|access denied|captcha)/iu.test(pageTitle) || (!articleTitle && /请先登录|请登录后|请输入验证码|访问过于频繁|访问被拒绝|access denied|please sign in/iu.test(body.text()))) throw new DomainError('SOURCE_ACCESS_BLOCKED');
   body.find('script,style,noscript').remove();
   const segments: Segment[] = [];
   const add = (text: string, rawLocator: string, kind: Segment['kind']) => {
@@ -77,15 +81,15 @@ export function parsePbc(raw: Buffer, url: string): NormalizedMaterial {
   if (!segments.length) throw new DomainError('BODY_MISSING');
   if (segments.reduce((n, item) => n + Array.from(item.text).length, 0) > 20_000) throw new DomainError('TEXT_TOO_LARGE', 413);
   return {
-    title: $('meta[name="ArticleTitle"]').attr('content')?.trim() || null,
+    title: articleTitle,
     publishedAtText: $('meta[name="PubDate"]').attr('content')?.trim() || null,
     url, normalizerVersion: 'pbc-html-1.0.0', segments,
   };
 }
 
 export async function fetchPbc(value: string, list = false): Promise<Buffer> {
-  assertPbcUrl(value, list);
-  const response = await fetch(value, { redirect: 'error', signal: AbortSignal.timeout(30_000), headers: { 'User-Agent': 'RiskHot/0.1 (+source verification)' } });
+  const url = assertPbcUrl(value, list).href;
+  const response = await fetch(url, { redirect: 'error', signal: AbortSignal.timeout(30_000), headers: { 'User-Agent': 'RiskHot/0.1 (+source verification)' } });
   if (!response.ok) throw new DomainError(`SOURCE_HTTP_${response.status}`, 502, response.status === 429 || response.status >= 500);
   if (!response.headers.get('content-type')?.toLowerCase().includes('text/html')) throw new DomainError('SOURCE_MEDIA_UNSUPPORTED');
   const chunks: Uint8Array[] = [];
