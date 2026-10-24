@@ -1,0 +1,461 @@
+{
+  "checked_at": "2026-10-24T13:19:29.628Z",
+  "timezone": "Asia/Shanghai",
+  "scope": "EXTRACTION_ONLY",
+  "subscription": {
+    "protocol": "codex-exec",
+    "requested_model": "gpt-6.1-sol",
+    "cli_version": "0.164.0-alpha.11.1",
+    "immutable_model_revision": null
+  },
+  "processing": {
+    "id": "f5a5022f-eecd-4225-9a9b-280003502916",
+    "version_id": "7514f269-e848-4b9a-aecd-09ecb4bd3ab5",
+    "analysis_key": "EXTRACTION_ONLY",
+    "processing_scope": "EXTRACTION_ONLY",
+    "extraction_status": "completed",
+    "result_status": "pending",
+    "candidate_count": 2,
+    "generation": "5",
+    "manifest_artifact_id": "4214656c-75ae-461b-be8f-a24ac52f6762",
+    "input_artifact_id": "4080aa82-c063-4e5e-a872-6c288413aa48",
+    "error_code": null,
+    "created_at": "2026-10-24T09:13:40.916Z",
+    "completed_at": "2026-10-24T13:05:54.308Z",
+    "review_attempt_id": null,
+    "provider_protocol": "codex-exec"
+  },
+  "version": {
+    "id": "7514f269-e848-4b9a-aecd-09ecb4bd3ab5",
+    "title": "公开市场业务交易公告 [2026]第205号",
+    "published_at_text": "2026-10-23",
+    "raw_sha256": "c0f431ac9ccb5093c9b3183fc224787d1e96cccd322988c2a042c6e3d3afb0dc",
+    "normalized_sha256": "bfee5469facb027f9e6cc60b28debdec455636d3757d588423d7bddfb8fa26dd"
+  },
+  "attempts": [
+    {
+      "id": "db7bbbc3-9f8b-4b7a-87ff-a1f569e809d4",
+      "attempt_no": 1,
+      "generation": "2",
+      "status": "rejected",
+      "finish_reason": null,
+      "error_code": "MODEL_NETWORK_ERROR",
+      "response_artifact_id": null,
+      "created_at": "2026-10-24T12:54:44.600Z",
+      "started_at": "2026-10-24T12:54:44.645Z",
+      "completed_at": "2026-10-24T12:55:55.746Z"
+    },
+    {
+      "id": "ed862ee3-c762-497c-a845-6af913b791ac",
+      "attempt_no": 2,
+      "generation": "2",
+      "status": "rejected",
+      "finish_reason": null,
+      "error_code": "MODEL_NETWORK_ERROR",
+      "response_artifact_id": null,
+      "created_at": "2026-10-24T12:56:25.909Z",
+      "started_at": "2026-10-24T12:56:25.966Z",
+      "completed_at": "2026-10-24T12:56:39.050Z"
+    },
+    {
+      "id": "f038aa56-1529-4cc4-8c87-f9e26c19f79d",
+      "attempt_no": 3,
+      "generation": "2",
+      "status": "rejected",
+      "finish_reason": null,
+      "error_code": "MODEL_CODEX_FAILED",
+      "response_artifact_id": null,
+      "created_at": "2026-10-24T12:58:39.291Z",
+      "started_at": "2026-10-24T12:58:39.345Z",
+      "completed_at": "2026-10-24T12:58:45.377Z"
+    },
+    {
+      "id": "cabbe482-8a58-42d9-af0f-e2798349073c",
+      "attempt_no": 4,
+      "generation": "3",
+      "status": "rejected",
+      "finish_reason": null,
+      "error_code": "MODEL_HTTP_undefined",
+      "response_artifact_id": "de617580-b786-4855-845e-82c21e32b5ad",
+      "created_at": "2026-10-24T13:00:20.808Z",
+      "started_at": "2026-10-24T13:00:20.846Z",
+      "completed_at": null
+    },
+    {
+      "id": "1794354d-6c1b-4f60-af52-63e82067aa41",
+      "attempt_no": 5,
+      "generation": "4",
+      "status": "rejected",
+      "finish_reason": null,
+      "error_code": "MODEL_UNEXPECTED_TOOL_USE",
+      "response_artifact_id": null,
+      "created_at": "2026-10-24T13:01:43.511Z",
+      "started_at": "2026-10-24T13:01:43.552Z",
+      "completed_at": "2026-10-24T13:02:05.753Z"
+    },
+    {
+      "id": "93f83af5-18d6-437d-8b41-4cb9d6d984c3",
+      "attempt_no": 6,
+      "generation": "5",
+      "status": "accepted",
+      "finish_reason": "turn.completed",
+      "error_code": null,
+      "response_artifact_id": "bd47e778-1aa9-42be-9c45-375a3cf253eb",
+      "created_at": "2026-10-24T13:03:14.482Z",
+      "started_at": "2026-10-24T13:03:14.549Z",
+      "completed_at": "2026-10-24T13:03:36.857Z"
+    }
+  ],
+  "candidates": [
+    {
+      "id": "e46c4a21-01a4-4915-b150-3d2f95fec951",
+      "candidate_key": "bef7ed3f-bc9c-4bde-b547-caff586c6132",
+      "status": "pending",
+      "ordinal": 0,
+      "payload": {
+        "time": {
+          "kind": "操作情况对应日期",
+          "text": "2026年10月23日",
+          "precision": "日"
+        },
+        "stage": "操作量为零",
+        "title": "中国人民银行2026年10月23日7天期逆回购操作量为零",
+        "action": "7天期逆回购操作量为零",
+        "evidence": [
+          {
+            "quote": "根据公开市场业务一级交易商的需求，2026年10月23日7天期逆回购操作量为零。具体情况如下：",
+            "end_cp": 47,
+            "start_cp": 0,
+            "segment_id": "c63adaae-1966-5eae-8730-df1a3297a3c1"
+          },
+          {
+            "quote": "期限 | 投标量 | 中标量\n7天 | 0亿元 | 0亿元",
+            "end_cp": 29,
+            "start_cp": 0,
+            "segment_id": "57baa2b1-687c-53fa-81f9-9a4a28addf41"
+          },
+          {
+            "quote": "中国人民银行公开市场业务操作室",
+            "end_cp": 15,
+            "start_cp": 0,
+            "segment_id": "d2e9c657-9f11-516c-8106-da64a9ad4454"
+          }
+        ],
+        "description": "公告称，根据公开市场业务一级交易商的需求，2026年10月23日7天期逆回购操作量为零，表列投标量和中标量均为0亿元。",
+        "subject_name": "中国人民银行",
+        "uncertainties": [
+          "行为主体依据公告署名“中国人民银行公开市场业务操作室”还原。"
+        ]
+      }
+    },
+    {
+      "id": "0b059ce8-f317-4116-a845-4d9bf7fab9f5",
+      "candidate_key": "64f490cf-bef0-4ff6-a8a9-ebdf581eae0b",
+      "status": "pending",
+      "ordinal": 1,
+      "payload": {
+        "time": {
+          "kind": "实际操作时间",
+          "text": "2026年10月23日（由前文日期及“同时”承接）",
+          "precision": "日"
+        },
+        "stage": "已开展",
+        "title": "中国人民银行开展2580亿元隔夜逆回购操作",
+        "action": "开展2580亿元隔夜逆回购操作",
+        "evidence": [
+          {
+            "quote": "同时，开展了2580亿元隔夜逆回购操作。",
+            "end_cp": 20,
+            "start_cp": 0,
+            "segment_id": "8670e210-5c6e-5ed4-84f3-85d576ea7490"
+          },
+          {
+            "quote": "根据公开市场业务一级交易商的需求，2026年10月23日7天期逆回购操作量为零。具体情况如下：",
+            "end_cp": 47,
+            "start_cp": 0,
+            "segment_id": "c63adaae-1966-5eae-8730-df1a3297a3c1"
+          },
+          {
+            "quote": "中国人民银行公开市场业务操作室",
+            "end_cp": 15,
+            "start_cp": 0,
+            "segment_id": "d2e9c657-9f11-516c-8106-da64a9ad4454"
+          }
+        ],
+        "description": "公告称，中国人民银行于2026年10月23日开展了2580亿元隔夜逆回购操作。",
+        "subject_name": "中国人民银行",
+        "uncertainties": [
+          "操作日期依据前文“2026年10月23日”及本段“同时”承接确定，并非直接采用发布时间。",
+          "行为主体依据公告署名“中国人民银行公开市场业务操作室”还原。"
+        ]
+      }
+    }
+  ],
+  "schedules": [
+    {
+      "enabled": true,
+      "interval_seconds": 3600,
+      "next_run_at": "2026-10-24T13:56:13.618Z",
+      "catalog_key": "wiki-source-001"
+    },
+    {
+      "enabled": true,
+      "interval_seconds": 3600,
+      "next_run_at": "2026-10-24T14:14:16.698Z",
+      "catalog_key": "wiki-source-002"
+    },
+    {
+      "enabled": true,
+      "interval_seconds": 3600,
+      "next_run_at": "2026-10-24T14:14:16.698Z",
+      "catalog_key": "wiki-source-003"
+    },
+    {
+      "enabled": true,
+      "interval_seconds": 3600,
+      "next_run_at": "2026-10-24T14:14:16.698Z",
+      "catalog_key": "wiki-source-004"
+    },
+    {
+      "enabled": true,
+      "interval_seconds": 3600,
+      "next_run_at": "2026-10-24T14:14:16.698Z",
+      "catalog_key": "wiki-source-005"
+    },
+    {
+      "enabled": true,
+      "interval_seconds": 3600,
+      "next_run_at": "2026-10-24T14:14:16.698Z",
+      "catalog_key": "wiki-source-006"
+    },
+    {
+      "enabled": true,
+      "interval_seconds": 3600,
+      "next_run_at": "2026-10-24T14:14:16.698Z",
+      "catalog_key": "wiki-source-007"
+    },
+    {
+      "enabled": true,
+      "interval_seconds": 3600,
+      "next_run_at": "2026-10-24T14:14:16.698Z",
+      "catalog_key": "wiki-source-008"
+    },
+    {
+      "enabled": true,
+      "interval_seconds": 3600,
+      "next_run_at": "2026-10-24T14:14:16.698Z",
+      "catalog_key": "wiki-source-009"
+    },
+    {
+      "enabled": true,
+      "interval_seconds": 3600,
+      "next_run_at": "2026-10-24T14:14:16.698Z",
+      "catalog_key": "wiki-source-010"
+    },
+    {
+      "enabled": true,
+      "interval_seconds": 3600,
+      "next_run_at": "2026-10-24T14:14:16.698Z",
+      "catalog_key": "wiki-source-011"
+    },
+    {
+      "enabled": true,
+      "interval_seconds": 3600,
+      "next_run_at": "2026-10-24T14:14:16.698Z",
+      "catalog_key": "wiki-source-012"
+    },
+    {
+      "enabled": true,
+      "interval_seconds": 3600,
+      "next_run_at": "2026-10-24T14:14:16.698Z",
+      "catalog_key": "wiki-source-013"
+    },
+    {
+      "enabled": true,
+      "interval_seconds": 3600,
+      "next_run_at": "2026-10-24T14:14:16.698Z",
+      "catalog_key": "wiki-source-014"
+    },
+    {
+      "enabled": true,
+      "interval_seconds": 3600,
+      "next_run_at": "2026-10-24T14:14:16.698Z",
+      "catalog_key": "wiki-source-015"
+    },
+    {
+      "enabled": true,
+      "interval_seconds": 3600,
+      "next_run_at": "2026-10-24T14:14:16.698Z",
+      "catalog_key": "wiki-source-016"
+    },
+    {
+      "enabled": true,
+      "interval_seconds": 3600,
+      "next_run_at": "2026-10-24T14:14:16.698Z",
+      "catalog_key": "wiki-source-018"
+    },
+    {
+      "enabled": true,
+      "interval_seconds": 3600,
+      "next_run_at": "2026-10-24T14:14:16.698Z",
+      "catalog_key": "wiki-source-019"
+    },
+    {
+      "enabled": true,
+      "interval_seconds": 3600,
+      "next_run_at": "2026-10-24T14:14:16.698Z",
+      "catalog_key": "wiki-source-020"
+    },
+    {
+      "enabled": true,
+      "interval_seconds": 3600,
+      "next_run_at": "2026-10-24T14:14:16.698Z",
+      "catalog_key": "wiki-source-021"
+    },
+    {
+      "enabled": true,
+      "interval_seconds": 3600,
+      "next_run_at": "2026-10-24T14:14:16.698Z",
+      "catalog_key": "wiki-source-024"
+    },
+    {
+      "enabled": true,
+      "interval_seconds": 3600,
+      "next_run_at": "2026-10-24T14:14:16.698Z",
+      "catalog_key": "wiki-source-026"
+    },
+    {
+      "enabled": true,
+      "interval_seconds": 3600,
+      "next_run_at": "2026-10-24T14:14:16.698Z",
+      "catalog_key": "wiki-source-037"
+    },
+    {
+      "enabled": true,
+      "interval_seconds": 3600,
+      "next_run_at": "2026-10-24T14:14:16.698Z",
+      "catalog_key": "wiki-source-038"
+    },
+    {
+      "enabled": true,
+      "interval_seconds": 3600,
+      "next_run_at": "2026-10-24T14:14:16.698Z",
+      "catalog_key": "wiki-source-039"
+    },
+    {
+      "enabled": true,
+      "interval_seconds": 3600,
+      "next_run_at": "2026-10-24T14:14:16.698Z",
+      "catalog_key": "wiki-source-040"
+    }
+  ],
+  "runs": [
+    {
+      "id": "67041be3-e2fb-4a8e-ac1a-42ba3538252a",
+      "operation_id": "b0b46f63-b9ec-4c0d-b449-4428d1b78177",
+      "scheduled_at": "2026-10-24T12:55:34.588Z",
+      "status": "completed",
+      "error_code": null
+    }
+  ],
+  "alerts": [
+    {
+      "issue_key": "scheduler",
+      "code": "SCHEDULER_UNAVAILABLE",
+      "opened_at": "2026-10-24T12:53:50.020Z",
+      "resolved_at": "2026-10-24T12:54:43.473Z",
+      "delivery_status": "submitted",
+      "delivery_attempts": 1
+    },
+    {
+      "issue_key": "source:9d315ff6-ce64-4d71-a9e8-bc03dbe26503:MODEL_NETWORK_ERROR",
+      "code": "MODEL_NETWORK_ERROR",
+      "opened_at": "2026-10-24T12:56:43.721Z",
+      "resolved_at": "2026-10-24T12:58:54.081Z",
+      "delivery_status": "submitted",
+      "delivery_attempts": 1
+    },
+    {
+      "issue_key": "source:9d315ff6-ce64-4d71-a9e8-bc03dbe26503:MODEL_CODEX_FAILED",
+      "code": "MODEL_CODEX_FAILED",
+      "opened_at": "2026-10-24T12:58:54.081Z",
+      "resolved_at": "2026-10-24T13:00:41.446Z",
+      "delivery_status": "submitted",
+      "delivery_attempts": 1
+    },
+    {
+      "issue_key": "source:9d315ff6-ce64-4d71-a9e8-bc03dbe26503:MODEL_HTTP_undefined",
+      "code": "MODEL_HTTP_undefined",
+      "opened_at": "2026-10-24T13:00:41.446Z",
+      "resolved_at": "2026-10-24T13:02:12.346Z",
+      "delivery_status": "submitted",
+      "delivery_attempts": 1
+    },
+    {
+      "issue_key": "source:9d315ff6-ce64-4d71-a9e8-bc03dbe26503:MODEL_UNEXPECTED_TOOL_USE",
+      "code": "MODEL_UNEXPECTED_TOOL_USE",
+      "opened_at": "2026-10-24T13:02:12.346Z",
+      "resolved_at": "2026-10-24T13:06:14.682Z",
+      "delivery_status": "submitted",
+      "delivery_attempts": 1
+    },
+    {
+      "issue_key": "source:8ae54c96-2dfc-426b-b362-07c4f0fa427c:MODEL_CODEX_FAILED",
+      "code": "MODEL_CODEX_FAILED",
+      "opened_at": "2026-10-24T13:19:17.238Z",
+      "resolved_at": null,
+      "delivery_status": "submitted",
+      "delivery_attempts": 1
+    }
+  ],
+  "verification": {
+    "tests": {
+      "passed": 61,
+      "failed": 0,
+      "skipped": 0,
+      "duration_ms": 57747.23175
+    },
+    "typecheck": "passed",
+    "review": {
+      "critical": 0,
+      "important": 4,
+      "important_fixed": 4,
+      "additional_empty_source_selection_fixed": true,
+      "minor_deferred": 0
+    }
+  },
+  "background_processing_counts": [
+    {
+      "extraction_status": "completed",
+      "error_code": null,
+      "count": 6
+    },
+    {
+      "extraction_status": "pending",
+      "error_code": null,
+      "count": 2
+    },
+    {
+      "extraction_status": "recoverable",
+      "error_code": "MODEL_BUDGET_EXHAUSTED",
+      "count": 1
+    },
+    {
+      "extraction_status": "recoverable",
+      "error_code": "MODEL_CODEX_FAILED",
+      "count": 1
+    },
+    {
+      "extraction_status": "recoverable",
+      "error_code": "MODEL_NOT_CONFIGURED",
+      "count": 24
+    }
+  ],
+  "static_checks": {
+    "markdown_files": 9,
+    "new_changed_wiki_links": 11,
+    "utf8_added_text": "passed",
+    "json": "passed",
+    "diff_check": "passed"
+  }
+}

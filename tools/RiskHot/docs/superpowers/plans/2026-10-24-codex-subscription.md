@@ -1,6 +1,6 @@
 # Codex Subscription Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** 订阅执行、持久定时接入、安静异常提醒及一次真实候选闭环。
 
@@ -32,9 +32,9 @@
 
 **Interfaces:** CodexModelClient.execute(TaskInput, deadline) 返回现有 TransportResponse；modelConfig 支持 codex-exec；decodeModelResponse 接纳明确 codex 完成信封。
 
-- [ ] 先写受控子进程测试：真实 spawn、stdin/schema、环境无数据库/API密钥、唯一消息、额度/登录/失败/超时；运行 `node --env-file-if-exists=.env --import tsx --test tests/codex.test.ts`，Expected: FAIL（功能未实现）。
-- [ ] 实现最小适配与 Worker 集成，固定输入及调用许可保持有效。
-- [ ] 同命令 Expected: PASS；`npm run typecheck` Expected: PASS；提交本任务。
+- [x] 先写受控子进程测试：真实 spawn、stdin/schema、环境无数据库/API密钥、唯一消息、额度/登录/失败/超时；运行 `node --env-file-if-exists=.env --import tsx --test tests/codex.test.ts`，Expected: FAIL（功能未实现）。
+- [x] 实现最小适配与 Worker 集成，固定输入及调用许可保持有效。
+- [x] 同命令 Expected: PASS；`npm run typecheck` Expected: PASS；提交本任务。
 
 ### Task 2: 持久调度与异常提醒
 
@@ -42,15 +42,15 @@
 
 **Interfaces:** Scheduler.tick(now) 幂等推进计划/恢复/异常；通知适配接收安全固定文案；计划与异常可查询。消费 Task 1 的模型错误码及订阅就绪配置。
 
-- [ ] 先写真实 PG 测试：并发同槽去重、重启恢复、停用跳过、在途上限、成功零提醒、持续异常去重/关闭/复发、通知失败、有限预算恢复；运行 `node --env-file-if-exists=.env --import tsx --test tests/scheduler.test.ts`，Expected: FAIL。
-- [ ] 实现计划/运行/提醒表、限定权限和调度身份、调度进程/通知、状态 API/命令及当前工作树专属常驻安装/卸载。
-- [ ] 同命令 Expected: PASS；`npm run typecheck` Expected: PASS；提交本任务。
+- [x] 先写真实 PG 测试：并发同槽去重、重启恢复、停用跳过、在途上限、成功零提醒、持续异常去重/关闭/复发、通知失败、有限预算恢复；运行 `node --env-file-if-exists=.env --import tsx --test tests/scheduler.test.ts`，Expected: FAIL。
+- [x] 实现计划/运行/提醒表、限定权限和调度身份、调度进程/通知、状态 API/命令及当前工作树专属常驻安装/卸载。
+- [x] 同命令 Expected: PASS；`npm run typecheck` Expected: PASS；提交本任务。
 
 ### Task 3: 真实闭环与交付
 
 **Files:** 新增 docs/verification/codex-subscription.md/json；修改 README、公共实现契约、索引/日志和本计划。
 
-- [ ] 私有环境配置订阅协议和真实可用模型；启动更新后服务，先调度央行一次，检查模型响应、完成状态、候选、证据、固定工件和幂等复投。Expected: 真实完成，未知数不冒充 0。
-- [ ] 启动每小时常驻计划，记录身份登录、下一计划和异常状态；正常完成无通知。Expected: 常驻就绪，可查询。
-- [ ] `npm test`、`npm run typecheck`、本次 Markdown 表格/UTF-8/链接及 `git diff --check` Expected: 全通过。
-- [ ] 一次整体独立审查，重要问题 RED→GREEN 修复并全量复验；更新真实证据、范围与遗留项，提交交付。
+- [x] 私有环境配置订阅协议和真实可用模型；启动更新后服务，先调度央行一次，检查模型响应、完成状态、候选、证据、固定工件和幂等复投。Expected: 真实完成，未知数不冒充 0。
+- [x] 启动每小时常驻计划，记录身份登录、下一计划和异常状态；正常完成无通知。Expected: 常驻就绪，可查询。
+- [x] `npm test`、`npm run typecheck`、本次 Markdown 表格/UTF-8/链接及 `git diff --check` Expected: 全通过。
+- [x] 一次整体独立审查，重要问题 RED→GREEN 修复并全量复验；更新真实证据、范围与遗留项，提交交付。
