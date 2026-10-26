@@ -24,6 +24,33 @@ async function setup() {
   return { ...c, app, actor, request, async close() { await app.close(); await apiDb.end(); await c.dispose(); } };
 }
 
+test('schedule history exposes authorized fixed results and distinguishes queued slots from saved material',async()=>{
+  const c=await setup();
+  try{
+    const material=await c.processing();
+    await c.db.query("INSERT INTO platform.schedule_runs(source_id,scheduled_at,operation_id,status) VALUES($1,now()-interval '1 hour',$2,'running'),($1,now(),NULL,'pending')",[c.parent.source_id,c.parent.id]);
+    const response=await c.request('GET','/api/v1/l0/schedules/wiki-source-001/runs');
+    assert.equal(response.statusCode,200,response.body);
+    assert.equal(response.json().items.length,2);
+    assert.equal(response.json().items[0].operation_id,null);assert.equal(response.json().items[0].saved_count,0);
+    assert.equal(response.json().items[1].operation_id,c.parent.id);assert.equal(response.json().items[1].saved_count,1);
+    assert.ok(material.version);assert.equal(response.json().limit,50);
+    await c.db.query("UPDATE platform.actors SET source_keys=ARRAY['wiki-source-002'] WHERE subject=$1",[c.actor]);
+    assert.equal((await c.request('GET','/api/v1/l0/schedules/wiki-source-001/runs')).statusCode,403);
+  }finally{await c.close();}
+});
+
+test('plan summary reflects the paused operation instead of a stale scheduler status',async()=>{
+  const c=await setup();
+  try{
+    await c.request('PATCH','/api/v1/l0/schedules/wiki-source-001',{enabled:true,interval_seconds:3600,expected_updated_at:null});
+    await c.db.query("INSERT INTO platform.schedule_runs(source_id,scheduled_at,operation_id,status) VALUES($1,now(),$2,'running')",[c.parent.source_id,c.parent.id]);
+    const pause=await c.request('POST',`/api/v1/l0/task-batches/${c.parent.id}/control`,{action:'pause',expected_version:1,reason:'受控暂停'});assert.equal(pause.statusCode,200,pause.body);
+    const monitor=(await c.request('GET','/api/v1/l0/monitor')).json();
+    assert.equal(monitor.schedules.find((row:{catalog_key:string})=>row.catalog_key==='wiki-source-001').latest_status,'paused');
+  }finally{await c.close();}
+});
+
 test('resuming a paused batch rechecks source eligibility and preserves pause when the source is disabled', async () => {
   const c = await setup();
   try {

@@ -318,5 +318,79 @@
       "existing_schedule_count": 26
     },
     "impeccable_findings": []
+  },
+  "workspace_refinement": {
+    "date": "2026-10-26",
+    "design": "docs/system-design/06产品UI原型设计/06-2-M1信源管理中心UI设计/信息接入任务与计划页面设计.md",
+    "mode": "Operate",
+    "approach": "Refine incumbent style; compact summaries, inline results, configured/unconfigured plans, source-scoped run history, material and extraction navigation",
+    "tests": {
+      "passed": 94,
+      "failed": 0,
+      "skipped": 0,
+      "duration_ms": 62419.233709,
+      "typecheck": "pass"
+    },
+    "browser": {
+      "checks": [
+        "unauthenticated shell",
+        "40 persisted sources",
+        "multi-value intersection filters",
+        "source search and flat view",
+        "separate business/technical state",
+        "historical profile is read-only",
+        "create and locate persistent disabled profile",
+        "global task action remains available from a manual source",
+        "profile survives reload",
+        "one click starts every enabled source without configuration or duplicate batches",
+        "compact overview filters rows without changing the selected date range",
+        "paused batch survives reload",
+        "resume uses persisted checkpoints",
+        "unknown direct-start receipt retries the same committed batch",
+        "source-detail launch ignores catalog filters and uses current enabled source states",
+        "schedule period controls fit desktop and mobile",
+        "independent schedule creation",
+        "minute hour and day schedule values persist and reload with equivalent durations",
+        "out of range schedule units cannot change a persisted plan",
+        "configured plans stay separate from sources awaiting configuration",
+        "plan search retains a clear empty state and can be reset",
+        "plan history displays actual saved results inline",
+        "plan results link directly to saved material and honest zero-candidate output",
+        "responsive sources 1440",
+        "responsive tasks 1440",
+        "responsive plans 1440",
+        "responsive sources 390",
+        "mobile detail drawer and return focus",
+        "responsive tasks 390",
+        "responsive plans 390",
+        "responsive sources 320",
+        "mobile form and unsaved keyboard confirmation",
+        "responsive tasks 320",
+        "responsive plans 320",
+        "read-only actor sees no write controls",
+        "expired login preserves draft",
+        "local workbench opens directly without login or cookies",
+        "local source write persists across reload without login",
+        "local task controls remain available",
+        "no enabled sources disables direct launch without creating an empty batch"
+      ],
+      "page_errors": [],
+      "environment": "isolated database and browser; no source collection or model call"
+    },
+    "live": {
+      "checked_at": "2026-10-26T12:56:59.282Z",
+      "workspace": "/Users/cjw/dev/Obsidian/wiki/tools/RiskHot",
+      "schedule_count": 26,
+      "history_items": 10,
+      "history_limit": 50,
+      "plan_time_available": true,
+      "navigation_updated": true,
+      "original_processing": {
+        "status": "completed",
+        "candidate_count": 2
+      }
+    },
+    "impeccable_findings": [],
+    "visual_rounds": 2
   }
 }

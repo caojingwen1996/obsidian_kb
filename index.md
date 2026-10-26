@@ -433,6 +433,7 @@
 - [[tools/a-share-market-dashboard/a-share-market-dashboard.html|中证红利指数与股息率走势图]]：位于顶部结论卡片下方；左轴为指数点位、右轴为股息率，依据 [[sources/automations/中证红利信号/中证红利每日信号.xlsx|每日信号工作簿]] 的综合A级结论，按记录日之后首个交易日的指数收盘价标记“场外假设买入点”，与回测买入日一致。股息率曲线仍按估值日绘制；同一估值日取最早记录，提示分别显示假设买入日、估值日和记录日。指数来源为 [[sources/automations/中证红利信号/中证红利指数日线.json|中证官方日线快照]]，缺少目标买入日点位或日期证据时不推算、不另行顺延。本地回测日线已[[sources/automations/中证红利信号/历史归档/日线补齐-2026-10-17/来源信息.json|补齐至2026-10-16]]，保留官方响应与补齐前备份；回测仍按Excel最后估值日截断。
 
 - [[tools/RiskHot/docs/verification/m1-management|RiskHot M1 实际管理页面]]：main 上实现信源档案与版本、全部启用信源一键开启、批次暂停/继续及分钟／小时／天计划；本机免登录，后台使用 main，保留原资料与候选。
+  - [[tools/RiskHot/docs/system-design/06产品UI原型设计/06-2-M1信源管理中心UI设计/信息接入任务与计划页面设计|接入任务与计划页面设计]]：精简概览和列表，结果行内展开，计划直接查看资料/候选及历史运行。
 - [[tools/RiskHot/docs/verification/codex-subscription|RiskHot 订阅闭环与后台运行]]：真实央行公告经Codex订阅抽取并校验入库2条候选，提供持久计划、安静异常提醒、运行和证据查询；完整L0未验收。
 - [[tools/RiskHot/docs/verification/all-sources|RiskHot 全部信源接入记录]]：40条状态明确，26条真实入库、6条待补地址、8条受阻；保留41项测试及该接入阶段模型待配置的历史证据。
 - [[tools/RiskHot/docs/verification/source-candidates|RiskHot 首次来源候选切片执行记录]]：保留单源阶段21项测试及真实央行资料验证证据。

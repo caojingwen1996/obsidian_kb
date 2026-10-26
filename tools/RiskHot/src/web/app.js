@@ -8,15 +8,16 @@ const readStored=key=>{try{return JSON.parse(sessionStorage.getItem(key));}catch
 const store=(key,value)=>{try{value==null?sessionStorage.removeItem(key):sessionStorage.setItem(key,JSON.stringify(value));}catch{/* The page remains usable when private storage is unavailable. */}};
 const today=shanghaiDate(),saved=readStored('riskhot-view');
 const state={sources:[],session:null,view:'research',selected:null,detailTab:'archive',mobileDetail:false,history:null,batches:null,monitor:null,
-  filters:{q:'',tier:'',category:'',dims:'',levels:'',group:'',state:'',readiness:'',priority:'',frequency:''},taskFilters:{from:today,to:today,q:'',status:''},selectedBatch:null,...saved};
+  filters:{q:'',tier:'',category:'',dims:'',levels:'',group:'',state:'',readiness:'',priority:'',frequency:''},taskFilters:{from:today,to:today,q:'',status:''},planFilters:{q:'',view:'configured'},planHistory:null,selectedBatch:null,...saved};
 state.pending=readStored('riskhot-command');state.sources=[];state.session=null;
 let connected=false,loading=false,busy=false,startingBatch=false,dialogContext=null,returnFocus=null,historyRequest=0,refreshRequest=0,refreshPromise=null;
 const can=(permission,key)=>Boolean(state.session?.permissions.includes(permission)&&(!key||state.session.source_keys.includes('*')||state.session.source_keys.includes(key)));
 const route=()=>location.hash==='#intake-tasks'?'tasks':location.hash==='#schedules'?'schedules':'sources';
-function remember(){store('riskhot-view',{view:state.view,selected:state.selected,detailTab:state.detailTab,filters:state.filters,taskFilters:state.taskFilters,selectedBatch:state.selectedBatch});}
+function remember(){store('riskhot-view',{view:state.view,selected:state.selected,detailTab:state.detailTab,filters:state.filters,taskFilters:state.taskFilters,planFilters:state.planFilters,selectedBatch:state.selectedBatch});}
 function notice(message,error=false){feedback.hidden=false;feedback.className=`feedback ${error?'feedback-error':''}`;feedback.setAttribute('role',error?'alert':'status');feedback.textContent=message;}
 function render(){
   remember();
+  document.querySelector('.page-footer').hidden=route()!=='sources';
   for(const [id,name] of [['source-workspace-link','sources'],['intake-workspace-link','tasks'],['schedules-workspace-link','schedules']]){
     const link=document.getElementById(id);name===route()?link.setAttribute('aria-current','page'):link.removeAttribute('aria-current');
   }
@@ -54,7 +55,10 @@ async function performRefresh(){
       if(!validRange(state.taskFilters.from,state.taskFilters.to))throw {code:'DATE_RANGE_INVALID'};
       next.batches=await api.get(`/api/v1/l0/task-batches?${new URLSearchParams(Object.entries(state.taskFilters).filter(([,v])=>v))}`);
     }
-    if(route()==='schedules')next.monitor=await api.get('/api/v1/l0/monitor');
+    if(route()==='schedules'){
+      next.monitor=await api.get('/api/v1/l0/monitor');
+      if(state.planHistory?.key&&!state.planHistory.loading)next.planHistory={key:state.planHistory.key,data:await api.get(`/api/v1/l0/schedules/${state.planHistory.key}/runs`)};
+    }
     if(serial!==refreshRequest)return;
     Object.assign(state,next);state.loginRequired=false;connected=true;feedback.hidden=true;
     if(!state.selected||!state.sources.some(x=>x.catalog_key===state.selected))state.selected=state.sources[0]?.catalog_key??null;
@@ -74,7 +78,7 @@ function closeDialog(force=false){
   modal.close();dialogContext=null;if(state.pending)render();returnFocus?.isConnected?returnFocus.focus():document.querySelector('#main').focus();
 }
 function openDialog(title,body,context={},submit='确认'){
-  returnFocus=document.activeElement;dialogContext=context;
+  if(!modal.open)returnFocus=document.activeElement;dialogContext=context;
   modal.innerHTML=`<form id="dialog-form"><header class="dialog-header"><h2 id="modal-title">${e(title)}</h2><button type="button" class="icon-button" data-action="close-dialog" aria-label="关闭">×</button></header><div class="dialog-body"><div id="modal-error" class="feedback feedback-error" role="alert" hidden></div>${body}</div><footer class="dialog-footer"><span class="muted">${context.kind==='source-create'||context.kind==='source-edit'?'保存不自动启用':''}</span><div class="actions"><button type="button" class="secondary" data-action="close-dialog">${submit?'取消':'关闭'}</button>${submit?`<button class="primary" type="submit">${e(submit)}</button>`:''}</div></footer></form>`;
   if(!modal.open)modal.showModal();(modal.querySelector('input:not([disabled]),select')||modal.querySelector('button'))?.focus();
 }
@@ -109,6 +113,13 @@ function openSchedule(key){
   const period=schedulePeriod(plan?.interval_seconds??3600),scale=periodUnits[period.unit].seconds;
   openDialog('管理接入计划',`<p>${e(source?.name)}</p><p class="notice">计划与信源资格分别管理；实际运行时会再次核对信源。新的周期从保存后开始计算。</p><label class="field">计划状态<select name="enabled"><option value="true" ${plan?.enabled?'selected':''}>启用计划</option><option value="false" ${!plan?.enabled?'selected':''}>暂停计划</option></select></label><div class="form-grid"><label class="field">执行周期<input name="interval_value" type="number" min="${60/scale}" max="${86400/scale}" step="any" value="${period.value}" required></label><label class="field">周期单位<select name="interval_unit">${Object.entries(periodUnits).map(([key,item])=>`<option value="${key}" ${key===period.unit?'selected':''}>${item.label}</option>`).join('')}</select></label></div><p class="muted">支持1分钟至1天，数值按所选单位保存。</p>`,{kind:'schedule',source,plan},'保存计划');
 }
+async function loadScheduleHistory(key,reload=false){
+  if(!reload&&state.planHistory?.key===key){state.planHistory=null;render();return;}
+  state.planHistory={key,loading:true};render();
+  try{const data=await api.get(`/api/v1/l0/schedules/${key}/runs`);if(state.planHistory?.key===key)state.planHistory={key,data};}
+  catch(error){if(state.planHistory?.key===key)state.planHistory={key,error};}
+  if(route()==='schedules'){render();document.querySelector(`#schedule-history-${key} h3`)?.focus();}
+}
 async function execute(command,context){
   if(busy)return;
   if(state.pending&&state.pending.command.key!==command.key){const area=modal.open?modal.querySelector('#modal-error'):feedback;area.hidden=false;area.textContent='请先确认上一项操作的结果，再开始新的操作。';return;}
@@ -119,6 +130,7 @@ async function execute(command,context){
     const value=await api.send(command);state.pending=null;store('riskhot-command',null);busy=false;
     if(context.kind==='source-create')Object.keys(state.filters).forEach(key=>state.filters[key]='');
     if(context.kind.startsWith('source-')){store('riskhot-draft',null);state.selected=value.catalog_key||value.key||context.source?.catalog_key;state.detailTab='archive';}
+    if(context.kind==='schedule')state.planFilters.view='configured';
     if(context.kind==='batch-create'){state.selectedBatch=value.id;state.mobileDetail=false;state.taskFilters={from:shanghaiDate(new Date(value.scheduled_at)),to:shanghaiDate(new Date(value.scheduled_at)),q:value.id,status:''};if(location.hash!=='#intake-tasks')history.pushState(null,'','#intake-tasks');}
     closeDialog(true);await refresh();notice('操作已确认，当前状态已重新读取。');
   }catch(error){
@@ -150,22 +162,26 @@ async function submitDialog(form){
 async function showOperation(id){
   try{
     const row=await api.get(`/api/v1/l0/operations/${id}`),children=row.children?.length?row.children:[row];
-    openDialog('资料接入详情',`<p class="text-wrap">${e(row.id)} · ${e(statusName(row.slice_status||row.status))}</p>${children.map(child=>`<section class="detail-section"><h3>${e(child.url||'信源接入')}</h3>${renderProgress(child)}${child.reason_code?`<p class="notice">${e(explain(child.reason_code))}</p>`:''}<div class="actions">${child.version_id?`<button type="button" class="secondary" data-version="${e(child.version_id)}">查看已保存资料</button>`:''}${child.processing_id?`<button type="button" class="secondary" data-processing="${e(child.processing_id)}">查看候选抽取</button>`:''}${can('retry')&&!child.processing_id&&['recoverable','waiting_config'].includes(child.status)?`<button type="button" class="secondary" data-retry-operation="${e(child.id)}">从检查点重试</button>`:''}</div></section>`).join('')}`,{kind:'read'},'');
+    const source=state.sources.find(source=>source.catalog_key===row.source_key),saved=new Set(children.map(child=>child.version_id).filter(Boolean)).size;
+    openDialog('接入结果',`<div class="run-recap"><strong>${e(source?.name||'信源接入')}</strong><span>${e(statusName(row.paused?'paused':row.slice_status||row.status))}</span><span>已保存 ${saved} 份资料</span></div>${children.map((child,i)=>`<section class="run-material"><div class="run-detail-heading"><h3>资料 ${i+1}</h3><span class="muted">${e(statusName(child.paused?'paused':child.status))}</span></div>${child.reason_code?`<p class="run-reason">${e(explain(child.reason_code))}</p>`:''}<div class="actions">${child.version_id?`<button type="button" class="secondary" data-version="${e(child.version_id)}">查看已保存资料</button>`:'<span class="muted">尚无已保存资料</span>'}${child.processing_id?`<button type="button" class="secondary" data-processing="${e(child.processing_id)}">查看候选抽取</button>`:''}${can('retry')&&!child.processing_id&&['recoverable','waiting_config'].includes(child.status)?`<button type="button" class="quiet" data-retry-operation="${e(child.id)}">从检查点重试</button>`:''}</div><details class="progress-disclosure"><summary>处理进度</summary>${renderProgress(child)}</details></section>`).join('')}<details class="run-identity"><summary>运行信息</summary><p class="text-wrap">${e(row.id)}</p><p>${dateTime(row.scheduled_at)}</p></details>`,{kind:'read',operation:id},'');
   }catch(error){notice(explain(error),true);}
 }
 async function showVersion(id){
-  try{const row=await api.get(`/api/v1/l0/versions/${id}`);openDialog('已保存的标准化资料',`<h3>${e(row.material.title)}</h3><p>${e(row.material.publishedAtText||'发布时间待确认')}</p>${row.material.segments.map(x=>`<p class="material-text">${e(x.text)}</p>`).join('')}<a class="secondary" href="${e(row.raw_url)}" download>下载原件</a>`,{kind:'read'},'');}catch(error){notice(explain(error),true);}
+  const parent=dialogContext?.operation||dialogContext?.returnOperation;
+  try{const row=await api.get(`/api/v1/l0/versions/${id}`);openDialog('已保存的标准化资料',`${parent?`<button class="quiet" data-return-operation="${e(parent)}">返回接入结果</button>`:''}<h3>${e(row.material.title)}</h3><p>${e(row.material.publishedAtText||'发布时间待确认')}</p>${row.material.segments.map(x=>`<p class="material-text">${e(x.text)}</p>`).join('')}<a class="secondary" href="${e(row.raw_url)}" download>下载原件</a>`,{kind:'read',returnOperation:parent},'');}catch(error){notice(explain(error),true);}
 }
 async function showProcessing(id){
+  const parent=dialogContext?.operation||dialogContext?.returnOperation;
   try{
     const row=await api.get(`/api/v1/l0/processings/${id}`);state.processing=row;
-    openDialog('事件候选抽取',`<p>抽取状态：${e(statusName(row.extraction_status))} · 候选数量：${e(candidateCount(row))}</p><p>候选保持待处理状态。</p>${row.error_code?`<p class="notice">${e(explain(row.error_code))}</p>`:''}${(row.candidates||[]).map(x=>`<article class="history-item"><h3>${e(x.payload.title||x.payload.candidate_title||'事件候选')}</h3><p>${e(x.payload.summary||x.payload.description||'')}</p><pre class="material-text">${e(JSON.stringify(x.payload,null,2))}</pre></article>`).join('')}<div class="actions">${can('retry')&&row.extraction_status==='recoverable'?`<button type="button" class="secondary" data-retry-processing="${e(row.id)}">重试固定资料</button>`:''}${can('model_review')&&row.extraction_status==='review'&&row.output_review_basis?`<button type="button" class="secondary" data-review-processing="${e(row.id)}">复核后重试固定资料</button>`:''}</div>${row.next_cursor?'<p class="notice">当前显示首批候选，其余可在后续分页中查询。</p>':''}`,{kind:'read'},'');
+    openDialog('事件候选抽取',`${parent?`<button class="quiet" data-return-operation="${e(parent)}">返回接入结果</button>`:''}<p>抽取状态：${e(statusName(row.extraction_status))} · 候选数量：${e(candidateCount(row))}</p>${row.extraction_status==='completed'&&row.candidate_count===0?'<p class="empty">本次未提取到事件候选。</p>':'<p class="muted">候选保持待处理状态。</p>'}${row.error_code?`<p class="notice">${e(explain(row.error_code))}</p>`:''}${(row.candidates||[]).map(x=>`<article class="history-item"><h3>${e(x.payload.title||x.payload.candidate_title||'事件候选')}</h3><p>${e(x.payload.summary||x.payload.description||'')}</p><details class="progress-disclosure"><summary>结构化详情</summary><pre class="material-text">${e(JSON.stringify(x.payload,null,2))}</pre></details></article>`).join('')}<div class="actions">${can('retry')&&row.extraction_status==='recoverable'?`<button type="button" class="secondary" data-retry-processing="${e(row.id)}">重试固定资料</button>`:''}${can('model_review')&&row.extraction_status==='review'&&row.output_review_basis?`<button type="button" class="secondary" data-review-processing="${e(row.id)}">复核后重试固定资料</button>`:''}</div>${row.next_cursor?'<p class="notice">当前显示首批候选，其余可在后续分页中查询。</p>':''}`,{kind:'read',returnOperation:parent},'');
   }catch(error){notice(explain(error),true);}
 }
 document.addEventListener('submit',event=>{
   if(event.target.id==='dialog-form'){event.preventDefault();submitDialog(event.target);return;}
   if(event.target.id==='source-search'){event.preventDefault();state.filters.q=new FormData(event.target).get('q')||'';render();}
   if(event.target.id==='task-query'){event.preventDefault();const data=Object.fromEntries(new FormData(event.target));if(!validRange(data.from,data.to)){notice('日期范围无效，请核对开始与结束日期。',true);return;}state.taskFilters=data;refresh();}
+  if(event.target.id==='plan-search'){event.preventDefault();state.planFilters.q=String(new FormData(event.target).get('q')||'').trim();state.planHistory=null;render();document.querySelector('#plan-query')?.focus();}
 });
 document.addEventListener('change',event=>{
   if(event.target.name==='interval_unit'&&dialogContext?.kind==='schedule'){
@@ -193,7 +209,12 @@ document.addEventListener('click',async event=>{
   if(d.taskControl)openControl(d.taskId,d.taskControl);
   if(d.batchDetail){state.selectedBatch=state.selectedBatch===d.batchDetail?null:d.batchDetail;render();document.querySelector('#batch-detail-title')?.focus();}
   if(d.schedule)openSchedule(d.schedule);
+  if(d.planView){state.planFilters.view=d.planView;state.planHistory=null;render();}
+  if(d.scheduleHistory)loadScheduleHistory(d.scheduleHistory);
+  if(d.reloadHistory)loadScheduleHistory(d.reloadHistory,true);
+  if(d.taskStatus!==undefined){state.taskFilters.status=d.taskStatus;state.selectedBatch=null;refresh();}
   if(d.operation)showOperation(d.operation);
+  if(d.returnOperation)showOperation(d.returnOperation);
   if(d.version)showVersion(d.version);
   if(d.processing)showProcessing(d.processing);
   if(d.historyVersion){const row=(state.history?.data.items||[]).find(x=>String(x.version)===d.historyVersion);if(row)openDialog(`历史版本 v${row.version} · 只读`,`<dl class="facts">${profileFields.map(([key,name])=>`<dt>${e(name)}</dt><dd>${e(Array.isArray(row.profile?.[key])?row.profile[key].join('、'):row.profile?.[key]||'待补充')}</dd>`).join('')}</dl>`,{kind:'read'},'');}

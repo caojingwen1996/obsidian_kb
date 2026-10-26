@@ -162,4 +162,17 @@ export class TaskManagement {
       return row;
     });
   }
+  async history(actor: string, source: string) {
+    await this.repo.authorize(actor,'read',source);
+    const owner=(await this.repo.db.query<{id:string}>('SELECT id FROM m1.sources WHERE catalog_key=$1',[source])).rows[0];
+    if(!owner)throw new DomainError('NOT_FOUND',404);
+    const rows=(await this.repo.db.query<{id:string;scheduled_at:Date;operation_id:string|null;status:string;error_code:string|null}>('SELECT id,scheduled_at,operation_id,status,error_code FROM platform.schedule_runs WHERE source_id=$1 ORDER BY scheduled_at DESC,id DESC LIMIT 50',[owner.id])).rows;
+    const items=await Promise.all(rows.map(async row=>{
+      if(!row.operation_id)return {...row,saved_count:0};
+      const operation=await this.repo.operation(row.operation_id);
+      const children=operation.children?.length?operation.children:[operation];
+      return {...row,status:operation.paused?'paused':operation.slice_status,error_code:operation.reason_code??children.find(child=>child.reason_code)?.reason_code??row.error_code,saved_count:new Set(children.map(child=>child.version_id).filter(Boolean)).size};
+    }));
+    return {source_key:source,items,limit:50};
+  }
 }

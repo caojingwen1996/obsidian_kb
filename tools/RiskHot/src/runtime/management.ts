@@ -24,6 +24,7 @@ export function registerManagement(app: FastifyInstance, repo: ExecutionStore, a
     await repo.authorize(request.actor, 'read');
     return { ...(await repo.db.query('SELECT subject AS actor,permissions,source_keys FROM platform.actors WHERE subject=$1', [request.actor])).rows[0], authentication };
   });
+  app.get('/api/v1/l0/schedules/:key/runs',{schema:{params:sourceParams}},async request=>tasks.history(request.actor,(request.params as {key:string}).key));
   app.post('/api/v1/m1/sources', { schema: { body: { type: 'object', additionalProperties: false, required: ['profile'], properties: { profile } } } }, async (request, reply) => {
     const row = await sources.create(request.actor, keyOf(request.headers), (request.body as { profile: Profile }).profile);
     return reply.code(201).send(row);

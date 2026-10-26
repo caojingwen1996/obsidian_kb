@@ -6,7 +6,7 @@
 
 ## 输入与实现
 
-依据[[tools/RiskHot/docs/system-design/06产品UI原型设计/06-2-M1信源管理中心UI设计/02. 交互原型说明|M1 交互原型说明]]、[[tools/RiskHot/docs/system-design/06产品UI原型设计/06-2-M1信源管理中心UI设计/EXPERIENCE|交互契约]]及[[tools/RiskHot/docs/superpowers/plans/2026-10-26-m1-management|实施计划]]，同源页面在 [M1 信源管理中心](http://localhost:18081/m1) 提供，代码位于 `src/web/`，接口在 `src/runtime/`，业务逻辑在 `src/information-ingestion/`。页面使用真实登录与授权范围。
+依据[[tools/RiskHot/docs/system-design/06产品UI原型设计/06-2-M1信源管理中心UI设计/02. 交互原型说明|M1 交互原型说明]]、[[tools/RiskHot/docs/system-design/06产品UI原型设计/06-2-M1信源管理中心UI设计/EXPERIENCE|交互契约]]及[[tools/RiskHot/docs/superpowers/plans/2026-10-26-m1-management|实施计划]]，同源页面在 [M1 信源管理中心](http://localhost:18081/m1) 提供，代码位于 `src/web/`，接口在 `src/runtime/`，业务逻辑在 `src/information-ingestion/`。页面以服务端身份及授权范围约束操作，本机默认免登录。
 
 | 功能 | 已实现行为 |
 | --- | --- |
@@ -102,3 +102,17 @@ Impeccable检测无发现；桌面与手机截图集中核对，最新[[tools/Ri
 后台接口及存储继续使用interval_seconds，不增加数据库字段或变更已有计划；重新打开时按可整除的最大单位显示。新增换算回归先因缺少函数失败，再通过；覆盖旧计划、小数小时、分钟/小时/天及越界/精度错误。完整回归90/90、0跳过（66,716ms），类型检查通过。
 
 浏览器32项通过，分别保存2小时、1天和30分钟，逐次核对真实测试库秒值及刷新后表单；2天超出现有上限时禁止提交，原计划值保留。桌面与手机表单无横向溢出，截图见[[tools/RiskHot/docs/verification/m1-management/plan-units-1440.png|桌面周期单位]]、[[tools/RiskHot/docs/verification/m1-management/plan-units-390.png|手机周期单位]]。Impeccable静态检测无发现。本机资源已更新，26条原有计划保留；测试没有修改本机实际周期或触发额外采集。
+
+## 接入任务与计划页面精简
+
+依据用户“现在太乱了”的反馈，按 Impeccable 的 Operate / distill 规则，保留既有视觉与业务契约，重新组织两个实际页面。设计见[[tools/RiskHot/docs/system-design/06产品UI原型设计/06-2-M1信源管理中心UI设计/信息接入任务与计划页面设计|接入任务与计划页面设计]]。
+
+- 接入任务：四项概览压缩成可筛选的横栏；去掉重复横幅、刷新及架构编号，列表展示短身份和保存结果，结果在对应行展开，资料和抽取可直接查看，六步进度与完整身份后置。
+- 任务计划：默认显示已配置项，未配置单独筛选并可搜索；最近运行直达结果，原行展开最多50条计划记录，资料与候选阅读支持返回。系统异常保留数量，详情折叠。
+- 新增只读计划历史接口并核对来源范围；最近运行状态从实际操作派生，修复暂停后仍显示调度缓存“运行中”的问题。
+
+新增两个语义渲染测试、计划历史 API 权限/固定保存结果测试，以及暂停状态回归，均先观察失败再通过。最终类型检查及完整回归94/94、0失败/0跳过（62,419ms）。独立浏览器40项通过，覆盖两个页面1440/390/320、紧凑概览筛选、计划搜索/分区、周期单位及原有一键开启/暂停/未知回执；计划历史真实保存1份资料、原文查看、返回运行结果，以及完成且零候选的明确展示均已验证。
+
+视觉在桌面/手机两轮批量检查内完成，集中修正手机展开标记、结果链接对齐和重复页脚；Impeccable静态检测无发现。截图来自明确标注的受控库，不代表本机来源数量：[[tools/RiskHot/docs/verification/m1-management/workspace/tasks-1440.png|桌面接入任务]]、[[tools/RiskHot/docs/verification/m1-management/workspace/plans-1440.png|桌面任务计划]]、[[tools/RiskHot/docs/verification/m1-management/workspace/tasks-390.png|手机接入任务]]、[[tools/RiskHot/docs/verification/m1-management/workspace/plans-390.png|手机任务计划]]。
+
+后台重启后现场只读验证：26条计划保留，央行计划历史接口返回10条、上限50，最近计划时间可用，原央行processing保持completed、2条候选。没有为本轮验收额外启动真实抓取或模型调用。

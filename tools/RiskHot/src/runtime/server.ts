@@ -86,7 +86,7 @@ export async function buildServer(repo: ExecutionStore, authentication: Authenti
   });
   app.get('/api/v1/l0/monitor', async request => {
     await repo.authorize(request.actor, 'read');
-    const schedules = (await repo.db.query(`SELECT q.*,s.catalog_key,r.id AS latest_run_id,r.status AS latest_status,r.error_code AS latest_error,r.operation_id
+    const schedules = (await repo.db.query(`SELECT q.*,s.catalog_key,r.id AS latest_run_id,r.scheduled_at AS latest_scheduled_at,r.status AS latest_status,r.error_code AS latest_error,r.operation_id
       FROM platform.source_schedules q JOIN m1.sources s ON s.id=q.source_id JOIN platform.actors a ON a.subject=$1
       LEFT JOIN LATERAL(SELECT * FROM platform.schedule_runs WHERE source_id=s.id ORDER BY scheduled_at DESC LIMIT 1) r ON true
       WHERE '*'=ANY(a.source_keys) OR s.catalog_key=ANY(a.source_keys) ORDER BY s.catalog_key`, [request.actor])).rows;
@@ -94,7 +94,12 @@ export async function buildServer(repo: ExecutionStore, authentication: Authenti
       WHERE x.resolved_at IS NULL AND ('*'=ANY(a.source_keys) OR EXISTS(SELECT 1 FROM platform.schedule_runs r JOIN m1.sources s ON s.id=r.source_id WHERE r.id=x.owner_id AND s.catalog_key=ANY(a.source_keys))
       OR EXISTS(SELECT 1 FROM information.processing_runs p JOIN information.material_versions v ON v.id=p.version_id JOIN information.materials m ON m.id=v.material_id JOIN m1.sources s ON s.id=m.source_id WHERE p.id=x.owner_id AND s.catalog_key=ANY(a.source_keys))) ORDER BY x.opened_at DESC`, [request.actor])).rows;
     const full=(await repo.db.query("SELECT '*'=ANY(source_keys) AS full FROM platform.actors WHERE subject=$1",[request.actor])).rows[0]?.full;
-    return { schedules, alerts, background_service:full?await serviceStatus(process.cwd()):null, model_service: (await repo.db.query('SELECT protocol,reason_code,blocked_until,updated_at FROM platform.model_service_state')).rows, notification_semantics: 'submitted means handed to the OS; display is controlled by system settings' };
+    const currentSchedules=await Promise.all(schedules.map(async row=>{
+      if(!row.operation_id)return row;
+      const operation=await repo.operation(row.operation_id);
+      return {...row,latest_status:operation.paused?'paused':operation.slice_status,latest_error:operation.reason_code??operation.children?.find(child=>child.reason_code)?.reason_code??null};
+    }));
+    return { schedules:currentSchedules, alerts, background_service:full?await serviceStatus(process.cwd()):null, model_service: (await repo.db.query('SELECT protocol,reason_code,blocked_until,updated_at FROM platform.model_service_state')).rows, notification_semantics: 'submitted means handed to the OS; display is controlled by system settings' };
   });
   registerManagement(app, repo, auth.mode);
   app.post('/api/v1/l0/source-fetches', { schema: { body: { type: 'object', additionalProperties: false, required: ['source_key', 'limit'], properties: { source_key: { type: 'string', pattern: '^(wiki-source-[0-9]{3}|custom-source-[a-f0-9-]{36})$' }, limit: { type: 'integer', minimum: 1, maximum: 5 }, url: { type: 'string', maxLength: 2048 } } } } }, async (request, reply) => {
