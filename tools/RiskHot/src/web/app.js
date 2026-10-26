@@ -1,5 +1,5 @@
 import {createClient} from './api.js';
-import {escape as e,profileOf,shanghaiDate,validRange,dateTime,statusName,explain,candidateCount} from './model.js';
+import {escape as e,profileOf,shanghaiDate,validRange,dateTime,statusName,explain,candidateCount,periodUnits,schedulePeriod,periodSeconds} from './model.js';
 import {renderSources,sourceForm,profileFields} from './sources.js';
 import {renderTasks,renderSchedules,renderProgress} from './tasks.js';
 
@@ -106,7 +106,8 @@ function openControl(id,action){
 }
 function openSchedule(key){
   const source=state.sources.find(x=>x.catalog_key===key),plan=state.monitor?.schedules.find(x=>x.catalog_key===key);
-  openDialog('管理接入计划',`<p>${e(source?.name)}</p><p class="notice">计划与信源资格分别管理；实际运行时会再次核对信源。新的周期从保存后开始计算。</p><label class="field">计划状态<select name="enabled"><option value="true" ${plan?.enabled?'selected':''}>启用计划</option><option value="false" ${!plan?.enabled?'selected':''}>暂停计划</option></select></label><label class="field">执行周期（分钟）<input name="minutes" type="number" min="1" max="1440" value="${plan?plan.interval_seconds/60:60}" required></label>`,{kind:'schedule',source,plan},'保存计划');
+  const period=schedulePeriod(plan?.interval_seconds??3600),scale=periodUnits[period.unit].seconds;
+  openDialog('管理接入计划',`<p>${e(source?.name)}</p><p class="notice">计划与信源资格分别管理；实际运行时会再次核对信源。新的周期从保存后开始计算。</p><label class="field">计划状态<select name="enabled"><option value="true" ${plan?.enabled?'selected':''}>启用计划</option><option value="false" ${!plan?.enabled?'selected':''}>暂停计划</option></select></label><div class="form-grid"><label class="field">执行周期<input name="interval_value" type="number" min="${60/scale}" max="${86400/scale}" step="any" value="${period.value}" required></label><label class="field">周期单位<select name="interval_unit">${Object.entries(periodUnits).map(([key,item])=>`<option value="${key}" ${key===period.unit?'selected':''}>${item.label}</option>`).join('')}</select></label></div><p class="muted">支持1分钟至1天，数值按所选单位保存。</p>`,{kind:'schedule',source,plan},'保存计划');
 }
 async function execute(command,context){
   if(busy)return;
@@ -135,7 +136,12 @@ async function submitDialog(form){
     command=api.command(ctx.source?`/api/v1/m1/sources/${ctx.source.catalog_key}`:'/api/v1/m1/sources',ctx.source?'PUT':'POST',ctx.source?{expected_version:ctx.source.version,profile,reason:'在信源管理中心更新档案'}:{profile});
   }else if(ctx.kind==='source-state')command=api.command(`/api/v1/m1/sources/${ctx.source.catalog_key}`,'PATCH',{state:ctx.source.state==='ACTIVE'?'DISABLED':'ACTIVE',expected_version:ctx.source.version,reason:String(data.get('reason')||'')});
   else if(ctx.kind==='batch-control')command=api.command(`/api/v1/l0/task-batches/${ctx.task.id}/control`,'POST',{action:ctx.action,expected_version:ctx.task.version,reason:String(data.get('reason'))});
-  else if(ctx.kind==='schedule')command=api.command(`/api/v1/l0/schedules/${ctx.source.catalog_key}`,'PATCH',{enabled:data.get('enabled')==='true',interval_seconds:Number(data.get('minutes'))*60,expected_updated_at:ctx.plan?.updated_at??null});
+  else if(ctx.kind==='schedule'){
+    let seconds;
+    try{seconds=periodSeconds(data.get('interval_value'),data.get('interval_unit'));}
+    catch(error){const area=modal.querySelector('#modal-error');area.hidden=false;area.textContent=error.message;return;}
+    command=api.command(`/api/v1/l0/schedules/${ctx.source.catalog_key}`,'PATCH',{enabled:data.get('enabled')==='true',interval_seconds:seconds,expected_updated_at:ctx.plan?.updated_at??null});
+  }
   else if(ctx.kind==='retry-operation')command=api.command(`/api/v1/l0/operations/${ctx.row.id}/retry`,'POST',{expected_generation:Number(ctx.row.generation),reason:String(data.get('reason'))});
   else if(ctx.kind==='retry-processing')command=api.command(`/api/v1/l0/processings/${ctx.row.id}/retry`,'POST',{expected_generation:Number(ctx.row.generation),reason:String(data.get('reason')),open_budget:data.get('budget')==='on'});
   else if(ctx.kind==='review-processing')command=api.command(`/api/v1/l0/processings/${ctx.row.id}/reviews`,'POST',{expected_generation:Number(ctx.row.generation),basis_digest:ctx.row.output_review_basis.digest,decision:'RETRY_FIXED_INPUT',reason:String(data.get('reason'))});
@@ -161,7 +167,13 @@ document.addEventListener('submit',event=>{
   if(event.target.id==='source-search'){event.preventDefault();state.filters.q=new FormData(event.target).get('q')||'';render();}
   if(event.target.id==='task-query'){event.preventDefault();const data=Object.fromEntries(new FormData(event.target));if(!validRange(data.from,data.to)){notice('日期范围无效，请核对开始与结束日期。',true);return;}state.taskFilters=data;refresh();}
 });
-document.addEventListener('change',event=>{const key=event.target.dataset.sourceFilter;if(key){const id=event.target.id;state.filters[key]=event.target.multiple?[...event.target.selectedOptions].map(x=>x.value).filter(Boolean):event.target.value;render();document.getElementById(id)?.focus();}});
+document.addEventListener('change',event=>{
+  if(event.target.name==='interval_unit'&&dialogContext?.kind==='schedule'){
+    const input=modal.querySelector('[name="interval_value"]'),scale=periodUnits[event.target.value].seconds;
+    input.min=String(60/scale);input.max=String(86400/scale);
+  }
+  const key=event.target.dataset.sourceFilter;if(key){const id=event.target.id;state.filters[key]=event.target.multiple?[...event.target.selectedOptions].map(x=>x.value).filter(Boolean):event.target.value;render();document.getElementById(id)?.focus();}
+});
 modal.addEventListener('input',()=>{
   if(!dialogContext?.kind.startsWith('source-')||dialogContext.kind==='source-state')return;
   dialogContext.dirty=true;store('riskhot-draft',{actor:state.session.actor,source:dialogContext.source?.catalog_key??null,values:Object.fromEntries(new FormData(modal.querySelector('form')))});

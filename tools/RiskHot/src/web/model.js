@@ -1,5 +1,19 @@
 export const statusNames = {ACTIVE:'启用',DISABLED:'停用',ready:'已就绪',needs_adapter:'待配置连接器',missing_url:'待补地址',authentication_required:'需登录',unknown:'待确认',running:'运行中',queued:'待执行',pending:'待执行',paused:'已暂停',completed:'已完成',partial:'部分完成',failed:'失败',blocked:'已阻断',recoverable:'待恢复',review:'待复核',waiting_config:'待配置',needs_url:'待补地址',needs_login:'需登录',access_blocked:'访问受限'};
 export const statusName = value => statusNames[value] || value || '未知';
+export const periodUnits={minutes:{seconds:60,label:'分钟'},hours:{seconds:3600,label:'小时'},days:{seconds:86400,label:'天'}};
+export function schedulePeriod(seconds=3600){
+  const unit=['days','hours','minutes'].find(unit=>seconds%periodUnits[unit].seconds===0)||'minutes';
+  return {value:seconds/periodUnits[unit].seconds,unit};
+}
+export function periodSeconds(value,unit){
+  const raw=Number(value)*periodUnits[unit]?.seconds,seconds=Math.round(raw);
+  if(!Number.isFinite(raw)||seconds<60||seconds>86400||Math.abs(raw-seconds)>0.000001)throw new RangeError('执行周期需介于1分钟至1天，且精确到整数秒。');
+  return seconds;
+}
+export function formatPeriod(seconds){
+  if(seconds%60)return `${Math.floor(seconds/60)} 分钟 ${seconds%60} 秒`;
+  const period=schedulePeriod(seconds);return `${period.value} ${periodUnits[period.unit].label}`;
+}
 export const steps = ['核对信源资格与接入条件','获取原始资料','正文读取与资料标准化','识别重复与资料版本','保存标准化资料','交付标准化资料'];
 export const escape = value => String(value ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function profileOf(source) {

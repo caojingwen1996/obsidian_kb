@@ -1,6 +1,21 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
+test('schedule period units preserve existing durations and convert decimal hours without exceeding current bounds', async () => {
+  const {schedulePeriod,periodSeconds,formatPeriod}=await import('../web/model.js');
+  assert.deepEqual(schedulePeriod(3600),{value:1,unit:'hours'});
+  assert.deepEqual(schedulePeriod(86400),{value:1,unit:'days'});
+  assert.deepEqual(schedulePeriod(5400),{value:90,unit:'minutes'});
+  assert.equal(periodSeconds('30','minutes'),1800);
+  assert.equal(periodSeconds('1.5','hours'),5400);
+  assert.equal(periodSeconds('1','days'),86400);
+  assert.equal(periodSeconds(String(schedulePeriod(61).value),'minutes'),61);
+  for(const [value,unit]of [['0','minutes'],['2','days'],['24.01','hours'],['abc','hours'],['1','weeks'],['1.0001','minutes']])assert.throws(()=>periodSeconds(value,unit));
+  assert.equal(formatPeriod(7200),'2 小时');
+  assert.equal(formatPeriod(86400),'1 天');
+  assert.equal(formatPeriod(1800),'30 分钟');
+});
+
 test('directory identity search does not match unrelated focus or background prose', async () => {
   const {filterSources}=await import('../web/model.js');
   const rows=[{catalog_key:'a',name:'中国人民银行',metadata:{}},{catalog_key:'b',name:'其他来源',metadata:{focus:'观察中国人民银行发布的数据'}}];

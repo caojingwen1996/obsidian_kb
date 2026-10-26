@@ -253,5 +253,70 @@
       "task_label_updated": true
     },
     "impeccable_findings": []
+  },
+  "period_units": {
+    "date": "2026-10-26",
+    "units": [
+      "minutes",
+      "hours",
+      "days"
+    ],
+    "storage": "Existing interval_seconds; normalize largest exactly divisible display unit; no schedule data migration",
+    "range_seconds": [
+      60,
+      86400
+    ],
+    "tests": {
+      "passed": 90,
+      "failed": 0,
+      "skipped": 0,
+      "duration_ms": 66715.819542,
+      "typecheck": "pass"
+    },
+    "browser": {
+      "checks": [
+        "unauthenticated shell",
+        "40 persisted sources",
+        "multi-value intersection filters",
+        "source search and flat view",
+        "separate business/technical state",
+        "historical profile is read-only",
+        "create and locate persistent disabled profile",
+        "global task action remains available from a manual source",
+        "profile survives reload",
+        "one click starts every enabled source without configuration or duplicate batches",
+        "paused batch survives reload",
+        "resume uses persisted checkpoints",
+        "unknown direct-start receipt retries the same committed batch",
+        "source-detail launch ignores catalog filters and uses current enabled source states",
+        "schedule period controls fit desktop and mobile",
+        "independent schedule creation",
+        "minute hour and day schedule values persist and reload with equivalent durations",
+        "out of range schedule units cannot change a persisted plan",
+        "responsive sources 1440",
+        "responsive tasks 1440",
+        "responsive sources 390",
+        "mobile detail drawer and return focus",
+        "responsive tasks 390",
+        "responsive sources 320",
+        "mobile form and unsaved keyboard confirmation",
+        "responsive tasks 320",
+        "read-only actor sees no write controls",
+        "expired login preserves draft",
+        "local workbench opens directly without login or cookies",
+        "local source write persists across reload without login",
+        "local task controls remain available",
+        "no enabled sources disables direct launch without creating an empty batch"
+      ],
+      "page_errors": [],
+      "environment": "isolated database and browser; no source collection or model call"
+    },
+    "live_assets": {
+      "checked_at": "2026-10-26T12:24:45.148Z",
+      "unit_selector_served": true,
+      "value_input_served": true,
+      "existing_schedule_count": 26
+    },
+    "impeccable_findings": []
   }
 }

@@ -99,10 +99,33 @@ try {
   const secondKeys = (await c.db.query('SELECT s.catalog_key FROM platform.task_batch_sources bs JOIN m1.sources s ON s.id=bs.source_id WHERE bs.batch_id=(SELECT id FROM platform.task_batches ORDER BY created_at DESC LIMIT 1) ORDER BY s.catalog_key')).rows.map(row => row.catalog_key);
   assert.deepEqual(secondKeys, enabledKeys.filter(key => key !== 'wiki-source-002')); check('source-detail launch ignores catalog filters and uses current enabled source states');
   await page.unroute('**/api/v1/l0/task-batches');
-  await page.getByRole('link', { name: '任务计划', exact: true }).click(); await page.locator('[data-schedule]').first().waitFor();
-  await page.locator('[data-schedule]').first().click(); await page.locator('#modal [name="enabled"]').selectOption('true');
+  await page.getByRole('link', { name: '任务计划', exact: true }).click(); await page.locator('[data-schedule="wiki-source-001"]').waitFor();
+  await page.locator('[data-schedule="wiki-source-001"]').click(); await page.locator('#modal [name="enabled"]').selectOption('true');
+  await page.locator('#modal [name="interval_value"]').waitFor({ timeout: 2000 });
+  await page.locator('#modal [name="interval_value"]').fill('2'); await page.locator('#modal [name="interval_unit"]').selectOption('hours');
+  for(const width of [1440,390]){
+    await page.setViewportSize({width,height:1050});
+    assert.ok(await page.locator('#modal .dialog-body').evaluate((body: HTMLElement)=>body.scrollWidth<=body.clientWidth+1));
+    await page.screenshot({path:join(output,`plan-units-${width}.png`)});
+  }
+  await page.setViewportSize({width:1440,height:1050});check('schedule period controls fit desktop and mobile');
   await page.locator('#modal').getByRole('button', { name: '保存计划', exact: true }).click(); await page.locator('#modal').waitFor({ state: 'hidden' });
-  await page.locator('[data-schedule]').first().filter({ hasText: '管理计划' }).waitFor(); check('independent schedule creation');
+  await page.locator('[data-schedule="wiki-source-001"]').filter({ hasText: '管理计划' }).waitFor(); check('independent schedule creation');
+  await page.reload(); await settle();
+  const scheduleButton=page.locator('[data-schedule="wiki-source-001"]');
+  for(const [unit,value,seconds]of [['hours','2',7200],['days','1',86400],['minutes','30',1800]]as const){
+    await scheduleButton.click();
+    if(unit==='hours'){assert.equal(await page.locator('#modal [name="interval_unit"]').inputValue(),'hours');assert.equal(await page.locator('#modal [name="interval_value"]').inputValue(),'2');}
+    await page.locator('#modal [name="interval_unit"]').selectOption(unit); await page.locator('#modal [name="interval_value"]').fill(value);
+    await page.locator('#modal').getByRole('button',{name:'保存计划',exact:true}).click(); await page.locator('#modal').waitFor({state:'hidden'});
+    assert.equal((await c.db.query('SELECT interval_seconds FROM platform.source_schedules WHERE source_id=$1',[c.parent.source_id])).rows[0].interval_seconds,seconds);
+    await page.reload(); await settle();
+  }
+  check('minute hour and day schedule values persist and reload with equivalent durations');
+  await scheduleButton.click();await page.locator('#modal [name="interval_unit"]').selectOption('days');await page.locator('#modal [name="interval_value"]').fill('2');
+  await page.locator('#modal').getByRole('button',{name:'保存计划',exact:true}).click();
+  assert.equal(await page.locator('#modal').isVisible(),true);assert.equal((await c.db.query('SELECT interval_seconds FROM platform.source_schedules WHERE source_id=$1',[c.parent.source_id])).rows[0].interval_seconds,1800);
+  await page.locator('#modal').getByRole('button',{name:'取消',exact:true}).click();check('out of range schedule units cannot change a persisted plan');
   for (const width of [1440, 390, 320]) {
     await page.setViewportSize({ width, height: 1050 });
     await page.getByRole('link', { name: '信源目录', exact: true }).click(); await page.locator('#result-count').waitFor();
