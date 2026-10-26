@@ -7,7 +7,7 @@
 
 ## 来源到事件候选：工程实现
 
-- [[tools/RiskHot/docs/verification/m1-management|M1 实际管理与任务控制]]：在 main 按原型实现信源档案、真实多信源批次开启/暂停/继续及独立计划；本机默认免登录，包含接口、浏览器、代码审阅与后台迁移证据。
+- [[tools/RiskHot/docs/verification/m1-management|M1 实际管理与任务控制]]：在 main 按原型实现信源档案、全部启用信源一键开启、批次暂停/继续及独立计划；本机默认免登录，包含接口、浏览器、代码审阅与后台迁移证据。
 - [[tools/RiskHot/docs/verification/codex-subscription|Codex 订阅闭环与后台运行]]：真实央行公告形成2条已校验候选，定时与重复获取复用同一资料/候选；后台计划、安静异常提醒及真实证据入口。
 - [[tools/RiskHot/docs/verification/all-sources|全部信源接入阶段验证]]：40条状态明确，26条真实入库、6条待补地址、8条受阻；保留该阶段41项测试与模型待配置的历史证据。[[tools/RiskHot/docs/verification/all-sources.json|逐源证据清单]]保留范围、运行及原件摘要。
 

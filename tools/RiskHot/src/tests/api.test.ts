@@ -45,7 +45,8 @@ test('OIDC protects writes; strict input, idempotency, source eligibility and ti
     assert.equal(detail.json().slice_status, 'queued');
     assert.equal((await app.inject({ url: '/api/v1/l0/runs?from=2000-01-01&to=2000-01-02', headers })).json().items.length, 0);
     assert.equal((await app.inject({ url: '/api/v1/l0/runs?from=2026-02-30', headers })).statusCode, 400);
-    assert.equal((await app.inject({ url: `/api/v1/l0/runs?status=queued&to=${encodeURIComponent(new Date().toISOString())}`, headers })).json().items.some((x: { id: string }) => x.id === first.json().operation_id), true);
+    const acceptedEnd = new Date(Date.parse(detail.json().scheduled_at) + 1).toISOString();
+    assert.equal((await app.inject({ url: `/api/v1/l0/runs?status=queued&to=${encodeURIComponent(acceptedEnd)}`, headers })).json().items.some((x: { id: string }) => x.id === first.json().operation_id), true);
     const fixtureUrl = `https://www.pbc.gov.cn/zhengcehuobisi/125207/125213/125431/125475/${Date.now()}/index.html`;
     const [fixtureChild] = await repo.recordDiscovery(first.json().operation_id, 1, [{ url: fixtureUrl, title: '受控背景资料' }], Buffer.from('controlled listing'));
     assert.ok(fixtureChild);

@@ -10,7 +10,7 @@ const today=shanghaiDate(),saved=readStored('riskhot-view');
 const state={sources:[],session:null,view:'research',selected:null,detailTab:'archive',mobileDetail:false,history:null,batches:null,monitor:null,
   filters:{q:'',tier:'',category:'',dims:'',levels:'',group:'',state:'',readiness:'',priority:'',frequency:''},taskFilters:{from:today,to:today,q:'',status:''},selectedBatch:null,...saved};
 state.pending=readStored('riskhot-command');state.sources=[];state.session=null;
-let connected=false,loading=false,busy=false,dialogContext=null,returnFocus=null,historyRequest=0,refreshRequest=0,refreshPromise=null;
+let connected=false,loading=false,busy=false,startingBatch=false,dialogContext=null,returnFocus=null,historyRequest=0,refreshRequest=0,refreshPromise=null;
 const can=(permission,key)=>Boolean(state.session?.permissions.includes(permission)&&(!key||state.session.source_keys.includes('*')||state.session.source_keys.includes(key)));
 const route=()=>location.hash==='#intake-tasks'?'tasks':location.hash==='#schedules'?'schedules':'sources';
 function remember(){store('riskhot-view',{view:state.view,selected:state.selected,detailTab:state.detailTab,filters:state.filters,taskFilters:state.taskFilters,selectedBatch:state.selectedBatch});}
@@ -26,6 +26,7 @@ function render(){
   if(route()==='tasks')content.innerHTML=state.batches?renderTasks(state,can):'<div class="loading" role="status">正在读取接入批次…</div>';
   else if(route()==='schedules')content.innerHTML=state.monitor?renderSchedules(state,can):'<div class="loading" role="status">正在读取计划…</div>';
   else content.innerHTML=renderSources(state,can);
+  updateStartButtons();
   if(state.pending)notice('上一项操作的结果尚未确认。请先查询状态，或重试原操作。',true);
   if(state.pending&&!document.querySelector('#pending-controls'))feedback.insertAdjacentHTML('beforeend','<span id="pending-controls" class="actions"><button class="secondary" data-action="retry-pending">重试原操作</button><button class="quiet" data-action="refresh">查询当前状态</button></span>');
 }
@@ -82,9 +83,21 @@ function openSourceForm(key){
   openDialog(source?'编辑信源资料':'新增信源',sourceForm(source),{kind:source?'source-edit':'source-create',source,dirty:false},'保存资料');
   if(draft&&draft.source===(key||null)&&draft.actor===state.session.actor){for(const [field,value]of Object.entries(draft.values)){const input=modal.querySelector(`[name="${field}"]`);if(input)input.value=value;}dialogContext.dirty=true;}
 }
-function startBatch(selected){
-  const eligible=state.sources.filter(x=>can('submit',x.catalog_key)&&x.state==='ACTIVE'&&x.connection?.readiness==='ready');
-  openDialog('开启信息接入任务',`<p>选择本次批次的信源。每个信源按已核验范围读取最新资料。</p><fieldset class="source-picker"><legend>本次信源</legend>${state.sources.map(source=>`<label><input type="checkbox" name="sources" value="${e(source.catalog_key)}" ${eligible.includes(source)?'':'disabled'} ${source.catalog_key===selected?'checked':''}><span><strong>${e(source.name)}</strong><small>${eligible.includes(source)?'可自动接入':e(source.state!=='ACTIVE'?'业务已停用':statusName(source.connection?.readiness))}</small></span></label>`).join('')}</fieldset><label class="field">每个信源最多读取<input name="limit" type="number" min="1" max="5" value="1" required><small>取值 1～5；读取范围以连接配置为准。</small></label>`,{kind:'batch-create'},'开启任务');
+function updateStartButtons(){
+  const enabled=state.sources.some(source=>source.state==='ACTIVE'&&can('submit',source.catalog_key));
+  document.querySelectorAll('[data-action="start-batch"]').forEach(button=>button.disabled=startingBatch||busy||!enabled);
+}
+async function startBatch(){
+  if(startingBatch||busy)return;
+  if(state.pending){render();return;}
+  startingBatch=true;updateStartButtons();
+  try{
+    const sources=await api.get('/api/v1/m1/sources');state.sources=sources.items;
+    const keys=state.sources.filter(source=>source.state==='ACTIVE'&&can('submit',source.catalog_key)).map(source=>source.catalog_key);
+    if(!keys.length){notice('暂无已启用的信源，请先启用信源。',true);return;}
+    await execute(api.command('/api/v1/l0/task-batches','POST',{source_keys:keys,limit:1}),{kind:'batch-create'});
+  }catch(error){notice(explain(error),true);}
+  finally{startingBatch=false;updateStartButtons();}
 }
 function openControl(id,action){
   const task=state.batches?.items.find(x=>x.id===id);if(!task)return;
@@ -105,12 +118,12 @@ async function execute(command,context){
     const value=await api.send(command);state.pending=null;store('riskhot-command',null);busy=false;
     if(context.kind==='source-create')Object.keys(state.filters).forEach(key=>state.filters[key]='');
     if(context.kind.startsWith('source-')){store('riskhot-draft',null);state.selected=value.catalog_key||value.key||context.source?.catalog_key;state.detailTab='archive';}
-    if(context.kind==='batch-create'){state.selectedBatch=value.id;state.taskFilters={from:shanghaiDate(new Date(value.scheduled_at)),to:shanghaiDate(new Date(value.scheduled_at)),q:value.id,status:''};location.hash='intake-tasks';}
+    if(context.kind==='batch-create'){state.selectedBatch=value.id;state.mobileDetail=false;state.taskFilters={from:shanghaiDate(new Date(value.scheduled_at)),to:shanghaiDate(new Date(value.scheduled_at)),q:value.id,status:''};if(location.hash!=='#intake-tasks')history.pushState(null,'','#intake-tasks');}
     closeDialog(true);await refresh();notice('操作已确认，当前状态已重新读取。');
   }catch(error){
     const unknown=Boolean(error.command);if(!unknown){state.pending=null;store('riskhot-command',null);}
     const area=modal.open?modal.querySelector('#modal-error'):feedback;area.hidden=false;area.textContent=explain(error);
-    if(unknown){area.insertAdjacentHTML('beforeend','<p>提交内容已保留，重试将使用原请求。</p><button type="button" class="secondary" data-action="retry-pending">重试原操作</button><button type="button" class="quiet" data-action="refresh">查询当前状态</button>');modal.querySelectorAll('input,select,textarea').forEach(x=>x.disabled=true);}
+    if(unknown){area.insertAdjacentHTML('beforeend',`<p>提交内容已保留，重试将使用原请求。</p><span ${modal.open?'':'id="pending-controls"'} class="actions"><button type="button" class="secondary" data-action="retry-pending">重试原操作</button><button type="button" class="quiet" data-action="refresh">查询当前状态</button></span>`);modal.querySelectorAll('input,select,textarea').forEach(x=>x.disabled=true);}
     if(error.status===401){document.querySelector('#login').hidden=false;area.insertAdjacentHTML('beforeend','<p><a href="/auth/login">重新登录后继续</a></p>');}
   }finally{busy=false;modal.querySelectorAll('button').forEach(x=>x.disabled=false);if(state.pending)modal.querySelector('[type="submit"]')?.setAttribute('disabled','');}
 }
@@ -121,10 +134,7 @@ async function submitDialog(form){
     const profile=Object.fromEntries(profileFields.map(([key])=>[key,['dims','levels'].includes(key)?[...new Set(String(data.get(key)||'').split(/[、,，]/).map(x=>x.trim()).filter(Boolean))]:String(data.get(key)||'').trim()]));
     command=api.command(ctx.source?`/api/v1/m1/sources/${ctx.source.catalog_key}`:'/api/v1/m1/sources',ctx.source?'PUT':'POST',ctx.source?{expected_version:ctx.source.version,profile,reason:'在信源管理中心更新档案'}:{profile});
   }else if(ctx.kind==='source-state')command=api.command(`/api/v1/m1/sources/${ctx.source.catalog_key}`,'PATCH',{state:ctx.source.state==='ACTIVE'?'DISABLED':'ACTIVE',expected_version:ctx.source.version,reason:String(data.get('reason')||'')});
-  else if(ctx.kind==='batch-create'){
-    const keys=data.getAll('sources');if(!keys.length){modal.querySelector('#modal-error').hidden=false;modal.querySelector('#modal-error').textContent='请选择至少一个具备接入条件的信源。';return;}
-    command=api.command('/api/v1/l0/task-batches','POST',{source_keys:keys,limit:Number(data.get('limit'))});
-  }else if(ctx.kind==='batch-control')command=api.command(`/api/v1/l0/task-batches/${ctx.task.id}/control`,'POST',{action:ctx.action,expected_version:ctx.task.version,reason:String(data.get('reason'))});
+  else if(ctx.kind==='batch-control')command=api.command(`/api/v1/l0/task-batches/${ctx.task.id}/control`,'POST',{action:ctx.action,expected_version:ctx.task.version,reason:String(data.get('reason'))});
   else if(ctx.kind==='schedule')command=api.command(`/api/v1/l0/schedules/${ctx.source.catalog_key}`,'PATCH',{enabled:data.get('enabled')==='true',interval_seconds:Number(data.get('minutes'))*60,expected_updated_at:ctx.plan?.updated_at??null});
   else if(ctx.kind==='retry-operation')command=api.command(`/api/v1/l0/operations/${ctx.row.id}/retry`,'POST',{expected_generation:Number(ctx.row.generation),reason:String(data.get('reason'))});
   else if(ctx.kind==='retry-processing')command=api.command(`/api/v1/l0/processings/${ctx.row.id}/retry`,'POST',{expected_generation:Number(ctx.row.generation),reason:String(data.get('reason')),open_budget:data.get('budget')==='on'});
@@ -168,7 +178,6 @@ document.addEventListener('click',async event=>{
   if(d.tab){state.detailTab=d.tab;render();document.querySelector(`[data-tab="${d.tab}"]`)?.focus();if(d.tab==='history')loadHistory();if(d.tab==='relations')loadRelations();}
   if(d.editSource!==undefined)openSourceForm(d.editSource);
   if(d.sourceState){const source=state.sources.find(x=>x.catalog_key===d.sourceState);openDialog(source.state==='ACTIVE'?'停用信源':'启用信源',`<p>${e(source.name)} · 当前版本 v${source.version}</p><p>${source.state==='ACTIVE'?'停用后阻断新的采集与后续处理，已保存资料保留。':'启用前请核对身份、发布主体与允许范围。业务启用不代表具备自动连接条件，也不会自动补采。'}</p><label class="field">操作理由（选填）<input name="reason" maxlength="2000"></label>`,{kind:'source-state',source},source.state==='ACTIVE'?'确认停用':'确认启用');}
-  if(d.startSource)startBatch(d.startSource);
   if(d.taskControl)openControl(d.taskId,d.taskControl);
   if(d.batchDetail){state.selectedBatch=state.selectedBatch===d.batchDetail?null:d.batchDetail;render();document.querySelector('#batch-detail-title')?.focus();}
   if(d.schedule)openSchedule(d.schedule);
