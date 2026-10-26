@@ -65,7 +65,7 @@ export function ioActivities(repo: ExecutionStore) {
         const processing = await repo.processing(id); repo.guard(processing, generation);
         if (processing.extraction_status === 'completed') return false;
         if (processing.extraction_status === 'review') return false;
-        const op = (await repo.db.query<OperationRow>('SELECT * FROM information.operations WHERE processing_id=$1 ORDER BY created_at LIMIT 1', [id])).rows[0];
+        const op = (await repo.db.query<OperationRow>('SELECT * FROM information.operations WHERE processing_id=$1 AND NOT paused ORDER BY created_at LIMIT 1', [id])).rows[0];
         if (!op) throw new DomainError('PROCESSING_OWNER_MISSING');
         await repo.checkSource(op);
         if (!modelCredentialsConfigured()) throw new DomainError('MODEL_NOT_CONFIGURED', 503);

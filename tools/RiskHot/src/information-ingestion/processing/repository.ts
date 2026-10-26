@@ -129,6 +129,11 @@ export class Repository {
     if (Number(row.generation) !== generation) throw new DomainError('STALE_EXECUTION', 409);
     if (row.paused) throw new DomainError('TASK_PAUSED', 409);
   }
+  async lockTaskGraph(client: PoolClient): Promise<void> {
+    // Serialize short graph mutations before taking processing/operation locks.
+    // File capture and external I/O remain outside this transaction boundary.
+    await client.query("SELECT pg_advisory_xact_lock(hashtextextended('riskhot-task-graph',0))");
+  }
   async recordDiscovery(id: string, generation: number, items: SourceItem[], raw: Buffer): Promise<string[]> {
     const snapshot = await this.rawOperation(id); this.guard(snapshot, generation);
     const connection = await this.connectionFor(snapshot);
@@ -142,6 +147,7 @@ export class Repository {
     const list = await this.artifact(await this.artifacts.put(raw, 'source-list'));
     const commands = await Promise.all(items.map(async item => ({ item, artifact: await this.putJson({ type: 'SOURCE_REFERENCE', source_id: snapshot.source_id, source_version: snapshot.source_version, actor: snapshot.actor, parent_operation_id: id, url: item.url, connector:connection.id,scope:connection.scope }, 'intake-command') })));
     return transaction(this.db, async client => {
+      await this.lockTaskGraph(client);
       const parent = await this.rawOperation(id, client, true);
       this.guard(parent, generation); await this.checkSource(parent, client);
       if (parent.raw_artifact_id) return (await client.query<{ id: string }>('SELECT id FROM information.operations WHERE parent_id=$1 ORDER BY id', [id])).rows.map(row => row.id);
@@ -233,6 +239,7 @@ export class Repository {
     const messages = await this.db.query<{ id: string }>('SELECT id FROM platform.messages WHERE state IN (\'pending\',\'blocked\') AND next_attempt_at<=now() ORDER BY id LIMIT 20');
     for (const pending of messages.rows) {
       await transaction(this.db, async client => {
+        await this.lockTaskGraph(client);
         const message = (await client.query<{ id: string; version_id: string }>('SELECT id,version_id FROM platform.messages WHERE id=$1 AND state IN (\'pending\',\'blocked\') FOR UPDATE SKIP LOCKED', [pending.id])).rows[0];
         if (!message) return;
         const owner = first((await client.query<OperationRow>('SELECT * FROM information.operations WHERE version_id=$1 ORDER BY paused,created_at LIMIT 1', [message.version_id])).rows);
@@ -250,9 +257,16 @@ export class Repository {
         await this.attachProcessing(client, message.version_id);
       });
     }
-    await this.attachProcessing(this.db);
+    await transaction(this.db, async client => {
+      await this.lockTaskGraph(client);
+      await this.attachProcessing(client);
+    });
   }
-  private async attachProcessing(client: Pool | PoolClient, versionId: string | null = null): Promise<void> {
+  private async attachProcessing(client: PoolClient, versionId: string | null = null): Promise<void> {
+    const ids = (await client.query<{ id: string }>(`SELECT DISTINCT p.id FROM platform.messages m JOIN information.processing_runs p ON p.id=m.receipt_processing_id
+      JOIN information.operations o ON o.version_id=m.version_id WHERE m.state='received' AND NOT o.paused AND (o.processing_id IS NULL OR p.paused)
+      AND ($1::uuid IS NULL OR m.version_id=$1) ORDER BY p.id`, [versionId])).rows.map(row => row.id);
+    const processings = ids.length ? (await client.query<ProcessingRow>('SELECT * FROM information.processing_runs WHERE id=ANY($1::uuid[]) ORDER BY id FOR UPDATE', [ids])).rows : [];
     await client.query(`UPDATE information.operations o SET processing_id=p.id,
       status=CASE WHEN p.extraction_status='completed' THEN 'completed'
         WHEN p.extraction_status='review' THEN 'review'
@@ -262,6 +276,14 @@ export class Repository {
       reason_code=p.error_code,updated_at=now()
       FROM platform.messages m JOIN information.processing_runs p ON p.id=m.receipt_processing_id
       WHERE o.version_id=m.version_id AND m.state='received' AND o.processing_id IS NULL AND NOT o.paused AND ($1::uuid IS NULL OR o.version_id=$1)`, [versionId]);
+    for (const processing of processings) {
+      if (!processing.paused || ['completed', 'review'].includes(processing.extraction_status)) continue;
+      const active = (await client.query('SELECT 1 FROM information.operations WHERE processing_id=$1 AND NOT paused LIMIT 1', [processing.id])).rowCount;
+      if (!active) continue;
+      const generation = Number(processing.generation) + 1;
+      await client.query('UPDATE information.processing_runs SET paused=false,generation=$2 WHERE id=$1', [processing.id, generation]);
+      if (processing.extraction_status === 'pending') await this.intent(client, 'extract', processing.id, generation);
+    }
   }
   async processing(id: string, client: Pool | PoolClient = this.db, lock = false): Promise<ProcessingRow> {
     return first((await client.query<ProcessingRow>(`SELECT * FROM information.processing_runs WHERE id=$1${lock ? ' FOR UPDATE' : ''}`, [id])).rows);

@@ -19,8 +19,8 @@ function stateOf(statuses: string[], fallback = 'queued'): string {
   if (!statuses.length) return fallback;
   if (statuses.every(x => x === 'completed')) return 'completed';
   if (statuses.includes('running')) return 'running';
-  if (statuses.includes('queued') || statuses.includes('pending')) return statuses.includes('completed') ? 'running' : 'queued';
-  if (statuses.includes('completed')) return 'partial';
+  if (statuses.includes('queued') || statuses.includes('pending')) return statuses.some(x => x === 'completed' || x === 'partial') ? 'running' : 'queued';
+  if (statuses.includes('completed') || statuses.includes('partial')) return 'partial';
   return ['review', 'recoverable', 'waiting_config', 'blocked', 'failed', 'paused'].find(x => statuses.includes(x)) ?? fallback;
 }
 function decorate(batch: Omit<Batch, 'status' | 'saved_count' | 'completed_sources' | 'error_sources' | 'has_error'>): Batch {
@@ -107,6 +107,7 @@ export class TaskManagement {
   }
   async control(actor: string, id: string, key: string, input: { action: 'pause' | 'resume'; expected_version: number; reason: string }): Promise<Batch> {
     await this.repo.action(actor, 'task-batch-control', key, { id, ...input }, tx => this.scope(actor, id, 'submit', tx), async tx => {
+      await this.repo.lockTaskGraph(tx);
       const batch = (await tx.query<{ version: number; paused: boolean }>('SELECT version,paused FROM platform.task_batches WHERE id=$1 FOR UPDATE', [id])).rows[0];
       const roots = batch ? (await tx.query<{ id: string }>('SELECT operation_id AS id FROM platform.task_batch_sources WHERE batch_id=$1 AND operation_id IS NOT NULL ORDER BY operation_id', [id])).rows.map(x => x.id) : [id];
       const legacy = batch ? undefined : await this.repo.rawOperation(id, tx);
@@ -150,6 +151,7 @@ export class TaskManagement {
   }
   async schedule(actor: string, source: string, key: string, input: { enabled: boolean; interval_seconds: number; expected_updated_at: string | null }) {
     return this.repo.action(actor, 'schedule-edit', key, { source, ...input }, tx => this.repo.authorize(actor, 'submit', source, tx), async tx => {
+      await tx.query('SELECT pg_advisory_xact_lock(hashtextextended($1,0))', [`schedule:${source}`]);
       const owner = (await tx.query<{ id: string }>('SELECT id FROM m1.sources WHERE catalog_key=$1 FOR SHARE', [source])).rows[0];
       if (!owner) throw new DomainError('NOT_FOUND', 404);
       const current = (await tx.query<{ updated_at: Date }>('SELECT updated_at FROM platform.source_schedules WHERE source_id=$1 FOR UPDATE', [owner.id])).rows[0];

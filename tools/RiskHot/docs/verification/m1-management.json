@@ -1,0 +1,135 @@
+{
+  "date": "2026-10-26",
+  "implementation_branch": "main",
+  "implementation_head": "5e29c493",
+  "verification_scope": "Actual Fastify/PostgreSQL/OIDC APIs and isolated browser; controlled material/model services; no additional live collection or subscription inference triggered for tests",
+  "tests_before_final_review": {
+    "passed": 80,
+    "failed": 0,
+    "skipped": 0,
+    "duration_ms": 61538.345542,
+    "typecheck": "pass"
+  },
+  "browser": {
+    "checks": [
+      "unauthenticated shell",
+      "40 persisted sources",
+      "multi-value intersection filters",
+      "source search and flat view",
+      "separate business/technical state",
+      "historical profile is read-only",
+      "create and locate persistent disabled profile",
+      "manual eligibility does not imply automatic connector",
+      "profile survives reload",
+      "one persisted multi-source batch",
+      "paused batch survives reload",
+      "resume uses persisted checkpoints",
+      "unknown receipt survives closing and retries the same committed batch",
+      "independent schedule creation",
+      "responsive sources 1440",
+      "responsive tasks 1440",
+      "responsive sources 390",
+      "mobile detail drawer and return focus",
+      "responsive tasks 390",
+      "responsive sources 320",
+      "mobile form and unsaved keyboard confirmation",
+      "responsive tasks 320",
+      "read-only actor sees no write controls",
+      "expired login preserves draft"
+    ],
+    "page_errors": [],
+    "environment": "isolated database and browser; no source collection or model call"
+  },
+  "impeccable_findings": [],
+  "runtime_cutover": {
+    "checked_at": "2026-10-26T11:26:11.333Z",
+    "branch": "main",
+    "workspace": "/Users/cjw/dev/Obsidian/wiki/tools/RiskHot",
+    "service": {
+      "label": "local.riskhot.source-candidates.8bb6087669",
+      "running": true,
+      "pid": 75701,
+      "working_directory_main": true
+    },
+    "health": {
+      "ready": true,
+      "model_configured": true
+    },
+    "page": {
+      "status": 200,
+      "has_m1": true,
+      "asset_status": 200
+    },
+    "source_shape": [
+      "items"
+    ],
+    "schedule_count": 26,
+    "batches_total": 247,
+    "batch_metrics": {
+      "total": 247,
+      "running": 0,
+      "errors": 23,
+      "attention": 23,
+      "paused": 0,
+      "queued": 0
+    },
+    "prior_processing": {
+      "id": "f5a5022f-eecd-4225-9a9b-280003502916",
+      "status": "completed",
+      "candidate_count": 2
+    },
+    "prior_version": {
+      "id": "7514f269-e848-4b9a-aecd-09ecb4bd3ab5",
+      "readable": true,
+      "raw_bytes": 29886
+    },
+    "sources_count": 40,
+    "sources_ready": 26,
+    "monitor_keys": [
+      "schedules",
+      "alerts",
+      "background_service",
+      "model_service",
+      "notification_semantics"
+    ],
+    "old_worktree": {
+      "service_stopped": true,
+      "runtime_files_preserved": 2185,
+      "archive_result": "primary_checkout_cannot_be_removed",
+      "code_on_main": true
+    },
+    "final_restart": {
+      "checked_at": "2026-10-26T11:37:41.446Z",
+      "running": true,
+      "pid": 76642,
+      "workspace_main": true,
+      "health": {
+        "ready": true,
+        "model_configured": true
+      },
+      "page_status": 200
+    }
+  },
+  "final_review": {
+    "reviewed_range": "6af946a9..5e29c493",
+    "independent_reviewers": 1,
+    "critical": 0,
+    "important": 4,
+    "minor": 1,
+    "important_fixed": 4,
+    "regressions_red_before_fix": 7,
+    "management_regressions_after_fix": {
+      "passed": 17,
+      "failed": 0
+    },
+    "deferred_minor": "Confirmed write followed by failed refresh can show an imprecise success message; data and connection state remain available.",
+    "rereview": false
+  },
+  "final_tests": {
+    "passed": 87,
+    "failed": 0,
+    "skipped": 0,
+    "duration_ms": 64833.45225,
+    "typecheck": "pass"
+  }
+}

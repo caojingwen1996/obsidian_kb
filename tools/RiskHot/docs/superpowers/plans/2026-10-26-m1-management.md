@@ -63,13 +63,13 @@
 
 **Files:** `README.md`、`docs/verification/m1-management.md`、`index.md`、项目和知识库 `log.md`。
 
-- [ ] 执行 `npm run typecheck`、`npm test`；记录数量及失败原因。
-- [ ] 独立浏览器运行实际页面与受控服务端 API，验证 1440/390/320 宽度、目录操作、开启、暂停、刷新后继续与权限错误。
-- [ ] 运行 Impeccable audit，集中修复本轮可见问题；最多两轮视觉检查。
-- [ ] 独立代码审阅检查上述 Review Focus，修复影响正确性的问题并重跑相关测试。
-- [ ] 更新启动入口、操作说明、实现边界、验证证据及两级日志，运行 Markdown 表格、UTF-8 和差异空白检查。
+- [x] 执行 `npm run typecheck`、`npm test`；记录数量及失败原因。
+- [x] 独立浏览器运行实际页面与受控服务端 API，验证 1440/390/320 宽度、目录操作、开启、暂停、刷新后继续与权限错误。
+- [x] 运行 Impeccable audit，集中修复本轮可见问题；最多两轮视觉检查。
+- [x] 独立代码审阅检查上述 Review Focus，修复影响正确性的问题并重跑相关测试。
+- [x] 更新启动入口、操作说明、实现边界、验证证据及两级日志，运行 Markdown 表格、UTF-8 和差异空白检查。
 
 ## 执行记录
 
-- Pre-flight：Task 1 产出 API 字段、Task 2 消费同一字段；后端 agent 只改服务端/数据库/专项测试，主 agent 只改网页/静态路由/网页测试与文档。共享 server.ts 由后端 agent 挂载其接口，主 agent 最后顺序接入静态页面，避免同时编辑。
+- Pre-flight：Task 1 产出 API 字段、Task 2 消费同一字段；本轮采用 executing-plans 原生顺序执行，后端与页面由主执行者依次实现，最后仅派一位独立代码审阅者。
 - 技术决定：本轮使用原型同源 HTML/CSS/模块脚本直连现有 Fastify，避免为已存在原型再增加构建和部署服务；与 ADR 的长期 React/Vite 方向有差异，仅涉及此管理页面交付，不改变后端契约或后续组件化路径。

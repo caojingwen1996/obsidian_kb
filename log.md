@@ -33966,3 +33966,13 @@ migrate / link：按用户要求，将旧00～08共9份架构文档从 `tools/Ri
 - 修改文件：src/l0/ 迁至 src/information-ingestion/processing/，src/m1/ 迁至 src/information-ingestion/sources/；同步运行层、操作脚本、测试的导入路径，以及 AGENTS.md、README、实现契约与两级日志。
 - 说明：information-ingestion 覆盖从信源配置到候选入库；sources 对应 M1，processing 对应当前 L0 候选切片。代码文件仅调整相对模块引用，已有接口、数据库和工作流标识继续兼容。项目导航入口保持。
 - 验证：类型检查与完整回归61/61通过、0失败/0跳过；监测命令执行成功。逐文件核对确认仅模块路径调整，所有相对引用可解析，旧代码目录引用已清除。测试日志保存于本地忽略目录 .riskhot/information-ingestion-20261026/。
+
+
+## 2026-10-26 · RiskHot M1 实际管理与 main 运行
+
+- 操作：implement / integrate / verify；按用户要求将全部 RiskHot 待提交成果并入 main，并在 main 按 M1 原型实现真实信源管理和接入任务管理。
+- 修改文件：tools/RiskHot/src/ 的信源档案/版本审计、任务批次与控制、计划、运行入口、同源网页及测试；项目 AGENTS.md、README、实施计划、验证记录和索引。
+- 实现：新增/编辑/启停信源，检索与历史，开启多信源时间批次、暂停/刷新后继续，独立周期计划；真实权限、幂等回执和草稿恢复。M2 指标引用明确不可用，不导入演示状态。
+- 验证：类型检查与最终完整回归87/87、0跳过；独立Chrome for Testing浏览器24项通过，1440/390/320无横向溢出，Impeccable机械检查无发现。独立审阅4项Important由7个失败回归复现后修复通过；1项刷新提示Minor记录延期。
+- 运行：后台切换至main目录，保留2185个运行文件、40条来源与26条计划；央行原件可读，原2条候选保持完整。旧服务停止，旧主工作区因应用限制保留；代码分支codex/source-candidate-loop已删除。
+- 证据：[[tools/RiskHot/docs/verification/m1-management|M1 实现与运行记录]]及[[tools/RiskHot/docs/verification/m1-management.json|机器清单]]。本轮不扩展正式事件、M2/M3服务或内容质量验收。

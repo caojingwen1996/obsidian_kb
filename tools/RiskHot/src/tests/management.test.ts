@@ -8,6 +8,8 @@ import { buildServer } from '../runtime/server.js';
 import { ExecutionStore } from '../information-ingestion/processing/execution.js';
 import { readCatalog } from '../information-ingestion/sources/catalog.js';
 import { parsePbc } from '../information-ingestion/processing/pbc.js';
+import { setTimeout } from 'node:timers/promises';
+import { ioActivities } from '../runtime/activities.js';
 
 async function setup() {
   const c = await openFixture();
@@ -198,5 +200,139 @@ test('persisted schedule switches are independent from source switches and revis
     const disabled = await c.request('PATCH', '/api/v1/l0/schedules/wiki-source-001', { enabled: false, interval_seconds: 7200, expected_updated_at: enabled.json().updated_at }); assert.equal(disabled.statusCode, 200, disabled.body);
     await c.db.query('INSERT INTO platform.schedule_runs(source_id,scheduled_at) VALUES($1,now()-interval \'1 hour\')', [c.parent.source_id]);
     await new Scheduler(c.repo, async () => undefined).tick(); assert.equal((await c.db.query("SELECT count(*)::int n FROM information.operations WHERE actor='riskhot-scheduler' AND source_id=$1", [c.parent.source_id])).rows[0].n, 0, 'disabled plans must not submit an already pending slot');
+  } finally { await c.close(); }
+});
+
+async function savedChild(c: Awaited<ReturnType<typeof setup>>, root: string) {
+  const [child] = await c.repo.recordDiscovery(root, 1, [{ url: c.url, title: '受控资料' }], Buffer.from('fixed list'));
+  await c.repo.recordRaw(child!, 1, c.raw);
+  await c.repo.recordNormalized(child!, 1, parsePbc(c.raw, c.url));
+  await c.repo.saveMaterial(child!, 1);
+  return child!;
+}
+
+// Real database triggers hold an in-flight mutation before commit, allowing the
+// management request to race against discovery/delivery without mocking either.
+async function mutationGate(c: Awaited<ReturnType<typeof setup>>, when: string) {
+  const key = Math.floor(Math.random() * 1_000_000_000) + 1;
+  const gate = await c.db.connect();
+  await gate.query('SELECT pg_advisory_lock($1)', [key]);
+  await c.db.query(`CREATE FUNCTION platform.management_test_gate() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN PERFORM pg_advisory_xact_lock(${key}); RETURN NEW; END $$;
+    CREATE TRIGGER management_test_gate BEFORE UPDATE ON information.operations FOR EACH ROW WHEN (${when}) EXECUTE FUNCTION platform.management_test_gate()`);
+  const blocked = async (minimum: number) => {
+    const until = Date.now() + 5000;
+    while (Date.now() < until) {
+      const n = Number((await c.db.query("SELECT count(*) n FROM pg_stat_activity WHERE datname=current_database() AND wait_event_type='Lock'")).rows[0].n);
+      if (n >= minimum) return;
+      await setTimeout(10);
+    }
+    throw new Error(`EXPECTED_${minimum}_BLOCKED_TRANSACTIONS`);
+  };
+  return { blocked, async release() { await gate.query('SELECT pg_advisory_unlock($1)', [key]); gate.release(); } };
+}
+
+for (const stage of ['discovery', 'delivery'] as const) test(`pause fences ${stage} already committing when the control request starts`, async () => {
+  const c = await setup(); let gate: Awaited<ReturnType<typeof mutationGate>> | undefined;
+  let mutation: Promise<unknown> | undefined, pause: ReturnType<typeof c.request> | undefined;
+  try {
+    const batch = (await c.request('POST', '/api/v1/l0/task-batches', { source_keys: ['wiki-source-001'], limit: 1 })).json();
+    const root = batch.sources[0].operation_id;
+    if (stage === 'delivery') await savedChild(c, root);
+    gate = await mutationGate(c, stage === 'discovery' ? `NEW.id='${root}' AND NEW.raw_artifact_id IS NOT NULL` : 'NEW.processing_id IS NOT NULL AND OLD.processing_id IS NULL');
+    mutation = stage === 'discovery' ? c.repo.recordDiscovery(root, 1, [{ url: c.url, title: '受控资料' }], Buffer.from('fixed list')) : c.repo.deliverPending();
+    await gate.blocked(1);
+    pause = c.request('POST', `/api/v1/l0/task-batches/${batch.id}/control`, { action: 'pause', expected_version: batch.version, reason: '并发暂停' });
+    // Fastify injection is lazy until it is consumed.
+    const pauseResult = Promise.resolve(pause); await gate.blocked(2);
+    await gate.release(); gate = undefined;
+    await mutation; const response = await pauseResult;
+    assert.equal(response.statusCode, 200, response.body);
+    const children = (await c.db.query('SELECT * FROM information.operations WHERE parent_id=$1', [root])).rows;
+    assert.equal(children.length, 1); assert.ok(children.every(child => child.paused), 'every committed child must be fenced');
+    if (stage === 'delivery') {
+      const processing = await c.repo.processing(children[0].processing_id);
+      assert.equal(processing.paused, true, 'a concurrently attached processing must be fenced');
+      assert.equal(Number(processing.generation), 2);
+    }
+  } finally {
+    await gate?.release(); await Promise.allSettled([mutation, pause]); await c.close();
+  }
+});
+
+test('shared processing chooses an active owner when the oldest batch is paused', async () => {
+  const c = await setup();
+  try {
+    const original = await c.processing();
+    const batch = (await c.request('POST', '/api/v1/l0/task-batches', { source_keys: ['wiki-source-001'], limit: 1 })).json();
+    await savedChild(c, batch.sources[0].operation_id); await c.repo.deliverPending();
+    const paused = await c.request('POST', `/api/v1/l0/task-batches/${c.parent.id}/control`, { action: 'pause', expected_version: 1, reason: '只暂停最早批次' });
+    assert.equal(paused.statusCode, 200, paused.body);
+    assert.equal((await c.repo.processing(original.id)).paused, false);
+    assert.equal(await ioActivities(c.repo).prepareExtraction(original.id, 1), true);
+    assert.equal((await c.repo.processing(original.id)).extraction_status, 'pending');
+  } finally { await c.close(); }
+});
+
+test('a later active owner resumes shared paused processing without unpausing the original batch', async () => {
+  const c = await setup();
+  try {
+    const original = await c.processing();
+    const paused = await c.request('POST', `/api/v1/l0/task-batches/${c.parent.id}/control`, { action: 'pause', expected_version: 1, reason: '暂停独占抽取' });
+    assert.equal(paused.statusCode, 200, paused.body); assert.equal((await c.repo.processing(original.id)).paused, true);
+    const batch = (await c.request('POST', '/api/v1/l0/task-batches', { source_keys: ['wiki-source-001'], limit: 1 })).json();
+    const child = await savedChild(c, batch.sources[0].operation_id); await c.repo.deliverPending();
+    const processing = await c.repo.processing(original.id);
+    assert.equal((await c.repo.rawOperation(child)).processing_id, original.id);
+    assert.equal(processing.paused, false); assert.equal(Number(processing.generation), 3);
+    assert.equal((await c.repo.rawOperation(c.parent.id)).paused, true);
+    assert.equal((await c.db.query("SELECT count(*)::int n FROM platform.execution_intents WHERE kind='extract' AND owner_id=$1 AND generation=$2", [original.id, processing.generation])).rows[0].n, 1);
+  } finally { await c.close(); }
+});
+
+test('nested partial source outcomes remain partial batches with confirmed unique saves', async () => {
+  const c = await setup();
+  try {
+    const batch = (await c.request('POST', '/api/v1/l0/task-batches', { source_keys: ['wiki-source-001'], limit: 2 })).json();
+    const root = batch.sources[0].operation_id;
+    const children = await c.repo.recordDiscovery(root, 1, [{ url: c.url, title: '第一份' }, { url: c.url.replace('9999999999999999', '8888888888888888'), title: '第二份' }], Buffer.from('list'));
+    await c.db.query("UPDATE information.operations SET status=CASE WHEN id=$2 THEN 'completed' ELSE 'recoverable' END,reason_code=CASE WHEN id=$2 THEN NULL ELSE 'SOURCE_UNAVAILABLE' END WHERE parent_id=$1", [root, children[0]]);
+    const item = (await c.request('GET', `/api/v1/l0/task-batches?q=${batch.id}`)).json().items[0];
+    assert.equal(item.sources[0].status, 'partial'); assert.equal(item.status, 'partial');
+    assert.equal((await c.request('GET', `/api/v1/l0/task-batches?status=partial&q=${batch.id}`)).json().total, 1);
+    assert.equal(item.has_error, true); assert.equal(item.error_sources, 1);
+  } finally { await c.close(); }
+});
+
+for (const kind of ['pending', 'due'] as const) test(`disabling a plan after selecting its ${kind} slot prevents submission and schedule overwrite`, async () => {
+  const c = await setup();
+  try {
+    const { Scheduler } = await import('../runtime/scheduler.js');
+    await c.db.query("INSERT INTO platform.actors VALUES('riskhot-scheduler',ARRAY['read','submit','retry','auto_retry'],ARRAY['*'])");
+    await c.db.query("UPDATE information.operations SET status='completed'");
+    const schedule = (await c.request('PATCH', '/api/v1/l0/schedules/wiki-source-001', { enabled: true, interval_seconds: 60, expected_updated_at: null })).json();
+    await c.db.query("UPDATE platform.source_schedules SET next_run_at=now()-interval '1 hour' WHERE source_id=$1", [c.parent.source_id]);
+    if (kind === 'pending') await c.db.query("INSERT INTO platform.schedule_runs(source_id,scheduled_at) VALUES($1,now()-interval '1 hour')", [c.parent.source_id]);
+    let interrupted = false; let disabledNext: string | undefined;
+    const connection = await c.db.connect(); const query = connection.query;
+    connection.query = new Proxy(query, { apply(target, receiver, args) {
+      const result = Reflect.apply(target, receiver, args);
+      if (typeof args[0] === 'string' && args[0].includes(kind === 'pending' ? 'SELECT r.id,s.catalog_key' : 'SELECT q.*,s.catalog_key')) return result.then(async (rows: unknown) => {
+        if (!interrupted) {
+          interrupted = true;
+          const disabled = await c.request('PATCH', '/api/v1/l0/schedules/wiki-source-001', { enabled: false, interval_seconds: 7200, expected_updated_at: schedule.updated_at });
+          assert.equal(disabled.statusCode, 200, disabled.body); disabledNext = disabled.json().next_run_at;
+        }
+        return rows;
+      });
+      return result;
+    } });
+    // The scheduler's first connection is its candidate-selection session.
+    connection.release();
+    try { await new Scheduler(c.repo, async () => undefined).tick(); }
+    finally { connection.query = query; }
+    assert.equal(interrupted, true);
+    assert.equal((await c.db.query("SELECT count(*)::int n FROM information.operations WHERE actor='riskhot-scheduler'")).rows[0].n, 0);
+    const current = (await c.db.query('SELECT * FROM platform.source_schedules WHERE source_id=$1', [c.parent.source_id])).rows[0];
+    assert.equal(current.next_run_at.toISOString(), disabledNext);
   } finally { await c.close(); }
 });

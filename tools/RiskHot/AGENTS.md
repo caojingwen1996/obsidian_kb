@@ -86,10 +86,11 @@ RiskHot/
     data/        信源清单、连接配置与演示配置
     db/          数据库建库 SQL
     information-ingestion/  信息采集：从信源配置到候选入库
-      sources/     信源目录读取与连接器注册
+      sources/     信源档案、版本审计、目录读取与连接器注册
       processing/  资料获取、解析、标准化与 AI 事件候选抽取
     platform/    身份认证、权限、数据库、工件存储与通知
     runtime/     API、Temporal 工作流、Worker、投递与调度进程
+    web/         M1 实际管理页面、同源接口调用与页面状态
     scripts/     初始化、启动、运行、监测与后台服务管理命令
     tests/       自动化测试及测试辅助代码
   docs/          业务、功能、技术设计、UI 原型、实施计划与验证记录
@@ -120,4 +121,5 @@ RiskHot/
 4. 所有 npm 命令在项目根目录执行，由 `package.json` 指向 `src/scripts/` 等实际入口。
 5. 调整目录时，同步更新导入、文件读取和启动路径，以及 `package.json`、`tsconfig.json`、README 与本节说明。
 6. 私有配置、依赖目录、构建产物及运行数据遵循 `.gitignore`，不纳入代码提交。
+7. 实际 M1 页面由运行层在 `/m1` 提供，消费真实管理接口；`docs/` 原型只作为设计依据，不导入其演示运行状态。
 

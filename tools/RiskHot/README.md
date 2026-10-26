@@ -4,6 +4,8 @@
 
 本次实现遵循[[tools/RiskHot/docs/superpowers/specs/2026-10-24-source-to-candidates-design|用户已批准设计]]；当前接口与存储以[[tools/RiskHot/docs/system-design/04-系统架构设计/04-公共技术契约/来源候选切片实现契约|来源候选切片实现契约]]为准，证据见[[tools/RiskHot/docs/verification/source-candidates|执行验证记录]]。候选保存后保持 `pending`，不生成正式事件。
 
+M1 实际管理页面已按[[tools/RiskHot/docs/system-design/06产品UI原型设计/06-2-M1信源管理中心UI设计/02. 交互原型说明|现行交互原型]]接入真实服务，支持信源档案、接入任务和计划管理。代码和本机后台均使用 `main`；最新验证见[[tools/RiskHot/docs/verification/m1-management|M1 实现与运行记录]]。
+
 ## 代码目录
 
 工程代码统一在 `src/` 下维护：
@@ -17,6 +19,7 @@ src/
     processing/  获取、解析、标准化与候选抽取
   platform/   身份、存储、权限与通知
   runtime/    API、工作流与调度进程
+  web/        M1 管理页面与真实接口调用
   scripts/    启动、初始化和操作命令
   tests/      自动化测试及辅助代码
 ```
@@ -45,6 +48,19 @@ npm run dev
 数据库健康后再执行 `setup`；身份服务和 Temporal 首次启动需要时间，若初始化报连接未就绪，等待服务启动后重跑对应的 `setup:identity` 或 `setup:temporal`。初始化命令可以重复执行。`init:env` 生成随机本地凭据并保留已有 `.env`，不输出值；`.env`、`.riskhot/` 和依赖目录均被忽略。身份初始化只针对专用本地 realm，显式授予本地 operator 权限。
 
 API 为 [localhost:18081](http://localhost:18081)，登录入口为 `/auth/login`；账号与密码从本地 `.env` 的 `OPERATOR_USERNAME`、`OPERATOR_PASSWORD` 读取。`/health/ready` 仅报告 API 的数据库/工件可用性与模型配置标记，不能据此判断整条链路完成。运行日志在 `.riskhot/logs/`。在运行终端按 Ctrl-C 停止本任务进程；`docker compose stop` 停止本任务依赖服务，保留数据卷。
+
+## 使用 M1 管理页面
+
+打开 [M1 信源管理中心](http://localhost:18081/m1)，点击登录，使用上述本地 operator 账号。保持使用 `localhost`，会话写入按配置的同源地址校验。现有常驻服务运行目录是 `/Users/cjw/dev/Obsidian/wiki/tools/RiskHot`；已安装时直接打开页面即可。
+
+1. **信源目录**：按名称、发布主体或编号搜索，组合等级、专题、渠道、维度等筛选；详情内查看档案、技术资格、资料引用和历史版本。新增默认停用；编辑与启停均记录操作者及版本。
+2. **开启接入任务**：选择一个或多个已启用且技术就绪的信源，确认后创建一个持久时间批次。任务页按上海日期查询；概览只随日期变化，编号和状态过滤只影响列表。保存数量只统计已确认资料。
+3. **暂停与继续**：在任务行或详情操作，刷新页面后仍保留。继续沿原检查点推进，保留原计划时间、已保存资料和失败结果；失败、待复核等结果在资料与抽取详情单独处置。
+4. **任务计划**：按信源设置周期和启停。停用信源、暂停计划和暂停某次任务分别保存；暂停计划控制后续周期，已启动批次单独管理。
+
+提交后若响应丢失，页面保留原请求和回执查询/重试入口，使用同一幂等键，不应另开一个重复批次。登录失效保留表单草稿，重新登录后再提交；只读用户不显示写入按钮。
+
+业务启用不等于采集就绪。新增档案还需发布主体、身份依据和允许采集范围；自定义来源没有自动连接器配置入口，技术资格未就绪时不能开启自动采集。清单缺失的分类显示待补，6条缺地址仍待补充。资料引用来自真实保存记录；M2 指标绑定尚未接入，显示不可用，数量未知。
 
 `src/data/source-catalog.js` 保留 40 条来源身份与参考元数据，`src/data/source-connections.json` 保存已核验的连接器范围。初始化启用就绪来源；重复初始化保留人工暂停。配置变更生成来源版本，在途操作继续使用受理时版本。不会导入 `source-demo.js` 演示状态或旧 `.data/`。
 
@@ -124,7 +140,13 @@ npm run monitor
 
 | 接口 | 用途 |
 | --- | --- |
+| `GET /api/v1/session` | 当前身份、权限与来源范围 |
 | `GET /api/v1/m1/sources`、`PATCH /api/v1/m1/sources/:key` | 查看授权来源、连接器就绪原因和最新批次结果，启停并保留配置版本 |
+| `POST /api/v1/m1/sources`、`PUT /api/v1/m1/sources/:key` | 创建默认停用档案、按预期版本修订 |
+| `GET /api/v1/m1/sources/:key/history`、`GET /api/v1/m1/sources/:key/relations` | 版本审计与实际资料引用；M2 引用明确返回不可用 |
+| `GET /api/v1/l0/task-batches`、`POST /api/v1/l0/task-batches` | 查询时间批次及日期概览、开启多信源批次 |
+| `POST /api/v1/l0/task-batches/:id/control` | 按当前版本暂停或继续批次 |
+| `PATCH /api/v1/l0/schedules/:key` | 独立管理后续采集计划 |
 | `POST /api/v1/l0/source-fetches` | 持久受理获取，返回 202 和 operation_id |
 | `GET /api/v1/l0/runs?from=2026-10-24&to=2026-10-24&status=waiting_config` | 按上海日期范围和派生状态筛选，最多 100 批次 |
 | `GET /api/v1/l0/operations/:id` | 批次及子资料状态、原因、资料和 processing 引用 |
@@ -135,6 +157,8 @@ npm run monitor
 | `GET /api/v1/l0/monitor` | 授权来源的计划、最近运行、未解除异常和通知交付状态 |
 
 测试需要上述本地 PostgreSQL、Keycloak 和 Temporal。`npm test` 使用隔离测试数据库/命名空间及明确标注的受控模型 HTTP 服务，包含真实 Worker 重启验证；测试通过不能替代真实模型质量验收。
+
+浏览器专项位于 `src/tests/browser.e2e.ts`，设置 `PLAYWRIGHT_MODULE` 为本机 Playwright 模块绝对路径，`SOURCE_BROWSER_EXECUTABLE` 指向独立 Chrome for Testing/Chromium 后执行 `node --env-file=.env --import tsx src/tests/browser.e2e.ts`。检查使用独立测试数据及临时浏览器目录，结束自动关闭；不调用真实网站或订阅模型。
 
 ## 设计入口
 
@@ -147,4 +171,4 @@ npm run monitor
 
 `docs/` 保存业务、功能、架构及 UI 原型；`aihot/` 保存参考资料与旧设计归档；项目技能和 BMAD 资料保留。`.data/` 是保留的旧运行数据，不自动导入新环境。旧架构清单、工作包、开发报告和场景报告均是历史记录，不作为新系统已实现或验收通过的证明。
 
-旧应用恢复副本位于 `/Users/cjw/.codex/backups/RiskHot-code-removal-20261024-123733`，其中 recovery-manifest.json 记录逐文件摘要。本目录的新工程依据已批准设计建立独立数据库、工件和身份环境。当前不包含 PDF/OCR、AI-02～05、正式事件提交或产品页面对接。
+旧应用恢复副本位于 `/Users/cjw/.codex/backups/RiskHot-code-removal-20261024-123733`，其中 recovery-manifest.json 记录逐文件摘要。本目录的新工程依据已批准设计建立独立数据库、工件和身份环境。当前不包含 PDF/OCR、AI-02～05、正式事件提交、M2/M3 实际管理服务或全量历史同步。

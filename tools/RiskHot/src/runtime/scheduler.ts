@@ -51,7 +51,7 @@ export class Scheduler {
         const pending = (await lock.query<{ id: string; catalog_key: string }>(`SELECT r.id,s.catalog_key FROM platform.schedule_runs r JOIN m1.sources s ON s.id=r.source_id LEFT JOIN platform.source_schedules q ON q.source_id=s.id WHERE COALESCE(q.enabled,true) AND r.status='pending' AND s.state='ACTIVE' AND ($1::text[] IS NULL OR s.catalog_key=ANY($1)) ORDER BY r.scheduled_at LIMIT $2`, [this.config.sources ?? null, slots])).rows;
         for (const run of pending) if(await this.submitRun(run.id, run.catalog_key)) slots--;
         if (slots > 0) {
-          const due = (await lock.query<{ source_id: string; catalog_key: string; next_run_at: Date; interval_seconds: number }>(`SELECT q.*,s.catalog_key FROM platform.source_schedules q JOIN m1.sources s ON s.id=q.source_id JOIN m1.source_versions v ON v.source_id=s.id AND v.version=s.version
+          const due = (await lock.query<{ source_id: string; catalog_key: string; next_run_at: Date; interval_seconds: number; revision: string; scheduled_revision: string }>(`SELECT q.*,s.catalog_key,q.updated_at::text AS revision,q.next_run_at::text AS scheduled_revision FROM platform.source_schedules q JOIN m1.sources s ON s.id=q.source_id JOIN m1.source_versions v ON v.source_id=s.id AND v.version=s.version
             WHERE q.enabled AND q.next_run_at<=$1 AND s.state='ACTIVE' AND (v.config->'connection'->>'readiness'='ready' OR v.config->>'connector'='pbc-html-1.0.0')
             AND ($2::text[] IS NULL OR s.catalog_key=ANY($2))
             AND NOT EXISTS(SELECT 1 FROM platform.schedule_runs r WHERE r.source_id=s.id AND r.status IN ('pending','running'))
@@ -59,11 +59,14 @@ export class Scheduler {
             ORDER BY q.next_run_at,s.catalog_key LIMIT $3`, [now, this.config.sources ?? null, slots])).rows;
           for (const source of due) {
             const id = await transaction(this.repo.db, async tx => {
-              const run = (await tx.query<{id:string}>('INSERT INTO platform.schedule_runs(source_id,scheduled_at) VALUES($1,$2) ON CONFLICT(source_id,scheduled_at) DO UPDATE SET source_id=EXCLUDED.source_id RETURNING id', [source.source_id, source.next_run_at])).rows[0]!;
+              await tx.query('SELECT pg_advisory_xact_lock(hashtextextended($1,0))', [`schedule:${source.catalog_key}`]);
+              const current = (await tx.query('SELECT 1 FROM platform.source_schedules WHERE source_id=$1 AND enabled AND updated_at=$2::timestamptz AND next_run_at=$3::timestamptz FOR UPDATE', [source.source_id, source.revision, source.scheduled_revision])).rows[0];
+              if (!current) return null;
+              const run = (await tx.query<{id:string}>('INSERT INTO platform.schedule_runs(source_id,scheduled_at) VALUES($1,$2) ON CONFLICT(source_id,scheduled_at) DO UPDATE SET source_id=EXCLUDED.source_id RETURNING id', [source.source_id, source.scheduled_revision])).rows[0]!;
               await tx.query("UPDATE platform.source_schedules SET next_run_at=$2::timestamptz+(interval_seconds::text||' seconds')::interval,updated_at=now() WHERE source_id=$1", [source.source_id, now]);
               return run.id;
             });
-            await this.submitRun(id, source.catalog_key);
+            if (id) await this.submitRun(id, source.catalog_key);
           }
         }
       }
@@ -80,9 +83,16 @@ export class Scheduler {
   }
   private async submitRun(id: string, source: string): Promise<boolean> {
     try {
-      const operation = await this.repo.submit({ source_key: source, limit: 1 }, SCHEDULER_ACTOR, `schedule/${id}`);
-      await this.repo.db.query("UPDATE platform.schedule_runs SET operation_id=$2,status='running',error_code=NULL WHERE id=$1", [id, operation.id]);
-      return true;
+      return await transaction(this.repo.db, async tx => {
+        await tx.query('SELECT pg_advisory_xact_lock(hashtextextended($1,0))', [`schedule:${source}`]);
+        const plan = (await tx.query('SELECT q.enabled FROM platform.source_schedules q JOIN m1.sources s ON s.id=q.source_id WHERE s.catalog_key=$1 FOR UPDATE OF q', [source])).rows[0];
+        if (plan && !plan.enabled) return false;
+        const run = (await tx.query('SELECT status FROM platform.schedule_runs WHERE id=$1 FOR UPDATE', [id])).rows[0];
+        if (!run || run.status !== 'pending') return false;
+        const operation = await this.repo.submit({ source_key: source, limit: 1 }, SCHEDULER_ACTOR, `schedule/${id}`, tx);
+        await tx.query("UPDATE platform.schedule_runs SET operation_id=$2,status='running',error_code=NULL WHERE id=$1", [id, operation.id]);
+        return true;
+      });
     } catch (error) {
       await this.repo.db.query('UPDATE platform.schedule_runs SET error_code=$2,status=$3 WHERE id=$1', [id, codeOf(error),error instanceof DomainError&&!error.retryable?'blocked':'pending']);
       if (!(error instanceof DomainError)) throw error;
