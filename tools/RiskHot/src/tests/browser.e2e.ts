@@ -9,6 +9,8 @@ import { openFixture } from './fixture.js';
 import { readCatalog } from '../information-ingestion/sources/catalog.js';
 import { buildServer } from '../runtime/server.js';
 
+type ControlledRoute = { request(): { method(): string }; continue(): Promise<void>; fulfill(options: { status: number; contentType: string; body: string }): Promise<void> };
+
 const executable = process.env.SOURCE_BROWSER_EXECUTABLE ?? '';
 if (!/Chrome for Testing|Chromium/.test(executable) || /\/Google Chrome\.app\//.test(executable)) throw new Error('Independent testing browser required');
 const modulePath = process.env.PLAYWRIGHT_MODULE;
@@ -66,9 +68,38 @@ try {
   await page.getByRole('link', { name: '信息接入任务', exact: true }).click();
   const enabledKeys = (await c.db.query("SELECT catalog_key FROM m1.sources WHERE state='ACTIVE' ORDER BY catalog_key")).rows.map(row => row.catalog_key);
   await page.locator('[data-action="start-batch"]').waitFor();
-  await page.locator('[data-action="start-batch"]').evaluate((button: HTMLButtonElement) => { button.click(); button.click(); });
-  await page.locator('#feedback').filter({hasText:'操作已确认'}).waitFor();
+  let releaseSources!: () => void, releaseAcceptance!: () => void;
+  const sourceGate=new Promise<void>(resolve=>{releaseSources=resolve;}), acceptanceGate=new Promise<void>(resolve=>{releaseAcceptance=resolve;});
+  await page.route('**/api/v1/m1/sources',async (route:ControlledRoute)=>{await sourceGate;await route.continue();});
+  await page.route('**/api/v1/l0/task-batches',async (route:ControlledRoute)=>{if(route.request().method()==='POST')await acceptanceGate;await route.continue();});
+  try{
+    await page.locator('[data-action="start-batch"]').evaluate((button: HTMLButtonElement) => { button.click(); button.click(); });
+    assert.equal(await page.locator('[data-action="start-batch"]').textContent(),'正在开启…');
+    assert.equal(await page.locator('[data-action="start-batch"]').getAttribute('aria-busy'),'true');
+    await page.locator('#feedback').filter({hasText:'正在确认已启用信源'}).waitFor({timeout:2000});
+    releaseSources();
+    await page.locator('#feedback').filter({hasText:'正在开启任务'}).waitFor({timeout:2000});
+    for(const width of [1440,390]){
+      await page.setViewportSize({width,height:1050});
+      assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+      await page.screenshot({path:join(output,`start-pending-${width}.png`)});
+    }
+  }finally{releaseSources();releaseAcceptance();}
+  await page.unroute('**/api/v1/m1/sources');await page.unroute('**/api/v1/l0/task-batches');
+  await page.locator('#feedback').filter({hasText:'任务已受理'}).waitFor();
   await page.locator('.task-table tbody tr').first().waitFor();
+  await page.locator('[data-action="start-batch"][aria-busy="false"]').waitFor();
+  assert.equal(await page.locator('#feedback').evaluate((element:HTMLElement)=>document.activeElement===element),true);
+  for(const width of [1440,390]){
+    await page.setViewportSize({width,height:1050});
+    await page.screenshot({path:join(output,`start-accepted-${width}.png`)});
+  }
+  await page.setViewportSize({width:1440,height:1050});
+  await Promise.all([page.waitForResponse((response:{url():string})=>response.url().includes('/api/v1/l0/task-batches?'),{timeout:2000}),page.locator('#refresh').click()]);
+  await page.waitForFunction(()=>!(document.querySelector('#refresh') as HTMLButtonElement).disabled);
+  await page.locator('#feedback').filter({hasText:'任务已受理'}).waitFor();
+  check('global refresh button actually rereads task state');
+  check('direct launch announces source check and submission immediately, then retains its receipt after refresh');
   assert.equal(await page.locator('#modal').isVisible(), false, 'starting work must not open a configuration dialog');
   const batchSources = (await c.db.query('SELECT s.catalog_key FROM platform.task_batch_sources bs JOIN m1.sources s ON s.id=bs.source_id ORDER BY s.catalog_key')).rows.map(row => row.catalog_key);
   assert.deepEqual(batchSources, enabledKeys, 'all enabled sources are included even when some connectors are unavailable');
@@ -93,14 +124,47 @@ try {
   await page.locator('.detail-actions').getByRole('button',{name:'开启任务',exact:true}).click();
   await page.locator('#feedback').filter({hasText:'未收到操作回执'}).waitFor();
   assert.equal(await page.locator('#modal').isVisible(), false);
+  await page.locator('[data-action="start-batch"]').click();
+  await page.locator('#feedback').filter({hasText:'上一项操作的结果尚未确认'}).waitFor();
+  assert.equal(await page.locator('#feedback').evaluate((element:HTMLElement)=>document.activeElement===element),true);
+  assert.equal((await c.db.query('SELECT count(*)::int n FROM platform.task_batches')).rows[0].n,2);
+  check('clicking launch with an unknown receipt reveals its recovery controls without creating another task');
   await page.locator('#pending-controls').getByRole('button',{name:'重试原操作'}).waitFor({timeout:2000});
   await page.locator('#pending-controls').getByRole('button',{name:'重试原操作'}).click();
-  await page.locator('#feedback').filter({hasText:'操作已确认'}).waitFor();
+  await page.locator('#feedback').filter({hasText:'任务已受理'}).waitFor();
   assert.equal(Number((await c.db.query('SELECT count(*) AS n FROM platform.task_batches')).rows[0].n),2);
   check('unknown direct-start receipt retries the same committed batch');
   const secondKeys = (await c.db.query('SELECT s.catalog_key FROM platform.task_batch_sources bs JOIN m1.sources s ON s.id=bs.source_id WHERE bs.batch_id=(SELECT id FROM platform.task_batches ORDER BY created_at DESC LIMIT 1) ORDER BY s.catalog_key')).rows.map(row => row.catalog_key);
   assert.deepEqual(secondKeys, enabledKeys.filter(key => key !== 'wiki-source-002')); check('source-detail launch ignores catalog filters and uses current enabled source states');
   await page.unroute('**/api/v1/l0/task-batches');
+  await page.route('**/api/v1/l0/task-batches?*',async (route:ControlledRoute)=>route.fulfill({status:503,contentType:'application/json',body:JSON.stringify({code:'UNAVAILABLE'})}));
+  await page.locator('[data-action="start-batch"]').click();
+  await page.locator('#feedback').filter({hasText:'任务已受理'}).filter({hasText:'状态暂未读到'}).waitFor();
+  const thirdBatch=(await c.db.query('SELECT id FROM platform.task_batches ORDER BY created_at DESC LIMIT 1')).rows[0].id;
+  assert.equal((await c.db.query('SELECT count(*)::int n FROM platform.task_batches')).rows[0].n,3);
+  assert.equal(await page.locator('#feedback').getByRole('button',{name:'重试原操作'}).count(),0);
+  await page.unroute('**/api/v1/l0/task-batches?*');
+  await page.locator('#feedback').getByRole('button',{name:'查看本次任务',exact:true}).click();
+  await page.locator('#feedback').filter({hasText:'查看本次任务可跟踪'}).waitFor();
+  await page.locator('#batch-detail-title').waitFor();
+  assert.equal(await page.locator('#task-search').inputValue(),thirdBatch);
+  assert.equal(await page.locator(`[data-batch-detail="${thirdBatch}"]`).getAttribute('aria-expanded'),'true');
+  assert.equal((await c.db.query('SELECT count(*)::int n FROM platform.task_batches')).rows[0].n,3);
+  assert.doesNotMatch(await page.locator('#feedback').textContent(),/状态暂未读到/);
+  check('accepted launch survives a failed status read and opens its exact batch without resubmitting');
+  let releaseRead!:()=>void;
+  const readGate=new Promise<void>(resolve=>{releaseRead=resolve;});
+  await page.route('**/api/v1/l0/task-batches?*',async (route:ControlledRoute)=>{await readGate;await route.continue();});
+  try{
+    await page.locator('[data-action="start-batch"]').click();
+    await page.locator('#feedback').filter({hasText:'任务已受理'}).waitFor();
+    await page.locator('#feedback').getByRole('button',{name:'关闭提示',exact:true}).click();
+  }finally{releaseRead();}
+  await page.locator('[data-action="start-batch"][aria-busy="false"]').waitFor();
+  assert.equal(await page.locator('#feedback').isVisible(),false);
+  assert.equal((await c.db.query('SELECT count(*)::int n FROM platform.task_batches')).rows[0].n,4);
+  await page.unroute('**/api/v1/l0/task-batches?*');
+  check('dismissing an accepted receipt during a slow status read keeps it dismissed and does not cancel the task');
   await page.getByRole('link', { name: '任务计划', exact: true }).click();
   await page.locator('[data-plan-view="unconfigured"]').click();await page.locator('[data-schedule="wiki-source-001"]').waitFor();
   await page.locator('[data-schedule="wiki-source-001"]').click(); await page.locator('#modal [name="enabled"]').selectOption('true');

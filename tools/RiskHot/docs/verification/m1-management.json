@@ -392,5 +392,73 @@
     },
     "impeccable_findings": [],
     "visual_rounds": 2
+  },
+  "start_feedback": {
+    "date": "2026-10-26",
+    "typecheck": "passed",
+    "web_tests": {
+      "passed": 11,
+      "failed": 0
+    },
+    "browser": {
+      "checks": [
+        "unauthenticated shell",
+        "40 persisted sources",
+        "multi-value intersection filters",
+        "source search and flat view",
+        "separate business/technical state",
+        "historical profile is read-only",
+        "create and locate persistent disabled profile",
+        "global task action remains available from a manual source",
+        "profile survives reload",
+        "global refresh button actually rereads task state",
+        "direct launch announces source check and submission immediately, then retains its receipt after refresh",
+        "one click starts every enabled source without configuration or duplicate batches",
+        "compact overview filters rows without changing the selected date range",
+        "paused batch survives reload",
+        "resume uses persisted checkpoints",
+        "clicking launch with an unknown receipt reveals its recovery controls without creating another task",
+        "unknown direct-start receipt retries the same committed batch",
+        "source-detail launch ignores catalog filters and uses current enabled source states",
+        "accepted launch survives a failed status read and opens its exact batch without resubmitting",
+        "dismissing an accepted receipt during a slow status read keeps it dismissed and does not cancel the task",
+        "schedule period controls fit desktop and mobile",
+        "independent schedule creation",
+        "minute hour and day schedule values persist and reload with equivalent durations",
+        "out of range schedule units cannot change a persisted plan",
+        "configured plans stay separate from sources awaiting configuration",
+        "plan search retains a clear empty state and can be reset",
+        "plan history displays actual saved results inline",
+        "plan results link directly to saved material and honest zero-candidate output",
+        "responsive sources 1440",
+        "responsive tasks 1440",
+        "responsive plans 1440",
+        "responsive sources 390",
+        "mobile detail drawer and return focus",
+        "responsive tasks 390",
+        "responsive plans 390",
+        "responsive sources 320",
+        "mobile form and unsaved keyboard confirmation",
+        "responsive tasks 320",
+        "responsive plans 320",
+        "read-only actor sees no write controls",
+        "expired login preserves draft",
+        "local workbench opens directly without login or cookies",
+        "local source write persists across reload without login",
+        "local task controls remain available",
+        "no enabled sources disables direct launch without creating an empty batch"
+      ],
+      "page_errors": [],
+      "environment": "isolated database and browser; no source collection or model call"
+    },
+    "design": "docs/system-design/06产品UI原型设计/06-2-M1信源管理中心UI设计/信息接入任务与计划页面设计.md",
+    "screenshots": "docs/verification/m1-management/start-feedback/",
+    "real_collection_or_model_calls": false,
+    "global_refresh_regression": "missing handler reproduced with response timeout, then passed",
+    "runtime_static_resource": {
+      "status": 200,
+      "serves_current_main": true,
+      "cache_control": "no-store"
+    }
   }
 }

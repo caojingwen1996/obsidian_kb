@@ -116,3 +116,15 @@ Impeccable检测无发现；桌面与手机截图集中核对，最新[[tools/Ri
 视觉在桌面/手机两轮批量检查内完成，集中修正手机展开标记、结果链接对齐和重复页脚；Impeccable静态检测无发现。截图来自明确标注的受控库，不代表本机来源数量：[[tools/RiskHot/docs/verification/m1-management/workspace/tasks-1440.png|桌面接入任务]]、[[tools/RiskHot/docs/verification/m1-management/workspace/plans-1440.png|桌面任务计划]]、[[tools/RiskHot/docs/verification/m1-management/workspace/tasks-390.png|手机接入任务]]、[[tools/RiskHot/docs/verification/m1-management/workspace/plans-390.png|手机任务计划]]。
 
 后台重启后现场只读验证：26条计划保留，央行计划历史接口返回10条、上限50，最近计划时间可用，原央行processing保持completed、2条候选。没有为本轮验收额外启动真实抓取或模型调用。
+
+## 开启任务即时反馈
+
+针对用户“点击开启任务看不到反应”的反馈，补齐[[tools/RiskHot/docs/system-design/06产品UI原型设计/06-2-M1信源管理中心UI设计/信息接入任务与计划页面设计|页面设计]]中的点击后交互。原实现只禁用按钮并在结束时给通用提示，自动刷新还会清除提示；共用刷新函数捕获读取失败后，原调用方仍可能提示“状态已重新读取”。
+
+现在点击即显示「正在开启…」，分别播报确认信源、等待受理；受理后保留编号、数量和「查看本次任务」，定位并展开本次结果。未收到回执时保留原请求；已受理但读取失败时只重新查询原任务。用户关闭提示后，晚返回的读取不会重新显示旧提示。普通写操作也仅在读取成功后提示状态已更新。
+
+验证：慢响应场景先因按钮仍为「开启任务」失败，再修复通过；关闭提示与晚返回读取的竞争也由失败回归确认并修复。顶部「刷新状态」原本没有绑定动作，新增网络回读断言先超时失败，接回刷新逻辑后通过。类型检查通过，网页模型及语义渲染11/11通过，隔离数据库与独立 Chrome for Testing 下浏览器45项通过、无页面异常。新增覆盖立即反馈、受理提示刷新后保留、待确认操作再次点击、防重复、读取失败定位同一任务和关闭提示不影响已受理任务。实际数据库验证仅发生在受控库，没有启动真实采集或模型调用。
+
+桌面与手机集中核对：[[tools/RiskHot/docs/verification/m1-management/start-feedback/start-pending-1440.png|桌面等待受理]]、[[tools/RiskHot/docs/verification/m1-management/start-feedback/start-pending-390.png|手机等待受理]]、[[tools/RiskHot/docs/verification/m1-management/start-feedback/start-accepted-1440.png|桌面受理回执]]、[[tools/RiskHot/docs/verification/m1-management/start-feedback/start-accepted-390.png|手机受理回执]]。截图为受控数据，信源数量不代表本机实际目录。
+
+本机 `/m1/app.js` 返回200，内容与main源文件一致，响应为no-store；重新载入页面即可使用。

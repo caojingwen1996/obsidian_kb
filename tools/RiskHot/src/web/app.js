@@ -11,10 +11,23 @@ const state={sources:[],session:null,view:'research',selected:null,detailTab:'ar
   filters:{q:'',tier:'',category:'',dims:'',levels:'',group:'',state:'',readiness:'',priority:'',frequency:''},taskFilters:{from:today,to:today,q:'',status:''},planFilters:{q:'',view:'configured'},planHistory:null,selectedBatch:null,...saved};
 state.pending=readStored('riskhot-command');state.sources=[];state.session=null;
 let connected=false,loading=false,busy=false,startingBatch=false,dialogContext=null,returnFocus=null,historyRequest=0,refreshRequest=0,refreshPromise=null;
+let batchReceipt=null,startMessage='';
 const can=(permission,key)=>Boolean(state.session?.permissions.includes(permission)&&(!key||state.session.source_keys.includes('*')||state.session.source_keys.includes(key)));
 const route=()=>location.hash==='#intake-tasks'?'tasks':location.hash==='#schedules'?'schedules':'sources';
 function remember(){store('riskhot-view',{view:state.view,selected:state.selected,detailTab:state.detailTab,filters:state.filters,taskFilters:state.taskFilters,planFilters:state.planFilters,selectedBatch:state.selectedBatch});}
-function notice(message,error=false){feedback.hidden=false;feedback.className=`feedback ${error?'feedback-error':''}`;feedback.setAttribute('role',error?'alert':'status');feedback.textContent=message;}
+function notice(message,error=false){feedback.hidden=false;feedback.className=`feedback ${error?'feedback-error error':''}`;feedback.setAttribute('role',error?'alert':'status');feedback.textContent=message;}
+function focusFeedback(){feedback.focus({preventScroll:true});feedback.scrollIntoView({block:'nearest'});}
+function showBatchReceipt(){
+  if(!batchReceipt||batchReceipt.actor!==state.session?.actor)return;
+  notice(`任务已受理 · ${batchReceipt.id.slice(0,8)}，共 ${batchReceipt.count} 个信源。${batchReceipt.readFailed?'状态暂未读到，可重新查看；无需再次开启任务。':'查看本次任务可跟踪各信源的状态与结果。'}`,batchReceipt.readFailed);
+  feedback.insertAdjacentHTML('beforeend','<span class="actions"><button type="button" class="secondary" data-action="view-started-batch">查看本次任务</button><button type="button" class="quiet" data-action="dismiss-batch-receipt">关闭提示</button></span>');
+}
+function selectStartedBatch(){
+  state.selectedBatch=batchReceipt.id;state.mobileDetail=false;
+  state.taskFilters={from:shanghaiDate(new Date(batchReceipt.scheduled_at)),to:shanghaiDate(new Date(batchReceipt.scheduled_at)),q:batchReceipt.id,status:''};
+  if(location.hash!=='#intake-tasks')history.pushState(null,'','#intake-tasks');
+  remember();
+}
 function render(){
   remember();
   document.querySelector('.page-footer').hidden=route()!=='sources';
@@ -28,8 +41,9 @@ function render(){
   else if(route()==='schedules')content.innerHTML=state.monitor?renderSchedules(state,can):'<div class="loading" role="status">正在读取计划…</div>';
   else content.innerHTML=renderSources(state,can);
   updateStartButtons();
-  if(state.pending)notice('上一项操作的结果尚未确认。请先查询状态，或重试原操作。',true);
-  if(state.pending&&!document.querySelector('#pending-controls'))feedback.insertAdjacentHTML('beforeend','<span id="pending-controls" class="actions"><button class="secondary" data-action="retry-pending">重试原操作</button><button class="quiet" data-action="refresh">查询当前状态</button></span>');
+  if(startingBatch&&!batchReceipt&&startMessage)notice(startMessage);
+  else if(state.pending&&!busy){notice('上一项操作的结果尚未确认。请先查询状态，或重试原操作。',true);feedback.insertAdjacentHTML('beforeend','<span id="pending-controls" class="actions"><button class="secondary" data-action="retry-pending">重试原操作</button><button class="quiet" data-action="refresh">查询当前状态</button></span>');}
+  else if(batchReceipt)showBatchReceipt();
 }
 async function loadHistory(){
   const key=state.selected,serial=++historyRequest;
@@ -60,14 +74,19 @@ async function performRefresh(){
       if(state.planHistory?.key&&!state.planHistory.loading)next.planHistory={key:state.planHistory.key,data:await api.get(`/api/v1/l0/schedules/${state.planHistory.key}/runs`)};
     }
     if(serial!==refreshRequest)return;
-    Object.assign(state,next);state.loginRequired=false;connected=true;feedback.hidden=true;
+    Object.assign(state,next);state.loginRequired=false;connected=true;
+    if(!busy&&!startingBatch&&!batchReceipt)feedback.hidden=true;
+    if(batchReceipt&&next.batches?.items.some(row=>row.id===batchReceipt.id))batchReceipt.readFailed=false;
     if(!state.selected||!state.sources.some(x=>x.catalog_key===state.selected))state.selected=state.sources[0]?.catalog_key??null;
     render();if(route()==='sources'&&state.detailTab==='history'&&state.selected)await loadHistory();
+    return true;
   }catch(error){
     connected=false;
     if(error.status===401){state.session=null;state.loginRequired=true;render();}
     else if(!state.sources.length&&!state.session){content.innerHTML='<section class="empty panel"><h2>暂时无法读取工作台</h2><p>请检查服务连接后重试。</p><button class="secondary" data-action="refresh">重新读取</button></section>';}
     notice(error.code==='DATE_RANGE_INVALID'?'日期范围无效，请核对开始与结束日期。':explain(error),true);
+    if(batchReceipt&&route()==='tasks'){batchReceipt.readFailed=true;showBatchReceipt();}
+    return false;
   }finally{loading=false;document.querySelector('#refresh').disabled=false;}
 }
 function closeDialog(force=false){
@@ -89,18 +108,19 @@ function openSourceForm(key){
 }
 function updateStartButtons(){
   const enabled=state.sources.some(source=>source.state==='ACTIVE'&&can('submit',source.catalog_key));
-  document.querySelectorAll('[data-action="start-batch"]').forEach(button=>button.disabled=startingBatch||busy||!enabled);
+  document.querySelectorAll('[data-action="start-batch"]').forEach(button=>{button.disabled=startingBatch||busy||!enabled;button.textContent=startingBatch?'正在开启…':'开启任务';button.setAttribute('aria-busy',String(startingBatch));});
 }
 async function startBatch(){
   if(startingBatch||busy)return;
-  if(state.pending){render();return;}
-  startingBatch=true;updateStartButtons();
+  state.mobileDetail=false;
+  if(state.pending){render();focusFeedback();return;}
+  startingBatch=true;batchReceipt=null;startMessage='正在确认已启用信源…';render();focusFeedback();
   try{
     const sources=await api.get('/api/v1/m1/sources');state.sources=sources.items;
     const keys=state.sources.filter(source=>source.state==='ACTIVE'&&can('submit',source.catalog_key)).map(source=>source.catalog_key);
-    if(!keys.length){notice('暂无已启用的信源，请先启用信源。',true);return;}
+    if(!keys.length){notice('暂无已启用的信源，请先启用信源。',true);focusFeedback();return;}
     await execute(api.command('/api/v1/l0/task-batches','POST',{source_keys:keys,limit:1}),{kind:'batch-create'});
-  }catch(error){notice(explain(error),true);}
+  }catch(error){notice(explain(error),true);focusFeedback();}
   finally{startingBatch=false;updateStartButtons();}
 }
 function openControl(id,action){
@@ -125,20 +145,27 @@ async function execute(command,context){
   if(state.pending&&state.pending.command.key!==command.key){const area=modal.open?modal.querySelector('#modal-error'):feedback;area.hidden=false;area.textContent='请先确认上一项操作的结果，再开始新的操作。';return;}
   if(state.pending&&state.pending.actor!==state.session?.actor){notice('请使用发起原操作的账号登录后核对结果。',true);return;}
   state.pending={command,actor:state.session.actor,context:{kind:context.kind,target:context.source?.catalog_key}};store('riskhot-command',state.pending);
-  busy=true;feedback.hidden=true;modal.querySelectorAll('button').forEach(x=>x.disabled=true);
+  busy=true;batchReceipt=null;
+  if(context.kind==='batch-create'){startingBatch=true;startMessage='正在开启任务，等待受理…';notice(startMessage);updateStartButtons();}
+  else feedback.hidden=true;
+  modal.querySelectorAll('button').forEach(x=>x.disabled=true);
   try{
     const value=await api.send(command);state.pending=null;store('riskhot-command',null);busy=false;
     if(context.kind==='source-create')Object.keys(state.filters).forEach(key=>state.filters[key]='');
     if(context.kind.startsWith('source-')){store('riskhot-draft',null);state.selected=value.catalog_key||value.key||context.source?.catalog_key;state.detailTab='archive';}
     if(context.kind==='schedule')state.planFilters.view='configured';
-    if(context.kind==='batch-create'){state.selectedBatch=value.id;state.mobileDetail=false;state.taskFilters={from:shanghaiDate(new Date(value.scheduled_at)),to:shanghaiDate(new Date(value.scheduled_at)),q:value.id,status:''};if(location.hash!=='#intake-tasks')history.pushState(null,'','#intake-tasks');}
-    closeDialog(true);await refresh();notice('操作已确认，当前状态已重新读取。');
+    if(context.kind==='batch-create'){startMessage='';batchReceipt={id:value.id,scheduled_at:value.scheduled_at,count:value.sources.length,actor:state.session.actor,readFailed:false};selectStartedBatch();render();focusFeedback();}
+    if(modal.open)closeDialog(true);
+    const refreshed=await refresh();
+    if(context.kind==='batch-create'){if(batchReceipt?.id===value.id){batchReceipt.readFailed=!refreshed;showBatchReceipt();focusFeedback();}}
+    else if(refreshed)notice('操作已确认，当前状态已重新读取。');
   }catch(error){
     const unknown=Boolean(error.command);if(!unknown){state.pending=null;store('riskhot-command',null);}
-    const area=modal.open?modal.querySelector('#modal-error'):feedback;area.hidden=false;area.textContent=explain(error);
+    const area=modal.open?modal.querySelector('#modal-error'):feedback;if(modal.open){area.hidden=false;area.textContent=explain(error);}else notice(explain(error),true);
     if(unknown){area.insertAdjacentHTML('beforeend',`<p>提交内容已保留，重试将使用原请求。</p><span ${modal.open?'':'id="pending-controls"'} class="actions"><button type="button" class="secondary" data-action="retry-pending">重试原操作</button><button type="button" class="quiet" data-action="refresh">查询当前状态</button></span>`);modal.querySelectorAll('input,select,textarea').forEach(x=>x.disabled=true);}
     if(error.status===401){document.querySelector('#login').hidden=false;area.insertAdjacentHTML('beforeend','<p><a href="/auth/login">重新登录后继续</a></p>');}
-  }finally{busy=false;modal.querySelectorAll('button').forEach(x=>x.disabled=false);if(state.pending)modal.querySelector('[type="submit"]')?.setAttribute('disabled','');}
+    if(!modal.open)focusFeedback();
+  }finally{busy=false;if(context.kind==='batch-create')startingBatch=false;updateStartButtons();modal.querySelectorAll('button').forEach(x=>x.disabled=false);if(state.pending)modal.querySelector('[type="submit"]')?.setAttribute('disabled','');}
 }
 async function submitDialog(form){
   if(busy||!dialogContext||!form.reportValidity())return;
@@ -220,13 +247,15 @@ document.addEventListener('click',async event=>{
   if(d.historyVersion){const row=(state.history?.data.items||[]).find(x=>String(x.version)===d.historyVersion);if(row)openDialog(`历史版本 v${row.version} · 只读`,`<dl class="facts">${profileFields.map(([key,name])=>`<dt>${e(name)}</dt><dd>${e(Array.isArray(row.profile?.[key])?row.profile[key].join('、'):row.profile?.[key]||'待补充')}</dd>`).join('')}</dl>`,{kind:'read'},'');}
   if(d.retryOperation){const row=await api.get(`/api/v1/l0/operations/${d.retryOperation}`);openDialog('重试接入资料','<label class="field">恢复原因<input name="reason" required maxlength="2000"></label>',{kind:'retry-operation',row},'重试');}
   if(d.retryProcessing||d.reviewProcessing){const row=state.processing;openDialog(d.reviewProcessing?'复核固定输出':'重试固定资料',`<label class="field">处理依据<input name="reason" required maxlength="2000"></label>${!d.reviewProcessing&&can('model_budget')?'<label><input name="budget" type="checkbox">预算确已耗尽时，申请新的授权窗口</label>':''}`,{kind:d.reviewProcessing?'review-processing':'retry-processing',row},d.reviewProcessing?'允许重试固定资料':'重试');}
-  const action=d.action;
+  const action=d.action||(button.id==='refresh'?'refresh':null);
   if(action==='refresh'){button.disabled=true;await refresh();button.disabled=false;}
   if(action==='create-source')openSourceForm();
   if(action==='close-detail'){state.mobileDetail=false;render();document.querySelector(`[data-source="${state.selected}"]`)?.focus();}
   if(action==='clear-sources'){Object.keys(state.filters).forEach(key=>state.filters[key]='');render();}
   if(action==='expand'||action==='collapse')content.querySelectorAll('details.source-group').forEach(x=>x.open=action==='expand');
   if(action==='start-batch')startBatch();
+  if(action==='view-started-batch'&&batchReceipt){selectStartedBatch();if(await refresh())document.querySelector('#batch-detail-title')?.focus();else focusFeedback();}
+  if(action==='dismiss-batch-receipt'){batchReceipt=null;feedback.hidden=true;document.querySelector('[data-action="start-batch"]')?.focus();}
   if(action==='close-batch'){state.selectedBatch=null;render();}
   if(action==='clear-tasks'){state.taskFilters={from:today,to:today,q:'',status:''};refresh();}
   if(action==='attention'){state.taskFilters.status='attention';refresh();}
@@ -242,5 +271,5 @@ document.addEventListener('keydown',event=>{if(event.target.matches('[role="tab"
 window.addEventListener('hashchange',()=>{render();refresh();});
 window.addEventListener('offline',()=>{connected=false;notice('当前离线，保留已读取状态；恢复连接后可刷新。',true);});
 window.addEventListener('online',()=>refresh(true));
-setInterval(()=>{if(!document.hidden&&!modal.open&&navigator.onLine)refresh(true);},15000);
+setInterval(()=>{if(!document.hidden&&!modal.open&&!busy&&!startingBatch&&navigator.onLine)refresh(true);},15000);
 refresh();
