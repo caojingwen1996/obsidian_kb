@@ -76,3 +76,45 @@
 - 验证结果
 - 遗留问题与风险
 
+## 6. 项目结构与目录约定
+
+以下路径以 RiskHot 项目根目录为基准，工程代码统一放在 `src/` 下：
+
+```text
+RiskHot/
+  src/
+    data/        信源清单、连接配置与演示配置
+    db/          数据库建库 SQL
+    l0/          资料获取、解析、标准化与 AI 事件候选抽取
+    m1/          信源目录读取与连接器注册
+    platform/    身份认证、权限、数据库、工件存储与通知
+    runtime/     API、Temporal 工作流、Worker、投递与调度进程
+    scripts/     初始化、启动、运行、监测与后台服务管理命令
+    tests/       自动化测试及测试辅助代码
+  docs/          业务、功能、技术设计、UI 原型、实施计划与验证记录
+  aihot/         参考资料、外部源码快照与旧设计归档
+  .agents/       项目技能与协作配置
+  _bmad/         已安装的 BMAD 工具与工作流
+  _bmad-output/  BMAD 规划与分析产物
+  AGENTS.md      Agent 工作规则及项目结构
+  README.md      安装、启动、运行与操作说明
+  index.md       项目文档导航
+  log.md         项目维护日志
+  package.json   npm 命令及依赖声明
+  package-lock.json 依赖版本锁定
+  tsconfig.json  TypeScript 编译与类型检查配置
+  compose.yaml   本地依赖服务编排
+  .env.example   环境配置示例
+  .env           本地私有配置（不提交）
+  .riskhot/      本地工件、运行记录及日志（不提交）
+```
+
+目录维护规则：
+
+1. 新增业务代码、前端实现、命令脚本、自动化测试与 SQL 均归入 `src/`，按职责建立或复用子目录；根目录保留项目配置和文档入口。
+2. 信源身份与参考元数据统一维护在 `src/data/source-catalog.js`，连接范围维护在 `src/data/source-connections.json`；`source-demo.js` 仅用于原型演示。
+3. `docs/` 中的设计原型、`aihot/` 中的参考快照及已安装工具保留各自的资料归属；实际产品实现放入 `src/`。
+4. 所有 npm 命令在项目根目录执行，由 `package.json` 指向 `src/scripts/` 等实际入口。
+5. 调整目录时，同步更新导入、文件读取和启动路径，以及 `package.json`、`tsconfig.json`、README 与本节说明。
+6. 私有配置、依赖目录、构建产物及运行数据遵循 `.gitignore`，不纳入代码提交。
+
