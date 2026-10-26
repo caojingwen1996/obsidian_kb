@@ -3,8 +3,8 @@ import { mkdtemp, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { setTimeout } from 'node:timers/promises';
-import type { SourceConnector } from '../m1/connectors.js';
-import { DomainError } from '../platform/types.js';
+import type { SourceConnector } from '../sources/connectors.js';
+import { DomainError } from '../../platform/types.js';
 import { assertSourceUrl } from './sources.js';
 
 export function browserRequestAllowed(profile: SourceConnector, value: string, type: string): boolean {

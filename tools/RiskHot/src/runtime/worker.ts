@@ -2,7 +2,7 @@ import { fileURLToPath } from 'node:url';
 import { NativeConnection, Worker } from '@temporalio/worker';
 import { database, required } from '../platform/db.js';
 import { ArtifactStore } from '../platform/artifacts.js';
-import { ExecutionStore } from '../l0/execution.js';
+import { ExecutionStore } from '../information-ingestion/processing/execution.js';
 import { ioActivities, modelActivities } from './activities.js';
 
 const role = process.argv[2];

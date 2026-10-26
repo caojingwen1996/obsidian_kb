@@ -3,7 +3,7 @@ import { mkdtemp, writeFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { extractionSchema } from './extraction.js';
-import { DomainError } from '../platform/types.js';
+import { DomainError } from '../../platform/types.js';
 import type { TaskInput, TransportResponse } from './model.js';
 
 const MAX_OUTPUT = 2_097_152;

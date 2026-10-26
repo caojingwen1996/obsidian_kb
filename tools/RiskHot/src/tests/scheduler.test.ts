@@ -1,9 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { openFixture } from './fixture.js';
-import { ExecutionStore } from '../l0/execution.js';
+import { ExecutionStore } from '../information-ingestion/processing/execution.js';
 import { Pool } from 'pg';
-import { readCatalog } from '../m1/catalog.js';
+import { readCatalog } from '../information-ingestion/sources/catalog.js';
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { randomUUID } from 'node:crypto';

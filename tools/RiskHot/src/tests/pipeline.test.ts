@@ -6,9 +6,9 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { Pool } from 'pg';
 import { ArtifactStore } from '../platform/artifacts.js';
-import { ExecutionStore } from '../l0/execution.js';
-import { HttpModelClient, decodeModelResponse } from '../l0/model.js';
-import { parsePbc } from '../l0/pbc.js';
+import { ExecutionStore } from '../information-ingestion/processing/execution.js';
+import { HttpModelClient, decodeModelResponse } from '../information-ingestion/processing/model.js';
+import { parsePbc } from '../information-ingestion/processing/pbc.js';
 
 test('retains real transport responses and distinguishes stop, truncation, HTTP errors and invalid JSON', async () => {
   let scenario = 'stop';

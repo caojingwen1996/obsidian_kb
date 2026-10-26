@@ -2,9 +2,9 @@ import { grantRuntimeRoles } from '../platform/grants.js';
 import { readFile } from 'node:fs/promises';
 import { Pool } from 'pg';
 import { database, required } from '../platform/db.js';
-import { Repository } from '../l0/repository.js';
+import { Repository } from '../information-ingestion/processing/repository.js';
 import { ArtifactStore } from '../platform/artifacts.js';
-import { readCatalog } from '../m1/catalog.js';
+import { readCatalog } from '../information-ingestion/sources/catalog.js';
 
 const admin = database('ADMIN_DATABASE_URL');
 try {

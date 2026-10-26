@@ -1,5 +1,5 @@
 import { readFile } from 'node:fs/promises';
-import { DomainError, type CatalogEntry } from '../platform/types.js';
+import { DomainError, type CatalogEntry } from '../../platform/types.js';
 
 export async function readCatalog(path: string): Promise<CatalogEntry[]> {
   const source = await readFile(path, 'utf8');

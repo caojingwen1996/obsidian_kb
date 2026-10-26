@@ -3,9 +3,9 @@ import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { createServer } from 'node:http';
 import { setTimeout } from 'node:timers/promises';
-import { Repository } from '../l0/repository.js';
-import { parsePbc } from '../l0/pbc.js';
-import { HttpModelClient } from '../l0/model.js';
+import { Repository } from '../information-ingestion/processing/repository.js';
+import { parsePbc } from '../information-ingestion/processing/pbc.js';
+import { HttpModelClient } from '../information-ingestion/processing/model.js';
 import { openFixture } from './fixture.js';
 
 test('runtime children receive only their own database and identity credentials', async () => {

@@ -4,9 +4,9 @@ import { mkdtemp, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { grantRuntimeRoles } from '../platform/grants.js';
-import { ExecutionStore } from '../l0/execution.js';
+import { ExecutionStore } from '../information-ingestion/processing/execution.js';
 import { ArtifactStore } from '../platform/artifacts.js';
-import { parsePbc } from '../l0/pbc.js';
+import { parsePbc } from '../information-ingestion/processing/pbc.js';
 import { setTimeout } from 'node:timers/promises';
 
 export async function openFixture() {

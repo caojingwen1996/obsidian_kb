@@ -1,10 +1,10 @@
 import { createHash, randomUUID } from 'node:crypto';
 import type { Pool, PoolClient } from 'pg';
-import { ArtifactStore, type ArtifactRef } from '../platform/artifacts.js';
-import { transaction } from '../platform/db.js';
-import { DomainError, type CatalogEntry, type ExtractionResult, type NormalizedMaterial, type SourceItem } from '../platform/types.js';
+import { ArtifactStore, type ArtifactRef } from '../../platform/artifacts.js';
+import { transaction } from '../../platform/db.js';
+import { DomainError, type CatalogEntry, type ExtractionResult, type NormalizedMaterial, type SourceItem } from '../../platform/types.js';
 import { assertPbcUrl } from './pbc.js';
-import { connectorFor, sourceEntryUrl, type SourceConnector } from '../m1/connectors.js';
+import { connectorFor, sourceEntryUrl, type SourceConnector } from '../sources/connectors.js';
 import { assertSourceUrl, requireConnector } from './sources.js';
 
 export interface FetchCommand { source_key: string; limit: number; url?: string }

@@ -2,7 +2,7 @@ import { randomUUID } from 'node:crypto';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { setTimeout } from 'node:timers/promises';
 import { required } from '../platform/db.js';
-import type { SourceConnector } from '../m1/connectors.js';
+import type { SourceConnector } from '../information-ingestion/sources/connectors.js';
 
 const flags = new Map<string,string>();
 for(let index=2;index<process.argv.length;index+=2){

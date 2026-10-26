@@ -85,8 +85,9 @@ RiskHot/
   src/
     data/        信源清单、连接配置与演示配置
     db/          数据库建库 SQL
-    l0/          资料获取、解析、标准化与 AI 事件候选抽取
-    m1/          信源目录读取与连接器注册
+    information-ingestion/  信息采集：从信源配置到候选入库
+      sources/     信源目录读取与连接器注册
+      processing/  资料获取、解析、标准化与 AI 事件候选抽取
     platform/    身份认证、权限、数据库、工件存储与通知
     runtime/     API、Temporal 工作流、Worker、投递与调度进程
     scripts/     初始化、启动、运行、监测与后台服务管理命令
@@ -108,6 +109,8 @@ RiskHot/
   .env           本地私有配置（不提交）
   .riskhot/      本地工件、运行记录及日志（不提交）
 ```
+
+`information-ingestion/` 汇集信息采集相关的业务代码：`sources/` 对应架构中的 M1，`processing/` 对应当前已实现的 L0 候选处理切片。架构文档及已有接口、数据库和工作流标识继续沿用原编号，代码目录按业务职责命名。
 
 目录维护规则：
 

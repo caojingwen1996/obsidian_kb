@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import { load } from 'cheerio';
 import type { AnyNode, Element } from 'domhandler';
-import { DomainError, type NormalizedMaterial, type SourceItem, type Segment } from '../platform/types.js';
+import { DomainError, type NormalizedMaterial, type SourceItem, type Segment } from '../../platform/types.js';
 
 export const PBC_LIST = 'https://www.pbc.gov.cn/zhengcehuobisi/125207/125213/125431/index.html';
 const ITEM_PATH = /^\/zhengcehuobisi\/125207\/125213\/125431\/125475\/\d+\/index\.html$/;

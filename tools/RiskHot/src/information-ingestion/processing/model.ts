@@ -1,4 +1,4 @@
-import { DomainError, type ModelResponse, type NormalizedMaterial } from '../platform/types.js';
+import { DomainError, type ModelResponse, type NormalizedMaterial } from '../../platform/types.js';
 
 export interface ModelConfig { protocol: string; endpoint: string; model: string }
 export interface TaskInput { version_id: string; material: NormalizedMaterial; manifest: { provider: ModelConfig; prompt: string } }

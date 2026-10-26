@@ -12,9 +12,9 @@ import { setTimeout } from 'node:timers/promises';
 import { Pool } from 'pg';
 import Long from 'long';
 import { Connection } from '@temporalio/client';
-import { ExecutionStore } from '../l0/execution.js';
+import { ExecutionStore } from '../information-ingestion/processing/execution.js';
 import { ArtifactStore } from '../platform/artifacts.js';
-import { parsePbc } from '../l0/pbc.js';
+import { parsePbc } from '../information-ingestion/processing/pbc.js';
 import { grantRuntimeRoles } from '../platform/grants.js';
 import { runtimeEnvironment, type RuntimeRole } from '../runtime/environment.js';
 

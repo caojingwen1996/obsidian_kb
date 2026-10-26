@@ -1,15 +1,15 @@
 import { readFile } from 'node:fs/promises';
 import { Context } from '@temporalio/activity';
 import { ApplicationFailure } from '@temporalio/common';
-import { ExecutionStore } from '../l0/execution.js';
-import { assertSourceUrl, discoverSource, fetchSource, parseSource } from '../l0/sources.js';
-import { fetchRenderedSource } from '../l0/source-browser.js';
-import { modelConfig, modelCredentialsConfigured, HttpModelClient, decodeModelResponse, type TaskInput, type TransportResponse } from '../l0/model.js';
-import { extractionSchema, validateExtraction } from '../l0/extraction.js';
+import { ExecutionStore } from '../information-ingestion/processing/execution.js';
+import { assertSourceUrl, discoverSource, fetchSource, parseSource } from '../information-ingestion/processing/sources.js';
+import { fetchRenderedSource } from '../information-ingestion/processing/source-browser.js';
+import { modelConfig, modelCredentialsConfigured, HttpModelClient, decodeModelResponse, type TaskInput, type TransportResponse } from '../information-ingestion/processing/model.js';
+import { extractionSchema, validateExtraction } from '../information-ingestion/processing/extraction.js';
 import { DomainError, type NormalizedMaterial } from '../platform/types.js';
-import type { FetchCommand, OperationRow } from '../l0/repository.js';
-import { retryableModelFailure } from '../l0/policy.js';
-import { CodexModelClient, CodexExecutionError } from '../l0/codex.js';
+import type { FetchCommand, OperationRow } from '../information-ingestion/processing/repository.js';
+import { retryableModelFailure } from '../information-ingestion/processing/policy.js';
+import { CodexModelClient, CodexExecutionError } from '../information-ingestion/processing/codex.js';
 
 const errorCode = (error: unknown) => error instanceof DomainError ? error.code : 'IO_UNAVAILABLE';
 export function ioActivities(repo: ExecutionStore) {

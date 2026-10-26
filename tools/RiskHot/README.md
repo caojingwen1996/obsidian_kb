@@ -12,13 +12,16 @@
 src/
   data/       信源清单与连接配置
   db/         数据库建库 SQL
-  l0/         获取、解析与候选抽取
-  m1/         信源管理
+  information-ingestion/  信息采集
+    sources/     信源目录与连接配置
+    processing/  获取、解析、标准化与候选抽取
   platform/   身份、存储、权限与通知
   runtime/    API、工作流与调度进程
   scripts/    启动、初始化和操作命令
   tests/      自动化测试及辅助代码
 ```
+
+`information-ingestion/` 组织从信源配置到候选入库的业务流程；`sources/` 对应 M1，`processing/` 对应当前 L0 候选处理切片。已有接口和持久化标识继续使用架构编号。
 
 `package.json`、`tsconfig.json`、`compose.yaml` 和环境配置保留在项目根目录；命令仍在项目根目录执行。`docs/` 内的设计原型与 `aihot/` 内的参考快照保持各自的资料归属。
 

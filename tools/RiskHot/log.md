@@ -1867,3 +1867,11 @@ docs / architecture：根据用户指出上一版缺少具体技术设计的反�
 - 修改文件：AGENTS.md 增加实际目录树、src 各模块职责及代码/配置/设计资料/运行数据边界；两级 log.md 追加本次维护记录。
 - 说明：延续工程代码统一位于 src 的已确认约定，注明信源配置主责、根目录执行命令及目录变动后的引用同步要求；不新增正式 Wiki 页面，现有文档导航保持。
 - 验证：实际目录及文件位置核对通过，3份 Markdown 表格、UTF-8 与差异检查通过。本次仅修改文档，不重复运行应用测试。
+
+
+## 2026-10-26 · RiskHot 信息采集业务目录聚合
+
+- 操作：refactor / link；依据用户要求，将信息处理与信源管理归入共同的信息采集目录。
+- 修改文件：src/l0/ 迁至 src/information-ingestion/processing/，src/m1/ 迁至 src/information-ingestion/sources/；同步运行层、操作脚本、测试的导入路径，以及 AGENTS.md、README、实现契约与两级日志。
+- 说明：information-ingestion 覆盖从信源配置到候选入库；sources 对应 M1，processing 对应当前 L0 候选切片。代码文件仅调整相对模块引用，已有接口、数据库和工作流标识继续兼容。项目导航入口保持。
+- 验证：类型检查与完整回归61/61通过、0失败/0跳过；监测命令执行成功。逐文件核对确认仅模块路径调整，所有相对引用可解析，旧代码目录引用已清除。测试日志保存于本地忽略目录 .riskhot/information-ingestion-20261026/。

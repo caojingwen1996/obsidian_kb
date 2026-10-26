@@ -5,8 +5,8 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { Pool } from 'pg';
 import { ArtifactStore } from '../platform/artifacts.js';
-import { Repository } from '../l0/repository.js';
-import { parsePbc } from '../l0/pbc.js';
+import { Repository } from '../information-ingestion/processing/repository.js';
+import { parsePbc } from '../information-ingestion/processing/pbc.js';
 
 const url = 'https://www.pbc.gov.cn/zhengcehuobisi/125207/125213/125431/125475/2026102308535522110/index.html';
 const bytes = Buffer.from('<meta name="ArticleTitle" content="测试"><div id="zoom"><p>测试机构宣布实施两项措施。</p></div>');

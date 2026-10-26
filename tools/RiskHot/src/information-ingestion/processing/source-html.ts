@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import { load } from 'cheerio';
 import type { AnyNode, Element } from 'domhandler';
-import { DomainError, type Segment } from '../platform/types.js';
+import { DomainError, type Segment } from '../../platform/types.js';
 
 export const clean = (value: string) => value.replace(/[\s\u00a0]+/gu, ' ').trim();
 export function decodeHtml(raw: Buffer, encoding?: string): string {

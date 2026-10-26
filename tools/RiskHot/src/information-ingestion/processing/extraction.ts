@@ -1,5 +1,5 @@
 import { Ajv2020 } from 'ajv/dist/2020.js';
-import { DomainError, type Candidate, type EvidenceRef, type ExtractionResult, type ModelResponse, type NormalizedMaterial } from '../platform/types.js';
+import { DomainError, type Candidate, type EvidenceRef, type ExtractionResult, type ModelResponse, type NormalizedMaterial } from '../../platform/types.js';
 
 const string = { type: 'string', minLength: 1, maxLength: 8000 };
 const optionalString = { anyOf: [string, { type: 'null' }] };

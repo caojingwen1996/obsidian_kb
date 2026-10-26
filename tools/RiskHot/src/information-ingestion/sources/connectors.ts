@@ -1,6 +1,6 @@
-import { DomainError } from '../platform/types.js';
-import { PBC_LIST } from '../l0/pbc.js';
-import connections from '../data/source-connections.json' with { type: 'json' };
+import { DomainError } from '../../platform/types.js';
+import { PBC_LIST } from '../processing/pbc.js';
+import connections from '../../data/source-connections.json' with { type: 'json' };
 
 export interface SourceConnector {
   key: string; id: string; kind: 'pbc' | 'article' | 'html-snapshot' | 'json-snapshot' | 'blocked';

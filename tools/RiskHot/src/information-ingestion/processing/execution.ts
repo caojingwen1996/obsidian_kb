@@ -1,8 +1,8 @@
 import { randomUUID } from 'node:crypto';
 import { Repository, digest } from './repository.js';
 import type { Pool, PoolClient } from 'pg';
-import { transaction } from '../platform/db.js';
-import { DomainError } from '../platform/types.js';
+import { transaction } from '../../platform/db.js';
+import { DomainError } from '../../platform/types.js';
 import type { TaskInput } from './model.js';
 import { requiresOutputReview } from './policy.js';
 

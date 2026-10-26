@@ -1,6 +1,6 @@
 import { load } from 'cheerio';
-import type { SourceConnector } from '../m1/connectors.js';
-import { DomainError, type NormalizedMaterial, type SourceItem } from '../platform/types.js';
+import type { SourceConnector } from '../sources/connectors.js';
+import { DomainError, type NormalizedMaterial, type SourceItem } from '../../platform/types.js';
 import { parsePbc, discoverPbc } from './pbc.js';
 import { clean, decodeHtml, htmlSegments, selectedText, segment } from './source-html.js';
 

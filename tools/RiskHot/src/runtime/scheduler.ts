@@ -6,8 +6,8 @@ import { database, required, transaction } from '../platform/db.js';
 import { ArtifactStore } from '../platform/artifacts.js';
 import { DomainError } from '../platform/types.js';
 import { AlertStore, type Notifier, type RuntimeIssue, systemNotification } from '../platform/notifications.js';
-import { ExecutionStore } from '../l0/execution.js';
-import { CodexModelClient } from '../l0/codex.js';
+import { ExecutionStore } from '../information-ingestion/processing/execution.js';
+import { CodexModelClient } from '../information-ingestion/processing/codex.js';
 
 interface SchedulerConfig { intervalSeconds: number; maxInFlight: number; sources?: string[] }
 export function schedulerSettings(env: NodeJS.ProcessEnv = process.env): SchedulerConfig {

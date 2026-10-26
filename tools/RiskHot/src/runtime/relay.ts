@@ -3,7 +3,7 @@ import { setTimeout } from 'node:timers/promises';
 import { Client, Connection, WorkflowExecutionAlreadyStartedError } from '@temporalio/client';
 import { database, required, transaction } from '../platform/db.js';
 import { ArtifactStore } from '../platform/artifacts.js';
-import { ExecutionStore } from '../l0/execution.js';
+import { ExecutionStore } from '../information-ingestion/processing/execution.js';
 
 const db = database('RELAY_DATABASE_URL');
 const repo = new ExecutionStore(db, new ArtifactStore(required('ARTIFACT_ROOT')));

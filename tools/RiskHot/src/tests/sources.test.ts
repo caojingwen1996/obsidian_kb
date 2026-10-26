@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readCatalog } from '../m1/catalog.js';
-import { connectorFor, type SourceConnector } from '../m1/connectors.js';
-import { assertSourceUrl, discoverSource, parseSource, fetchSource } from '../l0/sources.js';
+import { readCatalog } from '../information-ingestion/sources/catalog.js';
+import { connectorFor, type SourceConnector } from '../information-ingestion/sources/connectors.js';
+import { assertSourceUrl, discoverSource, parseSource, fetchSource } from '../information-ingestion/processing/sources.js';
 
 const article: SourceConnector = {
   key: 'controlled-source', id: 'controlled-article-v1', readiness: 'ready', kind: 'article',
@@ -111,7 +111,7 @@ test('script comments cannot replace the actual discovered resource and daily-br
   const scripted: SourceConnector = { ...article, discovery: { format:'script-links', selector:'li' } };
   const raw = Buffer.from('<li><script>// var curHref="/article-2.html";\nvar curHref="/article-1.html";\nvar curTitle="实际公告";</script></li>');
   assert.deepEqual(discoverSource(scripted,raw,article.entryUrl!,1),[{url,title:'实际公告'}]);
-  const { fetchRenderedSource } = await import('../l0/source-browser.js');
+  const { fetchRenderedSource } = await import('../information-ingestion/processing/source-browser.js');
   await assert.rejects(() => fetchRenderedSource({ ...article, browser:{waitFor:'#article'} },url,'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'), /SOURCE_BROWSER_ISOLATION_REQUIRED/);
 });
 
@@ -169,7 +169,7 @@ test('snapshot dates must name a real calendar day rather than just match a date
 });
 
 test('browser subresources require explicit public dependency origins while document paths keep their source scope', async () => {
-  const { browserRequestAllowed }=await import('../l0/source-browser.js');
+  const { browserRequestAllowed }=await import('../information-ingestion/processing/source-browser.js');
   const p={...article,browser:{waitFor:'#article',resourceOrigins:['https://static.wscn.net']}};
   assert.equal(browserRequestAllowed(p,'https://static.wscn.net/app.js','Script'),true);
   for(const resource of ['http://127.0.0.1:18081/api','https://10.0.0.1/private','file:///etc/passwd','https://unregistered.test/app.js'])assert.equal(browserRequestAllowed(p,resource,'XHR'),false);

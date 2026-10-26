@@ -8,11 +8,11 @@ import { Authentication } from '../platform/auth.js';
 import { DomainError } from '../platform/types.js';
 import { database, required } from '../platform/db.js';
 import { ArtifactStore } from '../platform/artifacts.js';
-import { ExecutionStore } from '../l0/execution.js';
-import { connectorFor } from '../m1/connectors.js';
-import { modelCredentialsConfigured } from '../l0/model.js';
+import { ExecutionStore } from '../information-ingestion/processing/execution.js';
+import { connectorFor } from '../information-ingestion/sources/connectors.js';
+import { modelCredentialsConfigured } from '../information-ingestion/processing/model.js';
 import {serviceStatus} from '../platform/notifications.js';
-import type { FetchCommand } from '../l0/repository.js';
+import type { FetchCommand } from '../information-ingestion/processing/repository.js';
 
 declare module 'fastify' { interface FastifyRequest { actor: string } }
 const uuid = { type: 'string', pattern: '^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$' };
