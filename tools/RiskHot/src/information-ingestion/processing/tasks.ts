@@ -2,6 +2,7 @@ import type { PoolClient } from 'pg';
 import { DomainError } from '../../platform/types.js';
 import type { ExecutionStore } from './execution.js';
 import type { OperationRow } from './repository.js';
+import { requireConnector } from './sources.js';
 
 interface SourceResult {
   source_key: string; name: string; operation_id: string | null; status: string; stage: string;
@@ -111,6 +112,14 @@ export class TaskManagement {
       const legacy = batch ? undefined : await this.repo.rawOperation(id, tx);
       if ((batch?.version ?? Number(legacy!.generation)) !== input.expected_version) throw new DomainError('VERSION_CONFLICT', 409);
       let all = (await tx.query<OperationRow>('SELECT * FROM information.operations WHERE id=ANY($1::uuid[]) OR parent_id=ANY($1::uuid[]) ORDER BY id', [roots])).rows;
+      if (input.action === 'resume') {
+        const needed = all.filter(op => roots.includes(op.id) && (all.some(child => child.parent_id === op.id) ? all.some(child => child.parent_id === op.id && child.status !== 'completed') : op.status !== 'completed'));
+        const sources = (await tx.query<{id:string;version:number;state:string}>('SELECT id,version,state FROM m1.sources WHERE id=ANY($1::uuid[]) ORDER BY id FOR SHARE', [[...new Set(needed.map(op => op.source_id))]])).rows;
+        for (const source of sources) {
+          if (source.state !== 'ACTIVE') throw new DomainError('SOURCE_DISABLED', 409);
+          requireConnector(await this.repo.connectionFor({ source_id: source.id, source_version: source.version }, tx));
+        }
+      }
       const ids = all.map(x => x.id), processingIds = [...new Set(all.map(x => x.processing_id).filter((x): x is string => Boolean(x)))].sort();
       // Model acceptance locks the processing first; controls use the same order.
       const processings = processingIds.length ? (await tx.query<{ id: string; generation: string; extraction_status: string; paused: boolean }>('SELECT * FROM information.processing_runs WHERE id=ANY($1::uuid[]) ORDER BY id FOR UPDATE', [processingIds])).rows : [];

@@ -22,6 +22,32 @@ async function setup() {
   return { ...c, app, actor, request, async close() { await app.close(); await apiDb.end(); await c.dispose(); } };
 }
 
+test('resuming a paused batch rechecks source eligibility and preserves pause when the source is disabled', async () => {
+  const c = await setup();
+  try {
+    const batch=(await c.request('POST','/api/v1/l0/task-batches',{source_keys:['wiki-source-001'],limit:1})).json();
+    const paused=(await c.request('POST',`/api/v1/l0/task-batches/${batch.id}/control`,{action:'pause',expected_version:batch.version,reason:'暂停'})).json();
+    await c.request('PATCH','/api/v1/m1/sources/wiki-source-001',{state:'DISABLED'});
+    const resumed=await c.request('POST',`/api/v1/l0/task-batches/${batch.id}/control`,{action:'resume',expected_version:paused.version,reason:'继续'});
+    assert.equal(resumed.statusCode,409,resumed.body);
+    assert.equal((await c.request('GET',`/api/v1/l0/task-batches?q=${batch.id}`)).json().items[0].status,'paused');
+  } finally {await c.close();}
+});
+
+test('source relations expose real saved versions and keep unavailable indicator references distinct from zero', async () => {
+  const c=await setup();
+  try {
+    const material=await c.processing();
+    const response=await c.request('GET','/api/v1/m1/sources/wiki-source-001/relations');
+    assert.equal(response.statusCode,200,response.body);
+    assert.ok(response.json().materials.items.some((row:{version_id:string})=>row.version_id===material.version));
+    assert.equal(response.json().allowed_indicators.status,'unavailable');
+    assert.equal(response.json().allowed_indicators.count,null);
+    await c.db.query("UPDATE platform.actors SET source_keys=ARRAY['wiki-source-002'] WHERE subject=$1",[c.actor]);
+    assert.equal((await c.request('GET','/api/v1/m1/sources/wiki-source-001/relations')).statusCode,403);
+  } finally {await c.close();}
+});
+
 test('catalog synchronization preserves an edited profile and its independent connector configuration', async () => {
   const c = await setup();
   try {

@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url';
 import { access, constants, mkdir } from 'node:fs/promises';
 import Fastify from 'fastify';
 import { registerManagement } from './management.js';
+import { registerWeb } from './web.js';
 import cookie from '@fastify/cookie';
 import { Ajv2020 } from 'ajv/dist/2020.js';
 import { Authentication } from '../platform/auth.js';
@@ -62,7 +63,7 @@ export async function buildServer(repo: ExecutionStore) {
     const budget = (await repo.db.query('SELECT id,generation,used,deadline FROM platform.model_budget_windows WHERE processing_id=$1 ORDER BY generation DESC LIMIT 1', [id])).rows[0] ?? null;
     return { ...processing, attempts, budget_window: budget, output_review_basis: processing.extraction_status === 'review' ? await repo.reviewBasis(id) : null };
   };
-  app.get('/', async () => ({ name: 'RiskHot', stage: 'source-to-candidates', login: '/auth/login', sources: '/api/v1/m1/sources', runs: '/api/v1/l0/runs' }));
+  registerWeb(app);
   app.get('/auth/login', async (_request, reply) => auth.login(reply));
   app.get('/auth/callback', async (request, reply) => auth.callback(request, reply));
   app.post('/auth/logout', async (request, reply) => auth.logout(request, reply));

@@ -1,6 +1,19 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
+test('directory identity search does not match unrelated focus or background prose', async () => {
+  const {filterSources}=await import('../web/model.js');
+  const rows=[{catalog_key:'a',name:'中国人民银行',metadata:{}},{catalog_key:'b',name:'其他来源',metadata:{focus:'观察中国人民银行发布的数据'}}];
+  assert.deepEqual(filterSources(rows,{q:'中国人民银行'}).map(x=>x.catalog_key),['a']);
+});
+
+test('multi-valued business filters use OR within one dimension and intersection across dimensions', async () => {
+  const {filterSources}=await import('../web/model.js');
+  const rows=[{catalog_key:'a',metadata:{dims:['流动性'],levels:['国家'],category:'官方'}},{catalog_key:'b',metadata:{dims:['资产价格'],levels:['行业'],category:'研究'}},{catalog_key:'c',metadata:{dims:['增长'],levels:['国家'],category:'官方'}}];
+  assert.deepEqual(filterSources(rows,{dims:['流动性','资产价格'],levels:'国家'}).map(x=>x.catalog_key),['a']);
+  assert.deepEqual(filterSources(rows,{category:'研究'}).map(x=>x.catalog_key),['b']);
+});
+
 test('source search uses persisted metadata and unknown classifications remain empty', async () => {
   const { filterSources, profileOf } = await import('../web/model.js');
   const rows = [{catalog_key:'wiki-source-001',name:'央行',state:'ACTIVE',metadata:{tier:'T1',group:'政策',publisher:'中国人民银行'}},

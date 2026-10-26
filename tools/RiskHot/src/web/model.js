@@ -1,4 +1,4 @@
-export const statusNames = {ACTIVE:'启用',DISABLED:'停用',ready:'已就绪',running:'运行中',queued:'待执行',pending:'待执行',paused:'已暂停',completed:'已完成',partial:'部分完成',failed:'失败',blocked:'已阻断',recoverable:'待恢复',review:'待复核',waiting_config:'待配置',needs_url:'待补地址',needs_login:'需登录',access_blocked:'访问受限'};
+export const statusNames = {ACTIVE:'启用',DISABLED:'停用',ready:'已就绪',needs_adapter:'待配置连接器',missing_url:'待补地址',authentication_required:'需登录',unknown:'待确认',running:'运行中',queued:'待执行',pending:'待执行',paused:'已暂停',completed:'已完成',partial:'部分完成',failed:'失败',blocked:'已阻断',recoverable:'待恢复',review:'待复核',waiting_config:'待配置',needs_url:'待补地址',needs_login:'需登录',access_blocked:'访问受限'};
 export const statusName = value => statusNames[value] || value || '未知';
 export const steps = ['核对信源资格与接入条件','获取原始资料','正文读取与资料标准化','识别重复与资料版本','保存标准化资料','交付标准化资料'];
 export const escape = value => String(value ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -11,8 +11,9 @@ export function filterSources(rows,filters={}) {
   const q=(filters.q || '').toLocaleLowerCase();
   return rows.filter(row=>{
     const p=profileOf(row);
-    return (!q||[row.catalog_key,...Object.values(p)].join(' ').toLocaleLowerCase().includes(q))
-      && ['tier','group','priority','frequency'].every(key=>!filters[key]||p[key]===filters[key])
+    return (!q||[row.catalog_key,p.name,p.publisher].join(' ').toLocaleLowerCase().includes(q))
+      && ['tier','group','category','priority','frequency'].every(key=>!filters[key]||p[key]===filters[key])
+      && ['dims','levels'].every(key=>{const selected=Array.isArray(filters[key])?filters[key]:filters[key]?[filters[key]]:[];return !selected.length||selected.some(value=>p[key].includes(value));})
       && (!filters.state||row.state===filters.state)
       && (!filters.readiness||(row.connection?.readiness||'unknown')===filters.readiness);
   });
@@ -48,5 +49,5 @@ export function validRange(from,to) {
 }
 export function dateTime(value) {if(!value)return '尚无记录';const date=new Date(value);return Number.isFinite(+date)?new Intl.DateTimeFormat('zh-CN',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}).format(date):'时间未知';}
 export function badge(value) {return `<span class="status status-${escape(value)}">${escape(statusName(value))}</span>`;}
-const reasons={SOURCE_DISABLED:'信源已停用，请先核对业务资格。',CONNECTOR_NOT_CONFIGURED:'尚未配置连接器，暂时不能自动接入。',SOURCE_VERSION_CHANGED:'信源资料已更新，请刷新后重试。',VERSION_CONFLICT:'资料版本已变化，请刷新后核对。',STALE_EXECUTION:'任务已由其他操作推进，请刷新状态。',MODEL_NOT_CONFIGURED:'模型尚未配置；已保存资料保留。',MODEL_QUOTA_EXHAUSTED:'模型额度不足，等待执行通道恢复。',MODEL_LOGIN_REQUIRED:'模型登录已失效，请重新登录本机 Codex。',OUTCOME_UNKNOWN:'未收到操作回执，结果尚未确认。可查询状态或使用原请求重试。',UNAUTHENTICATED:'登录已过期，请重新登录后继续。',FORBIDDEN:'当前账号没有此项操作或信源访问权限。',IDEMPOTENCY_CONFLICT:'请求标识与原操作不一致，请重新读取状态。',SCHEDULE_VERSION_CHANGED:'计划已由其他操作更新，请刷新后核对。',SOURCE_DUPLICATE:'已有相同身份的信源，请核对并打开已有档案。'};
+const reasons={SOURCE_DISABLED:'信源已停用，请先核对业务资格。',CONNECTOR_NOT_CONFIGURED:'尚未配置连接器，暂时不能自动接入。',SOURCE_VERSION_CHANGED:'信源资料已更新，请刷新后重试。',VERSION_CONFLICT:'资料版本已变化，请刷新后核对。',STALE_EXECUTION:'任务已由其他操作推进，请刷新状态。',MODEL_NOT_CONFIGURED:'模型尚未配置；已保存资料保留。',MODEL_QUOTA_EXHAUSTED:'模型额度不足，等待执行通道恢复。',MODEL_LOGIN_REQUIRED:'模型登录已失效，请重新登录本机 Codex。',OUTCOME_UNKNOWN:'未收到操作回执，结果尚未确认。可查询状态或使用原请求重试。',UNAUTHENTICATED:'登录已过期，请重新登录后继续。',FORBIDDEN:'当前账号没有此项操作或信源访问权限。',IDEMPOTENCY_CONFLICT:'请求标识与原操作不一致，请重新读取状态。',SCHEDULE_VERSION_CHANGED:'计划已由其他操作更新，请刷新后核对。',SOURCE_VERIFICATION_REQUIRED:'请先补充发布主体、身份依据和允许业务范围，再核对启用。',DATE_RANGE_INVALID:'日期范围无效，请核对开始与结束日期。',SOURCE_DUPLICATE:'已有相同身份的信源，请核对并打开已有档案。'};
 export function explain(error) {const code=typeof error==='string'?error:error?.code;return reasons[code] || `未能完成操作${code?`（${code}）`:''}，请刷新状态后重试。`;}

@@ -90,4 +90,12 @@ export class SourceManagement {
     const items = (await this.repo.db.query<{ version: number; config: SourceConfig; created_at: Date }>('SELECT version,config,created_at FROM m1.source_versions WHERE source_id=$1 ORDER BY version DESC', [source.id])).rows;
     return { items: items.map(row => ({ ...row, profile: row.config.profile ?? row.config.catalog, state: row.config.state })), audit: (await this.repo.db.query('SELECT actor,action,detail,created_at FROM platform.audit_log WHERE owner_id=$1 ORDER BY created_at DESC', [source.id])).rows };
   }
+  async relations(actor: string, key: string) {
+    await this.repo.authorize(actor, 'read', key);
+    const source = (await this.repo.db.query<{id:string}>('SELECT id FROM m1.sources WHERE catalog_key=$1', [key])).rows[0];
+    if (!source) throw new DomainError('NOT_FOUND', 404);
+    const items = (await this.repo.db.query(`SELECT v.id AS version_id,v.title,v.version_no,v.published_at_text,v.created_at FROM information.materials m JOIN information.material_versions v ON v.material_id=m.id WHERE m.source_id=$1 ORDER BY v.created_at DESC,v.id LIMIT 100`, [source.id])).rows;
+    const total = Number((await this.repo.db.query('SELECT count(*) AS n FROM information.materials m JOIN information.material_versions v ON v.material_id=m.id WHERE m.source_id=$1', [source.id])).rows[0].n);
+    return { materials: { status: 'available', items, total, limit: 100 }, allowed_indicators: { status: 'unavailable', count: null, items: null } };
+  }
 }
