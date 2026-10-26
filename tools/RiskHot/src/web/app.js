@@ -2,6 +2,7 @@ import {createClient} from './api.js';
 import {escape as e,profileOf,shanghaiDate,validRange,dateTime,statusName,explain,candidateCount,periodUnits,schedulePeriod,periodSeconds} from './model.js';
 import {renderSources,sourceForm,profileFields} from './sources.js';
 import {renderTasks,renderSchedules,renderProgress} from './tasks.js';
+import {currentTask,launchState,renderActivity} from './activity.js';
 
 const api=createClient(),content=document.querySelector('#content'),modal=document.querySelector('#modal'),feedback=document.querySelector('#feedback');
 const readStored=key=>{try{return JSON.parse(sessionStorage.getItem(key));}catch{return null;}};
@@ -12,24 +13,37 @@ const state={sources:[],session:null,view:'research',selected:null,detailTab:'ar
 state.pending=readStored('riskhot-command');state.sources=[];state.session=null;
 let connected=false,loading=false,busy=false,startingBatch=false,dialogContext=null,returnFocus=null,historyRequest=0,refreshRequest=0,refreshPromise=null;
 let batchReceipt=null,startMessage='';
+let activityFresh=false,idleRefreshTicks=0;
+const activity=document.querySelector('#task-activity');
+const activeTasksUrl='/api/v1/l0/task-batches?status=active';
 const can=(permission,key)=>Boolean(state.session?.permissions.includes(permission)&&(!key||state.session.source_keys.includes('*')||state.session.source_keys.includes(key)));
 const route=()=>location.hash==='#intake-tasks'?'tasks':location.hash==='#schedules'?'schedules':'sources';
 function remember(){store('riskhot-view',{view:state.view,selected:state.selected,detailTab:state.detailTab,filters:state.filters,taskFilters:state.taskFilters,planFilters:state.planFilters,selectedBatch:state.selectedBatch});}
 function notice(message,error=false){feedback.hidden=false;feedback.className=`feedback ${error?'feedback-error error':''}`;feedback.setAttribute('role',error?'alert':'status');feedback.textContent=message;}
 function focusFeedback(){feedback.focus({preventScroll:true});feedback.scrollIntoView({block:'nearest'});}
+function updateActivity(){
+  const html=state.session?renderActivity(state.activity,activityFresh,can):'';
+  activity.hidden=!html;
+  if(activity.innerHTML!==html)activity.innerHTML=html;
+}
+function focusActivity(){const target=feedback.hidden?activity:feedback;target.focus({preventScroll:true});target.scrollIntoView({block:'nearest'});}
 function showBatchReceipt(){
   if(!batchReceipt||batchReceipt.actor!==state.session?.actor)return;
+  if(!batchReceipt.readFailed&&currentTask(state.activity)?.id===batchReceipt.id){feedback.hidden=true;return;}
   notice(`任务已受理 · ${batchReceipt.id.slice(0,8)}，共 ${batchReceipt.count} 个信源。${batchReceipt.readFailed?'状态暂未读到，可重新查看；无需再次开启任务。':'查看本次任务可跟踪各信源的状态与结果。'}`,batchReceipt.readFailed);
   feedback.insertAdjacentHTML('beforeend','<span class="actions"><button type="button" class="secondary" data-action="view-started-batch">查看本次任务</button><button type="button" class="quiet" data-action="dismiss-batch-receipt">关闭提示</button></span>');
 }
-function selectStartedBatch(){
-  state.selectedBatch=batchReceipt.id;state.mobileDetail=false;
-  state.taskFilters={from:shanghaiDate(new Date(batchReceipt.scheduled_at)),to:shanghaiDate(new Date(batchReceipt.scheduled_at)),q:batchReceipt.id,status:''};
+function selectStartedBatch(task=batchReceipt){
+  state.selectedBatch=task.id;state.mobileDetail=false;
+  state.taskFilters={from:shanghaiDate(new Date(task.scheduled_at)),to:shanghaiDate(new Date(task.scheduled_at)),q:task.id,status:''};
   if(location.hash!=='#intake-tasks')history.pushState(null,'','#intake-tasks');
   remember();
 }
 function render(){
+  const detail=content.querySelector('#batch-detail');
+  const expanded=detail?.dataset.batchId===state.selectedBatch?[...detail.querySelectorAll('[data-result-source][open]')].map(node=>({key:node.dataset.resultSource,progress:node.querySelector('.progress-disclosure')?.open})):[];
   remember();
+  updateActivity();
   document.querySelector('.page-footer').hidden=route()!=='sources';
   for(const [id,name] of [['source-workspace-link','sources'],['intake-workspace-link','tasks'],['schedules-workspace-link','schedules']]){
     const link=document.getElementById(id);name===route()?link.setAttribute('aria-current','page'):link.removeAttribute('aria-current');
@@ -40,6 +54,7 @@ function render(){
   if(route()==='tasks')content.innerHTML=state.batches?renderTasks(state,can):'<div class="loading" role="status">正在读取接入批次…</div>';
   else if(route()==='schedules')content.innerHTML=state.monitor?renderSchedules(state,can):'<div class="loading" role="status">正在读取计划…</div>';
   else content.innerHTML=renderSources(state,can);
+  for(const item of expanded){const node=content.querySelector(`[data-result-source="${CSS.escape(item.key)}"]`);if(node){node.open=true;const progress=node.querySelector('.progress-disclosure');if(progress)progress.open=Boolean(item.progress);}}
   updateStartButtons();
   if(startingBatch&&!batchReceipt&&startMessage)notice(startMessage);
   else if(state.pending&&!busy){notice('上一项操作的结果尚未确认。请先查询状态，或重试原操作。',true);feedback.insertAdjacentHTML('beforeend','<span id="pending-controls" class="actions"><button class="secondary" data-action="retry-pending">重试原操作</button><button class="quiet" data-action="refresh">查询当前状态</button></span>');}
@@ -56,15 +71,15 @@ async function loadRelations(){
 }
 async function refresh(silent=false){
   if(refreshPromise){if(silent)return refreshPromise;await refreshPromise;return refresh(false);}
-  refreshPromise=performRefresh();
+  refreshPromise=performRefresh(silent);
   try{return await refreshPromise;}finally{refreshPromise=null;}
 }
-async function performRefresh(){
+async function performRefresh(silent=false){
   loading=true;const serial=++refreshRequest;
   try{
     const session=await api.get('/api/v1/session');
     const sources=await api.get('/api/v1/m1/sources');
-    const next={session,sources:sources.items};
+    const next={session,sources:sources.items,activity:await api.get(activeTasksUrl)};
     if(route()==='tasks'){
       if(!validRange(state.taskFilters.from,state.taskFilters.to))throw {code:'DATE_RANGE_INVALID'};
       next.batches=await api.get(`/api/v1/l0/task-batches?${new URLSearchParams(Object.entries(state.taskFilters).filter(([,v])=>v))}`);
@@ -74,14 +89,15 @@ async function performRefresh(){
       if(state.planHistory?.key&&!state.planHistory.loading)next.planHistory={key:state.planHistory.key,data:await api.get(`/api/v1/l0/schedules/${state.planHistory.key}/runs`)};
     }
     if(serial!==refreshRequest)return;
-    Object.assign(state,next);state.loginRequired=false;connected=true;
+    Object.assign(state,next);state.loginRequired=false;connected=true;activityFresh=true;
     if(!busy&&!startingBatch&&!batchReceipt)feedback.hidden=true;
     if(batchReceipt&&next.batches?.items.some(row=>row.id===batchReceipt.id))batchReceipt.readFailed=false;
     if(!state.selected||!state.sources.some(x=>x.catalog_key===state.selected))state.selected=state.sources[0]?.catalog_key??null;
-    render();if(route()==='sources'&&state.detailTab==='history'&&state.selected)await loadHistory();
+    const editing=silent&&document.activeElement?.matches('#content input,#content select,#content textarea');
+    if(editing){updateActivity();updateStartButtons();}else{render();if(route()==='sources'&&state.detailTab==='history'&&state.selected)await loadHistory();}
     return true;
   }catch(error){
-    connected=false;
+    connected=false;activityFresh=false;updateActivity();updateStartButtons();
     if(error.status===401){state.session=null;state.loginRequired=true;render();}
     else if(!state.sources.length&&!state.session){content.innerHTML='<section class="empty panel"><h2>暂时无法读取工作台</h2><p>请检查服务连接后重试。</p><button class="secondary" data-action="refresh">重新读取</button></section>';}
     notice(error.code==='DATE_RANGE_INVALID'?'日期范围无效，请核对开始与结束日期。':explain(error),true);
@@ -108,23 +124,30 @@ function openSourceForm(key){
 }
 function updateStartButtons(){
   const enabled=state.sources.some(source=>source.state==='ACTIVE'&&can('submit',source.catalog_key));
-  document.querySelectorAll('[data-action="start-batch"]').forEach(button=>{button.disabled=startingBatch||busy||!enabled;button.textContent=startingBatch?'正在开启…':'开启任务';button.setAttribute('aria-busy',String(startingBatch));});
+  const launch=launchState(state.activity,activityFresh);
+  document.querySelectorAll('[data-action="start-batch"]').forEach(button=>{button.disabled=startingBatch||busy||launch.disabled||!enabled;button.textContent=startingBatch?'正在开启…':launch.label;button.setAttribute('aria-busy',String(startingBatch));});
 }
 async function startBatch(){
   if(startingBatch||busy)return;
   state.mobileDetail=false;
   if(state.pending){render();focusFeedback();return;}
+  if(state.activity?.total){render();feedback.hidden=true;focusActivity();return;}
   startingBatch=true;batchReceipt=null;startMessage='正在确认已启用信源…';render();focusFeedback();
   try{
+    const start=async()=>{
+    state.activity=await api.get(activeTasksUrl);activityFresh=true;
+    if(state.activity.total){startingBatch=false;startMessage='';render();feedback.hidden=true;focusActivity();return;}
     const sources=await api.get('/api/v1/m1/sources');state.sources=sources.items;
     const keys=state.sources.filter(source=>source.state==='ACTIVE'&&can('submit',source.catalog_key)).map(source=>source.catalog_key);
     if(!keys.length){notice('暂无已启用的信源，请先启用信源。',true);focusFeedback();return;}
     await execute(api.command('/api/v1/l0/task-batches','POST',{source_keys:keys,limit:1}),{kind:'batch-create'});
-  }catch(error){notice(explain(error),true);focusFeedback();}
+    };
+    if(navigator.locks)await navigator.locks.request('riskhot-task-launch',start);else await start();
+  }catch(error){activityFresh=false;updateActivity();notice(explain(error),true);focusFeedback();}
   finally{startingBatch=false;updateStartButtons();}
 }
 function openControl(id,action){
-  const task=state.batches?.items.find(x=>x.id===id);if(!task)return;
+  const task=state.activity?.items.find(x=>x.id===id)||state.batches?.items.find(x=>x.id===id);if(!task)return;
   const label=action==='pause'?'暂停任务':task.status==='queued'?'开启任务':'继续任务';
   openDialog(label,`<p>${e(dateTime(task.scheduled_at))} · ${e(task.id)}</p><p>${action==='pause'?'暂停后保留已保存资料、原计划时间和已有失败记录。':'从可恢复检查点继续，已保存结果不会重复采集。待复核和失败结果仍需分别处理。'}</p><label class="field">操作说明<input name="reason" maxlength="2000" value="${e(label)}" required></label>`,{kind:'batch-control',task,action},label);
 }
@@ -154,11 +177,11 @@ async function execute(command,context){
     if(context.kind==='source-create')Object.keys(state.filters).forEach(key=>state.filters[key]='');
     if(context.kind.startsWith('source-')){store('riskhot-draft',null);state.selected=value.catalog_key||value.key||context.source?.catalog_key;state.detailTab='archive';}
     if(context.kind==='schedule')state.planFilters.view='configured';
-    if(context.kind==='batch-create'){startMessage='';batchReceipt={id:value.id,scheduled_at:value.scheduled_at,count:value.sources.length,actor:state.session.actor,readFailed:false};selectStartedBatch();render();focusFeedback();}
+    if(context.kind==='batch-create'){startMessage='';batchReceipt={id:value.id,scheduled_at:value.scheduled_at,count:value.sources.length,actor:state.session.actor,readFailed:false};state.activity={items:['queued','pending','running','paused'].includes(value.status)?[value]:[],total:['queued','pending','running','paused'].includes(value.status)?1:0,latest_batch:value};activityFresh=true;selectStartedBatch();render();focusActivity();}
     if(modal.open)closeDialog(true);
     const refreshed=await refresh();
-    if(context.kind==='batch-create'){if(batchReceipt?.id===value.id){batchReceipt.readFailed=!refreshed;showBatchReceipt();focusFeedback();}}
-    else if(refreshed)notice('操作已确认，当前状态已重新读取。');
+    if(context.kind==='batch-create'){if(batchReceipt?.id===value.id){batchReceipt.readFailed=!refreshed;showBatchReceipt();focusActivity();}}
+    else if(refreshed){if(context.kind==='batch-control'&&currentTask(state.activity)?.id===value.id)feedback.hidden=true;else notice('操作已确认，当前状态已重新读取。');}
   }catch(error){
     const unknown=Boolean(error.command);if(!unknown){state.pending=null;store('riskhot-command',null);}
     const area=modal.open?modal.querySelector('#modal-error'):feedback;if(modal.open){area.hidden=false;area.textContent=explain(error);}else notice(explain(error),true);
@@ -254,6 +277,7 @@ document.addEventListener('click',async event=>{
   if(action==='clear-sources'){Object.keys(state.filters).forEach(key=>state.filters[key]='');render();}
   if(action==='expand'||action==='collapse')content.querySelectorAll('details.source-group').forEach(x=>x.open=action==='expand');
   if(action==='start-batch')startBatch();
+  if(action==='view-current-task'&&currentTask(state.activity)){selectStartedBatch(currentTask(state.activity));if(await refresh())document.querySelector('#batch-detail-title')?.focus();else focusFeedback();}
   if(action==='view-started-batch'&&batchReceipt){selectStartedBatch();if(await refresh())document.querySelector('#batch-detail-title')?.focus();else focusFeedback();}
   if(action==='dismiss-batch-receipt'){batchReceipt=null;feedback.hidden=true;document.querySelector('[data-action="start-batch"]')?.focus();}
   if(action==='close-batch'){state.selectedBatch=null;render();}
@@ -269,7 +293,9 @@ document.addEventListener('click',async event=>{
 modal.addEventListener('cancel',event=>{event.preventDefault();closeDialog();});
 document.addEventListener('keydown',event=>{if(event.target.matches('[role="tab"]')&&['ArrowLeft','ArrowRight','Home','End'].includes(event.key)){event.preventDefault();const tabs=[...content.querySelectorAll('[role="tab"]')],index=tabs.indexOf(event.target),next=event.key==='Home'?0:event.key==='End'?tabs.length-1:(index+(event.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;tabs[next].click();}});
 window.addEventListener('hashchange',()=>{render();refresh();});
-window.addEventListener('offline',()=>{connected=false;notice('当前离线，保留已读取状态；恢复连接后可刷新。',true);});
+window.addEventListener('offline',()=>{connected=false;activityFresh=false;updateActivity();updateStartButtons();notice('当前离线，保留已读取状态；恢复连接后可刷新。',true);});
 window.addEventListener('online',()=>refresh(true));
-setInterval(()=>{if(!document.hidden&&!modal.open&&!busy&&!startingBatch&&navigator.onLine)refresh(true);},15000);
+setInterval(()=>{if(!document.hidden&&!modal.open&&!busy&&!startingBatch&&navigator.onLine&&(!activityFresh||state.activity?.total||++idleRefreshTicks%3===0))refresh(true);},5000);
+document.addEventListener('visibilitychange',()=>activity.classList.toggle('is-background',document.hidden));
+new IntersectionObserver(entries=>activity.classList.toggle('is-offscreen',!entries[0].isIntersecting)).observe(activity);
 refresh();

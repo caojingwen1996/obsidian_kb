@@ -31,10 +31,10 @@ export function renderTasks(state,can){
     </section><p class="workspace-footnote">概览按所选日期统计。开启任务将运行全部已启用信源。</p></section>`;
 }
 function renderBatchDetail(task,state){
-  return `<section id="batch-detail" class="run-detail"><div class="run-detail-heading"><h3 id="batch-detail-title" tabindex="-1">信源执行结果</h3><button class="quiet" data-action="close-batch">收起</button></div>
+  return `<section id="batch-detail" data-batch-id="${e(task.id)}" class="run-detail"><div class="run-detail-heading"><h3 id="batch-detail-title" tabindex="-1">信源执行结果</h3><button class="quiet" data-action="close-batch">收起</button></div>
     ${(task.sources||[]).map(item=>{
       const source=state.sources.find(x=>x.catalog_key===item.source_key),children=item.children||[];
-      return `<details class="source-result"><summary><strong>${e(source?.name||item.name||item.source_key)}</strong>${badge(item.status)}<span class="muted">已保存 ${item.saved_count??countSaved(item)} 份</span></summary><div class="source-result-body">
+      return `<details class="source-result" data-result-source="${e(item.source_key)}"><summary><strong>${e(source?.name||item.name||item.source_key)}</strong>${badge(item.status)}<span class="muted">已保存 ${item.saved_count??countSaved(item)} 份</span></summary><div class="source-result-body">
         ${item.reason_code?`<p class="run-reason">${e(explain(item.reason_code))}</p>`:''}
         ${children.some(child=>child.version_id)?`<div class="saved-materials">${children.filter(child=>child.version_id).map((child,i)=>`<div class="material-result"><span>资料 ${i+1}</span><div class="actions"><button class="link-button" data-version="${e(child.version_id)}">查看资料</button>${child.processing_id?`<button class="link-button" data-processing="${e(child.processing_id)}">抽取结果</button>`:'<span class="muted">尚未交付抽取</span>'}</div></div>`).join('')}</div>`:`<p class="muted">${item.operation_id?'尚无已确认保存的资料。':'本次未进入采集。'}</p>`}
         <details class="progress-disclosure"><summary>处理进度</summary>${renderProgress(item)}</details>

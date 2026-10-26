@@ -128,3 +128,17 @@ Impeccable检测无发现；桌面与手机截图集中核对，最新[[tools/Ri
 桌面与手机集中核对：[[tools/RiskHot/docs/verification/m1-management/start-feedback/start-pending-1440.png|桌面等待受理]]、[[tools/RiskHot/docs/verification/m1-management/start-feedback/start-pending-390.png|手机等待受理]]、[[tools/RiskHot/docs/verification/m1-management/start-feedback/start-accepted-1440.png|桌面受理回执]]、[[tools/RiskHot/docs/verification/m1-management/start-feedback/start-accepted-390.png|手机受理回执]]。截图为受控数据，信源数量不代表本机实际目录。
 
 本机 `/m1/app.js` 返回200，内容与main源文件一致，响应为no-store；重新载入页面即可使用。
+
+## 任务生命周期与动态运行状态
+
+按用户“任务开启后为何还能再次开启”的反馈，将按钮从仅覆盖提交阶段改为覆盖整轮任务。排队、运行、暂停以及仍有未结束信源时，开启入口保持禁用；本轮结束后恢复。顶部单一状态区显示实际状态、信源完成数、进度条、查看进度及暂停／继续；收到回执后转入状态区，不再叠加静态成功横幅。
+
+独立的 `status=active` 查询从授权手动批次中筛选进行中任务，并返回最近批次用于结束摘要，不受网页执行列表日期和筛选影响；自动计划与单源历史操作不占用手动开启入口。创建前重新查询，同源浏览器标签页以 Web Locks 串行执行检查与受理。已有写入契约不变。跨页面控制优先使用状态区的最新版本，防止旧列表版本导致暂停／继续冲突。
+
+运行中每5秒更新，空闲每15秒更新；断网／读取失败保持按钮锁定、停止动画并显示上次状态。减少动态效果模式、页面隐藏及状态区离屏时停止动画。自动更新保留未提交的筛选文字、输入焦点、展开的信源结果及处理进度。
+
+验证：新增活动查询先因不支持筛选返回400，修复后通过；覆盖跨日排队、暂停、完成与暂停混合、终态、权限隔离和排除独立计划运行。完整回归97/97、0跳过（68,276ms），补充混合暂停状态后定向接口复验通过；最后网页模型与语义渲染13/13、类型检查通过。隔离数据库与独立 Chrome for Testing 的52项浏览器检查通过，无页面异常；包括真实完成数、排队／运行／暂停／结束、刷新及筛选后锁定、跨页面暂停继续、断网恢复、减少动态效果、两标签页同时开启只创建一批、创建前发现已有任务，以及后台刷新不打断编辑和展开阅读。
+
+按Impeccable集中核对1440／390／320宽度，运行、暂停和结束状态均可读、无横向溢出。截图为受控资料，数量不代表实际目录：[[tools/RiskHot/docs/verification/m1-management/task-activity/activity-running-1440.png|桌面运行状态]]、[[tools/RiskHot/docs/verification/m1-management/task-activity/activity-running-390.png|手机运行状态]]、[[tools/RiskHot/docs/verification/m1-management/task-activity/activity-running-320.png|窄屏运行状态]]、[[tools/RiskHot/docs/verification/m1-management/task-activity/activity-paused-390.png|暂停状态]]、[[tools/RiskHot/docs/verification/m1-management/task-activity/activity-ended-390.png|结束摘要]]。
+
+main常驻服务更新后ready=true，新状态资源返回200且与源文件一致；任务查询总数仍为307。核对时进行中的手动任务为0，最近一轮25个信源中21个完成、4个需处理，状态为partial；页面据此显示结束摘要，允许下一轮开启。本次没有为验收额外发起真实采集或模型调用。

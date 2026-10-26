@@ -128,6 +128,32 @@ test('session and profile writes preserve revisions, reject stale edits and dupl
   } finally { await c.close(); }
 });
 
+test('active task lookup retains paused and old manual batches, excludes scheduled operations, and respects source access',async()=>{
+  const c=await setup();
+  try{
+    let response=await c.request('GET','/api/v1/l0/task-batches?status=active');
+    assert.equal(response.statusCode,200,response.body);assert.equal(response.json().total,0,'standalone scheduled operations do not lock the manual start action');
+    const batch=(await c.request('POST','/api/v1/l0/task-batches',{source_keys:['wiki-source-001'],limit:1})).json();
+    await c.db.query("UPDATE platform.task_batches SET scheduled_at=now()-interval '2 days' WHERE id=$1",[batch.id]);
+    await c.db.query("UPDATE information.operations SET scheduled_at=now()-interval '2 days' WHERE id=$1",[batch.sources[0].operation_id]);
+    response=await c.request('GET','/api/v1/l0/task-batches?status=active');
+    assert.equal(response.json().items[0].id,batch.id);
+    const paused=await c.request('POST',`/api/v1/l0/task-batches/${batch.id}/control`,{action:'pause',expected_version:1,reason:'受控暂停'});assert.equal(paused.statusCode,200,paused.body);
+    assert.equal((await c.request('GET','/api/v1/l0/task-batches?status=active')).json().items[0].status,'paused');
+    await c.db.query("INSERT INTO platform.task_batch_sources(batch_id,source_id,source_version,status) SELECT $1,id,version,'completed' FROM m1.sources WHERE catalog_key='wiki-source-002'",[batch.id]);
+    await c.db.query('UPDATE platform.task_batches SET paused=false WHERE id=$1',[batch.id]);
+    response=await c.request('GET','/api/v1/l0/task-batches?status=active');
+    assert.equal(response.json().items[0].status,'partial','a completed source must not hide another source that is still paused');
+    await c.request('POST',`/api/v1/l0/task-batches/${batch.id}/control`,{action:'resume',expected_version:2,reason:'受控继续'});
+    await c.db.query("UPDATE information.operations SET status='completed',paused=false WHERE id=$1",[batch.sources[0].operation_id]);
+    response=await c.request('GET','/api/v1/l0/task-batches?status=active');
+    assert.equal(response.json().total,0);assert.equal(response.json().latest_batch.id,batch.id);assert.equal(response.json().latest_batch.status,'completed');
+    await c.db.query("UPDATE platform.actors SET source_keys=ARRAY['wiki-source-003'] WHERE subject=$1",[c.actor]);
+    response=await c.request('GET','/api/v1/l0/task-batches?status=active');
+    assert.equal(response.json().total,0);assert.equal(response.json().latest_batch,null);
+  }finally{await c.close();}
+});
+
 test('one durable multi-source task counts partial eligibility once, replays safely, and filters only rows while metrics cover the date range', async () => {
   const c = await setup();
   try {

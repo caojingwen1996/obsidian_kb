@@ -74,8 +74,9 @@ export class TaskManagement {
     const all = [...grouped.values()].map(decorate);
     for (const op of operations) if (!op.grouped) all.push(decorate({ id: op.id, scheduled_at: op.scheduled_at, version: Number(op.generation), paused: Boolean(op.paused), sources: [results.get(op.id)!], scope_complete: true }));
     all.sort((a, b) => +new Date(b.scheduled_at) - +new Date(a.scheduled_at) || b.id.localeCompare(a.id));
-    const selected = all.filter(row => (!query.status || (query.status === 'attention' ? row.has_error : row.status === query.status)) && (!query.q || row.id.toLowerCase().includes(query.q.toLowerCase())));
-    return { items: selected.slice(0, 100), total: selected.length, limit: 100, timezone: 'Asia/Shanghai', metrics: { total: all.length, running: all.filter(x => x.status === 'running').length, errors: all.filter(x => x.has_error).length, attention: all.filter(x => x.has_error).length, paused: all.filter(x => x.status === 'paused').length, queued: all.filter(x => x.status === 'queued').length } };
+    const ongoing = (row: Batch) => ['queued','pending','running','paused'].includes(row.status) || row.sources.some(source => ['queued','pending','running','paused'].includes(source.status));
+    const selected = all.filter(row => (!query.status || (query.status === 'active' ? grouped.has(row.id) && ongoing(row) : query.status === 'attention' ? row.has_error : row.status === query.status)) && (!query.q || row.id.toLowerCase().includes(query.q.toLowerCase())));
+    return { items: selected.slice(0, 100), total: selected.length, limit: 100, timezone: 'Asia/Shanghai', ...(query.status === 'active' ? { latest_batch: all.find(row => grouped.has(row.id)) ?? null } : {}), metrics: { total: all.length, running: all.filter(x => x.status === 'running').length, errors: all.filter(x => x.has_error).length, attention: all.filter(x => x.has_error).length, paused: all.filter(x => x.status === 'paused').length, queued: all.filter(x => x.status === 'queued').length } };
   }
   async create(actor: string, key: string, input: { source_keys: string[]; limit: number }): Promise<Batch> {
     const accepted = await this.repo.action(actor, 'task-batch-create', key, input, async tx => {
