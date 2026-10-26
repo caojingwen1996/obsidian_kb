@@ -1926,3 +1926,11 @@ docs / architecture：根据用户指出上一版缺少具体技术设计的反�
 - 验证：类型检查与最终完整回归87/87、0跳过；独立Chrome for Testing浏览器24项通过，1440/390/320无横向溢出，Impeccable机械检查无发现。独立审阅4项Important由7个失败回归复现后修复通过；1项刷新提示Minor记录延期。
 - 运行：后台切换至main目录，保留2185个运行文件、40条来源与26条计划；央行原件可读，原2条候选保持完整。旧服务停止，旧主工作区因应用限制保留；代码分支codex/source-candidate-loop已删除。
 - 证据：[[tools/RiskHot/docs/verification/m1-management|M1 实现与运行记录]]及[[tools/RiskHot/docs/verification/m1-management.json|机器清单]]。本轮不扩展正式事件、M2/M3服务或内容质量验收。
+
+
+## 2026-10-26 · RiskHot 本机工作台免登录
+
+- 操作：implement / verify；按用户“去掉登录”要求，本机默认直接进入M1，网页与CLI不再依赖登录服务。
+- 修改文件：tools/RiskHot/src/platform/auth.ts、runtime会话/环境配置、初始化与命令请求头、web/app.js和测试；README、环境示例、实现契约、验证记录及两级索引。
+- 说明：固定本地操作员保留权限与审计；回环、Host、同源写入和幂等检查继续生效，可选OIDC账号模式保留。清理同目录临时重复作业，统一现有main常驻服务。
+- 验证：2个新API场景先失败后通过，完整89/89、0跳过；浏览器27项通过，类型检查通过。本机不带凭据读取40条信源和原2条候选成功，监测命令成功。详见[[tools/RiskHot/docs/verification/m1-management|M1验证记录]]。

@@ -4,7 +4,7 @@ import { openFixture } from './fixture.js';
 import { buildServer } from '../runtime/server.js';
 
 test('M1 shell and controller are served with restrictive headers while APIs still require identity', async () => {
-  const c = await openFixture(); const app = await buildServer(c.repo);
+  const c = await openFixture(); const app = await buildServer(c.repo, { mode: 'oidc' });
   try {
     const root = await app.inject('/'); assert.equal(root.statusCode, 302); assert.equal(root.headers.location, '/m1');
     const shell = await app.inject('/m1'); assert.equal(shell.statusCode, 200);

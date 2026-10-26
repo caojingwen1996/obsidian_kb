@@ -6,7 +6,7 @@ import { registerManagement } from './management.js';
 import { registerWeb } from './web.js';
 import cookie from '@fastify/cookie';
 import { Ajv2020 } from 'ajv/dist/2020.js';
-import { Authentication } from '../platform/auth.js';
+import { Authentication, type AuthenticationOptions } from '../platform/auth.js';
 import { DomainError } from '../platform/types.js';
 import { database, required } from '../platform/db.js';
 import { ArtifactStore } from '../platform/artifacts.js';
@@ -36,12 +36,12 @@ function boundary(value: string | undefined, end: boolean): Date | null {
   return new Date(value);
 }
 
-export async function buildServer(repo: ExecutionStore) {
+export async function buildServer(repo: ExecutionStore, authentication: AuthenticationOptions = {}) {
   const app = Fastify({ logger: false, bodyLimit: 2_097_152 });
   const validator = new Ajv2020({ strict: true, coerceTypes: false, useDefaults: false, removeAdditional: false });
   app.setValidatorCompiler(({ schema }) => validator.compile(schema as object));
   await app.register(cookie);
-  const auth = new Authentication(repo.db); await auth.initialize();
+  const auth = new Authentication(repo.db, authentication); await auth.initialize();
   app.decorateRequest('actor', '');
   app.setErrorHandler((error, _request, reply) => {
     if (error instanceof DomainError) return reply.code(error.status).send({ error: { code: error.code, retryable: error.retryable } });
@@ -96,7 +96,7 @@ export async function buildServer(repo: ExecutionStore) {
     const full=(await repo.db.query("SELECT '*'=ANY(source_keys) AS full FROM platform.actors WHERE subject=$1",[request.actor])).rows[0]?.full;
     return { schedules, alerts, background_service:full?await serviceStatus(process.cwd()):null, model_service: (await repo.db.query('SELECT protocol,reason_code,blocked_until,updated_at FROM platform.model_service_state')).rows, notification_semantics: 'submitted means handed to the OS; display is controlled by system settings' };
   });
-  registerManagement(app, repo);
+  registerManagement(app, repo, auth.mode);
   app.post('/api/v1/l0/source-fetches', { schema: { body: { type: 'object', additionalProperties: false, required: ['source_key', 'limit'], properties: { source_key: { type: 'string', pattern: '^(wiki-source-[0-9]{3}|custom-source-[a-f0-9-]{36})$' }, limit: { type: 'integer', minimum: 1, maximum: 5 }, url: { type: 'string', maxLength: 2048 } } } } }, async (request, reply) => {
     const input = request.body as FetchCommand;
     const operation = await repo.submit(input, request.actor, keyOf(request.headers));

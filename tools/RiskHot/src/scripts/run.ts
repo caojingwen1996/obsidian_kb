@@ -2,6 +2,7 @@ import { randomUUID } from 'node:crypto';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { setTimeout } from 'node:timers/promises';
 import { required } from '../platform/db.js';
+import { requestHeaders } from './request-headers.js';
 
 const flags = new Map<string, string>();
 for (let index = 2; index < process.argv.length; index += 2) {
@@ -11,10 +12,7 @@ for (let index = 2; index < process.argv.length; index += 2) {
 }
 if (flags.has('--retry') && (!flags.has('--watch') || !flags.has('--reason'))) throw new Error('Retry requires --watch OPERATION_ID and --reason TEXT');
 if (flags.has('--open-budget') && !['true', 'false'].includes(flags.get('--open-budget')!)) throw new Error('Open budget must be true or false');
-const response = await fetch(`${required('OIDC_ISSUER')}/protocol/openid-connect/token`, { method: 'POST', redirect: 'error', body: new URLSearchParams({ grant_type: 'password', client_id: required('OIDC_CLIENT_ID'), client_secret: required('OIDC_CLIENT_SECRET'), username: required('OPERATOR_USERNAME'), password: required('OPERATOR_PASSWORD') }) });
-if (!response.ok) throw new Error('CLI_LOGIN_FAILED');
-const tokens = await response.json() as { access_token: string };
-const headers = { authorization: `Bearer ${tokens.access_token}`, 'content-type': 'application/json' };
+const headers = await requestHeaders();
 const origin = required('API_ORIGIN');
 let id = flags.get('--watch');
 const requestKey = flags.get('--key') || randomUUID();

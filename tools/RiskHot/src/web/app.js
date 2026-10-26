@@ -20,9 +20,9 @@ function render(){
   for(const [id,name] of [['source-workspace-link','sources'],['intake-workspace-link','tasks'],['schedules-workspace-link','schedules']]){
     const link=document.getElementById(id);name===route()?link.setAttribute('aria-current','page'):link.removeAttribute('aria-current');
   }
-  document.querySelector('#login').hidden=Boolean(state.session);document.querySelector('#logout').hidden=!state.session;
-  document.querySelector('#connection-state').textContent=state.session?(connected?'已连接 · 实时数据':'连接中断 · 保留已读数据'):'尚未登录';
-  if(!state.session){content.innerHTML='<section class="empty panel"><h2>登录后查看信源与接入任务</h2><p>使用项目账号登录，操作范围由服务端权限决定。</p><a class="primary" href="/auth/login">登录工作台</a></section>';return;}
+  document.querySelector('#login').hidden=!state.loginRequired;document.querySelector('#logout').hidden=!state.session||state.session.authentication!=='oidc';
+  document.querySelector('#connection-state').textContent=state.session?(connected?'已连接 · 实时数据':'连接中断 · 保留已读数据'):state.loginRequired?'尚未登录':'正在读取工作台';
+  if(!state.session){content.innerHTML=state.loginRequired?'<section class="empty panel"><h2>登录后查看信源与接入任务</h2><p>使用项目账号登录，操作范围由服务端权限决定。</p><a class="primary" href="/auth/login">登录工作台</a></section>':'<section class="loading panel" role="status">正在读取信源与接入任务…</section>';return;}
   if(route()==='tasks')content.innerHTML=state.batches?renderTasks(state,can):'<div class="loading" role="status">正在读取接入批次…</div>';
   else if(route()==='schedules')content.innerHTML=state.monitor?renderSchedules(state,can):'<div class="loading" role="status">正在读取计划…</div>';
   else content.innerHTML=renderSources(state,can);
@@ -55,12 +55,12 @@ async function performRefresh(){
     }
     if(route()==='schedules')next.monitor=await api.get('/api/v1/l0/monitor');
     if(serial!==refreshRequest)return;
-    Object.assign(state,next);connected=true;feedback.hidden=true;
+    Object.assign(state,next);state.loginRequired=false;connected=true;feedback.hidden=true;
     if(!state.selected||!state.sources.some(x=>x.catalog_key===state.selected))state.selected=state.sources[0]?.catalog_key??null;
     render();if(route()==='sources'&&state.detailTab==='history'&&state.selected)await loadHistory();
   }catch(error){
     connected=false;
-    if(error.status===401){state.session=null;render();}
+    if(error.status===401){state.session=null;state.loginRequired=true;render();}
     else if(!state.sources.length&&!state.session){content.innerHTML='<section class="empty panel"><h2>暂时无法读取工作台</h2><p>请检查服务连接后重试。</p><button class="secondary" data-action="refresh">重新读取</button></section>';}
     notice(error.code==='DATE_RANGE_INVALID'?'日期范围无效，请核对开始与结束日期。':explain(error),true);
   }finally{loading=false;document.querySelector('#refresh').disabled=false;}

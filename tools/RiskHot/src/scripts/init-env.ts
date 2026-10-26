@@ -12,7 +12,7 @@ const values: Record<string, string> = {
   IO_DATABASE_URL: url('riskhot_io', roles.io), MODEL_DATABASE_URL: url('riskhot_model', roles.model),
   RELAY_DATABASE_URL: url('riskhot_relay', roles.relay), TEST_DATABASE_URL: url('postgres', admin, 'riskhot_test'),
   ARTIFACT_ROOT: '.riskhot/artifacts', TEMPORAL_ADDRESS: '127.0.0.1:7238', API_ORIGIN: 'http://localhost:18081',
-  OIDC_ISSUER: 'http://localhost:18080/realms/riskhot', OIDC_CLIENT_ID: 'riskhot-api',
+  AUTH_MODE: 'local', OIDC_ISSUER: 'http://localhost:18080/realms/riskhot', OIDC_CLIENT_ID: 'riskhot-api',
   MODEL_PROTOCOL: '', MODEL_ENDPOINT: '', MODEL_NAME: '', MODEL_API_KEY: '',
 };
 try {

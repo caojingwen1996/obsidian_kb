@@ -8,14 +8,32 @@ import { required } from './db.js';
 const hash = (value: string) => createHash('sha256').update(value).digest('hex');
 const random = () => randomBytes(32).toString('base64url');
 interface Discovery { issuer: string; jwks_uri: string; authorization_endpoint: string; token_endpoint: string }
+export const LOCAL_OPERATOR = 'riskhot-local-operator';
+export type AuthenticationMode = 'local' | 'oidc';
+export interface AuthenticationOptions { mode?: AuthenticationMode; origin?: string }
+export function authenticationMode(): AuthenticationMode {
+  const mode = process.env.AUTH_MODE ?? 'local';
+  if (mode !== 'local' && mode !== 'oidc') throw new DomainError('AUTH_MODE_INVALID', 503);
+  return mode;
+}
 export class Authentication {
   private discovery!: Discovery;
   private jwks!: ReturnType<typeof createRemoteJWKSet>;
-  private issuer = required('OIDC_ISSUER');
-  private clientId = required('OIDC_CLIENT_ID');
-  private origin = required('API_ORIGIN');
-  constructor(private db: Pool) {}
+  private issuer = '';
+  private clientId = '';
+  private origin: string;
+  readonly mode: AuthenticationMode;
+  constructor(private db: Pool, options: AuthenticationOptions = {}) {
+    this.mode = options.mode ?? authenticationMode();
+    this.origin = options.origin ?? required('API_ORIGIN');
+  }
   async initialize(): Promise<void> {
+    if (this.mode === 'local') {
+      const origin = new URL(this.origin);
+      if (!['http:', 'https:'].includes(origin.protocol) || !['localhost', '127.0.0.1', '[::1]'].includes(origin.hostname) || origin.origin !== this.origin) throw new DomainError('LOCAL_ORIGIN_REQUIRED', 503);
+      return;
+    }
+    this.issuer = required('OIDC_ISSUER'); this.clientId = required('OIDC_CLIENT_ID');
     const response = await fetch(`${this.issuer}/.well-known/openid-configuration`, { redirect: 'error', signal: AbortSignal.timeout(10_000) });
     if (!response.ok) throw new DomainError('IDENTITY_UNAVAILABLE', 503);
     this.discovery = await response.json() as Discovery;
@@ -24,6 +42,12 @@ export class Authentication {
   }
   private cookieOptions() { return { httpOnly: true, sameSite: 'lax' as const, secure: this.origin.startsWith('https:'), path: '/' }; }
   async subject(request: FastifyRequest): Promise<string> {
+    if (this.mode === 'local') {
+      const origin = request.headers.origin;
+      if (!['127.0.0.1', '::1', '::ffff:127.0.0.1'].includes(request.ip) || request.headers.host !== new URL(this.origin).host || (origin !== undefined && origin !== this.origin)) throw new DomainError('LOCAL_ORIGIN_REQUIRED', 403);
+      if (!['GET', 'HEAD', 'OPTIONS'].includes(request.method) && origin !== this.origin) throw new DomainError('ORIGIN_REQUIRED', 403);
+      return LOCAL_OPERATOR;
+    }
     const bearer = request.headers.authorization;
     try {
       if (bearer) {
@@ -44,6 +68,7 @@ export class Authentication {
     throw new DomainError('UNAUTHENTICATED', 401);
   }
   async login(reply: FastifyReply): Promise<void> {
+    if (this.mode === 'local') { await reply.redirect('/m1'); return; }
     const state = random(), nonce = random(), verifier = random();
     await this.db.query('INSERT INTO platform.auth_states(state_hash,verifier,nonce,expires_at) VALUES($1,$2,$3,now()+interval \'10 minutes\')', [hash(state), verifier, nonce]);
     const url = new URL(this.discovery.authorization_endpoint);
@@ -52,6 +77,7 @@ export class Authentication {
     await reply.redirect(url.href);
   }
   async callback(request: FastifyRequest, reply: FastifyReply): Promise<void> {
+    if (this.mode === 'local') { await reply.redirect('/m1'); return; }
     const { state, code } = request.query as { state?: string; code?: string };
     if (!state || !code || request.cookies.riskhot_login_state !== state) throw new DomainError('LOGIN_STATE_INVALID', 401);
     const record = (await this.db.query<{ verifier: string; nonce: string }>('DELETE FROM platform.auth_states WHERE state_hash=$1 AND expires_at>now() RETURNING verifier,nonce', [hash(state)])).rows[0];

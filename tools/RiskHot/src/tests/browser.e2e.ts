@@ -21,7 +21,7 @@ const probe = createServer().listen(0, '127.0.0.1'); await once(probe, 'listenin
 const port = (probe.address() as { port: number }).port; await new Promise<void>(done => probe.close(() => done()));
 const origin = `http://127.0.0.1:${port}`;
 process.env.API_ORIGIN = origin;
-const app = await buildServer(c.repo);
+let app = await buildServer(c.repo, { mode: 'oidc' });
 let context: Awaited<ReturnType<typeof chromium.launchPersistentContext>> | undefined;
 const checks: string[] = [], errors: string[] = [];
 try {
@@ -114,6 +114,17 @@ try {
   await c.db.query('UPDATE platform.auth_sessions SET expires_at=now()-interval \'1 second\' WHERE subject=$1', [operator]);
   await page.locator('#modal').getByRole('button', { name: '保存资料', exact: true }).click(); await page.locator('#modal-error').getByRole('link', { name: '重新登录后继续' }).waitFor();
   assert.equal(await page.locator('#modal [name="name"]').inputValue(), '登录失效时保留的草稿'); check('expired login preserves draft');
+  await page.goto('about:blank'); await app.close(); await context.clearCookies();
+  await c.db.query("INSERT INTO platform.actors VALUES('riskhot-local-operator',ARRAY['read','submit','source_admin','retry','model_budget','model_review'],ARRAY['*'])");
+  app = await buildServer(c.repo, { mode: 'local', origin }); await app.listen({ port, host: '127.0.0.1' });
+  await page.goto(`${origin}/m1`); await page.evaluate(() => sessionStorage.clear()); await page.reload(); await settle();
+  assert.equal(await page.getByRole('link', { name: '登录', exact: true }).count(), 0);
+  assert.equal(await page.getByRole('button', { name: '退出', exact: true }).count(), 0);
+  assert.match(await page.locator('#result-count').textContent(), /41 个信源/); check('local workbench opens directly without login or cookies');
+  await page.getByRole('button', { name: '新增信源', exact: true }).click(); await page.locator('#modal [name="name"]').fill('免登录浏览器来源');
+  await page.locator('#modal').getByRole('button', { name: '保存资料', exact: true }).click(); await page.getByRole('heading', { name: '新增信源', exact: true }).waitFor({ state: 'hidden' });
+  await page.reload(); await settle(); assert.equal((await c.db.query("SELECT count(*)::int n FROM m1.sources WHERE name='免登录浏览器来源'")).rows[0].n, 1); check('local source write persists across reload without login');
+  await page.getByRole('link', { name: 'L0 信息接入任务', exact: true }).click(); await page.getByRole('button', { name: '开启接入任务', exact: true }).waitFor(); check('local task controls remain available');
   assert.deepEqual(errors, []);
   await writeFile(join(output, 'results.json'), JSON.stringify({ checks, page_errors: errors, environment: 'isolated database and browser; no source collection or model call' }, null, 2), 'utf8');
   console.log(`Browser checks passed: ${checks.length}; screenshots: ${output}`);

@@ -18,11 +18,11 @@ const sourceKey = { type: 'string', pattern: '^(wiki-source-[0-9]{3}|custom-sour
 const sourceParams = { type: 'object', additionalProperties: false, required: ['key'], properties: { key: sourceKey } };
 const taskParams = { type: 'object', additionalProperties: false, required: ['id'], properties: { id: { type: 'string', pattern: '^[a-f0-9-]{36}$' } } };
 
-export function registerManagement(app: FastifyInstance, repo: ExecutionStore) {
+export function registerManagement(app: FastifyInstance, repo: ExecutionStore, authentication: 'local' | 'oidc') {
   const sources = new SourceManagement(repo), tasks = new TaskManagement(repo);
   app.get('/api/v1/session', async request => {
     await repo.authorize(request.actor, 'read');
-    return (await repo.db.query('SELECT subject AS actor,permissions,source_keys FROM platform.actors WHERE subject=$1', [request.actor])).rows[0];
+    return { ...(await repo.db.query('SELECT subject AS actor,permissions,source_keys FROM platform.actors WHERE subject=$1', [request.actor])).rows[0], authentication };
   });
   app.post('/api/v1/m1/sources', { schema: { body: { type: 'object', additionalProperties: false, required: ['profile'], properties: { profile } } } }, async (request, reply) => {
     const row = await sources.create(request.actor, keyOf(request.headers), (request.body as { profile: Profile }).profile);

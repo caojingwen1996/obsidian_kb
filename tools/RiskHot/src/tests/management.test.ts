@@ -19,7 +19,7 @@ async function setup() {
   await c.repo.seedCatalog((await readCatalog('src/data/source-catalog.js')).slice(0, 3));
   await c.db.query("INSERT INTO platform.actors VALUES($1,ARRAY['read','submit','source_admin','retry','model_budget'],ARRAY['*'])", [actor]);
   const apiDb = new Pool({ connectionString: c.urlFor('DATABASE_URL') });
-  const app = await buildServer(new ExecutionStore(apiDb, c.artifacts));
+  const app = await buildServer(new ExecutionStore(apiDb, c.artifacts), { mode: 'oidc' });
   const request = (method: string, url: string, payload?: unknown, key = randomUUID()) => app.inject({ method: method as 'POST', url, headers: { authorization: `Bearer ${token}`, 'idempotency-key': key, 'content-type': 'application/json' }, ...(payload === undefined ? {} : { payload: JSON.stringify(payload) }) });
   return { ...c, app, actor, request, async close() { await app.close(); await apiDb.end(); await c.dispose(); } };
 }

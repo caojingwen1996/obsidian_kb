@@ -2,7 +2,7 @@ export type RuntimeRole = 'workflow' | 'io' | 'model' | 'relay' | 'api' | 'sched
 const fields: Record<RuntimeRole, string[]> = {
   workflow: [], io: ['IO_DATABASE_URL', 'MODEL_PROTOCOL', 'MODEL_ENDPOINT', 'MODEL_NAME','SOURCE_BROWSER_EXECUTABLE'],
   model: ['MODEL_DATABASE_URL', 'MODEL_API_KEY', 'MODEL_PROTOCOL', 'MODEL_NAME', 'CODEX_EXECUTABLE', 'CODEX_HOME'], relay: ['RELAY_DATABASE_URL'],
-  api: ['DATABASE_URL', 'OIDC_ISSUER', 'OIDC_CLIENT_ID', 'OIDC_CLIENT_SECRET', 'MODEL_PROTOCOL', 'MODEL_ENDPOINT', 'MODEL_NAME'],
+  api: ['DATABASE_URL', 'AUTH_MODE', 'OIDC_ISSUER', 'OIDC_CLIENT_ID', 'OIDC_CLIENT_SECRET', 'MODEL_PROTOCOL', 'MODEL_ENDPOINT', 'MODEL_NAME'],
   scheduler: ['IO_DATABASE_URL', 'MODEL_PROTOCOL', 'MODEL_NAME', 'CODEX_EXECUTABLE', 'CODEX_HOME', 'SCHEDULE_INTERVAL_SECONDS', 'SCHEDULE_SOURCES'],
 };
 export function runtimeEnvironment(role: RuntimeRole, base: NodeJS.ProcessEnv = process.env): NodeJS.ProcessEnv {

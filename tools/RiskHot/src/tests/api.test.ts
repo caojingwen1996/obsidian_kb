@@ -22,7 +22,7 @@ test('OIDC protects writes; strict input, idempotency, source eligibility and ti
   const token = tokens.access_token!;
   const subject = decodeJwt(token).sub!;
   await db.query('INSERT INTO platform.actors VALUES($1,ARRAY[]::text[],ARRAY[\'wiki-source-001\']) ON CONFLICT(subject) DO UPDATE SET permissions=ARRAY[]::text[],source_keys=EXCLUDED.source_keys', [subject]);
-  const app = await buildServer(repo);
+  const app = await buildServer(repo, { mode: 'oidc' });
   const headers = { authorization: `Bearer ${token}`, 'idempotency-key': `api-${Date.now()}` };
   const payload = { source_key: 'wiki-source-001', limit: 1 };
   try {

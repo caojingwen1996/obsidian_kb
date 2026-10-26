@@ -5,6 +5,7 @@ import { database, required } from '../platform/db.js';
 import { Repository } from '../information-ingestion/processing/repository.js';
 import { ArtifactStore } from '../platform/artifacts.js';
 import { readCatalog } from '../information-ingestion/sources/catalog.js';
+import { LOCAL_OPERATOR } from '../platform/auth.js';
 
 const admin = database('ADMIN_DATABASE_URL');
 try {
@@ -23,6 +24,7 @@ try {
   await grantRuntimeRoles(admin);
   const repo = new Repository(admin, new ArtifactStore(required('ARTIFACT_ROOT')));
   await repo.seedCatalog(await readCatalog('src/data/source-catalog.js'));
+  await admin.query("INSERT INTO platform.actors(subject,permissions,source_keys) VALUES($1,ARRAY['read','submit','source_admin','retry','model_budget','model_review'],ARRAY['*']) ON CONFLICT(subject) DO NOTHING", [LOCAL_OPERATOR]);
   await admin.query("INSERT INTO platform.actors(subject,permissions,source_keys) VALUES('riskhot-scheduler',ARRAY['read','submit','retry','auto_retry'],ARRAY['*']) ON CONFLICT(subject) DO NOTHING");
   console.log('Database schema, isolated roles, and source catalog initialized.');
 } finally { await admin.end(); }
