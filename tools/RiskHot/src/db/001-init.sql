@@ -91,6 +91,20 @@ CREATE TABLE IF NOT EXISTS information.processing_runs(
  manifest_artifact_id uuid REFERENCES platform.artifact_objects(id), input_artifact_id uuid REFERENCES platform.artifact_objects(id),
  error_code text, created_at timestamptz NOT NULL DEFAULT now(), completed_at timestamptz, UNIQUE(version_id,analysis_key)
 );
+ALTER TABLE information.operations ADD COLUMN IF NOT EXISTS paused boolean NOT NULL DEFAULT false;
+ALTER TABLE information.processing_runs ADD COLUMN IF NOT EXISTS paused boolean NOT NULL DEFAULT false;
+CREATE TABLE IF NOT EXISTS platform.task_batches(
+ id uuid PRIMARY KEY DEFAULT gen_random_uuid(), actor text NOT NULL REFERENCES platform.actors(subject),
+ scheduled_at timestamptz NOT NULL DEFAULT now(), paused boolean NOT NULL DEFAULT false, version integer NOT NULL DEFAULT 1,
+ created_at timestamptz NOT NULL DEFAULT now()
+);
+CREATE TABLE IF NOT EXISTS platform.task_batch_sources(
+ batch_id uuid NOT NULL REFERENCES platform.task_batches(id), source_id uuid NOT NULL REFERENCES m1.sources(id),
+ source_version integer NOT NULL, operation_id uuid UNIQUE REFERENCES information.operations(id),
+ status text NOT NULL DEFAULT 'queued', reason_code text, PRIMARY KEY(batch_id,source_id),
+ FOREIGN KEY(source_id,source_version) REFERENCES m1.source_versions(source_id,version)
+);
+CREATE INDEX IF NOT EXISTS task_batches_time_idx ON platform.task_batches(scheduled_at DESC,id);
 CREATE TABLE IF NOT EXISTS information.event_candidates(
  id uuid PRIMARY KEY DEFAULT gen_random_uuid(), processing_id uuid NOT NULL REFERENCES information.processing_runs(id),
  candidate_key uuid NOT NULL DEFAULT gen_random_uuid(), status text NOT NULL DEFAULT 'pending' CHECK(status='pending'),
@@ -159,7 +173,7 @@ LANGUAGE plpgsql SECURITY DEFINER SET search_path=pg_catalog,platform,informatio
 DECLARE item record; source_record record; actor_name text;
 BEGIN
  SELECT a.id,a.processing_id,a.generation,a.status,a.request_artifact_id,p.generation AS current_generation,
- p.extraction_status,p.input_artifact_id,p.provider_protocol,w.deadline AS call_deadline,m.source_id INTO item
+ p.extraction_status,p.paused,p.input_artifact_id,p.provider_protocol,w.deadline AS call_deadline,m.source_id INTO item
  FROM platform.model_attempts a JOIN information.processing_runs p ON p.id=a.processing_id
  JOIN platform.model_budget_windows w ON w.id=a.window_id
  JOIN information.material_versions v ON v.id=p.version_id JOIN information.materials m ON m.id=v.material_id
@@ -168,7 +182,7 @@ BEGIN
  IF item.generation<>item.current_generation OR item.request_artifact_id<>item.input_artifact_id THEN
   RETURN QUERY SELECT false,'STALE_EXECUTION'::text,item.call_deadline,item.request_artifact_id; RETURN;
  END IF;
- IF item.extraction_status IN ('completed','review') THEN
+ IF item.paused OR item.extraction_status IN ('completed','review') THEN
   RETURN QUERY SELECT false,'PROCESSING_NOT_CALLABLE'::text,item.call_deadline,item.request_artifact_id; RETURN;
  END IF;
  IF item.call_deadline<=clock_timestamp() THEN

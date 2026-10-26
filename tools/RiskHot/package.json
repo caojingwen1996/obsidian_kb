@@ -7,7 +7,7 @@
     "node": ">=22.0.0"
   },
   "scripts": {
-    "test": "node --env-file-if-exists=.env --import tsx --test --test-concurrency=1 src/tests/*.test.ts",
+    "test": "node --env-file-if-exists=.env --import tsx --test --test-concurrency=1 src/tests/*.test.*",
     "typecheck": "tsc --noEmit",
     "init:env": "node --import tsx src/scripts/init-env.ts",
     "setup": "node --env-file-if-exists=.env --import tsx src/scripts/setup.ts",

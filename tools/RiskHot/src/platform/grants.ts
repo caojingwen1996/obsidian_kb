@@ -10,8 +10,8 @@ export async function grantRuntimeRoles(admin: Pool): Promise<void> {
   await admin.query('GRANT INSERT,UPDATE ON ALL TABLES IN SCHEMA information TO riskhot_io');
   await admin.query('GRANT INSERT,UPDATE ON platform.artifact_objects,platform.execution_intents,platform.messages,platform.inbox,platform.model_attempts,platform.model_budget_windows,platform.audit_log,platform.action_receipts TO riskhot_io');
   await admin.query('GRANT INSERT,UPDATE ON platform.command_receipts,platform.source_schedules,platform.schedule_runs,platform.runtime_alerts,platform.model_service_state,platform.automatic_recoveries TO riskhot_io');
-  await admin.query('GRANT INSERT,UPDATE ON m1.sources,m1.source_versions,information.operations,platform.command_receipts,platform.action_receipts,platform.execution_intents,platform.artifact_objects,platform.audit_log,platform.auth_states,platform.auth_sessions,platform.model_budget_windows TO riskhot_api');
-  await admin.query('GRANT UPDATE(generation,extraction_status,error_code,review_attempt_id) ON information.processing_runs TO riskhot_api');
+  await admin.query('GRANT INSERT,UPDATE ON m1.sources,m1.source_versions,information.operations,platform.task_batches,platform.task_batch_sources,platform.source_schedules,platform.command_receipts,platform.action_receipts,platform.execution_intents,platform.artifact_objects,platform.audit_log,platform.auth_states,platform.auth_sessions,platform.model_budget_windows TO riskhot_api');
+  await admin.query('GRANT UPDATE(generation,extraction_status,error_code,review_attempt_id,paused) ON information.processing_runs TO riskhot_api');
   await admin.query('GRANT DELETE ON platform.auth_states,platform.auth_sessions TO riskhot_api');
   await admin.query('GRANT INSERT,UPDATE ON platform.execution_intents,platform.messages,platform.inbox,information.processing_runs,information.operations TO riskhot_relay');
   await admin.query('GRANT USAGE ON SCHEMA platform TO riskhot_model');

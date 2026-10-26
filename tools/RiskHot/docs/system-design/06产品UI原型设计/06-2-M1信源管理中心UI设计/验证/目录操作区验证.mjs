@@ -11,14 +11,22 @@ const captures = join(directory, '目录操作区截图');
 await mkdir(captures, { recursive: true });
 const profile = await mkdtemp(join(tmpdir(), 'riskhot-m1-actions-'));
 let context;
-const results = [], errors = [], external = [];
+const results = [], errors = [], external = [], scripts = [];
 async function check(name, fn) { await fn(); results.push(name); }
 try {
   context = await chromium.launchPersistentContext(profile, { executablePath, headless: true, locale: 'zh-CN' });
   const page = await context.newPage();
   page.on('pageerror', error => errors.push(error.message));
   page.on('request', request => { if (/^https?:/.test(request.url())) external.push(request.url()); });
+  page.on('request', request => { if (request.resourceType() === 'script') scripts.push(request.url()); });
   await page.goto(new URL('../M1信源管理中心交互原型.html', import.meta.url).href);
+  await check('source data loads from project src/data without prototype copies', async () => {
+    for (const file of ['source-catalog.js', 'source-demo.js']) {
+      expect(scripts).toContain(new URL(`../../../../../src/data/${file}`, import.meta.url).href);
+      expect(scripts.some(url => url.includes('/原型资源/' + file) || url.includes(encodeURI('/原型资源/' + file)))).toBe(false);
+    }
+    expect(await page.evaluate(() => window.RISK_HOT_SOURCE_CATALOG.length)).toBe(40);
+  });
   for (const width of [1440, 1024, 768, 390, 320]) {
     await page.setViewportSize({ width, height: 1000 });
     await check(`${width}: navigation excludes catalog actions`, async () => {

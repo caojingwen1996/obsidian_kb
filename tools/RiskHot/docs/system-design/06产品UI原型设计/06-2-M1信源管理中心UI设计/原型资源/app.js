@@ -13,26 +13,14 @@ const D = {
  status:{label:'业务状态',values:{ACTIVE:'启用',DISABLED:'停用'}}
 };
 const V = {all:{name:'全部',rule:'全部信源 · 平铺显示',keys:[]},verify:{name:'信源等级',rule:'信源等级 → 来源类别',keys:['tier','category']},monitor:{name:'日常监测',rule:'关注优先级 → 监测频率 → 信源等级',keys:['priority','frequency','tier']},research:{name:'专题研究',rule:'金融属性 → 观察层级 → 关注优先级',keys:['dims','levels','priority']}};
-// 六维为独立演示配置；不依据正文、优先级或等级推导其他维度。
-const overrides = {
- 'wiki-source-001':{dims:['QUANTITY','PRICE','FLOW'],levels:['MACRO'],priority:'CORE',frequency:'MONTHLY',functions:['POLICY','RAW_DATA']},
- 'wiki-source-002':{dims:['QUANTITY'],levels:['MACRO'],priority:'CORE',frequency:'MONTHLY',functions:['POLICY','RAW_DATA']},
- 'wiki-source-004':{dims:['FLOW'],levels:['MACRO'],priority:'HIGH',frequency:'MONTHLY',functions:['RAW_DATA']},
- 'wiki-source-005':{dims:['PRICE','FLOW'],levels:['MESO'],priority:'HIGH',frequency:'DAILY',functions:['RAW_DATA']},
- 'wiki-source-018':{dims:['QUANTITY'],levels:['MACRO'],priority:'CORE',frequency:'MONTHLY',functions:['RAW_DATA']},
- 'wiki-source-027':{dims:[],levels:['MICRO'],priority:'HIGH',frequency:'IRREGULAR',functions:['RAW_DATA','EVENT']},
- 'wiki-source-028':{publisher:'中国人民银行',dims:['QUANTITY','PRICE'],levels:['MACRO'],priority:'HIGH',frequency:'IRREGULAR',functions:['POLICY']},
- 'wiki-source-033':{dims:[],levels:['MACRO','MESO','MICRO'],priority:'NORMAL',frequency:'IRREGULAR',functions:['ANALYSIS']},
- 'wiki-source-040':{dims:['QUANTITY','PRICE'],levels:['MACRO'],priority:'NORMAL',frequency:'IRREGULAR',functions:['RAW_DATA']}
-};
+const {overrides,presets,relations} = window.RISK_HOT_SOURCE_DEMO;
 const catalog = (window.RISK_HOT_SOURCE_CATALOG || []).map(x=>({id:x.id,refId:x.id,name:x.name,publisher:x.name,category:'官方发布（演示）',channel:'官方网站（演示）',tier:x.tier==='T1.5'?'T1_5':x.tier==='辅助入口'?'AUX':x.tier,locator:x.url,verifyLocator:x.verifyUrl||'',dims:[],levels:[],priority:'NORMAL',frequency:'IRREGULAR',functions:[],description:x.context,caliber:x.focus,purpose:'回到发布主体核对原始资料与口径。',scope:'',material:'',mode:'manual',basis:'',basisRef:'',code:'',reposter:'',...clone(overrides[x.id]||{})}));
 for(const x of catalog){if(x.tier==='T2'){x.category='媒体与分析（演示）';x.channel='内容平台（演示）';}if(x.tier==='T1_5'){x.category='官方认证渠道（演示）';x.channel='认证账号（演示）';}if(x.tier==='AUX'){x.category='辅助查询入口';x.channel='聚合检索（演示）';}}
 const snapshot = x => {const {history,...rest}=x;return clone(rest);};
 function samples(){
- const presets={'wiki-source-018':['demo-source-1','DEMO_NBS_MACRO','ACTIVE','auto',false],'wiki-source-001':['demo-source-2','DEMO_PBC_POLICY','DISABLED','manual',false],'wiki-source-033':['demo-source-3','DEMO_RESEARCH','DISABLED','manual',false],'wiki-source-005':['demo-source-4','DEMO_MONEY','ACTIVE','auto',true]};
  return catalog.map((ref,i)=>{
   const [id,code,status,mode,ready]=presets[ref.id]||[`demo-source-${i+5}`,`DEMO_SOURCE_${String(i+1).padStart(3,'0')}`,'DISABLED','manual',false];
-  const r={...clone(ref),id,code,status,mode,locator:ref.locator||`DEMO-MATERIAL-${String(i+1).padStart(3,'0')}`,tech:{ready,label:mode==='manual'?'人工接入':ready?'技术就绪':'接入未就绪',time:'2026-10-13 09:30（示例）'},version:2,scope:'宏观研究与原始材料核验（演示范围）',material:'公告／统计资料（演示）',basis:'演示资料：在册来源身份与使用范围说明。',basisRef:ref.verifyLocator||`DEMO-EVIDENCE-${i+1}`,created:'2026-10-12 10:00（示例）',updated:'2026-10-13 09:30（示例）',verified:'2026-10-13 09:30（示例）',relations:ref.id==='wiki-source-018'?{indicators:[{name:'宏观统计观察指标（示例）',id:'DEMO-IND-01',version:1}],materials:[{name:'统计公报样本（示例）',id:'DEMO-DOC-01',version:1}]}:{indicators:[],materials:[]},history:[]};
+  const r={...clone(ref),id,code,status,mode,locator:ref.locator||`DEMO-MATERIAL-${String(i+1).padStart(3,'0')}`,tech:{ready,label:mode==='manual'?'人工接入':ready?'技术就绪':'接入未就绪',time:'2026-10-13 09:30（示例）'},version:2,scope:'宏观研究与原始材料核验（演示范围）',material:'公告／统计资料（演示）',basis:'演示资料：在册来源身份与使用范围说明。',basisRef:ref.verifyLocator||`DEMO-EVIDENCE-${i+1}`,created:'2026-10-12 10:00（示例）',updated:'2026-10-13 09:30（示例）',verified:'2026-10-13 09:30（示例）',relations:clone(relations[ref.id]||{indicators:[],materials:[]}),history:[]};
   const prior={...snapshot(r),version:1,status:'DISABLED',description:'初次保存内容（示例旧版本）'};
   r.history=[{kind:'资料修订',actor:'示例管理员',time:r.updated,reason:'保留在册信源当时版本（示例）。',before:prior,after:snapshot(r)}];return r;
  });

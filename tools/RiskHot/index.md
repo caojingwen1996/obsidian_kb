@@ -1,5 +1,10 @@
 # RiskHot 项目文档索引
 
+## 共享数据
+
+- [[tools/RiskHot/src/data/source-catalog.js|信源清单]]：40条信源的名称、网址、等级、分组与关注内容，统一在 `src/data` 维护。
+- [[tools/RiskHot/src/data/source-demo.js|信源演示配置]]：原型使用的分类、启停及接入预设、示例关系，与信源清单分开维护；使用方式见[[tools/RiskHot/docs/system-design/06产品UI原型设计/06-2-M1信源管理中心UI设计/02. 交互原型说明|M1 原型说明]]。
+
 ## 来源到事件候选：工程实现
 
 - [[tools/RiskHot/docs/verification/codex-subscription|Codex 订阅闭环与后台运行]]：真实央行公告形成2条已校验候选，定时与重复获取复用同一资料/候选；后台计划、安静异常提醒及真实证据入口。
@@ -86,6 +91,8 @@
 - [[tools/RiskHot/03-业务功能需求/09. RiskHot_验收与交付管理_V1.0#5. 配置模块审计与迁移记录|配置模块审计与迁移记录]]：问题依据、原功能去向、六个待执行场景及实现差距。
 
 ## 系统架构
+
+- [[tools/RiskHot/docs/superpowers/specs/2026-10-24-source-to-candidates-design|真实信源到事件候选的最小闭环实施设计]]：用户已选择真实信源与真实模型；范围为来源、获取解析、标准化、AI-01、保存及状态查询。候选模式与完整事件处理明确区分；已批准并实施，当前结果见[[tools/RiskHot/docs/verification/codex-subscription|订阅闭环验证记录]]。
 
 - [[tools/RiskHot/docs/system-design/04-系统架构设计/05-架构治理与验证/架构验证/系统架构文档完整性审查|系统架构文档完整性审查]]：按system-architecture-design V2.0.0核对总体视图、文档归属与质量门禁；记录补齐内容和未验证条件。
 

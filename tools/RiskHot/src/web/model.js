@@ -1,0 +1,52 @@
+export const statusNames = {ACTIVE:'启用',DISABLED:'停用',ready:'已就绪',running:'运行中',queued:'待执行',pending:'待执行',paused:'已暂停',completed:'已完成',partial:'部分完成',failed:'失败',blocked:'已阻断',recoverable:'待恢复',review:'待复核',waiting_config:'待配置',needs_url:'待补地址',needs_login:'需登录',access_blocked:'访问受限'};
+export const statusName = value => statusNames[value] || value || '未知';
+export const steps = ['核对信源资格与接入条件','获取原始资料','正文读取与资料标准化','识别重复与资料版本','保存标准化资料','交付标准化资料'];
+export const escape = value => String(value ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+export function profileOf(source) {
+  const meta=source.metadata || {};
+  return {name:source.name || '',url:source.url || '',tier:'',group:'',focus:'',context:'',publisher:'',category:'',channel:'',allowed_scope:'',material_type:'',identity_basis:'',priority:'',frequency:'',...meta,
+    dims:Array.isArray(meta.dims)?meta.dims:[],levels:Array.isArray(meta.levels)?meta.levels:[]};
+}
+export function filterSources(rows,filters={}) {
+  const q=(filters.q || '').toLocaleLowerCase();
+  return rows.filter(row=>{
+    const p=profileOf(row);
+    return (!q||[row.catalog_key,...Object.values(p)].join(' ').toLocaleLowerCase().includes(q))
+      && ['tier','group','priority','frequency'].every(key=>!filters[key]||p[key]===filters[key])
+      && (!filters.state||row.state===filters.state)
+      && (!filters.readiness||(row.connection?.readiness||'unknown')===filters.readiness);
+  });
+}
+export const groupFields={verify:[['tier','信源等级'],['category','来源类别']],monitor:[['priority','关注优先级'],['frequency','监测频率'],['tier','信源等级']],research:[['dims','金融属性'],['levels','观察层级'],['priority','关注优先级']]};
+export function groupSources(rows,view,depth=0) {
+  const [key,label]=groupFields[view]?.[depth] || ['group','分组'];
+  const groups=new Map();
+  for(const row of rows){
+    const value=profileOf(row)[key]; const names=Array.isArray(value)?[...new Set(value)]:value?[value]:[];
+    for(const name of names.length?names:[`待补充${label}`]){
+      if(!groups.has(name))groups.set(name,new Map());
+      groups.get(name).set(row.catalog_key,row);
+    }
+  }
+  return [...groups].map(([name,items])=>({name,label,items:[...items.values()]}));
+}
+export function countSaved(operation) {
+  const versions=new Set();
+  function walk(row){if(row.version_id)versions.add(row.version_id);for(const child of row.children||[])walk(child);}
+  walk(operation);return versions.size;
+}
+export function candidateCount(processing) {return processing?.candidate_count==null?'待确认':String(processing.candidate_count);}
+export function progressOf(row) {
+  if(row.processing_id||['delivered','extract','candidates_saved'].includes(row.stage))return {completed:6,current:0};
+  const completed={source:0,discovered:1,acquired:2,normalized:3,identified:4,saved:5}[row.stage]??0;
+  return {completed,current:completed+1};
+}
+export function shanghaiDate(date=new Date()) {return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit'}).format(date);}
+export function validRange(from,to) {
+  const valid=value=>/^\d{4}-\d{2}-\d{2}$/.test(value)&&Number.isFinite(Date.parse(`${value}T00:00:00Z`))&&new Date(`${value}T00:00:00Z`).toISOString().slice(0,10)===value;
+  return valid(from)&&valid(to)&&from<=to;
+}
+export function dateTime(value) {if(!value)return '尚无记录';const date=new Date(value);return Number.isFinite(+date)?new Intl.DateTimeFormat('zh-CN',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}).format(date):'时间未知';}
+export function badge(value) {return `<span class="status status-${escape(value)}">${escape(statusName(value))}</span>`;}
+const reasons={SOURCE_DISABLED:'信源已停用，请先核对业务资格。',CONNECTOR_NOT_CONFIGURED:'尚未配置连接器，暂时不能自动接入。',SOURCE_VERSION_CHANGED:'信源资料已更新，请刷新后重试。',VERSION_CONFLICT:'资料版本已变化，请刷新后核对。',STALE_EXECUTION:'任务已由其他操作推进，请刷新状态。',MODEL_NOT_CONFIGURED:'模型尚未配置；已保存资料保留。',MODEL_QUOTA_EXHAUSTED:'模型额度不足，等待执行通道恢复。',MODEL_LOGIN_REQUIRED:'模型登录已失效，请重新登录本机 Codex。',OUTCOME_UNKNOWN:'未收到操作回执，结果尚未确认。可查询状态或使用原请求重试。',UNAUTHENTICATED:'登录已过期，请重新登录后继续。',FORBIDDEN:'当前账号没有此项操作或信源访问权限。',IDEMPOTENCY_CONFLICT:'请求标识与原操作不一致，请重新读取状态。',SCHEDULE_VERSION_CHANGED:'计划已由其他操作更新，请刷新后核对。',SOURCE_DUPLICATE:'已有相同身份的信源，请核对并打开已有档案。'};
+export function explain(error) {const code=typeof error==='string'?error:error?.code;return reasons[code] || `未能完成操作${code?`（${code}）`:''}，请刷新状态后重试。`;}

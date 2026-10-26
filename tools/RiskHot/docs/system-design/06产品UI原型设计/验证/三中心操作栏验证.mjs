@@ -122,7 +122,7 @@ function rendererContext() {
   return { context, get, run: source => vm.runInContext(source, context) };
 }
 const m1 = rendererContext();
-m1.run(read(modules[0] + '/原型资源/source-catalog.js')); m1.run(read(modules[0] + '/原型资源/app.js'));
+m1.run(read('../../../src/data/source-catalog.js')); m1.run(read('../../../src/data/source-demo.js')); m1.run(read(modules[0] + '/原型资源/app.js'));
 for (const view of ['all', 'verify', 'monitor', 'research']) {
   m1.run(`ctx().view='${view}';render();`);
   check('M1/' + view + ': grouping tools retain their visibility rule', m1.get('group-actions').hidden === (view === 'all'));
