@@ -18,9 +18,35 @@ async function setup() {
   await c.db.query("INSERT INTO platform.actors VALUES($1,ARRAY['read','submit','source_admin','retry','model_budget'],ARRAY['*'])", [actor]);
   const apiDb = new Pool({ connectionString: c.urlFor('DATABASE_URL') });
   const app = await buildServer(new ExecutionStore(apiDb, c.artifacts));
-  const request = (method: string, url: string, payload?: unknown, key = randomUUID()) => app.inject({ method: method as 'POST', url, headers: { authorization: `Bearer ${token}`, 'idempotency-key': key }, ...(payload === undefined ? {} : { payload }) });
+  const request = (method: string, url: string, payload?: unknown, key = randomUUID()) => app.inject({ method: method as 'POST', url, headers: { authorization: `Bearer ${token}`, 'idempotency-key': key, 'content-type': 'application/json' }, ...(payload === undefined ? {} : { payload: JSON.stringify(payload) }) });
   return { ...c, app, actor, request, async close() { await app.close(); await apiDb.end(); await c.dispose(); } };
 }
+
+test('catalog synchronization preserves an edited profile and its independent connector configuration', async () => {
+  const c = await setup();
+  try {
+    const rows = (await readCatalog('src/data/source-catalog.js')).slice(0, 3);
+    const source = (await c.request('GET', '/api/v1/m1/sources')).json().items.find((x: { catalog_key: string }) => x.catalog_key === 'wiki-source-001');
+    const result = await c.request('PUT', '/api/v1/m1/sources/wiki-source-001', { expected_version: source.version, profile: { name: source.name, url: source.url, focus: '人工维护的业务范围', dims: ['流动性'] } });
+    assert.equal(result.statusCode, 200, result.body);
+    await c.repo.seedCatalog(rows);
+    const current = (await c.request('GET', '/api/v1/m1/sources')).json().items.find((x: { catalog_key: string }) => x.catalog_key === 'wiki-source-001');
+    assert.equal(current.profile.focus, '人工维护的业务范围');
+    assert.equal(current.connection.id, source.connection.id);
+  } finally { await c.close(); }
+});
+
+test('an incomplete new source cannot be enabled; verified manual eligibility does not imply an automatic connector', async () => {
+  const c = await setup();
+  try {
+    const source = (await c.request('POST', '/api/v1/m1/sources', { profile: { name: '受控人工出处', url: '' } })).json();
+    assert.equal((await c.request('PATCH', `/api/v1/m1/sources/${source.catalog_key}`, { state: 'ACTIVE', expected_version: 1 })).statusCode, 409);
+    const updated = await c.request('PUT', `/api/v1/m1/sources/${source.catalog_key}`, { expected_version: 1, profile: { name: '受控人工出处', url: '', publisher: '受控发布机构', identity_basis: '已核对出处', allowed_scope: '公开资料' } });
+    assert.equal(updated.statusCode, 200, updated.body);
+    assert.equal((await c.request('PATCH', `/api/v1/m1/sources/${source.catalog_key}`, { state: 'ACTIVE', expected_version: 2 })).statusCode, 200);
+    assert.equal((await c.request('POST', '/api/v1/l0/source-fetches', { source_key: source.catalog_key, limit: 1 })).statusCode, 409);
+  } finally { await c.close(); }
+});
 
 test('session and profile writes preserve revisions, reject stale edits and duplicate identity, and cannot configure a connector', async () => {
   const c = await setup();

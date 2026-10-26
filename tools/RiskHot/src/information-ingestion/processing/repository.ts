@@ -9,12 +9,14 @@ import { assertSourceUrl, requireConnector } from './sources.js';
 
 export interface FetchCommand { source_key: string; limit: number; url?: string }
 export interface OperationRow {
+  paused?: boolean;
   id: string; parent_id: string | null; kind: 'batch' | 'material'; source_id: string; source_version: number;
   actor: string; command_artifact_id: string; url: string | null; status: string; stage: string; generation: string | number;
   raw_artifact_id: string | null; normalized_artifact_id: string | null; version_id: string | null; processing_id: string | null;
   reason_code: string | null; scheduled_at: Date; source_key?: string; slice_status?: string; children?: OperationRow[];
 }
 export interface ProcessingRow {
+  paused?: boolean;
   id: string; version_id: string; extraction_status: string; candidate_count: number | null; generation: string | number;
   processing_scope: string; result_status: string; input_artifact_id: string | null; manifest_artifact_id: string | null; error_code: string | null;
   review_attempt_id?: string | null;
@@ -63,14 +65,15 @@ export class Repository {
         const connection = connectorFor(row.id);
         let source = (await client.query<{ id:string;version:number;state:string }>('SELECT id,version,state FROM m1.sources WHERE catalog_key=$1 FOR UPDATE',[row.id])).rows[0];
         if (!source) source = first((await client.query<{ id:string;version:number;state:string }>('INSERT INTO m1.sources(catalog_key,name,url,metadata,state) VALUES($1,$2,$3,$4,$5) RETURNING id,version,state',[row.id,row.name,row.url,row,connection.readiness==='ready'?'ACTIVE':'DISABLED'])).rows);
-        const previous = (await client.query<{config:{connection?:SourceConnector;connector?:string|null}}>('SELECT config FROM m1.source_versions WHERE source_id=$1 AND version=$2',[source.id,source.version])).rows[0]?.config;
+        const previous = (await client.query<{config:{connection?:SourceConnector;connector?:string|null;profile?:Record<string,unknown>}}>('SELECT config FROM m1.source_versions WHERE source_id=$1 AND version=$2',[source.id,source.version])).rows[0]?.config;
         const previouslyConfigured = previous?.connection?.readiness === 'ready' || previous?.connector === 'pbc-html-1.0.0';
-        const state = previous && !previouslyConfigured && connection.readiness === 'ready' ? 'ACTIVE' : source.state;
-        const config = {catalog:row,connector:connection.id,connection,state};
+        const state = previous && !previous.profile && !previouslyConfigured && connection.readiness === 'ready' ? 'ACTIVE' : source.state;
+        const catalog = previous?.profile ? {...row,...previous.profile,id:row.id} : row;
+        const config = {...previous,catalog,connector:connection.id,connection,state};
         if (previous && digest(previous) === digest(config)) continue;
         const version = previous ? source.version+1 : source.version;
         await client.query('INSERT INTO m1.source_versions(source_id,version,config) VALUES($1,$2,$3)',[source.id,version,config]);
-        await client.query('UPDATE m1.sources SET name=$2,url=$3,metadata=$4,state=$5,version=$6 WHERE id=$1',[source.id,row.name,row.url,row,state,version]);
+        await client.query('UPDATE m1.sources SET name=$2,url=$3,metadata=$4,state=$5,version=$6 WHERE id=$1',[source.id,catalog.name,catalog.url,catalog,state,version]);
       }
     });
   }
@@ -81,6 +84,7 @@ export class Repository {
     throw new DomainError('CONNECTOR_NOT_CONFIGURED',409);
   }
   async checkSource(op: OperationRow, client: Pool | PoolClient = this.db): Promise<void> {
+    if (op.paused) throw new DomainError('TASK_PAUSED', 409);
     const source = first((await client.query<{ catalog_key: string; state: string }>('SELECT * FROM platform.lock_source($1)', [op.source_id])).rows);
     await this.authorize(op.actor, 'submit', source.catalog_key, client);
     if (source.state !== 'ACTIVE') throw new DomainError('SOURCE_DISABLED', 409);
@@ -88,7 +92,7 @@ export class Repository {
   async intent(client: PoolClient, kind: string, owner: string, generation: number): Promise<void> {
     await client.query('INSERT INTO platform.execution_intents(kind,owner_id,generation,workflow_id) VALUES($1,$2,$3,$4) ON CONFLICT DO NOTHING', [kind, owner, generation, `l0/${kind}/${owner}/${generation}`]);
   }
-  async submit(command: FetchCommand, actor: string, key: string): Promise<OperationRow> {
+  async submit(command: FetchCommand, actor: string, key: string, sharedClient?: PoolClient): Promise<OperationRow> {
     if (!/^[\x21-\x7e]{1,128}$/.test(key)) throw new DomainError('IDEMPOTENCY_KEY_INVALID', 400);
     const requestedUrl = command.url ?? null;
     await this.authorize(actor, 'submit', command.source_key);
@@ -98,7 +102,7 @@ export class Repository {
     const input = { type: 'SOURCE_FETCH', ...command };
     const entryUrl = assertSourceUrl(connection,sourceEntryUrl(connection)).href;
     const ref = await this.artifacts.put(Buffer.from(JSON.stringify({ ...input, entry_url:entryUrl, requested_url: requestedUrl, source_id: snapshot.id, source_version: snapshot.version })), 'intake-command');
-    return transaction(this.db, async client => {
+    const accept = async (client: PoolClient): Promise<OperationRow> => {
       await client.query('SELECT pg_advisory_xact_lock(hashtextextended($1,0))', [`${actor}:source-fetch:${key}`]);
       const prior = (await client.query<{ digest: string; operation_id: string }>('SELECT digest,operation_id FROM platform.command_receipts WHERE actor=$1 AND kind=\'source-fetch\' AND key=$2', [actor, key])).rows[0];
       if (prior) {
@@ -115,13 +119,15 @@ export class Repository {
       await client.query('INSERT INTO platform.command_receipts(actor,kind,key,digest,operation_id) VALUES($1,\'source-fetch\',$2,$3,$4)', [actor, key, digest(input), op.id]);
       await this.intent(client, 'discovery', op.id, 1);
       return op;
-    });
+    };
+    return sharedClient ? accept(sharedClient) : transaction(this.db, accept);
   }
   async rawOperation(id: string, client: Pool | PoolClient = this.db, lock = false): Promise<OperationRow> {
     return first((await client.query<OperationRow>(`SELECT * FROM information.operations WHERE id=$1${lock ? ' FOR UPDATE' : ''}`, [id])).rows);
   }
   guard(row: OperationRow | ProcessingRow, generation: number): void {
     if (Number(row.generation) !== generation) throw new DomainError('STALE_EXECUTION', 409);
+    if (row.paused) throw new DomainError('TASK_PAUSED', 409);
   }
   async recordDiscovery(id: string, generation: number, items: SourceItem[], raw: Buffer): Promise<string[]> {
     const snapshot = await this.rawOperation(id); this.guard(snapshot, generation);
@@ -229,7 +235,7 @@ export class Repository {
       await transaction(this.db, async client => {
         const message = (await client.query<{ id: string; version_id: string }>('SELECT id,version_id FROM platform.messages WHERE id=$1 AND state IN (\'pending\',\'blocked\') FOR UPDATE SKIP LOCKED', [pending.id])).rows[0];
         if (!message) return;
-        const owner = first((await client.query<OperationRow>('SELECT * FROM information.operations WHERE version_id=$1 ORDER BY created_at LIMIT 1', [message.version_id])).rows);
+        const owner = first((await client.query<OperationRow>('SELECT * FROM information.operations WHERE version_id=$1 ORDER BY paused,created_at LIMIT 1', [message.version_id])).rows);
         try { await this.checkSource(owner, client); }
         catch (error) {
           if (!(error instanceof DomainError)) throw error;
@@ -255,7 +261,7 @@ export class Repository {
       stage=CASE WHEN p.extraction_status='completed' THEN 'candidates_saved' ELSE 'extract' END,
       reason_code=p.error_code,updated_at=now()
       FROM platform.messages m JOIN information.processing_runs p ON p.id=m.receipt_processing_id
-      WHERE o.version_id=m.version_id AND m.state='received' AND o.processing_id IS NULL AND ($1::uuid IS NULL OR o.version_id=$1)`, [versionId]);
+      WHERE o.version_id=m.version_id AND m.state='received' AND o.processing_id IS NULL AND NOT o.paused AND ($1::uuid IS NULL OR o.version_id=$1)`, [versionId]);
   }
   async processing(id: string, client: Pool | PoolClient = this.db, lock = false): Promise<ProcessingRow> {
     return first((await client.query<ProcessingRow>(`SELECT * FROM information.processing_runs WHERE id=$1${lock ? ' FOR UPDATE' : ''}`, [id])).rows);
@@ -265,11 +271,11 @@ export class Repository {
       const processing = await this.processing(id, client, true); this.guard(processing, generation);
       if (processing.extraction_status === 'completed') return;
       if (processing.extraction_status === 'review') throw new DomainError('OUTPUT_REVIEW_REQUIRED', 409);
-      const op = first((await client.query<OperationRow>('SELECT * FROM information.operations WHERE processing_id=$1 ORDER BY created_at LIMIT 1', [id])).rows);
+      const op = first((await client.query<OperationRow>('SELECT * FROM information.operations WHERE processing_id=$1 ORDER BY paused,created_at LIMIT 1', [id])).rows);
       await this.checkSource(op, client);
       for (const [ordinal, candidate] of data.candidates.entries()) await client.query('INSERT INTO information.event_candidates(processing_id,ordinal,payload) VALUES($1,$2,$3)', [id, ordinal, candidate]);
       await client.query('UPDATE information.processing_runs SET extraction_status=\'completed\',candidate_count=$2,result_status=$3,error_code=NULL,completed_at=now() WHERE id=$1', [id, data.candidates.length, data.candidates.length ? 'pending' : 'NO_EVENT']);
-      await client.query('UPDATE information.operations SET status=\'completed\',stage=\'candidates_saved\',reason_code=NULL,updated_at=now() WHERE processing_id=$1', [id]);
+      await client.query('UPDATE information.operations SET status=\'completed\',stage=\'candidates_saved\',reason_code=NULL,updated_at=now() WHERE processing_id=$1 AND NOT paused', [id]);
     });
   }
   async failOperation(id: string, generation: number, code: string, waiting = false): Promise<void> {

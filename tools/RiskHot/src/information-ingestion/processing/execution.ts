@@ -40,7 +40,7 @@ export class ExecutionStore extends Repository {
   async extractionFailed(id: string, generation: number, code: string, waiting = false, attemptId?: string): Promise<void> {
     await transaction(this.db, async client => {
       const processing = await this.processing(id, client, true);
-      if (Number(processing.generation) !== generation || processing.extraction_status === 'completed') return;
+      if (processing.paused || Number(processing.generation) !== generation || processing.extraction_status === 'completed') return;
       if (processing.extraction_status === 'review') return;
       const state = requiresOutputReview(code) ? 'review' : 'recoverable';
       await client.query('UPDATE information.processing_runs SET extraction_status=$2,error_code=$3,review_attempt_id=CASE WHEN $2=\'review\' THEN COALESCE($4::uuid,(SELECT id FROM platform.model_attempts WHERE processing_id=$1 AND generation=$5 ORDER BY attempt_no DESC LIMIT 1)) ELSE NULL END WHERE id=$1', [id, state, code, attemptId ?? null, generation]);
@@ -56,6 +56,7 @@ export class ExecutionStore extends Repository {
       if (op.state !== 'ACTIVE') throw new DomainError('SOURCE_DISABLED', 409);
     }, async client => {
       const processing = await this.processing(id, client, true);
+      if (processing.paused) throw new DomainError('TASK_PAUSED', 409);
       if (processing.extraction_status === 'completed') return Number(processing.generation);
       if (processing.extraction_status === 'review') throw new DomainError('OUTPUT_REVIEW_REQUIRED', 409);
       if (Number(processing.generation) !== expected) throw new DomainError('STALE_EXECUTION', 409);

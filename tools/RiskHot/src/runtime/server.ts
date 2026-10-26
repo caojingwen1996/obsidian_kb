@@ -2,6 +2,7 @@ import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { access, constants, mkdir } from 'node:fs/promises';
 import Fastify from 'fastify';
+import { registerManagement } from './management.js';
 import cookie from '@fastify/cookie';
 import { Ajv2020 } from 'ajv/dist/2020.js';
 import { Authentication } from '../platform/auth.js';
@@ -79,7 +80,7 @@ export async function buildServer(repo: ExecutionStore) {
     return {items:await Promise.all(rows.map(async row=>{
       const connection=row.connection??connectorFor(row.catalog_key);
       const last=row.last_operation_id?await repo.operation(row.last_operation_id):null;
-      return {...row,connection,connector_configured:connection.readiness==='ready',last_status:last?.slice_status??null,last_reason:last?.reason_code??last?.children?.find(child=>child.reason_code)?.reason_code??null};
+      return {...row,profile:row.metadata,connection,connector_configured:connection.readiness==='ready',last_status:last?.slice_status??null,last_reason:last?.reason_code??last?.children?.find(child=>child.reason_code)?.reason_code??null};
     }))};
   });
   app.get('/api/v1/l0/monitor', async request => {
@@ -94,20 +95,8 @@ export async function buildServer(repo: ExecutionStore) {
     const full=(await repo.db.query("SELECT '*'=ANY(source_keys) AS full FROM platform.actors WHERE subject=$1",[request.actor])).rows[0]?.full;
     return { schedules, alerts, background_service:full?await serviceStatus(process.cwd()):null, model_service: (await repo.db.query('SELECT protocol,reason_code,blocked_until,updated_at FROM platform.model_service_state')).rows, notification_semantics: 'submitted means handed to the OS; display is controlled by system settings' };
   });
-  app.patch('/api/v1/m1/sources/:key', { schema: { params: { type: 'object', additionalProperties: false, required: ['key'], properties: { key: { type: 'string', pattern: '^wiki-source-[0-9]{3}$' } } }, body: { type: 'object', additionalProperties: false, required: ['state'], properties: { state: { enum: ['ACTIVE', 'DISABLED'] } } } } }, async request => {
-    const { key } = request.params as { key: string }; const { state } = request.body as { state: string };
-    return repo.action(request.actor, 'source-state', keyOf(request.headers), { key, state }, tx => repo.authorize(request.actor, 'source_admin', key, tx), async tx => {
-      const source = (await tx.query<{ id: string; version: number; state: string }>('SELECT id,version,state FROM m1.sources WHERE catalog_key=$1 FOR UPDATE', [key])).rows[0];
-      if (!source) throw new DomainError('NOT_FOUND', 404);
-      if (source.state === state) return { key, state, version: source.version };
-      const next = source.version + 1;
-      await tx.query('INSERT INTO m1.source_versions(source_id,version,config) SELECT source_id,$3,config||jsonb_build_object(\'state\',$4::text) FROM m1.source_versions WHERE source_id=$1 AND version=$2', [source.id, source.version, next, state]);
-      await tx.query('UPDATE m1.sources SET state=$2,version=$3 WHERE id=$1', [source.id, state, next]);
-      await tx.query('INSERT INTO platform.audit_log(actor,action,owner_id,detail) VALUES($1,\'source-state\',$2,$3)', [request.actor, source.id, { state, version: next }]);
-      return { key, state, version: next };
-    });
-  });
-  app.post('/api/v1/l0/source-fetches', { schema: { body: { type: 'object', additionalProperties: false, required: ['source_key', 'limit'], properties: { source_key: { type: 'string', pattern: '^wiki-source-[0-9]{3}$' }, limit: { type: 'integer', minimum: 1, maximum: 5 }, url: { type: 'string', maxLength: 2048 } } } } }, async (request, reply) => {
+  registerManagement(app, repo);
+  app.post('/api/v1/l0/source-fetches', { schema: { body: { type: 'object', additionalProperties: false, required: ['source_key', 'limit'], properties: { source_key: { type: 'string', pattern: '^(wiki-source-[0-9]{3}|custom-source-[a-f0-9-]{36})$' }, limit: { type: 'integer', minimum: 1, maximum: 5 }, url: { type: 'string', maxLength: 2048 } } } } }, async (request, reply) => {
     const input = request.body as FetchCommand;
     const operation = await repo.submit(input, request.actor, keyOf(request.headers));
     return reply.code(202).send({ operation_id: operation.id, status_url: `/api/v1/l0/operations/${operation.id}` });

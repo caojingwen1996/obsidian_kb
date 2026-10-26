@@ -182,7 +182,7 @@ BEGIN
  IF item.generation<>item.current_generation OR item.request_artifact_id<>item.input_artifact_id THEN
   RETURN QUERY SELECT false,'STALE_EXECUTION'::text,item.call_deadline,item.request_artifact_id; RETURN;
  END IF;
- IF item.paused OR item.extraction_status IN ('completed','review') THEN
+ IF item.paused OR item.extraction_status IN ('completed','review') OR NOT EXISTS(SELECT 1 FROM information.operations o WHERE o.processing_id=item.processing_id AND NOT o.paused) THEN
   RETURN QUERY SELECT false,'PROCESSING_NOT_CALLABLE'::text,item.call_deadline,item.request_artifact_id; RETURN;
  END IF;
  IF item.call_deadline<=clock_timestamp() THEN

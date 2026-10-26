@@ -40,7 +40,7 @@ export class Scheduler {
         const recoverable = (await lock.query<{ id: string; generation: string; exhausted: boolean }>(`SELECT p.id,p.generation,(w.used>=3 OR w.deadline<=$1) AS exhausted
           FROM information.processing_runs p JOIN information.material_versions v ON v.id=p.version_id JOIN information.materials m ON m.id=v.material_id JOIN m1.sources s ON s.id=m.source_id
           LEFT JOIN LATERAL(SELECT used,deadline FROM platform.model_budget_windows WHERE processing_id=p.id ORDER BY generation DESC LIMIT 1) w ON true
-          WHERE p.extraction_status='recoverable' AND s.state='ACTIVE' AND ($2::text[] IS NULL OR s.catalog_key=ANY($2))
+          WHERE p.extraction_status='recoverable' AND NOT p.paused AND s.state='ACTIVE' AND ($2::text[] IS NULL OR s.catalog_key=ANY($2))
           AND ((p.input_artifact_id IS NULL AND p.error_code='MODEL_NOT_CONFIGURED') OR (p.provider_protocol='codex-exec' AND p.error_code IN ('MODEL_QUOTA_EXHAUSTED','MODEL_LOGIN_REQUIRED','MODEL_NETWORK_ERROR','MODEL_CAPACITY_UNAVAILABLE','MODEL_BUDGET_EXHAUSTED') AND (w.used>=3 OR w.deadline<=$1)))
           AND NOT EXISTS(SELECT 1 FROM platform.automatic_recoveries a WHERE a.processing_id=p.id AND a.created_at>$1-interval '24 hours')
           ORDER BY p.created_at LIMIT $3`, [now, this.config.sources ?? null, slots])).rows;
@@ -48,7 +48,7 @@ export class Scheduler {
           try { await this.repo.retryExtraction(row.id, SCHEDULER_ACTOR, 'standing subscription recovery policy v1', Boolean(row.exhausted), Number(row.generation), `auto/${row.id}/${row.generation}`, true); slots--; }
           catch (error) { if (!(error instanceof DomainError)) throw error; }
         }
-        const pending = (await lock.query<{ id: string; catalog_key: string }>(`SELECT r.id,s.catalog_key FROM platform.schedule_runs r JOIN m1.sources s ON s.id=r.source_id WHERE r.status='pending' AND s.state='ACTIVE' AND ($1::text[] IS NULL OR s.catalog_key=ANY($1)) ORDER BY r.scheduled_at LIMIT $2`, [this.config.sources ?? null, slots])).rows;
+        const pending = (await lock.query<{ id: string; catalog_key: string }>(`SELECT r.id,s.catalog_key FROM platform.schedule_runs r JOIN m1.sources s ON s.id=r.source_id LEFT JOIN platform.source_schedules q ON q.source_id=s.id WHERE COALESCE(q.enabled,true) AND r.status='pending' AND s.state='ACTIVE' AND ($1::text[] IS NULL OR s.catalog_key=ANY($1)) ORDER BY r.scheduled_at LIMIT $2`, [this.config.sources ?? null, slots])).rows;
         for (const run of pending) if(await this.submitRun(run.id, run.catalog_key)) slots--;
         if (slots > 0) {
           const due = (await lock.query<{ source_id: string; catalog_key: string; next_run_at: Date; interval_seconds: number }>(`SELECT q.*,s.catalog_key FROM platform.source_schedules q JOIN m1.sources s ON s.id=q.source_id JOIN m1.source_versions v ON v.source_id=s.id AND v.version=s.version
@@ -73,8 +73,8 @@ export class Scheduler {
     }
   }
   private async inFlight(client: PoolClient): Promise<number> {
-    const result = await client.query<{ n: number }>(`SELECT (SELECT count(*) FROM information.processing_runs WHERE extraction_status='pending') +
-      (SELECT count(*) FROM information.operations o WHERE o.status IN ('queued','running') AND o.processing_id IS NULL AND
+    const result = await client.query<{ n: number }>(`SELECT (SELECT count(*) FROM information.processing_runs WHERE extraction_status='pending' AND NOT paused) +
+      (SELECT count(*) FROM information.operations o WHERE NOT o.paused AND o.status IN ('queued','running') AND o.processing_id IS NULL AND
         (o.kind='material' OR (o.kind='batch' AND NOT EXISTS(SELECT 1 FROM information.operations c WHERE c.parent_id=o.id)))) AS n`);
     return Number(result.rows[0]!.n);
   }

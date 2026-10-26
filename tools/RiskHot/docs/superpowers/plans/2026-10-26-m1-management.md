@@ -42,10 +42,10 @@
 - `POST /api/v1/l0/task-batches/:id/control` 输入 `{action:'pause'|'resume',expected_version,reason}`，返回当前批次。
 - `PATCH /api/v1/l0/schedules/:key` 输入 `{enabled,interval_seconds,expected_updated_at}`；`GET /api/v1/l0/monitor` 沿用真实计划和告警。
 
-- [ ] 先写隔离数据库/真实 API 测试：多来源开启、读写权限、幂等、启停隔离、版本冲突、暂停迟到响应与恢复检查点。
-- [ ] 执行 `node --env-file=.env --import tsx --test src/tests/management.test.ts`，确认因功能缺失而失败。
-- [ ] 实现管理接口、事务和恢复，兼容已有运行和计划；以来源固定版本与已有命令回执为事实。
-- [ ] 执行专项测试与 `npm run typecheck`。
+- [x] 先写隔离数据库/真实 API 测试：多来源开启、读写权限、幂等、启停隔离、版本冲突、暂停迟到响应与恢复检查点。
+- [x] 执行 `node --env-file=.env --import tsx --test src/tests/management.test.ts`，确认因功能缺失而失败。
+- [x] 实现管理接口、事务和恢复，兼容已有运行和计划；以来源固定版本与已有命令回执为事实。
+- [x] 执行专项测试与 `npm run typecheck`。
 
 ## Task 2: 实际 M1 工作区
 
