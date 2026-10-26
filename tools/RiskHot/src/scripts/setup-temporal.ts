@@ -1,6 +1,6 @@
 import { Connection } from '@temporalio/client';
 import Long from 'long';
-import { required } from '../src/platform/db.js';
+import { required } from '../platform/db.js';
 
 const connection = await Connection.connect({ address: required('TEMPORAL_ADDRESS') });
 try {

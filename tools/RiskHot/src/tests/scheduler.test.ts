@@ -1,9 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { openFixture } from './fixture.js';
-import { ExecutionStore } from '../src/l0/execution.js';
+import { ExecutionStore } from '../l0/execution.js';
 import { Pool } from 'pg';
-import { readCatalog } from '../src/m1/catalog.js';
+import { readCatalog } from '../m1/catalog.js';
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { randomUUID } from 'node:crypto';
@@ -11,7 +11,7 @@ import { randomUUID } from 'node:crypto';
 test('a due schedule is durable, concurrent ticks submit once, restart skips in-flight work and disabled sources', async () => {
   const c = await openFixture();
   try {
-    const { Scheduler } = await import('../src/runtime/scheduler.js');
+    const { Scheduler } = await import('../runtime/scheduler.js');
     const io = new Pool({ connectionString: c.urlFor('IO_DATABASE_URL') });
     try {
       await c.db.query("INSERT INTO platform.actors VALUES('riskhot-scheduler',ARRAY['read','submit','retry','auto_retry'],ARRAY['*'])");
@@ -40,7 +40,7 @@ test('a due schedule is durable, concurrent ticks submit once, restart skips in-
 test('alerts stay quiet on success, deduplicate persistence, resolve, recur and retain failed notification delivery', async () => {
   const c = await openFixture();
   try {
-    const { AlertStore } = await import('../src/platform/notifications.js');
+    const { AlertStore } = await import('../platform/notifications.js');
     let delivered = 0; const alerts = new AlertStore(c.db, async () => { delivered++; });
     await alerts.reconcile([]);
     assert.equal(delivered, 0);
@@ -86,7 +86,7 @@ test('automatic recovery is fenced, atomically limited and cannot bypass output 
 test('a committed pending slot resumes without a new slot, and all sources share the in-flight ceiling', async () => {
   const c = await openFixture();
   try {
-    const { Scheduler } = await import('../src/runtime/scheduler.js');
+    const { Scheduler } = await import('../runtime/scheduler.js');
     await c.repo.seedCatalog((await readCatalog('src/data/source-catalog.js')).slice(0, 3));
     await c.db.query("INSERT INTO platform.actors VALUES('riskhot-scheduler',ARRAY['read','submit','retry','auto_retry'],ARRAY['*'])");
     await c.db.query("UPDATE information.operations SET status='completed'");
@@ -103,7 +103,7 @@ test('a committed pending slot resumes without a new slot, and all sources share
 test('scheduler does not steal a generation while the workflow still has a live retry window', async () => {
   const c = await openFixture();
   try {
-    const { Scheduler } = await import('../src/runtime/scheduler.js');
+    const { Scheduler } = await import('../runtime/scheduler.js');
     const p = await c.processing();
     await c.db.query("INSERT INTO platform.actors VALUES('riskhot-scheduler',ARRAY['read','submit','retry','auto_retry'],ARRAY['*'])");
     await c.db.query("UPDATE information.processing_runs SET provider_protocol='codex-exec' WHERE id=$1", [p.id]);
@@ -117,7 +117,7 @@ test('scheduler does not steal a generation while the workflow still has a live 
 });
 
 test('supervisor failure stays visible without PostgreSQL and quiet across repeated restarts', async () => {
-  const { serviceFailure, serviceHealthy } = await import('../src/platform/notifications.js');
+  const { serviceFailure, serviceHealthy } = await import('../platform/notifications.js');
   const c = await openFixture();
   try {
     let notices = 0; const notify = async () => { notices++; };
@@ -131,7 +131,7 @@ test('supervisor failure stays visible without PostgreSQL and quiet across repea
 test('a retry and the end of quota backoff do not resolve an ongoing problem or send it twice', async () => {
   const c=await openFixture();
   try{
-    const {Scheduler}=await import('../src/runtime/scheduler.js');let notices=0;const s=new Scheduler(c.repo,async()=>{notices++;});const now=new Date();
+    const {Scheduler}=await import('../runtime/scheduler.js');let notices=0;const s=new Scheduler(c.repo,async()=>{notices++;});const now=new Date();
     await c.repo.failOperation(c.parent.id,1,'SOURCE_ACCESS_BLOCKED');
     await c.db.query("INSERT INTO platform.schedule_runs(source_id,scheduled_at,operation_id,status) VALUES($1,$2,$3,'running')",[c.parent.source_id,new Date(now.getTime()-1000),c.parent.id]);
     await s.monitor(now);assert.equal(notices,1);
@@ -153,7 +153,7 @@ test('a retry and the end of quota backoff do not resolve an ongoing problem or 
 
 test('two forbidden pending submissions do not starve an authorized source', async()=>{
   const c=await openFixture();try{
-    const {Scheduler}=await import('../src/runtime/scheduler.js');await c.repo.seedCatalog((await readCatalog('src/data/source-catalog.js')).slice(0,3));
+    const {Scheduler}=await import('../runtime/scheduler.js');await c.repo.seedCatalog((await readCatalog('src/data/source-catalog.js')).slice(0,3));
     await c.db.query("INSERT INTO platform.actors VALUES('riskhot-scheduler',ARRAY['read','submit','retry','auto_retry'],ARRAY['wiki-source-003'])");await c.db.query("UPDATE information.operations SET status='completed'");
     const s=new Scheduler(c.repo,async()=>undefined);const now=new Date();await s.initialize(now);await c.db.query('UPDATE platform.source_schedules SET next_run_at=$1',[now]);
     for(let i=0;i<3;i++)await s.tick(new Date(now.getTime()+i));
@@ -164,7 +164,7 @@ test('two forbidden pending submissions do not starve an authorized source', asy
 
 test('a resumed processing without a scheduled run reports review and keeps its alert through another pending attempt', async()=>{
   const c=await openFixture();try{
-    const {Scheduler}=await import('../src/runtime/scheduler.js');const p=await c.processing();let notices=0;const s=new Scheduler(c.repo,async()=>{notices++;});
+    const {Scheduler}=await import('../runtime/scheduler.js');const p=await c.processing();let notices=0;const s=new Scheduler(c.repo,async()=>{notices++;});
     await c.repo.extractionFailed(p.id,1,'MODEL_EVIDENCE_INVALID');await s.monitor();assert.equal(notices,1);
     await c.db.query("UPDATE information.processing_runs SET extraction_status='pending',error_code=NULL WHERE id=$1",[p.id]);await s.monitor();
     assert.equal((await c.db.query('SELECT count(*)::int n FROM platform.runtime_alerts WHERE resolved_at IS NULL')).rows[0].n,1);
@@ -177,7 +177,7 @@ test('a resumed processing without a scheduled run reports review and keeps its 
 
 test('service recovery preserves failed delivery and the next failure archives the previous incident',async()=>{
   const c=await openFixture();try{
-    const {serviceFailure,serviceHealthy}=await import('../src/platform/notifications.js');
+    const {serviceFailure,serviceHealthy}=await import('../platform/notifications.js');
     await serviceFailure(c.folder,'scheduler',async()=>{throw new Error('controlled unavailable notification');});await serviceHealthy(c.folder);
     const status=JSON.parse(await readFile(join(c.folder,'.riskhot/service-alert.json'),'utf8'));assert.equal(status.submitted,false);assert.ok(status.resolved_at);
     await serviceFailure(c.folder,'api',async()=>undefined);
@@ -187,7 +187,7 @@ test('service recovery preserves failed delivery and the next failure archives t
 
 test('an empty source setting initializes every ready source rather than selecting none',async()=>{
   const c=await openFixture();try{
-    const {Scheduler,schedulerSettings}=await import('../src/runtime/scheduler.js');await c.repo.seedCatalog((await readCatalog('src/data/source-catalog.js')).slice(0,3));
+    const {Scheduler,schedulerSettings}=await import('../runtime/scheduler.js');await c.repo.seedCatalog((await readCatalog('src/data/source-catalog.js')).slice(0,3));
     await new Scheduler(c.repo,async()=>undefined,schedulerSettings({SCHEDULE_SOURCES:''})).initialize();
     assert.equal((await c.db.query('SELECT count(*)::int n FROM platform.source_schedules')).rows[0].n,3);
   }finally{await c.dispose();}

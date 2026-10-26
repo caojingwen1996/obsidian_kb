@@ -1,4 +1,4 @@
-import { database, required } from '../src/platform/db.js';
+import { database, required } from '../platform/db.js';
 
 const origin = new URL(required('OIDC_ISSUER')).origin;
 const tokenResponse = await fetch(`${origin}/realms/master/protocol/openid-connect/token`, { method: 'POST', body: new URLSearchParams({ grant_type: 'password', client_id: 'admin-cli', username: 'riskhot-bootstrap', password: required('OIDC_ADMIN_PASSWORD') }) });

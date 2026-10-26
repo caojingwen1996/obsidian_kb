@@ -6,10 +6,10 @@ import { join } from 'node:path';
 import { Pool } from 'pg';
 import { decodeJwt } from 'jose';
 import { load } from 'cheerio';
-import { ExecutionStore } from '../src/l0/execution.js';
-import { ArtifactStore } from '../src/platform/artifacts.js';
-import { buildServer } from '../src/runtime/server.js';
-import { parsePbc } from '../src/l0/pbc.js';
+import { ExecutionStore } from '../l0/execution.js';
+import { ArtifactStore } from '../platform/artifacts.js';
+import { buildServer } from '../runtime/server.js';
+import { parsePbc } from '../l0/pbc.js';
 
 test('OIDC protects writes; strict input, idempotency, source eligibility and time-batch queries stay consistent', async () => {
   const db = new Pool({ connectionString: process.env.TEST_DATABASE_URL });

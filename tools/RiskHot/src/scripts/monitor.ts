@@ -1,4 +1,4 @@
-import { required } from '../src/platform/db.js';
+import { required } from '../platform/db.js';
 
 const response = await fetch(`${required('OIDC_ISSUER')}/protocol/openid-connect/token`, { method: 'POST', redirect: 'error', signal: AbortSignal.timeout(15_000), body: new URLSearchParams({ grant_type: 'password', client_id: required('OIDC_CLIENT_ID'), client_secret: required('OIDC_CLIENT_SECRET'), username: required('OPERATOR_USERNAME'), password: required('OPERATOR_PASSWORD') }) });
 if (!response.ok) throw new Error('CLI_LOGIN_FAILED');

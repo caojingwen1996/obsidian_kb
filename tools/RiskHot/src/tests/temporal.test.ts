@@ -12,11 +12,11 @@ import { setTimeout } from 'node:timers/promises';
 import { Pool } from 'pg';
 import Long from 'long';
 import { Connection } from '@temporalio/client';
-import { ExecutionStore } from '../src/l0/execution.js';
-import { ArtifactStore } from '../src/platform/artifacts.js';
-import { parsePbc } from '../src/l0/pbc.js';
-import { grantRuntimeRoles } from '../src/platform/grants.js';
-import { runtimeEnvironment, type RuntimeRole } from '../src/runtime/environment.js';
+import { ExecutionStore } from '../l0/execution.js';
+import { ArtifactStore } from '../platform/artifacts.js';
+import { parsePbc } from '../l0/pbc.js';
+import { grantRuntimeRoles } from '../platform/grants.js';
+import { runtimeEnvironment, type RuntimeRole } from '../runtime/environment.js';
 
 async function until(check: () => Promise<boolean>, milliseconds: number) {
   const deadline = Date.now() + milliseconds;
@@ -56,7 +56,7 @@ test('real Temporal resumes a durable retry after worker restart and saves a mul
     closeSync(output); children.push(child); return child;
   };
   try {
-    await db.query(await readFile('db/001-init.sql', 'utf8'));
+    await db.query(await readFile('src/db/001-init.sql', 'utf8'));
     await grantRuntimeRoles(db);
     const repo = new ExecutionStore(db, new ArtifactStore(environment.ARTIFACT_ROOT));
     await repo.seedCatalog([{ id: 'wiki-source-001', name: '中国人民银行', url: 'https://www.pbc.gov.cn/', tier: 'T1', group: '虚构测试', focus: '虚构测试', context: '虚构测试' }]);

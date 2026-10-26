@@ -7,17 +7,17 @@
     "node": ">=22.0.0"
   },
   "scripts": {
-    "test": "node --env-file-if-exists=.env --import tsx --test --test-concurrency=1",
+    "test": "node --env-file-if-exists=.env --import tsx --test --test-concurrency=1 src/tests/*.test.ts",
     "typecheck": "tsc --noEmit",
-    "init:env": "node --import tsx scripts/init-env.ts",
-    "setup": "node --env-file-if-exists=.env --import tsx scripts/setup.ts",
-    "setup:identity": "node --env-file-if-exists=.env --import tsx scripts/setup-identity.ts",
-    "setup:temporal": "node --env-file-if-exists=.env --import tsx scripts/setup-temporal.ts",
-    "dev": "node --env-file-if-exists=.env --import tsx scripts/dev.ts",
-    "run:real": "node --env-file-if-exists=.env --import tsx scripts/run.ts",
-    "sources:run": "node --env-file-if-exists=.env --import tsx scripts/run-sources.ts",
-    "monitor": "node --env-file-if-exists=.env --import tsx scripts/monitor.ts",
-    "service": "node --import tsx scripts/service.ts"
+    "init:env": "node --import tsx src/scripts/init-env.ts",
+    "setup": "node --env-file-if-exists=.env --import tsx src/scripts/setup.ts",
+    "setup:identity": "node --env-file-if-exists=.env --import tsx src/scripts/setup-identity.ts",
+    "setup:temporal": "node --env-file-if-exists=.env --import tsx src/scripts/setup-temporal.ts",
+    "dev": "node --env-file-if-exists=.env --import tsx src/scripts/dev.ts",
+    "run:real": "node --env-file-if-exists=.env --import tsx src/scripts/run.ts",
+    "sources:run": "node --env-file-if-exists=.env --import tsx src/scripts/run-sources.ts",
+    "monitor": "node --env-file-if-exists=.env --import tsx src/scripts/monitor.ts",
+    "service": "node --import tsx src/scripts/service.ts"
   },
   "devDependencies": {
     "@types/node": "22.20.5",

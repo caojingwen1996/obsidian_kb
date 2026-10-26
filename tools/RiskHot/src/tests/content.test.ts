@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readCatalog } from '../src/m1/catalog.js';
-import { discoverPbc, parsePbc } from '../src/l0/pbc.js';
-import { validateExtraction } from '../src/l0/extraction.js';
+import { readCatalog } from '../m1/catalog.js';
+import { discoverPbc, parsePbc } from '../l0/pbc.js';
+import { validateExtraction } from '../l0/extraction.js';
 
 const url = 'https://www.pbc.gov.cn/zhengcehuobisi/125207/125213/125431/125475/2026102308535522110/index.html';
 const html = `<meta name="ArticleTitle" content="测试公告"><meta name="PubDate" content="2026-10-23"><div id="zoom"><p>测试机构宣布操作量为零😀。</p><table><tr><th>期限</th><th>中标量</th></tr><tr><td>7天</td><td>0亿元</td></tr></table><p>同时开展隔夜操作。</p></div>`;

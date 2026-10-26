@@ -4,6 +4,24 @@
 
 本次实现遵循[[tools/RiskHot/docs/superpowers/specs/2026-10-24-source-to-candidates-design|用户已批准设计]]；当前接口与存储以[[tools/RiskHot/docs/system-design/04-系统架构设计/04-公共技术契约/来源候选切片实现契约|来源候选切片实现契约]]为准，证据见[[tools/RiskHot/docs/verification/source-candidates|执行验证记录]]。候选保存后保持 `pending`，不生成正式事件。
 
+## 代码目录
+
+工程代码统一在 `src/` 下维护：
+
+```text
+src/
+  data/       信源清单与连接配置
+  db/         数据库建库 SQL
+  l0/         获取、解析与候选抽取
+  m1/         信源管理
+  platform/   身份、存储、权限与通知
+  runtime/    API、工作流与调度进程
+  scripts/    启动、初始化和操作命令
+  tests/      自动化测试及辅助代码
+```
+
+`package.json`、`tsconfig.json`、`compose.yaml` 和环境配置保留在项目根目录；命令仍在项目根目录执行。`docs/` 内的设计原型与 `aihot/` 内的参考快照保持各自的资料归属。
+
 ## 启动本地环境
 
 需要 Node.js 22、npm 和 Docker Compose；端口 55432、7238、18080、18081 须可用。所有命令在本项目目录执行。首次安装和初始化：

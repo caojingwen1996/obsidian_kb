@@ -3,13 +3,13 @@ import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { createServer } from 'node:http';
 import { setTimeout } from 'node:timers/promises';
-import { Repository } from '../src/l0/repository.js';
-import { parsePbc } from '../src/l0/pbc.js';
-import { HttpModelClient } from '../src/l0/model.js';
+import { Repository } from '../l0/repository.js';
+import { parsePbc } from '../l0/pbc.js';
+import { HttpModelClient } from '../l0/model.js';
 import { openFixture } from './fixture.js';
 
 test('runtime children receive only their own database and identity credentials', async () => {
-  const { runtimeEnvironment } = await import('../src/runtime/environment.js');
+  const { runtimeEnvironment } = await import('../runtime/environment.js');
   const base = { PATH: '/usr/bin', ADMIN_DATABASE_URL: 'controlled-admin', DATABASE_URL: 'controlled-api', IO_DATABASE_URL: 'controlled-io', MODEL_DATABASE_URL: 'controlled-model', MODEL_API_KEY: 'controlled-model-key', OIDC_CLIENT_SECRET: 'controlled-identity' };
   assert.equal(runtimeEnvironment('model', base).MODEL_API_KEY, 'controlled-model-key');
   assert.equal(runtimeEnvironment('model', base).ADMIN_DATABASE_URL, undefined);

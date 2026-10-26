@@ -1,10 +1,10 @@
-import { grantRuntimeRoles } from '../src/platform/grants.js';
+import { grantRuntimeRoles } from '../platform/grants.js';
 import { readFile } from 'node:fs/promises';
 import { Pool } from 'pg';
-import { database, required } from '../src/platform/db.js';
-import { Repository } from '../src/l0/repository.js';
-import { ArtifactStore } from '../src/platform/artifacts.js';
-import { readCatalog } from '../src/m1/catalog.js';
+import { database, required } from '../platform/db.js';
+import { Repository } from '../l0/repository.js';
+import { ArtifactStore } from '../platform/artifacts.js';
+import { readCatalog } from '../m1/catalog.js';
 
 const admin = database('ADMIN_DATABASE_URL');
 try {
@@ -16,7 +16,7 @@ try {
   }
   if (!(await admin.query("SELECT 1 FROM pg_database WHERE datname='riskhot_test'")).rowCount) await admin.query('CREATE DATABASE riskhot_test');
   if (!(await admin.query("SELECT 1 FROM pg_database WHERE datname='temporal'")).rowCount) await admin.query('CREATE DATABASE temporal OWNER temporal');
-  const sql = await readFile('db/001-init.sql', 'utf8');
+  const sql = await readFile('src/db/001-init.sql', 'utf8');
   await admin.query(sql);
   const test = new Pool({ connectionString: required('TEST_DATABASE_URL') });
   try { await test.query(sql); } finally { await test.end(); }

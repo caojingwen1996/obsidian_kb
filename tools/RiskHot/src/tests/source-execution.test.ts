@@ -1,10 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
-import { readCatalog } from '../src/m1/catalog.js';
-import { parseSource } from '../src/l0/sources.js';
+import { readCatalog } from '../m1/catalog.js';
+import { parseSource } from '../l0/sources.js';
 import { openFixture } from './fixture.js';
-import { connectorFor,sourceEntryUrl } from '../src/m1/connectors.js';
+import { connectorFor,sourceEntryUrl } from '../m1/connectors.js';
 
 test('sources execute with frozen connection versions and reseeding preserves an operator pause', async () => {
   const c = await openFixture();

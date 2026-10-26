@@ -5,10 +5,10 @@ import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { Pool } from 'pg';
-import { ArtifactStore } from '../src/platform/artifacts.js';
-import { ExecutionStore } from '../src/l0/execution.js';
-import { HttpModelClient, decodeModelResponse } from '../src/l0/model.js';
-import { parsePbc } from '../src/l0/pbc.js';
+import { ArtifactStore } from '../platform/artifacts.js';
+import { ExecutionStore } from '../l0/execution.js';
+import { HttpModelClient, decodeModelResponse } from '../l0/model.js';
+import { parsePbc } from '../l0/pbc.js';
 
 test('retains real transport responses and distinguishes stop, truncation, HTTP errors and invalid JSON', async () => {
   let scenario = 'stop';

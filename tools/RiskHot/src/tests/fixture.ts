@@ -3,10 +3,10 @@ import { randomUUID } from 'node:crypto';
 import { mkdtemp, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { grantRuntimeRoles } from '../src/platform/grants.js';
-import { ExecutionStore } from '../src/l0/execution.js';
-import { ArtifactStore } from '../src/platform/artifacts.js';
-import { parsePbc } from '../src/l0/pbc.js';
+import { grantRuntimeRoles } from '../platform/grants.js';
+import { ExecutionStore } from '../l0/execution.js';
+import { ArtifactStore } from '../platform/artifacts.js';
+import { parsePbc } from '../l0/pbc.js';
 import { setTimeout } from 'node:timers/promises';
 
 export async function openFixture() {
@@ -18,7 +18,7 @@ export async function openFixture() {
   const folder = await mkdtemp(join(tmpdir(), 'riskhot-review-'));
   const artifacts = new ArtifactStore(folder);
   const repo = new ExecutionStore(db, artifacts);
-  await db.query(await readFile('db/001-init.sql', 'utf8')); await grantRuntimeRoles(db);
+  await db.query(await readFile('src/db/001-init.sql', 'utf8')); await grantRuntimeRoles(db);
   await repo.seedCatalog([{ id: 'wiki-source-001', name: '中国人民银行', url: 'https://www.pbc.gov.cn/', tier: 'T1', group: '受控测试', focus: '受控测试', context: '受控测试' }]);
   await db.query("INSERT INTO platform.actors VALUES('review-operator',ARRAY['read','submit','retry','model_budget'],ARRAY['wiki-source-001'])");
   const parent = await repo.submit({ source_key: 'wiki-source-001', limit: 1 }, 'review-operator', randomUUID());
