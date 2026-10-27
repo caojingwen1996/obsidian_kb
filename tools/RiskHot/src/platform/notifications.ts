@@ -8,6 +8,9 @@ import { join } from 'node:path';
 export interface RuntimeIssue { key: string; code: string; owner: string | null }
 export type Notifier = (issue: RuntimeIssue) => Promise<void>;
 const messages: Record<string, string> = {
+  IDENTITY_REVIEW_REQUIRED:'事件身份需要复核，请打开事件处理页面。',
+  COMMIT_REVIEW_REQUIRED:'事件已完成分析，等待复核并保存正式结果。',
+  DISPOSITION_PENDING:'非事件决定正在处理。',
   MODEL_LOGIN_REQUIRED: '模型登录已失效，请重新登录 Codex。',
   MODEL_SUBSCRIPTION_REQUIRED: '请使用 ChatGPT 订阅账号登录 Codex。',
   MODEL_QUOTA_EXHAUSTED: '订阅额度暂不可用，资料已保留，系统将等待后重试。',

@@ -1,3 +1,5 @@
+import {registerEvents} from './events.js';
+import {EventQueries} from '../event-management/queries.js';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { access, constants, mkdir } from 'node:fs/promises';
@@ -106,7 +108,7 @@ export async function buildServer(repo: ExecutionStore, authentication: Authenti
     return { schedules:currentSchedules, alerts, background_service:full?await serviceStatus(process.cwd()):null, model_service: (await repo.db.query('SELECT protocol,reason_code,blocked_until,updated_at FROM platform.model_service_state')).rows, notification_semantics: 'submitted means handed to the OS; display is controlled by system settings' };
   });
   registerManagement(app, repo, auth.mode);
-  registerHandoff(app,repo);
+  registerHandoff(app,repo); registerEvents(app,repo);
   app.post('/api/v1/l0/source-fetches', { schema: { body: { type: 'object', additionalProperties: false, required: ['source_key', 'limit'], properties: { source_key: { type: 'string', pattern: '^(wiki-source-[0-9]{3}|custom-source-[a-f0-9-]{36})$' }, limit: { type: 'integer', minimum: 1, maximum: 5 }, url: { type: 'string', maxLength: 2048 } } } } }, async (request, reply) => {
     const input = request.body as FetchCommand;
     const operation = await repo.submit(input, request.actor, keyOf(request.headers));
@@ -147,7 +149,7 @@ export async function buildServer(repo: ExecutionStore, authentication: Authenti
   app.get('/api/v1/l0/candidates/:id', { schema: { params: params('id') } }, async request => {
     const candidate = (await repo.db.query<{ processing_id: string; payload: unknown }>('SELECT * FROM information.event_candidates WHERE id=$1', [(request.params as { id: string }).id])).rows[0];
     if (!candidate) throw new DomainError('NOT_FOUND', 404);
-    const processing = await repo.processing(candidate.processing_id); await sourceForVersion(request.actor, processing.version_id);
+    const processing = await repo.processing(candidate.processing_id); if(processing.processing_scope==='FULL_EVENT')return new EventQueries(repo).candidate((request.params as {id:string}).id,request.actor); await sourceForVersion(request.actor, processing.version_id);
     return { ...candidate, version_id: processing.version_id };
   });
   app.get('/api/v1/l0/versions/:id', { schema: { params: params('id') } }, async request => {

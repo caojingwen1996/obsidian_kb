@@ -7,21 +7,22 @@ export function eventActivities(repo:Repository){const full=new EventProcessing(
   return {stop:true};
  };
  return {
- async advanceEvent(id:string,generation:number,extract:boolean):Promise<EventAdvance>{try{
-  if(extract){const p=await processing(repo.db,id);if(p.extraction_status==='completed'||p.paused||Number(p.generation)!==generation)return {stop:true};return {attempt:await executor.reserve(id,null,generation,'AI-01',await full.extractionInput(id,generation))};}
+ async failEvent(id:string,generation:number,extract:boolean):Promise<void>{await fail(id,generation,extract,new DomainError('WORKFLOW_EXECUTION_FAILED',503));},
+ async advanceEvent(id:string,generation:number,extract:boolean,callKey?:string):Promise<EventAdvance>{try{
+  if(extract){const p=await processing(repo.db,id);if(p.extraction_status==='completed'||p.paused||Number(p.generation)!==generation)return {stop:true};return {attempt:await executor.reserve(id,null,generation,'AI-01',await full.extractionInput(id,generation),callKey)};}
   const c=await candidate(repo.db,id);if(['completed','dismissed'].includes(c.status)||Number(c.execution_generation)!==generation)return {stop:true};const p=await processing(repo.db,c.processing_id);if(p.paused)return {stop:true};
   const disposition=(await repo.db.query("SELECT 1 FROM platform.review_decisions WHERE candidate_id=$1 AND generation=$2 AND scope='disposition'",[id,c.proposal_generation])).rowCount;if(disposition){await reviews.disposeCandidate(id);return {stop:true};}
   if(c.status==='review')return {stop:true};
   if(c.resume_step===6){const proposal=await commit.prepareCommit(id,generation);const approved=(await repo.db.query("SELECT 1 FROM platform.review_decisions WHERE candidate_id=$1 AND generation=$2 AND scope='commit' AND decision='APPROVE' AND proposal_digest=$3",[id,c.proposal_generation,proposal.digest])).rowCount;if(approved)await commit.commitCandidate(id,generation,proposal.commit_key);return {stop:true};}
-  const step=Number(c.resume_step) as Step;if(![2,3,4,5].includes(step))throw new DomainError('STEP_INVALID',409);const context=await steps.prepare(id,step,generation);return {attempt:await executor.reserve(p.id,id,generation,`AI-0${step}` as TaskId,context.input)};
+  const step=Number(c.resume_step) as Step;if(![2,3,4,5].includes(step))throw new DomainError('STEP_INVALID',409);const context=await steps.prepare(id,step,generation);return {attempt:await executor.reserve(p.id,id,generation,`AI-0${step}` as TaskId,context.input,callKey)};
  }catch(error){return fail(id,generation,extract,error);}},
  async consumeEvent(id:string,generation:number,extract:boolean,attemptId:string):Promise<EventAdvance>{try{
   const a=(await repo.db.query('SELECT a.*,w.deadline,w.used FROM platform.model_attempts a JOIN platform.model_budget_windows w ON w.id=a.window_id WHERE a.id=$1',[attemptId])).rows[0];if(!a||a.owner_kind!=='event'||a.owner_id!==id||Number(a.generation)!==generation)throw new DomainError('STALE_EXECUTION',409);if(new Date(a.deadline).getTime()<=Date.now())throw new DomainError('MODEL_BUDGET_EXHAUSTED',409);
   if(!a.response_artifact_id){const error=new DomainError(a.error_code??'MODEL_NETWORK_ERROR',502,retryableModelFailure(a.error_code??'MODEL_NETWORK_ERROR'));if(error.retryable&&a.used<3)return {retry:true};throw error;}
-  const input=await repo.json<TaskInput>(a.request_artifact_id),response=decodeModelResponse(await repo.json<TransportResponse>(a.response_artifact_id));if(!response.complete)throw new DomainError('MODEL_INCOMPLETE',422);
+  const input=await repo.json<TaskInput>(a.request_artifact_id),response=decodeModelResponse(await repo.json<TransportResponse>(a.response_artifact_id));if(a.input_digest!==(await import('../event-management/contracts.js')).digest(input))throw new DomainError('INPUT_DIGEST_MISMATCH',409);if(input.version_id!==(await processing(repo.db,a.processing_id)).version_id)throw new DomainError('INPUT_VERSION_MISMATCH',409);if(!response.complete)throw new DomainError('MODEL_INCOMPLETE',422);
   if(extract)await full.acceptExtraction(id,generation,response.data as {candidates:FullCandidate[];warnings:string[]});else await steps.accept(id,Number(a.task_id.slice(-1)) as Step,generation,response.data);
   await repo.db.query("UPDATE platform.model_attempts SET status='accepted',finish_reason=$2,error_code=NULL WHERE id=$1",[attemptId,response.finishReason]);
-  if(input.version_id!==(await processing(repo.db,a.processing_id)).version_id)throw new DomainError('INPUT_VERSION_MISMATCH',409);return extract?{stop:true}:{};
+  return extract?{stop:true}:{};
  }catch(error){await repo.db.query("UPDATE platform.model_attempts SET status='rejected',error_code=$2 WHERE id=$1 AND status<>'accepted'",[attemptId,error instanceof DomainError?error.code:'EVENT_EXECUTION_FAILED']);return fail(id,generation,extract,error);}},
  };
 }

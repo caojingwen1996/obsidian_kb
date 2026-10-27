@@ -1,3 +1,4 @@
+import {eventIssues} from '../event-management/monitor.js';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import { setTimeout } from 'node:timers/promises';
@@ -40,7 +41,7 @@ export class Scheduler {
         const recoverable = (await lock.query<{ id: string; generation: string; exhausted: boolean }>(`SELECT p.id,p.generation,(w.used>=3 OR w.deadline<=$1) AS exhausted
           FROM information.processing_runs p JOIN information.material_versions v ON v.id=p.version_id JOIN information.materials m ON m.id=v.material_id JOIN m1.sources s ON s.id=m.source_id
           LEFT JOIN LATERAL(SELECT used,deadline FROM platform.model_budget_windows WHERE processing_id=p.id ORDER BY generation DESC LIMIT 1) w ON true
-          WHERE p.extraction_status='recoverable' AND NOT p.paused AND s.state='ACTIVE' AND ($2::text[] IS NULL OR s.catalog_key=ANY($2))
+          WHERE p.processing_scope='EXTRACTION_ONLY' AND p.extraction_status='recoverable' AND NOT p.paused AND s.state='ACTIVE' AND ($2::text[] IS NULL OR s.catalog_key=ANY($2))
           AND ((p.input_artifact_id IS NULL AND p.error_code='MODEL_NOT_CONFIGURED') OR (p.provider_protocol='codex-exec' AND p.error_code IN ('MODEL_QUOTA_EXHAUSTED','MODEL_LOGIN_REQUIRED','MODEL_NETWORK_ERROR','MODEL_CAPACITY_UNAVAILABLE','MODEL_BUDGET_EXHAUSTED') AND (w.used>=3 OR w.deadline<=$1)))
           AND NOT EXISTS(SELECT 1 FROM platform.automatic_recoveries a WHERE a.processing_id=p.id AND a.created_at>$1-interval '24 hours')
           ORDER BY p.created_at LIMIT $3`, [now, this.config.sources ?? null, slots])).rows;
@@ -125,7 +126,7 @@ export class Scheduler {
     for(const p of processings)issues.push({key:`source:${p.source_id}:${p.error_code}`,code:p.extraction_status==='review'?'OUTPUT_REVIEW_REQUIRED':p.error_code,owner:p.id});
     const retrying=(await this.repo.db.query<{issue_key:string;code:string;owner_id:string}>("SELECT a.issue_key,a.code,a.owner_id FROM platform.runtime_alerts a JOIN information.processing_runs p ON p.id=a.owner_id WHERE a.resolved_at IS NULL AND p.extraction_status<>'completed'")).rows;
     for(const a of retrying)issues.push({key:a.issue_key,code:a.code,owner:a.owner_id});
-    await this.alerts.reconcile(issues, now);
+    issues.push(...await eventIssues(this.repo.db)); await this.alerts.reconcile(issues, now);
   }
 }
 

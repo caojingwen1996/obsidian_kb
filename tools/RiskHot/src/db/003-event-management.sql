@@ -55,7 +55,8 @@ ALTER TABLE platform.model_attempts ADD COLUMN IF NOT EXISTS owner_kind text NOT
 ALTER TABLE platform.model_attempts ADD COLUMN IF NOT EXISTS owner_id uuid;
 ALTER TABLE platform.model_attempts ADD COLUMN IF NOT EXISTS task_id text NOT NULL DEFAULT 'AI-01';
 ALTER TABLE platform.model_attempts ADD COLUMN IF NOT EXISTS input_digest text;
-CREATE UNIQUE INDEX IF NOT EXISTS event_budget_scope ON platform.model_budget_windows(owner_kind,owner_id,task_id) WHERE owner_kind='event';
+DROP INDEX IF EXISTS platform.event_budget_scope;
+CREATE UNIQUE INDEX event_budget_scope ON platform.model_budget_windows(owner_kind,owner_id,task_id,generation) WHERE owner_kind='event';
 ALTER TABLE platform.messages ALTER COLUMN version_id DROP NOT NULL;
 ALTER TABLE platform.messages ADD COLUMN IF NOT EXISTS message_type text NOT NULL DEFAULT 'information.version.ready.v1';
 ALTER TABLE platform.messages ADD COLUMN IF NOT EXISTS event_id uuid REFERENCES information.events(id);
@@ -75,7 +76,7 @@ INSERT INTO platform.schema_versions(version) VALUES(3) ON CONFLICT DO NOTHING;
 CREATE OR REPLACE FUNCTION platform.claim_event_model_call(p_attempt uuid)
 RETURNS TABLE(allowed boolean,reason_code text,deadline timestamptz,request_artifact_id uuid)
 LANGUAGE plpgsql SECURITY DEFINER SET search_path=pg_catalog,platform,information,m1 AS $$
-DECLARE a record;p record;c record;src record;w record;
+DECLARE a record;p record;c information.event_candidates%ROWTYPE;src record;w record;
 BEGIN
  PERFORM 1 FROM platform.permission_epochs WHERE id FOR SHARE;
  SELECT p0.* INTO p FROM information.processing_runs p0 JOIN platform.model_attempts a0 ON a0.processing_id=p0.id WHERE a0.id=p_attempt FOR SHARE OF p0;
@@ -97,3 +98,18 @@ REVOKE ALL ON FUNCTION platform.claim_event_model_call(uuid) FROM PUBLIC;
 ALTER TABLE platform.message_deliveries ADD COLUMN IF NOT EXISTS file_generation bigint NOT NULL DEFAULT 1;
 ALTER TABLE platform.message_deliveries ADD COLUMN IF NOT EXISTS file_attempts integer NOT NULL DEFAULT 0;
 ALTER TABLE platform.message_deliveries ADD COLUMN IF NOT EXISTS file_window_start integer NOT NULL DEFAULT 0;
+CREATE TABLE IF NOT EXISTS information.event_file_jobs(relative_path text PRIMARY KEY,processing_id uuid NOT NULL REFERENCES information.processing_runs(id),payload jsonb NOT NULL,payload_digest text NOT NULL,state text NOT NULL DEFAULT 'pending',generation bigint NOT NULL DEFAULT 1,attempts integer NOT NULL DEFAULT 0,window_start integer NOT NULL DEFAULT 0,lease_token uuid,lease_until timestamptz,next_attempt_at timestamptz NOT NULL DEFAULT now(),error_code text);
+CREATE TABLE IF NOT EXISTS information.event_target_evidence(event_id uuid NOT NULL,target_id uuid NOT NULL,evidence_id uuid NOT NULL,PRIMARY KEY(event_id,target_id,evidence_id),FOREIGN KEY(event_id,target_id) REFERENCES information.event_targets(event_id,target_id),FOREIGN KEY(event_id,evidence_id) REFERENCES information.event_evidence(event_id,id));
+CREATE TABLE IF NOT EXISTS information.event_variable_evidence(event_id uuid NOT NULL,target_id uuid NOT NULL,variable_id uuid NOT NULL,evidence_id uuid NOT NULL,PRIMARY KEY(event_id,target_id,variable_id,evidence_id),FOREIGN KEY(event_id,target_id,variable_id) REFERENCES information.event_target_variables(event_id,target_id,variable_id),FOREIGN KEY(event_id,evidence_id) REFERENCES information.event_evidence(event_id,id));
+CREATE TABLE IF NOT EXISTS information.event_update_evidence(event_id uuid NOT NULL,update_id uuid NOT NULL,evidence_id uuid NOT NULL,PRIMARY KEY(event_id,update_id,evidence_id),FOREIGN KEY(event_id,update_id) REFERENCES information.event_updates(event_id,id),FOREIGN KEY(event_id,evidence_id) REFERENCES information.event_evidence(event_id,id));
+CREATE TABLE IF NOT EXISTS information.event_rating_evidence(event_id uuid NOT NULL,rating_id uuid NOT NULL,evidence_id uuid NOT NULL,PRIMARY KEY(event_id,rating_id,evidence_id),FOREIGN KEY(event_id,rating_id) REFERENCES information.event_ratings(event_id,id),FOREIGN KEY(event_id,evidence_id) REFERENCES information.event_evidence(event_id,id));
+DO $$ BEGIN
+ IF NOT EXISTS(SELECT 1 FROM pg_constraint WHERE conname='event_message_binding') THEN
+ ALTER TABLE platform.messages ADD CONSTRAINT event_message_binding CHECK((message_type='information.version.ready.v1' AND version_id IS NOT NULL AND event_id IS NULL) OR (message_type='event.revision.committed.v1' AND version_id IS NULL AND event_id IS NOT NULL AND revision_no IS NOT NULL AND payload IS NOT NULL AND payload_digest IS NOT NULL));
+ ALTER TABLE platform.messages ADD CONSTRAINT event_message_revision FOREIGN KEY(event_id,revision_no) REFERENCES information.event_revisions(event_id,revision_no);
+ END IF;
+END $$;
+DROP TRIGGER IF EXISTS immutable_identity_snapshot ON information.event_identity_snapshots;
+CREATE TRIGGER immutable_identity_snapshot BEFORE UPDATE OR DELETE ON information.event_identity_snapshots FOR EACH ROW EXECUTE FUNCTION information.reject_revision_change();
+DROP TRIGGER IF EXISTS immutable_definition_snapshot ON information.definition_snapshots;
+CREATE TRIGGER immutable_definition_snapshot BEFORE UPDATE OR DELETE ON information.definition_snapshots FOR EACH ROW EXECUTE FUNCTION information.reject_revision_change();
