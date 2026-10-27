@@ -25,6 +25,7 @@ export interface CandidateResultFile {
 }
 export interface FileDescriptor { url: string; relative_path: string; sha256: string; size: number }
 export interface DeliveryView {
+  event_processing?:{id:string;result_status:string;extraction_status:string}|null;
   delivery_id: string; version_id: string; status: 'pending' | 'received' | 'recoverable'; generation: number;
   reason_code: string | null; received_at: string | null; processing_id: string | null;
   extraction_status: string | null; candidate_count: number | null;

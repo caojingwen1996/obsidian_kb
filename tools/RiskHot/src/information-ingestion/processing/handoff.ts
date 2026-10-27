@@ -153,7 +153,8 @@ export class InformationDelivery {
   async view(versionId: string, actor: string): Promise<DeliveryView> {
     await this.authorize(versionId,actor,'read'); const d = await this.record(versionId);
     const descriptor = async (name:HandoffFileName,id:string|null) => id ? {url:`/api/v1/l0/versions/${versionId}/delivery/files/${name}`,relative_path:this.files.path(d.message_id,name,d.receipt_processing_id),...await this.ref(id)} : null;
-    return {delivery_id:d.message_id,version_id:versionId,status:d.state==='received'?'received':d.error_code?'recoverable':'pending',generation:Number(d.generation),reason_code:d.error_code,received_at:d.received_at?.toISOString()??null,processing_id:d.receipt_processing_id,extraction_status:d.extraction_status??null,candidate_count:d.candidate_count??null,
+    const eventProcessing=(await this.repo.db.query("SELECT id,result_status,extraction_status FROM information.processing_runs WHERE version_id=$1 AND processing_scope='FULL_EVENT' AND analysis_key='INITIAL'",[versionId])).rows[0]??null;
+    return {event_processing:eventProcessing,delivery_id:d.message_id,version_id:versionId,status:d.state==='received'?'received':d.error_code?'recoverable':'pending',generation:Number(d.generation),reason_code:d.error_code,received_at:d.received_at?.toISOString()??null,processing_id:d.receipt_processing_id,extraction_status:d.extraction_status??null,candidate_count:d.candidate_count??null,
       files:{status:d.files_state,generation:Number(d.files_generation),reason_code:d.files_error_code,information:await descriptor('information',d.payload_artifact_id),receipt:await descriptor('receipt',d.receipt_artifact_id),candidates:await descriptor('candidates',d.result_artifact_id)}};
   }
   private async authorize(versionId:string,actor:string,permission:string,tx=this.repo.db):Promise<void> {

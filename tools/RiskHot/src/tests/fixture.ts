@@ -27,9 +27,9 @@ export async function openFixture() {
   const raw = Buffer.from('<meta name="ArticleTitle" content="受控测试"><div id="zoom"><p>虚构机构宣布一项措施。</p></div>');
   const model = new Pool({ connectionString: urlFor('MODEL_DATABASE_URL') });
   return { admin, db, model, folder, artifacts, repo, parent, url, raw, urlFor,
-    async processing() {
+    async processing(rawOverride?:Buffer) {
       const [child] = await repo.recordDiscovery(parent.id, 1, [{ url, title: '受控测试' }], Buffer.from('controlled list'));
-      await repo.recordRaw(child!, 1, raw); const material = parsePbc(raw, url);
+      const content=rawOverride??raw;await repo.recordRaw(child!, 1, content); const material = parsePbc(content, url);
       await repo.recordNormalized(child!, 1, material); const version = await repo.saveMaterial(child!, 1); await repo.deliverPending();
       const id = (await repo.operation(child!)).processing_id!;
       await repo.prepare(id, 1, { version_id: version, material, manifest: { prompt: '仅用于受控机制测试', provider: { protocol: 'openai-chat', model: 'controlled-test-model', endpoint: 'http://127.0.0.1:1' } } });

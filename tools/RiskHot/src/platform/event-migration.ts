@@ -2,6 +2,7 @@ import {readFile} from 'node:fs/promises';import type {Pool} from 'pg';import {t
 export async function applyEventMigration(db:Pool):Promise<void>{const sql=await readFile(new URL('../db/003-event-management.sql',import.meta.url),'utf8');await transaction(db,async tx=>{await tx.query(sql);});}
 export async function grantEventRoles(db:Pool):Promise<void>{
  await db.query('GRANT EXECUTE ON FUNCTION platform.claim_event_model_call(uuid) TO riskhot_model');
+ await db.query('GRANT EXECUTE ON FUNCTION platform.lock_permission_epoch() TO riskhot_api,riskhot_io,riskhot_relay');
  for(const role of ['riskhot_api','riskhot_io','riskhot_relay']){
   await db.query(`GRANT SELECT ON ALL TABLES IN SCHEMA information,platform TO ${role}`);
   await db.query(`GRANT INSERT,UPDATE ON information.processing_runs,information.event_candidates,information.candidate_step_results,information.event_identity_snapshots,information.identity_decisions,information.definition_candidates,platform.task_proposals,platform.review_decisions,platform.execution_intents,platform.action_receipts,platform.audit_log TO ${role}`);

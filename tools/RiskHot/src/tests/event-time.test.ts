@@ -1,0 +1,3 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {mayProjectTime} from '../event-management/time.js';import type {TimeValue} from '../event-management/contracts.js';
+const day=(text:string,kind:TimeValue['kind']='occurred'):TimeValue=>({text,start:null,end:null,precision:'day',kind,timezone:null});
+test('日精度按可证明日期推进，不伪造午夜也不把预计或未知时间当事实',()=>{assert.equal(mayProjectTime(day('2026-10-27'),day('2026-10-28')),true);assert.equal(mayProjectTime(day('2026-10-28'),day('2026-10-27')),false);assert.equal(mayProjectTime(day('2026-10-27'),day('2026-10-29','expected')),false);assert.equal(mayProjectTime(null,day('2026-10-29','unknown')),false);});

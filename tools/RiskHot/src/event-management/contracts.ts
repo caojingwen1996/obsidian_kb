@@ -50,7 +50,7 @@ export function validateTaskOutput(taskId:TaskId,response:unknown,context:Valida
   if(Array.isArray(value)){for(const x of value)walk(x);return;}
   if(!value||typeof value!=='object')return;
   const o=value as Record<string,unknown>;
-  if('quote' in o){const e=o as unknown as Evidence;const s=context.segments.find(s=>s.id===e.segment_id);if(e.information_version_id!==context.version_id||!s||e.start_cp>=e.end_cp||Array.from(s.text).slice(e.start_cp,e.end_cp).join('')!==e.quote)errors.push('EVIDENCE_MISMATCH');}
+  if('quote' in o){const e=o as unknown as Evidence;const s=context.segments.find(s=>s.id===e.segment_id);if(e.information_version_id!==context.version_id||!s||e.start_cp<0||e.end_cp>Array.from(s.text).length||e.start_cp>=e.end_cp||Array.from(s.text).slice(e.start_cp,e.end_cp).join('')!==e.quote)errors.push('EVIDENCE_MISMATCH');}
   for(const [key,ids] of [['event_id',context.event_ids],['target_id',context.target_ids],['variable_id',context.variable_ids]] as const)if(o[key]&&!ids.includes(String(o[key])))errors.push('UNKNOWN_REFERENCE');
   if('precision' in o){const t=o as unknown as TimeValue;if(t.start&&!Number.isFinite(Date.parse(t.start)))errors.push('TIME_INVALID');if(t.precision==='timestamp'&&(!t.timezone||!t.start))errors.push('TIME_INVALID');if(['unknown','month','year'].includes(t.precision)&&(t.start!==null||t.end!==null))errors.push('TIME_PRECISION_INVALID');}
   for(const x of Object.values(o))walk(x);

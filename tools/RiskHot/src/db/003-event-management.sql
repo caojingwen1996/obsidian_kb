@@ -113,3 +113,6 @@ DROP TRIGGER IF EXISTS immutable_identity_snapshot ON information.event_identity
 CREATE TRIGGER immutable_identity_snapshot BEFORE UPDATE OR DELETE ON information.event_identity_snapshots FOR EACH ROW EXECUTE FUNCTION information.reject_revision_change();
 DROP TRIGGER IF EXISTS immutable_definition_snapshot ON information.definition_snapshots;
 CREATE TRIGGER immutable_definition_snapshot BEFORE UPDATE OR DELETE ON information.definition_snapshots FOR EACH ROW EXECUTE FUNCTION information.reject_revision_change();
+CREATE OR REPLACE FUNCTION platform.lock_permission_epoch() RETURNS bigint LANGUAGE plpgsql SECURITY DEFINER SET search_path=pg_catalog,platform AS $$ DECLARE value bigint; BEGIN SELECT epoch INTO value FROM platform.permission_epochs WHERE id FOR SHARE; IF NOT FOUND THEN RAISE EXCEPTION 'PERMISSION_EPOCH_REQUIRED';END IF;RETURN value;END $$;
+REVOKE ALL ON FUNCTION platform.lock_permission_epoch() FROM PUBLIC;
+ALTER TABLE information.events ADD COLUMN IF NOT EXISTS event_time_value jsonb;
