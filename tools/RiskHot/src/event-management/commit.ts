@@ -1,3 +1,4 @@
+import {Reviews} from './reviews.js';
 import {mayProjectTime} from './time.js';
 import {queueEventFile} from './files.js';
 import {randomUUID} from 'node:crypto';import {transaction} from '../platform/db.js';import {DomainError} from '../platform/types.js';import type {Repository} from '../information-ingestion/processing/repository.js';import {candidate,processing,permission,guard,candidateGuard,aggregate,eventAccess,type DB} from './store.js';import {digest,type FullCandidate,type Evidence,type IdentityProposal,type RelationsProposal} from './contracts.js';import type {IncrementPlan} from './increments.js';import type {RatingPlan} from './ratings.js';import type {DefinitionSnapshot} from './definitions.js';import {readDefinitions} from './definitions.js';
@@ -28,6 +29,13 @@ export class EventCommit {
    const approval=(await tx.query("SELECT * FROM platform.review_decisions WHERE candidate_id=$1 AND generation=$2 AND scope='commit' AND decision='APPROVE' AND proposal_digest=$3 ORDER BY created_at DESC LIMIT 1",[id,c.proposal_generation,c.commit_digest])).rows[0];if(!approval)throw new DomainError('COMMIT_REVIEW_REQUIRED',409);
    await permission(this.repo,tx,p.version_id,approval.actor,'event_commit',true);
    const identityApproval=(await tx.query("SELECT r.* FROM platform.review_decisions r JOIN information.identity_decisions d ON d.review_id=r.id WHERE d.id=$1 AND d.candidate_id=$2 AND d.generation=$3",[packet.identity.id,id,c.proposal_generation])).rows[0];if(!identityApproval)throw new DomainError('IDENTITY_REVIEW_REQUIRED',409);await permission(this.repo,tx,p.version_id,identityApproval.actor,'event_review',true);
+   if(packet.relations.unresolved_issues.length){
+    const basis=await new Reviews(this.repo).basis(id,'relations',tx);
+    const review=(await tx.query("SELECT * FROM platform.review_decisions WHERE candidate_id=$1 AND generation=$2 AND scope='relations' AND decision='APPROVE' AND proposal_digest=$3 ORDER BY created_at DESC LIMIT 1",[id,c.proposal_generation,basis])).rows[0];
+    if(!review)throw new DomainError('RELATION_REVIEW_REQUIRED',409);
+    await permission(this.repo,tx,p.version_id,review.actor,'event_review',true);
+    if(packet.identity.event_id)await eventAccess(this.repo,tx,packet.identity.event_id,review.actor);
+   }
    const catalog=(await tx.query("SELECT * FROM information.event_identity_catalog WHERE scope_key='l0-event-catalog' FOR UPDATE")).rows[0];if(!catalog)throw new DomainError('IDENTITY_CATALOG_REQUIRED',503);
    const snap=(await tx.query('SELECT * FROM information.event_identity_snapshots WHERE id=$1 AND candidate_id=$2 AND generation=$3',[packet.identity.retrieval_snapshot_id,id,c.proposal_generation])).rows[0];const permissionEpoch=(await tx.query('SELECT epoch FROM platform.permission_epochs WHERE id')).rows[0].epoch;
    if(!snap||snap.permission_epoch!==permissionEpoch||(packet.identity.decision==='NEW'&&(snap.catalog_epoch!==catalog.catalog_epoch||snap.coverage_status!=='complete'||snap.retrieval_truncated)))return this.invalidate(tx,c.id,p.id,c.proposal_generation,key,'IDENTITY_SNAPSHOT_STALE');

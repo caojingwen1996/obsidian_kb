@@ -1,5 +1,5 @@
 import {queueEventFile} from './files.js';
-import {transaction} from '../platform/db.js';import {DomainError} from '../platform/types.js';import type {Repository} from '../information-ingestion/processing/repository.js';import {modelConfig,type TaskInput} from '../information-ingestion/processing/model.js';import {candidate,processing,permission,guard,candidateGuard,aggregate,eventAccess} from './store.js';import {EventProcessing} from './processing.js';import {loadTaskPackage,bindTaskSchema} from './task-packages.js';import {prepareIdentity,validateIdentity,type IdentityContext} from './identity.js';import {readDefinitions,type DefinitionSnapshot} from './definitions.js';import {validateRelations} from './relations.js';import {validateIncrement,type IncrementContext} from './increments.js';import {validateRating,type RatingInput} from './ratings.js';import {digest,validateTaskOutput,type Step,type TaskId,type IdentityProposal,type RelationsProposal,type IncrementProposal,type RatingProposal,type ValidationContext} from './contracts.js';
+import {transaction} from '../platform/db.js';import {DomainError} from '../platform/types.js';import type {Repository} from '../information-ingestion/processing/repository.js';import {decodeModelResponse,modelConfig,type TaskInput,type TransportResponse} from '../information-ingestion/processing/model.js';import {candidate,processing,permission,guard,candidateGuard,aggregate,eventAccess} from './store.js';import {EventProcessing} from './processing.js';import {loadTaskPackage,bindTaskSchema} from './task-packages.js';import {prepareIdentity,validateIdentity,type IdentityContext} from './identity.js';import {readDefinitions,type DefinitionSnapshot} from './definitions.js';import {validateRelations} from './relations.js';import {validateIncrement,type IncrementContext} from './increments.js';import {validateRating,type RatingInput} from './ratings.js';import {digest,validateTaskOutput,type Step,type TaskId,type IdentityProposal,type RelationsProposal,type IncrementProposal,type RatingProposal,type ValidationContext} from './contracts.js';
 export interface StepContext {input:TaskInput;validation:ValidationContext;identity?:IdentityContext;definitions?:DefinitionSnapshot;increment?:IncrementContext;rating?:RatingInput}
 export class CandidateSteps{
  constructor(public repo:Repository){}
@@ -22,24 +22,41 @@ export class CandidateSteps{
   await transaction(this.repo.db,async tx=>{await permission(this.repo,tx,p.version_id,p.actor,'event_submit',true);await processing(tx,p.id,true);const current=await candidate(tx,id,true);guard(await processing(tx,p.id));await candidateGuard(tx,current,execution);if(current.proposal_generation!==c.proposal_generation||Number(current.resume_step)!==step)throw new DomainError('STALE_PROPOSAL',409);await tx.query("INSERT INTO information.candidate_step_results(candidate_id,step_no,generation,input_digest,context,state) VALUES($1,$2,$3,$4,$5,'pending') ON CONFLICT DO NOTHING",[id,step,c.proposal_generation,digest(context.input),context]);await tx.query("UPDATE information.event_candidates SET status='processing',reason_code=NULL WHERE id=$1",[id]);});
   return (await this.repo.db.query('SELECT context FROM information.candidate_step_results WHERE candidate_id=$1 AND step_no=$2 AND generation=$3',[id,step,c.proposal_generation])).rows[0].context;
  }
- async accept(id:string,step:Step,execution:number,payload:unknown){
+ async restoreRelationReview(id:string,execution:number,context:StepContext):Promise<boolean>{
+  const a=(await this.repo.db.query("SELECT * FROM platform.model_attempts WHERE owner_kind='event' AND owner_id=$1 AND task_id='AI-03' AND input_digest=$2 ORDER BY attempt_no DESC LIMIT 1",[id,digest(context.input)])).rows[0];
+  if(!a||a.status!=='rejected'||a.error_code!=='RELATION_REVIEW_REQUIRED'||!a.response_artifact_id)return false;
+  const input=await this.repo.json<TaskInput>(a.request_artifact_id);
+  if(digest(input)!==a.input_digest)throw new DomainError('INPUT_DIGEST_MISMATCH',409);
+  const response=decodeModelResponse(await this.repo.json<TransportResponse>(a.response_artifact_id));
+  if(!response.complete)throw new DomainError('MODEL_INCOMPLETE',422);
+  await this.accept(id,3,execution,response.data,a.id);return true;
+ }
+ async accept(id:string,step:Step,execution:number,payload:unknown,restoredAttemptId?:string){
   const pre=await candidate(this.repo.db,id),p=await processing(this.repo.db,pre.processing_id);const saved=(await this.repo.db.query('SELECT * FROM information.candidate_step_results WHERE candidate_id=$1 AND step_no=$2 AND generation=$3',[id,step,pre.proposal_generation])).rows[0];if(!saved)throw new DomainError('STEP_NOT_PREPARED',409);
   const context=saved.context as StepContext;const validation=validateTaskOutput(`AI-0${step}` as TaskId,payload,context.validation);if(!validation.valid)throw new DomainError(validation.errors[0]!,422);
   let result:unknown=payload;
   if(step===2)result=validateIdentity(context.identity!,payload as IdentityProposal);
-  if(step===3)result=validateRelations(context.definitions!,payload as RelationsProposal);
+  if(step===3)result=validateRelations(context.definitions!,payload as RelationsProposal,true);
   if(step===4)result=validateIncrement(context.increment!,payload as IncrementProposal);
   if(step===5)result=validateRating(context.rating!,payload as RatingProposal);
   const artifact=await this.repo.putJson(payload,'event-task-proposal');
   await transaction(this.repo.db,async tx=>{await permission(this.repo,tx,p.version_id,p.actor,'event_submit',true);await processing(tx,p.id,true);const c=await candidate(tx,id,true);guard(await processing(tx,p.id));await candidateGuard(tx,c,execution);if(c.proposal_generation!==pre.proposal_generation)throw new DomainError('STALE_PROPOSAL',409);
    const current=(await tx.query('SELECT * FROM information.candidate_step_results WHERE candidate_id=$1 AND step_no=$2 AND generation=$3 FOR UPDATE',[id,step,c.proposal_generation])).rows[0];if(['succeeded','skipped','review'].includes(current.state))return;
+   if(restoredAttemptId){
+    const a=(await tx.query("SELECT * FROM platform.model_attempts WHERE id=$1 FOR UPDATE",[restoredAttemptId])).rows[0];
+    if(step!==3||!a||a.owner_id!==id||a.task_id!=='AI-03'||a.input_digest!==current.input_digest||a.status!=='rejected'||a.error_code!=='RELATION_REVIEW_REQUIRED')throw new DomainError('STALE_EXECUTION',409);
+    const response=decodeModelResponse(await this.repo.json<TransportResponse>(a.response_artifact_id));
+    if(!response.complete||digest(response.data)!==digest(payload))throw new DomainError('INPUT_DIGEST_MISMATCH',409);
+    await tx.query("UPDATE platform.model_attempts SET status='accepted',error_code=NULL,finish_reason=$2 WHERE id=$1",[a.id,response.finishReason]);
+    await tx.query("INSERT INTO platform.audit_log(actor,action,owner_id,detail) VALUES($1,'event-response-revalidated',$2,$3)",[p.actor,id,{attempt_id:a.id,previous_error:'RELATION_REVIEW_REQUIRED',input_digest:a.input_digest,rule:'explicit-relations-review-v1'}]);
+   }
    const proposal=(await tx.query('INSERT INTO platform.task_proposals(processing_id,candidate_id,task_id,generation,input_digest,manifest,output_artifact_id,validation) VALUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING id',[p.id,id,`AI-0${step}`,c.proposal_generation,current.input_digest,context.input.manifest,artifact,validation])).rows[0];
    await queueEventFile(tx,p.id,`events/candidates/${id}/generations/${c.proposal_generation}/steps/${step}/proposal.json`,{schema_version:'riskhot.event-proposal.v1',task_id:`AI-0${step}`,candidate_id:id,generation:Number(c.proposal_generation),input_digest:current.input_digest,manifest:context.input.manifest,payload,validated_result:result,validation});
-   const review=step===2||(step===4&&(result as {review_required:boolean}).review_required);await tx.query('UPDATE information.candidate_step_results SET state=$4,result=$5,proposal_id=$6 WHERE candidate_id=$1 AND step_no=$2 AND generation=$3',[id,step,c.proposal_generation,review?'review':'succeeded',result,proposal.id]);
+   const review=step===2||(step===3&&(payload as RelationsProposal).unresolved_issues.length>0)||(step===4&&(result as {review_required:boolean}).review_required);await tx.query('UPDATE information.candidate_step_results SET state=$4,result=$5,proposal_id=$6 WHERE candidate_id=$1 AND step_no=$2 AND generation=$3',[id,step,c.proposal_generation,review?'review':'succeeded',result,proposal.id]);
    if(step===3)for(const d of (payload as RelationsProposal).definition_candidates)await tx.query('INSERT INTO information.definition_candidates(candidate_id,generation,payload) VALUES($1,$2,$3)',[id,c.proposal_generation,d]);
    let next=review?step:step+1;
    if(step===4&&!review&&!(result as {needs_rating:boolean}).needs_rating){next=6;await tx.query("INSERT INTO information.candidate_step_results(candidate_id,step_no,generation,input_digest,context,state,result) VALUES($1,5,$2,$3,$4,'skipped',$5) ON CONFLICT DO NOTHING",[id,c.proposal_generation,digest({classification:(payload as IncrementProposal).classification}),{},{reason:'NO_RATING_REQUIRED'}]);}
-   await tx.query('UPDATE information.event_candidates SET status=$2,resume_step=$3,reason_code=$4 WHERE id=$1',[id,review?'review':'processing',next,review?(step===2?'IDENTITY_REVIEW_REQUIRED':'INCREMENT_REVIEW_REQUIRED'):null]);await aggregate(tx,p.id);
+   await tx.query('UPDATE information.event_candidates SET status=$2,resume_step=$3,reason_code=$4 WHERE id=$1',[id,review?'review':'processing',next,review?(step===2?'IDENTITY_REVIEW_REQUIRED':step===3?'RELATION_REVIEW_REQUIRED':'INCREMENT_REVIEW_REQUIRED'):null]);await aggregate(tx,p.id);
   });
  }
 }
