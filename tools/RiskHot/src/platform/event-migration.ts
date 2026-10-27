@@ -7,6 +7,7 @@ export async function grantEventRoles(db:Pool):Promise<void>{
   await db.query(`GRANT INSERT,UPDATE ON information.processing_runs,information.event_candidates,information.candidate_step_results,information.event_identity_snapshots,information.identity_decisions,information.definition_candidates,platform.task_proposals,platform.review_decisions,platform.execution_intents,platform.action_receipts,platform.audit_log TO ${role}`);
  }
  await db.query('GRANT INSERT,UPDATE ON ALL TABLES IN SCHEMA information TO riskhot_io');
+ await db.query('GRANT INSERT,UPDATE ON information.event_file_jobs TO riskhot_io,riskhot_relay,riskhot_api');
  await db.query('GRANT INSERT,UPDATE ON platform.commit_receipts,platform.messages,platform.message_deliveries,platform.event_consumer_inbox,platform.event_consumer_progress TO riskhot_io,riskhot_relay');
  await db.query('GRANT INSERT,UPDATE ON platform.model_budget_windows,platform.model_attempts,platform.artifact_objects TO riskhot_io');
  await db.query('GRANT UPDATE ON platform.message_deliveries TO riskhot_api');
