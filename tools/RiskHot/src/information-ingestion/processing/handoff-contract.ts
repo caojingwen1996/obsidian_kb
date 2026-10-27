@@ -41,7 +41,7 @@ const material = object({ title: nullableText, publishedAtText: nullableText, ur
   segments: { type: 'array', minItems: 1, items: object({ id, text: { type: 'string' }, rawLocator: text, kind: { enum: ['paragraph', 'table'] } }) },
   observedAtText: text, snapshotAtText: text, sourceIdentity: text,
 }, ['title', 'publishedAtText', 'url', 'normalizerVersion', 'segments']);
-const check = new Ajv2020({ strict: true, coerceTypes: false }).compile(object({
+const check = new Ajv2020({ strict: true, coerceTypes: false }).compile<InformationHandoff>(object({
   schema_version: { const: 'riskhot.information-handoff.v1' }, delivery_id: id, consumer: { const: 'F02' },
   information: object({ information_id: id, version_id: id, version_no: integer, previous_version_id: { anyOf: [id, { type: 'null' }] }, version_kind: { enum: ['initial', 'source_revision'] } }),
   source: object({ source_id: id, source_config_version: integer, catalog_key: text, name: text, connector: text, scope: text }),
