@@ -1,7 +1,7 @@
 import { DomainError, type ModelResponse, type NormalizedMaterial } from '../../platform/types.js';
 
 export interface ModelConfig { protocol: string; endpoint: string; model: string }
-export interface TaskInput { version_id: string; material: NormalizedMaterial; manifest: { provider: ModelConfig; prompt: string } }
+export interface TaskInput { version_id: string; material: NormalizedMaterial; manifest: { provider: ModelConfig; prompt: string; task_id?: string; output_schema?: object; task_package?: unknown }; context?: unknown }
 export interface TransportResponse { status: number; body: string; protocol?: string }
 export const modelCredentialsConfigured = () => process.env.MODEL_PROTOCOL === 'codex-exec' || Boolean(process.env.MODEL_API_KEY) || process.env.MODEL_CREDENTIAL_READY === 'true';
 

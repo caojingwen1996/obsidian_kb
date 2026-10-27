@@ -21,10 +21,10 @@ try {
   if (!(await admin.query("SELECT 1 FROM pg_database WHERE datname='temporal'")).rowCount) await admin.query('CREATE DATABASE temporal OWNER temporal');
   const sql = await readFile('src/db/001-init.sql', 'utf8');
   await admin.query(sql);
-  await applyHandoffMigration(admin);
+  await applyHandoffMigration(admin); await applyEventMigration(admin);
   const test = new Pool({ connectionString: required('TEST_DATABASE_URL') });
-  try { await test.query(sql); await applyHandoffMigration(test); } finally { await test.end(); }
-  await grantRuntimeRoles(admin);
+  try { await test.query(sql); await applyHandoffMigration(test); await applyEventMigration(test); } finally { await test.end(); }
+  await grantRuntimeRoles(admin); await grantEventRoles(admin);
   const repo = new Repository(admin, new ArtifactStore(required('ARTIFACT_ROOT')));
   await repo.seedCatalog(await readCatalog('src/data/source-catalog.js'));
   await admin.query("INSERT INTO platform.actors(subject,permissions,source_keys) VALUES($1,ARRAY['read','submit','source_admin','retry','model_budget','model_review'],ARRAY['*']) ON CONFLICT(subject) DO NOTHING", [LOCAL_OPERATOR]);

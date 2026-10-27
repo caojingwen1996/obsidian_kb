@@ -136,7 +136,7 @@ export function modelActivities(repo: ExecutionStore) {
       try {
         const input = await repo.json<TaskInput>(attempt.request_artifact_id);
         if (input.manifest.provider.protocol !== 'codex-exec' && !process.env.MODEL_API_KEY) throw new DomainError('MODEL_NOT_CONFIGURED', 503);
-        const permit = (await repo.db.query<{ allowed: boolean; reason_code: string | null; deadline: Date }>('SELECT * FROM platform.claim_model_call($1)', [attemptId])).rows[0];
+        const permit = (await repo.db.query<{ allowed: boolean; reason_code: string | null; deadline: Date }>(input.manifest.task_id ? 'SELECT * FROM platform.claim_event_model_call($1)' : 'SELECT * FROM platform.claim_model_call($1)', [attemptId])).rows[0];
         if (!permit?.allowed) {
           if (permit?.reason_code === 'MODEL_CALL_ALREADY_CLAIMED') return;
           throw new DomainError(permit?.reason_code ?? 'MODEL_CALL_NOT_PERMITTED', 409);

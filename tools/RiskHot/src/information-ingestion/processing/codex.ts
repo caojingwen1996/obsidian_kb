@@ -57,12 +57,12 @@ export class CodexModelClient {
     await this.authenticated();
     const folder = await mkdtemp(join(tmpdir(), 'riskhot-extraction-'));
     try {
-      const schema = join(folder, 'schema.json'); await writeFile(schema, JSON.stringify(transportSchema(extractionSchema)), { mode: 0o600 });
+      const schema = join(folder, 'schema.json'); await writeFile(schema, JSON.stringify(transportSchema(input.manifest.output_schema ?? extractionSchema)), { mode: 0o600 });
       const args = ['exec', '--ignore-user-config', '--ephemeral', '--skip-git-repo-check', '--sandbox', 'read-only', '--json', '--color', 'never', '-C', folder, '-m', input.manifest.provider.model,
         '-c', 'approval_policy="never"', '-c', 'web_search="disabled"', '-c', 'project_doc_max_bytes=0', '-c', 'model_reasoning_effort="low"'];
       for (const feature of ['shell_tool', 'apps', 'plugins', 'multi_agent', 'browser_use', 'computer_use', 'image_generation', 'hooks', 'skill_search', 'sleep_tool', 'workspace_dependencies', 'tool_suggest', 'view_image']) args.push('--disable', feature);
       args.push('--enable', 'skip_host_skill_discovery', '--enable', 'respect_system_proxy', '--output-schema', schema, '-');
-      const prompt = `${input.manifest.prompt}\n\n不得调用工具、读取文件、访问网络或执行命令；仅处理以下固定输入。\n${JSON.stringify({ version_id: input.version_id, material: input.material })}`;
+      const prompt = `${input.manifest.prompt}\n\n不得调用工具、读取文件、访问网络或执行命令；仅处理以下固定输入。\n${JSON.stringify({ version_id: input.version_id, material: input.material, ...(input.context === undefined ? {} : { context: input.context }) })}`;
       const result = await this.run(args, folder, prompt, Math.min(150_000, options.deadlineMs - Date.now()));
       const events: { type?: string; item?: { type?: string; text?: string }; usage?: Record<string, number>; error?: { message?: string } }[] = [];
       try { for (const line of result.stdout.split('\n').filter(x => x.trim())) events.push(JSON.parse(line)); }

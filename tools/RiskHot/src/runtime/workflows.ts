@@ -26,3 +26,4 @@ export async function EventExtractionWorkflow(id: string, generation: number): P
     await io.failedExtraction(id, generation, code);
   }
 }
+export {FullEventExtractionWorkflow,EventCandidateWorkflow} from './event-workflows.js';

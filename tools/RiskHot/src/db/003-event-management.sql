@@ -72,3 +72,25 @@ CREATE OR REPLACE FUNCTION information.reject_revision_change() RETURNS trigger 
 DROP TRIGGER IF EXISTS immutable_event_revision ON information.event_revisions;
 CREATE TRIGGER immutable_event_revision BEFORE UPDATE OR DELETE ON information.event_revisions FOR EACH ROW EXECUTE FUNCTION information.reject_revision_change();
 INSERT INTO platform.schema_versions(version) VALUES(3) ON CONFLICT DO NOTHING;
+CREATE OR REPLACE FUNCTION platform.claim_event_model_call(p_attempt uuid)
+RETURNS TABLE(allowed boolean,reason_code text,deadline timestamptz,request_artifact_id uuid)
+LANGUAGE plpgsql SECURITY DEFINER SET search_path=pg_catalog,platform,information,m1 AS $$
+DECLARE a record;p record;c record;src record;w record;
+BEGIN
+ PERFORM 1 FROM platform.permission_epochs WHERE id FOR SHARE;
+ SELECT p0.* INTO p FROM information.processing_runs p0 JOIN platform.model_attempts a0 ON a0.processing_id=p0.id WHERE a0.id=p_attempt FOR SHARE OF p0;
+ IF NOT FOUND THEN RETURN QUERY SELECT false,'NOT_FOUND'::text,NULL::timestamptz,NULL::uuid;RETURN;END IF;
+ SELECT * INTO a FROM platform.model_attempts WHERE id=p_attempt FOR UPDATE;
+ SELECT * INTO w FROM platform.model_budget_windows WHERE id=a.window_id;
+ IF a.owner_id<>p.id THEN SELECT * INTO c FROM information.event_candidates WHERE id=a.owner_id FOR SHARE; END IF;
+ SELECT s.* INTO src FROM m1.sources s JOIN information.materials m ON m.source_id=s.id JOIN information.material_versions v ON v.material_id=m.id WHERE v.id=p.version_id FOR SHARE OF s;
+ IF p.processing_scope<>'FULL_EVENT' OR p.paused OR a.owner_kind<>'event' OR w.deadline<=clock_timestamp() OR
+ (a.owner_id=p.id AND (a.generation<>p.generation OR p.extraction_status='completed')) OR
+ (a.owner_id<>p.id AND (c.id IS NULL OR c.processing_id<>p.id OR c.execution_generation<>a.generation OR c.status IN ('completed','dismissed') OR EXISTS(SELECT 1 FROM platform.review_decisions r WHERE r.candidate_id=c.id AND r.generation=c.proposal_generation AND r.scope='disposition'))) THEN
+ RETURN QUERY SELECT false,'STALE_EXECUTION'::text,w.deadline,a.request_artifact_id;RETURN; END IF;
+ IF src.state<>'ACTIVE' OR NOT platform.authorize_actor(p.actor,'event_submit',src.catalog_key) THEN RETURN QUERY SELECT false,'FORBIDDEN'::text,w.deadline,a.request_artifact_id;RETURN;END IF;
+ IF a.status<>'prepared' THEN RETURN QUERY SELECT false,'MODEL_CALL_ALREADY_CLAIMED'::text,w.deadline,a.request_artifact_id;RETURN;END IF;
+ UPDATE platform.model_attempts SET status='calling',started_at=clock_timestamp() WHERE id=a.id;
+ RETURN QUERY SELECT true,NULL::text,w.deadline,a.request_artifact_id;
+END $$;
+REVOKE ALL ON FUNCTION platform.claim_event_model_call(uuid) FROM PUBLIC;
