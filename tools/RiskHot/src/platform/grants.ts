@@ -14,6 +14,8 @@ export async function grantRuntimeRoles(admin: Pool): Promise<void> {
   await admin.query('GRANT UPDATE(generation,extraction_status,error_code,review_attempt_id,paused) ON information.processing_runs TO riskhot_api');
   await admin.query('GRANT DELETE ON platform.auth_states,platform.auth_sessions TO riskhot_api');
   await admin.query('GRANT INSERT,UPDATE ON platform.execution_intents,platform.messages,platform.inbox,information.processing_runs,information.operations TO riskhot_relay');
+  await admin.query('GRANT INSERT,UPDATE ON information.material_deliveries,platform.artifact_objects TO riskhot_relay');
+  await admin.query('GRANT UPDATE ON information.material_deliveries,platform.messages TO riskhot_api');
   await admin.query('GRANT USAGE ON SCHEMA platform TO riskhot_model');
   await admin.query('GRANT SELECT,INSERT ON platform.artifact_objects TO riskhot_model');
   await admin.query('GRANT SELECT ON platform.model_attempts TO riskhot_model');

@@ -6,6 +6,7 @@ import { Repository } from '../information-ingestion/processing/repository.js';
 import { ArtifactStore } from '../platform/artifacts.js';
 import { readCatalog } from '../information-ingestion/sources/catalog.js';
 import { LOCAL_OPERATOR } from '../platform/auth.js';
+import { applyHandoffMigration } from '../platform/handoff-migration.js';
 
 const admin = database('ADMIN_DATABASE_URL');
 try {
@@ -19,8 +20,9 @@ try {
   if (!(await admin.query("SELECT 1 FROM pg_database WHERE datname='temporal'")).rowCount) await admin.query('CREATE DATABASE temporal OWNER temporal');
   const sql = await readFile('src/db/001-init.sql', 'utf8');
   await admin.query(sql);
+  await applyHandoffMigration(admin);
   const test = new Pool({ connectionString: required('TEST_DATABASE_URL') });
-  try { await test.query(sql); } finally { await test.end(); }
+  try { await test.query(sql); await applyHandoffMigration(test); } finally { await test.end(); }
   await grantRuntimeRoles(admin);
   const repo = new Repository(admin, new ArtifactStore(required('ARTIFACT_ROOT')));
   await repo.seedCatalog(await readCatalog('src/data/source-catalog.js'));

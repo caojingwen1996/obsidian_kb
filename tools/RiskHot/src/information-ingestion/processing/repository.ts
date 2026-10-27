@@ -229,8 +229,11 @@ export class Repository {
         version = first((await client.query<{ id: string }>('INSERT INTO information.material_versions(material_id,version_no,raw_artifact_id,normalized_artifact_id,content_digest,normalizer_version,title,published_at_text) SELECT $1,COALESCE(MAX(version_no),0)+1,$2,$3,$4,$5,$6,$7 FROM information.material_versions WHERE material_id=$1 RETURNING id', [identity.id, op.raw_artifact_id, op.normalized_artifact_id, contentDigest, material.normalizerVersion, material.title, material.publishedAtText])).rows);
         for (const [ordinal, segment] of material.segments.entries()) await client.query('INSERT INTO information.material_segments(version_id,id,ordinal,text,raw_locator,kind) VALUES($1,$2,$3,$4,$5,$6)', [version.id, segment.id, ordinal, segment.text, segment.rawLocator, segment.kind]);
         await client.query('UPDATE information.materials SET current_version_id=$2,row_version=row_version+1 WHERE id=$1', [identity.id, version.id]);
+        const acquisition = first((await client.query<{id:string;acquired_at:Date}>('SELECT id,acquired_at FROM information.acquisitions WHERE operation_id=$1 AND raw_artifact_id=$2', [op.id,op.raw_artifact_id])).rows);
+        await client.query('INSERT INTO information.material_version_origins(version_id,source_id,source_version,operation_id,acquisition_id,collected_at,previous_version_id,version_kind,basis) VALUES($1,$2,$3,$4,$5,$6,$7,$8,\'saved\')', [version.id,op.source_id,op.source_version,op.id,acquisition.id,acquisition.acquired_at,identity.current_version_id,identity.current_version_id?'source_revision':'initial']);
       }
       await client.query('INSERT INTO platform.messages(version_id) VALUES($1) ON CONFLICT DO NOTHING', [version.id]);
+      await client.query('INSERT INTO information.material_deliveries(version_id,message_id) SELECT version_id,id FROM platform.messages WHERE version_id=$1 ON CONFLICT DO NOTHING', [version.id]);
       await client.query('UPDATE information.operations SET version_id=$2,stage=\'saved\',status=\'running\',reason_code=NULL,updated_at=now() WHERE id=$1', [id, version.id]);
       return version.id;
     });

@@ -16,6 +16,7 @@ import { ExecutionStore } from '../information-ingestion/processing/execution.js
 import { ArtifactStore } from '../platform/artifacts.js';
 import { parsePbc } from '../information-ingestion/processing/pbc.js';
 import { grantRuntimeRoles } from '../platform/grants.js';
+import { applyHandoffMigration } from '../platform/handoff-migration.js';
 import { runtimeEnvironment, type RuntimeRole } from '../runtime/environment.js';
 
 async function until(check: () => Promise<boolean>, milliseconds: number) {
@@ -57,6 +58,7 @@ test('real Temporal resumes a durable retry after worker restart and saves a mul
   };
   try {
     await db.query(await readFile('src/db/001-init.sql', 'utf8'));
+    await applyHandoffMigration(db);
     await grantRuntimeRoles(db);
     const repo = new ExecutionStore(db, new ArtifactStore(environment.ARTIFACT_ROOT));
     await repo.seedCatalog([{ id: 'wiki-source-001', name: '中国人民银行', url: 'https://www.pbc.gov.cn/', tier: 'T1', group: '虚构测试', focus: '虚构测试', context: '虚构测试' }]);
