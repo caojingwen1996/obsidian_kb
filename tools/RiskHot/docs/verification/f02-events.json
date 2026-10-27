@@ -1,10 +1,10 @@
 {
-  "at": "2026-10-27T04:19:01.829Z",
+  "at": "2026-10-27T05:58:28.206Z",
   "code_validation": {
-    "tests": 180,
+    "tests": 186,
     "failures": 0,
     "skips": 0,
-    "event_browser": 14,
+    "event_browser": 17,
     "m1_browser": 53,
     "typecheck": true,
     "review": {
@@ -12,6 +12,13 @@
       "important": 16,
       "fixed": 18,
       "deferred_minor": 1
+    },
+    "followup_fix_commit": "1a6ade93",
+    "initial_runtime_regression": {
+      "tests": 185,
+      "failures": 1,
+      "reason": "API candidate INSERT grant",
+      "fixed": true
     }
   },
   "migration": {
@@ -56,28 +63,63 @@
     "processing_id": "aa53bbcf-01d1-453b-a281-1fca1076c79f",
     "version_id": "cb0b75e9-58e2-44d3-99fd-4bb0117effc5",
     "parent_processing_id": "d1da7e6f-3499-4afa-a394-c1b4233d97c3",
-    "result_status": "review",
+    "result_status": "partial",
     "candidate_count": 2,
     "real_model_required": true,
     "errors": [
       "PROCESSING_NOT_COMPLETE",
-      "UNRESOLVED:a826cbb0-c775-4ca7-8ddb-5430312646e7",
-      "RECEIPT_MISSING:a826cbb0-c775-4ca7-8ddb-5430312646e7",
       "UNRESOLVED:135c3467-7dff-4f4e-9371-827f63670e2a",
-      "RECEIPT_MISSING:135c3467-7dff-4f4e-9371-827f63670e2a",
-      "NO_FORMAL_CHANGE",
-      "REAL_MODEL_PROOF_MISSING:AI-03",
-      "REAL_MODEL_PROOF_MISSING:AI-04",
-      "REAL_MODEL_PROOF_MISSING:AI-05"
+      "RECEIPT_MISSING:135c3467-7dff-4f4e-9371-827f63670e2a"
     ],
     "files": [
       {
         "path": "/Users/cjw/dev/Obsidian/wiki/tools/RiskHot/.riskhot/artifacts/events/processings/aa53bbcf-01d1-453b-a281-1fca1076c79f/candidates.json",
         "sha256": "9a2c586073241843b640caf68e206bb9c657087cd9cfaa32851a92bb6aca694f",
         "size": 2788
+      },
+      {
+        "path": "/Users/cjw/dev/Obsidian/wiki/tools/RiskHot/.riskhot/artifacts/events/153a896a-2a29-4904-bb2b-cd31371a8ee4/revisions/1/event.json",
+        "sha256": "ed38a5bcc5190c5839e794d7a6591559e476f18725197b1e881183598578134b",
+        "size": 7203
+      },
+      {
+        "path": "/Users/cjw/dev/Obsidian/wiki/tools/RiskHot/.riskhot/artifacts/handoffs/f02-events/8c76d93b-825c-48d2-950f-cbc03e04cce4/message.json",
+        "sha256": "48d78bfecc1e48a803242423b29a70c533e845256be9fc59ef7f27bab2659646",
+        "size": 697
+      },
+      {
+        "path": "/Users/cjw/dev/Obsidian/wiki/tools/RiskHot/.riskhot/artifacts/handoffs/f02-events/8c76d93b-825c-48d2-950f-cbc03e04cce4/receipts/event-audit.json",
+        "sha256": "e1c08c298bcad985c707d82032cc96b5b3f63d6cf5380292075e742b16575616",
+        "size": 574
       }
     ],
-    "events": [],
+    "events": [
+      {
+        "candidate_id": "a826cbb0-c775-4ca7-8ddb-5430312646e7",
+        "event_id": "153a896a-2a29-4904-bb2b-cd31371a8ee4",
+        "revision_no": 1,
+        "message_id": "8c76d93b-825c-48d2-950f-cbc03e04cce4",
+        "deliveries": [
+          {
+            "consumer": "event-audit",
+            "status": "received",
+            "receipt": {
+              "status": "received",
+              "event_id": "153a896a-2a29-4904-bb2b-cd31371a8ee4",
+              "message_id": "8c76d93b-825c-48d2-950f-cbc03e04cce4",
+              "consumer_id": "event-audit",
+              "receipt_ref": "event-audit:8c76d93b-825c-48d2-950f-cbc03e04cce4",
+              "received_at": "2026-10-27T05:55:03.062Z",
+              "revision_no": 1,
+              "payload_digest": "4f52bbdbcccd93b0c16e9638654ec29884022a18c8382874dd384a1c778af163",
+              "schema_version": "riskhot.event-receipt.v1",
+              "revision_digest": "63baf05726ac33e9a5ac1f73759c16919e1a0c8a5ac23d8dc7ceb604d2378738",
+              "input_file_digest": "b639139bf9803e5191c1a85c809e021ed6c58a5f6912ae87b522deac61fc1dd4"
+            }
+          }
+        ]
+      }
+    ],
     "model_proofs": [
       {
         "task_id": "AI-01",
@@ -92,16 +134,189 @@
         "input_digest": "933a5d8b4604981f9cac59959015b1b700a23607b133fb8d3b65d8d212b42359",
         "started_at": "2026-10-27T04:09:53.608Z",
         "completed_at": "2026-10-27T04:10:13.583Z"
+      },
+      {
+        "task_id": "AI-03",
+        "attempt_id": "77c240a1-c26a-411b-ba36-0ceeeb003c35",
+        "input_digest": "31585c1be089f7a2e8ba6dedd66ecdae6d7ade09f92e8d6d17b815b5f2f88480",
+        "started_at": "2026-10-27T05:39:48.394Z",
+        "completed_at": "2026-10-27T05:40:27.568Z"
+      },
+      {
+        "task_id": "AI-04",
+        "attempt_id": "c0073f4e-b31e-4ae4-ae19-30d1acdd2c82",
+        "input_digest": "9314c273ebd4dbb876dc6a5f1bf7a335c9e0409387b34fee4296c07303219e0b",
+        "started_at": "2026-10-27T05:51:57.222Z",
+        "completed_at": "2026-10-27T05:52:20.514Z"
+      },
+      {
+        "task_id": "AI-05",
+        "attempt_id": "a0fcc696-044f-4f4f-8289-476b009333df",
+        "input_digest": "a7508a13d77a254f8d907e0af0a06851d16964bc5a3c4d648c4afa95e74a7594",
+        "started_at": "2026-10-27T05:52:20.697Z",
+        "completed_at": "2026-10-27T05:52:54.283Z"
       }
     ]
   },
   "awaiting_business_review": {
+    "candidate_id": "135c3467-7dff-4f4e-9371-827f63670e2a",
     "scope": "identity",
+    "status": "review",
+    "old_new_snapshot_stale": true,
+    "next_action": "先重新准备归组，再核对当前建议"
+  },
+  "first_candidate_acceptance": {
+    "at": "2026-10-27T05:58:28.206Z",
+    "candidate_verified": true,
+    "processing_verified": false,
+    "processing_result": "partial",
     "candidate_id": "a826cbb0-c775-4ca7-8ddb-5430312646e7",
-    "proposal_generation": 1,
-    "proposal_digest": "25f40c1f5e83f107b6eaa4be511699a902ed1f855fd86d4dadf4db5811a4a5a5",
-    "requested_at": "2026-10-27T04:12:10.352Z",
-    "decision_pending": true,
-    "summary": "2026-10-26 人民银行560亿元7天逆回购，1.40%；建议独立NEW；隔夜3980亿元另候选"
+    "event_id": "153a896a-2a29-4904-bb2b-cd31371a8ee4",
+    "revision_no": 1,
+    "message_id": "8c76d93b-825c-48d2-950f-cbc03e04cce4",
+    "consumer": "event-audit",
+    "counts": {
+      "events": 1,
+      "revisions": 1,
+      "updates": 1,
+      "ratings": 1,
+      "candidates": 2,
+      "model_attempts": 9,
+      "inbox": 1
+    },
+    "files": [
+      {
+        "path": "/Users/cjw/dev/Obsidian/wiki/tools/RiskHot/.riskhot/artifacts/events/processings/aa53bbcf-01d1-453b-a281-1fca1076c79f/candidates.json",
+        "sha256": "9a2c586073241843b640caf68e206bb9c657087cd9cfaa32851a92bb6aca694f",
+        "size": 2788
+      },
+      {
+        "path": "/Users/cjw/dev/Obsidian/wiki/tools/RiskHot/.riskhot/artifacts/events/153a896a-2a29-4904-bb2b-cd31371a8ee4/revisions/1/event.json",
+        "sha256": "ed38a5bcc5190c5839e794d7a6591559e476f18725197b1e881183598578134b",
+        "size": 7203
+      },
+      {
+        "path": "/Users/cjw/dev/Obsidian/wiki/tools/RiskHot/.riskhot/artifacts/handoffs/f02-events/8c76d93b-825c-48d2-950f-cbc03e04cce4/message.json",
+        "sha256": "48d78bfecc1e48a803242423b29a70c533e845256be9fc59ef7f27bab2659646",
+        "size": 697
+      },
+      {
+        "path": "/Users/cjw/dev/Obsidian/wiki/tools/RiskHot/.riskhot/artifacts/handoffs/f02-events/8c76d93b-825c-48d2-950f-cbc03e04cce4/receipts/event-audit.json",
+        "sha256": "e1c08c298bcad985c707d82032cc96b5b3f63d6cf5380292075e742b16575616",
+        "size": 574
+      }
+    ],
+    "model_proofs": [
+      {
+        "task_id": "AI-01",
+        "attempt_id": "1fc6ab45-5a6e-4f0b-a017-3d0a7cd69f22",
+        "input_digest": "32dae5cb730411693ea79b74bb7455dbbd880d9db03898a38b144833d05a13ef",
+        "started_at": "2026-10-27T04:09:21.021Z",
+        "completed_at": "2026-10-27T04:09:53.146Z"
+      },
+      {
+        "task_id": "AI-02",
+        "attempt_id": "e251fb28-0fa3-447a-bc1f-2b31e330e0cb",
+        "input_digest": "933a5d8b4604981f9cac59959015b1b700a23607b133fb8d3b65d8d212b42359",
+        "started_at": "2026-10-27T04:09:53.608Z",
+        "completed_at": "2026-10-27T04:10:13.583Z"
+      },
+      {
+        "task_id": "AI-03",
+        "attempt_id": "77c240a1-c26a-411b-ba36-0ceeeb003c35",
+        "input_digest": "31585c1be089f7a2e8ba6dedd66ecdae6d7ade09f92e8d6d17b815b5f2f88480",
+        "started_at": "2026-10-27T05:39:48.394Z",
+        "completed_at": "2026-10-27T05:40:27.568Z"
+      },
+      {
+        "task_id": "AI-04",
+        "attempt_id": "c0073f4e-b31e-4ae4-ae19-30d1acdd2c82",
+        "input_digest": "9314c273ebd4dbb876dc6a5f1bf7a335c9e0409387b34fee4296c07303219e0b",
+        "started_at": "2026-10-27T05:51:57.222Z",
+        "completed_at": "2026-10-27T05:52:20.514Z"
+      },
+      {
+        "task_id": "AI-05",
+        "attempt_id": "a0fcc696-044f-4f4f-8289-476b009333df",
+        "input_digest": "a7508a13d77a254f8d907e0af0a06851d16964bc5a3c4d648c4afa95e74a7594",
+        "started_at": "2026-10-27T05:52:20.697Z",
+        "completed_at": "2026-10-27T05:52:54.283Z"
+      }
+    ],
+    "reviews": [
+      {
+        "id": "79f946ab-36b3-4b64-9a43-bb74ae7205ed",
+        "scope": "identity",
+        "proposal_digest": "25f40c1f5e83f107b6eaa4be511699a902ed1f855fd86d4dadf4db5811a4a5a5",
+        "actor": "riskhot-local-operator",
+        "decision": "APPROVE",
+        "reason": "用户在当前会话核对并确认：2026-10-26 人民银行560亿元7天期逆回购，操作利率1.40%，作为独立事件继续；隔夜3980亿元保留另一候选。"
+      },
+      {
+        "id": "c05196ef-b058-4d3c-b89d-4d4c88a2e42b",
+        "scope": "relations",
+        "proposal_digest": "7fa60d052826acfab110f713ea4863590e8a0fdf6ba013d97915bf7b6a04fd59",
+        "actor": "riskhot-local-operator",
+        "decision": "APPROVE",
+        "reason": "用户在当前会话确认：第一条560亿元7天期逆回购保留0项正式主体/变量关系，7项定义候选（含同公告隔夜操作线索）仅待治理；保留定义缺口和全部限制，允许继续增量与金融意义分析，不批准正式保存。"
+      },
+      {
+        "id": "3bf21ffd-da86-45eb-aa7b-01d3eae6d6ca",
+        "scope": "commit",
+        "proposal_digest": "4ba42352b03cd363380c204d81186501d26c9b7750f9136fd3d68f5768a6af9a",
+        "actor": "riskhot-local-operator",
+        "decision": "APPROVE",
+        "reason": "用户在当前会话明确批准保存并交付已展示的第一条事件第1版：2026-10-26 人民银行560亿元7天期逆回购，1.40%，投标量/中标量560亿元；0正式关系及7待治理定义候选，保留中国宏观/短期范围、M空值、文字草案及到期量/历史比较等限制，不推断净投放、降息或资产价格方向。"
+      }
+    ],
+    "replay": {
+      "at": "2026-10-27T05:56:33.926Z",
+      "message_id": "8c76d93b-825c-48d2-950f-cbc03e04cce4",
+      "consumer": "event-audit",
+      "replays": 3,
+      "before": {
+        "revisions": 1,
+        "inbox": 1,
+        "model_attempts": 9
+      },
+      "after": {
+        "revisions": 1,
+        "inbox": 1,
+        "model_attempts": 9
+      },
+      "receipt": {
+        "status": "received",
+        "event_id": "153a896a-2a29-4904-bb2b-cd31371a8ee4",
+        "message_id": "8c76d93b-825c-48d2-950f-cbc03e04cce4",
+        "consumer_id": "event-audit",
+        "receipt_ref": "event-audit:8c76d93b-825c-48d2-950f-cbc03e04cce4",
+        "received_at": "2026-10-27T05:55:03.062Z",
+        "revision_no": 1,
+        "payload_digest": "4f52bbdbcccd93b0c16e9638654ec29884022a18c8382874dd384a1c778af163",
+        "schema_version": "riskhot.event-receipt.v1",
+        "revision_digest": "63baf05726ac33e9a5ac1f73759c16919e1a0c8a5ac23d8dc7ceb604d2378738",
+        "input_file_digest": "b639139bf9803e5191c1a85c809e021ed6c58a5f6912ae87b522deac61fc1dd4"
+      },
+      "application": {
+        "application_status": "applied",
+        "applied_revision": 1,
+        "missing_revision": null
+      }
+    },
+    "restart": {
+      "ready": true,
+      "files_identical": true,
+      "receipts_identical": true
+    },
+    "remaining_candidate": {
+      "id": "135c3467-7dff-4f4e-9371-827f63670e2a",
+      "status": "review",
+      "step": 2
+    },
+    "batch_verifier_errors": [
+      "PROCESSING_NOT_COMPLETE",
+      "UNRESOLVED:135c3467-7dff-4f4e-9371-827f63670e2a",
+      "RECEIPT_MISSING:135c3467-7dff-4f4e-9371-827f63670e2a"
+    ]
   }
 }
