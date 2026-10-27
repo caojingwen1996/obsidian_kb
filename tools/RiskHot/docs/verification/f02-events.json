@@ -1,0 +1,107 @@
+{
+  "at": "2026-10-27T04:19:01.829Z",
+  "code_validation": {
+    "tests": 180,
+    "failures": 0,
+    "skips": 0,
+    "event_browser": 14,
+    "m1_browser": 53,
+    "typecheck": true,
+    "review": {
+      "critical": 2,
+      "important": 16,
+      "fixed": 18,
+      "deferred_minor": 1
+    }
+  },
+  "migration": {
+    "at": "2026-10-27T04:06:06.308Z",
+    "preserved": {
+      "m1.sources": true,
+      "platform.source_schedules": true,
+      "information.material_versions": true,
+      "information.processing_runs": true,
+      "information.event_candidates": true,
+      "platform.messages": true
+    },
+    "counts": {
+      "m1.sources": {
+        "before": 40,
+        "after": 40
+      },
+      "platform.source_schedules": {
+        "before": 26,
+        "after": 26
+      },
+      "information.material_versions": {
+        "before": 94,
+        "after": 98
+      },
+      "information.processing_runs": {
+        "before": 94,
+        "after": 98
+      },
+      "information.event_candidates": {
+        "before": 772,
+        "after": 824
+      },
+      "platform.messages": {
+        "before": 94,
+        "after": 98
+      }
+    }
+  },
+  "real": {
+    "verified": false,
+    "processing_id": "aa53bbcf-01d1-453b-a281-1fca1076c79f",
+    "version_id": "cb0b75e9-58e2-44d3-99fd-4bb0117effc5",
+    "parent_processing_id": "d1da7e6f-3499-4afa-a394-c1b4233d97c3",
+    "result_status": "review",
+    "candidate_count": 2,
+    "real_model_required": true,
+    "errors": [
+      "PROCESSING_NOT_COMPLETE",
+      "UNRESOLVED:a826cbb0-c775-4ca7-8ddb-5430312646e7",
+      "RECEIPT_MISSING:a826cbb0-c775-4ca7-8ddb-5430312646e7",
+      "UNRESOLVED:135c3467-7dff-4f4e-9371-827f63670e2a",
+      "RECEIPT_MISSING:135c3467-7dff-4f4e-9371-827f63670e2a",
+      "NO_FORMAL_CHANGE",
+      "REAL_MODEL_PROOF_MISSING:AI-03",
+      "REAL_MODEL_PROOF_MISSING:AI-04",
+      "REAL_MODEL_PROOF_MISSING:AI-05"
+    ],
+    "files": [
+      {
+        "path": "/Users/cjw/dev/Obsidian/wiki/tools/RiskHot/.riskhot/artifacts/events/processings/aa53bbcf-01d1-453b-a281-1fca1076c79f/candidates.json",
+        "sha256": "9a2c586073241843b640caf68e206bb9c657087cd9cfaa32851a92bb6aca694f",
+        "size": 2788
+      }
+    ],
+    "events": [],
+    "model_proofs": [
+      {
+        "task_id": "AI-01",
+        "attempt_id": "1fc6ab45-5a6e-4f0b-a017-3d0a7cd69f22",
+        "input_digest": "32dae5cb730411693ea79b74bb7455dbbd880d9db03898a38b144833d05a13ef",
+        "started_at": "2026-10-27T04:09:21.021Z",
+        "completed_at": "2026-10-27T04:09:53.146Z"
+      },
+      {
+        "task_id": "AI-02",
+        "attempt_id": "e251fb28-0fa3-447a-bc1f-2b31e330e0cb",
+        "input_digest": "933a5d8b4604981f9cac59959015b1b700a23607b133fb8d3b65d8d212b42359",
+        "started_at": "2026-10-27T04:09:53.608Z",
+        "completed_at": "2026-10-27T04:10:13.583Z"
+      }
+    ]
+  },
+  "awaiting_business_review": {
+    "scope": "identity",
+    "candidate_id": "a826cbb0-c775-4ca7-8ddb-5430312646e7",
+    "proposal_generation": 1,
+    "proposal_digest": "25f40c1f5e83f107b6eaa4be511699a902ed1f855fd86d4dadf4db5811a4a5a5",
+    "requested_at": "2026-10-27T04:12:10.352Z",
+    "decision_pending": true,
+    "summary": "2026-10-26 人民银行560亿元7天逆回购，1.40%；建议独立NEW；隔夜3980亿元另候选"
+  }
+}

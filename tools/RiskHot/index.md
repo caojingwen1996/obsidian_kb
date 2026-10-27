@@ -7,6 +7,8 @@
 
 ## 来源到事件候选：工程实现
 
+- [[tools/RiskHot/docs/superpowers/plans/2026-10-27-F02事件管理Step2至7|F02 Step 2～7 实施计划]]：已确认并实施代码与部署，180项测试通过；真实任务已到身份复核，完整验收仍待业务决定。
+- [[tools/RiskHot/docs/verification/f02-events|F02 事件处理实施与验证]]：完整模式、两阶段复核、正式修订、交付与独立恢复；真实人民银行两条候选、当前阻断、落盘路径和审查修复证据。
 - [[tools/RiskHot/docs/superpowers/plans/2026-10-26-标准化资料交付与候选接收闭环|标准化资料交付与候选接收闭环实施计划]]：已确认并实施；交付文件、固定版本、回执、独立恢复和页面入口已完成，真实人民银行资料形成2条候选；见[[tools/RiskHot/docs/verification/information-handoff|本轮118项回归与真实验收]]。
 - [[tools/RiskHot/docs/verification/m1-management|M1 实际管理与任务控制]]：在 main 按原型实现信源档案、全部启用信源一键开启、批次暂停/继续及分钟／小时／天计划；本机默认免登录，包含接口、浏览器、代码审阅与后台迁移证据。
 - [[tools/RiskHot/docs/verification/codex-subscription|Codex 订阅闭环与后台运行]]：真实央行公告形成2条已校验候选，定时与重复获取复用同一资料/候选；后台计划、安静异常提醒及真实证据入口。

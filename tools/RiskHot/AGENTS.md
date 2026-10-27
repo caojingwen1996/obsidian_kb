@@ -88,6 +88,7 @@ RiskHot/
     information-ingestion/  信息采集：从信源配置到候选入库
       sources/     信源档案、版本审计、目录读取与连接器注册
       processing/  资料获取、解析、标准化与 AI 事件候选抽取
+    event-management/  完整事件：独立候选、归组、关系、增量、评价、复核与交付
     platform/    身份认证、权限、数据库、工件存储与通知
     runtime/     API、Temporal 工作流、Worker、投递与调度进程
     web/         M1 实际管理页面、同源接口调用与页面状态

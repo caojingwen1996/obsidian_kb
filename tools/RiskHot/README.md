@@ -1,8 +1,8 @@
 # RiskHot
 
-当前阶段为**来源到事件候选的工程实现与验证**。来源清单 40 条均已纳入接入状态管理，26 条已在明确栏目/序列范围内完成真实抓取、标准化与持久化；6 条待补地址，8 条受登录、风控或网络访问限制。逐项范围和证据见[[tools/RiskHot/docs/verification/all-sources|全部信源接入验证记录]]。新增本机 Codex 订阅执行、持久计划和安静异常提醒，当前证据见[[tools/RiskHot/docs/verification/codex-subscription|订阅闭环验证记录]]。
+当前阶段为**来源接入与事件处理的工程实现及分阶段验证**。来源清单 40 条均已纳入接入状态管理，26 条已在明确栏目/序列范围内完成真实抓取、标准化与持久化；6 条待补地址，8 条受登录、风控或网络访问限制。逐项范围和证据见[[tools/RiskHot/docs/verification/all-sources|全部信源接入验证记录]]。新增本机 Codex 订阅执行、持久计划和安静异常提醒，当前证据见[[tools/RiskHot/docs/verification/codex-subscription|订阅闭环验证记录]]。
 
-本次实现遵循[[tools/RiskHot/docs/superpowers/specs/2026-10-24-source-to-candidates-design|用户已批准设计]]；当前接口与存储以[[tools/RiskHot/docs/system-design/04-系统架构设计/04-公共技术契约/来源候选切片实现契约|来源候选切片实现契约]]为准，证据见[[tools/RiskHot/docs/verification/source-candidates|执行验证记录]]。候选保存后保持 `pending`，不生成正式事件。
+本次实现遵循[[tools/RiskHot/docs/superpowers/specs/2026-10-24-source-to-candidates-design|用户已批准设计]]；当前接口与存储以[[tools/RiskHot/docs/system-design/04-系统架构设计/04-公共技术契约/来源候选切片实现契约|来源候选切片实现契约]]为准，证据见[[tools/RiskHot/docs/verification/source-candidates|执行验证记录]]。旧 EXTRACTION_ONLY 切片的候选保存后保持 `pending`；完整事件模式在 `/events` 独立推进，按身份与最终内容复核后才提交。
 
 M1 实际管理页面已按[[tools/RiskHot/docs/system-design/06产品UI原型设计/06-2-M1信源管理中心UI设计/02. 交互原型说明|现行交互原型]]接入真实服务，支持信源档案、接入任务和计划管理。代码和本机后台均使用 `main`；最新验证见[[tools/RiskHot/docs/verification/m1-management|M1 实现与运行记录]]。
 
@@ -17,6 +17,7 @@ src/
   information-ingestion/  信息采集
     sources/     信源目录与连接配置
     processing/  获取、解析、标准化与候选抽取
+  event-management/  完整事件：归组、关系、增量、评价、复核、提交与交付
   platform/   身份、存储、权限与通知
   runtime/    API、工作流与调度进程
   web/        M1 管理页面与真实接口调用
@@ -176,7 +177,7 @@ npm run monitor
 
 `docs/` 保存业务、功能、架构及 UI 原型；`aihot/` 保存参考资料与旧设计归档；项目技能和 BMAD 资料保留。`.data/` 是保留的旧运行数据，不自动导入新环境。旧架构清单、工作包、开发报告和场景报告均是历史记录，不作为新系统已实现或验收通过的证明。
 
-旧应用恢复副本位于 `/Users/cjw/.codex/backups/RiskHot-code-removal-20261024-123733`，其中 recovery-manifest.json 记录逐文件摘要。本目录的新工程依据已批准设计建立独立数据库、工件和身份环境。当前不包含 PDF/OCR、AI-02～05、正式事件提交、M2/M3 实际管理服务或全量历史同步。
+旧应用恢复副本位于 `/Users/cjw/.codex/backups/RiskHot-code-removal-20261024-123733`，其中 recovery-manifest.json 记录逐文件摘要。本目录的新工程依据已批准设计建立独立数据库、工件和身份环境。当前未包含 PDF/OCR、完整 M2/M3 实际管理服务或全量历史同步。AI-02～05、正式提交及可靠交付已实现并完成受控验证，真实验收当前停在 Step 2 身份复核。
 
 
 ## 标准化资料交付与候选文件
@@ -189,4 +190,19 @@ npm run monitor
 
 只读验收命令：`node --env-file=.env --import tsx src/scripts/verify-handoff.ts --operation <接入操作ID>`。它核对落盘文件与下载字节、接收/版本身份、完整候选及真实 Codex 尝试和下游读取依据；失败退出非零。可附加 `--since <ISO时间>` 限定本次真实模型尝试。
 
-本次维持 EXTRACTION_ONLY；非空候选等待 F02 Step 2，不生成正式事件。完整事件归组、主体/变量关联、增量、金融意义和事件变化交付仍待实现。
+上述既有文件维持 EXTRACTION_ONLY 语义；完整模式另建 INITIAL，不覆盖旧候选或原文件。后续步骤与页面见下节。
+
+
+## 完整事件处理
+
+打开 [事件工作区](http://localhost:18081/events)，或从 M1 已接收资料进入“处理为正式事件”。已有 INITIAL 时直接查看当前任务，不重复开启。首次选择已登记定义快照、评价范围与期限。新环境需由管理员明确登记定义读取范围并分配事件业务权限，不能把外部 M2 未接入当作空字典。本机已登记项目范围快照，缺定义项继续保留。
+
+候选页展示 Step 2～7、原文、逐步结果及待保存内容。身份复核使用 event_review 权限，最终保存使用 event_commit；非事件处置、恢复与重算分别授权。当前未发布自动通过政策，身份与最终保存是两项业务复核。技术恢复保持原输入与方法，新预算需显式授权，历史次数不清零。
+
+完整模式只使用本机 Codex 订阅，范围与期限为非空文本对象；方法未批准时只有文字评价、空 M、draft。正式事件提供不可变修订、时间轴、直接关系、评价历史和下载。交付区分持久接收、顺序应用与缺口，event-audit 不是 F03/F05 风险分析。
+
+文件在 ARTIFACT_ROOT：`events/processings/<处理ID>/candidates.json`、`events/candidates/<候选ID>/generations/<代次>/steps/<步骤>/proposal.json` 和 `commit.json`；正式结果是 `events/<事件ID>/revisions/<修订>/event.json`，事件交付及回执在 `handoffs/f02-events/<消息ID>/`。业务、文件、模型与交付恢复各自独立。
+
+升级：`node --env-file=.env --import tsx src/scripts/migrate-events.ts --target runtime`，随后 `npm run service -- restart`。只读验收：`node --env-file=.env --import tsx src/scripts/verify-events.ts --processing <完整处理ID>`；未完成或证据不一致会退出非零。
+
+本轮180项测试、事件浏览器14项、原M1浏览器53项通过。真实人民银行任务已得到两条候选和两份AI-02建议，当前等待身份复核，尚无真实正式事件与事件交付。详见[[tools/RiskHot/docs/verification/f02-events|实施与验证报告]]。
