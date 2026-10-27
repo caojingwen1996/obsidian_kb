@@ -94,3 +94,6 @@ BEGIN
  RETURN QUERY SELECT true,NULL::text,w.deadline,a.request_artifact_id;
 END $$;
 REVOKE ALL ON FUNCTION platform.claim_event_model_call(uuid) FROM PUBLIC;
+ALTER TABLE platform.message_deliveries ADD COLUMN IF NOT EXISTS file_generation bigint NOT NULL DEFAULT 1;
+ALTER TABLE platform.message_deliveries ADD COLUMN IF NOT EXISTS file_attempts integer NOT NULL DEFAULT 0;
+ALTER TABLE platform.message_deliveries ADD COLUMN IF NOT EXISTS file_window_start integer NOT NULL DEFAULT 0;

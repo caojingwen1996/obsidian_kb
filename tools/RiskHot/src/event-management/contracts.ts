@@ -19,7 +19,7 @@ export interface GenerationContext {processing_id:string;candidate_id:string|nul
 export type Payload={candidates:FullCandidate[];warnings:string[]}|IdentityProposal|RelationsProposal|IncrementProposal|RatingProposal;
 export interface ValidationReport {valid:boolean;errors:string[];validated_payload:Payload|null}
 export const canonical=(v:unknown):string=>JSON.stringify(sort(v));
-function sort(v:unknown):unknown {return Array.isArray(v)?v.map(sort):v&&typeof v==='object'?Object.fromEntries(Object.entries(v).sort(([a],[b])=>a.localeCompare(b)).map(([k,x])=>[k,sort(x)])):v;}
+function sort(v:unknown):unknown {if(v instanceof Date)return v.toISOString();return Array.isArray(v)?v.map(sort):v&&typeof v==='object'?Object.fromEntries(Object.entries(v).sort(([a],[b])=>a.localeCompare(b)).map(([k,x])=>[k,sort(x)])):v;}
 export const digest=(v:unknown):string=>createHash('sha256').update(canonical(v)).digest('hex');
 const string={type:'string',minLength:1,maxLength:8000};
 const uuid={type:'string',pattern:'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'};

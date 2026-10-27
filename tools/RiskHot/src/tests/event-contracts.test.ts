@@ -28,3 +28,4 @@ test('任务包版本与内容固定，缺绑定不能静默选最新',()=>{
  assert.equal(ref.publication_status,'draft');assert.match(ref.digest,/^[a-f0-9]{64}$/);
  assert.throws(()=>loadTaskPackage('AI-02','latest'),/TASK_PACKAGE_NOT_BOUND/);
 });
+test('修订时间的摘要与JSON存储读取后保持一致',()=>{const value={at:new Date('2026-10-27T00:00:00.000Z')};return import('../event-management/contracts.js').then(({digest})=>assert.equal(digest(value),digest(JSON.parse(JSON.stringify(value)))));});
