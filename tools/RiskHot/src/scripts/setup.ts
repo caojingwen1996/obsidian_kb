@@ -1,3 +1,4 @@
+import {applyEventMigration,grantEventRoles} from '../platform/event-migration.js';
 import { grantRuntimeRoles } from '../platform/grants.js';
 import { readFile } from 'node:fs/promises';
 import { Pool } from 'pg';
