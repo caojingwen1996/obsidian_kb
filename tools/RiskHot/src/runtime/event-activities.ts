@@ -1,0 +1,27 @@
+import {DomainError} from '../platform/types.js';import type {Repository} from '../information-ingestion/processing/repository.js';import {EventProcessing} from '../event-management/processing.js';import {EventExecutor} from '../event-management/task-executor.js';import {CandidateSteps} from '../event-management/candidate-steps.js';import {EventCommit} from '../event-management/commit.js';import {Reviews} from '../event-management/reviews.js';import {candidate,processing,aggregate} from '../event-management/store.js';import {decodeModelResponse,type TaskInput,type TransportResponse} from '../information-ingestion/processing/model.js';import {retryableModelFailure} from '../information-ingestion/processing/policy.js';import type {FullCandidate,Step,TaskId} from '../event-management/contracts.js';import type {EventAdvance} from './event-workflows.js';
+export function eventActivities(repo:Repository){const full=new EventProcessing(repo),executor=new EventExecutor(repo),steps=new CandidateSteps(repo),reviews=new Reviews(repo),commit=new EventCommit(repo);
+ const fail=async(id:string,generation:number,extract:boolean,error:unknown):Promise<EventAdvance>=>{
+  const code=error instanceof DomainError?error.code:'EVENT_EXECUTION_FAILED';if(['STALE_EXECUTION','STALE_PROPOSAL','CANDIDATE_TERMINAL','DISPOSITION_PENDING'].includes(code))return {stop:true};
+  if(extract)await repo.db.query("UPDATE information.processing_runs SET extraction_status='recoverable',error_code=$3 WHERE id=$1 AND generation=$2 AND extraction_status<>'completed'",[id,generation,code]);
+  else{await repo.db.query("UPDATE information.event_candidates SET status='recoverable',reason_code=$3 WHERE id=$1 AND execution_generation=$2 AND status NOT IN ('completed','dismissed') AND NOT EXISTS(SELECT 1 FROM platform.review_decisions WHERE candidate_id=$1 AND scope='disposition' AND generation=information.event_candidates.proposal_generation)",[id,generation,code]);const c=await candidate(repo.db,id);await aggregate(repo.db,c.processing_id);}
+  return {stop:true};
+ };
+ return {
+ async advanceEvent(id:string,generation:number,extract:boolean):Promise<EventAdvance>{try{
+  if(extract){const p=await processing(repo.db,id);if(p.extraction_status==='completed'||p.paused||Number(p.generation)!==generation)return {stop:true};return {attempt:await executor.reserve(id,null,generation,'AI-01',await full.extractionInput(id,generation))};}
+  const c=await candidate(repo.db,id);if(['completed','dismissed'].includes(c.status)||Number(c.execution_generation)!==generation)return {stop:true};const p=await processing(repo.db,c.processing_id);if(p.paused)return {stop:true};
+  const disposition=(await repo.db.query("SELECT 1 FROM platform.review_decisions WHERE candidate_id=$1 AND generation=$2 AND scope='disposition'",[id,c.proposal_generation])).rowCount;if(disposition){await reviews.disposeCandidate(id);return {stop:true};}
+  if(c.status==='review')return {stop:true};
+  if(c.resume_step===6){const proposal=await commit.prepareCommit(id,generation);const approved=(await repo.db.query("SELECT 1 FROM platform.review_decisions WHERE candidate_id=$1 AND generation=$2 AND scope='commit' AND decision='APPROVE' AND proposal_digest=$3",[id,c.proposal_generation,proposal.digest])).rowCount;if(approved)await commit.commitCandidate(id,generation,proposal.commit_key);return {stop:true};}
+  const step=Number(c.resume_step) as Step;if(![2,3,4,5].includes(step))throw new DomainError('STEP_INVALID',409);const context=await steps.prepare(id,step,generation);return {attempt:await executor.reserve(p.id,id,generation,`AI-0${step}` as TaskId,context.input)};
+ }catch(error){return fail(id,generation,extract,error);}},
+ async consumeEvent(id:string,generation:number,extract:boolean,attemptId:string):Promise<EventAdvance>{try{
+  const a=(await repo.db.query('SELECT a.*,w.deadline,w.used FROM platform.model_attempts a JOIN platform.model_budget_windows w ON w.id=a.window_id WHERE a.id=$1',[attemptId])).rows[0];if(!a||a.owner_kind!=='event'||a.owner_id!==id||Number(a.generation)!==generation)throw new DomainError('STALE_EXECUTION',409);if(new Date(a.deadline).getTime()<=Date.now())throw new DomainError('MODEL_BUDGET_EXHAUSTED',409);
+  if(!a.response_artifact_id){const error=new DomainError(a.error_code??'MODEL_NETWORK_ERROR',502,retryableModelFailure(a.error_code??'MODEL_NETWORK_ERROR'));if(error.retryable&&a.used<3)return {retry:true};throw error;}
+  const input=await repo.json<TaskInput>(a.request_artifact_id),response=decodeModelResponse(await repo.json<TransportResponse>(a.response_artifact_id));if(!response.complete)throw new DomainError('MODEL_INCOMPLETE',422);
+  if(extract)await full.acceptExtraction(id,generation,response.data as {candidates:FullCandidate[];warnings:string[]});else await steps.accept(id,Number(a.task_id.slice(-1)) as Step,generation,response.data);
+  await repo.db.query("UPDATE platform.model_attempts SET status='accepted',finish_reason=$2,error_code=NULL WHERE id=$1",[attemptId,response.finishReason]);
+  if(input.version_id!==(await processing(repo.db,a.processing_id)).version_id)throw new DomainError('INPUT_VERSION_MISMATCH',409);return extract?{stop:true}:{};
+ }catch(error){await repo.db.query("UPDATE platform.model_attempts SET status='rejected',error_code=$2 WHERE id=$1 AND status<>'accepted'",[attemptId,error instanceof DomainError?error.code:'EVENT_EXECUTION_FAILED']);return fail(id,generation,extract,error);}},
+ };
+}

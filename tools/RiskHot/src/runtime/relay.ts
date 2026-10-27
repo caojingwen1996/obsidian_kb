@@ -11,7 +11,7 @@ const connection = await Connection.connect({ address: required('TEMPORAL_ADDRES
 const client = new Client({ connection, namespace: process.env.TEMPORAL_NAMESPACE || 'riskhot-l0' });
 let stopping = false;
 process.on('SIGTERM', () => { stopping = true; }); process.on('SIGINT', () => { stopping = true; });
-interface Intent { id: string; kind: 'discovery' | 'material' | 'extract'; owner_id: string; generation: string; workflow_id: string; lease_token: string; attempts: number }
+interface Intent { id: string; kind: 'discovery' | 'material' | 'extract' | 'event-extract' | 'candidate'; owner_id: string; generation: string; workflow_id: string; lease_token: string; attempts: number }
 try {
   while (!stopping) {
     try {
@@ -26,7 +26,7 @@ try {
       });
       for (const intent of intents) {
         try {
-          const workflow = { discovery: 'SourceFetchWorkflow', material: 'MaterialIngestionWorkflow', extract: 'EventExtractionWorkflow' }[intent.kind];
+          const workflow = { discovery: 'SourceFetchWorkflow', material: 'MaterialIngestionWorkflow', extract: 'EventExtractionWorkflow', 'event-extract':'FullEventExtractionWorkflow',candidate:'EventCandidateWorkflow' }[intent.kind];
           try { await client.workflow.start(workflow, { workflowId: intent.workflow_id, taskQueue: 'riskhot-l0-workflow', args: [intent.owner_id, Number(intent.generation)] }); }
           catch (error) { if (!(error instanceof WorkflowExecutionAlreadyStartedError)) throw error; }
           await db.query("UPDATE platform.execution_intents SET state='started',lease_token=NULL,lease_until=NULL WHERE id=$1 AND lease_token=$2 AND lease_until>now()", [intent.id, intent.lease_token]);
@@ -34,6 +34,7 @@ try {
           await db.query("UPDATE platform.execution_intents SET state=CASE WHEN attempts>=10 THEN 'recoverable' ELSE 'pending' END,lease_until=NULL,lease_token=NULL,next_attempt_at=now()+interval '30 seconds' WHERE id=$1 AND lease_token=$2", [intent.id, intent.lease_token]);
           if (intent.attempts >= 9) {
             if (intent.kind === 'extract') await repo.extractionFailed(intent.owner_id, Number(intent.generation), 'WORKFLOW_START_UNAVAILABLE');
+            else if (intent.kind === 'event-extract' || intent.kind === 'candidate') await repo.db.query("UPDATE platform.execution_intents SET state='recoverable' WHERE id=$1",[intent.id]);
             else await repo.failOperation(intent.owner_id, Number(intent.generation), 'WORKFLOW_START_UNAVAILABLE');
           }
         }
