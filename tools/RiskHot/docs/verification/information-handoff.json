@@ -1,0 +1,99 @@
+{
+  "checked_at": "2026-10-27T02:29:25.120Z",
+  "scope": "F01交付与F02候选接收，EXTRACTION_ONLY",
+  "tests": {
+    "passed": 118,
+    "failed": 0,
+    "skipped": 0,
+    "browser_checks": 53,
+    "typecheck": true
+  },
+  "migration": {
+    "preserved": true,
+    "versions": 91,
+    "processing_runs": 91,
+    "candidates_before": 746,
+    "source_count": 40,
+    "schedules": 26
+  },
+  "real": {
+    "checked_at": "2026-10-27T02:28:11.773Z",
+    "operation_id": "ed396dec-b77a-4d43-9762-66e8367057f8",
+    "verified": true,
+    "items": [
+      {
+        "version_id": "cb0b75e9-58e2-44d3-99fd-4bb0117effc5",
+        "information_id": "a9bce19d-9c59-482e-80ca-ca50e0f6c138",
+        "delivery_id": "78e364d9-5d2e-4442-afab-2b3195742b98",
+        "processing_id": "d1da7e6f-3499-4afa-a394-c1b4233d97c3",
+        "candidate_count": 2,
+        "result_status": "pending",
+        "accepted_attempt_ids": [
+          "7c6fcaf1-e359-4465-94c7-6db782c9bc74"
+        ],
+        "title": "公开市场业务交易公告 [2026]第206号",
+        "url": "https://www.pbc.gov.cn/zhengcehuobisi/125207/125213/125431/125475/2026102608470458194/index.html",
+        "files": [
+          {
+            "name": "information",
+            "path": "/Users/cjw/dev/Obsidian/wiki/tools/RiskHot/.riskhot/artifacts/handoffs/f01-f02/78e364d9-5d2e-4442-afab-2b3195742b98/information.json",
+            "sha256": "b24c043ca7ee13787387a9eaee814de088cc084a6acd9eba95189936f8097345",
+            "size": 3659
+          },
+          {
+            "name": "receipt",
+            "path": "/Users/cjw/dev/Obsidian/wiki/tools/RiskHot/.riskhot/artifacts/handoffs/f01-f02/78e364d9-5d2e-4442-afab-2b3195742b98/receipt.json",
+            "sha256": "32b959c2c00a4aaf9e85b80995691fb4629d5813d0fd24478110af2bf8ce2c2d",
+            "size": 586
+          },
+          {
+            "name": "candidates",
+            "path": "/Users/cjw/dev/Obsidian/wiki/tools/RiskHot/.riskhot/artifacts/handoffs/f01-f02/78e364d9-5d2e-4442-afab-2b3195742b98/analyses/d1da7e6f-3499-4afa-a394-c1b4233d97c3/candidates.json",
+            "sha256": "25e4eb3e7619f091b330465cef0664733ea063f56eada58d6d5e79fd23134d94",
+            "size": 4114
+          }
+        ],
+        "input_handoff": {
+          "detail": {
+            "generation": 3,
+            "delivery_id": "78e364d9-5d2e-4442-afab-2b3195742b98",
+            "payload_sha256": "b24c043ca7ee13787387a9eaee814de088cc084a6acd9eba95189936f8097345",
+            "payload_artifact_id": "ebabf3bb-b5c1-4818-968d-49690de90d3c"
+          },
+          "created_at": "2026-10-27T02:26:34.406Z"
+        }
+      }
+    ]
+  },
+  "redelivery": {
+    "verified": true,
+    "count": 3,
+    "model_attempts_before": 3,
+    "model_attempts_after": 3,
+    "candidate_ids_before": [
+      "f345991d-46f9-42d8-a8ad-a548652c2627",
+      "7c75d800-90e3-4089-ad6f-c40981271add"
+    ],
+    "candidate_ids_after": [
+      "f345991d-46f9-42d8-a8ad-a548652c2627",
+      "7c75d800-90e3-4089-ad6f-c40981271add"
+    ]
+  },
+  "after_restart_verified": true,
+  "real_page": {
+    "verified": true,
+    "operation_id": "ed396dec-b77a-4d43-9762-66e8367057f8",
+    "version_id": "cb0b75e9-58e2-44d3-99fd-4bb0117effc5",
+    "processing_id": "d1da7e6f-3499-4afa-a394-c1b4233d97c3",
+    "candidate_count": 2,
+    "page_errors": [],
+    "scope": "只读真实任务与下载；未开启任务或改变状态"
+  },
+  "review": {
+    "critical": 0,
+    "important": 2,
+    "minor": 1,
+    "resolved": 3,
+    "remaining": 0
+  }
+}
