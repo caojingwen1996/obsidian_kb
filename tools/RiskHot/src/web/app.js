@@ -305,4 +305,4 @@ setInterval(()=>{if(!document.hidden&&!modal.open&&!busy&&!startingBatch&&naviga
 document.addEventListener('visibilitychange',()=>activity.classList.toggle('is-background',document.hidden));
 new IntersectionObserver(entries=>activity.classList.toggle('is-offscreen',!entries[0].isIntersecting)).observe(activity);
 refresh();
-import {renderDelivery} from './delivery.js';
+import {renderDelivery} from './model.js';

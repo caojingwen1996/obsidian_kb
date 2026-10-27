@@ -29,11 +29,11 @@ INSERT INTO information.material_version_origins(version_id,source_id,source_ver
  CASE WHEN v.version_no=1 THEN 'initial' ELSE 'source_revision' END,'legacy_matching_artifacts'
  FROM information.material_versions v JOIN information.materials m ON m.id=v.material_id
  JOIN LATERAL(
-  SELECT op.id,op.source_version,a.id AS acquisition_id,a.acquired_at
+  SELECT op.id,op.source_version,a.id AS acquisition_id,a.acquired_at,count(*) OVER() AS eligible_count
   FROM information.operations op JOIN information.acquisitions a ON a.operation_id=op.id AND a.raw_artifact_id=v.raw_artifact_id
   WHERE op.version_id=v.id AND op.source_id=m.source_id AND op.raw_artifact_id=v.raw_artifact_id AND op.normalized_artifact_id=v.normalized_artifact_id
-  ORDER BY op.created_at,op.id LIMIT 1
- ) o ON true
+  AND op.created_at<=v.created_at AND a.acquired_at<=v.created_at
+ ) o ON o.eligible_count=1
  LEFT JOIN information.material_versions prev ON prev.material_id=v.material_id AND prev.version_no=v.version_no-1
  WHERE v.version_no=1 OR prev.id IS NOT NULL
  ON CONFLICT(version_id) DO NOTHING;

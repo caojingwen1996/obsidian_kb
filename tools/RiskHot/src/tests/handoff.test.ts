@@ -47,3 +47,15 @@ test('delivery recovery has its own generation and budget, checks current source
     assert.equal((await c.delivery.retry(c.message,'review-operator',{expected_generation:1,reason:'receipt'},'recovery-3')).status,'received');
   } finally { await c.dispose(); }
 });
+
+test('late receipt publication failure cannot overwrite a newer successful file recovery',async()=>{
+  const c=await savedFixture();
+  try{
+    let release!:()=>void,started!:()=>void;const waiting=new Promise<void>(r=>release=r),begin=new Promise<void>(r=>started=r),original=c.delivery.files.publish.bind(c.delivery.files);
+    c.delivery.files.publish=async(...args)=>{if(args[1]==='receipt'){started();await waiting;throw new Error('old disk failure');}return original(...args);};
+    const acceptance=c.delivery.accept(c.message);await begin;
+    await c.db.query("UPDATE information.material_deliveries SET files_generation=files_generation+1,files_state='ready',files_error_code=NULL WHERE message_id=$1",[c.message]);
+    release();await acceptance;
+    const d=await c.delivery.view(c.version,'review-operator');assert.equal(d.files.status,'ready');assert.equal(d.files.reason_code,null);
+  }finally{await c.dispose();}
+});

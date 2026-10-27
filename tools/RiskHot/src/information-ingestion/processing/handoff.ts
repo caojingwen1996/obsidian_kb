@@ -107,7 +107,7 @@ export class InformationDelivery {
       return result;
     });
     try { await this.publishReceipt(versionId,receipt); }
-    catch (error) { await this.repo.db.query("UPDATE information.material_deliveries SET files_state='recoverable',files_error_code=$2 WHERE version_id=$1",[versionId,codeOf(error)]); }
+    catch { /* Only the file reconciler holding a lease projects publication failures. The receipt is already durable. */ }
     return receipt;
   }
   private async publishReceipt(versionId: string, receipt: AcceptanceReceipt): Promise<void> {

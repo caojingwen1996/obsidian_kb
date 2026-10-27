@@ -7,15 +7,20 @@ import { required } from '../platform/db.js';
 import { requestHeaders } from './request-headers.js';
 import { validateInformationHandoff, type AcceptanceReceipt, type CandidateResultFile, type DeliveryView } from '../information-ingestion/processing/handoff-contract.js';
 import { validateExtraction } from '../information-ingestion/processing/extraction.js';
+import { digest } from '../information-ingestion/processing/repository.js';
 
 export function verifyHandoffSnapshot(snapshot:{packet:unknown;receipt:unknown;result:unknown;delivery:DeliveryView;processing:Record<string,unknown>},options:{requireModelAttempt?:boolean;since?:string}={}) {
   const packet=validateInformationHandoff(snapshot.packet),receipt=snapshot.receipt as AcceptanceReceipt,result=snapshot.result as CandidateResultFile,p=snapshot.processing,d=snapshot.delivery;
   if(d.status!=='received'||p.extraction_status!=='completed'||!result||result.schema_version!=='riskhot.candidate-result.v1')throw new Error('VERIFICATION_INCOMPLETE');
-  if(receipt.schema_version!=='riskhot.information-receipt.v1'||receipt.delivery_id!==packet.delivery_id||receipt.version_id!==packet.information.version_id||receipt.information_id!==packet.information.information_id||receipt.processing_id!==p.id||result.processing_id!==p.id||result.version_id!==packet.information.version_id||result.information_id!==packet.information.information_id||result.delivery_id!==receipt.delivery_id||receipt.payload_sha256!==d.files.information?.sha256)throw new Error('VERIFICATION_INPUT_MISMATCH');
-  const stored=p.candidates as {id:string;candidate_key:string;payload:unknown}[];
+  if(receipt.schema_version!=='riskhot.information-receipt.v1'||receipt.status!=='received'||receipt.delivery_id!==packet.delivery_id||receipt.version_id!==packet.information.version_id||receipt.information_id!==packet.information.information_id||receipt.processing_id!==p.id||result.processing_id!==p.id||result.version_id!==packet.information.version_id||result.information_id!==packet.information.information_id||result.delivery_id!==receipt.delivery_id||receipt.payload_sha256!==d.files.information?.sha256||receipt.analysis_key!==p.analysis_key||result.analysis_key!==p.analysis_key||result.processing_scope!==p.processing_scope||result.input_artifact_id!==p.input_artifact_id||result.manifest_artifact_id!==p.manifest_artifact_id||result.result_status!==p.result_status)throw new Error('VERIFICATION_INPUT_MISMATCH');
+  const stored=p.candidates as {id:string;candidate_key:string;payload:unknown;ordinal:number;status:string}[];
   if(!Array.isArray(result.candidates)||!Array.isArray(stored)||result.candidate_count!==p.candidate_count||result.candidates.length!==p.candidate_count||stored.length!==p.candidate_count)throw new Error('VERIFICATION_COUNT_MISMATCH');
-  const candidates=result.candidates as {candidate_id:string;candidate_key:string;payload:unknown}[];
-  for(const [i,c]of candidates.entries())if(c.candidate_id!==stored[i]?.id||c.candidate_key!==stored[i]?.candidate_key)throw new Error('VERIFICATION_CANDIDATE_ID_MISMATCH');
+  const candidates=result.candidates as {candidate_id:string;candidate_key:string;payload:unknown;ordinal:number;status:string}[];
+  for(const [i,c]of candidates.entries()){
+    const row=stored[i]!;
+    if(c.candidate_id!==row.id||c.candidate_key!==row.candidate_key)throw new Error('VERIFICATION_CANDIDATE_ID_MISMATCH');
+    if(c.ordinal!==row.ordinal||c.status!==row.status||digest(c.payload)!==digest(row.payload))throw new Error('VERIFICATION_CANDIDATE_CONTENT_MISMATCH');
+  }
   validateExtraction({complete:true,finishReason:'stop',data:{covered_segment_ids:result.covered_segment_ids,candidates:candidates.map(c=>c.payload),no_event_reason:result.no_event_reason,warnings:result.warnings}},packet.material);
   const attempts=(p.attempts??[]) as {id:string;status:string;started_at?:string;created_at:string}[];
   const accepted=attempts.filter(a=>a.status==='accepted'&&(!options.since||Date.parse(a.started_at??a.created_at)>=Date.parse(options.since)));
