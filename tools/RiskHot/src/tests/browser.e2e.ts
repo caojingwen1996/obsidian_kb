@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { createHash, randomUUID } from 'node:crypto';
-import { mkdtemp, mkdir, rm, writeFile } from 'node:fs/promises';
+import { mkdtemp, mkdir, rm, writeFile, readFile } from 'node:fs/promises';
+import { InformationDelivery } from '../information-ingestion/processing/handoff.js';
 import { tmpdir } from 'node:os';
 import { resolve, join } from 'node:path';
 import { createServer } from 'node:net';
@@ -284,6 +285,7 @@ try {
   await page.locator('#plan-query').fill('不存在的信源');await page.locator('#plan-search').getByRole('button',{name:'搜索',exact:true}).click();await page.getByRole('heading',{name:'没有匹配的信源'}).waitFor();
   await page.locator('#plan-query').fill('');await page.locator('#plan-search').getByRole('button',{name:'搜索',exact:true}).click();await scheduleButton.waitFor();check('plan search retains a clear empty state and can be reset');
   const fixed=await c.processing();await c.repo.acceptSet(fixed.id,1,{covered_segment_ids:fixed.material.segments.map(segment=>segment.id),candidates:[],no_event_reason:'受控背景信息',warnings:[]});
+  await new InformationDelivery(c.repo).publishResult(fixed.id);
   await c.db.query("INSERT INTO platform.schedule_runs(source_id,scheduled_at,operation_id,status) VALUES($1,now(),$2,'completed')",[c.parent.source_id,c.parent.id]);
   await page.locator('#refresh').click();await page.locator(`[data-operation="${c.parent.id}"]`).waitFor();
   await page.locator('[data-schedule-history="wiki-source-001"]').click();await page.locator('#schedule-history-wiki-source-001 .plan-run').waitFor();
@@ -291,6 +293,13 @@ try {
   await page.locator('#schedule-history-wiki-source-001').getByRole('button',{name:'查看结果',exact:true}).click();await page.getByRole('heading',{name:'接入结果',exact:true}).waitFor();
   assert.equal(await page.locator('#modal .progress-disclosure').getAttribute('open'),null);
   await page.getByRole('button',{name:'查看已保存资料',exact:true}).click();await page.getByRole('heading',{name:'已保存的标准化资料',exact:true}).waitFor();
+  assert.match(await page.locator('.delivery-result').textContent(),/F02 已接收/);
+  assert.equal(await page.locator('.delivery-result a[download]').count(),3);
+  const downloaded=page.waitForEvent('download');await page.getByRole('link',{name:'下载交付资料',exact:true}).click();
+  assert.equal(JSON.parse(await readFile(await(await downloaded).path(),'utf8')).information.version_id,fixed.version);
+  check('handoff receipt, extraction and three file links use persisted data; downloaded packet matches fixed version');
+  for(const width of [1440,390,320]){await page.setViewportSize({width,height:1050});assert.ok(await page.locator('#modal').evaluate((element:HTMLElement)=>element.scrollWidth<=element.clientWidth+1));await page.screenshot({path:join(output,`handoff-files-${width}.png`)});}
+  await page.setViewportSize({width:1440,height:1050});
   await page.getByRole('button',{name:'返回接入结果',exact:true}).click();await page.getByRole('button',{name:'查看候选抽取',exact:true}).click();await page.getByText('本次未提取到事件候选。',{exact:true}).waitFor();
   await page.locator('#modal').getByRole('button',{name:'关闭',exact:true}).last().click();check('plan results link directly to saved material and honest zero-candidate output');
   for (const width of [1440, 390, 320]) {

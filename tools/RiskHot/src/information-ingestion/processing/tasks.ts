@@ -45,9 +45,9 @@ export class TaskManagement {
     if (from && to && from >= to) throw new DomainError('DATE_RANGE_INVALID', 400);
     const operations = (await this.repo.db.query<OperationRow & { name: string; source_key: string; children: OperationRow[]; grouped: boolean }>(`SELECT o.*,s.catalog_key AS source_key,s.name,
       EXISTS(SELECT 1 FROM platform.task_batch_sources bs WHERE bs.operation_id=o.id) AS grouped,
-      COALESCE(jsonb_agg(to_jsonb(c)||jsonb_build_object('status',CASE WHEN p.extraction_status='completed' THEN 'completed' WHEN p.extraction_status='review' THEN 'review' WHEN p.extraction_status='recoverable' AND p.error_code='MODEL_NOT_CONFIGURED' THEN 'waiting_config' WHEN p.extraction_status='recoverable' THEN 'recoverable' ELSE c.status END,'reason_code',COALESCE(p.error_code,c.reason_code))) FILTER(WHERE c.id IS NOT NULL),'[]') AS children
+      COALESCE(jsonb_agg(to_jsonb(c)||jsonb_build_object('status',CASE WHEN p.extraction_status='completed' THEN 'completed' WHEN p.extraction_status='review' THEN 'review' WHEN p.extraction_status='recoverable' AND p.error_code='MODEL_NOT_CONFIGURED' THEN 'waiting_config' WHEN p.extraction_status='recoverable' THEN 'recoverable' WHEN d.error_code IS NOT NULL THEN 'recoverable' ELSE c.status END,'delivery_error',d.error_code,'reason_code',COALESCE(p.error_code,d.error_code,c.reason_code))) FILTER(WHERE c.id IS NOT NULL),'[]') AS children
       FROM information.operations o JOIN m1.sources s ON s.id=o.source_id JOIN platform.actors a ON a.subject=$1
-      LEFT JOIN information.operations c ON c.parent_id=o.id LEFT JOIN information.processing_runs p ON p.id=c.processing_id
+      LEFT JOIN information.operations c ON c.parent_id=o.id LEFT JOIN information.processing_runs p ON p.id=c.processing_id LEFT JOIN information.material_deliveries d ON d.version_id=c.version_id
       WHERE o.kind='batch' AND ('*'=ANY(a.source_keys) OR s.catalog_key=ANY(a.source_keys))
       AND ($2::timestamptz IS NULL OR o.scheduled_at>=$2) AND ($3::timestamptz IS NULL OR o.scheduled_at<$3)
       GROUP BY o.id,s.catalog_key,s.name ORDER BY o.scheduled_at DESC,o.id DESC`, [actor, from, to])).rows;

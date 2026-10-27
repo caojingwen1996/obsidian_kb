@@ -200,18 +200,17 @@ export class InformationDelivery {
     await transaction(this.repo.db,async tx=>{await this.repo.lockTaskGraph(tx);await this.repo.attachProcessing(tx);});
     const repairs=(await this.repo.db.query(`SELECT d.message_id,d.version_id FROM information.material_deliveries d JOIN platform.messages m ON m.id=d.message_id
       LEFT JOIN information.processing_runs p ON p.id=m.receipt_processing_id WHERE m.state='received'
-      AND (d.files_state<>'ready' OR d.payload_artifact_id IS NULL OR d.receipt_artifact_id IS NULL OR (p.extraction_status='completed' AND p.result_artifact_id IS NULL))
       AND d.files_attempts-d.files_window_start<10 AND d.files_next_attempt_at<=now() ORDER BY d.files_next_attempt_at,d.message_id LIMIT $1`,[limit])).rows;
     for(const row of repairs){
-      const lease=(await this.repo.db.query("UPDATE information.material_deliveries SET files_attempts=files_attempts+1,files_lease_token=$2,files_lease_until=clock_timestamp()+interval '60 seconds' WHERE message_id=$1 AND files_attempts-files_window_start<10 AND (files_lease_until IS NULL OR files_lease_until<=clock_timestamp()) RETURNING files_generation",[row.message_id,randomUUID()])).rows[0];
+      const lease=(await this.repo.db.query("UPDATE information.material_deliveries SET files_attempts=files_attempts+1,files_lease_token=$2,files_lease_until=clock_timestamp()+interval '60 seconds' WHERE message_id=$1 AND files_attempts-files_window_start<10 AND (files_lease_until IS NULL OR files_lease_until<=clock_timestamp()) RETURNING files_generation,files_lease_token",[row.message_id,randomUUID()])).rows[0];
       if(!lease)continue;
       try{
         await this.ensure(row.version_id);
         const d=await this.record(row.version_id);
         if(!d.receipt)await this.accept(row.message_id);else await this.publishReceipt(row.version_id,d.receipt);
         if(d.extraction_status==='completed')await this.publishResult(d.receipt_processing_id);
-        await this.repo.db.query("UPDATE information.material_deliveries SET files_state='ready',files_error_code=NULL,files_lease_token=NULL,files_lease_until=NULL WHERE message_id=$1 AND files_generation=$2",[row.message_id,lease.files_generation]);
-      }catch(error){await this.repo.db.query("UPDATE information.material_deliveries SET files_state='recoverable',files_error_code=$3,files_next_attempt_at=clock_timestamp()+interval '30 seconds',files_lease_token=NULL,files_lease_until=NULL WHERE message_id=$1 AND files_generation=$2",[row.message_id,lease.files_generation,codeOf(error)]);}
+        await this.repo.db.query("UPDATE information.material_deliveries SET files_state='ready',files_error_code=NULL,files_window_start=files_attempts,files_next_attempt_at=clock_timestamp()+interval '5 minutes',files_lease_token=NULL,files_lease_until=NULL WHERE message_id=$1 AND files_generation=$2 AND files_lease_token=$3",[row.message_id,lease.files_generation,lease.files_lease_token]);
+      }catch(error){await this.repo.db.query("UPDATE information.material_deliveries SET files_state='recoverable',files_error_code=$3,files_next_attempt_at=clock_timestamp()+interval '30 seconds',files_lease_token=NULL,files_lease_until=NULL WHERE message_id=$1 AND files_generation=$2 AND files_lease_token=$4",[row.message_id,lease.files_generation,codeOf(error),lease.files_lease_token]);}
     }
   }
 }

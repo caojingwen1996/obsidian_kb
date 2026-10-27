@@ -207,6 +207,7 @@ async function submitDialog(form){
   else if(ctx.kind==='retry-operation')command=api.command(`/api/v1/l0/operations/${ctx.row.id}/retry`,'POST',{expected_generation:Number(ctx.row.generation),reason:String(data.get('reason'))});
   else if(ctx.kind==='retry-processing')command=api.command(`/api/v1/l0/processings/${ctx.row.id}/retry`,'POST',{expected_generation:Number(ctx.row.generation),reason:String(data.get('reason')),open_budget:data.get('budget')==='on'});
   else if(ctx.kind==='review-processing')command=api.command(`/api/v1/l0/processings/${ctx.row.id}/reviews`,'POST',{expected_generation:Number(ctx.row.generation),basis_digest:ctx.row.output_review_basis.digest,decision:'RETRY_FIXED_INPUT',reason:String(data.get('reason'))});
+  if(ctx.kind==='retry-delivery')command=api.command(`/api/v1/l0/versions/${ctx.id}/delivery/${ctx.files?'files/retry':'retry'}`,'POST',{expected_generation:ctx.generation,reason:String(data.get('reason'))});
   if(command)await execute(command,ctx);
 }
 async function showOperation(id){
@@ -218,13 +219,16 @@ async function showOperation(id){
 }
 async function showVersion(id){
   const parent=dialogContext?.operation||dialogContext?.returnOperation;
-  try{const row=await api.get(`/api/v1/l0/versions/${id}`);openDialog('已保存的标准化资料',`${parent?`<button class="quiet" data-return-operation="${e(parent)}">返回接入结果</button>`:''}<h3>${e(row.material.title)}</h3><p>${e(row.material.publishedAtText||'发布时间待确认')}</p>${row.material.segments.map(x=>`<p class="material-text">${e(x.text)}</p>`).join('')}<a class="secondary" href="${e(row.raw_url)}" download>下载原件</a>`,{kind:'read',returnOperation:parent},'');}catch(error){notice(explain(error),true);}
+  try{const row=await api.get(`/api/v1/l0/versions/${id}`);openDialog('已保存的标准化资料',`${parent?`<button class="quiet" data-return-operation="${e(parent)}">返回接入结果</button>`:''}${renderDelivery(row.delivery,can('retry'))}<h3>${e(row.material.title||'标准化资料')}</h3><p>${e(row.material.publishedAtText||'发布时间待确认')}</p>${row.material.segments.map(x=>`<p class="material-text">${e(x.text)}</p>`).join('')}<a class="secondary" href="${e(row.raw_url)}" download>下载原件</a>`,{kind:'read',returnOperation:parent},'');}catch(error){notice(explain(error),true);}
+}
+async function showDelivery(id){
+  try{const row=await api.get(`/api/v1/l0/versions/${id}/delivery`);openDialog('资料交付与结果文件',renderDelivery(row,can('retry')),{kind:'read'},'');}catch(error){notice(explain(error),true);}
 }
 async function showProcessing(id){
   const parent=dialogContext?.operation||dialogContext?.returnOperation;
   try{
     const row=await api.get(`/api/v1/l0/processings/${id}`);state.processing=row;
-    openDialog('事件候选抽取',`${parent?`<button class="quiet" data-return-operation="${e(parent)}">返回接入结果</button>`:''}<p>抽取状态：${e(statusName(row.extraction_status))} · 候选数量：${e(candidateCount(row))}</p>${row.extraction_status==='completed'&&row.candidate_count===0?'<p class="empty">本次未提取到事件候选。</p>':'<p class="muted">候选保持待处理状态。</p>'}${row.error_code?`<p class="notice">${e(explain(row.error_code))}</p>`:''}${(row.candidates||[]).map(x=>`<article class="history-item"><h3>${e(x.payload.title||x.payload.candidate_title||'事件候选')}</h3><p>${e(x.payload.summary||x.payload.description||'')}</p><details class="progress-disclosure"><summary>结构化详情</summary><pre class="material-text">${e(JSON.stringify(x.payload,null,2))}</pre></details></article>`).join('')}<div class="actions">${can('retry')&&row.extraction_status==='recoverable'?`<button type="button" class="secondary" data-retry-processing="${e(row.id)}">重试固定资料</button>`:''}${can('model_review')&&row.extraction_status==='review'&&row.output_review_basis?`<button type="button" class="secondary" data-review-processing="${e(row.id)}">复核后重试固定资料</button>`:''}</div>${row.next_cursor?'<p class="notice">当前显示首批候选，其余可在后续分页中查询。</p>':''}`,{kind:'read',returnOperation:parent},'');
+    openDialog('事件候选抽取',`${parent?`<button class="quiet" data-return-operation="${e(parent)}">返回接入结果</button>`:''}${renderDelivery(row.delivery,can('retry'))}<p>抽取状态：${e(statusName(row.extraction_status))} · 候选数量：${e(candidateCount(row))}</p>${row.extraction_status==='completed'&&row.candidate_count===0?`<p class="empty">本次未提取到事件候选。</p><p class="muted">${e(row.no_event_reason||'')}</p>`:'<p class="muted">候选保持待处理状态。</p>'}${row.error_code?`<p class="notice">${e(explain(row.error_code))}</p>`:''}${(row.candidates||[]).map(x=>`<article class="history-item"><h3>${e(x.payload.title||x.payload.candidate_title||'事件候选')}</h3><p>${e(x.payload.summary||x.payload.description||'')}</p><details class="progress-disclosure"><summary>结构化详情</summary><pre class="material-text">${e(JSON.stringify(x.payload,null,2))}</pre></details></article>`).join('')}<div class="actions">${can('retry')&&row.extraction_status==='recoverable'?`<button type="button" class="secondary" data-retry-processing="${e(row.id)}">重试固定资料</button>`:''}${can('model_review')&&row.extraction_status==='review'&&row.output_review_basis?`<button type="button" class="secondary" data-review-processing="${e(row.id)}">复核后重试固定资料</button>`:''}</div>${row.next_cursor?'<p class="notice">当前显示首批候选，其余可在后续分页中查询。</p>':''}`,{kind:'read',returnOperation:parent},'');
   }catch(error){notice(explain(error),true);}
 }
 document.addEventListener('submit',event=>{
@@ -266,6 +270,8 @@ document.addEventListener('click',async event=>{
   if(d.operation)showOperation(d.operation);
   if(d.returnOperation)showOperation(d.returnOperation);
   if(d.version)showVersion(d.version);
+  if(d.delivery)showDelivery(d.delivery);
+  if(d.retryDelivery||d.retryFiles){const files=Boolean(d.retryFiles),id=d.retryDelivery||d.retryFiles;openDialog(files?'重新生成文件':'重新交付资料','<p>沿用已保存的资料与结果，恢复本环节。</p><label class="field">恢复理由<input name="reason" required maxlength="2000"></label>',{kind:'retry-delivery',files,id,generation:Number(d.generation)},'确认恢复');}
   if(d.processing)showProcessing(d.processing);
   if(d.historyVersion){const row=(state.history?.data.items||[]).find(x=>String(x.version)===d.historyVersion);if(row)openDialog(`历史版本 v${row.version} · 只读`,`<dl class="facts">${profileFields.map(([key,name])=>`<dt>${e(name)}</dt><dd>${e(Array.isArray(row.profile?.[key])?row.profile[key].join('、'):row.profile?.[key]||'待补充')}</dd>`).join('')}</dl>`,{kind:'read'},'');}
   if(d.retryOperation){const row=await api.get(`/api/v1/l0/operations/${d.retryOperation}`);openDialog('重试接入资料','<label class="field">恢复原因<input name="reason" required maxlength="2000"></label>',{kind:'retry-operation',row},'重试');}
@@ -299,3 +305,4 @@ setInterval(()=>{if(!document.hidden&&!modal.open&&!busy&&!startingBatch&&naviga
 document.addEventListener('visibilitychange',()=>activity.classList.toggle('is-background',document.hidden));
 new IntersectionObserver(entries=>activity.classList.toggle('is-offscreen',!entries[0].isIntersecting)).observe(activity);
 refresh();
+import {renderDelivery} from './delivery.js';

@@ -3,6 +3,15 @@ import assert from 'node:assert/strict';
 import {load} from 'cheerio';
 import {renderTasks,renderSchedules} from '../web/tasks.js';
 import {launchState,renderActivity} from '../web/activity.js';
+import {renderDelivery} from '../web/delivery.js';
+
+test('delivery UI separates saved, received and extraction state and exposes only available files',()=>{
+  let $=load(renderDelivery({status:'received',generation:1,candidate_count:null,extraction_status:'recoverable',files:{status:'ready',generation:1,information:{url:'/information'},receipt:{url:'/receipt'},candidates:null}},true));
+  assert.match($('body').text(),/F02 已接收/);assert.match($('body').text(),/数量待确认/);assert.equal($('a').length,2);assert.doesNotMatch($('body').text(),/候选 0/);
+  $=load(renderDelivery({version_id:'v',status:'recoverable',reason_code:'HANDOFF_CONTENT_MISMATCH',generation:2,files:{status:'recoverable',generation:3}},true));
+  assert.equal($('[data-retry-delivery]').length,1);assert.equal($('[data-retry-files]').length,1);
+  $=load(renderDelivery({version_id:'v',status:'recoverable',generation:2,files:{status:'recoverable',generation:3}},false));assert.equal($('button').length,0);
+});
 
 test('launch remains locked through queue, running and pause, and uncertain reads cannot unlock it',()=>{
   for(const status of ['queued','running','paused'])assert.equal(launchState({items:[{status}]},true).disabled,true);

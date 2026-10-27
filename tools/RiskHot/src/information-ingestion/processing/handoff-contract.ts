@@ -30,7 +30,12 @@ export interface DeliveryView {
   extraction_status: string | null; candidate_count: number | null;
   files: { status: string; generation: number; reason_code: string | null; information: FileDescriptor | null; receipt: FileDescriptor | null; candidates: FileDescriptor | null };
 }
-export const jsonBytes = (value: unknown) => Buffer.from(JSON.stringify(value, null, 2) + '\n', 'utf8');
+function ordered(value:unknown):unknown {
+  if(Array.isArray(value))return value.map(ordered);
+  if(value!==null&&typeof value==='object')return Object.fromEntries(Object.entries(value).sort(([a],[b])=>a.localeCompare(b)).map(([key,item])=>[key,ordered(item)]));
+  return value;
+}
+export const jsonBytes = (value: unknown) => Buffer.from(JSON.stringify(ordered(value), null, 2) + '\n', 'utf8');
 const text = { type: 'string', minLength: 1 }, nullableText = { type: ['string', 'null'] };
 const id = { type: 'string', pattern: '^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$' };
 const hash = { type: 'string', pattern: '^[a-f0-9]{64}$' }, integer = { type: 'integer', minimum: 1 };

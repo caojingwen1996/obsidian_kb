@@ -6,7 +6,11 @@ import { tmpdir } from 'node:os';
 import { randomUUID } from 'node:crypto';
 import { ArtifactStore } from '../platform/artifacts.js';
 import { HandoffFiles } from '../platform/handoff-files.js';
-import { validateInformationHandoff } from '../information-ingestion/processing/handoff-contract.js';
+import { validateInformationHandoff, jsonBytes } from '../information-ingestion/processing/handoff-contract.js';
+
+test('JSONB round trips preserve identical immutable receipt bytes despite object key ordering',()=>{
+  assert.deepEqual(jsonBytes({status:'received',payload:{z:1,a:2}}),jsonBytes({payload:{a:2,z:1},status:'received'}));
+});
 
 test('rejects unknown handoff schemas and invalid identities before reading content', () => {
   assert.throws(() => validateInformationHandoff({ schema_version: 'unknown' }), /HANDOFF_SCHEMA_INVALID/);

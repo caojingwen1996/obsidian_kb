@@ -21,6 +21,8 @@ export interface ProcessingRow {
   id: string; version_id: string; extraction_status: string; candidate_count: number | null; generation: string | number;
   processing_scope: string; result_status: string; input_artifact_id: string | null; manifest_artifact_id: string | null; error_code: string | null;
   review_attempt_id?: string | null;
+  validated_result_artifact_id?: string | null;
+  result_artifact_id?: string | null;
 }
 function canonical(value: unknown): unknown {
   if (Array.isArray(value)) return value.map(canonical);

@@ -3,6 +3,8 @@ import { fileURLToPath } from 'node:url';
 import { access, constants, mkdir } from 'node:fs/promises';
 import Fastify from 'fastify';
 import { registerManagement } from './management.js';
+import { registerHandoff } from './handoff.js';
+import { InformationDelivery } from '../information-ingestion/processing/handoff.js';
 import { registerWeb } from './web.js';
 import cookie from '@fastify/cookie';
 import { Ajv2020 } from 'ajv/dist/2020.js';
@@ -61,7 +63,9 @@ export async function buildServer(repo: ExecutionStore, authentication: Authenti
     const processing = await repo.processing(id); await sourceForVersion(actor, processing.version_id);
     const attempts = (await repo.db.query('SELECT id,attempt_no,generation,status,finish_reason,error_code,created_at,started_at,completed_at FROM platform.model_attempts WHERE processing_id=$1 ORDER BY attempt_no', [id])).rows;
     const budget = (await repo.db.query('SELECT id,generation,used,deadline FROM platform.model_budget_windows WHERE processing_id=$1 ORDER BY generation DESC LIMIT 1', [id])).rows[0] ?? null;
-    return { ...processing, attempts, budget_window: budget, output_review_basis: processing.extraction_status === 'review' ? await repo.reviewBasis(id) : null };
+    const result = processing.validated_result_artifact_id ? await repo.json<{no_event_reason:string|null}>(processing.validated_result_artifact_id) : null;
+    const inputHandoff=(await repo.db.query("SELECT detail,created_at FROM platform.audit_log WHERE owner_id=$1 AND action='handoff-input-verified' AND (detail->>'generation')::bigint=$2 ORDER BY created_at DESC,id DESC LIMIT 1",[id,processing.generation])).rows[0]??null;
+    return { ...processing, input_handoff:inputHandoff, no_event_reason:result?.no_event_reason??null, delivery:await new InformationDelivery(repo).view(processing.version_id,actor), attempts, budget_window: budget, output_review_basis: processing.extraction_status === 'review' ? await repo.reviewBasis(id) : null };
   };
   registerWeb(app);
   app.get('/auth/login', async (_request, reply) => auth.login(reply));
@@ -102,6 +106,7 @@ export async function buildServer(repo: ExecutionStore, authentication: Authenti
     return { schedules:currentSchedules, alerts, background_service:full?await serviceStatus(process.cwd()):null, model_service: (await repo.db.query('SELECT protocol,reason_code,blocked_until,updated_at FROM platform.model_service_state')).rows, notification_semantics: 'submitted means handed to the OS; display is controlled by system settings' };
   });
   registerManagement(app, repo, auth.mode);
+  registerHandoff(app,repo);
   app.post('/api/v1/l0/source-fetches', { schema: { body: { type: 'object', additionalProperties: false, required: ['source_key', 'limit'], properties: { source_key: { type: 'string', pattern: '^(wiki-source-[0-9]{3}|custom-source-[a-f0-9-]{36})$' }, limit: { type: 'integer', minimum: 1, maximum: 5 }, url: { type: 'string', maxLength: 2048 } } } } }, async (request, reply) => {
     const input = request.body as FetchCommand;
     const operation = await repo.submit(input, request.actor, keyOf(request.headers));
@@ -147,7 +152,7 @@ export async function buildServer(repo: ExecutionStore, authentication: Authenti
   });
   app.get('/api/v1/l0/versions/:id', { schema: { params: params('id') } }, async request => {
     const id = (request.params as { id: string }).id; const version = await sourceForVersion(request.actor, id);
-    return { version_id: id, material_id: version.material_id, material: await repo.json(version.normalized_artifact_id), raw_url: `/api/v1/l0/versions/${id}/raw` };
+    return { version_id: id, material_id: version.material_id, material: await repo.json(version.normalized_artifact_id), raw_url: `/api/v1/l0/versions/${id}/raw`, delivery:await new InformationDelivery(repo).view(id,request.actor) };
   });
   app.get('/api/v1/l0/versions/:id/raw', { schema: { params: params('id') } }, async (request, reply) => {
     const id = (request.params as { id: string }).id; const version = await sourceForVersion(request.actor, id);

@@ -4,6 +4,16 @@ import { readFile, unlink } from 'node:fs/promises';
 import { join } from 'node:path';
 import { savedFixture } from './handoff-fixture.js';
 
+test('relay detects a lost file alias after a previously healthy publication',async()=>{
+  const c=await savedFixture();
+  try{
+    await c.delivery.accept(c.message);await c.delivery.reconcile();
+    const view=await c.delivery.view(c.version,'review-operator'),path=join(c.folder,view.files.receipt!.relative_path);
+    await unlink(path);await c.db.query('UPDATE information.material_deliveries SET files_next_attempt_at=now()');
+    await c.delivery.reconcile();assert.equal(JSON.parse(await readFile(path,'utf8')).delivery_id,c.message);
+  }finally{await c.dispose();}
+});
+
 test('exports all 50 fixed candidates and repairs missing aliases without a second model call', async () => {
   const c=await savedFixture();
   try {
