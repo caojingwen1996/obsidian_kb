@@ -1,3 +1,5 @@
+import { InformationDelivery } from '../information-ingestion/processing/handoff.js';
+import { digest } from '../information-ingestion/processing/repository.js';
 import { readFile } from 'node:fs/promises';
 import { Context } from '@temporalio/activity';
 import { ApplicationFailure } from '@temporalio/common';
@@ -69,9 +71,12 @@ export function ioActivities(repo: ExecutionStore) {
         if (!op) throw new DomainError('PROCESSING_OWNER_MISSING');
         await repo.checkSource(op);
         if (!modelCredentialsConfigured()) throw new DomainError('MODEL_NOT_CONFIGURED', 503);
-        if (processing.input_artifact_id) { await repo.bytes(processing.input_artifact_id); return true; }
-        const version = (await repo.db.query<{ normalized_artifact_id: string }>('SELECT normalized_artifact_id FROM information.material_versions WHERE id=$1', [processing.version_id])).rows[0]!;
-        const material = await repo.json<NormalizedMaterial>(version.normalized_artifact_id);
+        const material = (await new InformationDelivery(repo).readAccepted(id)).material;
+        if (processing.input_artifact_id) {
+          const frozen = await repo.json<TaskInput>(processing.input_artifact_id);
+          if (frozen.version_id !== processing.version_id || digest(frozen.material) !== digest(material)) throw new DomainError('HANDOFF_INPUT_MISMATCH',409);
+          return true;
+        }
         const rules = await readFile('docs/system-design/03-系统功能架构/AI任务与提示词/AI-01 候选事件提取提示词 V0.1.md', 'utf8');
         const business = rules.match(/```text\n([\s\S]*?)```/)?.[1];
         if (!business) throw new DomainError('TASK_PACKAGE_MISSING');

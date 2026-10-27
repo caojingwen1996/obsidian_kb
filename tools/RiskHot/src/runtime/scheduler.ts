@@ -101,6 +101,9 @@ export class Scheduler {
   }
   async monitor(now = new Date()): Promise<void> {
     const issues: RuntimeIssue[] = [];
+    const deliveries = (await this.repo.db.query(`SELECT d.message_id,COALESCE(d.error_code,d.files_error_code) AS code FROM information.material_deliveries d
+      WHERE d.error_code IS NOT NULL OR d.files_error_code IS NOT NULL`)).rows;
+    for (const d of deliveries) issues.push({key:`delivery:${d.message_id}:${d.code}`,code:d.code,owner:d.message_id});
     const service = (await this.repo.db.query("SELECT reason_code FROM platform.model_service_state WHERE protocol='codex-exec'")).rows[0];
     if (service?.reason_code) issues.push({ key: `model:${service.reason_code}`, code: service.reason_code, owner: null });
     const runs = (await this.repo.db.query<{ id: string; operation_id: string | null; source_id: string; error_code: string | null }>("SELECT r.* FROM platform.schedule_runs r WHERE r.status IN ('pending','running') OR r.id IN (SELECT DISTINCT ON(source_id) id FROM platform.schedule_runs ORDER BY source_id,scheduled_at DESC) ORDER BY r.scheduled_at")).rows;

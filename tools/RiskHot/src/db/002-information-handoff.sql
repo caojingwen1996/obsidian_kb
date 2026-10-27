@@ -20,6 +20,8 @@ CREATE TABLE IF NOT EXISTS information.material_deliveries(
  PRIMARY KEY(version_id,consumer_id)
 );
 ALTER TABLE platform.inbox ADD COLUMN IF NOT EXISTS receipt jsonb;
+ALTER TABLE information.material_deliveries ADD COLUMN IF NOT EXISTS files_lease_token uuid;
+ALTER TABLE information.material_deliveries ADD COLUMN IF NOT EXISTS files_lease_until timestamptz;
 ALTER TABLE information.processing_runs ADD COLUMN IF NOT EXISTS validated_result_artifact_id uuid REFERENCES platform.artifact_objects(id);
 ALTER TABLE information.processing_runs ADD COLUMN IF NOT EXISTS result_artifact_id uuid REFERENCES platform.artifact_objects(id);
 INSERT INTO information.material_version_origins(version_id,source_id,source_version,operation_id,acquisition_id,collected_at,previous_version_id,version_kind,basis)

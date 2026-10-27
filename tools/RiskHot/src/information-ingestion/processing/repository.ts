@@ -1,3 +1,4 @@
+import { InformationDelivery } from './handoff.js';
 import { createHash, randomUUID } from 'node:crypto';
 import type { Pool, PoolClient } from 'pg';
 import { ArtifactStore, type ArtifactRef } from '../../platform/artifacts.js';
@@ -238,34 +239,8 @@ export class Repository {
       return version.id;
     });
   }
-  async deliverPending(): Promise<void> {
-    const messages = await this.db.query<{ id: string }>('SELECT id FROM platform.messages WHERE state IN (\'pending\',\'blocked\') AND next_attempt_at<=now() ORDER BY id LIMIT 20');
-    for (const pending of messages.rows) {
-      await transaction(this.db, async client => {
-        await this.lockTaskGraph(client);
-        const message = (await client.query<{ id: string; version_id: string }>('SELECT id,version_id FROM platform.messages WHERE id=$1 AND state IN (\'pending\',\'blocked\') FOR UPDATE SKIP LOCKED', [pending.id])).rows[0];
-        if (!message) return;
-        const owner = first((await client.query<OperationRow>('SELECT * FROM information.operations WHERE version_id=$1 ORDER BY paused,created_at LIMIT 1', [message.version_id])).rows);
-        try { await this.checkSource(owner, client); }
-        catch (error) {
-          if (!(error instanceof DomainError)) throw error;
-          await client.query('UPDATE platform.messages SET state=\'blocked\' WHERE id=$1', [message.id]);
-          await client.query('UPDATE information.operations SET status=\'recoverable\',reason_code=$2 WHERE version_id=$1 AND processing_id IS NULL', [message.version_id, error.code]);
-          return;
-        }
-        const processing = first((await client.query<{ id: string; generation: number }>('INSERT INTO information.processing_runs(version_id) VALUES($1) ON CONFLICT(version_id,analysis_key) DO UPDATE SET version_id=EXCLUDED.version_id RETURNING id,generation', [message.version_id])).rows);
-        await client.query('INSERT INTO platform.inbox(message_id,processing_id) VALUES($1,$2) ON CONFLICT DO NOTHING', [message.id, processing.id]);
-        await this.intent(client, 'extract', processing.id, Number(processing.generation));
-        await client.query('UPDATE platform.messages SET state=\'received\',receipt_processing_id=$2,attempts=attempts+1 WHERE id=$1', [message.id, processing.id]);
-        await this.attachProcessing(client, message.version_id);
-      });
-    }
-    await transaction(this.db, async client => {
-      await this.lockTaskGraph(client);
-      await this.attachProcessing(client);
-    });
-  }
-  private async attachProcessing(client: PoolClient, versionId: string | null = null): Promise<void> {
+  async deliverPending(): Promise<void> { await new InformationDelivery(this).reconcile(); }
+  async attachProcessing(client: PoolClient, versionId: string | null = null): Promise<void> {
     const ids = (await client.query<{ id: string }>(`SELECT DISTINCT p.id FROM platform.messages m JOIN information.processing_runs p ON p.id=m.receipt_processing_id
       JOIN information.operations o ON o.version_id=m.version_id WHERE m.state='received' AND NOT o.paused AND (o.processing_id IS NULL OR p.paused)
       AND ($1::uuid IS NULL OR m.version_id=$1) ORDER BY p.id`, [versionId])).rows.map(row => row.id);
@@ -292,6 +267,7 @@ export class Repository {
     return first((await client.query<ProcessingRow>(`SELECT * FROM information.processing_runs WHERE id=$1${lock ? ' FOR UPDATE' : ''}`, [id])).rows);
   }
   async acceptSet(id: string, generation: number, data: ExtractionResult): Promise<void> {
+    const validated = await this.putJson(data, 'validated-extraction-result');
     await transaction(this.db, async client => {
       const processing = await this.processing(id, client, true); this.guard(processing, generation);
       if (processing.extraction_status === 'completed') return;
@@ -299,7 +275,7 @@ export class Repository {
       const op = first((await client.query<OperationRow>('SELECT * FROM information.operations WHERE processing_id=$1 ORDER BY paused,created_at LIMIT 1', [id])).rows);
       await this.checkSource(op, client);
       for (const [ordinal, candidate] of data.candidates.entries()) await client.query('INSERT INTO information.event_candidates(processing_id,ordinal,payload) VALUES($1,$2,$3)', [id, ordinal, candidate]);
-      await client.query('UPDATE information.processing_runs SET extraction_status=\'completed\',candidate_count=$2,result_status=$3,error_code=NULL,completed_at=now() WHERE id=$1', [id, data.candidates.length, data.candidates.length ? 'pending' : 'NO_EVENT']);
+      await client.query('UPDATE information.processing_runs SET extraction_status=\'completed\',candidate_count=$2,result_status=$3,error_code=NULL,completed_at=now(),validated_result_artifact_id=$4 WHERE id=$1', [id, data.candidates.length, data.candidates.length ? 'pending' : 'NO_EVENT', validated]);
       await client.query('UPDATE information.operations SET status=\'completed\',stage=\'candidates_saved\',reason_code=NULL,updated_at=now() WHERE processing_id=$1 AND NOT paused', [id]);
     });
   }

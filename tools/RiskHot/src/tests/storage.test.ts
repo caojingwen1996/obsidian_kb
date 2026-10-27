@@ -67,6 +67,8 @@ test('persists complete commands and reuses concurrent submissions and fixed can
     await repo.deliverPending();
     assert.equal((await repo.operation(child)).processing_id, null, 'Delivery must recheck current source eligibility');
     await db.query("UPDATE m1.sources SET state='ACTIVE' WHERE catalog_key='wiki-source-001'");
+    // Advance the delivery backoff after restoring source eligibility.
+    await db.query('UPDATE platform.messages SET next_attempt_at=now() WHERE version_id=$1', [versions[0]]);
     await repo.deliverPending();
     const operation = await repo.operation(child);
     assert.ok(operation.processing_id);
