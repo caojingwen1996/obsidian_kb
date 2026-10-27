@@ -5,7 +5,7 @@ import { DomainError } from './types.js';
 
 export interface ArtifactRef { sha256: string; size: number; kind: string }
 export class ArtifactStore {
-  constructor(private root: string) {}
+  constructor(public readonly root: string) {}
   private capturePath(owner: string, phase: 'raw' | 'discovery'): string {
     if (!/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/.test(owner)) throw new DomainError('CAPTURE_OWNER_INVALID', 400);
     return join(this.root, 'captures', owner, phase);
