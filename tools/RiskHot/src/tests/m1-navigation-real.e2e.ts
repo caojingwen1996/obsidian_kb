@@ -13,7 +13,7 @@ try{
  const page=await browser.newPage();page.on('pageerror',(error:Error)=>errors.push(error.message));
  const ready=()=>page.locator('#connection-state').filter({hasText:'已连接'}).waitFor({state:'attached'});
  await page.goto(origin+'/m1#schedules');await ready();await page.getByRole('heading',{name:'自动接入',exact:true}).waitFor();
- assert.equal(new URL(page.url()).hash,'#sources?mode=automatic');assert.equal(await page.locator('.workspaces a').count(),2);
+ assert.equal(new URL(page.url()).hash,'#sources?mode=automatic');assert.equal(await page.locator('.workspaces a').count(),3);
  assert.deepEqual(await page.locator('.sidebar .nav-label').allTextContents(),['内容','配置']);assert.deepEqual(await page.locator('.sidebar nav a').allTextContents(),['全部','信源管理中心','流水线全景']);
  assert.equal(await page.locator('.sidebar button,.sidebar [aria-expanded]').count(),0);checks.push('旧计划链接归目录自动接入，两工作区及常驻分组正确');
  await page.locator('[data-plan-view="all"]').click();

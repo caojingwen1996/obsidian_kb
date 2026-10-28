@@ -24,7 +24,8 @@ let connected=false,loading=false,busy=false,startingBatch=false,dialogContext=n
 let batchReceipt=null,startMessage='';
 let readerRequest=0;
 let activityFresh=false,idleRefreshTicks=0;
-const activity=document.querySelector('#task-activity');
+const activity=document.createElement('section');
+activity.id='task-activity';activity.className='task-activity';activity.tabIndex=-1;activity.setAttribute('aria-labelledby','activity-title');activity.hidden=true;
 const activeTasksUrl='/api/v1/l0/task-batches?status=active';
 const can=(permission,key)=>Boolean(state.session?.permissions.includes(permission)&&(!key||state.session.source_keys.includes('*')||state.session.source_keys.includes(key)));
 const route=()=>workspaceRoute(location.hash);
@@ -32,12 +33,13 @@ function remember(){store('riskhot-view',{navigationVersion:3,view:state.view,cu
 function notice(message,error=false){feedback.hidden=false;feedback.className=`feedback ${error?'feedback-error error':''}`;feedback.setAttribute('role',error?'alert':'status');feedback.textContent=message;}
 function focusFeedback(){feedback.focus({preventScroll:true});feedback.scrollIntoView({block:'nearest'});}
 function updateActivity(){
-  const html=state.session?renderActivity(state.activity,activityFresh,can,route()):'';
+  const html=state.session&&route()==='manual'?renderActivity(state.activity,activityFresh,can,route()):'';
   activity.hidden=!html;
   if(activity.innerHTML!==html)activity.innerHTML=html;
 }
-function focusActivity(){const target=feedback.hidden?activity:feedback;target.focus({preventScroll:true});target.scrollIntoView({block:'nearest'});}
+function focusActivity(){if(route()!=='manual')return;const target=feedback.hidden?activity:feedback;target.focus({preventScroll:true});target.scrollIntoView({block:'nearest'});}
 function showBatchReceipt(){
+  if(route()!=='manual'){feedback.hidden=true;return;}
   if(!batchReceipt||batchReceipt.actor!==state.session?.actor)return;
   if(!batchReceipt.readFailed&&currentTask(state.activity)?.id===batchReceipt.id){feedback.hidden=true;return;}
   notice(`任务已受理 · ${batchReceipt.id.slice(0,8)}，共 ${batchReceipt.count} 个信源。${batchReceipt.readFailed?'状态暂未读到，可重新查看；无需再次开启任务。':'查看本次任务可跟踪状态与关联统计。'}`,batchReceipt.readFailed);
@@ -46,7 +48,7 @@ function showBatchReceipt(){
 function selectStartedBatch(task=batchReceipt,open=true){
   if(!taskIdFromHash(location.hash))state.taskReturnView=taskView(location.hash);
   state.selectedBatch=task.id;state.mobileDetail=false;state.detailAttention=false;
-  const hash=open?`#intake-task=${task.id}`:location.hash==='#intake-tasks?view=history'?location.hash:'#intake-tasks';
+  const hash=open?`#intake-task=${task.id}`:'#manual-tasks';
   if(!open)state.taskFilters={from:shanghaiDate(new Date(task.scheduled_at)),to:shanghaiDate(new Date(task.scheduled_at)),q:task.id,status:''};
   if(location.hash!==hash)history.pushState(null,'',hash);
   remember();
@@ -59,7 +61,7 @@ async function openTask(id,attention=false,source=''){
 }
 async function returnTasks(){
   const id=state.taskDetail?.id||state.selectedBatch;
-  history.pushState(null,'',state.taskReturnView==='overview'?'#intake-tasks':'#intake-tasks?view=history');render();await refresh();
+  history.pushState(null,'',state.taskReturnView==='manual'?'#manual-tasks':state.taskReturnView==='overview'?'#intake-tasks':'#intake-tasks?view=history');render();await refresh();
   const selector=`[data-batch-detail="${CSS.escape(id||'')}"]`;
   const button=state.taskReturnView==='overview'&&state.taskReturnSource?content.querySelector(`[data-overview-source="${CSS.escape(state.taskReturnSource)}"] ${selector}`):content.querySelector(selector);
   (button||content.querySelector('.run-list h3,.overview-list h3'))?.focus();
@@ -71,20 +73,21 @@ function render(){
   remember();
   updateActivity();
   document.querySelector('.page-footer').hidden=route()!=='sources';
-  for(const [id,name] of [['source-workspace-link','sources'],['intake-workspace-link','tasks']]){
+  for(const [id,name] of [['source-workspace-link','sources'],['intake-workspace-link','tasks'],['manual-workspace-link','manual']]){
     const link=document.getElementById(id);name===route()?link.setAttribute('aria-current','page'):link.removeAttribute('aria-current');
   }
   document.querySelector('#login').hidden=!state.loginRequired;document.querySelector('#logout').hidden=!state.session||state.session.authentication!=='oidc';
   document.querySelector('#connection-state').textContent=state.session?(connected?'已连接 · 实时数据':'连接中断 · 保留已读数据'):state.loginRequired?'尚未登录':'正在读取工作台';
   if(!state.session){content.innerHTML=state.loginRequired?'<section class="empty panel"><h2>登录后查看信源与接入任务</h2><p>使用项目账号登录，操作范围由服务端权限决定。</p><a class="primary" href="/auth/login">登录工作台</a></section>':'<section class="loading panel" role="status">正在读取信源与接入任务…</section>';return;}
   if(taskIdFromHash(location.hash))content.innerHTML=renderTaskDetail({...state,taskDetail:state.taskDetail?.id===taskIdFromHash(location.hash)?state.taskDetail:null},can);
-  else if(route()==='tasks')content.innerHTML=renderTasks({...state,taskView:taskView(location.hash)},can);
+  else if(route()==='tasks'||route()==='manual')content.innerHTML=renderTasks({...state,batches:route()==='manual'?state.manualBatches:state.batches,taskView:taskView(location.hash)},can);
   else if(state.catalogMode==='automatic')content.innerHTML=state.monitor?renderSchedules(state,can):'<div class="loading" role="status">正在读取计划…</div>';
   else content.innerHTML=renderSources(state,can);
+  const slot=content.querySelector('#manual-activity-slot');if(slot){slot.append(activity);updateActivity();}
   for(const scope of expanded){const node=content.querySelector(`[data-results-scope="${scope}"]`);if(node)node.open=true;}
   for(const key of expandedSources){const node=content.querySelector(`[data-source-detail="${CSS.escape(key)}"]`);if(node)node.open=true;}
   updateStartButtons();
-  if(startingBatch&&!batchReceipt&&startMessage)notice(startMessage);
+  if(startingBatch&&!batchReceipt&&startMessage&&route()==='manual')notice(startMessage);
   else if(state.pending&&!busy){notice('上一项操作的结果尚未确认。请先查询状态，或重试原操作。',true);feedback.insertAdjacentHTML('beforeend','<span id="pending-controls" class="actions"><button class="secondary" data-action="retry-pending">重试原操作</button><button class="quiet" data-action="refresh">查询当前状态</button></span>');}
   else if(batchReceipt)showBatchReceipt();
 }
@@ -108,11 +111,12 @@ async function performRefresh(silent=false){
     const session=await api.get('/api/v1/session');
     const sources=await api.get('/api/v1/m1/sources');
     const next={session,sources:sources.items,activity:await api.get(activeTasksUrl)};
-    if(route()==='tasks'){
+    if(route()==='tasks'||route()==='manual'){
       const requested=taskIdFromHash(location.hash);
-      if(taskView(location.hash)==='history'||requested){
+      if(taskView(location.hash)==='history'||route()==='manual'||requested){
         if((state.taskFilters.from||state.taskFilters.to)&&!validRange(state.taskFilters.from,state.taskFilters.to))throw {code:'DATE_RANGE_INVALID'};
-        next.batches=await api.get(`/api/v1/l0/task-batches?${new URLSearchParams(Object.entries(state.taskFilters).filter(([,v])=>v))}`);
+        const batches=await api.get(`/api/v1/l0/task-batches?${new URLSearchParams(Object.entries({...state.taskFilters,...(route()==='manual'?{trigger:'manual'}:{})}).filter(([,v])=>v))}`);
+        if(route()==='manual')next.manualBatches=batches;else next.batches=batches;
       }else next.overview=await api.get('/api/v1/l0/task-overview').catch(()=>({error:true}));
       if(requested){
         next.taskDetail=await api.get(`/api/v1/l0/task-batches/${encodeURIComponent(requested)}`).catch(error=>({id:requested,error}));
@@ -130,7 +134,7 @@ async function performRefresh(silent=false){
     if(serial!==refreshRequest)return;
     Object.assign(state,next);state.loginRequired=false;connected=true;activityFresh=true;
     if(!busy&&!startingBatch&&!batchReceipt)feedback.hidden=true;
-    if(batchReceipt&&next.batches?.items.some(row=>row.id===batchReceipt.id))batchReceipt.readFailed=false;
+    if(batchReceipt&&(next.manualBatches||next.batches)?.items.some(row=>row.id===batchReceipt.id))batchReceipt.readFailed=false;
     if(!state.selected||!state.sources.some(x=>x.catalog_key===state.selected))state.selected=state.sources[0]?.catalog_key??null;
     const editing=silent&&document.activeElement?.matches('#content input,#content select,#content textarea');
     if(editing){updateActivity();updateStartButtons();}else{render();if(route()==='sources'&&state.detailTab==='history'&&state.selected)await loadHistory();}
@@ -140,7 +144,7 @@ async function performRefresh(silent=false){
     if(error.status===401){state.session=null;state.loginRequired=true;render();}
     else if(!state.sources.length&&!state.session){content.innerHTML='<section class="empty panel"><h2>暂时无法读取工作台</h2><p>请检查服务连接后重试。</p><button class="secondary" data-action="refresh">重新读取</button></section>';}
     notice(error.code==='DATE_RANGE_INVALID'?'日期范围无效，请核对开始与结束日期。':explain(error),true);
-    if(batchReceipt&&route()==='tasks'){batchReceipt.readFailed=true;showBatchReceipt();}
+    if(batchReceipt&&route()==='manual'){batchReceipt.readFailed=true;showBatchReceipt();}
     return false;
   }finally{loading=false;document.querySelector('#refresh').disabled=false;}
 }

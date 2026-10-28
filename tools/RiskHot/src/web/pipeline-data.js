@@ -11,7 +11,7 @@ export default {
     },
     "overview": {
       "title": "系统功能架构总览",
-      "path": "/pipeline/documents/3c2b9c8d581cc8cc"
+      "path": "/pipeline/documents/e2c35855832c1a58"
     },
     "L0": {
       "title": "L0 信息处理层：业务架构与领域设计",
@@ -6817,14 +6817,14 @@ export default {
     ]
   },
   "inputs": {
-    "docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/原型资源/flow-data.js": "75a98200cf5b21609f556905cb3066adb8c74b6aebe57c5f866ad18edda91388",
+    "docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/原型资源/flow-data.js": "d5ba9d662a32e5e688d0e88dc4e4fc4fae990f544e22369e2bfd5f062ebf0e14",
     "docs/system-design/06产品UI原型设计/06-1-流水线全景ui设计/原型资源/system-panorama.js": "33d736f8ac956aa624fcc8593c8da17821738c1ea320f13eb8433e1c524f2a8b",
     "docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/原型资源/task-contracts.js": "64fd41db13f42bc713452e9d9d4276b242823aa549e41649342e96fd83fcf73e",
     "docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/原型资源/task-definition-references.js": "94a2ab3f8d57cde666d38b3f826b3753295b94b5202709ca7e004d5a21954d41",
     "docs/system-design/06产品UI原型设计/06-4-M3策略管理中心UI设计/原型资源/app.js": "3ab494fd4071d9c743c8a662edf891d715e13bec4cda6f276c8ba7c09a8fd1cd",
     "docs/system-design/03-系统功能架构/F02 事件管理模块功能设计 V1.0.md": "d0192e962d6ec4bccf1083e38ad92364776dc048a2160563ffceece863347345",
-    "docs/system-design/03-系统功能架构/F01 信息接入与标准化模块功能设计 V2.1.md": "2e1611612bf485d5474659337ce77a3e8c235e61944806b38065c4544ac914e1",
-    "docs/system-design/03-系统功能架构/系统功能架构总览.md": "dc83ae57f17a1067ff65c5dfea12b6464836b7b11ada54f512a6460cf21ca2b1",
+    "docs/system-design/03-系统功能架构/F01 信息接入与标准化模块功能设计 V2.1.md": "229088fb0aeba1624a8c2c15ddb5b300b617ed390240b42b3f6165bab11df664",
+    "docs/system-design/03-系统功能架构/0.系统功能架构总览.md": "6253c58ba5bd43b123ef12fdfa3e1c5139819080d58b69899393e9599909e447",
     "docs/system-design/02-业务架构与领域设计/RiskHot_L0_信息处理层_业务架构与领域设计V1.0.md": "b54e76cddaba084fae55715cfbdc239c84328d8d4abe0edbdc682bd8d79de0f0",
     "docs/system-design/02-业务架构与领域设计/RiskHot_L1_风险识别与纳管层_业务架构与领域设计.md": "86c2e1be02f0b8bbcb87269e46fc5ececdeb1f332e02a3e4694ab9f39f8afcb8",
     "docs/system-design/02-业务架构与领域设计/RiskHot_L2_风险态势分析层_业务架构与领域设计V1.0.md": "e73aade332499700af8bcfa11ed0a3cd590ef0219a29bd3586720bd35ad2473e",

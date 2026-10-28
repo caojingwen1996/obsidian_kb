@@ -83,6 +83,17 @@ test('默认执行概览一源一行，分开显示计划暂停、执行状态�
  $=load(renderExecutionOverview({overview:{items:[]}}));assert.match($('body').text(),/尚未配置独立采集计划/);
 });
 
+test('手动任务独立承载开启与进度入口，概览和普通历史不提供开启',async()=>{
+ const {workspaceRoute,taskView}=await import('../web/navigation.js');
+ assert.equal(workspaceRoute('#manual-tasks'),'manual');assert.equal(taskView('#manual-tasks'),'manual');
+ const state={sources:[],taskFilters:{from:'',to:'',q:'',status:''},batches:{items:[],metrics:{}},activity:{items:[]}};
+ for(const view of ['overview','history']){const $=load(renderTasks({...state,taskView:view},()=>true));assert.equal($('[data-action="start-batch"]').length,0);assert.equal($('#manual-activity-slot').length,0);}
+ let $=load(renderTasks({...state,taskView:'manual'},()=>true));assert.equal($('h2').text(),'手动采集任务');assert.equal($('[data-action="start-batch"]').length,1);assert.equal($('#manual-activity-slot').length,1);assert.match($('#manual-activity-slot').text(),/尚无手动采集任务/);assert.equal($('.task-views').length,0);assert.match($('.run-list h3').text(),/手动批次记录/);
+ $=load(renderTasks({...state,batches:null,taskView:'manual'},()=>true));assert.match($('[role="status"]').text(),/正在读取手动批次记录/);assert.equal($('#task-query').length,0);
+ $=load(renderTasks({...state,taskView:'manual'},()=>false));assert.equal($('[data-action="start-batch"]').length,0);
+ $=load(renderTaskDetail({taskDetail:{id:'task',status:'completed',sources:[]},taskReturnView:'manual'},()=>true));assert.equal($('[data-action="return-tasks"]').text(),'返回手动任务');
+});
+
 test('任务详情未启动及读取失败均不伪装为空结果',()=>{
  const task={id:'slot',status:'blocked',unstarted:true,sources:[{source_key:'a',name:'待启动来源',status:'blocked',children:[]}]};
  let $=load(renderTaskDetail({taskDetail:task},()=>true));assert.match($('body').text(),/尚未开始采集/);assert.equal($('.task-result-counts').length,0);
@@ -114,4 +125,14 @@ test('资料阅读在同一层区分正文、零候选与未知，保留文件�
  let $=load(renderReader(reader,()=>true));assert.match($('.reader-content').text(),/真实标题.*正文<&/s);assert.equal($('[data-reader-tab]').length,2);assert.equal($('a[download]').length,1);
  reader.mode='candidates';$=load(renderReader(reader,()=>true));assert.match($('.reader-content').text(),/未提取到事件候选/);
  reader.processing=null;$=load(renderReader(reader,()=>true));assert.match($('.reader-content').text(),/数量待确认/);assert.doesNotMatch($('.reader-content').text(),/0 条/);
+});
+
+
+test('导航已标明页面时移除重复标题说明，保留可访问名称与必要操作',()=>{
+ const base={sources:[],taskFilters:{from:'',to:'',q:'',status:''},batches:{items:[],metrics:{}},activity:{items:[]},overview:{items:[]}};
+ for(const view of ['overview','history','manual']){
+  const $=load(renderTasks({...base,taskView:view},()=>true));assert.equal($('h2.sr-only').length,1);assert.equal($('.section-heading h2').length,0);assert.doesNotMatch($('body').text(),/查看信源当前执行情况，或从批次历史追溯|手动开启全部启用信源，在此查看进度/);assert.equal($('.workspace-actions').length,view==='manual'?1:0);assert.equal($('[data-action="start-batch"]').length,view==='manual'?1:0);
+ }
+ let $=load(renderTasks({...base,taskView:'manual'},()=>false));assert.equal($('.workspace-actions').length,0);
+ $=load(renderSchedules({...base,catalogMode:'automatic',filters:{},monitor:{schedules:[]}},()=>true));assert.equal($('h2.sr-only').text(),'自动接入');assert.doesNotMatch($('body').text(),/集中管理信源的自动计划/);
 });

@@ -139,3 +139,5 @@ dialog{color:var(--ink);background:var(--paper);border:1px solid var(--line);bor
 
 .task-views{display:flex;gap:24px;border-bottom:1px solid var(--line);margin-bottom:20px}.task-views a{padding:8px 0 12px;color:var(--muted);text-decoration:none;border-bottom:2px solid transparent}.task-views a[aria-current]{font-weight:600;color:var(--green);border-bottom-color:var(--green)}.overview-query{display:flex;align-items:flex-end;gap:12px;padding:16px}.overview-query label{display:grid;gap:5px;font-size:12px;color:var(--muted)}.overview-query input{width:280px}.overview-list{margin-top:20px}.overview-table{table-layout:fixed}.overview-table th:first-child{width:22%}.overview-table th:nth-child(3){width:26%}.overview-table td{overflow-wrap:anywhere}.overview-result{margin-top:4px;font-size:13px}.overview-table td .actions{min-width:0}
 @media(max-width:720px){.overview-query{flex-wrap:wrap;padding:14px;gap:8px}.overview-query label{flex-basis:100%}.overview-query input{width:100%}.overview-table tr{padding:16px}.overview-table td+td{margin-top:6px}}
+
+.workspace-actions{display:flex;justify-content:flex-end;align-items:center;gap:12px;margin-bottom:16px}

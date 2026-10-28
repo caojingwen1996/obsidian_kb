@@ -5,7 +5,7 @@ updated: 2026-10-16
 sources:
   - docs/system-design/03-系统功能架构/M1 信源管理中心功能设计.md
   - docs/system-design/03-系统功能架构/F01 信息接入与标准化模块功能设计 V2.1.md
-  - docs/system-design/03-系统功能架构/公共运行能力功能设计.md
+  - docs/system-design/03-系统功能架构/S01 公共运行能力功能设计.md
 paired_design: docs/system-design/06产品UI原型设计/06-2-M1信源管理中心UI设计/DESIGN.md
 ---
 
@@ -15,7 +15,7 @@ paired_design: docs/system-design/06产品UI原型设计/06-2-M1信源管理中�
 
 本契约统一说明「信源管理中心」这个产品工作区如何承载 **M1 信源治理、F01 信息接入与标准化模块和 S01 公共运行**，集中维护页面结构、布局、返回上下文及跨模块交互。页面容器位于M1，不表示其中的接入与运行功能归M1业务用例维护。功能语义、字段校验和正式写入以各模块功能设计为准，反向追踪见 [[tools/RiskHot/docs/system-design/06产品UI原型设计/06-2-M1信源管理中心UI设计/reconcile-m1|页面与功能职责对照]]。
 
-依据 [[tools/RiskHot/docs/system-design/03-系统功能架构/M1 信源管理中心功能设计|M1 功能设计]]、[[tools/RiskHot/docs/system-design/03-系统功能架构/F01 信息接入与标准化模块功能设计 V2.1|F01 功能设计]]及 [[tools/RiskHot/docs/system-design/03-系统功能架构/公共运行能力功能设计|S01 功能设计]]；视觉与tokens见 [[tools/RiskHot/docs/system-design/06产品UI原型设计/06-2-M1信源管理中心UI设计/DESIGN|M1 视觉规范]]。标题与操作位置以 [[tools/RiskHot/docs/system-design/06产品UI原型设计/标题区域设计规范|标题与操作区现行规范]] 为准，覆盖旧正文/底部主操作的描述。
+依据 [[tools/RiskHot/docs/system-design/03-系统功能架构/M1 信源管理中心功能设计|M1 功能设计]]、[[tools/RiskHot/docs/system-design/03-系统功能架构/F01 信息接入与标准化模块功能设计 V2.1|F01 功能设计]]及 [[tools/RiskHot/docs/system-design/03-系统功能架构/S01 公共运行能力功能设计|S01 功能设计]]；视觉与tokens见 [[tools/RiskHot/docs/system-design/06产品UI原型设计/06-2-M1信源管理中心UI设计/DESIGN|M1 视觉规范]]。标题与操作位置以 [[tools/RiskHot/docs/system-design/06产品UI原型设计/标题区域设计规范|标题与操作区现行规范]] 为准，覆盖旧正文/底部主操作的描述。
 
 用户于 2026-10-13 明确：所有在册信源均认作已登记，统一为“信源目录”，只以启用／停用管理使用状态。本决定覆盖此前两个分区、参考转正式以及暂停／恢复的设计；身份登记不再是独立页面阶段。桌面为主从浏览，手机可完成检索、详情与启停。
 

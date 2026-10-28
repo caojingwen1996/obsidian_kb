@@ -24,6 +24,16 @@ async function setup() {
   return { ...c, app, actor, request, async close() { await app.close(); await apiDb.end(); await c.dispose(); } };
 }
 
+test('manual page history filters real manual batches before pagination and validates trigger',async()=>{
+ const c=await setup();
+ try{
+  const batch=(await c.request('POST','/api/v1/l0/task-batches',{source_keys:['wiki-source-001'],limit:1})).json();
+  await c.db.query("INSERT INTO platform.schedule_runs(source_id,scheduled_at,status) SELECT $1,now()+make_interval(secs=>n),'blocked' FROM generate_series(1,105) n",[c.parent.source_id]);
+  const result=await c.request('GET','/api/v1/l0/task-batches?trigger=manual');assert.equal(result.statusCode,200);assert.equal(result.json().total,1);assert.equal(result.json().items[0].id,batch.id);assert.equal(result.json().items[0].trigger,'manual');
+  assert.equal((await c.request('GET','/api/v1/l0/task-batches?trigger=invalid')).statusCode,400);
+ }finally{await c.close();}
+});
+
 test('schedule history exposes authorized fixed results and distinguishes queued slots from saved material',async()=>{
   const c=await setup();
   try{

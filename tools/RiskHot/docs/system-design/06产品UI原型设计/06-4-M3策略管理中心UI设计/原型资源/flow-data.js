@@ -8,7 +8,7 @@ const FLOW_SOURCES = {
   },
   "overview": {
     "title": "系统功能架构总览",
-    "path": "docs/system-design/03-系统功能架构/系统功能架构总览.md"
+    "path": "docs/system-design/03-系统功能架构/0.系统功能架构总览.md"
   },
   "L0": {
     "title": "L0 信息处理层：业务架构与领域设计",

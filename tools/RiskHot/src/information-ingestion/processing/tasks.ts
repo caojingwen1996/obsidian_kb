@@ -39,11 +39,11 @@ function dateBound(value: string | undefined, end = false): Date | null {
 
 export class TaskManagement {
   constructor(private repo: ExecutionStore) {}
-  async list(actor: string, query: { from?: string; to?: string; status?: string; q?: string; source?: string; batch?: string } = {}) {
+  async list(actor: string, query: { from?: string; to?: string; status?: string; q?: string; source?: string; batch?: string; trigger?: 'manual'|'automatic'|'direct' } = {}) {
     const result=await this.load(actor,query);
     return {...result,items:result.items.slice(0,100),limit:100};
   }
-  private async load(actor: string, query: { from?: string; to?: string; status?: string; q?: string; source?: string; batch?: string } = {}) {
+  private async load(actor: string, query: { from?: string; to?: string; status?: string; q?: string; source?: string; batch?: string; trigger?: 'manual'|'automatic'|'direct' } = {}) {
     await this.repo.authorize(actor, 'read');
     if (query.source) await this.repo.authorize(actor, 'read', query.source);
     const from = dateBound(query.from), to = dateBound(query.to, true);
@@ -96,7 +96,7 @@ export class TaskManagement {
       if(slot.error_code)result.has_error=true;
       all.push(result);
     }
-    const scoped=all.filter(row=>(!query.batch||row.id===query.batch)&&(!query.source||row.sources.some(source=>source.source_key===query.source)));
+    const scoped=all.filter(row=>(!query.trigger||row.trigger===query.trigger)&&(!query.batch||row.id===query.batch)&&(!query.source||row.sources.some(source=>source.source_key===query.source)));
     scoped.sort((a, b) => +new Date(b.scheduled_at) - +new Date(a.scheduled_at) || b.id.localeCompare(a.id));
     const ongoing = (row: Batch) => ['queued','pending','running','paused'].includes(row.status) || row.sources.some(source => ['queued','pending','running','paused'].includes(source.status));
     const selected = scoped.filter(row => (!query.status || (query.status === 'active' ? grouped.has(row.id) && ongoing(row) : query.status === 'attention' ? row.has_error : row.status === query.status)) && (!query.q || row.id.toLowerCase().includes(query.q.toLowerCase())));

@@ -38,9 +38,11 @@ export function renderExecutionOverview(state){
 }
 export function renderTasks(state,can){
   const data=state.batches||{items:[],metrics:{}},metrics=data.metrics||{},query=state.taskFilters;
+  const manual=state.taskView==='manual';
   const choices=[['','全部','total'],['running','运行中','running'],['attention','需处理','attention'],['queued','待执行','queued']];
-  const header=`<div class="section-heading"><div><h2>信息采集任务</h2><p>查看信源当前执行情况，或从批次历史追溯逐份资料的采集结果。</p></div>${can('submit')?'<div class="launch-actions"><span class="muted">全部已启用信源</span><button class="primary" data-action="start-batch">开启任务</button></div>':''}</div><nav class="task-views" aria-label="任务视图"><a href="#intake-tasks" ${state.taskView!=='history'?'aria-current="page"':''}>执行概览</a><a href="#intake-tasks?view=history" ${state.taskView==='history'?'aria-current="page"':''}>批次记录</a></nav>`;
-  if(state.taskView!=='history')return `<section class="run-workspace">${header}${renderExecutionOverview(state)}</section>`;
+  const header=`<h2 class="sr-only">${manual?'手动采集任务':'信息采集任务'}</h2>${manual&&can('submit')?'<div class="workspace-actions"><div class="launch-actions"><span class="muted">全部已启用信源</span><button class="primary" data-action="start-batch">开启任务</button></div></div>':''}${manual?`<div id="manual-activity-slot">${!state.activity?'<p class="loading" role="status">正在读取手动任务状态…</p>':!state.activity.items?.length&&!state.activity.latest_batch?'<p class="empty panel">尚无手动采集任务。开启后可在此查看进度。</p>':''}</div>`:`<nav class="task-views" aria-label="任务视图"><a href="#intake-tasks" ${state.taskView!=='history'?'aria-current="page"':''}>执行概览</a><a href="#intake-tasks?view=history" ${state.taskView==='history'?'aria-current="page"':''}>批次记录</a></nav>`}`;
+  if(manual&&!state.batches)return `<section class="run-workspace">${header}<p class="loading panel" role="status">正在读取手动批次记录…</p></section>`;
+  if(!manual&&state.taskView!=='history')return `<section class="run-workspace">${header}${renderExecutionOverview(state)}</section>`;
   return `<section class="run-workspace">${header}
     <section class="panel run-tools"><div class="run-summary" aria-label="日期范围内任务概览">${choices.map(([status,label,key])=>`<button data-task-status="${status}" aria-pressed="${query.status===status}"><span>${label}</span><strong>${metrics[key]??'—'}</strong></button>`).join('')}</div>
       <form id="task-query" class="task-query run-query">
@@ -51,14 +53,14 @@ export function renderTasks(state,can){
         <label>状态<select id="task-status" name="status">${[['','全部状态'],['attention','需处理'],['running','运行中'],['queued','待执行'],['paused','已暂停'],['completed','已完成'],['partial','部分完成'],['recoverable','待恢复'],['review','待复核'],['waiting_config','待配置']].map(([key,name])=>`<option value="${key}" ${query.status===key?'selected':''}>${name}</option>`).join('')}</select></label>
         <button class="secondary">查询</button><button class="quiet" type="button" data-action="clear-tasks">重置</button>
       </form></section>
-    <section class="panel run-list"><div class="table-heading"><h3 tabindex="-1">任务批次记录 <span class="muted">${data.total??data.items.length}</span></h3><span class="muted">上海时间 · 最新在前${metrics.paused?` · 已暂停 ${metrics.paused}`:''}</span></div>
+    <section class="panel run-list"><div class="table-heading"><h3 tabindex="-1">${manual?'手动批次记录':'任务批次记录'} <span class="muted">${data.total??data.items.length}</span></h3><span class="muted">上海时间 · 最新在前${metrics.paused?` · 已暂停 ${metrics.paused}`:''}</span></div>
       ${data.items.length?`<div class="table-wrap"><table class="task-table run-table"><thead><tr><th>计划时间</th><th>批次范围</th><th>状态</th><th>保存结果</th><th>操作</th></tr></thead><tbody>${data.items.map(task=>taskRow(task,state,can)).join('')}</tbody></table></div>`:'<div class="empty"><h3>没有符合条件的任务批次记录</h3><p>调整日期或筛选条件，也可以开启一次任务。</p><button class="secondary" data-action="clear-tasks">重置筛选</button></div>'}
       ${data.limit&&data.total>data.limit?`<p class="list-note">显示最近 ${data.limit} 条，请缩小日期范围查看更多记录。</p>`:''}
     </section><details class="cumulative-results panel" ${state.cumulativeOpen?'open':''}><summary>累计处理结果 <span class="muted">全部可见信源 · 展开查看七项统计</span></summary>${renderTaskResults(state.results)}</details><p class="workspace-footnote">概览按${query.from?'所选日期':'全部日期'}及信源范围统计。开启任务将运行全部已启用信源。</p></section>`;
 }
 export function renderTaskDetail(state,can){
   const task=state.taskDetail;
-  const back=`<button class="quiet" data-action="return-tasks">${state.taskReturnView==='overview'?'返回执行概览':'返回任务批次记录'}</button>`;
+  const back=`<button class="quiet" data-action="return-tasks">${state.taskReturnView==='manual'?'返回手动任务':state.taskReturnView==='overview'?'返回执行概览':'返回任务批次记录'}</button>`;
   if(!task)return `<section class="run-workspace">${back}<h2 id="batch-detail-title" tabindex="-1">任务批次详情</h2><p class="loading" role="status">正在读取批次与实际采集记录…</p></section>`;
   if(task.error)return `<section class="run-workspace">${back}<h2 id="batch-detail-title" tabindex="-1">任务批次详情</h2><p class="feedback feedback-error" role="alert">${e(explain(task.error))}</p><button class="secondary" data-action="refresh">重新读取批次</button></section>`;
   const sources=task.sources||[],needsAttention=row=>['partial','failed','blocked','review','recoverable','waiting_config'].includes(row.status)||Boolean(row.reason_code);
@@ -84,7 +86,7 @@ export function renderSchedules(state,can){
   const configured=state.sources.filter(source=>plans.has(source.catalog_key)),unconfigured=state.sources.filter(source=>!plans.has(source.catalog_key));
   const keyword=String(state.filters?.q||'').toLowerCase();
   const rows=(filters.view==='unconfigured'?unconfigured:filters.view==='configured'?configured:state.sources).filter(source=>[source.name,source.catalog_key,profileOf(source).publisher].join(' ').toLowerCase().includes(keyword));
-  return `${renderCatalogToolbar(state)}<section class="plan-workspace"><div class="section-heading"><div><h2>自动接入</h2><p>集中管理信源的自动计划；运行与结果在信息采集任务中查看。</p></div></div>
+  return `${renderCatalogToolbar(state)}<section class="plan-workspace"><h2 class="sr-only">自动接入</h2>
     <section class="panel plan-list"><div class="plan-toolbar"><div class="plan-views" aria-label="计划范围">${[['all','全部',state.sources.length],['configured','已配置',configured.length],['unconfigured','未配置',unconfigured.length]].map(([id,label,count])=>`<button data-plan-view="${id}" aria-pressed="${filters.view===id}">${label} <span>${count}</span></button>`).join('')}</div><span class="muted">当前匹配 ${rows.length} 个信源</span></div>
     ${rows.length?`<div class="table-wrap"><table class="task-table plan-table"><thead><tr><th>信源</th><th>计划状态</th><th>执行周期 / 下次触发</th><th>最近运行</th><th>管理</th></tr></thead><tbody>${rows.map(source=>{
       const plan=plans.get(source.catalog_key);

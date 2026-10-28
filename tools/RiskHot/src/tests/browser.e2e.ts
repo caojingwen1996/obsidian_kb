@@ -49,7 +49,7 @@ try {
   };
   await page.goto(`${origin}/m1`); await page.getByRole('heading', { name: '登录后查看信源与接入任务' }).waitFor(); check('unauthenticated shell');
   await login(sessions.operator); await page.reload(); await settle();
-  assert.equal(await page.locator('.workspaces a').count(),2);
+  assert.equal(await page.locator('.workspaces a').count(),3);
   assert.deepEqual(await page.locator('.sidebar .nav-label').allTextContents(),['内容','配置']);
   assert.deepEqual(await page.locator('.sidebar nav a').allTextContents(),['全部','信源管理中心','流水线全景']);
   assert.equal(await page.locator('.sidebar button,.sidebar [aria-expanded]').count(),0);check('shared sidebar has two non-collapsible groups and only implemented entries');
@@ -76,7 +76,7 @@ try {
   await page.getByRole('button', { name: '停用信源', exact: true }).waitFor();
   assert.equal(await page.locator('.detail-actions [data-action="start-batch"]').count(),0);check('single-source detail excludes global launch');
   await page.reload(); await settle(); await page.getByRole('button', { name: '停用信源', exact: true }).waitFor(); check('profile survives reload');
-  await page.getByRole('link', { name: '信息采集任务', exact: true }).click();await page.getByRole('link',{name:'批次记录',exact:true}).click();await settle();
+  await page.getByRole('link', { name: '手动任务', exact: true }).click();await settle();
   const enabledKeys = (await c.db.query("SELECT catalog_key FROM m1.sources WHERE state='ACTIVE' ORDER BY catalog_key")).rows.map(row => row.catalog_key);
   await page.locator('[data-action="start-batch"]').waitFor();
   let releaseSources!: () => void, releaseAcceptance!: () => void;
@@ -157,7 +157,7 @@ try {
     await page.screenshot({path:join(output,`activity-running-${width}.png`)});
   }
   await page.setViewportSize({width:1440,height:1050});
-  await page.getByRole('button',{name:'返回任务批次记录',exact:true}).click();await page.locator('.run-list').waitFor();
+  await page.getByRole('button',{name:'返回手动任务',exact:true}).click();await page.locator('.run-list').waitFor();
   await page.reload();await settle();
   assert.equal(await page.locator('[data-action="start-batch"]').isDisabled(),true);
   await page.locator('#task-search').fill('not-a-current-task');await page.locator('#task-query').getByRole('button',{name:'查询',exact:true}).click();
@@ -166,14 +166,14 @@ try {
   await page.locator('#task-activity').getByRole('button',{name:'查看进度',exact:true}).click();await page.locator('#batch-detail-title').waitFor();
   assert.equal((await c.db.query('SELECT count(*)::int n FROM platform.task_batches')).rows[0].n,1);
   check('live progress locks launch across reload and filters, uses real counts, and respects reduced motion at three widths');
-  await page.getByRole('link',{name:'信源目录',exact:true}).click();await page.locator('#result-count').waitFor();
+  await page.getByRole('link',{name:'信源目录',exact:true}).click();await page.locator('#result-count').waitFor();assert.equal(await page.locator('#task-activity').count(),0);assert.equal(await page.locator('[data-action="start-batch"]').count(),0);await page.getByRole('link',{name:'手动任务',exact:true}).click();await page.locator('#activity-title').waitFor();
   await page.locator('#task-activity').getByRole('button',{name:'暂停任务',exact:true}).click();
   await page.locator('#modal').getByRole('button',{name:'暂停任务',exact:true}).click();await page.locator('#modal').waitFor({state:'hidden'});
   await page.locator('#task-activity').getByRole('button',{name:'继续任务',exact:true}).click();
   await page.locator('#modal').getByRole('button',{name:'继续任务',exact:true}).click();await page.locator('#modal').waitFor({state:'hidden'});
   await page.locator('#task-activity').getByRole('button',{name:'暂停任务',exact:true}).waitFor();
-  check('activity controls use current versions when pausing and resuming from the source workspace');
-  await page.getByRole('link',{name:'信息采集任务',exact:true}).click();await page.getByRole('link',{name:'批次记录',exact:true}).click();await page.locator('#task-query').getByRole('button',{name:'重置',exact:true}).click();await page.locator('.task-table tbody tr').first().waitFor();
+  check('manual page owns progress and controls, source workspace contains neither banner nor launch');
+  await page.getByRole('link',{name:'手动任务',exact:true}).click();await page.locator('#task-query').getByRole('button',{name:'重置',exact:true}).click();await page.locator('.task-table tbody tr').first().waitFor();
   await page.locator('[data-task-status="attention"]').click();await page.locator('#task-status').filter({has:page.locator('option:checked[value="attention"]')}).waitFor();
   await page.locator('[data-task-status=""]').click();await page.locator('#task-status').filter({has:page.locator('option:checked[value=""]')}).waitFor();check('compact overview filters rows without changing the selected date range');
   await page.locator('.task-table tbody tr').first().getByRole('button', { name: '暂停任务', exact: true }).click();
@@ -200,7 +200,7 @@ try {
   await page.locator('#search').fill('中国人民银行'); await page.locator('#source-search').getByRole('button', { name: '搜索', exact: true }).click();
   await page.locator('#source-list [data-source="wiki-source-001"]').click();
   await c.db.query("UPDATE m1.sources SET state='DISABLED' WHERE catalog_key='wiki-source-002'");
-  await page.getByRole('link',{name:'信息采集任务',exact:true}).click();await page.getByRole('link',{name:'批次记录',exact:true}).click();await page.locator('[data-action="start-batch"]').click();
+  await page.getByRole('link',{name:'手动任务',exact:true}).click();await page.locator('[data-action="start-batch"]').click();
   await page.locator('#feedback').filter({hasText:'未收到操作回执'}).waitFor();
   assert.equal(await page.locator('#modal').isVisible(), false);
   await page.locator('[data-action="start-batch"]').click();
@@ -237,7 +237,7 @@ try {
   assert.equal(await page.locator('#batch-detail').getAttribute('data-batch-id'),thirdBatch);
   assert.equal((await c.db.query('SELECT count(*)::int n FROM platform.task_batches')).rows[0].n,3);
   check('accepted launch survives a failed status read and opens its exact batch without resubmitting');
-  await page.getByRole('button',{name:'返回任务批次记录',exact:true}).click();await page.locator('.run-list').waitFor();
+  await page.getByRole('button',{name:'返回手动任务',exact:true}).click();await page.locator('.run-list').waitFor();
   await finishManualRuns();
   const external=await page.request.post(`${origin}/api/v1/l0/task-batches`,{headers:{origin,'idempotency-key':randomUUID()},data:{source_keys:['wiki-source-001'],limit:1}});
   assert.equal(external.status(),202);
@@ -250,7 +250,7 @@ try {
   const sibling=await context.newPage();
   sibling.on('pageerror',(error:Error)=>errors.push(error.message));
   try{
-    await sibling.goto(`${origin}/m1#intake-tasks`);await sibling.locator('#connection-state').filter({hasText:'已连接'}).waitFor();
+    await sibling.goto(`${origin}/m1#manual-tasks`);await sibling.locator('#connection-state').filter({hasText:'已连接'}).waitFor();
     await Promise.all([page.locator('[data-action="start-batch"]').click(),sibling.locator('[data-action="start-batch"]').click()]);
     await page.locator('#activity-title').filter({hasText:'等待执行'}).waitFor();
     await sibling.locator('#activity-title').filter({hasText:'等待执行'}).waitFor();
@@ -327,14 +327,14 @@ try {
     await page.screenshot({ path: join(output, `sources-${width}.png`) }); check(`responsive sources ${width}`);
     if(width===390){await page.locator('#source-list .source-row').first().click();await page.getByRole('button',{name:'关闭信源详情'}).waitFor();await page.screenshot({path:join(output,'detail-390.png')});await page.getByRole('button',{name:'关闭信源详情'}).click();check('mobile detail drawer and return focus');}
     if(width===320){await page.getByRole('button',{name:'新增信源',exact:true}).click();await page.locator('#modal [name="name"]').fill('未保存的受控草稿');await page.screenshot({path:join(output,'form-320.png')});await page.keyboard.press('Escape');await page.getByRole('button',{name:'继续编辑',exact:true}).click();assert.equal(await page.locator('#modal [name="name"]').inputValue(),'未保存的受控草稿');await page.locator('#modal').getByRole('button',{name:'取消',exact:true}).click();await page.getByRole('button',{name:'放弃修改并关闭'}).click();check('mobile form and unsaved keyboard confirmation');}
-    await page.getByRole('link', { name: '信息采集任务', exact: true }).click();await page.getByRole('link',{name:'批次记录',exact:true}).click(); await page.locator('.task-table tbody tr').first().waitFor();
+    await page.getByRole('link', { name: '手动任务', exact: true }).click(); await page.locator('.task-table tbody tr').first().waitFor();
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), `task overflow at ${width}`);
     await page.screenshot({ path: join(output, `tasks-${width}.png`) }); check(`responsive tasks ${width}`);
     await page.goto(`${origin}/m1#schedules`);await settle();await scheduleButton.waitFor();
     assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),`plan overflow at ${width}`);
     await page.screenshot({path:join(output,`plans-${width}.png`)});check(`responsive plans ${width}`);
   }
-  await page.getByRole('link',{name:'信息采集任务',exact:true}).click();await page.getByRole('link',{name:'批次记录',exact:true}).click();await page.locator('[data-action="start-batch"]').waitFor();
+  await page.getByRole('link',{name:'手动任务',exact:true}).click();await page.locator('[data-action="start-batch"]').waitFor();
   await login(sessions.reader); await page.reload(); await settle();
   assert.equal(await page.getByRole('button', { name: '开启任务', exact: true }).count(), 0); check('read-only actor sees no write controls');
   await login(sessions.operator); await page.setViewportSize({ width: 1440, height: 1050 }); await page.goto(`${origin}/m1#sources`); await settle();
@@ -353,7 +353,7 @@ try {
   await page.getByRole('button', { name: '新增信源', exact: true }).click(); await page.locator('#modal [name="name"]').fill('免登录浏览器来源');
   await page.locator('#modal').getByRole('button', { name: '保存资料', exact: true }).click(); await page.getByRole('heading', { name: '新增信源', exact: true }).waitFor({ state: 'hidden' });
   await page.reload(); await settle(); assert.equal((await c.db.query("SELECT count(*)::int n FROM m1.sources WHERE name='免登录浏览器来源'")).rows[0].n, 1); check('local source write persists across reload without login');
-  await page.getByRole('link', { name: '信息采集任务', exact: true }).click();await page.getByRole('link',{name:'批次记录',exact:true}).click(); await page.locator('[data-action="start-batch"]').waitFor(); check('local task controls remain available');
+  await page.getByRole('link', { name: '手动任务', exact: true }).click(); await page.locator('[data-action="start-batch"]').waitFor(); check('local task controls remain available');
   await c.db.query("UPDATE m1.sources SET state='DISABLED'"); await page.reload(); await settle();
   assert.equal(await page.locator('[data-action="start-batch"]').isDisabled(), true); check('no enabled sources disables direct launch without creating an empty batch');
   assert.deepEqual(errors, []);
