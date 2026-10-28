@@ -18,7 +18,7 @@ interface Intent { id: string; kind: 'discovery' | 'material' | 'extract' | 'eve
 try {
   while (!stopping) {
     try {
-      await repo.deliverPending(); if((await db.query('SELECT 1 FROM platform.schema_versions WHERE version=3')).rowCount){await reconcileEventFiles(repo);await new EventDelivery(repo).reconcile();if(Date.now()-lastEventReconcile>60000){lastEventReconcile=Date.now();await reconcileEventExecutions(repo,async workflowId=>{try{return (await client.workflow.getHandle(workflowId).describe()).status.name==='RUNNING'?'running':'closed';}catch(error){return error instanceof Error&&error.name==='WorkflowNotFoundError'?'missing':'unknown';}});}}
+      await repo.deliverPending(); if((await db.query('SELECT 1 FROM platform.schema_versions WHERE version=4')).rowCount){await reconcileEventFiles(repo);await new EventDelivery(repo).reconcile();if(Date.now()-lastEventReconcile>60000){lastEventReconcile=Date.now();await reconcileEventExecutions(repo,async workflowId=>{try{return (await client.workflow.getHandle(workflowId).describe()).status.name==='RUNNING'?'running':'closed';}catch(error){return error instanceof Error&&error.name==='WorkflowNotFoundError'?'missing':'unknown';}});}}
       const intents = await transaction(db, async tx => {
         const rows = (await tx.query<Intent>("SELECT * FROM platform.execution_intents WHERE state IN ('pending','leased') AND attempts<10 AND next_attempt_at<=now() AND (lease_until IS NULL OR lease_until<=now()) ORDER BY next_attempt_at,id FOR UPDATE SKIP LOCKED LIMIT 20")).rows;
         for (const row of rows) {

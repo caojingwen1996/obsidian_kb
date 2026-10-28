@@ -1,0 +1,157 @@
+{
+  "schema": 4,
+  "tests": {
+    "unit_integration": 194,
+    "passed": 194,
+    "browser_checks": 24,
+    "typecheck": "passed"
+  },
+  "migration": {
+    "verified": true,
+    "backup": "/Users/cjw/dev/Obsidian/wiki/tools/RiskHot/.riskhot/backups/before-fact-cutover-20261027.dump",
+    "before": {
+      "materials": "111",
+      "candidates": "1026",
+      "events": [
+        "153a896a-2a29-4904-bb2b-cd31371a8ee4"
+      ]
+    },
+    "after": {
+      "materials": "111",
+      "candidate_links": "1026",
+      "facts": "1026",
+      "events": [
+        "153a896a-2a29-4904-bb2b-cd31371a8ee4"
+      ]
+    },
+    "deliveries": [
+      {
+        "message_id": "b71af1da-69d7-477e-a1d9-6da2ef68525f",
+        "application_status": "applied",
+        "applied_message_id": "b71af1da-69d7-477e-a1d9-6da2ef68525f",
+        "predecessor_message_id": null
+      }
+    ],
+    "isolated_database_removed": true,
+    "artifacts": "/Users/cjw/dev/Obsidian/wiki/tools/RiskHot/.riskhot/fact-migration-validation/artifacts"
+  },
+  "runtime_snapshot": {
+    "verified": true,
+    "checked_at": "2026-10-27T08:55:48.704Z",
+    "schema": 4,
+    "counts": {
+      "information": "114",
+      "information_versions": "114",
+      "candidates": "1028",
+      "candidate_links": "1028",
+      "facts": "1028",
+      "events": "1",
+      "event_facts": "1"
+    },
+    "events": [
+      {
+        "event_id": "153a896a-2a29-4904-bb2b-cd31371a8ee4",
+        "message_id": "97b3bf56-47fd-4421-860b-acd3fd275a43",
+        "title": "中国人民银行开展560亿元7天期逆回购操作",
+        "kind": "approved_event_migration",
+        "fact_ids": [
+          "14b34d66-cd3b-4832-aae0-ace2b5da1dd2"
+        ],
+        "applications": [
+          {
+            "consumer": "event-audit",
+            "application_status": "applied",
+            "applied_message_id": "97b3bf56-47fd-4421-860b-acd3fd275a43",
+            "predecessor_message_id": null
+          }
+        ],
+        "files": [
+          {
+            "path": "/Users/cjw/dev/Obsidian/wiki/tools/RiskHot/.riskhot/artifacts/handoffs/f02-events/97b3bf56-47fd-4421-860b-acd3fd275a43/event.json",
+            "sha256": "b8036a3ab67e617aa8c00eaf53758a47be2e2d8810c4e2ee651df750250927bc",
+            "size": 6464
+          },
+          {
+            "path": "/Users/cjw/dev/Obsidian/wiki/tools/RiskHot/.riskhot/artifacts/handoffs/f02-events/97b3bf56-47fd-4421-860b-acd3fd275a43/message.json",
+            "sha256": "0d04480f87fe7660aa3b44fb74558fa08be1d4fbc46ea1cbacfcbb994b9b6280",
+            "size": 7091
+          },
+          {
+            "path": "/Users/cjw/dev/Obsidian/wiki/tools/RiskHot/.riskhot/artifacts/handoffs/f02-events/97b3bf56-47fd-4421-860b-acd3fd275a43/receipts/event-audit.json",
+            "sha256": "00e1c4756f3c8b29bdcae4eb781235b65ae20d169c53264d165f70842205a4c7",
+            "size": 557
+          }
+        ]
+      }
+    ],
+    "pending_reviews": [
+      {
+        "id": "135c3467-7dff-4f4e-9371-827f63670e2a",
+        "status": "review",
+        "resume_step": 2,
+        "reason_code": "MODEL_CHANGED_REVIEW_REQUIRED"
+      }
+    ],
+    "note": "Existing approved real data migration and actual downstream file reads; this does not claim a new model run or new business approval."
+  },
+  "new_scheduled_source": {
+    "checked_at": "2026-10-27T08:56:18.181Z",
+    "operation_id": "a6218173-9772-45a1-ae74-8cde9e514f46",
+    "verified": true,
+    "items": [
+      {
+        "version_id": "ae4c4c7f-887b-47da-8684-6d391dce0175",
+        "information_id": "0c13262f-c058-4ea9-bcba-72477cab8fa0",
+        "delivery_id": "e7308d29-362a-49ba-a8d6-0973eac618a6",
+        "processing_id": "fc6f2163-61d3-4eeb-87b2-0cb11735264e",
+        "candidate_count": 2,
+        "result_status": "pending",
+        "accepted_attempt_ids": [
+          "0523955a-4af1-40d9-9aeb-ffa0bf2450be"
+        ],
+        "title": "披露易最新上市公司公告日期化原始列表（5条）；stock[].sc/sn为证券代码/名称，webPath为官方PDF链接。不是PDF正文，完整title有时按首页截短；保留原字段。",
+        "url": "https://www.hkexnews.hk/ncms/script/eds/homecat0_c.json",
+        "files": [
+          {
+            "name": "information",
+            "path": "/Users/cjw/dev/Obsidian/wiki/tools/RiskHot/.riskhot/artifacts/handoffs/f01-f02/e7308d29-362a-49ba-a8d6-0973eac618a6/information.json",
+            "sha256": "6e0ecb63284da6d5df46d27699d0d610394d7e3c85a7cd28f30882fee68c229a",
+            "size": 5123
+          },
+          {
+            "name": "receipt",
+            "path": "/Users/cjw/dev/Obsidian/wiki/tools/RiskHot/.riskhot/artifacts/handoffs/f01-f02/e7308d29-362a-49ba-a8d6-0973eac618a6/receipt.json",
+            "sha256": "6054b1e9741111407df3b6dcd2097191a86a9389dd12713c09c8b27281cd53bc",
+            "size": 591
+          },
+          {
+            "name": "candidates",
+            "path": "/Users/cjw/dev/Obsidian/wiki/tools/RiskHot/.riskhot/artifacts/handoffs/f01-f02/e7308d29-362a-49ba-a8d6-0973eac618a6/analyses/fc6f2163-61d3-4eeb-87b2-0cb11735264e/candidates.json",
+            "sha256": "02bc55cbf6139ef3ed798f3c3f7e6cc00f2fa1f392db13fc9dae02a1c24eca74",
+            "size": 4725
+          }
+        ],
+        "input_handoff": {
+          "detail": {
+            "generation": 1,
+            "delivery_id": "e7308d29-362a-49ba-a8d6-0973eac618a6",
+            "payload_sha256": "6e0ecb63284da6d5df46d27699d0d610394d7e3c85a7cd28f30882fee68c229a",
+            "payload_artifact_id": "d8295145-4ac3-41f9-9b56-6db777141265"
+          },
+          "created_at": "2026-10-27T08:51:47.513Z"
+        }
+      }
+    ]
+  },
+  "new_fact_ids": [
+    "df402736-c5c5-4d87-b8fa-09beaea5eb29",
+    "20a07017-3f70-4ab0-82f0-c67ed58d263d"
+  ],
+  "new_candidate_schema": "riskhot.candidate-result.v2",
+  "real_ui": {
+    "processing_id": "aa53bbcf-01d1-453b-a281-1fca1076c79f",
+    "result_status": "partial",
+    "candidate_count": 2,
+    "errors": []
+  }
+}

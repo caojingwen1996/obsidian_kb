@@ -1,0 +1,62 @@
+{
+  "07e6fc21275cde9b": {
+    "path": "docs/system-design/03-系统功能架构/F02 事件管理模块功能设计 V1.0.md",
+    "title": "F02 事件管理模块功能设计 V1.0",
+    "sha256": "d0192e962d6ec4bccf1083e38ad92364776dc048a2160563ffceece863347345"
+  },
+  "720ad5839c03667f": {
+    "path": "docs/system-design/03-系统功能架构/F01 信息接入与标准化模块功能设计 V2.1.md",
+    "title": "F01 信息接入与标准化模块功能设计 V2.1",
+    "sha256": "2e1611612bf485d5474659337ce77a3e8c235e61944806b38065c4544ac914e1"
+  },
+  "3c2b9c8d581cc8cc": {
+    "path": "docs/system-design/03-系统功能架构/系统功能架构总览.md",
+    "title": "系统功能架构总览",
+    "sha256": "dc83ae57f17a1067ff65c5dfea12b6464836b7b11ada54f512a6460cf21ca2b1"
+  },
+  "52b24e98f4f75cd5": {
+    "path": "docs/system-design/02-业务架构与领域设计/RiskHot_L0_信息处理层_业务架构与领域设计V1.0.md",
+    "title": "L0 信息处理层：业务架构与领域设计",
+    "sha256": "b54e76cddaba084fae55715cfbdc239c84328d8d4abe0edbdc682bd8d79de0f0"
+  },
+  "8297876e5eb7dbb1": {
+    "path": "docs/system-design/02-业务架构与领域设计/RiskHot_L1_风险识别与纳管层_业务架构与领域设计.md",
+    "title": "L1 风险识别与纳管层：业务架构与领域设计",
+    "sha256": "86c2e1be02f0b8bbcb87269e46fc5ececdeb1f332e02a3e4694ab9f39f8afcb8"
+  },
+  "15a8c6c69ef52795": {
+    "path": "docs/system-design/02-业务架构与领域设计/RiskHot_L2_风险态势分析层_业务架构与领域设计V1.0.md",
+    "title": "L2 风险态势分析层：业务架构与领域设计",
+    "sha256": "e73aade332499700af8bcfa11ed0a3cd590ef0219a29bd3586720bd35ad2473e"
+  },
+  "d72c19a34b63c75d": {
+    "path": "docs/system-design/02-业务架构与领域设计/RiskHot_L3_风险产品与发布层_业务架构与领域设计 V1.0.md",
+    "title": "L3 风险产品与发布层：业务架构与领域设计",
+    "sha256": "ca9051bb5d2a50ed1924f8f8a5f1b2839f1929b71bb9fb2b2731381b0464bc24"
+  },
+  "13f442b6c5629a56": {
+    "path": "docs/system-design/03-系统功能架构/AI任务与提示词/AI-01 候选事件提取提示词 V0.1.md",
+    "title": "AI-01 候选事件提取提示词",
+    "sha256": "1a689ea9102637ede459cbc5ea9369787918555ce73b00c3dc14efa99c92b232"
+  },
+  "4bd5c2387362d676": {
+    "path": "docs/system-design/03-系统功能架构/AI任务与提示词/AI-02 事件匹配与归组提示词 V0.1.md",
+    "title": "AI-02 事件匹配与归组提示词",
+    "sha256": "22a9398a2c71fa24bbf96aae1a89b382cb27ad6dd2b274407463d3bee7919c38"
+  },
+  "0987d7ad6c4dd80f": {
+    "path": "docs/system-design/03-系统功能架构/AI任务与提示词/AI-03 观测主体与变量识别提示词 V0.1.md",
+    "title": "AI-03 观测主体与变量识别提示词",
+    "sha256": "15ba8970767ca6b96b3614adeaeeaf3f7f0189f816800ac6efe0a45ed659ee39"
+  },
+  "f8bd5d2909d2f928": {
+    "path": "docs/system-design/03-系统功能架构/AI任务与提示词/AI-04 增量判定提示词 V0.1.md",
+    "title": "AI-04 增量判定提示词",
+    "sha256": "8efb1dbb4b91b4e4ff196c44b093b8cff1f92042c6d5842b30bbdcd54a4298fe"
+  },
+  "c039c8082cde0253": {
+    "path": "docs/system-design/03-系统功能架构/AI任务与提示词/AI-05 金融意义评级提示词 V0.1.md",
+    "title": "AI-05 金融意义评级提示词",
+    "sha256": "98e299cda7ea11b5148ffcecfeed995393d9f60e6a605a2a5a50913a96a6c453"
+  }
+}

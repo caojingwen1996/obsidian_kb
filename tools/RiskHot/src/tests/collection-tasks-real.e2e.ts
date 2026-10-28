@@ -1,0 +1,30 @@
+import assert from 'node:assert/strict';
+import {mkdtemp,mkdir,rm,writeFile} from 'node:fs/promises';
+import {tmpdir} from 'node:os';import {join,resolve} from 'node:path';
+const executable=process.env.SOURCE_BROWSER_EXECUTABLE??'';
+if(!/Chrome for Testing|Chromium/.test(executable)||/\/Google Chrome\.app\//.test(executable))throw new Error('Independent testing browser required');
+const {chromium}=await import(process.env.PLAYWRIGHT_MODULE!);
+const profile=await mkdtemp(join(tmpdir(),'riskhot-collection-tasks-')),output=resolve('.riskhot/collection-tasks');await mkdir(output,{recursive:true});
+const origin=process.env.API_ORIGIN!;const errors:string[]=[],checks:string[]=[];let browser:any;
+try{
+ browser=await chromium.launchPersistentContext(profile,{executablePath:executable,headless:true,viewport:{width:1440,height:1000}});
+ const page=await browser.newPage();page.on('pageerror',(error:Error)=>errors.push(error.message));
+ const activity=await page.request.get(origin+'/api/v1/l0/task-batches?status=active');assert.equal(activity.status(),200);const task=(await activity.json()).latest_batch;assert.ok(task&&task.sources.length>1,'Requires an existing real multi-source task');
+ const response=await page.request.get(origin+`/api/v1/l0/task-batches/${task.id}`);assert.equal(response.status(),200);const actual=await response.json();assert.equal(actual.sources.length,task.sources.length);
+ const records=actual.sources.flatMap((source:any)=>source.children||[]);assert.ok(records.length>0,'Requires existing material collection records');
+ const notes=actual.sources.filter((source:any)=>!source.children?.length||source.reason_code);
+ const sourceOperation=actual.sources.find((source:any)=>source.operation_id)?.operation_id;assert.ok(sourceOperation);
+ await page.goto(origin+'/m1#intake-tasks?view=history');await page.getByRole('heading',{name:'信息采集任务',exact:true}).waitFor();
+ await page.locator('#task-from').fill('');await page.locator('#task-to').fill('');await page.locator('#task-search').fill(task.id);await page.locator('#task-query').getByRole('button',{name:'查询',exact:true}).click();
+ await page.locator(`[data-batch-detail="${task.id}"]`).waitFor();assert.equal(await page.locator('.run-table tbody tr').count(),1);assert.equal(await page.locator('.run-table [data-operation]').count(),0);assert.match(await page.locator('.run-list h3').textContent(),/任务批次记录/);checks.push('真实多信源整轮任务在列表仅一行，标题为信息采集任务');
+ await page.screenshot({path:join(output,'list-1440.png')});
+ await page.locator(`[data-batch-detail="${task.id}"]`).click();await page.locator('#batch-detail .task-result-counts').waitFor();
+ assert.equal(new URL(page.url()).hash,`#intake-task=${task.id}`);assert.equal(await page.locator('[data-collection-record]').count(),records.length);assert.equal(await page.locator('[data-task-source]').count(),notes.length);assert.match(await page.locator('#task-sources-title').textContent(),/任务实际采集记录/);assert.deepEqual((await page.locator('[data-collection-record]').evaluateAll((nodes:Element[])=>nodes.map(node=>node.getAttribute('data-collection-record')))).sort(),records.map((row:any)=>row.id).sort());checks.push('批次详情一行一份实际资料，记录身份与持久化数据一致，七项统计保留');
+ const first=page.locator('.collection-record-progress').first();await first.locator('summary').click();await page.locator('#refresh').click();await page.waitForFunction(()=>!(document.querySelector('#refresh') as HTMLButtonElement).disabled);assert.equal(await first.getAttribute('open'),'');checks.push('刷新保留资料处理进度展开');
+ await page.getByRole('button',{name:'仅看需处理',exact:true}).click();const attention=records.filter((row:any)=>['partial','failed','blocked','review','recoverable','waiting_config'].includes(row.status)||row.reason_code).length;assert.equal(await page.locator('[data-collection-record]').count(),attention);await page.getByRole('button',{name:'显示全部记录',exact:true}).click();checks.push('需处理按资料自身状态筛选，其他成功资料不混入');
+ for(const width of [1440,390,320]){await page.locator('#task-sources-title').scrollIntoViewIfNeeded();await page.setViewportSize({width,height:1000});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await page.screenshot({path:join(output,`detail-${width}.png`)});}
+ await page.setViewportSize({width:1440,height:1000});await page.getByRole('button',{name:'返回任务批次记录',exact:true}).click();await page.locator(`[data-batch-detail="${task.id}"]`).waitFor();assert.equal(await page.locator('#task-search').inputValue(),task.id);await page.waitForFunction((id:string)=>document.activeElement?.getAttribute('data-batch-detail')===id,task.id);assert.equal(await page.locator(`[data-batch-detail="${task.id}"]`).evaluate((el:Element)=>el===document.activeElement),true);checks.push('返回列表保留筛选和原任务焦点');
+ await page.goto(origin+`/m1#intake-task=${sourceOperation}`);await page.locator(`[data-batch-id="${task.id}"]`).waitFor();assert.equal(new URL(page.url()).hash,`#intake-task=${task.id}`);assert.equal(await page.locator('[data-collection-record]').count(),records.length);checks.push('旧单源执行链接正确解析所属整轮批次与资料记录');
+ await page.route(`**/api/v1/l0/task-batches/${task.id}`,async(route:any)=>route.fulfill({status:503,contentType:'application/json',body:JSON.stringify({error:{code:'TEMPORARY_UNAVAILABLE'}})}));await page.locator('#refresh').click();await page.getByRole('button',{name:'重新读取批次',exact:true}).waitFor();assert.equal(await page.locator('[data-collection-record]').count(),0);await page.unroute(`**/api/v1/l0/task-batches/${task.id}`);await page.getByRole('button',{name:'重新读取批次',exact:true}).click();await page.locator('[data-collection-record]').first().waitFor();checks.push('详情读取失败显示重试，恢复后重新读取真实来源');
+ assert.deepEqual(errors,[]);const result={task_id:task.id,source_count:actual.sources.length,material_records:records.length,list_rows:1,checks,errors,viewports:[1440,390,320]};await writeFile(join(output,'result.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result));
+}finally{await browser?.close();await rm(profile,{recursive:true,force:true});}

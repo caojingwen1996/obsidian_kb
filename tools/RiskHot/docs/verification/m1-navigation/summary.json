@@ -1,0 +1,23 @@
+{
+  "unit_and_integration": {
+    "passed": 222,
+    "failed": 0
+  },
+  "m1_browser_checks": 56,
+  "events_browser_checks": 18,
+  "real_navigation_checks": 9,
+  "real_statistics_viewports": [
+    1440,
+    390,
+    320
+  ],
+  "real_statistics_read_failure": true,
+  "typecheck": "passed",
+  "detector_findings": 0,
+  "detector_limit": "Local scanner cannot resolve the /m1/styles.css URL; color rules are incomplete. Screenshots and actual browser flows were inspected.",
+  "code_review_fixes": [
+    "Schedule date across Shanghai midnight",
+    "Ignore resolved scheduler error for successful operations",
+    "Restore focus by stable operation identity after background replacement"
+  ]
+}

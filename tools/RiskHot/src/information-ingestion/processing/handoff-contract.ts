@@ -17,7 +17,7 @@ export interface AcceptanceReceipt {
   status: 'received'; acceptance_basis: 'validated_handoff' | 'legacy_inbox';
 }
 export interface CandidateResultFile {
-  schema_version: 'riskhot.candidate-result.v1'; delivery_id: string; information_id: string; version_id: string;
+  schema_version: 'riskhot.candidate-result.v1' | 'riskhot.candidate-result.v2'; delivery_id: string; information_id: string; version_id: string;
   processing_id: string; analysis_key: string; processing_scope: string; completed_at: string;
   input_artifact_id: string | null; manifest_artifact_id: string | null; candidate_count: number;
   result_status: string; next_step: number | null; candidates: unknown[];

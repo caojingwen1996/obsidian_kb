@@ -61,12 +61,12 @@
   },
   "latest": {
     "input": {
-      "dividendYield": 4.31,
-      "bondYield": 1.64
+      "dividendYield": 4.23,
+      "bondYield": 1.6258
     },
     "dates": {
-      "index": "2026-10-23",
-      "bond": "2026-10-23"
+      "index": "2026-10-27",
+      "bond": "2026-10-27"
     },
     "sourceKey": "股息率与股债倍数",
     "reference": false,
@@ -74,7 +74,7 @@
     "strategyVersion": "dividend-two-factor-v2-r5",
     "components": {
       "absolute": {
-        "score": 46.19999999999999,
+        "score": 44.60000000000001,
         "interval": [
           [
             4,
@@ -86,12 +86,12 @@
           ]
         ],
         "clipped": false,
-        "value": 4.31,
+        "value": 4.23,
         "weight": 92,
-        "contribution": 42.50399999999999
+        "contribution": 41.03200000000001
       },
       "ratio": {
-        "score": 81.02439024390245,
+        "score": 80.81436831098537,
         "interval": [
           [
             2.5,
@@ -103,18 +103,18 @@
           ]
         ],
         "clipped": false,
-        "value": 2.6280487804878048,
+        "value": 2.6017960388731707,
         "weight": 8,
-        "contribution": 6.4819512195121956
+        "contribution": 6.46514946487883
       }
     },
-    "score": 48.98595121951219,
-    "lower": 48.98595121951219,
-    "upper": 48.98595121951219,
-    "grade": "B",
-    "label": "观察区间",
-    "nextGrade": "A",
-    "nextDistance": 16.014048780487812,
+    "score": 47.49714946487884,
+    "lower": 47.49714946487884,
+    "upper": 47.49714946487884,
+    "grade": "C",
+    "label": "等待区间",
+    "nextGrade": "B",
+    "nextDistance": 0.5028505351211621,
     "quality": [
       "数据完整"
     ],
@@ -179,39 +179,39 @@
       "confirmationDays": 1
     },
     "raw": {
-      "run_date": "2026-10-24",
-      "run_time": "11:52:35",
-      "index_date": "2026-10-23",
-      "bond_date": "2026-10-23",
-      "akshare_dividend_yield_2": 4.31,
-      "ytd_return": -2.2859232016680164,
+      "run_date": "2026-10-28",
+      "run_time": "09:55:30",
+      "index_date": "2026-10-27",
+      "bond_date": "2026-10-27",
+      "akshare_dividend_yield_2": 4.23,
+      "ytd_return": -0.4955548476775151,
       "ytd_max_drawdown": -15.96361099166238,
-      "intraday_quote_date": "2026-10-23",
-      "intraday_change_percent": "-0.13",
+      "intraday_quote_date": "2026-10-28",
+      "intraday_change_percent": "0.47",
       "lixinger_date": "",
       "lixinger_dividend_yield": "",
       "lixinger_percentile_10y": "",
       "lixinger_percentile_80_value": "",
       "lixinger_source": "",
-      "bond_10y_yield": 1.64,
-      "spread": 2.67,
+      "bond_10y_yield": 1.6258,
+      "spread": 2.6042000000000005,
       "percentile_signal": "",
       "absolute_signal": "C",
       "spread_signal": "A",
-      "headline_signal": "观察区间",
+      "headline_signal": "等待区间",
       "source_note": "AKShare: stock_zh_index_value_csindex(000922, 股息率2); 中证指数官网: index-perf(000922); AKShare: bond_zh_us_rate; 腾讯行情: http://qt.gtimg.cn/q=sh000922",
       "annual_performance_source": "中证指数官网 index-perf(000922)",
       "percentile_value": null
     },
-    "recordDate": "2026-10-24",
+    "recordDate": "2026-10-28",
     "originalHeadline": "",
     "confirmation": {
       "status": "stable",
-      "baseline": "B",
+      "baseline": "C",
       "candidate": null,
       "count": 0,
       "required": 1,
-      "message": "已确认 B，策略维持"
+      "message": "已确认 C，策略维持"
     }
   },
   "records": [
@@ -66727,15 +66727,15 @@
         "confirmationDays": 1
       },
       "raw": {
-        "run_date": "2026-10-24",
-        "run_time": "11:52:35",
+        "run_date": "2026-10-26",
+        "run_time": "16:36:30",
         "index_date": "2026-10-23",
         "bond_date": "2026-10-23",
         "akshare_dividend_yield_2": 4.31,
         "ytd_return": -2.2859232016680164,
         "ytd_max_drawdown": -15.96361099166238,
-        "intraday_quote_date": "2026-10-23",
-        "intraday_change_percent": "-0.13",
+        "intraday_quote_date": "2026-10-26",
+        "intraday_change_percent": "1.23",
         "lixinger_date": "",
         "lixinger_dividend_yield": "",
         "lixinger_percentile_10y": "",
@@ -66751,8 +66751,8 @@
         "annual_performance_source": "中证指数官网 index-perf(000922)",
         "percentile_value": null
       },
-      "recordDate": "2026-10-24",
-      "originalHeadline": "",
+      "recordDate": "2026-10-26",
+      "originalHeadline": "观察区间",
       "confirmation": {
         "status": "stable",
         "baseline": "B",
@@ -66760,6 +66760,316 @@
         "count": 0,
         "required": 1,
         "message": "已确认 B，策略维持"
+      }
+    },
+    {
+      "input": {
+        "dividendYield": 4.25,
+        "bondYield": 1.6376
+      },
+      "dates": {
+        "index": "2026-10-26",
+        "bond": "2026-10-26"
+      },
+      "sourceKey": "股息率与股债倍数",
+      "reference": false,
+      "kind": "daily",
+      "strategyVersion": "dividend-two-factor-v2-r5",
+      "components": {
+        "absolute": {
+          "score": 45.0,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.25,
+          "weight": 92,
+          "contribution": 41.4
+        },
+        "ratio": {
+          "score": 80.76209086468002,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.5952613580850024,
+          "weight": 8,
+          "contribution": 6.460967269174401
+        }
+      },
+      "score": 47.8609672691744,
+      "lower": 47.8609672691744,
+      "upper": 47.8609672691744,
+      "grade": "C",
+      "label": "等待区间",
+      "nextGrade": "B",
+      "nextDistance": 0.13903273082559764,
+      "quality": [
+        "数据完整"
+      ],
+      "eligible": true,
+      "strategySnapshot": {
+        "version": "dividend-two-factor-v2-r5",
+        "weights": {
+          "absolute": 92,
+          "ratio": 8
+        },
+        "anchors": {
+          "absolute": [
+            [
+              3,
+              0
+            ],
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ],
+            [
+              5.5,
+              80
+            ],
+            [
+              6,
+              100
+            ]
+          ],
+          "ratio": [
+            [
+              1,
+              0
+            ],
+            [
+              1.5,
+              40
+            ],
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ]
+        },
+        "thresholds": {
+          "C": 40,
+          "B": 48,
+          "A": 65
+        },
+        "confirmationDays": 1
+      },
+      "raw": {
+        "run_date": "2026-10-27",
+        "run_time": "10:01:56",
+        "index_date": "2026-10-26",
+        "bond_date": "2026-10-26",
+        "akshare_dividend_yield_2": 4.25,
+        "ytd_return": -1.0879401714351866,
+        "ytd_max_drawdown": -15.96361099166238,
+        "intraday_quote_date": "2026-10-27",
+        "intraday_change_percent": "-0.13",
+        "lixinger_date": "",
+        "lixinger_dividend_yield": "",
+        "lixinger_percentile_10y": "",
+        "lixinger_percentile_80_value": "",
+        "lixinger_source": "",
+        "bond_10y_yield": 1.6376,
+        "spread": 2.6124,
+        "percentile_signal": "",
+        "absolute_signal": "C",
+        "spread_signal": "A",
+        "headline_signal": "等待区间",
+        "source_note": "AKShare: stock_zh_index_value_csindex(000922, 股息率2); 中证指数官网: index-perf(000922); AKShare: bond_zh_us_rate; 腾讯行情: http://qt.gtimg.cn/q=sh000922",
+        "annual_performance_source": "中证指数官网 index-perf(000922)",
+        "percentile_value": null
+      },
+      "recordDate": "2026-10-27",
+      "originalHeadline": "",
+      "confirmation": {
+        "status": "changed",
+        "baseline": "C",
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "策略调整已确认：C"
+      }
+    },
+    {
+      "input": {
+        "dividendYield": 4.23,
+        "bondYield": 1.6258
+      },
+      "dates": {
+        "index": "2026-10-27",
+        "bond": "2026-10-27"
+      },
+      "sourceKey": "股息率与股债倍数",
+      "reference": false,
+      "kind": "daily",
+      "strategyVersion": "dividend-two-factor-v2-r5",
+      "components": {
+        "absolute": {
+          "score": 44.60000000000001,
+          "interval": [
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ]
+          ],
+          "clipped": false,
+          "value": 4.23,
+          "weight": 92,
+          "contribution": 41.03200000000001
+        },
+        "ratio": {
+          "score": 80.81436831098537,
+          "interval": [
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "clipped": false,
+          "value": 2.6017960388731707,
+          "weight": 8,
+          "contribution": 6.46514946487883
+        }
+      },
+      "score": 47.49714946487884,
+      "lower": 47.49714946487884,
+      "upper": 47.49714946487884,
+      "grade": "C",
+      "label": "等待区间",
+      "nextGrade": "B",
+      "nextDistance": 0.5028505351211621,
+      "quality": [
+        "数据完整"
+      ],
+      "eligible": true,
+      "strategySnapshot": {
+        "version": "dividend-two-factor-v2-r5",
+        "weights": {
+          "absolute": 92,
+          "ratio": 8
+        },
+        "anchors": {
+          "absolute": [
+            [
+              3,
+              0
+            ],
+            [
+              4,
+              40
+            ],
+            [
+              5,
+              60
+            ],
+            [
+              5.5,
+              80
+            ],
+            [
+              6,
+              100
+            ]
+          ],
+          "ratio": [
+            [
+              1,
+              0
+            ],
+            [
+              1.5,
+              40
+            ],
+            [
+              2,
+              60
+            ],
+            [
+              2.5,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ]
+        },
+        "thresholds": {
+          "C": 40,
+          "B": 48,
+          "A": 65
+        },
+        "confirmationDays": 1
+      },
+      "raw": {
+        "run_date": "2026-10-28",
+        "run_time": "09:55:30",
+        "index_date": "2026-10-27",
+        "bond_date": "2026-10-27",
+        "akshare_dividend_yield_2": 4.23,
+        "ytd_return": -0.4955548476775151,
+        "ytd_max_drawdown": -15.96361099166238,
+        "intraday_quote_date": "2026-10-28",
+        "intraday_change_percent": "0.47",
+        "lixinger_date": "",
+        "lixinger_dividend_yield": "",
+        "lixinger_percentile_10y": "",
+        "lixinger_percentile_80_value": "",
+        "lixinger_source": "",
+        "bond_10y_yield": 1.6258,
+        "spread": 2.6042000000000005,
+        "percentile_signal": "",
+        "absolute_signal": "C",
+        "spread_signal": "A",
+        "headline_signal": "等待区间",
+        "source_note": "AKShare: stock_zh_index_value_csindex(000922, 股息率2); 中证指数官网: index-perf(000922); AKShare: bond_zh_us_rate; 腾讯行情: http://qt.gtimg.cn/q=sh000922",
+        "annual_performance_source": "中证指数官网 index-perf(000922)",
+        "percentile_value": null
+      },
+      "recordDate": "2026-10-28",
+      "originalHeadline": "",
+      "confirmation": {
+        "status": "stable",
+        "baseline": "C",
+        "candidate": null,
+        "count": 0,
+        "required": 1,
+        "message": "已确认 C，策略维持"
       }
     },
     {
@@ -71466,6 +71776,8 @@
     "2026-10-20",
     "2026-10-21",
     "2026-10-22",
-    "2026-10-23"
+    "2026-10-23",
+    "2026-10-26",
+    "2026-10-27"
   ]
 }

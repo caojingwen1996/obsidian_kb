@@ -1,3 +1,4 @@
+import {applyEventMigration,grantEventRoles} from '../platform/event-migration.js';
 import { Pool } from 'pg';
 import { randomUUID } from 'node:crypto';
 import { mkdtemp, readFile, rm } from 'node:fs/promises';
@@ -10,7 +11,7 @@ import { parsePbc } from '../information-ingestion/processing/pbc.js';
 import { setTimeout } from 'node:timers/promises';
 import { applyHandoffMigration } from '../platform/handoff-migration.js';
 
-export async function openFixture() {
+export async function openFixture(options?:{legacyEvents?:boolean}) {
   const admin = new Pool({ connectionString: process.env.ADMIN_DATABASE_URL });
   const name = `riskhot_review_${randomUUID().replaceAll('-', '')}`;
   await admin.query(`CREATE DATABASE ${name}`);
@@ -19,7 +20,7 @@ export async function openFixture() {
   const folder = await mkdtemp(join(tmpdir(), 'riskhot-review-'));
   const artifacts = new ArtifactStore(folder);
   const repo = new ExecutionStore(db, artifacts);
-  await db.query(await readFile('src/db/001-init.sql', 'utf8')); await applyHandoffMigration(db); await grantRuntimeRoles(db);
+  await db.query(await readFile('src/db/001-init.sql', 'utf8')); await applyHandoffMigration(db); if(options?.legacyEvents)await db.query(await readFile('src/db/003-event-management.sql','utf8'));else await applyEventMigration(db); await grantRuntimeRoles(db); if(!options?.legacyEvents)await grantEventRoles(db);
   await repo.seedCatalog([{ id: 'wiki-source-001', name: '中国人民银行', url: 'https://www.pbc.gov.cn/', tier: 'T1', group: '受控测试', focus: '受控测试', context: '受控测试' }]);
   await db.query("INSERT INTO platform.actors VALUES('review-operator',ARRAY['read','submit','retry','model_budget'],ARRAY['wiki-source-001'])");
   const parent = await repo.submit({ source_key: 'wiki-source-001', limit: 1 }, 'review-operator', randomUUID());

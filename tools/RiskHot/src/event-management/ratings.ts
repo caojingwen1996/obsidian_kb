@@ -1,12 +1,12 @@
 import {randomUUID} from 'node:crypto';import {DomainError} from '../platform/types.js';import {digest,type RatingProposal,type IncrementKind} from './contracts.js';
-export interface RatingInput {assessment_scope:Record<string,unknown>;research_horizon:Record<string,unknown>;method_version:string;basis_revision_no:number}
-export interface RatingPlan extends RatingProposal {assessment_key:string;scope_key:string;m:number|null;rating_status:'draft';basis_revision_no:number}
+export interface RatingInput {assessment_scope:Record<string,unknown>;research_horizon:Record<string,unknown>;method_version:string}
+export interface RatingPlan extends RatingProposal {assessment_key:string;scope_key:string;m:number|null;rating_status:'draft'}
 export const prepareRating=(kind:IncrementKind)=>!['SOURCE_ADDITION','DUPLICATE','UNRESOLVED'].includes(kind);
 export function validateRating(input:RatingInput,p:RatingProposal):RatingPlan {
  if(digest(p.assessment_scope)!==digest(input.assessment_scope)||digest(p.research_horizon)!==digest(input.research_horizon)||p.method_version!==input.method_version)throw new DomainError('RATING_CONTEXT_MISMATCH');
  if(input.method_version!=='text-draft-v1'||p.dimensions.some(d=>d.score!==null))throw new DomainError('RATING_METHOD_UNAPPROVED');
  if(new Set(p.dimensions.map(d=>d.dimension_key)).size!==p.dimensions.length)throw new DomainError('RATING_DIMENSION_DUPLICATE');
- return {...p,assessment_key:randomUUID(),scope_key:digest({scope:p.assessment_scope,horizon:p.research_horizon}),m:null,rating_status:'draft',basis_revision_no:input.basis_revision_no};
+ return {...p,assessment_key:randomUUID(),scope_key:digest({scope:p.assessment_scope,horizon:p.research_horizon}),m:null,rating_status:'draft'};
 }
 export function calculateM(method:{approved:boolean;weights:Record<string,number>},dimensions:Record<string,number>):number|null{
  if(!method.approved)return null;

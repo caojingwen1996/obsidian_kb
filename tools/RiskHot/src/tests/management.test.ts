@@ -389,3 +389,39 @@ for (const kind of ['pending', 'due'] as const) test(`disabling a plan after sel
     assert.equal(current.next_run_at.toISOString(), disabledNext);
   } finally { await c.close(); }
 });
+
+
+test('unified runs preserve scheduler slots without duplicate operations and scope metrics by source',async()=>{
+ const c=await setup();try{
+  const row=(await c.db.query("INSERT INTO platform.schedule_runs(source_id,scheduled_at,operation_id,status) VALUES($1,now(),$2,'running') RETURNING id",[c.parent.source_id,c.parent.id])).rows[0];
+  const queued=(await c.db.query("INSERT INTO platform.schedule_runs(source_id,scheduled_at,status) VALUES($1,now()+interval '1 second','pending') RETURNING id",[c.parent.source_id])).rows[0];
+  const failure=(await c.db.query("INSERT INTO platform.schedule_runs(source_id,scheduled_at,status,error_code) VALUES($1,now()+interval '2 seconds','failed','SOURCE_DISABLED') RETURNING id",[c.parent.source_id])).rows[0];
+  const response=await c.request('GET','/api/v1/l0/task-batches?source=wiki-source-001');assert.equal(response.statusCode,200,response.body);
+  const data=response.json();assert.equal(data.total,3);assert.equal(data.metrics.total,3);assert.equal(data.items.filter((x:{id:string})=>x.id===c.parent.id).length,1);
+  assert.equal(data.items.find((x:{id:string})=>x.id===c.parent.id).schedule_run_id,row.id);assert.equal(data.items.find((x:{id:string})=>x.id===queued.id).unstarted,true);assert.equal(data.items.find((x:{id:string})=>x.id===failure.id).controllable,false);
+  assert.equal((await c.request('GET',`/api/v1/l0/task-batches?status=attention&source=wiki-source-001`)).json().total,1);
+  assert.equal((await c.request('GET','/api/v1/l0/task-batches?source=wiki-source-002')).json().metrics.total,0);
+  await c.db.query("UPDATE platform.actors SET source_keys=ARRAY['wiki-source-002'] WHERE subject=$1",[c.actor]);assert.equal((await c.request('GET','/api/v1/l0/task-batches?source=wiki-source-001')).statusCode,403);
+ }finally{await c.close();}
+});
+
+test('batch filtering retains one whole task and details retain blocked source items',async()=>{
+ const c=await setup();try{
+  const batch=(await c.request('POST','/api/v1/l0/task-batches',{source_keys:['wiki-source-001','wiki-source-002'],limit:1})).json();
+  await c.db.query("UPDATE platform.task_batch_sources SET operation_id=NULL,status='blocked',reason_code='SOURCE_DISABLED' WHERE batch_id=$1 AND source_id=(SELECT id FROM m1.sources WHERE catalog_key='wiki-source-002')",[batch.id]);
+  const response=await c.request('GET',`/api/v1/l0/task-batches?batch=${batch.id}&status=attention`);assert.equal(response.statusCode,200,response.body);assert.equal(response.json().total,1);assert.equal(response.json().items[0].id,batch.id);assert.equal(response.json().items[0].sources.length,2);assert.equal(response.json().metrics.total,1);
+  const detail=await c.request('GET',`/api/v1/l0/task-batches/${batch.id}`);assert.equal(detail.statusCode,200,detail.body);assert.equal(detail.json().sources.length,2);assert.equal(detail.json().sources[1].operation_id,null);
+  const oldLink=await c.request('GET',`/api/v1/l0/task-batches/${batch.sources[0].operation_id}`);assert.equal(oldLink.statusCode,200,oldLink.body);assert.equal(oldLink.json().id,batch.id);
+  await c.db.query("UPDATE platform.actors SET source_keys=ARRAY['wiki-source-003'] WHERE subject=$1",[c.actor]);assert.equal((await c.request('GET',`/api/v1/l0/task-batches/${batch.id}`)).statusCode,404);
+ }finally{await c.close();}
+});
+
+
+test('automatic run date uses its schedule slot across Shanghai midnight and ignores resolved scheduler errors',async()=>{
+ const c=await setup();try{
+  await c.db.query("UPDATE information.operations SET scheduled_at='2026-10-27T16:01:00Z',status='completed' WHERE id=$1",[c.parent.id]);
+  await c.db.query("INSERT INTO platform.schedule_runs(source_id,scheduled_at,operation_id,status,error_code) VALUES($1,'2026-10-27T15:59:00Z',$2,'failed','MODEL_BUDGET_EXHAUSTED')",[c.parent.source_id,c.parent.id]);
+  let response=await c.request('GET','/api/v1/l0/task-batches?from=2026-10-27&to=2026-10-27&source=wiki-source-001');assert.equal(response.statusCode,200,response.body);assert.equal(response.json().total,1);assert.equal(response.json().items[0].id,c.parent.id);assert.equal(response.json().items[0].status,'completed');assert.equal(response.json().metrics.attention,0);
+  response=await c.request('GET','/api/v1/l0/task-batches?from=2026-10-28&to=2026-10-28&source=wiki-source-001');assert.equal(response.json().total,0);
+ }finally{await c.close();}
+});

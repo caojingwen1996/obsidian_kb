@@ -1,0 +1,25 @@
+import assert from 'node:assert/strict';
+import {mkdtemp,mkdir,rm,writeFile} from 'node:fs/promises';
+import {tmpdir} from 'node:os';import {join,resolve} from 'node:path';
+const executable=process.env.SOURCE_BROWSER_EXECUTABLE??'';
+if(!/Chrome for Testing|Chromium/.test(executable)||/\/Google Chrome\.app\//.test(executable))throw new Error('Independent testing browser required');
+const {chromium}=await import(process.env.PLAYWRIGHT_MODULE!);
+const profile=await mkdtemp(join(tmpdir(),'riskhot-overview-')),output=resolve('.riskhot/execution-overview');await mkdir(output,{recursive:true});
+let browser:any;const checks:string[]=[],errors:string[]=[];
+try{
+ browser=await chromium.launchPersistentContext(profile,{executablePath:executable,headless:true,viewport:{width:1440,height:1000}});
+ const page=await browser.newPage(),origin=process.env.API_ORIGIN!;page.on('pageerror',(error:Error)=>errors.push(error.message));
+ const response=await page.request.get(origin+'/api/v1/l0/task-overview');assert.equal(response.status(),200);const overview=await response.json();
+ const plans=await (await page.request.get(origin+'/api/v1/l0/monitor')).json();assert.equal(overview.total,plans.schedules.length);
+ await page.goto(origin+'/m1#intake-tasks');await page.locator('.overview-list').waitFor();assert.equal(await page.locator('.task-views a[aria-current]').textContent(),'执行概览');assert.equal(await page.locator('[data-overview-source]').count(),overview.total);assert.equal(await page.locator('.run-list').count(),0);checks.push('默认执行概览一计划一行，数量与真实独立计划一致');
+ const source=overview.items.find((row:any)=>row.current||row.latest);assert.ok(source);const target=source.current||source.latest;
+ const sourceRow=page.locator(`[data-overview-source="${source.catalog_key}"]`);assert.equal(await sourceRow.locator('[data-batch-detail]').getAttribute('data-batch-detail'),target.id);checks.push('当前或最近批次入口与服务端返回身份一致');
+ await page.locator('#overview-search').fill(source.catalog_key);await page.locator('#overview-query').getByRole('button',{name:'查询',exact:true}).click();assert.equal(await page.locator('[data-overview-source]').count(),1);
+ await sourceRow.locator('[data-batch-detail]').click();await page.locator('#batch-detail-title').waitFor();await page.getByRole('button',{name:'返回执行概览',exact:true}).click();await page.locator('.overview-list').waitFor();assert.equal(await page.locator('#overview-search').inputValue(),source.catalog_key);await page.waitForFunction((id:string)=>document.activeElement?.getAttribute('data-batch-detail')===id,target.id);checks.push('概览进入批次详情，返回保留搜索和入口焦点');
+ await page.locator('[data-action="clear-overview"]').click();await page.locator('[data-overview-status="attention"]').click();assert.equal(await page.locator('[data-overview-source]').count(),overview.items.filter((row:any)=>['partial','failed','blocked','review','recoverable','waiting_config'].includes(row.status)).length);await page.locator('[data-overview-status=""]').click();checks.push('需处理筛选以每源当前状态计数，不累计历史故障');
+ for(const width of [1440,390,320]){await page.setViewportSize({width,height:1000});await page.evaluate(()=>window.scrollTo(0,0));assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await page.screenshot({path:join(output,`overview-${width}.png`)});}
+ await page.setViewportSize({width:1440,height:1000});await sourceRow.getByRole('button',{name:'批次历史',exact:true}).click();await page.locator('.run-list').waitFor();assert.equal(new URL(page.url()).hash,'#intake-tasks?view=history');assert.equal(await page.locator('#task-source').inputValue(),source.catalog_key);checks.push('每源批次历史直达历史视图且限定来源');
+ await page.getByRole('link',{name:'执行概览',exact:true}).click();await page.locator('.overview-list').waitFor();assert.equal(await page.locator('[data-overview-source]').count(),overview.total);await page.reload();await page.locator('.overview-list').waitFor();assert.equal(await page.locator('[data-overview-source]').count(),overview.total);checks.push('历史筛选不影响概览，刷新仍停留概览');
+ await page.route('**/api/v1/l0/task-overview',async(route:any)=>route.fulfill({status:503,contentType:'application/json',body:JSON.stringify({error:{code:'TEMPORARY_UNAVAILABLE'}})}));await page.locator('#refresh').click();await page.getByRole('heading',{name:'执行概览读取失败',exact:true}).waitFor();assert.equal(await page.locator('[data-overview-source]').count(),0);await page.getByRole('link',{name:'批次记录',exact:true}).click();await page.locator('.run-list').waitFor();await page.unroute('**/api/v1/l0/task-overview');await page.getByRole('link',{name:'执行概览',exact:true}).click();await page.locator('.overview-list').waitFor();checks.push('概览失败明确提示，历史可读，恢复后重新读取');
+ assert.deepEqual(errors,[]);const result={plan_count:overview.total,overview_rows:overview.total,checks,viewports:[1440,390,320],errors};await writeFile(join(output,'result.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result));
+}finally{await browser?.close();await rm(profile,{recursive:true,force:true});}

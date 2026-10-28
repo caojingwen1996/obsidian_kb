@@ -37,5 +37,5 @@ INSERT INTO information.material_version_origins(version_id,source_id,source_ver
  LEFT JOIN information.material_versions prev ON prev.material_id=v.material_id AND prev.version_no=v.version_no-1
  WHERE v.version_no=1 OR prev.id IS NOT NULL
  ON CONFLICT(version_id) DO NOTHING;
-INSERT INTO information.material_deliveries(version_id,message_id) SELECT version_id,id FROM platform.messages ON CONFLICT DO NOTHING;
+INSERT INTO information.material_deliveries(version_id,message_id) SELECT version_id,id FROM platform.messages WHERE version_id IS NOT NULL ON CONFLICT DO NOTHING;
 INSERT INTO platform.schema_versions(version) VALUES(2) ON CONFLICT DO NOTHING;

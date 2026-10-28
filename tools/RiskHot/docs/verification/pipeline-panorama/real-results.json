@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "origin": "http://localhost:18081",
+  "checks": [
+    "1440px真实全景、节点、AI任务及返回",
+    "1440px/m1配置入口",
+    "1440px/events配置入口",
+    "390px真实全景、节点、AI任务及返回",
+    "390px/m1配置入口",
+    "390px/events配置入口",
+    "320px真实全景、节点、AI任务及返回",
+    "320px/m1配置入口",
+    "320px/events配置入口"
+  ],
+  "errors": [],
+  "unexpectedRequests": [],
+  "readOnly": true
+}

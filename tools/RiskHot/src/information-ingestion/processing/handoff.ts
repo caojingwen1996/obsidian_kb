@@ -1,3 +1,4 @@
+import {convertLegacyCandidate} from '../../event-management/legacy-candidate.js';
 import { randomUUID } from 'node:crypto';
 import type { PoolClient } from 'pg';
 import { transaction } from '../../platform/db.js';
@@ -129,7 +130,7 @@ export class InformationDelivery {
       const packet=await this.readAccepted(processingId);
       let artifact=p.result_artifact_id as string|null;
       if(!artifact){
-        const candidates=(await this.repo.candidates(processingId)) as {id:string;candidate_key:string;status:string;ordinal:number;payload:unknown}[];
+        const candidates=(await this.repo.candidates(processingId)) as {id:string;candidate_key:string;status:string;ordinal:number;payload:unknown;fact_id:string}[];
         if(candidates.length!==p.candidate_count)throw new DomainError('CANDIDATE_COUNT_MISMATCH',409);
         let data:ExtractionResult|null=p.validated_result_artifact_id?await this.repo.json(p.validated_result_artifact_id):null;
         if(!data){
@@ -140,8 +141,8 @@ export class InformationDelivery {
             if(digest(recovered.candidates)===digest(candidates.map(c=>c.payload)))data=recovered;
           }catch{ /* Historical metadata is reported as missing, never invented. */ }
         }
-        const result:CandidateResultFile={schema_version:'riskhot.candidate-result.v1',delivery_id:d.message_id,information_id:packet.information.information_id,version_id:p.version_id,processing_id:processingId,analysis_key:p.analysis_key,processing_scope:p.processing_scope,completed_at:p.completed_at.toISOString(),input_artifact_id:p.input_artifact_id,manifest_artifact_id:p.manifest_artifact_id,candidate_count:p.candidate_count,result_status:p.result_status,next_step:p.candidate_count?2:null,
-          candidates:candidates.map(c=>({candidate_id:c.id,candidate_key:c.candidate_key,ordinal:c.ordinal,status:c.status,payload:c.payload})),covered_segment_ids:data?.covered_segment_ids??null,no_event_reason:data?.no_event_reason??null,warnings:data?.warnings??[],limitations:['EXTRACTION_ONLY：完整事件类型字典及初步Target字段尚待扩展。',...(!data?['历史结果未保留可恢复的完整抽取附加信息；不重新调用模型。']:[])]};
+        const result:CandidateResultFile={schema_version:'riskhot.candidate-result.v2',delivery_id:d.message_id,information_id:packet.information.information_id,version_id:p.version_id,processing_id:processingId,analysis_key:p.analysis_key,processing_scope:p.processing_scope,completed_at:p.completed_at.toISOString(),input_artifact_id:p.input_artifact_id,manifest_artifact_id:p.manifest_artifact_id,candidate_count:p.candidate_count,result_status:p.result_status,next_step:p.candidate_count?2:null,
+          candidates:candidates.map(c=>({candidate_id:c.id,fact_id:c.fact_id,candidate_key:c.candidate_key,ordinal:c.ordinal,status:c.status,payload:convertLegacyCandidate(c.payload as Record<string,any>,p.version_id)})),covered_segment_ids:data?.covered_segment_ids??null,no_event_reason:data?.no_event_reason??null,warnings:data?.warnings??[],limitations:['候选事实已保存；正式事件归属及评价需在 F02 继续处理。',...(!data?['历史结果未保留可恢复的完整抽取附加信息；不重新调用模型。']:[])]};
         const id=await this.repo.artifact(await this.repo.artifacts.put(jsonBytes(result),'candidate-result'));
         artifact=(await this.repo.db.query('UPDATE information.processing_runs SET result_artifact_id=COALESCE(result_artifact_id,$2) WHERE id=$1 RETURNING result_artifact_id',[processingId,id])).rows[0].result_artifact_id;
       }

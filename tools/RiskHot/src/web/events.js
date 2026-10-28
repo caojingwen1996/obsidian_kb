@@ -1,62 +1,162 @@
 import {createClient} from './api.js';
-import {escape as e,statusName} from './model.js';
-const steps=['匹配事件与归组','关联观测主体与直接变量','判定增量与更新','评价金融意义','校验并保存','交付事件变化'];
-const current=c=>c.status==='dismissed'?'已确认非事件':c.status==='completed'?'正式处理已完成':c.reason_code==='IDENTITY_REVIEW_REQUIRED'||c.status==='review'&&c.resume_step===2?'等待身份复核':c.reason_code==='RELATION_REVIEW_REQUIRED'&&c.status==='review'?'等待关系复核':c.reason_code==='COMMIT_REVIEW_REQUIRED'?'等待正式保存复核':c.status==='recoverable'?'当前步骤待恢复':`Step ${c.resume_step??2} · ${steps[(c.resume_step??2)-2]??'等待处理'}`;
-const date=value=>value?new Date(value).toLocaleString('zh-CN',{hour12:false}):'时间待确认';
-export function renderQueue(items){return items.length?`<div class="event-list">${items.map(p=>`<a class="event-row" href="#processing=${e(p.id)}"><span><strong>${e(date(p.created_at))}</strong><small>${p.candidate_count==null?'候选数量待确认':`${e(p.candidate_count)} 条候选`}</small></span><span class="status">${e(p.paused?'已取消':statusName(p.extraction_status==='completed'?p.result_status:p.extraction_status))}</span></a>`).join('')}</div>`:'<div class="empty"><h3>还没有完整事件处理</h3><p>在信息接入任务的已保存资料中，选择“处理为正式事件”。</p><a href="/m1#intake-tasks">查看接入资料</a></div>';}
-function resultSummary(s){const r=s.result;if(!r)return '';if(s.step_no===2)return `<p>${e(r.decision==='NEW'?'建议建立独立事件':r.decision==='REUSE'?'建议归入已有事件':'身份尚不明确')} · ${e(r.reason)}</p>${(r.comparisons??[]).map(x=>`<p>${e(x.reason)}</p>`).join('')}`;
- if(s.step_no===3)return `<p>${r.targets?.length??0} 个观测主体 · ${r.variables?.length??0} 项直接变量 · ${r.definition_candidates?.length??0} 项定义缺口</p>${(r.definition_candidates??[]).map(x=>`<p>${e(x.name)}：${e(x.reason)}（等待定义治理）</p>`).join('')}`;
- if(s.step_no===4)return `<p>${e(({NEW_EVENT:'新事件',EVENT_PROGRESS:'事件进展',MATERIAL_ADDITION:'实质补充',SOURCE_ADDITION:'来源补充',CORRECTION:'纠正',DUPLICATE:'重复内容',UNRESOLVED:'待判定'})[r.classification]??r.classification)} · ${e(r.reason)}</p>${(r.changes??[]).map(x=>`<p>${e(x.summary)}</p>`).join('')}`;
- return r.reason?`<p>无需评价：${e(r.reason==='NO_RATING_REQUIRED'?'本次仅来源补充或重复':r.reason)}</p>`:`<p>${e(r.reasoning_summary)}</p><p class="muted">文字评价，未量化 · 草案</p>`;}
-export function renderCandidate(c,permissions=[]){const review=c.status==='review';const scope=c.resume_step===2?'identity':c.resume_step===3?'relations':c.resume_step===6?'commit':null;const basis=scope==='identity'?c.identity_basis_digest:scope==='relations'?c.relation_basis_digest:c.commit_basis_digest;const allowed=permissions.includes(scope==='commit'?'event_commit':'event_review')&&basis&&review&&scope;return `<section class="event-detail"><div class="section-heading"><div><p class="eyebrow">候选处理</p><h2>${e(c.payload.title)}</h2><p>${e(current(c))}</p></div><a class="quiet" href="#processing=${e(c.processing_id??'')}">返回资料处理</a></div>
- <ol class="event-steps" aria-label="事件处理进度">${steps.map((name,index)=>`<li ${c.resume_step===index+2?'aria-current="step"':''}><span>${index+2}</span>${e(name)}</li>`).join('')}</ol><p class="event-description">${e(c.payload.description)}</p>
- ${c.status==='recoverable'||['IDENTITY_SNAPSHOT_STALE','REVISION_CONFLICT'].includes(c.reason_code)?`<div class="event-notice"><strong>此步骤需要恢复</strong><p>${e(c.reason_code)}</p>${permissions.includes('event_retry')?`<form data-resume><label>恢复说明<input name="reason" required maxlength="2000"></label>${permissions.includes('model_budget')?'<label><input type="checkbox" name="open_budget"> 授权新的调用预算窗口</label>':''}<button class="secondary">恢复当前步骤</button></form>`:''}</div>`:''}
- ${c.commit_preview?renderCommitPreview(c.commit_preview):c.relation_preview?.proposal?renderRelationPreview(c.relation_preview):c.identity_preview?renderIdentityPreview(c.identity_preview):''}${c.commit_preview&&c.relation_preview?.proposal?`<details><summary>已复核的定义缺口</summary>${renderRelationPreview(c.relation_preview)}</details>`:''}
- ${allowed?`<form class="event-review" data-review="${scope}"><h3>${scope==='identity'?'核对事件身份':scope==='relations'?'核对关系建议与定义缺口':'核对正式保存内容'}</h3><p>${scope==='identity'?'请结合下方原文与比较依据确认。':scope==='relations'?'请核对下方未决项和证据。确认只允许继续分析，不创建正式定义，也不批准正式保存。':'请核对事实、增量、直接关系与文字评价；保存后形成正式历史。'}</p><label>复核依据<textarea name="reason" required maxlength="2000" rows="2" placeholder="记录你已核对的事实与依据"></textarea></label><div class="actions"><button class="primary" name="decision" value="APPROVE">${scope==='identity'?'确认身份并继续':scope==='relations'?'确认关系建议并继续':'确认保存正式事件'}</button><button class="secondary" name="decision" value="REPREPARE">返回归组重新准备</button></div></form>`:''}
- ${(review&&!scope||c.status==='recoverable')&&permissions.includes('event_review')&&c.identity_basis_digest?'<form class="event-review" data-review="identity"><h3>需要重新核对依据</h3><label>重新准备说明<textarea name="reason" required maxlength="2000"></textarea></label><button class="secondary" name="decision" value="REPREPARE">返回归组重新准备</button></form>':''}
- <section><h3>原文证据</h3>${(c.payload.evidence_refs??[]).map(x=>`<blockquote>${e(x.quote)}</blockquote>`).join('')}<a class="link-button" href="/api/v1/l0/versions/${e(c.version_id)}/raw" target="_blank" rel="noopener">查看固定版本原文</a></section>
- <section><h3>逐步结果</h3>${(c.steps??[]).filter(s=>Number(s.generation)===Number(c.proposal_generation)).map(s=>`<article class="event-step-result"><h4>Step ${s.step_no} · ${steps[s.step_no-2]}</h4>${resultSummary(s)}</article>`).join('')||'<p class="muted">尚未形成分析建议。</p>'}</section>
- ${c.saved_result_refs?.effects?.map(x=>`<a class="primary" href="#event=${e(x.event_id)}">查看正式事件与交付</a>`).join('')??''}
- ${permissions.includes('candidate_disposition')&&!['completed','dismissed'].includes(c.status)?`<details class="event-disposition"><summary>复核为非事件</summary><p>仅在原文明确不构成具体事件时使用。重复事件应继续归组。</p><form data-review="disposition"><label>确认依据<textarea name="reason" required maxlength="2000"></textarea></label><button class="secondary" name="decision" value="${c.reason_code==='DISPOSITION_RECOVERY_REQUIRED'?'RECONFIRM_NOT_EVENT':'CONFIRM_NOT_EVENT'}">${c.reason_code==='DISPOSITION_RECOVERY_REQUIRED'?'重新确认并恢复非事件处置':'确认非事件并结束'}</button></form></details>`:''}
- <details><summary>追溯与复核记录</summary><p>候选 ${e(c.id)} · 决策代次 ${e(c.proposal_generation)}</p>${(c.reviews??[]).map(r=>`<p>${e(date(r.created_at))} · ${e(r.reason)}</p>`).join('')}</details></section>`;}
-export function renderEvent(revision,deliveries=[],permissions=[]){const s=revision.snapshot,v=s.event;return `<section class="event-detail"><div class="section-heading"><div><p class="eyebrow">正式事件 · 修订 ${e(v.revision_no)}</p><h2>${e(v.title)}</h2><p>${e(v.subject_name??'主体待确认')} · ${e(({expected:'预计',announced:'已宣布',in_progress:'实施中',effective:'已生效',completed:'已完成',cancelled:'已取消',unknown:'阶段未知'})[v.event_status]??v.event_status)}</p></div><a class="secondary" href="/api/v1/l0/events/${e(v.id)}/revisions/${e(v.revision_no)}/file" download>下载正式结果</a></div><p class="event-description">${e(v.description)}</p>
- <section><h3>事件时间轴</h3>${(s.updates??[]).map(u=>`<article class="event-step-result"><strong>${e(u.summary)}</strong><p>发生：${e(u.effective_time?.text??u.effective_at??'原文未明确')}<span class="muted"> · 系统获知：${e(date(u.recorded_at))}</span></p></article>`).join('')}</section>
- <section><h3>观测主体与直接变量</h3><p>${s.targets.length} 个主体 · ${s.variables.length} 项变量</p>${!s.targets.length?'<p class="muted">尚未关联正式定义，定义缺口保留在候选处理记录。</p>':''}${(s.targets??[]).map(t=>`<p><strong>${e((s.definitions??[]).find(d=>d.id===t.definition_snapshot_id)?.payload.name??'正式观测主体')}</strong>：${e(t.relation_note)}</p>`).join('')}${(s.variables??[]).map(x=>`<p>${e((s.definitions??[]).find(d=>d.id===x.definition_snapshot_id)?.payload.name??'正式变量')} · ${e(x.change_direction)}</p>`).join('')}</section>
- <section><h3>金融意义历史</h3>${(s.ratings??[]).map(r=>`<article class="event-step-result"><strong>${r.m==null?'文字评价，未量化':`M ${e(r.m)}`} · ${r.rating_status==='draft'?'草案':'已确认'}</strong><p>${e(r.reasoning_summary)}</p>${(r.limitations??[]).map(l=>`<p class="muted">${e(l)}</p>`).join('')}</article>`).join('')||'<p>本次无需新增评价。</p>'}</section>
- <section><h3>资料与证据</h3>${(s.evidence??[]).map(x=>`<blockquote>${e(x.quote)}<a class="link-button" href="/api/v1/l0/versions/${e(x.version_id)}/raw" target="_blank" rel="noopener">查看原文</a></blockquote>`).join('')}</section>
- <section><h3>结果交付</h3><p class="muted">验收接收端用于验证可靠交付；F03/F05 风险分析尚未接入。</p>${deliveries.map(d=>`<div class="event-step-result"><strong>${d.status==='received'?(d.application_status==='waiting_gap'?'已接收，等待历史修订补齐':d.application_status==='applied'?'已持久接收并顺序应用':'已持久接收'):'交付待恢复'}</strong><p>${e(d.consumer_id)}${d.missing_revision?` · 等待修订 ${e(d.missing_revision)}`:''} · 文件${d.files_state==='ready'?'可读取':'待恢复'}</p>${d.status==='received'?`<a href="/api/v1/l0/event-deliveries/${e(d.message_id)}/files/receipt?consumer_id=${e(d.consumer_id)}" download>下载接收回执</a>`:''}${permissions.includes('event_retry')&&(d.status==='recoverable'||d.files_state==='recoverable')?`<form data-delivery="${e(d.message_id)}" data-consumer="${e(d.consumer_id)}" data-files="${d.status==='received'}" data-generation="${e(d.status==='received'?d.file_generation:d.generation)}"><label>恢复说明<input name="reason" required maxlength="2000"></label><button class="secondary">${d.status==='received'?'重新生成文件':'重新交付'}</button></form>`:''}</div>`).join('')||'<p>交付状态读取中。</p>'}</section></section>`;}
-async function mount(){const api=createClient(),content=document.querySelector('#event-content'),feedback=document.querySelector('#event-feedback');let session,selected,busy=false,pending=null,refreshing=false;const tell=(message,error=false)=>{feedback.hidden=false;feedback.textContent=message;feedback.classList.toggle('error',error);};
- const refresh=async()=>{if(refreshing)return;refreshing=true;try{session=await api.get('/api/v1/session');const params=new URLSearchParams(location.hash.slice(1));const c=params.get('candidate'),p=params.get('processing'),ev=params.get('event'),version=params.get('version');
-  if(c){selected=await api.get(`/api/v1/l0/candidates/${c}`);content.innerHTML=renderCandidate(selected,session.permissions);}
-  else if(p){const data=await api.get(`/api/v1/l0/event-processings/${p}`);selected=data;const fileState=await api.get(`/api/v1/l0/event-processings/${p}/files`);content.innerHTML=`<section class="event-detail"><div class="section-heading"><div><h2>资料事件处理</h2><p>${e(data.paused?'已取消':statusName(data.result_status))} · ${data.counts.resolved??'待确认'} / ${data.candidate_count??'待确认'} 已处理</p></div><a href="/events">返回列表</a></div>${data.delivery_status==='not_required'&&data.candidate_count>0?renderProcessingSummary(data):''}${data.extraction_status==='recoverable'&&session.permissions.includes('event_retry')?`<form class="event-review" data-extraction><h3>候选抽取待恢复</h3><p>${e(data.error_code)}</p><label>恢复说明<input name="reason" required maxlength="2000"></label>${session.permissions.includes('model_budget')?'<label><input type="checkbox" name="open_budget"> 授权新的调用预算窗口</label>':''}<button class="secondary">恢复固定资料抽取</button></form>`:''}${fileState.items.some(x=>x.relative_path.endsWith('/candidates.json')&&x.state==='ready')?`<a class="link-button" href="/api/v1/l0/event-processings/${p}/files/candidates" download>下载完整候选文件</a>`:''}${data.candidates.map(c=>`<a class="event-row" href="#candidate=${e(c.id)}"><span><strong>${e(c.payload.title)}</strong><small>${e(current(c))}</small></span><span>查看处理</span></a>`).join('')||renderProcessingSummary(data)}<details><summary>任务控制与文件状态</summary>${fileState.items.map(x=>`<p>${e(x.relative_path)} · ${e(statusName(x.state))}</p>${x.state==='recoverable'&&session.permissions.includes('event_retry')?`<form data-workfile="${e(x.relative_path)}" data-generation="${e(x.generation)}"><label>恢复说明<input name="reason" required></label><button class="secondary">重新生成文件</button></form>`:''}`).join('')}${!data.paused&&data.result_status!=='completed'&&session.permissions.includes('event_retry')?'<form data-cancel><label>取消说明<input name="reason" required></label><button class="secondary">取消未完成处理</button></form>':''}${session.permissions.includes('event_recompute')?'<form data-recompute><label>重新分析说明<input name="reason" required></label><button class="secondary">授权新分析</button></form>':''}</details></section>`;}
-  else if(ev){const latest=await api.get(`/api/v1/l0/events/${ev}`);const chosen=params.get('revision');const revision=chosen?await api.get(`/api/v1/l0/events/${ev}/revisions/${chosen}`):latest;const messages=await api.get(`/api/v1/l0/events/${ev}/deliveries`);content.innerHTML=`<label class="event-history">查看修订 <select id="event-revision">${Array.from({length:Number(latest.revision_no)},(_,i)=>`<option value="${i+1}" ${Number(revision.revision_no)===i+1?'selected':''}>修订 ${i+1}</option>`).reverse().join('')}</select></label>`+renderEvent(revision,messages.items,session.permissions);document.querySelector('#event-revision').onchange=event=>location.hash=`event=${ev}&revision=${event.target.value}`;}
-  else if(version){const existing=(await api.get(`/api/v1/l0/versions/${version}/event-processings`)).items.find(x=>x.analysis_key==='INITIAL');const settings=await api.get('/api/v1/l0/event-settings');if(existing){content.innerHTML=`<section class="event-detail"><h2>已有事件处理</h2><p>${e(statusName(existing.extraction_status==='completed'?existing.result_status:existing.extraction_status))} · ${existing.candidate_count??'待确认'} 条候选</p><a class="primary" href="#processing=${e(existing.id)}">查看当前任务</a></section>`;}else content.innerHTML=`<section class="event-detail"><h2>处理为正式事件</h2><p>从已保存的固定资料版本抽取完整候选，再逐项归组和复核。</p>${settings.definitions.length?`<form id="event-start"><label>正式定义快照<select name="definition_ref">${settings.definitions.map(d=>`<option value="${e(d.ref)}">${e(d.owner)} · ${e(d.version)}</option>`).join('')}</select></label><label>评价范围<input name="scope" required value="中国宏观"></label><label>研究期限<input name="horizon" required value="短期"></label><button class="primary">开启事件处理</button></form>`:'<div class="event-notice"><h3>需要登记定义读取范围</h3><p>尚无经过核对的定义快照，请先登记来源、版本及完整性。系统不会把定义服务未接入当成空字典。</p></div>'}</section>`;}
-  else if(params.has('events')){const cursor=Number(params.get('cursor')??0),data=await api.get(`/api/v1/l0/events?cursor=${cursor}`);content.innerHTML=`<div class="section-heading"><div><h2>正式事件</h2><p>已通过复核并保存的事实与变化。</p></div></div>${data.items.map(x=>`<a class="event-row" href="#event=${e(x.id)}"><strong>${e(x.title)}</strong><span>修订 ${e(x.revision_no)}</span></a>`).join('')||'<div class="empty">还没有正式事件，完成候选复核后在此查看。</div>'}${renderPaging(data,'events',cursor)}`;}
-  else{const cursor=Number(params.get('cursor')??0),data=await api.get(`/api/v1/l0/event-processings?cursor=${cursor}`);content.innerHTML=`<div class="section-heading"><div><h2>事件处理</h2><p>查看资料候选进度，处理需要复核的判断。</p></div></div>${renderQueue(data.items)}${renderPaging(data,'queue',cursor)}`;}
- }catch(error){tell(error.status===403?'当前账号无权查看或执行此项操作。':'读取状态失败，请刷新重试。',true);}finally{refreshing=false;}};
- const send=async(command)=>{if(busy)return;if(pending&&pending!==command){tell('上一项操作结果尚未确认，请查询状态或重试原操作。',true);return;}busy=true;pending=command;content.setAttribute('aria-busy','true');content.querySelectorAll('button').forEach(x=>x.disabled=true);tell('操作正在提交…');try{const result=await api.send(command);pending=null;tell('已受理，正在读取后续进度。');if(result.id&&(command.url.endsWith('/event-processings')||command.url.endsWith('/recomputations')))location.hash='processing='+result.id;await refresh();}catch(error){tell(error.code==='OUTCOME_UNKNOWN'?'结果暂未确认。请查询状态，或重试本次原操作。':`操作未完成：${error.code}`,true);if(error.code!=='OUTCOME_UNKNOWN')pending=null;}finally{busy=false;content.removeAttribute('aria-busy');content.querySelectorAll('button').forEach(x=>x.disabled=false);document.querySelector('#retry-event-command').hidden=!pending;}};
- content.addEventListener('input',event=>event.target.closest('form')?.setAttribute('data-dirty','true'));
- content.addEventListener('submit',event=>{event.preventDefault();const form=event.target,data=new FormData(form),params=new URLSearchParams(location.hash.slice(1));if(form.id==='event-start')return send(api.command(`/api/v1/l0/versions/${params.get('version')}/event-processings`,'POST',{task_manifest_id:'f02-local-draft-v1',definition_ref:data.get('definition_ref'),assessment_scope:{scope:data.get('scope')},research_horizon:{term:data.get('horizon')},method_version:'text-draft-v1',reason:'用户开启完整事件处理'}));if(form.hasAttribute('data-delivery'))return send(api.command(`/api/v1/l0/event-deliveries/${form.dataset.delivery}/${form.dataset.files==='true'?'files/retry':'retry'}`,'POST',{consumer_id:form.dataset.consumer,expected_generation:Number(form.dataset.generation),reason:data.get('reason')}));if(!selected)return;
- if(form.hasAttribute('data-extraction'))return send(api.command(`/api/v1/l0/event-processings/${selected.id}/retry`,'POST',{expected_generation:Number(selected.generation),reason:data.get('reason'),open_budget:data.get('open_budget')==='on'}));
- if(form.hasAttribute('data-cancel'))return send(api.command(`/api/v1/l0/processings/${selected.id}/cancel`,'POST',{expected_execution_generation:Number(selected.generation),reason:data.get('reason')}));
- if(form.hasAttribute('data-recompute'))return send(api.command(`/api/v1/l0/processings/${selected.id}/recomputations`,'POST',{reason:data.get('reason'),task_manifest_id:'f02-local-draft-v1'}));
- if(form.hasAttribute('data-workfile'))return send(api.command(`/api/v1/l0/event-processings/${selected.id}/files/retry`,'POST',{relative_path:form.dataset.workfile,expected_generation:Number(form.dataset.generation),reason:data.get('reason')}));
- if(form.hasAttribute('data-resume'))return send(api.command(`/api/v1/l0/candidates/${selected.id}/retry`,'POST',{resume_token:selected.resume_token,reason:data.get('reason'),open_budget:data.get('open_budget')==='on'}));const scope=form.dataset.review,basis=scope==='identity'?selected.identity_basis_digest:scope==='relations'?selected.relation_basis_digest:scope==='commit'?selected.commit_basis_digest:selected.disposition_basis_digest;send(api.command(`/api/v1/l0/candidates/${selected.id}/reviews`,'POST',{scope,proposal_generation:Number(selected.proposal_generation),proposal_digest:basis,decision:event.submitter?.value??'APPROVE',reason:data.get('reason')}));});
- document.querySelector('#event-refresh').onclick=()=>refresh();document.querySelector('#retry-event-command').onclick=()=>pending&&send(pending);window.addEventListener('hashchange',refresh);setInterval(()=>{if(!busy&&!document.hidden&&!content.querySelector('form[data-dirty="true"],textarea:focus,input:focus,select:focus'))refresh();},5000);await refresh();}
-if(typeof document!=='undefined'&&document.querySelector('#event-content'))mount();
-export function renderIdentityPreview(preview){const p=preview.proposal,matched=preview.context?.events?.find(x=>x.id===p?.matched_event_id);return `<section class="event-commit-preview"><h3>身份建议与比较范围</h3><p>${p?.decision==='REUSE'?`复用：${e(matched?.title??p.matched_event_id)}`:p?.decision==='NEW'?'新建独立事件':'身份未确定'}</p>${matched?`<p>${e(matched.description)} · 比较修订 ${e(matched.revision_no)}</p>`:''}<p>${e(p?.reason??'尚无有效建议')}</p></section>`;}
-export function renderRelationPreview(preview){
- const p=preview.proposal,defs=preview.definitions;
- const name=(kind,id)=>(defs?.[kind]??[]).find(d=>d.id===id)?.name??id;
- return `<section class="event-commit-preview"><h3>直接关系与定义缺口</h3>
- <p class="muted">定义范围：${e(defs?.owner??'待确认')} · 版本 ${e(defs?.version??'待确认')}</p>
- ${(p.unresolved_issues??[]).map(x=>`<p class="event-notice">${e(x)}</p>`).join('')}
- <p>${p.targets.length} 个正式观测主体 · ${p.variables.length} 项正式直接变量</p>
- ${p.targets.map(t=>`<p>${e(name('targets',t.target_id))} · ${e(t.definition_version)} · ${e(t.relation_note)}</p>${t.evidence_refs.map(x=>`<blockquote>${e(x.quote)}</blockquote>`).join('')}`).join('')}
- ${p.variables.map(v=>`<p>${e(name('variables',v.variable_id))} · ${e(v.definition_version)} · ${e(v.description)} · ${e(v.change_direction)}</p>${v.evidence_refs.map(x=>`<blockquote>${e(x.quote)}</blockquote>`).join('')}`).join('')}
- <details open><summary>待治理定义候选（${p.definition_candidates.length}）</summary>
- ${p.definition_candidates.map(d=>`<article class="event-step-result"><h4>${e(d.name)}</h4><p>${e(d.definition)}</p><p>${e(d.reason)}</p>${d.evidence_refs.map(x=>`<blockquote>${e(x.quote)}</blockquote>`).join('')}</article>`).join('')||'<p>无定义候选。</p>'}</details></section>`;
+import {escape as e} from './model.js';
+export async function resolveEventRoute(api,hash){
+ const params=new URLSearchParams(hash.replace(/^#/,''));
+ if(params.has('candidate')){
+  const candidate=await api.get(`/api/v1/l0/candidates/${encodeURIComponent(params.get('candidate'))}`);
+  if(candidate.fact_id){
+   const fact=await api.get(`/api/v1/l0/facts/${encodeURIComponent(candidate.fact_id)}`);
+   return fact.events.length?`#event=${encodeURIComponent(fact.events[0].event_id)}`:`#fact=${encodeURIComponent(candidate.fact_id)}`;
+  }
+  return '#events';
+ }
+ if(params.has('processing')){
+  const processing=await api.get(`/api/v1/l0/event-processings/${encodeURIComponent(params.get('processing'))}`);
+  return `#information=${encodeURIComponent(processing.version_id)}`;
+ }
+ if(params.has('version'))return `#information=${encodeURIComponent(params.get('version'))}`;
+ if(params.has('queue'))return '#events';
+ return hash;
 }
-export function renderCommitPreview(p){const name=(kind,id)=>(p.definitions?.[kind]??[]).find(d=>d.id===id)?.name??id;return `<section class="event-commit-preview"><h3>本次待保存内容</h3><p>${p.identity.decision==='NEW'?'新建独立事件':'复用已有事件'} · 阶段 ${e(p.payload.event_status??'未知')} · 事件时间 ${e(p.payload.event_time?.text??'原文未明确')}</p><h4>观测主体与直接变量</h4>${(p.relations.targets??[]).map(t=>`<p>${e(name('targets',t.target_id))} · 定义版本 ${e(t.definition_version)} · ${e(t.relation_note)}</p>`).join('')}${(p.relations.variables??[]).map(v=>`<p>${e(name('variables',v.variable_id))} · 定义版本 ${e(v.definition_version)} · 方向 ${e(v.change_direction)} · 阶段 ${e(v.impact_status)}</p>${v.evidence_refs.map(x=>`<blockquote>${e(x.quote)}</blockquote>`).join('')}`).join('')||'<p>无正式直接关系，定义缺口另行保留。</p>'}<h4>实际变化</h4>${(p.increment.changes??[]).map(c=>`<p>${e(c.summary)} · ${e(c.previous_status??'未知')} → ${e(c.current_status??'未知')} · ${e(c.effective_time?.text??'时间待确认')}</p>${c.evidence_refs.map(x=>`<blockquote>${e(x.quote)}</blockquote>`).join('')}`).join('')||'<p>仅处理来源或重复内容。</p>'}${p.rating?`<h4>金融意义评价口径</h4><p>范围：${e(Object.values(p.rating.assessment_scope).join(' / '))} · 期限：${e(Object.values(p.rating.research_horizon).join(' / '))}</p><p>${e(p.rating.reasoning_summary)}</p>${p.rating.dimensions.map(d=>`<p>${e(d.dimension_key)}：${e(d.reason)}</p>${d.evidence_refs.map(x=>`<blockquote>${e(x.quote)}</blockquote>`).join('')}`).join('')}<p>用途：${e(p.rating.financial_usages.join('、')||'待确认')} · 文字草案，未量化</p>`:'<p>本次无需新增评价。</p>'}</section>`;}
-export function renderProcessingSummary(data){if(data.extraction_status==='completed'&&data.candidate_count===0)return '<p>该资料没有具体事件。候选数量为 0，不需要交付。</p>';if(data.delivery_status==='not_required')return '<p>候选已完成处置，未产生事件变化；不需要交付。</p>';if(data.extraction_status==='recoverable')return '<p>候选抽取待恢复，数量待确认。</p>';return '<p>正在抽取完整候选，数量待确认。</p>';}
+const stageName=value=>({expected:'预计发生',announced:'已宣布',in_progress:'实施中',effective:'已生效',completed:'已完成',cancelled:'已取消',unknown:'阶段未知'})[value]??'阶段未知';
+export function renderFact(data){const f=data.fact;return `<section class="event-detail"><div class="section-heading"><h2>${e(f.title)}</h2><a href="#events">返回正式事件</a></div><p>${e(f.subject??'主体待确认')} · ${e(f.action??'行动待确认')} · ${e(stageName(f.event_status))}</p><p>发生时间：${e(f.event_time??'原文未明确')}</p><p class="event-description">${e(f.description)}</p><h3>事件归属</h3>${data.events.map(x=>`<a class="link-button" href="#event=${e(x.event_id)}">查看所属正式事件</a>`).join('')||'<p>尚未确认归属，保留为候选事实。</p>'}<h3>来源证据</h3>${data.evidence.map(x=>`<blockquote>${e(x.quote)}<a class="link-button" href="/api/v1/l0/versions/${e(x.information_version_id)}/raw" target="_blank" rel="noopener">查看对应版本原文</a></blockquote>`).join('')}</section>`;}
+function renderFinancialMeaning(r){const status=({draft:'草案',confirmed:'已确认',needs_reassessment:'待重新评价'})[r.rating_status]??'状态待确认';return `<article class="event-assessment">
+ <div class="event-assessment-meta"><span>${e(Object.values(r.assessment_scope??{}).join(' / ')||'范围待确认')} · ${e(Object.values(r.research_horizon??{}).join(' / ')||'期限待确认')}</span><span>${e(status)} · ${r.m==null?'文字评价，未量化':`M ${e(r.m)}`}</span></div>
+ <p class="event-meaning-summary">${e(r.reasoning_summary)}</p>
+ ${(r.dimension_scores??[]).length?`<dl class="event-dimensions">${r.dimension_scores.map(d=>`<div><dt>${e(d.dimension_key)}</dt><dd>${e(d.reason)}</dd></div>`).join('')}</dl>`:''}
+ ${(r.financial_usages??[]).length?`<h4>研究用途</h4><ul class="event-usages">${r.financial_usages.map(u=>`<li>${e(u)}</li>`).join('')}</ul>`:''}
+ ${(r.limitations??[]).length?`<details class="event-limitations" data-disclosure="limitations-${e(r.id??'rating')}"><summary>评价依据与限制（${r.limitations.length}）</summary>${r.limitations.map(l=>`<p>${e(l)}</p>`).join('')}</details>`:''}</article>`;}
+export function renderEvent(s,deliveries=[],permissions=[],returnHref='#events'){const v=s.event;return `<article class="event-detail event-record">
+ <nav class="event-detail-nav" aria-label="事件详情导航"><a class="secondary" href="${e(returnHref)}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7M5 12h14"/></svg>返回事件列表</a></nav>
+ <section class="event-overview" aria-labelledby="formal-event-title"><h2 id="formal-event-title">${e(v.title)}</h2><p class="event-abstract" aria-label="事件摘要">${e(v.description)}</p><div class="event-overview-meta"><span>发生时间：${e(v.event_time??'原文未明确')}</span><span>${e(stageName(v.event_status))}</span></div></section>
+ <section class="event-analysis" aria-label="主体、观测对象与金融意义"><div class="event-participants"><section aria-labelledby="event-subject-heading"><h3 id="event-subject-heading">主体 <span lang="en">Subject</span></h3><p class="event-subject">${e(v.subject??'主体待确认')}</p><p class="muted">实施行动的主体</p></section><section aria-labelledby="event-target-heading"><h3 id="event-target-heading">观测对象 <span lang="en">Target</span></h3>${s.targets.length?s.targets.map(t=>`<div class="event-target"><h4>${e((s.definitions??[]).find(d=>d.id===t.definition_snapshot_id)?.payload.name??'正式观测对象')}</h4><p>${e(t.relation_note)}</p></div>`).join(''):'<p class="event-target-empty">尚未确认观测对象</p><p class="muted">当前没有已保存的正式观测对象关联。</p>'}${s.variables.length?`<details data-disclosure="direct-variables"><summary>直接变量（${s.variables.length}）</summary>${s.variables.map(x=>`<p>${e((s.definitions??[]).find(d=>d.id===x.definition_snapshot_id)?.payload.name??'正式变量')} · ${e(x.description)}</p>`).join('')}</details>`:''}</section></div>
+ <section class="event-meaning" aria-labelledby="event-meaning-heading"><h3 id="event-meaning-heading">金融意义</h3>${(s.ratings??[]).map(renderFinancialMeaning).join('')||'<p class="muted">尚无已保存的金融意义评价。</p>'}</section></section>
+ <section class="event-related" aria-labelledby="event-related-heading"><h3 id="event-related-heading">关联候选事件 <span class="muted">（${(s.facts??[]).length}）</span></h3><p class="muted">已确认归入本事件的候选事实及其来源。</p>
+ ${(s.facts??[]).map(f=>`<article class="event-related-item" data-fact-id="${e(f.id)}"><h4>${e(f.title)}</h4><p>${e(f.description)}</p><p class="muted">${e(({initial:'初始事实',progress:'进展',supplement:'补充',correction:'纠正',corroboration:'佐证'})[f.relation_role]??'关联事实')}${f.relation_note?' · '+e(f.relation_note):''}</p><details data-disclosure="fact-${e(f.id)}"><summary>查看候选详情与原文</summary><p>主体：${e(f.subject??'待确认')} · 行动：${e(f.action??'待确认')}</p><p>发生时间：${e(f.event_time??'原文未明确')} · ${e(stageName(f.event_status)??'阶段未知')}</p>${(s.evidence??[]).filter(x=>x.fact_id===f.id).map(x=>`<blockquote>${e(x.quote)}<a class="link-button" href="/api/v1/l0/versions/${e(x.information_version_id)}/raw" target="_blank" rel="noopener">查看对应版本原文</a></blockquote>`).join('')||'<p class="muted">暂无可展示的原文证据。</p>'}</details></article>`).join('')||'<p class="muted">尚无已关联的候选事件。</p>'}</section>
+ <details class="event-support" data-disclosure="delivery"><summary>结果交付与下载</summary><a class="link-button" href="/api/v1/l0/events/${e(v.id)}/file" download>下载当前结果</a> <section><h3>结果交付</h3><p class="muted">验收接收端用于验证可靠交付；F03/F05 风险分析尚未接入。</p>${deliveries.map(d=>`<div class="event-step-result"><strong>${d.status==='received'?(d.application_status==='waiting_gap'?'已接收，等待前序交付':d.application_status==='applied'?'已接收并采用':'已接收'):'等待交付'}</strong><p>${e(d.consumer_id)} · 文件${d.files_state==='ready'?'可读取':'待恢复'}</p>${d.files_state==='ready'?`<a class="link-button" href="/api/v1/l0/event-deliveries/${e(d.message_id)}/files/event" download>下载当次交付结果</a>`:''}${d.status==='received'?`<a class="link-button" href="/api/v1/l0/event-deliveries/${e(d.message_id)}/files/receipt?consumer_id=${e(d.consumer_id)}" download>下载接收回执</a>`:''}${permissions.includes('event_retry')&&(d.status==='recoverable'||d.files_state==='recoverable')?`<form data-delivery="${e(d.message_id)}" data-consumer="${e(d.consumer_id)}" data-files="${d.status==='received'}" data-generation="${e(d.status==='received'?d.file_generation:d.generation)}"><label>恢复说明<input name="reason" required maxlength="2000"></label><button class="secondary">${d.status==='received'?'重新生成文件':'重新交付'}</button></form>`:''}</div>`).join('')||'<p>当前没有待交付结果。</p>'}</section></details></article>`;}
+
 export function renderPaging(data,kind,cursor){return `<nav class="event-pagination" aria-label="列表分页">${cursor>0?`<a class="secondary" href="#${e(kind)}&amp;cursor=${Math.max(0,cursor-20)}">上一页</a>`:''}${data.next_cursor!==null?`<a class="secondary" href="#${e(kind)}&amp;cursor=${e(data.next_cursor)}">下一页</a>`:''}</nav>`;}
+
+export function listCursor(params){const value=Number(params.get('cursor')??0);return Number.isSafeInteger(value)&&value>=0?value:0;}
+export function eventListReturn(hash){
+ const params=new URLSearchParams(hash.replace(/^#/,''));
+ const raw=params.get('list_cursor'),cursor=Number(raw);
+ if(raw===null||!Number.isSafeInteger(cursor)||cursor<0)return '#events';
+ const anchor=params.get('list_anchor');
+ return `#events&cursor=${cursor}${anchor&&/^[a-zA-Z0-9-]{1,80}$/.test(anchor)?`&anchor=${encodeURIComponent(anchor)}`:''}`;
+}
+const calendar=new Intl.DateTimeFormat('zh-CN',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit',weekday:'long'});
+const clock=new Intl.DateTimeFormat('zh-CN',{timeZone:'Asia/Shanghai',hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
+export function timelineDate(item){
+ const value=item.display_time,precision=item.display_time_precision;
+ if(!value)return {key:'unknown',label:'展示时间未明确',time:'时刻未明确',datetime:null};
+ if(precision==='instant'&&!Number.isNaN(Date.parse(value))){
+  const parts=Object.fromEntries(calendar.formatToParts(new Date(value)).map(x=>[x.type,x.value]));
+  return {key:`${parts.year}-${parts.month}-${parts.day}`,label:`${parts.year}年${Number(parts.month)}月${Number(parts.day)}日`,weekday:parts.weekday,time:clock.format(new Date(value)),datetime:value};
+ }
+ if(precision==='day')return {key:value,weekday:new Intl.DateTimeFormat('zh-CN',{timeZone:'UTC',weekday:'long'}).format(new Date(value)),label:`${value.replace(/^(\d{4})-(\d{2})-(\d{2})$/,'$1年$2月$3日')}`,time:'时刻未明确',datetime:value};
+ return {key:`partial-${value}`,label:`展示日期不完整 · ${value}`,time:precision==='year'?'精确到年':'精确到月',datetime:value};
+}
+export function renderTimeline(data,cursor=0){
+ const groups=new Map();
+ for(const item of data.items){const date=timelineDate(item);if(!groups.has(date.key))groups.set(date.key,{date,items:[]});groups.get(date.key).items.push(item);}
+ return `<div class="section-heading event-timeline-heading"><h2 id="event-list-heading" tabindex="-1">正式事件</h2><p>按展示时间 · 最新在前</p></div>${data.items.length?`<div class="event-timeline">${[...groups].map(([key,{date,items}])=>`<details class="timeline-day" data-disclosure="day-${e(key)}" open><summary><h3>${e(date.label)}${date.weekday?` <span>${e(date.weekday)}</span>`:''}</h3><span>本页${items.length}条</span><span class="timeline-fold" aria-hidden="true"></span></summary><ol>${items.map(item=>{
+ const t=timelineDate(item),sources=item.sources??[],basis=sources.find(s=>s.id===item.time_source_id),basisLabel=item.display_time_basis==='first_collected'?'首次收录':item.display_time_basis==='published'?'原文发布':'时间待核实';
+ const link=`#event=${encodeURIComponent(item.id)}&list_cursor=${cursor}&list_anchor=${encodeURIComponent(item.id)}`;
+ return `<li class="timeline-item" id="timeline-${e(item.id)}" data-event-id="${e(item.id)}"><div class="timeline-clock">${t.datetime?`<time datetime="${e(t.datetime)}">${e(t.time)}</time>`:e(t.time)}</div><article class="timeline-card"><div class="timeline-meta"><span class="timeline-source">${e(sources[0]?.name??'信源信息暂缺')}</span><span>${e(stageName(item.event_status)??'阶段未知')}</span></div><h4><a data-event-link="${e(item.id)}" href="${e(link)}">${e(item.title)}</a></h4><p class="timeline-description">${e(item.description)}</p><div class="timeline-support">${sources.length>1?`<details data-disclosure="sources-${e(item.id)}"><summary>另${sources.length-1}个关联信源</summary><ul>${sources.slice(1).map(s=>`<li>${e(s.name)}</li>`).join('')}</ul></details>`:''}<details data-disclosure="time-${e(item.id)}"><summary>${e(basisLabel)} · 时间说明</summary><dl><div><dt>依据原文信源</dt><dd>${e(basis?.name??'信源信息暂缺')}</dd></div><div><dt>原文发布时间</dt><dd>${e(item.published_at_text??'待核实')}</dd></div><div><dt>首次收录时间</dt><dd>${item.first_collected_at?e(new Intl.DateTimeFormat('zh-CN',{timeZone:'Asia/Shanghai',dateStyle:'medium',timeStyle:'medium',hourCycle:'h23'}).format(new Date(item.first_collected_at))):'待核实'}</dd></div></dl><p>${e(item.display_time_reason??'时间依据待核实')}</p></details></div></article></li>`;
+ }).join('')}</ol></details>`).join('')}</div>`:'<div class="empty">还没有正式事件。已抽取的候选可从信息接入任务查看。</div>'}${renderPaging(data,'events',cursor)}`;
+}
+
+async function mount(){
+ const api=createClient(),content=document.querySelector('#event-content'),feedback=document.querySelector('#event-feedback');
+ let busy=false,pending=null,refreshing=false,renderedRoute=null,renderedHtml=null,pageNavigation=false;
+ const memory=new Map();
+ const paramsOf=hash=>new URLSearchParams(hash.replace(/^#/,''));
+ const isList=hash=>!['event','fact','information','candidate','processing','version'].some(k=>paramsOf(hash).has(k));
+ const stateKey=hash=>`riskhot-event-list-${listCursor(paramsOf(hash))}`;
+ const getState=hash=>{const key=stateKey(hash);try{const state=memory.get(key)??JSON.parse(sessionStorage.getItem(key)??'null');return state&&Array.isArray(state.details)&&state.details.every(x=>Array.isArray(x)&&typeof x[0]==='string'&&typeof x[1]==='boolean')&&(state.top==null||Number.isFinite(state.top))?state:null;}catch{return memory.get(key);}};
+ const capture=()=>{
+  const details=[...content.querySelectorAll('details[data-disclosure]')].map(d=>[d.dataset.disclosure,d.open]);
+  const visible=[...content.querySelectorAll('[data-event-id]')].find(x=>x.getBoundingClientRect().height>0&&x.getBoundingClientRect().bottom>80);
+  const day=[...content.querySelectorAll('.timeline-day>summary')].find(x=>x.getBoundingClientRect().bottom>80);
+  const active=document.activeElement;
+  return {details,anchor:visible?.dataset.eventId,top:visible?.getBoundingClientRect().top,day:day?.parentElement.dataset.disclosure,dayTop:day?.getBoundingClientRect().top,scroll:scrollY,focus:active?.dataset.eventLink??null,focusDisclosure:active?.matches('summary')?active.parentElement.dataset.disclosure:null};
+ };
+ const saveList=()=>{if(renderedHtml!==null&&renderedRoute!==null&&isList(renderedRoute)&&content.querySelector('.event-timeline-heading')){const key=stateKey(renderedRoute),state=capture();memory.set(key,state);try{sessionStorage.setItem(key,JSON.stringify(state));}catch{}}};
+ const restore=(state,anchor)=>{
+  for(const [key,open] of state?.details??[]){const d=[...content.querySelectorAll('details[data-disclosure]')].find(x=>x.dataset.disclosure===key);if(d)d.open=open;}
+  const target=[...content.querySelectorAll('[data-event-id]')].find(x=>x.dataset.eventId===(state?state.anchor:anchor));
+  if(state?.focus){const link=[...content.querySelectorAll('[data-event-link]')].find(x=>x.dataset.eventLink===state.focus);link?.focus({preventScroll:true});}
+  if(state?.focusDisclosure){const summary=[...content.querySelectorAll('details[data-disclosure]')].find(x=>x.dataset.disclosure===state.focusDisclosure)?.querySelector(':scope>summary');summary?.focus({preventScroll:true});}
+  const day=[...content.querySelectorAll('.timeline-day')].find(x=>x.dataset.disclosure===state?.day)?.querySelector(':scope>summary');
+  if(target){const parent=target.closest('.timeline-day');if(!state&&anchor&&parent)parent.open=true;window.scrollBy(0,target.getBoundingClientRect().top-(state?.top??100));}
+  else if(day&&Number.isFinite(state?.dayTop))window.scrollBy(0,day.getBoundingClientRect().top-state.dayTop);
+  else if(Number.isFinite(state?.scroll))window.scrollTo(0,state.scroll);
+  else document.querySelector('#event-list-heading')?.scrollIntoView({block:'start'});
+ };
+ const tell=(message,error=false)=>{feedback.hidden=false;feedback.textContent=message;feedback.classList.toggle('error',error);};
+ const refresh=async()=>{
+  if(refreshing)return;
+  refreshing=true;
+  const requestedRoute=location.hash,retained=renderedHtml!==null&&renderedRoute===requestedRoute,paging=pageNavigation;pageNavigation=false;
+  if(!retained){saveList();renderedRoute=null;renderedHtml=null;content.innerHTML='<div class="loading" role="status">正在读取…</div>';feedback.hidden=true;}
+  try{
+   const session=await api.get('/api/v1/session'),route=await resolveEventRoute(api,requestedRoute);
+   if(location.hash!==requestedRoute)return;
+   if(route!==requestedRoute)history.replaceState(null,'',route);
+   const params=paramsOf(route),information=params.get('information'),fact=params.get('fact'),event=params.get('event');
+   let html;
+   if(information){
+    const data=await api.get(`/api/v1/l0/versions/${encodeURIComponent(information)}/facts`);
+    html=`<section class="event-detail"><div class="section-heading"><h2>资料的候选事实</h2><a href="/m1#intake-tasks">返回信息接入任务</a></div><p>查看抽取结果及已确认的事件归属。未归组的候选保留在资料中。</p>${data.items.map(x=>`<a class="event-row" href="#${x.events.length?`event=${e(x.events[0].event_id)}`:`fact=${e(x.fact.id)}`}"><strong>${e(x.fact.title)}</strong><span>${x.events.length?'查看正式事件':'查看未归组候选'}</span></a>`).join('')||'<p>尚无候选事实，请查看接入任务的抽取状态。</p>'}</section>`;
+   }else if(fact){html=renderFact(await api.get(`/api/v1/l0/facts/${encodeURIComponent(fact)}`));}
+   else if(event){
+    const [snapshot,messages]=await Promise.all([api.get(`/api/v1/l0/events/${encodeURIComponent(event)}`),api.get(`/api/v1/l0/events/${encodeURIComponent(event)}/deliveries`)]);
+    html=renderEvent(snapshot,messages.items,session.permissions,eventListReturn(route));
+   }else{
+    const cursor=listCursor(params),data=await api.get(`/api/v1/l0/events?cursor=${cursor}`);
+    html=renderTimeline(data,cursor);
+   }
+   if(location.hash!==route)return;
+   if(html!==renderedHtml){
+    const state=renderedHtml!==null&&renderedRoute===route?capture():null;
+    content.innerHTML=html;renderedHtml=html;
+    if(isList(route))restore(state??(paging?null:getState(route)),paging?null:params.get('anchor'));
+    else if(state)for(const [key,open] of state.details){const d=[...content.querySelectorAll('details[data-disclosure]')].find(x=>x.dataset.disclosure===key);if(d)d.open=open;}
+   }
+   if(feedback.classList.contains('error'))feedback.hidden=true;
+   renderedRoute=route;
+  }catch(error){
+   if(location.hash===requestedRoute){
+    const restricted=error.status===401||error.status===403;
+    if(!retained||restricted){renderedRoute=null;renderedHtml=null;content.innerHTML=`<div class="empty">暂时无法读取此内容，请使用上方“刷新状态”重试。${paramsOf(requestedRoute).has('event')?`<a class="secondary" href="${e(eventListReturn(requestedRoute))}">返回事件列表</a>`:''}</div>`;}
+    tell(error.status===401?'登录状态已失效，请重新登录后刷新重试。':error.status===403?'当前账号无权查看此内容。':retained?'刷新失败，已保留当前列表。请使用上方“刷新状态”重试。':'读取失败，请使用上方“刷新状态”重试。',true);
+   }
+  }finally{
+   refreshing=false;
+   if(location.hash!==requestedRoute&&renderedRoute!==location.hash)void refresh();
+  }
+ };
+ content.addEventListener('click',event=>{if(event.target.closest('[data-event-link],.event-pagination a'))saveList();if(event.target.closest('.event-pagination a'))pageNavigation=true;});
+ window.addEventListener('pagehide',saveList);
+ const send=async(command)=>{
+  if(busy)return;
+  if(pending&&pending!==command){tell('上一项操作结果尚未确认，请重试原操作。',true);return;}
+  busy=true;pending=command;content.setAttribute('aria-busy','true');content.querySelectorAll('button').forEach(x=>x.disabled=true);tell('操作正在提交…');
+  try{await api.send(command);pending=null;tell('已受理，正在读取交付状态。');await refresh();}
+  catch(error){tell(error.code==='OUTCOME_UNKNOWN'?'结果暂未确认，请重试本次原操作。':`操作未完成：${error.code}`,true);if(error.code!=='OUTCOME_UNKNOWN')pending=null;}
+  finally{busy=false;content.removeAttribute('aria-busy');content.querySelectorAll('button').forEach(x=>x.disabled=false);document.querySelector('#retry-event-command').hidden=!pending;}
+ };
+ content.addEventListener('input',event=>event.target.closest('form')?.setAttribute('data-dirty','true'));
+ content.addEventListener('submit',event=>{
+  event.preventDefault();const form=event.target;if(!form.hasAttribute('data-delivery'))return;
+  const data=new FormData(form);
+  void send(api.command(`/api/v1/l0/event-deliveries/${form.dataset.delivery}/${form.dataset.files==='true'?'files/retry':'retry'}`,'POST',{consumer_id:form.dataset.consumer,expected_generation:Number(form.dataset.generation),reason:data.get('reason')}));
+ });
+ document.querySelector('#event-refresh').onclick=()=>refresh();
+ document.querySelector('#retry-event-command').onclick=()=>pending&&send(pending);
+ window.addEventListener('hashchange',refresh);
+ setInterval(()=>{if(!busy&&!document.hidden&&!content.querySelector('form[data-dirty="true"],textarea:focus,input:focus,select:focus,summary:focus,a:focus,button:focus'))void refresh();},5000);
+ await refresh();
+}
+if(typeof document!=='undefined'&&document.querySelector('#event-content'))void mount();

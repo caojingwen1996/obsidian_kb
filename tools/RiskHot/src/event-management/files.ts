@@ -1,7 +1,7 @@
 import {randomUUID,createHash} from 'node:crypto';
 import {join,dirname} from 'node:path';import {mkdir,link,lstat,readFile,open,rename} from 'node:fs/promises';import type {Repository} from '../information-ingestion/processing/repository.js';import {canonical,digest} from './contracts.js';import {DomainError} from '../platform/types.js';
 const uuid=/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/;
-export function revisionPath(id:string,revision:number){if(!uuid.test(id)||!Number.isSafeInteger(revision)||revision<1)throw new DomainError('FILE_PATH_INVALID',400);return join('events',id,'revisions',String(revision),'event.json');}
+export function eventContentPath(id:string){if(!uuid.test(id))throw new DomainError('FILE_PATH_INVALID',400);return join('handoffs','f02-events',id,'event.json');}
 export function messagePath(id:string,consumer?:string){if(!uuid.test(id)||consumer!==undefined&&!/^[a-z][a-z0-9-]{0,40}$/.test(consumer))throw new DomainError('FILE_PATH_INVALID',400);return join('handoffs','f02-events',id,...(consumer?['receipts',`${consumer}.json`]:['message.json']));}
 export class EventFiles {
  constructor(public repo:Repository){}
@@ -10,7 +10,8 @@ export class EventFiles {
  private async quarantine(path:string){let info;try{info=await lstat(path);}catch(error){if((error as NodeJS.ErrnoException).code==='ENOENT')return;throw error;}if(!info.isFile()||info.isSymbolicLink())throw new DomainError('EVENT_FILE_CONFLICT',409);const backup=path+'.quarantine-'+randomUUID();try{await rename(path,backup);}catch(error){if((error as NodeJS.ErrnoException).code!=='ENOENT')throw error;}await this.repo.db.query("INSERT INTO platform.audit_log(actor,action,detail) VALUES('event-file-recovery','quarantine-generated-file',$1)",[{path,backup}]);}
 
  async read(path:string,value:unknown){const file=join(this.repo.artifacts.root,path);let bytes:Buffer;try{const stat=await lstat(file);if(!stat.isFile()||stat.isSymbolicLink())throw new Error();bytes=await readFile(file);}catch{throw new DomainError('EVENT_FILE_UNAVAILABLE',503);}if(!bytes.equals(this.bytes(value)))throw new DomainError('EVENT_FILE_INTEGRITY',409);return bytes;}
- async publishRevision(id:string,revision:number){const r=(await this.repo.db.query('SELECT snapshot,snapshot_digest FROM information.event_revisions WHERE event_id=$1 AND revision_no=$2',[id,revision])).rows[0];if(!r)throw new DomainError('NOT_FOUND',404);if(digest(r.snapshot)!==r.snapshot_digest)throw new DomainError('REVISION_INTEGRITY',409);return this.publish(revisionPath(id,revision),r.snapshot);}
+ async publishContent(id:string){const m=(await this.repo.db.query("SELECT payload,payload_digest FROM platform.messages WHERE id=$1 AND message_type='event.facts.committed.v2'",[id])).rows[0];if(!m)throw new DomainError('NOT_FOUND',404);if(digest(m.payload)!==m.payload_digest)throw new DomainError('MESSAGE_INTEGRITY',409);return this.publish(eventContentPath(id),m.payload.content);}
+
 }
 
 export async function queueEventFile(db:import('./store.js').DB,processingId:string,path:string,payload:unknown){

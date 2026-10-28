@@ -1,3 +1,5 @@
+import {saveFact} from '../../event-management/facts.js';
+import {convertLegacyCandidate} from '../../event-management/legacy-candidate.js';
 import { InformationDelivery } from './handoff.js';
 import { createHash, randomUUID } from 'node:crypto';
 import type { Pool, PoolClient } from 'pg';
@@ -276,7 +278,7 @@ export class Repository {
       if (processing.extraction_status === 'review') throw new DomainError('OUTPUT_REVIEW_REQUIRED', 409);
       const op = first((await client.query<OperationRow>('SELECT * FROM information.operations WHERE processing_id=$1 ORDER BY paused,created_at LIMIT 1', [id])).rows);
       await this.checkSource(op, client);
-      for (const [ordinal, candidate] of data.candidates.entries()) await client.query('INSERT INTO information.event_candidates(processing_id,ordinal,payload) VALUES($1,$2,$3)', [id, ordinal, candidate]);
+      for (const [ordinal, candidate] of data.candidates.entries()) { const row=(await client.query('INSERT INTO information.event_candidates(processing_id,ordinal,payload) VALUES($1,$2,$3) RETURNING id', [id, ordinal, candidate])).rows[0]; await saveFact(client,row.id,convertLegacyCandidate(candidate,processing.version_id)); }
       await client.query('UPDATE information.processing_runs SET extraction_status=\'completed\',candidate_count=$2,result_status=$3,error_code=NULL,completed_at=now(),validated_result_artifact_id=$4 WHERE id=$1', [id, data.candidates.length, data.candidates.length ? 'pending' : 'NO_EVENT', validated]);
       await client.query('UPDATE information.operations SET status=\'completed\',stage=\'candidates_saved\',reason_code=NULL,updated_at=now() WHERE processing_id=$1 AND NOT paused', [id]);
     });
@@ -297,6 +299,6 @@ export class Repository {
     return op;
   }
   async candidates(id: string): Promise<unknown[]> {
-    return (await this.db.query('SELECT id,candidate_key,status,ordinal,payload FROM information.event_candidates WHERE processing_id=$1 ORDER BY ordinal', [id])).rows;
+    return (await this.db.query('SELECT c.id,c.candidate_key,c.status,c.ordinal,c.payload,cf.fact_id FROM information.event_candidates c LEFT JOIN information.candidate_fact cf ON cf.candidate_id=c.id WHERE c.processing_id=$1 ORDER BY ordinal', [id])).rows;
   }
 }

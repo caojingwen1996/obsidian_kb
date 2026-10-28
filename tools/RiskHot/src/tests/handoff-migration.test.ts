@@ -100,3 +100,12 @@ test('ambiguous legacy acquisitions before a save are left unresolved',async()=>
     assert.equal((await c.db.query('SELECT * FROM information.material_version_origins WHERE version_id=$1',[v])).rowCount,0);
   }finally{await c.dispose();}
 });
+
+test('资料迁移重跑跳过事件消息，不为无资料版本的消息建立交付',async()=>{
+ const {eventFixture,preparedCandidate}=await import('./event-fixture.js');const f=await eventFixture();try{
+  await f.service.acceptExtraction(f.full.id,1,{candidates:[f.candidate],warnings:[]});const c=await preparedCandidate(f);await c.commit.commitCandidate(c.id,c.generation,c.key);
+  const before=(await f.db.query('SELECT version_id,message_id FROM information.material_deliveries ORDER BY version_id')).rows;
+  await applyHandoffMigration(f.db);await applyHandoffMigration(f.db);
+  assert.deepEqual((await f.db.query('SELECT version_id,message_id FROM information.material_deliveries ORDER BY version_id')).rows,before);
+ }finally{await f.dispose();}
+});

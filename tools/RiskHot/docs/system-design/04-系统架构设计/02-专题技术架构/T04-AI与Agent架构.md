@@ -1,5 +1,7 @@
 # T04 AI与Agent架构
 
+> 2026-10-27 模型调整：五任务目标字段按 Fact 模型更新；当前 src 任务包未替换。
+
 > V0.3 · 2026-10-24 · 模型是有边界的建议生成器；任务语义引用[L0第6章](../../02-%E4%B8%9A%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E9%A2%86%E5%9F%9F%E8%AE%BE%E8%AE%A1/RiskHot_L0_%E4%BF%A1%E6%81%AF%E5%A4%84%E7%90%86%E5%B1%82_%E4%B8%9A%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E9%A2%86%E5%9F%9F%E8%AE%BE%E8%AE%A1V1.0.md)。
 
 ## 1. 固定任务包
@@ -16,9 +18,9 @@
 
 ## 3. 未正式保存事件时的上下文
 
-F02 Step 6才创建新正式事件，Step 2～5不能假造event_id。新增技术包装EventContextRef：kind=candidate时携candidate_id及候选上下文版本；kind=event时携既有event_id与expected_revision。程序生成并限制模型透传，不能由模型切换kind或身份。
+F02 Step 6才创建新正式事件，Step 2～5不能假造event_id。新增技术包装EventContextRef：kind=fact时携fact_id及候选上下文摘要；kind=event时携既有event_id与expected_content_digest。程序生成并限制模型透传，不能由模型切换kind或身份。
 
-此包装解决[L0业务字段](../../02-%E4%B8%9A%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E9%A2%86%E5%9F%9F%E8%AE%BE%E8%AE%A1/RiskHot_L0_%E4%BF%A1%E6%81%AF%E5%A4%84%E7%90%86%E5%B1%82_%E4%B8%9A%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E9%A2%86%E5%9F%9F%E8%AE%BE%E8%AE%A1V1.0.md)以Event描述前序上下文与[F02正式保存时点](../../03-%E7%B3%BB%E7%BB%9F%E5%8A%9F%E8%83%BD%E6%9E%B6%E6%9E%84/F02%20%E4%BA%8B%E4%BB%B6%E7%AE%A1%E7%90%86%E6%A8%A1%E5%9D%97%E5%8A%9F%E8%83%BD%E8%AE%BE%E8%AE%A1%20V1.0.md)之间的实现差异：前序仍分析同一业务事件建议，Step 6通过身份决策取得真实event_id后才写正式关系。正式EventTarget/EventUpdate/EventRating不得保存candidate_id冒充event_id。未升级Schema的旧任务不能直接接收此新包装。
+此包装解决[L0业务字段](../../02-%E4%B8%9A%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E9%A2%86%E5%9F%9F%E8%AE%BE%E8%AE%A1/RiskHot_L0_%E4%BF%A1%E6%81%AF%E5%A4%84%E7%90%86%E5%B1%82_%E4%B8%9A%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E9%A2%86%E5%9F%9F%E8%AE%BE%E8%AE%A1V1.0.md)以Event描述前序上下文与[F02正式保存时点](../../03-%E7%B3%BB%E7%BB%9F%E5%8A%9F%E8%83%BD%E6%9E%B6%E6%9E%84/F02%20%E4%BA%8B%E4%BB%B6%E7%AE%A1%E7%90%86%E6%A8%A1%E5%9D%97%E5%8A%9F%E8%83%BD%E8%AE%BE%E8%AE%A1%20V1.0.md)之间的实现差异：前序仍分析同一业务事件建议，Step 6通过身份决策取得真实event_id后才写正式关系。正式事件关系和评价不得使用fact_id冒充event_id。未升级Schema的旧任务不能直接接收此新包装。
 
 ## 4. 分层校验与权限
 
@@ -97,17 +99,17 @@ Schema只能验证类型范围，`end_cp>start_cp`、`end_cp≤段落码点数`�
 
 ## 9. 五任务payload的定版候选
 
-以下为本轮目标Schema的字段契约，尚未发布为M3生效版本。公共EvidenceRef按上节定义；array上限均显式配置，首切片candidates最多50，单项evidence_refs最多20，其他业务列表最多100。所有列出的输出字段均required，标记“可空”的用null表达；未知枚举用UNKNOWN，不造正式ID。
+以下为本轮目标Schema的字段契约，尚未发布为M3生效版本。公共EvidenceRef按上节定义；array上限均显式配置，首切片candidates最多50，单项evidence_refs最多20，其他业务列表最多100。所有列出的输出字段均required，标记“可空”的用null表达；未知值按各任务契约表达（事件阶段使用unknown），不造正式ID。
 
 | 任务 | payload字段与类型 | 条件约束及程序交接 |
 | --- | --- | --- |
-| AI-01 | candidates: Candidate[]；warnings: string[] | Candidate={local_key:string,title:string,description:string,subject_name:string/null,action:string,event_status:string,event_time:TimeValue/null,evidence_refs:EvidenceRef[],missing_fields:string[]}；非空候选至少1项证据；全部合法才固定集合 |
+| AI-01 | candidates: Candidate[]；warnings: string[] | Candidate={local_key:string,title:string,description:string,subject:string/null,action:string,event_status:string,event_time:string/null,evidence_refs:EvidenceRef[],missing_fields:string[]}；非空候选至少1项证据；全部合法才固定集合 |
 | AI-02 | decision: NEW/REUSE/UNRESOLVED；matched_event_id:uuid/null；comparisons: Comparison[]；reason:string；evidence_refs:EvidenceRef[]；unresolved_issues:string[] | REUSE必须来自召回集合；其他decision不得携带拟正式新ID；Comparison={event_id:uuid,identity_match:boolean/null,reason:string}；UNRESOLVED问题列表非空 |
 | AI-03 | targets: TargetRelation[]；variables: VariableRelation[]；definition_candidates: DefinitionCandidate[]；unresolved_issues:string[] | TargetRelation={target_id,definition_version,relation_note,evidence_refs}；VariableRelation={target_id,variable_id,definition_version,relation_type,change_direction,impact_status,description,evidence_refs}；定义候选无正式ID |
-| AI-04 | classification:七类枚举；changes: Change[]；source_evidence_refs:EvidenceRef[]；reason:string；unresolved_issues:string[] | Change={local_key:string,update_type:string,summary:string,previous_status:string/null,current_status:string/null,effective_time:TimeValue/null,supersedes_update_ids:uuid[],evidence_refs:EvidenceRef[]}；SOURCE_ADDITION/DUPLICATE不得携changes |
+| AI-04 | classification:七类枚举；current_event_changes: Change[]；source_evidence_refs:EvidenceRef[]；reason:string；unresolved_issues:string[] | Change={field,before,after,reason,fact_refs,evidence_refs}；字段限title/description/subject/action/event_status/event_time，Fact引用仅为待校验建议；SOURCE_ADDITION/DUPLICATE不得携当前事件字段变更 |
 | AI-05 | assessment_scope:object；research_horizon:object；method_version:string；dimensions: Dimension[]；financial_usages:string[]；reasoning_summary:string；limitations:string[] | Dimension={dimension_key:string,score:0～5的number/null,reason:string,evidence_refs:EvidenceRef[]}；范围/期限/方法必须与输入相同；总分、rating_id、批准状态不在模型输出Schema中 |
 
-TimeValue统一为{text:string,start:string/null,end:string/null,precision:timestamp/day/month/year/range/unknown,kind:occurred/announced/expected/unknown,timezone:string/null}。精度不足时不转换成虚假的午夜时间戳；正式events除event_time外保存event_time_text、precision/kind及区间字段，以保留月/年/预计等语义。时区未知时不能偷偷套用服务器时区。
+F02 不再使用 TimeValue 对象；event_time 只保存实际发生的部分日期或带时区时刻，未知为空，格式与日历校验由 [[tools/RiskHot/docs/system-design/04-系统架构设计/01-数据模型与存储设计/F02事件管理模块数据模型与存储设计|F02 数据模型与存储设计]] 第4章维护。预计安排保留在描述及原文，不恢复时间语义/精度/起止字段。
 
 DefinitionCandidate={kind:target/variable,name:string,definition:string,jurisdiction:string/null,unit:string/null,reason:string,evidence_refs:EvidenceRef[]}；枚举relation_type、event_status等由固定业务方法包提供，编译时形成enum，而非模型自由扩充。任务输出类型中的uuid均为字符串格式，业务列表元素默认additionalProperties=false。
 
@@ -117,7 +119,7 @@ DefinitionCandidate={kind:target/variable,name:string,definition:string,jurisdic
 {"candidates": [], "warnings": []}
 ```
 
-只有适配器正常结束、覆盖完整且Schema通过时才接纳该结果。`null`、空字符串、只有warnings、超时后缺失响应都不等价于该载荷。模型在同一资料上返回两个候选时，程序将local_key映射到两项稳定candidate_id；后续重试不依赖模型重新给出相同顺序。
+只有适配器正常结束、覆盖完整且Schema通过时才接纳该结果。`null`、空字符串、只有warnings、超时后缺失响应都不等价于该载荷。模型在同一资料上返回两个候选时，程序将local_key映射到两项稳定Fact及运行关联；后续重试不依赖模型重新给出相同顺序。
 
 ### 9.2 输入预算与任务包完整性
 

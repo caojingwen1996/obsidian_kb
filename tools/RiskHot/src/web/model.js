@@ -1,4 +1,4 @@
-export const statusNames = {ACTIVE:'启用',DISABLED:'停用',ready:'已就绪',needs_adapter:'待配置连接器',missing_url:'待补地址',authentication_required:'需登录',unknown:'待确认',running:'运行中',queued:'待执行',pending:'待执行',paused:'已暂停',completed:'已完成',partial:'部分完成',failed:'失败',blocked:'已阻断',recoverable:'待恢复',review:'待复核',waiting_config:'待配置',needs_url:'待补地址',needs_login:'需登录',access_blocked:'访问受限'};
+export const statusNames = {ACTIVE:'启用',DISABLED:'停用',ready:'已就绪',needs_adapter:'待配置连接器',missing_url:'待补地址',authentication_required:'需登录',unknown:'待确认',running:'运行中',queued:'待执行',pending:'待执行',paused:'已暂停',completed:'已完成',partial:'部分完成',failed:'失败',blocked:'已阻断',recoverable:'待恢复',review:'待复核',waiting_config:'待配置',needs_url:'待补地址',needs_login:'需登录',access_blocked:'访问受限',skipped:'已跳过'};
 export const statusName = value => statusNames[value] || value || '未知';
 export const periodUnits={minutes:{seconds:60,label:'分钟'},hours:{seconds:3600,label:'小时'},days:{seconds:86400,label:'天'}};
 export function schedulePeriod(seconds=3600){
@@ -64,15 +64,15 @@ export function validRange(from,to) {
 export function dateTime(value) {if(!value)return '尚无记录';const date=new Date(value);return Number.isFinite(+date)?new Intl.DateTimeFormat('zh-CN',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}).format(date):'时间未知';}
 export function badge(value) {return `<span class="status status-${escape(value)}">${escape(statusName(value))}</span>`;}
 const reasons={SOURCE_DISABLED:'信源已停用，请先核对业务资格。',CONNECTOR_NOT_CONFIGURED:'尚未配置连接器，暂时不能自动接入。',SOURCE_VERSION_CHANGED:'信源资料已更新，请刷新后重试。',VERSION_CONFLICT:'资料版本已变化，请刷新后核对。',STALE_EXECUTION:'任务已由其他操作推进，请刷新状态。',MODEL_NOT_CONFIGURED:'模型尚未配置；已保存资料保留。',MODEL_QUOTA_EXHAUSTED:'模型额度不足，等待执行通道恢复。',MODEL_LOGIN_REQUIRED:'模型登录已失效，请重新登录本机 Codex。',OUTCOME_UNKNOWN:'未收到操作回执，结果尚未确认。可查询状态或使用原请求重试。',UNAUTHENTICATED:'登录已过期，请重新登录后继续。',FORBIDDEN:'当前账号没有此项操作或信源访问权限。',IDEMPOTENCY_CONFLICT:'请求标识与原操作不一致，请重新读取状态。',SCHEDULE_VERSION_CHANGED:'计划已由其他操作更新，请刷新后核对。',SOURCE_VERIFICATION_REQUIRED:'请先补充发布主体、身份依据和允许业务范围，再核对启用。',DATE_RANGE_INVALID:'日期范围无效，请核对开始与结束日期。',SOURCE_DUPLICATE:'已有相同身份的信源，请核对并打开已有档案。'};
-export function explain(error) {const code=typeof error==='string'?error:error?.code;return reasons[code] || `未能完成操作${code?`（${code}）`:''}，请刷新状态后重试。`;}
+export function explain(error) {const code=typeof error==='string'?error:error?.code;const hints={MODEL_BUDGET_EXHAUSTED:'候选抽取的模型额度已用尽。已保存资料保留，可在候选抽取中核对额度后重试固定资料。',SOURCE_ITEMS_MISSING:'未找到可采集的资料条目。请核对信源接入范围，再从检查点重试。'};return hints[code] || reasons[code] || `未能完成操作${code?`（${code}）`:''}，请刷新状态后重试。`;}
 
 export function renderDelivery(row,canRetry=false){
   if(!row)return '<p class="muted">交付状态暂不可用，请刷新查询。</p>';
   const received=row.status==='received',files=row.files||{};
-  const extraction=row.extraction_status==='completed'?`候选抽取已完成 · ${candidateCount(row)} 条候选${row.candidate_count?'，等待事件归组':'（无事件）'}`:`候选抽取${row.extraction_status?statusName(row.extraction_status):'未开始'} · 数量待确认`;
+  const extraction=row.event_processing?`正式事件处理：${statusName(row.event_processing.result_status)}`:row.extraction_status==='completed'?`候选抽取已完成 · ${candidateCount(row)} 条候选${row.candidate_count?'，等待事件归组':'（无事件）'}`:`候选抽取${row.extraction_status?statusName(row.extraction_status):'未开始'} · 数量待确认`;
   return `<section class="delivery-result" aria-label="资料交付状态"><ol class="delivery-stages"><li>资料已保存</li><li>${received?'F02 已接收':row.status==='recoverable'?'交付待恢复':'等待交付 F02'}</li><li>${escape(extraction)}</li></ol>
     ${row.reason_code?`<p class="run-reason">${escape(explain(row.reason_code))}</p>`:''}
-    <div class="actions">${received&&row.version_id?`<a class="link-button" href="/events#${row.event_processing?`processing=${escape(row.event_processing.id)}`:`version=${escape(row.version_id)}`}">${row.event_processing?'查看事件处理':'处理为正式事件'}</a>`:''}${[['information','下载交付资料'],['receipt','查看接收回执'],['candidates','下载候选结果']].filter(([name])=>files[name]).map(([name,label])=>`<a class="link-button" href="${escape(files[name].url)}" download>${label}</a>`).join('')}
+    <div class="actions">${received&&row.version_id?`<a class="link-button" href="/events#information=${escape(row.version_id)}">查看候选事实与归属</a>`:''}${[['information','下载交付资料'],['receipt','查看接收回执'],['candidates','下载候选结果']].filter(([name])=>files[name]).map(([name,label])=>`<a class="link-button" href="${escape(files[name].url)}" download>${label}</a>`).join('')}
     ${canRetry&&row.status==='recoverable'?`<button type="button" class="quiet" data-retry-delivery="${escape(row.version_id)}" data-generation="${row.generation}">重新交付</button>`:''}
     ${canRetry&&files.status==='recoverable'?`<button type="button" class="quiet" data-retry-files="${escape(row.version_id)}" data-generation="${files.generation}">重新生成文件</button>`:''}</div>
     ${files.status==='recoverable'?`<p class="run-reason">结果文件待恢复：${escape(explain(files.reason_code))}</p>`:''}

@@ -1,0 +1,18 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {randomUUID} from 'node:crypto';
+import {openFixture} from './fixture.js';import {applyFactMigration} from '../platform/fact-migration.js';import {transaction} from '../platform/db.js';import {EventDelivery} from '../event-management/delivery.js';
+async function legacy(f:Awaited<ReturnType<typeof openFixture>>,withBinding=true){
+ const old=await f.processing(),event=randomUUID(),cid=randomUUID(),key=randomUUID(),p=(await f.db.query("INSERT INTO information.processing_runs(version_id,analysis_key,processing_scope,parent_processing_id,event_options) VALUES($1,'INITIAL','FULL_EVENT',$2,'{}') RETURNING id",[old.version,old.id])).rows[0].id;
+ const e={information_version_id:old.version,segment_id:old.material.segments[0]!.id,start_cp:0,end_cp:5,quote:'虚构机构宣'};
+ const payload={local_key:'old',title:'措施',description:'虚构机构宣布一项措施。',subject_name:'虚构机构',action:'宣布',event_type:null,event_status:'announced',event_time:{text:'2026-10-27',precision:'day',kind:'occurred',start:null,end:null,timezone:null},evidence_refs:[e],missing_fields:[],target_clues:[]};
+ await transaction(f.db,async tx=>{
+  await tx.query("INSERT INTO information.event_candidates(id,processing_id,ordinal,payload,status) VALUES($1,$2,0,$3,'completed')",[cid,p,payload]);
+  await tx.query("INSERT INTO information.events(id,title,description,subject_name,action_code,event_status,event_time_precision,event_time_kind,event_time_value,revision_no) VALUES($1,'措施','虚构机构宣布一项措施。','虚构机构','宣布','announced','day','occurred',$2,1)",[event,payload.event_time]);
+  await tx.query("INSERT INTO information.event_revisions(event_id,revision_no,commit_key,snapshot,snapshot_digest) VALUES($1,1,$2,'{}','legacy-test')",[event,key]);
+  await tx.query("INSERT INTO information.event_sources SELECT $1,material_id,'primary' FROM information.material_versions WHERE id=$2",[event,old.version]);
+  await tx.query("INSERT INTO platform.commit_receipts(commit_key,candidate_id,proposal_generation,result_kind,effects) VALUES($1,$2,1,'COMMITTED',$3)",[key,cid,JSON.stringify(withBinding?[{event_id:event}]:[])]);
+ });return {event,cid,old};
+}
+test('旧候选重建Fact并保留正式事件身份，旧版本只归档，新文件可被读取',async()=>{const f=await openFixture({legacyEvents:true});try{const old=await legacy(f);await applyFactMigration(f.db);await applyFactMigration(f.db);const row=(await f.db.query('SELECT * FROM information.event WHERE id=$1',[old.event])).rows[0];assert.equal(row.event_time,'2026-10-27');assert.equal(row.subject,'虚构机构');assert.equal((await f.db.query('SELECT count(*) FROM information.fact')).rows[0].count,'1');assert.equal((await f.db.query('SELECT count(*) FROM f02_legacy.event_revisions')).rows[0].count,'1');assert.equal((await f.db.query("SELECT to_regclass('information.event_revisions') AS old")).rows[0].old,null);
+ const delivery=new EventDelivery(f.repo);await delivery.reconcile();const m=(await f.db.query("SELECT id FROM platform.messages WHERE message_type='event.facts.committed.v2'")).rows[0];assert.equal((await delivery.applicationView(m.id,'event-audit')).application_status,'applied');assert.equal((await delivery.message(m.id)).payload.migration.from_schema,3);
+ }finally{await f.dispose();}});
+test('无法映射的旧事件阻断并回滚整次迁移，旧数据仍可读',async()=>{const f=await openFixture({legacyEvents:true});try{await legacy(f,false);await assert.rejects(applyFactMigration(f.db),/MIGRATION_EVENT_FACT_UNRESOLVED/);assert.equal((await f.db.query('SELECT count(*) FROM information.events')).rows[0].count,'1');assert.equal((await f.db.query("SELECT to_regclass('information.fact') AS fact")).rows[0].fact,null);assert.equal((await f.db.query('SELECT 1 FROM platform.schema_versions WHERE version=4')).rowCount,0);}finally{await f.dispose();}});

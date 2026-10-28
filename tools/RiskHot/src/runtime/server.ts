@@ -76,7 +76,7 @@ export async function buildServer(repo: ExecutionStore, authentication: Authenti
   app.get('/health/live', async () => ({ live: true }));
   app.get('/health/ready', async (_request, reply) => {
     try {
-      await repo.db.query('SELECT version FROM platform.schema_versions WHERE version=1');
+      if(!(await repo.db.query('SELECT version FROM platform.schema_versions WHERE version=4')).rowCount)throw new Error('SCHEMA_MIGRATION_REQUIRED');
       await mkdir(required('ARTIFACT_ROOT'), { recursive: true }); await access(required('ARTIFACT_ROOT'), constants.W_OK);
       return { ready: true, model_configured: Boolean(process.env.MODEL_PROTOCOL && process.env.MODEL_ENDPOINT && process.env.MODEL_NAME && modelCredentialsConfigured()) };
     } catch { return reply.code(503).send({ ready: false }); }

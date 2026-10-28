@@ -6,12 +6,12 @@ import { requireConnector } from './sources.js';
 
 interface SourceResult {
   source_key: string; name: string; operation_id: string | null; status: string; stage: string;
-  reason_code: string | null; saved_count: number; children: OperationRow[];
+  reason_code: string | null; saved_count: number; children: OperationRow[]; completed_at?: Date | null;
 }
 interface Batch {
   id: string; scheduled_at: Date; version: number; paused: boolean; sources: SourceResult[];
   status: string; saved_count: number; completed_sources: number; error_sources: number; has_error: boolean;
-  scope_complete: boolean;
+  scope_complete: boolean; trigger?: string; schedule_run_id?: string; controllable?: boolean; unstarted?: boolean; parent_batch_id?: string;
 }
 const errors = new Set(['partial', 'failed', 'blocked', 'review', 'recoverable', 'waiting_config']);
 const phase = ['source', 'discovered', 'acquired', 'normalized', 'identified', 'saved', 'extract', 'candidates_saved'];
@@ -21,7 +21,7 @@ function stateOf(statuses: string[], fallback = 'queued'): string {
   if (statuses.includes('running')) return 'running';
   if (statuses.includes('queued') || statuses.includes('pending')) return statuses.some(x => x === 'completed' || x === 'partial') ? 'running' : 'queued';
   if (statuses.includes('completed') || statuses.includes('partial')) return 'partial';
-  return ['review', 'recoverable', 'waiting_config', 'blocked', 'failed', 'paused'].find(x => statuses.includes(x)) ?? fallback;
+  return ['review', 'recoverable', 'waiting_config', 'blocked', 'failed', 'paused', 'skipped'].find(x => statuses.includes(x)) ?? fallback;
 }
 function decorate(batch: Omit<Batch, 'status' | 'saved_count' | 'completed_sources' | 'error_sources' | 'has_error'>): Batch {
   const status = stateOf(batch.sources.map(x => x.status));
@@ -39,18 +39,25 @@ function dateBound(value: string | undefined, end = false): Date | null {
 
 export class TaskManagement {
   constructor(private repo: ExecutionStore) {}
-  async list(actor: string, query: { from?: string; to?: string; status?: string; q?: string } = {}) {
+  async list(actor: string, query: { from?: string; to?: string; status?: string; q?: string; source?: string; batch?: string } = {}) {
+    const result=await this.load(actor,query);
+    return {...result,items:result.items.slice(0,100),limit:100};
+  }
+  private async load(actor: string, query: { from?: string; to?: string; status?: string; q?: string; source?: string; batch?: string } = {}) {
     await this.repo.authorize(actor, 'read');
+    if (query.source) await this.repo.authorize(actor, 'read', query.source);
     const from = dateBound(query.from), to = dateBound(query.to, true);
     if (from && to && from >= to) throw new DomainError('DATE_RANGE_INVALID', 400);
-    const operations = (await this.repo.db.query<OperationRow & { name: string; source_key: string; children: OperationRow[]; grouped: boolean }>(`SELECT o.*,s.catalog_key AS source_key,s.name,
+    const operations = (await this.repo.db.query<OperationRow & { name: string; source_key: string; children: OperationRow[]; grouped: boolean; schedule_run_id: string | null; completed_at:Date|null }>(`SELECT o.*,COALESCE(sr.scheduled_at,o.scheduled_at) AS scheduled_at,sr.id AS schedule_run_id,s.catalog_key AS source_key,s.name,
+      CASE WHEN count(c.id)=0 AND o.status='completed' THEN o.updated_at ELSE MAX(c.updated_at) END AS completed_at,
       EXISTS(SELECT 1 FROM platform.task_batch_sources bs WHERE bs.operation_id=o.id) AS grouped,
       COALESCE(jsonb_agg(to_jsonb(c)||jsonb_build_object('status',CASE WHEN p.extraction_status='completed' THEN 'completed' WHEN p.extraction_status='review' THEN 'review' WHEN p.extraction_status='recoverable' AND p.error_code='MODEL_NOT_CONFIGURED' THEN 'waiting_config' WHEN p.extraction_status='recoverable' THEN 'recoverable' WHEN d.error_code IS NOT NULL THEN 'recoverable' ELSE c.status END,'delivery_error',d.error_code,'reason_code',COALESCE(p.error_code,d.error_code,c.reason_code))) FILTER(WHERE c.id IS NOT NULL),'[]') AS children
       FROM information.operations o JOIN m1.sources s ON s.id=o.source_id JOIN platform.actors a ON a.subject=$1
+      LEFT JOIN LATERAL (SELECT id,scheduled_at FROM platform.schedule_runs WHERE operation_id=o.id ORDER BY scheduled_at,id LIMIT 1) sr ON true
       LEFT JOIN information.operations c ON c.parent_id=o.id LEFT JOIN information.processing_runs p ON p.id=c.processing_id LEFT JOIN information.material_deliveries d ON d.version_id=c.version_id
       WHERE o.kind='batch' AND ('*'=ANY(a.source_keys) OR s.catalog_key=ANY(a.source_keys))
-      AND ($2::timestamptz IS NULL OR o.scheduled_at>=$2) AND ($3::timestamptz IS NULL OR o.scheduled_at<$3)
-      GROUP BY o.id,s.catalog_key,s.name ORDER BY o.scheduled_at DESC,o.id DESC`, [actor, from, to])).rows;
+      AND ($2::timestamptz IS NULL OR COALESCE(sr.scheduled_at,o.scheduled_at)>=$2) AND ($3::timestamptz IS NULL OR COALESCE(sr.scheduled_at,o.scheduled_at)<$3)
+      GROUP BY o.id,s.catalog_key,s.name,sr.id,sr.scheduled_at ORDER BY COALESCE(sr.scheduled_at,o.scheduled_at) DESC,o.id DESC`, [actor, from, to])).rows;
     const results = new Map<string, SourceResult>();
     for (const op of operations) {
       const children = op.children ?? [];
@@ -59,24 +66,75 @@ export class TaskManagement {
       results.set(op.id, { source_key: op.source_key, name: op.name, operation_id: op.id,
         status: op.paused ? 'paused' : stateOf(children.map(child => child.paused ? 'paused' : child.status), op.status),
         stage, reason_code: op.reason_code ?? children.find(child => child.reason_code)?.reason_code ?? null,
-        saved_count: new Set(children.map(child => child.version_id).filter(Boolean)).size, children });
+        saved_count: new Set(children.map(child => child.version_id).filter(Boolean)).size, children,completed_at:op.completed_at });
     }
-    const rows = (await this.repo.db.query<{ id: string; scheduled_at: Date; version: number; paused: boolean; catalog_key: string; name: string; operation_id: string | null; status: string; reason_code: string | null; scope_complete: boolean }>(`SELECT b.*,s.catalog_key,s.name,bs.operation_id,bs.status,bs.reason_code,
+    const rows = (await this.repo.db.query<{ id: string; scheduled_at: Date; version: number; paused: boolean; catalog_key: string; source_id: string; name: string; operation_id: string | null; status: string; reason_code: string | null; scope_complete: boolean }>(`SELECT b.*,s.catalog_key,bs.source_id,s.name,bs.operation_id,bs.status,bs.reason_code,
       NOT EXISTS(SELECT 1 FROM platform.task_batch_sources other JOIN m1.sources os ON os.id=other.source_id WHERE other.batch_id=b.id AND NOT ('*'=ANY(a.source_keys) OR os.catalog_key=ANY(a.source_keys))) AS scope_complete
       FROM platform.task_batches b JOIN platform.task_batch_sources bs ON bs.batch_id=b.id JOIN m1.sources s ON s.id=bs.source_id JOIN platform.actors a ON a.subject=$1
       WHERE ('*'=ANY(a.source_keys) OR s.catalog_key=ANY(a.source_keys)) AND ($2::timestamptz IS NULL OR b.scheduled_at>=$2) AND ($3::timestamptz IS NULL OR b.scheduled_at<$3)
       ORDER BY b.scheduled_at DESC,b.id,s.catalog_key`, [actor, from, to])).rows;
     const grouped = new Map<string, Omit<Batch, 'status' | 'saved_count' | 'completed_sources' | 'error_sources' | 'has_error'>>();
     for (const row of rows) {
-      if (!grouped.has(row.id)) grouped.set(row.id, { id: row.id, scheduled_at: row.scheduled_at, version: row.version, paused: row.paused, sources: [], scope_complete: row.scope_complete });
+      if (!grouped.has(row.id)) grouped.set(row.id, { id: row.id, scheduled_at: row.scheduled_at, version: row.version, paused: row.paused, trigger: 'manual', sources: [], scope_complete: row.scope_complete });
       grouped.get(row.id)!.sources.push(row.operation_id && results.has(row.operation_id) ? results.get(row.operation_id)! : { source_key: row.catalog_key, name: row.name, operation_id: row.operation_id, status: row.status, stage: 'source', reason_code: row.reason_code, saved_count: 0, children: [] });
     }
+    const slots = query.status==='active'?[]:(await this.repo.db.query<{id:string; source_key:string; name:string; scheduled_at:Date; operation_id:string|null; status:string; error_code:string|null}>(`SELECT r.*,s.catalog_key AS source_key,s.name
+      FROM platform.schedule_runs r JOIN m1.sources s ON s.id=r.source_id JOIN platform.actors a ON a.subject=$1
+      WHERE ('*'=ANY(a.source_keys) OR s.catalog_key=ANY(a.source_keys))
+      AND ($2::timestamptz IS NULL OR r.scheduled_at>=$2) AND ($3::timestamptz IS NULL OR r.scheduled_at<$3)
+      ORDER BY r.scheduled_at DESC,r.id DESC`,[actor,from,to])).rows;
+    const automatic = new Map(slots.filter(slot=>slot.operation_id).map(slot=>[slot.operation_id,slot]));
     const all = [...grouped.values()].map(decorate);
-    for (const op of operations) if (!op.grouped) all.push(decorate({ id: op.id, scheduled_at: op.scheduled_at, version: Number(op.generation), paused: Boolean(op.paused), sources: [results.get(op.id)!], scope_complete: true }));
-    all.sort((a, b) => +new Date(b.scheduled_at) - +new Date(a.scheduled_at) || b.id.localeCompare(a.id));
+    for (const op of operations) if (!op.grouped) {
+      const slot=automatic.get(op.id);
+      const result=decorate({ id: op.id, scheduled_at: slot?.scheduled_at??op.scheduled_at, version: Number(op.generation), paused: Boolean(op.paused), sources: [results.get(op.id)!], scope_complete: true, trigger: slot?'automatic':'direct', ...(slot?{schedule_run_id:slot.id}:{}) });
+      if(slot?.error_code&&result.status!=='completed'){result.has_error=true;result.sources[0]!.reason_code??=slot.error_code;}
+      all.push(result);
+    }
+    for(const slot of slots.filter(slot=>!slot.operation_id)) {
+      const result=decorate({ id:slot.id,scheduled_at:slot.scheduled_at,version:0,paused:false,scope_complete:true,trigger:'automatic',schedule_run_id:slot.id,unstarted:true,controllable:false,sources:[{source_key:slot.source_key,name:slot.name,operation_id:null,status:slot.status,stage:'source',reason_code:slot.error_code,saved_count:0,children:[]}] });
+      if(slot.error_code)result.has_error=true;
+      all.push(result);
+    }
+    const scoped=all.filter(row=>(!query.batch||row.id===query.batch)&&(!query.source||row.sources.some(source=>source.source_key===query.source)));
+    scoped.sort((a, b) => +new Date(b.scheduled_at) - +new Date(a.scheduled_at) || b.id.localeCompare(a.id));
     const ongoing = (row: Batch) => ['queued','pending','running','paused'].includes(row.status) || row.sources.some(source => ['queued','pending','running','paused'].includes(source.status));
-    const selected = all.filter(row => (!query.status || (query.status === 'active' ? grouped.has(row.id) && ongoing(row) : query.status === 'attention' ? row.has_error : row.status === query.status)) && (!query.q || row.id.toLowerCase().includes(query.q.toLowerCase())));
-    return { items: selected.slice(0, 100), total: selected.length, limit: 100, timezone: 'Asia/Shanghai', ...(query.status === 'active' ? { latest_batch: all.find(row => grouped.has(row.id)) ?? null } : {}), metrics: { total: all.length, running: all.filter(x => x.status === 'running').length, errors: all.filter(x => x.has_error).length, attention: all.filter(x => x.has_error).length, paused: all.filter(x => x.status === 'paused').length, queued: all.filter(x => x.status === 'queued').length } };
+    const selected = scoped.filter(row => (!query.status || (query.status === 'active' ? grouped.has(row.id) && ongoing(row) : query.status === 'attention' ? row.has_error : row.status === query.status)) && (!query.q || row.id.toLowerCase().includes(query.q.toLowerCase())));
+    return { items: selected, total: selected.length, timezone: 'Asia/Shanghai', ...(query.status === 'active' ? { latest_batch: scoped.find(row => grouped.has(row.id)) ?? null } : {}), metrics: { total: scoped.length, running: scoped.filter(x => x.status === 'running').length, errors: scoped.filter(x => x.has_error).length, attention: scoped.filter(x => x.has_error).length, paused: scoped.filter(x => x.status === 'paused').length, queued: scoped.filter(x => x.status === 'queued').length } };
+  }
+  async overview(actor:string){
+    await this.repo.authorize(actor,'read');
+    const plans=(await this.repo.db.query<{catalog_key:string;name:string;source_state:string;enabled:boolean;interval_seconds:number;next_run_at:Date}>(`SELECT s.catalog_key,s.name,s.state AS source_state,q.enabled,q.interval_seconds,q.next_run_at
+      FROM platform.source_schedules q JOIN m1.sources s ON s.id=q.source_id JOIN platform.actors a ON a.subject=$1
+      WHERE '*'=ANY(a.source_keys) OR s.catalog_key=ANY(a.source_keys) ORDER BY s.catalog_key`,[actor])).rows;
+    const tasks=(await this.load(actor)).items;
+    const bySource=new Map<string,{batch:Batch;source:SourceResult}[]>();
+    for(const batch of tasks)for(const source of batch.sources){
+      const entries=bySource.get(source.source_key)||[];entries.push({batch,source});bySource.set(source.source_key,entries);
+    }
+    const active=new Set(['running','queued','pending','paused']);
+    const project=({batch,source}:{batch:Batch;source:SourceResult})=>({id:batch.id,status:batch.paused&&source.status!=='completed'?'paused':source.status,
+      scheduled_at:batch.scheduled_at,finished_at:source.status==='completed'?source.completed_at??null:null,
+      saved_count:source.saved_count,material_count:source.children.length,reason_code:source.status==='completed'?null:source.reason_code,trigger:batch.trigger});
+    const items=plans.map(plan=>{
+      const entries=bySource.get(plan.catalog_key)||[];
+      const current=entries.find(({batch,source})=>active.has(source.status)||(batch.paused&&source.status!=='completed'));
+      const latest=entries.find(({batch,source})=>!active.has(source.status)&&!(batch.paused&&source.status!=='completed'))??entries[0];
+      const status=current?project(current).status:latest&&errors.has(latest.source.status)?latest.source.status:latest?'idle':'never';
+      return {...plan,status,current:current?project(current):null,latest:latest?project(latest):null};
+    });
+    return {items,total:items.length,updated_at:new Date(),timezone:'Asia/Shanghai'};
+  }
+  async detail(actor: string, id: string): Promise<Batch> {
+    await this.repo.authorize(actor, 'read');
+    // Old source-operation links resolve to their existing whole task.
+    const parent=(await this.repo.db.query<{batch_id:string}>(`SELECT bs.batch_id FROM platform.task_batch_sources bs
+      JOIN m1.sources s ON s.id=bs.source_id JOIN platform.actors a ON a.subject=$1
+      WHERE bs.operation_id=$2 AND ('*'=ANY(a.source_keys) OR s.catalog_key=ANY(a.source_keys))`,[actor,id])).rows[0];
+    const target=parent?.batch_id??id;
+    const task=(await this.list(actor,{q:target})).items.find(row=>row.id===target);
+    if(!task)throw new DomainError('NOT_FOUND',404);
+    return task;
   }
   async create(actor: string, key: string, input: { source_keys: string[]; limit: number }): Promise<Batch> {
     const accepted = await this.repo.action(actor, 'task-batch-create', key, input, async tx => {

@@ -4,7 +4,7 @@
 
 本次实现遵循[[tools/RiskHot/docs/superpowers/specs/2026-10-24-source-to-candidates-design|用户已批准设计]]；当前接口与存储以[[tools/RiskHot/docs/system-design/04-系统架构设计/04-公共技术契约/来源候选切片实现契约|来源候选切片实现契约]]为准，证据见[[tools/RiskHot/docs/verification/source-candidates|执行验证记录]]。旧 EXTRACTION_ONLY 切片的候选保存后保持 `pending`；完整事件模式在 `/events` 独立推进，按身份与最终内容复核后才提交。
 
-M1 实际管理页面已按[[tools/RiskHot/docs/system-design/06产品UI原型设计/06-2-M1信源管理中心UI设计/02. 交互原型说明|现行交互原型]]接入真实服务，支持信源档案、接入任务和计划管理。代码和本机后台均使用 `main`；最新验证见[[tools/RiskHot/docs/verification/m1-management|M1 实现与运行记录]]。
+M1 实际管理页面已按[[tools/RiskHot/docs/system-design/06产品UI原型设计/06-2-M1信源管理中心UI设计/02. 交互原型说明|现行交互原型]]接入真实服务，采用“信源目录／信息采集任务”两个工作区，目录内“档案／自动接入”集中管理信源及计划。侧栏为不可折叠的“内容 → 全部”“配置 → 信源管理中心／流水线全景”，仅显示已实现入口。代码和本机后台均使用 `main`；最新验证见[[tools/RiskHot/docs/verification/m1-management|M1 实现与运行记录]]及[[tools/RiskHot/docs/verification/pipeline-panorama|流水线全景验证记录]]。
 
 ## 代码目录
 
@@ -20,7 +20,7 @@ src/
   event-management/  完整事件：归组、关系、增量、评价、复核、提交与交付
   platform/   身份、存储、权限与通知
   runtime/    API、工作流与调度进程
-  web/        M1 管理页面与真实接口调用
+  web/        M1 管理、事件阅读、流水线全景及同源接口调用
   scripts/    启动、初始化和操作命令
   tests/      自动化测试及辅助代码
 ```
@@ -52,16 +52,24 @@ API 为 [localhost:18081](http://localhost:18081)，本机默认 `AUTH_MODE=loca
 
 仅运行本机免登录工作台时，可跳过上述 identity 容器与 `setup:identity`；完整回归仍测试可选 OIDC 模式，需要这两步。设置 `AUTH_MODE=oidc` 可启用账号模式，使用私有 `.env` 的 `OPERATOR_USERNAME`、`OPERATOR_PASSWORD`。本机免登录以固定本地操作员保留权限与审计，服务仅绑定回环地址；写请求继续验证同源。
 
+## 使用流水线全景
+
+从左侧“配置 → 流水线全景”进入，或直接打开[流水线全景](http://localhost:18081/pipeline)。L0～L3默认展开，F01～F08默认收起；点击节点查看详情，点击后继定位对应步骤。手机详情提供“返回当前步骤”。AI节点提供四个信息标签及有来源的提示词折叠区，“查看AI任务”打开固定版本的只读资料，返回时保留全景开合与阅读位置。
+
+全景展示115个业务定义节点，不表示下游模块已经实现运行。流程出口只用于阅读定位，来源文档可直接打开；任务引用版本与提示词草案版本分别显示。页面实现及原型适配范围见[[tools/RiskHot/docs/verification/pipeline-panorama|全景工程验证]]。
+
+维护展示副本时，在项目根目录运行 `npm run pipeline:sync`；只读检查运行 `npm run pipeline:check`，修改依据是现有原型与业务文档。基础验证为 `npm run test:pipeline`。浏览器验证设置既有 `SOURCE_BROWSER_EXECUTABLE`、`PLAYWRIGHT_MODULE` 后运行 `npm run test:pipeline:browser`，仅使用独立Chrome for Testing／Chromium和隔离测试数据。
+
 ## 使用 M1 管理页面
 
 直接打开 [M1 信源管理中心](http://localhost:18081/m1)，无需登录。保持使用 `localhost`，请求按配置地址及同源规则校验。现有常驻服务运行目录是 `/Users/cjw/dev/Obsidian/wiki/tools/RiskHot`；已安装时直接打开页面即可。
 
 1. **信源目录**：按名称、发布主体或编号搜索，组合等级、专题、渠道、维度等筛选；详情内查看档案、技术资格、资料引用和历史版本。新增默认停用；编辑与启停均记录操作者及版本。
 2. **开启任务**：无进行中的手动任务时，在信源详情或任务页点击即可运行当前有操作权限的全部已启用信源，无需重新配置。排队、运行和暂停期间开启入口保持锁定；顶部持续展示真实进度、查看进度及暂停／继续，本轮结束后恢复开启。状态不受列表筛选影响，刷新页面仍可恢复；断网时保留进度并等待重新确认。运行中每5秒更新，无进行中任务时每15秒更新，减少动态效果模式停止动画。沿用既有连接配置，每源读取最新1条；暂不可采集的启用信源在批次中说明原因。任务页按上海日期查询；概览只随日期变化，编号和状态过滤只影响列表。保存数量只统计已确认资料。
-3. **查看结果、暂停与继续**：在任务行点“查看结果”原地展开信源结果，直接查看资料与抽取；六步进度按需展开。任务行保留暂停/继续，刷新页面后仍保留。继续沿原检查点推进，保留原计划时间、已保存资料和失败结果；失败、待复核等结果在执行记录中单独处置。
-4. **任务计划**：按信源设置周期数值、单位（分钟／小时／天）和启停，例如30分钟、2小时、1天；有效范围仍为1分钟至1天。已有计划自动显示合适单位。停用信源、暂停计划和暂停某次任务分别保存；暂停计划控制后续周期，已启动批次单独管理。
+3. **查看执行、历史与资料**：默认“执行概览”每个独立计划的信源一行，查看当前执行、最近结果及下次执行；“批次记录”用于历史追溯。每源“批次历史”自动带入来源，概览与历史筛选相互独立。“任务批次记录”每行一次采集批次，点击“查看批次详情”查看七项批次统计及逐份资料的“任务实际采集记录”，包含入口、信源、状态、保存结果和阅读入口；尚无资料或异常信源另行补充发现状态；正文与候选同层阅读，文件及进度按需展开。整轮异常“查看待处理”进入详情的资料需处理筛选。暂停／继续沿原任务检查点推进，保留已保存结果。
+4. **自动计划**：进入信源目录的“自动接入”，可查看全部／已配置／未配置，按分钟／小时／天管理周期与计划启停（1分钟至1天）。单源详情的“接入设置”复用同一配置；业务停用、计划暂停、本轮暂停分别生效。
 
-任务计划默认显示已配置项，通过“未配置”添加计划。计划行的“查看结果”直达最近一次接入结果，“运行记录”在原行展开历史；资料和候选阅读支持返回。页面组织见[[tools/RiskHot/docs/system-design/06产品UI原型设计/06-2-M1信源管理中心UI设计/信息接入任务与计划页面设计|信息接入任务与计划页面设计]]。
+计划最近运行“查看执行”定位对应任务详情；“执行记录”查看该信源历史。旧 `/m1#schedules` 仍可直达自动接入模式。累计结果在执行列表后的折叠区，保留全部七项指标和独立口径。页面组织与证据见[[tools/RiskHot/docs/verification/m1-navigation|M1页面整合验证]]。
 
 提交后若响应丢失，页面保留原请求和回执查询/重试入口，使用同一幂等键，不应另开一个重复批次。可选账号模式保留登录失效草稿恢复及只读用户控制；本机模式不显示登录、退出入口。
 
@@ -149,7 +157,9 @@ npm run monitor
 | `GET /api/v1/m1/sources`、`PATCH /api/v1/m1/sources/:key` | 查看授权来源、连接器就绪原因和最新批次结果，启停并保留配置版本 |
 | `POST /api/v1/m1/sources`、`PUT /api/v1/m1/sources/:key` | 创建默认停用档案、按预期版本修订 |
 | `GET /api/v1/m1/sources/:key/history`、`GET /api/v1/m1/sources/:key/relations` | 版本审计与实际资料引用；M2 引用明确返回不可用 |
-| `GET /api/v1/l0/task-batches`、`POST /api/v1/l0/task-batches` | 查询时间批次及日期概览、开启多信源批次 |
+| `GET /api/v1/l0/task-batches`、`POST /api/v1/l0/task-batches` | 统一查询执行与日期／信源概览（source限定来源、batch限定本轮任务）、开启多信源批次 |
+| `GET /api/v1/l0/task-overview` | 每源独立计划的当前执行与最近结果，不受历史筛选和100条上限影响 |
+| `GET /api/v1/l0/task-batches/:id` | 读取独立任务详情及各信源采集信息；旧信源根执行ID解析到所属手动任务 |
 | `POST /api/v1/l0/task-batches/:id/control` | 按当前版本暂停或继续批次 |
 | `PATCH /api/v1/l0/schedules/:key` | 独立管理后续采集计划 |
 | `GET /api/v1/l0/schedules/:key/runs` | 授权信源最近最多50条计划运行、实际状态及保存数量 |
@@ -182,7 +192,7 @@ npm run monitor
 
 ## 标准化资料交付与候选文件
 
-信息接入任务展开信源后，点击“交付状态与文件”，或进入“查看资料”。页面分别显示资料保存、F02 接收和候选抽取状态；接收不等于抽取完成。已具备的文件提供下载，抽取失败时数量为待确认。
+从执行记录“查看资料”或信源的关联资料进入阅读器，展开“交付状态与结果文件”。页面分别显示资料保存、F02 接收和候选抽取状态；接收不等于抽取完成。已具备的文件提供下载，抽取失败时数量为待确认。
 
 文件保存在既有 ARTIFACT_ROOT 下：`handoffs/f01-f02/<消息ID>/information.json` 为固定版本交付资料，`receipt.json` 为固定接收回执，`analyses/<处理ID>/candidates.json` 为完整候选结果。文件内容也登记在摘要工件库中；原件只引用 F01 已保存对象。候选文件包含稳定身份、版本化证据、覆盖清单、警告和无事件原因。
 
@@ -199,10 +209,12 @@ npm run monitor
 
 候选页展示 Step 2～7、原文、逐步结果及待保存内容。身份复核使用 event_review 权限，最终保存使用 event_commit；非事件处置、恢复与重算分别授权。当前未发布自动通过政策，身份与最终保存分别复核；关系有未决项时，须经独立关系复核后继续。技术恢复保持原输入与方法，新预算需显式授权，历史次数不清零。
 
-完整模式只使用本机 Codex 订阅，范围与期限为非空文本对象；方法未批准时只有文字评价、空 M、draft。正式事件提供不可变修订、时间轴、直接关系、评价历史和下载。交付区分持久接收、顺序应用与缺口，event-audit 不是 F03/F05 风险分析。
+完整模式只使用本机 Codex 订阅，范围与期限为非空文本对象；方法未批准时只有文字评价、空 M、draft。正式事件展示唯一当前内容、关联 Fact、资料证据、直接关系、独立评价和下载，不再维护事件修订号。交付区分持久接收、顺序应用与缺口，event-audit 不是 F03/F05 风险分析。
 
-文件在 ARTIFACT_ROOT：`events/processings/<处理ID>/candidates.json`、`events/candidates/<候选ID>/generations/<代次>/steps/<步骤>/proposal.json` 和 `commit.json`；正式结果是 `events/<事件ID>/revisions/<修订>/event.json`，事件交付及回执在 `handoffs/f02-events/<消息ID>/`。业务、文件、模型与交付恢复各自独立。
+文件在 ARTIFACT_ROOT：`events/processings/<处理ID>/candidates.json`、`events/candidates/<候选ID>/generations/<代次>/steps/<步骤>/proposal.json` 和 `commit.json`；当次固定结果是 `handoffs/f02-events/<消息ID>/event.json`，同目录保存 message.json 和 receipts/<接收方>.json；当前事件下载来自 `/api/v1/l0/events/:id/file`。业务、文件、模型与交付恢复各自独立。
 
-升级：`node --env-file=.env --import tsx src/scripts/migrate-events.ts --target runtime`，随后 `npm run service -- restart`。只读验收：`node --env-file=.env --import tsx src/scripts/verify-events.ts --processing <完整处理ID>`；未完成或证据不一致会退出非零。
+升级到 schema4 前须停止本机服务、备份并隔离验证；执行 `node --env-file=.env --import tsx src/scripts/migrate-events.ts --target runtime` 后恢复服务。只读验收：`node --env-file=.env --import tsx src/scripts/verify-events.ts --processing <完整处理ID>`；未完成或证据不一致会退出非零。
 
-本轮186项测试、事件浏览器17项、原M1浏览器53项通过。真实人民银行第一条560亿元7天期逆回购已完成正式保存、文件交付和持久接收，重复投递3次与重启核验通过；第二条隔夜操作仍待身份复核，资料为部分完成。详见[[tools/RiskHot/docs/verification/f02-events|实施与验证报告]]。
+当前 Fact 模型已切换运行库；111份资料、1026个 Fact 和原正式事件保留，新格式交付已实际读取并采用，事件浏览器24项通过。第二条隔夜操作仍待身份复核。最新证据及边界见[[tools/RiskHot/docs/verification/fact-model|F01/F02 Fact模型验收]]；[[tools/RiskHot/docs/verification/f02-events|旧模型实施报告]]保留历史证据，不作为新模型验收。
+
+只读复验：`node --env-file=.env --import tsx src/scripts/verify-fact-runtime.ts`。从M1资料结果点击“候选事实与归属”，可追溯 Fact、正式事件和对应版本原文。

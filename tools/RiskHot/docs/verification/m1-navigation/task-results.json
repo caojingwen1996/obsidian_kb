@@ -1,0 +1,39 @@
+{
+  "counts": {
+    "updated_at": "2026-10-27T11:37:05.913Z",
+    "saved_versions": 123,
+    "extraction_completed": 114,
+    "no_event": 26,
+    "extraction_recoverable": 2,
+    "extraction_review": 7,
+    "extraction_pending": 0,
+    "facts": 1192,
+    "full_processing_versions": 1,
+    "full_processing_candidates": 2,
+    "events": 1,
+    "scope": "all",
+    "batch_id": null
+  },
+  "task": {
+    "updated_at": "2026-10-27T11:37:06.452Z",
+    "saved_versions": 1,
+    "extraction_completed": 1,
+    "no_event": 0,
+    "extraction_recoverable": 0,
+    "extraction_review": 0,
+    "extraction_pending": 0,
+    "facts": 11,
+    "full_processing_versions": 0,
+    "full_processing_candidates": 0,
+    "events": 0,
+    "scope": "batch",
+    "batch_id": "69746c3b-c3ff-4323-8367-202f5ddf0e8f"
+  },
+  "viewports": [
+    1440,
+    390,
+    320
+  ],
+  "read_failure_verified": true,
+  "errors": []
+}

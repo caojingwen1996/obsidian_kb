@@ -1,3 +1,4 @@
+import {applyEventMigration,grantEventRoles} from '../platform/event-migration.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
@@ -58,8 +59,8 @@ test('real Temporal resumes a durable retry after worker restart and saves a mul
   };
   try {
     await db.query(await readFile('src/db/001-init.sql', 'utf8'));
-    await applyHandoffMigration(db);
-    await grantRuntimeRoles(db);
+    await applyHandoffMigration(db); await applyEventMigration(db);
+    await grantRuntimeRoles(db); await grantEventRoles(db);
     const repo = new ExecutionStore(db, new ArtifactStore(environment.ARTIFACT_ROOT));
     await repo.seedCatalog([{ id: 'wiki-source-001', name: '中国人民银行', url: 'https://www.pbc.gov.cn/', tier: 'T1', group: '虚构测试', focus: '虚构测试', context: '虚构测试' }]);
     await db.query("INSERT INTO platform.actors VALUES('workflow-test',ARRAY['submit','read','retry','model_budget'],ARRAY['wiki-source-001'])");

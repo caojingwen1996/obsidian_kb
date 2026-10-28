@@ -9,6 +9,10 @@
   "scripts": {
     "test": "node --env-file-if-exists=.env --import tsx --test --test-concurrency=1 src/tests/*.test.*",
     "typecheck": "tsc --noEmit",
+    "pipeline:sync": "node --import tsx src/scripts/sync-pipeline.ts",
+    "pipeline:check": "node --import tsx src/scripts/sync-pipeline.ts --check",
+    "test:pipeline": "node --test src/tests/pipeline-data.test.js src/tests/pipeline-ui.test.js",
+    "test:pipeline:browser": "node --env-file-if-exists=.env --import tsx src/tests/pipeline.e2e.ts",
     "init:env": "node --import tsx src/scripts/init-env.ts",
     "setup": "node --env-file-if-exists=.env --import tsx src/scripts/setup.ts",
     "setup:identity": "node --env-file-if-exists=.env --import tsx src/scripts/setup-identity.ts",

@@ -34,7 +34,7 @@ test('关系未决建议持久化并等待独立复核，不自动进入增量�
   await assert.rejects(x.reviews.recordReview(x.id,'reader',command,'forbidden-relations'),/FORBIDDEN/);
   await x.reviews.recordReview(x.id,'review-operator',command,'relations-approved');
   row=await candidate(f.db,x.id);assert.equal(row.status,'processing');assert.equal(row.resume_step,4);
-  assert.equal((await f.db.query('SELECT count(*) FROM information.events')).rows[0].count,'0');
+  assert.equal((await f.db.query('SELECT count(*) FROM information.event')).rows[0].count,'0');
   const result=(await f.db.query('SELECT result FROM information.candidate_step_results WHERE candidate_id=$1 AND step_no=3',[x.id])).rows[0].result;
   assert.deepEqual(result.unresolved_issues,x.output.unresolved_issues);
   assert.equal((await f.db.query("SELECT count(*) FROM platform.review_decisions WHERE scope='commit'")).rows[0].count,'0');
@@ -71,12 +71,12 @@ test('正式提交再次核对关系复核人的当前权限',async()=>{
  const f=await eventFixture();try{const x=await atRelations(f);await x.steps.accept(x.id,3,2,x.output);
   await f.db.query("INSERT INTO platform.actors VALUES('relation-reviewer',ARRAY['read','event_review'],ARRAY['wiki-source-001'])");
   await x.reviews.recordReview(x.id,'relation-reviewer',{scope:'relations',proposal_generation:1,proposal_digest:await x.reviews.basis(x.id,'relations'),decision:'APPROVE',reason:'受控缺口复核'} as any,'relations');
-  await x.steps.prepare(x.id,4,3);await x.steps.accept(x.id,4,3,{classification:'NEW_EVENT',changes:[{local_key:'new',update_type:'NEW_EVENT',summary:f.candidate.description,previous_status:null,current_status:'announced',effective_time:null,supersedes_update_ids:[],evidence_refs:f.candidate.evidence_refs}],source_evidence_refs:f.candidate.evidence_refs,reason:'受控新事件',unresolved_issues:[]});
+  await x.steps.prepare(x.id,4,3);await x.steps.accept(x.id,4,3,{classification:'NEW_EVENT',current_event:{title:f.candidate.title,description:f.candidate.description,subject:f.candidate.subject!,action:f.candidate.action,event_status:f.candidate.event_status,event_time:f.candidate.event_time},changes:[{local_key:'new',update_type:'NEW_EVENT',summary:f.candidate.description,previous_status:null,current_status:'announced',effective_time:null,basis_fact_ids:[],evidence_refs:f.candidate.evidence_refs}],source_evidence_refs:f.candidate.evidence_refs,reason:'受控新事件',unresolved_issues:[]});
   await x.steps.prepare(x.id,5,3);await x.steps.accept(x.id,5,3,{assessment_scope:f.options.assessment_scope,research_horizon:f.options.research_horizon,method_version:f.options.method_version,dimensions:[],financial_usages:[],reasoning_summary:'文字观察',limitations:[]});
   const commit=new EventCommit(f.repo),proposal=await commit.prepareCommit(x.id,3);
   await x.reviews.recordReview(x.id,'review-operator',{scope:'commit',proposal_generation:1,proposal_digest:proposal.digest,decision:'APPROVE',reason:'受控最终复核'},'commit');
   await f.db.query("UPDATE platform.actors SET permissions=ARRAY['read'] WHERE subject='relation-reviewer'");
   await assert.rejects(commit.commitCandidate(x.id,4,proposal.commit_key),/FORBIDDEN/);
-  assert.equal((await f.db.query('SELECT count(*) FROM information.events')).rows[0].count,'0');
+  assert.equal((await f.db.query('SELECT count(*) FROM information.event')).rows[0].count,'0');
  }finally{await f.dispose();}
 });

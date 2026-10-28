@@ -1,13 +1,22 @@
-import {randomUUID} from 'node:crypto';import {DomainError} from '../platform/types.js';import {canonical,type Change,type IncrementProposal} from './contracts.js';
-export interface HistoricalUpdate {id:string;business_change_key:string;update_type:string;summary:string;previous_status:string|null;current_status:string|null;effective_time:unknown}
-export interface IncrementContext {is_new:boolean;updates:HistoricalUpdate[]}
-export interface IncrementPlan extends Omit<IncrementProposal,'changes'> {changes:(Change&{business_change_key:string})[];needs_rating:boolean;review_required:boolean}
+import {DomainError} from '../platform/types.js';
+import {type FullCandidate,type IncrementProposal} from './contracts.js';
+import {normalizeEventTime,mayProjectTime} from './time.js';
+export interface IncrementContext {is_new:boolean;facts:{id:string;description:string}[];event?:Record<string,any>|null;candidate?:FullCandidate}
+export interface IncrementPlan extends IncrementProposal {needs_rating:boolean;review_required:boolean}
 export function validateIncrement(context:IncrementContext,p:IncrementProposal):IncrementPlan {
- if(['SOURCE_ADDITION','DUPLICATE'].includes(p.classification)&&p.changes.length)throw new DomainError('INCREMENT_INVALID');
+ const substantive=['NEW_EVENT','EVENT_PROGRESS','MATERIAL_ADDITION','CORRECTION'].includes(p.classification);
+ if(['SOURCE_ADDITION','DUPLICATE'].includes(p.classification)&&(p.changes.length||p.current_event))throw new DomainError('INCREMENT_INVALID');
  if(p.classification==='NEW_EVENT'&&!context.is_new||context.is_new&&!['NEW_EVENT','UNRESOLVED'].includes(p.classification))throw new DomainError('IDENTITY_RECHECK_REQUIRED',409);
- if(['NEW_EVENT','EVENT_PROGRESS','MATERIAL_ADDITION','CORRECTION'].includes(p.classification)&&!p.changes.length)throw new DomainError('INCREMENT_CHANGES_REQUIRED');
- const changes=p.changes.map(change=>{if(change.supersedes_update_ids.some(id=>!context.updates.some(u=>u.id===id)))throw new DomainError('UNKNOWN_UPDATE_REFERENCE');if(p.classification==='CORRECTION'&&!change.supersedes_update_ids.length)throw new DomainError('CORRECTION_BASIS_REQUIRED');
-  const existing=context.updates.find(u=>u.update_type===change.update_type&&u.summary===change.summary&&u.previous_status===change.previous_status&&u.current_status===change.current_status&&canonical(u.effective_time)===canonical(change.effective_time));
-  return {...change,business_change_key:existing?.business_change_key??randomUUID()};
- });return {...p,changes,needs_rating:!['SOURCE_ADDITION','DUPLICATE','UNRESOLVED'].includes(p.classification),review_required:p.classification==='UNRESOLVED'||p.unresolved_issues.length>0};
+ if(substantive&&!p.changes.length)throw new DomainError('INCREMENT_CHANGES_REQUIRED');
+ if(context.is_new&&!p.current_event||p.classification==='CORRECTION'&&!p.current_event)throw new DomainError('CURRENT_FACTS_REQUIRED');
+ for(const change of p.changes){
+  if(change.basis_fact_ids.some(id=>!context.facts.some(f=>f.id===id)))throw new DomainError('UNKNOWN_FACT_REFERENCE');
+  if(p.classification==='CORRECTION'&&!change.basis_fact_ids.length)throw new DomainError('CORRECTION_BASIS_REQUIRED');
+ }
+ if(p.current_event){
+  if(!p.current_event.subject.trim()||!p.current_event.action.trim())throw new DomainError('EVENT_IDENTITY_REQUIRED');
+  p={...p,current_event:{...p.current_event,event_time:normalizeEventTime(p.current_event.event_time)}};
+  if(context.event&&p.classification!=='CORRECTION'&&!mayProjectTime(context.event.event_time,p.current_event!.event_time))throw new DomainError('CURRENT_FACTS_TIME_REVIEW_REQUIRED',409);
+ }
+ return {...p,needs_rating:substantive,review_required:p.classification==='UNRESOLVED'||p.unresolved_issues.length>0};
 }

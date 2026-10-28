@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "20261026T143808-95a8933106f2",
+  "source": "execution",
+  "runDate": "2026-10-26",
+  "startedAt": "2026-10-26T14:38:08.651973+08:00",
+  "endedAt": "2026-10-26T16:24:53.185649+08:00",
+  "status": "failed",
+  "pid": 47449,
+  "stage": "获取10年国债收益率",
+  "writtenFiles": [],
+  "error": "HTTPSConnectionPool(host='datacenter.eastmoney.com', port=443): Max retries exceeded with url: /api/data/get?type=RPTA_WEB_TREASURYYIELD&sty=ALL&st=SOLAR_DATE&sr=-1&token=894050c76af8597a853f5b408b759f5d&p=6&ps=500&pageNo=6&pageNum=6 (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)')))",
+  "updatedAt": "2026-10-26T16:24:53.185699+08:00",
+  "durationSeconds": 6404.5
+}

@@ -3,6 +3,7 @@ import { DomainError } from '../platform/types.js';
 import type { ExecutionStore } from '../information-ingestion/processing/execution.js';
 import { SourceManagement, type Profile } from '../information-ingestion/sources/management.js';
 import { TaskManagement } from '../information-ingestion/processing/tasks.js';
+import { TaskResults } from '../information-ingestion/processing/task-results.js';
 
 const keyOf = (headers: Record<string, unknown>): string => {
   const key = headers['idempotency-key'];
@@ -20,6 +21,11 @@ const taskParams = { type: 'object', additionalProperties: false, required: ['id
 
 export function registerManagement(app: FastifyInstance, repo: ExecutionStore, authentication: 'local' | 'oidc') {
   const sources = new SourceManagement(repo), tasks = new TaskManagement(repo);
+  app.get('/api/v1/l0/task-overview',async request=>tasks.overview(request.actor));
+  const results = new TaskResults(repo);
+  app.get('/api/v1/l0/task-results', async request => results.read(request.actor));
+  app.get('/api/v1/l0/task-batches/:id', {schema:{params:taskParams}}, async request => tasks.detail(request.actor,(request.params as {id:string}).id));
+  app.get('/api/v1/l0/task-batches/:id/results', {schema:{params:taskParams}}, async request => results.read(request.actor,(request.params as {id:string}).id));
   app.get('/api/v1/session', async request => {
     await repo.authorize(request.actor, 'read');
     return { ...(await repo.db.query('SELECT subject AS actor,permissions,source_keys FROM platform.actors WHERE subject=$1', [request.actor])).rows[0], authentication };
@@ -33,7 +39,7 @@ export function registerManagement(app: FastifyInstance, repo: ExecutionStore, a
   app.get('/api/v1/m1/sources/:key/history', { schema: { params: sourceParams } }, async request => sources.history(request.actor, (request.params as { key: string }).key));
   app.get('/api/v1/m1/sources/:key/relations', { schema: { params: sourceParams } }, async request => sources.relations(request.actor, (request.params as { key: string }).key));
   app.patch('/api/v1/m1/sources/:key', { schema: { params: sourceParams, body: { type: 'object', additionalProperties: false, required: ['state'], properties: { state: { enum: ['ACTIVE', 'DISABLED'] }, expected_version: { type: 'integer', minimum: 1 }, reason: text } } } }, async request => sources.state(request.actor, (request.params as { key: string }).key, request.body as { state: string; expected_version?: number; reason?: string }, keyOf(request.headers)));
-  app.get('/api/v1/l0/task-batches', { schema: { querystring: { type: 'object', additionalProperties: false, properties: { from: { type: 'string', maxLength: 10 }, to: { type: 'string', maxLength: 10 }, q: { type: 'string', maxLength: 100 }, status: { enum: ['queued', 'running', 'completed', 'paused', 'partial', 'blocked', 'recoverable', 'review', 'waiting_config', 'failed', 'attention', 'active'] } } } } }, async request => tasks.list(request.actor, request.query as { from?: string; to?: string; status?: string; q?: string }));
+  app.get('/api/v1/l0/task-batches', { schema: { querystring: { type: 'object', additionalProperties: false, properties: { from: { type: 'string', maxLength: 10 }, to: { type: 'string', maxLength: 10 }, q: { type: 'string', maxLength: 100 }, source: sourceKey, batch: { type: 'string', pattern: '^[a-f0-9-]{36}$' }, status: { enum: ['queued', 'running', 'completed', 'paused', 'partial', 'blocked', 'recoverable', 'review', 'waiting_config', 'failed', 'attention', 'active'] } } } } }, async request => tasks.list(request.actor, request.query as { from?: string; to?: string; status?: string; q?: string; source?: string; batch?: string }));
   app.post('/api/v1/l0/task-batches', { schema: { body: { type: 'object', additionalProperties: false, required: ['source_keys', 'limit'], properties: { source_keys: { type: 'array', minItems: 1, maxItems: 40, uniqueItems: true, items: sourceKey }, limit: { type: 'integer', minimum: 1, maximum: 5 } } } } }, async (request, reply) => reply.code(202).send(await tasks.create(request.actor, keyOf(request.headers), request.body as { source_keys: string[]; limit: number })));
   app.post('/api/v1/l0/task-batches/:id/control', { schema: { params: taskParams, body: { type: 'object', additionalProperties: false, required: ['action', 'expected_version', 'reason'], properties: { action: { enum: ['pause', 'resume'] }, expected_version: { type: 'integer', minimum: 1 }, reason: { type: 'string', minLength: 1, maxLength: 2000 } } } } }, async request => tasks.control(request.actor, (request.params as { id: string }).id, keyOf(request.headers), request.body as { action: 'pause' | 'resume'; expected_version: number; reason: string }));
   app.patch('/api/v1/l0/schedules/:key', { schema: { params: sourceParams, body: { type: 'object', additionalProperties: false, required: ['enabled', 'interval_seconds', 'expected_updated_at'], properties: { enabled: { type: 'boolean' }, interval_seconds: { type: 'integer', minimum: 60, maximum: 86400 }, expected_updated_at: { anyOf: [{ type: 'null' }, { type: 'string', maxLength: 40 }] } } } } }, async request => tasks.schedule(request.actor, (request.params as { key: string }).key, keyOf(request.headers), request.body as { enabled: boolean; interval_seconds: number; expected_updated_at: string | null }));

@@ -1,0 +1,9 @@
+{
+  "command": "npm test",
+  "tests": 233,
+  "passed": 233,
+  "failed": 0,
+  "confirmed": true,
+  "m1_browser_checks": 56,
+  "event_browser_scenarios": 18
+}

@@ -81,3 +81,12 @@ test('source grouping does not duplicate identities within a group and absent di
   assert.deepEqual(groupSources([row],'research').map(x=>[x.name,x.items.length]),[['政策',1]]);
   assert.equal(groupSources([{catalog_key:'wiki-source-002',metadata:{}}],'research')[0].name,'待补充金融属性');
 });
+
+test('接入结果保留候选事实读取入口，不再提供候选处理页面入口',async()=>{
+ const {renderDelivery}=await import('../web/model.js');
+ for(const event_processing of [null,{id:'p',result_status:'review'}]){
+  const html=renderDelivery({version_id:'v',status:'received',event_processing,files:{}});
+  assert.match(html,/查看候选事实与归属/);
+  assert.doesNotMatch(html,/处理为正式事件|查看事件处理|#processing=|#version=/);
+ }
+});
