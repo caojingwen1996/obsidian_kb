@@ -244,7 +244,20 @@ export async function fetchJson(url, timeoutMs = 12000) {
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {
     const response = await fetch(url, { cache: 'no-store', signal: controller.signal });
-    if (!response.ok) throw new Error(`HTTP ${response.status}: ${new URL(url).hostname}`);
+    if (!response.ok) {
+      const target = new URL(url);
+      const local = ['127.0.0.1', 'localhost'].includes(target.hostname);
+      let reason = '';
+      if (local) {
+        const payload = await response.json().catch(() => null);
+        reason = ({
+          'tushare-token': '本地服务未读取到 Tushare Token，请检查服务启动环境并重新启动面板',
+          'tushare-dependency': '本地服务缺少 Tushare 依赖',
+          'tushare-permission': 'Tushare 未授权此次请求，请检查接口权限',
+        })[payload?.source] ?? '';
+      }
+      throw new Error(`HTTP ${response.status}: ${local ? target.pathname : target.hostname}${reason ? `；${reason}` : ''}`);
+    }
     return await response.json();
   } finally {
     clearTimeout(timer);

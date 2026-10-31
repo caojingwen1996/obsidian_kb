@@ -108,8 +108,9 @@ test('runtime model and API database roles cannot manufacture business candidate
   const model = new Pool({ connectionString: process.env.MODEL_DATABASE_URL });
   const api = new Pool({ connectionString: process.env.DATABASE_URL });
   try {
-    await assert.rejects(() => model.query('SELECT * FROM information.material_versions LIMIT 1'), { code: '42501' });
+    const current = Boolean((await api.query('SELECT 1 FROM platform.schema_versions WHERE version=5')).rowCount);
+    await assert.rejects(() => model.query(current ? 'SELECT * FROM infomation.ingestion_material LIMIT 1' : 'SELECT * FROM information.material_versions LIMIT 1'), { code: '42501' });
     await assert.rejects(() => api.query("UPDATE platform.actors SET permissions=ARRAY['source_admin'] WHERE false"), { code: '42501' });
-    await assert.rejects(() => api.query("INSERT INTO information.event_candidates(processing_id,ordinal,payload) VALUES(gen_random_uuid(),0,'{}')"), { code: '42501' });
+    await assert.rejects(() => api.query(current ? "INSERT INTO information.event_candidates(material_id,material_version,material_digest,actor,ordinal,payload) VALUES(gen_random_uuid(),1,'forged','forged',0,'{}')" : "INSERT INTO information.event_candidates(processing_id,ordinal,payload) VALUES(gen_random_uuid(),0,'{}')"), { code: '42501' });
   } finally { await model.end(); await api.end(); }
 });

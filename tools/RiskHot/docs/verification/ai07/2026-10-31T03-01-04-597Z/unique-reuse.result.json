@@ -1,0 +1,43 @@
+{
+  "case_id": "unique-reuse",
+  "expected": {
+    "decision": "REUSE",
+    "matches": [
+      true
+    ],
+    "matched_target_id": "00000000-0000-4000-8000-000000000001"
+  },
+  "input_digest": "cad50fa62313a7b8a1cfa898f031e301469a847a9589734fd81b365896232711",
+  "passed": true,
+  "output": {
+    "object_ref": "treasury-7y",
+    "decision": "REUSE",
+    "matched_target_id": "00000000-0000-4000-8000-000000000001",
+    "comparisons": [
+      {
+        "target_id": "00000000-0000-4000-8000-000000000001",
+        "identity_match": true,
+        "reason": "名称指向相同CUSIP 91282CRV5，分类与美国辖区一致；范围均为2026-11-02发行、2033-10-31到期的7-Year Note同一批次，且候选有效。",
+        "basis_refs": [
+          "object:treasury-7y:0",
+          "target:00000000-0000-4000-8000-000000000001:1"
+        ]
+      }
+    ],
+    "reason": "完整召回中唯一候选与当前对象的证券标识、范围及时间身份一致，且处于有效状态，建议复用，供人工核定。",
+    "basis_refs": [
+      "object:treasury-7y:0",
+      "target:00000000-0000-4000-8000-000000000001:1"
+    ],
+    "unresolved_issues": []
+  },
+  "usage": {
+    "input_tokens": 15491,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 252,
+    "reasoning_output_tokens": 0
+  },
+  "structure_valid": true,
+  "elapsed_ms": 14073
+}

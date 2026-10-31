@@ -1,10 +1,16 @@
+import { ingestionSchemaVersion } from './ingestion-migration.js';
+import { grantIngestionRoles } from './ingestion-grants.js';
 import {applyFactMigration} from './fact-migration.js';
 import {readFile} from 'node:fs/promises';import type {Pool} from 'pg';import {transaction} from './db.js';
 export async function applyEventMigration(db:Pool):Promise<void>{
+ if (await ingestionSchemaVersion(db) === 5) return;
+
  if((await db.query('SELECT 1 FROM platform.schema_versions WHERE version=4')).rowCount)return;
  const sql=await readFile(new URL('../db/003-event-management.sql',import.meta.url),'utf8');await transaction(db,async tx=>{await tx.query(sql);});await applyFactMigration(db);
 }
 export async function grantEventRoles(db:Pool):Promise<void>{
+ if (await ingestionSchemaVersion(db) === 5) { await grantIngestionRoles(db); return; }
+
  await db.query('GRANT EXECUTE ON FUNCTION platform.claim_event_model_call(uuid) TO riskhot_model');
  await db.query('GRANT EXECUTE ON FUNCTION platform.lock_permission_epoch() TO riskhot_api,riskhot_io,riskhot_relay');
  for(const role of ['riskhot_api','riskhot_io','riskhot_relay']){

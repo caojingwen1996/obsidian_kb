@@ -1,0 +1,46 @@
+{
+  "case_id": "missing-object-scope",
+  "expected": {
+    "decision": "UNRESOLVED",
+    "matches": [
+      null
+    ],
+    "matched_target_id": null
+  },
+  "input_digest": "f534de50e33068e5b1d7992fb29218e618f4aaeb9c72701307d78d1c5eda72b8",
+  "passed": true,
+  "output": {
+    "object_ref": "treasury-7y",
+    "decision": "UNRESOLVED",
+    "matched_target_id": null,
+    "comparisons": [
+      {
+        "target_id": "00000000-0000-4000-8000-000000000001",
+        "identity_match": null,
+        "reason": "双方分类及辖区一致，当前对象所引记录与候选的CUSIP、期限及发行和到期日期相符；但当前对象仅名为“美国国债”，范围定义缺失且明确未确定发行批次，不能据所引背景记录认定其就是该批次，也不能判定为不同对象。",
+        "basis_refs": [
+          "object:treasury-7y:0",
+          "target:00000000-0000-4000-8000-000000000001:1"
+        ]
+      }
+    ],
+    "reason": "当前对象的范围及时间身份尚未确定，唯一候选的同一性比较为null，需人工核定。",
+    "basis_refs": [
+      "object:treasury-7y:0",
+      "target:00000000-0000-4000-8000-000000000001:1"
+    ],
+    "unresolved_issues": [
+      "需明确当前对象指美国国债总体还是具体发行批次。",
+      "如指具体批次，需确认其CUSIP、期限、发行日期及到期日期；不能仅从背景记录或object_ref推定。"
+    ]
+  },
+  "usage": {
+    "input_tokens": 15466,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 297,
+    "reasoning_output_tokens": 0
+  },
+  "structure_valid": true,
+  "elapsed_ms": 15625
+}

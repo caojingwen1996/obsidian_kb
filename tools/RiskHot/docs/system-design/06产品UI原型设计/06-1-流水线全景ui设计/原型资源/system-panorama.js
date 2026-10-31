@@ -86,874 +86,1319 @@ const SYSTEM_PANORAMA = (() => {
  };
  Object.entries(intakeDetails).forEach(([id,detail])=>{node(id).panoramaDetail=detail;});
 
- // F02 follows the current seven-step function design; C01 assets stay versioned.
+ // F02: reviewed eight-step business definition; independent of runtime task packages.
  const eventDefinitions=[
- {
-  "id": "EV-S",
-  "type": "START",
-  "name": "F01 已保存的标准化资料与确定版本",
-  "module": "F02",
-  "source": "F02",
-  "section": "§4.1、§4.9、§6.2",
-  "rule": "F02 §4.1、§4.9、§6.2",
-  "input": "event_context",
-  "output": "event_context",
-  "inputDescription": "资料身份及确定版本、标准化内容、前版关系、证据定位、权限和既有处理记录",
-  "outputDescription": "受理后的待处理候选范围，或已保存变更的交付续接",
-  "summary": "先核对输入与既有处理范围，按记录续接，避免重复分析已完成候选。",
-  "ruleDetail": "仅完整保存且可读取的确定资料版本进入分析。相同分析键的重复投递查询既有处理记录；部分候选已完成时仅恢复其余范围，重算须另记授权与方法版本。",
-  "next": [
-   {
-    "label": "输入满足；仅处理未完成候选",
-    "to": "EV-PREP"
-   },
-   {
-    "label": "资料版本、引用或读取条件不满足",
-    "to": "EV-X"
-   },
-   {
-    "label": "处理及必要交付已完成",
-    "to": "EV-E"
-   },
-   {
-    "label": "正式结果已保存，仅交付待恢复",
-    "to": "EV-DELIVER"
-   }
-  ],
-  "panoramaDetail": {
-   "trigger": "F01交付已保存的标准化资料版本；重复投递按受理记录续接。",
-   "actions": [
-    "核对资料版本、证据读取权限与输入完整性；不重新接入或标准化原件。",
-    "查询本次分析键、候选完成范围和交付状态，只续接未完成部分。"
-   ]
+  {
+    "id": "EV-S",
+    "type": "START",
+    "name": "接收已保存资料",
+    "module": "F02",
+    "source": "F02",
+    "section": "§4.1",
+    "rule": "F02 §4.1",
+    "input": "event_context",
+    "output": "event_context",
+    "inputDescription": "已保存 material、版本值、摘要、来源与权限",
+    "outputDescription": "本次处理范围或已有记录续接",
+    "summary": "复用有效处理记录；资料版本与正文必须可读，已完成部分不重复分析。",
+    "ruleDetail": "复用有效处理记录；资料版本与正文必须可读，已完成部分不重复分析。",
+    "next": [
+      {
+        "label": "准备未完成范围",
+        "to": "EV-PREP"
+      },
+      {
+        "label": "已保存仅待交付",
+        "to": "EV-DELIVER"
+      },
+      {
+        "label": "输入待恢复",
+        "to": "EV-X"
+      }
+    ],
+    "pending": "",
+    "panoramaFixedStep": "起点",
+    "reviewed": true,
+    "panoramaDetail": {
+      "actions": [
+        "复用有效处理记录；资料版本与正文必须可读，已完成部分不重复分析。"
+      ],
+      "basis": [
+        "复用有效处理记录；资料版本与正文必须可读，已完成部分不重复分析。"
+      ],
+      "question": "接收已保存资料？",
+      "trigger": "已保存 material、版本值、摘要、来源与权限",
+      "continuation": "本次处理范围或已有记录续接",
+      "recovery": "复用有效处理记录；资料版本与正文必须可读，已完成部分不重复分析。",
+      "resultType": "接收已保存资料",
+      "resultTone": "complete"
+    }
   },
-  "pending": ""
- },
- {
-  "id": "EV-A1",
-  "type": "AI",
-  "name": "提取候选事件",
-  "module": "F02",
-  "source": "F02",
-  "section": "§4.2",
-  "rule": "F02 §4.2",
-  "input": "event_context",
-  "output": "event_context",
-  "inputDescription": "确定版本的标准化内容、来源与时间、证据位置及事件类型字典",
-  "outputDescription": "0..N候选、主体/行为/事件时间、状态、证据定位和不确定性",
-  "summary": "AI-01从资料中识别具体行为与变化，输出候选和证据，交程序校验。",
-  "ruleDetail": "一份资料可对应多个候选，各候选独立处理。区分宣布、预计与实施；事件时间不能用发布时间替代。AI不分配正式event_id。",
-  "next": [
-   {
-    "label": "分析返回，交程序检查",
-    "to": "EV-CHECK"
-   },
-   {
-    "label": "AI执行失败，保留恢复位置",
-    "to": "EV-X"
-   }
-  ],
-  "pending": "",
-  "task": "AI-01",
-  "taskVersion": "1.0",
-  "panoramaFixedStep": "Step 1.2"
- },
- {
-  "id": "EV-A2",
-  "type": "AI",
-  "name": "比较事件身份与归属",
-  "module": "F02",
-  "source": "F02",
-  "section": "§4.3",
-  "rule": "F02 §4.3",
-  "input": "event_context",
-  "output": "event_context",
-  "inputDescription": "事件候选、程序召回的已有事件、作用范围与原文证据",
-  "outputDescription": "新建或复用身份建议、归组比较依据及资料关系",
-  "summary": "AI-02比较候选与已有事件，提出新建、复用或待判定建议。",
-  "ruleDetail": "同主题不等于同事件。仅比较真实已有身份；NEW_EVENT、归入已有事件或UNRESOLVED分别记录。正式身份与关系在校验保存阶段落实，不由AI直接创建。",
-  "next": [
-   {
-    "label": "分析返回，交程序检查",
-    "to": "EV-MATCH-CHECK"
-   },
-   {
-    "label": "AI执行失败，保留恢复位置",
-    "to": "EV-X"
-   }
-  ],
-  "pending": "匹配阈值与精确自动通过条件尚待评审，不使用预设百分比。",
-  "task": "AI-02",
-  "taskVersion": "1.0",
-  "panoramaFixedStep": "Step 2.2"
- },
- {
-  "id": "EV-A3",
-  "type": "AI",
-  "name": "识别观测主体与直接变量",
-  "module": "F02",
-  "source": "F02",
-  "section": "§4.4",
-  "rule": "F02 §4.4",
-  "input": "event_context",
-  "output": "event_context",
-  "inputDescription": "已明确身份的事件候选、Target字典、M2有效变量定义和直接证据",
-  "outputDescription": "EventTarget、直接变量关系建议，或合法空关系与候选缺口",
-  "summary": "AI-03提出主体、变量和关系建议，正式引用与关系由程序检查。",
-  "ruleDetail": "核对主体身份、类型、辖区和范围；无明确Target或直接变量时可保留空关系并继续其他分析。无正式变量匹配时保留候选，不造ID，不替下游推导风险传导。",
-  "next": [
-   {
-    "label": "分析返回，交程序检查",
-    "to": "EV-REL-CHECK"
-   },
-   {
-    "label": "AI执行失败，保留恢复位置",
-    "to": "EV-X"
-   }
-  ],
-  "pending": "新Target正式身份分配、审核与授权条件待定；缺定义不等于整个事件处理失败。",
-  "task": "AI-03",
-  "taskVersion": "1.0",
-  "panoramaFixedStep": "Step 3.2"
- },
- {
-  "id": "EV-A5",
-  "type": "AI",
-  "name": "分析事件增量与变化",
-  "module": "F02",
-  "source": "F02",
-  "section": "§4.5",
-  "rule": "F02 §4.5",
-  "input": "event_context",
-  "output": "event_context",
-  "inputDescription": "确定资料版本及前版变化、已归组事件的事实、状态、证据与更新历史",
-  "outputDescription": "七类增量结果、更新与状态调整建议及后续评价路径",
-  "summary": "AI-04比较当前事实和历史，提出增量、状态与证据建议。",
-  "ruleDetail": "七类为NEW_EVENT、EVENT_PROGRESS、MATERIAL_ADDITION、SOURCE_ADDITION、CORRECTION、DUPLICATE、UNRESOLVED。来源修订与处理版本变化不自动等于事件纠正；重复不制造Update或通知。新增事实改变身份判断时先复核归组。",
-  "next": [
-   {
-    "label": "分析返回，交程序检查",
-    "to": "EV-DELTA-CHECK"
-   },
-   {
-    "label": "AI执行失败，保留恢复位置",
-    "to": "EV-X"
-   }
-  ],
-  "pending": "",
-  "task": "AI-04",
-  "taskVersion": "1.0",
-  "panoramaFixedStep": "Step 4.2"
- },
- {
-  "id": "RATE-A1",
-  "type": "AI",
-  "name": "分析金融意义维度与用途",
-  "module": "F02",
-  "source": "F02",
-  "section": "§4.6",
-  "rule": "F02 §4.6",
-  "input": "event_context",
-  "output": "event_context",
-  "inputDescription": "事件及有效增量、证据、评价范围、研究期限和固定方法版本",
-  "outputDescription": "金融意义评语、用途标签、评价或复评结果及方法状态",
-  "summary": "AI-05在固定范围、期限和方法下分析维度、用途与依据；总分由程序计算或复算。",
-  "ruleDetail": "金融意义不等于风险等级。新事件通常初评，评级依据改变才复评；纯来源增加通常沿用。方法未批准时保留评语、用途、依据和草案状态，M为空，不输出未经批准的正式分值。",
-  "next": [
-   {
-    "label": "分析返回，交程序检查",
-    "to": "RATE-CHECK"
-   },
-   {
-    "label": "AI执行失败，保留恢复位置",
-    "to": "EV-X"
-   }
-  ],
-  "pending": "M候选维度、权重及量化方法待评审；未批准方法不得生成正式评分。",
-  "task": "AI-05",
-  "taskVersion": "1.0",
-  "panoramaFixedStep": "Step 5.3"
- },
- {
-  "id": "EV-P2",
-  "type": "PROGRAM",
-  "name": "校验并保存事件结果",
-  "module": "F02",
-  "source": "F02",
-  "section": "§4.7、§3.11",
-  "rule": "F02 §4.7、§3.11",
-  "input": "event_context",
-  "output": "event_context",
-  "inputDescription": "候选、归组、主体变量关系、增量与评价建议，及权限、证据版本",
-  "outputDescription": "适用的正式事件、关系、更新、评级和处理记录；确定保存结果",
-  "summary": "统一落实正式身份与关系，校验后保存本次适用业务结果。",
-  "ruleDetail": "校验资料版本、身份、同事件证据、时间状态、M范围、权限和幂等性。只保存适用对象；来源增加、重复及合法空关系不强制创建所有对象。并发或保存结果不明先查询已提交范围，不重复生成业务效果。",
-  "next": [
-   {
-    "label": "保存明确成功，有待交付的正式变化",
-    "to": "EV-DELIVER"
-   },
-   {
-    "label": "保存明确成功，无待交付业务变化",
-    "to": "EV-E"
-   },
-   {
-    "label": "业务校验、身份或权限不满足",
-    "to": "EV-X"
-   },
-   {
-    "label": "保存失败、并发冲突或提交结果不明",
-    "to": "EV-SAVEWAIT"
-   }
-  ],
-  "panoramaDetail": {
-   "actions": [
-    "校验身份、确定资料版本、同事件证据、关系、时间、评级范围及权限。",
-    "按增量类别落实适用对象与处理记录，不强制创建全部关系或评级。",
-    "查询并发与已提交范围，避免重复Event、Update或Rating；保存后才交付。"
-   ]
+  {
+    "id": "EV-PREP",
+    "type": "PROGRAM",
+    "name": "准备候选提取输入",
+    "module": "F02",
+    "source": "F02",
+    "section": "§4.2.3～4.2.4",
+    "rule": "F02 §4.2.3～4.2.4",
+    "input": "event_context",
+    "output": "event_context",
+    "inputDescription": "资料正文、证据定位及版本",
+    "outputDescription": "完整且固定的提取输入",
+    "summary": "核对资格、证据可读性、版本与覆盖范围；不把失败当成零候选。",
+    "ruleDetail": "核对资格、证据可读性、版本与覆盖范围；不把失败当成零候选。",
+    "next": [
+      {
+        "label": "输入可用",
+        "to": "EV-A1"
+      },
+      {
+        "label": "待恢复",
+        "to": "EV-X"
+      }
+    ],
+    "pending": "",
+    "panoramaFixedStep": "Step 1.1",
+    "reviewed": true,
+    "panoramaDetail": {
+      "actions": [
+        "核对资格、证据可读性、版本与覆盖范围；不把失败当成零候选。"
+      ],
+      "basis": [
+        "核对资格、证据可读性、版本与覆盖范围；不把失败当成零候选。"
+      ],
+      "question": "准备候选提取输入？",
+      "trigger": "资料正文、证据定位及版本",
+      "continuation": "完整且固定的提取输入",
+      "recovery": "核对资格、证据可读性、版本与覆盖范围；不把失败当成零候选。",
+      "resultType": "准备候选提取输入",
+      "resultTone": "complete"
+    }
   },
-  "pending": "",
-  "panoramaFixedStep": "Step 6"
- },
- {
-  "id": "EV-DELIVER",
-  "type": "PROGRAM",
-  "name": "交付事件变化",
-  "module": "F02",
-  "source": "F02",
-  "section": "§4.8",
-  "rule": "F02 §4.8",
-  "input": "event_context",
-  "output": "event_context",
-  "inputDescription": "已保存正式变更、事件/更新引用、实际变化类别、授权接收方及证据版本",
-  "outputDescription": "本次变更交付确认、回执记录和可恢复的交付状态",
-  "summary": "根据实际变化交付下游，接收确认与回执记录完成后结束。",
-  "ruleDetail": "新事件、实质进展及有效关系变化供F03/F05使用；评级更新供引用信息更新；仅来源增加只交付订阅该变化的消费者；纯重复无变化不发通知。失败只恢复同一变更的交付/回执，不重新分析或保存。",
-  "next": [
-   {
-    "label": "约定交付与回执记录完成",
-    "to": "EV-E"
-   },
-   {
-    "label": "交付失败、未确认或回执待恢复",
-    "to": "EV-SENDWAIT"
-   }
-  ],
-  "panoramaDetail": {
-   "actions": [
-    "仅交付已保存的正式变化，按变化类型和授权订阅确定接收方。",
-    "记录事件与更新、变化类别、证据版本、M范围/期限/方法及回执。",
-    "已确认接收方不重复触发；失败仅恢复同一变更的交付或回执。"
-   ]
+  {
+    "id": "EV-A1",
+    "type": "AI",
+    "name": "候选事件提取",
+    "module": "F02",
+    "source": "F02",
+    "section": "§4.2",
+    "rule": "F02 §4.2",
+    "input": "event_context",
+    "output": "event_context",
+    "inputDescription": "资料主文、引用关系与原文证据",
+    "outputDescription": "0～N 个候选陈述、事件要素、对象线索及证据",
+    "summary": "识别独立行动或状态变化，保留 Subject、Action、Object、时间、关键事实与数值、条件及未知项；不分配正式身份。",
+    "ruleDetail": "识别独立行动或状态变化，保留 Subject、Action、Object、时间、关键事实与数值、条件及未知项；不分配正式身份。",
+    "next": [
+      {
+        "label": "校验输出",
+        "to": "EV-CHECK"
+      }
+    ],
+    "pending": "",
+    "panoramaFixedStep": "Step 1.2",
+    "reviewed": true,
+    "panoramaDetail": {
+      "actions": [
+        "识别独立行动或状态变化，保留 Subject、Action、Object、时间、关键事实与数值、条件及未知项；不分配正式身份。"
+      ],
+      "basis": [
+        "识别独立行动或状态变化，保留 Subject、Action、Object、时间、关键事实与数值、条件及未知项；不分配正式身份。"
+      ],
+      "question": "候选事件提取？",
+      "trigger": "资料主文、引用关系与原文证据",
+      "continuation": "0～N 个候选陈述、事件要素、对象线索及证据",
+      "recovery": "识别独立行动或状态变化，保留 Subject、Action、Object、时间、关键事实与数值、条件及未知项；不分配正式身份。",
+      "resultType": "候选事件提取",
+      "resultTone": "complete"
+    },
+    "task": "AI-01",
+    "taskVersion": "reviewed-2026-10-31"
   },
-  "pending": "",
-  "panoramaFixedStep": "Step 7"
- },
- {
-  "id": "EV-E",
-  "type": "END",
-  "name": "本次处理完成",
-  "module": "F02",
-  "source": "F02",
-  "section": "§4.1、§4.8～4.9",
-  "rule": "F02 §4.1、§4.8～4.9",
-  "input": "event_context",
-  "output": "event_context",
-  "inputDescription": "无事件处理记录已保存，或业务结果已保存且必要交付已确认",
-  "outputDescription": "本次已完成处理范围、资料证据与适用事件结果",
-  "summary": "无事件、无新增与已交付变更均可正常完成；其他未完成候选分别保留。",
-  "ruleDetail": "此处是本次已完成范围的结果，不把某个候选完成误认为整份资料全部完成。下方跨模块入口仅作阅读定位，不能由无事件、纯重复或仅来源增加自动触发风险识别。",
-  "next": [
-   {
-    "label": "查看实质变化的风险识别接收环节",
-    "to": "RISK-S"
-   },
-   {
-    "label": "查看可引用事实/进展的状态分析环节",
-    "to": "STATE-S"
-   }
-  ],
-  "panoramaDetail": {
-   "resultType": "正常完成",
-   "resultTone": "complete",
-   "continuation": "按实际变化使用已保存结果；F03/F05入口仅提供阅读定位。无事件和纯重复不产生风险触发。"
+  {
+    "id": "EV-CHECK",
+    "type": "CONDITION",
+    "name": "校验并保存或复用 Fact",
+    "module": "F02",
+    "source": "F02",
+    "section": "§4.2.4",
+    "rule": "F02 §4.2.4",
+    "input": "event_context",
+    "output": "event_context",
+    "inputDescription": "候选及证据、已有 Fact 与来源",
+    "outputDescription": "已保存或复用的 Fact、零候选记录或待处理原因",
+    "summary": "同一次发生跨报道复用 Fact 并补来源；完整有效的零候选才可正常结束。",
+    "ruleDetail": "同一次发生跨报道复用 Fact 并补来源；完整有效的零候选才可正常结束。",
+    "next": [
+      {
+        "label": "有效 Fact",
+        "to": "EV-MODEL"
+      },
+      {
+        "label": "合法零候选",
+        "to": "EV-ZERO"
+      },
+      {
+        "label": "输出或证据不合格",
+        "to": "EV-X"
+      }
+    ],
+    "pending": "",
+    "panoramaFixedStep": "Step 1.3",
+    "reviewed": true,
+    "panoramaDetail": {
+      "actions": [
+        "同一次发生跨报道复用 Fact 并补来源；完整有效的零候选才可正常结束。"
+      ],
+      "basis": [
+        "同一次发生跨报道复用 Fact 并补来源；完整有效的零候选才可正常结束。"
+      ],
+      "question": "校验并保存或复用 Fact？",
+      "trigger": "候选及证据、已有 Fact 与来源",
+      "continuation": "已保存或复用的 Fact、零候选记录或待处理原因",
+      "recovery": "同一次发生跨报道复用 Fact 并补来源；完整有效的零候选才可正常结束。",
+      "resultType": "校验并保存或复用 Fact",
+      "resultTone": "complete"
+    }
   },
-  "pending": ""
- },
- {
-  "id": "EV-ZERO",
-  "type": "PROGRAM",
-  "name": "记录无事件结果及资料引用",
-  "module": "F02",
-  "source": "F02",
-  "section": "§4.1～4.2、§4.9",
-  "rule": "F02 §4.1～4.2、§4.9",
-  "input": "event_context",
-  "output": "event_context",
-  "inputDescription": "零候选提取结果及确定资料版本、原文引用",
-  "outputDescription": "可查询的无事件处理记录",
-  "summary": "保留本次无事件结论及资料引用，不创建空事件。",
-  "ruleDetail": "0个候选是合法业务结果。资料仍可追溯；记录分析与版本依据，不分配虚构的正式事件或发业务变化通知。",
-  "next": [
-   {
-    "label": "无事件处理记录已保存",
-    "to": "EV-E"
-   }
-  ],
-  "panoramaDetail": {
-   "actions": [
-    "记录零候选处理结果、确定资料版本及分析依据。",
-    "保留原文定位供查询；不制造Event、Update或业务变化通知。"
-   ]
+  {
+    "id": "EV-MODEL",
+    "type": "PROGRAM",
+    "name": "映射 Event 并准备对象语境",
+    "module": "F02",
+    "source": "F02",
+    "section": "§4.3",
+    "rule": "F02 §4.3",
+    "input": "event_context",
+    "output": "event_context",
+    "inputDescription": "已保存 Fact、Object 及原文语境",
+    "outputDescription": "待融合 Event、Target 候选识别输入",
+    "summary": "程序逐字段映射 Fact → Event，保留原值、时间精度与缺口；不提前创建正式 Event。",
+    "ruleDetail": "程序逐字段映射 Fact → Event，保留原值、时间精度与缺口；不提前创建正式 Event。",
+    "next": [
+      {
+        "label": "识别对象候选",
+        "to": "EV-TARGET-AI"
+      }
+    ],
+    "pending": "",
+    "panoramaFixedStep": "Step 2.1",
+    "reviewed": true,
+    "panoramaDetail": {
+      "actions": [
+        "程序逐字段映射 Fact → Event，保留原值、时间精度与缺口；不提前创建正式 Event。"
+      ],
+      "basis": [
+        "程序逐字段映射 Fact → Event，保留原值、时间精度与缺口；不提前创建正式 Event。"
+      ],
+      "question": "映射 Event 并准备对象语境？",
+      "trigger": "已保存 Fact、Object 及原文语境",
+      "continuation": "待融合 Event、Target 候选识别输入",
+      "recovery": "程序逐字段映射 Fact → Event，保留原值、时间精度与缺口；不提前创建正式 Event。",
+      "resultType": "映射 Event 并准备对象语境",
+      "resultTone": "complete"
+    }
   },
-  "pending": "",
-  "panoramaFixedStep": "Step 1A.1"
- },
- {
-  "id": "EV-X",
-  "type": "END",
-  "name": "待处理或待复核",
-  "module": "F02",
-  "source": "F02",
-  "section": "§4.3、§4.5、§4.9",
-  "rule": "F02 §4.3、§4.5、§4.9",
-  "input": "event_context",
-  "output": "event_context",
-  "inputDescription": "输入、身份、证据、输出或业务校验问题，以及受影响的候选范围",
-  "outputDescription": "问题原因、候选差异、资料版本、证据和待恢复阶段",
-  "summary": "隔离受影响候选并保留依据，其他合格候选可继续。",
-  "ruleDetail": "合法空Target/变量或未批准方法下的M空分不自动进入本出口。复核后由程序重新校验身份、权限与证据；按具体原因恢复，不能盲目重做整份资料。",
-  "next": [],
-  "panoramaDetail": {
-   "resultType": "待处理或待复核",
-   "resultTone": "pending",
-   "recovery": "按记录恢复当前失败位置。归组改变后重新处理依赖旧身份的关系、增量与评级；已提交结果走受控修正。执行失败不等于无事件、无匹配或合法空分。复核后仍需程序检查，无统一固定后继。"
+  {
+    "id": "EV-TARGET-AI",
+    "type": "AI",
+    "name": "Target 候选识别",
+    "module": "F02",
+    "source": "F02",
+    "section": "§4.3.4",
+    "rule": "F02 §4.3.4",
+    "input": "event_context",
+    "output": "event_context",
+    "inputDescription": "Object、对象线索、Subject、Action、语境及证据",
+    "outputDescription": "逐项 Target 候选、作用依据、来源映射、排除与未决理由",
+    "summary": "可一对多识别金融观测对象；仅被提及或凭常识可能受影响不足以构成候选；不检索或核定正式身份。",
+    "ruleDetail": "可一对多识别金融观测对象；仅被提及或凭常识可能受影响不足以构成候选；不检索或核定正式身份。",
+    "next": [
+      {
+        "label": "校验候选覆盖",
+        "to": "EV-MODEL-CHECK"
+      }
+    ],
+    "pending": "",
+    "panoramaFixedStep": "Step 2.2",
+    "reviewed": true,
+    "panoramaDetail": {
+      "actions": [
+        "可一对多识别金融观测对象；仅被提及或凭常识可能受影响不足以构成候选；不检索或核定正式身份。"
+      ],
+      "basis": [
+        "可一对多识别金融观测对象；仅被提及或凭常识可能受影响不足以构成候选；不检索或核定正式身份。"
+      ],
+      "question": "Target 候选识别？",
+      "trigger": "Object、对象线索、Subject、Action、语境及证据",
+      "continuation": "逐项 Target 候选、作用依据、来源映射、排除与未决理由",
+      "recovery": "可一对多识别金融观测对象；仅被提及或凭常识可能受影响不足以构成候选；不检索或核定正式身份。",
+      "resultType": "Target 候选识别",
+      "resultTone": "complete"
+    },
+    "task": "AI-08",
+    "taskVersion": "reviewed-2026-10-31"
   },
-  "pending": ""
- },
- {
-  "id": "EV-SAVEWAIT",
-  "type": "END",
-  "name": "事件保存待恢复",
-  "module": "F02",
-  "source": "F02",
-  "section": "§4.7、§4.9",
-  "rule": "F02 §4.7、§4.9",
-  "input": "event_context",
-  "output": "event_context",
-  "inputDescription": "保存失败、并发冲突、部分完成或提交结果不明",
-  "outputDescription": "已保存范围、候选关联和保存恢复位置",
-  "summary": "先核对实际提交范围，再恢复未完成的保存。",
-  "ruleDetail": "保留已完成Event、来源关系、Update、Rating和候选记录；按同一业务变化恢复，不重建已存在的正式结果。",
-  "next": [
-   {
-    "label": "仅恢复未完成保存",
-    "to": "EV-P2"
-   }
-  ],
-  "panoramaDetail": {
-   "resultType": "保存待恢复",
-   "resultTone": "pending",
-   "recovery": "回到校验并保存事件结果，先查询实际已提交范围及预期修订，再恢复未完成部分。"
+  {
+    "id": "EV-MODEL-CHECK",
+    "type": "CONDITION",
+    "name": "校验建模与候选覆盖",
+    "module": "F02",
+    "source": "F02",
+    "section": "§4.3.4",
+    "rule": "F02 §4.3.4",
+    "input": "event_context",
+    "output": "event_context",
+    "inputDescription": "Event 映射与逐对象识别结果",
+    "outputDescription": "有效建模、候选与缺口",
+    "summary": "核对结构、证据、覆盖及边界，区分合法空结果、未决与执行失败；不得遗漏多对象或虚构身份。",
+    "ruleDetail": "核对结构、证据、覆盖及边界，区分合法空结果、未决与执行失败；不得遗漏多对象或虚构身份。",
+    "next": [
+      {
+        "label": "有效结果交融合",
+        "to": "EV-MATCH-PREP"
+      },
+      {
+        "label": "原始抽取错误",
+        "to": "EV-PREP"
+      },
+      {
+        "label": "待恢复或复核",
+        "to": "EV-X"
+      }
+    ],
+    "pending": "",
+    "panoramaFixedStep": "Step 2.3",
+    "reviewed": true,
+    "panoramaDetail": {
+      "actions": [
+        "核对结构、证据、覆盖及边界，区分合法空结果、未决与执行失败；不得遗漏多对象或虚构身份。"
+      ],
+      "basis": [
+        "核对结构、证据、覆盖及边界，区分合法空结果、未决与执行失败；不得遗漏多对象或虚构身份。"
+      ],
+      "question": "校验建模与候选覆盖？",
+      "trigger": "Event 映射与逐对象识别结果",
+      "continuation": "有效建模、候选与缺口",
+      "recovery": "核对结构、证据、覆盖及边界，区分合法空结果、未决与执行失败；不得遗漏多对象或虚构身份。",
+      "resultType": "校验建模与候选覆盖",
+      "resultTone": "complete"
+    }
   },
-  "pending": ""
- },
- {
-  "id": "EV-SENDWAIT",
-  "type": "END",
-  "name": "事件交付待恢复",
-  "module": "F02",
-  "source": "F02",
-  "section": "§4.8～4.9",
-  "rule": "F02 §4.8～4.9",
-  "input": "event_context",
-  "output": "event_context",
-  "inputDescription": "已保存业务变化与失败、超时或不明的交付/回执",
-  "outputDescription": "同一变更的待交付状态和原因",
-  "summary": "业务保存与交付状态分别保留，只恢复原变更交付或回执。",
-  "ruleDetail": "不得因为交付重试再次生成Event、Update或Rating；已确认部分不重复触发，接收方按约定身份去重。",
-  "next": [
-   {
-    "label": "仅恢复原变更交付或回执",
-    "to": "EV-DELIVER"
-   }
-  ],
-  "panoramaDetail": {
-   "resultType": "交付待恢复",
-   "resultTone": "pending",
-   "recovery": "回到交付事件变化，仅补发同一已保存变更或补记回执，不重新分析与保存。"
+  {
+    "id": "EV-MATCH-PREP",
+    "type": "PROGRAM",
+    "name": "准备实例与检索已有身份",
+    "module": "F02",
+    "source": "F02",
+    "section": "§4.4.4",
+    "rule": "F02 §4.4.4",
+    "input": "event_context",
+    "output": "event_context",
+    "inputDescription": "Event、Target 候选及已有实例",
+    "outputDescription": "分别固定的事件与对象比较范围",
+    "summary": "Event 与 Target 分别召回和比较，名称相同不能替代同一性；检索失败不等于无匹配。",
+    "ruleDetail": "Event 与 Target 分别召回和比较，名称相同不能替代同一性；检索失败不等于无匹配。",
+    "next": [
+      {
+        "label": "比较 Event",
+        "to": "EV-A2"
+      },
+      {
+        "label": "检索失败",
+        "to": "EV-X"
+      }
+    ],
+    "pending": "",
+    "panoramaFixedStep": "Step 3.1",
+    "reviewed": true,
+    "panoramaDetail": {
+      "actions": [
+        "Event 与 Target 分别召回和比较，名称相同不能替代同一性；检索失败不等于无匹配。"
+      ],
+      "basis": [
+        "Event 与 Target 分别召回和比较，名称相同不能替代同一性；检索失败不等于无匹配。"
+      ],
+      "question": "准备实例与检索已有身份？",
+      "trigger": "Event、Target 候选及已有实例",
+      "continuation": "分别固定的事件与对象比较范围",
+      "recovery": "Event 与 Target 分别召回和比较，名称相同不能替代同一性；检索失败不等于无匹配。",
+      "resultType": "准备实例与检索已有身份",
+      "resultTone": "complete"
+    }
   },
-  "pending": ""
- },
- {
-  "id": "EV-PREP",
-  "type": "PROGRAM",
-  "name": "准备资料与提取上下文",
-  "module": "F02",
-  "source": "F02",
-  "section": "§4.2",
-  "rule": "F02 §4.2",
-  "input": "event_context",
-  "output": "event_context",
-  "inputDescription": "已受理的资料身份、确定版本与处理记录",
-  "outputDescription": "可读取资料、事件类型字典及固定任务版本",
-  "summary": "读取确定版本的正文、来源、时间和原文定位；沿用标题、URL和发布时间的可空规则。",
-  "ruleDetail": "读取确定版本的正文、来源、时间和原文定位；沿用标题、URL和发布时间的可空规则。；固定任务与方法版本，仅准备未完成的分析范围。",
-  "next": [
-   {
-    "label": "输入可用，交 AI-01",
-    "to": "EV-A1"
-   },
-   {
-    "label": "执行失败或输入不可用，保留恢复位置",
-    "to": "EV-X"
-   }
-  ],
-  "panoramaDetail": {
-   "actions": [
-    "读取确定版本的正文、来源、时间和原文定位；沿用标题、URL和发布时间的可空规则。",
-    "固定任务与方法版本，仅准备未完成的分析范围。"
-   ]
+  {
+    "id": "EV-A2",
+    "type": "AI",
+    "name": "Event 同一性判断",
+    "module": "F02",
+    "source": "F02",
+    "section": "§4.4.4",
+    "rule": "F02 §4.4.4",
+    "input": "event_context",
+    "output": "event_context",
+    "inputDescription": "候选事件、检索结果、Fact 与原文",
+    "outputDescription": "NEW、REUSE 或 UNRESOLVED 建议及逐项依据",
+    "summary": "按事件身份判定新建或复用；不把阶段变化、来源增加直接当新事件，不提前保存。",
+    "ruleDetail": "按事件身份判定新建或复用；不把阶段变化、来源增加直接当新事件，不提前保存。",
+    "next": [
+      {
+        "label": "比较适用 Target",
+        "to": "EV-TARGET-MATCH"
+      }
+    ],
+    "pending": "",
+    "panoramaFixedStep": "Step 3.2",
+    "reviewed": true,
+    "panoramaDetail": {
+      "actions": [
+        "按事件身份判定新建或复用；不把阶段变化、来源增加直接当新事件，不提前保存。"
+      ],
+      "basis": [
+        "按事件身份判定新建或复用；不把阶段变化、来源增加直接当新事件，不提前保存。"
+      ],
+      "question": "Event 同一性判断？",
+      "trigger": "候选事件、检索结果、Fact 与原文",
+      "continuation": "NEW、REUSE 或 UNRESOLVED 建议及逐项依据",
+      "recovery": "按事件身份判定新建或复用；不把阶段变化、来源增加直接当新事件，不提前保存。",
+      "resultType": "Event 同一性判断",
+      "resultTone": "complete"
+    },
+    "task": "AI-02",
+    "taskVersion": "reviewed-2026-10-31"
   },
-  "pending": "",
-  "panoramaFixedStep": "Step 1.1",
-  "panoramaGroupTitle": "Step 1 · 提取候选事件"
- },
- {
-  "id": "EV-CHECK",
-  "type": "CONDITION",
-  "name": "校验并固定候选清单",
-  "module": "F02",
-  "source": "F02",
-  "section": "§4.2、§4.9",
-  "rule": "F02 §4.2、§4.9",
-  "input": "event_context",
-  "output": "event_context",
-  "inputDescription": "AI-01返回的候选集合、原文证据与执行状态",
-  "outputDescription": "固定候选键、数量与校验结果",
-  "summary": "检查输出完整性、字段、时间语义、资料版本和原文定位。",
-  "ruleDetail": "检查输出完整性、字段、时间语义、资料版本和原文定位。；抽取完成并通过校验后固定候选键和数量；失败或数量未知不能记为零候选。",
-  "next": [
-   {
-    "label": "有合格候选，逐个处理",
-    "to": "EV-MATCH-PREP"
-   },
-   {
-    "label": "合法零候选，记录无事件",
-    "to": "EV-ZERO"
-   },
-   {
-    "label": "校验不通过，待恢复或复核",
-    "to": "EV-X"
-   }
-  ],
-  "panoramaDetail": {
-   "question": "校验并固定候选清单？",
-   "basis": [
-    "检查输出完整性、字段、时间语义、资料版本和原文定位。",
-    "抽取完成并通过校验后固定候选键和数量；失败或数量未知不能记为零候选。"
-   ]
+  {
+    "id": "EV-TARGET-MATCH",
+    "type": "AI",
+    "name": "Target 同一性判断",
+    "module": "F02",
+    "source": "F02",
+    "section": "§4.4.4",
+    "rule": "F02 §4.4.4",
+    "input": "event_context",
+    "output": "event_context",
+    "inputDescription": "逐对象候选、召回结果、范围与证据",
+    "outputDescription": "逐对象新建、复用或待确认建议",
+    "summary": "核对对象身份、范围与别名；无适用候选可合法跳过，执行失败与无匹配分别记录。",
+    "ruleDetail": "核对对象身份、范围与别名；无适用候选可合法跳过，执行失败与无匹配分别记录。",
+    "next": [
+      {
+        "label": "统一校验身份",
+        "to": "EV-MATCH-CHECK"
+      }
+    ],
+    "pending": "",
+    "panoramaFixedStep": "Step 3.3",
+    "reviewed": true,
+    "panoramaDetail": {
+      "actions": [
+        "核对对象身份、范围与别名；无适用候选可合法跳过，执行失败与无匹配分别记录。"
+      ],
+      "basis": [
+        "核对对象身份、范围与别名；无适用候选可合法跳过，执行失败与无匹配分别记录。"
+      ],
+      "question": "Target 同一性判断？",
+      "trigger": "逐对象候选、召回结果、范围与证据",
+      "continuation": "逐对象新建、复用或待确认建议",
+      "recovery": "核对对象身份、范围与别名；无适用候选可合法跳过，执行失败与无匹配分别记录。",
+      "resultType": "Target 同一性判断",
+      "resultTone": "complete"
+    },
+    "task": "AI-07",
+    "taskVersion": "reviewed-2026-10-31"
   },
-  "pending": "",
-  "panoramaFixedStep": "Step 1.3"
- },
- {
-  "id": "EV-MATCH-PREP",
-  "type": "PROGRAM",
-  "name": "召回已有事件与历史依据",
-  "module": "F02",
-  "source": "F02",
-  "section": "§4.3",
-  "rule": "F02 §4.3",
-  "input": "event_context",
-  "output": "event_context",
-  "inputDescription": "已校验的候选、主体、行为、时间和范围",
-  "outputDescription": "真实已有事件、修订版本与比较证据",
-  "summary": "按主体、行为、时间及范围召回已有事件，固定比较版本。",
-  "ruleDetail": "按主体、行为、时间及范围召回已有事件，固定比较版本。；召回失败进入待恢复，不能当成无匹配；成功但为空的召回仍交AI判断。",
-  "next": [
-   {
-    "label": "召回完成，交 AI-02",
-    "to": "EV-A2"
-   },
-   {
-    "label": "执行失败或输入不可用，保留恢复位置",
-    "to": "EV-X"
-   }
-  ],
-  "panoramaDetail": {
-   "actions": [
-    "按主体、行为、时间及范围召回已有事件，固定比较版本。",
-    "召回失败进入待恢复，不能当成无匹配；成功但为空的召回仍交AI判断。"
-   ]
+  {
+    "id": "EV-MATCH-CHECK",
+    "type": "CONDITION",
+    "name": "核定身份方向与继续范围",
+    "module": "F02",
+    "source": "F02",
+    "section": "§4.4.4",
+    "rule": "F02 §4.4.4",
+    "input": "event_context",
+    "output": "event_context",
+    "inputDescription": "Event/Target 比较、覆盖与复核依据",
+    "outputDescription": "有效事件身份、对象身份或待确认项",
+    "summary": "只有实例融合决定 NEW/REUSE；对象待定时保留缺口与获准独立范围，发现身份冲突须复核。",
+    "ruleDetail": "只有实例融合决定 NEW/REUSE；对象待定时保留缺口与获准独立范围，发现身份冲突须复核。",
+    "next": [
+      {
+        "label": "事件身份有效",
+        "to": "EV-DELTA-PREP"
+      },
+      {
+        "label": "身份待确认",
+        "to": "EV-X"
+      }
+    ],
+    "pending": "",
+    "panoramaFixedStep": "Step 3.4",
+    "reviewed": true,
+    "panoramaDetail": {
+      "actions": [
+        "只有实例融合决定 NEW/REUSE；对象待定时保留缺口与获准独立范围，发现身份冲突须复核。"
+      ],
+      "basis": [
+        "只有实例融合决定 NEW/REUSE；对象待定时保留缺口与获准独立范围，发现身份冲突须复核。"
+      ],
+      "question": "核定身份方向与继续范围？",
+      "trigger": "Event/Target 比较、覆盖与复核依据",
+      "continuation": "有效事件身份、对象身份或待确认项",
+      "recovery": "只有实例融合决定 NEW/REUSE；对象待定时保留缺口与获准独立范围，发现身份冲突须复核。",
+      "resultType": "核定身份方向与继续范围",
+      "resultTone": "complete"
+    }
   },
-  "pending": "",
-  "panoramaFixedStep": "Step 2.1",
-  "panoramaGroupTitle": "Step 2 · 匹配事件与归组"
- },
- {
-  "id": "EV-MATCH-CHECK",
-  "type": "CONDITION",
-  "name": "校验身份与归组决定",
-  "module": "F02",
-  "source": "F02",
-  "section": "§4.3、§4.9",
-  "rule": "F02 §4.3、§4.9",
-  "input": "event_context",
-  "output": "event_context",
-  "inputDescription": "AI-02归组建议、真实ID、修订版本及证据",
-  "outputDescription": "已确认身份决定或待复核记录",
-  "summary": "核对已有ID、比较时版本、证据、幂等性和适用归组规则；虚构ID当场拦截。",
-  "ruleDetail": "核对已有ID、比较时版本、证据、幂等性和适用归组规则；虚构ID当场拦截。；只有符合已批准条件才接受身份决定；歧义或缺少自动通过授权时进入复核。；新事件在正式提交前按候选关联追踪，不把候选当成已保存的正式事件。",
-  "next": [
-   {
-    "label": "身份明确且允许通过",
-    "to": "EV-REL-PREP"
-   },
-   {
-    "label": "歧义、引用无效或需要人工决定",
-    "to": "EV-X"
-   }
-  ],
-  "panoramaDetail": {
-   "question": "校验身份与归组决定？",
-   "basis": [
-    "核对已有ID、比较时版本、证据、幂等性和适用归组规则；虚构ID当场拦截。",
-    "只有符合已批准条件才接受身份决定；歧义或缺少自动通过授权时进入复核。",
-    "新事件在正式提交前按候选关联追踪，不把候选当成已保存的正式事件。"
-   ]
+  {
+    "id": "EV-DELTA-PREP",
+    "type": "PROGRAM",
+    "name": "固定事实与比较基准",
+    "module": "F02",
+    "source": "F02",
+    "section": "§4.5.3～4.5.4",
+    "rule": "F02 §4.5.3～4.5.4",
+    "input": "event_context",
+    "output": "event_context",
+    "inputDescription": "身份方向、本次 Fact、历史事实及来源",
+    "outputDescription": "NEW 初始依据或 REUSE 历史基准",
+    "summary": "新事件明确无历史；已有事件读取失败不能当成无历史新建。",
+    "ruleDetail": "新事件明确无历史；已有事件读取失败不能当成无历史新建。",
+    "next": [
+      {
+        "label": "识别事件增量",
+        "to": "EV-A5"
+      },
+      {
+        "label": "基准待恢复",
+        "to": "EV-X"
+      }
+    ],
+    "pending": "",
+    "panoramaFixedStep": "Step 4.1",
+    "reviewed": true,
+    "panoramaDetail": {
+      "actions": [
+        "新事件明确无历史；已有事件读取失败不能当成无历史新建。"
+      ],
+      "basis": [
+        "新事件明确无历史；已有事件读取失败不能当成无历史新建。"
+      ],
+      "question": "固定事实与比较基准？",
+      "trigger": "身份方向、本次 Fact、历史事实及来源",
+      "continuation": "NEW 初始依据或 REUSE 历史基准",
+      "recovery": "新事件明确无历史；已有事件读取失败不能当成无历史新建。",
+      "resultType": "固定事实与比较基准",
+      "resultTone": "complete"
+    }
   },
-  "pending": "",
-  "panoramaFixedStep": "Step 2.3"
- },
- {
-  "id": "EV-REL-PREP",
-  "type": "PROGRAM",
-  "name": "准备主体、变量字典与证据",
-  "module": "F02",
-  "source": "F02",
-  "section": "§4.4",
-  "rule": "F02 §4.4",
-  "input": "event_context",
-  "output": "event_context",
-  "inputDescription": "已确认身份决定、事实及来源",
-  "outputDescription": "有效Target与变量定义、固定版本及直接证据",
-  "summary": "读取Target字典和M2有效变量定义，保留定义版本与原文证据。",
-  "ruleDetail": "读取Target字典和M2有效变量定义，保留定义版本与原文证据。；区分当前候选的新建决定与已有正式事件引用，不编造正式ID。",
-  "next": [
-   {
-    "label": "上下文可用，交 AI-03",
-    "to": "EV-A3"
-   },
-   {
-    "label": "执行失败或输入不可用，保留恢复位置",
-    "to": "EV-X"
-   }
-  ],
-  "panoramaDetail": {
-   "actions": [
-    "读取Target字典和M2有效变量定义，保留定义版本与原文证据。",
-    "区分当前候选的新建决定与已有正式事件引用，不编造正式ID。"
-   ]
+  {
+    "id": "EV-A5",
+    "type": "AI",
+    "name": "事件增量识别",
+    "module": "F02",
+    "source": "F02",
+    "section": "§4.5",
+    "rule": "F02 §4.5",
+    "input": "event_context",
+    "output": "event_context",
+    "inputDescription": "本次事实、身份方向、历史及证据",
+    "outputDescription": "初始事实或五类增量、变化描述与独立处理状态",
+    "summary": "NEW 核对初始事实；REUSE 识别进展、实质补充、纠正、来源增加或重复。变量变化先保留事实口径，不依赖本轮规范变量提取。",
+    "ruleDetail": "NEW 核对初始事实；REUSE 识别进展、实质补充、纠正、来源增加或重复。变量变化先保留事实口径，不依赖本轮规范变量提取。",
+    "next": [
+      {
+        "label": "校验增量结果",
+        "to": "EV-DELTA-CHECK"
+      }
+    ],
+    "pending": "",
+    "panoramaFixedStep": "Step 4.2",
+    "reviewed": true,
+    "panoramaDetail": {
+      "actions": [
+        "NEW 核对初始事实；REUSE 识别进展、实质补充、纠正、来源增加或重复。变量变化先保留事实口径，不依赖本轮规范变量提取。"
+      ],
+      "basis": [
+        "NEW 核对初始事实；REUSE 识别进展、实质补充、纠正、来源增加或重复。变量变化先保留事实口径，不依赖本轮规范变量提取。"
+      ],
+      "question": "事件增量识别？",
+      "trigger": "本次事实、身份方向、历史及证据",
+      "continuation": "初始事实或五类增量、变化描述与独立处理状态",
+      "recovery": "NEW 核对初始事实；REUSE 识别进展、实质补充、纠正、来源增加或重复。变量变化先保留事实口径，不依赖本轮规范变量提取。",
+      "resultType": "事件增量识别",
+      "resultTone": "complete"
+    },
+    "task": "AI-03",
+    "taskVersion": "reviewed-2026-10-31"
   },
-  "pending": "",
-  "panoramaFixedStep": "Step 3.1",
-  "panoramaGroupTitle": "Step 3 · 关联观测主体及直接变量"
- },
- {
-  "id": "EV-REL-CHECK",
-  "type": "CONDITION",
-  "name": "校验关系并登记定义缺口",
-  "module": "F02",
-  "source": "F02",
-  "section": "§4.4、§4.9",
-  "rule": "F02 §4.4、§4.9",
-  "input": "event_context",
-  "output": "event_context",
-  "inputDescription": "AI-03关系建议、正式定义引用和候选缺口",
-  "outputDescription": "合格关系建议、合法空关系及治理反馈",
-  "summary": "检查Target类型与范围、变量存在性、定义有效性、证据及复合关系。",
-  "ruleDetail": "检查Target类型与范围、变量存在性、定义有效性、证据及复合关系。；区分已保存关系与待提交关系；缺定义向治理方反馈，其他合法结果继续。；无证据的关系可以为空，虚构正式引用或权限冲突不能继续。",
-  "next": [
-   {
-    "label": "关系合格或合法为空",
-    "to": "EV-DELTA-PREP"
-   },
-   {
-    "label": "校验不通过，待恢复或复核",
-    "to": "EV-X"
-   }
-  ],
-  "panoramaDetail": {
-   "question": "校验关系并登记定义缺口？",
-   "basis": [
-    "检查Target类型与范围、变量存在性、定义有效性、证据及复合关系。",
-    "区分已保存关系与待提交关系；缺定义向治理方反馈，其他合法结果继续。",
-    "无证据的关系可以为空，虚构正式引用或权限冲突不能继续。"
-   ]
+  {
+    "id": "EV-DELTA-CHECK",
+    "type": "CONDITION",
+    "name": "校验事实差异与处理状态",
+    "module": "F02",
+    "source": "F02",
+    "section": "§4.5.4",
+    "rule": "F02 §4.5.4",
+    "input": "event_context",
+    "output": "event_context",
+    "inputDescription": "分类、前后值、时间、来源及复用依据",
+    "outputDescription": "有效增量或待确认原因",
+    "summary": "待确认不提交部分更新；来源增加/重复不制造变量变化，仍恢复未完成的变量、评价或交付项。",
+    "ruleDetail": "待确认不提交部分更新；来源增加/重复不制造变量变化，仍恢复未完成的变量、评价或交付项。",
+    "next": [
+      {
+        "label": "核对风险变量",
+        "to": "EV-VARIABLE"
+      },
+      {
+        "label": "身份冲突返回融合",
+        "to": "EV-MATCH-PREP"
+      },
+      {
+        "label": "事实待复核",
+        "to": "EV-X"
+      }
+    ],
+    "pending": "",
+    "panoramaFixedStep": "Step 4.3",
+    "reviewed": true,
+    "panoramaDetail": {
+      "actions": [
+        "待确认不提交部分更新；来源增加/重复不制造变量变化，仍恢复未完成的变量、评价或交付项。"
+      ],
+      "basis": [
+        "待确认不提交部分更新；来源增加/重复不制造变量变化，仍恢复未完成的变量、评价或交付项。"
+      ],
+      "question": "校验事实差异与处理状态？",
+      "trigger": "分类、前后值、时间、来源及复用依据",
+      "continuation": "有效增量或待确认原因",
+      "recovery": "待确认不提交部分更新；来源增加/重复不制造变量变化，仍恢复未完成的变量、评价或交付项。",
+      "resultType": "校验事实差异与处理状态",
+      "resultTone": "complete"
+    }
   },
-  "pending": "",
-  "panoramaFixedStep": "Step 3.3"
- },
- {
-  "id": "EV-DELTA-PREP",
-  "type": "PROGRAM",
-  "name": "准备资料版本与事件历史",
-  "module": "F02",
-  "source": "F02",
-  "section": "§4.5",
-  "rule": "F02 §4.5",
-  "input": "event_context",
-  "output": "event_context",
-  "inputDescription": "当前及前版资料、事件身份和合格关系建议",
-  "outputDescription": "固定版本的事实、状态、证据与更新历史",
-  "summary": "汇集当前资料、前版变化、已确认身份、关系建议及历史更新。",
-  "ruleDetail": "汇集当前资料、前版变化、已确认身份、关系建议及历史更新。；固定比较版本，保留来源修订与处理版本变化的区别。",
-  "next": [
-   {
-    "label": "历史可用，交 AI-04",
-    "to": "EV-A5"
-   },
-   {
-    "label": "执行失败或输入不可用，保留恢复位置",
-    "to": "EV-X"
-   }
-  ],
-  "panoramaDetail": {
-   "actions": [
-    "汇集当前资料、前版变化、已确认身份、关系建议及历史更新。",
-    "固定比较版本，保留来源修订与处理版本变化的区别。"
-   ]
+  {
+    "id": "EV-VARIABLE",
+    "type": "AI",
+    "name": "风险变量识别、标准化与取值",
+    "module": "F02",
+    "source": "F02",
+    "section": "§4.6",
+    "rule": "F02 §4.6",
+    "input": "event_context",
+    "output": "event_context",
+    "inputDescription": "事件要素、语义、定义、事实与原文、Step 4 结果",
+    "outputDescription": "定义匹配或候选、取值、时间、性质、证据及变化对应",
+    "summary": "从 Subject、Action、Object 及语义识别；Target 确认不是识别前提。定义与具体值分离，区分实际/计划/预期，未知不补值，风险角色不固化。",
+    "ruleDetail": "从 Subject、Action、Object 及语义识别；Target 确认不是识别前提。定义与具体值分离，区分实际/计划/预期，未知不补值，风险角色不固化。",
+    "next": [
+      {
+        "label": "校验对象与观测关联",
+        "to": "EV-VARIABLE-CHECK"
+      }
+    ],
+    "pending": "",
+    "panoramaFixedStep": "Step 5.1",
+    "reviewed": true,
+    "panoramaDetail": {
+      "actions": [
+        "从 Subject、Action、Object 及语义识别；Target 确认不是识别前提。定义与具体值分离，区分实际/计划/预期，未知不补值，风险角色不固化。"
+      ],
+      "basis": [
+        "从 Subject、Action、Object 及语义识别；Target 确认不是识别前提。定义与具体值分离，区分实际/计划/预期，未知不补值，风险角色不固化。"
+      ],
+      "question": "风险变量识别、标准化与取值？",
+      "trigger": "事件要素、语义、定义、事实与原文、Step 4 结果",
+      "continuation": "定义匹配或候选、取值、时间、性质、证据及变化对应",
+      "recovery": "从 Subject、Action、Object 及语义识别；Target 确认不是识别前提。定义与具体值分离，区分实际/计划/预期，未知不补值，风险角色不固化。",
+      "resultType": "风险变量识别、标准化与取值",
+      "resultTone": "complete"
+    },
+    "task": "AI-05",
+    "taskVersion": "reviewed-2026-10-31"
   },
-  "pending": "",
-  "panoramaFixedStep": "Step 4.1",
-  "panoramaGroupTitle": "Step 4 · 判定增量与更新"
- },
- {
-  "id": "EV-DELTA-CHECK",
-  "type": "CONDITION",
-  "name": "校验增量并选择处理路径",
-  "module": "F02",
-  "source": "F02",
-  "section": "§4.5、§4.9",
-  "rule": "F02 §4.5、§4.9",
-  "input": "event_context",
-  "output": "event_context",
-  "inputDescription": "AI-04增量建议、前后差异、证据和时间状态",
-  "outputDescription": "经校验的更新、来源或重复处理方案",
-  "summary": "检查同一变化是否已记录、时间序列与状态是否合法。",
-  "ruleDetail": "检查同一变化是否已记录、时间序列与状态是否合法。；身份存疑返回Step 2；增量仍不明确时进入复核。；新增事件或有效更新交Step 5；纯来源补充或重复直接交Step 6，不机械生成更新或评级。",
-  "next": [
-   {
-    "label": "新增事件或有效更新",
-    "to": "RATE-DECIDE"
-   },
-   {
-    "label": "纯来源补充或纯重复",
-    "to": "EV-P2"
-   },
-   {
-    "label": "身份判断需要重新核对",
-    "to": "EV-MATCH-PREP"
-   },
-   {
-    "label": "增量或证据仍不明确",
-    "to": "EV-X"
-   }
-  ],
-  "panoramaDetail": {
-   "question": "校验增量并选择处理路径？",
-   "basis": [
-    "检查同一变化是否已记录、时间序列与状态是否合法。",
-    "身份存疑返回Step 2；增量仍不明确时进入复核。",
-    "新增事件或有效更新交Step 5；纯来源补充或重复直接交Step 6，不机械生成更新或评级。"
-   ]
+  {
+    "id": "EV-VARIABLE-CHECK",
+    "type": "CONDITION",
+    "name": "核对取值与对象关联",
+    "module": "F02",
+    "source": "F02",
+    "section": "§4.6.4～4.6.6",
+    "rule": "F02 §4.6.4～4.6.6",
+    "input": "event_context",
+    "output": "event_context",
+    "inputDescription": "变量定义、取值、对象身份及证据",
+    "outputDescription": "关联和观测记录建议，或候选与待关联缺口",
+    "summary": "Target/Variable 确认后才形成正式关联建议；无值可有变量关联。沿用 Step 4 变化，多时间、多性质取值不覆盖；缺定义交 M2。",
+    "ruleDetail": "Target/Variable 确认后才形成正式关联建议；无值可有变量关联。沿用 Step 4 变化，多时间、多性质取值不覆盖；缺定义交 M2。",
+    "next": [
+      {
+        "label": "交适用评价",
+        "to": "RATE-DECIDE"
+      },
+      {
+        "label": "变化事实冲突",
+        "to": "EV-DELTA-PREP"
+      },
+      {
+        "label": "对象身份待核对",
+        "to": "EV-MATCH-PREP"
+      }
+    ],
+    "pending": "",
+    "panoramaFixedStep": "Step 5.2",
+    "reviewed": true,
+    "panoramaDetail": {
+      "actions": [
+        "Target/Variable 确认后才形成正式关联建议；无值可有变量关联。沿用 Step 4 变化，多时间、多性质取值不覆盖；缺定义交 M2。"
+      ],
+      "basis": [
+        "Target/Variable 确认后才形成正式关联建议；无值可有变量关联。沿用 Step 4 变化，多时间、多性质取值不覆盖；缺定义交 M2。"
+      ],
+      "question": "核对取值与对象关联？",
+      "trigger": "变量定义、取值、对象身份及证据",
+      "continuation": "关联和观测记录建议，或候选与待关联缺口",
+      "recovery": "Target/Variable 确认后才形成正式关联建议；无值可有变量关联。沿用 Step 4 变化，多时间、多性质取值不覆盖；缺定义交 M2。",
+      "resultType": "核对取值与对象关联",
+      "resultTone": "complete"
+    }
   },
-  "pending": "",
-  "panoramaFixedStep": "Step 4.3"
- },
- {
-  "id": "RATE-DECIDE",
-  "type": "CONDITION",
-  "name": "判断是否需要初评或复评",
-  "module": "F02",
-  "source": "F02",
-  "section": "§4.6.1",
-  "rule": "F02 §4.6.1",
-  "input": "event_context",
-  "output": "event_context",
-  "inputDescription": "新事件标记、有效增量、已有评级和适用规则",
-  "outputDescription": "初评、复评或沿用／不适用决定",
-  "summary": "程序结合新增标记、增量和评级规则判断是否需要评价。",
-  "ruleDetail": "程序结合新增标记、增量和评级规则判断是否需要评价。；新事件通常初评，进展、实质补充或纠正只有改变评级依据时才复评。；无需评价时记录沿用或不适用原因，不调用AI-05、不新增评级。",
-  "next": [
-   {
-    "label": "需要初评或复评",
-    "to": "RATE-PREP"
-   },
-   {
-    "label": "依据未变，沿用或不适用",
-    "to": "EV-P2"
-   },
-   {
-    "label": "缺少判断所需依据",
-    "to": "EV-X"
-   }
-  ],
-  "panoramaDetail": {
-   "question": "判断是否需要初评或复评？",
-   "basis": [
-    "程序结合新增标记、增量和评级规则判断是否需要评价。",
-    "新事件通常初评，进展、实质补充或纠正只有改变评级依据时才复评。",
-    "无需评价时记录沿用或不适用原因，不调用AI-05、不新增评级。"
-   ]
+  {
+    "id": "RATE-DECIDE",
+    "type": "CONDITION",
+    "name": "判定金融意义评价范围",
+    "module": "F02",
+    "source": "FINANCIAL",
+    "section": "第2～3节",
+    "rule": "FINANCIAL 第2～3节",
+    "input": "event_context",
+    "output": "event_context",
+    "inputDescription": "事实、变量、关系、范围、期限、已批准方法与既有评价",
+    "outputDescription": "初评、复评、沿用、跳过或待处理依据",
+    "summary": "金融意义由独立文档维护；同口径才比较评分，缺规则不可默认评分或将失败当跳过。",
+    "ruleDetail": "金融意义由独立文档维护；同口径才比较评分，缺规则不可默认评分或将失败当跳过。",
+    "next": [
+      {
+        "label": "满足评价条件",
+        "to": "RATE-A1"
+      },
+      {
+        "label": "合法跳过或获准保留缺口",
+        "to": "EV-USAGE"
+      },
+      {
+        "label": "等待规则或证据",
+        "to": "EV-X"
+      }
+    ],
+    "pending": "",
+    "panoramaFixedStep": "Step 6.1",
+    "reviewed": true,
+    "panoramaDetail": {
+      "actions": [
+        "金融意义由独立文档维护；同口径才比较评分，缺规则不可默认评分或将失败当跳过。"
+      ],
+      "basis": [
+        "金融意义由独立文档维护；同口径才比较评分，缺规则不可默认评分或将失败当跳过。"
+      ],
+      "question": "判定金融意义评价范围？",
+      "trigger": "事实、变量、关系、范围、期限、已批准方法与既有评价",
+      "continuation": "初评、复评、沿用、跳过或待处理依据",
+      "recovery": "金融意义由独立文档维护；同口径才比较评分，缺规则不可默认评分或将失败当跳过。",
+      "resultType": "判定金融意义评价范围",
+      "resultTone": "complete"
+    }
   },
-  "pending": "",
-  "panoramaFixedStep": "Step 5.1",
-  "panoramaGroupTitle": "Step 5 · 评价金融意义 M"
- },
- {
-  "id": "RATE-PREP",
-  "type": "PROGRAM",
-  "name": "固定评价范围、期限与方法",
-  "module": "F02",
-  "source": "F02",
-  "section": "§4.6.1",
-  "rule": "F02 §4.6.1",
-  "input": "event_context",
-  "output": "event_context",
-  "inputDescription": "初评／复评决定、事件事实、关系和证据",
-  "outputDescription": "固定范围、期限、方法、规则锚点与历史评级",
-  "summary": "程序固定assessment_scope、研究期限和method_version，汇集事实、阶段、Target范围、变量定义与方向。",
-  "ruleDetail": "程序固定assessment_scope、研究期限和method_version，汇集事实、阶段、Target范围、变量定义与方向。；提供确定版本证据、规则和锚点；复评同时提供旧评级与新增变化。；明确规则批准状态；规则未定可准备文字评价，必需上下文缺失时待处理。",
-  "next": [
-   {
-    "label": "上下文完整，交 AI-05",
-    "to": "RATE-A1"
-   },
-   {
-    "label": "执行失败或输入不可用，保留恢复位置",
-    "to": "EV-X"
-   }
-  ],
-  "panoramaDetail": {
-   "actions": [
-    "程序固定assessment_scope、研究期限和method_version，汇集事实、阶段、Target范围、变量定义与方向。",
-    "提供确定版本证据、规则和锚点；复评同时提供旧评级与新增变化。",
-    "明确规则批准状态；规则未定可准备文字评价，必需上下文缺失时待处理。"
-   ]
+  {
+    "id": "RATE-A1",
+    "type": "AI",
+    "name": "金融意义五维评价",
+    "module": "F02",
+    "source": "FINANCIAL",
+    "section": "第4～6节",
+    "rule": "FINANCIAL 第4～6节",
+    "input": "event_context",
+    "output": "event_context",
+    "inputDescription": "固定事实、范围、期限、规则与证据",
+    "outputDescription": "五维依据与分数，或明确文字草案/缺口",
+    "summary": "逐维匹配已批准规则，不计算正式 M；文字草案分数为空，评分失败不静默降级。任务编号待定，不占用 AI-05。",
+    "ruleDetail": "逐维匹配已批准规则，不计算正式 M；文字草案分数为空，评分失败不静默降级。任务编号待定，不占用 AI-05。",
+    "next": [
+      {
+        "label": "校验并计算",
+        "to": "RATE-CALC"
+      }
+    ],
+    "pending": "",
+    "panoramaFixedStep": "Step 6.2",
+    "reviewed": true,
+    "panoramaDetail": {
+      "actions": [
+        "逐维匹配已批准规则，不计算正式 M；文字草案分数为空，评分失败不静默降级。任务编号待定，不占用 AI-05。"
+      ],
+      "basis": [
+        "逐维匹配已批准规则，不计算正式 M；文字草案分数为空，评分失败不静默降级。任务编号待定，不占用 AI-05。"
+      ],
+      "question": "金融意义五维评价？",
+      "trigger": "固定事实、范围、期限、规则与证据",
+      "continuation": "五维依据与分数，或明确文字草案/缺口",
+      "recovery": "逐维匹配已批准规则，不计算正式 M；文字草案分数为空，评分失败不静默降级。任务编号待定，不占用 AI-05。",
+      "resultType": "金融意义五维评价",
+      "resultTone": "complete"
+    },
+    "task": null,
+    "taskVersion": "reviewed-2026-10-31"
   },
-  "pending": "",
-  "panoramaFixedStep": "Step 5.2"
- },
- {
-  "id": "RATE-CHECK",
-  "type": "CONDITION",
-  "name": "校验评价范围、证据与分值",
-  "module": "F02",
-  "source": "F02",
-  "section": "§4.6.1、§4.9",
-  "rule": "F02 §4.6.1、§4.9",
-  "input": "event_context",
-  "output": "event_context",
-  "inputDescription": "AI-05维度判断、用途、理由及证据",
-  "outputDescription": "通过校验的评价建议或具体错误原因",
-  "summary": "核对事件关联、范围、期限和方法与输入一致。",
-  "ruleDetail": "核对事件关联、范围、期限和方法与输入一致。；检查维度结构、原文定位、分值范围与用途标签；未知用途显式保留。；输出不合法不能作为空分草案保存，先恢复或复核。",
-  "next": [
-   {
-    "label": "结果通过校验",
-    "to": "RATE-CALC"
-   },
-   {
-    "label": "校验不通过，待恢复或复核",
-    "to": "EV-X"
-   }
-  ],
-  "panoramaDetail": {
-   "question": "校验评价范围、证据与分值？",
-   "basis": [
-    "核对事件关联、范围、期限和方法与输入一致。",
-    "检查维度结构、原文定位、分值范围与用途标签；未知用途显式保留。",
-    "输出不合法不能作为空分草案保存，先恢复或复核。"
-   ]
+  {
+    "id": "RATE-CALC",
+    "type": "CONDITION",
+    "name": "校验五维并计算 M",
+    "module": "F02",
+    "source": "FINANCIAL",
+    "section": "第4～6节",
+    "rule": "FINANCIAL 第4～6节",
+    "input": "event_context",
+    "output": "event_context",
+    "inputDescription": "五维分数、规则、证据及范围",
+    "outputDescription": "程序计算的 M 或草案/待处理结果",
+    "summary": "五维齐全、规则有效、口径固定且逐维有据才计算；不补权重、不采信 AI 总分；结果交保存环节。",
+    "ruleDetail": "五维齐全、规则有效、口径固定且逐维有据才计算；不补权重、不采信 AI 总分；结果交保存环节。",
+    "next": [
+      {
+        "label": "评价结果有效",
+        "to": "EV-USAGE"
+      },
+      {
+        "label": "待修正或复核",
+        "to": "EV-X"
+      }
+    ],
+    "pending": "",
+    "panoramaFixedStep": "Step 6.3",
+    "reviewed": true,
+    "panoramaDetail": {
+      "actions": [
+        "五维齐全、规则有效、口径固定且逐维有据才计算；不补权重、不采信 AI 总分；结果交保存环节。"
+      ],
+      "basis": [
+        "五维齐全、规则有效、口径固定且逐维有据才计算；不补权重、不采信 AI 总分；结果交保存环节。"
+      ],
+      "question": "校验五维并计算 M？",
+      "trigger": "五维分数、规则、证据及范围",
+      "continuation": "程序计算的 M 或草案/待处理结果",
+      "recovery": "五维齐全、规则有效、口径固定且逐维有据才计算；不补权重、不采信 AI 总分；结果交保存环节。",
+      "resultType": "校验五维并计算 M",
+      "resultTone": "complete"
+    }
   },
-  "pending": "",
-  "panoramaFixedStep": "Step 5.4"
- },
- {
-  "id": "RATE-CALC",
-  "type": "PROGRAM",
-  "name": "按批准规则计算或复算 M",
-  "module": "F02",
-  "source": "F02",
-  "section": "§4.6.1～4.6.2",
-  "rule": "F02 §4.6.1～4.6.2",
-  "input": "event_context",
-  "output": "event_context",
-  "inputDescription": "合格维度建议、规则批准状态和固定方法",
-  "outputDescription": "程序算得的M，或有依据的空分结果",
-  "summary": "规则已批准且输入充分时，程序执行确定性加权计算；AI总分建议必须独立复算。",
-  "ruleDetail": "规则已批准且输入充分时，程序执行确定性加权计算；AI总分建议必须独立复算。；规则未批准或量化依据不足时保留文字评价、限制和空分，不把执行失败当作合法空分。；计算不一致时查明原因并记录处理依据，不能静默采用AI总分。",
-  "next": [
-   {
-    "label": "计算完成或合法空分",
-    "to": "RATE-RECORD"
-   },
-   {
-    "label": "计算失败或差异未解决",
-    "to": "EV-X"
-   }
-  ],
-  "panoramaDetail": {
-   "actions": [
-    "规则已批准且输入充分时，程序执行确定性加权计算；AI总分建议必须独立复算。",
-    "规则未批准或量化依据不足时保留文字评价、限制和空分，不把执行失败当作合法空分。",
-    "计算不一致时查明原因并记录处理依据，不能静默采用AI总分。"
-   ]
+  {
+    "id": "EV-USAGE",
+    "type": "AI",
+    "name": "独立金融用途分类",
+    "module": "F02",
+    "source": "FINANCIAL",
+    "section": "第7节",
+    "rule": "FINANCIAL 第7节",
+    "input": "event_context",
+    "output": "event_context",
+    "inputDescription": "事实、变量、分类规则及既有分类",
+    "outputDescription": "用途标签、逐项依据、状态或合法跳过原因",
+    "summary": "独立分类，不参与 M 计算，不占用 AI-05。缺失或失败不阻断合法评分和获准事件保存；后补分类独立提交交付。",
+    "ruleDetail": "独立分类，不参与 M 计算，不占用 AI-05。缺失或失败不阻断合法评分和获准事件保存；后补分类独立提交交付。",
+    "next": [
+      {
+        "label": "分类结果或缺口交保存",
+        "to": "EV-P2"
+      }
+    ],
+    "pending": "",
+    "panoramaFixedStep": "Step 6.4",
+    "reviewed": true,
+    "panoramaDetail": {
+      "actions": [
+        "独立分类，不参与 M 计算，不占用 AI-05。缺失或失败不阻断合法评分和获准事件保存；后补分类独立提交交付。"
+      ],
+      "basis": [
+        "独立分类，不参与 M 计算，不占用 AI-05。缺失或失败不阻断合法评分和获准事件保存；后补分类独立提交交付。"
+      ],
+      "question": "独立金融用途分类？",
+      "trigger": "事实、变量、分类规则及既有分类",
+      "continuation": "用途标签、逐项依据、状态或合法跳过原因",
+      "recovery": "独立分类，不参与 M 计算，不占用 AI-05。缺失或失败不阻断合法评分和获准事件保存；后补分类独立提交交付。",
+      "resultType": "独立金融用途分类",
+      "resultTone": "complete"
+    },
+    "task": null,
+    "taskVersion": "reviewed-2026-10-31"
   },
-  "pending": "",
-  "panoramaFixedStep": "Step 5.5"
- },
- {
-  "id": "RATE-RECORD",
-  "type": "PROGRAM",
-  "name": "整理评级记录与历史引用",
-  "module": "F02",
-  "source": "F02",
-  "section": "§4.6.1～4.6.2",
-  "rule": "F02 §4.6.1～4.6.2",
-  "input": "event_context",
-  "output": "event_context",
-  "inputDescription": "经校验的维度、用途、程序计算或空分结果",
-  "outputDescription": "初评／复评待保存记录与旧评级引用",
-  "summary": "整理范围、期限、方法、证据、用途、理由和旧评级引用，保留复评历史。",
-  "ruleDetail": "整理范围、期限、方法、证据、用途、理由和旧评级引用，保留复评历史。；评级身份、评价时间和状态由程序及既有复核流程管理；方法未批准保持草案。；将待保存结果交Step 6统一提交；本节点完成不代表评级已入库。",
-  "next": [
-   {
-    "label": "评级记录就绪，交统一保存",
-    "to": "EV-P2"
-   },
-   {
-    "label": "记录或授权检查不通过",
-    "to": "EV-X"
-   }
-  ],
-  "panoramaDetail": {
-   "actions": [
-    "整理范围、期限、方法、证据、用途、理由和旧评级引用，保留复评历史。",
-    "评级身份、评价时间和状态由程序及既有复核流程管理；方法未批准保持草案。",
-    "将待保存结果交Step 6统一提交；本节点完成不代表评级已入库。"
-   ]
+  {
+    "id": "EV-P2",
+    "type": "CONDITION",
+    "name": "统一校验并保存事件结果",
+    "module": "F02",
+    "source": "F02",
+    "section": "§4.8",
+    "rule": "F02 §4.8",
+    "input": "event_context",
+    "output": "event_context",
+    "inputDescription": "固定事实、身份、变量取值、关系、评价用途、权限与依据",
+    "outputDescription": "正式 Event、适用结果、保存回执及交付依据",
+    "summary": "统一核对归属、版本、批准与一致性；获准受限保存须保留缺口。保存成功后事件交付与 Step 8 独立推进。",
+    "ruleDetail": "统一核对归属、版本、批准与一致性；获准受限保存须保留缺口。保存成功后事件交付与 Step 8 独立推进。",
+    "next": [
+      {
+        "label": "保存成功，事件交付独立推进",
+        "to": "EV-DELIVER"
+      },
+      {
+        "label": "保存成功，符合关联条件",
+        "to": "EV-ASSOC-PREP"
+      },
+      {
+        "label": "保存结果待确认",
+        "to": "EV-SAVEWAIT"
+      },
+      {
+        "label": "依据或批准失效",
+        "to": "EV-X"
+      }
+    ],
+    "pending": "",
+    "panoramaFixedStep": "Step 7.1",
+    "reviewed": true,
+    "panoramaDetail": {
+      "actions": [
+        "统一核对归属、版本、批准与一致性；获准受限保存须保留缺口。保存成功后事件交付与 Step 8 独立推进。"
+      ],
+      "basis": [
+        "统一核对归属、版本、批准与一致性；获准受限保存须保留缺口。保存成功后事件交付与 Step 8 独立推进。"
+      ],
+      "question": "统一校验并保存事件结果？",
+      "trigger": "固定事实、身份、变量取值、关系、评价用途、权限与依据",
+      "continuation": "正式 Event、适用结果、保存回执及交付依据",
+      "recovery": "统一核对归属、版本、批准与一致性；获准受限保存须保留缺口。保存成功后事件交付与 Step 8 独立推进。",
+      "resultType": "统一校验并保存事件结果",
+      "resultTone": "complete"
+    }
   },
-  "pending": "",
-  "panoramaFixedStep": "Step 5.6"
- }
+  {
+    "id": "EV-ASSOC-PREP",
+    "type": "CONDITION",
+    "name": "准备正式事件关联范围",
+    "module": "F02",
+    "source": "F02",
+    "section": "§4.9",
+    "rule": "F02 §4.9",
+    "input": "event_context",
+    "output": "event_context",
+    "inputDescription": "已保存 Event、观察窗口及可比变量",
+    "outputDescription": "固定事件范围、窗口或合法跳过依据",
+    "summary": "仅消费正式 Event，不用临时身份；事件交付不等待关联完成。",
+    "ruleDetail": "仅消费正式 Event，不用临时身份；事件交付不等待关联完成。",
+    "next": [
+      {
+        "label": "符合关联条件",
+        "to": "EV-ASSOC"
+      },
+      {
+        "label": "不适用，保持原事件结果",
+        "to": "EV-E"
+      }
+    ],
+    "pending": "",
+    "panoramaFixedStep": "Step 8.1",
+    "reviewed": true,
+    "panoramaDetail": {
+      "actions": [
+        "仅消费正式 Event，不用临时身份；事件交付不等待关联完成。"
+      ],
+      "basis": [
+        "仅消费正式 Event，不用临时身份；事件交付不等待关联完成。"
+      ],
+      "question": "准备正式事件关联范围？",
+      "trigger": "已保存 Event、观察窗口及可比变量",
+      "continuation": "固定事件范围、窗口或合法跳过依据",
+      "recovery": "仅消费正式 Event，不用临时身份；事件交付不等待关联完成。",
+      "resultType": "准备正式事件关联范围",
+      "resultTone": "complete"
+    }
+  },
+  {
+    "id": "EV-ASSOC",
+    "type": "AI",
+    "name": "事件间关联分析",
+    "module": "F02",
+    "source": "F02",
+    "section": "§4.9",
+    "rule": "F02 §4.9",
+    "input": "event_context",
+    "output": "event_context",
+    "inputDescription": "正式事件、变量、方向、驱动、主体、时间窗及证据",
+    "outputDescription": "共同主线、五维依据、连续性及关联快照建议",
+    "summary": "分析多个独立事件的共同事情或演化过程，保留反向和分化信号；不重新归组或合并原 Event。",
+    "ruleDetail": "分析多个独立事件的共同事情或演化过程，保留反向和分化信号；不重新归组或合并原 Event。",
+    "next": [
+      {
+        "label": "校验并独立保存快照",
+        "to": "EV-ASSOC-SAVE"
+      },
+      {
+        "label": "关联待恢复",
+        "to": "EV-ASSOC-WAIT"
+      }
+    ],
+    "pending": "",
+    "panoramaFixedStep": "Step 8.2",
+    "reviewed": true,
+    "panoramaDetail": {
+      "actions": [
+        "分析多个独立事件的共同事情或演化过程，保留反向和分化信号；不重新归组或合并原 Event。"
+      ],
+      "basis": [
+        "分析多个独立事件的共同事情或演化过程，保留反向和分化信号；不重新归组或合并原 Event。"
+      ],
+      "question": "事件间关联分析？",
+      "trigger": "正式事件、变量、方向、驱动、主体、时间窗及证据",
+      "continuation": "共同主线、五维依据、连续性及关联快照建议",
+      "recovery": "分析多个独立事件的共同事情或演化过程，保留反向和分化信号；不重新归组或合并原 Event。",
+      "resultType": "事件间关联分析",
+      "resultTone": "complete"
+    },
+    "task": "AI-04",
+    "taskVersion": "reviewed-2026-10-31"
+  },
+  {
+    "id": "EV-ASSOC-SAVE",
+    "type": "CONDITION",
+    "name": "独立保存与交付关联快照",
+    "module": "F02",
+    "source": "F02",
+    "section": "§4.9.7",
+    "rule": "F02 §4.9.7",
+    "input": "event_context",
+    "output": "event_context",
+    "inputDescription": "关联建议、范围、窗口、成员与证据",
+    "outputDescription": "可追溯的关联快照及独立交付状态",
+    "summary": "校验并独立保存快照，记录引用、有效性及历史；不回写原事件提交。交付失败仅恢复固定结果。",
+    "ruleDetail": "校验并独立保存快照，记录引用、有效性及历史；不回写原事件提交。交付失败仅恢复固定结果。",
+    "next": [
+      {
+        "label": "独立提交与交付完成",
+        "to": "EV-E"
+      },
+      {
+        "label": "保存或交付待恢复",
+        "to": "EV-ASSOC-WAIT"
+      }
+    ],
+    "pending": "",
+    "panoramaFixedStep": "Step 8.3",
+    "reviewed": true,
+    "panoramaDetail": {
+      "actions": [
+        "校验并独立保存快照，记录引用、有效性及历史；不回写原事件提交。交付失败仅恢复固定结果。"
+      ],
+      "basis": [
+        "校验并独立保存快照，记录引用、有效性及历史；不回写原事件提交。交付失败仅恢复固定结果。"
+      ],
+      "question": "独立保存与交付关联快照？",
+      "trigger": "关联建议、范围、窗口、成员与证据",
+      "continuation": "可追溯的关联快照及独立交付状态",
+      "recovery": "校验并独立保存快照，记录引用、有效性及历史；不回写原事件提交。交付失败仅恢复固定结果。",
+      "resultType": "独立保存与交付关联快照",
+      "resultTone": "complete"
+    }
+  },
+  {
+    "id": "EV-DELIVER",
+    "type": "CONDITION",
+    "name": "独立交付已保存事件结果",
+    "module": "F02",
+    "source": "F02",
+    "section": "§4.8.4",
+    "rule": "F02 §4.8.4",
+    "input": "event_context",
+    "output": "event_context",
+    "inputDescription": "固定保存结果及接收方契约",
+    "outputDescription": "投递与接收回执",
+    "summary": "发送、接收与采用分别记录；仅按实际变化交付，失败只重投固定结果，不重复分析或保存。",
+    "ruleDetail": "发送、接收与采用分别记录；仅按实际变化交付，失败只重投固定结果，不重复分析或保存。",
+    "next": [
+      {
+        "label": "交付完成",
+        "to": "EV-E"
+      },
+      {
+        "label": "投递或回执待恢复",
+        "to": "EV-SENDWAIT"
+      }
+    ],
+    "pending": "",
+    "panoramaFixedStep": "共用能力",
+    "reviewed": true,
+    "panoramaDetail": {
+      "actions": [
+        "发送、接收与采用分别记录；仅按实际变化交付，失败只重投固定结果，不重复分析或保存。"
+      ],
+      "basis": [
+        "发送、接收与采用分别记录；仅按实际变化交付，失败只重投固定结果，不重复分析或保存。"
+      ],
+      "question": "交付已保存事件结果？",
+      "trigger": "固定保存结果及接收方契约",
+      "continuation": "投递与接收回执",
+      "recovery": "发送、接收与采用分别记录；仅按实际变化交付，失败只重投固定结果，不重复分析或保存。",
+      "resultType": "交付已保存事件结果",
+      "resultTone": "complete"
+    }
+  },
+  {
+    "id": "EV-E",
+    "type": "END",
+    "name": "本次结果处理完成",
+    "module": "F02",
+    "source": "F02",
+    "section": "§4.8～4.9",
+    "rule": "F02 §4.8～4.9",
+    "input": "event_context",
+    "output": "event_context",
+    "inputDescription": "已完成的保存/交付或合法复用依据",
+    "outputDescription": "事件结果、关联结果及各自状态可查",
+    "summary": "事件结果与关联快照分别记录完成状态，不将一条分支完成当成全部成功。",
+    "ruleDetail": "事件结果与关联快照分别记录完成状态，不将一条分支完成当成全部成功。",
+    "next": [
+      {
+        "label": "供下游风险识别使用",
+        "to": "RISK-S"
+      }
+    ],
+    "pending": "",
+    "panoramaFixedStep": "结束",
+    "reviewed": true,
+    "panoramaDetail": {
+      "actions": [
+        "事件结果与关联快照分别记录完成状态，不将一条分支完成当成全部成功。"
+      ],
+      "basis": [
+        "事件结果与关联快照分别记录完成状态，不将一条分支完成当成全部成功。"
+      ],
+      "question": "本次结果处理完成？",
+      "trigger": "已完成的保存/交付或合法复用依据",
+      "continuation": "事件结果、关联结果及各自状态可查",
+      "recovery": "事件结果与关联快照分别记录完成状态，不将一条分支完成当成全部成功。",
+      "resultType": "本次结果处理完成",
+      "resultTone": "complete"
+    }
+  },
+  {
+    "id": "EV-ZERO",
+    "type": "END",
+    "name": "记录合法零候选",
+    "module": "F02",
+    "source": "F02",
+    "section": "§4.2",
+    "rule": "F02 §4.2",
+    "input": "event_context",
+    "output": "event_context",
+    "inputDescription": "完整校验的零候选结果",
+    "outputDescription": "资料与零候选依据",
+    "summary": "保留资料、覆盖及处理记录，不创建空 Fact 或 Event。",
+    "ruleDetail": "保留资料、覆盖及处理记录，不创建空 Fact 或 Event。",
+    "next": [],
+    "pending": "",
+    "panoramaFixedStep": "正常结束",
+    "reviewed": true,
+    "panoramaDetail": {
+      "actions": [
+        "保留资料、覆盖及处理记录，不创建空 Fact 或 Event。"
+      ],
+      "basis": [
+        "保留资料、覆盖及处理记录，不创建空 Fact 或 Event。"
+      ],
+      "question": "记录合法零候选？",
+      "trigger": "完整校验的零候选结果",
+      "continuation": "资料与零候选依据",
+      "recovery": "保留资料、覆盖及处理记录，不创建空 Fact 或 Event。",
+      "resultType": "记录合法零候选",
+      "resultTone": "complete"
+    }
+  },
+  {
+    "id": "EV-X",
+    "type": "END",
+    "name": "等待补齐、复核或执行恢复",
+    "module": "F02",
+    "source": "F02",
+    "section": "§4.10",
+    "rule": "F02 §4.10",
+    "input": "event_context",
+    "output": "event_context",
+    "inputDescription": "失败、未决或条件不足",
+    "outputDescription": "原因、合法已有结果与恢复位置",
+    "summary": "按记录返回责任步骤，保留原文及审计；失败不能伪装成合法空结果或成功。",
+    "ruleDetail": "按记录返回责任步骤，保留原文及审计；失败不能伪装成合法空结果或成功。",
+    "next": [
+      {
+        "label": "恢复提取",
+        "to": "EV-PREP"
+      },
+      {
+        "label": "恢复身份核定",
+        "to": "EV-MATCH-PREP"
+      },
+      {
+        "label": "恢复增量",
+        "to": "EV-DELTA-PREP"
+      },
+      {
+        "label": "恢复变量处理",
+        "to": "EV-VARIABLE"
+      },
+      {
+        "label": "恢复评价",
+        "to": "RATE-DECIDE"
+      }
+    ],
+    "pending": "",
+    "panoramaFixedStep": "待处理",
+    "reviewed": true,
+    "panoramaDetail": {
+      "actions": [
+        "按记录返回责任步骤，保留原文及审计；失败不能伪装成合法空结果或成功。"
+      ],
+      "basis": [
+        "按记录返回责任步骤，保留原文及审计；失败不能伪装成合法空结果或成功。"
+      ],
+      "question": "等待补齐、复核或执行恢复？",
+      "trigger": "失败、未决或条件不足",
+      "continuation": "原因、合法已有结果与恢复位置",
+      "recovery": "按记录返回责任步骤，保留原文及审计；失败不能伪装成合法空结果或成功。",
+      "resultType": "等待补齐、复核或执行恢复",
+      "resultTone": "complete"
+    }
+  },
+  {
+    "id": "EV-SAVEWAIT",
+    "type": "END",
+    "name": "保存待恢复",
+    "module": "F02",
+    "source": "F02",
+    "section": "§4.8.4",
+    "rule": "F02 §4.8.4",
+    "input": "event_context",
+    "output": "event_context",
+    "inputDescription": "保存失败或回执未知",
+    "outputDescription": "保存状态与恢复依据",
+    "summary": "先查询已有结果，再恢复未完成提交，避免重复创建 Event。",
+    "ruleDetail": "先查询已有结果，再恢复未完成提交，避免重复创建 Event。",
+    "next": [
+      {
+        "label": "恢复保存",
+        "to": "EV-P2"
+      }
+    ],
+    "pending": "",
+    "panoramaFixedStep": "待恢复",
+    "reviewed": true,
+    "panoramaDetail": {
+      "actions": [
+        "先查询已有结果，再恢复未完成提交，避免重复创建 Event。"
+      ],
+      "basis": [
+        "先查询已有结果，再恢复未完成提交，避免重复创建 Event。"
+      ],
+      "question": "保存待恢复？",
+      "trigger": "保存失败或回执未知",
+      "continuation": "保存状态与恢复依据",
+      "recovery": "先查询已有结果，再恢复未完成提交，避免重复创建 Event。",
+      "resultType": "保存待恢复",
+      "resultTone": "pending"
+    }
+  },
+  {
+    "id": "EV-SENDWAIT",
+    "type": "END",
+    "name": "事件交付待恢复",
+    "module": "F02",
+    "source": "F02",
+    "section": "§4.8.4",
+    "rule": "F02 §4.8.4",
+    "input": "event_context",
+    "output": "event_context",
+    "inputDescription": "投递或回执失败",
+    "outputDescription": "原交付内容与接收状态",
+    "summary": "只恢复固定事件结果的投递与回执，不重跑上游分析。",
+    "ruleDetail": "只恢复固定事件结果的投递与回执，不重跑上游分析。",
+    "next": [
+      {
+        "label": "恢复事件交付",
+        "to": "EV-DELIVER"
+      }
+    ],
+    "pending": "",
+    "panoramaFixedStep": "待恢复",
+    "reviewed": true,
+    "panoramaDetail": {
+      "actions": [
+        "只恢复固定事件结果的投递与回执，不重跑上游分析。"
+      ],
+      "basis": [
+        "只恢复固定事件结果的投递与回执，不重跑上游分析。"
+      ],
+      "question": "事件交付待恢复？",
+      "trigger": "投递或回执失败",
+      "continuation": "原交付内容与接收状态",
+      "recovery": "只恢复固定事件结果的投递与回执，不重跑上游分析。",
+      "resultType": "事件交付待恢复",
+      "resultTone": "pending"
+    }
+  },
+  {
+    "id": "EV-ASSOC-WAIT",
+    "type": "END",
+    "name": "关联处理待恢复",
+    "module": "F02",
+    "source": "F02",
+    "section": "§4.9.7",
+    "rule": "F02 §4.9.7",
+    "input": "event_context",
+    "output": "event_context",
+    "inputDescription": "关联分析、保存或交付失败",
+    "outputDescription": "原事件保持成功、关联独立待恢复",
+    "summary": "分析失败恢复原范围；已保存快照仅恢复交付，不重新生成快照。",
+    "ruleDetail": "分析失败恢复原范围；已保存快照仅恢复交付，不重新生成快照。",
+    "next": [
+      {
+        "label": "分析未完成",
+        "to": "EV-ASSOC-PREP"
+      },
+      {
+        "label": "快照保存或交付未完成",
+        "to": "EV-ASSOC-SAVE"
+      }
+    ],
+    "pending": "",
+    "panoramaFixedStep": "待恢复",
+    "reviewed": true,
+    "panoramaDetail": {
+      "actions": [
+        "分析失败恢复原范围；已保存快照仅恢复交付，不重新生成快照。"
+      ],
+      "basis": [
+        "分析失败恢复原范围；已保存快照仅恢复交付，不重新生成快照。"
+      ],
+      "question": "关联处理待恢复？",
+      "trigger": "关联分析、保存或交付失败",
+      "continuation": "原事件保持成功、关联独立待恢复",
+      "recovery": "分析失败恢复原范围；已保存快照仅恢复交付，不重新生成快照。",
+      "resultType": "关联处理待恢复",
+      "resultTone": "pending"
+    }
+  }
 ];
  nodes.push(...eventDefinitions);
- const eventPipeline=["EV-S", "EV-PREP", "EV-A1", "EV-CHECK", "EV-MATCH-PREP", "EV-A2", "EV-MATCH-CHECK", "EV-REL-PREP", "EV-A3", "EV-REL-CHECK", "EV-DELTA-PREP", "EV-A5", "EV-DELTA-CHECK", "RATE-DECIDE", "RATE-PREP", "RATE-A1", "RATE-CHECK", "RATE-CALC", "RATE-RECORD", "EV-P2", "EV-DELIVER", "EV-E"];
- const eventSections=[{"title": "事件管理七步主线", "module": "F02", "items": ["EV-S", "EV-PREP", "EV-A1", "EV-CHECK", "EV-MATCH-PREP", "EV-A2", "EV-MATCH-CHECK", "EV-REL-PREP", "EV-A3", "EV-REL-CHECK", "EV-DELTA-PREP", "EV-A5", "EV-DELTA-CHECK", "RATE-DECIDE", "RATE-PREP", "RATE-A1", "RATE-CHECK", "RATE-CALC", "RATE-RECORD", "EV-P2", "EV-DELIVER", "EV-E"]}, {"title": "无事件、待处理与恢复", "module": "F02", "kind": "outcomes", "items": [{"title": "无事件记录", "parallel": false, "lanes": [{"title": "0个候选", "nodes": ["EV-ZERO"]}]}, "EV-X", "EV-SAVEWAIT", "EV-SENDWAIT"]}];
+ const eventPipeline=["EV-S", "EV-PREP", "EV-A1", "EV-CHECK", "EV-MODEL", "EV-TARGET-AI", "EV-MODEL-CHECK", "EV-MATCH-PREP", "EV-A2", "EV-TARGET-MATCH", "EV-MATCH-CHECK", "EV-DELTA-PREP", "EV-A5", "EV-DELTA-CHECK", "EV-VARIABLE", "EV-VARIABLE-CHECK", "RATE-DECIDE", "RATE-A1", "RATE-CALC", "EV-USAGE", "EV-P2", "EV-DELIVER", "EV-ASSOC-PREP", "EV-ASSOC", "EV-ASSOC-SAVE", "EV-E"];
+ const eventSections=[{"title": "事件管理八步流程", "module": "F02", "items": ["EV-S", "EV-PREP", "EV-A1", "EV-CHECK", "EV-MODEL", "EV-TARGET-AI", "EV-MODEL-CHECK", "EV-MATCH-PREP", "EV-A2", "EV-TARGET-MATCH", "EV-MATCH-CHECK", "EV-DELTA-PREP", "EV-A5", "EV-DELTA-CHECK", "EV-VARIABLE", "EV-VARIABLE-CHECK", "RATE-DECIDE", "RATE-A1", "RATE-CALC", "EV-USAGE", "EV-P2", "EV-DELIVER", "EV-ASSOC-PREP", "EV-ASSOC", "EV-ASSOC-SAVE", "EV-E"]}, {"title": "正常结束与独立恢复", "module": "F02", "kind": "outcomes", "items": ["EV-ZERO", "EV-X", "EV-SAVEWAIT", "EV-SENDWAIT", "EV-ASSOC-WAIT"]}];
  handoff('RISK-E',[{label:'有效观察定义与长期关系 → L2',to:'STATE-S'}]);
  handoff('STATE-E',[
   {label:'当前快照交历史变化分析',to:'CHANGE-S'},
@@ -1039,7 +1484,7 @@ const SYSTEM_PANORAMA = (() => {
   const branches=new Map();
   stage.kind=stage.kind||'business';
   for(const section of stage.sections){
-   // F02 has its own reading sequence, matching the seven steps in its function design.
+   // F02 has its own reading sequence, matching the eight steps in its function design.
    if(stage.code==='L0'&&section.module==='F02'&&!f02Started){sequence=0;branches.clear();f02Started=true;}
    section.steps=section.items.map(item=>{
     let label='';
@@ -1075,7 +1520,7 @@ const SYSTEM_PANORAMA = (() => {
   {code:'F01',name:'信息接入与标准化模块',description:'资格核对、资料获取、标准化、版本识别、保存与交付',conceptSource:'F01',conceptSections:'§1.1～1.2、§3.1～3.3、§4.5',concepts:[
    {name:'资料',term:'Information',definition:'资料是从可核验来源取得、以原件为依据保存的内容单元，可以是网页、公告、报告、文件或结构化原始响应。F01将其整理为标准化资料，包含正文或结构化内容，以及来源、发布时间、取得时间、原件定位和版本信息。',boundary:'同一来源的同一份资料沿用稳定身份：内容未变时复用，来源修订或重新解析后内容变化时保留新版本。不同来源分别保存，不能仅凭标题或内容相似合并；原文、数字、表格与附件保持可追溯，发布时间未知时留空。'}
   ]},
-  {code:'F02',name:'事件管理',pipeline:eventPipeline,description:'事件提取、归组、增量与金融意义评级',conceptSource:'F02',conceptSections:'§3.2～3.6、§4.3～4.5',concepts:[
+  {code:'F02',name:'事件管理',pipeline:eventPipeline,description:'候选、建模、融合、增量、风险变量、金融意义、保存与事件关联',conceptSource:'F02',conceptSections:'§3.2～3.6、§4.3～4.5',concepts:[
    {name:'事件',term:'Event',definition:'在明确时间语境下，由特定宏观主体发起或体现、包含相对完整的行为、决定或状态变化，并能被持续追踪的事件单元。',boundary:'基础要素是主体、行为／变化、时间。同一核心行为的多篇报道归为同一事件；一篇汇总资料也可能包含多个事件。计划中的具体变化需保留状态与时间语义。'},
    {name:'事件更新',term:'EventUpdate',definition:'记录同一事件的新增变化、阶段推进和纠正历史；一个事件可以有多条更新记录。',boundary:'同一政策或行动的“宣布—推进—实施—完成”可作为连续进展；明确独立的决定或新措施应建立新事件。仅增加来源且无实质变化时，增加来源关联。'},
    {name:'观测主体',term:'Target',definition:'事件分析中被观测、用于记录事件作用及相关变量变化的主体，具有稳定身份和明确范围，可被多个事件共同引用。',boundary:'首版限于宏观范围。观测主体与发起、执行或体现事件行为的主体（Subject）分别记录；二者只有在身份及范围相符时才对应。'},

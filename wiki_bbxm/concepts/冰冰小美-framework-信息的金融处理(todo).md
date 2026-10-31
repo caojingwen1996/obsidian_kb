@@ -97,9 +97,13 @@ Nota AI刚刚宣布在英特尔Arc Pro B70上推出集成NVA解决方案，进�
 
 信息的获取到底应该放在此工作流吗？
 
-信息获取-信息拆解为Event-信息结构化（建立观测对象，建立时间窗口）-信息归纳了（事件密集区，提取共同现象）-观测对象
+信息获取RawInfo
+信息拆解为Event
+信息结构化（建立观测对象，建立时间窗口）
+信息归纳（事件密集区，提取共同现象）
+观测对象
 
-Input-RawInfo-Event-Signal-Cluster-Theme-Risk Variable
+RawInfo-Event-Signal-Cluster-Theme-Risk Variable
 
 Event = 事实单元
 Signal = 变量变化
@@ -107,58 +111,7 @@ Signal = 变量变化
 Cluster = 多个信号开始聚合
 Theme = 多个 Cluster 共同指向什么持续性的核心问题
 
-```
-┌────────────────────────────────────────────┐
-│ L0 · Source / Runtime State                │
-│                                            │
-│ Sources                                    │
-│ Receipts → ReceiptAttempts                 │
-└────────────────────┬───────────────────────┘
-                     │
-                     ▼
-┌────────────────────────────────────────────┐
-│ L1 · Evidence                              │
-│                                            │
-│ Articles                                   │
-│ ├── ArticleRevisions                       │
-│ └── ArticleDiscoveries                     │
-└────────────────────┬───────────────────────┘
-                     │
-                     ▼
-┌────────────────────────────────────────────┐
-│ L2 · Interpretation                        │
-│                                            │
-│ Analyses                                   │
-│ GroupingDecisions                          │
-└────────────────────┬───────────────────────┘
-                     │
-                     ▼
-┌────────────────────────────────────────────┐
-│ L3 · Persistent Knowledge                  │
-│                                            │
-│ Stories                                    │
-│   └── Facts                                │
-│       └── FactArticles                     │
-│                                            │
-│ StorySignals                               │
-│ StoryLinks                                 │
-└────────────────────┬───────────────────────┘
-                     │
-                     ▼
-┌────────────────────────────────────────────┐
-│ L4 · Serving Projection                    │
-│                                            │
-│ Publications                               │
-│ ├── PoolSearch                             │
-│ ├── SelectedState                          │
-│ └── SelectedLedger                         │
-└────────────────────────────────────────────┘
 
-
-       Embeddings
-           ↑
-     Derived Cache
-```
 
 
 
@@ -173,10 +126,8 @@ Theme = 多个 Cluster 共同指向什么持续性的核心问题
 
 
 
-（2.Source Routing 应该去哪找？（very important)
+Source Routing 应该去哪找？（very important)
 
-针对这个观察对象，应该去哪里获取？
-maybe 一个观测对象是：新闻，标的，宏观日报，微信公众号文章，
 
 观测指标表：
 [[wiki/concepts/冰冰小美-indicator-非金融信息观测指标表|冰冰小美-indicator-非金融信息观测指标表]]
@@ -236,7 +187,7 @@ reason = "证据仍不足"
 ### 步骤
 
 
-Step1.信息拆解为Event
+Step1.信息拆解为Event(语义建模)
 
 Event：在特定时间或时间区间内，某个主体发生、执行、发布或出现的一项可独立记录的信息变化。
 标准化原始信息：统一时间 统一主体名称，去除噪音，保留来源
@@ -259,7 +210,7 @@ Event：在特定时间或时间区间内，某个主体发生、执行、发布
 | **Conflict**       | 是否存在来源冲突？     | `false`               | 建议  |
 | **Original Text**  | 原始信息是什么？      | 原文摘录                  | 建议  |
 
-Event 处理：
+Event 处理(关系建模)：
 
 去重 / 合并: 多条信息是否描述同一事件
 关联：判断 Event 之间是否存在： - 同一主体 - 同一变量 - 同一因果链 - 同一时间窗口 - 同一现象
@@ -269,7 +220,7 @@ Event 处理：
 
 
 
-Event Analysis：
+Event 分析(领域语义分析)：
 
 如果是**关键 Event**，再追加 Event Window 信息
 
@@ -302,15 +253,15 @@ Signal 可以有两类来源：
 ```
 
 
-|维度|核心问题|可选值 / 表达|说明|
-|---|---|---|---|
-|**Variable**|什么变量发生了变化？|宏观 / 市场 / 行业 / 公司|变量应尽量标准化，可跨不同 Event 复用|
-|**Direction**|变量往哪个方向变化？|上升 / 下降；改善 / 恶化；收紧 / 宽松；加速 / 减速|根据变量本身选择合适的方向表达|
-|**Magnitude**|变化有多大？|`small` / `moderate` / `large` / `extreme`|描述变化幅度或重要程度|
-|**Novelty**|这次变化相对之前有什么新意？|`new` / `continuation` / `reversal` / `reconfirmation`|区分首次出现、延续、反转、再次确认|
-|**Persistence**|这个变化持续性如何？|`one_off` / `repeated` / `persistent` / `unknown`|判断是一次性事件，还是连续出现|
-|**Scope**|变化发生在哪个范围？|`company` / `industry` / `sector` / `market` / `macro` / `cross_market`|描述 Signal 的影响或观察范围|
-|**Confidence**|对这个 Signal 的判断有多确定？|`low` / `medium` / `high`|由事实完整度、来源质量、交叉验证决定|
+| 维度              | 核心问题                | 可选值 / 表达                                                                | 说明                     |
+| --------------- | ------------------- | ----------------------------------------------------------------------- | ---------------------- |
+| **Variable**    | 什么变量发生了变化？          | 宏观 / 市场 / 行业 / 公司                                                       | 变量应尽量标准化，可跨不同 Event 复用 |
+| **Direction**   | 变量往哪个方向变化？          | 上升 / 下降；改善 / 恶化；收紧 / 宽松；加速 / 减速                                         | 根据变量本身选择合适的方向表达        |
+| **Magnitude**   | 变化有多大？              | `small` / `moderate` / `large` / `extreme`                              | 描述变化幅度或重要程度            |
+| **Novelty**     | 这次变化相对之前有什么新意？      | `new` / `continuation` / `reversal` / `reconfirmation`                  | 区分首次出现、延续、反转、再次确认      |
+| **Persistence** | 这个变化持续性如何？          | `one_off` / `repeated` / `persistent` / `unknown`                       | 判断是一次性事件，还是连续出现        |
+| **Scope**       | 变化发生在哪个范围？          | `company` / `industry` / `sector` / `market` / `macro` / `cross_market` | 描述 Signal 的影响或观察范围     |
+| **Confidence**  | 对这个 Signal 的判断有多确定？ | `low` / `medium` / `high`                                               | 由事实完整度、来源质量、交叉验证决定     |
 最终一个signal可以表达成：
 
 |Variable|Direction|Magnitude|Novelty|Persistence|Scope|

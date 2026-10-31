@@ -1,3 +1,4 @@
+import { pipelineGraph as graph } from './pipeline-fixture.js';
 import assert from 'node:assert/strict';
 import { mkdtemp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { resolve, join, extname, sep } from 'node:path';
@@ -44,7 +45,7 @@ try {
   assert.equal(await page.locator('[aria-labelledby="nav-config"] a[aria-current="page"]').innerText(), '流水线全景');
   assert.equal(await page.locator('[data-flow-layer][open]').count(), 4);
   assert.equal(await page.locator('[data-flow-module][open]').count(), 0);
-  assert.equal(await page.locator('[data-node]').count(), 115); check('初始四层展开、八模块收起、115节点及配置分组');
+  assert.equal(await page.locator('[data-node]').count(), graph.system.nodes.length); check('初始四层展开、八模块收起、全部节点及配置分组');
   await page.locator('[data-flow-module="F01"] > summary').click();
   await page.locator('[data-node="IN-CHECK"]').click();
   await page.getByRole('heading', { name: /L0 \/ F01 \/ Step 1/ }).waitFor();
@@ -71,7 +72,7 @@ try {
     }, id);
     assert.ok((await page.locator('.node-detail h2').innerText()).trim(), id);
   }
-  check('115个节点逐一实际打开详情');
+  check('全部节点逐一实际打开详情');
   const ai01 = 'EV-A1';
   assert.ok(ids.includes(ai01));
   await page.locator(`[data-node="${ai01}"]`).click();
@@ -85,7 +86,7 @@ try {
   const previous = await page.locator('[data-flow-module][open]').count();
   await page.locator('.task-catalog-link').click();
   await page.locator('.task-page').waitFor();
-  assert.match(page.url(), /#ai\/AI-01\/1.0$/);
+  assert.match(page.url(), /#ai\/AI-01\/reviewed-2026-10-31$/);
   await page.getByRole('link', { name: '← 返回流水线全景', exact: true }).click();
   await page.locator('.system-panorama').waitFor();
   assert.equal(await page.locator('[data-flow-module][open]').count(), previous);

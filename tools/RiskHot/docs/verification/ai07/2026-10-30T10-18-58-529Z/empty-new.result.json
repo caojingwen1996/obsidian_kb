@@ -1,0 +1,30 @@
+{
+  "case_id": "empty-new",
+  "expected": {
+    "decision": "NEW",
+    "matches": [],
+    "matched_target_id": null
+  },
+  "input_digest": "36275a4735d7a2d2172bebd6609a66e6c5e7319d6cd7f21ba0dcf8a9d4f28df6",
+  "passed": true,
+  "output": {
+    "object_ref": "treasury-7y",
+    "decision": "NEW",
+    "matched_target_id": null,
+    "comparisons": [],
+    "reason": "召回完整且候选为空。当前对象名称、分类、美国辖区及批次范围明确，CUSIP 91282CRV5、7年期、2026-11-02发行及2033-10-31到期足以界定身份，建议作为新对象供人工核定；未来拍卖不视为已完成。",
+    "basis_refs": [
+      "object:treasury-7y:0"
+    ],
+    "unresolved_issues": []
+  },
+  "usage": {
+    "input_tokens": 15170,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 133,
+    "reasoning_output_tokens": 0
+  },
+  "structure_valid": true,
+  "elapsed_ms": 13087
+}

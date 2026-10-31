@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
+  fetchJson,
   buildEastmoneyKlineUrl,
   buildLocalProxyUrl,
   isLocalProxyLocation,
@@ -146,4 +147,20 @@ test('margin report parser reads tushare market summary balances', () => {
     { date: '2026-07-17', value: 1200000000000 },
     { date: '2026-07-18', value: 1210000000000 },
   ]);
+});
+
+
+test('local API errors disclose endpoint and safe Tushare failure classification', async t => {
+  t.mock.method(globalThis, 'fetch', async () => ({ ok: false, status: 502, json: async () => ({ source: 'tushare-token', error: 'private text' }) }));
+  await assert.rejects(fetchJson('http://127.0.0.1:49888/api/margin?secret=private'), error => {
+    assert.match(error.message, /HTTP 502: \/api\/margin/);
+    assert.match(error.message, /未读取到 Tushare Token/);
+    assert.doesNotMatch(error.message, /private|secret/);
+    return true;
+  });
+});
+
+test('non-JSON API errors preserve endpoint and status', async t => {
+  t.mock.method(globalThis, 'fetch', async () => ({ ok: false, status: 504, json: async () => { throw new Error('html'); } }));
+  await assert.rejects(fetchJson('http://localhost:49888/api/margin'), /HTTP 504: \/api\/margin/);
 });

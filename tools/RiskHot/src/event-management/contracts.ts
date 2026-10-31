@@ -1,7 +1,8 @@
+import {targetOutputSchema} from './target-identity-contracts.js';
 import {createHash} from 'node:crypto';
 import {normalizeEventTime} from './time.js';
 import {Ajv2020} from 'ajv/dist/2020.js';
-export type TaskId='AI-01'|'AI-02'|'AI-03'|'AI-04'|'AI-05';
+export type TaskId='AI-01'|'AI-02'|'AI-03'|'AI-04'|'AI-05'|'AI-07';
 export type Step=2|3|4|5;
 export interface Evidence {information_version_id:string;segment_id:string;start_cp:number;end_cp:number;quote:string}
 export interface TimeValue {text:string;start:string|null;end:string|null;precision:'timestamp'|'day'|'month'|'year'|'range'|'unknown';kind:'occurred'|'announced'|'expected'|'unknown';timezone:string|null}
@@ -37,6 +38,7 @@ const time=nullable(string);
 const candidate=object({local_key:string,title:string,description:string,subject:nullable(string),action:string,target_clues:strings,event_status:enumOf(stages),event_time:time,evidence_refs:refs,missing_fields:strings});
 const dimension=object({dimension_key:string,score:nullable({type:'number',minimum:0,maximum:5}),reason:string,evidence_refs:refs});
 export const taskSchemas:Record<TaskId,object>={
+ 'AI-07':targetOutputSchema,
  'AI-01':object({candidates:list(candidate,50),warnings:strings}),
  'AI-02':object({decision:enumOf(['NEW','REUSE','UNRESOLVED']),matched_event_id:nullable(uuid),comparisons:list(object({event_id:uuid,identity_match:nullable({type:'boolean'}),reason:string})),reason:string,evidence_refs:refs,unresolved_issues:strings}),
  'AI-03':object({targets:list(object({target_id:uuid,definition_version:string,relation_note:string,evidence_refs:refs})),variables:list(object({target_id:uuid,variable_id:uuid,definition_version:string,relation_type:enumOf(['direct_change','direct_involvement','observed_change']),change_direction:enumOf(['increase','decrease','unchanged','unknown']),impact_status:enumOf(['expected','announced','effective','unknown']),description:string,evidence_refs:refs})),definition_candidates:list(object({kind:enumOf(['target','variable']),name:string,definition:string,jurisdiction:nullable(string),unit:nullable(string),reason:string,evidence_refs:refs})),unresolved_issues:strings}),

@@ -1,3 +1,4 @@
+import { runCurrentCommand } from './current-command.js';
 import { randomUUID } from 'node:crypto';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { setTimeout } from 'node:timers/promises';
@@ -14,8 +15,14 @@ if (flags.has('--retry') && (!flags.has('--watch') || !flags.has('--reason'))) t
 if (flags.has('--open-budget') && !['true', 'false'].includes(flags.get('--open-budget')!)) throw new Error('Open budget must be true or false');
 const headers = await requestHeaders();
 const origin = required('API_ORIGIN');
-let id = flags.get('--watch');
 const requestKey = flags.get('--key') || randomUUID();
+const sessionResponse = await fetch(`${origin}/api/v1/session`, { headers, signal: AbortSignal.timeout(15_000) });
+if (!sessionResponse.ok) throw new Error(`SESSION_HTTP_${sessionResponse.status}`);
+const session = await sessionResponse.json() as { schema_version?: number };
+if (session.schema_version === 5) {
+  process.exitCode = await runCurrentCommand(origin, headers, flags, requestKey);
+} else {
+let id = flags.get('--watch');
 if (flags.has('--retry')) {
   const processingResponse = await fetch(`${origin}/api/v1/l0/processings/${flags.get('--retry')}`, { headers });
   if (!processingResponse.ok) throw new Error(`PROCESSING_HTTP_${processingResponse.status}`);
@@ -45,3 +52,5 @@ while (Date.now() < deadline) {
   await setTimeout(5000);
 }
 if (Date.now() >= deadline) { console.error('Polling ended; durable processing continues.'); process.exitCode = 2; }
+
+}

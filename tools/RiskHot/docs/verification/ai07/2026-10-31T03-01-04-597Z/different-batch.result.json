@@ -1,0 +1,43 @@
+{
+  "case_id": "different-batch",
+  "expected": {
+    "decision": "NEW",
+    "matches": [
+      false
+    ],
+    "matched_target_id": null
+  },
+  "input_digest": "320898d2e7c54423e2eb1075ac3e1e388d19b4d4e4f8cccc4be90b05137bff59",
+  "passed": true,
+  "output": {
+    "object_ref": "treasury-7y",
+    "decision": "NEW",
+    "matched_target_id": null,
+    "comparisons": [
+      {
+        "target_id": "00000000-0000-4000-8000-000000000001",
+        "identity_match": false,
+        "reason": "双方分类与辖区相同，但CUSIP、发行日和到期日均不同。候选范围明确排除91282CRV5，属于不同国债发行批次。",
+        "basis_refs": [
+          "object:treasury-7y:0",
+          "target:00000000-0000-4000-8000-000000000001:1"
+        ]
+      }
+    ],
+    "reason": "召回完整且唯一候选已排除同一性；当前对象名称、分类、辖区及批次范围充分，建议NEW，供人工核定。",
+    "basis_refs": [
+      "object:treasury-7y:0",
+      "target:00000000-0000-4000-8000-000000000001:1"
+    ],
+    "unresolved_issues": []
+  },
+  "usage": {
+    "input_tokens": 15469,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 221,
+    "reasoning_output_tokens": 0
+  },
+  "structure_valid": true,
+  "elapsed_ms": 8879
+}

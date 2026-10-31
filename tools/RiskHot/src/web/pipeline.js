@@ -85,7 +85,7 @@ try {
       panorama.append(...content.childNodes);
     }
     layout.disconnectLayout();
-    taskRoute = /^#ai\/([A-Z0-9-]+)\/([0-9.]+)$/.exec(hash);
+    taskRoute = /^#ai\/([A-Z0-9-]+)\/([A-Za-z0-9.-]+)$/.exec(hash);
     if (taskRoute) renderTask();
     else content.innerHTML = '<section class="panel" tabindex="-1"><h2>页面位置不可用</h2><p>请返回全景重新选择步骤或任务。</p><a class="link" href="#panorama">返回流水线全景</a></section>';
     content.querySelector('section.panel')?.focus(); window.scrollTo(0, 0);

@@ -18,6 +18,9 @@ if(!Number.isInteger(wait)||wait<0||wait>300)throw new Error('WAIT_INVALID');
 const headers=await requestHeaders();
 const origin=required('API_ORIGIN');
 const request=async(path:string,options:RequestInit={})=>fetch(origin+path,{...options,headers:{...headers,...options.headers},signal:AbortSignal.timeout(15_000)});
+const sessionResponse=await request('/api/v1/session');
+if(!sessionResponse.ok)throw new Error(`SESSION_HTTP_${sessionResponse.status}`);
+const current=(await sessionResponse.json() as {schema_version?:number}).schema_version===5;
 const sourcesResponse=await request('/api/v1/m1/sources');
 if(!sourcesResponse.ok)throw new Error(`SOURCES_HTTP_${sourcesResponse.status}`);
 type Source={catalog_key:string;state:string;connection:SourceConnector};
@@ -31,16 +34,20 @@ const run=async(source:Source)=>{
   try{
     if(source.connection.readiness!=='ready'){item.status=source.connection.readiness;item.reason=source.connection.reason;return;}
     if(source.state!=='ACTIVE'){item.status='disabled';item.reason='SOURCE_DISABLED';return;}
-    const submitted=await request('/api/v1/l0/source-fetches',{method:'POST',headers:{'idempotency-key':`${key}/${source.catalog_key}`},body:JSON.stringify({source_key:source.catalog_key,limit:1})});
-    const receipt=await submitted.json() as {operation_id?:string;error?:{code:string}};
+    const submitted=await request(current?'/api/v1/l0/tasks':'/api/v1/l0/source-fetches',{method:'POST',headers:{'idempotency-key':`${key}/${source.catalog_key}`},body:JSON.stringify(current?{source_keys:[source.catalog_key],limit:1}:{source_key:source.catalog_key,limit:1})});
+    const receipt=await submitted.json() as {operation_id?:string;error?:{code:string};items?:{accepted:boolean;task?:{id:string};error?:{code:string}}[]};
     if(!submitted.ok){item.status='rejected';item.reason=receipt.error?.code??`HTTP_${submitted.status}`;return;}
-    item.operation_id=receipt.operation_id;item.status='queued';
+    const accepted=receipt.items?.[0];
+    if(current&&!accepted?.accepted){item.status='rejected';item.reason=accepted?.error?.code??'TASK_NOT_ACCEPTED';return;}
+    const id=current?accepted!.task!.id:receipt.operation_id;
+    if(current)item.task_id=id;else item.operation_id=id;item.status='queued';
     const deadline=Date.now()+wait*1000;
     while(Date.now()<deadline){
-      const status=await request(`/api/v1/l0/operations/${receipt.operation_id}`);if(!status.ok)throw new Error(`STATUS_HTTP_${status.status}`);
-      const op=await status.json() as {slice_status:string;reason_code:string|null;children:{version_id:string|null;reason_code:string|null}[]};
-      item.status=op.slice_status;item.versions=op.children.map(child=>child.version_id).filter(Boolean);item.reason=op.reason_code??op.children.find(child=>child.reason_code)?.reason_code??null;
-      if(['completed','waiting_config','review','recoverable','partial'].includes(op.slice_status))break;
+      const status=await request(current?`/api/v1/l0/tasks/${id}`:`/api/v1/l0/operations/${id}`);if(!status.ok)throw new Error(`STATUS_HTTP_${status.status}`);
+      const op=await status.json() as {slice_status:string;reason_code:string|null;children:{version_id:string|null;reason_code:string|null}[];task?:{status:string;reason_code:string|null};materials?:{material_id:string}[]};
+      if(current){item.status=op.task!.status;item.materials=op.materials!.map(m=>m.material_id);item.reason=op.task!.reason_code;}
+      else {item.status=op.slice_status;item.versions=op.children.map(child=>child.version_id).filter(Boolean);item.reason=op.reason_code??op.children.find(child=>child.reason_code)?.reason_code??null;}
+      if(['completed','waiting_config','review','recoverable','partial','blocked','failed'].includes(String(item.status)))break;
       await setTimeout(1500);
     }
   }catch(error){item.status='command_error';item.reason=error instanceof Error?error.message:'COMMAND_ERROR';}
@@ -51,5 +58,5 @@ await Promise.all([0,1].map(async()=>{while(queue.length){const source=queue.shi
 await mkdir('.riskhot/runs',{recursive:true,mode:0o700});
 const path=`.riskhot/runs/sources-${Date.now()}.json`;
 await writeFile(path,JSON.stringify({checked_at:new Date().toISOString(),request_key:key,items:items.sort((a,b)=>String(a.source_key).localeCompare(String(b.source_key)))},null,2)+'\n',{mode:0o600});
-console.log(JSON.stringify({report:path,total:items.length,saved:items.filter(item=>Array.isArray(item.versions)&&item.versions.length).length}));
+console.log(JSON.stringify({report:path,total:items.length,saved:items.filter(item=>Array.isArray(item.materials)?item.materials.length:Array.isArray(item.versions)&&item.versions.length).length}));
 if(items.some(item=>item.status!=='completed'))process.exitCode=2;

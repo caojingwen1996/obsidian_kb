@@ -30,7 +30,7 @@ M1工作区为信源目录与信息接入。目录提供档案和自动接入模
 | src/tests/workspace.test.js、management.test.ts、browser.e2e.ts | 页面、权限、跨日、去重、版本、启动和延迟焦点回归 |
 | src/tests/m1-navigation-real.e2e.ts、task-results-real.e2e.ts | 真实服务只读流程、统计对照、读取失败及截图 |
 
-同步[[tools/RiskHot/docs/system-design/03-系统功能架构/M1 信源管理中心功能设计#5. 页面设计与交互|M1第5章]]、[[tools/RiskHot/docs/system-design/03-系统功能架构/F02 事件管理模块功能设计 V1.0#5. 页面设计与交互|F02导航说明]]、[[tools/RiskHot/docs/system-design/06产品UI原型设计/06-2-M1信源管理中心UI设计/信息接入任务与计划页面设计|页面细化设计]]、[[tools/RiskHot/README|操作说明]]、计划、索引和维护日志。业务架构与领域文档及数据库结构本轮未修改。
+同步[[tools/RiskHot/docs/system-design/03-系统功能架构/M1 信源管理中心功能设计#5. 页面设计与交互|M1第5章]]、[[tools/RiskHot/docs/system-design/06产品UI原型设计/F02事件管理页面设计与交互|F02导航说明]]、[[tools/RiskHot/docs/system-design/06产品UI原型设计/06-2-M1信源管理中心UI设计/信息接入任务与计划页面设计|页面细化设计]]、[[tools/RiskHot/README|操作说明]]、计划、索引和维护日志。业务架构与领域文档及数据库结构本轮未修改。
 
 ## 3. 自动化结果
 

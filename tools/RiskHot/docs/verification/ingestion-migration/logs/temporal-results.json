@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "namespace": "riskhot-ingestion-test-9c57fce7-4ae6-43f5-8bad-8c07189bae7c",
+  "model_requests": 6,
+  "checks": [
+    "独立schema5数据库与Temporal命名空间",
+    "实际IO/model/relay/API角色",
+    "模型临时失败后Worker重启恢复",
+    "自动抽取与完整归组后人工审批",
+    "自动步骤3至5、最终审批和正式保存",
+    "事件文件与可靠交付",
+    "审计仅保留资料引用，不恢复旧表"
+  ]
+}

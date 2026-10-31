@@ -55,7 +55,7 @@ L1 先从事件中一次性识别并定义具体风险，包括风险问题、�
 | 风险身份  | 以 MonitoredRisk 为稳定的风险观察实体；多个事件和多个观察周期可以引用同一 `risk_id`                            |
 | 事件使用  | 复用 L0 的 Event / EventUpdate 及原文引用；已宣布、预计实施或尚未兑现的事件也可提供风险线索，须保留时间与阶段语义             |
 | 风险定义  | 表达稳定的风险问题、观察对象与范围、潜在损害、风险来源及机制，不写入当期风险等级或涨跌判断                                     |
-| 变量体系  | 使用全局 `variable_config`；L1 选择具体风险需要持续跟踪的变量，维护角色、作用条件与观察理由，不记录本次变量数值                |
+| 变量体系  | 使用全局 `risk_variable_definitions`；L1 选择具体风险需要持续跟踪的变量，维护角色、作用条件与观察理由，不记录本次变量数值                |
 | 跟踪管理  | 管理 `observing`、`monitoring`、`paused`、`closed` 等跟踪状态；暂停、关闭及恢复条件待讨论，已关闭风险优先考虑复用历史身份 |
 | 处理与结果 | 先完整识别与定义，再检索匹配，最后决定复用或新建；允许无风险、已有风险、新风险、待复核，不强行生成风险或虚构 ID                         |
 | 下游交付  | 交付风险定义、长期观察配置和相关事件增量，为 L2 首次观察与持续观察提供输入                                           |
@@ -228,7 +228,7 @@ flowchart TD
 - 已宣布、预计实施或尚未兑现的事件，可构成风险线索；必须保留事件的时间与阶段语义。
 - 风险定义描述稳定的风险问题，不写入当期风险等级或涨跌判断。
 - 风险损害对象在本环节初步确定，不以损害已经发生为前提。应有可解释的暴露渠道与传导依据；尚无法确定的对象或关系写入 `uncertainty`，不能无依据扩列对象。`damage_targets` 不代表损害已经兑现，也不为其中每个对象自动建立独立 MonitoredRisk。
-- 关键变量来自风险机制，优先引用 `variable_config`，并解释其驱动、传导、缓冲或损害验证作用。
+- 关键变量来自风险机制，优先引用 `risk_variable_definitions`，并解释其驱动、传导、缓冲或损害验证作用。
 - 当前变量值、风险影响程度及减弱节点由 L2 分析。
 - 「完整风险候选定义」属于②的处理输出，尚未形成正式 MonitoredRisk 身份；是否持久化候选待讨论。
 
@@ -445,7 +445,7 @@ flowchart TD
 - M2 风险源管理中心负责全局变量的统一定义、身份管理、语义去重、候选治理与版本维护。
 - L1 根据具体风险动态选择变量，维护风险与关键变量的长期观察关联。
 - L2 根据当期证据分析变量状态，以及变量对具体风险的实际作用。
-- 全局变量定义沿用共享的 `variable_config`。
+- 全局变量定义沿用共享的 `risk_variable_definitions`。
 - 风险长期观察关联沿用 `risk_source_variable_relation`。
 - L2 变量分析沿用 `risk_snapshot_variable_analysis`。
 - 风险源无需预先配置推荐核心驱动变量清单。
@@ -479,7 +479,7 @@ flowchart TD
 
 | 概念 | 业务含义 | 边界 |
 |---|---|---|
-| 全局变量 `variable_config` | 定义观察什么因素及其稳定含义 | 不记录当期状态和风险结论 |
+| 全局变量 `risk_variable_definitions` | 定义观察什么因素及其稳定含义 | 不记录当期状态和风险结论 |
 | 风险源 `risk_source_config` | 定义可能引起风险的来源类别 | 不决定具体风险使用哪些变量 |
 | 观测指标 `indicator_config` | 定义衡量因素的统计或数据口径 | 与实际观测数据分离 |
 | 事件及观测证据 | 提供政策、行为、冲击或变化的事实依据 | 保留来源、时间和证据 |
@@ -510,7 +510,7 @@ flowchart TD
 
 **业务规则：**
 
-1. 所有正式变量统一纳入全局变量库 `variable_config`，不强制建立父子层级。
+1. 所有正式变量统一纳入全局变量库 `risk_variable_definitions`，不强制建立父子层级。
 2. 允许使用分类或标签辅助变量检索、浏览和管理。
 3. 一个变量可以归属多个分类，但保持唯一正式身份。
 4. 变量可以暂不归类，不因分类缺失而重复创建身份。
@@ -760,7 +760,7 @@ L1 使用 `risk_source_variable_relation` 保存长期观察关联。
 
 | 内容 | 业务归属 | 业务含义 |
 |---|---|---|
-| 全局变量定义 | M2 `variable_config` | 因素是什么及其稳定含义 |
+| 全局变量定义 | M2 `risk_variable_definitions` | 因素是什么及其稳定含义 |
 | 长期风险关联 | L1 `risk_source_variable_relation` | 为什么观察该因素及其作用机制 |
 | 变量当期状态 | L2 分析结果 | 因素当前处于什么状态 |
 | 本轮风险作用 | L2 `risk_snapshot_variable_analysis` | 当前变量状态对具体风险的实际影响 |
@@ -928,7 +928,7 @@ L1 使用 `risk_source_variable_relation` 保存长期观察关联。
 
 **相关业务架构依据：**
 
-- L0 信息处理层：§4.5.5 `variable_config`、§4.5.8 `event_target_variable`。
+- L0 信息处理层：§4.5.5 `risk_variable_definitions`、§4.5.8 `event_target_variable`。
 - L1 风险识别与纳管层：§3.4、§4.4、§4.6。
 - L2 风险态势分析层：BR-L2-03、BR-L2-04、BR-L2-05、§4.4.1。
 - 系统功能架构总览：M2 横向支撑定位及定义与运行分离原则。
@@ -949,7 +949,7 @@ flowchart LR
     RE["风险—事件关联"]
     R["MonitoredRisk"]
     RV["risk_source_variable_relation"]
-    V["variable_config"]
+    V["risk_variable_definitions"]
     L2["L2 RiskSnapshot"]
     E --> RE --> R
     R --> RV --> V
@@ -970,12 +970,12 @@ flowchart LR
 | 领域对象／业务结果                       | 类型与归属           | 业务含义                               | 核心职责                               | 主要关联对象与关系                                                 | 讨论状态                      |
 | ------------------------------- | --------------- | ---------------------------------- | ---------------------------------- | --------------------------------------------------------- | ------------------------- |
 | **MonitoredRisk**               | L1 核心领域实体       | 正式纳入持续观察的一项具体宏观风险                  | 维护稳定 `risk_id`、风险定义、观察对象与范围及跟踪状态   | 关联多个事件和关键变量配置；被 L2 RiskSnapshot 引用                        | 已讨论；聚合边界、物理映射及状态迁移条件待定    |
-| `risk_source_variable_relation` | L1 业务关联对象       | 某项风险在特定风险源之下的关键变量观察配置              | 记录变量角色、作用条件与观察理由，支持长期跟踪            | 连接 MonitoredRisk、`risk_source_config` 与 `variable_config` | 已讨论；重复关联约束及版本策略待定         |
+| `risk_source_variable_relation` | L1 业务关联对象       | 某项风险在特定风险源之下的关键变量观察配置              | 记录变量角色、作用条件与观察理由，支持长期跟踪            | 连接 MonitoredRisk、`risk_source_config` 与 `risk_variable_definitions` | 已讨论；重复关联约束及版本策略待定         |
 | `monitored_risk_event_relation` | L1 业务关联表        | 某个 Event 与正式纳管 MonitoredRisk 的业务关联 | 保存关联原因、首次关联依据及有效状态                 | 连接 MonitoredRisk 与 L0 Event，首次依据可引用 EventUpdate；风险与事件为多对多 | 八字段表结构见第 4.5 节；联合唯一约束待定   |
 | 完整风险候选定义                        | L1 识别过程结果       | 尚未正式纳管的风险定义、关键变量候选及事件依据            | 为存量检索、同一性匹配与准入判断提供完整输入             | 由 Event / EventUpdate 识别形成；经匹配后可能对应已有或新增 MonitoredRisk    | 已讨论；是否独立持久化待定，不作为核心实体     |
 | 匹配与纳管结果                         | L1 处理结果         | 复用、新建或待复核的处理结论                     | 说明风险身份处理结果，衔接正式纳管和事件关联             | 消费完整候选定义；匹配或新建成功时指向 MonitoredRisk                         | 已讨论；是否独立持久化待定，不作为核心实体     |
 | Event / EventUpdate             | L0 上游对象，L1 引用   | 结构化事件及其有效进展、补充或纠正                  | 提供风险识别输入及可追溯的事件依据；事件身份和原始记录由 L0 管理 | 通过风险—事件关联连接 MonitoredRisk                                 | 沿用 L0；输入契约见第 5.1 节        |
-| `variable_config`               | 共享变量配置，L1 引用    | 跨事件、跨风险复用的全局变量定义与标识                | 为关键变量选择提供统一引用；不在风险关联中重复定义变量        | 被 `risk_source_variable_relation` 引用，同一变量可供多项风险使用         | 沿用全局配置；具体风险的长期观察配置由 L1 维护 |
+| `risk_variable_definitions`               | 共享变量配置，L1 引用    | 跨事件、跨风险复用的全局变量定义与标识                | 为关键变量选择提供统一引用；不在风险关联中重复定义变量        | 被 `risk_source_variable_relation` 引用，同一变量可供多项风险使用         | 沿用全局配置；具体风险的长期观察配置由 L1 维护 |
 | `risk_source_config`            | 共享风险源配置，L1 引用   | 风险来源的分类依据                          | 维护分析层次、分类定义、识别依据与边界                | 被 MonitoredRisk.risk_source_ids 及关键变量关联引用                 | 表结构见第 4.9 节；尚未实施数据库变更     |
 | `risk_dimension_config`         | 共享风险类型配置，L1 引用  | 基本面、流动性、估值、情绪等风险维度的分类依据            | 维护定义、识别依据和分类边界                     | 被 MonitoredRisk.risk_dimension_ids 引用                     | 表结构见第 4.8 节；尚未实施数据库变更     |
 | RiskSnapshot                    | L2 下游对象，非 L1 管理 | 某项风险在一个观察时点的状态评估                   | 由 L2 评估风险大小、当前状态、兑现程度及持续条件         | 引用同一 `risk_id`，使用 L1 交付的定义、变量配置及事件证据                      | 沿用 L2 边界；跨层版本引用策略待定       |
@@ -1018,7 +1018,7 @@ MonitoredRisk 的表名在本设计中采用 `monitored_risk`，供第 4.5 节�
 | `relation_id`               | 关键变量关联记录身份                                  |
 | `risk_id`                   | 属于哪个 MonitoredRisk                          |
 | risk_source_code            | 引用 `risk_source_config.source_id`，保留现有关系字段名 |
-| `variable_id`               | 引用共享的 `variable_config`                     |
+| `variable_id`               | 引用共享的 `risk_variable_definitions`                     |
 | `variable_role`             | 驱动 / 传导 / 缓冲 / 损害验证                         |
 | `variable_impact_on_risk`   | 变量为何重要，以及在什么条件下加大或减小风险                      |
 | `created_at` / `updated_at` | 关联创建和更新时间                                   |
@@ -1114,7 +1114,7 @@ MonitoredRisk 的表名在本设计中采用 `monitored_risk`，供第 4.5 节�
 | 字段名                       | 类型        | 中文名称     | 业务含义                 |
 | ------------------------- | --------- | -------- | -------------------- |
 | `risk_source_code`        | STRING    | 所属风险源    | 变量对应哪个风险来源           |
-| `variable_id`             | UUID，可空   | 变量 ID    | 匹配 `variable_config` |
+| `variable_id`             | UUID，可空   | 变量 ID    | 匹配 `risk_variable_definitions` |
 | `candidate_variable_name` | STRING，可空 | 候选变量名称   | 变量库不存在匹配项时使用         |
 | `variable_role`           | ENUM      | 变量角色     | 驱动、传导、缓冲、损害验证        |
 | `variable_impact_on_risk` | TEXT      | 对风险的影响机制 | 为什么观察这个变量，什么条件下影响风险  |
@@ -1133,7 +1133,7 @@ MonitoredRisk 的表名在本设计中采用 `monitored_risk`，供第 4.5 节�
 
 - `dimension_code` 对应 `risk_dimension_config.dimension_code`，按本结构以单个字符串输出；系统解析为 `dimension_id` 后写入 MonitoredRisk 的 `risk_dimension_ids` 数组，保留正式对象允许多个维度的设计。本次不将候选字段自行扩为数组，也不因分类维度不同重复创建同一风险。
 - `risk_source_codes` 对应 `risk_source_config.source_code`，系统解析为 `source_id` 集合后关联具体风险；`key_variables[].risk_source_code` 必须属于该候选的 `risk_source_codes`。
-- `variable_id` 有匹配项时引用真实的 `variable_config` 标识；没有匹配项时置空并填写 `candidate_variable_name`，不得两者均空或虚构 UUID。候选变量经确认并获得有效 ID 后，才建立正式关键变量关联。
+- `variable_id` 有匹配项时引用真实的 `risk_variable_definitions` 标识；没有匹配项时置空并填写 `candidate_variable_name`，不得两者均空或虚构 UUID。候选变量经确认并获得有效 ID 后，才建立正式关键变量关联。
 - `key_variables` 中的风险源、变量角色和影响机制分别用于正式关系的 `source_id`、`variable_role`、`variable_impact_on_risk`；`relation_id` 和 `risk_id` 由系统在对应纳管流程中确定，不由 AI 生成正式身份。
 - `evidence_refs` 保留可定位的 Event、EventUpdate 及原始证据引用，具体引用对象字段沿用上游证据契约，本次不另加未经确定的嵌套字段。
 - `mechanism_summary` 说明持续或缓和的条件机制，并承载各损害对象的暴露与潜在损害说明，不代替 L2 对当前方向、风险等级及持续性的评估。`damage_targets` 随候选定义转入正式 MonitoredRisk；纳管时不得仅取标题或一句摘要而丢失对象、机制及证据依据，具体存储映射在数据设计中确定。
@@ -1349,9 +1349,9 @@ L0 曾约定的事件通知候选名称包括 `event_created`、`event_updated`�
 | Target.target_name | 事件观测主体名称，辅助识别风险观察对象 | §5.1，不能直接等同 |
 | Target.scope_definition | 观测主体范围，支持宏观边界核对 | §5.1 |
 | event_target_variable.variable_id | 事件直接变量线索，不直接等同长期观察变量集合 | §5.1 |
-| variable_config.variable_id | 可复用的正式变量身份 | §3.4、§4.6.2 |
-| variable_config.definition | 变量的含义、观测边界及解释口径 | §3.4 |
-| variable_config.variable_name | 正式变量名称，供语义匹配 | §3.4 |
+| risk_variable_definitions.variable_id | 可复用的正式变量身份 | §3.4、§4.6.2 |
+| risk_variable_definitions.definition | 变量的含义、观测边界及解释口径 | §3.4 |
+| risk_variable_definitions.name | 正式变量名称，供语义匹配 | §3.4 |
 | risk_source_config.source_code | 可引用风险源代码 | §4.9 |
 | risk_source_config.definition | 该风险源包含的变化范围 | §4.9 |
 | risk_source_config.core_question | 判断是否属于该来源的核心问题 | §4.9 |

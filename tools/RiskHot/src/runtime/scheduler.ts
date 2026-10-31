@@ -1,3 +1,4 @@
+import { currentScheduleTick } from './current-scheduler.js';
 import {eventIssues} from '../event-management/monitor.js';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
@@ -25,12 +26,14 @@ export class Scheduler {
     this.alerts = new AlertStore(repo.db, notify);
   }
   async initialize(now = new Date()): Promise<void> {
+    if ((await this.repo.db.query('SELECT 1 FROM platform.schema_versions WHERE version=5')).rowCount) { await this.repo.db.query('INSERT INTO infomation.ingestion_schedules(source_id) SELECT id FROM m1.sources ON CONFLICT DO NOTHING'); return; }
     await this.repo.db.query(`INSERT INTO platform.source_schedules(source_id,interval_seconds,next_run_at)
       SELECT s.id,$1::integer,$2::timestamptz+make_interval(secs=>$1::integer) FROM m1.sources s JOIN m1.source_versions v ON v.source_id=s.id AND v.version=s.version
       WHERE s.state='ACTIVE' AND (v.config->'connection'->>'readiness'='ready' OR v.config->>'connector'='pbc-html-1.0.0')
       AND ($3::text[] IS NULL OR s.catalog_key=ANY($3)) ON CONFLICT DO NOTHING`, [this.config.intervalSeconds, now, this.config.sources ?? null]);
   }
   async tick(now = new Date()): Promise<void> {
+    if ((await this.repo.db.query('SELECT 1 FROM platform.schema_versions WHERE version=5')).rowCount) { await currentScheduleTick(this.repo,SCHEDULER_ACTOR,now,this.config.maxInFlight,this.config.sources); await this.monitor(now);return; }
     const lock = await this.repo.db.connect();
     try {
       if (!(await lock.query("SELECT pg_try_advisory_lock(hashtextextended('riskhot-scheduler',0)) AS locked")).rows[0].locked) return;
@@ -101,6 +104,13 @@ export class Scheduler {
     }
   }
   async monitor(now = new Date()): Promise<void> {
+    if((await this.repo.db.query('SELECT 1 FROM platform.schema_versions WHERE version=5')).rowCount){
+      const tasks=(await this.repo.db.query("SELECT id,reason_code FROM infomation.ingestion_tasks WHERE status IN ('partial','review','recoverable','blocked','failed') AND reason_code IS NOT NULL")).rows;
+      const materials=(await this.repo.db.query("SELECT id,extraction_result->>'error_code' AS reason_code FROM infomation.ingestion_material WHERE extraction_result->>'error_code' IS NOT NULL")).rows;
+      const issues:RuntimeIssue[]=[...tasks.map(row=>({key:`ingestion:${row.id}:${row.reason_code}`,code:row.reason_code,owner:row.id})),...materials.map(row=>({key:`material:${row.id}:${row.reason_code}`,code:row.reason_code,owner:row.id})),...await eventIssues(this.repo.db)];
+      await this.alerts.reconcile(issues,now);return;
+    }
+
     const issues: RuntimeIssue[] = [];
     const deliveries = (await this.repo.db.query(`SELECT d.message_id,COALESCE(d.error_code,d.files_error_code) AS code FROM information.material_deliveries d
       WHERE d.error_code IS NOT NULL OR d.files_error_code IS NOT NULL`)).rows;

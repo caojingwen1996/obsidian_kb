@@ -1,3 +1,6 @@
+import {registerCurrentEvents} from './current-events.js';
+import { ingestionSchemaVersion } from '../platform/ingestion-migration.js';
+import { registerCurrentManagement } from './current-management.js';
 import {registerEvents} from './events.js';
 import {EventQueries} from '../event-management/queries.js';
 import { resolve } from 'node:path';
@@ -56,6 +59,23 @@ export async function buildServer(repo: ExecutionStore, authentication: Authenti
   app.addHook('onRequest', async request => {
     if (request.url.startsWith('/api/')) request.actor = await auth.subject(request);
   });
+  if (await ingestionSchemaVersion(repo.db) === 5) {
+    registerWeb(app,{schemaVersion:5});
+    registerCurrentManagement(app, repo, auth.mode);
+    registerCurrentEvents(app,repo);
+    app.get('/auth/login', async (_request, reply) => auth.login(reply));
+    app.get('/auth/callback', async (request, reply) => auth.callback(request, reply));
+    app.post('/auth/logout', async (request, reply) => auth.logout(request, reply));
+    app.get('/health/live', async () => ({ live: true }));
+    app.get('/health/ready', async (_request,reply) => {
+      try {
+        if(!(await repo.db.query('SELECT version FROM platform.schema_versions WHERE version=5')).rowCount)throw new Error('SCHEMA_MIGRATION_REQUIRED');
+        await mkdir(required('ARTIFACT_ROOT'),{recursive:true});await access(required('ARTIFACT_ROOT'),constants.W_OK);
+        return {ready:true,schema_version:5};
+      }catch{return reply.code(503).send({ready:false});}
+    });
+    return app;
+  }
   const sourceForVersion = async (actor: string, versionId: string) => {
     const row = (await repo.db.query<{ catalog_key: string; material_id: string; raw_artifact_id: string; normalized_artifact_id: string }>('SELECT s.catalog_key,v.material_id,v.raw_artifact_id,v.normalized_artifact_id FROM information.material_versions v JOIN information.materials m ON m.id=v.material_id JOIN m1.sources s ON s.id=m.source_id WHERE v.id=$1', [versionId])).rows[0];
     if (!row) throw new DomainError('NOT_FOUND', 404);

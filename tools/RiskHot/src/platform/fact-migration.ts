@@ -1,3 +1,4 @@
+import { ingestionSchemaVersion } from './ingestion-migration.js';
 import {readFile} from 'node:fs/promises';
 import type {Pool} from 'pg';
 import {transaction} from './db.js';
@@ -12,6 +13,8 @@ import {aggregate} from '../event-management/store.js';
 
 const oldTables=['events','event_sources','event_evidence','event_targets','event_target_variables','event_updates','event_update_supersedes','event_ratings','event_revisions','event_target_evidence','event_variable_evidence','event_update_evidence','event_rating_evidence'];
 export async function applyFactMigration(db:Pool){
+ if (await ingestionSchemaVersion(db) === 5) return;
+
  await transaction(db,async tx=>{
   await tx.query("SELECT pg_advisory_xact_lock(hashtext('riskhot-schema-4'))");
   if((await tx.query('SELECT 1 FROM platform.schema_versions WHERE version=4')).rowCount)return;

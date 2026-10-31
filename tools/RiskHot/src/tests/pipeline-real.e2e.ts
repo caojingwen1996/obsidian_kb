@@ -1,3 +1,4 @@
+import { pipelineGraph as graph } from './pipeline-fixture.js';
 import assert from 'node:assert/strict';
 import { mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
@@ -27,7 +28,7 @@ try {
   for (const width of [1440, 390, 320]) {
     await page.setViewportSize({ width, height: 1000 });
     await page.goto(origin + '/pipeline'); await page.locator('.system-panorama').waitFor();
-    assert.equal(await page.locator('[data-node]').count(), 115);
+    assert.equal(await page.locator('[data-node]').count(), graph.system.nodes.length);
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1));
     await page.screenshot({ path: join(output, `real-${width}.png`) });
     await page.locator('[data-flow-module="F02"] > summary').click();

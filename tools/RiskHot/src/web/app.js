@@ -3,7 +3,7 @@ import {workspaceRoute,catalogMode,taskIdFromHash,taskView} from './navigation.j
 import {createClient} from './api.js';
 import {escape as e,profileOf,shanghaiDate,validRange,dateTime,statusName,explain,candidateCount,periodUnits,schedulePeriod,periodSeconds} from './model.js';
 import {renderSources,sourceForm,profileFields} from './sources.js';
-import {renderTasks,renderTaskDetail,renderSchedules,renderProgress} from './tasks.js';
+import {renderTasks,renderTaskDetail,renderSchedules} from './tasks.js';
 import {currentTask,launchState,renderActivity} from './activity.js';
 
 const api=createClient(),content=document.querySelector('#content'),modal=document.querySelector('#modal'),feedback=document.querySelector('#feedback');
@@ -201,7 +201,7 @@ function openControl(id,action){
 function openSchedule(key){
   const source=state.sources.find(x=>x.catalog_key===key),plan=state.monitor?.schedules.find(x=>x.catalog_key===key);
   const period=schedulePeriod(plan?.interval_seconds??3600),scale=periodUnits[period.unit].seconds;
-  openDialog('管理接入计划',`<p>${e(source?.name)}</p><p class="notice">计划与信源资格分别管理；实际运行时会再次核对信源。新的周期从保存后开始计算。</p><label class="field">计划状态<select name="enabled"><option value="true" ${plan?.enabled?'selected':''}>启用计划</option><option value="false" ${!plan?.enabled?'selected':''}>暂停计划</option></select></label><div class="form-grid"><label class="field">执行周期<input name="interval_value" type="number" min="${60/scale}" max="${86400/scale}" step="any" value="${period.value}" required></label><label class="field">周期单位<select name="interval_unit">${Object.entries(periodUnits).map(([key,item])=>`<option value="${key}" ${key===period.unit?'selected':''}>${item.label}</option>`).join('')}</select></label></div><p class="muted">支持1分钟至1天，数值按所选单位保存。</p>`,{kind:'schedule',source,plan},'保存计划');
+  openDialog('管理任务计划',`<p>${e(source?.name)}</p><p class="notice">计划与信源资格分别管理；实际运行时会再次核对信源。新的周期从保存后开始计算。</p><label class="field">计划状态<select name="enabled"><option value="true" ${plan?.enabled?'selected':''}>启用计划</option><option value="false" ${!plan?.enabled?'selected':''}>暂停计划</option></select></label><div class="form-grid"><label class="field">执行周期<input name="interval_value" type="number" min="${60/scale}" max="${86400/scale}" step="any" value="${period.value}" required></label><label class="field">周期单位<select name="interval_unit">${Object.entries(periodUnits).map(([key,item])=>`<option value="${key}" ${key===period.unit?'selected':''}>${item.label}</option>`).join('')}</select></label></div><p class="muted">支持1分钟至1天，数值按所选单位保存。</p>`,{kind:'schedule',source,plan},'保存计划');
 }
 async function viewRuns(source,{id='',time='',batch=''}={}){
   if(id||batch){await openTask(batch||id,Boolean(batch));return;}

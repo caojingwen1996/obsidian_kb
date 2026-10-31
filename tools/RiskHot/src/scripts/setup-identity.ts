@@ -24,6 +24,6 @@ if (!users[0]) {
 if (!users[0]) throw new Error('IDENTITY_OPERATOR_MISSING');
 const db = database('ADMIN_DATABASE_URL');
 try {
-  await db.query("INSERT INTO platform.actors(subject,permissions,source_keys) VALUES($1,ARRAY['read','submit','source_admin','retry','model_budget','model_review'],ARRAY['*']) ON CONFLICT(subject) DO UPDATE SET permissions=EXCLUDED.permissions,source_keys=EXCLUDED.source_keys", [users[0].id]);
+  await db.query("INSERT INTO platform.actors(subject,permissions,source_keys) VALUES($1,ARRAY['read','submit','source_admin','retry','model_budget','model_review','event_submit','event_review','event_commit','candidate_disposition','event_retry','event_recompute'],ARRAY['*']) ON CONFLICT(subject) DO UPDATE SET permissions=EXCLUDED.permissions,source_keys=EXCLUDED.source_keys", [users[0].id]);
   console.log('Dedicated local identity realm and explicitly authorized operator initialized.');
 } finally { await db.end(); }

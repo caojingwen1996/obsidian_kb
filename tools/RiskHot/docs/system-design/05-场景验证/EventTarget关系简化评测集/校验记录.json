@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-29",
+  "scope": "仅评测集静态校验，不是模型或数据库评测",
+  "status": "passed",
+  "case_count": 16,
+  "determinable_cases": 14,
+  "pending_rule_cases": 2,
+  "repository_sources": 6,
+  "user_proposals": 1,
+  "checks": [
+    "JSONL解析及唯一编号",
+    "用例输入与断言完整",
+    "依据ID有效",
+    "6份来源文件SHA-256与摘录一致",
+    "16例阅读版覆盖",
+    "新文档双链有效",
+    "新文件UTF-8无替换或私用字符",
+    "4份修改Markdown表格检查通过"
+  ],
+  "model_evaluation": "not_run",
+  "database_evaluation": "not_run",
+  "dataset_version": "0.2.0",
+  "information_checks": {
+    "status": "passed",
+    "information_count": 160,
+    "source_count": 26,
+    "segment_count": 1479,
+    "unique_content_groups": 145,
+    "repeated_content_groups": 9,
+    "checks": [
+      "样本编号与版本ID唯一",
+      "所有input与原交付包逐项相同",
+      "逐文件摘要与字节数一致",
+      "分段非空且ID唯一",
+      "分段正文摘要分组一致",
+      "未包含凭证字段",
+      "新输入与说明UTF-8无替换或私用字符",
+      "新文档双链有效"
+    ],
+    "gold_labels_available": false,
+    "model_evaluation": "not_run",
+    "database_evaluation": "not_run"
+  }
+}

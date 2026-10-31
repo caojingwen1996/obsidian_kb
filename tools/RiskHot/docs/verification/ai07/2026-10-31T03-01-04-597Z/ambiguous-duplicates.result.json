@@ -1,0 +1,56 @@
+{
+  "case_id": "ambiguous-duplicates",
+  "expected": {
+    "decision": "UNRESOLVED",
+    "matches": [
+      true,
+      true
+    ],
+    "matched_target_id": null
+  },
+  "input_digest": "cfe61e779ada9195e9b793014c0d3a20f7bf9dc24ac910cb2c172e3a539bf077",
+  "passed": true,
+  "output": {
+    "object_ref": "treasury-7y",
+    "decision": "UNRESOLVED",
+    "matched_target_id": null,
+    "comparisons": [
+      {
+        "target_id": "00000000-0000-4000-8000-000000000001",
+        "identity_match": true,
+        "reason": "名称指向同一CUSIP 91282CRV5；分类、美国辖区、7年期Note范围、2026-11-02发行及2033-10-31到期身份均一致，候选有效。",
+        "basis_refs": [
+          "object:treasury-7y:0",
+          "target:00000000-0000-4000-8000-000000000001:1"
+        ]
+      },
+      {
+        "target_id": "00000000-0000-4000-8000-000000000002",
+        "identity_match": true,
+        "reason": "名称指向同一CUSIP 91282CRV5；分类、美国辖区、7年期Note范围、2026-11-02发行及2033-10-31到期身份均一致，候选有效。",
+        "basis_refs": [
+          "object:treasury-7y:0",
+          "target:00000000-0000-4000-8000-000000000002:1"
+        ]
+      }
+    ],
+    "reason": "两个有效候选均与当前对象身份一致，无法唯一确定复用目标，建议人工核定重复候选。",
+    "basis_refs": [
+      "object:treasury-7y:0",
+      "target:00000000-0000-4000-8000-000000000001:1",
+      "target:00000000-0000-4000-8000-000000000002:1"
+    ],
+    "unresolved_issues": [
+      "候选00000000-0000-4000-8000-000000000001与00000000-0000-4000-8000-000000000002均匹配同一国债发行批次，需人工核定应保留并复用的唯一目标。"
+    ]
+  },
+  "usage": {
+    "input_tokens": 15804,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 424,
+    "reasoning_output_tokens": 0
+  },
+  "structure_valid": true,
+  "elapsed_ms": 9358
+}

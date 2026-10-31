@@ -13,7 +13,7 @@
       <ol class="startup-checks" id="startup-checks" aria-label="启动检查日志" aria-busy="true"><li class="startup-check is-loading"><strong class="startup-check-label">初始化市场面板...</strong><p><span class="startup-check-state" aria-label="检查中">[··]</span><span class="startup-check-detail">正在载入检查程序…</span></p></li></ol>
       <footer class="startup-footer">
         <p id="startup-summary" role="status" aria-live="polite">正在准备检查…</p>
-        <div class="startup-actions"><button class="button-secondary" id="startup-retry" type="button" hidden>重新检查</button><button class="button-secondary" id="startup-enter" type="button">先进入面板</button></div>
+        <div class="startup-actions"><button class="button-secondary" id="startup-retry" type="button" hidden>重新检查</button><button class="button-secondary" id="startup-enter" type="button" disabled>正在检查数据…</button></div>
       </footer>
       <noscript><p>需要启用 JavaScript 才能检查数据和使用面板。启用后请重新加载页面。</p></noscript>
     </div>
@@ -170,7 +170,13 @@
             <a class="button-secondary" id="nasdaq-grid-source-link" href="https://finance.yahoo.com/quote/%5ENDX/" target="_blank" rel="noopener noreferrer">查看指数行情</a>
           </header>
 
-          <!-- NDX_DAY_CHART -->
+          <details class="dividend-history-disclosure" open>
+            <summary>年度收益与历史统计 <span>纳斯达克100指数 · 月度收益、年度表现与涨跌天数</span></summary>
+            <div class="dividend-history-body">
+              <div id="nasdaq-annual-detail"></div>
+              <!-- NDX_DAY_CHART -->
+            </div>
+          </details>
           <section class="nasdaq-grid-controls" aria-labelledby="nasdaq-grid-settings-heading">
             <div>
               <h3 id="nasdaq-grid-settings-heading">金额设置</h3>

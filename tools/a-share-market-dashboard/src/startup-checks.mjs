@@ -1,6 +1,39 @@
 const STARTUP_STATUS_LABELS = Object.freeze({ loading: '检查中', passed: '通过', warning: '待验证', failed: '失败' });
 const STARTUP_STATUS_MARKERS = Object.freeze({ loading: '[··]', passed: '[OK]', warning: '[待验证]', failed: '[失败]' });
 
+const MARKET_STARTUP_ITEMS = Object.freeze({
+  shanghaiHistory: ['上证指数', '/api/eastmoney-kline'],
+  csi300History: ['沪深300', '/api/eastmoney-kline、/api/csindex-performance'],
+  csiAllHistory: ['中证全指', '/api/eastmoney-kline、/api/csindex-performance'],
+  csi300Stats: ['沪深300估值', '/api/csindex-performance'],
+  turnoverHistory: ['成交额历史', '/api/csindex-performance'],
+  forwardPe: ['预测市盈率', ''],
+  treasury: ['中国国债收益率', '/api/treasury'],
+  usTreasury10y: ['美国国债收益率', '/api/us-treasury-yield'],
+  usDollarIndex: ['美元指数', '/api/us-dollar-index'],
+  usdJpy: ['美元兑日元', '/api/usd-jpy'],
+  market: ['全市场行情', '/api/market'],
+  margin: ['融资余额', '/api/margin'],
+});
+
+export function marketStartupResult(snapshot, definitions) {
+  const entries = definitions.map(definition => ({ definition, entry: snapshot?.domains?.[definition.id] }));
+  const latest = entries.filter(({ entry }) => snapshot?.mode === 'live' && entry?.status === 'latest').length;
+  const pending = entries.filter(({ entry }) => snapshot?.mode === 'live' && entry?.status === 'loading').length;
+  const issues = entries.filter(({ entry }) => snapshot?.mode !== 'live' || !['latest', 'loading'].includes(entry?.status));
+  const lines = issues.map(({ definition, entry }) => {
+    const [label, endpoint] = MARKET_STARTUP_ITEMS[definition.id] ?? [definition.id, ''];
+    if (!definition.providers?.length) return `${label}：未配置数据源，未发起接口请求。`;
+    const state = ({ loading: '正在读取', snapshot: '仅有缓存', expired: '缓存已过期', missing: '读取失败', example: '仅有示例数据' })[entry?.status] ?? '尚未取得真实数据';
+    const reason = entry?.errors?.length ? entry.errors.join('；') : '未取得可验证的最新结果';
+    return `${label}：${state}；${endpoint || definition.providers.map(provider => provider.name).join(' / ')}\n${reason}`;
+  });
+  return {
+    status: entries.length > 0 && !issues.length && !pending ? 'passed' : 'warning',
+    detail: [`${latest} / ${entries.length} 项最新数据${pending ? `；${pending} 项读取中` : ''}${issues.length ? `；${issues.length} 项未取得最新数据，明细如下：` : pending ? '。' : '，已重算指标。'}`, ...lines].join('\n'),
+  };
+}
+
 export function startupCheckSummary(items) {
   const completed = items.filter(item => item.status !== 'loading').length;
   const issues = items.filter(item => ['warning', 'failed'].includes(item.status)).length;
@@ -15,7 +48,7 @@ export function renderStartupChecks(items) {
   }).join('');
 }
 
-export async function runStartupChecks(checks, { onUpdate = () => {}, timeoutMs = 20_000 } = {}) {
+export async function runStartupChecks(checks, { onUpdate = () => {}, timeoutMs = 65_000 } = {}) {
   if (new Set(checks.map(check => check.id)).size !== checks.length) throw new Error('启动检查项目重复');
   const items = checks.map(check => ({ id: check.id, label: check.label, status: 'loading', detail: '正在读取…' }));
   const emit = () => onUpdate(items.map(item => ({ ...item })));
@@ -23,6 +56,15 @@ export async function runStartupChecks(checks, { onUpdate = () => {}, timeoutMs 
   await Promise.all(checks.map(async (check, index) => {
     let settled = false;
     let timer;
+    let timedOut = false;
+    const reconcile = result => {
+      if (!result || !['passed', 'warning', 'failed'].includes(result.status)) throw new Error('检查结果无效');
+      if (timedOut) {
+        Object.assign(items[index], { status: result.status, detail: String(result.detail ?? '') });
+        emit();
+      }
+      return result;
+    };
     const report = detail => {
       if (settled) return;
       items[index].detail = String(detail);
@@ -30,9 +72,15 @@ export async function runStartupChecks(checks, { onUpdate = () => {}, timeoutMs 
     };
     try {
       const result = await Promise.race([
-        Promise.resolve().then(() => check.run(report)),
+        Promise.resolve().then(() => check.run(report)).then(reconcile).catch(error => {
+          if (timedOut) reconcile({ status: 'failed', detail: error instanceof Error ? error.message : String(error) });
+          throw error;
+        }),
         new Promise(resolve => {
-          timer = setTimeout(() => resolve({ status: 'warning', detail: '检查超时，后台仍在读取。可进入面板查看，或重新检查。' }), timeoutMs);
+          timer = setTimeout(() => {
+            timedOut = true;
+            resolve({ status: 'warning', detail: '检查超时，最新数据尚未确认；可重新检查，或查看已取得的数据。后台结果返回后会更新状态。' });
+          }, timeoutMs);
         }),
       ]);
       if (!result || !['passed', 'warning', 'failed'].includes(result.status)) throw new Error('检查结果无效');
@@ -59,6 +107,8 @@ export function createStartupScreen() {
   const reducedMotion = globalThis.matchMedia('(prefers-reduced-motion: reduce)');
   const rows = new Map();
   let dismissed = false;
+  let canEnter = false;
+  enterButton.disabled = true;
   let autoEnterTimer;
   const actions = enterButton.parentElement;
   const cancelAutoEnter = () => {
@@ -76,7 +126,7 @@ export function createStartupScreen() {
     element.animate(keyframes, { duration: 260, easing: 'cubic-bezier(.16, 1, .3, 1)', fill: 'backwards', ...options });
   };
   const enter = () => {
-    if (dismissed) return;
+    if (dismissed || !canEnter) return;
     dismissed = true;
     clearTimeout(autoEnterTimer);
     actions.removeEventListener('pointerenter', cancelAutoEnter);
@@ -137,10 +187,12 @@ export function createStartupScreen() {
     screen.style.setProperty('--startup-progress', String(result.total ? result.completed / result.total : 0));
     status.textContent = result.ready ? result.passed ? '系统就绪' : '检查完成' : '初始化中...';
     summary.textContent = result.ready
-      ? result.passed ? `[OK] ${result.total} 项检查通过，请选择操作。` : `> 检查完成：${result.issues} 项待验证，可进入面板或重试。`
+      ? result.passed ? `[OK] ${result.total} 项检查通过，请选择操作。` : `> ${result.issues} 组检查存在异常，具体数据与原因见上方明细。可重新检查，或查看已取得的数据。`
       : `> 已完成 ${result.completed} / ${result.total} 项检查，正在读取数据`;
     retryButton.hidden = !result.ready;
-    enterButton.textContent = result.ready ? '进入面板' : '先进入面板';
+    canEnter = result.ready && result.total > 0;
+    enterButton.disabled = !canEnter;
+    enterButton.textContent = !canEnter ? '正在检查数据…' : result.passed ? '进入面板' : '查看已取得的数据';
   };
   return {
     enter,

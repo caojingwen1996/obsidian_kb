@@ -1,0 +1,24 @@
+{
+  "checked_at": "2026-10-29T09:00:02.908Z",
+  "table": "m1.sources",
+  "field": "financial_attributes",
+  "definition": {
+    "data_type": "ARRAY",
+    "udt_name": "_text",
+    "is_nullable": "NO",
+    "column_default": "'{}'::text[]"
+  },
+  "source_count": 40,
+  "classified": 0,
+  "existing_fields_preserved": true,
+  "counts_before": {
+    "tasks": 1,
+    "material": 1,
+    "schedules": 40
+  },
+  "counts_after": {
+    "tasks": 1,
+    "material": 1,
+    "schedules": 40
+  }
+}

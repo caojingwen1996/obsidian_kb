@@ -2,6 +2,7 @@ import { readFile, readdir, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { resolve, relative } from 'node:path';
 import vm from 'node:vm';
+import { parsePromptDocument, promptDirectory } from '../platform/pipeline-prompt.js';
 
 const root = resolve(import.meta.dirname, '../..');
 const prototype = 'docs/system-design/06产品UI原型设计/';
@@ -24,9 +25,10 @@ vm.runInContext(app.slice(0, app.indexOf('const strategies =')), context, { time
 const evaluate = (expression: string): any => JSON.parse(vm.runInContext(`JSON.stringify(${expression})`, context));
 const system = evaluate('SYSTEM_PANORAMA');
 const sources = evaluate('FLOW_SOURCES');
+sources.FINANCIAL = { title: '金融意义', path: 'docs/system-design/03-系统功能架构/金融意义.md' };
 const tasks = evaluate('tasks');
 const definitions = evaluate('TASK_DEFINITION_REFERENCES');
-const documents: Record<string, { path: string; title: string; sha256: string }> = {};
+const documents: Record<string, { path: string; title: string; sha256?: string; livePrompt?: boolean }> = {};
 const registerDocument = async (path: string, title: string) => {
   const key = digest(path).slice(0, 16);
   const body = await input(path);
@@ -43,37 +45,52 @@ for (const ref of Object.values(definitions) as any[]) {
 }
 
 const prompts: Record<string, unknown> = {};
-const promptDirectory = 'docs/system-design/03-系统功能架构/AI任务与提示词';
 for (const name of (await readdir(resolve(root, promptDirectory))).filter(name => name.endsWith('.md')).sort()) {
-  const path = `${promptDirectory}/${name}`, body = await input(path);
-  const metadata = /^---\r?\n([\s\S]*?)\r?\n---\r?\n/.exec(body)?.[1];
-  if (!metadata) throw new Error(`提示词缺少元数据：${path}`);
-  const fields = Object.fromEntries([...metadata.matchAll(/^([a-z_]+):\s*(.+)$/gm)].map(match => [match[1], match[2]!.trim()]));
-  if (!fields.task_id || !fields.title || !fields.version || !fields.status || prompts[fields.task_id]) throw new Error(`提示词元数据无效：${path}`);
-  const section = /^## 3\. 提示词正文\s*\n([\s\S]*?)(?=^## |$\s*(?![\s\S]))/m.exec(body)?.[1];
-  const blocks = section ? [...section.matchAll(/^```text\r?\n([\s\S]*?)\r?\n```/gm)] : [];
-  if (blocks.length !== 1) throw new Error(`提示词正文必须有一个text代码块：${path}`);
-  prompts[fields.task_id] = { title: fields.title, version: fields.version, status: fields.status,
-    sourcePath: path, sourceHref: await registerDocument(path, fields.title), sourceSha256: digest(body), body: blocks[0]![1] };
+  const path = `${promptDirectory}/${name}`, body = await readFile(resolve(root, path), 'utf8');
+  // Field-only notes have no published prompt identity or complete body.
+  if (!/^task_id:/m.test(body)) continue;
+  const { task_id } = parsePromptDocument(body, path);
+  if (prompts[task_id]) throw new Error(`提示词任务重复：${path}`);
+  const key = digest(path).slice(0, 16);
+  documents[key] = { path, title: `${task_id} 提示词`, livePrompt: true };
+  // Only identity and source location are generated; content is read per HTTP request.
+  prompts[task_id] = { sourcePath: path, sourceHref: `/pipeline/documents/${key}` };
 }
 
 // The prototype's EventUpdate concept predates the current Fact contract. Keep its
 // layout and graph, while quoting the current definitions from their owning document.
 const f02Path = 'docs/system-design/03-系统功能架构/F02 事件管理模块功能设计 V1.0.md';
 const f02 = await input(f02Path);
-const paragraph = (heading: string) => {
+const domainRow = (heading: string, term: string) => {
   const start = f02.indexOf(heading);
   if (start < 0) throw new Error(`缺少概念章节：${heading}`);
-  return f02.slice(start + heading.length).split('\n### ')[0]!.trim();
+  const section = f02.slice(start + heading.length).split(/\n#{2,3} /)[0]!;
+  const row = section.split('\n').filter(line => line.startsWith('|'))
+    .map(line => line.split(/(?<!\\)\|/).slice(1, -1).map(cell => cell.trim()))
+    .find(cells => cells[0] === term);
+  if (!row || row.length !== 3 || !row[1] || !row[2]) throw new Error(`缺少有效领域定义：${heading} / ${term}`);
+  return row;
 };
 const module = system.stages.flatMap((stage: any) => stage.modules ?? []).find((item: any) => item.code === 'F02');
-module.conceptSections = '§3.1～3.6';
+module.conceptSections = '§3.1～3.3';
 module.concepts = [
-  { name: '事件', term: 'Event', definition: paragraph('### 3.2 Event：稳定事件身份'), boundary: paragraph('### 3.1 核心关系与所有权') },
-  { name: '候选事实', term: 'Fact', definition: paragraph('### 3.6 Fact：候选事件'), boundary: paragraph('### 3.4 候选事实的来源与原文证据') },
-  { name: '观测主体', term: 'Target', definition: paragraph('### 3.3 Target：事件的观测主体'), boundary: '' },
-  { name: '直接变量', term: 'Variable', definition: paragraph('### 3.5 事件、观测主体与直接变量'), boundary: '' },
-];
+  { name: '事件', term: 'Event' },
+  { name: '候选事实', term: 'Fact' },
+  { name: '观测主体', term: 'Target' },
+  { name: '直接变量', term: 'Variable' },
+].map(concept => ({ ...concept,
+  definition: domainRow('### 3.1 领域本体', concept.term)[1],
+  boundary: domainRow('### 3.1 领域本体', concept.term)[2],
+}));
+
+// Reviewed F02 nodes use their own display definitions, never legacy executable contracts.
+for (const node of system.nodes.filter((node: any) => node.module === 'F02' && node.reviewed && node.type === 'AI' && node.task)) {
+  const source = sources[node.source];
+  tasks.push({ id: node.task, version: node.taskVersion, name: node.name, reviewed: true,
+    summary: node.summary, ruleDetail: node.ruleDetail, sourceHref: source.path, sourceTitle: source.title,
+    section: node.section, inputDescription: node.inputDescription, outputDescription: node.outputDescription,
+    pending: '提示词、机器契约与运行接入状态见来源文档。', nodeId: node.id });
+}
 
 const usage = evaluate(`Object.entries(DOMAIN_FLOWS).filter(([id])=>id!=='system').map(([id,flow])=>({id,source:flow.source,tasks:[...new Set(flow.nodes.filter(n=>n.type==='AI').map(n=>n.task))]}))`);
 const graph = { sources, system, inputs };

@@ -1,0 +1,353 @@
+[
+  {
+    "catalog_key": "wiki-source-001",
+    "name": "中国人民银行",
+    "financial_attributes": [
+      "钱的数量",
+      "钱的价格",
+      "钱的流向"
+    ],
+    "reason": "公开市场净投放、社融与贷款规模对应数量；政策及贷款利率对应价格；结构性工具及信贷投向对应流向。"
+  },
+  {
+    "catalog_key": "wiki-source-002",
+    "name": "财政部",
+    "financial_attributes": [
+      "钱的数量",
+      "钱的流向"
+    ],
+    "reason": "财政收支与债券净融资反映财政资金规模；支出与募集资金用途反映流向。"
+  },
+  {
+    "catalog_key": "wiki-source-003",
+    "name": "债务管理司",
+    "financial_attributes": [
+      "钱的数量",
+      "钱的流向"
+    ],
+    "reason": "政府债券发行、债务余额与偿付反映融资规模及资金用途，发行总额不能等同净投放。"
+  },
+  {
+    "catalog_key": "wiki-source-004",
+    "name": "国家外汇管理局",
+    "financial_attributes": [
+      "钱的数量",
+      "钱的流向"
+    ],
+    "reason": "外储规模对应数量；结售汇、国际收支和跨境收支对应流向。当前连接器仅覆盖外储公告，流向属于已登记研究范围。"
+  },
+  {
+    "catalog_key": "wiki-source-005",
+    "name": "中国货币网市场行情",
+    "financial_attributes": [
+      "钱的价格"
+    ],
+    "reason": "当前DR007日终加权利率入口，观察实际短端资金成本。"
+  },
+  {
+    "catalog_key": "wiki-source-006",
+    "name": "中国货币网回购定盘利率",
+    "financial_attributes": [
+      "钱的价格"
+    ],
+    "reason": "FDR007回购定盘利率入口，观察短端定盘价格。"
+  },
+  {
+    "catalog_key": "wiki-source-007",
+    "name": "中国货币网利率互换曲线",
+    "financial_attributes": [
+      "钱的价格"
+    ],
+    "reason": "FR007利率互换曲线，观察市场利率预期。"
+  },
+  {
+    "catalog_key": "wiki-source-008",
+    "name": "中国货币网债券收盘曲线",
+    "financial_attributes": [
+      "钱的价格"
+    ],
+    "reason": "国债及同业存单收益率曲线，观察期限和信用对应的资金价格。"
+  },
+  {
+    "catalog_key": "wiki-source-009",
+    "name": "中国债券信息网",
+    "financial_attributes": [
+      "钱的价格"
+    ],
+    "reason": "当前关注国债与同业存单收益率，按已登记用途归入价格。"
+  },
+  {
+    "catalog_key": "wiki-source-010",
+    "name": "中国货币网LPR",
+    "financial_attributes": [
+      "钱的价格"
+    ],
+    "reason": "LPR属于贷款报价参考，不代表所有借款人的实际融资利率。"
+  },
+  {
+    "catalog_key": "wiki-source-011",
+    "name": "国家金融监督管理总局",
+    "financial_attributes": [
+      "钱的数量",
+      "钱的流向"
+    ],
+    "reason": "银行信贷与保险业统计反映信用规模；保险资金配置和监管约束对应流向。"
+  },
+  {
+    "catalog_key": "wiki-source-012",
+    "name": "中国证监会",
+    "financial_attributes": [
+      "钱的数量",
+      "钱的流向"
+    ],
+    "reason": "发行融资与杠杆制度影响资金可得性；交易及配置规则影响资金去向，规则不等于实际流量。"
+  },
+  {
+    "catalog_key": "wiki-source-013",
+    "name": "上交所融资融券数据",
+    "financial_attributes": [
+      "钱的数量",
+      "钱的流向"
+    ],
+    "reason": "融资余额观察杠杆资金规模，融资买入与偿还观察权益市场资金行为；余额变化不直接等同净现金流。"
+  },
+  {
+    "catalog_key": "wiki-source-014",
+    "name": "深交所信息披露",
+    "financial_attributes": [
+      "钱的数量",
+      "钱的流向"
+    ],
+    "reason": "登记范围为发行融资、两融与交易制度；对应数量及流向线索。"
+  },
+  {
+    "catalog_key": "wiki-source-015",
+    "name": "巨潮资讯",
+    "financial_attributes": [
+      "钱的数量",
+      "钱的价格",
+      "钱的流向"
+    ],
+    "reason": "企业财报及融资公告可观察现金与融资规模、利息成本、募集资金用途及回购减持；当前采集仅为公告索引，具体值需正文。"
+  },
+  {
+    "catalog_key": "wiki-source-016",
+    "name": "港交所披露易",
+    "financial_attributes": [
+      "钱的数量",
+      "钱的价格",
+      "钱的流向"
+    ],
+    "reason": "企业财报及发行文件覆盖现金规模、融资成本及资金用途；当前接入为公告列表。"
+  },
+  {
+    "catalog_key": "wiki-source-017",
+    "name": "发行人投资者关系官网",
+    "financial_attributes": [
+      "钱的数量",
+      "钱的价格",
+      "钱的流向"
+    ],
+    "reason": "按已登记的企业财报、融资、回购和股东行为研究用途分三类；尚未指定发行人网址，分类不代表接入就绪。"
+  },
+  {
+    "catalog_key": "wiki-source-018",
+    "name": "国家统计局",
+    "financial_attributes": [
+      "钱的价格"
+    ],
+    "reason": "间接关联：通胀与增长数据用于判断利率预期和实际融资成本背景。CPI/PPI本身不是钱的价格，也不是资金流。"
+  },
+  {
+    "catalog_key": "wiki-source-019",
+    "name": "美联储",
+    "financial_attributes": [
+      "钱的数量",
+      "钱的价格"
+    ],
+    "reason": "资产负债表与货币工具影响美元数量，议息决议与政策利率影响资金价格。"
+  },
+  {
+    "catalog_key": "wiki-source-020",
+    "name": "H.15利率统计",
+    "financial_attributes": [
+      "钱的价格"
+    ],
+    "reason": "H.15是专门利率统计入口，不因共用美联储说明而附加数量属性。"
+  },
+  {
+    "catalog_key": "wiki-source-021",
+    "name": "纽约联储参考利率",
+    "financial_attributes": [
+      "钱的价格"
+    ],
+    "reason": "当前EFFR与SOFR参考利率入口，主要用途为短端资金价格；成交量不视为货币供应量。"
+  },
+  {
+    "catalog_key": "wiki-source-022",
+    "name": "CME联邦基金期货",
+    "financial_attributes": [
+      "钱的价格"
+    ],
+    "reason": "联邦基金期货反映利率路径预期，属于市场定价。"
+  },
+  {
+    "catalog_key": "wiki-source-023",
+    "name": "三个月SOFR期货",
+    "financial_attributes": [
+      "钱的价格"
+    ],
+    "reason": "三个月SOFR期货反映期限利率预期。"
+  },
+  {
+    "catalog_key": "wiki-source-024",
+    "name": "美国财政部利率统计",
+    "financial_attributes": [
+      "钱的价格"
+    ],
+    "reason": "名义国债曲线及实际收益率研究用途，观察期限资金成本。"
+  },
+  {
+    "catalog_key": "wiki-source-025",
+    "name": "Freddie Mac PMMS",
+    "financial_attributes": [
+      "钱的价格"
+    ],
+    "reason": "按揭利率统计，观察居民融资价格。"
+  },
+  {
+    "catalog_key": "wiki-source-026",
+    "name": "美国财政部国债拍卖数据",
+    "financial_attributes": [
+      "钱的数量",
+      "钱的价格"
+    ],
+    "reason": "拍卖发行和中标规模对应数量，high_rate/high_yield对应价格；不将政府拍卖误作企业披露。"
+  },
+  {
+    "catalog_key": "wiki-source-027",
+    "name": "SEC EDGAR",
+    "financial_attributes": [
+      "钱的数量",
+      "钱的价格",
+      "钱的流向"
+    ],
+    "reason": "企业财务和发行文件包含现金与融资规模、利息费用和债务条款、投资及股东回报；按企业披露用途分类。"
+  },
+  {
+    "catalog_key": "wiki-source-028",
+    "name": "中国人民银行官方微信、微博",
+    "financial_attributes": [
+      "钱的数量",
+      "钱的价格",
+      "钱的流向"
+    ],
+    "reason": "与央行登记研究范围一致：货币投放、政策利率及结构性政策投向；账号地址尚待补充。"
+  },
+  {
+    "catalog_key": "wiki-source-029",
+    "name": "财政部政务微信",
+    "financial_attributes": [
+      "钱的数量",
+      "钱的流向"
+    ],
+    "reason": "财政收支、政策及债券发行信息对应规模与支出方向；账号地址尚待补充。"
+  },
+  {
+    "catalog_key": "wiki-source-030",
+    "name": "证监会发布",
+    "financial_attributes": [
+      "钱的数量",
+      "钱的流向"
+    ],
+    "reason": "资本市场融资和交易监管政策提供数量与流向的制度线索，不等于实际到账。"
+  },
+  {
+    "catalog_key": "wiki-source-031",
+    "name": "统计微讯 / 微博“中国统计”",
+    "financial_attributes": [
+      "钱的价格"
+    ],
+    "reason": "间接关联：统计发布及口径说明服务通胀、增长与利率预期判断；物价指标不直接当作融资价格。"
+  },
+  {
+    "catalog_key": "wiki-source-032",
+    "name": "上交所债券",
+    "financial_attributes": [
+      "钱的数量",
+      "钱的价格",
+      "钱的流向"
+    ],
+    "reason": "债券发行与市场服务对应融资规模、发行条款及资金用途；需具体公告核对，账号尚待补地址。"
+  },
+  {
+    "catalog_key": "wiki-source-033",
+    "name": "冰冰小美（雪球）",
+    "financial_attributes": [
+      "钱的数量",
+      "钱的价格",
+      "钱的流向"
+    ],
+    "reason": "库内金融信息框架及利率与流动性时间线覆盖货币数量、利率、信用投向；作为观点及研究线索。"
+  },
+  {
+    "catalog_key": "wiki-source-034",
+    "name": "买股票的老木匠（雪球）",
+    "financial_attributes": [
+      "钱的数量",
+      "钱的价格",
+      "钱的流向"
+    ],
+    "reason": "库内利率与流动性时间线涉及缩表与信用、利率及汇率、跨境回流与买家结构；作为观点线索，不采信其读数为已核实事实。"
+  },
+  {
+    "catalog_key": "wiki-source-035",
+    "name": "美股C姐（微博）",
+    "financial_attributes": [],
+    "reason": "待确认：当前档案只有账号与回源要求，未找到足够内容依据判断稳定关注属性。"
+  },
+  {
+    "catalog_key": "wiki-source-036",
+    "name": "墅姐（微博）",
+    "financial_attributes": [],
+    "reason": "待确认：当前档案只有账号与观点归属说明，未找到足够内容依据判断稳定关注属性。"
+  },
+  {
+    "catalog_key": "wiki-source-037",
+    "name": "格隆汇",
+    "financial_attributes": [
+      "钱的数量",
+      "钱的价格",
+      "钱的流向"
+    ],
+    "reason": "综合跨市场财经快讯用于检索货币融资、利率及企业资金行为，三类为检索范围标签，逐篇内容仍需判断。"
+  },
+  {
+    "catalog_key": "wiki-source-038",
+    "name": "财联社",
+    "financial_attributes": [
+      "钱的数量",
+      "钱的价格",
+      "钱的流向"
+    ],
+    "reason": "综合财经事件入口，按三类作为检索范围；快讯转述需回公告或统计核实。"
+  },
+  {
+    "catalog_key": "wiki-source-039",
+    "name": "华尔街见闻",
+    "financial_attributes": [
+      "钱的数量",
+      "钱的价格",
+      "钱的流向"
+    ],
+    "reason": "全球财经快讯与市场解读用于三类主题检索，标签不代表每条新闻均覆盖三类。"
+  },
+  {
+    "catalog_key": "wiki-source-040",
+    "name": "FRED",
+    "financial_attributes": [
+      "钱的价格"
+    ],
+    "reason": "当前接入明确为DPRIME贷款基准利率序列，按实际选用序列归入价格，不将整个FRED数据库泛标三类。"
+  }
+]

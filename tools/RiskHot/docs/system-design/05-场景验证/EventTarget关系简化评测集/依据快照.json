@@ -1,0 +1,73 @@
+{
+  "version": "0.1.0",
+  "captured_on": "2026-10-29",
+  "sources": [
+    {
+      "id": "S01",
+      "title": "领域边界",
+      "path": "docs/system-design/02-业务架构与领域设计/RiskHot_L0_信息处理层_业务架构与领域设计V1.0.md",
+      "line_start": 850,
+      "line_end": 900,
+      "sha256": "b54e76cddaba084fae55715cfbdc239c84328d8d4abe0edbdc682bd8d79de0f0",
+      "excerpt": "#### 4.3.7 EventTarget：事件—观测主体关联\n\n**基本信息**：Event 聚合内的主体关联，以 `(event_id,target_id)` 标识；只表达本次事件涉及该主体。\n\n**属性**（逻辑存储名 `event_target`）：\n\n| 字段              | 建议类型        | 说明            |\n| --------------- | ----------- | ------------- |\n| `event_id`      | FK          | 事件            |\n| `target_id`     | FK          | 事件的观测主体       |\n| `relation_note` | TEXT / NULL | 事件如何作用于该对象的简述 |\n\n\n**联合主键**：`(event_id, target_id)`。\n\n**领域行为**：将确认的观测主体关联到事件，说明本次关联依据；在纠错时核对受影响三元关系并保留历史。\n\n**业务不变量**：事件和主体引用必须有效，主体身份/范围明确；没有变量时允许本关系单独存在。已有三元关系依赖时，不能不处理依赖就孤立移除主体关联。\n\n#### 4.3.8 EventTargetVariable：事件—观测主体—变量关联\n\n**基本信息**：Event 聚合内的三元关联，以 `(event_id,target_id,variable_id)` 标识；不等于对变量未来传导作用的分析。\n\n**属性**（逻辑存储名 `event_target_variable`）：\n\n| 字段                 | 建议类型        | 说明                    |\n| ------------------ | ----------- | --------------------- |\n| `event_id`     | **FK**      | **具体事件**              |\n| `target_id`    | **FK**      | **该事件的具体观测主体**        |\n| `variable_id`  | **FK**      | **本次事件涉及的统一变量**       |\n| `relation_type`    | ENUM / NULL | 直接改变、宣布调整、已观察变化等      |\n| `change_direction` | ENUM / NULL | 上升、下降、不变、未知；只记录有依据的方向 |\n| `impact_status`    | ENUM / NULL | 预计、已宣布、执行中、已有观测结果     |\n| `description`      | TEXT / NULL | 变量关联及具体变化说明           |\n| `information_id`   | FK / NULL   | 对应支持本条关联的原始材料         |\n| `created_at`       | TIMESTAMPTZ | 建立时间                  |\n\n\n**联合主键**：`(event_id, target_id, variable_id)`。\n\n**一致性约束**：\n\n1. 外键 `(event_id, target_id)` 引用 `event_target(event_id, target_id)`。\n2. `variable_id` 引用全局 `variable_config(variable_id)`。\n3. `information_id` 如填写，应已关联此 Event；可用应用层校验，或通过复合外键实现。\n4. 不要求 `(target_id, variable_id)` 在单独配置表中存在；这是本轮设计的明确结论。\n5. 事件影响的具体数值与未来风险作用可在后续证据、指标或风险分析模型中管理，避免在本表反复创建派生判断。\n\n**领域行为**：校验已有 EventTarget 与正式变量；按直接证据记录关联类型、方向、阶段及说明；后续证据改变关系时受控修订。\n\n**业务不变量**：必须有有效 EventTarget、M2 正式变量及已关联本事件的直接证据；允许没有三元关系，不允许填虚假 ID。范围和版本一致，后续传导推演留给风险层。",
+      "kind": "repository_evidence"
+    },
+    {
+      "id": "S02",
+      "title": "当前存储设计",
+      "path": "docs/system-design/04-系统架构设计/01-数据模型与存储设计/F02事件管理模块数据模型与存储设计.md",
+      "line_start": 147,
+      "line_end": 175,
+      "sha256": "f3917e9c86480f5b3a53ae68a0c5ac1e93e3041d892f41833a19251a45bc3c0c",
+      "excerpt": "## 6. 其他业务对象与关系\n\nTarget、Variable 的正式定义及版本继续由对应治理方维护。F02 不因取消事件版本而删除字典版本或模型运行依据。\n\n| 表 | 内容及键 | 规则 |\n| --- | --- | --- |\n| event_target | event_id、target_id 联合主键；relation_note、created_at、updated_at | 事件—观测主体关系；外键指向 Event 与正式主体 |\n| event_target_definition | event_id、target_id 联合主键；definition_snapshot_id | 关系使用的主体定义快照；引用 event_target 与有效快照 |\n| event_target_variable | event_id、target_id、variable_id 联合主键；relation_type、change_direction、impact_status、description、created_at、updated_at | 三元关系；复合外键引用 event_target，variable_id 引用正式变量 |\n| event_variable_definition | event_id、target_id、variable_id 联合主键；definition_snapshot_id | 对应三元关系实际采用的变量定义快照 |\n| event_target_fact | event_id、target_id、fact_id 联合主键 | 复合外键分别引用 event_target 与 event_fact，避免串用其他事件的候选 |\n| event_variable_fact | event_id、target_id、variable_id、fact_id 联合主键 | 复合外键引用三元关系与 event_fact |\n| event_rating | id 主键；assessment_scope、research_horizon、method_version、m、dimension_scores、financial_usages、reasoning_summary、limitations、rating_status、evaluated_at | 评价自身属性；不放 event_id、basis_revision_no、supersedes_rating_id |\n| event_rating_relation | rating_id 主键、event_id；UNIQUE(event_id, rating_id) | 两列外键分别指向评价与事件；一条评价只属于一个事件，一个事件可有多次评价 |\n| event_rating_fact | event_id、rating_id、fact_id 联合主键 | 复合外键分别引用 event_rating_relation 与 event_fact，固定评价依据 |\n| definition_snapshots | 沿用既有定义快照及不可变约束 | 是主体/变量定义版本，不是 Event 版本；保留 |\n\n本节所列字段除 m 可空外均为必填；JSONB 内部维度分数可按有效方法契约为空。上述关系表不使用对象表内的 ID 数组代替。event_target_variable 必须保存 description，避免丢失范围和限制。关系撤销需要明确决定与审计；本次候选没有提到某关系，不等于应删除旧关系。\n\n补充类型与约束：\n\n- 所有对象标识列为 UUID，关系文字为 TEXT，系统时间为 TIMESTAMPTZ；定义快照引用为 UUID。\n- relation_type：direct_change / direct_involvement / observed_change。\n- change_direction：increase / decrease / unchanged / unknown。\n- impact_status：expected / announced / effective / unknown。\n- assessment_scope、research_horizon、dimension_scores、financial_usages、limitations 用 JSONB，按有效方法契约校验；method_version、reasoning_summary、rating_status 用 TEXT。\n- m 为 NUMERIC(5,2)，可空，CHECK(m IS NULL OR m BETWEEN 0 AND 100)；rating_status 为 draft / confirmed / needs_reassessment。没有已批准量化方法时保持空分和 draft。\n- 一条评价至少一条本事件 Fact 依据；同一评价操作重复提交复用原记录。评价为独立业务判断，不保存 Event 的版本快照或前后版本链。\n- 可选定义缺口留在治理候选与运行记录，不造正式 Target/Variable。",
+      "kind": "repository_evidence"
+    },
+    {
+      "id": "S03",
+      "title": "当前建表SQL",
+      "path": "src/db/004-facts.sql",
+      "line_start": 36,
+      "line_end": 62,
+      "sha256": "03c29ed934fedd6043a0a940745251442b96749cf28515af50ba395ee6ceb4e3",
+      "excerpt": "CREATE TABLE information.event_target (\n event_id uuid REFERENCES information.event(id), target_id uuid NOT NULL, relation_note text NOT NULL,\n created_at timestamptz NOT NULL DEFAULT now(), updated_at timestamptz NOT NULL DEFAULT now(), PRIMARY KEY(event_id,target_id)\n);\nCREATE TABLE information.event_target_definition (\n event_id uuid, target_id uuid, definition_snapshot_id uuid NOT NULL REFERENCES information.definition_snapshots(id),\n PRIMARY KEY(event_id,target_id), FOREIGN KEY(event_id,target_id) REFERENCES information.event_target(event_id,target_id)\n);\nCREATE TABLE information.event_target_variable (\n event_id uuid, target_id uuid, variable_id uuid NOT NULL, relation_type text NOT NULL CHECK(relation_type IN ('direct_change','direct_involvement','observed_change')),\n change_direction text NOT NULL CHECK(change_direction IN ('increase','decrease','unchanged','unknown')),\n impact_status text NOT NULL CHECK(impact_status IN ('expected','announced','effective','unknown')),description text NOT NULL,\n created_at timestamptz NOT NULL DEFAULT now(),updated_at timestamptz NOT NULL DEFAULT now(),\n PRIMARY KEY(event_id,target_id,variable_id), FOREIGN KEY(event_id,target_id) REFERENCES information.event_target(event_id,target_id)\n);\nCREATE TABLE information.event_variable_definition (\n event_id uuid,target_id uuid,variable_id uuid,definition_snapshot_id uuid NOT NULL REFERENCES information.definition_snapshots(id),\n PRIMARY KEY(event_id,target_id,variable_id), FOREIGN KEY(event_id,target_id,variable_id) REFERENCES information.event_target_variable(event_id,target_id,variable_id)\n);\nCREATE TABLE information.event_target_fact (\n event_id uuid,target_id uuid,fact_id uuid,PRIMARY KEY(event_id,target_id,fact_id),\n FOREIGN KEY(event_id,target_id) REFERENCES information.event_target(event_id,target_id),FOREIGN KEY(event_id,fact_id) REFERENCES information.event_fact(event_id,fact_id)\n);\nCREATE TABLE information.event_variable_fact (\n event_id uuid,target_id uuid,variable_id uuid,fact_id uuid,PRIMARY KEY(event_id,target_id,variable_id,fact_id),\n FOREIGN KEY(event_id,target_id,variable_id) REFERENCES information.event_target_variable(event_id,target_id,variable_id),FOREIGN KEY(event_id,fact_id) REFERENCES information.event_fact(event_id,fact_id)\n);",
+      "kind": "repository_evidence"
+    },
+    {
+      "id": "S04",
+      "title": "当前提交逻辑",
+      "path": "src/event-management/commit.ts",
+      "line_start": 73,
+      "line_end": 98,
+      "sha256": "8e96e987d08ddeaee099078cec11086550d9bfad0a0ab2c83b0e163e4bc3ba3b",
+      "excerpt": "   const definition=async(kind:'target'|'variable',id:string,version:string)=>{\n    const d=packet.definitions[kind==='target'?'targets':'variables'].find(d=>d.id===id&&d.version===version&&d.status==='active');\n    if(!d)throw new DomainError('DEFINITION_INVALID');\n    const inserted=await tx.query('INSERT INTO information.definition_snapshots(kind,definition_id,definition_version,payload,digest) VALUES($1,$2,$3,$4,$5) ON CONFLICT DO NOTHING RETURNING id',[kind,id,version,d,digest(d)]);\n    const sid=inserted.rows[0]?.id??(await tx.query('SELECT id FROM information.definition_snapshots WHERE kind=$1 AND definition_id=$2 AND definition_version=$3 AND digest=$4',[kind,id,version,digest(d)])).rows[0]?.id;\n    if(!sid)throw new DomainError('DEFINITION_VERSION_CONFLICT');return sid;\n   };\n   if(duplicate||packet.increment.classification==='SOURCE_ADDITION'){\n    for(const t of packet.relations.targets)if(!before?.targets.some(x=>x.target_id===t.target_id&&x.relation_note===t.relation_note&&before.definitions.some(d=>d.id===x.definition_snapshot_id&&d.definition_version===t.definition_version)))throw new DomainError('INCREMENT_RELATIONS_CONFLICT',409);\n    for(const v of packet.relations.variables)if(!before?.variables.some(x=>x.target_id===v.target_id&&x.variable_id===v.variable_id&&x.description===v.description&&x.relation_type===v.relation_type&&x.change_direction===v.change_direction&&x.impact_status===v.impact_status&&before.definitions.some(d=>d.id===x.definition_snapshot_id&&d.definition_version===v.definition_version)))throw new DomainError('INCREMENT_RELATIONS_CONFLICT',409);\n   }\n   if(!duplicate){\n    for(const t of packet.relations.targets){\n     const sid=await definition('target',t.target_id,t.definition_version);\n     await tx.query('INSERT INTO information.event_target(event_id,target_id,relation_note) VALUES($1,$2,$3) ON CONFLICT(event_id,target_id) DO UPDATE SET relation_note=EXCLUDED.relation_note,updated_at=now() WHERE event_target.relation_note IS DISTINCT FROM EXCLUDED.relation_note',[eventId,t.target_id,t.relation_note]);\n     await tx.query('INSERT INTO information.event_target_definition VALUES($1,$2,$3) ON CONFLICT(event_id,target_id) DO UPDATE SET definition_snapshot_id=EXCLUDED.definition_snapshot_id',[eventId,t.target_id,sid]);\n     await tx.query('INSERT INTO information.event_target_fact VALUES($1,$2,$3) ON CONFLICT DO NOTHING',[eventId,t.target_id,fact.id]);\n    }\n    for(const v of packet.relations.variables){\n     const sid=await definition('variable',v.variable_id,v.definition_version);\n     await tx.query('INSERT INTO information.event_target_variable(event_id,target_id,variable_id,relation_type,change_direction,impact_status,description) VALUES($1,$2,$3,$4,$5,$6,$7) ON CONFLICT(event_id,target_id,variable_id) DO UPDATE SET relation_type=EXCLUDED.relation_type,change_direction=EXCLUDED.change_direction,impact_status=EXCLUDED.impact_status,description=EXCLUDED.description,updated_at=now()',[eventId,v.target_id,v.variable_id,v.relation_type,v.change_direction,v.impact_status,v.description]);\n     await tx.query('INSERT INTO information.event_variable_definition VALUES($1,$2,$3,$4) ON CONFLICT(event_id,target_id,variable_id) DO UPDATE SET definition_snapshot_id=EXCLUDED.definition_snapshot_id',[eventId,v.target_id,v.variable_id,sid]);\n     await tx.query('INSERT INTO information.event_variable_fact VALUES($1,$2,$3,$4) ON CONFLICT DO NOTHING',[eventId,v.target_id,v.variable_id,fact.id]);\n    }\n   }\n   const ratingIds:string[]=[];",
+      "kind": "repository_evidence"
+    },
+    {
+      "id": "S05",
+      "title": "模型评测规范",
+      "path": "docs/system-design/04-系统架构设计/05-架构治理与验证/架构验证/AI质量评测/L0模型与证据质量评测设计.md",
+      "line_start": 1,
+      "line_end": 39,
+      "sha256": "7ab9bebc7fd0385408ec4bbd7e5b7ee2e5eadf53d70005c4ad0fe93082e1a5ad",
+      "excerpt": "# L0 模型与证据质量评测设计\n\n> V0.1 · 2026-10-24 · 语义质量与程序可靠性分开评测，尚无实测分数或通过结论。\n\n## 1. 两组实验\n\n**受控响应组**：提供可确定预期的正常/异常模型输出，验证Schema、引用、失败分类、调用门槛和无副作用。它证明系统处理已知输入的机制。\n\n**真实模型组**：冻结模型可见版本、参数、Prompt/Schema、输入样本及方法包，评估抽取、归组、直接关系、增量和评级解释。模型存在随机性，需记录多次运行与差异；不能仅挑选最佳一次。样本数量、重复次数与可接受语义阈值由评审在执行前确定，本稿不虚构达标值。\n\n## 2. 样本与标注\n\n使用[总方案样本](../L0%E6%9C%80%E5%B0%8F%E4%B8%9A%E5%8A%A1%E9%97%AD%E7%8E%AF%E9%AA%8C%E8%AF%81%E6%96%B9%E6%A1%88.md)，扩展不同来源长度、语言形式、时间歧义、同主题多决定、来源纠正、无事件及提示注入。人工标注候选边界、身份决定、允许原文范围和直接关系；有争议样本保留争议标签并双人或授权复核，不制造唯一标准答案。\n\n训练/提示词调试样本与留出评测样本分开登记。任何提示词或方法变更均生成新评测版本，不能将旧结果冒充新任务质量。\n\n## 3. 分任务指标\n\n| 任务 | 观察项 | 关键反例 |\n| --- | --- | --- |\n| AI-01 | 候选精确率/召回率、切分准确性、无事件识别、时间未知保留 | 多候选压成一个；把背景观点当事件；失败当0 |\n| AI-02 | 新建/复用/待定判断、错误归组率、歧义转复核、召回覆盖 | 同主题不同决定误合并；召回故障默认新建 |\n| AI-03 | 直接关系正确性、定义复用、合法空结果、伪ID比例 | 把传导推测当直接变量；将发起者必然当Target |\n| AI-04 | 七类混淆矩阵、同变化去重、纠正对象准确性 | 来源增加当进展；同一资料独立变化误去重 |\n| AI-05 | 范围/期限遵守、证据支持、缺失值处理、用途合理性 | 规则未定编造分值；模型分值直接入库 |\n\n统计前冻结指标单位：AI-01以标注候选为单位，AI-02以身份判断为单位，引用以证据项为单位；既报告分母也报告漏处理/失败数量。复核成本、时延与调用成本作为附加观察，不用它们掩盖错误正式写入。\n\n## 4. 证据专项\n\n检查每个正式引用的segment允许集合、码点范围、quote逐字相等、固定正文摘要、映射与原件摘要、原件可读取及权限。覆盖非BMP字符、全半角、重复句、表格、跨段引用、新旧版本同句不同位置和缺失附件。规范化过程造成的信息损失必须显式记录。\n\n机械定位成功还要人工判断“引文是否支持结论”；真实原文可能只表达预计，模型却写为已实施。此类语义误用不能由字符串匹配判定为通过，必须阻断错误建议或在评测中计错。\n\n## 5. 放行边界\n\n硬约束：无效ID/越权引用/错误版本/失败伪装成功不能进入正式区，观察到一次即阻断该版本放行。语义阈值与自动通过政策尚待批准，初始切片采用显式复核；有人工兜底不等于模型质量免验收。\n\n没有批准量化M方法时，只评测文字评价、空值与程序拒绝非法评分；确定性计算分支记录未覆盖条件。结果写入[待执行报告](../%E6%9E%B6%E6%9E%84%E9%AA%8C%E6%94%B6%E6%8A%A5%E5%91%8A/L0%E6%9C%80%E5%B0%8F%E9%97%AD%E7%8E%AF%E9%AA%8C%E6%94%B6%E6%8A%A5%E5%91%8A_%E5%BE%85%E6%89%A7%E8%A1%8C.md)，保留失败案例及模型原始结构化响应，不要求供应方内部推理过程。",
+      "kind": "repository_evidence"
+    },
+    {
+      "id": "S06",
+      "title": "F02功能关系规则",
+      "path": "docs/system-design/03-系统功能架构/F02 事件管理模块功能设计 V1.0.md",
+      "line_start": 175,
+      "line_end": 185,
+      "sha256": "3530e601110551b226aa55804e6c0412f882e43b02c100f8edfbbb4c38a6ab5f",
+      "excerpt": "金融用途已独立为 F02-SF03.06，本节不将其列为新评价的必填属性；历史 EventRating 已保存的用途信息继续保留并可追溯。\n\n### 3.3 领域关系\n\n| 领域关系 | 关联方式与基数 | 关系属性与业务规则 |\n| --- | --- | --- |\n| Information ↔ Fact | 多对多；一份 Information 可支持多个 Fact，一个 Fact 可由多份 Information 支持 | 每个已保存 Fact 至少有一份来源资料；证据固定资料版本及原文位置，保留精确引文与支持/质疑作用；矛盾资料不得丢弃 |\n| Event ↔ Fact | 一个正式 Event 至少关联一个 Fact；Fact 未归组时无 Event，确认后最多属于一个 Event | 归属关系说明 Fact 的作用及理由：初始事实、进展、补充、纠正或佐证；相同陈述的 Fact 复用与唯一 Event 身份核对分别进行 |\n| Event ↔ Target（EventTarget） | 多对多；同一 Event 可涉及多个 Target，同一 Target 可被多个 Event 引用 | 说明事件与观测主体的直接关系，并由本事件的 Fact 支撑；允许尚未确认 Target，不能混同行为主体与观测主体 |\n| Event ↔ Target ↔ Variable（EventTargetVariable） | 三元关系；每项关系明确一个 Event、一个 Target 和一个 Variable | 先确认 EventTarget，再引用有效 Variable；保存直接关联类型、方向、阶段、说明及定义依据，并由本事件的 Fact 支撑；无直接变量依据时允许只保留 EventTarget |\n| Event ↔ EventRating | 一个 Event 可有多项评价；每项 EventRating 对应一个 Event | 按范围、期限和方法区分适用评价，不能相互覆盖；同口径复评保留可比较的历史依据 |",
+      "kind": "repository_evidence"
+    },
+    {
+      "id": "U01",
+      "title": "用户方案原文",
+      "kind": "user_proposal",
+      "date": "2026-10-29",
+      "excerpt": "我认为不需要 event_target 只需要 event_target_variable 如果没有事件没有核心驱动变量则留空"
+    }
+  ]
+}

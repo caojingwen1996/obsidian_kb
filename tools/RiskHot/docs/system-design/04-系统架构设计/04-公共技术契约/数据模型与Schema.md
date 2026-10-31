@@ -21,4 +21,4 @@
 
 ## F02 表结构入口
 
-[[tools/RiskHot/docs/system-design/04-系统架构设计/01-数据模型与存储设计/F02事件管理模块数据模型与存储设计|F02 数据模型与存储设计]] 维护 fact、event、fact_information、event_fact、fact_evidence、主体/变量及评价关系。Event 的版本表与更新历史链退出，F01 资料、定义和运行版本继续保留。
+[[tools/RiskHot/docs/system-design/04-系统架构设计/01-数据模型与存储设计/F02事件管理模块数据模型与存储设计|F02 数据模型与存储设计]] 维护 fact、event、fact_material、fact_evidence、主体/变量及评价关系。2026-10-31 V1.10 目标取消独立 event_fact，改用 fact.event_id 及归属说明字段；来源关系键统一 material_id。运行迁移与机器契约适配尚待实施，本文索引版本不变。Event 的版本表与更新历史链退出，F01 资料、定义和运行版本继续保留。

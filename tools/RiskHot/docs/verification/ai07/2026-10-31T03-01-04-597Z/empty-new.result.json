@@ -1,0 +1,30 @@
+{
+  "case_id": "empty-new",
+  "expected": {
+    "decision": "NEW",
+    "matches": [],
+    "matched_target_id": null
+  },
+  "input_digest": "1a03635eb12044902f08dd31d70b6dcd28ee7b0237ae591a6621029c5c88a4fa",
+  "passed": true,
+  "output": {
+    "object_ref": "treasury-7y",
+    "decision": "NEW",
+    "matched_target_id": null,
+    "comparisons": [],
+    "reason": "召回完整且候选为空。当前对象名称、美国辖区、主权债务工具分类明确，CUSIP 91282CRV5、7年期、2026-11-02发行及2033-10-31到期共同界定具体国债批次，身份信息充分，建议新增。",
+    "basis_refs": [
+      "object:treasury-7y:0"
+    ],
+    "unresolved_issues": []
+  },
+  "usage": {
+    "input_tokens": 15168,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 126,
+    "reasoning_output_tokens": 0
+  },
+  "structure_valid": true,
+  "elapsed_ms": 7317
+}

@@ -1,7 +1,16 @@
+import {currentModel} from './store.js';
+import {reserveCurrentModel} from './current-model.js';
+import {IngestionRepository} from '../information-ingestion/processing/current-repository.js';
 import {transaction} from '../platform/db.js';import {DomainError} from '../platform/types.js';import type {Repository} from '../information-ingestion/processing/repository.js';import {permission,processing,candidate,guard,candidateGuard} from './store.js';import {digest,type TaskId} from './contracts.js';import type {TaskInput} from '../information-ingestion/processing/model.js';
 export class EventExecutor {
  constructor(public repo:Repository){}
  async reserve(processingId:string,candidateId:string|null,generation:number,taskId:TaskId,input:TaskInput,callKey?:string){
+  if(await currentModel(this.repo.db)){
+   if(!candidateId)throw new DomainError('MATERIAL_EXTRACTION_USES_CURRENT_WORKFLOW',409);
+   const c=await candidate(this.repo.db,candidateId),p=await processing(this.repo.db,c.processing_id),m=await new IngestionRepository(this.repo).material(p.actor,p.id);
+   const basis={material_id:m.id,version:m.version,content_digest:m.content_digest};input={...input,material_ref:basis};
+   return reserveCurrentModel(this.repo,p.actor,basis,'event',candidateId,generation,input,callKey);
+  }
   if(input.manifest.task_id!==taskId)throw new DomainError('TASK_INPUT_MISMATCH',409);
   // UTF-8 byte count is a conservative upper bound for supported byte-level tokenizer inputs.
   if(Buffer.byteLength(JSON.stringify(input))+Buffer.byteLength(JSON.stringify(input.manifest.output_schema??{}))>24000)throw new DomainError('INPUT_BUDGET_EXCEEDED',422);

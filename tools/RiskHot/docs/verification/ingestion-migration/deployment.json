@@ -1,0 +1,118 @@
+{
+  "checked_at": "2026-10-29T07:47:11.239Z",
+  "schema_version": 5,
+  "source_count": 40,
+  "sources_preserved_exactly": true,
+  "new_source_fields": [
+    "updated_at"
+  ],
+  "source_original_fields_digest": "d9f8d5a1af90df0bfbce1d9a8b022fe84cb6bcabf4f88462f80f7e540289e7ca",
+  "preflight_backup": ".riskhot/backups/ingestion-preflight-2026-10-29T07-45-53.656Z.json",
+  "preflight_sha256": "e781b7e6af26e841796925db6237cfc641bfb8c5c79aac1f0ffb3e532e64e79e",
+  "backup_mode": "600",
+  "plans": [
+    {
+      "interval_seconds": 86400,
+      "enabled": false,
+      "count": 40
+    }
+  ],
+  "removed_tables": [
+    {
+      "name": "information.operations",
+      "existing": null
+    },
+    {
+      "name": "information.acquisitions",
+      "existing": null
+    },
+    {
+      "name": "information.processing_runs",
+      "existing": null
+    },
+    {
+      "name": "information.material_deliveries",
+      "existing": null
+    },
+    {
+      "name": "information.material_versions",
+      "existing": null
+    },
+    {
+      "name": "m1.source_versions",
+      "existing": null
+    },
+    {
+      "name": "platform.task_batches",
+      "existing": null
+    },
+    {
+      "name": "platform.task_batch_sources",
+      "existing": null
+    },
+    {
+      "name": "platform.schedule_runs",
+      "existing": null
+    }
+  ],
+  "infomation_tables": [
+    "ingestion_material",
+    "ingestion_material_segments",
+    "ingestion_schedules",
+    "ingestion_task_material",
+    "ingestion_tasks"
+  ],
+  "counts_after_reset": {
+    "tasks": 0,
+    "material": 0,
+    "facts": 0,
+    "events": 0
+  },
+  "after_smoke": {
+    "checked_at": "2026-10-29T07:53:00.013Z",
+    "health_status": 200,
+    "health": {
+      "ready": true,
+      "schema_version": 5
+    },
+    "session_status": 200,
+    "tasks": [
+      {
+        "id": "f3fd5de2-a6a4-47ca-a565-c5447beec065",
+        "status": "completed",
+        "reason_code": null
+      }
+    ],
+    "materials": [
+      {
+        "id": "f542e5c0-b4c0-418c-88e4-c3f613b68755",
+        "title": "公开市场业务交易公告 [2026]第209号",
+        "version": 1,
+        "content_digest": "e90a799008d84b52c67a8304a246602e0d44e2495268921ba9e14bf8d07025e9",
+        "availability_state": "available",
+        "extraction_result": {
+          "version": 1,
+          "warnings": [],
+          "content_digest": "e90a799008d84b52c67a8304a246602e0d44e2495268921ba9e14bf8d07025e9",
+          "candidate_count": 2,
+          "no_event_reason": null
+        }
+      }
+    ],
+    "model_attempts": [
+      {
+        "task_id": "AI-01",
+        "status": "accepted",
+        "error_code": null
+      }
+    ],
+    "counts": {
+      "tasks": 1,
+      "material": 1,
+      "facts": 2,
+      "events": 0
+    },
+    "temporal_namespace": "riskhot-l0",
+    "running_workflows": 0
+  }
+}

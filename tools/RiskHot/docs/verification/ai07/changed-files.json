@@ -1,0 +1,35 @@
+{
+  "code": [
+    "src/db/007-target-identity.sql",
+    "src/event-management/candidate-steps.ts",
+    "src/event-management/commit.ts",
+    "src/event-management/contracts.ts",
+    "src/event-management/current-model.ts",
+    "src/event-management/reviews.ts",
+    "src/event-management/target-identity-contracts.ts",
+    "src/event-management/target-identity.ts",
+    "src/event-management/task-packages.ts",
+    "src/platform/ingestion-grants.ts",
+    "src/platform/ingestion-migration.ts",
+    "src/runtime/current-events.ts",
+    "src/runtime/event-activities.ts",
+    "src/runtime/event-loop.ts",
+    "src/runtime/event-workflows.ts",
+    "src/scripts/evaluate-ai07.ts",
+    "src/tests/ai07-contract.test.ts",
+    "src/tests/ai07-temporal.e2e.ts",
+    "src/tests/ai07-workflow.test.ts",
+    "src/tests/ai07.test.ts"
+  ],
+  "documents": [
+    "README.md",
+    "index.md",
+    "log.md",
+    "_bmad-output/implementation-artifacts/spec-ai07-target-identity.md",
+    "docs/verification/ai07-target-identity.md",
+    "docs/system-design/03-系统功能架构/F02 事件管理模块功能设计 V1.0.md",
+    "docs/system-design/03-系统功能架构/AI任务与提示词/AI-07 Target同一性判断.md",
+    "docs/system-design/04-系统架构设计/01-数据模型与存储设计/F02事件管理模块数据模型与存储设计.md",
+    "docs/system-design/04-系统架构设计/03-模块技术详细设计/L0-信息处理层/F02-事件管理/AI任务技术详细设计/AI-07-Target同一性判断.md"
+  ]
+}

@@ -1,7 +1,11 @@
 import { DomainError, type ModelResponse, type NormalizedMaterial } from '../../platform/types.js';
 
 export interface ModelConfig { protocol: string; endpoint: string; model: string }
-export interface TaskInput { version_id: string; material: NormalizedMaterial; manifest: { provider: ModelConfig; prompt: string; task_id?: string; output_schema?: object; output_schema_digest?: string; task_package?: unknown }; context?: unknown }
+export interface TaskInput { material_ref?: import('./current-repository.js').MaterialBasis; version_id: string; material: NormalizedMaterial; manifest: { provider: ModelConfig; prompt: string; task_id?: string; output_schema?: object; output_schema_digest?: string; task_package?: unknown }; context?: unknown }
+export function modelInputEnvelope(input:TaskInput):unknown{
+ const identity=input.material_ref?{...input.material_ref}:{version_id:input.version_id};
+ return {...identity,material:input.material,...(input.context===undefined?{}:{context:input.context})};
+}
 export interface TransportResponse { status: number; body: string; protocol?: string }
 export const modelCredentialsConfigured = () => process.env.MODEL_PROTOCOL === 'codex-exec' || Boolean(process.env.MODEL_API_KEY) || process.env.MODEL_CREDENTIAL_READY === 'true';
 
@@ -27,7 +31,7 @@ export class HttpModelClient {
         method: 'POST', redirect: 'error', signal,
         headers: { 'content-type': 'application/json', authorization: `Bearer ${key}` },
         body: JSON.stringify({ model: input.manifest.provider.model, max_completion_tokens: 8192,
-          messages: [{ role: 'system', content: input.manifest.prompt }, { role: 'user', content: JSON.stringify({ version_id: input.version_id, material: input.material }) }],
+          messages: [{ role: 'system', content: input.manifest.prompt }, { role: 'user', content: JSON.stringify(modelInputEnvelope(input)) }],
         }),
       });
       if (!response.body) throw new DomainError('MODEL_EMPTY_RESPONSE', 502);

@@ -62,7 +62,7 @@ L2 对风险态势分析结果及其证据追溯负责。风险身份、长期�
 | --- | --- | --- | --- |
 | L0 信息处理层 | 维护结构化事件、事件更新及原始信息引用 | Event、EventUpdate、Information、事件直接变量关联 | 提供事件事实与更新；L2 只引用 |
 | L1 风险识别与纳管层 | 管理风险身份、观察对象和范围、风险机制、关键变量及事件关系 | MonitoredRisk、risk_source_variable_relation、monitored_risk_event_relation | 提供观察定义及配置；接收需要维护定义或变量的反馈 |
-| 指标数据及共享配置 | 提供指标定义、统计口径和实际观测值 | variable_config、indicator_config、指标数据 | 根据变量获取观测证据；具体接入归属待讨论 |
+| 指标数据及共享配置 | 提供指标定义、统计口径和实际观测值 | risk_variable_definitions、indicator_config、指标数据 | 根据变量获取观测证据；具体接入归属待讨论 |
 | L2 风险态势分析层 | 当前状态分析与历史变化分析 | RiskSnapshot、risk_snapshot_variable_analysis、RiskAnalysisResult | 本文设计范围 |
 | 展示／消费端 | 展示已发布结果并支持查看依据 | 当前态势、变化卡片、Timeline | 消费 L2 结果；不在展示端另行生成风险结论 |
 
@@ -749,7 +749,7 @@ flowchart LR
 | RiskSnapshot | `risk_snapshot` | 风险引用、截止时间、四个状态维度、综合说明 | 核心结构已讨论；DDL 待讨论 |
 | 快照变量分析 | `risk_snapshot_variable_analysis` | `snapshot_id`、`relation_id`、状态、证据、作用及解释 | 沿用当前命名；字段类型与约束待定 |
 | RiskAnalysisResult | 快照附属结构化结果 | 历史基准、方向、持续性变化、原因、节点、后续观察 | 逻辑属性已讨论；物理承载方式待定 |
-| 变量／指标／风险来源配置 | `variable_config`、`indicator_config`、`risk_source_config` | 复用稳定编码和定义 | 已有命名；变量—指标稳定映射原则已确认，存储与版本引用待讨论 |
+| 变量／指标／风险来源配置 | `risk_variable_definitions`、`indicator_config`、`risk_source_config` | 复用稳定编码和定义 | 已有命名；变量—指标稳定映射原则已确认，存储与版本引用待讨论 |
 | 风险等级及评级规则 | `risk_level_config`；评级规则配置表名待讨论 | 等级名称与判定规则分工 | 等级及判定规则尚未定稿 |
 | 风险分类 | `risk_dimension_config` | 用于风险类型及规则适用范围的引用 | L1 维护，L2 复用 |
 
@@ -787,7 +787,7 @@ flowchart LR
 | L1 risk_source_variable_relation | 获取关键变量及一般作用逻辑 | `relation_id`、`risk_id`、`risk_source_id`、`variable_id`、`variable_role`、`impact_mechanism` | 当前变量状态由 L2 分析 |
 | L1 monitored_risk_event_relation | 查找相关事件 | `risk_id`、`event_id`、关联原因，及可选首次依据 `event_update_id` | 不以首次更新引用代替全部相关后续进展 |
 | L0 Event / EventUpdate | 补充当前事实和政策进展 | 事件和更新标识、内容、阶段、发生及记录时间、原始出处 | 按变量与范围选择；计划不作为已发生事实 |
-| variable_config | 理解变量定义 | 变量身份、含义和解释口径 | 共享引用 |
+| risk_variable_definitions | 理解变量定义 | 变量身份、含义和解释口径 | 共享引用 |
 | indicator_config | 理解指标和数据要求 | 指标身份、口径、单位、频率及允许来源 | 变量与指标关系待讨论 |
 | 指标实际观测数据 | 分析变量当前状态 | 实际值、数据时点、发布时间、来源及必要历史值 | 接口、表名与同步方式待讨论 |
 | risk_level_config 与评级规则 | 形成统一等级 | 等级定义、适用规则及版本 | 具体分级未确认时不强制评级 |
@@ -891,9 +891,9 @@ AI 负责对观测证据进行变量及风险分析、解释当前状态和历�
 | 变量关系.variable_id | 全局变量引用及本轮有效定义 | §3.2 BR-L2-03 |
 | 变量关系.variable_role | 驱动、传导、缓冲或损害验证；只说明用途，不决定作用方向 | §3.2 BR-L2-03 |
 | impact_mechanism | 变量影响风险的条件和机制，按L2业务术语读取 | §3.2 BR-L2-03；与L1 variable_impact_on_risk的技术映射待定 |
-| variable_config.variable_name | 本轮引用的正式变量名称 | 全局变量定义，沿用L0 §4.5.5 |
-| variable_config.definition | 变量定义、观测边界和解释口径 | 同上；按本轮有效定义读取 |
-| variable_config.unit | 变量量纲或单位；状态项可空 | 同上 |
+| risk_variable_definitions.name | 本轮引用的正式变量名称 | 全局变量定义，沿用L0 §4.5.5 |
+| risk_variable_definitions.definition | 变量定义、观测边界和解释口径 | 同上；按本轮有效定义读取 |
+| risk_variable_definitions.unit | 变量量纲或单位；状态项可空 | 同上 |
 | 变量定义版本 | 本轮采用的定义版本，不能静默切换 | §3.2 BR-L2-04；版本字段名待定 |
 | 指标身份与定义 | 锁定映射指向的正式指标及其定义，供实际值与口径核对 | §3.2 BR-L2-04；技术字段名待定 |
 | 映射解释依据 | 该指标为什么能够观察本变量 | 同上；技术字段名待定 |
@@ -953,9 +953,9 @@ AI 负责对观测证据进行变量及风险分析、解释当前状态和历�
 | 变量关系.variable_id | 全局变量引用及本轮有效定义 | §3.2 BR-L2-03 |
 | 变量关系.variable_role | 驱动、传导、缓冲或损害验证；只说明用途，不决定作用方向 | §3.2 BR-L2-03 |
 | impact_mechanism | 变量影响风险的条件和机制，按L2业务术语读取 | §3.2 BR-L2-03；与L1 variable_impact_on_risk的技术映射待定 |
-| variable_config.variable_name | 本轮引用的正式变量名称 | 全局变量定义，沿用L0 §4.5.5 |
-| variable_config.definition | 变量定义、观测边界和解释口径 | 同上；按本轮有效定义读取 |
-| variable_config.unit | 变量量纲或单位；状态项可空 | 同上 |
+| risk_variable_definitions.name | 本轮引用的正式变量名称 | 全局变量定义，沿用L0 §4.5.5 |
+| risk_variable_definitions.definition | 变量定义、观测边界和解释口径 | 同上；按本轮有效定义读取 |
+| risk_variable_definitions.unit | 变量量纲或单位；状态项可空 | 同上 |
 | 变量定义版本 | 本轮采用的定义版本，不能静默切换 | §3.2 BR-L2-04；版本字段名待定 |
 | 指标身份与定义 | 锁定映射指向的正式指标及其定义，供实际值与口径核对 | §3.2 BR-L2-04；技术字段名待定 |
 | 映射解释依据 | 该指标为什么能够观察本变量 | 同上；技术字段名待定 |
@@ -1068,9 +1068,9 @@ AI 负责对观测证据进行变量及风险分析、解释当前状态和历�
 | 变量关系.variable_id | 全局变量引用及本轮有效定义 | §3.2 BR-L2-03 |
 | 变量关系.variable_role | 驱动、传导、缓冲或损害验证；只说明用途，不决定作用方向 | §3.2 BR-L2-03 |
 | impact_mechanism | 变量影响风险的条件和机制，按L2业务术语读取 | §3.2 BR-L2-03；与L1 variable_impact_on_risk的技术映射待定 |
-| variable_config.variable_name | 本轮引用的正式变量名称 | 全局变量定义，沿用L0 §4.5.5 |
-| variable_config.definition | 变量定义、观测边界和解释口径 | 同上；按本轮有效定义读取 |
-| variable_config.unit | 变量量纲或单位；状态项可空 | 同上 |
+| risk_variable_definitions.name | 本轮引用的正式变量名称 | 全局变量定义，沿用L0 §4.5.5 |
+| risk_variable_definitions.definition | 变量定义、观测边界和解释口径 | 同上；按本轮有效定义读取 |
+| risk_variable_definitions.unit | 变量量纲或单位；状态项可空 | 同上 |
 | 变量定义版本 | 本轮采用的定义版本，不能静默切换 | §3.2 BR-L2-04；版本字段名待定 |
 | 指标身份与定义 | 锁定映射指向的正式指标及其定义，供实际值与口径核对 | §3.2 BR-L2-04；技术字段名待定 |
 | 映射解释依据 | 该指标为什么能够观察本变量 | 同上；技术字段名待定 |

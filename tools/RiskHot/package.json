@@ -11,17 +11,21 @@
     "typecheck": "tsc --noEmit",
     "pipeline:sync": "node --import tsx src/scripts/sync-pipeline.ts",
     "pipeline:check": "node --import tsx src/scripts/sync-pipeline.ts --check",
-    "test:pipeline": "node --test src/tests/pipeline-data.test.js src/tests/pipeline-ui.test.js",
+    "test:pipeline": "node --import tsx --test src/tests/pipeline-data.test.js src/tests/pipeline-ui.test.js src/tests/pipeline-prompt.test.ts src/tests/pipeline-live-prompts.test.ts src/tests/ai02-prompt-contract.test.ts",
+    "test:pipeline:f02": "node --env-file-if-exists=.env --import tsx src/tests/pipeline-f02.e2e.ts",
     "test:pipeline:browser": "node --env-file-if-exists=.env --import tsx src/tests/pipeline.e2e.ts",
     "init:env": "node --import tsx src/scripts/init-env.ts",
     "setup": "node --env-file-if-exists=.env --import tsx src/scripts/setup.ts",
+    "setup:dependencies": "node --env-file-if-exists=.env --import tsx src/scripts/setup-dependencies.ts",
+    "setup:test": "node --env-file-if-exists=.env --import tsx src/scripts/setup-test.ts",
     "setup:identity": "node --env-file-if-exists=.env --import tsx src/scripts/setup-identity.ts",
     "setup:temporal": "node --env-file-if-exists=.env --import tsx src/scripts/setup-temporal.ts",
     "dev": "node --env-file-if-exists=.env --import tsx src/scripts/dev.ts",
     "run:real": "node --env-file-if-exists=.env --import tsx src/scripts/run.ts",
     "sources:run": "node --env-file-if-exists=.env --import tsx src/scripts/run-sources.ts",
     "monitor": "node --env-file-if-exists=.env --import tsx src/scripts/monitor.ts",
-    "service": "node --import tsx src/scripts/service.ts"
+    "service": "node --import tsx src/scripts/service.ts",
+    "migrate:ingestion": "node --env-file-if-exists=.env --import tsx src/scripts/migrate-ingestion.ts"
   },
   "devDependencies": {
     "@types/node": "22.20.5",

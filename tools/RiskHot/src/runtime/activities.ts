@@ -1,3 +1,4 @@
+import {isCurrentReference,readCurrentInput,type CurrentModelReference} from '../event-management/current-model.js';
 import { InformationDelivery } from '../information-ingestion/processing/handoff.js';
 import { digest } from '../information-ingestion/processing/repository.js';
 import { readFile } from 'node:fs/promises';
@@ -134,13 +135,14 @@ export function modelActivities(repo: ExecutionStore) {
       if (attempt.response_artifact_id) return;
       const timer = setInterval(() => Context.current().heartbeat(), 20_000);
       try {
-        const input = await repo.json<TaskInput>(attempt.request_artifact_id);
-        if (input.manifest.provider.protocol !== 'codex-exec' && !process.env.MODEL_API_KEY) throw new DomainError('MODEL_NOT_CONFIGURED', 503);
-        const permit = (await repo.db.query<{ allowed: boolean; reason_code: string | null; deadline: Date }>(input.manifest.task_id ? 'SELECT * FROM platform.claim_event_model_call($1)' : 'SELECT * FROM platform.claim_model_call($1)', [attemptId])).rows[0];
+        const reference = await repo.json<TaskInput|CurrentModelReference>(attempt.request_artifact_id);
+        if (reference.manifest.provider.protocol !== 'codex-exec' && !process.env.MODEL_API_KEY) throw new DomainError('MODEL_NOT_CONFIGURED', 503);
+        const permit = (await repo.db.query<{ allowed: boolean; reason_code: string | null; deadline: Date }>(isCurrentReference(reference) ? 'SELECT * FROM platform.claim_model_call($1)' : reference.manifest.task_id ? 'SELECT * FROM platform.claim_event_model_call($1)' : 'SELECT * FROM platform.claim_model_call($1)', [attemptId])).rows[0];
         if (!permit?.allowed) {
           if (permit?.reason_code === 'MODEL_CALL_ALREADY_CLAIMED') return;
           throw new DomainError(permit?.reason_code ?? 'MODEL_CALL_NOT_PERMITTED', 409);
         }
+        const input = isCurrentReference(reference) ? await readCurrentInput(repo,reference,attemptId) : reference;
         const response = input.manifest.provider.protocol === 'codex-exec'
           ? await new CodexModelClient().execute(input, { deadlineMs: permit.deadline.getTime() })
           : await new HttpModelClient().execute(input, process.env.MODEL_API_KEY!, { deadlineMs: permit.deadline.getTime() });

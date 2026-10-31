@@ -21,17 +21,23 @@ try {
   await page.waitForFunction(() => globalThis.finish);
   assert.equal(await page.locator('#startup-screen').evaluate(node => node.classList.contains('is-complete')), false);
   assert.equal(await page.locator('#startup-retry').isVisible(), false);
+  assert.equal(await page.locator('#startup-enter').isDisabled(), true);
+  await page.evaluate(() => gate.enter());
+  assert.equal(await page.locator('#dashboard-shell').isVisible(), false, 'entry cannot bypass pending checks');
   const originalWidth = await page.locator('#startup-enter').evaluate(node => node.getBoundingClientRect().width);
-  await page.evaluate(async () => { finish({ status: 'warning', detail: '读取超时，可重试或查看已取得的数据。' }); await pending; });
+  await page.evaluate(async () => { finish({ status: 'warning', detail: '7 / 12 项最新数据；5 项未取得最新数据\n美元指数：读取失败；/api/us-dollar-index\n本地服务未读取到 Tushare Token\n预测市盈率：未配置数据源，未发起接口请求。' }); await pending; });
   await page.waitForTimeout(400);
   const buttons = await page.locator('.startup-actions button').evaluateAll(nodes => nodes.map(node => ({
     width: node.getBoundingClientRect().width, height: node.getBoundingClientRect().height,
     glow: getComputedStyle(node, '::after').animationName, cycles: getComputedStyle(node, '::after').animationIterationCount,
   })));
   assert.equal(await page.locator('#startup-retry').isVisible(), true);
-  assert.ok(buttons[1].width > originalWidth * 2);
+  assert.ok(buttons[1].width > originalWidth);
+  assert.equal(await page.locator('#startup-enter').isEnabled(), true);
+  assert.equal(await page.locator('#startup-enter').innerText(), '查看已取得的数据');
+  assert.match(await page.locator('#startup-summary').innerText(), /组检查存在异常/);
   assert.ok(Math.abs(buttons[0].width - buttons[1].width) < 1);
-  assert.ok(buttons.every(button => button.height >= 52 && button.glow === 'startup-action-glow' && button.cycles === '3'));
+  assert.ok(buttons.every(button => button.height >= 52 && button.glow === 'startup-action-glow' && button.cycles === '3'), JSON.stringify(buttons));
   await page.screenshot({ path: '/tmp/dashboard-startup-actions-desktop.png' });
   for (const width of [390, 320]) {
     await page.setViewportSize({ width, height: 844 });

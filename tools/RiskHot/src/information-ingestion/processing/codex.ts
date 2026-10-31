@@ -1,3 +1,4 @@
+import {modelInputEnvelope} from './model.js';
 import { spawn } from 'node:child_process';
 import { mkdtemp, writeFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
@@ -62,7 +63,7 @@ export class CodexModelClient {
         '-c', 'approval_policy="never"', '-c', 'web_search="disabled"', '-c', 'project_doc_max_bytes=0', '-c', 'model_reasoning_effort="low"'];
       for (const feature of ['shell_tool', 'apps', 'plugins', 'multi_agent', 'browser_use', 'computer_use', 'image_generation', 'hooks', 'skill_search', 'sleep_tool', 'workspace_dependencies', 'tool_suggest', 'view_image']) args.push('--disable', feature);
       args.push('--enable', 'skip_host_skill_discovery', '--enable', 'respect_system_proxy', '--output-schema', schema, '-');
-      const prompt = `${input.manifest.prompt}\n\n不得调用工具、读取文件、访问网络或执行命令；仅处理以下固定输入。\n${JSON.stringify({ version_id: input.version_id, material: input.material, ...(input.context === undefined ? {} : { context: input.context }) })}`;
+      const prompt = `${input.manifest.prompt}\n\n不得调用工具、读取文件、访问网络或执行命令；仅处理以下固定输入。\n${JSON.stringify(modelInputEnvelope(input))}`;
       const result = await this.run(args, folder, prompt, Math.min(150_000, options.deadlineMs - Date.now()));
       const events: { type?: string; item?: { type?: string; text?: string }; usage?: Record<string, number>; error?: { message?: string } }[] = [];
       try { for (const line of result.stdout.split('\n').filter(x => x.trim())) events.push(JSON.parse(line)); }

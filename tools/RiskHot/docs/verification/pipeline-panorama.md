@@ -76,3 +76,60 @@ AI节点保留四个信息标签及默认收起的提示词区。任务阅读按
 节点详情与画布展示共用 `pipeline-view.js`，避免重复节点与任务上下文；本计划原拟单独的 `pipeline-detail.js`未创建。展示函数沿用原型，数据生成与交互控制各自独立；无前端框架、图形库或新外部服务依赖。
 
 修改原型或来源文档后运行 `npm run pipeline:sync`，再执行 `npm run pipeline:check`、`npm run test:pipeline`和适用浏览器检查。同步脚本不改原型或业务文档；文档发生后续修改时，同步检查会明确失败，来源页也会提示展示副本待同步。
+
+## 2026-10-28 提示词展示同步修复
+
+### 问题与原因
+
+AI-01 文档更新为四层 V0.3 后，流水线仍展示旧正文。页面从生成文件 `src/web/pipeline-tasks.js` 读取提示词；上次文档修订未运行同步。此外，旧生成器只识别三反引号 text 块，按二级标题截取章节，会误截断四反引号包裹的 Markdown 提示词。
+
+### 修改与范围
+
+- 提取 `src/scripts/pipeline-prompt.ts`：按代码围栏状态读取第 3 节，支持 text/markdown，保留内部标题及 JSON，拒绝缺失、空白、多块或未闭合正文。
+- 同步入口接入该解析器，新增 `src/tests/pipeline-prompt.test.ts` 并纳入 `npm run test:pipeline`。
+- 重新生成 `src/web/pipeline-data.js`、`src/web/pipeline-tasks.js` 和 `src/data/pipeline-documents.json`。
+- [[tools/RiskHot/docs/system-design/03-系统功能架构/AI任务与提示词/AI-01 候选事件提取提示词 V0.1|AI-01 提示词文档]]第 2 节同步 V0.3 输入输出语义，第 1/3/4 节配套说明对齐；提示词正文未改。外部功能与技术设计、Schema 和运行任务包仍待适配。
+- [[tools/RiskHot/README|操作说明]]补充文档修改后手动同步和刷新步骤。页面布局、交互与运行任务版本未变。
+
+### 验证结果
+
+- 6 项解析专项通过：旧 text/CRLF、四层标题与内嵌 JSON、不同围栏、未闭合、缺失/空白/多块、真实 AI-01 文档。
+- `npm run pipeline:sync`、`npm run pipeline:check` 通过：115 节点、16 任务、5 提示词、12 来源文档。
+- `npm run test:pipeline`：12 项通过、0 失败，包含原有数据与页面回归。
+- `npm run typecheck` 通过。
+- 文档字段对照检查通过：第 2 节涵盖第 3 节全部 JSON 示例字段，四层提示词正文与本轮修改前一致。
+- 本轮未执行浏览器端到端检查或真实模型评测；已打开页面需刷新加载新副本。
+
+## 2026-10-28 提示词自动读取
+
+本节取代前一节中“提示词正文必须手动同步”的使用方式；历史修复记录保留。
+
+### 实现与行为
+
+依据[[tools/RiskHot/docs/superpowers/plans/2026-10-28-流水线提示词自动读取|本次实施计划]]，展示服务在每次请求 `/pipeline/pipeline-tasks.js` 时读取已登记文档。标题、版本、状态和第 3 节正文直接来自当次文档；固定任务定义、流程和关系保持原样。无缓存响应确保页面打开或刷新取得最新内容，不进行后台轮询。
+
+生成文件只保留提示词来源引用，不再存储正文快照和内容摘要。既有文档内容修改无需执行同步；新增、移除、重命名或变更任务编号仍需登记。文档错误只影响对应提示词，显示读取失败且不回退旧正文。来源页面明确按当前文档读取。运行任务包、模型调用和数据库均未修改。
+
+### 验证结果
+
+- `npm run test:pipeline`：17 项通过，覆盖原有全景、实时读取、异常恢复、目录边界、固定任务不变及提示词标签内容。
+- `node --import tsx --test --test-name-pattern='pipeline serves' src/tests/web-routes.test.ts`：1 项路由专项通过。
+- `npm run typecheck`、`npm run pipeline:check`：通过。
+- 独立 Chrome for Testing、临时用户目录和临时提示词副本完成 8 项浏览器检查；结果见[[tools/RiskHot/docs/verification/pipeline-live-prompts/results.json|浏览器结果]]，截图见[[tools/RiskHot/docs/verification/pipeline-live-prompts/latest-prompt.png|最新提示词展示]]。没有修改真实提示词进行测试。
+- 真实本机服务完成一次平稳重载；HTTP 响应包含 5 项最新提示词，AI-01 文档版本 V0.3，固定任务版本仍为 1.0。
+- 本轮未运行模型或全量数据库回归，未改变运行任务包；本机重载短暂重启服务进程，后续提示词内容更新无需重启。
+
+### 检查中修正的问题
+
+初次检查有两项验证问题：测试把固定任务定义的来源摘要误判为提示词正文快照，已限定检查到 prompts 字段；实时读取返回类型推断为 unknown，已显式定义展示结构类型。修正后类型检查及 17 项测试全部通过。
+
+## 2026-10-28 AI-02 V0.3 文档与展示校验
+
+[[tools/RiskHot/docs/system-design/03-系统功能架构/AI任务与提示词/AI-02 Event同一性判断|AI-02 提示词]]修订为 V0.3，保留四层结构，定位到 F02 Step 3。输出使用现行 NEW / REUSE / UNRESOLVED 契约，补齐检索覆盖、逐项比较、证据归属与人工身份复核边界；同步[[tools/RiskHot/docs/system-design/04-系统架构设计/03-模块技术详细设计/L0-信息处理层/F02-事件管理/AI任务技术详细设计/AI-02-事件身份判断|AI-02 技术设计]]。
+
+- `npm run test:pipeline`：21 项通过，含 4 项新增 AI-02 检查；三类输出示例通过现行 JSON Schema，合成证据码点区间及双方归属一致，旧枚举、免审字段及字符串证据被拒绝。
+- `npm run pipeline:check`：通过；当前目录登记 2 份提示词、9 份来源文档，115 个节点、16 项任务。来源登记适配 AI-01 / AI-02 的现有文件名，不恢复用户移除的其他提示词。
+- `npm run typecheck`：通过。
+- 本机 `/pipeline/pipeline-tasks.js` 实际响应确认 AI-02 文档版本为 V0.3、正文为四层 Step 3 提示词，固定任务版本仍为 1.0。
+
+本次检查覆盖文档契约和展示读取，未运行真实模型评测或新版业务流程验收。目标输入封装、证据归属及跨字段语义校验仍待工程实现；未发布运行任务包，也未将七阶段流程改动应用到运行编排。

@@ -39,7 +39,7 @@ body.is-starting { overflow: hidden; }
 .startup-check-label::before { content: "> "; }
 .startup-check p { display: flex; align-items: baseline; gap: 7px; margin: 0; color: var(--console-muted); }
 .startup-check-state { flex-shrink: 0; }
-.startup-check-detail { min-width: 0; }
+.startup-check-detail { min-width: 0; white-space: pre-line; }
 .startup-check.is-warning .startup-check-state { color: #795a30; }
 .startup-check.is-failed .startup-check-state { color: #a12d24; }
 .startup-footer { margin-top: 8px; }
@@ -2051,7 +2051,13 @@ button.nasdaq-card { width: 100%; border-top: 0; border-right: 0; border-bottom:
   .task-run > summary > .task-status { justify-self: end; }
   .task-run-time { font-size: 12px; }
   .task-summary-line { gap: 6px 12px; }
-}</style>
+}
+
+.nasdaq-calendar-metric-switch { display: flex; flex-wrap: wrap; gap: 8px; }
+.nasdaq-calendar-metric-switch button { min-height: 44px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 6px; background: white; color: var(--ink); font: inherit; font-size: 16px; font-weight: 600; cursor: pointer; }
+.nasdaq-calendar-metric-switch button[aria-pressed="true"] { background: #2464bf; border-color: #2464bf; color: white; }
+.nasdaq-calendar-metric-switch button:hover { border-color: #2464bf; }
+.nasdaq-calendar-metric-switch button:focus-visible { outline: 3px solid #2464bf; outline-offset: 3px; }</style>
 </head>
 <body class="is-starting">
   <section class="startup-screen" id="startup-screen" aria-labelledby="startup-heading" tabindex="-1">
@@ -2060,7 +2066,7 @@ button.nasdaq-card { width: 100%; border-top: 0; border-right: 0; border-bottom:
       <ol class="startup-checks" id="startup-checks" aria-label="启动检查日志" aria-busy="true"><li class="startup-check is-loading"><strong class="startup-check-label">初始化市场面板...</strong><p><span class="startup-check-state" aria-label="检查中">[··]</span><span class="startup-check-detail">正在载入检查程序…</span></p></li></ol>
       <footer class="startup-footer">
         <p id="startup-summary" role="status" aria-live="polite">正在准备检查…</p>
-        <div class="startup-actions"><button class="button-secondary" id="startup-retry" type="button" hidden>重新检查</button><button class="button-secondary" id="startup-enter" type="button">先进入面板</button></div>
+        <div class="startup-actions"><button class="button-secondary" id="startup-retry" type="button" hidden>重新检查</button><button class="button-secondary" id="startup-enter" type="button" disabled>正在检查数据…</button></div>
       </footer>
       <noscript><p>需要启用 JavaScript 才能检查数据和使用面板。启用后请重新加载页面。</p></noscript>
     </div>
@@ -2217,7 +2223,11 @@ button.nasdaq-card { width: 100%; border-top: 0; border-right: 0; border-bottom:
             <a class="button-secondary" id="nasdaq-grid-source-link" href="https://finance.yahoo.com/quote/%5ENDX/" target="_blank" rel="noopener noreferrer">查看指数行情</a>
           </header>
 
-          <section class="panel index-day-chart" data-index-day-chart="NDX">
+          <details class="dividend-history-disclosure" open>
+            <summary>年度收益与历史统计 <span>纳斯达克100指数 · 月度收益、年度表现与涨跌天数</span></summary>
+            <div class="dividend-history-body">
+              <div id="nasdaq-annual-detail"></div>
+              <section class="panel index-day-chart" data-index-day-chart="NDX">
     <h3>纳斯达克100（NDX） · 逐年涨跌震荡天数</h3>
     
     <p>2016—2025十个完整年度；2026*截至2026-09-10。2026年累计数据每月月末统计一次，次月1日北京时间08:00更新。</p>
@@ -2226,6 +2236,8 @@ button.nasdaq-card { width: 100%; border-top: 0; border-right: 0; border-bottom:
     <div class="index-day-row"><span>2016</span><div class="index-day-bar" role="img" aria-label="2016年：上涨66天，震荡129天，下跌57天"><span title="上涨 66天，占26.19%" style="width:26.190476190476193%"></span><span title="震荡 129天，占51.19%" style="width:51.19047619047619%"></span><span title="下跌 57天，占22.62%" style="width:22.61904761904762%"></span></div><span>66 / 129 / 57</span></div><div class="index-day-row"><span>2017</span><div class="index-day-bar" role="img" aria-label="2017年：上涨52天，震荡173天，下跌26天"><span title="上涨 52天，占20.72%" style="width:20.717131474103585%"></span><span title="震荡 173天，占68.92%" style="width:68.92430278884463%"></span><span title="下跌 26天，占10.36%" style="width:10.358565737051793%"></span></div><span>52 / 173 / 26</span></div><div class="index-day-row"><span>2018</span><div class="index-day-bar" role="img" aria-label="2018年：上涨87天，震荡97天，下跌67天"><span title="上涨 87天，占34.66%" style="width:34.66135458167331%"></span><span title="震荡 97天，占38.65%" style="width:38.645418326693225%"></span><span title="下跌 67天，占26.69%" style="width:26.693227091633464%"></span></div><span>87 / 97 / 67</span></div><div class="index-day-row"><span>2019</span><div class="index-day-bar" role="img" aria-label="2019年：上涨85天，震荡117天，下跌50天"><span title="上涨 85天，占33.73%" style="width:33.730158730158735%"></span><span title="震荡 117天，占46.43%" style="width:46.42857142857143%"></span><span title="下跌 50天，占19.84%" style="width:19.841269841269842%"></span></div><span>85 / 117 / 50</span></div><div class="index-day-row"><span>2020</span><div class="index-day-bar" role="img" aria-label="2020年：上涨116天，震荡68天，下跌69天"><span title="上涨 116天，占45.85%" style="width:45.8498023715415%"></span><span title="震荡 68天，占26.88%" style="width:26.877470355731226%"></span><span title="下跌 69天，占27.27%" style="width:27.27272727272727%"></span></div><span>116 / 68 / 69</span></div><div class="index-day-row"><span>2021</span><div class="index-day-bar" role="img" aria-label="2021年：上涨94天，震荡93天，下跌65天"><span title="上涨 94天，占37.30%" style="width:37.301587301587304%"></span><span title="震荡 93天，占36.90%" style="width:36.904761904761905%"></span><span title="下跌 65天，占25.79%" style="width:25.793650793650798%"></span></div><span>94 / 93 / 65</span></div><div class="index-day-row"><span>2022</span><div class="index-day-bar" role="img" aria-label="2022年：上涨90天，震荡49天，下跌112天"><span title="上涨 90天，占35.86%" style="width:35.85657370517929%"></span><span title="震荡 49天，占19.52%" style="width:19.52191235059761%"></span><span title="下跌 112天，占44.62%" style="width:44.6215139442231%"></span></div><span>90 / 49 / 112</span></div><div class="index-day-row"><span>2023</span><div class="index-day-bar" role="img" aria-label="2023年：上涨94天，震荡91天，下跌65天"><span title="上涨 94天，占37.60%" style="width:37.6%"></span><span title="震荡 91天，占36.40%" style="width:36.4%"></span><span title="下跌 65天，占26.00%" style="width:26%"></span></div><span>94 / 91 / 65</span></div><div class="index-day-row"><span>2024</span><div class="index-day-bar" role="img" aria-label="2024年：上涨86天，震荡104天，下跌62天"><span title="上涨 86天，占34.13%" style="width:34.12698412698413%"></span><span title="震荡 104天，占41.27%" style="width:41.269841269841265%"></span><span title="下跌 62天，占24.60%" style="width:24.6031746031746%"></span></div><span>86 / 104 / 62</span></div><div class="index-day-row"><span>2025</span><div class="index-day-bar" role="img" aria-label="2025年：上涨84天，震荡107天，下跌59天"><span title="上涨 84天，占33.60%" style="width:33.6%"></span><span title="震荡 107天，占42.80%" style="width:42.8%"></span><span title="下跌 59天，占23.60%" style="width:23.599999999999998%"></span></div><span>84 / 107 / 59</span></div><div class="index-day-row"><span>2026*</span><div class="index-day-bar" role="img" aria-label="2026年：上涨64天，震荡56天，下跌53天"><span title="上涨 64天，占36.99%" style="width:36.99421965317919%"></span><span title="震荡 56天，占32.37%" style="width:32.369942196531795%"></span><span title="下跌 53天，占30.64%" style="width:30.63583815028902%"></span></div><span>64 / 56 / 53</span></div>
     <p>按价格指数收盘相对前收盘计算，±0.5%边界计入震荡；不含红利再投资。年均与占比不含2026。来源：Yahoo日线；尚未完成独立美国交易日历逐日复核。</p>
   </section>
+            </div>
+          </details>
           <section class="nasdaq-grid-controls" aria-labelledby="nasdaq-grid-settings-heading">
             <div>
               <h3 id="nasdaq-grid-settings-heading">金额设置</h3>
@@ -3739,29 +3751,130 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
             <section class="featured-hot panel" aria-label="当前热点">
               <h3>当前热点</h3>
               <ol>
-                <li class="featured-hot-item" data-featured-id="../../sources/automations/BBXM每日汇总/2026/10/2026-10-21_220538_人类之光.md" data-featured-filters="market">
+                <li class="featured-hot-item" data-featured-id="../../sources/automations/BBXM每日汇总/2026/10/2026-10-29_174241_过程中二大疑问。.md" data-featured-filters="market">
                   <span>1</span>
-                  <a href="../../sources/automations/BBXM每日汇总/2026/10/2026-10-21_220538_人类之光.md" target="_blank" rel="noopener noreferrer">人类之光</a>
+                  <a href="../../sources/automations/BBXM每日汇总/2026/10/2026-10-29_174241_过程中二大疑问。.md" target="_blank" rel="noopener noreferrer">过程中二大疑问。</a>
                 </li>
-                <li class="featured-hot-item" data-featured-id="../../sources/automations/BBXM每日汇总/2026/10/2026-10-21_192728_宁德时代增收不增利_A股产业投资从高景气回归周期.md" data-featured-filters="industry,market">
+                <li class="featured-hot-item" data-featured-id="../../sources/automations/BBXM每日汇总/2026/10/2026-10-29_171249_认输的心路历程。.md" data-featured-filters="market">
                   <span>2</span>
-                  <a href="../../sources/automations/BBXM每日汇总/2026/10/2026-10-21_192728_宁德时代增收不增利_A股产业投资从高景气回归周期.md" target="_blank" rel="noopener noreferrer">宁德时代增收不增利，A股产业投资从高景气回归周期</a>
+                  <a href="../../sources/automations/BBXM每日汇总/2026/10/2026-10-29_171249_认输的心路历程。.md" target="_blank" rel="noopener noreferrer">认输的心路历程。</a>
                 </li>
-                <li class="featured-hot-item" data-featured-id="../../sources/automations/BBXM每日汇总/2026/10/2026-10-19_192921_留言板更新_随心更新_既定目标已结束.md" data-featured-filters="market">
+                <li class="featured-hot-item" data-featured-id="../../sources/automations/BBXM每日汇总/2026/10/2026-10-29_163936_尽力，也无力回天。.md" data-featured-filters="market">
                   <span>3</span>
-                  <a href="../../sources/automations/BBXM每日汇总/2026/10/2026-10-19_192921_留言板更新_随心更新_既定目标已结束.md" target="_blank" rel="noopener noreferrer">留言板更新：随心更新，既定目标已结束</a>
+                  <a href="../../sources/automations/BBXM每日汇总/2026/10/2026-10-29_163936_尽力，也无力回天。.md" target="_blank" rel="noopener noreferrer">尽力，也无力回天。</a>
                 </li>
-                <li class="featured-hot-item" data-featured-id="../../sources/automations/BBXM每日汇总/2026/10/2026-10-19_150432_发帖方式建议征集.md" data-featured-filters="market">
+                <li class="featured-hot-item" data-featured-id="../../sources/automations/BBXM每日汇总/2026/10/2026-10-29_121335_问冰冰小美，.md" data-featured-filters="market">
                   <span>4</span>
-                  <a href="../../sources/automations/BBXM每日汇总/2026/10/2026-10-19_150432_发帖方式建议征集.md" target="_blank" rel="noopener noreferrer">发帖方式建议征集</a>
+                  <a href="../../sources/automations/BBXM每日汇总/2026/10/2026-10-29_121335_问冰冰小美，.md" target="_blank" rel="noopener noreferrer">问冰冰小美，</a>
                 </li>
-                <li class="featured-hot-item" data-featured-id="../../sources/automations/BBXM每日汇总/2026/10/2026-10-19_141057_等10-23业绩报_存储费半暂时稳住_做空动能下降.md" data-featured-filters="market,trade">
+                <li class="featured-hot-item" data-featured-id="../../sources/automations/BBXM每日汇总/2026/10/2026-10-28_120603_2026年10月月报（二）.md" data-featured-filters="market">
                   <span>5</span>
-                  <a href="../../sources/automations/BBXM每日汇总/2026/10/2026-10-19_141057_等10-23业绩报_存储费半暂时稳住_做空动能下降.md" target="_blank" rel="noopener noreferrer">等10-23业绩报，存储费半暂时稳住，做空动能下降</a>
+                  <a href="../../sources/automations/BBXM每日汇总/2026/10/2026-10-28_120603_2026年10月月报（二）.md" target="_blank" rel="noopener noreferrer">2026年10月月报（二）</a>
                 </li>
               </ol>
             </section>
             <div class="featured-source-note">来源目录：sources/automations/BBXM每日汇总</div>
+            <details class="featured-day">
+              <summary class="featured-date-row"><strong>10月29日</strong><span>周四 · 4 条</span></summary>
+              <div class="featured-timeline">
+                <div class="featured-feed">
+
+                <article class="featured-card" data-featured-id="../../sources/automations/BBXM每日汇总/2026/10/2026-10-29_174241_过程中二大疑问。.md" data-featured-filters="market">
+                  <span class="featured-time">17:42</span><span class="featured-dot"></span>
+                  <div class="featured-card-inner">
+                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
+                    <h3><a href="../../sources/automations/BBXM每日汇总/2026/10/2026-10-29_174241_过程中二大疑问。.md" target="_blank" rel="noopener noreferrer">过程中二大疑问。</a></h3>
+                    <p>1，上一次报团瓦解的出清，做空工具是转融通。转融通已经被限制，是本次制度纠偏带动信心的原因之一。而本轮下跌，本次做空工具，很显然，基金权重股纷纷借道港股ipo，港股有合法的做空机制，从而做空传导A股。因此，做空利益方，是否涉及海外利益关系？![\[摊手\]](h…</p>
+                    <div class="featured-tags">#市场</div>
+                    <div class="featured-actions">
+                      <a class="featured-source" href="https://xueqiu.com/7143769715/414516006" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>
+                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
+                      <button class="featured-delete" type="button">删除</button>
+                    </div>
+                    <div class="featured-original" data-featured-original="Me+8jOS4iuS4gOasoeaKpeWboueTpuino+eahOWHuua4he+8jOWBmuepuuW3peWFt+aYr+i9rOiejemAmuOAgui9rOiejemAmuW3sue7j+iiq+mZkOWItu+8jOaYr+acrOasoeWItuW6pue6oOWBj+W4puWKqOS/oeW/g+eahOWOn+WboOS5i+S4gOOAguiAjOacrOi9ruS4i+i3jO+8jOacrOasoeWBmuepuuW3peWFt++8jOW+iOaYvueEtu+8jOWfuumHkeadg+mHjeiCoee6t+e6t+WAn+mBk+a4r+iCoWlwb++8jOa4r+iCoeacieWQiOazleeahOWBmuepuuacuuWItu+8jOS7juiAjOWBmuepuuS8oOWvvEHogqHjgILlm6DmraTvvIzlgZrnqbrliKnnm4rmlrnvvIzmmK/lkKbmtonlj4rmtbflpJbliKnnm4rlhbPns7vvvJ8hW1xb5pGK5omLXF1dKGh0dHBzOi8vYXNzZXRzLmltZWRhby5jb20vdWdjL2ltYWdlcy9mYWNlL2Vtb2ppXzE2X2hlbHBsZXNzLnBuZz92PTEp5aaC5p6c5rKh5pyJ5aaC5q2k5p6B56uv55qE5YGa56m677yM5oiR5b6I6Zq+5oOz6LGh5Yiw5Li65L2V5biC5Zy65rKh5pyJ5q2j5bi455qE5Y+N5by55a2Y5Zyo44CC5Zyo5pyq5p2l77yMW+WIm+S4muadv10oaHR0cHM6Ly94dWVxaXUuY29tL1MvU1ozOTk2MDY/ZnJvbT1zdGF0dXNfc3RvY2tfbWF0Y2gp5o6o5Ye66IKh5oyH5pyf6LSn5Y2z5bCG6JC95Zyw44CC5pyJ5YWz57O75ZCX77yfCjLvvIxL5Z6L5YiG5YyW6L+H56iL77yM5Z+66YeR6aOO5qC85ryC56e744CC5q+U5aaCW+aYk+aWuei+vuiTneetuV0oaHR0cHM6Ly94dWVxaXUuY29tL1MvRjAwNTgyNz9mcm9tPXN0YXR1c19zdG9ja19tYXRjaCnvvIznrqHnkIY4MDDkur/nmoTlvKDlnaTooqvmnrbnqbrvvIzlronmjpLkuozkuKrnp5HmioDnoJTnqbblkZjvvIzpq5jkvY3kubDlhaXjgILpmo/lkI7mjIHku5Ppm4bkuK3luqbmm53lhYnvvIzln7rph5Hpo47pmanmmrTpnLLjgILmiJDplb/ogqHmiJDkuLrogqHngb7kuIvot4zmlrnlkJHnmoTph43ngb7ljLrjgILlnKjov5nkuKrov4fnqIvvvIzlubbmsqHmnInmmI7mmL7nmoTnuqbmnZ/kuI7pmZDliLbvvIzph43otbBb5paw6IO95rqQXShodHRwczovL3h1ZXFpdS5jb20vUy9TSDAwMDk0MT9mcm9tPXN0YXR1c19zdG9ja19tYXRjaCnmiqXlm6LogIHot6/jgILkuIvot4zov4fnqIvvvIzmn5DpgJpnamTlmLTngq7mlZHluILjgILlkI7nu63lubbmsqHmnInln7rkuo7nm7jlhbPpo47pmanmnInku7vkvZXmj5DnpLrjgILogqHluILokrjlj5HmlbDljYHkuIfkur/luILlgLzjgILosIHog4zplIXjgILlvJXlr7zkubDml6nkubDlsI/kubDnp5HmioDvvIzkv53pmanmjIHku5Pku4vlhaXmmI7mmL7vvIzkuInlraPluqbmiqXnnIvjgILkv53pmankuo/mjZ/mmI7mmL7jgILlvojmmL7nhLbmmK/np6/mnoHlj4LkuI7kuobov5nnp43np5HmioDkuqfkuJrnmoTmipXotYTjgILkv53pmanoh6pb5oi/5Zyw5LqnXShodHRwczovL3h1ZXFpdS5jb20vUy9DU0k5MzE3NzU/ZnJvbT1zdGF0dXNfc3RvY2tfbWF0Y2gp5oqV6LWE5aSn6Z2i56ev6YCA5Ye65ZCO77yM56ev5p6B5Y+C5LiO5Zu95a626L2s5Z6L55qE56eR5oqA5oqV6LWE77yM5L2c5Li66ZW/5pyf6LWE6YeR5a2Y5Zyo44CC5L2G5piv55+t57q/55qE6auY5rOi5Yqo77yM5piv5ZCm5LiO6Z2e6ZW/5pyf5oqV6LWE55qE6LWE6YeR5pyJ5YWz44CC56eB5Yuf5Z+66YeR55qE5aOu5aSn6IOM5ZCO77yM5piv6YeP5YyW6LWE6YeR55qE6Iao6IOA77yM6YeP5YyW5Z+66YeR5Yqp5rao5Yqp6LeM77yM6YCa6L+H5rOi5q6177yM5rOi5Yqo6ICM6Z2e5Lu35YC85o6o5Yqo5biC5Zy65YGl5bq35Y+R5bGV77yM5bey57uP5b2x5ZON5biC5Zy655qE5bmz56iz6L+Q6KGM44CC6L+Z5Liq6L+H56iL5Yiw57uT5p6c77yM5YWz5LqO5YWs5bmz77yM6K+45aSa6L+36Zu+44CC" hidden>
+                      <pre></pre>
+                    </div>
+                  </div>
+                </article>
+                <article class="featured-card" data-featured-id="../../sources/automations/BBXM每日汇总/2026/10/2026-10-29_171249_认输的心路历程。.md" data-featured-filters="market">
+                  <span class="featured-time">17:12</span><span class="featured-dot"></span>
+                  <div class="featured-card-inner">
+                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
+                    <h3><a href="../../sources/automations/BBXM每日汇总/2026/10/2026-10-29_171249_认输的心路历程。.md" target="_blank" rel="noopener noreferrer">认输的心路历程。</a></h3>
+                    <p>1，根据[创业板](https://xueqiu.com/S/SZ399606?from=status_stock_match)跌幅点数历史排行，大概跌1600点，会有一次抵抗反弹。本次跌幅超过1800点。超出历史。预估极端情况不足。设置止损线。 2，2880选…</p>
+                    <div class="featured-tags">#市场</div>
+                    <div class="featured-actions">
+                      <a class="featured-source" href="https://xueqiu.com/7143769715/414508735" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>
+                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
+                      <button class="featured-delete" type="button">删除</button>
+                    </div>
+                    <div class="featured-original" data-featured-original="Me+8jOagueaNrlvliJvkuJrmnb9dKGh0dHBzOi8veHVlcWl1LmNvbS9TL1NaMzk5NjA2P2Zyb209c3RhdHVzX3N0b2NrX21hdGNoKei3jOW5heeCueaVsOWOhuWPsuaOkuihjO+8jOWkp+amgui3jDE2MDDngrnvvIzkvJrmnInkuIDmrKHmirXmipflj43lvLnjgILmnKzmrKHot4zluYXotoXov4cxODAw54K544CC6LaF5Ye65Y6G5Y+y44CC6aKE5Lyw5p6B56uv5oOF5Ya15LiN6Laz44CC6K6+572u5q2i5o2f57q/44CCCjLvvIwyODgw6YCJ5oup5bu65LuT5Lyw5YC85pyA5L2O55qE5oiQ54af6KGM5Lia56eR5oqA6IKh44CC77yI55yL5YeA6LWE5Lqn57uT6K6677yJ44CC5Zug5Li65omp5byg5piv5a6e5omT5a6e55qE77yM5q+b5Yip546H5Lmf5piv5o+Q6auY55qE44CC6KeJ5b6X5LiN6YKj5LmI6LS144CC5Y+v5Lul5bCd6K+V44CCCjPvvIwyODgwLTI1MTDvvIzmjIfmlbDot4zluYUtMTMl77yM5a+55bqU5Liq6IKh6LeM5bmFLTEzJeOAguW+iOaYjuaYvui3n+maj+aMh+aVsOiiq+WKqOS4i+i3jOOAgu+8iOWfuumHkeadg+mHjeaIluiAheaMh+aVsOadg+mHjei3n+maj+S4i+i3jO+8ieS7iuaXpeWfuumHkeadg+mHjeiCoe+8jOacgOWdmuaMuueahOaWueWQke+8jHBjYumbhuS9k+i3jOWBnOOAguWkp+amgueOh+aLlue0r+WQjOadv+Wdl+S4quiCoe+8jOmAieaLqeWHuuWxgOinguacm+OAgum+meiZjuamnOaYvuekuu+8jOacuuaehOaYr+S4u+imgeWNluWHuuWKm+mHj+OAggo077yMW+WNjuWkqeenkeaKgF0oaHR0cHM6Ly94dWVxaXUuY29tL1MvU1owMDIxODU/ZnJvbT1zdGF0dXNfc3RvY2tfbWF0Y2gp5aSa5qyh5byV5a+86LWw5Ye66J665peL5Zuw5aKD77yM5L2G5piv5Liq6IKh5rOi5Yqo5beo5aSn77yM5o2i5omL5piO5pi+5pS+5aSn77yM5b6I5piO5pi+5aSa56m65Y2a5byI5Ymn54OI44CC6ICM5q+P5LiA5qyh5Y2O5aSp56eR5oqA5YGa5aSa5aSx6LSl77yM5a+55bqUW+mVv+eUteenkeaKgF0oaHR0cHM6Ly94dWVxaXUuY29tL1MvU0g2MDA1ODQ/ZnJvbT1zdGF0dXNfc3RvY2tfbWF0Y2gp56m65aS05Y2W55uY5Yqg5Ymn44CC5oqb5Y6L5rqQ5rqQ5LiN5pat77yM5rqQ5LqO5oyH5pWw55qE5rqD6LSl44CC5aaC5q2k5bqe5aSn5oqb5ZSu77yM5ouF5b+n5a+86Ie06Z2e55CG5oCn5p6B56uv6KGM5oOF5Ye6546w5Yqg5aSn5LqP5o2f44CCCjXvvIwxMS0z5Lit5pyf6YCJ5Li+6JC95Zyw77yM5YaN6ICD6JmR5Lqk5piT44CC" hidden>
+                      <pre></pre>
+                    </div>
+                  </div>
+                </article>
+                <article class="featured-card" data-featured-id="../../sources/automations/BBXM每日汇总/2026/10/2026-10-29_163936_尽力，也无力回天。.md" data-featured-filters="market">
+                  <span class="featured-time">16:39</span><span class="featured-dot"></span>
+                  <div class="featured-card-inner">
+                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
+                    <h3><a href="../../sources/automations/BBXM每日汇总/2026/10/2026-10-29_163936_尽力，也无力回天。.md" target="_blank" rel="noopener noreferrer">尽力，也无力回天。</a></h3>
+                    <p>汹涌的抛压。![\[摊手\]](https://assets.imedao.com/ugc/images/face/emoji_16_helpless.png?v=1) 引导多次，无功而返。 已经超出个人能力范畴。 ![](https://xqimg.imeda…</p>
+                    <div class="featured-tags">#市场</div>
+                    <div class="featured-actions">
+                      <a class="featured-source" href="https://xueqiu.com/7143769715/414499974" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>
+                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
+                      <button class="featured-delete" type="button">删除</button>
+                    </div>
+                    <div class="featured-original" data-featured-original="5rG55raM55qE5oqb5Y6L44CCIVtcW+aRiuaJi1xdXShodHRwczovL2Fzc2V0cy5pbWVkYW8uY29tL3VnYy9pbWFnZXMvZmFjZS9lbW9qaV8xNl9oZWxwbGVzcy5wbmc/dj0xKQrlvJXlr7zlpJrmrKHvvIzml6Dlip/ogIzov5TjgIIK5bey57uP6LaF5Ye65Liq5Lq66IO95Yqb6IyD55W044CCCiFbXShodHRwczovL3hxaW1nLmltZWRhby5jb20vMWExODZjZmM0OTM3NWZhZjNmZDU4MzJmLmpwZWchY3VzdG9tLmpwZyk=" hidden>
+                      <pre></pre>
+                    </div>
+                  </div>
+                </article>
+                <article class="featured-card" data-featured-id="../../sources/automations/BBXM每日汇总/2026/10/2026-10-29_121335_问冰冰小美，.md" data-featured-filters="market">
+                  <span class="featured-time">12:13</span><span class="featured-dot"></span>
+                  <div class="featured-card-inner">
+                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
+                    <h3><a href="../../sources/automations/BBXM每日汇总/2026/10/2026-10-29_121335_问冰冰小美，.md" target="_blank" rel="noopener noreferrer">问冰冰小美，</a></h3>
+                    <p>问，有没有想过这么惨？ 答，我最悲观的点位在[创业板](https://xueqiu.com/S/SZ399606?from=status_stock_match)2700。目前这种短期巨大跌幅，其实已经是里级别，10年到15年一遇的程度？![\[摊手\]](h…</p>
+                    <div class="featured-tags">#市场</div>
+                    <div class="featured-actions">
+                      <a class="featured-source" href="https://xueqiu.com/7143769715/414429434" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>
+                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
+                      <button class="featured-delete" type="button">删除</button>
+                    </div>
+                    <div class="featured-original" data-featured-original="6Zeu77yM5pyJ5rKh5pyJ5oOz6L+H6L+Z5LmI5oOo77yfCuetlO+8jOaIkeacgOaCsuingueahOeCueS9jeWcqFvliJvkuJrmnb9dKGh0dHBzOi8veHVlcWl1LmNvbS9TL1NaMzk5NjA2P2Zyb209c3RhdHVzX3N0b2NrX21hdGNoKTI3MDDjgILnm67liY3ov5nnp43nn63mnJ/lt6jlpKfot4zluYXvvIzlhbblrp7lt7Lnu4/mmK/ph4znuqfliKvvvIwxMOW5tOWIsDE15bm05LiA6YGH55qE56iL5bqm77yfIVtcW+aRiuaJi1xdXShodHRwczovL2Fzc2V0cy5pbWVkYW8uY29tL3VnYy9pbWFnZXMvZmFjZS9lbW9qaV8xNl9oZWxwbGVzcy5wbmc/dj0xKeW3sue7j+i2hei/h+aIkeWvueWOhuWPsueahOino+ivu+eahOS8sOeul+OAguaNouWPpeivne+8jOaIkeS5n+ayoeacieiDveWKm+mihOa1i+W6lemDqOOAggrpl67vvIzlu7rorq4xMOaciOWQjuS6pOaYk++8jOeOsOWcqOmprOS4iue7k+adn+S6huOAguWvuTEx5pyI5pyJ5LuA5LmI5paw55qE55yL5rOV77yfCuetlO+8jOS6i+S7tuaOqOWKqOeahOS4jeehruWumuaAp+S7jeeEtuWtmOWcqOeahOaXtuWAme+8jOW4guWcuui/mOaYr+aMieWOn+aciei2i+WKv+i/kOihjOOAguaDhee7qi3mtYHliqjmgKfonrrml4vkuIvpmY3jgIIK6Zeu77yM5Lia57up5oql6ZmG57ut5Y+R5biD77yM5L2G5Yeh56iN5pyJ5LiN5Y+K6aKE5pyf77yM5bCx55u05o6l5pq06LeM44CC5oCO5LmI55yL77yfCuetlO+8jOS6j+mSseiupOefpeesrOS4gOevh++8jOmihOacn+W3ruaYr+S6j+mSseaViOW6lOOAgua2qOeahOaXtuWAmeeci+WIqea2pue6v+S4iuWinumVv++8jOi3jOeahOaXtuWAme+8jOS5n+S8muebiOS6j+WQjOa6kOOAguWKoOWJp+aCsuinguOAgueUseS6jkHogqHlj6rog73lgZrlpJrvvIzlvoDlvoDmtqjnmoTotorlpJrvvIzkubDnmoTkurrotorlpJrvvIzkuqTmmJPmi6XmjKTvvIzlm6DmraTvvIzmtqjnmoTov4fnqIvnm4jliKnnmoTkurrlsJHvvIzot4znmoTov4fnqIvkuo/mjZ/nmoTkurrlpJrjgILov5nkuKrnu5PmnpznnIvvvIzlv4XnhLbmnInkuIDpg6jliIbkurrooqvlpZfkuobjgILlpoLmnpzkubDlhaXku4Xku4XmmK/lm6DkuLrmtqjnmoTlvojlpb3ogIznm7jkv6HmnKrmnaXvvIzpgqPkuYjvvIzov5nnp43kubDlhaXlubbmsqHmnInmgJ3ogIPkuKrogqHmnKzouqvnmoTpo47pmanjgIIK6Zeu77yM6L+Z56eN5Liq6IKh6aOO6Zmp5pyJ5ZOq5Lqb77yfCuetlO+8jOebruWJjeafkOS6m+S4quiCoeeahOiuouWNlembhuS4ree7keWumua1t+WkluafkOS6m+S8geS4mueahOaJqeW8oOmcgOaxguOAguW9k+a1t+WkluS8geS4mueahOaJqeW8oOaKlei1hOeUseS6jueOsOmHkea1gee0p+W8oOaIluiAheaYr+iejei1hOWbsOmavu+8jOi/meenjeaJqeW8oOiDjOWQjueahOi1hOacrOW8gOaUr+WBnOatou+8jOmCo+S5iOWwseS8muW9seWTjeacquadpeiuouWNleaVsOmHj+S4juiuouWNlea6ouS7t+iDveWKm++8iOWIqea2pueOh++8ieOAguaNouWPpeivne+8jOebiOWIqeaYr+iiq+WNoeiEluWtkOeahOOAguiAjOW9seWTjei1hOacrOW8gOaUr+eahOWboOe0oO+8jOiejei1hOiDveWKm++8jOS7peWPiuiejei1hOi/h+eoi+mdouWvueeahOWIqeeOh+eOr+Wig+mrmOS9juWPiOaYr+mdnuW4uOmHjeimgeeahOWtmOWcqOOAgui1hOacrOW8gOaUr+eIhuWPkeaAp+WinumVv++8jOW+iOWkp+eoi+W6puS5n+adpea6kOS6ju+8jOihjOS4mueojuaUtuS8mOaDoOS7peWPiuWKoOWkp+mprOWKm+WNsOmSnu+8iOmZjeaBr+aJqeihqO+8ieOAguWboOatpO+8jOmZpOS6hue7j+iQpeaDheWGteeahOWPmOWMlu+8jOS4quiCoemjjumZqeacieS4gOWNiuS5n+aYr+adpeiHqua1geWKqOaAp+eahOWNseacuuOAggrpl67vvIznm67liY3luILlnLrotLXkuI3otLXjgIIK562U77yM5LuO5biC5Zy655qE6LWw5Yq/55yL77yM6ICB55m75bm25rKh5pyJ5paw55m755qE5pq06LeM77yM5pyJ5Z+65pys6Z2i5pS55ZaE55qE6LW36Imy44CC6ZqP552AW+aIv+WcsOS6p10oaHR0cHM6Ly94dWVxaXUuY29tL1MvQ1NJOTMxNzc1P2Zyb209c3RhdHVzX3N0b2NrX21hdGNoKeehrOedgOmZhu+8jOS/oei0t+i9rOi0n++8jOWxheawkeS8geS4mue6t+e6t+S4u+WKqOWOu+adoOadhu+8jOW4guWcuuWkluabtOWkmuWAvuWQkeS6juiQp+adoeOAguavlOmAmue8qei/mOWPr+aAleeahOWtmOWcqOOAguWboOatpO+8jOW+iOWkmuS4quS6uueUseS6juayoeacieaYjuehrueahOacquadpe+8iOmihOacn+iJr+aAp+WinumVv++8ie+8jOS8sOWAvOiiq+WOi+WItueahOmdnuW4uOS9juOAguaWsOeZu+eahOaatOi3jO+8jOWOn+WboOS5n+W+iOWkmu+8jOaYr+W4jOacm+aJgOWcqO+8jOS9huaYr+S5n+aYr+ebruWJjeeahOmjjuaatOecvOOAguW4guWcuuiAgeeZu+S4juaWsOeZu+eahOWPmOWMlu+8jOWPjeW6lOWHuuaUuemdqeeahOWbsOmavu+8jOi9rOWei+mYteeXm+OAguWbnumhvuaWsOeZu+eahOmbhuS4reaKpeWbou+8jOWPjei/h+adpeS5n+ivtOaYjuW4guWcuuWPr+aKlei1hOeahOiMg+WbtOmdnuW4uOWwj+OAgkvlnovliIbljJbliLDkv6HotLfmlLbnlrLova/vvIznu4/mtY7pn6fmgKflubbmsqHmnInmg7PosaHkuK3nmoTlvLrjgILllK/kuIDnmoTov5vlh7rlj6PotLjmmJPlop7plb/nmoTkuZ/mmK/lsJHmlbDmlrnlkJHjgILnu4/mtY7lj5HlsZXpqbHliqjkuInpqb7pqazovabvvIzmipXotYTvvIjkv6HotLfotJ/vvInvvIzmtojotLnvvIjlhoXpnIDlm7DlooPvvInvvIzov5vlh7rlj6PvvIjotLjmmJPpobrlt67pm4bkuK3lsJHmlbDmlrnlkJHvvInvvIzlrp7kuovmsYLmmK/nmoTnnIvvvIzov5jpnIDopoHmm7TlpJrmnInliKnlj5jljJbjgILmnaHku7bkuI3otrPnmoTml7blgJnvvIzluILlnLrlj6/og73mgrLop4LvvIzku47ogIzmnInmm7TkvY7kvLDlgLznmoTlgL7lkJHkuo7jgILotLXkuI7kvr/lrpzmmK/nm7jlr7nnmoTvvIzliqjmgIHnmoTjgILogIzov5nnp43nu53lr7nnmoTkvLDnrpfvvIzmiJHkuZ/nrpfkuI3lh4bjgIIhW1xb5pGK5omLXF1dKGh0dHBzOi8vYXNzZXRzLmltZWRhby5jb20vdWdjL2ltYWdlcy9mYWNlL2Vtb2ppXzE2X2hlbHBsZXNzLnBuZz92PTEpCumXru+8jOW4guWcuuWvueS6juacquadpeS6p+S4mueahOWAvuWQkeS7jeWcqOOAguavlOWmguaKleacuu+8iOebruWJjeS7heacieeahOWBmuWkmueOsOixoe+8ieWcqOacquadpeS6p+S4muOAgui/meaXtuWAme+8jOacquadpeS6p+S4mua2qOi1t+adpeS6huaYr+S4jeaYr+abtOi0teOAggrnrZTvvIzov5nlsLHmmK9B6IKh54m56Imy77yM54KS6IKh54KS6aKE5pyf44CC5pyJ5biM5pyb55qE5paw5YW05Lqn5Lia5bCx5pyJ5pWF5LqL44CCIVtcW+aRiuaJi1xdXShodHRwczovL2Fzc2V0cy5pbWVkYW8uY29tL3VnYy9pbWFnZXMvZmFjZS9lbW9qaV8xNl9oZWxwbGVzcy5wbmc/dj0xKeiZveeEtuayoeS4mue7qe+8jOS9huaYr+ebuOWvueS6juS4gOecvOacm+WIsOWktOeahOaXp+S6p+S4mu+8jOaXp+aXtuS7o+eahOaui+WFmuabtOmavueci+WIsOi9rOacuuOAguWvueS6juiCoeS7t+WPmOWMlu+8jOi0teS4juS+v+WunOS5n+S4jeaYr+iDveWujOWFqOS4u+WvvOefreacn+i1sOWKv+eahOOAgumVv+acn+i1sOWKv+eci+S5n+iuuOS8muWdh+WAvOWbnuW9ku+8jOS9huaYr++8jOW+iOWwkeacieS6uuWdmuaMgeWIsOmVv+acn+eahOWIsOadpeOAgiFbXFvmkYrmiYtcXV0oaHR0cHM6Ly9hc3NldHMuaW1lZGFvLmNvbS91Z2MvaW1hZ2VzL2ZhY2UvZW1vamlfMTZfaGVscGxlc3MucG5nP3Y9MSk=" hidden>
+                      <pre></pre>
+                    </div>
+                  </div>
+                </article>
+                </div>
+              </div>
+            </details>
+            <details class="featured-day">
+              <summary class="featured-date-row"><strong>10月28日</strong><span>周三 · 1 条</span></summary>
+              <div class="featured-timeline">
+                <div class="featured-feed">
+
+                <article class="featured-card" data-featured-id="../../sources/automations/BBXM每日汇总/2026/10/2026-10-28_120603_2026年10月月报（二）.md" data-featured-filters="market">
+                  <span class="featured-time">12:06</span><span class="featured-dot"></span>
+                  <div class="featured-card-inner">
+                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
+                    <h3><a href="../../sources/automations/BBXM每日汇总/2026/10/2026-10-28_120603_2026年10月月报（二）.md" target="_blank" rel="noopener noreferrer">2026年10月月报（二）</a></h3>
+                    <p>流动性衰竭带来的市场亏钱效应，使得情绪-流动性负反馈→各种杠杆卸除，各种闪崩，各种非理性抛售。在外围跌幅有限的情况，A股，市场经历最残酷的多杀多踩踏阶段。跌幅已经是历史级别的。这种下跌过程，任何做多的声音都会被掩盖，亏损是实打实的。信心修复需要时间。 随着业绩披…</p>
+                    <div class="featured-tags">#市场</div>
+                    <div class="featured-actions">
+                      <a class="featured-source" href="https://xueqiu.com/7143769715/414226081" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>
+                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
+                      <button class="featured-delete" type="button">删除</button>
+                    </div>
+                    <div class="featured-original" data-featured-original="5rWB5Yqo5oCn6KGw56ut5bim5p2l55qE5biC5Zy65LqP6ZKx5pWI5bqU77yM5L2/5b6X5oOF57uqLea1geWKqOaAp+i0n+WPjemmiOKGkuWQhOenjeadoOadhuWNuOmZpO+8jOWQhOenjemXquW0qe+8jOWQhOenjemdnueQhuaAp+aKm+WUruOAguWcqOWkluWbtOi3jOW5heaciemZkOeahOaDheWGte+8jEHogqHvvIzluILlnLrnu4/ljobmnIDmrovphbfnmoTlpJrmnYDlpJrouKnouI/pmLbmrrXjgILot4zluYXlt7Lnu4/mmK/ljoblj7LnuqfliKvnmoTjgILov5nnp43kuIvot4zov4fnqIvvvIzku7vkvZXlgZrlpJrnmoTlo7Dpn7Ppg73kvJrooqvmjqnnm5bvvIzkuo/mjZ/mmK/lrp7miZPlrp7nmoTjgILkv6Hlv4Pkv67lpI3pnIDopoHml7bpl7TjgIIK6ZqP552A5Lia57up5oqr6Zyy77yM5Lul5Y+K5omY5bqV5Lmw5YWl55qE5oyB57ut77yM5oKy6KeC55qE5biC5Zy65LiO5aKe6ZW/55qE546w5a6e77yM5biC5Zy65Zyo6K+V5Zu+5a+75rGC5paw55qE5Ye66Lev44CCCkHogqHlkJHmnaXpg73mmK/ku6XokKXplIDvvIzku7flgLzmipXmnLrihpLkuqfkuJrlj5nkuovihpLmjKPpkrHmlYjlupTvvIzmjqjliqjmjKPpkrHmlYjlupTnmoTor57nlJ/vvIzku47ogIzlvaLmiJDng63ngrnnmoTmiqXlm6LkuIrmtqjjgIIhW1xb5pGK5omLXF1dKGh0dHBzOi8vYXNzZXRzLmltZWRhby5jb20vdWdjL2ltYWdlcy9mYWNlL2Vtb2ppXzE2X2hlbHBsZXNzLnBuZz92PTEp5ZCM5q2l5aaC5p6c5oyH5pWw55qE55ay6L2v77yM5Lmf5Lya5b2i5oiQ5oqV5py657yp6YeP5rWB5Yqo5oCn5oql5Zui55qE5peg5Y6Y5aS0546E5a2m5Lqk5piT44CCCuWboOatpO+8jOWPquiDveWBmuWkmuKGkuacieWIqeWPr+WbvuKGkuaKpeWbouebiOWIqeKGkuino+Wll+W4jOacm+KGkui/vea2qOadgOi3jOOAgiFbXFvmkYrmiYtcXV0oaHR0cHM6Ly9hc3NldHMuaW1lZGFvLmNvbS91Z2MvaW1hZ2VzL2ZhY2UvZW1vamlfMTZfaGVscGxlc3MucG5nP3Y9MSkK55Sx5q2k5Y+v6KeB77yMQeiCoeWNmuW8iOaAp+aYr+W+iOmavuaUueWPmOeahOOAguiAjOWQuOW8leWcuuWklui1hOmHkeaEv+aEj+S7i+WFpeeahOeQhueUse+8jOWFtuWunuWwseS4gOeCue+8jOWBmuWkmuiDveWkn+aMgee7reaAp+ebiOWIqeOAggrotYTmnKznmoTlpKnmgKfmmK/ov73pgJDliKnmtqbjgIIK5aaC5p6c6LWE5pys5o6o5Yqo55qE5YGH6LGh6IO95rao77yM6YKj5LmI77yM6L+Z5Liq5pWF5LqL5LiA5a6a6KaB5Yqo5ZCs77yM5Lmf5LiA5a6a6KaB5YiH5ZCI5Y+R5bGV6KeE5b6L44CCCumaj+edgEFp56Gs5Lu255qE5pq06LeM77yI5pq06LeM5ZCOcGLkvp3ml6fpnZ7luLjpq5jvvIzov5zotoXkuIDoiKzliLbpgKDkuJrvvInvvIzku6Xlj4pBaeiejei1hOWbsOmavuaIluiAhUFp5oqV6LWE5pa577yI5q+U5aaCW+S6mumprOmAil0oaHR0cHM6Ly94dWVxaXUuY29tL1MvQU1aTj9mcm9tPXN0YXR1c19zdG9ja19tYXRjaCnvvIznlLLpqqjmlofvvIxb6IW+6K6vXShodHRwczovL3h1ZXFpdS5jb20vUy8wMDcwMD9mcm9tPXN0YXR1c19zdG9ja19tYXRjaCnvvIxb6Zi/6YeMXShodHRwczovL3h1ZXFpdS5jb20vUy9CQUJBP2Zyb209c3RhdHVzX3N0b2NrX21hdGNoKeetieebuOWFs+S4u+WvvOS8geS4muaUr+WHuu+8ieWFtueOsOmHkea1geWOi+WKm+W3qOWkp++8jOeOsOmHkea1geWinumVv+i9rOi0n++8iOaKlei1hOW3qOWkp++8jOWbnuaKpeS4jei2s++8ie+8jOmCo+S5iO+8jOWKv+W/heS8muWvuUFp5oiQ5pys77yI5Y6f5p2Q5paZ5Lu35qC86ZW/57qm6ZmN5Lu377yM5Lq65Yqb5oiQ5pys6KOB5ZGY562J77yJ77yM6L+Z56eN57un57ut5LiK5LiL5ri45a6a5Lu377yI6K6u5Lu35piv5Li65LqG6ZW/5pyf5oqV6LWE5LiO5Y+R5bGV77yJ77yM5L2/5b6X5biC5Zy66K6k5Li677yMQWnnoazku7blt7Lnu4/lpITkuo7lkajmnJ/pq5jngrnvvIzmmrTot4zmmK/kuIDmrKHmgKfnmoTmmrTliKnljrvmnaDmnYbvvIzmiqXlm6LliLDnk6bop6PvvIzmoJHlgJLnjKLni7LmlaPnmoTov4fnqIvjgIIK6YKj5LmI77yM57u85ZCI5Lul5LiK77yM6LWE6YeR5pa55omT6YCa5ZWG5Lia5b6q546v77yM5a+E5biM5pyb5LqO5p+Q5Lqb5bqU55So55qE5a6e546w77yM5bim5Yqo5LiA5a6a55qE5Zue5qy+77yM6L+Z5bCx5piv5b2T5YmN5pyA546w5a6e55qE5Zyw5pa544CCCui/meS4qui/h+eoi++8jOaEj+WRs+edgHRva2Vu5rWB5ZCR5Lul5Y+K5pyq5p2l5Lqn5Lia5pS55Y+Y5pen6KGM5Lia5pa55ZCR77yM5pyJ5pu05aSa55qE5YWz5rOo44CC5oiR5Zu9dG9rZW7mtYHlkJHkuJPms6jkuo5BaeS8oOWqkuavlOWmguefreWJp++8jOmaj+edgEFp55+t5Ymn55m76ZmG5Y2r6KeG77yI5byA57u/54Gv77yJ77yM5b2x6KeG77yM5bm25LiU6auY6LSo6YeP55+t5Ymn5bGC5Ye65LiN56m377yM5pel5rWB6YeP5aKe6ZW/6L+F6YCf44CC6L+Z5L2/5b6X77yM5oiR5Zu95bqe5aSn55qE5pWw5o2u5Lit5b+D566X5Yqb5oqV5YWl77yM5pyJ5LqG5LiA5a6a6JC96ISa54K544CC6ZqP552A6L+Z5Liq6JC96ISa54K55pyJ5Lqb6K+f55eF77yM5L2G5piv5Lmf566X5piv5Li65pWw5LiN5aSa77yM5Y+v6IO95om/6L295paH5YyW6JC95Zyw5LiO6Zi25q615oCn5Y+R5bGV6ZyA5rGC55qE5a2Y5Zyo44CCCuiAjOWbveWklnRva2Vu5rWB5ZCR77yM5b6I5piO5pi+77yM5YWz5rOo6ams5pav5YWL5LiA5Lq66Laz55+j44CC5LiN566h5piO5bm06ams5pav5YWL5pyA5aSn55qE5pWw5o2u5Lit5b+D6JC95Zyw77yM5YW25bqe5aSn55qE566X5Yqb55So5LqO5o6o5Yqo5paw5LiA5Luj5aSn5qih5Z6L77yM5Lul5Y+K5Z+65LqO54mp55CGQWnnmoTlkITnp43liJvmlrDpqbHliqjjgIJBaeacquadpeacquefpeOAguS9huaYr0Fp5bm25rKh5pyJ5YGc5q2i44CC5LuO6aOe6KGM5rG96L2m5Yiw5py65Zmo5Lq677yM6L+Z56eN5Lqn5Lia5Y+Z5LqL5L6d5pen6L+Y5Zyo44CCCuW9k+eEtu+8jOi/meS4qui/h+eoi++8jOiejei1hOS+neaXp+aYr+WktOetieWkp+S6i+OAgnNwYWNlLXjkuJrnu6nlj5HluIPkvJror7TmmI7vvIzkvp3ml6fpnIDopoHono3otYTpq5jovr41MDDkur/nvo7lhYPmlK/mjIHov5nnp43ooYzliqjjgIIK5oC757uT77yMCuaKlei1hO+8jOiejei1hO+8jHRva2Vu5rWB5ZCR5LiO5Lqn5Lia5Y+Z5LqL77yM5b6I5piO5pi+5piv5b2T5YmN55qE5Li76KaB55+b55u+44CCCuW9k+S6p+S4muWPmeS6i+mHjeWbnuW4guWcuu+8jOiAjOW4guWcuue7j+WOhuS4gOWcuuazoeayq+S4jui1hOmHkee7k+aehOeahOWHuua4heOAguW4guWcuuW8gOWni+WIhuaekOWcuuWklueOsOWunu+8jOmAkOatpeeQhuaAp+OAgui/meS4quS7jumdnueQhuaAp+WIsOeQhueUseeahOmYtuaute+8jOW+gOW+gOaYr+W4guWcuuS4iua2qOaWueWQkeW4puadpeeahOOAguWmguaenOS6p+S4muWPmeS6i+eahOaWueWQkeWWi+WWi+S4jeS8ke+8jOmCo+S5iO+8jOi/meenjeebuOS/oeWwseS8muWkp+aJk+aKmOaJo+OAggrlvZPov5nnp43kuIrmtqjluKbliqjnmoTlj5nkuovmiJDnq4vvvIzpgqPkuYjvvIznu6fnu63kuqfkuJrkvpvpnIDvvIzmma/msJTluqbvvIzlpKnoirHmnb/vvIzku6Xoh7Pkuo7nm4jliKnkuI7llYbkuJrmqKHlvI/nmoTorqjorrrlsLHkvJrlsYLlh7rkuI3nqbfjgIIhW1xb5pGK5omLXF1dKGh0dHBzOi8vYXNzZXRzLmltZWRhby5jb20vdWdjL2ltYWdlcy9mYWNlL2Vtb2ppXzE2X2hlbHBsZXNzLnBuZz92PTEp5rKh5pyJ5Yip55uK55qE5pa55ZCR77yM5b6I6Zq+5pyJ6auY6LSo6YeP55qE5YiG5p6Q44CCIVtcW+aRiuaJi1xdXShodHRwczovL2Fzc2V0cy5pbWVkYW8uY29tL3VnYy9pbWFnZXMvZmFjZS9lbW9qaV8xNl9oZWxwbGVzcy5wbmc/dj0xKQrnn63nn63kuInkuKrmnIjnmoTkuIvot4zvvIzluKbmnaXnmoTms6LliqjvvIzmtYHliqjmgKflm6DntKDnmoTlj5jljJbmmK/pnZ7luLjmmI7mmL7nmoTjgILml6DorrrliqDmga/vvIzov5jmmK/kv6HotLfovazotJ/vvIzov5jmmK/ln7rph5HmiqXlm6LliLDotY7lm57nk6bop6PvvIznu5PmnoTmgKfnmoTlj5jljJbkuI7nvornvqTmlYjlupTvvIzmgLvmmK/ph43lpI3ljoblj7LnmoTovajov7njgIIhW1xb5pGK5omLXF1dKGh0dHBzOi8vYXNzZXRzLmltZWRhby5jb20vdWdjL2ltYWdlcy9mYWNlL2Vtb2ppXzE2X2hlbHBsZXNzLnBuZz92PTEp6L+Z5Liq5Y+Y5YyW5Lul5ZCO6L+Y5Lya5oyB57ut5oCn44CCCuS8sOWAvOmUmueahOmXrumimO+8jOebruWJjeW5tuayoeacieW+iOWlveeahOino+WGs+WKnuazleOAguWinuWKoOS6huW4guWcuuS4jeehruWumuaAp+OAgumrmOWIqeeOh+eahOeOr+Wig++8jOWcqOe7j+a1juS9juWinumVv+eahOeOr+Wig++8jOaAu+aYr+S8tOmaj+mjjumZqeOAguWboOatpO+8jOmrmOWinumVv+eahOWcsOWMuu+8jOWGsuWHu+aAp+Wwj+OAggpB6IKh55qE5Lyw5YC86ZSa77yM5ZCR5p2l5LiN56iz5a6a44CCIVtcW+aRiuaJi1xdXShodHRwczovL2Fzc2V0cy5pbWVkYW8uY29tL3VnYy9pbWFnZXMvZmFjZS9lbW9qaV8xNl9oZWxwbGVzcy5wbmc/dj0xKeaatOa2qOaatOi3jOmDveaYr+efreacn+a1geWKqOaAp+eahOWPmOWMluW8leWPkeOAguS7juS4gOS4quaegeerr+WIsOWPpuS4gOS4quaegeerr+OAgiFbXFvmkYrmiYtcXV0oaHR0cHM6Ly9hc3NldHMuaW1lZGFvLmNvbS91Z2MvaW1hZ2VzL2ZhY2UvZW1vamlfMTZfaGVscGxlc3MucG5nP3Y9MSnlr7nkuo7ov5nnp43ms6LliqjvvIzmiJHkuZ/lj6rog73ogIPomZHmi6nml7blupTlr7njgILov5nmmK/kuIDnp43ml6DlpYjkuYvkuL7jgIIhW1xb5pGK5omLXF1dKGh0dHBzOi8vYXNzZXRzLmltZWRhby5jb20vdWdjL2ltYWdlcy9mYWNlL2Vtb2ppXzE2X2hlbHBsZXNzLnBuZz92PTEpCuWmguaenOivtOa1geWKqOaAp+eahOWcuuWkluiwqOaFju+8jOaYr+eUseS6i+S7tuS4jeehruWumuaAp+WGs+WumuOAgumCo+S5iOS6lOS4re+8jOexs+iBlOWCqOiuruaBr+S8muiurumDveW/q+iQveWcsOOAggoxMeaciOS4reacn+mAieS4vu+8jOS5n+S8muiQveWcsOOAggrlpoLmnpzlt53miJDlip/lrojkvY/kuKTpmaLvvIzlsLHmnInotrPlpJ/nmoTog73lipvkuI7mnaHku7bvvIzmlr3ljovnsbPogZTlgqjjgIIhW1xb5pGK5omLXF1dKGh0dHBzOi8vYXNzZXRzLmltZWRhby5jb20vdWdjL2ltYWdlcy9mYWNlL2Vtb2ppXzE2X2hlbHBsZXNzLnBuZz92PTEp5o6o5YqoQWnnmoTmjIHnu63mgKfjgIIK5aaC5p6c5rKh5a6I5L2P77yM55Sx5LqO5Lik5YWa55qE5LiN5ZCM5Yip55uK77yM5b6I5aSa6aOO6Zmp5Lya5Y235Zyf6YeN5p2l44CC77yI5q+U5aaC5Lul5b6A55qE5bCP6Zmi6auY5aKZIVtcW+aRiuaJi1xdXShodHRwczovL2Fzc2V0cy5pbWVkYW8uY29tL3VnYy9pbWFnZXMvZmFjZS9lbW9qaV8xNl9oZWxwbGVzcy5wbmc/dj0xKe+8iQrmlL/msrvnu4/mtY7lrabnnIvvvIznrYnlvoXov5nnp43kuovku7bnmoTokL3lnLDvvIzkuZ/mmK/lr7vmsYLkuIDnp43noa7orqTjgIIK5a6P6KeC57uP5rWO5a2m55yL77yM55uu5YmN5L6d5pen5Zu057uV77yM6YCa6IOA77yM5Yip546H77yM6LWE5pys5byA5pSv77yM6J6N6LWE77yM5L+h6LS35Y2a5byI44CCCuWcqOi/meS4quW4guWcuueahOaWueWQkemAieaLqeiKgueCue+8jOmHjeaLvuS/oeW/g+mcgOimgeabtOWkmuWKquWKm+OAgiFbXFvmkYrmiYtcXV0oaHR0cHM6Ly9hc3NldHMuaW1lZGFvLmNvbS91Z2MvaW1hZ2VzL2ZhY2UvZW1vamlfMTZfaGVscGxlc3MucG5nP3Y9MSk=" hidden>
+                      <pre></pre>
+                    </div>
+                  </div>
+                </article>
+                </div>
+              </div>
+            </details>
             <details class="featured-day">
               <summary class="featured-date-row"><strong>10月21日</strong><span>周三 · 2 条</span></summary>
               <div class="featured-timeline">
@@ -4738,64 +4851,6 @@ ERP = 前瞻盈利收益率 - 10年期国债收益率
                 </div>
               </div>
             </details>
-            <details class="featured-day">
-              <summary class="featured-date-row"><strong>9月17日</strong><span>周四 · 1 条</span></summary>
-              <div class="featured-timeline">
-                <div class="featured-feed">
-                <article class="featured-card featured-summary-card" data-featured-id="obsidian://open?path=%2FUsers%2Fcjw%2Fdev%2FObsidian%2Fwiki%2Fsources%2Fautomations%2FBBXM%E6%AF%8F%E6%97%A5%E6%B1%87%E6%80%BB%2F2026%2F09%2F2026-09-17_summary.md" data-featured-filters="macro,market,industry,trade">
-                  <span class="featured-time">汇总</span><span class="featured-dot"></span>
-                  <div class="featured-card-inner">
-                    <div class="featured-meta"><span>summary.md · 自动化摘要</span><b>汇总</b></div>
-                    <h3><a href="obsidian://open?path=%2FUsers%2Fcjw%2Fdev%2FObsidian%2Fwiki%2Fsources%2Fautomations%2FBBXM%E6%AF%8F%E6%97%A5%E6%B1%87%E6%80%BB%2F2026%2F09%2F2026-09-17_summary.md" target="_blank" rel="noopener noreferrer">9月17日 当日汇总</a></h3>
-                    <p><strong>总观点：</strong>当天内容主要不是具体操作指令，而是在描述一次美联储加息落地后的宏观风险框架和中美资产定价差异：作者认为加息25基点说明美联储仍围绕核心通胀和就业履行职责，但通胀来源并不只在货币端，因此利率问题会继续传导到财政发债、信用评级、AI资本开支和隐性债务风险；对中国资产而言，关键不只是海外加息本身，而是国内信用从房地产抵押物转向新动能、中央加杠杆和直接融资后，人民币汇率能否继续坚挺并支撑金融转型。最深层风险来源是高利率环境下的债务融资压力与AI隐性债务，主要传导链是加息确认通胀顽固 -&gt; 利率和风险补偿上升 -&gt; 财政、AI融资和资产估值承压 -&gt; 汇率若转弱则对中国资产形成二次压制；作者当天没有明确买入、卖出、加仓或减仓信号。</p>
-                    <p><strong>解析：</strong>今天这条内容是一篇普通雪球帖子，核心是在用美联储加息事件解释宏观流动性、财政债务、AI隐性债务和人民币汇率之间的关系，而不是给出某个标的或板块的买卖答案。作者先把美联储加息理解为独立性延续：核心通胀目标仍明确，且美联储认为美国经济和就业有韧性，能够承受较高利率。随后她把问题推进到通胀结构：加息只能限制货币端，油价、工资、进出口、能源等非货币端因素仍需要其他方式解决，所以“利率问题”会成为债务、财政发债、信用评级和经济活力的核心约束。</p>
-                    <div class="featured-tags">#宏观 #市场 #产业 #交易</div>
-                    <div class="featured-actions">
-                      <a class="featured-source" href="obsidian://open?path=%2FUsers%2Fcjw%2Fdev%2FObsidian%2Fwiki%2Fsources%2Fautomations%2FBBXM%E6%AF%8F%E6%97%A5%E6%B1%87%E6%80%BB%2F2026%2F09%2F2026-09-17_summary.md" target="_blank" rel="noopener noreferrer">打开 summary.md</a>
-                    </div>
-                  </div>
-                </article>
-                <article class="featured-card" data-featured-id="../../sources/automations/BBXM每日汇总/2026/09/2026-09-17_090300_加息25基点_落地_一_美联储独立性得到延续_1_核心通胀目标2_明确_为此行动_2_认为美国经_40957510.md" data-featured-filters="macro,market">
-                  <span class="featured-time">09:03</span><span class="featured-dot"></span>
-                  <div class="featured-card-inner">
-                    <div class="featured-meta"><span>冰冰小美 · 雪球</span><b>精选</b></div>
-                    <h3><a href="../../sources/automations/BBXM每日汇总/2026/09/2026-09-17_090300_加息25基点_落地_一_美联储独立性得到延续_1_核心通胀目标2_明确_为此行动_2_认为美国经_40957510.md" target="_blank" rel="noopener noreferrer">加息25基点，落地。一，美联储独立性得到延续。1，核心通胀目标2%明确。为此行动。2，认为美国经济韧性能够承载高利率。就... - 雪球</a></h3>
-                    <p>首页 下载App 登录 冰冰小美 发布于2026-09-17 09:03 来自Android · 广东 关注 加息25基点 ， 落地 。 一 ， 美联储独立性得到延续 。 1 ， 核心通胀目标2%明确 。 为此行动 。 2 ， 认为美国经济韧性能够承载高利率 。…</p>
-                    <div class="featured-tags">#宏观 #市场</div>
-                    <div class="featured-actions">
-                      <a class="featured-source" href="https://xueqiu.com/7143769715/409575102" target="_blank" rel="noopener noreferrer">打开雪球原帖</a>
-                      <button class="featured-original-toggle" type="button" aria-expanded="false">显示原文</button>
-                      <button class="featured-delete" type="button">删除</button>
-                    </div>
-                    <div class="featured-original" data-featured-original="6aaW6aG1CuS4i+i9vUFwcArnmbvlvZUK5Yaw5Yaw5bCP576OCuWPkeW4g+S6jjIwMjYtMDktMTcgMDk6MDMK5p2l6IeqQW5kcm9pZArCtwrlub/kuJwK5YWz5rOoCuWKoOaBrzI15Z+654K5Cu+8jArokL3lnLAK44CCCuS4gArvvIwK576O6IGU5YKo54us56uL5oCn5b6X5Yiw5bu257utCuOAggoxCu+8jArmoLjlv4PpgJrog4Dnm67moIcyJeaYjuehrgrjgIIK5Li65q2k6KGM5YqoCuOAggoyCu+8jArorqTkuLrnvo7lm73nu4/mtY7pn6fmgKfog73lpJ/mib/ovb3pq5jliKnnjocK44CCCuWwseS4muWFheWIhgrjgIIK6YCa6IOA5LiO5bCx5Lia5piv576O6IGU5YKo55qE5Li76KaB6IGM6LSjCu+8jArmsqHmnInlgY/nprvni6znq4vmgKcK44CCCuS6jArvvIwK5Yqg5oGv5ZGo5pyf5LiO6YCa6IOACu+8jArlvIDlkK/liqDmga8K77yMCuaYr+aJv+iupOmAmuiDgOeahOmhveWbuuaApwrjgIIK6YCa6IOA55qE5Y6f5Zug5pyJ5b6I5aSaCu+8jArmr5TlpoLmsrnku7fog73mupDku7fmoLznmoTkvKDlr7wK77yMCuavlOWmguW3peS6uuimgeaxguabtOmrmOW3pei1hArvvIwK5q+U5aaC6LSn5biB6LaF5Y+RCuOAggrmr5TlpoLov5vlh7rlj6Plr7nnianku7fmsLTlubPnmoTosIPoioIK44CCCuaVheiAjArvvIwK5Yqg5oGv5Y+q6IO96ZmQ5Yi26LSn5biB56uvCuOAggrpgJrog4Dov5jpnIDopoHlvojlpJrlt6XkvZzlgZoK44CCCuW6lOivpeimgeWFs+azqOmdnui0p+W4geerr+mAmuiDgOeahOino+WGs+aWueW8jwrjgIIK5LiJCu+8jArlgLrliqHkuI7liKnnjocK77yMCui0o+S7u+eUqee7mei0ouaUv+mDqArjgIIK5Y+R5YC66IqC5aWP5LiO6KeE5qih5piv6LSi5pS/6YOo55qE5bel5L2cCuOAggrog73kuI3og73lj5Hlh7rljrsK77yMCuS5n+aYr+i0ouaUv+mDqOeahOS6iwrjgIIK4oaS5L+h55So6K+E57qnCuOAggrliKnnjofpl67popjmiJDkuLrmiYDmnInpl67popjnmoTmoLjlv4Ppl67popgK44CCCuWIqeeOh+mXrumimOeahOWHuueOsArvvIwK5qC45b+D5piv6KaB5rGC5a+56aOO6Zmp5pyJ5pu06auY55qE5Zue5oqlCuOAggrliKnnjofmtonlj4rono3otYTmiJDmnKwK77yMCue7j+a1jua0u+WKmwrjgIIK57Gz6IGU5YKo5ZCs5Y+W5oql5ZGK5ZCOCu+8jAror4TkvLDnu4/mtY7lvLrlirIK77yMCuW4guWcuuWPr+S7peaJv+WPlwrjgIIK6YKj5LmICu+8jArogq/lrprkvJrlu7bkvLjliLAK77yMCkFp5a+5576O5Zu957uP5rWO55qE6LSh54yuCuOAggrpgqPkuYgK77yMCioq5Yip546H55yf5a6e55qE5oOF5Ya14oaSQUnmianlvKDkuI7pmpDmgKflgLrliqHnmoTpo47pmakqKgrjgIIK5ZubCu+8jArmiJHlm73lro/op4LnmoTovazlj5gK44CCCuWKoOaBr+aOqOWKqOe+juWFg+aMh+aVsOS4iua2qOKGkuS8oOe7n+aDheWGteS6uuawkeW4geaxh+eOh+aJv+WOiwrjgIIK5LiN6L+HCu+8jArkurrmsJHluIHmsYfnjofkvp3ml6fljYflgLzotovlir8K44CCCuaguOW/g+WcqOS6jgrvvIwK5Lq65rCR5biB5rGH546H6ZSa5a6a5Y+R55Sf5LqG5LiA5Lqb5Y+Y5YyWCuOAggrotLjmmJPpobrlt67lt6jlpKfmmK/moLnmupAK44CCCuWkruihjOihjOmVv+WPkeW4g+OAiuaxguaYr+OAi+aWh+eroArvvIwKKirpmJDov7Dph5Hono3lj5jljJbjgIIqKgoqKuaguOW/g+WcqOS6juaAu+mHj+aJqeW8oOS4juS8oOe7n+Wuj+inguaVsOaNruWIkuetieWPt+eahOaXtuS7o+e7k+adn+OAgioqCioq5o2i5Y+l6K+d77yM5oi/5Zyw5Lqn6J6N6LWE5pe25Luj5b275bqV57uT5p2f5LqG44CCKioKKirku6XlkI7mi7/liLDmianlvKDkv6HnlKjnmoTvvIzkuI3lho3mmK/lnJ/lnLDmirXmirznianvvIzogIzmmK/mlK/mkpHnu4/mtY7lop7plb/nmoTmlrDliqjog73mlrnlkJHjgIIqKgoqKuWfuuS6juaKgOacr++8jOS6uuaJjeetiemdnuaKteaKvOeJqeiejei1hOWinuWKoOOAgioqCioq55u05o6l6J6N6LWE77ye5bGF5rCR6YOo6Zeo6LS35qy+44CCKioK5pys6LSo5LiK4oaS5bGF5rCR5Yqg5p2g5p2G5LiO5Lit5aSu5Yqg5p2g5p2GCu+8jArkvp3ml6fmmK/kuK3lpK7liqDmnaDmnYbkuLvlr7wK44CCCuS4jei/h+ebruWJjeaYr+mAmui/h+WPkeihjOWbveWAugrvvIwK5o+Q6auY6LSi5pS/6LWk5a2X546H5o6o5Yqo6L2s5Z6LCu+8jArotaTlrZfnjofovoPpq5jnmoTpmLbmrrUK77yMCuS5n+S8muWvueS8geS4mueOsOmHkea1gQrvvIwK56S+5Lya5Y+R5bGV6LSh54yu5o+Q5Ye66KaB5rGCCuOAggrmjaLlj6Xor50K77yMCuWwseaYr+iDveWkn+i0t+WIsOasvueahOiMg+WbtOaUtue8qeS6hgrjgIIK5a+55LqO5biC5Zy65b2x5ZONCu+8jArnm67liY3moLjlv4Pop4Llr5/mmK8K77yMCuS6uuawkeW4geaxh+eOh+i1sOWKvwrjgIIK6L+Z5piv5Yy65Yir5LqOMjAyMuW5tOWKoOaBr+eahOaguOW/gwrjgIIK5aaC5p6c5Lq65rCR5biB5L6d5pen5Z2a5oy6Cu+8jArku6PooajmiJHlm73ph5Hono3ovazlj5jnmoTlhrPlv4MK77yMCuS8muW9seWTjeWQjue7reihjOaDheWPmOWMlgrjgIIK5LuF5Zyo5q2j5paH5LiL6K6o6K66CuWPkeW4gwrlhajpg6jorqjorrrvvIgzOe+8iQrmnIDng63mnIDmlrDmnIDml6kK5Yaw5Yaw5bCP576O5L2c6ICF5L+u5pS55LqOIDIwMjYtMDktMTcgMDk6MTTCoMK3wqDlub/kuJwK57Gz6IGU5YKo5rKh5pyJ5oyJ5bed5pmu55qE5Yqo5L2c44CCCuS7peWPiuaVsOWtl+i0p+W4geazleahiOayoemAmui/h+OAggrlt53mma7kuK3mnJ/pgInkuL7lpKfmpoLnjofopoHovpPkuobjgIIK5bed5pmu4oaS5pON57q15biC5Zy66KGM5Li677yMCuS5n+S8mumaj+edgOiQvemAieWRiuS4gOauteiQveOAggrmmI7mnIjlsI/mpbxrwqDvvJrpmL/lt53ovpPkuobnmoTor51haeenkeaKgOimgeWbnuiwg+S6hgrmoLzkvKbnvZflp4bCoO+8mueWr+WtkOi+k+S6hu+8jOS4i+S4gOS4quS8muS4jeS8muabtOeWr++8nwpaWEtLR8Kg77ya5rKh5pCe5oeC77yM5oiR6K6w5b6X5LmL5YmN5rKD5LuA5aW95YOP5piv54m55pyX5pmu6YKj6L6555qE5Lq677yM54m55pyX5pmu5a6J5o6S5LiK5Y6755qE5LiA5qC377yM6L+Z5qyh5oCO5LmI5Lya5rKh5oyJ54m55pyX5pmu6K6h5YiS54S25ZCO54m55pyX5pmu5Lya6L6T5o6J5Lit5pyf6YCJ5Li+77yfCuafpeecizbmnaHlm57lpI3unIMKNgo0OQrov73ot4zmnYDmtqjlsI/lrrbplb/ku4rlpKkgMDk6MzDCoMK3wqDpu5HpvpnmsZ8K5YWI5oqK5YaF5aW45riF6Zmk5LqGCuiuqOiuugo4CueIseWbveWmgueIseW3seS7iuWkqSAwOToxOcKgwrfCoOW5v+S4nArmmKjlpKnmvZjooYzlnKjmsYLmmK/lj5Hkuobmlofnq6DvvIzlrZfpg73orqTor4bvvIznu4TlkIjlnKjkuIDotbfnnIvlvpfmmZXmmZXkuY7kuY4K56ul55yf55qE5bCP54Ot5rCU55CDwqDvvJrmr4/mrKHlpKfot4zpg73mnInmsYLmmK/vvIzlh4bnmoTlvogKMQo4CuWQiOiCpemHkeadoeS7iuWkqSAxMjo0McKgwrfCoOaxn+ilvwrpqazlvrfph4znmoTnuqLoibLCoO+8muacieeCueS4nOilvwrlqLHkuZDkuI7mipXotYTlhbHlrZjCoO+8muiupOecn+eci+S6hu+8jOiZveS4jeiDveWujOWFqOeQhuino++8jOS9huaIkeefpemBk+aIkeWbveacieiDveWKm+WPkeWxleaIkOmHkeiejeW8uuWbve+8jOecvOS4i+WwseS4jeiDveS5n+S4jeS8muiiq+e+juWbveeJteedgOm8u+WtkOi1sOS6huOAggoyCjUKbm9ub2J1Z+S/ruaUueS6jiAyMDI2LTA5LTE3IDA5OjUwwqDCt8Kg5bm/5LicCumHjeeCueaYr+S7gOS5iO+8jOiDveS4jeiDveS5sOiCoeelqOOAguWuj+ingueahOS6i+aDheaIkei/meS4quWwj+aVo+S5n+S4jeaHgu+8jOWPquaDs+efpemBk+WvueS6juiCoeiCoeW4guaAjuS5iOW6lOWvuQo5NTI35pyq5p2l5pu05aW9wqDvvJrmjojkurrku6XmuJTvvIzkuI3lpoLmjojkurrku6Xpsbwg77yM5ZOI5ZOI5ZOICjEKNArpk4HlpLTlqIPkuLvlgZpldGbku4rlpKkgMDk6MjDCoMK3wqDmsrPljZcK576O576OIOm7hOmHkeiDvee7meS4quWIpOaWreWYmyDmiJHmhJ/op4nkvJrlm57liLA5MDDku6XkuIsg5Zyo5Yqg5oGv5ZGo5pyf5LiKIOmCo+S6m+i1hOmHkei/mOayoeacieW8gOWni+Wkp+WKm+i3kei3r+WRoiDlpZfkvY/kuoblh4blpIfooaXku5Mg6L+Y5pyJNOWxgui1hOmHkeS6hiDovabkuIo25bGCIOS6j+WNgeWHoOS4queCueS6hgrorqjorroKNArmtL7kuqblpYfku4rlpKkgMDk6MTjCoMK3wqDmsZ/oi48K5oiR6K6w5b6XMjLlubTpgqPkvJrlhL8g576O5a2Q5LiA5Yqg77yMcm1i5bCx6LSs5YC8IOS4gOeCuea2iOaBr+Wwseeri+mprOWPjeW6lCDku4rlubTov5nkuIDlubTlvojmnInmhI/mgJ0g576O5a2Q5ZKM5qyn5a2Q5Zyo6ZyH6I2h77yM5oiR5Lus5LiA55u05Zyo5Y2H5YC8IOWMheaLrOaYqOaZmuS5n+aYrwrlhrDlhrDlsI/nvo7CoOS9nOiAhe+8muWKoOaBr+aUtue8qea1geWKqOaApyvotKzlgLzljovliLbotYTkuqfkvLDlgLzvvIzotYTkuqfkuI7ku7fmoLzlj4zph43miZPlh7vvvIznhorluILlsLHmiJDnq4vjgILov5nkuIDmrKHkvJrkuI3kvJrkuI3kuIDmoLfjgIIK5rS+5Lqm5aWHwqDlm57lpI1A5Yaw5Yaw5bCP576OwqDvvJrmmK/llYog5omA5LulMjLlubQyM+W5tOeOqeeahOaIkeW+iOeXm+iLpiDmhJ/op4nml6Dop6Mg5oiR55qE6ISR5a2Q5a6e5Zyo5oOz5LiN5Yiw5Zu95a625oCO5LmI6KejIOWbveWutueahOS4ieWkp+mprOi9piDlh7rlj6Mg5oqV6LWEIOa2iOi0uSDlh7rlj6PkuI3lj6/og73kuIDnm7Tov4XnjJsg5oqV6LWE5raI6LS55Zu95a626KaB5Y+R5YqbIOaAjuS5iOWPkeWKmyDorrjnmoTlrqPliKTlrqPluIPml6fnmoTmiL/lnLDkuqfnu5PmnZ8g5paw55qE5Yiw5p2l77yfIOecn+S4jeefpemBk+WVigpBS0lQwqDvvJrlm73lhoXotYTkuqforqHku7flj4LmlbDmnInkuobmlrDlj5jljJblkKfvvIzkurrmsJHluIHljYflgLzorq7ku7fmnYPmj5DljYfvvIzlpK7ooYznmoTotKfluIHmlL/nrZblj5flpJblvbHlk43kuZ/lj5jlvLHkuobvvIzov5HmnJ/liYrlh4/mma7mg6Dlkozlop7lvLrnpajmja7lhZHku5jkuZ/pg73kvZPnjrDopoHljrvlsYXmsJHmnaDmnYbvvIzmlK/mjIHlrp7kvZPnu4/mtY4KMwo0CuefpembhF/lrojpm4zku4rlpKkgMTM6NTXCoMK3wqDlub/kuJwK6L2s5Y+RCuiuqOiuugoyCuS4i+mbqui1sOWkp+i3r+S7iuWkqSAxNDozOMKgwrfCoOemj+W7ugrigJzliKnnqbrlh7rlsL3igJ0g5b6A5b6A5bim5p2l6aOO6Zmp5YGP5aW95L+u5aSNCuiuqOiuugoxCuenr+aegeWtpuS5oOeahOWkp+mbquS7iuWkqSAxMToyNsKgwrfCoOmZleilvwoy5YiG77yM6Z2Z562J5Y+Y5YyWCuiuqOiuugoxCuatouaIiOS4uuatpmFsZXjku4rlpKkgMTA6MzPCoMK3wqDlub/kuJwK5YWz5LqO576O5YC65Yip5oGv6Zeu6aKY77yM5qyn5pel6Z+p576O5YWI5ZCM5q2l5Yqg5oGv77yM5piO5bm06ICB576O5YaN6ZmN5oGv77yM5bCG576O5YC66L2s56e75Yiw6Zif5Y+L6Lqr5LiK77yM5bCP5byf5Y2z5L2/6Lef5aSn5ZOl6KaB5LqG5Yip5oGv77yM5Lmf5Lya6YCa6L+H5YW25LuW5rig6YGT6L2s56e757uZ5aSn5ZOl77yM5pyA57uI5a6e546w576O5YC65LiN6L+d57qm55qE5pWI5p6cCuiuqOiuugoxCuWlvei/kOe7tee7teadpeS7iuWkqSAxMDozMsKgwrfCoOW5v+S4nAo25YiG77yM5bed5pmu6Kej5Yaz5bCP5LyK6Zeu6aKY5Lya5LiN5Lya5bCx6IO96LWi5Lit5pyfCuiuqOiuugoxCua3s+actOeahOWtmOmSseWwj+aUtumfs+acuuS7iuWkqSAxMDozMsKgwrfCoOa5luWMlwrov5nmrKHkvJrkuI3kuIDmoLflkJfvvJ8K6K6o6K66CjEK5aea5rGg5p+U5LuK5aSpIDEwOjEwwqDCt8Kg6buR6b6Z5rGfCjbliIbvvIzlsI/nvo7phbHvvIzlt6XnqIvmnLrmorDnmoTkuIvot4zmmK/kuI3mmK/plJnmnYDlkaLvvJ8K6K6o6K66CjEK5bu25a6J5Y2B5LiJ5bm05LuK5aSpIDA5OjE4wqDCt8Kg5rWZ5rGfCuWwj+e+juWbnuadpeWVpgrorqjorroKMQroh6rlpoLnmoTnm4jliKnlsI/lubjnpo/ku4rlpKkgMDk6MTfCoMK3wqDlub/kuJwK5pyJ5a2m5Lmg5aeU5ZGY5oC757uT5LiL5ZCXCuiuqOiuugoxClNwYXJyb3dfOeS7iuWkqSAwOToxNcKgwrfCoOWbm+W3nQrkurrmsJHluIHni6znq4voh6rkuLvkuobvvIzlsLHkuI3kvJrooqvliqDmga/nibXnnYDpvLvlrZDotbDkuoYK5Yaw5Yaw5bCP576OwqDkvZzogIXvvJrlpK7lpojliY3kuI3kuYXvvIzor7Tnu6fnu63kv53mjIHlrr3mnb7vvIzpnIDopoHmlrDnmoTnkIbop6PjgIIKMQoxCuWkjeS4reeUn+S7iuWkqSAxNDowOcKgwrfCoOmdkua1twrliKvkurrnnIvliqDmga/vvIzlj6rnnIvliLDogqHnpajot4zkuI3ot4zvvJvogIHlk6XnnIvliqDmga/vvIznm7TmjqXnnIvliLDkuobkv6HnlKjor4Tnuqflkozph5Hono3ovazlnovjgILov5nlsLHmmK/orqTnn6Xnu7TluqbnmoTlt67ot53jgILnjrDlnKjnmoRB6IKh77yM5bCx5piv5LiA6L655Zyo55Sp5o6J5oi/5Zyw5Lqn55qE5pen5YyF6KKx77yM5LiA6L655Zyo57uZ56Gs56eR5oqA44CB55u05o6l6J6N6LWE6ZO66Lev44CC6Zi155eb5pyf56Gu5a6e6Zq+5Y+X77yM5L2G5Y+q6KaB6L2s5Z6L55qE5Yaz5b+D5Zyo77yM5Lq65rCR5biB5rGH546H5oy65L2P77yM5aSn55uY55qE5bqV5rCU5bCx5ZyoCuiuqOiuugrotZ4K5bCP5b+D6Z+t6I+c54KS6bih6JuL5LuK5aSpIDE0OjA2wqDCt8Kg5rmW5YyXCueci+S4jeaHggrorqjorroK6LWeCua0m+mYs+Wwj+exs+WuneS7iuWkqSAxMjo0N8KgwrfCoOays+WNlwrnrKzlm5vmrrXjgIIK5Liq5Lq655CG6KejOiDlm73lrrbnu4/mtY7nlLHlnLDkuqflvoDnp5HmioDovazlnovvvIzmjqXkuIvmnaXopoHnnIvlpK7ooYzlkI7nu63mmK/pmY3mga/ov5jmmK/mlLbntKfmtYHliqjmgKfjgILlr7nkuI0K56iz5b2T55qE56iz6LWa5bCP5ZaE6ImvwqDvvJrov5jlnKjpgJrnvKkg5rGH546H5Y+I56izIOaIkeeQhuino+WPjeiAjOWPr+S7peWuveadvgoxCui1ngrlsZXlvIDmn6XnnIvmm7TlpJoK54Ot6Zeo6K+d6aKYCjEK6Iiq6L+Q5p2/5Z2X6KGo546w5by65Yq/77yM5oub5ZWG6L2u6Ii55rao5YGcCjIK5Yac5Lia5p2/5Z2X6LWw5by677yM6YeR5YGl57Gz5Lia5bCB5p2/CjMK6Zu26LeR5Li+6KGMMjAyNuaKgOacr+WPkeW4g+S8mu+8jOWQkeaZuuiDveenkeaKgOW5s+WPsOi3g+i/gQo0CueOu+eSg+Wfuuadv+amguW/tei1sOW8uu+8jOayg+agvOWFieeUteWkp+a2qAo1CueFpOeCreadv+Wdl+a0u+i3g++8jOS6keeFpOiDvea6kOa2qOWBnAo2Cue+juiBlOWCqOmHjeWQr+WKoOaBr++8jOe6s+aMh+ebmOS4rei3s+awtAo3CuW3peS4muavjeacuuadv+Wdl+aLieWNh++8jOWNjuS4nOaVsOaOp+a2qOWBnAo4Cuaxvei9puadv+Wdl+aLieWNh++8jOWuieWHr+axvei9pua2qOWBnAo5Cua2suWGt+acjeWKoeWZqOamguW/teaLieWNh++8jOayg+mhv+enkeaKgOa2qOWBnAoxMArmuK/ogqHlhYnpgJrkv6HogqHotbDlvLrvvIzmm6bmmbrnp5HmioDlpKfmtqgK7puqCueDreiCoeamnArmm7TlpJoK5YWo55CDCuayqua3sQrmuK/ogqEK576O6IKhCjHlsI/ml7blhoXmnIDng60KMjTlsI/ml7blhoXmnIDng60KMQpO5rKI6byTCiszNzMuODAlCjIK5oub5ZWG6L2u6Ii5CisxMC4wMiUKMwrntKvph5Hnn7/kuJoKLTMuOTUlCjQK5a6B5b635pe25LujCi0wLjM5JQo1CuWuh+agkeenkeaKgC1XCis2LjExJQo2CuWIm+S4muadv+eul+WKm0VURuWNjuWkjworMC45NyUKNwrnlJ/nm4rnp5HmioAKLTUuNDclCjgK5Lya56i95bGxCis1LjM3JQrmtqjot4zluYXmppwK5pu05aSaCuayqua3sQrmuK/ogqEK576O6IKhCua2qOW5heamnArot4zluYXmppwKMQpO5rKI6byTCiszNzMuODAlCjIK5Y2O5a6d6IKh5Lu9CisyMC4wMSUKMwrnu4/nuqzogqHku70KKzIwLjAwJQo0CumHkeefs+S6muiNrworMTkuOTglCjUK6Iqx5rqq56eR5oqACisxOS40MCUKNgrov5Hlsrjom4vnmb0KKzE4Ljc1JQo3Cueni+eUsOW+rgorMTcuNjMlCjgK56eL5LmQ56eN5LiaCisxNS45NCUKOQrkuYXph4/ogqHku70KKzE0Ljg3JQoxMArmspDmm6bogqHku70tVQorMTQuNDQlCueDremXqOWfuumHkQoxCumHkeWFg+mhuuWuieWFg+WQr+a3t+WQiArlubTljJYo6L+RNeW5tCkJKzI0Ljg2JQoyCuWNjuWkj+S4reivgTVH6YCa5L+h5Li76aKYRVRG6IGU5o6lQQrlubTljJYo6L+RNeW5tCkJKzIyLjczJQozCuS4h+WutuWuj+inguaLqeaXtuWkmuetlueVpQrlubTljJYo6L+RNeW5tCkJKzIxLjM4JQo0CuS4reS/oeS/neivmuWFqOeQg+WVhuWTgeS4u+mimO+8iFFESUktRk9GLUxPRilBCuW5tOWMlijov5E15bm0KQkrMTkuMjglCjUK5Y2O5a6J6buE6YeRRVRG6IGU5o6lQQrlubTljJYo6L+RNeW5tCkJKzE5LjIyJQo2Cum5j+WNjuS4reivgemmmea4r+mTtuihjOaMh+aVsO+8iExPRu+8iUEK5bm05YyWKOi/kTXlubQpCSsxNy4xNSUKNwrpk7bljY7mipfpgJrog4DkuLvpopgoUURJSS1GT0YtTE9GKUEK5bm05YyWKOi/kTXlubQpCSsxNS41OCUKOArlub/lj5HnurPmjIcxMDBFVEbogZTmjqXvvIhRRElJ77yJ5Lq65rCR5biBQQrlubTljJYo6L+RNeW5tCkJKzEyLjU4JQo5CuaYk+aWuei+vuaWsOWFtOaIkOmVvwrlubTljJYo6L+RNeW5tCkJKzEyLjQ2JQoxMArmmJPmlrnovr7mlrDnu4/mtY7mt7flkIgK5bm05YyWKOi/kTXlubQpCSsxMS41NSUK5bi46KeB6Zeu6aKY772c5YWz5LqO6Zuq55CD772c5oqV6LWE6ICF5pWZ6IKy772c6aOO6Zmp5o+Q56S6CsKpIDIwMjYgWFVFUUlVLkNPTcKg5YyX5Lqs6Zuq55CD5L+h5oGv56eR5oqA5pyJ6ZmQ5YWs5Y+4CuS6rOWFrOe9keWuieWkhyAxMTAxMDUwMjA0MDM3OeWPt8K35LqsSUNQ6K+BMTAwNjY25Y+3CuS6rElDUOWkhzEwMDQwNTQzwrfkuqzph5Hkv6HlpIfjgJQyMDIy44CVM+WPtwrokKXkuJrmiafnhafCt+S+teadg+aKleivieaMh+W8lcKgwrflh7rniYjniannu4/okKXorrjlj6/or4EK7puqCueri+WNs+eZu+W9lS/ms6jlhow=" hidden>
-                      <pre></pre>
-                    </div>
-                  </div>
-                </article>
-                </div>
-              </div>
-            </details>
-            <details class="featured-day">
-              <summary class="featured-date-row"><strong>9月14日</strong><span>周一 · 0 条</span></summary>
-              <div class="featured-timeline">
-                <div class="featured-feed">
-                <article class="featured-card featured-summary-card" data-featured-id="obsidian://open?path=%2FUsers%2Fcjw%2Fdev%2FObsidian%2Fwiki%2Fsources%2Fautomations%2FBBXM%E6%AF%8F%E6%97%A5%E6%B1%87%E6%80%BB%2F2026%2F09%2F2026-09-14_summary.md" data-featured-filters="macro,market,industry,trade">
-                  <span class="featured-time">汇总</span><span class="featured-dot"></span>
-                  <div class="featured-card-inner">
-                    <div class="featured-meta"><span>summary.md · 自动化摘要</span><b>汇总</b></div>
-                    <h3><a href="obsidian://open?path=%2FUsers%2Fcjw%2Fdev%2FObsidian%2Fwiki%2Fsources%2Fautomations%2FBBXM%E6%AF%8F%E6%97%A5%E6%B1%87%E6%80%BB%2F2026%2F09%2F2026-09-14_summary.md" target="_blank" rel="noopener noreferrer">9月14日 当日汇总</a></h3>
-                    <p><strong>总观点：</strong>本次内容不是给出具体操作指令，也不能描述 2026-09-14 当天市场状态；截至本轮 2026-09-14 16:17 左右抓取完成时，雪球主页可见详情范围内没有冰冰小美在 2026-09-14 发布的目标日帖子，23 条可见详情均为 2026-09-12 及以前内容。因此不能基于今天帖子压缩作者当天的市场状态、风格偏好、风险来源或传导链。作者当天没有明确买入、卖出、加仓或减仓信号。</p>
-                    <p><strong>解析：</strong>本轮没有保存到 2026-09-14 目标日期原帖，因此没有当天文章可供跨帖综合解析，也没有可依据的作者评论补充。已抓取的 23 条详情日期分布为：2024-05-19 1 条、2026-08-01 1 条、2026-08-30 2 条、2026-08-31 7 条、2026-09-01 7 条、2026-09-02 3 条、2026-09-12 2 条。整理者归纳：这只能证明本轮可见范围内没有目标日帖子，不能证明作者在平台隐藏范围、运行后新增内容或非可见分页中没有发布。当天没有明确买卖信号。</p>
-                    <div class="featured-tags">#宏观 #市场 #产业 #交易</div>
-                    <div class="featured-actions">
-                      <a class="featured-source" href="obsidian://open?path=%2FUsers%2Fcjw%2Fdev%2FObsidian%2Fwiki%2Fsources%2Fautomations%2FBBXM%E6%AF%8F%E6%97%A5%E6%B1%87%E6%80%BB%2F2026%2F09%2F2026-09-14_summary.md" target="_blank" rel="noopener noreferrer">打开 summary.md</a>
-                    </div>
-                  </div>
-                </article>
-
-                </div>
-              </div>
-            </details>
             <p class="featured-empty-results" hidden>没有匹配的精选条目。</p>
           </div>
         </div>
@@ -5706,7 +5761,20 @@ async function fetchJson(url, timeoutMs = 12000) {
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {
     const response = await fetch(url, { cache: 'no-store', signal: controller.signal });
-    if (!response.ok) throw new Error(`HTTP ${response.status}: ${new URL(url).hostname}`);
+    if (!response.ok) {
+      const target = new URL(url);
+      const local = ['127.0.0.1', 'localhost'].includes(target.hostname);
+      let reason = '';
+      if (local) {
+        const payload = await response.json().catch(() => null);
+        reason = ({
+          'tushare-token': '本地服务未读取到 Tushare Token，请检查服务启动环境并重新启动面板',
+          'tushare-dependency': '本地服务缺少 Tushare 依赖',
+          'tushare-permission': 'Tushare 未授权此次请求，请检查接口权限',
+        })[payload?.source] ?? '';
+      }
+      throw new Error(`HTTP ${response.status}: ${local ? target.pathname : target.hostname}${reason ? `；${reason}` : ''}`);
+    }
     return await response.json();
   } finally {
     clearTimeout(timer);
@@ -7082,6 +7150,39 @@ function renderDividendTaskMonitor(payload, error = '') {
 const STARTUP_STATUS_LABELS = Object.freeze({ loading: '检查中', passed: '通过', warning: '待验证', failed: '失败' });
 const STARTUP_STATUS_MARKERS = Object.freeze({ loading: '[··]', passed: '[OK]', warning: '[待验证]', failed: '[失败]' });
 
+const MARKET_STARTUP_ITEMS = Object.freeze({
+  shanghaiHistory: ['上证指数', '/api/eastmoney-kline'],
+  csi300History: ['沪深300', '/api/eastmoney-kline、/api/csindex-performance'],
+  csiAllHistory: ['中证全指', '/api/eastmoney-kline、/api/csindex-performance'],
+  csi300Stats: ['沪深300估值', '/api/csindex-performance'],
+  turnoverHistory: ['成交额历史', '/api/csindex-performance'],
+  forwardPe: ['预测市盈率', ''],
+  treasury: ['中国国债收益率', '/api/treasury'],
+  usTreasury10y: ['美国国债收益率', '/api/us-treasury-yield'],
+  usDollarIndex: ['美元指数', '/api/us-dollar-index'],
+  usdJpy: ['美元兑日元', '/api/usd-jpy'],
+  market: ['全市场行情', '/api/market'],
+  margin: ['融资余额', '/api/margin'],
+});
+
+function marketStartupResult(snapshot, definitions) {
+  const entries = definitions.map(definition => ({ definition, entry: snapshot?.domains?.[definition.id] }));
+  const latest = entries.filter(({ entry }) => snapshot?.mode === 'live' && entry?.status === 'latest').length;
+  const pending = entries.filter(({ entry }) => snapshot?.mode === 'live' && entry?.status === 'loading').length;
+  const issues = entries.filter(({ entry }) => snapshot?.mode !== 'live' || !['latest', 'loading'].includes(entry?.status));
+  const lines = issues.map(({ definition, entry }) => {
+    const [label, endpoint] = MARKET_STARTUP_ITEMS[definition.id] ?? [definition.id, ''];
+    if (!definition.providers?.length) return `${label}：未配置数据源，未发起接口请求。`;
+    const state = ({ loading: '正在读取', snapshot: '仅有缓存', expired: '缓存已过期', missing: '读取失败', example: '仅有示例数据' })[entry?.status] ?? '尚未取得真实数据';
+    const reason = entry?.errors?.length ? entry.errors.join('；') : '未取得可验证的最新结果';
+    return `${label}：${state}；${endpoint || definition.providers.map(provider => provider.name).join(' / ')}\n${reason}`;
+  });
+  return {
+    status: entries.length > 0 && !issues.length && !pending ? 'passed' : 'warning',
+    detail: [`${latest} / ${entries.length} 项最新数据${pending ? `；${pending} 项读取中` : ''}${issues.length ? `；${issues.length} 项未取得最新数据，明细如下：` : pending ? '。' : '，已重算指标。'}`, ...lines].join('\n'),
+  };
+}
+
 function startupCheckSummary(items) {
   const completed = items.filter(item => item.status !== 'loading').length;
   const issues = items.filter(item => ['warning', 'failed'].includes(item.status)).length;
@@ -7096,7 +7197,7 @@ function renderStartupChecks(items) {
   }).join('');
 }
 
-async function runStartupChecks(checks, { onUpdate = () => {}, timeoutMs = 20_000 } = {}) {
+async function runStartupChecks(checks, { onUpdate = () => {}, timeoutMs = 65_000 } = {}) {
   if (new Set(checks.map(check => check.id)).size !== checks.length) throw new Error('启动检查项目重复');
   const items = checks.map(check => ({ id: check.id, label: check.label, status: 'loading', detail: '正在读取…' }));
   const emit = () => onUpdate(items.map(item => ({ ...item })));
@@ -7104,6 +7205,15 @@ async function runStartupChecks(checks, { onUpdate = () => {}, timeoutMs = 20_00
   await Promise.all(checks.map(async (check, index) => {
     let settled = false;
     let timer;
+    let timedOut = false;
+    const reconcile = result => {
+      if (!result || !['passed', 'warning', 'failed'].includes(result.status)) throw new Error('检查结果无效');
+      if (timedOut) {
+        Object.assign(items[index], { status: result.status, detail: String(result.detail ?? '') });
+        emit();
+      }
+      return result;
+    };
     const report = detail => {
       if (settled) return;
       items[index].detail = String(detail);
@@ -7111,9 +7221,15 @@ async function runStartupChecks(checks, { onUpdate = () => {}, timeoutMs = 20_00
     };
     try {
       const result = await Promise.race([
-        Promise.resolve().then(() => check.run(report)),
+        Promise.resolve().then(() => check.run(report)).then(reconcile).catch(error => {
+          if (timedOut) reconcile({ status: 'failed', detail: error instanceof Error ? error.message : String(error) });
+          throw error;
+        }),
         new Promise(resolve => {
-          timer = setTimeout(() => resolve({ status: 'warning', detail: '检查超时，后台仍在读取。可进入面板查看，或重新检查。' }), timeoutMs);
+          timer = setTimeout(() => {
+            timedOut = true;
+            resolve({ status: 'warning', detail: '检查超时，最新数据尚未确认；可重新检查，或查看已取得的数据。后台结果返回后会更新状态。' });
+          }, timeoutMs);
         }),
       ]);
       if (!result || !['passed', 'warning', 'failed'].includes(result.status)) throw new Error('检查结果无效');
@@ -7140,6 +7256,8 @@ function createStartupScreen() {
   const reducedMotion = globalThis.matchMedia('(prefers-reduced-motion: reduce)');
   const rows = new Map();
   let dismissed = false;
+  let canEnter = false;
+  enterButton.disabled = true;
   let autoEnterTimer;
   const actions = enterButton.parentElement;
   const cancelAutoEnter = () => {
@@ -7157,7 +7275,7 @@ function createStartupScreen() {
     element.animate(keyframes, { duration: 260, easing: 'cubic-bezier(.16, 1, .3, 1)', fill: 'backwards', ...options });
   };
   const enter = () => {
-    if (dismissed) return;
+    if (dismissed || !canEnter) return;
     dismissed = true;
     clearTimeout(autoEnterTimer);
     actions.removeEventListener('pointerenter', cancelAutoEnter);
@@ -7218,10 +7336,12 @@ function createStartupScreen() {
     screen.style.setProperty('--startup-progress', String(result.total ? result.completed / result.total : 0));
     status.textContent = result.ready ? result.passed ? '系统就绪' : '检查完成' : '初始化中...';
     summary.textContent = result.ready
-      ? result.passed ? `[OK] ${result.total} 项检查通过，请选择操作。` : `> 检查完成：${result.issues} 项待验证，可进入面板或重试。`
+      ? result.passed ? `[OK] ${result.total} 项检查通过，请选择操作。` : `> ${result.issues} 组检查存在异常，具体数据与原因见上方明细。可重新检查，或查看已取得的数据。`
       : `> 已完成 ${result.completed} / ${result.total} 项检查，正在读取数据`;
     retryButton.hidden = !result.ready;
-    enterButton.textContent = result.ready ? '进入面板' : '先进入面板';
+    canEnter = result.ready && result.total > 0;
+    enterButton.disabled = !canEnter;
+    enterButton.textContent = !canEnter ? '正在检查数据…' : result.passed ? '进入面板' : '查看已取得的数据';
   };
   return {
     enter,
@@ -7586,12 +7706,12 @@ const CSI_DIVIDEND_SCORE_PAYLOAD = Object.freeze(
   },
   "latest": {
     "input": {
-      "dividendYield": 4.3,
-      "bondYield": 1.6414
+      "dividendYield": 4.19,
+      "bondYield": 1.6233
     },
     "dates": {
-      "index": "2026-10-22",
-      "bond": "2026-10-22"
+      "index": "2026-10-29",
+      "bond": "2026-10-29"
     },
     "sourceKey": "股息率与股债倍数",
     "reference": false,
@@ -7599,7 +7719,7 @@ const CSI_DIVIDEND_SCORE_PAYLOAD = Object.freeze(
     "strategyVersion": "dividend-two-factor-v2-r5",
     "components": {
       "absolute": {
-        "score": 46,
+        "score": 43.80000000000001,
         "interval": [
           [
             4,
@@ -7611,12 +7731,12 @@ const CSI_DIVIDEND_SCORE_PAYLOAD = Object.freeze(
           ]
         ],
         "clipped": false,
-        "value": 4.3,
+        "value": 4.19,
         "weight": 92,
-        "contribution": 42.32
+        "contribution": 40.296000000000014
       },
       "ratio": {
-        "score": 80.95771902034848,
+        "score": 80.64929464670732,
         "interval": [
           [
             2.5,
@@ -7628,18 +7748,18 @@ const CSI_DIVIDEND_SCORE_PAYLOAD = Object.freeze(
           ]
         ],
         "clipped": false,
-        "value": 2.61971487754356,
+        "value": 2.5811618308384157,
         "weight": 8,
-        "contribution": 6.476617521627878
+        "contribution": 6.451943571736585
       }
     },
-    "score": 48.79661752162788,
-    "lower": 48.79661752162788,
-    "upper": 48.79661752162788,
-    "grade": "B",
-    "label": "观察区间",
-    "nextGrade": "A",
-    "nextDistance": 16.20338247837212,
+    "score": 46.7479435717366,
+    "lower": 46.7479435717366,
+    "upper": 46.7479435717366,
+    "grade": "C",
+    "label": "等待区间",
+    "nextGrade": "B",
+    "nextDistance": 1.2520564282634012,
     "quality": [
       "数据完整"
     ],
@@ -7704,50 +7824,50 @@ const CSI_DIVIDEND_SCORE_PAYLOAD = Object.freeze(
       "confirmationDays": 1
     },
     "raw": {
-      "run_date": "2026-10-23",
-      "run_time": "10:06:49",
-      "index_date": "2026-10-22",
-      "bond_date": "2026-10-22",
-      "akshare_dividend_yield_2": 4.3,
-      "ytd_return": -2.1604960616239954,
+      "run_date": "2026-10-30",
+      "run_time": "08:59:16",
+      "index_date": "2026-10-29",
+      "bond_date": "2026-10-29",
+      "akshare_dividend_yield_2": 4.19,
+      "ytd_return": 0.39184669292251506,
       "ytd_max_drawdown": -15.96361099166238,
-      "intraday_quote_date": "2026-10-23",
-      "intraday_change_percent": "-1.22",
+      "intraday_quote_date": "2026-10-29",
+      "intraday_change_percent": "0.86",
       "lixinger_date": "",
       "lixinger_dividend_yield": "",
       "lixinger_percentile_10y": "",
       "lixinger_percentile_80_value": "",
       "lixinger_source": "",
-      "bond_10y_yield": 1.6414,
-      "spread": 2.6586,
+      "bond_10y_yield": 1.6233,
+      "spread": 2.5667000000000004,
       "percentile_signal": "",
       "absolute_signal": "C",
       "spread_signal": "A",
-      "headline_signal": "观察区间",
+      "headline_signal": "等待区间",
       "source_note": "AKShare: stock_zh_index_value_csindex(000922, 股息率2); 中证指数官网: index-perf(000922); AKShare: bond_zh_us_rate; 腾讯行情: http://qt.gtimg.cn/q=sh000922",
       "annual_performance_source": "中证指数官网 index-perf(000922)",
       "percentile_value": null
     },
-    "recordDate": "2026-10-23",
+    "recordDate": "2026-10-30",
     "originalHeadline": "",
     "confirmation": {
-      "status": "changed",
-      "baseline": "B",
+      "status": "stable",
+      "baseline": "C",
       "candidate": null,
       "count": 0,
       "required": 1,
-      "message": "策略调整已确认：B"
+      "message": "已确认 C，策略维持"
     }
   },
   "records": [
     {
       "input": {
-        "dividendYield": 4.3,
-        "bondYield": 1.6414
+        "dividendYield": 4.19,
+        "bondYield": 1.6233
       },
       "dates": {
-        "index": "2026-10-22",
-        "bond": "2026-10-22"
+        "index": "2026-10-29",
+        "bond": "2026-10-29"
       },
       "sourceKey": "股息率与股债倍数",
       "reference": false,
@@ -7755,7 +7875,7 @@ const CSI_DIVIDEND_SCORE_PAYLOAD = Object.freeze(
       "strategyVersion": "dividend-two-factor-v2-r5",
       "components": {
         "absolute": {
-          "score": 46,
+          "score": 43.80000000000001,
           "interval": [
             [
               4,
@@ -7767,12 +7887,12 @@ const CSI_DIVIDEND_SCORE_PAYLOAD = Object.freeze(
             ]
           ],
           "clipped": false,
-          "value": 4.3,
+          "value": 4.19,
           "weight": 92,
-          "contribution": 42.32
+          "contribution": 40.296000000000014
         },
         "ratio": {
-          "score": 80.95771902034848,
+          "score": 80.64929464670732,
           "interval": [
             [
               2.5,
@@ -7784,18 +7904,18 @@ const CSI_DIVIDEND_SCORE_PAYLOAD = Object.freeze(
             ]
           ],
           "clipped": false,
-          "value": 2.61971487754356,
+          "value": 2.5811618308384157,
           "weight": 8,
-          "contribution": 6.476617521627878
+          "contribution": 6.451943571736585
         }
       },
-      "score": 48.79661752162788,
-      "lower": 48.79661752162788,
-      "upper": 48.79661752162788,
-      "grade": "B",
-      "label": "观察区间",
-      "nextGrade": "A",
-      "nextDistance": 16.20338247837212,
+      "score": 46.7479435717366,
+      "lower": 46.7479435717366,
+      "upper": 46.7479435717366,
+      "grade": "C",
+      "label": "等待区间",
+      "nextGrade": "B",
+      "nextDistance": 1.2520564282634012,
       "quality": [
         "数据完整"
       ],
@@ -7860,39 +7980,39 @@ const CSI_DIVIDEND_SCORE_PAYLOAD = Object.freeze(
         "confirmationDays": 1
       },
       "raw": {
-        "run_date": "2026-10-23",
-        "run_time": "10:06:49",
-        "index_date": "2026-10-22",
-        "bond_date": "2026-10-22",
-        "akshare_dividend_yield_2": 4.3,
-        "ytd_return": -2.1604960616239954,
+        "run_date": "2026-10-30",
+        "run_time": "08:59:16",
+        "index_date": "2026-10-29",
+        "bond_date": "2026-10-29",
+        "akshare_dividend_yield_2": 4.19,
+        "ytd_return": 0.39184669292251506,
         "ytd_max_drawdown": -15.96361099166238,
-        "intraday_quote_date": "2026-10-23",
-        "intraday_change_percent": "-1.22",
+        "intraday_quote_date": "2026-10-29",
+        "intraday_change_percent": "0.86",
         "lixinger_date": "",
         "lixinger_dividend_yield": "",
         "lixinger_percentile_10y": "",
         "lixinger_percentile_80_value": "",
         "lixinger_source": "",
-        "bond_10y_yield": 1.6414,
-        "spread": 2.6586,
+        "bond_10y_yield": 1.6233,
+        "spread": 2.5667000000000004,
         "percentile_signal": "",
         "absolute_signal": "C",
         "spread_signal": "A",
-        "headline_signal": "观察区间",
+        "headline_signal": "等待区间",
         "source_note": "AKShare: stock_zh_index_value_csindex(000922, 股息率2); 中证指数官网: index-perf(000922); AKShare: bond_zh_us_rate; 腾讯行情: http://qt.gtimg.cn/q=sh000922",
         "annual_performance_source": "中证指数官网 index-perf(000922)",
         "percentile_value": null
       },
-      "recordDate": "2026-10-23",
+      "recordDate": "2026-10-30",
       "originalHeadline": "",
       "confirmation": {
-        "status": "changed",
-        "baseline": "B",
+        "status": "stable",
+        "baseline": "C",
         "candidate": null,
         "count": 0,
         "required": 1,
-        "message": "策略调整已确认：B"
+        "message": "已确认 C，策略维持"
       }
     }
   ],
@@ -12370,31 +12490,36 @@ const CSI_DIVIDEND_SCORE_PAYLOAD = Object.freeze(
     "2026-10-19",
     "2026-10-20",
     "2026-10-21",
-    "2026-10-22"
+    "2026-10-22",
+    "2026-10-23",
+    "2026-10-26",
+    "2026-10-27",
+    "2026-10-28",
+    "2026-10-29"
   ]
 }
 );
 const CSI_DIVIDEND_SCORE_SOURCE_URL = '../../sources/automations/中证红利信号/评分记录.json';
 const CSI_DIVIDEND_SIGNAL = Object.freeze(
 {
-  "recordDate": "2026-10-23",
-  "runTime": "2026-10-23 10:06:49",
-  "indexDate": "2026-10-22",
-  "bondDate": "2026-10-22",
-  "dividendYield2": 4.3,
-  "ytdReturn": -2.16,
+  "recordDate": "2026-10-30",
+  "runTime": "2026-10-30 08:59:16",
+  "indexDate": "2026-10-29",
+  "bondDate": "2026-10-29",
+  "dividendYield2": 4.19,
+  "ytdReturn": 0.39,
   "ytdMaxDrawdown": -15.96,
-  "xueqiuChangePercent": "-1.22%",
+  "xueqiuChangePercent": "0.86%",
   "lixingerDate": "",
   "lixingerDividendYield": "",
   "lixingerPercentile10y": "",
   "lixingerPercentile80Value": "",
-  "bond10yYield": 1.64,
-  "spread": 2.66,
+  "bond10yYield": 1.62,
+  "spread": 2.57,
   "percentileSignal": "",
   "absoluteSignal": "C（指标得分一般）",
   "spreadSignal": "A（指标得分高）",
-  "headline": "观察区间",
+  "headline": "等待区间",
   "source": "zzhl-dividend-signal 最新信号",
   "sourceNote": "AKShare: stock_zh_index_value_csindex(000922, 股息率2); 中证指数官网: index-perf(000922); AKShare: bond_zh_us_rate; 腾讯行情: http://qt.gtimg.cn/q=sh000922",
   "status": "latest"
@@ -13049,6 +13174,48 @@ const CSI_DIVIDEND_YIELD_HISTORY = Object.freeze(
     "recordDate": "2026-10-23",
     "value": 4.3,
     "headline": "观察区间"
+  },
+  {
+    "date": "2026-10-23",
+    "recordDate": "2026-10-24",
+    "value": 4.31,
+    "headline": "观察区间"
+  },
+  {
+    "date": "2026-10-23",
+    "recordDate": "2026-10-25",
+    "value": 4.31,
+    "headline": "观察区间"
+  },
+  {
+    "date": "2026-10-23",
+    "recordDate": "2026-10-26",
+    "value": 4.31,
+    "headline": "观察区间"
+  },
+  {
+    "date": "2026-10-26",
+    "recordDate": "2026-10-27",
+    "value": 4.25,
+    "headline": "等待区间"
+  },
+  {
+    "date": "2026-10-27",
+    "recordDate": "2026-10-28",
+    "value": 4.23,
+    "headline": "等待区间"
+  },
+  {
+    "date": "2026-10-28",
+    "recordDate": "2026-10-29",
+    "value": 4.23,
+    "headline": "等待区间"
+  },
+  {
+    "date": "2026-10-29",
+    "recordDate": "2026-10-30",
+    "value": 4.19,
+    "headline": "等待区间"
   }
 ]
 );
@@ -14070,7 +14237,7 @@ const CSI_DIVIDEND_ANNUAL_PERFORMANCE = Object.freeze(
   "indexCode": "000922",
   "source": "中证指数官网 index-perf(000922)",
   "firstDate": "2008-05-26",
-  "lastDate": "2026-10-22",
+  "lastDate": "2026-10-29",
   "returnConvention": "每年首个可用交易日收盘价至末个可用交易日收盘价",
   "drawdownConvention": "每个自然年内日收盘价相对此前峰值的最大跌幅",
   "rows": [
@@ -15761,8 +15928,8 @@ const CSI_DIVIDEND_ANNUAL_PERFORMANCE = Object.freeze(
     {
       "year": 2026,
       "startDate": "2026-01-05",
-      "endDate": "2026-10-22",
-      "annualReturn": -2.1604960616239954,
+      "endDate": "2026-10-29",
+      "annualReturn": 0.39184669292251506,
       "maxDrawdown": -15.96361099166238,
       "status": "年内",
       "monthlyReturns": [
@@ -15831,9 +15998,9 @@ const CSI_DIVIDEND_ANNUAL_PERFORMANCE = Object.freeze(
         },
         {
           "month": 10,
-          "value": -1.5944762202958485,
+          "value": 0.9726323147666083,
           "startDate": "2026-09-30",
-          "endDate": "2026-10-22",
+          "endDate": "2026-10-29",
           "status": "月内累计"
         },
         {
@@ -16755,6 +16922,9 @@ function renderDividendSignalCard(signal) {
   </button>`;
 }
 
+const dividendMonthlyHistory = new Map();
+const dividendMonthKey = annual => `${annual.year}:${annual.startDate}:${annual.endDate}`;
+
 function calculateDividendMonthlyReturns(points, annual) {
   const byDate = new Map();
   for (const point of points) {
@@ -16776,7 +16946,13 @@ function calculateDividendMonthlyReturns(points, annual) {
     const base = index === Number(rows[0].date.slice(5, 7)) - 1
       ? rows[0] : rows.filter(row => row.date.startsWith(`${annual.year}-${String(index).padStart(2, '0')}`)).at(-1);
     if (!monthly.length || !base) return { month: index + 1, value: null, status: month > annual.endDate.slice(0, 7) ? '未开始' : '数据不足' };
-    return { month: index + 1, value: (monthly.at(-1).close / base.close - 1) * 100,
+    let peak = monthly[0].close;
+    let maxDrawdown = monthly.length >= 2 ? 0 : null;
+    for (const point of monthly) {
+      peak = Math.max(peak, point.close);
+      if (maxDrawdown !== null) maxDrawdown = Math.min(maxDrawdown, (point.close / peak - 1) * 100);
+    }
+    return { month: index + 1, maxDrawdown, value: (monthly.at(-1).close / base.close - 1) * 100,
       startDate: base.date, endDate: monthly.at(-1).date,
       status: annual.status === '年内' && month === annual.endDate.slice(0, 7) ? '月内累计' : '已统计' };
   });
@@ -16796,14 +16972,21 @@ function storedDividendMonthlyReturns(annual) {
   return Math.abs(compounded - annual.annualReturn) <= 0.02 ? months : null;
 }
 
-function renderDividendMonthlyCards(months) {
-  return months.map(month => `<article class="dividend-month-card ${month.value > 0 ? 'is-gain' : month.value < 0 ? 'is-loss' : 'is-flat'}">
-    <h3>${month.month}月</h3><strong>${month.value === null ? '—' : formatSignedPercent(month.value)}</strong>
-    <small>${escapeHtml(month.value === null ? month.status : `${month.status} · 截至 ${month.endDate.slice(5)}`)}</small>
-  </article>`).join('');
+function renderDividendMonthlyCards(months, options = {}) {
+  return months.map(month => {
+    const isDrawdown = options.metric === 'drawdown';
+    const drawdown = Number.isFinite(month.maxDrawdown) && month.maxDrawdown <= 0 && month.maxDrawdown >= -100 ? month.maxDrawdown : null;
+    const value = isDrawdown ? drawdown : month.value;
+    const status = value === null ? (isDrawdown && month.value !== null ? '数据不足' : month.status) : `${month.status} · 截至 ${month.endDate.slice(5)}`;
+    return `<article class="dividend-month-card ${value > 0 ? 'is-gain' : value < 0 ? 'is-loss' : 'is-flat'}">
+    <h3>${month.month}月</h3><strong>${value === null ? '—' : formatSignedPercent(value)}</strong>
+    <small>${escapeHtml(status)}</small>
+  </article>`;
+  }).join('');
 }
 
 function renderDividendAnnualPerformance(history, options = {}) {
+  const namespace = options.namespace === 'nasdaq' ? 'nasdaq' : 'dividend';
   const rows = Array.isArray(history?.rows) ? [...history.rows].sort((left, right) => right.year - left.year) : [];
   if (!rows.length) {
     return `<article class="panel dividend-annual-panel"><h3>年度收益与最大回撤</h3><p class="dividend-annual-empty">年度历史数据暂未生成。</p></article>`;
@@ -16812,23 +16995,27 @@ function renderDividendAnnualPerformance(history, options = {}) {
   const toneClass = value => value > 0 ? 'is-gain' : value < 0 ? 'is-loss' : 'is-flat';
   const mode = options.mode === 'year' ? 'year' : 'month';
   const selected = rows.find(row => row.year === Number(options.year)) ?? rows[0];
-  const months = storedDividendMonthlyReturns(selected);
-  const yearStep = (step, label) => `<button type="button" data-dividend-calendar-step="${step}" aria-label="${label}" title="${label}" aria-controls="dividend-calendar-content"${rows.some(row => row.year === selected.year + step) ? '' : ' disabled'}><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="${step < 0 ? 'M15 6l-6 6 6 6' : 'M9 6l6 6-6 6'}"/></svg></button>`;
+  const metric = options.metric === 'drawdown' ? 'drawdown' : 'return';
+  const monthlyState = namespace === 'dividend' ? options.monthlyState ?? dividendMonthlyHistory.get(dividendMonthKey(selected)) : null;
+  const months = monthlyState?.months ?? storedDividendMonthlyReturns(selected);
+  const drawdownPending = namespace === 'dividend' && metric === 'drawdown' && !monthlyState?.months;
+
+  const yearStep = (step, label) => `<button type="button" data-${namespace}-calendar-step="${step}" aria-label="${label}" title="${label}" aria-controls="${namespace}-calendar-content"${rows.some(row => row.year === selected.year + step) ? '' : ' disabled'}><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="${step < 0 ? 'M15 6l-6 6 6 6' : 'M9 6l6 6-6 6'}"/></svg></button>`;
   return `<article class="panel dividend-annual-panel">
     <div class="dividend-annual-head">
-      <div><h3>${mode === 'year' ? '年度收益与最大回撤' : '月度收益'}</h3><p>${escapeHtml(mode === 'year' ? `${period} · ${rows.length}个年度` : `${selected.year}年 · ${selected.startDate} 至 ${selected.endDate}`)}</p></div>
-      <div class="dividend-calendar-switch" role="group" aria-label="收益日历显示方式"><span>收益日历：</span>${[['year', '年'], ['month', '月']].map(([value, label]) => `<button type="button" data-dividend-calendar-mode="${value}" aria-pressed="${mode === value}" aria-controls="dividend-calendar-content">${label}</button>`).join('')}</div>
+      <div>${mode === 'month' ? `<div class="nasdaq-calendar-metric-switch" role="group" aria-label="月度统计指标">${[['return', '月度收益'], ['drawdown', '月度回撤']].map(([value, label]) => `<button type="button" data-${namespace}-calendar-metric="${value}" aria-pressed="${metric === value}" aria-controls="${namespace}-calendar-content">${label}</button>`).join('')}</div>` : `<h3>${mode === 'year' ? '年度收益与最大回撤' : '月度收益'}</h3>`}<p>${escapeHtml(mode === 'year' ? `${period} · ${rows.length}个年度` : `${selected.year}年 · ${selected.startDate} 至 ${selected.endDate}`)}</p></div>
+      <div class="dividend-calendar-switch" role="group" aria-label="收益日历显示方式"><span>收益日历：</span>${[['year', '年'], ['month', '月']].map(([value, label]) => `<button type="button" data-${namespace}-calendar-mode="${value}" aria-pressed="${mode === value}" aria-controls="${namespace}-calendar-content">${label}</button>`).join('')}</div>
     </div>
-    <div id="dividend-calendar-content">
+    <div id="${namespace}-calendar-content">
     ${mode === 'month' ? `<div class="dividend-calendar-months">
-      <div class="dividend-calendar-year"><span>年份</span><div class="dividend-calendar-year-controls">${yearStep(-1, '上一年')}<select data-dividend-calendar-year aria-label="收益日历年份">${rows.map(row => `<option value="${row.year}"${row.year === selected.year ? ' selected' : ''}>${row.year}年</option>`).join('')}</select>${yearStep(1, '下一年')}</div><p class="dividend-calendar-total"><span>${selected.status === '年内' ? '年内累计收益' : selected.status === '成立首年' ? '成立首年收益' : '年度总体收益'}</span><strong class="${toneClass(selected.annualReturn)}">${escapeHtml(formatSignedPercent(selected.annualReturn))}</strong></p></div>
-      ${months ? `<div class="dividend-monthly-grid" aria-label="${selected.year}年月收益率">${renderDividendMonthlyCards(months)}</div>` : '<p class="dividend-calendar-empty" role="status">该年份的月度数据缺失或校验未通过，请切回“年”查看年度结果；也可点击该年份重新读取月度数据。</p>'}
-      <p class="dividend-calendar-note">月末收盘价相对上月末计算；首个统计月沿用年度首个交易日基准。价格收益不含分红再投资，未结束月份为月内累计。</p>
+      <div class="dividend-calendar-year"><span>年份</span><div class="dividend-calendar-year-controls">${yearStep(-1, '上一年')}<select data-${namespace}-calendar-year aria-label="收益日历年份">${rows.map(row => `<option value="${row.year}"${row.year === selected.year ? ' selected' : ''}>${row.year}年</option>`).join('')}</select>${yearStep(1, '下一年')}</div><p class="dividend-calendar-total"><span>${selected.status === '年内' ? '年内累计收益' : selected.status === '成立首年' ? '成立首年收益' : selected.status === '样本首年' ? '样本期累计收益' : '年度总体收益'}</span><strong class="${toneClass(selected.annualReturn)}">${escapeHtml(formatSignedPercent(selected.annualReturn))}</strong></p></div>
+      ${drawdownPending ? `<p class="dividend-calendar-empty" role="status">${monthlyState?.status === 'error' ? `月度回撤读取失败：${escapeHtml(monthlyState.error)} <button type="button" class="button-secondary" data-dividend-calendar-retry>重新读取</button>` : '正在读取所选年份日线并计算月度回撤…'}</p>` : months ? `<div class="dividend-monthly-grid" aria-label="${selected.year}年月${metric === 'drawdown' ? '度最大回撤' : '收益率'}">${renderDividendMonthlyCards(months, { metric })}</div>` : '<p class="dividend-calendar-empty" role="status">该年份的月度数据缺失或校验未通过，请切回“年”查看年度结果；也可点击该年份重新读取月度数据。</p>'}
+      <p class="dividend-calendar-note">${metric === 'drawdown' ? '月度最大回撤按当月日收盘价相对当月此前最高收盘价计算，每月重新起算；少于两个有效交易日显示“—”。当前月份统计截至最新可用交易日。' : '月末收盘价相对上月末计算；首个统计月沿用年度首个交易日基准。价格收益不含分红再投资，未结束月份为月内累计。'}</p>
     </div>` : `<div class="dividend-annual-table-wrap">
       <table class="dividend-annual-table">
         <thead><tr><th>年份</th><th>统计区间</th><th>全年收益率</th><th>年内最大回撤</th><th>状态</th></tr></thead>
-        <tbody>${rows.map(row => `<tr data-dividend-year="${row.year}"${row.status === '年内' ? ' class="is-current"' : ''}>
-          <td><button class="dividend-year-button" data-dividend-year="${row.year}" aria-haspopup="dialog" aria-label="查看${row.year}年月收益率">${escapeHtml(row.year)} <span aria-hidden="true">›</span></button></td>
+        <tbody>${rows.map(row => `<tr data-${namespace}-year="${row.year}"${row.status === '年内' ? ' class="is-current"' : ''}>
+          <td><button class="dividend-year-button" data-${namespace}-year="${row.year}" ${namespace === 'dividend' ? 'aria-haspopup="dialog"' : ''} aria-label="查看${row.year}年月收益率">${escapeHtml(row.year)} <span aria-hidden="true">›</span></button></td>
           <td>${escapeHtml(`${row.startDate} — ${row.endDate}`)}</td>
           <td class="${toneClass(row.annualReturn)}">${escapeHtml(formatSignedPercent(row.annualReturn))}</td>
           <td class="${toneClass(row.maxDrawdown)}">${escapeHtml(formatSignedPercent(row.maxDrawdown))}</td>
@@ -16839,6 +17026,15 @@ function renderDividendAnnualPerformance(history, options = {}) {
     </div>
     <p class="dividend-annual-note">${escapeHtml(history.returnConvention || '收益率按每年首个交易日至末个交易日收盘价计算')}；${escapeHtml(history.drawdownConvention || '最大回撤按年内日收盘价计算')}。来源：${escapeHtml(history.source || '中证指数官网')}。</p>
   </article>`;
+}
+
+function renderNasdaqAnnualPerformance(envelope, options = {}) {
+  if (envelope?.data?.returnHistory?.rows?.length) {
+    return renderDividendAnnualPerformance(envelope.data.returnHistory, { ...options, namespace: 'nasdaq' });
+  }
+  const message = envelope?.status === 'loading' ? '正在读取纳斯达克100日线…'
+    : '纳斯达克100日线暂不可用，请使用页面顶部的“刷新数据”重试。';
+  return `<article class="panel dividend-annual-panel"><h3>纳斯达克100收益日历</h3><p class="dividend-annual-empty" role="status">${message}</p></article>`;
 }
 
 function renderDividendStrategyHelp(strategy) {
@@ -17684,10 +17880,16 @@ function renderDerived(derived, officialTemperature = { status: 'loading' }, nas
   const returnCalendar = byId('dividend-annual-detail');
   if (!returnCalendar.contains(document.activeElement) || !document.activeElement?.matches('[data-dividend-calendar-year]')) {
     returnCalendar.innerHTML = dividendSignal ? renderDividendAnnualPerformance(CSI_DIVIDEND_ANNUAL_PERFORMANCE, {
-      mode: returnCalendar.dataset.calendarMode, year: returnCalendar.dataset.calendarYear,
+      mode: returnCalendar.dataset.calendarMode, year: returnCalendar.dataset.calendarYear, metric: returnCalendar.dataset.calendarMetric,
     }) : '';
   }
   byId('nasdaq100-card').innerHTML = renderNasdaq100Card(nasdaq100);
+  const nasdaqCalendar = byId('nasdaq-annual-detail');
+  if (!nasdaqCalendar.contains(document.activeElement)) {
+    nasdaqCalendar.innerHTML = renderNasdaqAnnualPerformance(nasdaq100, {
+      mode: nasdaqCalendar.dataset.calendarMode, year: nasdaqCalendar.dataset.calendarYear, metric: nasdaqCalendar.dataset.calendarMetric,
+    });
+  }
   if (byId('margin-balance-card')) {
     byId('margin-balance-card').innerHTML = renderMarginBalanceCard(derived.margin);
   }
@@ -18042,10 +18244,35 @@ function startApp() {
   let monthlyYear = null;
   let monthlyRequest = 0;
   const returnCalendar = document.getElementById('dividend-annual-detail');
+  const ensureDividendDrawdown = async () => {
+    if (returnCalendar.dataset.calendarMetric !== 'drawdown' || returnCalendar.dataset.calendarMode === 'year') return;
+    const annual = CSI_DIVIDEND_ANNUAL_PERFORMANCE.rows.find(row => row.year === Number(returnCalendar.dataset.calendarYear))
+      ?? CSI_DIVIDEND_ANNUAL_PERFORMANCE.rows.at(-1);
+    if (!annual) return;
+    const key = dividendMonthKey(annual);
+    if (dividendMonthlyHistory.has(key)) return;
+    dividendMonthlyHistory.set(key, { status: 'loading' });
+    try {
+      let months;
+      try { months = calculateDividendMonthlyReturns(CSI_DIVIDEND_INDEX_HISTORY ?? [], annual); } catch { /* Read the complete selected year below. */ }
+      if (!months) {
+        if (!isLocalProxyLocation()) throw new Error('请通过本地看板服务读取日线');
+        const payload = await fetchJson(buildLocalProxyUrl('/api/csindex-performance', {
+          indexCode: '000922', startDate: annual.startDate.replaceAll('-', ''), endDate: annual.endDate.replaceAll('-', ''),
+        }), requestTimeout());
+        months = calculateDividendMonthlyReturns(parseCsindexPerformance(payload), annual);
+      }
+      dividendMonthlyHistory.set(key, { status: 'ready', months });
+    } catch (error) {
+      dividendMonthlyHistory.set(key, { status: 'error', error: error instanceof Error ? error.message : String(error) });
+    }
+    renderReturnCalendar();
+  };
   const renderReturnCalendar = () => {
     returnCalendar.innerHTML = renderDividendAnnualPerformance(CSI_DIVIDEND_ANNUAL_PERFORMANCE, {
-      mode: returnCalendar.dataset.calendarMode, year: returnCalendar.dataset.calendarYear,
+      mode: returnCalendar.dataset.calendarMode, year: returnCalendar.dataset.calendarYear, metric: returnCalendar.dataset.calendarMetric,
     });
+    void ensureDividendDrawdown();
   };
   returnCalendar.addEventListener('change', event => {
     const select = event.target.closest('[data-dividend-calendar-year]');
@@ -18055,6 +18282,18 @@ function startApp() {
     returnCalendar.querySelector('[data-dividend-calendar-year]')?.focus();
   });
   returnCalendar.addEventListener('click', async event => {
+    const metricButton = event.target.closest('[data-dividend-calendar-metric]');
+    const retry = event.target.closest('[data-dividend-calendar-retry]');
+    if (metricButton || retry) {
+      if (metricButton) returnCalendar.dataset.calendarMetric = metricButton.dataset.dividendCalendarMetric;
+      if (retry) {
+        const annual = CSI_DIVIDEND_ANNUAL_PERFORMANCE.rows.find(row => row.year === Number(returnCalendar.querySelector('select')?.value));
+        if (annual) dividendMonthlyHistory.delete(dividendMonthKey(annual));
+      }
+      renderReturnCalendar();
+      returnCalendar.querySelector(`[data-dividend-calendar-metric="${returnCalendar.dataset.calendarMetric}"]`)?.focus();
+      return;
+    }
     const stepButton = event.target.closest('[data-dividend-calendar-step]');
     if (stepButton) {
       if (stepButton.disabled) return;
@@ -18112,6 +18351,43 @@ function startApp() {
   monthlyDialog.addEventListener('close', () => {
     monthlyRequest += 1;
     document.querySelector(`button[data-dividend-year="${monthlyYear}"]`)?.focus();
+  });
+  const nasdaqCalendar = document.getElementById('nasdaq-annual-detail');
+  const renderNasdaqCalendar = () => {
+    nasdaqCalendar.innerHTML = renderNasdaqAnnualPerformance(state.nasdaq100, {
+      mode: nasdaqCalendar.dataset.calendarMode, year: nasdaqCalendar.dataset.calendarYear, metric: nasdaqCalendar.dataset.calendarMetric,
+    });
+  };
+  nasdaqCalendar.addEventListener('change', event => {
+    const select = event.target.closest('[data-nasdaq-calendar-year]');
+    if (!select) return;
+    nasdaqCalendar.dataset.calendarYear = select.value;
+    renderNasdaqCalendar();
+    nasdaqCalendar.querySelector('[data-nasdaq-calendar-year]')?.focus();
+  });
+  nasdaqCalendar.addEventListener('click', event => {
+    const metric = event.target.closest('[data-nasdaq-calendar-metric]');
+    const mode = event.target.closest('[data-nasdaq-calendar-mode]');
+    const step = event.target.closest('[data-nasdaq-calendar-step]');
+    const year = event.target.closest('[data-nasdaq-year]');
+    let focus = '[data-nasdaq-calendar-year]';
+    if (metric) {
+      nasdaqCalendar.dataset.calendarMetric = metric.dataset.nasdaqCalendarMetric;
+      focus = `[data-nasdaq-calendar-metric="${metric.dataset.nasdaqCalendarMetric}"]`;
+    } else if (mode) {
+      nasdaqCalendar.dataset.calendarMode = mode.dataset.nasdaqCalendarMode;
+      focus = `[data-nasdaq-calendar-mode="${mode.dataset.nasdaqCalendarMode}"]`;
+    } else if (step && !step.disabled) {
+      const next = Number(nasdaqCalendar.querySelector('[data-nasdaq-calendar-year]')?.value) + Number(step.dataset.nasdaqCalendarStep);
+      if (!state.nasdaq100.data?.returnHistory?.rows.some(row => row.year === next)) return;
+      nasdaqCalendar.dataset.calendarYear = String(next);
+      focus = `[data-nasdaq-calendar-step="${step.dataset.nasdaqCalendarStep}"]:not(:disabled)`;
+    } else if (year) {
+      nasdaqCalendar.dataset.calendarYear = year.dataset.nasdaqYear;
+      nasdaqCalendar.dataset.calendarMode = 'month';
+    } else return;
+    renderNasdaqCalendar();
+    (nasdaqCalendar.querySelector(focus) ?? nasdaqCalendar.querySelector('[data-nasdaq-calendar-year]'))?.focus();
   });
   const state = {
     snapshot: EXAMPLE_SNAPSHOT,
@@ -19808,9 +20084,9 @@ function startApp() {
         now: Date.now,
         concurrency: definitions.length,
         onProgress: ({ id, result, completed, total }) => {
-          reportProgress(`已核对 ${completed} / ${total} 项；${labels[id] ?? id}：${STATUS_LABELS[result.status] ?? '待验证'}`);
           pending.delete(id);
           domains[id] = result;
+          reportProgress(`已核对 ${completed} / ${total} 项。\n${marketStartupResult({ mode: 'live', domains }, definitions).detail}`);
           const timedOut = result.errors.some(error => /timed out|timeout|aborted/i.test(error));
           if (timedOut || !['latest', 'snapshot'].includes(result.status)) {
             issues.push(`${labels[id] ?? id}（${timedOut ? '超时' : result.status === 'expired' ? '缓存过期' : '待验证'}）`);
@@ -21015,13 +21291,7 @@ function startApp() {
     { id: 'settings', label: '浏览器设置与界面', run: () => ({ status: dividendPersistentStorage ? 'passed' : 'warning', detail: dividendPersistentStorage ? '本地设置可读写，面板界面已初始化。' : '仅保留本次会话；浏览器设置无法持久保存。' }) },
     { id: 'market', label: '市场数据与风险指标', run: async report => {
       await refreshLive(null, report);
-      const domains = Object.values(state.snapshot.domains ?? {});
-      const latest = domains.filter(entry => entry.status === 'latest').length;
-      const issues = ['snapshot', 'expired', 'missing', 'example'].map(status => {
-        const count = domains.filter(entry => entry.status === status).length;
-        return count ? `${STATUS_LABELS[status]} ${count} 项` : '';
-      }).filter(Boolean);
-      return { status: state.snapshot.mode === 'live' && latest === domains.length && domains.length > 0 ? 'passed' : 'warning', detail: state.snapshot.mode === 'live' ? `${latest} / ${domains.length} 项最新数据${issues.length ? `；${issues.join('、')}` : '，已重算指标。'}` : '真实市场数据未取得，当前为示例数据。' };
+      return marketStartupResult(state.snapshot, createDefaultDomainDefinitions());
     } },
     { id: 'temperature', label: '有知有行市场温度计', run: async () => {
       await loadYouzhiyouxingTemperature();

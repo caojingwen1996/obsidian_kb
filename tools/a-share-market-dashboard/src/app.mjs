@@ -7,7 +7,7 @@ import { initRiskSourceScreen, updateRiskSourceScreen } from './risk-screen.mjs'
 import { dividendWorkbookPayload, runDividendBacktest, backtestDate, dividendEntryDate } from './dividend-backtest.mjs';
 import { calculateDividendWeeklyBollinger, loadDividendBollingerHistory, mergeDividendIndexHistory } from './dividend-bollinger.mjs';
 import { renderDividendTaskMonitor, renderDividendTaskSummary } from './dividend-task-monitor.mjs';
-import { createStartupScreen } from './startup-checks.mjs';
+import { createStartupScreen, marketStartupResult } from './startup-checks.mjs';
 import {
   BASE_WEIGHTS,
   calculateGreedMetrics,
@@ -1108,6 +1108,9 @@ export function renderDividendSignalCard(signal) {
   </button>`;
 }
 
+const dividendMonthlyHistory = new Map();
+const dividendMonthKey = annual => `${annual.year}:${annual.startDate}:${annual.endDate}`;
+
 export function calculateDividendMonthlyReturns(points, annual) {
   const byDate = new Map();
   for (const point of points) {
@@ -1129,7 +1132,13 @@ export function calculateDividendMonthlyReturns(points, annual) {
     const base = index === Number(rows[0].date.slice(5, 7)) - 1
       ? rows[0] : rows.filter(row => row.date.startsWith(`${annual.year}-${String(index).padStart(2, '0')}`)).at(-1);
     if (!monthly.length || !base) return { month: index + 1, value: null, status: month > annual.endDate.slice(0, 7) ? '未开始' : '数据不足' };
-    return { month: index + 1, value: (monthly.at(-1).close / base.close - 1) * 100,
+    let peak = monthly[0].close;
+    let maxDrawdown = monthly.length >= 2 ? 0 : null;
+    for (const point of monthly) {
+      peak = Math.max(peak, point.close);
+      if (maxDrawdown !== null) maxDrawdown = Math.min(maxDrawdown, (point.close / peak - 1) * 100);
+    }
+    return { month: index + 1, maxDrawdown, value: (monthly.at(-1).close / base.close - 1) * 100,
       startDate: base.date, endDate: monthly.at(-1).date,
       status: annual.status === '年内' && month === annual.endDate.slice(0, 7) ? '月内累计' : '已统计' };
   });
@@ -1149,14 +1158,21 @@ export function storedDividendMonthlyReturns(annual) {
   return Math.abs(compounded - annual.annualReturn) <= 0.02 ? months : null;
 }
 
-export function renderDividendMonthlyCards(months) {
-  return months.map(month => `<article class="dividend-month-card ${month.value > 0 ? 'is-gain' : month.value < 0 ? 'is-loss' : 'is-flat'}">
-    <h3>${month.month}月</h3><strong>${month.value === null ? '—' : formatSignedPercent(month.value)}</strong>
-    <small>${escapeHtml(month.value === null ? month.status : `${month.status} · 截至 ${month.endDate.slice(5)}`)}</small>
-  </article>`).join('');
+export function renderDividendMonthlyCards(months, options = {}) {
+  return months.map(month => {
+    const isDrawdown = options.metric === 'drawdown';
+    const drawdown = Number.isFinite(month.maxDrawdown) && month.maxDrawdown <= 0 && month.maxDrawdown >= -100 ? month.maxDrawdown : null;
+    const value = isDrawdown ? drawdown : month.value;
+    const status = value === null ? (isDrawdown && month.value !== null ? '数据不足' : month.status) : `${month.status} · 截至 ${month.endDate.slice(5)}`;
+    return `<article class="dividend-month-card ${value > 0 ? 'is-gain' : value < 0 ? 'is-loss' : 'is-flat'}">
+    <h3>${month.month}月</h3><strong>${value === null ? '—' : formatSignedPercent(value)}</strong>
+    <small>${escapeHtml(status)}</small>
+  </article>`;
+  }).join('');
 }
 
 export function renderDividendAnnualPerformance(history, options = {}) {
+  const namespace = options.namespace === 'nasdaq' ? 'nasdaq' : 'dividend';
   const rows = Array.isArray(history?.rows) ? [...history.rows].sort((left, right) => right.year - left.year) : [];
   if (!rows.length) {
     return `<article class="panel dividend-annual-panel"><h3>年度收益与最大回撤</h3><p class="dividend-annual-empty">年度历史数据暂未生成。</p></article>`;
@@ -1165,23 +1181,27 @@ export function renderDividendAnnualPerformance(history, options = {}) {
   const toneClass = value => value > 0 ? 'is-gain' : value < 0 ? 'is-loss' : 'is-flat';
   const mode = options.mode === 'year' ? 'year' : 'month';
   const selected = rows.find(row => row.year === Number(options.year)) ?? rows[0];
-  const months = storedDividendMonthlyReturns(selected);
-  const yearStep = (step, label) => `<button type="button" data-dividend-calendar-step="${step}" aria-label="${label}" title="${label}" aria-controls="dividend-calendar-content"${rows.some(row => row.year === selected.year + step) ? '' : ' disabled'}><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="${step < 0 ? 'M15 6l-6 6 6 6' : 'M9 6l6 6-6 6'}"/></svg></button>`;
+  const metric = options.metric === 'drawdown' ? 'drawdown' : 'return';
+  const monthlyState = namespace === 'dividend' ? options.monthlyState ?? dividendMonthlyHistory.get(dividendMonthKey(selected)) : null;
+  const months = monthlyState?.months ?? storedDividendMonthlyReturns(selected);
+  const drawdownPending = namespace === 'dividend' && metric === 'drawdown' && !monthlyState?.months;
+
+  const yearStep = (step, label) => `<button type="button" data-${namespace}-calendar-step="${step}" aria-label="${label}" title="${label}" aria-controls="${namespace}-calendar-content"${rows.some(row => row.year === selected.year + step) ? '' : ' disabled'}><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="${step < 0 ? 'M15 6l-6 6 6 6' : 'M9 6l6 6-6 6'}"/></svg></button>`;
   return `<article class="panel dividend-annual-panel">
     <div class="dividend-annual-head">
-      <div><h3>${mode === 'year' ? '年度收益与最大回撤' : '月度收益'}</h3><p>${escapeHtml(mode === 'year' ? `${period} · ${rows.length}个年度` : `${selected.year}年 · ${selected.startDate} 至 ${selected.endDate}`)}</p></div>
-      <div class="dividend-calendar-switch" role="group" aria-label="收益日历显示方式"><span>收益日历：</span>${[['year', '年'], ['month', '月']].map(([value, label]) => `<button type="button" data-dividend-calendar-mode="${value}" aria-pressed="${mode === value}" aria-controls="dividend-calendar-content">${label}</button>`).join('')}</div>
+      <div>${mode === 'month' ? `<div class="nasdaq-calendar-metric-switch" role="group" aria-label="月度统计指标">${[['return', '月度收益'], ['drawdown', '月度回撤']].map(([value, label]) => `<button type="button" data-${namespace}-calendar-metric="${value}" aria-pressed="${metric === value}" aria-controls="${namespace}-calendar-content">${label}</button>`).join('')}</div>` : `<h3>${mode === 'year' ? '年度收益与最大回撤' : '月度收益'}</h3>`}<p>${escapeHtml(mode === 'year' ? `${period} · ${rows.length}个年度` : `${selected.year}年 · ${selected.startDate} 至 ${selected.endDate}`)}</p></div>
+      <div class="dividend-calendar-switch" role="group" aria-label="收益日历显示方式"><span>收益日历：</span>${[['year', '年'], ['month', '月']].map(([value, label]) => `<button type="button" data-${namespace}-calendar-mode="${value}" aria-pressed="${mode === value}" aria-controls="${namespace}-calendar-content">${label}</button>`).join('')}</div>
     </div>
-    <div id="dividend-calendar-content">
+    <div id="${namespace}-calendar-content">
     ${mode === 'month' ? `<div class="dividend-calendar-months">
-      <div class="dividend-calendar-year"><span>年份</span><div class="dividend-calendar-year-controls">${yearStep(-1, '上一年')}<select data-dividend-calendar-year aria-label="收益日历年份">${rows.map(row => `<option value="${row.year}"${row.year === selected.year ? ' selected' : ''}>${row.year}年</option>`).join('')}</select>${yearStep(1, '下一年')}</div><p class="dividend-calendar-total"><span>${selected.status === '年内' ? '年内累计收益' : selected.status === '成立首年' ? '成立首年收益' : '年度总体收益'}</span><strong class="${toneClass(selected.annualReturn)}">${escapeHtml(formatSignedPercent(selected.annualReturn))}</strong></p></div>
-      ${months ? `<div class="dividend-monthly-grid" aria-label="${selected.year}年月收益率">${renderDividendMonthlyCards(months)}</div>` : '<p class="dividend-calendar-empty" role="status">该年份的月度数据缺失或校验未通过，请切回“年”查看年度结果；也可点击该年份重新读取月度数据。</p>'}
-      <p class="dividend-calendar-note">月末收盘价相对上月末计算；首个统计月沿用年度首个交易日基准。价格收益不含分红再投资，未结束月份为月内累计。</p>
+      <div class="dividend-calendar-year"><span>年份</span><div class="dividend-calendar-year-controls">${yearStep(-1, '上一年')}<select data-${namespace}-calendar-year aria-label="收益日历年份">${rows.map(row => `<option value="${row.year}"${row.year === selected.year ? ' selected' : ''}>${row.year}年</option>`).join('')}</select>${yearStep(1, '下一年')}</div><p class="dividend-calendar-total"><span>${selected.status === '年内' ? '年内累计收益' : selected.status === '成立首年' ? '成立首年收益' : selected.status === '样本首年' ? '样本期累计收益' : '年度总体收益'}</span><strong class="${toneClass(selected.annualReturn)}">${escapeHtml(formatSignedPercent(selected.annualReturn))}</strong></p></div>
+      ${drawdownPending ? `<p class="dividend-calendar-empty" role="status">${monthlyState?.status === 'error' ? `月度回撤读取失败：${escapeHtml(monthlyState.error)} <button type="button" class="button-secondary" data-dividend-calendar-retry>重新读取</button>` : '正在读取所选年份日线并计算月度回撤…'}</p>` : months ? `<div class="dividend-monthly-grid" aria-label="${selected.year}年月${metric === 'drawdown' ? '度最大回撤' : '收益率'}">${renderDividendMonthlyCards(months, { metric })}</div>` : '<p class="dividend-calendar-empty" role="status">该年份的月度数据缺失或校验未通过，请切回“年”查看年度结果；也可点击该年份重新读取月度数据。</p>'}
+      <p class="dividend-calendar-note">${metric === 'drawdown' ? '月度最大回撤按当月日收盘价相对当月此前最高收盘价计算，每月重新起算；少于两个有效交易日显示“—”。当前月份统计截至最新可用交易日。' : '月末收盘价相对上月末计算；首个统计月沿用年度首个交易日基准。价格收益不含分红再投资，未结束月份为月内累计。'}</p>
     </div>` : `<div class="dividend-annual-table-wrap">
       <table class="dividend-annual-table">
         <thead><tr><th>年份</th><th>统计区间</th><th>全年收益率</th><th>年内最大回撤</th><th>状态</th></tr></thead>
-        <tbody>${rows.map(row => `<tr data-dividend-year="${row.year}"${row.status === '年内' ? ' class="is-current"' : ''}>
-          <td><button class="dividend-year-button" data-dividend-year="${row.year}" aria-haspopup="dialog" aria-label="查看${row.year}年月收益率">${escapeHtml(row.year)} <span aria-hidden="true">›</span></button></td>
+        <tbody>${rows.map(row => `<tr data-${namespace}-year="${row.year}"${row.status === '年内' ? ' class="is-current"' : ''}>
+          <td><button class="dividend-year-button" data-${namespace}-year="${row.year}" ${namespace === 'dividend' ? 'aria-haspopup="dialog"' : ''} aria-label="查看${row.year}年月收益率">${escapeHtml(row.year)} <span aria-hidden="true">›</span></button></td>
           <td>${escapeHtml(`${row.startDate} — ${row.endDate}`)}</td>
           <td class="${toneClass(row.annualReturn)}">${escapeHtml(formatSignedPercent(row.annualReturn))}</td>
           <td class="${toneClass(row.maxDrawdown)}">${escapeHtml(formatSignedPercent(row.maxDrawdown))}</td>
@@ -1192,6 +1212,15 @@ export function renderDividendAnnualPerformance(history, options = {}) {
     </div>
     <p class="dividend-annual-note">${escapeHtml(history.returnConvention || '收益率按每年首个交易日至末个交易日收盘价计算')}；${escapeHtml(history.drawdownConvention || '最大回撤按年内日收盘价计算')}。来源：${escapeHtml(history.source || '中证指数官网')}。</p>
   </article>`;
+}
+
+export function renderNasdaqAnnualPerformance(envelope, options = {}) {
+  if (envelope?.data?.returnHistory?.rows?.length) {
+    return renderDividendAnnualPerformance(envelope.data.returnHistory, { ...options, namespace: 'nasdaq' });
+  }
+  const message = envelope?.status === 'loading' ? '正在读取纳斯达克100日线…'
+    : '纳斯达克100日线暂不可用，请使用页面顶部的“刷新数据”重试。';
+  return `<article class="panel dividend-annual-panel"><h3>纳斯达克100收益日历</h3><p class="dividend-annual-empty" role="status">${message}</p></article>`;
 }
 
 export function renderDividendStrategyHelp(strategy) {
@@ -2037,10 +2066,16 @@ function renderDerived(derived, officialTemperature = { status: 'loading' }, nas
   const returnCalendar = byId('dividend-annual-detail');
   if (!returnCalendar.contains(document.activeElement) || !document.activeElement?.matches('[data-dividend-calendar-year]')) {
     returnCalendar.innerHTML = dividendSignal ? renderDividendAnnualPerformance(CSI_DIVIDEND_ANNUAL_PERFORMANCE, {
-      mode: returnCalendar.dataset.calendarMode, year: returnCalendar.dataset.calendarYear,
+      mode: returnCalendar.dataset.calendarMode, year: returnCalendar.dataset.calendarYear, metric: returnCalendar.dataset.calendarMetric,
     }) : '';
   }
   byId('nasdaq100-card').innerHTML = renderNasdaq100Card(nasdaq100);
+  const nasdaqCalendar = byId('nasdaq-annual-detail');
+  if (!nasdaqCalendar.contains(document.activeElement)) {
+    nasdaqCalendar.innerHTML = renderNasdaqAnnualPerformance(nasdaq100, {
+      mode: nasdaqCalendar.dataset.calendarMode, year: nasdaqCalendar.dataset.calendarYear, metric: nasdaqCalendar.dataset.calendarMetric,
+    });
+  }
   if (byId('margin-balance-card')) {
     byId('margin-balance-card').innerHTML = renderMarginBalanceCard(derived.margin);
   }
@@ -2395,10 +2430,35 @@ function startApp() {
   let monthlyYear = null;
   let monthlyRequest = 0;
   const returnCalendar = document.getElementById('dividend-annual-detail');
+  const ensureDividendDrawdown = async () => {
+    if (returnCalendar.dataset.calendarMetric !== 'drawdown' || returnCalendar.dataset.calendarMode === 'year') return;
+    const annual = CSI_DIVIDEND_ANNUAL_PERFORMANCE.rows.find(row => row.year === Number(returnCalendar.dataset.calendarYear))
+      ?? CSI_DIVIDEND_ANNUAL_PERFORMANCE.rows.at(-1);
+    if (!annual) return;
+    const key = dividendMonthKey(annual);
+    if (dividendMonthlyHistory.has(key)) return;
+    dividendMonthlyHistory.set(key, { status: 'loading' });
+    try {
+      let months;
+      try { months = calculateDividendMonthlyReturns(CSI_DIVIDEND_INDEX_HISTORY ?? [], annual); } catch { /* Read the complete selected year below. */ }
+      if (!months) {
+        if (!isLocalProxyLocation()) throw new Error('请通过本地看板服务读取日线');
+        const payload = await fetchJson(buildLocalProxyUrl('/api/csindex-performance', {
+          indexCode: '000922', startDate: annual.startDate.replaceAll('-', ''), endDate: annual.endDate.replaceAll('-', ''),
+        }), requestTimeout());
+        months = calculateDividendMonthlyReturns(parseCsindexPerformance(payload), annual);
+      }
+      dividendMonthlyHistory.set(key, { status: 'ready', months });
+    } catch (error) {
+      dividendMonthlyHistory.set(key, { status: 'error', error: error instanceof Error ? error.message : String(error) });
+    }
+    renderReturnCalendar();
+  };
   const renderReturnCalendar = () => {
     returnCalendar.innerHTML = renderDividendAnnualPerformance(CSI_DIVIDEND_ANNUAL_PERFORMANCE, {
-      mode: returnCalendar.dataset.calendarMode, year: returnCalendar.dataset.calendarYear,
+      mode: returnCalendar.dataset.calendarMode, year: returnCalendar.dataset.calendarYear, metric: returnCalendar.dataset.calendarMetric,
     });
+    void ensureDividendDrawdown();
   };
   returnCalendar.addEventListener('change', event => {
     const select = event.target.closest('[data-dividend-calendar-year]');
@@ -2408,6 +2468,18 @@ function startApp() {
     returnCalendar.querySelector('[data-dividend-calendar-year]')?.focus();
   });
   returnCalendar.addEventListener('click', async event => {
+    const metricButton = event.target.closest('[data-dividend-calendar-metric]');
+    const retry = event.target.closest('[data-dividend-calendar-retry]');
+    if (metricButton || retry) {
+      if (metricButton) returnCalendar.dataset.calendarMetric = metricButton.dataset.dividendCalendarMetric;
+      if (retry) {
+        const annual = CSI_DIVIDEND_ANNUAL_PERFORMANCE.rows.find(row => row.year === Number(returnCalendar.querySelector('select')?.value));
+        if (annual) dividendMonthlyHistory.delete(dividendMonthKey(annual));
+      }
+      renderReturnCalendar();
+      returnCalendar.querySelector(`[data-dividend-calendar-metric="${returnCalendar.dataset.calendarMetric}"]`)?.focus();
+      return;
+    }
     const stepButton = event.target.closest('[data-dividend-calendar-step]');
     if (stepButton) {
       if (stepButton.disabled) return;
@@ -2465,6 +2537,43 @@ function startApp() {
   monthlyDialog.addEventListener('close', () => {
     monthlyRequest += 1;
     document.querySelector(`button[data-dividend-year="${monthlyYear}"]`)?.focus();
+  });
+  const nasdaqCalendar = document.getElementById('nasdaq-annual-detail');
+  const renderNasdaqCalendar = () => {
+    nasdaqCalendar.innerHTML = renderNasdaqAnnualPerformance(state.nasdaq100, {
+      mode: nasdaqCalendar.dataset.calendarMode, year: nasdaqCalendar.dataset.calendarYear, metric: nasdaqCalendar.dataset.calendarMetric,
+    });
+  };
+  nasdaqCalendar.addEventListener('change', event => {
+    const select = event.target.closest('[data-nasdaq-calendar-year]');
+    if (!select) return;
+    nasdaqCalendar.dataset.calendarYear = select.value;
+    renderNasdaqCalendar();
+    nasdaqCalendar.querySelector('[data-nasdaq-calendar-year]')?.focus();
+  });
+  nasdaqCalendar.addEventListener('click', event => {
+    const metric = event.target.closest('[data-nasdaq-calendar-metric]');
+    const mode = event.target.closest('[data-nasdaq-calendar-mode]');
+    const step = event.target.closest('[data-nasdaq-calendar-step]');
+    const year = event.target.closest('[data-nasdaq-year]');
+    let focus = '[data-nasdaq-calendar-year]';
+    if (metric) {
+      nasdaqCalendar.dataset.calendarMetric = metric.dataset.nasdaqCalendarMetric;
+      focus = `[data-nasdaq-calendar-metric="${metric.dataset.nasdaqCalendarMetric}"]`;
+    } else if (mode) {
+      nasdaqCalendar.dataset.calendarMode = mode.dataset.nasdaqCalendarMode;
+      focus = `[data-nasdaq-calendar-mode="${mode.dataset.nasdaqCalendarMode}"]`;
+    } else if (step && !step.disabled) {
+      const next = Number(nasdaqCalendar.querySelector('[data-nasdaq-calendar-year]')?.value) + Number(step.dataset.nasdaqCalendarStep);
+      if (!state.nasdaq100.data?.returnHistory?.rows.some(row => row.year === next)) return;
+      nasdaqCalendar.dataset.calendarYear = String(next);
+      focus = `[data-nasdaq-calendar-step="${step.dataset.nasdaqCalendarStep}"]:not(:disabled)`;
+    } else if (year) {
+      nasdaqCalendar.dataset.calendarYear = year.dataset.nasdaqYear;
+      nasdaqCalendar.dataset.calendarMode = 'month';
+    } else return;
+    renderNasdaqCalendar();
+    (nasdaqCalendar.querySelector(focus) ?? nasdaqCalendar.querySelector('[data-nasdaq-calendar-year]'))?.focus();
   });
   const state = {
     snapshot: EXAMPLE_SNAPSHOT,
@@ -4161,9 +4270,9 @@ function startApp() {
         now: Date.now,
         concurrency: definitions.length,
         onProgress: ({ id, result, completed, total }) => {
-          reportProgress(`已核对 ${completed} / ${total} 项；${labels[id] ?? id}：${STATUS_LABELS[result.status] ?? '待验证'}`);
           pending.delete(id);
           domains[id] = result;
+          reportProgress(`已核对 ${completed} / ${total} 项。\n${marketStartupResult({ mode: 'live', domains }, definitions).detail}`);
           const timedOut = result.errors.some(error => /timed out|timeout|aborted/i.test(error));
           if (timedOut || !['latest', 'snapshot'].includes(result.status)) {
             issues.push(`${labels[id] ?? id}（${timedOut ? '超时' : result.status === 'expired' ? '缓存过期' : '待验证'}）`);
@@ -5368,13 +5477,7 @@ function startApp() {
     { id: 'settings', label: '浏览器设置与界面', run: () => ({ status: dividendPersistentStorage ? 'passed' : 'warning', detail: dividendPersistentStorage ? '本地设置可读写，面板界面已初始化。' : '仅保留本次会话；浏览器设置无法持久保存。' }) },
     { id: 'market', label: '市场数据与风险指标', run: async report => {
       await refreshLive(null, report);
-      const domains = Object.values(state.snapshot.domains ?? {});
-      const latest = domains.filter(entry => entry.status === 'latest').length;
-      const issues = ['snapshot', 'expired', 'missing', 'example'].map(status => {
-        const count = domains.filter(entry => entry.status === status).length;
-        return count ? `${STATUS_LABELS[status]} ${count} 项` : '';
-      }).filter(Boolean);
-      return { status: state.snapshot.mode === 'live' && latest === domains.length && domains.length > 0 ? 'passed' : 'warning', detail: state.snapshot.mode === 'live' ? `${latest} / ${domains.length} 项最新数据${issues.length ? `；${issues.join('、')}` : '，已重算指标。'}` : '真实市场数据未取得，当前为示例数据。' };
+      return marketStartupResult(state.snapshot, createDefaultDomainDefinitions());
     } },
     { id: 'temperature', label: '有知有行市场温度计', run: async () => {
       await loadYouzhiyouxingTemperature();

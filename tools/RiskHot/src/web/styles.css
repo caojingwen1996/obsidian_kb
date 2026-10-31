@@ -141,3 +141,35 @@ dialog{color:var(--ink);background:var(--paper);border:1px solid var(--line);bor
 @media(max-width:720px){.overview-query{flex-wrap:wrap;padding:14px;gap:8px}.overview-query label{flex-basis:100%}.overview-query input{width:100%}.overview-table tr{padding:16px}.overview-table td+td{margin-top:6px}}
 
 .workspace-actions{display:flex;justify-content:flex-end;align-items:center;gap:12px;margin-bottom:16px}
+
+/* 当前资料页面复用既有面板、表格与字体，补齐阅读内容的留白。 */
+.current-view .run-workspace{display:grid;gap:20px}
+.current-view .run-workspace>button{justify-self:start}
+.current-view>.panel{margin-block-end:20px}
+.current-view .panel>p,.current-view .panel>.actions,.current-view .panel>.form-grid,.current-view .panel>.history-item,.current-view .panel>section,.current-view .panel>form{margin:16px}
+.current-view .panel>button{margin:0 16px 16px}
+.current-view .panel>.material-text{margin-block:18px}
+.current-view .table-heading h2,.current-view .table-heading h3{margin:0}
+
+.current-view .source-catalog-views{margin:16px}
+.current-view .source-catalog-views .section-heading{margin:12px 0 0}
+.current-view .source-group-empty{padding:16px;color:var(--muted);font-size:13px}
+
+.current-view .inline-plan-status{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.current-view .inline-plan-period{min-width:220px;max-width:290px}
+.current-view .inline-plan-fields{display:flex;align-items:center;gap:6px}
+.current-view .inline-plan-fields input{width:76px;flex:1;min-width:0}
+.current-view .inline-plan-fields select{width:72px;padding-inline:8px}
+.current-view .inline-plan-fields button{white-space:nowrap;padding-inline:10px}
+.current-view .inline-plan-period small{margin-top:4px}
+.current-view .inline-plan-error{color:var(--red);font-size:12px;max-width:28ch;overflow-wrap:anywhere}
+@media(max-width:720px){.current-view .inline-plan-period{min-width:0;max-width:100%}.current-view .inline-plan-fields{flex-wrap:wrap}.current-view .inline-plan-fields input{max-width:100px}}
+
+/* 目录检索与视图切换共用一排，窄屏按自然顺序换行。 */
+.current-view .source-toolbar{column-gap:16px;row-gap:12px}
+.current-view .source-toolbar .view-switch{grid-column:1/-1;flex-wrap:wrap;overflow:visible;margin:0}
+
+.current-view .task-subviews{display:flex;flex-wrap:wrap;gap:8px 24px;margin-bottom:20px;border-bottom:1px solid var(--line)}
+.current-view .task-subviews a{display:inline-flex;align-items:center;min-height:44px;padding:8px 0 12px;white-space:nowrap;text-decoration:none;color:var(--muted);border-bottom:2px solid transparent}
+.current-view .task-subviews a[aria-current]{color:var(--green);font-weight:600;border-bottom-color:var(--green)}
+@media(max-width:720px){.current-view .task-subviews{gap:4px 16px;font-size:13px}}

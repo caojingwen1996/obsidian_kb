@@ -170,3 +170,22 @@ test('monthly calendar shows the selected annual return with precise partial-yea
   assert.match(summary(2025), /成立首年收益<\/span><strong class="is-flat">0%/);
   assert.match(summary(2026), /年内累计收益<\/span><strong class="is-gain">\+0.19%/);
 });
+
+test('dividend monthly drawdown resets peaks and distinguishes insufficient daily data', () => {
+  const months = calculateDividendMonthlyReturns([
+    {date:'2026-01-05',close:100}, {date:'2026-01-20',close:120}, {date:'2026-01-30',close:110},
+    {date:'2026-02-02',close:100}, {date:'2026-02-27',close:99}, {date:'2026-03-03',close:132},
+  ],annual);
+  assert.ok(Math.abs(months[0].maxDrawdown + 100/12) < 1e-8);
+  assert.ok(Math.abs(months[1].maxDrawdown + 1) < 1e-8);
+  assert.equal(months[2].maxDrawdown,null);
+  const history = {rows:[{...annual,monthlyReturns:months}]};
+  const html = renderDividendAnnualPerformance(history,{metric:'drawdown',monthlyState:{status:'ready',months}});
+  assert.match(html,/data-dividend-calendar-metric="drawdown" aria-pressed="true"/);
+  assert.match(html,/<strong>-1%<\/strong>/);
+  assert.match(html,/数据不足/);
+  assert.match(renderDividendAnnualPerformance(history,{metric:'drawdown'}),/正在读取所选年份/);
+  const failed = renderDividendAnnualPerformance(history,{metric:'drawdown',monthlyState:{status:'error',error:'读取失败'}});
+  assert.match(failed,/data-dividend-calendar-retry/);
+  assert.match(failed,/月度回撤读取失败/);
+});

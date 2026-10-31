@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "id": "20261030T085914-ef50440c29c2",
+  "source": "execution",
+  "runDate": "2026-10-30",
+  "startedAt": "2026-10-30T08:59:14.125077+08:00",
+  "endedAt": "2026-10-30T08:59:16.630523+08:00",
+  "status": "success",
+  "pid": 65236,
+  "stage": "校验完成",
+  "writtenFiles": [
+    "评分记录.json",
+    "中证红利每日信号.xlsx",
+    "最新信号.md",
+    "中证红利年度表现.json"
+  ],
+  "error": "",
+  "updatedAt": "2026-10-30T08:59:16.630536+08:00",
+  "validation": {
+    "ok": true,
+    "artifacts": [
+      {
+        "name": "中证红利每日信号.xlsx",
+        "href": "/sources/automations/中证红利信号/中证红利每日信号.xlsx",
+        "ok": true,
+        "message": "文件可读"
+      },
+      {
+        "name": "最新信号.md",
+        "href": "/sources/automations/中证红利信号/最新信号.md",
+        "ok": true,
+        "message": "文件可读"
+      },
+      {
+        "name": "中证红利年度表现.json",
+        "href": "/sources/automations/中证红利信号/中证红利年度表现.json",
+        "ok": true,
+        "message": "文件可读"
+      },
+      {
+        "name": "评分记录.json",
+        "href": "/sources/automations/中证红利信号/评分记录.json",
+        "ok": true,
+        "message": "文件可读"
+      }
+    ],
+    "checks": [
+      {
+        "key": "score-date",
+        "label": "评分记录日期",
+        "ok": true,
+        "detail": "期望 2026-10-30；实际 2026-10-30"
+      },
+      {
+        "key": "unique-row",
+        "label": "当日同策略记录唯一",
+        "ok": true,
+        "detail": "2026-10-30 / dividend-two-factor-v2-r5：1 条；历史其他版本保留"
+      },
+      {
+        "key": "consistent-score",
+        "label": "Excel与评分记录一致",
+        "ok": true,
+        "detail": "核对输入值、数据日期、综合分与等级"
+      },
+      {
+        "key": "markdown",
+        "label": "最新信号日期与版本",
+        "ok": true,
+        "detail": "记录日期 2026-10-30；策略 dividend-two-factor-v2-r5"
+      },
+      {
+        "key": "annual",
+        "label": "年度及月度表现有效",
+        "ok": true,
+        "detail": "指数000922，截止日与估值日 2026-10-29 一致"
+      },
+      {
+        "key": "strategy",
+        "label": "使用当前应用策略",
+        "ok": true,
+        "detail": "当前 dividend-two-factor-v2-r5；本次 dividend-two-factor-v2-r5（核对完整参数）"
+      },
+      {
+        "key": "score-math",
+        "label": "综合评分复算一致",
+        "ok": true,
+        "detail": "按当前权重、锚点与等级分界复算原始输入"
+      },
+      {
+        "key": "inputs",
+        "label": "两项评分输入完整",
+        "ok": true,
+        "detail": "股息率有效且10年国债收益率大于零"
+      },
+      {
+        "key": "dates",
+        "label": "来源日期有效",
+        "ok": true,
+        "detail": "估值 2026-10-29；国债 2026-10-29"
+      }
+    ],
+    "warnings": [],
+    "dates": {
+      "index": "2026-10-29",
+      "bond": "2026-10-29",
+      "quote": "2026-10-29"
+    },
+    "strategyVersion": "dividend-two-factor-v2-r5",
+    "recordDate": "2026-10-30",
+    "recordedAt": "2026-10-30T08:59:16+08:00"
+  },
+  "durationSeconds": 2.5
+}

@@ -82,6 +82,21 @@ test('source grouping does not duplicate identities within a group and absent di
   assert.equal(groupSources([{catalog_key:'wiki-source-002',metadata:{}}],'research')[0].name,'待补充金融属性');
 });
 
+test('专题研究固定保留三类，40条缺失分类不会被伪装成平铺研究结果',async()=>{
+ const {researchGroups}=await import('../web/model.js');
+ const rows=Array.from({length:40},(_,index)=>({catalog_key:`source-${index}`,metadata:{tier:'T1'}}));
+ const groups=researchGroups(rows);
+ assert.deepEqual(groups.slice(0,3).map(group=>[group.name,group.items.length]),[['钱的数量',0],['钱的价格',0],['钱的流向',0]]);
+ assert.equal(groups[3].name,'待分类信源');assert.equal(groups[3].unclassified,true);assert.equal(groups[3].items.length,40);
+});
+
+test('专题分类代码和中文归入同一组，多值别名不重复计数，层级与优先级显示中文',async()=>{
+ const {researchGroups,groupSources}=await import('../web/model.js');
+ const rows=[{catalog_key:'one',metadata:{dims:['QUANTITY','钱的数量','PRICE','FLOW'],levels:['MACRO'],priority:'CORE'}},{catalog_key:'two',metadata:{dims:['钱的价格']}}];
+ assert.deepEqual(researchGroups(rows).map(group=>[group.name,group.items.length]),[['钱的数量',1],['钱的价格',2],['钱的流向',1]]);
+ assert.equal(groupSources(rows.slice(0,1),'research',1)[0].name,'宏观');assert.equal(groupSources(rows.slice(0,1),'research',2)[0].name,'核心');
+});
+
 test('接入结果保留候选事实读取入口，不再提供候选处理页面入口',async()=>{
  const {renderDelivery}=await import('../web/model.js');
  for(const event_processing of [null,{id:'p',result_status:'review'}]){

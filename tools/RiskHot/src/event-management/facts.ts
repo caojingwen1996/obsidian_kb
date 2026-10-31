@@ -1,3 +1,6 @@
+import { currentModel } from './store.js';
+import { addCurrentFactEvidence, saveCurrentFact } from './current-facts.js';
+import type {MaterialCandidate,MaterialEvidence} from './current-contracts.js';
 import {randomUUID} from 'node:crypto';
 import {DomainError} from '../platform/types.js';
 import type {DB} from './store.js';
@@ -5,6 +8,7 @@ import {digest,type FullCandidate,type Evidence} from './contracts.js';
 import {normalizeEventTime} from './time.js';
 
 export async function addFactEvidence(db:DB,id:string,refs:Evidence[]){
+ if(await currentModel(db))return addCurrentFactEvidence(db,id,refs as unknown as MaterialEvidence[]);
  for(const e of refs){
   const row=(await db.query('SELECT v.material_id,s.text FROM information.material_versions v JOIN information.material_segments s ON s.version_id=v.id WHERE v.id=$1 AND s.id=$2',[e.information_version_id,e.segment_id])).rows[0];
   if(!row||!Number.isInteger(e.start_cp)||!Number.isInteger(e.end_cp)||e.start_cp<0||e.end_cp>Array.from(row.text).length||e.end_cp<=e.start_cp||Array.from(row.text).slice(e.start_cp,e.end_cp).join('')!==e.quote)throw new DomainError('EVIDENCE_MISMATCH',409);
@@ -13,6 +17,7 @@ export async function addFactEvidence(db:DB,id:string,refs:Evidence[]){
  }
 }
 export async function saveFact(db:DB,candidateId:string,p:FullCandidate){
+ if(await currentModel(db))return saveCurrentFact(db,candidateId,p as unknown as MaterialCandidate);
  const prior=(await db.query('SELECT fact_id FROM information.candidate_fact WHERE candidate_id=$1',[candidateId])).rows[0];if(prior)return prior.fact_id as string;
  // Serialize exact repeats within a material; cross-source semantic reuse requires an explicit decision.
  const version=p.evidence_refs[0]?.information_version_id;

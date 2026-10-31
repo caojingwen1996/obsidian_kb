@@ -33,17 +33,24 @@ export function filterSources(rows,filters={}) {
   });
 }
 export const groupFields={verify:[['tier','信源等级'],['category','来源类别']],monitor:[['priority','关注优先级'],['frequency','监测频率'],['tier','信源等级']],research:[['dims','金融属性'],['levels','观察层级'],['priority','关注优先级']]};
+export const sourceClassificationLabels={dims:{QUANTITY:'钱的数量',PRICE:'钱的价格',FLOW:'钱的流向',RISK_APPETITE:'风险偏好',ALLOCATION:'资源配置'},levels:{MACRO:'宏观',MESO:'中观',MICRO:'微观'},priority:{CORE:'核心',HIGH:'重点',NORMAL:'一般'},frequency:{REALTIME:'实时',DAILY:'每日',WEEKLY:'每周',MONTHLY:'每月',IRREGULAR:'不定期'}};
+export function sourceGroupLabel(key,value){const labels=sourceClassificationLabels[key]||{};return Object.hasOwn(labels,value)?labels[value]:value;}
 export function groupSources(rows,view,depth=0) {
   const [key,label]=groupFields[view]?.[depth] || ['group','分组'];
   const groups=new Map();
   for(const row of rows){
     const value=profileOf(row)[key]; const names=Array.isArray(value)?[...new Set(value)]:value?[value]:[];
-    for(const name of names.length?names:[`待补充${label}`]){
+    for(const raw of names.length?names:[`待补充${label}`]){
+      const name=sourceGroupLabel(key,raw);
       if(!groups.has(name))groups.set(name,new Map());
       groups.get(name).set(row.catalog_key,row);
     }
   }
   return [...groups].map(([name,items])=>({name,label,items:[...items.values()]}));
+}
+export function researchGroups(rows){
+ const groups=groupSources(rows,'research'),fixed=['钱的数量','钱的价格','钱的流向'];
+ return [...fixed.map(name=>groups.find(group=>group.name===name)||{name,label:'金融属性',items:[]}),...groups.filter(group=>!fixed.includes(group.name)).map(group=>group.name==='待补充金融属性'?{...group,name:'待分类信源',unclassified:true}:group)];
 }
 export function countSaved(operation) {
   const versions=new Set();

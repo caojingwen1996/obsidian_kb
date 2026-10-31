@@ -95,11 +95,14 @@ Nota AI刚刚宣布在英特尔Arc Pro B70上推出集成NVA解决方案，进�
 
 ## 信息处理系统的方法论
 
-信息的获取到底应该放在此工作流吗？
 
-信息获取-信息拆解为Event-信息结构化（建立观测对象，建立时间窗口）-信息归纳了（事件密集区，提取共同现象）-观测对象
+信息获取(information)
+信息拆解为Event
+信息结构化（建立观测对象，建立时间窗口)
+信息归纳（事件密集区，提取共同现象)
+观测对象
 
-Input-RawInfo-Event-Signal-Cluster-Theme-Risk Variable
+RawInfo-Event-Signal-Cluster-Theme-Risk Variable
 
 Event = 事实单元
 Signal = 变量变化
@@ -166,17 +169,12 @@ Theme = 多个 Cluster 共同指向什么持续性的核心问题
 
 我要观察什么？
 - feed模式: 自下而上的分析信息
-- theme模式：输入具体标的，获取具体标的的相关信息
+- theme模式：输入具体观察对象，获取具体标的的相关信息
 
-
-
-
-
-
-（2.Source Routing 应该去哪找？（very important)
+观察对象的定义
 
 针对这个观察对象，应该去哪里获取？
-maybe 一个观测对象是：新闻，标的，宏观日报，微信公众号文章，
+Source Routing 应该去哪找？（very important)
 
 观测指标表：
 [[_archives/2026-10-20-wiki-rebuild/wiki/concepts/冰冰小美-indicator-非金融信息观测指标表|冰冰小美-indicator-非金融信息观测指标表]]

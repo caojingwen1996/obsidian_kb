@@ -12,14 +12,14 @@ try{
  browser=await chromium.launchPersistentContext(profile,{executablePath:executable,headless:true,viewport:{width:1440,height:1000}});
  const page=await browser.newPage();page.on('pageerror',(error:Error)=>errors.push(error.message));
  const ready=()=>page.locator('#connection-state').filter({hasText:'已连接'}).waitFor({state:'attached'});
- await page.goto(origin+'/m1#schedules');await ready();await page.getByRole('heading',{name:'自动接入',exact:true}).waitFor();
+ await page.goto(origin+'/m1#schedules');await ready();await page.getByRole('heading',{name:'任务计划',exact:true}).waitFor();
  assert.equal(new URL(page.url()).hash,'#sources?mode=automatic');assert.equal(await page.locator('.workspaces a').count(),3);
  assert.deepEqual(await page.locator('.sidebar .nav-label').allTextContents(),['内容','配置']);assert.deepEqual(await page.locator('.sidebar nav a').allTextContents(),['全部','信源管理中心','流水线全景']);
- assert.equal(await page.locator('.sidebar button,.sidebar [aria-expanded]').count(),0);checks.push('旧计划链接归目录自动接入，两工作区及常驻分组正确');
+ assert.equal(await page.locator('.sidebar button,.sidebar [aria-expanded]').count(),0);checks.push('旧计划链接归目录任务计划，两工作区及常驻分组正确');
  await page.locator('[data-plan-view="all"]').click();
  const sourcesResponse=await page.request.get(origin+'/api/v1/m1/sources');assert.equal(sourcesResponse.status(),200);const sources=(await sourcesResponse.json()).items;
  assert.equal(await page.locator('.plan-table tbody tr').count(),sources.length);checks.push('全量计划表覆盖真实信源，无逐源配置阅读负担');
- await page.getByRole('link',{name:'信息采集任务',exact:true}).click();await page.locator('.overview-list').waitFor();await page.goBack();await page.getByRole('heading',{name:'自动接入',exact:true}).waitFor();
+ await page.getByRole('link',{name:'信息采集任务',exact:true}).click();await page.locator('.overview-list').waitFor();await page.goBack();await page.getByRole('heading',{name:'任务计划',exact:true}).waitFor();
  await page.route('**/api/v1/l0/monitor',async(route:any)=>route.fulfill({status:503,contentType:'application/json',body:JSON.stringify({error:{code:'TEMPORARY_UNAVAILABLE'}})}));
  await page.locator('#refresh').click();await page.getByRole('heading',{name:'自动计划读取失败',exact:true}).waitFor();assert.equal(await page.locator('.plan-table').count(),0);
  await page.unroute('**/api/v1/l0/monitor');await page.locator('#refresh').click();await page.locator('.plan-table').waitFor();checks.push('前进后退恢复目录模式，计划读取失败不伪装为空配置');
@@ -29,7 +29,7 @@ try{
  await page.getByRole('link',{name:'档案',exact:true}).click();await page.locator('#result-count').waitFor();assert.equal(await page.locator('#search').inputValue(),'中国人民银行');assert.equal(await page.locator('.source-row').count(),count);
  assert.equal(await page.locator('.source-group').count(),0);assert.equal(await page.locator('#source-detail [data-action="start-batch"]').count(),0);checks.push('目录共用搜索、默认平铺，单源详情无全局启动');
  await page.locator('#search').fill('');await page.locator('#source-search button[type="submit"]').click();
- await page.locator('[data-source="wiki-source-001"]').click();await page.getByRole('tab',{name:'接入设置',exact:true}).click();await page.getByRole('heading',{name:'自动接入计划',exact:true}).waitFor();
+ await page.locator('[data-source="wiki-source-001"]').click();await page.getByRole('tab',{name:'接入设置',exact:true}).click();await page.getByRole('heading',{name:'任务计划',exact:true}).waitFor();
  checks.push('接入设置显示真实技术条件与同源自动计划');
  for(const width of [1440,390,320]){
   await page.setViewportSize({width,height:1000});

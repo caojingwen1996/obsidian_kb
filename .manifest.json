@@ -1,9 +1,9 @@
 {
   "version": 1,
   "stats": {
-    "total_sources_ingested": 279,
-    "total_pages": 315,
-    "source_count": 333
+    "total_sources_ingested": 296,
+    "total_pages": 317,
+    "source_count": 350
   },
   "sources": {
     "sources/articles/2025-10-02-冰冰小美：长期主义与变通.md": {
@@ -6769,6 +6769,319 @@
       ],
       "pages_updated": [],
       "notes": "辅助背景：第二节第3项业绩与赎回约束；不计作行业配置判断法的独立复现。 页面登记在独立老木匠库索引，不计入主wiki/页面数。"
+    },
+    "sources/automations/老木匠每日汇总/2026-08-23 老木匠直播：热闹的地方就是险地.md": {
+      "ingested_at": "2026-10-30T17:11:12.670658+08:00",
+      "size_bytes": 31520,
+      "modified_at": "2026-10-17T15:08:05.602197+08:00",
+      "content_hash": "sha256:d7f56f716a1e0e49373079dd7a73b80ab96b4579abf62ecc07a0f1b5697a9698",
+      "source_type": "document",
+      "project": "wiki_laomujiang",
+      "pages_created": [
+        "wiki_laomujiang/topics/政策解读.md"
+      ],
+      "pages_updated": [],
+      "topic_ingests": {
+        "wiki_laomujiang/topics/政策解读.md": {
+          "scope": "政策解读相关段落；非全文全部知识点入库",
+          "ingested_at": "2026-10-30T17:11:12.670658+08:00"
+        }
+      }
+    },
+    "sources/automations/老木匠每日汇总/2026-09-07 老木匠直播：银行的核心一级资本是怎么回事.md": {
+      "ingested_at": "2026-10-30T17:11:12.670658+08:00",
+      "size_bytes": 10125,
+      "modified_at": "2026-10-17T15:08:05.598178+08:00",
+      "content_hash": "sha256:e1345868259a966c016759b96f5fd3c936669e111ad8250b6c0caa69ab454776",
+      "source_type": "document",
+      "project": "wiki_laomujiang",
+      "pages_created": [
+        "wiki_laomujiang/topics/政策解读.md"
+      ],
+      "pages_updated": [],
+      "topic_ingests": {
+        "wiki_laomujiang/topics/政策解读.md": {
+          "scope": "政策解读相关段落；非全文全部知识点入库",
+          "ingested_at": "2026-10-30T17:11:12.670658+08:00"
+        }
+      }
+    },
+    "sources/automations/老木匠每日汇总/2026-09-19 老木匠直播：加息的传导与筹码的哲学.md": {
+      "ingested_at": "2026-10-30T17:11:12.670658+08:00",
+      "size_bytes": 33940,
+      "modified_at": "2026-10-17T15:08:05.596555+08:00",
+      "content_hash": "sha256:fc1ed079504a38d7282d7bb1b49c0a075075136ca38fe3c7a615ae7362ac23bc",
+      "source_type": "document",
+      "project": "wiki_laomujiang",
+      "pages_created": [
+        "wiki_laomujiang/topics/政策解读.md"
+      ],
+      "pages_updated": [],
+      "topic_ingests": {
+        "wiki_laomujiang/topics/政策解读.md": {
+          "scope": "政策解读相关段落；非全文全部知识点入库",
+          "ingested_at": "2026-10-30T17:11:12.670658+08:00"
+        }
+      }
+    },
+    "sources/automations/老木匠每日汇总/2026-10-11 老木匠直播：资金虹吸、自我降维与人对企业的作用.md": {
+      "ingested_at": "2026-10-30T17:11:12.670658+08:00",
+      "size_bytes": 12566,
+      "modified_at": "2026-10-17T15:08:05.594445+08:00",
+      "content_hash": "sha256:ff7365a4e5bd4d803acdc69125c82117466a2b4f85df46847c2d5e67902ad30d",
+      "source_type": "document",
+      "project": "wiki_laomujiang",
+      "pages_created": [
+        "wiki_laomujiang/topics/政策解读.md"
+      ],
+      "pages_updated": [],
+      "topic_ingests": {
+        "wiki_laomujiang/topics/政策解读.md": {
+          "scope": "政策解读相关段落；非全文全部知识点入库",
+          "ingested_at": "2026-10-30T17:11:12.670658+08:00"
+        }
+      }
+    },
+    "sources/automations/老木匠每日汇总/2026-10-20 老木匠直播：含科量转向、卖出心理与新手牛市.md": {
+      "ingested_at": "2026-10-30T17:11:12.670658+08:00",
+      "size_bytes": 12657,
+      "modified_at": "2026-10-23T10:29:31.708185+08:00",
+      "content_hash": "sha256:08ce09430bcfb90c7295d241f1f15cda02651343d2e834fab7ff73c4b706034e",
+      "source_type": "document",
+      "project": "wiki_laomujiang",
+      "pages_created": [
+        "wiki_laomujiang/topics/政策解读.md"
+      ],
+      "pages_updated": [],
+      "topic_ingests": {
+        "wiki_laomujiang/topics/政策解读.md": {
+          "scope": "政策解读相关段落；非全文全部知识点入库",
+          "ingested_at": "2026-10-30T17:11:12.670658+08:00"
+        }
+      }
+    },
+    "sources/automations/老木匠每日汇总/2026-10-29 老木匠直播：风险释放、沃什黑箱化与人民币升值.md": {
+      "ingested_at": "2026-10-30T17:34:10.387468+08:00",
+      "size_bytes": 21878,
+      "modified_at": "2026-10-30T16:18:51.451652+08:00",
+      "content_hash": "sha256:33c61c76d73fa77dc5c78405db5603f8cb1540e13a27f03d6874b44ac7734607",
+      "source_type": "document",
+      "project": "wiki_laomujiang",
+      "pages_created": [
+        "wiki_laomujiang/topics/政策解读.md",
+        "wiki_laomujiang/topics/投资模式.md"
+      ],
+      "pages_updated": [
+        "wiki_laomujiang/topics/政策解读.md"
+      ],
+      "topic_ingests": {
+        "wiki_laomujiang/topics/政策解读.md": {
+          "scope": "政策解读相关段落；非全文全部知识点入库；补入风险相关段落与阅读入口，非全文全部知识点入库",
+          "ingested_at": "2026-10-30T17:17:04.312647+08:00"
+        },
+        "wiki_laomujiang/topics/投资模式.md": {
+          "scope": "仅整理投资模式相关段落与阅读入口，非全文全部知识点入库",
+          "ingested_at": "2026-10-30T17:34:10.387468+08:00"
+        }
+      }
+    },
+    "sources/automations/老木匠每日汇总/2026-08-08 老木匠直播：美元、基金热潮与低估的找法_404303462_d9003c55.md": {
+      "ingested_at": "2026-10-30T17:17:04.312647+08:00",
+      "size_bytes": 24884,
+      "modified_at": "2026-10-30T16:18:51.453786+08:00",
+      "content_hash": "sha256:d51c3539caef3b52327d70e31b778b096e06cb341b514c591d0ca78bd37db8d7",
+      "source_type": "document",
+      "project": "wiki_laomujiang",
+      "pages_created": [],
+      "pages_updated": [
+        "wiki_laomujiang/topics/政策解读.md"
+      ],
+      "topic_ingests": {
+        "wiki_laomujiang/topics/政策解读.md": {
+          "scope": "；补入风险相关段落与阅读入口，非全文全部知识点入库",
+          "ingested_at": "2026-10-30T17:17:04.312647+08:00"
+        }
+      }
+    },
+    "sources/automations/老木匠每日汇总/2026-10-17 老木匠直播：交易拥挤度、两融余额与风格转化.md": {
+      "ingested_at": "2026-10-30T17:17:04.312647+08:00",
+      "size_bytes": 14992,
+      "modified_at": "2026-10-30T16:18:51.452442+08:00",
+      "content_hash": "sha256:b6c1c79c1d26e49b0c963d29ece22f78f7361d24f7e60a4fdf5be75fcea546bd",
+      "source_type": "document",
+      "project": "wiki_laomujiang",
+      "pages_created": [],
+      "pages_updated": [
+        "wiki_laomujiang/topics/政策解读.md"
+      ],
+      "topic_ingests": {
+        "wiki_laomujiang/topics/政策解读.md": {
+          "scope": "；补入风险相关段落与阅读入口，非全文全部知识点入库",
+          "ingested_at": "2026-10-30T17:17:04.312647+08:00"
+        }
+      }
+    },
+    "sources/automations/老木匠每日汇总/老木匠的策略.md": {
+      "ingested_at": "2026-10-30T17:34:10.387468+08:00",
+      "size_bytes": 3401,
+      "modified_at": "2026-08-22T13:31:58.104296+08:00",
+      "content_hash": "sha256:1c8f67b2e4878515adeaac3a2310959e42ce73d2a99fb2b49a5b578ebebc7d48",
+      "source_type": "document",
+      "project": "wiki_laomujiang",
+      "pages_created": [
+        "wiki_laomujiang/topics/投资模式.md"
+      ],
+      "pages_updated": [],
+      "topic_ingests": {
+        "wiki_laomujiang/topics/投资模式.md": {
+          "scope": "仅整理投资模式相关段落与阅读入口，非全文全部知识点入库",
+          "ingested_at": "2026-10-30T17:34:10.387468+08:00"
+        }
+      }
+    },
+    "sources/automations/老木匠每日汇总/老木匠谈利润垫.md": {
+      "ingested_at": "2026-10-30T17:34:10.387468+08:00",
+      "size_bytes": 831,
+      "modified_at": "2026-08-22T13:31:58.104353+08:00",
+      "content_hash": "sha256:52490055e178e18b0e0435c1ec364145999bd777c306334d914b884592287c3d",
+      "source_type": "document",
+      "project": "wiki_laomujiang",
+      "pages_created": [
+        "wiki_laomujiang/topics/投资模式.md"
+      ],
+      "pages_updated": [],
+      "topic_ingests": {
+        "wiki_laomujiang/topics/投资模式.md": {
+          "scope": "仅整理投资模式相关段落与阅读入口，非全文全部知识点入库",
+          "ingested_at": "2026-10-30T17:34:10.387468+08:00"
+        }
+      }
+    },
+    "sources/automations/老木匠每日汇总/2026-08-27老木匠谈周期股.md": {
+      "ingested_at": "2026-10-30T17:34:10.387468+08:00",
+      "size_bytes": 2586,
+      "modified_at": "2026-09-07T21:11:32.316012+08:00",
+      "content_hash": "sha256:ca19a4165be1f6ba46748b76a4e67dddf190796036d7311b67caf9c04d74c9c1",
+      "source_type": "document",
+      "project": "wiki_laomujiang",
+      "pages_created": [
+        "wiki_laomujiang/topics/投资模式.md"
+      ],
+      "pages_updated": [],
+      "topic_ingests": {
+        "wiki_laomujiang/topics/投资模式.md": {
+          "scope": "仅整理投资模式相关段落与阅读入口，非全文全部知识点入库",
+          "ingested_at": "2026-10-30T17:34:10.387468+08:00"
+        }
+      }
+    },
+    "sources/automations/老木匠每日汇总/2026-08-02 老木匠直播：怎么学投资，怎么活下来.md": {
+      "ingested_at": "2026-10-30T17:34:10.387468+08:00",
+      "size_bytes": 16030,
+      "modified_at": "2026-10-17T15:08:05.605505+08:00",
+      "content_hash": "sha256:b2ee75e6442a99109b47097f35edc982b091e64a709211e2e653902cd6baa533",
+      "source_type": "document",
+      "project": "wiki_laomujiang",
+      "pages_created": [
+        "wiki_laomujiang/topics/投资模式.md"
+      ],
+      "pages_updated": [],
+      "topic_ingests": {
+        "wiki_laomujiang/topics/投资模式.md": {
+          "scope": "仅整理投资模式相关段落与阅读入口，非全文全部知识点入库",
+          "ingested_at": "2026-10-30T17:34:10.387468+08:00"
+        }
+      }
+    },
+    "sources/automations/老木匠每日汇总/2026-08-05 老木匠直播：一轮行情的完整流程.md": {
+      "ingested_at": "2026-10-30T17:34:10.387468+08:00",
+      "size_bytes": 17345,
+      "modified_at": "2026-10-17T15:08:05.606071+08:00",
+      "content_hash": "sha256:81a92755d25d9f37b1fd8bd9295089fc73732c9f3c6f174ff6f75d633a2057a9",
+      "source_type": "document",
+      "project": "wiki_laomujiang",
+      "pages_created": [
+        "wiki_laomujiang/topics/投资模式.md"
+      ],
+      "pages_updated": [],
+      "topic_ingests": {
+        "wiki_laomujiang/topics/投资模式.md": {
+          "scope": "仅整理投资模式相关段落与阅读入口，非全文全部知识点入库",
+          "ingested_at": "2026-10-30T17:34:10.387468+08:00"
+        }
+      }
+    },
+    "sources/automations/老木匠每日汇总/2026-08-16 老木匠直播：什么才算真正的低估.md": {
+      "ingested_at": "2026-10-30T17:34:10.387468+08:00",
+      "size_bytes": 17506,
+      "modified_at": "2026-10-17T15:08:05.604358+08:00",
+      "content_hash": "sha256:6a38e79dc1e1c42cc12708a935dff940098f0ceac385e92c3609f0c33bc40ff9",
+      "source_type": "document",
+      "project": "wiki_laomujiang",
+      "pages_created": [
+        "wiki_laomujiang/topics/投资模式.md"
+      ],
+      "pages_updated": [],
+      "topic_ingests": {
+        "wiki_laomujiang/topics/投资模式.md": {
+          "scope": "仅整理投资模式相关段落与阅读入口，非全文全部知识点入库",
+          "ingested_at": "2026-10-30T17:34:10.387468+08:00"
+        }
+      }
+    },
+    "sources/automations/老木匠每日汇总/2026-09-05 老木匠直播：幸存者偏差与乱纪元里的加息猜测.md": {
+      "ingested_at": "2026-10-30T17:34:10.387468+08:00",
+      "size_bytes": 17917,
+      "modified_at": "2026-10-17T15:08:05.598527+08:00",
+      "content_hash": "sha256:0a11b61b96323c69f13962ffc2cbd18369b69792393ea7e5d838642a179cb40b",
+      "source_type": "document",
+      "project": "wiki_laomujiang",
+      "pages_created": [
+        "wiki_laomujiang/topics/投资模式.md"
+      ],
+      "pages_updated": [],
+      "topic_ingests": {
+        "wiki_laomujiang/topics/投资模式.md": {
+          "scope": "仅整理投资模式相关段落与阅读入口，非全文全部知识点入库",
+          "ingested_at": "2026-10-30T17:34:10.387468+08:00"
+        }
+      }
+    },
+    "sources/automations/老木匠每日汇总/2026-10-09 老木匠直播：市场结构、周期底部与投资逻辑.md": {
+      "ingested_at": "2026-10-30T17:34:10.387468+08:00",
+      "size_bytes": 9892,
+      "modified_at": "2026-10-17T15:08:05.595222+08:00",
+      "content_hash": "sha256:e98d4e7ca84d277be596547ce0c26c4ff7718541a0712aab61d73df0aeda2faa",
+      "source_type": "document",
+      "project": "wiki_laomujiang",
+      "pages_created": [
+        "wiki_laomujiang/topics/投资模式.md"
+      ],
+      "pages_updated": [],
+      "topic_ingests": {
+        "wiki_laomujiang/topics/投资模式.md": {
+          "scope": "仅整理投资模式相关段落与阅读入口，非全文全部知识点入库",
+          "ingested_at": "2026-10-30T17:34:10.387468+08:00"
+        }
+      }
+    },
+    "sources/automations/老木匠每日汇总/2026-10-16 老木匠直播：金属价格的货币本质、银行股逻辑与做T的边界.md": {
+      "ingested_at": "2026-10-30T17:34:10.387468+08:00",
+      "size_bytes": 18073,
+      "modified_at": "2026-10-17T15:08:05.594224+08:00",
+      "content_hash": "sha256:a67fb13b9f63752e416945a8213e4f7e8c5c7c825fb65b73cc36fdc41a9fea1f",
+      "source_type": "document",
+      "project": "wiki_laomujiang",
+      "pages_created": [
+        "wiki_laomujiang/topics/投资模式.md"
+      ],
+      "pages_updated": [],
+      "topic_ingests": {
+        "wiki_laomujiang/topics/投资模式.md": {
+          "scope": "仅整理投资模式相关段落与阅读入口，非全文全部知识点入库",
+          "ingested_at": "2026-10-30T17:34:10.387468+08:00"
+        }
+      }
     }
   },
   "research": [
@@ -6829,5 +7142,5 @@
       ]
     }
   ],
-  "updated_at": "2026-10-21T12:30:09+08:00"
+  "updated_at": "2026-10-30T17:34:10.387468+08:00"
 }

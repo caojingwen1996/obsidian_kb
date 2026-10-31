@@ -1,0 +1,43 @@
+{
+  "case_id": "alias-reuse",
+  "expected": {
+    "decision": "REUSE",
+    "matches": [
+      true
+    ],
+    "matched_target_id": "00000000-0000-4000-8000-000000000001"
+  },
+  "input_digest": "f39a1722d80d49c339d2801cbe25ae9b1ad93cf7f5dafb571954b92451e25107",
+  "passed": true,
+  "output": {
+    "object_ref": "treasury-7y",
+    "decision": "REUSE",
+    "matched_target_id": "00000000-0000-4000-8000-000000000001",
+    "comparisons": [
+      {
+        "target_id": "00000000-0000-4000-8000-000000000001",
+        "identity_match": true,
+        "reason": "名称虽不同，但候选别名与当前对象的CUSIP均为91282CRV5；双方分类、美国辖区、7年期国债批次范围、2026-11-02发行日及2033-10-31到期日均一致，且候选有效。",
+        "basis_refs": [
+          "object:treasury-7y:0",
+          "target:00000000-0000-4000-8000-000000000001:1"
+        ]
+      }
+    ],
+    "reason": "完整召回中唯一候选与当前对象为同一国债批次，且处于有效状态，建议复用，供人工核定。未来发行及拍卖尚未完成不影响批次身份判断。",
+    "basis_refs": [
+      "object:treasury-7y:0",
+      "target:00000000-0000-4000-8000-000000000001:1"
+    ],
+    "unresolved_issues": []
+  },
+  "usage": {
+    "input_tokens": 15471,
+    "cached_input_tokens": 11392,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 274,
+    "reasoning_output_tokens": 0
+  },
+  "structure_valid": true,
+  "elapsed_ms": 9468
+}

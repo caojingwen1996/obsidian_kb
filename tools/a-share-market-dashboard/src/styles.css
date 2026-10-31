@@ -33,7 +33,7 @@ body.is-starting { overflow: hidden; }
 .startup-check-label::before { content: "> "; }
 .startup-check p { display: flex; align-items: baseline; gap: 7px; margin: 0; color: var(--console-muted); }
 .startup-check-state { flex-shrink: 0; }
-.startup-check-detail { min-width: 0; }
+.startup-check-detail { min-width: 0; white-space: pre-line; }
 .startup-check.is-warning .startup-check-state { color: #795a30; }
 .startup-check.is-failed .startup-check-state { color: #a12d24; }
 .startup-footer { margin-top: 8px; }
@@ -2046,3 +2046,9 @@ button.nasdaq-card { width: 100%; border-top: 0; border-right: 0; border-bottom:
   .task-run-time { font-size: 12px; }
   .task-summary-line { gap: 6px 12px; }
 }
+
+.nasdaq-calendar-metric-switch { display: flex; flex-wrap: wrap; gap: 8px; }
+.nasdaq-calendar-metric-switch button { min-height: 44px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 6px; background: white; color: var(--ink); font: inherit; font-size: 16px; font-weight: 600; cursor: pointer; }
+.nasdaq-calendar-metric-switch button[aria-pressed="true"] { background: #2464bf; border-color: #2464bf; color: white; }
+.nasdaq-calendar-metric-switch button:hover { border-color: #2464bf; }
+.nasdaq-calendar-metric-switch button:focus-visible { outline: 3px solid #2464bf; outline-offset: 3px; }

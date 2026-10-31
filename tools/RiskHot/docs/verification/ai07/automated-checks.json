@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-31",
+  "typecheck": "passed",
+  "full_test": {
+    "total": 299,
+    "passed": 295,
+    "failed": 4,
+    "failures": [
+      "not ok 92 - AI-05 运行正文与文档保持一致，修订和完整提示词进入摘要",
+      "not ok 208 - 领域概念引用本体定义与边界，提示词引用不包含生成正文",
+      "not ok 218 - 实际 AI-01 文档完整提取四层及所有 JSON 示例",
+      "not ok 269 - real Temporal resumes a durable retry after worker restart and saves a multi-candidate set once"
+    ]
+  },
+  "baseline": {
+    "total": 284,
+    "passed": 280,
+    "failed": 4
+  },
+  "note": "四个失败与本轮前基线相同；AI-07专项15项通过。Temporal专项另记。",
+  "final_focused": {
+    "total": 13,
+    "passed": 13,
+    "includes": "9 DB/API, 3 workflow loop, 1 real Temporal Worker"
+  },
+  "contract_tests": {
+    "passed": 5,
+    "total": 5
+  },
+  "real_model_final": {
+    "passed": 10,
+    "total": 10,
+    "run": "2026-10-31T03-01-04-597Z"
+  }
+}

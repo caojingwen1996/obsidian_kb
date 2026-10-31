@@ -21,7 +21,7 @@ from threading import Event, Lock, Thread
 from time import monotonic
 from urllib.error import HTTPError, URLError
 from urllib.parse import parse_qs, quote, unquote, urlencode, urlparse
-from urllib.request import Request, urlopen
+from urllib.request import Request, build_opener
 import webbrowser
 import zipfile
 import xml.etree.ElementTree as ET
@@ -914,6 +914,17 @@ def fetch_stock_quote(secid, fetcher=None):
         return normalize_tencent_stock_quote(payload, secid)
 
 
+def upstream_error_fields(error):
+    """Record useful transport diagnostics without URLs, headers or credentials."""
+    reason = getattr(error, "reason", error)
+    return {
+        "error": type(error).__name__,
+        "reason_type": type(reason).__name__,
+        "errno": getattr(reason, "errno", None),
+        "http_status": error.code if isinstance(error, HTTPError) else None,
+    }
+
+
 def fetch_upstream(url, source):
     """Fetch one allowlisted upstream response with bounded resources."""
     host = urlparse(url).hostname or ""
@@ -934,7 +945,9 @@ def fetch_upstream(url, source):
         },
     )
     try:
-        with urlopen(request, timeout=12) as response:
+        # urlopen's global opener keeps the proxy settings from its first request.
+        # Rebuild here so a long-running dashboard follows system proxy changes.
+        with build_opener().open(request, timeout=12) as response:
             body = response.read(MAX_RESPONSE_BYTES + 1)
         if len(body) > MAX_RESPONSE_BYTES:
             raise ValueError("response too large")
@@ -943,7 +956,7 @@ def fetch_upstream(url, source):
         write_proxy_log("API_OK", source=source, bytes=len(body), host=host)
         return payload
     except (HTTPError, URLError, TimeoutError, OSError, RemoteDisconnected, ValueError, json.JSONDecodeError) as error:
-        write_proxy_log("API_FAIL", source=source, host=host, error=type(error).__name__)
+        write_proxy_log("API_FAIL", source=source, host=host, **upstream_error_fields(error))
         raise UpstreamError(source) from error
 
 
@@ -963,7 +976,7 @@ def fetch_upstream_text(url, source):
         },
     )
     try:
-        with urlopen(request, timeout=12) as response:
+        with build_opener().open(request, timeout=12) as response:
             body = response.read(2_000_000 + 1)
         if len(body) > 2_000_000:
             raise ValueError("response too large")
@@ -971,7 +984,7 @@ def fetch_upstream_text(url, source):
         write_proxy_log("API_OK", source=source, bytes=len(body), host=host)
         return text
     except (HTTPError, URLError, TimeoutError, OSError, ValueError) as error:
-        write_proxy_log("API_FAIL", source=source, host=host, error=type(error).__name__)
+        write_proxy_log("API_FAIL", source=source, host=host, **upstream_error_fields(error))
         raise UpstreamError(source) from error
 
 
@@ -1086,6 +1099,7 @@ def fetch_nasdaq100_snapshot(fetcher=fetch_upstream):
             snapshot["proxySource"] = "westock-data / 腾讯自选股"
             data = snapshot["data"]
             data.update(nasdaq100_daily_metrics(chart, data["currentPoint"]))
+            data["returnHistory"] = nasdaq100_return_history(chart, "westock-data / 腾讯自选股（NDX）")
             data.update(sourceUrl="https://gu.qq.com/usNDX", updatedText=data["marketDate"] + "（美股交易日）",
                         updatedAt=None, highPointLabel="近2000个交易日最高收盘点",
                         peTtm=None, pePercentile10y=None,
@@ -1109,6 +1123,7 @@ def fetch_yahoo_nasdaq100_snapshot(fetcher=fetch_upstream):
     try:
         daily = fetcher(NASDAQ100_CHART_URL.replace("range=max", "range=2y"), "nasdaq100")
         data.update(nasdaq100_daily_metrics(daily, data["currentPoint"]))
+        data["returnHistory"] = nasdaq100_return_history(daily, "Yahoo Finance（NDX，近两年日线）")
         daily_closes = daily["chart"]["result"][0]["indicators"]["quote"][0]["close"]
         data["highPoint"] = round(max([data["highPoint"], *[
             value for value in daily_closes
@@ -1118,6 +1133,61 @@ def fetch_yahoo_nasdaq100_snapshot(fetcher=fetch_upstream):
     except (UpstreamError, ValueError, TypeError, KeyError, IndexError):
         data["dailyMetricsNote"] = "日线数据获取失败或不足，涨跌幅、均线及年内回撤待验证"
     return snapshot
+
+
+def nasdaq100_return_history(payload, source):
+    result = payload["chart"]["result"][0]
+    meta = result["meta"]
+    if meta.get("dataGranularity") != "1d":
+        raise ValueError("daily bars required")
+    zone = timezone(timedelta(seconds=meta.get("gmtoffset", -18000)))
+    as_of = datetime.fromtimestamp(meta["regularMarketTime"], zone).date().isoformat()
+    closes = result["indicators"]["quote"][0]["close"]
+    prices = {}
+    for stamp, close in zip(result.get("timestamp", []), closes):
+        if not isinstance(close, (int, float)) or isinstance(close, bool) or not math.isfinite(close) or close <= 0:
+            continue
+        day = datetime.fromtimestamp(stamp, zone).date().isoformat()
+        if day <= as_of:
+            prices[day] = close
+    points = sorted(prices.items())
+    if len(points) < 2:
+        raise ValueError("insufficient daily history")
+    rows = []
+    for year in sorted({int(day[:4]) for day, _ in points}):
+        annual = [(day, close) for day, close in points if int(day[:4]) == year]
+        first, last = annual[0][0], annual[-1][0]
+        partial = first == points[0][0] and (int(first[5:7]) > 1 or int(first[8:]) > 7)
+        status = "样本首年" if partial else "年内" if year == int(as_of[:4]) else "完整年度"
+        peak, drawdown = annual[0][1], 0
+        for _, close in annual:
+            peak = max(peak, close)
+            drawdown = min(drawdown, (close / peak - 1) * 100)
+        months = []
+        for month in range(1, 13):
+            monthly = [(day, close) for day, close in annual if int(day[5:7]) == month]
+            previous = [(day, close) for day, close in annual if int(day[5:7]) == month - 1]
+            base = annual[0] if month == int(first[5:7]) else previous[-1] if previous else None
+            entry = {"month": month, "value": None, "maxDrawdown": None, "status": "未开始" if f"{year}-{month:02d}" > as_of[:7] else "数据不足"}
+            if len(monthly) >= 2:
+                month_peak, month_drawdown = monthly[0][1], 0
+                for _, close in monthly:
+                    month_peak = max(month_peak, close)
+                    month_drawdown = min(month_drawdown, (close / month_peak - 1) * 100)
+                entry["maxDrawdown"] = month_drawdown
+            if monthly and base:
+                entry.update(value=(monthly[-1][1] / base[1] - 1) * 100,
+                             startDate=base[0], endDate=monthly[-1][0],
+                             status="月内累计" if last[:7] == as_of[:7] and month == int(last[5:7]) else "已统计")
+            months.append(entry)
+        if any(item["value"] is None for item in months[int(first[5:7])-1:int(last[5:7])]):
+            status = "样本不足"
+        rows.append({"year": year, "startDate": first, "endDate": last,
+                     "annualReturn": (annual[-1][1] / annual[0][1] - 1) * 100,
+                     "maxDrawdown": drawdown, "status": status, "monthlyReturns": months})
+    return {"rows": rows, "firstDate": points[0][0], "lastDate": points[-1][0], "source": source,
+            "returnConvention": "纳斯达克100指数价格收益：每年首个可用交易日收盘价至末个可用交易日收盘价；仅覆盖可用日线样本，首年可能不完整，不含分红再投资及汇率影响，非ETF收益",
+            "drawdownConvention": "年内最大回撤按可用日收盘价相对此前峰值计算"}
 
 
 def nasdaq100_daily_metrics(payload, current):
@@ -1387,7 +1457,10 @@ def fetch_market_margin(query=None, client=None, market_margin_tool=None):
         args["end_date"] = today.isoformat()
     try:
         payload = (market_margin_tool or get_market_margin)(
-            client or TushareClient(logger=write_proxy_log),
+            client or TushareClient(
+                extra_env_paths=(Path(__file__).resolve().parents[1] / ".env",),
+                logger=write_proxy_log,
+            ),
             args,
         )
     except TushareClientError as error:
@@ -1418,7 +1491,10 @@ def fetch_us_treasury_yield(query=None, client=None, us_treasury_tool=None):
         args["end_date"] = today.isoformat()
     try:
         payload = (us_treasury_tool or get_us_treasury_yield)(
-            client or TushareClient(logger=write_proxy_log),
+            client or TushareClient(
+                extra_env_paths=(Path(__file__).resolve().parents[1] / ".env",),
+                logger=write_proxy_log,
+            ),
             args,
         )
     except TushareClientError as error:
@@ -1449,7 +1525,10 @@ def fetch_us_dollar_index(query=None, client=None, us_dollar_tool=None):
         args["end_date"] = today.isoformat()
     try:
         payload = (us_dollar_tool or get_us_dollar_index)(
-            client or TushareClient(logger=write_proxy_log),
+            client or TushareClient(
+                extra_env_paths=(Path(__file__).resolve().parents[1] / ".env",),
+                logger=write_proxy_log,
+            ),
             args,
         )
     except TushareClientError as error:
@@ -1480,7 +1559,10 @@ def fetch_usd_jpy(query=None, client=None, usd_jpy_tool=None):
         args["end_date"] = today.isoformat()
     try:
         payload = (usd_jpy_tool or get_usd_jpy_exchange_rate)(
-            client or TushareClient(logger=write_proxy_log),
+            client or TushareClient(
+                extra_env_paths=(Path(__file__).resolve().parents[1] / ".env",),
+                logger=write_proxy_log,
+            ),
             args,
         )
     except TushareClientError as error:

@@ -1,17 +1,15 @@
 ---
 title: Hot Cache
-updated: 2026-10-21
+updated: 2026-10-30
 ---
 
 ## Recent Activity
 
-2026-10-21：按用户要求回退两项试点，[[wiki_laomujiang/concepts/微观-资金面-公募行业配置|公募行业配置]]与[[wiki_laomujiang/concepts/微观-资金面-融资余额风险线|融资余额风险线]]恢复为concept原稿；同步风险判断主题、老木匠索引与双链。试点规范见[[_archives/2026-10-21-indicator-rollback/README|回退归档]]，indicator类型与模板暂保留。
+2026-10-30：统一老木匠库其余三个Topic的阅读层次：[[wiki_laomujiang/topics/政策解读|政策解读]]六个阅读问题及风险延伸、[[wiki_laomujiang/topics/散户投资建议|散户投资建议]]八个问题、[[wiki_laomujiang/topics/风险判断|风险判断]]五个问题。开头采用文字导读，正文区分主旨、依据、边界与深入阅读。
 
-2026-10-21：新增Indicator页面类型与[[templates/indicator-page-template|指标模板]]；老木匠库[[_archives/2026-10-21-indicator-rollback/indicators/微观-资金面-公募行业配置|公募行业配置]]、[[_archives/2026-10-21-indicator-rollback/indicators/微观-资金面-融资余额风险线|融资余额风险线]]迁为试点规范，[[wiki_laomujiang/topics/风险判断|风险判断]]区分指标与概念；旧路径保留兼容入口。
+2026-10-30：重排[[wiki_laomujiang/topics/投资模式|投资模式]]的阅读层次：模式总览→七个判断环节→表述差异→知识入口→资料核验。每节统一核心意思、原文依据、适用边界与深入阅读，保留原10份资料及反例。
 
-2026-10-21：老木匠库新建[[wiki_laomujiang/topics/风险判断|风险判断]]主题，聚合公募配置、筹码、融资余额和周期四信号的风险累积观察，并链接风险源及传导核验框架；五个概念页已回链。
-
-2026-10-21：老木匠库新增[[wiki_laomujiang/concepts/微观-资金面-公募行业配置|公募行业配置]]，按微观—资金面归类；保留经验判断与三份整理稿的证据分工，接入筹码结构、风险观察和独立索引。
+2026-10-30：老木匠库新增[[wiki_laomujiang/topics/投资模式|投资模式]]，将低估与价差、周期反转、等待兑现、做T容错及杠杆调整串成阅读地图；七篇直播稿与三份摘录逐项回源，保留补仓教训及来源缺口。
 
 ## Active Threads
 

@@ -1,0 +1,43 @@
+{
+  "case_id": "different-tenor",
+  "expected": {
+    "decision": "NEW",
+    "matches": [
+      false
+    ],
+    "matched_target_id": null
+  },
+  "input_digest": "d25a5a21b7e66262fff7b5d91564f1e94fee3eea5087f6b199b30bb3684ff248",
+  "passed": true,
+  "output": {
+    "object_ref": "treasury-7y",
+    "decision": "NEW",
+    "matched_target_id": null,
+    "comparisons": [
+      {
+        "target_id": "00000000-0000-4000-8000-000000000001",
+        "identity_match": false,
+        "reason": "双方分类、辖区及发行日相同，但当前对象为CUSIP 91282CRV5的7年期国债，2033-10-31到期；候选为CUSIP 91282CRT0的5年期国债，2031-10-31到期。CUSIP、期限和到期日不同，属于不同发行批次。",
+        "basis_refs": [
+          "object:treasury-7y:0",
+          "target:00000000-0000-4000-8000-000000000001:1"
+        ]
+      }
+    ],
+    "reason": "召回完整，唯一候选与当前对象不同一；当前对象名称、分类、辖区及批次身份充分，建议NEW，供人工核定。",
+    "basis_refs": [
+      "object:treasury-7y:0",
+      "target:00000000-0000-4000-8000-000000000001:1"
+    ],
+    "unresolved_issues": []
+  },
+  "usage": {
+    "input_tokens": 15438,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 260,
+    "reasoning_output_tokens": 0
+  },
+  "structure_valid": true,
+  "elapsed_ms": 11327
+}
