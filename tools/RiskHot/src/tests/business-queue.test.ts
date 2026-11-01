@@ -1,3 +1,4 @@
+import {grantBusinessQueueRole} from '../platform/business-grants.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
@@ -101,8 +102,7 @@ test('无DDL运行角色能够同事务入队领取确认，但不能建表',asy
  const f=await fixture();const role=`queue_runtime_${randomUUID().replaceAll('-','')}`;
  try{
   await f.db.query(`CREATE ROLE ${role} NOLOGIN`);
-  await f.db.query(`GRANT USAGE ON SCHEMA platform,pgboss TO ${role}`);
-  await f.db.query(`GRANT SELECT,INSERT,UPDATE,DELETE ON ALL TABLES IN SCHEMA platform,pgboss TO ${role}`);
+  await grantBusinessQueueRole(f.db,role);
   const e=envelope();
   const receipt=await transaction(f.db,async tx=>{await tx.query(`SET LOCAL ROLE ${role}`);return enqueueBusinessJob(tx,e);});
   await transaction(f.db,async tx=>{

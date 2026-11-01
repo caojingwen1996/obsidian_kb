@@ -3979,3 +3979,7 @@ docs / consolidate：按用户确认的比较结论，整合AI-03 Event增量识
 - 范围：src/platform、event-management、runtime、information-ingestion、web、scripts、tests、008/009 SQL、package及运行/验证文档；详细依据与证据见[[tools/RiskHot/docs/verification/f02-eight-step|首批工程报告]]。
 - 验证：typecheck通过；全量364项362通过、2项原工作区同样失败；最终保存专项7项、浏览器7项、真实AI-08模型2项通过；流水线同步及25项测试通过。
 - 说明：仅在独立分支和随机临时数据库实施；保留原运行库/服务、旧任务包和原始证据。实际切换与真实业务批准尚未执行，B/C批尚未完成。未改技能文件。
+
+## 2026-11-01 · F02实际部署与真实事件验收
+
+- 已先编制[[tools/RiskHot/docs/superpowers/plans/2026-11-01-F02实际部署与真实事件验收|部署与验收计划]]，当前开始保全、备份及切换；结果完成后登记。

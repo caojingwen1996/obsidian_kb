@@ -1,3 +1,4 @@
+import {grantBusinessQueueRole} from '../platform/business-grants.js';
 import PgBoss from 'pg-boss';
 import {readFile} from 'node:fs/promises';
 import {database,required} from '../platform/db.js';
@@ -10,14 +11,8 @@ boss.on('error',()=>console.error('BUSINESS_QUEUE_PROVISION_ERROR'));
 try{
  await db.query(await readFile(new URL('../db/009-business-queue.sql',import.meta.url),'utf8'));
  await boss.start();await provisionBusinessQueues(boss);
- if(process.env.BUSINESS_DATABASE_URL){
-  const role=decodeURIComponent(new URL(required('BUSINESS_DATABASE_URL')).username);
-  const escaped='"'+role.replaceAll('"','""')+'"';
-  if(!(await db.query('SELECT 1 FROM pg_roles WHERE rolname=$1',[role])).rowCount)throw new Error('BUSINESS_RUNTIME_ROLE_NOT_FOUND');
-  await db.query(`GRANT USAGE ON SCHEMA platform,pgboss TO ${escaped}`);
-  await db.query(`GRANT SELECT,INSERT,UPDATE,DELETE ON ALL TABLES IN SCHEMA pgboss TO ${escaped}`);
-  await db.query(`GRANT EXECUTE ON FUNCTION platform.claim_business_model_call(uuid) TO ${escaped}`);
-  await db.query(`GRANT SELECT,INSERT,UPDATE,DELETE ON platform.task_runs,platform.task_dispatches,platform.job_runs,platform.schedule_registrations TO ${escaped}`);
+ for(const variable of ['DATABASE_URL','BUSINESS_DATABASE_URL']){
+  if(process.env[variable])await grantBusinessQueueRole(db,decodeURIComponent(new URL(required(variable)).username),variable==='BUSINESS_DATABASE_URL');
  }
  console.log('Business queue schema and partitions provisioned. Engine selection unchanged.');
 }finally{await boss.stop({wait:true});await db.end();}
