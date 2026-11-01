@@ -1,5 +1,19 @@
 # RiskHot 项目文档索引
 
+## F02 首批工程实现（2026-11-01）
+
+- [[tools/RiskHot/docs/verification/f02-eight-step|八步新事件闭环验证]]：增量迁移、业务队列、AI-08、多来源证据、独立复核/保存/关联及任务页；两项旧提示词路径问题已修复，最终364/364全量回归通过。实际运行库尚未切换。
+- [[tools/RiskHot/docs/verification/f02-queue-poc|队列与模型验证]]、[[tools/RiskHot/docs/verification/f02-migration|迁移验证]]、[[tools/RiskHot/docs/verification/f02-eight-step-commit|保存交付验证]]和[[tools/RiskHot/docs/verification/f02-eight-step-ui/verification|界面验证]]。
+
+
+## F02 八步闭环开发准备（2026-11-01）
+
+- [[tools/RiskHot/docs/system-design/04-系统架构设计/05-架构治理与验证/架构决策记录/ADR-L0-004-F02八步闭环实施顺序|实施顺序决策提案]]：隔离PoC、增量适配、统一切换及回退边界。
+
+- [[tools/RiskHot/docs/audit/F02开发前差异核对-2026-11-01|开发前差异核对]]：功能V1.14与现行schema5实现对照，区分历史证据和新目标。
+- [[tools/RiskHot/docs/superpowers/specs/2026-11-01-F02八步闭环-design|实施规格]]与[[tools/RiskHot/docs/superpowers/plans/2026-11-01-F02分批实施|分批实施计划]]：先隔离PoC、存储与契约适配，再统一切换；A批新事件闭环，124项验收逐项登记，均未执行。
+- [[tools/RiskHot/docs/system-design/04-系统架构设计/03-模块技术详细设计/L0-信息处理层/F02-事件管理/八步闭环实施补充设计|八步实施补充]]与[[tools/RiskHot/docs/system-design/04-系统架构设计/03-模块技术详细设计/L0-信息处理层/F02-事件管理/AI任务技术详细设计/AI-08-Target候选识别|AI-08技术契约]]：显式节点、任务包隔离、多来源依据、迁移恢复；存储补充提案见F02数据模型§11及观测模型§8。全部为待评审设计，未实施。
+
 
 ## Worker调度技术架构（2026-10-30）
 

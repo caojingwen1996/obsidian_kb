@@ -1,3 +1,4 @@
+import {registerEightStepApi} from './eight-step-api.js';
 import {registerCurrentEvents} from './current-events.js';
 import { ingestionSchemaVersion } from '../platform/ingestion-migration.js';
 import { registerCurrentManagement } from './current-management.js';
@@ -59,10 +60,11 @@ export async function buildServer(repo: ExecutionStore, authentication: Authenti
   app.addHook('onRequest', async request => {
     if (request.url.startsWith('/api/')) request.actor = await auth.subject(request);
   });
-  if (await ingestionSchemaVersion(repo.db) === 5) {
+  if (await ingestionSchemaVersion(repo.db) >= 5) {
     registerWeb(app,{schemaVersion:5});
     registerCurrentManagement(app, repo, auth.mode);
     registerCurrentEvents(app,repo);
+    if(await ingestionSchemaVersion(repo.db)>=8)registerEightStepApi(app,repo);
     app.get('/auth/login', async (_request, reply) => auth.login(reply));
     app.get('/auth/callback', async (request, reply) => auth.callback(request, reply));
     app.post('/auth/logout', async (request, reply) => auth.logout(request, reply));

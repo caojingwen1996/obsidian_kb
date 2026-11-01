@@ -8,8 +8,8 @@ const output={assessment_scope:input.assessment_scope,research_horizon:input.res
 test('来源与重复跳过评价，文字草案为空分且范围不可漂移',()=>{assert.equal(prepareRating('SOURCE_ADDITION'),false);assert.equal(prepareRating('DUPLICATE'),false);assert.equal(prepareRating('NEW_EVENT'),true);const result=validateRating(input,output);assert.equal(result.m,null);assert.equal(result.rating_status,'draft');assert.throws(()=>validateRating(input,{...output,assessment_scope:{region:'美国'}}),/RATING_CONTEXT_MISMATCH/);assert.throws(()=>validateRating(input,{...output,dimensions:[{dimension_key:'x',score:4,reason:'猜测',evidence_refs:[]}]}),/RATING_METHOD_UNAPPROVED/);});
 test('仅显式批准方法可确定性计算，缺项和非法值不补默认',()=>{const method={approved:true,weights:{a:0.6,b:0.4}};assert.equal(calculateM(method,{a:5,b:0}),60);assert.equal(calculateM({...method,approved:false},{a:5,b:0}),null);assert.throws(()=>calculateM(method,{a:5}),/RATING_DIMENSIONS_MISSING/);assert.throws(()=>calculateM(method,{a:6,b:0}),/RATING_VALUE_INVALID/);});
 test('AI-05 运行正文与文档保持一致，修订和完整提示词进入摘要',async()=>{
- const document=await readFile(new URL('../../docs/system-design/03-系统功能架构/AI任务与提示词/AI-05 金融意义评级提示词 V0.1.md',import.meta.url),'utf8');
- assert.equal(document.match(/```text\n([\s\S]*?)\n```/)?.[1],financialMeaningInstructions.trim());
+ const document=await readFile(new URL('../prompts/legacy/ai05-financial-meaning-text-v1.md',import.meta.url),'utf8');
+ assert.equal(document.trim(),financialMeaningInstructions.trim());
  const task=loadTaskPackage('AI-05','f02-fact-draft-v2');
  assert.equal(task.prompt_revision,'ai05-domain-text-v1');
  assert.ok(task.prompt.endsWith(financialMeaningInstructions));

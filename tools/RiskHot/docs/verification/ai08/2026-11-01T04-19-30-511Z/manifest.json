@@ -1,0 +1,367 @@
+{
+  "created_at": "2026-11-01T04:19:30.512Z",
+  "description": "真实原文与受控Fact；未独立人工标注，不代表泛化准确率。",
+  "provider": {
+    "protocol": "codex-exec",
+    "model": "gpt-6.1-sol"
+  },
+  "task_digest": "a4de290946ec647d6eaf1407b0be1ea76da8777628dd9ddd5560da4a1ea68cc3",
+  "sourceFile": "docs/system-design/05-场景验证/EventTarget关系简化评测集/informations.json",
+  "source_digest": "9dd9733b71efcadc5944d3d9d8fd5bd6eaa03fd1901e0d776af2235ca9633df0",
+  "cases": [
+    {
+      "id": "explicit-treasury",
+      "expected": "ready",
+      "material": {
+        "normalizerVersion": "catalog-026-v1",
+        "observedAtText": "2026-10-22",
+        "publishedAtText": null,
+        "segments": [
+          {
+            "id": "3d578bcd-1ca8-5b45-80f2-5934c09c3e2d",
+            "kind": "paragraph",
+            "rawLocator": "json:/data/0",
+            "text": "announcemt_date: 2026-10-22\ncomp_auction_close_date: 2026-10-29\nissue_date: 2026-11-02\nmaturity_date: 2033-10-31\ncusip: 91282CRV5\nsecurity_type: Note\nsecurity_desc: 7-Year Note\noffering_amt: 44000000000\nhigh_rate: null\nhigh_yield: null\nbid_to_cover_ratio: null\ngrand_total_par_awarded: null\npdf_filenm_comp_results: null"
+          },
+          {
+            "id": "6bbb699e-e466-58d6-8c19-032edfb41e06",
+            "kind": "paragraph",
+            "rawLocator": "json:/data/1",
+            "text": "announcemt_date: 2026-10-22\ncomp_auction_close_date: 2026-10-28\nissue_date: 2026-11-02\nmaturity_date: 2028-10-31\ncusip: 91282CRS2\nsecurity_type: Note\nsecurity_desc: 2-Year FRN\noffering_amt: 30000000000\nhigh_rate: null\nhigh_yield: null\nbid_to_cover_ratio: null\ngrand_total_par_awarded: null\npdf_filenm_comp_results: null"
+          },
+          {
+            "id": "0be301c4-75b3-5239-88d2-9ec1353e8a11",
+            "kind": "paragraph",
+            "rawLocator": "json:/data/2",
+            "text": "announcemt_date: 2026-10-22\ncomp_auction_close_date: 2026-10-27\nissue_date: 2026-11-02\nmaturity_date: 2031-10-31\ncusip: 91282CRT0\nsecurity_type: Note\nsecurity_desc: 5-Year Note\noffering_amt: 70000000000\nhigh_rate: null\nhigh_yield: null\nbid_to_cover_ratio: null\ngrand_total_par_awarded: null\npdf_filenm_comp_results: null"
+          },
+          {
+            "id": "3eaf7310-f2dc-5ba9-8af8-dd703de520d2",
+            "kind": "paragraph",
+            "rawLocator": "json:/data/3",
+            "text": "announcemt_date: 2026-10-22\ncomp_auction_close_date: 2026-10-26\nissue_date: 2026-11-02\nmaturity_date: 2028-10-31\ncusip: 91282CRU7\nsecurity_type: Note\nsecurity_desc: 2-Year Note\noffering_amt: 69000000000\nhigh_rate: null\nhigh_yield: null\nbid_to_cover_ratio: null\ngrand_total_par_awarded: null\npdf_filenm_comp_results: null"
+          },
+          {
+            "id": "29aed791-6c1c-589c-8adb-ce8f1a077ed7",
+            "kind": "paragraph",
+            "rawLocator": "json:/data/4",
+            "text": "announcemt_date: 2026-10-15\ncomp_auction_close_date: 2026-10-22\nissue_date: 2026-10-30\nmaturity_date: 2031-10-15\ncusip: 91282CRR4\nsecurity_type: Note\nsecurity_desc: 5-Year TIPS\noffering_amt: 26000000000\nhigh_rate: null\nhigh_yield: 2.367\nbid_to_cover_ratio: 2.41\ngrand_total_par_awarded: 26000028500\npdf_filenm_comp_results: R_20261022_4.pdf"
+          }
+        ],
+        "sourceIdentity": "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/od/treasury_securities_auctions_v2?sort=-record_date&page%5Bsize%5D=5\nobservation:2026-10-22",
+        "title": "财政部最近5条国债拍卖公告/结果原始记录；未来拍卖不算已完成",
+        "url": "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/od/treasury_securities_auctions_v2?sort=-record_date&page%5Bsize%5D=5"
+      },
+      "input": {
+        "schema_version": "riskhot.target-recognition.input.v1",
+        "fact_id": "5d71331a-7ce5-45cf-9dd6-2dd0a45ee02d",
+        "fact_digest": "d7b134c03ec081852a2b0fa909830f03ad17e24f9f7c0f32ce0210411c960dbb",
+        "fact": {
+          "title": "美国国债发行安排",
+          "description": "美国财政部公布七年期国债91282CRV5发行安排。",
+          "subject": "美国财政部",
+          "action": "公布发行安排",
+          "object": "美国七年期国债91282CRV5",
+          "event_status": "announced",
+          "event_time": null
+        },
+        "material_refs": [
+          {
+            "material_id": "5d71331a-7ce5-45cf-9dd6-2dd0a45ee02d",
+            "version": 1,
+            "content_digest": "633b2ba6c453c3c324adb22985da9745df6b4d2a6ac3dcca11e7ceff879ad9a1"
+          }
+        ],
+        "evidence_catalog": [
+          {
+            "material_id": "5d71331a-7ce5-45cf-9dd6-2dd0a45ee02d",
+            "version": 1,
+            "content_digest": "633b2ba6c453c3c324adb22985da9745df6b4d2a6ac3dcca11e7ceff879ad9a1",
+            "segment_id": "29aed791-6c1c-589c-8adb-ce8f1a077ed7",
+            "start_cp": 0,
+            "end_cp": 340,
+            "quote": "announcemt_date: 2026-10-15\ncomp_auction_close_date: 2026-10-22\nissue_date: 2026-10-30\nmaturity_date: 2031-10-15\ncusip: 91282CRR4\nsecurity_type: Note\nsecurity_desc: 5-Year TIPS\noffering_amt: 26000000000\nhigh_rate: null\nhigh_yield: 2.367\nbid_to_cover_ratio: 2.41\ngrand_total_par_awarded: 26000028500\npdf_filenm_comp_results: R_20261022_4.pdf",
+            "evidence_ref": "evidence:2cab7ce3259b916f68740d114e0efd571d24138714e4c8c2a3f7f5f15b2f1a87",
+            "fact_id": "5d71331a-7ce5-45cf-9dd6-2dd0a45ee02d"
+          },
+          {
+            "material_id": "5d71331a-7ce5-45cf-9dd6-2dd0a45ee02d",
+            "version": 1,
+            "content_digest": "633b2ba6c453c3c324adb22985da9745df6b4d2a6ac3dcca11e7ceff879ad9a1",
+            "segment_id": "3eaf7310-f2dc-5ba9-8af8-dd703de520d2",
+            "start_cp": 0,
+            "end_cp": 320,
+            "quote": "announcemt_date: 2026-10-22\ncomp_auction_close_date: 2026-10-26\nissue_date: 2026-11-02\nmaturity_date: 2028-10-31\ncusip: 91282CRU7\nsecurity_type: Note\nsecurity_desc: 2-Year Note\noffering_amt: 69000000000\nhigh_rate: null\nhigh_yield: null\nbid_to_cover_ratio: null\ngrand_total_par_awarded: null\npdf_filenm_comp_results: null",
+            "evidence_ref": "evidence:2fa6ce3866c728b77d4fd1be30042b8d5e0813e9ae849412e439024fb8c8de6a",
+            "fact_id": "5d71331a-7ce5-45cf-9dd6-2dd0a45ee02d"
+          },
+          {
+            "material_id": "5d71331a-7ce5-45cf-9dd6-2dd0a45ee02d",
+            "version": 1,
+            "content_digest": "633b2ba6c453c3c324adb22985da9745df6b4d2a6ac3dcca11e7ceff879ad9a1",
+            "segment_id": "3d578bcd-1ca8-5b45-80f2-5934c09c3e2d",
+            "start_cp": 0,
+            "end_cp": 320,
+            "quote": "announcemt_date: 2026-10-22\ncomp_auction_close_date: 2026-10-29\nissue_date: 2026-11-02\nmaturity_date: 2033-10-31\ncusip: 91282CRV5\nsecurity_type: Note\nsecurity_desc: 7-Year Note\noffering_amt: 44000000000\nhigh_rate: null\nhigh_yield: null\nbid_to_cover_ratio: null\ngrand_total_par_awarded: null\npdf_filenm_comp_results: null",
+            "evidence_ref": "evidence:5a3942e0cf83609a6e63e4ea09ddd09e32b627eb5685634404d2a2e4548cc67b",
+            "fact_id": "5d71331a-7ce5-45cf-9dd6-2dd0a45ee02d"
+          },
+          {
+            "material_id": "5d71331a-7ce5-45cf-9dd6-2dd0a45ee02d",
+            "version": 1,
+            "content_digest": "633b2ba6c453c3c324adb22985da9745df6b4d2a6ac3dcca11e7ceff879ad9a1",
+            "segment_id": "0be301c4-75b3-5239-88d2-9ec1353e8a11",
+            "start_cp": 0,
+            "end_cp": 320,
+            "quote": "announcemt_date: 2026-10-22\ncomp_auction_close_date: 2026-10-27\nissue_date: 2026-11-02\nmaturity_date: 2031-10-31\ncusip: 91282CRT0\nsecurity_type: Note\nsecurity_desc: 5-Year Note\noffering_amt: 70000000000\nhigh_rate: null\nhigh_yield: null\nbid_to_cover_ratio: null\ngrand_total_par_awarded: null\npdf_filenm_comp_results: null",
+            "evidence_ref": "evidence:853c1fedb42a09683304385d4b78065b7fc8f8387a0602360a439bf670b82304",
+            "fact_id": "5d71331a-7ce5-45cf-9dd6-2dd0a45ee02d"
+          },
+          {
+            "material_id": "5d71331a-7ce5-45cf-9dd6-2dd0a45ee02d",
+            "version": 1,
+            "content_digest": "633b2ba6c453c3c324adb22985da9745df6b4d2a6ac3dcca11e7ceff879ad9a1",
+            "segment_id": "6bbb699e-e466-58d6-8c19-032edfb41e06",
+            "start_cp": 0,
+            "end_cp": 319,
+            "quote": "announcemt_date: 2026-10-22\ncomp_auction_close_date: 2026-10-28\nissue_date: 2026-11-02\nmaturity_date: 2028-10-31\ncusip: 91282CRS2\nsecurity_type: Note\nsecurity_desc: 2-Year FRN\noffering_amt: 30000000000\nhigh_rate: null\nhigh_yield: null\nbid_to_cover_ratio: null\ngrand_total_par_awarded: null\npdf_filenm_comp_results: null",
+            "evidence_ref": "evidence:93cf1eb5760a7ac7edf1a9840da2af954ab7d7ee23812888fb511a10efa22add",
+            "fact_id": "5d71331a-7ce5-45cf-9dd6-2dd0a45ee02d"
+          }
+        ],
+        "clues": [
+          {
+            "clue_ref": "clue:74556c69f7c8a81e0f9b0cdd23963771577da69771bac1844a4c1fe95a309c50",
+            "raw_text": "美国财政部",
+            "fact_field": "subject",
+            "evidence_refs": []
+          },
+          {
+            "clue_ref": "clue:7bbb6946d3b7e32448b84bb8681e5710ce1c45da1c95afbab4a6e27af21fef68",
+            "raw_text": "公布发行安排",
+            "fact_field": "action",
+            "evidence_refs": []
+          },
+          {
+            "clue_ref": "clue:2e6a5ee94ef704c24aa54e779669946ddcdf894f12ee4390e2269589433eafed",
+            "raw_text": "美国七年期国债91282CRV5",
+            "fact_field": "object",
+            "evidence_refs": []
+          },
+          {
+            "clue_ref": "clue:e1bc67acdd3ead38628d91324d94b99376cda1bb77bd41f6ee0147a79b2128b3",
+            "raw_text": "美国财政部公布七年期国债91282CRV5发行安排。",
+            "fact_field": "description",
+            "evidence_refs": []
+          }
+        ],
+        "contexts": [
+          {
+            "material_id": "5d71331a-7ce5-45cf-9dd6-2dd0a45ee02d",
+            "version": 1,
+            "content_digest": "633b2ba6c453c3c324adb22985da9745df6b4d2a6ac3dcca11e7ceff879ad9a1",
+            "segments": [
+              {
+                "id": "3d578bcd-1ca8-5b45-80f2-5934c09c3e2d",
+                "text": "announcemt_date: 2026-10-22\ncomp_auction_close_date: 2026-10-29\nissue_date: 2026-11-02\nmaturity_date: 2033-10-31\ncusip: 91282CRV5\nsecurity_type: Note\nsecurity_desc: 7-Year Note\noffering_amt: 44000000000\nhigh_rate: null\nhigh_yield: null\nbid_to_cover_ratio: null\ngrand_total_par_awarded: null\npdf_filenm_comp_results: null"
+              },
+              {
+                "id": "6bbb699e-e466-58d6-8c19-032edfb41e06",
+                "text": "announcemt_date: 2026-10-22\ncomp_auction_close_date: 2026-10-28\nissue_date: 2026-11-02\nmaturity_date: 2028-10-31\ncusip: 91282CRS2\nsecurity_type: Note\nsecurity_desc: 2-Year FRN\noffering_amt: 30000000000\nhigh_rate: null\nhigh_yield: null\nbid_to_cover_ratio: null\ngrand_total_par_awarded: null\npdf_filenm_comp_results: null"
+              },
+              {
+                "id": "0be301c4-75b3-5239-88d2-9ec1353e8a11",
+                "text": "announcemt_date: 2026-10-22\ncomp_auction_close_date: 2026-10-27\nissue_date: 2026-11-02\nmaturity_date: 2031-10-31\ncusip: 91282CRT0\nsecurity_type: Note\nsecurity_desc: 5-Year Note\noffering_amt: 70000000000\nhigh_rate: null\nhigh_yield: null\nbid_to_cover_ratio: null\ngrand_total_par_awarded: null\npdf_filenm_comp_results: null"
+              },
+              {
+                "id": "3eaf7310-f2dc-5ba9-8af8-dd703de520d2",
+                "text": "announcemt_date: 2026-10-22\ncomp_auction_close_date: 2026-10-26\nissue_date: 2026-11-02\nmaturity_date: 2028-10-31\ncusip: 91282CRU7\nsecurity_type: Note\nsecurity_desc: 2-Year Note\noffering_amt: 69000000000\nhigh_rate: null\nhigh_yield: null\nbid_to_cover_ratio: null\ngrand_total_par_awarded: null\npdf_filenm_comp_results: null"
+              },
+              {
+                "id": "29aed791-6c1c-589c-8adb-ce8f1a077ed7",
+                "text": "announcemt_date: 2026-10-15\ncomp_auction_close_date: 2026-10-22\nissue_date: 2026-10-30\nmaturity_date: 2031-10-15\ncusip: 91282CRR4\nsecurity_type: Note\nsecurity_desc: 5-Year TIPS\noffering_amt: 26000000000\nhigh_rate: null\nhigh_yield: 2.367\nbid_to_cover_ratio: 2.41\ngrand_total_par_awarded: 26000028500\npdf_filenm_comp_results: R_20261022_4.pdf"
+              }
+            ]
+          }
+        ],
+        "rule_version": "target-recognition-v1",
+        "category_version": "financial-target-categories-v1",
+        "manifest_ref": "ai08-evaluation-v1"
+      }
+    },
+    {
+      "id": "empty-object-context",
+      "expected": "ready",
+      "material": {
+        "normalizerVersion": "catalog-026-v1",
+        "observedAtText": "2026-10-22",
+        "publishedAtText": null,
+        "segments": [
+          {
+            "id": "3d578bcd-1ca8-5b45-80f2-5934c09c3e2d",
+            "kind": "paragraph",
+            "rawLocator": "json:/data/0",
+            "text": "announcemt_date: 2026-10-22\ncomp_auction_close_date: 2026-10-29\nissue_date: 2026-11-02\nmaturity_date: 2033-10-31\ncusip: 91282CRV5\nsecurity_type: Note\nsecurity_desc: 7-Year Note\noffering_amt: 44000000000\nhigh_rate: null\nhigh_yield: null\nbid_to_cover_ratio: null\ngrand_total_par_awarded: null\npdf_filenm_comp_results: null"
+          },
+          {
+            "id": "6bbb699e-e466-58d6-8c19-032edfb41e06",
+            "kind": "paragraph",
+            "rawLocator": "json:/data/1",
+            "text": "announcemt_date: 2026-10-22\ncomp_auction_close_date: 2026-10-28\nissue_date: 2026-11-02\nmaturity_date: 2028-10-31\ncusip: 91282CRS2\nsecurity_type: Note\nsecurity_desc: 2-Year FRN\noffering_amt: 30000000000\nhigh_rate: null\nhigh_yield: null\nbid_to_cover_ratio: null\ngrand_total_par_awarded: null\npdf_filenm_comp_results: null"
+          },
+          {
+            "id": "0be301c4-75b3-5239-88d2-9ec1353e8a11",
+            "kind": "paragraph",
+            "rawLocator": "json:/data/2",
+            "text": "announcemt_date: 2026-10-22\ncomp_auction_close_date: 2026-10-27\nissue_date: 2026-11-02\nmaturity_date: 2031-10-31\ncusip: 91282CRT0\nsecurity_type: Note\nsecurity_desc: 5-Year Note\noffering_amt: 70000000000\nhigh_rate: null\nhigh_yield: null\nbid_to_cover_ratio: null\ngrand_total_par_awarded: null\npdf_filenm_comp_results: null"
+          },
+          {
+            "id": "3eaf7310-f2dc-5ba9-8af8-dd703de520d2",
+            "kind": "paragraph",
+            "rawLocator": "json:/data/3",
+            "text": "announcemt_date: 2026-10-22\ncomp_auction_close_date: 2026-10-26\nissue_date: 2026-11-02\nmaturity_date: 2028-10-31\ncusip: 91282CRU7\nsecurity_type: Note\nsecurity_desc: 2-Year Note\noffering_amt: 69000000000\nhigh_rate: null\nhigh_yield: null\nbid_to_cover_ratio: null\ngrand_total_par_awarded: null\npdf_filenm_comp_results: null"
+          },
+          {
+            "id": "29aed791-6c1c-589c-8adb-ce8f1a077ed7",
+            "kind": "paragraph",
+            "rawLocator": "json:/data/4",
+            "text": "announcemt_date: 2026-10-15\ncomp_auction_close_date: 2026-10-22\nissue_date: 2026-10-30\nmaturity_date: 2031-10-15\ncusip: 91282CRR4\nsecurity_type: Note\nsecurity_desc: 5-Year TIPS\noffering_amt: 26000000000\nhigh_rate: null\nhigh_yield: 2.367\nbid_to_cover_ratio: 2.41\ngrand_total_par_awarded: 26000028500\npdf_filenm_comp_results: R_20261022_4.pdf"
+          }
+        ],
+        "sourceIdentity": "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/od/treasury_securities_auctions_v2?sort=-record_date&page%5Bsize%5D=5\nobservation:2026-10-22",
+        "title": "财政部最近5条国债拍卖公告/结果原始记录；未来拍卖不算已完成",
+        "url": "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/od/treasury_securities_auctions_v2?sort=-record_date&page%5Bsize%5D=5"
+      },
+      "input": {
+        "schema_version": "riskhot.target-recognition.input.v1",
+        "fact_id": "5d71331a-7ce5-45cf-9dd6-2dd0a45ee02d",
+        "fact_digest": "39c1df1e3287539a6cd7f98506c8368ddf4c0e72ce7a3f470c17be004eeb1a41",
+        "fact": {
+          "title": "美国国债发行安排",
+          "description": "美国财政部公布七年期国债91282CRV5发行安排。",
+          "subject": "美国财政部",
+          "action": "公布发行安排",
+          "object": null,
+          "event_status": "announced",
+          "event_time": null
+        },
+        "material_refs": [
+          {
+            "material_id": "5d71331a-7ce5-45cf-9dd6-2dd0a45ee02d",
+            "version": 1,
+            "content_digest": "633b2ba6c453c3c324adb22985da9745df6b4d2a6ac3dcca11e7ceff879ad9a1"
+          }
+        ],
+        "evidence_catalog": [
+          {
+            "material_id": "5d71331a-7ce5-45cf-9dd6-2dd0a45ee02d",
+            "version": 1,
+            "content_digest": "633b2ba6c453c3c324adb22985da9745df6b4d2a6ac3dcca11e7ceff879ad9a1",
+            "segment_id": "29aed791-6c1c-589c-8adb-ce8f1a077ed7",
+            "start_cp": 0,
+            "end_cp": 340,
+            "quote": "announcemt_date: 2026-10-15\ncomp_auction_close_date: 2026-10-22\nissue_date: 2026-10-30\nmaturity_date: 2031-10-15\ncusip: 91282CRR4\nsecurity_type: Note\nsecurity_desc: 5-Year TIPS\noffering_amt: 26000000000\nhigh_rate: null\nhigh_yield: 2.367\nbid_to_cover_ratio: 2.41\ngrand_total_par_awarded: 26000028500\npdf_filenm_comp_results: R_20261022_4.pdf",
+            "evidence_ref": "evidence:2cab7ce3259b916f68740d114e0efd571d24138714e4c8c2a3f7f5f15b2f1a87",
+            "fact_id": "5d71331a-7ce5-45cf-9dd6-2dd0a45ee02d"
+          },
+          {
+            "material_id": "5d71331a-7ce5-45cf-9dd6-2dd0a45ee02d",
+            "version": 1,
+            "content_digest": "633b2ba6c453c3c324adb22985da9745df6b4d2a6ac3dcca11e7ceff879ad9a1",
+            "segment_id": "3eaf7310-f2dc-5ba9-8af8-dd703de520d2",
+            "start_cp": 0,
+            "end_cp": 320,
+            "quote": "announcemt_date: 2026-10-22\ncomp_auction_close_date: 2026-10-26\nissue_date: 2026-11-02\nmaturity_date: 2028-10-31\ncusip: 91282CRU7\nsecurity_type: Note\nsecurity_desc: 2-Year Note\noffering_amt: 69000000000\nhigh_rate: null\nhigh_yield: null\nbid_to_cover_ratio: null\ngrand_total_par_awarded: null\npdf_filenm_comp_results: null",
+            "evidence_ref": "evidence:2fa6ce3866c728b77d4fd1be30042b8d5e0813e9ae849412e439024fb8c8de6a",
+            "fact_id": "5d71331a-7ce5-45cf-9dd6-2dd0a45ee02d"
+          },
+          {
+            "material_id": "5d71331a-7ce5-45cf-9dd6-2dd0a45ee02d",
+            "version": 1,
+            "content_digest": "633b2ba6c453c3c324adb22985da9745df6b4d2a6ac3dcca11e7ceff879ad9a1",
+            "segment_id": "3d578bcd-1ca8-5b45-80f2-5934c09c3e2d",
+            "start_cp": 0,
+            "end_cp": 320,
+            "quote": "announcemt_date: 2026-10-22\ncomp_auction_close_date: 2026-10-29\nissue_date: 2026-11-02\nmaturity_date: 2033-10-31\ncusip: 91282CRV5\nsecurity_type: Note\nsecurity_desc: 7-Year Note\noffering_amt: 44000000000\nhigh_rate: null\nhigh_yield: null\nbid_to_cover_ratio: null\ngrand_total_par_awarded: null\npdf_filenm_comp_results: null",
+            "evidence_ref": "evidence:5a3942e0cf83609a6e63e4ea09ddd09e32b627eb5685634404d2a2e4548cc67b",
+            "fact_id": "5d71331a-7ce5-45cf-9dd6-2dd0a45ee02d"
+          },
+          {
+            "material_id": "5d71331a-7ce5-45cf-9dd6-2dd0a45ee02d",
+            "version": 1,
+            "content_digest": "633b2ba6c453c3c324adb22985da9745df6b4d2a6ac3dcca11e7ceff879ad9a1",
+            "segment_id": "0be301c4-75b3-5239-88d2-9ec1353e8a11",
+            "start_cp": 0,
+            "end_cp": 320,
+            "quote": "announcemt_date: 2026-10-22\ncomp_auction_close_date: 2026-10-27\nissue_date: 2026-11-02\nmaturity_date: 2031-10-31\ncusip: 91282CRT0\nsecurity_type: Note\nsecurity_desc: 5-Year Note\noffering_amt: 70000000000\nhigh_rate: null\nhigh_yield: null\nbid_to_cover_ratio: null\ngrand_total_par_awarded: null\npdf_filenm_comp_results: null",
+            "evidence_ref": "evidence:853c1fedb42a09683304385d4b78065b7fc8f8387a0602360a439bf670b82304",
+            "fact_id": "5d71331a-7ce5-45cf-9dd6-2dd0a45ee02d"
+          },
+          {
+            "material_id": "5d71331a-7ce5-45cf-9dd6-2dd0a45ee02d",
+            "version": 1,
+            "content_digest": "633b2ba6c453c3c324adb22985da9745df6b4d2a6ac3dcca11e7ceff879ad9a1",
+            "segment_id": "6bbb699e-e466-58d6-8c19-032edfb41e06",
+            "start_cp": 0,
+            "end_cp": 319,
+            "quote": "announcemt_date: 2026-10-22\ncomp_auction_close_date: 2026-10-28\nissue_date: 2026-11-02\nmaturity_date: 2028-10-31\ncusip: 91282CRS2\nsecurity_type: Note\nsecurity_desc: 2-Year FRN\noffering_amt: 30000000000\nhigh_rate: null\nhigh_yield: null\nbid_to_cover_ratio: null\ngrand_total_par_awarded: null\npdf_filenm_comp_results: null",
+            "evidence_ref": "evidence:93cf1eb5760a7ac7edf1a9840da2af954ab7d7ee23812888fb511a10efa22add",
+            "fact_id": "5d71331a-7ce5-45cf-9dd6-2dd0a45ee02d"
+          }
+        ],
+        "clues": [
+          {
+            "clue_ref": "clue:6a09d2b2ddfbdfeeaa046a6c6a6b403b48659e25d110c7b4e5c7705b4cedd83a",
+            "raw_text": "美国财政部",
+            "fact_field": "subject",
+            "evidence_refs": []
+          },
+          {
+            "clue_ref": "clue:03de21ccdff28691d03817def0c3db32268f01976874a726504db71984c1cc70",
+            "raw_text": "公布发行安排",
+            "fact_field": "action",
+            "evidence_refs": []
+          },
+          {
+            "clue_ref": "clue:aab012320d9ca895df34e60a087df0cff456541083c9846b4093743d48055734",
+            "raw_text": "美国财政部公布七年期国债91282CRV5发行安排。",
+            "fact_field": "description",
+            "evidence_refs": []
+          }
+        ],
+        "contexts": [
+          {
+            "material_id": "5d71331a-7ce5-45cf-9dd6-2dd0a45ee02d",
+            "version": 1,
+            "content_digest": "633b2ba6c453c3c324adb22985da9745df6b4d2a6ac3dcca11e7ceff879ad9a1",
+            "segments": [
+              {
+                "id": "3d578bcd-1ca8-5b45-80f2-5934c09c3e2d",
+                "text": "announcemt_date: 2026-10-22\ncomp_auction_close_date: 2026-10-29\nissue_date: 2026-11-02\nmaturity_date: 2033-10-31\ncusip: 91282CRV5\nsecurity_type: Note\nsecurity_desc: 7-Year Note\noffering_amt: 44000000000\nhigh_rate: null\nhigh_yield: null\nbid_to_cover_ratio: null\ngrand_total_par_awarded: null\npdf_filenm_comp_results: null"
+              },
+              {
+                "id": "6bbb699e-e466-58d6-8c19-032edfb41e06",
+                "text": "announcemt_date: 2026-10-22\ncomp_auction_close_date: 2026-10-28\nissue_date: 2026-11-02\nmaturity_date: 2028-10-31\ncusip: 91282CRS2\nsecurity_type: Note\nsecurity_desc: 2-Year FRN\noffering_amt: 30000000000\nhigh_rate: null\nhigh_yield: null\nbid_to_cover_ratio: null\ngrand_total_par_awarded: null\npdf_filenm_comp_results: null"
+              },
+              {
+                "id": "0be301c4-75b3-5239-88d2-9ec1353e8a11",
+                "text": "announcemt_date: 2026-10-22\ncomp_auction_close_date: 2026-10-27\nissue_date: 2026-11-02\nmaturity_date: 2031-10-31\ncusip: 91282CRT0\nsecurity_type: Note\nsecurity_desc: 5-Year Note\noffering_amt: 70000000000\nhigh_rate: null\nhigh_yield: null\nbid_to_cover_ratio: null\ngrand_total_par_awarded: null\npdf_filenm_comp_results: null"
+              },
+              {
+                "id": "3eaf7310-f2dc-5ba9-8af8-dd703de520d2",
+                "text": "announcemt_date: 2026-10-22\ncomp_auction_close_date: 2026-10-26\nissue_date: 2026-11-02\nmaturity_date: 2028-10-31\ncusip: 91282CRU7\nsecurity_type: Note\nsecurity_desc: 2-Year Note\noffering_amt: 69000000000\nhigh_rate: null\nhigh_yield: null\nbid_to_cover_ratio: null\ngrand_total_par_awarded: null\npdf_filenm_comp_results: null"
+              },
+              {
+                "id": "29aed791-6c1c-589c-8adb-ce8f1a077ed7",
+                "text": "announcemt_date: 2026-10-15\ncomp_auction_close_date: 2026-10-22\nissue_date: 2026-10-30\nmaturity_date: 2031-10-15\ncusip: 91282CRR4\nsecurity_type: Note\nsecurity_desc: 5-Year TIPS\noffering_amt: 26000000000\nhigh_rate: null\nhigh_yield: 2.367\nbid_to_cover_ratio: 2.41\ngrand_total_par_awarded: 26000028500\npdf_filenm_comp_results: R_20261022_4.pdf"
+              }
+            ]
+          }
+        ],
+        "rule_version": "target-recognition-v1",
+        "category_version": "financial-target-categories-v1",
+        "manifest_ref": "ai08-evaluation-v1"
+      }
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 import { DomainError, type ModelResponse, type NormalizedMaterial } from '../../platform/types.js';
 
 export interface ModelConfig { protocol: string; endpoint: string; model: string }
-export interface TaskInput { material_ref?: import('./current-repository.js').MaterialBasis; version_id: string; material: NormalizedMaterial; manifest: { provider: ModelConfig; prompt: string; task_id?: string; output_schema?: object; output_schema_digest?: string; task_package?: unknown }; context?: unknown }
+export interface TaskInput { material_refs?: import('./current-repository.js').MaterialBasis[]; material_ref?: import('./current-repository.js').MaterialBasis; version_id: string; material: NormalizedMaterial; manifest: { provider: ModelConfig; prompt: string; task_id?: string; output_schema?: object; output_schema_digest?: string; task_package?: unknown }; context?: unknown }
 export function modelInputEnvelope(input:TaskInput):unknown{
  const identity=input.material_ref?{...input.material_ref}:{version_id:input.version_id};
  return {...identity,material:input.material,...(input.context===undefined?{}:{context:input.context})};

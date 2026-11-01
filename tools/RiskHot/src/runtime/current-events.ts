@@ -1,3 +1,5 @@
+import {dispatchCurrentExecution,executionEngine} from '../platform/current-dispatch.js';
+import {f02Storage} from '../event-management/storage-layout.js';
 import {targetObjectSchema} from '../event-management/target-identity-contracts.js';
 import {TargetIdentity} from '../event-management/target-identity.js';
 import {chooseDisplayTime,displayTimeRank,displaySortValue,timelineSources,type TimelineEvidence} from '../event-management/timeline.js';
@@ -6,7 +8,7 @@ import type {Repository} from '../information-ingestion/processing/repository.js
 import {IngestionRepository} from '../information-ingestion/processing/current-repository.js';
 import {EventProcessing} from '../event-management/processing.js';
 import {Reviews,resumeToken,type ReviewCommand} from '../event-management/reviews.js';
-import {eventAccess} from '../event-management/store.js';
+import {eventAccess,candidateSourcesPermission} from '../event-management/store.js';
 import {eventSnapshot} from '../event-management/snapshot.js';
 import {DomainError} from '../platform/types.js';
 import type {EventOptions} from '../event-management/store.js';
@@ -30,7 +32,7 @@ export function registerCurrentEvents(app:FastifyInstance,repo:Repository){
  app.get('/api/v1/l0/candidates/:id',{schema:{params}},async request=>{
   const id=(request.params as {id:string}).id;
   const candidate=(await repo.db.query('SELECT * FROM information.event_candidates WHERE id=$1',[id])).rows[0];
-  if(!candidate)throw new DomainError('NOT_FOUND',404);await store.material(request.actor,candidate.material_id);
+  if(!candidate)throw new DomainError('NOT_FOUND',404);await candidateSourcesPermission(repo,repo.db,id,request.actor);await store.material(request.actor,candidate.material_id);
   const bases:Record<string,string|null>={};for(const scope of ['identity','relations','commit','disposition'] as const){try{bases[scope]=await reviews.basis(id,scope);}catch(error){if(!(error instanceof DomainError))throw error;bases[scope]=null;}}
   return {candidate,pending_disposition:Boolean((await repo.db.query("SELECT 1 FROM platform.review_decisions WHERE candidate_id=$1 AND generation=$2 AND scope='disposition'",[id,candidate.proposal_generation])).rowCount),steps:(await repo.db.query('SELECT step_no,generation,state,result,reason_code FROM information.candidate_step_results WHERE candidate_id=$1 AND generation=$2 ORDER BY step_no',[id,candidate.proposal_generation])).rows,review_bases:bases,resume_token:resumeToken({...candidate,processing_id:candidate.material_id})};
  });
@@ -45,15 +47,18 @@ export function registerCurrentEvents(app:FastifyInstance,repo:Repository){
    const budget=(await tx.query("SELECT * FROM platform.model_budget_windows WHERE owner_kind='material' AND owner_id=$1 AND task_id='AI-01' AND subject_ref=$2::jsonb ORDER BY generation DESC LIMIT 1 FOR UPDATE",[id,{material_id:id,version:body.version,content_digest:body.content_digest}])).rows[0];const exhausted=budget&&(budget.used>=3||new Date(budget.deadline).getTime()<=Date.now());
    if(exhausted&&!body.open_budget)throw new DomainError('MODEL_BUDGET_EXHAUSTED',409);
    if(body.open_budget){await store.assertBasis(tx,request.actor,{material_id:id,version:body.version,content_digest:body.content_digest},'model_budget');if(!exhausted)throw new DomainError('BUDGET_NOT_EXHAUSTED',409);await tx.query("INSERT INTO platform.model_budget_windows(owner_kind,owner_id,task_id,generation,actor,reason,subject_ref) SELECT 'material',$1,'AI-01',COALESCE(MAX(generation),0)+1,$2,$3,$4 FROM platform.model_budget_windows WHERE owner_kind='material' AND owner_id=$1 AND task_id='AI-01'",[id,request.actor,body.reason,{material_id:id,version:body.version,content_digest:body.content_digest}]);}
-   const next=Number((await tx.query("SELECT COALESCE(MAX(generation),0)+1 AS n FROM platform.execution_intents WHERE kind='material-extract' AND owner_id=$1",[id])).rows[0].n);
-   await tx.query("INSERT INTO platform.execution_intents(kind,owner_id,generation,workflow_id,input) VALUES('material-extract',$1,$2,$3,$4)",[id,next,`material/${id}/retry/${next}`,{material_id:id,version:body.version,content_digest:body.content_digest,actor:request.actor}]);
+   const next=executionEngine()==='pg-boss'
+    ?Number((await tx.query("SELECT COALESCE(MAX(execution_generation),0)+1 AS n FROM platform.task_runs WHERE task_type='information.extract' AND owner_ref->>'id'=$1",[id])).rows[0].n)
+    :Number((await tx.query("SELECT COALESCE(MAX(generation),0)+1 AS n FROM platform.execution_intents WHERE kind='material-extract' AND owner_id=$1",[id])).rows[0].n);
+   if(executionEngine()==='pg-boss')await tx.query("UPDATE platform.task_runs SET runtime_state='superseded',updated_at=now() WHERE task_type='information.extract' AND owner_ref->>'id'=$1 AND execution_generation<$2 AND runtime_state NOT IN ('succeeded','cancelled','superseded')",[id,next]);
+   await dispatchCurrentExecution(tx,{kind:'material-extract',owner_id:id,generation:next,workflow_id:`material/${id}/retry/${next}`,input:{material_id:id,version:body.version,content_digest:body.content_digest,actor:request.actor}});
    await tx.query("UPDATE infomation.ingestion_material SET extraction_result=jsonb_build_object('version',version,'content_digest',content_digest,'status','pending') WHERE id=$1",[id]);
    await tx.query("INSERT INTO platform.audit_log(actor,action,owner_id,detail) VALUES($1,'material-extraction-retry',$2,$3)",[request.actor,id,body]);return {material_id:id,status:'accepted'};
   });return reply.code(202).send(result);
  });
  app.get('/api/v1/events',async request=>{
   await repo.authorize(request.actor,'read');
-  const items=(await repo.db.query("SELECT e.*,COALESCE((SELECT jsonb_agg(DISTINCT jsonb_build_object('material_id',m.id,'version_id',m.id::text||':'||fe.material_version::text,'source_id',s.id,'catalog_key',s.catalog_key,'name',s.name,'relation_created_at',fi.created_at,'first_collected_at',CASE WHEN fe.material_version=m.version AND fe.material_digest=m.content_digest THEN m.collected_at END,'published_at_text',CASE WHEN fe.material_version=m.version AND fe.material_digest=m.content_digest THEN m.published_at_text END)) FROM information.event_fact ef JOIN information.fact_information fi ON fi.fact_id=ef.fact_id JOIN information.fact_evidence fe ON fe.fact_id=fi.fact_id AND fe.information_id=fi.information_id JOIN infomation.ingestion_material m ON m.id=fi.information_id JOIN m1.sources s ON s.id=m.source_id WHERE ef.event_id=e.id),'[]') AS evidence_basis FROM information.event e WHERE NOT EXISTS(SELECT 1 FROM information.event_fact ef JOIN information.fact_information fi ON fi.fact_id=ef.fact_id JOIN infomation.ingestion_material m ON m.id=fi.information_id JOIN m1.sources s ON s.id=m.source_id JOIN platform.actors a ON a.subject=$1 WHERE ef.event_id=e.id AND NOT ('*'=ANY(a.source_keys) OR s.catalog_key=ANY(a.source_keys))) ORDER BY e.updated_at DESC,e.id",[request.actor])).rows;
+  const items=(await repo.db.query(`SELECT e.*,COALESCE((SELECT jsonb_agg(DISTINCT jsonb_build_object('material_id',m.id,'version_id',m.id::text||':'||fe.material_version::text,'source_id',s.id,'catalog_key',s.catalog_key,'name',s.name,'relation_created_at',fi.created_at,'first_collected_at',CASE WHEN fe.material_version=m.version AND fe.material_digest=m.content_digest THEN m.collected_at END,'published_at_text',CASE WHEN fe.material_version=m.version AND fe.material_digest=m.content_digest THEN m.published_at_text END)) FROM ${(await f02Storage(repo.db)).eventFacts} ef JOIN ${(await f02Storage(repo.db)).factMaterials} fi ON fi.fact_id=ef.fact_id JOIN information.fact_evidence fe ON fe.fact_id=fi.fact_id AND fe.information_id=fi.information_id JOIN infomation.ingestion_material m ON m.id=fi.information_id JOIN m1.sources s ON s.id=m.source_id WHERE ef.event_id=e.id),'[]') AS evidence_basis FROM information.event e WHERE NOT EXISTS(SELECT 1 FROM ${(await f02Storage(repo.db)).eventFacts} ef JOIN ${(await f02Storage(repo.db)).factMaterials} fi ON fi.fact_id=ef.fact_id JOIN infomation.ingestion_material m ON m.id=fi.information_id JOIN m1.sources s ON s.id=m.source_id JOIN platform.actors a ON a.subject=$1 WHERE ef.event_id=e.id AND NOT ('*'=ANY(a.source_keys) OR s.catalog_key=ANY(a.source_keys))) ORDER BY e.updated_at DESC,e.id`,[request.actor])).rows;
   const query=request.query as {offset?:string;limit?:string};const offset=Number(query.offset??0),limit=Number(query.limit??30);
   if(!Number.isInteger(offset)||offset<0||!Number.isInteger(limit)||limit<1||limit>100)throw new DomainError('PAGINATION_INVALID',400);
   const projected=items.map(item=>{const basis=chooseDisplayTime(item.evidence_basis as TimelineEvidence[]);const {time_version_id,...time}=basis;const {evidence_basis,...event}=item;return {...event,...time,sources:timelineSources(item.evidence_basis,basis.time_source_id)};});

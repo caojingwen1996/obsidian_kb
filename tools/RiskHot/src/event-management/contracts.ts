@@ -6,7 +6,7 @@ export type TaskId='AI-01'|'AI-02'|'AI-03'|'AI-04'|'AI-05'|'AI-07';
 export type Step=2|3|4|5;
 export interface Evidence {information_version_id:string;segment_id:string;start_cp:number;end_cp:number;quote:string}
 export interface TimeValue {text:string;start:string|null;end:string|null;precision:'timestamp'|'day'|'month'|'year'|'range'|'unknown';kind:'occurred'|'announced'|'expected'|'unknown';timezone:string|null}
-export interface FullCandidate {local_key:string;title:string;description:string;subject:string|null;action:string;target_clues:string[];event_status:string;event_time:string|null;evidence_refs:Evidence[];missing_fields:string[]}
+export interface FullCandidate {local_key:string;title:string;description:string;subject:string|null;action:string;object?:string|null;target_clues:string[];event_status:string;event_time:string|null;evidence_refs:Evidence[];missing_fields:string[]}
 export interface IdentityProposal {decision:'NEW'|'REUSE'|'UNRESOLVED';matched_event_id:string|null;comparisons:{event_id:string;identity_match:boolean|null;reason:string}[];reason:string;evidence_refs:Evidence[];unresolved_issues:string[]}
 export interface TargetRelation {target_id:string;definition_version:string;relation_note:string;evidence_refs:Evidence[]}
 export interface VariableRelation {target_id:string;variable_id:string;definition_version:string;relation_type:string;change_direction:string;impact_status:string;description:string;evidence_refs:Evidence[]}

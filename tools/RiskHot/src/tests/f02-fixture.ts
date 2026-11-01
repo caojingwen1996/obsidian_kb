@@ -1,0 +1,30 @@
+import {setTimeout} from 'node:timers/promises';
+import {randomUUID} from 'node:crypto';
+import {readFile} from 'node:fs/promises';
+import {Pool} from 'pg';
+export async function fixture(target:boolean){
+ const admin=new Pool({connectionString:process.env.ADMIN_DATABASE_URL});
+ const name=`riskhot_f02_${randomUUID().replaceAll('-','')}`;
+ await admin.query(`CREATE DATABASE ${name}`);
+ const url=new URL(process.env.ADMIN_DATABASE_URL!);url.pathname=`/${name}`;
+ const db=new Pool({connectionString:url.href});
+ await db.query(await readFile('src/db/005-ingestion.sql','utf8'));
+ if(target)await db.query(await readFile('src/db/007-target-identity.sql','utf8'));
+ await db.query("INSERT INTO m1.sources(catalog_key,name,url,metadata,state) VALUES('test','测试','','{}','ACTIVE')");
+ const m=(await db.query("INSERT INTO infomation.ingestion_material(source_id,identity,content,content_digest,normalizer_rule) SELECT id,'test','{}',repeat('a',64),'v1' FROM m1.sources RETURNING id")).rows[0].id;
+ await db.query("INSERT INTO infomation.ingestion_material_segments VALUES($1,$2,0,'75','{}')",[m,randomUUID()]);
+ await db.query("INSERT INTO platform.actors VALUES('operator',ARRAY['read','event_submit'],ARRAY['*'])");
+ const c=(await db.query("INSERT INTO information.event_candidates(material_id,material_version,material_digest,actor,ordinal,payload) VALUES($1,1,repeat('a',64),'operator',0,'{}') RETURNING id",[m])).rows[0].id;
+ await db.query("INSERT INTO information.candidate_step_results(candidate_id,step_no,generation,state,input_digest,context) VALUES($1,2,1,'pending','test','{}')",[c]);
+ await db.query('BEGIN');
+ const e=(await db.query("INSERT INTO information.event(title,description,subject,action,event_status) VALUES('事件','说明','主体','行动','announced') RETURNING id")).rows[0].id;
+ const f=(await db.query("INSERT INTO information.fact(title,description,subject,action,event_status) VALUES('事实','说明','主体','行动','announced') RETURNING id")).rows[0].id;
+ await db.query("INSERT INTO information.fact_information(fact_id,information_id,relation_role) VALUES($1,$2,'supporting')",[f,m]);
+ await db.query("INSERT INTO information.fact_evidence(fact_id,information_id,material_id,material_version,material_digest,segment_id,start_cp,end_cp,quote,evidence_role) SELECT $1,$2,$2,1,repeat('a',64),id,0,2,'75','supporting' FROM infomation.ingestion_material_segments",[f,m]);
+ await db.query("INSERT INTO information.event_fact(event_id,fact_id,relation_role,relation_note) VALUES($1,$2,'initial','保留理由')",[e,f]);
+ await db.query('COMMIT');
+ await db.query("INSERT INTO platform.commit_receipts VALUES($1,$2,1,'saved','[]',NULL,now())",[randomUUID(),c]);
+ await db.query("INSERT INTO platform.model_budget_windows(owner_kind,owner_id,task_id,generation,actor,reason,used) VALUES('event',$1,'legacy-AI-02',1,'operator','保留预算',2)",[c]);
+ await db.query("INSERT INTO platform.messages(message_type,event_id,payload,payload_digest) VALUES('event.facts.committed.v2',$1,'{}','preserve')",[e]);
+ return {db,c,e,f,m,async close(){await db.end();for(let i=0;i<100&&(await admin.query('SELECT 1 FROM pg_stat_activity WHERE datname=$1',[name])).rowCount;i++)await setTimeout(10);await admin.query(`DROP DATABASE ${name}`);await admin.end();}};
+}

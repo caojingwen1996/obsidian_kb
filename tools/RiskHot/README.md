@@ -223,3 +223,29 @@ schema5只保存material当前标准化正文和当前片段；原件、版本�
 旧目录尚未映射主表会返回TARGET_LEGACY_MIGRATION_REQUIRED；目录最多100项，满额新建返回TARGET_CATALOG_CAPACITY_EXCEEDED。保留旧包可用，不猜迁身份。新迁移为 `src/db/007-target-identity.sql`，已接入增量迁移函数；本轮没有部署正式库或重启服务，禁止用重建业务库部署。
 
 验证命令：`node --env-file-if-exists=.env --import tsx --test --test-concurrency=1 src/tests/ai07*.test.ts`。真实模型评测命令：`node --env-file-if-exists=.env --import tsx src/scripts/evaluate-ai07.ts`，使用已有模型配置并保存新时间戳目录，不写业务库；已有10项结果见[[tools/RiskHot/docs/verification/ai07-target-identity|验证记录]]。
+
+## F02 八步事件处理（2026-11-01 实施分支）
+
+新链路按“资料抽取、实例建模、身份融合、初始确认、变量提取、评价、保存、事件关联”推进。资料中的“启动八步处理”进入独立任务页，身份和正式保存分别复核；用途规则未发布时显示待规则，文字草案不会生成正式 M 分数。已有事件增量与跨报道 Fact 核定仍由后续 B 批实现，遇到对应分支明确等待。
+
+先在隔离副本演练，再安排本机运行库的停受理、备份、排空和切换。以下命令不会自动停止旧引擎，也不会代为批准业务决定：
+
+```bash
+npm run migrate:f02
+npm run migrate:f02 -- --apply
+npm run migrate:business
+```
+
+第一条只检查；后两条分别应用增量结构和预建业务队列。使用现有 `.env` 环境变量提供管理员与运行连接，禁止把真实连接内容写入文档或提交。`BUSINESS_DATABASE_URL` 指向同一应用库的业务运行角色，须具备 F01/F02 所需权限与队列 DML 权限；预建脚本使用管理员执行，Worker 不自动建表。
+
+准备好依赖后，显式设置 `EXECUTION_ENGINE=pg-boss`，`BUSINESS_HANDLERS_MODULE=src/runtime/f02-business-handlers.ts`，再用 `npm run dev` 启动 API 和单个业务 Worker。缺省仍为已有执行方式。新旧引擎不能拥有同一运行代次，切换不由这些环境变量自动迁移旧任务。
+
+Codex 订阅调用需为模型子进程显式提供 `BUSINESS_MODEL_CODEX_HOME`（已有认证目录）；只复制认证文件到临时模型目录，不传数据库配置。HTTP 模型使用已有 MODEL 配置。`SCHEDULE_ENABLED` 控制信源计划扫描，恢复与异常检查保持运行。禁止同时启动多个会调用模型的业务 Worker。
+
+核对某条任务的当前结果：
+
+```bash
+npm run verify:f02 -- --candidate <候选ID> --actor <授权主体>
+```
+
+脚本只读核对保存回执、关联快照、逐接收方回执与采用状态；不满足完整闭环返回非零。关联或交付失败只恢复原分支，不重新保存事件。没有实际接收端时保留待接入，不能用本机测试通过宣称下游风险分析完成。

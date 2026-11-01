@@ -1,3 +1,4 @@
+import {dispatchCurrentExecution} from '../../platform/current-dispatch.js';
 import { saveCurrentFact } from '../../event-management/current-facts.js';
 import { validateCurrentExtraction, type MaterialCandidate } from '../../event-management/current-contracts.js';
 import type { PoolClient } from 'pg';
@@ -55,7 +56,7 @@ export class IngestionRepository {
       let task: IngestionTask;
       if (automatic) task = (await tx.query<IngestionTask>(`INSERT INTO infomation.ingestion_tasks(source_id,trigger_type,schedule_source_id,scheduled_at,actor) VALUES($1,'automatic',$1,$2,$3) ON CONFLICT(source_id,scheduled_at) WHERE trigger_type='automatic' DO UPDATE SET source_id=EXCLUDED.source_id RETURNING *`, [source.id, automatic.scheduled_at, actor])).rows[0]!;
       else task = (await tx.query<IngestionTask>("INSERT INTO infomation.ingestion_tasks(source_id,trigger_type,actor) VALUES($1,'manual',$2) RETURNING *", [source.id, actor])).rows[0]!;
-      await tx.query("INSERT INTO platform.execution_intents(kind,owner_id,generation,workflow_id,input) VALUES('ingestion',$1,$2,$3,$4) ON CONFLICT DO NOTHING", [task.id, Number(task.control_revision), `ingestion/${task.id}/${task.control_revision}`, input]);
+      await dispatchCurrentExecution(tx,{kind:'ingestion',owner_id:task.id,generation:Number(task.control_revision),workflow_id:`ingestion/${task.id}/${task.control_revision}`,input});
       return task;
     });
   }

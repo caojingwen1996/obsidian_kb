@@ -26,8 +26,8 @@ export function currentizeSchema(source: object): object {
 }
 const ajv = new Ajv2020({ strict: true, allErrors: true });
 const validate = ajv.compile(currentTaskSchema('AI-01'));
-export function validateCurrentExtraction(material: CurrentMaterial, value: unknown): asserts value is { candidates: MaterialCandidate[]; warnings: string[] } {
-  if (!validate(value)) throw new DomainError('OUTPUT_SCHEMA_INVALID', 422);
+export function validateCurrentExtraction(material: CurrentMaterial, value: unknown, requireObject=false): asserts value is { candidates: MaterialCandidate[]; warnings: string[] } {
+  if (!(requireObject ? ajv.compile(currentFactExtractionSchema())(value) : (validate(value)||ajv.compile(currentFactExtractionSchema())(value)))) throw new DomainError('OUTPUT_SCHEMA_INVALID', 422);
   const result = value as { candidates: MaterialCandidate[] };
   if (new Set(result.candidates.map(c => c.local_key)).size !== result.candidates.length) throw new DomainError('DUPLICATE_LOCAL_KEY', 422);
   for (const candidate of result.candidates) for (const e of candidate.evidence_refs) assertCurrentEvidence(material, e);
@@ -49,4 +49,15 @@ export function validateCurrentTask(task:TaskId,value:unknown,context:Validation
  }
  const result=validateTaskOutput(task,legacy(value),context);
  return {...result,validated_payload:result.valid?value as ValidationReport['validated_payload']:null};
+}
+
+// 新八步任务包要求显式Object；旧包的Schema保持原契约。
+export function currentFactExtractionSchema(): object {
+ const schema=currentTaskSchema('AI-01') as {properties:{candidates:{items:{properties:Record<string,unknown>;required:string[]}}}};
+ const candidate=schema.properties.candidates.items;
+ candidate.properties.object={anyOf:[{type:'string',minLength:1,maxLength:8000,pattern:'\\S'},{type:'null'}]};
+ candidate.required.push('object');return schema;
+}
+export function mapFactToEvent(fact:{title:string;description:string;subject:string|null;action:string|null;object?:string|null;event_status:string;event_time:string|null}) {
+ return {title:fact.title,description:fact.description,subject:fact.subject,action:fact.action,object:fact.object??null,event_status:fact.event_status,event_time:fact.event_time};
 }

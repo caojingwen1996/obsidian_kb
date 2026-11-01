@@ -1,3 +1,4 @@
+import { dispatchCurrentExecution,readCurrentExecutionInput } from '../platform/current-dispatch.js';
 import type { FastifyInstance } from 'fastify';
 import { DomainError } from '../platform/types.js';
 import type { Repository } from '../information-ingestion/processing/repository.js';
@@ -72,9 +73,9 @@ export function registerCurrentManagement(app: FastifyInstance, repo: Repository
       if (body.action !== 'pause') await store.checkTask(id, body.control_revision, tx, body.action === 'resume');
       const result = (await tx.query("UPDATE infomation.ingestion_tasks SET paused=$2,control_revision=control_revision+1,status=CASE WHEN $2 THEN status ELSE 'queued' END,reason_code=NULL,updated_at=clock_timestamp() WHERE id=$1 RETURNING *", [id, body.action === 'pause'])).rows[0];
       if (body.action !== 'pause') {
-        const input = (await tx.query("SELECT input FROM platform.execution_intents WHERE kind='ingestion' AND owner_id=$1 ORDER BY generation DESC LIMIT 1", [id])).rows[0]?.input;
+        const input = await readCurrentExecutionInput(tx,'ingestion',id);
         if (!input) throw new DomainError('TASK_INPUT_UNAVAILABLE', 409);
-        await tx.query("INSERT INTO platform.execution_intents(kind,owner_id,generation,workflow_id,input) VALUES('ingestion',$1,$2,$3,$4)", [id, result.control_revision, `ingestion/${id}/${result.control_revision}`, input]);
+        await dispatchCurrentExecution(tx,{kind:'ingestion',owner_id:id,generation:Number(result.control_revision),workflow_id:`ingestion/${id}/${result.control_revision}`,input});
       }
       await tx.query("INSERT INTO platform.audit_log(actor,action,owner_id,detail) VALUES($1,'ingestion-control',$2,$3)", [request.actor, id, body]);
       return result;

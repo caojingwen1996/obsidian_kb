@@ -29,12 +29,12 @@ function failureCode(text: string): string {
 }
 
 export class CodexModelClient {
-  constructor(private executable = process.env.CODEX_EXECUTABLE || 'codex') {}
+  constructor(private executable = process.env.CODEX_EXECUTABLE || 'codex', private detached = process.platform !== 'win32') {}
   private run(args: string[], cwd: string, stdin: string, timeout: number): Promise<{ code: number | null; stdout: string; stderr: string }> {
     return new Promise((resolve, reject) => {
-      const child = spawn(this.executable, args, { cwd, env: codexEnvironment(), stdio: ['pipe', 'pipe', 'pipe'], detached: process.platform !== 'win32' });
+      const child = spawn(this.executable, args, { cwd, env: codexEnvironment(), stdio: ['pipe', 'pipe', 'pipe'], detached: this.detached });
       let stdout = '', stderr = '', size = 0, settled = false;
-      const stop = () => { try { if (process.platform !== 'win32' && child.pid) process.kill(-child.pid, 'SIGKILL'); else child.kill('SIGKILL'); } catch { /* Already exited. */ } };
+      const stop = () => { try { if (this.detached && child.pid) process.kill(-child.pid, 'SIGKILL'); else child.kill('SIGKILL'); } catch { /* Already exited. */ } };
       const fail = (code: string) => { if (settled) return; settled = true; clearTimeout(timer); stop(); reject(new DomainError(code, 503, code === 'MODEL_NETWORK_ERROR')); };
       const timer = setTimeout(() => fail('MODEL_BUDGET_EXHAUSTED'), Math.max(1, timeout));
       child.once('error', () => fail('MODEL_CODEX_UNAVAILABLE'));

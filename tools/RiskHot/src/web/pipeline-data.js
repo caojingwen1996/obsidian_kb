@@ -7291,7 +7291,7 @@ export default {
     "docs/system-design/03-系统功能架构/F02 事件管理模块功能设计 V1.0.md": "9cb42fbfa12d0ca44f03cbfb0604e4bf97ebf4c4909c6e7e915cbcdedacdc8b4",
     "docs/system-design/03-系统功能架构/F01 信息接入与标准化模块功能设计 V2.1.md": "61e06336ea8be7a0b98c31e15b999d2204fd595033a2f4a2d86bed2235905ba7",
     "docs/system-design/03-系统功能架构/0.系统功能架构总览.md": "e2dcf40073caa0b0784bf94325c83bd39cbd02e342512684d5f6e0e6da6c3bba",
-    "docs/system-design/02-业务架构与领域设计/RiskHot_L0_信息处理层_业务架构与领域设计V1.0.md": "64159e2b2b7d5c986f40ad00f1e050607738bb7d9e454ac9c8606b6bb199fd75",
+    "docs/system-design/02-业务架构与领域设计/RiskHot_L0_信息处理层_业务架构与领域设计V1.0.md": "d30b031e58641c688d460e67e158d633b67a56fc5a0152b641425e5dd4ce8bba",
     "docs/system-design/02-业务架构与领域设计/RiskHot_L1_风险识别与纳管层_业务架构与领域设计.md": "a80d21922168a8906eb0bc2249ef5c1f0d15851f417a00dbade262f1d0fefa10",
     "docs/system-design/02-业务架构与领域设计/RiskHot_L2_风险态势分析层_业务架构与领域设计V1.0.md": "29094b41d63d8834d2adb21f738faec744f4836e254c12e048aa8ceb86d073eb",
     "docs/system-design/02-业务架构与领域设计/RiskHot_L3_风险产品与发布层_业务架构与领域设计 V1.0.md": "ca9051bb5d2a50ed1924f8f8a5f1b2839f1929b71bb9fb2b2731381b0464bc24",

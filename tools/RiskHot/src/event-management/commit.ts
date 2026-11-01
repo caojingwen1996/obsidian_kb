@@ -1,3 +1,4 @@
+import {f02Storage} from './storage-layout.js';
 import {TargetIdentity} from './target-identity.js';
 import {currentModel} from './store.js';
 import {assertCurrentEvidence,type MaterialEvidence} from './current-contracts.js';
@@ -57,7 +58,7 @@ export class EventCommit {
    const isNew=packet.identity.decision==='NEW',eventId=event?.id??randomUUID(),changeKinds:string[]=[];
    const fact=await readFact(tx,id);
    const before=event?await eventSnapshot(tx,eventId):null;
-   const existingBinding=(await tx.query('SELECT event_id FROM information.event_fact WHERE fact_id=$1',[fact.id])).rows[0];
+   const existingBinding=(await tx.query(`SELECT event_id FROM ${(await f02Storage(tx)).eventFacts} WHERE fact_id=$1`,[fact.id])).rows[0];
    if(existingBinding&&existingBinding.event_id!==eventId)throw new DomainError('FACT_ALREADY_ASSIGNED',409);
    const duplicate=packet.increment.classification==='DUPLICATE';
    if(duplicate&&!existingBinding)throw new DomainError('DUPLICATE_FACT_UNMATCHED',409);
@@ -73,7 +74,7 @@ export class EventCommit {
     await addFactEvidence(tx,fact.id,evidence);
     const role=({NEW_EVENT:'initial',EVENT_PROGRESS:'progress',MATERIAL_ADDITION:'supplement',CORRECTION:'correction',SOURCE_ADDITION:'corroboration'} as Record<string,string>)[packet.increment.classification];
     if(!role)throw new DomainError('INCREMENT_REVIEW_REQUIRED',409);
-    const attached=await tx.query('INSERT INTO information.event_fact(event_id,fact_id,relation_role,relation_note) VALUES($1,$2,$3,$4) ON CONFLICT DO NOTHING',[eventId,fact.id,role,packet.increment.reason]);
+    const attached=await tx.query((await f02Storage(tx)).current?'UPDATE information.fact SET event_id=$1,event_relation_role=$3,event_relation_note=$4,event_assigned_at=now() WHERE id=$2 AND event_id IS NULL':'INSERT INTO information.event_fact(event_id,fact_id,relation_role,relation_note) VALUES($1,$2,$3,$4) ON CONFLICT DO NOTHING',[eventId,fact.id,role,packet.increment.reason]);
     if(attached.rowCount&&!isNew)changeKinds.push(role==='corroboration'?'event_source_attached':'event_updated');
    }
    const definition=async(kind:'target'|'variable',id:string,version:string)=>{

@@ -1,0 +1,44 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {randomUUID} from 'node:crypto';
+import {fixture} from './f02-fixture.js';
+import {applyF02Migration} from '../platform/f02-migration.js';
+import {transaction} from '../platform/db.js';
+import {TargetIdentity,targetPackage} from '../event-management/target-identity.js';
+import {ExecutionStore} from '../information-ingestion/processing/execution.js';
+import {ArtifactStore} from '../platform/artifacts.js';
+import {buildServer} from '../runtime/server.js';
+async function prepared(){const x=await fixture(true);await applyF02Migration(x.db);
+ const primarySegments=(await x.db.query('SELECT id,text FROM infomation.ingestion_material_segments WHERE material_id=$1',[x.m])).rows;await x.db.query('UPDATE infomation.ingestion_material SET content=$2 WHERE id=$1',[x.m,{segments:primarySegments}]);
+ await x.db.query('INSERT INTO information.candidate_fact VALUES($1,$2)',[x.c,x.f]);
+ await x.db.query("UPDATE platform.actors SET permissions=ARRAY['read','event_submit','event_review'] WHERE subject='operator'");
+ await x.db.query("INSERT INTO m1.sources(catalog_key,name,url,metadata,state) VALUES('secondary','副来源','','{}','ACTIVE')");
+ const segment=randomUUID(),m=(await x.db.query("INSERT INTO infomation.ingestion_material(source_id,identity,content,content_digest,version,normalizer_rule) SELECT id,'two',$1,repeat('b',64),2,'test' FROM m1.sources WHERE catalog_key='secondary' RETURNING id",[{segments:[{id:segment,text:'副来源75'}]}])).rows[0].id;
+ await x.db.query("INSERT INTO infomation.ingestion_material_segments VALUES($1,$2,0,'副来源75','{}')",[m,segment]);
+ await transaction(x.db,async tx=>{await tx.query("INSERT INTO information.fact_material(fact_id,material_id,relation_role) VALUES($1,$2,'supporting')",[x.f,m]);await tx.query("INSERT INTO information.fact_evidence(fact_id,information_id,material_id,material_version,material_digest,segment_id,start_cp,end_cp,quote,evidence_role) VALUES($1,$2,$2,2,repeat('b',64),$3,0,5,'副来源75','supporting')",[x.f,m,segment]);});
+ await x.db.query('UPDATE information.event_candidates SET event_options=$2,resume_step=3 WHERE id=$1',[x.c,{task_manifest_id:targetPackage}]);
+ const object={object_ref:'secondary-target',name:'副来源对象',categories:[{primary_category:'金融主体与机构',secondary_category:'货币当局'}],jurisdiction:'中国',scope_definition:'受控范围',limitations:[],uncertainties:[],evidence_refs:[{material_id:m,version:2,content_digest:'b'.repeat(64),segment_id:segment,start_cp:0,end_cp:5,quote:'副来源75'}]};
+ const body={objects:[object],explicit_no_objects:false,reason:'来源补证'};
+ const repo=new ExecutionStore(x.db,new ArtifactStore('/tmp/riskhot-target-multi-unused'));
+ return {...x,secondary:m,object,body,repo,targets:new TargetIdentity(repo)};
+}
+test('旧candidate和Target读取均拒绝已撤权的副来源',async()=>{const x=await prepared();let app:Awaited<ReturnType<typeof buildServer>>|undefined;try{
+ await x.db.query('INSERT INTO information.target_object_sets(candidate_id,generation,payload,input_digest,actor,reason) VALUES($1,1,$2,\'test\',\'operator\',\'test\')',[x.c,x.body]);
+ await x.db.query("UPDATE platform.actors SET source_keys=ARRAY['test'] WHERE subject='operator'");
+ await assert.rejects(()=>x.targets.read(x.c,'operator'),/FORBIDDEN/);
+ await x.db.query("INSERT INTO platform.actors VALUES('riskhot-local-operator',ARRAY['read'],ARRAY['test'])");
+ app=await buildServer(x.repo,{mode:'local',origin:'http://127.0.0.1:18081'});
+ const headers={host:'127.0.0.1:18081',origin:'http://127.0.0.1:18081'};
+ assert.equal((await app.inject({url:`/api/v1/l0/candidates/${x.c}`,headers})).statusCode,403);
+ assert.equal((await app.inject({url:`/api/v1/l0/candidates/${x.c}/targets`,headers})).statusCode,403);
+}finally{await app?.close();await x.close();}});
+test('副来源对象补证与Target输入使用其自身版本并在变化后拒绝',async()=>{const x=await prepared();try{
+ await x.targets.setObjects(x.c,'operator',x.body,1,'objects');
+ const c=(await x.db.query('SELECT execution_generation FROM information.event_candidates WHERE id=$1',[x.c])).rows[0];
+ const next=await x.targets.advance(x.c,Number(c.execution_generation));assert.ok(next.input);
+ const input=next.input!.context as {basis_catalog:{version:string}[];fact_context:{material_refs:{material_id:string;version:number}[]}};
+ assert.equal(input.basis_catalog[0]!.version,`${x.secondary}:2:${'b'.repeat(64)}`);
+ assert.ok(input.fact_context.material_refs.some(m=>m.material_id===x.secondary&&m.version===2));
+ await x.db.query('UPDATE infomation.ingestion_material SET version=3 WHERE id=$1',[x.secondary]);
+ await assert.rejects(()=>x.targets.advance(x.c,Number(c.execution_generation)),/MATERIAL_BASIS_CHANGED/);
+}finally{await x.close();}});

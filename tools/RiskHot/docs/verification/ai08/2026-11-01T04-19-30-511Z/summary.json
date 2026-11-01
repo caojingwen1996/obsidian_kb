@@ -1,0 +1,282 @@
+{
+  "total": 2,
+  "passed": 0,
+  "results": [
+    {
+      "id": "explicit-treasury",
+      "expected": "ready",
+      "passed": false,
+      "output": {
+        "schema_version": "riskhot.target-recognition.output.v1",
+        "fact_id": "5d71331a-7ce5-45cf-9dd6-2dd0a45ee02d",
+        "fact_digest": "d7b134c03ec081852a2b0fa909830f03ad17e24f9f7c0f32ce0210411c960dbb",
+        "candidates": [
+          {
+            "candidate_ref": "candidate:1",
+            "raw_name": "美国七年期国债91282CRV5",
+            "suggested_name": "美国七年期国债（CUSIP：91282CRV5）",
+            "identity_attributes": [
+              {
+                "name": "CUSIP",
+                "value": "91282CRV5",
+                "evidence_refs": [
+                  "evidence:5a3942e0cf83609a6e63e4ea09ddd09e32b627eb5685634404d2a2e4548cc67b"
+                ]
+              },
+              {
+                "name": "security_desc",
+                "value": "7-Year Note",
+                "evidence_refs": [
+                  "evidence:5a3942e0cf83609a6e63e4ea09ddd09e32b627eb5685634404d2a2e4548cc67b"
+                ]
+              },
+              {
+                "name": "issue_date",
+                "value": "2026-11-02",
+                "evidence_refs": [
+                  "evidence:5a3942e0cf83609a6e63e4ea09ddd09e32b627eb5685634404d2a2e4548cc67b"
+                ]
+              },
+              {
+                "name": "maturity_date",
+                "value": "2033-10-31",
+                "evidence_refs": [
+                  "evidence:5a3942e0cf83609a6e63e4ea09ddd09e32b627eb5685634404d2a2e4548cc67b"
+                ]
+              }
+            ],
+            "jurisdiction": "美国",
+            "scope_definition": "仅指CUSIP为91282CRV5的七年期国债，不扩展为全部美国国债或其他期限券种。",
+            "categories": [],
+            "observation_meaning": "2026-10-22公告发行安排，发行规模440亿美元，计划2026-10-29拍卖、2026-11-02发行；结果字段为空，不表示拍卖或发行已完成。",
+            "action_relation": "该证券是本Fact“公布发行安排”的直接对象。",
+            "clue_refs": [
+              "clue:7bbb6946d3b7e32448b84bb8681e5710ce1c45da1c95afbab4a6e27af21fef68",
+              "clue:2e6a5ee94ef704c24aa54e779669946ddcdf894f12ee4390e2269589433eafed",
+              "clue:e1bc67acdd3ead38628d91324d94b99376cda1bb77bd41f6ee0147a79b2128b3"
+            ],
+            "fact_fields": [
+              "action",
+              "object",
+              "description"
+            ],
+            "evidence_refs": [
+              "evidence:5a3942e0cf83609a6e63e4ea09ddd09e32b627eb5685634404d2a2e4548cc67b"
+            ],
+            "gaps": [
+              "输入仅给出分类版本，未提供分类表及允许的分类名称，故分类留空。"
+            ]
+          }
+        ],
+        "clue_results": [
+          {
+            "clue_ref": "clue:74556c69f7c8a81e0f9b0cdd23963771577da69771bac1844a4c1fe95a309c50",
+            "status": "excluded",
+            "candidate_refs": [],
+            "reason": "美国财政部在本Fact中为公告发布主体；本次行动直接作用于指定证券的发行安排，未提供将财政部本身作为观察对象的内容。",
+            "evidence_refs": []
+          },
+          {
+            "clue_ref": "clue:7bbb6946d3b7e32448b84bb8681e5710ce1c45da1c95afbab4a6e27af21fef68",
+            "status": "identified",
+            "candidate_refs": [
+              "candidate:1"
+            ],
+            "reason": "公告日期、未来拍卖及发行日期共同支持发行安排公告语义，作用对象为91282CRV5。",
+            "evidence_refs": [
+              "evidence:5a3942e0cf83609a6e63e4ea09ddd09e32b627eb5685634404d2a2e4548cc67b"
+            ]
+          },
+          {
+            "clue_ref": "clue:2e6a5ee94ef704c24aa54e779669946ddcdf894f12ee4390e2269589433eafed",
+            "status": "identified",
+            "candidate_refs": [
+              "candidate:1"
+            ],
+            "reason": "CUSIP及七年期期限与对应记录一致，可明确限定证券身份。",
+            "evidence_refs": [
+              "evidence:5a3942e0cf83609a6e63e4ea09ddd09e32b627eb5685634404d2a2e4548cc67b"
+            ]
+          },
+          {
+            "clue_ref": "clue:e1bc67acdd3ead38628d91324d94b99376cda1bb77bd41f6ee0147a79b2128b3",
+            "status": "identified",
+            "candidate_refs": [
+              "candidate:1"
+            ],
+            "reason": "描述限定于七年期91282CRV5发行安排，与该记录一致，未混入其他券种的公告或拍卖结果。",
+            "evidence_refs": [
+              "evidence:5a3942e0cf83609a6e63e4ea09ddd09e32b627eb5685634404d2a2e4548cc67b"
+            ]
+          }
+        ],
+        "unresolved": [
+          {
+            "ref": "unresolved:1",
+            "candidate_ref": "candidate:1",
+            "clue_ref": "clue:2e6a5ee94ef704c24aa54e779669946ddcdf894f12ee4390e2269589433eafed",
+            "reason": "分类表缺失，无法核定正式分类名称；证券身份已由CUSIP明确。",
+            "needed_evidence": "financial-target-categories-v1分类表及证券类别映射规则。",
+            "resume_step": 2,
+            "evidence_refs": [
+              "evidence:5a3942e0cf83609a6e63e4ea09ddd09e32b627eb5685634404d2a2e4548cc67b"
+            ]
+          }
+        ],
+        "coverage": {
+          "context_reviewed": true,
+          "complete": true,
+          "uncovered_refs": [],
+          "reason": "已检查全部四条线索及五条上下文记录。91282CRS2、91282CRT0、91282CRU7为其他证券的独立发行安排，91282CRR4为另一证券的拍卖结果，均不属于本Fact行动对象。本Fact未混合独立行动，无需事实纠正；分类缺口已单列。"
+        }
+      },
+      "status": "review"
+    },
+    {
+      "id": "empty-object-context",
+      "expected": "ready",
+      "passed": false,
+      "output": {
+        "schema_version": "riskhot.target-recognition.output.v1",
+        "fact_id": "5d71331a-7ce5-45cf-9dd6-2dd0a45ee02d",
+        "fact_digest": "39c1df1e3287539a6cd7f98506c8368ddf4c0e72ce7a3f470c17be004eeb1a41",
+        "candidates": [
+          {
+            "candidate_ref": "candidate:1",
+            "raw_name": "美国财政部",
+            "suggested_name": "美国财政部",
+            "identity_attributes": [],
+            "jurisdiction": "美国",
+            "scope_definition": "本Fact中公布七年期国债91282CRV5发行安排的机构。",
+            "categories": [],
+            "observation_meaning": "发行安排的公布主体；身份依据来自Fact，证据目录中的记录未直接列明机构名称。",
+            "action_relation": "执行公布发行安排的行动。",
+            "clue_refs": [
+              "clue:6a09d2b2ddfbdfeeaa046a6c6a6b403b48659e25d110c7b4e5c7705b4cedd83a",
+              "clue:aab012320d9ca895df34e60a087df0cff456541083c9846b4093743d48055734"
+            ],
+            "fact_fields": [
+              "subject",
+              "description"
+            ],
+            "evidence_refs": [
+              "evidence:5a3942e0cf83609a6e63e4ea09ddd09e32b627eb5685634404d2a2e4548cc67b"
+            ],
+            "gaps": [
+              "未提供分类表具体条目，分类留空。",
+              "证据目录未直接列明公布机构名称，机构身份需Step3补证。"
+            ]
+          },
+          {
+            "candidate_ref": "candidate:2",
+            "raw_name": "七年期国债91282CRV5",
+            "suggested_name": "美国七年期国债（CUSIP 91282CRV5）",
+            "identity_attributes": [
+              {
+                "name": "CUSIP",
+                "value": "91282CRV5",
+                "evidence_refs": [
+                  "evidence:5a3942e0cf83609a6e63e4ea09ddd09e32b627eb5685634404d2a2e4548cc67b"
+                ]
+              },
+              {
+                "name": "security_desc",
+                "value": "7-Year Note",
+                "evidence_refs": [
+                  "evidence:5a3942e0cf83609a6e63e4ea09ddd09e32b627eb5685634404d2a2e4548cc67b"
+                ]
+              },
+              {
+                "name": "maturity_date",
+                "value": "2033-10-31",
+                "evidence_refs": [
+                  "evidence:5a3942e0cf83609a6e63e4ea09ddd09e32b627eb5685634404d2a2e4548cc67b"
+                ]
+              }
+            ],
+            "jurisdiction": "美国",
+            "scope_definition": "仅限CUSIP为91282CRV5的七年期国债，不扩展至同稿其他债券或美国国债整体。",
+            "categories": [],
+            "observation_meaning": "2026-10-22公告发行安排，发行规模44000000000；计划2026-10-29拍卖、2026-11-02发行。按材料观察日，属于已公告安排，不能视为拍卖或发行已完成。",
+            "action_relation": "本次公布发行安排所直接涉及的证券。",
+            "clue_refs": [
+              "clue:03de21ccdff28691d03817def0c3db32268f01976874a726504db71984c1cc70",
+              "clue:aab012320d9ca895df34e60a087df0cff456541083c9846b4093743d48055734"
+            ],
+            "fact_fields": [
+              "action",
+              "description"
+            ],
+            "evidence_refs": [
+              "evidence:5a3942e0cf83609a6e63e4ea09ddd09e32b627eb5685634404d2a2e4548cc67b"
+            ],
+            "gaps": [
+              "未提供分类表具体条目，分类留空。"
+            ]
+          }
+        ],
+        "clue_results": [
+          {
+            "clue_ref": "clue:6a09d2b2ddfbdfeeaa046a6c6a6b403b48659e25d110c7b4e5c7705b4cedd83a",
+            "status": "identified",
+            "candidate_refs": [
+              "candidate:1"
+            ],
+            "reason": "Fact明确其为公布主体；证据目录未直接列明机构名称，补证事项交Step3。",
+            "evidence_refs": []
+          },
+          {
+            "clue_ref": "clue:03de21ccdff28691d03817def0c3db32268f01976874a726504db71984c1cc70",
+            "status": "identified",
+            "candidate_refs": [
+              "candidate:2"
+            ],
+            "reason": "行动短语本身不是实体；结合完整描述和对应公告记录，可确定行动直接涉及91282CRV5。",
+            "evidence_refs": [
+              "evidence:5a3942e0cf83609a6e63e4ea09ddd09e32b627eb5685634404d2a2e4548cc67b"
+            ]
+          },
+          {
+            "clue_ref": "clue:aab012320d9ca895df34e60a087df0cff456541083c9846b4093743d48055734",
+            "status": "identified",
+            "candidate_refs": [
+              "candidate:1",
+              "candidate:2"
+            ],
+            "reason": "描述明确公布主体及直接涉及的证券。Object为空不妨碍从描述识别对象；本Fact未混合其他债券的独立行动，无需纠正Fact。",
+            "evidence_refs": [
+              "evidence:5a3942e0cf83609a6e63e4ea09ddd09e32b627eb5685634404d2a2e4548cc67b"
+            ]
+          }
+        ],
+        "unresolved": [
+          {
+            "ref": "unresolved:1",
+            "candidate_ref": "candidate:1",
+            "clue_ref": "clue:6a09d2b2ddfbdfeeaa046a6c6a6b403b48659e25d110c7b4e5c7705b4cedd83a",
+            "reason": "机构名称由Fact提供，现有目录证据未直接确认该名称及机构身份。",
+            "needed_evidence": "直接列明美国财政部为该证券发行安排公布主体的官方证据。",
+            "resume_step": 3,
+            "evidence_refs": []
+          },
+          {
+            "ref": "unresolved:2",
+            "candidate_ref": null,
+            "clue_ref": null,
+            "reason": "仅提供分类版本号，未提供可核对的分类条目，两个候选的分类均留空。",
+            "needed_evidence": "financial-target-categories-v1的分类条目及适用定义。",
+            "resume_step": 2,
+            "evidence_refs": []
+          }
+        ],
+        "coverage": {
+          "context_reviewed": true,
+          "complete": true,
+          "uncovered_refs": [],
+          "reason": "已核对完整Fact、全部3条线索及5条上下文记录。Object虽为空，描述已明确91282CRV5。91282CRS2、91282CRT0、91282CRU7的发行安排和91282CRR4的拍卖结果属于其他证券的独立事件，不纳入本Fact候选。全部线索均已覆盖，身份补证及分类缺口另列unresolved。"
+        }
+      },
+      "status": "review"
+    }
+  ]
+}

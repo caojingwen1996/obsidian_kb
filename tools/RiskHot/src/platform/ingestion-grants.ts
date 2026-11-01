@@ -28,6 +28,7 @@ export async function grantIngestionRoles(db: Pool): Promise<void> {
   await db.query('GRANT UPDATE(extraction_result) ON infomation.ingestion_material TO riskhot_relay');
   await db.query('GRANT UPDATE(status,reason_code) ON information.event_candidates TO riskhot_relay');
   await db.query('GRANT EXECUTE ON FUNCTION platform.claim_model_call(uuid),platform.current_model_material(uuid) TO riskhot_model');
+  if((await db.query("SELECT to_regprocedure('platform.current_model_materials(uuid)') AS f")).rows[0].f)await db.query('GRANT EXECUTE ON FUNCTION platform.current_model_materials(uuid) TO riskhot_model');
   await db.query('GRANT SELECT,INSERT ON platform.artifact_objects TO riskhot_model');
   await db.query('GRANT SELECT ON platform.model_attempts TO riskhot_model');
   await db.query('GRANT SELECT,INSERT,UPDATE ON platform.model_service_state TO riskhot_model');

@@ -1,11 +1,15 @@
+import {mountEightStepTask} from './eight-step-view.js';
 import {renderEvent} from './event-view.js';
 import {createClient} from './api.js';
 import {escape as e,badge,dateTime,explain} from './model.js';
 const api=createClient(),content=document.querySelector('#event-content'),feedback=document.querySelector('#event-feedback');
 content.classList.add('current-view');
+const eightTaskMatch=location.pathname.match(/^\/events\/tasks\/([a-f0-9-]{36})$/);
+if(eightTaskMatch)mountEightStepTask({api,content,feedback,refresh:document.querySelector('#event-refresh'),id:eightTaskMatch[1]});
 let serial=0,offset=0,page=null;
 function message(error){feedback.hidden=false;feedback.textContent=error.status===401?'请先登录后查看事件。':`读取失败：${explain(error)}。请点击刷新状态重试。`;}
 async function render(){
+ if(eightTaskMatch)return;
  const run=++serial,id=location.hash.startsWith('#event/')?location.hash.slice(7):null;
  try{
   if(id){const [result,deliveries,session]=await Promise.all([api.get(`/api/v1/events/${encodeURIComponent(id)}`),api.get(`/api/v1/l0/events/${encodeURIComponent(id)}/deliveries`),api.get('/api/v1/session')]);if(run!==serial)return;content.innerHTML=renderEvent(result,deliveries.items,session.permissions,'#events');return;}

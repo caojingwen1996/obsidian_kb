@@ -1,3 +1,4 @@
+import {f02Storage} from '../../event-management/storage-layout.js';
 import type {ExecutionStore} from './execution.js';
 import {DomainError} from '../../platform/types.js';
 
@@ -32,10 +33,10 @@ export class TaskResults {
    ), visible_facts AS (
     SELECT f.id FROM information.fact f WHERE EXISTS(
      SELECT 1 FROM information.fact_evidence fe JOIN versions v ON v.id=fe.information_version_id WHERE fe.fact_id=f.id
-    ) AND NOT EXISTS(SELECT 1 FROM information.fact_information fi WHERE fi.fact_id=f.id AND NOT EXISTS(SELECT 1 FROM allowed_materials m WHERE m.id=fi.information_id))
+    ) AND NOT EXISTS(SELECT 1 FROM ${(await f02Storage(this.repo.db)).factMaterials} fi WHERE fi.fact_id=f.id AND NOT EXISTS(SELECT 1 FROM allowed_materials m WHERE m.id=fi.information_id))
    ), visible_events AS (
-    SELECT DISTINCT ef.event_id FROM information.event_fact ef JOIN visible_facts f ON f.id=ef.fact_id
-    WHERE NOT EXISTS(SELECT 1 FROM information.event_fact other JOIN information.fact_information fi ON fi.fact_id=other.fact_id
+    SELECT DISTINCT ef.event_id FROM ${(await f02Storage(this.repo.db)).eventFacts} ef JOIN visible_facts f ON f.id=ef.fact_id
+    WHERE NOT EXISTS(SELECT 1 FROM ${(await f02Storage(this.repo.db)).eventFacts} other JOIN ${(await f02Storage(this.repo.db)).factMaterials} fi ON fi.fact_id=other.fact_id
      WHERE other.event_id=ef.event_id AND NOT EXISTS(SELECT 1 FROM allowed_materials m WHERE m.id=fi.information_id))
    )
    SELECT now() AS updated_at,

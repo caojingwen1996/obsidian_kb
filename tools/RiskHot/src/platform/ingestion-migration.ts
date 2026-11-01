@@ -23,7 +23,7 @@ export async function ingestionPreflight(db: Pool) {
 /** 普通初始化绝不重置旧库；重建必须由停机、栅栏后的显式切换入口调用。 */
 export async function applyIngestionMigration(db: Pool): Promise<void> {
   const version = await ingestionSchemaVersion(db);
-  if (version === 5) { await applySourceFinancialAttributesMigration(db); await applyTargetIdentityMigration(db); return; }
+  if (version >= 5) { await applySourceFinancialAttributesMigration(db); await applyTargetIdentityMigration(db); return; }
   if (version !== 0) throw new DomainError('INGESTION_EXPLICIT_REBUILD_REQUIRED', 409);
   await rebuildIngestionSchema(db, { workflowFence: 'empty-database', requireEmpty: true });
 }
@@ -50,7 +50,7 @@ export async function rebuildIngestionSchema(db: Pool, options: IngestionRebuild
   await transaction(db, async tx => {
     await tx.query("SELECT pg_advisory_xact_lock(hashtextextended('riskhot-schema-5',0))");
     const version = await ingestionSchemaVersion(tx);
-    if (options.requireEmpty && version === 5) return;
+    if (options.requireEmpty && version >= 5) return;
     if (options.requireEmpty && version !== 0) throw new DomainError('INGESTION_EXPLICIT_REBUILD_REQUIRED', 409);
     const sessions = await tx.query(`SELECT 1 FROM pg_stat_activity WHERE datname=current_database() AND pid<>pg_backend_pid() AND usename=ANY($1)`, [['riskhot_api', 'riskhot_io', 'riskhot_relay', 'riskhot_model']]);
     if (sessions.rowCount) throw new DomainError('INGESTION_APPLICATION_SESSIONS_ACTIVE', 409);

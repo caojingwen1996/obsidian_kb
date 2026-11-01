@@ -3,7 +3,7 @@ import { grantIngestionRoles } from './ingestion-grants.js';
 import type { Pool } from 'pg';
 
 export async function grantRuntimeRoles(admin: Pool): Promise<void> {
- if (await ingestionSchemaVersion(admin) === 5) { await grantIngestionRoles(admin); return; }
+ if (await ingestionSchemaVersion(admin) >= 5) { await grantIngestionRoles(admin); return; }
 
   for (const role of ['riskhot_api', 'riskhot_io', 'riskhot_relay']) {
     await admin.query(`GRANT USAGE ON SCHEMA m1,platform,information TO ${role}`);
