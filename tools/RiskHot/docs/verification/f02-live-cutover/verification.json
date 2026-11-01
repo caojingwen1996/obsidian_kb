@@ -1,0 +1,87 @@
+{
+  "candidate_id": "eb9470f8-64c5-4f47-bbc0-e0292aaca545",
+  "core_saved": true,
+  "event_id": "fc613f1d-c901-4aec-91fb-2382ffd27325",
+  "receipt": {
+    "commit_key": "e1979f19-97fe-402b-8759-b096f15094a6",
+    "result_kind": "COMMITTED",
+    "effects": [
+      {
+        "fact_id": "add2e0c2-2308-4a01-aa8f-ca699e176729",
+        "event_id": "fc613f1d-c901-4aec-91fb-2382ffd27325",
+        "message_id": "39313495-2f8c-4c41-aa0d-ba80f674be70",
+        "rating_ids": [
+          "520fe0c6-1b27-4118-81e7-eaede04dbf01"
+        ],
+        "extraction_id": "5c2694c9-d646-4005-b56a-d753073c7257",
+        "context_digest": "d51444dd6c7873b76cffdfbadd77fce1173fc1b36f4b41f82150874ffa801bb4",
+        "observation_ids": []
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "node_key": "assess_meaning",
+      "state": "succeeded",
+      "reason": null
+    },
+    {
+      "node_key": "classify_usage",
+      "state": "skipped",
+      "reason": "USAGE_RULE_NOT_PUBLISHED"
+    },
+    {
+      "node_key": "commit_event",
+      "state": "succeeded",
+      "reason": null
+    },
+    {
+      "node_key": "establish_initial",
+      "state": "succeeded",
+      "reason": null
+    },
+    {
+      "node_key": "extract_variables",
+      "state": "succeeded",
+      "reason": null
+    },
+    {
+      "node_key": "map_event",
+      "state": "succeeded",
+      "reason": null
+    },
+    {
+      "node_key": "recognize_targets",
+      "state": "succeeded",
+      "reason": null
+    },
+    {
+      "node_key": "resolve_event",
+      "state": "succeeded",
+      "reason": null
+    },
+    {
+      "node_key": "resolve_target",
+      "state": "succeeded",
+      "reason": null
+    },
+    {
+      "node_key": "associate_events",
+      "state": "recoverable",
+      "reason": "ASSOCIATION_REFERENCE_INVALID"
+    }
+  ],
+  "association_saved": false,
+  "associations": [],
+  "deliveries": [
+    {
+      "message_id": "39313495-2f8c-4c41-aa0d-ba80f674be70",
+      "consumer_id": "event-audit",
+      "status": "received",
+      "files_state": "ready",
+      "applied": true
+    }
+  ],
+  "all_registered_consumers_applied": true,
+  "scope": "只核对当前保存、登记接收方和关联状态；不代表F03/F05风险分析完成。"
+}

@@ -6,5 +6,8 @@ export async function grantBusinessQueueRole(db:Pool,role:string,modelCalls=fals
  await db.query(`GRANT USAGE ON SCHEMA platform,pgboss TO ${escaped}`);
  await db.query(`GRANT SELECT,INSERT,UPDATE,DELETE ON ALL TABLES IN SCHEMA pgboss TO ${escaped}`);
  await db.query(`GRANT SELECT,INSERT,UPDATE ON platform.task_runs,platform.task_dispatches,platform.job_runs,platform.schedule_registrations TO ${escaped}`);
- if(modelCalls)await db.query(`GRANT EXECUTE ON FUNCTION platform.claim_business_model_call(uuid) TO ${escaped}`);
+ if(modelCalls){
+  await db.query(`GRANT EXECUTE ON FUNCTION platform.claim_business_model_call(uuid),platform.current_model_material(uuid) TO ${escaped}`);
+  if((await db.query("SELECT to_regprocedure('platform.current_model_materials(uuid)') AS f")).rows[0].f)await db.query(`GRANT EXECUTE ON FUNCTION platform.current_model_materials(uuid) TO ${escaped}`);
+ }
 }

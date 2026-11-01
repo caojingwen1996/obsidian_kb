@@ -62,7 +62,7 @@ export async function commitEightStep(repo:Repository,id:string,generation:numbe
   const materials=(await tx.query<CurrentMaterial>('SELECT m.* FROM infomation.ingestion_material m JOIN information.fact_material fm ON fm.material_id=m.id WHERE fm.fact_id=$1 ORDER BY m.id FOR SHARE OF m',[fact.id])).rows;
   validateEightStepIdentity(identity.context,identity.proposal,materials);
   for(const material of materials){
-   const source=(await tx.query('SELECT catalog_key,state FROM m1.sources WHERE id=$1 FOR SHARE',[material.source_id])).rows[0];
+   const source=(await tx.query('SELECT * FROM platform.lock_source($1)',[material.source_id])).rows[0];
    if(source?.state!=='ACTIVE')throw new DomainError('SOURCE_DISABLED',409);
    for(const subject of new Set([actor,c.actor]))await repo.authorize(subject,'event_submit',source.catalog_key,tx);
    await repo.authorize(approvals[0]!.actor,'event_review',source.catalog_key,tx);

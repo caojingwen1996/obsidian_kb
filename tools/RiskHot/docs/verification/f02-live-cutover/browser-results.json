@@ -1,0 +1,16 @@
+{
+  "recorded_at": "2026-11-01T06:01:42.066Z",
+  "origin": "http://localhost:18081",
+  "event_id": "fc613f1d-c901-4aec-91fb-2382ffd27325",
+  "checks": [
+    "真实任务页显示事件已保存",
+    "刷新后仍已保存且无审批按钮",
+    "真实Event详情可读",
+    "Fact证据显示150亿元和1.40%",
+    "详情刷新仍可读取",
+    "无脚本错误与失败接口"
+  ],
+  "errors": [],
+  "badResponses": [],
+  "browser": "独立Chrome for Testing，专用临时数据目录；已在finally关闭并清理"
+}

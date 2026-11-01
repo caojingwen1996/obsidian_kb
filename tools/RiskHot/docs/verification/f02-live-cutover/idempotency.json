@@ -1,0 +1,14 @@
+{
+  "recorded_at": "2026-11-01T06:00:10.439Z",
+  "status": 202,
+  "result": {
+    "status": "accepted",
+    "generation": 4,
+    "candidate_id": "eb9470f8-64c5-4f47-bbc0-e0292aaca545"
+  },
+  "counts": {
+    "events": "1",
+    "receipts": "1",
+    "event_facts": "1"
+  }
+}

@@ -12,7 +12,7 @@ import type {Repository} from '../information-ingestion/processing/repository.js
 import {IngestionRepository} from '../information-ingestion/processing/current-repository.js';
 import {modelConfig,type TaskInput} from '../information-ingestion/processing/model.js';
 import {digest,type IdentityProposal} from './contracts.js';
-import {permission,candidate as readCandidate,type EventOptions} from './store.js';
+import {permission,candidateSourcesPermission,candidate as readCandidate,type EventOptions} from './store.js';
 import {prepareIdentity,validateIdentity} from './identity.js';
 import {TargetIdentity,targetPackage} from './target-identity.js';
 import {prepareTargetRecognition,acceptTargetRecognition} from './target-recognition.js';
@@ -141,12 +141,16 @@ export class EightStepService {
  async review(id:string,actor:string,body:{node_key:string;proposal_digest:string;reason:string},key:string){
   if(!['recognize_targets','resolve_event','resolve_target','commit_event'].includes(body.node_key)||!body.reason?.trim())throw new DomainError('REVIEW_INVALID',422);
   await this.noDisposition(id);
-  const node=body.node_key as NodeKey,row=await this.result(id,node),c=await candidate(this.repo.db,id);
-  if(!row||row.state!=='review'||nodeReviewDigest(row)!==body.proposal_digest)throw new DomainError('STALE_PROPOSAL',409);
+  const node=body.node_key as NodeKey;
   if(node==='resolve_target'){
-   const target=new TargetIdentity(this.repo);for(const run of row.result.runs??[])if(run.state==='review')await target.approve(id,actor,run.id,run.review_digest,body.reason,digest({key,run:run.id}));
+   const row=await this.result(id,node);
+   if(row?.state==='review'&&nodeReviewDigest(row)===body.proposal_digest){
+    const target=new TargetIdentity(this.repo);for(const run of row.result.runs??[])if(run.state==='review')await target.approve(id,actor,run.id,run.review_digest,body.reason,digest({key,run:run.id}));
+   }
   }
-  return this.repo.action(actor,'eight-step-review',key,{id,body},tx=>permission(this.repo,tx,c.processing_id,actor,node==='commit_event'?'event_commit':'event_review',true),async tx=>{
+  return this.repo.action(actor,'eight-step-review',key,{id,body},async tx=>{await candidateSourcesPermission(this.repo,tx,id,actor,node==='commit_event'?'event_commit':'event_review',true);},async tx=>{
+   const row=await this.result(id,node);
+   if(!row||row.state!=='review'||nodeReviewDigest(row)!==body.proposal_digest)throw new DomainError('STALE_PROPOSAL',409);
    const fresh=await candidate(tx,id,true);const current=(await tx.query('SELECT * FROM information.candidate_step_results WHERE candidate_id=$1 AND generation=$2 AND node_key=$3 FOR UPDATE',[id,fresh.proposal_generation,node])).rows[0];if(nodeReviewDigest(current)!==body.proposal_digest)throw new DomainError('STALE_PROPOSAL',409);
    await tx.query("INSERT INTO platform.review_decisions(candidate_id,scope,proposal_digest,generation,actor,decision,reason,policy_version) VALUES($1,$2,$3,$4,$5,'APPROVE',$6,$7)",[id,node==='commit_event'?'commit':node==='resolve_event'?'identity':'relations',body.proposal_digest,fresh.proposal_generation,actor,body.reason,eightStepManifest]);
    const next=Number(fresh.execution_generation)+1;await tx.query("UPDATE information.event_candidates SET execution_generation=$2,status='processing' WHERE id=$1",[id,next]);if(node==='commit_event'){await enqueueBusinessJob(tx,{task_type:'events.commit',payload_version:1,run_id:randomUUID(),owner_module:'F02',owner_ref:{id},operation_key:`commit/${id}/${next}`,execution_generation:next,input_digest:digest({candidate_id:id,generation:next}),manifest_ref:eightStepManifest,correlation_id:randomUUID(),causation_id:null,trigger_kind:'approved',payload:{candidate_id:id,generation:next}});}else await dispatchCurrentExecution(tx,{kind:'candidate',owner_id:id,generation:next,workflow_id:`eight-step/${id}/${next}`,input:{candidate_id:id,generation:next},manifest_ref:eightStepManifest},'pg-boss');return {candidate_id:id,generation:next,status:'accepted'};

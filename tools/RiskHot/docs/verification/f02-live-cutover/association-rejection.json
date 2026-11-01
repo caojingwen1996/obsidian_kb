@@ -1,0 +1,33 @@
+{
+  "attempt_id": "ef6c6a71-5014-490a-b70d-d0332421fa06",
+  "response_artifact_id": "f9a08ced-9aab-4f7d-bac5-ffd76b07fdb1",
+  "expected_basis_digest": "2cc3638fd19d1cf423605507055c734d836d037f1646f82ec25da14087da2c00",
+  "received": {
+    "scope": "{\"market\":\"货币市场\",\"jurisdiction\":\"中国宏观\"}",
+    "window": {
+      "start": "2026-10-01",
+      "end": "2026-11-01"
+    },
+    "retrieval": {
+      "complete": true,
+      "truncated": false,
+      "digest": "e2293b6036577e74a5ae7d1e3f85481a9498dddb9fea7ccb153bb092dc75f729"
+    },
+    "members": [
+      {
+        "event_id": "fc613f1d-c901-4aec-91fb-2382ffd27325",
+        "fact_ids": [
+          "add2e0c2-2308-4a01-aa8f-ca699e176729"
+        ],
+        "basis_digest": "2cc3638fd19d1cf423605507055c734d037f1646f82ec25da14087da2c00"
+      }
+    ],
+    "groups": [],
+    "unresolved": [],
+    "coverage": {
+      "complete": true,
+      "reason": "已覆盖唯一输入事件fc613f1d-c901-4aec-91fb-2382ffd27325。其Fact add2e0c2-2308-4a01-aa8f-ca699e176729明确操作发生于2026-10-30，位于指定窗口内。未聚合状态为NO_MATCH：允许范围仅有一个独立Event，不满足至少两个独立Event的集合条件，无法判断事件间连续性。原文中的隔夜逆回购未作为输入Event提供，不另建身份或纳入集合。"
+    }
+  },
+  "reason": "ASSOCIATION_REFERENCE_INVALID；保留模型原响应，未替换摘要强行保存"
+}

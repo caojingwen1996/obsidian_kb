@@ -1,0 +1,16 @@
+{
+  "job_id": "2d3f226b-4e3b-4fc9-a3ca-1987c93579b4",
+  "state": "failed",
+  "error": {
+    "code": "42501",
+    "file": "aclchk.c",
+    "line": "2793",
+    "name": "error",
+    "stack": "error: permission denied for table sources\n    at /Users/cjw/dev/Obsidian/wiki/tools/RiskHot/node_modules/pg/lib/client.js:694:17\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async <anonymous> (/Users/cjw/dev/Obsidian/wiki/tools/RiskHot/src/event-management/eight-step-commit.ts:65:18)\n    at async transaction (/Users/cjw/dev/Obsidian/wiki/tools/RiskHot/src/platform/db.ts:14:53)\n    at async EightStepService.execute (/Users/cjw/dev/Obsidian/wiki/tools/RiskHot/src/event-management/eight-step-service.ts:122:19)\n    at async advanceEightStep (/Users/cjw/dev/Obsidian/wiki/tools/RiskHot/src/event-management/eight-step.ts:27:16)\n    at async process (/Users/cjw/dev/Obsidian/wiki/tools/RiskHot/src/runtime/f02-business-handlers.ts:25:17)\n    at async executeBusinessJob (/Users/cjw/dev/Obsidian/wiki/tools/RiskHot/src/runtime/business-worker.ts:36:16)\n    at async <anonymous> (/Users/cjw/dev/Obsidian/wiki/tools/RiskHot/src/runtime/business-worker.ts:136:7)\n    at async resolveWithinSeconds (/Users/cjw/dev/Obsidian/wiki/tools/RiskHot/node_modules/pg-boss/src/manager.js:27:14)",
+    "length": 95,
+    "message": "permission denied for table sources",
+    "routine": "aclcheck_error",
+    "severity": "ERROR"
+  },
+  "reason": "direct source FOR SHARE requires UPDATE; fixed by reusing platform.lock_source"
+}

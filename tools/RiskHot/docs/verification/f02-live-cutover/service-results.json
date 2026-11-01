@@ -1,0 +1,50 @@
+{
+  "recorded_at": "2026-11-01T06:01:41.973Z",
+  "engine": "pg-boss",
+  "schedule_enabled": "true",
+  "source_plans_preserved": true,
+  "count": 40,
+  "enabled": 0,
+  "registrations": [
+    {
+      "schedule_key": "ops.alerts",
+      "cron": "*/5 * * * *",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "schedule_key": "ops.recover",
+      "cron": "* * * * *",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "schedule_key": "sources.schedule",
+      "cron": "* * * * *",
+      "timezone": "Asia/Shanghai"
+    }
+  ],
+  "pgboss_schedules": [
+    {
+      "name": "ops.alerts"
+    },
+    {
+      "name": "ops.recover"
+    },
+    {
+      "name": "sources.schedule"
+    }
+  ],
+  "processes": {
+    "parent_pid": 66189,
+    "children": [
+      {
+        "pid": 66209,
+        "command": "/opt/homebrew/Cellar/node@22/22.22.1_1/bin/node --import tsx src/runtime/business-worker-entry.ts"
+      },
+      {
+        "pid": 66210,
+        "command": "/opt/homebrew/Cellar/node@22/22.22.1_1/bin/node --import tsx src/runtime/server.ts"
+      }
+    ]
+  },
+  "api_status": 200
+}

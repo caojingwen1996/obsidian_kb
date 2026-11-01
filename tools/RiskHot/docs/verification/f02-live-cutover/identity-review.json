@@ -1,0 +1,35 @@
+{
+  "candidate_id": "eb9470f8-64c5-4f47-bbc0-e0292aaca545",
+  "review_digest": "ce6ce0cf70e34ff93d6a5033403f6ce48b4f2ed85769f3faa99576f93801f962",
+  "result": {
+    "context": {
+      "events": [],
+      "catalog_epoch": 0,
+      "coverage_status": "complete",
+      "manifest_digest": "209e67dfea54958cae464e5e1f5f3d68fddb85f0ed65ade18b707ceca6e8d901",
+      "permission_epoch": 2,
+      "retrieval_truncated": false,
+      "retrieval_snapshot_id": "0978f406-28b7-41c9-9b15-b817fa6b4fc3"
+    },
+    "decision": "NEW",
+    "proposal": {
+      "reason": "候选明确指向中国人民银行于2026年10月30日开展的150亿元7天期逆回购操作，主体、日期、期限及金额有 evidence_refs[0] 支持。本次固定检索标记为完整、未截断，召回事件为空，建议新建事件身份。",
+      "decision": "NEW",
+      "comparisons": [],
+      "evidence_refs": [
+        {
+          "quote": "2026年10月30日中国人民银行以固定利率、数量招标方式开展了150亿元7天期逆回购操作，全额满足了一级交易商需求。",
+          "end_cp": 59,
+          "version": 1,
+          "start_cp": 0,
+          "segment_id": "de348091-70ef-53b3-8497-572c0cd4481d",
+          "material_id": "0508c16e-30f7-4812-ad0b-06e60da7412d",
+          "content_digest": "06e27fa1c2cfd1bb3fedec70613053e0da065d9a9f2025c8fc11b136726a21a0"
+        }
+      ],
+      "matched_event_id": null,
+      "unresolved_issues": []
+    }
+  },
+  "authorization": "本轮用户先写计划再完成真实事件入库的执行授权；Agent逐项核对原文及完整召回。"
+}

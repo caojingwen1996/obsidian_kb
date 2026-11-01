@@ -24,6 +24,6 @@ export function loadEightStepTask(taskId:string){
   'AI-04':{schema:associationSchema,prompt:()=>promptFile('04.event-association.md')+'\n按本次机器Schema的五维字段输出。保留所有Event和Fact身份，只引用输入成员与依据；无关联须完整覆盖，失败不能返回合法空。'}
  };
  const entry=registry[taskId];if(!entry)throw new DomainError('TASK_PACKAGE_NOT_BOUND',409);
- const data={task_id:taskId,version:'f02-eight-step-v1',publication_status:'draft',prompt:entry.prompt(),schema:entry.schema,policy:{max_attempts:3,budget_ms:600000,max_input_tokens:24000,input_encoding:'o200k_base',max_input_bytes:96000,max_output_tokens:8000}};
+ const data={...(taskId==='AI-08'?{prompt_revision:'ai08-domain-v2'}:{}),task_id:taskId,version:'f02-eight-step-v1',publication_status:'draft',prompt:entry.prompt(),schema:entry.schema,policy:{max_attempts:3,budget_ms:600000,max_input_tokens:24000,input_encoding:'o200k_base',max_input_bytes:96000,max_output_tokens:8000}};
  return {...data,digest:digest(data)};
 }

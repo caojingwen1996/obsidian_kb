@@ -8,6 +8,8 @@ import {Repository} from '../information-ingestion/processing/repository.js';
 import {ArtifactStore} from '../platform/artifacts.js';
 import {commitEightStep,commitNodes,eightStepCommitReviewDigest} from '../event-management/eight-step-commit.js';
 import {digest} from '../event-management/contracts.js';
+import {Pool} from 'pg';
+import {grantIngestionRoles} from '../platform/ingestion-grants.js';
 
 async function prepared(){
  const x=await fixture(true);await applyF02Migration(x.db);
@@ -45,6 +47,18 @@ test('NEW分别批准后原子保存事实、评级、消息、文件意图、�
  const repeated=await commitEightStep(x.repo,x.c,3,x.contextDigest,'operator');assert.equal(repeated.commit_key,r.commit_key);
  assert.equal((await x.db.query('SELECT count(*)::int n FROM information.event')).rows[0].n,2);
 }finally{await x.close();}});
+test('实际Worker角色经受控函数锁定信源后保存，不获得信源修改权限',async()=>{
+ const x=await prepared();let worker:Pool|undefined;
+ try{
+  await grantIngestionRoles(x.db);await x.approve('commit',x.commitDigest);
+  worker=new Pool({connectionString:x.db.options.connectionString,options:'-c role=riskhot_io'});
+  assert.equal((await worker.query("SELECT has_table_privilege(current_user,'m1.sources','UPDATE') AS allowed")).rows[0].allowed,false);
+  const repo=new Repository(worker,new ArtifactStore('/tmp/riskhot-f02-commit-unused'));
+  const receipt=await commitEightStep(repo,x.c,1,x.contextDigest,'operator');
+  assert.equal(receipt.result_kind,'COMMITTED');
+  assert.equal((await worker.query('SELECT event_id FROM information.fact WHERE id=$1',[x.f])).rows[0].event_id,receipt.effects[0].event_id);
+ }finally{await worker?.end();await x.close();}
+});
 test('批准后资料变化拒绝保存且不丢原事实',async()=>{const x=await prepared();try{
  await x.approve('commit',x.commitDigest);await x.db.query('UPDATE infomation.ingestion_material SET version=2 WHERE id=$1',[x.m]);
  await assert.rejects(()=>commitEightStep(x.repo,x.c,1,x.contextDigest,'operator'),/MATERIAL_BASIS_CHANGED/);

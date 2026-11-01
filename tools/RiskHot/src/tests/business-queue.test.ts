@@ -160,3 +160,8 @@ test('关闭信源周期时不调用信源扫描，恢复告警仍登记',async(
   await stop();
  }finally{await f.dispose();}
 });
+test('业务模型父进程可执行受控资料读取函数，API队列角色不获得该权限',async()=>{const f=await fixture(),role=`queue_material_${randomUUID().replaceAll('-','')}`;try{
+ await f.db.query(`CREATE ROLE ${role} NOLOGIN`);await f.db.query("CREATE FUNCTION platform.current_model_material(uuid) RETURNS jsonb LANGUAGE sql AS $$SELECT '{}'::jsonb$$; CREATE FUNCTION platform.current_model_materials(uuid) RETURNS jsonb LANGUAGE sql AS $$SELECT '{}'::jsonb$$; REVOKE ALL ON FUNCTION platform.current_model_material(uuid),platform.current_model_materials(uuid) FROM PUBLIC");
+ await grantBusinessQueueRole(f.db,role,true);
+ const privileges=(await f.db.query("SELECT has_function_privilege($1,'platform.current_model_material(uuid)','EXECUTE') AS one,has_function_privilege($1,'platform.current_model_materials(uuid)','EXECUTE') AS many",[role])).rows[0];assert.deepEqual(privileges,{one:true,many:true});
+ }finally{await f.db.query(`DROP OWNED BY ${role}`);await f.db.query(`DROP ROLE ${role}`);await f.dispose();}});

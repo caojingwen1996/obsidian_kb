@@ -1,0 +1,523 @@
+{
+  "schema_version": "riskhot.event-facts.v2",
+  "event": {
+    "id": "fc613f1d-c901-4aec-91fb-2382ffd27325",
+    "title": "中国人民银行开展150亿元7天期逆回购操作",
+    "description": "2026年10月30日，中国人民银行以固定利率、数量招标方式开展150亿元7天期逆回购操作，全额满足一级交易商需求。操作利率为1.40%，投标量和中标量均为150亿元。",
+    "subject": "中国人民银行",
+    "action": "开展逆回购操作",
+    "event_status": "completed",
+    "event_time": "2026-10-30",
+    "created_at": "2026-11-01T05:57:15.990Z",
+    "updated_at": "2026-11-01T05:57:15.990Z",
+    "object": "7天期逆回购"
+  },
+  "facts": [
+    {
+      "id": "add2e0c2-2308-4a01-aa8f-ca699e176729",
+      "title": "中国人民银行开展150亿元7天期逆回购操作",
+      "description": "2026年10月30日，中国人民银行以固定利率、数量招标方式开展150亿元7天期逆回购操作，全额满足一级交易商需求。操作利率为1.40%，投标量和中标量均为150亿元。",
+      "subject": "中国人民银行",
+      "action": "开展逆回购操作",
+      "event_status": "completed",
+      "event_time": "2026-10-30",
+      "created_at": "2026-11-01T05:42:44.913Z",
+      "updated_at": "2026-11-01T05:42:44.913Z",
+      "object": "7天期逆回购",
+      "event_id": "fc613f1d-c901-4aec-91fb-2382ffd27325",
+      "event_relation_role": "initial",
+      "event_relation_note": "新事件初始事实经分别复核",
+      "event_assigned_at": "2026-11-01T05:57:15.990Z",
+      "relation_role": "initial",
+      "relation_note": "新事件初始事实经分别复核"
+    }
+  ],
+  "sources": [
+    {
+      "fact_id": "add2e0c2-2308-4a01-aa8f-ca699e176729",
+      "material_id": "0508c16e-30f7-4812-ad0b-06e60da7412d",
+      "information_id": "0508c16e-30f7-4812-ad0b-06e60da7412d",
+      "relation_role": "supporting",
+      "created_at": "2026-11-01T05:42:44.913Z"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "15512438-00d0-4b6c-8a89-f240d2c30b81",
+      "fact_id": "add2e0c2-2308-4a01-aa8f-ca699e176729",
+      "information_id": "0508c16e-30f7-4812-ad0b-06e60da7412d",
+      "material_version": 1,
+      "material_digest": "06e27fa1c2cfd1bb3fedec70613053e0da065d9a9f2025c8fc11b136726a21a0",
+      "material_id": "0508c16e-30f7-4812-ad0b-06e60da7412d",
+      "segment_id": "de348091-70ef-53b3-8497-572c0cd4481d",
+      "start_cp": 0,
+      "end_cp": 59,
+      "quote": "2026年10月30日中国人民银行以固定利率、数量招标方式开展了150亿元7天期逆回购操作，全额满足了一级交易商需求。",
+      "evidence_role": "supporting",
+      "created_at": "2026-11-01T05:42:44.913Z"
+    },
+    {
+      "id": "1ed5f78b-aa15-40d1-8cc1-a2dd97100c7e",
+      "fact_id": "add2e0c2-2308-4a01-aa8f-ca699e176729",
+      "information_id": "0508c16e-30f7-4812-ad0b-06e60da7412d",
+      "material_version": 1,
+      "material_digest": "06e27fa1c2cfd1bb3fedec70613053e0da065d9a9f2025c8fc11b136726a21a0",
+      "material_id": "0508c16e-30f7-4812-ad0b-06e60da7412d",
+      "segment_id": "e27bcff6-6b4e-5e5d-8bca-d9aeaa534036",
+      "start_cp": 0,
+      "end_cp": 48,
+      "quote": "期限 | 操作利率 | 投标量 | 中标量\n7天 | 1.40% | 150亿元 | 150亿元",
+      "evidence_role": "supporting",
+      "created_at": "2026-11-01T05:42:44.913Z"
+    }
+  ],
+  "targets": [],
+  "variables": [],
+  "definitions": [],
+  "ratings": [
+    {
+      "id": "520fe0c6-1b27-4118-81e7-eaede04dbf01",
+      "assessment_scope": {
+        "market": "货币市场",
+        "jurisdiction": "中国宏观"
+      },
+      "research_horizon": {
+        "term": "短期"
+      },
+      "method_version": "text-draft-v1",
+      "m": null,
+      "dimension_scores": [
+        {
+          "score": null,
+          "reason": "本次操作直接关联短期资金操作的期限、价格、成交规模与申报需求满足情况：期限7天、操作利率1.40%、投标量和中标量均为150亿元，采用固定利率、数量招标方式。上述关联限于本次操作，不能据此推断市场利率变化或政策方向。",
+          "dimension_key": "底层变量关联",
+          "evidence_refs": [
+            "15512438-00d0-4b6c-8a89-f240d2c30b81",
+            "1ed5f78b-aa15-40d1-8cc1-a2dd97100c7e"
+          ]
+        },
+        {
+          "score": null,
+          "reason": "150亿元中标量及全额满足一级交易商需求，说明本次操作的成交规模与申报需求覆盖情况。缺少同期到期量、市场资金需求总量及历史比较，无法判断净投放规模或对货币市场影响的强弱。",
+          "dimension_key": "影响程度",
+          "evidence_refs": [
+            "15512438-00d0-4b6c-8a89-f240d2c30b81",
+            "1ed5f78b-aa15-40d1-8cc1-a2dd97100c7e"
+          ]
+        },
+        {
+          "score": null,
+          "reason": "证据明确本次操作期限为7天，为短期评价提供期限依据；操作期限并不等同于市场影响持续时间，现有证据无法确认影响是否持续覆盖该期限或延续至其后。",
+          "dimension_key": "持续时间",
+          "evidence_refs": [
+            "1ed5f78b-aa15-40d1-8cc1-a2dd97100c7e"
+          ]
+        },
+        {
+          "score": null,
+          "reason": "在中国宏观、货币市场范围内，证据直接覆盖本次7天期逆回购及一级交易商该次申报需求。未提供参与机构分布或资金后续传导情况，不能将需求全额满足扩展为全市场流动性充足。",
+          "dimension_key": "影响范围",
+          "evidence_refs": [
+            "15512438-00d0-4b6c-8a89-f240d2c30b81"
+          ]
+        },
+        {
+          "score": null,
+          "reason": "公告明确2026年10月30日已开展操作，表格列示150亿元中标量，支持操作已执行并形成成交结果。现有证据未提供资金后续流向、市场利率反应或其他传导结果，实际市场效果尚无法确认。",
+          "dimension_key": "作用落地",
+          "evidence_refs": [
+            "15512438-00d0-4b6c-8a89-f240d2c30b81",
+            "1ed5f78b-aa15-40d1-8cc1-a2dd97100c7e"
+          ]
+        }
+      ],
+      "financial_usages": [],
+      "reasoning_summary": "依据指定事实及两项证据，对本次150亿元7天期逆回购进行中国宏观、货币市场范围内的短期五维文字评价。操作参数与执行结果明确，市场影响程度、传导范围及持续效果的证据有限。",
+      "limitations": [
+        "text-draft-v1未批准量化方法，五维score均为null。",
+        "仅评价指定事实及其两项证据，不纳入材料中的隔夜逆回购操作。",
+        "缺少到期量、历史比较、市场利率及资金传导数据，不能推断净投放、政策方向或全市场流动性状态。",
+        "候选变量尚未完成正式定义及对象关联核定；本评价不改变其状态。"
+      ],
+      "rating_status": "draft",
+      "evaluated_at": "2026-11-01T05:57:15.990Z"
+    }
+  ],
+  "variable_extractions": [
+    {
+      "id": "5c2694c9-d646-4005-b56a-d753073c7257",
+      "candidate_id": "eb9470f8-64c5-4f47-bbc0-e0292aaca545",
+      "generation": "1",
+      "event_id": "fc613f1d-c901-4aec-91fb-2382ffd27325",
+      "input_digest": "d51444dd6c7873b76cffdfbadd77fce1173fc1b36f4b41f82150874ffa801bb4",
+      "manifest_ref": "f02-eight-step-v1",
+      "operation_key": "eb9470f8-64c5-4f47-bbc0-e0292aaca545/1/variables",
+      "payload": {
+        "items": [
+          {
+            "name": "逆回购操作期限",
+            "reason": "候选数值型定义：逆回购操作约定期限，以天计，观察资金操作的期限结构。输入正式定义集合为空，须交M2治理。取值对应本次7天期逆回购；未提供对象临时引用或核定Target，待Step 3补齐。业务日期由原文明示。仅处理当前Fact及其两项证据，隔夜操作不属于本次事实范围；无历史比较及变化项。Event尚未保存，正式关联须待核定。",
+            "values": [
+              {
+                "unit": "天",
+                "basis": [
+                  {
+                    "fact_id": "add2e0c2-2308-4a01-aa8f-ca699e176729",
+                    "version": 1,
+                    "input_ref": "de348091-70ef-53b3-8497-572c0cd4481d",
+                    "material_id": "0508c16e-30f7-4812-ad0b-06e60da7412d",
+                    "content_digest": "06e27fa1c2cfd1bb3fedec70613053e0da065d9a9f2025c8fc11b136726a21a0",
+                    "fact_evidence_id": "15512438-00d0-4b6c-8a89-f240d2c30b81"
+                  },
+                  {
+                    "fact_id": "add2e0c2-2308-4a01-aa8f-ca699e176729",
+                    "version": 1,
+                    "input_ref": "e27bcff6-6b4e-5e5d-8bca-d9aeaa534036",
+                    "material_id": "0508c16e-30f7-4812-ad0b-06e60da7412d",
+                    "content_digest": "06e27fa1c2cfd1bb3fedec70613053e0da065d9a9f2025c8fc11b136726a21a0",
+                    "fact_evidence_id": "1ed5f78b-aa15-40d1-8cc1-a2dd97100c7e"
+                  }
+                ],
+                "value": 7,
+                "value_time": {
+                  "end": null,
+                  "kind": "point",
+                  "start": "2026-10-30",
+                  "raw_text": "2026年10月30日",
+                  "precision": "day"
+                },
+                "value_nature": "actual",
+                "derivation_basis": null,
+                "acquisition_method": "extracted"
+              }
+            ],
+            "local_ref": "v1",
+            "change_refs": [],
+            "target_refs": [],
+            "variable_id": null,
+            "match_status": "pending_governance",
+            "relation_status": "pending_target",
+            "source_contexts": [
+              {
+                "text": "开展了150亿元7天期逆回购操作",
+                "source": "action",
+                "fact_id": "add2e0c2-2308-4a01-aa8f-ca699e176729",
+                "evidence_refs": [
+                  "15512438-00d0-4b6c-8a89-f240d2c30b81"
+                ]
+              },
+              {
+                "text": "期限：7天",
+                "source": "semantic",
+                "fact_id": "add2e0c2-2308-4a01-aa8f-ca699e176729",
+                "evidence_refs": [
+                  "1ed5f78b-aa15-40d1-8cc1-a2dd97100c7e"
+                ]
+              }
+            ],
+            "discovery_sources": [
+              "action",
+              "semantic"
+            ],
+            "definition_snapshot_id": null
+          },
+          {
+            "name": "逆回购操作利率",
+            "reason": "候选数值型定义：逆回购操作公布的操作利率，按百分数记录，观察操作资金价格；原文未明示年化口径，不自行补充。正式定义集合为空，待M2核定。1.40%仅对应本次7天期操作，不扩展至隔夜操作。对象引用及Target缺失，待Step 3补齐；Event未保存，正式关联待核定。操作日期由同Fact首段明确，无变化项可对应。",
+            "values": [
+              {
+                "unit": "%",
+                "basis": [
+                  {
+                    "fact_id": "add2e0c2-2308-4a01-aa8f-ca699e176729",
+                    "version": 1,
+                    "input_ref": "e27bcff6-6b4e-5e5d-8bca-d9aeaa534036",
+                    "material_id": "0508c16e-30f7-4812-ad0b-06e60da7412d",
+                    "content_digest": "06e27fa1c2cfd1bb3fedec70613053e0da065d9a9f2025c8fc11b136726a21a0",
+                    "fact_evidence_id": "1ed5f78b-aa15-40d1-8cc1-a2dd97100c7e"
+                  },
+                  {
+                    "fact_id": "add2e0c2-2308-4a01-aa8f-ca699e176729",
+                    "version": 1,
+                    "input_ref": "de348091-70ef-53b3-8497-572c0cd4481d",
+                    "material_id": "0508c16e-30f7-4812-ad0b-06e60da7412d",
+                    "content_digest": "06e27fa1c2cfd1bb3fedec70613053e0da065d9a9f2025c8fc11b136726a21a0",
+                    "fact_evidence_id": "15512438-00d0-4b6c-8a89-f240d2c30b81"
+                  }
+                ],
+                "value": 1.4,
+                "value_time": {
+                  "end": null,
+                  "kind": "point",
+                  "start": "2026-10-30",
+                  "raw_text": "2026年10月30日",
+                  "precision": "day"
+                },
+                "value_nature": "actual",
+                "derivation_basis": null,
+                "acquisition_method": "extracted"
+              }
+            ],
+            "local_ref": "v2",
+            "change_refs": [],
+            "target_refs": [],
+            "variable_id": null,
+            "match_status": "pending_governance",
+            "relation_status": "pending_target",
+            "source_contexts": [
+              {
+                "text": "7天 | 1.40% | 150亿元 | 150亿元",
+                "source": "semantic",
+                "fact_id": "add2e0c2-2308-4a01-aa8f-ca699e176729",
+                "evidence_refs": [
+                  "1ed5f78b-aa15-40d1-8cc1-a2dd97100c7e"
+                ]
+              }
+            ],
+            "discovery_sources": [
+              "semantic"
+            ],
+            "definition_snapshot_id": null
+          },
+          {
+            "name": "逆回购操作投标量",
+            "reason": "候选数值型定义：单次指定期限逆回购操作的投标总金额，观察该操作的申报资金需求，以原文亿元记录；币种未单独明示。投标量与中标量含义不同，分别保留。正式定义集合为空，待M2治理。值对应本次7天期操作的汇总投标量，不分配给单个交易商或央行自身资金需求。缺对象引用、Target及正式Event，待补齐；无变化项。",
+            "values": [
+              {
+                "unit": "亿元",
+                "basis": [
+                  {
+                    "fact_id": "add2e0c2-2308-4a01-aa8f-ca699e176729",
+                    "version": 1,
+                    "input_ref": "e27bcff6-6b4e-5e5d-8bca-d9aeaa534036",
+                    "material_id": "0508c16e-30f7-4812-ad0b-06e60da7412d",
+                    "content_digest": "06e27fa1c2cfd1bb3fedec70613053e0da065d9a9f2025c8fc11b136726a21a0",
+                    "fact_evidence_id": "1ed5f78b-aa15-40d1-8cc1-a2dd97100c7e"
+                  },
+                  {
+                    "fact_id": "add2e0c2-2308-4a01-aa8f-ca699e176729",
+                    "version": 1,
+                    "input_ref": "de348091-70ef-53b3-8497-572c0cd4481d",
+                    "material_id": "0508c16e-30f7-4812-ad0b-06e60da7412d",
+                    "content_digest": "06e27fa1c2cfd1bb3fedec70613053e0da065d9a9f2025c8fc11b136726a21a0",
+                    "fact_evidence_id": "15512438-00d0-4b6c-8a89-f240d2c30b81"
+                  }
+                ],
+                "value": 150,
+                "value_time": {
+                  "end": null,
+                  "kind": "point",
+                  "start": "2026-10-30",
+                  "raw_text": "2026年10月30日",
+                  "precision": "day"
+                },
+                "value_nature": "actual",
+                "derivation_basis": null,
+                "acquisition_method": "extracted"
+              }
+            ],
+            "local_ref": "v3",
+            "change_refs": [],
+            "target_refs": [],
+            "variable_id": null,
+            "match_status": "pending_governance",
+            "relation_status": "pending_target",
+            "source_contexts": [
+              {
+                "text": "投标量：150亿元",
+                "source": "semantic",
+                "fact_id": "add2e0c2-2308-4a01-aa8f-ca699e176729",
+                "evidence_refs": [
+                  "1ed5f78b-aa15-40d1-8cc1-a2dd97100c7e"
+                ]
+              }
+            ],
+            "discovery_sources": [
+              "semantic"
+            ],
+            "definition_snapshot_id": null
+          },
+          {
+            "name": "逆回购操作中标量",
+            "reason": "候选数值型定义：单次指定期限逆回购操作的中标总金额，观察操作成交规模，以原文亿元记录，币种待口径核验。本次首段操作规模与表格中标量相互印证，不另造重复规模观测，也不解释为净投放。正式定义集合为空，待M2治理；值对应本次7天期操作，缺对象引用、Target及正式Event，正式关联待补齐。无历史比较，不生成增减方向。",
+            "values": [
+              {
+                "unit": "亿元",
+                "basis": [
+                  {
+                    "fact_id": "add2e0c2-2308-4a01-aa8f-ca699e176729",
+                    "version": 1,
+                    "input_ref": "e27bcff6-6b4e-5e5d-8bca-d9aeaa534036",
+                    "material_id": "0508c16e-30f7-4812-ad0b-06e60da7412d",
+                    "content_digest": "06e27fa1c2cfd1bb3fedec70613053e0da065d9a9f2025c8fc11b136726a21a0",
+                    "fact_evidence_id": "1ed5f78b-aa15-40d1-8cc1-a2dd97100c7e"
+                  },
+                  {
+                    "fact_id": "add2e0c2-2308-4a01-aa8f-ca699e176729",
+                    "version": 1,
+                    "input_ref": "de348091-70ef-53b3-8497-572c0cd4481d",
+                    "material_id": "0508c16e-30f7-4812-ad0b-06e60da7412d",
+                    "content_digest": "06e27fa1c2cfd1bb3fedec70613053e0da065d9a9f2025c8fc11b136726a21a0",
+                    "fact_evidence_id": "15512438-00d0-4b6c-8a89-f240d2c30b81"
+                  }
+                ],
+                "value": 150,
+                "value_time": {
+                  "end": null,
+                  "kind": "point",
+                  "start": "2026-10-30",
+                  "raw_text": "2026年10月30日",
+                  "precision": "day"
+                },
+                "value_nature": "actual",
+                "derivation_basis": null,
+                "acquisition_method": "extracted"
+              }
+            ],
+            "local_ref": "v4",
+            "change_refs": [],
+            "target_refs": [],
+            "variable_id": null,
+            "match_status": "pending_governance",
+            "relation_status": "pending_target",
+            "source_contexts": [
+              {
+                "text": "开展了150亿元7天期逆回购操作",
+                "source": "action",
+                "fact_id": "add2e0c2-2308-4a01-aa8f-ca699e176729",
+                "evidence_refs": [
+                  "15512438-00d0-4b6c-8a89-f240d2c30b81"
+                ]
+              },
+              {
+                "text": "中标量：150亿元",
+                "source": "semantic",
+                "fact_id": "add2e0c2-2308-4a01-aa8f-ca699e176729",
+                "evidence_refs": [
+                  "1ed5f78b-aa15-40d1-8cc1-a2dd97100c7e"
+                ]
+              }
+            ],
+            "discovery_sources": [
+              "action",
+              "semantic"
+            ],
+            "definition_snapshot_id": null
+          },
+          {
+            "name": "逆回购操作招标方式",
+            "reason": "候选类别型定义：逆回购操作采用的定价与数量招标机制，观察操作价格及数量的形成方式；保留原文类别表达，不自建共享状态枚举。正式定义集合为空，待M2核定。值仅对应本次7天期操作，不据此推断后续政策或隔夜操作方式。对象引用、Target及正式Event缺失，关联待补齐；无变化项。",
+            "values": [
+              {
+                "unit": null,
+                "basis": [
+                  {
+                    "fact_id": "add2e0c2-2308-4a01-aa8f-ca699e176729",
+                    "version": 1,
+                    "input_ref": "de348091-70ef-53b3-8497-572c0cd4481d",
+                    "material_id": "0508c16e-30f7-4812-ad0b-06e60da7412d",
+                    "content_digest": "06e27fa1c2cfd1bb3fedec70613053e0da065d9a9f2025c8fc11b136726a21a0",
+                    "fact_evidence_id": "15512438-00d0-4b6c-8a89-f240d2c30b81"
+                  }
+                ],
+                "value": "固定利率、数量招标",
+                "value_time": {
+                  "end": null,
+                  "kind": "point",
+                  "start": "2026-10-30",
+                  "raw_text": "2026年10月30日",
+                  "precision": "day"
+                },
+                "value_nature": "actual",
+                "derivation_basis": null,
+                "acquisition_method": "extracted"
+              }
+            ],
+            "local_ref": "v5",
+            "change_refs": [],
+            "target_refs": [],
+            "variable_id": null,
+            "match_status": "pending_governance",
+            "relation_status": "pending_target",
+            "source_contexts": [
+              {
+                "text": "以固定利率、数量招标方式",
+                "source": "action",
+                "fact_id": "add2e0c2-2308-4a01-aa8f-ca699e176729",
+                "evidence_refs": [
+                  "15512438-00d0-4b6c-8a89-f240d2c30b81"
+                ]
+              }
+            ],
+            "discovery_sources": [
+              "action"
+            ],
+            "definition_snapshot_id": null
+          },
+          {
+            "name": "逆回购操作需求满足状态",
+            "reason": "候选状态型定义：单次逆回购操作对参与交易商该次申报需求的满足状态，观察该次操作的需求覆盖情况。直接保留原文状态，不计算满足率，不扩展为全市场流动性充足或各交易商整体需求均满足。正式定义集合为空，状态规则待M2核定。对象范围限本次7天期操作及其参与者汇总需求；缺对象引用、Target及正式Event，待补齐。当前事实主体、行为、客体及相关语义已检查；署名、发布日期不另形成风险变量，未推导政策方向或风险结论。",
+            "values": [
+              {
+                "unit": null,
+                "basis": [
+                  {
+                    "fact_id": "add2e0c2-2308-4a01-aa8f-ca699e176729",
+                    "version": 1,
+                    "input_ref": "de348091-70ef-53b3-8497-572c0cd4481d",
+                    "material_id": "0508c16e-30f7-4812-ad0b-06e60da7412d",
+                    "content_digest": "06e27fa1c2cfd1bb3fedec70613053e0da065d9a9f2025c8fc11b136726a21a0",
+                    "fact_evidence_id": "15512438-00d0-4b6c-8a89-f240d2c30b81"
+                  }
+                ],
+                "value": "全额满足一级交易商需求",
+                "value_time": {
+                  "end": null,
+                  "kind": "point",
+                  "start": "2026-10-30",
+                  "raw_text": "2026年10月30日",
+                  "precision": "day"
+                },
+                "value_nature": "actual",
+                "derivation_basis": null,
+                "acquisition_method": "extracted"
+              }
+            ],
+            "local_ref": "v6",
+            "change_refs": [],
+            "target_refs": [],
+            "variable_id": null,
+            "match_status": "pending_governance",
+            "relation_status": "pending_target",
+            "source_contexts": [
+              {
+                "text": "全额满足了一级交易商需求",
+                "source": "semantic",
+                "fact_id": "add2e0c2-2308-4a01-aa8f-ca699e176729",
+                "evidence_refs": [
+                  "15512438-00d0-4b6c-8a89-f240d2c30b81"
+                ]
+              }
+            ],
+            "discovery_sources": [
+              "semantic"
+            ],
+            "definition_snapshot_id": null
+          }
+        ],
+        "schema_version": "riskhot.variable-extraction.v1"
+      },
+      "created_at": "2026-11-01T05:57:15.990Z"
+    }
+  ],
+  "observations": [],
+  "target_facts": [],
+  "variable_facts": [],
+  "rating_facts": [
+    {
+      "event_id": "fc613f1d-c901-4aec-91fb-2382ffd27325",
+      "rating_id": "520fe0c6-1b27-4118-81e7-eaede04dbf01",
+      "fact_id": "add2e0c2-2308-4a01-aa8f-ca699e176729"
+    }
+  ]
+}

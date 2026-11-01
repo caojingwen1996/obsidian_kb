@@ -1,0 +1,23 @@
+{
+  "full": {
+    "tests": 367,
+    "pass": 367,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "targeted": {
+    "tests": 33,
+    "pass": 33,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "typecheck": "passed",
+  "pipeline_check": "passed",
+  "markdown_tables": {
+    "files": 5,
+    "status": "passed"
+  },
+  "diff_check": "passed"
+}

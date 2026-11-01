@@ -262,4 +262,4 @@ M1信息采集默认执行概览每个独立计划的信源一行；手动开启
 
 ## 2026-11-01 · F02实际部署与真实事件验收
 
-- 已先编制[[tools/RiskHot/docs/superpowers/plans/2026-11-01-F02实际部署与真实事件验收|部署与验收计划]]，当前开始保全、备份及切换；结果完成后登记。
+- [[tools/RiskHot/docs/superpowers/plans/2026-11-01-F02实际部署与真实事件验收|部署与验收计划]]已执行：本机迁移、pg-boss切换和一条真实央行Event入库通过；[[tools/RiskHot/docs/verification/f02-live-cutover|验收报告]]保存原文、回执、页面证据及AI-04独立关联未完成等限制。
