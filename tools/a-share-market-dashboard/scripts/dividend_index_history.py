@@ -73,7 +73,8 @@ def index_history_metadata(path, history=None, update=None):
             except (OSError, ValueError, AttributeError):
                 update = None
         last = max(rows, default="")
-        return {"source": history.get("source") or "来源待确认", "sourceUrl": history.get("sourceUrl", ""),
+        return {"source": (history.get("source") or "来源待确认") + ("；区间外保留既有历史" if history.get("retainedHistorySource") else ""), "sourceUrl": history.get("sourceUrl", ""),
+                "updatedRange": history.get("updatedRange"), "retainedHistorySource": history.get("retainedHistorySource"),
                 "cutoffDate": f"{last[:4]}-{last[4:6]}-{last[6:8]}" if last else "",
                 "fetchedAt": history.get("fetchedAt", ""),
                 "status": (update or {}).get("status", "saved"),
@@ -96,10 +97,11 @@ def refresh_index_history(path, required_dates, fetcher, logger):
         url = BASE_URL + "?" + urlencode({"indexCode": "000922", "startDate": start, "endDate": end})
         logger("DIVIDEND_HISTORY_UPDATE", start=start, end=end)
         try:
-            fetched = validated_rows(fetcher(url, "csindex-dividend-history"), strict=True)
+            response = fetcher(url, "csindex-dividend-history")
+            fetched = validated_rows(response, strict=True)
             fetched = {day: row for day, row in fetched.items() if start <= day <= end}
             if not fetched:
-                raise ValueError("官网未返回所需区间的指数日线")
+                raise ValueError("接口未返回所需区间的指数日线")
             merged = {**previous, **fetched}
             missing = [end] if end not in merged else []
             if missing:
@@ -116,7 +118,9 @@ def refresh_index_history(path, required_dates, fetcher, logger):
                 raise ValueError("指数日线自动更新失败，仍缺日期 " + "、".join(missing[:5]) + "；请检查网络或稍后重试（原日线已保留）") from error
             return original, update
         stamp = datetime.now(timezone.utc).isoformat()
-        updated = {**original, "source": SOURCE, "sourceUrl": url, "fetchedAt": stamp,
+        updated = {**original, "source": response.get("source", SOURCE), "sourceUrl": response.get("sourceUrl", url), "fetchedAt": stamp,
+                   "updatedRange": {"start": start, "end": end},
+                   "retainedHistorySource": original.get("source") if set(previous) - set(fetched) else None,
                    "data": [merged[day] for day in sorted(merged)]}
         path.parent.mkdir(parents=True, exist_ok=True)
         if path.exists() and updated["data"] != original.get("data"):

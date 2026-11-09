@@ -1,0 +1,354 @@
+{
+  "date": "2026-11-06",
+  "shared_directory": "/Users/cjw/dev/Obsidian/wiki/tools/tushare-data",
+  "transport": "Python in-process; no MCP required for Tushare",
+  "migrated_count": 13,
+  "existing_python_count": 7,
+  "rows": {
+    "temperature": {
+      "migration": "保留原源（覆盖或口径待核）"
+    },
+    "nasdaq": {
+      "migration": "保留原源（覆盖或口径待核）"
+    },
+    "nasdaq-history": {
+      "migration": "保留原源（覆盖或口径待核）"
+    },
+    "nasdaq-pe": {
+      "migration": "保留原源（覆盖或口径待核）"
+    },
+    "turnover-total": {
+      "migration": "已使用共享Python（本轮保留）",
+      "action": "沿用既有tushare-data Python调用；本轮无需重新实现。范围、权限与日期边界以各接口返回为准。"
+    },
+    "nasdaq-etf": {
+      "migration": "日线已替换；盘中缺口待讨论",
+      "source": "Tushare-data Python fund_daily + fund_adj / 159941.SZ",
+      "tushare": "已封装并接入：get_fund_daily(adjustment=qfq)；参数与字段见共享API文档",
+      "status": "实际取数验证通过；详见实施状态",
+      "note": "已收盘日线最高价计算前高、回撤与网格；不含当日盘中行情。2749条，2015-07-13至2026-11-05。",
+      "action": "已实施；保留原计算规则与失败缓存标识。剩余口径/覆盖缺口继续讨论。"
+    },
+    "margin-total": {
+      "migration": "已使用共享Python（本轮保留）",
+      "action": "沿用既有tushare-data Python调用；本轮无需重新实现。范围、权限与日期边界以各接口返回为准。",
+      "note": "总览及风险观察沿用原共享Python函数；资金面改用新的沪深完整配对历史接口。各自实际日期和市场范围以返回为准。"
+    },
+    "us10y": {
+      "migration": "已使用共享Python（本轮保留）",
+      "action": "沿用既有tushare-data Python调用；本轮无需重新实现。范围、权限与日期边界以各接口返回为准。"
+    },
+    "dollar": {
+      "migration": "保留原源（覆盖或口径待核）"
+    },
+    "usdjpy": {
+      "migration": "已使用共享Python（本轮保留）",
+      "action": "沿用既有tushare-data Python调用；本轮无需重新实现。范围、权限与日期边界以各接口返回为准。"
+    },
+    "risk-level": {
+      "migration": "本地资料／计算（无需替换接口）"
+    },
+    "dividend-yield": {
+      "migration": "保留原源（覆盖或口径待核）"
+    },
+    "dividend-bond": {
+      "migration": "保留原源（覆盖或口径待核）"
+    },
+    "dividend-score": {
+      "migration": "本地资料／计算（无需替换接口）"
+    },
+    "dividend-price": {
+      "migration": "日线已替换；盘中仍用原源",
+      "source": "Tushare-data Python index_daily / 000922.CSI；腾讯盘中报价保留",
+      "tushare": "已封装并接入：get_index_daily；参数与字段见共享API文档",
+      "status": "实际取数验证通过；详见实施状态",
+      "note": "5213条，2005-05-26至2026-11-05；回测刷新区间内采用Tushare，区间外旧历史保留来源记录。",
+      "action": "已实施；保留原计算规则与失败缓存标识。剩余口径/覆盖缺口继续讨论。"
+    },
+    "dividend-boll": {
+      "migration": "已替换（日线输入）",
+      "source": "Tushare-data Python index_daily / 000922.CSI＋本地计算",
+      "tushare": "已封装并接入：get_index_daily；参数与字段见共享API文档",
+      "status": "实际取数验证通过；详见实施状态",
+      "note": "近400自然日日线聚合周线，20周布林；盘中报价不加入布林。",
+      "action": "已实施；保留原计算规则与失败缓存标识。"
+    },
+    "etf-dividend-price": {
+      "migration": "已替换（日线输入）",
+      "source": "Tushare-data Python fund_daily + fund_adj / 515450.SH",
+      "tushare": "已封装并接入：get_fund_daily(adjustment=qfq/none)；参数与字段见共享API文档",
+      "status": "实际取数验证通过；详见实施状态",
+      "note": "前复权收益、布林及原始收盘价格；1624条，2020-02-26至2026-11-05。",
+      "action": "已实施；保留原计算规则与失败缓存标识。"
+    },
+    "etf-dividend-yield": {
+      "migration": "价格已替换；分红记录保留原源",
+      "source": "Tushare-data Python fund_daily未复权收盘价＋东方财富现金分红",
+      "tushare": "已封装并接入：get_fund_daily(adjustment=none)；参数与字段见共享API文档",
+      "status": "实际取数验证通过；详见实施状态",
+      "note": "近365天已除息现金分红合计÷同日未复权收盘价；基金分红覆盖仍待讨论。",
+      "action": "已实施；保留原计算规则与失败缓存标识。剩余口径/覆盖缺口继续讨论。"
+    },
+    "dividend-task": {
+      "migration": "本地资料／计算（无需替换接口）"
+    },
+    "daily-digest": {
+      "migration": "本地资料／计算（无需替换接口）"
+    },
+    "calendar": {
+      "migration": "本地资料／计算（无需替换接口）"
+    },
+    "topics": {
+      "migration": "本地资料／计算（无需替换接口）"
+    },
+    "positions": {
+      "migration": "已替换（历史模块日线）",
+      "source": "Tushare-data Python index_daily / 000001.SH、000300.SH、000985.CSI",
+      "tushare": "已封装并接入：get_index_daily；参数与字段见共享API文档",
+      "status": "实际取数验证通过；详见实施状态",
+      "note": "每个指数已验证3000条；本地代理模式使用Tushare，直接file打开不属于此服务模式。",
+      "action": "已实施；保留原计算规则与失败缓存标识。"
+    },
+    "valuation": {
+      "migration": "保留原源（覆盖或口径待核）",
+      "tushare": "已封装get_index_valuation；与中证官网估值算法未证明一致，本轮不切换"
+    },
+    "forward": {
+      "migration": "保留原源（覆盖或口径待核）"
+    },
+    "emotion": {
+      "migration": "保留原源（覆盖或口径待核）"
+    },
+    "liquidity-curve": {
+      "migration": "已替换",
+      "source": "Tushare-data Python us_tycr / y10、y2",
+      "tushare": "已封装并接入：get_us_treasury_curve；参数与字段见共享API文档",
+      "status": "实际取数验证通过；详见实施状态",
+      "note": "同一交易日10Y−2Y；单位百分点；548条美债收益率观测。",
+      "action": "已实施；保留原计算规则与失败缓存标识。"
+    },
+    "liquidity-yield": {
+      "migration": "已替换",
+      "source": "Tushare-data Python us_tycr / y10",
+      "tushare": "已封装并接入：get_us_treasury_curve；参数与字段见共享API文档",
+      "status": "实际取数验证通过；详见实施状态",
+      "note": "10年收益率，单位%；按原20个观测日变化规则计算。",
+      "action": "已实施；保留原计算规则与失败缓存标识。"
+    },
+    "liquidity-vix": {
+      "migration": "保留原源（覆盖或口径待核）"
+    },
+    "liquidity-rrp": {
+      "migration": "保留原源（覆盖或口径待核）"
+    },
+    "liquidity-walcl": {
+      "migration": "保留原源（覆盖或口径待核）"
+    },
+    "liquidity-usd": {
+      "migration": "保留原源（覆盖或口径待核）"
+    },
+    "liquidity-dxy": {
+      "migration": "保留原源（覆盖或口径待核）"
+    },
+    "liquidity-spx": {
+      "migration": "已替换",
+      "source": "Tushare-data Python index_global / SPX",
+      "tushare": "已封装并接入：get_global_index_daily；参数与字段见共享API文档",
+      "status": "实际取数验证通过；详见实施状态",
+      "note": "551条，满足MA200；SPX不是纳斯达克100。",
+      "action": "已实施；保留原计算规则与失败缓存标识。"
+    },
+    "liquidity-margin": {
+      "migration": "已替换",
+      "source": "Tushare-data Python margin / SSE + SZSE",
+      "tushare": "已封装并接入：get_market_margin_history；参数与字段见共享API文档",
+      "status": "实际取数验证通过；详见实施状态",
+      "note": "完整配对529日，融资余额元转亿元；不含融券、北交所；缺任一市场不汇总。",
+      "action": "已实施；保留原计算规则与失败缓存标识。"
+    },
+    "liquidity-flow": {
+      "migration": "保留原源（覆盖或口径待核）"
+    },
+    "liquidity-shibor": {
+      "migration": "已替换",
+      "source": "Tushare-data Python shibor / on",
+      "tushare": "已封装并接入：get_shibor；参数与字段见共享API文档",
+      "status": "实际取数验证通过；详见实施状态",
+      "note": "隔夜Shibor，单位%；543条。首次800日历史实测约50秒，后续使用共享缓存。",
+      "action": "已实施；保留原计算规则与失败缓存标识。"
+    },
+    "liquidity-south": {
+      "migration": "保留原源（覆盖或口径待核）"
+    },
+    "liquidity-csi300": {
+      "migration": "已替换",
+      "source": "Tushare-data Python index_daily / 000300.SH",
+      "tushare": "已封装并接入：get_index_daily；参数与字段见共享API文档",
+      "status": "实际取数验证通过；详见实施状态",
+      "note": "529条，满足MA250；使用已收盘日线。",
+      "action": "已实施；保留原计算规则与失败缓存标识。"
+    },
+    "liquidity-cn_margin_net": {
+      "migration": "已替换",
+      "source": "Tushare-data Python margin / SSE + SZSE",
+      "tushare": "已封装并接入：get_market_margin_history；参数与字段见共享API文档",
+      "status": "实际取数验证通过；详见实施状态",
+      "note": "同日完整沪深融资买入减偿还，元转亿元；缺失不作零。",
+      "action": "已实施；保留原计算规则与失败缓存标识。"
+    },
+    "liquidity-cn_margin_ratio": {
+      "migration": "保留原源（覆盖或口径待核）"
+    },
+    "liquidity-cn_super_flow": {
+      "migration": "保留原源（覆盖或口径待核）"
+    },
+    "liquidity-cn_small_flow": {
+      "migration": "保留原源（覆盖或口径待核）"
+    },
+    "liquidity-cn_etf_flow": {
+      "migration": "已使用Wind MCP（本轮保留）"
+    },
+    "liquidity-cn_breadth_ratio": {
+      "migration": "保留原源（覆盖或口径待核）"
+    },
+    "pending-macro-0": {
+      "migration": "待接入设计（未启用）"
+    },
+    "pending-macro-1": {
+      "migration": "待接入设计（未启用）"
+    },
+    "pending-macro-2": {
+      "migration": "待接入设计（未启用）"
+    },
+    "pending-macro-3": {
+      "migration": "待接入设计（未启用）"
+    },
+    "pending-commodity-0": {
+      "migration": "待接入设计（未启用）"
+    },
+    "pending-commodity-1": {
+      "migration": "待接入设计（未启用）"
+    },
+    "pending-commodity-2": {
+      "migration": "待接入设计（未启用）"
+    },
+    "pending-commodity-3": {
+      "migration": "待接入设计（未启用）"
+    },
+    "pending-money-0": {
+      "migration": "待接入设计（未启用）"
+    },
+    "pending-money-1": {
+      "migration": "待接入设计（未启用）"
+    },
+    "pending-money-2": {
+      "migration": "待接入设计（未启用）"
+    },
+    "pending-money-3": {
+      "migration": "待接入设计（未启用）"
+    },
+    "pending-fiscal-0": {
+      "migration": "待接入设计（未启用）"
+    },
+    "pending-fiscal-1": {
+      "migration": "待接入设计（未启用）"
+    },
+    "pending-fiscal-2": {
+      "migration": "待接入设计（未启用）"
+    },
+    "pending-fiscal-3": {
+      "migration": "待接入设计（未启用）"
+    },
+    "pending-credit-0": {
+      "migration": "待接入设计（未启用）"
+    },
+    "pending-credit-1": {
+      "migration": "待接入设计（未启用）"
+    },
+    "pending-credit-2": {
+      "migration": "待接入设计（未启用）"
+    },
+    "pending-credit-3": {
+      "migration": "待接入设计（未启用）"
+    },
+    "pending-capital-0": {
+      "migration": "待接入设计（未启用）"
+    },
+    "pending-capital-1": {
+      "migration": "待接入设计（未启用）"
+    },
+    "pending-capital-2": {
+      "migration": "待接入设计（未启用）",
+      "tushare": "已封装get_fx_daily(USDJPY.FXCM)；日线可读，风险设计页未启用"
+    },
+    "pending-capital-3": {
+      "migration": "待接入设计（未启用）"
+    },
+    "pending-structure-0": {
+      "migration": "待接入设计（未启用）"
+    },
+    "pending-structure-1": {
+      "migration": "待接入设计（未启用）"
+    },
+    "pending-structure-2": {
+      "migration": "待接入设计（未启用）",
+      "tushare": "已封装get_market_margin_history；资金面已接入，风险设计页未启用"
+    },
+    "pending-structure-3": {
+      "migration": "待接入设计（未启用）"
+    },
+    "pending-event-0": {
+      "migration": "待接入设计（未启用）"
+    },
+    "pending-event-1": {
+      "migration": "待接入设计（未启用）"
+    },
+    "pending-event-2": {
+      "migration": "待接入设计（未启用）"
+    },
+    "pending-event-3": {
+      "migration": "待接入设计（未启用）"
+    },
+    "stock-lookup": {
+      "migration": "已使用共享Python（本轮保留）",
+      "action": "沿用既有tushare-data Python调用；本轮无需重新实现。范围、权限与日期边界以各接口返回为准。"
+    },
+    "stock-quote": {
+      "migration": "保留原源（覆盖或口径待核）"
+    },
+    "stock-close-performance": {
+      "migration": "已使用共享Python（本轮保留）",
+      "action": "沿用既有tushare-data Python调用；本轮无需重新实现。范围、权限与日期边界以各接口返回为准。"
+    },
+    "stock-dividend-yield": {
+      "migration": "已使用共享Python（本轮保留）",
+      "action": "沿用既有tushare-data Python调用；本轮无需重新实现。范围、权限与日期边界以各接口返回为准。"
+    },
+    "fugui-candidate": {
+      "migration": "保留原源（覆盖或口径待核）"
+    },
+    "fugui-ownership": {
+      "migration": "保留原源（覆盖或口径待核）"
+    },
+    "portfolio-records": {
+      "migration": "本地资料／计算（无需替换接口）"
+    },
+    "research-records": {
+      "migration": "本地资料／计算（无需替换接口）"
+    }
+  },
+  "verification_file": "tushare-migration-verification-2026-11-06.json",
+  "checks": {
+    "focused_python": "65 passed",
+    "focused_frontend": "74 passed",
+    "proxy_and_transport": "67 passed; 1 failed: missing unrelated daily-monitor HTML fixture",
+    "full_frontend": "278 passed; 8 failed in unrelated report/sidebar/build expectations",
+    "build": "passed"
+  },
+  "limitations": [
+    "159941 is completed daily history, no intraday high",
+    "No automatic replacement of valuation/dividend definitions",
+    "Cold Shibor history took 50.27s; cached calls are faster",
+    "Initial audit and original discussion decisions retained"
+  ]
+}

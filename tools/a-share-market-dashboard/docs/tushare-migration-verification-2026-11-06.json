@@ -1,0 +1,128 @@
+[
+  {
+    "id": "0.159941",
+    "status": "ok",
+    "count": 2749,
+    "start": "2015-07-13",
+    "end": "2026-11-05",
+    "source": "Tushare fund_daily via tushare-data",
+    "elapsedSeconds": 2.24
+  },
+  {
+    "id": "1.000001",
+    "status": "ok",
+    "count": 3000,
+    "start": "2014-07-03",
+    "end": "2026-11-05",
+    "source": "Tushare index_daily via tushare-data",
+    "elapsedSeconds": 1.29
+  },
+  {
+    "id": "1.000300",
+    "status": "ok",
+    "count": 3000,
+    "start": "2014-07-03",
+    "end": "2026-11-05",
+    "source": "Tushare index_daily via tushare-data",
+    "elapsedSeconds": 1.35
+  },
+  {
+    "id": "1.000985",
+    "status": "ok",
+    "count": 3000,
+    "start": "2014-07-03",
+    "end": "2026-11-05",
+    "source": "Tushare index_daily via tushare-data",
+    "elapsedSeconds": 1.33
+  },
+  {
+    "id": "000922.CSI",
+    "status": "ok",
+    "count": 5213,
+    "start": "2005-05-26",
+    "end": "2026-11-05",
+    "source": "Tushare index_daily via tushare-data",
+    "elapsedSeconds": 1.97
+  },
+  {
+    "id": "515450.SH.qfq",
+    "status": "ok",
+    "count": 1624,
+    "start": "2020-02-26",
+    "end": "2026-11-05",
+    "source": "Tushare fund_daily + fund_adj via tushare-data",
+    "elapsedSeconds": 1.23
+  },
+  {
+    "id": "515450.SH.none",
+    "status": "ok",
+    "count": 1624,
+    "start": "2020-02-26",
+    "end": "2026-11-05",
+    "source": "Tushare fund_daily + fund_adj via tushare-data",
+    "elapsedSeconds": 0.03
+  },
+  {
+    "id": "us_DGS10",
+    "status": "ok",
+    "count": 548,
+    "start": "2024-08-27",
+    "end": "2026-11-05",
+    "source": "Tushare us_tycr via tushare-data",
+    "elapsedSeconds": 0.42
+  },
+  {
+    "id": "us_DGS2",
+    "status": "ok",
+    "count": 548,
+    "start": "2024-08-27",
+    "end": "2026-11-05",
+    "source": "Tushare us_tycr via tushare-data",
+    "elapsedSeconds": 0.0
+  },
+  {
+    "id": "us_SP500",
+    "status": "ok",
+    "count": 551,
+    "start": "2024-08-27",
+    "end": "2026-11-05",
+    "source": "Tushare index_global via tushare-data",
+    "elapsedSeconds": 0.2
+  },
+  {
+    "id": "cn_margin",
+    "status": "ok",
+    "count": 529,
+    "start": "2024-08-27",
+    "end": "2026-11-05",
+    "source": "Tushare margin via tushare-data",
+    "elapsedSeconds": 0.28
+  },
+  {
+    "id": "cn_margin_net",
+    "status": "ok",
+    "count": 529,
+    "start": "2024-08-27",
+    "end": "2026-11-05",
+    "source": "Tushare margin via tushare-data",
+    "elapsedSeconds": 0.0
+  },
+  {
+    "id": "cn_shibor",
+    "status": "ok",
+    "count": 543,
+    "start": "2024-08-27",
+    "end": "2026-11-05",
+    "source": "Tushare shibor via tushare-data",
+    "elapsedSeconds": 50.27
+  },
+  {
+    "id": "cn_CSI300",
+    "status": "ok",
+    "count": 529,
+    "start": "2024-08-27",
+    "end": "2026-11-05",
+    "source": "Tushare index_daily via tushare-data",
+    "elapsedSeconds": 0.45
+  }
+]

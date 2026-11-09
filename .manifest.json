@@ -1,9 +1,9 @@
 {
   "version": 1,
   "stats": {
-    "total_sources_ingested": 296,
-    "total_pages": 317,
-    "source_count": 350
+    "total_sources_ingested": 313,
+    "total_pages": 320,
+    "source_count": 367
   },
   "sources": {
     "sources/articles/2025-10-02-冰冰小美：长期主义与变通.md": {
@@ -3659,9 +3659,9 @@
       ]
     },
     "sources/articles/2025-10-19-冰冰小美：波动风险.md": {
-      "ingested_at": "2026-07-02T10:50:00+08:00",
+      "ingested_at": "2026-11-03T20:07:35+08:00",
       "size_bytes": 11261,
-      "modified_at": "2026-07-02T10:50:00+08:00",
+      "modified_at": "2026-10-20T18:37:46+08:00",
       "content_hash": "sha256:a9a24fb7cf1d03d2dd4a77677a16f0ae44a8df574f339c485dcca335f9628712",
       "source_type": "article",
       "project": null,
@@ -3672,13 +3672,16 @@
         "published_at": "2025-10-19 08:43:00",
         "original_url": "https://xueqiu.com/7143769715/357271352"
       },
-      "pages_created": [],
+      "pages_created": [
+        "wiki_bbxm/concepts/冰冰小美-concept-流动性风险.md"
+      ],
       "pages_updated": [
         "wiki/concepts/冰冰小美-concept-风险类型整理.md",
         "wiki/topics/冰冰小美-谈风险.md",
         "hot.md",
         "log.md",
-        ".manifest.json"
+        ".manifest.json",
+        "wiki_bbxm/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md"
       ]
     },
     "sources/manual/2026-07-02-用户输入-冰冰小美-风险定义-风险.md": {
@@ -6825,16 +6828,22 @@
       }
     },
     "sources/automations/老木匠每日汇总/2026-10-11 老木匠直播：资金虹吸、自我降维与人对企业的作用.md": {
-      "ingested_at": "2026-10-30T17:11:12.670658+08:00",
+      "ingested_at": "2026-11-03T21:05:48+08:00",
       "size_bytes": 12566,
-      "modified_at": "2026-10-17T15:08:05.594445+08:00",
+      "modified_at": "2026-10-17T15:08:05+08:00",
       "content_hash": "sha256:ff7365a4e5bd4d803acdc69125c82117466a2b4f85df46847c2d5e67902ad30d",
       "source_type": "document",
       "project": "wiki_laomujiang",
       "pages_created": [
-        "wiki_laomujiang/topics/政策解读.md"
+        "wiki_laomujiang/topics/政策解读.md",
+        "wiki_laomujiang/concepts/风险变量-美债收益率.md"
       ],
-      "pages_updated": [],
+      "pages_updated": [
+        "wiki_laomujiang/index.md",
+        "wiki_laomujiang/topics/风险判断.md",
+        "hot.md",
+        "log.md"
+      ],
       "topic_ingests": {
         "wiki_laomujiang/topics/政策解读.md": {
           "scope": "政策解读相关段落；非全文全部知识点入库",
@@ -6861,18 +6870,24 @@
       }
     },
     "sources/automations/老木匠每日汇总/2026-10-29 老木匠直播：风险释放、沃什黑箱化与人民币升值.md": {
-      "ingested_at": "2026-10-30T17:34:10.387468+08:00",
+      "ingested_at": "2026-11-03T21:22:38+08:00",
       "size_bytes": 21878,
-      "modified_at": "2026-10-30T16:18:51.451652+08:00",
+      "modified_at": "2026-10-30T16:18:51+08:00",
       "content_hash": "sha256:33c61c76d73fa77dc5c78405db5603f8cb1540e13a27f03d6874b44ac7734607",
       "source_type": "document",
       "project": "wiki_laomujiang",
       "pages_created": [
         "wiki_laomujiang/topics/政策解读.md",
-        "wiki_laomujiang/topics/投资模式.md"
+        "wiki_laomujiang/topics/投资模式.md",
+        "wiki_laomujiang/topics/交易技术.md"
       ],
       "pages_updated": [
-        "wiki_laomujiang/topics/政策解读.md"
+        "wiki_laomujiang/topics/政策解读.md",
+        "wiki_laomujiang/index.md",
+        "wiki_laomujiang/topics/投资模式.md",
+        "wiki_laomujiang/topics/散户投资建议.md",
+        "hot.md",
+        "log.md"
       ],
       "topic_ingests": {
         "wiki_laomujiang/topics/政策解读.md": {
@@ -6886,15 +6901,22 @@
       }
     },
     "sources/automations/老木匠每日汇总/2026-08-08 老木匠直播：美元、基金热潮与低估的找法_404303462_d9003c55.md": {
-      "ingested_at": "2026-10-30T17:17:04.312647+08:00",
+      "ingested_at": "2026-11-03T21:22:38+08:00",
       "size_bytes": 24884,
-      "modified_at": "2026-10-30T16:18:51.453786+08:00",
+      "modified_at": "2026-10-30T16:18:51+08:00",
       "content_hash": "sha256:d51c3539caef3b52327d70e31b778b096e06cb341b514c591d0ca78bd37db8d7",
       "source_type": "document",
       "project": "wiki_laomujiang",
-      "pages_created": [],
+      "pages_created": [
+        "wiki_laomujiang/topics/交易技术.md"
+      ],
       "pages_updated": [
-        "wiki_laomujiang/topics/政策解读.md"
+        "wiki_laomujiang/topics/政策解读.md",
+        "wiki_laomujiang/index.md",
+        "wiki_laomujiang/topics/投资模式.md",
+        "wiki_laomujiang/topics/散户投资建议.md",
+        "hot.md",
+        "log.md"
       ],
       "topic_ingests": {
         "wiki_laomujiang/topics/政策解读.md": {
@@ -6922,16 +6944,23 @@
       }
     },
     "sources/automations/老木匠每日汇总/老木匠的策略.md": {
-      "ingested_at": "2026-10-30T17:34:10.387468+08:00",
+      "ingested_at": "2026-11-03T21:22:38+08:00",
       "size_bytes": 3401,
-      "modified_at": "2026-08-22T13:31:58.104296+08:00",
+      "modified_at": "2026-08-22T13:31:58+08:00",
       "content_hash": "sha256:1c8f67b2e4878515adeaac3a2310959e42ce73d2a99fb2b49a5b578ebebc7d48",
       "source_type": "document",
       "project": "wiki_laomujiang",
       "pages_created": [
-        "wiki_laomujiang/topics/投资模式.md"
+        "wiki_laomujiang/topics/投资模式.md",
+        "wiki_laomujiang/topics/交易技术.md"
       ],
-      "pages_updated": [],
+      "pages_updated": [
+        "wiki_laomujiang/index.md",
+        "wiki_laomujiang/topics/投资模式.md",
+        "wiki_laomujiang/topics/散户投资建议.md",
+        "hot.md",
+        "log.md"
+      ],
       "topic_ingests": {
         "wiki_laomujiang/topics/投资模式.md": {
           "scope": "仅整理投资模式相关段落与阅读入口，非全文全部知识点入库",
@@ -6994,16 +7023,23 @@
       }
     },
     "sources/automations/老木匠每日汇总/2026-08-05 老木匠直播：一轮行情的完整流程.md": {
-      "ingested_at": "2026-10-30T17:34:10.387468+08:00",
+      "ingested_at": "2026-11-03T21:22:38+08:00",
       "size_bytes": 17345,
-      "modified_at": "2026-10-17T15:08:05.606071+08:00",
+      "modified_at": "2026-10-17T15:08:05+08:00",
       "content_hash": "sha256:81a92755d25d9f37b1fd8bd9295089fc73732c9f3c6f174ff6f75d633a2057a9",
       "source_type": "document",
       "project": "wiki_laomujiang",
       "pages_created": [
-        "wiki_laomujiang/topics/投资模式.md"
+        "wiki_laomujiang/topics/投资模式.md",
+        "wiki_laomujiang/topics/交易技术.md"
       ],
-      "pages_updated": [],
+      "pages_updated": [
+        "wiki_laomujiang/index.md",
+        "wiki_laomujiang/topics/投资模式.md",
+        "wiki_laomujiang/topics/散户投资建议.md",
+        "hot.md",
+        "log.md"
+      ],
       "topic_ingests": {
         "wiki_laomujiang/topics/投资模式.md": {
           "scope": "仅整理投资模式相关段落与阅读入口，非全文全部知识点入库",
@@ -7066,22 +7102,299 @@
       }
     },
     "sources/automations/老木匠每日汇总/2026-10-16 老木匠直播：金属价格的货币本质、银行股逻辑与做T的边界.md": {
-      "ingested_at": "2026-10-30T17:34:10.387468+08:00",
+      "ingested_at": "2026-11-03T21:22:38+08:00",
       "size_bytes": 18073,
-      "modified_at": "2026-10-17T15:08:05.594224+08:00",
+      "modified_at": "2026-10-17T15:08:05+08:00",
       "content_hash": "sha256:a67fb13b9f63752e416945a8213e4f7e8c5c7c825fb65b73cc36fdc41a9fea1f",
       "source_type": "document",
       "project": "wiki_laomujiang",
       "pages_created": [
-        "wiki_laomujiang/topics/投资模式.md"
+        "wiki_laomujiang/topics/投资模式.md",
+        "wiki_laomujiang/concepts/风险变量-美债收益率.md",
+        "wiki_laomujiang/topics/交易技术.md"
       ],
-      "pages_updated": [],
+      "pages_updated": [
+        "wiki_laomujiang/index.md",
+        "wiki_laomujiang/topics/风险判断.md",
+        "hot.md",
+        "log.md",
+        "wiki_laomujiang/topics/投资模式.md",
+        "wiki_laomujiang/topics/散户投资建议.md"
+      ],
       "topic_ingests": {
         "wiki_laomujiang/topics/投资模式.md": {
           "scope": "仅整理投资模式相关段落与阅读入口，非全文全部知识点入库",
           "ingested_at": "2026-10-30T17:34:10.387468+08:00"
         }
       }
+    },
+    "sources/articles/2023-04-13-冰冰小美：流动性的简单概述.md": {
+      "ingested_at": "2026-11-03T20:07:35+08:00",
+      "size_bytes": 5950,
+      "modified_at": "2026-09-23T20:09:55+08:00",
+      "content_hash": "sha256:acc60cab25237bd6494600687c71293435524fc876a20871dddf83eb94e74e7a",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "wiki_bbxm/concepts/冰冰小美-concept-流动性风险.md"
+      ],
+      "pages_updated": [
+        "wiki_bbxm/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md"
+      ]
+    },
+    "sources/articles/2023-06-15-冰冰小美：流动性辩证分析.md": {
+      "ingested_at": "2026-11-03T20:07:35+08:00",
+      "size_bytes": 1982,
+      "modified_at": "2026-06-07T12:08:24+08:00",
+      "content_hash": "sha256:81a1419be7e3de02b381125ab680b87c732194a143f80528a6e960b2f6011afc",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "wiki_bbxm/concepts/冰冰小美-concept-流动性风险.md"
+      ],
+      "pages_updated": [
+        "wiki_bbxm/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md"
+      ]
+    },
+    "sources/articles/2025-01-25-冰冰小美：行情不等于风险.md": {
+      "ingested_at": "2026-11-03T20:07:35+08:00",
+      "size_bytes": 8588,
+      "modified_at": "2026-10-20T18:37:46+08:00",
+      "content_hash": "sha256:357564d212be4be18641a78d9228afb92d96b541cc90715c0c44af7d9f834f76",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "wiki_bbxm/concepts/冰冰小美-concept-流动性风险.md"
+      ],
+      "pages_updated": [
+        "wiki_bbxm/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md"
+      ]
+    },
+    "sources/articles/2025-09-20-冰冰小美：风险变化如何观察.md": {
+      "ingested_at": "2026-11-03T20:07:35+08:00",
+      "size_bytes": 5580,
+      "modified_at": "2026-10-05T15:59:24+08:00",
+      "content_hash": "sha256:5c4429a7a583444c9b51d1f8d3688f6172e39e072bd586654103056e42b1589c",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "wiki_bbxm/concepts/冰冰小美-concept-流动性风险.md"
+      ],
+      "pages_updated": [
+        "wiki_bbxm/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md"
+      ]
+    },
+    "sources/articles/2026-03-23-冰冰小美：风险对冲.md": {
+      "ingested_at": "2026-11-03T20:07:35+08:00",
+      "size_bytes": 5769,
+      "modified_at": "2026-10-20T18:37:46+08:00",
+      "content_hash": "sha256:5ac7d38557c66d082475d23b3615525e9ba7c0af093ec9ca964f187f69928b6e",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "wiki_bbxm/concepts/冰冰小美-concept-流动性风险.md"
+      ],
+      "pages_updated": [
+        "wiki_bbxm/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md"
+      ]
+    },
+    "sources/articles/2026-05-21-冰冰小美：风险转弱的节点.md": {
+      "ingested_at": "2026-11-03T20:07:35+08:00",
+      "size_bytes": 8912,
+      "modified_at": "2026-08-22T13:31:58+08:00",
+      "content_hash": "sha256:755fa180b7cb90bc8ea6a2f96acab7055385bd5bf629d80aba018eb745945968",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "wiki_bbxm/concepts/冰冰小美-concept-流动性风险.md"
+      ],
+      "pages_updated": [
+        "wiki_bbxm/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md"
+      ]
+    },
+    "sources/manual/体系及案例分析/一、核心体系/3、流动性辩证分析/055_情绪套利行情的风险80%是来自流动性问题.md": {
+      "ingested_at": "2026-11-03T20:07:35+08:00",
+      "size_bytes": 4341,
+      "modified_at": "2026-07-18T14:23:10+08:00",
+      "content_hash": "sha256:9d9a4b6f0200940e1a02132d2ec19df155dd424d9576ac1a3e4fbcd4cd779144",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "wiki_bbxm/concepts/冰冰小美-concept-流动性风险.md"
+      ],
+      "pages_updated": [
+        "wiki_bbxm/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md"
+      ]
+    },
+    "sources/manual/体系及案例分析/一、核心体系/3、流动性辩证分析/062_流动性风险时间判断.md": {
+      "ingested_at": "2026-11-03T20:07:35+08:00",
+      "size_bytes": 3969,
+      "modified_at": "2026-07-18T14:23:10+08:00",
+      "content_hash": "sha256:bfe04bbf42218e757b81e55998f811dcbeae9d811e75ba507c863d567beb6327",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "wiki_bbxm/concepts/冰冰小美-concept-流动性风险.md"
+      ],
+      "pages_updated": [
+        "wiki_bbxm/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md"
+      ]
+    },
+    "sources/automations/老木匠每日汇总/2026-08-18 老木匠直播：美债的买家换了，逻辑就变了.md": {
+      "ingested_at": "2026-11-03T21:05:48+08:00",
+      "size_bytes": 8548,
+      "modified_at": "2026-10-21T15:28:16+08:00",
+      "content_hash": "sha256:d72ef949c7b2ed755d47fa2e389d6136b8fea5a1697ae550f823a39b79b68c26",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "wiki_laomujiang/concepts/风险变量-美债收益率.md"
+      ],
+      "pages_updated": [
+        "wiki_laomujiang/index.md",
+        "wiki_laomujiang/topics/风险判断.md",
+        "hot.md",
+        "log.md"
+      ]
+    },
+    "sources/automations/老木匠每日汇总/2026-08-20 老木匠直播：庞氏融资与什么才算护城河.md": {
+      "ingested_at": "2026-11-03T21:05:48+08:00",
+      "size_bytes": 10023,
+      "modified_at": "2026-10-17T15:08:05+08:00",
+      "content_hash": "sha256:5111b8de5b5bde135371d371158e36a46c18b89b5953ab666ca3763bf4667e88",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "wiki_laomujiang/concepts/风险变量-美债收益率.md"
+      ],
+      "pages_updated": [
+        "wiki_laomujiang/index.md",
+        "wiki_laomujiang/topics/风险判断.md",
+        "hot.md",
+        "log.md"
+      ]
+    },
+    "sources/automations/老木匠每日汇总/2026-09-26 老木匠直播：美债收益率、铜关税与A股牛市展望.md": {
+      "ingested_at": "2026-11-03T21:05:48+08:00",
+      "size_bytes": 11819,
+      "modified_at": "2026-10-17T15:08:05+08:00",
+      "content_hash": "sha256:38f96024e6490236bac8d5216b8cdd7189f692c40fa98ac8d7b844861429c4f9",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "wiki_laomujiang/concepts/风险变量-美债收益率.md"
+      ],
+      "pages_updated": [
+        "wiki_laomujiang/index.md",
+        "wiki_laomujiang/topics/风险判断.md",
+        "hot.md",
+        "log.md"
+      ]
+    },
+    "sources/automations/老木匠每日汇总/2026-09-29 老木匠直播：美债利率、黄金持有成本与股市生存法则.md": {
+      "ingested_at": "2026-11-03T21:05:48+08:00",
+      "size_bytes": 12837,
+      "modified_at": "2026-10-17T15:08:05+08:00",
+      "content_hash": "sha256:9a188a103b1684199003a5311c1e6f6e9aa1c34ad2afe2ba9769a7c4013d782f",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "wiki_laomujiang/concepts/风险变量-美债收益率.md"
+      ],
+      "pages_updated": [
+        "wiki_laomujiang/index.md",
+        "wiki_laomujiang/topics/风险判断.md",
+        "hot.md",
+        "log.md"
+      ]
+    },
+    "sources/automations/老木匠每日汇总/2026-10-07 老木匠直播：风险本质、美债信号与人民币自由兑换.md": {
+      "ingested_at": "2026-11-03T21:05:48+08:00",
+      "size_bytes": 13288,
+      "modified_at": "2026-10-17T15:08:05+08:00",
+      "content_hash": "sha256:545073d77f6324825fcab62ac34604ca4b313a5392cceb5d42af565abee5b17b",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "wiki_laomujiang/concepts/风险变量-美债收益率.md"
+      ],
+      "pages_updated": [
+        "wiki_laomujiang/index.md",
+        "wiki_laomujiang/topics/风险判断.md",
+        "hot.md",
+        "log.md"
+      ]
+    },
+    "sources/automations/老木匠每日汇总/2026-10-25 老木匠直播：救市呼吁、AI融资CDS与牛熊博弈.md": {
+      "ingested_at": "2026-11-03T21:05:48+08:00",
+      "size_bytes": 25392,
+      "modified_at": "2026-10-27T22:09:58+08:00",
+      "content_hash": "sha256:03570bb5ef8f70d7a5b32e2d8ae725988abfabcfd53c7c1759db4bfba4281638",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "wiki_laomujiang/concepts/风险变量-美债收益率.md"
+      ],
+      "pages_updated": [
+        "wiki_laomujiang/index.md",
+        "wiki_laomujiang/topics/风险判断.md",
+        "hot.md",
+        "log.md"
+      ]
+    },
+    "sources/automations/老木匠每日汇总/2026-08-04 老木匠直播：主力出货与散户的人性.md": {
+      "ingested_at": "2026-11-03T21:22:38+08:00",
+      "size_bytes": 11361,
+      "modified_at": "2026-10-17T15:08:05+08:00",
+      "content_hash": "sha256:0170d2abfd82795adf28d6683a825126f6c0066e4cfd6317f199f3ab8e0edbf7",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "wiki_laomujiang/topics/交易技术.md"
+      ],
+      "pages_updated": [
+        "wiki_laomujiang/index.md",
+        "wiki_laomujiang/topics/投资模式.md",
+        "wiki_laomujiang/topics/散户投资建议.md",
+        "hot.md",
+        "log.md"
+      ]
+    },
+    "sources/automations/老木匠每日汇总/2026-09-02 老木匠直播：危机来临时，只考虑两件事.md": {
+      "ingested_at": "2026-11-03T21:22:38+08:00",
+      "size_bytes": 20168,
+      "modified_at": "2026-10-17T15:08:05+08:00",
+      "content_hash": "sha256:85dc6dbc1df50f0f67073f7a98b923a80a43023a9b6576321294c23da905d6e9",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "wiki_laomujiang/topics/交易技术.md"
+      ],
+      "pages_updated": [
+        "wiki_laomujiang/index.md",
+        "wiki_laomujiang/topics/投资模式.md",
+        "wiki_laomujiang/topics/散户投资建议.md",
+        "hot.md",
+        "log.md"
+      ]
+    },
+    "sources/automations/老木匠每日汇总/2026-10-10 老木匠直播：市场博弈、港股逻辑与投资心态.md": {
+      "ingested_at": "2026-11-03T21:22:38+08:00",
+      "size_bytes": 13548,
+      "modified_at": "2026-11-03T21:14:44+08:00",
+      "content_hash": "sha256:020f68441a52c13286aa0d9fdc36dcb2e523875f293baa062641ac8b7eec5978",
+      "source_type": "document",
+      "project": null,
+      "pages_created": [
+        "wiki_laomujiang/topics/交易技术.md"
+      ],
+      "pages_updated": [
+        "wiki_laomujiang/index.md",
+        "wiki_laomujiang/topics/投资模式.md",
+        "wiki_laomujiang/topics/散户投资建议.md",
+        "hot.md",
+        "log.md"
+      ]
     }
   },
   "research": [
@@ -7142,5 +7455,5 @@
       ]
     }
   ],
-  "updated_at": "2026-10-30T17:34:10.387468+08:00"
+  "updated_at": "2026-11-03T21:22:38+08:00"
 }

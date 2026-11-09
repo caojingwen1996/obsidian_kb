@@ -1,0 +1,17 @@
+{
+  "target_date": "2026-11-04",
+  "account_url": "https://xueqiu.com/u/2573414707",
+  "run_id": "automation-2-20261105T090149",
+  "attempt": "initial",
+  "resolved": true,
+  "stage": "timeline-api",
+  "reason": "Error: invalid timeline {\"result\":{\"type\":\"object\",\"value\":{}},\"exceptionDetails\":{\"exceptionId\":1,\"text\":\"Uncaught (in promise) TypeError: Failed to fetch\",\"lineNumber\":1,\"columnNumber\":26,\"scriptId\":\"5\",\"stackTrace\":{\"callFrames\":[{\"functionName\":\"\",\"scriptId\":\"5\",\"url\":\"\",\"lineNumber\":0,\"columnNumber\":25},{\"functionName\":\"\",\"scriptId\":\"5\",\"url\":\"\",\"lineNumber\":0,\"columnNumber\":700}]},\"exception\":{\"type\":\"object\",\"subtype\":\"error\",\"className\":\"TypeError\",\"description\":\"TypeError: Failed to fetch\\n    at <anonymous>:1:26\\n    at <anonymous>:1:701\",\"objectId\":\"2155396603674836500.1.1\"}}}",
+  "page_fallback_candidates": [
+    {
+      "title": "老木匠·2026年11月2日：注水口\n、\n恐慌中的冷静与新手的头五年",
+      "url": "https://www.xueqiu.com/2573414707/415556590",
+      "published_at": "2026-11-04 23:06",
+      "author_name": "涨知识的小老鼠"
+    }
+  ]
+}

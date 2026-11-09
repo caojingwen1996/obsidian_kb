@@ -1,0 +1,101 @@
+{
+  "servicePid": 76146,
+  "windEnabled": false,
+  "riskProviders": [
+    "Yahoo Finance chart"
+  ],
+  "riskCount": 3,
+  "etfStatus": "missing",
+  "metrics": [
+    {
+      "id": "curve",
+      "source": "Tushare us_tycr via tushare-data",
+      "status": "ok",
+      "date": "2026-11-05"
+    },
+    {
+      "id": "yield",
+      "source": "Tushare us_tycr via tushare-data",
+      "status": "ok",
+      "date": "2026-11-05"
+    },
+    {
+      "id": "vix",
+      "source": "Yahoo Finance chart · ^VIX · 日收盘",
+      "status": "ok",
+      "date": "2026-11-05"
+    },
+    {
+      "id": "rrp",
+      "source": "纽约联储 · 隔夜逆回购",
+      "status": "ok",
+      "date": "2026-11-05"
+    },
+    {
+      "id": "walcl",
+      "source": "待获取",
+      "status": "missing",
+      "date": null
+    },
+    {
+      "id": "usd",
+      "source": "Yahoo Finance chart · DX-Y.NYB · 日收盘",
+      "status": "ok",
+      "date": "2026-11-05"
+    },
+    {
+      "id": "dxy",
+      "source": "Yahoo Finance chart · DX-Y.NYB（参考报价，可能延迟）",
+      "status": "ok",
+      "date": "2026-11-06"
+    },
+    {
+      "id": "spx",
+      "source": "Tushare index_global via tushare-data",
+      "status": "ok",
+      "date": "2026-11-05"
+    },
+    {
+      "id": "margin",
+      "source": "Tushare margin via tushare-data",
+      "status": "ok",
+      "date": "2026-11-05"
+    },
+    {
+      "id": "flow",
+      "source": "东财 · 沪深主力净流入（估算）",
+      "status": "ok",
+      "date": "2026-11-06"
+    },
+    {
+      "id": "shibor",
+      "source": "Tushare shibor via tushare-data",
+      "status": "ok",
+      "date": "2026-11-06"
+    },
+    {
+      "id": "south",
+      "source": "东财 · 沪深港通南向净买入",
+      "status": "ok",
+      "date": "2026-11-05"
+    },
+    {
+      "id": "csi300",
+      "source": "Tushare index_daily via tushare-data",
+      "status": "ok",
+      "date": "2026-11-06"
+    }
+  ],
+  "httpRoutes": [
+    "/api/nasdaq100",
+    "/api/risk-indicators",
+    "/api/wind-risk",
+    "/api/liquidity/etf",
+    "/api/liquidity?refresh=1"
+  ],
+  "httpVerified": true,
+  "automation": {
+    "id": "etf",
+    "status": "PAUSED"
+  }
+}

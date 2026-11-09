@@ -1,3 +1,4 @@
+import {targetSnapshotPayload} from './target-snapshots.js';
 import {DomainError} from '../platform/types.js';
 import type {Repository} from '../information-ingestion/processing/repository.js';
 import {IngestionRepository} from '../information-ingestion/processing/current-repository.js';
@@ -12,7 +13,7 @@ import type {DefinitionSnapshot} from './definitions.js';
 export const targetPackage='f02-target-identity-v3';
 export interface ObjectSet {objects:TargetObject[];explicit_no_objects:boolean;reason:string}
 const stale=()=>new DomainError('TARGET_BASIS_CHANGED',409);
-const asDefinition=(t:TargetDefinition)=>({category_version:categoryVersion,version:String(t.definition_version),name:t.target_name,status:t.is_active?'active':'disabled',...t});
+const asDefinition=(t:TargetDefinition)=>targetSnapshotPayload(t as unknown as Record<string,unknown>) as unknown as TargetDefinition&Record<string,unknown>&{category_version:string;version:string;name:string;status:string};
 async function catalog(db:DB){
  // 主表覆盖全局目标目录：任一旧定义或历史关系尚无主表身份时，不允许声明完整召回。
  if((await db.query(`SELECT 1 FROM (

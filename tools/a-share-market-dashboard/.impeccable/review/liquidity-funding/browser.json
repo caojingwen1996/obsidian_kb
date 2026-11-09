@@ -1,0 +1,17 @@
+{
+  "cards": true,
+  "etfGap": true,
+  "percentile": true,
+  "breadth": true,
+  "sources": true,
+  "desktopNoOverflow": true,
+  "chart": true,
+  "history": true,
+  "usNoFunding": true,
+  "rrp": true,
+  "mobileNoOverflow": true,
+  "mobileExpandedNoOverflow": true,
+  "failurePreserves": true,
+  "refreshRecovered": true,
+  "errors": []
+}

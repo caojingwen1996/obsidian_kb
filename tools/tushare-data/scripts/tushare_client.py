@@ -1,6 +1,6 @@
 """Reusable Tushare client with validation, retries, rate limits, and cache."""
 
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 import hashlib
 import json
@@ -12,8 +12,10 @@ from threading import Lock
 from time import monotonic, sleep, time
 
 
-TOOLS_DIR = Path(__file__).resolve().parents[2]
-TUSHARE_DATA_DIR = Path(__file__).resolve().parents[1]
+_MODULE_DIR = Path(__file__).resolve().parent
+_SOURCE_HOME = _MODULE_DIR.parent if _MODULE_DIR.name == "scripts" else Path.home() / ".tushare-data"
+TUSHARE_DATA_DIR = Path(os.environ.get("TUSHARE_DATA_HOME") or _SOURCE_HOME).expanduser()
+TOOLS_DIR = TUSHARE_DATA_DIR.parent
 REPO_ROOT = TOOLS_DIR.parent
 CACHE_DIR = TUSHARE_DATA_DIR / ".cache"
 VENDOR_PATHS = (
@@ -32,8 +34,30 @@ for vendor_path in VENDOR_PATHS:
 
 
 DATASETS = {
+    "fund_basic": {
+        "fields": ("ts_code", "name", "fund_type", "list_date", "delist_date", "market"),
+        "allowed_params": {"market", "fields"}, "required_params": set(),
+        "defaults": {"market": "E", "fields": "ts_code,name,fund_type,list_date,delist_date,market"},
+        "date_fields": {"list_date", "delist_date"},
+    },
+    "fund_share": {
+        "fields": ("ts_code", "trade_date", "fd_share"),
+        "allowed_params": {"trade_date", "market", "fields"}, "required_params": {"trade_date", "market"},
+        "defaults": {"fields": "ts_code,trade_date,fd_share"}, "date_fields": {"trade_date"},
+    },
+    "fund_nav": {
+        "fields": ("ts_code", "nav_date", "ann_date", "unit_nav", "adj_nav"),
+        "allowed_params": {"nav_date", "market", "fields"}, "required_params": {"nav_date"},
+        "defaults": {"market": "E", "fields": "ts_code,nav_date,ann_date,unit_nav,adj_nav"},
+        "date_fields": {"nav_date", "ann_date"},
+    },
+    "trade_cal": {
+        "fields": ("exchange", "cal_date", "is_open", "pretrade_date"),
+        "allowed_params": {"exchange", "start_date", "end_date", "fields"}, "required_params": {"exchange", "start_date", "end_date"},
+        "defaults": {"fields": "exchange,cal_date,is_open,pretrade_date"}, "date_fields": {"cal_date", "pretrade_date"},
+    },
     "daily_info": {
-        "fields": ("trade_date", "ts_code", "amount"),
+        "fields": ("trade_date", "ts_code", "amount", "float_mv"),
         "allowed_params": {"ts_code", "trade_date", "start_date", "end_date", "fields"},
         "required_params": {"ts_code"},
         "defaults": {"fields": "trade_date,ts_code,amount"},
@@ -220,6 +244,28 @@ class TushareClientError(RuntimeError):
         self.details = details or {}
 
 
+def _daily_dataset(fields, code=True, date_field="trade_date"):
+    return {
+        "fields": tuple(fields.split(",")),
+        "allowed_params": {date_field, "start_date", "end_date", "fields"} | ({"ts_code"} if code else set()),
+        "required_params": {"ts_code"} if code else set(),
+        "defaults": {"fields": fields},
+        "date_fields": {date_field, "start_date", "end_date"},
+    }
+
+
+DATASETS.update({
+    "ggt_daily": _daily_dataset("trade_date,buy_amount,buy_volume,sell_amount,sell_volume", code=False),
+    "fund_daily": _daily_dataset("ts_code,trade_date,open,high,low,close,pre_close,change,pct_chg,vol,amount"),
+    "fund_adj": _daily_dataset("ts_code,trade_date,adj_factor"),
+    "index_daily": _daily_dataset("ts_code,trade_date,open,high,low,close,pre_close,change,pct_chg,vol,amount"),
+    "index_dailybasic": _daily_dataset("ts_code,trade_date,total_mv,float_mv,total_share,float_share,free_share,turnover_rate,turnover_rate_f,pe,pe_ttm,pb"),
+    "index_global": _daily_dataset("ts_code,trade_date,open,high,low,close,pre_close,change,pct_chg,swing,vol"),
+    "shibor": _daily_dataset("date,on,1w,2w,1m,3m,6m,9m,1y", code=False, date_field="date"),
+})
+HISTORY_DATASETS = {"fund_daily", "fund_adj", "index_daily", "index_dailybasic", "index_global", "shibor", "daily_info", "margin", "us_tycr", "fx_daily", "ggt_daily"}
+
+
 class RateLimiter:
     """Small in-process fixed-window limiter for local tools."""
 
@@ -305,10 +351,13 @@ def tushare_date(value):
     if value is None or value == "":
         return value
     text = str(value).strip()
-    if re.fullmatch(r"\d{8}", text):
-        return text
-    if re.fullmatch(r"\d{4}-\d{2}-\d{2}", text):
-        return text.replace("-", "")
+    if re.fullmatch(r"\d{8}|\d{4}-\d{2}-\d{2}", text):
+        compact = text.replace("-", "")
+        try:
+            datetime.strptime(compact, "%Y%m%d")
+        except ValueError:
+            raise TushareClientError("tushare-date", "invalid calendar date") from None
+        return compact
     raise TushareClientError("tushare-date", "date must be YYYYMMDD or YYYY-MM-DD", {"value": text})
 
 
@@ -454,16 +503,33 @@ def validate_params(method, params):
     if method == "daily_info":
         if merged["ts_code"] not in {"SH_MARKET", "SZ_MARKET"}:
             raise TushareClientError("tushare-params", "unsupported stock market code")
+    elif method in {"fund_daily", "fund_adj"}:
+        code = str(merged["ts_code"]).strip().upper()
+        if not re.fullmatch(r"\d{6}\.(SH|SZ)", code):
+            raise TushareClientError("tushare-code", "fund code requires explicit .SH or .SZ suffix")
+        merged["ts_code"] = code
+    elif method in {"index_daily", "index_dailybasic"}:
+        code = str(merged["ts_code"]).strip().upper()
+        if not re.fullmatch(r"\d{6}\.(SH|SZ|CSI|CNI)", code):
+            raise TushareClientError("tushare-code", "index code requires explicit exchange suffix")
+        merged["ts_code"] = code
+    elif method == "index_global":
+        code = str(merged["ts_code"]).strip().upper()
+        if not re.fullmatch(r"[A-Z][A-Z0-9]{1,15}", code):
+            raise TushareClientError("tushare-code", "invalid global index code; use Tushare code such as SPX")
+        merged["ts_code"] = code
     elif "ts_code" in merged:
         merged["ts_code"] = normalize_fx_code(merged["ts_code"]) if method == "fx_daily" else a_share_ts_code(merged["ts_code"])
     if "index_code" in merged:
         merged["index_code"] = normalize_index_code(merged["index_code"])
-    for key in ("trade_date", "start_date", "end_date", "enddate", "date"):
+    for key in ("trade_date", "start_date", "end_date", "enddate", "date", "nav_date"):
         if key in merged and merged[key]:
             merged[key] = tushare_date(merged[key])
     for key in ("ann_date", "period", "record_date", "ex_date", "imp_ann_date"):
         if key in merged and merged[key]:
             merged[key] = tushare_date(merged[key])
+    if merged.get("start_date") and merged.get("end_date") and merged["start_date"] > merged["end_date"]:
+        raise TushareClientError("tushare-date", "start_date must not exceed end_date")
     return merged
 
 
@@ -508,7 +574,7 @@ class TushareClient:
             self._pro = tushare_provider.pro_api(token)
         except Exception as error:
             self._log("DATA_FAIL", method="pro_api", error=type(error).__name__)
-            raise
+            raise TushareClientError("tushare", "Tushare client initialization failed") from None
         self._log("DATA_OK", method="pro_api")
         return self._pro
 
@@ -533,17 +599,58 @@ class TushareClient:
             except Exception as error:
                 last_error = error
                 self._log("DATA_FAIL", method=method, attempt=attempt + 1, error=type(error).__name__)
+                if _looks_like_permission_error(error):
+                    break
                 if attempt < self.retries:
                     sleep(self.retry_delay_seconds * (2 ** attempt))
         source = "tushare-permission" if _looks_like_permission_error(last_error) else "tushare"
         raise TushareClientError(
             source,
             "Tushare API call failed",
-            {"method": method, "message": str(last_error)},
-        ) from last_error
+            {"method": method, "error_type": type(last_error).__name__},
+        ) from None
 
     def call(self, method, **kwargs):
         return self.call_frame(method, **kwargs)
+
+    def history(self, method, start_date, end_date, use_cache=True, **params):
+        """Read bounded daily windows, validate identity, deduplicate and sort ascending."""
+        if method not in HISTORY_DATASETS:
+            raise TushareClientError("tushare-method", "dataset does not support daily history")
+        if not start_date or not end_date:
+            raise TushareClientError("tushare-date", "explicit start_date and end_date are required")
+        valid = validate_params(method, {**params, "start_date": start_date, "end_date": end_date})
+        date_field = "date" if method in {"us_tycr", "shibor"} else "trade_date"
+        if date_field in params:
+            raise TushareClientError("tushare-params", "use a date range, not a single date filter")
+        fields_text = valid.get("fields") or DATASETS[method]["defaults"]["fields"]
+        fields = [s.strip() for s in fields_text.split(",")]
+        keys = [date_field] + (["exchange_id"] if method == "margin" else (["ts_code"] if "ts_code" in valid else []))
+        if set(fields) - set(DATASETS[method]["fields"]):
+            raise TushareClientError("tushare-fields", "unsupported history field")
+        valid["fields"] = ",".join(dict.fromkeys(keys + fields))
+        start = datetime.strptime(valid.pop("start_date"), "%Y%m%d").date()
+        end = datetime.strptime(valid.pop("end_date"), "%Y%m%d").date()
+        collected = {}
+        while start <= end:
+            # One symbol per query and <=366 calendar days stay below API row caps.
+            stop = min(start + timedelta(days=365), end)
+            batch = self.call_frame(method, start_date=start.strftime("%Y%m%d"), end_date=stop.strftime("%Y%m%d"), use_cache=use_cache, **valid)
+            for row in batch:
+                if not row.get(date_field):
+                    raise TushareClientError("tushare-data", "history row is missing its date")
+                day = datetime.strptime(tushare_date(row[date_field]), "%Y%m%d").date()
+                if not start <= day <= stop:
+                    continue
+                if "ts_code" in valid and row.get("ts_code") != valid["ts_code"]:
+                    raise TushareClientError("tushare-data", "unexpected security in history response")
+                row = {**row, date_field: day.isoformat()}
+                key = tuple(row.get(k) for k in keys)
+                if key in collected and collected[key] != row:
+                    raise TushareClientError("tushare-data", "conflicting duplicate history rows")
+                collected[key] = row
+            start = stop + timedelta(days=1)
+        return sorted(collected.values(), key=lambda r: tuple(str(r.get(k) or "") for k in keys))
 
     def stock_basic(self, fields=None, exchange="", list_status="L", use_cache=True):
         rows = self.call_frame(

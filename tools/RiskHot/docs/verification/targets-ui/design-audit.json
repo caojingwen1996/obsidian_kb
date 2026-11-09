@@ -1,0 +1,47 @@
+{
+  "date": "2026-11-05",
+  "mode": "Operate / Read，继承既有事件页视觉",
+  "detector": {
+    "exit_code": 2,
+    "findings": [
+      {
+        "antipattern": "flat-type-hierarchy",
+        "name": "Flat type hierarchy",
+        "description": "Dominant heading and body roles are separated by less than 1.25× at every step, leaving the size hierarchy flat. Add at least one stronger size step.",
+        "severity": "warning",
+        "category": "slop",
+        "file": "/Users/cjw/dev/Obsidian/wiki/tools/RiskHot/src/web/pipeline.html",
+        "line": 0,
+        "snippet": "Role sizes: body 16px, h1 16px, h2 16px (largest adjacent step 1.00:1; target 1.25:1)"
+      }
+    ],
+    "assessment": "仅一项pipeline.html字号警告；检测器不能把运行路由/m1与/pipeline解析成文件，退回16px默认字号。实际CSS具有14px正文、28px页面标题及20px分区标题，本次导航未改动该层级；新页面截图与浏览器字号核对正常。"
+  },
+  "contrast": {
+    "ink_on_white": 12.99,
+    "muted_on_white": 5.97,
+    "white_on_primary": 7.73,
+    "nav_on_green": 6.85,
+    "active_nav": 10.29
+  },
+  "scores": {
+    "accessibility": 3,
+    "performance": 3,
+    "theming": 4,
+    "responsive": 4,
+    "implementation_integrity": 4
+  },
+  "total": 18,
+  "verified_issues": [],
+  "limits": [
+    "响应式为独立Chromium模拟视口，未在实体手机或读屏器上验证",
+    "性能检查为源码与功能行为，未做大规模目录负载基准"
+  ],
+  "evidence": [
+    "browser-results.json",
+    "live-browser-results.json",
+    "list-1440.png",
+    "detail-390.png",
+    "form-390.png"
+  ]
+}

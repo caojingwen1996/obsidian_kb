@@ -11,10 +11,14 @@ test('Nasdaq calendar isolates controls and supports annual and monthly views', 
   assert.equal((html.match(/class="dividend-month-card /g)||[]).length,12);
   assert.doesNotMatch(html,/data-dividend-/);
   const annual = renderNasdaqAnnualPerformance({data:{returnHistory:history}}, {mode:'year'});
-  assert.match(annual, /data-nasdaq-year="2026"/);
-  assert.match(annual, /年内最大回撤/);
+  assert.match(annual, /data-index-year="2026"/);
+  assert.match(annual, /年度回撤/);
+  assert.match(annual, /dividend-calendar-years dividend-calendar-grid/);
+  const drawdown = renderNasdaqAnnualPerformance({data:{returnHistory:history}}, {mode:'year',metric:'drawdown'});
+  assert.match(drawdown, /data-nasdaq-calendar-metric="drawdown" aria-pressed="true"/);
+  assert.match(drawdown, /<strong>-20%<\/strong>/);
   assert.doesNotMatch(annual,/aria-haspopup="dialog"/);
-  assert.match(renderDividendAnnualPerformance(history,{mode:'year'}), /aria-haspopup="dialog"/);
+  assert.match(renderDividendAnnualPerformance(history,{mode:'year'}), /data-index-year="2026"/);
 });
 test('Loading, unavailable and inconsistent monthly data are explicit', () => {
   assert.match(renderNasdaqAnnualPerformance({status:'loading'}), /正在读取/);

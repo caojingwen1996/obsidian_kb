@@ -1,0 +1,23 @@
+{
+  "checkedAt": "2026-11-02T15:09:24.558644+08:00",
+  "nodeTests": "78 passed",
+  "syntax": "passed",
+  "utf8": "passed",
+  "encodingExceptions": [
+    {
+      "file": "scripts/build.mjs",
+      "line": 200,
+      "reason": "unchanged intentional private-use icon removal regex"
+    },
+    {
+      "file": "scripts/build.mjs",
+      "line": 239,
+      "reason": "unchanged intentional private-use icon removal regex"
+    }
+  ],
+  "sourceFileStillContainsOnlyVerifiedSnapshot": true,
+  "syntheticDataNotPersisted": true,
+  "browser": "browser.json passed",
+  "actualSPDailyAndYield": "not connected; explicit data gap",
+  "markdownAndDiffChecks": "passed"
+}

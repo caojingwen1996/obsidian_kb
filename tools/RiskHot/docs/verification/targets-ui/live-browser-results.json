@@ -1,0 +1,36 @@
+{
+  "date": "2026-11-05",
+  "checks": [
+    "实际空库状态与维护入口可见",
+    "1440/390/320导航图标齐全、触达≥44px、无横向溢出",
+    "真实事件列表可进入观测对象"
+  ],
+  "metrics": [
+    {
+      "width": 1440,
+      "heading": "20px",
+      "body": "14px",
+      "muted": "rgb(88, 103, 94)",
+      "background": "rgb(245, 245, 239)",
+      "linkHeight": 45.09375
+    },
+    {
+      "width": 390,
+      "heading": "20px",
+      "body": "14px",
+      "muted": "rgb(88, 103, 94)",
+      "background": "rgb(245, 245, 239)",
+      "linkHeight": 44
+    },
+    {
+      "width": 320,
+      "heading": "20px",
+      "body": "14px",
+      "muted": "rgb(88, 103, 94)",
+      "background": "rgb(245, 245, 239)",
+      "linkHeight": 44
+    }
+  ],
+  "errors": [],
+  "scope": "实际环境只读，未触发新建、编辑、模型或采集"
+}

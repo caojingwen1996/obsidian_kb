@@ -1,0 +1,16 @@
+{
+  "realValue": true,
+  "previous": true,
+  "noFalsePercentile": true,
+  "listingExclusion": true,
+  "source": true,
+  "sourceField": true,
+  "noOverflow": true,
+  "background": true,
+  "otherCardsRemain": true,
+  "backgroundSuccess": true,
+  "expansionPreserved": true,
+  "mobileNoOverflow": true,
+  "failurePreserves": true,
+  "errors": []
+}

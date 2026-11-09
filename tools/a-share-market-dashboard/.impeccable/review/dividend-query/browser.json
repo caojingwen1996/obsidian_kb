@@ -1,0 +1,26 @@
+{
+  "selectedIndex": "SPCLLHCP",
+  "correspondingEtf": "515450",
+  "missingEvidenceExplicit": true,
+  "csiDataHiddenWhenSpSelected": true,
+  "independentParameters": true,
+  "noDailyTaskMutations": true,
+  "taskStatusIndependent": true,
+  "restoredSelection": true,
+  "readyStateCalendarAndBacktest": "synthetic isolated fixture passed",
+  "layouts": [
+    {
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "overflow": false
+    }
+  ],
+  "pageErrors": []
+}

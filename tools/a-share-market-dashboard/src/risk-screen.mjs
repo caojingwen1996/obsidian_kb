@@ -139,6 +139,28 @@ export function riskSourceReadings(risk = {}) {
 }
 
 let riskSourceController;
+let windRiskLoading = false;
+let windRiskTimer;
+export async function refreshWindRiskIndicators() {
+  if (windRiskLoading || !riskSourceController) return;
+  clearTimeout(windRiskTimer);
+  windRiskLoading = true;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 15000);
+  riskSourceController.windStatus(' 正在读取行情与宏观数据…');
+  try {
+    const response = await fetch('/api/risk-indicators', { cache: 'no-store', signal: controller.signal });
+    if (!response.ok) throw new Error('unavailable');
+    const payload = await response.json();
+    riskSourceController.wind(payload.indicators || {}, payload.running ? ' 正在更新宏观数据，完成后自动显示。' : '');
+    windRiskTimer = setTimeout(refreshWindRiskIndicators, payload.running ? 5000 : 3600000);
+  } catch {
+    riskSourceController.windStatus(' 数据读取失败，已保留已有读数；30秒后重试。');
+    windRiskTimer = setTimeout(refreshWindRiskIndicators, 30000);
+  } finally {
+    clearTimeout(timer); windRiskLoading = false;
+  }
+}
 export function updateRiskSourceScreen(risk) {
   riskSourceController?.update(risk);
 }
@@ -147,7 +169,7 @@ export function initRiskSourceScreen() {
   const root = document.getElementById('risk-source-center');
   if (!root || root.dataset.initialized) return;
   root.dataset.initialized = 'true';
-  const state = { view: 'source', mode: 'monitor', selected: 'money', node: 0, event: 0, readings: riskSourceReadings() };
+  const state = { indicators: {}, windStatus: '', view: 'source', mode: 'monitor', selected: 'money', node: 0, event: 0, readings: riskSourceReadings() };
   const query = selector => root.querySelector(selector);
   const escape = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
   const current = () => riskSourceRows(state.mode).find(source => source.id === state.selected);
@@ -182,7 +204,7 @@ export function initRiskSourceScreen() {
   }
   function renderEvidence() {
     const source = current(), node = source.nodes[state.node];
-    query('.rs-indicator-panel').innerHTML = renderRiskIndicatorTable(source.id, state.mode);
+    query('.rs-indicator-panel').innerHTML = renderRiskIndicatorTable(source.id, state.mode, state.indicators, state.windStatus);
     query('.rs-node-evidence').innerHTML = '<dt>监测指标 · 环节 ' + (state.node + 1) + '</dt><dd>' + escape(node[3]) + '</dd><dt>反证 / 传导中断条件</dt><dd>' + escape(node[4]) + '</dd>';
     root.querySelectorAll('[data-node]').forEach(button => button.setAttribute('aria-pressed', Number(button.dataset.node) === state.node));
     const related = ['money', 'commodity', 'fiscal'].includes(source.id) ? state.readings.slice(0, 1) : source.id === 'capital' ? state.readings.slice(1) : [];
@@ -223,6 +245,6 @@ export function initRiskSourceScreen() {
     } else if (node) { state.node = Number(node.dataset.node); renderEvidence(); }
     else if (timeline) { state.event = Number(timeline.dataset.event); renderEventDetail(); }
   });
-  riskSourceController = { update(risk) { state.readings = riskSourceReadings(risk); renderStatus(); renderEvidence(); } };
+  riskSourceController = { wind(indicators, status) { state.indicators = indicators; state.windStatus = status; renderEvidence(); }, windStatus(status) { state.windStatus = status; renderEvidence(); }, update(risk) { state.readings = riskSourceReadings(risk); renderStatus(); renderEvidence(); } };
   render();
 }

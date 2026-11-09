@@ -122,7 +122,7 @@ test('Bollinger overview keeps its values and defers units, formula and source d
   assert.doesNotMatch(details.split('>')[0], /\bopen\b/);
   assert.match(details, /20周均线 ± 2倍标准差/);
   assert.match(details, /%B以下轨为0%、上轨为100%/);
-  assert.match(details, /来源：中证指数官网日线/);
+  assert.match(details, /来源：Tushare指数日线＋已保存历史/);
 });
 
 test('built dashboard computes real weekly bands from its embedded official history', () => {

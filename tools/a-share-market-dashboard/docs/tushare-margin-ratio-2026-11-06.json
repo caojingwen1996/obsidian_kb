@@ -1,0 +1,72 @@
+{
+  "provider": "Tushare",
+  "dataset": "margin+daily_info",
+  "frequency": "daily",
+  "status": "partial",
+  "units": {
+    "financing_balance_yi": "CNY_hundred_million",
+    "float_market_cap_yi": "CNY_hundred_million",
+    "financing_ratio_pct": "percent"
+  },
+  "requested_start": "2024-08-28",
+  "requested_end": "2026-11-06",
+  "observed_start": "2024-08-28",
+  "observed_end": "2026-11-06",
+  "served_at": "2026-11-06T10:09:02.742260+00:00",
+  "row_count": 529,
+  "total_row_count": 529,
+  "truncated": false,
+  "latest": {
+    "trade_date": "2026-11-06",
+    "complete": false,
+    "missing_inputs": [
+      "SSE",
+      "SZSE"
+    ],
+    "financing_balance_yi": null,
+    "float_market_cap_yi": 895616.46,
+    "financing_ratio_pct": null
+  },
+  "coverage_note": "Observed rows only; no trading-calendar completeness claim. served_at is not the observation or upstream refresh time.",
+  "market_scope": [
+    "SSE",
+    "SZSE"
+  ],
+  "denominator_scope": [
+    "SH_MARKET",
+    "SZ_MARKET"
+  ],
+  "calculation": "(SSE.rzye+SZSE.rzye)/1e8/(SH_MARKET.float_mv+SZ_MARKET.float_mv)*100",
+  "scope_note": "交易所融资余额（含证券类两融标的）/沪深股票市场流通市值（含B股）；排除北交所，不是仅融资标的股票占比。",
+  "valid_count": 528,
+  "latest_valid": {
+    "trade_date": "2026-11-05",
+    "complete": true,
+    "missing_inputs": [],
+    "financing_balance_yi": 22709.77758941,
+    "float_market_cap_yi": 908338.81,
+    "financing_ratio_pct": 2.500143926406712
+  },
+  "missing_rows": [
+    {
+      "trade_date": "2026-11-06",
+      "complete": false,
+      "missing_inputs": [
+        "SSE",
+        "SZSE"
+      ],
+      "financing_balance_yi": null,
+      "float_market_cap_yi": 895616.46,
+      "financing_ratio_pct": null
+    }
+  ],
+  "replacement": "cn_margin_ratio",
+  "old_daily_basic_probe": "5217 rows; listed universe 5224; not used as denominator",
+  "dashboard_verification": {
+    "date": "2026-11-05",
+    "value": 2.500143926406712,
+    "source": "Tushare margin+daily_info via tushare-data",
+    "status": "ok",
+    "rule": "同日沪深交易所融资余额 ÷ 沪深股票市场流通市值（含B股、排除北交所）× 100%；Tushare margin + daily_info，缺一市场不计算。"
+  }
+}

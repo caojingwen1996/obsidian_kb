@@ -1,0 +1,2227 @@
+{
+  "version": "0.9.0",
+  "generated_on": "2026-11-09",
+  "transport": "stdio JSON-RPC; no HTTP API",
+  "market_query_names": [
+    "get_southbound_flow",
+    "get_etf_flow_estimate",
+    "get_fund_daily",
+    "get_market_turnover",
+    "get_market_margin_history",
+    "get_market_margin_ratio",
+    "get_fund_adjustments",
+    "get_index_daily",
+    "get_index_valuation",
+    "get_global_index_daily",
+    "get_shibor",
+    "get_us_treasury_curve",
+    "get_fx_daily"
+  ],
+  "history_datasets": [
+    "daily_info",
+    "fund_adj",
+    "fund_daily",
+    "fx_daily",
+    "ggt_daily",
+    "index_daily",
+    "index_dailybasic",
+    "index_global",
+    "margin",
+    "shibor",
+    "us_tycr"
+  ],
+  "mcp_tools": [
+    {
+      "name": "get_stock_basic",
+      "description": "获取A股上市公司的基础资料，用于股票代码校验、公司身份识别和基础信息补全。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ts_code": {
+            "type": "string",
+            "description": "可选，股票代码，例如 600150 或 600150.SH。"
+          },
+          "name": {
+            "type": "string",
+            "description": "可选，公司简称。"
+          },
+          "exchange": {
+            "type": "string",
+            "default": ""
+          },
+          "list_status": {
+            "type": "string",
+            "default": "L",
+            "description": "L上市 D退市 P暂停上市。"
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "default": [
+              "ts_code",
+              "symbol",
+              "name",
+              "area",
+              "industry",
+              "market",
+              "exchange",
+              "list_date",
+              "list_status"
+            ]
+          },
+          "use_cache": {
+            "type": "boolean",
+            "default": true
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "get_stock_daily",
+      "description": "获取A股个股历史日线行情。Tushare daily 返回不复权价格，本工具在结果中明确 adjustment=none。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ts_code": {
+            "type": "string",
+            "description": "股票代码，例如 600150 或 600150.SH。"
+          },
+          "trade_date": {
+            "type": "string",
+            "description": "YYYYMMDD 或 YYYY-MM-DD。"
+          },
+          "start_date": {
+            "type": "string",
+            "description": "YYYYMMDD 或 YYYY-MM-DD。"
+          },
+          "end_date": {
+            "type": "string",
+            "description": "YYYYMMDD 或 YYYY-MM-DD。"
+          },
+          "adjustment": {
+            "type": "string",
+            "enum": [
+              "none"
+            ],
+            "default": "none"
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "default": [
+              "ts_code",
+              "trade_date",
+              "open",
+              "high",
+              "low",
+              "close",
+              "pre_close",
+              "change",
+              "pct_chg",
+              "vol",
+              "amount"
+            ]
+          },
+          "use_cache": {
+            "type": "boolean",
+            "default": true
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000
+          }
+        },
+        "required": [
+          "ts_code"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "get_stock_valuation",
+      "description": "获取A股个股估值、股息率、市值和交易活跃度数据。当前股息率使用 dv_ttm。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ts_code": {
+            "type": "string",
+            "description": "股票代码，例如 600150 或 600150.SH。"
+          },
+          "trade_date": {
+            "type": "string",
+            "description": "YYYYMMDD 或 YYYY-MM-DD。"
+          },
+          "start_date": {
+            "type": "string",
+            "description": "YYYYMMDD 或 YYYY-MM-DD。"
+          },
+          "end_date": {
+            "type": "string",
+            "description": "YYYYMMDD 或 YYYY-MM-DD。"
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "default": [
+              "ts_code",
+              "trade_date",
+              "close",
+              "turnover_rate",
+              "turnover_rate_f",
+              "volume_ratio",
+              "pe",
+              "pe_ttm",
+              "pb",
+              "ps_ttm",
+              "dv_ratio",
+              "dv_ttm",
+              "total_mv",
+              "circ_mv"
+            ]
+          },
+          "use_cache": {
+            "type": "boolean",
+            "default": true
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000
+          }
+        },
+        "required": [
+          "ts_code"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "get_stock_moneyflow",
+      "description": "获取A股个股资金流向和大小单分档数据。Tushare moneyflow 为订单规模统计代理，不确认账户身份。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ts_code": {
+            "type": "string",
+            "description": "股票代码，例如 600150 或 600150.SH。"
+          },
+          "trade_date": {
+            "type": "string",
+            "description": "YYYYMMDD 或 YYYY-MM-DD。"
+          },
+          "start_date": {
+            "type": "string",
+            "description": "YYYYMMDD 或 YYYY-MM-DD。"
+          },
+          "end_date": {
+            "type": "string",
+            "description": "YYYYMMDD 或 YYYY-MM-DD。"
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "default": [
+              "ts_code",
+              "trade_date",
+              "buy_sm_vol",
+              "buy_sm_amount",
+              "sell_sm_vol",
+              "sell_sm_amount",
+              "buy_md_vol",
+              "buy_md_amount",
+              "sell_md_vol",
+              "sell_md_amount",
+              "buy_lg_vol",
+              "buy_lg_amount",
+              "sell_lg_vol",
+              "sell_lg_amount",
+              "buy_elg_vol",
+              "buy_elg_amount",
+              "sell_elg_vol",
+              "sell_elg_amount",
+              "net_mf_vol",
+              "net_mf_amount"
+            ]
+          },
+          "use_cache": {
+            "type": "boolean",
+            "default": true
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000
+          }
+        },
+        "required": [
+          "ts_code"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "get_margin_detail",
+      "description": "获取A股个股融资融券交易明细，用于观察融资余额、融资买入、融资偿还和融券变化。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ts_code": {
+            "type": "string",
+            "description": "股票代码，例如 600150 或 600150.SH。"
+          },
+          "trade_date": {
+            "type": "string",
+            "description": "YYYYMMDD 或 YYYY-MM-DD。"
+          },
+          "start_date": {
+            "type": "string",
+            "description": "YYYYMMDD 或 YYYY-MM-DD。"
+          },
+          "end_date": {
+            "type": "string",
+            "description": "YYYYMMDD 或 YYYY-MM-DD。"
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "default": [
+              "trade_date",
+              "ts_code",
+              "name",
+              "rzye",
+              "rqye",
+              "rzmre",
+              "rqyl",
+              "rzche",
+              "rqchl",
+              "rqmcl",
+              "rzrqye"
+            ]
+          },
+          "use_cache": {
+            "type": "boolean",
+            "default": true
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000
+          }
+        },
+        "required": [
+          "ts_code"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "get_market_margin",
+      "description": "获取沪深市场融资融券交易汇总，用于观察全市场融资余额、融资买入、融资偿还和融资融券余额变化。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "trade_date": {
+            "type": "string",
+            "description": "YYYYMMDD 或 YYYY-MM-DD。"
+          },
+          "start_date": {
+            "type": "string",
+            "description": "YYYYMMDD 或 YYYY-MM-DD。"
+          },
+          "end_date": {
+            "type": "string",
+            "description": "YYYYMMDD 或 YYYY-MM-DD。"
+          },
+          "exchange_id": {
+            "type": "string",
+            "description": "可选，交易所代码，例如 SSE 或 SZSE。"
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "default": [
+              "trade_date",
+              "exchange_id",
+              "rzye",
+              "rzmre",
+              "rzche",
+              "rqye",
+              "rqmcl",
+              "rzrqye"
+            ]
+          },
+          "use_cache": {
+            "type": "boolean",
+            "default": true
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "get_us_treasury_yield",
+      "description": "获取美国每日国债收益率曲线，默认返回10年期 y10，用于观察美债利率风险。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "description": "YYYYMMDD 或 YYYY-MM-DD。"
+          },
+          "start_date": {
+            "type": "string",
+            "description": "YYYYMMDD 或 YYYY-MM-DD。"
+          },
+          "end_date": {
+            "type": "string",
+            "description": "YYYYMMDD 或 YYYY-MM-DD。"
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "default": [
+              "date",
+              "m1",
+              "m2",
+              "m3",
+              "m6",
+              "y1",
+              "y2",
+              "y3",
+              "y5",
+              "y7",
+              "y10",
+              "y20",
+              "y30"
+            ]
+          },
+          "use_cache": {
+            "type": "boolean",
+            "default": true
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "get_us_dollar_index",
+      "description": "获取美元指数日线，默认 USDOLLAR.FXCM，用于观察美元走强风险。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ts_code": {
+            "type": "string",
+            "default": "USDOLLAR.FXCM",
+            "description": "外汇代码，默认 USDOLLAR.FXCM。"
+          },
+          "trade_date": {
+            "type": "string",
+            "description": "YYYYMMDD 或 YYYY-MM-DD。"
+          },
+          "start_date": {
+            "type": "string",
+            "description": "YYYYMMDD 或 YYYY-MM-DD。"
+          },
+          "end_date": {
+            "type": "string",
+            "description": "YYYYMMDD 或 YYYY-MM-DD。"
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "default": [
+              "ts_code",
+              "trade_date",
+              "bid_open",
+              "bid_close",
+              "bid_high",
+              "bid_low",
+              "ask_open",
+              "ask_close",
+              "ask_high",
+              "ask_low",
+              "tick_qty"
+            ]
+          },
+          "use_cache": {
+            "type": "boolean",
+            "default": true
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "get_usd_jpy_exchange_rate",
+      "description": "获取美元兑日元 USDJPY 日线，并判断是否触发日元贬值风险线；默认 USDJPY>=160 视为高风险。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ts_code": {
+            "type": "string",
+            "default": "USDJPY.FXCM",
+            "description": "外汇代码，默认 USDJPY.FXCM。"
+          },
+          "trade_date": {
+            "type": "string",
+            "description": "YYYYMMDD 或 YYYY-MM-DD。"
+          },
+          "start_date": {
+            "type": "string",
+            "description": "YYYYMMDD 或 YYYY-MM-DD。"
+          },
+          "end_date": {
+            "type": "string",
+            "description": "YYYYMMDD 或 YYYY-MM-DD。"
+          },
+          "risk_threshold": {
+            "type": "number",
+            "default": 160,
+            "description": "日元贬值风险线，默认 USDJPY>=160。"
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "default": [
+              "ts_code",
+              "trade_date",
+              "bid_open",
+              "bid_close",
+              "bid_high",
+              "bid_low",
+              "ask_open",
+              "ask_close",
+              "ask_high",
+              "ask_low",
+              "tick_qty"
+            ]
+          },
+          "use_cache": {
+            "type": "boolean",
+            "default": true
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "get_financial_statements",
+      "description": "获取A股利润表、资产负债表和现金流量表核心科目，并保留报告期、公告日期、报表类型和合并口径信息。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ts_code": {
+            "type": "string",
+            "description": "股票代码，例如 600150 或 600150.SH。"
+          },
+          "statement": {
+            "type": "string",
+            "enum": [
+              "income",
+              "balancesheet",
+              "cashflow",
+              "all"
+            ],
+            "default": "all"
+          },
+          "period": {
+            "type": "string",
+            "description": "报告期 YYYYMMDD 或 YYYY-MM-DD。"
+          },
+          "start_date": {
+            "type": "string",
+            "description": "公告开始日期。"
+          },
+          "end_date": {
+            "type": "string",
+            "description": "公告结束日期或报告期。"
+          },
+          "report_type": {
+            "type": "string"
+          },
+          "comp_type": {
+            "type": "string"
+          },
+          "use_cache": {
+            "type": "boolean",
+            "default": true
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000
+          }
+        },
+        "required": [
+          "ts_code"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "get_dividend_history",
+      "description": "获取A股历史分红方案及实施记录，默认优先保留已实施分红，并标识预案、通过和实施状态。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ts_code": {
+            "type": "string",
+            "description": "股票代码，例如 600150 或 600150.SH。"
+          },
+          "ann_date": {
+            "type": "string"
+          },
+          "record_date": {
+            "type": "string"
+          },
+          "ex_date": {
+            "type": "string"
+          },
+          "implemented_only": {
+            "type": "boolean",
+            "default": false
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "default": [
+              "ts_code",
+              "end_date",
+              "ann_date",
+              "div_proc",
+              "stk_div",
+              "stk_bo_rate",
+              "stk_co_rate",
+              "cash_div",
+              "cash_div_tax",
+              "record_date",
+              "ex_date",
+              "pay_date",
+              "imp_ann_date"
+            ]
+          },
+          "use_cache": {
+            "type": "boolean",
+            "default": true
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000
+          }
+        },
+        "required": [
+          "ts_code"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "get_shareholder_count",
+      "description": "获取A股股东户数历史披露，并按不同截止日期计算较上期增减。数据为不定期公告口径，不代表实时持股账户变化。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ts_code": {
+            "type": "string",
+            "description": "股票代码，例如 600150 或 600150.SH。"
+          },
+          "ann_date": {
+            "type": "string",
+            "description": "可选，公告日期 YYYYMMDD 或 YYYY-MM-DD。"
+          },
+          "enddate": {
+            "type": "string",
+            "description": "可选，股东户数截止日期 YYYYMMDD 或 YYYY-MM-DD。"
+          },
+          "start_date": {
+            "type": "string",
+            "description": "可选，公告开始日期。"
+          },
+          "end_date": {
+            "type": "string",
+            "description": "可选，公告结束日期。"
+          },
+          "use_cache": {
+            "type": "boolean",
+            "default": true
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3000
+          }
+        },
+        "required": [
+          "ts_code"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "check_central_huijin_holding",
+      "description": "判断A股前十大股东或前十大流通股东披露中是否出现中央汇金相关主体。该接口只确认定期报告披露口径，不代表实时持仓。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ts_code": {
+            "type": "string",
+            "description": "股票代码，例如 600150 或 600150.SH。"
+          },
+          "period": {
+            "type": "string",
+            "description": "可选，报告期 YYYYMMDD 或 YYYY-MM-DD，例如 20251231。"
+          },
+          "ann_date": {
+            "type": "string",
+            "description": "可选，公告日期 YYYYMMDD 或 YYYY-MM-DD。"
+          },
+          "start_date": {
+            "type": "string",
+            "description": "可选，公告开始日期。"
+          },
+          "end_date": {
+            "type": "string",
+            "description": "可选，公告结束日期或报告期。"
+          },
+          "holder_keywords": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "default": [
+              "中央汇金"
+            ],
+            "description": "可选，股东名称匹配关键词，默认匹配中央汇金。"
+          },
+          "include_top_holders": {
+            "type": "boolean",
+            "default": true
+          },
+          "include_float_holders": {
+            "type": "boolean",
+            "default": true
+          },
+          "latest_only": {
+            "type": "boolean",
+            "default": true,
+            "description": "默认只按最新披露报告期判断；设为 false 可返回查询范围内全部历史命中。"
+          },
+          "use_cache": {
+            "type": "boolean",
+            "default": true
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000
+          }
+        },
+        "required": [
+          "ts_code"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "get_index_constituents",
+      "description": "获取指定A股指数在某个日期或日期范围内的成分股名单及权重。若指定日期无数据，返回最近且已生效的一期权重日期。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "index_code": {
+            "type": "string",
+            "description": "指数代码，例如 000300.SH。"
+          },
+          "trade_date": {
+            "type": "string",
+            "description": "目标权重日期。"
+          },
+          "start_date": {
+            "type": "string"
+          },
+          "end_date": {
+            "type": "string"
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "default": [
+              "index_code",
+              "con_code",
+              "trade_date",
+              "weight"
+            ]
+          },
+          "use_cache": {
+            "type": "boolean",
+            "default": true
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000
+          }
+        },
+        "required": [
+          "index_code"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "get_southbound_flow",
+      "description": "港股通每日买入减卖出得到南向净买入；保留原始亿元单位及日期，缺项不计算",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "start_date": {
+            "type": "string",
+            "description": "Inclusive YYYY-MM-DD or YYYYMMDD"
+          },
+          "end_date": {
+            "type": "string",
+            "description": "Inclusive YYYY-MM-DD or YYYYMMDD"
+          },
+          "use_cache": {
+            "type": "boolean",
+            "default": true
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000,
+            "description": "Return latest N rows, ascending; metadata keeps full requested range"
+          }
+        },
+        "required": [
+          "start_date",
+          "end_date"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "get_etf_flow_estimate",
+      "description": "沪深股票型ETF份额变动乘当日净值估算，排除QDII，返回覆盖及异常名单，最多32自然日",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "start_date": {
+            "type": "string",
+            "description": "Inclusive YYYY-MM-DD or YYYYMMDD"
+          },
+          "end_date": {
+            "type": "string",
+            "description": "Inclusive YYYY-MM-DD or YYYYMMDD"
+          },
+          "use_cache": {
+            "type": "boolean",
+            "default": true
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000,
+            "description": "Return latest N rows, ascending; metadata keeps full requested range"
+          }
+        },
+        "required": [
+          "start_date",
+          "end_date"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "get_fund_daily",
+      "description": "ETF日线及可选前/后复权；仅日线，不提供盘中前高",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "start_date": {
+            "type": "string",
+            "description": "Inclusive YYYY-MM-DD or YYYYMMDD"
+          },
+          "end_date": {
+            "type": "string",
+            "description": "Inclusive YYYY-MM-DD or YYYYMMDD"
+          },
+          "use_cache": {
+            "type": "boolean",
+            "default": true
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000,
+            "description": "Return latest N rows, ascending; metadata keeps full requested range"
+          },
+          "ts_code": {
+            "type": "string",
+            "description": "Exact provider code, e.g. 159941.SZ, 000922.CSI, SPX, USDJPY.FXCM"
+          },
+          "adjustment": {
+            "type": "string",
+            "enum": [
+              "none",
+              "qfq",
+              "hfq"
+            ],
+            "default": "none"
+          }
+        },
+        "required": [
+          "start_date",
+          "end_date",
+          "ts_code"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "get_market_turnover",
+      "description": "沪深股票成交额，SH_MARKET+SZ_MARKET，同日完整配对",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "start_date": {
+            "type": "string",
+            "description": "Inclusive YYYY-MM-DD or YYYYMMDD"
+          },
+          "end_date": {
+            "type": "string",
+            "description": "Inclusive YYYY-MM-DD or YYYYMMDD"
+          },
+          "use_cache": {
+            "type": "boolean",
+            "default": true
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000,
+            "description": "Return latest N rows, ascending; metadata keeps full requested range"
+          }
+        },
+        "required": [
+          "start_date",
+          "end_date"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "get_market_margin_history",
+      "description": "沪深融资历史及净买入，排除北交所，缺一市场不合计",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "start_date": {
+            "type": "string",
+            "description": "Inclusive YYYY-MM-DD or YYYYMMDD"
+          },
+          "end_date": {
+            "type": "string",
+            "description": "Inclusive YYYY-MM-DD or YYYYMMDD"
+          },
+          "use_cache": {
+            "type": "boolean",
+            "default": true
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000,
+            "description": "Return latest N rows, ascending; metadata keeps full requested range"
+          }
+        },
+        "required": [
+          "start_date",
+          "end_date"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "get_market_margin_ratio",
+      "description": "沪深融资余额占股票市场流通市值；margin与daily_info同日配对，分母含B股，排除北交所",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "start_date": {
+            "type": "string",
+            "description": "Inclusive YYYY-MM-DD or YYYYMMDD"
+          },
+          "end_date": {
+            "type": "string",
+            "description": "Inclusive YYYY-MM-DD or YYYYMMDD"
+          },
+          "use_cache": {
+            "type": "boolean",
+            "default": true
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000,
+            "description": "Return latest N rows, ascending; metadata keeps full requested range"
+          }
+        },
+        "required": [
+          "start_date",
+          "end_date"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "get_fund_adjustments",
+      "description": "基金复权因子",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "start_date": {
+            "type": "string",
+            "description": "Inclusive YYYY-MM-DD or YYYYMMDD"
+          },
+          "end_date": {
+            "type": "string",
+            "description": "Inclusive YYYY-MM-DD or YYYYMMDD"
+          },
+          "use_cache": {
+            "type": "boolean",
+            "default": true
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000,
+            "description": "Return latest N rows, ascending; metadata keeps full requested range"
+          },
+          "ts_code": {
+            "type": "string",
+            "description": "Exact provider code, e.g. 159941.SZ, 000922.CSI, SPX, USDJPY.FXCM"
+          }
+        },
+        "required": [
+          "start_date",
+          "end_date",
+          "ts_code"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "get_index_daily",
+      "description": "国内指数日线，须指定准确市场后缀",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "start_date": {
+            "type": "string",
+            "description": "Inclusive YYYY-MM-DD or YYYYMMDD"
+          },
+          "end_date": {
+            "type": "string",
+            "description": "Inclusive YYYY-MM-DD or YYYYMMDD"
+          },
+          "use_cache": {
+            "type": "boolean",
+            "default": true
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000,
+            "description": "Return latest N rows, ascending; metadata keeps full requested range"
+          },
+          "ts_code": {
+            "type": "string",
+            "description": "Exact provider code, e.g. 159941.SZ, 000922.CSI, SPX, USDJPY.FXCM"
+          }
+        },
+        "required": [
+          "start_date",
+          "end_date",
+          "ts_code"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "get_index_valuation",
+      "description": "Tushare指数估值，不等同中证官方算法",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "start_date": {
+            "type": "string",
+            "description": "Inclusive YYYY-MM-DD or YYYYMMDD"
+          },
+          "end_date": {
+            "type": "string",
+            "description": "Inclusive YYYY-MM-DD or YYYYMMDD"
+          },
+          "use_cache": {
+            "type": "boolean",
+            "default": true
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000,
+            "description": "Return latest N rows, ascending; metadata keeps full requested range"
+          },
+          "ts_code": {
+            "type": "string",
+            "description": "Exact provider code, e.g. 159941.SZ, 000922.CSI, SPX, USDJPY.FXCM"
+          }
+        },
+        "required": [
+          "start_date",
+          "end_date",
+          "ts_code"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "get_global_index_daily",
+      "description": "国际指数日线；SPX为标普500，IXIC不等于NDX",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "start_date": {
+            "type": "string",
+            "description": "Inclusive YYYY-MM-DD or YYYYMMDD"
+          },
+          "end_date": {
+            "type": "string",
+            "description": "Inclusive YYYY-MM-DD or YYYYMMDD"
+          },
+          "use_cache": {
+            "type": "boolean",
+            "default": true
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000,
+            "description": "Return latest N rows, ascending; metadata keeps full requested range"
+          },
+          "ts_code": {
+            "type": "string",
+            "description": "Exact provider code, e.g. 159941.SZ, 000922.CSI, SPX, USDJPY.FXCM"
+          }
+        },
+        "required": [
+          "start_date",
+          "end_date",
+          "ts_code"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "get_shibor",
+      "description": "Shibor全期限利率，on为隔夜",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "start_date": {
+            "type": "string",
+            "description": "Inclusive YYYY-MM-DD or YYYYMMDD"
+          },
+          "end_date": {
+            "type": "string",
+            "description": "Inclusive YYYY-MM-DD or YYYYMMDD"
+          },
+          "use_cache": {
+            "type": "boolean",
+            "default": true
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000,
+            "description": "Return latest N rows, ascending; metadata keeps full requested range"
+          }
+        },
+        "required": [
+          "start_date",
+          "end_date"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "get_us_treasury_curve",
+      "description": "美国国债全期限收益率，含10Y-2Y利差",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "start_date": {
+            "type": "string",
+            "description": "Inclusive YYYY-MM-DD or YYYYMMDD"
+          },
+          "end_date": {
+            "type": "string",
+            "description": "Inclusive YYYY-MM-DD or YYYYMMDD"
+          },
+          "use_cache": {
+            "type": "boolean",
+            "default": true
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000,
+            "description": "Return latest N rows, ascending; metadata keeps full requested range"
+          }
+        },
+        "required": [
+          "start_date",
+          "end_date"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "get_fx_daily",
+      "description": "外汇bid/ask日线，默认USDJPY；不是盘中报价",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "start_date": {
+            "type": "string",
+            "description": "Inclusive YYYY-MM-DD or YYYYMMDD"
+          },
+          "end_date": {
+            "type": "string",
+            "description": "Inclusive YYYY-MM-DD or YYYYMMDD"
+          },
+          "use_cache": {
+            "type": "boolean",
+            "default": true
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000,
+            "description": "Return latest N rows, ascending; metadata keeps full requested range"
+          },
+          "ts_code": {
+            "type": "string",
+            "description": "Exact provider code, e.g. 159941.SZ, 000922.CSI, SPX, USDJPY.FXCM"
+          }
+        },
+        "required": [
+          "start_date",
+          "end_date"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ],
+  "datasets": {
+    "fund_basic": {
+      "fields": [
+        "ts_code",
+        "name",
+        "fund_type",
+        "list_date",
+        "delist_date",
+        "market"
+      ],
+      "allowed_params": [
+        "fields",
+        "market"
+      ],
+      "required_params": [],
+      "defaults": {
+        "market": "E",
+        "fields": "ts_code,name,fund_type,list_date,delist_date,market"
+      },
+      "date_fields": [
+        "delist_date",
+        "list_date"
+      ]
+    },
+    "fund_share": {
+      "fields": [
+        "ts_code",
+        "trade_date",
+        "fd_share"
+      ],
+      "allowed_params": [
+        "fields",
+        "market",
+        "trade_date"
+      ],
+      "required_params": [
+        "market",
+        "trade_date"
+      ],
+      "defaults": {
+        "fields": "ts_code,trade_date,fd_share"
+      },
+      "date_fields": [
+        "trade_date"
+      ]
+    },
+    "fund_nav": {
+      "fields": [
+        "ts_code",
+        "nav_date",
+        "ann_date",
+        "unit_nav",
+        "adj_nav"
+      ],
+      "allowed_params": [
+        "fields",
+        "market",
+        "nav_date"
+      ],
+      "required_params": [
+        "nav_date"
+      ],
+      "defaults": {
+        "market": "E",
+        "fields": "ts_code,nav_date,ann_date,unit_nav,adj_nav"
+      },
+      "date_fields": [
+        "ann_date",
+        "nav_date"
+      ]
+    },
+    "trade_cal": {
+      "fields": [
+        "exchange",
+        "cal_date",
+        "is_open",
+        "pretrade_date"
+      ],
+      "allowed_params": [
+        "end_date",
+        "exchange",
+        "fields",
+        "start_date"
+      ],
+      "required_params": [
+        "end_date",
+        "exchange",
+        "start_date"
+      ],
+      "defaults": {
+        "fields": "exchange,cal_date,is_open,pretrade_date"
+      },
+      "date_fields": [
+        "cal_date",
+        "pretrade_date"
+      ]
+    },
+    "daily_info": {
+      "fields": [
+        "trade_date",
+        "ts_code",
+        "amount",
+        "float_mv"
+      ],
+      "allowed_params": [
+        "end_date",
+        "fields",
+        "start_date",
+        "trade_date",
+        "ts_code"
+      ],
+      "required_params": [
+        "ts_code"
+      ],
+      "defaults": {
+        "fields": "trade_date,ts_code,amount"
+      },
+      "date_fields": [
+        "end_date",
+        "start_date",
+        "trade_date"
+      ]
+    },
+    "stock_basic": {
+      "fields": [
+        "ts_code",
+        "symbol",
+        "name",
+        "area",
+        "industry",
+        "market",
+        "exchange",
+        "list_date",
+        "list_status"
+      ],
+      "allowed_params": [
+        "exchange",
+        "fields",
+        "list_status",
+        "name",
+        "ts_code"
+      ],
+      "required_params": [],
+      "defaults": {
+        "exchange": "",
+        "list_status": "L",
+        "fields": "ts_code,symbol,name,area,industry,market,exchange,list_date,list_status"
+      },
+      "date_fields": [
+        "list_date"
+      ]
+    },
+    "daily": {
+      "fields": [
+        "ts_code",
+        "trade_date",
+        "open",
+        "high",
+        "low",
+        "close",
+        "pre_close",
+        "change",
+        "pct_chg",
+        "vol",
+        "amount"
+      ],
+      "allowed_params": [
+        "end_date",
+        "fields",
+        "start_date",
+        "trade_date",
+        "ts_code"
+      ],
+      "required_params": [
+        "ts_code"
+      ],
+      "defaults": {
+        "fields": "ts_code,trade_date,open,high,low,close,pre_close,change,pct_chg,vol,amount"
+      },
+      "date_fields": [
+        "end_date",
+        "start_date",
+        "trade_date"
+      ]
+    },
+    "daily_basic": {
+      "fields": [
+        "ts_code",
+        "trade_date",
+        "close",
+        "turnover_rate",
+        "turnover_rate_f",
+        "volume_ratio",
+        "pe",
+        "pe_ttm",
+        "pb",
+        "ps_ttm",
+        "dv_ratio",
+        "dv_ttm",
+        "total_mv",
+        "circ_mv"
+      ],
+      "allowed_params": [
+        "end_date",
+        "fields",
+        "start_date",
+        "trade_date",
+        "ts_code"
+      ],
+      "required_params": [
+        "ts_code"
+      ],
+      "defaults": {
+        "fields": "ts_code,trade_date,close,turnover_rate,turnover_rate_f,volume_ratio,pe,pe_ttm,pb,ps_ttm,dv_ratio,dv_ttm,total_mv,circ_mv"
+      },
+      "date_fields": [
+        "end_date",
+        "start_date",
+        "trade_date"
+      ]
+    },
+    "moneyflow": {
+      "fields": [
+        "ts_code",
+        "trade_date",
+        "buy_sm_vol",
+        "buy_sm_amount",
+        "sell_sm_vol",
+        "sell_sm_amount",
+        "buy_md_vol",
+        "buy_md_amount",
+        "sell_md_vol",
+        "sell_md_amount",
+        "buy_lg_vol",
+        "buy_lg_amount",
+        "sell_lg_vol",
+        "sell_lg_amount",
+        "buy_elg_vol",
+        "buy_elg_amount",
+        "sell_elg_vol",
+        "sell_elg_amount",
+        "net_mf_vol",
+        "net_mf_amount"
+      ],
+      "allowed_params": [
+        "end_date",
+        "fields",
+        "start_date",
+        "trade_date",
+        "ts_code"
+      ],
+      "required_params": [
+        "ts_code"
+      ],
+      "defaults": {
+        "fields": "ts_code,trade_date,buy_sm_vol,buy_sm_amount,sell_sm_vol,sell_sm_amount,buy_md_vol,buy_md_amount,sell_md_vol,sell_md_amount,buy_lg_vol,buy_lg_amount,sell_lg_vol,sell_lg_amount,buy_elg_vol,buy_elg_amount,sell_elg_vol,sell_elg_amount,net_mf_vol,net_mf_amount"
+      },
+      "date_fields": [
+        "end_date",
+        "start_date",
+        "trade_date"
+      ]
+    },
+    "margin_detail": {
+      "fields": [
+        "trade_date",
+        "ts_code",
+        "name",
+        "rzye",
+        "rqye",
+        "rzmre",
+        "rqyl",
+        "rzche",
+        "rqchl",
+        "rqmcl",
+        "rzrqye"
+      ],
+      "allowed_params": [
+        "end_date",
+        "fields",
+        "start_date",
+        "trade_date",
+        "ts_code"
+      ],
+      "required_params": [
+        "ts_code"
+      ],
+      "defaults": {
+        "fields": "trade_date,ts_code,name,rzye,rqye,rzmre,rqyl,rzche,rqchl,rqmcl,rzrqye"
+      },
+      "date_fields": [
+        "end_date",
+        "start_date",
+        "trade_date"
+      ]
+    },
+    "margin": {
+      "fields": [
+        "trade_date",
+        "exchange_id",
+        "rzye",
+        "rzmre",
+        "rzche",
+        "rqye",
+        "rqmcl",
+        "rzrqye"
+      ],
+      "allowed_params": [
+        "end_date",
+        "exchange_id",
+        "fields",
+        "start_date",
+        "trade_date"
+      ],
+      "required_params": [],
+      "defaults": {
+        "fields": "trade_date,exchange_id,rzye,rzmre,rzche,rqye,rqmcl,rzrqye"
+      },
+      "date_fields": [
+        "end_date",
+        "start_date",
+        "trade_date"
+      ]
+    },
+    "us_tycr": {
+      "fields": [
+        "date",
+        "m1",
+        "m2",
+        "m3",
+        "m6",
+        "y1",
+        "y2",
+        "y3",
+        "y5",
+        "y7",
+        "y10",
+        "y20",
+        "y30"
+      ],
+      "allowed_params": [
+        "date",
+        "end_date",
+        "fields",
+        "start_date"
+      ],
+      "required_params": [],
+      "defaults": {
+        "fields": "date,y10"
+      },
+      "date_fields": [
+        "date",
+        "end_date",
+        "start_date"
+      ]
+    },
+    "fx_daily": {
+      "fields": [
+        "ts_code",
+        "trade_date",
+        "bid_open",
+        "bid_close",
+        "bid_high",
+        "bid_low",
+        "ask_open",
+        "ask_close",
+        "ask_high",
+        "ask_low",
+        "tick_qty"
+      ],
+      "allowed_params": [
+        "end_date",
+        "fields",
+        "start_date",
+        "trade_date",
+        "ts_code"
+      ],
+      "required_params": [
+        "ts_code"
+      ],
+      "defaults": {
+        "ts_code": "USDOLLAR.FXCM",
+        "fields": "ts_code,trade_date,bid_close"
+      },
+      "date_fields": [
+        "end_date",
+        "start_date",
+        "trade_date"
+      ]
+    },
+    "income": {
+      "fields": [
+        "ts_code",
+        "ann_date",
+        "f_ann_date",
+        "end_date",
+        "report_type",
+        "comp_type",
+        "basic_eps",
+        "total_revenue",
+        "revenue",
+        "oper_cost",
+        "n_income_attr_p"
+      ],
+      "allowed_params": [
+        "ann_date",
+        "comp_type",
+        "end_date",
+        "fields",
+        "period",
+        "report_type",
+        "start_date",
+        "ts_code"
+      ],
+      "required_params": [
+        "ts_code"
+      ],
+      "defaults": {
+        "fields": "ts_code,ann_date,f_ann_date,end_date,report_type,comp_type,basic_eps,total_revenue,revenue,oper_cost,n_income_attr_p"
+      },
+      "date_fields": [
+        "ann_date",
+        "end_date",
+        "f_ann_date",
+        "period",
+        "start_date"
+      ]
+    },
+    "balancesheet": {
+      "fields": [
+        "ts_code",
+        "ann_date",
+        "f_ann_date",
+        "end_date",
+        "report_type",
+        "comp_type",
+        "money_cap",
+        "inventories",
+        "accounts_receiv",
+        "total_assets",
+        "total_liab",
+        "total_hldr_eqy_exc_min_int"
+      ],
+      "allowed_params": [
+        "ann_date",
+        "comp_type",
+        "end_date",
+        "fields",
+        "period",
+        "report_type",
+        "start_date",
+        "ts_code"
+      ],
+      "required_params": [
+        "ts_code"
+      ],
+      "defaults": {
+        "fields": "ts_code,ann_date,f_ann_date,end_date,report_type,comp_type,money_cap,inventories,accounts_receiv,total_assets,total_liab,total_hldr_eqy_exc_min_int"
+      },
+      "date_fields": [
+        "ann_date",
+        "end_date",
+        "f_ann_date",
+        "period",
+        "start_date"
+      ]
+    },
+    "cashflow": {
+      "fields": [
+        "ts_code",
+        "ann_date",
+        "f_ann_date",
+        "end_date",
+        "report_type",
+        "comp_type",
+        "n_cashflow_act",
+        "n_cashflow_inv_act",
+        "n_cash_flows_fnc_act"
+      ],
+      "allowed_params": [
+        "ann_date",
+        "comp_type",
+        "end_date",
+        "fields",
+        "period",
+        "report_type",
+        "start_date",
+        "ts_code"
+      ],
+      "required_params": [
+        "ts_code"
+      ],
+      "defaults": {
+        "fields": "ts_code,ann_date,f_ann_date,end_date,report_type,comp_type,n_cashflow_act,n_cashflow_inv_act,n_cash_flows_fnc_act"
+      },
+      "date_fields": [
+        "ann_date",
+        "end_date",
+        "f_ann_date",
+        "period",
+        "start_date"
+      ]
+    },
+    "dividend": {
+      "fields": [
+        "ts_code",
+        "end_date",
+        "ann_date",
+        "div_proc",
+        "stk_div",
+        "stk_bo_rate",
+        "stk_co_rate",
+        "cash_div",
+        "cash_div_tax",
+        "record_date",
+        "ex_date",
+        "pay_date",
+        "imp_ann_date"
+      ],
+      "allowed_params": [
+        "ann_date",
+        "ex_date",
+        "fields",
+        "imp_ann_date",
+        "record_date",
+        "ts_code"
+      ],
+      "required_params": [
+        "ts_code"
+      ],
+      "defaults": {
+        "fields": "ts_code,end_date,ann_date,div_proc,stk_div,stk_bo_rate,stk_co_rate,cash_div,cash_div_tax,record_date,ex_date,pay_date,imp_ann_date"
+      },
+      "date_fields": [
+        "ann_date",
+        "end_date",
+        "ex_date",
+        "imp_ann_date",
+        "pay_date",
+        "record_date"
+      ]
+    },
+    "stk_holdernumber": {
+      "fields": [
+        "ts_code",
+        "ann_date",
+        "end_date",
+        "holder_num"
+      ],
+      "allowed_params": [
+        "ann_date",
+        "end_date",
+        "enddate",
+        "fields",
+        "start_date",
+        "ts_code"
+      ],
+      "required_params": [
+        "ts_code"
+      ],
+      "defaults": {
+        "fields": "ts_code,ann_date,end_date,holder_num"
+      },
+      "date_fields": [
+        "ann_date",
+        "end_date"
+      ]
+    },
+    "top10_holders": {
+      "fields": [
+        "ts_code",
+        "ann_date",
+        "end_date",
+        "holder_name",
+        "hold_amount",
+        "hold_ratio",
+        "hold_float_ratio",
+        "hold_change",
+        "holder_type"
+      ],
+      "allowed_params": [
+        "ann_date",
+        "end_date",
+        "fields",
+        "period",
+        "start_date",
+        "ts_code"
+      ],
+      "required_params": [
+        "ts_code"
+      ],
+      "defaults": {
+        "fields": "ts_code,ann_date,end_date,holder_name,hold_amount,hold_ratio,hold_float_ratio,hold_change,holder_type"
+      },
+      "date_fields": [
+        "ann_date",
+        "end_date"
+      ]
+    },
+    "top10_floatholders": {
+      "fields": [
+        "ts_code",
+        "ann_date",
+        "end_date",
+        "holder_name",
+        "hold_amount",
+        "hold_ratio",
+        "hold_float_ratio",
+        "hold_change",
+        "holder_type"
+      ],
+      "allowed_params": [
+        "ann_date",
+        "end_date",
+        "fields",
+        "period",
+        "start_date",
+        "ts_code"
+      ],
+      "required_params": [
+        "ts_code"
+      ],
+      "defaults": {
+        "fields": "ts_code,ann_date,end_date,holder_name,hold_amount,hold_ratio,hold_float_ratio,hold_change,holder_type"
+      },
+      "date_fields": [
+        "ann_date",
+        "end_date"
+      ]
+    },
+    "index_weight": {
+      "fields": [
+        "index_code",
+        "con_code",
+        "trade_date",
+        "weight"
+      ],
+      "allowed_params": [
+        "end_date",
+        "fields",
+        "index_code",
+        "start_date",
+        "trade_date"
+      ],
+      "required_params": [
+        "index_code"
+      ],
+      "defaults": {
+        "fields": "index_code,con_code,trade_date,weight"
+      },
+      "date_fields": [
+        "end_date",
+        "start_date",
+        "trade_date"
+      ]
+    },
+    "ggt_daily": {
+      "fields": [
+        "trade_date",
+        "buy_amount",
+        "buy_volume",
+        "sell_amount",
+        "sell_volume"
+      ],
+      "allowed_params": [
+        "end_date",
+        "fields",
+        "start_date",
+        "trade_date"
+      ],
+      "required_params": [],
+      "defaults": {
+        "fields": "trade_date,buy_amount,buy_volume,sell_amount,sell_volume"
+      },
+      "date_fields": [
+        "end_date",
+        "start_date",
+        "trade_date"
+      ]
+    },
+    "fund_daily": {
+      "fields": [
+        "ts_code",
+        "trade_date",
+        "open",
+        "high",
+        "low",
+        "close",
+        "pre_close",
+        "change",
+        "pct_chg",
+        "vol",
+        "amount"
+      ],
+      "allowed_params": [
+        "end_date",
+        "fields",
+        "start_date",
+        "trade_date",
+        "ts_code"
+      ],
+      "required_params": [
+        "ts_code"
+      ],
+      "defaults": {
+        "fields": "ts_code,trade_date,open,high,low,close,pre_close,change,pct_chg,vol,amount"
+      },
+      "date_fields": [
+        "end_date",
+        "start_date",
+        "trade_date"
+      ]
+    },
+    "fund_adj": {
+      "fields": [
+        "ts_code",
+        "trade_date",
+        "adj_factor"
+      ],
+      "allowed_params": [
+        "end_date",
+        "fields",
+        "start_date",
+        "trade_date",
+        "ts_code"
+      ],
+      "required_params": [
+        "ts_code"
+      ],
+      "defaults": {
+        "fields": "ts_code,trade_date,adj_factor"
+      },
+      "date_fields": [
+        "end_date",
+        "start_date",
+        "trade_date"
+      ]
+    },
+    "index_daily": {
+      "fields": [
+        "ts_code",
+        "trade_date",
+        "open",
+        "high",
+        "low",
+        "close",
+        "pre_close",
+        "change",
+        "pct_chg",
+        "vol",
+        "amount"
+      ],
+      "allowed_params": [
+        "end_date",
+        "fields",
+        "start_date",
+        "trade_date",
+        "ts_code"
+      ],
+      "required_params": [
+        "ts_code"
+      ],
+      "defaults": {
+        "fields": "ts_code,trade_date,open,high,low,close,pre_close,change,pct_chg,vol,amount"
+      },
+      "date_fields": [
+        "end_date",
+        "start_date",
+        "trade_date"
+      ]
+    },
+    "index_dailybasic": {
+      "fields": [
+        "ts_code",
+        "trade_date",
+        "total_mv",
+        "float_mv",
+        "total_share",
+        "float_share",
+        "free_share",
+        "turnover_rate",
+        "turnover_rate_f",
+        "pe",
+        "pe_ttm",
+        "pb"
+      ],
+      "allowed_params": [
+        "end_date",
+        "fields",
+        "start_date",
+        "trade_date",
+        "ts_code"
+      ],
+      "required_params": [
+        "ts_code"
+      ],
+      "defaults": {
+        "fields": "ts_code,trade_date,total_mv,float_mv,total_share,float_share,free_share,turnover_rate,turnover_rate_f,pe,pe_ttm,pb"
+      },
+      "date_fields": [
+        "end_date",
+        "start_date",
+        "trade_date"
+      ]
+    },
+    "index_global": {
+      "fields": [
+        "ts_code",
+        "trade_date",
+        "open",
+        "high",
+        "low",
+        "close",
+        "pre_close",
+        "change",
+        "pct_chg",
+        "swing",
+        "vol"
+      ],
+      "allowed_params": [
+        "end_date",
+        "fields",
+        "start_date",
+        "trade_date",
+        "ts_code"
+      ],
+      "required_params": [
+        "ts_code"
+      ],
+      "defaults": {
+        "fields": "ts_code,trade_date,open,high,low,close,pre_close,change,pct_chg,swing,vol"
+      },
+      "date_fields": [
+        "end_date",
+        "start_date",
+        "trade_date"
+      ]
+    },
+    "shibor": {
+      "fields": [
+        "date",
+        "on",
+        "1w",
+        "2w",
+        "1m",
+        "3m",
+        "6m",
+        "9m",
+        "1y"
+      ],
+      "allowed_params": [
+        "date",
+        "end_date",
+        "fields",
+        "start_date"
+      ],
+      "required_params": [],
+      "defaults": {
+        "fields": "date,on,1w,2w,1m,3m,6m,9m,1y"
+      },
+      "date_fields": [
+        "date",
+        "end_date",
+        "start_date"
+      ]
+    }
+  }
+}

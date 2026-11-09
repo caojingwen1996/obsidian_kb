@@ -23,13 +23,13 @@ from scripts.local_proxy import (
     create_server,
     delete_bbxm_featured_post,
     fetch_fugui_candidate,
-    fetch_index_history,
+    fetch_legacy_index_history as fetch_index_history,
     fetch_market_margin,
     fetch_market_snapshot,
-    fetch_nasdaq100_snapshot,
+    fetch_yahoo_nasdaq100_snapshot as fetch_nasdaq100_snapshot,
     fetch_stock_close_performance,
     fetch_stock_dividend_yield,
-    fetch_stock_quote,
+    fetch_legacy_stock_quote as fetch_stock_quote,
     fetch_usd_jpy,
     fetch_us_dollar_index,
     fetch_us_treasury_yield,
@@ -298,21 +298,11 @@ class PayloadTests(unittest.TestCase):
 
         def fake_fetch(url, source):
             calls.append((url, source))
-            if source == "tencent-stock-quote":
-                quote = [""] * 33
-                quote[1] = "长江电力"
-                quote[2] = "600900"
-                quote[3] = "28.5"
-                quote[4] = "28.0"
-                quote[30] = "20260728150000"
-                quote[32] = "1.79"
-                return {
-                    "data": {
-                        "sh600900": {
-                            "qt": {"sh600900": quote},
-                        }
-                    }
-                }
+            if source == "yahoo-chart":
+                from tests.test_yahoo_data import fixture, stamp
+                result = fixture('600900.SS')
+                result['chart']['result'][0]['meta'].update(regularMarketPrice=28.5, regularMarketTime=stamp('2026-11-05'))
+                return result
             self.assertEqual(source, "treasury")
             return {"result": {"data": [{"SOLAR_DATE": "2026-07-24", "EMM00166466": 1.73}]}}
 
@@ -327,7 +317,7 @@ class PayloadTests(unittest.TestCase):
         self.assertEqual(candidate["marketCapYi"], 6200.0)
         self.assertEqual(candidate["dividendYield"], 5.8)
         self.assertEqual(candidate["bond10yYield"], 1.73)
-        self.assertEqual([source for _, source in calls], ["tencent-stock-quote", "treasury"])
+        self.assertEqual([source for _, source in calls], ["yahoo-chart", "treasury"])
 
     def test_fetches_fugui_candidate_from_tushare_provider(self):
         calls = []
@@ -648,6 +638,13 @@ class OpenDividendSourceTests(unittest.TestCase):
 class ServerTests(unittest.TestCase):
     @staticmethod
     def fake_fetch(url, source):
+        if source == 'yahoo-chart':
+            from tests.test_yahoo_data import fixture, stamp
+            result = fixture('600879.SS')
+            meta = result['chart']['result'][0]['meta']
+            meta.update(regularMarketTime=stamp('2026-11-05'), regularMarketPrice=14.43,
+                        chartPreviousClose=14.65, longName='航天电子')
+            return result
         if "kline/get" in url:
             return {"data": {"klines": ["2026-07-17,3500,3510"]}}
         if "stock/get" in url:
@@ -710,7 +707,7 @@ class ServerTests(unittest.TestCase):
                     self.assertEqual(blocked.exception.code, 404)
 
     def test_api_returns_normalized_json(self):
-        with running_server(self.fake_fetch) as base:
+        with patch("scripts.local_proxy.kline_payload", return_value={"data": {"klines": ["2026-07-17,3500,3510"]}}), running_server(self.fake_fetch) as base:
             payload = read_json(
                 f"{base}/api/eastmoney-kline?secid=1.000300&limit=3000"
             )
@@ -731,18 +728,16 @@ class ServerTests(unittest.TestCase):
 
     def test_nasdaq100_api_returns_current_point_and_drawdown(self):
         def fake_fetch(url, source):
-            if source == "nasdaq100":
-                return {
-                    "chart": {
-                        "result": [{
-                            "meta": {"regularMarketPrice": 190.0},
-                            "indicators": {"quote": [{"close": [100.0, 200.0, 190.0]}]},
-                        }],
-                    },
-                }
+            if source == "yahoo-chart":
+                from tests.test_yahoo_data import fixture, stamp
+                result = fixture()
+                node = result['chart']['result'][0]
+                node['meta'].update(regularMarketPrice=190., regularMarketTime=stamp('2026-11-05'))
+                node['indicators']['quote'][0]['close'] = [100., 200., 190.]
+                return result
             raise UpstreamError(source)
 
-        with running_server(fake_fetch) as base:
+        with patch('scripts.wind_data.nasdaq_valuation', return_value={'status': 'missing'}), running_server(fake_fetch) as base:
             payload = read_json(f"{base}/api/nasdaq100")
 
         self.assertEqual(payload["data"]["currentPoint"], 190.0)
@@ -755,18 +750,11 @@ class ServerTests(unittest.TestCase):
             with self.assertRaises(HTTPError) as bad_request:
                 urlopen(f"{base}/api/stock-quote?secid=2.600000", timeout=3)
 
-        self.assertEqual(payload, {
-            "data": {
-                "secid": "1.600879",
-                "code": "600879",
-                "name": "航天电子",
-                "price": 14.43,
-                "prevClose": 14.65,
-                "changePercent": -1.5,
-                "quoteTimestamp": 1784601060,
-            },
-            "proxySource": "东方财富行情",
-        })
+        self.assertEqual(payload['data']['secid'], '1.600879')
+        self.assertEqual(payload['data']['price'], 14.43)
+        self.assertEqual(payload['data']['prevClose'], 14.65)
+        self.assertAlmostEqual(payload['data']['changePercent'], (14.43/14.65-1)*100)
+        self.assertIn('Yahoo', payload['proxySource'])
         self.assertEqual(bad_request.exception.code, 400)
 
     def test_stock_close_performance_returns_latest_close_and_week_change(self):

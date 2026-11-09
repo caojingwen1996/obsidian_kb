@@ -1,0 +1,45 @@
+✔ weekly bands use the final daily close of each trading week and population deviation (11.519375ms)
+✔ week aggregation crosses years, skips empty holiday weeks and rejects invalid or future observations (0.267583ms)
+✔ current week participates as a dynamic bar until Friday close in Shanghai time (2.546875ms)
+✔ position preserves exact boundaries, excursions beyond both bands and zero-width bands (0.353333ms)
+✔ live loader requests a full history for 000922 and reports failed or insufficient data (1.657333ms)
+✔ cards retain snapshot values after a failed refresh and work independently of dividend score data (0.425458ms)
+✔ Bollinger overview keeps its values and defers units, formula and source details (0.315125ms)
+✔ built dashboard computes real weekly bands from its embedded official history (15.983375ms)
+✔ position graphic keeps true out-of-band values and never invents a marker for missing bands (0.621583ms)
+✔ live annual return and drawdown use the current quote while retaining the annual starting baseline (14.89175ms)
+✔ same-date quote replaces the provisional daily endpoint and cannot accumulate duplicate trading days (0.92775ms)
+✔ invalid, wrong-index, future and older-than-daily quotes are rejected (1.618416ms)
+✔ partial history never silently changes the annual baseline or fills missing yearly values (1.774791ms)
+✔ new year starts from its own first trading close and historical status closes after rollover (0.761791ms)
+✔ loader uses existing routes and keeps the quote out of the official daily series (3.524167ms)
+✔ quote failure falls back to daily data with a warning; daily failure never pretends to be live (1.970834ms)
+✔ a later quote failure retains the last successful intraday result instead of relabeling it as daily data (2.976541ms)
+✔ calendar explicitly labels snapshot, loading, dynamic, failure and retry states (1.7235ms)
+✔ saved monthly data can be read synchronously without requesting daily prices (6.789ms)
+✔ all persisted annual rows include valid monthly returns using the annual baseline (9.576375ms)
+✔ built dashboard embeds every year and renders saved cards before any network request (3.9185ms)
+✔ monthly returns compound to the annual return using the same initial baseline (0.172917ms)
+✔ missing endpoints or annual mismatch never generate monthly numbers (0.238458ms)
+✔ missing intervening month is not mislabeled as a single-month return (0.056084ms)
+✔ inception year keeps unavailable months empty and starts at the first actual close (0.091959ms)
+✔ annual cards are keyboard accessible and monthly cards distinguish missing, gain and loss (0.445584ms)
+✔ return calendar defaults to the latest year monthly view regardless of row order (0.515208ms)
+✔ return calendar still supports explicit annual returns with year/month selection (0.314834ms)
+✔ annual metric cards display the saved values, periods and statuses without inventing missing data (1.021542ms)
+✔ monthly calendar selects a year from validated saved returns without replacing missing months by zero (0.388541ms)
+✔ monthly calendar reports missing or inconsistent data without inventing monthly returns (0.25625ms)
+✔ calendar year arrows disable unavailable years and enable both directions for an interior year (0.310541ms)
+✔ monthly calendar shows the selected annual return with precise partial-year labels (0.148375ms)
+✔ dividend monthly drawdown resets peaks and distinguishes insufficient daily data (0.269333ms)
+✔ Nasdaq calendar isolates controls and supports annual and monthly views (11.310375ms)
+✔ Loading, unavailable and inconsistent monthly data are explicit (0.152083ms)
+✔ monthly metric buttons switch values, preserve missing data and isolate the dividend page (0.350459ms)
+ℹ tests 37
+ℹ suites 0
+ℹ pass 37
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 113.669584

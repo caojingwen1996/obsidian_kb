@@ -4,7 +4,7 @@
 
 现行工程按[[tools/RiskHot/docs/superpowers/specs/2026-10-29-f01-material-migration|F01迁移规格]]与[[tools/RiskHot/docs/system-design/04-系统架构设计/01-数据模型与存储设计/F01信息接入模块数据模型与存储设计|F01数据模型]]实现。资料、单信源任务和候选使用schema5；早期切片报告只保留历史证据。
 
-M1 实际管理页面已按[[tools/RiskHot/docs/system-design/06产品UI原型设计/06-2-M1信源管理中心UI设计/02. 交互原型说明|现行交互原型]]接入真实服务，顶部采用“信源目录／信息采集任务／事件处理任务”三个工作区，其中事件处理任务为用户指定的空白预留页；信息采集任务下依次为“任务计划设置／手动发起采集／任务执行记录”，原顶部手动任务已移入子分组。信源目录仅管理档案与分类。侧栏为不可折叠的“内容 → 全部”“配置 → 信源管理中心／流水线全景”，仅显示已实现入口。代码和本机后台均使用 `main`；最新验证见[[tools/RiskHot/docs/verification/m1-management|M1 实现与运行记录]]及[[tools/RiskHot/docs/verification/pipeline-panorama|流水线全景验证记录]]。
+M1 实际管理页面已按[[tools/RiskHot/docs/system-design/06产品UI原型设计/06-2-M1信源管理中心UI设计/02. 交互原型说明|现行交互原型]]接入真实服务，顶部采用“信源目录／信息采集任务／事件处理任务”三个工作区，其中事件处理任务为用户指定的空白预留页；信息采集任务下依次为“任务计划设置／手动发起采集／任务执行记录”，原顶部手动任务已移入子分组。信源目录仅管理档案与分类。侧栏为不可折叠的“内容 → 全部动态／观测对象”“配置 → 信源管理中心／流水线全景”，仅显示已实现入口。代码和本机后台均使用 `main`；最新验证见[[tools/RiskHot/docs/verification/m1-management|M1 实现与运行记录]]及[[tools/RiskHot/docs/verification/pipeline-panorama|流水线全景验证记录]]。
 
 ## 代码目录
 
@@ -249,3 +249,54 @@ npm run verify:f02 -- --candidate <候选ID> --actor <授权主体>
 ```
 
 脚本只读核对保存回执、关联快照、逐接收方回执与采用状态；不满足完整闭环返回非零。关联或交付失败只恢复原分支，不重新保存事件。没有实际接收端时保留待接入，不能用本机测试通过宣称下游风险分析完成。
+
+## 观测对象浏览与维护（M4迁移前的兼容入口）
+
+以下说明适用于尚未应用schema10的旧入口；M4切换后的配置与观察操作见下一节。打开 [观测对象](http://localhost:18081/targets)。可按名称、别名、一级分类和使用状态查询；对象详情提供范围、别名、定义版本与有权查看的关联动态。页面没有演示数据，正式对象尚未核定时显示空目录。
+
+具有 `read` 与现有 `event_review` 权限的账号可新建、编辑对象；编辑会校验当前版本、记录说明并保留历史事件采用的定义快照。保存结果未确认时，使用“重试上次保存”，刷新后也会保留原请求；不要另外重复新建。只读账号仅提供浏览入口。
+
+接口为 `GET /api/v1/targets`、`GET /api/v1/targets/:id`、`POST /api/v1/targets`、`PUT /api/v1/targets/:id`；写入要求 `Idempotency-Key`，更新附 `expected_version`。复用已有schema8中的Target表，无需新增迁移。验证与当前边界见[[tools/RiskHot/docs/verification/targets-ui|观测对象页面验证]]。
+
+## M4 金融对象配置与系统共享观察
+
+2026-11-05已完成当前本机运行环境部署，配置中心与共享观察已启用。实际功能11组与部署后专项24项通过，详见[[tools/RiskHot/docs/verification/m4-live|M4实际部署与功能验收]]。下述命令作为后续部署与运维说明保留。
+
+M4通过显式增量迁移启用。未迁移时继续保留既有 `/targets` 页面；完成schema10并重启API后，`/m4`提供手工金融对象配置，`/targets`展示系统共享观察。目录初始为空，不自动导入事件Target或原型演示数据。
+
+先只读盘点：
+
+```sh
+npm run migrate:m4
+```
+
+M4要求已完成schema8。迁移前备份现有库并核对Target、Event、Fact、关联和证据数量；本机部署已经执行，其他环境仍须按自身备份和版本状态操作。
+
+```sh
+mkdir -p .riskhot/backups
+pg_dump "$ADMIN_DATABASE_URL" --format=custom --file=.riskhot/backups/before-m4.dump
+npm run migrate:m4 -- --apply
+```
+
+该迁移可重复执行，失败整体回滚，不自动应用F02/业务队列迁移。迁移后使用现有服务管理方式重启API，以重新注册页面路由。重新运行setup不会给已有账号自动扩大职责，也不会恢复M4表的直接DML权限。
+
+现有账号按需显式授权，可重复执行；将`账号标识`替换为真实actor subject，仅列出该账号应承担的职责：
+
+```sh
+npm run grant:m4 -- 账号标识 financial_config_manage observation_manage target_mapping_review
+```
+
+三项职责分别是配置维护、共享观察管理和Target映射核定；它们互不隐含。read仍是读取前提。新建本机/OIDC操作账号的初始化已包含这三项职责，迁移不会批量升级其他event_review账号。
+
+操作顺序为：建立目录与明确范围的对象 → 启用 → 从观察选择器核对并添加共享观察 → 人工比较事件Target的身份/范围/辖区 → 核定后读取有权查看的直接关联动态。配置停用、移入不可用分支或口径改变会先显示影响；重新启用不自动恢复。恢复时采用新快照并保留旧依据。旧Target手工POST/PUT在M4切换后明确拒绝，内部F02核定与事件保存继续运行。
+
+迁移采用过的数据不做破坏性down回滚；关闭入口后前向修复，保留快照、观察、映射和审计。验证与31项场景对应见[[tools/RiskHot/docs/verification/m4|M4工程验证]]，接口及存储边界见[[tools/RiskHot/docs/system-design/04-系统架构设计/03-模块技术详细设计/M4-金融对象配置与共享观察技术设计|M4技术设计]]。
+
+```sh
+npm run typecheck
+node --env-file-if-exists=.env --import tsx --test --test-concurrency=1 src/tests/m4*.test.ts src/tests/f02-eight-step-commit.test.ts
+EXECUTION_ENGINE=temporal npm test
+node --env-file-if-exists=.env --import tsx src/tests/m4-browser.e2e.ts
+```
+
+旧schema5/7测试夹具按Temporal基线构建；若本机`.env`设为pg-boss，直接`npm test`会使这些旧夹具因缺少业务队列表失败。上方临时环境变量只用于这次测试进程，不修改实际队列配置；另有M4＋schema9＋真实IO角色的pg-boss保存/后续Job回归。浏览器脚本要求`SOURCE_BROWSER_EXECUTABLE`指向独立Chrome for Testing/Chromium，可用`PLAYWRIGHT_MODULE`指定已安装模块，使用任务专用临时目录并在finally关闭。

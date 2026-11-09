@@ -51,7 +51,7 @@ try {
   await login(sessions.operator); await page.reload(); await settle();
   assert.equal(await page.locator('.workspaces a').count(),3);
   assert.deepEqual(await page.locator('.sidebar .nav-label').allTextContents(),['内容','配置']);
-  assert.deepEqual(await page.locator('.sidebar nav a').allTextContents(),['全部','信源管理中心','流水线全景']);
+  assert.deepEqual(await page.locator('.sidebar nav a').allTextContents(),['全部动态','观测对象','信源管理中心','流水线全景']);
   assert.equal(await page.locator('.sidebar button,.sidebar [aria-expanded]').count(),0);check('shared sidebar has two non-collapsible groups and only implemented entries');
   assert.match(await page.locator('#result-count').textContent(), /40 个信源/); check('40 persisted sources');
   await page.locator('.more-filters > summary').click();

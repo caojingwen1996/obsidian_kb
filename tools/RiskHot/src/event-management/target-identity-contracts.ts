@@ -1,15 +1,8 @@
 import {Ajv2020} from 'ajv/dist/2020.js';
 import {DomainError} from '../platform/types.js';
 export const targetRuleVersion='target-identity-v1';
-export const categoryVersion='financial-target-categories-v1';
-export const targetCategories:Record<string,string[]>={
- '货币与货币形态':['货币单位','中央银行货币','商业银行存款货币','其他货币性工具'],
- '金融资产与金融合约':['主权债务工具','企业债务工具','信贷资产','证券化产品','权益资产','集合投资产品','衍生金融工具','其他金融合约'],
- '金融主体与机构':['主权及公共部门','货币当局','存款类金融机构','非银行金融机构','非金融部门','机构投资者'],
- '金融市场与基础设施':['货币市场','债券市场','股票市场','外汇市场','衍生品市场','金融基础设施'],
- '金融体系与宏观制度':['国家金融体系','货币与汇率制度','金融部门体系','跨境金融网络','全球金融体系'],
- '投资组合与交易策略':['单一资产持仓','多资产组合','杠杆与融资策略','风险对冲策略'],
-};
+import {categoryVersion,targetCategories} from '../financial-objects/categories.js';
+export {categoryVersion,targetCategories};
 const str={type:'string',minLength:1,maxLength:8000,pattern:'\\S'},strings={type:'array',items:str,uniqueItems:true,maxItems:200};
 const obj=(properties:Record<string,unknown>)=>({type:'object',additionalProperties:false,required:Object.keys(properties),properties});
 const uuid={type:'string',pattern:'^[a-f0-9-]{36}$'};

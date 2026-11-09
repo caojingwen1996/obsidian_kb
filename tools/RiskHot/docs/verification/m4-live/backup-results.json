@@ -1,0 +1,43 @@
+{
+  "created_at": "2026-11-05T10:25:42.963Z",
+  "backup": ".riskhot/backups/m4-deploy-2026-11-05T10-25-41.331Z/before-m4.dump",
+  "bytes": 905848,
+  "sha256": "36c810f4ef8f53e02478fe3204f2854fa8d9b295fc9bbba2dae76eb8b3f74d4d",
+  "before": {
+    "information.target": {
+      "count": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "information.event": {
+      "count": 1,
+      "digest": "953c7785e936d7ba16f41d8b0b4527c4788a1827f7960bc2e2bae3b8a6d46467"
+    },
+    "information.fact": {
+      "count": 4,
+      "digest": "84ecac91439fd4e40711ce39f185d79487963605b42b23605ba8baf50574be35"
+    },
+    "information.event_target": {
+      "count": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "information.fact_evidence": {
+      "count": 8,
+      "digest": "77ac8397da299aee7337cc268dcb1378da9fcb132b1f3b6a74fc573e8012334b"
+    },
+    "information.event_target_definition": {
+      "count": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "information.definition_snapshots": {
+      "count": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "m1.sources": {
+      "count": 40,
+      "digest": "dbb4da16e3bac787927b6f618414795533df48a8a87ab461f2cd32e5e56d573e"
+    }
+  },
+  "restore_verified": true,
+  "migration_rehearsal_verified": true,
+  "repeat_migration_verified": true
+}

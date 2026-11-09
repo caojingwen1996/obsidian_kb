@@ -1,0 +1,62 @@
+{
+  "date": "2026-11-05",
+  "scope": "资金面日报卡片与详情；美元用DXY、RRP评分留空",
+  "newTests": {
+    "python": 23,
+    "javascript": 4,
+    "passed": 27
+  },
+  "fullRegression": {
+    "nodeTotal": 274,
+    "nodePassed": 267,
+    "nodeFailed": 7,
+    "pythonTotal": 171,
+    "pythonPassed": 170,
+    "pythonErrors": 1
+  },
+  "liveMarkets": {
+    "cn": {
+      "score": -3,
+      "label": "紧张",
+      "valid": 4,
+      "total": 4,
+      "complete": true
+    },
+    "us": {
+      "score": 4,
+      "label": "宽松",
+      "valid": 5,
+      "total": 6,
+      "complete": false
+    }
+  },
+  "dataLimit": "WALCL的FRED数据不可用，其余已验证来源按实际日期显示",
+  "browser": {
+    "entry": true,
+    "cn": "4 / 4\n有效评分指标",
+    "us": "5 / 6\n有效评分指标",
+    "rrpPending": true,
+    "dxyTrend": true,
+    "unrelatedStatusHidden": true,
+    "refreshButtonSized": true,
+    "chart": true,
+    "history": true,
+    "mobileNoPageOverflow": true,
+    "back": true,
+    "restore": true,
+    "failureRetainsData": true,
+    "refreshRecovered": true,
+    "pageErrors": []
+  },
+  "designReview": {
+    "mode": "Operate",
+    "world": "继承既有蓝灰界面",
+    "fixes": [
+      "刷新按钮恢复合适宽度",
+      "独立隐藏其他模型的全市场刷新提示",
+      "手机端按字段排列指标",
+      "明确RRP规则待定和DXY强弱口径"
+    ],
+    "detector": []
+  }
+}

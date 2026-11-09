@@ -1,0 +1,17 @@
+{
+  "dailyPoints": 211,
+  "source": "westock-data / 腾讯自选股（NDX）",
+  "year": 2026,
+  "exactDailyMatch": true,
+  "monthSelection": true,
+  "unchangedScale": true,
+  "yearReset": true,
+  "keyboard": true,
+  "responsiveWidths": [
+    1600,
+    1000,
+    390,
+    320
+  ],
+  "errors": []
+}

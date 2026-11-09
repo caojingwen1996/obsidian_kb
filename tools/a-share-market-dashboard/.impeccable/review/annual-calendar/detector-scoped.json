@@ -1,0 +1,14 @@
+[
+  {
+    "antipattern": "design-system-color",
+    "name": "Color outside DESIGN.md",
+    "description": "A literal color is outside the DESIGN.md palette and sidecar tonal ramps. This may be legitimate, but it should be an intentional design-system addition rather than drift.",
+    "severity": "advisory",
+    "category": "quality",
+    "file": "/Users/cjw/dev/Obsidian/wiki/tools/a-share-market-dashboard/src/styles.css",
+    "line": 600,
+    "snippet": "Undocumented color #a62c24 is outside DESIGN.md colors",
+    "advisory": true,
+    "ignoreValue": "#a62c24"
+  }
+]

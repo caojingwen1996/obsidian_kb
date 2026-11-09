@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-05",
+  "origin": "http://localhost:18081",
+  "mode": "正式环境只读检查，未新建或编辑正式对象",
+  "results": [
+    {
+      "path": "/targets",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/targets?limit=20",
+      "status": 200,
+      "total": 0,
+      "can_manage": true,
+      "item_count": 0
+    },
+    {
+      "path": "/m1/targets.js",
+      "status": 200
+    },
+    {
+      "path": "/m1/targets.css",
+      "status": 200
+    },
+    {
+      "path": "/m1/product-navigation.css",
+      "status": 200
+    }
+  ]
+}

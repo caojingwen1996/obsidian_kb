@@ -1,0 +1,63 @@
+{
+  "id": "cn_etf_flow",
+  "name": "ETF配置盘",
+  "unit": "亿元",
+  "rule": "Wind按沪深交易所筛选股票型ETF（包含股票型分类下的港股通产品），汇总同日申赎净流入额；所有基金返回完整数值才生成合计，元换算为亿元。历史按观测日逐步累积。",
+  "value": 440.15191775,
+  "date": "2026-11-04",
+  "previous": {
+    "date": "2026-11-03",
+    "value": 834.68574895
+  },
+  "percentile": null,
+  "sampleCount": 2,
+  "direction": "净流入",
+  "status": "ok",
+  "reason": "",
+  "reference": true,
+  "score": null,
+  "change": null,
+  "baseline": null,
+  "points": [
+    {
+      "date": "2026-11-03",
+      "value": 834.68574895
+    },
+    {
+      "date": "2026-11-04",
+      "value": 440.15191775
+    }
+  ],
+  "source": "Wind MCP · 沪深股票型ETF申赎净流入",
+  "sourceUrls": [
+    "https://www.wind.com.cn/"
+  ],
+  "cached": true,
+  "transport": "wind-mcp",
+  "coverage": {
+    "date": "2026-11-04",
+    "received": 1369,
+    "expected": 1369,
+    "screened": 1370,
+    "excludedNotListed": [
+      {
+        "code": "158081.OF",
+        "listedDate": "2026-11-05"
+      }
+    ],
+    "universeDate": "2026-11-05"
+  },
+  "refresh": {
+    "running": false,
+    "startedEpoch": 1793877364.173881,
+    "lastAttemptEpoch": 1793877364.173881,
+    "message": "Wind申赎数据已更新",
+    "completedBatches": 28,
+    "totalBatches": 28,
+    "date": "2026-11-04",
+    "received": 1369,
+    "expected": 1369,
+    "error": "",
+    "finishedEpoch": 1793877504.23623
+  }
+}

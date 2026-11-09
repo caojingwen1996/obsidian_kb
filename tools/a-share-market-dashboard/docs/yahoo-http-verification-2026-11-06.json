@@ -1,0 +1,206 @@
+{
+  "health": {
+    "route": "/health",
+    "status": 200,
+    "keys": [
+      "ok"
+    ],
+    "source": null
+  },
+  "nasdaq": {
+    "route": "/api/nasdaq100",
+    "status": 200,
+    "keys": [
+      "data",
+      "proxySource"
+    ],
+    "source": "Yahoo Finance chart · ^NDX",
+    "historySource": "Yahoo Finance chart · ^NDX已收盘日线",
+    "lastDate": "2026-11-05"
+  },
+  "stock": {
+    "route": "/api/stock-quote?secid=1.600000",
+    "status": 200,
+    "keys": [
+      "data",
+      "proxySource",
+      "sourceUrl"
+    ],
+    "source": "Yahoo Finance chart（参考报价，可能延迟）"
+  },
+  "dividendIndex": {
+    "route": "/api/stock-quote?secid=1.000922",
+    "status": 200,
+    "keys": [
+      "data",
+      "proxySource",
+      "sourceUrl"
+    ],
+    "source": "Yahoo Finance chart（参考报价，可能延迟）"
+  },
+  "risk": {
+    "route": "/api/wind-risk",
+    "status": 200,
+    "keys": [
+      "indicators",
+      "checkedAt",
+      "attemptEpoch",
+      "running",
+      "providers"
+    ],
+    "source": null,
+    "yahoo": {
+      "pending-capital-1": {
+        "value": 6.673099994659424,
+        "date": "2026-11-05",
+        "source": "Yahoo Finance chart",
+        "status": "ok"
+      },
+      "pending-capital-0": {
+        "value": 101.55000305175781,
+        "date": "2026-11-05",
+        "source": "Yahoo Finance chart",
+        "status": "ok"
+      },
+      "pending-capital-2": {
+        "value": 158.35699462890625,
+        "date": "2026-11-05",
+        "source": "Yahoo Finance chart",
+        "status": "stale"
+      }
+    }
+  },
+  "liquidity": {
+    "route": "/api/liquidity",
+    "status": 200,
+    "keys": [
+      "schemaVersion",
+      "asOf",
+      "markets",
+      "metrics",
+      "alerts",
+      "alertsComplete",
+      "fundingMonitor",
+      "provider",
+      "fetchedAt",
+      "elapsedSeconds"
+    ],
+    "source": null,
+    "metrics": [
+      {
+        "id": "curve",
+        "source": "Tushare us_tycr via tushare-data",
+        "date": "2026-11-05",
+        "status": "ok"
+      },
+      {
+        "id": "yield",
+        "source": "Tushare us_tycr via tushare-data",
+        "date": "2026-11-05",
+        "status": "ok"
+      },
+      {
+        "id": "vix",
+        "source": "Yahoo Finance chart · ^VIX · 日收盘",
+        "date": "2026-11-05",
+        "status": "ok"
+      },
+      {
+        "id": "rrp",
+        "source": "纽约联储 · 隔夜逆回购",
+        "date": "2026-11-05",
+        "status": "stale"
+      },
+      {
+        "id": "walcl",
+        "source": "Wind MCP · 联储总资产",
+        "date": "2026-11-04",
+        "status": "stale"
+      },
+      {
+        "id": "usd",
+        "source": "Yahoo Finance chart · DX-Y.NYB · 日收盘",
+        "date": "2026-11-05",
+        "status": "ok"
+      },
+      {
+        "id": "dxy",
+        "source": "Yahoo Finance chart · DX-Y.NYB（参考报价，可能延迟）",
+        "date": "2026-11-06",
+        "status": "ok"
+      },
+      {
+        "id": "spx",
+        "source": "Tushare index_global via tushare-data",
+        "date": "2026-11-05",
+        "status": "ok"
+      },
+      {
+        "id": "margin",
+        "source": "Tushare margin via tushare-data",
+        "date": "2026-11-05",
+        "status": "ok"
+      },
+      {
+        "id": "flow",
+        "source": "东财 · 沪深主力净流入（估算）",
+        "date": "2026-11-05",
+        "status": "ok"
+      },
+      {
+        "id": "shibor",
+        "source": "Tushare shibor via tushare-data",
+        "date": "2026-11-05",
+        "status": "ok"
+      },
+      {
+        "id": "south",
+        "source": "Wind MCP · 港股通当日净买入（人民币）",
+        "date": "2026-11-05",
+        "status": "stale"
+      },
+      {
+        "id": "csi300",
+        "source": "Tushare index_daily via tushare-data",
+        "date": "2026-11-05",
+        "status": "ok"
+      }
+    ]
+  },
+  "etf": {
+    "route": "/api/dividend-signal?code=515450",
+    "status": 200,
+    "keys": [
+      "schemaVersion",
+      "instrumentId",
+      "instrumentKind",
+      "name",
+      "source",
+      "sourceUrl",
+      "priceBasis",
+      "daily",
+      "records",
+      "valuation",
+      "distributions",
+      "lastPoint",
+      "historyCoverage",
+      "fetchedAt",
+      "checkedAt",
+      "sourceStatus",
+      "distributionsFetchedAt",
+      "distributionsSource",
+      "distributionsSourceUrl"
+    ],
+    "source": null,
+    "distributionsSource": "Yahoo Finance chart · 515450.SS",
+    "sourceStatus": {
+      "status": "updated",
+      "lastAttemptAt": "2026-11-06T14:25:32+08:00",
+      "daily": "已读取1624条ETF前复权日线；最新收盘2026-11-05。",
+      "task": "查看本页时每分钟查询，服务缓存60秒；未配置独立定时任务。",
+      "valuation": "近365天已除息现金分红合计 / ETF未复权收盘价；非跟踪指数股息率。"
+    },
+    "events": 9
+  },
+  "verifiedAt": "2026-11-06T06:25:35.167365+00:00"
+}

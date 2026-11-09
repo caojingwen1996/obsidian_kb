@@ -1,0 +1,17 @@
+{
+  "date": "2026-11-09",
+  "integration": "wired",
+  "accountVerification": "pending_token",
+  "officialDocs": "https://www.lixinger.com/api/open-api/html-doc/us/index/fundamental",
+  "pythonTests": 28,
+  "frontendTests": 6,
+  "build": "passed",
+  "localEndpoint": {
+    "currentPoint": 26989.99,
+    "peTtm": null,
+    "pePercentile10y": null,
+    "valuationStatus": "missing",
+    "valuationNote": "未配置理杏仁 LIXINGER_TOKEN，估值尚未取数。",
+    "valuationSource": "理杏仁"
+  }
+}

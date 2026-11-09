@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "20261101T100424-c31436570dd8",
+  "source": "execution",
+  "runDate": "2026-11-01",
+  "startedAt": "2026-11-01T10:04:24.136800+08:00",
+  "endedAt": "2026-11-01T10:20:39.734320+08:00",
+  "status": "failed",
+  "pid": 43388,
+  "stage": "获取指数估值",
+  "writtenFiles": [],
+  "error": "Remote end closed connection without response",
+  "updatedAt": "2026-11-01T10:20:39.734372+08:00",
+  "durationSeconds": 975.6
+}

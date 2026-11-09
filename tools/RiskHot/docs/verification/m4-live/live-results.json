@@ -1,0 +1,54 @@
+{
+  "runId": "2026-11-05T10-29-58.075Z",
+  "origin": "http://localhost:18081",
+  "passed": true,
+  "cleanup": true,
+  "ids": {
+    "directory": "62d1eab5-0be5-4451-a250-1db0ed18d083",
+    "config": "5a358e6d-e89d-4355-a414-d0f877db74b8",
+    "observation": "94326f1b-0527-4651-8d22-66696184709a"
+  },
+  "name": "[验收] 美元货币单位 2026-11-05T10-29-58.075Z",
+  "checks": [
+    "实际服务会话、M4接口及当前操作员三项职责可用",
+    "信源、事件、流水线页面正常，导航包含金融对象配置中心",
+    "实际页面创建目录和金融对象成功；未自动产生观察、Target或事件",
+    "真实页面编辑持久化，配置版本推进、身份口径保持并保留历史",
+    "从配置选择建立共享观察，刷新后持久化；无映射时明确显示尚未核定",
+    "重复添加与原键重试复用共享记录，同键改内容被拒绝",
+    "备注、暂停和恢复成功，恢复保持原共享观察ID",
+    "上级停用原子暂停观察；重新启用不自动恢复，显式恢复成功",
+    "范围修订暂停待确认、旧采用快照保留，恢复后采用新口径",
+    "旧Target手工写入口已关闭，事件对象目录保持原值",
+    "实际观察页面桌面、390及320宽度可读，无横向溢出或页面脚本错误"
+  ],
+  "errors": [],
+  "before": {
+    "information.target": {
+      "count": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "information.event": {
+      "count": 1,
+      "digest": "953c7785e936d7ba16f41d8b0b4527c4788a1827f7960bc2e2bae3b8a6d46467"
+    },
+    "information.fact": {
+      "count": 4,
+      "digest": "84ecac91439fd4e40711ce39f185d79487963605b42b23605ba8baf50574be35"
+    },
+    "information.event_target": {
+      "count": 0,
+      "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "information.fact_evidence": {
+      "count": 8,
+      "digest": "77ac8397da299aee7337cc268dcb1378da9fcb132b1f3b6a74fc573e8012334b"
+    },
+    "m1.sources": {
+      "count": 40,
+      "digest": "dbb4da16e3bac787927b6f618414795533df48a8a87ab461f2cd32e5e56d573e"
+    }
+  },
+  "mapping_live": "未验证非空映射：实际事件Target目录为空，未为验收伪造Target或事件",
+  "test_records": "仅本次验收记录，观察已结束、配置已停用时cleanup=true；保留历史，不物理删除"
+}

@@ -1,0 +1,37 @@
+{
+  "recordedAt": "2026-11-02T15:06:42+08:00",
+  "indexCode": "SPCLLHCP",
+  "returnType": "Price Return",
+  "currency": "CNY",
+  "associatedEtf": "515450",
+  "sourceUrl": "https://www.spglobal.com/spdji/en/indices/dividends-factors/sp-china-a-share-largecap-low-volatility-high-dividend-50-index/",
+  "officialPageObservation": {
+    "date": "2026-10-30",
+    "level": 3840.64,
+    "timeOfDay": null,
+    "priceTicker": "SPCLLHCP",
+    "totalReturnTicker": "SPCLLHCT",
+    "launchDate": "2019-04-01",
+    "firstValueDate": "2009-01-23"
+  },
+  "historyExport": {
+    "indexId": "92372168",
+    "selectedModule": "PerformanceGraphView",
+    "yearFlag": "tenYearFlag",
+    "status": "HTTP 403; browser download timed out"
+  },
+  "factsheet": {
+    "indexId": "92372168",
+    "frequency": "monthly",
+    "status": "HTTP 403"
+  },
+  "westock": {
+    "indexSearch": "标普: no matching index",
+    "symbolSearch": "SPCLLHCP: empty"
+  },
+  "notObtained": [
+    "verified daily price-index history",
+    "dated index dividend yield"
+  ],
+  "calculationBasisConfirmedByUser": "SPCLLHCP index; 515450 shown as corresponding ETF"
+}

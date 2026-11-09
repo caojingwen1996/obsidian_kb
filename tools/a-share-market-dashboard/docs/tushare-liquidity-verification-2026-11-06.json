@@ -1,0 +1,47 @@
+{
+  "provider": "tushare",
+  "metrics": [
+    {
+      "id": "curve",
+      "source": "Tushare us_tycr via tushare-data",
+      "status": "ok",
+      "date": "2026-11-05"
+    },
+    {
+      "id": "yield",
+      "source": "Tushare us_tycr via tushare-data",
+      "status": "ok",
+      "date": "2026-11-05"
+    },
+    {
+      "id": "spx",
+      "source": "Tushare index_global via tushare-data",
+      "status": "ok",
+      "date": "2026-11-05"
+    },
+    {
+      "id": "margin",
+      "source": "Tushare margin via tushare-data",
+      "status": "ok",
+      "date": "2026-11-05"
+    },
+    {
+      "id": "shibor",
+      "source": "Tushare shibor via tushare-data",
+      "status": "ok",
+      "date": "2026-11-05"
+    },
+    {
+      "id": "csi300",
+      "source": "Tushare index_daily via tushare-data",
+      "status": "ok",
+      "date": "2026-11-05"
+    },
+    {
+      "id": "cn_margin_net",
+      "source": "Tushare margin via tushare-data",
+      "status": "ok",
+      "date": "2026-11-05"
+    }
+  ]
+}

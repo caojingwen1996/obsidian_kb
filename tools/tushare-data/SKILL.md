@@ -2,12 +2,16 @@
 
 这是当前知识库工具目录中的 Tushare 统一访问层，同时也是一个基于 stdio 的 MCP Server。
 
+当前版本 **0.9.0**；Python安装、统一行情API、复权和覆盖规则见[[tools/tushare-data/README|共享接口使用说明]]。变更后须追加[[tools/tushare-data/log|本工具日志]]并运行相关测试。
+
+开发调用以[[tools/tushare-data/docs/api-reference|API接口文档]]为准：包含13个Python行情接口的参数与返回字段、28个底层数据集入口，以及27个MCP工具的调用区别。当前没有HTTP API。
+
 ## 启动方式
 
 启动 MCP Server：
 
-```powershell
-python E:\caojingwen\obsidian\llmwiki\tools\tushare-data\scripts\mcp_server.py
+```bash
+python3 /Users/cjw/dev/Obsidian/wiki/tools/tushare-data/scripts/mcp_server.py
 ```
 
 ## 已暴露工具
@@ -26,6 +30,24 @@ python E:\caojingwen\obsidian\llmwiki\tools\tushare-data\scripts\mcp_server.py
 - `get_shareholder_count`：获取股东户数历史披露，并按不同截止日期计算较上期增减额、增减率和方向；该数据为不定期公告口径，不代表实时账户变化。
 - `check_central_huijin_holding`：判断前十大股东 / 前十大流通股东披露中是否出现中央汇金相关主体；只代表定期报告披露口径，不代表实时持仓。
 - `get_index_constituents`：获取指数历史成分股和权重。
+
+统一行情工具与 Python `MarketData.query()` 共用实现，均要求起止日期：
+
+- `get_southbound_flow`：港股通每日净买入，ggt_daily买入减卖出，金额沿用接口亿元单位。
+- `get_fund_daily`：ETF日线，支持none/qfq/hfq，明确复权基准并保留原始价格。
+- `get_fund_adjustments`：基金复权因子。
+- `get_index_daily`：国内指数日线，必须明确市场后缀。
+- `get_index_valuation`：Tushare指数估值，不自动等同其他供应商算法。
+- `get_global_index_daily`：国际指数日线，SPX已实测，IXIC不能替代NDX。
+- `get_shibor`：全期限Shibor，包括隔夜on。
+- `get_market_turnover`：沪深股票成交额，同日两市场完整才汇总。
+- `get_etf_flow_estimate`：ETF份额变化×净值估算，返回完整与样本金额、有效覆盖、异常及日期不明名单；不等同交易所现金净流入。
+- `get_market_margin_ratio`：同日沪深融资余额占股票市场流通市值，分母含B股，缺一市场不计算。
+- `get_market_margin_history`：沪深融资余额和净买入，排除BSE、检查缺失；新项目优先用此历史入口。
+- `get_us_treasury_curve`：美债全期限及同日10Y−2Y利差。
+- `get_fx_daily`：保留bid/ask的外汇日线，默认USDJPY.FXCM。
+
+工具总数27，底层注册数据集28。DXY、基金现金分红、市场资金流与中债曲线的原缺口不因本轮封装而解决。
 
 ## Python 调用
 

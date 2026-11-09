@@ -1,0 +1,164 @@
+[
+  {
+    "tool": "get_fund_daily",
+    "parameters": {
+      "ts_code": "159941.SZ",
+      "adjustment": "qfq"
+    },
+    "start_date": "2026-11-01",
+    "end_date": "2026-11-05",
+    "status": "ok",
+    "row_count": 4,
+    "observed_start": "2026-11-02",
+    "observed_end": "2026-11-05"
+  },
+  {
+    "tool": "get_fund_daily",
+    "parameters": {
+      "ts_code": "515450.SH",
+      "adjustment": "qfq"
+    },
+    "start_date": "2026-11-01",
+    "end_date": "2026-11-05",
+    "status": "ok",
+    "row_count": 4,
+    "observed_start": "2026-11-02",
+    "observed_end": "2026-11-05"
+  },
+  {
+    "tool": "get_fund_adjustments",
+    "parameters": {
+      "ts_code": "159941.SZ"
+    },
+    "start_date": "2026-11-01",
+    "end_date": "2026-11-05",
+    "status": "ok",
+    "row_count": 4,
+    "observed_start": "2026-11-02",
+    "observed_end": "2026-11-05"
+  },
+  {
+    "tool": "get_index_daily",
+    "parameters": {
+      "ts_code": "000922.CSI"
+    },
+    "start_date": "2026-11-01",
+    "end_date": "2026-11-05",
+    "status": "ok",
+    "row_count": 4,
+    "observed_start": "2026-11-02",
+    "observed_end": "2026-11-05"
+  },
+  {
+    "tool": "get_index_daily",
+    "parameters": {
+      "ts_code": "000001.SH"
+    },
+    "start_date": "2026-11-01",
+    "end_date": "2026-11-05",
+    "status": "ok",
+    "row_count": 4,
+    "observed_start": "2026-11-02",
+    "observed_end": "2026-11-05"
+  },
+  {
+    "tool": "get_index_daily",
+    "parameters": {
+      "ts_code": "000300.SH"
+    },
+    "start_date": "2026-11-01",
+    "end_date": "2026-11-05",
+    "status": "ok",
+    "row_count": 4,
+    "observed_start": "2026-11-02",
+    "observed_end": "2026-11-05"
+  },
+  {
+    "tool": "get_index_daily",
+    "parameters": {
+      "ts_code": "000985.CSI"
+    },
+    "start_date": "2026-11-01",
+    "end_date": "2026-11-05",
+    "status": "ok",
+    "row_count": 4,
+    "observed_start": "2026-11-02",
+    "observed_end": "2026-11-05"
+  },
+  {
+    "tool": "get_index_valuation",
+    "parameters": {
+      "ts_code": "000300.SH"
+    },
+    "start_date": "2026-11-01",
+    "end_date": "2026-11-05",
+    "status": "ok",
+    "row_count": 4,
+    "observed_start": "2026-11-02",
+    "observed_end": "2026-11-05"
+  },
+  {
+    "tool": "get_global_index_daily",
+    "parameters": {
+      "ts_code": "SPX"
+    },
+    "start_date": "2026-11-01",
+    "end_date": "2026-11-05",
+    "status": "ok",
+    "row_count": 4,
+    "observed_start": "2026-11-02",
+    "observed_end": "2026-11-05"
+  },
+  {
+    "tool": "get_shibor",
+    "parameters": {},
+    "start_date": "2026-11-01",
+    "end_date": "2026-11-05",
+    "status": "ok",
+    "row_count": 4,
+    "observed_start": "2026-11-02",
+    "observed_end": "2026-11-05"
+  },
+  {
+    "tool": "get_market_turnover",
+    "parameters": {},
+    "start_date": "2026-11-01",
+    "end_date": "2026-11-05",
+    "status": "ok",
+    "row_count": 4,
+    "observed_start": "2026-11-02",
+    "observed_end": "2026-11-05"
+  },
+  {
+    "tool": "get_market_margin_history",
+    "parameters": {},
+    "start_date": "2026-11-01",
+    "end_date": "2026-11-05",
+    "status": "ok",
+    "row_count": 4,
+    "observed_start": "2026-11-02",
+    "observed_end": "2026-11-05"
+  },
+  {
+    "tool": "get_us_treasury_curve",
+    "parameters": {},
+    "start_date": "2026-11-01",
+    "end_date": "2026-11-05",
+    "status": "ok",
+    "row_count": 4,
+    "observed_start": "2026-11-02",
+    "observed_end": "2026-11-05"
+  },
+  {
+    "tool": "get_fx_daily",
+    "parameters": {
+      "ts_code": "USDJPY.FXCM"
+    },
+    "start_date": "2026-11-01",
+    "end_date": "2026-11-05",
+    "status": "ok",
+    "row_count": 5,
+    "observed_start": "2026-11-01",
+    "observed_end": "2026-11-05"
+  }
+]

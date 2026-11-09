@@ -1,0 +1,52 @@
+{
+  "dataset": "ggt_daily",
+  "row_count": 510,
+  "observed_start": "2024-09-02",
+  "observed_end": "2026-11-06",
+  "latest": {
+    "trade_date": "2026-11-06",
+    "buy_amount": 295.52,
+    "buy_volume": 70.2,
+    "sell_amount": 256.44,
+    "sell_volume": 60.56,
+    "net_buy_yi": 39.08,
+    "complete": true
+  },
+  "units": {
+    "buy_amount": "provider_currency_100_million",
+    "sell_amount": "provider_currency_100_million",
+    "net_buy_yi": "provider_currency_100_million",
+    "buy_volume": "ten_thousand_transactions",
+    "sell_volume": "ten_thousand_transactions"
+  },
+  "currency": "provider_unspecified",
+  "dashboard_latest": {
+    "date": "2026-11-06",
+    "value": 39.08
+  },
+  "dashboard_source": "Tushare ggt_daily via tushare-data",
+  "moneyflow_mkt_dc": {
+    "verified_on": "2026-11-09",
+    "permission": false
+  },
+  "moneyflow": {
+    "verified_on": "2026-11-09",
+    "single_stock_permission": true,
+    "market_equivalence_verified": false
+  },
+  "endpoint": {
+    "id": "south",
+    "value": 39.08,
+    "date": "2026-11-06",
+    "status": "ok",
+    "source": "Tushare ggt_daily via tushare-data",
+    "unit": "亿元",
+    "rule": "港股通买入成交额减卖出成交额；沿用来源亿元单位，币种待核验，仅供参考，不计分。"
+  },
+  "tests": {
+    "shared_python": 55,
+    "dashboard_python": 39,
+    "frontend": 16,
+    "build": "passed"
+  }
+}

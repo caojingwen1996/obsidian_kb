@@ -1,0 +1,41 @@
+{
+  "target_date": "2026-11-04",
+  "account_url": "https://xueqiu.com/u/3058599833",
+  "run_id": "automation-2-20261105T090149",
+  "attempt": "initial",
+  "resolved": true,
+  "stage": "timeline-api",
+  "reason": "Error: invalid timeline {\"result\":{\"type\":\"object\",\"value\":{}},\"exceptionDetails\":{\"exceptionId\":2,\"text\":\"Uncaught (in promise) TypeError: Failed to fetch\",\"lineNumber\":1,\"columnNumber\":26,\"scriptId\":\"10\",\"stackTrace\":{\"callFrames\":[{\"functionName\":\"\",\"scriptId\":\"10\",\"url\":\"\",\"lineNumber\":0,\"columnNumber\":25},{\"functionName\":\"\",\"scriptId\":\"10\",\"url\":\"\",\"lineNumber\":0,\"columnNumber\":700}]},\"exception\":{\"type\":\"object\",\"subtype\":\"error\",\"className\":\"TypeError\",\"description\":\"TypeError: Failed to fetch\\n    at <anonymous>:1:26\\n    at <anonymous>:1:701\",\"objectId\":\"2155396603674836500.2.1\"}}}",
+  "page_fallback_candidates": [
+    {
+      "title": "回复@STHWJ: 你说得对，但用这些东西对付别人吧，对我没用，别浪费了token。//@STHWJ:回复@买股票的老木... - 雪球",
+      "url": "https://www.xueqiu.com/3058599833/415603318",
+      "published_at": "2026-11-05 09:56",
+      "author_name": "买股票的老木匠"
+    },
+    {
+      "title": "所有比我漲得多的股票，都是泡沫所有的我沒有買的股票，都要下跌 - 雪球",
+      "url": "https://www.xueqiu.com/5614388391/415507274",
+      "published_at": "2026-11-04 16:29",
+      "author_name": "真Kreecn"
+    },
+    {
+      "title": "回复@STHWJ: 瘪三，瘪三，瘪三。股市是很残酷的，装圣母和绿茶，会输光裤衩子。//@STHWJ:回复@买股票的老木匠... - 雪球",
+      "url": "https://www.xueqiu.com/3058599833/415600933",
+      "published_at": "2026-11-05 09:50",
+      "author_name": "买股票的老木匠"
+    },
+    {
+      "title": "回复@沐沐朵朵: 吵架的秘诀，和炒股是一样的，自己不能有情绪波动。并且以观察对手情绪崩溃为乐事。//@沐沐朵朵:回复@宽... - 雪球",
+      "url": "https://www.xueqiu.com/3058599833/415600116",
+      "published_at": "2026-11-05 09:48",
+      "author_name": "买股票的老木匠"
+    },
+    {
+      "title": "AI 时代，大部分的专业都是钻木取火专业。这甚至也包括了 AI 本身。 - 雪球",
+      "url": "https://www.xueqiu.com/3058599833/415528982",
+      "published_at": "2026-11-04 19:08",
+      "author_name": "买股票的老木匠"
+    }
+  ]
+}

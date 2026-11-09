@@ -41,7 +41,7 @@ test('built dashboard embeds every year and renders saved cards before any netwo
   const history = JSON.parse(match[1]);
   assert.ok(history.rows.length >= 19);
   for (const row of history.rows) assert.ok(storedDividendMonthlyReturns(row), `Missing embedded months: ${row.year}`);
-  const savedBranch = html.slice(html.indexOf('const saved = storedDividendMonthlyReturns(annual)'), html.indexOf("monthlyStatus.textContent = '正在读取中证红利日线…'"));
+  const savedBranch = html.slice(html.indexOf('const saved = storedDividendMonthlyReturns(annual) ?? monthlyCache.get(cacheKey)'), html.indexOf("monthlyStatus.textContent = '正在读取中证红利日线…'"));
   assert.match(savedBranch, /renderDividendMonthlyCards\(saved\)/);
   assert.match(savedBranch, /monthlyDialog\.showModal\(\);\s*return;/);
   assert.doesNotMatch(savedBranch, /await|fetchJson/);
@@ -79,10 +79,10 @@ test('inception year keeps unavailable months empty and starts at the first actu
   assert.ok(Math.abs(months[4].value + 10) < 1e-10);
 });
 
-test('annual rows are keyboard accessible and monthly cards distinguish missing, gain and loss', () => {
+test('annual cards are keyboard accessible and monthly cards distinguish missing, gain and loss', () => {
   const html = renderDividendAnnualPerformance({ rows: [annual] }, { mode: 'year' });
-  assert.match(html, /<tr data-dividend-year="2026"/);
-  assert.match(html, /<button[^>]*aria-haspopup="dialog"[^>]*aria-label="查看2026年月收益率"/);
+  assert.match(html, /<button[^>]*data-index-year="2026"/);
+  assert.match(html, /<button[^>]*aria-pressed="false"[^>]*aria-label="2026年年度收益率[^\"]*高亮年度走势"/);
   const cards = renderDividendMonthlyCards(calculateDividendMonthlyReturns(points, annual));
   assert.equal((cards.match(/<article/g) ?? []).length, 12);
   assert.match(cards, /is-gain/);
@@ -112,9 +112,35 @@ test('return calendar still supports explicit annual returns with year/month sel
   assert.match(html, /收益日历：/);
   assert.match(html, /data-dividend-calendar-mode="year" aria-pressed="true"/);
   assert.match(html, /data-dividend-calendar-mode="month" aria-pressed="false"/);
-  assert.match(html, /全年收益率/);
-  assert.match(html, /年内最大回撤/);
+  assert.match(html, /年度收益/);
+  assert.match(html, /年度回撤/);
+  assert.match(html, /dividend-calendar-years dividend-calendar-grid/);
   assert.doesNotMatch(html, /打开年度数据|dividend-calendar-months/);
+});
+
+test('annual metric cards display the saved values, periods and statuses without inventing missing data', () => {
+  const history = { rows: [
+    { ...annual, year: 2024, annualReturn: -12, maxDrawdown: -30, status: '完整年度' },
+    { ...annual, year: 2025, annualReturn: 0, maxDrawdown: 0, status: '成立首年' },
+    annual,
+    { ...annual, year: 2023, annualReturn: null, maxDrawdown: 10 },
+  ] };
+  const before = structuredClone(history);
+  const values = html => [...html.matchAll(/<strong>([^<]*)<\/strong>/g)].map(match => match[1]);
+  const returns = renderDividendAnnualPerformance(history, { mode: 'year' });
+  const drawdowns = renderDividendAnnualPerformance(history, { mode: 'year', metric: 'drawdown' });
+  assert.deepEqual(values(returns), ['+32%', '0%', '-12%', '—']);
+  assert.deepEqual(values(drawdowns), ['-10%', '0%', '-30%', '—']);
+  assert.match(returns, /data-dividend-calendar-metric="return" aria-pressed="true"/);
+  assert.match(drawdowns, /data-dividend-calendar-metric="drawdown" aria-pressed="true"/);
+  for (const html of [returns, drawdowns]) {
+    assert.equal((html.match(/class="dividend-month-card dividend-year-card /g) ?? []).length, 4);
+    assert.match(html, /<time>2026-01-05<\/time> 至 <time>2026-03-03<\/time>/);
+    for (const status of ['年内', '完整年度', '成立首年', '数据不足']) assert.ok(html.includes(status));
+    assert.doesNotMatch(html, /NaN|Infinity/);
+    assert.doesNotMatch(html, /<table class="dividend-annual-table"/);
+  }
+  assert.deepEqual(history, before);
 });
 
 test('monthly calendar selects a year from validated saved returns without replacing missing months by zero', () => {
@@ -184,8 +210,10 @@ test('dividend monthly drawdown resets peaks and distinguishes insufficient dail
   assert.match(html,/data-dividend-calendar-metric="drawdown" aria-pressed="true"/);
   assert.match(html,/<strong>-1%<\/strong>/);
   assert.match(html,/数据不足/);
-  assert.match(renderDividendAnnualPerformance(history,{metric:'drawdown'}),/正在读取所选年份/);
-  const failed = renderDividendAnnualPerformance(history,{metric:'drawdown',monthlyState:{status:'error',error:'读取失败'}});
+  assert.match(renderDividendAnnualPerformance(history,{metric:'drawdown'}),/<strong>-1%<\/strong>/);
+  const withoutDrawdowns = {rows:[{...annual,monthlyReturns:months.map(({maxDrawdown,...month})=>month)}]};
+  assert.match(renderDividendAnnualPerformance(withoutDrawdowns,{metric:'drawdown'}),/正在读取所选年份/);
+  const failed = renderDividendAnnualPerformance(withoutDrawdowns,{metric:'drawdown',monthlyState:{status:'error',error:'读取失败'}});
   assert.match(failed,/data-dividend-calendar-retry/);
   assert.match(failed,/月度回撤读取失败/);
 });

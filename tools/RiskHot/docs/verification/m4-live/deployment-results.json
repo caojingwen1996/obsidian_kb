@@ -1,0 +1,86 @@
+{
+  "deployed_at": "2026-11-05T10:29:38.944Z",
+  "versions": [
+    5,
+    8,
+    10
+  ],
+  "actor": {
+    "subject": "riskhot-local-operator",
+    "permissions": [
+      "candidate_disposition",
+      "event_commit",
+      "event_recompute",
+      "event_retry",
+      "event_review",
+      "event_submit",
+      "financial_config_manage",
+      "model_budget",
+      "model_review",
+      "observation_manage",
+      "read",
+      "retry",
+      "source_admin",
+      "submit",
+      "target_mapping_review"
+    ]
+  },
+  "checks": [
+    {
+      "path": "/health/ready",
+      "status": 200
+    },
+    {
+      "path": "/m4",
+      "status": 200
+    },
+    {
+      "path": "/targets",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/m4/configs",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/m4/observations",
+      "status": 200
+    }
+  ],
+  "original_tables_unchanged": [
+    "information.target",
+    "information.event",
+    "information.fact",
+    "information.event_target",
+    "information.fact_evidence",
+    "information.event_target_definition",
+    "information.definition_snapshots",
+    "m1.sources"
+  ],
+  "privileges": [
+    {
+      "r": "riskhot_api",
+      "can_insert_config": false,
+      "can_update_observation": false,
+      "can_execute_command": true
+    },
+    {
+      "r": "riskhot_io",
+      "can_insert_config": false,
+      "can_update_observation": false,
+      "can_execute_command": false
+    },
+    {
+      "r": "riskhot_relay",
+      "can_insert_config": false,
+      "can_update_observation": false,
+      "can_execute_command": false
+    },
+    {
+      "r": "riskhot_model",
+      "can_insert_config": false,
+      "can_update_observation": false,
+      "can_execute_command": false
+    }
+  ]
+}

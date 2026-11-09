@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "instrumentId": "SPCLLHCP",
+  "source": "标普道琼斯指数官网",
+  "sourceUrl": "https://www.spglobal.com/spdji/en/indices/dividends-factors/sp-china-a-share-largecap-low-volatility-high-dividend-50-index/",
+  "checkedAt": "2026-11-02T14:52:08+08:00",
+  "lastPoint": {
+    "instrumentId": "SPCLLHCP",
+    "date": "2026-10-30",
+    "close": 3840.64,
+    "kind": "official-page-snapshot"
+  },
+  "daily": [],
+  "valuation": null,
+  "records": [],
+  "sourceStatus": {
+    "status": "blocked",
+    "daily": "标普官网十年价格指数历史导出请求返回HTTP 403；浏览器下载超时，尚未取得可核验的逐日日线。",
+    "valuation": "尚未取得有统计日期及口径的SPCLLHCP指数股息率；官方月度资料下载请求返回HTTP 403。",
+    "task": "尚无本标的每日采集与评分执行记录。"
+  }
+}

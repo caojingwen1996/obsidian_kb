@@ -1,5 +1,5 @@
 // Indicator categories follow wiki/topics/冰冰小美-风险来源与传导路径.md, 宏观风险来源表.
-// Every observation below is invented for layout review; providers are intended integrations only.
+// The catalog values are demo-only. Monitoring uses only currently enabled sources.
 const riskIndicatorCatalog = {
   macro: { name: '经济增长风险', rows: [
     ['实际GDP同比', '中国 · 季度', 4.2, 4.8, '%', '2026 Q2', '2026 Q1', '国家统计局', 1],
@@ -51,16 +51,46 @@ const riskIndicatorCatalog = {
   ] },
 };
 
-export function riskIndicatorRows(sourceId, mode = 'monitor') {
+export const windRiskCodes = {};
+
+export const yahooRiskCodes = { 'pending-capital-0': 'DX-Y.NYB', 'pending-capital-1': 'CNY=X', 'pending-capital-2': 'JPY=X' };
+
+export function riskIndicatorRows(sourceId, mode = 'monitor', observations = {}) {
   const source = riskIndicatorCatalog[sourceId];
   if (!source) return [];
-  return source.rows.map(([name, scope, value, previous, unit, period, previousPeriod, provider, digits, changeUnit]) => {
+  return source.rows.map(([name, scope, value, previous, unit, period, previousPeriod, provider, digits, changeUnit], index) => {
     const demo = mode === 'demo';
+    const id = `pending-${sourceId}-${index}`;
+    const connected = Boolean(yahooRiskCodes[id] || windRiskCodes[id]);
+    const observation = demo || !connected ? null : observations[id];
+    if (!demo && id === 'pending-capital-1') scope = '市场汇率 · 1美元折合人民币，非中间价';
+    if (!demo && id === 'pending-structure-3') {
+      name = '股票ETF申赎净流入（估算）'; scope = '沪深股票型ETF（排除QDII）· 份额变化×净值';
+      provider = 'Tushare共享Python估算（资金面已接入，本页待接入）';
+    }
+    if (!demo && connected) provider = yahooRiskCodes[id] ? 'Yahoo Finance chart · ' + yahooRiskCodes[id] : 'Wind MCP · ' + windRiskCodes[id];
+    if (observation) {
+      const valid = Number.isFinite(observation.value);
+      const hasPrevious = Number.isFinite(observation.previous);
+      const valueUnit = observation.unit || unit;
+      const change = valid && hasPrevious ? (observation.value - observation.previous) * (changeUnit === 'bp' ? 100 : 1) : null;
+      const deltaUnit = changeUnit === 'bp' ? 'bp' : valueUnit === '%' ? '个百分点' : valueUnit;
+      const format = number => number.toLocaleString('zh-CN', { maximumFractionDigits: Math.max(digits, 2) });
+      return { id, connected, name: observation.name || name, scope, category: source.name, demo: false, quantitative: true,
+        provider: (observation.source || provider) + (observation.code ? ' · ' + observation.code : ''),
+        latest: valid ? format(observation.value) + ' ' + valueUnit : '暂无数据',
+        previous: hasPrevious ? format(observation.previous) + ' ' + valueUnit : '—',
+        change: change === null ? '—' : (change > 0 ? '+' : '') + format(change) + ' ' + deltaUnit,
+        period: observation.date || '待更新', previousPeriod: observation.previousDate || '—',
+        imported: !observation.fetchedAt && Boolean(observation.importedAt),
+        updated: (observation.fetchedAt || observation.importedAt) ? new Date(observation.fetchedAt || observation.importedAt).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false }) : '',
+        status: observation.status, error: observation.error || '', hasValue: valid };
+    }
     const quantitative = typeof value === 'number';
     const delta = quantitative ? Number(((value - previous) * (changeUnit === 'bp' ? 100 : 1)).toFixed(6)) : null;
     const deltaUnit = changeUnit === 'bp' ? 'bp' : unit === '%' ? '个百分点' : unit;
     const deltaDigits = changeUnit === 'bp' ? 0 : digits;
-    return { name, scope, category: source.name, provider, quantitative,
+    return { id, connected, name, scope, category: source.name, provider, quantitative,
       latest: demo ? (quantitative ? value.toFixed(digits) + ' ' + unit : value) : '待接入',
       previous: demo ? (quantitative ? previous.toFixed(digits) + ' ' + unit : previous) : '—',
       change: !demo ? '—' : quantitative ? (delta > 0 ? '+' : '') + delta.toFixed(deltaDigits) + ' ' + deltaUnit : changeUnit,
@@ -68,14 +98,14 @@ export function riskIndicatorRows(sourceId, mode = 'monitor') {
   });
 }
 
-export function renderRiskIndicatorTable(sourceId, mode) {
-  const rows = riskIndicatorRows(sourceId, mode);
+export function renderRiskIndicatorTable(sourceId, mode, observations = {}, loadState = '') {
+  const rows = riskIndicatorRows(sourceId, mode, observations);
   if (!rows.length) return '';
   const escape = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
   const demo = mode === 'demo';
-  return '<div class="rs-indicator-head"><div><h3>风险源监测指标</h3><p>' + escape(rows[0].category) + ' · 代表性指标</p></div><span class="rs-indicator-badge">' + (demo ? '虚构数据 · 仅供样式预览' : '指标待接入') + '</span></div>'
-    + '<table class="rs-indicator-table"><caption class="visually-hidden">' + escape(rows[0].category) + '指标，' + (demo ? '全部为虚构数据' : '尚无观测值') + '</caption><thead><tr><th scope="col">指标 / 口径</th><th scope="col">最新值</th><th scope="col">比较值</th><th scope="col">变化</th><th scope="col">数据期</th><th scope="col">拟接入来源</th></tr></thead><tbody>'
-    + rows.map(row => '<tr><th scope="row">' + escape(row.name) + '<small>' + escape(row.scope) + '</small></th><td data-label="最新值" class="rs-indicator-value">' + escape(row.latest) + '</td><td data-label="比较值">' + escape(row.previous) + '</td><td data-label="变化" class="rs-indicator-change">' + escape(row.change) + '</td><td data-label="数据期"><span>本期 ' + escape(row.period) + '</span><small>比较 ' + escape(row.previousPeriod) + '</small></td><td data-label="拟接入来源">' + escape(row.provider) + '</td></tr>').join('')
+  return '<div class="rs-indicator-head"><div><h3>风险源监测指标</h3><p>' + escape(rows[0].category) + ' · 代表性指标</p></div><span class="rs-indicator-badge">' + (demo ? '虚构数据 · 仅供样式预览' : `${rows.filter(row => row.hasValue).length} / ${rows.length} 项有观测值`) + '</span></div>'
+    + '<table class="rs-indicator-table"><caption class="visually-hidden">' + escape(rows[0].category) + '指标，' + (demo ? '全部为虚构数据' : '实际数据与接入状态') + '</caption><thead><tr><th scope="col">指标 / 口径</th><th scope="col">最新值</th><th scope="col">比较值</th><th scope="col">变化</th><th scope="col">数据期</th><th scope="col">' + (demo ? '拟接入来源' : '来源 / 更新时间') + '</th></tr></thead><tbody>'
+    + rows.map(row => '<tr><th scope="row">' + escape(row.name) + '<small>' + escape(row.scope) + '</small></th><td data-label="最新值" class="rs-indicator-value">' + escape(row.latest) + (row.status && row.status !== 'ok' ? '<small>' + escape(row.status === 'stale' ? '旧数据' : '等待数据') + '</small>' : '') + '</td><td data-label="比较值">' + escape(row.previous) + '</td><td data-label="变化" class="rs-indicator-change">' + escape(row.change) + '</td><td data-label="数据期"><span>本期 ' + escape(row.period) + '</span><small>比较 ' + escape(row.previousPeriod) + '</small></td><td data-label="来源 / 更新时间">' + escape(row.provider) + (row.updated ? '<small>' + (row.imported ? '样本入库 ' : '更新 ') + escape(row.updated) + '（北京时间）</small>' : '') + (row.error ? '<small>' + escape(row.error) + '</small>' : '') + '</td></tr>').join('')
     + '</tbody></table><p class="rs-indicator-note">归类依据：《冰冰小美-风险来源与传导路径》宏观风险来源表。'
-    + (demo ? '数值、日期和事件均为虚构，来源列表示拟接入渠道，未从这些机构取数。变化仅描述读数差异，不直接代表风险升降。' : '点击右上角“设计示例”查看虚构读数样式。') + '</p>';
+    + (demo ? '数值、日期和事件均为虚构，来源列表示拟接入渠道，未从这些机构取数。变化仅描述读数差异，不直接代表风险升降。' : '数据期为来源对应观测期；更新时间为本机成功取数时间。比较值为上一有效观测，政策利率为上次变更值。变化不直接代表风险升降。' + escape(loadState)) + '</p>';
 }

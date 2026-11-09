@@ -1,0 +1,38 @@
+{
+  "verified_on": "2026-11-09",
+  "api": "akshare.stock_market_fund_flow",
+  "version": "1.19.1",
+  "upstream": "东方财富",
+  "history_count": 120,
+  "first_date": "2026-05-14",
+  "last_date": "2026-11-06",
+  "raw_latest": {
+    "超大单净流入-净额": -23320358912,
+    "小单净流入-净额": 47914582016,
+    "超大单净流入-净占比": -1.41,
+    "小单净流入-净占比": 2.89
+  },
+  "endpoint": "/api/liquidity",
+  "cards": [
+    {
+      "id": "cn_super_flow",
+      "date": "2026-11-06",
+      "value": -233.20358912,
+      "source": "AKShare · 东方财富沪深超大单净流入（订单估算）",
+      "status": "ok"
+    },
+    {
+      "id": "cn_small_flow",
+      "date": "2026-11-06",
+      "value": 479.14582016,
+      "source": "AKShare · 东方财富沪深小单净流入（订单估算）",
+      "status": "ok"
+    }
+  ],
+  "validation": {
+    "python_tests": 36,
+    "frontend_tests": 16,
+    "build": "passed"
+  },
+  "limits": "上游仅返回近期历史；订单规模估算，不确认账户身份；净占比保留原始读取，不新增卡片"
+}

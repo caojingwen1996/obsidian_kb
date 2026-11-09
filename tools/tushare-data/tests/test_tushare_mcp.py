@@ -127,6 +127,19 @@ class McpServerTests(unittest.TestCase):
             "get_shareholder_count",
             "check_central_huijin_holding",
             "get_index_constituents",
+            "get_southbound_flow",
+            "get_etf_flow_estimate",
+            "get_fund_daily",
+            "get_market_turnover",
+            "get_market_margin_history",
+            "get_market_margin_ratio",
+            "get_fund_adjustments",
+            "get_index_daily",
+            "get_index_valuation",
+            "get_global_index_daily",
+            "get_shibor",
+            "get_us_treasury_curve",
+            "get_fx_daily",
         ])
 
     def test_shareholder_count_calculates_changes_by_distinct_period(self):

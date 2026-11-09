@@ -1,0 +1,4264 @@
+{
+  "date": "2026-11-06",
+  "scope": "77项原清单＋8项代码补充；本轮仅盘点与来源规则",
+  "client_path": "/Users/cjw/dev/Obsidian/wiki/tools/tushare-data",
+  "rows": [
+    {
+      "id": "temperature",
+      "group": "overview",
+      "name": "有知有行市场温度",
+      "source": "有知有行公开温度计 youzhiyouxing.cn/data",
+      "mode": "页面读取",
+      "note": "读取源页温度及更新时间；沿用上游指标，不以本地位置／估值／情绪分数替代。",
+      "tushare": "未确认有知有行原版温度接口",
+      "wind": "未确认有知有行原版温度接口",
+      "priority": "待讨论",
+      "status": "双源覆盖未确认",
+      "action": "讨论是否保留原站；不得用自算估值温度冒充原指标。",
+      "evidence": "src/adapters.mjs；有知有行专属指标",
+      "phase": "当前实现",
+      "group_label": "市场总览",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "nasdaq",
+      "group": "overview",
+      "name": "纳斯达克100点位、涨跌幅与均线",
+      "source": "WeStock / 腾讯自选股 → Yahoo Finance备用",
+      "mode": "日线＋本地计算",
+      "note": "日／周／月涨跌幅、MA200及偏离、年内回撤由有效日线计算；以美股交易日为准。",
+      "tushare": "index_global：NDX空返回；官方支持表未列NDX，IXIC是纳斯达克综合指数",
+      "wind": "get_index_kline：纳斯达克100，4条日线；NDX.GI点位另行核对",
+      "priority": "Wind MCP",
+      "status": "样本通过／历史待核",
+      "action": "补齐MA200历史；核验时区、交易日、指数身份和历史连续性。",
+      "evidence": "Wind sample-ndx；T09；https://tushare.pro/wctapi/documents/211.md",
+      "phase": "当前实现",
+      "group_label": "市场总览",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "nasdaq-history",
+      "group": "overview",
+      "name": "纳指年度／月度收益、最大回撤与回撤次数",
+      "source": "纳指日线；早期历史补充FRED / Nasdaq NASDAQ100",
+      "mode": "历史数据＋本地计算",
+      "note": "按各年有效样本计算；回撤次数每年重置，累计为表内年度次数相加。缺年、暂估及不同阈值分别披露。",
+      "tushare": "沿用纳指基础序列；不能用IXIC替代",
+      "wind": "get_index_kline候选；本次仅验证4个交易日",
+      "priority": "本地计算（Wind输入）",
+      "status": "历史覆盖待核",
+      "action": "须验证1996年至今完整日线；收益、年度回撤次数与累计次数仍由本地计算，不求和阈值列。",
+      "evidence": "scripts/nasdaq_history.py；src/app.mjs；Wind sample-ndx",
+      "phase": "当前实现",
+      "group_label": "市场总览",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "nasdaq-pe",
+      "group": "overview",
+      "name": "纳指PE-TTM与近十年估值分位",
+      "source": "现有行情源未提供可核验的同口径估值序列",
+      "mode": "待验证",
+      "note": "保持缺失；没有把行情价格或其他指数估值当作纳指估值。",
+      "tushare": "未确认NDX同口径PE-TTM历史接口",
+      "wind": "get_index_fundamentals：NDX.GI PE-TTM单日返回25.9623",
+      "priority": "Wind MCP候选",
+      "status": "口径／历史待核",
+      "action": "单日PE可取；近十年分位需至少十年同口径估值历史。混合指数查询误返回成分股，已排除。",
+      "evidence": "Wind sample-pe；sample-index为无效样本",
+      "phase": "当前实现",
+      "group_label": "市场总览",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "turnover-total",
+      "group": "overview",
+      "name": "沪深每日成交额",
+      "source": "Tushare daily_info：SH_MARKET + SZ_MARKET",
+      "mode": "日度统计",
+      "note": "同日两市相加，单位亿元，含A/B股；缺少单边的日期剔除。不同于盘中成交额。",
+      "tushare": "daily_info：SH_MARKET样本1条；本地已封装",
+      "wind": "全市场成交额接口未逐项核验",
+      "priority": "Tushare-data",
+      "status": "样本通过／范围待核",
+      "action": "补测SZ_MARKET；维持沪深股票原口径（含A/B），不能改成全A或含北交所。",
+      "evidence": "T01；scripts/local_proxy.py；https://tushare.pro/document/2?doc_id=215",
+      "phase": "当前实现",
+      "group_label": "市场总览",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "nasdaq-etf",
+      "group": "overview",
+      "name": "159941 ETF前高、回撤与网格参考价",
+      "source": "东方财富前复权日线 → 腾讯备用",
+      "mode": "行情＋本地计算",
+      "note": "广发纳指100ETF：前高取样本内最高价，含当日盘中最高价；触发状态用最新已收盘日线。网格页可见时每分钟刷新。",
+      "tushare": "fund_daily + fund_adj：159941.SZ各4条；共享目录未注册",
+      "wind": "fund_get_listed_historical_price：单日high/close已返回，未确认复权因子和盘中最高价",
+      "priority": "Tushare-data（日线部分）",
+      "status": "口径／频率待核",
+      "action": "先封装日线与因子、重建同口径前复权历史；日线接口不能覆盖当日盘中前高。盘中项单列讨论。",
+      "evidence": "T05/T06；Wind sample-fund；https://tushare.pro/document/2?doc_id=127；https://tushare.pro/document/2?doc_id=199",
+      "phase": "当前实现",
+      "group_label": "市场总览",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "margin-total",
+      "group": "macro",
+      "name": "融资余额及变化",
+      "source": "Tushare margin，经本机tushare-data读取",
+      "mode": "日度汇总",
+      "note": "用于总览与风险观察；与资金面日报的东财融资序列分开，实际日期以对应页面为准。",
+      "tushare": "margin：rzye/rzmre/rzche样本3条；本地已封装",
+      "wind": "EDB M0061606/M0061610余额已取样；偿还额M0061605/M0075952仅定位",
+      "priority": "Tushare-data",
+      "status": "样本通过／范围待核",
+      "action": "只合并SSE与SZSE，排除BSE；净买入=融资买入−偿还，同交易日、元转亿元。",
+      "evidence": "T02；Wind sample-edb／edb-cn；scripts/liquidity_data.py",
+      "phase": "当前实现",
+      "group_label": "宏观与风险",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "us10y",
+      "group": "macro",
+      "name": "美国10年国债收益率",
+      "source": "Tushare us_tycr，经本机tushare-data读取",
+      "mode": "日度收益率",
+      "note": "用于总览风险观察；资金面日报另用FRED及东财备用。",
+      "tushare": "us_tycr：y10/y2各4日，本地已封装；利差本地相减",
+      "wind": "EDB G0000891/G0000887已取样",
+      "priority": "Tushare-data",
+      "status": "样本通过",
+      "action": "保持同日、收益率百分数；利差单位百分点，明确美国观测日与中国获取日。",
+      "evidence": "T03；Wind sample-edb；https://tushare.pro/document/2?doc_id=219",
+      "phase": "当前实现",
+      "group_label": "宏观与风险",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "dollar",
+      "group": "macro",
+      "name": "美元指数",
+      "source": "Tushare fx_daily，经本机tushare-data读取",
+      "mode": "日度行情",
+      "note": "用于总览风险观察；资金面日报另用新浪DXY，不混用两条序列。",
+      "tushare": "fx_daily USDOLLAR.FXCM：空返回",
+      "wind": "仅找到已停止的NYBOT连续期货S0180518，不符合现货DXY要求",
+      "priority": "待讨论",
+      "status": "双源覆盖未确认",
+      "action": "核对有效代码和当前现货日收盘系列；期货不能替代DXY现货。讨论保留新浪或其他源。",
+      "evidence": "T04；Wind edb-dollar；https://tushare.pro/document/2?doc_id=179",
+      "phase": "当前实现",
+      "group_label": "宏观与风险",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "usdjpy",
+      "group": "macro",
+      "name": "美元兑日元",
+      "source": "Tushare USDJPY fx_daily，经本机tushare-data读取",
+      "mode": "日度行情",
+      "note": "1美元折合日元。保留来源日期，不将本机刷新时间当作行情日期。",
+      "tushare": "fx_daily USDJPY.FXCM：5条；bid_close/ask_close，本地已封装",
+      "wind": "EDB G1217001东京9点报价候选，不等同日收盘",
+      "priority": "Tushare-data",
+      "status": "样本通过／口径待核",
+      "action": "明确bid/ask或中间价、时区及周末记录；不可把东京9点序列直接拼入。",
+      "evidence": "T14；Wind edb-jpy；https://tushare.pro/document/2?doc_id=179",
+      "phase": "当前实现",
+      "group_label": "宏观与风险",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "risk-level",
+      "group": "macro",
+      "name": "总览风险等级",
+      "source": "上述美债、美元指数及美元兑日元读数",
+      "mode": "本地规则",
+      "note": "美债10Y > 4.5%、美元指数 > 100或美元兑日元 ≥ 160时提示高风险；其余暂空，暂空不代表低风险。",
+      "tushare": "依赖us_tycr和fx_daily；DXY仍缺有效样本",
+      "wind": "依赖对应基础指标",
+      "priority": "本地计算",
+      "status": "上游缺口",
+      "action": "风险规则保留；缺数据显示待验证，不用其他美元系列自动补齐。",
+      "evidence": "src/adapters.mjs；T03/T04/T14",
+      "phase": "当前实现",
+      "group_label": "宏观与风险",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "dividend-yield",
+      "group": "dividend",
+      "name": "中证红利股息率2",
+      "source": "AKShare stock_zh_index_value_csindex(000922) → 本地每日记录",
+      "mode": "日度采集产物",
+      "note": "读取股息率2及估值日；页面读取既有信号与Excel，不因打开页面重跑每日评分。",
+      "tushare": "未确认中证官方“股息率2”同口径接口",
+      "wind": "get_index_fundamentals：000922.CSI股息率4.6742%，未证明等同股息率2",
+      "priority": "待讨论",
+      "status": "口径待核",
+      "action": "须对照中证股息率2定义与历史样本；未通过前保留原来源标识，不能静默替换。",
+      "evidence": "Wind sample-yield；.agents/skills/zzhl-dividend-signal/scripts",
+      "phase": "当前实现",
+      "group_label": "红利信号",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "dividend-bond",
+      "group": "dividend",
+      "name": "中国10年国债收益率",
+      "source": "AKShare bond_zh_us_rate → 本地每日记录",
+      "mode": "日度采集产物",
+      "note": "用于股债倍数与股债利差；保留国债数据日期，评分资格检查与估值日期对齐。",
+      "tushare": "yc_cb 1001.CB curve_type=0：账号权限不足；未封装",
+      "wind": "EDB S0059749中债国债到期收益率10年已定位，未读取序列",
+      "priority": "Wind MCP候选",
+      "status": "权限／口径待核",
+      "action": "验证Wind可取及与原中国10Y基准的估值曲线、收盘时点一致；不得拿美国10Y代替。",
+      "evidence": "T17；Wind edb-cnybond；https://tushare.pro/document/2?doc_id=201",
+      "phase": "当前实现",
+      "group_label": "红利信号",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "dividend-score",
+      "group": "dividend",
+      "name": "股债倍数、股债利差、综合分及等级",
+      "source": "本地股息率、国债收益率与已保存策略参数",
+      "mode": "本地计算",
+      "note": "倍数＝股息率÷国债收益率；利差＝股息率−国债收益率。综合分使用绝对股息率和股债倍数，权重与阈值以当前策略为准；历史分位不参与现行评分。",
+      "tushare": "基础股息率和国债收益率见对应行",
+      "wind": "基础股息率和国债收益率见对应行",
+      "priority": "本地计算",
+      "status": "上游口径待核",
+      "action": "保留已保存策略参数；同口径验证完成前不混接并重算历史评级。",
+      "evidence": "src/adapters.mjs；策略参数.json",
+      "phase": "当前实现",
+      "group_label": "红利信号",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "dividend-price",
+      "group": "dividend",
+      "name": "中证红利点位、日线与收益统计",
+      "source": "腾讯报价；中证指数官网index-perf日线；采集端有AKShare历史补充",
+      "mode": "行情＋本地历史",
+      "note": "指数代码000922；日线、年度及月度统计、回撤使用各自已核验历史覆盖，不把采集日期当作交易日。",
+      "tushare": "index_daily 000922.CSI：4条；共享目录未注册",
+      "wind": "get_index_kline候选，000922历史未实测",
+      "priority": "Tushare-data（日线）",
+      "status": "样本通过／频率待核",
+      "action": "完整历史与日线收益可迁移验证；腾讯盘中报价另需实时接口。",
+      "evidence": "T07；https://tushare.pro/document/2?doc_id=95；scripts/dividend_index_history.py",
+      "phase": "当前实现",
+      "group_label": "红利信号",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "dividend-boll",
+      "group": "dividend",
+      "name": "中证红利周线布林带与%B",
+      "source": "上述中证红利日线聚合周线",
+      "mode": "本地计算",
+      "note": "20周均线±2倍总体标准差；%B为相对上下轨位置。未结束周按页面注明暂估。",
+      "tushare": "index_daily 000922.CSI输入；4日样本不足20周",
+      "wind": "get_index_kline历史候选",
+      "priority": "本地计算（Tushare输入）",
+      "status": "历史覆盖待核",
+      "action": "至少20周日线，保留周线聚合、总体标准差及当周动态规则。",
+      "evidence": "T07；src/monthly-index-chart.mjs；src/adapters.mjs",
+      "phase": "当前实现",
+      "group_label": "红利信号",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "etf-dividend-price",
+      "group": "dividend",
+      "name": "515450 ETF价格、收益与布林带",
+      "source": "腾讯前复权及未复权日线",
+      "mode": "行情＋本地计算",
+      "note": "前复权价格用于走势图和收益；ETF数据独立于中证红利指数，不等同于跟踪指数行情。",
+      "tushare": "fund_daily + fund_adj：515450.SH各4条；共享目录未注册",
+      "wind": "fund_get_listed_historical_price单日已返回；前复权历史未验证",
+      "priority": "Tushare-data",
+      "status": "样本通过／历史待核",
+      "action": "前复权收益与未复权价格分开存储，核对现金分红前后连续性及布林历史长度。",
+      "evidence": "T11/T12；Wind sample-fund；scripts/dividend_etf_query.py",
+      "phase": "当前实现",
+      "group_label": "红利信号",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "etf-dividend-yield",
+      "group": "dividend",
+      "name": "515450 ETF现金分红率",
+      "source": "东方财富基金分红页面＋腾讯未复权收盘价",
+      "mode": "分红记录＋本地计算",
+      "note": "近365天已除息现金分红合计÷ETF未复权收盘价；不是跟踪指数股息率。",
+      "tushare": "fund_div 515450.OF空返回；需核实基金代码映射与覆盖",
+      "wind": "本轮未定位已实施现金分红完整历史接口",
+      "priority": "待讨论",
+      "status": "双源覆盖未确认",
+      "action": "保留“近365日除息现金分红/未复权收盘价”口径；不能用净值增长、分红公告计划或基金组合股息率代替。",
+      "evidence": "T13；Wind wind-dividend；https://tushare.pro/document/2?doc_id=120",
+      "phase": "当前实现",
+      "group_label": "红利信号",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "dividend-task",
+      "group": "dividend",
+      "name": "每日评分任务状态",
+      "source": "本地执行记录、评分记录与产物校验",
+      "mode": "本地执行记录",
+      "note": "区分真实执行凭证、历史产物与查询缓存；查询过行情不等于当天评分任务已完成。",
+      "tushare": "不适用：本地业务资料",
+      "wind": "不适用：本地业务资料",
+      "priority": "本地资料",
+      "status": "无需迁移",
+      "action": "维持原始记录、来源引用和实际更新时间；财经数据平台不替代用户资料。",
+      "evidence": "src/source-catalog.mjs；scripts/local_proxy.py",
+      "phase": "本地资料",
+      "group_label": "红利信号",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "daily-digest",
+      "group": "content",
+      "name": "每日跟踪文章与汇总",
+      "source": "本地sources/automations/BBXM每日汇总",
+      "mode": "本地归档",
+      "note": "随归档与面板构建更新；文章日期不代表行情更新时间。",
+      "tushare": "不适用：本地业务资料",
+      "wind": "不适用：本地业务资料",
+      "priority": "本地资料",
+      "status": "无需迁移",
+      "action": "维持原始记录、来源引用和实际更新时间；财经数据平台不替代用户资料。",
+      "evidence": "src/source-catalog.mjs；scripts/local_proxy.py",
+      "phase": "本地资料",
+      "group_label": "跟踪与主题",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "calendar",
+      "group": "content",
+      "name": "事件日历",
+      "source": "本地data/市场总览/event-calendar.json",
+      "mode": "本地维护",
+      "note": "计划事件按日期展示；已列入日历不代表已经发生。",
+      "tushare": "不适用：本地业务资料",
+      "wind": "不适用：本地业务资料",
+      "priority": "本地资料",
+      "status": "无需迁移",
+      "action": "维持原始记录、来源引用和实际更新时间；财经数据平台不替代用户资料。",
+      "evidence": "src/source-catalog.mjs；scripts/local_proxy.py",
+      "phase": "本地资料",
+      "group_label": "跟踪与主题",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "topics",
+      "group": "content",
+      "name": "主题清单",
+      "source": "本地wiki/topics主题页",
+      "mode": "构建时读取",
+      "note": "知识库导航内容，不是行情指标或实时资讯接口。",
+      "tushare": "不适用：本地业务资料",
+      "wind": "不适用：本地业务资料",
+      "priority": "本地资料",
+      "status": "无需迁移",
+      "action": "维持原始记录、来源引用和实际更新时间；财经数据平台不替代用户资料。",
+      "evidence": "src/source-catalog.mjs；scripts/local_proxy.py",
+      "phase": "本地资料",
+      "group_label": "跟踪与主题",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "positions",
+      "group": "legacy",
+      "name": "上证综指、沪深300、中证全指MA250位置分位",
+      "source": "东方财富日线 → 腾讯备用；沪深300／全指另有中证官网备用",
+      "mode": "历史计算模块",
+      "note": "相对MA250偏离的历史分位；相关旧页面已不在侧栏，仍保留计算代码。不是有知有行温度的构成说明。",
+      "tushare": "index_daily候选；本次只实测000922，未实测000001/000300/000985",
+      "wind": "get_index_kline候选，具体指数历史待测",
+      "priority": "Tushare-data候选",
+      "status": "覆盖／历史待核",
+      "action": "分别验证三只指数；MA250及位置分位由本地计算，至少250日并满足分位回看窗口。",
+      "evidence": "src/adapters.mjs；scripts/liquidity_data.py；https://tushare.pro/document/2?doc_id=95",
+      "phase": "历史计算模块",
+      "group_label": "历史计算模块",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "valuation",
+      "group": "legacy",
+      "name": "沪深300 TTM-PE及历史分位",
+      "source": "中证指数官网index-perf",
+      "mode": "历史计算模块",
+      "note": "旧估值模块用有效历史样本计算；不作为官方温度计的本地复刻。",
+      "tushare": "index_dailybasic 000300.SH：4条含pe_ttm；共享目录未注册",
+      "wind": "get_index_fundamentals候选；本轮未测沪深300完整历史",
+      "priority": "Tushare-data候选",
+      "status": "口径／历史待核",
+      "action": "核验亏损股、权重和加权算法与原中证口径一致；单日或4日不能计算历史分位。",
+      "evidence": "T08；https://tushare.pro/document/2?doc_id=128",
+      "phase": "历史计算模块",
+      "group_label": "历史计算模块",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "forward",
+      "group": "legacy",
+      "name": "预期PE、预期盈利收益率与ERP",
+      "source": "预期PE当前没有配置取数源；国债来自东财中美国债收益率",
+      "mode": "未接入完整输入",
+      "note": "预期盈利收益率＝100÷预期PE；ERP再减10年国债收益率。缺少预期PE时不补造数值。",
+      "tushare": "未确认指数一致预期PE及历史",
+      "wind": "未确认指数同口径预期PE及历史",
+      "priority": "待讨论",
+      "status": "双源覆盖未确认",
+      "action": "先定义预测年度/滚动12月及指数；不可用PE-TTM冒充预期PE；ERP须匹配本币无风险利率。",
+      "evidence": "src/source-catalog.mjs；src/adapters.mjs",
+      "phase": "历史计算模块",
+      "group_label": "历史计算模块",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "emotion",
+      "group": "legacy",
+      "name": "市场宽度、涨跌停平衡及成交额分位",
+      "source": "东方财富全市场行情 → 新浪备用；中证全指成交额历史来自中证官网",
+      "mode": "历史计算模块",
+      "note": "旧情绪模块，区别于资金面日报乐咕乐股赚钱效应及总览Tushare成交额。",
+      "tushare": "daily可构造涨跌，但全市场边界、涨跌停价规则及历史覆盖未验",
+      "wind": "stock_get_market_realtime_analysis候选，原口径覆盖未验",
+      "priority": "待讨论",
+      "status": "口径待核",
+      "action": "旧计算模块单列；逐项核实宽度、涨跌停、成交额历史，不能拿个股成交额直接替换指数历史。",
+      "evidence": "src/adapters.mjs；Wind wind-cnfunding",
+      "phase": "历史计算模块",
+      "group_label": "历史计算模块",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "liquidity-curve",
+      "group": "liquidity",
+      "name": "10Y−2Y 利差",
+      "source": "FRED DGS10 / DGS2 → 东财中美国债收益率；同日10年期减2年期",
+      "mode": "公开源 · 缓存1小时",
+      "note": "同日10Y−2Y；倒挂−1，正利差较20个观测日前走阔+1。",
+      "tushare": "us_tycr：y10/y2各4日，本地已封装；利差本地相减",
+      "wind": "EDB G0000891/G0000887已取样",
+      "priority": "Tushare-data",
+      "status": "样本通过",
+      "action": "保持同日、收益率百分数；利差单位百分点，明确美国观测日与中国获取日。",
+      "evidence": "T03；Wind sample-edb；https://tushare.pro/document/2?doc_id=219",
+      "phase": "当前实现",
+      "group_label": "资金面日报",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "liquidity-yield",
+      "group": "liquidity",
+      "name": "10Y 收益率",
+      "source": "FRED DGS10 → 东财中美国债收益率",
+      "mode": "公开源 · 缓存1小时",
+      "note": "20个观测日下降≥10bp计+1，上升≥10bp计−1。",
+      "tushare": "us_tycr：y10/y2各4日，本地已封装；利差本地相减",
+      "wind": "EDB G0000891/G0000887已取样",
+      "priority": "Tushare-data",
+      "status": "样本通过",
+      "action": "保持同日、收益率百分数；利差单位百分点，明确美国观测日与中国获取日。",
+      "evidence": "T03；Wind sample-edb；https://tushare.pro/document/2?doc_id=219",
+      "phase": "当前实现",
+      "group_label": "资金面日报",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "liquidity-vix",
+      "group": "liquidity",
+      "name": "VIX",
+      "source": "CBOE官方历史CSV → FRED VIXCLS",
+      "mode": "公开源 · 缓存1小时",
+      "note": ">25计−2；<20计+1；其余0。",
+      "tushare": "共享接口未覆盖；未确认当前账号VIX系列",
+      "wind": "EDB G0003892 VIX已取样",
+      "priority": "Wind MCP",
+      "status": "样本通过",
+      "action": "核对CBOE收盘口径与历史窗口，保留观测日。",
+      "evidence": "Wind sample-edb／wind-usmacro",
+      "phase": "当前实现",
+      "group_label": "资金面日报",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "liquidity-rrp",
+      "group": "liquidity",
+      "name": "隔夜逆回购 RRP",
+      "source": "纽约联储逆回购API → FRED RRPONTSYD；评分暂留空",
+      "mode": "公开源 · 缓存1小时",
+      "note": "仅展示余额与历史，评分规则留空，不计分。",
+      "tushare": "共享接口未覆盖；未确认对应系列",
+      "wind": "EDB G1168931：国债第一批次出让金额已返回，未证明等同RRPONTSYD",
+      "priority": "Wind MCP候选",
+      "status": "口径待核",
+      "action": "核对操作类型、抵押品、批次和汇总范围；仍不纳入评分。",
+      "evidence": "Wind sample-edb；scripts/liquidity_data.py",
+      "phase": "当前实现",
+      "group_label": "资金面日报",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "liquidity-walcl",
+      "group": "liquidity",
+      "name": "联储总资产 WALCL",
+      "source": "FRED WALCL；目前没有备用源，百万美元换算为十亿美元",
+      "mode": "公开源 · 缓存1小时",
+      "note": "较上期周度观测扩表+1、缩表−1。",
+      "tushare": "共享接口未覆盖；未确认对应系列",
+      "wind": "EDB G1100075美联储总资产（周、百万美元）已返回",
+      "priority": "Wind MCP",
+      "status": "样本通过",
+      "action": "保留周频与观察日；百万美元转十亿美元除1000，不伪造日更值。",
+      "evidence": "Wind sample-edb",
+      "phase": "当前实现",
+      "group_label": "资金面日报",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "liquidity-usd",
+      "group": "liquidity",
+      "name": "美元指数 DXY 趋势",
+      "source": "新浪DINIW历史日线；使用日收盘判断美元强弱",
+      "mode": "公开源 · 缓存1小时",
+      "note": "20个观测日下跌为弱美元+1，上涨为强美元−1。",
+      "tushare": "fx_daily USDOLLAR.FXCM：空返回",
+      "wind": "仅找到已停止的NYBOT连续期货S0180518，不符合现货DXY要求",
+      "priority": "待讨论",
+      "status": "双源覆盖未确认",
+      "action": "核对有效代码和当前现货日收盘系列；期货不能替代DXY现货。讨论保留新浪或其他源。",
+      "evidence": "T04；Wind edb-dollar；https://tushare.pro/document/2?doc_id=179",
+      "phase": "当前实现",
+      "group_label": "资金面日报",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "liquidity-dxy",
+      "group": "liquidity",
+      "name": "DXY 盘中报价",
+      "source": "新浪DINIW行情；仅作盘中参考",
+      "mode": "公开源 · 缓存1小时",
+      "note": "盘中参考，不混入日收盘趋势评分。",
+      "tushare": "fx_daily为日频；DXY样本为空，不能提供盘中报价",
+      "wind": "本轮未定位当前DXY现货盘中接口",
+      "priority": "待讨论",
+      "status": "双源覆盖未确认",
+      "action": "单独讨论盘中DXY报价；不得把日线收盘或美元期货当实时现货。",
+      "evidence": "T04；Wind edb-dollar；scripts/liquidity_data.py",
+      "phase": "当前实现",
+      "group_label": "资金面日报",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "liquidity-spx",
+      "group": "liquidity",
+      "name": "标普500 / MA200",
+      "source": "新浪标普500日线 → FRED SP500 → Stooq；使用200日收盘均线",
+      "mode": "公开源 · 缓存1小时",
+      "note": "收盘高于200日均线+1，低于−1。",
+      "tushare": "index_global SPX：4条；共享目录未注册",
+      "wind": "get_index_kline候选，SPX未实测",
+      "priority": "Tushare-data",
+      "status": "样本通过／历史待核",
+      "action": "至少200个交易日日线才能计算MA200；使用标普500价格指数。",
+      "evidence": "T15；https://tushare.pro/wctapi/documents/211.md",
+      "phase": "当前实现",
+      "group_label": "资金面日报",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "liquidity-margin",
+      "group": "liquidity",
+      "name": "沪深融资余额",
+      "source": "东财RPTA_RZRQ_LSHJ，读取RZYE融资余额；不含融券，不以仅沪市余额替代",
+      "mode": "公开源 · 缓存1小时",
+      "note": "5个观测日变化≥+0.5%计+1，≤−0.5%计−1。",
+      "tushare": "margin：rzye/rzmre/rzche样本3条；本地已封装",
+      "wind": "EDB M0061606/M0061610余额已取样；偿还额M0061605/M0075952仅定位",
+      "priority": "Tushare-data",
+      "status": "样本通过／范围待核",
+      "action": "只合并SSE与SZSE，排除BSE；净买入=融资买入−偿还，同交易日、元转亿元。",
+      "evidence": "T02；Wind sample-edb／edb-cn；scripts/liquidity_data.py",
+      "phase": "当前实现",
+      "group_label": "资金面日报",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "liquidity-flow",
+      "group": "liquidity",
+      "name": "主力资金净流入",
+      "source": "东财沪深主力资金历史接口；为数据商估算，不等于全部资金流入",
+      "mode": "公开源 · 缓存1小时",
+      "note": "近5个交易日净额合计正+1、负−1；不可用时隐藏。",
+      "tushare": "moneyflow_mkt_dc：当前账号权限不足；该接口上游仍是东财",
+      "wind": "stock_get_money_flow_analysis已发现，但全市场及订单分层同口径未验证",
+      "priority": "待讨论",
+      "status": "权限不足／Wind待核",
+      "action": "不能将个股moneyflow或不同订单阈值汇总替代东财沪深市场序列；讨论权限或保留来源。",
+      "evidence": "T16；Wind wind-cnfunding；https://tushare.pro/document/2?doc_id=345",
+      "phase": "当前实现",
+      "group_label": "资金面日报",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "liquidity-shibor",
+      "group": "liquidity",
+      "name": "Shibor 隔夜",
+      "source": "东财RPT_IMP_INTRESTRATEN转发的Shibor隔夜历史；不是面板估算值",
+      "mode": "公开源 · 缓存1小时",
+      "note": "5个观测日下降≥5bp计+1，上升≥5bp计−1。",
+      "tushare": "shibor：4条含on；共享目录未注册",
+      "wind": "EDB M0017138隔夜SHIBOR已取样",
+      "priority": "Tushare-data",
+      "status": "样本通过／待封装",
+      "action": "封装后核对发布日、百分数单位、节假日处理。",
+      "evidence": "T10；Wind sample-edb",
+      "phase": "当前实现",
+      "group_label": "资金面日报",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "liquidity-south",
+      "group": "liquidity",
+      "name": "南向资金净买入",
+      "source": "东财RPT_MUTUAL_DEAL_HISTORY；同日沪港通和深港通南向净买入相加",
+      "mode": "公开源 · 缓存1小时",
+      "note": "参考项，不计分。",
+      "tushare": "共享目录未封装，南向同口径接口本轮未验证",
+      "wind": "EDB M0329522港股通人民币净买入已定位，未取样",
+      "priority": "Wind MCP候选",
+      "status": "口径／范围待核",
+      "action": "须沪港通+深港通南向合计，确认成交净买入而非额度余额或单通道。",
+      "evidence": "Wind edb-cn；scripts/liquidity_data.py",
+      "phase": "当前实现",
+      "group_label": "资金面日报",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "liquidity-csi300",
+      "group": "liquidity",
+      "name": "沪深300 / 年线",
+      "source": "腾讯沪深300历史日线；使用250日收盘均线",
+      "mode": "公开源 · 缓存1小时",
+      "note": "收盘高于250日均线+1，低于−1。",
+      "tushare": "index_daily候选；本次只实测000922，未实测000001/000300/000985",
+      "wind": "get_index_kline候选，具体指数历史待测",
+      "priority": "Tushare-data候选",
+      "status": "覆盖／历史待核",
+      "action": "分别验证三只指数；MA250及位置分位由本地计算，至少250日并满足分位回看窗口。",
+      "evidence": "src/adapters.mjs；scripts/liquidity_data.py；https://tushare.pro/document/2?doc_id=95",
+      "phase": "当前实现",
+      "group_label": "资金面日报",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "liquidity-cn_margin_net",
+      "group": "liquidity",
+      "name": "融资净买入",
+      "source": "东财RPTA_RZRQ_LSHJ：RZMRE买入额 − RZCHE偿还额；元换算为亿元",
+      "mode": "公开源 · 缓存1小时",
+      "note": "观察项；展示前次净额与累积满60次后的分位。",
+      "tushare": "margin：rzye/rzmre/rzche样本3条；本地已封装",
+      "wind": "EDB M0061606/M0061610余额已取样；偿还额M0061605/M0075952仅定位",
+      "priority": "Tushare-data",
+      "status": "样本通过／范围待核",
+      "action": "只合并SSE与SZSE，排除BSE；净买入=融资买入−偿还，同交易日、元转亿元。",
+      "evidence": "T02；Wind sample-edb／edb-cn；scripts/liquidity_data.py",
+      "phase": "当前实现",
+      "group_label": "资金面日报",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "liquidity-cn_margin_ratio",
+      "group": "liquidity",
+      "name": "融资占流通市值",
+      "source": "同一东财报表、同日RZYE ÷ LTSZ × 100%；不判定正常／过热区间",
+      "mode": "公开源 · 缓存1小时",
+      "note": "观察融资占流通市值比例，不预设正常或过热区间。",
+      "tushare": "margin分子可取；全沪深同日流通市值分母未确认",
+      "wind": "余额可取；已找到沪市月频/深市日频市值，不能配成同日分母",
+      "priority": "待讨论",
+      "status": "双源完整口径未确认",
+      "action": "必须同日同市场边界；不得用沪深300市值、总市值或月频沪市值代替。",
+      "evidence": "T02；Wind edb-cn；scripts/liquidity_data.py",
+      "phase": "当前实现",
+      "group_label": "资金面日报",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "liquidity-cn_super_flow",
+      "group": "liquidity",
+      "name": "超大单资金",
+      "source": "东财沪深资金历史接口f56；订单规模估算，不代表已确认的机构账户",
+      "mode": "公开源 · 缓存1小时",
+      "note": "按订单规模估算，不能确认交易者为机构；仅观察。",
+      "tushare": "moneyflow_mkt_dc：当前账号权限不足；该接口上游仍是东财",
+      "wind": "stock_get_money_flow_analysis已发现，但全市场及订单分层同口径未验证",
+      "priority": "待讨论",
+      "status": "权限不足／Wind待核",
+      "action": "不能将个股moneyflow或不同订单阈值汇总替代东财沪深市场序列；讨论权限或保留来源。",
+      "evidence": "T16；Wind wind-cnfunding；https://tushare.pro/document/2?doc_id=345",
+      "phase": "当前实现",
+      "group_label": "资金面日报",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "liquidity-cn_small_flow",
+      "group": "liquidity",
+      "name": "小单资金",
+      "source": "东财沪深资金历史接口f53；订单规模估算，不代表已确认的散户账户",
+      "mode": "公开源 · 缓存1小时",
+      "note": "按订单规模估算，不能确认交易者为散户；仅观察。",
+      "tushare": "moneyflow_mkt_dc：当前账号权限不足；该接口上游仍是东财",
+      "wind": "stock_get_money_flow_analysis已发现，但全市场及订单分层同口径未验证",
+      "priority": "待讨论",
+      "status": "权限不足／Wind待核",
+      "action": "不能将个股moneyflow或不同订单阈值汇总替代东财沪深市场序列；讨论权限或保留来源。",
+      "evidence": "T16；Wind wind-cnfunding；https://tushare.pro/document/2?doc_id=345",
+      "phase": "当前实现",
+      "group_label": "资金面日报",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "liquidity-cn_etf_flow",
+      "group": "liquidity",
+      "name": "ETF申赎净流入",
+      "source": "Wind MCP：按沪深交易所筛选股票型ETF（含股票型分类下的港股通产品），每批最多50只读取申赎净流入额f_mf_netsubamt；同日完整覆盖才汇总，元转亿元",
+      "mode": "Wind MCP · 每日09:00",
+      "note": "观察项；每日北京时间09:00自动取数，支持手动刷新。数据日期为交易日，更新时间为本机成功取数时间；依赖本机Codex运行。",
+      "tushare": "未确认同口径申赎净流入额；份额变化×净值并不等价",
+      "wind": "fund_get_listed_historical_price f_mf_netsubamt已接入，2只ETF样本返回",
+      "priority": "Wind MCP（保持）",
+      "status": "已有接入／样本通过",
+      "action": "保持既定股票型ETF样本筛选和同日完整覆盖；两只样本不代表当天全市场完整。",
+      "evidence": "scripts/wind_etf.py；docs/liquidity-dashboard.md；Wind sample-fund",
+      "phase": "当前实现",
+      "group_label": "资金面日报",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "liquidity-cn_breadth_ratio",
+      "group": "liquidity",
+      "name": "赚钱效应与涨跌停",
+      "source": "乐咕乐股赚钱效应页面：沪深上涨、下跌、平盘、总家数及涨跌停；上涨比例分母含停牌，历史从本机采集起累积",
+      "mode": "公开源 · 缓存1小时",
+      "note": "上涨比例及上涨／下跌／平盘／总家数、涨停／跌停；仅观察，不参与资金面评分。",
+      "tushare": "daily等可重建候选，停牌分母/涨跌停规则未验证",
+      "wind": "全市场实时分析候选，原乐咕口径未验证",
+      "priority": "待讨论",
+      "status": "双源完整口径未确认",
+      "action": "确认沪深边界、停牌分母、ST/注册制涨跌停及上市首日规则；不可直接更换计数。",
+      "evidence": "scripts/liquidity_data.py；Wind wind-cnfunding",
+      "phase": "当前实现",
+      "group_label": "资金面日报",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "pending-macro-0",
+      "group": "pending",
+      "name": "实际GDP同比",
+      "source": "拟接入：国家统计局",
+      "mode": "待接入",
+      "note": "经济增长风险 · 中国 · 季度。监控模式无真实观测；设计示例中的读数和日期为虚构。",
+      "tushare": "cn_gdp候选；未封装/未测",
+      "wind": "EDB M0039354已定位；序列未取样",
+      "priority": "Tushare-data候选→Wind MCP候选",
+      "status": "候选已定位／未验证",
+      "action": "待接入设计项：季度、不变价、当季同比；取样、权限及完整历史通过后才实施。",
+      "evidence": "https://tushare.pro/document/2?doc_id=227",
+      "phase": "待接入设计",
+      "group_label": "风险待接入",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "pending-macro-1",
+      "group": "pending",
+      "name": "制造业PMI",
+      "source": "拟接入：国家统计局",
+      "mode": "待接入",
+      "note": "经济增长风险 · 中国 · 月度。监控模式无真实观测；设计示例中的读数和日期为虚构。",
+      "tushare": "cn_pmi候选；未封装/未测",
+      "wind": "EDB M0017126已定位；序列未取样",
+      "priority": "Tushare-data候选→Wind MCP候选",
+      "status": "候选已定位／未验证",
+      "action": "待接入设计项：中国制造业PMI，区别财新PMI；取样、权限及完整历史通过后才实施。",
+      "evidence": "https://tushare.pro/document/2?doc_id=325",
+      "phase": "待接入设计",
+      "group_label": "风险待接入",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "pending-macro-2",
+      "group": "pending",
+      "name": "调查失业率",
+      "source": "拟接入：国家统计局",
+      "mode": "待接入",
+      "note": "经济增长风险 · 中国 · 月度。监控模式无真实观测；设计示例中的读数和日期为虚构。",
+      "tushare": "未确认同口径接口",
+      "wind": "EDB M5650805已定位；序列未取样",
+      "priority": "Wind MCP候选",
+      "status": "候选已定位／未验证",
+      "action": "待接入设计项：城镇调查失业率；月频；取样、权限及完整历史通过后才实施。",
+      "evidence": "Wind edb-macro",
+      "phase": "待接入设计",
+      "group_label": "风险待接入",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "pending-macro-3",
+      "group": "pending",
+      "name": "社会消费品零售同比",
+      "source": "拟接入：国家统计局",
+      "mode": "待接入",
+      "note": "经济增长风险 · 中国 · 月度。监控模式无真实观测；设计示例中的读数和日期为虚构。",
+      "tushare": "未确认同口径接口",
+      "wind": "EDB M0001428已定位；序列未取样",
+      "priority": "Wind MCP候选",
+      "status": "候选已定位／未验证",
+      "action": "待接入设计项：零售当月名义同比；1–2月合并发布；取样、权限及完整历史通过后才实施。",
+      "evidence": "Wind edb-cnremaining",
+      "phase": "待接入设计",
+      "group_label": "风险待接入",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "pending-commodity-0",
+      "group": "pending",
+      "name": "CPI同比",
+      "source": "拟接入：美国劳工统计局",
+      "mode": "待接入",
+      "note": "通胀与供给风险 · 美国 · 月度。监控模式无真实观测；设计示例中的读数和日期为虚构。",
+      "tushare": "未确认美国CPI同比接口",
+      "wind": "EDB G0000027已定位；序列未取样",
+      "priority": "Wind MCP候选",
+      "status": "候选已定位／未验证",
+      "action": "待接入设计项：美国CPI非季调同比；不可用中国CPI；取样、权限及完整历史通过后才实施。",
+      "evidence": "Wind edb-inflation",
+      "phase": "待接入设计",
+      "group_label": "风险待接入",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "pending-commodity-1",
+      "group": "pending",
+      "name": "核心CPI同比",
+      "source": "拟接入：美国劳工统计局",
+      "mode": "待接入",
+      "note": "通胀与供给风险 · 美国 · 月度。监控模式无真实观测；设计示例中的读数和日期为虚构。",
+      "tushare": "未确认美国核心CPI同比接口",
+      "wind": "EDB G0000029已定位；序列未取样",
+      "priority": "Wind MCP候选",
+      "status": "候选已定位／未验证",
+      "action": "待接入设计项：美国核心CPI非季调同比；取样、权限及完整历史通过后才实施。",
+      "evidence": "Wind edb-inflation",
+      "phase": "待接入设计",
+      "group_label": "风险待接入",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "pending-commodity-2",
+      "group": "pending",
+      "name": "PPI同比",
+      "source": "拟接入：国家统计局",
+      "mode": "待接入",
+      "note": "通胀与供给风险 · 中国 · 月度。监控模式无真实观测；设计示例中的读数和日期为虚构。",
+      "tushare": "未实测中国PPI同比接口",
+      "wind": "EDB M0001227已定位；序列未取样",
+      "priority": "Wind MCP候选",
+      "status": "候选已定位／未验证",
+      "action": "待接入设计项：中国工业生产者出厂价格同比；取样、权限及完整历史通过后才实施。",
+      "evidence": "Wind edb-macro",
+      "phase": "待接入设计",
+      "group_label": "风险待接入",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "pending-commodity-3",
+      "group": "pending",
+      "name": "布伦特原油现货",
+      "source": "拟接入：美国能源信息署",
+      "mode": "待接入",
+      "note": "通胀与供给风险 · 国际 · 日度。监控模式无真实观测；设计示例中的读数和日期为虚构。",
+      "tushare": "未确认Brent现货接口",
+      "wind": "EDB S5111926已定位；序列未取样",
+      "priority": "Wind MCP候选",
+      "status": "候选已定位／未验证",
+      "action": "待接入设计项：Brent FOB现货美元/桶，非近月期货；取样、权限及完整历史通过后才实施。",
+      "evidence": "Wind edb-inflation",
+      "phase": "待接入设计",
+      "group_label": "风险待接入",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "pending-money-0",
+      "group": "pending",
+      "name": "政策利率目标上限",
+      "source": "拟接入：美联储政策声明",
+      "mode": "待接入",
+      "note": "货币政策风险 · 美国 · 政策观察。监控模式无真实观测；设计示例中的读数和日期为虚构。",
+      "tushare": "未确认对应接口",
+      "wind": "EDB M0000162已定位；序列未取样",
+      "priority": "Wind MCP候选",
+      "status": "候选已定位／未验证",
+      "action": "待接入设计项：联邦基金目标利率区间上限；取样、权限及完整历史通过后才实施。",
+      "evidence": "Wind edb-policy",
+      "phase": "待接入设计",
+      "group_label": "风险待接入",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "pending-money-1",
+      "group": "pending",
+      "name": "下次会议加息概率",
+      "source": "拟接入：利率期货隐含概率",
+      "mode": "待接入",
+      "note": "货币政策风险 · 美国 · 市场隐含预期。监控模式无真实观测；设计示例中的读数和日期为虚构。",
+      "tushare": "未确认会议级隐含概率接口",
+      "wind": "EDB F9822336 CME FedWatch聚合概率候选，会议匹配未验证",
+      "priority": "待讨论",
+      "status": "口径待定义",
+      "action": "指定下一次FOMC会议与报价时间，并确认加息概率如何按利率区间汇总。",
+      "evidence": "Wind edb-policy",
+      "phase": "待接入设计",
+      "group_label": "风险待接入",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "pending-money-2",
+      "group": "pending",
+      "name": "QT月度缩表规模",
+      "source": "拟接入：美联储资产负债表",
+      "mode": "待接入",
+      "note": "货币政策风险 · 美国 · 月度。监控模式无真实观测；设计示例中的读数和日期为虚构。",
+      "tushare": "未确认月度QT目标/实际对应接口",
+      "wind": "WALCL可取但不等于QT；未确认所需QT系列",
+      "priority": "待讨论",
+      "status": "口径待定义",
+      "action": "先选择政策缩表上限或实际证券到期净减少；不能用总资产月差冒充。",
+      "evidence": "Wind sample-edb；src/source-catalog.mjs",
+      "phase": "待接入设计",
+      "group_label": "风险待接入",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "pending-money-3",
+      "group": "pending",
+      "name": "存款准备金率",
+      "source": "拟接入：中国人民银行公告",
+      "mode": "待接入",
+      "note": "货币政策风险 · 中国 · 某类机构适用口径。监控模式无真实观测；设计示例中的读数和日期为虚构。",
+      "tushare": "未确认机构类型一致的准备金率",
+      "wind": "EDB M0061518 / M0010290已定位；序列未取样",
+      "priority": "Wind MCP候选",
+      "status": "候选已定位／未验证",
+      "action": "待接入设计项：先选择大型机构或其他机构、月频或生效日；取样、权限及完整历史通过后才实施。",
+      "evidence": "Wind edb-policy",
+      "phase": "待接入设计",
+      "group_label": "风险待接入",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "pending-fiscal-0",
+      "group": "pending",
+      "name": "财政赤字",
+      "source": "拟接入：美国财政部月度报告",
+      "mode": "待接入",
+      "note": "财政与主权债务风险 · 美国 · 月度。监控模式无真实观测；设计示例中的读数和日期为虚构。",
+      "tushare": "未确认对应月度接口",
+      "wind": "EDB G0003351已定位；序列未取样",
+      "priority": "Wind MCP候选",
+      "status": "候选已定位／未验证",
+      "action": "待接入设计项：美国月度赤字；盈余为负，百万美元；取样、权限及完整历史通过后才实施。",
+      "evidence": "Wind edb-fiscal",
+      "phase": "待接入设计",
+      "group_label": "风险待接入",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "pending-fiscal-1",
+      "group": "pending",
+      "name": "国债净发行额",
+      "source": "拟接入：美国财政部发行数据",
+      "mode": "待接入",
+      "note": "财政与主权债务风险 · 美国 · 月度。监控模式无真实观测；设计示例中的读数和日期为虚构。",
+      "tushare": "未确认月度净发行额",
+      "wind": "G1130791是发行总额；未确认赎回与净额匹配",
+      "priority": "待讨论",
+      "status": "双源覆盖未确认",
+      "action": "净发行须发行减赎回；明确可交易国债和计价口径，不可用总发行替代。",
+      "evidence": "Wind edb-usdebt",
+      "phase": "待接入设计",
+      "group_label": "风险待接入",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "pending-fiscal-2",
+      "group": "pending",
+      "name": "联邦债务余额",
+      "source": "拟接入：美国财政部债务数据",
+      "mode": "待接入",
+      "note": "财政与主权债务风险 · 美国 · 月末。监控模式无真实观测；设计示例中的读数和日期为虚构。",
+      "tushare": "未确认月末联邦债务余额",
+      "wind": "G1160462是季度联邦负债，非所需月末国债余额",
+      "priority": "待讨论",
+      "status": "双源覆盖未确认",
+      "action": "明确联邦总债务或公众持有债务；另寻月末同口径序列。",
+      "evidence": "Wind edb-usdebt",
+      "phase": "待接入设计",
+      "group_label": "风险待接入",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "pending-fiscal-3",
+      "group": "pending",
+      "name": "主权评级展望",
+      "source": "拟接入：评级机构原始公告",
+      "mode": "待接入",
+      "note": "财政与主权债务风险 · 虚构经济体A · 事件。监控模式无真实观测；设计示例中的读数和日期为虚构。",
+      "tushare": "研究事件，不应直接当作数值行情指标",
+      "wind": "未指定真实经济体/商品/政策/事件，无法验证覆盖",
+      "priority": "本地研究＋待讨论",
+      "status": "对象／口径待定义",
+      "action": "原设计含经济体A/B等占位对象；先确定真实对象、机构、日期与状态定义，再讨论双源及原始公告。",
+      "evidence": "src/source-catalog.mjs；风险待接入设计定义",
+      "phase": "待接入设计",
+      "group_label": "风险待接入",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "pending-credit-0",
+      "group": "pending",
+      "name": "社融存量同比",
+      "source": "拟接入：中国人民银行",
+      "mode": "待接入",
+      "note": "信用与金融体系风险 · 中国 · 月度。监控模式无真实观测；设计示例中的读数和日期为虚构。",
+      "tushare": "sf_month是社融增量，不可代替存量同比",
+      "wind": "EDB M5525763已定位；序列未取样",
+      "priority": "Wind MCP候选",
+      "status": "候选已定位／未验证",
+      "action": "待接入设计项：社融存量同比、月频；取样、权限及完整历史通过后才实施。",
+      "evidence": "Wind edb-macro",
+      "phase": "待接入设计",
+      "group_label": "风险待接入",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "pending-credit-1",
+      "group": "pending",
+      "name": "人民币贷款余额同比",
+      "source": "拟接入：中国人民银行",
+      "mode": "待接入",
+      "note": "信用与金融体系风险 · 中国 · 月度。监控模式无真实观测；设计示例中的读数和日期为虚构。",
+      "tushare": "未确认同口径接口",
+      "wind": "EDB M0009970已定位；序列未取样",
+      "priority": "Wind MCP候选",
+      "status": "候选已定位／未验证",
+      "action": "待接入设计项：人民币各项贷款余额同比、月频；取样、权限及完整历史通过后才实施。",
+      "evidence": "Wind edb-cnremaining",
+      "phase": "待接入设计",
+      "group_label": "风险待接入",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "pending-credit-2",
+      "group": "pending",
+      "name": "同期限信用利差",
+      "source": "拟接入：中债估值收益率",
+      "mode": "待接入",
+      "note": "信用与金融体系风险 · 中国 · AAA / 国债 · 3年。监控模式无真实观测；设计示例中的读数和日期为虚构。",
+      "tushare": "yc_cb账号权限不足；AAA企业债同源3年曲线未验证",
+      "wind": "S0059746中债国债3年；M1005929为中证AAA3年，来源不同",
+      "priority": "待讨论",
+      "status": "同口径双腿未确认",
+      "action": "寻找同一估值机构/时点/期限的AAA企业债与国债，禁止跨中债/中证直接相减。",
+      "evidence": "T17；Wind edb-structure",
+      "phase": "待接入设计",
+      "group_label": "风险待接入",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "pending-credit-3",
+      "group": "pending",
+      "name": "商业银行不良贷款率",
+      "source": "拟接入：金融监管总局",
+      "mode": "待接入",
+      "note": "信用与金融体系风险 · 中国 · 季度。监控模式无真实观测；设计示例中的读数和日期为虚构。",
+      "tushare": "未确认监管统计对应接口",
+      "wind": "EDB M0002004已定位；序列未取样",
+      "priority": "Wind MCP候选",
+      "status": "候选已定位／未验证",
+      "action": "待接入设计项：商业银行不良贷款率、季度；取样、权限及完整历史通过后才实施。",
+      "evidence": "Wind edb-macro",
+      "phase": "待接入设计",
+      "group_label": "风险待接入",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "pending-capital-0",
+      "group": "pending",
+      "name": "美元指数",
+      "source": "拟接入：指数行情服务",
+      "mode": "待接入",
+      "note": "汇率与跨境资本风险 · 美元 · 日度收盘。监控模式无真实观测；设计示例中的读数和日期为虚构。",
+      "tushare": "fx_daily USDOLLAR.FXCM：空返回",
+      "wind": "仅找到已停止的NYBOT连续期货S0180518，不符合现货DXY要求",
+      "priority": "待讨论",
+      "status": "双源覆盖未确认",
+      "action": "核对有效代码和当前现货日收盘系列；期货不能替代DXY现货。讨论保留新浪或其他源。",
+      "evidence": "T04；Wind edb-dollar；https://tushare.pro/document/2?doc_id=179",
+      "phase": "待接入设计",
+      "group_label": "风险待接入",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "pending-capital-1",
+      "group": "pending",
+      "name": "美元兑人民币",
+      "source": "拟接入：中国外汇交易中心",
+      "mode": "待接入",
+      "note": "汇率与跨境资本风险 · 在岸 · 1美元折合人民币。监控模式无真实观测；设计示例中的读数和日期为虚构。",
+      "tushare": "fx_daily人民币代码及权限未测",
+      "wind": "EDB M0067855已定位；序列未取样",
+      "priority": "Wind MCP候选",
+      "status": "候选已定位／未验证",
+      "action": "待接入设计项：境内USDCNY即期；不得替换CNH或中间价；取样、权限及完整历史通过后才实施。",
+      "evidence": "Wind edb-fx",
+      "phase": "待接入设计",
+      "group_label": "风险待接入",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "pending-capital-2",
+      "group": "pending",
+      "name": "美元兑日元",
+      "source": "拟接入：外汇行情服务",
+      "mode": "待接入",
+      "note": "汇率与跨境资本风险 · 1美元折合日元。监控模式无真实观测；设计示例中的读数和日期为虚构。",
+      "tushare": "fx_daily USDJPY.FXCM：5条；bid_close/ask_close，本地已封装",
+      "wind": "EDB G1217001东京9点报价候选，不等同日收盘",
+      "priority": "Tushare-data",
+      "status": "样本通过／口径待核",
+      "action": "明确bid/ask或中间价、时区及周末记录；不可把东京9点序列直接拼入。",
+      "evidence": "T14；Wind edb-jpy；https://tushare.pro/document/2?doc_id=179",
+      "phase": "待接入设计",
+      "group_label": "风险待接入",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "pending-capital-3",
+      "group": "pending",
+      "name": "海外持有美债余额",
+      "source": "拟接入：美国财政部TIC",
+      "mode": "待接入",
+      "note": "汇率与跨境资本风险 · 全部海外持有人 · 月末。监控模式无真实观测；设计示例中的读数和日期为虚构。",
+      "tushare": "未确认TIC对应接口",
+      "wind": "EDB B3159602 / G0003749已定位；序列未取样",
+      "priority": "Wind MCP候选",
+      "status": "候选已定位／未验证",
+      "action": "待接入设计项：美国财政部TIC外国持有美债总额；核对统计范围和单位；取样、权限及完整历史通过后才实施。",
+      "evidence": "Wind edb-fiscal／edb-usdebt",
+      "phase": "待接入设计",
+      "group_label": "风险待接入",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "pending-structure-0",
+      "group": "pending",
+      "name": "IPO融资额",
+      "source": "拟接入：沪深北交易所",
+      "mode": "待接入",
+      "note": "市场结构与资金供需风险 · A股 · 月度。监控模式无真实观测；设计示例中的读数和日期为虚构。",
+      "tushare": "新股数据汇总方案未验证；需包含北交所",
+      "wind": "M0024245仅沪深IPO金额，不含北交所",
+      "priority": "待讨论",
+      "status": "范围不一致",
+      "action": "设计要求沪深北，需补齐BSE或由用户明确调整范围；不可静默缩减。",
+      "evidence": "Wind edb-structure",
+      "phase": "待接入设计",
+      "group_label": "风险待接入",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "pending-structure-1",
+      "group": "pending",
+      "name": "限售股解禁市值",
+      "source": "拟接入：交易所及公司公告",
+      "mode": "待接入",
+      "note": "市场结构与资金供需风险 · A股 · 月度计划 · 同价基准。监控模式无真实观测；设计示例中的读数和日期为虚构。",
+      "tushare": "未确认解禁数量×约定价格口径的完整接口",
+      "wind": "本轮未定位对应解禁市值系列",
+      "priority": "待讨论",
+      "status": "双源覆盖未确认",
+      "action": "先确定计划/实际解禁、月度范围、估值日期；再核验接口或讨论保留公告来源。",
+      "evidence": "Wind edb-structure；src/source-catalog.mjs",
+      "phase": "待接入设计",
+      "group_label": "风险待接入",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "pending-structure-2",
+      "group": "pending",
+      "name": "融资余额",
+      "source": "拟接入：沪深交易所",
+      "mode": "待接入",
+      "note": "市场结构与资金供需风险 · 沪深两市 · 日末。监控模式无真实观测；设计示例中的读数和日期为虚构。",
+      "tushare": "margin：rzye/rzmre/rzche样本3条；本地已封装",
+      "wind": "EDB M0061606/M0061610余额已取样；偿还额M0061605/M0075952仅定位",
+      "priority": "Tushare-data",
+      "status": "样本通过／范围待核",
+      "action": "只合并SSE与SZSE，排除BSE；净买入=融资买入−偿还，同交易日、元转亿元。",
+      "evidence": "T02；Wind sample-edb／edb-cn；scripts/liquidity_data.py",
+      "phase": "待接入设计",
+      "group_label": "风险待接入",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "pending-structure-3",
+      "group": "pending",
+      "name": "股票ETF净申购额",
+      "source": "拟接入：基金份额及净值公告",
+      "mode": "待接入",
+      "note": "市场结构与资金供需风险 · 固定样本 · 周度估算。监控模式无真实观测；设计示例中的读数和日期为虚构。",
+      "tushare": "ETF份额及净值候选；估算口径与样本未验证",
+      "wind": "f_mf_netsubamt已取样，但属于申赎净流入额，不自动等于设计中的估算额",
+      "priority": "Wind MCP候选",
+      "status": "口径待定义",
+      "action": "选择Wind直接净流入额或份额变化估算；固定样本和周汇总交易日，保留两个指标身份。",
+      "evidence": "Wind sample-fund；scripts/wind_etf.py",
+      "phase": "待接入设计",
+      "group_label": "风险待接入",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "pending-event-0",
+      "group": "pending",
+      "name": "关税税率",
+      "source": "拟接入：海关及贸易主管部门",
+      "mode": "待接入",
+      "note": "地缘政治与政策事件风险 · 虚构国家A对B · 指定商品。监控模式无真实观测；设计示例中的读数和日期为虚构。",
+      "tushare": "研究事件，不应直接当作数值行情指标",
+      "wind": "未指定真实经济体/商品/政策/事件，无法验证覆盖",
+      "priority": "本地研究＋待讨论",
+      "status": "对象／口径待定义",
+      "action": "原设计含经济体A/B等占位对象；先确定真实对象、机构、日期与状态定义，再讨论双源及原始公告。",
+      "evidence": "src/source-catalog.mjs；风险待接入设计定义",
+      "phase": "待接入设计",
+      "group_label": "风险待接入",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "pending-event-1",
+      "group": "pending",
+      "name": "出口管制适用范围",
+      "source": "拟接入：主管部门原始公告",
+      "mode": "待接入",
+      "note": "地缘政治与政策事件风险 · 虚构清单 · 事件。监控模式无真实观测；设计示例中的读数和日期为虚构。",
+      "tushare": "研究事件，不应直接当作数值行情指标",
+      "wind": "未指定真实经济体/商品/政策/事件，无法验证覆盖",
+      "priority": "本地研究＋待讨论",
+      "status": "对象／口径待定义",
+      "action": "原设计含经济体A/B等占位对象；先确定真实对象、机构、日期与状态定义，再讨论双源及原始公告。",
+      "evidence": "src/source-catalog.mjs；风险待接入设计定义",
+      "phase": "待接入设计",
+      "group_label": "风险待接入",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "pending-event-2",
+      "group": "pending",
+      "name": "监管新政进度",
+      "source": "拟接入：监管部门原始公告",
+      "mode": "待接入",
+      "note": "地缘政治与政策事件风险 · 虚构政策 · 事件。监控模式无真实观测；设计示例中的读数和日期为虚构。",
+      "tushare": "研究事件，不应直接当作数值行情指标",
+      "wind": "未指定真实经济体/商品/政策/事件，无法验证覆盖",
+      "priority": "本地研究＋待讨论",
+      "status": "对象／口径待定义",
+      "action": "原设计含经济体A/B等占位对象；先确定真实对象、机构、日期与状态定义，再讨论双源及原始公告。",
+      "evidence": "src/source-catalog.mjs；风险待接入设计定义",
+      "phase": "待接入设计",
+      "group_label": "风险待接入",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "pending-event-3",
+      "group": "pending",
+      "name": "地缘冲突事件状态",
+      "source": "拟接入：官方通报及航运公告",
+      "mode": "待接入",
+      "note": "地缘政治与政策事件风险 · 虚构地区 · 事件。监控模式无真实观测；设计示例中的读数和日期为虚构。",
+      "tushare": "研究事件，不应直接当作数值行情指标",
+      "wind": "未指定真实经济体/商品/政策/事件，无法验证覆盖",
+      "priority": "本地研究＋待讨论",
+      "status": "对象／口径待定义",
+      "action": "原设计含经济体A/B等占位对象；先确定真实对象、机构、日期与状态定义，再讨论双源及原始公告。",
+      "evidence": "src/source-catalog.mjs；风险待接入设计定义",
+      "phase": "待接入设计",
+      "group_label": "风险待接入",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "stock-lookup",
+      "group": "supplement",
+      "name": "个股代码、名称与行业查询",
+      "source": "Tushare stock_basic",
+      "mode": "代码补充盘点",
+      "note": "本地已封装，存量实现；本轮未再次抽样",
+      "tushare": "stock_basic；本地已封装",
+      "wind": "本轮未核验备用",
+      "priority": "Tushare-data",
+      "status": "存量接入／未复测",
+      "action": "保持证券代码和交易所匹配；行业分类不要当国企属性。",
+      "evidence": "scripts/local_proxy.py；scripts/tushare_client.py",
+      "phase": "当前实现",
+      "group_label": "补充业务接口",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "stock-quote",
+      "group": "supplement",
+      "name": "个股盘中报价",
+      "source": "东方财富 → 腾讯",
+      "mode": "代码补充盘点",
+      "note": "daily是日线，不能代替盘中报价",
+      "tushare": "本地get_stock_daily为日频；实时权限/接口未验证",
+      "wind": "实时行情候选未验证",
+      "priority": "待讨论",
+      "status": "频率覆盖未确认",
+      "action": "需独立验证实时/延迟及时间戳；日线收盘不能充作盘中价。",
+      "evidence": "scripts/local_proxy.py fetch_stock_quote",
+      "phase": "当前实现",
+      "group_label": "补充业务接口",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "stock-close-performance",
+      "group": "supplement",
+      "name": "个股最近5个收盘日表现",
+      "source": "Tushare daily",
+      "mode": "代码补充盘点",
+      "note": "本地已封装，存量实现；本轮未再次抽样",
+      "tushare": "daily；本地已封装",
+      "wind": "securities_get_trend候选未测",
+      "priority": "Tushare-data",
+      "status": "存量接入／未复测",
+      "action": "保留已收盘交易日定义；核对除权对短期收益影响。",
+      "evidence": "scripts/local_proxy.py；tools/tushare-data/scripts/tushare_client.py",
+      "phase": "当前实现",
+      "group_label": "补充业务接口",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "stock-dividend-yield",
+      "group": "supplement",
+      "name": "个股TTM股息率",
+      "source": "Tushare daily_basic dv_ttm",
+      "mode": "代码补充盘点",
+      "note": "本地已封装，存量实现；本轮未再次抽样",
+      "tushare": "daily_basic dv_ttm；本地已封装",
+      "wind": "个股估值候选未测",
+      "priority": "Tushare-data",
+      "status": "存量接入／未复测",
+      "action": "TTM股息率不能与最近单次分红率混用；百分数单位保持。",
+      "evidence": "scripts/local_proxy.py；tools/tushare-data/scripts/tushare_client.py",
+      "phase": "当前实现",
+      "group_label": "补充业务接口",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "fugui-candidate",
+      "group": "supplement",
+      "name": "福贵策略候选基础数据",
+      "source": "默认AKShare＋腾讯＋巨潮资料及分红；可选Tushare",
+      "mode": "代码补充盘点",
+      "note": "Tushare方案股息率TTM与原单次分红率不是相同口径",
+      "tushare": "stock_basic/daily_basic/dividend本地可用接口；候选组合未完整复测",
+      "wind": "公司资料、股息率候选未完整核验",
+      "priority": "Tushare-data候选",
+      "status": "口径待核",
+      "action": "名称行业市值可优先迁移；TTM股息率与最新单次分红率分开，国债/企业属性按缺口处理。",
+      "evidence": "scripts/local_proxy.py normalize_fugui_candidate_from_akshare",
+      "phase": "当前实现",
+      "group_label": "补充业务接口",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "fugui-ownership",
+      "group": "supplement",
+      "name": "候选央企／国企属性",
+      "source": "公司资料关键词推断",
+      "mode": "代码补充盘点",
+      "note": "当前是启发式推断，不是权威实际控制人核验",
+      "tushare": "stock_basic不证明实际控制人性质；未确认对应核验接口",
+      "wind": "本轮未确认权威控制人性质及历史变更字段",
+      "priority": "待讨论",
+      "status": "双源覆盖未确认",
+      "action": "讨论实际控制人权威字段/公告核验；关键词结果必须标注推断，不作为已确认事实。",
+      "evidence": "scripts/local_proxy.py _infer_fugui_ownership",
+      "phase": "当前实现",
+      "group_label": "补充业务接口",
+      "discussion": true,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "portfolio-records",
+      "group": "supplement",
+      "name": "持仓、交易与复盘记录",
+      "source": "本地业务记录／浏览器保存",
+      "mode": "代码补充盘点",
+      "note": "用户记录无需金融数据商替代",
+      "tushare": "不适用：用户记录与本地研究",
+      "wind": "不适用：用户记录与本地研究",
+      "priority": "本地资料",
+      "status": "无需迁移",
+      "action": "保持本地记录与引用；不外发账户/持仓资料换取行情。",
+      "evidence": "scripts/local_proxy.py；src/app.mjs",
+      "phase": "本地资料",
+      "group_label": "补充业务接口",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    },
+    {
+      "id": "research-records",
+      "group": "supplement",
+      "name": "风险模型、研究报告与任务记录",
+      "source": "本地Markdown／HTML／JSON归档",
+      "mode": "代码补充盘点",
+      "note": "原始研究资料与运行记录无需金融数据商替代",
+      "tushare": "不适用：用户记录与本地研究",
+      "wind": "不适用：用户记录与本地研究",
+      "priority": "本地资料",
+      "status": "无需迁移",
+      "action": "保持本地记录与引用；不外发账户/持仓资料换取行情。",
+      "evidence": "scripts/local_proxy.py；src/app.mjs",
+      "phase": "本地资料",
+      "group_label": "补充业务接口",
+      "discussion": false,
+      "migration": "未切换（本轮仅盘点）"
+    }
+  ],
+  "probes": [
+    {
+      "method": "daily_info",
+      "params": {
+        "ts_code": "SH_MARKET",
+        "trade_date": "20261105",
+        "fields": "trade_date,ts_code,amount"
+      },
+      "local_registered": true,
+      "status": "返回数据",
+      "count": 1,
+      "fields": [
+        "trade_date",
+        "ts_code",
+        "amount"
+      ],
+      "dates": [
+        "2026-11-05"
+      ],
+      "id": "T01"
+    },
+    {
+      "method": "margin",
+      "params": {
+        "trade_date": "20261105",
+        "fields": "trade_date,exchange_id,rzye,rzmre,rzche"
+      },
+      "local_registered": true,
+      "status": "返回数据",
+      "count": 3,
+      "fields": [
+        "trade_date",
+        "exchange_id",
+        "rzye",
+        "rzmre",
+        "rzche"
+      ],
+      "dates": [
+        "2026-11-05"
+      ],
+      "id": "T02"
+    },
+    {
+      "method": "us_tycr",
+      "params": {
+        "start_date": "20261101",
+        "end_date": "20261105",
+        "fields": "date,y2,y10"
+      },
+      "local_registered": true,
+      "status": "返回数据",
+      "count": 4,
+      "fields": [
+        "date",
+        "y2",
+        "y10"
+      ],
+      "dates": [
+        "2026-11-02",
+        "2026-11-03",
+        "2026-11-04",
+        "2026-11-05"
+      ],
+      "id": "T03"
+    },
+    {
+      "method": "fx_daily",
+      "params": {
+        "ts_code": "USDOLLAR.FXCM",
+        "start_date": "20261101",
+        "end_date": "20261105"
+      },
+      "local_registered": true,
+      "status": "空返回",
+      "count": 0,
+      "fields": [
+        "ts_code",
+        "trade_date",
+        "bid_open",
+        "bid_close",
+        "bid_high",
+        "bid_low",
+        "ask_open",
+        "ask_close",
+        "ask_high",
+        "ask_low",
+        "tick_qty"
+      ],
+      "dates": [],
+      "id": "T04"
+    },
+    {
+      "method": "fund_daily",
+      "params": {
+        "ts_code": "159941.SZ",
+        "start_date": "20261101",
+        "end_date": "20261105",
+        "fields": "ts_code,trade_date,high,close"
+      },
+      "local_registered": false,
+      "status": "返回数据",
+      "count": 4,
+      "fields": [
+        "ts_code",
+        "trade_date",
+        "high",
+        "close"
+      ],
+      "dates": [
+        "2026-11-02",
+        "2026-11-03",
+        "2026-11-04",
+        "2026-11-05"
+      ],
+      "id": "T05"
+    },
+    {
+      "method": "fund_adj",
+      "params": {
+        "ts_code": "159941.SZ",
+        "start_date": "20261101",
+        "end_date": "20261105"
+      },
+      "local_registered": false,
+      "status": "返回数据",
+      "count": 4,
+      "fields": [
+        "ts_code",
+        "trade_date",
+        "adj_factor"
+      ],
+      "dates": [
+        "2026-11-02",
+        "2026-11-03",
+        "2026-11-04",
+        "2026-11-05"
+      ],
+      "id": "T06"
+    },
+    {
+      "method": "index_daily",
+      "params": {
+        "ts_code": "000922.CSI",
+        "start_date": "20261101",
+        "end_date": "20261105"
+      },
+      "local_registered": false,
+      "status": "返回数据",
+      "count": 4,
+      "fields": [
+        "ts_code",
+        "trade_date",
+        "close",
+        "open",
+        "high",
+        "low",
+        "pre_close",
+        "change",
+        "pct_chg",
+        "vol",
+        "amount"
+      ],
+      "dates": [
+        "2026-11-02",
+        "2026-11-03",
+        "2026-11-04",
+        "2026-11-05"
+      ],
+      "id": "T07"
+    },
+    {
+      "method": "index_dailybasic",
+      "params": {
+        "ts_code": "000300.SH",
+        "start_date": "20261101",
+        "end_date": "20261105"
+      },
+      "local_registered": false,
+      "status": "返回数据",
+      "count": 4,
+      "fields": [
+        "ts_code",
+        "trade_date",
+        "total_mv",
+        "float_mv",
+        "total_share",
+        "float_share",
+        "free_share",
+        "turnover_rate",
+        "turnover_rate_f",
+        "pe",
+        "pe_ttm",
+        "pb"
+      ],
+      "dates": [
+        "2026-11-02",
+        "2026-11-03",
+        "2026-11-04",
+        "2026-11-05"
+      ],
+      "id": "T08"
+    },
+    {
+      "method": "index_global",
+      "params": {
+        "ts_code": "NDX",
+        "start_date": "20261101",
+        "end_date": "20261105"
+      },
+      "local_registered": false,
+      "status": "空返回",
+      "count": 0,
+      "fields": [
+        "ts_code",
+        "trade_date",
+        "open",
+        "close",
+        "high",
+        "low",
+        "pre_close",
+        "change",
+        "pct_chg",
+        "swing",
+        "vol"
+      ],
+      "dates": [],
+      "id": "T09"
+    },
+    {
+      "method": "shibor",
+      "params": {
+        "start_date": "20261101",
+        "end_date": "20261105"
+      },
+      "local_registered": false,
+      "status": "返回数据",
+      "count": 4,
+      "fields": [
+        "date",
+        "on",
+        "1w",
+        "2w",
+        "1m",
+        "3m",
+        "6m",
+        "9m",
+        "1y"
+      ],
+      "dates": [
+        "2026-11-02",
+        "2026-11-03",
+        "2026-11-04",
+        "2026-11-05"
+      ],
+      "id": "T10"
+    },
+    {
+      "method": "fund_daily",
+      "params": {
+        "ts_code": "515450.SH",
+        "start_date": "20261101",
+        "end_date": "20261105"
+      },
+      "local_registered": false,
+      "status": "返回数据",
+      "count": 4,
+      "fields": [
+        "ts_code",
+        "trade_date",
+        "pre_close",
+        "open",
+        "high",
+        "low",
+        "close",
+        "change",
+        "pct_chg",
+        "vol",
+        "amount"
+      ],
+      "dates": [
+        "2026-11-02",
+        "2026-11-03",
+        "2026-11-04",
+        "2026-11-05"
+      ],
+      "id": "T11"
+    },
+    {
+      "method": "fund_adj",
+      "params": {
+        "ts_code": "515450.SH",
+        "start_date": "20261101",
+        "end_date": "20261105"
+      },
+      "local_registered": false,
+      "status": "返回数据",
+      "count": 4,
+      "fields": [
+        "ts_code",
+        "trade_date",
+        "adj_factor"
+      ],
+      "dates": [
+        "2026-11-02",
+        "2026-11-03",
+        "2026-11-04",
+        "2026-11-05"
+      ],
+      "id": "T12"
+    },
+    {
+      "method": "fund_div",
+      "params": {
+        "ts_code": "515450.OF"
+      },
+      "local_registered": false,
+      "status": "空返回",
+      "count": 0,
+      "fields": [
+        "ts_code",
+        "ann_date",
+        "imp_anndate",
+        "base_date",
+        "div_proc",
+        "record_date",
+        "ex_date",
+        "pay_date",
+        "earpay_date",
+        "net_ex_date",
+        "div_cash",
+        "base_unit",
+        "ear_distr",
+        "ear_amount",
+        "account_date",
+        "base_year"
+      ],
+      "dates": [],
+      "id": "T13"
+    },
+    {
+      "method": "fx_daily",
+      "params": {
+        "ts_code": "USDJPY.FXCM",
+        "start_date": "20261101",
+        "end_date": "20261105"
+      },
+      "local_registered": true,
+      "status": "返回数据",
+      "count": 5,
+      "fields": [
+        "ts_code",
+        "trade_date",
+        "bid_open",
+        "bid_close",
+        "bid_high",
+        "bid_low",
+        "ask_open",
+        "ask_close",
+        "ask_high",
+        "ask_low",
+        "tick_qty"
+      ],
+      "dates": [
+        "2026-11-01",
+        "2026-11-02",
+        "2026-11-03",
+        "2026-11-04",
+        "2026-11-05"
+      ],
+      "id": "T14"
+    },
+    {
+      "method": "index_global",
+      "params": {
+        "ts_code": "SPX",
+        "start_date": "20261101",
+        "end_date": "20261105"
+      },
+      "local_registered": false,
+      "status": "返回数据",
+      "count": 4,
+      "fields": [
+        "ts_code",
+        "trade_date",
+        "open",
+        "close",
+        "high",
+        "low",
+        "pre_close",
+        "change",
+        "pct_chg",
+        "swing",
+        "vol"
+      ],
+      "dates": [
+        "2026-11-02",
+        "2026-11-03",
+        "2026-11-04",
+        "2026-11-05"
+      ],
+      "id": "T15"
+    },
+    {
+      "method": "moneyflow_mkt_dc",
+      "params": {
+        "start_date": "20261101",
+        "end_date": "20261105"
+      },
+      "local_registered": false,
+      "status": "权限不足",
+      "error_type": "Exception",
+      "id": "T16"
+    },
+    {
+      "method": "yc_cb",
+      "params": {
+        "ts_code": "1001.CB",
+        "curve_type": "0",
+        "trade_date": "20261105"
+      },
+      "local_registered": false,
+      "status": "权限不足",
+      "error_type": "Exception",
+      "id": "T17"
+    }
+  ],
+  "wind_evidence": {
+    "edb-cn": {
+      "accepted": true,
+      "result": {
+        "metrics": [
+          {
+            "code": "M0075987",
+            "name": "中国:融资买入额",
+            "unit": "亿元",
+            "source": "根据新闻整理",
+            "magnitude": "亿",
+            "currency": "人民币",
+            "updateDate": "20261106",
+            "beginDate": "20100331",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "M0061606",
+            "name": "沪市:融资余额",
+            "unit": "万元",
+            "source": "上海证券交易所",
+            "magnitude": "万",
+            "currency": "人民币",
+            "updateDate": "20261106",
+            "beginDate": "20100331",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "M0061610",
+            "name": "深市:融资余额",
+            "unit": "万元",
+            "source": "深圳证券交易所",
+            "magnitude": "万",
+            "currency": "人民币",
+            "updateDate": "20261106",
+            "beginDate": "20100331",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "M0061605",
+            "name": "沪市:融资偿还额",
+            "unit": "万元",
+            "source": "上海证券交易所",
+            "magnitude": "万",
+            "currency": "人民币",
+            "updateDate": "20261106",
+            "beginDate": "20100331",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "M0075952",
+            "name": "深市:融资偿还额",
+            "unit": "万元",
+            "source": "深圳证券交易所",
+            "magnitude": "万",
+            "currency": "人民币",
+            "updateDate": "20261106",
+            "beginDate": "20100331",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "M0017138",
+            "name": "SHIBOR:隔夜",
+            "unit": "%",
+            "source": "全国银行间同业拆借中心",
+            "updateDate": "20261106",
+            "beginDate": "20061008",
+            "endDate": "20261106",
+            "freq": "日"
+          },
+          {
+            "code": "M0329522",
+            "name": "港股通:当日买入成交净额(人民币)",
+            "unit": "亿元",
+            "source": "Wind",
+            "magnitude": "亿",
+            "currency": "人民币",
+            "updateDate": "20261106",
+            "beginDate": "20141117",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "G8324478",
+            "name": "深交所:A股:流通市值",
+            "unit": "亿元",
+            "source": "香港交易所",
+            "magnitude": "亿",
+            "currency": "人民币",
+            "updateDate": "20261106",
+            "beginDate": "20020104",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "M6093020",
+            "name": "上证所:A股:流通市值",
+            "unit": "亿元",
+            "source": "上海证券交易所",
+            "magnitude": "亿",
+            "currency": "人民币",
+            "updateDate": "20261104",
+            "beginDate": "20010131",
+            "endDate": "20261031",
+            "freq": "月"
+          }
+        ]
+      }
+    },
+    "edb-macro": {
+      "accepted": true,
+      "result": {
+        "metrics": [
+          {
+            "code": "M0017126",
+            "name": "中国:制造业PMI",
+            "unit": "%",
+            "source": "国家统计局",
+            "updateDate": "20261031",
+            "beginDate": "20050131",
+            "endDate": "20261031",
+            "freq": "月"
+          },
+          {
+            "code": "M6642295",
+            "name": "中国:制造业PMI:装备制造业",
+            "unit": "%",
+            "source": "中国物流与采购联合会",
+            "updateDate": "20261031",
+            "beginDate": "20150831",
+            "endDate": "20261031",
+            "freq": "月"
+          },
+          {
+            "code": "M0331594",
+            "name": "万得一致预测:中国:制造业PMI",
+            "unit": "%",
+            "source": "Wind",
+            "updateDate": "20261104",
+            "beginDate": "20130531",
+            "endDate": "20261130",
+            "freq": "月"
+          },
+          {
+            "code": "M0039354",
+            "name": "中国:GDP:不变价:当季同比",
+            "unit": "%",
+            "source": "国家统计局",
+            "updateDate": "20261019",
+            "beginDate": "19920331",
+            "endDate": "20260930",
+            "freq": "季"
+          },
+          {
+            "code": "M0045788",
+            "name": "中国:GDP:不变价:同比",
+            "unit": "%",
+            "source": "国家统计局",
+            "updateDate": "20261027",
+            "beginDate": "19531231",
+            "endDate": "20251231",
+            "freq": "年"
+          },
+          {
+            "code": "M0017127",
+            "name": "中国:制造业PMI:生产",
+            "unit": "%",
+            "source": "国家统计局",
+            "updateDate": "20261031",
+            "beginDate": "20050131",
+            "endDate": "20261031",
+            "freq": "月"
+          },
+          {
+            "code": "M0017133",
+            "name": "中国:制造业PMI:进口",
+            "unit": "%",
+            "source": "国家统计局",
+            "updateDate": "20261031",
+            "beginDate": "20050131",
+            "endDate": "20261031",
+            "freq": "月"
+          },
+          {
+            "code": "M0017132",
+            "name": "中国:制造业PMI:采购量",
+            "unit": "%",
+            "source": "国家统计局",
+            "updateDate": "20261031",
+            "beginDate": "20050131",
+            "endDate": "20261031",
+            "freq": "月"
+          },
+          {
+            "code": "M0088876",
+            "name": "中国:非制造业PMI:存货",
+            "unit": "%",
+            "source": "国家统计局",
+            "updateDate": "20261031",
+            "beginDate": "20070131",
+            "endDate": "20261031",
+            "freq": "月"
+          },
+          {
+            "code": "M5650805",
+            "name": "中国:城镇调查失业率",
+            "unit": "%",
+            "source": "国家统计局",
+            "updateDate": "20261019",
+            "beginDate": "20180131",
+            "endDate": "20260930",
+            "freq": "月"
+          },
+          {
+            "code": "M5650807",
+            "name": "中国:城镇调查失业率:同比增减",
+            "unit": "%",
+            "source": "Wind",
+            "updateDate": "20261019",
+            "beginDate": "20180228",
+            "endDate": "20260930",
+            "freq": "月"
+          },
+          {
+            "code": "M6000388",
+            "name": "中国:政府预期目标:城镇调查失业率",
+            "unit": "%",
+            "source": "中国政府网",
+            "updateDate": "20260305",
+            "beginDate": "20181231",
+            "endDate": "20261231",
+            "freq": "年"
+          },
+          {
+            "code": "X3707328",
+            "name": "IMF预测:中国:失业率",
+            "unit": "%",
+            "source": "国际货币基金组织",
+            "updateDate": "20261013",
+            "beginDate": "19801231",
+            "endDate": "20311231",
+            "freq": "年"
+          },
+          {
+            "code": "D2969340",
+            "name": "中国:城镇调查失业率:Wind季调",
+            "unit": "%",
+            "source": "Wind",
+            "updateDate": "20261019",
+            "beginDate": "20180131",
+            "endDate": "20260930",
+            "freq": "月"
+          },
+          {
+            "code": "M5650806",
+            "name": "中国:31个大城市:城镇调查失业率",
+            "unit": "%",
+            "source": "国家统计局",
+            "updateDate": "20261019",
+            "beginDate": "20180131",
+            "endDate": "20260930",
+            "freq": "月"
+          },
+          {
+            "code": "M5650808",
+            "name": "中国:31个大城市:城镇调查失业率:同比增减",
+            "unit": "%",
+            "source": "Wind",
+            "updateDate": "20261019",
+            "beginDate": "20180430",
+            "endDate": "20260930",
+            "freq": "月"
+          },
+          {
+            "code": "Q6876366",
+            "name": "中国:31个大城市:城镇调查失业率:Wind季调",
+            "unit": "%",
+            "source": "Wind",
+            "updateDate": "20261019",
+            "beginDate": "20180131",
+            "endDate": "20260930",
+            "freq": "月"
+          },
+          {
+            "code": "M0001227",
+            "name": "中国:PPI:当月同比",
+            "unit": "%",
+            "source": "国家统计局",
+            "updateDate": "20261014",
+            "beginDate": "19961031",
+            "endDate": "20260930",
+            "freq": "月"
+          },
+          {
+            "code": "M0329175",
+            "name": "万得一致预测:中国:PPI:同比",
+            "unit": "%",
+            "source": "Wind",
+            "updateDate": "20261104",
+            "beginDate": "20081231",
+            "endDate": "20271231",
+            "freq": "年"
+          },
+          {
+            "code": "M5405527",
+            "name": "中国:社会消费品零售总额:实际累计同比",
+            "unit": "%",
+            "source": "Wind",
+            "updateDate": "20230117",
+            "beginDate": "20030131",
+            "endDate": "20221231",
+            "freq": "月"
+          },
+          {
+            "code": "M5405530",
+            "name": "中国:社会消费品零售总额:实际同比",
+            "unit": "%",
+            "source": "国家统计局",
+            "updateDate": "20220117",
+            "beginDate": "19531231",
+            "endDate": "20211231",
+            "freq": "年"
+          },
+          {
+            "code": "M5525763",
+            "name": "中国:社会融资规模存量:同比",
+            "unit": "%",
+            "source": "中国人民银行",
+            "updateDate": "20261014",
+            "beginDate": "20031231",
+            "endDate": "20260930",
+            "freq": "月"
+          },
+          {
+            "code": "M5522881",
+            "name": "中国:社会融资规模存量:同比",
+            "unit": "%",
+            "source": "中国人民银行",
+            "updateDate": "20260115",
+            "beginDate": "20031231",
+            "endDate": "20251231",
+            "freq": "年"
+          },
+          {
+            "code": "M0002004",
+            "name": "中国:不良贷款比例:商业银行",
+            "unit": "%",
+            "source": "国家金融监督管理总局",
+            "updateDate": "20260817",
+            "beginDate": "20031231",
+            "endDate": "20260630",
+            "freq": "季"
+          },
+          {
+            "code": "M0061684",
+            "name": "万得一致预测:中国:人民币贷款:同比",
+            "unit": "%",
+            "source": "Wind",
+            "updateDate": "20261105",
+            "beginDate": "20071231",
+            "endDate": "20271231",
+            "freq": "月"
+          },
+          {
+            "code": "M0329182",
+            "name": "万得一致预测:中国:人民币贷款:同比",
+            "unit": "%",
+            "source": "Wind",
+            "updateDate": "20261020",
+            "beginDate": "20071231",
+            "endDate": "20271231",
+            "freq": "年"
+          },
+          {
+            "code": "C5871348",
+            "name": "预测机构家数:中国:社会融资规模存量:同比",
+            "unit": "家",
+            "source": "Wind",
+            "updateDate": "20261105",
+            "beginDate": "20180228",
+            "endDate": "20271231",
+            "freq": "月"
+          }
+        ]
+      }
+    },
+    "edb-fx": {
+      "accepted": true,
+      "result": {
+        "summary": "由于本次搜索范围较大，已返回部分匹配指标。请按主题或地区拆分，并针对未覆盖范围继续调用。",
+        "metrics": [
+          {
+            "code": "M0067855",
+            "name": "CFETS:即期汇率:美元兑人民币",
+            "source": "中国外汇交易中心(2009年后)",
+            "updateDate": "20261106",
+            "beginDate": "19810102",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "M0290205",
+            "name": "即期汇率:美元兑离岸人民币(USDCNH)",
+            "source": "洲际交易所",
+            "updateDate": "20261106",
+            "beginDate": "20120430",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "M0067856",
+            "name": "CFETS:即期汇率:欧元兑人民币",
+            "source": "中国外汇交易中心(2009年后)",
+            "updateDate": "20261106",
+            "beginDate": "19920207",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "M0067857",
+            "name": "CFETS:即期汇率:港元兑人民币",
+            "source": "中国外汇交易中心(2009年后)",
+            "updateDate": "20261106",
+            "beginDate": "19810105",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "M0067858",
+            "name": "CFETS:即期汇率:100日元兑人民币",
+            "source": "中国外汇交易中心(2009年后)",
+            "updateDate": "20261106",
+            "beginDate": "19810102",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "G0145010",
+            "name": "即期汇率:美元兑人民币",
+            "source": "台湾央行",
+            "updateDate": "20261105",
+            "beginDate": "19930105",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "M0067859",
+            "name": "CFETS:即期汇率:英镑兑人民币",
+            "source": "中国外汇交易中心(2009年后)",
+            "updateDate": "20261106",
+            "beginDate": "19810102",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "M0085789",
+            "name": "CFETS:即期汇率:澳元兑人民币",
+            "source": "中国外汇交易中心",
+            "updateDate": "20261106",
+            "beginDate": "19810102",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "M0067860",
+            "name": "CFETS:即期汇率:人民币兑林吉特",
+            "source": "中国外汇交易中心",
+            "updateDate": "20261030",
+            "beginDate": "20110801",
+            "endDate": "20261029",
+            "freq": "日"
+          },
+          {
+            "code": "M0085790",
+            "name": "CFETS:即期汇率:加元兑人民币",
+            "source": "中国外汇交易中心",
+            "updateDate": "20261106",
+            "beginDate": "19810102",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "M0327998",
+            "name": "CFETS:即期汇率:人民币兑韩元",
+            "source": "中国外汇交易中心",
+            "updateDate": "20261106",
+            "beginDate": "20160627",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "M0290378",
+            "name": "CFETS:即期汇率:新加坡元兑人民币",
+            "source": "中国外汇交易中心",
+            "updateDate": "20261106",
+            "beginDate": "20141030",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "M0329221",
+            "name": "CFETS:即期汇率:人民币兑泰国铢",
+            "source": "中国外汇交易中心",
+            "updateDate": "20261106",
+            "beginDate": "20180212",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "M0329220",
+            "name": "CFETS:即期汇率:人民币兑沙特里亚尔",
+            "source": "中国外汇交易中心",
+            "updateDate": "20261106",
+            "beginDate": "20160926",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "M0067861",
+            "name": "CFETS:即期汇率:人民币兑卢布",
+            "source": "中国外汇交易中心",
+            "updateDate": "20261104",
+            "beginDate": "19930709",
+            "endDate": "20261103",
+            "freq": "日"
+          },
+          {
+            "code": "M0290377",
+            "name": "CFETS:即期汇率:新西兰元兑人民币",
+            "source": "中国外汇交易中心",
+            "updateDate": "20261106",
+            "beginDate": "20140326",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "M0290390",
+            "name": "CFETS:即期汇率:瑞郎兑人民币",
+            "source": "中国外汇交易中心",
+            "updateDate": "20261106",
+            "beginDate": "20151110",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "M0329219",
+            "name": "CFETS:即期汇率:人民币兑瑞典克朗",
+            "source": "中国外汇交易中心",
+            "updateDate": "20261106",
+            "beginDate": "20161212",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "M0329214",
+            "name": "CFETS:即期汇率:人民币兑波兰兹罗提",
+            "source": "中国外汇交易中心",
+            "updateDate": "20261106",
+            "beginDate": "20161212",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "M0329222",
+            "name": "CFETS:即期汇率:人民币兑土耳其里拉",
+            "source": "中国外汇交易中心",
+            "updateDate": "20261001",
+            "beginDate": "20171124",
+            "endDate": "20260930",
+            "freq": "日"
+          },
+          {
+            "code": "M0329217",
+            "name": "CFETS:即期汇率:人民币兑墨西哥比索",
+            "source": "中国外汇交易中心",
+            "updateDate": "20261106",
+            "beginDate": "20161212",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "M0329216",
+            "name": "CFETS:即期汇率:人民币兑迪拉姆",
+            "source": "中国外汇交易中心",
+            "updateDate": "20261106",
+            "beginDate": "20160926",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "M0327996",
+            "name": "CFETS:即期汇率:人民币兑兰特",
+            "source": "中国外汇交易中心",
+            "updateDate": "20261106",
+            "beginDate": "20160620",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "M0329215",
+            "name": "CFETS:即期汇率:人民币兑丹麦克朗",
+            "source": "中国外汇交易中心",
+            "updateDate": "20261106",
+            "beginDate": "20161212",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "M0329223",
+            "name": "CFETS:即期汇率:人民币兑匈牙利福林",
+            "source": "中国外汇交易中心",
+            "updateDate": "20261023",
+            "beginDate": "20161212",
+            "endDate": "20261022",
+            "freq": "日"
+          },
+          {
+            "code": "M0329218",
+            "name": "CFETS:即期汇率:人民币兑挪威克朗",
+            "source": "中国外汇交易中心",
+            "updateDate": "20261106",
+            "beginDate": "20161212",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "M0000199",
+            "name": "美元兑日元",
+            "source": "洲际交易所",
+            "updateDate": "20261106",
+            "beginDate": "19780424",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "G1217001",
+            "name": "即期汇率(日本东京市场标准时间9:00):美元兑日元",
+            "source": "日本央行",
+            "updateDate": "20261106",
+            "beginDate": "19990104",
+            "endDate": "20261104",
+            "freq": "日"
+          },
+          {
+            "code": "G1217005",
+            "name": "中间价(东京市场):美元兑日元",
+            "source": "日本央行",
+            "updateDate": "20261106",
+            "beginDate": "19940104",
+            "endDate": "20261104",
+            "freq": "日"
+          },
+          {
+            "code": "C5092688",
+            "name": "掉期汇率:美元兑日元:1周",
+            "source": "洲际交易所",
+            "updateDate": "20261106",
+            "beginDate": "20161116",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "A1757487",
+            "name": "掉期汇率:美元兑日元:12个月",
+            "source": "洲际交易所",
+            "updateDate": "20261106",
+            "beginDate": "20250217",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "F9243956",
+            "name": "掉期汇率:美元兑日元:隔夜",
+            "source": "洲际交易所",
+            "updateDate": "20261106",
+            "beginDate": "20250217",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "D5262308",
+            "name": "掉期汇率:美元兑日元:次日",
+            "source": "洲际交易所",
+            "updateDate": "20261106",
+            "beginDate": "20161123",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "T3344652",
+            "name": "掉期汇率:美元兑日元:1日",
+            "source": "洲际交易所",
+            "updateDate": "20261106",
+            "beginDate": "20161123",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "W2218721",
+            "name": "掉期汇率:美元兑日元:2周",
+            "source": "洲际交易所",
+            "updateDate": "20261106",
+            "beginDate": "20161116",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "V4619986",
+            "name": "掉期汇率:美元兑日元:3周",
+            "source": "洲际交易所",
+            "updateDate": "20261106",
+            "beginDate": "20161116",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "H5215438",
+            "name": "掉期汇率:美元兑日元:1个月",
+            "source": "洲际交易所",
+            "updateDate": "20261106",
+            "beginDate": "20161116",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "H6230003",
+            "name": "掉期汇率:美元兑日元:2个月",
+            "source": "洲际交易所",
+            "updateDate": "20261106",
+            "beginDate": "20161116",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "D3610702",
+            "name": "掉期汇率:美元兑日元:3个月",
+            "source": "洲际交易所",
+            "updateDate": "20261106",
+            "beginDate": "20161116",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "F5049438",
+            "name": "掉期汇率:美元兑日元:4个月",
+            "source": "洲际交易所",
+            "updateDate": "20261106",
+            "beginDate": "20161116",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "U8171653",
+            "name": "掉期汇率:美元兑日元:5个月",
+            "source": "洲际交易所",
+            "updateDate": "20261106",
+            "beginDate": "20161116",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "R1052120",
+            "name": "掉期汇率:美元兑日元:6个月",
+            "source": "洲际交易所",
+            "updateDate": "20261106",
+            "beginDate": "20161116",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "R1591242",
+            "name": "掉期汇率:美元兑日元:7个月",
+            "source": "洲际交易所",
+            "updateDate": "20261106",
+            "beginDate": "20161116",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "X8192195",
+            "name": "掉期汇率:美元兑日元:8个月",
+            "source": "洲际交易所",
+            "updateDate": "20261106",
+            "beginDate": "20161116",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "U7459156",
+            "name": "掉期汇率:美元兑日元:9个月",
+            "source": "洲际交易所",
+            "updateDate": "20261106",
+            "beginDate": "20161116",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "L1445076",
+            "name": "掉期汇率:美元兑日元:10个月",
+            "source": "洲际交易所",
+            "updateDate": "20261106",
+            "beginDate": "20161116",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "M0068008",
+            "name": "即期汇率定盘价:美元兑离岸人民币",
+            "source": "香港财资市场公会",
+            "updateDate": "20261105",
+            "beginDate": "20110627",
+            "endDate": "20261104",
+            "freq": "日"
+          },
+          {
+            "code": "G1226001",
+            "name": "结算价(外汇保证金合约):美元兑日元",
+            "source": "东京金融交易所",
+            "updateDate": "20261106",
+            "beginDate": "20050701",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "M0000271",
+            "name": "美元指数",
+            "unit": "1973年3月=100",
+            "source": "行情",
+            "updateDate": "20261106",
+            "beginDate": "19710104",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "S0059749",
+            "name": "中债国债到期收益率:10年",
+            "unit": "%",
+            "source": "中债估值中心",
+            "updateDate": "20261105",
+            "beginDate": "20020104",
+            "endDate": "20261105",
+            "freq": "日"
+          }
+        ]
+      }
+    },
+    "edb-dollar": {
+      "accepted": true,
+      "result": {
+        "metrics": [
+          {
+            "code": "S0180518",
+            "name": "期货收盘价(连续):NYBOT美元指数",
+            "unit": "点",
+            "source": "纽约商品交易所",
+            "updateDate": "20260716",
+            "beginDate": "20040102",
+            "endDate": "20190610",
+            "freq": "日"
+          }
+        ]
+      }
+    },
+    "edb-jpy": {
+      "accepted": true,
+      "result": {
+        "metrics": [
+          {
+            "code": "G1217001",
+            "name": "即期汇率(日本东京市场标准时间9:00):美元兑日元",
+            "source": "日本央行",
+            "updateDate": "20261106",
+            "beginDate": "19990104",
+            "endDate": "20261104",
+            "freq": "日"
+          },
+          {
+            "code": "G1217017",
+            "name": "即期汇率(日本标准时间17:00):美元兑日元:期末值",
+            "source": "日本央行",
+            "updateDate": "20261105",
+            "beginDate": "19730131",
+            "endDate": "20261031",
+            "freq": "月"
+          }
+        ]
+      }
+    },
+    "edb-cnybond": {
+      "accepted": true,
+      "result": {
+        "metrics": [
+          {
+            "code": "S0059749",
+            "name": "中债国债到期收益率:10年",
+            "unit": "%",
+            "source": "中债估值中心",
+            "updateDate": "20261105",
+            "beginDate": "20020104",
+            "endDate": "20261105",
+            "freq": "日"
+          }
+        ]
+      }
+    },
+    "edb-policy": {
+      "accepted": true,
+      "result": {
+        "metrics": [
+          {
+            "code": "M0000162",
+            "name": "美国:联邦基金目标利率:上限",
+            "unit": "%",
+            "source": "美联储",
+            "updateDate": "20260917",
+            "beginDate": "19820927",
+            "endDate": "20260917",
+            "freq": "日"
+          },
+          {
+            "code": "F9822336",
+            "name": "美国:联储观察工具(CME FedWatch)加息概率:截至指定FOMC会议聚合概率",
+            "unit": "%",
+            "source": "根据新闻整理",
+            "updateDate": "20261106",
+            "beginDate": "20220126",
+            "endDate": "20271208",
+            "freq": "日"
+          },
+          {
+            "code": "M0061518",
+            "name": "中国:人民币存款准备金率:大型存款类金融机构",
+            "unit": "%",
+            "source": "中国人民银行",
+            "updateDate": "20261030",
+            "beginDate": "19850131",
+            "endDate": "20261031",
+            "freq": "月"
+          },
+          {
+            "code": "W6492843",
+            "name": "万得一致预测:中国:大型存款类金融机构存款准备金率",
+            "unit": "%",
+            "source": "Wind",
+            "updateDate": "20260813",
+            "beginDate": "20181231",
+            "endDate": "20271231",
+            "freq": "月"
+          },
+          {
+            "code": "M0010290",
+            "name": "中国:人民币存款准备金率(变动公告日期):大型存款类金融机构",
+            "unit": "%",
+            "source": "中国人民银行",
+            "updateDate": "20250507",
+            "beginDate": "19991118",
+            "endDate": "20250507",
+            "freq": "日"
+          }
+        ]
+      }
+    },
+    "edb-fiscal": {
+      "accepted": true,
+      "result": {
+        "metrics": [
+          {
+            "code": "G0003351",
+            "name": "美国:财政赤字(盈余为负)",
+            "unit": "百万美元",
+            "source": "美国财政部",
+            "magnitude": "百万",
+            "currency": "美元",
+            "updateDate": "20261017",
+            "beginDate": "19801031",
+            "endDate": "20260930",
+            "freq": "月"
+          },
+          {
+            "code": "G1147440",
+            "name": "美国:财政预算:差额",
+            "unit": "十亿美元",
+            "source": "美国白宫",
+            "magnitude": "十亿",
+            "currency": "美元",
+            "updateDate": "20240522",
+            "beginDate": "20081231",
+            "endDate": "20341231",
+            "freq": "年"
+          },
+          {
+            "code": "F9050141",
+            "name": "美国:财政盈余(赤字为负)",
+            "unit": "百万美元",
+            "source": "美国财政部",
+            "magnitude": "百万",
+            "currency": "美元",
+            "updateDate": "20261017",
+            "beginDate": "19801031",
+            "endDate": "20260930",
+            "freq": "月"
+          },
+          {
+            "code": "G1147449",
+            "name": "美国:调整后财政预算赤字(盈余为负)",
+            "unit": "十亿美元",
+            "source": "美国白宫",
+            "magnitude": "十亿",
+            "currency": "美元",
+            "updateDate": "20240522",
+            "beginDate": "20081231",
+            "endDate": "20341231",
+            "freq": "年"
+          },
+          {
+            "code": "B3159602",
+            "name": "美国:外国投资者持有美国国债金额:所有国家",
+            "unit": "十亿美元",
+            "source": "美国财政部",
+            "magnitude": "十亿",
+            "currency": "美元",
+            "updateDate": "20261017",
+            "beginDate": "20110930",
+            "endDate": "20260831",
+            "freq": "月"
+          },
+          {
+            "code": "G1133055",
+            "name": "美国:国债净发行额(仅包含可交易证券):中期适销国债",
+            "unit": "十亿美元",
+            "source": "根据新闻整理",
+            "magnitude": "十亿",
+            "currency": "美元",
+            "updateDate": "20261104",
+            "beginDate": "20000131",
+            "endDate": "20261031",
+            "freq": "月"
+          },
+          {
+            "code": "G1160462",
+            "name": "美国:联邦政府:负债总额",
+            "unit": "百万美元",
+            "source": "美联储",
+            "magnitude": "百万",
+            "currency": "美元",
+            "updateDate": "20260912",
+            "beginDate": "19451231",
+            "endDate": "20260630",
+            "freq": "季"
+          },
+          {
+            "code": "G1139297",
+            "name": "美国:联邦政府:负债总额",
+            "unit": "百万美元",
+            "source": "美联储",
+            "magnitude": "百万",
+            "currency": "美元",
+            "updateDate": "20260320",
+            "beginDate": "19451231",
+            "endDate": "20251231",
+            "freq": "年"
+          }
+        ]
+      }
+    },
+    "sample-fund": {
+      "accepted": true,
+      "result": "## 查询结果\n\n### 汇总\n已返回2只基金 2026-11-05的行情数据。基金结果共包含 10 个字段项，其中 10 项有数据。\n\n### 数据结果\n| 序号 | 基金代码 | 基金简称 | 最高价（元） | 收盘价（元） | 申赎净流入额（元） |\n|---|---|---|---|---|---|\n| 1 | 159941.SZ | 纳指ETF广发 | 1.663 | 1.635 | 1849510 |\n| 2 | 515450.SH | 红利低波50ETF南方 | 1.472 | 1.462 | -354457400 |"
+    },
+    "sample-index": {
+      "accepted": false,
+      "result": {
+        "data": {
+          "data": [
+            {
+              "columns": [
+                {
+                  "name": "Wind代码",
+                  "type": "string"
+                },
+                {
+                  "name": "证券简称",
+                  "type": "string"
+                },
+                {
+                  "name": "最新股息率",
+                  "type": "number",
+                  "unit": "%"
+                },
+                {
+                  "name": "日期",
+                  "type": "date"
+                }
+              ],
+              "rows": [
+                [
+                  "601928.SH",
+                  "凤凰传媒",
+                  5.3419,
+                  "2026-11-05"
+                ],
+                [
+                  "301109.SZ",
+                  "军信股份",
+                  4.2719,
+                  "2026-11-05"
+                ],
+                [
+                  "601229.SH",
+                  "上海银行",
+                  6.3444,
+                  "2026-11-05"
+                ],
+                [
+                  "000157.SZ",
+                  "中联重科",
+                  3.1898,
+                  "2026-11-05"
+                ],
+                [
+                  "601963.SH",
+                  "重庆银行",
+                  2.5266,
+                  "2026-11-05"
+                ],
+                [
+                  "601187.SH",
+                  "厦门银行",
+                  1.6442,
+                  "2026-11-05"
+                ],
+                [
+                  "601098.SH",
+                  "中南传媒",
+                  3.9405,
+                  "2026-11-05"
+                ],
+                [
+                  "601000.SH",
+                  "唐山港",
+                  4.1929,
+                  "2026-11-05"
+                ],
+                [
+                  "600938.SH",
+                  "中国海油",
+                  4.1706,
+                  "2026-11-05"
+                ],
+                [
+                  "002267.SZ",
+                  "陕天然气",
+                  2.8612,
+                  "2026-11-05"
+                ],
+                [
+                  "600502.SH",
+                  "安徽建工",
+                  5.2632,
+                  "2026-11-05"
+                ],
+                [
+                  "000429.SZ",
+                  "粤高速A",
+                  4.4477,
+                  "2026-11-05"
+                ],
+                [
+                  "601169.SH",
+                  "北京银行",
+                  7.0711,
+                  "2026-11-05"
+                ],
+                [
+                  "601318.SH",
+                  "中国平安",
+                  5.023,
+                  "2026-11-05"
+                ],
+                [
+                  "600901.SH",
+                  "江苏金租",
+                  4.1005,
+                  "2026-11-05"
+                ],
+                [
+                  "601857.SH",
+                  "中国石油",
+                  4.067,
+                  "2026-11-05"
+                ],
+                [
+                  "000933.SZ",
+                  "神火股份",
+                  3.0831,
+                  "2026-11-05"
+                ],
+                [
+                  "600256.SH",
+                  "广汇能源",
+                  4.1743,
+                  "2026-11-05"
+                ],
+                [
+                  "600757.SH",
+                  "长江传媒",
+                  4.5055,
+                  "2026-11-05"
+                ],
+                [
+                  "600348.SH",
+                  "华阳股份",
+                  2.7981,
+                  "2026-11-05"
+                ],
+                [
+                  "600729.SH",
+                  "重百集团",
+                  4.0606,
+                  "2026-11-05"
+                ],
+                [
+                  "600096.SH",
+                  "云天化",
+                  5.281,
+                  "2026-11-05"
+                ],
+                [
+                  "600188.SH",
+                  "兖矿能源",
+                  3.0582,
+                  "2026-11-05"
+                ],
+                [
+                  "600153.SH",
+                  "建发股份",
+                  5.6948,
+                  "2026-11-05"
+                ],
+                [
+                  "601997.SH",
+                  "贵阳银行",
+                  5.1546,
+                  "2026-11-05"
+                ],
+                [
+                  "000408.SZ",
+                  "藏格矿业",
+                  3.6051,
+                  "2026-11-05"
+                ],
+                [
+                  "601825.SH",
+                  "沪农商行",
+                  5.12,
+                  "2026-11-05"
+                ],
+                [
+                  "601166.SH",
+                  "兴业银行",
+                  2.5574,
+                  "2026-11-05"
+                ],
+                [
+                  "002416.SZ",
+                  "爱施德",
+                  6.3211,
+                  "2026-11-05"
+                ],
+                [
+                  "603706.SH",
+                  "东方环宇",
+                  5.2174,
+                  "2026-11-05"
+                ],
+                [
+                  "600016.SH",
+                  "民生银行",
+                  5.0147,
+                  "2026-11-05"
+                ],
+                [
+                  "600039.SH",
+                  "四川路桥",
+                  5.7532,
+                  "2026-11-05"
+                ],
+                [
+                  "600064.SH",
+                  "南京高科",
+                  4.1237,
+                  "2026-11-05"
+                ],
+                [
+                  "002233.SZ",
+                  "塔牌集团",
+                  7.7917,
+                  "2026-11-05"
+                ],
+                [
+                  "002756.SZ",
+                  "永兴材料",
+                  1.8694,
+                  "2026-11-05"
+                ],
+                [
+                  "601019.SH",
+                  "山东出版",
+                  3.8108,
+                  "2026-11-05"
+                ],
+                [
+                  "002563.SZ",
+                  "森马服饰",
+                  5.0761,
+                  "2026-11-05"
+                ],
+                [
+                  "002601.SZ",
+                  "龙佰集团",
+                  1.8337,
+                  "2026-11-05"
+                ],
+                [
+                  "601398.SH",
+                  "工商银行",
+                  3.8323,
+                  "2026-11-05"
+                ],
+                [
+                  "601916.SH",
+                  "浙商银行",
+                  4.471,
+                  "2026-11-05"
+                ],
+                [
+                  "601998.SH",
+                  "中信银行",
+                  4.366,
+                  "2026-11-05"
+                ],
+                [
+                  "600177.SH",
+                  "雅戈尔",
+                  4.8661,
+                  "2026-11-05"
+                ],
+                [
+                  "002043.SZ",
+                  "兔宝宝",
+                  3.159,
+                  "2026-11-05"
+                ],
+                [
+                  "601101.SH",
+                  "昊华能源",
+                  3.2172,
+                  "2026-11-05"
+                ],
+                [
+                  "600546.SH",
+                  "山煤国际",
+                  3.1753,
+                  "2026-11-05"
+                ],
+                [
+                  "600282.SH",
+                  "南钢股份",
+                  5.6705,
+                  "2026-11-05"
+                ],
+                [
+                  "601939.SH",
+                  "建设银行",
+                  3.464,
+                  "2026-11-05"
+                ],
+                [
+                  "601658.SH",
+                  "邮储银行",
+                  4.1359,
+                  "2026-11-05"
+                ],
+                [
+                  "002572.SZ",
+                  "索菲亚",
+                  10.1138,
+                  "2026-11-05"
+                ],
+                [
+                  "600741.SH",
+                  "华域汽车",
+                  6.0277,
+                  "2026-11-05"
+                ],
+                [
+                  "600036.SH",
+                  "招商银行",
+                  2.3578,
+                  "2026-11-05"
+                ],
+                [
+                  "000672.SZ",
+                  "上峰材料",
+                  4.5464,
+                  "2026-11-05"
+                ],
+                [
+                  "600398.SH",
+                  "海澜之家",
+                  11.1658,
+                  "2026-11-05"
+                ],
+                [
+                  "000895.SZ",
+                  "双汇发展",
+                  3.2868,
+                  "2026-11-05"
+                ],
+                [
+                  "600373.SH",
+                  "中文传媒",
+                  2.5707,
+                  "2026-11-05"
+                ],
+                [
+                  "600755.SH",
+                  "厦门国贸",
+                  2.1599,
+                  "2026-11-05"
+                ],
+                [
+                  "601919.SH",
+                  "中远海控",
+                  4.9279,
+                  "2026-11-05"
+                ],
+                [
+                  "600461.SH",
+                  "洪城环境",
+                  5.1511,
+                  "2026-11-05"
+                ],
+                [
+                  "600585.SH",
+                  "海螺水泥",
+                  4.0009,
+                  "2026-11-05"
+                ],
+                [
+                  "000983.SZ",
+                  "山西焦煤",
+                  1.4129,
+                  "2026-11-05"
+                ],
+                [
+                  "601225.SH",
+                  "陕西煤业",
+                  3.7892,
+                  "2026-11-05"
+                ],
+                [
+                  "601598.SH",
+                  "中国外运",
+                  4.1726,
+                  "2026-11-05"
+                ],
+                [
+                  "002867.SZ",
+                  "周大生",
+                  7.0496,
+                  "2026-11-05"
+                ],
+                [
+                  "601838.SH",
+                  "成都银行",
+                  7.0997,
+                  "2026-11-05"
+                ],
+                [
+                  "601168.SH",
+                  "西部矿业",
+                  0.2031,
+                  "2026-11-05"
+                ],
+                [
+                  "002154.SZ",
+                  "报喜鸟",
+                  5.5233,
+                  "2026-11-05"
+                ],
+                [
+                  "601216.SH",
+                  "君正集团",
+                  8.0851,
+                  "2026-11-05"
+                ],
+                [
+                  "600028.SH",
+                  "中国石化",
+                  3.8091,
+                  "2026-11-05"
+                ],
+                [
+                  "600997.SH",
+                  "开滦股份",
+                  0.3643,
+                  "2026-11-05"
+                ],
+                [
+                  "601088.SH",
+                  "中国神华",
+                  4.2059,
+                  "2026-11-05"
+                ],
+                [
+                  "600919.SH",
+                  "江苏银行",
+                  1.8641,
+                  "2026-11-05"
+                ],
+                [
+                  "601077.SH",
+                  "渝农商行",
+                  1.6603,
+                  "2026-11-05"
+                ],
+                [
+                  "920599.BJ",
+                  "同力股份",
+                  3.7309,
+                  "2026-11-05"
+                ],
+                [
+                  "601818.SH",
+                  "光大银行",
+                  4.8243,
+                  "2026-11-05"
+                ],
+                [
+                  "600273.SH",
+                  "嘉化能源",
+                  5.1213,
+                  "2026-11-05"
+                ],
+                [
+                  "600350.SH",
+                  "山东高速",
+                  3.8853,
+                  "2026-11-05"
+                ],
+                [
+                  "601288.SH",
+                  "农业银行",
+                  3.5821,
+                  "2026-11-05"
+                ],
+                [
+                  "600971.SH",
+                  "恒源煤电",
+                  3.3722,
+                  "2026-11-05"
+                ],
+                [
+                  "601666.SH",
+                  "平煤股份",
+                  0.729,
+                  "2026-11-05"
+                ],
+                [
+                  "601328.SH",
+                  "交通银行",
+                  4.1024,
+                  "2026-11-05"
+                ],
+                [
+                  "603565.SH",
+                  "中谷物流",
+                  1.8942,
+                  "2026-11-05"
+                ],
+                [
+                  "601009.SH",
+                  "南京银行",
+                  4.5837,
+                  "2026-11-05"
+                ],
+                [
+                  "000090.SZ",
+                  "天健集团",
+                  1.125,
+                  "2026-11-05"
+                ],
+                [
+                  "600985.SH",
+                  "淮北矿业",
+                  2.5036,
+                  "2026-11-05"
+                ],
+                [
+                  "600295.SH",
+                  "鄂尔多斯",
+                  4.7782,
+                  "2026-11-05"
+                ],
+                [
+                  "002737.SZ",
+                  "葵花药业",
+                  1.6543,
+                  "2026-11-05"
+                ],
+                [
+                  "600012.SH",
+                  "皖通高速",
+                  3.7844,
+                  "2026-11-05"
+                ],
+                [
+                  "601988.SH",
+                  "中国银行",
+                  3.4845,
+                  "2026-11-05"
+                ],
+                [
+                  "601006.SH",
+                  "大秦铁路",
+                  4.5803,
+                  "2026-11-05"
+                ],
+                [
+                  "002540.SZ",
+                  "亚太科技",
+                  2.4537,
+                  "2026-11-05"
+                ],
+                [
+                  "603967.SH",
+                  "中创物流",
+                  5.2251,
+                  "2026-11-05"
+                ],
+                [
+                  "601717.SH",
+                  "中创智领",
+                  8.1806,
+                  "2026-11-05"
+                ],
+                [
+                  "600015.SH",
+                  "华夏银行",
+                  4.9155,
+                  "2026-11-05"
+                ],
+                [
+                  "600057.SH",
+                  "厦门象屿",
+                  3.5068,
+                  "2026-11-05"
+                ],
+                [
+                  "600737.SH",
+                  "中粮糖业",
+                  2.7961,
+                  "2026-11-05"
+                ],
+                [
+                  "000651.SZ",
+                  "格力电器",
+                  7.7294,
+                  "2026-11-05"
+                ],
+                [
+                  "601668.SH",
+                  "中国建筑",
+                  5.8452,
+                  "2026-11-05"
+                ],
+                [
+                  "601001.SH",
+                  "晋控煤业",
+                  3.5752,
+                  "2026-11-05"
+                ],
+                [
+                  "601699.SH",
+                  "潞安环能",
+                  1.377,
+                  "2026-11-05"
+                ]
+              ]
+            },
+            {
+              "columns": [
+                {
+                  "name": "Wind代码",
+                  "type": "string"
+                },
+                {
+                  "name": "证券简称",
+                  "type": "string"
+                },
+                {
+                  "name": "最新市盈率PE_TTM",
+                  "type": "number"
+                },
+                {
+                  "name": "交易时间",
+                  "type": "string"
+                },
+                {
+                  "name": "日期",
+                  "type": "string"
+                }
+              ],
+              "rows": [
+                [
+                  "NDX.GI",
+                  "纳斯达克100",
+                  27.4824,
+                  "20261105 16:00:10",
+                  "20261105"
+                ]
+              ]
+            }
+          ]
+        },
+        "error": null
+      }
+    },
+    "sample-edb": {
+      "accepted": true,
+      "result": {
+        "metrics": [
+          {
+            "meta": {
+              "code": "G0003892",
+              "name": "标准普尔500波动率指数(VIX)",
+              "source": "芝加哥期权交易所",
+              "updateDate": "20261106",
+              "beginDate": "19900102",
+              "endDate": "20261105",
+              "freq": "日"
+            },
+            "date": [
+              "20261030",
+              "20261102",
+              "20261103",
+              "20261104",
+              "20261105"
+            ],
+            "value": [
+              19.42,
+              21.15,
+              20.83,
+              16.61,
+              28.18
+            ]
+          },
+          {
+            "meta": {
+              "code": "G0000891",
+              "name": "美国:国债收益率:10年",
+              "unit": "%",
+              "source": "美国财政部",
+              "updateDate": "20261106",
+              "beginDate": "19530430",
+              "endDate": "20261105",
+              "freq": "日"
+            },
+            "date": [
+              "20261030",
+              "20261102",
+              "20261103",
+              "20261104",
+              "20261105"
+            ],
+            "value": [
+              4.94,
+              4.91,
+              4.95,
+              4.9,
+              4.84
+            ]
+          },
+          {
+            "meta": {
+              "code": "G0000887",
+              "name": "美国:国债收益率:2年",
+              "unit": "%",
+              "source": "美国财政部",
+              "updateDate": "20261106",
+              "beginDate": "19760601",
+              "endDate": "20261105",
+              "freq": "日"
+            },
+            "date": [
+              "20261030",
+              "20261102",
+              "20261103",
+              "20261104",
+              "20261105"
+            ],
+            "value": [
+              4.56,
+              4.59,
+              4.61,
+              4.58,
+              4.46
+            ]
+          },
+          {
+            "meta": {
+              "code": "G1100075",
+              "name": "美国:所有联储银行:资产:总资产",
+              "unit": "百万美元",
+              "source": "美联储",
+              "magnitude": "百万",
+              "currency": "美元",
+              "updateDate": "20261106",
+              "beginDate": "20021218",
+              "endDate": "20261104",
+              "freq": "周"
+            },
+            "date": [
+              "20261104"
+            ],
+            "value": [
+              6748145.0
+            ]
+          },
+          {
+            "meta": {
+              "code": "G1168931",
+              "name": "美国:隔夜逆回购(ONRRP)出让金额:国债:第一批次",
+              "unit": "十亿美元",
+              "source": "纽约联储",
+              "magnitude": "十亿",
+              "currency": "美元",
+              "updateDate": "20261106",
+              "beginDate": "20030207",
+              "endDate": "20261105",
+              "freq": "日"
+            },
+            "date": [
+              "20261030",
+              "20261102",
+              "20261103",
+              "20261104",
+              "20261105"
+            ],
+            "value": [
+              4.375,
+              5.087,
+              0.427,
+              0.225,
+              0.125
+            ]
+          },
+          {
+            "meta": {
+              "code": "M0017138",
+              "name": "SHIBOR:隔夜",
+              "unit": "%",
+              "source": "全国银行间同业拆借中心",
+              "updateDate": "20261106",
+              "beginDate": "20061008",
+              "endDate": "20261106",
+              "freq": "日"
+            },
+            "date": [
+              "20261030",
+              "20261102",
+              "20261103",
+              "20261104",
+              "20261105"
+            ],
+            "value": [
+              1.289,
+              1.286,
+              1.2891,
+              1.265,
+              1.263
+            ]
+          },
+          {
+            "meta": {
+              "code": "M0061606",
+              "name": "沪市:融资余额",
+              "unit": "万元",
+              "source": "上海证券交易所",
+              "magnitude": "万",
+              "currency": "人民币",
+              "updateDate": "20261106",
+              "beginDate": "20100331",
+              "endDate": "20261105",
+              "freq": "日"
+            },
+            "date": [
+              "20261030",
+              "20261102",
+              "20261103",
+              "20261104",
+              "20261105"
+            ],
+            "value": [
+              119890160.17390001,
+              119224751.1122,
+              117662185.1728,
+              117760658.198,
+              118079781.18489999
+            ]
+          },
+          {
+            "meta": {
+              "code": "M0061610",
+              "name": "深市:融资余额",
+              "unit": "万元",
+              "source": "深圳证券交易所",
+              "magnitude": "万",
+              "currency": "人民币",
+              "updateDate": "20261106",
+              "beginDate": "20100331",
+              "endDate": "20261105",
+              "freq": "日"
+            },
+            "date": [
+              "20261030",
+              "20261102",
+              "20261103",
+              "20261104",
+              "20261105"
+            ],
+            "value": [
+              110891029.6623,
+              110286014.18720001,
+              108640428.07090001,
+              108674874.3616,
+              109017994.7092
+            ]
+          }
+        ]
+      }
+    },
+    "sample-ndx": {
+      "accepted": true,
+      "result": {
+        "data": {
+          "columns": [
+            {
+              "name": "TIME",
+              "type": "string"
+            },
+            {
+              "name": "OPEN",
+              "type": "string"
+            },
+            {
+              "name": "MATCH",
+              "type": "string"
+            },
+            {
+              "name": "HIGH",
+              "type": "string"
+            },
+            {
+              "name": "LOW",
+              "type": "string"
+            },
+            {
+              "name": "TURNOVER",
+              "type": "string"
+            },
+            {
+              "name": "VOLUME",
+              "type": "string"
+            },
+            {
+              "name": "CHANGEHANDRATE",
+              "type": "string"
+            },
+            {
+              "name": "AVPRICE",
+              "type": "string"
+            }
+          ],
+          "rows": [
+            [
+              "2026-11-02T00:00:00.000-05:00",
+              "28561.17",
+              "27989.82",
+              "28753.39",
+              "27967.44",
+              "353998368600",
+              "1658091000",
+              "0.9358",
+              "28317.96"
+            ],
+            [
+              "2026-11-03T00:00:00.000-05:00",
+              "28085.50",
+              "28180.26",
+              "28307.90",
+              "28085.50",
+              "277155988000",
+              "1324973400",
+              "0.7478",
+              "28164.79"
+            ],
+            [
+              "2026-11-04T00:00:00.000-05:00",
+              "28346.81",
+              "28437.17",
+              "28829.66",
+              "28276.22",
+              "426553933100",
+              "1903750300",
+              "1.0678",
+              "28472.47"
+            ],
+            [
+              "2026-11-05T00:00:00.000-05:00",
+              "28078.18",
+              "26629.81",
+              "28078.18",
+              "26606.43",
+              "564338278900",
+              "2653570000",
+              "1.5610",
+              "27348.15"
+            ]
+          ],
+          "unit": {
+            "TURNOVER 单位：": "美元"
+          }
+        },
+        "error": null
+      }
+    },
+    "sample-yield": {
+      "accepted": true,
+      "result": {
+        "data": {
+          "data": [
+            {
+              "columns": [
+                {
+                  "name": "Wind代码",
+                  "type": "string"
+                },
+                {
+                  "name": "证券简称",
+                  "type": "string"
+                },
+                {
+                  "name": "2026年11月5日中证红利指数本身的股息率",
+                  "type": "number",
+                  "unit": "%"
+                }
+              ],
+              "rows": [
+                [
+                  "000922.CSI",
+                  "中证红利",
+                  4.6742
+                ]
+              ]
+            }
+          ]
+        },
+        "error": null
+      }
+    },
+    "sample-pe": {
+      "accepted": true,
+      "result": {
+        "data": {
+          "data": [
+            {
+              "columns": [
+                {
+                  "name": "Wind代码",
+                  "type": "string"
+                },
+                {
+                  "name": "证券简称",
+                  "type": "string"
+                },
+                {
+                  "name": "2026年11月5日纳斯达克100指数本身的市盈率PE_TTM",
+                  "type": "number",
+                  "unit": "倍"
+                }
+              ],
+              "rows": [
+                [
+                  "NDX.GI",
+                  "纳斯达克100",
+                  25.9623
+                ]
+              ]
+            }
+          ]
+        },
+        "error": null
+      }
+    },
+    "edb-inflation": {
+      "accepted": true,
+      "result": {
+        "metrics": [
+          {
+            "code": "G0000027",
+            "name": "美国:CPI:非季调:同比",
+            "unit": "%",
+            "source": "美国劳工部",
+            "updateDate": "20261014",
+            "beginDate": "19140131",
+            "endDate": "20260930",
+            "freq": "月"
+          },
+          {
+            "code": "G0000029",
+            "name": "美国:核心CPI:非季调:同比",
+            "unit": "%",
+            "source": "美国劳工部",
+            "updateDate": "20261014",
+            "beginDate": "19580131",
+            "endDate": "20260930",
+            "freq": "月"
+          },
+          {
+            "code": "G1120595",
+            "name": "美国:核心CPI-W:季调:同比",
+            "unit": "%",
+            "source": "美国劳工部",
+            "updateDate": "20261014",
+            "beginDate": "19580131",
+            "endDate": "20260930",
+            "freq": "月"
+          },
+          {
+            "code": "S5111926",
+            "name": "欧洲:现货离岸价:布伦特原油",
+            "unit": "美元/桶",
+            "source": "EIA",
+            "currency": "美元",
+            "updateDate": "20261105",
+            "beginDate": "19870520",
+            "endDate": "20261104",
+            "freq": "日"
+          }
+        ]
+      }
+    },
+    "edb-cnremaining": {
+      "accepted": true,
+      "result": {
+        "metrics": [
+          {
+            "code": "M0001428",
+            "name": "中国:社会消费品零售总额:当月同比(1-2月合并)",
+            "unit": "%",
+            "source": "国家统计局",
+            "updateDate": "20261019",
+            "beginDate": "19950131",
+            "endDate": "20260930",
+            "freq": "月"
+          },
+          {
+            "code": "M0009970",
+            "name": "中国:金融机构各项贷款余额:人民币:同比",
+            "unit": "%",
+            "source": "中国人民银行",
+            "updateDate": "20261014",
+            "beginDate": "19781231",
+            "endDate": "20260930",
+            "freq": "月"
+          },
+          {
+            "code": "M0341834",
+            "name": "预测机构家数:中国:社会消费品零售总额:当月同比",
+            "unit": "家",
+            "source": "Wind",
+            "updateDate": "20261105",
+            "beginDate": "20080131",
+            "endDate": "20261231",
+            "freq": "月"
+          }
+        ]
+      }
+    },
+    "edb-structure": {
+      "accepted": true,
+      "result": {
+        "metrics": [
+          {
+            "code": "M0024245",
+            "name": "沪深股市:首发A股筹资金额:当月值",
+            "unit": "亿元",
+            "source": "中国证券监督管理委员会",
+            "magnitude": "亿",
+            "currency": "人民币",
+            "updateDate": "20261102",
+            "beginDate": "20020131",
+            "endDate": "20260930",
+            "freq": "月"
+          },
+          {
+            "code": "S0059746",
+            "name": "中债国债到期收益率:3年",
+            "unit": "%",
+            "source": "中债估值中心",
+            "updateDate": "20261105",
+            "beginDate": "20020104",
+            "endDate": "20261105",
+            "freq": "日"
+          },
+          {
+            "code": "M1005929",
+            "name": "中国:企业债到期收益率(AAA):3年",
+            "unit": "%",
+            "source": "中证指数公司",
+            "updateDate": "20261105",
+            "beginDate": "20141210",
+            "endDate": "20261105",
+            "freq": "日"
+          }
+        ]
+      }
+    },
+    "edb-usdebt": {
+      "accepted": true,
+      "result": {
+        "metrics": [
+          {
+            "code": "G0003749",
+            "name": "美国:外国投资者持有美国国债金额",
+            "unit": "十亿美元",
+            "source": "美国财政部",
+            "magnitude": "十亿",
+            "currency": "美元",
+            "updateDate": "20261017",
+            "beginDate": "20000331",
+            "endDate": "20260831",
+            "freq": "月"
+          },
+          {
+            "code": "G1130791",
+            "name": "美国:国债月度发行额",
+            "unit": "美元",
+            "source": "美国财政部",
+            "currency": "美元",
+            "updateDate": "20261106",
+            "beginDate": "19791130",
+            "endDate": "20261130",
+            "freq": "月"
+          },
+          {
+            "code": "G1160462",
+            "name": "美国:联邦政府:负债总额",
+            "unit": "百万美元",
+            "source": "美联储",
+            "magnitude": "百万",
+            "currency": "美元",
+            "updateDate": "20260912",
+            "beginDate": "19451231",
+            "endDate": "20260630",
+            "freq": "季"
+          },
+          {
+            "code": "G1139297",
+            "name": "美国:联邦政府:负债总额",
+            "unit": "百万美元",
+            "source": "美联储",
+            "magnitude": "百万",
+            "currency": "美元",
+            "updateDate": "20260320",
+            "beginDate": "19451231",
+            "endDate": "20251231",
+            "freq": "年"
+          }
+        ]
+      }
+    }
+  },
+  "counts": {
+    "total": 85,
+    "pending": 32,
+    "discussion": 40,
+    "probe_status": {
+      "返回数据": 12,
+      "空返回": 3,
+      "权限不足": 2
+    }
+  },
+  "caveat": "样本成功不等于完整历史或生产可靠性通过；未找到不等于平台不存在；本轮未修改运行时来源。"
+}

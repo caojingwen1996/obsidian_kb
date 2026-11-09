@@ -1,0 +1,12 @@
+{
+  "dataDate": true,
+  "updatedAt": true,
+  "schedule": true,
+  "timezone": true,
+  "source": true,
+  "noOverflow": true,
+  "mobileNoOverflow": true,
+  "readonlyPoll": true,
+  "noWindJob": true,
+  "errors": []
+}

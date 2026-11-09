@@ -1,0 +1,30 @@
+{
+  "source": "Replay of real local-proxy daily and quote responses",
+  "date": "2026-11-02",
+  "annualReturn": 0.8890304644966873,
+  "maxDrawdown": -15.96361099166238,
+  "quoteAt": "2026-11-02T06:00:34.000Z",
+  "dailyCalls": 7,
+  "quoteCalls": 7,
+  "oneMinuteRefresh": true,
+  "failureRetainsData": true,
+  "retryRecovers": true,
+  "modesMetricsAndYearPreserved": true,
+  "restoredPageRefresh": true,
+  "monthlySynchronized": true,
+  "layouts": [
+    {
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "overflow": false
+    }
+  ],
+  "pageErrors": []
+}

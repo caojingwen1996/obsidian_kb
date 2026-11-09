@@ -1,0 +1,54 @@
+{
+  "checked_at": "2026-11-05T10:31:38.142Z",
+  "service": {
+    "state": "running",
+    "pid": 88940,
+    "workspace": "/Users/cjw/dev/Obsidian/wiki/tools/RiskHot",
+    "processes": [
+      "business",
+      "api"
+    ]
+  },
+  "environment_unchanged": true,
+  "health": 200,
+  "configs": [
+    {
+      "id": "62d1eab5-0be5-4451-a250-1db0ed18d083",
+      "entry_kind": "directory",
+      "status": "disabled",
+      "config_version": "4",
+      "identity_version": "1"
+    },
+    {
+      "id": "5a358e6d-e89d-4355-a414-d0f877db74b8",
+      "entry_kind": "object",
+      "status": "disabled",
+      "config_version": "4",
+      "identity_version": "2"
+    }
+  ],
+  "observation": {
+    "id": "94326f1b-0527-4651-8d22-66696184709a",
+    "state": "ended",
+    "version": "9",
+    "adopted_identity_version": "2"
+  },
+  "task_states": [
+    {
+      "runtime_state": "recoverable",
+      "n": 1
+    },
+    {
+      "runtime_state": "succeeded",
+      "n": 4
+    },
+    {
+      "runtime_state": "superseded",
+      "n": 1
+    },
+    {
+      "runtime_state": "waiting",
+      "n": 4
+    }
+  ]
+}

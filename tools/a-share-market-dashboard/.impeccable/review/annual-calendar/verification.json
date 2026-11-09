@@ -1,0 +1,32 @@
+{
+  "annualRows": 19,
+  "allSavedReturnsAndDrawdownsMatch": true,
+  "layouts": [
+    {
+      "width": 1440,
+      "gridColumns": 4,
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "gridColumns": 4,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "gridColumns": 2,
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "gridColumns": 2,
+      "overflow": false
+    }
+  ],
+  "keyboardAndDialogFocus": true,
+  "modeAndYearPreserved": true,
+  "independentNasdaqState": true,
+  "pageErrors": [],
+  "network": "External and API requests blocked; calendar uses saved local data",
+  "blockedRequestCount": 23
+}

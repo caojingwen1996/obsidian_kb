@@ -1,0 +1,20 @@
+{
+  "related": {
+    "tests": 18,
+    "pass": 18,
+    "fail": 0,
+    "skipped": 0
+  },
+  "regression": {
+    "tests": 377,
+    "pass": 377,
+    "fail": 0,
+    "skipped": 0
+  },
+  "date": "2026-11-05",
+  "typecheck": "passed",
+  "pipeline_check": "passed",
+  "browser_checks": 8,
+  "live_browser_checks": 3,
+  "diff_check": "passed"
+}

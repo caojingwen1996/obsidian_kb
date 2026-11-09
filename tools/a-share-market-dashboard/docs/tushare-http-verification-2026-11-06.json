@@ -1,0 +1,20 @@
+[
+  {
+    "path": "/health",
+    "status": 200,
+    "source": null,
+    "rows": 0
+  },
+  {
+    "path": "/api/eastmoney-kline?secid=0.159941&limit=4000",
+    "status": 200,
+    "source": "Tushare fund_daily via tushare-data",
+    "rows": 2749
+  },
+  {
+    "path": "/api/csindex-performance?indexCode=000922&startDate=20250101&endDate=20261105",
+    "status": 200,
+    "source": "Tushare index_daily via tushare-data",
+    "rows": 445
+  }
+]

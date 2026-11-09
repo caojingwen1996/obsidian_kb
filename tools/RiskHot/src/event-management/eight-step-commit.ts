@@ -1,3 +1,4 @@
+import {targetSnapshotPayload,validateTargetSnapshot} from './target-snapshots.js';
 import {validateEightStepIdentity} from './eight-step-identity.js';
 import {enqueueBusinessJob} from '../platform/business-queue.js';
 import {readDefinitions} from './definitions.js';
@@ -90,8 +91,13 @@ export async function commitEightStep(repo:Repository,id:string,generation:numbe
   await tx.query('INSERT INTO information.event(id,title,description,subject,action,object,event_status,event_time) VALUES($1,$2,$3,$4,$5,$6,$7,$8)',[eventId,draft.title,draft.description,draft.subject,draft.action,draft.object??null,draft.event_status,draft.event_time]);
   await tx.query("UPDATE information.fact SET event_id=$2,event_relation_role='initial',event_relation_note=$3,event_assigned_at=now() WHERE id=$1",[fact.id,eventId,'新事件初始事实经分别复核']);
   for(const t of targets){
-   const ds=(await tx.query("INSERT INTO information.definition_snapshots(kind,definition_id,definition_version,payload,digest) VALUES('target',$1,$2,$3,$4) ON CONFLICT(kind,definition_id,definition_version) DO NOTHING RETURNING id",[t.id,String(t.definition_version),t,digest(t)])).rows[0]??(await tx.query("SELECT id FROM information.definition_snapshots WHERE kind='target' AND definition_id=$1 AND definition_version=$2 AND digest=$3",[t.id,String(t.definition_version),digest(t)])).rows[0];
+   // 复用同版本已经采用的快照；M4 与 AI-07 使用同一扩展定义形状。
+   const existing=(await tx.query("SELECT * FROM information.definition_snapshots WHERE kind='target' AND definition_id=$1 AND definition_version=$2",[t.id,String(t.definition_version)])).rows[0];
+   if(existing)validateTargetSnapshot(existing,t);
+   const payload=targetSnapshotPayload(t);
+   const ds=existing??(await tx.query("INSERT INTO information.definition_snapshots(kind,definition_id,definition_version,payload,digest) VALUES('target',$1,$2,$3,$4) ON CONFLICT(kind,definition_id,definition_version) DO NOTHING RETURNING id",[t.id,String(t.definition_version),payload,digest(payload)])).rows[0]??(await tx.query("SELECT * FROM information.definition_snapshots WHERE kind='target' AND definition_id=$1 AND definition_version=$2",[t.id,String(t.definition_version)])).rows[0];
    if(!ds)throw new DomainError('DEFINITION_VERSION_CONFLICT',409);
+   const adopted=(await tx.query('SELECT * FROM information.definition_snapshots WHERE id=$1',[ds.id])).rows[0];validateTargetSnapshot(adopted,t);
    await tx.query('INSERT INTO information.event_target(event_id,target_id,relation_note) VALUES($1,$2,$3)',[eventId,t.id,'已核定原文作用对象']);
    await tx.query('INSERT INTO information.event_target_definition VALUES($1,$2,$3)',[eventId,t.id,ds.id]);
    await tx.query('INSERT INTO information.event_target_fact VALUES($1,$2,$3)',[eventId,t.id,fact.id]);

@@ -1,4 +1,46 @@
 datasets:
+  daily_info:
+    api: daily_info
+    purpose: 沪深股票每日市场统计，成交额、流通市值单位亿元
+    required_params: [ts_code]
+    allowed_params: [ts_code, trade_date, start_date, end_date, fields]
+    fields: [trade_date, ts_code, amount, float_mv]
+  fund_daily:
+    api: fund_daily
+    purpose: ETF未复权日线；复权由共享MarketData层结合fund_adj计算
+    required_params: [ts_code]
+    allowed_params: [ts_code, trade_date, start_date, end_date, fields]
+    fields: [ts_code, trade_date, open, high, low, close, pre_close, change, pct_chg, vol, amount]
+  fund_adj:
+    api: fund_adj
+    purpose: 基金复权因子
+    required_params: [ts_code]
+    allowed_params: [ts_code, trade_date, start_date, end_date, fields]
+    fields: [ts_code, trade_date, adj_factor]
+  index_daily:
+    api: index_daily
+    purpose: 国内指数日线；代码必须明确市场后缀
+    required_params: [ts_code]
+    allowed_params: [ts_code, trade_date, start_date, end_date, fields]
+    fields: [ts_code, trade_date, open, high, low, close, pre_close, change, pct_chg, vol, amount]
+  index_dailybasic:
+    api: index_dailybasic
+    purpose: Tushare指数每日估值；不等同其他指数商口径
+    required_params: [ts_code]
+    allowed_params: [ts_code, trade_date, start_date, end_date, fields]
+    fields: [ts_code, trade_date, total_mv, float_mv, total_share, float_share, free_share, turnover_rate, turnover_rate_f, pe, pe_ttm, pb]
+  index_global:
+    api: index_global
+    purpose: 国际指数日线；SPX可用，不将IXIC替代NDX
+    required_params: [ts_code]
+    allowed_params: [ts_code, trade_date, start_date, end_date, fields]
+    fields: [ts_code, trade_date, open, high, low, close, pre_close, change, pct_chg, swing, vol]
+  shibor:
+    api: shibor
+    purpose: Shibor全期限利率，单位百分数
+    required_params: []
+    allowed_params: [date, start_date, end_date, fields]
+    fields: [date, "on", 1w, 2w, 1m, 3m, 6m, 9m, 1y]
   stock_basic:
     api: stock_basic
     purpose: A股上市公司基础资料
@@ -109,3 +151,30 @@ datasets:
     required_params: [index_code]
     allowed_params: [index_code, trade_date, start_date, end_date, fields]
     fields: [index_code, con_code, trade_date, weight]
+
+  fund_basic:
+    api: fund_basic
+    required_params: []
+    allowed_params: ["fields", "market"]
+    fields: ["ts_code", "name", "fund_type", "list_date", "delist_date", "market"]
+  ggt_daily:
+    api: ggt_daily
+    purpose: 港股通每日成交统计，金额沿用接口亿元单位，买卖笔数为万笔
+    required_params: []
+    allowed_params: [trade_date, start_date, end_date, fields]
+    fields: [trade_date, buy_amount, buy_volume, sell_amount, sell_volume]
+  fund_share:
+    api: fund_share
+    required_params: ["market", "trade_date"]
+    allowed_params: ["fields", "market", "trade_date"]
+    fields: ["ts_code", "trade_date", "fd_share"]
+  fund_nav:
+    api: fund_nav
+    required_params: ["nav_date"]
+    allowed_params: ["fields", "market", "nav_date"]
+    fields: ["ts_code", "nav_date", "ann_date", "unit_nav", "adj_nav"]
+  trade_cal:
+    api: trade_cal
+    required_params: ["end_date", "exchange", "start_date"]
+    allowed_params: ["end_date", "exchange", "fields", "start_date"]
+    fields: ["exchange", "cal_date", "is_open", "pretrade_date"]

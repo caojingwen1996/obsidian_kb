@@ -29,7 +29,9 @@
     "migrate:business": "node --env-file-if-exists=.env --import tsx src/scripts/migrate-business-queue.ts",
     "worker:business": "node --env-file-if-exists=.env --import tsx src/runtime/business-worker-entry.ts",
     "migrate:f02": "node --env-file-if-exists=.env --import tsx src/scripts/migrate-f02.ts",
-    "verify:f02": "node --env-file-if-exists=.env --import tsx src/scripts/verify-f02-eight-step.ts"
+    "verify:f02": "node --env-file-if-exists=.env --import tsx src/scripts/verify-f02-eight-step.ts",
+    "migrate:m4": "node --env-file-if-exists=.env --import tsx src/scripts/migrate-m4.ts",
+    "grant:m4": "node --env-file-if-exists=.env --import tsx src/scripts/grant-m4.ts"
   },
   "devDependencies": {
     "@types/node": "22.20.5",

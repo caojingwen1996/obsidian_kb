@@ -27,3 +27,6 @@ __pycache__/
 ~$*
 tools/RiskHot/docs/**/.working/
 tools/riskhot-knowledge-plugin/riskhot-tunnel.env
+
+tools/a-share-market-dashboard/data/资金面日报/cache/
+tools/a-share-market-dashboard/data/Wind/

@@ -14,7 +14,7 @@ const sourceDir = join(root, 'src');
 const dataDir = join(root, 'data');
 const marketOverviewDataDir = join(dataDir, '市场总览');
 const outputPath = join(root, 'a-share-market-dashboard.html');
-const moduleOrder = ['core.mjs', 'adapters.mjs', 'data-service.mjs', 'risk-state.mjs', 'risk-indicators.mjs', 'risk-screen.mjs', 'dividend-scoring.mjs', 'dividend-backtest.mjs', 'dividend-bollinger.mjs', 'dividend-task-monitor.mjs', 'startup-checks.mjs', 'app.mjs'];
+const moduleOrder = ['core.mjs', 'adapters.mjs', 'data-service.mjs', 'risk-state.mjs', 'risk-indicators.mjs', 'risk-screen.mjs', 'dividend-scoring.mjs', 'dividend-backtest.mjs', 'dividend-bollinger.mjs', 'dividend-task-monitor.mjs', 'dividend-instruments.mjs', 'startup-checks.mjs', 'monthly-index-chart.mjs', 'liquidity-dashboard.mjs', 'source-catalog.mjs', 'daily-drop-reference.mjs', 'daily-drop-detail.mjs', 'app.mjs'];
 const automationsDir = join(repoRoot, 'sources', 'automations');
 const topicsDir = join(repoRoot, 'wiki', 'topics');
 const dividendStrategy = JSON.parse(await readFile(join(repoRoot, '.agents', 'skills', 'zzhl-dividend-signal', 'strategy-v2.json'), 'utf8'));
@@ -1162,6 +1162,12 @@ const dividendBollingerSnapshot = parseCsindexPerformance(JSON.parse(await readF
 const dividendIndexHistory = [...new Map([...dividendBollingerSnapshot, ...dividendIndexSnapshot]
   .map(({ date, close }) => [date, { date, close }])).values()].sort((a, b) => a.date.localeCompare(b.date));
 const dividendAnnualPerformance = parseDividendAnnualPerformance(await readFile(dividendAnnualPerformancePath, 'utf8').catch(() => ''));
+const spDividendBootstrap = JSON.parse(await readFile(join(dataDir, '红利信号/南方红利低波50ETF.json'), 'utf8').catch(error => {
+  if (error.code !== 'ENOENT') throw error;
+  return JSON.stringify({ schemaVersion: 1, instrumentId: '515450', source: '腾讯行情', priceBasis: 'qfq',
+    sourceUrl: 'https://fund.eastmoney.com/515450.html',
+    daily: [], records: [], valuation: null, sourceStatus: { daily: '等待读取ETF日线。', valuation: '等待读取ETF现金分红。' } });
+}));
 const dividendManagementTrial = JSON.parse(await readFile(join(root, 'data/红利信号/management-trial.json'), 'utf8'));
 const todoList = parseTodoListFromJson(await readFile(todoDataPath, 'utf8').catch(() => ''));
 
@@ -1171,7 +1177,9 @@ const stockThreeFactorReportLinks = renderStockThreeFactorReportLinkMap(automati
 const dailyMonitorData = await scanDailyMonitorData();
 const bundle = modules
   .map((source, index) => {
-    const withGeneratedData = moduleOrder[index] === 'dividend-scoring.mjs'
+    const withGeneratedData = moduleOrder[index] === 'dividend-instruments.mjs'
+      ? source.replace('  // SP_DIVIDEND_BOOTSTRAP', JSON.stringify(spDividendBootstrap, null, 2))
+      : moduleOrder[index] === 'dividend-scoring.mjs'
       ? source.replace(/^import.*dividendDefaults.*$/m, `const dividendDefaults = ${JSON.stringify(dividendStrategy)};`)
       : moduleOrder[index] === 'app.mjs'
       ? source

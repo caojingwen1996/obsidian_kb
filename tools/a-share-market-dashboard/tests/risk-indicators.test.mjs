@@ -35,3 +35,19 @@ test('example observations and dates never appear in monitoring mode', () => {
   assert.match(renderRiskIndicatorTable('money', 'demo'), /虚构数据/);
   assert.match(renderRiskIndicatorTable('money', 'demo'), /拟接入来源/);
 });
+
+test('disabled Wind observations are ignored rather than shown as current readings', () => {
+  const data = {'pending-money-0': {value: 4, previous: 4.25, unit: '%', date: '2026-09-17', previousDate: '2026-06-18', status: 'stale', error: 'Wind积分不足（402）', fetchedAt: '2026-11-06T01:00:00Z'},
+    'pending-structure-3': {value: 0, previous: null, date: '2026-11-05', status: 'ok', unit: '亿元'}};
+  const rows = riskIndicatorRows('money', 'monitor', data);
+  assert.equal(rows[0].change, '—');
+  assert.equal(rows[0].period, '待接入');
+  assert.equal(rows[3].latest, '待接入');
+  const etf = riskIndicatorRows('structure', 'monitor', data)[3];
+  assert.equal(etf.latest, '待接入');
+  assert.equal(etf.previous, '—');
+  assert.match(etf.scope, /份额变化×净值/);
+  const html = renderRiskIndicatorTable('money', 'monitor', data);
+  assert.doesNotMatch(html, /402|2026-09-17|2026-11-06/);
+  assert.doesNotMatch(renderRiskIndicatorTable('money', 'demo', data), /402/);
+});

@@ -1,5 +1,12 @@
 # 维护日志（大型文件隔离诊断中）
 
+## 2026-11-04 · 红利标的切换统一页面结构
+
+- 操作：UI / refactor；用户要求切换信号时保持中证红利页面结构。
+- 修改：面板`src/app.mjs`、`src/dividend-task-monitor.mjs`、`tests/dividend-instruments.test.mjs`、构建HTML、README、根索引与本日志。
+- 说明：ETF复用中证红利信号详情、走势、评分拆解、参数编辑器和任务监控组件；查看页保持任务摘要、双信号、走势、评分拆解、年度历史统计顺序。ETF来源和分红明细移入回测页的来源折叠区，涨跌天数采用同样的堆叠条布局。ETF参数事件保持独立，缺少历史评分与定时任务不补造记录。走势只展示已查询到的分红率，历史未采集部分不补画。
+- 验证：57项专项测试通过，构建通过。实页对照两个标的模块顺序相同；检查参数权重校验、撤销、监控步骤及产物状态，桌面无页面横向溢出。新增结构测试覆盖共享模块和ETF参数隔离。
+
 原始日志完整备份于：`/Users/cjw/dev/Obsidian/wiki/.work/obsidian-white-screen-20261026-173240/large-log-test/current-log-full.md`。
 
 2026-10-26：Obsidian 白屏排查临时隔离此文件，原内容未丢弃；诊断结束后按验证结果恢复或分卷。
@@ -771,3 +778,737 @@
 - 修复：提示词正文支持不同章节编号及“完整四层提示词”标题；已审核任务阅读版本与旧运行任务分离，避免AI职责及输入输出错配。未修改原始提示词或发布运行包。
 - 验证：流水线同步检查、类型检查、25项回归通过；隔离与真实服务均完成1440/390/320px的31个节点和AI详情检查，零脚本错误、零意外请求、无页面横向溢出。Impeccable机械检查无发现，桌面及手机截图已复核。
 - 生效：按项目服务命令请求重启，18081页面及7份提示词可读。八步业务运行实现与契约迁移仍按设计文档的未完成项处理，本次仅同步只读流水线。
+
+
+## 2026-11-01T10:32:55.161569+08:00 - Xueqiu capture-only, target 2026-10-31
+
+- Run: `automation-2-20261031T233152`; date fixed at start in Asia/Shanghai, retained across midnight.
+- Counts (candidate/matched/new/existing/revision/failure): 7143769715=6/6/6/0/0/0; 2573414707=0/0/0/0/0/0; 3058599833=2/0/0/0/0/0 (neither title matches the required filter).
+- Six BBXM originals published in the specified 2026/10 directory. Actual publishers, source IDs/URLs, publish/fetch times, source nature, image/stock links and body hashes retained. No Laomujiang articles saved.
+- Coverage snapshots Shanghai 2026-11-01 04:50:55 / 04:51:12 / 07:02:56. Nonempty HTTP 200 timelines crossed target-date lower boundary; six full details truncated=false. Later, deleted or invisible posts excluded.
+- Initial helper HTTP 400 and third-account non-JSON recovered through fresh dedicated Chrome for Testing pages. Evidence retained under each source `_task/failed/automation-2-20261031T233152/`. No current failures or manual follow-up. The previous 10/30 BBXM historical gap remains unfilled.
+- Files changed: six originals, both fixed `_task/task.log`, project `log.md`, automation memory; recovery evidence retained. Read fixed logs and resolved rename chains; renamed posts not counted new. All 500 prior originals unchanged.
+- Each account used external temporary `content_task.py --capture-only` staging and dedup inventory reconstructed from originals and fixed logs. No summaries, analysis, Timeline, Wiki, index, Excel, skills or schedule changes. Temporary state removed after verification.
+- Verification: source metadata/body hashes and UTF-8 checked; Markdown table check follows before closing logs.
+- Verification completed 2026-11-01T10:33:08.115556+08:00: Markdown tables passed (8 files), body hashes/metadata/UTF-8 passed, all 500 prior originals unchanged, exactly one run_finished per account. External staging cleaned; recovery evidence retained.
+
+
+## 2026-11-01
+
+### audit / 中证红利每日股息率信号
+
+- 运行时间：首次2026-11-01T10:04:24.136800+08:00—2026-11-01T10:20:39.734320+08:00，耗时975.6秒；在获取指数估值阶段因Remote end closed connection without response失败，退出码1、未写入业务文件，四份原产物字节未变。相同命令重试2026-11-01T10:35:17.762900+08:00—2026-11-01T10:35:21.079825+08:00成功，耗时3.3秒、退出码0；专用Python依赖正常、无同任务并发，任务与技能1.3.0保持原样。
+- 修改文件：[[sources/automations/中证红利信号/中证红利每日信号.xlsx|每日信号工作簿]]、[[sources/automations/中证红利信号/最新信号|最新信号]]、[[sources/automations/中证红利信号/中证红利年度表现.json|年度表现]]、[[sources/automations/中证红利信号/评分记录.json|评分记录]]、本日志；追加自动化运行记忆。
+- 新增凭证：[[sources/automations/中证红利信号/运行记录/20261101T100424-c31436570dd8.json|首次失败凭证]]（failed／获取指数估值）、[[sources/automations/中证红利信号/运行记录/20261101T103517-a0598d693cb3.json|成功执行凭证]]（success／校验完成），均保留真实开始、阶段、结束、耗时、写入文件和错误／校验结果。
+- 资料来源：AKShare stock_zh_index_value_csindex的股息率2、bond_zh_us_rate、中证指数官网index-perf(000922)、腾讯sh000922。记录日期2026-11-01为周日；估值、国债、腾讯行情均为2026-10-30。股息率4.23%（C），国债1.65%，股债倍数2.5636363636（A），综合47.4727272727分、C级等待，仅综合A级可买入。腾讯+0.82%属于上一交易日，已在最新信号追加来源时点说明。
+- 策略核验：dividend-two-factor-v2-r5，权重92%／8%，完整锚点及C40／B48／A65分界与[[sources/automations/中证红利信号/策略参数.json|当前已应用参数]]一致，参数未改。历史分位已停用，不采集、不补录。
+- 数据与历史核验：四份输出可读、9项校验及复算通过；Excel116→117条，今日唯一、全部日期无重复、原116条逐项保留；评分418→418条，按估值日期／策略版本替换2026-10-30／r5记录，本次组合唯一、其余记录保留。既有20个legacy重复组不变，本轮未清理，不能据此宣称历史评分全库已去重。年度JSON指数000922、19年、2008-05-26至2026-10-30，含月度数据。
+- 验证边界：本轮必需输入、历史日线和附属行情无缺项；休市日保留真实来源日期，不将旧行情视为记录日行情，周末不增加交易日确认次数。联网预检的CDP连接15秒超时，未用于本轮数据获取；主任务沿用指定API来源，未新启动日常浏览器。未新增正式Wiki页面，不重复增加索引条目或调整计数；策略、任务文件、技能、依赖、索引与调度定义未改。
+- 核验副本：/Users/cjw/dev/Obsidian/wiki/.work/zzhl-dividend-signal/audit-20261101-100420-3jt383sd；本次日志写入时间2026-11-01T10:36:22+08:00。对最新信号、根日志及自动化记忆执行Markdown表格及UTF-8终验，结果存入该目录。
+
+## 2026-11-01 · RiskHot F02开发准备
+
+- 操作：audit / design / plan。
+- 修改范围：tools/RiskHot/docs、项目index.md与log.md；未修改正式Wiki页面。
+- 内容：[[tools/RiskHot/docs/audit/F02开发前差异核对-2026-11-01|差异核对]]、[[tools/RiskHot/docs/superpowers/plans/2026-11-01-F02分批实施|分批计划]]及配套技术提案；未实施代码或迁移。
+- 详细清单与验证：[[tools/RiskHot/log|项目日志]]。
+
+
+## 2026-11-02
+
+### capture-only / 雪球每日原文抓取（automation-2-20261102T102303）
+
+- 操作：运行当天指定三账号；专用 Chrome for Testing；request-pacing auto；保存入口 content_task.py --capture-only。
+- 修改文件：两路 _task/task.log、本日志及本轮新增原文；未修改调度或 Wiki 索引。
+- 冰冰小美（https://xueqiu.com/u/7143769715，实际发布者 冰冰小美）：候选 0、符合 0、新增 0、已有 0、修订 0、失败 0；覆盖截至 2026-11-02T10:23:11.293000+08:00。
+- 老木匠整理来源（https://xueqiu.com/u/2573414707，实际发布者 涨知识的小老鼠）：候选 0、符合 0、新增 0、已有 0、修订 0、失败 0；覆盖截至 2026-11-02T10:23:14.598000+08:00。
+- 老木匠新增来源（https://xueqiu.com/u/3058599833，实际发布者 买股票的老木匠）：候选 1、符合 0、新增 0、已有 0、修订 0、失败 0；覆盖截至 2026-11-02T10:24:15.577000+08:00。
+- 访问恢复：3058599833最初响应非JSON；页面提取零候选未独立作为空结果证据，经 www.xueqiu.com 新页面恢复，证据保留在老木匠来源 _task/failed/automation-2-20261102T102303/。
+- 校验与边界：站内时间线 HTTP 200 且跨过当天日期下界，详情 HTTP 200 且 truncated=false；旧原文哈希不变；解析 post_renamed 与 correction_of，改名不计新增。仅覆盖各账号抓取时点前可见内容；不覆盖其后发布、不可见或删除内容。老木匠两账号独立计数，保留实际发布者和转述性质。
+- 后续待办：无业务抓取人工跟进项；仅抓取，无汇总、分析及 Timeline 后处理。
+
+
+## 2026-11-02
+
+### audit / 中证红利每日股息率信号
+
+- 运行时间：2026-11-02T10:25:33.887957+08:00—2026-11-02T10:25:36.983031+08:00（Asia/Shanghai），耗时3.1秒、主脚本退出码0；使用专用Python，依赖正常、执行前无同任务并发。任务与技能1.3.0保持原样。
+- 交易日检查：AKShare tool_trade_date_hist_sina返回的日历覆盖1990-12-19至2026-12-31，确认2026-11-02为交易日。用户本轮明确“非交易日不要运行任务”，优先于任务文件休市日照常运行的旧约定；本轮未修改任务文件或任何调度定义。
+- 修改文件：[[sources/automations/中证红利信号/中证红利每日信号.xlsx|每日信号工作簿]]、[[sources/automations/中证红利信号/最新信号|最新信号]]、[[sources/automations/中证红利信号/中证红利年度表现.json|年度表现]]、[[sources/automations/中证红利信号/评分记录.json|评分记录]]、本日志；追加自动化运行记忆。
+- 新增凭证：[[sources/automations/中证红利信号/运行记录/20261102T102533-9c0064eaf675.json|本次成功执行凭证]]（success／校验完成），含真实开始、阶段、结束、耗时、四份写入文件及9项校验。
+- 资料来源：AKShare stock_zh_index_value_csindex的股息率2、bond_zh_us_rate、中证指数官网index-perf(000922)、腾讯sh000922。记录日期2026-11-02；估值与国债均为2026-10-30，股息率4.23%（C），国债1.65%，股债倍数2.5636363636（A），综合47.4727272727分、C级等待，评级维持、未触发买入。腾讯2026-11-02盘中快照-0.18%，不代表当日收盘，也不修正股息率。
+- 策略核验：dividend-two-factor-v2-r5，权重92%／8%，完整锚点及C40／B48／A65分界与[[sources/automations/中证红利信号/策略参数.json|当前已应用参数]]一致。参数未改；历史分位停用，不采集或补录。
+- 数据与历史核验：四份输出可读、9项校验及复算通过；Excel117→118条、今日唯一、全部日期无重复、原117条逐项保留；评分418→418条，替换2026-10-30/r5组合，其余记录保留。既有20个legacy重复组未变，本轮未清理。年度JSON指数000922、19年、2008-05-26至2026-10-30，含月度数据。
+- 验证边界：本轮必需输入、指数日线及腾讯行情无缺项；尚未取得2026-11-02收盘估值和国债数据，上午结果不称当天收盘信号。CDP预检15秒超时，既有API取数正常，本轮无需浏览器。未新增正式Wiki页面，索引无需增加条目或调整计数；任务、技能、脚本、参数、依赖定义、索引和automation.toml哈希未变。
+- 本轮核验目录：`.work/zzhl-dividend-signal/audit-20261102-102527-w9sicn2o`；日志与记忆写入时间：2026-11-02T10:27:25+08:00。交付前对最新信号、根日志和运行记忆执行Markdown表格与UTF-8检查，结果保存该目录。
+
+
+## 2026-11-02 · 年度收益与回撤统一月度样式
+
+- 操作：UI / refactor / verify；依据用户截图，将红利年度收益与回撤改为与现有月度一致的展示。
+- 修改文件：`tools/a-share-market-dashboard/src/app.mjs`、`src/styles.css`、相关两份Node测试、年度日历浏览器专项、`README.md`、`src/changelog.json`、生成HTML、项目根索引和本日志；追加自动化记忆。
+- 结果：新增“年度收益／年度回撤”切换，年度表改为年份网格，复用月度字号、涨跌颜色和分隔线；桌面四列、手机两列。保留每年的统计区间、状态和月度详情入口，年／月切换保留所选指标和年份；共享纳指渲染器同步，状态独立。
+- 验证：19项相关Node测试、语法及构建通过；独立Chromium在49888服务验证1440／768／390／320px、19年收益及回撤、键盘操作、详情关闭焦点和年／月状态，无横向溢出或页面脚本错误。测试拦截外部及API请求，finally关闭浏览器。
+- 设计检查：加载Impeccable上下文，沿用月度样式，复核桌面／手机截图；机械检查修改行仅1条原月度收益色的advisory，无warning，不修改全站历史告警。
+- 数据边界：未改计算、策略、业务源文件或调度，未重跑每日信号；构建读取既有本地快照。无新增正式Wiki页面，不改页面计数。
+- 验证与完整文件清单：[[tools/a-share-market-dashboard/.impeccable/review/annual-calendar/verification|年度日历样式验证]]；记录时间：2026-11-02T13:51:11+08:00。交付前检查5份Markdown表格、UTF-8及本次差异。
+
+
+## 2026-11-02 · 年度收益与回撤接入实时数据
+
+- 操作：implement / verify；按用户要求，将年度日历从构建时年度JSON改为页面实时读取。
+- 修改文件：`tools/a-share-market-dashboard/src/app.mjs`、`src/styles.css`、现有月度测试、新增实时年度单元／浏览器测试、`README.md`、`src/changelog.json`、生成HTML、根索引和本日志；追加自动化记忆。
+- 结果：进入或恢复红利页即时读取，页面可见时每分钟更新，并可手动刷新／重试；当前年度与月度明细由官方日线和指数报价共同更新，保留年份与指标选择。盘中标记动态估算和实际行情时点，沿用年度首日基准及日频最大回撤，不统计分时低点回撤。
+- 数据边界：日线失败保留旧结果，报价失败保留可用日线或更近的上次报价结果并说明；年度起点覆盖不足不重算，错误代码／价格、未来或倒退报价不采用。页面估算不写回每日信号、年度档案或策略，报价不进入布林／回测日线。
+- 验证：37项相关Node、语法、构建通过；实际49888接口读取2026-11-02报价并完成年度／月度复合核验。浏览器真实响应回放验证一分钟刷新、失败与重试、恢复页面、年份／指标状态、1440／768／390／320px，无脚本错误及横向溢出；独立Chromium已关闭。
+- 设计检查：沿用Impeccable已加载上下文及月度样式；机械检查新增刷新区域无发现，桌面与手机截图已复核。
+- 证据及完整文件清单：[[tools/a-share-market-dashboard/.impeccable/review/live-annual/verification|实时年度数据验证]]。无新增正式Wiki页面，不改页面计数；未修改后端接口、技能、依赖或调度，未重跑每日任务。
+- 记录时间：2026-11-02T14:10:08+08:00；交付前执行5份Markdown表格、UTF-8及差异终验。
+
+
+## 2026-11-02 · 红利版块增加515450入口与独立计算
+
+- 操作：implement / verify；用户确认以515450跟踪的SPCLLHCP价格指数计算，基金仅展示对应关系。
+- 完成：三个页签标的切换、恢复选择、独立参数、源数据身份与日期校验；接入股息率、布林、价息图、年／月收益回撤、日分布和历史评分回看的计算链路，000922原流程保留。
+- 未完成：真实SPCLLHCP逐日日线及指数股息率接通。官方导出和月度资料直接请求HTTP 403、浏览器下载超时，WeStock查询无结果。仅核验2026-10-30官方页面点位3840.64，未将单个快照当日线。实际新标的继续显示缺项，回测不可用；定时采集尚未配置。
+- 修改文件：新增标的模块与标普源文件、app/index/styles/build、生成HTML、新标的单元及浏览器测试、README、页面更新日志、根索引和本日志；新增验证材料，追加自动化记忆。完整列表见[[tools/a-share-market-dashboard/.impeccable/review/dividend-instruments/verification|多标的实现与数据边界]]。
+- 验证：78项相关Node、语法及构建通过；49888真实页面检查三个页签、参数和来源隔离、选择恢复、四种宽度，无脚本错误或横向溢出。使用隔离合成夹具测试有数据的日历及回测，最终恢复真实缺项文件；产品源文件没有合成行情。独立Chromium已关闭，无日常浏览器启动。
+- 设计：沿用Impeccable和既有蓝灰风格，复核桌面／手机截图；原始启动模板提示不属于新增标的区域，不扩展改动。
+- 边界：未改000922业务档案、策略文件、原有自动化任务或任何调度；未运行每日采集。无新增正式Wiki知识页，不改页面计数。下一步需要可访问的SPCLLHCP日线和有日期／口径的指数股息率数据源。
+- 记录时间：2026-11-02T15:06:42+08:00；交付前执行Markdown表格、UTF-8与本次差异终验。
+
+
+## 2026-11-02
+
+### capture-only / 雪球每日原文抓取（automation-2-20261102T230326）
+
+- 操作：运行当天指定三账号；专用 Chrome for Testing；request-pacing auto；保存入口 content_task.py --capture-only。
+- 修改文件：两路 _task/task.log、本日志及本轮新增原文；未修改调度或 Wiki 索引。
+- 冰冰小美（https://xueqiu.com/u/7143769715，实际发布者 冰冰小美）：候选 0、符合 0、新增 0、已有 0、修订 0、失败 0；覆盖截至 2026-11-03T03:19:36.499000+08:00。
+- 老木匠整理来源（https://xueqiu.com/u/2573414707，实际发布者 涨知识的小老鼠）：候选 0、符合 0、新增 0、已有 0、修订 0、失败 0；覆盖截至 2026-11-02T23:19:03.081000+08:00。
+- 老木匠新增来源（https://xueqiu.com/u/3058599833，实际发布者 买股票的老木匠）：候选 0、符合 0、新增 0、已有 0、修订 0、失败 0；覆盖截至 2026-11-02T23:19:08.269000+08:00。
+- 校验与边界：站内时间线 HTTP 200 且跨过当天日期下界，详情 HTTP 200 且 truncated=false；旧原文哈希不变；解析 post_renamed 与 correction_of，改名不计新增。仅覆盖各账号抓取时点前可见内容；不覆盖其后发布、不可见或删除内容。老木匠两账号独立计数，保留实际发布者和转述性质。
+- 后续待办：无业务抓取人工跟进项；仅抓取，无汇总、分析及 Timeline 后处理。
+
+- 收尾补充（2026-11-03T05:15:27.370779+08:00）：冰冰小美首次 fetch 失败与 createTarget 超时已恢复；页面回退零候选未作为空结果证据，最终使用 HTTP 200 非空时间线核验。证据保留在 sources/automations/BBXM每日汇总/_task/failed/automation-2-20261102T230326/。三个账号各有唯一结束事件；原有 618 个非任务文件哈希不变。目标日固定为 2026-11-02，跨午夜不改日；不回补历史缺口。
+
+
+## 2026-11-03 · 中证红利每日股息率信号
+
+- 操作：run / verify；按任务文件和zzhl-dividend-signal 1.3.0，使用专用Python；AKShare交易日历确认实际北京时间2026-11-03为交易日。非交易日跳过业务的用户要求继续优先；未修改任何调度定义。
+- 修改文件：`sources/automations/中证红利信号/中证红利每日信号.xlsx`、`最新信号.md`、`中证红利年度表现.json`、`评分记录.json`及本日志；新增3份运行凭证，追加自动化运行记忆。未新增正式Wiki页面，无需调整索引或页面计数。
+- 执行：首次12:02:38—12:19:39在指数估值阶段因Remote end closed connection without response失败，退出码1，原四文件哈希不变；第二次13:19:56—13:48:04退出码0，但官方日线失败后回退腾讯，起点缩短至2008-07-31。官方定向请求HTTP 200并验证4481条完整日线后，再次原命令运行，15:50:00—15:50:04、3.6秒、退出码0，恢复官方完整历史。全部凭证保留，未补造或改写运行过程。
+- 信号：估值／国债均为2026-11-02，股息率2=4.23%（C），国债1.6343%，股债倍数2.5882640886（A），综合47.4884890167分、C级等待，维持且不触发买入。腾讯日期2026-11-03，+0.13%为最后一次获取的行情快照；未用于修正股息率，不将11月2日评分称11月3日收盘信号。
+- 策略：dividend-two-factor-v2-r5，权重92%／8%，完整锚点、C40/B48/A65及历史参数一致；任务、技能、脚本、参数、索引和automation.toml受保护哈希不变。未安装或升级依赖；历史分位停用。
+- 验证：四文件可读、9项输出检查、贡献和综合评分复算通过；Excel118→119条、今日唯一、全部日期无重复、原118条逐项保留。评分418→419条、本次组合唯一、其他记录保留，既有20个legacy重复组未变化。年度000922、19年、官方2008-05-26至2026-11-02，12个月字段完整，未来或覆盖前月份保持null。
+- 数据边界：必需输入、日线和行情均已取得；当天估值与国债数据尚未取得，交易所收盘行情未独立交叉验证。CDP预检15秒超时，本任务由原公开API完成，不需要浏览器登录或新启动日常浏览器。第二次历史覆盖缩短已恢复，无遗留该项缺口。
+- 最终凭证：[[sources/automations/中证红利信号/运行记录/20261103T155000-de82ef6a98b9.json|最终成功运行]]；核验副本：`.work/zzhl-dividend-signal/audit-20261103-120232-e8qk_cbq`。日志与记忆写入时间：2026-11-03T18:41:26+08:00；交付前执行Markdown表格、UTF-8及最终产物读回检查。
+
+- [2026-11-03T19:57:18+08:00] QUERY query="冰冰小美怎么看待流动性风险" result_pages=5 mode=normal escalated=false；基于wiki_bbxm概念、推导及时间线检索，核对库内原文；旧Windows配置不可用于当前环境，采用本地检索；未新增知识页，不改索引。
+
+- [2026-11-03T19:59:12+08:00] QUERY query="老木匠如何看待流动性风险" result_pages=4 mode=normal escalated=false；基于老木匠融资余额风险线、央行注水口、政策解读与利率流动性时间线，核对10月17日、10月29日及8月8日库内第三方直播整理稿；旧Windows检索配置不可用于当前环境，采用本地检索；仅追加查询日志，无新增知识页，索引无需变更。
+
+- [2026-11-03T20:00:19+08:00] QUERY query="她怎么判断流动性风险，在她的视角下什么是流动性风险" result_pages=1 mode=normal escalated=false；定向核对风险维度页与《风险转弱的节点》《风险变化如何观察》《风险对冲》《行情不等于风险》原文，厘清直接定义与综合归纳；仅追加查询记录，无新增知识页。
+
+## 2026-11-03 · 老木匠流动性风险概念整理
+
+- 操作：ingest / link；按用户指定路径和章节补全既有空白页。
+- 修改文件：[[wiki_laomujiang/concepts/风险-流动性风险|风险-流动性风险]]、[[wiki_laomujiang/index|老木匠知识索引]]、本日志。
+- 新增文件：无；目标文件原为空白，本次补全为正式 concept 页，索引概念页数由12更新为13。
+- 资料来源：库内2026-08-08、08-10、09-11、09-14、10-17、10-29第三方老木匠直播整理稿，逐项来源双链见概念页；未改动原始资料。
+- 说明：按“对流动性风险的定义”“如何应对流动性风险”两章整理拥挤、保证金与被动卖出、跨资产传导、去杠杆速度、救市承接和风险部分释放；保留清融资到恢复短差融资的时点变化。工作定义、阶段组织和检查表标为整理者归纳，不把经验阈值当常数或把作者操作转为通用建议。
+- 验证：概念页及索引表格检查通过；概念页全部双链目标存在，UTF-8、章节、禁用来源属性与概念页计数检查通过；日志追加后与上述两文件再次执行表格检查。
+- 待核：原始逐字稿、账户操作与市场读数尚未独立核验；不影响本次按来源性质整理。
+
+
+## 2026-11-03 · 冰冰小美流动性风险概念整理
+
+- 操作：ingest / link；用户要求检查已有concept并在缺失时新建。冰冰小美库无同义独立概念，通用金融风险库已有同名风险页但定义与主责不同。
+- 新增文件：`wiki_bbxm/concepts/冰冰小美-concept-流动性风险.md`。
+- 修改文件：`wiki_bbxm/concepts/冰冰小美-concept-体系三要素之流动性辩证分析.md`、`index.md`、`hot.md`、`.manifest.json`、`log.md`。
+- 资料来源：新页“来源”中九份库内原文；直接定义取原帖日期2024-05-09的《风险转弱的节点》，不按其归档文件名日期误记发布日期。
+- 说明：按concept模板整理定义、问题、四项核心内涵及判断检查表；作者原话与跨文归纳分开，补充亏钱赎回、杠杆与保证金压力，保留待验证和反例边界；九篇文本属同一作者，不视为九个独立信源。按schema既有标签赋值，未新增标签。
+- 导航与归属：沿用当前实体目录wiki_bbxm，新链接使用真实路径；根索引概念条目83→84。只补流动性辩证分析页回链，未扩展迁移历史wiki/旧链接。来源原文保持不变。
+- 来源记录：保留manifest既有映射并追加本次页面，统计按新增来源条目与新增一页增量更新，未借本次重算历史统计。
+- 检索：QMD skipped: qmd CLI unavailable（配置仍为旧Windows路径）；Markdown为本次交付来源。
+- 验证：交付前检查全部五个涉及的Markdown文件表格、UTF-8、新页frontmatter及全部新建链接目标；manifest JSON与来源哈希核验。
+
+## 2026-11-03 · 老木匠流动性风险页面通俗化与结构整理
+
+- 操作：refactor / link；承接用户“通俗易懂”与“按积累、触发、扩散整理”的要求。
+- 修改文件：[[wiki_laomujiang/concepts/风险-流动性风险|风险-流动性风险]]、[[wiki_laomujiang/index|老木匠知识索引]]、本日志。
+- 新增文件：[[sources/papers/2009-Brunnermeier-Pedersen-融资流动性与市场流动性-定义摘录|融资流动性与市场流动性论文定义摘录]]，取自本次对话此前已读取的论文PDF摘要，仅保存术语短摘录及出处，未声称新下载全文。
+- 说明：保留定义、应对两章及原六份直播来源；定义区分筹资困难与卖出困难，避免把杠杆路径当作完整定义。风险过程拆为积累、触发、扩散；应对按事前、事中、事后组织。加入明确标注的教学例子，首次出现时解释杠杆、保证金、强平、融资余额、仓位和承接，简化检查清单。
+- 边界：作者观点、一般理论和整理者归纳分开；保留经验阈值限制、清融资与恢复短差融资的变化，以及风险下降不等于见底。
+- 验证：正文双链目标、两章与三个过程标题、加粗闭合、UTF-8及乱码检查通过；全部四份Markdown执行表格检查。首次附加核验脚本因传输编码报错未执行，改用ASCII转义重新运行，文件未受到该次失败写入。
+
+## 2026-11-03 · 流动性风险定义、机制与观察分章
+
+- 操作：refactor；用户确认将定义、风险发生机制与观察应对分开。
+- 修改文件：[[wiki_laomujiang/concepts/风险-流动性风险|风险-流动性风险]]、[[wiki_laomujiang/index|老木匠知识索引]]、本日志；无新增文件。
+- 说明：正文改为定义、积累触发扩散、应对三章；定义只保留含义与类型。删除原“为什么减少借款是好事，过程却可能很危险”独立小节，将主动卖股还钱加剧下跌的机制并入触发部分，将融资余额、下降速度与两万亿元历史判断移入应对观察；普通调整与危机的比较表同步移入应对。来源、数值适用边界和原有链接目标全部保留。
+- 验证：章节边界、原有链接目标保留与目标存在、UTF-8检查通过；全部三份修改的Markdown执行表格检查。未修改原始资料或其他知识库。
+
+## 2026-11-03 · 流动性风险补充专业定义
+
+- 操作：edit / link；按用户指定位置，在定义章增加专业定义，保留通俗解释和例子。
+- 修改文件：[[wiki_laomujiang/concepts/风险-流动性风险|风险-流动性风险]]、[[wiki_laomujiang/index|老木匠知识索引]]、本日志。
+- 新增文件：[[sources/papers/2008-巴塞尔委员会-流动性风险定义摘录|巴塞尔委员会流动性风险定义摘录]]。
+- 资料来源：BIS官网2008年正式版文件，正文第1页脚注2；先保存机构、文献、日期、页码及原文短摘录，再引用库内来源副本。
+- 说明：新增综合定义及融资流动性、市场流动性风险的专业表述；综合定义标为整理者归纳，子类型标为中文转述而非官方译文，保留银行监管语境与个人投资应用边界；同步definition属性与索引简介。发生过程和应对章节保持原有内容。
+- 验证：新来源与页面UTF-8、双链目标、章节及后续内容保持检查通过；全部四份Markdown运行表格检查。
+
+## 2026-11-03 · 老木匠基本面风险概念整理
+
+- 操作：ingest / link；按用户指定片段与名称新建concept。
+- 新增文件：[[wiki_laomujiang/concepts/风险-基本面风险|风险-基本面风险]]、[[sources/screenshots/2026-11-03-老木匠-基本面分析与保本|截图来源说明]]及同名PNG原样副本。
+- 修改文件：[[wiki_laomujiang/index|老木匠知识索引]]、本日志；概念页数13→14。
+- 资料来源：截图对应库内2026-10-05整理稿第五节第4项与第六节；结合该稿第二节第3项、第五节第3项及2026-10-16第五节第1至3项补充复现依据。两场均为第三方整理，截图不作为独立信源。
+- 说明：按concept模板补齐定义、来源归属、问题、核心内涵与检查表；区分企业基本面风险、估值检查和流动性风险。发生过程分起点、变化、后果，应对分买入前、持有中、原理由失效后；保本表述作为风险控制目标，非收益保证。万科仅作套牢后改口的历史案例，金油比与金铜比不纳入本页。
+- 验证：截图副本SHA256一致；新页全部双链目标存在、必需字段、UTF-8及目录计数检查通过；本次四份Markdown执行表格检查。已有原始稿未改动。
+
+## 2026-11-03 · 流动性风险补充配置、筹码与杠杆三条路径
+
+- 操作：refactor / link；按用户选定的三项分类整理到已有concept。
+- 修改文件：[[wiki_laomujiang/concepts/风险-流动性风险|风险-流动性风险]]、[[wiki_laomujiang/index|老木匠知识索引]]、本日志；无新增文件，页面数量不变。
+- 资料来源：复用库内公募行业配置、筹码结构、微观风险源及传导概念和既有直播整理稿；补入2026-08-14、2026-08-25来源双链，未修改原始资料。
+- 说明：保留定义、发生过程、应对三章；第二章新增三路径比较表，前两条主要对应市场流动性，融资杠杆路径说明融资流动性向市场流动性的传导。在应对中补充配置、筹码及缓冲检查，同步摘要、关键变量、误解与索引简介。分类明确为整理者归纳，静态集中、人数变化和融资余额均不直接确认风险发生，不重复计算重合证据。
+- 验证：对本次三份Markdown运行表格检查；核验概念页全部双链目标、UTF-8编码与乱码字符，以及三章结构保留情况。
+
+## 2026-11-03 · 老木匠风险变量：美债收益率
+
+- 操作：ingest / link；按用户指定名称新建concept。
+- 新增文件：[[wiki_laomujiang/concepts/风险变量-美债收益率|风险变量-美债收益率]]。
+- 修改文件：[[wiki_laomujiang/index|老木匠知识索引]]、[[wiki_laomujiang/topics/风险判断|风险判断]]、[[hot|近期活动]]、本日志及 `.manifest.json`；概念页数15，原14页基础上新增1页。
+- 资料来源：复用库内8篇直播整理稿（2026-08-18、08-20、09-26、09-29、10-07、10-11、10-16、10-25），未新增或修改来源原文；10月25日稿发表于10月27日。保留manifest原有页面映射并追加本页。
+- 说明：按concept模板整理市场融资成本、买家结构、竞争性融资、跨资产压力及收益率下降与AI信用风险上升并存的情景。明确第三方转述、整理推论及待验证数据，保留“实际利率”用词和10月7日收益率/价格方向歧义。沿用用户指定文件名；无运行阈值，未创建indicator。
+- 检索：QMD skipped: qmd CLI unavailable（配置仍指向旧Windows路径），以当前用户指定的本地知识库为准。
+- 验证：交付前对本次5份Markdown运行表格检查；核验新页字段、全部双链目标、中文编码、概念目录计数、manifest JSON与8份来源哈希。
+
+## 2026-11-03 · 美债收益率概念页阅读结构调整
+
+- 操作：refactor；回应用户对概念页结构不清晰的反馈。
+- 修改文件：[[wiki_laomujiang/concepts/风险变量-美债收益率|风险变量-美债收益率]]、[[wiki_laomujiang/index|老木匠知识索引]]、本日志；无新增文件，页面数量不变。
+- 说明：保留concept模板的六个主章节，压缩开头说明；核心内涵统一为为什么关注、什么推动升降、如何造成损失、怎样判断风险变化。上升与下降原因放在同一比较表，风险后果单独解释；术语、数字、原稿歧义与避险证据限制集中到来源章。保留八份原始材料及政策假设、定价与流动性区别、信用风险反向变化等关键内容。
+- 资料来源：沿用原页八份库内直播整理稿，来源和置信基础未变化，未重写manifest或原始资料。
+- 验证：对本次三份Markdown运行表格检查；核验原来源链接集合保留、链接目标、六个主章节、四个核心问题、UTF-8与关键边界。
+
+## 2026-11-03 · Concept定义、生成规则与模板同步阅读结构
+
+- 操作：refactor / link；将美债收益率概念页的结构优化同步为通用写作要求。
+- 修改文件：[[page-types|页面类型定义]]、[[rules/concept-page-rules|Concept生成规则]]、[[templates/concept-page-template|Concept模板]]、[[index|知识库总索引]]、本日志；无新增文件，不改变页面数量。
+- 说明：沿用concept六个主章节，核心内涵按为什么重要、构成或变化原因、作用与影响、理解与判断推进；风险变量类提供四问示例，其他概念按语义调整，不强制套用。模板替换“要素一二三”为问题标题并加入可删除写作提示；详细来源、术语与数字歧义集中到文末，必要限定和来源仍就近保留。修正规则中额外“原文依据”章节示例与模板不一致的问题。
+- 资料依据：用户本次要求及[[wiki_laomujiang/concepts/风险变量-美债收益率|美债收益率概念页]]已完成的结构调整。
+- 契约边界：未修改页面类型集合或frontmatter字段，schema总契约保持不变；不批量改写既有概念页，不涉及技能文件变更。
+- 验证：对本次五份Markdown运行表格检查，核对模板六个主章节、风险变量适用范围、正文限定保留、规则入口双链和UTF-8编码。
+
+## 2026-11-03 · 老木匠交易技术主题：做T
+
+- 操作：ingest / link；按用户要求新建topic，当前以做T为主线。
+- 新增文件：[[wiki_laomujiang/topics/交易技术|交易技术]]。
+- 修改文件：[[wiki_laomujiang/index|老木匠知识索引]]、[[wiki_laomujiang/topics/投资模式|投资模式]]、[[wiki_laomujiang/topics/散户投资建议|散户投资建议]]、[[hot|近期活动]]、本日志及 `.manifest.json`；主题页数4→5，概念页仍为15。
+- 资料来源：复用库内7篇直播整理稿（2026-08-04、08-05、08-08、09-02、10-10、10-16、10-29）及《老木匠的策略》手工摘录；原文未改写，手工摘录归属缺口保留，不当独立信源。
+- 说明：以六个阅读问题组织收益目的、容错、先买后卖与先卖后买、退出与评价、等待、融资边界；与既有主题分工并互链。区分日内做T和跨期短差，保留全仓做T的不同语境、历史1%—2%与十年经验说法的限制，原稿T+1情境按底仓可卖数量澄清；不把量价解释当作已证实强平或买点，不生成运行指标。
+- 检索：QMD skipped: qmd CLI unavailable（现有配置为旧Windows路径）。
+- 验证：交付前检查本次6份Markdown表格、UTF-8、新页frontmatter及所有链接和自有锚点、5个主题目录计数、manifest JSON与8份来源哈希。
+
+
+## 2026-11-03
+
+### capture-only / 雪球每日原文抓取（automation-2-20261103T215919）
+
+- 操作：运行当天指定三账号；专用 Chrome for Testing；request-pacing auto；保存入口 content_task.py --capture-only。
+- 修改文件：两路 _task/task.log、本日志及本轮新增原文；未修改调度或 Wiki 索引。
+- 冰冰小美（https://xueqiu.com/u/7143769715，实际发布者 冰冰小美）：候选 0、符合 0、新增 0、已有 0、修订 0、失败 0；覆盖截至 2026-11-03T21:59:21.742000+08:00。
+- 老木匠整理来源（https://xueqiu.com/u/2573414707，实际发布者 涨知识的小老鼠）：候选 0、符合 0、新增 0、已有 0、修订 0、失败 0；覆盖截至 2026-11-03T21:59:24.026000+08:00。
+- 老木匠新增来源（https://xueqiu.com/u/3058599833，实际发布者 买股票的老木匠）：候选 2、符合 0、新增 0、已有 0、修订 0、失败 0；覆盖截至 2026-11-03T22:00:34.807000+08:00。
+- 访问恢复：3058599833最初响应非JSON；www 页面仍返回验证脚本；页面提取零候选未作为空结果证据，随后原域名新页面时间线恢复，证据保留在老木匠来源 _task/failed/automation-2-20261103T215919/。
+- 校验与边界：站内时间线 HTTP 200 且跨过当天日期下界，详情 HTTP 200 且 truncated=false；旧原文哈希不变；解析 post_renamed 与 correction_of，改名不计新增。仅覆盖各账号抓取时点前可见内容；不覆盖其后发布、不可见或删除内容。老木匠两账号独立计数，保留实际发布者和转述性质。
+- 后续待办：无业务抓取人工跟进项；仅抓取，无汇总、分析及 Timeline 后处理。
+
+
+## 2026-11-04 · 中证红利每日信号
+
+- 操作：交易日信号检查。北京时间 09:51:28 至 09:51:32，专用 Python 正常退出，耗时 4.4 秒。
+- 修改文件：[[sources/automations/中证红利信号/中证红利每日信号.xlsx|每日工作簿]]、[[sources/automations/中证红利信号/最新信号|最新信号]]、[[sources/automations/中证红利信号/中证红利年度表现.json|年度表现]]、[[sources/automations/中证红利信号/评分记录.json|评分记录]]、本日志。新增 [[sources/automations/中证红利信号/运行记录/20261104T095128-33040bc5abae.json|运行凭证]]。
+- 资料来源：AKShare 新浪交易日历、中证指数估值与官方日线、AKShare 中国10年国债收益率、腾讯早盘行情。
+- 说明：估值和国债日期均为 11 月 3 日，股息率2为 4.23%（C），国债 1.6210%，股债倍数 2.6095（A）。r5 综合 47.5021 分、C级等待。腾讯 11 月 4 日早盘 +0.51%。11 月 4 日收盘数据待发布。
+- 核验：四份文件可读、9 项校验通过。工作簿 119→120 行，当日唯一，历史行逐项保留。评分记录 419→420 条，本次估值日与版本组合唯一，历史条目保留。年度 000922 共 19 年，含月度字段，官方日线覆盖 2008-05-26 至 2026-11-03。核验时间 2026-11-04T09:52:47+08:00。
+
+## 2026-11-04 · 美债收益率补充储备属性
+
+- 操作：edit / link；按用户要求补充老木匠对美债储备属性的分析。
+- 修改文件：[[wiki_laomujiang/concepts/风险变量-美债收益率|风险变量-美债收益率]]、[[wiki_laomujiang/index|老木匠知识索引]]、本日志；无新增文件，页面数量不变。
+- 资料来源：沿用库内2026-08-18整理稿第二至四节、2026-09-26整理稿第一节第3项；未修改原始资料，来源集合与置信基础不变。
+- 说明：在“什么推动升降”中先解释储备载体、支付变现、购买力与处置条件，再连接储备型与投资型买家的定价差异；区分动用储备和信心变化，不将减持一概解释为看空。同步摘要、关键变量、误解、问题与检查项；原稿对处置限制的违约定性和绝对化买家描述保留为未核判断。
+- 验证：本次三份Markdown运行表格检查，核验概念页来源链接、六个主章节、四个核心问题及UTF-8编码。
+
+
+## 2026-11-04
+
+### 年度回撤频次热力图
+
+- 操作：feature / UI；按用户截图扩展现有年度回撤区域。
+- 修改文件：`tools/a-share-market-dashboard/src/app.mjs`、`src/styles.css`、`scripts/local_proxy.py`、`src/changelog.json`、`tests/dividend-monthly.test.mjs`、`README.md`、构建产物及根索引。
+- 新增文件：`tests/drawdown-frequency.test.mjs`、`tests/test_drawdown_frequency.py`、`tests/drawdown-frequency.browser.mjs`（均在看板目录内）。
+- 说明：九档累计阈值、每年重置峰值、恢复前高才开启下一事件；缺失不填零，当前未修复事件计入。采用可访问数据表承载单色热力图，保留原年度卡片。
+- 验证：30项JavaScript专项、6项Python专项通过；独立Chrome for Testing完成1440／390／320像素布局检查，无页面横向溢出，热力图可横向滚动。Impeccable检查与截图复核完成；蓝色色阶为新增定量图表色阶，现有页面其他检测提示未扩展处理。
+- 全量检查：263项JavaScript测试中256通过、7失败，失败涉及研报路径／内容、主题导航及跟踪排序断言，未扩展修改；构建与3份Markdown表格检查通过。本地49888服务已重载计算逻辑，未新开浏览器，重载日志位于`/tmp/dashboard-drawdown-service.log`。
+
+## 2026-11-04 · 归档11月2日老木匠评书用户附件
+
+- 操作：archive / source；仅保存原文，未进行知识提炼。
+- 新增文件：[[sources/automations/老木匠每日汇总/2026-11-02 老木匠评书：雪球翻篇、注水口与投资经验|11月2日评书来源页]]、[[sources/automations/老木匠每日汇总/2026-11-02 老木匠评书：雪球翻篇、注水口与投资经验.txt|原始TXT副本]]。
+- 修改文件：[[wiki_laomujiang/index|老木匠知识索引]]、本日志；正式知识页面数量不变。
+- 资料来源：用户上传的《已粘贴的文本.txt》，文本署名牛牛牛233333，标注2026-11-02 12:25及直播BV1zFxa6XEQA；原始文章链接未提供。
+- 说明：采用现有 sources/automations/老木匠每日汇总 目录；先原样复制TXT，再生成带来源信息的Markdown，正文全文保留，区别实际文本整理者与直播主体。索引登记为待整理来源；不将此次原始归档标记成已完成ingest。
+- 验证：原始副本与附件SHA256一致，Markdown原文区与附件解码内容一致，十六节保留，UTF-8和链接目标核验；本次三份Markdown运行表格检查。
+
+## 2026-11-04 · 11月2日评书章节标题加粗
+
+- 操作：format；按用户要求加粗十六个章节标题。
+- 修改文件：[[sources/automations/老木匠每日汇总/2026-11-02 老木匠评书：雪球翻篇、注水口与投资经验|11月2日评书Markdown来源页]]、本日志。
+- 说明：仅为原文中的“一、”至“十六、”标题添加加粗标记，同步来源说明；原始TXT副本未修改，索引入口与页面数量不变。
+- 验证：确认16处标题加粗，去除新增标记后正文与修改前一致；原始TXT哈希保持一致，本次两份Markdown执行表格检查。
+
+
+## 2026-11-04 · 月历与指数走势联动UI设计
+
+- 操作：design / prototype；用户要求先用UI Skill设计。
+- 新增：[[tools/a-share-market-dashboard/prototypes/monthly-index-linkage-design|设计说明]]、[[tools/a-share-market-dashboard/prototypes/monthly-index-linkage.html|交互预览]]及默认／选中月份／手机三张截图。
+- 修改：根索引与本日志。正式应用未修改。
+- 说明：采用Impeccable规范及现有蓝灰视觉，月份格联动年内指数日线；坐标保持不变，浅蓝区间与加粗线段共同强调。演示数据显著标注，定义数据口径、缺失和失败状态。
+- 验证：独立Chrome for Testing验证单选／取消、键盘选择、年份重置、指标切换保留选择、未来月份禁用与手机滚动；1440／390px无页面溢出或JavaScript错误。辅助字与图轴提升至12px，未选中曲线增强对比度；Markdown表格检查通过。
+
+
+## 2026-11-04 · 红利按代码查询接口与MarketScreener适配
+
+- 操作：feature / data-adapter；按用户要求封装code查询参数，标普行情来源指定为MarketScreener。
+- 新增：`tools/a-share-market-dashboard/scripts/dividend_signal_query.py`、`tests/test_dividend_signal_query.py`；浏览器验证输出位于面板`.impeccable/review/dividend-query/`。
+- 修改：面板`local_proxy.py`、`src/dividend-instruments.mjs`、`src/app.mjs`、`tests/dividend-instruments.test.mjs`、`tests/dividend-instruments.browser.mjs`、构建HTML、[[tools/a-share-market-dashboard/README#红利按代码查询接口|接口说明]]、[[index|索引]]和本日志。保留工作区已有改动，正式知识页数量不变。
+- 说明：`GET /api/dividend-signal?code=`支持000922、SPCLLHCP与515450别名。中证沿用本地每日产物和原日线更新流程；标普适配MarketScreener日期化Last收盘表，验证指数身份、日期与数值，缓存60秒，成功时合并并原子保存，失败保留原文件和日期。近期窗口明确限制年度统计、布林和回测；未接入指数股息率，不替代为ETF分红。
+- 验证：12项Python测试、16项Node测试通过；独立Chromium验证1440/768/390/320px、标的切换、独立参数、合成完整历史回测与错误状态，无横向溢出或脚本错误。Impeccable检测仅提示既有颜色文档建议，本次未改配色。构建与Python编译通过；原49888/49889本地服务已按原启动脚本重启，未打开日常浏览器。
+- 实际来源限制：2026-11-04本机HTTP与独立Chromium请求MarketScreener均返回403，辅助网页读取服务超时。运行中接口000922返回既有数据；SPCLLHCP/515450返回cached及403、保留2026-10-30官方快照，日线0条、valuation为null。解析测试使用明确的合成HTML，不能据此声称已成功解析真实站点HTML或完成自动行情接入。
+- 待完成：取得MarketScreener可访问渠道后验证真实页面结构及长历史；当前不改用用户未指定的其他行情源。Markdown表格与编码检查随本次交付执行。
+
+
+## 2026-11-04 · 月历折线设计改为左右并排
+
+- 操作：design / layout；用户要求两模块放在一排。
+- 修改：[[tools/a-share-market-dashboard/prototypes/monthly-index-linkage.html|独立预览]]、[[tools/a-share-market-dashboard/prototypes/monthly-index-linkage-design|设计说明]]、三张预览截图、根索引和本日志。
+- 说明：桌面左侧三列月历约40%，右侧指数折线约60%；窄屏恢复上下排列，说明文字放在整行下方。正式应用未修改。
+- 验证：专用Chrome for Testing复验月份选择、取消、键盘、年份及指标切换；桌面与手机截图核验，Markdown表格检查。
+
+
+## 2026-11-04 · 正式接入月历与真实指数走势
+
+- 操作：feature / UI；依据已确认左右并排设计，用户授权接入正式页面。
+- 新增：`tools/a-share-market-dashboard/src/monthly-index-chart.mjs`、`tests/monthly-index-chart.test.mjs`、`tests/monthly-index-chart.browser.mjs`及实际运行截图。
+- 修改：看板`src/app.mjs`、`src/styles.css`、`scripts/build.mjs`、`scripts/local_proxy.py`、`tests/test_nasdaq_returns.py`、`src/changelog.json`、README、设计说明、构建产物、根索引和本日志。保留已有未提交改动。
+- 说明：NDX返回与年度统计同源日线；红利保留实时／所选年份日线，标普仅使用自身数据。首末日期和年度收益核对不通过时不画曲线；月选择只高亮、不缩放；窄屏上下布局，支持键盘与读数，缺失可重试。
+- 验证：42项前端专项、8项Python专项及构建通过。真实NDX接口1254条日线，所选年份输入逐条一致；中证红利也逐条一致。浏览器验证月高亮／取消、固定坐标、年份重置、指标保留、键盘、缺失年份重试及1600／1000／390／320px响应式，无JavaScript错误或页面横向溢出。Impeccable检测和桌面／手机截图复核完成；未扩大修改既有全站样式提示。
+- 运行：本地49888服务已重载，不打开日常浏览器；实际数据请求复用既有接口，无新供应商或演示行情注入。自动化回放真实接口响应，其他无关接口屏蔽。
+
+## 2026-11-04 · MarketScreener浏览器历史采集落盘
+
+- 操作：data / fix；按用户“继续采集”要求，复用已连接的浏览器页面。
+- 来源：MarketScreener的SPCLLHCP指数行情页，23页历史Close列及日期化Last表；取得196条不同日期收盘记录，重叠页无价格冲突。
+- 新增：面板`data/红利信号/采集证据/2026-11-04-MarketScreener.json`，保存原始日期/价格、页边界、校验值和异常行；原快照保存在`data/红利信号/备份/标普接入前.json`。
+- 修改：面板标普JSON、`scripts/dividend_signal_query.py`、`src/dividend-instruments.mjs`、`src/app.mjs`、两个对应单元测试文件、构建HTML、[[tools/a-share-market-dashboard/README#红利按代码查询接口|接口说明]]、[[index|索引]]与本日志。保留工作区其他已有改动。
+- 数据：195条通过基础日期/价格检查，2025-12-31至2026-11-03，末值3875.89。2026-04-05为周日，原始记录保留于证据，未移至其他日期。部分工作日无记录，交易日完整性待核验，标为partial-history，阻止年度统计、布林与回测。指数股息率缺失；程序直连此前403未解除，浏览器批量采集不等于无人值守自动更新。
+- 验证：浏览器导出与本地文件FNV-1a校验一致（2783992524）；10项Python接口测试与12项Node数据/显示测试通过，构建通过。新增测试覆盖浏览器来源及质量标记在成功刷新和403回退时保留，以及不完整历史禁止生成统计和回测。重载既有本地服务后，用户已有页面确认195条、2026-11-03、3875.89及完整性提示；实际刷新返回403后上述数据仍保留。3个Markdown表格检查及8个修改文本的UTF-8检查通过。
+
+
+## 2026-11-04 · 补齐纳指2016—2021历史
+
+- 操作：data / fix；承接用户要求补齐早期历史。
+- 新增：看板`scripts/nasdaq_history.py`、`tests/test_nasdaq_history.py`、`tests/nasdaq-history.browser.mjs`、`data/市场总览/nasdaq100-fred-2016-2021.csv`、`nasdaq100-historical-seed.json`、`nasdaq100-daily-cache.json`及历史说明。
+- 修改：看板`scripts/local_proxy.py`、`src/app.mjs`（补充失败提示）、README、更新日志、构建产物、根索引和本日志；保留已有其他修改。
+- 来源：FRED的NASDAQ100，原提供方Nasdaq；原始下载区间2016—2022，实际初始历史采用2016—2021，1512个有效日线；40个交接交易日与既有WeStock／腾讯数据全部一致。额外2022年比较发现一日差异，详情记录在数据说明；未改写既有2022年点位。
+- 说明：合并后2016-01-04至2026-11-03共2726条，11个自然年；2021由部分样本恢复完整年度。至少20个重叠点、误差容限0.011点，失败不覆盖，成功原子保存，日历与折线共用数据。
+- 验证：16项Python纳指测试、6项前端专项和构建通过；独立Chrome for Testing验证2016—2021各月可选、真实点位一致和高亮，年度与频次均11行。服务重载不新开日常浏览器。
+
+
+## 2026-11-04 · 纳指历史继续扩展至1996年
+
+- 操作：data / extend；用户要求继续补充至1996年。
+- 新增：看板`data/市场总览/nasdaq100-fred-1996-2021.csv`，原2016—2021 CSV保留。
+- 修改：`nasdaq100-historical-seed.json`、`nasdaq100-daily-cache.json`、`nasdaq100-history.md`、`scripts/nasdaq_history.py`、`scripts/local_proxy.py`、相关Python／浏览器测试、README、更新日志、构建产物、根索引和本日志。
+- 来源：FRED NASDAQ100，Nasdaq提供每日收盘点位。新底稿6549条，新增1996—2015年5037条；与原底稿重叠1512条全部一致。缺失交易日空值不填充。
+- 结果：1996-01-02至2026-11-03共7763条、31个自然年。新增年份各有12个月收益；既有年份不改写。
+- 验证：16项Python纳指测试通过；浏览器抽查1996、1999、2000、2001、2002、2008及原年份真实点位、月份选择与高亮；年度回撤卡片和频次表31行。独立Chrome for Testing执行后关闭，服务重载未新开日常浏览器。构建和Markdown表格检查通过。
+
+
+## 2026-11-04 · 年度日历接入历史折线联动
+
+- 操作：feature / UI；按用户要求沿用月度视图概念。
+- 修改：看板`src/app.mjs`、`src/monthly-index-chart.mjs`、`src/styles.css`、`src/changelog.json`、相关月历／折线单元及浏览器测试、README、设计说明、构建产物、根索引和本日志。
+- 新增：`tests/annual-index-chart.browser.mjs`及`.impeccable/review/annual-index-linkage/`真实数据截图与验证记录。
+- 说明：年度卡片选择高亮全年线段，完整历史坐标不变；摘要提供月度详情，保留切换指标／模式的选中状态；年份列表限高滚动，频次表仍在下方。红利读取完整历史，覆盖不足明示，失败可重试；保留工作区中已有ETF口径调整。
+- 验证：32项相关测试、构建通过；独立Chrome for Testing核对真实纳指7763点、31年输入一致，年份高亮／取消、指标／模式保留、月度入口、键盘及1600／1000／390／320px响应式通过，无页面溢出或JavaScript错误。Impeccable检查及桌面／手机截图复核完成。
+
+## 2026-11-04 · 红利信号改用南方515450 ETF
+
+- 操作：feature / data；用户明确要求以南方红利低波50ETF替代标普指数。
+- 新增：面板`scripts/dividend_etf_query.py`、`tests/test_dividend_etf_query.py`、`data/红利信号/南方红利低波50ETF.json`及独立备份。
+- 修改：面板查询分发、标的模块、页面与图表、局部表格样式、构建脚本和产物、接口及前端测试、[[tools/a-share-market-dashboard/README#红利按代码查询接口|接口说明]]、[[index|索引]]与本日志。保留其他工作区变更及旧指数证据。
+- 数据：腾讯已收盘前复权日线1622条，2020-02-26至2026-11-03，最新未复权收盘1.491元；天天基金分红表9条，近365天3次分红共0.055元/份，现金分红率3.6888%。日线与未复权价格日期对齐，盘中排除当日，历史翻页校验重叠价，更新整条复权序列避免新旧比例混合。
+- 口径：515450现在返回ETF而非SPCLLHCP别名；页面旧选择自动迁移，ETF策略键独立，指数缓存继续保留但不进入ETF计算。ETF现金分红率不等于指数股息率；评分阈值未做ETF校准，仅展示参考等级，不显示买卖指令。没有伪造评分历史或开启新定时任务。
+- 验证：16项Python专项及34项前端专项通过，构建成功；实接口515450返回updated及1622条，000922仍返回原93条。实页已显示价格、现金分红、布林轨道、2020—2026年收益月历和月份联动，1710及390px检查无页面横向溢出；发现手机表格日期拥挤后添加局部间距与不换行。Impeccable检测0项反模式，仅有既有配色文档提示。
+- 全量测试边界：运行npm test为262/269通过，7项失败位于build.test.mjs的研报路径、三要素内容、静态布林文案、行业研报、主题导航、跟踪排序断言，以及pricing-deviation.test.mjs的研报结构；本次不扩大修改这些模块。
+
+
+## 2026-11-04
+
+### capture-only / 雪球每日原文抓取（automation-2-20261105T090149）
+
+- 操作：运行当天指定三账号；专用 Chrome for Testing；request-pacing auto；保存入口 content_task.py --capture-only。
+- 修改文件：两路 _task/task.log、本日志及本轮新增原文；未修改调度或 Wiki 索引。
+- 冰冰小美（https://xueqiu.com/u/7143769715，实际发布者 冰冰小美）：候选 3、符合 3、新增 3、已有 0、修订 0、失败 0；覆盖截至 2026-11-05T09:57:39.121000+08:00。
+- 新增原文：[[sources/automations/BBXM每日汇总/2026/11/2026-11-04_150907_8月3750，担忧交易性风险，提示10月后再交易。|2026-11-04_150907_8月3750，担忧交易性风险，提示10月后再交易。]]。
+- 新增原文：[[sources/automations/BBXM每日汇总/2026/11/2026-11-04_141004_翻译贴_|2026-11-04_141004_翻译贴_]]。
+- 新增原文：[[sources/automations/BBXM每日汇总/2026/11/2026-11-04_135040_选举落地，普遍认为民主党90%+压倒性胜利。|2026-11-04_135040_选举落地，普遍认为民主党90%+压倒性胜利。]]。
+- 老木匠整理来源（https://xueqiu.com/u/2573414707，实际发布者 涨知识的小老鼠）：候选 1、符合 1、新增 1、已有 0、修订 0、失败 0；覆盖截至 2026-11-05T09:57:50.032000+08:00。
+- 新增原文：[[sources/automations/老木匠每日汇总/2026-11-02 老木匠直播：注水口、恐慌中的冷静与新手的头五年|2026-11-02 老木匠直播：注水口、恐慌中的冷静与新手的头五年]]。
+- 老木匠新增来源（https://xueqiu.com/u/3058599833，实际发布者 买股票的老木匠）：候选 1、符合 0、新增 0、已有 0、修订 0、失败 0；覆盖截至 2026-11-05T09:57:56.553000+08:00。
+- 校验与边界：站内时间线 HTTP 200 且跨过当天日期下界，详情 HTTP 200 且 truncated=false；旧原文哈希不变；解析 post_renamed 与 correction_of，改名不计新增。仅覆盖各账号抓取时点前可见内容；不覆盖其后发布、不可见或删除内容。老木匠两账号独立计数，保留实际发布者和转述性质。
+- 失败恢复：首次详情读取及两个来源网络请求失败，后经技能页面提取与原域时间线重试恢复；证据保留在两路 _task/failed/ 下本轮目录，不将失败尝试计为最终未解决失败。
+- 后续待办：本轮无人工跟进项；历史2026-10-30冰冰小美缺口未补抓。仅抓取，无汇总、分析及 Timeline 后处理。
+
+
+## 2026-11-05 · 中证红利每日信号
+
+- 操作：automation / signal；实际记录日期按Asia/Shanghai为2026-11-05。AKShare新浪交易日历覆盖至2026-12-31、确认当天交易日，并核对[上交所2026年休市安排](https://www.sse.com.cn/disclosure/announcement/general/c/c_20251222_10802507.shtml)。按用户本轮要求，非交易日跳过业务；未修改调度定义。
+- 修改文件：[[sources/automations/中证红利信号/最新信号|最新信号]]、`sources/automations/中证红利信号/中证红利每日信号.xlsx`、`中证红利年度表现.json`、`评分记录.json`和本日志；后三项均位于同一信号目录。另追加自动化记忆。
+- 新增文件：[[sources/automations/中证红利信号/运行记录/20261105T095733-7ef9705c3f6d.json|本次运行凭证]]；运行前快照与详细核验保存于`.work/zzhl-dividend-signal/audit-20261105-095726-qcrk79y3`。
+- 执行：按任务文件与技能1.3.0使用既有专用Python；2026-11-05T09:57:33.361460+08:00至2026-11-05T09:57:36.605481+08:00、3.2秒、退出码0。依赖正常、无同任务并发；未修改任务、技能、脚本、策略、依赖或索引。CDP预检15秒超时，业务沿用指定公开API成功，无浏览器操作。
+- 信号：估值／国债均2026-11-04；股息率2为4.23%（C）、国债1.6077%、股债倍数2.6310878895（A），综合47.5158962493分、C级等待，策略维持且未触发买入。腾讯2026-11-05早盘-1.18%仅为获取快照；当日收盘估值和国债尚未取得，不作为当天收盘信号。
+- 验证：四份文件可读、9项产物校验和评分复算通过，r5完整参数一致（92／8、C40／B48／A65）；Excel120→121条、今日唯一、全部日期唯一、历史保留；评分420→421条、本次组合唯一、其他记录及20个旧legacy重复组未变。年度000922共19年，官方历史2008-05-26至2026-11-04，月度字段与复合收益核验通过；必要输入、日线和行情快照无缺项，历史分位停用。
+- 边界与后续：上午采用上一交易日估值和国债；按真实来源日期继续跟踪，不将早盘行情称为收盘。无新增正式Wiki页，不调整索引及计数。核对受保护文件哈希不变；交付前检查Markdown表格和UTF-8。
+- 日志补记时间：2026-11-05T09:59:26+08:00。
+- 完成校验（2026-11-05T10:00:13.219583+08:00）：4篇正文文本逐段与详情HTML核对一致；来源元数据、正文版本与文件哈希通过；620个既有文件未变；各账号各有一个结束事件；Markdown表格检查通过。运行开始日固定为2026-11-04，跨日抓取不扩展到11月5日发布内容。
+
+
+## 2026-11-05 · 市场总览资金面日报
+
+- 操作：implement / UI / verify；根据用户提供的Liquidity Dashboard需求，在既有市场总览空卡位接入双市场资金面详情。
+- 修改文件：看板src/index.html、app.mjs、styles.css、changelog.json、scripts/build.mjs、local_proxy.py、tests/build.test.mjs、README和构建HTML；根.gitignore、index.md及本日志。
+- 新增文件：liquidity-dashboard.mjs、liquidity_config.py、liquidity_data.py、liquidity_signals.py、专项前后端测试、资金面说明及.impeccable/review/liquidity-dashboard/验证证据。
+- 说明：免费公开源并行获取，按序列缓存；两市场独立评分与覆盖率、宏观风险提醒、指标历史及规则说明、手机布局与返回恢复。缺失、过期、失败旧缓存不计分；收盘前日线剔除，DXY盘中报价和南向只参考。Wind仅预留相同结构的缓存导入，不读凭证、不冒充自动MCP接入。按用户后续确认，美元强弱使用DXY日收盘20日方向，RRP评分留空、暂不纳入合计。Shibor使用已验证东财公开转发；不以仅沪市余额替代沪深融资总额。
+- 验证：新功能评分/接口/缓存/单位/渲染专项测试通过，卡片占位断言随需求更新，旧综合用例仍因原有红利文案断言失败；桌面1440px和手机390px实页交互、历史展开、刷新错误保留、返回与重载恢复通过，未发现页面脚本错误及整页横向溢出。现场A股4/4、美元口径调整为DXY后美股6个评分项；FRED的WALCL不可用时明确降级。
+- 既有问题：全量回归中的7项前端、1项后端旧研报／主题／红利文案／来源路径失败，已在临时副本移除本次资金面功能后复现，未顺带改动。验证详情见[[tools/a-share-market-dashboard/docs/liquidity-dashboard|资金面日报说明]]。
+
+
+## 2026-11-05 · 资金面日报底部来源说明
+
+- 操作：UI / docs；按用户要求在最底部写清数据从哪里读取。
+- 修改文件：看板src/index.html、liquidity-dashboard.mjs、styles.css、changelog.json、tests/liquidity-dashboard.test.mjs、构建HTML、README、docs/liquidity-dashboard.md；根index.md与本日志。
+- 说明：默认可见的来源板块覆盖全部13项指标，分别列出免费源优先顺序、本次实际来源、观测日、缓存／缺失状态与原始链接；明确本机缓存及Wind仅导入文件的读取方式。刷新失败保留上次来源时明确标注。沿用Impeccable既有蓝灰布局及手机字段布局。
+- 验证：来源展示专项测试、构建、Markdown表格检查及独立Chrome for Testing桌面／手机检查；结果记录于看板.impeccable/review/liquidity-sources/。
+
+## 2026-11-05 · 资金面新增各路资金监测
+
+- 操作：implement / UI / verify；按用户截图增加资金分类观察和赚钱效应，不把截图数值当作实盘数据。
+- 修改文件：看板scripts/liquidity_data.py、src/liquidity-dashboard.mjs、styles.css、changelog.json、tests/liquidity-dashboard.test.mjs、README、docs/liquidity-dashboard.md、构建HTML；根index.md和本日志。
+- 新增文件：scripts/liquidity_monitor.py、tests/test_liquidity_monitor.py及.impeccable/review/liquidity-funding/验证记录。
+- 说明：融资净买入按买入减偿还计算；融资余额占同日流通市值，不预设杠杆区间。超大单／小单为订单规模代理，明确身份边界；展示前次实际日期及60个有效观测分位，不足样本和旧数据不判断。赚钱效应使用乐咕乐股沪深样本，列出上涨比例、上涨／下跌／平盘／总家数和涨跌停，历史从采集起累积。相同请求共用一次响应；来源表扩展为19行。所有新增项不重复加入原评分，RRP留空和DXY口径保持。
+- 数据缺口：ETF申赎尚无经核验的免费聚合序列，当前卡片显示缺失；提供scope／basis严格检查的本地导入，不用成交额、订单流、持有人比例替代。
+- 验证：32项Python及7项JavaScript专项测试通过，实际公共源取数成功（ETF明确缺失），构建通过；独立Chrome for Testing桌面与手机检查四卡片、来源、历史、双市场切换、RRP及失败保留，无脚本错误或整页溢出。Impeccable静态扫描无报告。口径及验证边界见[[tools/a-share-market-dashboard/docs/liquidity-dashboard|资金面日报说明]]。
+
+## 2026-11-05 · ETF申赎接入Wind MCP
+
+- 操作：implement / integration / verify；按用户要求将ETF申赎接入现有Wind MCP，完成真实取数和页面刷新。
+- 新增文件：看板scripts/wind_etf.py、tests/test_wind_etf.py、.impeccable/review/liquidity-wind/验证记录。
+- 修改文件：看板scripts/liquidity_config.py、liquidity_data.py、liquidity_monitor.py、src/liquidity-dashboard.mjs、index.html、changelog.json、tests/liquidity-dashboard.test.mjs、README、docs/liquidity-dashboard.md、构建HTML；根index.md与本日志。
+- 说明：核验fund_get_listed_historical_price的f_mf_netsubamt为申赎净流入额，元转亿元；沪深分开筛选避免1000条截断，每批50只、2批并发，核对同日及完整覆盖。仅依据Wind上市日期排除未上市基金；其他缺项不填零。后台刷新、进度轮询、有限重试及检查点恢复，成功保留完整快照；初始补最新和前次，历史随观测累积，不用当前名单倒填60日历史。ETF单项启用Wind，其余来源及评分保持。
+- 凭证：复用WIND_API_KEY环境变量或用户既有Codex Wind配置，不新增凭证文件；固定MCP地址并拒绝重定向，错误仅输出分类。检查代码、构建HTML和业务缓存均未复制密钥。
+- 实测：名单1370只，因158081.OF于11月5日上市，11月3日／4日实际覆盖1369/1369；申赎净流入分别834.68574895亿元、440.15191775亿元，与逐基金明细求和一致。
+- 验证：43项Python、8项JavaScript测试通过；实际面板28批后台刷新成功，历史展开在轮询中保持，桌面／手机布局及刷新失败保留通过，无脚本错误和整页横向溢出；构建、Impeccable扫描、Markdown表格与UTF-8检查通过。详见[[tools/a-share-market-dashboard/docs/liquidity-dashboard|资金面日报说明]]。
+
+
+## 2026-11-06 · 年度回撤表增加累计回撤次数
+
+- 操作：implement / UI / verify；按用户截图需求，在年度回撤频次表顶部增加累计行。
+- 修改文件：看板src/app.mjs、src/styles.css、src/changelog.json、tests/drawdown-frequency.test.mjs、tests/drawdown-frequency.browser.mjs、README.md及构建HTML；根index.md和本日志。
+- 说明：九档阈值分别汇总表内有效年度次数，展示年份范围、缺失覆盖与含暂估标记；全缺失显示“—”，有效零值保留。累计沿用每年重置口径，不代表跨年连续回撤事件数，各列不可相加；独立浅蓝汇总行不影响年度色阶。
+- 验证：23项回撤／红利月历／纳指日历测试通过，构建通过；独立Chrome for Testing使用隔离临时配置且关闭于finally，1440／390／320px布局、累计数值、键盘焦点与横向滚动检查通过，无整页溢出。已按Impeccable既有视觉约定检查桌面和手机截图，截图使用明确标注的布局测试数据；未新增行情请求。截图保存在看板.impeccable/review/drawdown-frequency/。
+
+
+## 2026-11-06 · 纳指网格金额设置折叠
+
+- 操作：UI / verify；按用户截图将“金额设置”改为默认收起的原生details/summary。
+- 修改文件：看板src/index.html、src/styles.css、src/changelog.json、tests/build.test.mjs、README.md及构建HTML；根index.md和本日志。
+- 说明：沿用既有折叠标题样式，保留输入、重置与状态元素及原事件绑定；点击、Enter和空格支持展开收起，折叠不清空金额。
+- 验证：4项Nasdaq专项测试及构建通过；独立Chrome for Testing在1440／390／320px验证默认收起、鼠标及键盘展开、收起后输入保留、按钮可见和无横向溢出，测试浏览器finally关闭。按Impeccable检查桌面收起与手机展开截图，截图保存在看板.impeccable/review/nasdaq-grid-settings/。
+
+
+## 2026-11-06 · 加仓计划整体折叠
+
+- 操作：UI / verify；按用户补充要求，将“金额设置”更名为“加仓计划”，折叠范围延伸至七档表格末尾。
+- 修改文件：看板src/index.html、src/changelog.json、tests/build.test.mjs、README.md及构建HTML；根index.md与本日志。
+- 说明：金额输入、四张汇总卡片、行情说明和七档表格统一归入原生details，默认收起；保留已有ID和计算、保存、重置绑定。
+- 验证：4项Nasdaq专项测试及构建通过；独立Chrome for Testing在1440／390／320px验证所有区域默认隐藏、一起展开和再次隐藏、七档齐全、键盘切换、输入保留及无整页溢出。按Impeccable检查桌面收起和手机展开截图，测试使用明确标注的缺失行情状态，截图位于看板.impeccable/review/nasdaq-grid-plan/；浏览器finally关闭。
+
+## 2026-11-06 · ETF改为每日早间自动更新
+
+- 操作：implement / schedule / UI / verify；按用户要求将ETF更新调整为每日一次，并明确数据日期与更新时间。
+- 修改文件：看板scripts/wind_etf.py、liquidity_data.py、liquidity_monitor.py、local_proxy.py、src/liquidity-dashboard.mjs、index.html、changelog.json、tests/test_wind_etf.py、test_liquidity.py、liquidity-dashboard.test.mjs、README.md、docs/liquidity-dashboard.md及构建HTML；根index.md与本日志。
+- 说明：创建并核对Codex自动任务etf为启用状态，每天北京时间09:00执行ETF专用入口；每日自动尝试一次，跨进程锁避免与手动刷新重叠，失败保留完整数据。普通访问不再触发Wind取数，前端只读检查缓存；卡片及底部来源表区分交易日与本机最近成功取数时间。任务依赖本机Codex运行，保留手动刷新。
+- 验证：47项Python与9项JavaScript专项测试、构建通过；独立Chrome for Testing桌面与手机检查时间、来源说明、只读轮询及布局，无脚本错误或横向溢出，浏览器在finally关闭。Impeccable检查通过，证据保存在看板.impeccable/review/liquidity-schedule/。详见[[tools/a-share-market-dashboard/docs/liquidity-dashboard|资金面日报说明]]。
+
+## 2026-11-06 · 温度计指标与数据源子栏目
+
+- 操作：implement / UI / document / verify；按用户要求，在温度计侧栏新增“指标与数据源”子栏目。
+- 新增文件：看板src/source-catalog.mjs、tests/source-catalog.test.mjs、docs/source-catalog.md、.impeccable/source-catalog-surface.md及review/source-catalog/验收记录。
+- 修改文件：看板src/index.html、app.mjs、styles.css、liquidity-dashboard.mjs、changelog.json、scripts/build.mjs、README.md与构建HTML；根index.md及本日志。
+- 说明：按当前实现整理77项记录，分市场总览、宏观与风险、红利信号、资金面日报、跟踪与主题、历史计算模块和风险待接入7组。支持搜索、栏目筛选、空结果、清除及键盘操作；手机逐项显示字段标签。复用19项资金面来源与32项待接入风险指标定义，区分同名跨页来源、数据日期与本机取数时间、拟接入渠道与当前来源；未新增取数或修改现有调度。
+- 验证：14项清单／资金面测试及2项构建／导航结构检查通过；独立Chrome for Testing验证1440／390／320px、导航、搜索筛选、折叠、空结果、键盘焦点、页面重载恢复，无脚本错误与整页溢出。API拦截为不可用时清单仍可阅读；浏览器finally关闭。Impeccable独立复核结论ship，文档核对一致，保留既有红利局部设计规范。详见[[tools/a-share-market-dashboard/docs/source-catalog|指标与数据源说明]]。
+
+## 2026-11-06 · 看板Tushare与Wind来源盘点
+
+- 操作：audit / document / spreadsheet；按用户确认范围，仅完成Excel清单与来源规则，未切换实际取数、缓存或调度。
+- 新增文件：tools/a-share-market-dashboard/docs/data-source-policy.md、data-source-audit-2026-11-06.json；outputs/20261106-source-audit/看板数据来源清单-2026-11-06.xlsx。
+- 修改文件：看板README.md、根index.md与本日志。
+- 资料来源：当前源码77项指标清单及8项代码补充、本地tools/tushare-data客户端与MCP注册、Tushare官方接口文档、当前账户17次只读样本、Wind MCP工具发现／EDB元数据及样本。
+- 说明：明确账户接口绝对路径，后续优先Tushare-data、其次Wind MCP，须口径一致；85项含32项待接入设计。40项进入待讨论／核验页，不把未找到、空返回、无权限或口径不同混称为平台没有数据。凭证仅验证是否能解析，不输出、复制或迁移。
+- 核查：Tushare 12次有数据、3次空返回、2次权限不足；ETF日线和复权因子有返回但共享目录尚未封装。Wind返回ETF、NDX与部分宏观样本；估值混合查询误返回成分股的样本已排除。完整历史、盘中接口及部分指标定义仍待验证。
+- 验证：Excel三张工作表完成代表范围视觉检查；85个编号无重复、40项讨论与公式汇总一致；3个筛选表、冻结前8行及3列、243个公式无错误缓存。新增文档／JSON的UTF-8检查通过；本次修改Markdown均执行表格检查。
+- 后续待办：按[[tools/a-share-market-dashboard/docs/data-source-policy|来源规则]]讨论DXY、股息率2、ETF现金分红、实时行情、资金统计及风险设计口径，再另行实施接入。
+
+
+## 2026-11-06 · 来源清单移入看板项目
+
+- 操作：migrate / link；按用户要求，将Excel从outputs/20261106-source-audit/移至tools/a-share-market-dashboard/根目录。
+- 文件：tools/a-share-market-dashboard/看板数据来源清单-2026-11-06.xlsx。
+- 修改文件：看板README.md、docs/data-source-policy.md、根index.md与本日志；保留此前日志中的原始交付位置作为历史记录。
+- 验证：移动前后SHA-256一致，工作簿内容未改变；更新三个当前入口链接，执行四份Markdown的表格检查。
+
+## 2026-11-06 · Tushare跨项目共享行情能力
+
+- 操作：implement / verify / document；按用户新要求，在tools/tushare-data实现首批可复用接口，升级0.5.0至0.6.0。
+- 修改范围：共享客户端、MCP服务、基金/指数辅助入口、数据集配置与测试、SKILL；新增共享行情模块、安装配置、README、工具log与只读验证脚本/结果；更新看板来源规则的实施进展及根index/log。未切换看板运行时来源。
+- 说明：新增6个底层数据集、10个统一历史工具，覆盖ETF日线/复权、国内指数/估值、国际指数、Shibor及成交额/融资/美债/外汇；提供跨年分段、代码身份校验、复权基准和原价保留、同日沪深完整汇总。Python与MCP复用同一逻辑，可通过本地pip编辑安装供其他项目导入。
+- 验证：44项共享库测试和9项看板成交额兼容测试通过；14组真实账户样本通过；跨年ETF687条、SPX715条，日期有序无重复；临时新版环境完成编辑安装，从/tmp导入及stdio发现24个工具。编译检查与Markdown表格检查通过；旧系统pip不支持新安装格式，已说明版本要求，未修改全局环境。
+- 资料：Tushare官方接口文档、此前审计清单和本轮只读返回；不记录凭证。实现、边界和结果详见[[tools/tushare-data/README|共享接口说明]]及[[tools/tushare-data/log|工具变更日志]]。既有未确认/无权限指标继续待讨论，原Excel作为迁移前快照保留。
+
+## 2026-11-06 · Tushare接口文档明确化
+
+- 操作：document / verify；按用户要求，将“首批共享”改成明确的接口分类和完整调用文档。
+- 修改文件：tools/tushare-data/README.md、SKILL.md、log.md；新增docs/api-reference.md、docs/api-schema.json；根index.md与本日志。
+- 说明：说明Python/MCP接入与HTTP尚未提供；10个行情接口逐项列参数、返回字段、单位、代码规则与示例，补充底层客户端和原14个MCP工具的参数/结果差异。声明快照由现有源码生成，覆盖23个数据集及24个工具。
+- 验证：接口名称、章节数量与代码声明核对通过；Python/JSON示例解析通过；本次Markdown表格与UTF-8检查。未修改业务代码，版本维持0.6.0。入口为[[tools/tushare-data/docs/api-reference|API接口文档]]。
+
+## 2026-11-06 · 看板Tushare Python接口替换
+
+- 操作：implement / verify / document；按用户授权将看板可覆盖的日线输入切换到tushare-data共享Python；更新原Excel清单。
+- 修改文件：看板代理、ETF/指数日线适配、资金面配置、前端来源、相关测试、构建HTML、README、来源规则、资金面与清单说明、Excel、index.md。
+- 新增文件：`tools/a-share-market-dashboard/scripts/shared_market_data.py`、对应测试、`docs/tushare-migration.md`及实际取数/HTTP验证JSON。
+- 验证：13项清单记录已替换或部分替换，14组账户实际取数成功，运行中159941与000922接口HTTP 200；65项Python及74项相关前端测试通过，构建成功。扩展代理测试67/68、全量前端278/286；无关历史资料/布局断言失败单列记录。
+- 边界：159941改为已收盘日线最高价；未覆盖指标保留原源待讨论，未启用32项设计；Excel保留3个工作表、手工决策与初次证据。详见 [[tools/a-share-market-dashboard/docs/tushare-migration|迁移记录]]。
+
+## 2026-11-06 · 修正来源清单表格字段名
+
+- 操作：repair / document；用户截图仍显示“当前来源（未切换）”。核对发现D8单元格已更新，但Excel原生表格字段名仍保留旧值。
+- 修改文件：`tools/a-share-market-dashboard/看板数据来源清单-2026-11-06.xlsx`、本日志；索引入口不变。
+- 修正：同步SourceInventory字段名为“当前实际来源”，保留表格名称、范围、样式、数据、公式和手工备注。515450现金分红率当前为Tushare未复权收盘价加原东方财富现金分红记录。
+- 验证：导出后的表格字段与单元格标题一致；单元格内容及公式、冻结窗格、验证规则和合并区域核对。
+
+
+## 2026-11-06 · 看板回撤统计折叠与单日跌幅次数
+
+- 操作：UI / feature；用户要求将年度回撤频次表移入可折叠板块，新增单日跌幅超过5%、8%、10%的类似统计。
+- 修改文件：`tools/a-share-market-dashboard/src/app.mjs`、`src/styles.css`、`src/changelog.json`、`tests/drawdown-frequency.browser.mjs`、README、构建HTML、根索引与本日志；新增`tests/daily-drop-frequency.test.mjs`、`tests/drawdown-statistics.browser.mjs`（短路径均相对看板目录）。
+- 说明：年度回撤视图新增默认收起的“回撤统计”，保留原年度九档表，新增单日三档热力表与累计；按自然年归属，跨年延续上次可用收盘价，严格大于阈值，不计盘中点。缺少前值或相邻样本超过7天跳过，展示已比较日数；缺失不当零。复用已有日线，没有新增网络请求。按标的保留本次页面展开状态，三档表在手机上完整显示。
+- 验证：10项专项单元测试通过，构建通过；真实本地纳指1996—2026样本31年累计61/8/2次，浏览器1440/390/320宽度、键盘折叠、切指标状态保持、页面无溢出及无错误通过。Impeccable局部UI审阅ship。全量292项中284通过、8项导航/研报/持仓等检查失败（见`/tmp/drawdown-dashboard-tests.log`）；未扩展修改这些模块，不宣称全量通过。
+- 导航：沿用现有看板入口，更新根索引的回撤统计说明；无正式知识页新增。
+
+## 2026-11-06
+
+### 看板Wind直接采集与来源迁移
+
+- 操作：implement / audit。
+- 新增文件：`tools/a-share-market-dashboard/scripts/wind_data.py`、`tests/test_wind_data.py`、`docs/wind-migration.md`、`docs/wind-migration-2026-11-06.json`。
+- 修改文件：看板 `scripts/wind_etf.py`、`scripts/liquidity_data.py`、`scripts/local_proxy.py`，风险指标／风险大屏／来源清单／资金面／app前端模块，相关测试、README、来源规则与清单说明、构建HTML；根 `.gitignore`、`index.md`、`log.md`。
+- 资料来源：用户Excel来源清单；Wind MCP实际只读返回；既有Wind ETF缓存。原Excel未修改。
+- 说明：Python直接调用Wind固定工具，不依赖AI客户端；26项中24项完成接线，存款准备金率用户暂缓，S0059749无权限保留旧源。风险ETF改为Wind日度直接申赎并复用原09:00缓存；RRP评分仍留空。南向人民币口径不拼接旧源。
+- 验证：新采集器14项宏观实际取数成功；纳指两次样本201日重叠收盘一致，保留7971日Wind历史缓存。其后Wind返回402积分不足，停止联网重试；PE生产缓存和RRP新缓存未完成验收。保留样本以旧值展示并明确日期与入库时间。
+- 测试：首轮69项相关Python测试、22项前端测试通过；补充固定只读HTTP接口后Wind专测9项通过。构建成功；较大build测试43项中36项通过、7项失败，涉及既有归档／报告内容、卡片数量、旧导航数量等断言，不作为本次通过项。
+- 后续：恢复Wind积分后运行迁移说明中的直连命令；中国10年国债需另有指标权限；不自动充值、不改变评分规则。
+
+- 本轮界面验收：独立Chrome for Testing检查1440／390px风险指标、ETF日度口径、准备金率待接入和来源筛选，均通过；无脚本错误与整页横向溢出。成功重启当前本地面板服务，未额外发起Wind数据查询。
+
+- 最终相关回归：70项Python测试及22项前端测试通过；Markdown表格与变更空白检查通过。
+
+
+## 2026-11-06 · 单日回撤事件明细页
+
+- 操作：UI / feature；用户要求单日回撤次数点击详情参照提供图片，并明确保留截图估值与成因，标注“参考图估算／事件归纳”。
+- 新增：看板`src/daily-drop-detail.mjs`、`src/daily-drop-reference.mjs`、`tests/daily-drop-detail.test.mjs`、`.impeccable/daily-drop-detail-surface.md`；原始参考图保存至[[sources/screenshots/2026-11-06-纳指单日回撤明细参考.png|纳指单日回撤明细参考图]]，文件哈希与用户原图相同。
+- 修改：看板`src/app.mjs`、`src/styles.css`、`scripts/build.mjs`、`src/changelog.json`、`tests/daily-drop-frequency.test.mjs`、`tests/drawdown-statistics.browser.mjs`、README、构建HTML、根索引与日志。
+- 说明：累计／年度次数进入对应阈值及年份的详情，支持5%／8%／10%筛选、年份选择、空态及返回原入口焦点；价格与后1／5／250交易日收益重算，距高点为可用样本内截至当日的最高收盘回撤。与频次共用严格阈值和缺失处理，不增加网络请求。61条估值／事件注释仅匹配纳指日期，显著标注参考图重建估算与事后归因；全样本分位包含事后信息，不能作为当时可得交易信号；非纳指及新日期显示缺失。
+- 验证：27项计算／日历相关测试通过；浏览器验证61／8／2条累计、年度入口、零事件空态、年份与阈值切换、返回焦点、1920／390／320宽度、表内双向滚动及无页面错误。独立Impeccable局部审阅ship，文档审阅确认继承现有设计系统；仅修正非纳指缺失提示。完整测试298项中290通过，8项失败名称与此前一致，集中于导航／研报／持仓，未声明全量通过；日志`/tmp/daily-drop-detail-full-tests.log`。UTF-8、Markdown表格、源码语法与构建均检查。
+- 导航：根索引补充数字点击进入明细说明；未新增正式知识页面。
+
+
+## 2026-11-06：回撤统计调整为同级入口
+
+- 操作：UI 层级修正。
+- 修改文件：`tools/a-share-market-dashboard/src/app.mjs`、`src/index.html`、`src/styles.css`、`src/changelog.json`、相关测试、构建 HTML、README、界面说明与 `index.md`。
+- 说明：三个标的的回撤统计均移至与年度收益与历史统计同级的独立折叠区；保留年度／单日统计及明细，已有日线读取支持独立展开。
+- 验证：27 项相关测试通过；完整页面验证年度区收起后仍可进入统计，61/8/2 次阈值统计与详情筛选一致，1440/390/320 像素无页面溢出、无浏览器脚本错误。
+
+## 2026-11-06：看板增加Yahoo行情并同步Excel
+
+- 操作：数据源接入与清单更新。所属为`tools/a-share-market-dashboard`工程，不新增正式Wiki知识页。
+- 新增文件：`scripts/yahoo_data.py`、`tests/test_yahoo_data.py`、`docs/yahoo-migration.md`及逐项迁移、联网字段验证、HTTP验证JSON。
+- 修改文件：看板`local_proxy.py`、`liquidity_data.py`、`dividend_etf_query.py`、`wind_data.py`；来源清单、资金面、风险指标、风险屏及ETF发放日文案；相关测试、changelog、README、来源规则/来源清单/资金面/Wind文档、构建HTML、原85项Excel、`.gitignore`、根索引与本日志。
+- 说明：按用户授权保留已有Tushare，12条记录全部或部分使用Yahoo，包括纳指历史/统计、VIX、DXY、风险大屏USD/CNY和USD/JPY、沪深报价、中证红利参考报价、515450现金分红及默认福贵查询报价。固定证券身份、币种、日线频率与时区检查；排除未收盘日，报价可能延迟。Yahoo报价与Wind估值独立，保留原宏观/ETF调度。
+- 数据证据：Yahoo纳指7,763条已收盘日线（1996-01-02至2026-11-05），纯Yahoo重算，不与旧Wind/FRED序列拼接；515450的9次除息日/每份金额与原基金分红记录一致，发放日为缺失。布伦特期货不替代现货，价格/成交量不替代宏观与资金流。ETF分母与其他Tushare日线保持原接口。
+- 验证：90项Python、21项前端针对性测试通过，构建通过；运行服务的7个HTTP检查成功，资金面VIX/DXY返回Yahoo，已有美债、SPX、Shibor、融资与沪深300仍返回Tushare。更广代理检查中的既有报告404与本次无关；未宣称全量测试通过。Excel公式错误扫描为0，原3页、85项、公式、冻结、校验、条件格式、手工决策和历史证据保留，原生表头同步；新增Yahoo适用性列，14项风险设计未接入、34项需核验，原40条讨论历史保留。
+- 运行：只重启已确认身份的本地面板服务，沿用49888/49889端口，未打开新的浏览器实例。原数据源历史文件保留，Yahoo缓存加入忽略规则。
+
+## 2026-11-06：看板停用Wind MCP并清除优先源
+
+- 操作：按用户“去掉windmcp的优先源标识，不用wind mcp了”停用本项目Wind；不卸载全局MCP、不删除凭证或历史证据。
+- 修改：`tools/a-share-market-dashboard/scripts/liquidity_config.py`、`liquidity_data.py`、`wind_etf.py`、`wind_data.py`、`local_proxy.py`；风险/资金面/来源前端、相关测试、构建HTML、changelog、README及来源文档、原Excel、根索引和日志。
+- 新增：`tests/test_wind_disabled.py`、`docs/wind-disabled.md`及逐项更新、实际HTTP核验JSON。
+- 行为：Tushare和Yahoo保留；Wind传输在读凭证/联网前拒绝，风险接口只返回3项Yahoo，原Wind观测不展示，纳指PE保持缺失。RRP恢复纽约联储/FRED，WALCL恢复FRED，南向恢复东财；不拼接Wind历史。ETF无替代源时保持缺失，手动刷新不启动Wind。Codex任务`etf`通过自动任务工具改为PAUSED，任务定义保留。
+- 验证：72项Python、18项前端检查及构建通过，两个Wind命令入口返回disabled；重启已确认身份的本地服务后，5个HTTP接口验证通过，返回内容无Wind来源。RRP、南向原源成功；WALCL本次FRED失败如实缺失。72项测试包含5项新增停用保障，既有Wind解析测试在显式假数据环境启用，不发网络请求。
+- Excel：更新23条，E列无Wind推荐，H列改为“历史Wind核验（已停用）”；85条/3页、原公式、冻结、校验、条件格式、手工决策与历史证据保留，原生表头同步，公式错误扫描0项。风险待接入29项，当前需核验49项；原40条讨论页作为历史记录保留。
+
+
+## 2026-11-06
+
+### clarify / 看板指标名称
+
+- 操作：按用户要求将看板和当前来源清单的指标名称统一为“市场涨跌分布”，直接展示上涨、下跌、平盘及涨跌停家数；旧缓存来源名称仅在显示时转换，数据计算与历史记录不变。
+- 修改文件：tools/a-share-market-dashboard 下 src/liquidity-dashboard.mjs、src/source-catalog.mjs、src/changelog.json、tests/liquidity-dashboard.test.mjs、README.md、docs/data-source-policy.md、docs/liquidity-dashboard.md、a-share-market-dashboard.html、看板数据来源清单-2026-11-06.xlsx；index.md、log.md。
+- 验证：15项相关前端测试、构建与 Impeccable 文案检测通过；Excel原公式、表格、冻结、合并、校验、条件格式、手工决策及核查记录保留，已检查修改前后预览。
+
+
+## 2026-11-06
+
+### 接入 / Tushare融资占流通市值
+
+- 操作：按用户要求增加共享Python get_market_margin_ratio并切换看板cn_margin_ratio；分子margin、分母daily_info.float_mv，同日沪深完整配对，分母含B股、排除北交所。旧东财缓存不混用，已备份原缓存。
+- 修改文件：tools/tushare-data的共享客户端、行情服务、MCP版本、配置、测试、安装说明、SKILL、接口文档与工具日志；tools/a-share-market-dashboard的共享适配器、资金面取数及说明、前端来源文案、更新记录、测试、HTML、来源政策、Excel第49行；index.md、log.md。
+- 新增文件：tools/a-share-market-dashboard/docs/tushare-margin-ratio-2026-11-06.json，记录真实账号样本覆盖、最新完整日期和缺失输入。
+- 验证：47项共享库、42项看板Python、15项前端测试和构建通过；真实历史528个完整观测日，本机接口11月5日2.50%，来源Tushare。Excel保留85项，待核验48项，原公式／格式／历史记录与手工决策通过比对。
+- 边界：11月6日融资尚未返回，不生成当天比例；daily_basic逐股样本少7只，不作为生产分母；原东财统计不视为同口径可拼接历史。
+
+
+## 2026-11-07
+
+### 接入 / ETF份额变化与净值估算
+
+- 操作：用户授权ETF申赎采用份额变化×净值，并选择股票型含港股通、排除QDII；工作自11月6日开始，跨日完成。共享Python新增get_etf_flow_estimate，看板使用独立etf-estimate缓存，Wind保持关闭。
+- 修改文件：tools/tushare-data的客户端、共享行情服务、MCP版本、安装配置、数据集配置、接口说明／Schema／SKILL／日志及测试；tools/a-share-market-dashboard的liquidity_config.py、liquidity_data.py、src/liquidity-dashboard.mjs、source-catalog.mjs、risk-indicators.mjs、changelog.json、HTML、README、来源规则、Wind停用说明、资金面说明、Excel及相关测试；index.md、log.md。
+- 新增文件：tools/tushare-data/scripts/tushare_etf_flow.py、tests/test_etf_flow.py；tools/a-share-market-dashboard/scripts/etf_estimate.py、tests/test_etf_estimate.py、docs/etf-estimate-2026-11-06.json。
+- 结果：11月5日有效样本1530/1531、113.63亿元；拆分／分红复权异常基金单列，上市日期不明名单和首日排除，非全市场合计。原始输入为Tushare转供，未直接采集交易所PCF；估算非现金实际到账额。
+- 验证：共享库53、看板Python50、前端20项测试及构建通过；本机服务与只读ETF接口返回正确估算；独立Chromium桌面／手机检查无横向溢出，异常名单可展开；Excel公式、格式、手工决策和历史核查保留。
+- 边界：完整公司行为事件库与未知上市日期仍待核实；新版Tushare ETF接口权限不足，使用账号已可取的fund_share、fund_nav、fund_basic、trade_cal。风险大屏ETF项仅更新来源说明，仍待接入；旧自动任务继续暂停，估算随看板刷新。
+
+
+## 2026-11-07 · 中证红利每日信号：休市跳过
+
+- 操作：automation / skip；本轮检查时间 2026-11-07T17:38:03+08:00（Asia/Shanghai），实际日期为周六。按用户“非交易日不要运行任务”的明确要求，优先于任务文件的休市日照常运行约定，未执行每日业务脚本、联网取数或补跑。
+- 修改文件：本日志；同步自动化记忆。未更新三份固定信号输出及评分记录，不新建当天信号行或业务执行凭证；策略、技能、依赖、索引与调度定义未修改。
+- 本地核验：专用 Python 可执行，akshare、pandas、openpyxl 可导入，脚本和默认策略文件存在；三份固定输出及评分记录可读。工作簿最新记录日期为2026-11-05且该日1条，既有有效记录日期无重复；2026-11-06及本日均0条，两日均未发现运行凭证。
+- 既有结果：[[sources/automations/中证红利信号/最新信号|最新信号]]仍为11月5日记录，估值与国债均来自11月4日；股息率2为4.23%（C），国债1.6077%，股债倍数2.6310878895（A），r5综合47.5158962493分、C级等待。腾讯11月5日-1.18%为旧早盘快照；这些均非本日新数据。
+- 验证边界与后续：本轮为休市跳过，不是每日业务执行成功；未联网核验数据源新鲜度。11月6日的执行情况缺少本地产物和凭证，原因待验证；下一交易日继续按实际北京时间检查，不因自动化上次唤起时间而推定已完成。无正式Wiki页面新增，索引不变。
+
+
+## 2026-11-07
+
+### capture / 雪球仅抓取（目标日 2026-11-06）
+
+- 操作：执行 `automation-2-20261107T091335`，保留启动时上海目标日，跨日执行不改变筛选；三个账号独立核对，专用 Chrome for Testing/CDP 与自动降频。
+- 修改文件：两路固定 `_task/task.log`、本日志；新增冰冰小美原文9篇，保存于 `sources/automations/BBXM每日汇总/2026/11/`，老木匠根目录未新增原文。
+- 计数（候选／符合／新增／已有／修订／失败）：7143769715=9／9／9／0／0／0；2573414707=0／0／0／0／0／0；3058599833=0／0／0／0／0／0。老木匠两账号均无目标日符合标题条件的资料。
+- 来源与覆盖：https://xueqiu.com/u/7143769715（实际发布者 冰冰小美），截至 2026-11-07T09:29:44.818000+08:00；https://xueqiu.com/u/2573414707（实际发布者 涨知识的小老鼠），截至 2026-11-07T09:29:52.896000+08:00；https://xueqiu.com/u/3058599833（实际发布者 买股票的老木匠），截至 2026-11-07T17:16:32.212000+08:00。三个非空时间线均越过目标日下界，排除历史置顶；仅处理11月6日发布时间，不含后来发布、删除或不可见资料。
+- 完整性与去重：9篇详情 HTTP 200、truncated=false；保留发布时间、实际抓取时间、来源URL／ID、发布者、来源性质及正文版本哈希，图片／表情／股票链接均保留。已解析 post_renamed 与 correction_of 路径，改名不计新增；原有624份来源文件哈希不变。
+- 保存边界：三个 `content_task.py --capture-only` 入口均在来源目录外临时执行，按现存原文与固定日志重建去重状态；最终仅发布原文。未生成汇总、分析、Timeline、Wiki页面、索引、Excel、技能或调度变更。
+- 验证与跟进：新增原文逐份表格检查已通过；本日志及自动化记忆随收尾一并检查。当前无失败或人工跟进；历史10月30日冰冰小美覆盖缺口未在本轮补抓。
+
+
+## 2026-11-08 · 中证红利每日信号：休市跳过
+
+- 操作：automation / skip；本轮检查时间 2026-11-08T17:43:20+08:00（Asia/Shanghai），实际日期为周日。遵照用户“非交易日不要运行任务”，跳过每日业务脚本及联网取数；不补跑此前日期，不生成当天信号行或业务执行凭证。
+- 修改文件：本日志；同步自动化记忆。三份固定信号输出、评分记录、策略参数、技能、脚本、依赖、索引与调度定义保留。
+- 本地核验：专用 Python 可执行，akshare 1.19.1、pandas 3.0.6、openpyxl 3.1.5 可导入；任务文件、技能、脚本及默认策略存在，未发现正在运行的同任务进程。三份固定输出及评分记录可读；年度 JSON 的 indexCode 为000922、rows 共19年。
+- 既有结果：[[sources/automations/中证红利信号/最新信号|最新信号]]仍为2026-11-05记录，估值与国债均为11月4日；股息率2为4.23%（C），国债1.6077%，股债倍数2.6310878895（A），策略r5综合47.5158962493分、C级等待。腾讯11月5日-1.18%为旧早盘快照，均不代表本日新数据。
+- 记录完整性：工作簿共121条，最新记录日期恰好1条，所有有效记录日期无重复；11月6日、7日及本日均无信号行或运行凭证。评分记录共421条；本轮未做联网新鲜度或业务评分复算。
+- 验证边界与后续：本轮结果为休市跳过，不能视为业务执行成功。11月6日缺少本地执行结果的原因仍待验证；下个交易日继续按实际北京时间日期执行既有任务并核对来源日期。未新增正式Wiki页面，索引不变。
+
+
+## 2026-11-09
+
+### capture-only / 雪球抓取中断收尾（automation-2-20261107T215945）
+
+- 目标日期：2026-11-07（保留启动时的上海日期），抓取快照来自 11 月 7 日；本次仅收尾，不代表 11 月 9 日覆盖。
+- 保存入口：content_task.py --capture-only，临时状态在来源目录外；专用 Chrome for Testing，自动降频。
+- https://xueqiu.com/u/7143769715（实际发布者 冰冰小美）：候选 2、符合 2、新增 2、已有 0、修订 0、失败 0；覆盖截至 2026-11-07T22:00:53.717000+08:00。
+- 新增原文：[[sources/automations/BBXM每日汇总/2026/11/2026-11-07_172702_最近帖子不要单独看。连起来看。这里讲的是宏观预期，景气度，流动性，投资与融资，最终市场愿意交易什么的|2026-11-07_172702_最近帖子不要单独看。连起来看。这里讲的是宏观预期，景气度，流动性，投资与融资，最终市场愿意交易什么的]]。
+- 新增原文：[[sources/automations/BBXM每日汇总/2026/11/2026-11-07_092201_说说东山精密的一些变化，|2026-11-07_092201_说说东山精密的一些变化，]]。
+- https://xueqiu.com/u/2573414707（实际发布者 涨知识的小老鼠）：候选 0、符合 0、新增 0、已有 0、修订 0、失败 0；覆盖截至 2026-11-07T22:01:02.702000+08:00。
+- https://xueqiu.com/u/3058599833（实际发布者 买股票的老木匠）：候选 None、符合 None、新增 0、已有 0、修订 0、失败 1；覆盖截至 未确认。
+- 修改文件：新增原文、两路固定 _task/task.log、项目 log.md；失败证据在老木匠来源 _task/failed/automation-2-20261107T215945。
+- 校验与边界：解析 post_renamed 链并核对来源 ID、正文版本，改名不计新增，既有原文哈希不变。冰冰小美两篇详情 HTTP 200、truncated=false；2573414707 有效时间线跨过目标日期下界。3058599833 返回非 JSON 验证脚本，候选与覆盖未知，不记无帖。仅覆盖已取得快照中的可见内容，不覆盖其后发布、不可见或删除内容。
+- 后续待办：在专用浏览器检查访问验证，补抓 2026-11-07 来源 3058599833。未执行汇总、分析、Timeline、Wiki 建页、索引、Excel、技能或调度修改。
+
+
+## 2026-11-09 · 中证红利每日信号
+
+- 操作：automation / run；按实际北京时间日期2026-11-09执行。AKShare新浪交易日历覆盖至2026-12-31并确认当天交易日，与[上交所休市安排](https://www.sse.com.cn/disclosure/dealinstruc/closed/)相符；遵守用户要求，非交易日跳过业务，未修改任务文件或调度。
+- 修改文件：[[sources/automations/中证红利信号/中证红利每日信号.xlsx|每日信号工作簿]]、[[sources/automations/中证红利信号/最新信号|最新信号]]、[[sources/automations/中证红利信号/中证红利年度表现.json|年度表现]]、[[sources/automations/中证红利信号/评分记录.json|评分记录]]及本日志；同步自动化记忆。新增本次[[sources/automations/中证红利信号/运行记录/20261109T103220-3e622649ac3e.json|运行凭证]]与.work核验副本。
+- 执行：使用既有任务、技能1.3.0及专用Python，akshare/pandas/openpyxl依赖正常，无同任务并发；2026-11-09T10:32:20.003633+08:00至10:32:28.351361+08:00、耗时8.3秒，退出码0，凭证success／校验完成。web-access联网预检通过，未操作浏览器页面。
+- 数据与结论：估值／国债均为2026-11-06；股息率2=4.28%（C），国债1.5868%，股债倍数2.6972523317（A），利差2.6932个百分点；策略dividend-two-factor-v2-r5综合48.4782414923分、B级观察，较上次C级变化，不触发买入。腾讯2026-11-09的+0.41%为获取时盘中快照；当日收盘估值／国债未取得，不能称11月9日收盘信号。
+- 验证：四文件可读，9项输出校验和分数／贡献复算通过；权重92%／8%、全部锚点及C40/B48/A65分界与权威配置一致。Excel121→122条，当日唯一、全部记录日期无重复、原121条逐项保留；评分421→422条，本次估值日／版本组合唯一，其他记录保留。既有20个历史重复组与运行前一致，本轮未清理，不能据此宣称评分全库已去重。
+- 历史覆盖与缺口：年度指数000922共19年，来源中证指数官网，2008-05-26至2026-11-06；月度字段齐全，往年数据逐项保留，未发生回退日线缩短起点。必要输入、日线和行情快照无缺项，历史分位停用。此前11月6日缺少记录／凭证的原因仍待验证，本轮不补造该日执行过程。
+- 维护边界：未新增正式Wiki页面，索引不变；任务、技能、脚本、策略、依赖、索引及调度等26份保护文件哈希未变。核验目录：.work/zzhl-dividend-signal/audit-20261109-103211-hk356u7q，详细比较见verification.json；收尾执行Markdown表格、UTF-8与最终产物读回检查。
+- 本轮记录时间：2026-11-09T10:33:57+08:00（Asia/Shanghai）。
+
+
+## 2026-11-09
+
+### 看板纳斯达克100估值接线理杏仁
+
+- 操作：按用户指定改用理杏仁提供 PE-TTM 与近十年分位；统一市值加权字段、日期与百分比单位，不拼接旧Wind估值。
+- 修改文件：看板代理、来源目录、配置示例、测试、构建页面、README、来源规则、Wind停用说明、更新日志与Excel来源清单；新增 `scripts/lixinger_data.py`、`tests/test_lixinger_data.py`、[[tools/a-share-market-dashboard/docs/lixinger-valuation|接口文档]]及[[tools/a-share-market-dashboard/docs/lixinger-verification-2026-11-09.json|验证记录]]，更新索引。
+- 验证：28项相关Python测试、6项前端测试与构建通过；本地服务重启，行情仍返回，估值准确提示理杏仁Token未配置；Excel公式、表格、冻结窗格、合并与校验规则及历史手工决策保留。旧兼容行情测试入口同步修正。
+- 边界：环境及看板配置中没有理杏仁Token，账号权限和.NDX两个字段实际返回未验证；清单明确为接口已接线、待配置验证，未填造估值或分位。正式Wiki知识页未增加。
+
+
+## 2026-11-09
+
+### 来源Excel移除本地计算与本地资料
+
+- 操作：按现有分类移除3项本地计算、6项本地资料；来源清单85→76项，需讨论／核验48→46项，待接入设计仍29项；待讨论页移除对应2项，保留38项。
+- 修改文件：[看板数据来源清单](tools/a-share-market-dashboard/看板数据来源清单-2026-11-06.xlsx)、[[tools/a-share-market-dashboard/docs/data-source-policy|来源规则]]、索引及本日志。看板取数和本地业务功能未修改。
+- 验证：工作簿重新计算及导出后读回，剩余条目逐项一致，跨表公式对应同一稳定编号，手工决策与核查记录保留，未出现引用或计算错误；已检查修改前后预览。原工作簿备份位于本轮工作目录。
+
+
+## 2026-11-09
+
+### 南向净买入切换Tushare及超大单／小单权限复核
+
+- 操作：tushare-data升至0.9.0，新增ggt_daily与get_southbound_flow共享Python；看板默认南向切换该接口，买入减卖出，旧东财缓存排除、同源失败保留原日期。
+- 修改：共享客户端、行情服务、注册配置、MCP版本及测试；看板shared_market_data、liquidity_data、liquidity_signals、来源文案、测试与构建；README、SKILL、API文档与schema、来源规则、Wind停用说明、索引、工具日志及Excel。正式Wiki知识页未增加。
+- 验证：共享55项、看板Python39项、前端16项与构建通过；实际返回510条，最新2026-11-06买入295.52、卖出256.44、净买入39.08。服务重启后/api/liquidity确认Tushare来源和同日读数；金额沿用接口亿元，具体币种仍待核验。Excel总计76项、需核验46项不变；公式、表格、冻结、校验、手工备注及历史证据保留。
+- 权限：moneyflow_mkt_dc实测无权限，超大单／小单继续东财；moneyflow个股样本可读，但逐股聚合的覆盖与等价性未核验。未将个股样本当全市场数据。详细结果见[[tools/a-share-market-dashboard/docs/tushare-southbound-2026-11-09.json|本次验证记录]]。
+
+
+## 2026-11-09 · 超大单／小单切换AKShare
+
+- 操作：接口替换与来源清单同步。两项使用AKShare stock_market_fund_flow，上游东方财富；金额元转亿元，仅已收盘日，两卡共用请求，25秒进程超时，旧直连缓存隔离。
+- 文件：新增scripts/akshare_data.py、requirements-akshare.txt、接口说明与验证JSON；更新liquidity_monitor.py、liquidity_data.py、来源文案、测试、README、相关说明、构建HTML及原Excel；独立依赖环境已安装且排除版本控制。
+- 验证：36项Python、16项前端测试及构建通过；实测120日，最新2026-11-06超大单−233.20358912亿元、小单479.14582016亿元；重启后/api/liquidity两项均ok。Excel76项，需核验46→44项；公式、表格、冻结、条件格式、数据校验、手工决策和旧证据保留。
+- 资料：[[tools/a-share-market-dashboard/docs/akshare-market-flow|接口文档]]、[[tools/a-share-market-dashboard/docs/akshare-market-flow-2026-11-09.json|实测记录]]；更新根索引，不新增正式Wiki知识页。
+
+
+## 2026-11-09 · 主力资金切换AKShare
+
+- 操作：沿用用户指定stock_market_fund_flow，主力与超大单／小单共用一次读取；删除主力旧直连入口，隔离旧缓存，保留近5交易日合计评分。
+- 文件：akshare_data.py、liquidity_monitor.py、liquidity_data.py、liquidity-dashboard.mjs、相关测试、构建HTML、README、来源规则、接口文档、验证JSON、Excel和根索引。
+- 验证：37项Python、16项前端测试和构建通过；服务重启后主力状态ok，120日数据，最新2026-11-06单日−524.9726464亿元、近5日−393.289728亿元。Excel76项、需核验43项，历史证据和手工备注保留。
+- 来源：[[tools/a-share-market-dashboard/docs/akshare-main-flow-2026-11-09.json|主力验证记录]]；正式Wiki页面数量未变。

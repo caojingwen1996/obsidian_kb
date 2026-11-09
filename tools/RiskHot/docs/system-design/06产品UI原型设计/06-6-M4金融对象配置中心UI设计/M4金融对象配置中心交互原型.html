@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+ <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light">
+ <meta http-equiv="Content-Security-Policy" content="default-src 'self' file:; script-src 'self' file:; style-src 'self' file:; img-src 'self' file: data:; connect-src 'none'; object-src 'none'; base-uri 'none'">
+ <title>RiskHot · 金融对象配置中心交互原型</title>
+ <link rel="stylesheet" href="原型资源/styles.css">
+ <script defer src="原型资源/model.js"></script><script defer src="原型资源/app.js"></script>
+</head>
+<body>
+ <a class="skip" href="#main">跳到主要内容</a>
+ <aside id="sidebar" class="sidebar" aria-label="产品导航"></aside>
+ <div class="workspace">
+  <header class="topbar"><div class="breadcrumb"><span id="section-path">RiskHot / 配置 /</span><h1 id="module-title">金融对象配置中心</h1></div><button class="quiet" id="refresh-view" type="button">刷新视图</button></header>
+  <main id="main" tabindex="-1">
+   <div class="prototype-bar"><span>交互原型 · 演示数据，不连接正式系统</span><details id="prototype-tools"><summary>原型场景</summary><div class="prototype-options"><label for="demo-role">演示角色</label><select id="demo-role"><option value="all">全部操作职责</option><option value="config">仅配置维护</option><option value="observe">仅观察管理</option><option value="mapping">仅映射核定</option><option value="read">只读</option></select><label for="demo-scenario">验证场景</label><select id="demo-scenario"><option value="normal">正常数据</option><option value="empty-config">空配置目录</option><option value="empty-observation">空观察清单</option><option value="load-error">读取失败</option><option value="restricted">部分来源不可读</option><option value="partial">添加观察部分失败</option><option value="unknown">添加观察结果未确认</option><option value="conflict">编辑版本变化</option></select><button class="secondary" type="button" id="reset-demo">重置演示数据</button><p>操作仅保存在当前页面内存；刷新浏览器恢复基线。角色与异常用于演示交互，不代表正式权限校验。</p></div></details></div>
+   <section id="feedback" class="feedback" role="status" tabindex="-1" hidden></section>
+   <div id="content"></div>
+  </main>
+ </div>
+ <dialog id="modal" aria-labelledby="modal-title"></dialog>
+</body>
+</html>

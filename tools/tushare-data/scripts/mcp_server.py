@@ -2,13 +2,13 @@
 
 import json
 import sys
-import traceback
 
 from tushare_client import DATASETS, TushareClient, TushareClientError, tushare_date
+from tushare_market_data import MarketData, market_tools
 
 
 SERVER_NAME = "tushare-data"
-SERVER_VERSION = "0.5.0"
+SERVER_VERSION = "0.9.0"
 CENTRAL_HUIJIN_DEFAULT_KEYWORDS = ("中央汇金",)
 DEFAULT_USD_JPY_CODE = "USDJPY.FXCM"
 DEFAULT_USD_JPY_RISK_THRESHOLD = 160
@@ -293,7 +293,7 @@ def tools():
                 "additionalProperties": False,
             },
         },
-    ]
+    ] + market_tools()
 
 
 def pop_common(arguments):
@@ -603,6 +603,12 @@ def get_usd_jpy_exchange_rate(client, arguments):
 def call_tool(name, arguments):
     arguments = arguments or {}
     client = TushareClient(logger=stderr_logger)
+    shared = {tool["name"]: tool for tool in market_tools()}
+    if name in shared:
+        schema = shared[name]["inputSchema"]
+        if not isinstance(arguments, dict) or set(arguments) - set(schema["properties"]) or set(schema["required"]) - set(arguments):
+            raise TushareClientError("tushare-params", "unknown or missing shared market arguments")
+        return MarketData(client).query(name, **arguments)
     if name == "get_stock_basic":
         rows = query_dataset(client, "stock_basic", arguments)
         return {"dataset": "stock_basic", "rows": rows, "row_count": len(rows)}
@@ -668,9 +674,8 @@ def handle(request):
         except Exception as error:
             payload = {
                 "error": type(error).__name__,
-                "message": str(error),
+                "message": str(error) if isinstance(error, TushareClientError) else "Tool execution failed",
                 "source": getattr(error, "source", "tushare-mcp"),
-                "trace": traceback.format_exc(limit=3),
             }
             return {"jsonrpc": "2.0", "id": request_id, "result": tool_result(payload, is_error=True)}
     if method and method.startswith("notifications/"):

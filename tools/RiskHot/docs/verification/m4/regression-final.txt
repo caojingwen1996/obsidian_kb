@@ -1,0 +1,2380 @@
+
+> riskhot-source-candidates@0.1.0 test
+> node --env-file-if-exists=.env --import tsx --test --test-concurrency=1 src/tests/*.test.*
+
+TAP version 13
+# Subtest: AI-02 四层正文可被展示读取，定位为 Step 3 且保留发布边界
+ok 1 - AI-02 四层正文可被展示读取，定位为 Step 3 且保留发布边界
+  ---
+  duration_ms: 1.358875
+  type: 'test'
+  ...
+# Subtest: 三类文档输出示例符合 material 草案结构，旧运行契约仍待适配
+ok 2 - 三类文档输出示例符合 material 草案结构，旧运行契约仍待适配
+  ---
+  duration_ms: 0.761667
+  type: 'test'
+  ...
+# Subtest: 合成输入的证据区间、归属及 REUSE 双方证据可核对
+ok 3 - 合成输入的证据区间、归属及 REUSE 双方证据可核对
+  ---
+  duration_ms: 0.119834
+  type: 'test'
+  ...
+# Subtest: 目标草案拒绝旧枚举、免审字段和字符串证据
+ok 4 - 目标草案拒绝旧枚举、免审字段和字符串证据
+  ---
+  duration_ms: 0.37625
+  type: 'test'
+  ...
+# Subtest: material 草案拒绝独立版本 ID、缺失摘要及非法版本值
+ok 5 - material 草案拒绝独立版本 ID、缺失摘要及非法版本值
+  ---
+  duration_ms: 0.152667
+  type: 'test'
+  ...
+# Subtest: AI07：合法复用及完整空目录新建
+ok 6 - AI07：合法复用及完整空目录新建
+  ---
+  duration_ms: 0.868792
+  type: 'test'
+  ...
+# Subtest: AI07：拒绝额外字段、错对象、漏比较、陌生依据与单方证据
+ok 7 - AI07：拒绝额外字段、错对象、漏比较、陌生依据与单方证据
+  ---
+  duration_ms: 0.685458
+  type: 'test'
+  ...
+# Subtest: AI07：多个true、任一null、停用目标不能复用，未决必须给缺口
+ok 8 - AI07：多个true、任一null、停用目标不能复用，未决必须给缺口
+  ---
+  duration_ms: 0.36725
+  type: 'test'
+  ...
+# Subtest: AI07：不完整召回、重复候选、错版本或跨候选引用拒绝
+ok 9 - AI07：不完整召回、重复候选、错版本或跨候选引用拒绝
+  ---
+  duration_ms: 0.463583
+  type: 'test'
+  ...
+# Subtest: AI07：缺范围、身份不确定或分类无效时不能新建
+ok 10 - AI07：缺范围、身份不确定或分类无效时不能新建
+  ---
+  duration_ms: 0.203291
+  type: 'test'
+  ...
+# Subtest: 工作流容量覆盖21对象每对象三次尝试
+ok 11 - 工作流容量覆盖21对象每对象三次尝试
+  ---
+  duration_ms: 0.68475
+  type: 'test'
+  ...
+# Subtest: 工作流容量覆盖50对象每对象三次尝试
+ok 12 - 工作流容量覆盖50对象每对象三次尝试
+  ---
+  duration_ms: 1.047667
+  type: 'test'
+  ...
+# Subtest: 工作流耗尽容量与过期均显式失败
+ok 13 - 工作流耗尽容量与过期均显式失败
+  ---
+  duration_ms: 0.272334
+  type: 'test'
+  ...
+# Subtest: AI07逐对象真实运行分流、权限、核定、关系与最终提交闭环（失效=false）
+ok 14 - AI07逐对象真实运行分流、权限、核定、关系与最终提交闭环（失效=false）
+  ---
+  duration_ms: 744.353125
+  type: 'test'
+  ...
+# Subtest: AI07逐对象真实运行分流、权限、核定、关系与最终提交闭环（失效=true）
+ok 15 - AI07逐对象真实运行分流、权限、核定、关系与最终提交闭环（失效=true）
+  ---
+  duration_ms: 494.306333
+  type: 'test'
+  ...
+# Subtest: AI07证据/歧义矩阵、独立预算、并发新建复查及旧输入失效
+ok 16 - AI07证据/歧义矩阵、独立预算、并发新建复查及旧输入失效
+  ---
+  duration_ms: 364.245458
+  type: 'test'
+  ...
+# Subtest: AI07 API补证与核定输入校验、明确无对象、过期批准可重跑
+ok 17 - AI07 API补证与核定输入校验、明确无对象、过期批准可重跑
+  ---
+  duration_ms: 467.340583
+  type: 'test'
+  ...
+# Subtest: Step3准备后定义失效重新核定重建上下文；原批准人撤权后新批准人保留Target身份
+ok 18 - Step3准备后定义失效重新核定重建上下文；原批准人撤权后新批准人保留Target身份
+  ---
+  duration_ms: 456.996042
+  type: 'test'
+  ...
+# Subtest: 全局旧定义缺口拒绝假空召回；目录100容量拒绝新增而允许复用
+ok 19 - 全局旧定义缺口拒绝假空召回；目录100容量拒绝新增而允许复用
+  ---
+  duration_ms: 480.562959
+  type: 'test'
+  ...
+# Subtest: 实际retry入口重开耗尽及到期的Object预算，保留旧窗口
+ok 20 - 实际retry入口重开耗尽及到期的Object预算，保留旧窗口
+  ---
+  duration_ms: 463.383083
+  type: 'test'
+  ...
+# Subtest: 失效批准清理锁内拒绝并发变化的execution代际
+ok 21 - 失效批准清理锁内拒绝并发变化的execution代际
+  ---
+  duration_ms: 319.040666
+  type: 'test'
+  ...
+# Subtest: 失效批准清理锁内拒绝并发变化的proposal代际
+ok 22 - 失效批准清理锁内拒绝并发变化的proposal代际
+  ---
+  duration_ms: 250.44775
+  type: 'test'
+  ...
+# Subtest: 合法无对象必须核对完整语境，空Object仍保留语境
+ok 23 - 合法无对象必须核对完整语境，空Object仍保留语境
+  ---
+  duration_ms: 9.184292
+  type: 'test'
+  ...
+# Subtest: 拒绝漏线索、伪造证据、额外正式ID及无配套纠正记录
+ok 24 - 拒绝漏线索、伪造证据、额外正式ID及无配套纠正记录
+  ---
+  duration_ms: 2.753834
+  type: 'test'
+  ...
+# Subtest: 一条线索支持多个候选；固定对象引用，gaps完整保留
+ok 25 - 一条线索支持多个候选；固定对象引用，gaps完整保留
+  ---
+  duration_ms: 1.270917
+  type: 'test'
+  ...
+# Subtest: 纠正路由与未决覆盖
+ok 26 - 纠正路由与未决覆盖
+  ---
+  duration_ms: 0.357584
+  type: 'test'
+  ...
+# Subtest: 码点精确校验和预算禁止静默裁切
+ok 27 - 码点精确校验和预算禁止静默裁切
+  ---
+  duration_ms: 0.275292
+  type: 'test'
+  ...
+# Subtest: 不完整覆盖转review；空响应/执行失败不能变成无对象
+ok 28 - 不完整覆盖转review；空响应/执行失败不能变成无对象
+  ---
+  duration_ms: 0.492958
+  type: 'test'
+  ...
+# Subtest: 跨来源伪造及非法分类拒绝
+ok 29 - 跨来源伪造及非法分类拒绝
+  ---
+  duration_ms: 0.161375
+  type: 'test'
+  ...
+# Subtest: 无clue候选必须有具体Fact字段，不能只给名称
+ok 30 - 无clue候选必须有具体Fact字段，不能只给名称
+  ---
+  duration_ms: 0.392583
+  type: 'test'
+  ...
+# Subtest: 分类目录随版本实际提供，不能要求模型猜分类名称
+ok 31 - 分类目录随版本实际提供，不能要求模型猜分类名称
+  ---
+  duration_ms: 0.299917
+  type: 'test'
+  ...
+# Subtest: 运行AI08提示词保留已设计的Subject与可复用对象边界
+ok 32 - 运行AI08提示词保留已设计的Subject与可复用对象边界
+  ---
+  duration_ms: 3.362875
+  type: 'test'
+  ...
+# Subtest: AI08多来源重核权限/版本、语境新证据受控接纳且重投幂等
+ok 33 - AI08多来源重核权限/版本、语境新证据受控接纳且重投幂等
+  ---
+  duration_ms: 276.823584
+  type: 'test'
+  ...
+# Subtest: OIDC protects writes; strict input, idempotency, source eligibility and time-batch queries stay consistent
+ok 34 - OIDC protects writes; strict input, idempotency, source eligibility and time-batch queries stay consistent
+  ---
+  duration_ms: 752.417834
+  type: 'test'
+  ...
+# Subtest: runtime model and API database roles cannot manufacture business candidates or self-grant authority
+ok 35 - runtime model and API database roles cannot manufacture business candidates or self-grant authority
+  ---
+  duration_ms: 13.402375
+  type: 'test'
+  ...
+# Subtest: 新引擎实际资料重试接口原子投递新代次Job并从永久输入还原资料
+ok 36 - 新引擎实际资料重试接口原子投递新代次Job并从永久输入还原资料
+  ---
+  duration_ms: 1481.620708
+  type: 'test'
+  ...
+# Subtest: 业务模型实际受限子进程调用、永久响应复用，失败计次且不自动重试
+ok 37 - 业务模型实际受限子进程调用、永久响应复用，失败计次且不自动重试
+  ---
+  duration_ms: 1707.625125
+  type: 'test'
+  ...
+# Subtest: 完成候选仅正式归属的新AI04包可保留模型调用，其他任务和旧包继续拒绝
+ok 38 - 完成候选仅正式归属的新AI04包可保留模型调用，其他任务和旧包继续拒绝
+  ---
+  duration_ms: 1.518833
+  type: 'test'
+  ...
+# Subtest: 新包按o200k_base计量，31KB中文prompt可用，真实超Token或96KB拒绝
+ok 39 - 新包按o200k_base计量，31KB中文prompt可用，真实超Token或96KB拒绝
+  ---
+  duration_ms: 74.997083
+  type: 'test'
+  ...
+# Subtest: 业务写入、运行、投递、Job随事务一起回滚
+ok 40 - 业务写入、运行、投递、Job随事务一起回滚
+  ---
+  duration_ms: 110.693208
+  type: 'test'
+  ...
+# Subtest: 确认丢失及队列清理后复用永久回执，同键异摘要拒绝
+ok 41 - 确认丢失及队列清理后复用永久回执，同键异摘要拒绝
+  ---
+  duration_ms: 208.266667
+  type: 'test'
+  ...
+# Subtest: 旧引擎与旧代次不能入队，同步并发受理只产生一份运行
+ok 42 - 旧引擎与旧代次不能入队，同步并发受理只产生一份运行
+  ---
+  duration_ms: 239.1295
+  type: 'test'
+  ...
+# Subtest: 模型进程只继承允许的运行环境及明确供应凭据
+ok 43 - 模型进程只继承允许的运行环境及明确供应凭据
+  ---
+  duration_ms: 1.119875
+  type: 'test'
+  ...
+# Subtest: 消费完成但确认丢失的重投不再次写业务副作用，旧代次不能消费
+ok 44 - 消费完成但确认丢失的重投不再次写业务副作用，旧代次不能消费
+  ---
+  duration_ms: 231.690917
+  type: 'test'
+  ...
+# Subtest: 受控模型子进程不继承数据库凭据并支持超时取消
+ok 45 - 受控模型子进程不继承数据库凭据并支持超时取消
+  ---
+  duration_ms: 109.382875
+  type: 'test'
+  ...
+# Subtest: 业务队列注册后实际消费，周期注册记录配置并重启补一次扫描
+ok 46 - 业务队列注册后实际消费，周期注册记录配置并重启补一次扫描
+  ---
+  duration_ms: 804.631375
+  type: 'test'
+  ...
+# Subtest: 无DDL运行角色能够同事务入队领取确认，但不能建表
+ok 47 - 无DDL运行角色能够同事务入队领取确认，但不能建表
+  ---
+  duration_ms: 125.0205
+  type: 'test'
+  ...
+# Subtest: 永久输入不能以相同摘要改写；显式引擎受理不写旧启动intent
+ok 48 - 永久输入不能以相同摘要改写；显式引擎受理不写旧启动intent
+  ---
+  duration_ms: 100.231833
+  type: 'test'
+  ...
+# Subtest: 新引擎启动只选择业务Worker与API，默认仍是原进程组且凭据隔离
+ok 49 - 新引擎启动只选择业务Worker与API，默认仍是原进程组且凭据隔离
+  ---
+  duration_ms: 3.426333
+  type: 'test'
+  ...
+# Subtest: 受控进程输出在UTF8字符中间分块时仍保留中文
+ok 50 - 受控进程输出在UTF8字符中间分块时仍保留中文
+  ---
+  duration_ms: 99.378
+  type: 'test'
+  ...
+# Subtest: 停止Worker会结束正在运行的受控模型进程
+ok 51 - 停止Worker会结束正在运行的受控模型进程
+  ---
+  duration_ms: 33.863
+  type: 'test'
+  ...
+# Subtest: 关闭信源周期时不调用信源扫描，恢复告警仍登记
+ok 52 - 关闭信源周期时不调用信源扫描，恢复告警仍登记
+  ---
+  duration_ms: 817.352208
+  type: 'test'
+  ...
+# Subtest: 业务模型父进程可执行受控资料读取函数，API队列角色不获得该权限
+ok 53 - 业务模型父进程可执行受控资料读取函数，API队列角色不获得该权限
+  ---
+  duration_ms: 127.864834
+  type: 'test'
+  ...
+# Subtest: relay detects a lost file alias after a previously healthy publication
+ok 54 - relay detects a lost file alias after a previously healthy publication
+  ---
+  duration_ms: 533.433708
+  type: 'test'
+  ...
+# Subtest: exports all 50 fixed candidates and repairs missing aliases without a second model call
+ok 55 - exports all 50 fixed candidates and repairs missing aliases without a second model call
+  ---
+  duration_ms: 623.161417
+  type: 'test'
+  ...
+# Subtest: persists explicit no-event reason and coverage; unfinished extraction never exports zero candidates
+ok 56 - persists explicit no-event reason and coverage; unfinished extraction never exports zero candidates
+  ---
+  duration_ms: 404.025167
+  type: 'test'
+  ...
+# Subtest: file failure preserves committed extraction and can be repaired independently
+ok 57 - file failure preserves committed extraction and can be repaired independently
+  ---
+  duration_ms: 459.245792
+  type: 'test'
+  ...
+# Subtest: subscription configuration needs no API key and children retain only their own credentials
+ok 58 - subscription configuration needs no API key and children retain only their own credentials
+  ---
+  duration_ms: 1.121292
+  type: 'test'
+  ...
+# Subtest: a real child gets fixed stdin/schema and restricted configuration, without business secrets
+ok 59 - a real child gets fixed stdin/schema and restricted configuration, without business secrets
+  ---
+  duration_ms: 1505.43325
+  type: 'test'
+  ...
+# Subtest: only a successful turn with one final message is accepted; quota and auth have distinct codes
+ok 60 - only a successful turn with one final message is accepted; quota and auth have distinct codes
+  ---
+  duration_ms: 5430.655375
+  type: 'test'
+  ...
+# Subtest: a rejected tool-bearing response remains available as a transport artifact before decoding
+ok 61 - a rejected tool-bearing response remains available as a transport artifact before decoding
+  ---
+  duration_ms: 596.320792
+  type: 'test'
+  ...
+# Subtest: a CLI startup feature warning is metadata while actual tool executions stay rejected
+ok 62 - a CLI startup feature warning is metadata while actual tool executions stay rejected
+  ---
+  duration_ms: 587.0455
+  type: 'test'
+  ...
+# Subtest: Chinese structured output survives a UTF-8 character split across pipe chunks
+ok 63 - Chinese structured output survives a UTF-8 character split across pipe chunks
+  ---
+  duration_ms: 677.887125
+  type: 'test'
+  ...
+# Subtest: failed execution retains bounded redacted diagnostics for recovery
+ok 64 - failed execution retains bounded redacted diagnostics for recovery
+  ---
+  duration_ms: 585.859291
+  type: 'test'
+  ...
+# Subtest: the model role binds a failure diagnostic and its error atomically, preserving the real cause at consume
+ok 65 - the model role binds a failure diagnostic and its error atomically, preserving the real cause at consume
+  ---
+  duration_ms: 1161.800833
+  type: 'test'
+  ...
+# Subtest: fixed successful transport can be revalidated after a decoder correction without another model call
+ok 66 - fixed successful transport can be revalidated after a decoder correction without another model call
+  ---
+  duration_ms: 517.545667
+  type: 'test'
+  ...
+# Subtest: reads all supplied source identities without executing browser JavaScript
+ok 67 - reads all supplied source identities without executing browser JavaScript
+  ---
+  duration_ms: 3.527417
+  type: 'test'
+  ...
+# Subtest: discovers unique same-origin announcement links and respects the finite batch limit
+ok 68 - discovers unique same-origin announcement links and respects the finite batch limit
+  ---
+  duration_ms: 3.6385
+  type: 'test'
+  ...
+# Subtest: normalizes the actual body region while preserving table zeroes and Unicode
+ok 69 - normalizes the actual body region while preserving table zeroes and Unicode
+  ---
+  duration_ms: 2.388458
+  type: 'test'
+  ...
+# Subtest: rejects empty body, unsupported merged tables and oversized input
+ok 70 - rejects empty body, unsupported merged tables and oversized input
+  ---
+  duration_ms: 3.384041
+  type: 'test'
+  ...
+# Subtest: accepts a complete empty set, rejects incomplete responses and incomplete coverage
+ok 71 - accepts a complete empty set, rejects incomplete responses and incomplete coverage
+  ---
+  duration_ms: 1.195167
+  type: 'test'
+  ...
+# Subtest: checks codepoint evidence and rejects forged quotes, formal IDs and excess candidates as a whole
+ok 72 - checks codepoint evidence and rejects forged quotes, formal IDs and excess candidates as a whole
+  ---
+  duration_ms: 1.353792
+  type: 'test'
+  ...
+# {"task_id":"a2660a0d-752d-44f1-a807-719f08dc6aa2","status":"completed","reason":null,"material_ids":["34d90778-9f8f-4bb5-9f89-395d8dc32d40"]}
+# {"task_id":"a2660a0d-752d-44f1-a807-719f08dc6aa2","status":"completed","reason":null,"material_ids":["34d90778-9f8f-4bb5-9f89-395d8dc32d40"]}
+# Subtest: 新采集命令按原键复用任务并按资料依据恢复抽取，输出不依赖旧操作身份
+ok 73 - 新采集命令按原键复用任务并按资料依据恢复抽取，输出不依赖旧操作身份
+  ---
+  duration_ms: 498.180208
+  type: 'test'
+  ...
+# Subtest: schema5正式事件保留详情、下载与交付恢复入口并按来源撤权
+ok 74 - schema5正式事件保留详情、下载与交付恢复入口并按来源撤权
+  ---
+  duration_ms: 583.269458
+  type: 'test'
+  ...
+# Subtest: 重建后登记明确本地定义范围，重复初始化保留其他定义且不覆盖冲突
+ok 75 - 重建后登记明确本地定义范围，重复初始化保留其他定义且不覆盖冲突
+  ---
+  duration_ms: 339.104542
+  type: 'test'
+  ...
+# Subtest: 八步API读写分离、固定任务包、严格复核和幂等键
+ok 76 - 八步API读写分离、固定任务包、严格复核和幂等键
+  ---
+  duration_ms: 49.320792
+  type: 'test'
+  ...
+# Subtest: 实际八步Service：启动/读取/两阶段复核/保存幂等，合法无对象与未发布用途独立保留
+ok 77 - 实际八步Service：启动/读取/两阶段复核/保存幂等，合法无对象与未发布用途独立保留
+  ---
+  duration_ms: 690.3425
+  type: 'test'
+  ...
+# Subtest: 保存事件与关联失败独立呈现，复核绑定当前摘要且不伪装正式完成
+ok 78 - 保存事件与关联失败独立呈现，复核绑定当前摘要且不伪装正式完成
+  ---
+  duration_ms: 0.677834
+  type: 'test'
+  ...
+# Subtest: 仅有可审查提案才显示POST复核表单，缺少权限时只读
+ok 79 - 仅有可审查提案才显示POST复核表单，缺少权限时只读
+  ---
+  duration_ms: 0.114584
+  type: 'test'
+  ...
+# Subtest: 完整事件API提供真实进度和复核依据，越权及非法写请求被拒绝
+ok 80 - 完整事件API提供真实进度和复核依据，越权及非法写请求被拒绝
+  ---
+  duration_ms: 701.194334
+  type: 'test'
+  ...
+# Subtest: 授权重算另建父处理身份，取消和文件重试保留原结果
+ok 81 - 授权重算另建父处理身份，取消和文件重试保留原结果
+  ---
+  duration_ms: 547.661334
+  type: 'test'
+  ...
+# Subtest: 正式事件、关联事实、交付列表和下载均使用新模型
+ok 82 - 正式事件、关联事实、交付列表和下载均使用新模型
+  ---
+  duration_ms: 1016.57925
+  type: 'test'
+  ...
+# Subtest: 时间线全局排序后偏移分页，多Fact/修订去重，权限与详情一致
+ok 83 - 时间线全局排序后偏移分页，多Fact/修订去重，权限与详情一致
+  ---
+  duration_ms: 586.999459
+  type: 'test'
+  ...
+# Subtest: 首次收录链缺失或工件、时间、操作不一致时接口采用同版原文时间
+ok 84 - 首次收录链缺失或工件、时间、操作不一致时接口采用同版原文时间
+  ---
+  duration_ms: 573.135917
+  type: 'test'
+  ...
+# Subtest: 较早无事件证据版本不贡献C或P，接口按实际证据后版配对
+ok 85 - 较早无事件证据版本不贡献C或P，接口按实际证据后版配对
+  ---
+  duration_ms: 566.748625
+  type: 'test'
+  ...
+# Subtest: 接口先排完整日期再排较新月年及未知，分层后分页无跨层错位
+ok 86 - 接口先排完整日期再排较新月年及未知，分层后分页无跨层错位
+  ---
+  duration_ms: 619.301333
+  type: 'test'
+  ...
+# Subtest: 正式事实回执与消息原子提交，回应丢失后重放不新增
+ok 87 - 正式事实回执与消息原子提交，回应丢失后重放不新增
+  ---
+  duration_ms: 921.715333
+  type: 'test'
+  ...
+# Subtest: 正式保存中途失败整体回滚，缺最终审批不能提交
+ok 88 - 正式保存中途失败整体回滚，缺最终审批不能提交
+  ---
+  duration_ms: 770.261917
+  type: 'test'
+  ...
+# Subtest: 评级写入异常使事件和关联全部回滚
+ok 89 - 评级写入异常使事件和关联全部回滚
+  ---
+  duration_ms: 815.169292
+  type: 'test'
+  ...
+# Subtest: 同资料授权重算复用事件，纯重复不生成新事实、评级或通知
+ok 90 - 同资料授权重算复用事件，纯重复不生成新事实、评级或通知
+  ---
+  duration_ms: 962.063833
+  type: 'test'
+  ...
+# Subtest: 两个NEW使用同一集合快照，第二项持久退回归组且重复失效不增加代次
+ok 91 - 两个NEW使用同一集合快照，第二项持久退回归组且重复失效不增加代次
+  ---
+  duration_ms: 1051.945958
+  type: 'test'
+  ...
+# Subtest: 来源停用先持源锁，提交必须等待并拒绝停用后的写入
+ok 92 - 来源停用先持源锁，提交必须等待并拒绝停用后的写入
+  ---
+  duration_ms: 781.598292
+  type: 'test'
+  ...
+# Subtest: 复用事件内容变化使旧审批失效，分析阶段的恢复重新匹配身份
+ok 93 - 复用事件内容变化使旧审批失效，分析阶段的恢复重新匹配身份
+  ---
+  duration_ms: 972.318792
+  type: 'test'
+  ...
+# Subtest: 完整抽取拒绝超限、重复键、坏引文和额外字段，保留未知时间
+ok 94 - 完整抽取拒绝超限、重复键、坏引文和额外字段，保留未知时间
+  ---
+  duration_ms: 1.580792
+  type: 'test'
+  ...
+# Subtest: 归组仅接受召回中的真实ID，未解决必须列出问题
+ok 95 - 归组仅接受召回中的真实ID，未解决必须列出问题
+  ---
+  duration_ms: 0.36825
+  type: 'test'
+  ...
+# Subtest: 直接关系合法空值、增量和文字评级结构严格校验
+ok 96 - 直接关系合法空值、增量和文字评级结构严格校验
+  ---
+  duration_ms: 1.72725
+  type: 'test'
+  ...
+# Subtest: 任务包版本与内容固定，缺绑定不能静默选最新
+ok 97 - 任务包版本与内容固定，缺绑定不能静默选最新
+  ---
+  duration_ms: 5.922291
+  type: 'test'
+  ...
+# Subtest: 修订时间的摘要与JSON存储读取后保持一致
+ok 98 - 修订时间的摘要与JSON存储读取后保持一致
+  ---
+  duration_ms: 2.470667
+  type: 'test'
+  ...
+# Subtest: Unicode引文偏移必须完整落在码点范围内
+ok 99 - Unicode引文偏移必须完整落在码点范围内
+  ---
+  duration_ms: 0.116334
+  type: 'test'
+  ...
+# Subtest: 评级传输Schema根据固定范围形成封闭对象并绑定摘要
+ok 100 - 评级传输Schema根据固定范围形成封闭对象并绑定摘要
+  ---
+  duration_ms: 1.214875
+  type: 'test'
+  ...
+# Subtest: 启动耗尽和已关闭工作流投影为可恢复业务状态
+ok 101 - 启动耗尽和已关闭工作流投影为可恢复业务状态
+  ---
+  duration_ms: 607.409083
+  type: 'test'
+  ...
+# Subtest: 正式交付文件真实读取后持久接收，三次重投复用回执且丢文件可独立恢复
+ok 102 - 正式交付文件真实读取后持久接收，三次重投复用回执且丢文件可独立恢复
+  ---
+  duration_ms: 1088.514458
+  type: 'test'
+  ...
+# Subtest: 未知接收者不能读取且坏消息摘要不接收
+ok 103 - 未知接收者不能读取且坏消息摘要不接收
+  ---
+  duration_ms: 889.543042
+  type: 'test'
+  ...
+# Subtest: 交付缺口可见且新接收者补齐固定历史后才顺序应用
+ok 104 - 交付缺口可见且新接收者补齐固定历史后才顺序应用
+  ---
+  duration_ms: 1341.689875
+  type: 'test'
+  ...
+# Subtest: 两个消费者一成一败时回执独立，恢复失败者不重复成功者
+ok 105 - 两个消费者一成一败时回执独立，恢复失败者不重复成功者
+  ---
+  duration_ms: 1001.64375
+  type: 'test'
+  ...
+# Subtest: 并发预留不突破三次且代次变化不清零节点预算
+ok 106 - 并发预留不突破三次且代次变化不清零节点预算
+  ---
+  duration_ms: 646.58375
+  type: 'test'
+  ...
+# Subtest: 模型角色通过受控函数领取完整抽取调用且不能写事件
+ok 107 - 模型角色通过受控函数领取完整抽取调用且不能写事件
+  ---
+  duration_ms: 624.331166
+  type: 'test'
+  ...
+# Subtest: 同一次工作流活动回应丢失后复用预留，不消耗第二次预算
+ok 108 - 同一次工作流活动回应丢失后复用预留，不消耗第二次预算
+  ---
+  duration_ms: 636.281583
+  type: 'test'
+  ...
+# Subtest: 只有授权新预算窗口才能恢复耗尽节点，历史尝试不被清零
+ok 109 - 只有授权新预算窗口才能恢复耗尽节点，历史尝试不被清零
+  ---
+  duration_ms: 592.945584
+  type: 'test'
+  ...
+# Subtest: 候选、逐步建议和提交文件固定身份且由独立发布恢复
+ok 110 - 候选、逐步建议和提交文件固定身份且由独立发布恢复
+  ---
+  duration_ms: 954.395041
+  type: 'test'
+  ...
+# Subtest: 已发布文件后续丢失仍会被到期对账恢复
+ok 111 - 已发布文件后续丢失仍会被到期对账恢复
+  ---
+  duration_ms: 607.490042
+  type: 'test'
+  ...
+# Subtest: 已生成文件损坏后隔离坏副本并从固定登记载荷恢复
+ok 112 - 已生成文件损坏后隔离坏副本并从固定登记载荷恢复
+  ---
+  duration_ms: 672.260542
+  type: 'test'
+  ...
+# Subtest: 空集合是真实检索快照，NEW无正式ID且只能待身份复核
+ok 113 - 空集合是真实检索快照，NEW无正式ID且只能待身份复核
+  ---
+  duration_ms: 672.2895
+  type: 'test'
+  ...
+# Subtest: 召回超过100项不得按截断集合新建，特殊搜索字符按字面查询
+ok 114 - 召回超过100项不得按截断集合新建，特殊搜索字符按字面查询
+  ---
+  duration_ms: 1233.031834
+  type: 'test'
+  ...
+# Subtest: 混合来源事件必须全部在权限范围内才能进入模型召回
+ok 115 - 混合来源事件必须全部在权限范围内才能进入模型召回
+  ---
+  duration_ms: 890.66675
+  type: 'test'
+  ...
+# Subtest: 七类增量按事实分流，纠正必须有事实依据和完整当前内容
+ok 116 - 七类增量按事实分流，纠正必须有事实依据和完整当前内容
+  ---
+  duration_ms: 0.487084
+  type: 'test'
+  ...
+# Subtest: 无依据纠正、伪来源更新和迟到状态覆盖被拒绝
+ok 117 - 无依据纠正、伪来源更新和迟到状态覆盖被拒绝
+  ---
+  duration_ms: 0.213583
+  type: 'test'
+  ...
+# Subtest: 增量迁移保留旧处理并支持完整模式，重复安装不丢数据，模型无正式写权限
+ok 118 - 增量迁移保留旧处理并支持完整模式，重复安装不丢数据，模型无正式写权限
+  ---
+  duration_ms: 561.855917
+  type: 'test'
+  ...
+# Subtest: 所有操作者权限变更推进权限代次，候选和事件模型权限独立
+ok 119 - 所有操作者权限变更推进权限代次，候选和事件模型权限独立
+  ---
+  duration_ms: 242.683334
+  type: 'test'
+  ...
+# Subtest: 正常执行安静，待复核按候选与代次产生一个需处理项
+ok 120 - 正常执行安静，待复核按候选与代次产生一个需处理项
+  ---
+  duration_ms: 603.012209
+  type: 'test'
+  ...
+# Subtest: 已受理的非事件处置正在执行时不重复提醒用户
+ok 121 - 已受理的非事件处置正在执行时不重复提醒用户
+  ---
+  duration_ms: 662.625792
+  type: 'test'
+  ...
+# Subtest: 完整模式同版复用且不改变旧抽取，完整集合和各候选启动意图原子固定
+ok 122 - 完整模式同版复用且不改变旧抽取，完整集合和各候选启动意图原子固定
+  ---
+  duration_ms: 638.112083
+  type: 'test'
+  ...
+# Subtest: 零候选正常结束，暂停不能接纳迟到集合
+ok 123 - 零候选正常结束，暂停不能接纳迟到集合
+  ---
+  duration_ms: 589.456083
+  type: 'test'
+  ...
+# Subtest: 完整模式在受理前拒绝尚未适配的模型通道，不消耗尝试
+ok 124 - 完整模式在受理前拒绝尚未适配的模型通道，不消耗尝试
+  ---
+  duration_ms: 560.3475
+  type: 'test'
+  ...
+# Subtest: 来源与重复跳过评价，文字草案为空分且范围不可漂移
+ok 125 - 来源与重复跳过评价，文字草案为空分且范围不可漂移
+  ---
+  duration_ms: 7.153166
+  type: 'test'
+  ...
+# Subtest: 仅显式批准方法可确定性计算，缺项和非法值不补默认
+ok 126 - 仅显式批准方法可确定性计算，缺项和非法值不补默认
+  ---
+  duration_ms: 0.142459
+  type: 'test'
+  ...
+# Subtest: AI-05 运行正文与文档保持一致，修订和完整提示词进入摘要
+ok 127 - AI-05 运行正文与文档保持一致，修订和完整提示词进入摘要
+  ---
+  duration_ms: 2.449
+  type: 'test'
+  ...
+# Subtest: 五维文字草案可经现有契约接纳，越界评分、总分和伪造引文被拒绝
+ok 128 - 五维文字草案可经现有契约接纳，越界评分、总分和伪造引文被拒绝
+  ---
+  duration_ms: 1.479167
+  type: 'test'
+  ...
+# Subtest: 关系未决建议持久化并等待独立复核，不自动进入增量或正式提交
+ok 129 - 关系未决建议持久化并等待独立复核，不自动进入增量或正式提交
+  ---
+  duration_ms: 813.476916
+  type: 'test'
+  ...
+# Subtest: 恢复旧关系复核响应复用固定输入，预算到期仍不新增模型调用
+ok 130 - 恢复旧关系复核响应复用固定输入，预算到期仍不新增模型调用
+  ---
+  duration_ms: 753.595875
+  type: 'test'
+  ...
+# Subtest: 引用校验失败仍须恢复，不转成人工关系审批
+ok 131 - 引用校验失败仍须恢复，不转成人工关系审批
+  ---
+  duration_ms: 697.623208
+  type: 'test'
+  ...
+# Subtest: 正式提交再次核对关系复核人的当前权限
+ok 132 - 正式提交再次核对关系复核人的当前权限
+  ---
+  duration_ms: 761.425917
+  type: 'test'
+  ...
+# Subtest: 明确空字典允许空关系，缺失/损坏字典不能当空
+ok 133 - 明确空字典允许空关系，缺失/损坏字典不能当空
+  ---
+  duration_ms: 523.066583
+  type: 'test'
+  ...
+# Subtest: 每条变量关系依赖有效Target和版本，缺定义只保留治理候选
+ok 134 - 每条变量关系依赖有效Target和版本，缺定义只保留治理候选
+  ---
+  duration_ms: 0.531833
+  type: 'test'
+  ...
+# Subtest: 主体变量关系更新保留定义依据和操作前后记录
+ok 135 - 主体变量关系更新保留定义依据和操作前后记录
+  ---
+  duration_ms: 1147.496166
+  type: 'test'
+  ...
+# Subtest: 迟到事实不能倒退当前事件，拒绝的结果保留待恢复
+ok 136 - 迟到事实不能倒退当前事件，拒绝的结果保留待恢复
+  ---
+  duration_ms: 866.234792
+  type: 'test'
+  ...
+# Subtest: 纠正更新当前标题和金额描述，旧Fact及原文仍可追溯
+ok 137 - 纠正更新当前标题和金额描述，旧Fact及原文仍可追溯
+  ---
+  duration_ms: 1056.844292
+  type: 'test'
+  ...
+# Subtest: 身份复核绑定当前建议，旧摘要被拒绝且不能替代最终审批
+ok 138 - 身份复核绑定当前建议，旧摘要被拒绝且不能替代最终审批
+  ---
+  duration_ms: 648.544791
+  type: 'test'
+  ...
+# Subtest: 非事件处置独立完成且保留集合，不产生正式事件或变化消息
+ok 139 - 非事件处置独立完成且保留集合，不产生正式事件或变化消息
+  ---
+  duration_ms: 513.700334
+  type: 'test'
+  ...
+# Subtest: 工作活动停在身份复核且非事件决定唤醒后不调用模型
+ok 140 - 工作活动停在身份复核且非事件决定唤醒后不调用模型
+  ---
+  duration_ms: 575.269792
+  type: 'test'
+  ...
+# Subtest: 取消栅栏阻止处置和迟到模型，终态不能由普通恢复打开
+ok 141 - 取消栅栏阻止处置和迟到模型，终态不能由普通恢复打开
+  ---
+  duration_ms: 552.541167
+  type: 'test'
+  ...
+# Subtest: 取消先取得处理锁时，处置必须使用锁后的状态拒绝完成
+ok 142 - 取消先取得处理锁时，处置必须使用锁后的状态拒绝完成
+  ---
+  duration_ms: 616.682792
+  type: 'test'
+  ...
+# Subtest: 待处置决定撤权失败后可恢复原决定，不需要再跑模型
+ok 143 - 待处置决定撤权失败后可恢复原决定，不需要再跑模型
+  ---
+  duration_ms: 639.0875
+  type: 'test'
+  ...
+# Subtest: 最终批准必须有提交权限，授权接替不得复用其他人的旧批准
+ok 144 - 最终批准必须有提交权限，授权接替不得复用其他人的旧批准
+  ---
+  duration_ms: 799.13875
+  type: 'test'
+  ...
+# Subtest: 原处置者撤权后另一授权人可以重新确认，历史决定仍可追溯
+ok 145 - 原处置者撤权后另一授权人可以重新确认，历史决定仍可追溯
+  ---
+  duration_ms: 589.46075
+  type: 'test'
+  ...
+# Subtest: 事件迁移后API仍不能制造候选，但可更新复核状态
+ok 146 - 事件迁移后API仍不能制造候选，但可更新复核状态
+  ---
+  duration_ms: 588.585375
+  type: 'test'
+  ...
+# Subtest: 实际API角色可以受理完整事件任务，权限锁不依赖管理员连接
+ok 147 - 实际API角色可以受理完整事件任务，权限锁不依赖管理员连接
+  ---
+  duration_ms: 688.011917
+  type: 'test'
+  ...
+# Subtest: 实际IO角色执行候选与正式提交，Relay角色发布和接收文件
+ok 148 - 实际IO角色执行候选与正式提交，Relay角色发布和接收文件
+  ---
+  duration_ms: 1063.697666
+  type: 'test'
+  ...
+# Subtest: 日期精度保留且检验真实日历，未知或预计不补造时间
+ok 149 - 日期精度保留且检验真实日历，未知或预计不补造时间
+  ---
+  duration_ms: 1.174792
+  type: 'test'
+  ...
+# Subtest: 只按可比较精度推进状态，迟到或模糊时间不能覆盖已确定状态
+ok 150 - 只按可比较精度推进状态，迟到或模糊时间不能覆盖已确定状态
+  ---
+  duration_ms: 0.116917
+  type: 'test'
+  ...
+# Subtest: 72小时连续阈值包含0与恰好72小时，晚1ms采用原文时间
+ok 151 - 72小时连续阈值包含0与恰好72小时，晚1ms采用原文时间
+  ---
+  duration_ms: 1.192167
+  type: 'test'
+  ...
+# Subtest: 不猜测时区或非法日历，日期/月/年保留精度
+ok 152 - 不猜测时区或非法日历，日期/月/年保留精度
+  ---
+  duration_ms: 0.153167
+  type: 'test'
+  ...
+# Subtest: 低精度按范围判阈值，成功收录收紧同日可能上界，跨阈值明确降级
+ok 153 - 低精度按范围判阈值，成功收录收紧同日可能上界，跨阈值明确降级
+  ---
+  duration_ms: 0.151709
+  type: 'test'
+  ...
+# Subtest: 缺失、负延迟及无收录证据均有明确降级，两项皆无不假造时间
+ok 154 - 缺失、负延迟及无收录证据均有明确降级，两项皆无不假造时间
+  ---
+  duration_ms: 0.095458
+  type: 'test'
+  ...
+# Subtest: 同篇证据版本C/P配对，最早有事件证据的成功收录优先，转载不置顶
+ok 155 - 同篇证据版本C/P配对，最早有事件证据的成功收录优先，转载不置顶
+  ---
+  duration_ms: 5.801166
+  type: 'test'
+  ...
+# Subtest: 来源按身份去重，同名不同ID保留，依据信源排在第一位
+ok 156 - 来源按身份去重，同名不同ID保留，依据信源排在第一位
+  ---
+  duration_ms: 0.609708
+  type: 'test'
+  ...
+# Subtest: 不完整日期排序区域在完整日期之后，缺C时优先采用有效原文
+ok 157 - 不完整日期排序区域在完整日期之后，缺C时优先采用有效原文
+  ---
+  duration_ms: 0.114084
+  type: 'test'
+  ...
+# Subtest: 至少三来源以最早关系排序，同刻按ID，重复关系不改顺序且依据来源优先
+ok 158 - 至少三来源以最早关系排序，同刻按ID，重复关系不改顺序且依据来源优先
+  ---
+  duration_ms: 0.116041
+  type: 'test'
+  ...
+# Subtest: 事件详情左上角提供固定列表入口，直接打开也不依赖浏览历史
+ok 159 - 事件详情左上角提供固定列表入口，直接打开也不依赖浏览历史
+  ---
+  duration_ms: 0.606292
+  type: 'test'
+  ...
+# Subtest: 正式结果与候选区分，草案空分与未接下游明确可见，原文转义
+ok 160 - 正式结果与候选区分，草案空分与未接下游明确可见，原文转义
+  ---
+  duration_ms: 0.1175
+  type: 'test'
+  ...
+# Subtest: 正式事件优先展示摘要、主体、观测对象和金融意义，追溯默认收起
+ok 161 - 正式事件优先展示摘要、主体、观测对象和金融意义，追溯默认收起
+  ---
+  duration_ms: 0.148042
+  type: 'test'
+  ...
+# Subtest: 没有Target不将Subject冒充观测对象，未知评价状态不显示已确认
+ok 162 - 没有Target不将Subject冒充观测对象，未知评价状态不显示已确认
+  ---
+  duration_ms: 0.061417
+  type: 'test'
+  ...
+# Subtest: 关联候选直接展示，证据按Fact隔离，不展示其他候选证据
+ok 163 - 关联候选直接展示，证据按Fact隔离，不展示其他候选证据
+  ---
+  duration_ms: 0.187417
+  type: 'test'
+  ...
+# Subtest: 旧候选入口按真实归属跳转，不把待归组候选塞进正式事件
+ok 164 - 旧候选入口按真实归属跳转，不把待归组候选塞进正式事件
+  ---
+  duration_ms: 0.479584
+  type: 'test'
+  ...
+# Subtest: 日期时间线按上海归日，正文完整转义，来源与时间说明独立展开
+ok 165 - 日期时间线按上海归日，正文完整转义，来源与时间说明独立展开
+  ---
+  duration_ms: 2.928333
+  type: 'test'
+  ...
+# Subtest: 不完整日期独立精度组，缺失日期明确归组，不补造午夜
+ok 166 - 不完整日期独立精度组，缺失日期明确归组，不补造午夜
+  ---
+  duration_ms: 0.579875
+  type: 'test'
+  ...
+# Subtest: 日精度分组根据原日期显示星期，时刻仍未明确
+ok 167 - 日精度分组根据原日期显示星期，时刻仍未明确
+  ---
+  duration_ms: 0.4805
+  type: 'test'
+  ...
+# Subtest: 验收拒绝只有候选或只有发送状态，完整文件与真实回执齐全才通过
+ok 168 - 验收拒绝只有候选或只有发送状态，完整文件与真实回执齐全才通过
+  ---
+  duration_ms: 1062.105083
+  type: 'test'
+  ...
+# Subtest: execution overview keeps independent plan, active manual run and last outcome separate
+ok 169 - execution overview keeps independent plan, active manual run and last outcome separate
+  ---
+  duration_ms: 316.3715
+  type: 'test'
+  ...
+# Subtest: overview includes sources older than 100 history rows and never leaks unauthorized plans
+ok 170 - overview includes sources older than 100 history rows and never leaks unauthorized plans
+  ---
+  duration_ms: 220.344583
+  type: 'test'
+  ...
+# Subtest: overview distinguishes never run, failed and successful empty discovery without changing plans
+ok 171 - overview distinguishes never run, failed and successful empty discovery without changing plans
+  ---
+  duration_ms: 233.584
+  type: 'test'
+  ...
+# Subtest: reused extraction completion time does not replace this execution result time
+ok 172 - reused extraction completion time does not replace this execution result time
+  ---
+  duration_ms: 484.056709
+  type: 'test'
+  ...
+# Subtest: 关联真实保存与消息同事务，确认丢失后按原快照幂等；事件变化不改历史消息
+ok 173 - 关联真实保存与消息同事务，确认丢失后按原快照幂等；事件变化不改历史消息
+  ---
+  duration_ms: 224.648792
+  type: 'test'
+  ...
+# Subtest: 缺触发成员、错误事件依据、消息失败不产生有效快照
+ok 174 - 缺触发成员、错误事件依据、消息失败不产生有效快照
+  ---
+  duration_ms: 164.216375
+  type: 'test'
+  ...
+# Subtest: 独立关联保留事件身份与依据，local_ref不成为集合身份
+ok 175 - 独立关联保留事件身份与依据，local_ref不成为集合身份
+  ---
+  duration_ms: 0.936334
+  type: 'test'
+  ...
+# Subtest: 完整无关联可保存，检索失败或缺失覆盖不能成为合法空
+ok 176 - 完整无关联可保存，检索失败或缺失覆盖不能成为合法空
+  ---
+  duration_ms: 0.066292
+  type: 'test'
+  ...
+# Subtest: 证据不得跨事件借用，不能凭同窗省略五维或重复local_ref
+ok 177 - 证据不得跨事件借用，不能凭同窗省略五维或重复local_ref
+  ---
+  duration_ms: 0.067792
+  type: 'test'
+  ...
+# Subtest: NEW分别批准后原子保存事实、评级、消息、文件意图、回执，响应丢失重试无重复
+ok 178 - NEW分别批准后原子保存事实、评级、消息、文件意图、回执，响应丢失重试无重复
+  ---
+  duration_ms: 206.146084
+  type: 'test'
+  ...
+# Subtest: 实际Worker角色经受控函数锁定信源后保存，不获得信源修改权限
+ok 179 - 实际Worker角色经受控函数锁定信源后保存，不获得信源修改权限
+  ---
+  duration_ms: 240.435167
+  type: 'test'
+  ...
+# Subtest: 批准后资料变化拒绝保存且不丢原事实
+ok 180 - 批准后资料变化拒绝保存且不丢原事实
+  ---
+  duration_ms: 150.936209
+  type: 'test'
+  ...
+# Subtest: NEW非空Target、正式变量和具体观测与评级一同保存
+ok 181 - NEW非空Target、正式变量和具体观测与评级一同保存
+  ---
+  duration_ms: 192.181667
+  type: 'test'
+  ...
+# Subtest: 文件任务故障回滚Event、归属、评级、提取和消息，重试后可恢复
+ok 182 - 文件任务故障回滚Event、归属、评级、提取和消息，重试后可恢复
+  ---
+  duration_ms: 201.62925
+  type: 'test'
+  ...
+# Subtest: pg-boss保存同事务产生关联和交付Job，取消运行不能保存
+ok 183 - pg-boss保存同事务产生关联和交付Job，取消运行不能保存
+  ---
+  duration_ms: 374.141708
+  type: 'test'
+  ...
+# Subtest: 不是事件处置优先于八步模型和保存，复核/恢复不能绕过处置决定
+ok 184 - 不是事件处置优先于八步模型和保存，复核/恢复不能绕过处置决定
+  ---
+  duration_ms: 162.5875
+  type: 'test'
+  ...
+# Subtest: M4迁移与映射采用快照后，F02 Worker仍保存事件、复用快照并投递pg-boss
+ok 185 - M4迁移与映射采用快照后，F02 Worker仍保存事件、复用快照并投递pg-boss
+  ---
+  duration_ms: 354.280917
+  type: 'test'
+  ...
+# Subtest: M4与F02并发建立首份Target快照时串行复用，双方采用内容与摘要均合法
+ok 186 - M4与F02并发建立首份Target快照时串行复用，双方采用内容与摘要均合法
+  ---
+  duration_ms: 315.007292
+  type: 'test'
+  ...
+# Subtest: 新抽取包要求object，映射不扩写行动/日期
+ok 187 - 新抽取包要求object，映射不扩写行动/日期
+  ---
+  duration_ms: 10.225292
+  type: 'test'
+  ...
+# Subtest: v2引用辨识，多来源集合改变摘要且不保存正文
+ok 188 - v2引用辨识，多来源集合改变摘要且不保存正文
+  ---
+  duration_ms: 5.916334
+  type: 'test'
+  ...
+# Subtest: 新身份判定不允许漏比较或伪造资料/引文，合法空召回仍校验证据
+ok 189 - 新身份判定不允许漏比较或伪造资料/引文，合法空召回仍校验证据
+  ---
+  duration_ms: 0.952041
+  type: 'test'
+  ...
+# Subtest: NEW仅确认原始事实，不产生历史增量或补时间
+ok 190 - NEW仅确认原始事实，不产生历史增量或补时间
+  ---
+  duration_ms: 0.727042
+  type: 'test'
+  ...
+# Subtest: 无Target仍保留候选取值及实际来源，拒绝伪造正式ID和证据
+ok 191 - 无Target仍保留候选取值及实际来源，拒绝伪造正式ID和证据
+  ---
+  duration_ms: 1.045834
+  type: 'test'
+  ...
+# Subtest: 文字草案逐维空分，正式模式无批准规则拒绝，不接受模型M
+ok 192 - 文字草案逐维空分，正式模式无批准规则拒绝，不接受模型M
+  ---
+  duration_ms: 0.146042
+  type: 'test'
+  ...
+# Subtest: schema5增量迁移保留数据、幂等且新检查点可写
+ok 193 - schema5增量迁移保留数据、幂等且新检查点可写
+  ---
+  duration_ms: 213.123334
+  type: 'test'
+  ...
+# Subtest: schema5+007增量迁移保留数据、幂等且新检查点可写
+ok 194 - schema5+007增量迁移保留数据、幂等且新检查点可写
+  ---
+  duration_ms: 148.788667
+  type: 'test'
+  ...
+# Subtest: 迁移末尾故障回滚DDL和所有归属
+ok 195 - 迁移末尾故障回滚DDL和所有归属
+  ---
+  duration_ms: 127.852459
+  type: 'test'
+  ...
+# Subtest: 跨事件观测依据、反向证据破坏及无输入依据计算均被数据库拒绝
+ok 196 - 跨事件观测依据、反向证据破坏及无输入依据计算均被数据库拒绝
+  ---
+  duration_ms: 160.76625
+  type: 'test'
+  ...
+# Subtest: 旧多归属与孤立证据在迁移前明确拒绝，原数据保留
+ok 197 - 旧多归属与孤立证据在迁移前明确拒绝，原数据保留
+  ---
+  duration_ms: 136.415291
+  type: 'test'
+  ...
+# Subtest: schema8当前事件接口查询与来源撤权结果一致
+ok 198 - schema8当前事件接口查询与来源撤权结果一致
+  ---
+  duration_ms: 513.315334
+  type: 'test'
+  ...
+# Subtest: 显式八步顺序及已完成节点复用，不从AI编号推步骤
+ok 199 - 显式八步顺序及已完成节点复用，不从AI编号推步骤
+  ---
+  duration_ms: 1.062333
+  type: 'test'
+  ...
+# Subtest: 人工等待立即结束，复核后续办不重跑有效步骤
+ok 200 - 人工等待立即结束，复核后续办不重跑有效步骤
+  ---
+  duration_ms: 0.088833
+  type: 'test'
+  ...
+# Subtest: 旧任务包/旧代次阻断，REUSE分支明确等待B批
+ok 201 - 旧任务包/旧代次阻断，REUSE分支明确等待B批
+  ---
+  duration_ms: 0.231875
+  type: 'test'
+  ...
+# Subtest: Step8仅正式保存后独立推进，失败不改已保存结果
+ok 202 - Step8仅正式保存后独立推进，失败不改已保存结果
+  ---
+  duration_ms: 0.098458
+  type: 'test'
+  ...
+# Subtest: 旧candidate和Target读取均拒绝已撤权的副来源
+ok 203 - 旧candidate和Target读取均拒绝已撤权的副来源
+  ---
+  duration_ms: 263.281417
+  type: 'test'
+  ...
+# Subtest: 副来源对象补证与Target输入使用其自身版本并在变化后拒绝
+ok 204 - 副来源对象补证与Target输入使用其自身版本并在变化后拒绝
+  ---
+  duration_ms: 244.565875
+  type: 'test'
+  ...
+# Subtest: 旧候选重建Fact并保留正式事件身份，旧版本只归档，新文件可被读取
+ok 205 - 旧候选重建Fact并保留正式事件身份，旧版本只归档，新文件可被读取
+  ---
+  duration_ms: 603.580875
+  type: 'test'
+  ...
+# Subtest: 无法映射的旧事件阻断并回滚整次迁移，旧数据仍可读
+ok 206 - 无法映射的旧事件阻断并回滚整次迁移，旧数据仍可读
+  ---
+  duration_ms: 504.333042
+  type: 'test'
+  ...
+# Subtest: Fact与资料多对多，证据版本错误拒绝；同Fact不能归入两个Event
+ok 207 - Fact与资料多对多，证据版本错误拒绝；同Fact不能归入两个Event
+  ---
+  duration_ms: 947.309542
+  type: 'test'
+  ...
+# Subtest: 原文位置、孤立事件与删除最后事实均由约束阻断
+ok 208 - 原文位置、孤立事件与删除最后事实均由约束阻断
+  ---
+  duration_ms: 818.7615
+  type: 'test'
+  ...
+# Subtest: delivery API separates receipt, extraction and files and protects every download and recovery
+ok 209 - delivery API separates receipt, extraction and files and protects every download and recovery
+  ---
+  duration_ms: 644.834417
+  type: 'test'
+  ...
+# Subtest: JSONB round trips preserve identical immutable receipt bytes despite object key ordering
+ok 210 - JSONB round trips preserve identical immutable receipt bytes despite object key ordering
+  ---
+  duration_ms: 6.6705
+  type: 'test'
+  ...
+# Subtest: rejects unknown handoff schemas and invalid identities before reading content
+ok 211 - rejects unknown handoff schemas and invalid identities before reading content
+  ---
+  duration_ms: 0.842041
+  type: 'test'
+  ...
+# Subtest: publishes private complete files idempotently, repairs missing aliases and refuses overwrites
+ok 212 - publishes private complete files idempotently, repairs missing aliases and refuses overwrites
+  ---
+  duration_ms: 34.71275
+  type: 'test'
+  ...
+# Subtest: handoff migration is repeatable and preserves existing runtime identities and source states
+ok 213 - handoff migration is repeatable and preserves existing runtime identities and source states
+  ---
+  duration_ms: 298.616875
+  type: 'test'
+  ...
+# Subtest: freezes original acquisition and config when a later operation reuses a saved version
+ok 214 - freezes original acquisition and config when a later operation reuses a saved version
+  ---
+  duration_ms: 502.338333
+  type: 'test'
+  ...
+# Subtest: legacy inbox identities survive backfill and missing acquisition provenance is not invented
+ok 215 - legacy inbox identities survive backfill and missing acquisition provenance is not invented
+  ---
+  duration_ms: 466.808
+  type: 'test'
+  ...
+# Subtest: confirmed source revisions retain an explicit previous version
+ok 216 - confirmed source revisions retain an explicit previous version
+  ---
+  duration_ms: 503.773083
+  type: 'test'
+  ...
+# Subtest: legacy backfill excludes a later acquisition even when its operation was created first
+ok 217 - legacy backfill excludes a later acquisition even when its operation was created first
+  ---
+  duration_ms: 545.147667
+  type: 'test'
+  ...
+# Subtest: ambiguous legacy acquisitions before a save are left unresolved
+ok 218 - ambiguous legacy acquisitions before a save are left unresolved
+  ---
+  duration_ms: 565.444166
+  type: 'test'
+  ...
+# Subtest: 资料迁移重跑跳过事件消息，不为无资料版本的消息建立交付
+ok 219 - 资料迁移重跑跳过事件消息，不为无资料版本的消息建立交付
+  ---
+  duration_ms: 865.639792
+  type: 'test'
+  ...
+# Subtest: acceptance verifier rejects unfinished or inconsistent results instead of reporting a closed loop
+ok 220 - acceptance verifier rejects unfinished or inconsistent results instead of reporting a closed loop
+  ---
+  duration_ms: 547.440833
+  type: 'test'
+  ...
+# Subtest: acceptance verifier compares full fixed candidate payload, order, status and input references
+ok 221 - acceptance verifier compares full fixed candidate payload, order, status and input references
+  ---
+  duration_ms: 462.688916
+  type: 'test'
+  ...
+# Subtest: concurrent repeated deliveries reuse receipt, processing and workflow identity
+ok 222 - concurrent repeated deliveries reuse receipt, processing and workflow identity
+  ---
+  duration_ms: 483.653916
+  type: 'test'
+  ...
+# Subtest: unreadable source bytes and mismatched input never create a receipt or extraction intent
+ok 223 - unreadable source bytes and mismatched input never create a receipt or extraction intent
+  ---
+  duration_ms: 367.531417
+  type: 'test'
+  ...
+# Subtest: delivery recovery has its own generation and budget, checks current source and keeps message identity
+ok 224 - delivery recovery has its own generation and budget, checks current source and keeps message identity
+  ---
+  duration_ms: 492.601958
+  type: 'test'
+  ...
+# Subtest: late receipt publication failure cannot overwrite a newer successful file recovery
+ok 225 - late receipt publication failure cannot overwrite a newer successful file recovery
+  ---
+  duration_ms: 399.137916
+  type: 'test'
+  ...
+# Subtest: schema4显式重建保留全部信源字段，删除旧数据与取消表，并为每源建立关闭计划
+ok 226 - schema4显式重建保留全部信源字段，删除旧数据与取消表，并为每源建立关闭计划
+  ---
+  duration_ms: 267.771209
+  type: 'test'
+  ...
+# Subtest: schema5普通重复初始化保留新资料，只有显式重建能清空
+ok 227 - schema5普通重复初始化保留新资料，只有显式重建能清空
+  ---
+  duration_ms: 295.73875
+  type: 'test'
+  ...
+# Subtest: 重建末尾失败回滚DDL、旧数据及信源新字段
+ok 228 - 重建末尾失败回滚DDL、旧数据及信源新字段
+  ---
+  duration_ms: 207.597291
+  type: 'test'
+  ...
+# Subtest: 空库可安全初始化，关系表只有身份并拒绝跨信源关联
+ok 229 - 空库可安全初始化，关系表只有身份并拒绝跨信源关联
+  ---
+  duration_ms: 103.893625
+  type: 'test'
+  ...
+# Subtest: 旧迁移入口在schema5直接返回，运行权限不能读取旧表或跨入模型资料
+ok 230 - 旧迁移入口在schema5直接返回，运行权限不能读取旧表或跨入模型资料
+  ---
+  duration_ms: 273.361042
+  type: 'test'
+  ...
+# Subtest: 新任务多选逐源受理、重放复用；同计划时点只有一个自动任务
+ok 231 - 新任务多选逐源受理、重放复用；同计划时点只有一个自动任务
+  ---
+  duration_ms: 254.989667
+  type: 'test'
+  ...
+# Subtest: 资料重复不增版本、正文变化递增、零候选有最小结果且旧依据与撤权均拒绝
+ok 232 - 资料重复不增版本、正文变化递增、零候选有最小结果且旧依据与撤权均拒绝
+  ---
+  duration_ms: 117.3935
+  type: 'test'
+  ...
+# Subtest: 当前档案与历史profile不一致时拒绝重建，不丢失未核对字段
+ok 233 - 当前档案与历史profile不一致时拒绝重建，不丢失未核对字段
+  ---
+  duration_ms: 126.091708
+  type: 'test'
+  ...
+# Subtest: 新信源无配置版本，一源一关闭计划，修改仅按更新时间拒绝过期保存
+ok 234 - 新信源无配置版本，一源一关闭计划，修改仅按更新时间拒绝过期保存
+  ---
+  duration_ms: 110.904667
+  type: 'test'
+  ...
+# Subtest: schema5实际管理接口受理单信源任务，读取当前资料并拒绝旧身份入口
+ok 235 - schema5实际管理接口受理单信源任务，读取当前资料并拒绝旧身份入口
+  ---
+  duration_ms: 283.709333
+  type: 'test'
+  ...
+# Subtest: 新采集运行保存正文并确认下游可读，模型未配置或抽取失败不反转采集完成
+ok 236 - 新采集运行保存正文并确认下游可读，模型未配置或抽取失败不反转采集完成
+  ---
+  duration_ms: 170.336167
+  type: 'test'
+  ...
+# Subtest: schema5候选完成原归组复核与步骤3至5，最终审批后保存事件且没有分析总记录
+ok 237 - schema5候选完成原归组复核与步骤3至5，最终审批后保存事件且没有分析总记录
+  ---
+  duration_ms: 375.434166
+  type: 'test'
+  ...
+# Subtest: 新模型认领通过隔离模型角色临时读取正文，审计只存引用，零候选不建分析表
+ok 238 - 新模型认领通过隔离模型角色临时读取正文，审计只存引用，零候选不建分析表
+  ---
+  duration_ms: 194.854167
+  type: 'test'
+  ...
+# Subtest: 实际API/IO/relay角色运行采集并显示启动失败，资料与候选均可授权恢复
+ok 239 - 实际API/IO/relay角色运行采集并显示启动失败，资料与候选均可授权恢复
+  ---
+  duration_ms: 453.264458
+  type: 'test'
+  ...
+# Subtest: 应用初始化不依赖共享测试库或Temporal凭据，重复运行保留新资料
+ok 240 - 应用初始化不依赖共享测试库或Temporal凭据，重复运行保留新资料
+  ---
+  duration_ms: 1088.301
+  type: 'test'
+  ...
+# Subtest: 八并发多选释放外层连接，原键重放与同键异体冲突，单源接受url
+ok 241 - 八并发多选释放外层连接，原键重放与同键异体冲突，单源接受url
+  ---
+  duration_ms: 121.509083
+  type: 'test'
+  ...
+# Subtest: 资料预算按当前版本隔离：旧版到期不阻止新版，同版恢复耗尽拒绝且只显式重开
+ok 242 - 资料预算按当前版本隔离：旧版到期不阻止新版，同版恢复耗尽拒绝且只显式重开
+  ---
+  duration_ms: 233.895333
+  type: 'test'
+  ...
+# Subtest: 采集恢复固定原发现入口，保存后并发版本更新不投递旧版或误标新版可读
+ok 243 - 采集恢复固定原发现入口，保存后并发版本更新不投递旧版或误标新版可读
+  ---
+  duration_ms: 154.486542
+  type: 'test'
+  ...
+# Subtest: 真实管理入口历史跨100条、来源过滤、monitor授权过滤与ready依赖失败503
+ok 244 - 真实管理入口历史跨100条、来源过滤、monitor授权过滤与ready依赖失败503
+  ---
+  duration_ms: 164.320917
+  type: 'test'
+  ...
+# Subtest: schema5 Scheduler.tick两周期，任务暂停继续代际隔离，reconcile覆盖closed/missing/running/unknown
+ok 245 - schema5 Scheduler.tick两周期，任务暂停继续代际隔离，reconcile覆盖closed/missing/running/unknown
+  ---
+  duration_ms: 226.925667
+  type: 'test'
+  ...
+# Subtest: 金融属性增量迁移回填旧分类，保留资料与信源原字段，重复运行不覆盖新值
+ok 246 - 金融属性增量迁移回填旧分类，保留资料与信源原字段，重复运行不覆盖新值
+  ---
+  duration_ms: 114.279334
+  type: 'test'
+  ...
+# Subtest: 金融属性新增编辑写独立列，查询兼容现有分类，省略保留与清空均不会复活旧值
+ok 247 - 金融属性新增编辑写独立列，查询兼容现有分类，省略保留与清空均不会复活旧值
+  ---
+  duration_ms: 156.166792
+  type: 'test'
+  ...
+# Subtest: local workbench reads and manages sources without credentials and keeps a stable audit actor
+ok 248 - local workbench reads and manages sources without credentials and keeps a stable audit actor
+  ---
+  duration_ms: 351.901583
+  type: 'test'
+  ...
+# Subtest: local mode starts without the identity service or OIDC configuration
+ok 249 - local mode starts without the identity service or OIDC configuration
+  ---
+  duration_ms: 234.287417
+  type: 'test'
+  ...
+# Subtest: API AC23/24/25/26/30：真实路由职责隔离、旧入口关闭、字段验证和批量部分成功
+ok 250 - API AC23/24/25/26/30：真实路由职责隔离、旧入口关闭、字段验证和批量部分成功
+  ---
+  duration_ms: 391.511708
+  type: 'test'
+  ...
+# Subtest: 并发相互移动、过期影响确认和移入停用分支的原子联动
+ok 251 - 并发相互移动、过期影响确认和移入停用分支的原子联动
+  ---
+  duration_ms: 288.092167
+  type: 'test'
+  ...
+# Subtest: 迁移schema8前置、事务中途失败回滚、重复执行与旧事实保存
+ok 252 - 迁移schema8前置、事务中途失败回滚、重复执行与旧事实保存
+  ---
+  duration_ms: 174.22725
+  type: 'test'
+  ...
+# Subtest: 直接受控函数调用不能伪造配置联动；观察状态前提与数据库历史审计强制执行
+ok 253 - 直接受控函数调用不能伪造配置联动；观察状态前提与数据库历史审计强制执行
+  ---
+  duration_ms: 267.622333
+  type: 'test'
+  ...
+# Subtest: M4迁移门禁切换四页导航与观察页面，schema8保留旧入口
+ok 254 - M4迁移门禁切换四页导航与观察页面，schema8保留旧入口
+  ---
+  duration_ms: 21.930709
+  type: 'test'
+  ...
+# Subtest: Target快照兼容既有plain与扩展形状，仍拒绝错误内容、版本及摘要
+ok 255 - Target快照兼容既有plain与扩展形状，仍拒绝错误内容、版本及摘要
+  ---
+  duration_ms: 7.319625
+  type: 'test'
+  ...
+# Subtest: 映射复用已有合法plain快照，错误同版本快照不能被批准
+ok 256 - 映射复用已有合法plain快照，错误同版本快照不能被批准
+  ---
+  duration_ms: 290.833625
+  type: 'test'
+  ...
+# Subtest: 关联动态按上海自然日过滤，拒绝不存在日期和反向范围
+ok 257 - 关联动态按上海自然日过滤，拒绝不存在日期和反向范围
+  ---
+  duration_ms: 252.264209
+  type: 'test'
+  ...
+# Subtest: AC01–08/23/24/29：空目录手工配置，跨账号共享唯一，部分失败稳定重试
+ok 258 - AC01–08/23/24/29：空目录手工配置，跨账号共享唯一，部分失败稳定重试
+  ---
+  duration_ms: 325.403792
+  type: 'test'
+  ...
+# Subtest: AC09–15/31：影响凭据、配置暂停、历史快照、显式恢复、合法树与双版本
+ok 259 - AC09–15/31：影响凭据、配置暂停、历史快照、显式恢复、合法树与双版本
+  ---
+  duration_ms: 309.287458
+  type: 'test'
+  ...
+# Subtest: AC25/26/30：职责隔离，权限撤销后不能重放回执，DML与快照历史不可变
+ok 260 - AC25/26/30：职责隔离，权限撤销后不能重放回执，DML与快照历史不可变
+  ---
+  duration_ms: 309.539792
+  type: 'test'
+  ...
+# Subtest: AC16–22/27/28：人工映射、全来源权限、历史事件去重和Target版本即时失效
+ok 261 - AC16–22/27/28：人工映射、全来源权限、历史事件去重和Target版本即时失效
+  ---
+  duration_ms: 272.476458
+  type: 'test'
+  ...
+# Subtest: 批次摘要绑定完整输入，修改同key批次不会新增对象，撤权后重验
+ok 262 - 批次摘要绑定完整输入，修改同key批次不会新增对象，撤权后重验
+  ---
+  duration_ms: 236.055791
+  type: 'test'
+  ...
+# Subtest: 规范化说明贯穿配置快照、映射与观察历史；错误两端不能撤销其他映射
+ok 263 - 规范化说明贯穿配置快照、映射与观察历史；错误两端不能撤销其他映射
+  ---
+  duration_ms: 263.351333
+  type: 'test'
+  ...
+# Subtest: 已核定且有动态的口径修订原子暂停观察、保留旧采用定义并使映射待核定
+ok 264 - 已核定且有动态的口径修订原子暂停观察、保留旧采用定义并使映射待核定
+  ---
+  duration_ms: 255.090458
+  type: 'test'
+  ...
+# Subtest: manual page history filters real manual batches before pagination and validates trigger
+ok 265 - manual page history filters real manual batches before pagination and validates trigger
+  ---
+  duration_ms: 446.423625
+  type: 'test'
+  ...
+# Subtest: schedule history exposes authorized fixed results and distinguishes queued slots from saved material
+ok 266 - schedule history exposes authorized fixed results and distinguishes queued slots from saved material
+  ---
+  duration_ms: 533.367625
+  type: 'test'
+  ...
+# Subtest: plan summary reflects the paused operation instead of a stale scheduler status
+ok 267 - plan summary reflects the paused operation instead of a stale scheduler status
+  ---
+  duration_ms: 321.99725
+  type: 'test'
+  ...
+# Subtest: resuming a paused batch rechecks source eligibility and preserves pause when the source is disabled
+ok 268 - resuming a paused batch rechecks source eligibility and preserves pause when the source is disabled
+  ---
+  duration_ms: 326.356792
+  type: 'test'
+  ...
+# Subtest: source relations expose real saved versions and keep unavailable indicator references distinct from zero
+ok 269 - source relations expose real saved versions and keep unavailable indicator references distinct from zero
+  ---
+  duration_ms: 559.894042
+  type: 'test'
+  ...
+# Subtest: catalog synchronization preserves an edited profile and its independent connector configuration
+ok 270 - catalog synchronization preserves an edited profile and its independent connector configuration
+  ---
+  duration_ms: 340.686125
+  type: 'test'
+  ...
+# Subtest: an incomplete new source cannot be enabled; verified manual eligibility does not imply an automatic connector
+ok 271 - an incomplete new source cannot be enabled; verified manual eligibility does not imply an automatic connector
+  ---
+  duration_ms: 296.776458
+  type: 'test'
+  ...
+# Subtest: session and profile writes preserve revisions, reject stale edits and duplicate identity, and cannot configure a connector
+ok 272 - session and profile writes preserve revisions, reject stale edits and duplicate identity, and cannot configure a connector
+  ---
+  duration_ms: 294.0345
+  type: 'test'
+  ...
+# Subtest: active task lookup retains paused and old manual batches, excludes scheduled operations, and respects source access
+ok 273 - active task lookup retains paused and old manual batches, excludes scheduled operations, and respects source access
+  ---
+  duration_ms: 352.683708
+  type: 'test'
+  ...
+# Subtest: one durable multi-source task counts partial eligibility once, replays safely, and filters only rows while metrics cover the date range
+ok 274 - one durable multi-source task counts partial eligibility once, replays safely, and filters only rows while metrics cover the date range
+  ---
+  duration_ms: 316.07275
+  type: 'test'
+  ...
+# Subtest: pausing fences late discovery and material commits, resumes fixed checkpoints and retains the original scheduled time
+ok 275 - pausing fences late discovery and material commits, resumes fixed checkpoints and retains the original scheduled time
+  ---
+  duration_ms: 460.404958
+  type: 'test'
+  ...
+# Subtest: paused extraction cannot claim or accept old model work and resume retains fixed input and existing errors
+ok 276 - paused extraction cannot claim or accept old model work and resume retains fixed input and existing errors
+  ---
+  duration_ms: 686.458375
+  type: 'test'
+  ...
+# Subtest: source-limited actors cannot read or control another source through batch aggregation or history
+ok 277 - source-limited actors cannot read or control another source through batch aggregation or history
+  ---
+  duration_ms: 365.482792
+  type: 'test'
+  ...
+# Subtest: persisted schedule switches are independent from source switches and revisions survive scheduler initialization
+ok 278 - persisted schedule switches are independent from source switches and revisions survive scheduler initialization
+  ---
+  duration_ms: 316.185542
+  type: 'test'
+  ...
+# Subtest: pause fences discovery already committing when the control request starts
+ok 279 - pause fences discovery already committing when the control request starts
+  ---
+  duration_ms: 385.673834
+  type: 'test'
+  ...
+# Subtest: pause fences delivery already committing when the control request starts
+ok 280 - pause fences delivery already committing when the control request starts
+  ---
+  duration_ms: 526.206375
+  type: 'test'
+  ...
+# Subtest: shared processing chooses an active owner when the oldest batch is paused
+ok 281 - shared processing chooses an active owner when the oldest batch is paused
+  ---
+  duration_ms: 715.466292
+  type: 'test'
+  ...
+# Subtest: a later active owner resumes shared paused processing without unpausing the original batch
+ok 282 - a later active owner resumes shared paused processing without unpausing the original batch
+  ---
+  duration_ms: 753.255875
+  type: 'test'
+  ...
+# Subtest: nested partial source outcomes remain partial batches with confirmed unique saves
+ok 283 - nested partial source outcomes remain partial batches with confirmed unique saves
+  ---
+  duration_ms: 422.778083
+  type: 'test'
+  ...
+# Subtest: disabling a plan after selecting its pending slot prevents submission and schedule overwrite
+ok 284 - disabling a plan after selecting its pending slot prevents submission and schedule overwrite
+  ---
+  duration_ms: 319.255833
+  type: 'test'
+  ...
+# Subtest: disabling a plan after selecting its due slot prevents submission and schedule overwrite
+ok 285 - disabling a plan after selecting its due slot prevents submission and schedule overwrite
+  ---
+  duration_ms: 289.968417
+  type: 'test'
+  ...
+# Subtest: unified runs preserve scheduler slots without duplicate operations and scope metrics by source
+ok 286 - unified runs preserve scheduler slots without duplicate operations and scope metrics by source
+  ---
+  duration_ms: 313.956125
+  type: 'test'
+  ...
+# Subtest: batch filtering retains one whole task and details retain blocked source items
+ok 287 - batch filtering retains one whole task and details retain blocked source items
+  ---
+  duration_ms: 451.299041
+  type: 'test'
+  ...
+# Subtest: automatic run date uses its schedule slot across Shanghai midnight and ignores resolved scheduler errors
+ok 288 - automatic run date uses its schedule slot across Shanghai midnight and ignores resolved scheduler errors
+  ---
+  duration_ms: 309.988959
+  type: 'test'
+  ...
+# Subtest: product graph retains every source identity, role, branch, dependency and display number
+ok 289 - product graph retains every source identity, role, branch, dependency and display number
+  ---
+  duration_ms: 9.645167
+  type: 'test'
+  ...
+# Subtest: 领域概念引用本体定义与边界，提示词引用不包含生成正文
+ok 290 - 领域概念引用本体定义与边界，提示词引用不包含生成正文
+  ---
+  duration_ms: 8.267208
+  type: 'test'
+  ...
+# Subtest: F02 follows the reviewed eight steps and separates save, delivery and association
+ok 291 - F02 follows the reviewed eight steps and separates save, delivery and association
+  ---
+  duration_ms: 0.204084
+  type: 'test'
+  ...
+# Subtest: 同一服务每次请求读取最新正文及元数据，不同步、不重启、不改变固定任务
+ok 292 - 同一服务每次请求读取最新正文及元数据，不同步、不重启、不改变固定任务
+  ---
+  duration_ms: 48.817666
+  type: 'test'
+  ...
+# Subtest: 文档损坏、身份不匹配或被删除时只显示读取失败，修复后立即恢复
+ok 293 - 文档损坏、身份不匹配或被删除时只显示读取失败，修复后立即恢复
+  ---
+  duration_ms: 5.633334
+  type: 'test'
+  ...
+# Subtest: 来源路径及符号链接不能越过提示词目录，客户端不能指定任意文件
+ok 294 - 来源路径及符号链接不能越过提示词目录，客户端不能指定任意文件
+  ---
+  duration_ms: 3.683792
+  type: 'test'
+  ...
+# Subtest: 真实提示词按当前文档解析，展示源码不包含草稿正文快照
+ok 295 - 真实提示词按当前文档解析，展示源码不包含草稿正文快照
+  ---
+  duration_ms: 5.456916
+  type: 'test'
+  ...
+# Subtest: 兼容原有 text 围栏及 CRLF
+ok 296 - 兼容原有 text 围栏及 CRLF
+  ---
+  duration_ms: 0.636417
+  type: 'test'
+  ...
+# Subtest: 完整保留四反引号内的四层标题和 JSON 围栏，排除外部说明
+ok 297 - 完整保留四反引号内的四层标题和 JSON 围栏，排除外部说明
+  ---
+  duration_ms: 0.137792
+  type: 'test'
+  ...
+# Subtest: 较短或不同字符的围栏不能提前结束正文
+ok 298 - 较短或不同字符的围栏不能提前结束正文
+  ---
+  duration_ms: 0.046292
+  type: 'test'
+  ...
+# Subtest: 拒绝未闭合围栏，避免生成截断或包含后续章节的副本
+ok 299 - 拒绝未闭合围栏，避免生成截断或包含后续章节的副本
+  ---
+  duration_ms: 0.154834
+  type: 'test'
+  ...
+# Subtest: 拒绝缺失、空白或多个提示词代码块
+ok 300 - 拒绝缺失、空白或多个提示词代码块
+  ---
+  duration_ms: 0.076417
+  type: 'test'
+  ...
+# Subtest: 实际 AI-01 文档完整提取四层及所有 JSON 示例
+ok 301 - 实际 AI-01 文档完整提取四层及所有 JSON 示例
+  ---
+  duration_ms: 0.494167
+  type: 'test'
+  ...
+# Subtest: 按章节名称读取第三节或第四节完整四层提示词，排除示例章节
+ok 302 - 按章节名称读取第三节或第四节完整四层提示词，排除示例章节
+  ---
+  duration_ms: 0.369708
+  type: 'test'
+  ...
+# Subtest: initial panorama renders all nodes exactly once with independent layer and module disclosures
+ok 303 - initial panorama renders all nodes exactly once with independent layer and module disclosures
+  ---
+  duration_ms: 24.559041
+  type: 'test'
+  ...
+# Subtest: each node has readable detail, reachable successors, safe sources and no editing or execution controls
+ok 304 - each node has readable detail, reachable successors, safe sources and no editing or execution controls
+  ---
+  duration_ms: 63.225
+  type: 'test'
+  ...
+# Subtest: fixed task routes never substitute an unavailable version and every valid task tab renders
+ok 305 - fixed task routes never substitute an unavailable version and every valid task tab renders
+  ---
+  duration_ms: 42.581542
+  type: 'test'
+  ...
+# Subtest: all product shells place the real pipeline entry in the configuration group
+ok 306 - all product shells place the real pipeline entry in the configuration group
+  ---
+  duration_ms: 2.568125
+  type: 'test'
+  ...
+# Subtest: prompt tab displays current document text safely without changing task versions
+ok 307 - prompt tab displays current document text safely without changing task versions
+  ---
+  duration_ms: 1.547875
+  type: 'test'
+  ...
+# Subtest: reviewed F02 AI detail and tabs never display the legacy task contract
+ok 308 - reviewed F02 AI detail and tabs never display the legacy task contract
+  ---
+  duration_ms: 6.545417
+  type: 'test'
+  ...
+# Subtest: retains real transport responses and distinguishes stop, truncation, HTTP errors and invalid JSON
+ok 309 - retains real transport responses and distinguishes stop, truncation, HTTP errors and invalid JSON
+  ---
+  duration_ms: 23.088625
+  type: 'test'
+  ...
+# Subtest: enforces persistent model budgets and fences late attempts after authorized recovery
+ok 310 - enforces persistent model budgets and fences late attempts after authorized recovery
+  ---
+  duration_ms: 816.684625
+  type: 'test'
+  ...
+# Subtest: runtime children receive only their own database and identity credentials
+ok 311 - runtime children receive only their own database and identity credentials
+  ---
+  duration_ms: 4.946291
+  type: 'test'
+  ...
+# Subtest: the actual model database role can register response artifacts without UPDATE privileges
+ok 312 - the actual model database role can register response artifacts without UPDATE privileges
+  ---
+  duration_ms: 469.253167
+  type: 'test'
+  ...
+# Subtest: raw and discovered snapshots recover after publication but before any acquisition transaction commits
+ok 313 - raw and discovered snapshots recover after publication but before any acquisition transaction commits
+  ---
+  duration_ms: 407.103625
+  type: 'test'
+  ...
+# Subtest: an HTTP call is aborted when its remaining processing budget expires
+ok 314 - an HTTP call is aborted when its remaining processing budget expires
+  ---
+  duration_ms: 29.025291
+  type: 'test'
+  ...
+# Subtest: queued calls require a current generation, source authorization and an unexpired budget at actual execution
+ok 315 - queued calls require a current generation, source authorization and an unexpired budget at actual execution
+  ---
+  duration_ms: 538.839417
+  type: 'test'
+  ...
+# Subtest: equivalent PBC URL spellings reuse one material version and one processing identity
+ok 316 - equivalent PBC URL spellings reuse one material version and one processing identity
+  ---
+  duration_ms: 631.47925
+  type: 'test'
+  ...
+# Subtest: a 200 login or access gate retaining the article container is not an extractable announcement
+ok 317 - a 200 login or access gate retaining the article container is not an extractable announcement
+  ---
+  duration_ms: 1.156875
+  type: 'test'
+  ...
+# Subtest: schema and forged-evidence failures require a basis-bound authorized review before any retry window
+ok 318 - schema and forged-evidence failures require a basis-bound authorized review before any retry window
+  ---
+  duration_ms: 1018.276708
+  type: 'test'
+  ...
+# Subtest: a due schedule is durable, concurrent ticks submit once, restart skips in-flight work and disabled sources
+ok 319 - a due schedule is durable, concurrent ticks submit once, restart skips in-flight work and disabled sources
+  ---
+  duration_ms: 352.359458
+  type: 'test'
+  ...
+# Subtest: alerts stay quiet on success, deduplicate persistence, resolve, recur and retain failed notification delivery
+ok 320 - alerts stay quiet on success, deduplicate persistence, resolve, recur and retain failed notification delivery
+  ---
+  duration_ms: 252.905167
+  type: 'test'
+  ...
+# Subtest: automatic recovery is fenced, atomically limited and cannot bypass output review or a model pause
+ok 321 - automatic recovery is fenced, atomically limited and cannot bypass output review or a model pause
+  ---
+  duration_ms: 618.345125
+  type: 'test'
+  ...
+# Subtest: a committed pending slot resumes without a new slot, and all sources share the in-flight ceiling
+ok 322 - a committed pending slot resumes without a new slot, and all sources share the in-flight ceiling
+  ---
+  duration_ms: 313.885417
+  type: 'test'
+  ...
+# Subtest: scheduler does not steal a generation while the workflow still has a live retry window
+ok 323 - scheduler does not steal a generation while the workflow still has a live retry window
+  ---
+  duration_ms: 535.195542
+  type: 'test'
+  ...
+# Subtest: supervisor failure stays visible without PostgreSQL and quiet across repeated restarts
+ok 324 - supervisor failure stays visible without PostgreSQL and quiet across repeated restarts
+  ---
+  duration_ms: 222.980959
+  type: 'test'
+  ...
+# Subtest: a retry and the end of quota backoff do not resolve an ongoing problem or send it twice
+ok 325 - a retry and the end of quota backoff do not resolve an ongoing problem or send it twice
+  ---
+  duration_ms: 280.533083
+  type: 'test'
+  ...
+# Subtest: two forbidden pending submissions do not starve an authorized source
+ok 326 - two forbidden pending submissions do not starve an authorized source
+  ---
+  duration_ms: 268.612875
+  type: 'test'
+  ...
+# Subtest: a resumed processing without a scheduled run reports review and keeps its alert through another pending attempt
+ok 327 - a resumed processing without a scheduled run reports review and keeps its alert through another pending attempt
+  ---
+  duration_ms: 481.513291
+  type: 'test'
+  ...
+# Subtest: service recovery preserves failed delivery and the next failure archives the previous incident
+ok 328 - service recovery preserves failed delivery and the next failure archives the previous incident
+  ---
+  duration_ms: 225.018041
+  type: 'test'
+  ...
+# Subtest: an empty source setting initializes every ready source rather than selecting none
+ok 329 - an empty source setting initializes every ready source rather than selecting none
+  ---
+  duration_ms: 213.853333
+  type: 'test'
+  ...
+# Subtest: sources execute with frozen connection versions and reseeding preserves an operator pause
+ok 330 - sources execute with frozen connection versions and reseeding preserves an operator pause
+  ---
+  duration_ms: 350.297542
+  type: 'test'
+  ...
+# Subtest: distinct observation days at one data URL create separate identities without losing zeroes
+ok 331 - distinct observation days at one data URL create separate identities without losing zeroes
+  ---
+  duration_ms: 469.954625
+  type: 'test'
+  ...
+# Subtest: repeated weekend windows for the same exchange observation reuse one material and version
+ok 332 - repeated weekend windows for the same exchange observation reuse one material and version
+  ---
+  duration_ms: 538.7635
+  type: 'test'
+  ...
+# Subtest: every supplied source has a usable connector or an explicit unmet requirement
+ok 333 - every supplied source has a usable connector or an explicit unmet requirement
+  ---
+  duration_ms: 3.888333
+  type: 'test'
+  ...
+# Subtest: discovery ignores navigation, external links and duplicates and preserves finite coverage
+ok 334 - discovery ignores navigation, external links and duplicates and preserves finite coverage
+  ---
+  duration_ms: 4.462042
+  type: 'test'
+  ...
+# Subtest: RSS discovers original detail URLs and never treats the summary as full text
+ok 335 - RSS discovers original detail URLs and never treats the summary as full text
+  ---
+  duration_ms: 1.705791
+  type: 'test'
+  ...
+# Subtest: HTML uses the configured body and preserves zeroes, Unicode and merged-header meaning
+ok 336 - HTML uses the configured body and preserves zeroes, Unicode and merged-header meaning
+  ---
+  duration_ms: 2.563625
+  type: 'test'
+  ...
+# Subtest: login gates, absent bodies, oversized text and undated snapshots cannot become usable material
+ok 337 - login gates, absent bodies, oversized text and undated snapshots cannot become usable material
+  ---
+  duration_ms: 4.013625
+  type: 'test'
+  ...
+# Subtest: JSON observations preserve null versus zero and use the actual observation date for identity
+ok 338 - JSON observations preserve null versus zero and use the actual observation date for identity
+  ---
+  duration_ms: 0.324167
+  type: 'test'
+  ...
+# Subtest: URL and redirect policy rejects unregistered origins, paths, credentials and query parameters before fetch
+ok 339 - URL and redirect policy rejects unregistered origins, paths, credentials and query parameters before fetch
+  ---
+  duration_ms: 3.95625
+  type: 'test'
+  ...
+# Subtest: dynamic JSON discovery freezes the observed date and script discovery reads only literal links
+ok 340 - dynamic JSON discovery freezes the observed date and script discovery reads only literal links
+  ---
+  duration_ms: 0.690625
+  type: 'test'
+  ...
+# Subtest: JSON article encoding is independent of embedded HTML charset declarations
+ok 341 - JSON article encoding is independent of embedded HTML charset declarations
+  ---
+  duration_ms: 0.357541
+  type: 'test'
+  ...
+# Subtest: script comments cannot replace the actual discovered resource and daily-browser binaries are refused
+ok 342 - script comments cannot replace the actual discovered resource and daily-browser binaries are refused
+  ---
+  duration_ms: 5.633125
+  type: 'test'
+  ...
+# Subtest: the disclosure index adapter selects its declared announcement table rather than unrelated homepage panels
+ok 343 - the disclosure index adapter selects its declared announcement table rather than unrelated homepage panels
+  ---
+  duration_ms: 1.083417
+  type: 'test'
+  ...
+# Subtest: official discovery selects the declared data column and excludes leadership and unrelated pinned links
+ok 344 - official discovery selects the declared data column and excludes leadership and unrelated pinned links
+  ---
+  duration_ms: 0.891625
+  type: 'test'
+  ...
+# Subtest: a missing HTTP media header still saves bytes for strict parsing, while an explicit binary type is rejected
+ok 345 - a missing HTTP media header still saves bytes for strict parsing, while an explicit binary type is rejected
+  ---
+  duration_ms: 0.671917
+  type: 'test'
+  ...
+# Subtest: release dates and index update times do not become observation dates
+ok 346 - release dates and index update times do not become observation dates
+  ---
+  duration_ms: 0.497833
+  type: 'test'
+  ...
+# Subtest: daily-close adapters reject intraday DR007 and an unqualified FR007 curve instead of relabeling it
+ok 347 - daily-close adapters reject intraday DR007 and an unqualified FR007 curve instead of relabeling it
+  ---
+  duration_ms: 0.28775
+  type: 'test'
+  ...
+# Subtest: snapshot dates must name a real calendar day rather than just match a date-shaped string
+ok 348 - snapshot dates must name a real calendar day rather than just match a date-shaped string
+  ---
+  duration_ms: 0.444416
+  type: 'test'
+  ...
+# Subtest: browser subresources require explicit public dependency origins while document paths keep their source scope
+ok 349 - browser subresources require explicit public dependency origins while document paths keep their source scope
+  ---
+  duration_ms: 0.72225
+  type: 'test'
+  ...
+# Subtest: publishes immutable bytes and detects damaged artifacts
+ok 350 - publishes immutable bytes and detects damaged artifacts
+  ---
+  duration_ms: 17.457208
+  type: 'test'
+  ...
+# Subtest: persists complete commands and reuses concurrent submissions and fixed candidate sets
+ok 351 - persists complete commands and reuses concurrent submissions and fixed candidate sets
+  ---
+  duration_ms: 647.91375
+  type: 'test'
+  ...
+# Subtest: 观测对象API以实际API角色读取，名称/别名、分类、状态、分页和通配字面值可组合
+ok 352 - 观测对象API以实际API角色读取，名称/别名、分类、状态、分页和通配字面值可组合
+  ---
+  duration_ms: 378.225042
+  type: 'test'
+  ...
+# Subtest: 目录数量与详情都排除任一来源无权读取的关联事件，定义目录不泄漏事件
+ok 353 - 目录数量与详情都排除任一来源无权读取的关联事件，定义目录不泄漏事件
+  ---
+  duration_ms: 218.844584
+  type: 'test'
+  ...
+# Subtest: 观测对象查询必须具备read权限，只读账号无法维护对象
+ok 354 - 观测对象查询必须具备read权限，只读账号无法维护对象
+  ---
+  duration_ms: 214.675667
+  type: 'test'
+  ...
+# Subtest: 人工新建及编辑绑定幂等键和版本，重复及并发不会覆盖或建重
+ok 355 - 人工新建及编辑绑定幂等键和版本，重复及并发不会覆盖或建重
+  ---
+  duration_ms: 261.647625
+  type: 'test'
+  ...
+# Subtest: 人工维护拒绝无效分类和同范围重复对象，允许同名但范围明确不同
+ok 356 - 人工维护拒绝无效分类和同范围重复对象，允许同名但范围明确不同
+  ---
+  duration_ms: 240.067834
+  type: 'test'
+  ...
+# Subtest: 各功能页面均提供四个带图标入口，全部动态与观测对象归入内容
+ok 357 - 各功能页面均提供四个带图标入口，全部动态与观测对象归入内容
+  ---
+  duration_ms: 12.187791
+  type: 'test'
+  ...
+# Subtest: 新页面资源延续同源CSP，白名单外路径不能读取
+ok 358 - 新页面资源延续同源CSP，白名单外路径不能读取
+  ---
+  duration_ms: 39.126625
+  type: 'test'
+  ...
+# Subtest: 列表/表单/详情往返保留搜索、分类及列表分页，关联事件页码独立
+ok 359 - 列表/表单/详情往返保留搜索、分类及列表分页，关联事件页码独立
+  ---
+  duration_ms: 0.286333
+  type: 'test'
+  ...
+# Subtest: 目录和详情展示真实定义/事件，全部动态链接正确且内容转义
+ok 360 - 目录和详情展示真实定义/事件，全部动态链接正确且内容转义
+  ---
+  duration_ms: 9.337917
+  type: 'test'
+  ...
+# Subtest: 空库、筛选无结果、读取错误与只读账号保持不同状态
+ok 361 - 空库、筛选无结果、读取错误与只读账号保持不同状态
+  ---
+  duration_ms: 0.276834
+  type: 'test'
+  ...
+# Subtest: 持久结果按版本、Fact、Event去重，任务范围不混入累计且遵守读取权限
+ok 362 - 持久结果按版本、Fact、Event去重，任务范围不混入累计且遵守读取权限
+  ---
+  duration_ms: 1111.899625
+  type: 'test'
+  ...
+# Subtest: 每份资料只取最新抽取状态，失败与待复核不计为无事件
+ok 363 - 每份资料只取最新抽取状态，失败与待复核不计为无事件
+  ---
+  duration_ms: 513.49125
+  type: 'test'
+  ...
+# Subtest: real Temporal resumes a durable retry after worker restart and saves a multi-candidate set once
+ok 364 - real Temporal resumes a durable retry after worker restart and saves a multi-candidate set once
+  ---
+  duration_ms: 32833.335833
+  type: 'test'
+  ...
+# Subtest: pipeline serves only explicit assets and source documents with the existing CSP
+ok 365 - pipeline serves only explicit assets and source documents with the existing CSP
+  ---
+  duration_ms: 60.488833
+  type: 'test'
+  ...
+# Subtest: M1 shell and controller are served with restrictive headers while APIs still require identity
+ok 366 - M1 shell and controller are served with restrictive headers while APIs still require identity
+  ---
+  duration_ms: 353.781208
+  type: 'test'
+  ...
+# Subtest: schedule period units preserve existing durations and convert decimal hours without exceeding current bounds
+ok 367 - schedule period units preserve existing durations and convert decimal hours without exceeding current bounds
+  ---
+  duration_ms: 2.769417
+  type: 'test'
+  ...
+# Subtest: directory identity search does not match unrelated focus or background prose
+ok 368 - directory identity search does not match unrelated focus or background prose
+  ---
+  duration_ms: 0.351833
+  type: 'test'
+  ...
+# Subtest: multi-valued business filters use OR within one dimension and intersection across dimensions
+ok 369 - multi-valued business filters use OR within one dimension and intersection across dimensions
+  ---
+  duration_ms: 0.228291
+  type: 'test'
+  ...
+# Subtest: source search uses persisted metadata and unknown classifications remain empty
+ok 370 - source search uses persisted metadata and unknown classifications remain empty
+  ---
+  duration_ms: 0.696
+  type: 'test'
+  ...
+# Subtest: saved counts come from fixed material versions and failed extraction is not zero candidates
+ok 371 - saved counts come from fixed material versions and failed extraction is not zero candidates
+  ---
+  duration_ms: 0.351125
+  type: 'test'
+  ...
+# Subtest: period boundaries use Shanghai dates and reject reversed or non-calendar dates
+ok 372 - period boundaries use Shanghai dates and reject reversed or non-calendar dates
+  ---
+  duration_ms: 9.658083
+  type: 'test'
+  ...
+# Subtest: request client preserves idempotency key and payload across unknown outcome recovery
+ok 373 - request client preserves idempotency key and payload across unknown outcome recovery
+  ---
+  duration_ms: 17.370167
+  type: 'test'
+  ...
+# Subtest: request client distinguishes expired login, forbidden scope and service failure
+ok 374 - request client distinguishes expired login, forbidden scope and service failure
+  ---
+  duration_ms: 1.576792
+  type: 'test'
+  ...
+# Subtest: source grouping does not duplicate identities within a group and absent dimensions stay explicit
+ok 375 - source grouping does not duplicate identities within a group and absent dimensions stay explicit
+  ---
+  duration_ms: 0.532667
+  type: 'test'
+  ...
+# Subtest: 专题研究固定保留三类，40条缺失分类不会被伪装成平铺研究结果
+ok 376 - 专题研究固定保留三类，40条缺失分类不会被伪装成平铺研究结果
+  ---
+  duration_ms: 1.711292
+  type: 'test'
+  ...
+# Subtest: 专题分类代码和中文归入同一组，多值别名不重复计数，层级与优先级显示中文
+ok 377 - 专题分类代码和中文归入同一组，多值别名不重复计数，层级与优先级显示中文
+  ---
+  duration_ms: 0.321167
+  type: 'test'
+  ...
+# Subtest: 接入结果保留候选事实读取入口，不再提供候选处理页面入口
+ok 378 - 接入结果保留候选事实读取入口，不再提供候选处理页面入口
+  ---
+  duration_ms: 0.373625
+  type: 'test'
+  ...
+# Subtest: delivery UI separates saved, received and extraction state and exposes only available files
+ok 379 - delivery UI separates saved, received and extraction state and exposes only available files
+  ---
+  duration_ms: 4.695958
+  type: 'test'
+  ...
+# Subtest: launch remains locked through queue, running and pause, and uncertain reads cannot unlock it
+ok 380 - launch remains locked through queue, running and pause, and uncertain reads cannot unlock it
+  ---
+  duration_ms: 0.105333
+  type: 'test'
+  ...
+# Subtest: activity uses actual completed sources and makes pause, stale state and errors visible without simulated progress
+ok 381 - activity uses actual completed sources and makes pause, stale state and errors visible without simulated progress
+  ---
+  duration_ms: 11.807291
+  type: 'test'
+  ...
+# Subtest: plan workspace separates configured plans and keeps unconfigured sources reachable
+ok 382 - plan workspace separates configured plans and keeps unconfigured sources reachable
+  ---
+  duration_ms: 2.483417
+  type: 'test'
+  ...
+# Subtest: compact task overview keeps date metrics separate from filtered rows and exposes status filters
+ok 383 - compact task overview keeps date metrics separate from filtered rows and exposes status filters
+  ---
+  duration_ms: 0.974625
+  type: 'test'
+  ...
+# Subtest: 任务结果区分累计和本任务，显示零与未知并保留统计口径
+ok 384 - 任务结果区分累计和本任务，显示零与未知并保留统计口径
+  ---
+  duration_ms: 4.777416
+  type: 'test'
+  ...
+# Subtest: 批次列表一行一批次，详情一行一份实际资料并保留未发现资料的信源原因
+ok 385 - 批次列表一行一批次，详情一行一份实际资料并保留未发现资料的信源原因
+  ---
+  duration_ms: 3.439
+  type: 'test'
+  ...
+# Subtest: 零资料批次不创建伪采集行，区分未发现资料和发现失败
+ok 386 - 零资料批次不创建伪采集行，区分未发现资料和发现失败
+  ---
+  duration_ms: 0.639542
+  type: 'test'
+  ...
+# Subtest: 默认执行概览一源一行，分开显示计划暂停、执行状态、空结果与异常
+ok 387 - 默认执行概览一源一行，分开显示计划暂停、执行状态、空结果与异常
+  ---
+  duration_ms: 2.219708
+  type: 'test'
+  ...
+# Subtest: 手动任务独立承载开启与进度入口，概览和普通历史不提供开启
+ok 388 - 手动任务独立承载开启与进度入口，概览和普通历史不提供开启
+  ---
+  duration_ms: 4.5425
+  type: 'test'
+  ...
+# Subtest: 任务详情未启动及读取失败均不伪装为空结果
+ok 389 - 任务详情未启动及读取失败均不伪装为空结果
+  ---
+  duration_ms: 0.285875
+  type: 'test'
+  ...
+# Subtest: 两工作区兼容旧计划链接，计划共用搜索且保留全部范围
+ok 390 - 两工作区兼容旧计划链接，计划共用搜索且保留全部范围
+  ---
+  duration_ms: 0.672417
+  type: 'test'
+  ...
+# Subtest: 目录压平连续待补充分组，单信源详情不提供全局启动
+ok 391 - 目录压平连续待补充分组，单信源详情不提供全局启动
+  ---
+  duration_ms: 1.761875
+  type: 'test'
+  ...
+# Subtest: 结束任务压缩为摘要且提供独立诊断，整轮详情保持统计
+ok 392 - 结束任务压缩为摘要且提供独立诊断，整轮详情保持统计
+  ---
+  duration_ms: 0.294125
+  type: 'test'
+  ...
+# Subtest: 资料阅读在同一层区分正文、零候选与未知，保留文件和恢复
+ok 393 - 资料阅读在同一层区分正文、零候选与未知，保留文件和恢复
+  ---
+  duration_ms: 1.744
+  type: 'test'
+  ...
+# Subtest: 导航已标明页面时移除重复标题说明，保留可访问名称与必要操作
+ok 394 - 导航已标明页面时移除重复标题说明，保留可访问名称与必要操作
+  ---
+  duration_ms: 1.470584
+  type: 'test'
+  ...
+1..394
+# tests 394
+# suites 0
+# pass 394
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 179877.677333

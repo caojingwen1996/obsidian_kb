@@ -3,7 +3,7 @@ import unittest
 from datetime import datetime, timezone
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
-from local_proxy import nasdaq100_return_history, fetch_nasdaq100_snapshot
+from local_proxy import nasdaq100_return_history, fetch_yahoo_nasdaq100_snapshot as fetch_nasdaq100_snapshot
 
 
 class NasdaqReturnTests(unittest.TestCase):
@@ -17,6 +17,9 @@ class NasdaqReturnTests(unittest.TestCase):
         history = nasdaq100_return_history(self.payload(), 'test')
         old, current = history['rows']
         self.assertEqual(history['lastDate'], '2026-02-27')
+        self.assertEqual(current['daily'], [
+            {'date': '2026-01-02', 'close': 100}, {'date': '2026-01-30', 'close': 110},
+            {'date': '2026-02-02', 'close': 88}, {'date': '2026-02-27', 'close': 99}])
         self.assertEqual(old['status'], '样本首年')
         self.assertEqual(current['status'], '年内')
         self.assertAlmostEqual(old['annualReturn'], -12)

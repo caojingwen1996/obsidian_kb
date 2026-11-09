@@ -1,0 +1,18 @@
+[
+  {
+    "tool": "get_fund_daily",
+    "code": "159941.SZ",
+    "status": "ok",
+    "total_row_count": 687,
+    "observed_start": "2024-01-02",
+    "observed_end": "2026-11-05"
+  },
+  {
+    "tool": "get_global_index_daily",
+    "code": "SPX",
+    "status": "ok",
+    "total_row_count": 715,
+    "observed_start": "2024-01-02",
+    "observed_end": "2026-11-05"
+  }
+]

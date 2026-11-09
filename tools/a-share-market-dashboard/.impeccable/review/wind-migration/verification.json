@@ -1,0 +1,24 @@
+[
+  {
+    "width": 1440,
+    "errors": [],
+    "overflow": false,
+    "checks": [
+      "macro live dates",
+      "reserve pending",
+      "ETF daily cache",
+      "source catalog Wind filter"
+    ]
+  },
+  {
+    "width": 390,
+    "errors": [],
+    "overflow": false,
+    "checks": [
+      "macro live dates",
+      "reserve pending",
+      "ETF daily cache",
+      "source catalog Wind filter"
+    ]
+  }
+]

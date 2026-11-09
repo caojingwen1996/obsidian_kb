@@ -1,0 +1,686 @@
+{
+  "date": "2026-11-06",
+  "policy": "已接Tushare保留；其余符合口径优先Yahoo，非行情类继续Wind或既有来源",
+  "yahoo_record_count": 12,
+  "records": 85,
+  "verification": "yahoo-verification-2026-11-06.json",
+  "rows": {
+    "temperature": {
+      "id": "temperature",
+      "name": "有知有行市场温度",
+      "yahoo": "不覆盖：有知有行专属市场温度不是行情价格指标。"
+    },
+    "nasdaq": {
+      "id": "nasdaq",
+      "name": "纳斯达克100点位、涨跌幅与均线",
+      "source": "Yahoo Finance chart · ^NDX",
+      "preferred": "Yahoo Finance chart",
+      "status": "Yahoo实际取数通过；已接入",
+      "migration": "已接入Yahoo；实际取数通过",
+      "action": "已实施。失败保留原日期并标注；具体边界见Yahoo接入文档。",
+      "note": "点位、日周月涨跌幅、MA200及回撤；PE独立保留Wind。",
+      "yahoo": "已接入：^NDX；点位、日周月涨跌幅、MA200及回撤；PE独立保留Wind。",
+      "evidence": "docs/yahoo-verification-2026-11-06.json；docs/yahoo-migration.md",
+      "discussion": "否"
+    },
+    "nasdaq-history": {
+      "id": "nasdaq-history",
+      "name": "纳指年度／月度收益、最大回撤与回撤次数",
+      "source": "Yahoo Finance chart · ^NDX已收盘日线＋本地计算",
+      "preferred": "Yahoo Finance chart",
+      "status": "Yahoo实际取数通过；已接入",
+      "migration": "已接入Yahoo；实际取数通过",
+      "action": "已实施。失败保留原日期并标注；具体边界见Yahoo接入文档。",
+      "note": "7763条，1996-01-02至2026-11-05；年度/月度收益及回撤次数，不拼接旧Wind/FRED。",
+      "yahoo": "已接入：^NDX；7763条，1996-01-02至2026-11-05；年度/月度收益及回撤次数，不拼接旧Wind/FRED。",
+      "evidence": "docs/yahoo-verification-2026-11-06.json；docs/yahoo-migration.md",
+      "discussion": "否"
+    },
+    "nasdaq-pe": {
+      "id": "nasdaq-pe",
+      "name": "纳指PE-TTM与近十年估值分位",
+      "yahoo": "不覆盖所需字段：chart不提供指数PE-TTM、预期PE或股息率2，不能从价格推造。",
+      "source": "Wind MCP · get_index_fundamentals(NDX.GI)",
+      "preferred": "Wind MCP",
+      "status": "Wind既有接入状态；本轮未重验",
+      "migration": "Wind已接线；只读查询曾返回明确PE-TTM及十年分位；生产采集器尚未取得成功缓存，402后页面保持缺失。",
+      "note": "只接受NDX.GI本身的PE-TTM；十年分位由Wind提供，检查样本数、日期和覆盖区间，证据不完整时留空。",
+      "action": "保留Wind既有接入；缺项/旧值和积分限制按实际返回显示。",
+      "evidence": "docs/wind-migration-2026-11-06.json；原Wind验收记录"
+    },
+    "turnover-total": {
+      "id": "turnover-total",
+      "name": "沪深每日成交额",
+      "yahoo": "本轮排除：已接入Tushare，保留既有Python接口。"
+    },
+    "nasdaq-etf": {
+      "id": "nasdaq-etf",
+      "name": "159941 ETF前高、回撤与网格参考价",
+      "yahoo": "本轮排除：已接入Tushare，保留既有Python接口。"
+    },
+    "margin-total": {
+      "id": "margin-total",
+      "name": "融资余额及变化",
+      "yahoo": "本轮排除：已接入Tushare，保留既有Python接口。"
+    },
+    "us10y": {
+      "id": "us10y",
+      "name": "美国10年国债收益率",
+      "yahoo": "本轮排除：已接入Tushare，保留既有Python接口。"
+    },
+    "dollar": {
+      "id": "dollar",
+      "name": "美元指数",
+      "yahoo": "本轮排除：已接入Tushare，保留既有Python接口。TS历史样本为空；Yahoo已接资金面/风险DXY，此行按用户要求不切换。"
+    },
+    "usdjpy": {
+      "id": "usdjpy",
+      "name": "美元兑日元",
+      "yahoo": "本轮排除：已接入Tushare，保留既有Python接口。"
+    },
+    "risk-level": {
+      "id": "risk-level",
+      "name": "总览风险等级",
+      "yahoo": "不适用：本地资料、策略计算或公司属性判断，无对应行情字段。"
+    },
+    "dividend-yield": {
+      "id": "dividend-yield",
+      "name": "中证红利股息率2",
+      "yahoo": "不覆盖所需字段：chart不提供指数PE-TTM、预期PE或股息率2，不能从价格推造。"
+    },
+    "dividend-bond": {
+      "id": "dividend-bond",
+      "name": "中国10年国债收益率",
+      "yahoo": "不覆盖本指标：chart提供证券行情，不提供所需宏观、政策、国债利率或融资/市值同口径统计。"
+    },
+    "dividend-score": {
+      "id": "dividend-score",
+      "name": "股债倍数、股债利差、综合分及等级",
+      "yahoo": "不适用：本地资料、策略计算或公司属性判断，无对应行情字段。"
+    },
+    "dividend-price": {
+      "id": "dividend-price",
+      "name": "中证红利点位、日线与收益统计",
+      "source": "Yahoo参考报价＋Tushare-data index_daily日线",
+      "preferred": "Tushare-data＋Yahoo（分项）",
+      "status": "Yahoo实际取数通过；已接入",
+      "migration": "部分替换：Yahoo只替换参考报价；实测短历史不足以替代Tushare日线。",
+      "action": "已实施。失败保留原日期并标注；具体边界见Yahoo接入文档。",
+      "note": "Yahoo只替换参考报价；实测短历史不足以替代Tushare日线。",
+      "yahoo": "已接入：000922.SS；Yahoo只替换参考报价；实测短历史不足以替代Tushare日线。",
+      "evidence": "docs/yahoo-verification-2026-11-06.json；docs/yahoo-migration.md"
+    },
+    "dividend-boll": {
+      "id": "dividend-boll",
+      "name": "中证红利周线布林带与%B",
+      "yahoo": "本轮排除：已接入Tushare，保留既有Python接口。"
+    },
+    "etf-dividend-price": {
+      "id": "etf-dividend-price",
+      "name": "515450 ETF价格、收益与布林带",
+      "yahoo": "本轮排除：已接入Tushare，保留既有Python接口。"
+    },
+    "etf-dividend-yield": {
+      "id": "etf-dividend-yield",
+      "name": "515450 ETF现金分红率",
+      "source": "Yahoo分红事件＋Tushare-data未复权收盘价",
+      "preferred": "Tushare-data＋Yahoo（分项）",
+      "status": "Yahoo实际取数通过；已接入",
+      "migration": "部分替换：9次除息日、每份现金与原记录一致；发放日未提供；近365天现金分红率口径不变。",
+      "action": "已实施。失败保留原日期并标注；具体边界见Yahoo接入文档。",
+      "note": "9次除息日、每份现金与原记录一致；发放日未提供；近365天现金分红率口径不变。",
+      "yahoo": "已接入：515450.SS；9次除息日、每份现金与原记录一致；发放日未提供；近365天现金分红率口径不变。",
+      "evidence": "docs/yahoo-verification-2026-11-06.json；docs/yahoo-migration.md",
+      "discussion": "否"
+    },
+    "dividend-task": {
+      "id": "dividend-task",
+      "name": "每日评分任务状态",
+      "yahoo": "不适用：本地资料、策略计算或公司属性判断，无对应行情字段。"
+    },
+    "daily-digest": {
+      "id": "daily-digest",
+      "name": "每日跟踪文章与汇总",
+      "yahoo": "不适用：本地资料、策略计算或公司属性判断，无对应行情字段。"
+    },
+    "calendar": {
+      "id": "calendar",
+      "name": "事件日历",
+      "yahoo": "不适用：本地资料、策略计算或公司属性判断，无对应行情字段。"
+    },
+    "topics": {
+      "id": "topics",
+      "name": "主题清单",
+      "yahoo": "不适用：本地资料、策略计算或公司属性判断，无对应行情字段。"
+    },
+    "positions": {
+      "id": "positions",
+      "name": "上证综指、沪深300、中证全指MA250位置分位",
+      "yahoo": "本轮排除：已接入Tushare，保留既有Python接口。"
+    },
+    "valuation": {
+      "id": "valuation",
+      "name": "沪深300 TTM-PE及历史分位",
+      "yahoo": "不覆盖所需字段：chart不提供指数PE-TTM、预期PE或股息率2，不能从价格推造。"
+    },
+    "forward": {
+      "id": "forward",
+      "name": "预期PE、预期盈利收益率与ERP",
+      "yahoo": "不覆盖所需字段：chart不提供指数PE-TTM、预期PE或股息率2，不能从价格推造。"
+    },
+    "emotion": {
+      "id": "emotion",
+      "name": "市场宽度、涨跌停平衡及成交额分位",
+      "yahoo": "不满足口径：单证券行情缺完整沪深样本、停牌/平盘、涨跌停规则及历史覆盖。"
+    },
+    "liquidity-curve": {
+      "id": "liquidity-curve",
+      "name": "10Y−2Y 利差",
+      "yahoo": "本轮排除：已接入Tushare，保留既有Python接口。"
+    },
+    "liquidity-yield": {
+      "id": "liquidity-yield",
+      "name": "10Y 收益率",
+      "yahoo": "本轮排除：已接入Tushare，保留既有Python接口。"
+    },
+    "liquidity-vix": {
+      "id": "liquidity-vix",
+      "name": "VIX",
+      "source": "Yahoo Finance chart · ^VIX日收盘",
+      "preferred": "Yahoo Finance chart",
+      "status": "Yahoo实际取数通过；已接入",
+      "migration": "已接入Yahoo；实际取数通过",
+      "action": "已实施。失败保留原日期并标注；具体边界见Yahoo接入文档。",
+      "note": "按交易所时区排除未收盘日线；既有VIX评分不变。",
+      "yahoo": "已接入：^VIX；按交易所时区排除未收盘日线；既有VIX评分不变。",
+      "evidence": "docs/yahoo-verification-2026-11-06.json；docs/yahoo-migration.md",
+      "discussion": "否"
+    },
+    "liquidity-rrp": {
+      "id": "liquidity-rrp",
+      "name": "隔夜逆回购 RRP",
+      "yahoo": "不覆盖本指标：chart提供证券行情，不提供所需宏观、政策、国债利率或融资/市值同口径统计。",
+      "source": "Wind MCP · G1168931（纽约联储ONRRP国债第一批次）；评分留空；失败时保留原纽约联储旧缓存并标注",
+      "preferred": "Wind MCP",
+      "status": "Wind既有接入状态；本轮未重验",
+      "migration": "Wind已接线；隔夜逆回购国债第一批次；与纽约联储旧缓存最近5日一致；新采集器缓存尚未成功取得，当前保留旧来源并标失败，评分留空。",
+      "note": "仅展示余额与历史，评分规则留空，不计分。",
+      "action": "保留Wind既有接入；缺项/旧值和积分限制按实际返回显示。",
+      "evidence": "docs/wind-migration-2026-11-06.json；原Wind验收记录"
+    },
+    "liquidity-walcl": {
+      "id": "liquidity-walcl",
+      "name": "联储总资产 WALCL",
+      "yahoo": "不覆盖本指标：chart提供证券行情，不提供所需宏观、政策、国债利率或融资/市值同口径统计。",
+      "source": "Wind MCP · G1100075；百万美元换算为十亿美元",
+      "preferred": "Wind MCP",
+      "status": "Wind既有接入状态；本轮未重验",
+      "migration": "Wind已接线；联储总资产",
+      "note": "较上期周度观测扩表+1、缩表−1。",
+      "action": "保留Wind既有接入；缺项/旧值和积分限制按实际返回显示。",
+      "evidence": "docs/wind-migration-2026-11-06.json；原Wind验收记录"
+    },
+    "liquidity-usd": {
+      "id": "liquidity-usd",
+      "name": "美元指数 DXY 趋势",
+      "source": "Yahoo Finance chart · DX-Y.NYB日收盘",
+      "preferred": "Yahoo Finance chart",
+      "status": "Yahoo实际取数通过；已接入",
+      "migration": "已接入Yahoo；实际取数通过",
+      "action": "已实施。失败保留原日期并标注；具体边界见Yahoo接入文档。",
+      "note": "美元指数日收盘趋势，原20个观测日评分规则不变。",
+      "yahoo": "已接入：DX-Y.NYB；美元指数日收盘趋势，原20个观测日评分规则不变。",
+      "evidence": "docs/yahoo-verification-2026-11-06.json；docs/yahoo-migration.md",
+      "discussion": "否"
+    },
+    "liquidity-dxy": {
+      "id": "liquidity-dxy",
+      "name": "DXY 盘中报价",
+      "source": "Yahoo Finance chart · DX-Y.NYB参考报价",
+      "preferred": "Yahoo Finance chart",
+      "status": "Yahoo实际取数通过；已接入",
+      "migration": "已接入Yahoo；实际取数通过",
+      "action": "已实施。失败保留原日期并标注；具体边界见Yahoo接入文档。",
+      "note": "可能延迟；不混入日收盘评分。",
+      "yahoo": "已接入：DX-Y.NYB；可能延迟；不混入日收盘评分。",
+      "evidence": "docs/yahoo-verification-2026-11-06.json；docs/yahoo-migration.md",
+      "discussion": "否"
+    },
+    "liquidity-spx": {
+      "id": "liquidity-spx",
+      "name": "标普500 / MA200",
+      "yahoo": "本轮排除：已接入Tushare，保留既有Python接口。"
+    },
+    "liquidity-margin": {
+      "id": "liquidity-margin",
+      "name": "沪深融资余额",
+      "yahoo": "本轮排除：已接入Tushare，保留既有Python接口。"
+    },
+    "liquidity-flow": {
+      "id": "liquidity-flow",
+      "name": "主力资金净流入",
+      "yahoo": "不覆盖：价格/成交量不是订单资金流、港股通净买入或ETF直接申赎净流入。"
+    },
+    "liquidity-shibor": {
+      "id": "liquidity-shibor",
+      "name": "Shibor 隔夜",
+      "yahoo": "本轮排除：已接入Tushare，保留既有Python接口。"
+    },
+    "liquidity-south": {
+      "id": "liquidity-south",
+      "name": "南向资金净买入",
+      "yahoo": "不覆盖：价格/成交量不是订单资金流、港股通净买入或ETF直接申赎净流入。",
+      "source": "Wind MCP · M0329522港股通当日净买入（人民币亿元）；不拼接旧东财历史",
+      "preferred": "Wind MCP",
+      "status": "Wind既有接入状态；本轮未重验",
+      "migration": "Wind已接线；港股通当日净买入（人民币）；人民币亿元；旧东财数值与此不同，不拼接历史。",
+      "note": "参考项，不计分。",
+      "action": "保留Wind既有接入；缺项/旧值和积分限制按实际返回显示。",
+      "evidence": "docs/wind-migration-2026-11-06.json；原Wind验收记录"
+    },
+    "liquidity-csi300": {
+      "id": "liquidity-csi300",
+      "name": "沪深300 / 年线",
+      "yahoo": "本轮排除：已接入Tushare，保留既有Python接口。"
+    },
+    "liquidity-cn_margin_net": {
+      "id": "liquidity-cn_margin_net",
+      "name": "融资净买入",
+      "yahoo": "本轮排除：已接入Tushare，保留既有Python接口。"
+    },
+    "liquidity-cn_margin_ratio": {
+      "id": "liquidity-cn_margin_ratio",
+      "name": "融资占流通市值",
+      "yahoo": "不覆盖本指标：chart提供证券行情，不提供所需宏观、政策、国债利率或融资/市值同口径统计。"
+    },
+    "liquidity-cn_super_flow": {
+      "id": "liquidity-cn_super_flow",
+      "name": "超大单资金",
+      "yahoo": "不覆盖：价格/成交量不是订单资金流、港股通净买入或ETF直接申赎净流入。"
+    },
+    "liquidity-cn_small_flow": {
+      "id": "liquidity-cn_small_flow",
+      "name": "小单资金",
+      "yahoo": "不覆盖：价格/成交量不是订单资金流、港股通净买入或ETF直接申赎净流入。"
+    },
+    "liquidity-cn_etf_flow": {
+      "id": "liquidity-cn_etf_flow",
+      "name": "ETF申赎净流入",
+      "yahoo": "不覆盖：价格/成交量不是订单资金流、港股通净买入或ETF直接申赎净流入。",
+      "source": "Wind MCP：按沪深交易所筛选股票型ETF（含股票型分类下的港股通产品），每批最多50只读取申赎净流入额f_mf_netsubamt；同日完整覆盖才汇总，元转亿元",
+      "preferred": "Wind MCP",
+      "status": "Wind既有接入状态；本轮未重验",
+      "migration": "Wind已接线；复用原Wind沪深股票型ETF日度直接申赎缓存；风险大屏不再用固定样本周度估算。",
+      "note": "观察项；每日北京时间09:00自动取数，支持手动刷新。数据日期为交易日，更新时间为本机成功取数时间；依赖本机Codex运行。",
+      "action": "保留Wind既有接入；缺项/旧值和积分限制按实际返回显示。",
+      "evidence": "docs/wind-migration-2026-11-06.json；原Wind验收记录"
+    },
+    "liquidity-cn_breadth_ratio": {
+      "id": "liquidity-cn_breadth_ratio",
+      "name": "赚钱效应与涨跌停",
+      "yahoo": "不满足口径：单证券行情缺完整沪深样本、停牌/平盘、涨跌停规则及历史覆盖。"
+    },
+    "pending-macro-0": {
+      "id": "pending-macro-0",
+      "name": "实际GDP同比",
+      "yahoo": "不覆盖本指标：chart提供证券行情，不提供所需宏观、政策、国债利率或融资/市值同口径统计。",
+      "source": "Wind MCP · M0039354",
+      "preferred": "Wind MCP",
+      "status": "Wind既有接入状态；本轮未重验",
+      "migration": "Wind已接线；实际GDP当季同比",
+      "note": "经济增长风险 · 中国 · 季度。已接入，实际可用状态、数据期及成功取数时间见风险大屏；失败保留旧值并标注。",
+      "action": "保留Wind既有接入；缺项/旧值和积分限制按实际返回显示。",
+      "evidence": "docs/wind-migration-2026-11-06.json；原Wind验收记录",
+      "phase": "当前实现"
+    },
+    "pending-macro-1": {
+      "id": "pending-macro-1",
+      "name": "制造业PMI",
+      "yahoo": "不覆盖本指标：chart提供证券行情，不提供所需宏观、政策、国债利率或融资/市值同口径统计。",
+      "source": "Wind MCP · M0017126",
+      "preferred": "Wind MCP",
+      "status": "Wind既有接入状态；本轮未重验",
+      "migration": "Wind已接线；制造业PMI",
+      "note": "经济增长风险 · 中国 · 月度。已接入，实际可用状态、数据期及成功取数时间见风险大屏；失败保留旧值并标注。",
+      "action": "保留Wind既有接入；缺项/旧值和积分限制按实际返回显示。",
+      "evidence": "docs/wind-migration-2026-11-06.json；原Wind验收记录",
+      "phase": "当前实现"
+    },
+    "pending-macro-2": {
+      "id": "pending-macro-2",
+      "name": "调查失业率",
+      "yahoo": "不覆盖本指标：chart提供证券行情，不提供所需宏观、政策、国债利率或融资/市值同口径统计。",
+      "source": "Wind MCP · M5650805",
+      "preferred": "Wind MCP",
+      "status": "Wind既有接入状态；本轮未重验",
+      "migration": "Wind已接线；城镇调查失业率",
+      "note": "经济增长风险 · 中国 · 月度。已接入，实际可用状态、数据期及成功取数时间见风险大屏；失败保留旧值并标注。",
+      "action": "保留Wind既有接入；缺项/旧值和积分限制按实际返回显示。",
+      "evidence": "docs/wind-migration-2026-11-06.json；原Wind验收记录",
+      "phase": "当前实现"
+    },
+    "pending-macro-3": {
+      "id": "pending-macro-3",
+      "name": "社会消费品零售同比",
+      "yahoo": "不覆盖本指标：chart提供证券行情，不提供所需宏观、政策、国债利率或融资/市值同口径统计。",
+      "source": "Wind MCP · M0001428",
+      "preferred": "Wind MCP",
+      "status": "Wind既有接入状态；本轮未重验",
+      "migration": "Wind已接线；社会消费品零售同比（1—2月合并）",
+      "note": "经济增长风险 · 中国 · 月度。已接入，实际可用状态、数据期及成功取数时间见风险大屏；失败保留旧值并标注。",
+      "action": "保留Wind既有接入；缺项/旧值和积分限制按实际返回显示。",
+      "evidence": "docs/wind-migration-2026-11-06.json；原Wind验收记录",
+      "phase": "当前实现"
+    },
+    "pending-commodity-0": {
+      "id": "pending-commodity-0",
+      "name": "CPI同比",
+      "yahoo": "不覆盖本指标：chart提供证券行情，不提供所需宏观、政策、国债利率或融资/市值同口径统计。",
+      "source": "Wind MCP · G0000027",
+      "preferred": "Wind MCP",
+      "status": "Wind既有接入状态；本轮未重验",
+      "migration": "Wind已接线；美国CPI未季调同比",
+      "note": "通胀与供给风险 · 美国 · 月度。已接入，实际可用状态、数据期及成功取数时间见风险大屏；失败保留旧值并标注。",
+      "action": "保留Wind既有接入；缺项/旧值和积分限制按实际返回显示。",
+      "evidence": "docs/wind-migration-2026-11-06.json；原Wind验收记录",
+      "phase": "当前实现"
+    },
+    "pending-commodity-1": {
+      "id": "pending-commodity-1",
+      "name": "核心CPI同比",
+      "yahoo": "不覆盖本指标：chart提供证券行情，不提供所需宏观、政策、国债利率或融资/市值同口径统计。",
+      "source": "Wind MCP · G0000029",
+      "preferred": "Wind MCP",
+      "status": "Wind既有接入状态；本轮未重验",
+      "migration": "Wind已接线；美国核心CPI未季调同比",
+      "note": "通胀与供给风险 · 美国 · 月度。已接入，实际可用状态、数据期及成功取数时间见风险大屏；失败保留旧值并标注。",
+      "action": "保留Wind既有接入；缺项/旧值和积分限制按实际返回显示。",
+      "evidence": "docs/wind-migration-2026-11-06.json；原Wind验收记录",
+      "phase": "当前实现"
+    },
+    "pending-commodity-2": {
+      "id": "pending-commodity-2",
+      "name": "PPI同比",
+      "yahoo": "不覆盖本指标：chart提供证券行情，不提供所需宏观、政策、国债利率或融资/市值同口径统计。",
+      "source": "Wind MCP · M0001227",
+      "preferred": "Wind MCP",
+      "status": "Wind既有接入状态；本轮未重验",
+      "migration": "Wind已接线；中国PPI同比",
+      "note": "通胀与供给风险 · 中国 · 月度。已接入，实际可用状态、数据期及成功取数时间见风险大屏；失败保留旧值并标注。",
+      "action": "保留Wind既有接入；缺项/旧值和积分限制按实际返回显示。",
+      "evidence": "docs/wind-migration-2026-11-06.json；原Wind验收记录",
+      "phase": "当前实现"
+    },
+    "pending-commodity-3": {
+      "id": "pending-commodity-3",
+      "name": "布伦特原油现货",
+      "yahoo": "不替换：BZ=F实测为布伦特期货，清单要求现货FOB；继续Wind S5111926。",
+      "source": "Wind MCP · S5111926",
+      "preferred": "Wind MCP",
+      "status": "Wind既有接入状态；本轮未重验",
+      "migration": "Wind已接线；布伦特欧洲现货FOB",
+      "note": "通胀与供给风险 · 国际 · 日度。已接入，实际可用状态、数据期及成功取数时间见风险大屏；失败保留旧值并标注。",
+      "action": "保留Wind既有接入；缺项/旧值和积分限制按实际返回显示。",
+      "evidence": "docs/wind-migration-2026-11-06.json；原Wind验收记录",
+      "phase": "当前实现"
+    },
+    "pending-money-0": {
+      "id": "pending-money-0",
+      "name": "政策利率目标上限",
+      "yahoo": "不覆盖本指标：chart提供证券行情，不提供所需宏观、政策、国债利率或融资/市值同口径统计。",
+      "source": "Wind MCP · M0000162",
+      "preferred": "Wind MCP",
+      "status": "Wind既有接入状态；本轮未重验",
+      "migration": "Wind已接线；联邦基金目标利率上限（最近变更日）",
+      "note": "货币政策风险 · 美国 · 政策观察。已接入，实际可用状态、数据期及成功取数时间见风险大屏；失败保留旧值并标注。",
+      "action": "保留Wind既有接入；缺项/旧值和积分限制按实际返回显示。",
+      "evidence": "docs/wind-migration-2026-11-06.json；原Wind验收记录",
+      "phase": "当前实现"
+    },
+    "pending-money-1": {
+      "id": "pending-money-1",
+      "name": "下次会议加息概率",
+      "yahoo": "不覆盖本指标：chart提供证券行情，不提供所需宏观、政策、国债利率或融资/市值同口径统计。"
+    },
+    "pending-money-2": {
+      "id": "pending-money-2",
+      "name": "QT月度缩表规模",
+      "yahoo": "不覆盖本指标：chart提供证券行情，不提供所需宏观、政策、国债利率或融资/市值同口径统计。"
+    },
+    "pending-money-3": {
+      "id": "pending-money-3",
+      "name": "存款准备金率",
+      "yahoo": "不覆盖本指标：chart提供证券行情，不提供所需宏观、政策、国债利率或融资/市值同口径统计。"
+    },
+    "pending-fiscal-0": {
+      "id": "pending-fiscal-0",
+      "name": "财政赤字",
+      "yahoo": "不覆盖本指标：chart提供证券行情，不提供所需宏观、政策、国债利率或融资/市值同口径统计。",
+      "source": "Wind MCP · G0003351",
+      "preferred": "Wind MCP",
+      "status": "Wind既有接入状态；本轮未重验",
+      "migration": "Wind已接线；美国月度财政赤字（盈余为负）",
+      "note": "财政与主权债务风险 · 美国 · 月度。已接入，实际可用状态、数据期及成功取数时间见风险大屏；失败保留旧值并标注。",
+      "action": "保留Wind既有接入；缺项/旧值和积分限制按实际返回显示。",
+      "evidence": "docs/wind-migration-2026-11-06.json；原Wind验收记录",
+      "phase": "当前实现"
+    },
+    "pending-fiscal-1": {
+      "id": "pending-fiscal-1",
+      "name": "国债净发行额",
+      "yahoo": "不覆盖本指标：chart提供证券行情，不提供所需宏观、政策、国债利率或融资/市值同口径统计。"
+    },
+    "pending-fiscal-2": {
+      "id": "pending-fiscal-2",
+      "name": "联邦债务余额",
+      "yahoo": "不覆盖本指标：chart提供证券行情，不提供所需宏观、政策、国债利率或融资/市值同口径统计。"
+    },
+    "pending-fiscal-3": {
+      "id": "pending-fiscal-3",
+      "name": "主权评级展望",
+      "yahoo": "不覆盖：政策、评级及事件需原始公告，chart无对应字段。"
+    },
+    "pending-credit-0": {
+      "id": "pending-credit-0",
+      "name": "社融存量同比",
+      "yahoo": "不覆盖本指标：chart提供证券行情，不提供所需宏观、政策、国债利率或融资/市值同口径统计。",
+      "source": "Wind MCP · M5525763",
+      "preferred": "Wind MCP",
+      "status": "Wind既有接入状态；本轮未重验",
+      "migration": "Wind已接线；社融存量同比",
+      "note": "信用与金融体系风险 · 中国 · 月度。已接入，实际可用状态、数据期及成功取数时间见风险大屏；失败保留旧值并标注。",
+      "action": "保留Wind既有接入；缺项/旧值和积分限制按实际返回显示。",
+      "evidence": "docs/wind-migration-2026-11-06.json；原Wind验收记录",
+      "phase": "当前实现"
+    },
+    "pending-credit-1": {
+      "id": "pending-credit-1",
+      "name": "人民币贷款余额同比",
+      "yahoo": "不覆盖本指标：chart提供证券行情，不提供所需宏观、政策、国债利率或融资/市值同口径统计。",
+      "source": "Wind MCP · M0009970",
+      "preferred": "Wind MCP",
+      "status": "Wind既有接入状态；本轮未重验",
+      "migration": "Wind已接线；人民币贷款余额同比",
+      "note": "信用与金融体系风险 · 中国 · 月度。已接入，实际可用状态、数据期及成功取数时间见风险大屏；失败保留旧值并标注。",
+      "action": "保留Wind既有接入；缺项/旧值和积分限制按实际返回显示。",
+      "evidence": "docs/wind-migration-2026-11-06.json；原Wind验收记录",
+      "phase": "当前实现"
+    },
+    "pending-credit-2": {
+      "id": "pending-credit-2",
+      "name": "同期限信用利差",
+      "yahoo": "不覆盖本指标：chart提供证券行情，不提供所需宏观、政策、国债利率或融资/市值同口径统计。"
+    },
+    "pending-credit-3": {
+      "id": "pending-credit-3",
+      "name": "商业银行不良贷款率",
+      "yahoo": "不覆盖本指标：chart提供证券行情，不提供所需宏观、政策、国债利率或融资/市值同口径统计。",
+      "source": "Wind MCP · M0002004",
+      "preferred": "Wind MCP",
+      "status": "Wind既有接入状态；本轮未重验",
+      "migration": "Wind已接线；商业银行不良贷款率",
+      "note": "信用与金融体系风险 · 中国 · 季度。已接入，实际可用状态、数据期及成功取数时间见风险大屏；失败保留旧值并标注。",
+      "action": "保留Wind既有接入；缺项/旧值和积分限制按实际返回显示。",
+      "evidence": "docs/wind-migration-2026-11-06.json；原Wind验收记录",
+      "phase": "当前实现"
+    },
+    "pending-capital-0": {
+      "id": "pending-capital-0",
+      "name": "美元指数",
+      "source": "Yahoo Finance chart · DX-Y.NYB日收盘",
+      "preferred": "Yahoo Finance chart",
+      "status": "Yahoo实际取数通过；已接入",
+      "migration": "已接入Yahoo；实际取数通过",
+      "action": "已实施。失败保留原日期并标注；具体边界见Yahoo接入文档。",
+      "note": "风险大屏美元指数；总览dollar的Tushare不变。",
+      "yahoo": "已接入：DX-Y.NYB；风险大屏美元指数；总览dollar的Tushare不变。",
+      "evidence": "docs/yahoo-verification-2026-11-06.json；docs/yahoo-migration.md",
+      "phase": "当前实现",
+      "discussion": "否"
+    },
+    "pending-capital-1": {
+      "id": "pending-capital-1",
+      "name": "美元兑人民币",
+      "source": "Yahoo Finance chart · CNY=X日收盘",
+      "preferred": "Yahoo Finance chart",
+      "status": "Yahoo实际取数通过；已接入",
+      "migration": "已接入Yahoo；实际取数通过",
+      "action": "已实施。失败保留原日期并标注；具体边界见Yahoo接入文档。",
+      "note": "美元兑人民币市场汇率，1美元折合人民币；不是中间价。",
+      "yahoo": "已接入：CNY=X；美元兑人民币市场汇率，1美元折合人民币；不是中间价。",
+      "evidence": "docs/yahoo-verification-2026-11-06.json；docs/yahoo-migration.md",
+      "phase": "当前实现",
+      "discussion": "否"
+    },
+    "pending-capital-2": {
+      "id": "pending-capital-2",
+      "name": "美元兑日元",
+      "source": "Yahoo Finance chart · JPY=X日收盘",
+      "preferred": "Yahoo Finance chart",
+      "status": "Yahoo实际取数通过；已接入",
+      "migration": "已接入Yahoo；实际取数通过",
+      "action": "已实施。失败保留原日期并标注；具体边界见Yahoo接入文档。",
+      "note": "风险大屏美元兑日元；总览usdjpy的Tushare不变。",
+      "yahoo": "已接入：JPY=X；风险大屏美元兑日元；总览usdjpy的Tushare不变。",
+      "evidence": "docs/yahoo-verification-2026-11-06.json；docs/yahoo-migration.md",
+      "phase": "当前实现",
+      "discussion": "否"
+    },
+    "pending-capital-3": {
+      "id": "pending-capital-3",
+      "name": "海外持有美债余额",
+      "yahoo": "不覆盖本指标：chart提供证券行情，不提供所需宏观、政策、国债利率或融资/市值同口径统计。",
+      "source": "Wind MCP · B3159602",
+      "preferred": "Wind MCP",
+      "status": "Wind既有接入状态；本轮未重验",
+      "migration": "Wind已接线；全部海外持有人美债余额",
+      "note": "汇率与跨境资本风险 · 全部海外持有人 · 月末。已接入，实际可用状态、数据期及成功取数时间见风险大屏；失败保留旧值并标注。",
+      "action": "保留Wind既有接入；缺项/旧值和积分限制按实际返回显示。",
+      "evidence": "docs/wind-migration-2026-11-06.json；原Wind验收记录",
+      "phase": "当前实现"
+    },
+    "pending-structure-0": {
+      "id": "pending-structure-0",
+      "name": "IPO融资额",
+      "yahoo": "不覆盖：缺发行融资额、解禁股数或融资余额原始字段，不能由股价替代。"
+    },
+    "pending-structure-1": {
+      "id": "pending-structure-1",
+      "name": "限售股解禁市值",
+      "yahoo": "不覆盖：缺发行融资额、解禁股数或融资余额原始字段，不能由股价替代。"
+    },
+    "pending-structure-2": {
+      "id": "pending-structure-2",
+      "name": "融资余额",
+      "yahoo": "不覆盖：缺发行融资额、解禁股数或融资余额原始字段，不能由股价替代。"
+    },
+    "pending-structure-3": {
+      "id": "pending-structure-3",
+      "name": "股票ETF净申购额",
+      "yahoo": "不覆盖：价格/成交量不是订单资金流、港股通净买入或ETF直接申赎净流入。",
+      "source": "Wind MCP · f_mf_netsubamt",
+      "preferred": "Wind MCP",
+      "status": "Wind既有接入状态；本轮未重验",
+      "migration": "Wind已接线；复用原Wind沪深股票型ETF日度直接申赎缓存；风险大屏不再用固定样本周度估算。",
+      "note": "市场结构与资金供需风险 · 沪深股票型ETF · 日度直接申赎。已接入，实际可用状态、数据期及成功取数时间见风险大屏；失败保留旧值并标注。",
+      "action": "保留Wind既有接入；缺项/旧值和积分限制按实际返回显示。",
+      "evidence": "docs/wind-migration-2026-11-06.json；原Wind验收记录",
+      "phase": "当前实现"
+    },
+    "pending-event-0": {
+      "id": "pending-event-0",
+      "name": "关税税率",
+      "yahoo": "不覆盖：政策、评级及事件需原始公告，chart无对应字段。"
+    },
+    "pending-event-1": {
+      "id": "pending-event-1",
+      "name": "出口管制适用范围",
+      "yahoo": "不覆盖：政策、评级及事件需原始公告，chart无对应字段。"
+    },
+    "pending-event-2": {
+      "id": "pending-event-2",
+      "name": "监管新政进度",
+      "yahoo": "不覆盖：政策、评级及事件需原始公告，chart无对应字段。"
+    },
+    "pending-event-3": {
+      "id": "pending-event-3",
+      "name": "地缘冲突事件状态",
+      "yahoo": "不覆盖：政策、评级及事件需原始公告，chart无对应字段。"
+    },
+    "stock-lookup": {
+      "id": "stock-lookup",
+      "name": "个股代码、名称与行业查询",
+      "yahoo": "本轮排除：已接入Tushare，保留既有Python接口。"
+    },
+    "stock-quote": {
+      "id": "stock-quote",
+      "name": "个股盘中报价",
+      "source": "Yahoo Finance chart · 沪深个股参考报价",
+      "preferred": "Yahoo Finance chart",
+      "status": "Yahoo实际取数通过；已接入",
+      "migration": "已接入Yahoo；实际取数通过",
+      "action": "已实施。失败保留原日期并标注；具体边界见Yahoo接入文档。",
+      "note": "沪深样本验证；含报价时间、昨收及涨跌幅，可能延迟。单只无覆盖时保留失败状态。",
+      "yahoo": "已接入：六位代码.SS/.SZ；沪深样本验证；含报价时间、昨收及涨跌幅，可能延迟。单只无覆盖时保留失败状态。",
+      "evidence": "docs/yahoo-verification-2026-11-06.json；docs/yahoo-migration.md",
+      "discussion": "否"
+    },
+    "stock-close-performance": {
+      "id": "stock-close-performance",
+      "name": "个股最近5个收盘日表现",
+      "yahoo": "本轮排除：已接入Tushare，保留既有Python接口。"
+    },
+    "stock-dividend-yield": {
+      "id": "stock-dividend-yield",
+      "name": "个股TTM股息率",
+      "yahoo": "本轮排除：已接入Tushare，保留既有Python接口。"
+    },
+    "fugui-candidate": {
+      "id": "fugui-candidate",
+      "name": "福贵策略候选基础数据",
+      "source": "默认AKShare＋Yahoo参考报价＋巨潮资料及分红；可选Tushare保留",
+      "preferred": "Tushare-data＋Yahoo（分项）",
+      "status": "Yahoo实际取数通过；已接入",
+      "migration": "部分替换：只替换默认路径报价；公司资料、最近已实施分红及国债口径保留，不改变可选Tushare路径。",
+      "action": "已实施。失败保留原日期并标注；具体边界见Yahoo接入文档。",
+      "note": "只替换默认路径报价；公司资料、最近已实施分红及国债口径保留，不改变可选Tushare路径。",
+      "yahoo": "已接入：六位代码.SS/.SZ；只替换默认路径报价；公司资料、最近已实施分红及国债口径保留，不改变可选Tushare路径。",
+      "evidence": "docs/yahoo-verification-2026-11-06.json；docs/yahoo-migration.md"
+    },
+    "fugui-ownership": {
+      "id": "fugui-ownership",
+      "name": "候选央企／国企属性",
+      "yahoo": "不适用：本地资料、策略计算或公司属性判断，无对应行情字段。"
+    },
+    "portfolio-records": {
+      "id": "portfolio-records",
+      "name": "持仓、交易与复盘记录",
+      "yahoo": "不适用：本地资料、策略计算或公司属性判断，无对应行情字段。"
+    },
+    "research-records": {
+      "id": "research-records",
+      "name": "风险模型、研究报告与任务记录",
+      "yahoo": "不适用：本地资料、策略计算或公司属性判断，无对应行情字段。"
+    }
+  }
+}

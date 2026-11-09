@@ -93,10 +93,10 @@ function taskOverview(payload) {
     ['记录', validation.recordDate], ['估值', validation.dates.index],
     ['国债', validation.dates.bond], ['行情', validation.dates.quote],
   ];
-  return `<header class="task-overview-heading"><h2 id="task-monitor-name">中证红利每日信号</h2><span class="task-state-badge is-${tone}" role="status">${taskIcon(statusIcon, run.status === 'running' ? 'is-spinning' : '')}${taskEscape(label)}</span></header>
+  return `<header class="task-overview-heading"><h2 id="task-monitor-name">${taskEscape(payload.name || '中证红利每日信号')}</h2><span class="task-state-badge is-${tone}" role="status">${taskIcon(statusIcon, run.status === 'running' ? 'is-spinning' : '')}${taskEscape(label)}</span></header>
     <div class="task-overview-meta">
       <span class="task-meta-item" title="任务日期">${taskIcon('calendar')}<time datetime="${taskEscape(run.runDate)}">${taskEscape(run.runDate)}</time></span>
-      <span class="task-meta-item" title="每天执行，Asia/Shanghai，包含周末与节假日">${taskIcon('clock')}<span>${taskEscape(payload.schedule.time)}</span><span class="task-meta-muted">每日</span></span>
+      <span class="task-meta-item" title="每天执行，Asia/Shanghai，包含周末与节假日">${taskIcon('clock')}<span>${taskEscape(payload.schedule.time || payload.schedule.label)}</span><span class="task-meta-muted">${payload.schedule.time ? '每日' : ''}</span></span>
       ${stamp ? `<span class="task-meta-item" title="${stampLabel}：${taskEscape(taskTimestamp(stamp))}">${taskIcon('clock')}<time datetime="${taskEscape(stamp)}">${taskClock(stamp)}</time><span class="task-meta-muted">${run.source === 'artifact' ? '记录' : run.endedAt ? '结束' : '开始'}</span></span>` : ''}
       ${Number.isFinite(run.durationSeconds) ? `<span class="task-meta-item" title="执行耗时">${taskIcon('clock')}<span>${run.durationSeconds}s</span></span>` : ''}
       ${run.source === 'artifact' ? `<span class="task-evidence-hint" tabindex="0" role="note" aria-label="执行凭证未记录，仅核验现存产物" title="执行凭证未记录；采集、计算和写入步骤显示未记录，仅最后的产物校验可确认。">${taskIcon('info')}<span>无执行凭证</span></span>` : ''}

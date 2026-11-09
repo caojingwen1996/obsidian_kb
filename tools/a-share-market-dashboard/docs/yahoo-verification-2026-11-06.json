@@ -1,0 +1,217 @@
+{
+  "^NDX": {
+    "symbol": "^NDX",
+    "type": "INDEX",
+    "currency": "USD",
+    "timezone": "America/New_York",
+    "count": 7763,
+    "firstDate": "1996-01-02",
+    "lastDate": "2026-11-05",
+    "lastClose": 26629.810546875,
+    "fetchedAt": "2026-11-06T06:18:32.362659+00:00",
+    "sourceUrl": "https://finance.yahoo.com/quote/%5ENDX/history/"
+  },
+  "^VIX": {
+    "symbol": "^VIX",
+    "type": "INDEX",
+    "currency": "USD",
+    "timezone": "America/Chicago",
+    "count": 504,
+    "firstDate": "2024-11-05",
+    "lastDate": "2026-11-05",
+    "lastClose": 28.18000030517578,
+    "fetchedAt": "2026-11-06T06:18:31.445029+00:00",
+    "sourceUrl": "https://finance.yahoo.com/quote/%5EVIX/history/"
+  },
+  "DX-Y.NYB": {
+    "symbol": "DX-Y.NYB",
+    "type": "INDEX",
+    "currency": "USD",
+    "timezone": "America/New_York",
+    "count": 503,
+    "firstDate": "2024-11-06",
+    "lastDate": "2026-11-05",
+    "lastClose": 101.55000305175781,
+    "fetchedAt": "2026-11-06T06:18:31.447358+00:00",
+    "sourceUrl": "https://finance.yahoo.com/quote/DX-Y.NYB/history/"
+  },
+  "CNY=X": {
+    "symbol": "CNY=X",
+    "type": "CURRENCY",
+    "currency": "CNY",
+    "timezone": "Europe/London",
+    "count": 517,
+    "firstDate": "2024-11-06",
+    "lastDate": "2026-11-05",
+    "lastClose": 6.673099994659424,
+    "fetchedAt": "2026-11-06T06:18:32.722456+00:00",
+    "sourceUrl": "https://finance.yahoo.com/quote/CNY%3DX/history/"
+  },
+  "JPY=X": {
+    "symbol": "JPY=X",
+    "type": "CURRENCY",
+    "currency": "JPY",
+    "timezone": "Europe/London",
+    "count": 517,
+    "firstDate": "2024-11-06",
+    "lastDate": "2026-11-05",
+    "lastClose": 158.35699462890625,
+    "fetchedAt": "2026-11-06T06:18:32.730269+00:00",
+    "sourceUrl": "https://finance.yahoo.com/quote/JPY%3DX/history/"
+  },
+  "515450.SS": {
+    "symbol": "515450.SS",
+    "type": "EQUITY",
+    "currency": "CNY",
+    "timezone": "Asia/Shanghai",
+    "count": 1628,
+    "firstDate": "2020-01-17",
+    "lastDate": "2026-11-04",
+    "lastClose": 1.4709999561309814,
+    "fetchedAt": "2026-11-06T06:18:33.954332+00:00",
+    "sourceUrl": "https://finance.yahoo.com/quote/515450.SS/history/"
+  },
+  "stockQuotes": [
+    {
+      "data": {
+        "secid": "1.600000",
+        "code": "600000",
+        "name": "Shanghai Pudong Development Bank Co., Ltd.",
+        "price": 10.04,
+        "prevClose": 9.87,
+        "changePercent": 1.7223910840932222,
+        "quoteTimestamp": 1793945014
+      },
+      "proxySource": "Yahoo Finance chart（参考报价，可能延迟）",
+      "sourceUrl": "https://finance.yahoo.com/quote/600000.SS/history/"
+    },
+    {
+      "data": {
+        "secid": "1.000922",
+        "code": "000922",
+        "name": "CSI Dividend Index",
+        "price": 5537.854,
+        "prevClose": 5517.805,
+        "changePercent": 0.36335100642375107,
+        "quoteTimestamp": 1793945015
+      },
+      "proxySource": "Yahoo Finance chart（参考报价，可能延迟）",
+      "sourceUrl": "https://finance.yahoo.com/quote/000922.SS/history/"
+    },
+    {
+      "data": {
+        "secid": "0.000001",
+        "code": "000001",
+        "name": "Ping An Bank Co., Ltd.",
+        "price": 11.81,
+        "prevClose": 11.64,
+        "changePercent": 1.4604810996563522,
+        "quoteTimestamp": 1793945016
+      },
+      "proxySource": "Yahoo Finance chart（参考报价，可能延迟）",
+      "sourceUrl": "https://finance.yahoo.com/quote/000001.SZ/history/"
+    }
+  ],
+  "dividends": {
+    "events": [
+      {
+        "exDate": "2021-11-15",
+        "cashPerShare": 0.06,
+        "payDate": null
+      },
+      {
+        "exDate": "2022-12-12",
+        "cashPerShare": 0.05,
+        "payDate": null
+      },
+      {
+        "exDate": "2023-12-18",
+        "cashPerShare": 0.14,
+        "payDate": null
+      },
+      {
+        "exDate": "2024-07-22",
+        "cashPerShare": 0.05,
+        "payDate": null
+      },
+      {
+        "exDate": "2024-12-17",
+        "cashPerShare": 0.055,
+        "payDate": null
+      },
+      {
+        "exDate": "2025-07-15",
+        "cashPerShare": 0.045,
+        "payDate": null
+      },
+      {
+        "exDate": "2025-12-15",
+        "cashPerShare": 0.03,
+        "payDate": null
+      },
+      {
+        "exDate": "2026-07-15",
+        "cashPerShare": 0.01,
+        "payDate": null
+      },
+      {
+        "exDate": "2026-09-09",
+        "cashPerShare": 0.015,
+        "payDate": null
+      }
+    ],
+    "comparison": "全部9次除息日、每份现金与原东方财富基金分红记录一致；Yahoo无发放日字段"
+  },
+  "risk": {
+    "pending-capital-0": {
+      "id": "pending-capital-0",
+      "name": "美元指数DXY",
+      "value": 101.55000305175781,
+      "previous": 101.51000213623047,
+      "date": "2026-11-05",
+      "previousDate": "2026-11-04",
+      "unit": "点",
+      "source": "Yahoo Finance chart",
+      "code": "DX-Y.NYB",
+      "fetchedAt": "2026-11-06T06:18:31.447358+00:00",
+      "status": "ok",
+      "error": ""
+    },
+    "pending-capital-1": {
+      "id": "pending-capital-1",
+      "name": "美元兑人民币市场汇率",
+      "value": 6.673099994659424,
+      "previous": 6.670100212097168,
+      "date": "2026-11-05",
+      "previousDate": "2026-11-04",
+      "unit": "元",
+      "source": "Yahoo Finance chart",
+      "code": "CNY=X",
+      "fetchedAt": "2026-11-06T06:18:32.722456+00:00",
+      "status": "ok",
+      "error": ""
+    },
+    "pending-capital-2": {
+      "id": "pending-capital-2",
+      "name": "美元兑日元市场汇率",
+      "value": 158.35699462890625,
+      "previous": 158.468994140625,
+      "date": "2026-11-05",
+      "previousDate": "2026-11-04",
+      "unit": "日元",
+      "source": "Yahoo Finance chart",
+      "code": "JPY=X",
+      "fetchedAt": "2026-11-06T06:18:32.730269+00:00",
+      "status": "ok",
+      "error": ""
+    }
+  },
+  "nasdaqSnapshot": {
+    "source": "Yahoo Finance chart · ^NDX",
+    "currentPoint": 26629.81,
+    "firstDate": "1996-01-02",
+    "lastDate": "2026-11-05",
+    "valuationNote": "Yahoo图表不提供PE-TTM；估值继续读取Wind，缺失时留空。 Wind本次更新不可用；已有估值按原日期展示。"
+  },
+  "verifiedAt": "2026-11-06T06:18:37.588706+00:00"
+}

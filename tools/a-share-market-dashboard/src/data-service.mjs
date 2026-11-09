@@ -227,11 +227,11 @@ export function createDefaultDomainDefinitions(nowDate = new Date(), location = 
     id,
     providers: [
       {
-        name: sourceName(localProxy ? '指数历史行情（东方财富 / 腾讯备援）' : providerName),
+        name: sourceName(localProxy ? 'Tushare index_daily via tushare-data' : providerName),
         load: () => loadIndexHistory(secid, 3000),
         dataAt: lastPointTime,
       },
-      ...(csiCode ? [{
+      ...(!localProxy && csiCode ? [{
         name: sourceName(`${SOURCES.csindex.name} ${csiCode}`),
         load: async () => (await loadCsindexPerformance(startDate, endDate, csiCode))
           .map(({ date, close }) => ({ date, close })),

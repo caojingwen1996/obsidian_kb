@@ -4,7 +4,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
-from local_proxy import nasdaq100_daily_metrics, fetch_nasdaq100_snapshot, UpstreamError
+from local_proxy import nasdaq100_daily_metrics, fetch_yahoo_nasdaq100_snapshot as fetch_nasdaq100_snapshot, UpstreamError
 
 
 class NasdaqMetricsTests(unittest.TestCase):

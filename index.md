@@ -58,7 +58,7 @@
 - [[wiki/topics/未命名|未命名]]
 - [[wiki/topics/策略合集|策略合集]]
 
-### 概念与框架（83）
+### 概念与框架（84）
 
 - [[wiki/concepts/人类观察媒介限制与AI机器同构|人类观察媒介限制与AI机器同构]]
 - [[wiki/concepts/冰冰小美-ETF行情|冰冰小美-ETF行情]]
@@ -68,6 +68,7 @@
 - [[wiki/concepts/冰冰小美-concept-交易策略|冰冰小美-concept-交易策略]]
 - [[wiki/concepts/冰冰小美-concept-体系三要素之情绪位置的变化|冰冰小美-concept-情绪位置的变化]]
 - [[wiki/concepts/冰冰小美-concept-体系三要素之流动性辩证分析|冰冰小美-concept-体系三要素之流动性辩证分析]]
+- [[wiki_bbxm/concepts/冰冰小美-concept-流动性风险|冰冰小美-流动性风险]]：资金推动估值泡沫后的反转风险；结合资金渠道、承接、杠杆赎回与政策变化判断。
 - [[wiki/concepts/冰冰小美-concept-体系三要素之竞争格局的比较优势|冰冰小美-concept-竞争的比较优势]]
 - [[wiki/concepts/冰冰小美-concept-情绪标|冰冰小美-concept-情绪标]]
 - [[wiki/concepts/冰冰小美-concept-时间窗口|冰冰小美-concept-时间窗口]]
@@ -418,6 +419,15 @@
 
 ## 看板维护
 
+- [[tools/a-share-market-dashboard/docs/lixinger-valuation|纳斯达克100理杏仁估值接口]]：PE-TTM与近十年分位统一市值加权口径；2026-11-09接口已接线，待配置Token及验证账号实际返回。
+
+- [[tools/a-share-market-dashboard/docs/source-catalog|温度计指标与数据源清单]]：温度计子栏目，按用途列出77项记录；可搜索与筛选，区分当前接入、派生计算、本地归档及待接入。
+- [[tools/a-share-market-dashboard/docs/data-source-policy|看板来源规则与Tushare账户接口]]：[76项Excel来源清单](tools/a-share-market-dashboard/看板数据来源清单-2026-11-06.xlsx)，不统计独立本地计算和本地资料；保留Tushare、Yahoo及理杏仁接线，Wind已停用；风险大屏3项启用、29项待接入。
+- [[tools/a-share-market-dashboard/docs/yahoo-migration|看板Yahoo行情接口与迁移记录]]：12条记录全部或部分接入，包含纳指、VIX、DXY、汇率、沪深报价和ETF现金分红；记录接口参数、日期口径、Tushare排除范围和实际验证。
+- [[tools/a-share-market-dashboard/docs/akshare-market-flow|看板AKShare大盘资金流接口]]：主力／超大单／小单使用stock_market_fund_flow，上游东方财富；120日实测通过，Excel同步为已切换。
+- [[tools/tushare-data/README|Tushare跨项目共享数据接口]]：0.9.0提供南向净买入、ETF申赎估算、融资占流通市值、ETF日线与复权因子、国内指数日线与估值、SPX等国际指数、Shibor，以及统一成交额／融资／美债／外汇历史读取；Python本地安装与MCP复用同一实现，28个数据集、27个工具。看板已接入共享Python，初次审计JSON保留为历史快照。
+  - [[tools/a-share-market-dashboard/docs/tushare-migration|看板Python接口替换与验证]]：实施范围、兼容入口、失败缓存与实测覆盖。
+  - [[tools/tushare-data/docs/api-reference|API接口文档]]：逐项参数、字段单位、返回示例、错误类型、缓存与缺失处理；区分Python行情、底层数据集与MCP调用，明确尚无HTTP接口。
 - [[tools/a-share-market-dashboard/a-share-market-dashboard.html|红利信号概览]]：顶部“当前信号”平铺展示“信号1：股息率”和“信号2：布林线”，分别标注数据日期，手机纵向排列；布林策略已复用中证指数官方000922日线，按20周均线及2倍总体标准差展示上／中／下轨、最新收盘、轨道位置和%B，当周标注动态值。[[tools/a-share-market-dashboard/data/红利信号/中证红利布林日线.json|补充历史快照]]支持离线展示；进入红利页及停留期间每5分钟刷新，失败保留快照并显示实际日期。 红利评分现统一使用股息率92%与股债倍数8%、C40/B48/A65；历史分位已从页面和计算移除，每日配置及历史评分已备份后同步。看板与每日任务统一使用Excel同目录的 [[sources/automations/中证红利信号/策略参数.json|策略参数.json]]，包含当前参数及完整版本历史。已完成的核查、试算和参数应用资料统一放在信号目录的“历史归档”中，当前运行文件与备份目录保留原位。
   - 买入规则：仅综合A级可买入，B观察、C等待、D不买入；走势图只标记A级买点，各等级假设收益仍保留作回测对照。
   - [[tools/a-share-market-dashboard/data/红利信号/月末稳健性比较-2026-10-17.json|月末股息率跳变与评分稳健性比较]]：8种规则在共同74条完成收益信号中试算，并检查真实分红减少与价格下跌情景；5期分红参考基数均值可作为独立观察评分候选，未改每日参数，原始评级保留。
@@ -425,6 +435,9 @@
 - [[tools/a-share-market-dashboard/a-share-market-dashboard.html|红利信号历史重算与分位补齐（2026-10-15）]]：已为 [[sources/automations/中证红利信号/中证红利每日信号.xlsx|每日信号工作簿]] 补齐83条历史分位及7条休市期国债缺项；首次按当时V1参数重算为43条C、58条D，后续按r3重算为6条B、95条C，走势图已同步。新增分位使用官方价格／全收益指数推算，原有18条分位保留；休市行采用实际2026-09-30数据并保留真实日期。[[sources/automations/中证红利信号/历史归档/历史分位来源-2026-10-15/来源信息.json|原始数据、来源与计算口径]]、[[sources/automations/中证红利信号/备份/中证红利每日信号-分位补齐前-2026-10-15-1792048533249455000.xlsx|分位补齐前备份]]；历史重算单独标记，不视为当时连续确认信号，原评分记录仍保留。
 
 - [[tools/a-share-market-dashboard/a-share-market-dashboard.html|红利信号查看与股息率回测]]：查看页先展示当前信号与浅色双轴走势，评分拆解按需展开，年度历史默认展开并显示最新年份月度收益；[[tools/a-share-market-dashboard/.impeccable/dividend-signal-surface|查看页设计约定]]。管理页从“策略 → 股息率回测”进入，维护参数、每日应用和信号源工具，顶部可相互切换。已移除独立的“历史分位点”卡片。
+  - 年度收益／年度回撤现与月度使用相同的指标切换与网格样式：桌面四列、手机两列，保留年份详情、统计区间和样本状态；[[tools/a-share-market-dashboard/.impeccable/review/annual-calendar/verification|年度日历样式验证]]。
+  - 年度及月度日历进入红利页实时读取最新日线与指数报价，页面可见时每分钟更新；盘中标注动态估算、报价时点，失败保留旧结果并可重试；[[tools/a-share-market-dashboard/.impeccable/review/live-annual/verification|实时年度数据验证]]。
+  - 新增“标普红利低波50 · 515450”切换入口，计算对象为SPCLLHCP价格指数；参数、回测及任务状态独立。实际日线和指数股息率因来源访问限制待接通，保留明确缺项；[[tools/a-share-market-dashboard/.impeccable/review/dividend-instruments/verification|多标的验证与数据边界]]。
   - 当前信号卡片保留结论、核心数值和估值日/收盘日；逐项说明、公式、来源及重算说明收进各信号的“详情”，历史试算与异常状态继续显示。
   - 参数下方说明随编辑值同步展示各等级分数范围和锚点换算方式；已移除连续确认交易日数及页面确认状态，等级分界仅保留C/B/A，按当天综合A级判断买入。
   - 历史收益区域使用“收益日历：年 / 月”切换：年视图保留收益及最大回撤表，月视图可选择年份并查看12个月收益，下拉框左右箭头切换前一年/后一年，超出已有年份时禁用；使用原有已校验月数据，保留月内累计、未开始与数据不足状态。
@@ -536,15 +549,31 @@
   - 信号工作簿保存前两行冻结设置；当前 Mac 的 Numbers 导入兼容性限制与验证边界见[启动说明](tools/a-share-market-dashboard/README.md)。
 
 - [[tools/a-share-market-dashboard/a-share-market-dashboard.html|A股市场看板]]：纳斯达克100的2026年累计涨跌震荡天数按月末统计，次月1日北京时间08:00更新；2016—2025历史统计保持固定。
+  - 纳指网格页“加仓计划”默认收起，金额输入、汇总卡片、行情说明及七档加仓表统一折叠；点击或键盘展开，金额修改、重置和浏览器保存沿用原逻辑。
   - 纳指页增加独立年／月收益日历、年份选择、年度收益与最大回撤，通过“月度收益／月度回撤”按钮切换月历指标，红利页亦支持相同切换和按年日线缓存，沿用红利页样式；使用NDX实际日线，标明样本首年及年内累计，不混用ETF收益。
   - 纳指锚点或年度统计文件缺失时，看板仍可构建，相应数据标记为“待验证”；补回有效数据后重新构建即可恢复展示。
   - 2026-09-23 已从回收站恢复缺失业务数据并核验正在运行的看板，需求清单与归档恢复；恢复记录见维护日志。
   - 需求清单数据：[[tools/a-share-market-dashboard/data/需求清单/todo.json|活动需求与归档]]、[[tools/a-share-market-dashboard/data/需求清单/todo.xlsx|原有需求表格]]。
   - 市场总览数据：[[tools/a-share-market-dashboard/data/市场总览/event-calendar.json|事件日历]]、[[tools/a-share-market-dashboard/data/市场总览/nasdaq-day-statistics.csv|纳指年度统计]]、[[tools/a-share-market-dashboard/data/市场总览/nasdaq-etf-anchor.json|ETF 固定锚点]]、[[tools/a-share-market-dashboard/data/市场总览/nasdaq-etf-history.json|ETF 历史行情]]。
 
+- [[tools/a-share-market-dashboard/README#红利按代码查询接口|红利按代码查询接口]]：000922与515450 ETF独立查询；ETF使用腾讯前复权行情和现金分红，与中证红利复用同一页面结构；原标普指数退出页面选择，旧数据保留。
+
 - [红利V1加权评分与参数设置](tools/a-share-market-dashboard/README.md#红利加权评分与参数设置)：统一默认参数、每日评分与浏览器参数设置；[技能说明](.agents/skills/zzhl-dividend-signal/SKILL.md)、[V1默认参数](.agents/skills/zzhl-dividend-signal/strategy-v1.json)。独立管理页保留参数校验与浏览器保存；“保存并应用到每日测算”立即重算当前Excel全部记录，同步查看页和走势图，后续每日任务也使用新策略。重算前自动备份，失败回滚，原始指标／日期／格式保留；原每日评分记录保留，重算不用于证明当时连续确认。已接入样本内信号效果回测，不模拟资金仓位。
 
 ## 页面规范与Agent调用
 
+- [[page-types#2. Concept Page：概念页|Concept页面定义]]、[[templates/concept-page-template|概念页模板]]、[[rules/concept-page-rules|概念生成规则]]：按用途、构成或变化原因、作用与影响、理解与判断组织主体；风险变量可用四个对应问题展开，详细来源与核验事项集中在文末。
 - [[schema#5.1 Indicator 专属契约与迁移入口|Indicator字段与迁移契约]]、[[schema#5.2 Indicator 的 Agent 输出契约|Agent输出契约]]：第八类正式知识页，保存长期观测规范；具体运行数据与快照进入Workbench。
 - [[templates/indicator-page-template|指标页模板]]、[[rules/indicator-page-rules|生成与调用规则]]：支持定量、定性与混合指标，配套页面和结果检查；试点页面登记在各自知识库索引。
+
+- 看板“回撤统计”与“年度收益与历史统计”同级，独立折叠，内含单日跌幅严格超过5%、8%、10%的年度与累计次数（点击查看日期、估值、后续收益及事件明细），以及九档年度回撤事件热力图及累计回撤次数，按年度有效次数逐列求和，标注年份范围、缺失覆盖和暂估状态；统计口径与缺失规则见 [[tools/a-share-market-dashboard/README#年度回撤频次|年度回撤频次说明]]。
+
+- [[tools/a-share-market-dashboard/prototypes/monthly-index-linkage-design|月度日历与指数折线联动设计]]：桌面左侧月历与右侧全年真实指数日线并排联动，已接入正式页面；附设计预览和真实数据桌面／手机验证截图。
+
+- [[tools/a-share-market-dashboard/data/市场总览/nasdaq100-history|纳指1996年起日线历史补充]]：FRED／Nasdaq历史与既有NDX日线核对合并，覆盖1996—2026年日历、折线及回撤频次，持续保存本地历史。
+
+- [[tools/a-share-market-dashboard/README#年度日历与历史折线联动|年度日历与历史折线联动]]：年份选择高亮完整历史中的对应年度，摘要进入月度详情；真实日线覆盖核验、窄屏布局与下方回撤频次均保留。
+
+- [[tools/a-share-market-dashboard/docs/liquidity-dashboard|资金面日报]]：市场总览卡片进入A股／美股详情，含规则评分、风险提醒、融资／大小单动向、60日分位与市场涨跌分布；Wind已停用，ETF申赎已改为Tushare份额变化×净值的样本估算；底部逐项对照默认／备用源与实际来源、日期及缓存状态。
+
+- [[tools/a-share-market-dashboard/docs/wind-migration|看板历史Wind接入记录]]：保留历史证据；当前已停用，见 [[tools/a-share-market-dashboard/docs/wind-disabled|Wind停用与当前来源规则]]。

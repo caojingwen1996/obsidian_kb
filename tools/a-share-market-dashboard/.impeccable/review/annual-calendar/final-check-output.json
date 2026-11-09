@@ -1,0 +1,17 @@
+[
+  {
+    "check": 0,
+    "exitCode": 0,
+    "output": "表格检查通过（5 个文件）。\n"
+  },
+  {
+    "check": 1,
+    "exitCode": 0,
+    "output": ""
+  },
+  {
+    "check": 2,
+    "exitCode": 0,
+    "output": "{\n  \"verifiedAt\": \"2026-11-02T13:51:44.538910+08:00\",\n  \"nodeTests\": \"19 passed\",\n  \"utf8\": \"passed\",\n  \"generatedHtmlMatchesRenderer\": true,\n  \"changelogEmbedded\": true,\n  \"browserEvidence\": \"verification.json\",\n  \"markdownAndDiffChecks\": \"see final-check-output.json\"\n}\n"
+  }
+]

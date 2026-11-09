@@ -1,0 +1,124 @@
+TAP version 13
+# Subtest: saved monthly data can be read synchronously without requesting daily prices
+ok 1 - saved monthly data can be read synchronously without requesting daily prices
+  ---
+  duration_ms: 6.176625
+  type: 'test'
+  ...
+# Subtest: all persisted annual rows include valid monthly returns using the annual baseline
+ok 2 - all persisted annual rows include valid monthly returns using the annual baseline
+  ---
+  duration_ms: 9.04925
+  type: 'test'
+  ...
+# Subtest: built dashboard embeds every year and renders saved cards before any network request
+ok 3 - built dashboard embeds every year and renders saved cards before any network request
+  ---
+  duration_ms: 3.133375
+  type: 'test'
+  ...
+# Subtest: monthly returns compound to the annual return using the same initial baseline
+ok 4 - monthly returns compound to the annual return using the same initial baseline
+  ---
+  duration_ms: 0.165209
+  type: 'test'
+  ...
+# Subtest: missing endpoints or annual mismatch never generate monthly numbers
+ok 5 - missing endpoints or annual mismatch never generate monthly numbers
+  ---
+  duration_ms: 0.227083
+  type: 'test'
+  ...
+# Subtest: missing intervening month is not mislabeled as a single-month return
+ok 6 - missing intervening month is not mislabeled as a single-month return
+  ---
+  duration_ms: 0.05125
+  type: 'test'
+  ...
+# Subtest: inception year keeps unavailable months empty and starts at the first actual close
+ok 7 - inception year keeps unavailable months empty and starts at the first actual close
+  ---
+  duration_ms: 0.084333
+  type: 'test'
+  ...
+# Subtest: annual cards are keyboard accessible and monthly cards distinguish missing, gain and loss
+ok 8 - annual cards are keyboard accessible and monthly cards distinguish missing, gain and loss
+  ---
+  duration_ms: 0.387208
+  type: 'test'
+  ...
+# Subtest: return calendar defaults to the latest year monthly view regardless of row order
+ok 9 - return calendar defaults to the latest year monthly view regardless of row order
+  ---
+  duration_ms: 0.418958
+  type: 'test'
+  ...
+# Subtest: return calendar still supports explicit annual returns with year/month selection
+ok 10 - return calendar still supports explicit annual returns with year/month selection
+  ---
+  duration_ms: 0.265875
+  type: 'test'
+  ...
+# Subtest: annual metric cards display the saved values, periods and statuses without inventing missing data
+ok 11 - annual metric cards display the saved values, periods and statuses without inventing missing data
+  ---
+  duration_ms: 0.850625
+  type: 'test'
+  ...
+# Subtest: monthly calendar selects a year from validated saved returns without replacing missing months by zero
+ok 12 - monthly calendar selects a year from validated saved returns without replacing missing months by zero
+  ---
+  duration_ms: 0.227208
+  type: 'test'
+  ...
+# Subtest: monthly calendar reports missing or inconsistent data without inventing monthly returns
+ok 13 - monthly calendar reports missing or inconsistent data without inventing monthly returns
+  ---
+  duration_ms: 0.163583
+  type: 'test'
+  ...
+# Subtest: calendar year arrows disable unavailable years and enable both directions for an interior year
+ok 14 - calendar year arrows disable unavailable years and enable both directions for an interior year
+  ---
+  duration_ms: 0.230209
+  type: 'test'
+  ...
+# Subtest: monthly calendar shows the selected annual return with precise partial-year labels
+ok 15 - monthly calendar shows the selected annual return with precise partial-year labels
+  ---
+  duration_ms: 0.128583
+  type: 'test'
+  ...
+# Subtest: dividend monthly drawdown resets peaks and distinguishes insufficient daily data
+ok 16 - dividend monthly drawdown resets peaks and distinguishes insufficient daily data
+  ---
+  duration_ms: 0.150291
+  type: 'test'
+  ...
+# Subtest: Nasdaq calendar isolates controls and supports annual and monthly views
+ok 17 - Nasdaq calendar isolates controls and supports annual and monthly views
+  ---
+  duration_ms: 9.31575
+  type: 'test'
+  ...
+# Subtest: Loading, unavailable and inconsistent monthly data are explicit
+ok 18 - Loading, unavailable and inconsistent monthly data are explicit
+  ---
+  duration_ms: 0.126417
+  type: 'test'
+  ...
+# Subtest: monthly metric buttons switch values, preserve missing data and isolate the dividend page
+ok 19 - monthly metric buttons switch values, preserve missing data and isolate the dividend page
+  ---
+  duration_ms: 0.305167
+  type: 'test'
+  ...
+1..19
+# tests 19
+# suites 0
+# pass 19
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 91.409334

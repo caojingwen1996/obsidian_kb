@@ -575,7 +575,9 @@ test('market summary renders three overview cards and includes signal sources in
   assert.match(source, /风险等级/);
   assert.match(source, /进入风险大屏/);
   assert.equal((source.match(/class="summary-shortcut-card/g) ?? []).length, 4);
-  assert.equal((source.match(/summary-shortcut-card-empty/g) ?? []).length, 1);
+  assert.equal((source.match(/summary-shortcut-card-empty/g) ?? []).length, 0);
+  assert.match(source, /id="liquidity-card"/);
+  assert.match(source, /id="liquidity-view"/);
   assert.match(source, /id="market-turnover-card"/);
   assert.match(source, /id="open-featured-digest"[^>]*>进入每日跟踪<\/button>/);
   assert.match(source, /id="event-calendar-list"/);
@@ -725,6 +727,15 @@ test('Nasdaq overview card opens the internal grid strategy view', () => {
   assert.match(appSource, /data-open-nasdaq-grid/);
   assert.match(appSource, /setShell\('thermometer', 'nasdaq-grid-view'\)/);
   assert.doesNotMatch(appSource, /<a class="overview-card nasdaq-card/);
+  const settings = source.match(/<details class="dividend-history-disclosure nasdaq-grid-settings"[^>]*>[\s\S]*?<\/details>/)?.[0];
+  assert.ok(settings);
+  assert.doesNotMatch(settings.split('>')[0], /\bopen\b/);
+  assert.match(settings, /<summary id="nasdaq-grid-settings-heading">加仓计划<\/summary>/);
+  assert.match(settings, /id="nasdaq-grid-unit-amount"/);
+  assert.match(settings, /id="nasdaq-grid-reset"/);
+  for (const id of ['nasdaq-grid-summary', 'nasdaq-grid-reference', 'nasdaq-grid-plan-heading', 'nasdaq-grid-table-body']) {
+    assert.match(settings, new RegExp(`id="${id}"`));
+  }
 });
 
 test('changelog renders the approved initial entries', () => {

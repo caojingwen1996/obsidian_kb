@@ -35,6 +35,7 @@
             <button class="nav-item" type="button" data-view="featured-digest"><span>03</span>每日跟踪</button>
             <button class="nav-item" type="button" data-view="risk-monitor"><span>04</span>风险大屏</button>
             <button class="nav-item" type="button" data-view="topic-map"><span>05</span>主题</button>
+            <button class="nav-item" type="button" data-view="source-catalog-view"><span>06</span>指标与数据源</button>
             </div>
           </section>
           <section class="tree-group" data-tree-group="strategy">
@@ -88,6 +89,27 @@
 
       <details id="market-refresh-details" class="market-refresh-details" open><summary>全市场数据刷新情况 <span>与本页红利数据分别核对</span></summary><div class="notice" id="global-notice" role="status">正在初始化。稳定联网请双击“启动面板.cmd”。</div></details>
 
+      <section class="view source-catalog" id="source-catalog-view" data-shell-content="thermometer" aria-labelledby="source-catalog-heading">
+        <div class="source-catalog-intro">
+          <h1 id="source-catalog-heading">指标与数据源</h1>
+          <p>按使用栏目查找每项指标从哪里来、如何更新、怎样计算。同名指标可能使用不同来源，以对应页面为准。</p>
+          <p class="source-catalog-note">按2026年11月6日的当前实现整理。这是接入清单，不代表本次取数成功；最新数值、数据日期和连接状态请查看各指标页面。</p>
+        </div>
+        <form class="source-catalog-filters" role="search">
+          <label for="source-catalog-search">查找指标或来源<input id="source-catalog-search" type="search" placeholder="例如：ETF、美元、Tushare" autocomplete="off"></label>
+          <label for="source-catalog-group">使用栏目<select id="source-catalog-group"><option value="all">全部栏目</option></select></label>
+          <button class="button-secondary" id="source-catalog-reset" type="button">清除筛选</button>
+          <p id="source-catalog-count" role="status" aria-live="polite"></p>
+        </form>
+        <details class="source-catalog-guide">
+          <summary>如何理解数据日期、更新时间与缺失状态</summary>
+          <p>数据日期是交易日、估值日或统计期；更新时间是本机成功取数时间，不等于上游发布时间。日度、周度和盘中数据不能当作同一时刻的快照。</p>
+          <p>“本地计算”由已有数据推算，不是额外数据源；“本地归档”随采集或构建更新；“待接入／待验证”不代表已有可用数值。备用源仅在主源失败时尝试。</p>
+          <p>资金面公开数据成功缓存1小时、失败短缓存60秒；ETF单独在每天北京时间09:00更新一次，支持手动刷新。ETF自动任务依赖本机Codex运行。资金面详情底部保留本次实际来源、日期和状态。</p>
+        </details>
+        <div id="source-catalog-results"></div>
+      </section>
+
       <section class="view is-active" id="market-summary" data-shell-content="thermometer" aria-labelledby="summary-heading">
         <div class="summary-heading compact-summary is-render-target" hidden>
           <div>
@@ -129,7 +151,13 @@
             <button class="button-secondary" type="button" data-open-risk-monitor>进入风险大屏</button>
           </article>
           <article class="summary-shortcut-card turnover-card panel" id="market-turnover-card" aria-labelledby="market-turnover-heading"></article>
-          <article class="summary-shortcut-card summary-shortcut-card-empty panel" aria-hidden="true"></article>
+          <button class="summary-shortcut-card liquidity-shortcut panel" id="liquidity-card" type="button" aria-label="打开资金面日报详情">
+            <span class="liquidity-card-title">资金面日报</span>
+            <span class="liquidity-card-description">A股与美股 · 流动性与风险偏好</span>
+            <span class="liquidity-card-market" id="liquidity-card-cn">A股 等待读取</span>
+            <span class="liquidity-card-market" id="liquidity-card-us">美股 等待读取</span>
+            <span class="liquidity-card-link">查看资金面详情 →</span>
+          </button>
         </div>
 
         <section class="event-calendar panel" aria-labelledby="event-calendar-heading">
@@ -163,6 +191,35 @@
         <div class="metric-list is-render-target" id="metric-list" hidden></div>
       </section>
 
+      <section class="view liquidity-page" id="liquidity-view" data-shell-content="thermometer" aria-label="资金面日报详情">
+        <header class="liquidity-toolbar">
+          <button class="button-secondary" id="liquidity-back" type="button">← 返回市场总览</button>
+          <button class="button-primary" id="liquidity-refresh" type="button">刷新</button>
+        </header>
+        <p class="liquidity-status" id="liquidity-status" role="status">正在读取资金面数据…</p>
+        <div id="liquidity-content"><p class="liquidity-empty panel">正在准备双市场指标与评分…</p></div>
+        <details class="liquidity-rules panel">
+          <summary>评分规则、数据口径与缺失处理</summary>
+          <div>
+            <p>各市场独立合计：≥3 宽松；1至2 偏松；0 中性；−2至−1 偏紧；≤−3 紧张。点击指标查看具体阈值与历史数值。评分为规则化参考信号，不构成投资建议。</p>
+            <p>日度数据超过7个自然日、WALCL周度数据超过14日，或刷新失败仅剩旧缓存时，保留历史供查看，但不计分。没有任何有效项时显示“数据不足”，不记为中性；部分指标有效时明确标注覆盖数量。</p>
+            <p>变化窗口按有效观测值计算：20日变化使用最近值与前20个观测值比较，5日变化同理；沪深300年线为MA250，标普500为MA200。图中的水平虚线是最新均线参考值，不是历史均线轨迹。</p>
+            <p>美元指数DXY表示美元强弱，按20个观测日日收盘涨跌评分，盘中报价只参考。RRP评分暂留空，不参与合计；南向净买入只作参考，北向实时净买入不纳入。主力资金为数据商估算口径，不等同于全部资金净流入。</p>
+            <p>风险提醒分别检查VIX&gt;25、10Y−2Y倒挂及标普500低于MA200。缺失警报项会提示无法排除风险。公开源可能延迟、限流或暂不可用，页面检查时间不等同于指标观测日期。</p>
+          </div>
+        </details>
+        <section class="liquidity-sources panel" aria-labelledby="liquidity-sources-heading">
+          <h2 id="liquidity-sources-heading">数据来源与读取方式</h2>
+          <div id="liquidity-source-content"><p>正在核对本次读取来源；数据源说明将在下方显示。</p></div>
+          <details class="liquidity-cache-details">
+            <summary>本地缓存位置与刷新方式</summary>
+            <p>公开源数据由本机面板服务读取，按指标保存到面板目录的 <code>data/资金面日报/cache/</code>。公开源成功数据缓存1小时、失败结果暂存60秒。ETF使用下面单独的每日更新规则。点击右上角“刷新”仍可手动重新取数，3秒内重复请求合并处理。</p>
+            <p>缓存保留原数据来源和观测日期；读取缓存不代表数据刚刚发布。刷新失败时保留旧数据供查看，并标注不计分。日度数据超过7个自然日、WALCL超过14日也不参与评分。</p>
+            <p>ETF申赎每天北京时间09:00由本机Codex定时任务更新一次，保存到 <code>cache/wind-etf/</code>；定时任务依赖本机Codex运行。数据日期指Wind返回的交易日，更新时间指本机最近成功取数时间，并非Wind发布时间。页面只读缓存检查更新，失败保留旧数据与原更新时间；也可手动刷新。其余指标的Wind模式仍读取 <code>cache/wind/</code> 下已导入的数据。</p>
+          </details>
+        </section>
+      </section>
+
       <section class="view" id="nasdaq-grid-view" data-shell-content="thermometer" aria-label="广发纳指ETF网格策略">
         <div class="nasdaq-grid-page">
           <header class="nasdaq-grid-header">
@@ -177,31 +234,34 @@
               <!-- NDX_DAY_CHART -->
             </div>
           </details>
-          <section class="nasdaq-grid-controls" aria-labelledby="nasdaq-grid-settings-heading">
-            <div>
-              <h3 id="nasdaq-grid-settings-heading">金额设置</h3>
-              <p>一份金额会乘以各档加仓倍数，修改后立即重算并保存在当前浏览器。</p>
+          <div id="nasdaq-drawdown-detail"></div>
+          <details class="dividend-history-disclosure nasdaq-grid-settings">
+            <summary id="nasdaq-grid-settings-heading">加仓计划</summary>
+            <div class="nasdaq-grid-controls" aria-labelledby="nasdaq-grid-settings-heading">
+              <div>
+                <p>一份金额会乘以各档加仓倍数，修改后立即重算并保存在当前浏览器。</p>
+              </div>
+              <label for="nasdaq-grid-unit-amount">一份金额</label>
+              <div class="nasdaq-grid-money-input"><span>¥</span><input id="nasdaq-grid-unit-amount" type="number" min="1" step="100" inputmode="decimal" value="10000"></div>
+              <button class="button-secondary" id="nasdaq-grid-reset" type="button">重置为1万元</button>
+              <span class="nasdaq-grid-form-status" id="nasdaq-grid-form-status" role="status"></span>
             </div>
-            <label for="nasdaq-grid-unit-amount">一份金额</label>
-            <div class="nasdaq-grid-money-input"><span>¥</span><input id="nasdaq-grid-unit-amount" type="number" min="1" step="100" inputmode="decimal" value="10000"></div>
-            <button class="button-secondary" id="nasdaq-grid-reset" type="button">重置为1万元</button>
-            <span class="nasdaq-grid-form-status" id="nasdaq-grid-form-status" role="status"></span>
-          </section>
 
-          <div class="nasdaq-grid-summary" id="nasdaq-grid-summary" aria-live="polite"></div>
-          <p class="nasdaq-grid-reference" id="nasdaq-grid-reference" role="status"></p>
+            <div class="nasdaq-grid-summary" id="nasdaq-grid-summary" aria-live="polite"></div>
+            <p class="nasdaq-grid-reference" id="nasdaq-grid-reference" role="status"></p>
 
-          <section class="nasdaq-grid-plan" aria-labelledby="nasdaq-grid-plan-heading">
-            <div class="nasdaq-grid-plan-head">
-              <div><p class="eyebrow">SEVEN LEVELS</p><h3 id="nasdaq-grid-plan-heading">七档加仓计划</h3></div>
-            </div>
-            <div class="nasdaq-grid-table-wrap">
-              <table class="nasdaq-grid-table">
-                <thead><tr><th>档位</th><th>相对前高跌幅</th><th>买入参考价（元）</th><th>加仓倍数</th><th>本档金额</th><th>累计投入</th><th>状态</th></tr></thead>
-                <tbody id="nasdaq-grid-table-body"></tbody>
-              </table>
-            </div>
-          </section>
+            <section class="nasdaq-grid-plan" aria-labelledby="nasdaq-grid-plan-heading">
+              <div class="nasdaq-grid-plan-head">
+                <div><p class="eyebrow">SEVEN LEVELS</p><h3 id="nasdaq-grid-plan-heading">七档加仓计划</h3></div>
+              </div>
+              <div class="nasdaq-grid-table-wrap">
+                <table class="nasdaq-grid-table">
+                  <thead><tr><th>档位</th><th>相对前高跌幅</th><th>买入参考价（元）</th><th>加仓倍数</th><th>本档金额</th><th>累计投入</th><th>状态</th></tr></thead>
+                  <tbody id="nasdaq-grid-table-body"></tbody>
+                </table>
+              </div>
+            </section>
+          </details>
         </div>
       </section>
 
@@ -216,12 +276,17 @@
           <button type="button" data-dividend-view="dividend-management-view">股息率回测</button>
           <button type="button" data-dividend-view="dividend-task-monitor-view">任务监控</button>
         </nav>
+        <div class="dividend-instrument-picker" data-dividend-instrument-picker></div>
+        <div data-dividend-csi-content>
         <div id="dividend-task-summary" aria-live="polite"></div>
         <div id="dividend-signal-detail"></div>
         <details class="dividend-history-disclosure" open><summary>年度收益与历史统计 <span>展开查看长期表现和对照指数</span></summary><div class="dividend-history-body">
         <div id="dividend-annual-detail"></div>
         <!-- DIVIDEND_DAY_CHART -->
         </div></details>
+        <div id="dividend-drawdown-detail"></div>
+        </div>
+        <div data-dividend-alternate-content="view" hidden></div>
       </section>
 
       <section class="view" id="dividend-task-monitor-view" data-shell-content="thermometer" aria-label="中证红利任务监控">
@@ -230,9 +295,13 @@
           <button type="button" data-dividend-view="dividend-management-view">股息率回测</button>
           <button type="button" data-dividend-view="dividend-task-monitor-view" aria-current="page">任务监控</button>
         </nav>
+        <div class="dividend-instrument-picker" data-dividend-instrument-picker></div>
+        <div data-dividend-csi-content>
         <div class="task-monitor-toolbar"><span class="task-auto-refresh" title="页面可见时每30秒读取本地任务状态"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M6.1 7a7 7 0 0 1 11.5-1L20 9M4 15l2.4 3a7 7 0 0 0 11.5-1"/></svg><span>自动刷新</span><span>30s</span></span><button type="button" class="button-secondary" id="refresh-dividend-task">刷新状态</button></div>
         <p id="dividend-task-fetch-status" class="sr-only" role="status" aria-live="polite"></p>
         <div id="dividend-task-monitor-content" aria-busy="false"></div>
+        </div>
+        <div data-dividend-alternate-content="monitor" hidden></div>
       </section>
 
       <section class="view" id="dividend-management-view" data-shell-content="strategy" aria-label="红利信号管理">
@@ -241,6 +310,8 @@
           <button type="button" data-dividend-view="dividend-management-view" aria-current="page">股息率回测</button>
           <button type="button" data-dividend-view="dividend-task-monitor-view">任务监控</button>
         </nav>
+        <div class="dividend-instrument-picker" data-dividend-instrument-picker></div>
+        <div data-dividend-csi-content>
         <div class="dividend-detail-layout">
           <div id="dividend-management-detail"></div>
           <article id="dividend-backtest-panel" class="panel dividend-backtest-panel" aria-labelledby="dividend-backtest-title">
@@ -253,6 +324,8 @@
           </article>
           <div id="dividend-management-source"></div>
         </div>
+        </div>
+        <div data-dividend-alternate-content="management" hidden></div>
       </section>
 
       <section class="view" id="valuation-view" data-shell-content="thermometer" aria-labelledby="valuation-heading">

@@ -27,9 +27,17 @@ import zipfile
 import xml.etree.ElementTree as ET
 
 try:
+    from .lixinger_data import get_nasdaq_valuation
+    from .yahoo_data import YahooChartClient, YahooDataError, stock_quote as yahoo_stock_quote, daily_chart_payload, risk_readings as yahoo_risk_readings
+    from .shared_market_data import kline_payload, csi_dividend_payload, TushareClientError
+    from .dividend_signal_query import DividendSignalQuery, resolve_code
     from .dividend_index_history import refresh_index_history, index_history_metadata
     from .dividend_recalculation import iso_date, number, save_and_recalculate
 except ImportError:
+    from lixinger_data import get_nasdaq_valuation
+    from yahoo_data import YahooChartClient, YahooDataError, stock_quote as yahoo_stock_quote, daily_chart_payload, risk_readings as yahoo_risk_readings
+    from shared_market_data import kline_payload, csi_dividend_payload, TushareClientError
+    from dividend_signal_query import DividendSignalQuery, resolve_code
     from dividend_index_history import refresh_index_history, index_history_metadata
     from dividend_recalculation import iso_date, number, save_and_recalculate
 
@@ -459,7 +467,7 @@ def _cached_fugui_quote(code, fetcher):
     if isinstance(cached, dict) and cached.get("expires", 0.0) > now:
         return cached["payload"]
     secid = _stock_market_for_code(code)
-    payload = fetcher(_build_tencent_stock_quote_url(secid), "tencent-stock-quote")
+    payload = fetch_stock_quote(secid, fetcher=fetcher)
     _FUGUI_QUOTE_CACHE[code] = {"expires": now + FUGUI_QUOTE_CACHE_TTL_SECONDS, "payload": payload}
     return payload
 
@@ -590,11 +598,11 @@ def _fugui_spot_row(rows, code):
     raise UpstreamError("akshare-spot")
 
 
-def _fugui_quote_row_from_tencent(code, fetcher):
-    secid = _stock_market_for_code(code)
+def _fugui_quote_row(code, fetcher):
     payload = _cached_fugui_quote(code, fetcher)
-    quote = normalize_tencent_stock_quote(payload, secid)["data"]
-    return {"代码": quote["code"], "名称": quote["name"], "最新价": quote["price"]}
+    quote = payload["data"]
+    return {"代码": quote["code"], "名称": quote["name"], "最新价": quote["price"],
+            "quoteTimestamp": quote["quoteTimestamp"], "quoteSource": payload["proxySource"]}
 
 
 def _fugui_profile_row(rows, code):
@@ -651,6 +659,8 @@ def normalize_fugui_candidate_from_akshare(candidate, spot_row, profile_row, div
                 "name": name,
                 "ownership": ownership,
                 "price": round(price, 2),
+                "quoteTimestamp": spot_row.get("quoteTimestamp"),
+                "quoteSource": spot_row.get("quoteSource"),
                 "marketCapYi": round(market_cap_yi, 2),
                 "dividendYield": round(dividend_yield, 2),
                 "bond10yYield": round(bond10y_yield, 2),
@@ -658,7 +668,7 @@ def normalize_fugui_candidate_from_akshare(candidate, spot_row, profile_row, div
                 "dividendDate": dividend_date,
             },
         },
-        "proxySource": "AKShare A股代码名称 + 腾讯单标的行情 + 巨潮公司资料 + 分红明细 + 10年国债收益率",
+        "proxySource": "AKShare A股代码名称 + Yahoo参考报价（可能延迟） + 巨潮公司资料 + 分红明细 + 10年国债收益率",
     }
 
 
@@ -723,7 +733,7 @@ def fetch_fugui_candidate_from_akshare(query, fetcher, ak_provider):
             ),
         )
     candidate = _fugui_candidate_from_akshare_code_name(code_name_rows, query)
-    spot_row = _fugui_quote_row_from_tencent(candidate["code"], fetcher)
+    spot_row = _fugui_quote_row(candidate["code"], fetcher)
     profile_frame = call_logged_data_api(
         "AKShare",
         "stock_profile_cninfo",
@@ -898,7 +908,17 @@ def normalize_tencent_stock_quote(payload, secid):
     }
 
 
-def fetch_stock_quote(secid, fetcher=None):
+def fetch_stock_quote(secid, fetcher=None, client=None):
+    build_upstream_url("/api/stock-quote", {"secid": [secid]})
+    service = client or (YahooChartClient(lambda url: fetcher(url, "yahoo-chart"))
+                         if fetcher is not None and fetcher is not fetch_upstream else YahooChartClient())
+    try:
+        return yahoo_stock_quote(secid, service)
+    except YahooDataError as error:
+        raise UpstreamError("yahoo-chart") from error
+
+
+def fetch_legacy_stock_quote(secid, fetcher=None):
     """Fetch a fixed stock quote, falling back from Eastmoney to Tencent."""
     if fetcher is None:
         fetcher = fetch_upstream
@@ -1087,29 +1107,47 @@ def normalize_nasdaq100_chart(payload):
     }
 
 
-def fetch_nasdaq100_snapshot(fetcher=fetch_upstream):
-    if fetcher is fetch_upstream:
-        try:
-            if __package__:
-                from .nasdaq_westock import fetch_chart
-            else:
-                from nasdaq_westock import fetch_chart
-            chart = fetch_chart(resolve_node_executable())
-            snapshot = normalize_nasdaq100_chart(chart)
-            snapshot["proxySource"] = "westock-data / 腾讯自选股"
-            data = snapshot["data"]
-            data.update(nasdaq100_daily_metrics(chart, data["currentPoint"]))
-            data["returnHistory"] = nasdaq100_return_history(chart, "westock-data / 腾讯自选股（NDX）")
-            data.update(sourceUrl="https://gu.qq.com/usNDX", updatedText=data["marketDate"] + "（美股交易日）",
-                        updatedAt=None, highPointLabel="近2000个交易日最高收盘点",
-                        peTtm=None, pePercentile10y=None,
-                        valuationNote="PE-TTM及近十年分位待验证：WeStock未提供有效指数估值；独立估值源尚未通过日期和口径核验",
-                        valuationSourceUrl="https://www.getstockcheck.com/zh/index/NDX.GI/")
-            return snapshot
-        except (ImportError, OSError, ValueError, KeyError, IndexError, subprocess.SubprocessError) as error:
-            write_proxy_log("API_FAIL", source="westock-nasdaq100", error=type(error).__name__)
-    snapshot = fetch_yahoo_nasdaq100_snapshot(fetcher)
-    snapshot["data"]["quoteNote"] = "Yahoo Finance备用行情" if fetcher is fetch_upstream else "Yahoo Finance"
+def extended_nasdaq_return_history(chart, source):
+    try:
+        if __package__:
+            from .nasdaq_history import extend_daily_chart
+        else:
+            from nasdaq_history import extend_daily_chart
+        extended = extend_daily_chart(chart)
+        return nasdaq100_return_history(extended, source + "；1996年起历史补充：FRED / Nasdaq（NASDAQ100）")
+    except (OSError, ValueError, KeyError, TypeError) as error:
+        history = nasdaq100_return_history(chart, source)
+        history["historyNote"] = "1996年起历史补充未通过核验，当前仅显示本次接口可用日线（" + type(error).__name__ + "）"
+        return history
+
+
+def fetch_nasdaq100_snapshot(fetcher=fetch_upstream, client=None, valuation_loader=get_nasdaq_valuation):
+    service = client or (YahooChartClient(lambda url: fetcher(url, "yahoo-chart"))
+                         if fetcher is not fetch_upstream else YahooChartClient())
+    try:
+        chart = service.chart("^NDX", start_date="1996-01-01")
+        historical = daily_chart_payload(chart)
+        snapshot = normalize_nasdaq100_chart(chart["chartPayload"])
+        data = snapshot["data"]
+        data.update(nasdaq100_daily_metrics(chart["chartPayload"], data["currentPoint"]))
+        data["returnHistory"] = nasdaq100_return_history(historical, "Yahoo Finance chart · ^NDX已收盘日线")
+        data.update(sourceUrl=chart["sourceUrl"], fetchedAt=chart["fetchedAt"],
+                    highPointLabel="样本最高收盘点及当前报价", peTtm=None, pePercentile10y=None,
+                    valuationNote="纳斯达克100估值来源：理杏仁；尚未取得估值数据。",
+                    dailyMetricsNote="报价可能延迟；涨跌幅及MA200含当前参考报价。年度/月度收益与回撤仅用已收盘日线。")
+        snapshot["proxySource"] = "Yahoo Finance chart · ^NDX"
+    except (YahooDataError, ValueError, KeyError, TypeError, IndexError) as error:
+        raise UpstreamError("yahoo-chart") from error
+    if valuation_loader is None:
+        return snapshot
+    try:
+        valuation = valuation_loader(data["returnHistory"]["lastDate"])
+        for key in ("peTtm", "pePercentile10y", "valuationDate", "valuationSourceUrl", "valuationNote", "valuationSource", "valuationBasis"):
+            data[key] = valuation.get(key)
+        data["valuationStatus"] = valuation.get("status", "missing")
+    except Exception:
+        data["valuationNote"] = "理杏仁本次估值更新失败，行情数据仍可使用。"
+        data["valuationStatus"] = "missing"
     return snapshot
 
 
@@ -1123,7 +1161,7 @@ def fetch_yahoo_nasdaq100_snapshot(fetcher=fetch_upstream):
     try:
         daily = fetcher(NASDAQ100_CHART_URL.replace("range=max", "range=2y"), "nasdaq100")
         data.update(nasdaq100_daily_metrics(daily, data["currentPoint"]))
-        data["returnHistory"] = nasdaq100_return_history(daily, "Yahoo Finance（NDX，近两年日线）")
+        data["returnHistory"] = extended_nasdaq_return_history(daily, "Yahoo Finance（NDX，最新日线）")
         daily_closes = daily["chart"]["result"][0]["indicators"]["quote"][0]["close"]
         data["highPoint"] = round(max([data["highPoint"], *[
             value for value in daily_closes
@@ -1133,6 +1171,24 @@ def fetch_yahoo_nasdaq100_snapshot(fetcher=fetch_upstream):
     except (UpstreamError, ValueError, TypeError, KeyError, IndexError):
         data["dailyMetricsNote"] = "日线数据获取失败或不足，涨跌幅、均线及年内回撤待验证"
     return snapshot
+
+
+def annual_drawdown_counts(annual):
+    if len(annual) < 2:
+        return None
+    counts = {str(t): 0 for t in (10, 15, 20, 25, 30, 35, 40, 60, 80)}
+    peak = annual[0][1]
+    reached = set()
+    for _, close in annual:
+        if close >= peak:
+            peak = close
+            reached.clear()
+        depth = (1 - close / peak) * 100
+        for threshold in counts:
+            if depth + 1e-9 >= int(threshold) and threshold not in reached:
+                counts[threshold] += 1
+                reached.add(threshold)
+    return counts
 
 
 def nasdaq100_return_history(payload, source):
@@ -1184,7 +1240,9 @@ def nasdaq100_return_history(payload, source):
             status = "样本不足"
         rows.append({"year": year, "startDate": first, "endDate": last,
                      "annualReturn": (annual[-1][1] / annual[0][1] - 1) * 100,
-                     "maxDrawdown": drawdown, "status": status, "monthlyReturns": months})
+                     "maxDrawdown": drawdown, "status": status, "monthlyReturns": months,
+                     "drawdownCounts": annual_drawdown_counts(annual),
+                     "daily": [{"date": day, "close": close} for day, close in annual]})
     return {"rows": rows, "firstDate": points[0][0], "lastDate": points[-1][0], "source": source,
             "returnConvention": "纳斯达克100指数价格收益：每年首个可用交易日收盘价至末个可用交易日收盘价；仅覆盖可用日线样本，首年可能不完整，不含分红再投资及汇率影响，非ETF收益",
             "drawdownConvention": "年内最大回撤按可用日收盘价相对此前峰值计算"}
@@ -1249,7 +1307,25 @@ def _build_tencent_kline_url(symbol, count, end_date=""):
     )
 
 
-def fetch_index_history(secid, limit=3000, fetcher=fetch_upstream):
+def fetch_index_history(secid, limit=3000, api=None):
+    """Compatibility URL, now served by the shared Tushare Python interface."""
+    if secid not in ALLOWED_SECIDS:
+        raise RouteError("invalid secid")
+    try:
+        return kline_payload(secid, _bounded_int(limit, 250, 4000), api=api)
+    except TushareClientError as error:
+        raise UpstreamError(error.source) from error
+
+
+def fetch_dividend_daily(url, source=None):
+    query = parse_qs(urlparse(url).query)
+    try:
+        return csi_dividend_payload(_one(query, "startDate"), _one(query, "endDate"))
+    except TushareClientError as error:
+        raise UpstreamError(error.source) from error
+
+
+def fetch_legacy_index_history(secid, limit=3000, fetcher=fetch_upstream):
     """Fetch index history, falling back from Eastmoney to Tencent."""
     query = {"secid": [secid], "limit": [str(limit)]}
     upstream_url = build_upstream_url("/api/eastmoney-kline", query)
@@ -2453,7 +2529,7 @@ def read_dividend_backtest_data(vault_root, refresh_history=False, fetcher=None)
             raise ValueError("Excel缺少指数估值日期字段") from error
         required_dates = {iso_date(row[date_column]) for row in rows[1:] if len(row) > date_column}
         required_dates.discard("")
-        history, update = refresh_index_history(history_path, required_dates, fetcher or fetch_upstream, write_proxy_log)
+        history, update = refresh_index_history(history_path, required_dates, fetcher or fetch_dividend_daily, write_proxy_log)
     else:
         history = json.loads(history_path.read_text(encoding="utf-8-sig"))
     points = []
@@ -2496,9 +2572,12 @@ def create_server(
     renderer_path=None,
     node_executable=None,
     dividend_strategy_path=None,
+    dividend_quote_fetcher=None,
 ):
     """Create a loopback-only dashboard server with fixed proxy routes."""
     artifact = Path(dashboard_path or Path(__file__).resolve().parents[1] / "a-share-market-dashboard.html").resolve()
+    dividend_query = DividendSignalQuery(artifact.parent, lambda: read_dividend_view_data(artifact.parents[2]),
+        **({"fetcher": dividend_quote_fetcher} if dividend_quote_fetcher is not None else {}))
     portfolio_file = Path(
         portfolio_path or artifact.parent / "data" / "portfolio.json"
     ).resolve()
@@ -2529,6 +2608,11 @@ def create_server(
         ".txt": "text/plain; charset=utf-8",
         ".webp": "image/webp",
     }
+
+    try:
+        from .liquidity_data import liquidity_snapshot, read_etf_metric
+    except ImportError:
+        from liquidity_data import liquidity_snapshot, read_etf_metric
 
     class DashboardHandler(BaseHTTPRequestHandler):
         server_version = "AShareDashboard/1.0"
@@ -2794,6 +2878,33 @@ def create_server(
 
         def do_GET(self):
             parsed = urlparse(self.path)
+            if parsed.path in ("/api/risk-indicators", "/api/wind-risk"):
+                if parsed.query:
+                    return self.send_json(400, {"error": "只允许读取固定指标"})
+                try:
+                    result = {"indicators": yahoo_risk_readings(), "running": False,
+                              "providers": ["Yahoo Finance chart"], "windEnabled": False}
+                    return self.send_json(200, result)
+                except Exception:
+                    return self.send_json(503, {"error": "风险行情暂不可读，请稍后重试"})
+            if parsed.path == "/api/liquidity/etf":
+                if parsed.query:
+                    return self.send_json(400, {"error": "ETF status is read-only"})
+                try:
+                    metric = read_etf_metric(artifact.parent / "data" / "资金面日报" / "cache")
+                    return self.send_json(200, {"metric": metric})
+                except Exception:
+                    return self.send_json(503, {"error": "ETF更新状态暂不可读"})
+            if parsed.path == "/api/liquidity":
+                query = parse_qs(parsed.query, keep_blank_values=True)
+                if set(query) - {"refresh"} or query.get("refresh", ["0"]) not in (["0"], ["1"]):
+                    return self.send_json(400, {"error": "invalid liquidity query"})
+                try:
+                    payload = liquidity_snapshot(artifact.parent / "data" / "资金面日报" / "cache",
+                                                 force=query.get("refresh") == ["1"])
+                    return self.send_json(200, payload)
+                except Exception:
+                    return self.send_json(503, {"error": "资金面数据暂不可用，请稍后刷新"})
             if parsed.path == "/health":
                 return self.send_json(200, {"ok": True})
             if parsed.path in {"/", "/a-share-market-dashboard.html"}:
@@ -2814,6 +2925,18 @@ def create_server(
                     return self.send_json(200, read_dividend_view_data(vault_root))
                 except (OSError, ValueError, TypeError, KeyError, IndexError, zipfile.BadZipFile, ET.ParseError) as error:
                     return self.send_json(422, {"error": f"查看页数据读取失败：{error}"})
+            if parsed.path == "/api/dividend-signal":
+                try:
+                    query = parse_qs(parsed.query, keep_blank_values=True)
+                    if set(query) != {"code"} or len(query["code"]) != 1:
+                        raise ValueError("请提供唯一的code参数")
+                    code = resolve_code(query["code"][0])
+                except ValueError as error:
+                    return self.send_json(400, {"error": str(error)})
+                try:
+                    return self.send_json(200, dividend_query.query(code))
+                except (OSError, ValueError, TypeError, KeyError, IndexError, zipfile.BadZipFile, ET.ParseError) as error:
+                    return self.send_json(422, {"error": f"红利数据查询失败：{error}"})
             if parsed.path == "/api/dividend-backtest-data":
                 if parsed.query:
                     return self.send_json(400, {"error": "回测只允许读取当前固定Excel文件"})
@@ -2843,8 +2966,9 @@ def create_server(
                     payload = fetch_index_history(
                         _one(query, "secid"),
                         _bounded_int(_one(query, "limit", "3000"), 250, 4000),
-                        fetcher,
                     )
+                elif parsed.path == "/api/csindex-performance" and _one(query, "indexCode", "000300") == "000922":
+                    payload = fetch_dividend_daily(build_upstream_url(parsed.path, query))
                 elif parsed.path == "/api/stock-lookup":
                     payload = fetch_stock_lookup(_one(query, "name"))
                 elif parsed.path == "/api/stock-quote":

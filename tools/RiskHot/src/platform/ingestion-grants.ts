@@ -1,3 +1,4 @@
+import {grantM4Roles} from './m4-migration.js';
 import type { Pool } from 'pg';
 
 export async function grantIngestionRoles(db: Pool): Promise<void> {
@@ -33,4 +34,5 @@ export async function grantIngestionRoles(db: Pool): Promise<void> {
   await db.query('GRANT SELECT ON platform.model_attempts TO riskhot_model');
   await db.query('GRANT SELECT,INSERT,UPDATE ON platform.model_service_state TO riskhot_model');
   await db.query('GRANT UPDATE(status,response_artifact_id,finish_reason,error_code,completed_at) ON platform.model_attempts TO riskhot_model');
+  await grantM4Roles(db);
 }

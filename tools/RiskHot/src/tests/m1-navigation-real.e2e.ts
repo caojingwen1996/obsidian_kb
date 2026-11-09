@@ -14,7 +14,7 @@ try{
  const ready=()=>page.locator('#connection-state').filter({hasText:'已连接'}).waitFor({state:'attached'});
  await page.goto(origin+'/m1#schedules');await ready();await page.getByRole('heading',{name:'任务计划',exact:true}).waitFor();
  assert.equal(new URL(page.url()).hash,'#sources?mode=automatic');assert.equal(await page.locator('.workspaces a').count(),3);
- assert.deepEqual(await page.locator('.sidebar .nav-label').allTextContents(),['内容','配置']);assert.deepEqual(await page.locator('.sidebar nav a').allTextContents(),['全部','信源管理中心','流水线全景']);
+ assert.deepEqual(await page.locator('.sidebar .nav-label').allTextContents(),['内容','配置']);assert.deepEqual(await page.locator('.sidebar nav a').allTextContents(),['全部动态','观测对象','信源管理中心','流水线全景']);
  assert.equal(await page.locator('.sidebar button,.sidebar [aria-expanded]').count(),0);checks.push('旧计划链接归目录任务计划，两工作区及常驻分组正确');
  await page.locator('[data-plan-view="all"]').click();
  const sourcesResponse=await page.request.get(origin+'/api/v1/m1/sources');assert.equal(sourcesResponse.status(),200);const sources=(await sourcesResponse.json()).items;
@@ -54,8 +54,8 @@ try{
   assert.equal(await detail.evaluate((el:Element)=>el===document.activeElement),true);
   checks.push('计划最近执行定位、正文候选同层切换、关闭恢复焦点');
  }else checks.push('尚无采集任务的计划执行保留，未伪造资料入口');
- await page.getByRole('link',{name:'全部',exact:true}).click();await page.locator('#event-content .event-timeline,#event-content .event-list,#event-content .empty').first().waitFor();
- assert.equal(await page.locator('.sidebar a[aria-current="page"]').textContent(),'全部');await page.screenshot({path:join(output,'events-1440.png')});checks.push('全部进入真实事件列表，侧栏一致');
+ await page.getByRole('link',{name:'全部动态',exact:true}).click();await page.locator('#event-content .event-timeline,#event-content .event-list,#event-content .empty').first().waitFor();
+ assert.equal(await page.locator('.sidebar a[aria-current="page"]').textContent(),'全部动态');await page.screenshot({path:join(output,'events-1440.png')});checks.push('全部进入真实事件列表，侧栏一致');
  await page.goto(origin+'/m1#intake-tasks?view=history');await ready();
  const statistics=page.locator('[data-batch-detail]').first();await statistics.waitFor();await statistics.click();await page.locator('#batch-detail .task-result-counts').waitFor();
  assert.equal(await page.locator('#batch-detail .task-result-counts > div').count(),7);assert.ok(await page.locator('#batch-detail [data-collection-record],#batch-detail [data-task-source]').count()>=1);checks.push('真实任务详情中的七项统计与信源采集信息可读');

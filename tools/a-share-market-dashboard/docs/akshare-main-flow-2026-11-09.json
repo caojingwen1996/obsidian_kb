@@ -1,0 +1,60 @@
+{
+  "verified_on": "2026-11-09",
+  "api": "akshare.stock_market_fund_flow",
+  "upstream": "东方财富",
+  "count": 120,
+  "first_date": "2026-05-14",
+  "latest": {
+    "date": "2026-11-06",
+    "value": -524.9726464
+  },
+  "last5": [
+    {
+      "date": "2026-11-02",
+      "value": 117.43240192
+    },
+    {
+      "date": "2026-11-03",
+      "value": -571.42505472
+    },
+    {
+      "date": "2026-11-04",
+      "value": 500.2811392
+    },
+    {
+      "date": "2026-11-05",
+      "value": 85.394432
+    },
+    {
+      "date": "2026-11-06",
+      "value": -524.9726464
+    }
+  ],
+  "metric": {
+    "id": "flow",
+    "market": "cn",
+    "name": "主力资金净流入",
+    "unit": "亿元",
+    "rule": "最近5个交易日净额合计：正 +1；负 −1。数据缺失自动隐藏。",
+    "value": -524.9726464,
+    "date": "2026-11-06",
+    "change": -393.2897280000001,
+    "baseline": null,
+    "score": -1,
+    "status": "ok",
+    "reason": "",
+    "reference": false,
+    "optional": true,
+    "pendingRule": false,
+    "source": "AKShare · 东方财富沪深主力净流入（订单估算）",
+    "sourceUrls": [
+      "https://data.eastmoney.com/zjlx/dpzjlx.html"
+    ],
+    "cached": false
+  },
+  "tests": {
+    "python": 37,
+    "frontend": 16,
+    "build": "passed"
+  }
+}

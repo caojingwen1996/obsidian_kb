@@ -1,0 +1,16 @@
+{
+  "method": "在临时副本中移除本次资金面变更后复验原失败用例；共享原始资料只读入口，业务data单独复制",
+  "nodeFailures": [
+    "not ok 4 - sidebar exposes the personal workspace as a first-level tree domain",
+    "not ok 5 - three-factor report summary exposes the overall and each factor judgement",
+    "not ok 6 - market summary renders three overview cards and includes signal sources in data audit",
+    "not ok 7 - industry report panels use the holdings-list table layout",
+    "not ok 8 - topic map reads wiki topic pages into the thermometer navigation",
+    "not ok 9 - tracking list refreshes intraday quotes directly from stock codes",
+    "not ok 33 - XCMG report renders fair value without an active bubble warning"
+  ],
+  "pythonFailure": [
+    "ERROR: test_serves_files_from_sources_and_workbench_whitelists (test_local_proxy.ServerTests)",
+    "FAILED (errors=1)"
+  ]
+}
